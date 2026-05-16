@@ -2,16 +2,16 @@
 
 ## Current phase
 
-**Week 0 - Repo scaffolded.** Module skeletons, verification harness, CI in place. No production code yet.
+**Week 1 - Substrate + trace bus complete.** 15 verification tests passing, 10 skipped (Week 2-7 placeholders). FHRR and HRR primitives, Codebook cleanup, and the trace bus all in place, all scaffold-free witnesses green.
 
 ## Next milestone
 
-**Week 1**: substrate (atoms, binding, bundling, memory) for both FHRR and HRR + trace bus, with algebraic verification passing.
+**Week 2**: five named modulators (`attention`, `reward`, `arousal`, `recency`, `gating`) wired to specific ops, with effect tests proving each scalar moves its target metric monotonically.
 
 ## Open questions
 
-- HRR depth limit at N=1024 - empirical, expect to set after Week 1.
-- Trace bus overhead under sustained load - target <10%.
+- HRR inverse fidelity at low N - test currently asserts sim > 0.5 at N>=1024; tighten after collecting empirical distribution.
+- Trace bus overhead at micro-bench scale is dominated by Python call overhead; Week 4 batched/sampled tracing should bring it under 10% on representative workloads.
 - Storage choice: DuckDB vs SQLite for trace persistence - currently DuckDB.
 
 ## Phase status
@@ -19,7 +19,7 @@
 | Phase | Status | Notes |
 |---|---|---|
 | Week 0 - Scaffold | done | Repo, deps, CI, stubs |
-| Week 1 - Substrate + trace (FHRR + HRR) | pending | |
+| Week 1 - Substrate + trace (FHRR + HRR) | done | 15 verification tests passing |
 | Week 2 - Modulators | pending | |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
