@@ -25,4 +25,7 @@
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
 | Week 6 - Atomic experiments | pending | |
-| Week 7 - Molecule experiments | pending | |
+| Week 7 - Molecule experiments (incl. density sweep M7) | pending | |
+| Week 8 - Scaling-law experiment | pending | Pre-registered N sweep; publishable on its own |
+| Week 9 - Standalone release | pending | |
+| Week 10+ - Case study (continual learning) | pending | |

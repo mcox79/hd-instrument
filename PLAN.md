@@ -216,18 +216,46 @@ If go: proceed to Week 6. If no-go: stop, fix, do not pile features.
 | M4 | Nested: `believes(Bob, loves(Mary, John))` at depths 1-4 | Recursive composition | Depth-recovery curve plots cleanly; failure depth identified |
 | M5 | M2 with `arousal` high during exposure, Hebbian on | Learning beyond raw substrate | Recovery curve shifts up vs no-learning baseline |
 | M6 | M2 run with FHRR vs BSC | Hardware-relevant variant comparison | Both plots produced; FLOPs/memory comparison real |
+| M7 | Vary Hebbian density (sparsity in {0.001, 0.01, 0.1, 0.5}) at fixed N | Connectivity vs capacity tradeoff | Crosstalk noise rises monotonically with density; capacity-vs-density curve plotted |
 
 **End-of-Week-7 deliverable.** A defensible empirical claim: e.g. "At N=1024 with reward-modulated Hebbian and arousal schedule X, the system achieves Y improvement in bundle capacity vs the same substrate without learning, measured against Plate's theoretical baseline."
 
-## After Week 7
+## Week 8 - Scaling-law experiment
 
-- **Week 8 - Standalone release.** Publish `hd-instrument` v0.1.0 to PyPI, MIT-licensed; MkDocs site with cert report embedded; quickstart notebook.
-- **Week 9+ - Case study.** Continual learning on Split-CIFAR-10 (Permuted-MNIST sanity check first). Plan written separately once instrument is locked.
+**Goals.** Empirically characterize how HDC scales across N. Settle the "high connectivity could reach LLM-like capabilities" question with measured exponents rather than priors.
+
+**Pre-registered predictions** (write down in `notes/exp_scaling.md` *before* running):
+- Capacity scales as O(N^alpha) with alpha ~ 1 (linear).
+- Depth recovery scales as O(log N).
+- Compositional generalization improves with N but plateaus.
+- Surprise thresholds: alpha > 1.2 (super-linear capacity) is a publishable finding; alpha < 0.8 means crosstalk dominates earlier than expected.
+
+**Setup.**
+- Fixed compositional workload (reuse M5 from Week 7).
+- Vary N in {1024, 4096, 16384, 65536, 262144}.
+- Identical modulator schedule, Hebbian rule, and connectivity density across runs.
+- 100 trials per N for statistical reliability.
+
+**Measure.**
+- Capacity (clean facts per vector) vs N.
+- Depth recovery vs N.
+- Compositional generalization accuracy vs N.
+- Crosstalk noise vs density at each N.
+- Wall clock and FLOPs per op at each N (from the profiling fields).
+
+**Deliverable.** `notes/exp_scaling.md` with fitted exponents, plots, and explicit pre-vs-post comparison of the predictions. Publishable on its own.
+
+**Success criterion.** Curves are clean, exponents are reproducible, predictions are either confirmed or honestly noted as falsified.
+
+## After Week 8
+
+- **Week 9 - Standalone release.** Publish `hd-instrument` v0.1.0 to PyPI, MIT-licensed; MkDocs site with cert report embedded; quickstart notebook.
+- **Week 10+ - Case study.** Continual learning on Split-CIFAR-10 (Permuted-MNIST sanity check first). Plan written separately once instrument is locked.
 - **Hardware-substrate analysis.** Mine profiling fields collected since Week 4 to characterize op dominance, sparsity, and substrate fit. Compare FHRR vs HRR vs BSC on the same workload trace.
 
 ## Discipline (non-negotiable)
 
 - Every framework feature ships with at least one scaffold-free witness in `verification/`.
 - Verification tests pass with `tracing=False`.
-- One markdown file per experiment in `notes/` - hypothesis, prediction, result, takeaway.
+- **Pre-register every experiment** in `notes/expNN.md` *before* running: hypothesis, predicted result, and an explicit falsification threshold. Re-read after the run; mark confirmed, surprised, or falsified.
 - `python verification/run_certification.py` must stay green on `main`.
