@@ -34,6 +34,7 @@ class TraceEvent:
     output: Any
     modulator_state: dict[str, Any]
     timestamp_ns: int
+    elapsed_ns: int = 0
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -94,7 +95,12 @@ def set_state_provider(fn: "Callable[[], dict[str, Any]]") -> None:
     _state_provider = fn
 
 
-def emit(op: str, inputs: dict[str, Any], output: Any) -> None:
+def emit(
+    op: str,
+    inputs: dict[str, Any],
+    output: Any,
+    elapsed_ns: int = 0,
+) -> None:
     """Emit a TraceEvent to the current bus if one is active and enabled."""
     bus = _current_bus
     if bus is None or not bus.enabled:
@@ -111,6 +117,7 @@ def emit(op: str, inputs: dict[str, Any], output: Any) -> None:
         inputs=inputs,
         output=out_desc,
         modulator_state=_state_provider(),
-        timestamp_ns=time.monotonic_ns(),
+        timestamp_ns=time.perf_counter_ns(),
+        elapsed_ns=elapsed_ns,
     )
     bus.emit(event)

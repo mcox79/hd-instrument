@@ -2,11 +2,11 @@
 
 ## Current phase
 
-**Week 3 - Reward-modulated Hebbian complete.** `HebbianAssociations` uses sparse dict storage with lazy decay-on-read. Updates apply `W += arousal * reward` to co-active pairs; idle steps decay geometrically. Empirical steady-state matches the closed-form `W_inf = eta / decay` within 1%. 27 verification tests passing, 4 skipped (Weeks 4-7).
+**Week 4 - Observability stack complete.** Every public op records `elapsed_ns` via `time.perf_counter_ns` (Windows monotonic_ns was 15ms-coarse, useless). Events persist to DuckDB and round-trip byte-equivalent. **Trace replay reconstructs Hebbian weights identical to the original session within 1e-9** — the gating test for the whole observability story. Streamlit dashboard module loads cleanly with panels for modulator timeline, op frequency, per-op latency, Hebbian trajectories, and recent events. 32 verification tests passing, 3 skipped (Weeks 5 + 7).
 
 ## Next milestone
 
-**Week 4**: persistent trace store (DuckDB + Parquet), profiling decorator (latency / FLOPs / access pattern), Streamlit dashboard with the seven panels, and the trace-faithfulness replay test — the single most important test in the plan.
+**Week 5**: declarative experiment harness, cross-machine reproducibility (same seed -> bit-identical results), and the go/no-go review. End of Week 5 the platform is locked; experiments (atomic / molecule / scaling) start Week 6.
 
 ## Open questions
 
@@ -23,6 +23,7 @@
 | Week 1 - Substrate + trace (FHRR + HRR) | done | 15 verification tests passing |
 | Week 2 - Modulators | done | attention + recency wired; reward/arousal/gating staged for Week 3+ |
 | Week 3 - Learning | done | reward-modulated Hebbian, lazy decay, steady-state matches theory within 1% |
+| Week 4 - Observability | done | DuckDB store, perf_counter timing, replay reconstructs state, Streamlit panels load |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |

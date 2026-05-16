@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import time
+
 import torch
 
 from . import modulators, tracing
@@ -12,6 +14,7 @@ def bundle(vectors: torch.Tensor) -> torch.Tensor:
 
     FHRR: per-component magnitude renormalization. HRR: whole-vector L2 normalization.
     """
+    t0 = time.perf_counter_ns()
     state = modulators.current()
     is_complex = vectors.is_complex()
 
@@ -38,5 +41,10 @@ def bundle(vectors: torch.Tensor) -> torch.Tensor:
         norm = s.norm()
         out = s / norm if float(norm) > 0 else s
 
-    tracing.emit("bundling.bundle", {"shape": list(vectors.shape)}, out)
+    tracing.emit(
+        "bundling.bundle",
+        {"shape": list(vectors.shape)},
+        out,
+        elapsed_ns=time.perf_counter_ns() - t0,
+    )
     return out

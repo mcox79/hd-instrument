@@ -8,6 +8,8 @@ Stored sparsely; decay is applied lazily on read so cost per step is O(active_pa
 
 from __future__ import annotations
 
+import time
+
 from . import modulators, tracing
 from .modulators import ModulatorState
 
@@ -26,6 +28,10 @@ class HebbianAssociations:
     def __len__(self) -> int:
         return len(self._weights)
 
+    @property
+    def step(self) -> int:
+        return self._step
+
     @staticmethod
     def _key(a: str, b: str) -> tuple[str, str]:
         return (a, b) if a <= b else (b, a)
@@ -40,12 +46,20 @@ class HebbianAssociations:
         """Current association strength between atoms a and b (decay applied lazily)."""
         return self._read(self._key(a, b))
 
+    def set_weight(self, a: str, b: str, value: float, at_step: int) -> None:
+        """Direct weight assignment, used by replay-from-trace reconstruction."""
+        key = self._key(a, b)
+        self._weights[key] = float(value)
+        self._last_step[key] = int(at_step)
+        if at_step > self._step:
+            self._step = int(at_step)
+
     def update(
         self,
         active_atoms: list[str],
         state: ModulatorState | None = None,
     ) -> None:
-        """Advance one step; reinforce all co-active pairs by arousal * reward."""
+        """Advance one Hebbian step; reinforce all co-active pairs by arousal * reward."""
         if state is None:
             state = modulators.current()
         self._step += 1
@@ -55,6 +69,7 @@ class HebbianAssociations:
         n = len(active_atoms)
         for i in range(n):
             for j in range(i + 1, n):
+                t0 = time.perf_counter_ns()
                 key = self._key(active_atoms[i], active_atoms[j])
                 current = self._read(key)
                 new_value = current + delta
@@ -62,6 +77,12 @@ class HebbianAssociations:
                 self._last_step[key] = self._step
                 tracing.emit(
                     "learning.update",
-                    {"a": key[0], "b": key[1], "delta": delta},
+                    {
+                        "a": key[0],
+                        "b": key[1],
+                        "delta": delta,
+                        "hebbian_step": self._step,
+                    },
                     {"weight": new_value},
+                    elapsed_ns=time.perf_counter_ns() - t0,
                 )
