@@ -2,11 +2,11 @@
 
 ## Current phase
 
-**Week 2 - Modulators wired & tested.** Five named scalars (attention, reward, arousal, recency, gating) live in `ModulatorState`. Attention gates cleanup threshold; recency drives geometric-decay bundling. Reward/arousal/gating remain state-only until Week 3+. 20 verification tests passing, 7 skipped (Week 3-7 placeholders).
+**Week 3 - Reward-modulated Hebbian complete.** `HebbianAssociations` uses sparse dict storage with lazy decay-on-read. Updates apply `W += arousal * reward` to co-active pairs; idle steps decay geometrically. Empirical steady-state matches the closed-form `W_inf = eta / decay` within 1%. 27 verification tests passing, 4 skipped (Weeks 4-7).
 
 ## Next milestone
 
-**Week 3**: reward-modulated Hebbian learning over a sparse atom-association matrix. Dynamics must match closed-form steady-state predictions; reward sign controls weight growth vs decay; arousal scales the global learning rate.
+**Week 4**: persistent trace store (DuckDB + Parquet), profiling decorator (latency / FLOPs / access pattern), Streamlit dashboard with the seven panels, and the trace-faithfulness replay test — the single most important test in the plan.
 
 ## Open questions
 
@@ -22,6 +22,7 @@
 | Week 0 - Scaffold | done | Repo, deps, CI, stubs |
 | Week 1 - Substrate + trace (FHRR + HRR) | done | 15 verification tests passing |
 | Week 2 - Modulators | done | attention + recency wired; reward/arousal/gating staged for Week 3+ |
+| Week 3 - Learning | done | reward-modulated Hebbian, lazy decay, steady-state matches theory within 1% |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
