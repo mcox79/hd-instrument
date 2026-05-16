@@ -2,7 +2,7 @@
 
 ## Current phase
 
-**Week 4 - Observability stack complete.** Every public op records `elapsed_ns` via `time.perf_counter_ns` (Windows monotonic_ns was 15ms-coarse, useless). Events persist to DuckDB and round-trip byte-equivalent. **Trace replay reconstructs Hebbian weights identical to the original session within 1e-9** — the gating test for the whole observability story. Streamlit dashboard module loads cleanly with panels for modulator timeline, op frequency, per-op latency, Hebbian trajectories, and recent events. 32 verification tests passing, 3 skipped (Weeks 5 + 7).
+**Week 4 - Observability stack + PDF reporter + first diagnostic run.** Every public op records `elapsed_ns` via `time.perf_counter_ns` (monotonic_ns was 15ms-coarse on Windows). DuckDB persistence round-trips byte-equivalent. Trace replay reconstructs Hebbian weights to 1e-9. **PDF reporter** (`python -m hdlab.dashboard`) produces a 6-page report viewable in any PDF reader. **First diagnostic run** wrote `data/diagnostic/{trace.duckdb, dashboard.pdf, metrics.json}` and appended to `RESULTS.md`. Hebbian ratio empirical/theoretical = 0.99999999877. 35 verification tests passing, 3 skipped (Weeks 5 + 7).
 
 ## Next milestone
 

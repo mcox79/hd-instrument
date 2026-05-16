@@ -172,18 +172,20 @@ def test_replay_reconstructs_state(tmp_path: Path) -> None:
     assert abs(h_replay.weight("b", "c") - final_bc) < 1e-9
 
 
-def test_dashboard_module_imports() -> None:
-    """The dashboard module loads cleanly so `streamlit run` will not fail at import time."""
-    from hdlab.dashboard import app
+def test_dashboard_modules_import() -> None:
+    """Both the Streamlit app and PDF reporter load cleanly."""
+    from hdlab.dashboard import app, report
 
     assert callable(app.main)
-    assert callable(app.events_to_df)
-    assert callable(app.hebbian_weights_at)
+    assert callable(report.generate_report)
+    assert callable(report.events_to_df)
+    assert callable(report.hebbian_weights_df)
+    assert callable(report.cleanup_lookup_df)
 
 
 def test_events_to_df_shape() -> None:
     """events_to_df produces one row per event with the expected columns."""
-    from hdlab.dashboard.app import events_to_df
+    from hdlab.dashboard.report import events_to_df
 
     bus = tracing.TraceBus(enabled=True)
     with tracing.using(bus), modulators.using(attention=0.3, recency=0.7):
