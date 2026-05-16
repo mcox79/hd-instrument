@@ -1,10 +1,10 @@
-"""Cleanup memory: stores named atoms and supports nearest-neighbor retrieval."""
+"""Cleanup memory: stores named atoms; lookup is gated by the attention modulator."""
 
 from __future__ import annotations
 
 import torch
 
-from . import atoms, tracing
+from . import atoms, modulators, tracing
 
 
 class Codebook:
@@ -29,18 +29,19 @@ class Codebook:
         self._vectors.append(vector)
         tracing.emit("memory.add", {"name": name, "shape": list(vector.shape)}, None)
 
-    def lookup(self, query: torch.Tensor) -> tuple[str, float]:
-        """Closest atom name and similarity score."""
+    def lookup(self, query: torch.Tensor) -> tuple[str | None, float]:
+        """Closest atom and similarity score; returns (None, score) when below the attention threshold."""
         if not self._vectors:
             raise ValueError("Cannot lookup in an empty Codebook")
         stacked = torch.stack(self._vectors)
         sims = atoms.similarity(query, stacked)
         best = int(sims.argmax())
         score = float(sims[best])
-        result = (self._names[best], score)
+        threshold = modulators.current().attention
+        name: str | None = self._names[best] if score >= threshold else None
         tracing.emit(
             "memory.lookup",
             {"query_shape": list(query.shape), "k": len(self._vectors)},
-            {"name": result[0], "score": result[1]},
+            {"name": name, "score": score},
         )
-        return result
+        return name, score

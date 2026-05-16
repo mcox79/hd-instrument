@@ -6,7 +6,7 @@ import json
 import time
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass
-from typing import Any, Iterator
+from typing import Any, Callable, Iterator
 
 import torch
 
@@ -32,7 +32,7 @@ class TraceEvent:
     op: str
     inputs: dict[str, Any]
     output: Any
-    modulator_state: dict[str, float]
+    modulator_state: dict[str, Any]
     timestamp_ns: int
 
     def to_dict(self) -> dict[str, Any]:
@@ -69,6 +69,7 @@ class TraceBus:
 
 
 _current_bus: TraceBus | None = None
+_state_provider: "Callable[[], dict[str, Any]]" = lambda: {}
 
 
 def get_current_bus() -> TraceBus | None:
@@ -87,9 +88,10 @@ def using(bus: TraceBus | None) -> Iterator[TraceBus | None]:
         _current_bus = old
 
 
-def _modulator_state() -> dict[str, float]:
-    """Override in Week 2 to return current modulator values. Default: empty."""
-    return {}
+def set_state_provider(fn: "Callable[[], dict[str, Any]]") -> None:
+    """Register a callable that returns the current modulator state for each trace event."""
+    global _state_provider
+    _state_provider = fn
 
 
 def emit(op: str, inputs: dict[str, Any], output: Any) -> None:
@@ -97,7 +99,6 @@ def emit(op: str, inputs: dict[str, Any], output: Any) -> None:
     bus = _current_bus
     if bus is None or not bus.enabled:
         return
-    # Fast path: callers pass JSON-clean input dicts; only the output may be a tensor.
     if isinstance(output, torch.Tensor):
         out_desc: Any = {"shape": list(output.shape), "dtype": str(output.dtype)}
     elif output is None or isinstance(output, (str, int, float, bool)):
@@ -109,7 +110,7 @@ def emit(op: str, inputs: dict[str, Any], output: Any) -> None:
         op=op,
         inputs=inputs,
         output=out_desc,
-        modulator_state=_modulator_state(),
+        modulator_state=_state_provider(),
         timestamp_ns=time.monotonic_ns(),
     )
     bus.emit(event)
