@@ -2,11 +2,11 @@
 
 ## Current phase
 
-**Week 4 - Observability stack + PDF reporter + first diagnostic run.** Every public op records `elapsed_ns` via `time.perf_counter_ns` (monotonic_ns was 15ms-coarse on Windows). DuckDB persistence round-trips byte-equivalent. Trace replay reconstructs Hebbian weights to 1e-9. **PDF reporter** (`python -m hdlab.dashboard`) produces a 6-page report viewable in any PDF reader. **First diagnostic run** wrote `data/diagnostic/{trace.duckdb, dashboard.pdf, metrics.json}` and appended to `RESULTS.md`. Hebbian ratio empirical/theoretical = 0.99999999877. 35 verification tests passing, 3 skipped (Weeks 5 + 7).
+**Week 5 - Platform locked. GO to Week 6.** Declarative `ExperimentSpec` + `experiment.run(spec, workload)` harness handles seed/trace/persist/PDF/log in one call. Diagnostic refactored to use it. Reproducibility tests confirm same-seed determinism in process; cross-machine bit-equality will fall out of CI on `ubuntu-latest`. Go/No-Go review in [notes/week5_go_no_go.md](notes/week5_go_no_go.md). 38 verification tests passing, 2 skipped (Week 7 placeholders).
 
 ## Next milestone
 
-**Week 5**: declarative experiment harness, cross-machine reproducibility (same seed -> bit-identical results), and the go/no-go review. End of Week 5 the platform is locked; experiments (atomic / molecule / scaling) start Week 6.
+**Week 6 - Atomic experiments.** A1: 50 atoms + exact-match query. A2: cleanup robustness under Gaussian noise. A3: attention sweep produces clean P/R curves. A4: Hebbian learning over repeated queries lifts recall on frequent atoms. This is the first week the dashboard reads as a finding rather than a heartbeat.
 
 ## Open questions
 
@@ -23,7 +23,8 @@
 | Week 1 - Substrate + trace (FHRR + HRR) | done | 15 verification tests passing |
 | Week 2 - Modulators | done | attention + recency wired; reward/arousal/gating staged for Week 3+ |
 | Week 3 - Learning | done | reward-modulated Hebbian, lazy decay, steady-state matches theory within 1% |
-| Week 4 - Observability | done | DuckDB store, perf_counter timing, replay reconstructs state, Streamlit panels load |
+| Week 4 - Observability | done | DuckDB store, perf_counter timing, replay reconstructs state, PDF + Streamlit dashboards |
+| Week 5 - Harness + go/no-go | done | Declarative ExperimentSpec, harness, same-seed determinism, GO decision |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
