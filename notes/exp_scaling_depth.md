@@ -58,6 +58,15 @@ These mechanisms together yield the **empirical scaling law `depth_50%(N) ~ 0.72
 
 This is the first scaling-law experiment where the **pre-registered prediction was falsified** by the data (slope is 30% lower than expected). The R^2 = 0.973 fit is solid though, so the discrepancy is in the model, not in the data. The empirical law replaces the naive theoretical one.
 
+## Resolution (2026-05-17, see notes/week8_depth_mechanism.md)
+
+Follow-up investigation tested two hypotheses for the sub-linearity:
+
+1. **Shared-role coherent cross-talk** -- falsified. Fresh roles per level gave beta = 0.657, essentially identical.
+2. **FHRR per-component renormalization** -- confirmed. HRR (whole-vector L2 norm) gave beta = **1.273**, super-linear.
+
+The depth ceiling is a property of the FHRR bundle operator, not of HDC. HRR scales depth much more favorably and is the production substrate of choice for compositional workloads.
+
 ## Implications
 
 For LLM-comparable nesting capacity: at N=16384, depth_50% ~ 9.4. To reach depth ~ 100 (analogous to deeply-nested function calls or 100-step reasoning), the required N is `2^((100 + 0.629) / 0.717) ~ 2^140 ~ 10^42` -- not feasible.

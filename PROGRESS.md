@@ -2,13 +2,16 @@
 
 ## Current phase
 
-**Week 8 complete -- three scaling laws fit:**
+**Week 8 complete + depth-mechanism follow-up done:**
 
 - **FHRR capacity**: `k_50% ~ N^1.003` (R^2 = 0.99999734)
 - **BSC capacity**: `k_50% ~ N^1.004` (R^2 = 0.9999), FHRR/BSC ratio constant at 2.52x
-- **Nesting depth**: `depth_50% = 0.717 * log2(N) - 0.629` (R^2 = 0.973, slightly sub-linear)
+- **FHRR depth**: `depth_50% = 0.717 * log2(N) - 0.629` (sub-linear)
+- **HRR depth**: `depth_50% = 1.273 * log2(N) - 7.20` (**super-linear**)
 
-Headline: both substrates scale linearly with N, BSC trades 2.5x capacity for 8x storage (= 3.2x bytes-per-capacity better) with no scaling-exponent penalty. Depth scales sub-linearly in log(N) -- one prediction falsified, mechanism identified. Full summary in [notes/week8_scaling_summary.md](notes/week8_scaling_summary.md).
+Two-hypothesis investigation resolved why FHRR depth scales sub-linearly: H1 (shared-role cross-talk) falsified; H2 (FHRR per-component renormalization) confirmed by HRR test. Notes in [notes/week8_depth_mechanism.md](notes/week8_depth_mechanism.md) and [notes/production_considerations.md](notes/production_considerations.md).
+
+**Bottom line for production:** HRR is the substrate of choice for compositional / deep workloads (the depth ceiling was an FHRR property, not a HDC property). BSC for memory-bound edge; FHRR for capacity-bound GPU; HRR for depth-bound reasoning.
 
 ## Next milestone
 
@@ -35,7 +38,8 @@ Then **Week 10+ - Case study**: continual learning on Split-CIFAR-10 with substr
 | Week 5 - Harness + go/no-go | done | Declarative ExperimentSpec, harness, same-seed determinism, GO decision |
 | Week 6 - Atomic experiments | done | A1-A4 + A5 envelope; substrate cliff at sigma=pi |
 | Week 7 - Molecule experiments | done | M1-M7; capacity 3-4x higher than predicted; learning boost; BSC tradeoff |
-| Week 8 - Scaling-law (FHRR + BSC + depth) | done | FHRR a=1.003, BSC a=1.004, depth beta=0.717; see week8_scaling_summary.md |
+| Week 8 - Scaling-law (FHRR + BSC + depth) | done | FHRR a=1.003, BSC a=1.004, FHRR depth beta=0.717; see week8_scaling_summary.md |
+| Week 8b - Depth mechanism deep-dive | done | HRR depth beta=1.273 (super-linear); FHRR per-component renorm identified as cause |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
