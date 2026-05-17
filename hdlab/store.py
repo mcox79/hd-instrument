@@ -19,10 +19,13 @@ CREATE TABLE IF NOT EXISTS events (
     output_json VARCHAR NOT NULL,
     modulator_state_json VARCHAR NOT NULL,
     timestamp_ns BIGINT NOT NULL,
-    elapsed_ns BIGINT NOT NULL
+    elapsed_ns BIGINT NOT NULL,
+    query_id VARCHAR,
+    tags_json VARCHAR
 );
 CREATE INDEX IF NOT EXISTS idx_events_op ON events (op);
 CREATE INDEX IF NOT EXISTS idx_events_timestamp ON events (timestamp_ns);
+CREATE INDEX IF NOT EXISTS idx_events_query ON events (query_id);
 """
 
 
@@ -47,11 +50,13 @@ class TraceStore:
                 json.dumps(e.modulator_state),
                 e.timestamp_ns,
                 e.elapsed_ns,
+                e.query_id,
+                json.dumps(e.tags),
             )
             for e in events
         ]
         self._conn.executemany(
-            "INSERT INTO events VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO events VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             rows,
         )
 
@@ -75,6 +80,8 @@ class TraceStore:
                 modulator_state=json.loads(r["modulator_state_json"]),
                 timestamp_ns=r["timestamp_ns"],
                 elapsed_ns=r["elapsed_ns"],
+                query_id=r.get("query_id"),
+                tags=json.loads(r["tags_json"]) if r.get("tags_json") else {},
             )
             for r in rows
         ]

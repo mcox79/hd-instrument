@@ -70,6 +70,31 @@ def cleanup_lookup_df(events: list[TraceEvent]) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["step", "name", "score", "k"])
 
 
+def connection_trace_df(events: list[TraceEvent], query_id: str) -> pd.DataFrame:
+    """Filter semantic events for a single query span and tabulate them by hop."""
+    rows: list[dict[str, Any]] = []
+    for e in events:
+        if e.query_id != query_id or not e.op.startswith("semantic."):
+            continue
+        rows.append(
+            {
+                "step": e.step,
+                "op": e.op,
+                "hop_idx": e.inputs.get("hop_idx"),
+                "relation": e.inputs.get("relation"),
+                "src": e.inputs.get("src"),
+                "dst": e.inputs.get("dst"),
+                "weight": e.inputs.get("weight"),
+                "score": e.inputs.get("score"),
+                "target_name": e.inputs.get("target_name"),
+                "contribution": e.inputs.get("contribution"),
+                "n_edges_fired": e.inputs.get("n_edges_fired"),
+            }
+        )
+    cols = ["step", "op", "hop_idx", "relation", "src", "dst", "weight", "score", "target_name", "contribution", "n_edges_fired"]
+    return pd.DataFrame(rows, columns=cols)
+
+
 def _page_overview(pdf: PdfPages, df: pd.DataFrame, run_name: str, extra: dict | None) -> None:
     fig = plt.figure(figsize=(11, 8.5))
     ax = fig.add_subplot(111)
@@ -174,6 +199,122 @@ def _page_cleanup(pdf: PdfPages, cu: pd.DataFrame) -> None:
     plt.close(fig)
 
 
+def _page_connection_trace(pdf: PdfPages, events: list[TraceEvent], query_id: str) -> None:
+    """Render the connection trace for a single query span: hop-by-hop edges and cleanups."""
+    df = connection_trace_df(events, query_id)
+    if df.empty:
+        return
+
+    fig = plt.figure(figsize=(11, 8.5))
+    gs = fig.add_gridspec(3, 1, height_ratios=[1, 2, 2])
+
+    # Header with query metadata
+    ax_h = fig.add_subplot(gs[0])
+    ax_h.axis("off")
+    start = [e for e in events if e.op == "semantic.query_start" and e.query_id == query_id]
+    answer = [e for e in events if e.op == "semantic.query_answer" and e.query_id == query_id]
+    abl = [e for e in events if e.op == "semantic.ablation_active" and e.query_id == query_id]
+    header: list[str] = [f"Connection trace for query: {query_id}"]
+    if start:
+        header.append(f"Span inputs: {start[0].inputs}")
+        if start[0].tags:
+            header.append(f"Span tags: {start[0].tags}")
+    if abl:
+        header.append("Ablations active in this span:")
+        for e in abl:
+            header.append(f"  - {e.inputs['target_kind']}: {e.inputs['target_id']}")
+    if answer:
+        a = answer[0]
+        header.append(f"Answer: {a.output.get('answer')}  confidence={a.inputs.get('confidence'):.3f}  hops={a.inputs.get('hops_taken')}")
+    ax_h.text(0.0, 1.0, "\n".join(header), va="top", ha="left", fontsize=9, family="monospace")
+
+    # Edge traversals per hop (scatter w/ weight on y, hop on x, color per relation)
+    ax_e = fig.add_subplot(gs[1])
+    edges = df[df["op"] == "semantic.edge_traversed"].dropna(subset=["hop_idx"])
+    if not edges.empty:
+        relations = sorted(edges["relation"].dropna().unique().tolist())
+        cmap = plt.get_cmap("tab10")
+        for i, rel in enumerate(relations):
+            r = edges[edges["relation"] == rel]
+            ax_e.scatter(r["hop_idx"], r["weight"], label=rel, color=cmap(i % 10), s=30, alpha=0.85)
+            for _, row in r.iterrows():
+                ax_e.annotate(
+                    f"{row['src']}->{row['dst']}",
+                    (row["hop_idx"], row["weight"]),
+                    fontsize=6,
+                    alpha=0.7,
+                    xytext=(3, 3),
+                    textcoords="offset points",
+                )
+        ax_e.set_xlabel("hop")
+        ax_e.set_ylabel("edge weight")
+        ax_e.set_title("Edges traversed per hop, colored by relation")
+        ax_e.legend(loc="best", fontsize=8)
+        ax_e.grid(True, alpha=0.3)
+    else:
+        ax_e.text(0.5, 0.5, "no edge_traversed events", ha="center", va="center")
+        ax_e.axis("off")
+
+    # Cleanup hits per hop (line of accepted scores)
+    ax_c = fig.add_subplot(gs[2])
+    hits = df[df["op"] == "semantic.cleanup_hit"].dropna(subset=["hop_idx"])
+    if not hits.empty:
+        ax_c.plot(hits["hop_idx"], hits["score"], marker="o", linewidth=1.5, color="steelblue")
+        for _, row in hits.iterrows():
+            ax_c.annotate(
+                str(row["target_name"]),
+                (row["hop_idx"], row["score"]),
+                fontsize=7,
+                xytext=(3, 3),
+                textcoords="offset points",
+            )
+        ax_c.set_xlabel("hop")
+        ax_c.set_ylabel("cleanup similarity")
+        ax_c.set_title("Cleanup hits per hop (target = projected entity)")
+        ax_c.grid(True, alpha=0.3)
+    else:
+        ax_c.text(0.5, 0.5, "no cleanup_hit events", ha="center", va="center")
+        ax_c.axis("off")
+
+    fig.tight_layout()
+    pdf.savefig(fig)
+    plt.close(fig)
+
+
+def _page_query_summary(pdf: PdfPages, events: list[TraceEvent]) -> None:
+    """One-page summary of all query spans in the trace."""
+    spans: dict[str, dict[str, Any]] = {}
+    for e in events:
+        if e.query_id is None:
+            continue
+        s = spans.setdefault(e.query_id, {"start_step": e.step, "end_step": e.step, "n_events": 0, "tags": {}})
+        s["end_step"] = max(s["end_step"], e.step)
+        s["n_events"] += 1
+        if e.tags:
+            s["tags"].update(e.tags)
+        if e.op == "semantic.query_answer":
+            s["answer"] = e.output.get("answer") if isinstance(e.output, dict) else None
+            s["confidence"] = e.inputs.get("confidence")
+            s["hops_taken"] = e.inputs.get("hops_taken")
+    if not spans:
+        return
+    fig, ax = plt.subplots(figsize=(11, 8.5))
+    ax.axis("off")
+    lines = ["Query spans in this session", ""]
+    lines.append(f"{'query_id':<24s} {'events':>6s} {'hops':>5s} {'conf':>6s}  answer")
+    for qid, s in spans.items():
+        ans = str(s.get("answer", ""))[:30]
+        conf = s.get("confidence")
+        hops = s.get("hops_taken")
+        lines.append(
+            f"{qid:<24s} {s['n_events']:>6d} {('-' if hops is None else hops):>5} "
+            f"{('-' if conf is None else f'{conf:.3f}'):>6}  {ans}"
+        )
+    ax.text(0.02, 0.98, "\n".join(lines), va="top", ha="left", fontsize=9, family="monospace")
+    pdf.savefig(fig)
+    plt.close(fig)
+
+
 def _page_recent_events(pdf: PdfPages, df: pd.DataFrame, n_recent: int = 40) -> None:
     if df.empty:
         return
@@ -216,12 +357,18 @@ def generate_report(
     hw = hebbian_weights_df(events)
     cu = cleanup_lookup_df(events)
 
+    query_ids = sorted({e.query_id for e in events if e.query_id is not None})
+
     with PdfPages(output_path) as pdf:
         _page_overview(pdf, df, run_name, extra)
         _page_modulators(pdf, df)
         _page_op_stats(pdf, df)
         _page_hebbian(pdf, hw)
         _page_cleanup(pdf, cu)
+        if query_ids:
+            _page_query_summary(pdf, events)
+            for qid in query_ids:
+                _page_connection_trace(pdf, events, qid)
         _page_recent_events(pdf, df)
         if extra_pages:
             for page_fn in extra_pages:
