@@ -2,11 +2,17 @@
 
 ## Current phase
 
-**Week 5 - Platform locked. GO to Week 6.** Declarative `ExperimentSpec` + `experiment.run(spec, workload)` harness handles seed/trace/persist/PDF/log in one call. Diagnostic refactored to use it. Reproducibility tests confirm same-seed determinism in process; cross-machine bit-equality will fall out of CI on `ubuntu-latest`. Go/No-Go review in [notes/week5_go_no_go.md](notes/week5_go_no_go.md). 38 verification tests passing, 2 skipped (Week 7 placeholders).
+**Week 7 complete.** Seven molecule experiments + Hebbian density sweep + FHRR-vs-BSC comparison done. Major findings overturned simplistic capacity models in M2 (real bundle capacity is ~3-4x higher than sqrt(N)), M4 (nested structures survive 5 levels deep, not 2-3), and surfaced temporal-aliasing in the lazy Hebbian decay (M7). M5 demonstrated learning actually augments cleanup (+6.7 pp at N=256 in the brittle regime). M6 gave the first quantitative FHRR-vs-BSC tradeoff: BSC has 2.5x lower capacity but 8x smaller atoms = ~3.5x better bytes-per-capacity for memory-bound workloads.
 
 ## Next milestone
 
-**Week 6 - Atomic experiments.** A1: 50 atoms + exact-match query. A2: cleanup robustness under Gaussian noise. A3: attention sweep produces clean P/R curves. A4: Hebbian learning over repeated queries lifts recall on frequent atoms. This is the first week the dashboard reads as a finding rather than a heartbeat.
+**Week 8 - Scaling-law experiment.** With substrate behaviour empirically mapped, fit the scaling exponents:
+- capacity vs N at fixed pool, FHRR and BSC separately
+- depth-recovery vs N
+- precision/recall curve shape vs N
+- predicted thresholds vs empirical (e.g., does the sqrt(N) Plate knee hold up at large N?)
+
+Pre-registered predictions in notes/exp_scaling.md before running.
 
 ## Open questions
 
@@ -25,6 +31,8 @@
 | Week 3 - Learning | done | reward-modulated Hebbian, lazy decay, steady-state matches theory within 1% |
 | Week 4 - Observability | done | DuckDB store, perf_counter timing, replay reconstructs state, PDF + Streamlit dashboards |
 | Week 5 - Harness + go/no-go | done | Declarative ExperimentSpec, harness, same-seed determinism, GO decision |
+| Week 6 - Atomic experiments | done | A1-A4 + A5 envelope; substrate cliff at sigma=pi |
+| Week 7 - Molecule experiments | done | M1-M7; capacity 3-4x higher than predicted; learning boost; BSC tradeoff |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
