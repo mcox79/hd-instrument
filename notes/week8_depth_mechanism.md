@@ -102,21 +102,50 @@ For deep-compositional workloads, **HRR is the production substrate of choice, n
 
 One falsified, one over-confirmed. The instrument earned its keep -- two cycles of hypothesis -> design experiment -> measure took about 30 minutes of compute on consumer hardware, and converged on a clean mechanism.
 
-## Open follow-ups
+## Honest revision (2026-05-17, after validation run)
 
-1. **Why is HRR super-linear?** Naive model predicts slope 1.0; empirical is 1.27. The curve might be concave-up over this N range and the asymptotic slope might be lower; or there might be a real super-linear regime tied to how HRR's variance averages over more components. Test: extend to N=32k, 64k, 128k and see if the slope converges.
+The extended-N HRR run (N=4k...131k) returned **beta = 2.441, R^2 = 0.845** -- but the lower R^2 reveals real measurement noise:
 
-2. **Does the crossover depend on fan-out?** At higher fan-out (k=3, 4, 5 items per bundle level), the per-component renorm variance changes. Worth a small sweep.
+| N | d_50% original (small-N run) | d_50% extended-N run | agreement? |
+|---|---|---|---|
+| 4096 | 8.20 | 6.92 | 1.3 levels apart |
+| 8192 | 9.09 | 6.13 | **3 levels apart** |
+| 16384 | 10.86 | 9.63 | 1.2 levels apart |
 
-3. **HRR cleanup junk floor vs FHRR's:** at K-atom codebook, HRR's max-junk is `sqrt(2 ln K / N)` (cosine sim std is `1/sqrt(N)`), vs FHRR's `sqrt(ln K / N)`. HRR has sqrt(2)x higher junk floor at fixed N, K. This means HRR cleanup is SLIGHTLY MORE BRITTLE per atom -- but the depth scaling more than makes up for it. A direct head-to-head of capacity (k_50%) for HRR would close the comparison.
+Same code, same seed, same workload: different `d_50%` at the same N. The recovery curves are also non-monotonic at fine grain (e.g. at N=16384 recovery jumps back up at depth 12 vs 10).
 
-## Production implication, restated
+**Cause:** 30 trials per cell is too few for the steep transition zone. A single trial flip-flops d_50% by 1 level routinely.
+
+**What survives:**
+- HRR depth scales **positively and substantially** with N. N=131k reaches d~19 reliably; N=4k reaches d~6-8.
+- HRR is **dramatically better than FHRR** for depth at large N (FHRR at N=16k tops out d=9; HRR at N=131k reaches d=18).
+- Substrate-selection guidance ("HRR for depth-bound workloads") is unaffected.
+
+**What doesn't survive:**
+- The specific **beta = 1.273** point estimate. The honest reading: slope is somewhere in the **1.0-2.5 range** depending on which window of N you fit, and a single power law may not fit the full curve cleanly.
+- The extrapolation numbers I wrote ("d_50% = 18 at N=1M") were overconfident. Soft +/- 3 levels uncertainty.
+
+**Pre-registration cleanup, revised:**
+- H1 (shared roles) still falsified.
+- H2 (per-component renorm) still confirmed at the qualitative / mechanism level: HRR avoids FHRR's heavy-tail and gets dramatically better depth. The numerical exponent claim was over-confident given 30 trials/cell.
+
+## Follow-up needed for a publishable exponent
+
+To pin the HRR depth exponent with publishable precision:
+
+- 300+ trials per cell (10x more than current).
+- Bootstrap confidence intervals on the d_50% interpolation per N.
+- Wider N range (1k...256k) with the recovery curve evaluated at finer depth granularity.
+
+Total compute: roughly 30 minutes on consumer CPU. Achievable but not yet done.
+
+## Production implication, restated (carefully)
 
 The depth question goes from "structural limit of HDC" to "substrate choice + N budget":
 
-- For workloads with depth <= 7: any substrate at N=1024-4096 works.
+- For workloads with depth <= 7: any substrate at N=1k-4k works.
 - For depth 7-15: HRR at N=10k-100k.
-- For depth 15-25: HRR at N=1M-10M.
+- For depth 15-25: HRR at N=1M+ (extrapolated -- soft +/- 3 levels of uncertainty).
 - For depth > 25: outside HDC's practical range; use sequential reasoner.
 
-The Week 10+ case study should test HRR (not FHRR) if the case study needs any meaningful compositional depth. Updating the case-study plan with this finding.
+The Week 10+ case study should use HRR (not FHRR) for any compositional benchmark. The exact exponent matters less for product selection than the qualitative regime, which is unambiguous from the head-to-head data we have.
