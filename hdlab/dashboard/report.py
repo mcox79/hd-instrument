@@ -202,8 +202,13 @@ def generate_report(
     output_path: Path | str,
     run_name: str = "session",
     extra: dict | None = None,
+    extra_pages: list[Any] | None = None,
 ) -> Path:
-    """Write a multi-page PDF dashboard for a sequence of TraceEvents."""
+    """Write a multi-page PDF dashboard for a sequence of TraceEvents.
+
+    `extra_pages`: optional list of callables each taking a PdfPages instance, appended after
+    the standard pages. Use this to attach experiment-specific headline plots.
+    """
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -218,5 +223,8 @@ def generate_report(
         _page_hebbian(pdf, hw)
         _page_cleanup(pdf, cu)
         _page_recent_events(pdf, df)
+        if extra_pages:
+            for page_fn in extra_pages:
+                page_fn(pdf)
 
     return output_path

@@ -122,6 +122,9 @@ def run(spec: ExperimentSpec, workload: Callable[[ExperimentContext], dict[str, 
         if out:
             workload_metrics.update(out)
 
+    # Pull out PDF-extras callables before the metrics dict gets JSON-serialized.
+    pdf_extras = workload_metrics.pop("_pdf_extras", None)
+
     events = bus.flush()
     metrics: dict[str, Any] = {
         "spec": {"name": spec.name, "seed": spec.seed, "n": spec.n, "dtype": spec.dtype},
@@ -139,7 +142,7 @@ def run(spec: ExperimentSpec, workload: Callable[[ExperimentContext], dict[str, 
 
     pdf_path = out_dir / "dashboard.pdf"
     extra = {"headline": metrics.get("headline", "")} if metrics.get("headline") else None
-    generate_report(events, pdf_path, run_name=spec.name, extra=extra)
+    generate_report(events, pdf_path, run_name=spec.name, extra=extra, extra_pages=pdf_extras)
 
     metrics_path = out_dir / "metrics.json"
     metrics_path.write_text(json.dumps(metrics, indent=2, default=str), encoding="utf-8")
