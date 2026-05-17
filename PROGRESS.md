@@ -2,17 +2,16 @@
 
 ## Current phase
 
-**Week 7 complete.** Seven molecule experiments + Hebbian density sweep + FHRR-vs-BSC comparison done. Major findings overturned simplistic capacity models in M2 (real bundle capacity is ~3-4x higher than sqrt(N)), M4 (nested structures survive 5 levels deep, not 2-3), and surfaced temporal-aliasing in the lazy Hebbian decay (M7). M5 demonstrated learning actually augments cleanup (+6.7 pp at N=256 in the brittle regime). M6 gave the first quantitative FHRR-vs-BSC tradeoff: BSC has 2.5x lower capacity but 8x smaller atoms = ~3.5x better bytes-per-capacity for memory-bound workloads.
+**Week 8 capacity-scaling fit complete.** Bundle-capacity exponent alpha = 1.003 +/- ~0.01, R^2 = 0.99999734 across N in {1024, 4096, 8192, 16384}. Empirical scaling: `k_50%(N) ~= N / 4.84` for pool_size=200. Pre-registered prediction (alpha = 1.0) confirmed cleanly. First quantitatively-fit empirical scaling law from the instrument.
 
 ## Next milestone
 
-**Week 8 - Scaling-law experiment.** With substrate behaviour empirically mapped, fit the scaling exponents:
-- capacity vs N at fixed pool, FHRR and BSC separately
-- depth-recovery vs N
-- precision/recall curve shape vs N
-- predicted thresholds vs empirical (e.g., does the sqrt(N) Plate knee hold up at large N?)
+**Week 8 follow-ups:**
+1. BSC scaling - does alpha stay at 1.0 with the binary substrate?
+2. Depth scaling - fit alpha for `depth_50%(N)`.
+3. Pool-size scaling - confirm `k_50% ~ N / log(pool)`.
 
-Pre-registered predictions in notes/exp_scaling.md before running.
+Each adds another exponent to the empirical scaling story. Then Week 9 (release) and Week 10+ (continual-learning case study).
 
 ## Open questions
 
@@ -33,6 +32,7 @@ Pre-registered predictions in notes/exp_scaling.md before running.
 | Week 5 - Harness + go/no-go | done | Declarative ExperimentSpec, harness, same-seed determinism, GO decision |
 | Week 6 - Atomic experiments | done | A1-A4 + A5 envelope; substrate cliff at sigma=pi |
 | Week 7 - Molecule experiments | done | M1-M7; capacity 3-4x higher than predicted; learning boost; BSC tradeoff |
+| Week 8 - Scaling-law (FHRR capacity) | done | alpha = 1.003, R^2 = 0.999997 across 16x N range |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
