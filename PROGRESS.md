@@ -2,16 +2,19 @@
 
 ## Current phase
 
-**Week 8 capacity-scaling fit complete.** Bundle-capacity exponent alpha = 1.003 +/- ~0.01, R^2 = 0.99999734 across N in {1024, 4096, 8192, 16384}. Empirical scaling: `k_50%(N) ~= N / 4.84` for pool_size=200. Pre-registered prediction (alpha = 1.0) confirmed cleanly. First quantitatively-fit empirical scaling law from the instrument.
+**Week 8 complete -- three scaling laws fit:**
+
+- **FHRR capacity**: `k_50% ~ N^1.003` (R^2 = 0.99999734)
+- **BSC capacity**: `k_50% ~ N^1.004` (R^2 = 0.9999), FHRR/BSC ratio constant at 2.52x
+- **Nesting depth**: `depth_50% = 0.717 * log2(N) - 0.629` (R^2 = 0.973, slightly sub-linear)
+
+Headline: both substrates scale linearly with N, BSC trades 2.5x capacity for 8x storage (= 3.2x bytes-per-capacity better) with no scaling-exponent penalty. Depth scales sub-linearly in log(N) -- one prediction falsified, mechanism identified. Full summary in [notes/week8_scaling_summary.md](notes/week8_scaling_summary.md).
 
 ## Next milestone
 
-**Week 8 follow-ups:**
-1. BSC scaling - does alpha stay at 1.0 with the binary substrate?
-2. Depth scaling - fit alpha for `depth_50%(N)`.
-3. Pool-size scaling - confirm `k_50% ~ N / log(pool)`.
+**Week 9 - Standalone release.** Publish `hd-instrument` v0.1.0 to PyPI, MIT-licensed; MkDocs site with the scaling-law plots embedded; quickstart notebook that runs the diagnostic.
 
-Each adds another exponent to the empirical scaling story. Then Week 9 (release) and Week 10+ (continual-learning case study).
+Then **Week 10+ - Case study**: continual learning on Split-CIFAR-10 with substrate behaviour empirically mapped.
 
 ## Open questions
 
@@ -32,7 +35,7 @@ Each adds another exponent to the empirical scaling story. Then Week 9 (release)
 | Week 5 - Harness + go/no-go | done | Declarative ExperimentSpec, harness, same-seed determinism, GO decision |
 | Week 6 - Atomic experiments | done | A1-A4 + A5 envelope; substrate cliff at sigma=pi |
 | Week 7 - Molecule experiments | done | M1-M7; capacity 3-4x higher than predicted; learning boost; BSC tradeoff |
-| Week 8 - Scaling-law (FHRR capacity) | done | alpha = 1.003, R^2 = 0.999997 across 16x N range |
+| Week 8 - Scaling-law (FHRR + BSC + depth) | done | FHRR a=1.003, BSC a=1.004, depth beta=0.717; see week8_scaling_summary.md |
 | Week 3 - Learning | pending | |
 | Week 4 - Observability | pending | |
 | Week 5 - Harness + go/no-go | pending | |
