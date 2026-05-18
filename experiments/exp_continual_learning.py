@@ -566,16 +566,19 @@ def main():
         _say(f"    Seq B after P2:  {seq_B_after_P2:.4f}")
         _say(f"    BWT = {bwt:+.4f}, AA (bpc) = {avg_bpc:.4f}")
 
-    # Verdict on the SBC retention prediction
+    # Verdict on the SBC retention prediction (only if we have summaries to compare)
     forgettings = {s["substrate"]: s["forgetting_yildiz"] for s in summary}
-    best_substrate = min(forgettings, key=forgettings.get)
-    _say(f"\n  Least forgetting (Yildiz): {best_substrate} ({forgettings[best_substrate]:+.4f})")
-    if best_substrate == "SBC":
-        _say(f"  PREDICTION SUPPORTED: SBC (sparse codes) retain prior knowledge best.")
-        _say(f"  Cf. Bricken et al. 2023: 'SDM is a Continual Learner'")
+    if forgettings:
+        best_substrate = min(forgettings, key=forgettings.get)
+        _say(f"\n  Least forgetting (Yildiz): {best_substrate} ({forgettings[best_substrate]:+.4f})")
+        if best_substrate == "SBC":
+            _say(f"  PREDICTION SUPPORTED: SBC (sparse codes) retain prior knowledge best.")
+            _say(f"  Cf. Bricken et al. 2023: 'SDM is a Continual Learner'")
+        else:
+            _say(f"  Prediction NOT supported at this configuration.")
+            _say(f"  Rehab candidates: larger N, sparser SBC (M=256 / B_size=16), longer epochs.")
     else:
-        _say(f"  Prediction NOT supported at this configuration.")
-        _say(f"  Rehab candidates: larger N, sparser SBC (M=256 / B_size=16), longer epochs.")
+        _say(f"\n  Partial run: no complete substrate summaries yet (chunk-mode running).")
 
     out = {"seed": SEED, "n": N, "k": K, "epochs_per_phase": EPOCHS_PER_PHASE,
            "substrates": SUBSTRATES, "conditions": CONDITIONS,

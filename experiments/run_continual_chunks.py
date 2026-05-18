@@ -47,12 +47,16 @@ def main():
                 capture_output=False,
             )
             dt = time.perf_counter() - t0
-            if result.returncode == 0:
+            # Chunk file existence is the real success signal; exit code can be nonzero
+            # for cosmetic reasons (e.g., partial-run summary failure) even when the
+            # chunk JSON was successfully written.
+            if chunk_file.exists():
                 successes.append((substrate, condition))
-                print(f"  [DONE] {substrate}/{condition} in {dt:.1f}s", flush=True)
+                status = "DONE" if result.returncode == 0 else "DONE (exit nonzero, chunk saved)"
+                print(f"  [{status}] {substrate}/{condition} in {dt:.1f}s", flush=True)
             else:
                 failures.append((substrate, condition, result.returncode))
-                print(f"  [FAIL] {substrate}/{condition} exit={result.returncode} after {dt:.1f}s", flush=True)
+                print(f"  [FAIL] {substrate}/{condition} exit={result.returncode} after {dt:.1f}s (no chunk file)", flush=True)
 
     elapsed = time.perf_counter() - t_start
     print(f"\n========= CHUNK RUNNER SUMMARY =========", flush=True)
