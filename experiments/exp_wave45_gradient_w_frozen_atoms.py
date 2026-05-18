@@ -127,18 +127,20 @@ def predict_pool(ctxs, pool_vecs, pool_labels, pool_used, beta, n):
 def run_gradient_variant(N, lr, train, test):
     """W trained by Adam on cross-entropy loss. Atoms + everything else fixed.
 
-    CRITICAL FIX (post-autonomous-queue, 2026-05-18): the original version
-    used shifted_relu(b=0.5) which has zero gradient when input < 0.5.
-    With W=0 init, ALL gradients were zero and W never trained.
-    Fix: (1) initialize W as small Gaussian instead of zeros, AND
-    (2) skip shifted_relu in the gradient variant (use_relu=False).
+    Post-autonomous-queue fix v2 (validated by audit 2026-05-18):
+    1. Initialize W = I_N (identity matrix), not zeros. Per Le-Jaitly-Hinton
+       2015 IRNN (arXiv:1504.00941). Starts at delta-rule baseline behavior.
+       At step 0, q = ctx (the bipolar context itself), guaranteeing
+       gradient flow regardless of any threshold.
+    2. Drop shifted_relu in the gradient variant — literature standard
+       (Schlag 2021, Yang 2024 DeltaNet use linear readout). modReLU is
+       only +0.022 bpc per our prior ablation, not load-bearing.
     """
     gen = torch.Generator().manual_seed(SEED)
     byte_atoms = make_bsc_atoms(VOCAB_SIZE, N, gen).to(DEVICE)
     pos_atoms = make_bsc_atoms(K, N, gen).to(DEVICE)
-    # W as a Parameter, initialized small-random to give gradient flow
-    init_gen = torch.Generator().manual_seed(SEED + 42)
-    W_init = 0.01 * torch.randn((N, N), generator=init_gen).to(torch.float32).to(DEVICE)
+    # Identity init per IRNN/audit recommendation
+    W_init = torch.eye(N, dtype=torch.float32, device=DEVICE)
     W = torch.nn.Parameter(W_init)
     optimizer = torch.optim.AdamW([W], lr=lr, weight_decay=WEIGHT_DECAY)
 
