@@ -88,13 +88,13 @@ def _predict_W_batch(W, ctxs, byte_atoms, beta):
 def _predict_pool_batch(ctxs, pool_vecs, pool_labels, pool_used, beta):
     B = ctxs.shape[0]
     if pool_used == 0:
-        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE)
+        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE, device=ctxs.device)
     n = ctxs.shape[1]
     active = pool_vecs[:pool_used]
     labels = pool_labels[:pool_used]
     sims = (active.conj() @ ctxs.T).real / n
     weights = torch.softmax(beta * sims, dim=0)
-    P_retr = torch.zeros(VOCAB_SIZE, B)
+    P_retr = torch.zeros(VOCAB_SIZE, B, device=ctxs.device)
     P_retr.scatter_add_(0, labels.unsqueeze(1).expand(-1, B), weights)
     return P_retr
 

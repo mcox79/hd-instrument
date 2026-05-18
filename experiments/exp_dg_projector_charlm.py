@@ -126,7 +126,7 @@ def _predict_pool_batch(ctxs_dg, pool_vecs, pool_labels, pool_used, beta):
     """Pool retrieval — uses DG-projected contexts."""
     B = ctxs_dg.shape[0]
     if pool_used == 0:
-        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE)
+        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE, device=ctxs_dg.device)
     n = ctxs_dg.shape[1]
     active = pool_vecs[:pool_used]
     labels = pool_labels[:pool_used]
@@ -134,7 +134,7 @@ def _predict_pool_batch(ctxs_dg, pool_vecs, pool_labels, pool_used, beta):
     # Use raw inner product divided by sqrt of nonzero count for normalization
     sims = (active.conj() @ ctxs_dg.T).real / max(n, 1)
     weights = torch.softmax(beta * sims, dim=0)
-    P_retr = torch.zeros(VOCAB_SIZE, B)
+    P_retr = torch.zeros(VOCAB_SIZE, B, device=ctxs_dg.device)
     P_retr.scatter_add_(0, labels.unsqueeze(1).expand(-1, B), weights)
     return P_retr
 

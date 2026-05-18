@@ -107,13 +107,13 @@ def _predict_pool_batch(
     """Returns (V, B) retrieval distribution per batch position."""
     B = ctxs.shape[0]
     if pool_used == 0:
-        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE)
+        return torch.full((VOCAB_SIZE, B), 1.0 / VOCAB_SIZE, device=ctxs.device)
     n = ctxs.shape[1]
     active = pool_vecs[:pool_used]  # (M_a, N)
     labels = pool_labels[:pool_used]  # (M_a,)
     sims = (active.conj() @ ctxs.T).real / n  # (M_a, B)
     weights = torch.softmax(beta * sims, dim=0)  # (M_a, B)
-    P_retr = torch.zeros(VOCAB_SIZE, B)
+    P_retr = torch.zeros(VOCAB_SIZE, B, device=ctxs.device)
     P_retr.scatter_add_(0, labels.unsqueeze(1).expand(-1, B), weights)
     return P_retr
 
