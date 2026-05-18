@@ -182,6 +182,44 @@ limits independently. (3) deferred. (4) needs implementation work.
 pool configuration**, because it answers "how much is the pool doing?" —
 which is upstream of "should we gate writes to it?"
 
+### α (pool blend) sweep — Titans rehab #1 result
+
+Pre-reg: [2026-05-18_alpha-sweep.md](../preregs/2026-05-18_alpha-sweep.md).
+
+| α | best ep | best bpc | Notes |
+|---|---|---|---|
+| 0.00 | 5 | 2.6961 | W only; **overfits past ep5** (drifts up to 2.7203) |
+| 0.10 | 15 | 2.5179 | Pool 10%, stable |
+| **0.30** | **15** | **2.4994** | **Current best — sweet spot** |
+| 0.50 | 15 | 2.5807 | Over-weights pool |
+| 0.70 | 15 | 2.7507 | |
+| 1.00 | 5 | 4.5375 | Pool only (no W training); flat across epochs |
+
+**Three findings of independent value:**
+
+1. **Pool contributes 0.20 bpc** (W-only 2.6961 → optimal 2.4994). Material;
+   pool-mechanism work is justified. H supported per pre-reg.
+
+2. **Pool acts as implicit regularizer.** Without pool blend (α=0.0), W
+   overfits and bpc drifts upward after epoch 5. With α ≥ 0.1, the pool
+   contribution stabilizes the loss curve. This dual role (information +
+   regularization) wasn't separated previously and partly explains why
+   tuning the pool blend matters so much.
+
+3. **The pool's contribution saturates fast.** α=0.1 is within 0.02 of
+   α=0.3; α=0.5 already degrades. Any pool-mechanism improvement has a
+   bounded ceiling — going from current pool top-1 0.437 to perfect
+   retrieval would close at most the gap to ~2.30 bpc. The bigger
+   remaining gap (2.30 → 2.39 transformer) has to come from the W
+   readout (currently 0.605 top-1) and/or substrate change.
+
+**Implication for queue order:**
+- DeltaNet (W readout variants) — high EV, launched
+- BSC (substrate change) — high EV, queued after DeltaNet
+- Inverted-gate Titans rehab — **demoted**: pool headroom is bounded
+- Surprise gate at α=0.5 or α=0.7 — **demoted**: those α regimes already worse
+- Larger pool size sweep — moderate EV, run after Wave 1 finishes
+
 ## Literature landscape (audit, 2022-2026)
 
 Where our work sits in the current field, per literature audit:
