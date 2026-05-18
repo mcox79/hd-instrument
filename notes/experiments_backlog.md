@@ -207,6 +207,96 @@ Multi-epoch training is periodic. Compute Floquet multipliers from one epoch's l
 - Predicted bits effect: 0-0.03 (stability headroom enabling longer training)
 - Source: Floquet 1883; Magnus-Winkler 1966
 
+### MX10. PT with RSB / overlap distribution diagnosis (iter-3, HIGHEST PRIORITY)
+Run K=8 parallel-tempering W replicas with geometrically spaced decay rates. At
+convergence, compute the empirical overlap distribution P(q) across all replica
+pairs, where q = <W_a, W_b>_F / (||W_a|| ||W_b||).
+- Unimodal P(q) -> non-glassy; gap is closable by ordinary methods.
+- Bimodal P(q) -> 1RSB clustering; PT gives only log speedup, hard floor remains.
+- Continuous P(q) -> FRSB ultrametric tree; need substrate change (BSC).
+- This is the SINGLE MOST INFORMATIVE experiment in the entire 3-iteration arc.
+- Source: Parisi RSB framework; Mei-Montanari random features; Krzakala-Zdeborova
+  on PT failure modes in 1RSB.
+
+### MX11. Two-time aging scan (iter-3)
+Pick three waiting times t_w in {epoch 2, 5, 15}. Measure two-time autocorrelation
+C(t_w + t, t_w) of ||W||_F and pool-retrieval-accuracy at geometric t-grid.
+Classify dynamics:
+- Curves collapse vs t/t_w -> Bouchaud trap model -> ergodicity breaks, hard loss floor
+- Curves collapse vs t/t_w^mu (mu < 1) -> CTRW -> slow but bounded, more epochs help
+- No collapse -> not trap-like, mean-field gradient flow
+- Source: Bouchaud 1992 trap model; Fielding-Sollich 2002 sub-aging; Ben Arous-Cerny review
+
+### MX12. Reservoir capacity ceiling (Jaeger MC bound)
+Measure linear short-term memory capacity of our pool at current spectral radius.
+Compare to D (substrate dim). If we're at >0.9 * D, the gap is capacity-bound and
+only raising D helps.
+- Pure diagnostic
+- Source: Jaeger 2001 GMD Report 152; Boedecker et al. 2012 Theory Biosci.
+
+### MX13. Engel-Van den Broeck capacity calculation
+Compute alpha_c (storage capacity exponent) for our random-codebook + linear-readout
+setup at our N=4096 and corpus length. Compare to measured bits/char.
+- If we're at or near alpha_c -> theoretical floor; can't be closed without different architecture
+- If significantly above alpha_c -> we're below theoretical optimum and improvements remain
+- Source: Engel & Van den Broeck, Statistical Mechanics of Learning, CUP 2001
+
+### MX14. Pennington-Worah random matrix diagnostic
+Compute empirical singular-value distribution of W. Fit Marchenko-Pastur with
+nonlinearity correction. Predicts test-error asymptotic WITHOUT retraining.
+- Pure diagnostic, very cheap
+- Source: Pennington-Worah, NeurIPS 2017
+
+### MX15. Lottery ticket on FHRR ATOMS (not weights)
+Magnitude-prune atoms by usage during training, retrain with same seeds. Test
+whether a sparse subset of the codebook is the "winning ticket."
+- Different from standard lottery ticket
+- Could enable larger pools at same memory budget
+- Source: Frankle-Carbin ICLR 2019 (lottery ticket); novel application to substrate
+
+### MX16. BSC substrate for parallel tempering specifically
+BSC dynamics are native to Metropolis MCMC (bit flips have O(1) energy proposals).
+FHRR requires Langevin/HMC. Run PT on BSC version of char-LM for cleaner dynamics.
+- Overlap q is normalized Hamming similarity - simpler interpretation
+- Hardware-aligned (IBM PCM is BSC)
+- Source: Karandashev-Kryzhanovsky 2017; iter-3 hardware analysis
+
+### MX17. Ferroelectric HfZrO FeFET-inspired multi-timescale W
+HfZrO FeFETs have built-in fast/slow weight separation in silicon. Two-pool
+analog: maintain W_fast (fast updates, fast decay) and W_slow (slow updates,
+no decay), combine at readout. Built-in alpha/beta relaxation by design.
+- Source: Mulaosmanovic et al. Nat. Electron. 2020; Halter et al. Comm. Mater. 2023
+
+### MX18. Information bottleneck diagnostic
+Estimate mutual information I(pool; next-byte) and I(pool; full-history) over
+training. Should grow then plateau on the first; should compress on the second.
+- Diagnostic of how the pool's representation evolves
+- Source: Tishby-Pereira-Bialek 1999; Tishby-Zaslavsky arXiv:1503.02406
+
+## The single most important takeaway from the 3-iteration arc
+
+The 0.115 bits/char gap is most likely a quenched-disorder / clustering
+phenomenon, not a representational shortcoming. The FHRR atoms are quenched
+disorder, the pool dynamics are slow, and the loss landscape has the structural
+signatures of either a non-convex 1RSB system or a Bouchaud trap system.
+
+This means the gap is NOT closed by adding parameters - it is closed by changing
+the SAMPLING DYNAMICS (PT, population annealing) or the SUBSTRATE (BSC, where
+moves are native). Optimizer choice dominates capacity choice in this regime.
+
+Experiment MX10 (PT + P(q) measurement) is the definitive empirical test of this
+hypothesis.
+
+## Genuinely open theoretical question
+
+Is there a Parisi-style overlap order parameter for vector symbolic architectures
+with random fixed codebooks under local Hebbian learning? The Mei-Montanari
+random-features analysis assumes ridge regression (convex). The Krzakala-Zdeborova
+cavity method assumes sparse factor graphs. Neither covers the HDC case: dense
+random codebook + non-convex local update + multi-epoch. We do not have a
+rigorous theory predicting whether P(q) is uni-, bi-, or continuously-supported
+for this class. MX10 would be the first empirical measurement.
+
 ### MX9. Lyapunov-Krasovskii spectral check for pool+W system
 Compute lambda_max(pool-feedback Jacobian). System provably exponentially stable if lambda_max < 1 - decay.
 - Diagnostic, tells us if pool size is too large for stability
