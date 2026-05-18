@@ -213,9 +213,24 @@ Started autonomous queue at end of session, with these incremental findings:
 
 - **Wave 14.A shuffle Hopf (CPU)**: **100% recovery in all conditions** —
   both known-split-position AND all-splits-enumerated. The deconcatenation
-  coproduct DOES deliver explicit decomposition. Caveat: test used
-  one-hot word encoding which makes NN cleanup trivial. Need Wave 14.B
-  with random hypervector encoding to validate at HDC scale.
+  coproduct DOES deliver explicit decomposition.
+
+  **REFRAMING (post-deep-look):** Wave 14.A operates on integer-indexed
+  symbolic words with literal concatenation, not on HDC random hypervectors
+  with proper binding. The 100% recovery is for SYMBOLIC SEQUENCE
+  MATCHING with Hopf framing, not for HDC. Translation to HDC requires
+  Wave 14.B with: (1) non-commutative binding on random hypervectors,
+  (2) lossy bundling, (3) resonator-network-style cleanup. Wave 14.A is
+  a proof-of-concept that the GRADED COMBINATORIAL HOPF class delivers
+  decomposition in toy form, NOT proof that random-HDC inherits the
+  property.
+
+  **What's actually validated:** the conceptual divide between ungraded
+  Hopf algebras (H_4, group algebras, where Δ mixes structure
+  algebraically) vs graded combinatorial Hopf algebras (shuffle,
+  Connes-Kreimer, Loday-Ronco) — the latter class has explicit
+  decomposition coproducts that work cleanly on toy data. This narrows
+  the future direction: pursue shuffle/CK class, not H_4 class.
 
 ### Autonomous queue final results (autonomously executed; 6/7 succeeded)
 
