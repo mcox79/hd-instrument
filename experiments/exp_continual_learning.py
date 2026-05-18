@@ -473,7 +473,7 @@ def main():
     _say(f"  Conditions: {CONDITIONS}")
     _say(f"  Total runs: {len(SUBSTRATES) * len(CONDITIONS)}")
     _say(f"  Lit: van de Ven 2020/2022; Bricken et al. 2023 SDM-as-CL; Yildiz 2024")
-    _say(f"  Prediction: SBC forgetting (sequential A→B) < BSC ≈ FHRR forgetting")
+    _say(f"  Prediction: SBC forgetting (sequential A then B) less than BSC and FHRR forgetting")
 
     all_runs = []
     t_all = time.perf_counter()
