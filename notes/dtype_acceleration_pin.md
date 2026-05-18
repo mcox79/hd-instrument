@@ -1,9 +1,9 @@
 # PINNED: dtype / Tensor Core acceleration
 
 Date pinned: 2026-05-18
-Date revised: 2026-05-18 (after empirical test below)
-Status: Open. The cheap path was empirically tested and **did not work**.
-The real speedup path is significantly more work than initially estimated.
+Date revised: 2026-05-18 (after empirical test + literature audit below)
+Status: **CLOSED for action at current scale.** Conclusion: do nothing.
+Reopen only if specific trigger conditions (listed at bottom) fire.
 
 ## Problem
 
@@ -98,3 +98,99 @@ heavily tuned and beating them via reimplementation is rare.
 **Add to playbook:** before any "this will be faster" rewrite, run a
 1-batch benchmark on the proposed new code path FIRST. If the benchmark
 doesn't show a speedup, don't do the rewrite.
+
+## Literature audit (2026-05-18, after empirical failure)
+
+A focused research pass confirmed the empirical result with citations.
+Summary of the findings (full notes in agent transcript):
+
+1. **cuBLAS complex64 GEMM does NOT use Tensor Cores at all.**
+   The `CUBLAS_COMPUTE_32F_FAST_TF32` and `_FAST_16F` enums exist only for
+   real `CUDA_R_32F` inputs. The complex variants `CUDA_C_32F` /
+   `cublasCgemm` have no documented tensor-core math mode and dispatch
+   to FP32 SM cores. There is no PyTorch issue or NVIDIA release note
+   announcing a change in this through CUDA 13.2 (Apr 2026).
+   Source: NVIDIA cuBLAS docs.
+
+2. **TF32 toggles do literally nothing for complex64.**
+   `torch.backends.cuda.matmul.allow_tf32 = True` and
+   `torch.set_float32_matmul_precision("high")` only affect real FP32
+   matmul. Our experiment confirmed this — the `set_float32_matmul_precision`
+   line in the failed rewrite did not change anything for the complex64
+   baseline.
+
+3. **The naive (re, im) split is structurally slower.** cuBLAS's
+   `cgemm` is already a single fused complex kernel with good memory
+   coalescing. Decomposing into 4 PyTorch real matmuls launches 4
+   separate kernels and triples memory traffic — matches our 7× slowdown.
+
+4. **DeltaNet, Gated DeltaNet, and Mamba intentionally avoid complex.**
+   They explicitly rewrite recurrences as real matmuls "to leverage
+   tensor cores" (DeltaNet 2024 §hardware-efficient). Mamba uses real
+   diagonals (S4D-Real); only Mamba-3 reintroduces complex, and that as
+   a *data-dependent rotary embedding* applied to real tensors. The
+   Schlag IDSIA fast-weight toolkit ships a custom real-valued CUDA
+   kernel — no complex path. The mainstream literature has voted with
+   their feet: complex on GPU is not worth the tooling pain at scale.
+
+5. **torch.compile is buggy on complex64 as of 2026** (PyTorch issue
+   #171850). Not a reliable acceleration route.
+
+6. **The only credible speedup path** is `torch.view_as_real` + packed
+   2N×2N real GEMM, which doubles arithmetic and is only a win when N is
+   large enough that the tensor-core benefit exceeds the 2× arithmetic
+   penalty. At N=4096 this is firmly NOT the case. Even at N=16384,
+   marginal — would need Nsight Compute profiling to verify tensor-core
+   engagement before believing the rewrite is worth it.
+
+## Recommended action (final)
+
+**Do nothing. complex64 is the right choice at our scale.** At N≤16384
+with B=64, our hot-loop GEMMs are sub-millisecond on plain CUDA cores.
+We are bandwidth-bound long before compute-bound, and cublasCgemm is
+already a single fused kernel with good memory coalescing.
+
+Engineering budget should go to the algorithmic side (the FHRR memory
+itself, the Hebbian update rule), where the ceiling is much higher than
+a 2× kernel win.
+
+## Trigger conditions to reopen
+
+Reopen this pin only if ALL of the following hold:
+1. We have profiled the current implementation with Nsight Compute and
+   confirmed that GEMM is the dominant cost (not Python overhead,
+   pool insertion, or data loading).
+2. N ≥ 32768 is necessary for an experiment we actually want to run.
+3. A 60-line micro-benchmark (per Q5 of the audit: warmup + ≥100
+   timed reps with `torch.cuda.Event`, median + p10/p90) shows a clear
+   ≥2× speedup from `torch.view_as_real` + packed-real GEMM at the
+   target N.
+
+If only condition (2) fires without (1) and (3), the right move is to
+profile and benchmark, NOT to rewrite.
+
+## Benchmark protocol (lifted from literature audit Q5)
+
+When we eventually do need to benchmark a rewrite candidate:
+
+```python
+import torch
+torch.backends.cudnn.benchmark = True
+# Lock GPU clocks if possible (nvidia-smi -lgc <max_freq>)
+
+def benchmark(fn, *args, warmup=20, iters=100):
+    for _ in range(warmup): fn(*args)
+    torch.cuda.synchronize()
+    events = [(torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True))
+              for _ in range(iters)]
+    for s, e in events:
+        s.record(); fn(*args); e.record()
+    torch.cuda.synchronize()
+    times = sorted(s.elapsed_time(e) for s, e in events)
+    return {"median_ms": times[iters // 2], "p10_ms": times[iters // 10],
+            "p90_ms": times[9 * iters // 10]}
+```
+
+Decision rule: if surrogate predicts < 1.5× and we cannot prove tensor-core
+engagement via Nsight Compute, **do not rewrite.** Below 2×, kernel-launch
+overhead and memory-traffic increase routinely erase predicted gains.
