@@ -1,30 +1,30 @@
 """Wave 13.2: Sweedler's H_4 — smallest non-trivial Hopf algebra VSA.
 
 Per the survey doc (notes/hopf_algebra_survey.md), H_4 is the key test:
-the simplest Hopf algebra with NON-COCOMMUTATIVE Δ, which is the
+the simplest Hopf algebra with NON-COCOMMUTATIVE Delta, which is the
 property that gives Hopf-VSA its distinguishing capability over standard
 VSA.
 
 H_4 algebra (4-dimensional):
 - Basis: {1, g, x, gx}
 - g·g = 1, x·x = 0, g·x = -x·g
-- Comultiplication: Δ(1)=1⊗1, Δ(g)=g⊗g, Δ(x)=x⊗1+g⊗x, Δ(gx)=gx⊗g+1⊗gx
+- Comultiplication: Delta(1)=1⊗1, Delta(g)=g⊗g, Delta(x)=x⊗1+g⊗x, Delta(gx)=gx⊗g+1⊗gx
 - Antipode: S(1)=1, S(g)=g, S(x)=-gx, S(gx)=x
 
-The Δ(x) formula is the genuinely new VSA primitive: it tells us how
+The Delta(x) formula is the genuinely new VSA primitive: it tells us how
 the "x component" of a bound vector decomposes across the tensor product.
 
 This test:
-1. Implement H_4 algebra operations + Δ + S
+1. Implement H_4 algebra operations + Delta + S
 2. Stack 1024 H_4 copies → 4096-dim hypervectors
 3. Verify non-cocommutativity numerically
-4. Δ-recovery test: given c = a*b for random atoms a, b, does Δ(c) +
+4. Delta-recovery test: given c = a*b for random atoms a, b, does Delta(c) +
    SVD decomposition recover a, b?
-5. Multi-bind test: given c = sum_i a_i*b_i, does Δ+SVD identify the
+5. Multi-bind test: given c = sum_i a_i*b_i, does Delta+SVD identify the
    constituent pairs?
 6. Compare to standard codebook nearest-neighbor recovery
 
-If Δ-recovery works better than naive at moderate K (≥4), Hopf-VSA's
+If Delta-recovery works better than naive at moderate K (≥4), Hopf-VSA's
 core premise is validated. Move to Drinfeld double for the full version.
 """
 
@@ -90,30 +90,33 @@ def build_h4_multiplication_tensor():
 
 
 def build_h4_delta_matrix():
-    """Δ: H → H ⊗ H. Returns shape (H_DIM, H_DIM, H_DIM) where
-    Delta[i, p, q] = coefficient of (basis[p] ⊗ basis[q]) in Δ(basis[i]).
+    """Delta: H → H ⊗ H. Returns shape (H_DIM, H_DIM, H_DIM) where
+    Delta[i, p, q] = coefficient of (basis[p] ⊗ basis[q]) in Delta(basis[i]).
 
-    Δ(1) = 1 ⊗ 1
-    Δ(g) = g ⊗ g
-    Δ(x) = x ⊗ 1 + g ⊗ x
-    Δ(gx) = gx ⊗ g + 1 ⊗ gx
+    Delta(1) = 1 ⊗ 1
+    Delta(g) = g ⊗ g
+    Delta(x) = x ⊗ 1 + g ⊗ x
+    Delta(gx) = gx ⊗ g + 1 ⊗ gx
     """
     D = torch.zeros((H_DIM, H_DIM, H_DIM))
-    D[0, 0, 0] = 1.0                    # Δ(1) = 1 ⊗ 1
-    D[1, 1, 1] = 1.0                    # Δ(g) = g ⊗ g
-    D[2, 2, 0] = 1.0; D[2, 1, 2] = 1.0  # Δ(x) = x ⊗ 1 + g ⊗ x
-    D[3, 3, 1] = 1.0; D[3, 0, 3] = 1.0  # Δ(gx) = gx ⊗ g + 1 ⊗ gx
+    D[0, 0, 0] = 1.0                    # Delta(1) = 1 ⊗ 1
+    D[1, 1, 1] = 1.0                    # Delta(g) = g ⊗ g
+    D[2, 2, 0] = 1.0; D[2, 1, 2] = 1.0  # Delta(x) = x ⊗ 1 + g ⊗ x
+    D[3, 3, 1] = 1.0; D[3, 0, 3] = 1.0  # Delta(gx) = gx ⊗ g + 1 ⊗ gx
     return D
 
 
 def h4_antipode_indices():
-    """S: H → H. S(1)=1, S(g)=g, S(x)=-gx, S(gx)=x.
+    """S: H -> H. S(1)=1, S(g)=g, S(x)=-gx, S(gx)=x.
 
-    Returns (perm_indices, signs) so that S(a) = signs[i] * a[perm[i]].
+    Output_i = signs[i] * a[perm[i]]. We need:
+      output[0] = a[0]      (S(1)=1)
+      output[1] = a[1]      (S(g)=g)
+      output[2] = a[3]      (S(gx)=x: gx-component contributes to x-position, sign +1)
+      output[3] = -a[2]     (S(x)=-gx: x-component contributes to gx-position, sign -1)
     """
-    # S maps: 0 -> 0 (1->1), 1 -> 1 (g->g), 2 -> 3 (x->-gx), 3 -> 2 (gx->x)
     perm = torch.tensor([0, 1, 3, 2], dtype=torch.long)
-    signs = torch.tensor([1.0, 1.0, -1.0, 1.0])
+    signs = torch.tensor([1.0, 1.0, 1.0, -1.0])  # corrected from earlier buggy [1,1,-1,1]
     return perm, signs
 
 
@@ -123,7 +126,7 @@ def h4_multiply(a, b, T):
 
 
 def h4_delta(a, D):
-    """Per-slot comultiplication: Δ(a)[..., s, p, q] = sum_i D[i,p,q] a[s, i]."""
+    """Per-slot comultiplication: Delta(a)[..., s, p, q] = sum_i D[i,p,q] a[s, i]."""
     return torch.einsum('ipq,...si->...spq', D, a)
 
 
@@ -139,20 +142,20 @@ def make_h4_atoms(n_atoms, gen):
     return raw / norms
 
 
-def slot_svd_top2(Δc):
-    """Per-slot SVD of Δ(c) viewed as (H_DIM, H_DIM) matrix. Return top-2 components.
+def slot_svd_top2(Deltac):
+    """Per-slot SVD of Delta(c) viewed as (H_DIM, H_DIM) matrix. Return top-2 components.
 
-    Δc shape: (..., STACK, H_DIM, H_DIM).
+    Deltac shape: (..., STACK, H_DIM, H_DIM).
     Returns (U, S, V) all of shape (..., STACK, H_DIM, 2).
     """
     # SVD on the (H_DIM, H_DIM) inner matrix per slot
-    U, S, Vh = torch.linalg.svd(Δc, full_matrices=False)
+    U, S, Vh = torch.linalg.svd(Deltac, full_matrices=False)
     # Take top 2 components
     return U[..., :2], S[..., :2], Vh[..., :2, :].transpose(-2, -1)
 
 
 def main() -> None:
-    _say("Wave 13.2: Sweedler H_4 Hopf algebra VSA — capacity + Δ-recovery toy test")
+    _say("Wave 13.2: Sweedler H_4 Hopf algebra VSA - capacity + Delta-recovery toy test")
     _say(f"  H_DIM={H_DIM}, STACK={STACK}, N_TOTAL={N_TOTAL}")
     _say(f"  num_atoms={NUM_ATOMS}, K_bind_values={K_BIND_VALUES}, trials={NUM_TRIALS}")
 
@@ -178,19 +181,19 @@ def main() -> None:
     _say(f"  g*x = {gx[0,0].tolist()}  (expected [0,0,0,1])")
     _say(f"  -> non-commutative: g*x != x*g (differ in sign), good.")
 
-    # 4. Δ(x) check
-    Δx = h4_delta(x, D_tensor)
-    _say(f"  Δ(x) shape: {tuple(Δx.shape)}")
-    _say(f"  Δ(x) values: {Δx[0,0].tolist()}")
+    # 4. Delta(x) check
+    Deltax = h4_delta(x, D_tensor)
+    _say(f"  Delta(x) shape: {tuple(Deltax.shape)}")
+    _say(f"  Delta(x) values: {Deltax[0,0].tolist()}")
     # Expected: x ⊗ 1 + g ⊗ x, so non-zero at (2, 0) and (1, 2)
-    _say(f"    expected: 1 at [2][0] (x⊗1), 1 at [1][2] (g⊗x), 0 elsewhere")
+    _say(f"    expected: 1 at [2][0] (x tensor 1), 1 at [1][2] (g tensor x), 0 elsewhere")
 
     # 5. Non-cocommutativity check
-    Δx_sigma = Δx.transpose(-2, -1)  # swap tensor factors
-    cocom_diff = (Δx - Δx_sigma).abs().sum().item()
-    _say(f"  |Δ(x) - σ·Δ(x)| = {cocom_diff:.4f}  (should be > 0)")
+    Deltax_sigma = Deltax.transpose(-2, -1)  # swap tensor factors
+    cocom_diff = (Deltax - Deltax_sigma).abs().sum().item()
+    _say(f"  |Delta(x) - sigma.Delta(x)| = {cocom_diff:.4f}  (should be > 0)")
     if cocom_diff < 1e-6:
-        _say(f"  WARNING: Δ looks cocommutative for x!")
+        _say(f"  WARNING: Delta looks cocommutative for x!")
 
     # 6. Antipode round-trip: S(S(x)) should give -x (S has period 4 for x)
     Sx = h4_antipode(x, s_perm, s_signs)
@@ -204,9 +207,9 @@ def main() -> None:
     _say(f"  shape: {tuple(atoms.shape)}")
 
     # ============================================================
-    # Δ-recovery test: given c = a * b for random atoms, recover a and b
+    # Delta-recovery test: given c = a * b for random atoms, recover a and b
     # ============================================================
-    _say(f"\nΔ-recovery test (binary bind, K=2):")
+    _say(f"\nDelta-recovery test (binary bind, K=2):")
     correct_naive = 0
     correct_svd = 0
     for trial in range(NUM_TRIALS):
@@ -216,10 +219,10 @@ def main() -> None:
         a = atoms[a_idx]
         b = atoms[b_idx]
         c = h4_multiply(a.unsqueeze(0), b.unsqueeze(0), T).squeeze(0)  # (STACK, H_DIM)
-        # Compute Δ(c)
-        Δc = h4_delta(c, D_tensor)  # (STACK, H_DIM, H_DIM)
+        # Compute Delta(c)
+        Deltac = h4_delta(c, D_tensor)  # (STACK, H_DIM, H_DIM)
         # Per-slot SVD; take top-2 (U, S, V) components
-        U, S_sv, V = slot_svd_top2(Δc)  # each (STACK, H_DIM, 2)
+        U, S_sv, V = slot_svd_top2(Deltac)  # each (STACK, H_DIM, 2)
 
         # Naive cleanup: nearest-atom by flat inner product with c
         c_flat = c.reshape(-1)
@@ -253,8 +256,8 @@ def main() -> None:
             correct_svd += 1
 
     _say(f"  Naive (top-2 codebook): {correct_naive}/{NUM_TRIALS} correct")
-    _say(f"  Δ+SVD cleanup:          {correct_svd}/{NUM_TRIALS} correct")
-    _say(f"  Δ+SVD advantage: {(correct_svd - correct_naive) / NUM_TRIALS:+.3f}")
+    _say(f"  Delta+SVD cleanup:          {correct_svd}/{NUM_TRIALS} correct")
+    _say(f"  Delta+SVD advantage: {(correct_svd - correct_naive) / NUM_TRIALS:+.3f}")
 
     # ============================================================
     # Multi-bind capacity test: K bindings bundled
@@ -288,17 +291,17 @@ def main() -> None:
         _say(f"  K={K:2d}: recovery acc = {acc:.3f}")
 
     _say(f"\n========= SUMMARY =========")
-    _say(f"  Sweedler H_4 with non-trivial Δ implemented and verified")
-    _say(f"  Δ-SVD cleanup vs naive on binary bind: {correct_svd - correct_naive:+d} of {NUM_TRIALS}")
+    _say(f"  Sweedler H_4 with non-trivial Delta implemented and verified")
+    _say(f"  Delta-SVD cleanup vs naive on binary bind: {correct_svd - correct_naive:+d} of {NUM_TRIALS}")
     _say(f"  Multi-bind recovery curve:")
     for r in results:
         _say(f"    K={r['K']}: {r['recovery_acc']:.3f}")
     if correct_svd > correct_naive + 5:
-        _say(f"\n  PHASE A SUPPORT: Δ-SVD cleanup beats naive. Move to Drinfeld double (Wave 13.3).")
+        _say(f"\n  PHASE A SUPPORT: Delta-SVD cleanup beats naive. Move to Drinfeld double (Wave 13.3).")
     elif correct_svd >= correct_naive:
-        _say(f"\n  PHASE A NEUTRAL: Δ-SVD matches naive. Investigate algorithm before D(S_3).")
+        _say(f"\n  PHASE A NEUTRAL: Delta-SVD matches naive. Investigate algorithm before D(S_3).")
     else:
-        _say(f"\n  PHASE A WEAK: naive beats Δ-SVD. Algorithm needs work; possibly H_4 too small.")
+        _say(f"\n  PHASE A WEAK: naive beats Delta-SVD. Algorithm needs work; possibly H_4 too small.")
 
     out = {"seed": SEED, "h_dim": H_DIM, "stack": STACK, "n_total": N_TOTAL,
            "num_atoms": NUM_ATOMS, "K_bind_values": K_BIND_VALUES, "num_trials": NUM_TRIALS,
