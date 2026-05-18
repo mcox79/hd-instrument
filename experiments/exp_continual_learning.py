@@ -42,6 +42,7 @@ Lit anchors:
 
 from __future__ import annotations
 
+import argparse
 import json
 import time
 from pathlib import Path
@@ -387,38 +388,41 @@ def run_substrate_condition(substrate, condition, A_train, A_test, B_train, B_te
                 _say(f"    [{substrate}/{condition} ep={epoch}] A={A_bpc:.4f}  B={B_bpc:.4f}  ({time.perf_counter()-t_start:.1f}s)")
 
     elif condition == "joint_AB":
-        # Interleave by alternating batches A and B in each "epoch"
-        T_A_batches = A_train_idx.shape[0] // BATCH_SIZE + 1
-        T_B_batches = B_train_idx.shape[0] // BATCH_SIZE + 1
+        # Subsample B to A's batch count per epoch for a controlled joint baseline.
+        # Each epoch: do all of A's batches + a same-count random sample of B's batches,
+        # alternated. This matches standard "joint training" practice and bounds work.
+        n_a_batches = (A_train_idx.shape[0] + BATCH_SIZE - 1) // BATCH_SIZE
+        sub_gen = torch.Generator(device="cpu").manual_seed(SEED + 999)
         for epoch in range(1, EPOCHS_PER_PHASE + 1):
-            # Alternate A and B batches
-            a_pos = 0
-            b_pos = 0
-            while a_pos < A_train_idx.shape[0] or b_pos < B_train_idx.shape[0]:
-                if a_pos < A_train_idx.shape[0]:
-                    end = min(a_pos + BATCH_SIZE, A_train_idx.shape[0])
-                    ctxs = build_ctx(A_train_idx[a_pos:end])
-                    train_step(ctxs, A_train_tgt[a_pos:end])
+            # Sample n_a_batches random batch starts from B
+            n_b_avail = B_train_idx.shape[0]
+            b_starts = torch.randint(0, max(n_b_avail - BATCH_SIZE, 1), (n_a_batches,), generator=sub_gen).tolist()
+            # Iterate through A's batches and subsampled B's batches in alternation
+            for a_batch_idx in range(n_a_batches):
+                a_start = a_batch_idx * BATCH_SIZE
+                a_end = min(a_start + BATCH_SIZE, A_train_idx.shape[0])
+                if a_end > a_start:
+                    ctxs = build_ctx(A_train_idx[a_start:a_end])
+                    train_step(ctxs, A_train_tgt[a_start:a_end])
                     if epoch == 1:
                         B = ctxs.shape[0]
                         dest = (pool_idx + arange_b[:B]) % POOL_SIZE
                         pool_vecs.index_copy_(0, dest, ctxs)
-                        pool_labels.index_copy_(0, dest, A_train_tgt[a_pos:end])
+                        pool_labels.index_copy_(0, dest, A_train_tgt[a_start:a_end])
                         pool_idx = (pool_idx + B) % POOL_SIZE
                         pool_used = min(pool_used + B, POOL_SIZE)
-                    a_pos = end
-                if b_pos < B_train_idx.shape[0]:
-                    end = min(b_pos + BATCH_SIZE, B_train_idx.shape[0])
-                    ctxs = build_ctx(B_train_idx[b_pos:end])
-                    train_step(ctxs, B_train_tgt[b_pos:end])
+                b_start = b_starts[a_batch_idx]
+                b_end = min(b_start + BATCH_SIZE, B_train_idx.shape[0])
+                if b_end > b_start:
+                    ctxs = build_ctx(B_train_idx[b_start:b_end])
+                    train_step(ctxs, B_train_tgt[b_start:b_end])
                     if epoch == 1:
                         B = ctxs.shape[0]
                         dest = (pool_idx + arange_b[:B]) % POOL_SIZE
                         pool_vecs.index_copy_(0, dest, ctxs)
-                        pool_labels.index_copy_(0, dest, B_train_tgt[b_pos:end])
+                        pool_labels.index_copy_(0, dest, B_train_tgt[b_start:b_end])
                         pool_idx = (pool_idx + B) % POOL_SIZE
                         pool_used = min(pool_used + B, POOL_SIZE)
-                    b_pos = end
             if epoch in EVAL_EVERY_EPOCHS:
                 A_bpc = evaluate(A_test_idx, A_test_tgt)
                 B_bpc = evaluate(B_test_idx, B_test_tgt)
@@ -456,7 +460,20 @@ def run_substrate_condition(substrate, condition, A_train, A_test, B_train, B_te
             "wall_s": time.perf_counter() - t_start}
 
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--substrate", choices=["FHRR", "BSC", "SBC", "all"], default="all")
+    parser.add_argument("--condition", choices=["A_only", "B_only", "joint_AB", "sequential_AB", "all"],
+                        default="all")
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    substrates_to_run = SUBSTRATES if args.substrate == "all" else [args.substrate]
+    conditions_to_run = CONDITIONS if args.condition == "all" else [args.condition]
+    chunk_tag = f"{args.substrate}_{args.condition}" if (args.substrate != "all" or args.condition != "all") else "all"
+    _say(f"Chunk: substrate={args.substrate}, condition={args.condition}")
     _say("Loading corpora...")
     A, B = load_corpora()
     _say(f"  A (markdown): {len(A)} bytes")
@@ -477,18 +494,29 @@ def main():
 
     all_runs = []
     t_all = time.perf_counter()
-    for substrate in SUBSTRATES:
-        for condition in CONDITIONS:
+    out_path = Path(__file__).resolve().parent.parent / "data" / "exp_continual_learning"
+    out_path.mkdir(parents=True, exist_ok=True)
+    for substrate in substrates_to_run:
+        for condition in conditions_to_run:
             _say(f"\n=== {substrate} / {condition} ===")
-            torch.cuda.empty_cache()  # release between conditions to avoid fragmentation in long runs
+            torch.cuda.empty_cache()
             r = run_substrate_condition(substrate, condition, A_train, A_test, B_train, B_test)
             all_runs.append(r)
+            # Incremental save: write each completed chunk to its own JSON
+            chunk_file = out_path / f"chunk_{substrate}_{condition}.json"
+            chunk_file.write_text(json.dumps(r, indent=2, default=str))
+            _say(f"  -> saved {chunk_file.name}")
 
     # Compute summary metrics per substrate
     _say(f"\n========= CONTINUAL LEARNING METRICS =========")
     summary = []
-    for substrate in SUBSTRATES:
+    for substrate in substrates_to_run:
         runs = {r["condition"]: r for r in all_runs if r["substrate"] == substrate}
+        # Only compute summary if all 4 conditions are present
+        if not all(c in runs for c in CONDITIONS):
+            missing = [c for c in CONDITIONS if c not in runs]
+            _say(f"  {substrate}: skipping summary (missing conditions: {missing})")
+            continue
         A_only_history = runs["A_only"]["history"]
         B_only_history = runs["B_only"]["history"]
         joint_history = runs["joint_AB"]["history"]
