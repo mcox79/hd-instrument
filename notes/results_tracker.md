@@ -394,6 +394,77 @@ pool overwrite) by selectively disabling each during Phase 2.
 - joint_AB (upper bound, both trained): BSC handles both best
 - sequential_AB (the real CL test): all fail similarly
 
+### Wave 3a post-result audit (2026-05-18) — corrections to the interpretation above
+
+A focused literature audit (per the standing "research-on-findings" rule)
+revealed I had over-claimed the Wave 3a result. The corrected interpretation:
+
+1. **"SBC doesn't help with continual learning" is OVER-CLAIMED.** Bricken et al.
+   2023 *Sparse Distributed Memory is a Continual Learner* (arXiv:2303.11934)
+   tested on image classification (MNIST/CIFAR-10/100) with a specific recipe
+   (Top-K activations + L2-normalized weights + positive-W constraints +
+   EWC). Our SBC implementation has none of these. **We did not falsify
+   their hypothesis; we tested a different setup that happens to use sparse
+   block codes.**
+
+2. **The naive BWT-style metric is GEM-standard** (Lopez-Paz Ranzato 2017,
+   arXiv:1706.08840). Modern lit (Díaz-Rodríguez 2018, Spurious Forgetting
+   2025) acknowledges the start-point artifact and recommends reporting
+   BOTH raw BWT AND normalized retention. My "naive vs normalized"
+   contrast was an artifact of the comparison framing, not a methodological
+   error.
+
+3. **86% retention loss is TYPICAL, not pathological.** Van de Ven 2024
+   survey (arXiv:2403.05175) and Yildiz 2024 (arXiv:2402.17400) report
+   40-90% retention loss is standard for un-mitigated sequential single-W
+   systems. Mapping Post-Training Forgetting 2025 (arXiv:2510.17776)
+   shows +1.0-2.5 bpc shift is the modal outcome on A after a single
+   domain shift in small models. **Our +2.15 bpc is in band, not unusual.**
+
+4. **Wave 3a.5 is missing the literature-standard mitigation: rehearsal.**
+   Interleaving even 1-5% of A-bytes during Phase 2 dominates sophisticated
+   regularization on small-LM continual pretraining (Scalable Strategies
+   2025 arXiv:2505.12512, MSSR arXiv:2603.09892, Yildiz 2024). My three
+   mitigations (decay_off / W_frozen / dual_pool) are crude weight-
+   preservation; the literature answer is rehearsal.
+
+5. **We ARE filling a real literature gap.** Per the audit: "Our Wave 3a
+   result appears to be the first reported HDC/VSA continual byte-LM
+   comparison." There's no published baseline to anchor "good" vs "bad."
+   This is a genuine contribution but it also means no comparison number.
+
+### Corrected framing of Wave 3a result
+
+**Headline (corrected):** Three VSA substrates (FHRR / BSC / SBC) all
+exhibit literature-typical catastrophic forgetting under un-mitigated
+sequential A→B training. **This is the expected baseline, not a finding.**
+The substrate ranking after Phase 2 is BSC ≈ FHRR > SBC on absolute
+retention; SBC's smaller raw BWT delta is a starting-point artifact, not
+genuine retention. **The Bricken 2023 SDM-pattern-separation claim
+remains untested in our setup because the required architectural recipe
+(Top-K + L2-norm + positive-W + EWC) was not implemented.**
+
+### Wave 3a.6 — proper literature-standard mitigation test (planned)
+
+To close the Bricken-claim gap and the rehearsal gap, Wave 3a.6 will add:
+
+- **Rehearsal mitigation** (2% A-byte interleave in Phase 2) for all 3
+  substrates — the literature-standard mitigation we were missing.
+- **EWC-lite anchor** (L2 penalty on W toward W_postA, Fisher proxy =
+  squared mean delta-rule update magnitudes from Phase 1) — partial
+  reproduction of Bricken's required EWC component.
+- **Parameter-matched 4M-param transformer baseline** trained sequentially
+  A→B with no mitigation — gives an apples-to-apples bpc comparison
+  instead of citing literature ranges (van de Ven 2024 et al.).
+- **Optional: full Bricken recipe on SBC** (Top-K cleanup + L2-norm W +
+  positive-W constraint + EWC) — actually tests the SDM-CL hypothesis.
+
+Wave 3a.5's current mitigations (decay_off / W_frozen / dual_pool)
+remain useful as ARCHITECTURE-DECOMPOSITION probes — they tell us which
+mechanism inside our system is doing the most forgetting — but they
+don't address whether mitigations from the broader literature would fix
+the problem.
+
 ## Literature landscape (audit, 2022-2026)
 
 Where our work sits in the current field, per literature audit:
