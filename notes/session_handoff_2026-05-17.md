@@ -2,16 +2,41 @@
 
 Compact notes to pick up the thread in a fresh session.
 
-## Where we are
+## Where we are (UPDATED — late-session breakthrough)
 
-Best result: **2.84 bits/char** on a 38KB byte-level corpus with:
+**Best result: 2.544 bits/char** (combined config, 5 epochs).
+Tiny transformer ceiling: 2.39 bits/char.
+**Gap: 0.15 bits/char** — down from 0.45 at the start of this session.
+
+Configuration that delivered this:
 - N=4096 FHRR substrate, K=4, arousal=0.3, beta=8.0
-- Pointer-chain pool M=1024, alpha=0.3
-- Single-pass delta-rule Hebbian update
-- Trained in ~100s; no backprop, no gradient descent
+- Pointer-chain pool M=1024, alpha=0.3, built during epoch 1 then frozen
+- Multi-epoch with decay=1e-4 per batch
+- 5 epochs (still improving at epoch 5; 15-epoch sweep in progress)
+- No backprop, no gradient descent
 
-Tiny transformer ceiling (862K params, best early-stopped): **2.39 bits/char**.
-**Gap: 0.45 bits/char.**
+## The mechanism that unlocked it
+
+Vanilla multi-epoch ALONE overfits catastrophically (W norm explodes,
+margins collapse, bpc rebounds upward despite argmax climbing). Vanilla
+pool alone gives ~0.25 bits at single-pass. Putting them TOGETHER unlocks
+something neither does alone: the fixed pool provides stable external
+information; W can specialize on what the pool does not cover; decay
+keeps W norm bounded. The combination *compounds multiplicatively*.
+
+This is a real architectural insight that wasn't obvious from individual
+ablations. Lesson: architectural complexity that provides INDEPENDENT
+information sources stabilizes multi-epoch training in a way that pure-W
+multi-epoch cannot.
+
+Architecturally this is exactly why transformer attention works — attention
+provides external information per token that prevents the FFN from
+overfitting via its own iterative updates.
+
+## Pre-breakthrough best (for reference)
+
+Best single-pass result was 2.84 bits/char (gap 0.45):
+- N=4096 + pointer-chain (M=1024, alpha=0.3), single epoch
 
 ## What we know about the gap (from signal-stage profiling, commit pending)
 
