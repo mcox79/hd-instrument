@@ -192,6 +192,31 @@ double), 17 (Steenrod).
 - `project_two_bets.md`, `project_observability_layer.md`, `project_research_playbook.md`
 - `reference_repo.md`
 
+## Autonomous-session updates (running log)
+
+Started autonomous queue at end of session, with these incremental findings:
+
+- **Wave 11 LDPC unit test (CPU)**: INCONCLUSIVE. Both naive and LDPC achieve
+  100% at all noise levels (2-30%). Test was too easy — 1024-dim random
+  codewords stay separable even at 30% bit-flip. Re-test needed with higher
+  noise or smaller dim before declaring LDPC has no advantage.
+
+- **Wave 8 Clifford G(2,0) (GPU)**: bpc = 3.0569. **+0.55 worse than FHRR**.
+  The audit's "grades act like multi-heads, 0.2-0.4 bpc gain" prediction
+  was WRONG. Non-commutative geometric product alone doesn't help at byte LM
+  scale. Possible reasons: G(2,0) is too small (4-dim slots), or the
+  W readout doesn't benefit from the algebraic structure.
+
+- **Wave 12 qFHRR (GPU)**: CRASHED with CUDA stack overrun on Q4. Needs
+  debugging. The torch.complex(cos, sin) construction with quantized phases
+  might have a shape mismatch or memory issue.
+
+- **Wave 14.A shuffle Hopf (CPU)**: **100% recovery in all conditions** —
+  both known-split-position AND all-splits-enumerated. The deconcatenation
+  coproduct DOES deliver explicit decomposition. Caveat: test used
+  one-hot word encoding which makes NN cleanup trivial. Need Wave 14.B
+  with random hypervector encoding to validate at HDC scale.
+
 ## How autonomous execution should proceed
 
 When user is away, work the priority queue:
