@@ -19,6 +19,9 @@ from hdlab import experiment, memory  # noqa: E402
 from reference import bsc  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def _bsc_codebook_lookup(stacked: torch.Tensor, names: list[str], query: torch.Tensor) -> tuple[str, float]:
     sims = bsc.similarity(query.unsqueeze(0).expand_as(stacked), stacked)
     best = int(sims.argmax())

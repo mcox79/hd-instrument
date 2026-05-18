@@ -28,6 +28,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, learning, modulators, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_ENTITIES = 50
 N_FACTS = 150
 N_HOPS_TESTED = [1, 2, 3, 4, 5]
@@ -106,7 +109,7 @@ def resonator_query_khop(knowledge, source_idx, entity_vecs, k_hops, top_k, temp
 
 
 def hebbian_spread(weight_matrix, source_idx, k_hops, n_entities):
-    activation = torch.zeros(n_entities, dtype=torch.float32)
+    activation = torch.zeros(n_entities, dtype=torch.float32, device=DEVICE)
     activation[source_idx] = 1.0
     for _ in range(k_hops):
         new_act = weight_matrix @ activation
@@ -126,7 +129,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
     with tracing.using(quiet_bus):
         graph = build_knowledge_graph(N_ENTITIES, N_FACTS, gen)
 
-        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)])
+        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)]).to(DEVICE)
 
         knowledge = encode_vsa_facts(graph, entity_vecs)
 
@@ -137,7 +140,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
             for _ in range(NUM_HEBBIAN_TRAINING_PASSES):
                 for a, b in graph:
                     h.update([entity_names[a], entity_names[b]])
-        W = torch.zeros((N_ENTITIES, N_ENTITIES), dtype=torch.float32)
+        W = torch.zeros((N_ENTITIES, N_ENTITIES), dtype=torch.float32, device=DEVICE)
         for i in range(N_ENTITIES):
             for j in range(N_ENTITIES):
                 if i != j:

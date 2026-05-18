@@ -31,6 +31,9 @@ import torch  # noqa: E402
 from hdlab import experiment, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_VALUES = [2048, 4096, 8192, 16384, 32768, 65536]
 DEPTH_VALUES = [3, 5, 7, 9, 11, 13, 16, 20, 25, 30, 40, 50]
 POOL_SIZE = 100

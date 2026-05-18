@@ -37,6 +37,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_SUBSTRATE = 4096
 N_ENTITIES = 30
 RELATION_NAMES = ["parent_of", "spouse_of", "lives_in", "works_at", "owns", "friend_of"]
@@ -72,7 +75,7 @@ def build_relation_matrices(
     """
     matrices: dict[str, torch.Tensor] = {}
     for rel, edges in graphs.items():
-        M = torch.zeros((n_entities, n_entities), dtype=torch.float32)
+        M = torch.zeros((n_entities, n_entities), dtype=torch.float32, device=DEVICE)
         for a, b in edges:
             M[a, b] = 1.0
         row_sum = M.sum(dim=1, keepdim=True)
@@ -88,7 +91,7 @@ def graph_query(
     n_entities: int,
 ) -> torch.Tensor:
     """Multi-hop graph traversal: start at source, apply each relation in turn."""
-    activation = torch.zeros(n_entities, dtype=torch.float32)
+    activation = torch.zeros(n_entities, dtype=torch.float32, device=DEVICE)
     activation[source_idx] = 1.0
     for rel in relation_sequence:
         activation = matrices[rel].T @ activation  # M.T because M[i,j]=row i to col j
@@ -170,7 +173,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
 
     with tracing.using(quiet_bus):
         # Build entities and relation atoms
-        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)])
+        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)]).to(DEVICE)
         relation_atoms = {rel: atoms.make_atom_fhrr(n, gen) for rel in RELATION_NAMES}
 
         # Build the multi-relation knowledge graph

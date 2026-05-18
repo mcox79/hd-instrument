@@ -99,6 +99,9 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
         ax2.set_title("M2: raw recovery similarity vs k (before cleanup decision)")
         # Plate-style theoretical 1/sqrt(k) reference for signal magnitude after normalization
         import math
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         theoretical = [1.0 / math.sqrt(k) for k in ks]
         ax2.plot(ks, theoretical, color="firebrick", linestyle="--", alpha=0.6, label="1/sqrt(k) signal")
         ax2.grid(True, alpha=0.3)

@@ -28,6 +28,9 @@ import torch
 from hdlab import atoms, binding, tracing
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 17
 VOCAB_SIZE = 256
 PAD_BYTE = 0
@@ -79,16 +82,16 @@ def train_one_pass(
     quiet = tracing.TraceBus(enabled=False)
     with tracing.using(quiet):
         gen = torch.Generator().manual_seed(seed)
-        byte_atoms = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(VOCAB_SIZE)])
-        pos_atoms = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(k)])
-        W = torch.zeros((n, n), dtype=torch.complex64)
+        byte_atoms = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(VOCAB_SIZE)]).to(DEVICE)
+        pos_atoms = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(k)]).to(DEVICE)
+        W = torch.zeros((n, n), dtype=torch.complex64, device=DEVICE)
 
         pad = bytes([PAD_BYTE]) * k
         padded = pad + train
         T = len(padded) - k
-        bytes_t = torch.tensor(list(padded), dtype=torch.long)
-        offsets = torch.arange(k - 1, -1, -1)
-        positions = torch.arange(T)
+        bytes_t = torch.tensor(list(padded), dtype=torch.long).to(DEVICE)
+        offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+        positions = torch.arange(T, device=DEVICE)
         idx = bytes_t[positions.unsqueeze(1) + offsets.unsqueeze(0)]
         tgt = bytes_t[positions + k]
 
@@ -116,9 +119,9 @@ def profile_stages(
     pad = bytes([PAD_BYTE]) * k
     padded = pad + test_bytes
     T = len(padded) - k
-    bytes_t = torch.tensor(list(padded), dtype=torch.long)
-    offsets = torch.arange(k - 1, -1, -1)
-    positions = torch.arange(T)
+    bytes_t = torch.tensor(list(padded), dtype=torch.long).to(DEVICE)
+    offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+    positions = torch.arange(T, device=DEVICE)
     idx = bytes_t[positions.unsqueeze(1) + offsets.unsqueeze(0)]
     tgt = bytes_t[positions + k]
 

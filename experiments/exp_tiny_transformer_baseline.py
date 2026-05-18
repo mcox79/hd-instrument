@@ -20,6 +20,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 17
 VOCAB_SIZE = 256
 PAD_BYTE = 0
@@ -90,7 +93,7 @@ def make_batches(data: bytes, context: int, batch: int, gen: torch.Generator) ->
     """Sample batch random contiguous chunks of length context+1 from data."""
     n = len(data)
     starts = torch.randint(0, n - context - 1, (batch,), generator=gen)
-    chunks = torch.stack([torch.tensor(list(data[s : s + context + 1]), dtype=torch.long) for s in starts])
+    chunks = torch.stack([torch.tensor(list(data[s : s + context + 1]), dtype=torch.long).to(DEVICE) for s in starts])
     return chunks
 
 

@@ -22,6 +22,9 @@ import torch
 from hdlab import ablation, experiment, learning, modulators, semantic, snapshots, tracing
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 7
 
 # Hand-constructed graph so we can name a definite answer.

@@ -32,6 +32,9 @@ import torch
 from hdlab import atoms, binding, tracing
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 17
 N_SUBSTRATE = 1024
 VOCAB_SIZE = 256
@@ -86,7 +89,7 @@ def make_atom_dft_pure(n: int, k: int) -> torch.Tensor:
 
     Bind(atom_k, atom_l) = atom_{(k+l) mod n} -- group structure under cyclic group.
     """
-    j = torch.arange(n, dtype=torch.float32)
+    j = torch.arange(n, dtype=torch.float32, device=DEVICE)
     phases = 2.0 * math.pi * k * j / n
     return torch.complex(torch.cos(phases), torch.sin(phases)).to(torch.complex64)
 
@@ -97,7 +100,7 @@ def make_atom_dft_randomized(n: int, k: int, gen: torch.Generator) -> torch.Tens
     The per-atom random global phase breaks deterministic group aliasing while
     keeping the spectral concentration of a single Fourier mode.
     """
-    j = torch.arange(n, dtype=torch.float32)
+    j = torch.arange(n, dtype=torch.float32, device=DEVICE)
     sigma = float(torch.rand(1, generator=gen).item()) * 2.0 * math.pi
     phases = 2.0 * math.pi * k * j / n + sigma
     return torch.complex(torch.cos(phases), torch.sin(phases)).to(torch.complex64)
@@ -165,18 +168,18 @@ def train_bloch_hebbian(
         gen = torch.Generator().manual_seed(seed)
         byte_atoms = make_byte_atoms(n_dim, substrate_method, gen)
         pos_atoms = make_pos_atoms(n_dim, k, substrate_method, gen)
-        W = torch.zeros((n_dim, n_dim), dtype=torch.complex64)
+        W = torch.zeros((n_dim, n_dim), dtype=torch.complex64, device=DEVICE)
 
         pad = bytes([PAD_BYTE]) * k
         padded_train = pad + train
         padded_test = pad + test
 
         T_total = len(padded_train) - k
-        train_bytes = torch.tensor(list(padded_train), dtype=torch.long)
-        test_bytes = torch.tensor(list(padded_test), dtype=torch.long)
+        train_bytes = torch.tensor(list(padded_train), dtype=torch.long).to(DEVICE)
+        test_bytes = torch.tensor(list(padded_test), dtype=torch.long).to(DEVICE)
 
-        offsets = torch.arange(k - 1, -1, -1)
-        positions = torch.arange(T_total)
+        offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+        positions = torch.arange(T_total, device=DEVICE)
         train_idx = train_bytes[positions.unsqueeze(1) + offsets.unsqueeze(0)]
         train_targets = train_bytes[positions + k]
 
@@ -207,8 +210,8 @@ def train_bloch_hebbian(
                 _say(f"    [{label}] 50%  rolling_bpc={total_bits/max(n_seen,1):.3f}  elapsed={elapsed:.1f}s")
 
         T_test = len(padded_test) - k
-        offsets = torch.arange(k - 1, -1, -1)
-        positions = torch.arange(T_test)
+        offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+        positions = torch.arange(T_test, device=DEVICE)
         test_idx = test_bytes[positions.unsqueeze(1) + offsets.unsqueeze(0)]
         test_targets = test_bytes[positions + k]
 

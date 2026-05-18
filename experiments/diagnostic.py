@@ -13,6 +13,9 @@ import torch
 from hdlab import atoms, binding, bundling, experiment, learning, memory, modulators
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def diagnostic_workload(ctx: experiment.ExperimentContext) -> dict:
     n = ctx.spec.n
     gen = ctx.generator

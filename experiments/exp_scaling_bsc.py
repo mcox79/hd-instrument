@@ -22,6 +22,9 @@ import torch  # noqa: E402
 from hdlab import experiment, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def _make_bsc_atoms_batch(k: int, n: int, gen: torch.Generator) -> torch.Tensor:
     """Batch of k random +/-1 atoms, int8."""
     bits = torch.randint(0, 2, (k, n), generator=gen)

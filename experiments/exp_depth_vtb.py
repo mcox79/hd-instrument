@@ -28,6 +28,9 @@ from hdlab import experiment, tracing  # noqa: E402
 from reference import vtb  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Perfect squares: 32^2=1024, 64^2=4096, 90^2=8100~8192, 128^2=16384, 181^2=32761, 256^2=65536
 N_VALUES = [1024, 4096, 16384, 65536]
 DEPTH_VALUES = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22]

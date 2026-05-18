@@ -30,6 +30,9 @@ import torch
 from hdlab import atoms, binding, tracing
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 17
 N_SUBSTRATE = 4096
 VOCAB_SIZE = 256
@@ -108,11 +111,11 @@ def main() -> None:
     quiet = tracing.TraceBus(enabled=False)
     with tracing.using(quiet):
         gen = torch.Generator().manual_seed(SEED)
-        byte_atoms = torch.stack([atoms.make_atom_fhrr(N_SUBSTRATE, gen) for _ in range(VOCAB_SIZE)])
-        pos_atoms = torch.stack([atoms.make_atom_fhrr(N_SUBSTRATE, gen) for _ in range(K)])
-        W = torch.zeros((N_SUBSTRATE, N_SUBSTRATE), dtype=torch.complex64)
-        pool_vecs = torch.zeros((POOL_SIZE, N_SUBSTRATE), dtype=torch.complex64)
-        pool_labels = torch.zeros(POOL_SIZE, dtype=torch.long)
+        byte_atoms = torch.stack([atoms.make_atom_fhrr(N_SUBSTRATE, gen) for _ in range(VOCAB_SIZE)]).to(DEVICE)
+        pos_atoms = torch.stack([atoms.make_atom_fhrr(N_SUBSTRATE, gen) for _ in range(K)]).to(DEVICE)
+        W = torch.zeros((N_SUBSTRATE, N_SUBSTRATE), dtype=torch.complex64, device=DEVICE)
+        pool_vecs = torch.zeros((POOL_SIZE, N_SUBSTRATE), dtype=torch.complex64, device=DEVICE)
+        pool_labels = torch.zeros(POOL_SIZE, dtype=torch.long, device=DEVICE)
         pool_used = 0
         pool_idx = 0
 
@@ -121,11 +124,11 @@ def main() -> None:
         padded_test = pad + test
         T_total = len(padded_train) - K
         T_test = len(padded_test) - K
-        train_bytes = torch.tensor(list(padded_train), dtype=torch.long)
-        test_bytes = torch.tensor(list(padded_test), dtype=torch.long)
-        offsets = torch.arange(K - 1, -1, -1)
-        pos_train = torch.arange(T_total)
-        pos_test = torch.arange(T_test)
+        train_bytes = torch.tensor(list(padded_train), dtype=torch.long).to(DEVICE)
+        test_bytes = torch.tensor(list(padded_test), dtype=torch.long).to(DEVICE)
+        offsets = torch.arange(K - 1, -1, -1, device=DEVICE)
+        pos_train = torch.arange(T_total, device=DEVICE)
+        pos_test = torch.arange(T_test, device=DEVICE)
         train_idx = train_bytes[pos_train.unsqueeze(1) + offsets.unsqueeze(0)]
         train_targets = train_bytes[pos_train + K]
         test_idx = test_bytes[pos_test.unsqueeze(1) + offsets.unsqueeze(0)]

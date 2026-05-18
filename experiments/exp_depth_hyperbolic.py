@@ -31,6 +31,9 @@ from hdlab import experiment, tracing  # noqa: E402
 from reference import hyperbolic as H  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_VALUES = [256, 1024, 4096, 16384]
 DEPTH_VALUES = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 22, 26, 30]
 POOL_SIZE = 100

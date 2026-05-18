@@ -22,6 +22,9 @@ from hdlab import experiment, tracing  # noqa: E402
 from reference import sparse_vsa  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N = 1024
 SPARSITIES = [0.02, 0.05, 0.1, 0.2, 0.5, 1.0]  # fraction of N that's non-zero
 K_VALUES = [2, 5, 10, 20, 50, 100]

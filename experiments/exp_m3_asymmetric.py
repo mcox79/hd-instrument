@@ -18,6 +18,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, memory  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def workload(ctx: experiment.ExperimentContext) -> dict:
     n = ctx.spec.n
     gen = ctx.generator

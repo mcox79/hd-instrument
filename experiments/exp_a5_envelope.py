@@ -23,6 +23,9 @@ import torch  # noqa: E402
 from hdlab import atoms, experiment, memory  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def _measure_recovery(
     n: int,
     k: int,

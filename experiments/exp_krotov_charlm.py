@@ -33,6 +33,9 @@ import torch
 from hdlab import atoms, binding, tracing
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SEED = 17
 N_SUBSTRATE = 1024
 VOCAB_SIZE = 256
@@ -115,20 +118,20 @@ def train_krotov_hebbian(
     quiet = tracing.TraceBus(enabled=False)
     with tracing.using(quiet):
         gen = torch.Generator().manual_seed(seed)
-        byte_atoms = torch.stack([atoms.make_atom_fhrr(n_dim, gen) for _ in range(VOCAB_SIZE)])
-        pos_atoms = torch.stack([atoms.make_atom_fhrr(n_dim, gen) for _ in range(k)])
-        W = torch.zeros((n_dim, n_dim), dtype=torch.complex64)
+        byte_atoms = torch.stack([atoms.make_atom_fhrr(n_dim, gen) for _ in range(VOCAB_SIZE)]).to(DEVICE)
+        pos_atoms = torch.stack([atoms.make_atom_fhrr(n_dim, gen) for _ in range(k)]).to(DEVICE)
+        W = torch.zeros((n_dim, n_dim), dtype=torch.complex64, device=DEVICE)
 
         pad = bytes([PAD_BYTE]) * k
         padded_train = pad + train
         padded_test = pad + test
 
         T_total = len(padded_train) - k
-        train_bytes = torch.tensor(list(padded_train), dtype=torch.long)
-        test_bytes = torch.tensor(list(padded_test), dtype=torch.long)
+        train_bytes = torch.tensor(list(padded_train), dtype=torch.long).to(DEVICE)
+        test_bytes = torch.tensor(list(padded_test), dtype=torch.long).to(DEVICE)
 
-        offsets = torch.arange(k - 1, -1, -1)
-        positions = torch.arange(T_total)
+        offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+        positions = torch.arange(T_total, device=DEVICE)
         train_idx = train_bytes[positions.unsqueeze(1) + offsets.unsqueeze(0)]
         train_targets = train_bytes[positions + k]
 
@@ -162,8 +165,8 @@ def train_krotov_hebbian(
 
         # Eval (W frozen).
         T_test = len(padded_test) - k
-        offsets = torch.arange(k - 1, -1, -1)
-        positions = torch.arange(T_test)
+        offsets = torch.arange(k - 1, -1, -1, device=DEVICE)
+        positions = torch.arange(T_test, device=DEVICE)
         test_idx = test_bytes[positions.unsqueeze(1) + offsets.unsqueeze(0)]
         test_targets = test_bytes[positions + k]
 

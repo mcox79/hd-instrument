@@ -38,6 +38,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_VALUES = [1024, 4096, 16384, 65536]
 DEPTH_VALUES = [1, 2, 3, 5, 8, 13, 20, 30, 50, 75, 100]
 POOL_SIZE = 100
@@ -197,7 +200,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
 
     with tracing.using(quiet_bus):
         for n in N_VALUES:
-            pool = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(POOL_SIZE)])
+            pool = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(POOL_SIZE)]).to(DEVICE)
             role_atoms = {
                 r: atoms.make_atom_fhrr(n, gen)
                 for r in ("AGENT", "PATIENT", "BELIEVER", "CONTENT_PTR")

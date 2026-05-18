@@ -21,6 +21,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def _measure_depth_recovery_hrr(
     n: int,
     depth: int,

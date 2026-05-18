@@ -28,6 +28,9 @@ import torch  # noqa: E402
 from hdlab import atoms, binding, bundling, experiment, learning, modulators, tracing  # noqa: E402
 
 
+
+
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 N_ENTITIES = 50
 N_FACTS = 150
 N_HOPS_TESTED = [1, 2, 3, 4]
@@ -114,7 +117,7 @@ def hebbian_spread(
     n_entities: int,
 ) -> torch.Tensor:
     """Spread activation k hops from source. Returns activation vector over all entities."""
-    activation = torch.zeros(n_entities, dtype=torch.float32)
+    activation = torch.zeros(n_entities, dtype=torch.float32, device=DEVICE)
     activation[source_idx] = 1.0
     for _ in range(k_hops):
         new_act = weight_matrix @ activation
@@ -137,7 +140,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
         graph = build_knowledge_graph(N_ENTITIES, N_FACTS, gen)
 
         # 2. Generate FHRR atoms for each entity, and a related_role atom
-        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)])
+        entity_vecs = torch.stack([atoms.make_atom_fhrr(n, gen) for _ in range(N_ENTITIES)]).to(DEVICE)
         related_role = atoms.make_atom_fhrr(n, gen)
 
         # 3. Build VSA form (single bundled structure)
@@ -152,7 +155,7 @@ def workload(ctx: experiment.ExperimentContext) -> dict:
                     h.update([entity_names[a], entity_names[b]])
 
         # Build the dense weight matrix from the Hebbian state
-        W = torch.zeros((N_ENTITIES, N_ENTITIES), dtype=torch.float32)
+        W = torch.zeros((N_ENTITIES, N_ENTITIES), dtype=torch.float32, device=DEVICE)
         for i in range(N_ENTITIES):
             for j in range(N_ENTITIES):
                 if i != j:
