@@ -273,6 +273,121 @@ training. Should grow then plateau on the first; should compress on the second.
 - Diagnostic of how the pool's representation evolves
 - Source: Tishby-Pereira-Bialek 1999; Tishby-Zaslavsky arXiv:1503.02406
 
+## Pending — from 2026-05-18 brain-science deep dives
+
+### Hypothesis-driven mapping (LLM capacity → brain mechanism → HDC implementation)
+
+| LLM capacity | Brain mechanism | HDC implementation | Status |
+|---|---|---|---|
+| Next-token prediction | Cortex (semantic memory) | W matrix | done |
+| Long-range context retrieval | Hippocampus DG→CA3→CA1 | Pointer pool | done (but no DG step) |
+| Short-term coherence | PFC working memory attractor | Persistent state hypervector | NOT DONE |
+| Output confidence | Inhibitory plasticity / E-I balance | Inhibitory W_inh matrix | NOT DONE |
+| Compositional binding | Cross-cortical projections | Multi-relation matrices | not at LM scale |
+| Hierarchical structure | Cortical hierarchical predictive coding | Multi-layer Hebbian | NOT DONE |
+| Error correction | Cerebellar climbing fibers | Sparse-supervised error matrix | NOT DONE |
+| Long-term consolidation | Sleep replay, schemas | Offline pool replay | NOT DONE |
+| Pattern decorrelation | DG sparse expansion | k-WTA pre-storage | NOT DONE |
+| Nonlinear feature integration | Dendritic computation | Pointwise NL on W output | RUNNING (this session) |
+| Output gating | Thalamus / basal ganglia | Inhibitory gating | NOT DONE |
+| Salience-gated learning | Amygdala BLA → NE | Surprise-burst LR boost | reformulation pending |
+
+### BR1. Dendritic nonlinearity on W readout (RUNNING)
+Pointwise sigmoid/tanh/relu on q = W @ context BEFORE softmax cleanup. Different from
+Krotov (which applies NL to similarity scores; this applies to W output vector).
+Six variants in sweep: magnitude_tanh, magnitude_relu, magnitude_sigmoid, real_imag_tanh
+- Predicted: -0.04 to -0.08 bits/char
+- Effort: low (~1 hour)
+- Source: Polsky-Mel-Schiller 2004 Nat Neurosci; Beniaguev-Segev-London 2021 Neuron
+
+### BR2. DG-style sparse projector before pool storage (Module 0)
+Apply sparse random k-WTA expansion (e.g., bind context to 4-8 random "DG atoms",
+keep top-5% of dimensions) before writing to the pool.
+- Predicted: -0.02 to -0.06 bits/char
+- Effort: low (~1-2 hours)
+- Reduces pool collision rate for similar contexts
+- Source: McClelland-McNaughton-O'Reilly 1995 Psych Review; Yassa-Stark 2011 Trends Neurosci
+
+### BR3. Climbing-fiber sparse error matrix C (Module 1)
+Second matrix C, same shape as W, updated ONLY by a sparse climbing-fiber channel.
+Compute residual e = target - W*x. Update C only on top-k features of x (k≈64).
+- Decorrelates fast supervised error from slow Hebbian semantics
+- Predicted: -0.02 to -0.04 bits/char
+- Effort: medium (~2 hours)
+- Source: Marr 1969 J Physiol; Albus 1971; Ito 1984; Raymond-Medina 2018 Annu Rev Neurosci
+
+### BR4. PFC working-memory attractor (Module 4)
+Add persistent state hypervector h_t = alpha * h_{t-1} + (1-alpha) * x_t with attractor
+cleanup at each step. Fed alongside pool retrieval.
+- Carries multi-character context that neither pool keys nor W captures
+- Predicted: -0.01 to -0.03 bits/char
+- Effort: low
+- Source: Wang 2001 Trends Neurosci; Goldman-Rakic 1995 Neuron; Mongillo-Barak-Tsodyks 2008 Science
+
+### BR5. Grid-cell-like fractional-binding position atoms
+Replace IID position atoms with fractional binding P^k where P is a unitary base atom.
+And/or hexagonal modulation. FHRR was designed for this.
+- Predicted: -0.03 to -0.07 bits/char
+- Effort: low-medium
+- Source: Plate 2003 IEEE TNN; Frady-Kanerva-Sommer 2018 NeurIPS; Frady-Kleyko-Sommer 2022 Neural Comp
+
+### BR6. Sleep-replay offline consolidation
+Between epochs, run reverse-order and shuffled passes over the pool to update W
+(no new data). Redistributes Hebbian credit, reduces recency bias.
+- Predicted: -0.03 to -0.06 bits/char
+- Effort: low
+- Source: Wilson-McNaughton 1994 Science; Ji-Wilson 2007 Nat Neurosci; Káli-Dayan 2004 Nat Neurosci
+
+### BR7. Phasic dopamine reformulation of surprise modulation
+Only modulate updates when prediction error exceeds 90th percentile of recent errors,
+with short exponential decay window (~10 tokens). NOT uniform scaling (which failed).
+- Predicted: -0.01 to -0.03 bits/char
+- Effort: low
+- Source: Schultz-Dayan-Montague 1997 Science; Aston-Jones-Cohen 2005 Annu Rev Neurosci
+
+### BR8. Theta-gamma temporal multiplexing for multi-relation W
+Maintain k=4-7 W matrices, one per "gamma slot"; rotate which slot is read/written per
+token based on a position-modulo clock. Implicit multi-relation channel.
+- Predicted: -0.02 to -0.05 bits/char
+- Effort: medium
+- Source: Lisman-Jensen 2013 Neuron
+
+### BR9. Basal-ganglia gating G (Module 2)
+Inhibitory mask vector g in [0,1]^M over pool slots, computed from a scoring head.
+Suppresses non-selected entries via subtractive inhibition before readout.
+- Predicted: -0.01 to -0.02 bits/char
+- Effort: medium
+- Source: Daw-Niv-Dayan 2005 Nat Neurosci; Sherman-Guillery 2011
+
+### BR10. Thalamic router T (Module 3)
+Learned 3-way mixture over {W, pool, C} contributions, conditioned on low-dim context
+summary. Dynamic per-step routing.
+- Predicted: -0.01 to -0.02 bits/char
+- Effort: low (after C exists)
+- Source: Sherman-Guillery 2002 Phil Trans R Soc B; Halassa-Kastner 2017 Nat Neurosci
+
+### BR11. Inhibitory W_inh matrix
+Parallel inhibitory matrix with anti-Hebbian update. Final readout = W_exc*x - W_inh*x.
+- Predicted: -0.01 to -0.02 bits/char
+- Effort: low
+- Source: Vogels-Sprekeler-Zenke-Clopath-Gerstner 2011 Science
+
+### BR12. Cerebellar-nuclei tonic bias
+Add learned global bias vector b in R^V to readout, updated by unigram-EMA.
+- Often the cheapest bits to recover (unigram + position frequency)
+- Predicted: -0.005 bits/char
+- Effort: trivial
+- Source: Telgkamp-Raman 2002 J Neurosci; Person-Raman 2012
+
+## Single principle to walk away with from the brain dive
+
+**The brain wins by separating substrates that do different jobs, then arbitrating
+between them — not by making one substrate cleverer.** Single-W-matrix architectures
+are exactly what evolution rejected by adding cerebellum, hippocampus, basal ganglia,
+and PFC. Our 0.115-bit gap is almost certainly not a tuning gap inside W — it's the
+absence of a second substrate doing a job W structurally cannot. The high-leverage
+experiments are not "make W better" but "add a second module with a different job."
+
 ## The single most important takeaway from the 3-iteration arc
 
 The 0.115 bits/char gap is most likely a quenched-disorder / clustering
