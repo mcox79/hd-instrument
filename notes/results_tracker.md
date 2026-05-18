@@ -346,6 +346,54 @@ for.
 **Implication for queue:** SBC is held in reserve for Wave 3a. Do NOT
 deprioritize it on the basis of today's perplexity result.
 
+### Wave 3a continual learning result (post-audit, post-chunked-refactor)
+
+Pre-reg: [2026-05-18_continual-learning-3a.md] (in conversation thread).
+12 chunks × (substrate × condition). Full data in
+`data/exp_continual_learning/chunk_*.json`.
+
+**Substrate behavior on the sequential_AB protocol (the actual continual
+learning test):**
+
+| Substrate | A after Phase 1 | A after Phase 2 (B training) | Naive forgetting | Normalized fraction-lost |
+|---|---|---|---|---|
+| FHRR | 2.4995 | 4.6458 | +2.1463 | 86% |
+| BSC | 2.4817 | 4.5367 | +2.0550 | 82% |
+| SBC | 3.1951 | 4.8418 | +1.6467 | **91%** |
+
+Normalized fraction = (A_after_P2 − A_after_P1) / (5.0 − A_after_P1), where
+5.0 is "random A" (untrained substrate). Captures "how much of what was
+learned was lost."
+
+**Headline:** **all three substrates catastrophically forget 80-91% of A.**
+The Bricken et al. 2023 *SDM-is-a-Continual-Learner* hypothesis — that
+sparse codes pattern-separate and prevent catastrophic forgetting — does
+NOT cleanly reproduce at our scale. H4 of the Wave 3a.5 pre-reg looks
+likely to be REJECTED.
+
+**Naive forgetting (Yildiz metric) is misleading:** SBC's smaller delta
+(+1.65) reflects starting from a worse baseline (3.20 vs 2.48-2.50), not
+genuinely better retention. Normalized metrics show SBC retains the
+LEAST of its (already modest) A knowledge.
+
+**Diagnosis:** The architecture (single shared W + multiplicative decay
+applied over ~120K Phase-2 steps + pool ring-buffer overwrite in Phase 2
+epoch 1) dominates the forgetting picture. Substrate sparsity doesn't
+save us — the mechanism is multiplicative annihilation of W combined
+with new-target overwriting, both of which affect any substrate.
+
+**Implication:** continual learning is NOT a substrate-level property at
+our scale. It's an architectural property. The next test is Wave 3a.5
+which isolates the three architectural mechanisms (decay, W overwrite,
+pool overwrite) by selectively disabling each during Phase 2.
+
+**What "wins" on Wave 3a per the conditions:**
+- A-only baseline: BSC is best on the markdown A corpus (2.4817)
+- B-only baseline: FHRR slightly better than BSC on Python B (2.67 vs 2.63)
+  but SBC much worse (2.97)
+- joint_AB (upper bound, both trained): BSC handles both best
+- sequential_AB (the real CL test): all fail similarly
+
 ## Literature landscape (audit, 2022-2026)
 
 Where our work sits in the current field, per literature audit:
