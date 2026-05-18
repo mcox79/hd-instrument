@@ -217,6 +217,84 @@ Started autonomous queue at end of session, with these incremental findings:
   one-hot word encoding which makes NN cleanup trivial. Need Wave 14.B
   with random hypervector encoding to validate at HDC scale.
 
+### Autonomous queue final results (autonomously executed; 6/7 succeeded)
+
+- **Wave 12 qFHRR**: CRASHED with CUDA stack overrun (exit 3221226505) on
+  Q4 variant after only 4s. Likely shape mismatch or memory issue in the
+  quantized-phase atom construction. Needs debug.
+
+- **Wave 8 Clifford G(2,0)**: **3.0569 bpc (+0.55 worse than BSC).**
+  The audit's "grades act like multi-heads, 0.2-0.4 bpc gain" prediction
+  was WRONG. Non-commutative geometric product alone doesn't help at byte
+  LM scale. Possible interpretations:
+  * G(2,0)'s 4-dim slot is too small (test G(3,1) or G(4,1) next)
+  * The grade structure didn't manifest as multi-head specialization in
+    our delta-rule training (no mechanism to differentiate grades)
+  * Non-commutativity needs an explicit positional encoding scheme
+    that takes advantage of it (didn't have one)
+
+- **Wave 10A RG-flow Phase A (2-layer Hebbian feedforward)**: monotonically
+  HURTS bpc as alpha_layer increases:
+  * alpha=0.0: 2.4817 (sanity baseline, matches BSC)
+  * alpha=0.3: 2.5486 (+0.07)
+  * alpha=0.5: 2.6359 (+0.15)
+  * alpha=0.7: 2.7725 (+0.29)
+  * alpha=1.0: 3.9223 (+1.44, layer 1 alone is much worse)
+
+  **Verdict:** naive 2-layer Hebbian feedforward with detached gradients
+  (layer 0 frozen w.r.t. layer 1's loss) doesn't work. The 2nd layer's
+  delta rule on the modReLU'd output of layer 1 doesn't have a useful
+  learning signal. Phase B (RG-flow with mutual-information-based
+  training per Bayesian RG) might still work but it's a bigger
+  implementation jump.
+
+- **Wave 9 MPS-shape**: 6.5514 bpc — catastrophically bad (basically
+  random; argmax_acc = 0.087). The MPS-shape parameter initialization
+  (per-site L2 normalization on a flattened 12,288-dim vector) didn't
+  produce a useful HDC substrate. The W training never gained traction
+  because the atom embedding wasn't aligned with the byte structure.
+  Possible fix: use actual MPS contraction binding, not flat vector
+  with FHRR-style elementwise multiply.
+
+- **Wave 4.5 Gradient W (FROZEN ATOMS), N=4096 + N=8192**: **INVALID
+  RESULTS due to bug.** All 6 runs (3 LRs × 2 N values) gave bpc 4.93,
+  ||W|| stayed at 0.0 throughout. **Root cause:** my predict_W used
+  `shifted_relu(q, b=0.5)` which has zero gradient when input < 0.5.
+  Initialized W=0 → q=0 → shifted_relu(0, 0.5)=0 → no gradient → W
+  never updated. **Fix (pending audit + relaunch):** initialize W as
+  small Gaussian (e.g., 0.01 * randn) AND skip the shifted_relu in the
+  gradient variant (audit said modReLU is only +0.022 bpc, so dropping
+  it doesn't materially affect the comparison).
+
+- **Wave 4.6 Learnable offsets**: same bug as 4.5, same invalid result.
+  Need to fix Wave 4.5 first, then re-derive 4.6 from corrected base.
+
+- **Wave 3b induction-head ICL**: weak signals across substrates.
+  delta_bpc (in-context vs no-context) ranged from -0.04 to +0.35
+  across substrates and num_pairs. The pattern is inconsistent (BSC
+  and SBC have negative deltas at K=1, weak positive at K=2-8).
+  The substrate's pool-augmented system doesn't really do ICL in the
+  Olsson-2022 sense. Inconclusive — either the protocol needs
+  refinement OR our architecture genuinely doesn't support natural ICL
+  on byte streams.
+
+### Net takeaway from autonomous queue
+
+Of the 7 experiments queued:
+- 1 crashed (Wave 12)
+- 2 invalid due to bug (Wave 4.5/4.6 — fixable)
+- 3 decisive rejections (Wave 8 Clifford, Wave 9 MPS-shape, Wave 10A RG-flow Phase A)
+- 1 weak/inconclusive (Wave 3b ICL)
+- 0 successes that beat the baseline
+
+This is informative — many substrate ideas didn't pan out at this scale.
+The Wave 4.5 fix is the highest-priority follow-up since it directly
+tests the perplexity-floor question, and the bug was algorithmic not
+fundamental.
+
+The successful story remains: BSC at N=8192 = **2.4344 bpc**, with the
+W_frozen continual-learning mitigation eliminating forgetting to +0.05.
+
 ## How autonomous execution should proceed
 
 When user is away, work the priority queue:

@@ -102,11 +102,11 @@ def shifted_relu(q, b):
     return torch.clamp(q - b, min=0.0)
 
 
-def predict_W(W, ctxs, byte_atoms, beta, n):
-    """W readout + ReLU + similarity softmax. W is a Parameter for backprop variant,
-    plain Tensor for delta-rule variant."""
+def predict_W(W, ctxs, byte_atoms, beta, n, use_relu=True):
+    """W readout + optional ReLU + similarity softmax."""
     q = ctxs @ W.T
-    q = shifted_relu(q, RELU_B)
+    if use_relu:
+        q = shifted_relu(q, RELU_B)
     sims = (byte_atoms @ q.T) / n
     return torch.softmax(beta * sims, dim=0)
 
@@ -125,12 +125,21 @@ def predict_pool(ctxs, pool_vecs, pool_labels, pool_used, beta, n):
 
 
 def run_gradient_variant(N, lr, train, test):
-    """W trained by Adam on cross-entropy loss. Atoms + everything else fixed."""
+    """W trained by Adam on cross-entropy loss. Atoms + everything else fixed.
+
+    CRITICAL FIX (post-autonomous-queue, 2026-05-18): the original version
+    used shifted_relu(b=0.5) which has zero gradient when input < 0.5.
+    With W=0 init, ALL gradients were zero and W never trained.
+    Fix: (1) initialize W as small Gaussian instead of zeros, AND
+    (2) skip shifted_relu in the gradient variant (use_relu=False).
+    """
     gen = torch.Generator().manual_seed(SEED)
     byte_atoms = make_bsc_atoms(VOCAB_SIZE, N, gen).to(DEVICE)
     pos_atoms = make_bsc_atoms(K, N, gen).to(DEVICE)
-    # W as a Parameter (requires_grad=True)
-    W = torch.nn.Parameter(torch.zeros((N, N), dtype=torch.float32, device=DEVICE))
+    # W as a Parameter, initialized small-random to give gradient flow
+    init_gen = torch.Generator().manual_seed(SEED + 42)
+    W_init = 0.01 * torch.randn((N, N), generator=init_gen).to(torch.float32).to(DEVICE)
+    W = torch.nn.Parameter(W_init)
     optimizer = torch.optim.AdamW([W], lr=lr, weight_decay=WEIGHT_DECAY)
 
     pool_vecs = torch.zeros((POOL_SIZE, N), dtype=torch.float32, device=DEVICE)
@@ -163,7 +172,7 @@ def run_gradient_variant(N, lr, train, test):
             tgt_batch = train_targets[batch_start:be]
             B = idx_batch.shape[0]
             ctxs = build_ctx_bundles_bsc(byte_atoms, pos_atoms, idx_batch)
-            P_W = predict_W(W, ctxs, byte_atoms, BETA, N)
+            P_W = predict_W(W, ctxs, byte_atoms, BETA, N, use_relu=False)  # no ReLU during gradient training (dead-grad fix)
             # Cross-entropy loss on the targets (V, B) → (B,)
             log_P = torch.log(P_W.clamp(min=1e-12))
             log_p_true = log_P.gather(0, tgt_batch.unsqueeze(0)).squeeze(0)
@@ -185,7 +194,7 @@ def run_gradient_variant(N, lr, train, test):
                 for bs in range(0, T_test, BATCH_SIZE):
                     be = min(bs + BATCH_SIZE, T_test)
                     ctxs = build_ctx_bundles_bsc(byte_atoms, pos_atoms, test_idx[bs:be])
-                    P_W = predict_W(W, ctxs, byte_atoms, BETA, N)
+                    P_W = predict_W(W, ctxs, byte_atoms, BETA, N, use_relu=False)  # consistency with training
                     P_retr = predict_pool(ctxs, pool_vecs, pool_labels, pool_used, BETA, N)
                     P = ALPHA * P_retr + (1.0 - ALPHA) * P_W
                     tgts = test_targets[bs:be]
