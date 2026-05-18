@@ -220,6 +220,91 @@ Pre-reg: [2026-05-18_alpha-sweep.md](../preregs/2026-05-18_alpha-sweep.md).
 - Surprise gate at α=0.5 or α=0.7 — **demoted**: those α regimes already worse
 - Larger pool size sweep — moderate EV, run after Wave 1 finishes
 
+### DeltaNet variants — Wave 1c result
+
+Pre-reg: [2026-05-18_deltanet-variants.md](../preregs/2026-05-18_deltanet-variants.md).
+
+| Variant | best bpc | Δ | ||W|| | wT1 |
+|---|---|---|---|---|
+| baseline_cleaned | **2.4994** | — | 120.6 | 0.605 |
+| cleaned_no_modrelu | 2.5221 | +0.022 | 113.5 | 0.602 |
+| raw_delta | 3.4271 | +0.93 | 72.9 | 0.595 |
+| raw_delta_with_modrelu | 3.4746 | +0.97 | 106.5 | 0.603 |
+| pure_hebbian | 5.5634 | +3.07 | 6051 (exploding) | 0.160 |
+
+**Hierarchy of architecture contributions (cumulative from pure Hebbian):**
+
+| Component | Contribution | Cumulative bpc |
+|---|---|---|
+| (start: pure Hebbian) | — | 5.56 |
+| + delta-rule error subtraction | +3.07 | 3.43 (raw_delta) |
+| + softmax cleanup (codebook-aware error) | +0.93 | 2.52 (cleaned_no_modrelu) |
+| + pool blend at α=0.3 (vs α=0) | +0.20 (from α sweep) | — |
+| + modReLU readout | +0.022 | **2.4994 (current)** |
+
+**Sub-hypothesis outcomes from pre-reg:**
+
+- H1 (raw error beats cleaned): **STRONGLY REJECTED** (raw 1 bpc worse)
+- H2 (modReLU dominates over cleanup): **REJECTED HARD in opposite direction** —
+  cleanup contributes 50× more than modReLU
+- H3 (pure Hebbian materially worse): **STRONGLY SUPPORTED** (+3 bpc worse)
+
+**Diagnostic insight:** raw_delta's W top-1 (0.595) is only 0.01 worse than
+baseline (0.605), but bpc is +0.93 worse. The **shape of P_W matters more
+than argmax** — softmax cleanup produces sharper, codebook-concentrated
+distributions; raw error produces diffuse ones. The cleanup isn't just
+picking the right answer, it's giving it the right confidence.
+
+**Recalibration:** We had been overweighting modReLU in our narrative. The
+true load-bearing piece is the **softmax-cleaned delta rule**. modReLU is
+a small refinement. Future architecture explorations should focus on
+update rule variants and codebook-aware mechanisms before readout NLs.
+
+### BSC substrate — Wave 2b result (the user's "brain-closer basis" experiment)
+
+Pre-reg: [2026-05-18_bsc-substrate.md](../preregs/2026-05-18_bsc-substrate.md).
+
+| Variant | best bpc | Δ vs FHRR | poolT1 | wT1 |
+|---|---|---|---|---|
+| bsc_continuous_no_relu | 3.0324 | +0.53 | 0.238 | 0.520 |
+| bsc_continuous_relu | 3.1001 | +0.60 | 0.238 | 0.514 |
+| bsc_signed_no_relu | 2.5942 | +0.10 | 0.434 | 0.594 |
+| **bsc_signed_relu** | **2.4817** | **−0.018** | **0.434** | **0.595** |
+
+**Hypothesis from pre-reg supported with margin.** Best BSC variant matches
+or slightly beats FHRR baseline (2.4994), within ±0.10 substrate-equivalence
+threshold.
+
+**The substrate is NOT the bottleneck at our scale.** Switching from
+complex64 FHRR (continuous phase code) to FP32 BSC (±1 binary code, brain-
+closer) recovers the same test bpc. The 2.49 floor is therefore a property
+of the data + algorithm, not the substrate.
+
+**Inverted prediction:** the pre-mortem hedged that signed bundling
+(sign(sum)) "may hurt the delta-rule gradient signal." The OPPOSITE turns
+out true — signed variants beat continuous variants by 0.5 bpc. ±1
+quantization after bundling acts as implicit regularization in a way
+similar to how the pool blend regularizes W in the α=0 case.
+
+**Speed bonus:** BSC runs ~2× faster (24.8s vs 53.2s for 15 epochs at N=4096)
+because real FP32 matmul engages Tensor Cores via TF32, while complex64
+falls back to FP32 CUDA cores. This is the speedup we couldn't get by
+splitting FHRR — getting it via substrate change instead. Importantly,
+this unlocks N=16384+ experiments as tractable.
+
+**Caveat: single-seed result.** The 0.018 win over FHRR is within FP-noise
+(prior CPU/GPU verification showed ~0.015 drift). Honest claim: BSC ≈ FHRR
+within seed noise, with a 2× speedup bonus. Multi-seed verification needed
+before promoting BSC to new default substrate.
+
+**Implication for next-step queue:**
+- 5-seed BSC vs FHRR confirmation run (~10 min, ~5x BSC + 5x FHRR baseline)
+- BSC at N=16384 — now tractable in ~30s/epoch vs 525s/epoch for FHRR
+- All architecture variants (alpha sweep, surprise gate, DeltaNet) re-tested
+  on BSC substrate to see if any flip sign
+- Continual learning + few-shot ICL tests are agnostic to substrate; run
+  on whichever wins the multi-seed comparison
+
 ## Literature landscape (audit, 2022-2026)
 
 Where our work sits in the current field, per literature audit:
