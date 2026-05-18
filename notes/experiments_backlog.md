@@ -476,15 +476,108 @@ Substrate scaling laws + architectural sweep + observability framework + hardwar
 
 ---
 
-## Theoretical questions we have NOT addressed
+## Lower-priority experiments and additional angles (from iter-1/2/3 gap check)
 
-These don't fit cleanly into experiments but are open research questions worth flagging:
+### MX19. Control-theory-style adaptive learning rate (PI feedback)
+Replace fixed decay with PI feedback on validation loss: `decay_t = decay_0 + K_p * loss_error + K_i * integrated_error`. Adaptive control reduces need for hyperparameter tuning.
+- Source: Astrom-Murray Feedback Systems 2008; iter-3 gap check
 
-- **What is the kernel that our random-features model implicitly defines?** Per the Q5 framing of pass-2 materials, we're a random-features approximation to a specific kernel induced by FHRR atoms. Characterizing this kernel rigorously would let us predict the asymptotic accuracy ceiling.
-- **Where exactly does eligibility traces become useful?** Null on 38KB, but biology + theory say they should help with multi-step credit assignment. Is there a corpus-size or task-structure threshold above which they start to matter?
-- **Information-theoretic capacity bound:** Frady et al. bundle capacity log_2(M) ≤ N/(2·SNR_min) gives ~300 items at N=4096. We bundle K=4 items per step — far below this. Why does K=4 win over K=16? Subtler tradeoff than raw capacity.
-- **What does the brain actually use as "atoms"?** Real neurons aren't random IID — they have known correlation structure, place fields, grid cells. Could biological codebook structure inform substrate design?
-- **Multi-modal substrate combinations** — e.g., random IID for content + DFT for position + sparse for relation type. Is there a principled way to choose substrate per role?
+### MX20. TD(lambda)-style replacing traces (not accumulating)
+Our eligibility-trace experiment used accumulating traces (E += pre*post). Replacing-trace version sets E_ij = (max(E_ij, pre_i * post_j)). Different dynamics; well-studied in RL.
+- Could rescue eligibility traces from their null result
+- Source: Sutton-Barto Ch.12; Singh-Sutton ML 22 (1996)
+
+### MX21. Sparse coding L1 penalty on pool activations
+Add L1 penalty on pool slot weights during retrieval. Predicts "phoneme-like" localized representations vs distributed ones.
+- Implementation: simple regularization in retrieval softmax
+- Source: Olshausen-Field Nature 1996
+
+### MX22. Continuous attractor analysis of pool dynamics
+Visualize pool slot trajectories under fixed prefix. Check for Tsodyks-Sejnowski drift (bumps moving with context) vs Amari static attractors.
+- Diagnostic: predicts ordering, not bits
+- Source: Amari Biol. Cybern. 1977; Tsodyks-Sejnowski Neural Comp. 1995
+
+### MX23. Population annealing instead of parallel tempering
+If MX10 reveals 1RSB clustering, ordinary PT fails. Population annealing maintains many walkers + resampling, escapes barriers PT cannot.
+- Higher implementation cost than PT
+- Falls back option if MX10 shows RSB
+- Source: Hukushima-Iba 2003; Wang-Machta-Katzgraber 2015
+
+### MX24. Quiet planting / Population dynamics for non-RSB regimes
+Another fallback if PT plateaus before achieving uniformity in P(q).
+- Source: Krzakala-Zdeborova EPFL lectures 2021
+
+### MX25. Substrate co-design: combine FHRR + BSC + permutation in one model
+Multi-substrate VSA where different binding roles use different substrate types. Roles: content=FHRR (rich phase info), position=BSC (cheap), relation=permutation (cycle structure).
+- Big design space; effort high
+- Source: own analysis + iter-3 hardware section
+
+### MX26. Random matrix theory diagnostic of W spectrum (Pennington-Worah, restated as separate experiment)
+Already listed as MX14 but worth restating: cheap to compute, predicts test-error asymptotic from W's singular spectrum without retraining.
+
+### MX27. Frady-Kleyko-Sommer working memory capacity test
+We've used pointer-chain but not measured its working memory capacity per Frady et al. 2018 Neural Computation. Direct test: how many items can we reliably retrieve from the pool at our pool size and substrate dim?
+
+### MX28. Spike-timing-dependent plasticity (STDP) variant
+Not Hebbian (correlation) but STDP (causal asymmetry). Pre-before-post strengthens; reverse weakens. Time-windowed update rule.
+- Different update class; might escape the symmetry-related failure modes
+- Source: Bi-Poo Nature Neurosci. 2001; Markram et al. Science 1997
+
+### MX29. Energy-based / Boltzmann-machine-style stochastic readout
+Sample byte predictions from a Boltzmann distribution over connection-energy values rather than softmax(W*ctx). Stochastic readout might explore output space better.
+- Slightly different paradigm; testable
+- Source: Hinton-Sejnowski 1986; modern reformulations
+
+### MX30. Hierarchical / mixture-of-experts pooling
+Multi-tier pool: tier 1 = recent (M=128), tier 2 = consolidated medium-term (M=512), tier 3 = long-term (M=2048). Use TIER 1 first; fall back to deeper tiers when retrieval similarity is low.
+- Combines MX1 (hierarchical pool) with explicit fallback mechanism
+- Source: own; loosely related to hippocampal indexing theory
+
+## Angles of inquiry (research questions not yet operationalized)
+
+These are research questions surfaced across the 3-iteration arc that we haven't turned into specific experiments yet, but which could each generate a family of experiments:
+
+### Q-A. What is the kernel that our random-features model implicitly defines?
+Per Mei-Montanari random-features framework, we're a random-features approximation to a specific kernel induced by FHRR atoms + cleanup. Characterizing this kernel rigorously would let us predict the asymptotic accuracy ceiling. Specifically: is it shift-invariant? What's its decay? Does it match natural-language kernels well or poorly?
+
+### Q-B. Where does eligibility-traces become useful (corpus / task threshold)?
+Null on 38KB. Biology + theory say they should help with multi-step credit assignment. Is there a corpus-size threshold? Task-structure threshold (e.g., explicit long-range dependencies)?
+
+### Q-C. Why does K=4 win over K=16 at our N=1024 baseline?
+Frady bundle capacity log_2(M) <= N/(2*SNR_min) gives ~300 items at N=4096. We bundle K=4 items per step - far below capacity. The bottleneck must be subtler than raw capacity. What is it?
+
+### Q-D. What does the brain actually use as "atoms"?
+Real neurons aren't random IID. Place cells, grid cells, head-direction cells have structured tuning. Could biological codebook structure inform substrate design? Specifically: are biological "atoms" more like our random IID or more like a learned spike-timing code?
+
+### Q-E. Multi-modal substrate combinations
+Random IID for content + DFT for position + sparse for relation type. Is there a principled way to choose substrate per role from first principles, or is this experimental?
+
+### Q-F. Is the FHRR atom random ensemble equivalent to a spin glass in some limit?
+The Mei-Montanari random-features regime is convex (no RSB). But our setup is non-convex (delta rule + multi-epoch + pool feedback). Where in parameter space does the transition from non-glassy to glassy happen?
+
+### Q-G. What does it mean that single-pass Hebbian had "structural anti-overfitting" but multi-epoch broke it?
+We thought this was a property of the learning rule. Multi-epoch revealed it was an artifact of single-pass exposure. Is there a way to get the anti-overfit property while still iterating? (Maybe: continuous online learning on never-repeating data — but that just requires more data.)
+
+### Q-H. Hardware co-design as a real engineering target
+PCM exists for cleanup; FeFET multi-timescale; STT-MRAM endurance; HfZrO ferroelectric for analog symmetry. Which substrate is the deployment target if our algorithm proves out? Different substrates favor different algorithmic choices.
+
+### Q-I. The "transformer attention IS Hopfield retrieval" framing
+Ramsauer-Schlag-Hochreiter 2020 showed modern Hopfield = attention. Our cleanup IS Hopfield retrieval at finite beta. What is the missing ingredient that transformer attention has and we don't? Most likely: LEARNED keys/queries vs random fixed keys.
+
+### Q-J. Scaling laws for HDC architectures
+Our prior work established beta ~ 1.0 for depth scaling across six VSA substrates. Bundle capacity scales linearly with N. What's the THIRD scaling law - how does effective performance scale with substrate N, corpus size T, training compute C? Need a 3D scan to know.
+
+## Theoretical questions we have NOT addressed (deep open problems)
+
+These are open even in the published literature. Solving any would be publishable.
+
+- **Parisi-style overlap order parameter for VSA with random fixed codebooks under local Hebbian learning.** Mei-Montanari assumes ridge regression (convex). Krzakala-Zdeborova assumes sparse factor graphs. Neither covers dense random codebook + non-convex local update + multi-epoch. MX10 (P(q) measurement) would be the first empirical data point.
+
+- **Information-theoretic capacity of HDC with explicit pointer-chain memory.** Frady gives bundle capacity. We have no theory for bundle + addressable pool together. What's the joint capacity?
+
+- **Closed-form prediction of when sampling-dynamics changes matter more than capacity changes.** Our iter-3 conclusion was "optimizer choice dominates capacity choice in this regime" but the regime boundary isn't characterized. Is there a phase diagram?
+
+- **The role of the Schlag-Irie-Schmidhuber "slow network" in their fast-weight programmer.** They use gradient descent on a slow network controlling fast Hebbian writes. We removed the slow network entirely. Can the slow-network function be replaced by something local-rule? If so what?
 
 ---
 
