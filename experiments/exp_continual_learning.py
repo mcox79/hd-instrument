@@ -5,7 +5,7 @@ Audit findings (2026-05-18) drove these revisions:
   rather than two markdown subsets. Without this, byte n-gram overlap masks
   forgetting and substrate differences.
 - Added joint A+B (upper bound) and B-only (intrinsic difficulty) baselines.
-- Forgetting metric anchored on bpc_BEST(A) per Yıldız et al. 2024 continual
+- Forgetting metric anchored on bpc_BEST(A) per Yildiz et al. 2024 continual
   pretraining standards, not "end of Phase 1."
 - Standard CL metrics (Backward Transfer, Average Accuracy) added.
 
@@ -20,7 +20,7 @@ Protocol:
   2. B-only training (no A exposure) → B_baseline
   3. Joint A+B (interleaved, upper bound for both) → joint_A, joint_B
   4. Sequential A→B (Phase 1 A, Phase 2 B; the actual CL test)
-- Forgetting = bpc_current(A) − bpc_best(A) per Yıldız 2024
+- Forgetting = bpc_current(A) − bpc_best(A) per Yildiz 2024
 - Backward Transfer (BWT) = average of (final_A − best_A) across all tasks
 - Average Accuracy (AA) = mean of final bpc across all tasks
 
@@ -36,7 +36,7 @@ Lit anchors:
 - Bricken, Davies, Singh, Krotov, Kreiman 2023 arXiv:2303.11934 *Sparse
   Distributed Memory is a Continual Learner* — direct theoretical support
   for the SBC prediction
-- Yıldız et al. 2024 arXiv:2402.17400 — bpc_best(A) anchored forgetting
+- Yildiz et al. 2024 arXiv:2402.17400 — bpc_best(A) anchored forgetting
 - Lopez-Paz & Ranzato 2017 GEM — BWT/AA metrics
 """
 
@@ -472,7 +472,7 @@ def main():
     _say(f"  Substrates: {SUBSTRATES}")
     _say(f"  Conditions: {CONDITIONS}")
     _say(f"  Total runs: {len(SUBSTRATES) * len(CONDITIONS)}")
-    _say(f"  Lit: van de Ven 2020/2022; Bricken et al. 2023 SDM-as-CL; Yıldız 2024")
+    _say(f"  Lit: van de Ven 2020/2022; Bricken et al. 2023 SDM-as-CL; Yildiz 2024")
     _say(f"  Prediction: SBC forgetting (sequential A→B) < BSC ≈ FHRR forgetting")
 
     all_runs = []
@@ -504,7 +504,7 @@ def main():
         seq_A_after_P1 = seq_history["A_bpc_per_epoch"][phase1_len - 1]
         seq_A_after_P2 = seq_history["A_bpc_per_epoch"][-1]
         seq_B_after_P2 = seq_history["B_bpc_per_epoch"][-1]
-        # bpc_best(A) anchored forgetting (Yıldız 2024)
+        # bpc_best(A) anchored forgetting (Yildiz 2024)
         A_best_anywhere = min(seq_history["A_bpc_per_epoch"])  # best A bpc reached during sequential run
         forgetting_yildiz = seq_A_after_P2 - A_best_anywhere
         # Naive forgetting (audit-rejected metric, retained for back-compat)
@@ -540,7 +540,7 @@ def main():
     # Verdict on the SBC retention prediction
     forgettings = {s["substrate"]: s["forgetting_yildiz"] for s in summary}
     best_substrate = min(forgettings, key=forgettings.get)
-    _say(f"\n  Least forgetting (Yıldız): {best_substrate} ({forgettings[best_substrate]:+.4f})")
+    _say(f"\n  Least forgetting (Yildiz): {best_substrate} ({forgettings[best_substrate]:+.4f})")
     if best_substrate == "SBC":
         _say(f"  PREDICTION SUPPORTED: SBC (sparse codes) retain prior knowledge best.")
         _say(f"  Cf. Bricken et al. 2023: 'SDM is a Continual Learner'")
