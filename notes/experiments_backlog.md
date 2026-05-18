@@ -372,6 +372,79 @@ Parallel inhibitory matrix with anti-Hebbian update. Final readout = W_exc*x - W
 - Effort: low
 - Source: Vogels-Sprekeler-Zenke-Clopath-Gerstner 2011 Science
 
+### BR13. Sparse k-WTA atoms (substrate-level sparsity)
+Make each FHRR atom mostly zero with only ~5% nonzero components. Mimics sparse
+coding in cortex (~2-5% activity). Could combine with DG-projector (BR2) for
+additional sparsity at the pool layer.
+- Risk: may break the binding orthogonality that makes FHRR work; bind(a, b)
+  on sparse atoms gives even sparser results that may not generalize
+- Predicted: uncertain, ±0.05 bits/char
+- Effort: low (one-line atom-generation change)
+- Source: Olshausen-Field 1996 Nature on sparse coding; brain-inspired discussion 2026-05-18
+
+### BR14. Multi-scale hierarchical atoms (grid-cell-module style)
+Position atoms at sqrt(2)-spaced scales — multiple "modules" of position codes
+operating at different effective ranges. Each scale captures different temporal
+context. Natural extension of BR5 (single-scale grid-cell positions).
+- Only useful if BR5 succeeds; do it as follow-up
+- Predicted: -0.02 to -0.05 bits/char on top of BR5
+- Effort: medium
+- Source: Stensola et al. 2012 Nature on grid-cell modules; Hafting-Fyhn-Moser-Moser 2005 Nature
+
+### BR15. Tuning-curve atoms for bytes (population code)
+Generate byte atoms with explicit overlap structure between similar bytes
+(e.g., 'e' atom close to 'a' atom; punctuation closer to other punctuation).
+Bio-style population code with multiple atoms activated per stimulus.
+- Hard to define "similar" for arbitrary byte vocabularies without prior
+- Cleaner with linguistic tokenization (subword/word level)
+- Predicted: 0.01-0.04 bits/char if "similar" can be defined well
+- Effort: low to medium depending on similarity definition
+- Source: tuning-curve literature; population code papers
+
+### BR16. Frequency-stratified atoms (cortical magnification analog)
+Common characters (space, 'e', 't') get higher-magnitude atoms or denser
+representational space; rare characters get smaller-volume representations.
+Brain's cortical magnification analog where high-acuity areas get more cortex.
+- Likely small effect — unigram statistics are already captured by the
+  cerebellar-nuclei tonic bias (BR12)
+- Predicted: <0.02 bits/char
+- Effort: low
+- Source: cortical magnification literature
+
+## Dimensions of bio-inspiration (taxonomy)
+
+Bio-inspiration in our system has four independent axes. Each is a separate
+lever:
+
+1. **Atom CONTENT** (random IID vs structured/sparse/tuned)
+   - Current: random IID FHRR phases
+   - Experiments: BR13 sparse, BR15 tuning, BR16 stratified
+   - Position-specific: BR5 grid-cell, BR14 multi-scale
+
+2. **CONNECTIONS** (single W vs federated multi-module)
+   - Current: single W matrix
+   - Experiments: BR3 climbing-fiber C, BR11 inhibitory W_inh, BR2 DG projector
+
+3. **UPDATE RULES** (delta vs phasic-tonic, supervised vs unsupervised)
+   - Current: three-factor delta rule
+   - Experiments: BR7 phasic DA reformulation, BR4 PFC attractor dynamics
+
+4. **READOUT** (linear softmax vs nonlinear, sharpened, gated)
+   - Current: softmax over linear cosine similarities
+   - Experiments: BR1 dendritic NL (failed/failing — magnitude-based bounds
+     destabilize), BR9 BG inhibitory gating, BR10 thalamic router
+
+Honest pattern from experiments so far: changing the READOUT (BR1, Krotov,
+surprise) tends to destabilize at our SNR. Changing CONNECTIONS or adding
+modules with INDEPENDENT INFORMATION (pool, multi-epoch) compounds well.
+Changing ATOMS or UPDATE RULES is mostly untested but theoretical predictions
+favor structured positions (BR5) over content changes (BR13-16).
+
+The 0.115-bit gap is most likely to close via additional INDEPENDENT modules
+(per iteration-3 conclusion: "optimizer choice dominates capacity choice").
+Atom content changes are secondary unless we hit a clear ceiling that capacity
+analysis confirms.
+
 ### BR12. Cerebellar-nuclei tonic bias
 Add learned global bias vector b in R^V to readout, updated by unigram-EMA.
 - Often the cheapest bits to recover (unigram + position frequency)
