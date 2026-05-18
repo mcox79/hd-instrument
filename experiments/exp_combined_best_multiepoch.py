@@ -41,8 +41,8 @@ BATCH_SIZE = 64
 POOL_SIZE = 1024
 ALPHA = 0.3
 DECAY = 1e-4
-MAX_EPOCHS = 5
-EPOCH_CHECKPOINTS = [1, 2, 3, 4, 5]
+MAX_EPOCHS = 15
+EPOCH_CHECKPOINTS = [1, 3, 5, 7, 10, 12, 15]
 
 
 def _say(msg: str) -> None:

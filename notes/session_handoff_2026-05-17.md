@@ -2,18 +2,25 @@
 
 Compact notes to pick up the thread in a fresh session.
 
-## Where we are (UPDATED — late-session breakthrough)
+## Where we are (FINAL — late-session breakthrough converged)
 
-**Best result: 2.544 bits/char** (combined config, 5 epochs).
+**Best result: 2.505 bits/char** (combined config, 15 epochs, converged).
 Tiny transformer ceiling: 2.39 bits/char.
-**Gap: 0.15 bits/char** — down from 0.45 at the start of this session.
+**Gap: 0.11 bits/char** — down from 0.45 at the start of this session.
 
 Configuration that delivered this:
 - N=4096 FHRR substrate, K=4, arousal=0.3, beta=8.0
 - Pointer-chain pool M=1024, alpha=0.3, built during epoch 1 then frozen
 - Multi-epoch with decay=1e-4 per batch
-- 5 epochs (still improving at epoch 5; 15-epoch sweep in progress)
+- 15 epochs (effectively converged; epoch 10→15 improvement only 0.007 bits)
+- Argmax accuracy: 60.3% (up from 54.6% baseline)
 - No backprop, no gradient descent
+
+Convergence curve:
+  epoch 1:  2.847 bpc (54.5% argmax) — matches single-pass combined
+  epoch 5:  2.544 bpc (59.6% argmax) — most of the gain
+  epoch 10: 2.512 bpc (60.1% argmax) — diminishing returns
+  epoch 15: 2.505 bpc (60.3% argmax) — converged
 
 ## The mechanism that unlocked it
 
