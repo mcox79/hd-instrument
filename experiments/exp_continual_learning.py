@@ -480,6 +480,7 @@ def main():
     for substrate in SUBSTRATES:
         for condition in CONDITIONS:
             _say(f"\n=== {substrate} / {condition} ===")
+            torch.cuda.empty_cache()  # release between conditions to avoid fragmentation in long runs
             r = run_substrate_condition(substrate, condition, A_train, A_test, B_train, B_test)
             all_runs.append(r)
 
