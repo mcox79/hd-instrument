@@ -305,6 +305,47 @@ before promoting BSC to new default substrate.
 - Continual learning + few-shot ICL tests are agnostic to substrate; run
   on whichever wins the multi-seed comparison
 
+### Sparse Block Codes (Laiho 2015 / MMB) — third substrate result
+
+Pre-reg: not formally written (this was a follow-up from the substrate
+discussion; should be written retrospectively if results are promoted).
+
+| Variant | Sparsity | best bpc | Δ vs FHRR | wT1 | poolT1 |
+|---|---|---|---|---|---|
+| sbc_M64_no_relu | 1.56% | 3.2178 | +0.72 | 0.503 | 0.436 |
+| sbc_M64_relu | 1.56% | 3.4606 | +0.96 | 0.436 | 0.436 |
+| **sbc_M128_no_relu** | **3.12%** | **2.9272** | **+0.43** | 0.555 | 0.435 |
+| sbc_M32_no_relu | 0.78% | 3.5384 | +1.04 | 0.394 | 0.439 |
+
+**Sparsity-perplexity trend:** higher density (3.1% > 1.6% > 0.8%) gives
+lower bpc. The sparser the code, the lower the W readout's discrimination
+capacity. Specifically wT1 drops from 0.555 (M=128, 3.1% sparse) to 0.394
+(M=32, 0.8% sparse).
+
+**ReLU INVERTS sign vs BSC.** In BSC, ReLU was the winning variant
+(+0.11 from baseline). In SBC, ReLU HURTS (sbc_M64_relu 3.46 vs
+sbc_M64_no_relu 3.22). The mechanism: SBC's encoding is already a sparse
+activation; adding ReLU on the readout further sparsifies, removing
+information.
+
+**Substrate ranking at our scale (N=4096, perplexity only):**
+1. BSC (signed, ReLU) — 2.4817
+2. FHRR (modReLU) — 2.4994
+3. SBC (M=128, no ReLU) — 2.9272
+
+SBC loses by ~0.43 bpc to the dense substrates **on perplexity**.
+
+**Critical caveat: this is NOT the test SBC is predicted to win.**
+Sparse block codes are theoretically advantaged for **pattern separation
+and continual learning** (per O'Reilly-McClelland 1994, Frady-Kleyko-Sommer
+2021), not for perplexity. The Wave 3a continual learning test is where
+SBC may have its real claim. Treating today's result as "SBC fails" would
+be a category error — it shows SBC fails on the task SBC isn't designed
+for.
+
+**Implication for queue:** SBC is held in reserve for Wave 3a. Do NOT
+deprioritize it on the basis of today's perplexity result.
+
 ## Literature landscape (audit, 2022-2026)
 
 Where our work sits in the current field, per literature audit:

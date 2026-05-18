@@ -289,9 +289,6 @@ def main() -> None:
              f"{best['w_top1_acc']:>6.3f} {best['pool_top1_acc']:>7.3f} {r['wall_time_s']:>7.1f}")
     _say(f"\n  Reference FHRR combined+modReLU: 2.4994")
     _say(f"  Reference BSC signed+relu:        2.4817")
-    best_overall = min((h, r) for r in all_results for h in r["history"]
-                       if r.get("history"))
-    # ^ tuple compare on dict; safer to do explicitly
     best_overall = None
     for r in all_results:
         if "history" not in r: continue
