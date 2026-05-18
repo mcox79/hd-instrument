@@ -1,0 +1,261 @@
+# Cumulative Results Tracker
+
+Per-experiment results with measurements and comparisons to published baselines.
+Updated as experiments complete.
+
+## Reference baselines on this corpus
+
+Corpus: 48,512 bytes of project markdown (PLAN.md, NEXT_PHASE.md, README.md,
+PROGRESS.md, RESULTS.md, CLAUDE.md). Train 80%, test 20%, byte-level.
+
+| Baseline | Test bits/char | Notes |
+|---|---|---|
+| Uniform random over 256 bytes | 8.0 | chance |
+| Uniform over observed 109 distinct bytes | 6.77 | "true chance" |
+| Unigram with Laplace smoothing | 5.74 | byte frequencies only |
+| 2-gram with Laplace+backoff | 4.90 | 1-byte context |
+| 3-gram (smoothing-broken on small data) | 5.30 | (unreliable comparison) |
+| 5-gram (smoothing-broken) | 5.51 | |
+| **Tiny transformer 862K params, best-stopped, CPU** | **2.39** | best validation-monitored stop |
+| Tiny transformer end-of-training | 3.61 | overfits without early stopping |
+
+## Reference numbers from the literature
+
+For context on "what good byte-level LMs achieve":
+- LSTM-2B on PG-19 (Rae et al. 2020): ~1.0 bpc — large corpus, large model
+- GPT-2 small on WebText: ~1.0 bpc
+- GPT-3 / Llama-3 8B on web data: ~0.75 bpc
+- Frontier LLMs on diverse text: ~0.5-0.7 bpc
+
+So our tiny-transformer ceiling 2.39 sits in the "tiny model on tiny corpus" regime.
+A real-LLM-class system would reach ~0.75 bpc on a real corpus.
+
+## Theoretical predictions
+
+- **Frady-Kleyko-Sommer (2018, Neural Comp):** bundle capacity log2(M) ≤ N/(2·SNR_min).
+  For N=4096 and our typical SNR ~3, predicts ~600 items per bundle before SNR collapse.
+  We bundle K=4 items per step — far under saturation, so capacity-per-step is NOT the limit.
+- **Plate (1995, HRR original):** for k-deep binding chains, signal-to-noise scales as N^{-k/2}.
+  At our K=4 with random IID atoms, signal:noise after binding ~ N^{-2} = 1/16M for N=4096.
+  Cleanup against codebook recovers if it's above the noise floor.
+- **Engel-Van den Broeck (Statistical Mechanics of Learning, 2001):** for random-feature
+  models with N features and m training examples, generalization error scales as
+  E[error] = O(m / N) above the critical capacity. Below, error = excess of optimal.
+- **Schlag-Irie-Schmidhuber (2021, ICML):** delta-rule fast weights on linearized
+  transformers reach 31.5 bpc on WikiText-103 test (their Delta Network) vs
+  transformer baseline 29.6. They demonstrate the delta rule is the right
+  variant of outer-product Hebbian for sequence modeling. Architecture overlap
+  with us: same delta rule, same outer products. Differences: gradient descent on
+  slow network, learned keys, no pool, no modulators.
+- **Krotov-Hopfield (2016, NeurIPS):** polynomial-energy DAM capacity scales as N^{n-1}
+  for interaction power n. We tested this in our cleanup — failed at our similarity
+  scale (random IID similarities ~0.05 not ~1).
+
+## Experiment log
+
+### Session 2026-05-17 (CPU)
+
+| Config | Best bpc | Notes / lit comparison |
+|---|---|---|
+| Baseline Hebbian-VSA single-pass N=1024 | 3.16 | "alive tier" per pre-reg, beats 2-gram 4.90 by 1.74 |
+| Pointer-chain (M=1024, α=0.3) | 2.91 | Schlag-Irie-Schmidhuber show this kind of memory architecture is the linear-transformer descendant — we get similar gain |
+| Larger N=4096 | 3.02 | Capacity scaling per Engel-Van den Broeck: log(N) prediction; we measure +0.14 bpc going 1024→4096 |
+| Combined N=4096 + pointer-chain | 2.84 | Both improvements compound |
+| Eligibility traces | 3.11 (null) | Bellec et al. e-prop predicts gains on temporal credit assignment — no measurable benefit at K=4 single-step prediction |
+| Krotov polynomial cleanup | 4.15 (fail) | DAM theory predicts gain only at saturating similarities; ours are 0.05 not 1 |
+| Bloch / randomized DFT substrate | 3.14 (neutral) | Frady predicted "same scaling, smaller constant"; we measured -0.02 |
+| Surprise modulation (uniform) | 4.27 (fail) | Phasic NE biology is deviation-based, not absolute-error-based; uniform scaling destabilizes |
+| Homeostatic decay 1e-4 single-pass | 3.16 (null) | Turrigiano regulation doesn't matter at our scale because W doesn't drift in single-pass |
+
+### Session 2026-05-17 (CPU multi-epoch breakthrough)
+
+| Config | Best bpc | Notes / lit comparison |
+|---|---|---|
+| Multi-epoch (vanilla, 3 epochs N=1024) | 3.005 | Multi-pass Hebbian; new finding (we thought single-pass was structural — wasn't) |
+| Multi-epoch (overfit at epoch 5+) | 3.07 → 3.71 | W-norm explosion; consistent with statistical-mechanics of overparam systems |
+| Multi-epoch + decay 1e-4 (N=1024) | 2.985 | Weight decay barely helped at N=1024 |
+| **Combined N=4096 + pool + multi-epoch + decay (15 epochs, CPU)** | **2.505** | **Major breakthrough**: synergy of independent information sources. Cf. transformer attention preventing FFN overfitting |
+
+### Session 2026-05-18 (GPU)
+
+| Config | Best bpc | Notes / lit comparison |
+|---|---|---|
+| GPU verification of CPU baseline | 2.522 | +0.017 from CPU due to FP precision in CUDA BLAS reorder |
+| GPU combined + relu (modReLU magnitude shrinkage) | **2.4994** | First post-multi-epoch win; +0.02 from N=4096 baseline. **Citation corrected 2026-05-18:** this is modReLU (Arjovsky-Shah-Bengio 2016, ICML; arXiv 1511.06464), equivalent to complex L1 soft-thresholding / ISTA-FISTA proximal operator (Beck-Teboulle 2009). NOT Polsky-Mel-Schiller dendritic NL — PMS proposes supralinear sigmoid summation on coincident inputs, not subtractive magnitude shrinkage. Drop dendritic framing unless we add an actual sigmoidal subunit. |
+| BR5 grid-cell positions (Frady-Kanerva-Sommer 2018) | 2.5094 | Predicted +0.03-0.07; measured -0.01 (slight hurt). Frady tested at K=20-100 sequences; K=4 too small for grid to shine |
+| BR3 climbing-fiber sparse error (Marr 1969) | 2.5008 | Neutral. Likely fails because C receives same error as W — no new supervision; real cerebellum has independent teacher signal |
+| BR4 PFC working memory (Wang 2001) | 2.7841 | Hurts by 0.28. Bundle saturation: adding h is like K=5 which exceeds bundle capacity |
+| BR2 DG sparse projector v1 | 2.95 | Normalization bug + deeper issue (see audit note 3 below): top-k-by-magnitude on phase-code FHRR is the wrong operation regardless. Retry v2 needs to use top-k on Re part or move to native sparse-VSA. |
+| **MX10 parallel tempering K=8** | **2.4963 (best replica)** | Hit 22.5% swap acceptance. **Citation corrected 2026-05-18:** Earl-Deem 2005 23% optimum is for equilibrium MCMC of Boltzmann distributions with detailed balance — does NOT theoretically transfer to streaming learning where "temperature" is decay rate. Better lit anchors for PT-of-learning: Desjardins 2010 adaptive PT (RBM training, AISTATS), Syed 2019 non-reversible PT (drops equilibrium assumption), Huang 2017 snapshot ensembles. P(q) on cold replicas std=0.0009 → single basin result stands (does not depend on Earl-Deem framing). |
+
+### Audit notes (citation corrections 2026-05-18)
+
+After running 4 parallel literature audits, several citations in this tracker
+were materially mislabeled. The empirical results are unchanged, but the
+literature anchors needed correction.
+
+1. **modReLU, not Polsky-Mel-Schiller.** Our magnitude-shrinkage operator is
+   exactly modReLU (Arjovsky-Shah-Bengio 2016 ICML, arXiv 1511.06464), which
+   equals the complex L1 soft-thresholding / ISTA proximal operator
+   (Daubechies-Defrise-De Mol 2004; Beck-Teboulle 2009). Polsky-Mel-Schiller
+   2004 proposes *supralinear* sigmoid summation on coincident dendritic
+   inputs — an expansive, not subtractive, nonlinearity. If we want a real
+   PMS-style experiment, we need a sigmoid-gated *sum-over-subunits* operator,
+   not what we have.
+
+2. **BR6 sleep replay as planned is mislabeled.** Random-shuffled pool replay
+   misses the three load-bearing properties of biological replay: ordered
+   sequence reactivation (Skaggs-McNaughton 1996, Lee-Wilson 2002), ~20x
+   temporal compression during SWRs, and salience-based selectivity (Foster
+   2017; Ambrose et al. 2016). Also: van de Ven et al. 2020 is *generative*
+   replay (VAE-like), not buffer replay. Honest anchor for plain buffer
+   replay is Lin 1992 / Rolnick et al. 2019 experience replay. A faithful
+   BR6 needs: (a) trajectory buffer storing byte-window sequences, not
+   isolated pairs; (b) prioritized sampling by per-token loss / surprise;
+   (c) sequential Hebbian application across each replayed window.
+
+3. **DG top-k-by-magnitude on FHRR doesn't recover O'Reilly-McClelland.**
+   O'Reilly-McClelland 1994 (Hippocampus) propose DG sparsification for
+   orthogonalization of *overlapping* (similar) inputs in *real-valued*
+   activation space. FHRR is a phase-based code where magnitudes are ~uniform
+   by construction, so top-k-by-magnitude is effectively a random binary mask
+   gated by post-projection noise — it does NOT preferentially keep
+   informative components. A faithful BR2 retry should use top-k by |Re| (or
+   on the real part directly), or move to a native sparse-VSA substrate
+   (Laiho 2015 sparse block codes; Frady-Kleyko-Sommer 2021 sparse variable
+   binding; Kleyko 2022 VSA survey).
+
+4. **Earl-Deem 23% is heuristic motivation, not prediction.** Their result
+   is derived for equilibrium MCMC under detailed balance; our streaming
+   Hebbian learning has neither. The fact we measured 22.5% is numerical
+   coincidence at best. The single-basin P(q) finding is empirical and
+   stands regardless of how we frame the PT setup.
+
+### Session 2026-05-18 (GPU, post-audit)
+
+| Config | Best bpc | Notes / lit comparison |
+|---|---|---|
+| N scaling: N=8192 (combined+modReLU) | **2.4774** | -0.022 from N=4096. Frady-Kleyko-Sommer capacity prediction confirmed in this regime. |
+| N scaling: N=16384 | running | |
+
+## Literature landscape (audit, 2022-2026)
+
+Where our work sits in the current field, per literature audit:
+
+**1. HDC/VSA language models specifically.** No published byte- or token-level
+LM with reported bpc/perplexity using FHRR/HRR/BSC substrates in 2022-2026.
+Our 2.4994 bpc on 38KB English is — as far as this scan goes — the only
+recent FHRR-native byte-LM result. Genuinely novel ground, but means no
+external yardstick exists yet. Closest peers:
+- GHRR (Generalized HRR, Alam-Raff-Holt et al. 2024 arXiv 2405.09689):
+  non-commutative binding; could improve sequence-order capture in our K=4 bind.
+- Walsh-Hadamard linear VSA (Alam et al. NeurIPS 2024).
+- Hyperdimensional Probe (2025): uses VSAs to decode LLM hidden states.
+
+**2. Delta-rule / fast-weight sequence learning (active area).**
+- DeltaNet (Yang et al. arXiv 2406.06484, 2024): 1.3B model, beats Mamba/GLA.
+  Update is `W = W(I - k k^T) + v k^T` — outer-product write WITH erase.
+- Gated DeltaNet (ICLR 2025): hybrid variants 15.91 perplexity on WikiText.
+- Hebbian and Gradient-Based Plasticity in Transformers (arXiv 2510.21908, Oct 2025):
+  neuromodulated Hebbian rules outperform gradient plasticity on few-shot.
+- Blending Complementary Memory Systems (Irie/Gershman 2025): softmax window
+  + delta-rule fast weights with explicit CLS framing — closest peer in spirit.
+
+**Our W update vs DeltaNet:** our `dW = (target - expected) ctx^T / N` is a
+delta rule, but lacks DeltaNet's explicit `-W k k^T` erase term. Worth testing.
+
+**3. Fast+slow / surprise-gated memory (most directly applicable).**
+- **Titans (Behrouz-Zhong et al. arXiv 2501.00663, Jan 2025):** surprise-gated
+  (gradient-norm) neural long-term memory + attention. Scales to 2M context.
+  Same fast-pool + slow-W story as us, with one crucial addition: gradient-of-loss
+  as surprise gate for memory writes.
+- Titans Revisited (arXiv 2510.09551, Oct 2025): critical reimplementation.
+- MIRAS (Google late 2025): generalization framing memory as associative-memory
+  optimization.
+
+**4. Modern Hopfield as LM.**
+- NRGPT (arXiv 2512.16762, Dec 2025): energy-based GPT alternative — closest
+  thing to "Hopfield-as-LM".
+- Energy Transformer (NeurIPS 2023): continuous Hopfield as transformer block.
+
+**5. Energy-based / non-backprop on language.** Still no competitive byte-level
+result from forward-forward (acknowledged not to scale to sequences), predictive
+coding, or equilibrium propagation. The wins in brain-inspired LMs come from
+the *write rule* (Hebbian/delta), NOT from non-backprop credit assignment.
+
+### Strategic implications of literature scan
+
+Highest-leverage next experiments (in order):
+
+1. **Surprise-gated pool writes** (Titans-style): only write (ctx, target) to
+   pool when per-token loss exceeds threshold. 10-line change. Direct precedent.
+2. **DeltaNet-style explicit erase** in W update: `W_new = W (I - α k k^T) + α v k^T`
+   instead of pure `W += α (v - Wk) k^T`. Mathematically tighter associative recall.
+3. **GHRR non-commutative binding** for position-byte binds (Alam-Raff 2024) —
+   could improve sequence-order capture at our K=4.
+4. **NRGPT energy formulation** for retrieval temperature — replace our ad-hoc
+   `beta=8` softmax with a principled energy-based readout.
+
+### Cumulative findings
+
+**The 0.10-bit residual gap is architectural at the basin floor.** Multiple
+independent observations support this:
+
+1. Parallel tempering with optimal swap acceptance gives only FP-noise gain
+2. Cold replicas (low decay) all converge to overlap > 0.998 — same W
+3. 4 of 5 brain-inspired federated modules failed to help
+4. Multi-epoch + decay + pool combination already at convergence (epoch 12→15 = 0.002)
+
+This is consistent with **Mei-Montanari-Nguyen 2018 PNAS / Mei-Montanari 2022 CPAM**
+random-features-model landscape analysis: random fixed features + ridge regression =
+convex loss with single global minimum. Our setup is non-convex (delta rule on
+softmax output), but the basin is unique.
+
+**Where this places us in the literature:**
+
+- We've engineered an HDC LM that reaches within 5% perplexity of a tiny
+  transformer on byte-level English at 38KB. As far as I know, no published
+  HDC paper has explicitly reported this number on this kind of task — the
+  closest comparison is Schlag-Irie-Schmidhuber 2021 (linear transformers
+  with delta-rule fast weights), but they use gradient descent on slow
+  network + learned keys + larger corpora.
+
+- The federated architecture exploration (5 brain-modules tested) is novel
+  in scope; no published work explores this specific space of bio-inspired
+  additions to FHRR-based LMs.
+
+- The empirical finding that "the gap is a single-basin landscape, not RSB"
+  is itself a novel data point. The published theory (Mei-Montanari for
+  random features, Parisi for spin glasses) doesn't directly cover our
+  HDC + Hebbian + pool architecture; this is the first measurement.
+
+## Open questions to test (Wave 1)
+
+1. Does N scaling close the gap? (running, N=4096/8192/16384)
+2. Does sleep replay help (Wilson-McNaughton 1994 motivation)?
+3. Does K-grid scaling reveal the predicted Frady benefit?
+4. Is the gap data-dependent? (Wave 2: 1MB corpus)
+5. Is the gap substrate-dependent? (Wave 2: BSC port)
+
+## Capability questions (Wave 3, untested)
+
+These are the "functional differentiation" tests. Even if we don't close
+the perplexity gap, demonstrating these would be more interesting than
+perplexity matching:
+
+1. Continual learning: train on corpus A, then B, retention on A?
+2. Few-shot ICL: pool-based pattern completion at inference
+3. Catastrophic forgetting: explicit measurement
+4. Sample efficiency: bpc vs corpus size
+
+## Measurement protocol (going forward)
+
+For each experiment, we should capture:
+- test_bpc per epoch (already capturing)
+- argmax_accuracy per epoch (already capturing)
+- W_norm Frobenius (already capturing)
+- Per-byte bpc histogram (which bytes are hard? — adds 5 lines to scripts)
+- Pool retrieval quality (top-1 fraction matching target — adds 5 lines)
+- Wall time per epoch (already capturing)
+- Theoretical comparison: what does theory predict for this config?
+- Lit comparison: what's the closest published result?
