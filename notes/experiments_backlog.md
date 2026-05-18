@@ -145,6 +145,74 @@ Beyond DFT — Grassmannian / equiangular tight frames (ETFs) from frame theory.
 
 ---
 
+## Pending — from 2026-05-18 materials-physics dive (iterations 1+2)
+
+### MX1. Parallel tempering with K=4 W replicas (highest predicted single-experiment payoff)
+Run K=4 W matrices simultaneously at geometrically spaced decay rates. Periodic Metropolis swaps using validation loss. Ensemble readout weighted by exp(-beta_i L_i^val).
+- Setup per Earl-Deem 2005 PCCP and Hukushima-Nemoto 1996 JPSJ:
+  - Decay rates {0, 1e-4, 3e-4, 1e-3} (geometric on our tested range)
+  - Swap attempts every 5 batches, Metropolis on validation loss
+  - Target 23% swap acceptance (Roberts-Rosenthal optimal scaling)
+  - K=4 means 4x W memory (~512MB at N=4096)
+- Predicted: 0.05-0.10 bits/char
+- Why it should work: provably accelerates escape from local minima in glassy regimes; we are very likely in such a regime per iter-1 analysis
+- Source: iter-1 + iter-2 materials science deep dive
+
+### MX2. Two-step relaxation diagnostic (long-epoch glass probe)
+Train at fixed hyperparameters for 500+ epochs. Plot loss on log-log scale. Look for: fast initial drop (beta-relaxation in glass) -> plateau over O(10) epochs -> slow secondary decay following stretched exponential exp(-(t/tau_alpha)^beta_KWW) with beta_KWW in [0.4, 0.8].
+- If observed: confirms glassy dynamics; informs optimal annealing schedule (isothermal plateau just below Tc)
+- If not observed: distinguishes crystalline (boring, converged) vs spin-glass (no convergence)
+- Predicted: 0.02-0.05 bits/char (via annealing schedule informed by diagnostic)
+- Implementation: just rerun combined config to 500 epochs at constant hyperparameters
+- Source: Goetze mode-coupling theory; Berthier-Biroli 2011 Rev. Mod. Phys.
+
+### MX3. Empirical Hessian via fluctuation-dissipation
+Measure Var(W_ij) per element at training stationarity. FDR2: Var(W_ij) = (eta/2) * H_ij^(-1).
+- Yields empirical Hessian without computing one
+- Sagun-Bottou prediction: ~30-100 outlier eigenvalues (matching number of distinct character types). If true, low-rank W parameterization possible (40x memory reduction)
+- Predicted bits effect: marginal (0-0.01) but enables 16-replica PT at same memory budget
+- Source: Yaida 2018 arXiv 1810.00004; Kunin et al. 2021 PRE 104:034126
+
+### MX4. Tc scan (find the critical learning rate)
+Sweep eta in log-spaced values {5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2}. At each, train to stationarity, measure Var(loss) and Var(W). Find chi (susceptibility) peak.
+- Agent predicts our current arousal=0.3 is slightly SUBCRITICAL; bumping to 0.5 should put us in supercritical fast-mixing regime
+- This is falsifiable: if Tc is above 0.3, sweeping arousal {0.3, 0.4, 0.5, 0.6, 0.7} should show non-monotonic behavior
+- Predicted bits effect: 0.01-0.05 once optimal operating point found
+- Source: Bragg-Williams + Cu3Au critical slowing down literature
+
+### MX5. Yaida FDT test (equilibrium status diagnostic)
+Track running ratio r = <W:G> / <|G|^2_F> over a stationary window. Equilibrated if |r-1| < 0.05.
+Also measure kurtosis of element-wise dW (Gaussian = 3; higher = heavy-tailed Simsekli regime).
+- Pure diagnostic; tells us whether temperature analogies apply
+- Predicted bits effect: 0 (informs other experiments)
+- Source: Yaida 2018 ICLR; Simsekli et al. 2019 ICML for heavy-tail diagnostic
+
+### MX6. Asymmetric / Schottky-inspired Hebbian rule
+Replace symmetric `dw = eta * pre * post` with asymmetric:
+  `dw = eta * sign(pre*post) * |pre*post|^beta` with beta=1.3 forward, beta=1.0 reverse
+- Thermionic emission asymmetry has specific functional form (J = J_s(exp(qV/kT) - 1))
+- Predicted: 0.01-0.03 bits/char
+- Source: Sze "Physics of Semiconductor Devices"
+
+### MX7. Cooling schedule from order-disorder kinetics
+Replace exponential LR decay with: warm-up -> isothermal plateau just below Tc (where ordering rate peaks) -> final exponential cool.
+- Geman-Geman optimal schedule is impractical (logarithmic, astronomically slow)
+- Real materials practitioners use piecewise-exponential with held plateaus
+- Predicted: 0.02-0.05 bits/char
+- Source: Cu3Au cowley 1950, Hajek 1988 Math. Oper. Res.
+
+### MX8. Floquet stability diagnostic
+Multi-epoch training is periodic. Compute Floquet multipliers from one epoch's linearized W-dynamics. If any |mu| > 1, training is unstable.
+- Pure diagnostic but informs whether to push more epochs
+- Predicted bits effect: 0-0.03 (stability headroom enabling longer training)
+- Source: Floquet 1883; Magnus-Winkler 1966
+
+### MX9. Lyapunov-Krasovskii spectral check for pool+W system
+Compute lambda_max(pool-feedback Jacobian). System provably exponentially stable if lambda_max < 1 - decay.
+- Diagnostic, tells us if pool size is too large for stability
+- Predicted bits effect: marginal
+- Source: Hale 1977; Razumikhin theorems
+
 ## Pending — update rule modifications
 
 ### U1. Cahn-Hilliard / conservative Hebbian update
