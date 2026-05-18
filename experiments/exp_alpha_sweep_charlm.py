@@ -1,26 +1,26 @@
-"""Pool blend α sweep on the combined+modReLU baseline.
+"""Pool blend alpha sweep on the combined+modReLU baseline.
 
 Direct rehabilitation of the Titans rejection: before deciding whether to gate
-pool writes, measure how much the pool is contributing at all. If α=0 (no
+pool writes, measure how much the pool is contributing at all. If alpha=0 (no
 pool) is already near baseline, pool-mechanism work has low ceiling.
 
 Variants:
-  α = 0.0  — W readout only, no pool contribution. Lower bound on importance.
-  α = 0.1
-  α = 0.3  — current best (2.4994)
-  α = 0.5
-  α = 0.7
-  α = 1.0  — pool only, no W readout. Upper bound on pool quality.
+  alpha = 0.0  — W readout only, no pool contribution. Lower bound on importance.
+  alpha = 0.1
+  alpha = 0.3  — current best (2.4994)
+  alpha = 0.5
+  alpha = 0.7
+  alpha = 1.0  — pool only, no W readout. Upper bound on pool quality.
 
 All other hyperparams identical to combined+modReLU baseline.
 
 Expected fingerprint per Titans diagnostic:
-- α=0.0: probably ~2.55 (W alone, ~0.605 top-1 W readout accuracy)
-- α=0.3: 2.4994 (baseline, pool+W blend)
-- α=1.0: probably much worse (pool top-1 0.437 alone is much worse than W's 0.605)
+- alpha=0.0: probably ~2.55 (W alone, ~0.605 top-1 W readout accuracy)
+- alpha=0.3: 2.4994 (baseline, pool+W blend)
+- alpha=1.0: probably much worse (pool top-1 0.437 alone is much worse than W's 0.605)
 
-If α=0.0 is close to 2.4994, the pool is barely contributing and pool-mechanism
-work is low ceiling. If α=0.0 is much worse, the pool is critical.
+If alpha=0.0 is close to 2.4994, the pool is barely contributing and pool-mechanism
+work is low ceiling. If alpha=0.0 is much worse, the pool is critical.
 """
 
 from __future__ import annotations
@@ -183,7 +183,7 @@ def run_config(alpha, train, test):
                                 "argmax_accuracy": argmax_acc,
                                 "pool_top1_acc": pool_acc, "w_top1_acc": w_acc,
                                 "wall_s": elapsed})
-                _say(f"    [α={alpha}] ep={epoch}  bpc={test_bpc:.4f}  arg={argmax_acc:.4f}  "
+                _say(f"    [alpha={alpha}] ep={epoch}  bpc={test_bpc:.4f}  arg={argmax_acc:.4f}  "
                      f"poolT1={pool_acc:.3f}  wT1={w_acc:.3f}  ({elapsed:.1f}s)")
         return {"alpha": alpha, "history": history}
 
@@ -194,25 +194,25 @@ def main() -> None:
     cut = int(len(corpus) * 0.8)
     train, test = corpus[:cut], corpus[cut:]
     _say(f"  train={len(train)}, test={len(test)} bytes")
-    _say(f"\nα sweep on combined+modReLU baseline (rehab from Titans rejection)")
+    _say(f"\nalpha sweep on combined+modReLU baseline (rehab from Titans rejection)")
     _say(f"  N={N}, K={K}, arousal={AROUSAL}, beta={BETA}, decay={DECAY}, pool={POOL_SIZE}, relu_b={RELU_B}")
-    _say(f"  α values: {ALPHA_VALUES}")
-    _say(f"  Reference: α=0.3 baseline = 2.4994")
+    _say(f"  alpha values: {ALPHA_VALUES}")
+    _say(f"  Reference: alpha=0.3 baseline = 2.4994")
     _say(f"  Question: how much is the pool actually contributing?")
 
     all_results = []
     t_all = time.perf_counter()
     for alpha in ALPHA_VALUES:
-        _say(f"\n--- α = {alpha} ---")
+        _say(f"\n--- alpha = {alpha} ---")
         t0 = time.perf_counter()
         r = run_config(alpha, train, test)
         r["wall_time_s"] = time.perf_counter() - t0
         all_results.append(r)
         best = min(r["history"], key=lambda h: h["test_bpc"])
-        _say(f"  Best for α={alpha}: ep={best['epoch']}, bpc={best['test_bpc']:.4f}")
+        _say(f"  Best for alpha={alpha}: ep={best['epoch']}, bpc={best['test_bpc']:.4f}")
 
     _say(f"\n========= SUMMARY =========")
-    _say(f"{'α':>5s} {'best_ep':>8s} {'best_bpc':>10s} {'wT1':>6s} {'poolT1':>7s}")
+    _say(f"{'alpha':>5s} {'best_ep':>8s} {'best_bpc':>10s} {'wT1':>6s} {'poolT1':>7s}")
     for r in all_results:
         best = min(r["history"], key=lambda h: h["test_bpc"])
         _say(f"{r['alpha']:>5.2f} {best['epoch']:>8d} {best['test_bpc']:>10.4f} "
