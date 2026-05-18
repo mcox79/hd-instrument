@@ -123,3 +123,53 @@ Combine items 2 + 5:
 - BF₁₀ ≤ 1/6 across 5 seeds → abandon at experiment level
 - Three consecutive abandoned experiments in same thread → quarterly review
 - If thread fails Hamming's important-problem test → demote to 20% explore bucket
+
+## Rehabilitation pass after rejection (standing practice, added 2026-05-18)
+
+A single-axis rejection rejects the **configuration**, not the **mechanism**.
+At the moment of rejection, BEFORE updating the tracker with "X failed":
+
+1. Write 3-5 axis-combination rescue candidates directly in the pre-reg or
+   tracker entry. Specifically:
+   - Scale axes (N, corpus size, pool size, batch)
+   - Hyperparameter neighbors (α, β, decay, threshold)
+   - Complementary mechanisms (paired with delta-rule erase, paired with
+     a different substrate, paired with surprise gate, etc.)
+   - Implementation faithfulness check (did we match the paper's actual
+     operating point and signal definition?)
+
+2. Decision rule:
+   - If 2+ candidates look non-trivial, queue at least one rehabilitation
+     experiment.
+   - If rehabilitation is expensive (large compute), defer and tag in
+     design space for Wave 2/3.
+   - If 0 candidates look promising, abandon and note "no plausible
+     rehabilitation paths within current scale" in tracker.
+
+3. Track BOTH layers separately: "configuration X failed" vs. "mechanism Y
+   abandoned." Cite the rehabilitation candidates considered. The literature
+   nearly always reports gains at specific operating points, not universally —
+   our rejections must respect this asymmetry.
+
+## Brain-closer basis as a primary axis (added 2026-05-18)
+
+The substrate itself is a research axis, not a fixed setup. If FHRR keeps
+hitting a floor across all the architecture variants we test, the substrate
+itself may be the limiting factor — and brain-closer substrates may have
+different limits. Specifically:
+
+- **BSC (Binary Spatter Codes)** — XOR-binding, cortical-map-like geometry
+- **Sparse Block Codes (Laiho 2015)** — k-WTA structured sparsity, more
+  like cortical population activity than dense complex phasors
+- **GHRR non-commutative binding (Alam-Raff 2024)** — captures sequence
+  order natively without external position codes
+- **Grid-cell positional codes (Frady-Kanerva-Sommer 2018)** — entorhinal-like
+  (we tested BR5 at K=4, slight hurt; should retry at K=16+)
+- **Spiking-network HD codes (Frady-Sommer 2020)** — discrete event substrate
+
+These are **substrate experiments**, not architecture variants on top of
+FHRR. They belong in the experimental priority list at the same tier as
+architecture-on-FHRR experiments, not below them. Specifically, after each
+Wave of FHRR architecture experiments, before doubling down on more FHRR
+variants, run at least one substrate-switch experiment to test if the floor
+is FHRR-specific.

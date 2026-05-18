@@ -136,7 +136,51 @@ literature anchors needed correction.
 | Config | Best bpc | Notes / lit comparison |
 |---|---|---|
 | N scaling: N=8192 (combined+modReLU) | **2.4774** | -0.022 from N=4096. Frady-Kleyko-Sommer capacity prediction confirmed in this regime. |
-| N scaling: N=16384 | running | |
+| N scaling: N=16384 | KILLED | dtype investigation diverted; complex64 cuBLAS bandwidth-bound at this size; deferred per [dtype_acceleration_pin](dtype_acceleration_pin.md) trigger conditions |
+| **Titans surprise-gated pool sweep (7 variants)** | **2.5218–2.5909 (all hurt)** | H1 REJECTED. Every gate variant worse than baseline, monotonically with write-rate restriction. Best gate variant (`fixed_tau_3.0`, wr=0.48): 2.5218 (−0.022). Most aggressive (`top10pct`, wr=0.10): 2.5909 (−0.092). See [pre-reg](../preregs/2026-05-18_surprise-gated-pool.md). |
+
+### Titans rejection: mechanism analysis (per rehabilitation practice)
+
+**Configuration result:** All 7 surprise-gate variants are WORSE than the
+unconditional-write baseline at N=4096 on 38KB corpus. Monotonic with
+restriction (more filtering = worse bpc).
+
+**Diagnostic fingerprint:**
+- W readout top-1 accuracy: 0.605 (identical across ALL variants)
+- Pool top-1 accuracy: drops from 0.437 (baseline) to 0.095 (top10pct)
+- Test bpc tracks pool quality, not W training
+
+**Mechanism interpretation:** The pool's contribution at our scale comes from
+**retrieving common bytes** (the Zipfian-heavy test distribution), not from
+selectivity over informative items. Common bytes have LOW per-token loss →
+LOW surprise → filtered out by the gate → pool can't help on the bytes that
+dominate the test set. In Titans' published regime (long-context LM at scale),
+rare informative tokens are useful to memorize explicitly because common
+tokens are already absorbed by slow weights; at byte-level on small corpora
+that relationship inverts.
+
+**Rehabilitation candidates** (per [feedback_rehabilitation_after_rejection]):
+1. **Invert the gate** — write only low-surprise items. Would test the
+   "common-byte hypothesis" cleanly. Expected: should match baseline
+   (not beat it), would confirm diagnosis. ~6 min experiment.
+2. **Pool size sweep** — does the gate help at pool=4096 or 8192 where
+   selectivity matters more? ~20 min.
+3. **α sweep at fixed gate** — does higher pool weight (α=0.5, 0.7)
+   make a gated pool's quality matter more? Unclear EV.
+4. **Gradient-norm surprise** — literal Titans signal vs our loss-bits proxy.
+   Implementation faithfulness check.
+5. **1MB corpus** — does the Zipfian distribution flatten enough that
+   surprise gate flips sign? Deferred to Wave 2.
+
+**Decision:** Mechanism is NOT fully abandoned. (1) is cheap and confirms
+the diagnostic; queue it as a 1-line follow-up. (5) is the real test of
+Titans' regime claim, deferred to Wave 2. (2) is worth running standalone
+(pool size sweep) regardless of gate, since it tells us about pool capacity
+limits independently. (3) deferred. (4) needs implementation work.
+
+**Single most informative follow-up:** the **α sweep with the current
+pool configuration**, because it answers "how much is the pool doing?" —
+which is upstream of "should we gate writes to it?"
 
 ## Literature landscape (audit, 2022-2026)
 
