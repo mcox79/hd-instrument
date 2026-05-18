@@ -65,7 +65,7 @@ POOL_SIZE = 1024
 ALPHA = 0.3
 DECAY = 1e-4
 EPOCHS_PER_PHASE = 15
-EVAL_EVERY_EPOCHS = [1, 5, 10, 15]
+EVAL_EVERY_EPOCHS = [5, 15]  # reduced from [1,5,10,15] — eval halved across 12 runs
 RELU_B = 0.5
 
 SUBSTRATES = ["FHRR", "BSC", "SBC"]
