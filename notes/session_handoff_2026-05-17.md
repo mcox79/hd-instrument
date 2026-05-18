@@ -120,6 +120,49 @@ Full backlog of 30+ experiments at `notes/experiments_backlog.md`.
 - **The hardware story is real** — IBM PCM 2020 gives 3 orders of magnitude on cleanup; realistic system-level claim 10×-100× on cleanup-heavy workloads. BSC is deployment-friendly; FHRR is research-only until phase-based silicon catches up.
 - **The transformer baseline overfits catastrophically at 38KB** — final test bpc 3.61 after 10 min, requires validation-monitored early stopping to get 2.39. Our architecture has built-in regularization from single-pass training (but multi-epoch breaks this).
 
+## Late-session partial: dendritic-NL experiment (stopped early for GPU transition)
+
+Three of six variants completed before stopping for desktop-GPU transition:
+
+| Variant | epoch 5 test_bpc | W_norm | Verdict |
+|---|---|---|---|
+| baseline_linear (control) | 2.544 | 86 | matches reference |
+| magnitude_tanh alpha=1 | 4.14 | 1041 | FAILED, W exploded |
+| magnitude_tanh alpha=3 | 4.14 | 1636 | FAILED, W exploded worse |
+| magnitude_relu b=0.5 | running at epoch 1 = 2.857, W_norm 46 | — | looked stable so far |
+| magnitude_sigmoid alpha=2 | not run | — | not run |
+| real_imag_tanh | not run | — | not run |
+
+Reason for stopping: switching to GPU for ~10x speedup. The whole 6-variant
+sweep takes ~45 min on CPU, will take ~5 min on a 4090. Re-running on GPU is
+cheaper than waiting.
+
+Pattern so far: magnitude-bounding nonlinearities (tanh) destabilize the
+delta-rule geometry and cause W norm to explode. The relu variant (zero out
+small magnitudes, keep large ones) survives the dynamics — different
+geometric operation. Real_imag_tanh and magnitude_sigmoid remain unknown.
+
+## Next session - desktop GPU setup
+
+Setup prompt is in the message I sent the user; basically:
+  - C:\dev\hd-instrument as install location
+  - python -m venv .venv, install CUDA-PyTorch (cu121)
+  - Make experiment scripts device-aware
+  - Re-run dendritic NL sweep (will take ~5 min total instead of 45)
+  - Then proceed with BR5 (grid-cell positions), BR2 (DG projector),
+    BR3 (climbing-fiber error matrix), BR4 (PFC attractor), MX10
+    (parallel tempering)
+
+Priority order based on session findings:
+  1. BR5 grid-cell positions (FHRR-native, Frady-Kanerva-Sommer 2018) — best
+     evidence-backed substrate change
+  2. BR2 DG sparse projector — attacks pool collisions
+  3. BR3 climbing-fiber error matrix — federated module the brain has and we don't
+  4. BR4 PFC working memory attractor — adds new state dimension
+  5. MX10 parallel tempering K=8 + RSB diagnosis — the materials top pick;
+     also informs whether further work is sampling-side or capacity-side
+  6. MX2 two-time aging scan — diagnostic; tells us if we're in trap vs CTRW regime
+
 ## What to do first thing next session
 
 1. **Run `experiments/exp_multiepoch_decay_charlm.py`** — pre-written, just execute. Tells us if decay unlocks more epochs.
