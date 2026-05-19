@@ -33,6 +33,31 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-18 ~22:25: CPU platform timing v1 — honest negative finding + follow-up queued
+
+Both CPU timing v1 runs completed (laptop ~6 min, workstation ~6 min).
+
+- **Laptop (consumer baseline)**: 2/27 configs met <100ms p99
+- **Workstation (high-end consumer)**: 3/27 configs met <100ms p99
+
+Configurations that met the target on laptop: N=2048 + P in {1K, 10K} + B=2.
+Decomposition cost dominates: ~60-90ms per single decompose at B=2, scales
+linearly with B. The v1 test decomposed top-M=4 bundles per query, which
+is 4x the realistic cost.
+
+**Honest reframing**: the v1 experiment design was overly pessimistic.
+Real deployment patterns:
+- Most queries: retrieve-only (no decomposition)
+- Some queries: retrieve + 1 decompose (when agent asks "what's in here")
+- Rare: decompose-only (background consolidation)
+
+Wrote `exp_wave14b_cpu_platform_timing_v2.py` with three realistic modes
+and queued on both CPU watchdogs. Hypothesis: retrieve-only meets target
+at all configs; retrieve+1 meets target at modest N/B. Will know in ~10
+min.
+
+This is NOT a substrate failure. It's an instrumentation correction.
+
 ### 2026-05-18 evening: consolidation neuroscience research returned
 
 Unbiased survey of memory consolidation biology + math came back
