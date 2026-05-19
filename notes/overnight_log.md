@@ -33,4 +33,33 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
-(autonomous cycles will append here)
+### 2026-05-18 evening: consolidation neuroscience research returned
+
+Unbiased survey of memory consolidation biology + math came back
+(notes/wave14b_m2_consolidation_design.md). Five concrete algorithmic
+steps for M2 design:
+
+1. **Selection scoring** (Mattar-Daw 2018): need × gain prioritization
+   for which pool entries to replay. Need = retrieval count; gain =
+   delta-rule residual norm.
+2. **Pattern extraction**: 14.B decompose selected entries, build
+   co-occurrence matrix, find top-K recurring patterns.
+3. **Concept atoms**: bundle recurring patterns into new codebook atoms,
+   bound to new position codes.
+4. **Interleaved cortical update** (CLS, McClelland 1995): replay
+   selected entries mixed 50/50 with current training data through
+   delta-rule W updates.
+5. **Homeostatic downscaling** (Tononi-Cirelli SHY): after each
+   consolidation cycle, multiplicatively decay all pool entries.
+   Concept atoms in codebook don't decay.
+
+This is a complete algorithmic recipe grounded in concrete biological
+findings (Wilson-McNaughton 1994 replay discovery; Tse 2007 schema
+consolidation; Kitamura-Tonegawa 2017 engram tagging; Saxe 2019 SVD
+ordering). Falsification criteria + validation experiment also
+specified in the design doc.
+
+NOT implemented — design only, awaits supervised implementation in
+next session.
+
+(autonomous cycles will append below)
