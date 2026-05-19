@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "r10_N8192", "script": "experiments/exp_wave14b_r10_N8192.py", "status": "pending", "purpose": "R10 K-effect at N=8192 (substrate's best dim). Does R10 transfer?", "timeout_s": 14400}
+  ]
+}
