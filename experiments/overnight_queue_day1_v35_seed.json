@@ -1,0 +1,7 @@
+{
+  "experiments": [
+    {"name": "triple_compound_v2", "script": "experiments/exp_wave14b_triple_compound.py", "status": "running", "purpose": "Triple retry, bug-fixed", "timeout_s": 3600},
+    {"name": "r10_hyperparam_sweep", "script": "experiments/exp_wave14b_r10_hyperparam_sweep.py", "status": "running", "purpose": "R10 LAMBDA/NC/BETA sweep at K=64", "timeout_s": 3600},
+    {"name": "r3_rescues", "script": "experiments/exp_wave14b_r3_rescues.py", "status": "pending", "purpose": "Settle compound question: R3-Kscaled (1600 pair concepts) + R3-orthogonal (100 triples) vs R3-default. All with replay+R10 at K=32, 3 seeds.", "timeout_s": 5400}
+  ]
+}
