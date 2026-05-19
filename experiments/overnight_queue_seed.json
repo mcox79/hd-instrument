@@ -1,0 +1,18 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_vsa_pool",
+      "script": "experiments/exp_wave14b_cl_phase_b2.py",
+      "status": "pending",
+      "purpose": "C2 VSA-pool vs C1 classical pool, BWT comparison",
+      "timeout_s": 3600
+    },
+    {
+      "name": "scaling_sweep_N8K_to_64K",
+      "script": "experiments/exp_wave14b_scaling_sweep.py",
+      "status": "pending",
+      "purpose": "M5 scaling verification: 14.B at N in {8K, 16K, 32K, 64K}",
+      "timeout_s": 14400
+    }
+  ]
+}
