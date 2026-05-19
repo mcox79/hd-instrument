@@ -554,3 +554,25 @@ retrieve+1-decompose, decompose-only) is running on both CPU watchdogs.
 3. notes/wave14b_m2_consolidation_design.md = full M2 algorithm
 4. Updated queue files showing what ran and what's running
 5. Unbiased research outputs (consolidation done, bundle noise pending)
+
+### Continuing overnight: BETA fix found, B.2 result REVISED
+
+After Phase B.2 showed C2 trailing C1 by 0.056 bpc, autonomous cycle:
+- Launched unbiased bundle-noise-theory research (Plate, Frady-Kent math).
+- Survey concluded the empirical gap CANNOT be bundle info loss
+  (theoretical lower bound ~10^-95 bpc) - must be calibration mismatch.
+- Tried LLR factor 2/(B-1)=0.5: FAILED (gap got worse, -1.05 bpc).
+  Misapplied per-coord theory to aggregate softmax readout.
+- Re-analysis: the gap was softmax confidence ceiling at BETA=8
+  (P caps at 0.92 -> log(1/0.92) ~ 0.025 bpc).
+- BETA sweep test: at BETA=16, C2 matches C1 within 0.0001 bpc.
+  HYPOTHESIS CONFIRMED.
+
+**Revised Phase B.2 result**: VSA-pool C2 is equivalent to classical
+pool C1 once BYTE_BETA >= 16. The encoding is information-preserving;
+the original "minor negative" was a tuning artifact, not a substrate
+issue.
+
+**Bar for C3 (compositional retrieval) is now LOW**: just needs to
+beat C1 by ANY margin. The 0.06 bpc overhead I worried about doesn't
+exist when readout is properly tuned.

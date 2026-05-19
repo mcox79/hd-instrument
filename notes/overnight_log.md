@@ -33,6 +33,35 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 ~00:56: BYTE_BETA sweep — HYPOTHESIS CONFIRMED, C2 matches C1
+
+| BYTE_BETA | C2-C1 post |
+|---|---|
+| 8 (original) | -0.0559 |
+| 16 | **-0.0001** |
+| 32 | -0.0002 |
+| 64 | -0.0002 |
+| 128 | -0.0002 |
+
+**At BETA=16, C2 matches C1 within 0.0001 bpc.** The 0.056 bpc gap was
+entirely softmax confidence ceiling. Higher BETA values saturate to
+identical results.
+
+**Implications:**
+1. VSA-pool encoding is "lossless" w.r.t. C1 in our setup. No info loss
+   from 14.B extraction, just needed proper softmax temperature.
+2. C3 (compositional retrieval) bar drops: only needs to beat C1 by
+   ANY margin to win the headline test.
+3. The substrate's theoretical prediction (bundle decomposition CE ~
+   10^-95) holds empirically once readout is calibrated.
+
+This is the autonomous-cycle loop working as intended:
+- Empirical negative -> unbiased research -> misinterpret -> revised
+  re-analysis -> targeted experiment -> CONFIRMED.
+
+Next conservative follow-up: ALPHA sweep with BETA=16 (verify
+robustness across pool weighting).
+
 ### 2026-05-19 ~00:38: CPU v2 + LLR diagnostic results
 
 **CPU v2 timing on both hardware tiers** — much more honest picture:
