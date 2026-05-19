@@ -33,6 +33,42 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 ~00:25: ALPHA sweep + bundle noise theory came back
+
+**ALPHA sweep result** (4 min wall):
+
+| alpha | pre C1 | pre C2 | post C1 | post C2 | C2-C1 post |
+|---|---|---|---|---|---|
+| 0.10 | 2.4539 | 2.4615 | 4.9750 | 5.0170 | −0.0421 |
+| 0.30 | 2.4817 | 2.5006 | 4.3352 | 4.3911 | −0.0559 |
+| 0.50 | 2.5945 | 2.6246 | 4.0193 | 4.0800 | −0.0607 |
+| 0.70 | 2.7926 | 2.8351 | 3.8368 | 3.8967 | −0.0600 |
+
+C2-C1 gap is consistent across ALPHA (−0.04 to −0.06 bpc), slightly
+larger at higher ALPHA. NOT pool-weight-dependent — confirms the gap
+is intrinsic to the readout, not from pool retrieval interference.
+
+**Bundle decomposition noise theory survey** (came back ~10 min later):
+
+Decisive theoretical prediction: bundle decomposition CANNOT produce
+0.02-0.06 bpc loss. Theoretical lower bound on extra CE from bundle
+encoding at N=4096, B=5 is `(M-1)*exp(-N/(2(2B-1))) ~ 10^-95 bpc`.
+
+Therefore the empirical gap must be from **uncalibrated softmax
+readout**. Bayes-optimal LLR for v = a_k + noise (var B-1) is
+`2v/(B-1)`, not raw v. Survey explicit diagnostic: apply LLR factor
+2/(B-1)=0.5 in our case, see if gap collapses.
+
+Wrote notes/wave14b_bundle_noise_theory.md with full synthesis.
+
+**Phase B.2-LLR experiment** queued: same B.2 architecture but with
+LLR factor in predict_pool_vsa. Pre-registered:
+- Gap closes <0.005 bpc → calibration was the entire story
+- Gap remains >0.04 bpc → hypothesis falsified, deeper issue
+
+If LLR works: C2 matches C1, C3 only needs to beat by ANY margin to
+win the headline test. Big strategic implication if confirmed.
+
 ### 2026-05-18 23:17 + 2026-05-19 00:17: GPU queue complete — TWO MAJOR RESULTS
 
 **Phase B.2 (VSA-pool C2 vs classical C1)** — minor negative, honest read:
