@@ -10,6 +10,64 @@ against `STATE_2026_05_19.md` before being relied upon.
 
 ---
 
+## 2026-05-19 17:15 — Cycle 0 (overnight setup, wave14b/c continuation)
+
+User starting overnight cycle. Both queues drained to empty at ~17:07.
+Four results landed late afternoon, three big ones:
+
+**R10 best-config K=128/256 (DONE, 47 min):**
+- K=128: default +0.139 → best +0.412 (improvement +0.273, **196%** over default)
+- K=256: default +0.193 → best +0.543 (improvement +0.350, **182%** over default)
+- The hyperparam-sweep config (nc=50, lam=0.3, beta=16) more than doubles
+  the headline at K=256. **New publication-grade headline candidate: R10 +0.543
+  at K=256 best-config, 3 seeds, sd~0.009.**
+
+**R3 disjoint concepts (DONE, 9 min) — HYPOTHESIS CONFIRMED:**
+- r3same atop replay: −0.001 (no effect)
+- r3disj atop replay: **+0.024**
+- delta (disj − same) = +0.025
+- Disjoint-source concepts DO compound with replay where same-source ones
+  don't. The "shared evidence base" hypothesis from `wave14b_compound_falsification`
+  is confirmed. Implication: triple-compound may NOT be permanently falsified —
+  it was falsified for same-source concepts. R3 with disjoint concepts is a
+  newly-open path.
+
+**R10 best-config K=16/32/64 (PARTIAL crash):**
+- K=16: default +0.008 → best +0.183 (22× amplification)
+- K=32: default +0.049 → best +0.222
+- K=64 seed=17: default +0.106 → best **+0.318** (matches hyperparam sweep)
+- K=64 seed=23 started but log ended; experiment process orphaned.
+- Verification queued separately.
+
+**ACF K-dependent retry (DONE, 30 min on CPU):**
+- K=2048 (r=0): 16.7% (note: predicted 100% match-baseline; actual
+  baseline reproduce may have drifted, needs re-check)
+- K=2304 (r=0.01): 36.7% / K=2560: 46.7% / K=3072: 73.3% /
+  K=4096: 83.3% / K=6144: 96.7% — monotone increase confirmed.
+
+**Deep research syntheses produced this cycle (3 new wave14c docs):**
+- `wave14c_stein_pred1_rejection_research.md` — Stein pred #1 failure;
+  the (2B−1)/N constant is retrieval-side, not W-training-side; framing
+  survives in restricted form
+- `wave14c_random_replay_mechanism_research.md` — random replay is
+  gradient-direction projection (A-GEM-like with uniform reference set);
+  single mechanism explains all three replay negatives. **Paper-grade reframe.**
+- `wave14c_r3_small_effect_mechanism_research.md` — +0.032 R3 effect
+  most likely class-prior re-injection. 10-min diagnostic queued.
+
+**Queue state at end of cycle 0:**
+- GPU pending (5 items, ~2.5h): r10_best_config_K64_verify, r3_unigram_diagnostic,
+  r10_best_config_K2_K4_K8, r3_disjoint_K16, r10_best_config_K512
+- CPU: empty, no new items added (will refill at next cycle if needed)
+
+**Known issue:** 6+ queue runner shells still alive (ssh -f leftovers).
+Race window during simultaneous polls ~3% per item; expect 0-2 duplicate runs
+overnight. Not corrupting, just wasteful.
+
+**Next wake:** ~30-45 min to check K64_verify result.
+
+---
+
 User went to sleep 2026-05-18 evening. This file tracks autonomous cycles.
 
 ## Starting state
