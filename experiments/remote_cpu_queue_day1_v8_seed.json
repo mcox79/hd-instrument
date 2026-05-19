@@ -1,0 +1,9 @@
+{
+  "experiments": [
+    {"name": "decompose_extreme_B", "script": "experiments/exp_wave14b_decompose_extreme_B.py", "status": "completed", "purpose": "B-sweep cliff", "timeout_s": 7200},
+    {"name": "decompose_K_extreme", "script": "experiments/exp_wave14b_decompose_K_extreme.py", "status": "completed", "purpose": "K=4096+ -> 0%", "timeout_s": 7200},
+    {"name": "decompose_K_cliff", "script": "experiments/exp_wave14b_decompose_K_cliff.py", "status": "completed", "purpose": "K-cliff at K/N=0.56", "timeout_s": 7200},
+    {"name": "noise_resonator", "script": "experiments/exp_wave14b_noise_resonator.py", "status": "completed", "purpose": "Failed: 5 bugs vs paper (IMF not ACF for F=2, noise 12.5x too high, etc).", "timeout_s": 14400},
+    {"name": "acf_resonator", "script": "experiments/exp_wave14b_acf_resonator.py", "status": "pending", "purpose": "ACF (Asymmetric Codebook Factorizer) -- correct F=2 variant for 50x capacity.", "timeout_s": 14400}
+  ]
+}
