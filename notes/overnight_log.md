@@ -33,6 +33,19 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 03:47: cron cycle — queued N=8192 transfer test of BETA=16 fix
+
+After three no-op cycles (02:17, 02:47, 03:17), revised judgement:
+GPU is sitting idle while autonomy authorized. Queued one focused
+conservative experiment: Phase A + Phase B.2 at N=8192 with BYTE_BETA=16.
+
+Tests whether the BETA=16 fix is N-invariant. Self-contained script,
+pure parameter variant of existing Phase A + Phase B.2 (only N
+changed from 4096 to 8192). Pre-registered: C2-C1 gap should remain
+within ±0.01 bpc if the fix transfers cleanly. Expected runtime ~3-5 min.
+
+GPU watchdog relaunched (background id bz3cq5xlk).
+
 ### 2026-05-19 02:17: cron cycle — no-op, clean stopping state preserved
 
 All three watchdogs stopped per design (1-hour empty-queue idle). No
