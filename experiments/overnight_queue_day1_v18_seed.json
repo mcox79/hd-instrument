@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "basis_modification",
+      "script": "experiments/exp_wave14b_basis_modification.py",
+      "status": "pending",
+      "purpose": "True basis-modification: PPMI concept atoms get a position code and ARE BOUND (not scored). Theorem does not cover this.",
+      "timeout_s": 1800
+    }
+  ]
+}
