@@ -29,7 +29,6 @@ from pathlib import Path
 
 import torch
 import numpy as np
-from sklearn.decomposition import NMF
 
 
 torch.set_float32_matmul_precision("high")
@@ -103,12 +102,31 @@ def decompose_pool_to_activations(pool_vecs, byte_atoms, pos_atoms, n):
     return X
 
 
-def run_nmf(X_np, rank):
-    """Run sklearn NMF on the activation matrix."""
-    nmf = NMF(n_components=rank, init='nndsvd', max_iter=300, tol=1e-4, random_state=SEED)
-    W = nmf.fit_transform(X_np)  # (M, rank)
-    H = nmf.components_  # (rank, P)
-    return W, H, nmf.reconstruction_err_
+def run_nmf(X_np, rank, n_iter=200, tol=1e-4):
+    """Lee-Seung multiplicative updates NMF in pure numpy. No sklearn dep."""
+    M, P = X_np.shape
+    rng = np.random.default_rng(SEED)
+    # Random non-negative initialization
+    W = rng.random((M, rank)).astype(np.float32) + 0.1
+    H = rng.random((rank, P)).astype(np.float32) + 0.1
+    prev_err = float('inf')
+    for it in range(n_iter):
+        # Update H: H = H * (W.T @ X) / (W.T @ W @ H + eps)
+        numerator_H = W.T @ X_np
+        denominator_H = (W.T @ W) @ H + 1e-9
+        H = H * numerator_H / denominator_H
+        # Update W: W = W * (X @ H.T) / (W @ H @ H.T + eps)
+        numerator_W = X_np @ H.T
+        denominator_W = W @ (H @ H.T) + 1e-9
+        W = W * numerator_W / denominator_W
+        # Convergence check every 10 iter
+        if it % 10 == 0:
+            err = np.linalg.norm(X_np - W @ H) / (np.linalg.norm(X_np) + 1e-9)
+            if abs(prev_err - err) < tol:
+                break
+            prev_err = err
+    final_err = np.linalg.norm(X_np - W @ H)
+    return W, H, final_err
 
 
 def build_concept_atoms_from_nmf(W_nmf, byte_atoms, pos_atoms, n):
