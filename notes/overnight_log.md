@@ -10,10 +10,20 @@ User went to sleep 2026-05-18 evening. This file tracks autonomous cycles.
 - **Queue runner**: launched on remote GPU box, processes data/overnight_queue/queue.json
 - **Cron wake-up**: every 30 min at :17 and :47, runs autonomous monitoring cycle
 
-## Initial queue
+## Three parallel watchdogs
 
-1. `phase_b2_vsa_pool` — Phase B.2 VSA-pool vs classical pool
-2. `scaling_sweep_N8K_to_64K` — M5 scaling sweeps at N in {8K, 16K, 32K, 64K}
+1. **GPU queue (remote `marsh@home`)**: `data/overnight_queue/`
+   - phase_b2_vsa_pool (Phase B.2 VSA-pool vs classical)
+   - scaling_sweep_N8K_to_64K (M5 scaling at N in {8K..64K})
+
+2. **CPU queue (local laptop)**: `data/local_cpu_queue/`
+   - cpu_platform_timing (validate <100ms p99 on consumer CPU)
+
+3. **CPU queue (remote workstation, runs alongside GPU queue)**: `data/remote_cpu_queue/`
+   - cpu_platform_timing (validate on stronger workstation-class CPU)
+
+Plus background research agent on **memory consolidation neuroscience**
+(unbiased framing: describe biology/math, not design AI).
 
 ## Already established (pre-overnight)
 
