@@ -377,9 +377,15 @@ def main():
     _say(f"  TRIPLE (replay + R10 + R3):           BWT={triple:+.4f}")
     _say(f"  Triple total gain over baseline:      {triple_gain:+.4f}")
 
-    # Check orthogonality vs best pair
-    best_pair = max(mean_bwt[k] for k in keys if sum(int(c) for c in k.split("_")[-2:] if "=" in c) +
-                    (1 if "yesR" in k else 0) == 2)
+    # Check orthogonality vs best pair: count which mechanisms are active
+    def active_count(k):
+        parts = k.split("_")
+        replay = 1 if parts[0] == "yesR" else 0
+        r10 = 1 if "r10=1" in k else 0
+        r3 = 1 if "r3=1" in k else 0
+        return replay + r10 + r3
+    pair_keys = [k for k in keys if active_count(k) == 2]
+    best_pair = max(mean_bwt[k] for k in pair_keys)
     _say(f"  Best pair (replay+R10, replay+R3, R10+R3): {best_pair:+.4f}")
     _say(f"  Triple vs best pair: {triple - best_pair:+.4f}")
     if triple - best_pair >= 0.05:
