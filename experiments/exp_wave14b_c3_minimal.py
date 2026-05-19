@@ -228,7 +228,7 @@ def main():
     train_b_targets = train_b_bytes[pos_train + K]
 
     _say(f"\nContinual training on corpus B...")
-    _say(f"  {'ep':>4} | {'C0':>7} | {'C1':>7} | {'C2':>7} | {'C3':>7} | {'C3-C1':>+8}")
+    _say(f"  {'ep':>4} | {'C0':>7} | {'C1':>7} | {'C2':>7} | {'C3':>7} | {'C3-C1':>8}")
     t_start = time.perf_counter()
     history = []
     for epoch in range(1, MAX_EPOCHS_B + 1):
