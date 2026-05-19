@@ -1,0 +1,7 @@
+{
+  "experiments": [
+    {"name": "r10_K128_K256_multiseed", "script": "experiments/exp_wave14b_r10_K128_K256_multiseed.py", "status": "completed", "purpose": "R10 K=128/256 monotone +0.139/+0.193 t=89-95", "timeout_s": 14400},
+    {"name": "r10_r3_combined", "script": "experiments/exp_wave14b_r10_r3_combined.py", "status": "running", "purpose": "R10+R3 compound at K=16, K=32", "timeout_s": 3600},
+    {"name": "triple_compound", "script": "experiments/exp_wave14b_triple_compound.py", "status": "pending", "purpose": "TRIPLE: random replay x R10 x R3 at K=32, 3 seeds. 2^3 conditions.", "timeout_s": 3600}
+  ]
+}
