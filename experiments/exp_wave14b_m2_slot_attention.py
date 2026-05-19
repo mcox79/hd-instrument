@@ -115,7 +115,7 @@ def slot_attention(pool_vecs, num_slots, num_iters, beta_slot, n, gen):
     init_idx = torch.randperm(P, generator=gen)[:num_slots]
     slots = pool_vecs[init_idx].clone()
     # Add small jitter so they differentiate
-    jitter = torch.randn_like(slots, generator=gen) * 0.01
+    jitter = (torch.randn(slots.shape, generator=gen) * 0.01).to(slots.device)
     slots = slots + jitter
     # Normalize slots
     slots = slots / slots.norm(dim=1, keepdim=True).clamp(min=1e-12)
