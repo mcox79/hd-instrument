@@ -1,0 +1,7 @@
+{
+  "experiments": [
+    {"name": "r10_best_config_multiseed", "script": "experiments/exp_wave14b_r10_best_config_multiseed.py", "status": "running", "purpose": "Verify best config at K=128, K=256", "timeout_s": 7200},
+    {"name": "r3_alone_laplace", "script": "experiments/exp_wave14b_r3_alone_laplace.py", "status": "completed", "purpose": "+0.154 mystery SETTLED: true effect +0.032 (3 seeds Laplace alone). Mostly artifact.", "timeout_s": 1800},
+    {"name": "replay_preshift_K4", "script": "experiments/exp_wave14b_replay_preshift_K4.py", "status": "pending", "purpose": "Stein prediction #1: replay during Phase A hurts pre-shift bpc at K=4", "timeout_s": 3600}
+  ]
+}
