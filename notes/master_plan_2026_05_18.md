@@ -293,6 +293,82 @@ Started autonomous queue at end of session, with these incremental findings:
   refinement OR our architecture genuinely doesn't support natural ICL
   on byte streams.
 
+### Wave 4.5 v2 (gradient W with identity-init fix, cross-entropy loss)
+
+CONFIRMED NEGATIVE RESULT across LRs and N values:
+- N=4096 delta-rule: 2.4817
+- N=4096 gradient lr=3e-3: 3.4676 (+0.99 worse) ||W||=669
+- N=4096 gradient lr=1e-2: 5.3524 (+2.87 worse) ||W||=3316 (exploding)
+- N=4096 gradient lr=3e-2: 5.7851 (+3.30 worse) ||W||=7619 (exploding)
+- N=8192 delta-rule: 2.4344
+- N=8192 gradient lr=3e-3: 3.85 (still in progress at ep5)
+
+The fix WORKED (W actually trains now), but cross-entropy gradient training
+on a single matrix W with AdamW underperforms the delta rule.
+
+### Unbiased audit on the negative result (decisive)
+
+Three structural reasons the gap is EXPECTED, not a bug:
+
+1. **Loss mismatch.** Delta rule IS SGD — but on
+   `||W·ctx − target_atom||²` in codebook space, not cross-entropy.
+   DeltaNet paper (Yang 2024 arXiv 2406.06484) explicitly states this:
+   "delta rule interprets each recurrent update as a single SGD step on
+   ||S^T k_t − v_t||²". Cross-entropy on softmax(sims) is a DIFFERENT
+   loss with different minima except at convergence.
+
+2. **Preconditioner mismatch.** Delta rule = SGD preconditioned by
+   codebook geometry C^T·C/N. AdamW's diagonal v whitens the rank-1
+   outer-product structure that makes delta rule work. Liu 2025 (arXiv
+   2502.01594) shows Adam is the wrong preconditioner for Kronecker /
+   outer-product gradients. ||W|| exploding to 669/3316/7619 is the
+   textbook symptom.
+
+3. **Architectural mismatch.** Schlag-Irie 2021 and DeltaNet 2024 do
+   NOT backprop into W. They backprop into the slow projections that
+   PRODUCE delta-rule inputs (keys/values/queries). My method (B)
+   attempts something the literature explicitly avoids.
+
+### Wave 4.5 v3 (MSE loss test — clean validation)
+
+Committed but not yet launched. Changes loss from cross-entropy to
+`||W·ctx − target_atom||²` in codebook space (the actual delta-rule
+objective). Hypothesis: if MSE matches delta rule within noise, the
+loss mismatch is the entire story.
+
+**To launch when GPU is free:**
+```
+ssh marsh@home "cd C:/dev/hd-instrument && git pull && \
+  C:/dev/hd-instrument/.venv/Scripts/python.exe -u \
+  experiments/exp_wave45_gradient_w_frozen_atoms.py > data/exp_wave45_v3.log 2>&1"
+```
+
+### Wave 14.B math survey (unbiased, decisive)
+
+Pre-Wave-14.B math survey returned 6 pitfalls and 4 must-preserve structures:
+
+**Must preserve (structural):**
+- Connected gradedness (antipode and recursive decomposition need this)
+- Non-cocommutativity (carries ordering; Cartier-Milnor-Moore theorem)
+- Chen's identity (binding = monoid hom into group-like elements)
+- Strict monotonicity (kills tree-like cancellation)
+
+**Pitfalls to avoid:**
+1. Tree-like cancellation: u·v·v⁻¹·w = u·w under shuffle. Need monotone clock.
+2. Lyndon factorization isn't canonical over continuous V. Stick to discrete bytes.
+3. Truncation factorial-lossy (resolves features at scale 1/n!).
+4. Δ stability is poor: small ε perturbations spread O(nε) across all splits.
+5. Rank vs length confusion: don't squash all grades into fixed-dim space.
+6. Quasi-shuffle vs shuffle is a CHOICE (if letters have internal structure).
+
+**Wave 14.B revised design:**
+The standard HDC position-binding IS the integer→vector translation of
+shuffle algebra. So basic shuffle-Δ would just reproduce standard
+position-unbinding. The genuinely novel operation Wave 14.B should test is
+**hierarchical prefix/suffix bundle extraction**: extract sub-bundles
+covering positions [0..i] or [i..K]. Use resonator-style cleanup to
+handle Δ's poor noise stability.
+
 ### Net takeaway from autonomous queue
 
 Of the 7 experiments queued:
