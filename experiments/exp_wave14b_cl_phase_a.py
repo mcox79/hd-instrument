@@ -43,7 +43,7 @@ EVAL_AT = [5, 15]
 RELU_B = 0.5
 N = 4096
 DELTA_RULE_ALPHA = 0.3
-DELTA_RULE_DECAY = 0.0
+DELTA_RULE_DECAY = 1e-4
 
 
 def _say(msg: str) -> None:
@@ -151,9 +151,9 @@ def train_baseline_W(byte_atoms, pos_atoms, train: bytes, test: bytes) -> dict:
                 target_atoms = byte_atoms[tgt_batch]
                 predicted = (P.T @ byte_atoms)
                 residual = target_atoms - predicted
-                W += DELTA_RULE_ALPHA * (residual.T @ ctxs) / B
-                if DELTA_RULE_DECAY > 0.0:
-                    W *= (1.0 - DELTA_RULE_DECAY)
+                dW = (residual.T @ ctxs) / N
+                W.mul_(1.0 - DELTA_RULE_DECAY)
+                W.add_(dW, alpha=DELTA_RULE_ALPHA)
                 if epoch == 1:
                     dest = (pool_idx + arange_b[:B]) % POOL_SIZE
                     pool_vecs.index_copy_(0, dest, ctxs)
