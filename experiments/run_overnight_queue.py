@@ -33,7 +33,10 @@ from datetime import datetime
 
 
 REPO = Path(__file__).resolve().parent.parent
-QUEUE_DIR = REPO / "data" / "overnight_queue"
+# Queue dir can be overridden via command-line arg (for parallel local CPU queue).
+# Default = data/overnight_queue (the remote GPU queue).
+QUEUE_DIR_NAME = sys.argv[1] if len(sys.argv) > 1 else "overnight_queue"
+QUEUE_DIR = REPO / "data" / QUEUE_DIR_NAME
 QUEUE_FILE = QUEUE_DIR / "queue.json"
 GLOBAL_LOG = QUEUE_DIR / "queue.log"
 HEARTBEAT_FILE = QUEUE_DIR / "heartbeat.json"

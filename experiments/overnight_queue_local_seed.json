@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "cpu_platform_timing",
+      "script": "experiments/exp_wave14b_cpu_platform_timing.py",
+      "status": "pending",
+      "purpose": "Validate <100ms p99 retrieval+decomposition on consumer CPU",
+      "timeout_s": 14400
+    }
+  ]
+}

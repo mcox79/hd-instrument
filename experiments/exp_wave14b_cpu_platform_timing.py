@@ -28,7 +28,8 @@ from pathlib import Path
 import torch
 
 
-torch.set_num_threads(0)  # use all available
+import os
+torch.set_num_threads(max(1, os.cpu_count() or 1))
 DEVICE = torch.device("cpu")  # FORCE CPU regardless of CUDA availability
 SEED = 17
 N_VALUES = [2048, 4096, 8192]
