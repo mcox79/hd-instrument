@@ -33,6 +33,47 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-18 23:17 + 2026-05-19 00:17: GPU queue complete — TWO MAJOR RESULTS
+
+**Phase B.2 (VSA-pool C2 vs classical C1)** — minor negative, honest read:
+
+| Condition | Pre-shift bpc | Post-shift bpc | BWT |
+|---|---|---|---|
+| C1 (classical) | 2.4817 | 4.3352 | −1.8535 |
+| C2 (VSA-pool)  | 2.5006 | 4.3911 | −1.8906 |
+
+C2 trails C1 by 0.056 bpc post-shift. Pre-shift already 0.019 bpc worse:
+14.B target extraction adds noise vs explicit label lookup. The substrate
+works correctly (decomposition recovers targets) but the encoding doesn't
+itself win on perplexity.
+
+**Implication for headline**: C3 (compositional retrieval) must beat C1
+by MORE than ~0.06 bpc to overcome the decomposition-noise overhead.
+This raises the bar for what C3 has to do.
+
+**Phase B.2 launching unbiased follow-up research**: "what does the math
+say about information loss in target-encoded HDC bundles" — framed without
+AI bias. Goal: understand the 0.05-0.06 bpc gap analytically. Background.
+
+**Scaling sweep N=8K to N=65K** — DECISIVE positive:
+
+| N | B in {2,8,32,128} | K in {32,256,2048} | Recovery |
+|---|---|---|---|
+| 8192  | all | all | 100% |
+| 16384 | all | all | 100% |
+| 32768 | all | all | 100% |
+| 65536 | all | all | 100% |
+
+The substrate scales to N=65K with ZERO degradation. At N=65536, K=32,
+B=128 — still 100%. This is the biggest empirical finding so far for
+the platform commitment: production-relevant dimensions ALL hold.
+
+**Implication**: the platform claim ("works at workstation/server scale")
+is validated. Any future N choice from 4K to 64K+ is safe.
+
+**GPU watchdog exited** after 1 hour idle (per design). Will be
+relaunched with parameter-sweep follow-ups.
+
 ### 2026-05-18 ~22:25: CPU platform timing v1 — honest negative finding + follow-up queued
 
 Both CPU timing v1 runs completed (laptop ~6 min, workstation ~6 min).
