@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "basis_modification_indep",
+      "script": "experiments/exp_wave14b_basis_modification_indep.py",
+      "status": "pending",
+      "purpose": "R2: replace PPMI-derived concept atoms (linearly dependent on byte*pos) with fresh independent +/-1 vectors. Genuine basis expansion test.",
+      "timeout_s": 1800
+    }
+  ]
+}
