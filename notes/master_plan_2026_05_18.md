@@ -398,3 +398,98 @@ When user is away, work the priority queue:
 
 The session has been substantive. The work product is real research, well
 documented, and reproducible. Future sessions can pick up from this doc.
+
+## UPDATE — 2026-05-18 evening session
+
+Three significant findings landed in the evening continuation:
+
+### Wave 14.B works far beyond predicted capacity
+
+Bundle-size sweep (K=32, N=4096, 8 restarts, 100 trials/B):
+| B | 2 | 4 | 8 | 16 | 32 | 64 | 128 |
+|---|---|---|---|---|---|---|---|
+| Recovery | 100% | 100% | 100% | 100% | 100% | 100% | 100% |
+
+K-sweep (B=2, N=4096, 8 restarts, 100 trials/K):
+| K | 32 | 64 | 128 | 256 | 512 | 1024 | 2048 |
+|---|---|---|---|---|---|---|---|
+| Recovery | 100% | 100% | 100% | 100% | 100% | 100% | 100% |
+
+Both axes far past Kent-Frady's M^F < N^2/F empirical capacity bound.
+At K=2048 with B=2 the resonator finds the right pair out of 4M candidates
+in 8 restarts. The cliff is somewhere beyond what we tested.
+
+**Implication:** 14.B is robust enough to bet a downstream system on.
+Next experiment per the W-replacement design doc: continual-learning +
+14.B episode decomposition integration. This is THE bet that distinguishes
+us from any standard transformer architecture.
+
+### Wave 4.5 v3 audit FALSIFIED
+
+Audit (notes/audit_wave45_v2_negative.md) predicted +0.10 to +0.25 bpc
+gain by switching to MSE-in-codebook-space loss. Actual:
+
+| N | LR | Delta rule | MSE gradient | Delta |
+|---|---|---|---|---|
+| 4096 | 3e-3 | 2.4817 | 3.3228 | **-0.84** |
+| 4096 | 1e-2 | 2.4817 | 3.3358 | **-0.85** |
+| 4096 | 3e-2 | 2.4817 | 3.4334 | **-0.95** |
+| 8192 | 3e-3 | 2.4344 | 3.1401 | **-0.71** |
+| 8192 | 1e-2 | 2.4344 | 3.1657 | **-0.73** |
+| 8192 | 3e-2 | 2.4344 | 3.2627 | **-0.83** |
+
+**Loss-mismatch theory ruled out.** The audit was incorrect — the gap
+is NOT explained by cross-entropy vs MSE in codebook space.
+
+Telling fingerprint: gradient W argmax accuracy ~57-60%, decent. But bpc
+is much worse than delta rule. The model ranks the right byte top but is
+wildly miscalibrated. This is Adam preconditioning distorting the
+prediction landscape — saturating outputs for the top guess at the
+expense of full-distribution calibration.
+
+Rehabilitation per the rule (3-5 axes):
+1. **Plain SGD without Adam preconditioning** — clean test of "is it the
+   preconditioner?" If gap closes: preconditioner story confirmed.
+2. **Projection onto codebook subspace** — delta rule's update
+   (target - W·ctx) is in the byte-atom span; Adam's gradient might
+   not be. Project gradient back into atom span before stepping.
+3. **Larger batch size with grad accumulation** — reduce noise in
+   gradient estimate, see if Adam's preconditioning stabilizes.
+4. **Hybrid: Adam-warmup + delta-rule fine-tuning** — get a head start
+   with gradient, finish with delta rule.
+5. **Architecture mismatch test**: drop pool, drop modReLU, run only
+   W with both updaters. Isolate the optimizer effect from the
+   architecture interactions.
+
+### Wave 15 free probability — analytical tooling, not new mechanism
+
+Unbiased survey clarified: free probability is a spectral calculus,
+not a new HDC primitive. Real applications are predictive (BBP threshold,
+operational capacity formulas, W spectrum). DEPRIORITIZED below
+Wave 14.B continual-learning integration and Wave 4.5 v4 rehabilitation.
+
+### Updated priority order
+
+1. **Wave 4.5 v4** (rehabilitation): SGD without Adam → does the gap
+   close? Single-config test (N=4096, lr=3e-3 + SGD + weight_decay=1e-4).
+   ~30 min on GPU.
+2. **Wave 14.B continual-learning integration**: episode pool +
+   decomposition + cross-corpus retention test. Real downstream test of
+   the primitive. ~1-2 days of design + implementation.
+3. **Wave 14.C** (Connes-Kreimer hierarchical): only if continual-learning
+   integration succeeds. Otherwise the math doesn't justify the build cost.
+4. Wave 15.1 (BBP threshold side-quest): only as time allows.
+5. Wave 12 qFHRR crash debug: deprioritized; we have BSC at near-optimal,
+   qFHRR was speculative.
+
+### Master headline updates
+
+Before evening session: "BSC at 2.4344 bpc; Hopf-VSA cleanup works at 76%."
+
+After: "BSC at 2.4344 bpc; **resonator decomposition robust across
+both bundle-size and codebook-size axes at 100% recovery**; loss-mismatch
+hypothesis for gradient training falsified."
+
+The 14.B robustness is the most important new finding. It changes the
+program: the continual-learning + decomposition combination is no
+longer speculative — the underlying primitive works.
