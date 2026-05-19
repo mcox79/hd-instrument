@@ -190,22 +190,54 @@ shows decomposition discovers structural patterns. This is Wave
 
 ## Option D: Hybrid - W stays, 14.B feeds it
 
-**Idea:** keep W as the prediction engine. Augment the input to W
-with decomposed features: instead of training W on raw ctx, train
-W on (ctx, decomposed_parts) concatenated.
+**IMPORTANT correction (noted 2026-05-18 after first draft):**
 
-**Training equations:**
+The naive form of Option D — "decompose ctx and feed parts to W" —
+is TRIVIAL in our setup. We construct ctx ourselves from observed
+bytes, so decomposing it just hands back the byte identities we
+already had. No new information.
+
+The real non-trivial Option D requires 14.B to discover something
+we don't already have. Two viable forms:
+
+**D.1: Pattern-augmented features.** Build a pattern library from
+14.B applied across MANY stored bundles in the pool (per Option B).
+Augment ctx with binary indicators: "does this ctx match pattern P
+in the library?" for each P. Train W on enriched_ctx =
+concat(ctx, pattern_indicators).
 
 ```
-For each (ctx_t, target_t):
-  parts_t = decompose_14B(ctx_t)  # (atom_1, ..., atom_K)
-  enriched_ctx_t = concat(ctx_t, parts_t)  # dimension 2*N or K*N
-  W (delta-rule update): W <- ... usual update on enriched_ctx_t
+Phase 1 (pattern discovery via 14.B across pool):
+  pattern_library = mine_recurring_subpatterns(pool, 14B_decompose)
+
+Phase 2 (training with augmented features):
+  for each (ctx_t, target_t):
+    indicators_t = [int(ctx_t matches pattern_p) for p in library]
+    enriched_ctx_t = concat(ctx_t, indicators_t)
+    W <- delta_rule_update(enriched_ctx_t, target_t)
 ```
 
-OR train W on the decomposed parts directly (rather than the raw
-bundle), making W learn "given these K atoms in these K slots,
-predict next."
+This is meaningful because pattern matching is a NEW signal —
+recurring structure across the pool that W can't see in a single
+ctx alone.
+
+**D.2: Discovered-atom codebook expansion.** From 14.B mining,
+identify subpatterns that should themselves be treated as atoms.
+Add them to the codebook (extending byte_atoms with "concept
+atoms"). Bind these to virtual positions. Now ctx can include
+not just byte atoms but compositional atoms representing
+discovered structural features.
+
+```
+Phase 1: discover concept atoms = recurring 2-atom co-occurrences
+  in stored bundles.
+Phase 2: extend codebook = byte_atoms + concept_atoms
+Phase 3: at training time, include concept atoms in ctx when their
+  trigger pattern appears.
+```
+
+This is closer to BPE-via-decomposition (Option C) but doesn't
+require a full hierarchical stack.
 
 **Pros:**
 - Conservative: doesn't bet against W. Just feeds richer signal in.
