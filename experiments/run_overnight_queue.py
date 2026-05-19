@@ -93,6 +93,7 @@ def run_one(entry: dict) -> str:
     script_path = REPO / script
     if not script_path.exists():
         log(f"SKIP {name}: script not found at {script_path}")
+        update_entry(name, status="skipped", error="script_not_found")
         return "skipped"
 
     log_path = QUEUE_DIR / f"{name}.log"
