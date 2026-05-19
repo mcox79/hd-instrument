@@ -357,8 +357,8 @@ def main():
                                 ppmi_concepts=ppmi)
 
     _say(f"\n========= BASIS MODIFICATION VERDICT =========")
-    _say(f"  Pre-shift  bpc:  baseline={bpc_base_a:.4f}  extended={bpc_ext_a:.4f}  Δ={bpc_base_a-bpc_ext_a:+.4f}")
-    _say(f"  Post-shift bpc:  baseline={bpc_base_post:.4f}  extended={bpc_ext_post:.4f}  Δ={bpc_base_post-bpc_ext_post:+.4f}")
+    _say(f"  Pre-shift  bpc:  baseline={bpc_base_a:.4f}  extended={bpc_ext_a:.4f}  delta={bpc_base_a-bpc_ext_a:+.4f}")
+    _say(f"  Post-shift bpc:  baseline={bpc_base_post:.4f}  extended={bpc_ext_post:.4f}  delta={bpc_base_post-bpc_ext_post:+.4f}")
     _say(f"  BWT (pre - post): baseline={bpc_base_a-bpc_base_post:+.4f}  extended={bpc_ext_a-bpc_ext_post:+.4f}")
     _say(f"")
     if bpc_ext_a < bpc_base_a - 0.005:

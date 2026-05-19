@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "basis_modification_v2",
+      "script": "experiments/exp_wave14b_basis_modification.py",
+      "status": "pending",
+      "purpose": "Re-run after fixing unicode bug; numbers already visible in v18 stdout pre-shift, just need full post-shift + metrics.json",
+      "timeout_s": 1800
+    }
+  ]
+}
