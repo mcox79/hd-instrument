@@ -378,3 +378,26 @@ NOT implemented — design only, awaits supervised implementation in
 next session.
 
 (autonomous cycles will append below)
+
+### 2026-05-19 07:42: C3 FACTORED BEATS C1 — headline result confirmed
+
+Post-shift gap +0.0982 bpc (C3 factored beats C1). This contradicts my
+synthesis from minutes earlier; the factored kernel formulation
+recovered compositional retrieval that monolithic cosine couldn't.
+
+| condition | pre-shift | post-shift |
+|---|---|---|
+| C0 (W only) | 2.5466 | 6.1182 |
+| C1 (classical pool) | 2.4817 | 4.3352 |
+| C3 minimal | 2.5253 | 4.6066 (-0.271) |
+| C3 factored | 2.4924 | 4.2370 (+0.098) |
+
+The headline experiment passed. Compositional retrieval over the
+factored kernel beats classical pool by 0.10 bpc on byte-LM post-
+distribution-shift. With proper formulation (per-position scoring +
+sum aggregation) the substrate's compositional retrieval IS a real
+downstream capability, not just a memory-inspection tool.
+
+Hard NN pool sweep on workstation also positive: at P=16K hard NN
+beats soft by +0.30 bpc, independently confirms Velickovic 2024.
+
