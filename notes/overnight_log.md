@@ -510,5 +510,32 @@ follow-up. Until then: basis modification, *as implemented here*, is
 no better than the retrieval overlay it was supposed to escape. Two
 independent encodings of the same information cancel out.
 
+### 2026-05-19 10:28: basis_modification_indep (R2 rescue) — also null
+
+Replaced PPMI byte*pos bundle concept atoms with fresh independent
++/-1 bipolar vectors (Frady-Sommer SLOT-style). Sanity-checked
+independence: concept-byte cosine mean 0.0126 (theoretical 1/sqrt(N)=0.0156).
+Concept atoms are GENUINELY in a subspace outside byte*pos. Implementation
+correct.
+
+|             | baseline | extended-indep | delta   |
+|-------------|----------|----------------|---------|
+| Pre-shift   | 2.4817   | 2.4823         | -0.0006 |
+| Post-shift  | 4.3352   | 4.3209         | +0.0143 |
+| BWT (pre-post) | -1.8535 | -1.8385      | +0.0150 |
+
+|delta| still < 0.02 in both pre and post. R2 rescue **fails** by
+its own preregistered threshold. The "redundant atoms" diagnosis
+from the previous null was wrong.
+
+**Revised diagnosis**: at K=4 byte-LM the ctx bundle is well below
+capacity (4 terms in N=4096); adding more dimensions to ctx doesn't
+buy SNR. The post-shift +0.0143 / BWT +0.0150 hint that basis
+extension *might* help under distribution shift, but it's below
+threshold. Two follow-ups remain theorem-untouched and worth testing:
+- R10: rerun at K=16/32 where bundle interference is real
+- R3: concept as control signal (bias on readout), not input bundling
+- R7: concept-tagged interleaved replay measured on BWT
+
 (autonomous cycles will append below)
 
