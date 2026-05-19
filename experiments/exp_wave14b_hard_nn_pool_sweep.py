@@ -243,7 +243,7 @@ def main():
 
     results = []
     t_start = time.perf_counter()
-    _say(f"\n  {'pool':>7} | {'soft post':>9} | {'hard post':>9} | {'diff':>+7} | {'wall':>5}")
+    _say(f"\n  {'pool':>7} | {'soft post':>9} | {'hard post':>9} | {'diff':>7} | {'wall':>5}")
     _say(f"  {'-'*7}-+-{'-'*9}-+-{'-'*9}-+-{'-'*7}-+-{'-'*5}")
     for ps in POOL_SIZES:
         t0 = time.perf_counter()
