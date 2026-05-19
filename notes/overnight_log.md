@@ -401,3 +401,39 @@ downstream capability, not just a memory-inspection tool.
 Hard NN pool sweep on workstation also positive: at P=16K hard NN
 beats soft by +0.30 bpc, independently confirms Velickovic 2024.
 
+
+### 2026-05-19 08:46: ALL 5 M2 METHODS TESTED — none beat C3 factored
+
+| Method | Best post-shift | vs C1 | vs C3 factored |
+|---|---|---|---|
+| C3 factored alone | 4.2370 | +0.098 | reference |
+| CP tensor + C3 (product) | 4.2370 | +0.098 | 0.000 (identical) |
+| NMF + C3 (product) | 4.2457 | +0.090 | -0.009 |
+| Slot attention + C3 (product) | 4.2659 | +0.069 | -0.029 |
+| Minimal M2 + C3 (additive) | 4.5015 | -0.166 | -0.265 |
+| SAE + C3 (rerank) | 4.6617 | -0.327 | -0.425 |
+| C1 (no concepts) | 4.3352 | reference | -0.098 |
+
+Math survey prediction holds: byte-LM lacks compositional structure
+beyond what C3 factored's per-position kernel already captures.
+CP tensor MATCHES C3 factored exactly — concepts are redundant.
+NMF nearly matches. Slot attention slightly worse. SAE catastrophic.
+
+Conclusion: M2 concept extraction is NOT additive to C3 factored on
+this task. The "uniquely enabling" hypothesis is falsified for byte-LM.
+
+C3 factored remains the headline result (+0.098 vs C1).
+
+### 2026-05-19 08:46: 3-way retrieval comparison final
+
+| pool | hard | fixed soft (β=8) | annealed soft |
+|---|---|---|---|
+| 256 | 4.81 | 4.42 | 4.50 |
+| 1024 | 4.65 | 4.34 | 4.34 |
+| 4096 | 4.44 | 4.28 | 4.18 |
+| 16384 | 4.18 | 4.47 | 4.12 |
+
+Annealed soft wins at P>=4K. Hard NN never wins. Earlier "hard NN
+beats fixed soft" finding was about FIXED soft's distractor catch-up;
+annealed soft beats both.
+
