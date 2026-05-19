@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "r10_best_config_multiseed", "script": "experiments/exp_wave14b_r10_best_config_multiseed.py", "status": "pending", "purpose": "Verify nc=50/lam=0.3/beta=16 best config (sweep found +0.318 at K=64 vs default +0.106) across 3 seeds at K=128, K=256. Could push R10 headline to +0.5 bpc.", "timeout_s": 7200}
+  ]
+}
