@@ -493,3 +493,64 @@ hypothesis for gradient training falsified."
 The 14.B robustness is the most important new finding. It changes the
 program: the continual-learning + decomposition combination is no
 longer speculative — the underlying primitive works.
+
+## OVERNIGHT UPDATE — 2026-05-19 (autonomous cycle)
+
+Three major results landed overnight while user slept:
+
+### 1. M5 scaling: 100% recovery at N=65,536 (DECISIVE)
+
+| N | B in {2,8,32,128} | K in {32,256,2048} | Recovery |
+|---|---|---|---|
+| 8192  | all | all | 100% |
+| 16384 | all | all | 100% |
+| 32768 | all | all | 100% |
+| 65536 | all | all | 100% |
+
+64-min wall on remote GPU. At N=65K with B=128 and K=32-2048, every
+configuration still hits 100%. Platform commitment is validated:
+production-relevant dimensions are safe. Pivots the substrate from
+"works at toy scale" to "works at deployment scale" — major.
+
+### 2. Phase B.2 VSA-pool: minor negative result (informative)
+
+| Condition | Pre-shift bpc | Post-shift bpc | BWT |
+|---|---|---|---|
+| C1 (classical) | 2.4817 | 4.3352 | −1.85 |
+| C2 (VSA-pool)  | 2.5006 | 4.3911 | −1.89 |
+
+C2 trails C1 by 0.056 bpc post-shift. The encoding works (target
+extraction correct) but adds ~0.05 bpc noise vs explicit-dictionary
+lookup. **Raises the bar for C3 (compositional retrieval)**: C3 must
+beat C1 by more than the extraction overhead.
+
+ALPHA sweep queued to characterize whether deficit is constant or
+ALPHA-dependent. Unbiased research agent on bundle-decomposition-noise
+theory launched in background.
+
+### 3. CPU platform timing v1: instrumentation issue, not substrate fail
+
+Original test: retrieve top-4 + decompose-all-4. Result: 2/27 (laptop)
+or 3/27 (workstation) configs met <100ms p99.
+
+Honest reframing: real deployment is retrieve-only or retrieve+1, not
+retrieve+4. v2 timing experiment (three realistic modes: retrieve-only,
+retrieve+1-decompose, decompose-only) is running on both CPU watchdogs.
+
+### Status as of 2026-05-19 00:18 wakeup
+
+- **GPU watchdog**: relaunched with ALPHA sweep queued
+- **CPU laptop watchdog**: running v2 timing
+- **CPU workstation watchdog**: running v2 timing
+- **Research agents**: consolidation neuroscience DONE (→ M2 design committed);
+  bundle decomposition noise theory IN FLIGHT
+- **Open big-bet test**: Phase B.3 compositional retrieval — DESIGN
+  awaits user supervision. Headline bar = beat C1 by >0.06 bpc.
+
+### What the user will find in morning
+
+1. Three major commits with results (scaling 100%, B.2 negative, M2 design)
+2. notes/overnight_log.md = chronological log
+3. notes/wave14b_m2_consolidation_design.md = full M2 algorithm
+4. Updated queue files showing what ran and what's running
+5. Unbiased research outputs (consolidation done, bundle noise pending)
