@@ -174,11 +174,13 @@ def run_gradient_variant(N, lr, train, test):
             tgt_batch = train_targets[batch_start:be]
             B = idx_batch.shape[0]
             ctxs = build_ctx_bundles_bsc(byte_atoms, pos_atoms, idx_batch)
-            P_W = predict_W(W, ctxs, byte_atoms, BETA, N, use_relu=False)  # no ReLU during gradient training (dead-grad fix)
-            # Cross-entropy loss on the targets (V, B) → (B,)
-            log_P = torch.log(P_W.clamp(min=1e-12))
-            log_p_true = log_P.gather(0, tgt_batch.unsqueeze(0)).squeeze(0)
-            loss = -log_p_true.mean()
+            # v3 LOSS CHANGE (audit-recommended 2026-05-18):
+            # Delta rule = SGD on ||W ctx - target_atom||^2 in codebook space.
+            # Cross-entropy on softmax(sims) has different minima except at convergence.
+            # Try MSE loss to match the delta rule's actual objective.
+            q = ctxs @ W.T  # (B, N) predicted "atom" in embedding space
+            target_atoms = byte_atoms[tgt_batch]  # (B, N) the true bipolar atom
+            loss = ((q - target_atoms) ** 2).mean()
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
