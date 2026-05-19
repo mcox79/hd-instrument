@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "acf_resonator_v2", "script": "experiments/exp_wave14b_acf_resonator.py", "status": "pending", "purpose": "ACF resonator retry (first attempt died silently with no metrics).", "timeout_s": 14400}
+  ]
+}
