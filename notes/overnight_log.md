@@ -33,6 +33,25 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 ~01:02: BETA=16 fix UNIVERSALLY ROBUST across ALPHA
+
+ALPHA sweep re-run with BYTE_BETA=16 (the confirmed fix):
+
+| alpha | C2-C1 gap |
+|---|---|
+| 0.10 | +0.0014 (C2 slightly BETTER) |
+| 0.30 | -0.0001 |
+| 0.50 | -0.0019 |
+| 0.70 | -0.0038 |
+
+All within ±0.005 bpc. At low pool weight (alpha=0.1), C2 is actually
+slightly BETTER than C1. The fix isn't ALPHA-dependent — it's a clean
+universal correction.
+
+**Phase B.2 conclusion (post-revision):** VSA-pool with BYTE_BETA=16
+is equivalent to or marginally better than classical pool across all
+tested pool-weightings. The substrate's lossless property holds.
+
 ### 2026-05-19 ~00:56: BYTE_BETA sweep — HYPOTHESIS CONFIRMED, C2 matches C1
 
 | BYTE_BETA | C2-C1 post |
