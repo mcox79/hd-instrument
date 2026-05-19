@@ -1,0 +1,18 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_pool_size_sweep",
+      "script": "experiments/exp_wave14b_phase_b2_pool_size_sweep.py",
+      "status": "pending",
+      "purpose": "How does C2 (and C1) BWT scale with pool size at BETA=16?",
+      "timeout_s": 1800
+    },
+    {
+      "name": "scaling_extreme_128K_256K",
+      "script": "experiments/exp_wave14b_scaling_extreme.py",
+      "status": "pending",
+      "purpose": "Find the upper limit of substrate scaling beyond N=65K",
+      "timeout_s": 14400
+    }
+  ]
+}
