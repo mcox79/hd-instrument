@@ -229,7 +229,7 @@ def run_one_pool_size(pool_size, byte_atoms, pos_atoms, train_a, train_b, test_a
 
 def main():
     _say(f"Wave 14.B hard-NN retrieval pool sweep")
-    _say(f"  Compares soft (fixed β=8) vs hard (top-1) retrieval across P")
+    _say(f"  Compares soft (fixed beta=8) vs hard (top-1) retrieval across P")
 
     corpus_a = load_corpus_a()
     corpus_b = shuffle_bytes(corpus_a, seed=SEED + 1)
