@@ -528,6 +528,35 @@ correct.
 its own preregistered threshold. The "redundant atoms" diagnosis
 from the previous null was wrong.
 
+### 2026-05-19 10:43: R7 concept-tagged replay — POTENTIAL HEADLINE (inverted)
+
+CLS-style interleaved replay during Phase B. Three conditions:
+
+|                         | bpc_a_post | bpc_b_post | BWT       |
+|-------------------------|------------|------------|-----------|
+| baseline_no_replay      | 4.3352     | 5.7292     | **-1.85** |
+| concept_tagged_replay   | 4.2136     | 5.7326     | -1.73     |
+| **random_replay**       | **3.6782** | 5.7557     | **-1.20** |
+
+**Random replay recovers +0.66 bpc of catastrophic forgetting** with
+negligible forward cost (+0.026 on test_b). Concept-tagged replay
+only recovers +0.12 — random *beats concept by 0.53 bpc*.
+
+Diagnosis: concept-tagging filters out 87.6% of pool entries
+(only 12.4% of byte 4-grams activate the top-50 PPMI patterns).
+That's an 8x coverage shrink; for the small-buffer continual-learning
+regime, coverage diversity beats prioritization-relevance.
+
+**This may be a bigger headline than C3 factored.** +0.66 bpc BWT
+recovery vs C3 factored's +0.098 bpc post-shift gain. Need to
+verify, characterize, and pre-register before promoting.
+
+Follow-ups queued/planned:
+- Replay-ratio sweep (10%, 25%, 50%, 75%, 100%)
+- Other prioritization schemes (recency, loss, gradient-norm)
+- Why concept failed: coverage vs relevance question
+- Deep research agent launched on the negative finding
+
 **Revised diagnosis**: at K=4 byte-LM the ctx bundle is well below
 capacity (4 terms in N=4096); adding more dimensions to ctx doesn't
 buy SNR. The post-shift +0.0143 / BWT +0.0150 hint that basis
