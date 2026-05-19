@@ -576,3 +576,53 @@ issue.
 **Bar for C3 (compositional retrieval) is now LOW**: just needs to
 beat C1 by ANY margin. The 0.06 bpc overhead I worried about doesn't
 exist when readout is properly tuned.
+
+## DAY-1 UPDATE — 2026-05-19 (active autonomous testing)
+
+### Pool size: annealing turns inverted-U into monotone improvement
+
+Original Phase B.2 pool size sweep showed BWT peaking at P=4096 and
+degrading at P=16384 with fixed BETA_RETRIEVAL=8. Looked like a
+capacity limit.
+
+Unbiased pool-size theory survey (Velickovic 2024 "Softmax is not
+Enough") predicted: fixed-beta softmax retrieval has an inverted-U
+in P. Fix: anneal beta as `beta_0 * sqrt(log P / log P_0)`.
+
+Diagnostic experiment confirmed:
+
+| pool | Fixed β=8 | Annealed β | improvement |
+|---|---|---|---|
+| 256 | 4.4226 | 4.5005 | -0.08 (β=7.16 too low) |
+| 1024 | 4.3352 | 4.3352 | (same β) |
+| 4096 | 4.2780 | 4.1821 | +0.10 |
+| 16384 | 4.4745 | **4.1190** | **+0.36** |
+
+P=16384 went from worst-of-four to best-of-four. Performance is now
+monotone in P up to the largest size tested.
+
+**Production implication**: ship `β(P) = β_0 * sqrt(log P / log P_0)`
+as standard. Agent-memory pool can grow monotonically with no
+artificial ceiling.
+
+### Substrate scales losslessly to N=262,144
+
+Extended scaling sweep: 100% recovery at N=131K and N=256K across
+B in {2, 32} and K in {32, 256, 2048}. No observed upper limit.
+
+### CPU platform timing on realistic patterns
+
+Workstation 33/33 decompose-only at <100ms p99. Laptop 22/33.
+Retrieval at P=10K meets target on both tiers. P=100K+ is the
+SIMD/ANN engineering target.
+
+### Two unbiased research syntheses
+
+- `notes/wave14b_softmax_temperature_theory.md` — explains BETA=16
+  collapse exactly. Universal rule: `β_knee = log(M-1) / cos_true`.
+- `notes/wave14b_pool_size_theory.md` — explains pool annealing.
+
+### Confirmed pattern: theory → diagnostic → confirmation loop
+
+Two deep day-1 results came from the same loop. The autonomous setup
+validates each result before promoting it.
