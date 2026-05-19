@@ -607,3 +607,26 @@ No new negative results triggering research agent launch this cycle. The
 ACF asymmetry was already researched (concluded K-dependent r is the fix).
 Will check r3_laplace result next cycle and synthesize then.
 
+
+
+### 2026-05-19 16:35 — overnight autonomy cycle #2
+
+State at wake: GPU running replay_preshift_K4 (Stein prediction #1) since
+16:31, heartbeat fresh. CPU idle since 16:33 with decompose_K_cliff_extended
+DONE (75min). Queue.json shows acf_K_dependent stale-marked 'running'
+since 16:02 -- runner died, never updated. Need to reset that entry.
+
+**Result summarized: decompose_K_cliff_extended (CPU, 75min)**
+
+Replicate of K-cliff sweep K in {2304..3840} at N=4096, B=2, with 30 trials
+× 8 restarts (same as first run). Results IDENTICAL to first sweep:
+K=2304 -> 10%, K=2560-3072 -> 0%, K=3328 -> 6.7% (noise), K=3840 -> 3.3%
+(noise). The cliff at K/N=0.56 is confirmed across two independent runs.
+Sharpness of the transition is also confirmed: 10% -> 0% across one K
+step. POSITIVE result (validates baseline; no follow-up research needed).
+
+**Action: refill CPU queue with acf_K_dependent (re-marked pending) +
+acf_sparsity_sweep boundary fill-in.**
+
+(autonomous cycles continue below)
+

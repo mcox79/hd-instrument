@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "acf_K_dependent_retry", "script": "experiments/exp_wave14b_acf_K_dependent.py", "status": "pending", "purpose": "ACF with K-dependent r per Karunaratne 2024 appendix. Previous attempt died silently (runner crash). r=0 for K/N<=0.50, r=0.005 for 0.50-0.55, r=0.01 for >0.55.", "timeout_s": 14400}
+  ]
+}
