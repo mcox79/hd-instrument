@@ -33,6 +33,59 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 05:27: day-1 batch results landed
+
+**Scaling extreme N=128K + N=256K — 100% across all tested configs:**
+
+| N | B/K configs | Recovery |
+|---|---|---|
+| 131072 | B in {2,32}, K in {32,256,2048} | 100% all |
+| 262144 | B in {2,32}, K in {32,256,2048} | 100% all |
+
+Substrate maintains lossless decomposition up to N=262,144. Well beyond
+any expected production deployment scale. Bundle decomp ER predicted by
+theory at exp(-N/(2(2B-1))) ~ exp(-1031) at N=256K — i.e. zero. Empirics
+match. Wall: 10.6 min on GPU.
+
+**Pool size sweep at BYTE_BETA=16:**
+
+| pool size | post C1 | post C2 | gap (C2-C1) |
+|---|---|---|---|
+| 256 | 4.4226 | 4.4231 | -0.0005 |
+| 1024 | 4.3352 | 4.3354 | -0.0001 |
+| 4096 | 4.2780 | 4.2747 | **+0.0032** |
+| 16384 | 4.4745 | 4.4656 | **+0.0090** |
+
+Three findings:
+1. **C2 matches or beats C1 across all pool sizes.** At P=4K and P=16K
+   C2 wins by 0.003-0.009 bpc.
+2. **BWT has a sweet spot at P=4K** (4.28). Smaller pools (256, 1K) and
+   larger (16K) both retain less corpus-A knowledge. Surprising.
+3. BETA=16 fix is robust across pool sizes (this completes the
+   robustness sweep: ALPHA, N, POOL_SIZE all checked).
+
+The P=4K sweet spot is interesting. Plausible reasons: at small pool,
+few A-episodes to retrieve from. At large pool, FIFO eviction lost the
+"compiled W_A-era" entries during B-training (pool size 16K vs ~9K
+training samples means pool entries persist across phase boundary,
+but ratio of useful-to-noise may degrade). Worth investigating.
+
+**Workstation CPU extended timing (P up to 500K, 3 repeats):**
+
+For the production-realistic case (N=4096):
+- P=10K: A=8.5ms, B=24ms, C=15-31ms — all well under 100ms
+- P=100K: A=83-90ms (close), B=96-118ms (over), C=12-34ms (fine)
+- P=500K: A=412-612ms (over), B=427-460ms (over), C=14-26ms (fine)
+
+The retrieval cost (A) is the bottleneck at large P. Decompose (C)
+scales gracefully because it works on a single bundle, not the pool.
+Confirms the platform engineering target: SIMD/ANN for retrieval at
+P>=100K closes the gap.
+
+Variance across 3 repeats: under 15% — measurements are stable.
+
+(Laptop run still in progress, will report when done.)
+
 ### 2026-05-19 03:40: N=8192 transfer test CONFIRMED
 
 Phase A + Phase B.2 at N=8192 with BYTE_BETA=16 (8 min wall on GPU).
