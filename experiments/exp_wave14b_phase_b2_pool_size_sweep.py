@@ -255,7 +255,7 @@ def main():
 
     results = []
     t_start = time.perf_counter()
-    _say(f"\n  {'pool':>7} | {'pool_used':>10} | {'post C1':>8} | {'post C2':>8} | {'gap':>+8} | {'wall':>5}")
+    _say(f"\n  {'pool':>7} | {'pool_used':>10} | {'post C1':>8} | {'post C2':>8} | {'gap':>8} | {'wall':>5}")
     _say(f"  {'-'*7}-+-{'-'*10}-+-{'-'*8}-+-{'-'*8}-+-{'-'*8}-+-{'-'*5}")
     for ps in POOL_SIZES:
         t0 = time.perf_counter()
