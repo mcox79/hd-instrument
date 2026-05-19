@@ -33,6 +33,37 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 ~00:38: CPU v2 + LLR diagnostic results
+
+**CPU v2 timing on both hardware tiers** — much more honest picture:
+
+Workstation: A_retrieve_only 24/33, B_retrieve+1 22/33, C_decompose_only 33/33.
+Laptop:      A_retrieve_only 21/33, B_retrieve+1 10/33, C_decompose_only 22/33.
+
+Both meet the platform target for the most-common case (retrieve-only at
+P ≤ 10K). Decompose-only is fast on workstation (33/33). The remaining
+gaps are at P=100K, where cosine search becomes the bottleneck — fixable
+with SIMD or ANN indexing.
+
+**Phase B.2-LLR (calibration diagnostic) FALSIFIED, in the wrong direction:**
+post-shift C2_LLR vs C1 = -1.05 bpc (vs -0.06 for raw v).
+
+Honest readout: I misapplied the survey. The LLR factor 2/(B-1)=0.5 is
+the Bayes-optimal calibration for per-coordinate bipolar bit decoding,
+but our readout is aggregate cosine matching against the codebook (with
+overwhelming SNR). Multiplying by 0.5 just shrunk logits, making softmax
+LESS confident -> higher CE.
+
+**Re-analysis: the 0.06 bpc gap is from softmax confidence CEILING:**
+- C1 (explicit labels): P(target | entry) = 1.0 exactly
+- C2 (softmax extraction): at BETA=8, M=256, P caps at e^8/(e^8+255) ~ 0.92
+- log(1/0.92) ~ 0.025 bpc per query, matches order of magnitude
+
+**Fix: increase BYTE_BETA from 8 to {16, 32, 64, 128}.** Queued as
+phase_b2_beta_sweep.
+
+Pre-registered: at BETA=32+, C2 should match C1 within 0.005 bpc.
+
 ### 2026-05-19 ~00:25: ALPHA sweep + bundle noise theory came back
 
 **ALPHA sweep result** (4 min wall):
