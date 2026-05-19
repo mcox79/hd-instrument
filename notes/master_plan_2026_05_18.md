@@ -1,5 +1,19 @@
 # Master plan and state — 2026-05-18
 
+**>>>>> SUPERSEDED 2026-05-19 — see `STATE_2026_05_19.md` for current state. <<<<<**
+
+Specific stale claims in this file:
+- "M2 closed at K=4" is technically correct but misleadingly absolute; reopened at K>=8 with strong signal.
+- "Wave 8/9/10A/4.5 dead" — all four had research-rescue paths identified;
+  see corresponding `wave*_research_2026_05_19.md` notes.
+- "BSC 2.4344 at N=8192 is the best" — still true for pre-shift bpc.
+- "Wave 14.B continual-learning integration is the bet" — partially exploited:
+  random replay (+0.66 BWT) plus R10 K-extension is now the headline.
+
+Read `STATE_2026_05_19.md` first; this file kept for archaeology.
+
+---
+
 This is the single durable snapshot of where the hd-instrument program stands
 after a very productive session. It exists so context isn't lost if any
 single chat window runs out. Read THIS file first in any new session.

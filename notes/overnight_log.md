@@ -1,5 +1,15 @@
 # Overnight autonomy log
 
+**>>>>> Many closures in this file are SUPERSEDED. See `STATE_2026_05_19.md` for current state. <<<<<**
+
+Entries between 2026-05-19 07:40 and 11:30 closed M2 retrieval-augment at K=4.
+That closure was correct AT K=4 but reopened at K>=8 by the R10 multi-seed
+work later the same day (see entries after 11:41 and 12:18). All "M2 dead",
+"basis modification dead", and "Wave-N closed" framings should be checked
+against `STATE_2026_05_19.md` before being relied upon.
+
+---
+
 User went to sleep 2026-05-18 evening. This file tracks autonomous cycles.
 
 ## Starting state
