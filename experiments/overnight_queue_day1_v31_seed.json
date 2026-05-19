@@ -1,0 +1,5 @@
+{
+  "experiments": [
+    {"name": "r10_K128_K256_multiseed", "script": "experiments/exp_wave14b_r10_K128_K256_multiseed.py", "status": "pending", "purpose": "R10 extension: K=128/256 multi-seed -- does gap keep growing or peak?", "timeout_s": 14400}
+  ]
+}
