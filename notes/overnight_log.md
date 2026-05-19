@@ -578,3 +578,32 @@ threshold. Two follow-ups remain theorem-untouched and worth testing:
 
 (autonomous cycles will append below)
 
+
+
+### 2026-05-19 16:00 — overnight autonomy cycle #1
+
+State at wake: GPU was running r3_laplace (started 15:58); runner just
+restarted, no DONE yet. CPU idle since 15:58:54 with two newly-completed
+experiments queued through the day.
+
+**Two CPU completions to summarize:**
+
+- **acf_resonator_v2** (acf_resonator metrics): final ACF data with r=0.01
+  fixed at K in {2048..16384}. Asymmetric pattern fully confirmed: K=2048
+  hurts (~30%), K=3072+ rescues (85%+ where baseline gives 0%). Published
+  Karunaratne-Langenegger 50x capacity claim holds for F=2 at our scale
+  in the cliff regime.
+
+- **acf_sparsity_sweep** complete: r in {0.005, 0.01, 0.05, 0.1} x K in
+  {2048, 2560, 3072}. Best r per K: K=2048 r=0.1 -> 30% (still bad), K=2560
+  any r -> ~50% (consistent rescue), K=3072 r in {0.01, 0.05, 0.1} -> 85%.
+  No single r works across all K; per-K tuning required (the paper does
+  this too, in its appendix).
+
+**Status: cycle ends with GPU running r3_laplace, CPU queue refilled with
+acf_K_dependent (rescue 1 from research). Both queues productive.**
+
+No new negative results triggering research agent launch this cycle. The
+ACF asymmetry was already researched (concluded K-dependent r is the fix).
+Will check r3_laplace result next cycle and synthesize then.
+
