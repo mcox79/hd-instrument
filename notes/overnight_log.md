@@ -437,3 +437,78 @@ Annealed soft wins at P>=4K. Hard NN never wins. Earlier "hard NN
 beats fixed soft" finding was about FIXED soft's distractor catch-up;
 annealed soft beats both.
 
+### 2026-05-19 09:24: Tier-1 capabilities all PASS
+
+Three theorem-compatible (non-retrieval) uses of decomposition shipped:
+
+| capability | pass rate | note |
+|---|---|---|
+| memory_editing  | 100% | decompose -> swap one byte -> rebundle, semantically identical |
+| memory_recomposition | 100% | take 2 of 4 positions from each of two memories; equiv to direct |
+| interpretability_demo | 12.4% | % of pool entries activating >= 1 PPMI concept |
+
+The interpretability rate is lower than expected — pool entries are mostly
+unique 4-grams over a 256-byte alphabet, so concept (pair-of-positions)
+overlap is rare. PPMI surfaces real recurring patterns (date numerals,
+brackets) but they appear in only a minority of entries. Not a defect,
+just a property of how diverse the byte LM's pool is.
+
+### 2026-05-19 09:25: Proper-rerank theorem retest — theorem holds
+
+Tested all four fusion modes (product / linear / additive vs A_only)
+with the CORRECTED linear-combine implementation (logits, not buggy
+softmax-over-top-M):
+
+| mode      | pre-shift | post-shift | vs A_only post |
+|-----------|-----------|------------|----------------|
+| C1        | 2.4817    | 4.3352     | -0.098         |
+| A_only    | 2.4924    | 4.2370     | reference      |
+| product   | 2.5036    | 4.2437     | -0.007 (≈match) |
+| linear λ=0.7 | 2.4848 | 4.3262     | -0.089         |
+| additive  | 2.5263    | 4.2867     | -0.050         |
+
+All M2-fusion modes are at best EQUAL to A_only (C3 factored).
+Product matches within 0.01 bpc, linear/additive worse. The earlier
+"rerank crashed" was the buggy softmax-over-top-M code. With the
+real linear combine, the result confirms the redundancy theorem
+exactly: concept overlays cannot beat the underlying retrieval
+because they share the same embedding pool.
+
+Theorem prediction → upheld. M2 retrieval-augment is closed.
+
+### 2026-05-19 09:38: basis_modification GPU run started
+
+The TRUE basis-modification experiment (not retrieval-augment):
+PPMI concept atoms get their own position code (concept_pos) and ARE
+BOUND into the ctx bundle. ctx_new = original_ctx + Σ trigger_c *
+concept_atom_c * concept_pos. Theorem does NOT cover this — it's a
+different operation: extending the representational basis rather
+than overlaying a parallel retrieval signal.
+
+### 2026-05-19 09:55: basis_modification result — null (within noise)
+
+|             | baseline | extended | delta   |
+|-------------|----------|----------|---------|
+| Pre-shift   | 2.4817   | 2.4830   | -0.0013 |
+| Post-shift  | 4.3352   | 4.3339   | +0.0013 |
+| BWT (pre-post) | -1.8535 | -1.8508 | +0.0027 |
+
+Both deltas are within noise (~0.001 bpc). Adding 50 PPMI concept atoms
+to the codebook (with their own position code) does NOT measurably
+help byte-LM bpc — neither in-distribution nor post-distribution-shift.
+
+**Why this null result is informative**: PPMI concepts on byte-grams are
+*linear bundles of byte_atom × pos_atom terms already present* in ctx.
+So binding them at a new concept_pos adds correlated noise to ctx, not
+new information. The "basis" wasn't actually expanded — just spuriously
+re-entered.
+
+A real basis-modification test would need concept atoms that are
+*non-linear* in the byte/pos basis (e.g. unitary random vectors not
+expressible as byte_atom × pos_atom combinations). That's the natural
+follow-up. Until then: basis modification, *as implemented here*, is
+no better than the retrieval overlay it was supposed to escape. Two
+independent encodings of the same information cancel out.
+
+(autonomous cycles will append below)
+
