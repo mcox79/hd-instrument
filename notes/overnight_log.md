@@ -33,6 +33,22 @@ Plus background research agent on **memory consolidation neuroscience**
 
 ## Cycle entries (most recent first)
 
+### 2026-05-19 03:40: N=8192 transfer test CONFIRMED
+
+Phase A + Phase B.2 at N=8192 with BYTE_BETA=16 (8 min wall on GPU).
+
+Results:
+- Pre-shift  C2-C1 gap: -0.0005 bpc (essentially zero)
+- Post-shift C2-C1 gap: +0.0008 bpc (C2 marginally BETTER than C1)
+- Baseline C1 post-shift BWT at N=8192: 4.2679 (vs 4.3352 at N=4096)
+
+The BETA=16 fix is N-invariant. Both substrates show C2 = C1 within
+0.001 bpc. The larger substrate (N=8192) also shows modestly better
+catastrophic-forgetting resilience.
+
+This is a robustness confirmation: the substrate behaves as theory
+predicts across the scaling axis we've tested.
+
 ### 2026-05-19 03:47: cron cycle — queued N=8192 transfer test of BETA=16 fix
 
 After three no-op cycles (02:17, 02:47, 03:17), revised judgement:

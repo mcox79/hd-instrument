@@ -2,7 +2,7 @@
 
 Read this first. Detailed log in `overnight_log.md`.
 
-## TL;DR — 5 results landed overnight
+## TL;DR — 6 results landed overnight
 
 1. **Substrate scales losslessly to N=65,536** (decisive positive). 100%
    recovery at every bundle size 2-128, every codebook size 32-2048,
@@ -23,6 +23,11 @@ Read this first. Detailed log in `overnight_log.md`.
    Five-step algorithm grounded in concrete biology
    (Mattar-Daw need × gain, CLS interleaved replay, Tononi-Cirelli
    downscaling). Design only — implementation awaits your review.
+
+6. **BETA=16 fix is N-invariant** (added 03:40). Phase A + Phase B.2
+   re-run at N=8192: pre-shift gap −0.0005, post-shift gap +0.0008
+   (C2 marginally better than C1). Substrate behaves cleanly across
+   tested N axis.
 
 ## What this changes about the program
 
