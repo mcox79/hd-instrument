@@ -692,3 +692,99 @@ two fronts; v5 corrects to the empirical reality.
 
 ---
 
+## 2026-05-20 13:32 update — BinaryIVF closure; CPU-fallback window experiments need review
+
+### Context: GPU driver was in PnP Code 43 for 22h (2026-05-19 14:21 → 2026-05-20 12:01)
+
+`infra_recovery` event (12:01:00, not experiment_outcome) reported
+that the NVIDIA RTX 4060 Ti was stuck in PnP Code 43 for 22h.
+Implication from event log: "Algorithmic results from 14:21 onward
+are still valid (CPU vs GPU produces same results, just slower).
+Timing/throughput measurements during that window are CPU-bounded,
+not GPU."
+
+**Caveat applied to v6+**: any new capability claim involving timing
+or throughput from experiments emitted between 14:21 yesterday and
+12:01 today should be flagged "(CPU-bounded during driver outage)."
+Algorithmic findings (bpc, recall, accuracy) are unaffected.
+
+### LSH BinaryIVF closure (cleanest of the batch)
+
+`wave14e_lsh_v2_binaryivf` (10:53:37, completed, NEEDS_REVIEW but
+metrics clean):
+- mean_recall@10 = 0.186 (18.6%)
+- speedup = 0.103 (10× SLOWER than brute force)
+- (Speedup measurement is from CPU-fallback window; would improve on
+  GPU, but recall is the binding constraint, not speed.)
+
+The v2 research synthesis flagged BinaryIVF as the alternative to
+SimHash for our s ∈ [0.1, 0.3] regime. BinaryIVF empirically lands
+in the same dead zone: recall too poor for production retrieval.
+
+**Capability move**:
+
+| Capability | v5 state | v6 state | Trigger |
+|---|---|---|---|
+| BinaryIVF for BSC retrieval | 🔬 Research only | ❌ Closed at P=10K (recall 18.6%) | `wave14e_lsh_v2_binaryivf` |
+
+Combined with v5's `wave14e_lsh_for_bsc` SimHash closure and v5's
+RSB tree-walk closure: **at our pool scale (P ≤ 10K), brute-force
+cosine is the only retrieval that works.** Three indexing alternatives
+(SimHash LSH, BinaryIVF LSH, RSB tree-walk) have all closed in the
+same 24h window. The capability claim "fast pool retrieval at scale"
+holds only for brute force at our current size — which is plausibly
+fine since brute force is sub-millisecond at P=10K.
+
+### Eight experiments completed during CPU-fallback window — most NEEDS_REVIEW
+
+The remaining experiments from ts 10:52-10:53 (during the driver
+outage) emerged from the backlog at 12:59:20 with mixed signal:
+
+| Experiment | Outcome | Reported key metric | Disposition |
+|---|---|---|---|
+| `wave14e_continuous_edits` | NEEDS_REVIEW | none | 🟡 inconclusive; awaiting review |
+| `wave14e_continuous_edits_v2` | NEEDS_REVIEW | none | 🟡 inconclusive; awaiting review |
+| `wave14e_temporal_binding` | NO_METRICS_INCONCLUSIVE | — | 🟡; likely silent failure during CUDA fallback |
+| `wave14e_multi_hop_reasoning` | NO_METRICS_INCONCLUSIVE | — | 🟡; likely silent failure during CUDA fallback |
+| `wave14e_multi_hop_v2` | NEEDS_REVIEW | acc_1hop=0.98 | 🟡 — 1-hop is baseline retrieval; KILLER claim was 50+ hops, not tested |
+| `wave14e_hierarchical_composition` | NEEDS_REVIEW | byte_accuracy=1.0 | 🟡 — no baseline-comparison metric reported |
+| `wave14e_hierarchical_v2` | NEEDS_REVIEW | none | 🟡 inconclusive |
+| `wave14e2_ssh_bsc_topological` | NEEDS_REVIEW | none (N=4096, 100 trials) | 🟡 inconclusive |
+
+**None of these move a capability row**. The Tier-2 KILLER probes
+(multi-hop reasoning, hierarchical composition, SSH-BSC topological,
+continuous edits) all stay where they were in v5 (🔬 or ⚪) until
+the runner outputs interpretable metrics or research-agent review
+lands.
+
+The two with partial positive signals (`multi_hop_v2 acc_1hop=0.98`,
+`hierarchical_composition byte_accuracy=1.0`) look like they completed
+and the substrate didn't break — but neither metric tests the KILLER
+hypothesis. `multi_hop_v2` would need acc@5hop, acc@10hop, acc@50hop
+to bear on the "50+ hops viable" claim. `hierarchical_composition`
+needs the equivalent without-substrate baseline to show the substrate
+added anything.
+
+**Flagged for user resolution** in `next_experiments_recommendations.md`
+under "NEEDS_REVIEW backlog."
+
+### Updated tally (v6)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 | 1 | — | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | — | — | — | 1 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 4 | — | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 (SSH-BSC awaiting interp) | 2 (winding still 🔬 pending interp) | — | — |
+| Pool retrieval algorithms (NEW group) | 1 (brute force) | — | — | — | — | 3 (RSB tree, SimHash, BinaryIVF) |
+| CANNOT | — | — | — | — | — | 15 (+1 BinaryIVF) |
+| UNSURE | — | — | — | 12 (-1 BinaryIVF moved) | 10 | — |
+| KILLER Tier 1 | 3 | 1 | 1 | — | — | 1 (RSB algo) |
+
+The new "Pool retrieval algorithms" group consolidates the indexing
+question: brute-force ✅, three alternatives ❌. Clean operating
+envelope.
+
+---
+

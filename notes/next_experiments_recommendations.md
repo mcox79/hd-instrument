@@ -182,6 +182,46 @@ be tested.
 **Owner**: not synthesis session (would touch experiment code, which
 synthesis does not edit). Main session.
 
+## NEEDS_REVIEW backlog from CPU-fallback window (2026-05-20 13:32)
+
+Eight `wave14e*` experiments completed during the 22h CPU-fallback
+window (driver in PnP Code 43 from 14:21 yesterday to 12:01 today).
+All emerged from backlog with verdict "completed" but outcome
+NEEDS_REVIEW or NO_METRICS_INCONCLUSIVE.
+
+User: I cannot move any of these capability rows until interpretation
+lands. They are flagged 🟡 in the cap map v6 update. **Decision
+items**:
+
+1. **multi_hop_v2** reported `acc_1hop=0.98`. This is baseline
+   retrieval, not the KILLER claim (50+ hops with cleanup). Was the
+   experiment instrumented to report acc at multiple hop depths? If
+   yes, retrieve them. If no, re-queue with hop depth sweep ∈ {1, 5,
+   10, 25, 50}.
+
+2. **hierarchical_composition** reported `byte_accuracy=1.0`. Without
+   a no-substrate baseline this metric doesn't bear on the KILLER
+   (depth-6+ composition). What was the comparison? If raw 1.0
+   accuracy means substrate trivially reconstructs at K_phrase=3,
+   that's not the test we want.
+
+3. **ssh_bsc_topological** (Tier-2 KILLER probe — integer
+   winding-protected memories) ran 100 trials at N=4096 but emitted
+   no key metric. Need the winding-number protection vs noise-level
+   curve from the metrics.json to determine if the predicted sharp
+   kink at p_c ≈ 1/(2·ν_density) materializes.
+
+4. **continuous_edits** + **continuous_edits_v2** — needed to
+   determine whether Bernoulli-mix soft-bipolar continuous edits
+   work as the v2 research synthesis predicted.
+
+5. **temporal_binding** + **multi_hop_reasoning** (v1) — silent
+   failures during CUDA fallback. Re-queue on real GPU.
+
+Action item for user: triage these results manually, or queue a
+research-agent pass on the metrics.json files. Synthesis session
+cannot move capability rows from these without clearer signal.
+
 ## Gaps without queued experiments
 
 These are capabilities I cannot yet propose a clean test for; flagging
