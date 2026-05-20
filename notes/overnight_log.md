@@ -68,6 +68,16 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 06:30 — Cycle 2 (post-midnight, ICL CONFIRMED)
+
+GPU ran cleanly through midnight. 8 new completions evaluated this cycle. **Big finding: in-context learning via pool retrieval is CONFIRMED** at K=4 (+0.283 bpc), K=8 (+0.195), K=16 (+0.106) — relevant pool examples beat irrelevant by these margins at N=64, monotone in N. The substrate natively does ICL through pool retrieval. This was a Tier-1 killer (⚪) capability and just moved to ✅. Effect weakens with K (substrate has more W context at higher K, less leverage from pool injection). Generation also CONFIRMED at K=4/8/16 (greedy p8 = 37%/37%/31%). M1 mechanism confirmed at K=256 (N=8192 shrinks gap 9%). R3 sparse-unigram diagnostic re-confirmed +0.129 residual (still GAMMA mis-cal; needs sparse-matched test).
+
+**CPU collapsed at 01:30** with STATUS_ACCESS_VIOLATION (0xC0000005), cascading 6 failures including the critical wave14e2_parisi_ultrametricity (spin glass phase test). Memory corruption from the 2h-long acf_K_very_extended_50trials. CPU runner self-exited at 02:38. Cycle 2 relaunched CPU via WMI Win32_Process.Create — now on PID 29152 running parisi_ultrametricity retry. Re-queued 4 of 6 failed items (skipped the very-extended trigger and B4 variant).
+
+State: 15 GPU pending (running v2 ICL) + 4 CPU pending + 1 CPU running. Both runners WMI-detached.
+
+---
+
 ## 2026-05-19 22:25 — Cycle 1 (after 5h user-offline window, partial drop + recovery)
 
 Honest: cycle 1's first attempt dropped mid-work. Pulled all 12 verdicts but
