@@ -275,6 +275,29 @@ correction, not just K/N. Not a Tier-1 KILLER walkback.
 
 ---
 
+## 2026-05-20 19:51 — wave14i_schema_emergence completed via healer
+
+`wave14i_schema_emergence` (19:08:14, completed_via_healer): failed
+status but metrics.json exists. Manual review recommended. This is a
+candidate from `notes/wave14i_capability_candidate_map.md` (user-curated
+strategic doc; cap-map synthesis session does NOT modify it).
+
+The candidate map predicts: "gap ratio ~1.4 at N=200, recommend N=400
+for 2.0; held-out cos 0.6-0.75" with kill at "cos<0.3 or gap<1.3."
+
+**Action item for user**: analyzer pass on the metrics.json. If the
+result is positive (gap ratio ≥1.3 and held-out cos ≥0.3), it
+validates a Tier-S brain-inspired headline (CLS emergent abstraction)
+and the user would move it to substrate_capability_map.md via the
+candidate map. Synthesis session does not create a placeholder row.
+
+**Do not auto-add to cap map**: wave14i candidates live in their own
+doc until the user decides which are real. Schema_emergence is item
+#4 in the candidate execution order; the user has 12 other candidates
+they may want to roll up together once data lands.
+
+---
+
 ## NEEDS_REVIEW backlog from CPU-fallback window (2026-05-20 13:32)
 
 Eight `wave14e*` experiments completed during the 22h CPU-fallback
