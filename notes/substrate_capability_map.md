@@ -561,3 +561,134 @@ Score: 3.5 / 6 Tier-1 KILLERs at ✅ or 🟢-partial.
 
 ---
 
+## 2026-05-20 11:00 update — RSB tree-walk doesn't beat brute force at P=1024; query-side erasure leaks via W
+
+Three capability-relevant outcomes landed between 10:36 and 10:40. Two
+walk back recent killer-tier claims; one closes an UNSURE direction.
+
+### Tree-walk RSB algorithm: structural ✅ stays, practical ❌ at P=1024
+
+`wave14f_rsb_tree_walk` (completed, MIXED):
+- recall@10 climbs with beam: 4.5% (b=1) → 15.5% (b=2) → 69.2% (b=4)
+  → **76.8% (b=8)** → saturates at b=16
+- BUT: 2.2 ms/query at b=8 vs brute-force 0.079 ms = **28× SLOWER**
+- Pool size tested: 1024 at N=4096
+- Implication (from event log + literature synthesis): tree-NN
+  crossover at N ≈ 10^4 – 10^5 for high-dimensional vectors
+  (Beygelzimer 2006 cover trees, Beyer 1999 distance concentration).
+  At our pool size of 1024, brute force wins. Beam saturation at
+  b=8 is the topology ceiling per Prokhorenkova ICML 2020.
+- Recommendation in event log: "Drop tree for substrate-scale
+  retrieval; revisit only if pool grows past 50k."
+
+**Capability moves**:
+
+| Capability | v4 state | v5 state | Trigger |
+|---|---|---|---|
+| Hierarchical retrieval (RSB) — structural property | ✅ Validated | ✅ Validated (unchanged) | `wave14e2_parisi_ultrametricity` still holds |
+| Hierarchical retrieval — practical O(log P) algorithm | 🔬 Research only | ❌ Closed at P=1024; reopens only if pool reaches ~50K | `wave14f_rsb_tree_walk`: 28× slower than brute force at P=1024 |
+| KILLER Tier-1 row | ✅ structural; 🔬 algorithm | ✅ structural; ❌ algorithm-at-current-scale | Same. |
+
+**Product implication**: the "free O(log P) hierarchical index" story
+in v3 was over-promised. The substrate IS in the RSB phase
+(structural ✅), but at our operating pool size (1K-4K), brute-force
+cosine retrieval is faster than tree-walk. The story survives only
+if we operate at pool ≥ 50K, where the literature predicts the
+crossover. For current product framing, this is a real walkback.
+
+### Query-side integration: pool erase leaks 93% via W
+
+`wave14d_query_side_integration` (completed, NEGATIVE — substantive
+contradiction with v4 expectation):
+- Pool erase leaves **93% of facts predictable via W**
+  (combined+W-only both leak; seed 17/23/31 leak rates 90/96.7/93.3%)
+- Mean p_drop only ~18% (probability decreases but argmax unchanged)
+- K=8, 30 facts per seed, 3 seeds
+
+This is the first end-to-end query-side test of the edit-then-query
+pipeline. **Pool-only edit does not propagate to model behavior.**
+The substrate's W matrix retains the (k, v) outer-product low-rank
+component absorbed during training, so erasing the pool entry leaves
+the prediction effectively unchanged.
+
+Architectural fix per the event log implication (math: ROME/MEMIT,
+Kohonen pseudo-inverse, anti-Hebbian Hopfield-Feinstein-Palmer 1983,
+Guo cert-removal 1911.03030):
+- Implement rank-1 W edit after pool erase
+- Anti-Hebbian update: `W -= alpha * (W@k - 0)(k^T C^-1) / (k^T C^-1 k)`
+- "Architecturally additive, not a kill. Tier-1 'surgical erase' claim
+  survives IFF we add W-side edit primitive."
+
+**Capability moves**:
+
+| Capability | v4 state | v5 state | Trigger |
+|---|---|---|---|
+| Pool-only erase (GDPR-style forgetting) | not previously a listed row | ❌ Closed (93% leak) — pool alone insufficient | `wave14d_query_side_integration` |
+| Edit-then-query for fact correction (Tier-1) | 🟢 partial (edit ✅, query-reflection ⚪) | 🟡 — edit ✅, pool-only query-reflection ❌, W-side edit ⚪ (untested but architecturally additive) | Same. |
+| W-side edit primitive (rank-1 anti-Hebbian) (NEW row) | — | ⚪ Untested — required for edit-then-query to close | Implied by `wave14d_query_side_integration` math |
+
+**Conflict note vs v4**: I do not consider this a "substantive
+conflict" requiring user resolution under the protocol, because v4
+explicitly marked query-reflection as ⚪ untested. This experiment is
+the missing test landing — and it landed negative for the pool-only
+form. The Tier-1 KILLER doesn't drop back to ⚪ because there's a
+clear architectural fix (W-side edit), but it drops from 🟢-partial
+to 🟡 until that fix is built and tested.
+
+### LSH for BSC (SimHash variant): closed
+
+`wave14e_lsh_for_bsc` (completed, NEGATIVE):
+- Random-hyperplane LSH (8 tables × 16 bits) gives
+  **recall@10 = 0.02** (basically random) AND 4× SLOWER (1.65ms vs
+  0.41ms brute force)
+- Implication: SimHash recall = 1 - (theta/pi)^t requires much higher
+  t for low cosine sim regime (our s ∈ [0.1, 0.3]). Configured
+  parameters insufficient. v2 research synthesis already flagged
+  BinaryIVF as the right algorithm.
+
+**Capability move**:
+
+| Capability | v4 state | v5 state | Trigger |
+|---|---|---|---|
+| LSH for BSC retrieval (SimHash variant) | UNSURE (research note flagged BinaryIVF) | ❌ Closed (SimHash form) | `wave14e_lsh_for_bsc` |
+| BinaryIVF for BSC retrieval (alternative) | 🔬 Research only | 🔬 Research only (unchanged) | Untested. |
+
+### Updated KILLER Tier-1 board (v5)
+
+| Capability | v4 status | v5 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | No change. |
+| True continual learning at production scale | ⚪ | ⚪ | No change. |
+| **Edit-then-query for fact correction** | 🟢 partial | 🟡 — needs W-side edit | Pool-only erase leaks 93%; architectural fix identified. |
+| Provenance for every prediction | ✅ | ✅ | No change. |
+| In-context learning via pool | ✅ | ✅ | No change. |
+| **Hierarchical retrieval (RSB)** | ✅ structural; 🔬 algorithm | ✅ structural; ❌ algorithm-at-P=1024 | Tree-walk 28× slower than brute force at current scale; needs pool ≥ 50K. |
+
+Score: 2 ✅ + 1 🟢-partial + 1 🟡 + 1 ⚪ + 1 (✅+❌ split row) — net
+slip from v4's 3.5/6 to roughly 2.5/6 once you account for the two
+walkbacks. **Honest read**: the v3 framing was over-optimistic on
+two fronts; v5 corrects to the empirical reality.
+
+### Updated tally (deltas from v4)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 | 1 | — | 1 | 1 (W-side edit primitive NEW) | 1 (pool-only erase NEW) |
+| Concept structure | 2 | 1 | — | — | — | 1 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 4 | — | — | — | — | — |
+| Topological / spin glass | 1 | — | — | 3 | — | — |
+| CANNOT | — | — | — | — | — | 14 (+1 LSH SimHash) |
+| UNSURE | — | — | — | 13 | 10 | — |
+| KILLER Tier 1 | 3 | 1 (-1: edit-then-query → 🟡) | 1 (+1: edit-then-query) | — (-1: RSB algorithm → ❌-at-scale) | — | 1 (+1: RSB algorithm-at-P=1024) |
+
+### Three failed runs (not capability updates)
+
+- `acf_resonator_high_K_retry` (10:26): 2h timeout, no metrics. Infra.
+- `wave14g_acf_K2944_multi_seed` (10:36): staging script NameError;
+  already re-queued as `wave14g_acf_K2944_seed7`. Infra.
+- `wave14g_decompose_K_cliff_multi_seed` (10:37): same staging bug;
+  re-queued as `..._seed7`. Infra.
+
+---
+

@@ -1,7 +1,27 @@
 # Next experiments — recommendations from capability synthesis
 
 Written by capability-synthesis session. Updated against
-`substrate_capability_map.md` v3 (2026-05-20 09:00).
+`substrate_capability_map.md` v5 (2026-05-20 11:00).
+
+## 2026-05-20 11:00 reshuffle — priorities changed by tree-walk + query-side findings
+
+Three new outcomes (tree-walk MIXED, query-side NEGATIVE, LSH SimHash
+closed) shifted the top of the queue. The two highest-priority items
+this morning are no longer the v3 list.
+
+**New top-3**:
+1. **W-side edit primitive (rank-1 anti-Hebbian) + integration with pool erase.**
+   Without it, edit-then-query KILLER stays 🟡. With it, the most
+   product-leveraged Tier-1 KILLER closes.
+2. **High-K generation v2 (K=64/128/256).** Unchanged from previous
+   list; still the natural extension.
+3. **ICL saturation curve at N≥4096.** Unchanged from previous list.
+
+Previously top item (`wave14f_rsb_tree_walk_v1`) **completed and
+landed mixed** — dropping it from the priority list. RSB algorithm
+revisit only if pool grows past ~50K.
+
+---
 
 The main session decides what to queue. This file is the ordered
 shopping list with reasons; treat priority numbers as the synthesis
@@ -26,25 +46,20 @@ our substrate's saturation point is unmeasured.
 scaling envelope before we can sell "substrate scales like kNN-LM"
 as a product story. ~1-2h on GPU.
 
-### Priority 2: RSB tree-walk algorithm (ACTIVATE A LATENT CAPABILITY)
-**Question**: does the substrate's measured ultrametricity translate
-to working O(log P) retrieval recall?
+### Priority 2: ~~RSB tree-walk algorithm~~ **COMPLETED 2026-05-20 — outcome MIXED**
+`wave14f_rsb_tree_walk` ran. Recall@10 reached 0.768 at b=8, matching
+the pre-registered prediction ("0.7-0.85 at b=2, rising sharply with
+b"). But 2.2 ms/query vs brute-force 0.079 ms = 28× SLOWER at our
+pool size P=1024.
 
-**Experiment**: `wave14f_rsb_tree_walk_v1`
-- Build single-linkage MST on a P=4096 pool (cophenetic distance from
-  bipolar overlap matrix, per wave14f_rsb_tree_walk_research.md)
-- Implement priority-queue beam search with b ∈ {1, 2, 4}
-- Compare against brute-force cosine and against random-leaf baseline
-- Primary metric: recall@1 and recall@10 vs exact NN, query time
-- Pre-registered prediction (from research synthesis): at our
-  ultrametric-fraction 0.357 (partial-tree regime), recall@10 ≈
-  0.7-0.85 at b=2, rising sharply with b.
+Literature crossover (Beygelzimer cover trees, Beyer 1999 distance
+concentration) is at N ≈ 10^4 – 10^5 for high-d vectors. At our scale,
+brute force wins. **Drop from priority list.** Revisit only if pool
+grows past 50K.
 
-**Why now**: structural finding is in hand; algorithm is unbuilt;
-1-day build per the research synthesis. If it works, the substrate
-ships with a free hierarchical index — a Tier-1 KILLER moves fully
-to ✅. If it fails at the predicted recall, that's a real-axis
-distinction from "RSB measured" to "RSB usable."
+(Latent capability "Hierarchical retrieval (RSB) — practical algorithm"
+moved from 🔬 to ❌ at P=1024 in cap map v5. Structural ultrametricity
+✅ remains.)
 
 ### Priority 3: Generation v2 at higher K with strict baseline
 **Question**: does generation quality scale with K, or peak at K=16?
@@ -61,32 +76,45 @@ This is the obvious extension and uses existing infrastructure.
 
 ## Priorities — second tier (close UNSURE killers)
 
-### Priority 4: Edit-then-query end-to-end pipeline
-**Question**: given user uploads correction "X is actually Y," does
-the next query reflect it?
+### Priority 4 — PROMOTED TO P1: W-side edit primitive (rank-1 anti-Hebbian)
+**2026-05-20 11:00 update**: `wave14d_query_side_integration`
+landed NEGATIVE. Pool-only erase leaks 93% (the (k,v) outer-product
+is absorbed into W during training; pool erasure doesn't touch it).
+Edit-then-query Tier-1 KILLER dropped from 🟢-partial to 🟡 — survives
+only if we add a W-side edit primitive.
 
-**2026-05-20 update**: `wave14d_sequential_edit_stress` (positive)
-closed the *edit-primitive-at-scale* piece (1000 ops, 100% success,
-94.4% pool integrity). Edit-then-query KILLER is now 🟢 partial: edit
-✅, query-reflection still ⚪. This priority becomes higher-leverage:
-the only missing piece for a Tier-1 ✅ is whether queries reflect
-edits.
+**Question**: does a rank-1 anti-Hebbian W edit, applied after pool
+erase, reduce leak rate from 93% → below 10% without degrading other
+predictions?
 
-**Experiment**: `wave14d_edit_then_query_v1`
-- Multi-stage: decompose pool entry → swap target byte → rebundle →
-  rerun query that originally returned old answer
-- Measure: % of queries where update propagates correctly
-- 3 seeds, 100 edit-query pairs
-- Composable with sequential-edit-stress design: chain N edits, then
-  run queries against each edited entry
+**Experiment**: `wave14d_w_side_edit_v1`
+- Pre-step: identify candidate fact (k, v) in pool
+- Erase pool entry
+- Apply W edit: `W -= alpha * (W@k - 0)(k^T C^-1) / (k^T C^-1 k)`
+  (anti-Hebbian Hopfield-Feinstein-Palmer 1983, Kohonen pseudo-inverse;
+  C is identity for first cut, then per-batch covariance)
+- Measure (vs `wave14d_query_side_integration` baseline):
+  - Leak rate (target: < 10%)
+  - p_drop on erased fact (target: > 80%)
+  - Side effects on 100 other random pool entries (target: < 5% degradation)
+- 3 seeds, K=8, 30 facts per seed (match query_side_integration setup)
 
-**Why now**: edit-at-scale ✅, query primitive ✅, full integration
-still untested. Tier-1 KILLER with the highest-product-leverage gap —
-fact-correction is the LLM's biggest current weakness, and substrate
-already solves the edit half natively. Worth ruling in or out.
+**Why now (PROMOTED)**: this is the architecturally-additive fix that
+unblocks the most product-leveraged Tier-1 KILLER (surgical
+fact-correction / GDPR erase). Without it, the substrate's claim of
+"editable memory" doesn't compose into actual product behavior. With
+it, edit-then-query closes at ✅.
 
-**Research note exists**: `wave14d_edit_then_query_research.md` —
-review for implementation details.
+**Research foundation**: math survey in event log implication
+(ROME/MEMIT, Kohonen, Hopfield-Feinstein-Palmer 1983,
+Guo et al. 1911.03030 cert-removal). Architecturally additive — does
+not require changes to existing pool-edit primitive.
+
+**Estimate**: ~150 LOC + 1-2h CPU. Comparable in scope to
+`wave14d_sequential_edit_stress`.
+
+(After this lands positive, the original edit-then-query end-to-end
+pipeline test is the next experiment in the chain.)
 
 ### Priority 5: Multi-task transfer beyond A→B
 **Question**: continual learning confirmed for A→B distribution
