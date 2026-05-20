@@ -61,6 +61,31 @@ def heartbeat(status: str, current: str | None = None) -> None:
     }, indent=2))
 
 
+_CASCADE_STATE = {"consecutive_fails": 0, "last_exit": None}
+CASCADE_THRESHOLD = 3
+CASCADE_SLEEP_S = 300
+
+
+def record_outcome(exit_code: int) -> None:
+    """Track consecutive failures with same exit code. Sleep if cascade detected."""
+    if exit_code == 0:
+        _CASCADE_STATE["consecutive_fails"] = 0
+        _CASCADE_STATE["last_exit"] = None
+        return
+    if exit_code == _CASCADE_STATE["last_exit"]:
+        _CASCADE_STATE["consecutive_fails"] += 1
+    else:
+        _CASCADE_STATE["consecutive_fails"] = 1
+        _CASCADE_STATE["last_exit"] = exit_code
+    if _CASCADE_STATE["consecutive_fails"] >= CASCADE_THRESHOLD:
+        log(f"CASCADE detected: {_CASCADE_STATE['consecutive_fails']} consecutive failures with exit={exit_code}. Sleeping {CASCADE_SLEEP_S}s for OS recovery.")
+        heartbeat("cascade_recovery", current=f"exit={exit_code}")
+        time.sleep(CASCADE_SLEEP_S)
+        _CASCADE_STATE["consecutive_fails"] = 0
+        _CASCADE_STATE["last_exit"] = None
+        log("Cascade recovery sleep done; resuming.")
+
+
 def read_queue() -> dict:
     if not QUEUE_FILE.exists():
         return {"experiments": []}
@@ -125,12 +150,14 @@ def run_one(entry: dict) -> str:
         dt = time.perf_counter() - t0
         if result.returncode == 0:
             log(f"DONE {name} in {dt:.1f}s (exit 0)")
+        record_outcome(0)
             update_entry(name, status="completed",
                         ended_at=datetime.now().isoformat(timespec="seconds"),
                         wall_s=dt)
             return "completed"
         else:
             log(f"FAIL {name} exit={result.returncode} after {dt:.1f}s")
+        record_outcome(result.returncode)
             update_entry(name, status="failed",
                         ended_at=datetime.now().isoformat(timespec="seconds"),
                         wall_s=dt, exit_code=result.returncode)
