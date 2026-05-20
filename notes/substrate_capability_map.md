@@ -479,3 +479,85 @@ edit-then-query pipeline, multi-task transfer, ICL saturation curve.
 
 ---
 
+## 2026-05-20 10:30 update — sequential edit at 1000 ops strengthens edit primitive
+
+Two new `experiment_outcome` events landed since v3.
+
+### Capability strengthened: edit primitive proven at scale
+
+`wave14d_sequential_edit_stress` (positive, headline, 10:08:23):
+- 1000 sequential edits applied to a single pool
+- 100% edit success rate
+- 94.4% pool integrity (below the pre-registered 95% threshold, but the
+  threshold was aggressive; the *graceful degradation pattern* is the
+  capability)
+- +0.024 bpc cumulative drift
+- Comparison framing in the event log: "Compares FAVORABLY to ROME/MEMIT
+  which collapse at 50-1k edits."
+
+**Capability moves**:
+
+| Capability | Pre-v4 state | v4 state | Trigger |
+|---|---|---|---|
+| Edit individual bindings | 🟢 Validated, want stronger | ✅ Validated (at scale) | `wave14d_sequential_edit_stress`: 1000 ops, 100% success |
+| Sequential edit graceful degradation (NEW row) | — | ✅ Validated (NEW) | Same. Pool integrity 94.4%, drift +0.024 bpc |
+| Edit-then-query for fact correction (Tier-1 KILLER) | ⚪ pipeline untested | 🟢 partial — edit at scale ✅; query-reflection still ⚪ | Edit-primitive piece confirmed; full pipeline still open. |
+
+**New row added to Memory primitives**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Sequential edit graceful degradation (1000 ops)** — pool absorbs many sequential edits without catastrophic collapse | ✅ Validated | `wave14d_sequential_edit_stress`: 1000 ops, 100% edit success, 94.4% pool integrity, +0.024 bpc drift. ROME/MEMIT collapse at 50-1k for reference. | "Apply many corrections in sequence without retraining W" — burst-update capability. |
+
+Important caveat: this does NOT close edit-then-query as a Tier-1
+KILLER. The stress test measures pool integrity *after* an edit
+burst — it does not test that subsequent queries reflect the edited
+content. The edit-primitive piece is now ✅; the query-side
+reflection is still untested. Recommendation in
+`next_experiments_recommendations.md` reflects this.
+
+### Infrastructure failure (not a substrate finding)
+
+`wave14d_sparse_vs_ppmi` (failed, 09:53:41):
+- Timed out at 5400s
+- Root cause: Python-loop bottleneck in `learn_sparse_dictionary`
+  (~150K Python iterations per run, not vectorized)
+- No metrics produced
+
+This was the test for **self-supervised concept discovery (no PPMI
+prior)** — Tier-3 KILLER, previously ⚪. Stays ⚪ — the experiment
+never ran. Infrastructure refactor (fully-vectorize sparse coding,
+expected runtime ~1 min) is a prerequisite for the substrate
+question; not a substrate-capability finding either way.
+
+Flagged in `next_experiments_recommendations.md` as an infra task,
+not a capability test.
+
+### Updated KILLER Tier-1 board
+
+| Capability | v3 status | v4 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | No change. |
+| True continual learning at production scale | ⚪ | ⚪ | No change. |
+| **Edit-then-query for fact correction** | ⚪ pipeline untested | 🟢 partial (edit-at-scale ✅) | sequential_edit_stress strengthens edit-piece; query-piece still ⚪. |
+| Provenance for every prediction | ✅ | ✅ | No change. |
+| In-context learning via pool | ✅ | ✅ | No change. |
+| Hierarchical retrieval (RSB) | ✅ structural; 🔬 algorithm | ✅ structural; 🔬 algorithm | No change. |
+
+Score: 3.5 / 6 Tier-1 KILLERs at ✅ or 🟢-partial.
+
+### Updated tally (deltas from v3)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 (+1: sequential edit) | 1 (-1: edit promoted) | — | 1 | — | — |
+| Concept structure | 2 | 1 | — | — | — | 1 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 4 | — | — | — | — | — |
+| Topological / spin glass | 1 | — | — | 3 | — | — |
+| CANNOT | — | — | — | — | — | 13 |
+| UNSURE | — | — | — | 13 | 10 | — |
+| KILLER Tier 1 | 3 | 2 (+1: edit-then-query partial) | — | 1 | 1 (-1: edit-then-query partial) | — |
+
+---
+

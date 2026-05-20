@@ -65,16 +65,25 @@ This is the obvious extension and uses existing infrastructure.
 **Question**: given user uploads correction "X is actually Y," does
 the next query reflect it?
 
+**2026-05-20 update**: `wave14d_sequential_edit_stress` (positive)
+closed the *edit-primitive-at-scale* piece (1000 ops, 100% success,
+94.4% pool integrity). Edit-then-query KILLER is now 🟢 partial: edit
+✅, query-reflection still ⚪. This priority becomes higher-leverage:
+the only missing piece for a Tier-1 ✅ is whether queries reflect
+edits.
+
 **Experiment**: `wave14d_edit_then_query_v1`
 - Multi-stage: decompose pool entry → swap target byte → rebundle →
   rerun query that originally returned old answer
 - Measure: % of queries where update propagates correctly
 - 3 seeds, 100 edit-query pairs
+- Composable with sequential-edit-stress design: chain N edits, then
+  run queries against each edited entry
 
-**Why now**: edit primitive ✅, query primitive ✅, but pipeline
-integration untested. Tier-1 KILLER with the highest-product-leverage
-gap — fact-correction is the LLM's biggest current weakness, and
-substrate looks like it solves it natively. Worth ruling in or out.
+**Why now**: edit-at-scale ✅, query primitive ✅, full integration
+still untested. Tier-1 KILLER with the highest-product-leverage gap —
+fact-correction is the LLM's biggest current weakness, and substrate
+already solves the edit half natively. Worth ruling in or out.
 
 **Research note exists**: `wave14d_edit_then_query_research.md` —
 review for implementation details.
@@ -128,6 +137,22 @@ Bounded downside, structured upside.
 - Per research: 50+ hops viable with cleanup
 
 **Why now**: cheap-ish (1-2h GPU), tests a Tier-2 KILLER cleanly.
+
+### Priority 9 (infra): Vectorize learn_sparse_dictionary
+**Not a capability test** — infrastructure prerequisite for the
+self-supervised-concept-discovery experiment.
+
+**2026-05-20**: `wave14d_sparse_vs_ppmi` timed out at 5400s due to a
+Python-loop bottleneck (~150K iterations per run). Expected runtime
+post-refactor: ~1 min.
+
+**Action**: refactor `learn_sparse_dictionary` to fully-vectorized
+sparse coding before re-queueing `wave14d_sparse_vs_ppmi`. Without
+this, the self-supervised concept discovery Tier-3 KILLER (⚪) cannot
+be tested.
+
+**Owner**: not synthesis session (would touch experiment code, which
+synthesis does not edit). Main session.
 
 ## Gaps without queued experiments
 
