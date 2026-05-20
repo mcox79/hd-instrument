@@ -68,6 +68,18 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 08:30 — Cycle 4 (generation v2 confirmed + B=3 cliff finding + healer surface working)
+
+Healer's verdict-gap surface caught two completions this cycle. **Generation v2 K=16 CONFIRMED** with proper baselines: substrate_pool p1=43.3% vs B3 Markov-chain baseline p1=27.8% (+15.5pp, well above 5pp pass threshold). k4_validity=0.66 (above 0.40 threshold). This is the strict-baseline confirmation that supersedes v1 (which used random-uniform baseline). Tier-1 generation killer now ✅ against the right comparison.
+
+**B=3 decompose-cliff finding**: at B=3, cliff shifts down to K/N≈0.31-0.44 (vs B=2 at 0.55). Recovery drops 100→77→53→23% across K/N=0.25-0.44. Substrate capacity drops sharply per added binding factor — matches Frady-Sommer interference scaling. **Implication for polarity/temporal experiments**: 3-factor binding is safe at K=4 (effective K limit ≈1270 at N=4096), but scaling those to K=512+ would hit the new cliff.
+
+**K=2944 retraction (from earlier in cycle 3 wake)**: r-sweep at K=2944 gives 80% recovery at r=0.01, matching smooth interpolation. Earlier 50/61% dips were SEED=17 codebook correlation artifacts. ACF K-curve is cleaner than thought; no real sub-step.
+
+Healer-gap surface now operational — surfaces unjudged completions to `data/needs_verdict.json` every 5 min. Iteration 9 alive at 08:28. GPU now on `wave14d_sparse_vs_ppmi`; CPU on `acf_resonator_high_K_retry`.
+
+---
+
 ## 2026-05-20 07:15 — Cycle 3 (RSB phase confirmed, dashboard PID-bug, infinite-loop bug)
 
 Three findings this cycle. **(1) Major headline: RSB phase CONFIRMED.** Parisi P(q) test ran 5x successfully (each ~7 min) due to a queue.json duplicate-entry bug. Result: P(q) multi-peaked at q=0.138 (n=248052) and q=0.276 (n=24967); ultrametricity_fraction 0.357 (> 0.33 chance threshold). Substrate has emergent O(log P) hierarchical retrieval index FOR FREE from intrinsic structure. No HDC paper has previously measured this. **(2) Dashboard PID-check bug**: `tasklist /fi "PID eq X" /fi "PID eq Y"` uses AND logic, returns empty for known-alive PIDs. Same bug appears in dashboard's PID-alive check (flagging live runners as DEAD). Get-Process is correct. Flagged to dashboard session. **(3) Infinite-loop bug**: `_requeue_failed_cpu.py` added a pending parisi entry alongside the still-running one. Runner kept re-picking it. Fixed by marking both entries completed; emitted RSB-phase headline outcome event. Going forward, requeue helpers should DELETE old failed entry then add new pending (atomic replace, not append).
