@@ -182,6 +182,46 @@ be tested.
 **Owner**: not synthesis session (would touch experiment code, which
 synthesis does not edit). Main session.
 
+## 2026-05-20 14:53 — Highest-leverage build identified: rank-1 anti-Hebbian W edit primitive
+
+`wave14g_erase_under_replay` is the second independent negative on
+the W-leak axis (first was `wave14d_query_side_integration`). The
+mechanism is fully diagnosed and the fix is named:
+
+**Build**: implement anti-Hebbian rank-1 W edit. Formula from the
+event log (Hopfield-Feinstein-Palmer 1983 + Guo cert-removal
+1911.03030):
+
+```
+W -= alpha * (W @ k - 0) * (k^T C^-1) / (k^T C^-1 . k)
+```
+
+where `k` is the key vector for the fact to forget and `C` is the
+covariance of stored facts (or identity for spherical assumption).
+
+**Why this is the top recommendation**:
+- Closes the GDPR / surgical-erase capability (currently ❌ in
+  current architecture)
+- Unlocks the Tier-1 KILLER edit-then-query (currently 🟢 partial)
+  to potentially ✅
+- Per the event-log diagnosis: "architecturally additive, not a kill"
+- Fits the no-backprop, Hebbian-only constraint of the substrate
+- Math is well-cited; not speculative
+
+**Composable with existing experiments**:
+- `wave14d_edit_then_query_v1` (P4 above) — would test query-side
+  reflection after the W edit lands
+- `wave14g_erase_under_replay` itself — re-run after W-edit to show
+  erase_effective should go from 7.4% → ~100%
+
+**Implementation pointer**: `notes/wave14g_research_wside_erasure.md`
+(referenced in the event log; check if present).
+
+This is the single most leverage-dense build in the recommendations
+file as of 2026-05-20 14:53.
+
+---
+
 ## 2026-05-20 14:15 — CRITICAL flag: ICL pool-size scaling INVERTED + augment_pool bug blocks Tier-S #1
 
 ### Substantive contradiction with v3 framing (per protocol: surfaced for user resolution)

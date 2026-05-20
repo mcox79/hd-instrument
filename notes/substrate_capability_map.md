@@ -931,3 +931,100 @@ the 2026-05-19 v1 baseline.
 
 ---
 
+## 2026-05-20 14:53 update — GDPR erase under replay ❌ without W-edit; ACF rescue at K/N=1.0 ✅
+
+### GDPR / surgical erase: a sharper articulation of a known gap
+
+`wave14g_erase_under_replay` (14:00:48, NEGATIVE_GDPR_ERASE_NOT_REPLAY_EQUIVALENT):
+- 3 seeds, K=8, 10 erasures, replay_fraction=0.5
+- **100% of erased entries visited by replay** during Phase B
+- erase_effective = **7.4%** (essentially zero)
+- post-erase predict_correct 8.33 / 10 vs pre-erase 9.0 / 10
+
+This is the **second independent negative** on the W-leak axis after
+v5's `wave14d_query_side_integration` (93% W-leak). The mechanism is
+the same: delta-rule outer-product training absorbs (k, v) as a
+low-rank component of W; pool erasure cannot remove that component.
+Random replay then re-strengthens the same (k, v) component, restoring
+the erased fact.
+
+**Capability move** — adding a separate row for GDPR / surgical erase
+(it was previously implicit inside the edit-then-query KILLER):
+
+| Capability | Pre-v8 | v8 | Trigger |
+|---|---|---|---|
+| GDPR / surgical erase (forget specific items on demand) | ⚪ Untested as a separate capability (UNSURE Tier 3) | ❌ Closed in current architecture; survives IFF rank-1 W-side edit is added | `wave14g_erase_under_replay` + `wave14d_query_side_integration` (independent corroboration) |
+| Edit-then-query for fact correction (Tier-1 KILLER) | 🟢 partial (edit-piece ✅, query-side ⚪) | 🟢 partial — same state; v8 strengthens the conclusion that the missing piece is rank-1 W edit (not "pipeline plumbing" but a new architectural primitive) | Same. |
+
+The Tier-1 KILLER ✅ for edit-then-query now has a **specific
+unlock**: implement anti-Hebbian rank-1 W edit. From the event log
+implication: `W -= alpha · (W @ k - 0) · (k^T C^-1) / (k^T C^-1 · k)`
+per anti-Hebbian Hopfield-Feinstein-Palmer 1983 + Guo cert-removal
+1911.03030. Architecturally additive, not a kill.
+
+Adding this to `next_experiments_recommendations.md` as the
+highest-leverage build to close a Tier-1 KILLER.
+
+### ACF rescue at K/N=1.0 — 96.7% recovery, 2× capacity boost confirmed
+
+`wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_4096` (14:07:30,
+POSITIVE_ACF_RESCUE_AT_KN_1):
+- K=4096 at N=4096 → K/N = 1.0
+- ACF rescue gives **96.7% recovery**
+- Vanilla decompose at same K/N: ~0% (cliff at K/N≈0.5 per v7)
+- **2× capacity boost** over vanilla decompose at substrate-relevant K
+
+This is a **direct strengthening** of the v1 "Resonator decomposition
+with ACF rescue" capability, which v1 framed as "recover atoms past
+capacity cliff (K/N=1.5 at 97%)." The new evidence shows ACF wins
+substantially at K/N=1.0 too, where vanilla is dead.
+
+**Capability evidence update** (no state change — already ✅):
+
+The "Resonator decomposition with ACF rescue" row gains:
+`wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_4096` (K/N=1.0
+@ 96.7%; vanilla @ 0%) to its evidence list. Two more shards
+(K=8192, K=12288) pending; those will reveal the actual ACF ceiling.
+
+### K=2944 retraction cross-seed confirmed
+
+`wave14g_acf_K2944_seed7` (13:55:38, RETRACTION_HOLDS_AT_SEED7):
+- At SEED=7, K=2944 recovery: 60% / 75% / 60% / 55% across r ∈ {0.005, 0.01, 0.05, 0.1}
+- All above the original SEED=17 50% "dip"
+- Cross-seed confirmation that the dip was SEED=17 codebook noise
+
+Evidence list update for the "Resonator with ACF rescue" capability;
+no state change. v3's retraction is now multi-seed validated.
+
+### Inconclusive runs (flag only, no capability moves)
+
+| Experiment | Outcome | Disposition |
+|---|---|---|
+| `wave14g_icl_genuine_shift_hex` (13:56) | INCONCLUSIVE_NO_METRICS | 🟡 — silent failure under markdown→hex distribution shift |
+| `wave14g_edit_fidelity_K64` (13:57) | INCONCLUSIVE_NO_METRICS | 🟡 — MVP3 R1 gate unresolved |
+| `wave14g_decompose_K_cliff_seed7` (13:58) | STAGING_BUG_VARIANT | infra (already covered by N=8192 result) |
+| `wave14f_r10_K_adaptive` (14:48) | completed_via_healer (failed status + metrics.json present) | 🟡 — needs analyzer pass |
+
+### Updated tally (v8)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 | 1 | 1 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 1 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | — | — | 1 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase (NEW row) | — | — | — | 🔬 1 (rank-1 W edit) | — | 1 (current architecture without W edit) |
+| CANNOT | — | — | — | — | — | 16 (+1: GDPR-erase in current arch) |
+| UNSURE | — | — | — | 13 (+1: rank-1 W edit primitive) | 10 | — |
+| KILLER Tier 1 | 3 | 1 | 1 | — | — | 1 |
+
+The GDPR-erase row is the first capability where we've identified
+**a specific architectural addition** (rank-1 W edit) that would
+close a Tier-1 KILLER gap. v3's "edit primitive ✅" was about
+mutating pool bundles; the missing piece is mutating W itself.
+
+---
+
