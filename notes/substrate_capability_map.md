@@ -788,3 +788,146 @@ envelope.
 
 ---
 
+## 2026-05-20 14:15 update — K/N invariance breaks at N=8192; ICL pool-size scaling INVERTED
+
+Three substantive findings + two awaiting-analysis runs + one critical
+infra bug. The two substantive findings both walk back framings used
+in earlier versions of this map.
+
+### K/N scaling NOT invariant — cliff is earlier at higher N
+
+`wave14g_decompose_K_cliff_N8192` (13:48:35, POSITIVE_BUT_K_OVER_N_NOT_INVARIANT):
+- N=8192, B=2: cliff at K/N = 0.50 (K=4096 → 13.3%; K=5120 → 0%)
+- Predicted from N=4096 work: K/N = 0.56
+- **Cliff is ~11% earlier than K/N-invariant scaling predicts**
+- Key results: K=4096 → 13.3%, K=4608 → 6.7%, K=5120+ → 0%
+- Implication (from event log): "K/N scaling does NOT hold cleanly
+  across N. Needs lower-order correction or alternative scaling
+  theory. Investigate: (1) replica/Hopfield-style α_c correction,
+  (2) crosstalk SNR formula re-derivation for finite N,
+  (3) measure at N=2048 to triangulate scaling exponent."
+
+**Capability move**:
+
+| Capability | v6 state | v7 state | Trigger |
+|---|---|---|---|
+| K-cliff at K/N≈0.56 (B=2) | ✅ Validated (one N only) | 🟢 Validated (N-dependent, not strictly K/N-invariant) | `wave14g_decompose_K_cliff_N8192` |
+
+The capability *exists* (sharp cliff is real) but the simple
+"K/N = constant" rule we relied on is too clean. Production sizing
+needs the N-specific cliff position, not the K/N ratio alone. v3 said
+"product can be sized confidently"; that's still true, but the model
+behind the sizing needs an N-dependent correction term.
+
+Not a Tier-1 KILLER walkback — this is engineering housekeeping.
+
+### ICL pool-size scaling INVERTED — gain DECREASES with pool size
+
+`wave14f_icl_scaling_pool` (13:48:20, NEGATIVE_INVERTED_SCALING):
+- Pool-size sweep {512, 1024, 2048, 4096}
+- Relevant gain: 0.38 → 0.32 → 0.26 → 0.17 bpc
+- Slope on log2(P) = **−0.067** (negative)
+- Implication: opposite of kNN-LM log-linear prediction. Possible
+  cause: corpus too small for larger pool (relevant items run out);
+  interference dominates as pool fills with irrelevant items.
+
+**This is a substantive walkback of v3's ICL ✅ promotion framing.**
+The v3 evidence chain cited "matches kNN-LM log-linear scaling
+pattern, no saturation observed." The wave14d_icl_via_pool_v2 result
+swept N (relevant examples ADDED at query time) and saw +3.19 bpc at
+N=256 ALPHA=1.0. The new result sweeps POOL_SIZE (total memory store)
+and sees DECREASE.
+
+**Reconciling the two**: they sweep different axes.
+- v2 v3 result: **N relevant examples added** at query time, fixed
+  pool composition → gain grows with N (per kNN-LM)
+- v7 result: **pool grows with irrelevant items**, fixed relevant
+  subset → gain falls as interference rises
+
+So the ICL capability survives, but the framing in v3 was loose:
+"scales like kNN-LM" needs the qualifier "with the relevant-example
+count, not pool size." For a product story, this matters because the
+naive "bigger memory = better" intuition fails at our scale.
+
+**Capability move**:
+
+| Capability | v6 state | v7 state | Trigger |
+|---|---|---|---|
+| In-context learning via pool retrieval | ✅ Validated (strong) | ✅ Validated (with caveat: scales with relevant-example count, NOT total pool size; gain inverts as pool fills with irrelevant items at corpus-scale tested) | `wave14f_icl_scaling_pool` (clarifies, does not kill) |
+| ICL pool-saturation curve at large N | (Priority-1 question in v3) | 🟡 inconclusive — `wave14g_icl_saturation_extended` was the planned test; blocked by augment_pool bug (see infra section below) | Same. |
+
+This is **not a Tier-1 demotion**: the ICL ✅ still holds in the
+regime tested. But the v3 framing implied the substrate would scale
+naively in pool size, and the new evidence is that it doesn't —
+relevance composition matters more than raw P.
+
+Per protocol, flagging this as a substantive contradiction with the
+v3 framing in `next_experiments_recommendations.md` for explicit user
+acknowledgement. **Honest read**: the v3 ICL story was over-promised
+on the pool-size axis; the real story is "relevant retrieval at small
+pool sizes." Still a useful capability, but a different product
+shape.
+
+### Two completed-needs-analysis runs
+
+`wave14d_generation_v2_K32` (13:40:04) and `wave14d_generation_v2_K64`
+(13:42:01): completed with strict-baseline structure (substrate_pool
+vs substrate_no_pool vs b3 Markov), 3 seeds, position-resolved data
+in nested metrics.json. Per event log: "verdict depends on whether
+substrate_pool > b3 baseline at this K. Needs analyzer pass."
+
+These were Priority 3 in `next_experiments_recommendations.md` (high-K
+generation strict baseline). Generation at K=16 is already ✅
+(`wave14d_generation_v2_K16`); K=32 and K=64 stay 🟡 pending the
+analyzer. If positive, generation moves toward "K-monotone strict
+baseline" claim.
+
+`wave14f_icl_rsb_synergy` (13:43:21): compound capability test (ICL
+on a pool whose ultrametric structure has been measured). Completed
+with metrics; awaiting analyzer pass. If positive, opens a new
+compound-capability row. If negative, closes a longshot.
+
+Capability moves: none from these three yet — flagged 🟡 awaiting
+analysis in v7. Added to `next_experiments_recommendations.md`
+NEEDS_REVIEW backlog.
+
+### Critical infra bug blocking Tier-S #1 ICL scaling close
+
+`wave14g_icl_saturation_extended` (13:51:34, FAILED): RuntimeError at
+line 232 augment_pool — tensor size (4096) != existing size (8192).
+Hardcoded POOL_SIZE=4096 doesn't handle N values > POOL_SIZE.
+
+This was the experiment that would have CLOSED the ICL saturation
+question (Priority 1 in the recommendations file). It is now BLOCKED
+behind a ~10-line bug fix in augment_pool.
+
+Flagged with urgency in `next_experiments_recommendations.md`.
+
+### Operational kills (not capability findings)
+
+- `r10_best_config_K1024_retry2` (12:47): killed during GPU cutover.
+- `r10_best_config_K2048_retry` (13:36): killed during thread-budget
+  cutover (OMP=2 PPMI 4× slower). Re-queue at proper thread budget.
+
+### Updated tally (v7)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 | 1 | 1 (ICL pool-saturation inconclusive) | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 (generation K=32 / K=64 awaiting analysis) | — | — | 1 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 3 (-1: K-cliff demoted) | 1 (+1: K-cliff with N-correction) | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 (SSH-BSC) | 2 | — | — |
+| Compound (NEW group, tentative) | — | — | 1 (ICL+RSB synergy) | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| CANNOT | — | — | — | — | — | 15 |
+| UNSURE | — | — | — | 12 | 10 | — |
+| KILLER Tier 1 | 3 | 1 | 1 | — | — | 1 |
+
+The 🟡 column is filling up — six entries pending interpretation or
+infra fix. Worth noting that none of the new findings move a Tier-1
+KILLER; the v5/v6 walkbacks remain the biggest framing changes from
+the 2026-05-19 v1 baseline.
+
+---
+

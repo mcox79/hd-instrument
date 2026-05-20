@@ -182,6 +182,59 @@ be tested.
 **Owner**: not synthesis session (would touch experiment code, which
 synthesis does not edit). Main session.
 
+## 2026-05-20 14:15 — CRITICAL flag: ICL pool-size scaling INVERTED + augment_pool bug blocks Tier-S #1
+
+### Substantive contradiction with v3 framing (per protocol: surfaced for user resolution)
+
+`wave14f_icl_scaling_pool` (NEGATIVE_INVERTED_SCALING) reports slope
+on log2(pool_size) = **−0.067**: gain DECREASES as pool grows from
+512 → 4096 (0.38 → 0.32 → 0.26 → 0.17 bpc).
+
+The v3 ICL ✅ promotion framing claimed "matches kNN-LM log-linear
+scaling pattern, no saturation observed" based on
+`wave14d_icl_via_pool_v2` which swept N (relevant examples added).
+The new result sweeps pool_size (total memory store, with mostly
+irrelevant items). They are NOT the same axis, but the v3 framing
+was loose enough that the inversion can read as a contradiction.
+
+**My current interpretation**: ICL capability survives at ✅, with a
+caveat that scaling is on the relevant-example axis, not on raw
+pool_size. v7 of the cap map records it this way. User should
+confirm or correct.
+
+### Critical infra bug to unblock Tier-S #1
+
+`wave14g_icl_saturation_extended` failed with
+RuntimeError at line 232 of `augment_pool`:
+- tensor size mismatch (4096 vs 8192)
+- Hardcoded POOL_SIZE=4096 doesn't handle N > POOL_SIZE
+- Event log: "Fixable in ~10 lines."
+
+**This experiment is the planned closure of the ICL saturation
+question.** Until it runs at extended N, the ICL pool-saturation
+capability stays 🟡. Recommend fix + re-queue as P1.
+
+### Two completed-pending-analysis (P3 from prior cycle)
+
+`wave14d_generation_v2_K32` (13:40) and `wave14d_generation_v2_K64`
+(13:42): completed with strict baseline structure but
+COMPLETED_NEEDS_ANALYSIS — verdict depends on
+`substrate_pool > b3 baseline at this K`, which is computable from
+the position-resolved metrics already in metrics.json. Needs analyzer
+pass (~10 min of work).
+
+`wave14f_icl_rsb_synergy` (13:43): also COMPLETED_NEEDS_ANALYSIS. If
+positive, opens a new compound-capability row (ICL × RSB hierarchy).
+
+### One mild positive walkback (engineering, not killer)
+
+`wave14g_decompose_K_cliff_N8192`: K/N invariance breaks across N
+(cliff at K/N=0.50 at N=8192 vs predicted 0.56 from N=4096).
+Engineering housekeeping — production sizing needs an N-dependent
+correction, not just K/N. Not a Tier-1 KILLER walkback.
+
+---
+
 ## NEEDS_REVIEW backlog from CPU-fallback window (2026-05-20 13:32)
 
 Eight `wave14e*` experiments completed during the 22h CPU-fallback
