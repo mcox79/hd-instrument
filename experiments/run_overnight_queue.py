@@ -64,15 +64,26 @@ def heartbeat(status: str, current: str | None = None) -> None:
 def read_queue() -> dict:
     if not QUEUE_FILE.exists():
         return {"experiments": []}
-    try:
-        return json.loads(QUEUE_FILE.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        log(f"Queue file unreadable ({e}); waiting for next poll")
-        return {"experiments": []}
+    for attempt in range(8):
+        try:
+            return json.loads(QUEUE_FILE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as e:
+            log(f"Queue file unreadable ({e}); waiting for next poll")
+            return {"experiments": []}
+        except PermissionError:
+            time.sleep(0.25 * (attempt + 1))
+    log("Queue file locked after 8 retries; treating as empty for this poll")
+    return {"experiments": []}
 
 
 def write_queue(q: dict) -> None:
-    QUEUE_FILE.write_text(json.dumps(q, indent=2))
+    for attempt in range(8):
+        try:
+            QUEUE_FILE.write_text(json.dumps(q, indent=2))
+            return
+        except PermissionError:
+            time.sleep(0.25 * (attempt + 1))
+    log("Queue file locked for write after 8 retries; skipping update this cycle")
 
 
 def update_entry(name: str, **kwargs) -> None:

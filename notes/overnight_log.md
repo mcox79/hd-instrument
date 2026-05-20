@@ -68,6 +68,78 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-19 22:25 — Cycle 1 (after 5h user-offline window, partial drop + recovery)
+
+Honest: cycle 1's first attempt dropped mid-work. Pulled all 12 verdicts but
+never relaunched runners or committed. Both queues sat empty 17:50-22:20 (~4.5h
+wasted GPU/CPU time). Tailscale was down during my first relaunch attempt,
+which fake-succeeded the PowerShell Start-Process. User restored Tailscale;
+runners now confirmed alive (GPU on `r10_best_config_K1024`, CPU on `decompose_K_cliff_dense8`).
+
+### Late-afternoon results (12 experiments, batch pulled at 22:15)
+
+**R10 best-config K-curve (full sweep K=2 to K=512 + N=8192):**
+| K | default | best | improvement | note |
+|---|---|---|---|---|
+| 2 | +0.141 | **-0.135** | -0.276 | best WORSE than default |
+| 4 | -0.118 | **-0.174** | -0.056 | best WORSE |
+| 8 | -0.001 | +0.142 | +0.144 | regime boundary |
+| 16 | +0.008 | +0.183 | +0.175 | |
+| 32 | +0.049 | +0.222 | +0.173 | |
+| 64 | +0.105 | +0.321 | +0.216 | verifies +0.318 single-seed |
+| 128 | +0.139 | +0.412 | +0.273 | |
+| 256 | +0.193 | +0.543 | +0.350 | |
+| 512 | +0.241 | **+0.628** | +0.388 | |
+| 128 N=8192 | +0.117 | +0.352 | +0.234 | gap shrunk 15%; M1 confirmed |
+
+**Headline candidate: R10 best-config +0.628 at K=512, monotone K=8 to K=512.**
+**Unexpected boundary: best-config catastrophically WORSE at K<8** (inverts).
+Research agent launched on regime boundary mechanism (still running).
+
+**R3 unigram diagnostic (wave14c hypothesis FAILED):**
+- R3 +0.032 / unigram **-0.097** (unigram HURT) / R3 residual +0.129.
+- Agent verdict: GAMMA=0.5 was 30-100x too strong for dense unigram. Sparsity
+  mismatch artifact, not a real refutation. Needs sparsity-matched unigram test.
+- See `notes/wave14c_r3_unigram_failure_research.md`.
+
+**R3 disjoint K-scaling:**
+- K=4: +0.025 / K=16: +0.008 / K=32: +0.008. Effect K=4-specific, doesn't scale.
+- Agent verdict: concept-coverage saturation collapse at K>=16 (firing rate
+  drops 10% → 1% → 0.3%). **R3 should drop from substrate-unique tier.**
+- See `notes/wave14c_r3_disjoint_K_flatness_research.md`.
+
+**ACF K-dependent extended (16 K levels):** cliff substructure confirmed
+(K=2944 dip to 50%); monotone elsewhere 33% → 97%.
+
+**ACF sparsity sweep redo, ACF resonator redo:** cross-validated prior findings.
+
+**CPU timeouts:** decompose_K_cliff_dense (16 K, 7200s timeout — too dense);
+cpu_platform_timing_redo (3600s timeout — likely hung waiting for input).
+
+### Queue refilled for next ~3h
+
+**GPU (4 pending after K1024 finishes):** K1024 (running), K8_verify,
+N8192_K256, r3_disjoint_K64.
+
+**CPU (2 pending after dense8):** dense8 (running), acf_K_dep_extended_redo.
+
+### Research agents
+
+- ✅ `wave14c_r3_disjoint_K_flatness_research.md` — verdict: drop R3 substrate tier
+- ✅ `wave14c_r3_unigram_failure_research.md` — verdict: GAMMA artifact, need sparsity-matched test
+- 🟡 R10 low-K inversion — still running
+
+### Publication-grade tier (post-cycle 1)
+
+1. R10 K-scaling: **+0.628 at K=512 best-config, monotone K=8→512**
+2. Random replay: +0.66-0.73 BWT, pre-shift-neutral, gradient-projection reframe
+3. Decompose/edit/recompose substrate uniqueness
+4. M1 mechanism confirmed (gap shrinks with N at K=128)
+
+**R3 reframed: methodology not substrate-unique.**
+
+---
+
 User went to sleep 2026-05-18 evening. This file tracks autonomous cycles.
 
 ## Starting state
