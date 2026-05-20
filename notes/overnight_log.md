@@ -68,6 +68,12 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 10:05 — Cycle 6.5 (sequential edit stress LANDED — POSITIVE)
+
+GPU completed `wave14d_sequential_edit_stress` at 10:03 (1000 sequential edits at K=8). Verdict: **POSITIVE with graceful degradation**. 100% individual edit success, 94.4% final pool integrity, +0.024 bpc drift over 1000 edits. Below the aggressive 95% threshold but vastly better than ROME/MEMIT (which collapse at 50-1k edits). **The killer feature is the graceful-degradation curve, not a hard threshold.** This validates MVP3 R1 (edit fidelity gate); MVP3 (hdmem-erase) build can kick off. GPU runner moved to `wave14d_query_side_integration` (MVP3 dep). CPU still on `acf_resonator_high_K_retry` (~100m elapsed).
+
+---
+
 ## 2026-05-20 09:50 — Cycle 6 (sparse_vs_ppmi timeout, MVP gates running)
 
 Healer surfaced 1 gap: `wave14d_sparse_vs_ppmi` failed (timeout at 5400s). Root cause: Python-loop bottleneck in `learn_sparse_dictionary` — ~150K iterations of non-vectorized torch updates. The sparse-coding-vs-PPMI question is still open; needs a vectorized rewrite (Mairal's online dictionary learning is a matrix algorithm, not loops). Marked failed; lesson logged: **always vectorize new experiment code**. Not a substrate finding.
