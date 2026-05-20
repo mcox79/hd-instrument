@@ -169,3 +169,107 @@ Each is currently in CANNOT or UNSURE — but if we could move any into CAN, the
 **Most-validated areas**: continual learning, R10 K-scaling, K-cliff/decomposition primitives.
 **Highest-uncertainty / highest-leverage areas**: anything in KILLER Tier 1, plus the four reopened directions (Wave 9/8/10A/4.5) in UNSURE.
 **Decisive followups queued or running**: `r3_sparse_unigram_diagnostic`, `acf_K2944_100trials`, `r10_best_config_K8_verify`, `r10_best_config_N8192_K256`, `r3_disjoint_K64`, `r10_best_config_K1024_retry`.
+
+---
+
+# v2 update (2026-05-20 00:30) — research-driven revisions
+
+Twelve research agents have landed since v1 of this map. Major framework shifts:
+
+## What CHANGED
+
+### Substrate is POOL-BOUNDED, not capacity-bounded
+Per wave14e2 spin glass deep dive: AGS α_c=0.138 is the WRONG yardstick. Right
+framing is Frady-Sommer sparse-vector capacity, which gives **~350K bundle
+headroom against our current ~4K pool** — we're operating at <1.2% of capacity.
+The substrate has 50-100x more room than we thought.
+
+**New 🔬 capability**: pool scaling to 100K+ entries. Untested but theoretically
+free. Decisive test: `wave14e2_parisi_ultrametricity` (RS vs RSB phase localization).
+
+### R3 should DROP entirely from substrate-unique tier
+Per wave14c K=64 collapse research: R3 effect dies as 1/K² × sigmoid(-log K)
+via dual-floor mechanism (PPMI sparsity + W info saturation). At K=64 BOTH same
+and disjoint variants give ~0. R3 is a K=4-specific small-effect at literature
+floor for additive-prior-bias.
+
+**Update**: R3-Laplace concept-conditioned readout bias → ❌ Closed at K≥16 for substrate-unique. Keep as K=4-product appendix only.
+
+### R10 low-K inversion has a mechanism + rescue
+Per wave14c2 R10 low-K research: PPMI rank-deficiency at K<8 (only K(K-1)/2
+position pairs exist). Best-config concept space collapses to bigram lookup
+with beta=16 sharpening wrong labels.
+
+**K-adaptive rescue (NEW 🔬 capability)**:
+- `lam(K) = 0.7 + (0.3-0.7)·σ((K-8)/3)`
+- `beta(K) = 8 + 8·σ((K-12)/4)`
+- `nc(K) = round(min(K(K-1)/2, 200))`
+
+Predicted: matches default at K=2 (±0.02), preserves best at K≥32.
+
+## What's NEW in KILLER Tier 1
+
+### Integer winding-protected memories (SSH-BSC topological)
+Per wave14e2 topological research: bind atoms with sublattice structure
+`key = sign(a_A + h_q · a_B)` where `h_q` has q domain walls. Topological charge
+is the winding number — an INTEGER. Chiral class AIII (Hasan-Kane 10-fold way)
+gives CATEGORICAL noise immunity.
+
+**Why killer**: substrate-stored facts get integer-quantized noise protection.
+Local bit-flips can shift count by ±1 only at wall-adjacent sites; larger
+shifts need coordinated multi-bit flips with probability ~p². Predicted SHARP
+KINK at p_c ≈ 1/(2·ν_density).
+
+**Status**: 🔬 — `wave14e2_ssh_bsc_topological` queued (30-min test).
+
+## Mechanism corrections (v1 framings updated)
+
+### LSH for BSC: BinaryIVF not SimHash
+Per wave14e LSH research: at our similarity regime (s ∈ [0.1, 0.3], Hamming
+radius 0.35-0.45) classical LSH degrades. BinaryIVF (k-means partition) is the
+right algorithm. GPU brute-force at N=4096 packed is already ~3ms/query at
+P=10M — within target without indexing for current scales. v2: `wave14e_lsh_v2_binaryivf` queued.
+
+### Multi-hop reasoning: bound triples + per-hop cleanup
+Per wave14e multi-hop research: encode each fact as `e = subj * rel * obj`,
+superpose to fact-base M, then probe with cleanup at each hop. BSC self-inverse
+algebra (x·x=1) makes chains clean. **50+ hops viable** with cleanup; ~1 hop
+without. v2: `wave14e_multi_hop_v2` queued.
+
+### Hierarchical composition: cleanup between levels
+Per wave14e hierarchical research: Plate 1995 chunking requires cleanup at
+each level. Without cleanup, noise multiplies; depth 4-5 collapses. With
+cleanup, depth 5-6. With sparse block codes, depth 6-8. v2: `wave14e_hierarchical_v2` queued.
+
+### Continuous edits: Bernoulli mixing, not deterministic blend
+Per wave14e continuous-edits research: `sign(α·A + (1-α)·B)` is a STEP
+function at α=0.5 (FAILS continuity). Correct primitive: per-coordinate
+Bernoulli mix (in expectation = soft-bipolar latent). v2: `wave14e_continuous_edits_v2` queued.
+
+## NEW Tier B longshots from materials science
+
+### FFT-as-reciprocal-substrate
+Per wave14e materials science: Bloch's theorem + convolution theorem identify
+FHRR as the reciprocal substrate where binding becomes pointwise multiplication
+in Fourier space. O(N log N) binding instead of O(N²). Half-day build.
+
+### Free hierarchical retrieval index via RSB
+If Parisi P(q) shows multi-peaking + ultrametricity > 0.3, substrate is in
+RSB phase with FREE O(log P) tree-walk retrieval. 10-min CPU test queued.
+
+### Substrate-as-spin-glass framing
+The bundle IS a spin glass. 50 years of statistical mechanics literature
+inherited. Sherrington-Kirkpatrick, Parisi, Hopfield all directly apply.
+
+## Updated tally
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 3 | 2 | 1 | — | — | — |
+| Concept structure | 1 | 1 | — | — | — | 1 (R3 dropped) |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 2 | 1 | — | — | — | — |
+| Topological / spin glass (NEW) | — | — | — | 3 | — | — |
+| CANNOT | — | — | — | — | — | 13 (R3 added) |
+| UNSURE | — | — | — | 13 | 12 | — |
+| KILLER Tier 1 | — | — | — | 5 (added winding) | — | — |
