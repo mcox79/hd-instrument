@@ -68,6 +68,14 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 09:50 — Cycle 6 (sparse_vs_ppmi timeout, MVP gates running)
+
+Healer surfaced 1 gap: `wave14d_sparse_vs_ppmi` failed (timeout at 5400s). Root cause: Python-loop bottleneck in `learn_sparse_dictionary` — ~150K iterations of non-vectorized torch updates. The sparse-coding-vs-PPMI question is still open; needs a vectorized rewrite (Mairal's online dictionary learning is a matrix algorithm, not loops). Marked failed; lesson logged: **always vectorize new experiment code**. Not a substrate finding.
+
+GPU moved to `wave14d_sequential_edit_stress` (MVP3 R1 dep at K=8). CPU still on `acf_resonator_high_K_retry` (~80m elapsed, normal for high-K resonator). Both runners alive (Get-Process confirms PIDs 40492 + 29152). Healer iteration 25, no issues. 23 GPU + 4 CPU pending after this cycle.
+
+---
+
 ## 2026-05-20 09:15 — Cycle 5 (quiet cycle, sparse_vs_ppmi long-running)
 
 Per protocol A, pulled needs_verdict.json first: zero gaps. Healer iteration 18 healthy. Both runners alive (Get-Process confirms PIDs 40492 GPU + 29152 CPU). GPU has been on `wave14d_sparse_vs_ppmi` for 1h24m (started 07:51, timeout 5400s = 1.5h — at the edge); subprocess at 1.87GB indicates active compute, not stuck. CPU on `acf_resonator_high_K_retry` for ~50m, normal. 21 GPU + 1 CPU pending. No outcomes to emit, no research to spawn, no queue refills needed. The hardening done in cycle 4 (healer + runner patches) is doing its job — last 5 hours had silent failures; this cycle is clean.
