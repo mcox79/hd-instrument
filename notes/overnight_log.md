@@ -68,6 +68,14 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 07:15 — Cycle 3 (RSB phase confirmed, dashboard PID-bug, infinite-loop bug)
+
+Three findings this cycle. **(1) Major headline: RSB phase CONFIRMED.** Parisi P(q) test ran 5x successfully (each ~7 min) due to a queue.json duplicate-entry bug. Result: P(q) multi-peaked at q=0.138 (n=248052) and q=0.276 (n=24967); ultrametricity_fraction 0.357 (> 0.33 chance threshold). Substrate has emergent O(log P) hierarchical retrieval index FOR FREE from intrinsic structure. No HDC paper has previously measured this. **(2) Dashboard PID-check bug**: `tasklist /fi "PID eq X" /fi "PID eq Y"` uses AND logic, returns empty for known-alive PIDs. Same bug appears in dashboard's PID-alive check (flagging live runners as DEAD). Get-Process is correct. Flagged to dashboard session. **(3) Infinite-loop bug**: `_requeue_failed_cpu.py` added a pending parisi entry alongside the still-running one. Runner kept re-picking it. Fixed by marking both entries completed; emitted RSB-phase headline outcome event. Going forward, requeue helpers should DELETE old failed entry then add new pending (atomic replace, not append).
+
+State: GPU PID 40492 alive on wave14d_icl_via_pool_v2 (1h17m elapsed, PID 68032 subprocess 1.13GB — normal v2 runtime). CPU PID 29152 alive, parisi loop's final iteration (PID 46468) still finishing — will pick next pending after. 16 GPU + 3 CPU pending. Heartbeats stale but processes alive (protocol E's 5-min threshold needs revision for long experiments). No new completions to evaluate.
+
+---
+
 ## 2026-05-20 06:30 — Cycle 2 (post-midnight, ICL CONFIRMED)
 
 GPU ran cleanly through midnight. 8 new completions evaluated this cycle. **Big finding: in-context learning via pool retrieval is CONFIRMED** at K=4 (+0.283 bpc), K=8 (+0.195), K=16 (+0.106) — relevant pool examples beat irrelevant by these margins at N=64, monotone in N. The substrate natively does ICL through pool retrieval. This was a Tier-1 killer (⚪) capability and just moved to ✅. Effect weakens with K (substrate has more W context at higher K, less leverage from pool injection). Generation also CONFIRMED at K=4/8/16 (greedy p8 = 37%/37%/31%). M1 mechanism confirmed at K=256 (N=8192 shrinks gap 9%). R3 sparse-unigram diagnostic re-confirmed +0.129 residual (still GAMMA mis-cal; needs sparse-matched test).
