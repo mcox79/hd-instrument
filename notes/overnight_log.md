@@ -68,6 +68,12 @@ overnight. Not corrupting, just wasteful.
 
 ---
 
+## 2026-05-20 09:15 — Cycle 5 (quiet cycle, sparse_vs_ppmi long-running)
+
+Per protocol A, pulled needs_verdict.json first: zero gaps. Healer iteration 18 healthy. Both runners alive (Get-Process confirms PIDs 40492 GPU + 29152 CPU). GPU has been on `wave14d_sparse_vs_ppmi` for 1h24m (started 07:51, timeout 5400s = 1.5h — at the edge); subprocess at 1.87GB indicates active compute, not stuck. CPU on `acf_resonator_high_K_retry` for ~50m, normal. 21 GPU + 1 CPU pending. No outcomes to emit, no research to spawn, no queue refills needed. The hardening done in cycle 4 (healer + runner patches) is doing its job — last 5 hours had silent failures; this cycle is clean.
+
+---
+
 ## 2026-05-20 08:30 — Cycle 4 (generation v2 confirmed + B=3 cliff finding + healer surface working)
 
 Healer's verdict-gap surface caught two completions this cycle. **Generation v2 K=16 CONFIRMED** with proper baselines: substrate_pool p1=43.3% vs B3 Markov-chain baseline p1=27.8% (+15.5pp, well above 5pp pass threshold). k4_validity=0.66 (above 0.40 threshold). This is the strict-baseline confirmation that supersedes v1 (which used random-uniform baseline). Tier-1 generation killer now ✅ against the right comparison.
