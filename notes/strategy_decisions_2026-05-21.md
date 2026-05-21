@@ -2413,3 +2413,87 @@ cap_map v57:
 ### Wake schedule
 
 - 270s.
+
+---
+
+## HANDOFF — Strategy context approaching limit (cycle 40 followup)
+
+User warned context is about to run out. State is durably saved across
+files. Next Strategy invocation should:
+
+### Cold-start protocol
+1. Read `C:\Users\marsh\.claude\projects\d--AI\memory\MEMORY.md` + feedback files
+2. Read `notes/active_protocols.md` (PROT-001 through PROT-005)
+3. Read `notes/substrate_capability_map.md` — current at v57 (~5500 lines)
+4. Read `notes/active_priorities.md` — current at v57 reference
+5. Read latest `notes/strategy_decisions_*.md` entry (this file)
+6. Read `data/local_dashboard_snapshot.json` for current state
+7. Check `notes/strategy_request_from_meta_2026-05-21.md` (META candidates 1-7; all routed per v57)
+
+### Current capability state (as of v57)
+
+**Tier-1 KILLER board (3 ✅ + 3 🟢 + 1 split)**:
+- GPT-quality generation: 🟢 Partial
+- Multi-task continual learning (Bet B): 🟢 Partial (73% retention, below 0.80 threshold)
+- Edit-then-query: ✅ (Bet A)
+- Provenance: ✅
+- ICL via pool: ✅
+- Hierarchical retrieval (RSB): ✅ structural / ❌ algorithm
+
+**Theoretical grounding row (NEW v56)**:
+- Bet I free probability: ✅ (R16 σ=16 exact, M/N=8 via modern-Hopfield)
+- Bet L learning theory: 🔬 active (R26 framework)
+- Bet M ferromagnetism: 🔬 active (R29 framework)
+
+**Active bets in priority order**:
+1. Bet B (multi-task CL) — 🟢 Partial; v4 tweaks queued
+2. **Bet N (soft cleanup)** — IMMEDIATE; tests R16 cleanup-amplification at substrate scale
+3. **Multi-hop adaptive-beta** — final R8 rescue before potential architectural closure
+4. **Bet O (Cooper-pair gap protection)** — queued after Bet N
+5. Bet F (SSH-BSC v2) — blocked on R10 W-construction addendum
+6. Bet D (generation K-curve analyzer pass) — no compute needed
+7. Bet I/L/M (theoretical grounding) — R16/R26/R29 active
+
+### Multi-hop status (most nuanced)
+
+**Architectural closure PAUSED pending Bet N**. Per cycle 34: 4 of 6 R8
+rescues failed (Hadamard, FHRR A1, hybrid C1, Modern Hopfield). Cycle
+39 R16 revealed empirical d=25 is 3× later than RMT d~7 via
+**cleanup-operator amplification**. Bet N (softer cleanup) directly
+tests if this can be amplified further. If Bet N PASSES at acc_50≥0.5,
+the architectural-closure conclusion partially reverses.
+
+### Open research backlog (Research /loop 15-20min)
+
+- R10 addendum (Bet F W-construction) — Experiment Dev waiting
+- R17-R29 forward-research backlog (mostly landed; R26, R29, R23, R24 done)
+- R30-R33 NEW from META candidates (cycle 40): HaPPY, soliton, magnon, quantum-repeater
+- R33 quantum-repeater flagged HIGHEST LEVERAGE (poly-vs-exp asymptotic)
+
+### Loop state
+
+ScheduleWakeup queued at 15:11 with prompt `/loop /strategy-cycle`.
+Next context picks up automatically. Slash command at
+`~/.claude/commands/strategy-cycle.md` contains per-cycle protocol.
+
+### Recurring lessons (don't drop)
+
+- [[feedback-no-smoke]]: brutal honesty; refuse to retcon thresholds
+- [[feedback-rehabilitation-after-rejection]] + PROT-004: 5-rescue
+  minimum before closure
+- [[feedback-closures-drop-under-batch-pressure]] (new memory): rules
+  enforced by cold-start file reads drop under batch pressure; PROT-004
+  is structural fix
+- Smoke-only negatives can be false (cycle 20 zg lesson)
+- Don't overextend theorems (subfamily closure ≠ family closure)
+
+### What to look out for next cycle
+
+- Bet B v4 (parameter tweak to push retention_A ≥0.80)
+- Bet N soft cleanup smoke (will it amplify d beyond 25?)
+- Multi-hop adaptive-beta verdict (final R8 rescue)
+- R10 addendum (unblocks Bet F)
+- R33 quantum-repeater research (highest-leverage forward direction)
+
+Loop continues. Files are durable. Next Strategy context: trust the
+files, not any in-context summary.
