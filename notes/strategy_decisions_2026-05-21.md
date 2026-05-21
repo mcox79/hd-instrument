@@ -2625,3 +2625,86 @@ the next Experiment Dev /loop fire reads the request file fresh.
 - Bet N soft cleanup queued by Experiment Dev (target: this cycle)
 - R10 addendum from Research (unblocks Bet F)
 - R17 holographic landed 15:16 — integrate next Strategy cycle
+
+---
+
+## Cycle 43 — THREE landings: Bet N KILLED, Bet E ✅, Bet F full=smoke; cap_map v60 + R17 integrated as v59
+
+**Time**: 2026-05-21 ~15:32 EDT (user signaled "interesting research
+results and experimental").
+
+**What landed** (within 8 min of cycle 42):
+
+**Research**:
+- R17 Holographic landed 15:16 — LARGELY NEGATIVE. Plate-HRR vs AdS/CFT
+  distinction enshrined. R30 (HaPPY) demoted (same V2 dependency as
+  Rescue A). R34 (V2 substrate hyperbolic re-architecture) proposed
+  deferred. Probe 1 (area-law entropy check) added LOW PRIORITY zero-GPU.
+  → Cap map v59 committed `bbce6a1`.
+
+**Experimental** (all three since 15:28):
+- **Bet N (soft cleanup) full KILLED** at 15:30:01. acc_50hop=0.160 at
+  all τ ∈ {0.5, 1.0, 2.0, 4.0}; below FHRR's 0.22 floor. Cleanup
+  amplification axis CLOSED.
+- **Bet E (Parisi P(q) v2) full PARISI_V2_RSB_CONFIRMED** at 15:28:31.
+  6-test battery passes 3/3 codebooks; equilibration + self-averaging
+  hold. v1's discrimination is substrate-physical, not finite-size.
+- **Bet F (SSH-BSC v2) full BET_F_NO_TRANSITION** at 15:28:17. Same as
+  smoke. Still pending R10 W-construction addendum for confirmation.
+
+→ Cap map v60 committed this cycle.
+
+**What I decided** (cap_map v60):
+
+1. **Multi-hop ❌-architectural closure DECLARED with discipline** —
+   5 of 6 R8 rescues exhausted across 2 mechanism axes (binding +
+   cleanup): Hadamard ❌, FHRR ❌, hybrid ❌, Modern Hopfield ❌, soft
+   cleanup ❌. Adaptive-β is symptom-mitigation only; doesn't change
+   closure. Per PROT-004: closure is specific (current-arch d≈25
+   cliff for Plate-HRR substrate on flat N=4096), not generic.
+   Re-architecture options remain alive: V2 substrate (R34), Bet O
+   Cooper-pair, R33 quantum-repeater segment-and-purify.
+
+2. **Bet E promoted ✅** — RSB phase substrate-physical via 6-test
+   battery. Substrate's spin-glass identification now has
+   **5-source agreement**: 4 theory frames (R23 FRSB / R29 modern-
+   Hopfield / R16 free probability / R18 RFOT) + 1 empirical (Bet E).
+   Strongest substrate-physics characterization to date. Per
+   [[feedback-materials-science-probe]]: Parisi P(q) IS the canonical
+   spin-glass order parameter (Mezard-Parisi-Virasoro 1987).
+
+3. **Bet F state preserved as 🟡 NO_TRANSITION pending W-spec** — full
+   = smoke is informative but cannot distinguish ❌-architectural from
+   ❌-implementation without R10 addendum. Stays 🟡 until Research
+   delivers W-spec.
+
+4. **Bet O prior downgraded** from ~40% to ~20%. Not killed (gap
+   protection is structurally distinct from cleanup amplification),
+   but Bet N's failure mode inherits to pair-encoding cleanup
+   requirement.
+
+**Tier-1 board after v60**: 7 ✅ + 1 🟢 + 1 ❌-arch-current.
+(Was 6 ✅ + 1 🟢 + 1 🟡.) Bet E ✅ promotion + multi-hop ❌-arch
+closure net to substrate getting stronger on physics characterization
+while honest about d=50 multi-hop ceiling.
+
+**Per [[feedback-no-smoke]]**: this is the cleanest closure-and-
+promotion pair the project has seen. Multi-hop closure is honest
+(specific, multi-axis, 5 rescues). Bet E promotion is rigorous (6-test
+battery designed cycle 29 to handle R23's confound; pass on 3/3
+codebooks).
+
+**Per [[feedback-rehabilitation-after-rejection]]**: multi-hop closure
+is fully PROT-004 compliant. Bet F awaits W-spec before closure.
+
+**What's needed next from peers**:
+- Experiment Dev: queue adaptive-β (closes original R8 list); Bet B v4
+  parameter tweak (last chance to push retention_A ≥ 0.80); Probe 1
+  area-law (zero GPU, cheap)
+- Research: deliver R10 W-construction addendum (unblocks Bet F
+  closure); start R33 quantum-repeater (highest-leverage forward
+  direction)
+- META: cycle 13 audit of multi-hop closure discipline (5-rescue
+  minimum satisfied; closure honest)
+
+**Loop continues**.

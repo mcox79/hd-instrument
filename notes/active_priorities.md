@@ -3,8 +3,41 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 29 followup (R26 substrate-novel; Bet L promoted; Experiment Dev fired + adopted PROT-005)
-**Cap map version this refers to:** v46
+**Last updated:** 2026-05-21 cycle 43 (Bet N KILLED, Bet E ✅, Bet F full=smoke; R17 holographic LARGELY NEGATIVE; multi-hop ❌-architectural closure disciplined)
+**Cap map version this refers to:** v60
+
+---
+
+## 🔴 STATE CHANGE SUMMARY (cycle 43, 2026-05-21 ~15:32 EDT)
+
+- **Bet E ✅ PROMOTED** — RSB phase substrate-physical via 6-test
+  battery (cycle 36 v53 confound resolved). Substrate is empirically
+  in spin-glass phase per Parisi P(q) order parameter; 5-source
+  agreement now (4 theory + 1 empirical).
+- **Bet N (soft cleanup) ❌ KILLED** — acc_50hop=0.160 at all τ, below
+  FHRR's 0.22 floor. Cleanup amplification axis CLOSED.
+- **Multi-hop d=50 ❌-architectural closure DECLARED** — 5 of 6 R8
+  rescues exhausted across 2 mechanism axes (binding + cleanup).
+  Closure specific to current-arch Plate-HRR substrate on flat N=4096;
+  V2 substrate (R34), Bet O, R33 quantum-repeater remain alive.
+- **Bet F (SSH-BSC v2) full = smoke** — BET_F_NO_TRANSITION; pending
+  R10 W-construction addendum for confirmation. Stays 🟡 NO_TRANSITION
+  pending.
+- **R17 holographic LARGELY NEGATIVE** — R30 (HaPPY) demoted; R34
+  proposed deferred; Plate-HRR vs AdS/CFT distinction enshrined.
+- **Bet O prior downgraded** from ~40% to ~20% — gap-protection
+  inherits Bet N's failure mode at pair-cleanup level.
+
+**Tier-1 board after v60**: 7 ✅ + 1 🟢 + 1 ❌-arch-current.
+
+**Active build queue (in priority order)**:
+1. Adaptive-β (R8 #5, closes original R8 list; cheap; doesn't change closure)
+2. Bet B v4 (parameter tweak to push retention_A ≥ 0.80; Tier-1 🟢 → ✅ target)
+3. Probe 1 area-law entropy check (R17; ZERO GPU; cheap)
+4. Bet O Cooper-pair gap-protected (lower prior but mechanism distinct)
+5. R33 quantum-repeater (not yet routed to Research; highest-leverage forward direction)
+
+---
 
 ---
 
