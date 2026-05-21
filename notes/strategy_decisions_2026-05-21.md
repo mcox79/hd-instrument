@@ -1582,3 +1582,26 @@ cap_map v39 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 26 — 2026-05-21 ~13:10 (in /loop, heartbeat)
+
+### What I observed
+
+- No new event_outcomes since cycle 25 (12:53). 16-min gap.
+- GPU running `wave14zs_reversibility_long` (500-cycle stress test;
+  expected slow).
+- Queue depth 4 pending.
+- Visibility added an OS-level watchdog for the snapshot monitor
+  (operational; no capability impact).
+
+### What I decided
+
+No cap_map update. No row state changes. Pure heartbeat cycle.
+
+### Wake schedule
+
+- **600s** (extended from 270s) — pace has slowed; long-running zs +
+  no incoming verdicts means 5-min wake is unnecessary churn. Will
+  return to 270s if a batch lands.
