@@ -1281,3 +1281,72 @@ cap_map v30 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 19 followup — 2026-05-21 ~12:06 (user push)
+
+User: "let's also probe Bet B multi-task CL, Bet F SSH-BSC v2, multi-hop FHRR"
+
+Three research-unblocked bets pushed to top priority:
+- Bet B (Tier-1 KILLER ⚪, R5 landed cycle 8)
+- Multi-hop FHRR + hybrid (R8 rehab for 🟡, R8 landed cycle 9)
+- Bet F SSH-BSC v2 (🟡 NEEDS_REVIEW since 2026-05-20, R10 landed cycle 12)
+
+Files: active_priorities.md v5 (TOP-PRIORITY QUEUE section);
+strategy_request_to_experiment_dev_2026-05-21.md (concrete specs);
+cap_map v31.
+
+---
+
+## Cycle 20 — 2026-05-21 ~12:08 (in /loop)
+
+### What I observed
+
+Seven event_outcomes since cycle 19 (12:01):
+- zn smoke (12:02): ORDER_INVARIANT_KERDOCK_COMMUTES
+- zo smoke (12:04): ALPHA_FLAT (substrate insensitive to α)
+- zd full (12:05): GEN_POOL_BOTH_WORK
+- ze full (12:05): GEN_SUBSTRATE_BEATS_NGRAM — substrate beats trigram
+- zg full (12:05): GEN_REP_RESCUES_AT_PENALTY_1.0 — smoke→full reversal!
+- zf full (12:06): ICL_N1024_NO_SATURATION confirmed
+- zh full (12:07): CONTINUAL_OC_KERDOCK_HOLDS confirmed
+
+Plus: Experiment Dev paused at queue depth 12 awaiting direction; my push
+request (12:06) lands in their next cycle.
+
+### What I decided
+
+cap_map v32 (committed, scp'd):
+- Generation row strengthens: substrate beats trigram baseline at
+  multi-step (entropy 5.14 vs 4.79)
+- Bet H sketch #3 (rep penalty) actually works at p ≥ 1.0 — smoke→full
+  REVERSAL. Lesson for rehab discipline: smoke-only negatives should be
+  tagged not treated as closure.
+- Multiple full-mode confirmations of cycle 19 smokes (zd, zf, zh).
+- New smoke characterizations: order invariance (Kerdock commutes),
+  alpha-flat insensitivity.
+
+### Why
+
+- The zg smoke→full divergence is genuinely instructive. v27 (cycle 16)
+  noted "sketch #3 ❌ standalone" based on smoke at narrow penalty
+  range. Full sweep {0.0, 0.5, 1.0, 2.0, 5.0} shows non-monotone
+  rescue. Strategy was wrong to label sketch #3 closed; honest update
+  documents the reversal transparently.
+- Generation beating trigram on multi-step is the cleanest "generation
+  works" claim we've been able to make. Combined with cycle 15's
+  T=0.5 sampling rescue, the autoregressive generation row is now well-
+  characterized.
+
+### Open items / handoffs
+
+- Experiment Dev: about to see push request (Bet B / multi-hop FHRR /
+  Bet F). Composition test queue is mostly exhausted; pivot to new-bet
+  builds expected.
+- Research: R7 / R9 outstanding; otherwise everything landed.
+- META: PROT-004 done; no open requests.
+
+### Wake schedule
+
+- 270s.

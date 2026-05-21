@@ -3212,3 +3212,78 @@ new substrate properties that the composition tests don't cover.
 Prioritization update, not capability state change. Existing rows
 unchanged; Top-Priority Queue points at three pending experiments whose
 verdicts will determine row movements.
+
+
+## 2026-05-21 v32 update — Generation beats trigram baseline ✅; rep-penalty smoke→full REVERSAL; full confirmations
+
+Strategy session cycle 20 (in /loop). Seven event_outcomes since cycle
+19 (12:01), plus Experiment Dev paused awaiting direction.
+
+### NEW finding — Substrate generation beats trigram baseline
+
+`wave14ze_gen_vs_ngram` full (12:05:47): **GEN_SUBSTRATE_BEATS_NGRAM**
+- Substrate: char_entropy=5.136, ngram_repetition=0.000
+- Trigram baseline: char_entropy=4.788, ngram_repetition=0.057
+- Composite: substrate 5.136 vs trigram 4.675
+
+Substrate-with-T=0.5-sampling generation outperforms trigram Markov
+baseline on multi-step regime. Cycle 3's ✅ row was single-position;
+this extends to **multi-step autoregressive generation beating
+trigram on composite entropy + non-repetition**.
+
+**Evidence list addition** (existing ✅ row):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Autoregressive byte-level generation | ✅ Validated (multi-step now too) | `wave14ze_gen_vs_ngram` full: substrate entropy 5.14 > trigram 4.79; composite 5.14 vs 4.68. |
+
+### Bet H sketch #3 — smoke→full REVERSAL: repetition penalty DOES rescue
+
+`wave14zg_gen_rep_penalty` full (12:05:59): **GEN_REP_RESCUES_AT_PENALTY_1.0**
+- Per-penalty entropy/repetition: p=0.0 (0.92, 1.00); p=0.5 (1.38, 0.80);
+  **p=1.0 (3.15, 0.43)**; p=2.0 (4.13, 0.30); p=5.0 (4.09, 1.00)
+
+**Reversal of v27 smoke verdict** (GEN_REP_NO_RESCUE at narrow penalty
+range). Full sweep reveals non-monotone landscape:
+- p < 1.0: insufficient
+- p ∈ [1.0, 2.0]: rescues
+- p = 5.0: over-suppression causes new repetition mode
+
+**Bet H rescue framework update**: Bet H now has TWO independent working
+rescues — sketch #1 (temperature sampling, cycle 15) AND sketch #3
+(repetition penalty at p≥1, this cycle full).
+
+**Lesson for rehab discipline**: smoke results can produce false
+negatives at narrow parameter ranges. The zg smoke→full divergence is
+the second instance where smoke under-sold a working rescue (yy's
+collapse was also seed-specific). Going forward: smoke-only negatives
+should be tagged "smoke-only" rather than treated as load-bearing.
+
+### Multiple full-mode confirmations
+
+- `wave14zd_gen_with_continual_pool` full (12:05:36): GEN_POOL_BOTH_WORK.
+  Static and continual pool both non-degenerate (entropy 5.14 each).
+  Continual doesn't add measurable help at this scale.
+- `wave14zf_icl_n_1024` full (12:06:20): ICL_N1024_NO_SATURATION
+  confirmed at full. Substrate-width-scaling: ICL works at N=1024 too.
+- `wave14zh_continual_overcap` full (12:07:31): CONTINUAL_OC_KERDOCK_HOLDS
+  — M=2N continual editing full confirmed.
+
+### New smoke characterizations
+
+- `wave14zn_edit_order_invariance_smoke` (12:02:48): ORDER_INVARIANT_KERDOCK_COMMUTES.
+  Kerdock edit ops commute (frob_drift 0.023 < 0.05); correlated drifts
+  0.385. Edit ordering doesn't matter for structured keys.
+- `wave14zo_alpha_sweep_smoke` (12:04:49): ALPHA_FLAT. Substrate
+  insensitive to erase α in tested range.
+
+### Experiment Dev paused; push request lands next cycle
+
+Experiment Dev's entry 8 (12:05): "queue is fully populated; will await
+either new priorities or completed runs." Predates my push request
+(12:06). Their next cycle will see the three top-priority queue items
+(Bet B / multi-hop FHRR / Bet F) and pick them up.
+
+### Tally — generation row strengthens; no new rows
+
+Same overall tally as v31. Cycle 20 was confirmation + characterization.
