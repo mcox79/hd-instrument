@@ -2329,3 +2329,50 @@ cap_map v55:
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 39 — 2026-05-21 ~14:57 (in /loop)
+
+### What I observed
+
+**R16 Free probability quantitative predictions landed** (14:52).
+Three predictions:
+- M/N=8 capacity: AGS 0.138; modern-Hopfield reframing PASS within 20%
+- Noise σ=16: predicted **exactly 16** (BBP via σ_c = θ_eff · √(K/N))
+- Depth d=25: RMT 7.4 (3× short); polylog cleanup extension explains
+
+### What I decided
+
+cap_map v56:
+- **Bet I PROMOTED ✅** (2/3 envelope predictions within 20% per
+  cycle-29 multi-probe criteria)
+- R16 + R29 CONVERGENCE noted: substrate operates in modern-Hopfield
+  exponential-capacity regime, not classical AGS
+- NEW "Theoretical grounding" row added: Bet I ✅, Bet L + Bet M active
+- Honest framing on depth-cliff miss (3× short) — not papered over
+
+### Why
+
+- R16 σ=16 prediction is essentially exact match — this is the
+  cleanest theoretical-empirical agreement we've had
+- Modern-Hopfield exponential-capacity reframing for M/N=8 is within
+  20% via R29 Candidate A; honest reading of the multi-probe rule
+- Depth-cliff miss is informative (RMT predicts 7; substrate gets 25
+  via cleanup) — explains why multi-hop rescues failed (they tweaked
+  wrong mechanism; cleanup-amplification is the substrate effect)
+- R16 + R29 + R23 + R26 are converging on coherent substrate-physics
+  theory; product story matures
+
+### Open items / handoffs
+
+- Experiment Dev: multi-hop adaptive-beta + Bet B v3 follow-up; Bet F
+  blocked
+- Research: R27 light-matter, R28 dislocations still queued
+- Strategy: monitor Bet L (learning theory) + Bet M (ferromagnetism)
+  empirical validation; if both promote ✅, substrate has 3 ✅
+  theoretical-grounding bets
+
+### Wake schedule
+
+- 270s.
