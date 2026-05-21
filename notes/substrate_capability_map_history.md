@@ -7509,3 +7509,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v77 — (2026-05-21) Bet X research UNIFYING insight: d=25 IS compositional-depth bound (VSA class-level); Bet X mechanism design ready (position-indexed + hybrid + 2-level)
+
+
+## v78 — (2026-05-21) Bet B v9 full third consecutive PASS at retention_A=0.954 (3-version robustness; sharp mechanism attractor)
