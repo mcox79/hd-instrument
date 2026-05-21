@@ -3,160 +3,158 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 — cold-start cycle 1
-**Cap map version this refers to:** v12 (pending — see Strategy cycle 1 below)
+**Last updated:** 2026-05-21 cycle 3 (in-loop self-pacing)
+**Cap map version this refers to:** v13
 
 ---
 
-## Top capability bets (in priority order)
+## Recently resolved (since cycle 1)
 
-### Bet 1 — ICL saturation curve (close Tier-S #1 gap)
+| Bet | Outcome | Trigger |
+|---|---|---|
+| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14, gain at ICTX=16384 = +1.41 bpc, kNN-LM-like log-linear through 4× substrate width. Tier-S #1 ICL gap closed at v1. | `wave14d_icl_via_pool_v3_scaling` full |
+| Bet 2 — GDPR/surgical erase v3 (orthogonal-key path) | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit passes all 5 Mirage probes. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
+| Bet 3 — Random-key iterative charge-flipping forensics | ❌ CLOSED at kill criterion. improvement=+0.03 over SVD (target +0.2). Structured-key WHT-forensics ✅ remains (separate path). | `wave14s_chargeflip_forensics_v1` |
 
-**Claim.** Substrate ICL scales log-linearly with the number of *relevant*
-in-context examples N at fixed pool composition, mirroring kNN-LM behavior,
-through at least N=16384 at N=4096 substrate width.
+## Top capability bets v2 (in priority order)
 
-**Why now.** ICL is at ✅ for the regime tested (N≤2048 ALPHA=0.3; N≤256
-ALPHA=1.0) but [[cap_map_v7]] caveat notes "scales with relevant-example
-count, NOT total pool size; gain inverts as pool fills with irrelevant items."
-The saturation envelope is currently 🟡 because the close-test
-(`wave14g_icl_saturation_extended`) failed on the augment_pool bug. Closing
-this either confirms the kNN-LM story or bounds the substrate-specific
-saturation point.
+### Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER, now unblocked)
 
-**Multi-probe success criteria** (all required):
-- bpc gain at N ∈ {64, 256, 1024, 4096, 16384}, ALPHA=1.0, 3 seeds each
-- slope on log2(N) > +0.10 across the tested range (vs the
-  `wave14f_icl_scaling_pool` pool-sweep slope of −0.067)
-- positive gain at N=16384 (no collapse to noise)
-- corpus large enough that the relevant-example pool isn't exhausted
-  (failure mode flagged in wave14f_icl_scaling_pool implication)
+**Claim.** A user-uploaded correction on an orthogonal-key substrate
+propagates through the full pipeline: pool entry removed AND W-side
+anti-Hebbian rank-1 edit applied AND subsequent queries reflect the
+correction in cleanup-output ranking.
 
-**Kill criterion.** Slope on log2(N) ≤ 0 across N ≥ 1024, OR gain at N=16384
-≤ gain at N=4096 by more than 1σ. Either retracts the "kNN-LM-like ICL
-scaling" framing and drops ICL to "small-N capability only."
+**Why now.** Bet 2 resolved the erase primitive. The remaining piece of
+the Tier-1 KILLER edit-then-query is the integration: does a query
+issued after edit_then_erase actually reflect the change in observable
+behavior (cleanup output, predicted v, downstream-task accuracy)?
+v8's `wave14d_query_side_integration` answered "no" with the pool-only
+form (93% W-leak). The new orthogonal-key primitive should fix that.
 
-**Who acts.** Experiment Dev (build `wave14d_icl_via_pool_v3_scaling` with
-augment_pool fix); Visibility (surface verdict when it lands).
+**Multi-probe success criteria** (single-fact correction, K=8, M=200,
+N=4096, Hadamard keys, α=1.0, 3 seeds):
+- post-correction predict-correct on edited fact: ≥ 95% (vs pre-edit
+  baseline predict-correct ~ same; argmax now reflects new v)
+- post-correction predict-correct on 100 kept facts: ≥ 90% (no
+  collateral damage)
+- correction holds under paraphrase probes (Hamming h ∈ {2, 4, 8}):
+  leak ≤ 5%
+- correction holds under replay (re-train W with original (k_edit,
+  v_original) NOT in the corpus): no regression
+- W-only-readout test passes too (full pipeline, not just pool-side)
 
----
+**Kill criterion.** Any single multi-probe fails over 3 seeds AND no
+rescue variant (α tuning, M_stored slack, key-subspace orthogonalization)
+closes the gap within 2 cycles. Then "edit-then-query" stays 🟢-partial
+indefinitely and the Tier-1 KILLER claim downgrades.
 
-### Bet 2 — GDPR/surgical erase v3 (Tier-1 KILLER, currently ❌)
-
-**Claim (target).** A new erase primitive (architecture TBD; anti-Hebbian
-rank-1 alone is closed) reduces leak rate to <10% under multi-probe
-verification on correlated keys.
-
-**Why now.** Two independent negatives this week: pool-only erase leaks 93%
-of facts via W ([[wave14d_query_side_integration]]); pool erase + replay
-fails ([[wave14g_erase_under_replay]]). Anti-Hebbian rank-1 W edit and
-selective thermal anneal both pass argmax but fail Mirage probes
-([[wave14p_erase_multiprobe]]). Selective forgetting under correlated keys
-is harder than the v8 recipe suggested — needs a new mechanism, not a
-parameter tune.
-
-**Multi-probe success criteria** (per arXiv:2503.06991 "Mirage of Model
-Editing" — all four required):
-- argmax leak rate < 10% (necessary, not sufficient)
-- rank metric: erased item's rank in cleanup output > 100 (or absent)
-- norm_ratio: ||W·k_erased|| / ||W·k_kept|| < 0.15
-- cos: cos(predicted_v, target_v_erased) < 0.10 under correlated-key probes
-- paraphrase_leak: < 5% under structurally-similar key perturbations
-- side effects: ≤ 5% degradation on 100 random kept entries
-
-**Kill criterion.** No candidate (Kerdock-structured codebook + W edit,
-iterative charge-flipping, full ROME-style optimization, alternative) passes
-all four probes within 4 cycles. Then GDPR-erase moves from "❌ until W-side
-edit added" to "❌ structural — requires architecture change beyond rank-1
-edits."
-
-**Who acts.** Research (drill the mechanism space — Kerdock vs ROME-style vs
-iterative charge-flipping); Experiment Dev (build with multi-probe from
-inception); Strategy (close the row at ❌-structural if 4 cycles fail).
+**Who acts.** Experiment Dev (build `wave14d_edit_then_query_v1` on top
+of the validated Bet 2 erase primitive); Strategy (cap_map upgrade on
+positive).
 
 ---
 
-### Bet 3 — Substrate forensics extended (NEW ✅, upgrade vs v10 "LIMITED")
+### Bet B — Multi-task continual learning A → B → C → D (Tier-1 KILLER, still ⚪)
 
-**Claim.** With structured (Hadamard) keys, the substrate is fully auditable
-via WHT diffraction — 100% recall of stored key indices up to K/N≈0.98
-without any queries. For random keys, iterative charge-flipping closes the
-high-K SVD gap (currently cos=0.09 at high K, target ≥0.3).
+**Claim.** Substrate trained on Corpus A, then B (Phase B established
+shift), then a *genuinely different* domain C (e.g., code, structured
+data, hex) retains all three under random replay, with retention scoring
+≥ 80% of single-task baseline on each held-out task.
 
-**Why now.** [[wave14walsh_peaks_extended]] landed: recall 100% at every
-tested K up through K=4000 (N=4096). The v10 "PEAKS_FORENSICS_LIMITED at
-low K" framing is conservative — the extended sweep shows the capability
-holds across the entire usable K range for structured keys. Pairs cleanly
-with the WHT-structured-keys row already at ✅. Iterative charge-flipping
-remains 🔬.
+**Why now.** Single-shift continual learning is at ✅ (R7 replay
+mechanism). The Tier-1 KILLER claim is multi-domain. With Bet 1's ICL
+characterization in hand, retention vs ICL gain is now separable: the
+test is whether substrate W absorbs C-domain structure under replay
+without erasing A or B.
 
 **Multi-probe success criteria**:
-- WHT-peak (structured): per-K recall, position-accuracy, no false peaks
-  → all confirmed by extended sweep
-- Charge-flipping (random): cos(recovered_v, true_v) at K ∈ {50, 200, 500,
-  1000, 2000}; key-index recall@10; iteration-count to convergence
-- Hybrid: does charge-flipping initialized from SVD partial-recovery beat
-  either alone?
+- Phase-A held-out bpc retention: ≥ 80% of baseline after C-phase
+- Phase-B held-out bpc retention: ≥ 80% of baseline after C-phase
+- Phase-C learn-curve: positive bpc gain vs untrained substrate
+- Multi-seed (3 seeds minimum), all three retention floors hold
+- BWT (backward transfer) at end-of-C: ≥ 0 (no catastrophic forgetting)
 
-**Kill criterion.** Iterative charge-flipping fails to beat single-pass
-SVD by ≥0.2 cos at high K (≥1000) over 3 seeds. Then random-key forensics
-stays 🔬 and the product story is "auditable IFF structured keys."
+**Kill criterion.** Any one of A/B retention drops below 50% of
+baseline across 3 seeds. Replay-mechanism cap to single-shift confirmed.
 
-**Who acts.** Experiment Dev (charge-flipping iterator); Research (audit
-Oszlanyi-Suto 2004 vs newer Sayre-eq variants); Strategy (cap_map upgrade
-for Walsh-extended once event_outcome lands).
+**Who acts.** Research (design Corpus C: hex / Python / structured;
+match information-content to A and B; see `wave14d_multi_task_cl_research.md`);
+Experiment Dev (build `wave14d_multi_task_cl_v1`).
 
 ---
 
-## Recently retracted (do NOT re-propose without architectural redesign)
+### Bet C — Full Kerdock + snap for dense-codebook regime (Bet 2 follow-up)
 
-| Claim | Retracted by | Lesson |
+**Claim.** Full Kerdock(m=12) codebook (2^24 codewords from Z₄-Gray-mapped
+Z₄-linear code) with snap-to-codebook paraphrase tolerance pass all 5
+Mirage probes at M_stored > N (the dense-codebook regime where the
+Hadamard-subcode v1 cannot operate).
+
+**Why now.** Bet 2 v1 used Hadamard which is the exactly-orthogonal
+limit (only valid M ≤ N). Product systems with M > N stored facts
+need a richer codebook. Kerdock's bounded inner-product structure
+(magnitudes in {0, 1/64} for N=4096) should give the same Mirage
+protection at M up to ~ 2^16 stored facts.
+
+**Multi-probe success criteria**:
+- Same 5 Mirage probes as Bet 2 v1, sweep M_stored ∈ {N/2, N, 2N, 4N,
+  8N}
+- Snap-to-codebook reduces paraphrase_leak ≥ 50% vs no-snap variant
+- argmax/rank/norm/cos/paraphrase floors all hold per Bet 2 thresholds
+
+**Kill criterion.** At M_stored = 2N, any probe fails. Then dense-
+codebook Mirage protection bounded; product story stays at M ≤ N.
+
+**Who acts.** Research (audit Hammons-Kumar-Calderbank-Sloane-Solé
+implementation details, Kerdock decoder choices); Experiment Dev (build
+`wave14r_erase_orthkeys_v2_kerdock`).
+
+---
+
+## Recently retracted / closed
+
+| Claim | Trigger | Lesson |
 |---|---|---|
-| Yonelinas dual-process dissociation | `wave14yonelinas_roc_v2` full mode: z-ROC slope=1.11 → pure familiarity. Earlier "dissociation" was asymmetric-codebook artifact. | Equal codebooks + z-ROC slope is the proper DPSD probe |
-| Soft-trace calibration gain | `wave14calibration_v2`: Brier_soft=0.294 > Brier_clipped=0.212 under proper test | Use softmax(N·cos/σ²) + Brier + adaptive-ECE; not cos-only |
-| Counterfactual=1.00 as Pearl L3 | Bundle arithmetic identity (b−x vs b' where b'=b−x): trivially 1.0 | Need downstream-retrieval test, not bundle-cos |
-| Anti-Hebbian rank-1 W edit as GDPR-grade | `wave14p_erase_multiprobe`: passes argmax (76.7pp leak reduction) but rank/norm/cos/paraphrase all fail | All erase claims require Mirage 4-probe battery from prereg |
-| Selective thermal annealing as GDPR-grade | `wave14anneal_selective`: same Mirage failure mode | Same — argmax-only is not evidence |
-| RSB tree-walk practical algorithm at P=1024 | `wave14f_rsb_tree_walk`: recall 0.77 but 28× slower than brute force | Revisit only if pool grows past ~50K |
-| SimHash / BinaryIVF LSH at our sim regime | `wave14e_lsh_for_bsc` / `wave14e_lsh_v2_binaryivf`: recall 2% / 18.6% | Brute force is the only retrieval at our pool scale |
-| R3-Laplace concept bias as substrate-unique | `r3_disjoint_K64`: delta −0.0003 at K=64 (vs +0.025 at K=4) | K=4 product appendix only; not substrate-unique |
-| K/N invariance (B=2 cliff at K/N=0.56 across N) | `wave14g_decompose_K_cliff_N8192`: cliff at K/N=0.50 at N=8192 | Production sizing needs N-dependent correction |
+| Random-key iterative charge-flipping forensics (Bet 3) | `wave14s_chargeflip_forensics_v1`: +0.03 cos improvement (target +0.2) | Random-key forensics requires structured-key substrate; iterative refinement doesn't bridge the gap |
+| Multi-hop reasoning 50+ hops viable claim | `wave14t_multihop_v3` (acc_1hop=0.93 < v2's 0.98) + `wave14u_multihop_envelope_v1` (acc_50hop=0 at NUM_FACTS=25) | wave14e v2 synthesis was optimistic; multi-hop bounded at low depth |
+| (Prior cycle 1 list still applies — Yonelinas, anti-Hebbian on correlated keys, soft-trace cal, counterfactual=1.0, RSB tree-walk, LSH variants, K/N invariance) | (see cap_map v12) | — |
 
 ## Open research questions (routed to Research session)
 
-- **R1**: Which mechanism family is the right GDPR-erase candidate after
-  anti-Hebbian and selective anneal both Mirage-failed? Drill: Kerdock-coset
-  structured-codebook + W edit; iterative charge-flipping erase; full
-  ROME-style optimization; per-fact orthogonal-subspace allocation. Output:
-  short comparison note with multi-probe-survivability argument for each.
 - **R2**: Self-supervised concept discovery without PPMI — math survey
-  beyond sparse_dictionary (which has Python-loop infra block).
+  beyond sparse_dictionary (blocked on Python-loop infra).
 - **R3**: Compositional generalization test design — no clean held-out
-  compositional eval has been proposed yet.
-- **R4**: 50+ multi-hop reasoning evaluation protocol — `wave14e_multi_hop_v2`
-  reported acc_1hop=0.98 but never tested >1 hop. Need hop-depth sweep
-  design + cleanup-budget tradeoff math.
+  test specified yet.
+- **R4 (modified)**: Multi-hop reasoning rescue — given v1+envelope show
+  chains break at 50 hops even with NUM_FACTS=25, is there an
+  architectural mod (different cleanup operator, adaptive beta,
+  per-hop W-side update) that extends the envelope? Or is "50+ hops"
+  the wrong claim entirely?
+- **R5 (new)**: Corpus-C design for multi-task continual learning
+  (Bet B). What's the right "genuinely different" third domain that
+  isolates true cross-domain retention from same-distribution-shift?
+- **R6 (new)**: Full Kerdock decoder implementation details (Bet C
+  prerequisite). Particularly: efficient `argmin` over 2^24 codewords
+  via Reed-Muller decoding?
 
 ## Open experiment requests (routed to Experiment Dev)
 
-- **E1 (Bet 1)**: `wave14d_icl_via_pool_v3_scaling` with augment_pool fix.
-  Multi-probe per Bet 1.
-- **E2 (Bet 2, gated on R1)**: GDPR-erase v3 candidate (mechanism TBD by
-  Research). Multi-probe from prereg per Bet 2.
-- **E3 (Bet 3)**: Iterative charge-flipping forensics on random keys.
-  Multi-probe per Bet 3.
-- **E4**: Multi-hop reasoning v3 with hop-depth sweep {1, 5, 10, 25, 50}
-  and per-hop cleanup. Tier-2 KILLER probe.
-- **E5 (infra, not capability)**: Vectorize `learn_sparse_dictionary`
-  (Python-loop bottleneck blocks R2 self-supervised concept test).
+- **E_A (Bet A)**: `wave14d_edit_then_query_v1` — orthogonal-key
+  substrate + erase primitive + queried after edit. Multi-probe per
+  Bet A.
+- **E_B (Bet B, gated on R5)**: `wave14d_multi_task_cl_v1` —
+  Corpus-C-domain transfer test once R5 specifies the third domain.
+- **E_C (Bet C, gated on R6)**: `wave14r_erase_orthkeys_v2_kerdock`.
+- **E_D (lower priority, K=32/K=64 generation)**: analyze the existing
+  `wave14d_generation_v2_K32` and `wave14d_generation_v2_K64`
+  metrics.json (COMPLETED_NEEDS_ANALYSIS in v7) to determine if
+  generation quality monotone in K. Closes Tier-1 KILLER "GPT-quality
+  generation" partial.
 
 ## Items deliberately NOT on the priority list
 
-- **Edit-then-query end-to-end pipeline** — blocked behind Bet 2 GDPR-erase.
-  Re-add once erase primitive lands ✅.
-- **RSB tree-walk algorithm** — closed at P=1024; revisit only at P≥50K.
-- **R3 rescue variants, MIR-style replay, C3 factored, basis_modification,
-  iterative Hopfield, pre-shift bpc gains** — all closed by prior evidence;
-  do not re-propose.
-- **Compound R3 × R10 × replay stacking** — closed by four-argument
-  convergence (shared evidence base).
+- Iterative charge-flipping for random-key forensics (closed by kill criterion this cycle)
+- Multi-hop reasoning at 50-hop with current architecture (bounded; needs research-first redesign per R4)
+- Edit-then-query on correlated-key substrates (mechanism closed; only orthogonal-key path is viable)
+- All cycle-1 list items remain off (R3 rescues, MIR replay, basis_modification, pre-shift bpc, etc.)

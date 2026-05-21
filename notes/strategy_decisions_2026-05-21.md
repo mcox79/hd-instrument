@@ -194,3 +194,95 @@ per protocol intent).
   with event_outcomes — to avoid the cycle 1 miss recurring.
 - If 2+ strengthening evidence points accumulate, roll cap_map to v13
   with consolidated update.
+
+---
+
+## Cycle 3 — 2026-05-21 ~09:33 (in /loop, dynamic mode)
+
+PROT compliance this cycle: PROT-001 and PROT-002 already satisfied in
+prior cycles.
+
+### What I observed
+
+Big batch of new event_outcomes between cycle 2 (08:23) and cycle 3
+(09:33). Five clean triggers + one published research note.
+
+Event log (chronological):
+- 08:25:42 `wave14d_icl_via_pool_v3_scaling` (Bet 1): `ICL_SATURATION_VALIDATED`
+- 08:38:50 `wave14r_erase_orthkeys_v1` (Bet 2 v1): `STRUCT_KEYS_FIX_MIRAGE`
+- 08:56:27 `wave14r_orthkeys_capsweep` (Bet 2 envelope): `CAPSWEEP_ROBUST`
+- 09:10:51 `wave14t_multihop_v3` (E4): `MULTIHOP_DECAY_AT_50` (soft pass)
+- 09:26:10 `wave14s_chargeflip_forensics_v1` (Bet 3): `CHARGEFLIP_FORENSICS_NO_GAIN`
+- 09:29:18 `wave14u_multihop_envelope_v1` (E4 envelope): `ENVELOPE_NARROW_AT_LOW_NUM_FACTS`
+
+Plus a Research-session publication:
+- `notes/research_R1_GDPR_erase_candidates_2026-05-21.md` (08:20) —
+  surveyed 4 mechanism families; recommended Variant 2A.i (Kerdock-coset
+  + anti-Hebbian) with 75-90% predicted Mirage-pass probability. The
+  Hadamard subcode v1 that Experiment Dev built is the optimistic-limit
+  cleanest-falsifier of this family.
+
+Plus user feedback memory: `feedback_two_experiments_per_cycle.md`
+indexed in MEMORY.md — Experiment Dev should now build 2 per cycle if
+hardware is idle.
+
+### What I decided
+
+1. **cap_map v13** (atomic write, commit, scp). Triggers above. Five
+   capability moves:
+   - Bet 1 ICL: ✅ stays, but evidence list extended with full envelope
+     characterization through ICTX=16384
+   - NEW ✅ row: "Mirage-grade selective erase on orthogonal-key
+     substrate" (Memory primitives section)
+   - GDPR-erase: ❌ in correlated-key arch → ✅ via orthogonal-key path
+   - Edit-then-query Tier-1 KILLER: 🟡 → 🟢 partial (erase ✅, query-side
+     integration still untested)
+   - Bet 3 random-key chargeflip: 🔬 → ❌ at kill criterion
+   - Multi-hop reasoning: ⚪ → 🟡 partial (1-hop ~0.93, 50-hop fails)
+   - Walsh-peak N-sweep evidence added (cycle 1 miss rectified)
+2. **active_priorities.md v2** (atomic rewrite). Top 3 bets pivoted:
+   - "Recently resolved" lists Bet 1 ✅, Bet 2 ✅, Bet 3 ❌
+   - Bet A (NEW): edit-then-query end-to-end pipeline (now buildable
+     on top of orthogonal-key erase primitive)
+   - Bet B (NEW): multi-task continual learning A→B→C→D
+   - Bet C (NEW): Full Kerdock + snap for M > N dense-codebook regime
+   - Open research routed: R4 (multi-hop rescue), R5 (Corpus-C design),
+     R6 (Kerdock decoder implementation)
+3. **Decision log this entry** explains the reasoning.
+
+### Why
+
+- Bet 1 + Bet 2 closure: this is the first cycle where multi-probe
+  criteria fired up-front (set in active_priorities v1) and the
+  experiments passed all of them by design. R1's mechanism-family
+  prediction (orthogonal keys remove Mirage bridges) was validated
+  empirically within hours of being published. Honoring the protocol
+  by promoting both to ✅.
+- Bet 3 closure: kill criterion was explicit in active_priorities v1
+  ("Iterative charge-flipping fails to beat single-pass SVD by ≥0.2
+  cos at high K"). Actual improvement was +0.03. Honest read: kill it.
+- Edit-then-query KILLER: doesn't immediately upgrade to ✅ because
+  the erase primitive validation is half the pipeline; query-side
+  integration is the other half. Bet A is the test that closes it.
+- Multi-hop bounded: the wave14e v2 synthesis claim ("50+ hops viable
+  with cleanup") doesn't hold. Moved to 🟡 rather than ❌ because there
+  might be a redesign (R4) that rescues it.
+
+### Open items / handoffs
+
+- **Experiment Dev**: next 2-per-cycle expected to start Bet A
+  (edit-then-query v1) — independent of any research input. Bet C
+  needs R6 first; Bet B needs R5 first.
+- **Research**: R4, R5, R6 are the three drills.
+- **Visibility / Queue Health**: no asks.
+
+### Next cycle plan
+
+- Watch for Bet A verdict landing.
+- If Research drops R4/R5/R6 notes, integrate.
+- If multi-hop rescue v2 lands (R4-gated), reassess multi-hop row.
+
+### Wake schedule
+
+- 270s fallback heartbeat (active integration period, multiple verdicts
+  landing per cycle this cycle). Will lengthen if next cycle is quiet.

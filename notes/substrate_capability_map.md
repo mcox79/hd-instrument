@@ -1333,3 +1333,167 @@ capabilities (forensics, decomposition primitives) keep accumulating.
 Three Tier-1 KILLERs still at ✅ (ICL, generation, provenance). The
 "surgical erase" gap remains open and is now Bet 2 in
 `notes/active_priorities.md`.
+
+
+## 2026-05-21 v13 update — Bet 1 ICL closed; orthogonal-key Mirage-grade erase NEW ✅; Bet 3 random-key chargeflip ❌; multihop bounded
+
+Strategy session cycle 3 (in-loop). Major activity by Experiment Dev +
+Research between cycle 2 (08:23) and cycle 3 (09:33). Five clean
+event_outcome triggers + one R-note publication.
+
+### NEW ✅ — Bet 1 ICL saturation curve VALIDATED (closes Tier-S #1)
+
+`wave14d_icl_via_pool_v3_scaling` full mode (2026-05-21T08:25:42) verdict
+`ICL_SATURATION_VALIDATED`:
+- slope on log2(ICTX) = **+0.1425** (above +0.10 threshold)
+- gain at ICTX=16384 = **+1.4148 bpc** (no collapse vs ICTX=4096)
+- per-ICTX means: 0.25 / 0.68 / 0.83 / 1.21 / 1.41 across ICTX in {64, 256, 1024, 4096, 16384}
+- kNN-LM-like log-linear scaling confirmed through ICTX=16384 at N=4096
+
+The v7 caveat ("scales with relevant-example count, NOT total pool size")
+remains correct — but Bet 1 was specifically about the relevant-example
+axis, and that axis now has a clean characterization curve through 4×
+substrate width.
+
+**Capability move**:
+
+| Capability | v12 state | v13 state | Trigger |
+|---|---|---|---|
+| In-context learning via pool retrieval | ✅ Validated (with relevant-example axis caveat) | ✅ Validated (envelope characterized: log-linear through ICTX=16384, slope +0.14) | `wave14d_icl_via_pool_v3_scaling` |
+
+### NEW ✅ — Structured-key (orthogonal) Mirage-grade selective erase
+
+Two events, same family:
+- `wave14r_erase_orthkeys_v1` full (08:38:50): `STRUCT_KEYS_FIX_MIRAGE`.
+  Hadamard arm passes all 5 probes at α=1.0 (argmax=0.000, rank=100.7,
+  norm=0.000, paraphrase_h8=0.000, kept=1.000). Correlated arm
+  reproduces Mirage at same α (control).
+- `wave14r_orthkeys_capsweep` full (08:56:27): `CAPSWEEP_ROBUST`. All
+  M_stored ∈ {200, 800, 1600, 3200} pass all 5 Mirage probes at α=1.0.
+  Envelope characterized through **M_stored/N = 0.78**.
+
+This is the architectural rescue path predicted by [[research_R1_GDPR_erase_candidates_2026-05-21]]:
+the Mirage failure mode of v8's anti-Hebbian was due to *correlated*
+keys producing residual cross-talk; with orthogonal (Hadamard / Kerdock)
+keys by construction, the cross-talk vanishes exactly. The math is
+direct: W' = W − vₑ kₑᵀ / N gives W'·kⱼ = W·kⱼ − vₑ ⟨kₑ, kⱼ⟩/N, and
+⟨kₑ, kⱼ⟩ = 0 exactly for orthogonal keys.
+
+**Capability moves**:
+
+| Capability | Pre-v13 | v13 state | Trigger |
+|---|---|---|---|
+| GDPR / surgical erase (orthogonal-key codebook + anti-Hebbian rank-1 W edit) | ❌ Closed in current arch (correlated-key Mirage failure) | ✅ Validated through M/N=0.78 (5-probe Mirage-passing) | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
+| Edit-then-query for fact correction (Tier-1 KILLER) | 🟡 — needs W-side edit | 🟢 Partial — erase primitive ✅ at orthogonal-key substrates; query-side integration still untested with the new primitive | Same. |
+| Anti-Hebbian rank-1 W edit | ❌ at correlated keys | (unchanged ❌ for correlated; ✅ when paired with orthogonal-key codebook) | Math + experimental confirmation |
+
+**New row added to Memory primitives**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Mirage-grade selective erase on orthogonal-key substrate** — anti-Hebbian rank-1 W edit passes all 5 probes (argmax, rank, norm, cos, paraphrase) when keys are constructed from Hadamard / Kerdock codebooks; valid through M_stored/N ≤ 0.78 | ✅ Validated | `wave14r_erase_orthkeys_v1` (5-probe pass at M=200); `wave14r_orthkeys_capsweep` (5-probe pass at M ∈ {200, 800, 1600, 3200}) | "GDPR-style selective forgetting" works IFF the substrate is architected with structured-orthogonal keys. Builds with this constraint can ship a real surgical-erase feature. |
+
+### ❌ — Bet 3 random-key iterative charge-flipping CLOSED at kill criterion
+
+`wave14s_chargeflip_forensics_v1` full (09:26:10) verdict
+`CHARGEFLIP_FORENSICS_NO_GAIN`:
+- At K=2000: SVD baseline cos=0.062, CF-from-SVD cos=0.092
+- improvement = **+0.030** (kill threshold from active_priorities Bet 3:
+  improvement < +0.2 over 3 seeds → kill criterion fires)
+
+The Bet 3 random-key path is closed. The structured-key WHT forensics
+(walsh_peaks_extended; v12 strengthening) remains ✅. Net: substrate
+forensics works for *structured-key* substrates, not for random-key
+substrates.
+
+**Capability move**:
+
+| Capability | v12 state | v13 state | Trigger |
+|---|---|---|---|
+| Iterative charge-flipping forensics for random-key substrate (Bet 3) | 🔬 Research only | ❌ Closed — iterative refinement adds +0.03 over SVD (target +0.2) | `wave14s_chargeflip_forensics_v1` |
+| Substrate forensics via SVD (random-key, single-pass) | 🟢 Partial (cos=0.31 low K, 0.09 high K from v10) | 🟢 Partial (unchanged) | — |
+
+### 🟡 — Multi-hop reasoning bounded (Tier-2 KILLER probe)
+
+Two events, partial-clarification finding:
+- `wave14t_multihop_v3` full (09:10:51) verdict `MULTIHOP_DECAY_AT_50`:
+  all tested depths achieve >0.10 mean accuracy but acc_1hop=0.927 <
+  0.98 PASS threshold. Soft pass on depth, boundary fail on absolute.
+  Smoke variant: `MULTIHOP_V2_NOT_REPLICATED` (v2's 0.98 doesn't replicate
+  at seed 17).
+- `wave14u_multihop_envelope_v1` full (09:29:18) verdict
+  `ENVELOPE_NARROW_AT_LOW_NUM_FACTS`: at NUM_FACTS=25 (smallest
+  fact-base), acc_50hop=0.000. Multi-hop chains die even at smallest
+  fact-base.
+
+**Capability move**:
+
+| Capability | Pre-v13 | v13 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning (50+ hops viable per wave14e synthesis) | ⚪ Untested (Tier-2 KILLER) | 🟡 Partial — works at low depth (~0.93 at 1-hop, 3 seeds); 50-hop fails at NUM_FACTS=25; v2's 0.98 number does not replicate | `wave14t_multihop_v3` + `wave14u_multihop_envelope_v1` |
+
+The Tier-2 KILLER claim ("50+ hops viable with cleanup") is bounded
+in current architecture: 1-hop substrate retrieval is solid but the
+chained-cleanup story doesn't compose to 50 hops at substrate-realistic
+fact-base sizes. Worth a v2 design pass (different cleanup operator?
+adaptive beta? richer key structure?) before declaring this ❌.
+
+### Evidence strengthening from cycle 1 miss (Walsh-peak N-sweep)
+
+`wave14cpu_walsh_peaks_N_sweep` (full, 07:35:01 — landed before v12 but
+inspected this cycle) — adds N-invariance to the WHT-forensics row.
+recall=1.0 across N ∈ {4096, 8192, 16384} × K/N ∈ {0.02, 0.05, 0.1,
+0.2, 0.4, 0.7} (18 cells, all 1.0).
+
+**Evidence list addition** (no state change):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Substrate forensics via WHT diffraction (structured-keyed) | ✅ Validated | Now also includes `wave14cpu_walsh_peaks_N_sweep` (N-invariant through N=16384) |
+
+### Updated KILLER Tier-1 board (v13)
+
+| Capability | v12 status | v13 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | No change. K=32/K=64 strict-baseline analysis still pending. |
+| True continual learning at production scale | ⚪ | ⚪ | No change. Multi-task A→B→C→D still untested. |
+| **Edit-then-query for fact correction** | 🟡 — needs W-side edit | 🟢 Partial — erase primitive ✅ at orthogonal-key substrates; query-side end-to-end pipeline still untested with the new primitive | Bet 2 substantially resolved. |
+| Provenance for every prediction | ✅ | ✅ | No change. |
+| In-context learning via pool | ✅ | ✅ (envelope characterized through ICTX=16384) | Bet 1 closed. |
+| Hierarchical retrieval (RSB) | ✅ structural; ❌ algorithm-at-P=1024 | (unchanged) | — |
+
+Score: 3 ✅ + 2 🟢-partial + 1 ⚪ + 1 (RSB ✅+❌ split). Net improvement
+this cycle: Bet 1 envelope characterized; Bet 2 mechanism family alive.
+
+### Updated tally (v13)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 7 (+1: orthkey Mirage-grade erase) | 1 | 1 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound (multi-hop NEW) | — | — | 2 (+1: multi-hop bounded; +existing compound) | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 (+1: orthkey path ✅) | — | — | — | — | 1 |
+| Forensics | (folded into respective primitives) | 1 (SVD partial) | — | — | — | 1 (+1: random-key iterative chargeflip) |
+| CANNOT | — | — | — | — | — | 18 (+1: random-key chargeflip) |
+| UNSURE | — | — | — | 12 | 10 | — |
+| KILLER Tier 1 | 3 | 2 (+1: edit-then-query 🟢) | — | — | — | 1 (RSB algo) |
+
+### Honest framing call
+
+Best Strategy cycle for the project since 2026-05-19. Three major
+movements: (1) Bet 1 ICL closes at full envelope characterization,
+(2) Bet 2 gets a clean architectural rescue path (orthogonal keys —
+predicted by R1, validated by Experiment Dev's v1+capsweep), (3) Bet 3
+random-key chargeflip closes cleanly at the kill criterion. The pattern
+this week of "bold claim → multi-probe walk-back" reversed: this cycle's
+claims (Bet 1, Bet 2 orthkey path) survived multi-probe by design — the
+R1 research note specified the criteria up front and the experiment built
+to them.
+
+The remaining Tier-1 gaps (multi-task continual learning, GPT-quality
+generation, edit-then-query end-to-end pipeline) are now the clear
+forward direction. See `notes/active_priorities.md` v2.
