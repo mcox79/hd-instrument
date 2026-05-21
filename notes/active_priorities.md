@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 6 (in-loop self-pacing)
-**Cap map version this refers to:** v16
+**Last updated:** 2026-05-21 cycle 7 (in-loop self-pacing)
+**Cap map version this refers to:** v17
 
 ---
 
@@ -158,10 +158,15 @@ files; could be a 30-min task, not a new experiment). Strategy
   substrate drill). Strategy's 5 sketches in cap_map v14 (WH-sparsity,
   low-rank pre-project, K-sparse storage, hybrid CF+SVD, semi-supervised
   Sayre) are unvetted draft.
-- **R8 (NEW, rehab-routed, multi-hop)**: Noise accumulation in chained
+- **R8 (rehab-routed, multi-hop)**: Noise accumulation in chained
   content-addressable memory. 2x pass; substrate-compatible variants
   ranked by depth-50 accuracy extension at NUM_FACTS=100. Strategy's 6
-  sketches in cap_map v14 unvetted draft.
+  sketches in cap_map v14 unvetted draft. **Update (cycle 7)**: sketch #5
+  (orthogonal-key allocation via Hadamard) empirically FAILED at
+  substrate scale — Walsh group closes under XOR-bind, so multi-hop
+  binds collide with stored Hadamard codewords. R8 priority reordered:
+  drill **#4 (binding algebra swap to FHRR / Clifford)** first as the
+  mechanism correction; then #1 (cleanup operator family); then #2/#3/#6.
 - **R9 (NEW, rehab-routed, Yonelinas)**: Source-vs-item memory
   dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
   framings. Strategy's 5 sketches in cap_map v14 unvetted draft.

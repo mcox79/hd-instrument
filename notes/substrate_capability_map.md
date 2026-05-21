@@ -1886,3 +1886,104 @@ Same tally as v15. Updates this cycle were:
 - Citation corrections (no capability impact)
 - Bet A candidate-list expansion (AlphaEdit + Kerdock parallel)
 - Multi-hop R8 rescue priority reordering (orthogonal-key #5 promoted)
+
+
+## 2026-05-21 v17 update — Hadamard cross-pollination FAILED for multi-hop; Kerdock v3 smoke
+
+Strategy session cycle 7 (in /loop). Two integration triggers:
+(a) `wave14z_multihop_hadamard_entities` full (10:08:48) —
+**HADAMARD_HURTS**: my v16 cross-pollination prediction (R8 rescue #5)
+falsified empirically;
+(b) `wave14y_erase_kerdock_v3` smoke (10:17:22) — KERDOCK_V3_EXTENDS_TO_4N
+at N=1024 smoke; full mode running on GPU.
+
+### Cross-pollination prediction FAILED — Hadamard hurts multi-hop
+
+In cap_map v16 I promoted R8 rescue sketch #5 (per-fact orthogonal-key
+allocation via Hadamard) to top priority for multi-hop reasoning, on
+the logic that "cross-talk is the same mechanism Kerdock fixed for
+Bet 2/C." That cross-pollination prediction is now **empirically
+falsified** at substrate scale:
+
+`wave14z_multihop_hadamard_entities` full:
+- 3 seeds, N=4096, NUM_ENTITIES with Hadamard codebook vs random ±1
+- Hadamard arm: acc_1hop=0.827, acc_10hop=0.17, acc_50hop=0.04
+- Random arm (control): acc_1hop=0.927, acc_10hop=0.50, acc_50hop=0.13
+- Delta on acc_1hop = **-0.10** (Hadamard WORSE than random)
+- All depths: Hadamard inferior
+
+**Mechanism (per verdict message)**: BSC bind algebra has the property
+that Hadamard_a * Hadamard_b = Hadamard_{a XOR b} — the Walsh group is
+closed under XOR-bind. With a sampled Hadamard subset, intermediate
+multi-hop binds produce *other Hadamard codewords* which can collide
+with stored entities. The orthogonal-codebook intuition works for
+single-key erase (one k, one v, anti-Hebbian arithmetic on
+W·k_kept = vₑ⟨kₑ,kⱼ⟩/N = 0 exactly) but FAILS for multi-hop
+composition (chained binds traverse the Walsh group and hit stored
+codewords by accident).
+
+**Honest read**: my v16 promotion was wrong. The "cross-pollination
+from Bet 2 is free — same orthogonal-key infra" framing was lazy
+analogical reasoning; the binding algebra changes the picture
+entirely. Should have caught this analytically — the closure-under-XOR
+property of Hadamard codes is standard.
+
+**Capability move** (rescue axis closes, not the broader capability):
+
+| Capability | v16 state | v17 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via orthogonal-key allocation (R8 sketch #5) | promoted to R8 priority 1 | ❌ Closed; mechanism: BSC bind algebra closes Walsh group → multi-hop binds collide with stored entities | `wave14z_multihop_hadamard_entities` |
+| Multi-hop reasoning (Tier-2) | 🟡 PROVISIONAL pending R8 rehab | 🟡 PROVISIONAL — 1 of 6 R8 rescues falsified; 5 remain untested | Same. |
+
+**Rehab discipline note**: per cap_map v14 PROVISIONAL framework + the
+new memory `feedback_closures_drop_under_batch_pressure`, I am NOT
+closing multi-hop ❌ on this single rescue failure. R8 lists 6
+sketches; only #5 has been tested. The broader capability stays 🟡
+until at least 3 more rescue axes are tested OR Research's R8 2x pass
+produces a literature-vetted ranking that supersedes the Strategy
+draft.
+
+**Updated R8 rescue priority** (post-v17):
+1. ~~#5 per-fact orthogonal-key allocation~~ ❌ closed by `wave14z`
+2. #4 binding algebra swap (FHRR exact-inverse / Clifford graded) —
+   PROMOTED, directly addresses the XOR-group closure mechanism
+3. #1 cleanup operator family (modern Hopfield / Krotov-WTA /
+   energy-based fixed-point)
+4. #2 adaptive beta schedule
+5. #3 per-hop W-side update
+6. #6 beam-search multi-hop
+
+Recommended Research R8 drill order: **#4 first** — it's the
+*mechanism* correction for why #5 failed (XOR-group closure is
+BSC-specific; FHRR has continuous group, no analogous closure).
+
+### Kerdock v3 — smoke positive at N=1024
+
+`wave14y_erase_kerdock_v3` smoke (10:17:22): `KERDOCK_V3_EXTENDS_TO_4N`
+at smoke scale N=1024, M_stored ∈ {512, 1024, 2048} → M/N up to 2.0.
+All 5 Mirage probes pass; correlated control fails as expected. Full
+mode running on GPU at N=4096; will lock the substrate-scale claim.
+
+**No cap_map move yet** — preliminary smoke result; awaiting full
+mode at substrate scale. v15's Bet C row already covers Kerdock at
+M/N≤2.0; v3 result so far is consistent, not yet extending.
+
+### Process note — first cycle filing a closure under the rehab framework
+
+This is the FIRST cap_map cycle where I'm closing something (R8 #5
+sub-rescue) under the rehab discipline from v14. Following the
+protocol:
+- ❌ closure has explicit mechanism (XOR group closure)
+- Did NOT extend closure to the broader multi-hop capability
+- Updated rescue priority list (5 remaining sketches; reordered with
+  the mechanism-corrected next-most-likely on top)
+- Cross-referenced Research R8 (which Strategy did NOT yet do its 2x
+  pass on — Research is the proper owner)
+
+This is the discipline cap_map v14 added; cycle 7 is the first real
+test of it. Working as designed.
+
+### Tally — multi-hop sub-rescue closed, parent capability unchanged
+
+Same overall tally as v16. The R8 #5 sub-row closure is a sub-bullet
+under multi-hop's 🟡 PROVISIONAL row, not a top-level row.

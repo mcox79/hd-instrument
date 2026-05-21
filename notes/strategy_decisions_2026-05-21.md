@@ -532,3 +532,79 @@ Heavy activity since cycle 5 (09:56):
 - 270s again. Bet A candidates may queue this cycle; META cron at
   10:13 may bring PROT updates; Research may drop R3/R4 (10:07/10:27
   per cron schedule).
+
+---
+
+## Cycle 7 — 2026-05-21 ~10:18 (in /loop, post-MEMORY.md update)
+
+PROT compliance this cycle: all prior PROTs already satisfied.
+
+### What I observed
+
+Two new event_outcomes since cycle 6 (10:06):
+1. **`wave14z_multihop_hadamard_entities`** full (10:08:48):
+   **HADAMARD_HURTS**. acc_1hop Hadamard 0.827 vs random 0.927; all
+   depths inferior. **My cycle-6 R8 priority-reorder prediction
+   FALSIFIED.**
+2. **`wave14y_erase_kerdock_v3`** smoke (10:17:22):
+   `KERDOCK_V3_EXTENDS_TO_4N` at N=1024 smoke; full mode running.
+
+User also added one new memory entry (`feedback_ssh_powershell_quoting`)
+to MEMORY.md — another session's bug-fix lesson surfacing.
+
+### What I decided
+
+1. **cap_map v17** (atomic, committed, scp'd):
+   - R8 rescue sketch #5 (orthogonal-key allocation) ❌ Closed with
+     explicit mechanism (BSC Walsh group closes under XOR-bind →
+     intermediate multi-hop binds collide with stored Hadamard
+     codewords).
+   - Multi-hop reasoning row remains 🟡 PROVISIONAL — only 1 of 6 R8
+     sketches falsified; 5 remain. Honoring the rehab-discipline
+     framework: do NOT close the parent capability on one rescue
+     failure.
+   - R8 priority list reordered: #4 (binding algebra swap, FHRR /
+     Clifford) promoted to top — it's the mechanism correction for
+     why #5 failed.
+   - Kerdock v3 smoke noted as preliminary; awaiting full mode.
+2. **active_priorities.md**: R8 entry updated with the failure +
+   reordered priority. Header bumped to v17.
+3. **Process note**: cycle 7 is the FIRST cycle filing a closure under
+   the v14 rehab framework. Working as designed — closure narrow
+   (sub-rescue, not parent), mechanism documented, priority reordered,
+   Research routing preserved.
+
+### Why
+
+- Honest about the falsification: my v16 cross-pollination promotion
+  ("orthogonal-key infra is free for multi-hop because same mechanism
+  as Bet 2") was lazy analogical reasoning. The BSC bind algebra
+  (Walsh group closure under XOR) is a textbook property; should have
+  caught it analytically. Documenting the error transparently in v17
+  per [[feedback-no-smoke]] and the new
+  [[feedback-closures-drop-under-batch-pressure]] memory.
+- NOT closing multi-hop ❌ on this single result: per the rehab
+  framework, only 1/6 sketches tested. Closing the parent on one
+  failure would be exactly the "rules-without-structure drop under
+  pressure" pattern the new memory warns about. The discipline is
+  structural this cycle — and it's working.
+- Promoting #4 (FHRR / Clifford binding swap): it directly addresses
+  the mechanism that killed #5. FHRR has continuous-group structure
+  (no analogous XOR-closure), so distractor binds at depth don't
+  collide with stored entities by group-membership. This is the
+  mechanism-aware reorder, not arbitrary.
+
+### Open items / handoffs
+
+- **Experiment Dev**: `wave14y_erase_kerdock_v3` full mode result will
+  land soon (currently running). Bet A AlphaEdit candidate has NOT
+  yet been queued; still expected.
+- **Research**: R8 priority #1 is now #4 (binding algebra swap). FHRR /
+  Clifford literature is the highest-leverage drill.
+- **META**: closure-rehab request from cycle 4 still unaddressed in
+  meta_proposals.md or active_protocols.md. Re-flagging.
+
+### Wake schedule
+
+- 270s. Kerdock v3 full landing soon, Bet A AlphaEdit candidate may
+  queue, Research R8 may produce the #4 drill.
