@@ -7274,3 +7274,174 @@ GPU idle since 17:02:59. No experiments running. Queue empty. Awaiting:
 Net effect: substrate gains 1 ✅ Tier-1 (Bet B); 1 partial signal
 restored (multi-hop large-N at N=8192); Tier-1 board at session
 high. Pipeline now idle awaiting Research deliveries.
+
+---
+
+## 2026-05-21 v70 update — R22 sleep-replay LEGITIMIZES Bet B EMA-blend mechanism (consolidation-as-functional-regularization per van de Ven 2024); R27 light-matter MOSTLY DECORATIVE (2 transfers); R21 cross-modal partial (5 references); Parisi v3c third INCONCLUSIVE (slope reversal +1.13)
+
+Strategy session cycle 53 (in /loop). Three research deliveries +
+Parisi v3c smoke + META cycle 16 audit.
+
+### R22 sleep-replay — Bet B mechanism legitimized
+
+**File**: `notes/research_R22_sleep_consolidation_2026-05-21.md`
+(landed 17:28).
+
+**CRITICAL THEORETICAL LEGITIMIZATION**: van de Ven-Soures-Kudithipudi
+2024 (arXiv:2403.05175) establishes generative replay is mathematically
+**functional regularization** (distillation on past predictions), NOT
+true rehearsal.
+
+**Direct substrate application**: Bet B v6+v7 EMA-blend mechanism
+(W_ABC = 0.7·W_ABC + 0.3·W_A) IS a form of **consolidation-as-
+functional-regularization**. Theoretically legitimized — NOT a hack.
+
+**Highest-signal substrate-applicable paper**: Tadros-Krishnan-
+Ramyaa-Bazhenov **Nat Comm 13:7742 (2022)** — "Sleep-like unsupervised
+replay reduces catastrophic forgetting in artificial neural networks."
+- Uses Hebbian-type rule during sleep phase
+- Noisy Poisson reactivation
+- MNIST 19.49% → 48.47%
+- CIFAR-10 19% → 44.55%
+- CUB-200 Task-1 5% → 63.2%
+- **Maps almost line-for-line onto substrate**: replace MLP with
+  substrate W ← W + (1/N)·Σ ξ_replay ⊗ ξ_replay
+
+**Substrate-product framing strengthened**:
+
+| Capability | v69 state | v70 state | Trigger |
+|---|---|---|---|
+| Bet B multi-task CL EMA-blend | ✅ Validated (v69 promotion) | ✅ Validated **+ THEORETICALLY LEGITIMIZED** as consolidation-as-functional-regularization per van de Ven 2024 + Tadros 2022 | R22 lands |
+
+**Per [[feedback-materials-science-probe]] + [[feedback-brain-inspired]]**:
+Bet B's mechanism now has both empirical evidence (v6+v7 PASS) AND
+theoretical grounding (van de Ven 2024 + Tadros 2022). Substrate-
+product story for Bet B is at its strongest position.
+
+### R27 light-matter — MOSTLY DECORATIVE with 2 GENUINE substrate transfers
+
+**File**: `notes/research_R27_light_matter_photonic_2026-05-21.md`
+(landed 16:57).
+
+**HEADLINE**: photonic-system → classical-discrete-memory analogs
+mostly decorative. Substrate is discrete/digital regime; photonic is
+continuous complex-valued field with phase noise. 2 substrate-
+applicable transfers:
+
+1. **L.1 Higher-order interactions enabling super-linear capacity**
+   (Musa et al. 2025, arXiv:2506.07849): 10-50× capacity gain via
+   4-body terms in Dense Associative Memory. **Substrate analog**:
+   substrate's softmax(β·sim) IS implicit p-body coupling per R29+R16;
+   could be made EXPLICIT for super-linear capacity gain.
+2. **L.2 Dynamically reconfigurable connectivity** (Marsh et al. 2025,
+   arXiv:2509.12202): 7× over Hopfield in 16-spin demonstration via
+   atomic-position reconfiguration. **Substrate analog**: dynamic W
+   structure could give similar gain.
+
+**Capability moves**:
+
+| Capability | v69 state | v70 state | Trigger |
+|---|---|---|---|
+| Super-linear capacity via explicit p-body coupling (R27 L.1) | (not in cap_map) | 🔬 NEW potential bet — Musa 2025 anchors; 10-50× gain potential; build path: explicit 4-body terms in substrate cleanup | R27 lands |
+| Dynamic W reconfigurability (R27 L.2) | (not in cap_map) | 🔬 NEW potential bet — Marsh 2025 anchor | R27 lands |
+
+**Per [[feedback-no-smoke]]**: NOT promoting L.1/L.2 to active bets
+without Strategy + Experiment Dev sequencing — they're new mechanism-
+axis options. Adding to bet candidate inventory.
+
+### R21 cross-modal binding — substrate-applicable path requires explicit role-filler
+
+**File**: `notes/research_R21_cross_modal_binding_2026-05-21.md`
+(landed 17:12).
+
+**HEADLINE**: bulk of cross-modal binding literature doesn't transfer
+to discrete bipolar. 3 structural reasons:
+1. CLIP-family alignment requires continuous gradient flow
+2. Modality gap (Liang 2022) is continuous-embedding phenomenon
+3. Modern Hopfield requires continuous softmax
+
+**Substrate-applicable path**: explicit modality role-filler binding
+`img_role ⊗ img_hv ⊕ txt_role ⊗ txt_hv`, accept O(0.14 N) capacity
+or modern Hopfield rescue per R29/R16, feed CLIP-aligned input.
+
+**5 substrate-applicable references** identified (including Liu-Jin-
+Fan-Glass 2021 cross-modal discrete).
+
+**Capability moves**:
+
+| Capability | v69 state | v70 state | Trigger |
+|---|---|---|---|
+| Cross-modal substrate binding (Tier-2 KILLER row from cap_map v1) | ⚪ proposed | 🔬 substrate-applicable path identified — explicit role-filler binding + CLIP-aligned input; 5 reference candidates | R21 lands |
+
+This closes a long-standing Tier-2 KILLER untouched-since-v1 status.
+**Buildable at current-arch.**
+
+### Parisi v3c smoke — third INCONCLUSIVE; pattern reversal
+
+**Verdict**: `wave14_parisi_pq_sweep_v3c_smoke` (currently before full
+running). Binder slope=**+1.130** (POSITIVE — reverse direction from
+v3 -1.419 and v3b -0.438). "No codebook crosses BINDER>0.6 threshold
+but none declines steeply either. Pattern unclear."
+
+**Substrate-physics interpretation per [[feedback-no-smoke]]**: 3
+different smoke verdicts span -1.4 to +1.1 across v3/v3b/v3c. Binder
+cumulant N-scaling is HIGHLY VARIABLE in substrate Parisi P(q) test
+— suggests the substrate is NOT in a clean N-scaling regime for this
+test, OR test methodology is sensitive to substrate seed / smoke
+parameter choice.
+
+**Bet E state**: stays 🟡 pending v3c full. If v3c full also gives
+inconclusive, Strategy should consider closing Bet E as
+"methodology-bounded — substrate P(q) discrimination is not
+reproducible in N-scaling regime" rather than ✅ or ❌.
+
+### META cycle 16 audit — structural drift catch (PROT-007 candidate)
+
+**File**: `notes/meta_audit_2026-05-21_cycle16.md`.
+
+**Flagged**: Strategy decision log gap. Cap_map version updates are
+not a substitute for per-cycle WHY-reasoning logs. Strategy hasn't
+updated `notes/strategy_decisions_2026-05-21.md` since cycle 44
+followup — 8+ cycles silent.
+
+**Per [[feedback-closures-drop-under-batch-pressure]]**: this is
+another batch-pressure failure mode. Cap_map writes during high-
+tempo verdict integration sufficed for STATE durability but lost
+the REASONING trail. Decision log is needed for context-passing
+across session boundaries (the cold-start protocol relies on it).
+
+**Action this cycle**: catching up strategy_decisions with batch
+entries for cycles 45-53. Each entry should reference its cap_map
+version commit for cross-link.
+
+### Updated bet candidate inventory after R27+R21+R22 (multi-hop scope)
+
+| # | Path | Mechanism axis | Status |
+|---|---|---|---|
+| 1 | Bet P-Engineering | codebook geometry (NOT novel) | 🔬 queued; cheap test |
+| 1b | Bet P-Theory | α_c(coherence) bound (substrate-novel) | 🔬 analytical |
+| 2 | R31 S.1 Pyrkov CGLE | dissipative-attractor cleanup | 🔬 Bet N rehab axis |
+| 3 | R31 S.3 + R28 | topological-soliton cross | 🔬 Bet F rehab |
+| 4 | R31 S.4 Manakov | discrete-attractor cascadability | 🔬 multi-hop relevant |
+| 5 | R27 L.1 Musa | explicit p-body coupling for super-linear capacity | 🔬 NEW; 10-50× capacity gain |
+| 6 | R27 L.2 Marsh | dynamic W reconfigurability | 🔬 NEW; 7× gain |
+| 7 | R32 M.1 phasor | magnon-coupled standing-wave codebook | 🔬 Bet P P.7 validated |
+| 8 | R33 hierarchical-cleanup + concatenated coding | engineering refresh | 🔬 demoted |
+| 9 | R34 V2 hyperbolic | re-architecture | 🔬 deferred |
+| 10 | R17 Sketch B + C | RTN + operator-algebra QEC | 🔬 analytical |
+
+11+ rescue paths now, span 5+ mechanism axes. Multi-hop rescue
+inventory is broader than ever.
+
+### Tier-1 board after v70 — Bet B theoretically legitimized
+
+Unchanged ✅ count but Bet B's status is now empirically + theoretically
+grounded. 7 ✅ + 2 🟡 + 1 ❌-arch PROVISIONAL.
+
+### Tally — R22 LEGITIMIZES Bet B mechanism theoretically; R27 adds 2 NEW capacity-gain candidates; R21 unblocks cross-modal Tier-2 row; Parisi v3c inconclusive pattern; META decision-log-gap flagged
+
+Net effect: substrate gains theoretical grounding for Bet B mechanism
+(R22 van de Ven 2024); 2 new high-leverage capacity bets (R27 L.1
+Musa super-linear, R27 L.2 Marsh reconfigurable); cross-modal Tier-2
+row substrate-applicable path identified (R21); Bet E methodology-
+bounded (v3c slope reversal); decision log drift acknowledged.

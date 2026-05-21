@@ -2707,6 +2707,124 @@ is fully PROT-004 compliant. Bet F awaits W-spec before closure.
 - META: cycle 13 audit of multi-hop closure discipline (5-rescue
   minimum satisfied; closure honest)
 
+---
+
+## Cycles 45-53 BATCH CATCHUP — META cycle 16 audit caught Strategy decision-log gap
+
+**Time of catchup**: 2026-05-21 ~17:33 EDT.
+
+**META catch**: cap_map version updates (v58-v70) durably captured
+STATE but lost per-cycle WHY-reasoning. Decision log silent since
+cycle 44 followup (8 cycles). Catching up below.
+
+### Cycle 45 — Bet P proposed (commit e038c03, cap_map v64)
+
+User proposed semantic-locality codebook ("why couldn't related items
+be arranged in similar ~directions?"). Strategy recognized this as
+the FIRST codebook-geometry rescue axis (distinct from all R8/Bet N/O
+which kept random-codebook assumption). Filed Bet P research request
+with 5 DRAFT sketches. Promoted to multi-hop rescue #1 priority.
+
+### Cycle 46 — Cycle 47 cleanup (commit fd011de, cap_map v65)
+
+Five updates in batch: Bet B v5 INCONCLUSIVE confirms seed-variance
+dominance v3/v4/v5 (DECLARED 🟢 TERMINAL — turned out to be 3rd
+overclose); R17 Sketch D KILLED (no power-law); R33 HONEST
+RECALIBRATION by Research (no substrate poly-vs-exp; demoted);
+Bet E DEMOTED ✅→🟡 (v2 used only 3/6 tests; v3 smoke finite-size);
+PROT-006 in effect.
+
+### Cycle 47 — Bet B "TERMINAL" REVERSED (commit 6e89291, cap_map v66)
+
+Experiment Dev cross-session catch: v6 EMA-blend mechanism (W_ABC =
+0.7·W_ABC + 0.3·W_A) PASSED at retention_A=0.845. v65 "TERMINAL"
+call was 3rd overclose — corrected. Cap_map v66 reversed. Bet P
+research delivered MIXED (engineering crowded / theory substrate-
+novel; split). R17 Sketch C strengthened large-N (slope=-0.158).
+Multi-hop large-N partial signal proposed.
+
+### Cycle 48 — Bet F closure with PROT-006 (commit 7c463e4, cap_map v67)
+
+Bet F v3 full BET_F_NO_TRANSITION (with proper R10 Option 2 W).
+**First complete PROT-006 cycle**: harvest → 5 R28-supplied sketches
+→ request file filed before cap_map closure → cap_map updated.
+R17 Sketch D FULL KILLED. Multi-hop large-N partial signal RETRACTED
+(smoke-only didn't replicate at N=8192). Bet B v7 alpha sweep started.
+
+### Cycle 49 — R31 soliton + R32 magnon land; META queue 7/7 exhausted (commit 7893734, cap_map v68)
+
+Both META candidates landed at low priority cycle. R31 PARTIAL with
+4 framings (S.1 Pyrkov CGLE for Bet N rehab axis #6; S.3 cross with
+R28 for Bet F rehab; S.4 cascadability). R32 PARTIAL — M.1 phasor
+extension validates Bet P P.7. **META candidate queue 7/7 exhausted**
+coordination milestone.
+
+### Cycle 50-51 — Heartbeat cycles (no commits)
+
+Pipeline on Bet B v7 alpha sweep. Wake at 270s repeatedly proved
+inefficient — v7 was 4× v6 (alpha sweep takes 4× single-config).
+Switched to 900s heartbeat cycle 51. Noted Parisi v3b full FAILED
+exit=1 (775s experiment-side).
+
+### Cycle 52 — Bet B PROMOTED ✅ Tier-1 (commit 232b187, cap_map v69)
+
+v7 alpha sweep full PASS at aggregate retention_A=0.954. CRITICAL
+pattern reversal: smoke (0.927) < full (0.954) — REVERSE of v3/v4/v5
+divergence pattern. EMA-blend mechanism is robust across α∈{0.3,
+0.5, 0.7, 0.9}. Bet B promoted to ✅ Validated. **7th Tier-1 ✅** —
+session-high. Multi-hop large-N partial signal RESTORED at N=8192
+full (v67 retraction was smoke-only-overcautious; full confirms).
+
+### Cycle 53 — R22 LEGITIMIZES Bet B mechanism + R27/R21 (commit pending, cap_map v70)
+
+Three research deliveries:
+- **R22 sleep-replay** LEGITIMIZES Bet B EMA-blend mechanism as
+  consolidation-as-functional-regularization per van de Ven 2024 +
+  Tadros 2022. Bet B v6+v7 PASS is theoretically grounded — NOT a
+  hack but a recognized consolidation primitive
+- **R27 light-matter** MOSTLY DECORATIVE with 2 GENUINE transfers
+  (L.1 Musa super-linear capacity, L.2 Marsh reconfigurable)
+- **R21 cross-modal** substrate-applicable path identified (explicit
+  role-filler + CLIP-aligned input); closes long-standing Tier-2
+  KILLER untouched-since-v1 row
+
+Parisi v3c smoke INCONCLUSIVE third time (slope=+1.130, reverse of
+v3/v3b); Bet E methodology-bounded.
+
+### Process audit — 3 overcloses, all caught and revised; 7 ✅ Tier-1
+
+- **v60 multi-hop ❌-arch overclose** → v61 user catch → revised 🟡
+- **v62 Bet N/O rehab discipline drop** → v62 followup user catch
+- **v65 Bet B 🟢 TERMINAL overclose** → v66 Exp Dev catch → v69 ✅
+  PROMOTION on v7 alpha sweep PASS
+
+**Promotions in this session**: Bet E v62 (later revised back to 🟡
+in v65 — methodology-bounded); Bet B v69 ✅ (the only Tier-1
+promotion this session; theoretically legitimized v70).
+
+**META coordination milestones**:
+- PROT-006 (sequence rehab before cap_map closure) approved + active
+- Bet F first complete PROT-006 cycle
+- META candidate queue 7/7 exhausted
+- Decision log gap caught + caught up (this entry)
+
+### Forward direction (post-v70)
+
+- Parisi v3c full — will determine Bet E (✅ vs 🟡 methodology-bounded
+  vs ❌ closure with rehab)
+- Bet P-Engineering smoke (port pretrained KGE) — pending Experiment Dev
+- Bet P-Theory analytical — pending Research deeper work
+- R27 L.1 Musa super-linear capacity — potential new bet (10-50× gain)
+- R27 L.2 Marsh reconfigurable W — potential new bet (7× gain)
+- R21 cross-modal substrate-applicable path → Tier-2 KILLER experiment
+
+**Next watching for**:
+- META cycle 17 fire (~17:43)
+- Parisi v3c verdict
+- Experiment Dev next /loop pickup
+- Research's next item (R19 topological-beyond-winding likely next per
+  R-priority)
+
 **Loop continues**.
 
 ---
