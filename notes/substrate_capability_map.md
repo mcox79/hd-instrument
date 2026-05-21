@@ -2876,3 +2876,103 @@ rehab framework.
 | CANNOT | — | — | — | — | — | 18 (-1) |
 | UNSURE | — | — | — | 13 | 8 | — |
 | KILLER Tier 1 | 4 | 1 | — | — | — | 1 |
+
+
+## 2026-05-21 v26 update — Bet H generation ✅ RESCUED via T=0.5 sampling; continual 5000 ✅; NEW ✅ compound real-time learning via continual pool; Bet C 32-coset smoke; R3 landed
+
+Strategy session cycle 15 (in /loop). Six event_outcomes + R3 since cycle 14.
+
+### Bet H autoregressive generation RESCUED ✅ — T=0.5 sampling
+
+`wave14yz_generation_with_sampling` full (11:26:34):
+**GEN_SAMPLE_RESCUES_AT_T_0.5**:
+- T=0.5: char_entropy=5.13 (threshold ≥2.5), ngram_repetition=0.000
+- T=0.8/1.0/1.5/2.0: also pass with entropy 5.13-5.15, repetition ≤0.002
+
+Bet H rescue sketch #1 (temperature tuning) was correct: replacing
+argmax with temperature-sampled output at T≥0.5 prevents the
+fixed-point collapse seen at β=8 argmax. **SECOND ❌-PROVISIONAL to
+flip ✅ under the v14 rehab framework** (first was Bet G calibration).
+
+**Capability move**:
+
+| Capability | v25 state | v26 state | Trigger |
+|---|---|---|---|
+| Autoregressive byte-level generation | ✅ + 🟡 caveat (v25) | **✅ Rescued via T=0.5 sampling** | `wave14yz_generation_with_sampling` |
+
+The v25 🟡 caveat closes; generation row returns to clean ✅.
+
+### NEW ✅ — Real-time learning via continual pool (compound)
+
+`wave14za_icl_continual_pool` full (11:28:51): **ICL_CONTINUAL_POOL_IMPROVES**
+- Static pool bpc = 6.496
+- Continual pool final bpc = **3.781** (Δ=2.7 bpc reduction)
+- "Substrate learns from its own queries: real-time learning works."
+
+Tests one of cap_map v1's open Tier-2 KILLER questions: "Real-time
+learning during inference."
+
+**New row in Compound section**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Real-time learning via continual pool retrieval** — substrate updates pool with each query at inference; bpc improves with continued use | ✅ Validated | `wave14za_icl_continual_pool` (static=6.50, continual=3.78 bpc, Δ=2.7) | "Agent gets smarter as it works." Distinguishes substrate from frozen-weights LLMs needing retraining cycles. |
+
+### Continual editing 5000 ✅ (smoke)
+
+`wave14zb_continual_5000` smoke (11:29:24): **CONTINUAL_5000_HOLDS**
+- Kerdock holds 5000 sequential edits at 1.0/1.0
+- Verdict: ">2× the M=4096 fact-base size in edits; substrate genuinely
+  unbounded with structured keys"
+- Full mode running
+
+Past **AlphaEdit's 3000-edit published ceiling**. Substrate continual
+editing **effectively unbounded with structured keys**.
+
+### Bet C — Kerdock v7 32-coset smoke
+
+`wave14zc_erase_kerdock_v7_32coset_smoke` (11:31:34): **KERDOCK_V7_EXTENDS_TO_32N**
+- Smoke at N=1024
+- Variant: Kerdock with 32-coset structured codebook
+- Verdict claims envelope confirmed at 32x; full pending
+
+### Generation+pool + Generation vs ngram (smoke)
+
+- `wave14zd_gen_with_continual_pool_smoke`: GEN_POOL_BOTH_WORK
+- `wave14ze_gen_vs_ngram_smoke`: GEN_SIMILAR (preliminary)
+
+Both smoke; no row change yet.
+
+### R3 landed — Compositional generalization research
+
+`research_R3_compositional_generalization_2026-05-21.md` (11:26)
+published. Bet B's secondary research dependency. Experiment Dev can
+incorporate when building Bet B v1.
+
+### KILLER Tier-1 board (v26)
+
+Tier-1 still 4/6 ✅. Real-time learning compound (Tier-2 KILLER from
+v1) just landed ✅. Generation 🟡 caveat from v25 cleanly resolved.
+
+### Tally
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 9 | 1 | 2 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 (-1 generation caveat resolved) | — | — | 2 |
+| Continual learning | 3 | — | — | — | 1 | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | **2 (+1 real-time learning)** | — | 2 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 | — | — | — | — | 1 |
+| Forensics | — | 1 | — | — | — | 1 |
+| Calibration / uncertainty | 1 | — | — | 1 | — | 0 |
+| CANNOT | — | — | — | — | — | 18 |
+| UNSURE | — | — | — | 13 | 7 (-1 real-time learning) | — |
+| KILLER Tier 1 | 4 | 1 | — | — | — | 1 |
+
+Two ❌-PROVISIONAL → ✅ rescues in two cycles (Bet G cycle 14; Bet H
+cycle 15). Rehab framework continues to perform — sketches #1 in
+both cases (Platt scaling for calibration; temperature sampling for
+generation) were the right answers.

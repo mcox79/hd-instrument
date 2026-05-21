@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 14 (Bet G ✅; generation caveat)
-**Cap map version this refers to:** v25
+**Last updated:** 2026-05-21 cycle 15 (Bets G+H ✅; real-time learning ✅)
+**Cap map version this refers to:** v26
 
 ---
 
@@ -18,6 +18,7 @@ Dev, Research, Visibility, Queue Health, META) read this.
 | Bet C — Full Kerdock + structured codebook for dense regime (M > N) | ✅ VALIDATED at N=4096, M_stored up to 8N via wave14ya_erase_kerdock_v4 (extended from initial 2N target). | `wave14v_erase_kerdock_v2` + `wave14y_erase_kerdock_v3` + `wave14ya_erase_kerdock_v4` |
 | **Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER)** | ✅ VALIDATED. Both Kerdock + correlated arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved at h ∈ {4, 8}. Tier-1 board now 4/6 ✅. Audit-divergence note: v5's 93% leak didn't reproduce; v20 cap_map flags for follow-up. | `wave14yb_edit_then_query_kerdock` |
 | **Bet G — Substrate calibration rescue** | ✅ RESCUED via TEMPSCALE at β=32 (ECE 0.59 → 0.0000 over 3 seeds). First ❌ PROVISIONAL to close ✅ under the v14 rehab framework. Strategy sketch #1 (Platt/temperature) worked; R11 retrospective confirmation. | `wave14yx_calibration_temp_scaling` |
+| **Bet H — Autoregressive generation rescue** | ✅ RESCUED via T=0.5 sampling (char_entropy 0.92 baseline → 5.13 at T=0.5; ngram_repetition 1.00 → 0.00). Second ❌ PROVISIONAL to close ✅ under the v14 rehab framework. Strategy sketch #1 (temperature tuning) worked. | `wave14yz_generation_with_sampling` |
 
 ## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
 

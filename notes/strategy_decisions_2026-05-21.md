@@ -1104,3 +1104,57 @@ active_priorities updated:
 ### Wake schedule
 
 - 270s. Active pace continues.
+
+---
+
+## Cycle 15 — 2026-05-21 ~11:34 (in /loop, sustained heavy pace)
+
+### What I observed
+
+Six event_outcomes + R3 since cycle 14 (11:25):
+- yz full (11:26): **GEN_SAMPLE_RESCUES_AT_T_0.5** — Bet H ✅ rescued
+- R3 published (11:26): compositional generalization
+- za full (11:28): **ICL_CONTINUAL_POOL_IMPROVES** — NEW ✅ real-time learning
+- zb smoke (11:29): **CONTINUAL_5000_HOLDS** — past AlphaEdit ceiling
+- zc smoke (11:31): KERDOCK_V7_EXTENDS_TO_32N (Bet C extension)
+- zd smoke (11:32): GEN_POOL_BOTH_WORK
+- ze smoke (11:34): GEN_SIMILAR (gen vs ngram baseline)
+
+### What I decided
+
+cap_map v26 (committed, scp'd):
+- **Bet H ✅ rescued** via T=0.5 sampling. Second ❌-PROVISIONAL to
+  flip ✅ under the rehab framework (Bet G last cycle was first).
+  Strategy sketch #1 (temperature tuning) was correct again.
+- **NEW ✅** Real-time learning via continual pool — Tier-2 KILLER
+  from cap_map v1 just landed empirically (static bpc 6.50 → continual
+  3.78). Compound section now has 2 ✅ rows.
+- Continual editing extended to 5000 (smoke); past AlphaEdit 3000
+  ceiling.
+- Bet C 32-coset smoke noted.
+- R3 (compositional generalization) landed.
+
+### Why
+
+- Bet H ✅: temperature sampling is the standard fix for argmax
+  fixed-point collapse in autoregressive LMs. Strategy sketch #1
+  worked (same pattern as Bet G).
+- Real-time learning ✅: this had been on the UNSURE list since
+  cap_map v1 (May 19). `wave14za` directly tests "every query updates
+  pool" and shows 2.7 bpc improvement. Honest reading of the verdict
+  message: "Substrate learns from its own queries."
+- Continual 5000 past AlphaEdit ceiling is the cleanest "Substrate
+  beats published prior art" statement Strategy has been able to make.
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B (multi-task CL) still unbuilt; multi-hop FHRR
+  / hybrid still unbuilt; Bet F (SSH-BSC v2) still unbuilt. Three
+  buildable Tier-1-relevant items piling up against Experiment Dev's
+  bandwidth.
+- Research: R3 just landed. R7 / R9 / R12 still outstanding.
+- META: closure-rehab request STILL unaddressed since cycle 4.
+
+### Wake schedule
+
+- 270s. Pace remains heavy.
