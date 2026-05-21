@@ -608,3 +608,109 @@ to MEMORY.md — another session's bug-fix lesson surfacing.
 
 - 270s. Kerdock v3 full landing soon, Bet A AlphaEdit candidate may
   queue, Research R8 may produce the #4 drill.
+
+---
+
+## Cycle 8 — 2026-05-21 ~10:30 (user-triggered after /loop chain broke)
+
+PROT compliance: all PROTs honored. MEMORY.md re-checked per user
+request — broad compliance, two specifics flagged below.
+
+### Loop chain break diagnosed
+
+ScheduleWakeup at cycle 7 (10:11:33) targeted 10:26:00 with prompt
+`/strategy-cycle`. Wake did not fire. Root cause: per /loop skill
+spec, the prompt should be `/loop /strategy-cycle` so the /loop skill
+re-enters and continues dynamic mode. Bare slash command would
+re-run strategy work but not re-arm the loop.
+
+User correctly flagged this and asked me to verify schedule + MEMORY
+compliance.
+
+### MEMORY.md re-check (per user request)
+
+Verified each indexed memory against current behavior:
+
+| Memory | Compliance |
+|---|---|
+| `feedback_no_smoke` | Diagnosed loop break honestly above; not papering over |
+| `feedback_cap_map_update_protocol` | Pull → atomic → commit → scp followed every cycle |
+| `feedback_rehabilitation_after_rejection` | v17 closure of R8 #5 followed protocol (mechanism + parent protected) |
+| `feedback_unbiased_research` | R5 just landed via real external lit scan (Research session); R7/R8/R9 routed |
+| `feedback_closures_drop_under_batch_pressure` | v17 first real test passed; not over-extending closure to parent |
+| `feedback_sessions_self_coordinate` | active_protocols.md re-checked this cycle (PROT-001/002/003 all current) |
+| `feedback_step_back_eval` | Each cycle ends with explicit gate decisions |
+| `feedback_plain_language` | User-facing summaries lead with meaning |
+| `feedback_brain_inspired` | Hebbian / W-matrix framing preserved throughout |
+| `feedback_materials_science_probe` | Walsh-group / Welch-bound math invoked correctly this cycle |
+| `feedback_dont_overextend_theorems` | R8 #5 ❌ didn't kill multi-hop family (v17 enforcement) |
+| `feedback_value_creation_not_competition` | active_priorities frames bets as capability enablers |
+| `feedback_no_papers_product_only` | cap_map is product-framed (storage densities, GDPR-style language) |
+| `feedback_ascii_only_in_scripts` | Not writing experiment scripts; N/A this cycle |
+| `feedback_query_privacy_decomposition` | Not running external queries; N/A this cycle |
+
+**Identified specific compliance gaps**:
+
+1. **/loop continuation format** — cycle 6+ ScheduleWakeup prompts
+   missing `/loop` prefix. Fixing this cycle.
+2. **Closure rehab discipline** is still memorial-only — META has not
+   processed my PROT-003 closure-rehab request. The new memory
+   `feedback_closures_drop_under_batch_pressure` documents this, and
+   v17 demonstrated structural compliance, but the protocol isn't yet
+   in `active_protocols.md`. Re-flagging to META.
+
+### What I observed (substantive)
+
+Three new triggers since cycle 7:
+1. **`wave14y_erase_kerdock_v3`** full (10:18): KERDOCK_V3_EXTENDS_TO_4N
+   at substrate scale (N=4096, M/N up to 4.0)
+2. **`wave14ya_erase_kerdock_v4`** full (10:28): KERDOCK_V4_EXTENDS_TO_8N
+   at substrate scale (N=4096, M/N up to 8.0, kept_preservation=1.0)
+3. **Research published R5** (10:21): Corpus-C design for Bet B; real
+   external lit scan with 15 verified citations.
+
+### What I decided
+
+1. **cap_map v18** (atomic, committed, scp'd):
+   - Bet C envelope extended 2N → 4N → 8N in one hour
+   - Memory primitives row updated to M/N≤8.0
+   - Bet B (multi-task CL) noted as unblocked; row stays ⚪ until v1
+     runs
+   - Loop chain break documented honestly
+2. **active_priorities.md**:
+   - Header updated to v18; cycle 8
+   - E_B (Bet B experiment) marked unblocked
+3. **ScheduleWakeup fix**: next wake uses `/loop /strategy-cycle`
+   prompt (not bare `/strategy-cycle`) so the loop chain stays alive
+
+### Why
+
+- Bet C envelope: empirical evidence at substrate scale across THREE
+  consecutive validations (v2, v3, v4) all positive with rising M/N
+  ceiling and kept_preservation=1.0 throughout. Solid Tier-1 substrate
+  claim.
+- Bet B unblock: R5 followed unbiased-research protocol (real external
+  lit scan, not prior-knowledge synthesis); the methodology-novel
+  contribution (multi-axis distance reporting) was identified from a
+  literature gap, not from "what does the substrate happen to do."
+  This is good Research process landing.
+- Loop fix: bare slash command in ScheduleWakeup breaks the dynamic
+  loop. Fix is one-line change to the prompt string.
+
+### Open items / handoffs
+
+- **Experiment Dev**: Bet A AlphaEdit candidate still pending; Bet B
+  now unblocked too. Two candidates plus Bet A's Kerdock parallel =
+  three buildable items for the 2/cycle cadence.
+- **Research**: R8 #4 (binding algebra swap to FHRR / Clifford) is
+  the highest-leverage rescue drill for multi-hop after the v17
+  Hadamard falsification.
+- **META**: closure-rehab request from cycle 4 STILL unaddressed.
+  Re-flagging.
+
+### Wake schedule
+
+- 600s (was 270s for the active integration burst at 10:00-10:30).
+  Pace has slowed; runners now idle. Will resume 270s if a verdict
+  burst arrives.
+- Next prompt: `/loop /strategy-cycle` (FIX from cycle 6/7 bug).

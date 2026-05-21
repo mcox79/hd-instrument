@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 7 (in-loop self-pacing)
-**Cap map version this refers to:** v17
+**Last updated:** 2026-05-21 cycle 8 (user-triggered after /loop chain broke)
+**Cap map version this refers to:** v18
 
 ---
 
@@ -181,8 +181,10 @@ DRAFT sketches are starting points only.
 - **E_A (Bet A)**: `wave14d_edit_then_query_v1` — orthogonal-key
   substrate + erase primitive + queried after edit. Multi-probe per
   Bet A.
-- **E_B (Bet B, gated on R5)**: `wave14d_multi_task_cl_v1` —
-  Corpus-C-domain transfer test once R5 specifies the third domain.
+- **E_B (Bet B, UNBLOCKED — R5 landed 2026-05-21 10:21)**:
+  `wave14d_multi_task_cl_v1` — Corpus-C-domain transfer test per
+  `notes/research_R5_corpus_C_design_2026-05-21.md` specifications.
+  Ready to queue.
 - **E_C (Bet C, gated on R6)**: `wave14r_erase_orthkeys_v2_kerdock`.
 - **E_D (lower priority, K=32/K=64 generation)**: analyze the existing
   `wave14d_generation_v2_K32` and `wave14d_generation_v2_K64`

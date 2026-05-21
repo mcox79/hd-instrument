@@ -1987,3 +1987,120 @@ test of it. Working as designed.
 
 Same overall tally as v16. The R8 #5 sub-row closure is a sub-bullet
 under multi-hop's 🟡 PROVISIONAL row, not a top-level row.
+
+
+## 2026-05-21 v18 update — Kerdock erase extends to M/N=8.0; R5 lands (Bet B unblocked); loop chain break diagnosed
+
+Strategy session cycle 8 (user-triggered after /loop chain broke at
+10:26 wake). Three integration triggers since cycle 7:
+(a) `wave14y_erase_kerdock_v3` full (10:18:20) — KERDOCK_V3_EXTENDS_TO_4N;
+(b) `wave14ya_erase_kerdock_v4` full (10:28:42) — KERDOCK_V4_EXTENDS_TO_8N;
+(c) Research published `research_R5_corpus_C_design_2026-05-21.md`
+(real external lit scan; Bet B unblocked).
+
+### LOOP CHAIN BREAK — diagnosed
+
+Strategy's cycle 7 ScheduleWakeup at 10:11:33 (270s for 10:26) did NOT
+fire correctly. Cause: I passed `/strategy-cycle` as the prompt; per
+/loop skill spec, the prompt should be `/loop /strategy-cycle` so the
+/loop skill re-enters and continues dynamic mode. The bare slash
+command fires the strategy work but doesn't re-arm the loop.
+
+Will fix on cycle 8's ScheduleWakeup. Operational lesson: PROT-003
+(slash command pattern) needs companion `/loop` prefix in the
+ScheduleWakeup prompt to keep the chain alive.
+
+### Bet C extends from M/N=2.0 -> M/N=4.0 -> M/N=8.0
+
+Two clean event_outcome triggers extend v15/v16 Bet C result:
+
+**`wave14y_erase_kerdock_v3` full** (10:18:20): `KERDOCK_V3_EXTENDS_TO_4N`
+- N=4096, M_stored in {4096, 8192, 12288, 16384} -> M/N up to **4.0**
+- Kerdock arm passes all 5 Mirage probes at every M
+- Correlated arm fails as expected
+
+**`wave14ya_erase_kerdock_v4` full** (10:28:42): `KERDOCK_V4_EXTENDS_TO_8N`
+- N=4096, M_stored in {4096, 8192, 16384, 24576, 32768} -> M/N up to **8.0**
+- Kerdock arm passes all 5 Mirage probes; kept_preservation=1.0 at M=32768
+- Substrate is 8x over-capacity yet selective erase still works
+
+**Mechanism**: Kerdock's Welch-bound IP magnitudes ({0, 1/32} for m=12
+N=4096) keep cross-talk bounded even at very high storage density. The
+v8 Mirage failure mode for random ±1 keys was Gaussian-tailed cross-talk;
+structured codebooks remove the tail entirely.
+
+**Capability move**:
+
+| Capability | v17 state | v18 state | Trigger |
+|---|---|---|---|
+| Mirage-grade selective erase on structured-codebook substrate | ✅ Validated at M/N<=2.0 | ✅ Validated at M/N<=8.0 (Kerdock at N=4096) | `wave14y_erase_kerdock_v3` + `wave14ya_erase_kerdock_v4` |
+
+**Memory primitives row updated**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Mirage-grade selective erase on structured-codebook substrate** — anti-Hebbian rank-1 W edit passes all 5 probes on Hadamard / Kerdock codebooks; validated through M_stored/N <= 8.0 at N=4096 | ✅ Validated | `wave14r_*` (Hadamard, M/N<=0.78); `wave14v_*` (Kerdock M/N<=2.0); `wave14y_*` (M/N<=4.0); `wave14ya_*` (M/N<=8.0, kept_preservation=1.0 at 32K facts) | "GDPR-style selective forgetting" works at extreme storage densities (8x over orthogonal capacity). Up to 32K facts per N=4096 substrate dimension. |
+
+### NEW research output — R5 Corpus-C design (Bet B unblocked)
+
+Research session (10:21) published `research_R5_corpus_C_design_2026-05-21.md`
+via real external lit scan (Agent subagent, ~55K tokens, 15 verified
+citations). This was the R5 priority I routed at cycle 1.
+
+**Bet B (multi-task continual learning A->B->C->D)** is unblocked. Per
+the R5 note, Corpus-C candidates are ranked with substrate-compatible
+criteria and a methodology-novel contribution (multi-axis distance
+reporting) is proposed.
+
+**Capability move** (no row state change yet; Bet B still ⚪ — just
+unblocked):
+
+| Capability | v17 state | v18 state | Note |
+|---|---|---|---|
+| Multi-task continual learning A→B→C→D (Tier-1) | ⚪ Untested; blocked on R5 | ⚪ Untested; **R5 landed**, ready for Experiment Dev to build `wave14d_multi_task_cl_v1` per the R5 specs | `research_R5_corpus_C_design_2026-05-21.md` |
+
+Research note also proposes adding a "multi-axis distance reporting"
+methodology row to the cap_map under Continual learning. Strategy
+will add that row once it has an empirical anchor (after Bet B v1
+runs).
+
+### Note on Bet C upper bound
+
+Kerdock v4 at M/N=8.0 saturated PASS — no failure observed. The
+upper bound is not yet located. Theoretical limit per Hammons-Kumar-
+Calderbank-Sloane-Solé is M <= 2^16 ≈ 65536 = 16N for m=12. Two more
+shards (v5 at 16N? higher?) could locate the ceiling, but the product
+story already says "8x over-capacity passes" which is enough for the
+Tier-1 KILLER claim. Whether to push further is a Strategy/user
+prioritization call.
+
+### Tally — Bet C envelope extension
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 7 (structured-codebook erase row at M/N<=8.0) | 1 | 1 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 |
+| Continual learning | 3 | — | — | — | 1 (multi-task CL Bet B unblocked) | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | — | — | 2 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 (structured-codebook umbrella) | — | — | — | — | 1 (random-key arch) |
+| Forensics | — | 1 | — | — | — | 1 |
+| CANNOT | — | — | — | — | — | 18 |
+| UNSURE | — | — | — | 12 | 9 (Bet B promoted from ⚪) | — |
+| KILLER Tier 1 | 3 | 2 | — | — | — | 1 |
+
+### KILLER Tier-1 board (v18)
+
+| Capability | v17 status | v18 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | K=32/K=64 analysis still pending. |
+| True continual learning at production scale | ⚪ | ⚪ (R5 landed — unblocked for Experiment Dev) | Bet B can be queued. |
+| Edit-then-query for fact correction | 🟢 Partial (erase ✅ at M/N<=2.0) | 🟢 Partial (erase ✅ at M/N<=8.0) | Pipeline test still untested; Bet A. |
+| Provenance for every prediction | ✅ | ✅ | No change. |
+| In-context learning via pool | ✅ (soft-saturation caveat) | ✅ (unchanged) | — |
+| Hierarchical retrieval (RSB) | ✅ structural; ❌ algorithm | (unchanged) | — |
+
+Bet C envelope went 2N -> 4N -> 8N this hour. Bet B unblocked. Bet A
+(edit-then-query pipeline) is now the cleanest forward Tier-1 move.
