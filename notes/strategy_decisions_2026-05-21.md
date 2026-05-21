@@ -1923,3 +1923,52 @@ cap_map v47:
 ### Wake schedule
 
 - 270s. C1 hybrid smoke expected within 15-20 min.
+
+---
+
+## Cycle 31 — 2026-05-21 ~14:06 (in /loop)
+
+### What I observed
+
+- **FHRR multi-hop FULL** (14:05): acc_1=0.97, acc_5=0.80, acc_10=0.65,
+  acc_25=**0.40**, acc_50=**0.22**. Below 0.4 PASS at d=50. BUT: 36×
+  improvement over random BSC at d=25 (0.40 vs 0.011). Major partial.
+- **R20 Compositional generalization design** landed (14:01) with
+  ready-to-build spec (SCAN + ReCOGS + Csordas baseline + Lippl-
+  Stachenfeld diagnostic). Closes Tier-2 KILLER queue gap.
+- Multiple full-mode confirmations: zv sparse keys, zu batch edit.
+
+### What I decided
+
+cap_map v48:
+- FHRR R8 A1 ❌ FULL-confirmed (not smoke-only anymore). Multi-hop
+  parent stays 🟡 PROVISIONAL — 2/6 rescues now closed (Hadamard
+  cycle 7 + FHRR cycle 31); 4 remain (C1 hybrid + modern Hopfield +
+  adaptive beta + per-hop W + beam-search).
+- Honest partial-improvement framing: FHRR helps 36× at d=25 but
+  doesn't clear PASS. Suggests C1 hybrid (FHRR-chain + BSC-storage)
+  might compose advantages — Experiment Dev's next build.
+- R20 ready; if Experiment Dev queues it after C1, closes Tier-2
+  KILLER compositional gen.
+
+### Why
+
+- Full-mode result is unambiguous and not extrapolation: FHRR's
+  continuous-group structure IS partial improvement on cross-talk,
+  but not enough at d=50. R8's mechanism prediction (Walsh-XOR
+  closure avoided) is empirically supported but insufficient alone.
+- C1 hybrid is the natural next test — combines FHRR's chain
+  advantage with BSC storage. If C1 clears PASS, multi-hop
+  rehabilitates via R8 #2.
+
+### Open items / handoffs
+
+- Experiment Dev: C1 hybrid next; R20 SCAN+ReCOGS after that.
+- Research: R29 ferromagnetism still queued (top priority post R26).
+  R23/R24 (RSB + FDT) also high.
+- Strategy: monitoring multi-hop C1 + Bet B build (Bet B is
+  Experiment Dev cycle 12 per their reordering).
+
+### Wake schedule
+
+- 270s. C1 hybrid smoke expected within 15 min.

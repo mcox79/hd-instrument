@@ -4467,3 +4467,90 @@ escapes the per-hop decay.
 
 Per discipline: smoke negatives don't promote ❌. Multi-hop row stays
 🟡 PROVISIONAL.
+
+
+## 2026-05-21 v48 update — FHRR multi-hop full-confirmed killed (but with major partial improvement); R20 compositional gen design landed; smoke→full confirmations
+
+Strategy session cycle 31 (in /loop). Three landings.
+
+### Multi-hop FHRR (R8 A1) — FULL-CONFIRMED ❌; major partial improvement noted
+
+`wave14r_multihop_FHRR_v1` full (14:05:14): **MULTIHOP_FHRR_KILLED**
+- N=4096, depths {1, 5, 10, 25, 50}, 3 seeds
+- acc_1 = 0.972
+- acc_5 = 0.804
+- acc_10 = 0.648
+- acc_25 = 0.400
+- **acc_50 = 0.224** (< 0.4 PASS threshold)
+
+**Comparison to random BSC baseline** (cycle 23 zp_multihop_depth_100):
+| Depth | Random BSC | FHRR | Improvement |
+|---|---|---|---|
+| 1 | 0.93 | 0.97 | +4pp |
+| 10 | 0.50 | 0.65 | +15pp |
+| **25** | **0.011** | **0.40** | **36×** |
+| **50** | 0.011 | 0.224 | 20× |
+
+**Honest read**: FHRR is a MAJOR partial improvement on the multi-hop
+cliff. At d=25, FHRR gives 0.40 vs random's 0.011 — a 36× improvement.
+At d=50, 0.22 vs 0.011 — 20× improvement. But still **below the 0.4
+PASS threshold at depth 50**. FHRR helps substantially; doesn't fully
+rehabilitate.
+
+This is a more nuanced result than smoke suggested. R8's prediction
+"FHRR avoids Walsh-XOR closure" turned out empirically true at the
+margin — chains decay much more slowly with FHRR than BSC — but
+not slowly enough to clear the PASS threshold at substrate-realistic
+depths.
+
+**Capability move**:
+
+| Capability | v47 state | v48 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via FHRR (R8 A1) | 🟡 smoke-killed PROVISIONAL | ❌ Full-confirmed at substrate scale; 22.4% at d=50 vs 0.4 PASS. NOT PROVISIONAL anymore. | `wave14r_multihop_FHRR_v1` full |
+| Multi-hop reasoning (parent) | 🟡 PROVISIONAL | 🟡 PROVISIONAL — 2 of 6 rescues fully tested (Hadamard cycle 7 ❌; FHRR cycle 31 ❌-with-partial-improvement). C1 hybrid + 4 others remain. | Same. |
+
+**Per [[feedback-rehabilitation-after-rejection]]**: parent capability
+stays 🟡; 2/6 rescues closed; 4 remain (C1 hybrid + modern Hopfield
+cleanup + adaptive beta + per-hop W-side + beam-search). C1 hybrid is
+next per Experiment Dev cycle 10 reordering.
+
+**Partial-improvement framing**: even though FHRR doesn't clear PASS,
+36× improvement at d=25 is substantively interesting. Suggests
+substrate-novel **FHRR hybrid** (R8 C1) might compose FHRR's depth
+advantage with BSC's storage advantage to clear PASS.
+
+### R20 Compositional generalization experiment design landed
+
+`research_R20_compositional_generalization_design_2026-05-21.md` (14:01)
+published. R20 = Pass 2 substrate drill from R3 (cycle 15 lit scan).
+
+**Experiment spec ready** for Experiment Dev:
+- SCAN (Lake-Baroni 2018) + **ReCOGS** (Wu 2023, fixes COGS format issues)
+- Byte-level encoding (ASCII direct + 4 reserved control bytes)
+- Multi-metric: SEQ-EM + byte-accuracy + byte-CER + per-category
+- Csordas 2021 baseline (relative PE + EOS-loss reweighting)
+- Lippl-Stachenfeld 2024 kernel-theorem diagnostic
+
+**Closes** the Tier-2 KILLER ⚪ compositional generalization that's
+been on the list since cap_map v1. Now buildable by Experiment Dev.
+
+If positive → **Bet J** promotion (contingency from cycle 27 audit).
+
+### Smoke→full confirmations
+
+- `wave14zv_sparse_keys` full (14:05:01): SPARSE_EQUIVALENT_TO_DENSE
+  confirmed at full. Sparse k-sparse ternary keys behave equivalently
+  to dense Kerdock. Evidence list update.
+- `wave14zu_parallel_batch_edit` full (14:04:56): BATCH_VS_SEQ_EQUIVALENT
+  confirmed. Parallel batched edits = sequential. Evidence list update.
+
+### Tally — multi-hop sub-row closure; R20 ready
+
+| Section | Updates |
+|---|---|
+| Multi-hop reasoning row | Stays 🟡 PROVISIONAL. R8 A1 (FHRR) sub-rescue ❌-full; partial-improvement framing documented. |
+| Pool retrieval / Memory primitives | sparse + batch evidence lists strengthen |
+| Tier-2 KILLER queue | R20 ready → Experiment Dev queue gains compositional-gen target |
+
+No row state changes; sub-rescues closing as expected.
