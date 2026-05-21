@@ -4394,3 +4394,76 @@ individual prior work has done.
 Experiment Dev cadence gap resolved via user intervention. PROT-005
 + Experiment Dev's new 15-min /loop should keep the cadence balanced
 going forward.
+
+
+## 2026-05-21 v47 update — Multi-hop FHRR rescue (R8 A1) SMOKE-KILLED; not a closure per smoke-only rule
+
+Strategy session cycle 30 (in /loop). One outcome.
+
+### Multi-hop FHRR smoke KILLED
+
+`wave14r_multihop_FHRR_v1_smoke` (13:58:07): **MULTIHOP_FHRR_KILLED**
+- Smoke config: N=512, NUM_ENTITIES=50, num_relations=5, hop_depths=[1, 5]
+- acc_1 = 1.000 (FHRR per-step retrieval works perfectly)
+- acc_5 = 0.600 (degradation by depth 5)
+- Verdict_msg: "FHRR 50-hop fails: acc_50=0.000 < 0.4. R8 A1 rescue
+  does not rehabilitate multi-hop depth cliff."
+
+**Important**: depth 50 was NOT directly tested in smoke (hop_depths
+config is [1, 5]). The verdict's acc_50=0 is **extrapolation** from
+0.6 per 5 hops ≈ 0.91 per-hop → ~0.4% at depth 50. **Not a direct
+measurement.**
+
+### NOT a closure (per smoke-only rule from cycle 20)
+
+Per cap_map v32 lesson (Bet H sketch #3 zg smoke→full reversal):
+"smoke-only negatives should be tagged not treated as closure." Same
+discipline applies here.
+
+**Strategy posture**:
+- FHRR smoke does NOT close the R8 A1 rescue path
+- Full mode at depths {1, 5, 10, 25, 50, 100} with NUM_FACTS=100 per
+  R8 spec is needed before promoting to ❌
+- R8's #2 recommendation (C1 hybrid: BSC store + FHRR chain) is the
+  next candidate Experiment Dev will build
+- If BOTH A1 (full) AND C1 (full) fail, the binding-algebra-swap
+  rescue family closes ❌ PROVISIONAL; remaining 4 R8 rescue sketches
+  (modern Hopfield cleanup, adaptive beta, per-hop W-side, beam-search)
+  become priority
+
+**Per [[feedback-rehabilitation-after-rejection]] + PROT-004**: the
+prereg pre-armed rescue sketches for exactly this scenario. Working as
+designed.
+
+**Honest comparison**:
+- Random BSC at depth 5: ~0.86 (extrapolated from cycle 23 d=25 cliff)
+- FHRR smoke at depth 5: 0.60
+- FHRR is BETTER at depth 1 (1.0 vs 0.93 random) but apparently
+  degrades faster per-hop in this smoke config
+
+This MAY reflect:
+(a) FHRR's continuous-group structure doesn't actually escape the
+    cross-talk-accumulation problem at substrate scale
+(b) Smoke at N=512 is too small to show FHRR's expected advantage
+    (BSC self-inverse property may be more forgiving at small N)
+(c) Some implementation-specific issue (cleanup operator, parameters)
+
+Full mode at N=4096 will distinguish.
+
+### Capability move
+
+| Capability | v46 state | v47 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via FHRR (R8 A1) | 🔬 in R8 backlog | 🟡 smoke-killed (PROVISIONAL); full mode at N=4096 + depth 50 needed | `wave14r_multihop_FHRR_v1_smoke` |
+| Multi-hop reasoning (parent) | 🟡 PROVISIONAL with R8 rescues active | 🟡 PROVISIONAL — 1 of 6 rescue sketches smoke-killed (orthogonal-key #5 from cycle 7); 1 more (A1 FHRR) smoke-killed (this cycle); C1 hybrid + 4 others remain | Same. |
+
+### Experiment Dev next
+
+Per their cycle 10 reordering, C1 hybrid (`wave14r_multihop_hybrid_v1`)
+is queued next. Will reveal whether hybrid BSC-store + FHRR-chain
+escapes the per-hop decay.
+
+### Tally — no row state changes (smoke-only)
+
+Per discipline: smoke negatives don't promote ❌. Multi-hop row stays
+🟡 PROVISIONAL.

@@ -1883,3 +1883,43 @@ active_priorities.md v6:
 
 - 270s (pace picking up — Experiment Dev now active + R26 just landed +
   R29 expected soon).
+
+---
+
+## Cycle 30 — 2026-05-21 ~14:00 (in /loop)
+
+### What I observed
+
+`wave14r_multihop_FHRR_v1_smoke` (13:58): **MULTIHOP_FHRR_KILLED**.
+Smoke at depths {1, 5}: acc_1=1.0, acc_5=0.6. Verdict extrapolates
+acc_50=0.0 from per-hop decay; depth 50 NOT directly tested.
+
+### What I decided
+
+cap_map v47:
+- NOT a closure (smoke-only rule from cycle 20 zg lesson)
+- Multi-hop row stays 🟡 PROVISIONAL
+- R8 A1 (FHRR) marked smoke-killed PROVISIONAL pending full mode
+- C1 hybrid (R8 #2) next per Experiment Dev cycle 10 reordering
+- If both fail at full, binding-algebra-swap family closes; 4 other
+  R8 rescues remain (modern Hopfield, adaptive beta, per-hop W,
+  beam-search)
+
+### Why
+
+- Smoke at N=512 might not reflect substrate-scale behavior (BSC's
+  self-inverse property may be more forgiving at small N)
+- Cycle 20's zg reversal taught the smoke-only-negative discipline
+- Pre-armed rescue sketches in prereg are exactly for this scenario
+  per PROT-004
+
+### Open items / handoffs
+
+- Experiment Dev: C1 hybrid next; if both fail at full, move to other
+  R8 rescues (modern Hopfield etc.)
+- Research: R29 ferromagnetism, R20 compositional design still queued
+- Strategy: monitoring FHRR full + C1 smoke landings
+
+### Wake schedule
+
+- 270s. C1 hybrid smoke expected within 15-20 min.
