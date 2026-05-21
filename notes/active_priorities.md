@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 13 (sustained heavy pace)
-**Cap map version this refers to:** v24
+**Last updated:** 2026-05-21 cycle 14 (Bet G ✅; generation caveat)
+**Cap map version this refers to:** v25
 
 ---
 
@@ -17,10 +17,51 @@ Dev, Research, Visibility, Queue Health, META) read this.
 | Bet 3 — Random-key iterative charge-flipping forensics | ❌ PROVISIONAL per rehab discipline (cap_map v14). +0.03 over SVD (target +0.2). R7 routed. | `wave14s_chargeflip_forensics_v1` |
 | Bet C — Full Kerdock + structured codebook for dense regime (M > N) | ✅ VALIDATED at N=4096, M_stored up to 8N via wave14ya_erase_kerdock_v4 (extended from initial 2N target). | `wave14v_erase_kerdock_v2` + `wave14y_erase_kerdock_v3` + `wave14ya_erase_kerdock_v4` |
 | **Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER)** | ✅ VALIDATED. Both Kerdock + correlated arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved at h ∈ {4, 8}. Tier-1 board now 4/6 ✅. Audit-divergence note: v5's 93% leak didn't reproduce; v20 cap_map flags for follow-up. | `wave14yb_edit_then_query_kerdock` |
+| **Bet G — Substrate calibration rescue** | ✅ RESCUED via TEMPSCALE at β=32 (ECE 0.59 → 0.0000 over 3 seeds). First ❌ PROVISIONAL to close ✅ under the v14 rehab framework. Strategy sketch #1 (Platt/temperature) worked; R11 retrospective confirmation. | `wave14yx_calibration_temp_scaling` |
 
 ## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
 
-### Bet G — Calibration rescue (NEW ❌-PROVISIONAL needs rehab)
+### Bet H — Autoregressive generation rescue (NEW 🟡; rehab-routed)
+
+**Claim (target).** A sampling rescue (top-k, nucleus, repetition
+penalty, β tuning, or multi-seed-with-different-prefix) restores
+512-byte autoregressive char_entropy to ≥2.5 and reduces 4-gram
+repetition below 0.5.
+
+**Why now.** `wave14yy_autoregressive_generation` (cycle 14): under
+α=1.0, β=8, single seed (17), generation collapses to "  e  e  e..."
+(char_entropy 0.917, ngram_repetition 1.000). v3's K=16 strict-baseline
+PASS measured single-position prediction, not autoregressive multi-step.
+Existing generation ✅ row keeps single-position evidence; this rescue
+targets the multi-step regime.
+
+**Multi-probe success criteria** (any rescue passing all):
+- char_entropy ≥ 2.5 (over 512 chars)
+- ngram_repetition ≤ 0.5 (4-grams)
+- 3 seeds minimum
+- self_bpc < 4.0
+
+**Kill criterion.** If 0/5 rescues clear char_entropy ≥ 2.5,
+autoregressive multi-step generation closes ❌-with-current-readout;
+single-position K=16 capability survives as degraded ✅.
+
+**Who acts.** Research (R12 routed — sampling-rescue literature 2x
+pass); Experiment Dev (test top-ranked rescue once R12 lands).
+
+---
+
+### Bet G — RESOLVED ✅ via TEMPSCALE at β=32 (see "Recently resolved")
+
+`wave14yx_calibration_temp_scaling` full: ECE = 0.0000 at β=32 over
+3 seeds. First ❌ PROVISIONAL to close ✅ under the v14 rehab
+framework. Strategy sketch #1 (Platt/temperature) worked; R11
+retrospectively confirms.
+
+---
+
+### (prior Bet G spec — kept for reference but resolved)
+
+#### Bet G — Calibration rescue (NEW ❌-PROVISIONAL needs rehab)
 
 **Claim (target).** A substrate calibration rescue (post-hoc
 temperature scaling, isotonic, Bayesian σ², multi-vote, or
@@ -302,14 +343,17 @@ files; could be a 30-min task, not a new experiment). Strategy
 - **R9 (rehab-routed, Yonelinas)**: Source-vs-item memory
   dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
   framings. Strategy's 5 sketches in cap_map v14 unvetted draft.
-- **R11 (NEW, Bet G prerequisite, rehab-routed)**: Substrate
-  calibration / uncertainty in content-addressable memories +
-  VSA / random-projection retrieval. 2x pass: pass 1 broad
-  (Guo-Pleiss-Sun-Weinberger 2017, Bayesian deep learning, isotonic,
-  conformal prediction, temperature scaling); pass 2 substrate-
+- **R11 (Bet G prerequisite)**: LANDED 2026-05-21 11:14. Bet G
+  resolved ✅ via TEMPSCALE at β=32 (Strategy sketch #1 was correct).
+  R11 retrospective-confirms.
+- **R12 (NEW, Bet H prerequisite, rehab-routed)**: Neural-LM sampling
+  rescues preventing repetition collapse. 2x pass: pass 1 broad (top-k,
+  nucleus/top-p, beam, repetition penalty, contrastive decoding,
+  frequency penalty, typical sampling, mirostat); pass 2 substrate-
   compatible drill. Output: ranked rescue list with predicted
-  ECE-improvement. Strategy's 5 draft sketches (Platt scaling,
-  isotonic, Bayesian σ², multi-vote, bundle-norm confidence) unvetted.
+  char_entropy-improvement per rescue. Strategy's 5 draft sketches
+  (β tuning, top-p, repetition penalty, multi-seed, prefix selection)
+  unvetted.
 - **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
   Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
   at all noise — methodology gap, not substrate finding. 2x pass:

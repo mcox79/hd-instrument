@@ -1046,3 +1046,61 @@ cap_map v24 (committed, scp'd):
 ### Wake schedule
 
 - 270s. Calibration full mode lands soon; expect verdict in next cycle.
+
+---
+
+## Cycle 14 — 2026-05-21 ~11:25 (in /loop, two consequential outcomes)
+
+### What I observed
+
+Two new event_outcomes since cycle 13 (11:17):
+- yx FULL (11:19): TEMPSCALE_RESCUES_AT_BETA_32 — Bet G calibration ✅ rescued
+- yy FULL (11:20): GEN_COLLAPSES_TO_REPETITION — autoregressive generation
+  collapses (caveat on existing ✅, not a closure)
+
+### What I decided
+
+cap_map v25 (committed, scp'd):
+- **Bet G calibration ✅ rescued via TEMPSCALE at β=32** — first ❌
+  PROVISIONAL to flip ✅ under the v14 rehab framework. Strategy
+  sketch #1 (Platt/temperature) worked.
+- **Generation row gets 🟡 caveat** (NOT a closure): autoregressive
+  512-byte multi-step collapses; single-position K=16 evidence stands.
+  Bet H added with R12 routing per rehab framework.
+
+active_priorities updated:
+- Bet G moved to "Recently resolved" table
+- Bet H (autoregressive generation rescue) added with rehab discipline
+  (5 sketches + R12 + multi-probe criteria)
+- R12 added (sampling-rescue research)
+
+### Why
+
+- Bet G ✅: Strategy sketch #1 (Platt/temperature scaling) was the
+  most standard rescue and it cleanly worked. Validates the rehab
+  framework's "draft sketches as starting point" approach — sometimes
+  the obvious rescue is the right rescue, faster than waiting for
+  Research's full 2x pass.
+- Generation caveat (not closure): per
+  [[feedback-dont-overextend-theorems]], one failure mode of one
+  generation operationalization shouldn't close the broader generation
+  ✅. The cycle-3 K=16 strict-baseline result still has its evidence.
+  But the autoregressive collapse is a real finding worth documenting
+  honestly per [[feedback-no-smoke]].
+- Per [[feedback-rehabilitation-after-rejection]] and the new memory
+  [[feedback-closures-drop-under-batch-pressure]]: Bet H follows the
+  full rehab discipline from the start (5 sketches + Research request
+  + multi-probe criteria + PROVISIONAL framing).
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B (multi-task CL) STILL unbuilt; multi-hop FHRR
+  / hybrid STILL unbuilt; Bet F (SSH-BSC v2) STILL unbuilt. Three
+  unblocked Tier-1-relevant bets piling up. Heavy pace continues but
+  on extensions rather than new bet builds.
+- Research: R12 (sampling rescue) is new. R3 / R7 / R9 still outstanding.
+- META: closure-rehab request STILL unaddressed since cycle 4.
+
+### Wake schedule
+
+- 270s. Active pace continues.
