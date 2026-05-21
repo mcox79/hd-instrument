@@ -15,27 +15,36 @@ Dev, Research, Visibility, Queue Health, META) read this.
   in spin-glass phase per Parisi P(q) order parameter; 5-source
   agreement now (4 theory + 1 empirical).
 - **Bet N (soft cleanup) ❌ KILLED** — acc_50hop=0.160 at all τ, below
-  FHRR's 0.22 floor. Cleanup amplification axis CLOSED.
-- **Multi-hop d=50 ❌-architectural closure DECLARED** — 5 of 6 R8
-  rescues exhausted across 2 mechanism axes (binding + cleanup).
-  Closure specific to current-arch Plate-HRR substrate on flat N=4096;
-  V2 substrate (R34), Bet O, R33 quantum-repeater remain alive.
+  FHRR's 0.22 floor. R8 cleanup-amplification axis CLOSED.
+- **Multi-hop d=50 — R8 RESCUE LIST EXHAUSTED at current-arch; 🟡
+  pending 8 alternative-architecture rescue paths** (v61 correction).
+  Per [[feedback-dont-overextend-theorems]]: R8 list closure ≠
+  multi-hop closure. NEW mechanism axes (pair-redundancy, temporal-EC,
+  soliton, magnon, hyperbolic, RTN, operator-algebra, AQEC) remain
+  untested.
 - **Bet F (SSH-BSC v2) full = smoke** — BET_F_NO_TRANSITION; pending
   R10 W-construction addendum for confirmation. Stays 🟡 NO_TRANSITION
   pending.
 - **R17 holographic LARGELY NEGATIVE** — R30 (HaPPY) demoted; R34
   proposed deferred; Plate-HRR vs AdS/CFT distinction enshrined.
-- **Bet O prior downgraded** from ~40% to ~20% — gap-protection
-  inherits Bet N's failure mode at pair-cleanup level.
+- **Bet O prior downgraded** from ~40% to ~20% — but mechanism
+  (gap-protection / pair-redundancy) is structurally distinct from
+  Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v60**: 7 ✅ + 1 🟢 + 1 ❌-arch-current.
+**Tier-1 board after v61** (corrected): 7 ✅ + 1 🟢 + 1 🟡 multi-hop-
+needing-alternative-rescue. NOT ❌-arch.
 
-**Active build queue (in priority order)**:
-1. Adaptive-β (R8 #5, closes original R8 list; cheap; doesn't change closure)
-2. Bet B v4 (parameter tweak to push retention_A ≥ 0.80; Tier-1 🟢 → ✅ target)
-3. Probe 1 area-law entropy check (R17; ZERO GPU; cheap)
-4. Bet O Cooper-pair gap-protected (lower prior but mechanism distinct)
-5. R33 quantum-repeater (not yet routed to Research; highest-leverage forward direction)
+**Active build queue (in priority order — REVISED v61)**:
+1. **Bet O Cooper-pair gap-protected** — promoted up; structurally
+   distinct mechanism from R8 list; ~20% prior but only Tier-1
+   multi-hop rescue currently buildable
+2. **R33 quantum-repeater segment-and-purify** — route to Research
+   immediately; ONLY poly-vs-exp candidate; highest-leverage
+3. Adaptive-β (R8 #6, last R8 list item; cheap; closes original R8 list)
+4. Bet B v4 (parameter tweak to push retention_A ≥ 0.80)
+5. Probe 1 area-law entropy check (R17; ZERO GPU; cheap)
+6. R31 soliton + R32 magnon + R17 sketches B/C/D — Research backlog at
+   equal priority below R33
 
 ---
 

@@ -2708,3 +2708,77 @@ is fully PROT-004 compliant. Bet F awaits W-spec before closure.
   minimum satisfied; closure honest)
 
 **Loop continues**.
+
+---
+
+## Cycle 43 followup — Multi-hop closure framing CORRECTED (cap_map v61)
+
+**Time**: 2026-05-21 ~15:36 EDT.
+
+**User pushback**: "i thought we just identified like 5 potential ways
+to recover multihop"
+
+**User is correct**. I overclosed.
+
+**What I did wrong in v60**:
+
+I declared multi-hop d=50 row state as ❌-architectural-current-arch
+based on 5/6 R8 rescues exhausted. But just minutes earlier I had
+integrated R17 (4 new rescue sketches) and 2 cycles earlier integrated
+META cycle 40 (Bet O + R30/R31/R32/R33 = 5 NEW alternative-architecture
+paths). The R8 rescue list IS exhausted at current-arch — that closure
+is honest and disciplined. But "R8 list exhausted" ≠ "multi-hop
+closed."
+
+**Inventory** (now enshrined in v61):
+
+- 8 untested alternative-architecture rescue paths active:
+  Bet O, R31, R32, R33, R34, R17 sketches B/C/D
+- 1 symptom-mitigation (adaptive-β) still in R8 list
+
+**What I fixed in v61**:
+
+1. Multi-hop d=50 row state corrected: ❌-architectural →
+   🟡-R8-list-exhausted-8-alternative-paths-active
+2. Tier-1 board corrected: 7 ✅ + 1 🟢 + 1 🟡 (not 7 ✅ + 1 🟢 + 1 ❌-arch)
+3. Active build queue REVISED — Bet O moves UP (only currently-
+   buildable multi-hop rescue with distinct mechanism axis), R33 moves
+   UP (highest-leverage forward direction, route to Research
+   immediately)
+4. Honest closure scope: "R8 mechanism axes (binding + cleanup at
+   current-arch Plate-HRR substrate on flat N=4096) specifically
+   closed"
+
+**Lesson per [[feedback-dont-overextend-theorems]]**:
+
+Theorem extends only as far as tested. R8 list tested binding +
+cleanup axes at current-arch. Did NOT test pair-redundancy,
+temporal-EC, soliton, magnon, hyperbolic, RTN, operator-algebra,
+AQEC. The right closure scope is NARROW (R8-list-specific), not
+GENERIC (multi-hop-class).
+
+**Why this happened**: I'd been integrating verdicts at high tempo
+(3 experimental + R17 in 8 minutes). The "5/6 R8 rescues exhausted"
+fact registered as multi-hop-closing-evidence without me checking the
+contemporaneously-promoted alternative-rescue inventory.
+
+**Per [[feedback-closures-drop-under-batch-pressure]]**: this is
+exactly the pattern that memory describes. Cold-start protocol would
+have shown me the cap_map v57 + v59 + v60 just added 8 new rescue
+paths; closing the parent row on R8-list-exhaustion violates the
+"rehabilitation discipline + don't-overextend-theorems" pairing.
+The structural fix is reading the full rescue inventory before any
+parent-row state change.
+
+**PROT entry candidate (for META consideration)**: "Before declaring
+a parent capability closed, inventory ALL active rescue paths (not
+just the latest exhausted list) and confirm none are untested. If
+8+ alternative paths are pending, parent row stays 🟡 with explicit
+rescue-list pointer."
+
+**What I'm watching for next**:
+- Experiment Dev: pick up Bet O Cooper-pair build (now top priority)
+- Research: route R33 quantum-repeater (highest-leverage, untested)
+- META: cycle 13 audit — likely catches this v60→v61 correction
+
+**Per [[feedback-no-smoke]]**: user catch was correct; honest revision.

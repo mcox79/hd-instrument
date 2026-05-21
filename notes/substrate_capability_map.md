@@ -5935,3 +5935,109 @@ Net effect: substrate gains Parisi RSB substrate-fingerprint ✅;
 substrate loses multi-hop at d=50 for current-arch (re-architecture
 options remain alive); Bet F awaits W-spec; Bet O's prior drops.
 Tier-1 board: 7 ✅ + 1 🟢 + 1 ❌-arch-current.
+
+---
+
+## 2026-05-21 v61 update — Multi-hop closure framing CORRECTED — overclosed at v60; 8+ alternative-rescue paths remain active
+
+Strategy session cycle 43 followup. User caught a closure-overreach in
+v60: "I thought we just identified like 5 potential ways to recover
+multi-hop." User is correct.
+
+**v60 said**: Multi-hop d=50 → **❌-architectural-current-arch**
+(closure declared via 5/6 R8 rescues exhausted).
+
+**Per [[feedback-dont-overextend-theorems]]**: "R8 rescue list at
+current-arch is exhausted" ≠ "multi-hop is closed." I conflated the
+two. v60 explicitly listed re-architecture options as "remain alive"
+in prose, but then declared the parent row ❌-architectural. The row
+state and the prose state were inconsistent.
+
+### Revised state — multi-hop d=50 row
+
+| Capability | v60 state | v61 state | Rationale |
+|---|---|---|---|
+| Multi-hop reasoning at d=50 (Tier-1 KILLER) | ❌-architectural-current-arch | **🟡 R8-list-exhausted; 8+ alternative-architecture rescue paths active** | Closure overreach; alternative paths haven't been tested |
+
+### Inventory of active rescue paths (8 untested + 1 symptom-mitigation)
+
+| # | Path | Source | Mechanism axis (NEW vs R8) | Status |
+|---|---|---|---|---|
+| 1 | **Bet O — Cooper-pair gap-protected encoding** | META cycle 40 (candidate 2) | NEW: pair-redundancy / gap protection (BCS analog) | 🔬 active bet, prior ~20% |
+| 2 | **R33 — Quantum-repeater segment-and-purify** | META cycle 40 (candidate 7) | NEW: temporal error correction; **HIGHEST LEVERAGE (only poly-vs-exp candidate)** | 🔬 research-first; not yet routed |
+| 3 | **R31 — Soliton attractor design** | META cycle 40 (candidate 4) | NEW: nonlinear shape-preserving attractors | 🔬 research-first |
+| 4 | **R32 — Magnon / spin-wave substrate** | META cycle 40 (candidate 5; extends R29) | NEW: collective bundle wave dynamics | 🔬 research-first |
+| 5 | **R34 — V2 substrate on hyperbolic-tiling** | R17 Rescue A | NEW: re-architecture (V2 scope, N=65536) | 🔬 deferred |
+| 6 | R17 Sketch B — Substrate-RTN ensemble | R17 | NEW: spectral framework | 🔬 lower priority than R32 |
+| 7 | R17 Sketch C — Operator-algebra QEC code (Harlow 2017) | R17 | NEW: code-theoretic | 🔬 deferred |
+| 8 | R17 Sketch D — Substrate effective scaling dimension Δ_eff | R17 | NEW: AQEC threshold (Sang-Hsieh-Zou 2024) | 🔬 alternative-framing |
+| 9 | Adaptive-β | R8 #6 (last in original list) | SAME as R8 axes: symptom-mitigation | not yet built |
+
+**8 NEW mechanism-axis paths** (1-8) span axes the R8 list never
+touched: pair-redundancy, temporal-EC, soliton attractors, collective
+dynamics, hyperbolic re-architecture, RTN spectra, operator-algebra
+codes, AQEC scaling dimensions. Plus 1 symptom-mitigation (adaptive-β)
+from original R8 list.
+
+### What v60 closure DID correctly establish
+
+- The R8 rescue list (designed cycle 7-8 for binding-algebra +
+  cleanup-side exploration) is exhausted at current-arch
+- Both binding axis (Hadamard, FHRR, hybrid) and cleanup axis (Modern
+  Hopfield, soft cleanup) are closed for current Plate-HRR substrate
+  on flat N=4096 codebook
+- The d=25 cliff IS architectural for the original-R8-mechanism-axes
+  at current-arch
+
+### What v60 OVERREACHED on
+
+- Declaring the parent row ❌-architectural implies all rescue paths
+  have been exhausted
+- Per [[feedback-rehabilitation-after-rejection]] + PROT-004: 5/6 R8
+  rescues exhausted means **the R8 list is exhausted**, NOT that
+  multi-hop is closed. New rescue paths from R17 + META cycle 40 are
+  untested and represent NEW mechanism axes
+- The honest closure scope is **narrow**: "binding-algebra-swap and
+  cleanup-amplification axes both closed for current-arch Plate-HRR
+  substrate on flat N=4096"
+
+### Per [[feedback-dont-overextend-theorems]] discipline
+
+Theorem extends only as far as tested. R8 list tested binding +
+cleanup axes at current-arch. Did NOT test:
+- Pair-redundancy (Bet O)
+- Temporal-EC (R33)
+- Soliton attractors (R31)
+- Collective dynamics (R32)
+- Hyperbolic geometry (R34)
+- RTN spectral predictions
+- Operator-algebra codes
+- AQEC threshold framework
+
+The right closure is **R8-list-specific**, not multi-hop-generic.
+
+### Strategic implication for next cycle
+
+Bet O moves up the priority order. R33 should be routed to Research
+ASAP (highest-leverage forward direction not yet routed). The other
+R-paths (R31, R32, R17 sketches) compete for Research bandwidth at
+roughly equal priority below R33.
+
+### Tier-1 board RECORRECTED after v61
+
+- **7 ✅** (Bet 1, Bet 2, Bet A, Bet C, Bet G, Bet H, Bet E)
+- **1 🟢** Bet B Partial
+- **1 🟡** Multi-hop d=50 (R8-list-exhausted; 8 alternative paths active)
+
+Net: substrate has 7 ✅ Tier-1 capabilities + 1 🟢 retention partial
++ 1 🟡 multi-hop-needing-alternative-rescue. NOT 1 ❌-arch as v60
+implied.
+
+### Tally — overclosure corrected; rescue inventory enshrined; Bet O + R33 priority elevated
+
+v61 corrects v60's overreach. Multi-hop state: 🟡 with 8 untested
+alternative-architecture rescue paths + 1 symptom-mitigation from R8
+list. R8 mechanism axes (binding + cleanup at current-arch)
+specifically closed. Per [[feedback-no-smoke]] + [[feedback-dont-
+overextend-theorems]]: honest scope is narrow R8-list closure, not
+multi-hop closure.
