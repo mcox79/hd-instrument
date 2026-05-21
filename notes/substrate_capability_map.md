@@ -2609,3 +2609,63 @@ Net effect: substrate gains 1 ✅ restoration + 1 ✅ strengthening
 + Tier-1 board at all-time high. Strategy has now done substantive
 direction-setting (per user push) — not just reactive verdict
 integration.
+
+---
+
+## 2026-05-21 v74 update — Multi-hop N sweep + Bet B v9 + continual_32N_500edits smokes; pipeline queue depth at 6; small integration
+
+Strategy session cycle 59 (in /loop). Experiment Dev queued 6
+experiments after Bet B v8. Multiple smokes landed:
+
+### New smoke verdicts (full mode pending)
+
+| Experiment | Smoke verdict | Notes |
+|---|---|---|
+| wave14_continual_32N_500edits | CONTINUAL_32N_KERDOCK_HOLDS (100 edits) | Smoke caps at 100; full to 500 edits — extends Bet A timescale |
+| wave14d_multi_task_cl_v9 | BET_B_PASS retention_A=0.919 | Slightly below v7/v8 0.954 but still > 0.80; mechanism variant exploring boundary |
+| wave14r_multihop_N1024 | MULTIHOP_V2_NOT_REPLICATED | Single-seed smoke at N=1024 |
+| wave14r_multihop_N65536 | MULTIHOP_V2_NOT_REPLICATED | Single-seed smoke at N=65536 |
+| wave14_r17_area_law_N16384 (running) | — | Large-N R17 area-law probe |
+
+### Multi-hop N-sweep pattern observation
+
+Experiment Dev is sweeping multi-hop accuracy across N values:
+
+| N | Smoke result | Full result | Status |
+|---|---|---|---|
+| 1024 | NOT_REPLICATED | not yet | smoke single-seed |
+| 4096 (largeN_v1) | NOT_REPLICATED | DECAY_AT_50 (>0.10 all depths) | mixed; full > smoke |
+| 8192 (N8192) | NOT_REPLICATED | DECAY_AT_50 (>0.10 all depths) | mixed; full > smoke |
+| 65536 | NOT_REPLICATED | not yet | smoke single-seed |
+
+**Pattern**: smoke single-seed at seed 17 → NOT_REPLICATED at all N
+values. Full multi-seed → soft positive (>0.10 mean) at N=4096 and
+N=8192. **Smoke seed 17 is consistently unfavorable**; full mode
+shows the partial signal.
+
+Per [[feedback-no-smoke]] + cycle 20 lesson: smoke-only negatives can
+be false. Wait for full mode verdicts before claiming N=1024 or
+N=65536 multi-hop status.
+
+### No state changes this cycle
+
+All smokes either confirm existing status (Bet A continual, Bet B
+mechanism) or await full mode (multi-hop N sweep). No cap_map row
+state moves required.
+
+### Strategic queue check
+
+Experiment Dev's queue depth: 6 pending + 1 running = healthy. Bet Q
++ Bet R (newly promoted v73) not yet picked up. Strategy's cycle 55
+pipeline-fill (8 experiments) also not started. Experiment Dev running
+their own priorities (multi-hop N sweep + Bet B v9 + continual
+extensions).
+
+**Strategy stance**: respect Experiment Dev autonomy. v73 documents
+Bet Q + Bet R in cap_map; Experiment Dev will pick up when their queue
+drains. No additional request file needed — cap_map IS the queue.
+
+### Tally — 4 new smokes (no state changes); multi-hop N-sweep methodology pattern noted; Experiment Dev queue healthy
+
+Net effect: pipeline depth confirmed; smokes pending full verification;
+no strategic moves required this cycle.
