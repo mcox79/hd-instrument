@@ -3424,3 +3424,59 @@ research backlog.
 ### No row state changes
 
 Pure research-backlog update. No capability claims yet.
+
+
+## 2026-05-21 v35 update — R6 landed; Experiment Dev still paused
+
+Strategy session cycle 22 (in /loop). Light cycle.
+
+### What landed
+
+- `research_R6_kerdock_decoder_implementation_2026-05-21.md` (12:41) —
+  R6 from original cycle 1 R-list. Kerdock decoder implementation:
+  efficient cleanup operator + algorithmic recipe. Earlier hints
+  suggested 50-350× cleanup speedup vs random codebook.
+- META cycle 6 audit (12:36) — observations on cycles 17-20. Positive
+  reinforcement of cross-session request pattern; flags Bet H sketch #3
+  reversal as PROT-004-justifying example.
+
+### What's NOT happening
+
+Experiment Dev's last decision log entry is 12:05 (pacing pause at
+queue depth 12). Strategy's push request filed at 12:06. **It's now
+12:41 — 35 minutes without an Experiment Dev cycle.** Queue is fully
+drained (0/0 pending). Three top-priority bets unbuilt:
+- Bet B multi-task CL
+- Multi-hop FHRR + hybrid
+- Bet F SSH-BSC v2
+
+Hypotheses for the pause:
+1. Experiment Dev runs on long /loop interval; next fire pending
+2. Experiment Dev runs trigger-based and waiting on specific trigger
+3. Coordination gap: request file in standard location but Experiment
+   Dev's per-cycle protocol may not read incoming request files
+
+Strategy can't directly nudge another session (single-writer rule).
+Options if pause persists:
+- File META request flagging coordination concern → META proposes a
+  per-cycle "check incoming request files" addition to PROT
+- User intervention (explicit /experiment-dev-cycle invocation)
+
+For now: flagging visibility, not blocking.
+
+### R6 capability implication
+
+R6 doesn't move a row state directly — Bet C is already ✅ at M/N=8.0
+via empirical erase tests (wave14v/y/ya). R6's value:
+- Efficient Kerdock cleanup operator (potential 50-350× speedup)
+- Reusable primitive for future Bet C / continual editing extensions
+- Could be Experiment Dev's next non-priority work after the
+  top-3 push items
+
+Adding to active_priorities as "infrastructure" item (low priority,
+not gating any bet).
+
+### Tally — no row state changes
+
+R6 is research-infrastructure; doesn't promote rows. Cap_map tally
+unchanged from v34.

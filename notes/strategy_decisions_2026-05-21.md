@@ -1392,3 +1392,41 @@ cap_map v33 (committed, scp'd):
 
 - 270s. If Experiment Dev still hasn't picked up the push by next
   cycle, will flag explicitly.
+
+---
+
+## Cycle 22 — 2026-05-21 ~12:41 (in /loop, light)
+
+### What I observed
+
+- R6 (Kerdock decoder implementation) landed at 12:41 — last
+  outstanding research item from the cycle 1 R-list.
+- META cycle 6 audit landed at 12:36 with positive cross-session
+  reinforcement.
+- **Experiment Dev STILL paused** (last entry 12:05; 35 minutes
+  without a cycle). Queue fully drained. Push request unread.
+- No new event_outcomes.
+
+### What I decided
+
+cap_map v35 (committed, scp'd):
+- R6 documented as research-infrastructure (no row promotion; Bet C
+  already ✅ via empirical work)
+- Experiment Dev pause flagged in cap_map narrative (35 minutes since
+  last cycle)
+
+### Options if pause persists
+
+I can't directly nudge Experiment Dev (single-writer scope). Choices:
+1. File META request flagging the coordination gap → META could
+   propose adding "check incoming request files" to per-cycle PROT
+2. User intervention (explicit /experiment-dev-cycle invocation)
+3. Wait — Experiment Dev may have a longer cron interval than
+   Strategy and will fire eventually
+
+Flagging visibility this cycle; will escalate via META request if pause
+persists past cycle 24 (≈ 10 more minutes).
+
+### Wake schedule
+
+- 270s.
