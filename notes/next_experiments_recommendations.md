@@ -275,26 +275,39 @@ correction, not just K/N. Not a Tier-1 KILLER walkback.
 
 ---
 
-## 2026-05-20 19:51 — wave14i_schema_emergence completed via healer
+## 2026-05-20 20:39 — wave14i/14j/14k candidate batch completed_via_healer
 
-`wave14i_schema_emergence` (19:08:14, completed_via_healer): failed
-status but metrics.json exists. Manual review recommended. This is a
-candidate from `notes/wave14i_capability_candidate_map.md` (user-curated
-strategic doc; cap-map synthesis session does NOT modify it).
+Three experiments from `notes/wave14i_capability_candidate_map.md`
+have surfaced as `completed_via_healer` (failed status but metrics.json
+exists, needs analyzer pass). User curates the candidate map; the
+synthesis session does NOT add cap-map rows for these until results
+are interpreted.
 
-The candidate map predicts: "gap ratio ~1.4 at N=200, recommend N=400
-for 2.0; held-out cos 0.6-0.75" with kill at "cos<0.3 or gap<1.3."
+| Experiment | Event ts | Candidate map ref | Predicted result | Kill criterion |
+|---|---|---|---|---|
+| `wave14i_schema_emergence` | 19:08:14 | #7 (Tier-S, Saxe SVD) | gap ratio ~1.4 at N=200; held-out cos 0.6-0.75 | cos<0.3 or gap<1.3 |
+| `wave14j_breather_slots` | 20:08:16 | B3 (materials-science) | 3-4× noise tolerance (cosine basin) | iterated cleanup doesn't contract |
+| `wave14k_1bit_cs_cleanup` | 20:08:16 | M3 (math survey, "most strategic") | First cleanup operator with formal capacity/crosstalk bound | (not specified in candidate map) |
 
-**Action item for user**: analyzer pass on the metrics.json. If the
-result is positive (gap ratio ≥1.3 and held-out cos ≥0.3), it
-validates a Tier-S brain-inspired headline (CLS emergent abstraction)
-and the user would move it to substrate_capability_map.md via the
-candidate map. Synthesis session does not create a placeholder row.
+**Action item for user**: analyzer pass on the three metrics.json
+files. The user's candidate-map kill criteria are precise; an
+analyzer can apply them directly to the metrics output.
 
-**Do not auto-add to cap map**: wave14i candidates live in their own
-doc until the user decides which are real. Schema_emergence is item
-#4 in the candidate execution order; the user has 12 other candidates
-they may want to roll up together once data lands.
+**Why this is queued for user, not synthesis**:
+- Synthesis session writes to `substrate_capability_map.md` and
+  `next_experiments_recommendations.md` only
+- The candidate map is the user's strategic curation layer
+- Adding placeholder 🟡 rows to the cap map for in-flight candidates
+  would duplicate the user's tracking and risk drift between docs
+- Once results are interpreted, the user can move validated
+  candidates into the cap map via the next cap-map cycle (synthesis
+  session will integrate from session_events.jsonl in the normal
+  way)
+
+If any of the three are positive, they likely upgrade Tier-S/A:
+- `schema_emergence` → CLS emergent abstraction (brain-inspired)
+- `breather_slots` → high-stakes-fact tier (premium feature)
+- `1bit_cs_cleanup` → formal noise bound on cleanup primitive
 
 ---
 
