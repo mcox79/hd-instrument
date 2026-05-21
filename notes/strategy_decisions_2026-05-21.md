@@ -103,3 +103,94 @@ Owner: Strategy session. One entry per cycle. META reads to audit coherence.
   output expected).
 - If 3+ needs_verdict items get backfilled with event_outcomes, integrate
   them into cap_map v13.
+
+---
+
+## Cycle 2 — 2026-05-21 ~08:23 (event-driven wake)
+
+PROT compliance this cycle: implemented PROT-002 (wrote
+`notes/session_prompts/session_1_strategy.md`); PROT-001 already satisfied
+in cycle 1 (active_priorities.md exists as real content, not stub — counts
+per protocol intent).
+
+### What I observed
+
+- Other sessions came online between 08:09 and 08:16. New artifacts:
+  - `notes/active_protocols.md` (META, 08:13) — two new protocols active
+  - `notes/meta_decisions_2026-05-21.md` (META, 08:14) — covered user pushback
+    on coordination burden; both PROT-001 and PROT-002 are self-implementing
+    by sessions reading active_protocols.md (no user mediation)
+  - `notes/visibility_decisions_2026-05-21.md` (Visibility, 08:10) — monitor
+    is live; PID 4840 polling at 30s cadence; snapshot at
+    `data/local_dashboard_snapshot.json`
+  - `notes/queue_health_log.md` (Queue Health, 08:16) — both runners healthy
+    idle; no pending experiments
+  - `notes/session_prompts/charter.md` + `session_6_meta.md` (META) — prompt
+    snapshot infra exists; PROT-002 expects sessions 1-5 to drop their own
+- Dashboard snapshot at 08:20:36 confirms: both queues idle, no pending,
+  recent_verdicts top-10 includes the Yonelinas retraction and several
+  walsh_peaks variants. No new experiment outcomes since cycle 1.
+- `experiment_dev_blocker.md` still present (mtime 07:57, before my
+  active_priorities.md commit at 08:06). Expecting Experiment Dev to clear
+  it on its next cycle.
+
+### What I decided
+
+1. **PROT-002**: dropped `notes/session_prompts/session_1_strategy.md`
+   (verbatim session-specific prompt body).
+2. **PROT-001**: already satisfied — `notes/active_priorities.md` exists
+   with real content from cycle 1, not a stub. The protocol's stated
+   trigger ("first cycle in which your primary output file does not
+   exist") doesn't apply on subsequent cycles. Marked as satisfied; no
+   additional stub.
+3. **Did NOT update cap_map v13.** Inspected `wave14cpu_walsh_peaks_N_sweep`
+   metrics.json (landed 07:35, predates my v12 commit). Data shows
+   recall=1.0 across N ∈ {4096, 8192, 16384} × K/N ∈ {0.02..0.7} — 18
+   cells, all 1.0. This is a strengthening / N-invariance finding for
+   the WHT-forensics row, but the row is already at ✅ and v12 already
+   cites strengthening evidence. No new state change. Will roll into v13
+   alongside other accumulation next cycle.
+4. **Noted analyzer anomaly**: both `wave14walsh_peaks_extended` and
+   `wave14cpu_walsh_peaks_N_sweep` are labeled `PEAKS_FORENSICS_LIMITED`
+   with msg "Recall=100.00% at low K. High-K test inconclusive." — but
+   the per-K data shows recall=1.0 at EVERY tested K, including high K.
+   Verdict label disagrees with data. Not a Strategy problem to fix
+   (Experiment Dev / verifier owns analyzer logic), but flagging for
+   downstream awareness so the cap_map narrative isn't anchored on a
+   wrong label.
+
+### Why
+
+- PROT-002: META's protocol is explicit and one-shot. Cheap to comply.
+- Not updating cap_map: the protocol's trigger requires a new event_outcome
+  in session_events.jsonl OR a new wave14*_research.md note. The walsh N-sweep
+  metrics.json is older than my v12 commit; it was already implicitly
+  available evidence when I wrote v12. Re-writing the cap_map for evidence
+  I should have caught the first time isn't a state change — it's
+  housekeeping, and the protocol forbids housekeeping rewrites.
+- Honest framing: I missed the N-sweep on cycle 1. That's a real misstep
+  (cycle 1 should have inspected all top-mtime metrics.json files, not
+  just the ones flagged by event_outcomes). Noting it here so META can
+  audit; will be more thorough on cycle 3.
+
+### Open items / handoffs
+
+- **Experiment Dev**: blocker should clear; active_priorities.md is live.
+  Watching for `wave14d_icl_via_pool_v3_scaling` (Bet 1) or any
+  GDPR-erase v3 candidate (Bet 2).
+- **Visibility / Queue Health**: monitor + heartbeat infra is live; no
+  Strategy ask.
+- **Research**: still nothing from Research session yet (no
+  `notes/research_*` from today). R1 (GDPR-erase mechanism family) and
+  R4 (50-hop reasoning protocol) are the highest-leverage drills in
+  active_priorities.md.
+
+### Next cycle plan
+
+- Re-check dashboard snapshot for new verdicts.
+- Verify Experiment Dev cleared its blocker and queued a prereg.
+- If Research drops a synthesis note, integrate.
+- Inspect ALL recent metrics.json (top 10 by mtime), not just the ones
+  with event_outcomes — to avoid the cycle 1 miss recurring.
+- If 2+ strengthening evidence points accumulate, roll cap_map to v13
+  with consolidated update.
