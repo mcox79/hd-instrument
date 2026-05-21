@@ -2408,3 +2408,57 @@ operations, kNN-LM-like ICL, generation, provenance, and RSB
 structural index. Calibration is open (PROVISIONAL ❌). Two Tier-1
 gaps remain (continual learning at A→B→C→D scale; generation
 K-curve close).
+
+
+## 2026-05-21 v21 update — Continual editing extended 30 → 100; Kerdock v5 smoke at M/N=16
+
+Strategy session cycle 10 (in /loop). Two extension triggers since
+cycle 9 (10:50):
+
+(a) `wave14yf_continual_editing_v2_stress` full (10:53:38) —
+**CONTINUAL_V2_KERDOCK_HOLDS_TO_100**: extends v20's 30-edit result
+to 100 sequential edits. Kerdock arm at 1.0/1.0 throughout; correlated
+arm fails at edit 1.
+
+(b) `wave14ye_erase_kerdock_v5_smoke` (10:52:45) —
+**KERDOCK_V5_EXTENDS_TO_16N** at smoke scale (N=1024, M_stored up to
+16N = 16384). Full mode pending; preliminary positive.
+
+### Continual sequential editing extended 30 -> 100
+
+`wave14yf_continual_editing_v2_stress` full mode (10:53:38):
+- N=4096, 100 sequential edits (vs v20's 30)
+- Kerdock arm: min_edited_acc = 1.000, min_kept_acc = 1.000 across all 100 edits
+- Correlated arm: fails at edit step 1 (same as v20)
+
+Comparative context:
+- ROME / MEMIT collapse at 50-1k edits
+- AlphaEdit (R1 prior art): scales to 3000 sequential edits
+- Substrate Kerdock at 100 edits: perfect retention (no degradation)
+
+This extends the row from v20; no state change (already ✅).
+
+**Evidence list addition** (existing ✅ row):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Continual sequential editing on Kerdock substrate | ✅ Validated | Now also: `wave14yf_continual_editing_v2_stress` (100 edits at 1.0/1.0). v20's 30-edit envelope extends to 100; production-scale claim sustains. |
+
+### Kerdock v5 smoke — preliminary extension to M/N=16.0
+
+`wave14ye_erase_kerdock_v5_smoke` (10:52:45):
+- N=1024 (smoke scale), M_stored in {2048, 8192, 16384} → M/N up to 16.0
+- Kerdock arm passes all 5 Mirage probes at M=16384 (= 16N)
+- Correlated control fails as expected
+
+Smoke-only result; full mode at N=4096 pending. If full lands positive,
+Bet C envelope extends from M/N=8 to M/N=16 — substrate becomes
+effectively unbounded by codebook density at substrate scale.
+
+**No cap_map move yet**. Awaiting full mode.
+
+### Tally — extensions only; no state changes
+
+Same as v20. Updates this cycle were:
+- Continual editing evidence list extended (30 → 100 edits)
+- Kerdock v5 smoke noted (preliminary, no row change)

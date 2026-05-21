@@ -861,3 +861,43 @@ Four new triggers since cycle 8:
 - 270s heartbeat — pace picked up significantly. Bet B, multi-hop
   FHRR/hybrid, and calibration rescue are all queueable now; expect
   verdicts within next 10-20 min.
+
+---
+
+## Cycle 10 — 2026-05-21 ~10:55 (user-triggered "check now")
+
+User asked me to check immediately rather than wait for the scheduled
+10:59 wake. Two extension findings:
+
+### What I observed
+
+1. `wave14yf_continual_editing_v2_stress` full (10:53): **CONTINUAL_V2_KERDOCK_HOLDS_TO_100**.
+   v20's 30-edit result extends to 100 sequential edits at 1.0/1.0.
+   Correlated arm fails at edit 1.
+2. `wave14ye_erase_kerdock_v5_smoke` (10:52): **KERDOCK_V5_EXTENDS_TO_16N**
+   at smoke scale (N=1024, M up to 16N). Full mode pending.
+
+### What I decided
+
+cap_map v21 (atomic, committed, scp'd):
+- Continual editing evidence list extended (30 → 100 edits at 1.0/1.0)
+- Kerdock v5 smoke noted as preliminary; no row state change until
+  full mode lands at N=4096
+- No closures this cycle; no rehab triggered
+
+Both findings are extensions of existing ✅ rows (continual editing,
+Bet C envelope). No state changes; tally unchanged from v20.
+
+### Strategic position (no change from v20)
+
+Tier-1 KILLER board still 4/6 ✅. Open priorities ranked:
+1. Bet B multi-task CL — R5 landed, Experiment Dev should queue
+2. Multi-hop FHRR/hybrid (E_MH) — R8 ranked; Experiment Dev should queue both
+3. Bet D generation K-curve analyzer pass (cheap)
+4. Bet G calibration rescue — gated on R11
+5. Bets E (Parisi P(q)) and F (SSH-BSC) — E ready, F gated on R10
+6. Bet A audit (low priority): why didn't v5's 93% leak reproduce?
+
+### Wake schedule
+
+- 270s heartbeat still appropriate; pace is fast.
