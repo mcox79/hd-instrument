@@ -2275,3 +2275,25 @@ cap_map v54:
 
 - 270s. Multi-hop adaptive-beta + Bet M validation experiments
   expected; Research R27/R28 next.
+
+---
+
+## Cycle 37 — 2026-05-21 ~14:46 (in /loop, heartbeat)
+
+### What I observed
+
+One new smoke: `wave14zt_continual_16N_kerdock_only_smoke` (14:45):
+CONTINUAL_16N_KERDOCK_HOLDS. Experiment Dev refactored continual
+experiments to test only Kerdock arm (correlated arm fails immediately
+per cycle 21 / v33). Existing capability row strengthened; no state
+change.
+
+`wave14zq_continual_8N_kerdock_only` running on GPU.
+
+### What I decided
+
+No cap_map update. Pure heartbeat.
+
+### Wake schedule
+
+- 270s.
