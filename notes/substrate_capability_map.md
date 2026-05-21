@@ -4653,3 +4653,101 @@ as Strategy's audit (cycle 27) pointed it at the right framings
 R29 ferromagnetism is next per priority ordering. R24 FDT violation
 + two-T after that — combined with R23's FRSB framing, these will
 fully ground Bet G's β=32 in physics.
+
+
+## 2026-05-21 v50 update — Multi-hop hybrid (R8 C1) full-killed; binding-algebra-swap subfamily closed; Bet F blocked on R10 addendum
+
+Strategy session cycle 33 (in /loop). Two substantive items.
+
+### Multi-hop hybrid (R8 C1) full-KILLED
+
+`wave14r_multihop_hybrid_v1` full (14:13:40): **MULTIHOP_HYBRID_KILLED**
+- N=4096, depths {1, 5, 10, 25, 50}, 3 seeds
+- acc_1 = 0.932
+- acc_5 = 0.688
+- acc_10 = 0.476
+- acc_25 = 0.188
+- **acc_50 = 0.108** (< 0.4 PASS)
+- Verdict: "Boundary conversion noise + closure interact poorly."
+
+**Full comparison** across the three multi-hop tests:
+
+| Depth | Random BSC | FHRR (A1) | Hybrid (C1) |
+|---|---|---|---|
+| 1 | 0.93 | 0.97 | 0.93 |
+| 5 | (~0.86 ext) | 0.80 | 0.69 |
+| 10 | 0.50 | 0.65 | 0.48 |
+| 25 | 0.011 | 0.40 | 0.19 |
+| 50 | 0.011 | 0.22 | 0.11 |
+
+Hybrid sits BETWEEN random BSC and pure FHRR — better than random
+at depth 25+ (0.19 vs 0.011 = 17×) but WORSE than pure FHRR
+(0.19 vs 0.40 = half). The boundary conversion (BSC↔FHRR) injects
+noise that defeats the partial FHRR advantage.
+
+### Binding-algebra-swap subfamily closed (R8 #4)
+
+R8 listed 6 rescue sketches. The binding-algebra-swap subfamily (R8 #4)
+had two sub-variants:
+- A1 (pure FHRR): ❌ cycle 31 (full)
+- C1 (BSC store + FHRR chain hybrid): ❌ this cycle (full)
+
+**Sub-family closure**: binding-algebra-swap (#4) is ❌ for multi-hop
+rescue. Both sub-variants failed.
+
+**Capability move**:
+
+| Capability | v49 state | v50 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via binding-algebra swap (R8 #4) | 2 sub-variants pending | ❌ Subfamily closed (both A1 + C1 fail at substrate scale) | `wave14r_multihop_hybrid_v1` full |
+| Multi-hop reasoning (parent) | 🟡 PROVISIONAL | 🟡 PROVISIONAL — 3 of 6 rescues closed (Hadamard cycle 7 + A1 + C1); **4 remain**: #1 cleanup operator, #2 adaptive beta, #3 per-hop W-side, #6 beam-search | Same. |
+
+**Per [[feedback-dont-overextend-theorems]]**: binding-algebra-swap
+subfamily closure does NOT close the broader multi-hop rescue space.
+Modern Hopfield cleanup (R8 #1) is the next mechanism-corrective
+candidate — it changes the readout operator (not binding) and could
+work where FHRR's mechanism doesn't.
+
+### Bet F SSH-BSC v2 BLOCKED on R10 W-construction ambiguity
+
+`exp_dev_request_to_research_2026-05-21.md` (14:16) filed by
+Experiment Dev. R10's pseudocode references `H = symmetric_part(W)`
+but doesn't specify how W is constructed from the encoded key.
+
+Experiment Dev identified 4 candidate interpretations:
+1. H from single-vector outer product (likely too sparse)
+2. H from outer-product accumulation over N stored facts (closest to substrate)
+3. H as tridiagonal hopping operator from modulation
+4. H from Hebbian over (label, encoded_key) (standard substrate W)
+
+Needs 2-3 line addendum or `research_R10_addendum_*.md`.
+
+**Experiment Dev posture**: defer Bet F; build **Bet B
+`wave14d_multi_task_cl_v1`** (R5 fully specified) in the meantime.
+
+**Strategy posture**: Bet B going next is the Tier-1 KILLER closure
+attempt; correct priority shift. Will route the R10 addendum request
+to Research session next cycle.
+
+### Honest read
+
+The binding-algebra-swap rescue (R8's headline mechanism-correction
+recommendation) is fully closed at substrate scale. Per [[feedback-no-smoke]]:
+R8's prediction "FHRR avoids Walsh closure → multi-hop scales" was
+**partially right and quantitatively wrong**. FHRR does give 20-36×
+improvement at substrate depths, but not enough to clear PASS.
+
+Remaining R8 rescues are SYMPTOM-mitigation (cleanup operator, beta,
+W-update, beam) rather than MECHANISM correction. The substrate's
+multi-hop depth cliff may be more fundamental than the binding-algebra
+choice.
+
+If 0/4 remaining R8 rescues clear PASS, multi-hop closes ❌-structural
+in current architecture. Then the substrate's product story drops
+"50-hop reasoning" entirely (1-10 hop still works).
+
+### Tally — no parent row state change
+
+Multi-hop parent stays 🟡 PROVISIONAL. Sub-family #4 closed; sub-rescue
+count: 3 ❌ closed (Hadamard, A1, C1), 4 untested (#1 cleanup, #2 beta,
+#3 W-update, #6 beam). Bet F deferred pending R10 addendum.

@@ -2028,3 +2028,52 @@ the substrate-actionable substance is now landing.
 
 - 270s. R29 ferromagnetism expected next; C1 hybrid Experiment Dev
   build may also land.
+
+---
+
+## Cycle 33 — 2026-05-21 ~14:18 (in /loop)
+
+### What I observed
+
+- `wave14r_multihop_hybrid_v1` full (14:13:40): C1 KILLED at substrate
+  scale. acc_50=0.108. Hybrid is between random BSC and pure FHRR
+  — better than BSC at d=25 (17× vs random) but WORSE than FHRR.
+- `exp_dev_request_to_research_2026-05-21.md` filed: Bet F R10
+  W-construction ambiguous; needs addendum. Experiment Dev defers Bet F.
+- META cycle 10 audit landed.
+
+### What I decided
+
+cap_map v50:
+- Binding-algebra-swap subfamily (R8 #4) ❌ closed; both A1 + C1 fail
+- Multi-hop parent stays 🟡 PROVISIONAL — 3 of 6 rescues closed; 4
+  remain (#1 cleanup, #2 beta, #3 W-update, #6 beam)
+- Per [[feedback-dont-overextend-theorems]]: subfamily closure doesn't
+  close the broader rescue space
+- Bet F blocked on R10 addendum; Bet B going next
+- Honest framing: R8's mechanism-correction prediction was partially
+  right + quantitatively wrong. Remaining rescues are symptom-
+  mitigation, not mechanism-correction. If 0/4 clear PASS, multi-hop
+  closes ❌-structural at d=50.
+
+### Why
+
+- C1 full-confirms the binding-algebra-swap subfamily closure.
+  Both sub-variants failed; not smoke-only.
+- Bet B is the right next priority — Tier-1 KILLER closure attempt
+  with fully-specified R5 corpus design.
+- R10 addendum is a quick Research turnaround (2-3 lines); Bet F
+  can resume cycle after.
+
+### Open items / handoffs
+
+- Research: R10 addendum needed (request filed by Experiment Dev).
+  R29 ferromagnetism still queued.
+- Experiment Dev: Bet B (`wave14d_multi_task_cl_v1`) next cycle.
+- Strategy: monitor Bet B verdict and consider whether to test R8
+  remaining sketches (#1 cleanup, #2 beta, #3 W-update, #6 beam) in
+  parallel.
+
+### Wake schedule
+
+- 270s. Bet B build expected next Experiment Dev cycle.
