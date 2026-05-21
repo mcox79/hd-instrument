@@ -2497,3 +2497,66 @@ Next context picks up automatically. Slash command at
 
 Loop continues. Files are durable. Next Strategy context: trust the
 files, not any in-context summary.
+
+---
+
+## Cycle 41 — R18 RFOT integrated; cap_map v58; convergent 1RSB story
+
+**Time**: 2026-05-21 ~15:18 EDT.
+
+**What I observed**:
+
+- R18 RFOT landed 15:06 — Research's MEDIUM-priority research note from
+  cycle 27 followup queue. Substrate-novel partial finding:
+  4-source-convergent 1RSB story (R23 + R29 + R16 + R18) + Kerr Winter
+  2025 brutal-honesty caveat (math vs physical glass) + 3 falsifiable
+  predictions.
+- No experiment outcomes since v57. GPU on `wave14zq_continual_8N_kerdock_only`
+  (wall ~35m). Bet N soft cleanup not yet built. Bet B v4 not yet
+  shipped. Adaptive-beta not yet shipped. R10 addendum not yet delivered.
+- queue_health_log shows healthy pipeline.
+
+**What I decided**:
+
+1. Cap map v58: append R18 integration block. 4-source convergent
+   finding stated; Kerr Winter caveat preserved as honesty refinement
+   (P(mathematical) ≈ 75%, P(true caging) ≈ 25%). Three R18 falsifiable
+   predictions added as 🔬 latent probes — all cheap (probe-from-
+   existing-data). Bet B Kovacs probe added as new experiment-request.
+2. Cap map v58 is a refinement, not a state change: no row promotions/
+   demotions, just convergent-evidence strengthening of existing
+   theoretical grounding (Bet I ✅ + Bet L active + Bet M active).
+3. Active priorities unchanged — Bet N still IMMEDIATE-pending-build,
+   adaptive-beta queued, Bet O after Bet N, Bet F blocked on R10
+   addendum, Bet B 🟢 Partial awaiting v4 parameter tweak.
+4. Research priority reorder noted: R17 (holographic) likely next per
+   Research's cron schedule; R33 quantum-repeater stays #1 forward-
+   direction; R27/R28 stay deprioritized below R33.
+
+**Why this cycle is low-state-change**: Strategy's job on a research-
+note arrival is integration, not promotion. The R18 substrate-novel
+findings are CHEAP latent probes (probe-from-existing-data), so they
+don't compete with the IMMEDIATE Bet N build. No urgent gates triggered.
+
+**Per [[feedback-no-smoke]]**: explicitly refused to over-claim from
+4-source convergence. The Kerr Winter 2025 caveat is now in the
+ledger; future "substrate is glassy" framings must distinguish forms
+from caging.
+
+**Per [[feedback-materials-science-probe]]**: R18 reinforces the
+spin-glass/Hopfield framing as the substrate's canonical condensed-
+matter mapping. RFOT/MCT/Adam-Gibbs are now load-bearing math anchors
+alongside M-P/BBP (Bet I) and modern-Hopfield (R29/Bet M).
+
+**What I look out for next cycle**:
+
+- Bet N soft cleanup build (Experiment Dev — IMMEDIATE)
+- Bet B v4 retention_A ≥0.80 push (Experiment Dev)
+- Adaptive-beta verdict (final R8 rescue; closes multi-hop if it fails too)
+- R10 addendum (unblocks Bet F)
+- R17 Holographic research (likely Research's 15:17 cron fire)
+- R33 quantum-repeater research (highest-leverage forward direction;
+  no Research routing yet)
+
+**Loop state**: ScheduleWakeup will fire next at chosen heartbeat
+interval. Slash command at `~/.claude/commands/strategy-cycle.md`.

@@ -5509,3 +5509,97 @@ asymptotic-improvement potential).
 Bet N, Bet O added to active priorities. R30-R33 added to research
 backlog. Multi-hop parent row stays 🟡 PROVISIONAL pending Bet N
 adaptive-beta verdicts.
+
+---
+
+## 2026-05-21 v58 update — R18 RFOT lands; 4-source convergent 1RSB story; Kerr Winter brutal-honesty caveat preserves mathematical-vs-physical-glass distinction
+
+Strategy session cycle 41 (in /loop). R18 RFOT lit-scan landed 15:06
+([notes/research_R18_RFOT_glassy_dynamics_2026-05-21.md](notes/research_R18_RFOT_glassy_dynamics_2026-05-21.md)).
+This is the MEDIUM-priority research item queued cycle 27 followup #2;
+substrate now has 4 independent statistical-physics frames converging
+on the same picture.
+
+### Convergent finding — substrate IS structured-disorder Hebbian-Hopfield in 1RSB / modern-Hopfield rescue regime
+
+| Source | What it says | Probability per R18 |
+|---|---|---|
+| R23 (continuous RSB / AT line) | substrate at α=0.153 is FRSB-character; β=32 calibration is NOT an RSB transition | confirmed |
+| R29 (ferromagnetism / magnons) | substrate operates above AGS α_c=0.138 in modern-Hopfield rescue regime; α > α_c paradox resolved | confirmed |
+| R16 (free probability) | BBP threshold σ_c = θ·√(K/N) ≈ 16 matches noise tolerance empirically (Bet I ✅ 2/3) | confirmed |
+| R18 (RFOT / MCT) | substrate is **mixed 1RSB+FRSB** regime per Crisanti-Leuzzi 2+p decomposition; consistent with R23/R29/R16 | 75% |
+
+**Per [[feedback-no-smoke]]**: 4-source convergent ≠ proven. R18's
+brutal-honesty caveat (below) keeps the mathematical-vs-physical
+distinction live.
+
+### Kerr Winter 2025 caveat — substrate may have mathematical glass without physical glass
+
+R18 spotlit Kerr Winter & Janssen (PRR 7, 023010, 2025): overparameterized
+NN weight dynamics show MCT-like power-law t^(-1/2) overlap decay
+WITHOUT genuine caging or diverging α-relaxation time. Translated to
+substrate:
+
+- P(substrate has MATHEMATICAL glass dynamics — power-law forms) ≈ 75%
+- P(substrate has TRUE glass dynamics — caging + diverging τ_α) ≈ 25%
+
+**Implication for Bet L (learning theory) + Bet I + Bet M**: future
+substrate-as-glass claims must distinguish forms-without-caging from
+forms-with-caging. R18 provides Probe 1 to disambiguate (substrate's
+τ_α scaling vs α — Adam-Gibbs activated form would confirm true glass;
+mere power-law fit is inconclusive).
+
+### R18 substrate-novel falsifiable predictions (2)
+
+1. **Substrate Kauzmann α_K** — substrate has a measurable α_K < α_c=0.138
+   below which configurational entropy Σ(α) → 0. Probe via existing
+   wave14h alpha-sweep data: extract Σ(α) from W spectrum count of
+   metastable spurious states; locate inflection.
+   - P(substrate has measurable α_K): 40%
+
+2. **Substrate Adam-Gibbs τ_train(α) scaling** — τ_train(α) ~ τ_0 · exp[A
+   / (α · Σ(α))] within factor 2 of empirical training-time scaling.
+   Probe via existing CL phase-A training curves.
+   - P(within factor 2): 50%
+
+3. **Bet B Kovacs-style memory effects** — under double-shift A→B→A
+   continual learning, substrate exhibits Kovacs memory effect (non-
+   monotone return to original equilibrium) per Paga 2023 Janus.
+   - P(Kovacs effect observable): 35%
+   - Routes to new experiment request: `wave14d_bet_B_kovacs_probe_v1`
+
+### Capability moves
+
+| Capability | v57 state | v58 state | Trigger |
+|---|---|---|---|
+| Theoretical grounding — substrate is 1RSB/FRSB regime per spin-glass theory | (Bet I ✅ via R16 + Bet M active via R29) | **Strengthened**: 4-source convergent (add R18 + R23 frames) | R18 lands |
+| Substrate Kauzmann α_K (latent probe) | (not in cap_map) | 🔬 R18 falsifiable prediction; cheap to probe from existing wave14h data | R18 lands |
+| Substrate Adam-Gibbs τ_train(α) scaling (latent probe) | (not in cap_map) | 🔬 R18 falsifiable prediction; cheap to probe from CL phase-A curves | R18 lands |
+| Bet B Kovacs-style memory probe | (not in cap_map) | 🔬 R18 protocol — extends Bet B with double-shift A→B→A | R18 lands |
+| Glass character — mathematical (forms-only) vs physical (caging) | (implicit assumption) | **Distinguished**: 75% mathematical vs 25% true caging per Kerr Winter 2025 | R18 brutal-honesty caveat |
+
+No Tier-1 row changes. Bet L (learning theory) gets a refined claim:
+substrate's analytical characterization is **glass-character mathematically;
+caging-status TBD**. This is a [[feedback-no-smoke]] honesty refinement,
+not a downgrade.
+
+### No experiment outcomes since v57
+
+Queue health at 15:14 shows GPU on `wave14zq_continual_8N_kerdock_only`
+(wall ~35m, ongoing). Bet N (soft cleanup) not yet built by Experiment
+Dev. Bet B v4 not yet shipped. Adaptive-beta not yet shipped. R10
+addendum not yet delivered.
+
+### Research priority reorder (minor)
+
+R18 lands a MEDIUM-priority research item. R17 (holographic, the other
+MEDIUM in the cluster) likely next per Research's cron schedule (15:17
+predicted). No change to the highest-leverage research priority:
+**R33 quantum-repeater stays #1** for substrate-novel forward
+direction.
+
+### Tally — R18 lands; convergent 1RSB story strengthened; no row state changes
+
+R18 adds 4-source convergence + 1 brutal caveat (Kerr Winter) + 3
+falsifiable predictions. Bet N still IMMEDIATE-pending-build.
+Multi-hop parent row stays 🟡 PROVISIONAL.
