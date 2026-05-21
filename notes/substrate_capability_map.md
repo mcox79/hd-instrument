@@ -1076,3 +1076,50 @@ Sent agent on capabilities the field considers uniquely enabling INDEPENDENT of 
 - **Queue gate added**: `tools/queue_add.py` runs script's `--self-test` + `--smoke` + validates metrics schema before adding to queue. Closes the silent-failure mode from the wave14*_v2 reruns earlier in the day.
 - **Runner patched** to pass `HDLAB_EXP_NAME` env var so scripts write to correct output dir regardless of queue naming.
 
+
+## 2026-05-20 evening update — verdict batch 2
+
+Three new verdicts landed after the v8 update.
+
+### NEW CAPABILITY: substrate forensics via WHT with structured keys
+
+`wave14xrd_structured_keys` returned **XRD2_STRUCTURED_WINS_CLEAR**:
+- Hadamard keys give max WHT spectrum SNR = **15,625,000**
+- Random keys give max SNR = 1.3 (amorphous, as predicted)
+- 9-min substantial GPU run
+
+This DIRECTLY validates the crystallography analogy at the largest possible scale. Hadamard rows = Walsh basis vectors -> outer products produce exact Bragg-like peaks at integer Walsh frequencies. SNR is astronomical because random-key background is ~sqrt(N), Hadamard background is exactly zero everywhere except the peak frequencies.
+
+**New capability row** (proposed for next cap_map revision):
+
+| Capability | State | Evidence |
+|---|---|---|
+| **Substrate forensics via WHT diffraction pattern** (structured-keyed substrate) | ✅ Validated | `wave14xrd_walsh_spectrum` (random keys = amorphous, predicted), `wave14xrd_structured_keys` (Hadamard keys = crystalline, SNR=1.5e7 vs 1.3 for random) |
+
+Product implication: if substrate is built with structured keys (Hadamard, Reed-Muller, Kerdock), we can perform substrate forensics without queries - measure WHT spectrum, count Bragg peaks = number of stored facts, identify peak frequencies = which keys. This is a real capability nothing else (vector DB, KV cache, MLP weight matrix) has.
+
+### MP edge phase detector: substrate is MORE paracrystalline than predicted
+
+`wave14mp_edge_detector` returned **MPEDGE_NO_TRANSITION**. rho never crosses 1.0 across K in {50..3500}:
+- K=50: rho=86.84
+- K=627 (predicted transition): rho=8.4
+- K=3500: rho=1.91
+
+Stored memory eigenvalues lift FAR above MP bulk; substrate is strongly paracrystalline at all loads we tested. The "amorphous transition" doesn't appear in our K range - it would be at K > 4000 (close to N).
+
+Implication: the substrate is spectrally rich. Phase detector based on `rho==1` doesn't work, but the eigenvalue spectrum structure itself is a strong fingerprint. Follow-up experiment needed: extend K to N+, count eigenvalues-above-MP-bulk as the better metric.
+
+### Selective annealing fails multi-probe
+
+`wave14anneal_selective` returned **SEL_ANNEAL_NO_FORGET**. Best leak rate 0.20% (which IS below 10% target) but norm_ratio failed - same Mirage failure mode as anti-Hebbian. Selective anneal makes erased values direction-random but doesn't collapse the magnitude under correlated keys.
+
+Implication: local thermal annealing in the (v_e, k_e) subspace doesn't give GDPR-grade selective forgetting on correlated keys. Only GLOBAL annealing (wave14z_anneal) collapsed norm, but that's factory-reset not selective.
+
+### Updated tally (v9)
+
+Net new capabilities ✅ this session: 1 (substrate forensics via WHT structured keys).
+Net Mirage failures caught: 3 (anti-Hebbian erase, anti-Hebbian under correlation, selective local anneal).
+Net new ⚪→🔬: 2 (soft-trace holy grail, charge-flipping iterative forensics).
+
+The single biggest finding of the session: **with structured keys, the substrate's WHT is a literal crystallographic diffraction pattern.** This unlocks substrate forensics as a capability.
+
