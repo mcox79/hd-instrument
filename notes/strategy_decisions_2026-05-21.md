@@ -2220,3 +2220,58 @@ cap_map v53:
 ### Wake schedule
 
 - 270s. Bet B v3 full expected within next cycle.
+
+---
+
+## Cycle 36 followup — 2026-05-21 ~14:42 (user "some experiments completed")
+
+### What I observed
+
+- **R29 ferromagnetism landed** (14:38) — SUBSTRATE-NOVEL.
+  Identifies α > α_c paradox (substrate retrieves despite AGS-SG
+  prediction). 3 resolution candidates; β=32 finite-T readout shift
+  gives Bet G mechanistic rationale. Connects ALL active bets.
+  Quantitative predictions: Allen-Cahn t^(1/2) (Bet B), Barkhausen
+  exponents, composite-soliton (Bet F).
+- **Bet B v3 FULL** (14:37): same INCONCLUSIVE pattern as v2.
+  retention_A = 0.733 across 3 seeds (low variance). v3 smoke result
+  0.83 was favorable seed. Substrate's genuine retention is ~0.73.
+- **Parisi full** (14:38): confirms codebook-geometry discrimination.
+  Bet E framing unchanged from v53.
+
+### What I decided
+
+cap_map v54:
+- **Bet M promoted** (per cycle 27 followup #3 contingency: "If R29
+  produces ferromagnetic-domain quantitative predictions → Bet M").
+  R29 delivered.
+- Bet B stays 🟢 Partial. Smoke→full pattern is seed variance, not
+  parameter tweak. retention_A=0.73 is substrate's genuine level.
+- Per [[feedback-no-smoke]]: refused to retcon 0.80 threshold;
+  refused to inflate to ✅. Honest framing.
+
+### Why
+
+- R29 is the most substantive substrate-physics finding to date. User's
+  cycle-27 ferromagnetism direction (intuited as "highly actionable")
+  empirically validated.
+- Bet B v3 across 3 seeds confirms ~0.73 retention_A is the real
+  number; further parameter tweaks unlikely to push above 0.80 without
+  architectural change.
+- R29's Allen-Cahn t^(1/2) prediction gives Bet B a quantitative
+  theoretical grounding even at 🟢 Partial — empirical retention curve
+  shape becomes the substrate-physics claim.
+
+### Open items / handoffs
+
+- Experiment Dev: multi-hop adaptive-beta still pending; R29 Bet M
+  validation experiments (Allen-Cahn fit, Barkhausen, β=32 derivation);
+  Bet F still blocked on R10 addendum
+- Research: R29 done; R27 light-matter + R28 dislocations still queued
+- Strategy: monitor Bet M empirical validation; Bet B at 🟢 Partial
+  is stable now
+
+### Wake schedule
+
+- 270s. Multi-hop adaptive-beta + Bet M validation experiments
+  expected; Research R27/R28 next.
