@@ -6176,3 +6176,142 @@ redundancy axis (Bet O) closure. Bet B 🟢 Partial confirmed as
 seed-variance limited. Tier-1 board unchanged. Multi-hop row stays
 🟡 per v61 discipline. R33 quantum-repeater routing becomes urgent
 (highest-leverage path; not yet at Research).
+
+---
+
+## 2026-05-21 v63 update — R17 Probe 1 PASS (substrate IS area-law-like); R10 W-addendum lands (Bet F unblocked); R28 dislocation gives Bet F new rescue axis; Bet B v5 smoke PASS (pending full)
+
+Strategy session cycle 45 (in /loop). Four landings since v62:
+
+### R17 Probe 1 — PASS: substrate is area-law-like (R17 Rescue C upgraded)
+
+**Verdict**: `wave14_r17_area_law_probe1` full PASS at 15:41:15 (3.4s).
+log-log slope of Renyi-2 entropy = **-0.171 < 0.4**. Smoke: -0.207
+< 0.4. Verdict: R17_AREA_LAW_LIKE — "Substrate W exhibits area-law-
+like Renyi-2 entropy scaling. Consistent with Harlow 2017 RT-QEC
+area-law expectation. **Substrate may have hidden low-dimensional
+structure.**"
+
+This is the 25-40% probability outcome from R17 prediction table.
+**Empirical positive** for substrate-as-operator-algebra-QEC-code
+(Rescue C). R17 framework gets partial rehabilitation.
+
+**Capability moves**:
+
+| Capability | v62 state | v63 state | Trigger |
+|---|---|---|---|
+| R17 Sketch C — Substrate as operator-algebra QEC code | 🔬 deferred ~20% prior | 🔬 active framework ~40% prior (Probe 1 area-law confirmed) | R17 Probe 1 PASS |
+| Substrate hidden low-dimensional structure | (not in cap_map) | 🔬 emergent finding from R17 Probe 1 — investigate | R17 Probe 1 PASS |
+
+**Per [[feedback-no-smoke]]**: this is ONE positive probe of FOUR R17
+sketches (A/B/C/D). Doesn't unkill R17 framework as a whole. Sketches
+A (V2 hyperbolic), B (RTN), D (Δ_eff) remain speculative. But Sketch C
+graduates from "speculative" to "Probe-1-supported."
+
+### R10 addendum landed — Bet F unblocked with Option 2 W-construction
+
+**File**: `notes/research_R10_addendum_W_construction_2026-05-21.md`
+(landed 15:35).
+
+**Chose Option 2**: W = (1/N_facts) · Σ_μ k_μ ⊗ k_μ where each k_μ ∈
+{-1,+1}^N is sign(a_A + h_q^μ · a_B). Substrate-coherent (matches
+canonical Hebbian-outer-product W). Then H = (W + W.T)/2 per R10's
+original spec.
+
+**Bet F state**:
+
+Cannot yet determine if Bet F v2 used Option 2. If v2 used Option 2,
+the BET_F_NO_TRANSITION verdict IS the substrate-physics finding
+(no AIII Z winding transition at current-arch BSC substrate). If v2
+used a different option, v3 needs rebuild.
+
+| Capability | v62 state | v63 state | Trigger |
+|---|---|---|---|
+| SSH-BSC topological winding-protected (Bet F) | 🟡 NO_TRANSITION pending W-spec | 🟡 NO_TRANSITION pending v3 build with R10-Option-2-confirmed W | R10 addendum landed |
+
+**Per PROT-004**: If v3 with Option 2 W also shows NO_TRANSITION,
+Bet F closes ❌-architectural with 5 axis-combination rescues from
+**R28 dislocation physics** (Burgers-vector + edge/screw topological
+distinction, new rescue axis).
+
+### R28 dislocation physics — Bet F gains 5 new PROT-004 rescue sketches
+
+**File**: `notes/research_R28_dislocation_physics_2026-05-21.md`
+(landed 15:26).
+
+**Status**: PARTIALLY POSITIVE for substrate. Two contributions:
+
+1. **Bet F EXTENSION (positive)**: Severino-Kamien 2024 (PRE 109) shows
+   edge vs screw dislocations are topologically distinct in a sense
+   STRICTLY RICHER than Burgers-vector. Nayak et al. 2020 shows
+   dislocation bound states carry topological quantum numbers BEYOND
+   integer Burgers index. **Substrate application**: Bet F's AIII Z
+   winding can be extended with Burgers + edge/screw character.
+2. **Burgers rings in glasses (positive)**: Bera et al. 2025 — continuous
+   Burgers vector localizes structured rearrangements in disordered
+   medium. Substrate analog speculative.
+3. **HONEST NEGATIVE**: dislocation-network MEMORY primitive (Kumar
+   et al. 2024) gives ℤ / ℤ_2 / finite-group memory addresses — does
+   NOT beat substrate's existing log_2(M)-bit modern Hopfield capacity.
+   R28's memory-primitive line of investigation closes.
+
+**5 PROT-004 rescue sketches for Bet F if v3 fails** (per R28
+recommendations):
+- A: Composite Burgers + edge/screw character (joins R29 composite
+  solitons as 6th rescue axis)
+- B: Continuous-Burgers field analog (Bera 2025)
+- C: Disclination-pair core (Severino-Kamien)
+- D: Dislocation bound states (Nayak 2020)
+- E: Topology-by-coset (Kerdock-coset-like structure on dislocation
+  network)
+
+| Capability | v62 state | v63 state | Trigger |
+|---|---|---|---|
+| Dislocation-network memory primitive | ⚪ proposed via META candidate list | ❌ NEGATIVE per R28 (ℤ-finite-group capacity ≤ substrate's log_2(M) modern Hopfield) | R28 lands |
+| Bet F rescue axis #6 — Burgers/edge-screw topological labels | (not in cap_map) | 🔬 axis added; 5 specific sketches per R28 | R28 lands |
+
+### Bet B v5 smoke PASS — pending full
+
+**Verdict**: `wave14d_multi_task_cl_v5_smoke` PASS at 15:43:03 (1.0s).
+retention_A=0.869 ≥ 0.8, retention_B=0.937 ≥ 0.8, gain_C=4.60 > 0,
+bwt=+0.079 ≥ 0. PASS at all 4 multi-probe criteria.
+
+**Per [[feedback-no-smoke]] + cycle 36 lesson**: v3 smoke PASS (0.827)
+→ v3 full 🟢 Partial (0.733). v4 smoke PASS (0.840) → v4 full 🟢
+Partial (0.740). v5 smoke 0.869 is the highest yet, but full is
+running NOW (started 15:43:05). Pattern says expect ~0.74-0.77 in full.
+
+**Holding Bet B at 🟢 Partial** until v5 full lands. If v5 full hits
+retention_A ≥ 0.80 across all 3 seeds, Bet B promotes to ✅.
+Otherwise the seed-variance-dominance diagnosis holds and Bet B
+stays 🟢 Partial as terminal.
+
+### Capability moves summary
+
+| Capability | v62 state | v63 state |
+|---|---|---|
+| R17 framework as substrate-applicable | 🔬 LARGELY NEGATIVE (4 sketches, all speculative) | 🔬 LARGELY NEGATIVE but Sketch C now Probe-1-supported (~40%) |
+| Substrate hidden low-dim structure | (not in cap_map) | 🔬 emergent from R17 Probe 1 PASS |
+| SSH-BSC topological (Bet F) | 🟡 NO_TRANSITION pending W-spec | 🟡 NO_TRANSITION pending v3-with-R10-Option-2 |
+| Dislocation-network memory primitive (proposed) | ⚪ | ❌ NEGATIVE per R28 |
+| Bet F rescue axis #6 (Burgers/edge-screw) | (not in cap_map) | 🔬 added per R28 |
+| Bet B (multi-task CL) | 🟢 Partial (v3/v4) | 🟢 Partial pending v5 full |
+
+### Updated rescue path inventory for multi-hop (still 7; no new closures)
+
+R17 Probe 1 PASS is NOT a multi-hop rescue — it's a substrate-framework
+finding. Multi-hop rescue inventory unchanged: R31, R32, R33, R34, R17
+sketches B/C/D. R33 still the highest-leverage and not yet routed.
+
+### Tier-1 board after v63
+
+Unchanged from v62: 7 ✅ + 1 🟢 + 1 🟡 multi-hop. Bet B 🟢 held pending
+v5 full.
+
+### Tally — R17 Probe 1 PASS substrate-novel; R10 unblocks Bet F; R28 adds Bet F rescue axis; Bet B v5 smoke PASS pending full
+
+Net effect: substrate gains 1 hidden-low-dim-structure finding (R17
+Probe 1); Bet F gains R10 W-spec + R28 rescue axis (rebuild target);
+1 proposed primitive closes ❌ (dislocation-network memory). No
+Tier-1 row changes yet. Bet B v5 full will determine if 🟢 → ✅
+promotion happens this cycle.
