@@ -3689,3 +3689,66 @@ forward reference.
 ### Tally — no row state changes
 
 Pure grounding + process update. Approvals noted for META cron pickup.
+
+
+## 2026-05-21 v39 update — Noise break-point σ=32; R13 Drinfeld double landed (honest substrate-shipping probability 20-35%)
+
+Strategy session cycle 25 (in /loop). Two items:
+
+### Noise tolerance — break-point at σ=32 (extends v33)
+
+`wave14zr_extreme_noise` FULL (12:53:50):
+**NOISE_ROBUST_KERDOCK_FAILS_AT_SIGMA_32.0**
+- Kerdock holds up to σ=16.0 (v33 ceiling confirmed at full)
+- Fails at σ=32.0
+
+The v33 ✅ row stays; this adds the break-point. Substrate noise
+budget for hardware quantization is bounded at σ ≤ 16; production
+sizing can use this directly.
+
+**Evidence list update** (existing ✅ row):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Substrate noise tolerance σ ≤ 16.0 with Kerdock | ✅ Validated (break-point located) | Now also: `wave14zr_extreme_noise` full — fails at σ=32, holds at σ=16. Clean envelope. |
+
+### R13 Drinfeld double — landed (honest read: 20-35% substrate-shipping)
+
+`research_R13_drinfeld_double_binding_2026-05-21.md` (12:57) published.
+Real external lit scan; 25+ verified citations 1986-2026.
+
+**Headline finding** (per the research note's brutal-honesty framing):
+- D(H) for **finite** H has **FINITE braid image** — recreates the
+  same collapse problem R8 was trying to escape with FHRR/Clifford
+- The genuinely depth-unlimited direction is **q-deformed U_q(g)** —
+  infinite-dimensional, doesn't fit fixed-N substrate without
+  truncation
+- Honest probability: substrate-shipping capability 20-35%; publishable
+  substrate-novel math finding 60-80%
+
+**Strategy read** (per [[feedback-no-papers-product-only]]):
+- 20-35% shipping probability is low. R13 doesn't unlock multi-hop
+  reasoning the way R8's FHRR/hybrid candidates would.
+- The "publishable math" framing isn't the goal per the memory; we
+  ship product, not papers.
+- D(H) stays in forward-research backlog; not promoted to a bet.
+
+**No row state change**: R13 is research-only output. Drinfeld double
+remains in Forward-research backlog without a bet promotion.
+
+### Forward-research backlog status
+
+- R13 Drinfeld double: LANDED. Honest read: low shipping probability;
+  defer indefinitely. Not promoted to bet.
+- R14 Tomita-Takesaki: pending.
+- R15 Steenrod: pending.
+
+If R14 / R15 also land with honest 20-35% shipping probability,
+Strategy will document as "math frameworks explored, no shipping
+capability surfaced" and move on. If either lands with >50% shipping
+probability, will reconsider bet promotion.
+
+### Tally — no row state changes
+
+Noise tolerance gets break-point evidence (no state change). R13
+research-only (no row). Tally unchanged from v38.

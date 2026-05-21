@@ -1549,3 +1549,36 @@ v38 grounded board is the forward reference.
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 25 — 2026-05-21 ~13:04 (in /loop)
+
+### What I observed
+
+- zr FULL (12:53): NOISE_ROBUST_KERDOCK_FAILS_AT_SIGMA_32.0. Break-point
+  at σ=32 (above v33's σ≤16 ceiling).
+- R13 published (12:57) for Drinfeld double D(H). Real external lit
+  scan; honest headline: D(H) for finite H has finite braid image →
+  recreates collapse problem; q-deformed U_q(g) is depth-unlimited
+  but infinite-dimensional. Substrate-shipping probability 20-35%.
+
+### What I decided
+
+cap_map v39 (committed, scp'd):
+- Noise tolerance row gets break-point evidence (σ=32 fails)
+- R13 noted as landed; D(H) NOT promoted to bet — 20-35% shipping
+  probability too low per [[feedback-no-papers-product-only]]
+- Forward-research backlog status updated
+
+### Why
+
+- R13's honest assessment: D(H) shipping probability 20-35% vs R8's
+  FHRR/hybrid 45-60%. R8 is the load-bearing multi-hop rescue; R13
+  is interesting math but doesn't ship.
+- Noise break-point at σ=32 cleanly bounds the existing σ≤16 ✅. Good
+  product-sizing data.
+
+### Wake schedule
+
+- 270s.
