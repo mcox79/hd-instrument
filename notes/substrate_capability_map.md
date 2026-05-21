@@ -3366,3 +3366,61 @@ visibility.
 
 Noise tolerance ✅ NEW under Robustness/scaling. All other rows
 strengthen via full-mode confirmations.
+
+
+## 2026-05-21 v34 update — Forward-research backlog: Wave 13.4 Drinfeld double, Wave 16 Tomita-Takesaki, Wave 17 Steenrod (user-routed)
+
+Strategy session cycle 21 followup. User asked to fold in four advanced
+math frameworks: Wave 15 (free probability), Wave 16 (Tomita-Takesaki),
+Wave 17 (Steenrod), Wave 13.4 (Drinfeld double).
+
+### Status check
+
+- **Wave 15 free probability**: `notes/wave15_free_probability_synthesis.md`
+  ALREADY EXISTS (2026-05-18). Done unbiased per the rule. Verdict:
+  analytical tooling for predicting substrate spectra (capacity,
+  convergence), NOT a new mechanism. Available for use when specific
+  spectral predictions are needed.
+- **Wave 13 Hopf algebra**: `notes/wave13_hopf_design.md` exists; D(H)
+  Drinfeld double is the quantum-group extension (Wave 13.4).
+- **Wave 16 Tomita-Takesaki**: no existing notes.
+- **Wave 17 Steenrod**: no existing notes.
+
+### Three new research requests added (R13, R14, R15)
+
+Per [[feedback-unbiased-research]]: each framed "what does X do?" not
+"X for substrate?" Per [[feedback-no-papers-product-only]]: substrate-
+physics characterization, not paper-worthy. Per
+[[feedback-materials-science-probe]]: each connects to existing
+substrate-physics work.
+
+- **R13 — Drinfeld double D(H)**: quantum-group extension of Wave 13.
+  Pass 1 broad (Yetter-Drinfeld category, braided structure, R-matrix);
+  pass 2 substrate drill (D(k[G]) richer binding? braided structure
+  for multi-hop?). Connects to R8 binding-algebra-swap work.
+
+- **R14 — Tomita-Takesaki modular theory**: cyclic-separating vectors,
+  modular automorphism group, KMS states, vN algebra type classification.
+  Pass 2 drill: substrate W matrix modular flow? KMS = substrate
+  thermal equilibrium? Could ground TEMPSCALE β=32 (Bet G ✅) in vN
+  theory — parameter-free temperature derivation.
+
+- **R15 — Steenrod operations / cohomology**: Steenrod squares, mod-2
+  cohomology, Cartan formula, Bott periodicity. Pass 2 drill: substrate
+  binding-algebra cohomology ring? Steenrod invariants under noise /
+  quantization? Connects to Bet F SSH-BSC topological work (Hasan-Kane
+  AIII, 10-fold way).
+
+### Routing posture
+
+These are **forward-research backlog**, NOT current bets. Low urgency
+vs top-priority push (Bet B / multi-hop FHRR / Bet F). Per user "when
+we get a chance" — slot in after current queue drains.
+
+If R13/R14/R15 surfaces a substrate-actionable mechanism, promote to
+a bet then. Until then they live in `active_priorities.md` Forward-
+research backlog.
+
+### No row state changes
+
+Pure research-backlog update. No capability claims yet.

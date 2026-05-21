@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 19 followup (user pushed Bet B / F / multi-hop FHRR to top priority)
-**Cap map version this refers to:** v30
+**Last updated:** 2026-05-21 cycle 21 followup (added advanced-math forward-research backlog R13/R14/R15)
+**Cap map version this refers to:** v34 (pending — this cycle)
 
 ---
 
@@ -388,14 +388,52 @@ files; could be a 30-min task, not a new experiment). Strategy
 - **R11 (Bet G prerequisite)**: LANDED 2026-05-21 11:14. Bet G
   resolved ✅ via TEMPSCALE at β=32 (Strategy sketch #1 was correct).
   R11 retrospective-confirms.
-- **R12 (NEW, Bet H prerequisite, rehab-routed)**: Neural-LM sampling
-  rescues preventing repetition collapse. 2x pass: pass 1 broad (top-k,
-  nucleus/top-p, beam, repetition penalty, contrastive decoding,
-  frequency penalty, typical sampling, mirostat); pass 2 substrate-
-  compatible drill. Output: ranked rescue list with predicted
-  char_entropy-improvement per rescue. Strategy's 5 draft sketches
-  (β tuning, top-p, repetition penalty, multi-seed, prefix selection)
-  unvetted.
+- **R12 (Bet H prerequisite)**: LANDED. Sampling rescues — temperature
+  + rep penalty both work.
+
+### Forward-research backlog (user-requested 2026-05-21 ~12:40): advanced math frameworks
+
+Per [[feedback-unbiased-research]]: pass 1 surveys broadly without
+"X for substrate" framing; pass 2 drills substrate-compatible mappings.
+Per [[feedback-no-papers-product-only]]: framings are substrate-physics
+characterization, not paper-worthy. Per [[feedback-materials-science-probe]]:
+each connects to existing substrate-physics work.
+
+These are forward-routing (low urgency vs Bet B / multi-hop / Bet F).
+Slot in after the top-priority queue drains.
+
+- **R13 (NEW)**: Drinfeld double D(H) construction. Wave 13 (Hopf
+  algebra VSA) already has design notes; D(H) is the quantum-group
+  extension. Pass 1 broad (what does Drinfeld double do? Yetter-
+  Drinfeld category, braided structure, R-matrix); pass 2 substrate-
+  compatible drill (does D(k[G]) give a richer binding algebra than
+  k[G] alone? does the braided structure help multi-hop reasoning?).
+  Connects to existing Hopf-algebra work + multi-hop rescue gap
+  (R8 #4 binding algebra swap).
+
+- **R14 (NEW)**: Tomita-Takesaki modular theory. Pass 1 broad (cyclic-
+  separating vectors, modular automorphism group, KMS states, type
+  classification of von Neumann algebras); pass 2 substrate-compatible
+  drill (does the substrate's W matrix + bundle distribution admit a
+  modular flow? does the KMS condition describe substrate thermal
+  equilibrium? does this give a parameter-free temperature for
+  calibration / sampling?). Connects to materials-science framing
+  ([[feedback-materials-science-probe]]) and could ground the
+  TEMPSCALE β=32 calibration rescue (Bet G ✅) in von Neumann theory.
+
+- **R15 (NEW)**: Steenrod operations / cohomology. Pass 1 broad
+  (Steenrod squares Sq^i, mod-2 cohomology, Cartan formula, Bott
+  periodicity); pass 2 substrate-compatible drill (does the substrate's
+  binding algebra carry a cohomology ring? do Steenrod ops give
+  invariants under noise / quantization?). Connects to topological
+  substrate work (Bet F SSH-BSC AIII class, Hasan-Kane 10-fold way).
+
+- **R16 (status: existing)**: Free probability — `wave15_free_probability_synthesis.md`
+  already done unbiased. Verdict: analytical tooling for predicting
+  substrate spectra (capacity, convergence), NOT a new mechanism.
+  Available for use when specific spectral predictions are needed
+  (e.g., extending Bet C capacity claims; analyzing Bet 1 ICL
+  saturation curve).
 - **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
   Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
   at all noise — methodology gap, not substrate finding. 2x pass:
