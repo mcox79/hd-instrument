@@ -2195,3 +2195,216 @@ Closed bets retained for reference: Bet 1, Bet 2, Bet 3, Bet C in the
 Same overall tally as v18. The two promoted items had existing rows in
 the "Topological / spin glass" group; promotion means active prereg +
 experiment intent, not a state change.
+
+
+## 2026-05-21 v20 update — Bet A ✅ (edit-then-query closes Tier-1); continual-editing ✅; calibration ❌ PROVISIONAL; R8 landed
+
+Strategy session cycle 9 (in /loop, prompt fix verified). Four
+integration triggers since cycle 8:
+(a) `wave14yb_edit_then_query_kerdock` full (10:31:05) —
+**EDIT_QUERY_BOTH_PASS**: Bet A resolves ✅;
+(b) `wave14yc_continual_editing_kerdock` full (10:39:32) —
+**CONTINUAL_KERDOCK_HOLDS**: 30 sequential edits, Kerdock holds, correlated
+control fails at edit 1;
+(c) `wave14yd_calibration_fact_retrieval` full (10:47:59) —
+**CALIBRATION_POOR**: ECE=0.59, Brier=0.35 (substrate retrieves correctly
+but confidence calibration broken);
+(d) Research published `research_R8_chained_CAM_binding_algebras_2026-05-21.md`
+(10:42; real external lit scan, 15 verified citations; FHRR is top
+mechanism-correction candidate).
+
+### Bet A — EDIT-THEN-QUERY ✅ (Tier-1 KILLER closes)
+
+`wave14yb_edit_then_query_kerdock` full mode (10:31:05) verdict
+**EDIT_QUERY_BOTH_PASS**:
+- N=4096, both arms (Kerdock + correlated random ±1)
+- Edit-argmax-acc = 1.000 on both arms
+- Kept-argmax-acc = 1.000 on both arms
+- Side-effect rate = 0.0 on both arms
+- Paraphrase robustness h ∈ {4, 8} preserved at 1.0
+
+**Audit divergence note in verdict_msg**: "wave14d_query_side_integration's
+93% leak doesn't reproduce here; audit setup divergence." Two
+interpretations:
+(i) v5's 93% leak was a setup-specific artifact (pool-erase-only,
+    different probe semantics); now the full pipeline test (pool
+    erase + W edit + query) gives the right answer empirically.
+(ii) The current Bet A test doesn't exercise the same failure mode v5
+     measured.
+
+Honest read: the empirical result (1.0 / 1.0 / 0.0) is unambiguous
+within its multi-probe definition. The divergence flag is worth
+keeping visible, but does not block the ✅ promotion under the
+multi-probe success criteria from active_priorities Bet A. If the
+audit reveals (ii), I'll demote in a later cap_map version.
+
+**Capability move**:
+
+| Capability | v19 state | v20 state | Trigger |
+|---|---|---|---|
+| Edit-then-query for fact correction (Tier-1 KILLER) | 🟢 Partial (erase ✅, pipeline ⚪) | ✅ Validated — full pipeline edit + query passes multi-probe at N=4096 | `wave14yb_edit_then_query_kerdock` |
+
+**KILLER Tier-1 board update**:
+- Edit-then-query: 🟢 → ✅
+- Score now: **4 ✅ + 1 🟢 + 1 ⚪ + 1 (RSB split)** — Tier-1 board has 4 of 6 ✅.
+
+### Continual editing on Kerdock — NEW ✅
+
+`wave14yc_continual_editing_kerdock` full (10:39:32) verdict
+**CONTINUAL_KERDOCK_HOLDS**:
+- N=4096, 30 sequential edits
+- Kerdock arm: min_edited_acc = 1.000, min_kept_acc = 1.000 across all 30 edits
+- Correlated arm: fails at edit step 1 (min_kept_acc = 0.633 < 0.95)
+
+This is a real continual-editing capability test. ROME / MEMIT collapse
+at 50-1k sequential edits; AlphaEdit was the published prior art
+scaling to 3000. Substrate Kerdock holds at 30 (still small scale,
+but the structured-keys-are-load-bearing claim is direct).
+
+**New row added to Memory primitives**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Continual sequential editing on Kerdock substrate** — 30 sequential edits at N=4096; edited-fact accuracy + kept-fact retention both at 1.0 throughout; correlated-key control collapses at edit 1 | ✅ Validated (at 30 edits; higher counts untested) | `wave14yc_continual_editing_kerdock` | "Apply many corrections in sequence" works at Kerdock substrates without retraining. Direct competitor to ROME / MEMIT / AlphaEdit (sequential-edit collapse benchmark). |
+
+### NEW capability ❌ — Calibration (PROVISIONAL with rehab discipline)
+
+`wave14yd_calibration_fact_retrieval` full (10:47:59) verdict
+**CALIBRATION_POOR**:
+- ECE = 0.5909 (target < 0.15)
+- Brier = 0.3499
+- Overall accuracy = 1.0 (perfect retrieval, but confidence is uncalibrated)
+- top_bin_accuracy = None (probably no probes in top confidence bin)
+- N=4096, 49152 probes
+
+Substrate gets the right answer (accuracy 1.0) but its confidence
+scores are not predictive of correctness. This is the
+"calibration / uncertainty" UNSURE row from cap_map v1 — finally
+tested, finally returned a negative result.
+
+**Capability move** (NEW ❌ with rehab):
+
+| Capability | Pre-v20 state | v20 state | Trigger |
+|---|---|---|---|
+| Substrate calibration (confidence reflects accuracy) | ⚪ Untested (UNSURE Tier-3 since v1) | ❌ PROVISIONAL — ECE=0.59 well above 0.15 threshold; substrate confidence is uninformative | `wave14yd_calibration_fact_retrieval` |
+
+**Rehab block — calibration** (DRAFT rescue sketches; R11 routed):
+
+1. **Post-hoc temperature scaling** (Platt scaling / temperature
+   tuning per Guo-Pleiss-Sun-Weinberger 2017). Cheap; standard fix
+   for transformer calibration. Substrate-compatible if confidence
+   is a scalar.
+2. **Per-bin recalibration via isotonic regression** — non-parametric;
+   no functional-form assumption.
+3. **Bayesian softmax temperature** σ² = M-1 (Frady-Sommer formula
+   from v11). My earlier framing in cap_map v11 cited this as the
+   "proper" calibration form; v11 retracted soft-trace BUT didn't
+   test this specific σ² choice for calibration. Worth re-running.
+4. **Multi-vote pool readout** — average over top-k pool entries
+   instead of single max; should reduce variance and may improve
+   calibration.
+5. **Substrate-side reformulation** — confidence as bundle-norm
+   (||W·k||) rather than cosine. The norm has direct interpretation
+   (number of contributing facts) where cosine has none.
+
+**Research request R11 (NEW, rehab-routed)**: 2x deep research on
+substrate-uncertainty / calibration in content-addressable memories
++ VSA / random-projection retrieval. Pass 1: broad (calibration
+literature including Guo et al. 2017, Bayesian deep learning,
+ensemble calibration, conformal prediction); pass 2 substrate-
+compatible drill. Output: ranked rescue list with predicted
+ECE-improvement estimates. Strategy's 5 sketches unvetted.
+
+**Final kill criterion**: if 0/N tested rescues reduce ECE below
+0.15 over 3 seeds at N=4096, then substrate calibration closes
+❌-structural and the product story drops "trustworthy confidence
+scores" as a feature. Until R11 + first rescue lands: ❌ is
+PROVISIONAL.
+
+**Important caveat**: overall accuracy = 1.0 means *retrieval works*;
+only the *confidence calibration* is broken. The Tier-1 KILLER
+capabilities (ICL, generation, edit-then-query, provenance,
+hierarchical retrieval) all remain unaffected — they don't depend on
+calibrated confidence. Calibration is a Tier-3 capability per cap_map
+v1, important for production deployment but not load-bearing for the
+core substrate product story.
+
+### R8 landed — multi-hop rescue rankings (Research output)
+
+`research_R8_chained_CAM_binding_algebras_2026-05-21.md` published
+via real external lit scan (Agent subagent, ~15 verified citations).
+Key findings:
+
+- BSC binding algebra closes the Walsh group (mechanism Strategy
+  identified at cycle 7)
+- Independent ranking of 10 rescue candidates (Research did NOT vet
+  Strategy's draft; generated own ranking per rehab protocol)
+- **Top recommendation: A1 (pure FHRR)** as mechanism correction
+  (P(depth-50 ≥ 80%) = 45-60%)
+- **#2: C1 (hybrid BSC store + FHRR chain)** — NEW, not in Strategy's
+  draft. Substrate-coherent: preserves BSC storage infrastructure;
+  applies FHRR only at the chain operator. P = 40-55%.
+- Strategy's promoted #4 (binding algebra swap) maps to A1 ✓ but the
+  C1 hybrid was a real Research-only addition.
+
+**Multi-hop R8 routing update**:
+- Experiment Dev should queue **`wave14r_multihop_FHRR_v1`** (A1
+  primary) and **`wave14r_multihop_hybrid_v1`** (C1 substrate-coherent
+  parallel) per the 2/cycle cadence. Both run at smoke scale first
+  per R8's recommendation.
+- The earlier R8 priority list in v17 is superseded by R8's
+  independent ranking.
+
+### KILLER Tier-1 board update (v20)
+
+| Capability | v19 status | v20 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | Bet D analyzer pass still pending. |
+| True continual learning at production scale | ⚪ (R5 landed) | ⚪ (Bet B Experiment Dev pending) | — |
+| **Edit-then-query for fact correction** | 🟢 Partial | **✅ Validated** | Bet A resolved this cycle. |
+| Provenance for every prediction | ✅ | ✅ | — |
+| In-context learning via pool | ✅ | ✅ | — |
+| Hierarchical retrieval (RSB) | ✅ structural; ❌ algorithm | (unchanged) | — |
+
+**Score: 4 ✅ + 1 🟢 + 1 ⚪ + 1 split (RSB).** Up from 3 ✅. Significant
+move: the surgical-erase Tier-1 KILLER (a defining product capability)
+now lands at full pipeline ✅.
+
+### Tally — Bet A ✅, continual editing ✅ NEW, calibration ❌ NEW
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 8 (+1: continual sequential editing) | 1 | 1 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 |
+| Continual learning | 3 | — | — | — | 1 (Bet B unblocked) | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | — | — | 2 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 | — | — | — | — | 1 |
+| Forensics | — | 1 | — | — | — | 1 |
+| Calibration / uncertainty (NEW row) | — | — | — | 1 (R11 routed) | — | 1 (NEW: PROVISIONAL) |
+| CANNOT | — | — | — | — | — | 19 (+1 calibration) |
+| UNSURE | — | — | — | 13 (+1 R11) | 8 (-1 calibration moved) | — |
+| KILLER Tier 1 | **4** (+1 Bet A) | 1 | — | — | — | 1 (RSB algo) |
+
+### Strategic posture (v20)
+
+Tier-1 KILLER board is 4/6 ✅. Open items by priority:
+1. **Bet B** (Tier-1 multi-task CL) — R5 landed; Experiment Dev
+   should queue
+2. **Bet D** (Tier-1 generation K-curve) — analyzer pass only; cheap
+3. **Bet A's correlated-arm divergence** — audit why v5's 93% leak
+   didn't reproduce
+4. **Calibration rescue** — R11 routed; one of the 5 sketches likely
+   closes ECE below 0.15
+5. **Bets E (Parisi P(q)) and F (SSH-BSC topological)** — substrate-
+   physics bets per user direction cycle 8 followup
+6. **Multi-hop rescues** (FHRR / hybrid per R8) — buildable
+
+The substrate-product story now reads: small auditable LM with
+multi-probe-validated surgical erase, sequential editing through 30+
+operations, kNN-LM-like ICL, generation, provenance, and RSB
+structural index. Calibration is open (PROVISIONAL ❌). Two Tier-1
+gaps remain (continual learning at A→B→C→D scale; generation
+K-curve close).

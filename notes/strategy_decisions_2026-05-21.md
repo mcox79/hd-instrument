@@ -783,3 +783,81 @@ material-physics framing).
 
 10:45 wake at 600s heartbeat (set in cycle 8 main entry). Cycle 9 will
 pick up next.
+
+---
+
+## Cycle 9 — 2026-05-21 ~10:50 (in /loop, prompt-fix verified)
+
+### What I observed
+
+Four new triggers since cycle 8:
+1. **`wave14yb_edit_then_query_kerdock`** (10:31): EDIT_QUERY_BOTH_PASS.
+   Bet A ✅. Both arms at 1.000 / 1.000 / 0.0 side-effect. Audit
+   divergence: v5's 93% leak doesn't reproduce.
+2. **`wave14yc_continual_editing_kerdock`** (10:39): CONTINUAL_KERDOCK_HOLDS.
+   30 sequential edits at 1.0 / 1.0; correlated control fails at edit 1.
+3. **`wave14yd_calibration_fact_retrieval`** (10:47): CALIBRATION_POOR.
+   ECE=0.59, accuracy=1.0 — substrate retrieves correctly but
+   confidence isn't calibrated.
+4. **R8 published** (10:42): Research's independent ranking of multi-hop
+   rescue candidates via real external lit scan. Top recs: A1 (FHRR)
+   and C1 (hybrid BSC store + FHRR chain — NEW, not in Strategy draft).
+
+### What I decided
+
+1. **cap_map v20** (atomic, committed, scp'd):
+   - **Bet A ✅ — Edit-then-query Tier-1 KILLER closes.** Tier-1 board
+     now 4/6 ✅ (up from 3/6).
+   - **NEW row: Continual sequential editing on Kerdock substrate** ✅
+     under Memory primitives (30 edits at 1.0/1.0).
+   - **NEW row: Calibration ❌ PROVISIONAL** with full rehab discipline
+     (5 axis-combination rescues + R11 routed + PROVISIONAL tag).
+   - **R8 integration**: Strategy's promoted #4 (binding algebra swap)
+     matches Research's #1 (A1 FHRR). Research added NEW C1 hybrid
+     variant. Multi-hop rescue routing updated.
+2. **active_priorities.md v5**:
+   - Bet A moved to Recently resolved table
+   - Bet G (calibration rescue) added with multi-probe criteria
+   - R11 (calibration rescue research) added
+   - E_MH multi-hop experiments added (FHRR + hybrid parallel per R8)
+
+### Why
+
+- Bet A ✅: multi-probe success criteria from active_priorities v2
+  cleanly met (edit-acc 1.0, kept-acc 1.0, side-effect 0.0, paraphrase
+  preserved). Honest caveat about the v5 leak divergence kept visible.
+- Calibration ❌ with rehab discipline: this is the SECOND ❌ closure
+  filed under the rehab framework from v14. Following the discipline:
+  5 rescue sketches as DRAFT, R11 routed for Research 2x deep
+  research, PROVISIONAL tag on the closure. The new
+  `feedback_closures_drop_under_batch_pressure` memory is being
+  honored structurally.
+- Multi-hop R8 routing: Research's independent ranking is the load-
+  bearing recommendation; my Strategy draft from cycle 7 was a
+  starting point only per the unbiased-research routing. Top
+  candidate A1 (FHRR) matches my draft #4 ✓; C1 hybrid is NEW
+  Research insight worth pursuing in parallel.
+
+### Open items / handoffs
+
+- **Experiment Dev**:
+  - Bet B (multi-task CL) — R5 landed, unblocked, ready to queue
+  - Multi-hop FHRR + hybrid (E_MH) — R8 landed, two candidates ready
+  - Bet G calibration rescue — gated on R11
+  - Bet D generation K-curve — analyzer pass only (cheap)
+  - Bet A v5-divergence audit — low priority
+  - Bet E (Parisi P(q)) — can queue (no research gate)
+  - Bet F (SSH-BSC topology) — gated on R10
+- **Research**:
+  - R10 (SSH-BSC probe design) — for Bet F
+  - R11 (calibration rescue) — NEW this cycle
+  - R3 (compositional generalization) — still untouched
+  - R7 / R9 (chargeflip rehab / Yonelinas rehab) — still outstanding
+- **META**: closure-rehab request from cycle 4 still unaddressed.
+  Re-flagging.
+
+### Wake schedule
+
+- 270s heartbeat — pace picked up significantly. Bet B, multi-hop
+  FHRR/hybrid, and calibration rescue are all queueable now; expect
+  verdicts within next 10-20 min.

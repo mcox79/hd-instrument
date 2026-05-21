@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 8 followup (user bumped E + F into active bets)
-**Cap map version this refers to:** v19 (pending — cycle 8 followup)
+**Last updated:** 2026-05-21 cycle 9 (in /loop, prompt-fix verified)
+**Cap map version this refers to:** v20
 
 ---
 
@@ -12,14 +12,58 @@ Dev, Research, Visibility, Queue Health, META) read this.
 
 | Bet | Outcome | Trigger |
 |---|---|---|
-| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid ICTX; soft-saturating to +0.05 at high ICTX (≤65536). Monotone positive through 16× substrate width. Tier-S #1 ICL gap closed; soft-saturation calibration noted in cap_map v15. | `wave14d_icl_via_pool_v3_scaling` full + `wave14w_icl_extended` full |
+| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid ICTX; soft-saturating to +0.05 at high ICTX (≤65536). Monotone positive through 16× substrate width. | `wave14d_icl_via_pool_v3_scaling` full + `wave14w_icl_extended` full |
 | Bet 2 — GDPR/surgical erase v3 (orthogonal-key path) | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit passes all 5 Mirage probes. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
-| Bet 3 — Random-key iterative charge-flipping forensics | ❌ CLOSED (PROVISIONAL per cap_map v14 rehab discipline). improvement=+0.03 over SVD (target +0.2). Structured-key WHT-forensics ✅ remains. R7 routed for 2x deep research. | `wave14s_chargeflip_forensics_v1` |
-| **Bet C — Full Kerdock + structured codebook for dense regime (M > N)** | ✅ VALIDATED at N=4096, M_stored up to 2N. Kerdock arm passes all 5 Mirage probes; correlated control reproduces Mirage. Extends Bet 2 from orthogonal-only (M ≤ N) to Welch-bound structured codebooks (M/N ≤ 2.0). | `wave14v_erase_kerdock_v2` smoke + full |
+| Bet 3 — Random-key iterative charge-flipping forensics | ❌ PROVISIONAL per rehab discipline (cap_map v14). +0.03 over SVD (target +0.2). R7 routed. | `wave14s_chargeflip_forensics_v1` |
+| Bet C — Full Kerdock + structured codebook for dense regime (M > N) | ✅ VALIDATED at N=4096, M_stored up to 8N via wave14ya_erase_kerdock_v4 (extended from initial 2N target). | `wave14v_erase_kerdock_v2` + `wave14y_erase_kerdock_v3` + `wave14ya_erase_kerdock_v4` |
+| **Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER)** | ✅ VALIDATED. Both Kerdock + correlated arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved at h ∈ {4, 8}. Tier-1 board now 4/6 ✅. Audit-divergence note: v5's 93% leak didn't reproduce; v20 cap_map flags for follow-up. | `wave14yb_edit_then_query_kerdock` |
 
 ## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
 
-### Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER, now unblocked)
+### Bet G — Calibration rescue (NEW ❌-PROVISIONAL needs rehab)
+
+**Claim (target).** A substrate calibration rescue (post-hoc
+temperature scaling, isotonic, Bayesian σ², multi-vote, or
+norm-based confidence) reduces ECE below 0.15 on the
+fact-retrieval-confidence test.
+
+**Why now.** `wave14yd_calibration_fact_retrieval` (10:47) returned
+ECE=0.59 / Brier=0.35 — substrate retrieves at accuracy 1.0 but its
+confidence scores are not predictive. Calibration was on cap_map's
+UNSURE list (Tier-3) since v1; now closed PROVISIONAL ❌ per the
+rehab discipline. Important caveat: this does NOT affect Tier-1
+KILLER capabilities; calibration is Tier-3 (matters for production
+deployment but not core product story).
+
+**Multi-probe success criteria** (any rescue passing all of these):
+- ECE < 0.15 on fact-retrieval (matching the v1 kill criterion
+  threshold)
+- Brier < 0.20
+- Overall accuracy preserved at ≥ 0.95 (calibration fix doesn't
+  degrade retrieval)
+- 3 seeds, N=4096
+- Per-bin coverage (test set spans confidence range)
+
+**Kill criterion.** If 0 of 5 R11 rescues clear ECE < 0.15, substrate
+calibration closes ❌-structural and product story drops
+"trustworthy confidence scores."
+
+**Who acts.** Research (R11 — 2x deep research routed); Experiment Dev
+(test rescue candidate after R11 ranks).
+
+---
+
+### Bet A — RESOLVED ✅ (see "Recently resolved" table above)
+
+`wave14yb_edit_then_query_kerdock` full mode: both arms pass edit +
+query at 1.000 / 1.000 / 0.0 side-effect / paraphrase preserved.
+Tier-1 KILLER board now 4/6 ✅. Open audit item: why didn't v5's
+93% leak reproduce? Two interpretations (setup-specific artifact or
+different failure mode); flagged in cap_map v20 for follow-up.
+
+---
+
+### (prior Bet A spec — kept for reference but resolved)
 
 **Claim.** A user-uploaded correction propagates through the full
 pipeline: pool entry removed AND W-side edit applied AND subsequent
@@ -258,7 +302,15 @@ files; could be a 30-min task, not a new experiment). Strategy
 - **R9 (rehab-routed, Yonelinas)**: Source-vs-item memory
   dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
   framings. Strategy's 5 sketches in cap_map v14 unvetted draft.
-- **R10 (NEW, Bet F prerequisite)**: SSH-BSC topological probe design.
+- **R11 (NEW, Bet G prerequisite, rehab-routed)**: Substrate
+  calibration / uncertainty in content-addressable memories +
+  VSA / random-projection retrieval. 2x pass: pass 1 broad
+  (Guo-Pleiss-Sun-Weinberger 2017, Bayesian deep learning, isotonic,
+  conformal prediction, temperature scaling); pass 2 substrate-
+  compatible drill. Output: ranked rescue list with predicted
+  ECE-improvement. Strategy's 5 draft sketches (Platt scaling,
+  isotonic, Bayesian σ², multi-vote, bundle-norm confidence) unvetted.
+- **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
   Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
   at all noise — methodology gap, not substrate finding. 2x pass:
   pass 1 broad (Hasan-Kane class AIII probes, SSH-model topology
@@ -275,9 +327,13 @@ DRAFT sketches are starting points only.
 
 ## Open experiment requests (routed to Experiment Dev)
 
-- **E_A (Bet A)**: `wave14d_edit_then_query_v1` — orthogonal-key
-  substrate + erase primitive + queried after edit. Multi-probe per
-  Bet A.
+- **E_A (Bet A)**: RESOLVED ✅ by `wave14yb_edit_then_query_kerdock`.
+  Follow-up audit (low priority): why did v5's 93% leak not reproduce?
+- **E_G (Bet G, gated on R11)**: calibration rescue test, candidate
+  TBD by R11 ranking.
+- **E_MH (Multi-hop rescue, gated on R8 ✅)**: queue BOTH
+  `wave14r_multihop_FHRR_v1` (A1 mechanism correction) AND
+  `wave14r_multihop_hybrid_v1` (C1 substrate-coherent variant) per R8.
 - **E_B (Bet B, UNBLOCKED — R5 landed 2026-05-21 10:21)**:
   `wave14d_multi_task_cl_v1` — Corpus-C-domain transfer test per
   `notes/research_R5_corpus_C_design_2026-05-21.md` specifications.
