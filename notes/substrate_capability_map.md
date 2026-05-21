@@ -3480,3 +3480,75 @@ not gating any bet).
 
 R6 is research-infrastructure; doesn't promote rows. Cap_map tally
 unchanged from v34.
+
+
+## 2026-05-21 v36 update — Experiment Dev re-engages (extensions, not push items); META Proposal 6 filed
+
+Strategy session cycle 23 (in /loop). Experiment Dev came back online
+at 12:44 after 39-minute pause. Four new smoke results all extensions/
+characterizations, not the push items (Bet B / multi-hop FHRR / Bet F).
+META cycle 7 audit filed **Proposal 6** to address the coordination
+gap (Experiment Dev cadence).
+
+### Experiment Dev re-engaged
+
+Current GPU: `wave14zp_kerdock_v8_32coset_retry`. Queue depth 3.
+Four new smoke verdicts since cycle 22:
+
+- `wave14zp_kerdock_v8_32coset_retry_smoke` (12:44): **KERDOCK_V8_EXTENDS_TO_32N**
+  — Bet C 32-coset variant retry at smoke
+- `wave14zr_extreme_noise_smoke` (12:44): NOISE_ROBUST_BOTH_TOLERATE
+  but "Both arms tolerate up to sigma=0.0" — smoke setup issue;
+  re-test at larger σ range needed
+- `wave14zs_reversibility_long_smoke` (12:44): REVERSIBLE_BOTH_HOLD —
+  long-trajectory reversibility (extension of zj's 10 cycles)
+- `wave14zq_continual_8N_smoke` (12:45): CONTINUAL_8N_KERDOCK_HOLDS —
+  continual editing × M=8N (verdict_msg says "at M=4N" — likely
+  labeling mismatch; substantively M=8N smoke per experiment name)
+
+**Important observation**: NONE of these are the three top-priority push
+items (Bet B / multi-hop FHRR / Bet F). Experiment Dev appears to have
+picked from cap_map gaps rather than the strategy_request file.
+
+### META Proposal 6 — Experiment Dev cadence (filed 12:47)
+
+META cycle 7 (12:43 cron) diagnosed: Experiment Dev is user-triggered
+only; Strategy/Research/META have automatic cadences. Without
+auto-cadence, Experiment Dev can't reactively consume incoming
+request files. **Proposal 6**: Experiment Dev sets up /loop with
+slash-command pattern, checks queue depth + request files each fire.
+
+If approved, this closes the cross-session coordination gap and the
+push request mechanism becomes reliable.
+
+### Strategy posture
+
+The push request from cycle 19 followup is still unread by Experiment
+Dev despite their re-engagement. They may not be reading
+`strategy_request_to_experiment_dev_*` files as part of per-cycle
+protocol. Two options if push remains unaddressed:
+
+1. **Wait for Proposal 6** to land + Experiment Dev to self-implement
+   (this would auto-fix incoming-request-reading as part of the new
+   per-cycle protocol)
+2. **Update active_priorities.md** to be even more emphatic — Strategy
+   already has the TOP-PRIORITY QUEUE section; if Experiment Dev reads
+   active_priorities.md but not strategy_request_*.md, the queue
+   section should suffice
+
+Active_priorities.md was last updated v34 with the three push items in
+TOP-PRIORITY QUEUE. Experiment Dev's continued extension work suggests
+they may be picking from cap_map gaps over active_priorities. Either
+way, Proposal 6 fixes the structural issue.
+
+### Smoke labeling issue in zq
+
+`wave14zq_continual_8N_smoke`'s verdict_msg says "at M=4N" but the
+experiment name says 8N. Likely a copy-paste residual from earlier
+M=4N test. The empirical result (1.0/1.0 across 100 edits) is real;
+the label may not match the actual storage density. Flagging for
+Experiment Dev to check.
+
+### Tally — no row state changes
+
+Pure smoke characterization + process update. Cap_map tally unchanged.

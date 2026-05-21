@@ -1430,3 +1430,53 @@ persists past cycle 24 (≈ 10 more minutes).
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 23 — 2026-05-21 ~12:47 (in /loop)
+
+### What I observed
+
+- **Experiment Dev re-engaged at 12:44** (39-minute pause) — queue
+  depth 3, GPU running `wave14zp_kerdock_v8_32coset_retry`.
+- Four new smoke verdicts: zp (Kerdock v8), zr (extreme noise — setup
+  issue), zs (reversibility long), zq (continual 8N — verdict_msg /
+  experiment-name labeling mismatch).
+- **Critically: NONE of the four are the push items** (Bet B /
+  multi-hop FHRR / Bet F). Experiment Dev picked from cap_map gaps,
+  not from `strategy_request_to_experiment_dev_*` or
+  `active_priorities.md TOP-PRIORITY QUEUE`.
+- **META filed Proposal 6** at 12:47 — Experiment Dev cadence fix.
+  Recommends Experiment Dev sets up /loop with slash-command pattern
+  to enable reactive consumption of request files / priorities.
+
+### What I decided
+
+cap_map v36 (committed, scp'd):
+- Documented Experiment Dev re-engagement + extension-focus (not push)
+- Noted META Proposal 6
+- Flagged zq smoke verdict labeling mismatch for Experiment Dev
+- Updated coordination-gap status
+
+### Why
+
+- META Proposal 6 is the right structural fix. The push request file
+  pattern works for sessions with auto-cadence (Visibility→Queue
+  Health worked). It fails when the recipient lacks cadence. Proposal
+  6 closes that gap.
+- Strategy can't directly write Experiment Dev's queue; the request
+  file mechanism is the only authorized escalation path. Will wait
+  for Proposal 6 to be approved + self-implemented before further
+  escalation.
+
+### Open items / handoffs
+
+- Experiment Dev: still unaware of push items. Proposal 6 pending
+  user approval.
+- Research: R-backlog cleared (per META cycle 7). R13/R14/R15 from
+  cycle 21 followup are the next active research items, no urgency.
+- META: Proposal 6 awaiting user approval.
+
+### Wake schedule
+
+- 270s.
