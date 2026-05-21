@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 12 (heavy active period)
-**Cap map version this refers to:** v23
+**Last updated:** 2026-05-21 cycle 13 (sustained heavy pace)
+**Cap map version this refers to:** v24
 
 ---
 
@@ -329,8 +329,9 @@ DRAFT sketches are starting points only.
 
 - **E_A (Bet A)**: RESOLVED ✅ by `wave14yb_edit_then_query_kerdock`.
   Follow-up audit (low priority): why did v5's 93% leak not reproduce?
-- **E_G (Bet G, gated on R11)**: calibration rescue test, candidate
-  TBD by R11 ranking.
+- **E_G (Bet G, R11 LANDED 2026-05-21 11:14)**: TEMPSCALE smoke
+  passed at β=16 (ECE → 0); full mode running. If full positive,
+  Bet G closes ✅.
 - **E_MH (Multi-hop rescue, gated on R8 ✅)**: queue BOTH
   `wave14r_multihop_FHRR_v1` (A1 mechanism correction) AND
   `wave14r_multihop_hybrid_v1` (C1 substrate-coherent variant) per R8.

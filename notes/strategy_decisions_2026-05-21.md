@@ -992,3 +992,57 @@ active_priorities updated:
 ### Wake schedule
 
 - 270s. Active pace continuing.
+
+---
+
+## Cycle 13 — 2026-05-21 ~11:17 (in /loop, sustained heavy pace)
+
+### What I observed
+
+Seven event_outcomes + R11 in 8 minutes since cycle 12:
+- yr full (11:10): CONTINUAL_1000_HOLDS — 1000 edits full mode
+- yt smoke (11:10): EDIT_QUERY_4N_KERDOCK_PASS — Bet A at M=4N smoke
+- R11 (11:14): calibration rescue research
+- ys full (11:16): CONTINUAL_2000_HOLDS — 2000 edits!
+- yu full (11:17): CONTINUAL_UC_BOTH_HOLD — undercapacity continual
+- yv full (11:17): REEDIT_BOTH_HOLD — iterative re-edit ✅ NEW
+- yw full (11:17): POLYSEMY_PICKS_ONE_NONDET — polysemy 🟡 NEW
+- yx smoke (11:17): TEMPSCALE_RESCUES_AT_BETA_16 — Bet G #1 rescue smoke ✅
+
+### What I decided
+
+cap_map v24 (committed, scp'd):
+- **NEW ✅** Iterative re-editing of same fact (Memory primitives)
+- **NEW 🟡** Polysemy non-deterministic handling (Memory primitives;
+  capability limit, not breakage — honest framing)
+- Continual editing extended to 2000 (full); approaching AlphaEdit 3000 ceiling
+- Bet G TEMPSCALE smoke ✅ — full pending; if positive, calibration ❌→✅
+- Bet A smoke at M=4N (full pending)
+- R11 landed (Bet G research prerequisite)
+
+### Why
+
+- Polysemy is honest: substrate is outer-product Hebbian, can't
+  disambiguate two values bound to same key without explicit
+  disambiguation mechanism. Worth flagging as a 🟡 capability limit
+  rather than papering over.
+- TEMPSCALE rescue: Strategy sketch #1 (Platt scaling) is the most
+  standard calibration rescue; smoke shows ECE→0 at β=16. If full
+  confirms, Bet G closes cleanly without needing R11's deeper ranking.
+- Continual editing trajectory clearly bound for AlphaEdit-class
+  ceiling; substrate's structured-keys story is now empirically
+  rigorous through 2000 sequential edits.
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B (multi-task CL) still hasn't been queued.
+  Multi-hop FHRR/hybrid (E_MH) still hasn't been queued. Bet F
+  (SSH-BSC v2) unblocked since cycle 12 — not yet queued either.
+  Several open buildable items.
+- Research: R10 + R11 + R5 + R8 + R1 all landed. R3 / R7 / R9
+  still outstanding.
+- META: closure-rehab request still unaddressed since cycle 4
+
+### Wake schedule
+
+- 270s. Calibration full mode lands soon; expect verdict in next cycle.

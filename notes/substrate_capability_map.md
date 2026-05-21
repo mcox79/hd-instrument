@@ -2642,3 +2642,108 @@ the edit-then-query Tier-1 KILLER beyond the cycle 9 baseline.
 
 Compound section gains its first ✅ row. Two existing 🟡s remain
 (multi-hop + ICL-RSB synergy).
+
+
+## 2026-05-21 v24 update — Continual 2000; Bet G TEMPSCALE rescue smoke ✅; iterative re-edit ✅; polysemy 🟡; R11 landed
+
+Strategy session cycle 13 (in /loop). Seven event_outcomes + R11
+since cycle 12 (11:09).
+
+### Bet G calibration rescue via temperature scaling (smoke ✅)
+
+`wave14yx_calibration_temp_scaling` smoke (11:17:28):
+**TEMPSCALE_RESCUES_AT_BETA_16**:
+- Per-beta ECE: β=1 → 0.99, β=4 → 0.83, **β=16 → 0.00004**
+- Full mode running on GPU now
+
+Bet G rescue sketch #1 (Platt / temperature scaling, the first in v20's
+5-sketch list) works in smoke. If full mode confirms, substrate
+calibration flips from ❌ PROVISIONAL to **✅ rescued at β=16**.
+
+**No row state change until full mode lands**. Preliminary positive.
+
+### R11 landed — calibration rescue research
+
+`research_R11_calibration_uncertainty_2026-05-21.md` (11:14) published.
+Bet G research prerequisite done. Experiment Dev's TEMPSCALE candidate
+is running ahead of R11's ranking (Strategy sketch #1 is the most
+obvious and standard rescue).
+
+### Continual editing extended 1000 → 2000 ✅
+
+`wave14ys_continual_editing_2000` full (11:16:40): **CONTINUAL_2000_HOLDS**.
+Kerdock at 1.0/1.0 across all 2000 sequential edits. 340s runtime.
+Plus `wave14yr_continual_editing_1000` full confirmed (11:10:57).
+
+Trajectory: 30 → 100 → 200 → 500 → 1000 → 2000. Approaching AlphaEdit
+3000-edit ceiling.
+
+### NEW ✅ — Iterative re-editing of same fact
+
+`wave14yv_iterative_reedit` full (11:17:11): **REEDIT_BOTH_HOLD**.
+Both arms maintain ≥0.95 across all re-edits of the same (key, value)
+pair. Kerdock min=1.000, correlated min=1.000. Distinct from
+continual-editing-many-different-facts.
+
+**New row added to Memory primitives**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Iterative re-editing of same fact** — re-editing the SAME (key, value) pair multiple times maintains accuracy on both Kerdock and correlated substrates | ✅ Validated | `wave14yv_iterative_reedit` (Kerdock min=1.000, correlated min=1.000) | "Update a fact, then update again later" works as expected. |
+
+### NEW 🟡 — Polysemy non-deterministic
+
+`wave14yw_polysemy_shared_subj` full (11:17:20):
+**POLYSEMY_PICKS_ONE_NONDET**:
+- returns one of conflict pair: 0.973
+- consistent_choice: 0.494 (basically random which of the two)
+- returns_other_entity: 0.027
+
+Honest mechanism: substrate is outer-product Hebbian; W·k = v₁⟨k,k₁⟩
++ v₂⟨k,k₂⟩. When k₁ = k₂ = k, readout is v₁ + v₂; argmax winner
+depends on noise alignment. Not a bug — fundamental property of
+additive outer-product storage.
+
+**New row added to Memory primitives**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Polysemy (same key, multiple values) handling** — substrate returns one of the conflict pair 97% but inconsistently | 🟡 Capability limit (not breakage) | `wave14yw_polysemy_shared_subj` (0.973 in-pair, 0.494 consistency) | Substrate can't deterministically disambiguate multi-valued bindings without explicit disambiguation (context, time, source). |
+
+### Bet A smoke at M=4N
+
+`wave14yt_edit_query_4N_smoke` (11:10:54): **EDIT_QUERY_4N_KERDOCK_PASS**.
+Smoke at N=1024 / M=4N. Full pending.
+
+### Continual editing at undercapacity
+
+`wave14yu_continual_editing_undercap` full (11:17:03): **CONTINUAL_UC_BOTH_HOLD**.
+At M<N, both arms (Kerdock + correlated) hold. The structured-keys
+advantage emerges only as M approaches/exceeds N.
+
+**Evidence list update** (existing ✅):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Continual sequential editing | ✅ Validated | Now also: `wave14yu_continual_editing_undercap` (both arms hold at M<N). Structured-keys-load-bearing claim refines to "at M ≥ N". |
+
+### Tally — +1 NEW ✅ (iterative reedit), +1 NEW 🟡 (polysemy)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 9 (+1 iterative reedit) | 1 | 2 (+1 polysemy) | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 |
+| Continual learning | 3 | — | — | — | 1 | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | 1 | — | 2 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 | — | — | — | — | 1 |
+| Forensics | — | 1 | — | — | — | 1 |
+| Calibration / uncertainty | — | — | (smoke ✅ pending full) | 1 | — | 1 |
+| CANNOT | — | — | — | — | — | 19 |
+| UNSURE | — | — | — | 13 | 8 | — |
+| KILLER Tier 1 | 4 | 1 | — | — | — | 1 |
+
+If calibration full passes next cycle, calibration moves ❌→✅ and the
+Tier-3 row closes. Tier-1 board unchanged (still 4/6 ✅).
