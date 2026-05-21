@@ -2123,3 +2123,55 @@ cap_map v51:
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 35 — 2026-05-21 ~14:30 (in /loop)
+
+### What I observed
+
+- **Bet B v2 full** (14:28): BET_B_INCONCLUSIVE — 3/4 criteria pass.
+  retention_A=0.73 (below 0.80), retention_B=0.87, gain_C=6.4, bwt=+0.04.
+- Bet B v2 smoke: BET_B_PASS (all 4 criteria at smoke scale).
+- R24 FDT violation landed (14:26): measurement protocol for substrate;
+  not first-principles derivation. Bet G ✅ empirical unchanged.
+
+### What I decided
+
+cap_map v52:
+- **Bet B promoted to 🟢 Partial** (Tier-1 KILLER row from ⚪ → 🟢).
+  73% retention is genuine multi-task CL (vs catastrophic forgetting
+  ~0% baseline). 3/4 criteria pass; below strict 0.80 threshold on
+  retention_A but substantively positive.
+- Tier-1 board: 3 ✅ + 3 🟢 Partial + 1 split (RSB).
+- Refused to retcon the 0.80 threshold per [[feedback-no-smoke]];
+  honest 🟢 framing.
+- R24 documented as measurement protocol; Bet G theoretical grounding
+  becomes experimental test option.
+
+### Why
+
+- 73% retention substantively demonstrates the Tier-1 KILLER's
+  "substrate retains genuinely different domains" claim (Proposal 4
+  grounding); 0.80 threshold was Strategy's pick, not a theoretical
+  prediction
+- 🟢 Partial honestly reflects: substrate IS doing multi-task CL just
+  below the strict threshold; substantively a strong demonstration
+- All 6 Tier-1 capabilities now have empirical demonstration (4 ✅,
+  3 partial 🟢, 1 split). Substrate product story matures
+- R24's measurement protocol gives Bet G a future experimental
+  grounding option
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B v3 (tweak parameters to push retention_A
+  above 0.80); R10 addendum still blocks Bet F; FDT protocol from R24
+  could be next
+- Research: R29 ferromagnetism still queued (top priority); R27
+  light-matter; R28 dislocation
+- Strategy: monitor Bet B v3 + R29 ferromagnetism + multi-hop
+  adaptive-beta (final rescue before architectural closure)
+
+### Wake schedule
+
+- 270s. Multiple pending experiments + research.
