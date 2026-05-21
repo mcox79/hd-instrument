@@ -527,6 +527,7 @@ the next PROT-007 migration cycle.
 | v73 | 2026-05-21 | STRATEGIC: Bet E RESTORED + R36 + Bet Q + Bet R | 8/9 Tier-1 ✅ session-high |
 | v74 | 2026-05-21 | Pipeline depth 6 smokes | No state changes |
 | v75 | 2026-05-21 | META 6-capability inventory | 5 new bets promoted (Bet S/T/U/V/W); Bet X deferred-research |
+| v76 | 2026-05-21 | Multi-hop N-sweep + R36/R37/R38/R39 | v4 Kerdock optimal; Bet Q spec ready; N=65536 M/N revised |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -715,3 +716,151 @@ Net effect: substrate-product candidate inventory grew by 5 LLM-gap-
 filling bets; all leverage already-validated primitives (Bet 1 ICL,
 Bet 2 erase, Bet A edit-then-query, Bet C Kerdock, Bet G calibration);
 Strategy delivers META request structured for user promotion call.
+
+---
+
+## v76 update — Multi-hop N-sweep full refines partial signal (N-dependent cliff); R36 deep-drill: v4 Kerdock substrate-product-optimal (vs v8); R37 engineering bridge ready (Bet Q buildable); R38/R39 DEFER confirmed by lit scan
+
+Strategy session cycle 63. Three research deliveries finalized (R36
+deep-drill, R37 engineering bridge, R38/R39 synthesis) + multi-hop
+N-sweep full results.
+
+### Multi-hop N-sweep full results refine v66/v67/v69 partial-signal framing
+
+Full mode 3-seed results across 4 N values:
+
+| N | Smoke (seed 17) | Full (3 seeds) | Verdict | Interpretation |
+|---|---|---|---|---|
+| 1024 | NOT_REPLICATED | NOT_REPLICATED (3 seeds: 17, 23, 31) | hard cliff | substrate has minimum N for d=50 soft signal |
+| 4096 | NOT_REPLICATED | DECAY_AT_50 (acc_1hop=0.947, >0.10 all depths) | partial signal | N=4096 floor for partial |
+| 8192 | NOT_REPLICATED | DECAY_AT_50 (>0.10 all depths) | partial signal | sustained |
+| 65536 | NOT_REPLICATED | DECAY_AT_50 (acc_1hop=0.933, >0.10 all depths) | partial signal | extends to large N |
+
+**Substrate-physics interpretation**: d=25 cliff IS N-dependent. At
+N=1024 the cliff is hard (no soft signal at d=50); at N≥4096 substrate
+retains >0.10 mean accuracy at all tested depths. This is a real
+N-scaling effect, NOT just smoke-seed artifact.
+
+**Substrate-product implication**: substrate's multi-hop capability
+requires minimum dimensionality. For deployment, N≥4096 is the
+operational floor for soft-positive depth behavior.
+
+**Capability moves**:
+
+| Capability | v74 state | v76 state | Trigger |
+|---|---|---|---|
+| Multi-hop d=50 large-N behavior | 🔬 PARTIAL SIGNAL CONFIRMED at large N | **🔬 N-dependent partial signal CHARACTERIZED**: hard cliff at N≤1024; soft positive (>0.10 all depths) at N=4096-65536 | N-sweep full 3-seed |
+
+### R36 calibration deep-drill — substrate-product choice v4 vs v8 Kerdock
+
+**File**: `research_R36_calibration_deepdrill_2026-05-21.md` (19:19).
+
+**Per-codebook sandwich-bound calibration**:
+
+| Codebook | R36 prediction | Empirical | ε_corr | Substrate-product verdict |
+|---|---|---|---|---|
+| Kerdock v4 N=4096 M=8N | [12K, 50K] | **32K (Bet C ✅)** | **0.4** | **OPTIMAL** |
+| Kerdock v8 32-coset N=4096 M=4N | [60K, 110K] | 16K (Bet C v37) | 0.15 | 2.7× UNDERPERFORMS v4 |
+| N=65536 Kerdock-v4-calibrated | [80K, 400K] | (untested) | predicted ~0.4 | **M/N ∈ [1.2, 6.1] — LOWER than N=4096's M/N=8** |
+| Random BSC any N | α_c·N=0.138·N | Hadamard M/N≤0.78 (Mattis) | n/a | matches AGS |
+
+**KEY substrate-product finding**: v4 Kerdock codebook geometry is
+**substrate-product-optimal at current N=4096**. v8 32-coset
+underperforms by factor 2.7. **N=65536 scaleup prediction LOWER
+than current M/N=8** — surprising and important for engineering
+roadmap.
+
+**Capability moves**:
+
+| Capability | v74 state | v76 state | Trigger |
+|---|---|---|---|
+| Kerdock v4 vs v8 codebook choice | (not in cap_map) | ✅ v4 EMPIRICALLY OPTIMAL; ε_corr=0.4 vs v8's 0.15; substrate-product engineering choice settled | R36 deep-drill |
+| N=65536 scale-up M/N prediction | 🔬 R16 prediction M/N≥20 | **REVISED 🔬 per R36: M/N ∈ [1.2, 6.1]** (LOWER than current N=4096's M/N=8); per-codebook ε_corr calibration matters | R36 deep-drill |
+
+**Per [[feedback-no-smoke]]**: substrate scaling is NOT as simple as
+"bigger N = higher M/N" — codebook-specific ε_corr matters. v4
+Kerdock at N=65536 might still be substrate-product-optimal at
+M/N≤6 (lower than N=4096's 8 but absolute M/N ratio).
+
+### R37 engineering bridge — Bet Q buildable now
+
+**File**: `research_R37_F1_F3_engineering_bridge_2026-05-21.md`
+(19:21).
+
+**Concrete spec**: `wave14_facilitation_nucleation_v1` with 4 sub-
+experiments:
+- F.1a heating-cooling × Kerdock v4
+- F.1b heating-cooling × random BSC (control)
+- F.3a conditional flip × Kerdock v4
+- F.3b conditional flip × random BSC (control)
+
+**Cost**: 5-8 GPU hours. Fits standard Glauber-dynamics framework
+with minor extensions for temperature scheduling + mobility cluster
+tracking (F.1) and codebook-similarity-graph + conditional probability
+statistics (F.3).
+
+**Bet Q state move**:
+
+| Capability | v75 state | v76 state | Trigger |
+|---|---|---|---|
+| Bet Q facilitation-vs-nucleation | 🔬 active bet — substrate FIRST-OF-ITS-KIND empirical test | 🔬 active bet — **CONCRETE BUILD SPEC** from R37 engineering bridge ready for Experiment Dev | R37 engineering bridge |
+
+### R38/R39 DEFER confirmed by lit scan
+
+**File**: `research_R38_R39_deferred_synthesis_2026-05-21.md` (19:23).
+
+**R38 V2 hyperbolic substrate**: ~10-15% P gain over fully-connected
+at current N=4096; might pay off at N≥65536+ scale; modern exponential-
+capacity dense AM is the real competitor, not vanilla Hopfield.
+
+**R39 Continuous Burgers-field substrate**: ≤5% P rigorous derivation
+by end-2026; ~25% decorative diagnostic value; ~3% genuine topological
+protection. Three obstructions: no spatial embedding, no continuous
+translational symmetry, no conservation in disordered media.
+
+**Both confirm Strategy cycle 54 DEFER decision was correct**. Per
+[[feedback-no-smoke]]: honest cross-session check; my judgment held.
+
+No state change in cap_map (R38/R39 already deferred).
+
+### Pipeline routing for Experiment Dev
+
+Per [[feedback-two-experiments-per-cycle]] (continuous-pipeline) and
+user's pipeline-fill direction: Experiment Dev queue depth is 5
+pending currently. When that drains, priority for new spec-ready bets:
+
+1. **Bet Q** — concrete spec from R37 engineering bridge; 5-8 GPU
+   hours; substrate-FIRST contribution; PRIORITY
+2. **Bet S** — pattern completion (META cycle 20 priority #1; 1 cycle)
+3. **Bet T** — hypothesis tracking (1 cycle)
+4. **Bet U** — working memory (1-2 cycles)
+5. **Bet R** — explicit p-body coupling
+6. **Bet P-Engineering** — pretrained KGE port
+
+Filed via cap_map; Experiment Dev's autonomous queue management
+respected.
+
+### Capability moves summary
+
+| Capability | v74 state | v76 state |
+|---|---|---|
+| Multi-hop d=50 N-scaling characterized | 🔬 partial signal | 🔬 N-dependent: hard cliff at N≤1024, partial >N≥4096 |
+| Kerdock v4 substrate-product-optimal | (implicit) | ✅ explicit per R36 deep-drill (ε_corr=0.4) |
+| Kerdock v8 substrate-product UNDERPERFORMS v4 | (implicit) | ❌ 2.7× factor underperform |
+| N=65536 M/N prediction | R16 unc. M/N≥20 | 🔬 **R36-revised M/N ∈ [1.2, 6.1] (LOWER than N=4096's 8)** |
+| Bet Q facilitation-nucleation experiment spec | concept | **R37-engineered concrete build spec** ready |
+| R38/R39 DEFER | Strategy cycle 54 | lit-scan confirmed |
+
+### Tier-1 board after v76
+
+Unchanged ✅ count (still 8 ✅) but substrate-product position
+strengthened:
+- Kerdock v4 vs v8 choice settled (Bet C ✅ now has codebook-specific guidance)
+- Multi-hop d=50 N-scaling characterized as N-dependent (Bet F-adjacent finding)
+- N=65536 scaleup expectations revised honestly (substrate engineering roadmap input)
+
+### Tally — Multi-hop N-sweep characterized; R36 v4-vs-v8 substrate-product choice settled; Bet Q spec ready; R38/R39 DEFER confirmed
+
+Net effect: substrate-product engineering precision improved (v4
+codebook choice explicit; N-scaling characterized; Bet Q buildable).
+No new ✅ promotions; refinement cycle.

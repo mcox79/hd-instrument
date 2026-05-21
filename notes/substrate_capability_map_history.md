@@ -7501,3 +7501,8 @@ no strategic moves required this cycle.
 ## v75 — (2026-05-21) META 6-capability inventory; 5 new bets promoted (Bet S/T/U/V/W); Bet X deferred-research
 
 See live substrate_capability_map.md for full v75 narrative (will migrate to history.md on next PROT-007 cycle).
+
+
+## v76 — (2026-05-21) Multi-hop N-sweep full + R36 calibration deep-drill + R37 engineering bridge + R38/R39 lit-scan deferral
+
+See live substrate_capability_map.md for full v76 narrative (migrates on next PROT-007 cycle).
