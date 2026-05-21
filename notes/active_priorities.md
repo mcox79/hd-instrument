@@ -31,8 +31,19 @@ Dev, Research, Visibility, Queue Health, META) read this.
   (gap-protection / pair-redundancy) is structurally distinct from
   Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v67**: 6 ✅ + 1 🟢 MECHANISM-DEPENDENT PASS
-pending v7 full + 2 🟡 + 1 ❌-arch PROVISIONAL (Bet F).
+**Tier-1 board after v69** (SESSION-HIGH): **7 ✅** + 2 🟡 + 1
+❌-arch PROVISIONAL.
+
+### Cycle 52 (v69)
+- **Bet B PROMOTED ✅ Validated** — v7 alpha sweep full PASS:
+  retention_A=0.954 aggregate across α ∈ {0.3, 0.5, 0.7, 0.9} × 3
+  seeds. Smoke 0.927 < Full 0.954 (REVERSE of v3/v4/v5 pattern; EMA-
+  blend mechanism is robust). 7th Tier-1 ✅.
+- **Multi-hop large-N partial signal RESTORED at N=8192** — full
+  reproduces v1 (>0.10 mean acc at all depths; acc_1hop=0.940
+  boundary fail). v67 retraction was smoke-only-overcautious; full
+  confirms. d=25 cliff is N-dependent.
+- Pipeline idle; queue empty.
 
 ### Cycle 48 (v67)
 - **Bet F v3 FULL CLOSED ❌-architectural PROVISIONAL** — with R10

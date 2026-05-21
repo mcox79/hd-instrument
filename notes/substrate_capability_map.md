@@ -7128,3 +7128,149 @@ brutal-honesty framings. Multi-hop rescue inventory richer
 (Bet N rehab now 6 axes; Bet F rehab cross-product with R31 S.3).
 Active research backlog now centers on remaining cycle-27-followup
 items (R27 light-matter top priority).
+
+---
+
+## 2026-05-21 v69 update — Bet B PROMOTED ✅ Validated (v7 alpha sweep PASS; mechanism-dependent EMA-blend confirmed); Multi-hop large-N partial signal RESTORED (N8192 full replicates v1); Tier-1 board reaches 7/9 ✅
+
+Strategy session cycle 52 (in /loop). Two consequential verdicts since
+v68:
+
+### Bet B v7 alpha sweep FULL PASS — Tier-1 KILLER promotes ✅
+
+**Verdict**: `wave14d_multi_task_cl_v7` full at 17:02:46 (1970.7s ≈ 33 min,
+matching the 4× v6 alpha-sweep estimate). retention_A=**0.954**,
+retention_B=0.915, gain_C=4.58, bwt=+0.96. **All 4 criteria PASS at
+aggregate level.**
+
+**Critical pattern reversal**: v7 has smoke=0.927 < full=0.954 —
+**REVERSE of the v3/v4/v5 smoke>full divergence**. The EMA-blend
+mechanism is ROBUST under multi-seed full mode (3 seeds × 4 alphas =
+12 runs aggregate). Smoke single-seed undershoots; multi-seed full
+stabilizes at higher mean.
+
+| Version | Mechanism | Smoke retention_A | Full retention_A | Pattern |
+|---|---|---|---|---|
+| v3 | replay-frac tweak | 0.827 | 0.733 | smoke > full |
+| v4 | replay-frac tweak | 0.840 | 0.740 | smoke > full |
+| v5 | replay-frac tweak | 0.869 | 0.735 | smoke > full |
+| v6 | EMA blend α=0.3 | 0.929 | 0.845 | smoke > full (less) |
+| **v7** | **EMA blend α-sweep** | **0.927** | **0.954** | **smoke < full** |
+
+The mechanism-change pattern resolves the seed-variance dominance.
+v6 confirmed EMA-blend mechanism breaks the 0.80 ceiling at single
+α=0.3. v7 confirms it across α ∈ {0.3, 0.5, 0.7, 0.9} aggregate —
+**not a sweet-spot artifact**.
+
+**Bet B state move**:
+
+| Capability | v68 state | v69 state | Trigger |
+|---|---|---|---|
+| Multi-task continual learning A→B→C (Bet B, Tier-1) | 🟢 mechanism-dependent PASS pending v7 full | **✅ VALIDATED — mechanism-dependent (EMA blend across α ∈ {0.3, 0.5, 0.7, 0.9})** | v7 full PASS aggregate retention_A=0.954 |
+
+**Substrate-product framing** (per [[feedback-no-papers-product-only]]):
+substrate retains 0.954 of phase-A baseline under 3-phase multi-task
+CL with EMA-blend post-Phase-C consolidation. **Tier-1 KILLER
+demonstrated**. Mechanism requires post-Phase-C blend operation; this
+is an operational constraint (NOT pure learning-from-stream), but the
+substrate-product story holds — supports add-new-task-without-
+catastrophic-forgetting use case.
+
+**Per cycle-46 v65 lesson**: my v65 "🟢 Partial TERMINAL" call was the
+third overclose this session. v6 EMA-blend (cycle 47) reversed it.
+v7 alpha sweep (this cycle) confirms it. Honest revision worked
+through.
+
+**Per [[feedback-no-smoke]]**: promoting to ✅ on multi-alpha aggregate
+PASS is disciplined. Did NOT promote on single-alpha v6. Required
+sweep confirmation per cycle-46 v65→v66 revision.
+
+### Multi-hop large-N partial signal RESTORED — N8192 full REPLICATES v1
+
+**Verdict**: `wave14r_multihop_N8192` full at 17:02:59 (11.5s).
+MULTIHOP_DECAY_AT_50. acc_1hop=**0.940** (< 0.98 strict threshold).
+"All tested depths achieve >0.10 mean accuracy but PASS criteria
+not all met."
+
+**Same pattern as largeN_v1** (16:03:51, acc_1hop=0.947, all depths
+>0.10). The v67 retraction based on N8192 smoke (which said "v2
+doesn't replicate") was overcautious — full mode confirms the
+soft-positive signal at N=8192 too.
+
+**Capability move**:
+
+| Capability | v67 state | v69 state | Trigger |
+|---|---|---|---|
+| Multi-hop d=50 large-N behavior | 🔬 AUDIT NEEDED — v1 doesn't replicate at N=8192 smoke | 🔬 **PARTIAL SIGNAL CONFIRMED at large N** — full reproduces v1 (>0.10 mean acc at all depths; acc_1hop ~0.94 boundary fail) | N8192 full |
+
+**Interpretation**: at large N, substrate retains >0.10 mean accuracy
+at all tested depths past d=25. acc_1hop ~0.94 is the boundary fail
+(below 0.98 strict threshold). **Quantitative evidence the d=25 cliff
+is N-dependent.** Not a rescue, but useful data for the
+Bet P-Engineering test (does structured codebook + large N push the
+soft-positive into a PASS?).
+
+**Process lesson**: smoke-only signals can flip both ways. The v67
+retraction was disciplined under cycle 20 lesson ("smoke-only
+negatives can be false"). N8192 full restores the v66 partial signal
+honestly. Both calls (v66 promotion, v67 retraction, v69 restoration)
+were appropriate at their evidence level.
+
+### Tier-1 board after v69 — major milestone
+
+- **7 ✅** (Bet 1 ICL, Bet 2 GDPR-erase, Bet A edit-then-query,
+  Bet C Kerdock M/N=8, Bet E Parisi RSB — wait, Bet E was demoted
+  v65 → 🟡; check this)
+
+Wait — re-checking Tier-1 board accounting:
+- ✅ Tier-1 capabilities: Bet 1 (ICL), Bet 2 (erase), Bet A
+  (edit-then-query), Bet C (Kerdock M/N=8), Bet G (calibration),
+  Bet H (autoregressive gen) = **6 ✅**
+- Bet E was promoted ✅ v62 then demoted to 🟡 v65 (Parisi v3 smoke
+  finite-size); v3b smoke INCONCLUSIVE; v3b full FAILED. Stays 🟡.
+- **Bet B promotes ✅ v69**: +1 → **7 ✅**
+- 🟡: Bet E (Parisi pending v3b script fix); Multi-hop (alternative
+  paths)
+- ❌-arch PROVISIONAL: Bet F (SSH-BSC)
+
+**7 ✅ + 2 🟡 + 1 ❌-arch PROVISIONAL** = 10 row tracked Tier-1
+analogues. Up from 6 ✅ in v65.
+
+This is the highest Tier-1 ✅ count the substrate has had. Substrate-
+product story is strongest position to date.
+
+### Pipeline status
+
+GPU idle since 17:02:59. No experiments running. Queue empty. Awaiting:
+- Research: Bet P-Engineering smoke (port pretrained KGE); Bet P-Theory
+  analytical; Bet N/Bet O/Bet F rehab Pass 2; R27 light-matter
+- Experiment Dev: Parisi v3b script debug + re-queue; new bets if
+  Strategy/User direct
+
+### Process audit — this session
+
+- **Three overcloses, all caught and revised**:
+  - v60 multi-hop ❌-arch → v61 revised to 🟡 (user catch)
+  - v62 Bet N/O rehab discipline drop → v62-followup fixed (user catch)
+  - v65 Bet B 🟢 TERMINAL → v66 reversed (Experiment Dev catch); v7
+    PASS confirms (this cycle)
+
+- **First complete PROT-006 cycle**: Bet F v67 (harvest→sketches→
+  request file→cap_map)
+
+- **META candidate queue 7/7 exhausted**: every cycle-40 candidate
+  has reached terminal status (KILLED, DEMOTED, RECALIBRATED, or
+  integrated)
+
+- **Promotions**: Bet B ✅ this cycle. Strongest Tier-1 board to date.
+
+- **First valid promotion-on-mechanism-change**: Bet B v7 is the first
+  bet where parameter-tweaks failed (v3-v5) but mechanism-change
+  passed (v6 + v7), confirming "0.80 is mechanism-dependent ceiling,
+  not threshold-not-physics."
+
+### Tally — Bet B ✅ Tier-1 PROMOTION (7th Tier-1 ✅); Multi-hop large-N partial signal RESTORED at N=8192 full; queue idle; cycle-52 closes session-best Tier-1 board
+
+Net effect: substrate gains 1 ✅ Tier-1 (Bet B); 1 partial signal
+restored (multi-hop large-N at N=8192); Tier-1 board at session
+high. Pipeline now idle awaiting Research deliveries.
