@@ -3833,3 +3833,147 @@ If R15 lands similarly honest-negative, Forward-research backlog
 becomes "explored, no shipping capability surfaced" and the advanced-
 math axis closes. Strategy will consolidate into a "math frameworks
 explored" cap_map note.
+
+
+## 2026-05-21 v41 update — Wave 15 free probability promoted to Bet I (user-directive cycle 27 followup)
+
+User asked Strategy to bump Wave 15 free probability. The existing
+synthesis (`notes/wave15_free_probability_synthesis.md`, 2026-05-18)
+correctly framed it as "analytical tooling for predicting substrate
+spectra, NOT a new mechanism." This cycle promotes the tooling to a
+testable bet against the empirical envelopes the substrate has located.
+
+### Bet I — Free probability theoretical grounding for substrate envelopes (NEW active bet)
+
+**What it tests**: derive closed-form predictions from Wave 15
+synthesis applications 1-3 for three empirical envelopes:
+1. **Bet C capacity bound** at v4 Kerdock (M/N=8) and v8 32-coset (M/N=4)
+   — via Marchenko-Pastur + Gram-matrix spectrum + BBP transition
+2. **Noise tolerance ceiling σ=16** (v33 / v39 break-point at σ=32)
+   — via rank-1 signal detection threshold in MP-distributed noise
+3. **Multi-hop depth cliff d=25** (v17 / v23) — via spectrum of
+   sequential free multiplications of binding operators
+
+**Substrate consequence if proven**: substrate envelopes become
+**predictable from first principles** via spectral theory, not
+empirically fitted. Unlocks:
+- Scale-up predictions (N=65536, K=4096) without compute spend
+- Hardware sizing (σ tolerance under quantization) from theory
+- Codebook-variant comparison (Kerdock v4 vs v8 vs Reed-Muller etc.)
+  before running experiments
+
+**Multi-probe success criteria**: at least 2/3 envelope predictions
+land within 20% of empirical bounds.
+
+**Kill criterion**: 0/3 within 50%. Then free probability is descriptive
+only (Wave 15 synthesis already warned this is a risk). Demote to
+"available when needed."
+
+**Why now**:
+- R14 Tomita-Takesaki's brutally-honest finding (cycle 26) explicitly
+  named M-P + replica/cavity as the right substrate-spectral tools.
+- Wave 15 synthesis (2026-05-18) already scoped three applications
+  with concrete payoffs.
+- Bet C / noise tolerance / multi-hop have clean empirical anchors
+  from cycles 9, 21, 7 respectively.
+
+**Per [[feedback-materials-science-probe]]**: M-P + BBP + free
+convolution are core materials-science / random-matrix theory; this
+is the natural substrate-physics framing.
+
+**Per [[feedback-no-papers-product-only]]**: framed as "predict
+substrate envelopes from spectral theory," not "novel application of
+free probability." Engineering, not paper.
+
+### Routing change
+
+| Item | v40 state | v41 state |
+|---|---|---|
+| Wave 15 free probability | Existing synthesis; available when needed (forward-research backlog) | **Active bet (Bet I)** with empirical anchors + multi-probe criteria + kill criterion |
+| R16 Free probability research | "Available for use when specific spectral predictions are needed" | **Active: deliver numeric predictions for 3 empirical envelopes** |
+
+Research (R16) drills Wave 15 applications 1-3 into quantitative
+predictions; Strategy compares predicted vs empirical and either
+promotes Bet I to ✅ or kills.
+
+### Tally — Bet I added to active list
+
+No row state changes. Bet I joins active priority list at Priority 4.
+
+### Honest framing
+
+Bet I is the highest-leverage research-driven bet remaining: if the
+three envelope predictions match within 20%, **the substrate becomes
+analytically characterized** — competitive frame moves from "we
+empirically validated these envelopes" to "we derived them from
+spectral theory and verified empirically." That's a meaningfully
+stronger product claim, and it requires no new compute (Bet I is
+purely theoretical work against existing data).
+
+Risk: free probability might give qualitative-but-not-quantitative
+agreement (e.g., predicts a cliff but at the wrong location). The
+20% threshold is generous; tightening it to 10% would change the
+analysis but not the bet structure.
+
+
+## 2026-05-21 v41 update — Wave 15 free probability promoted to Bet I (user-directive cycle 27 followup)
+
+User asked Strategy to bump Wave 15 free probability. The existing
+synthesis (`notes/wave15_free_probability_synthesis.md`, 2026-05-18)
+correctly framed it as "analytical tooling for predicting substrate
+spectra, NOT a new mechanism." This cycle promotes the tooling to a
+testable bet against the empirical envelopes the substrate has located.
+
+### Bet I — Free probability theoretical grounding for substrate envelopes
+
+**What it tests**: derive closed-form predictions from Wave 15
+synthesis applications 1-3 for three empirical envelopes:
+1. **Bet C capacity bound** at v4 Kerdock (M/N=8) and v8 32-coset (M/N=4)
+   — via Marchenko-Pastur + Gram-matrix spectrum + BBP transition
+2. **Noise tolerance ceiling σ=16** (v33 / v39 break-point at σ=32)
+   — via rank-1 signal detection threshold in MP-distributed noise
+3. **Multi-hop depth cliff d=25** (v17 / v23) — via spectrum of
+   sequential free multiplications of binding operators
+
+**Substrate consequence if proven**: substrate envelopes become
+predictable from first principles via spectral theory, not empirically
+fitted. Unlocks scale-up predictions, hardware sizing under
+quantization, codebook-variant comparison BEFORE running experiments.
+
+**Multi-probe success criteria**: 2/3 envelope predictions within 20%
+of empirical bounds.
+
+**Kill criterion**: 0/3 within 50%. Then free probability is
+descriptive only; demote to "available when needed."
+
+**Why now**:
+- R14 Tomita-Takesaki (cycle 26) explicitly named M-P + replica/cavity
+  as the right substrate-spectral tools
+- Wave 15 synthesis already scoped three applications with concrete payoffs
+- Bet C / noise tolerance / multi-hop have clean empirical anchors
+
+**Routing change**:
+
+| Item | v40 state | v41 state |
+|---|---|---|
+| Wave 15 free probability | Available when needed (forward-research backlog) | **Active bet (Bet I)** with empirical anchors |
+| R16 Free probability research | "Available when needed" | **Active: deliver numeric predictions for 3 envelopes** |
+
+### Honest framing
+
+If Bet I passes (2/3 envelope predictions within 20%), substrate
+competitive frame moves from "we empirically validated these
+envelopes" to "we derived them from spectral theory and verified
+empirically." Stronger product claim, no new compute needed (pure
+theoretical work against existing data).
+
+Risk: free probability might give qualitative-but-not-quantitative
+agreement (predicts a cliff but at wrong location). 20% threshold is
+generous; could tighten to 10% if results warrant.
+
+### Tally — no row state changes
+
+Bet I added to active priority list (Priority 4). Existing rows
+unchanged. Bet I's verdict will determine whether Bet C / noise
+tolerance / multi-hop rows gain a "theoretically grounded" qualifier
+or stay empirical-only.

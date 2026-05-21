@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 24 followup (Proposal 4 + 6 approved; tier labels grounded per Proposal 4)
-**Cap map version this refers to:** v37
+**Last updated:** 2026-05-21 cycle 27 followup (user promoted Wave 15 free probability to Bet I)
+**Cap map version this refers to:** v41 (pending — this cycle)
 
 ---
 
@@ -41,6 +41,61 @@ Research R8 landed 2026-05-21 10:42
 Top candidates: A1 (pure FHRR) + C1 (hybrid BSC store + FHRR chain).
 Build `wave14r_multihop_FHRR_v1` AND `wave14r_multihop_hybrid_v1` in
 parallel per R8's recommended drill order.
+
+### Priority 4 — Bet I: Free probability theoretical grounding for substrate envelopes (NEW; user-routed 2026-05-21 ~13:25)
+
+**What it tests**: use the existing Wave 15 free-probability synthesis
+(2026-05-18) to derive closed-form theoretical predictions for the
+substrate's three empirically-located envelopes:
+1. Capacity bound at Bet C (M/N=8 for v4 Kerdock; M/N=4 for v8 32-coset)
+2. Noise tolerance ceiling σ=16 (v33/v39 finding)
+3. Multi-hop depth cliff d=25 (v17/v23 finding)
+
+**Substrate consequence if proven**: empirical envelopes become
+predictable from first principles via Marchenko-Pastur + free
+convolution + BBP transition theory. Unlocks (a) scale-up predictions
+(what happens at N=65536?), (b) hardware sizing (σ tolerance at lower
+precision?), (c) variant-design (which codebook gives largest envelope?).
+Substrate stops being empirically characterized; it becomes spectrally
+derivable.
+
+**Multi-probe success criteria** (any prediction passing):
+- Bet C capacity bound prediction within 20% of empirical M/N=8 (v4)
+- Noise tolerance ceiling prediction within 20% of empirical σ=16
+- Multi-hop depth cliff prediction within 20% of empirical d=25
+- 3 empirical anchors (v37 cycle 24, v33 cycle 21, v17 cycle 7); at
+  least 2/3 within 20% to count as PASS
+
+**Kill criterion**: 0/3 predictions land within 50% of empirical
+bounds. Then free probability is **descriptive only** (Wave 15's
+original synthesis already concedes this is a risk: "analytical
+tooling, NOT a new mechanism"); demote back to forward-research
+backlog as "available when needed."
+
+**Why now**: R14 Tomita-Takesaki's brutally-honest finding (cycle 26)
+explicitly named M-P + replica/cavity as the right tool for substrate
+spectral derivation; Wave 15's existing synthesis already has the
+three applications scoped. Bet C / noise tolerance / multi-hop have
+clean empirical anchors. **This is the load-bearing math the substrate
+was already pointing at**; promoting Wave 15 to a bet operationalizes
+it.
+
+**Per [[feedback-materials-science-probe]]**: M-P is the canonical
+spin-glass / random-matrix spectrum; BBP transition is the rank-1
+signal detection threshold; both are core materials-science framing.
+
+**Per [[feedback-no-papers-product-only]]**: framing is "predict
+substrate envelopes from spectral theory," NOT "novel application of
+free probability." Substrate engineering, not paper.
+
+**Who acts**: Research (drill specific predictions from Wave 15
+synthesis applications 1/2/3; produce R16 with numeric predictions);
+Experiment Dev (no new experiments needed unless predictions identify
+new envelopes — initial work is theoretical against existing data);
+Strategy (compare predicted vs empirical; cap_map update on PASS or
+kill on close).
+
+---
 
 ### Priority 3 — Bet F SSH-BSC v2 topological
 **What it tests**: substrate-encoded facts tagged with integer winding
@@ -445,12 +500,14 @@ Slot in after the top-priority queue drains.
   invariants under noise / quantization?). Connects to topological
   substrate work (Bet F SSH-BSC AIII class, Hasan-Kane 10-fold way).
 
-- **R16 (status: existing)**: Free probability — `wave15_free_probability_synthesis.md`
-  already done unbiased. Verdict: analytical tooling for predicting
-  substrate spectra (capacity, convergence), NOT a new mechanism.
-  Available for use when specific spectral predictions are needed
-  (e.g., extending Bet C capacity claims; analyzing Bet 1 ICL
-  saturation curve).
+- **R16 — Free probability theoretical grounding (NEW: promoted from
+  backlog to active research per user cycle 27 followup)**: derive
+  closed-form predictions from Wave 15 synthesis applications 1-3 for
+  Bet C capacity (target M/N=8 v4), noise tolerance (σ=16), multi-hop
+  depth cliff (d=25). 2x pass already done (`wave15_free_probability_synthesis.md`,
+  2026-05-18); this is the numerical-prediction phase. Output: R16
+  delivers three quantitative theoretical predictions to compare
+  against empirical envelopes. Closes Bet I (active).
 - **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
   Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
   at all noise — methodology gap, not substrate finding. 2x pass:

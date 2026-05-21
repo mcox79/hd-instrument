@@ -1661,3 +1661,37 @@ No cap_map update. Pure heartbeat.
 ### Wake schedule
 
 - 600s. If still idle next cycle, will lengthen further (1200s).
+
+---
+
+## Cycle 27 followup — 2026-05-21 ~13:25 (user-directive: bump Wave 15)
+
+User asked Strategy to bump Wave 15 free probability. The existing
+synthesis (2026-05-18) correctly framed it as analytical tooling, not
+mechanism. Promoting tooling to active bet against three empirical
+envelopes the substrate has located.
+
+### What I decided
+
+- **Bet I added** (Priority 4 in active_priorities): use Wave 15
+  synthesis applications 1-3 to predict Bet C capacity (M/N=8),
+  noise tolerance ceiling (σ=16), and multi-hop depth cliff (d=25).
+- Multi-probe: 2/3 within 20% of empirical = PASS; 0/3 within 50% = kill.
+- Routing: Research (R16 — deliver numeric predictions); Strategy
+  compares predicted vs empirical.
+
+### Why
+
+- R14's brutally-honest finding explicitly named M-P + replica/cavity
+  as the right substrate-spectral tools. Wave 15 is the M-P/free
+  framework operationalized.
+- Pure theoretical work; no new compute. Worst case: descriptive-only
+  (already conceded in synthesis); best case: substrate becomes
+  analytically characterized.
+- Per [[feedback-materials-science-probe]] + [[feedback-no-papers-product-only]]:
+  M-P is core spin-glass material; framing is engineering not paper.
+
+### Wake schedule
+
+- 600s (still in idle pace; Bet I is research/Strategy work, not
+  compute-bound).
