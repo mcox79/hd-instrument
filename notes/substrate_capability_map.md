@@ -6857,3 +6857,127 @@ Net effect: Bet B clearer path to ✅ via mechanism change; R17 Sketch
 C is the only R17 sketch surviving + strengthening; Bet P framing
 recalibrated honestly with Theory route as substrate-novel; multi-hop
 large-N adds quantitative wrinkle to closure-scope discipline.
+
+---
+
+## 2026-05-21 v67 update — Bet F v3 FULL NO_TRANSITION (with proper W) → ❌-architectural-current-arch PROVISIONAL per PROT-004 + PROT-006; R17 Sketch D full-confirmed killed; Bet B v7 smoke PASS pending full; Multi-hop large-N partial signal RETRACTED (v1 doesn't replicate at N=8192)
+
+Strategy session cycle 48 (in /loop). Four verdicts since v66:
+
+### Bet F v3 FULL — closes ❌-architectural-current-arch PROVISIONAL
+
+**Verdict**: `wave14_ssh_bsc_v3_protected` full at 16:25:35 (15.5s).
+BET_F_NO_TRANSITION — same as v2 full + v3 smoke. With R10 addendum's
+chosen Option 2 W-construction (substrate-coherent Hebbian outer-
+product over N_facts topologically-modulated keys), substrate still
+shows no AIII Z winding transition.
+
+**Per PROT-006 atomic sequence applied**:
+1. Verdict harvested ✅
+2. 5 axis-combination rescue sketches drafted (R28 supplied them
+   already: Burgers/edge-screw/disclination/bound-states/topology-
+   by-coset) ✅
+3. Request file filed: `notes/strategy_request_to_research_Bet_F_rehab_2026-05-21.md`
+   (this cycle, before v67 commit) ✅
+4. Cap map updated with PROVISIONAL tag (this v67 entry) ✅
+
+**Bet F state move**:
+
+| Capability | v66 state | v67 state | Trigger |
+|---|---|---|---|
+| SSH-BSC topological winding-protected (Bet F) | 🟡 NO_TRANSITION pending v3 full | **❌-architectural-current-arch PROVISIONAL** — substrate genuinely lacks AIII Z winding under SSH-BSC at current Plate-HRR arch; closure narrow per [[feedback-dont-overextend-theorems]]; 5 R28 axis-combination rescue sketches routed | Bet F v3 full + R10 W correct |
+
+**Closure scope (narrow)**: Bet F closes for SSH-BSC AIII-class
+winding-protected memory at current Plate-HRR substrate on flat
+N=4096 codebook with R10 Option 2 W-construction. Does NOT close
+topological-protection as a class — alternative frameworks (Burgers
+vector, edge/screw, disclination, dislocation bound states, higher
+Chern, anyons) remain untested per R28's rescue list.
+
+### R17 Sketch D FULL KILLED — substrate has no power-law two-point correlation
+
+**Verdict**: `wave14_r17_delta_eff_probe2b` full at 16:25:17 (0.16s).
+DELTA_EFF_NO_POWERLAW. R² values: random_bsc=0.000, Hadamard=0.000,
+Kerdock=0.024. All far below 0.7 power-law threshold.
+
+**R17 Sketch D state**:
+
+| Capability | v66 state | v67 state | Trigger |
+|---|---|---|---|
+| R17 Sketch D — substrate effective scaling dimension Δ_eff | ❌ KILLED (v65 smoke) | **❌ KILLED full-confirmed** — R² < 0.025 for all codebooks at full mode | Probe 2b full |
+
+Closure in-axis within R17 framework (R17 was the 2x research pass).
+No separate rehab request needed per PROT-006 in-axis exception.
+
+### Bet B v7 smoke PASS — hold for full per cross-version lesson
+
+**Verdict**: `wave14d_multi_task_cl_v7_smoke` PASS at 16:29:54.
+retention_A=0.927 ≥ 0.8, retention_B=0.958, gain_C=4.48, bwt=+0.30.
+
+**Per [[feedback-no-smoke]] + cross-version lesson**: smoke=PASS
+is not promotion evidence. v3/v4/v5 all had smoke=PASS → full=PARTIAL
+under parameter tweaks. v6 (EMA blend mechanism) was different —
+smoke=PASS → full=PASS at retention_A=0.845. v7 is the alpha sweep;
+the FULL mode will run alpha ∈ {0.3, 0.5, 0.7, 0.9}.
+
+**Bet B state stays 🟢 MECHANISM-DEPENDENT PASS pending v7 full**.
+v7 full running (started 16:29:55); will land ~16:38 if v6 pace
+(~8 min) holds.
+
+### Multi-hop large-N PARTIAL signal RETRACTED — v1 doesn't replicate at N=8192
+
+**Verdict**: `wave14r_multihop_N8192_smoke` at 16:30:35.
+MULTIHOP_V2_NOT_REPLICATED. "acc_5hop < 0.5 on seed(s) 17. v2 finding
+doesn't replicate; audit test setup before drawing depth conclusions."
+
+**Strategic implication**: v66 added "Multi-hop d=50 large-N
+behavior" as 🔬 PARTIAL signal based on largeN_v1's "all depths >0.10
+mean accuracy" result. N8192 smoke says v1 result doesn't replicate
+at larger N. **The partial-signal claim must be retracted.**
+
+**Per [[feedback-no-smoke]] + cycle 20 lesson**: smoke-only negatives
+can be false, BUT this is a NEGATIVE against a previous claim — the
+right framing is "v1 partial signal AUDIT NEEDED before claiming
+substrate behavior."
+
+**Capability move**:
+
+| Capability | v66 state | v67 state | Trigger |
+|---|---|---|---|
+| Multi-hop d=50 large-N behavior | 🔬 PARTIAL signal — >0.10 at all depths | **🔬 AUDIT NEEDED — v1 doesn't replicate at N=8192; original finding may be seed-or-setup artifact** | N8192 smoke retraction |
+
+Multi-hop large-N is back to "no positive signal." The d=25 cliff
+closure-scope discipline holds at v61/v65 level — current-arch-
+buildable rescues exhausted, 7+1 alternative paths active.
+
+### Updated multi-hop rescue inventory (unchanged: 7+1)
+
+No new rescue paths added; no paths killed. Bet P-Engineering +
+Bet P-Theory split unchanged. R31, R32, R33, R34, R17 sketches B/C
+still active.
+
+### Tier-1 board after v67
+
+- **6 ✅** (Bet 1, Bet 2, Bet A, Bet C, Bet G, Bet H)
+- **1 🟢 mechanism-dependent-PASS pending v7 full** (Bet B)
+- **2 🟡** (Bet E pending v3b full; Multi-hop 7+1 rescue paths)
+- **1 ❌-architectural PROVISIONAL** (Bet F)
+
+### Action items
+
+- v7 alpha sweep full landing ~16:38 — will determine Bet B ✅ promotion
+- Bet P-Engineering smoke test (pretrained KGE codebook) — Experiment Dev
+- Parisi v3b full landing — will determine Bet E ✅ promotion vs stays 🟡
+- Bet F rehab Research pass — closure-followup
+- R31/R32 still backlogged
+- META cycle 14+ should track the THIRD overclose pattern (v60/v62/v65)
+  + the rare CORRECT closure-with-rehab-discipline (Bet F this cycle)
+  as positive PROT-006 working example
+
+### Tally — 1 PROT-006-compliant closure (Bet F); 1 full-confirmed KILL (R17 Sketch D); 1 retraction (multi-hop large-N); 1 smoke PASS pending full (Bet B v7)
+
+Net effect: Bet F closes honestly with full PROT-006 atomic sequence
+(first complete cycle of harvest→sketches→request file→cap_map).
+R17 Sketch D fully out. Multi-hop large-N partial signal retracted
+(false positive in v66). Bet B v7 full will determine Tier-1 ✅
+promotion.

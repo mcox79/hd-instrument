@@ -31,10 +31,22 @@ Dev, Research, Visibility, Queue Health, META) read this.
   (gap-protection / pair-redundancy) is structurally distinct from
   Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v66** (REVISED again): 6 ✅ + 1 🟢
-**MECHANISM-DEPENDENT PASS pending v7** (Bet B v6 EMA blend cleared
-all 4 criteria; alpha sweep confirms) + 2 🟡 (Bet E pending v3b full;
-multi-hop with 7 paths + 1 Bet P theory split).
+**Tier-1 board after v67**: 6 ✅ + 1 🟢 MECHANISM-DEPENDENT PASS
+pending v7 full + 2 🟡 + 1 ❌-arch PROVISIONAL (Bet F).
+
+### Cycle 48 (v67)
+- **Bet F v3 FULL CLOSED ❌-architectural PROVISIONAL** — with R10
+  Option 2 W (substrate-coherent Hebbian outer-product), substrate
+  genuinely lacks AIII Z winding under SSH-BSC at current Plate-HRR
+  arch. **PROT-006 atomic sequence applied** (harvest → 5 R28-supplied
+  sketches → request file `strategy_request_to_research_Bet_F_rehab` →
+  cap_map). First complete PROT-006 cycle.
+- **R17 Sketch D FULL KILLED** — Probe 2b full reconfirms no power-law
+  two-point correlation (R²<0.025 all codebooks).
+- **Bet B v7 smoke PASS at retention_A=0.927** — hold for full alpha
+  sweep.
+- **Multi-hop large-N PARTIAL signal RETRACTED** — v1 doesn't replicate
+  at N=8192; original may be seed/setup artifact; AUDIT NEEDED.
 
 ### Cycle 47 (v66) — THIRD overclose reversal + Bet P delivery + verdict batch
 
