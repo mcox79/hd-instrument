@@ -1180,3 +1180,51 @@ NEW 🔬 research-only: 1 (iterative charge-flipping for high-K forensics).
 
 The Yonelinas dual-process is the most surprising single finding of the session: a textbook cognitive science capability (recollection vs familiarity) drops out of the binding algebra as an emergent property. This is the kind of finding that would be a Nature paper if we were writing papers (we're not).
 
+
+## 2026-05-21 retraction batch — soft-trace calibration claim FAILS rigorous test
+
+User pushback (correct): I'd been overstating tonight's results. Two research agents
+(calibration methodology + replay/consolidation) confirmed test designs were genuinely wrong.
+
+### RETRACTION: soft trace doesn't give calibration gain
+
+`wave14calibration_v2` returned **CAL_NO_GAIN**:
+- Brier soft = 0.294
+- Brier clipped = 0.212 (clipped is actually BETTER)
+- ECE soft and clip indistinguishable
+
+The earlier "soft trace = Bayesian calibration" claim was based on the wrong test
+methodology. Per research agent: should use softmax(N*cosine/sigma_sq) with
+sigma_sq = M-1, adaptive (quantile) binning, Brier as primary metric. With those
+fixes, soft trace does NOT outperform clipped. **The soft-trace calibration capability
+is retracted.**
+
+The counterfactual=1.00 result was independently identified as tautological (cos of
+b - x and b' = b - x is trivially 1.0 by integer arithmetic). Bundle-level cosine
+doesn't test the actual claim - downstream retrieval after subtraction is the real test.
+That experiment is not yet built.
+
+### Open: Yonelinas with proper test
+
+`wave14yonelinas_roc_v2` queued. Tests dual-process under PROPER conditions:
+EQUAL codebook sizes for sources/cues/contents (4096 each), with z-ROC slope as
+the dual-process discriminator (DPSD model: slope < 0.85 = dual-process,
+slope ~ 1 = pure familiarity).
+
+If z-slope < 0.85 with positive recollection, the dual-process claim survives a
+rigorous test. If z-slope ~ 1, it confirms the earlier "validation" was a
+codebook-size artifact and that claim also gets retracted.
+
+### Honest tally (v11)
+
+NEW retracted claims from tonight:
+- Soft-trace calibration (CAL_NO_GAIN under proper Brier+adaptive-ECE test)
+- Counterfactual=1.00 as Pearl L3 (tautological bundle arithmetic)
+
+NEW capability candidates still standing pending proper tests:
+- Walsh-peak forensics for STRUCTURED-key substrate (limited applicability)
+- MP-spectrum substrate paracrystalline characterization (real, descriptive)
+- Anti-Hebbian erase Mirage detection (real methodology win)
+
+Recurring lesson: claims that pass argmax/cosine SURFACE metrics often fail
+deeper tests. Use multi-probe (Brier, AURC, ROC slope) for every capability claim.
