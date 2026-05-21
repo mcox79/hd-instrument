@@ -2196,3 +2196,63 @@ Net effect: substrate gains theoretical grounding for Bet B mechanism
 Musa super-linear, R27 L.2 Marsh reconfigurable); cross-modal Tier-2
 row substrate-applicable path identified (R21); Bet E methodology-
 bounded (v3c slope reversal); decision log drift acknowledged.
+
+---
+
+## 2026-05-21 v71 update — Bet F Sketch 5 (Kerdock-coset topology) PARTIAL; first R28 rehab sketch empirically tested; pipeline-fill request to Experiment Dev
+
+Strategy session cycle 55 (in /loop). Bet F rehab discipline now has
+empirical data on one of the 5 R28 axis-combination rescue sketches.
+
+### Bet F Sketch 5 — Topology-by-coset (Kerdock structure) PARTIAL
+
+**Verdict**: `wave14_bet_f_sketch5_kerdock_coset_topology` at
+18:14:34 (24.9s). BET_F_S5_PARTIAL. **Kerdock recovery=1.000,
+control=0.994**. Differential 0.6%. "Some protection signal but
+doesn't clear PASS threshold."
+
+**Substrate-physics interpretation**: storing facts in Kerdock cosets
+where each coset relationship IS the topological invariant gives
+nearly-perfect Kerdock recovery AND nearly-perfect control. The
+codebook-geometric protection signal exists (Kerdock structurally
+robust per Bet C ✅) but the protection is NOT topologically
+QUANTIZED — it's just the Kerdock structured-codebook's inherent
+noise tolerance.
+
+**Why this isn't a closure reopener**: control=0.994 means random
+non-topological encoding also gets ~99.4%. The 0.6% differential is
+sub-significant. Bet F's claim required Z-quantized integer-recovery
+protection, which v3 full and Sketch 5 both fail to demonstrate.
+
+**Sketch 5 result added to rehab inventory**:
+
+| Sketch | Status | Empirical data |
+|---|---|---|
+| 1 — Composite Burgers + edge/screw | not yet tested | — |
+| 2 — Continuous-Burgers field analog | not yet tested | — |
+| 3 — Disclination-pair core | not yet tested | — |
+| 4 — Dislocation bound states | not yet tested | — |
+| **5 — Topology-by-coset (Kerdock)** | **PARTIAL** | **Kerdock 1.000, control 0.994; differential 0.6%** |
+
+**Per PROT-004**: 1 of 5 sketches tested with PARTIAL. Bet F closure
+stays ❌-architectural PROVISIONAL with Sketch 5 partial data added
+to rehab record.
+
+### Capability moves
+
+| Capability | v70 state | v71 state | Trigger |
+|---|---|---|---|
+| Bet F SSH-BSC topological | ❌-arch PROVISIONAL; 5 untested rehab sketches | ❌-arch PROVISIONAL; **1/5 sketches (S5 Kerdock-coset) PARTIAL** empirical | Bet F S5 ran |
+
+### Pipeline-fill action this cycle
+
+Per user direction ("keep working after; no reason not to fill the
+pipeline for experiment production") Strategy is filing
+`strategy_request_to_exp_dev_pipeline_fill_2026-05-21.md` with 8+
+priority-ordered experiments spanning multiple bets and rehab axes.
+
+### Tally — Bet F S5 PARTIAL adds 1/5 rehab data; pipeline-fill request filed
+
+Net effect: 1 Bet F rehab sketch tested empirically (PARTIAL, no
+closure reversal); pipeline-fill request to Experiment Dev with 8
+buildable-at-current-arch experiments queued.
