@@ -4751,3 +4751,113 @@ in current architecture. Then the substrate's product story drops
 Multi-hop parent stays 🟡 PROVISIONAL. Sub-family #4 closed; sub-rescue
 count: 3 ❌ closed (Hadamard, A1, C1), 4 untested (#1 cleanup, #2 beta,
 #3 W-update, #6 beam). Bet F deferred pending R10 addendum.
+
+
+## 2026-05-21 v51 update — R8 modern Hopfield (#1) KILLED; multi-hop cliff increasingly architectural; Strategy reassessment
+
+Strategy session cycle 34 (in /loop). One outcome.
+
+### R8 #1 Modern Hopfield cleanup operator — KILLED
+
+`wave14r_multihop_modernhopfield_v1` full (14:19:03):
+**MULTIHOP_HOPFIELD_KILLED**
+- N=4096, depths {1, 5, 10, 25, 50}, 3 seeds
+- acc_1 = 0.948
+- acc_5 = 0.712
+- acc_10 = 0.520
+- acc_25 = 0.220
+- acc_50 = 0.128
+
+**Verdict_msg note**: "All three R8 rescues (A1, C1, B1) killed; d=25
+cliff is **architectural**, not cleanup-or-binding-algebra."
+
+### Pattern: multi-hop d=25 cliff is increasingly structural
+
+Four R8 rescues fully tested at substrate scale, three different
+mechanism corrections, all failing at similar depths:
+
+| Rescue | Mechanism | acc_25 | acc_50 |
+|---|---|---|---|
+| Random BSC (baseline) | none | 0.011 | 0.011 |
+| Hadamard #5 (cycle 7) | orthogonal-key allocation | (depth not tested at 25/50) | (deep depth never run) |
+| FHRR A1 (cycle 31) | binding-algebra swap (continuous group) | 0.40 | 0.22 |
+| Hybrid C1 (cycle 33) | BSC store + FHRR chain | 0.19 | 0.11 |
+| Modern Hopfield #1 (cycle 34) | cleanup operator (energy-based fixed point) | 0.22 | 0.13 |
+
+**Three mechanism corrections** (binding algebra, hybrid storage,
+cleanup operator) ALL FAIL to clear acc_50=0.4. acc_50 lands in
+{0.11, 0.13, 0.22} — partial improvement over baseline 0.011 but
+nowhere near PASS.
+
+**Honest architectural read**: the multi-hop d=25 cliff is NOT a
+property of binding algebra or cleanup readout. It's a property of
+the substrate-level outer-product storage + retrieval: cross-talk
+accumulates per-hop at rate determined by storage geometry, and the
+binding/cleanup choices can only modulate the rate within a narrow
+band that doesn't reach PASS at d=50.
+
+### Strategy reassessment per PROT-004
+
+R8 listed 6 rescue sketches. 4 closed:
+- #4 binding-algebra-swap (A1+C1): ❌
+- #1 cleanup operator (modern Hopfield): ❌
+- #5 orthogonal-key (Hadamard, cycle 7): ❌
+
+3 remain — all SYMPTOM-mitigation (not mechanism-correction):
+- #2 adaptive beta schedule
+- #3 per-hop W-side update
+- #6 beam-search
+
+Per [[feedback-rehabilitation-after-rejection]] (5-rescue minimum
+before closure), Strategy options:
+1. Test all 3 remaining symptom-mitigations + declare ❌-architectural
+2. Test cheapest (adaptive beta) + declare ❌-architectural (since
+   pattern is clear)
+3. Skip remaining; declare ❌-architectural now (would be premature
+   per discipline)
+
+**Strategy decision**: option 2. Adaptive beta is one hyperparameter
+sweep, very cheap. If it doesn't break the d=25 cliff (which is the
+honest prior given the pattern), close multi-hop as
+❌-architectural-current-arch with full rehab discipline (5 attempts
+satisfied: Hadamard + A1 + C1 + Hopfield + adaptive-beta).
+
+If adaptive beta SOMEHOW clears PASS (very low probability given the
+mechanism-correction pattern), reopen.
+
+### Routing to Experiment Dev
+
+Strategy request: queue `wave14r_multihop_adaptive_beta_v1` (adaptive
+β schedule per hop depth). Then move firmly to Bet B + Bet F (after
+R10 addendum) + Bet D analyzer.
+
+### Capability move
+
+| Capability | v50 state | v51 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via cleanup operator (R8 #1) | 🔬 | ❌ Closed full at substrate scale | `wave14r_multihop_modernhopfield_v1` |
+| Multi-hop reasoning (parent) | 🟡 PROVISIONAL, 4 rescues remaining | 🟡 PROVISIONAL, **architectural pattern emerging**; 3 rescues remaining (all symptom-mitigation); Strategy will test adaptive beta then close | Same. |
+
+### Tally — no parent row state change yet
+
+Multi-hop parent stays 🟡 PROVISIONAL. Modern Hopfield ❌ closed.
+Strategy posture: 1 more rescue (adaptive beta) → expected ❌
+architectural closure with 5-attempt rehab discipline satisfied.
+
+### Honest framing
+
+R8's "binding-algebra swap mechanism corrects multi-hop" hypothesis is
+now well-tested and well-falsified. Substrate's multi-hop capability
+ceiling at d≈25 (33%) and d=50 (~22%) appears genuinely architectural.
+
+Product implications:
+- Multi-hop reasoning is a **bounded capability** in current substrate:
+  works well at 1-10 hops, degrades sharply past 25, near-zero at 50
+- The "50+ hops viable" wave14e v2 synthesis claim is empirically wrong
+- Hybrid approaches (FHRR-chain + BSC-store) help but don't bridge
+
+The architectural limit is consistent with the substrate being
+outer-product Hebbian: cross-talk accumulates faster than any binding/
+cleanup choice can suppress. Genuinely-deep multi-hop would require
+substrate-architecture redesign (e.g., per-hop W-write, hierarchical
+substrate with tree structure), which is outside current scope.

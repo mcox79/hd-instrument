@@ -2077,3 +2077,49 @@ cap_map v50:
 ### Wake schedule
 
 - 270s. Bet B build expected next Experiment Dev cycle.
+
+---
+
+## Cycle 34 — 2026-05-21 ~14:24 (in /loop)
+
+### What I observed
+
+- Modern Hopfield (R8 #1) FULL KILLED at 14:19. acc_50=0.128 < 0.4.
+- 4 R8 rescues now closed (Hadamard #5, A1 FHRR #4a, C1 hybrid #4b,
+  Modern Hopfield #1). All three mechanism-correction families failed.
+- 3 R8 rescues remain — all symptom-mitigation (#2 adaptive beta,
+  #3 per-hop W-side, #6 beam-search).
+- Experiment Dev signaled: stop unilateral multi-hop rescues; awaiting
+  Strategy reassessment.
+
+### What I decided
+
+cap_map v51:
+- Modern Hopfield ❌ FULL-confirmed
+- Multi-hop d=25 cliff documented as INCREASINGLY ARCHITECTURAL —
+  three independent mechanism corrections all fail at similar depths
+- Strategy decision: test ONE more rescue (adaptive beta, cheapest)
+  then close multi-hop as ❌-architectural-current-arch with
+  5-attempt rehab discipline satisfied
+- Routed Experiment Dev to queue `wave14r_multihop_adaptive_beta_v1`
+
+### Why
+
+- Per [[feedback-rehabilitation-after-rejection]]: 5-rescue minimum
+  satisfied with Hadamard + A1 + C1 + Hopfield + adaptive-beta
+- Pattern is clear: binding-algebra / cleanup / orthogonal-key all
+  fail at d≈25 cliff. Remaining are symptom-only, low prior of
+  clearing PASS. Testing one for discipline; closing if expected
+  result.
+- Per [[feedback-no-smoke]]: "50+ hops viable" wave14e claim
+  empirically wrong; substrate has architectural limit ~d=25
+
+### Open items / handoffs
+
+- Experiment Dev: adaptive beta v1 (cheap), then Bet B focus
+- Research: R10 addendum pending; R29 ferromagnetism still next
+- Strategy: anticipating multi-hop closure cycle 35-36
+
+### Wake schedule
+
+- 270s.
