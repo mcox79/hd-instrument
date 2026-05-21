@@ -5384,3 +5384,128 @@ coherent theory.
 
 Bet I PROMOTED based on multi-probe rule (2/3 within 20%) — not
 inflated to 3/3. The depth-cliff miss is documented honestly.
+
+
+## 2026-05-21 v57 update — META filed 7 substrate-engineering candidates; Strategy promotes Bet N (soft cleanup) + Bet O (Cooper pairs) + 4 new R-requests
+
+Strategy session cycle 40 (in /loop). META filed
+`notes/strategy_request_from_meta_2026-05-21.md` (15:04) with 7
+substrate-engineering candidates from user conversation about
+electron transport / superconductivity / quantum entanglement. All
+target the multi-hop d≈25 cliff.
+
+### Why this matters now
+
+R16 (cycle 39) revealed substrate's d=25 cliff is 3× later than pure
+RMT prediction (d≈7), with the gap explained by **cleanup-operator
+amplification**. META's candidates 1+7 directly probe whether the
+cleanup amplification can be pushed further:
+- Soft cleanup (#1): does softer cleanup amplify d beyond 25?
+- Quantum-repeater (#7): does periodic purification convert
+  exponential to polynomial scaling?
+
+If either works, the "multi-hop architectural closure" from cycles
+30-34 was premature — the right axis is cleanup amplification, not
+binding-algebra mechanism. If both fail, the architectural closure
+stands.
+
+### Strategy promotion decisions
+
+**Bet N — Soft cleanup multi-hop rescue (NEW; promote IMMEDIATELY)**
+
+| What it tests | Substrate consequence if proven |
+|---|---|
+| Replace argmax cleanup with softmax(N·cos/τ) weighted top-k propagation; sweep τ ∈ {0.5, 1.0, 2.0, 4.0} at substrate scale | If acc_50hop ≥ 0.50 with soft cleanup (vs FHRR's 0.22), the multi-hop d≈25 cliff is **implementation artifact (collapse choice)**, NOT architectural. Multi-hop ❌ closure from cycle 34 would partially reverse. |
+
+Multi-probe: acc_50hop ≥ 0.50 at NUM_FACTS=100; monotone gain over τ
+sweep; 3 seeds. Kill: acc_50hop ≤ FHRR's 0.22.
+
+**Substrate-physics anchor**: ENAQT (environment-assisted quantum
+transport) in photosynthesis — partial coherence over chromophores
+yields ~95% transport across ~50 sites where classical hopping
+collapses earlier. Per R16, cleanup amplification (Wu-Zhou 2024
+polylog) is the substrate equivalent.
+
+**Bet O — Cooper-pair gap-protected encoding (NEW; promote after Bet N
+lands)**
+
+| What it tests | Substrate consequence if proven |
+|---|---|
+| Store each fact as pair (e_1, e_2) where e_1 = e·twist_1, e_2 = e·twist_2 with independent random twists; cleanup requires both with overlap > Δ_subst | If acc_50 with paired encoding > acc_50 single-bundle baseline, substrate has gap-protected per-hop redundancy analogous to BCS superconductivity. |
+
+Buildability: doubles storage cost (acceptable at M/N≤8). Multi-probe:
+pair-recovery accuracy at d=50 vs single-bundle baseline.
+
+### Strategy R-request promotions (4 new)
+
+**R30 — HaPPY holographic codes for substrate (research-first)**:
+spatial error correction via tensor-network codes. Pass 1 broad (HaPPY
+pentagon, holographic codes, AdS/CFT bulk-boundary, tensor networks);
+pass 2 substrate-compatible (which HaPPY-class tractable at N=4096?).
+Could promote to bet after Research delivers tractable construction.
+
+**R31 — Soliton attractor design (research-first)**: tune cleanup
+dynamics so stored facts are localized, shape-preserving attractors
+under iterated cleanup. Pass 1 broad (optical solitons Mollenauer
+1980; Davydov solitons; nonlinear Schrödinger); pass 2 substrate
+attractor-basin tuning.
+
+**R32 — Magnon / spin-wave substrate (research-first; extends R29)**:
+encode facts as rotational patterns in collective bundle space;
+multi-hop as wave propagation. Pass 2 builds on R29 ferromagnetism.
+
+**R33 — Quantum-repeater segment-and-purify architecture (research-
+first; HIGHEST LEVERAGE)**: segment d-hop chains into K-hop blocks
+with periodic purification operator (M noisy joint encodings → 1
+cleaner). Substrate-physics anchor: Briegel-Dür-Cirac-Zoller 1998.
+**Distinct from Bet N (local per-hop) and R30 (spatial)** — this is
+TEMPORAL error correction with poly-vs-exp asymptotic promise.
+
+If feasible, R33 is the single biggest possible move on the list —
+convert exponential decay to polynomial via segment-and-purify.
+
+### Deferrals
+
+- Candidate 6 (topological beyond SSH / 2D Chern / SPT phases):
+  defer until Bet F resolves (still blocked on R10 addendum).
+
+### Capability moves
+
+| Capability | v56 state | v57 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning rescue via soft cleanup (Bet N) | (not in cap_map) | 🔬 active bet — buildable 1 cycle | META request |
+| Multi-hop reasoning rescue via Cooper-pair gap-protection (Bet O) | (not in cap_map) | 🔬 active bet — after Bet N | META request |
+| Multi-hop reasoning rescue via quantum-repeater architecture (R33) | (not in cap_map) | 🔬 research-first; highest-leverage research-tier | META request |
+
+**Multi-hop parent row implication**: cycle 34's "architectural
+closure incoming" stance pauses pending Bet N. Adaptive-beta is the
+5th of 6 original R8 rescues (cheap symptom-mitigation, low prior of
+clearing PASS). Bet N is a NEW rescue axis (cleanup-amplification
+direction informed by R16) that wasn't on the original R8 list.
+
+Strategy revised stance: **wait for Bet N + adaptive-beta + (if Bet N
+positive) Bet O before declaring multi-hop ❌-architectural**. If
+Bet N PASSES, the cliff is implementation-artifact and the family
+reopens. If Bet N fails too, the architectural closure becomes more
+secure.
+
+### R29-R33 research backlog status
+
+- R29 (ferromagnetism): ✅ landed, Bet M active
+- **R30 (HaPPY codes)**: NEW research-first
+- **R31 (soliton attractor)**: NEW research-first
+- **R32 (magnon substrate)**: NEW research-first; extends R29
+- **R33 (quantum repeater)**: NEW research-first; highest-leverage
+- Plus prior queue: R17 holographic, R18 RFOT, R19 topological beyond
+  winding, R21 cross-modal, R22 sleep-replay, R25 aging,
+  R26 ✅ landed, R27 light-matter, R28 dislocations
+
+Research priority reorder: R27 light-matter and R28 dislocations now
+deprioritized below R33 quantum-repeater (which has the highest
+asymptotic-improvement potential).
+
+### Tally — 2 new bets + 4 new R-requests; no row state changes yet
+
+Bet N, Bet O added to active priorities. R30-R33 added to research
+backlog. Multi-hop parent row stays 🟡 PROVISIONAL pending Bet N
+adaptive-beta verdicts.

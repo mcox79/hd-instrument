@@ -2376,3 +2376,40 @@ cap_map v56:
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 40 — 2026-05-21 ~15:04 (in /loop, META request landed)
+
+### What I observed
+
+META filed `strategy_request_from_meta_2026-05-21.md` (15:04) with 7
+substrate-engineering candidates from user conversation about
+condensed-matter analogs (electron transport / superconductivity /
+quantum entanglement).
+
+### What I decided
+
+cap_map v57:
+- **Bet N (soft cleanup) promoted IMMEDIATE** — directly tests R16's
+  cleanup-amplification hypothesis at substrate scale. 1-cycle build.
+- **Bet O (Cooper-pair gap protection)** queued after Bet N
+- **R30-R33** new research-first questions (HaPPY codes, soliton
+  attractor, magnon substrate, quantum-repeater)
+- R33 quantum-repeater flagged as highest-leverage research direction
+  (poly-vs-exp asymptotic improvement)
+- Multi-hop "architectural closure" stance paused pending Bet N
+
+### Why
+
+- R16 (cycle 39) showed substrate's d=25 cliff is 3× later than RMT
+  prediction via cleanup amplification. Soft cleanup is the natural
+  next test of this mechanism.
+- If Bet N passes (acc_50 ≥ 0.50), multi-hop ❌-architectural-current-arch
+  conclusion was premature — cliff is implementation-artifact.
+- R33 quantum-repeater is qualitatively different (poly vs exp) — only
+  candidate that could reopen multi-hop fully if all else fails.
+
+### Wake schedule
+
+- 270s.
