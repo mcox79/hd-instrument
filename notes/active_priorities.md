@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 27 followup (user promoted Wave 15 free probability to Bet I)
-**Cap map version this refers to:** v41 (pending — this cycle)
+**Last updated:** 2026-05-21 cycle 27 followup #3 (added R26 learning, R27 light-matter, R28 dislocations, R29 ferromagnetism)
+**Cap map version this refers to:** v43 (pending — this cycle)
 
 ---
 
@@ -500,14 +500,84 @@ Slot in after the top-priority queue drains.
   invariants under noise / quantization?). Connects to topological
   substrate work (Bet F SSH-BSC AIII class, Hasan-Kane 10-fold way).
 
-- **R16 — Free probability theoretical grounding (NEW: promoted from
-  backlog to active research per user cycle 27 followup)**: derive
-  closed-form predictions from Wave 15 synthesis applications 1-3 for
-  Bet C capacity (target M/N=8 v4), noise tolerance (σ=16), multi-hop
-  depth cliff (d=25). 2x pass already done (`wave15_free_probability_synthesis.md`,
-  2026-05-18); this is the numerical-prediction phase. Output: R16
-  delivers three quantitative theoretical predictions to compare
-  against empirical envelopes. Closes Bet I (active).
+- **R16 — Free probability theoretical grounding (active)**: derive
+  closed-form predictions from Wave 15 applications 1-3 for Bet C
+  capacity (M/N=8 v4), noise tolerance (σ=16), multi-hop depth cliff
+  (d=25). Closes Bet I.
+
+### Design-space audit research backlog (cycle 27 followup, user-directed)
+
+See `notes/synthesis_design_space_audit_2026-05-21.md` for full rationale.
+Priority ordering: R20/R23/R24 first (highest leverage); R17/R18 next;
+R21/R22/R19/R25 if bandwidth.
+
+- **R20 — Compositional generalization experiment design (HIGH PRIORITY)**:
+  R3 lit scan landed cycle 15. Pass 2 — design substrate-compatible
+  compositional eval. Output: experiment spec for Experiment Dev.
+  Closes Tier-2 KILLER ⚪ (untested since v1).
+- **R23 — Continuous RSB / AT line for substrate (HIGH PRIORITY)**:
+  Pass 1 broad (full Parisi solution, continuous RSB, de Almeida-
+  Thouless line, AT instability). Pass 2 — is substrate at α=0.153
+  in 1RSB or continuous RSB? AT line position? Strengthens Bet E
+  Parisi + Bet I free probability.
+- **R24 — FDT violation + two-temperature substrate dynamics (HIGH
+  PRIORITY)**: Pass 1 broad (Fluctuation-Dissipation theorem, FDT
+  violation in glasses, two-temperature out-of-equilibrium). Pass 2
+  — measure FDT violation; does it correspond to β=32 calibration?
+  Grounds Bet G ✅ in theory.
+- **R17 — Holographic principle for substrate (MEDIUM)**: Pass 1 broad
+  (Ryu-Takayanagi, Bekenstein, tensor networks, HaPPY codes, bulk
+  reconstruction). Pass 2 — RT-style capacity bound? Tensor network
+  matching RSB tree? Alternative theory to Bet I M-P framing.
+- **R18 — RFOT / glassy-dynamics for substrate (MEDIUM)**: Pass 1 broad
+  (Random First-Order Transition, mode-coupling theory, supercooled
+  liquids, aging). Pass 2 — substrate training dynamics analogous to
+  glass transition? Extends spin-glass framing.
+- **R19 — Topological order beyond winding (LOWER)**: anyons,
+  skyrmions, fractional statistics, higher Chern numbers, full
+  10-fold-way K-theory. Extends Bet F SSH-BSC (currently AIII class).
+- **R21 — Cross-modal substrate binding (vision-language) (LOWER)**:
+  Tier-2 KILLER untouched since v1. Multimodal embeddings, CLIP-style
+  joint spaces.
+- **R22 — Sleep-style memory consolidation (LOWER)**: offline replay
+  during quiescence; sleep-replay neuroscience. Extends continual
+  learning ✅.
+- **R25 — Aging / Kovacs in substrate (LOWER)**: `wave14j_aging_kovacs`
+  ran inconclusive cycle 12. Diagnostic for substrate long-time
+  behavior.
+
+### Cycle 27 followup #3 (user: learning + light-matter + ferromagnetism)
+
+- **R26 — Learning theory deep-dive (HIGHEST PRIORITY)**:
+  Surprising gap — substrate has been characterized as memory primitive
+  but NOT as learning system. Pass 1 broad: implicit bias of delta-rule,
+  neural tangent kernel, double descent, scaling laws (Chinchilla-style),
+  convergence rate, generalization gap, sample efficiency, catastrophic
+  forgetting curves. Pass 2: substrate-compatible — what's the substrate's
+  optimization landscape geometry? Scaling-law fit for bpc vs (N, K,
+  M_stored, samples)? Implicit bias of Hebbian / delta rule? Connects to:
+  ALL bets (foundational characterization).
+- **R29 — Ferromagnetism / magnetic domains (HIGH PRIORITY, user
+  explicit)**: Pass 1 broad — magnetic domains (size distribution),
+  hysteresis, Curie temperature, exchange interactions (Heisenberg /
+  Ising / XY), spin waves / magnons, magnetocrystalline anisotropy,
+  anti-ferromagnetism + frustration, information storage in magnetic
+  media. Pass 2: substrate-compatible — substrate's stored bundles
+  as magnetic-domain analogs; W as exchange Hamiltonian; α_c as Curie
+  T. Frustration → RSB direct connection. Connects to: Bet F (domain
+  walls), Bet E (Parisi RSB), Bet I (M-P spectra).
+- **R27 — Light-matter / photonic crystals / metamaterials (MEDIUM)**:
+  Pass 1 broad — photonic crystals (band gaps), plasmonics, cavity
+  polaritons, optical frequency combs, metamaterials (negative-index),
+  topological photonics, stimulated Raman scattering. Pass 2: substrate-
+  compatible — photonic-band-gap analog for codebook spectra? Polariton
+  coupling for cross-mode binding? Frequency-comb-like discrete atom
+  basis? Different framing space than M-P / spin-glass.
+- **R28 — Dislocation physics (MEDIUM)**: Pass 1 broad — edge / screw
+  dislocations, Burgers vector, dislocation motion under stress,
+  Frank-Read sources. Pass 2: substrate-compatible — dislocation
+  defects in codebook lattice as different topological objects than
+  SSH winding (Bet F). Burgers-vector invariant beyond AIII Z-winding.
 - **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
   Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
   at all noise — methodology gap, not substrate finding. 2x pass:

@@ -1695,3 +1695,58 @@ envelopes the substrate has located.
 
 - 600s (still in idle pace; Bet I is research/Strategy work, not
   compute-bound).
+
+---
+
+## Cycle 27 followup #2 + #3 — 2026-05-21 ~13:35 (design-space audit + research spin-up)
+
+### What user asked
+
+1. (#2) "Summarize the design space and where we've focused. Other big
+   bets we haven't dug into? Anything holographic / materials science /
+   crystallography uncovers we haven't flagged? Let's spin up research.
+   Spin glass should surface some too."
+2. (#3) "Have we done a deep dive on learning? Light frequency,
+   vibrational frequency, dislocation physics, meta-materials. And
+   ferromagnetism — magnetic domains highly actionable."
+
+### What I decided
+
+- Wrote `notes/synthesis_design_space_audit_2026-05-21.md` — canonical
+  design-space audit (focus areas, gaps, materials-physics directions,
+  R-request priority ranking).
+- Added **13 new research requests** (R17-R29) to active_priorities.md
+  covering: holographic principle, RFOT, topological order beyond
+  winding, compositional gen experiment design, cross-modal binding,
+  sleep-replay consolidation, continuous RSB / AT line, FDT violation
+  / two-T, aging / Kovacs, **learning theory deep-dive (R26)**,
+  light-matter / metamaterials (R27), dislocation physics (R28),
+  **ferromagnetism / magnetic domains (R29, user explicit)**.
+- Updated R-priority order: R26 (learning) + R29 (ferromagnetism)
+  jumped to top per user direction. R20/R23/R24 next. R17/R18/R27/R28
+  medium. Others lower.
+- cap_map v42 + v43 acknowledge the spin-up.
+
+### Why
+
+- Honest gap acknowledgment: substrate has been studied as memory
+  primitive, not as learning system in its own right. Implicit bias of
+  delta-rule, NTK, double descent, scaling laws, generalization gap —
+  none characterized. R26 is genuinely the biggest unflagged gap.
+- Ferromagnetism connects spin-glass to a more concrete substrate
+  framing (domains as bundle clusters; Curie T as α_c; frustration as
+  RSB cause). User correctly flagged it as highly actionable.
+- Light-matter and dislocations are unflagged framing axes that could
+  give alternative theoretical frameworks for substrate capacity /
+  topology beyond what M-P and SSH give.
+
+### Open items / handoffs
+
+- Research: 13-item backlog. R26 + R29 top priority. /loop 15-20min
+  cadence; expect 3-4 land per hour.
+- Strategy: monitor for first R-landings; integrate per usual cycle.
+
+### Wake schedule
+
+- 600s. Research drill speed will determine pace; will return to 270s
+  when R-batch lands.

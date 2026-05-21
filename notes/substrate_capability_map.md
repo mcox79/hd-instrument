@@ -3977,3 +3977,154 @@ Bet I added to active priority list (Priority 4). Existing rows
 unchanged. Bet I's verdict will determine whether Bet C / noise
 tolerance / multi-hop rows gain a "theoretically grounded" qualifier
 or stay empirical-only.
+
+
+## 2026-05-21 v42 update — Design-space audit + spin up R17-R25 (user-directed)
+
+User asked: "summarize the design space and where we've focused. Are
+there other relevant big bets we haven't dug into yet? Anything that
+holographic / materials science / crystallography uncovers we haven't
+flagged? Let's spin up some research. Spin glass should surface some too."
+
+Full audit at `notes/synthesis_design_space_audit_2026-05-21.md`.
+
+### Summary
+
+**Where the substrate is heavily characterized (✅)**: memory editing
+× composition matrix (20+ smoke results), continual editing capacity
+ladder (30→5000), Bet G/H rescues, ICL envelope, surgical erase Bet C
+(variant-specific bounds), substrate noise tolerance σ≤16, structured-
+codebook WHT forensics.
+
+**Where the substrate is lightly characterized**: spin-glass / RSB
+(structural ✅ at α=0.153, P(q) multi-peaked, but no continuous RSB /
+AT line / FDT diagnostics), crystallography (WHT-peak ✅ but no
+diffuse / anomalous / quasicrystal extensions), holographic principle
+(completely unflagged), multi-modal / compositional / sleep
+(Tier-2 KILLERs untouched).
+
+### Gaps surfaced
+
+Per user direction:
+- **Holographic / AdS-CFT** completely unflagged. RT formula could
+  give alt capacity bound; tensor networks (MERA / HaPPY codes) could
+  match substrate's RSB tree.
+- **Crystallography beyond WHT**: diffuse scattering, anomalous
+  diffraction / MAD-style phasing, quasicrystals, charge-density-wave.
+- **Spin glass beyond α_c / 1RSB**: continuous RSB / AT line / FDT
+  violation / aging-Kovacs / mode-coupling / two-temperature dynamics
+  are all material-rich and substrate-actionable.
+- **Topological order beyond winding**: anyons / skyrmions /
+  fractional statistics; would extend Bet F SSH-BSC beyond AIII class.
+
+### Research routings spun up (R17-R25)
+
+9 new research requests added to `active_priorities.md`. Priority
+ordering:
+- **HIGH**: R20 compositional gen experiment design (closes Tier-2 KILLER);
+  R23 continuous RSB / AT line; R24 FDT violation + two-T (grounds Bet G).
+- **MEDIUM**: R17 holographic principle (alt capacity); R18 RFOT /
+  glassy dynamics.
+- **LOWER**: R19 topological order beyond winding; R21 cross-modal;
+  R22 sleep-replay consolidation; R25 aging in substrate.
+
+### Bet promotion contingencies
+
+If R20 lands → **Bet J** (compositional generalization experiment).
+If R23 + R24 land with strong predictions → **Bet K** (substrate
+dynamics from spin-glass theory; grounds Bet G β=32).
+If R17 RT capacity bound matches empirical → folds into Bet I.
+
+### Honest framing
+
+Strategy admits the cap_map's recent 4 hours has been heavy on
+composition tests over validated capabilities. The structural physics
+work (spin glass, holographic, crystallography beyond WHT) is the
+unexplored territory where the substrate's deepest theoretical claims
+should land. R20/R23/R24 are highest-leverage; R17/R18 are broader-
+framework; R19-R25 are diagnostic depth.
+
+### Tally — research-routing only, no row state changes
+
+9 new R-requests routed to Research. Bet J / Bet K contingencies
+noted. No capability claims yet.
+
+
+## 2026-05-21 v43 update — Cycle 27 followup #3: Learning deep-dive (R26) + ferromagnetism (R29) + light-matter (R27) + dislocations (R28)
+
+User added three more directions to the cycle 27 audit:
+1. "have we done a deep dive on learning?" — NO. Big gap.
+2. "light frequency, vibrational frequency, dislocation physics, ...
+   whole world of interactions" — unflagged.
+3. "ferromagnetism ... magnetic domains and interactions should be
+   highly actionable" — user explicit.
+
+### Honest gap acknowledgment
+
+The substrate has been studied as a **memory primitive** but NOT as a
+**learning system in its own right**. Implicit bias of delta-rule,
+neural tangent kernel, double descent, scaling laws, convergence rate,
+generalization gap, sample efficiency — none characterized. This is
+the biggest unflagged gap.
+
+### Four new R-requests added (R26-R29)
+
+Full rationale in `notes/synthesis_design_space_audit_2026-05-21.md`
+cycle 27 followup #3 section.
+
+**R26 — Learning theory deep-dive (HIGHEST PRIORITY)**: implicit bias,
+NTK, double descent, scaling laws, convergence, generalization gap,
+catastrophic forgetting curves. Connects to ALL bets — foundational.
+
+**R29 — Ferromagnetism / magnetic domains (HIGH PRIORITY, user explicit)**:
+domains as bundle-cluster analogs; W as exchange Hamiltonian; α_c as
+Curie T; frustration → RSB direct connection; hysteresis as substrate
+edit-order dependence. Connects to: Bet F (domain walls), Bet E
+(Parisi), Bet I (M-P spectra).
+
+**R27 — Light-matter / photonics / metamaterials (MEDIUM)**: photonic
+band gaps, polaritons, frequency combs, metamaterials, topological
+photonics. Different framing space than M-P / spin-glass.
+
+**R28 — Dislocation physics (MEDIUM)**: edge / screw dislocations,
+Burgers vector, dislocation motion. Different topological object class
+than Bet F's SSH winding.
+
+### Updated R-priority order (post followup #3)
+
+| Rank | R-request | Why |
+|---|---|---|
+| 1 | R26 Learning theory deep-dive | Foundational; biggest gap |
+| 2 | R29 Ferromagnetism / magnetic domains | User explicit + spin-glass connection |
+| 3 | R20 Compositional gen experiment design | Tier-2 KILLER ⚪ |
+| 4 | R23 Continuous RSB / AT line | Bet E + Bet I |
+| 5 | R24 FDT violation / two-T | Bet G theoretical grounding |
+| 6 | R27 Light-matter / metamaterials | Alt framing |
+| 7 | R28 Dislocation physics | Alt topology |
+| 8 | R17 Holographic principle | Alt capacity |
+| 9 | R18 RFOT / glassy dynamics | Extends spin-glass |
+| 10-13 | R19 / R21 / R22 / R25 | Lower priority |
+
+Research backlog is now 13 items deep (R17-R29). Research session is
+on /loop 15-20min; can drill 3-4 per hour. Top-2 (R26 + R29) should
+land within next 1-2 hours; full backlog over the rest of today /
+tomorrow.
+
+### Bet promotion contingencies
+
+- If R26 surfaces learning-dynamics actionable insight → **Bet L**
+  (substrate learning theory grounding)
+- If R29 produces ferromagnetic-domain quantitative predictions →
+  **Bet M** (substrate as magnetic-memory analog with predictive theory)
+
+### Tally — research routing only
+
+No row state changes. 4 new R-requests routed. Backlog ordering updated.
+
+### Honest framing
+
+The cap_map ledger has been heavy on validation/extension testing.
+The structural physics work (spin-glass continuous RSB, holographic,
+crystallography beyond WHT, ferromagnetism, learning theory) is where
+the next round of theoretical leverage lives. R26 + R29 are the
+highest-leverage drills per cycle 27 audit + followup #3.
