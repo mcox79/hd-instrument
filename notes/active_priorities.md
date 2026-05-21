@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 9 (in /loop, prompt-fix verified)
-**Cap map version this refers to:** v20
+**Last updated:** 2026-05-21 cycle 12 (heavy active period)
+**Cap map version this refers to:** v23
 
 ---
 
@@ -347,9 +347,10 @@ DRAFT sketches are starting points only.
 - **E_E (Bet E)**: `wave14_parisi_pq_sweep_v1` — P(q) measurement
   across (codebook config, M_stored) grid. Multi-probe per Bet E.
   Research methodology review optional but recommended before queue.
-- **E_F (Bet F, gated on R10)**: `wave14_ssh_bsc_v2_protected` — redo
-  topological probe with proper Z-quantization recovery metric, per
-  R10's protocol spec. Multi-probe per Bet F.
+- **E_F (Bet F, R10 LANDED 2026-05-21 11:02 — unblocked)**:
+  `wave14_ssh_bsc_v2_protected` — redo topological probe per
+  `notes/research_R10_SSH_BSC_topological_probe_2026-05-21.md`
+  protocol spec. Multi-probe per Bet F.
 
 ## Items deliberately NOT on the priority list
 

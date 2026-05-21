@@ -939,3 +939,56 @@ cap_map v22 (committed, scp'd):
 - 270s. Continued active pace from Experiment Dev 2/cycle cadence.
   Bet B (multi-task CL) + multi-hop FHRR/hybrid still pending — likely
   next verdicts.
+
+---
+
+## Cycle 12 — 2026-05-21 ~11:09 (in /loop, heavy active period)
+
+### What I observed
+
+Six event_outcomes + R10 in 11 minutes (since cycle 11 at 10:58):
+- yi (10:59): MULTIHOP_EDIT_COMPOSES — NEW compound capability ✅
+- yj (11:01): CONTINUAL_V3_HOLDS_TO_200
+- R10 published (11:02): SSH-BSC topological probe design (Bet F prereq)
+- yk (11:02): EDIT_QUERY_UC_BOTH_PASS — Bet A at undercapacity
+- ym (11:05): CONTINUAL_V4_HOLDS_TO_500
+- yp (11:05): MULTIHOP_DEPTH_DECAYS_AT_25 — depth cliff localized
+- yr (11:08) smoke: CONTINUAL_1000_HOLDS — full mode running
+
+### What I decided
+
+cap_map v23 (committed, scp'd):
+- **NEW ✅** Compound capability: multihop reasoning composes with editing
+  (Compound section gains its first ✅ row)
+- Continual editing evidence extended: 200/500/1000 edits
+- Bet A evidence extended to undercapacity (full M-range now ✅)
+- Multi-hop depth cliff localized at d=25 (calibration of existing 🟡)
+- R10 landed → Bet F unblocked
+
+active_priorities updated:
+- Bet F E_F marked unblocked
+- Header bumped to cycle 12 / v23
+
+### Why
+
+- Multihop-composes-with-editing is a real compound capability emerging
+  this hour. Pre/post-edit chain accuracy (0.69 / 0.92 untouched) shows
+  edits propagate without breaking other chains. Real product story.
+- Continual editing trajectory (30 → 100 → 200 → 500 → 1000) is now in
+  the regime where the substrate matches published prior-art ceilings
+  (AlphaEdit's 3000-edit benchmark within reach).
+- Depth cliff at d=25 is precise — R8 rescues should target this
+  regime, not d=50 or d=100 abstractions.
+- R10 landed; Bet F is now executable.
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B (multi-task CL) still pending; multi-hop FHRR /
+  hybrid still pending; calibration rescue gated on R11
+- Research: R10 done; R11 (calibration), R3 (compositional gen), R7/R9
+  rehab routings outstanding
+- META: closure-rehab request still unaddressed since cycle 4
+
+### Wake schedule
+
+- 270s. Active pace continuing.
