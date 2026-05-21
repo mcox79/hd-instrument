@@ -2976,3 +2976,51 @@ Two ❌-PROVISIONAL → ✅ rescues in two cycles (Bet G cycle 14; Bet H
 cycle 15). Rehab framework continues to perform — sketches #1 in
 both cases (Platt scaling for calibration; temperature sampling for
 generation) were the right answers.
+
+
+## 2026-05-21 v27 update — Continual 5000 full ✅; Bet H sketch #3 (rep penalty) fails alone; R12 landed
+
+Strategy session cycle 16 (in /loop). Two event_outcomes + R12 since cycle 15.
+
+### Continual 5000 — full mode confirmed
+
+`wave14zb_continual_5000` full (11:40:43): **CONTINUAL_5000_HOLDS**
+- 674s runtime
+- Kerdock 1.0/1.0 across all 5000 sequential edits
+
+Replaces v26's smoke-only. Substrate continual editing past
+AlphaEdit's 3000-edit ceiling at full mode at N=4096.
+
+**Evidence list update**:
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Continual sequential editing on Kerdock substrate | ✅ Validated | Now also: `wave14zb_continual_5000` FULL (smoke→full confirmed). Trajectory 30/100/200/500/1000/2000/5000. |
+
+### Bet H rescue sketch #3 (repetition penalty alone) — closed as standalone
+
+`wave14zg_gen_rep_penalty_smoke` (11:37:54): **GEN_REP_NO_RESCUE**
+- p=0.5: entropy=1.02, repetition=0.90
+- p=1.0: entropy=1.50, repetition=0.73
+
+Repetition penalty + argmax does NOT fix collapse. Temperature
+sampling (sketch #1) was the mechanism correction; repetition
+penalty alone is symptom-mitigation that's insufficient.
+
+Useful negative data for the rehab framework — narrows down load-
+bearing sketches. Bet H still ✅ rescued (cycle 15 via temperature);
+sketch #3 ❌ alone is sub-closure that doesn't affect Bet H state.
+
+### R12 landed — Sampling rescues research (retroactive)
+
+`research_R12_sampling_rescues_2026-05-21.md` (11:41) published. Bet H
+research routing from cycle 14; lands retroactively since Bet H
+already closed ✅ at cycle 15. R12 provides ranking for future
+generation work (Bet D K-curve, autoregressive at higher K).
+
+### Tally — unchanged from v26
+
+Updates this cycle:
+- Continual 5000 smoke→full confirmed
+- Bet H sketch #3 sub-closed (negative data, doesn't move row)
+- R12 landed retroactive

@@ -1158,3 +1158,28 @@ cap_map v26 (committed, scp'd):
 ### Wake schedule
 
 - 270s. Pace remains heavy.
+
+---
+
+## Cycle 16 — 2026-05-21 ~11:42 (in /loop)
+
+### What I observed
+
+Two event_outcomes + R12 since cycle 15:
+- zb FULL (11:40): CONTINUAL_5000_HOLDS — full mode confirmed
+- zg smoke (11:37): GEN_REP_NO_RESCUE — Bet H sketch #3 alone fails
+- R12 published (11:41): sampling-rescue research (retroactive)
+
+### What I decided
+
+cap_map v27 (committed, scp'd):
+- Continual 5000 smoke→full confirmed; trajectory 30 to 5000 at full
+- Bet H sketch #3 (repetition penalty alone) sub-closed ❌ — useful
+  negative data narrowing the rehab to sketch #1 (temperature)
+- R12 retroactively confirmed Bet H rescue ranking
+
+Light cycle. No new bets, no closures of full rows. Tally unchanged.
+
+### Wake schedule
+
+- 270s.
