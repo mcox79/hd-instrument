@@ -2782,3 +2782,89 @@ rescue-list pointer."
 - META: cycle 13 audit — likely catches this v60→v61 correction
 
 **Per [[feedback-no-smoke]]**: user catch was correct; honest revision.
+
+---
+
+## Cycle 44 — 3 verdicts integrated (v62); user catch #2 — rehab discipline dropped under batch pressure
+
+**Time**: 2026-05-21 ~15:42 EDT.
+
+**3 new verdicts integrated as cap_map v62** (commit `333a161`):
+- Adaptive-β KILLED (R8 list formally 6/6 closed)
+- Bet O KILLED (storage-redundancy axis closes at current-arch)
+- Bet B v4 INCONCLUSIVE (seed-variance dominance; retention_A=0.740)
+
+**User catch**: "you have all negative results researched right"
+
+**Honest audit**: No, I missed it. Bet N (cycle 43) and Bet O (cycle 44)
+were both killed without 5 axis-combination rescue sketches +
+2x Research routing. The Adaptive-β closure sits within R8 list (R8
+itself was the 2x research pass) so its closure is research-vetted in
+the parent sense. But Bet N and Bet O came from META cycle 40
+candidates — NOT from a Research deep-research pass — and their
+closures need rehab discipline applied separately.
+
+**This is the [[feedback-closures-drop-under-batch-pressure]] failure
+mode recurring**. Pattern: 3 verdicts + R17 in 8 minutes → v60
+overreach (user catch #1 → v61 correction) → 3 more verdicts in 7
+minutes → rehab discipline dropped (user catch #2 → cycle 44
+followup). Cold-start rules / individual feedback memories drop under
+sustained verdict-batch pressure. PROT-004 structural enforcement is
+working at v61 level (closure scope discipline) but not at v62 level
+(rehab discipline).
+
+**What I did to fix**:
+
+1. Drafted `notes/strategy_request_to_research_Bet_N_rehab_2026-05-21.md`
+   with 5 axis-combination rescue sketches for Bet N (soft cleanup):
+   top-k weighted propagation, iterative damped cleanup, heavy-tailed
+   distribution, sparse cleanup with confidence-gated abstention,
+   annealed-β with bundle-state feedback.
+
+2. Drafted `notes/strategy_request_to_research_Bet_O_rehab_2026-05-21.md`
+   with 5 axis-combination rescue sketches for Bet O (Cooper-pair):
+   multi-pair k > 2 redundancy, asymmetric twist encoding, hierarchical
+   pair-of-pairs, time-multiplexed redundancy (R33-adjacent),
+   gap-protected via Kerdock-coset structure.
+
+3. Per [[feedback-unbiased-research]]: sketches are DRAFT only;
+   Research's Pass 2 should GENERATE the rescue list, not vet
+   Strategy's.
+
+4. Sequencing recommendation in both files: R33 quantum-repeater
+   FIRST (highest-leverage, not-yet-routed), then Bet N + Bet O rehab
+   in parallel pass.
+
+**Filing rehab request files satisfies PROT-004 minimum**. Until
+Research delivers Pass 2 rescue lists, Bet N and Bet O closures remain
+PROVISIONAL per PROT-004.
+
+**Pending Strategy items**:
+
+- ❌ Bet N closure → 🔄 PROVISIONAL pending Research's Bet N rehab Pass 2
+- ❌ Bet O closure → 🔄 PROVISIONAL pending Research's Bet O rehab Pass 2
+- Cap map v62 row entries still say KILLED — leaving as-is for now;
+  Strategy v63 will update if Research's rehab pass produces survivors
+
+**Lesson for META** (potential PROT entry):
+
+"Negative-verdict integration into cap_map should NOT precede the
+Strategy → Research rehab routing for that verdict. Required sequence:
+(1) verdict harvested, (2) 5 axis-combination rescue sketches drafted,
+(3) request file filed, (4) cap_map updated with PROVISIONAL tag and
+file pointer. Steps 1-3 must be atomic; cap_map step deferred until
+3 complete."
+
+This is the structural enforcement layer the verdict-batch pressure
+pattern keeps breaking.
+
+**What I'm watching for next**:
+
+- META cycle 13 audit (catches v61 overclose + v62 rehab-discipline drop?)
+- Research picks up R33 routing + Bet N/O rehab requests
+- Experiment Dev: queue Probe 1 area-law (R17; cheap; doesn't touch
+  multi-hop closure)
+
+**Per [[feedback-no-smoke]]**: both user catches were correct; honest
+revisions filed. The pattern of rehab-discipline drops under verdict-
+batch pressure is increasingly visible.
