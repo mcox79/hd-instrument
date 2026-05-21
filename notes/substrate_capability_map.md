@@ -3287,3 +3287,82 @@ either new priorities or completed runs." Predates my push request
 ### Tally — generation row strengthens; no new rows
 
 Same overall tally as v31. Cycle 20 was confirmation + characterization.
+
+## 2026-05-21 v33 update — Noise tolerance σ≤16 ✅ NEW; full-mode upgrades; R9 landed; Experiment Dev push still pending
+
+Strategy session cycle 21 (in /loop). Seven full-mode upgrades + R9 +
+Experiment Dev still paused awaiting push pickup.
+
+### NEW ✅ — Substrate noise tolerance σ ≤ 16.0 (Robustness/scaling)
+
+`wave14zm_noise_robust` full (12:14:41):
+**NOISE_ROBUST_KERDOCK_TOLERATES_SIGMA_16.0**
+- Kerdock argmax = 1.0 at all σ in tested range up to 16.0
+- Correlated arm: "up to None" (no tolerance plateau)
+- Smoke (v30) was σ≤1.0; full extends to σ≤16.0
+
+At σ=16.0 noise magnitude is many times the ±1 key amplitude; Kerdock
+argmax holds. Strong hardware-deployment claim.
+
+**New row in Robustness/scaling**:
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Substrate noise tolerance σ ≤ 16.0 with Kerdock** — argmax accuracy 1.0 across σ ∈ [0, 16] on structured-codebook substrate; correlated arm fails immediately | ✅ Validated | `wave14zm_noise_robust` smoke (σ≤1) + full (σ≤16) | "Substrate survives noisy hardware." Supports quantization, neuromorphic, analog. |
+
+### Full-mode upgrades of cycle 18/19 smokes (all confirmed)
+
+| Smoke | Full | Verdict |
+|---|---|---|
+| zi smoke | `wave14zi_continual_4N` full | CONTINUAL_4N_KERDOCK_HOLDS |
+| zj smoke | `wave14zj_edit_reversibility` full | REVERSIBLE_BOTH_HOLD |
+| zk smoke | `wave14zk_noisy_edit_keys` full | NOISY_EDIT_BOTH_PASS |
+| zl smoke | `wave14zl_calibration_after_edit` full | CALIB_PRESERVED_AFTER_EDIT |
+| zn smoke | `wave14zn_edit_order_invariance` full | ORDER_INVARIANT_KERDOCK_COMMUTES |
+| zo smoke | `wave14zo_alpha_sweep` full | ALPHA_FLAT |
+
+All cycle 18/19 smoke compositional results full-confirmed. Inverse of
+cycle 20's zg reversal — smoke positives held at full. Existing row
+evidence lists grow.
+
+Several of these (edit reversibility, edit order invariance) could be
+NEW rows in their own right but are consolidated under existing
+Memory/Compound rows for now.
+
+### R9 landed — Yonelinas source-vs-item dissociation rehab
+
+`research_R9_source_item_dissociation_2026-05-21.md` (12:12) published.
+Rehab-routed research for Yonelinas DPSD ❌ closure (cap_map v12).
+Strategy will integrate ranking next cycle.
+
+### Experiment Dev push still pending pickup
+
+`strategy_request_to_experiment_dev_2026-05-21.md` filed at 12:06.
+Experiment Dev's last entry is 12:05 (entry 8, pacing pause); no
+cycles since. Possibly on cron schedule that hasn't fired, or
+trigger-waiting.
+
+Bet B / multi-hop FHRR / Bet F still unbuilt. New-bet-build rate has
+been zero for ~30 minutes. Not a Strategy blocker; flagging for
+visibility.
+
+### Tally — +1 NEW ✅ row
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 9 | 1 | 2 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 |
+| Continual learning | 3 | — | — | — | 1 | — |
+| Robustness/scaling | **4 (+1: noise tolerance σ≤16)** | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | 2 | — | 2 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | 1 | — | — | — | — | 1 |
+| Forensics | — | 1 | — | — | — | 1 |
+| Calibration / uncertainty | 1 | — | — | 1 | — | 0 |
+| CANNOT | — | — | — | — | — | 18 |
+| UNSURE | — | — | — | 13 | 7 | — |
+| KILLER Tier 1 | 4 | 1 | — | — | — | 1 |
+
+Noise tolerance ✅ NEW under Robustness/scaling. All other rows
+strengthen via full-mode confirmations.

@@ -1350,3 +1350,45 @@ cap_map v32 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 21 — 2026-05-21 ~12:33 (in /loop)
+
+### What I observed
+
+- 6 smoke→full upgrades (zi/zj/zk/zl/zn/zo) all confirmed positive
+- 1 NEW finding: `wave14zm_noise_robust` full at σ=16.0 (smoke was σ=1.0)
+- R9 published (Yonelinas rehab research)
+- Experiment Dev STILL paused at entry 8 (12:05); no new builds in
+  ~30 minutes; push request unread
+
+### What I decided
+
+cap_map v33 (committed, scp'd):
+- NEW ✅ row: Substrate noise tolerance σ ≤ 16.0 in Robustness/scaling.
+  Major hardware-deployment claim (quantization / neuromorphic / analog).
+- Six smoke→full confirmations strengthen existing rows
+- R9 landed; integration next cycle
+
+### Why
+
+- Noise tolerance σ=16.0 vs σ=1.0 smoke: full reveals tolerance budget
+  is much larger than smoke tested. Combined with the cycle 20 zg
+  smoke→full reversal (false negative at narrow penalty range), this
+  suggests smoke ranges have been generally too conservative.
+- Six clean confirmations: no false-positive contamination in the
+  smoke set. cycle 18/19's smoke characterizations were honest.
+
+### Open items / handoffs
+
+- Experiment Dev: push request unread for ~30 minutes. Bet B / multi-hop
+  FHRR / Bet F still unbuilt. Will probably need user intervention if
+  Experiment Dev cron hasn't fired by next strategy cycle.
+- Research: R9 just landed. R7 still outstanding.
+- META: PROT-004 done; no open requests.
+
+### Wake schedule
+
+- 270s. If Experiment Dev still hasn't picked up the push by next
+  cycle, will flag explicitly.
