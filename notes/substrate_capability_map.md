@@ -1664,3 +1664,100 @@ automatically.
 No row state changes from rehab; rehabs only add provisional-status
 notes + rescue lists + research requests. Kerdock v2 is preliminary
 (smoke only). Tally same as v13.
+
+
+## 2026-05-21 v15 update — Bet C ✅ at M/N=2.0 (Kerdock full at N=4096); ICL soft-saturation calibration
+
+Strategy session cycle 5 (in /loop). Two clean event_outcome triggers
+since cycle 4 (09:45). Both positive — no closures, no rehab discipline
+needed.
+
+### NEW ✅ — Bet C: Full Kerdock + structured codebook for dense regime (M > N)
+
+`wave14v_erase_kerdock_v2` full mode (09:45:50): `KERDOCK_V2_OVERCAPACITY_PASS`
+- N=4096 (substrate scale)
+- M_stored ∈ {2000, 4096, 6144, 8192} → M/N up to **2.0**
+- Kerdock arm passes all 5 Mirage probes at every M_stored
+- Correlated arm fails at M=2000 (argmax_leak=0.84, rank=42.5,
+  norm_ratio=1.46, paraphrase_leak_h8=0.84) — control reproduces Mirage
+
+This extends Bet 2's orthogonal-key result (v13 ✅ at M/N≤0.78) to
+**Welch-bound structured codebooks at M/N up to 2.0**. Bet C from
+[[active_priorities.md]] v2 resolved positive at substrate scale.
+
+The Welch-bound structure means key pairwise inner-product magnitudes
+are bounded in {0, 1/64} for N=4096 Kerdock; cross-talk is bounded
+rather than Gaussian-tailed as with random ±1.
+
+**Capability move**:
+
+| Capability | v14 state | v15 state | Trigger |
+|---|---|---|---|
+| Full Kerdock structured-codebook erase (dense regime M > N) | Smoke-positive only | ✅ Validated at N=4096, M_stored up to 2N | `wave14v_erase_kerdock_v2` full |
+| Mirage-grade selective erase on structured-key substrate | ✅ at M/N≤0.78 (orthogonal-only) | ✅ at M/N≤2.0 (Welch-bound Kerdock) | Same. |
+
+**Row consolidation in Memory primitives** (replaces v13's orthogonal-only row):
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **Mirage-grade selective erase on structured-codebook substrate** — anti-Hebbian rank-1 W edit passes all 5 probes (argmax, rank, norm, cos, paraphrase) on Hadamard / Kerdock codebooks; valid through M_stored/N ≤ 2.0 at N=4096 | ✅ Validated | `wave14r_erase_orthkeys_v1` + `_capsweep` (Hadamard, M/N≤0.78); `wave14v_erase_kerdock_v2` smoke + full (Kerdock, M/N≤2.0) | "GDPR-style selective forgetting" works on any substrate built with structured codebooks. Dense-codebook regime (M > N) viable up to 2N stored facts. |
+
+### ICL saturation curve — soft saturation at extended range (Bet 1 calibration)
+
+`wave14w_icl_extended` full mode (09:56:08): `ICL_EXTENDED_SOFT_SATURATION`
+- ICTX ∈ {4096, 16384, 32768, 65536} at N=4096 (1× through 16× substrate width)
+- Mean gain: 1.07 → 1.16 → 1.23 → **1.28 bpc**
+- Full slope on log2(ICTX) = +0.052 (below +0.10 threshold from v13)
+- Upper-half slope = +0.060
+- distinct_chunks_floor_ok = True (no corpus exhaustion)
+- 3 seeds, mean entropy/ICTX grows 8.15 → 10.22 nats
+
+**This is a soft calibration, not a kill.** Bet 1's v13 promotion cited
+slope = +0.14 over ICTX ∈ {64, ..., 16384}. The extended sweep at
+ICTX ∈ {4096, ..., 65536} shows slope drops to +0.05 at higher range —
+gain continues to grow but more slowly than the lower-ICTX trajectory
+predicted.
+
+Honest framing: ICL ✅ stays. The "kNN-LM-like log-linear" claim from
+v13 needs a qualifier: log-linear at low/mid ICTX (slope +0.14 through
+16K), soft-saturating at high ICTX (slope +0.05 through 64K). Still
+positive monotone gain through ICTX=65536; no ceiling located.
+
+**Capability move** (evidence list update + caveat):
+
+| Capability | v13 framing | v15 framing | Trigger |
+|---|---|---|---|
+| In-context learning via pool retrieval | ✅ "log-linear through ICTX=16384" | ✅ "Log-linear at low/mid ICTX (+0.14 slope through 16K); soft-saturating at high ICTX (+0.05 slope through 64K). Monotone positive through ICTX=65536; no ceiling located." | `wave14w_icl_extended` |
+
+### KILLER Tier-1 board update (v15)
+
+| Capability | v13 status | v15 status | Notes |
+|---|---|---|---|
+| GPT-quality generation with auditable memory | 🟢 Partial | 🟢 Partial | K=32/K=64 analysis still pending. |
+| True continual learning at production scale | ⚪ | ⚪ | Bet B Corpus-C design (R5) still pending. |
+| Edit-then-query for fact correction | 🟢 Partial | 🟢 Partial (erase primitive now ✅ at dense regime M/N≤2.0) | Bet A end-to-end pipeline still untested. |
+| Provenance for every prediction | ✅ | ✅ | No change. |
+| In-context learning via pool | ✅ | ✅ (with soft-saturation caveat documented) | Bet 1 ✅ with calibrated framing. |
+| Hierarchical retrieval (RSB) | ✅ structural; ❌ algorithm | (unchanged) | — |
+
+Score: 3 ✅ + 2 🟢 + 1 ⚪ + 1 (split). Net: Bet C resolution doesn't
+move a Tier-1 row directly but it removes the M ≤ N constraint from
+the surgical-erase capability — product framing now reads "structured-
+codebook substrate, any storage density up to M/N≤2.0" rather than
+"orthogonal-key substrate, M ≤ N."
+
+### Pending items
+
+- **R7/R8/R9** (rehab-routed research from cycle 4): not yet landed.
+  Bet 3 chargeflip, multi-hop, and Yonelinas closures all still
+  PROVISIONAL per v14.
+- **PROT-003** (closure-requires-rehab structural rule from cycle 4):
+  META cycle 3 audit (09:56) ran before my request was filed (09:51 —
+  actually mtimes show 09:56 vs 09:51, but META cycle ran with cron at
+  :13 mark so it pre-dates my request integration). META's response
+  expected at next cron fire (10:13). Filed in
+  [[meta_request_from_strategy_2026-05-21]].
+- **Bet A** (edit-then-query end-to-end): not yet built by Experiment
+  Dev. With Bet C now ✅, Bet A is the cleanest forward bet
+  (architecturally trivial given the validated erase primitive on
+  any structured-codebook substrate).

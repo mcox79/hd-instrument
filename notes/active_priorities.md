@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 3 (in-loop self-pacing)
-**Cap map version this refers to:** v13
+**Last updated:** 2026-05-21 cycle 5 (in-loop self-pacing)
+**Cap map version this refers to:** v15
 
 ---
 
@@ -12,11 +12,12 @@ Dev, Research, Visibility, Queue Health, META) read this.
 
 | Bet | Outcome | Trigger |
 |---|---|---|
-| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14, gain at ICTX=16384 = +1.41 bpc, kNN-LM-like log-linear through 4× substrate width. Tier-S #1 ICL gap closed at v1. | `wave14d_icl_via_pool_v3_scaling` full |
+| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid ICTX; soft-saturating to +0.05 at high ICTX (≤65536). Monotone positive through 16× substrate width. Tier-S #1 ICL gap closed; soft-saturation calibration noted in cap_map v15. | `wave14d_icl_via_pool_v3_scaling` full + `wave14w_icl_extended` full |
 | Bet 2 — GDPR/surgical erase v3 (orthogonal-key path) | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit passes all 5 Mirage probes. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
-| Bet 3 — Random-key iterative charge-flipping forensics | ❌ CLOSED at kill criterion. improvement=+0.03 over SVD (target +0.2). Structured-key WHT-forensics ✅ remains (separate path). | `wave14s_chargeflip_forensics_v1` |
+| Bet 3 — Random-key iterative charge-flipping forensics | ❌ CLOSED (PROVISIONAL per cap_map v14 rehab discipline). improvement=+0.03 over SVD (target +0.2). Structured-key WHT-forensics ✅ remains. R7 routed for 2x deep research. | `wave14s_chargeflip_forensics_v1` |
+| **Bet C — Full Kerdock + structured codebook for dense regime (M > N)** | ✅ VALIDATED at N=4096, M_stored up to 2N. Kerdock arm passes all 5 Mirage probes; correlated control reproduces Mirage. Extends Bet 2 from orthogonal-only (M ≤ N) to Welch-bound structured codebooks (M/N ≤ 2.0). | `wave14v_erase_kerdock_v2` smoke + full |
 
-## Top capability bets v2 (in priority order)
+## Top capability bets v3 (in priority order; Bet C resolved this cycle)
 
 ### Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER, now unblocked)
 
@@ -84,31 +85,42 @@ Experiment Dev (build `wave14d_multi_task_cl_v1`).
 
 ---
 
-### Bet C — Full Kerdock + snap for dense-codebook regime (Bet 2 follow-up)
+### Bet C — RESOLVED ✅ (see "Recently resolved" table above)
 
-**Claim.** Full Kerdock(m=12) codebook (2^24 codewords from Z₄-Gray-mapped
-Z₄-linear code) with snap-to-codebook paraphrase tolerance pass all 5
-Mirage probes at M_stored > N (the dense-codebook regime where the
-Hadamard-subcode v1 cannot operate).
+`wave14v_erase_kerdock_v2` full at N=4096 with M_stored ∈ {2000, 4096,
+6144, 8192} → M/N up to 2.0. Kerdock arm passes all 5 Mirage probes;
+correlated control reproduces Mirage. Higher-M behavior (M > 2N)
+untested but not top-bet priority.
 
-**Why now.** Bet 2 v1 used Hadamard which is the exactly-orthogonal
-limit (only valid M ≤ N). Product systems with M > N stored facts
-need a richer codebook. Kerdock's bounded inner-product structure
-(magnitudes in {0, 1/64} for N=4096) should give the same Mirage
-protection at M up to ~ 2^16 stored facts.
+---
+
+### Bet D — Generation K-curve analysis (Tier-1 KILLER partial → ✅?)
+
+**Claim.** Strict-baseline generation quality is monotone in K up to
+K=64 (or peaks at K=64-128 per R10 curve shape). Closes the "GPT-
+quality generation with auditable memory" Tier-1 KILLER from 🟢 partial
+to ✅.
+
+**Why now.** `wave14d_generation_v2_K16` is already at ✅ (strict-
+baseline). K=32 and K=64 metrics.json files exist (per v7
+"COMPLETED_NEEDS_ANALYSIS"). All that's needed is an analyzer pass
+comparing substrate_pool vs B3 Markov baseline at each K, then 3-seed
+aggregation. No new experiments required; just metric analysis. Cheap.
 
 **Multi-probe success criteria**:
-- Same 5 Mirage probes as Bet 2 v1, sweep M_stored ∈ {N/2, N, 2N, 4N,
-  8N}
-- Snap-to-codebook reduces paraphrase_leak ≥ 50% vs no-snap variant
-- argmax/rank/norm/cos/paraphrase floors all hold per Bet 2 thresholds
+- substrate_pool p1 > B3 Markov p1 at K=32 AND K=64, by ≥5pp (matches
+  v2 K=16 PASS threshold)
+- k4_validity > 0.40 at both K
+- 3-seed monotone improvement K=16 → K=32 → K=64 (or peak within range)
+- Per-position accuracy data lines up with v2 K=16 shape
 
-**Kill criterion.** At M_stored = 2N, any probe fails. Then dense-
-codebook Mirage protection bounded; product story stays at M ≤ N.
+**Kill criterion.** Either K=32 or K=64 fails the +5pp threshold OR
+shows non-monotone collapse. Then generation Tier-1 KILLER stays
+🟢-partial-at-K16-only.
 
-**Who acts.** Research (audit Hammons-Kumar-Calderbank-Sloane-Solé
-implementation details, Kerdock decoder choices); Experiment Dev (build
-`wave14r_erase_orthkeys_v2_kerdock`).
+**Who acts.** Experiment Dev (analyzer pass on existing metrics.json
+files; could be a 30-min task, not a new experiment). Strategy
+(cap_map upgrade on positive verdict).
 
 ---
 

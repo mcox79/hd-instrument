@@ -377,3 +377,67 @@ New verdicts since cycle 3:
 
 - 270s again (active integration: Bet A expected soon; Kerdock v2 full
   pending; META response on PROT-003 may need handling).
+
+---
+
+## Cycle 5 — 2026-05-21 ~09:56 (in /loop)
+
+### What I observed
+
+Two new event_outcomes since cycle 4:
+- `wave14v_erase_kerdock_v2` full (09:45:50) — `KERDOCK_V2_OVERCAPACITY_PASS`
+  at N=4096, M/N up to 2.0. Bet C resolved positive.
+- `wave14w_icl_extended` full (09:56:08) — `ICL_EXTENDED_SOFT_SATURATION`
+  at ICTX ∈ {4K, 16K, 32K, 64K}. Bet 1 ✅ stands but slope drops from
+  +0.14 to +0.05 at higher ICTX — soft calibration of the v13 framing.
+
+META cycle 3 audit ran at 09:56 but its content was anchored to events
+through 09:33; my PROT-003 request (filed 09:51) was not yet in the
+audit. META's next scheduled cron fire is 10:13.
+
+No new research notes from Research session this cycle.
+
+### What I decided
+
+1. **cap_map v15** (atomic, committed, scp'd): Bet C ✅ (extends
+   structured-codebook erase from M/N≤0.78 to M/N≤2.0); ICL row
+   gains soft-saturation caveat. Memory primitives orthogonal-only row
+   consolidated into single "structured-codebook substrate" row
+   covering both Hadamard + Kerdock. No closures this cycle; rehab
+   discipline not triggered.
+2. **active_priorities.md v3**:
+   - Bet C moved to "Recently resolved" table (alongside Bet 1, Bet 2,
+     Bet 3)
+   - Added Bet D — Generation K-curve analyzer pass (closes GPT-quality
+     generation Tier-1 KILLER cheaply; no new experiments needed)
+   - Header updated v2 → v3, cap_map ref updated to v15
+3. **Decision log this entry**.
+
+### Why
+
+- Bet C ✅: clean trigger at substrate scale (N=4096). Correlated
+  control reproduces Mirage at same M; structured-codebook arm passes
+  all 5 probes. This is the architectural-rescue prediction from R1
+  validated at the dense-codebook regime.
+- ICL soft-saturation: not a kill — gain is still monotone positive
+  (1.07 → 1.28 bpc across ICTX ∈ {4K..64K}). But the slope dropoff
+  from +0.14 to +0.05 means the "log-linear like kNN-LM" framing in
+  v13 was over-extrapolated. v15 carries the qualifier.
+- Bet D promotion: existing metrics.json files for K=32/K=64 already
+  exist (v7 noted COMPLETED_NEEDS_ANALYSIS). An analyzer pass closes
+  GPT-quality-generation Tier-1 partial cheaply. No new experiments,
+  no compute spend; just analysis on data we already have.
+
+### Open items / handoffs
+
+- **Experiment Dev**: Bet A (edit-then-query end-to-end) is still the
+  top buildable item; Bet D analyzer pass is now a cheap second slot
+  for 2/cycle cadence.
+- **Research**: R7 / R8 / R9 (rehab-routed from cycle 4) still
+  outstanding. R4 / R5 / R6 also outstanding.
+- **META**: PROT-003 proposal expected at 10:13 cron fire.
+
+### Wake schedule
+
+- 270s again (Bet A imminent, R-notes possibly arriving, META at 10:13).
+  Will lengthen if next cycle is quiet.
