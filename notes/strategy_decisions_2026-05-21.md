@@ -1605,3 +1605,41 @@ No cap_map update. No row state changes. Pure heartbeat cycle.
 - **600s** (extended from 270s) — pace has slowed; long-running zs +
   no incoming verdicts means 5-min wake is unnecessary churn. Will
   return to 270s if a batch lands.
+
+---
+
+## Cycle 26 followup — 2026-05-21 ~13:19 (user "check now")
+
+### What I observed
+
+- **PROT-005 landed** at 13:16 (Proposal 6 implementation). Experiment
+  Dev /loop cadence is now structural.
+- **R14 Tomita-Takesaki** landed at 13:10 with honest negative: T-T is
+  the WRONG tool for deriving substrate's β=32 (substrate finite-dim
+  → type I vN → modular theory trivializes). Right tools per the lit
+  scan: Marchenko-Pastur + replica/cavity + signal-to-noise.
+- zs reversibility long full (13:15): REVERSIBLE_BOTH_HOLD at 500
+  cycles. Existing row evidence list grows.
+- META cycle 8 audit (13:17) reinforces the buried-treasure discipline
+  pattern.
+
+### What I decided
+
+cap_map v40 (committed, scp'd):
+- PROT-005 acknowledged
+- R14 documented as honest negative; not bet-promoted; matches R13 pattern
+- zs reversibility full added to evidence
+- Forward-research backlog status updated
+
+### Why
+
+- R14 followed the same pattern as R13: Research did unbiased 2x pass,
+  surfaced math honestly, identified the LEGITIMATE direction (M-P /
+  replica/cavity for β derivation) rather than padding T-T claims.
+  Strategy correctly follows the load-bearing direction.
+- PROT-005 should unblock the push items (Bet B / multi-hop FHRR /
+  Bet F) on Experiment Dev's next cycle.
+
+### Wake schedule
+
+- Existing 13:22 wake still queued; no re-arm needed.

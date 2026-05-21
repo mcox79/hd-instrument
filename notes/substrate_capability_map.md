@@ -3752,3 +3752,84 @@ probability, will reconsider bet promotion.
 
 Noise tolerance gets break-point evidence (no state change). R13
 research-only (no row). Tally unchanged from v38.
+
+
+## 2026-05-21 v40 update — PROT-005 (Experiment Dev /loop) landed; R14 Tomita-Takesaki landed (honest negative); zs reversibility long full confirmed
+
+Strategy session cycle 26 followup (user "check now"). Three items
+since cycle 26 (13:10):
+
+### PROT-005 landed — Experiment Dev /loop cadence (Proposal 6)
+
+`active_protocols.md` now lists PROT-005 "Sessions without auto-cadence
+set up /loop." META cycle 8 added it at 13:16 after user approval at
+~12:55.
+
+Expected outcome (per META cycle 8 audit): Experiment Dev's next cycle
+creates `~/.claude/commands/experiment-dev-cycle.md` + sets up
+`/loop 10-15min /experiment-dev-cycle`. Subsequent cycles consume
+Strategy's request file + active_priorities top-priority queue before
+speculative work.
+
+This closes the coordination gap from cycles 19-25. **Bet B / multi-hop
+FHRR / Bet F should start moving** once Experiment Dev's next cycle
+fires and self-implements.
+
+### R14 Tomita-Takesaki — honest negative
+
+`research_R14_tomita_takesaki_2026-05-21.md` (13:10) published. Real
+external lit scan; 25+ verified citations 1967-2026.
+
+**Headline finding** (per the research note's brutal-honesty framing):
+**Tomita-Takesaki is the WRONG TOOL for deriving substrate's β=32.**
+- Substrate is finite-dimensional (N=4096) → type I von Neumann
+  algebra → almost all deep content of modular theory is trivialized.
+- Substrate's optimal β is fixed by **spin-glass / RSB physics**, not
+  by operator-algebraic modular theory.
+- The right tools per the lit scan: (a) Marchenko-Pastur spectral edge
+  analysis, (b) replica/cavity calculations at α=0.153, (c) signal-to-
+  noise from rank-K storage.
+
+**Strategy read** (matches R13 pattern):
+- Per [[feedback-no-papers-product-only]] and [[feedback-no-smoke]]:
+  Research did the unbiased 2x pass, surfaced the math honestly, and
+  identified the LEGITIMATE substrate-grounding direction (M-P / RSB).
+- T-T NOT promoted to a bet. Substrate-shipping probability ~0%.
+- The note's identification of M-P spectral edge as the right
+  derivation tool is useful — could ground TEMPSCALE β=32 (Bet G ✅)
+  in spectral theory rather than empirical sweep.
+
+**No row state change**: R14 is research-only output.
+
+**Pattern note** (per META cycle 8 reinforcement): R13 + R14 both
+returned honest negative substrate-shipping verdicts. This is the
+buried-treasure-research discipline working as designed — research
+finds beautiful math without inflating shipping probabilities, and
+Strategy follows the load-bearing evidence rather than the "novel
+math" framing.
+
+### Reversibility long — full confirmed
+
+`wave14zs_reversibility_long` FULL (13:15:07): **REVERSIBLE_BOTH_HOLD**
+- 500 reversal cycles (10× zj's 50-cycle smoke; cycle 19 reported zj
+  full at 10 reversals)
+- Both Kerdock + correlated arms hold
+
+Edit reversibility row evidence list strengthens. No state change.
+
+### Tally — process update + research; no row state changes
+
+- PROT-005 active (process)
+- R13 + R14 forward-research landed; both honest negatives; neither
+  bet-promoted
+- zs full strengthens reversibility evidence
+
+Forward-research backlog status:
+- R13 Drinfeld double: landed; defer indefinitely (20-35% shipping)
+- R14 Tomita-Takesaki: landed; defer indefinitely (~0% shipping; wrong tool)
+- R15 Steenrod: still pending
+
+If R15 lands similarly honest-negative, Forward-research backlog
+becomes "explored, no shipping capability surfaced" and the advanced-
+math axis closes. Strategy will consolidate into a "math frameworks
+explored" cap_map note.
