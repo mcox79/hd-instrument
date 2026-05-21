@@ -56,16 +56,18 @@ on flat N=4096 are now exhausted across 4 mechanism axes:
 - R34 V2 substrate hyperbolic (deferred V2 scope)
 - R17 sketches B/C/D (analytical; alternative-framing)
 
-**Active build queue (in priority order — REVISED v62)**:
-1. **R33 → Research routing URGENT** — only path with poly-vs-exp
-   asymptotic promise; not yet at Research
-2. Bet B decision point — accept 🟢 Partial as terminal OR run Bet B
-   Kovacs probe (R18 proposal; separates learning-dynamics from seed
-   noise via double-shift A→B→A)
-3. Probe 1 area-law entropy check (R17; ZERO GPU; cheap diagnostic)
-4. R31 + R32 → Research routing (lower priority than R33)
-5. R10 W-construction addendum from Research (unblocks Bet F closure
-   direction)
+**Active build queue (in priority order — REVISED v64)**:
+1. **Bet P → Research routing TOP priority** (user-proposed cycle 45;
+   semantic-locality codebook; FIRST codebook-geometry axis;
+   substrate-physics-anchored in R29 ferromagnetism; buildable at
+   current-arch)
+2. R33 → Research routing (only poly-vs-exp candidate; not yet
+   at Research)
+3. Bet B v5 full verdict (running now — pending)
+4. Bet F v3 build with R10 Option 2 W-spec (R10 unblocked v63)
+5. R31 + R32 → Research routing (research backlog)
+6. Bet N + Bet O rehab via Research (closure-followup PROT-004)
+7. Probe 2 Δ_eff (R17 sketch D; analytical follow-up to Probe 1 PASS)
 
 ---
 

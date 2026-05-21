@@ -6315,3 +6315,134 @@ Probe 1); Bet F gains R10 W-spec + R28 rescue axis (rebuild target);
 1 proposed primitive closes ❌ (dislocation-network memory). No
 Tier-1 row changes yet. Bet B v5 full will determine if 🟢 → ✅
 promotion happens this cycle.
+
+---
+
+## 2026-05-21 v64 update — Bet P proposed (semantic-locality codebook) — NEW multi-hop rescue axis from user; first axis-of-codebook-geometry; substrate-physics anchored in R29 ferromagnetism
+
+Strategy session cycle 45 followup. User-proposed new mechanism:
+"For multihop — why couldn't related items be arranged in similar
+~directions? Since there's basically unlimited dimensions, couldn't
+they be arranged in this fashion?"
+
+This is the **FIRST multi-hop rescue mechanism that targets codebook
+geometry itself**, distinct from all prior R8/Bet N/Bet O axes (which
+kept random codebook + modified binding/cleanup/storage).
+
+### Bet P — Semantic-locality codebook (NEW; high priority)
+
+**Mechanism**: Construct codebook so semantically-related items have
+high pairwise cosine similarity, while items in different "topics"
+remain near-orthogonal. Hierarchical: N/k orthogonal super-clusters,
+each containing semantically-similar items within.
+
+**Substrate-physics anchor** (per [[feedback-materials-science-probe]]):
+ferromagnetic domain structure (R29 already established). Within
+domain: aligned spins (local similarity). Cross-domain: misaligned
+(orthogonality). This IS the codebook-geometric analog of magnetic
+domains.
+
+**Multi-probe success criteria**:
+- acc_50hop ≥ 0.50 at NUM_FACTS=100 for within-cluster chains
+  (must beat FHRR 0.22 by ≥ 2×)
+- Per-cluster Bet C capacity within 20% of unstructured Kerdock bound
+  (preserving M/N≤8 within each cluster)
+- Cross-cluster Mirage probes preserved (no leakage from chain to
+  unrelated facts)
+- 3 seeds with different fact-base clusterings
+
+**Kill criterion**: acc_50hop ≤ 0.22 (FHRR floor) for within-cluster
+chains. Then codebook-geometry axis closes with rehab applied (5
+sketches in Bet P request file).
+
+**Probability estimates** (per [[feedback-no-smoke]]):
+- P(beats FHRR floor at d=50): 40-55%
+- P(beats FHRR floor + preserves Bet C capacity within 20%): 25-35%
+- P(produces substrate-novel mechanism understanding regardless of
+  beating FHRR): 60%
+
+**Cost**: medium — requires codebook construction + multi-probe build.
+NOT a V2 substrate change (existing pipeline handles structured
+codewords).
+
+**Who acts**: Research first (file
+`notes/strategy_request_to_research_Bet_P_semantic_codebook_2026-05-21.md`
+just filed; 5 axis-combination rescue sketches DRAFT; 2x deep research
+per PROT-004 + [[feedback-unbiased-research]]). Then Experiment Dev
+builds `wave14r_multihop_semantic_codebook_v1` per Research's Pass 2
+spec.
+
+### Where Bet P sits in the rescue inventory
+
+Updated multi-hop rescue inventory (was 7 paths; now 8 with Bet P):
+
+| # | Path | Mechanism axis | Status | Buildable at current-arch? |
+|---|---|---|---|---|
+| **1** | **Bet P — Semantic-locality codebook** | **codebook geometry (NEW)** | **🔬 active bet — HIGH PRIORITY** | **YES** |
+| 2 | R33 — Quantum-repeater segment-and-purify | temporal EC | 🔬 research-first; not yet routed | maybe |
+| 3 | R31 — Soliton attractor design | nonlinear attractors | 🔬 research-first | maybe |
+| 4 | R32 — Magnon / spin-wave substrate | collective dynamics | 🔬 research-first; extends R29 | maybe |
+| 5 | R34 — V2 substrate hyperbolic | re-architecture | 🔬 deferred V2 | NO |
+| 6 | R17 Sketch B — RTN spectral | spectral framework | 🔬 lower than R32 | (analytical) |
+| 7 | R17 Sketch C — Operator-algebra QEC | code-theoretic | 🔬 Probe-1-supported ~40% | (analytical) |
+| 8 | R17 Sketch D — Effective Δ_eff | AQEC threshold | 🔬 alternative-framing | (analytical) |
+
+**Bet P promotes to #1** because:
+- ONLY codebook-geometry axis (mechanistically distinct from prior 7)
+- Buildable at current-arch (no V2 / no Research-unblocking)
+- Substrate-physics-load-bearing anchor in R29 ferromagnetic domains
+  (already established framework)
+- User-proposed novel framing that didn't surface in META candidate
+  list or R8 routing
+
+### Why this didn't surface earlier (process audit)
+
+The R8 list was scoped to "noise accumulation in chained content-
+addressable memory" — implicitly assumed random codebook. META cycle
+40 candidate list focused on physics-analog mechanisms (Cooper pair,
+HaPPY, soliton, magnon, quantum repeater) — anchored in
+condensed-matter or quantum frameworks, NOT on codebook-construction
+choices.
+
+Bet P is the codebook-engineering framing that the substrate's
+existing knowledge-graph-embedding-style techniques (TransE, RotatE,
+Poincaré) connect to naturally. Lit prior art is robust, just not
+flagged in the cycle 40 framework-anchored survey.
+
+Per [[feedback-rehabilitation-after-rejection]] reflection: the rehab
+discipline (5 sketches before closure) is good for closing closed
+families honestly. User's prompt is the example of how an EXTERNAL
+framing (here, semantic similarity from word/knowledge-graph
+embeddings) generates a new mechanism axis that internal-survey
+methodology misses.
+
+### Capability moves
+
+| Capability | v63 state | v64 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning at d=50 (Tier-1) | 🟡 R8-list-exhausted; 7 alternative paths | 🟡 R8-list-exhausted; **8 alternative paths** (Bet P added) | User proposal |
+| Semantic-locality codebook (Bet P) | (not in cap_map) | 🔬 active bet — HIGH PRIORITY; first codebook-geometry axis | User proposal |
+| Codebook-geometry axis (mechanistic) | (implicit/unexplored) | 🔬 first axis target Bet P | User proposal |
+
+### Active build queue REVISED again (v64)
+
+1. **Bet P → Research routing (TOP priority)** — file
+   `strategy_request_to_research_Bet_P_semantic_codebook_2026-05-21.md`
+   filed (this cycle). Research's 2x Pass should land within 1-2
+   cycles
+2. R33 quantum-repeater → Research routing (still highest-leverage
+   forward direction; not yet routed)
+3. Bet B v5 full verdict (running now)
+4. Bet F v3 build with R10 Option 2 W-spec (R10 unblocked)
+5. R31 soliton, R32 magnon, Bet N/Bet O rehab (research backlog)
+
+### Tier-1 board unchanged at v64
+
+7 ✅ + 1 🟢 + 1 🟡 (multi-hop now with 8 alternative paths, not 7).
+
+### Tally — Bet P promoted as #1 multi-hop rescue; codebook-geometry axis named
+
+Net effect: 1 new active bet (Bet P, codebook-geometry NEW axis); 1
+new rescue mechanism added to multi-hop inventory; substrate-physics
+anchored in R29; buildable at current-arch; Research routing filed
+with 5 axis-combination DRAFT sketches.
