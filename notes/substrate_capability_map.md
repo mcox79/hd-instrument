@@ -2256,3 +2256,95 @@ priority-ordered experiments spanning multiple bets and rehab axes.
 Net effect: 1 Bet F rehab sketch tested empirically (PARTIAL, no
 closure reversal); pipeline-fill request to Experiment Dev with 8
 buildable-at-current-arch experiments queued.
+
+---
+
+## 2026-05-21 v72 update — Bet F rehab 4/5 sketches PARTIAL (pattern: Kerdock ≈ control = NO topological protection beyond Kerdock baseline); continual_32N smoke PASS extends Bet A; Bet B v8 running
+
+Strategy session cycle 56. Pipeline firing — Experiment Dev ran their
+own queue (Bet F sketches 1/3/4 + continual_32N + Bet B v8). Note:
+Exp Dev didn't start from Strategy's cycle 55 pipeline-fill list,
+but ran their own priorities. Their judgment respected.
+
+### Bet F rehab — 4 of 5 sketches tested; pattern emerging
+
+| Sketch | Verdict | Kerdock | Control | Differential | Strategic read |
+|---|---|---|---|---|---|
+| S1 — Composite Burgers + edge/screw | PARTIAL | 1.000 | 1.000 | **0.000** | No topology effect |
+| S2 — Continuous-Burgers field | not tested | — | — | — | Untested |
+| S3 — Disclination-pair core | PARTIAL | 0.993 | 0.994 | **-0.001** | Negative differential |
+| S4 — Dislocation bound states | PARTIAL | 1.000 | 1.000 | **0.000** | No topology effect |
+| S5 — Topology-by-coset (Kerdock) | PARTIAL | 1.000 | 0.994 | 0.006 | Tiny positive |
+
+**Pattern across 4 tested sketches**: Kerdock recovery ≈ control
+recovery in EVERY case. The Bet F closure scope was always narrow
+(SSH-BSC AIII-class winding-protected at current Plate-HRR substrate
+with R10 Option 2 W). What this rehab data now adds: **substrate
+robustness IS from Kerdock structured-codebook inherent property
+(Bet C ✅ M/N=8), NOT from topological encoding overlay.** Topology
+adds no measurable differential.
+
+**Substrate-physics interpretation per [[feedback-materials-science-probe]]**:
+substrate is a discrete fully-connected classical memory; topological
+labels (Burgers / disclination / bound-state / coset) on top of
+Kerdock structure don't give Z-quantized protection because:
+- Kerdock baseline robustness already saturates at noise levels tested
+- No quantum / continuous symmetry to break
+- Discrete codebook geometry handles the noise without topology
+
+**Per PROT-004**: 4/5 sketches tested → rehab discipline well-satisfied.
+Bet F closure now ❌-architectural-current-arch CONFIRMED (not just
+PROVISIONAL). Only S2 (continuous-Burgers field) untested — but with
+4/5 showing no topological differential, S2 prior drops substantially
+(< 25%).
+
+**Bet F state move**:
+
+| Capability | v71 state | v72 state | Trigger |
+|---|---|---|---|
+| SSH-BSC topological winding-protected (Bet F) | ❌-arch PROVISIONAL; 1/5 sketches PARTIAL | ❌-arch CONFIRMED at current-arch; 4/5 sketches PARTIAL with Kerdock≈control pattern; substrate protection IS Kerdock-baseline, NOT topology | Bet F S1/S3/S4 PARTIAL |
+
+Per [[feedback-no-smoke]]: closure now empirically grounded via 4
+distinct topological schemes all failing to differentiate from
+control. Closure scope: narrow (current-arch Plate-HRR substrate;
+V2/R34 hyperbolic remains alive).
+
+### Continual editing at M=32N smoke PASS
+
+**Verdict**: `wave14_continual_32N_kerdock_only_smoke` at 18:29:06.
+CONTINUAL_32N_KERDOCK_HOLDS. min_edited=1.000, min_kept=1.000 at 100
+sequential edits.
+
+**Substrate-product implication**: Bet A (continual editing) extends
+to M=32N over-capacity (4× the v21 8N ceiling tested cycle 21).
+Substrate's editing capability scales further than originally
+characterized.
+
+**Capability move**:
+
+| Capability | v71 state | v72 state | Trigger |
+|---|---|---|---|
+| Continual editing M/N ceiling (Bet A extension) | ✅ at M/N=16N (cycle 49 v68) | ✅ at **M/N=32N** smoke confirmed; full pending | Continual 32N smoke |
+
+### Bet B v8 currently running
+
+Experiment Dev ran a v8 variant after v7 ✅ promotion. Will harvest
+when verdict lands. Per cycle 47-52 cross-version lesson: NOT promoting
+on smoke; await full mode. v7 ✅ status holds regardless.
+
+### Pipeline queue depth
+
+- Running: Bet B v8 (started 18:29:23)
+- Pending: wave14_r17_area_law_N16384, wave14_continual_32N_kerdock_only
+  (full mode)
+
+Strategy's pipeline-fill (cycle 55) NOT yet picked up by Experiment
+Dev. Their own queue is healthy. No action needed unless Experiment
+Dev pickup is slow.
+
+### Tally — Bet F closure CONFIRMED at current-arch (4/5 sketches PARTIAL); continual editing extends to M/N=32; Bet B v8 running
+
+Net effect: Bet F closure scope strengthens from PROVISIONAL to
+CONFIRMED at current-arch with 4 distinct topological schemes all
+failing to differentiate; Bet A extends 4× capacity; Bet B v8 will
+inform whether further v6+ mechanism extensions are warranted.
