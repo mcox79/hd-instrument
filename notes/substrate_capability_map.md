@@ -1761,3 +1761,128 @@ codebook substrate, any storage density up to M/N≤2.0" rather than
   Dev. With Bet C now ✅, Bet A is the cleanest forward bet
   (architecturally trivial given the validated erase primitive on
   any structured-codebook substrate).
+
+
+## 2026-05-21 v16 update — Research audit corrections + multihop N-scaling bounded; AlphaEdit identified as prior-art primary
+
+Strategy session cycle 6 (in /loop). Two integration triggers:
+(a) Research session's self-audit of R1 (10:04) surfaced 6 errors plus
+the realization that AlphaEdit (ICLR 2025, arXiv:2410.02355) is
+essentially R1's "paraphrase-aware ROME" Candidate 3' — a published
+2024-25 method scaling to 3000 sequential edits;
+(b) `wave14x_multihop_N_scaling` (09:58) — `MULTIHOP_N_IMPROVES_BUT_BOUNDED`.
+
+PROT compliance this cycle: implemented PROT-003 (slash-command pattern
+for /loop) — created `~/.claude/commands/strategy-cycle.md`; next
+ScheduleWakeup uses `/strategy-cycle` instead of the long prompt body.
+
+### Corrections to prior cap_map versions (from Research audit)
+
+The Research session's audit subagent verified load-bearing claims in
+R1 against external literature. Three corrections propagate to prior
+cap_map versions:
+
+1. **Mirage paper arXiv ID was wrong**. Cited as 2503.06991 in cap_map
+   v9 evening update. Correct ID is 2502.11177.
+2. **The 4-probe Mirage probe battery was substrate-internal**, NOT
+   from the Mirage paper. v9 attributed "rank/norm/cos/paraphrase per
+   the Mirage paper"; this attribution was wrong. The closest published
+   analog is MEMIT-CSK-PROBE (arXiv:2305.14956). The probe design
+   originated in `wave14p_erase_multiprobe`.
+3. **Kerdock inner-product magnitudes were off by 2x**. v15's Bet C
+   evidence cited "magnitudes in {0, 1/64} for N=4096." Correct value
+   per Hammons-Kumar-Calderbank-Sloane-Solé is **{0, 1/32}** for m=12
+   at N=4096 (formula 2^((m+2)/2)/N, not 2^((m+1)/2)/N as I had).
+
+**Net effect on capability claims**: zero. The empirical validation in
+`wave14v_erase_kerdock_v2` full (5-probe pass at M/N≤2.0) is unaffected
+by either the Mirage citation or the off-by-2 in the Kerdock IP
+magnitude — both were supporting claims, not load-bearing measurements.
+
+**Correction policy**: I am NOT going back to rewrite prior v9 / v15
+sections silently (per [[feedback-no-smoke]] — show your work). These
+errors are documented here in v16 and in
+`research_R1_GDPR_erase_candidates_2026-05-21.md`'s
+"AUDIT CORRECTIONS" section. Future cap_map versions use corrected values.
+
+### NEW finding — AlphaEdit identified as prior art for Bet A
+
+R1's audit revealed that **AlphaEdit** (Fang et al., ICLR 2025
+Outstanding, arXiv:2410.02355) is essentially what R1 called
+"paraphrase-aware ROME / Candidate 3'." It is:
+- A published method that scales to 3000 sequential edits
+- Designed for selective editing on LLM W matrices
+- Substrate-compatible — operates on random keys without restructuring
+
+**Strategic implication for Bet A**:
+Bet A now has TWO parallel candidate mechanisms rather than one:
+- **AlphaEdit primary** (50-65% predicted Mirage-pass per R1 audit):
+  no substrate-architecture restructuring required
+- **Kerdock 2A.i parallel** (40-55% predicted; already partial via
+  v15 Bet C): unlocks WHT-forensics + Kerdock cleanup speedup
+
+Strategy recommendation: route Experiment Dev to queue both candidates
+in parallel for Bet A's end-to-end pipeline test. Joint P(at least one
+passes) ~70-80% per R1's revised estimates.
+
+**Capability move** (no row state change — Bet A still 🟢 partial):
+
+| Capability | v15 state | v16 state | Note |
+|---|---|---|---|
+| Edit-then-query for fact correction (Tier-1) | 🟢 Partial — erase ✅, pipeline ⚪ | 🟢 Partial — TWO parallel candidate mechanisms (AlphaEdit + Kerdock) for the end-to-end pipeline test | R1 audit surfacing AlphaEdit |
+
+### Multi-hop reasoning — N-scaling axis closed; architectural rescue still required
+
+`wave14x_multihop_N_scaling` full (09:58:29) verdict
+`MULTIHOP_N_IMPROVES_BUT_BOUNDED`:
+- N ∈ {4096, 8192, 16384} swept; 3 seeds each
+- At N=4096: acc_1hop=0.927, acc_10hop=0.50, acc_50hop=0.13
+- At N=16384: acc_1hop=0.947 (best), still doesn't reach 0.99
+- Slope on N: +0.010 (positive but small)
+
+This closes one rescue axis from cap_map v14's R8 multi-hop rehab list:
+**"simple N-scaling" alone does not extend multi-hop depth**. Slope
++0.010 means doubling N only adds ~1pp to acc_1hop; the depth-50
+limit looks structural, not noise-limited.
+
+**Capability move** (evidence list update; row state unchanged):
+
+| Capability | v14 state | v16 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning (Tier-2) | 🟡 PROVISIONAL pending R8 rehab | 🟡 PROVISIONAL — N-scaling axis closed; rescue still requires architectural change | `wave14x_multihop_N_scaling` |
+
+R8 priority shifts: rescue sketch #5 (per-fact orthogonal-subspace
+allocation via Kerdock) is now the **most likely** rescue axis given
+(a) Kerdock + structured keys validated for erase at M/N≤2.0 (Bet C)
+and (b) cross-talk-driven failure modes were the explicit target of
+Bet 2's structured-codebook rescue. Promote to R8 priority 1.
+
+### Note on Proposal 4 (tier grounding, pending user approval)
+
+META filed Proposal 4 (10:01) proposing that Strategy's "Tier-1 KILLER"
+labels carry inline grounding — every "Tier-1 / KILLER" asserts WHY in
+the same line.
+
+Strategy is the single writer for `cap_map` and `active_priorities`,
+so if user approves Proposal 4, Strategy implements. Until approval, I
+am NOT pre-emptively rewriting bare tier labels. If approved, will
+land in v17 or active_priorities v4.
+
+### Pending items (no change since cycle 5)
+
+- **R7 / R8 / R9** (rehab-routed research from cycle 4): R8 partially
+  informed by `wave14x_multihop_N_scaling` today (closes N-scaling
+  axis); R7 / R9 still outstanding.
+- **My closure-rehab request** (`meta_request_from_strategy_2026-05-21.md`):
+  META has not yet acted. Their cycle 3 focused on PROT-003 slash command
+  + Proposal 4 tier grounding. Will re-flag in next decision log if
+  still unaddressed.
+- **Bet A**: with AlphaEdit primary + Kerdock parallel candidates,
+  Experiment Dev should queue both. Not yet built.
+
+### Tally — no row state changes from v15
+
+Same tally as v15. Updates this cycle were:
+- Citation corrections (no capability impact)
+- Bet A candidate-list expansion (AlphaEdit + Kerdock parallel)
+- Multi-hop R8 rescue priority reordering (orthogonal-key #5 promoted)

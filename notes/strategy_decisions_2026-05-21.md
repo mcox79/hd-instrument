@@ -441,3 +441,94 @@ No new research notes from Research session this cycle.
 
 - 270s again (Bet A imminent, R-notes possibly arriving, META at 10:13).
   Will lengthen if next cycle is quiet.
+
+---
+
+## Cycle 6 — 2026-05-21 ~10:06 (in /loop)
+
+PROT compliance this cycle: implemented **PROT-003** (slash-command
+pattern). Created `C:\Users\marsh\.claude\commands\strategy-cycle.md`.
+Next ScheduleWakeup uses `/strategy-cycle` instead of the long prompt
+body so chat shows the short invocation and the wall-of-text instructions
+live in the command file.
+
+### What I observed
+
+Heavy activity since cycle 5 (09:56):
+1. **Research session ran** — self-audited R1 via external lit-scan
+   subagent (~4 min, ~65K tokens). Found 6 errors in R1:
+   - Mirage paper arXiv ID wrong (2503.06991 → 2502.11177)
+   - 4-probe Mirage methodology was substrate-internal, not from the
+     Mirage paper (closest published analog: MEMIT-CSK-PROBE arXiv:2305.14956)
+   - Kerdock IP magnitudes off by 2× (1/64 → 1/32 for m=12 at N=4096)
+   - Kerdock min distance off (1984 → 2016)
+   - Demircigil author list wrong
+   - **AlphaEdit (ICLR 2025 Outstanding, arXiv:2410.02355) is essentially
+     R1's "paraphrase-aware ROME" Candidate 3'** — published, scales
+     to 3000 sequential edits, substrate-compatible
+   R1 patched in-place with visible "AUDIT CORRECTIONS" section per
+   `feedback_no_smoke`.
+2. **META cycle 3 follow-ups**: added PROT-003 (slash command pattern)
+   + filed Proposal 4 (tier grounding for cap_map/active_priorities).
+   My closure-rehab request from cycle 4 has NOT been processed yet.
+3. **`wave14x_multihop_N_scaling` full** (09:58:29): N ∈ {4096, 8192,
+   16384}, acc_1hop=0.927 → 0.947, slope +0.010. N-scaling axis of R8
+   rescue is closed (doesn't reach 0.99 at 4× substrate width).
+
+### What I decided
+
+1. **PROT-003 compliance**: created strategy-cycle slash command.
+   Will use `/strategy-cycle` in next ScheduleWakeup.
+2. **cap_map v16** (atomic, committed, scp'd):
+   - Documented the 3 Research audit corrections (Mirage arXiv,
+     probe attribution, Kerdock magnitudes). Did NOT silently rewrite
+     prior versions — corrections live transparently in v16.
+   - Net effect on capability claims: zero. Kerdock empirical pass
+     (M/N≤2.0) is unaffected by the off-by-2 in IP magnitude.
+   - Bet A's candidate list expanded: **AlphaEdit primary + Kerdock
+     parallel** for the edit-then-query end-to-end pipeline test.
+   - Multi-hop: N-scaling axis closed. R8 rescue priority reordered —
+     orthogonal-key allocation (#5) promoted to top per
+     cross-pollination from Bet 2/C.
+   - Noted Proposal 4 (tier grounding) pending user decision.
+3. **active_priorities.md**:
+   - Bet A reframed with two parallel candidates
+   - Header updated v3 → still v3 (no new bet promotion this cycle;
+     Bet A scope expanded)
+   - Cap_map ref updated to v16
+
+### Why
+
+- Honest correction policy: Research's audit caught my citation errors
+  (and their own). Per `feedback_no_smoke` and
+  `feedback_verify_implementations`, the corrections live transparently
+  in v16's "Corrections to prior cap_map versions" section. Not
+  rewriting v9/v15 silently.
+- AlphaEdit promotion: it's a 2024-25 published method matching what
+  R1 sketched as Candidate 3', scales to 3000 sequential edits.
+  Promoting it to Bet A primary candidate (over Kerdock-only) is
+  honest about the prior art — and AlphaEdit has the advantage of NOT
+  requiring substrate restructuring.
+- Multi-hop N-scaling: bound at +0.010 slope is a real signal that
+  N-scaling alone doesn't extend depth. The orthogonal-key rescue
+  (R8 #5) is now the most likely path because it directly addresses
+  the cross-talk mechanism that drives multi-hop noise accumulation
+  (same mechanism R1 identified for the erase failure mode).
+
+### Open items / handoffs
+
+- **Experiment Dev**: queue BOTH `wave14g_erase_alphaedit_v1` AND
+  `wave14g_erase_kerdock_v1` in parallel for Bet A (2/cycle cadence).
+- **Research**: R8 (multi-hop rescue) priority list updated; consider
+  driving the orthogonal-key allocation rescue as the highest-leverage
+  drill. R7 + R9 still outstanding.
+- **META**: closure-rehab request from cycle 4 still pending. Re-flag
+  next cycle if not picked up.
+- **User**: Proposal 4 (tier grounding) requires your decision before
+  Strategy implements.
+
+### Wake schedule
+
+- 270s again. Bet A candidates may queue this cycle; META cron at
+  10:13 may bring PROT updates; Research may drop R3/R4 (10:07/10:27
+  per cron schedule).

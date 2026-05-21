@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 5 (in-loop self-pacing)
-**Cap map version this refers to:** v15
+**Last updated:** 2026-05-21 cycle 6 (in-loop self-pacing)
+**Cap map version this refers to:** v16
 
 ---
 
@@ -21,10 +21,18 @@ Dev, Research, Visibility, Queue Health, META) read this.
 
 ### Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER, now unblocked)
 
-**Claim.** A user-uploaded correction on an orthogonal-key substrate
-propagates through the full pipeline: pool entry removed AND W-side
-anti-Hebbian rank-1 edit applied AND subsequent queries reflect the
-correction in cleanup-output ranking.
+**Claim.** A user-uploaded correction propagates through the full
+pipeline: pool entry removed AND W-side edit applied AND subsequent
+queries reflect the correction. Two parallel candidate mechanisms per
+R1 audit (cycle 6):
+- **Primary**: AlphaEdit (ICLR 2025, arXiv:2410.02355) — published
+  method scaling to 3000 sequential edits, operates on substrate's
+  random keys without restructuring. 50-65% predicted Mirage-pass
+  per R1 audit revision.
+- **Parallel**: Kerdock 2A.i + structured codebook — already partial
+  via Bet C ✅; would also unlock WHT-forensics + Kerdock cleanup
+  speedup. 40-55% predicted.
+Joint P(at least one passes) ~70-80%.
 
 **Why now.** Bet 2 resolved the erase primitive. The remaining piece of
 the Tier-1 KILLER edit-then-query is the integration: does a query
@@ -50,9 +58,10 @@ rescue variant (α tuning, M_stored slack, key-subspace orthogonalization)
 closes the gap within 2 cycles. Then "edit-then-query" stays 🟢-partial
 indefinitely and the Tier-1 KILLER claim downgrades.
 
-**Who acts.** Experiment Dev (build `wave14d_edit_then_query_v1` on top
-of the validated Bet 2 erase primitive); Strategy (cap_map upgrade on
-positive).
+**Who acts.** Experiment Dev (build TWO parallel experiments —
+`wave14g_erase_alphaedit_v1` AND `wave14g_erase_kerdock_v1` — under the
+new 2/cycle cadence; both test the full edit-then-query pipeline);
+Strategy (cap_map upgrade on positive verdict from either or both).
 
 ---
 
