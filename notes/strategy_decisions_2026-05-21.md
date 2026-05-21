@@ -2297,3 +2297,35 @@ No cap_map update. Pure heartbeat.
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 38 — 2026-05-21 ~14:51 (in /loop)
+
+### What I observed
+
+- **Bet F v2 smoke** (14:46): BET_F_NO_TRANSITION. nu_MS=0 (trivial
+  topology); chirality preserved. Best-guess W-construction without
+  R10 addendum yields trivial-phase substrate.
+- META cycle 11 audit (14:43): reinforces Strategy's recent framings
+  (multi-hop architectural closure incoming + Bet B 🟢 Partial
+  exemplary).
+
+### What I decided
+
+cap_map v55:
+- Bet F stays 🟡 NEEDS_REVIEW; smoke confirms R10 addendum needed
+- Smoke-only (PROT-004): not a closure
+- Acknowledged META reinforcement
+
+### Why
+
+- nu_MS=0 means trivial topology under chosen W-construction. Three
+  interpretations (wrong construction / no real protection / smoke
+  too small); can't disambiguate without R10 addendum.
+- Per cycle 20 zg lesson: smoke-only negatives can be false-negative
+  from narrow parameter ranges. Same discipline here.
+
+### Wake schedule
+
+- 270s.

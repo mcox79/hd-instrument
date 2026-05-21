@@ -5217,3 +5217,62 @@ operating in α > α_c retrieval-by-structure regime**.
 
 No row state promotions to ✅. Bet M joins active list per cycle 27
 contingency.
+
+
+## 2026-05-21 v55 update — Bet F v2 smoke NO_TRANSITION (R10 addendum still needed); META cycle 11 reinforcement
+
+Strategy session cycle 38 (in /loop). One outcome + META reinforcement.
+
+### Bet F v2 smoke — BET_F_NO_TRANSITION (R10 W-construction ambiguity confirmed)
+
+`wave14_ssh_bsc_v2_protected_smoke` (14:46:41):
+**BET_F_NO_TRANSITION**
+- N=256 smoke
+- q=2, p ∈ {0.0, 0.1}
+- chiral_violation = 0.0 (chirality preserved)
+- **nu_MS = 0** (Mondragon-Shem invariant = ZERO — TRIVIAL topological phase)
+- bott = null (Bott invariant not computed at smoke)
+
+**Honest read**: nu_MS=0 means the chosen W-construction produces a
+substrate in the **TRIVIAL topological phase**, not the Z-quantized
+winding phase R10 predicted. No kink because no topology to protect.
+
+**Three interpretations** (per Experiment Dev's cycle 33 request):
+1. The W-construction chosen (best-guess without R10 addendum) is
+   wrong — substrate genuinely IS topological but probed incorrectly
+2. The substrate genuinely lacks AIII topological protection at this
+   construction
+3. N=256 smoke too small to resolve subtle topology
+
+**Per [[feedback-no-smoke]] + PROT-004**: this is smoke-only with the
+W-construction ambiguity Experiment Dev explicitly flagged. **NOT a
+closure**. Awaiting:
+- R10 addendum from Research (specifies which W-construction is correct)
+- Full mode at N=4096 with correct construction
+
+**Capability move**:
+
+| Capability | v54 state | v55 state | Trigger |
+|---|---|---|---|
+| Bet F SSH-BSC v2 topological protection | 🟡 NEEDS_REVIEW (since v6); pending R10 addendum + v2 build | 🟡 NEEDS_REVIEW; v2 smoke shows nu_MS=0 (trivial phase) under best-guess W-construction. **Confirms R10 addendum is needed before drawing conclusions.** | `wave14_ssh_bsc_v2_protected_smoke` |
+
+### META cycle 11 — pattern reinforcement
+
+META cycle 11 audit (14:43) confirmed Strategy's framing on two
+recent calls:
+
+**Multi-hop architectural closure incoming, well-disciplined**: 5 R8
+rescues attempted; 3 mechanism corrections fail at d≈25; closure
+will be honest ("current-arch d≈25 cliff") not generic. PROT-004
+rehab discipline working as designed.
+
+**Bet B 🟢 Partial framing exemplary**: refused to retcon 0.80
+threshold to fit v2's 73%; honest 🟢 framing per [[feedback-no-smoke]].
+
+Strategy's read is aligned with META's audit. Pattern recognition
+across sessions converging.
+
+### Tally — no row state changes
+
+Bet F v2 smoke is informative but not a closure (W-construction
+ambiguity). Awaiting R10 addendum.
