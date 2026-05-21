@@ -5603,3 +5603,137 @@ direction.
 R18 adds 4-source convergence + 1 brutal caveat (Kerr Winter) + 3
 falsifiable predictions. Bet N still IMMEDIATE-pending-build.
 Multi-hop parent row stays 🟡 PROVISIONAL.
+
+---
+
+## 2026-05-21 v59 update — R17 holographic LARGELY NEGATIVE; R30 HaPPY demoted (same V2 dependency); Plate-HRR vs AdS/CFT distinction enshrined; R34 (V2 substrate) proposed; Probe 1 cheap area-law check queued
+
+Strategy session cycle 42 followup. R17 Holographic landed 15:16
+([notes/research_R17_holographic_principle_2026-05-21.md](notes/research_R17_holographic_principle_2026-05-21.md)).
+**LARGELY NEGATIVE outcome** with one major secondary consequence: R30
+(HaPPY codes, promoted cycle 40 from META) has the same V2-substrate
+re-architecture dependency as the rest of the AdS/CFT family, so R30
+demotes to deferred. This is a v57 reversal at one row.
+
+### Headline R17 finding — Plate-HRR vs AdS/CFT distinction (CRITICAL)
+
+Substrate is "holographic" in **two unrelated senses**:
+
+1. **Plate-HRR holographic** (Plate 1995 / Kanerva 2009) — Fourier-
+   convolution binding, holographic-reduced-representations. Substrate
+   IS this. Well-grounded.
+2. **AdS/CFT holographic** (Maldacena 1997, HaPPY 2015) — hyperbolic-
+   tiling tensor networks, quantum entanglement entropy, Ryu-Takayanagi.
+   Substrate IS NOT this. Five structural gaps:
+   - No hyperbolic geometry (substrate is flat N=4096 codebook)
+   - No bulk-boundary duality
+   - No quantum entanglement (substrate is classical ±1)
+   - No emergent CFT
+   - No QES / Page-curve dynamics
+
+**Per [[feedback-no-papers-product-only]] + [[feedback-no-smoke]]**: future
+substrate framings must NOT conflate. The "marketing-speak trap" R17
+explicitly flags is a real risk for substrate-as-product narratives.
+
+### R30 (HaPPY codes) demoted — same V2 dependency as rescue sketch A
+
+In cap_map v57 (cycle 40), R30 was promoted as a new research-first
+question from META's candidate list. R17 reveals: HaPPY codes require
+exactly the hyperbolic-tiling re-architecture that R17 identifies as
+Rescue A (35% productive but substantial substrate redesign + V2 scope).
+
+**R30 state move**:
+
+| Capability | v57 state | v59 state | Trigger |
+|---|---|---|---|
+| HaPPY holographic codes for substrate (R30) | 🔬 research-first; promoted | **Deferred — re-evaluate after V2 substrate (hyperbolic) scope** | R17 reveals same V2 dependency |
+
+This is a **factual correction**, not a closure: R30 stays alive as a
+V2-substrate option, but does not compete for current-cycle Research
+bandwidth.
+
+### R34 — V2 substrate on Bethe-lattice / hyperbolic-tiling (NEW; deferred)
+
+Per R17 deliverable 8: research-first question for V2 substrate scope
+(N=65536). Substrate re-architected on Bethe-lattice / hyperbolic
+tiling enables HaPPY (R30) + Okunishi-Takayanagi 2024 Bethe-Ising
+holographic RG + Hayden 2016 RTN spectral predictions to all become
+relevant simultaneously.
+
+**R34 status**: 🔬 deferred — V2 scope; not justified for current N=4096
+architecture. Below R32 (structured-spike replica) and R33 (quantum
+repeater segment-and-purify) in priority.
+
+### Probe 1 — area-law entropy check (NEW; ZERO GPU; LOW PRIORITY)
+
+R17 Probe 1: compute Renyi-2 entropy S_2(A) = -log Tr(ρ_A^2) on
+substrate's W matrix random bipartitions, sweep |A| ∈ {N/8, N/4, N/2},
+fit to volume-law vs area-law scaling. 30 min analyzer pass on existing
+W matrices, no GPU. Cheap.
+
+Predictions:
+- (a) Volume-law (substrate has no entanglement; "entropy" is
+  fictitious): P ≈ 55-70%
+- (b) Area-law (Rescue C / Harlow 2017 RT-QEC analog): P ≈ 25-40%
+
+Kill: if neither (e.g., logarithmic), R17 framework fully closes.
+
+**Decision**: queue as `wave14_substrate_area_law_probe_v1` at LOW
+PRIORITY (after Bet N, adaptive-beta, Bet B v4, R10-addendum-enabled
+Bet F). Cheap enough that it's worth running once GPU is otherwise
+idle.
+
+### Substrate framing clarification — capability rename
+
+The capability "Holographic substrate" in cap_map was implicit/decorative.
+Now explicitly clarified:
+
+| Capability | v58 state | v59 state | Trigger |
+|---|---|---|---|
+| Substrate as Plate-HRR holographic memory (Fourier convolution binding) | (implicit) | ✅ Validated since substrate's foundation; explicitly named | R17 distinction |
+| Substrate as AdS/CFT holographic code (hyperbolic / quantum entanglement) | (implicit/conflated) | ❌ Not applicable at current architecture; rehab via 4 sketches; demoted | R17 finding |
+
+This is not a state change in capability terms — it's a **framing
+clarification** that prevents future conflation.
+
+### R17 rescue sketches (per PROT-004)
+
+R17 enumerated 4 rescue sketches before recommending demotion:
+
+| Sketch | Mechanism | P(productive) | Cost | Status |
+|---|---|---|---|---|
+| A | Substrate on hyperbolic-tiling geometry | 35% | High (V2 substrate scope) | Deferred (R34) |
+| B | Substrate-RTN ensemble for spectral predictions | 25% | Medium analytical | Below R32 priority |
+| C | Substrate as operator-algebra QEC code (Harlow 2017) | 20% | Medium-high analytical | Deferred |
+| D | Substrate effective scaling dimension Δ_eff (Sang-Hsieh-Zou 2024 AQEC) | 20% | Low analytical | Optional Probe 2 |
+
+Combined probability any rescue yields substrate-product engineering
+value: ~50% per R17 brutal-honesty estimate. **Most likely outcome: all
+4 fall short.**
+
+### What this changes for cap_map v57's Bet O (Cooper pair)
+
+Bet O is **unaffected** by R17. Cooper-pair gap-protected encoding is a
+condensed-matter analog (BCS superconductivity → substrate analog of
+gap protection), not AdS/CFT. R17's negative finding does not propagate
+to Bet O.
+
+### R-priority reorder after R17
+
+- **R31 (soliton attractor)**: stays research-first
+- **R32 (magnon / spin-wave substrate)**: stays research-first; extends R29
+- **R33 (quantum-repeater segment-and-purify)**: STAYS #1 forward-direction
+  — this is the only candidate offering poly-vs-exp asymptotic
+  improvement; R17 doesn't touch it
+- **R30 (HaPPY codes)**: DEMOTED to deferred (V2 substrate dependency)
+- **R34 (V2 substrate hyperbolic re-architecture)**: NEW, deferred
+
+R-research bandwidth recovered for current-architecture work
+(R33 priority confirmed).
+
+### Tally — R17 lands LARGELY NEGATIVE; 1 v57 row reverses (R30); R34 added; framing distinction enshrined
+
+Net effect: -1 active R-request (R30 → deferred), +1 deferred R-request
+(R34), +1 cheap probe (Probe 1 area-law), +1 capability framing
+clarification (Plate-HRR ✅ / AdS-CFT ❌ at current arch). No Tier-1
+row state changes. Multi-hop parent still 🟡 PROVISIONAL pending Bet N.
