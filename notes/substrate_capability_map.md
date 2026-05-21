@@ -6981,3 +6981,150 @@ Net effect: Bet F closes honestly with full PROT-006 atomic sequence
 R17 Sketch D fully out. Multi-hop large-N partial signal retracted
 (false positive in v66). Bet B v7 full will determine Tier-1 ✅
 promotion.
+
+---
+
+## 2026-05-21 v68 update — R31 soliton + R32 magnon both delivered; META candidate queue EXHAUSTED (7/7 processed); 2 substrate-applicable axes added; Bet P P.7 now has Research-validated magnon construction
+
+Strategy session cycle 49 (in /loop). Bet B v7 alpha sweep still
+running (~8 min wall). No new experimental verdicts since v67.
+
+**Major coordination milestone**: META cycle 11's 7-candidate
+question is now fully processed (Research Entry 31 + 32). Final tally:
+
+| META candidate | Status | Outcome |
+|---|---|---|
+| #1 Soft cleanup | Bet N | ❌ KILLED (cycle 43); rehab routed (cycle 44) |
+| #2 Cooper-pair | Bet O | ❌ KILLED (cycle 44); rehab routed (cycle 44) |
+| #3 HaPPY codes | R30 | DEMOTED via R17 NEGATIVE (cycle 42) |
+| #4 Soliton | R31 | PARTIAL substrate-applicability (this cycle) |
+| #5 Magnon | R32 | PARTIAL — M.1 phasor extension substrate-novel (this cycle) |
+| #6 Topology extension | R28 | Integrated into Bet F rescues (cycle 45) |
+| #7 Quantum repeater | R33 | HONEST RECALIBRATION (cycle 46); 2-4× constant factor |
+
+### R31 — Soliton attractor (PARTIAL; 4 framings; 1 substrate-applicable axis)
+
+**File**: `notes/research_R31_soliton_attractor_2026-05-21.md` (16:35).
+
+**Critical caveat**: "Integrability is FRAGILE under discretization."
+Continuous NLS/KdV soliton concepts (infinite conservation laws,
+elastic collisions) DO NOT transfer to discrete substrate. Substrate
+is closer to DNLS (non-integrable). Per [[feedback-dont-overextend-
+theorems]]: any soliton-based substrate claim citing continuous
+integrability is OVEREXTENSION.
+
+**4 substrate-product framings** (Research-supplied):
+
+| Framing | Mechanism | Substrate connection | P(substantial gain) |
+|---|---|---|---|
+| **S.1** | CGLE dissipative-attractor cleanup (Pyrkov 2020 arXiv:1909.05082) | Bet N rehab axis — substrate cleanup as parametric basin-of-attraction | **30-40%** |
+| **S.2** | Soliton-resolution-style cleanup framing (Bilman-Buckingham 2019) | Iterated cleanup as resolution into discrete attractor library; 0-GPU framing | conceptual |
+| **S.3** | Topological-soliton encoding for Bet F | Cross-axis with R28 dislocations + Bet F SSH-BSC; substantial Bet F rescue | depends on Bet F rebuild |
+| **S.4** | Discrete-attractor cascadability (Manakov NOR/OR 2018) | Substrate-applicable evidence chained nonlinear ops preserve attractor template; multi-hop relevant | indirect |
+
+**Pyrkov 2020 (S.1) is THE single substrate-applicable reference** —
+explicitly casts soliton as Hopfield attractor with proven basin of
+attraction.
+
+**Capability moves**:
+
+| Capability | v67 state | v68 state | Trigger |
+|---|---|---|---|
+| Bet N rehab axis #6 — CGLE dissipative-attractor cleanup (S.1) | (filed as part of rehab) | 🔬 specific axis named via Pyrkov 2020 ~30-40% prior | R31 lands |
+| Bet F rehab axis (R28 + R31 cross-product) | 5 sketches from R28 | 5 sketches from R28 + S.3 cross-axis topological-soliton | R31 lands |
+| Multi-hop chaining cascadability (S.4) | (not in cap_map) | 🔬 R31 S.4 framing — discrete attractor template preservation | R31 lands |
+
+### R32 — Magnon substrate (PARTIAL — M.1 phasor extension is substrate-novel deliverable)
+
+**Source**: Research Entry 31 in `research_decisions_2026-05-21.md`
+(no separate research_R32_*.md file; integrated as Entry).
+
+**HEADLINE BRUTAL-HONESTY FINDING**: most magnon physics is
+DECORATIVE analogy for classical substrate. Subagent explicit (per
+[[feedback-no-smoke]]).
+
+**Genuine deliverable — M.1 phasor extension**: substrate-novel
+construction of phasor codebook (extends Bet P P.7 magnon-coupled
+standing-wave codebook).
+
+**Capability moves**:
+
+| Capability | v67 state | v68 state | Trigger |
+|---|---|---|---|
+| Bet P P.7 — Magnon-coupled standing-wave codebook | 🔬 sketch only | 🔬 Research-validated; M.1 phasor extension is substrate-novel construction | R32 Entry 31 |
+| Magnon-based substrate (general) | 🔬 META candidate #5 | ❌ DECORATIVE for most magnon physics; only M.1 phasor extension is genuine | R32 Entry 31 |
+
+### Updated Bet P inventory (Engineering + Theory + R32-validated P.7)
+
+Bet P research (cycle 47 v66) listed 5 Strategy DRAFT sketches +
+Research's 5 sketches including P.7. R32 (this cycle) validates P.7
+specifically:
+
+| Bet P sub-axis | Source | Status |
+|---|---|---|
+| Bet P-Engineering — port pretrained KGE | Bet P research | 🔬 quick empirical test queued |
+| Bet P-Theory — α_c(coherence) bound | Bet P research | 🔬 substrate-novel analytical |
+| Bet P P.7 — magnon phasor codebook | Bet P + R32 cross | 🔬 Research-validated construction |
+
+### Bet N rehab axis inventory (5 original + R31 S.1 = 6)
+
+Cycle 44 Bet N rehab filed 5 DRAFT sketches. R31 S.1 adds a 6th
+substrate-applicable axis via Pyrkov 2020 CGLE framework:
+
+1. Top-k weighted propagation (k > 1)
+2. Iterative cleanup with damping
+3. Heavy-tailed (Cauchy/Lorentzian) cleanup
+4. Sparse cleanup (L1-regularized)
+5. Annealed-β with bundle-state feedback
+6. **NEW: CGLE dissipative-attractor cleanup (Pyrkov 2020)** — Research-validated
+
+Bet N stays ❌ PROVISIONAL pending Research's combined Bet N + Bet O
+rehab Pass 2 (Entry 29 of research_decisions).
+
+### Closures inventory after v68 (substrate-product-relevant)
+
+- ❌ KILLED (PROVISIONAL or full):
+  - Bet N soft cleanup (cleanup-amplification axis; rehab routed +
+    R31 S.1 added)
+  - Bet O Cooper-pair (storage-redundancy axis; rehab routed)
+  - Adaptive-β (R8 #6; symptom-mitigation; in-axis R8 closure)
+  - R17 Sketch D Δ_eff (no power-law correlation; in-axis R17 closure)
+  - Bet F SSH-BSC AIII (architectural-current-arch; PROT-006 rehab
+    routed)
+  - Dislocation-network memory primitive (R28 negative; in-axis)
+- 🟡 PENDING:
+  - Bet E Parisi RSB (demoted; v3b full pending)
+  - Multi-hop d=50 with 7+1 alternative rescue paths
+  - Bet B mechanism-dependent (v7 alpha sweep running)
+
+### Active research backlog (after R31+R32 land; META queue exhausted)
+
+| Item | Status | Priority |
+|---|---|---|
+| Bet P-Engineering smoke (port pretrained KGE) | request filed | HIGH (cheap test) |
+| Bet P-Theory analytical (α_c bound derivation) | request filed | substrate-novel |
+| Bet N rehab Pass 2 | request filed | closure-followup |
+| Bet O rehab Pass 2 | request filed | closure-followup |
+| Bet F rehab Pass 2 | request filed v67 | closure-followup |
+| R27 light-matter | backlog | MEDIUM |
+| R19 topological-beyond-winding | backlog | LOWER |
+| R21 cross-modal | backlog | LOWER |
+| R22 sleep-replay | backlog | LOWER |
+| R25 aging | backlog | LOWER |
+
+R27 is the highest-priority remaining META-cycle-27-followup item
+still untouched. Worth routing.
+
+### Tier-1 board after v68
+
+Unchanged from v67: 6 ✅ + 1 🟢 mechanism-dependent + 2 🟡 + 1
+❌-arch PROVISIONAL. Bet B v7 alpha sweep will determine 🟢 → ✅
+promotion.
+
+### Tally — META queue 7/7 exhausted; R31 S.1 adds Bet N rehab axis #6; R32 M.1 validates Bet P P.7 phasor construction; closure inventory enumerated
+
+Net effect: 2 research items landed (R31 + R32) with disciplined
+brutal-honesty framings. Multi-hop rescue inventory richer
+(Bet N rehab now 6 axes; Bet F rehab cross-product with R31 S.3).
+Active research backlog now centers on remaining cycle-27-followup
+items (R27 light-matter top priority).
