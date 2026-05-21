@@ -3552,3 +3552,78 @@ Experiment Dev to check.
 ### Tally — no row state changes
 
 Pure smoke characterization + process update. Cap_map tally unchanged.
+
+
+## 2026-05-21 v37 update — Bet C upper bound: Kerdock v8 32-coset variant decays at M=32768 (M/N=8); Experiment Dev pivoted to break-point hunting
+
+Strategy session cycle 24 (in /loop). Five new outcomes since cycle 23
+including a substantive finding: **Bet C envelope upper bound located
+for the 32-coset Kerdock variant**.
+
+### Bet C variant-specific capacity bound LOCATED
+
+`wave14zp_kerdock_v8_32coset_retry` FULL (12:53:44): **KERDOCK_V8_DECAYS_AT_32768**
+- N=4096, M_stored sweep
+- **Holds up to M=16384 (M/N=4.0)**: all 5 Mirage probes pass
+- **FAILS at M=32768 (M/N=8.0)**: norm_ratio=0.160 (above 0.15 threshold)
+
+**Important nuance**: this is the v8 **32-coset variant** of Kerdock,
+NOT the standard v4 Kerdock m=12 codebook from cycle 9. v4
+(`wave14ya_erase_kerdock_v4`) passed at M=32768 with kept_preservation=1.0.
+
+Kerdock variant capacity is variant-specific:
+- v4 (standard m=12 codebook): M/N ≤ 8.0 ✅ (cycle 9 finding)
+- v8 (32-coset variant): M/N ≤ 4.0 ✅; fails at M/N=8.0
+- v5/v6 smoke: claimed extension to M/N=16 (cycle 18-19; not full-confirmed)
+
+**Capability move** (clarification, not state change):
+
+| Capability | v36 state | v37 state | Trigger |
+|---|---|---|---|
+| Mirage-grade selective erase on structured-codebook substrate | ✅ at M/N≤8.0 (Kerdock standard v4) | ✅ at M/N≤8.0 for v4 standard Kerdock; ⚠️ **variant-specific bound** — 32-coset variant fails at M/N=8 (holds M/N≤4) | `wave14zp_kerdock_v8_32coset_retry` full |
+
+The product story refines: "Bet C extends to M/N=8.0" needs the
+qualifier "for the v4 standard Kerdock m=12 codebook." Other Kerdock
+variants have lower capacity envelopes. Honest read: v4 is the
+load-bearing variant; v8 32-coset is a different (smaller) variant.
+
+### Other new smoke results
+
+- `wave14zq_continual_8N_smoke` (12:45): CONTINUAL_8N_KERDOCK_HOLDS
+  (extension; verdict_msg labeling issue flagged in v36)
+- `wave14zt_continual_16N_smoke` (12:48:10): CONTINUAL_16N_KERDOCK_HOLDS
+  — continual editing × M=16N smoke. Pushes the compound stress test.
+- `wave14zu_parallel_batch_edit_smoke` (12:48:45): BATCH_VS_SEQ_EQUIVALENT
+  — parallel batched edits equivalent to sequential. NEW mechanism
+  characterization.
+- `wave14zv_sparse_keys_smoke` (12:50:05): SPARSE_EQUIVALENT_TO_DENSE
+  — k-sparse ternary keys behave equivalently to dense Kerdock. NEW
+  substrate-primitive characterization.
+
+All four are smoke-only; no row state changes per discipline.
+
+### Experiment Dev pivoted to break-point hunting
+
+Entry 9 (Experiment Dev decisions, 12:50) declares strategic shift:
+"stop building variants that I expect to pass. Build variants likely
+to BREAK the substrate." Result: zp/zr/zs/zt all designed to find
+capacity / noise / reversibility break-points.
+
+zp's full result (Kerdock v8 32-coset decay at M=32768) validates
+this strategic pivot — they LOCATED a real upper bound rather than
+confirming yet another pass condition.
+
+**However**: zp/zq/zr/zs/zt/zu/zv are still all Bet C / continual /
+substrate-characterization extensions. The three push items (Bet B
+multi-task CL, multi-hop FHRR, Bet F SSH-BSC v2) **remain unbuilt**.
+Experiment Dev isn't reading the strategy_request file OR the
+active_priorities TOP-PRIORITY QUEUE — they're picking from cap_map
+gaps based on their own analysis.
+
+META Proposal 6 still pending user approval; once approved + self-
+implemented, this coordination gap closes.
+
+### Tally — variant-bound clarification; no new ✅/❌
+
+Bet C row gains "variant-specific bound" caveat. No new rows. No
+closures. Tally unchanged from v36.

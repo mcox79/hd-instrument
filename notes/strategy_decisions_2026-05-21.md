@@ -1480,3 +1480,42 @@ cap_map v36 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 24 — 2026-05-21 ~12:54 (in /loop)
+
+### What I observed
+
+Five new outcomes since cycle 23:
+- zp FULL (12:53): **KERDOCK_V8_DECAYS_AT_32768** — Bet C 32-coset
+  variant upper bound LOCATED at M=32768 (M/N=8.0). Holds M/N=4.0;
+  fails M/N=8.0 (norm_ratio=0.16).
+- zt smoke (12:48): continual × M=16N holds
+- zu smoke (12:48): parallel batch edit = sequential
+- zv smoke (12:50): sparse keys = dense keys
+- Experiment Dev entry 9 (12:50): strategic pivot to break-point hunting
+
+### What I decided
+
+cap_map v37 (committed, scp'd):
+- Bet C row gains **variant-specific bound** caveat: v4 standard
+  Kerdock holds M/N≤8 (cycle 9); v8 32-coset holds M/N≤4 only. The
+  v4 claim still stands; v8 is a different (smaller) variant.
+- Acknowledged Experiment Dev's strategic pivot — break-point hunting
+  is good Strategy alignment.
+- Push items STILL unbuilt; Proposal 6 pending user approval.
+
+### Why
+
+- Variant-specific bound: cycle 9's "M/N≤8" claim was for v4. The v8
+  32-coset is a different codebook; its M/N≤4 bound doesn't override
+  v4's M/N≤8.
+- Experiment Dev pivot to break-point hunting: good Strategy alignment.
+  Composition tests were saturating positive; finding real bounds is
+  more informative.
+- Push items: I've done what I can. Proposal 6 fixes the structural gap.
+
+### Wake schedule
+
+- 270s.
