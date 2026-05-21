@@ -1788,3 +1788,40 @@ cap_map v44 (committed, scp'd):
 
 - 600s. Awaiting top-priority R-batch (R26 learning + R29 ferromagnetism
   most expected). Will return to 270s if a Research drop arrives.
+
+---
+
+## Cycle 29 — 2026-05-21 ~13:47 (in /loop)
+
+### What I observed
+
+- `research_BetE_parisi_methodology_2026-05-21.md` (13:40): Research
+  methodology review for Bet E. Critical confound: structured
+  codebooks suppress self-averaging; multi-peaked P(q) for Hadamard
+  might reflect lattice geometry not RSB. 6-test diagnostic battery
+  required.
+- META cycle 9 audit (13:43): Experiment Dev cadence gap COMPOUNDING.
+  60+ min without a cycle; PROT-005 unconsumed; backlog ballooned.
+
+### What I decided
+
+- Updated Bet E multi-probe criteria in active_priorities.md to
+  include 6-test battery (Binder, system-size scaling, equilibration,
+  self-averaging, ultrametricity, spectrum check) BEFORE comparative
+  tests.
+- cap_map v45 documents the methodology refinement and the cadence
+  escalation.
+- No row state changes.
+
+### Why
+
+- Bet E methodology: Research caught a real confound before the
+  experiment ran. This is the rehab discipline working pre-emptively.
+  Bet E is now more involved but validation will be stronger.
+- Experiment Dev gap: Strategy cannot directly invoke another session.
+  PROT-005 is the structural fix; if not picked up within 30 min,
+  user intervention may be needed.
+
+### Wake schedule
+
+- 600s. Monitoring for Experiment Dev firing + first R26/R29 landings.

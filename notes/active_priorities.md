@@ -321,27 +321,42 @@ testable. Also: does P(q) shift as M_stored crosses Bet C boundaries
 spin-glass framing applies directly (P(q) is the canonical order
 parameter from Mezard-Parisi-Virasoro 1987).
 
-**Multi-probe success criteria** (each required):
+**Multi-probe success criteria** (UPDATED cycle 29 per
+`notes/research_BetE_parisi_methodology_2026-05-21.md`):
+
+**Research methodology review (Bet E)** landed cycle 29 with a critical
+methodological finding: **structured codebooks suppress self-averaging**,
+so multi-peaked P(q) for Hadamard might reflect codebook lattice
+geometry rather than spin-glass RSB phase. **6-test diagnostic battery
+required BEFORE any RSB claim**:
+
+1. **Binder cumulant** — order parameter sensitivity to finite-size
+2. **System-size scaling** (multiple N values to extrapolate to thermodynamic limit)
+3. **Equilibration check** — bundle has reached steady state before measurement
+4. **Self-averaging diagnostic** — single-realization vs ensemble-averaged P(q)
+5. **Ultrametricity test** beyond the chance threshold 0.33 (stronger triangle-inequality test)
+6. **Spectrum check** — eigenvalue distribution of overlap matrix consistent with RSB
+
+**Then** the comparative tests:
 - P(q) measured at 3 substrate configs (random ±1, Hadamard, Kerdock)
-  at N=4096, K=400, M_stored=2N: peak counts / peak locations /
-  ultrametricity distinguishable across configs (≥2σ separation on
-  at least one metric)
+  at N=4096, K=400, M_stored=2N
 - P(q) measured at 3 M_stored values (M=0.5N, M=N, M=2N) for fixed
-  random substrate: shape shift detectable
-- All cells satisfy ultrametricity > 0.33 (chance threshold) — i.e.,
-  RSB phase persists across configs
-- 3 seeds per cell
+  random substrate
+- Multi-probe pass: 6-test battery confirms RSB phase AND comparative
+  tests show ≥2σ separation across configs/M
+- 3 seeds per cell minimum
 
-**Kill criterion.** P(q) shapes statistically indistinguishable across
-the 3 substrate configs AND across the 3 M_stored values (no metric
-shows ≥2σ shift). Then P(q) is a generic spin-glass property of any
-high-dim random ±1 matrix, not a substrate-informative probe — moves
-from 🔬 to "descriptive only, no product story."
+**Kill criterion.** Two cases:
+(a) 6-test battery rejects RSB phase → Bet E closes; P(q) result was
+    finite-size artifact. Demote to "descriptive only."
+(b) Battery confirms RSB but comparative tests fail (≥2σ separation
+    nowhere) → Bet E closes; P(q) is generic spin-glass property,
+    not substrate-informative.
 
-**Who acts.** Research (verify methodology — Parisi protocol is
-well-established but the substrate-specific measurement details
-matter); Experiment Dev (`wave14_parisi_pq_sweep_v1` once Research
-confirms the protocol).
+**Who acts.** Research methodology review done. Experiment Dev:
+`wave14_parisi_pq_sweep_v1` with the 6-test battery included. Note:
+this is more involved than originally scoped; not a 1-cycle
+experiment.
 
 ---
 

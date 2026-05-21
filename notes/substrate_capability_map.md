@@ -4204,3 +4204,73 @@ spin-glass do.
 
 R15 closes forward-research; doesn't promote a row. Bet I (R16) is
 still the active math-grounding bet.
+
+
+## 2026-05-21 v45 update — Bet E methodology refined (6-test diagnostic battery); Experiment Dev cadence gap compounding
+
+Strategy session cycle 29 (in /loop). Two items.
+
+### Bet E Parisi methodology research landed — critical confound surfaced
+
+`research_BetE_parisi_methodology_2026-05-21.md` (13:40) published.
+Research delivered an unprompted methodology drill for Bet E.
+
+**HEADLINE finding**: Bet E's planned (random, Hadamard, Kerdock) ×
+(M/N) sweep has a **critical methodological confound** — structured
+codebooks suppress self-averaging, so multi-peaked P(q) for Hadamard
+might reflect codebook lattice geometry rather than spin-glass RSB
+phase. Substrate's prior P(q) result (multi-peaked at one N on random
+keys) is consistent with RSB BUT does NOT prove it — finite-size
+artifact remains possible.
+
+**Required 6-test diagnostic battery** BEFORE any RSB claim:
+1. Binder cumulant (finite-size sensitivity)
+2. System-size scaling (multiple N values → thermodynamic limit)
+3. Equilibration check (bundle has reached steady state)
+4. Self-averaging diagnostic (single vs ensemble)
+5. Stronger ultrametricity test (beyond chance threshold 0.33)
+6. Spectrum check (overlap matrix eigenvalues)
+
+**Then** the comparative tests across configs / M_stored.
+
+**Bet E criteria updated in `active_priorities.md`** to include the
+6-test battery. This makes Bet E more involved than originally scoped
+(not a 1-cycle experiment). But the validation will be much stronger
+if it passes.
+
+**Honest framing**: Research is consistently catching methodology
+confounds before experiments run. R14 named M-P as the right tool;
+R15 caught Steenrod dimensional obstruction; this Bet E review caught
+self-averaging confound. The forward-research discipline continues to
+add real load-bearing rigor.
+
+### Experiment Dev cadence gap compounding (META cycle 9)
+
+META cycle 9 audit (13:43) escalated the coordination concern:
+- Experiment Dev's last cycle: 12:50 (entry 9)
+- **60+ minutes** without an Experiment Dev cycle
+- PROT-005 (approved 12:55) unconsumed
+- 3 top-priority pushed items unbuilt (Bet B, multi-hop FHRR, Bet F)
+- Research backlog ballooned from "near-cleared" to "13 new R + Bet I"
+- Even when Experiment Dev fires next, backlog exceeds throughput
+
+META: "the system's coordination architecture assumes balanced cadence
+across sessions." Single-actor bottleneck through Experiment Dev.
+
+**Strategy posture**: cannot directly invoke another session (single-
+writer rule). PROT-005 is the structural fix. If Experiment Dev doesn't
+fire within next 30 min, may need user intervention (explicit invocation).
+
+**Open work piling up**:
+- 3 push items (Bet B, multi-hop FHRR, Bet F)
+- Bet E with new 6-test battery (more involved than originally)
+- Bet D analyzer pass (K=32/K=64 generation)
+- Bet I free probability calculations (Research-side, but Experiment Dev
+  may need to validate predictions)
+- 13 new R-questions from cycle 27 audit (Research-side; but R-outputs
+  will queue Experiment-Dev items)
+
+### Tally — no row state changes
+
+Bet E criteria refined; Experiment Dev cadence gap escalated. No
+capability claims changed.
