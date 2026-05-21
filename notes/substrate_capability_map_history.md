@@ -7506,3 +7506,6 @@ See live substrate_capability_map.md for full v75 narrative (will migrate to his
 ## v76 — (2026-05-21) Multi-hop N-sweep full + R36 calibration deep-drill + R37 engineering bridge + R38/R39 lit-scan deferral
 
 See live substrate_capability_map.md for full v76 narrative (migrates on next PROT-007 cycle).
+
+
+## v77 — (2026-05-21) Bet X research UNIFYING insight: d=25 IS compositional-depth bound (VSA class-level); Bet X mechanism design ready (position-indexed + hybrid + 2-level)
