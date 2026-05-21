@@ -4966,3 +4966,109 @@ substantively demonstrates the OTHER big Tier-1 capability gap.
 Strategic balance: one substrate area (multi-hop deep reasoning)
 finds an architectural limit; another (multi-task CL) shows the
 substrate's strong suit. Honest product positioning.
+
+
+## 2026-05-21 v53 update — Bet B v3 smoke PASS (full running); Bet E Parisi discriminates BUT with R23-warned methodology confound
+
+Strategy session cycle 36 (in /loop). Two substantive findings.
+
+### Bet B v3 smoke — PASS at 4/4 criteria; full mode running
+
+`wave14d_multi_task_cl_v3_smoke` (14:30:31): **BET_B_PASS**
+- retention_A = **0.827** (≥0.80 PASS ✓; clears the v2 7pp gap)
+- retention_B = 0.915 (PASS ✓)
+- gain_C = 4.63 (PASS ✓)
+- bwt = +0.015 (PASS ✓)
+- 1 seed at smoke; full mode at 3+ seeds running on GPU now
+
+If `wave14d_multi_task_cl_v3` full confirms (3-seed mean ≥0.80
+retention_A), **Bet B promotes to ✅** — Tier-1 KILLER closure. Board
+would go to 4 ✅ + 2 🟢 Partial + 1 split.
+
+The v3 parameter tweak Strategy guided in v52 ("more replay during
+Phase B/C, anti-Hebbian regularization, larger N") empirically pushed
+retention_A above 0.80 at smoke.
+
+### Bet E Parisi P(q) smoke — P(q) discriminates but METHODOLOGY CONFOUND CONFIRMED
+
+`wave14_parisi_pq_sweep_v1_smoke` (14:34:12): **PARISI_DISCRIMINATES_CODEBOOK**
+- "P(q) discriminates codebook ≥ 2.0σ at 1 (M, codebook-pair) cell."
+- "M=1024:random_bsc-hadamard=893.9σ separation"
+
+Key per-cell metrics at M_stored=1024, seed=17:
+- **Random BSC**: ultrametricity=0.282 (BELOW chance threshold 0.33),
+  binder=0.0009
+- **Hadamard**: ultrametricity=**1.000** (PERFECT), binder=0.0
+
+The 893σ separation is real — P(q) on Hadamard substrate IS
+quantitatively distinguishable from P(q) on random-BSC substrate.
+
+**BUT — this is exactly the methodology confound R23 warned about**:
+
+Per cycle 29's R23 finding: "structured codebooks **suppress
+self-averaging**, so multi-peaked P(q) for Hadamard might reflect
+codebook lattice geometry rather than spin-glass RSB phase."
+
+Hadamard ultrametricity = 1.000 is **perfect ultrametric structure**.
+That's not RSB physics — it's the **deterministic lattice geometry of
+the Hadamard codebook** itself. Hadamard codewords are pairwise
+orthogonal (or perfectly anti-orthogonal); the overlap distribution
+is a delta-function-like discrete distribution. THAT'S why
+ultrametricity hits 1.0 — not because the substrate is in a deep RSB
+phase.
+
+**Strategy read**: Bet E's "P(q) discriminates" verdict is empirically
+correct but the SUBSTRATE-FORENSICS claim from cycle 8 followup
+("P(q) shape characterizes substrate operating point") is **MORE
+LIMITED THAN HOPED**:
+
+- ✅ P(q) shape distinguishes substrate configurations — but
+- ⚠️ The discrimination is largely **codebook-geometry-driven**, not
+  spin-glass-phase-driven. P(q) tells you "this substrate was built
+  with structured codebooks" — but that's something you ALREADY KNOW
+  if you designed the substrate. It doesn't tell you about the
+  substrate's spin-glass operating point AT THE LEVEL OF SUBSTRATE
+  PHYSICS.
+
+**6-test diagnostic battery required** (R23 methodology):
+- Binder cumulant ✓ (already in metrics)
+- System-size scaling (only M=1024 tested at smoke)
+- Equilibration check (not in smoke)
+- Self-averaging diagnostic (R23's key concern — UNTESTED)
+- Ultrametricity beyond chance (passes for Hadamard, fails for random_bsc)
+- Spectrum check (not in smoke)
+
+The full sweep at multiple N + multiple M_stored + the self-averaging
+diagnostic is needed before Bet E can promote.
+
+**Capability move** (cautious framing):
+
+| Capability | v52 state | v53 state | Trigger |
+|---|---|---|---|
+| Parisi P(q) substrate-fingerprint (Bet E) | 🔬 awaiting 6-test methodology | 🟡 PARTIAL — P(q) discriminates substrate configs (smoke); but discrimination likely codebook-geometry artifact, not RSB-phase substrate physics. R23 confound CONFIRMED. | `wave14_parisi_pq_sweep_v1_smoke` |
+
+Bet E doesn't promote to ✅. The smoke result confirms R23's
+warning rather than validating substrate-forensics-via-P(q) as
+originally hoped.
+
+### Updated KILLER Tier-1 board (pending Bet B v3 full)
+
+If Bet B v3 full confirms 4/4 PASS:
+
+| Capability | v53 status |
+|---|---|
+| GPT-quality generation | 🟢 Partial |
+| True continual learning (Bet B) | **✅** (pending v3 full) |
+| Edit-then-query | ✅ |
+| Provenance | ✅ |
+| ICL via pool | ✅ |
+| Hierarchical retrieval (RSB) | ✅ struct / ❌ algo |
+
+Projected score: **4 ✅ + 1 🟢 Partial + 1 split**. Generation would be
+the only remaining 🟢 Partial.
+
+### Tally — Bet B v3 smoke PASS; Bet E methodology confirmed
+
+Bet B: ⚪ → 🟢 (v52) → ✅ pending (v53 v3 smoke). Bet E: methodology
+warning confirmed; row reframed to 🟡 PARTIAL with codebook-geometry
+caveat.

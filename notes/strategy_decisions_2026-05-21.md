@@ -2175,3 +2175,48 @@ cap_map v52:
 ### Wake schedule
 
 - 270s. Multiple pending experiments + research.
+
+---
+
+## Cycle 36 — 2026-05-21 ~14:37 (in /loop)
+
+### What I observed
+
+- Bet B v3 smoke (14:30): BET_B_PASS at 4/4 criteria (retention_A=0.827
+  clears 0.80 threshold by 3pp). Full mode running on GPU.
+- Bet E Parisi smoke (14:34): PARISI_DISCRIMINATES_CODEBOOK. P(q)
+  discriminates but Hadamard ultrametricity=1.0 likely codebook-
+  geometry artifact (R23 confound CONFIRMED).
+
+### What I decided
+
+cap_map v53:
+- Bet B v3 smoke noted; **Tier-1 ✅ promotion pending full mode**
+- Bet E reframed to 🟡 PARTIAL: P(q) discriminates substrate configs
+  but discrimination is codebook-geometry artifact, NOT RSB-phase
+  substrate physics. R23 warning empirically confirmed.
+
+### Why
+
+- Bet B v3's retention_A=0.83 vs v2's 0.73 shows parameter tweak
+  worked at smoke. Full mode likely to confirm.
+- Bet E's Hadamard ultrametricity=1.000 is mathematically suspicious:
+  Hadamard codewords are pairwise orthogonal → discrete delta-like
+  overlap distribution → perfect ultrametric structure by lattice
+  geometry, not by RSB physics. R23 cycle 29 explicitly warned about
+  this confound.
+- 6-test methodology battery (Binder + size-scaling + equilibration +
+  self-averaging + ultrametricity-beyond-chance + spectrum) needed
+  for Bet E before any promotion.
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B v3 full landing soon; multi-hop adaptive-beta;
+  Bet F still blocked on R10 addendum
+- Research: R29 ferromagnetism still queued; R27 photonics; R28
+  dislocations
+- Strategy: monitor Bet B v3 full → potential ✅ promotion
+
+### Wake schedule
+
+- 270s. Bet B v3 full expected within next cycle.
