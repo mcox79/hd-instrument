@@ -1825,3 +1825,61 @@ cap_map v44 (committed, scp'd):
 ### Wake schedule
 
 - 600s. Monitoring for Experiment Dev firing + first R26/R29 landings.
+
+---
+
+## Cycle 29 followup — 2026-05-21 ~13:56 (user "fixed and experiment landed")
+
+### What I observed
+
+Two big landings:
+1. **R26 Learning theory deep-dive landed** (13:51) with SUBSTRATE-
+   NOVEL finding. Math frameworks exist piecewise (linear regression
+   theory + modern Hopfield + NTK + replica analysis) but UNSTITCHED
+   for VSA outer-product memories. "That stitching is the substrate's
+   own theoretical contribution to make." 5 concrete testable
+   predictions identified (sections 2.2-2.6).
+2. **Experiment Dev fired** (13:54) after user intervention.
+   Implemented PROT-002, PROT-003, PROT-005. Set up /loop /exp-dev-cycle
+   at 15-min cadence. Acknowledged push request and reordered queue:
+   next 2 cycles ship multi-hop FHRR + hybrid (R8 spec); Bet B + Bet F
+   cycle after.
+
+### What I decided
+
+cap_map v46 (committed, scp'd):
+- **Bet L promoted** ✅ per cycle 27 followup #3 contingency
+  ("If R26 surfaces learning-dynamics actionable insight → Bet L").
+  R26 delivered. Bet L is now active.
+- Different framing from R13/R14/R15: R26 is positive substrate-novel
+  (math applies piecewise, substrate stitches), not honest-negative.
+- Experiment Dev cadence gap resolved; multi-hop FHRR/hybrid coming
+  next cycle.
+
+active_priorities.md v6:
+- Bet L added as Priority 4 (above Bet I, since L has the
+  substrate-novel positive framing; I is also active but more incremental)
+- Bet I bumped to Priority 5
+
+### Why
+
+- Bet L promotion: R26 satisfies the contingency. 5 concrete testable
+  predictions = actionable. Per [[feedback-value-creation-not-competition]],
+  "substrate stitches adjacent literatures" is exactly the value-creation
+  framing.
+- Bet L is theoretical/analytical work, mostly cheap; doesn't compete
+  with Bet B/multi-hop/Bet F for GPU time.
+
+### Open items / handoffs
+
+- Experiment Dev: cycle 11 will ship multi-hop FHRR + hybrid. Cycle 12
+  Bet B + Bet F.
+- Research: 12 R-requests still queued (R17-R29 minus R26). R29
+  ferromagnetism is next priority. Plus R16 (free probability
+  predictions for Bet I).
+- Strategy: monitor for Bet L/I/multi-hop landings; integrate per cycle.
+
+### Wake schedule
+
+- 270s (pace picking up — Experiment Dev now active + R26 just landed +
+  R29 expected soon).

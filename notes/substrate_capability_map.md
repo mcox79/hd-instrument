@@ -4274,3 +4274,123 @@ fire within next 30 min, may need user intervention (explicit invocation).
 
 Bet E criteria refined; Experiment Dev cadence gap escalated. No
 capability claims changed.
+
+
+## 2026-05-21 v46 update — R26 learning theory SUBSTRATE-NOVEL; Experiment Dev fired + adopted PROT-005; Bet L promoted
+
+Strategy session cycle 29 followup (user "fixed, and an experiment
+just landed"). Two big landings.
+
+### R26 Learning theory deep-dive — SUBSTRATE-NOVEL contribution identified
+
+`research_R26_learning_theory_deep_dive_2026-05-21.md` (13:51). Real
+external lit scan; 27+ verified citations 1960-2026.
+
+**HEADLINE**: substrate's learning-theoretic position is
+"well-charted in adjacent literatures (linear regression theory,
+modern Hopfield, NTK, replica analysis of perceptrons) but
+**UNSTITCHED** specifically for VSA outer-product memories. **No one
+has stitched them together into a unified learning-theoretic account**
+for the W = Σ vᵢkᵢᵀ + softmax readout architecture. **That stitching
+is the substrate's own theoretical contribution to make.**"
+
+**Different framing from R13/R14/R15** (all honest-negatives):
+- R13/R14/R15: pure math designed for infinite-dim trivializes on
+  substrate's finite-dim/type-I/1D specifics → wrong tool / no shipping
+- R26: math frameworks DO apply piecewise; substrate is the entity
+  that ties them together. **Positive framing with substrate-novel
+  output.**
+
+**Concrete testable predictions** from R26 sections 2.2-2.6:
+- 2.2 Substrate-applicable scaling-law form (predicted AGS-style,
+  NOT smooth Chinchilla)
+- 2.3 Implicit bias theorem (folklore-derived for substrate)
+- 2.4 Double descent prediction for substrate
+- 2.5 Generalization gap formula
+- 2.6 Catastrophic forgetting curve (substrate-applicable)
+
+**Key insight**: training is gradient flow on quadratic loss (delta
+rule on outer products = exactly this). **Convex, NOT glassy**. Any
+glassy behavior arises from data distribution (correlated keys), NOT
+from loss landscape. This rules out an entire class of speculative
+glass-of-training framings.
+
+### Bet L promoted ✅ (per cycle 27 followup #3 contingency)
+
+Strategy noted at cycle 27 audit: "If R26 surfaces learning-dynamics
+actionable insight → Bet L (substrate learning theory grounding)."
+R26 delivers actionable insight (5 concrete testable predictions).
+**Promoted to active Bet L**.
+
+**Bet L — Substrate learning theory grounding** (NEW active bet):
+
+| What it tests | Substrate consequence if proven |
+|---|---|
+| Each of R26's 5 testable predictions (scaling law, implicit bias, double descent, generalization gap, forgetting curve) lands within 20% of empirical | Substrate becomes the **first VSA outer-product memory with a unified learning-theoretic account**. Substrate-novel theoretical contribution per [[feedback-value-creation-not-competition]]. |
+
+**Multi-probe success criteria**: 3/5 R26 predictions land within 20%
+of empirical. Combined with Bet I free probability (also active),
+substrate could be analytically characterized on BOTH learning-dynamics
+(R26) and equilibrium-spectra (Bet I) axes.
+
+**Kill criterion**: 0/5 predictions land within 50%. Then R26 framework
+is descriptive only; substrate stays empirically characterized.
+
+**Who acts**: Research (R26 is the broad framework — Pass 2 sections
+2.2-2.6 already contain quantitative predictions); Experiment Dev
+(measure each predicted quantity against existing or new substrate
+data); Strategy (compare and promote rows that gain theoretical
+grounding).
+
+Note: Bet L is theory-vs-empirical-data work; like Bet I, mostly
+analytical with cheap experimental validation. Doesn't compete with
+Bet B / multi-hop FHRR / Bet F for GPU time.
+
+### Experiment Dev cadence gap RESOLVED
+
+User intervention worked. Experiment Dev fired at 13:54:
+
+**Entry 10 implementations**:
+- PROT-002: wrote `session_prompts/session_5_exp_dev.md`
+- PROT-003 + PROT-005: created `~/.claude/commands/exp-dev-cycle.md`
+- ScheduleWakeup set to 900s (15 min) per PROT-005 active-pipeline guidance
+- First cycle confirmed request-file consumption discipline
+
+**Backlog priority correction** (Experiment Dev acknowledged Strategy
+push request): next 2 cycles to ship:
+1. `wave14r_multihop_FHRR_v1` (R8 spec, parallel binding algebra)
+2. `wave14r_multihop_hybrid_v1` (R8 C1 hybrid)
+3. (cycle after) `wave14d_multi_task_cl_v1` (Bet B Tier-1)
+4. (cycle after) `wave14_ssh_bsc_v2_protected` (Bet F)
+
+Multi-hop rescue is the FIRST priority Experiment Dev will build.
+
+### Capability state status
+
+- Bet I (free probability): active, awaiting R16 quantitative predictions
+- **Bet L (learning theory)**: NEW active, R26 delivered framework + 5
+  testable predictions
+- Bet B / multi-hop FHRR / Bet F: now in Experiment Dev build queue
+  (multi-hop first per their cycle 10 reordering)
+- Bet E: methodology refined (6-test battery); awaiting Experiment Dev
+  build
+- Bet D: K=32/K=64 analyzer pass still pending
+
+### Tally — Bet L added; no row state changes yet
+
+Bet L joins active priority list. No capability row promotions yet
+(R26's predictions need empirical comparison first). Will track Bet L
+progress as Experiment Dev validates predictions.
+
+### Honest framing
+
+R26 is the FIRST forward-research item to surface a substrate-novel
+positive direction (vs R13/R14/R15 honest-negatives). The framing
+"adjacent literatures exist piecewise; substrate stitches them" is
+exactly the kind of contribution [[feedback-value-creation-not-competition]]
+points toward — substrate enables theoretical synthesis that no
+individual prior work has done.
+
+Experiment Dev cadence gap resolved via user intervention. PROT-005
++ Experiment Dev's new 15-min /loop should keep the cadence balanced
+going forward.

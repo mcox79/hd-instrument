@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 27 followup #3 (added R26 learning, R27 light-matter, R28 dislocations, R29 ferromagnetism)
-**Cap map version this refers to:** v43 (pending — this cycle)
+**Last updated:** 2026-05-21 cycle 29 followup (R26 substrate-novel; Bet L promoted; Experiment Dev fired + adopted PROT-005)
+**Cap map version this refers to:** v46
 
 ---
 
@@ -42,7 +42,45 @@ Top candidates: A1 (pure FHRR) + C1 (hybrid BSC store + FHRR chain).
 Build `wave14r_multihop_FHRR_v1` AND `wave14r_multihop_hybrid_v1` in
 parallel per R8's recommended drill order.
 
-### Priority 4 — Bet I: Free probability theoretical grounding for substrate envelopes (NEW; user-routed 2026-05-21 ~13:25)
+### Priority 4 — Bet L: Substrate learning theory grounding (NEW; promoted from R26 contingency 2026-05-21 ~13:55)
+
+**What it tests**: each of R26's 5 concrete testable predictions
+(scaling-law form, implicit bias theorem, double descent prediction,
+generalization gap formula, catastrophic forgetting curve) lands
+within 20% of empirical substrate measurements.
+
+**Substrate consequence if proven**: substrate becomes the **first VSA
+outer-product memory with a unified learning-theoretic account** —
+stitching of linear regression theory + modern Hopfield + NTK +
+replica analysis of perceptrons that no prior work has assembled
+for W = Σ vᵢkᵢᵀ + softmax readout. Per
+[[feedback-value-creation-not-competition]]: substrate as theoretical
+synthesis entity.
+
+**Multi-probe success criteria**: 3/5 R26 predictions land within 20%.
+Combined with Bet I free probability (also active), substrate would
+be analytically characterized on BOTH learning-dynamics (Bet L) and
+equilibrium-spectra (Bet I) axes.
+
+**Kill criterion**: 0/5 predictions land within 50%. Then R26
+framework is descriptive only; substrate stays empirically characterized.
+
+**Per [[feedback-no-papers-product-only]]**: framed as "substrate-
+analytically-characterized" not "novel synthesis paper." Engineering
+goal.
+
+**Who acts**: Research (R26 broad framework done; Pass 2 sections
+2.2-2.6 already have quantitative predictions); Experiment Dev
+(measure predicted quantities against existing or new data); Strategy
+(compare and promote rows that gain theoretical grounding).
+
+**Note**: like Bet I, mostly analytical work with cheap experimental
+validation. Doesn't compete with Bet B / multi-hop FHRR / Bet F for
+GPU time.
+
+---
+
+### Priority 5 — Bet I: Free probability theoretical grounding for substrate envelopes (NEW; user-routed 2026-05-21 ~13:25)
 
 **What it tests**: use the existing Wave 15 free-probability synthesis
 (2026-05-18) to derive closed-form theoretical predictions for the
