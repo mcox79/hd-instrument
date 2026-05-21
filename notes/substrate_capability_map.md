@@ -3161,3 +3161,54 @@ mode confirmations land in subsequent cycles, potential additions:
 - Robustness/scaling: substrate noise tolerance σ ≤ 1.0
 
 Queue depth 10 → multiple full-mode confirmations expected soon.
+
+
+## 2026-05-21 v31 update — Strategy push: Bet B + multi-hop FHRR + Bet F to top priority (user directive)
+
+Strategy session cycle 19 followup. User asked Strategy to push three
+research-unblocked bets that have been sitting idle while Experiment
+Dev's bandwidth went to extending validated bets (A, C, G, H) and
+probing the composition surface.
+
+### What's being pushed
+
+All three have research prerequisites already landed:
+- **Bet B multi-task CL** (Tier-1 KILLER ⚪): R5 landed cycle 8 (10:21)
+- **Multi-hop FHRR + hybrid** (R8 rehab for multi-hop 🟡): R8 landed
+  cycle 9 (10:42); two parallel candidates
+- **Bet F SSH-BSC v2** (Tier-2 substrate-physics 🟡 NEEDS_REVIEW): R10
+  landed cycle 12 (11:02)
+
+### Actions filed
+
+1. `notes/active_priorities.md` v5: added "🔝 TOP-PRIORITY QUEUE" section
+   at top with the three bets, multi-probe criteria, and links to their
+   research source notes.
+2. `notes/strategy_request_to_experiment_dev_2026-05-21.md`: explicit
+   request file with concrete next-step specs for each experiment.
+
+### Why this push matters
+
+- Bet B closes one of two remaining unresolved Tier-1 KILLER rows. Tier-1
+  board could lift from 4/6 ✅ to 5/6 ✅ if Bet B passes.
+- Multi-hop R8 rehab is the test of whether R8's mechanism correction
+  (FHRR continuous-group binding avoids Walsh-XOR-closure pathology)
+  actually works. Currently multi-hop is 🟡 PROVISIONAL with depth cliff
+  at d=25.
+- Bet F has been 🟡 NEEDS_REVIEW for 22+ hours. Resolving it (either ✅
+  or rehab-style ❌) clears the topological substrate-physics row.
+
+### Pattern observation
+
+Strategy's cap_map has documented many new ✅ rows / extensions in the
+last 4 hours, but mostly on **deepening validated capabilities**
+(composition × overcapacity × noise × calibration × edit matrices)
+rather than **breaking new ground on unresolved bets**. The 3-bet push
+corrects that bias: Bet B / multi-hop / Bet F all test fundamentally
+new substrate properties that the composition tests don't cover.
+
+### Tally — no row state changes
+
+Prioritization update, not capability state change. Existing rows
+unchanged; Top-Priority Queue points at three pending experiments whose
+verdicts will determine row movements.

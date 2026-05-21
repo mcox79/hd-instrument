@@ -3,8 +3,49 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 15 (Bets G+H ✅; real-time learning ✅)
-**Cap map version this refers to:** v26
+**Last updated:** 2026-05-21 cycle 19 followup (user pushed Bet B / F / multi-hop FHRR to top priority)
+**Cap map version this refers to:** v30
+
+---
+
+## 🔝 TOP-PRIORITY QUEUE (user directive, cycle 19 followup)
+
+Strategy promoted these to highest priority per user direction. All three
+are research-unblocked but Experiment Dev has not yet queued them — they
+have been overshadowed by the explosive rate of extension/composition
+tests on validated bets (A, C, G, H). Strategy explicitly nudging.
+
+**Filed**: `notes/strategy_request_to_experiment_dev_2026-05-21.md` with
+concrete next-step specs for each.
+
+### Priority 1 — Bet B multi-task continual learning (Tier-1 KILLER, ⚪)
+Research R5 landed 2026-05-21 10:21
+([research_R5_corpus_C_design_2026-05-21.md](notes/research_R5_corpus_C_design_2026-05-21.md)).
+Build `wave14d_multi_task_cl_v1` per R5 spec. Tier-1 KILLER —
+substrate genuinely retaining 3+ domains is one of the two remaining
+unresolved Tier-1 rows.
+
+### Priority 2 — Multi-hop FHRR + hybrid (Tier-2 R8 rehab)
+Research R8 landed 2026-05-21 10:42
+([research_R8_chained_CAM_binding_algebras_2026-05-21.md](notes/research_R8_chained_CAM_binding_algebras_2026-05-21.md)).
+Top candidates: A1 (pure FHRR) + C1 (hybrid BSC store + FHRR chain).
+Build `wave14r_multihop_FHRR_v1` AND `wave14r_multihop_hybrid_v1` in
+parallel per R8's recommended drill order. Targets multi-hop reasoning
+🟡 PROVISIONAL row (depth cliff at d=25 per v17/v23).
+
+### Priority 3 — Bet F SSH-BSC v2 topological (Tier-2 substrate-physics)
+Research R10 landed 2026-05-21 11:02
+([research_R10_SSH_BSC_topological_probe_2026-05-21.md](notes/research_R10_SSH_BSC_topological_probe_2026-05-21.md)).
+Build `wave14_ssh_bsc_v2_protected` per R10's probe spec (Z-quantization
+recovery metric, q-dependent p_c sweep, non-topological control arm).
+Targets the 🟡 NEEDS_REVIEW row from v6 — original probe didn't fire.
+
+**Per [[feedback-rehabilitation-after-rejection]] + PROT-004**: Bet F
+v2 prereg should pre-arm 5 axis-combination rescue sketches in case
+v2 also fails (per the multi-hop Hadamard cross-pollination falsification
+in cycle 7, NOT all R-recommendations are correct on first build).
+
+---
 
 ---
 
