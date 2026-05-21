@@ -1028,3 +1028,51 @@ mutating pool bundles; the missing piece is mutating W itself.
 
 ---
 
+## 2026-05-20 evening update — overnight autonomous research session
+
+Session ran 2026-05-20T18:30 to ~23:00. Built rigor infrastructure (verification/oracle.py, queue_add.py gate, runner HDLAB_EXP_NAME env), 4 parallel research agents on materials science / capability hunt (codebooks+spectral, topology+criticality, compositional, industry hunt — all 2x iteration), and queued ~10 experiments across GPU+CPU. Net: several real capability findings, several Mirage-mode warnings caught early, one substrate-forensics primitive emerged.
+
+### Validated this session
+
+| Experiment | Outcome | Capability implication |
+|---|---|---|
+| `wave14m_alpha_c` | **ALPHA_C_AGS_LIKE** — measured α_c = 0.153 at N=4096 (rising from 0.082 @ N=1024 → 0.107 @ N=2048 → 0.153 @ N=4096) | Substrate confirmed in canonical AGS Hopfield regime. 40 years of spin-glass theory applies. Operating point known. |
+| `wave14h_alpha_sweep_v2` (correlated keys) | ALPHA_SWEEP_HITS_TARGET on argmax probe | **Argmax-only — turned out to be Mirage failure under deeper probes.** Don't ship this as "GDPR-grade." |
+| `wave14p_erase_multiprobe` | **MULTIPROBE_ARGMAX_ONLY** — confirmed Mirage failure mode | Anti-Hebbian rank-1 erase passes argmax but fails rank/norm/cos probes under correlated keys. Per "Mirage of Model Editing" arXiv:2503.06991. **Anti-Hebbian alone is NOT GDPR-grade.** |
+| `wave14z_anneal_erase` | **ANNEAL_THERMAL_WINS** — global anneal at p=1.0 destroys all patterns | Materials-science annealing analog works as "factory reset" erase but not selective. User's insight validated mathematically. |
+| `wave14xrd_walsh_spectrum` (random keys) | **XRD_NO_PEAKS** — matches Agent 1 prediction | Random ±1 keys are amorphous-in-Walsh-basis. No Bragg peaks. **Confirmed prediction.** Structured keys needed for crystallographic forensics. |
+
+### Currently running / pending verdicts
+
+- `wave14xrd_structured_keys` — Hadamard-keys variant of WHT diffraction test. Predicts Bragg peaks if crystallography analog is load-bearing.
+- `wave14anneal_selective` — local annealing (laser-anneal analog) test for selective erasure.
+- `wave14mp_edge_detector` — Marchenko-Pastur edge as substrate phase indicator. Predicts ρ = λ+_emp / λ+_MP crosses 1.0 at K = α_c·N = 627 ± 15%.
+- `wave14cpu_alpha_c_extended` (CPU) — α_c at N ∈ {8192, 16384} to confirm 1/√N AGS scaling.
+
+### New capability candidates (research-backed, untested)
+
+| Candidate | Math / materials anchor | Predicted gain |
+|---|---|---|
+| **MP-edge substrate forensics primitive** (NEW) | Marchenko-Pastur edge of W's spectrum; BBP transition (Yaskov arXiv:2111.04296; "From SGD to Spectra" arXiv:2507.12709) | Detect substrate phase WITHOUT querying. Could ship as audit/health-check primitive. |
+| **Substrate readout attack via charge-flipping** (NEW — security finding) | Oszlanyi-Suto charge flipping (arXiv:cond-mat/0308129); bipolar prior = electron-density-positivity analog | At K < N/(2 log N) ≈ 170, SVD + sign-ICA + charge-flipping recovers stored (v_k, k_k) from W alone. Capability + security implication. |
+| **Kerdock-coset structured codebooks** | Hammons-Kumar-Calderbank-Sloane-Solé arXiv:math/0207208; Z₄-Gray-map; Welch-bound exact | Predicted 2× usable K + ~50-350× faster cleanup (O(N²log N) → O(N log N) via FHT). Bloch-band materials analog. |
+| **Parisi RSB pure-state addressing** | Albanese-Camilli-Carucci-De Nittis arXiv:2303.06375; AT line for Hopfield | At our α=0.153, substrate IS in Parisi RSB phase with ~exp(40) ≈ 10¹⁷ ultrametrically-organized pure states. Content-addressable hierarchical memory for free. |
+
+### Negative findings — important to track
+
+| Claim previously held | Now demonstrated | Implication |
+|---|---|---|
+| "wave14h W-side erase is GDPR-grade (76.7pp leak reduction)" | Argmax-only Mirage. Multi-probe (rank, norm, cos, paraphrase) shows residual structure. | Don't pitch as GDPR-grade. Direct subtraction works mathematically but cross-talk magnitude persists under correlated keys. |
+| "Decoder swap to sparse Hopfield gives exp(N) capacity" | Confused architectures. Our substrate uses W=Σvkkᵀ (classical Hopfield, α_c·N). Modern Hopfield uses Ξ-matrix storage. Different system, can't just "swap decoder." | Capacity story needs Ξ-storage rewrite OR Kerdock-structured W (2× gain, not exp(N)). |
+
+### Holy-grail capabilities to investigate (background research agent dispatched)
+
+Sent agent on capabilities the field considers uniquely enabling INDEPENDENT of current market focus. Result pending.
+
+### Process / protocol improvements this session
+
+- **Mirage failure mode**: validated experimentally. Anti-Hebbian erase passes argmax but fails deeper probes. Now caught by `wave14p_erase_multiprobe` framework (rank + norm + cos + paraphrase per the "Mirage of Model Editing" ACL 2025 paper). All future erase claims must use multi-probe.
+- **Verification module added**: `verification/oracle.py` with `assert_in_range`, `assert_distinguishable`, `assert_baseline_high`, `assert_recovery_above_floor`. Future experiments call these to catch test-setup bugs before runner sees them.
+- **Queue gate added**: `tools/queue_add.py` runs script's `--self-test` + `--smoke` + validates metrics schema before adding to queue. Closes the silent-failure mode from the wave14*_v2 reruns earlier in the day.
+- **Runner patched** to pass `HDLAB_EXP_NAME` env var so scripts write to correct output dir regardless of queue naming.
+
