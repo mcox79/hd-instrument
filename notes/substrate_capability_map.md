@@ -3093,3 +3093,71 @@ remains coherent under both stressors simultaneously.
 ### Tally — extensions only
 
 Unchanged. Continual editing evidence list grows; no new rows.
+
+
+## 2026-05-21 v30 update — Four compositional smoke tests + R7 landed
+
+Strategy session cycle 19 (in /loop). Four smoke event_outcomes + R7
+published since cycle 18 (11:55). Experiment Dev queue depth at 10.
+
+All four are smoke-only compositional/perturbation characterizations of
+the substrate's validated primitives. Per PROT-004 / rehab discipline:
+no row state changes from smoke alone; cap_map documents as
+"preliminary positive; awaiting full mode."
+
+### Edit reversibility — smoke
+
+`wave14zj_edit_reversibility_smoke` (11:56:16): **REVERSIBLE_BOTH_HOLD**
+- Both arms survive 10 reversal cycles
+- Verdict_msg honest note: "Correlated control held unexpectedly;
+  algebra closure may be substrate-wide, not Kerdock-specific"
+
+Edit-then-undo chains work for both arms. Suggests outer-product
+erase arithmetic is reversible without requiring structured keys
+(different from continual editing where structured keys are load-
+bearing). Full needed to lock claim.
+
+### Noisy edit keys — smoke
+
+`wave14zk_noisy_edit_keys_smoke` (11:57:53): **NOISY_EDIT_BOTH_PASS**
+- Both arms tolerate noisy edits across Hamming radii [8]
+
+Edit operation survives noisy edit-key construction. Composition:
+edit primitive × paraphrase-robustness.
+
+### Calibration after edit — smoke (compound)
+
+`wave14zl_calibration_after_edit_smoke` (11:59:52): **CALIB_PRESERVED_AFTER_EDIT**
+- ECE pre=0.089, post-kept=0.093 (Δ=+0.004), post-edit=0.087 (Δ=-0.002)
+- "Edits don't break calibration"
+
+Composition: Bet G TEMPSCALE calibration ✅ × edit primitive ✅.
+Calibration robustness under editing. Smoke; full needed.
+
+### Noise robust at σ=1.0 — smoke
+
+`wave14zm_noise_robust_smoke` (12:01:11): **NOISE_ROBUST_KERDOCK_TOLERATES_SIGMA_1.0**
+- Kerdock argmax holds at all σ ≤ 1.0
+- Correlated also up to σ=1.0
+- "Substrate has noise budget for quantization"
+
+Substrate noise tolerance probe — relevant for hardware deployment
+claims (low-precision quantization, neuromorphic). Smoke; full needed.
+
+### R7 landed — Phase retrieval / sign recovery research
+
+`research_R7_phase_retrieval_sign_recovery_2026-05-21.md` (11:57)
+published. The rehab-routed research for Bet 3 random-key chargeflip
+(closed ❌ PROVISIONAL since cycle 9 / cap_map v13). Strategy will
+integrate R7's ranking against the 5 draft sketches in Bet 3 rehab
+block next cycle.
+
+### Tally — smoke evidence; no row state changes
+
+Same as v29. Four smoke compositional tests passing positive. If full-
+mode confirmations land in subsequent cycles, potential additions:
+- Memory primitives: edit reversibility, noisy edit keys
+- Compound: calibration × edit
+- Robustness/scaling: substrate noise tolerance σ ≤ 1.0
+
+Queue depth 10 → multiple full-mode confirmations expected soon.

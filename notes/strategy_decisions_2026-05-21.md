@@ -1252,3 +1252,32 @@ No row state changes; tally unchanged.
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 19 — 2026-05-21 ~12:01 (in /loop)
+
+### What I observed
+
+Four smoke event_outcomes + R7 since cycle 18 (11:55):
+- zj smoke (11:56): REVERSIBLE_BOTH_HOLD — edit reversibility
+- zk smoke (11:57): NOISY_EDIT_BOTH_PASS — noisy edit keys
+- zl smoke (11:59): CALIB_PRESERVED_AFTER_EDIT — calibration × edit compound
+- zm smoke (12:01): NOISE_ROBUST_KERDOCK_TOLERATES_SIGMA_1.0
+- R7 published (11:57): phase retrieval / sign recovery for Bet 3 rehab
+
+Queue depth at 10. Experiment Dev systematically probing composition
+surface.
+
+### What I decided
+
+cap_map v30 (committed, scp'd):
+- Four smoke results documented as preliminary positive; no row state
+  changes per PROT-004 / rehab discipline
+- R7 landed; Bet 3 rehab integration next cycle
+- Continual editing × overcapacity smokes from cycle 18 still pending
+  full mode
+
+### Wake schedule
+
+- 270s.
