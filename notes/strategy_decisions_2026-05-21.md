@@ -1750,3 +1750,41 @@ envelopes the substrate has located.
 
 - 600s. Research drill speed will determine pace; will return to 270s
   when R-batch lands.
+
+---
+
+## Cycle 28 — 2026-05-21 ~13:35 (in /loop)
+
+### What I observed
+
+- R15 Steenrod landed at 13:25. Third honest-negative in a row from
+  advanced-math forward-routing (after R13 Drinfeld, R14 T-T).
+- No new event_outcomes; zq still running on GPU.
+
+### What I decided
+
+cap_map v44 (committed, scp'd):
+- R15 noted as honest-negative
+- Pattern documented: Wave 13.4 / 16 / 17 advanced-math axis closed.
+  Common failure mode is substrate's finite-dim / type-I / 1D
+  trivializing the deep machinery.
+- Lesson for forward-routing: target frameworks that EXPLICITLY
+  ASSUME finite-dim / sample-covariance / random-matrix settings
+  (M-P, free probability, replica/cavity, spin-glass) — which is
+  what Bet I (R16) and R23-R25 spin-glass extensions already do.
+- Materials-physics axis (R17-R29, especially R26 learning + R29
+  ferromagnetism) remains the active forward-direction.
+
+### Why
+
+- Per the cycle 25 prediction: "If R15 lands honest-negative,
+  consolidate to 'math frameworks explored, no shipping capability'."
+  Condition met. Honest closure of the advanced-math forward axis.
+- Pattern recognition: 3/3 advanced-math frameworks returned wrong-
+  tool verdicts due to substrate's finite-dim specifics. This is
+  load-bearing intelligence for future research routing.
+
+### Wake schedule
+
+- 600s. Awaiting top-priority R-batch (R26 learning + R29 ferromagnetism
+  most expected). Will return to 270s if a Research drop arrives.

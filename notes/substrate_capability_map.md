@@ -4128,3 +4128,79 @@ The structural physics work (spin-glass continuous RSB, holographic,
 crystallography beyond WHT, ferromagnetism, learning theory) is where
 the next round of theoretical leverage lives. R26 + R29 are the
 highest-leverage drills per cycle 27 audit + followup #3.
+
+
+## 2026-05-21 v44 update — R15 Steenrod landed honest-negative; advanced-math axis (R13+R14+R15) consolidates as "explored, no shipping capability surfaced"
+
+Strategy session cycle 28 (in /loop). One item: R15 Steenrod landed
+at 13:25.
+
+### R15 Steenrod — honest negative (third in a row)
+
+`research_R15_steenrod_operations_2026-05-21.md`:
+**HEADLINE**: NO — Steenrod operations give no new invariants for
+substrate's 1D class-AIII system. **Decisive dimensional obstruction**:
+substrate's spatial complex is 1-dimensional → H^k vanishes for k≥2 →
+Sq^i with i≥1 has no non-trivial target. K-theory classification
+K^{-1}(pt) = Z (winding number) already exhausts class AIII in d=1.
+
+### Pattern: three honest-negatives in a row from advanced-math forward-routing
+
+The Wave 13.4 / 16 / 17 advanced-math axis from cycle 21 followup is
+now consolidated:
+
+| R | Topic | Verdict | Mechanism for failure |
+|---|---|---|---|
+| R13 | Drinfeld double D(H) | 20-35% shipping | Finite H → finite braid image → collapse problem persists |
+| R14 | Tomita-Takesaki | ~0% shipping; wrong tool | Substrate finite-dim → type I vN → modular theory trivializes |
+| R15 | Steenrod operations | ~0% shipping | Substrate 1D → H^k=0 for k≥2 → Sq^i has no target |
+
+**Common failure mode**: pure math frameworks designed for infinite-
+dimensional / higher-dimensional / generic settings TRIVIALIZE on the
+substrate's finite-dim / type-I / 1D specifics. The substrate is too
+"simple" for the deep machinery to bite.
+
+**What DOES work**: the math axis Strategy is still pursuing actively
+is Bet I free probability (R16) — because M-P / random-matrix /
+spin-glass is precisely the right tool FOR finite-dim sample covariance
+spectra (which is what substrate's W matrix is).
+
+### Consolidation: advanced-math forward-research axis closed
+
+Wave 13.4 / 16 / 17 directions all closed honest-negative. Per the
+cycle 25 prediction ("if R15 also lands honest-negative, consolidate
+to 'math frameworks explored, no shipping capability'"), this
+consolidation now applies.
+
+Forward-research backlog state:
+- ❌ closed: Wave 13.4 (R13), Wave 16 (R14), Wave 17 (R15)
+- ✅ active: Wave 15 (R16 = Bet I)
+- 🔬 pending (cycle 27 audit, NOT advanced-math axis but materials-
+  physics / learning): R17-R29 (13 items; R26 + R29 top priority)
+
+The materials-science framing (R26 learning, R27 photonics, R28
+dislocations, R29 ferromagnetism, R17-R25 spin-glass / topological /
+holographic extensions) is now the active forward-research direction.
+Pure-math beyond M-P is closed.
+
+### Honest framing
+
+The buried-treasure-research discipline is doing exactly what it's
+designed to do: surfacing rigorous negative findings without
+inflating shipping probability. Three pure-math frameworks went in
+unbiased, returned with honest "wrong tool for this substrate" verdicts,
+and Strategy correctly chose not to promote any to a bet. This is the
+[[feedback-no-smoke]] + [[feedback-no-papers-product-only]] discipline
+working at scale.
+
+**Lesson for future R-batches**: substrate's finite-dim / type-I / 1D
+constraints rule out advanced-math frameworks that depend on the
+opposite. Forward-routing should preferentially target frameworks
+that EXPLICITLY ASSUME finite-dim / sample-covariance / random-matrix
+settings — which is what M-P + free probability + replica/cavity +
+spin-glass do.
+
+### Tally — no row state changes
+
+R15 closes forward-research; doesn't promote a row. Bet I (R16) is
+still the active math-grounding bet.
