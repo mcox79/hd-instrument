@@ -4554,3 +4554,102 @@ If positive → **Bet J** promotion (contingency from cycle 27 audit).
 | Tier-2 KILLER queue | R20 ready → Experiment Dev queue gains compositional-gen target |
 
 No row state changes; sub-rescues closing as expected.
+
+
+## 2026-05-21 v49 update — R23 refines R14: substrate at α=0.153 is deep in FRSB (continuous RSB), β=32 is NOT the SG transition
+
+Strategy session cycle 32 (in /loop). One substantive landing.
+
+### R23 Continuous RSB / AT line — IMPORTANT SUBSTRATE-PHYSICS REFINEMENT
+
+`research_R23_continuous_RSB_AT_line_2026-05-21.md` (14:11) published.
+Real external lit scan; 22+ verified citations 1978-2026.
+
+**HEADLINE finding**: substrate at α=0.153 is **DEEP in the SG phase**,
+far past both the retrieval pocket (α_c≈0.138) AND the AT line.
+
+Key quantitative results:
+- **AT line for Hopfield**: T_g = 1+√α ≈ 1.39 (β_g ≈ 0.72)
+- **Substrate's empirical β=32 corresponds to T≈0.031** — far below
+  T_g
+- This is **NOT the SG transition itself** (R14's previous reframe) —
+  it's **DEEP IN THE FULL-RSB (FRSB) REGIME** where marginal
+  stability dominates
+
+**β=32 reinterpretation**: not the RSB transition; could be one of:
+- Gardner transition (within SG phase, where pure states proliferate)
+- Avalanche-onset scale
+- Marginal-stability soft-mode location
+
+**Continuous (full) RSB is consensus** for Hopfield near α_c
+(Steffan-Kühn 1994 reentrance argument + dense-Hebbian literature).
+Substrate is in continuous RSB, **NOT 1RSB**.
+
+### Impact on existing bets
+
+**Bet E (Parisi P(q))** — methodology consequence:
+- The previous P(q) multi-peaking interpretation as "1RSB structural"
+  may be MISLEADING. Continuous RSB has a continuous P(q) — what
+  looked like multi-peaks at finite N could be discretization of a
+  continuous distribution.
+- **Bet E's 6-test battery (cycle 29) should be augmented** with a
+  CONTINUOUS-RSB diagnostic: hierarchical ultrametric structure
+  beyond 2-level (the Parisi hierarchy continuum).
+
+**Bet G (TEMPSCALE β=32)** — physical interpretation:
+- β=32 is NOT calibration-related to SG-transition temperature (which
+  is β_g≈0.72).
+- β=32 is DEEP in FRSB phase. The fact that this specific β=32
+  produces calibrated confidence might reflect Gardner-transition
+  marginal stability or avalanche-onset — speculative.
+- This gives Bet G theoretical depth but the explanation is no
+  longer "β=32 is the RSB transition temperature" (that was R14's
+  honest-corrected framing).
+
+**Bet I (free probability)** — connection:
+- M-P + free convolution + replica/cavity work in FRSB regime.
+- R23's continuous-RSB framing is COMPATIBLE with Bet I; the
+  predictions for capacity / noise tolerance / depth cliff should
+  be derived in the FRSB regime, not 1RSB.
+
+### Capability state implications
+
+| Bet | v48 state | v49 state | Note |
+|---|---|---|---|
+| Bet E Parisi P(q) | 🔬 active; 6-test battery required | 🔬 active; **continuous-RSB augmentation needed** in protocol | R23 finding |
+| Bet G TEMPSCALE | ✅ Validated (β=32 empirical) | ✅ Validated (theoretical interpretation refined; not RSB-transition) | Empirical claim unchanged |
+| Bet I free probability | active; deliver predictions | active; **derive in FRSB regime** | R23 framing |
+
+No row state changes. Theoretical interpretations refined.
+
+### Operational note — zt continual_16N FULL status unclear
+
+Snapshot at 14:11 shows current_gpu=None and queue 0/0. zt was
+running at 13:55. Metrics.json mtime for zt is still 12:48 (smoke
+only). Possibilities:
+- zt full ran but didn't write metrics (silent failure)
+- zt full was killed during queue cutover
+- zt full is somewhere else
+
+Flagging for Visibility / Queue Health awareness; not blocking
+Strategy. Will check next cycle if a verdict lands.
+
+### Tally — no row state changes
+
+R23 is theoretical refinement. Bet E protocol gains a TODO
+(continuous-RSB diagnostic). Bet G + Bet I get reframed but unchanged
+empirically. Cap_map tally unchanged.
+
+### Pattern note
+
+R23 is the SECOND substrate-novel research output in a row (after
+R26 cycle 29). Different from the R13/R14/R15 honest-negative pattern.
+Research is producing more substantive substrate-actionable findings
+as Strategy's audit (cycle 27) pointed it at the right framings
+(spin-glass continuous RSB, learning theory, ferromagnetism etc.).
+
+### Forward expectation
+
+R29 ferromagnetism is next per priority ordering. R24 FDT violation
++ two-T after that — combined with R23's FRSB framing, these will
+fully ground Bet G's β=32 in physics.

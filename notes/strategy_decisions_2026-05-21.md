@@ -1972,3 +1972,59 @@ cap_map v48:
 ### Wake schedule
 
 - 270s. C1 hybrid smoke expected within 15 min.
+
+---
+
+## Cycle 32 — 2026-05-21 ~14:12 (in /loop)
+
+### What I observed
+
+- **R23 Continuous RSB / AT line landed** (14:11) with substantive
+  refinement: substrate at α=0.153 is DEEP in FRSB phase (continuous
+  RSB, not 1RSB), far past AT line (β_g≈0.72). Substrate's β=32 (Bet G)
+  corresponds to T≈0.031 — DEEP in FRSB, NOT the RSB transition.
+  R14's β=32 framing refined.
+- zt continual_16N FULL status unclear (current_gpu=None; metrics
+  mtime still smoke). Possible silent failure.
+- No new event_outcomes.
+
+### What I decided
+
+cap_map v49:
+- R23 documented as substrate-physics refinement
+- Bet E protocol gains continuous-RSB augmentation TODO
+- Bet G theoretical interpretation refined (β=32 not RSB-transition;
+  possibly Gardner / marginal-stability / avalanche-onset point in
+  FRSB regime)
+- Bet I should derive predictions in FRSB regime
+- No empirical changes; theoretical depth added
+
+### Why
+
+- R23's quantitative result (T_g=1.39 vs substrate β=32→T=0.031) is
+  unambiguous. Substrate is past AT line; continuous RSB applies.
+- Refines (not contradicts) R14: R14 said T-T wrong tool + M-P/replica
+  right tool. R23 says SPECIFICALLY within the right tools, substrate
+  is in FRSB regime.
+- Bet I (free probability) and Bet E (Parisi) both gain framework
+  refinement; nothing breaks.
+
+### Pattern note
+
+R23 is the SECOND substrate-novel substantive research output (after
+R26 learning theory). Different from R13/R14/R15 honest-negative
+pattern. The cycle 27 audit redirected research to the right framings
+(spin-glass continuous RSB, learning theory, ferromagnetism), and
+the substrate-actionable substance is now landing.
+
+### Open items / handoffs
+
+- Experiment Dev: C1 hybrid still pending. Bet B + Bet F after.
+- Research: R29 ferromagnetism next (top priority).
+- Visibility / Queue Health: zt continual_16N full status (silent
+  failure?) — not blocking but worth flagging.
+
+### Wake schedule
+
+- 270s. R29 ferromagnetism expected next; C1 hybrid Experiment Dev
+  build may also land.
