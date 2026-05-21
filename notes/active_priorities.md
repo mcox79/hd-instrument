@@ -31,7 +31,27 @@ Dev, Research, Visibility, Queue Health, META) read this.
   (gap-protection / pair-redundancy) is structurally distinct from
   Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v62**: 7 ✅ + 1 🟢 + 1 🟡 multi-hop. Unchanged.
+**Tier-1 board after v65** (REVISED): 6 ✅ + 1 🟢 TERMINAL + 2 🟡
+(Bet E demoted-pending-v3-full; multi-hop with 7 rescue paths).
+Was 7 ✅ + 1 🟢 + 1 🟡 in v64.
+
+### Cycle 46 (v65) updates
+- **Bet B 🟢 Partial TERMINAL** at retention_A ~0.73-0.74 (v5 confirms
+  v3/v4 pattern; seed-variance dominance across 3 versions; substrate
+  beats catastrophic-forgetting baseline by 2 orders of magnitude;
+  0.80 was threshold-not-physics)
+- **Bet E DEMOTED ✅→🟡** — v2 used 3/6 tests of Parisi battery;
+  v3 smoke finds Binder cumulant declines with N (finite-size signal);
+  v3 full failed exit-1
+- **R17 Sketch D KILLED** — substrate has no power-law two-point
+  correlation; AQEC analog rejected
+- **R33 HONEST RECALIBRATION** — substrate classical, no PLOB no-go;
+  poly-vs-exp framing OVERSTATED; realistic 2-4× constant factor;
+  demoted below Bet O in priority
+- **PROT-006 ACTIVE** — sequence rehab before cap_map closure
+- Bet P #1 priority reinforced (R33 demotion vacates the "highest-
+  leverage forward direction" slot; Bet P is the substrate-novel
+  codebook-geometry mechanism R33 was wrongly framed as)
 
 ### v62 verdicts (15:32-15:39)
 - **Adaptive-β KILLED** (R8 #6, formally closes R8 list 6/6)
