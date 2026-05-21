@@ -1227,3 +1227,28 @@ cap_map v28 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 18 — 2026-05-21 ~11:55 (in /loop)
+
+### What I observed
+
+Two smoke event_outcomes since cycle 17 (11:48):
+- zh smoke (11:50): CONTINUAL_OC_KERDOCK_HOLDS — M=2N, 100 edits
+- zi smoke (11:54): CONTINUAL_4N_KERDOCK_HOLDS — M=4N, 100 edits
+
+Both extend continual editing × Bet C overcapacity composition.
+
+### What I decided
+
+cap_map v29 (committed, scp'd): Continual editing ✅ evidence list
+extended with M=2N + M=4N smoke at 100 edits. Compositional finding:
+continual editing AND Bet C overcapacity COMPOSE — substrate
+coherent under both stressors. Full-mode confirmation pending.
+
+No row state changes; tally unchanged.
+
+### Wake schedule
+
+- 270s.

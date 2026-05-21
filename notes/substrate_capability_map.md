@@ -3062,3 +3062,34 @@ No row state change yet.
 ### Tally — unchanged
 
 Updates: PROT-004 acknowledged; ICL N=1024 smoke noted.
+
+
+## 2026-05-21 v29 update — Continual editing at overcapacity smoke (M=2N, M=4N)
+
+Strategy session cycle 18 (in /loop). Two smoke event_outcomes since
+cycle 17 (11:48). Both extend continual editing × Bet C overcapacity
+composition. Smoke only.
+
+### Continual editing × overcapacity smoke
+
+`wave14zh_continual_overcap_smoke` (11:50:26): **CONTINUAL_OC_KERDOCK_HOLDS**
+- M=2N, 100 sequential edits, Kerdock 1.0/1.0
+
+`wave14zi_continual_4N_smoke` (11:54:04): **CONTINUAL_4N_KERDOCK_HOLDS**
+- M=4N, 100 sequential edits, Kerdock 1.0/1.0
+- Verdict: "Continual editing survives extreme over-capacity"
+
+Both smoke only. Compositional finding: continual editing (existing ✅
+at M≤N range across 30-5000 edits) AND Bet C overcapacity (M=8N erase)
+COMPOSE — at M=2N and M=4N, 100 sequential edits hold. Substrate
+remains coherent under both stressors simultaneously.
+
+**Evidence list update** (existing ✅):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Continual sequential editing on Kerdock substrate | ✅ Validated | Now also: `wave14zh_continual_overcap` (M=2N, 100 edits, smoke); `wave14zi_continual_4N` (M=4N, 100 edits, smoke). Continual editing composes with Bet C overcapacity. Full-mode confirmation pending. |
+
+### Tally — extensions only
+
+Unchanged. Continual editing evidence list grows; no new rows.
