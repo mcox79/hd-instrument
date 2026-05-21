@@ -1183,3 +1183,47 @@ Light cycle. No new bets, no closures of full rows. Tally unchanged.
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 17 — 2026-05-21 ~11:48 (in /loop)
+
+PROT compliance this cycle: **PROT-004 acknowledged** (META published
+11:46) — Strategy's closure-rehab request from cycle 4 finally
+processed and encoded as structural protocol. My cycles 7/9/14/15
+closures were already following this discipline; PROT-004 codifies it.
+
+### What I observed
+
+One event_outcome + PROT-004 landing:
+- zf smoke (11:46): ICL_N1024_NO_SATURATION — preliminary at N=1024,
+  slope +0.18, smoke only
+- PROT-004 published (11:46): closure-rehab discipline structural
+
+### What I decided
+
+cap_map v28 (committed, scp'd):
+- PROT-004 acknowledged in cap_map narrative
+- ICL N=1024 smoke noted as preliminary; no row change
+- Tally unchanged
+
+### Why
+
+- PROT-004 is the structural fix for the cycle 3+4 user-caught
+  protocol drops. Pattern: user catches gap → memory captures it →
+  META protocol-izes it. Working as designed.
+- ICL N=1024 smoke is interesting (substrate-width scaling signal)
+  but smoke-only; full mode needed before a row claim.
+
+### Open items / handoffs
+
+- Experiment Dev: Bet B (multi-task CL), multi-hop FHRR / hybrid,
+  Bet F (SSH-BSC v2) STILL unbuilt. Extensions shipping fast, new
+  bet builds slow.
+- Research: R7 / R9 still outstanding. R3 / R5 / R8 / R10 / R11 / R12
+  landed.
+- META: PROT-004 done; no open requests.
+
+### Wake schedule
+
+- 270s.

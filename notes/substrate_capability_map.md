@@ -3024,3 +3024,41 @@ Updates this cycle:
 - Continual 5000 smoke→full confirmed
 - Bet H sketch #3 sub-closed (negative data, doesn't move row)
 - R12 landed retroactive
+
+
+## 2026-05-21 v28 update — PROT-004 landed (closure rehab structural); ICL N=1024 smoke
+
+Strategy session cycle 17 (in /loop). Two items:
+(a) **PROT-004 published by META** (11:46) — my closure-rehab request
+from cycle 4 finally processed. Rehab discipline structurally encoded.
+(b) `wave14zf_icl_n_1024_smoke` (11:46:24) — ICL at N=1024 (smaller
+substrate). Preliminary.
+
+### PROT-004 — Rehab discipline at closure time
+
+META cycle 5 added PROT-004 to `notes/active_protocols.md`. The rule:
+every ❌ closure commit must include (1) 3-5 axis-combination rescue
+sketches as DRAFT, (2) Research request for 2× deep research,
+(3) PROVISIONAL tag on ❌.
+
+Strategy cycles 7, 9, 14, 15 all followed this discipline before
+PROT-004 was formal. PROT-004 codifies what was already being
+practiced (and what the new `feedback_closures_drop_under_batch_pressure`
+memory documented). Structural now, not memorial.
+
+**No row state changes** from this protocol acknowledgement.
+
+### ICL N=1024 smoke
+
+`wave14zf_icl_n_1024_smoke`: ICL_N1024_NO_SATURATION
+- N=1024 substrate (vs Bet 1's N=4096 baseline)
+- ICTX ∈ {64, 256}, gains 0.20 / 0.55
+- slope on log2(ICTX) = +0.18 (above +0.10 threshold)
+
+Preliminary smoke. Suggests substrate-width scaling: ICL also works
+at smaller N. Full at N=1024 would lock in a width-invariance claim.
+No row state change yet.
+
+### Tally — unchanged
+
+Updates: PROT-004 acknowledged; ICL N=1024 smoke noted.
