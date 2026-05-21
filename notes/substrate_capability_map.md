@@ -2104,3 +2104,94 @@ prioritization call.
 
 Bet C envelope went 2N -> 4N -> 8N this hour. Bet B unblocked. Bet A
 (edit-then-query pipeline) is now the cleanest forward Tier-1 move.
+
+
+## 2026-05-21 v19 update — Bet E (Parisi P(q)) + Bet F (SSH-BSC topological) promoted to active bets per user
+
+User-directed bet promotion (cycle 8 followup). Both items have sat in
+the cap_map's "Topological / spin glass" group since 2026-05-20 (v3
+RSB-structural ✅ + v6 SSH-BSC NEEDS_REVIEW) without progressing to
+active investigation. User asked to bump both into the active bet list.
+
+### Bet E — Parisi P(q) overlap structure as substrate fingerprint
+
+Current status: structural ✅ exists at one operating point (v3:
+P(q) multi-peaked at q=0.138 / 0.276, ultrametricity 0.357). What
+hasn't been tested: whether P(q) shape *discriminates* between
+substrate configurations (random ±1 vs Hadamard vs Kerdock) or
+M_stored regimes (M<N, M=N, M>N).
+
+**Why this is a real bet, not just descriptive work**:
+- Bet C just validated Kerdock erase through M/N=8.0. If P(q) shape
+  shifts between Kerdock and random substrates, P(q) becomes a
+  substrate-forensics primitive: identify the codebook from the
+  overlap distribution, without query access.
+- Per [[feedback-materials-science-probe]]: P(q) is the canonical
+  spin-glass order parameter; 50 years of Mezard-Parisi-Virasoro
+  literature applies directly.
+
+Multi-probe success criteria + kill criterion in
+`active_priorities.md` Bet E. Routing: Research (methodology review
+optional but recommended) → Experiment Dev `wave14_parisi_pq_sweep_v1`.
+
+**Capability move** (no row state change yet; just promoted to active
+bet):
+
+| Capability | Pre-v19 state | v19 state | Note |
+|---|---|---|---|
+| Parisi P(q) overlap as substrate fingerprint | 🔬 Research only (structural fact only) | Active bet (Bet E); experiment scoped, success/kill criteria written | User-directed promotion |
+
+### Bet F — SSH-BSC topological winding-protected memories
+
+Current status: 🟡 NEEDS_REVIEW (v6: original `wave14e2_ssh_bsc_topological`
+returned categorical_correct=0.0 at all noise levels — probe didn't
+fire / methodology gap, not substrate finding). Capability has been
+stuck in interpretation limbo since 2026-05-20 13:32.
+
+**Why this is a real bet, not just a redo**:
+- If validated, integer winding-number protection is substrate-unique
+  (no existing LLM has categorically noise-immune memories). The
+  product story is "facts tagged with integer winding are protected by
+  a Z-quantized invariant — bit flips up to threshold p_c don't
+  affect retrieval."
+- Per [[feedback-materials-science-probe]] and the v2 evening update:
+  Hasan-Kane chiral class AIII directly applies; the prediction is a
+  sharp p_c kink at ~1/(2·ν_density).
+- The probe failure in the original test is the methodology gap that
+  R10 will close (lit-vetted protocol with proper Z-quantization
+  recovery metric).
+
+Multi-probe success criteria + kill criterion in
+`active_priorities.md` Bet F. Routing: **R10 first** (Research 2x pass
+for probe design per [[feedback-unbiased-research]]), then Experiment
+Dev `wave14_ssh_bsc_v2_protected`. Rehab discipline pre-armed: 5
+axis-combination rescues listed if v2 also fails.
+
+**Capability move** (no row state change; just promoted to active bet):
+
+| Capability | Pre-v19 state | v19 state | Note |
+|---|---|---|---|
+| SSH-BSC integer winding-protected memories | 🟡 NEEDS_REVIEW since v6 (probe didn't fire) | Active bet (Bet F); R10 routed for probe redesign | User-directed promotion |
+
+### Status of active bet list (post-v19)
+
+Current active bets in `active_priorities.md`:
+- **Bet A** (Tier-1 KILLER, top): edit-then-query end-to-end pipeline.
+  AlphaEdit primary + Kerdock parallel candidates. Experiment Dev
+  pending.
+- **Bet B** (Tier-1 KILLER): multi-task continual learning. R5 landed;
+  unblocked. Experiment Dev pending.
+- **Bet D** (Tier-1 closure-cheap): generation K-curve analyzer pass.
+  No new compute needed.
+- **Bet E** (NEW): Parisi P(q) substrate fingerprint. Research
+  methodology review recommended; Experiment Dev ready.
+- **Bet F** (NEW): SSH-BSC topological winding. R10-gated.
+
+Closed bets retained for reference: Bet 1, Bet 2, Bet 3, Bet C in the
+"Recently resolved" table.
+
+### Tally — no row state changes; bet list expanded
+
+Same overall tally as v18. The two promoted items had existing rows in
+the "Topological / spin glass" group; promotion means active prereg +
+experiment intent, not a state change.

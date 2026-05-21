@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 8 (user-triggered after /loop chain broke)
-**Cap map version this refers to:** v18
+**Last updated:** 2026-05-21 cycle 8 followup (user bumped E + F into active bets)
+**Cap map version this refers to:** v19 (pending — cycle 8 followup)
 
 ---
 
@@ -17,7 +17,7 @@ Dev, Research, Visibility, Queue Health, META) read this.
 | Bet 3 — Random-key iterative charge-flipping forensics | ❌ CLOSED (PROVISIONAL per cap_map v14 rehab discipline). improvement=+0.03 over SVD (target +0.2). Structured-key WHT-forensics ✅ remains. R7 routed for 2x deep research. | `wave14s_chargeflip_forensics_v1` |
 | **Bet C — Full Kerdock + structured codebook for dense regime (M > N)** | ✅ VALIDATED at N=4096, M_stored up to 2N. Kerdock arm passes all 5 Mirage probes; correlated control reproduces Mirage. Extends Bet 2 from orthogonal-only (M ≤ N) to Welch-bound structured codebooks (M/N ≤ 2.0). | `wave14v_erase_kerdock_v2` smoke + full |
 
-## Top capability bets v3 (in priority order; Bet C resolved this cycle)
+## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
 
 ### Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER, now unblocked)
 
@@ -103,6 +103,94 @@ untested but not top-bet priority.
 
 ---
 
+### Bet E — Parisi P(q) overlap structure as substrate fingerprint
+
+**Claim.** The Parisi overlap distribution P(q) — measured on the
+substrate's stored bundles — varies meaningfully with substrate
+configuration (codebook structure, K, M_stored). If true, P(q) shape
+becomes a substrate-forensics primitive that needs no query access:
+shape characterizes operating point.
+
+**Why now.** `wave14e2_parisi_ultrametricity` (v3) validated RSB phase
+*structurally* at one operating point (P(q) multi-peaked at q=0.138 and
+0.276; ultrametricity 0.357 > 0.33 chance threshold). The structural
+finding has been static since 2026-05-20. With Bet C's structured-codebook
+substrates now ✅ through M/N=8.0, the question of whether P(q) discriminates
+between random ±1 substrate, Hadamard substrate, and Kerdock substrate is
+testable. Also: does P(q) shift as M_stored crosses Bet C boundaries
+(M=N, M=2N, M=8N)? Per [[feedback-materials-science-probe]] the
+spin-glass framing applies directly (P(q) is the canonical order
+parameter from Mezard-Parisi-Virasoro 1987).
+
+**Multi-probe success criteria** (each required):
+- P(q) measured at 3 substrate configs (random ±1, Hadamard, Kerdock)
+  at N=4096, K=400, M_stored=2N: peak counts / peak locations /
+  ultrametricity distinguishable across configs (≥2σ separation on
+  at least one metric)
+- P(q) measured at 3 M_stored values (M=0.5N, M=N, M=2N) for fixed
+  random substrate: shape shift detectable
+- All cells satisfy ultrametricity > 0.33 (chance threshold) — i.e.,
+  RSB phase persists across configs
+- 3 seeds per cell
+
+**Kill criterion.** P(q) shapes statistically indistinguishable across
+the 3 substrate configs AND across the 3 M_stored values (no metric
+shows ≥2σ shift). Then P(q) is a generic spin-glass property of any
+high-dim random ±1 matrix, not a substrate-informative probe — moves
+from 🔬 to "descriptive only, no product story."
+
+**Who acts.** Research (verify methodology — Parisi protocol is
+well-established but the substrate-specific measurement details
+matter); Experiment Dev (`wave14_parisi_pq_sweep_v1` once Research
+confirms the protocol).
+
+---
+
+### Bet F — SSH-BSC topological winding-protected memories (Tier-2 KILLER probe revisit)
+
+**Claim.** Substrate-encoded facts tagged with an integer winding
+number (via sublattice / domain-wall structure per Hasan-Kane chiral
+class AIII) have categorical noise immunity: noise below threshold
+p_c shifts winding count by ±1 only at wall-adjacent sites; larger
+shifts require coordinated multi-bit flips with probability ~p².
+Sharp transition at p_c ≈ 1/(2·ν_density), q-dependent (ν_density
+proportional to q).
+
+**Why now.** The original `wave14e2_ssh_bsc_topological`
+(2026-05-20 CPU-fallback window) returned categorical_correct=0.0 at
+all noise levels — flagged as `NEEDS_REVIEW`. The probe was raw
+wall-count data with no Z-quantization recovery metric, so the test
+couldn't distinguish "substrate has no topological protection" from
+"probe didn't measure topological protection." Capability has sat at
+🟡 since v6. Bumping to active bet means committing to a clean redo.
+
+**Multi-probe success criteria** (each required):
+- Categorical recovery rate vs noise level p: monotone decay with a
+  detectable kink at predicted p_c ≈ 1/(2·ν_density)
+- Winding-number distribution Z-quantization holds for p < p_c
+  (Hopf-style integer recovery — must include the integer-recovery
+  probe missing from v1)
+- Charge sweep q ∈ {2, 5, 10, 20}: empirical p_c scales 1/q (matches
+  Hasan-Kane prediction within 30%)
+- 3 seeds per (q, p) cell
+
+**Kill criterion.** After probe redesign + retest, no sharp transition
+observed in categorical recovery across noise sweep, OR Z-quantization
+fails for all p. Then SSH-BSC topology doesn't give predicted
+protection in BSC substrate — closes at ❌-with-rehab-discipline
+(5 axis-combination rescues listed before broader topological-
+protection family closes).
+
+**Who acts.** **Research first (R10)** — need a lit-vetted protocol
+for measuring topological invariants in BSC substrates per [[feedback-unbiased-research]]
+(the original probe didn't fire; that's a methodology gap, not a
+substrate finding). Pass 1: external lit scan of Hasan-Kane class AIII
+probes, SSH-model topology metrics, Z-quantization recovery tests.
+Pass 2: substrate-compatible drill. Experiment Dev queues
+`wave14_ssh_bsc_v2_protected` once Research delivers the probe spec.
+
+---
+
 ### Bet D — Generation K-curve analysis (Tier-1 KILLER partial → ✅?)
 
 **Claim.** Strict-baseline generation quality is monotone in K up to
@@ -167,9 +255,18 @@ files; could be a 30-min task, not a new experiment). Strategy
   binds collide with stored Hadamard codewords. R8 priority reordered:
   drill **#4 (binding algebra swap to FHRR / Clifford)** first as the
   mechanism correction; then #1 (cleanup operator family); then #2/#3/#6.
-- **R9 (NEW, rehab-routed, Yonelinas)**: Source-vs-item memory
+- **R9 (rehab-routed, Yonelinas)**: Source-vs-item memory
   dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
   framings. Strategy's 5 sketches in cap_map v14 unvetted draft.
+- **R10 (NEW, Bet F prerequisite)**: SSH-BSC topological probe design.
+  Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
+  at all noise — methodology gap, not substrate finding. 2x pass:
+  pass 1 broad (Hasan-Kane class AIII probes, SSH-model topology
+  metrics, Z-quantization recovery tests, charge-flipping topology
+  literature, condensed-matter SSH chain protocols); pass 2 drill
+  substrate-compatible probe specifying integer-recovery metric,
+  q-dependent p_c sweep design, control arm (random non-topological
+  encoding).
 
 Per [[feedback-unbiased-research]] and [[project-research-playbook]]
 item 9: each rehab-routed R-request expects Research's 2x pass to
@@ -191,6 +288,12 @@ DRAFT sketches are starting points only.
   metrics.json (COMPLETED_NEEDS_ANALYSIS in v7) to determine if
   generation quality monotone in K. Closes Tier-1 KILLER "GPT-quality
   generation" partial.
+- **E_E (Bet E)**: `wave14_parisi_pq_sweep_v1` — P(q) measurement
+  across (codebook config, M_stored) grid. Multi-probe per Bet E.
+  Research methodology review optional but recommended before queue.
+- **E_F (Bet F, gated on R10)**: `wave14_ssh_bsc_v2_protected` — redo
+  topological probe with proper Z-quantization recovery metric, per
+  R10's protocol spec. Multi-probe per Bet F.
 
 ## Items deliberately NOT on the priority list
 

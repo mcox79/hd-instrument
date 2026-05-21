@@ -714,3 +714,72 @@ Three new triggers since cycle 7:
   Pace has slowed; runners now idle. Will resume 270s if a verdict
   burst arrives.
 - Next prompt: `/loop /strategy-cycle` (FIX from cycle 6/7 bug).
+
+---
+
+## Cycle 8 followup — 2026-05-21 ~10:35 (user-directed bet promotion)
+
+User asked: "please bump the Parisi P(q) overlap measurement and the
+SSH-BSC topological queue into the active bet list."
+
+### What I observed
+
+Both items had existing cap_map entries but had been stuck:
+- **Parisi P(q)**: structural ✅ at one operating point (v3
+  2026-05-20); no follow-up testing whether shape varies with
+  substrate config or M_stored regime. Static for 24h.
+- **SSH-BSC topological**: 🟡 NEEDS_REVIEW since v6 (probe didn't
+  fire — categorical_correct=0.0 at all noise levels). Static for ~22h.
+
+Both are "Topological / spin glass" group items per cap_map. Both
+fit [[feedback-materials-science-probe]] (spin-glass / Hasan-Kane
+material-physics framing).
+
+### What I decided
+
+1. **active_priorities.md v4**: added Bet E (Parisi P(q) substrate
+   fingerprint) and Bet F (SSH-BSC topological winding-protected
+   memories). Each has multi-probe success criteria + kill criterion
+   + routing.
+2. **R10 added** to Open research questions: SSH-BSC topological probe
+   design. Bet F is gated on R10 because the v1 probe didn't fire —
+   need lit-vetted protocol per [[feedback-unbiased-research]].
+3. **E_E and E_F added** to Open experiment requests.
+4. **cap_map v19**: documented the promotions + rationale + routing.
+   No row state changes — promotion means active prereg + experiment
+   intent, not a capability state change.
+
+### Why
+
+- Bet E: Bet C's Kerdock validation at M/N≤8.0 creates a fresh
+  test bed for P(q) discrimination. If Kerdock substrate has
+  measurably different P(q) than random ±1 substrate, P(q) becomes
+  substrate forensics — a structural fingerprint that doesn't need
+  query access. Per [[feedback-materials-science-probe]], P(q) is
+  load-bearing math from Mezard-Parisi-Virasoro 1987.
+- Bet F: Original v1 probe didn't fire (categorical_correct=0
+  throughout). That's a methodology gap. Per
+  [[feedback-unbiased-research]], the right next step is Research's
+  2x pass on the lit-vetted protocol — *not* my brainstorming the
+  probe (which is exactly the failure mode the new
+  [[feedback-closures-drop-under-batch-pressure]] memory warns
+  against). R10 routing is the right shape.
+- Rehab discipline pre-armed: Bet F's kill criterion explicitly says
+  "5 axis-combination rescues listed before broader topological-
+  protection family closes." This is structural compliance with
+  [[feedback-rehabilitation-after-rejection]] from the start, not
+  bolted on after a closure.
+
+### Open items / handoffs
+
+- **Research**: R10 (SSH-BSC topological probe design) is the new
+  highest-leverage drill for an active bet. Methodology review for
+  Bet E's Parisi protocol is also valuable but not gating.
+- **Experiment Dev**: E_E (Parisi P(q) sweep) can be queued without
+  research input — methodology is well-established. E_F gated on R10.
+- **META**: no new asks this followup.
+
+### Wake schedule unchanged
+
+10:45 wake at 600s heartbeat (set in cycle 8 main entry). Cycle 9 will
+pick up next.
