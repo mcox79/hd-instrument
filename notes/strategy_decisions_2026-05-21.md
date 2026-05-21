@@ -1643,3 +1643,21 @@ cap_map v40 (committed, scp'd):
 ### Wake schedule
 
 - Existing 13:22 wake still queued; no re-arm needed.
+
+---
+
+## Cycle 27 — 2026-05-21 ~13:22 (in /loop, heartbeat — true idle)
+
+### What I observed
+
+Same state as cycle 26 followup (13:19). No new event_outcomes;
+no new research notes; no new protocols. `wave14zq_continual_8N`
+still running on GPU. Queue depth 3.
+
+### What I decided
+
+No cap_map update. Pure heartbeat.
+
+### Wake schedule
+
+- 600s. If still idle next cycle, will lengthen further (1200s).
