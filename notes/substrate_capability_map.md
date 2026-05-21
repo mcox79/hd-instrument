@@ -1228,3 +1228,108 @@ NEW capability candidates still standing pending proper tests:
 
 Recurring lesson: claims that pass argmax/cosine SURFACE metrics often fail
 deeper tests. Use multi-probe (Brier, AURC, ROC slope) for every capability claim.
+
+
+## 2026-05-21 v12 update — Yonelinas dissociation RETRACTED; Walsh-peak forensics upgraded; ACF rescue extended to K/N=3.0
+
+Strategy session cycle 1 (cold start). Three triggers since v11:
+one event-logged outcome (`wave14yonelinas_roc_v2` full mode at 07:27)
+plus two metrics.json landings that strengthen / clarify existing rows
+(`wave14walsh_peaks_extended`, `wave14g_acf_resonator K=8192/12288`).
+
+### RETRACTION confirmed: Yonelinas dual-process dissociation
+
+`wave14yonelinas_roc_v2` mode=full landed at 2026-05-21T07:27:02 with
+verdict `YONELINAS_PURE_FAMILIARITY`:
+- z-ROC slope = **1.112** (5 seeds, range 0.70-1.72)
+- Recollection accuracy = 97.4% (high, but dual-process requires asymmetric ROC)
+- verdict message: "symmetric ROC = single signal-detection process. This
+  is FAMILIARITY ONLY, not dual-process. Earlier 'dissociation' was
+  asymmetric-codebook artifact."
+
+v11 explicitly flagged the test as the kill switch. The kill criterion
+fires. The v10 promotion of Yonelinas dual-process to ✅ is retracted.
+
+**Capability move**:
+
+| Capability | v11 state | v12 state | Trigger |
+|---|---|---|---|
+| Source-monitoring dissociation (Yonelinas dual-process) | ✅ Validated (v10 promotion, flagged for rigorous re-test in v11) | ❌ Closed — symmetric ROC under equal codebooks; earlier validation was codebook-size artifact | `wave14yonelinas_roc_v2` full mode (z-slope=1.11) |
+
+Note: the substrate may still exhibit some form of source-vs-item differentiation,
+but it is NOT the Yonelinas DPSD dual-process. Any future claim in this
+direction must specify which dissociation model it's testing against, with
+the proper signal-detection probe.
+
+### Walsh-peak forensics UPGRADED (vs v10 "PEAKS_FORENSICS_LIMITED")
+
+`wave14walsh_peaks_extended` (completed, has metrics, no event_outcome
+emitted yet) ran K in {50, 200, 500, 1000, 1500, 2000, 2500, 3000, 3500,
+4000} with 10 seeds at N=4096:
+- recall = **1.0** at every tested K, every seed (no exceptions)
+- holds through K/N ~ 0.98 (K=4000 of N=4096)
+
+The v10 framing ("recall=100% at low K, high-K test inconclusive") was
+conservative. Extended sweep shows the capability survives across the
+entire usable K range for Hadamard-structured keys.
+
+**Capability move** (evidence list update, no state change):
+
+| Capability | State | Evidence | Notes |
+|---|---|---|---|
+| Substrate forensics via WHT diffraction pattern (structured-keyed) | ✅ Validated | Now adds `wave14walsh_peaks_extended` (recall=1.0 across K=50..4000) | Replaces "limited applicability" caveat from v9. Forensics holds across full K range for structured keys. |
+
+### ACF rescue EXTENDED to K/N=2.0 and K/N=3.0
+
+`wave14g_acf_resonator_high_K_trimmed__shard_K_SWEEP_8192` and
+`..._K_SWEEP_12288` (completed, has metrics, no event_outcome emitted yet):
+- K=8192 (K/N=2.0): recovery 100.0%
+- K=12288 (K/N=3.0): recovery 100.0%
+
+v8's "2x capacity boost" framing was conservative. ACF rescue holds at
+**at least 3x the vanilla capacity ceiling** at substrate-relevant N. The
+ceiling is not yet located in tested range — both extended shards saturated.
+
+**Capability move** (evidence list update, no state change):
+
+| Capability | State | Evidence | Notes |
+|---|---|---|---|
+| Resonator decomposition with ACF rescue | ✅ Validated | Now adds K=8192 (K/N=2.0, 100%) and K=12288 (K/N=3.0, 100%) | Capacity boost >=3x vs vanilla cliff (K/N=0.5). Ceiling not located. |
+
+### Tally deltas (v12)
+
+| Section | ✅ | 🟢 | 🟡 | 🔬 | ⚪ | ❌ |
+|---|---|---|---|---|---|---|
+| Memory primitives | 6 | 1 | 1 | 1 | 1 | 1 |
+| Concept structure | 2 | 1 | 2 | — | — | 2 (+1: Yonelinas dual-process) |
+| Continual learning | 3 | — | — | — | — | — |
+| Robustness/scaling | 3 | 1 | — | — | — | — |
+| Topological / spin glass | 1 | — | 1 | 2 | — | — |
+| Compound | — | — | 1 | — | — | — |
+| Pool retrieval algorithms | 1 | — | — | — | — | 3 |
+| Privacy / erase | — | — | — | 1 | — | 1 |
+| CANNOT | — | — | — | — | — | 17 (+1: Yonelinas dual-process) |
+| UNSURE | — | — | — | 13 | 10 | — |
+| KILLER Tier 1 | 3 | 1 | 1 | — | — | 1 |
+
+### What this update does NOT touch
+
+50 experiments in `data/needs_verdict.json` have completed with metrics but
+without `experiment_outcome` events emitted to `session_events.jsonl`. Many
+are already narratively integrated in v9/v10/v11. The cap_map protocol's
+strict trigger is the events log; until those land, this v12 update only
+covers (a) the Yonelinas event-logged outcome and (b) the two
+metrics.json-only strengthening updates that directly bear on existing ✅
+rows. Visibility session is expected to surface verdict gaps; Strategy will
+incorporate them as event_outcomes land.
+
+### Honest framing call
+
+Net of v12: one Tier-1-adjacent killer (Yonelinas) retracted, two existing
+✅ rows strengthened (Walsh-peak forensics + ACF rescue). The substrate
+capability ledger continues the pattern from v5/v7/v11: initial bold
+claims walked back under multi-probe tests, while infrastructure-level
+capabilities (forensics, decomposition primitives) keep accumulating.
+Three Tier-1 KILLERs still at ✅ (ICL, generation, provenance). The
+"surgical erase" gap remains open and is now Bet 2 in
+`notes/active_priorities.md`.
