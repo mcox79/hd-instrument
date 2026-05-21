@@ -31,20 +31,41 @@ Dev, Research, Visibility, Queue Health, META) read this.
   (gap-protection / pair-redundancy) is structurally distinct from
   Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v61** (corrected): 7 ✅ + 1 🟢 + 1 🟡 multi-hop-
-needing-alternative-rescue. NOT ❌-arch.
+**Tier-1 board after v62**: 7 ✅ + 1 🟢 + 1 🟡 multi-hop. Unchanged.
 
-**Active build queue (in priority order — REVISED v61)**:
-1. **Bet O Cooper-pair gap-protected** — promoted up; structurally
-   distinct mechanism from R8 list; ~20% prior but only Tier-1
-   multi-hop rescue currently buildable
-2. **R33 quantum-repeater segment-and-purify** — route to Research
-   immediately; ONLY poly-vs-exp candidate; highest-leverage
-3. Adaptive-β (R8 #6, last R8 list item; cheap; closes original R8 list)
-4. Bet B v4 (parameter tweak to push retention_A ≥ 0.80)
-5. Probe 1 area-law entropy check (R17; ZERO GPU; cheap)
-6. R31 soliton + R32 magnon + R17 sketches B/C/D — Research backlog at
-   equal priority below R33
+### v62 verdicts (15:32-15:39)
+- **Adaptive-β KILLED** (R8 #6, formally closes R8 list 6/6)
+- **Bet O KILLED** — storage-redundancy axis closes at current-arch
+- **Bet B v4 INCONCLUSIVE** — retention_A=0.740 (same v3 pattern;
+  seed-variance dominance confirmed)
+
+### Multi-hop closure scope (v62 disciplined)
+
+ALL currently-buildable rescue paths at current Plate-HRR substrate
+on flat N=4096 are now exhausted across 4 mechanism axes:
+1. Binding-algebra-swap (Hadamard, FHRR, hybrid) — closed cycles 7-33
+2. Cleanup amplification (Modern Hopfield, soft cleanup) — closed cycles 34-43
+3. Storage redundancy (Bet O Cooper-pair) — closed cycle 44 (this cycle)
+4. Symptom-mitigation (adaptive-β) — closed cycle 44
+
+7 surviving rescue paths are all research-first or V2-dependent:
+- R33 quantum-repeater (only poly-vs-exp candidate; maybe at current-arch
+  via periodic checkpointing — Research must scope)
+- R31 soliton attractor (research-first)
+- R32 magnon substrate (research-first; extends R29)
+- R34 V2 substrate hyperbolic (deferred V2 scope)
+- R17 sketches B/C/D (analytical; alternative-framing)
+
+**Active build queue (in priority order — REVISED v62)**:
+1. **R33 → Research routing URGENT** — only path with poly-vs-exp
+   asymptotic promise; not yet at Research
+2. Bet B decision point — accept 🟢 Partial as terminal OR run Bet B
+   Kovacs probe (R18 proposal; separates learning-dynamics from seed
+   noise via double-shift A→B→A)
+3. Probe 1 area-law entropy check (R17; ZERO GPU; cheap diagnostic)
+4. R31 + R32 → Research routing (lower priority than R33)
+5. R10 W-construction addendum from Research (unblocks Bet F closure
+   direction)
 
 ---
 

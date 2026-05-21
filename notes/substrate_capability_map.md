@@ -6041,3 +6041,138 @@ list. R8 mechanism axes (binding + cleanup at current-arch)
 specifically closed. Per [[feedback-no-smoke]] + [[feedback-dont-
 overextend-theorems]]: honest scope is narrow R8-list closure, not
 multi-hop closure.
+
+---
+
+## 2026-05-21 v62 update — Three landings: Adaptive-β KILLED (R8 6/6 formally closed), Bet O KILLED (storage-redundancy axis), Bet B v4 INCONCLUSIVE (seed-variance dominance confirmed); current-arch-buildable rescues now exhausted; 7 alternative-architecture paths remain
+
+Strategy session cycle 44 (in /loop). Pipeline drained between cap_map
+v61 commit and now. Three verdicts:
+
+| Experiment | Verdict | Time | Result detail |
+|---|---|---|---|
+| `wave14r_multihop_adaptive_beta_v1` (full) | **ADAPTIVE_BETA_KILLED** | 15:32:13 | acc_50hop=0.153 best across β-pairs. R8 list formally 6/6 closed |
+| `wave14d_multi_task_cl_v4` (full, Bet B v4) | **BET_B_INCONCLUSIVE** | 15:39:01 | retention_A=0.740, retention_B=0.893, gain_C=5.92, bwt=+0.20 — same v3 pattern |
+| `wave14r_multihop_cooper_pair_v1` (full, Bet O) | **BET_O_KILLED** | 15:39:35 | acc_50=0.013. Storage-side redundancy axis closes |
+
+### Adaptive-β KILLED — R8 list formally 6/6 closed
+
+**Result detail**: best acc_50hop=0.153 across (β, decay) pairs:
+- β=8.0, decay=0.1: 0.153
+- β=16.0, decay=0.2: 0.140
+- β=32.0, decay=0.5: 0.147
+
+All below FHRR's 0.22 floor. Symptom-mitigation by tuning cleanup
+softmax β-schedule does NOT extend depth. R8 rescue list is now
+formally exhausted (6/6).
+
+**Per [[feedback-dont-overextend-theorems]]**: this is symptom-
+mitigation closure on a known cleanup-side mechanism axis (R8 #6 sits
+on cleanup softmax, like Modern Hopfield and soft cleanup). Closure
+scope: cleanup-side post-hoc rescues do not work at current-arch.
+
+### Bet O KILLED — storage-redundancy axis closes at current-arch
+
+**Result detail**: acc_50=0.013 (essentially zero) for Cooper-pair
+gap-protected encoding. Far below FHRR's 0.22 floor. Pair-redundancy
+storage requires BOTH e_1 and e_2 cleanup to succeed; if single-bundle
+cleanup fails at d=25, pair cleanup is **harder**, not easier. The
+gap-protection prediction (BCS analog) does not materialize in BSC
+substrate without the genuine quantum gap mechanism.
+
+**Storage-redundancy axis** — pair encoding doesn't help substrate at
+current-arch. This was a NEW mechanism axis from META cycle 40
+(candidate 2), not in original R8 list. Bet O failing extends the
+closure inventory from 2 axes (binding, cleanup) to **3 axes**
+(binding, cleanup, storage-redundancy).
+
+### Bet B v4 INCONCLUSIVE — seed-variance dominance confirmed
+
+**Result detail**: retention_A=0.740, retention_B=0.893, gain_C=5.92,
+bwt=+0.20. Smoke at 15:32:01 had retention_A=0.840 PARTIAL. Same
+**smoke→full divergence** pattern as v2/v3 (cycle 36 followup
+diagnosis). Per [[feedback-no-smoke]]: smoke is favorable seed, not
+parameter improvement.
+
+**Bet B remains 🟢 Partial** at retention_A ~0.73-0.74 across 5+ seeds
+in v2/v3/v4. The 0.80 threshold is approximately 1 retention-point
+above seed-variance band; parameter tweaks aren't shifting the mean.
+Substrate-physics interpretation per R29 + R18 (Allen-Cahn t^(1/2)
+domain coarsening / Adam-Gibbs activated dynamics): retention_A is
+the slow-mode residual that doesn't yield to learning-rate / replay-
+fraction tweaks.
+
+**Bet B state stays 🟢 Partial**. Either accept 🟢 as terminal (Tier-1
+target lowered to 0.70 for production framing) or escalate to **Bet B
+Kovacs probe** (R18 proposal — double-shift A→B→A to test if memory
+effect signal emerges, separating learning-dynamics from seed noise).
+
+### Updated rescue path inventory (was 8 in v61; now 7 with Bet O killed)
+
+| # | Path | Mechanism axis | Status | Buildable at current-arch? |
+|---|---|---|---|---|
+| ~~1~~ | ~~Bet O Cooper-pair gap-protected~~ | ~~pair-redundancy~~ | ❌ KILLED v62 | (was yes) |
+| 1 | **R33 — Quantum-repeater segment-and-purify** | temporal error correction; only poly-vs-exp candidate | 🔬 research-first; not yet routed | **MAYBE at current-arch** — depends on Research's segmentation feasibility |
+| 2 | R31 — Soliton attractor design | nonlinear shape-preserving attractors | 🔬 research-first | maybe at current-arch |
+| 3 | R32 — Magnon / spin-wave substrate | collective bundle wave dynamics | 🔬 research-first (extends R29) | maybe at current-arch |
+| 4 | R34 — V2 substrate on hyperbolic-tiling | re-architecture | 🔬 deferred V2 | NO — V2 only |
+| 5 | R17 Sketch B — RTN spectral predictions | spectral framework | 🔬 analytical | (analytical, not experimental) |
+| 6 | R17 Sketch C — Operator-algebra QEC code | code-theoretic | 🔬 deferred | (analytical) |
+| 7 | R17 Sketch D — Effective scaling dimension Δ_eff | AQEC threshold | 🔬 alternative-framing | (analytical) |
+
+**Per [[feedback-dont-overextend-theorems]]**: 4 paths are research-
+first / analytical (R31/R32/R17 sketches B/C/D), 1 is V2 substrate
+(R34), 1 is uncertain at current-arch (R33). Honest scope of v62
+closure:
+
+**"All currently-buildable rescue paths at current Plate-HRR
+substrate on flat N=4096 are now exhausted (binding, cleanup,
+storage-redundancy + symptom-mitigation axes all closed). The
+remaining 7 rescue paths require either Research output (R31, R32,
+R33, R17 sketches) or V2 substrate (R34)."**
+
+This is a MORE disciplined closure than v60's overreach — it scopes
+the closure precisely to "currently-buildable at current-arch" and
+explicitly tags the 7 surviving paths as research-or-V2-dependent.
+
+### Multi-hop d=50 row state move
+
+| Capability | v61 state | v62 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning at d=50 (Tier-1) | 🟡 R8-list-exhausted; 8 alternative paths | 🟡 **all-currently-buildable-rescues-exhausted; 7 research-or-V2-dependent paths remain** | Bet O + adaptive-β KILLED; current-arch closure now disciplined |
+
+Still 🟡, NOT ❌. Per v61 discipline.
+
+### What's actionable next cycle (per v62)
+
+1. **Route R33 quantum-repeater to Research** — highest-leverage
+   forward-direction, only poly-vs-exp candidate. Research's Pass 1
+   should assess whether segment-and-purify can be implemented at
+   current-arch (e.g., via periodic checkpointing + redundant
+   re-encoding) or requires V2 substrate.
+2. **Route R31, R32 to Research** — research-first, lower priority
+   than R33 but cheaper to scout.
+3. **Bet B decision point**: accept 🟢 Partial as terminal at
+   retention_A~0.73 (revise Tier-1 target) OR escalate to Bet B
+   Kovacs probe per R18.
+4. **Probe 1 area-law entropy check** (R17 sketch C/D adjacent) —
+   cheap zero-GPU analyzer pass to confirm or kill R17's
+   substrate-as-RT-QEC framing.
+5. **R10 W-construction addendum** still pending from Research
+   (unblocks Bet F closure direction).
+
+### Tier-1 board after v62
+
+Unchanged from v61:
+- **7 ✅** (Bet 1, Bet 2, Bet A, Bet C, Bet E, Bet G, Bet H)
+- **1 🟢** Bet B Partial (v4 confirms seed-variance dominance; same as v3)
+- **1 🟡** Multi-hop d=50 (current-arch-buildable rescues exhausted;
+  7 research-or-V2 paths active)
+
+### Tally — 2 KILLED + 1 INCONCLUSIVE; rescue inventory tightens from 8 to 7; closure scope sharpens
+
+Net effect: substrate confirms R8 list 6/6 closure + storage-
+redundancy axis (Bet O) closure. Bet B 🟢 Partial confirmed as
+seed-variance limited. Tier-1 board unchanged. Multi-hop row stays
+🟡 per v61 discipline. R33 quantum-repeater routing becomes urgent
+(highest-leverage path; not yet at Research).
