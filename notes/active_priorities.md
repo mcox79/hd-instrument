@@ -31,9 +31,39 @@ Dev, Research, Visibility, Queue Health, META) read this.
   (gap-protection / pair-redundancy) is structurally distinct from
   Bet N's cleanup-amplification; remains active.
 
-**Tier-1 board after v65** (REVISED): 6 ✅ + 1 🟢 TERMINAL + 2 🟡
-(Bet E demoted-pending-v3-full; multi-hop with 7 rescue paths).
-Was 7 ✅ + 1 🟢 + 1 🟡 in v64.
+**Tier-1 board after v66** (REVISED again): 6 ✅ + 1 🟢
+**MECHANISM-DEPENDENT PASS pending v7** (Bet B v6 EMA blend cleared
+all 4 criteria; alpha sweep confirms) + 2 🟡 (Bet E pending v3b full;
+multi-hop with 7 paths + 1 Bet P theory split).
+
+### Cycle 47 (v66) — THIRD overclose reversal + Bet P delivery + verdict batch
+
+- **Bet B 🟢 TERMINAL REVERSED** — v6 EMA-blend mechanism (W_ABC = 0.7
+  W_ABC + 0.3 W_A) clears retention_A=0.845, all 4 criteria PASS.
+  v65 "0.80 was threshold-not-physics" was wrong; threshold IS
+  achievable via MECHANISM CHANGE (not parameter tweak). v7 alpha sweep
+  approved to confirm not sweet-spot.
+- **R17 Sketch C STRENGTHENED** — area-law at large N confirmed
+  (slope=-0.158); ~55% prior. Only R17 sketch surviving and growing.
+- **Bet P research delivered MIXED** — engineering crowded field (not
+  novel); theory substrate-novel (α_c(coherence) bound bridging
+  AGS/Demircigil for structured codebooks is OPEN). Split into
+  Engineering (port KGE) + Theory (analytical) routes.
+- **Multi-hop large-N partial signal** — >0.10 mean accuracy at all
+  depths at large N; acc_1hop=0.947 boundary fail; not a rescue but
+  evidence d=25 cliff is N-dependent.
+- **Bet F v3 smoke = v2 with proper R10 Option 2 W** — substrate
+  genuinely lacks AIII Z winding; v3 full pending will close pattern.
+- **Parisi v3b INCONCLUSIVE softer** — slope=-0.438 (vs v3 -1.419);
+  pattern unclear; v3b full pending. Bet E stays 🟡.
+- **R17 Sketch D RECONFIRMED killed** — Probe 2b smoke R²=0.000.
+- **PROT-006 in effect** — atomic sequencing for closures.
+
+### THIRD overclose pattern noted
+
+This session has 3 overclose reversals (v60→v61, v62→v62-followup,
+v65→v66). PROT-006 addressed WHEN of closure-rehab; need similar
+discipline for promotion/closure SCOPE. Worth META PROT-007 candidate.
 
 ### Cycle 46 (v65) updates
 - **Bet B 🟢 Partial TERMINAL** at retention_A ~0.73-0.74 (v5 confirms

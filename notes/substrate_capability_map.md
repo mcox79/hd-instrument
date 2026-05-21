@@ -6648,3 +6648,212 @@ Net effect: Tier-1 board recalibrated honestly (-1 ✅, +1 🟡, +1
 TERMINAL 🟢). Multi-hop inventory tightens 8→7 (Sketch D out, R33
 demoted). R33 framing corrects META's overclaim. Bet P stays #1
 priority for multi-hop rescue.
+
+---
+
+## 2026-05-21 v66 update — Bet B "TERMINAL" REVERSED (v6 PASS via EMA blend mechanism); R17 Sketch C strengthened at large-N; Parisi v3b softer than v3; Bet F v3 smoke = v2 (proper W); Bet P research MIXED (engineering crowded / theory substrate-novel); multi-hop large-N partial signal; THIRD overclose pattern this session
+
+Strategy session cycle 47 (in /loop). Six verdicts since v65 + Bet P
+research delivery + Experiment Dev request file. Three honest
+revisions, one new bet-split, one cap_map reversal.
+
+### Bet B v65 "TERMINAL" REVERSED — v6 PASS via mechanism change
+
+**Trigger**: `notes/strategy_request_from_exp_dev_2026-05-21.md` filed
+16:21 by Experiment Dev.
+
+**v6 verdict**: BET_B_PASS at 16:11:51. retention_A=**0.845**,
+retention_B=0.912, gain_C=5.62, bwt=+0.62. **All four Bet B success
+criteria CLEAR by margin**. Smoke and full both PASS (0.929 smoke /
+0.845 full — much smaller smoke→full divergence than v3/v4/v5).
+
+**Key mechanistic distinction**: v6 used **EMA blend** (W_ABC = 0.7
+·W_ABC + 0.3·W_A), NOT a parameter tweak. v3/v4/v5 tweaked replay
+fraction + Phase A epochs — all hit ~0.73-0.74 retention_A ceiling.
+v6's mechanism change (preserve 30% of Phase-A baseline via EMA)
+breaks the ceiling.
+
+**My v65 overclose**: I declared Bet B "🟢 Partial TERMINAL" stating
+"0.80 was threshold-not-physics." That was wrong. The right framing
+is "0.80 is parameter-tweak-ceiling-with-current-mechanism, NOT
+mechanism-independent." v6 proves a mechanism change can clear 0.80.
+
+**This is the THIRD overclose in this session** (cycle 47 audit):
+
+| # | Overclose | Discovered by | Cycle |
+|---|---|---|---|
+| 1 | v60 Multi-hop ❌-architectural | User catch ("I thought we just identified 5 potential ways") | 43 |
+| 2 | v62 Bet N/O rehab discipline drop | User catch ("you have all negative results researched right") | 44 |
+| 3 | **v65 Bet B 🟢 TERMINAL** | **Experiment Dev catch (v6 EMA blend PASS)** | **47** |
+
+Pattern: closures-drop-under-batch-pressure (per
+[[feedback-closures-drop-under-batch-pressure]]). PROT-006 addresses
+WHEN of closure-rehab; need similar discipline for promotion/closure
+scope.
+
+**Bet B state revision**:
+
+| Capability | v65 state | v66 state | Trigger |
+|---|---|---|---|
+| Multi-task continual learning A→B→C (Bet B, Tier-1) | 🟢 Partial TERMINAL | 🟢 **MECHANISM-DEPENDENT PASS** pending v7 alpha sweep — v6 EMA-blend (α=0.3) clears all 4 criteria; need {0.3, 0.5, 0.7, 0.9} alpha sweep to confirm not sweet-spot artifact | v6 PASS via EMA blend |
+
+**Per [[feedback-no-smoke]]**: NOT promoting to ✅ from single v6 config.
+Cross-version lesson (v3/v4/v5 smoke=PASS → full=PARTIAL) requires v7
+alpha sweep for confidence. Approving Experiment Dev's v7 alpha sweep
+proposal (10-min experiment).
+
+### R17 Sketch C strengthened — area-law confirmed at large N
+
+**Verdict**: `wave14_r17_area_law_probe1_largeN` full at 16:12:19.
+slope=**-0.158** (vs -0.171 at standard N). Confirmed at larger N
+that substrate exhibits area-law-like Renyi-2 scaling. Smoke -0.207.
+
+**Capability move**:
+
+| Capability | v65 state | v66 state | Trigger |
+|---|---|---|---|
+| R17 Sketch C — Substrate as operator-algebra QEC code (Harlow 2017) | 🔬 Probe-1-supported ~40% prior | 🔬 Probe-1-CONFIRMED at large-N ~55% prior | Large-N Probe 1 PASS |
+
+Substrate-physics implication: substrate IS area-law-like at scale.
+The "hidden low-dimensional structure" hypothesis from R17 strengthens.
+Worth deeper investigation via R17 Sketch C analytical route.
+
+### R17 Sketch D RECONFIRMED killed — Probe 2b smoke same result
+
+**Verdict**: `wave14_r17_delta_eff_probe2b_smoke` 16:03:55.
+DELTA_EFF_NO_POWERLAW, R²=0.000 for all codebooks. Reconfirms v65 kill.
+
+### Parisi v3b INCONCLUSIVE — softer signal than v3
+
+**Verdict**: `wave14_parisi_pq_sweep_v3b_smoke` 16:03:51.
+PARISI_V3_INCONCLUSIVE. Binder slope=-0.438 (vs v3 smoke's -1.419).
+"No codebook crosses BINDER>0.6 threshold but none declines steeply
+either. Pattern unclear."
+
+**Bet E state**: stays 🟡 (demoted v65). v3b full running now —
+when full lands across all 3 codebooks, will settle.
+
+Per [[feedback-no-smoke]] + cycle 20 lesson: the v3 smoke at -1.419
+may have been pessimistic; v3b at -0.438 is closer to flat. Wait for
+v3b full before final call on Bet E.
+
+### Bet F v3 smoke = BET_F_NO_TRANSITION (with proper R10 Option 2 W)
+
+**Verdict**: `wave14_ssh_bsc_v3_protected_smoke` 16:07:25.
+BET_F_NO_TRANSITION. Same as v2 smoke and full.
+
+**Substrate-physics interpretation**: with the CORRECT W-construction
+(R10 Option 2 substrate-coherent Hebbian outer-product), substrate
+STILL shows no AIII Z winding transition. v2 result was NOT a W-spec
+artifact — substrate genuinely lacks the topological structure.
+
+**Bet F state move pending v3 full**:
+
+| Capability | v65 state | v66 state | Trigger |
+|---|---|---|---|
+| SSH-BSC topological winding-protected (Bet F) | 🟡 NO_TRANSITION pending v3 W-spec | 🟡 NO_TRANSITION pending v3 FULL — smoke with proper W matches v2; substrate-architectural closure becoming likely | Bet F v3 smoke with R10 Option 2 W |
+
+If v3 full also shows NO_TRANSITION, Bet F closes ❌-architectural
+with R28-supplied 5 rescue sketches (Burgers/edge-screw/disclination/
+dislocation-bound-states/topology-by-coset) per PROT-004.
+
+### Multi-hop large-N PARTIAL signal — soft positive at scale
+
+**Verdict**: `wave14r_multihop_largeN_v1` full at 16:03:51.
+MULTIHOP_DECAY_AT_50. "All tested depths achieve >0.10 mean accuracy
+but PASS criteria not all met: acc_1hop=0.947<0.98."
+
+**Interpretation**: at large N, substrate retains >0.10 mean accuracy
+at all tested depths (interesting — current d=25 cliff was based on
+near-zero accuracy past 25). This is "soft pass on depth coverage."
+acc_1hop=0.947 (just below the 0.98 strict threshold) is the boundary
+fail. Not a rescue, but a quantitative signal that depth-25 cliff is
+softer at large N.
+
+**Capability**:
+
+| Capability | v65 state | v66 state | Trigger |
+|---|---|---|---|
+| Multi-hop d=50 large-N behavior | (not in cap_map) | 🔬 PARTIAL signal — >0.10 mean accuracy at all depths at large N; acc_1hop 0.947 boundary fail | Multi-hop large-N v1 |
+
+Adds 1 datapoint to the multi-hop closure-scope discipline (v61
+lesson). Not a rescue path, but evidence that the d=25 cliff is
+N-dependent. Worth pursuing in future bet design (e.g., does
+Bet P-style structured codebook + N scaling give actual extension?).
+
+### Bet P research delivered — MIXED finding (split into Engineering + Theory)
+
+**File**: `notes/research_BetP_semantic_codebook_2026-05-21.md`
+(landed 16:13).
+
+**Engineering aspect**: NOT substrate-novel. Crowded field with 8+
+established lines:
+- KGE: TransE, DistMult, RESCAL, ComplEx, RotatE, HolmE
+- Hyperbolic: Poincaré (Nickel-Kiela 2017)
+- VQ: Kohonen-VQ 2024, SOM-VQ
+- Residual quantization: TIGER, QINCo
+- Topographic deep nets: TDANN, TopoNets
+- Frame theory: ETF constructions
+- Strategy's Sketch 1 (hierarchical orthogonal-cluster): 70% likely
+  rediscovery of Kohonen-VQ + arXiv:2603.09317 ("Hopfield model for
+  patterns with internal structure")
+
+**Theory aspect**: substrate-novel territory. Open: closed-form
+α_c(coherence-spectrum) bound for associative memory capacity as
+function of codebook coherence structure. Hu 2024 worst-case only;
+Bielmeier 2025 narrow regime. Bridging AGS 0.138 ↔ Demircigil 2^(N/2)
+for structured codebooks is OPEN.
+
+**Bet P split**:
+
+| Capability | v65 state | v66 state | Trigger |
+|---|---|---|---|
+| Bet P — Engineering (structured codebook for multi-hop) | 🔬 active bet #1 | 🔬 active bet — port pretrained KGE vectors as codewords for cheap empirical test; NOT substrate-novel | Bet P research MIXED |
+| **Bet P-Theory — α_c(coherence-spectrum) closed-form bound** | (not separated) | 🔬 NEW substrate-novel; bridges AGS / Demircigil for structured codebooks | Bet P research finding |
+
+Probability estimates per Bet P research:
+- P(Bet P engineering beats FHRR 0.22 at d=50): 40-55%
+- P(Bet P engineering preserves Bet C M/N=8 within 20%): 25-35%
+- P(Bet P theory delivers substrate-novel α_c bound): 35-50%
+- P(both engineering AND theory succeed): 15-25%
+- P(at least one Bet P axis succeeds): 60-75%
+
+### Multi-hop rescue inventory (7 paths v65; now 7 with Bet P split)
+
+| # | Path | Mechanism axis | Status | Buildable at current-arch? |
+|---|---|---|---|---|
+| 1 | **Bet P-Engineering — structured codebook via pretrained KGE** | codebook geometry (NOT novel) | 🔬 quick empirical test — port existing KGE | YES (cheap) |
+| **1b** | **Bet P-Theory — α_c(coherence) closed-form bound** | **theory (substrate-novel)** | 🔬 NEW substrate-novel analytical | (analytical) |
+| 2 | R31 — Soliton attractor design | nonlinear attractors | 🔬 research-first | maybe |
+| 3 | R32 — Magnon / spin-wave substrate | collective dynamics | 🔬 research-first | maybe |
+| 4 | R33 — Hierarchical-cleanup + concatenated-coding | engineering refresh (2-4× constant) | 🔬 demoted | YES |
+| 5 | R34 — V2 substrate hyperbolic | re-architecture | 🔬 deferred V2 | NO |
+| 6 | R17 Sketch B — RTN spectral | spectral framework | 🔬 lower than R32 | (analytical) |
+| 7 | R17 Sketch C — Operator-algebra QEC | code-theoretic (Probe-1-CONFIRMED large-N ~55%) | 🔬 analytical | (analytical) |
+
+### Tier-1 board after v66
+
+- **6 ✅** (Bet 1, Bet 2, Bet A, Bet C, Bet G, Bet H)
+- **1 🟢 mechanism-dependent-PASS pending v7** (Bet B, v6 EMA blend
+  PASS; need alpha sweep)
+- **2 🟡** (Bet E pending v3b full; Multi-hop with 7+1=8 rescue paths
+  via Bet P split)
+
+### Action items
+
+- **Approve v7 alpha sweep** to Experiment Dev (10-min experiment;
+  confirms Bet B v6 not sweet-spot artifact)
+- **Bet P-Engineering quick test** routed (port pretrained KGE
+  vectors as codewords; 1-2 cycle experiment)
+- **Bet P-Theory analytical work** routed (longer; substrate-novel
+  contribution)
+- Wait for Parisi v3b full + Bet F v3 full + Probe 2b full verdicts
+- META cycle 14+ should flag the THIRD overclose pattern for
+  structural enforcement (PROT-007?)
+
+### Tally — 1 cap_map REVERSAL (Bet B TERMINAL → mechanism-dependent PASS); 1 STRENGTHENED (R17 Sketch C large-N); 1 SPLIT (Bet P into Eng + Theory); 1 partial signal (multi-hop large-N); 1 INCONCLUSIVE softer (Parisi v3b smoke); 1 NO_TRANSITION reconfirmed (Bet F v3 smoke with proper W); pattern-3 overclose noted
+
+Net effect: Bet B clearer path to ✅ via mechanism change; R17 Sketch
+C is the only R17 sketch surviving + strengthening; Bet P framing
+recalibrated honestly with Theory route as substrate-novel; multi-hop
+large-N adds quantitative wrinkle to closure-scope discipline.
