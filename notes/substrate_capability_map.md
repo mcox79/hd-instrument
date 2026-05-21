@@ -1497,3 +1497,170 @@ to them.
 The remaining Tier-1 gaps (multi-task continual learning, GPT-quality
 generation, edit-then-query end-to-end pipeline) are now the clear
 forward direction. See `notes/active_priorities.md` v2.
+
+
+## 2026-05-21 v14 update — REHAB SUPPLEMENT for v12/v13 closures (DRAFT rescues; Research 2x pass requested) + Bet C smoke positive + multi-hop replication failure
+
+Strategy session cycle 4 (in /loop). User correctly called out (a) v12/v13
+shipped closures without rehab blocks (violating
+[[feedback-rehabilitation-after-rejection]]) AND (b) Strategy hasn't been
+routing through Research's 2x deep-research protocol for rehab populations
+(violating the research playbook + [[feedback-unbiased-research]]).
+
+**This v14 update**:
+- Lists Strategy-DRAFT rescue candidates per closure (sketches, not commitments)
+- Explicitly routes R7/R8/R9 deep-research requests to Research session for 2x verification
+- Integrates two new event_outcomes (Kerdock v2 smoke, multi-hop envelope v1_b)
+- Notes the procedural gap for META → PROT-003 proposal
+
+**Important caveat**: the rescue lists below are Strategy's first-pass
+brainstorm, NOT literature-verified candidate sets. They identify
+*directions to investigate*, not directions to commit. Until Research
+runs its 2x pass (broad survey → substrate-compatible drill), no
+rescue here should be treated as load-bearing. The closures (Bet 3
+random-key chargeflip ❌; Yonelinas DPSD ❌) remain PROVISIONAL pending
+the rehab-from-research output.
+
+### Rehab block — Bet 3 (random-key iterative charge-flipping forensics)
+
+**Closure trigger.** `wave14s_chargeflip_forensics_v1` full: CF-from-SVD
+improvement +0.030 cos at K=2000 (target +0.20).
+
+**Strategy DRAFT rescue sketches** (5 candidates; require R7 2x research
+before any becomes a real recommendation):
+
+1. Sparsity prior + iterative sign-projection in Walsh-Hadamard basis
+2. Low-rank pre-projection (r ∈ {√K, log K}) + sign-quantize
+3. K-sparse storage regime test (K=200 rather than K=2000)
+4. Hybrid: CF on top-r eigenspace + SVD on residual rank-tail
+5. Semi-supervised forensics with Sayre-equation constraints from an
+   audited anchor set
+
+**Research request R7**: do a 2x pass on "iterative phase retrieval +
+sign recovery in random ±1 design matrices" — pass 1 broad
+(crystallography, compressed sensing, blind signal separation, ICA,
+ListNet, dictionary learning, error-correcting code decoding); pass 2
+drill the substrate-compatible variants. Output: ranked candidate list
+with literature citations + predicted improvement-over-SVD per variant.
+Strategy's 5 above are unvetted starting points only.
+
+**Final kill criterion** (after R7 lands and a top-ranked variant is
+tested): if 0/N tested rescues yield improvement > +0.20 cos at K=2000,
+then random-key forensics closes ❌-structural. Until R7 + first
+rescue-experiment: ❌ is PROVISIONAL.
+
+### Rehab block — Multi-hop reasoning (Tier-2 KILLER currently 🟡)
+
+**Closure trigger.** v13: `wave14u_multihop_envelope_v1` 50-hop fails
+at NUM_FACTS=25; `wave14t_multihop_v3` acc_1hop=0.927<0.98.
+**Plus cycle 4 new**: `wave14u_multihop_envelope_v1_b` (09:37) —
+ENVELOPE_V2_NOT_REPLICATED. At NUM_FACTS=50: 1-hop 0.967, 10-hop 0.71,
+**50-hop 0.40** (chain DOES sustain to depth 50 at higher fact-base,
+contradicting v1's "die at 50" framing).
+
+**Strategy DRAFT rescue sketches** (6 candidates; require R8 2x research):
+
+1. Cleanup operator family (modern Hopfield / Krotov-WTA / energy-based
+   fixed-point) replacing single-step argmax
+2. Adaptive beta schedule β(hop)
+3. Per-hop W-side update (eager / lazy anchoring)
+4. Binding algebra swap (FHRR exact-inverse / Clifford graded)
+5. Per-fact orthogonal-subspace allocation (cross-pollination from
+   Bet 2 — same Hadamard / Kerdock infra)
+6. Beam-search multi-hop with top-b per-hop tracking
+
+**Research request R8**: 2x pass on "noise accumulation in chained
+content-addressable memory" — pass 1 broad (associative memory
+literature, sequential cleanup, attractor dynamics, beam-search
+inference, BSC vs FHRR vs Clifford depth performance); pass 2 drill
+substrate-compatible variants ranked by predicted depth extension at
+NUM_FACTS=100, target ≥80% at depth 50. Strategy's 6 are unvetted.
+
+**Final kill criterion**: if 0/N tested rescues extend depth-50
+accuracy to ≥80% at NUM_FACTS=100, multi-hop closes ❌-with-current-arch.
+Until R8 + experimental test: 🟡 with provisional ❌ contingency.
+
+### Rehab block — Yonelinas dual-process (closed in v12)
+
+**Closure trigger.** `wave14yonelinas_roc_v2` full: z-ROC slope=1.11.
+DPSD threshold for dual-process is z-slope<0.85.
+
+**Strategy DRAFT rescue sketches** for source-vs-item differentiation
+(5 candidates; require R9 2x research):
+
+1. Source-monitoring framework (Johnson-Hashtroudi-Lindsay 1993) —
+   misattribution rates as the probe
+2. PDP (Process Dissociation, Jacoby 1991) — inclusion/exclusion task
+3. Asymmetric per-stream encoding strength (Hadamard source + random
+   item)
+4. Multi-vector source representation (Yonelinas-Diller 2014
+   vector-match recollection)
+5. Temporal-separation encoding with Hebbian decay asymmetry
+
+**Research request R9**: 2x pass on "source-vs-item memory dissociation
+models beyond DPSD" — pass 1 broad (cognitive science memory literature,
+not pre-filtered to AI/ML; source-monitoring, PDP, dual-trace, ACT-R
+declarative+procedural, Murdock-Steyvers TODAM, multi-trace memory);
+pass 2 drill substrate-compatible probe designs. Output: ranked list
+with per-probe falsifiability criteria. Strategy's 5 are unvetted.
+
+**Final kill criterion**: if 0/N tested probes yield robust source-vs-
+item asymmetry under multi-probe verification, then source-vs-item
+differentiation closes at "no clean dissociation in current
+architecture." v12's ❌ for DPSD-specifically stands; broader question
+stays open until R9 + experimental test.
+
+### New event_outcome triggers integrated this update
+
+#### `wave14v_erase_kerdock_v2` smoke (09:45:07): KERDOCK_V2_OVERCAPACITY_PASS
+
+Smoke-only result; full mode not yet run.
+
+- N=512 (smoke scale, not substrate scale)
+- M_stored ∈ {256, 1024} → M/N ∈ {0.5, 2.0}
+- Kerdock arm passes all 5 probes at M=1024 (M/N=2.0, past the
+  orthogonal capacity limit)
+- Correlated arm fails at M=256 (control reproduces Mirage)
+
+This is Bet C tracking positive in smoke. Does NOT cap_map upgrade yet
+— full mode at N=4096 is the promotion trigger.
+
+**Capability move** (preliminary, NOT a row state change):
+
+| Capability | v13 state | v14 state | Trigger |
+|---|---|---|---|
+| Full Kerdock + structured codebook for dense-codebook regime (M > N) | (not in cap map; Bet C in priorities) | Smoke-positive; awaiting full at N=4096 | `wave14v_erase_kerdock_v2` smoke |
+
+#### `wave14u_multihop_envelope_v1_b` full (09:37:39): ENVELOPE_V2_NOT_REPLICATED
+
+At NUM_FACTS=50: acc_1hop=0.967 (below v2's 0.98 PASS), acc_10hop=0.71,
+acc_50hop=0.40. Higher fact-base sustains chain to depth 50 at 40%.
+
+Net read: multi-hop envelope is more nuanced than v1 framing. Depth-50
+capability exists but is sensitive to NUM_FACTS and accumulates noise.
+The 🟡 in v13 stands; the new finding strengthens rescue option 5
+(orthogonal-key allocation) since the depth limit looks driven by
+cross-talk that orthogonal codebooks remove.
+
+### Procedural lesson + META proposal
+
+I shipped v12 + v13 cap_map closures with single-sentence
+justifications. The user caught the rehab gap in cycle 3 review, and
+the unbiased-research gap in cycle 4 review. Two corrective actions:
+
+1. **This v14 update** lists DRAFT rescues + dispatches R7/R8/R9 to
+   Research session.
+2. **META proposal PROT-003** (going into `notes/meta_proposals.md`):
+   *Every ❌ closure in cap_map requires (a) 3-5 axis-combination
+   rescue sketches in the same commit AND (b) a Research request for
+   2x deep research before the closure becomes load-bearing.*
+
+The protocol shouldn't depend on memorial honor system; it should be
+structural so future Strategy cycles (or session resets) inherit it
+automatically.
+
+### Updated tally — unchanged
+
+No row state changes from rehab; rehabs only add provisional-status
+notes + rescue lists + research requests. Kerdock v2 is preliminary
+(smoke only). Tally same as v13.

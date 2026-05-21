@@ -127,16 +127,28 @@ implementation details, Kerdock decoder choices); Experiment Dev (build
 - **R3**: Compositional generalization test design — no clean held-out
   test specified yet.
 - **R4 (modified)**: Multi-hop reasoning rescue — given v1+envelope show
-  chains break at 50 hops even with NUM_FACTS=25, is there an
-  architectural mod (different cleanup operator, adaptive beta,
-  per-hop W-side update) that extends the envelope? Or is "50+ hops"
-  the wrong claim entirely?
-- **R5 (new)**: Corpus-C design for multi-task continual learning
-  (Bet B). What's the right "genuinely different" third domain that
-  isolates true cross-domain retention from same-distribution-shift?
-- **R6 (new)**: Full Kerdock decoder implementation details (Bet C
-  prerequisite). Particularly: efficient `argmin` over 2^24 codewords
-  via Reed-Muller decoding?
+  chains break at 50 hops at NUM_FACTS=25 but sustain to 40% at depth
+  50 with NUM_FACTS=50, the envelope is more nuanced than v1 framing.
+  **See R8 for full rehab routing.**
+- **R5**: Corpus-C design for multi-task continual learning (Bet B).
+- **R6**: Full Kerdock decoder implementation details (Bet C prerequisite).
+- **R7 (NEW, rehab-routed, Bet 3)**: Iterative phase retrieval + sign
+  recovery in random ±1 design matrices. 2x pass (broad survey then
+  substrate drill). Strategy's 5 sketches in cap_map v14 (WH-sparsity,
+  low-rank pre-project, K-sparse storage, hybrid CF+SVD, semi-supervised
+  Sayre) are unvetted draft.
+- **R8 (NEW, rehab-routed, multi-hop)**: Noise accumulation in chained
+  content-addressable memory. 2x pass; substrate-compatible variants
+  ranked by depth-50 accuracy extension at NUM_FACTS=100. Strategy's 6
+  sketches in cap_map v14 unvetted draft.
+- **R9 (NEW, rehab-routed, Yonelinas)**: Source-vs-item memory
+  dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
+  framings. Strategy's 5 sketches in cap_map v14 unvetted draft.
+
+Per [[feedback-unbiased-research]] and [[project-research-playbook]]
+item 9: each rehab-routed R-request expects Research's 2x pass to
+*generate* the rescue list, not to vet a Strategy-drafted one. The
+DRAFT sketches are starting points only.
 
 ## Open experiment requests (routed to Experiment Dev)
 

@@ -286,3 +286,94 @@ hardware is idle.
 
 - 270s fallback heartbeat (active integration period, multiple verdicts
   landing per cycle this cycle). Will lengthen if next cycle is quiet.
+
+---
+
+## Cycle 4 — 2026-05-21 ~09:45 (in /loop, rehab corrective)
+
+PROT compliance this cycle: PROT-001/002 satisfied; **filed a META
+request for PROT-003** (closure requires rehab + research-routed 2x
+pass).
+
+### What I observed
+
+Two corrections from user reviews:
+
+1. **Cycle 3 review**: "did you research all negative results
+   aggressively?" — caught that v12 + v13 closures (Yonelinas, Bet 3,
+   multi-hop) shipped without rehab blocks, violating
+   [[feedback-rehabilitation-after-rejection]].
+2. **Cycle 4 review (mid-cycle)**: "are you incorporating 2x unbiased
+   deep research for strategy investigation?" — caught that my
+   in-progress rehab draft above was Strategy's own brainstorm framed
+   "X for substrate," not Research-led 2x deep research. Violates
+   [[feedback-unbiased-research]] and [[project-research-playbook]] item 9.
+
+New verdicts since cycle 3:
+- `wave14v_erase_kerdock_v2` SMOKE: KERDOCK_V2_OVERCAPACITY_PASS (Bet C
+  tracking positive in smoke; full mode pending).
+- `wave14u_multihop_envelope_v1_b` full: ENVELOPE_V2_NOT_REPLICATED. At
+  NUM_FACTS=50, depth-50 sustains at 40% (chain doesn't die as v1
+  framing suggested).
+
+### What I decided
+
+1. **cap_map v14** (atomic, committed, scp'd):
+   - Three rehab blocks added — Bet 3 chargeflip, multi-hop, Yonelinas
+     DPSD — each with 5+ DRAFT axis-combination rescue sketches and an
+     explicit "PROVISIONAL" tag on the closure
+   - Each rehab block routes a Research request (R7/R8/R9) for 2x deep
+     research to *generate* the actual rescue list. Strategy's sketches
+     are unvetted starting points only.
+   - Kerdock v2 smoke noted as preliminary (no row state change yet)
+   - Multi-hop v1_b finding noted in the existing multi-hop 🟡 row
+2. **active_priorities.md** updated:
+   - R7/R8/R9 added to Open research questions with explicit unbiased-
+     framing language
+   - Note at the end of the R-section: "rehab-routed R-requests expect
+     Research to *generate* the rescue list, not to vet a Strategy
+     draft"
+3. **Filed `notes/meta_request_from_strategy_2026-05-21.md`** proposing
+   PROT-003 to make the rehab+research routing structural rather than
+   honor-system.
+
+### Why
+
+- Both user corrections share a root cause: Strategy's per-cycle
+  protocol doesn't structurally require rehab-routing for closures. The
+  feedback memories cover the rule but reading them at cold-start
+  doesn't enforce them under multi-trigger batch pressure.
+- PROT-003 makes the rule structural. If approved, future Strategy
+  cycles (or any session that owns a capability ledger) literally
+  can't ship a closure without (a) rescue sketches in the same commit
+  AND (b) a Research request routing 2x deep research AND (c) a
+  PROVISIONAL tag.
+- Brutal honesty per [[feedback-no-smoke]]: I would not have caught
+  this gap myself. The user did, twice. PROT-003 transfers the
+  vigilance burden off the user.
+
+### Open items / handoffs
+
+- **META**: review and propose PROT-003 to user. If approved, add to
+  active_protocols.md.
+- **Research**: R7, R8, R9 are now queued — please prioritize R8
+  (multi-hop) since multi-hop is currently 🟡 with active interest;
+  R7 (chargeflip) and R9 (Yonelinas) are closures and lower urgency.
+- **Experiment Dev**: wave14v_erase_kerdock_v2 full mode at N=4096 is
+  the promotion trigger for Bet C. If positive, would expand the
+  orthogonal-key Mirage-grade erase capability to M > N.
+
+### Next cycle plan
+
+- Watch for wave14v_erase_kerdock_v2 full mode verdict (Bet C).
+- Watch for Bet A (wave14d_edit_then_query_v1) — should land soon per
+  Experiment Dev's 2-per-cycle cadence.
+- If R8 lands, integrate the multi-hop rescue list and choose which
+  variant to experiment first.
+- If META proposes PROT-003 and user approves, self-implement on next
+  cycle (will reshape my closure protocol).
+
+### Wake schedule
+
+- 270s again (active integration: Bet A expected soon; Kerdock v2 full
+  pending; META response on PROT-003 may need handling).
