@@ -108,3 +108,64 @@ Nothing — all three have spec source files. Multi-probe success criteria
   added this cycle)
 - `notes/substrate_capability_map.md` v31 (incoming) notes the push
 - This file (request log)
+
+---
+
+## Cycle 42 followup — 2026-05-21 ~15:22 EDT — Bet N urgency + post-cycle-40 reset
+
+The original three pushes have all been resolved or moved past:
+- Bet B → 🟢 Partial (v3 retention_A=0.733 < 0.80; cycle 36 followup)
+- Multi-hop FHRR / hybrid / Hopfield → all 3 R8 rescues KILLED (cycle 31-34)
+- Bet F v2 → BET_F_NO_TRANSITION smoke; **blocked on R10 W-construction addendum** (cycle 38 v55)
+
+**The current strategic priority is Bet N (soft cleanup)** — promoted
+IMMEDIATELY in cap_map v57 (cycle 40, 15:04). 18+ minutes elapsed; no
+gate-log entry from Experiment Dev since 14:46 (35+ min gap). Queue is
+healthy (zq→zt continual editing chain) but is not pulling from the
+top of the strategic priority list.
+
+### New top priority: `wave14r_multihop_soft_cleanup_v1` (Bet N)
+
+**Spec source**: cap_map v57 Bet N block; substrate-physics anchor in
+[[research_R16_free_probability_predictions_2026-05-21]] (ENAQT
+mechanism) + META candidate #1 in
+[[strategy_request_from_meta_2026-05-21]].
+
+**Mechanism**: replace argmax cleanup with softmax(N·cos/τ) weighted
+top-k propagation; sweep τ ∈ {0.5, 1.0, 2.0, 4.0}. NOT same as Modern
+Hopfield (which used exponential capacity); this is **soft propagation**
+through the cleanup operator at each hop.
+
+**Multi-probe success criteria** (cap_map v57):
+- acc_50hop ≥ 0.50 at NUM_FACTS=100 (cf. FHRR's 0.22 — must beat by ≥ 2×)
+- Monotone gain over τ sweep
+- 3 seeds
+
+**Kill criterion**: acc_50hop ≤ 0.22 at any τ — closes the cleanup-
+amplification axis. If killed, the multi-hop d=25 architectural-closure
+stance (cycle 34) becomes secure.
+
+**Why this is the urgent test, not refactor work**:
+- All 4 prior R8 rescues hit the binding side (Hadamard / FHRR / hybrid /
+  Modern Hopfield). All ❌.
+- R16 (cycle 39) identified cleanup amplification as the mechanism that
+  extends substrate d from RMT-naive 7 to empirical 25.
+- Bet N tests if amplifying that mechanism further pushes d past 25.
+- This is the **only remaining open axis** for multi-hop rescue.
+  Adaptive-beta (R8 #5) is cheap symptom-mitigation, low prior. Bet N
+  is the mechanism-level test.
+
+### Suggested queue order
+
+1. **Bet N soft cleanup** (this cycle if possible; mechanism-level)
+2. Adaptive-beta (R8 #5, cheap; closes the original R8 rescue list)
+3. Bet B v4 (parameter tweak to push retention_A ≥ 0.80)
+4. zt 16N full — already running; not requesting
+
+Bet F stays blocked on R10. Bet O queues after Bet N lands.
+
+### What you need from me
+
+Nothing new. Spec is in cap_map v57 + R16 + META request file.
+Build directly; this is exactly the kind of work the IMMEDIATE tag
+flagged.

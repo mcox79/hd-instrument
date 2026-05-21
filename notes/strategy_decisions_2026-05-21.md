@@ -2560,3 +2560,68 @@ alongside M-P/BBP (Bet I) and modern-Hopfield (R29/Bet M).
 
 **Loop state**: ScheduleWakeup will fire next at chosen heartbeat
 interval. Slash command at `~/.claude/commands/strategy-cycle.md`.
+
+---
+
+## Cycle 42 — wave14zq_continual_8N_kerdock_only full DONE; Bet N coordination gap surfaces
+
+**Time**: 2026-05-21 ~15:22 EDT (user signaled "experiment just finished").
+
+**What I observed** (via `data/local_dashboard_snapshot.json` @ 15:22:19):
+
+- **wave14zq_continual_8N_kerdock_only** (full mode) DONE at 15:18:06
+  after ~40 min wall. Smoke verdict at 14:37 was
+  CONTINUAL_8N_KERDOCK_HOLDS (M=8N, 100 seq edits, min_edited=1.000,
+  min_kept=1.000). Full verdict not yet in top-10 snapshot but
+  consistent extension expected.
+- **wave14zt_continual_16N_kerdock_only** (full mode) STARTED 15:18:06
+  — running now. Smoke landed 14:45 as CONTINUAL_16N_KERDOCK_HOLDS;
+  full will confirm at M=16N (2× zq's over-capacity).
+- **Queue pending**: ONLY `wave14_ssh_bsc_v2_protected` (still blocked
+  on R10 W-construction addendum from Research).
+- **No Bet N (soft cleanup) in queue. No Bet B v4. No adaptive-beta.**
+- gate_log directory: last gate file at 14:46 (`gate_log_betf.txt`).
+  Experiment Dev has not gated anything since 14:46 — 35+ minute gap.
+
+**What this means strategically**:
+
+1. zq/zt continual editing refactor is **confirmation work** — Bet A's
+   "Edit individual bindings" capability already ✅ Validated since
+   cycle 7 v20. The M=8N/16N ceiling extension is a refinement, not a
+   new bet outcome. **No cap_map state change required**.
+2. **Coordination gap**: the IMMEDIATE-priority Bet N soft cleanup from
+   cycle 40 (META candidate #1; cleanup-amplification mechanism per
+   R16) has been on Strategy's promotion for 78+ minutes (since ~15:04)
+   without Experiment Dev building it. The earlier multi-task CL push
+   (cycle 19 12:06) had a similar 60-min gap. Pattern recurrence.
+3. **Per [[feedback-two-experiments-per-cycle]]**: the queue invariant
+   "runner never sits idle waiting for me" is being held — zq just
+   handed off to zt, no dead time. But the QUEUE COMPOSITION is biased
+   toward refactor/confirmation work over high-impact promotions. The
+   pipeline isn't idle, but it's not pulling from the top of the
+   strategic-priority queue.
+
+**What I decided**:
+
+1. **No cap_map update this cycle** — the zq full finish doesn't change
+   any row state. Wait for zt full to confirm M=16N or for actual Bet N
+   landing.
+2. **File `strategy_request_to_experiment_dev_2026-05-21.md` update**:
+   refresh the request with explicit Bet N urgency. (See file edit.)
+3. **Stay on /loop heartbeat**. Don't burn another commit cycle on
+   confirmation work that's pre-integrated.
+
+**Per [[feedback-no-smoke]]**: zq DONE is good news (continual editing
+holds at M=8N full-mode timescale ~40 min) but it's the SAME good news
+the smoke gave at 14:37. Not over-claiming a state change.
+
+**Per [[feedback-closures-drop-under-batch-pressure]]**: the Bet N gap
+is the same coordination pattern as cycle 19. Filing it explicitly so
+the next Experiment Dev /loop fire reads the request file fresh.
+
+**Open**:
+
+- zt 16N full verdict (likely within next ~40 min if zq's pace holds)
+- Bet N soft cleanup queued by Experiment Dev (target: this cycle)
+- R10 addendum from Research (unblocks Bet F)
+- R17 holographic landed 15:16 — integrate next Strategy cycle
