@@ -7496,3 +7496,8 @@ drains. No additional request file needed — cap_map IS the queue.
 
 Net effect: pipeline depth confirmed; smokes pending full verification;
 no strategic moves required this cycle.
+
+
+## v75 — (2026-05-21) META 6-capability inventory; 5 new bets promoted (Bet S/T/U/V/W); Bet X deferred-research
+
+See live substrate_capability_map.md for full v75 narrative (will migrate to history.md on next PROT-007 cycle).
