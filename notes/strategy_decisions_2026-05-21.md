@@ -1519,3 +1519,33 @@ cap_map v37 (committed, scp'd):
 ### Wake schedule
 
 - 270s.
+
+---
+
+## Cycle 24 followup — 2026-05-21 ~13:00 (user approved Proposals 4 + 6)
+
+User approved both open META proposals:
+- **Proposal 4** (Strategy: ground tier labels): Strategy-scope
+  implementation. Applied to active_priorities.md (Top-priority queue +
+  Recently resolved table) + cap_map v38 (grounded Tier-1 board).
+- **Proposal 6** (Experiment Dev on /loop): not Strategy-scope. META
+  will add to active_protocols.md on next cron fire (13:13); Experiment
+  Dev self-implements per PROT-003 slash-command pattern.
+
+### What I changed (Proposal 4 implementation)
+
+- `active_priorities.md` Top-priority queue (Priorities 1/2/3): each
+  now leads with "What it tests" + "Substrate consequence if proven"
+  instead of bare "Tier-1 KILLER" label.
+- `active_priorities.md` Recently resolved table: added "What it proved
+  (substrate consequence)" column.
+- `cap_map v38` new section "Grounded Tier-1 board (canonical
+  reference for cycle 24+)" with substrate-level consequence per row.
+
+Old cap_map version snapshots (v3-v37) retain bare "Tier-1 KILLER"
+labels per [[feedback-no-smoke]] — not rewriting historical state.
+v38 grounded board is the forward reference.
+
+### Wake schedule
+
+- 270s.

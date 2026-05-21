@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 21 followup (added advanced-math forward-research backlog R13/R14/R15)
-**Cap map version this refers to:** v34 (pending — this cycle)
+**Last updated:** 2026-05-21 cycle 24 followup (Proposal 4 + 6 approved; tier labels grounded per Proposal 4)
+**Cap map version this refers to:** v37
 
 ---
 
@@ -18,22 +18,39 @@ tests on validated bets (A, C, G, H). Strategy explicitly nudging.
 **Filed**: `notes/strategy_request_to_experiment_dev_2026-05-21.md` with
 concrete next-step specs for each.
 
-### Priority 1 — Bet B multi-task continual learning (Tier-1 KILLER, ⚪)
+### Priority 1 — Bet B multi-task continual learning (⚪)
+**What it tests**: substrate trained on Corpus A, then B, then C
+(genuinely different domain) — does it retain all three under random
+replay? **KILLER if proven**: substrate genuinely learns from
+sequential domains without retraining cycles. Closes one of the two
+remaining unresolved Tier-1 rows.
+
 Research R5 landed 2026-05-21 10:21
 ([research_R5_corpus_C_design_2026-05-21.md](notes/research_R5_corpus_C_design_2026-05-21.md)).
-Build `wave14d_multi_task_cl_v1` per R5 spec. Tier-1 KILLER —
-substrate genuinely retaining 3+ domains is one of the two remaining
-unresolved Tier-1 rows.
+Build `wave14d_multi_task_cl_v1` per R5 spec.
 
-### Priority 2 — Multi-hop FHRR + hybrid (Tier-2 R8 rehab)
+### Priority 2 — Multi-hop FHRR + hybrid (R8 rehab)
+**What it tests**: substitute FHRR (continuous-group binding) for BSC's
+XOR-closed Walsh group in chained binds. **Substrate consequence if
+proven**: multi-hop reasoning extends past the d=25 depth cliff (per
+v17/v23) — substrate can chain 50+ inferences instead of breaking
+under cross-talk accumulation.
+
 Research R8 landed 2026-05-21 10:42
 ([research_R8_chained_CAM_binding_algebras_2026-05-21.md](notes/research_R8_chained_CAM_binding_algebras_2026-05-21.md)).
 Top candidates: A1 (pure FHRR) + C1 (hybrid BSC store + FHRR chain).
 Build `wave14r_multihop_FHRR_v1` AND `wave14r_multihop_hybrid_v1` in
-parallel per R8's recommended drill order. Targets multi-hop reasoning
-🟡 PROVISIONAL row (depth cliff at d=25 per v17/v23).
+parallel per R8's recommended drill order.
 
-### Priority 3 — Bet F SSH-BSC v2 topological (Tier-2 substrate-physics)
+### Priority 3 — Bet F SSH-BSC v2 topological
+**What it tests**: substrate-encoded facts tagged with integer winding
+number — does noise below threshold p_c shift winding by ±1 only at
+wall-adjacent sites (Hasan-Kane AIII categorical protection)?
+**Substrate consequence if proven**: integer-quantized memory protection
+— a bit-flip burst below p_c can't corrupt facts, larger shifts need
+coordinated multi-bit flips at probability ~p². No deployed LLM has
+this; it's a substrate-unique noise-immunity primitive.
+
 Research R10 landed 2026-05-21 11:02
 ([research_R10_SSH_BSC_topological_probe_2026-05-21.md](notes/research_R10_SSH_BSC_topological_probe_2026-05-21.md)).
 Build `wave14_ssh_bsc_v2_protected` per R10's probe spec (Z-quantization
@@ -51,15 +68,15 @@ in cycle 7, NOT all R-recommendations are correct on first build).
 
 ## Recently resolved (since cycle 1)
 
-| Bet | Outcome | Trigger |
-|---|---|---|
-| Bet 1 — ICL saturation curve | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid ICTX; soft-saturating to +0.05 at high ICTX (≤65536). Monotone positive through 16× substrate width. | `wave14d_icl_via_pool_v3_scaling` full + `wave14w_icl_extended` full |
-| Bet 2 — GDPR/surgical erase v3 (orthogonal-key path) | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit passes all 5 Mirage probes. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
-| Bet 3 — Random-key iterative charge-flipping forensics | ❌ PROVISIONAL per rehab discipline (cap_map v14). +0.03 over SVD (target +0.2). R7 routed. | `wave14s_chargeflip_forensics_v1` |
-| Bet C — Full Kerdock + structured codebook for dense regime (M > N) | ✅ VALIDATED at N=4096, M_stored up to 8N via wave14ya_erase_kerdock_v4 (extended from initial 2N target). | `wave14v_erase_kerdock_v2` + `wave14y_erase_kerdock_v3` + `wave14ya_erase_kerdock_v4` |
-| **Bet A — Edit-then-query end-to-end pipeline (Tier-1 KILLER)** | ✅ VALIDATED. Both Kerdock + correlated arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved at h ∈ {4, 8}. Tier-1 board now 4/6 ✅. Audit-divergence note: v5's 93% leak didn't reproduce; v20 cap_map flags for follow-up. | `wave14yb_edit_then_query_kerdock` |
-| **Bet G — Substrate calibration rescue** | ✅ RESCUED via TEMPSCALE at β=32 (ECE 0.59 → 0.0000 over 3 seeds). First ❌ PROVISIONAL to close ✅ under the v14 rehab framework. Strategy sketch #1 (Platt/temperature) worked; R11 retrospective confirmation. | `wave14yx_calibration_temp_scaling` |
-| **Bet H — Autoregressive generation rescue** | ✅ RESCUED via T=0.5 sampling (char_entropy 0.92 baseline → 5.13 at T=0.5; ngram_repetition 1.00 → 0.00). Second ❌ PROVISIONAL to close ✅ under the v14 rehab framework. Strategy sketch #1 (temperature tuning) worked. | `wave14yz_generation_with_sampling` |
+| Bet | What it proved (substrate consequence) | Outcome | Trigger |
+|---|---|---|---|
+| Bet 1 — ICL saturation curve | Substrate adapts to new context-examples at query time without weight updates, scaling log-linearly through 16× substrate width. | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid; soft-saturating +0.05 at high (≤65536); monotone positive throughout. | `wave14d_icl_via_pool_v3_scaling` + `wave14w_icl_extended` |
+| Bet 2 — GDPR/surgical erase (orthogonal-key path) | Substrate facts can be selectively forgotten (all 5 Mirage probes) when substrate uses structured orthogonal keys. | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
+| Bet 3 — Random-key iterative charge-flipping forensics | (Would have enabled reading stored facts from W alone on random-key substrates.) | ❌ PROVISIONAL (cap_map v14 rehab). +0.03 over SVD vs +0.2 target. R7 routed. | `wave14s_chargeflip_forensics_v1` |
+| Bet C — Full Kerdock for dense regime (M > N) | Substrate erase works at 8× over-capacity (32K facts per N=4096 dimensions) with the standard Kerdock m=12 codebook. | ✅ VALIDATED at M/N ≤ 8.0 (v4 variant); v8 32-coset variant smaller (M/N ≤ 4.0 per cycle 24). | `wave14v` + `wave14y` + `wave14ya` (variant-specific bounds in v37) |
+| **Bet A — Edit-then-query end-to-end pipeline** | Substrate can be **corrected in-place** without retraining: edit a fact, downstream queries reflect the correction; untouched facts preserved. | ✅ VALIDATED. Both arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved h ∈ {4, 8}. | `wave14yb_edit_then_query_kerdock` |
+| **Bet G — Calibration rescue (TEMPSCALE β=32)** | Substrate confidence scores predict accuracy after post-hoc temperature scaling — substrate can ship as a calibrated retrieval system. | ✅ RESCUED. ECE 0.59 → 0.0000 over 3 seeds. First ❌-PROVISIONAL to flip ✅ under v14 rehab framework. | `wave14yx_calibration_temp_scaling` |
+| **Bet H — Autoregressive generation rescue (T=0.5 sampling)** | Substrate generates non-degenerate multi-byte text under temperature sampling — no fixed-point collapse. | ✅ RESCUED. char_entropy 0.92 → 5.13; ngram_repetition 1.00 → 0.00. Second ❌-PROVISIONAL → ✅. | `wave14yz_generation_with_sampling` |
 
 ## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
 

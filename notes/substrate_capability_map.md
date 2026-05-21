@@ -3627,3 +3627,65 @@ implemented, this coordination gap closes.
 
 Bet C row gains "variant-specific bound" caveat. No new rows. No
 closures. Tally unchanged from v36.
+
+
+## 2026-05-21 v38 update — Proposal 4 + 6 approved by user; Tier-1 board grounded per Proposal 4
+
+Strategy session cycle 24 followup. User approved two open META proposals:
+- **Proposal 4** (tier labels grounded in capability descriptions): now
+  applied to `active_priorities.md` Top-priority queue + Recently
+  resolved table. This v38 update adds the grounded Tier-1 board
+  below as the canonical reference.
+- **Proposal 6** (Experiment Dev /loop): META will add as
+  active_protocol on next cron. Experiment Dev self-implements per
+  PROT-003 slash-command pattern.
+
+### Grounded Tier-1 board (canonical reference for cycle 24+)
+
+Per Proposal 4: every Tier-1 capability includes a same-line
+substrate-level consequence.
+
+| Capability | What substrate can do if validated | v37 status |
+|---|---|---|
+| **GPT-quality generation with auditable memory** | Substrate generates non-trivial text whose retrieved atoms are decomposable and editable — output quality competitive with frozen transformers AND every byte traceable to stored atoms. | 🟢 Partial. Generation ✅ at K=16 single-position + multi-step beats trigram (cycle 20); GPT-quality bar untested. |
+| **True continual learning at production scale (A→B→C→D)** | Substrate trains on sequential domains without retraining cycles — agents that learn from interactions instead of being frozen at deployment. | ⚪ Untested. R5 landed cycle 8; Bet B is Priority 1. |
+| **Edit-then-query for fact correction** | A user correction propagates through the full pipeline (pool + W + query) and changes the substrate's predictions — substrate corrects facts in-place without retraining. | ✅ Validated (cycle 9). Bet A across full M-range (cycles 9-13). |
+| **Provenance for every prediction** | Every substrate output traces structurally to specific stored atoms — debug / trust / compliance built into the substrate, not bolted on. | ✅ Validated (pool retrieval indices exposed since v3). |
+| **In-context learning via pool** | Substrate adapts to query-time examples without weight updates — same UX as transformer ICL, but each retrieval is auditable. | ✅ Validated (cycle 3 + cycle 15 extended ICTX=65536). |
+| **Hierarchical retrieval (RSB)** | Substrate has a free log(P) tree-walk retrieval latent in its spin-glass overlap structure — no ANN library bolt-on needed. | ✅ structural (cycle 3); ❌ algorithm at P=1024 (cycle 5; revisit at P≥50K). |
+
+Score: **4 ✅ + 1 🟢 partial + 1 ⚪ + 1 (RSB ✅ structural / ❌ algorithm split)**.
+
+### Substrate-product story (post-grounding)
+
+The substrate's competitive frame, per [[feedback-value-creation-not-competition]],
+is what it enables that no existing primitive does:
+- **Surgical fact-correction at scale** (Bet A ✅ + continual editing
+  to 5000 ✅): edit facts in-place; no retraining; ROME/MEMIT-class
+  competitor with kept-fact preservation built in.
+- **Auditable retrieval with provenance** (provenance ✅ + ICL ✅):
+  every output traces to stored atoms; downstream debug / trust /
+  GDPR-style erase (Bet 2/C ✅) all native.
+- **Hardware-deployable noise tolerance** (substrate noise σ≤16 ✅
+  cycle 21): supports quantization, neuromorphic, analog substrates.
+- **Real-time learning during inference** (cycle 15 compound ✅):
+  pool absorbs queries; substrate improves with use without retraining.
+
+Open Tier-1 gaps:
+- Multi-task continual learning (Bet B): can substrate retain genuinely
+  different domains? — closes the substrate-vs-LLM-retraining argument.
+- GPT-quality generation: not yet competitive on raw quality; sampling
+  generates non-degenerate text but quality bar untested.
+
+### Process note
+
+Proposal 4's grounding pattern is now my default for future tier
+references. Old cap_map version snapshots (v3-v37) retain bare
+"Tier-1 KILLER" labels — not rewriting historically per
+[[feedback-no-smoke]] (show your work; don't silently rewrite
+retrospective state). The v38 grounded board is the canonical
+forward reference.
+
+### Tally — no row state changes
+
+Pure grounding + process update. Approvals noted for META cron pickup.
