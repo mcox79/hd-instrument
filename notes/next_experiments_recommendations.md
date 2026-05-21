@@ -184,6 +184,21 @@ synthesis does not edit). Main session.
 
 ## 2026-05-20 14:53 — Highest-leverage build identified: rank-1 anti-Hebbian W edit primitive
 
+> **RETRACTED 2026-05-20 23:24 by next-cycle user evidence.** See
+> `## 2026-05-20 23:24` section below. The anti-Hebbian rank-1 W
+> edit was implemented and tested (`wave14h_alpha_sweep_v2`,
+> `wave14p_erase_multiprobe`). It passes argmax but FAILS Mirage
+> probes (rank, norm, cos, paraphrase) under correlated keys.
+> Per the user's cap map evening update: "Don't pitch as
+> GDPR-grade. Direct subtraction works mathematically but cross-talk
+> magnitude persists under correlated keys."
+>
+> The recommendation below was correct math but insufficient as a
+> selective-forgetting primitive. Argmax-pass is not enough. The
+> recommendation is retracted as written; the GDPR-erase capability
+> ❌ in the current architecture remains a real gap, but rank-1
+> anti-Hebbian alone does NOT close it.
+
 `wave14g_erase_under_replay` is the second independent negative on
 the W-leak axis (first was `wave14d_query_side_integration`). The
 mechanism is fully diagnosed and the fix is named:
@@ -199,7 +214,7 @@ W -= alpha * (W @ k - 0) * (k^T C^-1) / (k^T C^-1 . k)
 where `k` is the key vector for the fact to forget and `C` is the
 covariance of stored facts (or identity for spherical assumption).
 
-**Why this is the top recommendation**:
+**Why this WAS the top recommendation (now retracted)**:
 - Closes the GDPR / surgical-erase capability (currently ❌ in
   current architecture)
 - Unlocks the Tier-1 KILLER edit-then-query (currently 🟢 partial)
@@ -207,6 +222,10 @@ covariance of stored facts (or identity for spherical assumption).
 - Per the event-log diagnosis: "architecturally additive, not a kill"
 - Fits the no-backprop, Hebbian-only constraint of the substrate
 - Math is well-cited; not speculative
+
+**What went wrong**: only argmax was sanity-checked. Under Mirage
+probes (per arXiv:2503.06991 "Mirage of Model Editing"), the residual
+cross-talk magnitude remains detectable on correlated keys.
 
 **Composable with existing experiments**:
 - `wave14d_edit_then_query_v1` (P4 above) — would test query-side
@@ -219,6 +238,88 @@ covariance of stored facts (or identity for spherical assumption).
 
 This is the single most leverage-dense build in the recommendations
 file as of 2026-05-20 14:53.
+
+---
+
+## 2026-05-20 23:24 — Retraction of v8 W-edit recommendation; acknowledgment of user evening session
+
+User's evening session (commits `c325012` + `44e9c3b` at 22:50, 22:56)
+validated the v8 recommendation experimentally and CAUGHT IT FAILING:
+
+**Mirage failure mode confirmed**:
+- `wave14h_alpha_sweep_v2`: anti-Hebbian rank-1 W edit passes argmax
+  with 76.7pp leak reduction (looked GDPR-grade on first inspection)
+- `wave14p_erase_multiprobe`: same edit FAILS rank/norm/cos/paraphrase
+  probes. Direct subtraction works mathematically but cross-talk
+  magnitude persists under correlated keys.
+- `wave14anneal_selective`: selective thermal annealing in (v_e, k_e)
+  subspace also caught on Mirage (same norm_ratio failure).
+- Only global anneal at p=1.0 (`wave14z_anneal_erase`) collapses norm
+  — that's factory reset, not selective.
+
+**Implication for recommendations**: GDPR-grade selective forgetting
+under correlated keys is HARDER than the v8 anti-Hebbian recipe
+suggested. The capability remains ❌ in current architecture; the
+fix space has narrowed (anti-Hebbian + selective anneal both
+falsified) and now needs deeper research.
+
+**Lesson for the synthesis session**: all future erase / edit / GDPR
+recommendations must specify multi-probe verification (rank + norm
++ cos + paraphrase per Mirage paper, arXiv:2503.06991) as a
+pre-registration requirement. Argmax-pass alone is no longer
+sufficient evidence.
+
+### User-added capabilities (acknowledged from cap map evening update)
+
+These landed via direct cap map commits, not session_events.jsonl
+events. Synthesis session does NOT re-touch the rows — but flagging
+them here so the recommendations file stays coherent with the cap
+map:
+
+- **✅ Substrate forensics via WHT with structured keys**
+  (`wave14xrd_structured_keys`): Hadamard keys give SNR 1.5e7 vs 1.3
+  random. Crystallography analog validated. Bragg peaks at integer
+  Walsh frequencies. **New capability product story**: structured-key
+  substrate is auditable without queries (count Bragg peaks = number
+  of facts; peak frequencies = identify keys).
+- **✅ ALPHA_C confirmed AGS-like**: α_c = 0.153 at N=4096 (rising
+  from 0.082 @ N=1024 → 0.107 @ N=2048 → 0.153 @ N=4096). Substrate
+  is in canonical AGS Hopfield regime. 40 years of spin-glass theory
+  applies.
+- **🔬 New candidate capabilities** the user has flagged for follow-up:
+  MP-edge forensics primitive, charge-flipping readout attack
+  (security finding), Kerdock-coset structured codebooks (2× usable
+  K + 50-350× faster cleanup via FHT), Parisi RSB pure-state
+  addressing.
+
+### Re-prioritized: what to recommend instead of the falsified v8 rec
+
+The previous "single highest-leverage build" (anti-Hebbian rank-1
+W edit) is retracted. The cleanest replacement candidates for the
+GDPR-erase ❌ gap are:
+
+1. **Kerdock-structured W rewrite** — the user flagged that the
+   "decoder swap to sparse Hopfield gives exp(N) capacity" story
+   was a category error (different architecture). But the
+   Kerdock-coset structured-codebook variant offers a real 2×
+   usable K + 50-350× faster cleanup via FHT, AND ships with the
+   WHT-forensics capability. Might offer enough structural change
+   to make selective erase tractable (Hadamard subspaces are more
+   surgically separable than random ±1 keys).
+2. **Charge-flipping erase / forensics** — the user flagged this as
+   a security finding; it could equally be exploited as a primitive
+   to verify which facts have been erased (audit trail). Worth
+   pairing with any erase mechanism as a verification layer.
+3. **Re-derive selective erase against the Mirage probe battery
+   from the start** — any new erase mechanism should be evaluated
+   against all four probes (rank, norm, cos, paraphrase) before
+   being added to the cap map. Synthesis session will not promote
+   to ✅ any future erase claim that only passes argmax.
+
+**For now, this is a deferred build, not a recommendation.** The
+user has the architectural design context; synthesis flags the gap
+but does not re-propose a specific fix until the candidate map's
+options have been drilled.
 
 ---
 
