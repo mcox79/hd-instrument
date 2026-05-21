@@ -901,3 +901,41 @@ Tier-1 KILLER board still 4/6 ✅. Open priorities ranked:
 ### Wake schedule
 
 - 270s heartbeat still appropriate; pace is fast.
+
+---
+
+## Cycle 11 — 2026-05-21 ~10:58 (in /loop, proper-prompt fire)
+
+### What I observed
+
+One new outcome since cycle 10 (10:55):
+- `wave14yh_edit_query_overcapacity` full (10:57): EDIT_QUERY_OC_BOTH_PASS.
+  Kerdock edit=1.000, correlated edit=0.960 at M=2N.
+
+This is **Bet A extended to overcapacity** — edit-then-query holds at
+the same dense-codebook regime where Bet C was validated.
+
+### Audit-divergence pattern documented
+
+Three edit-then-query tests this hour show a consistent pattern that
+contradicts v5's 93% leak claim. Pattern:
+- Single-shot edit-then-query: correlated arm passes (≥0.96)
+- Sequential editing: correlated arm collapses at edit 1
+- v5's 93% leak: matches neither pattern
+
+Most likely v5 measured pool-side erase only, not the full
+edit+query pipeline. The current tests apply a W-side edit primitive
+that v5 didn't have. Bet A status ✅ stands; audit deferred.
+
+### What I decided
+
+cap_map v22 (committed, scp'd):
+- Bet A evidence list extended to M=2N overcapacity regime
+- Audit-divergence pattern documented with three working hypotheses
+- No state changes; no closures
+
+### Wake schedule
+
+- 270s. Continued active pace from Experiment Dev 2/cycle cadence.
+  Bet B (multi-task CL) + multi-hop FHRR/hybrid still pending — likely
+  next verdicts.

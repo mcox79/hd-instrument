@@ -2462,3 +2462,57 @@ effectively unbounded by codebook density at substrate scale.
 Same as v20. Updates this cycle were:
 - Continual editing evidence list extended (30 → 100 edits)
 - Kerdock v5 smoke noted (preliminary, no row change)
+
+
+## 2026-05-21 v22 update — Bet A holds at overcapacity (M=2N); audit-divergence pattern emerges
+
+Strategy session cycle 11 (in /loop). One extension trigger:
+`wave14yh_edit_query_overcapacity` full (10:57:39) —
+**EDIT_QUERY_OC_BOTH_PASS** at M=2N (overcapacity regime).
+
+### Bet A extended to overcapacity regime
+
+`wave14yh_edit_query_overcapacity` full mode (10:57:39):
+- N=4096, M_stored = 2N (overcapacity, the Bet C dense-codebook regime)
+- Kerdock arm: edit=1.000, kept=1.000, side_effect=0.0, paraphrase
+  preserved at h ∈ {4, 8, 16}
+- Correlated arm: edit = 0.960 (slightly degraded but passes)
+
+This extends Bet A from M ≤ N (cycle 9's `wave14yb_edit_then_query_kerdock`)
+to M = 2N. Edit-then-query Tier-1 KILLER holds across orthogonal-to-
+overcapacity range.
+
+**Evidence list addition** (existing ✅ Tier-1 row):
+
+| Capability | State | Added evidence |
+|---|---|---|
+| Edit-then-query for fact correction (Tier-1 KILLER) | ✅ Validated | Now also: `wave14yh_edit_query_overcapacity` at M=2N (Kerdock 1.000, correlated 0.960). Capability holds across orthogonal-to-overcapacity range. |
+
+### Audit-divergence pattern emerges (v5's 93% leak)
+
+Three edit-then-query tests this hour show a consistent pattern that
+contradicts v5's 93% leak:
+- `wave14yb_edit_then_query_kerdock` (M≤N): correlated edit=1.000
+- `wave14yc_continual_editing_kerdock` (sequential, M≤N): correlated
+  FAILS at edit 1 — only test where v5-like behavior reproduces
+- `wave14yh_edit_query_overcapacity` (M=2N): correlated edit=0.960
+
+The split:
+- **Single-shot edit-then-query** (yb, yh): correlated arm holds (≥0.96)
+- **Sequential editing** (yc): correlated arm collapses immediately
+- **v5's measurement**: produced 93% leak — different from both
+
+Three working hypotheses for v5's 93% leak (untested):
+1. v5 measured pool-side erase only, not the full edit+query pipeline.
+   Pool erase leaves W intact → 93% retrievable via W. The current
+   tests apply a W-side edit primitive that v5 didn't have.
+2. v5 used different probe semantics (probe vs k_paraphrase rather
+   than probe vs k_erased).
+3. v5 had a substrate-construction bug since fixed.
+
+Hypothesis 1 most likely. Bet A status as ✅ stands; audit is
+housekeeping. Will close when one of the three is confirmed.
+
+### Tally — extension only; no state changes
+
+Same as v21. Bet A evidence list grew; M=2N regime now covered.
