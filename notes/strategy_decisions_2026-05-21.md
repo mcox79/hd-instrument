@@ -2825,6 +2825,72 @@ promotion this session; theoretically legitimized v70).
 - Research's next item (R19 topological-beyond-winding likely next per
   R-priority)
 
+---
+
+## Cycle 54 — PROT-007 EXECUTED + Research BLOCKED (commit e03290a)
+
+**Time**: 2026-05-21 ~18:03 EDT.
+
+**Signals this cycle**:
+- META cycle 17 audit landed (17:47) — confirmed bottleneck shifted
+  to Strategy throughput; PROT-007 pending
+- Research session BLOCKED (research_blocker.md filed 17:34, refreshed
+  18:02) — queue exhausted (38 notes / ~940 KB delivered); standing by
+- Parisi v3c smoke + v3d smoke produced IDENTICAL output (slope=1.130);
+  appears deterministic-on-seed; Experiment Dev needs script review for
+  Bet E methodology resolution
+- No new experimental verdicts since Bet B v7 + multi-hop N8192 (cycle 52)
+
+**What I did**:
+
+PROT-007 (cap_map two-file split) finally executed. cap_map went from
+7447 lines / 372 KB to 2198 lines / much smaller live file. Historical
+narratives (v1-v59) archived to `substrate_capability_map_history.md`
+(5316 lines + compact version index table). v60+ stays in live file.
+
+Per [[feedback-no-smoke]]: META flagged PROT-007 in cycle 16 and 17.
+I executed in cycle 54 after the 2-cycle delay. Honest acknowledgment
+of the delay; structural fix is now in place.
+
+**Strategic state after PROT-007**:
+- Cap_map is now load-efficient per cycle
+- Decision log is current (cycle 53 batch catchup committed)
+- Active priorities reflects v70 state
+- 3 active request files: Bet N rehab (cycle 44), Bet O rehab (cycle
+  44), Bet F rehab (cycle 48); Bet P request (cycle 45)
+- Research BLOCKED waiting for new inbound
+- Pipeline idle
+
+**Forward direction**:
+
+R27 L.1 (Musa super-linear capacity via explicit p-body coupling) and
+R27 L.2 (Marsh reconfigurable W) were noted in v70 as potential new
+bets but not yet promoted. META cycle 17 flagged this. Should
+Strategy promote them?
+
+Per [[feedback-no-smoke]] + [[feedback-rehabilitation-after-rejection]]:
+- L.1 is a buildable substrate modification (explicit 4-body coupling)
+  with 10-50× capacity gain potential per Musa 2025
+- L.2 is dynamic W reconfigurability with 7× gain per Marsh 2025
+- Both are CURRENT-ARCH buildable
+- Worth promoting as new bets pending Experiment Dev pickup
+
+But filing rehab requests is the responsible move (PROT-006). If
+Experiment Dev tests fail, having rescue inventory pre-filed is
+disciplined.
+
+**Decision**: defer L.1/L.2 promotion to next cycle (cycle 55 when
+Experiment Dev has bandwidth). The cap_map split is the actionable
+PROT-007 item for this cycle.
+
+**Pending decisions for user direction**:
+- Should R27 L.1 Musa super-linear be a new Tier-1 bet (10-50× capacity)?
+- Should R21 cross-modal experiment be queued?
+- Should Bet P-Engineering smoke test be prioritized for Experiment
+  Dev's next /loop pickup?
+
+If quiet: heartbeat at 25 min for next state change.
+
 **Loop continues**.
 
 ---
