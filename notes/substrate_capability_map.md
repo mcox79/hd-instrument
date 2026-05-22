@@ -536,6 +536,7 @@ the next PROT-007 migration cycle.
 | v82 | 2026-05-21 | META V2.G + triple-point hypothesis | Critical-point smoke = gating test; Bet Z ↔ V2.G alignment; capability reframe HELD; annealing erasure routed |
 | v83 | 2026-05-21 | Annealing erasure honest recalibration | Primary forensics claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin); M.1 soft + M.2 bulk promoted |
 | v84 | 2026-05-21 | Critical-point protocol honest recalibration | Triple-point P=50-65% → 10-20% truly / 35-45% subcritical / 35-50% artifact (Touboul-Destexhe 2017); 4-signature stack required (S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/σ + S.4 surrogate); V2.G cost-conditional |
+| v85 | 2026-05-21 | Triple-point deepdrill + substrate-product UPGRADE | Critical-point P=0.05; extended critical regime P=0.75 (tricritical 0.30 + Griffiths 0.25 + RFOT mosaic 0.20); Griffiths phase = engineering knob (τ 1.20-1.52 tunable); δ(λ) drift = revised gating test |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1780,3 +1781,121 @@ Net effect: substrate-physics interpretation honest — substrate IS
 spin-glass-character but criticality claim was overstated; 4-signature
 stack needed for rigor; V2.G build path stays open but with lower
 expected free-ness; V2.D Bet Y reinforced as primary V2 track.
+
+---
+
+## v85 update — Triple-point deepdrill HONEST RECALIBRATION + SUBSTRATE-PRODUCT UPGRADE: critical-point hypothesis P=0.05 (codimension-2 fine-tuning implausible); EXTENDED critical regime P=0.75 (tricritical 0.30 + Griffiths 0.25 + RFOT mosaic 0.20); Griffiths phase is the substrate-product UPGRADE (tunable exponent IS the engineering knob); revised δ(λ) drift test = best 1-GPU-hour ROI
+
+Strategy session cycle 83. Research delivered triple-point deepdrill
+(`research_triple_point_deepdrill_2026-05-21.md`, 22:30, 38 KB,
+~13 min turnaround). Third consecutive Research honest-recalibration
+delivery this hour + substrate-product UPGRADE finding.
+
+### Critical-point identification at N=4096 finite — INFEASIBLE within 6 GPU-hours
+
+**Triple-point identification at N=4096 within 6 GPU-hours**: **P=0.05-0.10**
+- Landon-Soshnikov arXiv:2104.07629 (2021): critical window N^(-1/3) ≈ ±0.063 in β at N=4096 → requires δβ ≤ 0.06 parametric resolution
+- Equilibration at β=32 N=4096 needs O(N^1.5) = O(10⁹) sweeps — far exceeds 6 GPU-hours
+- **NO existing paper claims empirical TRIPLE POINT identification in Hopfield-class at finite N (N≤10⁵)** from simulation alone
+- Ashkin-Teller p-spin (proves triple points in p→∞ dense AM limit) is two-component, not single-order-parameter Hopfield
+
+### Revised probability decomposition (substrate-physics interpretation)
+
+| Hypothesis | P (revised this cycle) | Mechanism |
+|---|---|---|
+| **Tricritical region** (continuous ↔ first-order crossover) | **0.30 (PLURALITY)** | α=0.153 near α_c at finite T is structurally natural location |
+| **Griffiths phase** (heterogeneity-induced extended critical) | **0.25** | Conditional on substrate having spatial/clustered pattern correlations |
+| **RFOT mosaic regime** (1RSB metastable landscape) | **0.20** | Substrate's spin-glass phase has mosaic structure |
+| Critical-line crossing in ordered phase | 0.10 | Codimension-1 |
+| **True critical point** | **0.05** | Codimension-2 fine-tuning; structurally implausible without active tuning |
+| Residual artifact (Borgs-Kotecky pseudo-critical) | 0.10 | Finite-N first-order pseudo-peak |
+
+**Aggregated "in extended critical regime"** (tricritical + Griffiths +
+RFOT mosaic): **P=0.75**. Strong but NOT at a critical POINT.
+
+### SUBSTRATE-PRODUCT UPGRADE: Griffiths phase offers MORE engineering value than single critical point
+
+**Cota-Odor-Ferreira arXiv:1801.06406 (2018)**: Griffiths-phase
+avalanche exponent **1.20 ≤ τ ≤ 1.52** — **continuously-varying**
+across the phase. **The exponent IS the engineering knob.**
+
+**Substrate-product framing**: instead of fine-tuned criticality
+(implausible at P=0.05), substrate could operate in Griffiths-phase
+broad parameter band where:
+- Operator tunes control parameter → selects operating exponent
+- Multi-regime capability across BROAD band (no fine tuning)
+- V2.G STACK construction becomes parameter-knob exploration not
+  fine-tuned-point engineering
+
+**Per [[feedback-value-creation-not-competition]]**: Griffiths phase
+= continuously-tunable operating exponent IS substrate-novel
+capability LLMs structurally don't have. **Better substrate-product
+story than the critical-point framing it replaces.**
+
+### Best 1-GPU-hour gating test (REVISED)
+
+Per Agent B (Sonnet 2x analysis): measure **dynamical exponent δ(λ)
+drift** from ρ(t) ∝ t^(-δ(λ)) at 3-5 (α or T) values bracketing the
+transition.
+
+- δ pinned across parameter range → true criticality
+- **δ drifts monotonically → Griffiths phase** (substrate-product GAIN signature)
+- 5 short simulations × O(10³) relaxation steps at N=4096 → well
+  within 1 GPU-hour
+- **Single best finite-N criticality/Griffiths discrimination test**
+  identified by 2x lit scan
+
+### Gating test PIVOT (substrate-product reframing)
+
+| Original framing (v82) | Revised framing (v85) |
+|---|---|
+| "Is substrate at critical/triple point?" (P=0.50-0.65 META → P=0.10-0.20 cycle 81 → **P=0.05 this cycle**) | "Is substrate in extended critical regime (Griffiths / tricritical / RFOT mosaic)?" (**P=0.75**) |
+| 4-signature stack | **δ(λ) drift test** (1 GPU-hour, optimal ROI) |
+| V2.G cheap if criticality confirmed (~0.40 conditional) | V2.G has broader-parameter-band operation potential if Griffiths confirmed (~0.25 conditional + cumulative if other extended regimes confirm) |
+
+### Capability moves
+
+| Capability | v84 state | v85 state | Trigger |
+|---|---|---|---|
+| Triple-point hypothesis | 🔬 10-20% truly / 35-45% subcritical / 35-50% artifact | 🔬 **REFRAMED**: 0.05 critical point / **0.30 tricritical (modal) / 0.25 Griffiths / 0.20 RFOT mosaic / 0.75 aggregate "extended critical regime"** | Triple-point deepdrill |
+| Substrate Griffiths-phase capability | (not in cap_map) | 🔬 **NEW substrate-product opportunity** — continuously-tunable avalanche exponent 1.20≤τ≤1.52 is the engineering knob; LARGER opportunity than critical-point framing | Triple-point deepdrill |
+| Gating-test pivot | 4-signature stack (v84) | **δ(λ) drift test** (1-GPU-hour optimal ROI; primary discriminator critical-vs-Griffiths) | Triple-point deepdrill recommendation |
+| V2.G build cost framing | Cost-conditional on critical-point confirmed | Cost-conditional on EXTENDED critical regime confirmed (Griffiths or tricritical); broader-band opportunity than single point | Triple-point deepdrill |
+
+### Pattern: 3 consecutive Research brutal-honesty recalibrations this hour
+
+- Cycle 81 annealing erasure: P=35-50% → 0.05-0.15 + Serricchio 2024 equivalence
+- Cycle 82 critical-point protocol: P=50-65% → 10-20% truly + 35-45% subcritical
+- **Cycle 83 triple-point deepdrill (this)**: critical point P=10-20% → **0.05**; substrate-product UPGRADE via Griffiths phase
+
+The pattern is consistent: META frames optimistic; Research vets to
+honest probabilities; substrate-novel substrate-product opportunity
+EMERGES from the recalibration rather than disappearing. **Both
+annealing (M.1 soft + M.2 bulk) and critical-point (Griffiths
+tunable exponent) recalibrations yielded genuine substrate-novel
+secondary opportunities.**
+
+### Strategic decisions
+
+Per [[feedback-no-smoke]] + [[feedback-value-creation-not-competition]]:
+
+1. **Pivot gating test to δ(λ) drift** (Research-recommended best
+   ROI; 1 GPU-hour). Will route to Experiment Dev next cycle.
+2. **Reframe substrate-product story**: "extended critical regime
+   with tunable-exponent engineering knob" — NOT "fine-tuned at
+   critical point"
+3. **V2.G STACK opportunity preserved** but reframed as
+   parameter-band exploration; broader applicability than
+   fine-tuned-point operation
+4. **Keep 4-signature stack as fallback** if δ(λ) drift returns
+   ambiguous (S.2 AT-eigenvalue still best ROI per cycle 82)
+5. Triple-point claim closed at P=0.05; ✅ extended critical regime
+   becomes new substrate-physics framing
+
+### Tally — Triple-point P=0.05 (closed at point-level); extended critical regime aggregate P=0.75 (modal = tricritical 0.30; Griffiths 0.25 substrate-product UPGRADE); δ(λ) drift test = revised gating; 3 consecutive Research recalibrations this hour
+
+Net effect: substrate-physics framing pivots from "fine-tuned at
+critical point" to "in extended critical regime"; Griffiths phase is
+the substrate-novel engineering knob (continuously-tunable exponent
+1.20-1.52); revised gating test is 1-GPU-hour δ(λ) drift; V2.G
+opportunity broadens from fine-tuned-point to parameter-band.

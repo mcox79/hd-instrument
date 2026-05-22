@@ -7532,3 +7532,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v84 - (2026-05-21) Critical-point protocol honest recalibration; triple-point P=50-65% to 10-20% truly critical / 35-45% near-critical-subcritical / 35-50% correlated-artifact (Touboul-Destexhe 2017 caveat: simple OU + coin-flip satisfy crackling-noise exponent relations without phase transition); revised 4-signature stack S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/sigma + S.4 surrogate null (P=0.45-0.65 discriminative); V2.G cost-conditional on outcome
+
+
+## v85 - (2026-05-21) Triple-point deepdrill honest recalibration + substrate-product UPGRADE; critical-point P=0.05 (codimension-2 fine-tuning structurally implausible); extended critical regime P=0.75 aggregate (tricritical 0.30 PLURALITY + Griffiths 0.25 + RFOT mosaic 0.20); Griffiths phase = substrate-product engineering knob (continuously-tunable avalanche exponent 1.20-1.52 per Cota-Odor-Ferreira 2018); revised gating test = delta(lambda) drift at 3-5 parameter values (1 GPU-hour optimal ROI); 3rd consecutive Research honest-recalibration this hour; substrate-product story strengthens via brutal-honesty pass
