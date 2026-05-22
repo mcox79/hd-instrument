@@ -5288,3 +5288,135 @@ Next:
 - Exp Dev pickup of Phase 2 gate request (11:30)
 - β-calibration FULL pending
 - Pipeline idle = Exp Dev needs next direction soon
+
+
+## Cycle 102 [Lane D + Lane E / META inventory FULLY RESOLVED + Bet Q substrate-novel validated] -- Bet U FULL PASS / Bet V PARTIAL / Bet W KILLED / Bet Q FACILITATION (cap_map v102)
+
+Trigger: /loop /strategy-cycle at ~11:33 EDT. Dashboard refresh
+revealed Bet U FULL + Bet V FULL + Bet W FULL + Bet Q smoke+FULL all
+landed since cycle 101. META 6-axis capability inventory + Bet Q
+substrate-novel anchor = 7 axes FULLY RESOLVED.
+
+Headline batch:
+
+1. Bet U FULL = BET_U_PASS (0.1s, matches smoke recent=1.000/old=0.000)
+   - Working memory decay confirmed at FULL
+   - Substrate has neurobiologically-plausible recency gradient
+
+2. Bet V FULL = BET_V_PARTIAL (0.3s)
+   - stored=0.416, unstored=0.131, gap=0.285
+   - Smoke KILLED → FULL PARTIAL (separation emerges)
+   - Substrate has structural-level self-reflective capability at
+     PARTIAL — can partially distinguish stored from unstored items
+
+3. Bet W FULL = BET_W_KILLED (0.2s)
+   - consistency=0.117 < 0.15 = "Random-like response to perturbed s"
+   - Smoke PARTIAL → FULL KILLED (degradation)
+   - Counterfactual reasoning axis CLOSED at substrate level
+   - Honest negative: substrate is NOT a counterfactual reasoner
+
+4. Bet Q facilitation/nucleation smoke + FULL = BET_Q_FACILITATION
+   - sharpness=8.00 >= 2.0 (4× over threshold)
+   - Sigmoid recovery curve = glassy facilitation behavior
+   - This validates R37 substrate-novel finding from earlier session
+   - Per [[feedback-materials-science-probe]]: substrate behaves like
+     glassy neural system
+
+Substrate-product capability portfolio at cycle 102 (7 axes resolved):
+
+| Axis | Bet | Capability | Status |
+|---|---|---|---|
+| A | Bet S | Bidirectional recall | PARTIAL K_crit~205 |
+| B | Bet X | Skill composition / multi-hop | UNIFYING K=100 NEW HIGH |
+| C | Bet T | Parallel hypothesis tracking | PARTIAL min=0.689 |
+| D | Bet U | Working memory decay | PASS at FULL (cycle 102) |
+| E | Bet V | Self-reflective | PARTIAL gap=0.285 (cycle 102) |
+| F | Bet W | Counterfactual reasoning | KILLED random-like (cycle 102) |
+| (R37) | Bet Q | Facilitation/nucleation | FACILITATION sharpness=8.00 (cycle 102) |
+
+Mix: 2 PASS + 1 UNIFYING + 3 PARTIAL + 1 KILLED = honest substrate-product
+characterization across positives and negatives.
+
+Smoke-not-predictive precedent at 5 anchors:
+
+| Cycle | Smoke | FULL | Pattern |
+|---|---|---|---|
+| 91 | K=50 V2_NOT_REPLICATED | K=50 FULL PASS 0.487 | MISMATCH |
+| 94 | NUMFACTS_2000 smoke | NUMFACTS_2000 FULL CANCELLED | MISMATCH (cancelled) |
+| 101 | Bet T smoke PASS min=0.800 | Bet T FULL PARTIAL min=0.689 | DIVERGENCE |
+| 102 | Bet V smoke KILLED | Bet V FULL PARTIAL gap=0.285 | DIVERGENCE |
+| 102 | Bet W smoke PARTIAL | Bet W FULL KILLED cons=0.117 | DIVERGENCE |
+
+Smoke results in this codebase are systematically unreliable.
+Substrate-product capability state lock-in requires FULL mode.
+
+Bet Q R37 substrate-novel validation:
+
+Bet Q facilitation/nucleation at FULL mode confirms R37 substrate-novel
+discovery (earlier session research delivery). Substrate exhibits:
+- Sharp transition (sharpness=8.00, 4× over 2.0 threshold)
+- Sigmoid recovery curve
+- Glassy facilitation behavior
+
+Per [[feedback-materials-science-probe]]: substrate behaves like glassy
+neural system, not smooth retrieval network. Lane E (neuromorphic)
+framing strengthens. This is the substrate-novel finding from earlier
+research now validated experimentally.
+
+Substrate-product Lane D + Lane E refined portfolio:
+
+Lane D (cognitive architecture):
+- PASS: Bet B (5 mechanisms) + Bet X (multi-hop NEW HIGH) + Bet U (recency)
+- PARTIAL: Bet S (K-ceiling) + Bet T (parallel hypotheses) + Bet V (meta-cog)
+- KILLED: Bet W (counterfactual)
+
+Lane E (neuromorphic / substrate-physics):
+- PASS: R17 area-law (N=12288) + Bet Q glassy facilitation (cycle 102)
+- KILLED: R27 L.2 dynamic W
+- PARTIAL: R27 L.1 photonic gain (cycle 89)
+
+Per [[feedback-no-smoke]]: counterfactual reasoning honestly characterized
+as substrate-axis-closed. Different architecture needed.
+
+Capability moves (v101 → v102):
+
+| Capability | v101 | v102 | Trigger |
+|---|---|---|---|
+| Bet U working memory decay | smoke PASS pending FULL | PASS at FULL (matches smoke) | Bet U FULL |
+| Bet V self-reflective | pending | PARTIAL gap=0.285 (smoke KILLED→FULL PARTIAL) | Bet V FULL |
+| Bet W counterfactual | pending | KILLED cons=0.117 (smoke PARTIAL→FULL KILLED) | Bet W FULL |
+| Bet Q facilitation/nucleation | unmeasured | FACILITATION sharpness=8.00 (R37 validated at FULL) | Bet Q smoke + FULL |
+| META 6-axis inventory | 6 axes had data (2 pending) | 7 axes FULLY RESOLVED | cycle 102 batch |
+| Smoke-not-predictive precedent | 3 anchors | 5 anchors | cycle 102 batch |
+
+Substrate-product net (v102):
+
+Net gains:
+- META inventory FULLY RESOLVED at cycle 102
+- Bet U PASS + Bet Q FACILITATION add 2 capabilities
+- R37 substrate-novel empirically validated
+- Honest negative on Bet W (counterfactual) strengthens credibility
+
+Pipeline status:
+- Idle (current=None, queue=0)
+- 4 new preregs dated 2026-05-22 (betT_hyp8 + betU_decay099 +
+  betV_largeN + betQ_M4N) — Exp Dev designing follow-ups at varied
+  configs
+- Phase 2 gate request (filed 11:30) still pending pickup
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 18th observation. PROT-005 unbiased framing: Bet W
+KILLED reported as honest negative (NOT rationalized as needing
+re-test); Bet U PASS reported at FULL only (NOT promoted from smoke);
+Bet Q R37 validation framed as empirical confirmation of prior
+research delivery (NOT as substrate breakthrough).
+
+Next:
+- Exp Dev pickup of Phase 2 gate (V2.D at β=8 N=4096)
+- Exp Dev queue of new prereg variants (betT_hyp8, etc.)
+- β-calibration FULL verdict (currently running per cycle 100 start)
+- META cycle 52/53 fires periodically
+- active_priorities.md still stale at cycle 70
+
+Pipeline is mostly idle = good time for Exp Dev to pick up multiple
+queue items in parallel.

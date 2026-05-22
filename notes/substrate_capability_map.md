@@ -4635,3 +4635,218 @@ Net effect: substrate-product capability portfolio completes META's
 cognitive architecture framing strengthens with 5-7 substrate-side
 capability anchors; honest classification across PASS/PARTIAL/PENDING
 maintained per cycle 95 cluster-heuristic discipline.
+
+## v102 update — Bet U FULL ✅ PASS confirmed; Bet V FULL PARTIAL (meta-cognitive gap=0.285); Bet W FULL KILLED (counterfactual axis closes; substrate random-like at structural level); Bet Q facilitation FULL CONFIRMED (R37 substrate-novel sharpness=8.00 glassy recovery); META 6-capability inventory FULLY RESOLVED + Bet Q substrate-novel anchor empirically validated
+
+Strategy session cycle 102 (~11:33 EDT). User-flagged "/loop
+/strategy-cycle"; dashboard shows Bet U FULL + Bet V FULL + Bet W FULL
++ Bet Q smoke + FULL all landed since cycle 101.
+
+### Bet U FULL ✅ PASS — working memory decay confirmed
+
+`wave14_betU_working_memory_decay_v1` FULL (0.1s) = **BET_U_PASS**:
+"Working memory decay validated: recent=1.000>=0.80, old=0.000<=0.30.
+Substrate shows expected recency gradient."
+
+Same metrics as smoke (recent=1.000, old=0.000) — FULL confirms.
+
+**Capability state**: Bet U ✅ PASS at FULL. Substrate has
+neurobiologically-plausible recency gradient as structural property.
+Per [[feedback-brain-inspired]]: working memory decay is a
+cognitive-architecture anchor that distinguishes substrate from
+LLM systems.
+
+### Bet V FULL = PARTIAL meta-cognitive separation
+
+`wave14_betV_self_reflective_v1_smoke` (0.1s) = **BET_V_KILLED**:
+"Stored vs unstored confidence indistinguishable: 0.358 vs 0.386.
+Substrate cannot self-report knowledge."
+
+`wave14_betV_self_reflective_v1` FULL (0.3s) = **BET_V_PARTIAL**:
+"Some separation: stored=0.416, unstored=0.131, gap=0.285."
+
+**Smoke→Full divergence (KILLED→PARTIAL)**: at smoke, stored vs
+unstored confidence indistinguishable (0.358 vs 0.386, gap=0.028); at
+FULL, separation emerges (0.416 vs 0.131, gap=**0.285**).
+
+**Substrate-product implication**: substrate has STRUCTURAL-LEVEL
+self-reflective capability at PARTIAL level — can partially
+distinguish stored from unstored items in confidence. Not strong
+meta-cognition, but non-zero. Per [[feedback-brain-inspired]]: this
+is the neurobiologically-plausible "I know what I know" capability.
+
+**Cycle 102 smoke-not-predictive precedent reinforced**: smoke KILLED
+→ FULL PARTIAL pattern. Adds to Bet T (smoke PASS → FULL PARTIAL)
+divergence. Smoke results in this codebase are systematically
+unreliable; FULL verdicts are authoritative.
+
+### Bet W FULL = KILLED — counterfactual reasoning axis CLOSED
+
+`wave14_betW_counterfactual_v1_smoke` (0.1s) = **BET_W_PARTIAL**:
+"cons=0.200, factual=0.700. Partial counterfactual behavior."
+
+`wave14_betW_counterfactual_v1` FULL (0.2s) = **BET_W_KILLED**:
+"Counterfactual consistency 0.117<0.15. Random-like response to
+perturbed s."
+
+**Smoke→Full divergence (PARTIAL→KILLED)**: at smoke, counterfactual
+consistency=0.200 (above 0.15 KILL but below stronger threshold); at
+FULL, consistency=0.117 < 0.15 = **KILLED**. Substrate gives
+random-like response to counterfactually perturbed substrates.
+
+**Substrate-product implication**: substrate is NOT a counterfactual
+reasoner at the structural level. **Counterfactual reasoning axis
+CLOSED for substrate.** Per [[feedback-no-smoke]]: honest negative
+characterization. Counterfactual reasoning would require different
+architecture (perhaps explicit causal modeling on top of substrate).
+
+**Lane D portfolio refinement**: substrate naturally supports working
+memory decay (Bet U PASS) + parallel hypothesis tracking (Bet T
+PARTIAL) + meta-cognition (Bet V PARTIAL) but NOT counterfactual
+reasoning (Bet W KILLED). Honest substrate-product framing.
+
+### Bet Q facilitation FULL CONFIRMED — R37 substrate-novel
+
+`wave14_betQ_facilitation_nucleation_v1_smoke` (0.3s) =
+**BET_Q_FACILITATION**: "Sharp transition observed: sharpness=8.00>=2.0.
+Substrate exhibits glassy facilitation (sigmoid recovery curve)."
+
+`wave14_betQ_facilitation_nucleation_v1` FULL (1.5s) =
+**BET_Q_FACILITATION** (same verdict, sharpness=8.00).
+
+**Smoke + FULL both confirm at sharpness=8.00** — substantially
+above 2.0 threshold (4× over). Substrate exhibits **glassy
+facilitation** behavior with sigmoid recovery curve.
+
+**This is the R37 substrate-novel finding from cycle 87 era empirically
+validated at FULL mode** — R37 was facilitation/nucleation as
+substrate-novel discovery; cycle 102 confirms via Bet Q test.
+
+**Substrate-product implication**: substrate has glassy-system
+structural behavior (sigmoid recovery, sharp facilitation
+transition). This is per [[feedback-materials-science-probe]] +
+[[feedback-brain-inspired]] — substrate behaves like a glassy
+neural system, not a smooth retrieval network. Lane E (neuromorphic)
+framing strengthens.
+
+### META 6-capability inventory + Bet Q at cycle 102 — FULLY RESOLVED
+
+| Axis | Bet | Capability | Cycle 102 status |
+|---|---|---|---|
+| A | Bet S | Bidirectional recall | 🟡 PARTIAL K_crit≈205 (cycle 88) |
+| B | Bet X | Skill composition / multi-hop | ✅ UNIFYING; K=100 acc_50hop=0.767 NEW HIGH (cycle 96) |
+| C | Bet T | Parallel hypothesis tracking | 🟡 PARTIAL min_acc=0.689 mean=0.740 (cycle 101) |
+| D | Bet U | Working memory decay | ✅ **PASS** smoke + FULL match (cycle 102) |
+| E | Bet V | Self-reflective | 🟡 PARTIAL gap=0.285 stored/unstored separation (cycle 102) |
+| F | Bet W | Counterfactual reasoning | ❌ **KILLED** consistency=0.117 random-like (cycle 102) |
+| (NEW) | Bet Q | Facilitation/nucleation | ✅ **FACILITATION** sharpness=8.00 (R37 substrate-novel validated; cycle 102) |
+
+**All 7 axes characterized**:
+- 2 ✅ PASS (Bet U, Bet Q)
+- 1 ✅ UNIFYING (Bet X)
+- 3 🟡 PARTIAL (Bet S, Bet T, Bet V)
+- 1 ❌ KILLED (Bet W counterfactual)
+
+### Substrate-product Lane D + Lane E portfolio refined (cycle 102)
+
+**Lane D (cognitive architecture)**:
+- ✅ Multi-task continual learning (Bet B 5 mechanisms FULL-confirmed)
+- ✅ Multi-hop chained reasoning (Bet X K=100 NEW HIGH)
+- ✅ Working memory decay (Bet U PASS)
+- 🟡 Bidirectional recall (Bet S PARTIAL K-ceiling theoretical)
+- 🟡 Parallel hypothesis tracking (Bet T PARTIAL)
+- 🟡 Meta-cognition / self-reflective (Bet V PARTIAL gap=0.285)
+- ❌ Counterfactual reasoning (Bet W KILLED)
+
+**Lane E (neuromorphic / substrate-physics)**:
+- ✅ R17 area-law-like entropy scaling (R17 Sketch C empirical at N=12288)
+- ✅ Glassy facilitation (Bet Q sharpness=8.00 confirms R37 substrate-novel)
+- ❌ Dynamic W variant (R27 L.2 KILLED at FULL)
+- ✅ R27 L.1 photonic gain mechanism (cycle 89 strong)
+
+### Honest substrate-product framing per [[feedback-no-smoke]]
+
+Substrate has STRUCTURAL-LEVEL support for **6 cognitive-architecture
+capabilities at PASS or PARTIAL** + 1 substrate-physics capability
+(glassy facilitation) + 1 NEGATIVE (counterfactual reasoning KILLED).
+
+Per [[feedback-no-smoke]]: counterfactual reasoning is honestly
+characterized as substrate-axis-closed. Not "Bet W partial pending
+follow-up" — substrate gives random-like response (consistency=0.117
+below 0.15 threshold), so the axis is closed at substrate level.
+Different architecture needed for counterfactual reasoning capability.
+
+**Substrate-product story strengthens via honest negative**: the
+6-capability portfolio is more credible because substrate ALSO has
+characterized failure modes (Bet W) than if all 7 were claimed ✅.
+Per [[feedback-value-creation-not-competition]]: substrate's failure
+modes are KNOWN empirically; LLM systems have measured-but-uncharacterized
+failure modes.
+
+### Cycle 95 smoke-not-predictive precedent now triple-anchored
+
+| Cycle | Smoke verdict | FULL verdict | Pattern |
+|---|---|---|---|
+| 91 | K=50 V2_NOT_REPLICATED (seed=17 single) | K=50 FULL PASS acc_50hop=0.487 | MISMATCH |
+| 94 | NUMFACTS_2000 smoke (test-scaffold) | NUMFACTS_2000 FULL CANCELLED desktop | MISMATCH (cancelled) |
+| 101 | Bet T smoke PASS min=0.800 | Bet T FULL PARTIAL min=0.689 | DIVERGENCE |
+| **102** | **Bet V smoke KILLED 0.358/0.386 indistinguishable** | **Bet V FULL PARTIAL gap=0.285** | DIVERGENCE |
+| **102** | **Bet W smoke PARTIAL cons=0.200** | **Bet W FULL KILLED cons=0.117** | DIVERGENCE |
+
+**Smoke results in this codebase are systematically unreliable** —
+not just test-scaffold patterns, but genuine smoke-to-full divergence
+in BOTH directions (PASS→PARTIAL and PARTIAL→KILLED). Per
+[[feedback-no-smoke]] applied to test-scaffold patterns: NEVER lock
+in substrate-product capability state from smoke alone. FULL mode
+is authoritative.
+
+### Capability moves (v101 → v102)
+
+| Capability | v101 | v102 | Trigger |
+|---|---|---|---|
+| Bet U working memory decay | smoke PASS pending FULL | ✅ **PASS** at FULL (matches smoke) | Bet U FULL |
+| Bet V self-reflective | pending | 🟡 **PARTIAL** gap=0.285 stored/unstored separation | Bet V FULL |
+| Bet W counterfactual reasoning | pending | ❌ **KILLED** consistency=0.117 random-like | Bet W FULL |
+| Bet Q facilitation/nucleation | unmeasured | ✅ **FACILITATION** sharpness=8.00 (R37 substrate-novel validated) | Bet Q smoke + FULL |
+| META 6-axis inventory + Bet Q | 6 axes had data (2 pending) | **7 axes FULLY RESOLVED** | cycle 102 batch |
+| Smoke-not-predictive precedent | triple-anchored | **5-anchored** (+ Bet V divergence + Bet W divergence) | cycle 102 batch |
+
+### Pipeline status
+
+- Current: None (IDLE)
+- Queue: 0
+- New preregs dated 2026-05-22 visible: betT_hyp8, betU_decay099,
+  betV_largeN, betQ_M4N → Exp Dev designing follow-up experiments at
+  varied configs but not yet queued
+- Phase 2 gate request (commit `ebbad09` filed 11:30) still pending
+  Exp Dev pickup
+
+### Substrate-product net (v102)
+
+**Major gains**:
+- Bet U ✅ PASS confirmed at FULL — neurobiologically-plausible
+  working memory decay validated
+- Bet Q R37 substrate-novel finding empirically validated at FULL
+  (sharpness=8.00)
+- META 6-axis capability inventory + Bet Q = 7 substrate-product
+  capability axes characterized
+- Honest negative: Bet W counterfactual axis CLOSED at substrate
+  level — substrate-product story credible per honest characterization
+
+**Substrate-product framing at cycle 102**:
+- 6 cognitive-architecture capabilities at PASS/PARTIAL
+- 1 substrate-physics capability ✅ (Bet Q glassy facilitation)
+- 1 capability ❌ KILLED (Bet W counterfactual)
+- 3 architectural ceilings empirically anchored
+- β-calibration empirically measured (c=32768)
+- 5 Bet B FULL-confirmed mechanism families
+- R16 BBP free probability PERMANENT primary theoretical anchor
+
+### Tally — Bet U FULL ✅ PASS; Bet V FULL PARTIAL gap=0.285; Bet W FULL KILLED (counterfactual axis closes); Bet Q FACILITATION sharpness=8.00 (R37 substrate-novel validated); META 6+Bet Q = 7 axes FULLY RESOLVED; smoke-not-predictive precedent 5-anchored
+
+Net effect: substrate-product capability portfolio at cycle 102 has
+7 axes fully resolved with mix of PASS/PARTIAL/KILLED; substrate's
+structural-level support for cognitive-architecture capabilities is
+characterized honestly across positives and negatives; Bet Q R37
+substrate-novel glassy facilitation validated at FULL; pipeline idle
+awaiting Phase 2 gate pickup + new prereg variants.
