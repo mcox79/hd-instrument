@@ -5580,3 +5580,71 @@ Next:
 - Phase 3 path follow-up to Exp Dev
 - META cycle 53 imminent (~12:13)
 - active_priorities.md still stale at cycle 70
+
+
+## Cycle 104 [Lane D pipeline + envelope smokes / incremental] -- Lane D end-to-end smoke composed_acc=1.0; Lane D capacity envelope 4-axis smoke; Phase 2 v2 FULL 33min wall watch (cap_map v104)
+
+Trigger: user /loop /strategy-cycle at ~12:22 EDT. Dashboard shows
+2 new Lane D smoke findings (end-to-end + capacity stress) extending
+cycle 103 wedge demonstration.
+
+Smoke findings (NOT promoted to capability state per cycle 102
+smoke-not-predictive precedent):
+
+1. Lane D end-to-end pipeline SMOKE = LANE_D_E2E_PASS
+   - composed_acc=1.000 (≥0.50 threshold)
+   - Stages: S=1.000 → T=1.000 → X=1.000
+   - SEQUENTIAL pipeline composition (vs cycle 103 PARALLEL composition)
+   - Substrate-product chained cognitive architecture viable at smoke
+   - 0.4s elapsed — smoke-suspect timing; FULL pending
+
+2. Lane D capacity stress SMOKE = LANE_D_CAPACITY_BOUNDED
+   - 4 of 4 axes hit breakpoints in sweep
+   - breakpoints={M_S: 50, K: 3, U_stream: 200, X_alphabet: 5}
+   - Substrate has measurable joint capacity envelope
+   - 1.1s elapsed — smoke-suspect; FULL likely higher breakpoints
+
+Phase 2 v2 FULL 33min wall watch:
+- Started 11:49:25; dashboard snapshot 12:22:06 = 33 min wall
+- v1 exited at 7.0s exit=1 (infrastructure/script bug)
+- v2 running cleanly past 7s failure point
+- 33 min approaches cycle 94/95 infrastructure timeout pattern
+  (continual_4N exit=-1 at 1540s = 25.7 min)
+- Two readings: legitimate long-running multi-β sweep OR approaching
+  timeout
+- Strategy: watching; defer classification until completion
+
+META cycle 54 landed at 12:17 (captures cycle 103 milestone
+substantively; no new flags).
+
+Capability moves (v103 → v104):
+
+| Capability | v103 | v104 | Trigger |
+|---|---|---|---|
+| Lane D pipeline composition (sequential) | not tested | smoke PASS composed_acc=1.0 S→T→X; FULL pending | Lane D end-to-end smoke |
+| Lane D joint capacity envelope | not characterized | smoke 4-axis breakpoints measured; FULL pending | Lane D capacity stress smoke |
+| Phase 2 v2 FULL | not run (v1 failed) | running 33+ min wall watch | Phase 2 v2 retry |
+
+Substrate-product net (v104) — incremental:
+
+Net gains (smoke level only):
+- Lane D end-to-end pipeline composes at substrate level
+- Lane D joint capacity envelope partially characterized
+- Both extend cycle 103 wedge demonstration
+
+Net cautions:
+- Smoke-not-predictive precedent (cycle 102 5-anchored)
+- Phase 2 v2 FULL runtime concern
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 20th observation. PROT-005 unbiased framing: smoke
+results explicitly NOT promoted to capability state; Phase 2 v2
+33-min runtime flagged as ambiguous (legitimate long-running vs
+infrastructure timeout).
+
+Next:
+- Lane D end-to-end FULL verdict
+- Lane D capacity stress FULL verdict
+- Phase 2 v2 FULL outcome (completion or timeout)
+- META cycle 55 fires ~12:43
+- β-blend strategy spec follow-up to Exp Dev pending

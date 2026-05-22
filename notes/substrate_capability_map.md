@@ -5103,3 +5103,109 @@ empirical anchor (4-primitive composition); substrate-physics
 characterization refines to confirmed intermediate hybrid regime;
 critical-point hypothesis closed; substrate-product roadmap pivots to
 β-blend strategy + Kerdock(16) at N=65536.
+
+## v104 update — Lane D end-to-end pipeline SMOKE PASS (3 stages compose composed_acc=1.000); Lane D capacity stress envelope MEASURED at 4 axes (smoke breakpoints M_S=50/K=3/U_stream=200/X_alphabet=5); Phase 2 v2 FULL running 33+ min wall watch; FULL verdicts pending per cycle 102 smoke-not-predictive
+
+Strategy session cycle 104 (~12:22 EDT). User /loop /strategy-cycle.
+Dashboard shows 2 new Lane D smoke findings (end-to-end + capacity
+stress) extending cycle 103's wedge demonstration.
+
+### Lane D end-to-end pipeline SMOKE = LANE_D_E2E_PASS
+
+`wave14_lane_D_end_to_end_v1_smoke` (0.4s) = LANE_D_E2E_PASS:
+"End-to-end Lane D pipeline composes: composed_acc=1.000 (>=0.50).
+Stages: S=1.000 -> T=1.000 -> X=1.000. Substrate-product chained
+cognitive architecture viable."
+
+**Extends cycle 103's Lane D wedge from COMPOSITION to PIPELINE**:
+- Cycle 103: 4 primitives compose (S+T+U+X) in parallel = static
+  capability composition
+- Cycle 104: 3 stages chain (S→T→X) = sequential pipeline composition
+  at composed_acc=1.000
+
+**Substrate-product framing — substantively positive at smoke level**:
+substrate supports SEQUENTIAL cognitive-architecture pipeline at
+substrate level, not just parallel capability invocation. Lane D
+agent-relevant chained inference has substrate-side support.
+
+**Per cycle 102 smoke-not-predictive precedent**: 0.4s elapsed
+smoke; FULL pending. Strategy classification: 🔬 promising smoke
+PENDING FULL confirmation. Do NOT promote to capability state.
+
+### Lane D capacity stress envelope MEASURED at 4 axes
+
+`wave14_lane_D_capacity_stress_v1_smoke` (1.1s) =
+LANE_D_CAPACITY_BOUNDED: "4 of 4 axes hit breakpoints in sweep.
+breakpoints={'M_S': 50, 'K': 3, 'U_stream': 200, 'X_alphabet': 5}.
+Substrate has measurable joint capacity envelope."
+
+**Lane D joint capacity envelope characterized** (smoke values):
+- M_S (Bet S capacity): breakpoint at 50
+- K (Bet T parallel hypotheses): breakpoint at 3
+- U_stream (Bet U streaming): breakpoint at 200
+- X_alphabet (Bet X alphabet): breakpoint at 5
+
+**Substrate-product framing**: substrate has THEORETICALLY ANCHORED
+joint capacity envelope per cycle 88 framing (substrate empirical
+limits match theoretical class bounds). Smoke values likely lower
+than FULL (per cycle 87/91 K=50 smoke→full divergence pattern).
+
+**Per [[feedback-value-creation-not-competition]]**: substrate's
+multi-axis joint capacity envelope is substrate-product distinctive
+— LLM systems don't have empirically measured joint capacity
+breakpoints across cognitive-architecture axes.
+
+**Capability move (smoke level)**: Lane D capacity envelope partially
+characterized (smoke values); FULL pending will provide tighter
+bounds.
+
+### Phase 2 v2 FULL — 33 min wall watch
+
+`wave14_betY_phase2_kerdock_betacalibrated_v2` FULL started 11:49:25.
+At 12:22 dashboard snapshot, 33 min wall.
+
+**Context**:
+- v1 FAILED exit=1 at 7.0s (script bug or init failure)
+- v2 started clean; passed 7s point; running at 33 min
+- Compare to cycle 94's continual_4N_2000edits FAIL exit=-1 at 1540s
+  (25.7 min infrastructure timeout pattern)
+- 33 min exceeds cycle 94 timeout threshold
+
+**Two readings**:
+1. Legitimate long-running Phase 2 FULL with multi-β sweep (Phase 2
+   spec called for multi-β testing per cycle 100 addendum)
+2. Approaching infrastructure timeout
+
+**Strategy decision**: ⏳ watching; no immediate action. Defer
+classification until Phase 2 v2 FULL completes or fails. If exit=-1
+at ≥25 min infrastructure timeout: defer to Queue Health. If clean
+FULL completion: substantive Phase 2 result.
+
+### Capability moves (v103 → v104)
+
+| Capability | v103 state | v104 state | Trigger |
+|---|---|---|---|
+| Lane D pipeline composition (sequential) | not yet tested | 🔬 **smoke PASS** S=1.0→T=1.0→X=1.0 composed_acc=1.0 (FULL pending) | Lane D end-to-end smoke |
+| Lane D joint capacity envelope | not characterized | 🔬 **smoke 4-axis breakpoints** measured (M_S=50/K=3/U_stream=200/X_alphabet=5; FULL pending) | Lane D capacity stress smoke |
+| Phase 2 v2 FULL | not run (v1 failed) | ⏳ running 33+ min wall; watching for completion vs infrastructure timeout | Phase 2 v2 retry |
+
+### Substrate-product net (v104) — incremental
+
+**Net gains (smoke level only)**:
+- Lane D end-to-end pipeline composes at substrate level (3 stages
+  chain S→T→X)
+- Lane D joint capacity envelope partially characterized (4 axes
+  with smoke breakpoints)
+- Both extend cycle 103 wedge demonstration
+
+**Net cautions**:
+- Smoke-not-predictive precedent (cycle 102 5-anchored) means FULL
+  verdicts are required for capability state lock-in
+- Phase 2 v2 FULL runtime concern — watching for outcome
+
+### Tally — Lane D end-to-end pipeline SMOKE composed_acc=1.0; Lane D capacity envelope 4 axes characterized at smoke; Phase 2 v2 FULL 33min wall watch; smoke results NOT promoted to capability state per cycle 102 precedent
+
+Net effect: incremental cycle 104 with 2 Lane D smoke findings
+extending cycle 103 wedge story (parallel composition + sequential
+pipeline + joint capacity envelope); FULL verdicts pending; Phase 2
+v2 outcome pending; substantive cap_map updates await FULL mode.
