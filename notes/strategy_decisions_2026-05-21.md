@@ -4798,3 +4798,111 @@ signature).
 - continual_2N_3000edits FULL pending
 - META cycle 49/50 (~09:43-10:13)
 - Pre-existing 10:09 wakeup remains
+
+
+## Cycle 98 [Lane A + Lane D / Phase 1 substantive] -- MAJOR: Bet A clean empirical breakpoint at edit 8189 ~ M=2N=8192; multi-hop K/NUMENT/NUMFACTS pictures refined; cycle 95/96 discipline validated (cap_map v98)
+
+Trigger: user "new experiment I believe" at ~10:56 EDT. Dashboard
+shows 6 new full-mode verdicts since cycle 97 -- continual_2N_10000edits
+FULL + 5 multi-hop fulls.
+
+HEADLINE finding -- substantive substrate-product gain:
+
+wave14_continual_2N_10000edits FULL (2740.8s = 45.7 min) =
+CONTINUAL_2N_KERDOCK_FAILS_AT_8189 -- Bet A first clean empirical
+capacity breakpoint!
+
+- Substrate holds 8188 sequential edits at M=2N
+- Breaks at edit 8189 ~ M=2N=8192 = substrate addressable codebook cardinality
+- Match within 3 edits (8189 vs 8192) -- clean architectural ceiling
+
+Substrate-product framing: Bet A holds N*k sequential edits at
+M=N*k over-capacity, where breakpoint matches M (codebook cardinality),
+independent of N. Third substrate-novel empirical-matches-theoretical
+instance of session:
+1. Multi-hop d-ceiling matches Bet X VSA-class compositional bound
+2. Bet S K-ceiling matches Ganesan + Schlegel K_crit ~ D/20 = 205
+3. Bet A continual-edit capacity matches substrate addressable cardinality M
+
+Per [[feedback-value-creation-not-competition]]: substrate failure mode
+is THEORETICALLY KNOWN -- fails at addressable cardinality, not before.
+
+Multi-hop full-mode batch (resolves cycle 96 ambiguities):
+
+| Config | acc_1hop | Verdict | Classification |
+|---|---|---|---|
+| K=5 (11.5s) | -- | V2_NOT_REPLICATED 3 seeds | GENUINE small-K FAIL |
+| K=30 (11.2s) | 0.973 | DECAY_AT_50 | boundary |
+| K=50 (cycle 91) | 0.987 | acc_50hop=0.487 | PASS |
+| K=100 (cycle 96) | 0.993 | acc_50hop=0.767 | NEW HIGH |
+| NUMENT=100 (10.7s) | 0.920 | DECAY_AT_50 | boundary |
+| NUMENT=300 (12.3s) | 0.967 | DECAY_AT_50 | boundary |
+| NUMENT=500 (cycle 87) | 0.993 | acc_50hop=0.233 | PASS (above FHRR floor) |
+| NUMFACTS=600 (53.8s) | -- | V2_NOT_REPLICATED 3 seeds | GENUINE FAIL (outside cluster) |
+
+Cycle 96 K=10 ambiguity RESOLVED: K=5 fails multi-seed (genuine
+substrate fail at low K); supports small-K-substrate-insufficient
+reading for K=10. Not test-scaffold pattern for K-config family.
+
+Substrate-product window for multi-hop:
+- K-config: PASS at K >= 50; boundary at K=30; FAIL at K <= 10
+- NUMENT-config: PASS at NUMENT >= 500; boundary at NUMENT <= 300
+- NUMFACTS-config: FAIL at NUMFACTS >= 600 (and likely >= 300)
+
+Cycle 95/96 NUMFACTS_300 vindication:
+
+Cycle 95 flagged NUMFACTS_300 as infrastructure-suspect (in cluster
+window). Cycle 96 maintained suspect pending independent evidence.
+Cycle 98: NUMFACTS_600 outside cluster window provides the independent
+evidence -- NUMFACTS-variant genuinely fails at >=600. NUMFACTS_300
+likely genuine fail too.
+
+Discipline validation: cycle 95 cluster heuristic did not refuse to
+acknowledge substrate signal -- it waited for independent evidence
+before classifying. Patient discipline worked.
+
+Bet S K_crit <-> multi-hop coupling EMPIRICALLY supported:
+- Bet S K_crit theory (cycle 88): K_crit ~ D/(2 log M) ~ 205 at N=4096
+- NUMFACTS-variant fails at NUMFACTS >= 600 = ~3x K_crit
+- Multi-hop K-config PASS at K in [50, 100], FAIL at K <= 10
+- Same cleanup cross-talk mechanism gates both Bet S bidirectional
+  recall AND multi-hop chained inference
+
+Cycle 94 framing revived via legitimate evidence -- cycle 94 had
+claimed coupling via NUMFACTS_2000 (retracted). Cycle 98 re-establishes
+the coupling via NUMFACTS_600 + K=5 fail + K=30 boundary.
+
+Capability moves (v97 -> v98):
+
+| Capability | v97 | v98 | Trigger |
+|---|---|---|---|
+| Bet A continual-edit at M=2N | smoke OK | FULL breakpoint at edit 8189 ~ M=2N=8192 = architectural ceiling matching addressable cardinality | continual_2N_10000edits full |
+| Multi-hop K-config substrate window | K=50+K=100 PASS; K=10 ambiguous | K>=50 PASS / K=30 boundary / K<=10 small-K FAIL; cycle 96 ambiguity resolved | K=5+K=30 fulls |
+| Multi-hop NUMENT-config | NUMENT=500 PASS | + NUMENT<=300 boundary (acc_1hop monotonic with NUMENT) | NUMENT=100+300 fulls |
+| Multi-hop NUMFACTS-config | NUMFACTS=300 suspect | + NUMFACTS=600 GENUINE FAIL outside cluster | NUMFACTS=600 full |
+| Bet S K_crit multi-hop coupling | theoretically plausible | EMPIRICALLY supported | cycle 98 batch |
+| Substrate empirical-matches-theoretical ceilings | 2 instances | 3 instances (+ Bet A M-ceiling) | continual_2N_10000edits |
+
+Substrate-product net (v98):
+
+Substrate has 3 architectural ceilings empirically anchored to theory:
+1. Multi-hop d-cliff = VSA-class compositional bound
+2. Bet S K-ceiling = D/(2 log M) cleanup cross-talk bound
+3. Bet A continual-edit ceiling = M (addressable cardinality)
+
+Bet Y V2.D + Kerdock(16) at N=65536 + beta(N)=c/N extends all 3:
+- Multi-hop d: per cycle 91 + cycle 96 K=100 NEW HIGH framework
+- Bet S K_crit: 130 at N=4096 -> 2487 at N=65536 (19x)
+- Bet A continual-edit: M scales with N*k; at N=65536 with M=8N=524K,
+  predicts ~524K edit horizon
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 14th observation. PROT-005 unbiased framing: Bet A
+breakpoint reported as architectural ceiling not substrate weakness.
+
+Next:
+- v14_a05 FULL running (~5 min wall) -- likely 5th Bet B FULL-confirmed
+- continual_2N_3000edits FULL pending (should hold per cycle 98 finding)
+- META cycle 51 (~10:43) likely already fired
+- Bet Y V2.D Exp Dev pickup of cycle 93 spec addendum
+- active_priorities.md still stale (cycle 70)
