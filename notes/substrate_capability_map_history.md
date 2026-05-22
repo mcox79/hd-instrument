@@ -7515,3 +7515,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v79 — (2026-05-21) META strategic plan integrated: 6 lanes (A memory layer / B on-device / C compliance wedge / D cognitive architecture upside / E neuromorphic / F scientific reasoning) + phased Phase 1-5 execution; Lane C wedge → Lane D upside recommended play; multi-hop rescues deprioritized to Phase 4 contingent
+
+
+## v80 — (2026-05-21) V2 substrate evaluation delivered (Research Pass 2); V2.D modern exponential-capacity dense AM is WINNER (P=0.55-0.65 5x capacity 6mo); Bet Y formal promotion as V2 development track; V2.A/E/F deferred; V2.C re-evaluate gate after V2.D + N=8192 smoke

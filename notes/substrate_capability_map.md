@@ -531,6 +531,7 @@ the next PROT-007 migration cycle.
 | v77 | 2026-05-21 | Bet X research UNIFYING insight | d=25 IS compositional-depth bound (VSA class-level); Bet X mechanism ready |
 | v78 | 2026-05-21 | Bet B v9 third PASS retention_A=0.954 | Robustness 3-version-confirmed; sharp attractor |
 | v79 | 2026-05-21 | META strategic plan integrated | 6 lanes + phased execution; Lane C wedge + Lane D upside; Bet S Phase 1 priority |
+| v80 | 2026-05-21 | V2 substrate evaluation: V2.D winner | Bet Y formal promotion (modern dense AM); V2.A/E/F deferred; V2.C gated on V2.D |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1175,3 +1176,119 @@ candidate PROT-010 (lane-tagged decision log entries).
 Net effect: substrate-product strategic narrative now lane-driven;
 Phase 1-5 sequencing replaces ad-hoc bet promotion; clear gates per
 phase; user/META direction integrated as top-level reference.
+
+---
+
+## v80 update — V2 substrate evaluation delivered; V2.D modern exponential-capacity dense AM is WINNER (P=0.55-0.65 for 5× capacity in 6 mo); Bet Y promoted (V2 substrate development track); V2.B second (preserves current; Bet X-aligned); META cycle 23 reinforces 8/9 Tier-1 ✅ session-high
+
+Strategy session cycle 71. Research V2 substrate evaluation Pass 2
+delivered (10-min turnaround on cycle 68 filing).
+
+### V2.D modern exponential-capacity dense AM — STRONGEST candidate
+
+**Research finding** (per
+`research_V2_substrate_evaluation_2026-05-21.md`): of 6 V2 candidates,
+**only V2.D has strong empirical literature support** for the claimed
+gain. The substrate-product story is **NOT "structured codebook wins
+big" — it's "energy function change wins big"** per Lucibello-Mézard
+2024 (PRL 132:077301) + Hu 2024 (NeurIPS).
+
+**Per-candidate ranking** (Research-recommended):
+
+| Rank | Candidate | Mechanism class | P(5× capacity, 6mo) | Verdict |
+|---|---|---|---|---|
+| **1** | **V2.D modern dense AM** | Energy function change | **0.55-0.65** | **PROMOTE — active development** |
+| 2 | V2.B hybrid HRR+bipolar | Storage mechanism extension | 0.10 capacity / 0.20 depth | Second — preserves current; Bet X-aligned |
+| 3 | V2.C N=65536 + codebook | Scaling + Welch-bound | 0.20-0.25 | Re-evaluate after V2.D + N=8192 smoke |
+| 4 | V2.A hyperbolic-tiling | Topology / lattice change | 0.10-0.15 | DEFER — mean-field exponents; boundary pathology |
+| 5 | V2.F magnon/phasor | Codebook structure | 0.25 capacity / 0.05 depth | DEFER — physical magnon = reservoir computer NOT AM |
+| 6 | V2.E operator-algebra QEC | Algebraic recovery framework | 0.05-0.10 | DEFER — zero classical benchmark |
+
+**Foundational literature**:
+- Demircigil et al. arXiv:1702.01929 (2017): F(x)=exp(x) → P = exp(α N) capacity
+- Krotov-Hopfield arXiv:2008.06996 (2020): F(x)=xⁿ → capacity ∝ d^(n-1)
+- Ramsauer et al. arXiv:2008.02217 (2020): Continuous-state, capacity ∝ exp((β/2)d); softmax attention equivalent
+- Lucibello-Mézard 2024 (PRL 132:077301) — rigorous 2024 update
+- Hu et al. 2024 (NeurIPS) — spherical-code framework with tight upper
+
+### Bet Y formal promotion — V2.D substrate development track
+
+**Claim**: substrate transitions from current softmax(β=32) APPROXIMATION
+to EXPLICIT exponential-capacity dense associative memory per
+Demircigil 2017 / Ramsauer 2020 / Lucibello-Mézard 2024. Empirical
+substrate capacity gain ≥ 5× current M/N=8 (Bet C) at N=4096 within
+6 months engineering.
+
+**Mechanism path** (Research-recommended):
+1. Cast substrate's current modern-Hopfield-rescue regime (R29
+   ferromagnetism) as IMPLICIT exponential energy
+2. Replace `argmax(softmax(β·sim))` cleanup with explicit
+   `−β⁻¹ log Σ exp(β xᵢᵀ s)` energy descent
+3. Validate at substrate scale (N=4096, Kerdock v4 codebook)
+4. Sweep β to find substrate-product-optimal regime
+
+**Multi-probe success criteria**:
+- Effective capacity (memorization-then-decode) ≥ 5× Bet C M/N=8 ceiling
+- All 5 Mirage probes preserved (no leakage)
+- Bet A (edit-then-query) + Bet G (calibration) primitives survive
+- 3 seeds at N=4096
+
+**Kill criterion**: capacity ≤ 2× baseline OR any Mirage probe breaks
+OR Bet A/Bet G primitives degrade.
+
+**Pre-armed 5 rescue sketches** (per PROT-004):
+1. Explicit p-body cleanup (Bet R subsumed; super-linear via Musa 2025)
+2. Welch-bound codebook (Hu 2024 spherical-code framework)
+3. Krotov-Hopfield F(x)=xⁿ explicit n-sweep
+4. Hybrid V2.D + V2.B (energy function + parallel HRR pool)
+5. Adaptive-β substrate-state feedback (per Bet G ✅ infrastructure)
+
+**Lane mapping**: V2.D serves Lane A (memory layer; bigger capacity =
+more facts) + Lane C (compliance; bigger fact base) + Lane D
+(cognitive architecture; agent-scale memory).
+
+**Bet Y state**:
+
+| Capability | v79 state | v80 state | Trigger |
+|---|---|---|---|
+| V2 substrate development track | (research-only) | 🔬 **Bet Y formal active bet — V2.D modern dense AM as primary V2 path; P=0.55-0.65 for 5× capacity in 6mo** | V2 substrate evaluation |
+
+### Capability moves
+
+| Capability | v79 state | v80 state | Trigger |
+|---|---|---|---|
+| V2.D modern exponential-capacity dense AM | 🔬 candidate | 🔬 **Bet Y — active V2 development track** | V2 eval winner |
+| V2.B hybrid HRR+bipolar | 🔬 candidate | 🔬 second-priority V2; Bet X-aligned (preserves current) | V2 eval |
+| V2.A hyperbolic-tiling | 🔬 candidate | 🔬 **DEFER** — mean-field + boundary pathology | V2 eval |
+| V2.C N=65536 + codebook opt | 🔬 candidate | 🔬 re-evaluate after V2.D + N=8192 smoke | V2 eval |
+| V2.E operator-algebra QEC | 🔬 candidate | 🔬 **DEFER** — zero classical benchmark | V2 eval |
+| V2.F magnon/phasor | 🔬 candidate | 🔬 **DEFER** — reservoir computer not AM | V2 eval |
+
+### V2 development sequencing
+
+**Bet Y (V2.D)** is the primary substrate-product V2 development
+track. Sequence:
+1. **Bet Y smoke** (this cycle's routing) — replace cleanup with
+   explicit exp energy at substrate scale; measure capacity
+2. If Bet Y smoke shows capacity gain → **Bet Y full** with sweep
+3. If Bet Y full passes → **V2.D substrate** is the canonical V2
+
+V2.B (Bet X-aligned hybrid) is the SECOND V2 path — develop in
+parallel after Bet Y smoke clears (Bet X mechanism already designed
+per Research).
+
+### META cycle 23 reinforcement
+
+Per `meta_audit_2026-05-21_cycle23.md`:
+- Strategy v79 was "best cycle of session" per META
+- 4 overcloses caught + reversed (full session pattern)
+- Tier-1 board at 8/9 ✅ session-high
+- Strategic plan working as designed
+- Phase 1 pending Experiment Dev pickup of Bet S + Lane C smoke + Bet X
+- User approval on Proposal 10 (PROT-009) still pending
+
+### Tally — V2 substrate evaluation delivered; V2.D winner promoted as formal Bet Y (V2 development track); 4 V2 candidates DEFERRED (V2.A/V2.E/V2.F mechanism-class mismatch; V2.C gated on V2.D); META cycle 23 reinforces
+
+Net effect: V2 substrate roadmap now has clear primary path (Bet Y);
+4 deferred candidates with explicit gate criteria; substrate-product
+story for V2 is "energy function change" per Research's Pass 2 finding.
