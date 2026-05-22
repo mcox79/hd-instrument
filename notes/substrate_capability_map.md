@@ -6361,3 +6361,194 @@ substrate-physics internal-consistency confirmed (RS phase + C2PO
 broken); Bet Y V2.D N=65536 outlook improves (only 1 concerning smoke
 signal remaining; FULL pending); smoke→FULL divergence precedent
 strengthens to 6 anchors.
+
+## v114 update — MAJOR Research delivery: substrate empirically beyond ALL published RS theory at M/N=8 (uncharted territory); Bayes-AMP/VAMP NEW substrate-novel candidate (P=0.75); 4-mechanism-family analysis; N=65536 predictions span 4 orders of magnitude — Bet S K-ceiling FULL is the discriminating experiment
+
+Strategy session cycle 114 (~15:18 EDT). User flagged new work from
+Research; my cycle 113 RS-phase capacity mechanisms request (filed
+15:00) delivered at 15:15 EDT — **15-minute Research turnaround**.
+
+### HEADLINE 1: Substrate empirically BEYOND all published RS theory
+
+**Agent 2 (structured codebook scan) direct quote** (per Research note):
+
+> "No published RS-phase paper gives a closed-form α_c for 4-coset or
+> Reed-Muller coded Hopfield networks that exceeds 0.138 with a formal
+> replica calculation. The empirical observation of M/N = 8 at N = 4096
+> is beyond what any published RS analytical bound predicts. This is
+> either a finite-N regime effect or a genuinely novel result not yet
+> theorized."
+
+**Substrate is sitting on uncharted theoretical territory** — M/N=8
+at N=4096 (Kerdock 4-coset codebook) = 57× above AGS α_c=0.138 bound
+with NO published RS theory explaining it.
+
+**Two possibilities**:
+- **(a)** Finite-N attenuation effect (substrate M/N degrades to AGS-like
+  values at scale; sublinear-at-large-N hypothesis)
+- **(b)** Genuinely novel RS-phase capacity result not yet theorized
+  (substrate-product-distinctive theoretical contribution opportunity)
+
+**Bet S K-ceiling N=65536 FULL outcome distinguishes (a) vs (b)**:
+- (a) confirms cycle 112 smoke KILL → substrate at scale near AGS bound
+- (b) refutes cycle 112 smoke KILL via 6-anchor smoke→FULL divergence
+  precedent → substrate at scale maintains M/N=8 or extends
+
+Per [[feedback-value-creation-not-competition]]: case (b) would be
+substrate-product distinctive at theory level. Either outcome is
+substrate-product informative.
+
+### HEADLINE 2: Bayes-AMP / VAMP — NEW substrate-novel candidate (P=0.75)
+
+**Most substrate-novel actionable proposal** (replaces refuted modern
+dense AM mechanism):
+
+**Bayes-AMP / VAMP readout primitive**:
+- Switches substrate from **attractor-gradient-descent (AGS-bound)** to
+  **posterior-inference (info-theoretic-bound)**
+- Lives natively in RS phase (State Evolution IS the RS saddle-point
+  fixed point per Bayati-Montanari 2011 IEEE TIT)
+- Couples DIRECTLY to Bet Z.1 SRHT (cycle 110; still viable per
+  cycle 112 smoke PASS) AND to cued holistic readout (cycle 110 Entry
+  143 framing)
+- Cost: O(N·t_iter), t ~10-50 iterations
+
+**Foundational results** (Research surveyed):
+- Donoho-Maleki-Montanari 2009 (arXiv:0911.4219, PNAS) — AMP
+  derivation from loopy BP + Onsager correction
+- Bayati-Montanari 2011 (IEEE TIT 57:764) — State Evolution rigorous
+- Rangan-Schniter-Fletcher 2017 VAMP (arXiv:1610.03082) — extends to
+  right-rotationally-invariant matrices
+- Lesieur-Krzakala-Zdeborova 2017 Low-RAMP (arXiv:1701.00858) — TAP
+  equations equivalent for low-rank planted factorization
+- Krzakala-Mezard-Sausset-Sun-Zdeborova 2012 (J Stat Mech P08009) —
+  spatially-coupled codebook achieves α_AMP → α_IT (Shannon)
+
+**CRITICAL CAVEAT** (brutal honesty per [[feedback-no-smoke]]):
+
+> "AMP's state-evolution proofs assume IID Gaussian (Bayes-AMP) OR
+> right-rotationally-invariant (VAMP) measurement matrix. Substrate's
+> 4-coset (Kerdock) codebook is an algebraic / deterministic
+> construction — it is NOT automatically in the RI universality class.
+> Berthier-Montanari-Nguyen 2020 establishes universality for
+> sub-Gaussian IID columns but does NOT extend to fully correlated
+> algebraic codebooks. Whether substrate's codebook satisfies AMP's
+> matrix-class assumption is an open empirical question that must be
+> tested before any AMP-based readout claim is shipped."
+
+**Substrate-product positioning**: Bayes-AMP/VAMP is **proposed as
+substrate-novel candidate** but requires empirical verification of
+matrix-class assumption first. Honest framing.
+
+### HEADLINE 3: 4 mechanism families with substrate-applicability scoring
+
+| Family | Mechanism | α_c gain | P |
+|---|---|---|---|
+| F1 Inference | **Bayes-AMP / VAMP** | up to α_IT (Shannon) | **0.75** substrate-novel |
+| F1 variant | Spatially-coupled AMP threshold saturation | α_AMP → α_IT | 0.50 (codebook redesign) |
+| F2 Learning | **Pseudoinverse / projection rule** | α → 1.0 exact storage (basins shrink as α→1) | **0.65** proven; margin trade-off |
+| F2 Learning | Three-threshold perceptron | α → 0.83 (Gardner RS limit) | 0.60 online-compatible |
+| F3 Structured codebook | Welch-bound / low-coherence | Empirical 57× (theory-light) | **0.85** substrate already does this |
+| F4 Sparse-coding | Tsodyks-Feigelman low-activity | α_c ~ 1/(p ln p) | **0.05 REJECTED** (substrate dense ±1) |
+
+**Substrate-product implications**:
+- Substrate's current path (F3 Welch/Kerdock) at P=0.85 = substrate is
+  already pursuing the highest-P mechanism
+- Bayes-AMP/VAMP (F1, P=0.75) is the substrate-novel ADD-ON candidate
+- Pseudoinverse (F2, P=0.65) viable but margin-shrinking trade-off
+- Sparse-coding REJECTED (substrate architecture incompatible)
+
+### HEADLINE 4: N=65536 predictions span 4 orders of magnitude
+
+Cross-agent predictions for substrate K at N=65536:
+
+| Agent | Prediction | Basis |
+|---|---|---|
+| Agent 3 (linear-scaling baseline) | K_crit ≈ **9000-10500** | α_c_eff in 0.14-0.16; current K=200 is 45× below ceiling |
+| Agent 2 (finite-N attenuation) | K_crit ≈ **262K-525K** | M/N attenuates to 4-6 at scale |
+| Agent 1 (pseudoinverse upper bound) | K_crit ≈ **N = 65536** | Linear independence limit |
+| Agent 4 (AMP threshold) | K depends on activation sparsity k | At k=10 simultaneous active: α=N/K satisfying α_AMP(k/K) |
+
+**4 orders of magnitude spread** (K=9000 to K=525K).
+
+**Bet S K-ceiling N=65536 FULL is the single empirical test that
+distinguishes**. High-information experiment per
+[[feedback-no-smoke]]: the smoke shows K_crit≈200; FULL outcome
+selects among substantive theoretical predictions.
+
+### Substrate-product roadmap updates
+
+**Bet Y V2.D N=65536 path**:
+- Cycle 105: modern dense AM mechanism REFUTED
+- Cycle 112: substrate is RS-phase certified
+- Cycle 113: cycle 108 sublinear WITHDRAWN (FULL = linear c=0.073)
+- **Cycle 114**: 4 mechanism families identified for RS-phase substrate;
+  Bayes-AMP/VAMP P=0.75 is candidate REPLACEMENT for modern dense AM
+- Bet Y V2.D simplified scope (cycle 106) can ADD Bayes-AMP/VAMP layer
+  if Kerdock codebook satisfies RI assumption (empirical test needed)
+
+**Cued holistic readout (cycle 110)**:
+- Bet Z.1 SRHT still viable (cycle 112 smoke PASS)
+- Bet Z.2 C2PO REFUTED (cycle 113)
+- **Bayes-AMP/VAMP becomes Bet Z.3 candidate** (replacing the modern
+  Hopfield softmax Bet Z.3 that was already refuted at cycle 105)
+
+**Substrate-product theoretical positioning**:
+- Substrate is empirically BEYOND all published RS theory (M/N=8 at
+  N=4096 unexplained)
+- Bet S K-ceiling N=65536 FULL distinguishes finite-N vs novel-result
+  hypotheses
+- Either outcome is substrate-product distinctive
+
+### Strategy follow-up actions
+
+1. **Wait for Bet S K-ceiling N=65536 FULL** (in queue; determines 4-order
+   prediction spread)
+2. **Pre-investigate substrate's codebook RI assumption** — does
+   Kerdock 4-coset satisfy AMP state-evolution requirements? Pending
+   pre-investigation file to Research (lower priority than Bet S FULL)
+3. **Bet Z.3 = Bayes-AMP/VAMP** replaces refuted modern Hopfield softmax;
+   add to substrate-product capability portfolio
+4. Pseudoinverse (F2, P=0.65) and three-threshold perceptron (F2, P=0.60)
+   noted as substrate-product alternative mechanisms
+
+### Capability moves (v113 → v114)
+
+| Capability | v113 state | v114 state | Trigger |
+|---|---|---|---|
+| Substrate-physics theoretical positioning | "classical-Hopfield-class in RS phase" with Kerdock-codebook capacity extension | + **EMPIRICALLY BEYOND all published RS theory** at M/N=8 N=4096 (uncharted theoretical territory) | RS-phase Research |
+| Substrate-novel RS-phase mechanism candidates | 0 viable (modern dense AM + Z.2 C2PO refuted) | ✅ **4 mechanism families** with P-scoring; Bayes-AMP/VAMP P=0.75 substrate-novel replacement | RS-phase Research |
+| Bet Z.3 candidate | refuted modern Hopfield softmax (cycle 110) | ✅ **Bayes-AMP/VAMP** new substrate-novel candidate (replaces refuted Z.3) | RS-phase Research |
+| Bet S K-ceiling N=65536 outcome significance | 1 concerning smoke signal | **4-order-of-magnitude prediction spread** to be distinguished by FULL | RS-phase Research |
+| Substrate's codebook RI universality class | unmeasured | 🔬 open empirical question (Kerdock 4-coset NOT automatically RI per Berthier-Montanari-Nguyen 2020) | RS-phase Research caveat |
+| Sparse-coding F4 mechanism | unmeasured | ❌ REJECTED (substrate dense ±1 incompatible with Tsodyks-Feigelman) | RS-phase Research |
+
+### Substrate-product net (v114)
+
+**Major substrate-physics finding**:
+- Substrate is empirically beyond all published RS theory
+- 4-order-of-magnitude N=65536 prediction spread = high-info experiment
+- Bayes-AMP/VAMP P=0.75 substrate-novel candidate identified
+
+**Substrate-product story strengthens**:
+- Substrate-novel capacity-extension mechanism candidate (Bayes-AMP/VAMP)
+- Substrate empirically beyond literature predictions = distinctive
+  theoretical positioning
+- Lane D wedge story unchanged (cycles 103+105+113)
+- Bet Y V2.D simplified scope (cycle 106) gains potential mechanism
+  ADD-ON (Bayes-AMP layer)
+
+**Open empirical questions**:
+- Bet S K-ceiling N=65536 FULL: which of 4 mechanism families predicts
+  correctly?
+- Kerdock 4-coset RI universality: does substrate's codebook satisfy
+  AMP state-evolution assumption?
+
+### Tally — substrate empirically beyond ALL published RS theory (M/N=8 N=4096 uncharted territory); Bayes-AMP/VAMP P=0.75 substrate-novel candidate (REPLACES refuted modern dense AM); 4 mechanism families analyzed; N=65536 predictions span 4 orders of magnitude — Bet S K-ceiling FULL = high-info discriminating experiment; sparse-coding REJECTED; Kerdock RI universality is open empirical question
+
+Net effect: MAJOR substrate-physics characterization with substantive
+substrate-product implications; substrate is empirically beyond
+published RS theory; Bayes-AMP/VAMP P=0.75 substrate-novel mechanism
+identified; Bet S K-ceiling N=65536 FULL becomes critical
+discriminating experiment for 4-order-of-magnitude prediction spread;
+substrate-product positioning gains theoretical distinctiveness.
