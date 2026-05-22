@@ -6552,3 +6552,144 @@ published RS theory; Bayes-AMP/VAMP P=0.75 substrate-novel mechanism
 identified; Bet S K-ceiling N=65536 FULL becomes critical
 discriminating experiment for 4-order-of-magnitude prediction spread;
 substrate-product positioning gains theoretical distinctiveness.
+
+## v115 update — Kerdock RI Research delivered (20min turnaround): OPEN-leaning-NO for pure formal proof + EFFECTIVELY YES via randomization; 3 operational paths P1 VAMP (P=0.90 PROVEN) + P2 RK-SRHT (P=0.75) + P3 pure Kerdock empirical (P=0.50); 4-step pre-test protocol specified ~1 GPU-h; V3 NOT triggered — VAMP path PROVEN
+
+Strategy session cycle 115 (~15:40 EDT). User flagged new
+research + experiment finished. Per cycle 109 discipline: research-note
+mtime check found Kerdock RI universality Research delivered at
+15:35 (20-min turnaround on my cycle 115 request filed 15:28).
+
+### HEADLINE 1: Kerdock RI universality VERDICT — operational paths exist
+
+**Pure Kerdock 4-coset RI universality**: **OPEN, leaning NO for formal
+proof; effectively YES via randomization extension**.
+
+**3 operational paths for Bet Z.3-AMP** (Research ranking):
+
+| Path | Mechanism | Guarantee | Substrate change | P(ships) |
+|---|---|---|---|---|
+| **P1** | VAMP with cached SVD (Rangan-Schniter-Fletcher 2017) | **PROVEN for all RI matrices** | None (SVD one-time precompute) | **0.90** |
+| **P2** | Randomized Kerdock (Kerdock × random ±1 diagonal = "RK-SRHT") | **Effectively proven** (SRHT corollary; Dudeja-Lu-Kini 2022 + Chen-Lam 2022) | Codebook modification: add D pre-multiply | **0.75** |
+| **P3** | Pure Kerdock + 4-step empirical pre-test | NOT formally proven; empirical confidence | None | **0.50** |
+
+**Substrate-product implication — V3 NOT triggered**:
+
+Per cycle 115 V3-investigation logic: Kerdock failing RI was a
+potential V3 trigger. **But P1 VAMP is PROVEN at P=0.90** for any
+RI matrix — substrate can ship Bet Z.3 = VAMP regardless of pure
+Bayes-AMP applicability. **V3 substrate investigation REMAINS
+unwarranted.**
+
+### HEADLINE 2: 4-step empirical pre-test specified (~1 GPU-h)
+
+If Strategy wants to determine if pure Bayes-AMP (P3) works at
+substrate (saves SVD cost; cleaner mechanism), run the 4-step
+empirical pre-test:
+
+| Step | Cost (4096×4096) | Criterion |
+|---|---|---|
+| 1. Full SVD of W | 10-20 min CPU one-time | Setup |
+| 2. Marchenko-Pastur spectral fit | 5 min CPU | KS statistic D < 0.05 |
+| 3. Eigenvector delocalization check | 5 min CPU | max\|V_ij\|² × n < 5 |
+| 4. Empirical SE diagnostic (run AMP 20 iter; 5 sparse signals) | 20-40 min GPU | max rel err \|MSE_AMP - MSE_SE\| / MSE_SE < 0.05 |
+
+**Total: ~1 GPU-h**.
+
+**Outcome paths**:
+- **All 4 steps PASS** → P3 ships pure Bayes-AMP at substrate
+- **Any step FAIL** → P1 VAMP fallback (already proven; SVD cached from step 1)
+- **P2 randomized Kerdock**: deferred unless P1+P3 both unviable; Strategy
+  considers acceptable codebook modification
+
+**REJECTED pre-tests** (per Research): RIP verification (NP-hard),
+mutual coherence alone (insufficient), sub-Gaussian moments alone
+(doesn't address column dependence), condition number alone
+(eigenvectors can localize).
+
+### HEADLINE 3: Closest formal result — Gorini et al. April 2026
+
+Per Research lit-scan, the **closest published formal Hadamard-family
+AMP universality theorem** is:
+
+**Gorini-Jones-Kunisky-Pesenti arXiv:2604.11729** (April 2026):
+traffic-distribution machinery proving AMP SE for **punctured
+Walsh-Hadamard** matrices (random row subsampling without sign flip).
+
+**Kerdock 4-coset extension** is "plausible but unproven step". Kerdock
+columns are constructed as exponentials of first-order RM codewords
+modulated by Hadamard-like phase patterns. Viewed as
+column-subselected Hadamard, the Gorini et al. machinery might extend
+— but Kerdock's Z_4-linear coset phase structure introduces
+deterministic correlations across rows that are absent in pure WHT.
+Whether those correlations vanish under the relevant asymptotic limits
+is **not worked out in any published paper**.
+
+### HEADLINE 4: Fallback mechanism stack (if pre-test fails)
+
+Per Research:
+1. **VAMP with explicit SVD** (Rangan-Schniter-Fletcher 2017) — PROVEN
+   for all RI matrices
+2. **OAMP (Orthogonal AMP)** (Ma-Ping 2017 arXiv:1602.06509) —
+   equivalent to VAMP; same guarantees
+3. **Memory AMP / MAMP** (Liu-Lau-Ping 2022 arXiv:2012.10861) — SE
+   convergence guaranteed by construction for arbitrary matrices
+   INCLUDING structured/deterministic
+4. **Damped AMP** (Rangan-Schniter 2014 arXiv:1402.3210) — heuristic
+   only; SE accuracy not guaranteed
+
+**Substrate-product implication**: if pure Kerdock fails RI, substrate
+has 3 proven fallback mechanisms (VAMP, OAMP, MAMP). All ship
+Bet Z.3 = AMP-family readout at substrate. V3 path NOT needed.
+
+### Strategy decision
+
+**Recommended Phase 1 (Strategy proposal)**: file Strategy → Exp Dev
+request to run **4-step empirical pre-test** at substrate (~1 GPU-h).
+
+**Outcomes branched**:
+- PASS all 4 steps → ship pure Bayes-AMP at substrate (Bet Z.3 mechanism)
+- FAIL any step → use VAMP with cached SVD (P=0.90 PROVEN; Bet Z.3
+  mechanism)
+- Either way → Bet Z.3 ships; V3 substrate investigation NOT triggered
+
+Filing followup Strategy → Exp Dev next.
+
+### Bet R p-body FULL completion noted
+
+`wave14_betR_pbody_polynomial_v1` FULL completed 15:35:13 (2540.3s = 42.3
+min, clean exit 0). Verdict not yet in dashboard panel.
+
+Per cycle 108 smoke: PBODY_NOGAIN (substrate p-body cleanup matches
+argmax). FULL likely confirms; will integrate when verdict appears.
+
+### Capability moves (v114 → v115)
+
+| Capability | v114 state | v115 state | Trigger |
+|---|---|---|---|
+| Kerdock 4-coset RI universality | OPEN empirical question | OPEN-leaning-NO for pure formal proof + **EFFECTIVELY YES via randomization extension** | Kerdock RI Research |
+| Bet Z.3-AMP operational path | unspecified (cycle 114 caveat) | ✅ **3 paths specified**: P1 VAMP P=0.90 PROVEN / P2 RK-SRHT P=0.75 / P3 pure Kerdock empirical P=0.50 | Kerdock RI Research |
+| 4-step empirical pre-test protocol | not specified | ✅ **specified** (SVD + MP fit + delocalization + AMP SE diagnostic; ~1 GPU-h total) | Kerdock RI Research |
+| Fallback mechanism stack | none enumerated | ✅ **4 fallback mechanisms** (VAMP / OAMP / MAMP / damped AMP) | Kerdock RI Research |
+| V3 substrate investigation trigger | conditional on Kerdock failing RI | **NOT triggered** — P1 VAMP is PROVEN for ANY RI matrix; substrate has substrate-novel mechanism path regardless | Kerdock RI Research |
+
+### Substrate-product net (v115)
+
+**Major substrate-product clarity gain**:
+- Kerdock RI universality question RESOLVED into operational paths
+- Bet Z.3 = AMP-family readout has **3 paths with PROVEN fallback**
+- 4-step empirical pre-test provides cheap (~1 GPU-h) decision
+- V3 substrate investigation REMAINS unwarranted
+
+**Substrate-product roadmap**:
+- Bet Z.3-AMP ships regardless of pre-test outcome (VAMP fallback PROVEN)
+- Bet Y V2.D simplified scope (cycle 106) gains potential mechanism ADD-ON
+- Per cycle 115 V3-trigger logic: Kerdock NOT triggering V3
+
+### Tally — Kerdock RI universality OPEN-leaning-NO for pure formal proof + EFFECTIVELY YES via randomization extension; 3 operational paths (P1 VAMP PROVEN P=0.90 + P2 RK-SRHT P=0.75 + P3 pure empirical P=0.50); 4-step pre-test protocol specified ~1 GPU-h; V3 NOT triggered — VAMP fallback PROVEN; Bet R p-body FULL completed 42min clean exit 0 verdict pending
+
+Net effect: substantial substrate-product clarity gain on Bet Z.3-AMP
+mechanism candidate; 3 operational paths with PROVEN fallback (P1
+VAMP); 4-step empirical pre-test specified at low cost; V3 substrate
+investigation remains unwarranted (substrate has substrate-novel
+mechanism path regardless of Kerdock RI verdict).

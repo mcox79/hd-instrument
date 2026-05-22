@@ -6600,3 +6600,104 @@ Next:
 - Bet Z.2 C2PO FULL verdict (likely confirms broken)
 - Bet R p-body FULL still running
 - Strategy may file Kerdock RI pre-investigation routing later
+
+
+## Cycle 115 [Kerdock RI universality Research delivered] -- 3 operational paths for Bet Z.3-AMP with PROVEN fallback (P1 VAMP P=0.90); V3 NOT triggered (cap_map v115)
+
+Trigger: user "an experiment finished, and new research back" at
+~15:40 EDT. Two events: Kerdock RI Research delivered + Bet R p-body
+FULL completed.
+
+Kerdock RI universality VERDICT:
+
+Pure Kerdock 4-coset RI universality: OPEN, leaning NO for formal
+proof + EFFECTIVELY YES via randomization extension.
+
+3 operational paths for Bet Z.3-AMP:
+- P1 VAMP with cached SVD: PROVEN for all RI matrices (Rangan-
+  Schniter-Fletcher 2017); P=0.90 ships
+- P2 Randomized Kerdock (Kerdock × random ±1 diagonal = "RK-SRHT"):
+  effectively proven (SRHT corollary); substrate codebook
+  modification; P=0.75
+- P3 pure Kerdock + 4-step empirical pre-test: not formally proven;
+  empirical confidence; P=0.50
+
+V3 substrate investigation NOT triggered per cycle 115 logic.
+P1 VAMP is PROVEN at P=0.90 for any RI matrix — substrate can ship
+Bet Z.3 = VAMP regardless of pure Bayes-AMP applicability.
+
+4-step empirical pre-test protocol (~1 GPU-h total):
+1. Full SVD of W (10-20 min CPU one-time)
+2. Marchenko-Pastur spectral fit (KS<0.05; 5 min CPU)
+3. Eigenvector delocalization check (max|V_ij|²×n<5; 5 min CPU)
+4. Empirical SE diagnostic (AMP 20 iter 5 sparse signals max rel err
+   <0.05; 20-40 min GPU)
+
+Outcomes:
+- PASS all 4 steps → ship pure Bayes-AMP at substrate
+- FAIL any step → use VAMP with cached SVD (PROVEN; SVD from step 1)
+- Either way → Bet Z.3 ships; V3 NOT triggered
+
+Closest formal Hadamard-family AMP universality theorem:
+Gorini-Jones-Kunisky-Pesenti arXiv:2604.11729 (April 2026) — traffic-
+distribution machinery for punctured Walsh-Hadamard. Kerdock extension
+plausible but unproven step (Z_4-linear coset phase structure
+introduces row correlations absent in pure WHT).
+
+Fallback mechanism stack:
+1. VAMP explicit SVD (PROVEN all RI)
+2. OAMP Ma-Ping 2017 (equivalent to VAMP)
+3. Memory AMP/MAMP Liu-Lau-Ping 2022 (SE convergence guaranteed for
+   ARBITRARY matrices including deterministic)
+4. Damped AMP (heuristic only)
+
+Strategy decision: file Strategy → Exp Dev request for 4-step
+empirical pre-test at substrate (~1 GPU-h). Cheap decision; either
+outcome ships Bet Z.3-AMP.
+
+Bet R p-body FULL completion noted:
+
+wave14_betR_pbody_polynomial_v1 FULL completed 15:35:13 (2540.3s =
+42.3 min, clean exit 0). Verdict not yet in dashboard panel.
+
+Per cycle 108 smoke: PBODY_NOGAIN (substrate p-body cleanup matches
+argmax). FULL likely confirms; will integrate when verdict appears.
+
+Capability moves (v114 → v115):
+
+| Capability | v114 | v115 | Trigger |
+|---|---|---|---|
+| Kerdock 4-coset RI universality | OPEN empirical question | OPEN-leaning-NO formal + EFFECTIVELY YES via randomization | Kerdock RI Research |
+| Bet Z.3-AMP operational path | unspecified | 3 paths (P1 VAMP P=0.90 PROVEN / P2 RK-SRHT P=0.75 / P3 pure P=0.50) | Kerdock RI Research |
+| 4-step empirical pre-test protocol | not specified | specified ~1 GPU-h total | Kerdock RI Research |
+| Fallback mechanism stack | none enumerated | 4 fallbacks (VAMP/OAMP/MAMP/damped) | Kerdock RI Research |
+| V3 substrate investigation trigger | conditional | NOT triggered — P1 VAMP PROVEN | Kerdock RI Research |
+
+Substrate-product net (v115):
+
+Major substrate-product clarity gain:
+- Kerdock RI universality question RESOLVED into operational paths
+- Bet Z.3 = AMP-family readout has 3 paths with PROVEN fallback
+- 4-step empirical pre-test ~1 GPU-h cheap decision
+- V3 substrate investigation REMAINS unwarranted
+
+Substrate-product roadmap:
+- Bet Z.3-AMP ships regardless of pre-test outcome
+- Bet Y V2.D simplified scope gains potential mechanism ADD-ON
+- V3 NOT triggered per cycle 115 logic
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 29th observation. PROT-005 unbiased framing:
+"OPEN leaning NO" framed honestly NOT minimized; P1 VAMP PROVEN
+framed accurately (P=0.90 ships estimate); V3 trigger logic applied
+honestly (NOT triggered per cycle 115).
+
+Next:
+- File Strategy → Exp Dev for 4-step pre-test (separate commit)
+- Bet R p-body FULL verdict integration when dashboard refreshes
+- Observability suite FULL verdict (running)
+- Bet S K-ceiling N=65536 FULL (critical)
+- Bet Z.1 SRHT FULL
+- Bet Z.2 C2PO FULL
+- Multi-hop K=100 N=65536 + Bet V N=65536 (Bet Y V2.D 5-test battery
+  items queued by Exp Dev)
