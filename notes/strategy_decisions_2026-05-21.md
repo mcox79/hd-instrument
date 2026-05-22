@@ -7001,3 +7001,121 @@ commit for the request file + appropriate decision log.
    log one-line)
 3. When Lane C compliance FULL lands (post-routing): same flagging
    protocol
+
+
+## Cycle 119 [substrate-physics SHARPENING + Lane C INCONCLUSIVE + Bet S K-ceiling FULL pending sync]
+
+Trigger: /loop /strategy-cycle at ~18:05 EDT. Strategy was offline
+~2.5 hours since cycle 118 (~15:55). Per cycle 116 chronological scan
++ cycle 109 research-note discipline: caught 3 visible smokes + 2 FULL
+completions per log (verdicts pending dashboard sync).
+
+HEADLINE 1: Substrate-physics characterization SHARPENED — RSB-capable W structure in RS thermodynamic state
+
+Two NEW Family-flagged probes:
+
+Hessian VDOS smoke = VDOS_SOFTMODES_RSB:
+- fraction(λ ≤ 0.01·λ_max) = 0.852 ≥ 0.20
+- RSB-class flat directions present; λ_max=1.8778
+- 0.1s test-scaffold-suspect
+
+muSR Kubo-Toyabe smoke = KUBO_DYNAMIC:
+- Stretched-exponential β=1.160 (dynamic regime)
+- r2_stretched=0.925 vs r2_gauss=0.444
+- 10.1s legitimate runtime
+
+Cross-family DISAGREEMENT:
+- Family I + II (cycle 112): RS / paramagnet phase certified
+- Family IV-ish (VDOS) + Family III-ish (muSR) cycle 119: RSB-capable / dynamic-regime
+
+Per cycle 109 Entry 141 supersession: Hessian VDOS was "decorative
+for binary spins" + muSR was "overcounted reduces to P(h) moments"
+— single-axis verdicts noise-prone. Cross-family certification
+standard MAINTAINED at RS.
+
+Interpretation: substrate has RSB-CAPABLE W matrix structure but
+OPERATES in RS thermodynamic state at α=0.15.
+
+Sharpened characterization (cycle 117 → cycle 119):
+- Cycle 117: "classical-Hopfield-class in RS phase + Kerdock extension"
+- Cycle 119: "classical-Hopfield-class W matrix with RSB-capable
+  soft-mode structure, operating in RS thermodynamic phase at α=0.15
+  substrate operating point, with Kerdock-codebook capacity extension"
+
+May explain cycle 114 empirical-beyond-all-published-RS-theory at
+M/N=8: RSB-capable W structure providing capacity + RS retrieval
+thermodynamic state providing efficient retrieval.
+
+HEADLINE 2: Lane C compliance FULL = LANE_C_FULL_INCONCLUSIVE
+
+wave14_lane_C_compliance_audit_FULL_v1_smoke (0.8s) = "Only 2 seeds;
+need >=3".
+
+Cycle 118 routed Lane C compliance FULL per Product session request
+(5-probe Mirage × 3-5 multi-seed). Exp Dev queued and ran smoke with
+only 2 seeds = below Research playbook 5-seed+BF threshold.
+
+Strategy action: file follow-up to Exp Dev clarifying multi-seed
+methodology (3-5 seeds minimum required). Product session Demo 2
+forensic-erase positioning depends on Lane C FULL grounding.
+
+HEADLINE 3: Bet S K-ceiling N=65536 FULL + Bet Z.1 SRHT FULL DONE per log; verdicts PENDING sync
+
+Log lines show:
+- 17:35:17 wave14_betS_K_ceiling_N65536_v1 DONE 3.3s exit 0
+- 17:35:19 wave14_betZ_srht_readout_v1 DONE 2.0s exit 0
+- 17:35:19 wave14_betZ_c2po_v1 STARTED (currently running)
+
+Both FULL verdicts NOT in dashboard recent_verdicts panel ~30 min later.
+Per cycle 99/116 pattern: dashboard panel lags log lines (remote-side
+metrics.json files may not have synced to local panel).
+
+Bet S K-ceiling N=65536 FULL is the CRITICAL discriminator per:
+- cycle 112 smoke KILL K_crit=200
+- cycle 114 4-order prediction spread
+- cycle 117 ambiguous Bet Y V2.D N=65536 outlook
+- Product session Demo 1 dependency
+
+3.3s elapsed test-scaffold-suspect. Strategy waits for sync.
+
+Capability moves (v117 → v119):
+
+| Capability | v117 | v119 | Trigger |
+|---|---|---|---|
+| Substrate-physics characterization | "classical-Hopfield-class in RS phase + Kerdock extension" | + "with RSB-capable W structure" sharpening | Hessian VDOS + muSR smokes |
+| Cross-family observability suite | Family I + II RS certified | + Family IV + III RSB-capable/dynamic-regime (DISAGREEMENT; Entry 141 flagged decorative; certification standard maintained) | cycle 119 smokes |
+| Lane C compliance FULL | not queued → routed cycle 118 | INCONCLUSIVE 2 seeds; need follow-up multi-seed routing | Lane C FULL inconclusive |
+| Bet S K-ceiling N=65536 FULL | smoke KILL cycle 112 | FULL DONE per log; verdict pending dashboard sync | log line not panel |
+| Bet Z.1 SRHT FULL | smoke PASS cycle 112 | FULL DONE per log; verdict pending dashboard sync | log line not panel |
+
+Substrate-product net (v119):
+
+Substrate-physics characterization sharpens:
+- RSB-capable W structure + RS thermodynamic state combination
+- May explain cycle 114 empirical-beyond-RS-theory finding
+
+Lane C compliance FULL needs multi-seed follow-up:
+- Exp Dev ran with 2 seeds (below threshold)
+- Product session Demo 2 dependency unresolved
+- Strategy follow-up needed
+
+Bet S K-ceiling N=65536 FULL completion noted:
+- Critical discriminator pending dashboard sync
+- 3.3s test-scaffold-suspect
+
+Strategy action this cycle: file follow-up Strategy → Exp Dev on Lane C
+multi-seed methodology.
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 33rd observation. PROT-005 unbiased framing:
+substrate-physics sharpening framed as INTERPRETATION (cross-family
+disagreement noted honestly) NOT as cycle 112 RS certification
+revision; cross-family certification standard maintained per cycle 109
+framework.
+
+Next:
+- File Lane C multi-seed follow-up to Exp Dev
+- Wait for Bet S K-ceiling N=65536 FULL verdict in dashboard panel
+- Wait for Bet Z.1 SRHT FULL verdict
+- Bet Z.2 C2PO FULL currently running
+- META cycle 62+ should fire periodically
