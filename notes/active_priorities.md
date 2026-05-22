@@ -3,8 +3,49 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 66 (Bet B v9 third PASS retention_A=0.954 sharp attractor; Bet X UNIFYING insight d=25 IS VSA-class compositional-depth bound; 5 META-promoted bets Bet S/T/U/V/W + Bet Q + Bet R + Bet X awaiting Experiment Dev pickup; PROT-007/008 hygiene cleaned; PROT-009 proposed to META)
-**Cap map version this refers to:** v78
+**Last updated:** 2026-05-21 cycle 70 (META strategic plan integrated; 6 lanes + phased execution; Lane C wedge + Lane D upside recommended play; Phase 1 = Bet S + Lane C integration smoke + Bet X)
+**Cap map version this refers to:** v79
+
+---
+
+## 🎯 STRATEGIC PLAN REFERENCE (cap_map v79)
+
+**Authoritative**: `meta_request_to_strategy_strategic_plan_2026-05-21.md`
+(META filed 20:33, user-directed via cycles 19-22).
+
+**6 application lanes** (closeness order):
+- **C Compliance** (5/8 done) — closest to shipping; $5-50M ARR; **PHASE 1 WEDGE**
+- **A Memory layer for LLMs** (6/7 done) — engineering gap
+- **B On-device personal AI** (6/9 done) — D2C brutal
+- **E Neuromorphic** (4/6 done) — HW partnership dependent
+- **D Cognitive architecture** (3/11 done) — **HIGHEST TAM $30-50B+**; capability gap
+- **F Scientific reasoning** (1/8 done) — farthest
+
+**Recommended strategic play**: Lane C wedge ($5-50M near-term) → fund
+Lane D capability tests → pivot Lane C customers to Lane D (cognitive-
+architecture product; $30-50B+ TAM if agents go mainstream).
+
+## 🔝 PHASE 1 PRIORITY QUEUE (META Section 7)
+
+| Item | Lane | Cost | Status |
+|---|---|---|---|
+| **Bet S pattern completion** (META capability test A) | D, F | 1 cycle | filed `strategy_request_to_exp_dev_phase1_lane_C_2026-05-21.md` |
+| **Lane C integration smoke** (NEW; compliance-audit demo composing Bet 2/C + Bet A + Bet G) | C | 1-2 cycles | filed same |
+| **Bet X skill composition build** (Research mechanism delivered cycle 61) | D | 2-3 cycles | filed same |
+
+**Phase 2** (4-6 cycles): Bet T hypothesis tracking + Bet U working
+memory + R20 compositional gen + Lane C feature breadth.
+
+**Phase 3**: Bet V self-reflective + Bet W counterfactual + R21
+cross-modal + Lane D integration smoke.
+
+**Phase 4** (contingent on Bet P-Engineering smoke):
+multi-hop rescues + Lane D end-to-end demo.
+
+**Phase 5** (long horizon): Lane E hardware partnership + Lane F niche
++ Lane A integration with major LLM provider.
+
+---
 
 ---
 

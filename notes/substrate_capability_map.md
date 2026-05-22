@@ -530,6 +530,7 @@ the next PROT-007 migration cycle.
 | v76 | 2026-05-21 | Multi-hop N-sweep + R36/R37/R38/R39 | v4 Kerdock optimal; Bet Q spec ready; N=65536 M/N revised |
 | v77 | 2026-05-21 | Bet X research UNIFYING insight | d=25 IS compositional-depth bound (VSA class-level); Bet X mechanism ready |
 | v78 | 2026-05-21 | Bet B v9 third PASS retention_A=0.954 | Robustness 3-version-confirmed; sharp attractor |
+| v79 | 2026-05-21 | META strategic plan integrated | 6 lanes + phased execution; Lane C wedge + Lane D upside; Bet S Phase 1 priority |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1038,3 +1039,139 @@ Per `meta_audit_2026-05-21_cycle21.md` (19:46):
 Net effect: substrate-product robustness signal documented (Bet B
 EMA-blend mechanism converges to sharp 0.954 attractor); no Tier-1
 state changes; pipeline healthy at queue depth 3.
+
+---
+
+## v79 update — META strategic plan integrated: 6 lanes + phased execution; Lane C wedge + Lane D upside as recommended play; cap_map strategic-framing section added with lane-driven bet mapping
+
+Strategy session cycle 70. **META filed strategic plan**
+`meta_request_to_strategy_strategic_plan_2026-05-21.md` (20:33) per
+user direction (cycles 19-22 stock-taking + capability-vs-implementation
+split + lane mapping + dollar-value ranking + "build document for
+strategy to incorporate"). Major substrate-product reorientation.
+
+### STRATEGIC PLAN REFERENCE (cap_map v79+)
+
+**Authoritative strategic plan**: see `meta_request_to_strategy_strategic_plan_2026-05-21.md`.
+All future cap_map updates should reference this lane structure when
+promoting/demoting bets.
+
+### Substrate identity (META Section 1)
+
+> "**A structured-memory system with native associative reasoning and
+> intrinsic auditability, running cheap.**"
+
+NOT a transformer replacement; NOT a Turing-complete reasoning engine;
+NOT a GPT-quality language generator. Value comes from doing
+memory+reasoning+auditability differently from LLMs.
+
+### Six application lanes (META Section 2 + Section 4 ranking)
+
+| Lane | Done | Partial | Untested | Closeness | 24mo ARR ceiling | Long-term TAM |
+|---|---|---|---|---|---|---|
+| **A Memory layer for LLMs** | 6/7 | 0 | 1 | Closest (engineering gap) | $1-10M | $5-10B |
+| **B On-device personal AI** | 6/9 | 2 | 1 | Close | $0-5M direct (D2C brutal) | $5-15B |
+| **C Compliance / enterprise audit** | 5/8 | 1 | 2 | **Closest to shipping** | **$5-50M** (willing buyers + regulatory) | $10-30B |
+| **D Cognitive architecture** | 3/11 | 2 | 6 | Farthest (capability gap) | $0 | **$30-50B+** (agents go mainstream) |
+| E Neuromorphic | 4/6 | 1 | 1 | Algo complete; HW gap | $1-10M (IP) | $5-10B |
+| F Scientific reasoning | 1/8 | 2 | 5 | Farthest from shipping | $0-3M | $1-3B |
+
+**META-recommended strategic play**: build Lane C wedge → fund Lane D
+capability tests → pivot Lane C customers to Lane D as cognitive-
+architecture product.
+
+### Bet-to-Lane mapping (META Section 6)
+
+| Bet | Status | Lane(s) served | Strategic priority |
+|---|---|---|---|
+| Bet 1 ICL saturation | ✅ | A, B, D | Foundation |
+| Bet 2/C Mirage-grade erase | ✅ | **C (primary)**, A | HIGH — Lane C anchor |
+| Bet A edit-then-query | ✅ | **C (primary)**, A, B | HIGH — Lane C anchor |
+| Bet B multi-task CL | ✅ | C, B, D | HIGH multi-lane |
+| Bet G TEMPSCALE calibration | ✅ | **C (primary)**, B, D, F | HIGH — Lane C anchor |
+| Bet H autoregressive gen | ✅ rescued | B | MEDIUM |
+| Bet I free probability | ✅ | E (theory), all | Theory grounding |
+| Bet E Parisi P(q) | ✅ restored v73 | E (theory) | Theory grounding |
+| Bet L learning theory | 🔬 | D, F | Theory for D/F |
+| Bet M ferromagnetism | 🔬 | E (theory) | Theory for E |
+| Bet F SSH-BSC topological | ❌-arch CONFIRMED | E | Closed at current-arch |
+| Bet P semantic codebook | 🔬 active | D, F | Multi-hop rescue |
+| Bet Q facilitation-vs-nucleation | 🔬 active | E (theory) | Substrate-FIRST |
+| Bet R explicit p-body coupling | 🔬 active | A, C, D | Capacity extension |
+| Bet S pattern completion (META A) | 🔬 active | D, F | **PHASE 1 — META priority #1** |
+| Bet T hypothesis tracking (META B) | 🔬 active | D, F | Phase 2 |
+| Bet U working memory (META C) | 🔬 active | D | Phase 2 |
+| Bet V self-reflective (META D) | 🔬 active | D, B | Phase 3 |
+| Bet W counterfactual (META E) | 🔬 active | D, F, C | Phase 3 |
+| Bet X skill composition (META F) | 🔬 active | D | Phase 1 (in flight per cycle 61) |
+| R20 compositional gen | 🔬 designed | D, F | Phase 2 |
+| R21 cross-modal | 🔬 partial path | B, D | Phase 3 (22-34 GPU hrs) |
+| Multi-hop alt-arch (Bet P + 7 paths) | 🟡 | D, F | Deprioritized until Bet P engineering smoke |
+
+### Phased execution plan (META Section 7)
+
+**Phase 1 (immediate, 1-2 Experiment Dev cycles)** — Lane C wedge + capability test A:
+- Bet S Pattern completion (META priority #1; 70-80% P; substrate-native bidirectional recall)
+- Lane C integration smoke (NEW — combine validated Lane C primitives into compliance-audit demo)
+- Bet X skill composition build (already in flight per Strategy cycle 61)
+
+**Phase 2 (4-6 cycles)** — Lane D capability inventory + Lane C feature breadth:
+- Bet T hypothesis tracking
+- Bet U working memory + decay
+- R20 compositional generalization
+- Lane C feature expansion: stale-knowledge flagging + abstention
+
+**Phase 3** — Lane D completion + Lane D integration:
+- Bet V self-reflective
+- Bet W counterfactual
+- R21 cross-modal
+- Lane D integration smoke (agent-arch demo: WM + hyp-tracking + skill-comp)
+
+**Phase 4** — Lane D product validation:
+- Multi-hop rescue final (Bet P-Engineering if smoke positive)
+- Lane D end-to-end demo
+
+**Phase 5** — Long horizon: Lane E hardware partnership; Lane F niche;
+Lane A integration with major LLM provider.
+
+### Reconciliation with prior Strategy routing
+
+**Prior to META plan**: Strategy filed Bet P-Engineering + R31 S.1 as
+focused 2-experiment request (commit c2c846c, cycle 67). Both are
+**multi-hop rescues** (Lane D-adjacent).
+
+**Per META Section 7 Phase 4**: multi-hop rescues are deprioritized
+unless Bet P engineering smoke clears.
+
+**Strategy decision**: Bet P-Engineering smoke per the cycle 67 routing
+becomes the EARLY-GATE for whether Phase 4 multi-hop work continues.
+R31 S.1 stays in queue but as Phase 4 contingent. **Phase 1 primary
+priority shifts to Bet S + Lane C integration smoke + Bet X build.**
+
+### Capability moves
+
+| Capability | v78 state | v79 state | Trigger |
+|---|---|---|---|
+| Strategic plan reference | (not in cap_map) | ✅ META strategic plan integrated; lane-driven prioritization | META Section 8 directive |
+| Lane C compliance product wedge | (implicit) | 🔬 Phase 1 active; needs integration smoke + feature expansion | META recommended play |
+| Lane D cognitive architecture upside | (implicit) | 🔬 Phase 2-4 build path; 5 capability tests + Bet X + R20 + R21 | META Section 4 |
+| Bet P-Engineering priority | Phase 1 highest-leverage | **Phase 4 contingent** (multi-hop deprioritized per META) | META reordering |
+| Bet S Pattern completion | active bet (cycle 61) | **PHASE 1 #1 priority** | META Section 5 |
+
+### Per-cycle discipline going forward (META Section 8 directive #4)
+
+Strategy decision log entries should reference **which phase + lane**
+each commit serves. Format suggestion:
+
+```
+Cycle N — [Lane X / Phase Y] <commit headline>
+```
+
+This is a coordination protocol enhancement. Worth flagging to META as
+candidate PROT-010 (lane-tagged decision log entries).
+
+### Tally — META strategic plan integrated; Lane C wedge + Lane D upside framework adopted; Phase 1 priority shifts to Bet S + Lane C integration smoke + Bet X; multi-hop rescues deprioritized to Phase 4 contingent on Bet P-Engineering smoke
+
+Net effect: substrate-product strategic narrative now lane-driven;
+Phase 1-5 sequencing replaces ad-hoc bet promotion; clear gates per
+phase; user/META direction integrated as top-level reference.

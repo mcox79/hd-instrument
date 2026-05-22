@@ -7512,3 +7512,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v78 — (2026-05-21) Bet B v9 full third consecutive PASS at retention_A=0.954 (3-version robustness; sharp mechanism attractor)
+
+
+## v79 — (2026-05-21) META strategic plan integrated: 6 lanes (A memory layer / B on-device / C compliance wedge / D cognitive architecture upside / E neuromorphic / F scientific reasoning) + phased Phase 1-5 execution; Lane C wedge → Lane D upside recommended play; multi-hop rescues deprioritized to Phase 4 contingent
