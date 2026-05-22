@@ -4120,3 +4120,159 @@ substrate). Reasoning shown.
 - v13_a05 FULL (5th Bet B variant full).
 - META cycle 48 (~09:13) imminent.
 - Research follow-ups (R36 + V2.D OAQEC pre-investigation) still pending.
+
+
+## Cycle 93 [Lane D / Phase 2 substrate-product roadmap CRITICAL UPDATE] — Both Research follow-ups integrated: R36 mechanism CHALLENGED (β=32 fixed-temp pathology); Bet Y V2.D OAQEC STRONG NEGATIVE (R16 BBP permanent primary); spec needs β(N)=c/N (cap_map v93)
+
+**Trigger**: user "more work" + /loop /strategy-cycle at ~09:10 EDT.
+During dashboard inspection, found BOTH Research follow-ups (filed
+08:39) had delivered at 08:59 + 09:01 — 20+22 min turnaround. Strategy
+missed them in cycles 90/91/92 due to experimental-verdict tunnel
+vision (Bet B mechanisms, Bet A scaling, multi-hop seed=17 smokes).
+
+**Strategy attention-allocation lesson**: when filing Research routes,
+add an explicit watch for delivery completion to next 1-2 cycles.
+Cycle 90/91/92 each ran ~3-5 min after Research deliveries landed
+without integration. Not a PROT — discipline reminder.
+
+**Headline findings**:
+
+### Request A: R36 retrieval-side mechanism — CHALLENGED
+
+R36's "M/N drops with N" prediction has NO literature grounding per
+15+ paper survey (Tokita 2000, Benedetti 2024, Lucibello-Mézard 2024
+PRL 132:077301, Stariolo-Tsallis 1996, Steger-Bhatt 1996, PMC5222833
+Frontiers 2017). No mechanism predicts monotonic M/N drop with N in
+any associative memory class.
+
+**Real mechanism**: substrate's M/N=8 at N=4096 is 57× ABOVE classical
+AGS bound (α_c=0.138 = 565 patterns max at N=4096) → substrate is
+NOT in classical Hopfield regime. Must be exponential-energy class.
+Modern dense AM (Demircigil 2017 exp capacity) requires β_net = O(1/N)
+per Lucibello-Mézard 2024 PRL.
+
+Substrate's β=32 FIXED at any N:
+- N=4096: b = N·β = 131,072 (borderline)
+- N=65536: b = N·β = 2,097,152 (**6 orders too large** for
+  exp-capacity regime → winner-take-all collapse)
+
+**Revised probability decomposition at N=65536 with Kerdock(16)**:
+| Outcome | P |
+|---|---|
+| M/N ≥ 8 (β-scaled correctly) | 0.15 |
+| M/N ≥ 4 (β partial-scaled) | 0.45 |
+| M/N ≤ 1.5 (β=32 fixed; AGS-collapse) | 0.40 |
+
+**Substrate-product action — CRITICAL**: Bet Y V2.D MUST add β(N)=c/N
+scaling protocol. Without it, substrate-product fails at N=65536 with
+P=0.40.
+
+### Request B: Bet Y V2.D OAQEC pre-investigation — STRONG NEGATIVE
+
+Bet Y V2.D (modern dense AM with exp(β·x) energy + softmax cleanup)
+does NOT introduce non-commuting structure in OAQEC-relevant sense
+per Agent B SKEPTIC analysis (12+ papers).
+
+**Why softmax fails OAQEC requirements**:
+- F(ξ) = X·σ(β·Xᵀξ) converges to fixed point where [F, F] = 0
+  trivially
+- Only trivial matrix non-commutativity (F∘F vs F₂∘F₁ for different
+  X), not structured C*-algebraic non-commutativity OAQEC requires
+- Substrate has trivial center; commutative algebra → RT formula
+  still trivializes
+
+**arXiv:2604.07401 substrate-applicability**: ZERO. Paper
+(Petrova-Polyachenko-State ICML 2026) uses SPHERICAL geometry not
+algebraic non-commutativity. "Geometric entropy" refers to N-sphere
+geometry, not quantum-geometric structure. Doesn't apply to bipolar
+classical AM.
+
+**Probabilities**:
+| Claim | P |
+|---|---|
+| Bet Y V2.D introduces genuine non-commuting | 0.15 |
+| OAQEC framework enabled | 0.08 |
+| Opens substrate-novel theoretical-grounding axis | 0.07 |
+
+**Substrate-product action**: substrate-as-OAQEC DEFERRED INDEFINITELY.
+R16 BBP free probability framework remains PERMANENT primary
+substrate-physics theoretical anchor. No OAQEC opening at any planned
+V2 architecture.
+
+### Combined impact — substrate-product roadmap refines
+
+**Net engineering**:
+- Bet Y V2.D = capacity 5× + multi-hop d-extension + Bet S K-ceiling
+  19× extension + **β(N)=c/N scaling** (NEW REQUIREMENT)
+- P(Bet Y V2.D delivers ≥ partial gain with proper engineering)
+  = 0.60 (P=0.15 full + P=0.45 partial)
+- P(Bet Y V2.D fails capacity-axis without β-scaling) = 0.40
+
+**Net theoretical**:
+- R16 BBP framework PERMANENT primary (was tentatively primary with
+  OAQEC option held open)
+- OAQEC exploration CLOSED at all planned V2 architectures
+- Substrate theoretical-grounding axis stabilizes — no chase needed
+
+Per [[feedback-no-papers-product-only]]: substrate-product roadmap
+now MORE concrete (β-scaling explicit engineering); theoretical
+grounding stabilizes (no novel theory layer needed). Correct direction.
+
+### Bet Y V2.D spec needs addendum
+
+Original spec (`strategy_request_to_exp_dev_BetY_V2D_modern_dense_AM_2026-05-21.md`,
+21:42 yesterday) predates these Research findings. Spec needs three
+updates:
+
+1. **β-scaling protocol** β(N) = c/N as roadmap-critical engineering
+   requirement
+2. **β calibration experiments** at N=4096 → 8192 → 16384 to estimate
+   c constant empirically
+3. **OAQEC theoretical-grounding axis REMOVED** from V2.D scope
+   (closed by Request B)
+
+Filing addendum request file as separate followup commit.
+
+### Capability moves (v92 → v93)
+
+| Capability | v92 | v93 | Trigger |
+|---|---|---|---|
+| Bet Y V2.D engineering spec | 3-axis ROI + Kerdock(16) | + **β(N)=c/N scaling REQUIRED** | R36 mechanism Research |
+| R36 retrieval-side capacity drop mechanism | 🔬 unknown ("finite-size scaling") | 🔬 **β=32 fixed-temp pathology IDENTIFIED**; literature contradicts R36 | R36 mechanism Research |
+| Substrate-as-OAQEC at V2 | 🔬 deferred to V2 with non-commuting structure | ❌ **DEFERRED INDEFINITELY**; Bet Y V2.D doesn't open OAQEC | V2.D OAQEC Research |
+| Substrate theoretical-grounding framework | R16 BBP primary; OAQEC option open at V2 | **R16 BBP PERMANENT** primary anchor | V2.D OAQEC Research |
+
+### Strategy attention-allocation observation (META-relevant)
+
+Three consecutive cycles (90, 91, 92) ran without checking for
+Research deliveries even though I had filed 2 requests at 08:39. The
+deliveries landed at 08:59 + 09:01; cycles 91+92 ran AFTER without
+noticing.
+
+**Root cause**: experimental-verdict tunnel vision — user "experiment
+finished" prompts pulled attention to dashboard, neglected
+Research-delivery file mtimes.
+
+**Mitigation**: each cycle should include explicit `ls -lt notes/
+research_*2026-05-22.md` check or grep for delivery mtimes against
+last cycle commit time. Not a PROT (discipline reminder); cycles 93+
+will adopt.
+
+### PROT compliance
+
+PROT-009 paired commit (cap_map.md + history.md + this decision log)
+— 9th observation. PROT-005 unbiased framing: R36 prediction
+CHALLENGED reported honestly (was Strategy's own routing question);
+OAQEC negative reported as "STRONG NEGATIVE"; β-scaling deficit
+reported as substrate-product roadmap-critical requirement.
+
+### Next cycle
+
+- File `strategy_request_to_exp_dev_BetY_V2D_addendum_2026-05-22.md`
+  with β-scaling protocol addition (separate followup commit, no
+  cap_map paired)
+- META cycle 48 (~09:13) imminent — likely flags cycle-93 attention-allocation pattern
+- v12 phaseA boost FULL still running (~16+ min wall)
+- 5 multi-hop full-mode variants in queue resolving seed=17 ambiguity
+- Research backlog exhausted (3 cycle-86 + 2 cycle-92 routings all delivered)
+- active_priorities.md still stale (cycle 70); refresh after v93 spec addendum

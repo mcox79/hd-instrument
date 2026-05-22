@@ -2898,3 +2898,218 @@ extends to M=16N regime; multi-hop seed=17 0.3s smokes correctly
 classified as test-scaffold-issue not substrate-weakness; Experiment
 Dev pipeline restored to depth=10; full-mode resolution pending
 across 5 multi-hop variants.
+
+## v93 update — BOTH Research follow-ups delivered: R36 mechanism CHALLENGED (β=32 fixed-temp pathology not finite-size scaling; Bet Y V2.D needs β(N)=c/N scaling protocol); Bet Y V2.D OAQEC STRONG NEGATIVE (softmax fixed-points commute; substrate-as-OAQEC deferred indefinitely; R16 BBP permanent primary anchor); 10th + 11th honest-recalibration patterns
+
+Strategy session cycle 93 (~09:10 EDT). User flagged "more work";
+during dashboard inspection found BOTH Research follow-ups (filed
+08:39) delivered:
+- `research_R36_mechanism_at_largeN_2026-05-22.md` 08:59 (20 min)
+- `research_BetY_V2D_OAQEC_pre_investigation_2026-05-22.md` 09:01 (22 min)
+
+Strategy missed these in cycles 90/91/92 due to tunnel vision on
+experimental verdicts. Cycle 93 fixes the omission with full integration.
+
+### R36 mechanism at large N — CHALLENGED (Request A delivery)
+
+**HEADLINE Agent A SKEPTIC finding**: R36's prediction that M/N drops
+from ~8 at N=4096 to ~1.2-6.1 at N=65536 has **NO clean grounding
+in literature**. 15+ papers surveyed (Tokita 2000, Benedetti 2024,
+Lucibello-Mézard 2024 PRL 132:077301, etc.). **No mechanism predicts
+monotonic M/N drop with N in any associative memory class.**
+
+**Critical empirical anchor**: substrate's M/N=8 at N=4096 is **57×
+ABOVE the classical AGS bound (α_c=0.138)**. This means **substrate
+is NOT operating in classical Hopfield regime** — must be
+exponential-energy class or direct-lookup class.
+
+**Real mechanism identification** (replaces R36's "finite-size scaling"
+framing):
+- Modern dense AM (exponential capacity, Demircigil 2017) requires
+  **β_net = O(1/N) scaling** per Lucibello-Mézard 2024 PRL
+- Substrate's **β=32 FIXED**: at N=4096 → b=N·β=131,072 (borderline);
+  at N=65536 → b=2,097,152 (**6 orders of magnitude too large**)
+- Fixed β=32 at N=65536 = **winner-take-all collapse**; only a few
+  sharp attractors, not exp(0.5·N) capacity
+
+**Revised probabilities at N=65536 with Kerdock(16)**:
+
+| Outcome | P | Dominant mechanism |
+|---|---|---|
+| M/N ≥ 8 (preserves Bet C ✅) | **0.15** | Requires β scaling β(N) = c/N |
+| M/N ≥ 4 (R36 mid-range) | **0.45** | Partial exp-capacity exploitation |
+| M/N ≤ 1.5 (R36 lower bound) | **0.40** | **β=32 FIXED pathology** — winner-take-all collapse |
+
+**Substrate-product action — CRITICAL**:
+- **Bet Y V2.D MUST include β-scaling protocol** β(N) = c/N
+- Without β-scaling: substrate-product fails at N=65536 (P=0.40
+  collapse to AGS bound M/N≤1.5)
+- With proper β scaling: P=0.15 for M/N≥8 preservation; P=0.45 for
+  intermediate M/N≥4
+- Bet Y V2.D engineering spec needs UPDATE — current spec doesn't
+  address β scaling explicitly
+
+**10th HONEST-RECALIBRATION-pattern of session** noted by Research.
+
+### Bet Y V2.D OAQEC pre-investigation — STRONG NEGATIVE (Request B delivery)
+
+**HEADLINE Agent B SKEPTIC finding**: Bet Y V2.D (modern dense AM with
+exp(β·x) energy + softmax cleanup) does **NOT** introduce non-commuting
+operator structure in OAQEC-relevant sense.
+
+**Probabilities** (per Agent B):
+
+| Claim | P |
+|---|---|
+| Bet Y V2.D introduces genuine non-commuting structure | **0.15** |
+| Non-commutativity enables OAQEC framework (Harlow 2017) | **0.08** |
+| Opens substrate-novel OAQEC theoretical-grounding axis | **0.07** |
+
+**Why softmax does NOT generate OAQEC-relevant non-commutativity**
+(Agent B direct quote):
+> "Classical AM with symmetric weight matrix = commutative algebra.
+> The softmax map F(ξ) = X·σ(β·Xᵀξ) converges to fixed point where
+> [F, F] = 0 trivially. Only trivial matrix non-commutativity (F∘F
+> vs F₂∘F₁ for different X). NOT structured C*-algebraic non-comm
+> that OAQEC requires."
+
+**arXiv:2604.07401 substrate-applicability** (Petrova-Polyachenko-State
+ICML 2026):
+- Paper title: "Geometric Entropy and Retrieval Phase Transitions in
+  Continuous Thermal Dense Associative Memory"
+- Geometric entropy s(φ,q) = ½ln(1-q) + (q-φ²)/[2(1-q)] depends only
+  on **N-sphere geometry**, NOT kernel or non-commutative algebra
+- Framework uses **NO non-commutative structure** — continuous
+  real-valued states, real scalar energies, commuting integrals
+- The "geometric" refers to **spherical geometry**, NOT
+  algebraic/quantum-geometric structure
+- **Does NOT apply to bipolar classical AM**
+
+**OAQEC framework requirements unmet at Bet Y V2.D**:
+1. Hilbert space / classical probability space ✓ trivially
+2. C*-algebra with **non-trivial center** ✗ substrate has trivial center
+3. Error operators in commutant ✗ trivially holds for commutative M
+4. **Non-commutative algebra for non-trivial QEC** ✗ substrate classical
+
+**Substrate-product action**:
+- **Substrate-as-OAQEC stays DEFERRED INDEFINITELY** — not just at
+  current arch (per cycle 89), but also at Bet Y V2.D
+- **R16 BBP free probability framework remains PERMANENT primary
+  theoretical anchor** for substrate-physics
+- Bet Y V2.D theoretical grounding does NOT add OAQEC overlay — stays
+  at R16 BBP framework
+- Net theoretical impact of Bet Y V2.D = none (engineering gain only:
+  exponential capacity + β-scaling-properly-implemented)
+
+**11th HONEST-RECALIBRATION-pattern of session** noted by Research.
+
+### Combined substrate-product roadmap impact
+
+**Before v93** (per v89): Bet Y V2.D + Kerdock(16) = "substrate-product
+centerpiece extending 3+ axes from single arch change" with potential
+OAQEC re-opening at V2.
+
+**After v93**: Bet Y V2.D + Kerdock(16) + **β(N)=c/N scaling** =
+substrate-product centerpiece for **engineering** (capacity +
+multi-hop + Bet S K-ceiling); **theoretical grounding stays at R16
+BBP** (no OAQEC, no novel theory layer); β-scaling is
+roadmap-critical addition.
+
+**Updated Bet Y V2.D outcome distribution at N=65536**:
+
+| Scenario | P | Action |
+|---|---|---|
+| β-scaling implemented, M/N ≥ 8 preserved | 0.15 | Bet Y V2.D delivers full 3-axis ROI |
+| β-scaling implemented, M/N ≥ 4 intermediate | 0.45 | Bet Y V2.D delivers partial; multi-hop d-extension still works; Bet S K-ceiling extension ≥ partial |
+| β-scaling missing or insufficient, M/N ≤ 1.5 | 0.40 | Bet Y V2.D fails capacity-axis; need rescue (k-scaling, partial bipolar relaxation, hybrid arch) |
+| **No OAQEC theoretical opening** | 1.0 | Stays at R16 BBP |
+
+**Combined P(Bet Y V2.D delivers ≥ partial substrate-product gain
+with proper engineering)** ≈ 0.60 (0.15 + 0.45).
+
+**Engineering work required** (now elevated to roadmap-critical):
+1. β-scaling protocol β(N) = c/N implementation
+2. β-calibration experiments at N=4096 → N=8192 → N=16384 to
+   estimate c
+3. Bet Y V2.D smoke at scaled β + Kerdock(16) codebook
+4. Validation that exponential-capacity regime achievable in
+   bipolar substrate (no clean prior literature)
+
+### Capability moves
+
+| Capability | v92 state | v93 state | Trigger |
+|---|---|---|---|
+| Bet Y V2.D engineering spec | 3-axis ROI + Kerdock(16) (per v89) | **3-axis ROI + Kerdock(16) + β(N)=c/N scaling REQUIRED** | R36 mechanism Research |
+| R36 retrieval-side capacity drop mechanism | 🔬 unknown ("finite-size scaling") | 🔬 **β=32 fixed-temp pathology IDENTIFIED**; not finite-size; literature contradicts R36 | R36 mechanism Research |
+| Substrate-as-OAQEC at V2 | 🔬 deferred to V2 with non-commuting structure | ❌ **DEFERRED INDEFINITELY**; Bet Y V2.D doesn't open OAQEC; softmax fixed-points commute; R16 BBP permanent primary | V2.D OAQEC Research |
+| Substrate theoretical-grounding framework | R16 BBP primary; OAQEC option open at V2 | **R16 BBP PERMANENT** primary anchor (no OAQEC opening at any planned V2) | V2.D OAQEC Research |
+
+### Honest-recalibration pattern at 11 instances
+
+Per Research: 10th + 11th instances this session. Pattern is now
+deeply calibrated:
+
+- META/Strategy framings optimistic
+- Research literature vet ~50% downgrade probability
+- Substrate-product story tends to STRENGTHEN because the honest
+  version is what's defensible long-term
+
+**Current session honest-recalibration tally** (11 instances):
+1. R17 holographic principle
+2. R33 quantum repeater
+3. R32 magnon
+4. Annealing erasure
+5. Critical-point protocol
+6. Triple-point deepdrill
+7. V2.E in V2 evaluation
+8. Substrate-as-QEC (cycle 89)
+9. **R36 mechanism (cycle 93 — this one)**
+10. **Bet Y V2.D OAQEC (cycle 93 — this one)**
+11. *Reserved for next*
+
+Wait — Research's R36 note marks itself as 10th, Bet Y V2.D OAQEC as
+11th. So total is 11 in this session. The pattern is now
+empirically-anchored META→Research→Strategy loop discipline.
+
+### Substrate-product net (v93)
+
+**Net gains**:
+- Bet Y V2.D engineering spec gets concrete β-scaling requirement
+  (was missing); roadmap MORE precise.
+- R36 mechanism replaced "unknown finite-size scaling" with "β-temp
+  pathology" — concrete engineering problem, not mysterious physics.
+- Substrate-physics framework stabilizes permanently at R16 BBP
+  (no OAQEC chase needed indefinitely).
+
+**Net losses**:
+- Bet Y V2.D OAQEC theoretical-grounding axis CLOSED (was 🔬
+  speculative; now permanently ❌).
+- P(Bet Y V2.D delivers full M/N=8 at N=65536) revised down to 0.15
+  (from implicit ~0.50 prior).
+
+**Strategy positioning per [[feedback-no-papers-product-only]]**:
+substrate-product roadmap is now MORE concrete and engineering-defined,
+which is the right direction. Theoretical-grounding fantasy axes (OAQEC)
+correctly closed.
+
+### Strategy followup: Bet Y V2.D spec needs update
+
+Bet Y V2.D engineering spec (filed `strategy_request_to_exp_dev_BetY_V2D_modern_dense_AM_2026-05-21.md`
+yesterday at 21:42) predates these Research findings. Spec needs
+addendum:
+
+1. **β-scaling protocol**: β(N) = c/N with c calibrated empirically
+2. **β calibration experiments**: smoke at N=4096 → 8192 → 16384 to
+   estimate c constant
+3. **OAQEC theoretical-grounding axis REMOVED** from spec (was
+   speculative; now permanently closed)
+
+Filing addendum request now (followup commit after v93 paired commit).
+
+### Tally — R36 mechanism CHALLENGED (β=32 fixed-temp pathology not finite-size); Bet Y V2.D OAQEC STRONG NEGATIVE (deferred indefinitely; R16 BBP permanent primary); Bet Y V2.D spec needs β(N)=c/N scaling addition; 10th + 11th honest-recalibrations of session; both Research follow-ups delivered 20-22 min after 08:39 routing
+
+Net effect: substrate-product roadmap MORE CONCRETE (β-scaling is
+explicit engineering requirement, not missing piece); theoretical-grounding
+framework permanently stabilizes at R16 BBP free probability; OAQEC
+exploration permanently closed; Bet Y V2.D outcome distribution
+revised honestly (P=0.60 partial-or-better with proper engineering).
