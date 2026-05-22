@@ -6701,3 +6701,119 @@ Next:
 - Bet Z.2 C2PO FULL
 - Multi-hop K=100 N=65536 + Bet V N=65536 (Bet Y V2.D 5-test battery
   items queued by Exp Dev)
+
+
+## Cycle 116 [missed 2 smoke verdicts caught; 3rd attention-allocation gap] -- Bet S K-ceiling diagnosis N-LIMITED + Bet V N=65536 PASS substantively positive for Bet Y V2.D N=65536 (cap_map v116)
+
+Trigger: user "OK didn't an experiment complete?" at ~15:42 EDT.
+Surfaced that cycle 115 sweep MISSED 2 substantive smoke verdicts.
+
+3rd Strategy attention-allocation gap of session:
+- Cycles 90-92: missed 2 Research follow-ups (caught cycle 93)
+- Cycles 105-108: missed 2 Research deliveries (caught cycle 109)
+- Cycle 115: missed 2 smoke verdicts in own dashboard sweep (caught
+  cycle 116)
+
+Pattern: Strategy focused on most recent verdict batch + tunnel-
+visioned on single dimension (research-notes OR most recent verdicts).
+Cycle 115 noticed Bet R p-body completion but failed to scan ALL
+recent_verdicts entries chronologically.
+
+Mitigation per cycle 116:
+- Per-cycle dashboard sweep MUST include scan of ALL recent_verdicts
+  entries chronologically, not just most recent
+- Cross-check log lines for completions vs verdict panel coverage
+- META PROT-010 candidate urgency reinforced (3rd instance)
+
+MISSED VERDICT 1: Bet S K-ceiling diagnosis smoke
+
+wave14_betS_K_ceiling_diagnosis_v1_smoke at 15:13:21 (0.3s) =
+KCEIL_N_LIMITED: "knob 'N' restores acc by 0.300 (>=0.2). Other knobs:
+M_gain=0.067, beta_gain=0.000, N_gain=0.300. baseline=0.167."
+
+Substrate's K-ceiling is N-LIMITED (most-effective-knob diagnosis):
+- N_gain=0.300 best
+- M_gain=0.067 modest
+- β_gain=0.000 (consistent with cycle 105 multi-β refutation)
+
+Substantively positive for Bet Y V2.D N=65536 path — N is the right
+knob to push.
+
+MISSED VERDICT 2: Bet V at N=65536 smoke
+
+wave14_betV_N65536_v1_smoke at 15:25:20 (0.2s) = BET_V_N65K_PASS:
+"gap=0.541 (>=0.424). Cycle 103 N-scaling extends. stored_conf=0.792,
+unstored_conf=0.250."
+
+Bet V meta-cognition N-scaling:
+- N=4096 (cycle 102): gap=0.285
+- LargeN (cycle 103): gap=0.424
+- N=65536 (cycle 116): gap=0.541
+
+Continues scaling positively to N=65536. Substantially above N=4096
+baseline.
+
+Per cycle 102 smoke-not-predictive: both 0.2-0.3s smokes are
+test-scaffold-suspect; FULLs pending will be authoritative.
+
+Strategy attention-allocation pattern observation:
+
+3rd gap of session. Mitigation rules updated:
+1. Cycle 109: per-cycle ls -lt notes/research_* mtime check (research-side)
+2. Cycle 116: per-cycle scan ALL recent_verdicts entries chronologically
+   (experimental-side)
+
+Both rules now operational. META PROT-010 candidate becomes more
+urgent.
+
+Bet Y V2.D N=65536 path — Strategy outlook update:
+
+Cycle 115: 1 concerning smoke signal (cycle 112 Bet S K-ceiling KILL).
+
+Cycle 116 adds 2 positive smoke signals:
+- Bet S K-ceiling diagnosis: N is most effective knob (substrate N-limited)
+- Bet V at N=65536: gap=0.541 = scaling continues
+
+Net: 1 concerning + 2 positive smoke signals. Strategy outlook on
+Bet Y V2.D N=65536 path more optimistic than v115. Bet S K-ceiling
+N=65536 FULL = single remaining critical discriminator.
+
+Bet R p-body FULL completion noted:
+
+Bet R p-body FULL completed 15:35:13 (2540.3s = 42 min, clean exit 0).
+Verdict NOT yet in dashboard panel ~7 min later. Per cycle 99 pattern
+(v14_a05 FULL verdict missing 7+ min): dashboard panel can lag for
+FULL verdicts. Will integrate when panel refreshes.
+
+Capability moves (v115 → v116):
+
+| Capability | v115 | v116 | Trigger |
+|---|---|---|---|
+| Bet S K-ceiling knob diagnosis | unmeasured | smoke N-LIMITED (N_gain=0.300 best) | Bet S diagnosis smoke |
+| Bet V meta-cognition N-scaling | gap=0.424 at largeN | + gap=0.541 at N=65536 smoke (continues scaling) | Bet V N=65536 smoke |
+| Bet Y V2.D N=65536 path | 1 concerning smoke signal | 1 concerning + 2 positive smoke signals | Bet S diagnosis + Bet V smokes |
+| Strategy attention-allocation discipline | cycle 109 mtime check | + cycle 116 verdict-panel-complete scan | cycle 116 user catch |
+
+Substrate-product net (v116):
+
+Substantive positive smoke signals on Bet Y V2.D N=65536 path:
+- Substrate's K-ceiling is N-LIMITED (right knob to push)
+- Bet V meta-cognition continues scaling positively to N=65536
+
+Strategy discipline observation:
+- 3rd attention-allocation gap caught by user
+- Mitigation rules updated for future cycles
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 30th observation. PROT-005 unbiased framing:
+3rd attention-allocation gap reported HONESTLY not minimized; both
+missed smokes integrated with cycle 102 smoke-not-predictive caveat
+applied.
+
+Next:
+- Bet R p-body FULL verdict integration when panel refreshes
+- Observability suite FULL verdict (running)
+- Bet S K-ceiling N=65536 FULL (CRITICAL discriminator)
+- Bet Z.1 SRHT FULL + Bet Z.2 C2PO FULL + multi-hop K=100 N=65536 FULL
+  + Bet V N=65536 FULL + Bet S diagnosis FULL
+- File Strategy → Exp Dev for 4-step Kerdock RI pre-test (still pending)
