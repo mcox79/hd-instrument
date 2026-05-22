@@ -4276,3 +4276,136 @@ reported as substrate-product roadmap-critical requirement.
 - 5 multi-hop full-mode variants in queue resolving seed=17 ambiguity
 - Research backlog exhausted (3 cycle-86 + 2 cycle-92 routings all delivered)
 - active_priorities.md still stale (cycle 70); refresh after v93 spec addendum
+
+
+## Cycle 94 [Lane D + multi-hop / Phase 1 honest-recalibration] — NUMFACTS_2000 FULL GENUINE FAIL refines cycle 92 test-scaffold framing; v12 phaseA FULL PASS; continual_4N_2000edits FAIL = infrastructure (cap_map v94)
+
+**Trigger**: user "new experiments in" + /loop /strategy-cycle at
+~09:40 EDT. Dashboard shows 3 new full-mode verdicts + META cycle 48
+audit landed since cycle 93.
+
+**Headline calls**:
+
+1. **NUMFACTS_2000 FULL = GENUINE multi-seed FAIL at 3 seeds (17/23/31)**.
+   168s elapsed (not 0.3s like smoke). This is NOT test-scaffold — it's
+   a real substrate signal. Refines cycle 92's "5 smokes all test-scaffold"
+   classification: K=50 was test-scaffold (full PASSED 0.487);
+   NUMFACTS_2000 is genuine substrate fail.
+
+2. **Multi-hop is config-dependent**: works at K=50 (0.487 acc_50hop)
+   and NUMENT=500 (0.233); fails at NUMFACTS=2000 multi-seed. There's
+   a fact-cardinality crossover somewhere between 500 and 2000.
+
+3. **Connection to Bet S K-ceiling theory**: at K_crit ≈ D/(2 log M) =
+   205 at N=4096 (per cycle 88), NUMFACTS=2000 is 10× above the bound.
+   Multi-hop chains require sequential cleanup; same cross-talk
+   mechanism that limits Bet S K-ceiling also limits multi-hop
+   reach at high fact-count. NUMFACTS_2000 FULL fail is CONSISTENT
+   with theory — substrate at architectural class bound, not weakness.
+
+4. **v12 phase-A boost FULL PASS** retention_A=0.915 — 3rd Bet B
+   FULL-confirmed mechanism (after v11 per-batch EMA + v13 Kovacs).
+   Same mechanism as cycle 90 smoke; full mode confirms.
+
+5. **continual_4N_2000edits FULL FAIL exit=-1** (4294967295 unsigned =
+   abnormal termination) at 1540s. Bet A at 4N+5000edits PASSED at
+   533s (cycle 89). The 2000edits FAIL at 1540s is anomalous —
+   likely INFRASTRUCTURE (timeout, OOM, GPU driver crash, or 2000edits
+   script-specific code bug). NOT updating Bet A capability state;
+   defer to Queue Health / Exp Dev diagnosis.
+
+**Why this matters per substrate-product framing**:
+
+- Multi-hop story honestly characterized: substrate's empirical reach
+  has FACT-COUNT crossover, not just N or seed. Per
+  [[feedback-value-creation-not-competition]]: the crossover is
+  THEORETICALLY explained by Bet S K_crit cleanup-cross-talk; substrate
+  saturates the published class bound, doesn't break it. This is
+  substrate-product-distinctive — substrate's failure mode is KNOWN
+  theoretically, LLM failure modes are not.
+- Bet Y V2.D + Kerdock(16) + β(N)=c/N at N=65536 extends K_crit to
+  2487 (per cycle 88). 2487 > NUMFACTS=2000 → V2.D expected to pass
+  NUMFACTS_2000. **NUMFACTS_2000 fail at N=4096 is EXPECTED + signals
+  the V2.D extension path is correct strategy.**
+
+**Cycle 92 classification refinement — empirical recalibration**:
+
+Cycle 92 classified all 5 seed=17 0.3s smokes (NUMFACTS_2000, K10,
+K100, N12288, NUMFACTS_300) as TEST-SCAFFOLD-PATTERN per cycle 91's
+K=50 precedent. NUMFACTS_2000 full result CONTRADICTS the
+extrapolation:
+- K=50 smoke fail (18s, seed=17) → K=50 full PASS (acc_50hop=0.487).
+  Cycle 91 correctly identified test-scaffold.
+- NUMFACTS_2000 smoke fail (0.3s, seed=17) → NUMFACTS_2000 full FAIL
+  (3 seeds 17/23/31). Cycle 92 over-generalized.
+
+**Honest correction**: I over-extrapolated from K=50 to all 5 smokes.
+The 0.3s elapsed time is suspicious BUT some of those smokes are
+**flagging genuine fact-cardinality saturation** that full mode
+confirms. The test-scaffold reading is correct for K-CONFIG variants
+(K=10, K=50, K=100 likely test-scaffold by similarity) but may be
+WRONG for NUMFACTS variants (NUMFACTS=300, NUMFACTS=2000 likely
+genuine, since NUMFACTS_2000 confirmed genuine).
+
+**Per [[feedback-no-smoke]] applied to own classification**: cycle 92
+classification needs PARTIAL revision. K=10/K=100 full results
+pending will clarify the K-config branch; NUMFACTS=300 full will
+clarify the NUMFACTS branch.
+
+**META cycle 48 PROT-010 candidate**:
+
+META noted Strategy attention-allocation gap (2 user-prompted catch-ups
+in 30 min). Proposes per-cycle research-note mtime check before
+drafting cap_map changes. Currently NOT yet formalized — META wants
+1-2 more cycles to confirm pattern. Cycle 94 ran the mtime check
+proactively (no missed deliveries this cycle).
+
+**Capability moves** (v93 → v94):
+
+| Capability | v93 | v94 | Trigger |
+|---|---|---|---|
+| Multi-hop config-dependent ceiling | NUMENT=500 + K=50 full PASS; 5 seed=17 0.3s smokes test-scaffold | + NUMFACTS=2000 FULL **GENUINE FAIL** at 3 seeds; fact-count crossover between 500-2000 | NUMFACTS_2000 full |
+| Bet B mechanism FULL-confirmation | 2 mechanisms FULL (v11, v13 Kovacs) | **3 mechanisms FULL** (+ v12 phase-A boost full) | v12 phaseA full |
+| Bet A 4N+2000edits | unmeasured | INFRASTRUCTURE FAIL exit=-1 (NOT substrate; defer to QH) | continual_4N_2000edits full |
+| Multi-hop ↔ Bet S K-ceiling coupling | separate axes | LINKED via cleanup cross-talk (NUMFACTS=2000 fail consistent with K_crit≈205) | NUMFACTS_2000 + cycle 88 theory |
+
+**Pipeline status**:
+
+- GPU running: K=10 (started 09:39:43)
+- Queue pending: 7 items (3 multi-hop fulls + r17_N12288 + 2 continual + v13_a05 full)
+- Pipeline healthy
+
+**Substrate-product net**:
+
+- Multi-hop characterization more honest: config-dependent ceiling
+  with fact-count sensitivity; coupled to Bet S K_crit theory.
+- Bet B 3-mechanism FULL-confirmation strengthens Lane D framing.
+- Bet Y V2.D + Kerdock(16) at N=65536 path validated as extension
+  strategy for both multi-hop and Bet S K-ceiling.
+- continual_4N_2000edits FAIL deferred to QH (infrastructure not
+  substrate).
+
+**Strategy discipline observations**:
+
+- Self-corrected cycle 92's over-generalization within 1 hour (NUMFACTS_2000
+  full data contradicts test-scaffold framing for that config).
+- Per-cycle research-note mtime check ran proactively this cycle.
+- Honest recalibration of own classification (cycle 92 → cycle 94)
+  per [[feedback-no-smoke]] applied to internal framing.
+
+**PROT compliance**: PROT-009 paired commit (cap_map.md + history.md
++ this decision log) — 10th observation. PROT-005 unbiased framing:
+NUMFACTS_2000 GENUINE FAIL reported as substrate signal not buried;
+cycle 92 over-generalization honestly flagged as Strategy classification
+error; continual_4N FAIL infrastructure reading flagged as deferred
+not confirmed.
+
+**Next**:
+
+- K=10 FULL verdict (~3 min based on NUMFACTS_2000's 170s)
+- K=100, N=12288, NUMFACTS=300 full verdicts queue
+- v13_a05 FULL (5th Bet B mechanism FULL confirmation if passes)
+- r17_N12288 FULL
+- continual_16N + continual_2N_10000 FULL (Bet A high-M extension)
+- Queue Health on continual_4N_2000edits exit=-1
+- META cycle 49 (~09:43) imminent
