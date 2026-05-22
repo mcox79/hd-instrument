@@ -8057,3 +8057,121 @@ top rehabilitation both falsified at FULL/smoke); Bet Y V2.D N=65536
 multi-hop path UNCERTAIN (4 rehabilitation candidates remain); Strategy
 dashboard reading discipline gap caught by Visibility session
 (cycle 124 lesson: read full recent_verdicts list).
+
+## v125 update — K-scaling rehabilitation PARTIAL at smoke (K=25 acc_50hop=0.500 + K=50 acc=0.400 at N=65536; in cycle 123 prediction range; substrate K-bound failure mode confirmed); cycle 93 rescue C (K-scaling) now active candidate replacing refuted Resonator
+
+Strategy session cycle 125 (~19:18 EDT). Per cycle 124 lesson: read
+newest recent_verdicts FIRST. Found 1 substantive new smoke verdict
+since cycle 124.
+
+### K-scaling rehabilitation PARTIAL at smoke — substrate K-bound failure mode
+
+`wave14_multihop_K_scaling_N65536_v1_smoke` (0.2s) = **KSCALE_PARTIAL**:
+"Partial confirmation: K=50 acc_50hop=0.400 in [0.35, 0.50].
+acc_50hop_per_K={'25': **0.500**, '50': **0.400**}."
+
+**Substrate at smaller K restores multi-hop performance at N=65536**:
+- K=25: acc_50hop=**0.500** (within cycle 123 prediction range 0.45-0.65)
+- K=50: acc_50hop=**0.400** (boundary; partial)
+- K=100 (cycle 121 FULL): 0.217 (KILLED)
+- K=100 with Resonator (cycle 124 FULL): 0.200 (REFUTED)
+
+**Mechanism interpretation — K-bound failure mode**:
+- Multi-hop chain composition at N=65536 fails at K=100
+- Restores at K≤50 (smoke)
+- Pattern: K-scaling (cycle 93 rescue C) is the active rehabilitation
+  candidate replacing refuted Resonator (cycle 123 P=0.65)
+
+**Consistency with prior findings**:
+- Cycle 120 Bet S K-ceiling N=65536 FULL PARTIAL K_crit=500
+- Substrate K-ceiling at N=65536 between 200-500 (per cycle 124 smoke
+  + cycle 116 diagnosis)
+- K=25 well below K_crit=500 = multi-hop works
+- K=50 close to K_crit/10 = multi-hop boundary
+- K=100 above some threshold = multi-hop fails
+
+**Substrate-product implication — Demo 1 Lane D positioning at N=65536**:
+- K≤50 facts: multi-hop deep-chain VIABLE at N=65536 (smoke; FULL
+  pending)
+- K=100 facts: multi-hop chain FAILS at N=65536
+- Substrate-product positioning honest bound: "deep-chain reasoning
+  at N=65536 supports K≤50 facts" — narrower than Bet S K=500
+  single-hop ceiling but still substrate-product useful
+
+Per cycle 102 smoke-not-predictive (8-anchor precedent + cycle 124
+4 attention-allocation lessons): 0.2s smoke test-scaffold-suspect;
+FULL pending in queue.
+
+### Cycle 93 rescue C (K-scaling) takes priority position
+
+Per cycle 93 addendum rescue list:
+- Hybrid β (Rescue A): cycle 108 smoke REFUTED + cycle 105 multi-β FULL
+- **K-scaling (Rescue C): cycle 125 smoke PARTIAL — ACTIVE candidate**
+- Partial bipolar relaxation (Rescue D): untested
+- Layered substrate (Rescue E): untested
+
+Per cycle 123 mechanism rehabilitation list:
+- Resonator Network (P=0.65): cycle 124 FULL REFUTED
+- VAMP-on-chain (P=0.55): not tested
+- Per-hop sparse cleanup (P=0.50): not tested
+- Bidirectional chain inference (P=0.45): not tested
+- Hierarchical multi-scale (P=0.35): not tested
+
+**Cycle 93 rescue C (K-scaling) BYPASSES cycle 123 candidates** —
+addresses substrate-product Demo 1 positioning directly via
+K-restriction rather than mechanism rehabilitation.
+
+### Strategy interpretation
+
+Two cycle-125 hypotheses:
+
+1. **K-scaling rehabilitation works** (smoke); substrate-product
+   roadmap pivots to K≤50 at N=65536 instead of pursuing mechanism
+   rehabilitation
+2. **K-scaling smoke unreliable** (cycle 102 smoke-not-predictive
+   precedent + 0.2s elapsed test-scaffold-suspect); FULL pending will
+   determine
+
+If FULL confirms K-scaling PARTIAL:
+- Demo 1 Lane D positioning: K≤50 facts at N=65536 deep-chain reasoning
+- Substrate-product roadmap CLARIFIES (vs cycle 124 uncertainty)
+- Mechanism rehabilitation candidates from cycle 123 may not need
+  pursuit (K-scaling addresses use case)
+
+If FULL refutes K-scaling:
+- Add to refuted list
+- Continue cycle 123 candidates (VAMP-on-chain next per P-rank)
+
+### Capability moves (v124 → v125)
+
+| Capability | v124 state | v125 state | Trigger |
+|---|---|---|---|
+| K-scaling rehabilitation at N=65536 | not tested | 🔬 smoke PARTIAL K=25→0.500 K=50→0.400 (in cycle 123 prediction range; FULL pending) | K-scaling smoke |
+| Cycle 93 rescue list status | hybrid β refuted (cycle 108) | + **K-scaling (rescue C) ACTIVE candidate** at smoke | K-scaling smoke |
+| Substrate-product Demo 1 Lane D positioning at N=65536 | uncertain (cycle 124 Resonator refuted) | 🔬 **deep-chain viable at K≤50** if K-scaling FULL confirms | K-scaling smoke |
+| Multi-hop chain N=65536 mechanism | unknown (cycle 124 both hypotheses refuted) | 🔬 **K-bound failure mode** consistent across cycle 120 K_crit + cycle 121 K=100 KILL + cycle 125 K≤50 works | K-scaling smoke + prior |
+| Strategy reading discipline | cycle 124 lesson learned | ✅ discipline applied at cycle 125 (read newest verdicts first) | cycle 125 application |
+
+### Substrate-product net (v125)
+
+**Substantive positive at smoke** (FULL pending):
+- K-scaling rehabilitation candidate PARTIAL at smoke
+- Substrate-product Demo 1 Lane D positioning: deep-chain at K≤50
+  at N=65536 viable
+
+**Cycle 93 rescue C (K-scaling) supersedes Resonator failure**:
+- Resonator (cycle 123 P=0.65) REFUTED at FULL
+- K-scaling (cycle 93 rescue C) PARTIAL at smoke
+- Substrate-product roadmap pivots to K-restriction instead of mechanism rehabilitation
+
+**Mechanism diagnosis still pending**:
+- Cycle 123 hypothesis refuted at smoke
+- Strategy → Research mechanism redrill filed cycle 124 (~19:15)
+- Pending delivery (~15-30 min)
+
+### Tally — K-scaling rehabilitation smoke PARTIAL (K=25→0.500 K=50→0.400 in cycle 123 prediction range); cycle 93 rescue C ACTIVE candidate replacing refuted Resonator; substrate K-bound failure mode consistent with cycle 120 K_crit + cycle 121 K=100 KILL; substrate-product Demo 1 Lane D positioning K≤50 viable at N=65536 (if FULL confirms)
+
+Net effect: cycle 124 substrate-product uncertainty refines to honest
+K-bound positioning at smoke; cycle 93 rescue C activates as primary
+substrate-product path forward; mechanism diagnosis still pending
+cycle 125 Research redrill delivery.

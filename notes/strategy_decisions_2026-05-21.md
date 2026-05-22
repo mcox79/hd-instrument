@@ -7652,3 +7652,59 @@ PROT compliance: PROT-009 paired commit (cap_map + history + this
 decision log) — 38th observation. PROT-005 unbiased framing: cycle 123
 rehabilitation REFUTED reported honestly NOT minimized; Strategy
 attention-allocation 4th instance acknowledged honestly.
+
+
+## Cycle 125 [K-scaling rehabilitation PARTIAL at smoke; rescue C active]
+
+Trigger: /loop /strategy-cycle at ~19:18 EDT. Per cycle 124 lesson:
+read newest recent_verdicts FIRST (not slice). Found 1 substantive
+new smoke verdict since cycle 124.
+
+HEADLINE: K-scaling rehabilitation PARTIAL at smoke
+
+wave14_multihop_K_scaling_N65536_v1_smoke (0.2s) = KSCALE_PARTIAL:
+acc_50hop_per_K={K=25 → 0.500, K=50 → 0.400}.
+
+K=25 within cycle 123 prediction range 0.45-0.65; K=50 boundary.
+
+Substrate K-bound failure mode at N=65536:
+- K=100 (cycle 121 FULL): 0.217 KILLED
+- K=100 with Resonator (cycle 124 FULL): 0.200 REFUTED
+- K=50 (cycle 125 smoke): 0.400 PARTIAL
+- K=25 (cycle 125 smoke): 0.500 WORKING
+
+Cycle 93 rescue C (K-scaling) ACTIVE candidate REPLACING refuted
+Resonator (cycle 123 P=0.65 FULL REFUTED).
+
+Substrate-product Demo 1 Lane D positioning at N=65536:
+- Deep-chain reasoning viable at K≤50 facts (smoke; FULL pending)
+- Narrower than Bet S single-hop K=500 ceiling
+- Still substrate-product useful (small-to-mid agent memory K≤50 with
+  deep chains)
+
+Cycle 93 rescue C bypasses cycle 123 mechanism rehabilitation list —
+addresses substrate-product Demo 1 directly via K-restriction.
+
+Per cycle 102 smoke-not-predictive (8-anchor) 0.2s smoke test-scaffold-
+suspect; FULL pending in queue.
+
+Capability moves (v124 → v125):
+
+| Capability | v124 | v125 | Trigger |
+|---|---|---|---|
+| K-scaling rehabilitation N=65536 | not tested | smoke PARTIAL K=25→0.500 K=50→0.400 | K-scaling smoke |
+| Cycle 93 rescue list status | hybrid β refuted | + K-scaling (rescue C) ACTIVE candidate | K-scaling smoke |
+| Demo 1 Lane D positioning N=65536 | uncertain (Resonator refuted) | K≤50 deep-chain viable (smoke) | K-scaling smoke |
+| Multi-hop N=65536 failure mode | unknown | K-BOUND consistent across cycle 120 + 121 + 125 evidence | synthesis |
+
+Strategy actions pending:
+1. Wait for K-scaling FULL (in queue)
+2. Wait for spectral validation FULL (currently running)
+3. Wait for Research mechanism redrill delivery (filed cycle 124 ~19:15)
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 39th observation. PROT-005 unbiased framing: K-scaling
+smoke PARTIAL reported as smoke-level not capability-state (FULL
+pending); cycle 93 rescue C activation noted honestly; substrate
+K-bound failure mode framed as consistent synthesis across cycles
+120+121+125.
