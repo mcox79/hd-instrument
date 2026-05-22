@@ -7893,3 +7893,167 @@ Net effect: substantive substrate-physics mechanism characterization
 PLUS concrete rehabilitation path at P=0.65; substrate-product Bet Y
 V2.D N=65536 outlook improves; Demo 1 deep-chain positioning has
 recovery path.
+
+## v124 update — Resonator FULL = RESONATOR_INSUFFICIENT acc_50hop=0.200 (HARD FALSIFICATION; cycle 123 top rehabilitation P=0.65 REFUTED at FULL); spectral validation smoke "Mechanism hypothesis falsified" (cycle 123 mechanism diagnosis also falsified at smoke); AC susceptibility FULL CONFIRMED CHI_FLAT (4th cross-family RS-cert anchor solidified); 4th Strategy attention-allocation gap (dashboard panel mis-read)
+
+Strategy session cycle 124 (~19:14 EDT). Visibility-session corrected
+Strategy reading error — I was slicing `recent_verdicts[-6:]` when
+panel has 50 entries. Resonator FULL verdict was in snapshot since
+19:05:57; my reading discipline was bad.
+
+### HEADLINE 1: Resonator FULL = RESONATOR_INSUFFICIENT (cycle 123 top rehabilitation REFUTED)
+
+`wave14_multihop_resonator_N65536_v1` FULL (87.9s) =
+**RESONATOR_INSUFFICIENT**:
+"Resonator insufficient: acc_50hop=**0.200** (<0.3) vs argmax baseline
+0.250. **Research's rehabilitation hypothesis falsified;
+substrate-level restructuring needed.**"
+
+**HARD FALSIFICATION per cycle 123 criterion** (<0.30 with T=20):
+- Predicted (Agent H P=0.65): acc_50hop 0.45-0.65 (median 0.55)
+- Actual FULL: **0.200** — well below 0.30 falsification threshold
+- **Resonator UNDERPERFORMS argmax baseline** (0.200 vs 0.250)
+- Doing nothing > Resonator Network rehabilitation
+
+**Cycle 123 Resonator Network rehabilitation candidate (Frady et al.
+2020 Neural Computation 32:12) REFUTED at substrate FULL mode.**
+
+**Substantive negative for cycle 123 framework**:
+- Top rehabilitation mechanism P=0.65 refuted
+- 4 remaining rehabilitation candidates: VAMP-on-chain P=0.55, sparse
+  cleanup P=0.50, bidirectional chain P=0.45, hierarchical P=0.35
+- Per [[feedback-rehabilitation-after-rejection]]: try next candidate
+  before V3 substrate investigation
+
+### HEADLINE 2: Spectral validation smoke = "Mechanism hypothesis falsified"
+
+`wave14_multihop_spectral_validation_v1_smoke` (0.2s) =
+**SPECTRAL_FLAT**:
+"Top-K eigenvalue span does NOT cluster as predicted. spans_per_N=
+{'1024': 1.220, '2048': 0.858}. monotone=True, N=65536_span=0.858,
+N=4096_span=1.220. **Mechanism hypothesis falsified.**"
+
+**Cycle 123 Agent G mechanism diagnosis (signal eigenvalue
+near-degeneracy at large N) P=0.70 FALSIFIED at smoke**.
+
+- Predicted: top-K eigenvalues cluster MORE tightly near 1 as N grows
+- Observed: spans monotonically decrease with N but NOT as predicted pattern
+- 0.2s smoke test-scaffold-suspect; FULL pending
+
+**Strategic implication**:
+- BOTH cycle 123 hypotheses refuted (mechanism + top rehabilitation)
+- Substrate's multi-hop N=65536 failure has UNKNOWN mechanism
+- Need new Research routing for diagnosis re-examination
+
+### HEADLINE 3: AC susceptibility FULL CONFIRMED CHI_FLAT (4th anchor solidified)
+
+`wave14_ac_susceptibility_v1` FULL (415.6s) = **CHI_FLAT**:
+"No freezing peak: peak/baseline=**1.04**. chi'(omega) flat or
+non-peaked. chi_per_omega: {0.050: 0.350, 0.100: 0.354, 0.200: 0.357,
+0.500: 0.346, 1.000: 0.363, 2.000: 0.333}."
+
+vs cycle 122 smoke peak/baseline=1.17. **FULL even flatter** —
+6 ω values all cluster around 0.35 = truly flat.
+
+**Cycle 122 4th cross-family RS-cert anchor SOLIDIFIED at FULL**:
+1. C_ij excess eigvals=0 (Family I, cycle 112)
+2. P(h) unimodal narrow (Family II, cycle 112)
+3. 1/f noise γ=0.281 WHITE (Family II, cycle 122 FULL)
+4. **χ'(ω) FLAT peak/baseline=1.04 (cycle 124 FULL CONFIRMED)**
+
+Substrate RS / paramagnet thermodynamic phase certified by 4 cross-
+family probes at FULL.
+
+### HEADLINE 4: 4th Strategy attention-allocation gap
+
+This is the **4th Strategy attention-allocation gap** of session:
+- Cycles 90-92: missed 2 Research follow-ups (caught cycle 93)
+- Cycles 105-108: missed 2 Research deliveries (caught cycle 109)
+- Cycle 115: missed 2 smoke verdicts in own dashboard sweep (caught cycle 116)
+- **Cycle 124: misread dashboard `recent_verdicts[-6:]` slice when panel has 50 entries** (caught by Visibility session)
+
+**Pattern**: Strategy's dashboard query truncates to last-N entries
+instead of reading the full panel. Resonator FULL verdict was
+available for 8+ min before Strategy noticed.
+
+**Mitigation per cycle 124**:
+- Future dashboard queries: read ENTIRE `recent_verdicts` list +
+  filter to recent mtime range
+- Use `recent_verdicts[-20:]` or `[-30:]` minimum
+- OR query by experiment name match (Resonator, spectral, etc.)
+
+META PROT-010 candidate urgency now at 4 instances of attention-
+allocation gaps. Strategy self-discipline alone has been insufficient.
+
+### Substrate-product roadmap implications
+
+**Multi-hop N=65536 path UNCERTAIN at cycle 124**:
+- Cycle 121: multi-hop K=100 N=65536 KILL acc_50hop=0.217 (concerning)
+- Cycle 123: rehabilitation candidate P=0.65 (improvement candidate)
+- **Cycle 124: Resonator P=0.65 candidate REFUTED at FULL acc_50hop=0.200**
+- 4 rehabilitation candidates remain (VAMP-on-chain + sparse cleanup +
+  bidirectional + hierarchical)
+
+**Bet Y V2.D N=65536 outlook DEGRADES from cycle 123 optimism**:
+- Cycle 121: BOUNDED (KILL at FULL)
+- Cycle 123: rehabilitation candidate IDENTIFIED at P=0.65
+- **Cycle 124: top rehabilitation REFUTED; substrate-level
+  restructuring needed per verdict_msg**
+
+**V3 substrate investigation trigger discussion** (per cycle 115
+logic):
+- Cycle 115 V3 triggers required: Bet S K-ceiling N=65536 FULL KILL
+  + Kerdock RI fail + F2 rule-out + rescue path exhaustion + V2.B/V2.G
+  uninvestigated
+- Cycle 120: Bet S K-ceiling K=500 PARTIAL (NOT trigger)
+- Cycle 124: Resonator REFUTED (1 of 5 rehabilitation candidates ruled
+  out) — NOT YET trigger
+- Strategy continues per [[feedback-rehabilitation-after-rejection]]:
+  exhaust remaining candidates first
+
+### Strategy follow-up actions
+
+1. **File Strategy → Exp Dev for next rehabilitation candidate**:
+   VAMP-on-chain (P=0.55) per cycle 123 candidate list. Links to
+   cycle 120 substrate-novel VAMP single-hop readout.
+2. **File Strategy → Research for mechanism re-diagnosis**: both
+   cycle 123 hypotheses (mechanism + rehabilitation) refuted; need
+   new mechanism investigation.
+3. **Update Product session**: cycle 121 multi-hop bounded at N=65536
+   STANDS at FULL; cycle 123 rehabilitation candidate refuted; Demo 1
+   Lane D deep-chain at N=65536 path uncertain.
+
+### Capability moves (v123 → v124)
+
+| Capability | v123 state | v124 state | Trigger |
+|---|---|---|---|
+| Resonator Network rehabilitation at N=65536 | P=0.65 candidate predicted 0.45-0.65 | ❌ **FULL REFUTED acc_50hop=0.200** (below 0.30 falsification threshold; UNDERPERFORMS argmax baseline 0.250) | Resonator FULL |
+| Cycle 123 mechanism diagnosis (signal eigenvalue near-degeneracy) | P=0.70 (Agent G) | 🔬 **smoke FALSIFIED**; FULL pending (currently running) | spectral validation smoke |
+| Cycle 122 4th cross-family RS-cert anchor (χ'(ω) FLAT) | smoke peak/baseline=1.17 | ✅ **FULL CONFIRMED peak/baseline=1.04** (even flatter at FULL) | χ'(ω) FULL |
+| Bet Y V2.D N=65536 multi-hop outlook | optimistic (rehabilitation P=0.65) | ❌ DEGRADED — top rehabilitation REFUTED; 4 remaining candidates | Resonator FULL |
+| Strategy dashboard reading discipline | cycle 116 chronological-scan + cycle 109 mtime-check | + **cycle 124 lesson: read FULL recent_verdicts list not slice** (4th attention-allocation gap caught by Visibility session) | cycle 124 mis-read |
+
+### Substrate-product net (v124)
+
+**Substantive negative**:
+- Cycle 123 top rehabilitation (Resonator Network) REFUTED at FULL
+- Mechanism diagnosis also FALSIFIED at smoke
+- Bet Y V2.D N=65536 multi-hop path uncertain (4 remaining
+  rehabilitation candidates)
+
+**Substantive positive**:
+- AC susceptibility FULL CONFIRMS cycle 122 4th cross-family RS-cert
+  anchor (substrate-physics characterization robust)
+
+**Strategy discipline observation**:
+- 4th attention-allocation gap of session (dashboard panel slice
+  mis-read)
+- Need stricter mitigation; META PROT-010 candidate urgency reinforced
+
+### Tally — Resonator FULL = RESONATOR_INSUFFICIENT 0.200 (HARD FALSIFICATION; cycle 123 P=0.65 candidate REFUTED at FULL; UNDERPERFORMS argmax); spectral validation smoke FALSIFIES cycle 123 mechanism diagnosis; AC susceptibility FULL CONFIRMS 4th cross-family RS-cert anchor; 4th Strategy attention-allocation gap (dashboard panel slice mis-read)
+
+Net effect: cycle 123 framework substantially refuted (mechanism +
+top rehabilitation both falsified at FULL/smoke); Bet Y V2.D N=65536
+multi-hop path UNCERTAIN (4 rehabilitation candidates remain); Strategy
+dashboard reading discipline gap caught by Visibility session
+(cycle 124 lesson: read full recent_verdicts list).

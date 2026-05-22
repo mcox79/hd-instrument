@@ -7566,3 +7566,89 @@ decision log) — 37th observation. PROT-005 unbiased framing:
 mechanism diagnosis at P=0.70 honest probability; predicted
 acc_50hop=0.45-0.65 with falsification criterion <0.30; rehabilitation
 candidates P-scored honestly.
+
+
+## Cycle 124 [Resonator FULL REFUTED + spectral mechanism falsified + 4th Strategy attention-allocation gap]
+
+Trigger: Visibility-session correction — Strategy was reading
+cached/stale dashboard. Resonator FULL verdict was visible since
+19:05:57 but Strategy mis-read panel slice.
+
+4th Strategy attention-allocation gap:
+- Cycles 90-92: missed Research follow-ups
+- Cycles 105-108: missed Research deliveries
+- Cycle 115: missed 2 smoke verdicts
+- Cycle 124: dashboard panel slice mis-read [-6:] when panel has 50 entries
+
+Mitigation: read FULL recent_verdicts list not slice; filter by mtime
+range or experiment name.
+
+HEADLINE 1: Resonator FULL = RESONATOR_INSUFFICIENT
+
+wave14_multihop_resonator_N65536_v1 FULL (87.9s) =
+RESONATOR_INSUFFICIENT: "acc_50hop=0.200 (<0.3) vs argmax baseline
+0.250. Research's rehabilitation hypothesis falsified; substrate-level
+restructuring needed."
+
+HARD FALSIFICATION per cycle 123 criterion:
+- Predicted (P=0.65): 0.45-0.65
+- Actual FULL: 0.200
+- Below 0.30 falsification threshold
+- UNDERPERFORMS argmax baseline (0.200 vs 0.250)
+
+Cycle 123 top rehabilitation candidate (Frady et al. 2020 Resonator
+Network) REFUTED at substrate FULL.
+
+HEADLINE 2: Spectral validation smoke = mechanism hypothesis falsified
+
+wave14_multihop_spectral_validation_v1_smoke (0.2s) = SPECTRAL_FLAT:
+"Top-K eigenvalue span does NOT cluster as predicted. Mechanism
+hypothesis falsified."
+
+Cycle 123 Agent G mechanism diagnosis (signal eigenvalue near-degeneracy
+at large N) P=0.70 also FALSIFIED at smoke. FULL pending.
+
+BOTH cycle 123 hypotheses refuted.
+
+HEADLINE 3: AC susceptibility FULL CONFIRMED CHI_FLAT
+
+wave14_ac_susceptibility_v1 FULL (415.6s) = CHI_FLAT peak/baseline=1.04
+(smoke 1.17; FULL even flatter; 6 ω values cluster around 0.35).
+
+Cycle 122 4th cross-family RS-cert anchor SOLIDIFIED at FULL.
+
+Bet Y V2.D N=65536 multi-hop outlook DEGRADES:
+- Cycle 121: BOUNDED (FULL KILL 0.217)
+- Cycle 123: rehabilitation candidate P=0.65 identified
+- Cycle 124: top rehabilitation REFUTED at FULL
+
+4 rehabilitation candidates remain:
+- VAMP-on-chain P=0.55 (links to cycle 120 substrate-novel readout)
+- Per-hop sparse cleanup P=0.50
+- Bidirectional chain inference P=0.45
+- Hierarchical multi-scale P=0.35
+
+V3 substrate investigation NOT YET triggered per cycle 115 logic
+(rehabilitation list not exhausted).
+
+Capability moves (v123 → v124):
+
+| Capability | v123 | v124 | Trigger |
+|---|---|---|---|
+| Resonator Network rehabilitation | P=0.65 candidate 0.45-0.65 | FULL REFUTED 0.200 UNDERPERFORMS argmax | Resonator FULL |
+| Cycle 123 mechanism diagnosis | P=0.70 (Agent G) | smoke FALSIFIED FULL pending | spectral smoke |
+| 4th cross-family RS-cert anchor | smoke peak/baseline=1.17 | FULL CONFIRMED 1.04 even flatter | χ'(ω) FULL |
+| Bet Y V2.D N=65536 multi-hop | optimistic (rehabilitation P=0.65) | DEGRADED 4 candidates remain | Resonator FULL |
+| Strategy dashboard reading discipline | cycle 116 chronological + cycle 109 mtime | + cycle 124 lesson read FULL list | Visibility correction |
+
+Strategy follow-up actions:
+1. File Strategy → Exp Dev for VAMP-on-chain (next rehabilitation
+   candidate P=0.55; links cycle 120 Bet Z.3)
+2. File Strategy → Research for mechanism re-diagnosis (both cycle 123
+   hypotheses refuted; need new investigation)
+3. Notify Product Demo 1 Lane D positioning uncertain
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 38th observation. PROT-005 unbiased framing: cycle 123
+rehabilitation REFUTED reported honestly NOT minimized; Strategy
+attention-allocation 4th instance acknowledged honestly.
