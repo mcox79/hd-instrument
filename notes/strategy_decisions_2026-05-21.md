@@ -3668,3 +3668,40 @@ capability for cognitive-architecture story.
   — Experiment Dev hasn't picked up; pipeline running parisi_M4N
 - Pipeline: parisi_M4N running; queue depth 3 (continual_N_5000edits,
   R32_M1_phasor, Bet B Kovacs full)
+
+---
+
+## Cycle 88 [Lane D / Phase 2 theoretical grounding] — Bet S K-ceiling THEORETICALLY GROUNDED (cap_map v88)
+
+**Time**: 2026-05-22 ~08:15 EDT.
+
+**Research delivered Request 3 (Bet S K-ceiling investigation)** 15
+min after cycle 86 routing. 31 KB deliverable.
+
+**Major finding**: Bet S K-ceiling matches literature bound K ≈ D/20
+= 205 at D=4096 per Ganesan 2021 + Schlegel 2022. **Substrate's
+PARTIAL at K=200 is theoretically expected, NOT substrate weakness.**
+
+Compound failure characterized:
+- K=50-200 ceiling: cleanup cross-talk K_crit = D/(2 log M) ≈ 130
+- K=800 collapse: AGS Hopfield blackout α_c=0.138N = 566
+- Critical Agent B finding: NO published paper achieves K=1000+
+  bidirectional Hopfield-class recall
+
+**Substrate-novel insight**: this is the SECOND case (multi-hop v77/v87
+was first) where substrate's empirical limit matches theoretical class
+bound. **Substrate operates AT theoretical limits** — not below, not
+beyond. Per [[feedback-value-creation-not-competition]]: distinctive
+substrate-product positioning. LLM limits are measured but not
+theoretically characterized; substrate's are KNOWN.
+
+**Bet Y V2.D scope expanded**: N scale-up (Bet Y development) is the
+extension path for BOTH multi-hop d-ceiling AND Bet S K-ceiling.
+Single architectural change addresses 3 substrate-product axes
+(capacity 5× + multi-hop d + K=1000+).
+
+**Strategic decision**: elevate Bet Y V2.D priority — substrate-product
+engineering ROI is now broader than single-axis capacity gain.
+
+**What remains**: Research Requests 1 (N=65536 codebook) + 2
+(substrate-as-QEC) still pending. Pipeline: parisi_M4N running.
