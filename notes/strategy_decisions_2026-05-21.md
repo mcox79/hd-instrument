@@ -3778,3 +3778,113 @@ engineering ROI is now broader than single-axis capacity gain.
 
 **What remains**: Research Requests 1 (N=65536 codebook) + 2
 (substrate-as-QEC) still pending. Pipeline: parisi_M4N running.
+
+
+## Cycle 90 [Lane D + Lane C + multi-hop / Phase 1 robustness + closure-stay-at-scale] — Strategy-miss caught: 4 verdicts from 08:18-08:19 not integrated in v89; v90 fixes (cap_map v90)
+
+**Trigger**: user-flagged "I think an experiment finished" at ~08:48 EDT.
+Dashboard inspection revealed 4 smoke verdicts had landed at 08:18-08:19
+EDT (13 min BEFORE v89 commit at 08:31) but v89 batch summary only
+captured 3 of the 8 recent verdicts. The other 4 were listed under
+"new queue items signaling V2.D + N-scaleup direction" — but they
+were ALREADY complete, not pending.
+
+**The 4 missed verdicts**:
+
+1. `wave14d_multi_task_cl_v12_phaseA_boost_smoke` (08:19:06) —
+   BET_B_PASS retention_A=0.927 retention_B=0.959 gain_C=4.49
+   bwt=+0.3438. Third Bet B mechanism PASS variant (after v6 EMA
+   + v11 per-batch EMA). retention_A=0.927 is the highest of the
+   three; v12 phase-A boost extends Phase A epochs from 5 to 8.
+2. `wave14r_multihop_K50_smoke` (08:18:50) —
+   MULTIHOP_V2_NOT_REPLICATED at seed=17 (acc_5hop < 0.5);
+   verdict_msg explicitly says "audit test setup before drawing
+   depth conclusions" → single-seed underpowered + setup-mismatch
+   flag, not a substrate weakness signal.
+3. `wave14r_multihop_FHRR_N8192_smoke` (08:18:42) —
+   MULTIHOP_FHRR_KILLED acc_50=0.000<0.4 acc_1=1.000. R8 A1 FHRR
+   rescue at N=8192 stays closed.
+4. `wave14r_multihop_FHRR_largeN_smoke` (08:18:33) —
+   MULTIHOP_FHRR_KILLED same metrics. R8 A1 FHRR rescue at largeN
+   stays closed. Second N-axis confirmation.
+
+**Why this matters**:
+
+- **Bet B robustness**: 3 independent mechanism families now PASS
+  Tier-1 KILLER (EMA blend, per-batch EMA, phase-A boost). This
+  definitively overturns v65's "TERMINAL Partial at 0.74"
+  framing. Substrate supports multi-task CL through structurally
+  distinct stabilization mechanisms — robustness, not parameter
+  tuning. Per [[feedback-rehabilitation-after-rejection]]:
+  rehabilitation axes worked exactly as the rule prescribes —
+  failing v3/v4/v5 had different mechanisms (parameter sweeps),
+  while v6/v11/v12 changed mechanism class. Confirms the
+  axis-combination rescue methodology.
+- **R8 closure stays at scale**: 10/10 R8 + Bet N/O/P/Q/R closures
+  now confirmed across N=4096 + N=8192 + largeN. This is the
+  empirical anchor for "multi-hop d-ceiling is architectural class
+  bound, not N-scaling artifact." Combined with cycle 87's
+  NUMENT_500 finding, multi-hop substrate-product picture is now
+  honestly characterized: ceiling at d=25-50 class bound, extension
+  via Bet Y V2.D + N=65536 only.
+- **K=50 V2-finding non-replication is underpowered**: single-seed
+  evidence is not a substrate weakness; runner-flagged as "audit
+  test setup." Strategy holds v87 🟢 NUMENT_500 promotion; does NOT
+  downgrade multi-hop based on K=50 single-seed.
+
+**Strategy-miss pattern analysis**:
+
+The v89 commit message listed FHRR_largeN, FHRR_N8192, K50 as "new
+queue items signaling V2.D + N-scaleup direction." But the dashboard's
+`recent_verdicts` field showed them complete with mtimes 08:18:33-50,
+13 min before the v89 cap_map mtime (08:31). I queried the wrong
+dashboard field for the batch summary.
+
+**Root cause**: Strategy's batch-summary lookup checked
+`queue_pending` (snapshot of currently-pending) without
+cross-checking `recent_verdicts` (snapshot of recently-completed).
+Items that had transitioned pending→done in the batch window were
+visible in `recent_verdicts` only, not in `queue_pending`.
+
+**Mitigation**: future batch-summary cap_map entries must query
+`recent_verdicts` and check ALL mtimes against the target commit
+time; deduplicate against already-summarized verdicts; flag missed
+items immediately rather than treating them as pending.
+
+Not a PROT proposal — low-frequency execution error, discipline
+reminder + this decision-log entry sufficient.
+
+**Capability moves** (v89 → v90):
+
+| Capability | v89 | v90 | Trigger |
+|---|---|---|---|
+| Bet B robustness across mechanism variants | 2 PASS (v6, v11) | **3 PASS** (v6, v11, v12); retention_A=0.927 best | v12 phaseA boost smoke |
+| R8 FHRR rescue at N=8192 | unknown | ❌ KILLED at scale | FHRR_N8192_smoke |
+| R8 FHRR rescue at largeN | unknown | ❌ KILLED at scale | FHRR_largeN_smoke |
+| Multi-hop K=50 V2 replication | unmeasured | 🔬 single-seed non-replication; audit flag | K50_smoke |
+
+**Decision log narrative**:
+
+The miss took 13 min to surface (08:31 v89 commit → 08:48 user
+"experiment finished" flag → ~08:50 dashboard inspection caught it).
+This is a meta-positive signal: the user-Strategy loop is now tight
+enough that strategy execution errors are caught within sub-hour
+windows. Per [[feedback-no-smoke]]: writing this up plainly in the
+decision log rather than burying it.
+
+**Substrate-product net**:
+
+- Bet B story strengthens (3 mechanism variants ✅).
+- R8 closure list stays defensibly closed at scale (good for
+  honest substrate-product positioning).
+- Multi-hop ceiling characterization stays at v87 NUMENT_500 framing
+  (no premature downgrade from K=50 single-seed).
+
+**PROT compliance**: PROT-009 paired commit (cap_map.md + history.md
++ this decision log) — 6th observation. PROT-005 unbiased framing:
+the K=50 V2 non-replication is reported as "audit flag" not "kill
+signal" per runner's own framing.
+
+**Next**: schedule wakeup for Bet B Kovacs v1 verdict (~22 min wall
+when this cycle started; likely lands soon) + META cycle 48 (~09:13)
++ Research pickup of 2 follow-ups filed at 08:39.

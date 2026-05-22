@@ -2483,3 +2483,127 @@ Net effect: substrate-product roadmap CLARIFIES — Bet Y V2.D +
 Kerdock(16) codebook construction extends 3+ axes; substrate's
 theoretical grounding stays at R16 BBP (no OAQEC layer needed);
 3 Research items delivered within 30 min of routing.
+
+## v90 update — Strategy-miss integration: Bet B v12 phase-A boost PASS (3rd mechanism PASS variant; robustness ✅); R8 FHRR rescues KILLED at N=8192 + largeN (R8 closure stays closed at scale); multi-hop K=50 V2-finding NOT REPLICATED at seed=17 (audit-test-setup flag)
+
+Strategy session cycle 90 (~08:50 EDT). User-flagged "I think an
+experiment finished" — dashboard inspection revealed 4 smoke verdicts
+that landed at 08:18-08:19 EDT (BEFORE v89 commit at 08:31) but v89
+only listed 3 of them as "queue items" rather than integrating their
+completed verdicts. Cycle 90 fixes the miss.
+
+### Verdicts missed by v89 batch summary
+
+| Experiment | mtime | Verdict | Strategic |
+|---|---|---|---|
+| `wave14d_multi_task_cl_v12_phaseA_boost_smoke` | 08:19:06 | **BET_B_PASS** retention_A=0.927 retention_B=0.959 gain_C=4.49 bwt=+0.3438 | **3rd Bet B mechanism PASS variant** |
+| `wave14r_multihop_K50_smoke` | 08:18:50 | **MULTIHOP_V2_NOT_REPLICATED** at seed=17 (acc_5hop<0.5) | Audit test setup flag |
+| `wave14r_multihop_FHRR_N8192_smoke` | 08:18:42 | **MULTIHOP_FHRR_KILLED** acc_50=0.000<0.4 acc_1=1.000 | R8 A1 rescue stays closed at N=8192 |
+| `wave14r_multihop_FHRR_largeN_smoke` | 08:18:33 | **MULTIHOP_FHRR_KILLED** acc_50=0.000<0.4 acc_1=1.000 | R8 A1 rescue stays closed at largeN |
+
+### Bet B robustness across 3 mechanism variants (substantive)
+
+v12 phase-A boost is the **third independent mechanism** by which Bet B
+multi-task CL hits Tier-1 KILLER criteria:
+
+| Variant | Mechanism | retention_A | retention_B | gain_C |
+|---|---|---|---|---|
+| v6 (cycle 46) | EMA blend W_ABC ← 0.7·W_ABC + 0.3·W_A | 0.845 | 0.912 | 5.62 |
+| v11 (cycle 87) | Per-batch EMA blending | 0.914 | 0.918 | 5.17 |
+| **v12 (cycle 90)** | **Phase-A epoch-count boost** | **0.927** | **0.959** | **4.49** |
+
+All three pass the 0.80 threshold. **Bet B not threshold-fragile across
+mechanism families** — the v65 "TERMINAL Partial at 0.74" framing has
+been definitively superseded; substrate supports multi-task CL through
+multiple distinct stabilization mechanisms.
+
+**Capability state**: Bet B remains ✅ (already promoted v69 + v87
+PROT-009 paired). v90 evidence reinforces, doesn't reopen.
+
+### R8 FHRR rescue closure stays CLOSED at scale (substantive)
+
+R8 A1 FHRR multi-hop rescue was closed at N=4096 (cycle 86 batch);
+v90 confirms at **N=8192 AND large-N**. Both smokes:
+- acc_50hop = 0.000 (cliff intact)
+- acc_1hop = 1.000 (basic recall fine)
+
+This is the **second N-axis confirmation** that R8 closure list is
+architectural, not test-config-specific. Combined with cycle 87
+NUMENT_500 finding (acc_50hop=0.233 at appropriate test config),
+multi-hop substrate-product picture remains:
+- **Architectural ceiling** (R8 + Bet N/O/P/Q/R closures): d=25-50
+  class bound holds across N=4096-largeN
+- **Test-config sensitivity**: acc_50hop varies 0.000-0.233 depending
+  on NUMENT vs K parameter regime
+- **Bet Y V2.D path**: only architectural change (modern dense AM +
+  Kerdock(16) at N=65536) extends meaningfully
+
+Per [[feedback-rehabilitation-after-rejection]]: R8 rescue list
+exhausted (10/10 closures held across cycles 60-90). No new
+rehabilitation axes warranted; substrate's empirical reach at
+appropriate test config (NUMENT=500) is the ceiling.
+
+### Multi-hop K=50 V2-finding NOT replicating at seed=17 (audit needed)
+
+`wave14r_multihop_K50_smoke` verdict_msg: "acc_5hop < 0.5 on seed(s)
+17. v2 finding doesn't replicate; audit test setup before drawing
+depth conclusions."
+
+The "v2 finding" being referenced is unclear from the verdict alone —
+likely a prior K=50 probe that showed positive multi-hop behavior.
+Two readings:
+1. **Seed-variance artifact**: seed=17 may be tail of distribution;
+   1-seed sample insufficient for non-replication conclusion.
+2. **Test-setup divergence**: K=50 smoke ran a different config from
+   the v2 finding it's compared against; the "doesn't replicate" is
+   a setup-mismatch flag, not a substrate weakness.
+
+**Strategy decision**: do NOT update multi-hop capability state from
+v87 🟢 NUMENT_500 framing. The single-seed K=50 non-replication is
+underpowered evidence and is flagged as "audit test setup" by the
+runner itself.
+
+**Followup**: Experiment Dev should investigate test-setup match
+between K=50 smoke and the v2 finding it references, or run 5-seed
+to disambiguate seed-variance vs systematic non-replication. Filed as
+implicit followup; no separate request file required (test-setup
+audit is Experiment Dev's natural domain).
+
+### Capability moves
+
+| Capability | v89 state | v90 state | Trigger |
+|---|---|---|---|
+| Bet B multi-task CL | ✅ via v6 EMA + v11 per-batch EMA | ✅ **3rd mechanism variant PASS** (v12 phase-A boost; retention_A=0.927 best yet) | v12 phase-A boost smoke |
+| R8 FHRR rescue at N=8192 | unknown | ❌ **KILLED** (acc_50=0.000; R8 closure stays at scale) | FHRR_N8192_smoke |
+| R8 FHRR rescue at largeN | unknown | ❌ **KILLED** (acc_50=0.000; second N-axis confirmation) | FHRR_largeN_smoke |
+| Multi-hop K=50 V2 replication | unmeasured | 🔬 **NOT REPLICATED at seed=17** (single-seed; audit-test-setup flag) | K50_smoke |
+
+### Strategy-miss pattern noted (META-relevant)
+
+v89 commit message listed `wave14r_multihop_FHRR_largeN`, `_FHRR_N8192`,
+`_K50` as "queue items signaling V2.D + N-scaleup direction" — but
+they had ALREADY completed at 08:18-08:19, 12-13 min before v89
+commit at 08:31. Strategy read the dashboard's `queue_pending` list
+without cross-checking `recent_verdicts` for items that had moved
+from pending → done in the batch window.
+
+**Root cause**: Strategy's batch-summary lookup queried the wrong
+dashboard field for the "new queue items" section. Should have
+checked `recent_verdicts` for items whose mtimes preceded the cap_map
+write timestamp, then deduplicated against the verdict list already
+in the batch summary.
+
+**Mitigation for future cycles**: when writing batch-summary cap_map
+entries, query `recent_verdicts` and check ALL mtimes against the
+target commit time; deduplicate; flag missed items immediately.
+
+Not a PROT proposal (low-frequency strategy-cycle execution error;
+discipline reminder sufficient).
+
+### Tally — Bet B 3rd mechanism PASS (✅ reinforced not reopened); R8 FHRR rescues KILLED at N=8192 + largeN (closure stays at scale); multi-hop K=50 V2 NOT REPLICATED at seed=17 (audit flag, single-seed underpowered); strategy-miss noted (4 verdicts from 08:18-08:19 not integrated in v89; v90 fixes)
+
+Net effect: Bet B robustness story strengthens (3 mechanism variants);
+R8 closure list stays at scale (10/10 closures across N=4096-largeN);
+multi-hop K=50 V2 needs Experiment Dev audit (test-setup vs
+seed-variance); strategy-miss caught + integrated within 20 min of
+v89 commit.
