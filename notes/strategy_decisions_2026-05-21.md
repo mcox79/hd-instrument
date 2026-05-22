@@ -3193,3 +3193,114 @@ v72 pattern). No state changes.
 - Experiment Dev pickup of META-promoted bets (S/T/U/V/W/Q/R/X)
 - Research reactivation if any new requests
 - META PROT-009 proposal if decision-log gap continues
+
+---
+
+## Cycles 68-73 BATCH CATCHUP — pattern recurrence (PROT-009 still pending)
+
+**Time**: 2026-05-21 ~21:26 EDT.
+
+**META cycle 24 catch**: cycle 70/71/72 cap_map updates committed
+without strategy_decisions entries. Same pattern PROT-009 is designed
+to address (Proposal 10 filed cycle 67; user approval pending).
+
+### Cycle 68 [Lane all-multi / Phase research-track] — User direction: V2 substrate eval + phase transformations + research angles inventory (commit f935a64)
+
+User asked Strategy to "surface high priority research angles" +
+"have research evaluate the highest value v2 substrates" + "research
+deep dive on potential phase transformations". Strategy filed:
+- `strategy_request_to_research_V2_substrate_evaluation_2026-05-21.md`
+  (6 V2 candidates; per-axis gain/loss tables; sequencing)
+- `strategy_request_to_research_phase_transformations_2026-05-21.md`
+  (7 phase-transformation axes; multi-regime substrate concept)
+- `strategy_research_angles_inventory_2026-05-21.md` (10 prioritized
+  research angles for cross-session visibility)
+
+Strategic framing: substrate at current-arch has largely exhausted
+within-bound rescues; next frontier is architectural redesign + multi-
+regime operation.
+
+### Cycle 69 [coordination] — PROT-009 proposal filed (commit 9332843)
+
+5 instances of decision-log gap pattern this session (cycle 53 + META
+cycles 16/19/21/22). Filed PROT-009 proposal: validator extension
+requiring strategy_decisions entry paired with cap_map version commit.
+Same enforcement approach as PROT-006/PROT-008.
+
+### Cycle 70 [Lane all / Phase strategic-plan] — META strategic plan integrated as cap_map v79 (commit ea177ae)
+
+META filed comprehensive strategic plan (user-directed via cycles
+19-22): 6 application lanes + phased Phase 1-5 execution. Strategy
+integrated:
+- Updated active_priorities with lane-driven ordering
+- Cap_map v79 includes strategic plan reference + bet-to-lane mapping
+- Filed Phase 1 routing to Experiment Dev (Bet S + Lane C integration
+  smoke + Bet X build)
+- Multi-hop rescues (Bet P + R31 from cycle 67) reclassified Phase 4
+  contingent
+- Per-cycle discipline going forward: decision log should reference
+  Lane + Phase tags
+
+META cycle 23 audit called this "best cycle of session."
+
+### Cycle 71 [Lane all-multi / Phase research-track] — V2 substrate eval delivered + Bet Y promotion (commit 5dc49b1)
+
+Research delivered V2 evaluation 10 min after cycle 68 filing.
+Findings:
+- **V2.D modern exponential-capacity dense AM is WINNER** (P=0.55-0.65
+  for 5× capacity in 6 months; strongest literature support)
+- V2.B hybrid HRR+bipolar second-priority (Bet X-aligned)
+- V2.A/E/F DEFERRED (mean-field/QEC/reservoir mismatch)
+- V2.C re-evaluate gated on V2.D + N=8192 smoke
+
+Strategy promoted **Bet Y as V2 development track**: substrate
+transitions from softmax(β=32) APPROXIMATION to EXPLICIT exponential-
+capacity dense AM per Demircigil 2017 / Krotov-Hopfield 2020 /
+Ramsauer 2020 / Lucibello-Mézard 2024.
+
+### Cycle 72 [Lane all-multi / Phase research-track] — Phase transformations delivered + Bet Z promotion + Bet Y+P.4 co-design (commit 6c01dd6)
+
+Research delivered phase-transformations 25 min after cycle 68 filing.
+Findings:
+- **STACK = P.5 sleep/wake + P.2 metaplasticity + P.6 eviction** is
+  substrate-novel highest-P axis (0.75; nobody combines Fachechi +
+  Benna-Fusi + active α-eviction)
+- P.4 dense ↔ sparse via Hopfield-Fenchel-Young single (α, β) knob
+  co-designs naturally with Bet Y V2.D
+- P.5 alone has 0.70 P (Fachechi dreaming Hopfield α_c → 1)
+- P.1/P.3/P.7 deprioritized
+
+Strategy promoted **Bet Z as STACK multi-regime substrate** and noted
+Bet Y + P.4 (α, β) controller co-design.
+
+**Substrate now has 3 substrate-novel architectural development
+tracks**: Bet Y energy / Bet Z multi-regime / Bet X composition.
+
+### Cycle 73 [Lane B+C+D / Phase 2] — Bet B v10 lowreplay PASS (no commit)
+
+Bet B v10 lowreplay full PASS at retention_A=0.953 (vs v7/v8/v9
+0.954). 4-version robustness confirmation. Substrate's EMA-blend
+mechanism robust under reduced replay fraction. bwt=+1.12 (highest in
+series). Incremental confirmation; no cap_map state change.
+
+### Process pattern observation
+
+**5 cycles, 4 commits**, only 1 with paired decision log entry (this
+catchup). Same PROT-009 pattern. Until PROT-009 mechanical
+enforcement lands, manual discipline keeps lapsing under tempo.
+
+### Forward direction
+
+- Phase 1 in flight: Bet S + Lane C smoke + Bet X all queued by Exp Dev
+- Bet Y (V2.D modern dense AM) — Strategy could file separate routing,
+  OR wait for Phase 1 to clear and let Exp Dev pull from cap_map v80
+- Bet Z (STACK multi-regime) — same; not routed separately yet (P.5
+  sleep/wake = Bet B-like Hebbian-replay extension; Exp Dev could
+  build standalone smoke)
+- Phase transformations P.6 substrate-novel write-T ≠ read-T gap —
+  noted in cap_map; no formal bet yet
+
+**Next watching for**:
+- Phase 1 verdicts (Bet S smoke; Lane C smoke; Bet X smoke)
+- User approval on PROT-009 Proposal 10
+- META cycle 25+ continuation of strategic plan tracking
