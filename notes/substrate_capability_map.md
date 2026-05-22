@@ -535,6 +535,7 @@ the next PROT-007 migration cycle.
 | v81 | 2026-05-21 | Phase transformations: STACK winner | Bet Z formal promotion (multi-regime substrate); Bet Y+P.4 co-design; Phase 1 queue landed |
 | v82 | 2026-05-21 | META V2.G + triple-point hypothesis | Critical-point smoke = gating test; Bet Z ↔ V2.G alignment; capability reframe HELD; annealing erasure routed |
 | v83 | 2026-05-21 | Annealing erasure honest recalibration | Primary forensics claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin); M.1 soft + M.2 bulk promoted |
+| v84 | 2026-05-21 | Critical-point protocol honest recalibration | Triple-point P=50-65% → 10-20% truly / 35-45% subcritical / 35-50% artifact (Touboul-Destexhe 2017); 4-signature stack required (S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/σ + S.4 surrogate); V2.G cost-conditional |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1659,3 +1660,123 @@ already does thermal unlearning via anti-Hebbian); 2 new Lane C
 features added (soft/bulk modes); substrate-physics theoretical
 grounding strengthened (Serricchio 2024 closes "annealing is new
 mechanism" framing).
+
+---
+
+## v84 update — Critical-point protocol HONEST RECALIBRATION: P=50-65% → P=10-20% truly critical / 35-45% near-critical-subcritical / 35-50% correlated-artifact; Touboul-Destexhe 2017 theoretical caveat; revised 4-signature stack required (P=0.45-0.65 discriminative)
+
+Strategy session cycle 82. Critical-point protocol Research delivered
+(`research_critical_point_protocol_2026-05-21.md`, 22:17, 40 KB,
+12-min turnaround). **Second consecutive Research honest-recalibration
+this hour** (after cycle 81 annealing erasure).
+
+### Critical-point probability recalibrated
+
+META framed P=50-65% near critical point based on 6 convergent
+empirical signals. Research's 3-agent brutal-honesty scan:
+
+| Hypothesis | P | Source / reasoning |
+|---|---|---|
+| **Truly at critical point** (rigorous stat-mech sense) | **10-20%** | Requires FSS + pre-registered exponents + surrogate null + sampling-invariance + scaling collapse |
+| **Near critical line, ORDERED (subcritical) phase** (modal outcome) | **35-45%** | Priesemann-Wilting 2018 macaque PFC m=0.98 subcritical; Calvo 2026 PRL fMRI 0.88 coupling |
+| **False positive from correlated convergent-evidence artifact** | **35-50%** | Touboul-Destexhe 2017: simple OU + biased coin-flip satisfy crackling-noise exponent relation WITHOUT any phase transition |
+
+**Critical theoretical finding** (Touboul-Destexhe 2017 PRE):
+exponent-relation closure (τ, α, 1/σνz interlock) — often cited as
+second-tier signature beyond power laws — **is reproducible by
+trivial stochastic dynamics**. Multiple signatures from one model run
+share heavy correlation; **Bayes factors do NOT multiply**.
+
+This is the same pattern as cycle 81: Research's literature vet
+materially lowers an optimistic framing's probability. The 6
+convergent signals are REAL — they just don't add up to criticality
+as cleanly as the surface reading suggested. The substrate IS in
+spin-glass character regime; whether substrate is AT the critical
+point vs NEAR the critical line in ordered phase is genuinely
+uncertain.
+
+### Strategy's original 3-signature stack was insufficient
+
+| Strategy signature | Discriminative power (per Research) |
+|---|---|
+| χ(β) susceptibility sweep | P=0.15-0.25 alone; requires ≥3 N values for FSS (N=4096 single-size BORDERLINE) |
+| 1/f^α event-statistics spectrum | **NON-DIAGNOSTIC** (Touboul-Destexhe 2010+2017; α alone consistent with non-critical autoregressive systems) |
+| Avalanche cluster size distribution | P=0.40-0.55 for fat-tailed vs not; only 0.55 for at-criticality at N=4096 (caps avalanches at ~4096 → only 1.5-2 decades) |
+
+**Aggregate**: P=0.15-0.25 discriminative power at 1 GPU-hour budget.
+META's "95%+ informative either direction" claim was OVERSTATED.
+
+### Research-recommended REVISED 4-signature stack
+
+| Signature | Engineering | P(adds discrim.) | Source |
+|---|---|---|---|
+| **S.1 χ_SG mini-FSS** (N=2048+4096, ≥50 seeds each) | MED-HIGH | 0.55 | Aguilar-Janita 2026 arXiv:2601.19192 |
+| **S.2 AT-eigenvalue computation** (analytic single-instance) | **HIGH (best ROI per GPU-hour)** | **0.65** | Albanese-Alemanno-Alessandrelli-Barra 2023 arXiv:2303.06375 |
+| **S.3 Avalanche distribution + branching ratio σ** | HIGH | 0.55 | Wilting-Priesemann 2018 subsampling-invariant estimator |
+| **S.4 Surrogate-data null control** (shuffle couplings; same protocol) | HIGH (required per Calvo 2026) | 0.60 (NEGATIVE on surrogate required) | Calvo 2026 PRL methodology |
+
+**Revised stack discriminative power**: **P=0.45-0.65** — meaningfully
+informative at substrate-product engineering grade.
+
+### Substrate-product implications (honest recalibration)
+
+| Outcome | Substrate-product action |
+|---|---|
+| **S.1 + S.2 BOTH suggest critical AND S.4 surrogate rejects** (~0.40 outcome) | Substrate near critical with literature-grade rigor → V2.G STACK construction cheap per META framing |
+| S.1 OR S.2 suggests critical AND S.4 also shows signal | False-positive risk material; **DO NOT promote V2.G STACK** without more evidence |
+| Both S.1 AND S.2 NEGATIVE (~0.45 outcome modal subcritical) | Substrate in ordered phase near critical line; V2.G modes require explicit engineering per Research P.5 + P.2 + eviction decomposition |
+| Mixed / ambiguous (~0.15 outcome) | Inconclusive; consider larger N or alternative protocol |
+
+### Capability moves
+
+| Capability | v82 state | v84 state | Trigger |
+|---|---|---|---|
+| Triple-point hypothesis | 🔬 P=50-65% META framing | 🔬 **P=10-20% truly critical / 35-45% near-critical-subcritical / 35-50% artifact** (Research honest recalibration) | Critical-point protocol Research |
+| Critical-point smoke (gating test) | 3-signature stack (Strategy spec; P=0.15-0.25) | **4-signature stack (S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/σ + S.4 surrogate null; P=0.45-0.65)** | Research recommendation |
+| V2.G Bet Z STACK construction cost | Cheap if criticality confirmed | **Cheap only if S.1+S.2 BOTH critical AND S.4 rejects (~0.40 of 4-test outcomes)**; otherwise expensive (modal subcritical or false-positive) | Research recalibration |
+| 1 GPU-hour budget for smoke | META estimate | Research: revised stack requires more compute (S.1 FSS at 2 N × 50 seeds each); honest revision | Research |
+
+### Pattern observation: Research brutal-honesty pass = empirical calibration tool
+
+Two consecutive cycles with the same pattern:
+- Cycle 81 annealing erasure: P=35-50% → P=0.05-0.15 (forensics claim rejected; Serricchio 2024 theoretical equivalence)
+- Cycle 82 critical-point (this): P=50-65% → P=10-20% truly + 35-45% subcritical (Touboul-Destexhe 2017 caveat)
+
+**META's framings tend optimistic; Research's literature vet
+calibrates them down**. PROT-004 + 2x Research discipline working as
+designed. This is the substrate-product engineering benefit of the
+coordination architecture.
+
+Note: empirical signals themselves are NOT rejected — substrate IS
+in spin-glass character (5-source RSB stands). Interpretation of
+those signals as "truly at critical point" is what got recalibrated.
+
+### Strategic decision
+
+Per [[feedback-no-smoke]] + [[feedback-step-back-evaluation]]:
+
+1. **Adopt Research's 4-signature revised stack** for critical-point
+   smoke (S.1-S.4). Strategy's original 3-signature stack was
+   insufficient.
+2. **Lower expected substrate-product gain** from V2.G — only ~40% of
+   smoke outcomes give V2.G cheap-construction path
+3. **V2.D Bet Y stays primary V2 development track** (P=0.55-0.65 5×
+   capacity; not contingent on criticality)
+4. **V2.G Bet Z STACK construction is conditional** — if smoke 4-test
+   stack indicates near-critical-with-rigor, build cheap. If
+   subcritical (modal), reroute to explicit STACK engineering per
+   Research's phase-transformations note.
+5. **Item 3 capability reframe stays HELD** — outcome-dependent.
+
+### Re-routed smoke spec
+
+Strategy should re-route to Experiment Dev with Research's revised
+4-signature stack (not the original 3). Will file in next cycle once
+META cycle 27 has chance to comment on the recalibration.
+
+### Tally — Critical-point hypothesis recalibrated DOWN (10-20% truly critical; 35-45% modal subcritical; 35-50% artifact); revised 4-signature stack required for P=0.45-0.65 discriminative; V2.G construction cost-conditional on outcome; pattern of Research brutal-honesty calibration noted (2 consecutive cycles)
+
+Net effect: substrate-physics interpretation honest — substrate IS
+spin-glass-character but criticality claim was overstated; 4-signature
+stack needed for rigor; V2.G build path stays open but with lower
+expected free-ness; V2.D Bet Y reinforced as primary V2 track.

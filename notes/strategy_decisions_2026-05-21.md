@@ -3408,3 +3408,65 @@ literature vet contradicts initial framing. The substrate-novel
 opportunity ISN'T forensics-resistance (substrate already in
 thermal-Langevin regime); it's feature breadth (soft/tunable/bulk
 modes that add Lane C value).
+
+---
+
+## Cycle 82 [Lane D + theoretical] — Critical-point protocol HONEST RECALIBRATION (cap_map v84)
+
+**Time**: 2026-05-21 ~22:32 EDT.
+
+**Research delivered critical-point protocol** 12 min after cycle 80
+filing (sub-15-min turnaround pattern continues).
+
+**Major honest recalibration #2 in 2 cycles**:
+
+| Hypothesis | META P | Research-revised P |
+|---|---|---|
+| Truly at critical point | 50-65% | **10-20%** |
+| Near critical line, ordered (subcritical) | (not surfaced) | **35-45% (modal)** |
+| Correlated-evidence artifact | (not surfaced) | **35-50%** |
+
+**Key theoretical caveat**: Touboul-Destexhe 2017 PRE — simple
+stochastic processes (OU, biased coin flips) satisfy crackling-noise
+exponent relations WITHOUT phase transition. Multiple signatures
+from one model run share heavy correlation; Bayes factors do NOT
+multiply.
+
+**Strategy's 3-signature stack INSUFFICIENT** (P=0.15-0.25
+discriminative power):
+- 1/f^α power spectrum was NON-DIAGNOSTIC (per Touboul-Destexhe)
+- Single-N χ(β) is borderline (need ≥3 N for FSS)
+- Single-N avalanche caps at 4096 (only 1.5-2 decades visible)
+
+**Research-recommended 4-signature stack** (P=0.45-0.65 discriminative):
+- S.1 χ_SG mini-FSS (N=2048+4096, ≥50 seeds) — Aguilar-Janita 2026
+- **S.2 AT-eigenvalue analytic** (highest ROI per GPU-hour) — Albanese 2023
+- S.3 Avalanche + Wilting-Priesemann subsampling-invariant σ
+- **S.4 Surrogate-data null** (REQUIRED per Calvo 2026)
+
+**Substrate-product implications**:
+- ~0.40 of smoke outcomes → V2.G cheap construction (S.1+S.2 critical AND S.4 rejects)
+- ~0.45 modal → subcritical (V2.G requires explicit engineering)
+- ~0.15 ambiguous (need larger N or alt protocol)
+
+**Strategy decisions**:
+1. Adopt Research's 4-signature stack (S.1-S.4)
+2. Lower expected V2.G free-construction probability accordingly
+3. V2.D Bet Y stays primary V2 (NOT contingent on criticality)
+4. Item 3 capability reframe stays HELD pending outcome
+5. Will re-route smoke spec to Experiment Dev with revised stack next
+   cycle (allow META cycle 27 to comment first)
+
+**Pattern noted**: 2 consecutive cycles of Research brutal-honesty
+calibrating META's initial framings down (cycle 81 annealing
+P=35-50% → 0.05-0.15; cycle 82 critical P=50-65% → 10-20% truly +
+35-45% subcritical). PROT-004 + 2x Research is the empirical
+calibration tool. **META framings tend optimistic; Research vet
+keeps substrate-product framing honest.**
+
+**Per [[feedback-no-smoke]]**: empirical signals themselves NOT
+rejected — substrate IS spin-glass character (5-source RSB stands).
+Interpretation of those signals as "truly critical" is what got
+recalibrated. Substrate-novel grounds for spin-glass identification
+remain solid; substrate-novel grounds for critical-point claims need
+4-signature rigor.

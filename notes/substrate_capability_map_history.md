@@ -7529,3 +7529,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 ## v83 — (2026-05-21) Annealing erasure honest recalibration; primary forensics-resistance claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin steady state — reparameterization not new mechanism; >90
 
 ## v83 - (2026-05-21) Annealing erasure honest recalibration; primary forensics-resistance claim REJECTED (Serricchio 2024 proves Hebbian unlearning is equivalent to thermal Langevin steady state - reparameterization not new mechanism); M.1 soft + M.2 bulk promoted as Lane C feature breadth
+
+
+## v84 - (2026-05-21) Critical-point protocol honest recalibration; triple-point P=50-65% to 10-20% truly critical / 35-45% near-critical-subcritical / 35-50% correlated-artifact (Touboul-Destexhe 2017 caveat: simple OU + coin-flip satisfy crackling-noise exponent relations without phase transition); revised 4-signature stack S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/sigma + S.4 surrogate null (P=0.45-0.65 discriminative); V2.G cost-conditional on outcome
