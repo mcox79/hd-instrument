@@ -7521,3 +7521,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v81 — (2026-05-21) Phase transformations Research delivered; STACK (P.5 sleep/wake + P.2 metaplasticity + P.6 eviction) is substrate-novel highest-P axis P=0.75; Bet Z formal promotion; P.4 dense-sparse co-design with Bet Y V2.D; Phase 1 Bet S + Lane C smoke queued by Exp Dev
+
+
+## v82 — (2026-05-21) META triple-point hypothesis (6 convergent signals; P=50-65ear critical point); critical-point smoke = gating test for V2.G architectural cost; Bet Z STACK ↔ V2.G label alignment; capability reframe HELD pending Item 1; annealing erasure routed (cycle 78 user direction); substrate v2 tracks at 4 (V2.D Y + V2.B X + V2.G Z + annealing AA pending)

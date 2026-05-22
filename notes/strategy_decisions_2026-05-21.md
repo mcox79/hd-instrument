@@ -3304,3 +3304,59 @@ enforcement lands, manual discipline keeps lapsing under tempo.
 - Phase 1 verdicts (Bet S smoke; Lane C smoke; Bet X smoke)
 - User approval on PROT-009 Proposal 10
 - META cycle 25+ continuation of strategic plan tracking
+
+---
+
+## Cycle 80 [Lane D + Lane C / Phase architectural-decision] — META triple-point hypothesis + V2.G + annealing erasure (commits b80842d + critical-point routing)
+
+**Time**: 2026-05-21 ~22:08 EDT.
+
+**User direction this cycle**: (1) earlier 22:00 routed annealing
+erasure research; (2) META filed comprehensive triple-point + V2.G
+proposal (user-directed per META cycle 25/26).
+
+**Major substrate-physics integration**:
+
+META cycle 25 followup proposes substrate may operate near a phase-
+diagram critical/triple point. 6 convergent empirical signals — Bet I
+BBP σ_c exact, α just above α_c, β=32 = BBP, 5-source RSB universality,
+Bet B sharp 0.954 attractor, d=25 universal VSA-class bound. P=50-65%
+near critical point per META honest estimate.
+
+**Strategy decisions**:
+
+1. **Routed critical-point characterization R-question to Research**
+   (`strategy_request_to_research_critical_point_2026-05-21.md`).
+   3 META-proposed signatures (susceptibility χ(β), power spectrum
+   1/f^α, avalanche size distribution). Cheap 1-GPU-hour gating test.
+   2-of-3 critical pattern → V2.G cheap (3-5 cycles); 0-or-1 →
+   substrate deep in one phase, V2.G expensive (5-10 cycles).
+
+2. **Aligned Bet Z (STACK from v81) ↔ V2.G label** in cap_map v82.
+   Same substrate construction; just naming alignment with META.
+
+3. **HELD Item 3 capability reframe** (Bet S/T/U/V/W → V2.G mode
+   benchmarks) pending Item 1 outcome. Phase 1 routing stays valid
+   and in flight per [[feedback-step-back-evaluation]].
+
+4. **Filed annealing erasure research request** (earlier cycle 78;
+   user-directed). Thermal substrate forgetting as alternative to
+   Bet 2/C anti-Hebbian rank-1. Lane C primary; substrate-physics
+   anchors R18 + R24 + R37 F.1 + R22 reverse.
+
+**Substrate v2 architectural tracks now 4**:
+- V2.D Bet Y (energy function change) — P=0.55-0.65 capacity 5×
+- V2.B Bet X hybrid (HRR + bipolar) — depth past d=25
+- **V2.G Bet Z STACK (per-query reversible mode switching) — P=0.75 if criticality confirmed**
+- Annealing erasure (Bet AA pending Research) — Lane C forensics-resistance
+
+**Per [[feedback-no-smoke]]**: 6 convergent signals are NECESSARY but
+NOT SUFFICIENT for criticality. Direct measurement required. Honest
+50-65% estimate stays calibrated until smoke result.
+
+**What I'm watching for next**:
+- Critical-point smoke verdict (gating test for V2.G priority)
+- Annealing-erasure Research delivery
+- continual_8N_2000edits verdict (46+ min wall; still running)
+- Phase 1 experiments (Bet S + Lane C smoke + Bet X) when continual clears
+- Bet Y build pickup by Experiment Dev

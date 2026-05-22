@@ -533,6 +533,7 @@ the next PROT-007 migration cycle.
 | v79 | 2026-05-21 | META strategic plan integrated | 6 lanes + phased execution; Lane C wedge + Lane D upside; Bet S Phase 1 priority |
 | v80 | 2026-05-21 | V2 substrate evaluation: V2.D winner | Bet Y formal promotion (modern dense AM); V2.A/E/F deferred; V2.C gated on V2.D |
 | v81 | 2026-05-21 | Phase transformations: STACK winner | Bet Z formal promotion (multi-regime substrate); Bet Y+P.4 co-design; Phase 1 queue landed |
+| v82 | 2026-05-21 | META V2.G + triple-point hypothesis | Critical-point smoke = gating test; Bet Z ↔ V2.G alignment; capability reframe HELD; annealing erasure routed |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1398,3 +1399,160 @@ multi-regime + Bet X skill composition).
 Net effect: substrate-product roadmap now has 3 substrate-novel
 architectural tracks (Bet Y energy / Bet Z multi-regime / Bet X
 composition); Phase 1 in flight; clear gates per track.
+
+---
+
+## v82 update — META V2.G request lands: TRIPLE-POINT HYPOTHESIS (substrate may operate near phase-diagram critical point); critical-point smoke = GATING TEST for V2.G architectural cost; Bet Z STACK ↔ V2.G label alignment; capability reframe conditional on Item 1; annealing-erasure research routed
+
+Strategy session cycle 80. **META filed major substrate-physics
+request** `meta_request_to_strategy_v2g_phase_track_2026-05-21.md`
+(22:00) with three coordinated items + user-directed annealing-
+erasure routing (cycle 78).
+
+### Item 1: Triple-point hypothesis — substrate may be empirically critical
+
+**6 convergent empirical signals** (per META Section 1):
+
+1. **Bet I BBP σ_c = exactly 16** — BBP IS a phase transition; substrate
+   at BBP threshold = noise/signal boundary
+2. **α=0.153 just above α_c=0.138** (R29) — substrate near AGS↔modern-
+   Hopfield boundary
+3. **β=32 = BBP threshold location** — empirical Bet G calibration +
+   theoretical Bet I free probability converge
+4. **5-source RSB universality** (R23+R29+R16+R18+Bet E) — multiple
+   frameworks predicting same regime = universality at critical points
+5. **Bet B retention_A = 0.954 across v7/v8/v9** — sharp attractor
+   fixed points = critical-point signatures
+6. **d=25 VSA-class compositional bound** (Bet X) — same number via
+   VSA noise math + transformer CoT lower bounds = universal scaling
+
+**Probability** (META honest estimate): substrate near critical point
+50-65%; proposed measurement informative 95%+ either direction.
+
+### Critical-point characterization (gating test)
+
+**Routed to Research** (this cycle):
+`strategy_request_to_research_critical_point_2026-05-21.md` requests
+substrate-applicable protocol for 3 META-proposed signatures:
+
+| Signature | Critical-point pattern | Sub-critical pattern |
+|---|---|---|
+| Susceptibility χ(β) sweep | Sharp peak at β=32 | Broad plateau |
+| Power spectrum 1/f^α | Power-law scaling (Bak-Tang-Wiesenfeld SOC) | Exponential decay |
+| Avalanche / error-cluster | Power-law distribution | Exponential cutoff |
+
+**Multi-probe**: 2-of-3 signatures critical → substrate near criticality;
+0-or-1 → deep in one phase.
+
+**Cost**: ~1 GPU hour total per META. Cheap; high information value.
+
+### Item 2: V2.G multi-regime substrate ↔ Bet Z STACK alignment
+
+META labels what's substantively my cap_map v81 Bet Z (STACK = P.5
+sleep/wake + P.2 metaplasticity + P.6 eviction) as **V2.G**. **Same
+substrate construction; just naming alignment**.
+
+| Capability | v81 state | v82 state | Trigger |
+|---|---|---|---|
+| Bet Z STACK multi-regime substrate | 🔬 substrate-novel highest-P phase axis (P=0.75) | 🔬 **Bet Z STACK = V2.G** (META label); contingent on Item 1 critical-point smoke; **cheap (3-5 cycles) if critical confirmed; expensive (5-10 cycles) if not** | META V2.G request |
+
+**V2.D Bet Y vs V2.G Bet Z complementary**:
+
+| Track | What changes | Capability shape |
+|---|---|---|
+| V2.D (Bet Y) | Cleanup linear → exponential energy | More capacity (5×), same capability class |
+| V2.B (Bet X hybrid HRR) | Add parallel HRR pool | Extends multi-hop past d=25 |
+| **V2.G (Bet Z STACK)** | Per-query reversible mode switching with provenance | **NEW capability class — LLMs structurally cannot do this** |
+
+Both V2.D and V2.G can be co-developed (capacity + mode flexibility).
+
+### Item 3: Capability reframe (contingent on Item 1)
+
+**If critical-point CONFIRMED**: Bet S/T/U/V/W from META cycle 20
+inventory collapse from "5 separate mechanism experiments" into
+"different parameter configurations of the same substrate" (different
+V2.G modes). Each becomes a V2.G mode benchmark.
+
+| Capability | Existing Bet | V2.G mode reframe (if criticality confirmed) |
+|---|---|---|
+| Pattern completion | Bet S | Recall mode at recall-criticality (binding inversion; tunable β) |
+| Hypothesis tracking | Bet T | Multi-domain mode (R29 ferromagnetic multi-domain; parallel basin access) |
+| Working memory + decay | Bet U | "Awake / learning" mode (high plasticity, bounded buffer) |
+| Self-reflective memory | Bet V | "Sleep / replay" mode storing prediction+outcome triples |
+| Counterfactual reasoning | Bet W | "What-if" mode (conditional binding swap) |
+| Skill composition | Bet X | Bound-sequence-as-callable cross-mode |
+
+**If critical-point DISCONFIRMED**: Bet S/T/U/V/W stay as separate
+experiments per META cycle 20 inventory. Additive only — no regression.
+
+### Item 3 strategy decision: HOLD reframe pending Item 1
+
+Per [[feedback-no-smoke]] + [[feedback-step-back-evaluation]]:
+- Item 3 reframe is contingent on Item 1 outcome
+- DO NOT prematurely collapse Bet S/T/U/V/W into V2.G modes
+- Phase 1 routing (Bet S + Lane C smoke + Bet X) stays valid and in flight
+- If criticality confirmed AND V2.G build clears, V2.G mode benchmarks can supersede individual S/T/U/V/W experiments at that point
+
+### Annealing-erasure research routing (cycle 78 user direction)
+
+Per `strategy_request_to_research_annealing_erasure_2026-05-21.md`
+(filed cycle 78): user-directed thermal/annealing-based erasure as
+alternative to current Bet 2/C anti-Hebbian rank-1 erase. Research
+investigation pending.
+
+| Capability | v81 state | v82 state | Trigger |
+|---|---|---|---|
+| Annealing-based erasure (Bet AA pending Research) | (not in cap_map) | 🔬 research-first; Lane C primary; substrate-physics anchors R18+R24+R37 F.1+R22 reverse | User direction cycle 78 |
+
+### Substrate-product position update
+
+Substrate v2 architectural tracks (now 4):
+
+| Track | Mechanism class | P | Lane |
+|---|---|---|---|
+| V2.D Bet Y | Exponential energy + (α, β) controller | 0.55-0.65 cap 5× | A+C+D |
+| V2.B (Bet X hybrid) | Parallel real-valued HRR pool | 0.10 cap / 0.20 depth | D |
+| **V2.G Bet Z STACK** | **Per-query reversible mode switching** | **0.75 substrate-novel; cheap if critical** | **D primary** |
+| Annealing erasure (Bet AA pending) | Thermal substrate forgetting | 35-50% Research-uncertainty | C primary |
+
+**Three substrate-novel substrate-product directions** + 1 thermal
+erasure investigation. All target LLM-distinctive capabilities per
+[[feedback-value-creation-not-competition]].
+
+### Strategic gating dependency
+
+```
+Critical-point smoke (Item 1; 1 GPU hour; gating test)
+   |
+   v
+   YES near criticality  →  V2.G cheap (3-5 cycles); Item 3 reframe substantive
+                         →  Bet S/T/U/V/W become V2.G mode benchmarks
+                         →  Lane D product story has natural substrate
+
+   NO not near criticality →  V2.G expensive (5-10 cycles); per-mode engineering required
+                          →  Bet S/T/U/V/W stay separate (current Phase 1 ordering)
+                          →  V2.D Bet Y remains primary V2 path
+```
+
+### Honest caveats per [[feedback-no-smoke]]
+
+- 6 convergent signals are NECESSARY but NOT SUFFICIENT for criticality.
+  Direct measurement required.
+- 50-65% probability per META; not measured frequency.
+- Substrate at finite N (N=4096) — "near critical" in finite-N sense
+  means universality-class behavior, not infinite susceptibility.
+- V2.G is conditional on Item 1; if criticality disconfirmed, V2.G is
+  more expensive than V2.D and probably not next priority.
+- Capability reframe is additive — doesn't replace existing inventory
+  ordering.
+- Critical-point operation has real risks: catastrophic transitions,
+  hysteresis, heavy-tailed event distributions. Empirical
+  characterization needed before substrate ships at critical operating
+  point.
+
+### Tally — Triple-point hypothesis routed (Item 1 gating test); Bet Z STACK ↔ V2.G label alignment; capability reframe HELD pending Item 1; annealing erasure routed (cycle 78); substrate v2 architectural tracks at 4
+
+Net effect: substrate-physics story potentially unified around critical-
+point operation (6 convergent signals); V2.G build cost determined by
+cheap gating test; capability inventory potentially collapses into
+V2.G mode benchmarks IF criticality confirmed. Phase 1 unchanged.
