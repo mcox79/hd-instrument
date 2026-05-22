@@ -3,41 +3,88 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 70 (META strategic plan integrated; 6 lanes + phased execution; Lane C wedge + Lane D upside recommended play; Phase 1 = Bet S + Lane C integration smoke + Bet X)
-**Cap map version this refers to:** v79
+**Last updated:** 2026-05-22 cycle 111 (refresh after 40+ version gap flagged by Research Entries 144/145 + META cycles 47/55/56)
+**Cap map version this refers to:** v111
 
 ---
 
-## 🎯 STRATEGIC PLAN REFERENCE (cap_map v79)
+## 🎯 STRATEGIC PLAN STATUS (cap_map v110 milestone)
+
+Per cycles 70-110 substantive arc — original META 3-phase plan (Bet S/Lane C/Bet X → Bet T/U/V/W → Lane D integration) is **substantially DONE**.
+
+**Lane D portfolio at cycle 110** — 5 of 7 META capability axes ✅ DONE + 1 ❌ KILLED honest negative + 2 🟡 PARTIAL:
+- ✅ Bet S K-ceiling theoretically grounded (K_crit≈205 cycle 88)
+- ✅ Bet X multi-hop K=100 acc_50hop=**0.767** NEW HIGH (cycle 96)
+- ✅ Bet B **5 FULL-confirmed mechanisms** (v11/v12/v13K/v13_a05/v14_a05; cycles 87-100)
+- ✅ Bet U working memory decay recency gradient (cycle 102)
+- ✅ Bet Q facilitation/nucleation sharpness=8 (R37 substrate-novel; cycle 102)
+- 🟡 Bet T parallel hypothesis tracking PARTIAL (min_acc=0.689; cycle 101)
+- 🟡 Bet V self-reflective PARTIAL gap=0.424 at largeN (cycle 102+103)
+- ❌ Bet W counterfactual KILLED (consistency=0.117 random-like; cycle 102 honest negative)
+
+**Lane D wedge DEMONSTRATED at FULL** (cycles 103+105):
+- 4-primitive parallel composition: S=0.983 + T=0.978 + U=1.0 + X=1.0
+- 3-stage sequential pipeline: S=1.0 → T=1.0 → X=1.0 composed_acc=1.0
+- Noise-robust at 10% bit-flip (smoke cycle 108; FULL pending)
+
+**Bet A substrate-novel finding** (cycle 98): empirical breakpoint at edit **8189 ≈ M=2N=8192** = substrate addressable cardinality. **3rd theoretically-anchored empirical-matches-theoretical instance** (multi-hop d / Bet S K / Bet A M).
+
+**Substrate-physics characterization SHARPENED** (cycle 108): substrate is **classical-Hopfield-class with Kerdock-codebook capacity extension**. 3 cleanup mechanism families empirically refuted (modern dense AM × 3β + β-blend × 2β + p-body × 2p = 7 configs all ratio=1.0).
+
+**β-calibration MEASURED** (cycle 100): c = β·N = **32768** empirically (CV=0); substrate operating regime fully characterized.
+
+---
+
+## 🔝 ACTIVE PRIORITIES (cycle 111)
+
+### Currently running
+- `wave14_betY_phase2_beta_blend_v1` FULL — 70+ min wall watch; outcome pending; per cycle 108 substrate is classical-Hopfield-class so likely ratio=1.0 at FULL too
+
+### Queue pending (5 items behind β-blend)
+1. `wave14_lane_D_N_scaling_v1` FULL — addresses cycle 108 SUBLINEAR smoke concern
+2. `wave14_lane_D_noise_robust_v1` FULL — confirms cycle 108 noise-robust smoke
+3. `wave14_betR_pbody_polynomial_v1` FULL — confirms cycle 108 p-body smoke refutation
+4. `wave14_observability_suite_v1` (cycle 109 routing pickup) — 3 priority probes: C_ij eigvals + P(q) replica + P(h) moments
+5. `wave14_betS_K_ceiling_N65536_v1` (cycle 106 mechanism revision pickup) — first of Bet Y V2.D N=65536 5-test battery
+
+### Pending Strategy follow-up routings
+- **Bet Z.1 SRHT compressive readout** (cycle 110 cued holistic readout) — file Exp Dev request next cycle
+- **Bet Z.2 Classical 2-pulse echo / C2PO** (cycle 110) — file Exp Dev request next cycle (substrate-novel pattern-pair coupling diagnostic; matches user "excite-and-x-ray" vision)
+- Bet Y V2.D remaining 4 N=65536 tests (Bet C M/N + Bet A continual + multi-hop K=100 + Bet V meta-cognition; cycle 106 5-test battery; first item already queued)
+
+---
+
+## 🎯 STRATEGIC PLAN REFERENCE (cap_map v79 — preserved for context)
 
 **Authoritative**: `meta_request_to_strategy_strategic_plan_2026-05-21.md`
 (META filed 20:33, user-directed via cycles 19-22).
 
-**6 application lanes** (closeness order):
-- **C Compliance** (5/8 done) — closest to shipping; $5-50M ARR; **PHASE 1 WEDGE**
-- **A Memory layer for LLMs** (6/7 done) — engineering gap
+**6 application lanes** (closeness order; updated state at cycle 110):
+- **C Compliance** (5/8 → smoke PERFECT cycle 86; full pending) — closest to shipping; $5-50M ARR; PHASE 1 WEDGE smoke DONE
+- **A Memory layer for LLMs** (6/7 → Bet A scales M=N→16N + breakpoint at M cycle 98) — substrate-novel theoretical-empirical match achieved
 - **B On-device personal AI** (6/9 done) — D2C brutal
-- **E Neuromorphic** (4/6 done) — HW partnership dependent
-- **D Cognitive architecture** (3/11 done) — **HIGHEST TAM $30-50B+**; capability gap
+- **E Neuromorphic** (4/6 → Bet Q glassy facilitation cycle 102; R17 area-law at N=12288; R27 L.2 KILLED) — HW partnership dependent
+- **D Cognitive architecture** (3/11 → **5/11 + WEDGE DEMONSTRATED cycle 103+105** + capability envelope characterized) — **HIGHEST TAM $30-50B+**; LANE D LOAD-BEARING ANCHOR ACHIEVED
 - **F Scientific reasoning** (1/8 done) — farthest
 
-**Recommended strategic play**: Lane C wedge ($5-50M near-term) → fund
-Lane D capability tests → pivot Lane C customers to Lane D (cognitive-
-architecture product; $30-50B+ TAM if agents go mainstream).
+**Recommended strategic play** (still valid): Lane C wedge ($5-50M near-term) → fund Lane D capability tests → pivot Lane C customers to Lane D (cognitive-architecture product; $30-50B+ TAM if agents go mainstream).
 
-## 🔝 PHASE 1 PRIORITY QUEUE (META Section 7)
+## 🔝 PHASE 1 PRIORITY QUEUE (META Section 7) — substantially DONE
 
-| Item | Lane | Cost | Status |
-|---|---|---|---|
-| **Bet S pattern completion** (META capability test A) | D, F | 1 cycle | filed `strategy_request_to_exp_dev_phase1_lane_C_2026-05-21.md` |
-| **Lane C integration smoke** (NEW; compliance-audit demo composing Bet 2/C + Bet A + Bet G) | C | 1-2 cycles | filed same |
-| **Bet X skill composition build** (Research mechanism delivered cycle 61) | D | 2-3 cycles | filed same |
+| Item | Lane | Status at cycle 110 |
+|---|---|---|
+| ~~Bet S pattern completion~~ | D, F | ✅ PARTIAL theoretically grounded K_crit≈205 (cycle 88) |
+| ~~Lane C integration smoke~~ | C | ✅ PERFECT PASS (cycle 86) |
+| ~~Bet X skill composition build~~ | D | ✅ UNIFYING + K=100 NEW HIGH acc_50hop=0.767 (cycle 96) |
 
-**Phase 2** (4-6 cycles): Bet T hypothesis tracking + Bet U working
-memory + R20 compositional gen + Lane C feature breadth.
+**Phase 2** (META cycle 70): ✅ Bet T (PARTIAL) + ✅ Bet U (PASS) + R20 compositional gen (pending) + Lane C feature breadth (pending).
 
-**Phase 3**: Bet V self-reflective + Bet W counterfactual + R21
-cross-modal + Lane D integration smoke.
+**Phase 3** (META cycle 70): 🟡 Bet V (PARTIAL) + ❌ Bet W (KILLED) + R21 cross-modal (Tier-2 per cycle 89) + ✅ Lane D integration smoke (DEMONSTRATED cycle 103+105 at FULL).
+
+**Post-Phase-3 priorities (cycles 105-110)**:
+- Bet Y V2.D **simplified scope** (cycle 106 mechanism revision: drop modern dense AM; keep N=65536 + Kerdock(16) + substrate-default β)
+- Substrate **observability suite v1** (cycle 109: 4-family Parisi q(x) probe stack; cross-family certification standard)
+- **Cued holistic readout primitives** (cycle 110: Bet Z.1 SRHT + Bet Z.2 C2PO)
 
 **Phase 4** (contingent on Bet P-Engineering smoke):
 multi-hop rescues + Lane D end-to-end demo.

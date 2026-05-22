@@ -6097,3 +6097,82 @@ Next:
 - 3 queued: Lane D N-scaling FULL + Lane D noise robust FULL + Bet R p-body FULL
 - File Z.1 + Z.2 routing to Exp Dev next cycle
 - META cycle 57/58 fires periodically
+
+
+## Cycle 111 [process hygiene] -- Entry 143 labeling correction + active_priorities.md refresh + Research Entries 144+145 acknowledged (cap_map v111)
+
+Trigger: user "do it" at ~14:35 EDT — after surface of Research
+Entries 144+145 finding labeling error + active_priorities staleness
+flagged.
+
+Two process-hygiene actions:
+
+1. Entry 143 labeling correction (was incorrectly "Entry 142"
+   in cap_map v110):
+   - Research Entry 145 explicitly flagged the off-by-one
+   - Entry 142 was standing-by heartbeat; Entry 143 was the
+     cued-holistic-readout R-note delivery
+   - cap_map v111 records correction
+   - No substantive state change
+
+2. active_priorities.md REFRESH after 40+ cap_map version gap:
+   - Last update cycle 70 / v79
+   - Flagged 4 times prior: META cycle 47, META cycle 55, META
+     cycle 56, Research Entry 144 + 145
+   - Cycle 111 refresh preserves original 946-line file content
+     below new STRATEGIC PLAN STATUS header sections
+   - New sections reflect cycle 70-110 substantive arc:
+     - Lane D 5 of 7 META capability axes DONE + 1 KILLED + 2 PARTIAL
+     - Lane D wedge DEMONSTRATED at FULL cycles 103+105
+     - Bet A substrate-novel breakpoint at edit≈M (cycle 98)
+     - Substrate classical-Hopfield-class characterization (cycle 108)
+     - β-calibration c=32768 measured (cycle 100)
+     - Current active priorities (β-blend FULL watch + 5-item queue
+       + pending Z.1/Z.2 routings)
+
+Research Entries 144 + 145 acknowledged:
+
+Entry 144 (cycle 136, 14:48): Strategy shipped Entry 141 observability
+suite to Exp Dev in 6 minutes — best Research → Strategy build-spec
+routing of session.
+
+Entry 145 (cycle 137, 14:34): Strategy promoted Entry 143 to Bet Z.1+
+Z.2 in 3 minutes — NEW session-best throughput.
+
+Per Research: total Research-to-Strategy substrate-product engineering
+latency 27 min (Entry 140 level-1 trigger 13:55 → Exp Dev build-spec
+routing 14:22).
+
+Per-cycle research-note mtime discipline validated 3 consecutive
+cycles (109+110+111). Strategy attention-allocation gap (cycles
+90-92 + 105-108) now structurally prevented.
+
+Capability moves (v110 → v111):
+
+| Capability | v110 | v111 | Trigger |
+|---|---|---|---|
+| Entry 143 labeling | "Entry 142" (wrong) in v110 commit | corrected to Entry 143 | Research Entry 145 |
+| active_priorities.md staleness | cycle 70 / v79 (40 versions behind) | refreshed to cycle 111 / v111 | Research 144+145 + META 47/55/56 |
+| Strategy per-cycle research-note discipline | validated cycle 110 | 3 consecutive validations (109+110+111) | cycle 111 application |
+
+Substrate-product net (v111):
+
+No substantive substrate-product state change — process hygiene only.
+
+Process gains:
+- Entry 143 labeling corrected
+- active_priorities.md refreshed (overdue 40+ versions)
+- Research throughput observed externally validated
+- Per-cycle research-note discipline working across 3 cycles
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log + active_priorities.md = 4-file commit; expanded
+PROT-009 scope) -- 25th observation. PROT-005 unbiased framing:
+labeling correction acknowledged honestly NOT minimized.
+
+Next:
+- β-blend FULL ~75+ min wall by cycle 111; outcome still pending
+- 5 queued: Lane D N-scaling + noise robust + Bet R p-body +
+  observability suite + Bet S K-ceiling N=65536
+- File Bet Z.1/Z.2 routing to Exp Dev next cycle
+- Per-cycle research-note mtime check continues

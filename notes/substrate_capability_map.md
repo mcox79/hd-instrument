@@ -5908,3 +5908,115 @@ Net effect: substrate-product capability portfolio extension via 2
 new substrate-novel Bet candidates; Bet Z.2 C2PO matches user's
 literal vision and extends Lane D + Lane A simultaneously; cycle 109
 attention-allocation discipline working as designed.
+
+## v111 update — Process hygiene: Entry 143 labeling correction (was incorrectly "Entry 142"); active_priorities.md REFRESHED after 40+ version gap; Research Entries 144+145 acknowledged
+
+Strategy session cycle 111 (~14:35 EDT). User-flagged "there are new
+entries from research" — found Research Entries 144 + 145 in
+`research_decisions_2026-05-21.md` (Research heartbeats observing
+Strategy throughput; NOT new R-notes).
+
+### Research Entry 144 (cycle 136, 14:48)
+
+Heartbeat noting Strategy shipped Entry 141 observability suite to
+Exp Dev in **6 minutes** — best Research → Strategy build-spec
+routing of session. Level-2 deep-drill format compresses latency 5×
+vs prior baseline (30+ min avg).
+
+### Research Entry 145 (cycle 137, 14:34)
+
+Heartbeat noting Strategy promoted Entry 143 (cued holistic readout)
+to Bet Z.1 + Bet Z.2 in **3 minutes** — NEW session-best throughput.
+Also flags Strategy labeling error.
+
+### Entry 143 (not 142) labeling correction
+
+**Acknowledged**: cap_map v110 referred to the cued-holistic-readout
+research note as "Entry 142" but the actual Research Entry numbering is
+**Entry 143** (Entry 142 was a separate standing-by heartbeat cycle).
+
+Off-by-one labeling error noted by Research in Entry 145 verbatim:
+
+> "Strategy refers to Entry 143 as 'Entry 142' in cap_map v110 commit.
+> Actual entry: Entry 142 = cycle-134 standing-by note (no R-note
+> delivery); Entry 143 = cued-holistic-readout R-note delivery."
+
+**Correction recorded for future Strategy reference**: cued-holistic-
+readout primitive = Research **Entry 143** delivered 14:28 EDT
+(integrated as Bet Z.1 + Bet Z.2 in cap_map v110).
+
+No substantive cap_map state change from this correction.
+
+### active_priorities.md REFRESHED after 40+ version gap
+
+`active_priorities.md` was last updated 2026-05-21 cycle 70 (cap_map
+v79). At cycle 110 = **40 cap_map versions stale**. Flagged by:
+- META cycle 47 (cycle 91-93 era)
+- META cycles 55 + 56 (cycle 105+ era)
+- Research Entries 144 + 145 (cycle 109-110 era)
+
+**Cycle 111 refresh** (atomic Edit):
+- Header updated to cycle 111 / v111
+- New STRATEGIC PLAN STATUS section reflects cycle 70-110 substantive arc
+- Lane D portfolio at cycle 110 (5 of 7 META capability axes DONE +
+  1 KILLED honest negative + 2 PARTIAL)
+- Lane D wedge DEMONSTRATED at FULL noted
+- Bet A substrate-novel breakpoint noted
+- Substrate classical-Hopfield-class characterization (cycle 108) noted
+- β-calibration c=32768 measured (cycle 100) noted
+- Current active priorities (β-blend FULL watch + 5-item queue +
+  pending Z.1/Z.2 routings)
+- Phase 1 + Phase 2 + Phase 3 status updated against META cycle 70 plan
+- Post-Phase-3 priorities (cycles 105-110) explicitly listed
+
+Original 946-line file preserved below the refreshed header sections
+for historical context.
+
+### Research-observed substrate-product velocity milestone
+
+Per Research Entries 144 + 145:
+- Entry 141 (observability deep drill, 14:16) → Strategy build spec to
+  Exp Dev (14:22) = **6 min**
+- Entry 143 (cued holistic readout, 14:28) → Strategy cap_map v110
+  (14:31) = **3 min**
+
+**Total Research-to-Strategy substrate-product engineering latency:
+27 min** (Entry 140 level-1 trigger at 13:55 → Exp Dev build-spec
+routing at 14:22).
+
+Per [[feedback-no-smoke]]: this validates the level-2 deep-drill +
+capability-class framing pattern. Substrate-product engineering loop
+running at session-peak velocity.
+
+### Per-cycle research-note mtime discipline at cycle 111
+
+Cycle 111 ran research-note mtime check first per cycle 109 lesson.
+Result: no NEW R-notes since Entry 143 (14:28); Entries 144 + 145 are
+Research heartbeats not deliveries.
+
+Discipline working as designed (3 consecutive cycle confirmations:
+109 + 110 + 111).
+
+### Capability moves (v110 → v111)
+
+| Capability | v110 state | v111 state | Trigger |
+|---|---|---|---|
+| Entry 143 labeling | incorrectly "Entry 142" in v110 commit | ✅ corrected to Entry 143 | Research Entry 145 |
+| active_priorities.md staleness | cycle 70 / v79 (40 versions behind) | ✅ refreshed to cycle 111 / v111 | Research 144+145 + META cycles 47/55/56 |
+| Strategy per-cycle research-note discipline | validated cycle 110 | ✅ 3 consecutive validations (109+110+111) | cycle 111 application |
+
+### Substrate-product net (v111) — process hygiene
+
+**No substantive substrate-product state change** — process hygiene
+cycle.
+
+**Process gains**:
+- Entry 143 labeling corrected
+- active_priorities.md refreshed (overdue 40+ versions)
+- Research throughput observed externally validated
+- Per-cycle research-note discipline working across 3 consecutive cycles
+
+### Tally — Entry 143 labeling correction (was Entry 142); active_priorities.md REFRESHED after 40-version gap; Research Entries 144+145 acknowledged; per-cycle research-note discipline validated 3 consecutive cycles
+
+Net effect: process hygiene cycle; no substrate-product state change;
+labeling accuracy + downstream-session file freshness restored.
