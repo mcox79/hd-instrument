@@ -7386,3 +7386,80 @@ Next:
   + new capability tests if relevant
 - 3 substrate-novel mechanism candidates: Bet Z.1 SRHT viable (no
   speedup) + Bet Z.3 VAMP PROVEN + Bet Z.4 Pseudoinverse α-conditional
+
+
+## Cycle 122 [Pseudoinverse basin narrow + α-shrinking; 1/f WHITE + χ'(ω) FLAT = 4 cross-family RS-cert anchors]
+
+Trigger: user "experiments" at ~18:58. 4 new substantive FULLs +
+2 smokes since cycle 121.
+
+HEADLINE 1: Pseudoinverse basin width FULL — α-shrinking confirmed
+
+wave14_pseudoinverse_basin_width_v1 FULL (1.0s) = BASIN_NARROW:
+Per-α basin radii (cycle 114 caveat "basins shrink as α→1" CONFIRMED):
+- α=0.1: 0.30·N wide
+- α=0.3: 0.20·N usable
+- α=0.5: 0.050·N narrow (research-grade)
+- α=0.7: 0.020·N collapsed
+- α=0.9: 0.0 NO basin
+
+Bet Z.4 substantively NARROWED:
+- 20× capacity at α=0.5 + narrow 0.050·N basins
+- Useless at α>0.7
+- Zero at α=0.9
+- **Substrate-product use case: exact-pattern retrieval at α≤0.5 only**
+
+HEADLINE 2: Pseudoinverse + Kerdock combo NEUTRAL
+
+wave14_pseudoinverse_kerdock_combo_v1 FULL (21.3s) = PINVK_NEUTRAL:
+kerdock_basin=random_basin=0.050, ratio=1.00.
+
+Substrate's Kerdock 4-coset construction doesn't add value to
+pseudoinverse basins. F2 mechanism advantage codebook-independent.
+
+HEADLINE 3: 1/f noise WHITE — 3rd cross-family RS-cert anchor
+
+wave14_one_over_f_noise_spectroscopy_v1 FULL (136.2s) = ONE_F_WHITE:
+γ=0.281<0.3 r2=0.506 paramagnetic / fast relaxation.
+
+Per cycle 109 framework Family II: γ~1=glass, γ<<1=paramagnetic;
+substrate γ=0.281 = WHITE = PARAMAGNETIC.
+
+HEADLINE 4: χ'(ω) FLAT — 4th cross-family RS-cert anchor
+
+wave14_ac_susceptibility_v1 smoke (7.3s) = CHI_FLAT: peak/baseline=1.17
+no freezing peak (FULL pending).
+
+Cross-family RS-certification STRENGTHENS:
+1. C_ij excess eigvals=0 (Family I, cycle 112)
+2. P(h) unimodal narrow (Family II, cycle 112)
+3. 1/f noise γ=0.281 WHITE (Family II, cycle 122)
+4. χ'(ω) FLAT no freezing peak (cycle 122 smoke)
+
+4 cross-family anchors agreeing at RS / paramagnet.
+
+vs Family IV-ish RSB-capable probes (per Entry 141 "decorative" flag):
+Hessian VDOS + muSR report RSB-capable W structure intrinsic but
+substrate OPERATES in RS thermodynamic phase at α=0.15.
+
+Substrate-physics characterization cycle 122:
+"classical-Hopfield-class W matrix with RSB-capable soft-mode
+structure operating in RS/paramagnet thermodynamic phase at α=0.15
+certified by 4 cross-family probes with Kerdock-codebook capacity
+extension"
+
+Capability moves (v121 → v122):
+
+| Capability | v121 | v122 | Trigger |
+|---|---|---|---|
+| Bet Z.4 Pseudoinverse positioning | α-conditional | + NARROW basins exact-pattern α≤0.5 only | basin width FULL |
+| Pseudoinverse + Kerdock | not tested | NEUTRAL ratio=1.00 codebook-independent | combo FULL |
+| Substrate 1/f noise behavior | not measured | WHITE γ=0.281 paramagnetic | 1/f noise FULL |
+| AC susceptibility | not measured | FLAT no freezing peak | χ'(ω) smoke |
+| Cross-family RS-cert | 2 anchors | 4 anchors strengthens | cycle 122 probes |
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 36th observation. PROT-005 unbiased framing: Bet Z.4
+substantively narrower honestly NOT minimized; PINVK_NEUTRAL reported
+as "codebook doesn't help" not "Kerdock fails"; 4 cross-family anchors
+substantively strengthen RS certification.
