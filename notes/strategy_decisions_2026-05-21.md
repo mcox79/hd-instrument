@@ -6817,3 +6817,90 @@ Next:
 - Bet Z.1 SRHT FULL + Bet Z.2 C2PO FULL + multi-hop K=100 N=65536 FULL
   + Bet V N=65536 FULL + Bet S diagnosis FULL
 - File Strategy → Exp Dev for 4-step Kerdock RI pre-test (still pending)
+
+
+## Cycle 117 [Bet R p-body FULL + multi-hop K=100 N=65536 smoke KILL] -- 3rd cleanup mechanism refuted at FULL; Bet Y V2.D N=65536 outlook AMBIGUOUS (cap_map v117)
+
+Trigger: /loop /strategy-cycle at ~15:45 EDT. Per cycle 116 lesson:
+chronological recent_verdicts scan caught 2 new entries since v116 —
+Bet R p-body FULL + multi-hop K=100 N=65536 smoke.
+
+Bet R p-body FULL CONFIRMED PBODY_NOGAIN at p∈{2,4,8}:
+- FULL tested p=2/4/8; smoke was p=2/4 only
+- All ratio=1.0 (substrate finite p-body matches argmax)
+- 3rd cleanup mechanism family CONFIRMED refuted at FULL (modern
+  dense AM cycle 105 + β-blend cycle 108 smoke pending + p-body 117)
+- Strengthens cycle 108 substrate classical-Hopfield-class in RS phase
+  characterization at 9+ configs total
+
+Multi-hop K=100 at N=65536 smoke KILLED:
+- acc_50hop=0.100 vs cycle 96 K=100 N=4096 NEW HIGH 0.767 = 7.7×
+  degradation
+- per_depth shows acc_1hop=1.0 (substrate retrieves single hop clean)
+  but acc_25hop=0.1 (multi-hop chain breaks at depth 25)
+- 0.7s smoke test-scaffold-suspect per cycle 92 pattern
+
+Bet Y V2.D N=65536 outlook AMBIGUOUS:
+- Concerning (2): cycle 112 Bet S K-ceiling N=65536 KILL + cycle 117
+  multi-hop K=100 N=65536 KILL
+- Positive (2): cycle 116 Bet S diagnosis N-LIMITED + cycle 116 Bet V
+  N=65536 PASS gap=0.541
+
+Per cycle 102 smoke-not-predictive (7-anchor + cycle 113 most recent
+overturning Lane D SUBLINEAR→LINEAR): Strategy HOLDS FULLs
+authoritative. Critical FULLs pending:
+- Bet S K-ceiling N=65536 FULL
+- multi-hop K=100 N=65536 FULL
+- Bet V N=65536 FULL
+- Bet S K-ceiling diagnosis FULL
+
+Internal inconsistency to resolve:
+- Cycle 113 Lane D M_S N-scaling FULL = LINEAR c=0.073 across 3 N points
+- Cycle 117 multi-hop K=100 N=65536 smoke = KILLED chain breaks at d=25
+
+Same substrate same N range. Two possible reconciliations:
+1. M_S vs multi-hop are different measurements (substrate retrieves
+   single hop cleanly but chains degrade at scale = different failure
+   mode)
+2. Cycle 117 smoke unreliable per smoke-not-predictive precedent
+
+FULL pending will distinguish.
+
+Cycle 114 4-order prediction spread context:
+- multi-hop K=100 KILL + Bet S K-ceiling K_crit=200 CONSISTENT with
+  Agent 2 finite-N attenuation hypothesis
+- BUT cycle 113 LINEAR M_S contradicts finite-N attenuation
+- Need FULLs to distinguish
+
+Capability moves (v116 → v117):
+
+| Capability | v116 | v117 | Trigger |
+|---|---|---|---|
+| Bet R p-body cleanup | smoke REFUTED p=2/4 cycle 108 | FULL CONFIRMED REFUTED p∈{2,4,8} all ratio=1.0 | Bet R p-body FULL |
+| Multi-hop K=100 at N=65536 | unmeasured | smoke KILLED acc_50hop=0.100 (7.7× degradation vs N=4096) | multi-hop N=65536 smoke |
+| Bet Y V2.D N=65536 outlook | 1 concerning + 2 positive smokes | AMBIGUOUS 2 concerning + 2 positive smokes | + cycle 117 multi-hop KILL |
+| Strategy verdict-scan discipline | cycle 116 lesson learned | discipline holding at cycle 117 (chronological scan applied) | cycle 117 application |
+
+Substrate-product net (v117):
+
+Substrate-physics characterization strengthens:
+- 3rd cleanup mechanism family CONFIRMED refuted at FULL
+- "Classical-Hopfield-class in RS phase" robust at 9+ configs
+
+Bet Y V2.D N=65536 outlook AMBIGUOUS:
+- 2 vs 2 smoke signals
+- FULLs critical
+- Internal inconsistency between Lane D LINEAR and multi-hop KILL needs
+  resolution
+
+PROT compliance: PROT-009 paired commit — initial v117 commit was
+cap_map + history only (forgot decision log); this addendum restores
+3-file PROT-009 pairing. Self-discipline gap noted; recovery action
+within same cycle. 32nd PROT-009 observation (with hygiene recovery).
+
+Next:
+- Bet S K-ceiling N=65536 FULL (critical discriminator)
+- multi-hop K=100 N=65536 FULL (smoke→FULL precedent test)
+- Bet V N=65536 FULL (smoke PASS confirmation)
+- Observability suite FULL (running)
+- Bet Z.1 SRHT FULL + Bet Z.2 C2PO FULL + Bet S diagnosis FULL
