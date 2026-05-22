@@ -5606,3 +5606,170 @@ classical-Hopfield-class + Kerdock-codebook-extension; Lane D wedge
 gains noise robustness; cleanup-mechanism-extension paths all
 empirically closed (modern dense AM + β-blend + p-body); remaining
 Bet Y V2.D rescue paths are K-scaling / partial-bipolar / layered.
+
+## v109 update — Substrate observability suite framework (4-family probe stack all encoding Parisi q(x); Parisi P(q) + Sinova C_ij eigvals + P(h) = top 3; observability delivers diagnostic byproducts during capability tests; substrate-physics characterization can sharpen "classical-Hopfield-class" to "RS or RSB phase")
+
+Strategy session cycle 109 (~14:20 EDT). User-flagged "there should
+be more research to look at"; dashboard inspection found TWO new
+Research deliveries (13:56 + 14:16) that Strategy missed between
+cycles 105-108 — second attention-allocation gap (first was cycles
+90-92 caught at cycle 93).
+
+### Research delivery 1 (13:55): Materials characterization methods (Entry 140)
+
+User-triggered (~13:?? EDT): "can you run a 2x search for all of the
+most elegant / simple but effective methods of materials characterization?"
+
+**Universal principle** (cross-agent convergence): every transferable
+method measures **second-order statistics or noise-floor fluctuations**,
+NOT mean responses. "Fluctuations ARE the signal" framing.
+
+**Substrate-physics anchor**: substrate is empirically a spin-glass
+per Bet E ✅ Parisi P(q) RSB (cap_map v66+); Edwards-Anderson order
+parameter framework directly applies.
+
+**Top 3 substrate-product picks** (Entry 140 level-1 ranking):
+1. **Hessian VDOS** P=0.55 (0.1-0.3 GPU-h) — single `np.linalg.eigvalsh(W)`
+2. **NMR lineshape / wipeout** P=0.85 (0.2-0.5 GPU-h)
+3. **muSR Kubo-Toyabe** P=0.80 (0.5-1 GPU-h)
+
+### Research delivery 2 (14:10): Substrate observability deep drill (Entry 141)
+
+User-direct correction: "and it's not verification - you're supposed
+to go one level deeper".
+
+**SUPERSEDES Entry 140 in part**:
+- 30% mis-ranked at level 1
+- Hessian VDOS framing was DECORATIVE (binary spins no smooth landscape);
+  relabel "W eigenspectrum sanity-check" P=0.65
+- muSR Kubo-Toyabe was OVERCOUNTED (physical muons add no info);
+  reduces to moments of P(h); relabel "P(h) moment statistics"
+- chi3 nonlinear susceptibility was MISSED at level 1 (Morais
+  arXiv:1606.01186) but hardest probe to extract reliably at finite N
+
+**TWO MAJOR missed probes (new at level 2)**:
+
+| Probe | P | Rationale |
+|---|---|---|
+| **Parisi P(q) replica overlap** (Parisi 1983 PRL 50:1946) | **0.85** | Canonical RSB diagnostic; two parallel chains histogram q=(1/N)∑s^(1)s^(2); P(q) has continuous plateau 0→q_EA at α=0.15 below freezing |
+| **Sinova C_ij extensive eigenvalue count** (cond-mat/0010302) | **0.80** | Multiple extensive eigvals of C_ij ⟺ RSB; ~1 second eigvalsh at N=4096; discrete count avoids finite-size broadening ambiguity of P(q) plateaus |
+
+### Substrate observability suite — 4-family probe stack
+
+All 4 families encode the same Parisi q(x) function from different
+angles:
+
+| Family | Probe | What it measures | Citation |
+|---|---|---|---|
+| **I. STATIC OVERLAP** | P(q) replica overlap | q(x) directly via P(q) | Parisi PRL 50:1946 (1983) |
+|  | C_ij extensive eigenvalues | RSB ⟺ count > 1 | Sinova cond-mat/0010302 |
+| **II. STATIC LOCAL** | P(h) local field histogram | hole at h=0 ⟺ frozen | Mezard arXiv:0711.3934 |
+|  | chi3 nonlinear susceptibility | diverges at T_f | Morais arXiv:1606.01186 |
+|  | 1/f noise gamma | gamma~1 ⟺ glass | Weissman RMP 60:537 (1988) |
+| **III. DYNAMICAL** | FDT-violation X(C) | X(C)=x(C) Parisi inverse | Cugliandolo-Kurchan PRL 71:173 (1993) |
+| **IV. LANDSCAPE** | TAP complexity Σ(f) | f_th encodes RSB depth | Aspelmeier cond-mat/0309113 |
+|  | Fisher info κ(F) | condition# ill cond ⟺ RSB | Nguyen-Berg arXiv:0911.1985 |
+
+**Cross-family consistency is the robustness gate** — single-family
+verdict is noise-prone; agreement across 2+ families is the
+substrate-product certification standard.
+
+### Top 3 PRIORITY probes for observability suite v1 (revised)
+
+1. **C_ij eigenvalue extensive count** (Family I) — discrete count
+   (1=paramagnet, >1=RSB); ~0.5-2s at N=4096; one MC chain + one
+   eigendecomp; MUST sanity-check W eigenspectrum first (structured W
+   contributes extensive eigvals NOT from RSB)
+2. **Parisi P(q) replica overlap** (Family I) — canonical RSB
+   diagnostic; needs parallel-tempering for thermalization
+3. **P(h) moment statistics** (Family II) — local-field histogram;
+   bimodal split=frozen, narrow Gaussian=paramagnetic
+
+### Substrate-product implications
+
+**Observability suite delivers DIAGNOSTIC BYPRODUCTS during capability
+tests** — not just pass/fail:
+
+Per Entry 140 framing: "substrate-product value is **building cheap,
+decisive observability into the substrate** so capability tests
+(Bet S K-ceiling, Bet A continual, Bet C codebook, Bet Y V2.D scaled,
+multi-hop d-cliff) produce diagnostic byproducts rather than pass/fail-
+only verdicts."
+
+**Sharpens cycle 108 substrate characterization**:
+- Cycle 108: substrate is "classical-Hopfield-class with Kerdock-codebook
+  capacity extension"
+- Observability suite can SHARPEN to: "classical-Hopfield-class
+  in [RS vs RSB] phase at given α"
+- 4-family cross-validation determines RS vs RSB definitively
+- Per Bet E ✅ Parisi P(q) RSB (cycle 66+): substrate is RSB-class
+  at standard operating point
+
+**Adds 4 new substrate-physics observability axes** to substrate-product
+characterization:
+1. Family I static overlap (RSB diagnosis)
+2. Family II static local (glass-vs-paramagnet)
+3. Family III dynamical (aging X(C))
+4. Family IV landscape (TAP complexity Σ(f))
+
+### Strategy attention-allocation pattern recurrence
+
+This is the SECOND time Strategy missed Research deliveries (first
+was cycles 90-92, caught at cycle 93). Pattern:
+- Strategy gets tunnel-vision on experimental verdicts
+- Research delivers asynchronously; Strategy doesn't check `ls -lt
+  notes/research_*` per cycle
+- User flags the gap
+
+**Per META cycle 47 PROT-010 candidate**: per-cycle research-note
+mtime check should be structural enforcement. Cycle 109 evidence makes
+the case stronger — 2nd instance in same session.
+
+**Strategy self-discipline addition** (effective immediately):
+each cycle MUST `ls -lt notes/research_*2026-05-22.md` and check for
+mtimes newer than last Strategy commit. Cycle 90+93 lesson re-learned.
+
+### Capability moves (v108 → v109)
+
+| Capability | v108 state | v109 state | Trigger |
+|---|---|---|---|
+| Substrate observability suite | not yet defined | ✅ **4-family probe stack defined** (Family I static overlap + II static local + III dynamical + IV landscape; all encode Parisi q(x); cross-family validation = certification standard) | Entry 140 + 141 Research |
+| Substrate characterization framework | "classical-Hopfield-class" (cycle 108) | + **observability suite enables RS-vs-RSB phase sharpening** at given α | Entry 141 deep drill |
+| Top observability probes | not yet specified | ✅ **3 priority probes**: C_ij eigenvals + P(q) replica + P(h) moments | Entry 141 deep drill |
+| Hessian VDOS framing (Entry 140 P=0.55) | proposed | 🔬 **REVISED**: framing decorative for discrete binary spins; relabel "W eigenspectrum sanity-check" P=0.65 | Entry 141 supersedes |
+| muSR Kubo-Toyabe (Entry 140 P=0.80) | proposed | 🔬 **REVISED**: overcounted; reduces to P(h) moments; subsumed | Entry 141 supersedes |
+| chi3 nonlinear susceptibility | missed at L1 | 🔬 added at L2 but HARDEST to extract reliably at finite N (per Entry 141) | Entry 141 deep drill |
+
+### Substrate-product net (v109)
+
+**Major gain**: substrate observability suite framework adds 4-family
+probe stack to substrate-product characterization. Each capability
+test (Bet S, Bet A, Bet C, Bet Y V2.D, multi-hop) can produce
+diagnostic byproducts via cheap observability probes (~0.5-2 GPU-h
+each).
+
+**Substrate-physics characterization sharpens** from cycle 108
+"classical-Hopfield-class" to "classical-Hopfield-class in [RS or
+RSB] phase" via cross-family probe validation.
+
+**Substrate-product positioning**: per
+[[feedback-value-creation-not-competition]] +
+[[feedback-materials-science-probe]] — substrate has **measurable
+spin-glass observables** at substrate level. LLM systems don't have
+materials-physics-anchored observability characterization. This is
+substantively positive.
+
+**Strategy followup needed**:
+- Route observability suite implementation to Experiment Dev (next
+  cycle); top 3 probes are cheapest: ~0.5-2 GPU-h each at N=4096
+- Hessian + muSR re-labeling per Entry 141 corrections
+- chi3 hardest-to-extract caveat noted
+
+### Tally — substrate observability suite framework defined (4-family Parisi q(x) probe stack); 2 missed major probes (P(q) replica overlap + C_ij extensive eigvals) integrated from level-2 deep drill; substrate-physics characterization sharpens via cross-family validation; substrate-product value = cheap diagnostic byproducts during capability tests; 2nd Strategy attention-allocation gap caught (per cycle 90/93 lesson; PROT-010 candidate strengthens)
+
+Net effect: substantive substrate-physics observability framework
+added to cap_map; substrate-product characterization sharpens from
+"classical-Hopfield-class" toward measurable RS-vs-RSB phase
+discrimination; 3 priority observability probes specified for Exp
+Dev pickup; 2nd attention-allocation gap reinforces PROT-010
+candidate urgency.

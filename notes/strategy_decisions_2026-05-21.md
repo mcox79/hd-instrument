@@ -5888,3 +5888,115 @@ Next:
 - Bet Y V2.D N=65536 5-test battery still not queued
 - Strategy may need follow-up to Exp Dev re: K-scaling / partial-bipolar
   Rescue C/D paths
+
+
+## Cycle 109 [substrate observability suite framework] -- 2 missed Research deliveries integrated; 4-family Parisi q(x) probe stack; substrate-physics characterization sharpening via cross-family validation (cap_map v109)
+
+Trigger: user "there should be more research to look at" at ~14:20
+EDT. Dashboard `ls -lt notes/research_*` found 2 NEW Research
+deliveries (13:55 + 14:10) that Strategy MISSED between cycles 105-108.
+Second attention-allocation gap of session (first was cycles 90-92,
+caught at cycle 93).
+
+Research delivery 1 (Entry 140, 13:55): Materials characterization methods
+
+User-triggered: "can you run a 2x search for all of the most elegant
+/ simple but effective methods of materials characterization?"
+
+Universal principle (cross-agent convergence): every transferable
+method measures SECOND-ORDER STATISTICS or noise-floor fluctuations,
+NOT mean responses. "Fluctuations ARE the signal" framing.
+
+Substrate-physics anchor: substrate is empirically a spin-glass per
+Bet E ✅ Parisi P(q) RSB.
+
+Top 3 level-1 picks:
+1. Hessian VDOS P=0.55 (0.1-0.3 GPU-h)
+2. NMR lineshape / wipeout P=0.85 (0.2-0.5 GPU-h)
+3. muSR Kubo-Toyabe P=0.80 (0.5-1 GPU-h)
+
+Research delivery 2 (Entry 141, 14:10): Substrate observability deep drill
+
+SUPERSEDES Entry 140 in part. Level-2 deep drill revises:
+- Hessian VDOS framing DECORATIVE for binary spins (relabel
+  "W eigenspectrum sanity-check" P=0.65)
+- muSR Kubo-Toyabe OVERCOUNTED (reduces to P(h) moments)
+- chi3 nonlinear susceptibility MISSED at L1 but hardest-to-extract
+  at finite N
+
+TWO MAJOR missed probes (new at L2):
+- Parisi P(q) replica overlap (Parisi 1983 PRL 50:1946) P=0.85
+  canonical RSB diagnostic
+- Sinova C_ij extensive eigenvalue count (cond-mat/0010302) P=0.80
+  ~1s eigvalsh at N=4096
+
+4-family probe stack all encoding Parisi q(x):
+
+Family I (static overlap): P(q) replica + C_ij extensive eigvals
+Family II (static local): P(h) histogram + chi3 nonlinear + 1/f noise gamma
+Family III (dynamical): FDT-violation X(C)
+Family IV (landscape): TAP complexity Σ(f) + Fisher kappa(F)
+
+Cross-family consistency = substrate-product certification standard
+(single-family verdict noise-prone; agreement across 2+ families is
+the gate).
+
+Top 3 PRIORITY probes for observability suite v1:
+1. C_ij eigenvalue extensive count (Family I) — discrete count;
+   ~0.5-2s at N=4096; MUST sanity-check W eigenspectrum first
+   (structured W contributes extensive eigvals not from RSB)
+2. Parisi P(q) replica overlap (Family I) — needs PT for thermalization
+3. P(h) moment statistics (Family II) — local-field histogram
+
+Substrate-product implications:
+
+Observability suite delivers DIAGNOSTIC BYPRODUCTS during capability
+tests, not just pass/fail. Each Bet S/A/C/Y/multi-hop test can produce
+spin-glass observable diagnostics via cheap probes (0.5-2 GPU-h each).
+
+Substrate characterization sharpens:
+- Cycle 108: "classical-Hopfield-class with Kerdock-codebook extension"
+- Cycle 109: + "classical-Hopfield-class in [RS or RSB] phase at given α"
+  via 4-family cross-validation
+
+Per Bet E ✅ Parisi P(q) RSB: substrate is RSB-class at standard
+operating point. Observability suite SHARPENS this empirically.
+
+Strategy attention-allocation pattern recurrence (2nd instance):
+
+- Cycle 90-92: missed 2 Research follow-ups (R36 + Bet Y V2.D OAQEC);
+  caught at cycle 93 via user "more work"
+- Cycle 105-108: missed 2 Research deliveries (Entry 140 + 141);
+  caught at cycle 109 via user "there should be more research"
+
+META PROT-010 candidate (per cycle 47) becomes more urgent.
+Strategy self-discipline addition (effective immediately): each
+cycle MUST `ls -lt notes/research_*2026-05-22.md` and check for
+mtimes newer than last Strategy commit.
+
+Capability moves (v108 → v109):
+
+| Capability | v108 | v109 | Trigger |
+|---|---|---|---|
+| Substrate observability suite | not defined | 4-family probe stack defined (I+II+III+IV); cross-family validation = certification | Entry 140 + 141 Research |
+| Substrate characterization framework | "classical-Hopfield-class" | + observability enables RS-vs-RSB phase sharpening | Entry 141 deep drill |
+| Top observability probes | not specified | 3 priority probes (C_ij eigvals + P(q) + P(h) moments) | Entry 141 deep drill |
+| Hessian VDOS framing | proposed Entry 140 P=0.55 | REVISED decorative framing; relabel "W eigenspectrum sanity-check" P=0.65 | Entry 141 supersedes |
+| muSR Kubo-Toyabe | proposed Entry 140 P=0.80 | REVISED overcounted; subsumed into P(h) moments | Entry 141 supersedes |
+
+Strategy followup needed:
+- Route observability suite implementation to Exp Dev (3 priority
+  probes: C_ij eigvals + P(q) replica + P(h) moments)
+- File as separate Strategy → Exp Dev request next cycle
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 23rd observation. PROT-005 unbiased framing:
+attention-allocation gap honestly flagged (2nd instance reinforces
+PROT-010 candidate); Hessian VDOS / muSR revisions accepted per
+Entry 141 supersession.
+
+Next:
+- File observability suite Strategy → Exp Dev request
+- META cycle 57 likely already fired
+- β-blend FULL still running (~56 min wall by last check)
+- 3 Lane D + Bet R FULL queued
