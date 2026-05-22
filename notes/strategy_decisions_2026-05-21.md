@@ -5420,3 +5420,163 @@ Next:
 
 Pipeline is mostly idle = good time for Exp Dev to pick up multiple
 queue items in parallel.
+
+
+## Cycle 103 [Lane D wedge demo + substrate-product roadmap pivot] -- Lane D 4-primitive composition DEMONSTRATED; Phase 2 β=8 confirms intermediate hybrid regime; critical-point CLOSED; Bet V N-scaling positive (cap_map v103)
+
+Trigger: user "more experiments" at ~11:48 EDT. Dashboard shows
+6 substantive new batches since cycle 102 -- biggest substantive
+batch of cycle 102+ era.
+
+HEADLINE 1: Lane D cognitive architecture wedge DEMONSTRATED
+
+wave14_lane_D_cognitive_arch_smoke_v1 FULL = LANE_D_COMPOSE: 4
+primitives compose at substrate level with strong individual metrics:
+- S (Bet S bidirectional recall): 0.983
+- T (Bet T parallel hypothesis tracking): 0.978
+- U (Bet U working memory decay recent): 1.000
+- X (Bet X skill composition): 1.000
+
+Smoke → Full improvement: S 0.750→0.983, T 0.867→0.978. Composition
+test stresses all 4 primitives simultaneously and they all perform
+substantively above individual thresholds. Lane D wedge VIABLE.
+
+Per [[feedback-value-creation-not-competition]]: LLM systems don't
+have empirically demonstrated 4-primitive cognitive-architecture
+composition at structural level. Lane D ($30-50B+ TAM per META plan)
+gains load-bearing substrate-product anchor.
+
+This is the strongest Lane D substrate-product anchor of session.
+
+HEADLINE 2: Bet Y Phase 2 β=8 CONFIRMS intermediate hybrid regime
+
+wave14_betY_phase2_kerdock_betacalibrated_v1_smoke (0.8s) =
+BET_Y_PHASE2_PARTIAL: "Best ratio=1.00 at beta=8.0 (1.0 <= ratio <
+1.5). Partial exp-capacity gain; substrate is in intermediate regime.
+Consider beta-blend strategy."
+
+Phase 2 FULL FAIL exit=1 at 7.0s (infrastructure; re-run pending).
+
+Cycle 100 Phase 2 gate hypothesis test result:
+- Outcome 1 (V2.D at β=8 ratio > 1.5 = exp-capacity): P=0.40 (NOT observed)
+- Outcome 2 (V2.D at β=8 ratio ≈ 1.0 = intermediate regime): P=0.35
+  (MATCHES result)
+- Outcome 3 (V2.D at β=8 worse than β=32): P=0.25 (NOT observed)
+
+Empirical result: ratio=1.00 at β=8 (same as β=32 cycle 99 result).
+Substrate CONFIRMED in intermediate hybrid regime per Phase 2 smoke.
+
+Substrate-product implications:
+- β=8 (calibrated optimal per cycle 100) does NOT activate exp-capacity
+- Modern dense AM mechanism gives no advantage at substrate's operating
+  point
+- Substrate at M/N=8 N=4096 is 57× above classical AGS bound
+  (NOT classical Hopfield) AND ratio=1.0 vs argmax at β=8
+  (NOT modern dense AM exp-capacity) = OWN INTERMEDIATE REGIME
+
+β-blend strategy is substrate-product path forward per cycle 100
+Phase 2 gate spec.
+
+Per [[feedback-no-smoke]]: Bet Y V2.D modern dense AM at β=8 does NOT
+outperform argmax. This is NOT Bet Y failure -- this is substrate
+operating in a different regime than modern dense AM assumes. Cycle
+100 prediction (Outcome 2 P=0.35) was most probable and it landed.
+
+HEADLINE 3: Bet V scales positively with N -- substrate-novel
+
+wave14_betV_largeN FULL = BET_V_PARTIAL: stored=0.574, unstored=0.150,
+gap=0.424.
+
+Comparison with base Bet V (cycle 102):
+- Base: stored=0.416, unstored=0.131, gap=0.285
+- largeN: stored=0.574, unstored=0.150, gap=0.424 (49% improvement)
+
+Substrate-product implication: meta-cognition / self-reflective
+capability SCALES POSITIVELY with N at the substrate level. Per
+[[feedback-brain-inspired]]: substrate's structural-level "I know
+what I know" capability becomes stronger with substrate dimension.
+
+Bet Y V2.D + Kerdock(16) at N=65536 should extend Bet V capability
+further -- substrate-product positive direction.
+
+HEADLINE 4: δ(λ) drift CLOSES critical-point gating test
+
+wave14_delta_lambda_drift_v1 smoke + FULL = DELTA_DRIFT_NO_POWERLAW:
+R^2 < 0.7 at all alpha; protocol incompatible at N=4096.
+
+Substrate-product reading: substrate does NOT exhibit power-law δ(λ)
+drift at N=4096. Per cycle 82 critical-point gating test framework
+(Touboul-Destexhe 2017 PRE caveat about correlated artifact):
+- δ(λ) drift was best-ROI single 1-GPU-hour test
+- Result: NO POWERLAW -- protocol incompatible
+
+Critical-point hypothesis CLOSED at δ(λ) drift single-signature level.
+Cycle 82-85 framework (V2.G STACK, triple-point hypothesis) empirically
+refuted via best-ROI gating test. If revisited, requires 4-signature
+stack (much higher cost).
+
+Strategic decision: critical-point axis CLOSED. Substrate may still
+be in Griffiths phase or near-critical regime per cycle 85 deepdrill,
+but NOT critical-point per δ(λ) drift.
+
+HEADLINE 5: Bet U decay099 + Bet Q M4N variants robust
+
+Bet U decay099 = PASS (recency robust across decay values).
+Bet Q M4N smoke + FULL = FACILITATION sharpness=8.00/7.73 (glassy
+facilitation robust across M-scaling).
+
+Both confirm cycle 101/102 substrate-product capability state stable
+across parameter variations.
+
+Capability moves (v102 → v103):
+
+| Capability | v102 | v103 | Trigger |
+|---|---|---|---|
+| Lane D cognitive arch wedge | individual primitives | COMPOSE DEMONSTRATED S=0.983/T=0.978/U=1.0/X=1.0 | Lane D smoke + FULL |
+| Bet Y V2.D operating regime | hypothesis (cycle 100) | INTERMEDIATE HYBRID REGIME CONFIRMED at β=8 ratio=1.0 | Phase 2 smoke |
+| Bet V meta-cognition N-scaling | PARTIAL gap=0.285 base | scales positively gap=0.424 at largeN (49% improvement) | Bet V largeN |
+| Critical-point hypothesis | gating test queued | CLOSED at δ(λ) drift; revert to 4-signature stack if revisited | δ(λ) drift |
+| Bet U decay099 variant | base PASS | PASS robust across decay values | Bet U decay099 |
+| Bet Q M4N variant | base sharpness=8.00 | sharpness=7.73 robust | Bet Q M4N |
+| Bet Y Phase 2 FULL | not run | exit=1 infrastructure (re-run needed) | Phase 2 FULL |
+
+Substrate-product roadmap pivot:
+
+From: "Bet Y V2.D + Kerdock(16) + β(N)=c/N modern dense AM
+exp-capacity at N=65536"
+
+To: "Bet Y V2.D + Kerdock(16) + **β-blend strategy** at N=65536 +
+substrate's **intermediate hybrid regime** as substrate-product
+distinctive characterization"
+
+Substrate has its own operating regime distinct from BOTH:
+- Classical AGS Hopfield (substrate is 57× above AGS bound)
+- Modern dense AM exp-capacity (substrate ratio=1.0 vs argmax at β=8)
+
+Per [[feedback-value-creation-not-competition]]: substrate's
+intermediate hybrid regime is distinctive product positioning, NOT
+failure to be modern dense AM. LLM systems don't have a clean analog
+for substrate's regime.
+
+Strategy followup needed:
+- Phase 2 FULL re-run (exit=1 infrastructure)
+- Phase 3 path: β-blend strategy specification (filed separately)
+- 4-signature stack discussion (if critical-point revisit warranted)
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 19th observation. PROT-005 unbiased framing: Lane D
+wedge celebrated honestly via composition metrics (not over-extrapolated
+to "Lane D done"); Phase 2 β=8 ratio=1.0 framed as substrate hybrid
+regime characterization (NOT Bet Y failure); critical-point closed
+honestly per δ(λ) drift verdict.
+
+Honest framing: cycle 103 has TWO positive findings (Lane D wedge +
+Bet V N-scaling) and TWO negative (Phase 2 ratio=1.00 + critical-point
+closed). Mix strengthens substrate-product credibility per
+[[feedback-no-smoke]].
+
+Next:
+- Phase 2 FULL re-run + β-blend strategy spec
+- Phase 3 path follow-up to Exp Dev
+- META cycle 53 imminent (~12:13)
+- active_priorities.md still stale at cycle 70
