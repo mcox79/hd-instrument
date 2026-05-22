@@ -7518,3 +7518,6 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v80 — (2026-05-21) V2 substrate evaluation delivered (Research Pass 2); V2.D modern exponential-capacity dense AM is WINNER (P=0.55-0.65 5x capacity 6mo); Bet Y formal promotion as V2 development track; V2.A/E/F deferred; V2.C re-evaluate gate after V2.D + N=8192 smoke
+
+
+## v81 — (2026-05-21) Phase transformations Research delivered; STACK (P.5 sleep/wake + P.2 metaplasticity + P.6 eviction) is substrate-novel highest-P axis P=0.75; Bet Z formal promotion; P.4 dense-sparse co-design with Bet Y V2.D; Phase 1 Bet S + Lane C smoke queued by Exp Dev

@@ -532,6 +532,7 @@ the next PROT-007 migration cycle.
 | v78 | 2026-05-21 | Bet B v9 third PASS retention_A=0.954 | Robustness 3-version-confirmed; sharp attractor |
 | v79 | 2026-05-21 | META strategic plan integrated | 6 lanes + phased execution; Lane C wedge + Lane D upside; Bet S Phase 1 priority |
 | v80 | 2026-05-21 | V2 substrate evaluation: V2.D winner | Bet Y formal promotion (modern dense AM); V2.A/E/F deferred; V2.C gated on V2.D |
+| v81 | 2026-05-21 | Phase transformations: STACK winner | Bet Z formal promotion (multi-regime substrate); Bet Y+P.4 co-design; Phase 1 queue landed |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1292,3 +1293,108 @@ Per `meta_audit_2026-05-21_cycle23.md`:
 Net effect: V2 substrate roadmap now has clear primary path (Bet Y);
 4 deferred candidates with explicit gate criteria; substrate-product
 story for V2 is "energy function change" per Research's Pass 2 finding.
+
+---
+
+## v81 update — Phase transformations Research delivered; STACK (P.5 sleep/wake + P.2 metaplasticity + P.6 eviction) is SUBSTRATE-NOVEL highest-P axis (0.75); Bet Z promoted; P.4 dense↔sparse co-designs with Bet Y V2.D; Phase 1 Bet S + Lane C smoke NOW QUEUED by Experiment Dev
+
+Strategy session cycle 72. Research phase-transformations Pass 2
+delivered (`research_phase_transformations_2026-05-21.md`, 41 KB,
+20:58 — ~25 min after cycle 68 filing).
+
+### Phase transformations — Research findings
+
+**Per-axis ranking by literature-supported probability**:
+
+| Rank | Axis | P(gain over fixed regime, 6mo) | Substrate-product fit |
+|---|---|---|---|
+| **★1** | **STACK = P.5 + P.2 + P.6-eviction** | **0.75** | **Three coupled mode-switches; SUBSTRATE-NOVEL no paper combines** |
+| 1 | **P.5 Sleep/wake mode** | **0.70** | Fachechi dreaming-Hopfield α_c → 1; Bet B EMA-blend partial-implements; R22 already legitimized |
+| 2 | P.2 Metaplasticity (multi-timescale) | 0.55 | Benna-Fusi 2016 provable N vs √N; Hopfield-scale gap |
+| 3 | **P.4 Dense ↔ sparse mode** | **0.45** | **Hopfield-Fenchel-Young arXiv:2411.08590 single (α, β) knob; co-design with Bet Y V2.D natural** |
+| 4 | **P.6 Adaptive β per-query** | **0.35** | Bet G β=32 already; substrate-novel write-T ≠ read-T gap |
+| 5 | P.1 Time-varying T (SA/Kovacs) | 0.15 | Marginal in modern-Hopfield regime |
+| 6 | P.3 Runtime codebook switching | 0.10-0.20 | Literature doesn't define problem (substrate-novel territory) |
+| 7 | P.7 Magnon / collective-mode | 0.05-0.15 | Hardware-bound; reservoir computer ≠ AM |
+
+**Substrate-novel headline**: STACK combination of Fachechi (sleep) +
+Benna-Fusi (metaplasticity) + active α-eviction (load modulation) is
+the substrate-novel opportunity nobody has done.
+
+### Bet Z formal promotion — STACK multi-regime substrate
+
+**Claim**: substrate operates as **3-mode coupled controller** — sleep
+mode (P.5; offline Hebbian replay extending α_c→1 per Fachechi),
+multi-timescale plasticity mode (P.2; fast + slow weight components
+per Benna-Fusi 2016), active α-eviction (P.6; load modulation under
+working-memory pressure). Joint operation > sum-of-parts.
+
+**Multi-probe success criteria**:
+- Retention_A ≥ 0.97 (vs Bet B ✅ 0.954 baseline) under multi-phase CL
+  with sleep-cycle interspersed
+- Capacity stable at M/N=8 across mode switches (no degradation)
+- Bet G calibration ECE ≤ 0.10 in each mode
+- Audit trace shows which mode active when
+- 3 seeds
+
+**Kill criterion**: retention_A < 0.95 OR capacity drops > 30% in any
+mode OR mode switching destabilizes Bet 1/Bet 2/Bet A primitives.
+
+**Pre-armed 5 rescue sketches** (per PROT-004):
+1. Decouple modes (test individually before joint)
+2. Sleep cycle only (just P.5 from Fachechi 2024)
+3. Multi-timescale only (just Benna-Fusi 2016 fast+slow)
+4. Conservative mode controller (slow switching)
+5. P.4 dense↔sparse substitution (replace P.6 with α-entmax)
+
+**Lane mapping**: Lane D (cognitive architecture; multi-regime is
+agent-distinctive) + Lane B (on-device personal AI; sleep cycles
+enable resource-bounded operation) + Lane C (compliance; explicit
+mode-trace satisfies auditability).
+
+### Bet Y + P.4 co-design opportunity
+
+Per Research: **P.4 dense ↔ sparse mode via Hopfield-Fenchel-Young
+(α, β) single-knob** is the natural co-design with V2.D modern dense
+AM (Bet Y). Both energy-function variants; both substrate-applicable.
+
+**Strategic decision**: Bet Y development should INCLUDE the P.4
+single-knob extension. The "(α, β) controller" generalizes V2.D's
+energy-function change to a parametric family covering both dense
+modern Hopfield (small α) and sparse k-active (large α).
+
+**Capability moves**:
+
+| Capability | v80 state | v81 state | Trigger |
+|---|---|---|---|
+| Bet Y V2.D modern dense AM | 🔬 active V2 development | 🔬 active + **P.4 co-design**: (α, β) controller variant; Hopfield-Fenchel-Young extension | Phase transformations + V2 eval cross-product |
+| Bet Z STACK multi-regime substrate | (not in cap_map) | 🔬 **NEW formal active bet — SUBSTRATE-NOVEL highest-P phase axis P=0.75** | Phase transformations |
+| P.6 write-T ≠ read-T substrate-novel gap | (not in cap_map) | 🔬 substrate-novel adaptive-β extension; Bet G ✅ infrastructure leverage | Phase transformations |
+| P.1/P.3/P.7 deprioritized | (active candidates) | 🔬 deferred per Research; marginal/undefined/hardware-bound | Phase transformations |
+
+### Phase 1 routing landed in pipeline
+
+Confirmed in dashboard queue_pending: `wave14_betS_pattern_completion_v1`
++ `wave14_lane_C_compliance_audit_smoke_v1` both QUEUED by Experiment
+Dev per Strategy's cycle 70 routing.
+
+This is the META strategic plan Phase 1 in flight. Pipeline cycle-by-
+cycle verdicts to harvest as they land.
+
+### Substrate-product position after Phase transformations + V2 evaluation
+
+Substrate now has 3 distinct architectural development tracks:
+
+1. **Bet Y (V2.D modern dense AM)** — energy function change; +P.4 co-design (α, β) controller; targets capacity 5× M/N=8
+2. **Bet Z (STACK multi-regime)** — substrate-novel three-mode controller; targets retention 0.97+
+3. **Bet X (skill composition hybrid HRR+bipolar per Bet X)** — composition + d>25 cliff exceedance via parallel real-valued pool
+
+All three are substrate-novel substrate-product directions. **None are
+mutually exclusive** — could combine (Bet Y energy function + Bet Z
+multi-regime + Bet X skill composition).
+
+### Tally — Phase transformations Research delivered; Bet Z STACK formally promoted (highest-P substrate-novel phase axis 0.75); Bet Y + P.4 co-design identified; Phase 1 routing landed in Exp Dev queue; substrate has 3 architectural development tracks
+
+Net effect: substrate-product roadmap now has 3 substrate-novel
+architectural tracks (Bet Y energy / Bet Z multi-regime / Bet X
+composition); Phase 1 in flight; clear gates per track.
