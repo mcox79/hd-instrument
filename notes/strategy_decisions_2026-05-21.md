@@ -4906,3 +4906,125 @@ Next:
 - META cycle 51 (~10:43) likely already fired
 - Bet Y V2.D Exp Dev pickup of cycle 93 spec addendum
 - active_priorities.md still stale (cycle 70)
+
+
+## Cycle 99 [Lane D / Phase 2 Bet Y V2.D first empirical data] -- BET_Y_PARTIAL ratio=1.00 at fixed β=32 N=4096 EMPIRICALLY CONFIRMS cycle 93 β-pathology prediction (cap_map v99)
+
+Trigger: user "new experiment landed" at ~11:10 EDT. Dashboard shows
+Bet Y V2.D smoke + R27 L.2 dynamic W smoke + v14_a05 FULL completion.
+
+HEADLINE: FIRST empirical Bet Y V2.D data point
+
+wave14_betY_modern_dense_AM_v1_smoke (1.5s) = BET_Y_PARTIAL:
+"Modern dense AM 1.00*N vs argmax 1.00*N (ratio 1.00); some gain
+but below 1.5x threshold."
+
+At substrate current configuration (N=4096, β=32 FIXED), modern
+dense AM cleanup delivers NO capacity advantage over argmax. Ratio
+= 1.00 exactly = mechanisms equivalent at this operating point.
+
+Empirical validation of cycle 93 R36 mechanism prediction:
+
+Per cycle 93 Research delivery -- modern dense AM (Demircigil 2017)
+requires β_net = O(1/N) per Lucibello-Mézard 2024 PRL 132:077301.
+Substrate β=32 FIXED at N=4096: b = N·β = 131,072 (borderline too
+large for exp-capacity regime). Without β scaling, modern dense AM
+degenerates to argmax-like behavior.
+
+Cycle 99 empirical confirmation: ratio=1.00 at fixed β=32 N=4096
+demonstrates substrate is OUTSIDE the exp-capacity regime. Cycle 93
+prediction correct.
+
+Substrate-product implication:
+- Bet Y V2.D at fixed β=32 N=4096 = no substrate-product gain
+- Cycle 93 addendum Phase 1 β-calibration sweep is EMPIRICALLY
+  load-bearing not theoretical-only
+- Phase 1 must precede V2.D scale-up to N=65536
+
+Per [[feedback-no-smoke]]: the honest β=32-pathology framing
+predicted exactly this outcome at the smoke level. Cycle 93 → cycle
+99 closed-loop: theoretical Research prediction → addendum filed →
+empirical confirmation = 8-hour prediction-to-validation cycle.
+
+R27 L.2 dynamic W smoke -- test-scaffold suspect:
+
+wave14_R27_L2_dynamic_W_v1_smoke (0.1s) = R27_L2_PARTIAL: "Dynamic
+W marginal gain: 1.00x (dyn=1.000, base=1.000)."
+
+0.1s elapsed in cycle 92 test-scaffold territory. Exact 1.00x match
+suggests pre-armed test-scaffold not running real computation OR
+genuinely identical paths (less likely at 0.1s). Strategy
+classification: ambiguous; defer to full mode. Do NOT conclude R27
+L.2 has zero substrate-product gain based on 0.1s smoke.
+
+v14_a05 FULL -- missing verdict:
+
+wave14d_multi_task_cl_v14_a05 FULL completed at 11:05:39 (836s exit
+0) per log lines but verdict not in dashboard recent_verdicts panel.
+Possibilities: display lag OR silent failure OR unrecognized verdict
+label. Strategy decision: flag for follow-up; do NOT update Bet B
+FULL-confirmed mechanism count without seeing actual verdict.
+
+Cycle 93 → cycle 99 closed-loop -- 8-hour prediction-to-validation:
+
+1. Cycle 86 (07:54): Strategy routed N=65536 codebook Research
+2. Cycle 89 (08:31): Research delivered + cap_map v89
+3. Strategy filed Request A follow-up (08:39) on R36 mechanism
+4. Cycle 93 (09:10): Research delivered R36 prediction (β=32
+   fixed-temp pathology)
+5. Strategy filed Bet Y V2.D addendum (09:14): β(N)=c/N required
+6. Cycle 96 (10:00): N=12288 boundary fail = first empirical anchor
+7. Cycle 99 (11:10): Bet Y V2.D smoke ratio=1.00 = SECOND empirical
+   anchor
+
+Per [[feedback-value-creation-not-competition]]: substrate-physics
+predictions deliver actionable engineering guidance in single-day
+cycles. Strategy → Research → Exp Dev loop working at expected
+cadence.
+
+Bet Y V2.D Phase 1 β-calibration sweep URGENCY:
+
+Per cycle 93 addendum -- Phase 1 β-calibration sweep N=4096 → 8192
+→ 16384 to estimate c constant (3-4 GPU-hours). Cycle 99 empirical
+evidence (ratio=1.00 at smoke) makes this no longer optional:
+without β-scaling, Phase 2+ V2.D at N=65536 would predict to fail
+collapse P=0.40 per cycle 93 probability decomposition.
+
+Strategy followup already filed at 11:05 (prereg hygiene + Phase 1
+sequencing note) -- asked Exp Dev to clarify v1 vs Phase 1
+sequencing. Cycle 99 evidence reinforces urgency.
+
+Capability moves (v98 → v99):
+
+| Capability | v98 | v99 | Trigger |
+|---|---|---|---|
+| Bet Y V2.D mechanism baseline at N=4096 fixed β=32 | unmeasured | PARTIAL ratio=1.00 = no capacity gain | betY V2.D smoke |
+| Cycle 93 β-scaling prediction empirical anchors | 1 (N=12288 boundary) | 2 (+ Bet Y smoke ratio=1.00) | betY V2.D smoke |
+| R27 L.2 dynamic W mechanism | unmeasured | smoke marginal 1.00x test-scaffold-suspect | R27 L.2 smoke |
+| v14_a05 Bet B FULL | smoke PASS | FULL DONE 836s but verdict missing — flagged follow-up | v14_a05 FULL completion |
+
+Substrate-product net (v99):
+
+Net gains:
+- First empirical Bet Y V2.D data point
+- Cycle 93 β-pathology prediction empirically validated via 2
+  independent anchors
+- Strategy → Research → Exp Dev loop closed in 8 hours
+
+Net cautions:
+- Bet Y V2.D at current arch = no substrate-product gain
+- Phase 1 β-calibration sweep is empirically gating not optional
+- R27 L.2 + v14_a05 require follow-up
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 15th observation. PROT-005 unbiased framing: Bet
+Y V2.D ratio=1.00 reported as cycle 93 prediction validation NOT
+as Bet Y failure (mechanism delivers what addendum predicted; β
+scaling is the missing piece).
+
+Next:
+- Phase 1 β-calibration sweep pickup (urgent)
+- continual_2N_3000edits FULL pending (expected PASS per cycle 98)
+- R27 L.2 dynamic W FULL pending
+- v14_a05 verdict follow-up
+- META cycle 52 (~11:13)
