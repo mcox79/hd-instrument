@@ -6904,3 +6904,100 @@ Next:
 - Bet V N=65536 FULL (smoke PASS confirmation)
 - Observability suite FULL (running)
 - Bet Z.1 SRHT FULL + Bet Z.2 C2PO FULL + Bet S diagnosis FULL
+
+
+## Cycle 118 [Product session cold-start — responding to 2 Product → Strategy requests]
+
+Trigger: user "the new product session has a question for you" at
+~15:55 EDT. NEW Session 7 (Product) launched and filed 2 requests +
+artifacts at 15:47-15:48:
+- product_request_to_strategy_betS_K_ceiling_FULL_2026-05-22.md (3.8KB)
+- product_request_to_strategy_lane_C_compliance_FULL_2026-05-22.md (3.4KB)
+- product_decisions_2026-05-22.md (8KB)
+- product_options_ranked.md
+- product_demos_spec.md
+
+## Response 1 — Bet S K-ceiling N=65536 FULL status
+
+Status (a): FULL QUEUED, queue position #1 next to run after
+observability suite FULL completes (currently running).
+
+Per cycle 117 cap_map v117:
+- Smoke: BET_S_N65K_KILLED K_crit=200<500 (cycle 112; 0.2s
+  test-scaffold-suspect)
+- FULL pending = critical discriminator per cycle 114 4-order
+  prediction spread (K=9000-10500 / K=262K-525K / K=N=65536 / sparsity-
+  dependent)
+- Outlook AMBIGUOUS (cycle 117): 2 concerning smokes + 2 positive
+  smokes
+- Bet Y V2.D N=65536 path resolution depends on this FULL
+
+Strategy commits per Product request:
+1. On FULL landing: cap_map row update at appropriate state (PASS /
+   PARTIAL / KILL)
+2. active_priorities.md flag with FULL verdict + metrics.json path
+3. One-line decision log summary on whether FULL ratifies smoke KILL
+   (K_crit~200) or overturns it (7th smoke→FULL divergence anchor)
+
+This is consistent with Strategy's normal cap_map update workflow
+per PROT-009.
+
+## Response 2 — Lane C compliance FULL status
+
+Status (c) with caveat: **NOT YET QUEUED**. Only smoke version exists
+in repo (`exp_wave14_lane_C_compliance_audit_smoke_v1.py`); FULL never
+filed as separate experiment after cycle 86 smoke PERFECT.
+
+This is a Strategy oversight — Lane C smoke PERFECT cycle 86 didn't
+get a follow-up FULL routing. Lane C is META Phase 1 wedge (per cycle
+70 strategic plan) and substrate-product Demo 2 dependency per
+product_demos_spec.md.
+
+Strategy action this cycle:
+- File Strategy → Exp Dev request for Lane C compliance FULL
+  (upgrade smoke→FULL; 5-probe Mirage verification at full
+  multi-seed)
+- Once queued: Lane C FULL flag commitment same as Bet S K-ceiling
+  N=65536 FULL (cap_map row + active_priorities + decision log
+  one-line summary)
+
+Product session can re-read active_priorities.md + strategy_decisions
+to detect resolution per their per-cycle protocol.
+
+## Product session integration notes
+
+Per product_request_to_strategy artifacts:
+- Product is Session 7 (cold-start cycle today)
+- Reads cap_map + active_priorities + strategy_decisions each cycle
+- 3 outcome scenarios per FULL request (PASS / PARTIAL / KILL) with
+  conditional product positioning
+
+Substrate-product Demos depend on Strategy verdicts:
+- Demo 1 (Lane D agent memory SDK) — depends on Bet S K-ceiling
+  N=65536 FULL + Lane C compliance FULL
+- Demo 2 (browser extension forensic-erase) — depends on Lane C FULL
+- Demo readiness 🟡 → 🟢 conditional on FULL verdicts
+
+Per [[feedback-sessions-self-coordinate]]: file-routing only; no user
+coordination needed. Product reads my response in
+strategy_decisions_2026-05-21.md.
+
+## PROT-009 cycle 118 compliance
+
+This entry is a Product-response note, not a cap_map state change.
+Per PROT-009: cap_map paired commit applies to cap_map changes
+specifically. Decision log standalone entry for Product response =
+acceptable per PROT scope.
+
+If Lane C FULL routing creates substantive Strategy work, separate
+commit for the request file + appropriate decision log.
+
+## Cycle 118 follow-up actions
+
+1. File `strategy_request_to_exp_dev_lane_C_compliance_FULL_2026-05-22.md`
+   (separate commit)
+2. When Bet S K-ceiling N=65536 FULL lands (queue #1, imminent): apply
+   Product flagging protocol (cap_map row + active_priorities + decision
+   log one-line)
+3. When Lane C compliance FULL lands (post-routing): same flagging
+   protocol
