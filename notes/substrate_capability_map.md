@@ -5773,3 +5773,138 @@ added to cap_map; substrate-product characterization sharpens from
 discrimination; 3 priority observability probes specified for Exp
 Dev pickup; 2nd attention-allocation gap reinforces PROT-010
 candidate urgency.
+
+## v110 update — Cued Holistic Readout CAPABILITY primitive (NEW Research delivery): Bet Z.1 SRHT compressive readout (2000× speedup at N=4096 K=10³ when alignment gaps macroscopic) + Bet Z.2 Classical 2-pulse echo (substrate-novel pattern-pair coupling diagnostic; matches user's "excite-and-x-ray" vision); per-cycle research-note discipline WORKING (caught delivery via cycle 109 lesson)
+
+Strategy session cycle 110 (~14:30 EDT). User /loop /strategy-cycle.
+Cycle 109's per-cycle research-note mtime check CAUGHT 1 new Research
+delivery (14:28) that would otherwise have been missed —
+**discipline working as designed within 1 cycle of adoption**.
+
+### Research delivery: Cued Holistic Readout primitive (Entry 142)
+
+User-triggered (~14:35 EDT — close to live-coordination time):
+> "did you find anything actionable in the research for strategy?
+> what I was envisioning is some kind of non-contact way of probing
+> the entire substrate for relevant data — maybe you can ~excite
+> certain kinds of memories and then take an ~x-ray to get a snapshot
+> of all of them for a very fast holistic query"
+
+**Critical distinction from cycle 109 observability suite**:
+- Cycle 109 Entries 140+141 = DIAGNOSTIC probes (RSB phase detection, glass-vs-paramagnet)
+- Cycle 110 Entry 142 = **CAPABILITY primitive** (fast holistic query)
+- These complement each other; not the same category
+
+### Bet Z.1 — SRHT compressive readout (NEW Bet candidate)
+
+**Mechanism**: Subsampled Randomized Hadamard Transform per Tropp 2011
+arXiv:1011.1595.
+- M = O(ε⁻² log K) projections via structured O(N log N) transform
+- Sketch query vector once: O(N log N)
+- Inner-product against M-dim pre-sketches of K stored patterns: O(M·K)
+
+**Substrate-product gain**: at N=4096, K=10³, ε=0.1: M ≈ 2000 measurements
+vs full 4M ops = **2000× speedup**
+
+**CRITICAL CAVEAT** (per Entry 142): SRHT guarantee is ADDITIVE error
+ε·N, not relative. If top-pattern alignment = 0.15·N and second-best
+= 0.14·N, gap = 0.01·N forces ε < 0.01 → M > 240,000 > N (no
+compression benefit). **Works cleanly only when top-k patterns have
+MACROSCOPIC alignment gap** (typical far below AGS α_c=0.138).
+
+**REJECTED alternatives**: IID Gaussian JL, weighted MinHash, Random
+Fourier Features, model-based CS, FAISS/HNSW (all incompatible with
+substrate's fixed-topology architecture).
+
+**Status**: 🔬 substrate-novel Bet candidate; cost ~10-15 GPU-h to
+implement; works at low-load OR low-K substrate operating points
+(NOT at typical substrate K_crit ≈ 205 at α=0.138).
+
+### Bet Z.2 — Classical 2-pulse echo / C2PO (NEW Bet candidate)
+
+**Mechanism**: classical Loschmidt echo per Jalabert-Pastawski 2001 +
+Jonsson 2001 memory/rejuvenation in 3D Ising spin glass.
+- Apply 2 perturbation pulses with delay τ
+- Measure substrate "echo" response at time 2τ
+- O(K² · N_delay) for full 2D map across pattern pairs
+
+**Substrate-product value**: **diagnoses pattern-pair couplings — no
+current Bet probes this**. Works at ALL loadings (not just low-K
+like Z.1).
+
+**Per Entry 142**: this is CLOSEST to user's literal vision (excite
+class A → "x-ray" substrate → observe class B response). **Most
+substrate-novel of the two new candidates**.
+
+**Status**: 🔬 substrate-novel Bet candidate; substantive Lane D +
+Lane A extension.
+
+### Substrate-product impact assessment
+
+Per Entry 142 honest probability: **P = 0.55-0.70** for substrate-product
+impact.
+
+**Lower bound 0.55**: vision partially blocked at substrate's current
+operating point (modern Hopfield softmax = the cleanest primitive
+but EXACTLY the mechanism refuted at cycle 105 multi-β FULL).
+
+**Upper bound 0.70**: Bet Z.2 C2PO is a genuinely new diagnostic class
+with no current Bet; extends Lane D (cognitive architecture) AND
+Lane A (memory) simultaneously.
+
+### Bet Z.3 Modern Hopfield softmax readout — REFUTED already
+
+Entry 142 lists Modern Hopfield softmax as Z.3 candidate but notes it
+is "REFUTED at substrate's current N=4096 + β=32" per cycle 105
+multi-β FULL. Already under Bet Y V2.D simplified scope per cycle 106
+revision. Not a new Bet.
+
+### Cycle 109 lesson — per-cycle research-note mtime check WORKING
+
+Cycle 109 (~14:25) added Strategy self-discipline: each cycle MUST
+`ls -lt notes/research_*2026-05-22.md` and check for mtimes newer
+than last Strategy commit.
+
+**Cycle 110 evidence**: Entry 142 landed at 14:28 — 3 minutes after
+my cycle 109 commit (14:25). Without the per-cycle mtime check, I
+would have missed it (heading into β-blend FULL watch).
+**Discipline working as designed within 1 cycle of adoption.**
+
+This is positive — Strategy attention-allocation discipline has
+mechanical enforcement now (manual self-discipline; PROT-010
+formalization still pending META).
+
+### Capability moves (v109 → v110)
+
+| Capability | v109 state | v110 state | Trigger |
+|---|---|---|---|
+| Cued holistic readout primitive | not defined | ✅ **two substrate-novel Bet candidates defined** (Z.1 SRHT + Z.2 C2PO) | Entry 142 Research |
+| Bet Z.1 SRHT compressive readout | not measured | 🔬 substrate-novel; 2000× speedup potential at low-K substrate; ~10-15 GPU-h implement | Entry 142 |
+| Bet Z.2 Classical 2-pulse echo / C2PO | not measured | 🔬 substrate-novel; pattern-pair coupling diagnostic; matches user's "excite-and-x-ray" vision | Entry 142 |
+| Strategy per-cycle research-note mtime check | self-discipline added cycle 109 | ✅ **VALIDATED at cycle 110** (caught Entry 142 landing 3min after cycle 109 commit) | cycle 110 application |
+
+### Substrate-product framing per [[feedback-value-creation-not-competition]]
+
+Bet Z.2 C2PO is substrate-novel: **pattern-pair coupling diagnostic at
+classical level**. LLM systems don't have equivalent primitive. Per
+Jalabert-Pastawski 2001 + Jonsson 2001 classical Loschmidt echo
+literature, substrate's 3D Ising spin glass character (per Bet E ✅
+Parisi RSB) makes this empirically tractable.
+
+Per [[feedback-materials-science-probe]]: 2-pulse echo is a
+materials-physics anchored capability primitive. Substrate-product
+value at substrate level.
+
+### Strategy followup
+
+File Strategy → Exp Dev request routing Bet Z.1 + Z.2 implementation
+(separate from v109 observability suite routing). Lower priority than
+β-blend FULL completion and observability suite v1 implementation;
+queue for follow-up pickup.
+
+### Tally — Cued Holistic Readout capability primitive defined (2 NEW Bet candidates Z.1 SRHT + Z.2 C2PO); substrate-novel pattern-pair coupling diagnostic (Z.2 matches user "excite-and-x-ray" vision); substrate-product impact P=0.55-0.70; cycle 109 per-cycle research-note mtime discipline VALIDATED at cycle 110 (caught Entry 142 within 1 cycle of adoption)
+
+Net effect: substrate-product capability portfolio extension via 2
+new substrate-novel Bet candidates; Bet Z.2 C2PO matches user's
+literal vision and extends Lane D + Lane A simultaneously; cycle 109
+attention-allocation discipline working as designed.

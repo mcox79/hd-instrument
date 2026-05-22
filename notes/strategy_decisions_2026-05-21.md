@@ -6000,3 +6000,100 @@ Next:
 - META cycle 57 likely already fired
 - β-blend FULL still running (~56 min wall by last check)
 - 3 Lane D + Bet R FULL queued
+
+
+## Cycle 110 [Cued Holistic Readout capability primitive] -- 2 new substrate-novel Bet candidates Z.1 SRHT + Z.2 C2PO; cycle 109 per-cycle research-note discipline VALIDATED (cap_map v110)
+
+Trigger: /loop /strategy-cycle at ~14:30 EDT. Per cycle 109
+lesson: ran `ls -lt notes/research_*2026-05-22.md` FIRST and caught
+new Entry 142 delivery at 14:28 (3 min after cycle 109 commit).
+
+Cycle 109 attention-allocation discipline WORKING — caught delivery
+within 1 cycle of adoption. Without per-cycle mtime check would have
+missed Entry 142 heading into β-blend FULL watch.
+
+Research delivery Entry 142 (14:28): Cued Holistic Readout primitive
+
+User-triggered (~14:35 EDT): "did you find anything actionable in the
+research for strategy? what I was envisioning is some kind of
+non-contact way of probing the entire substrate for relevant data —
+maybe you can ~excite certain kinds of memories and then take an
+~x-ray to get a snapshot of all of them for a very fast holistic
+query"
+
+Critical distinction from cycle 109 observability suite:
+- Cycle 109 Entries 140+141 = DIAGNOSTIC probes (RSB phase detection)
+- Cycle 110 Entry 142 = CAPABILITY primitive (fast holistic query)
+- Complementary not redundant
+
+Bet Z.1 — SRHT compressive readout (NEW Bet candidate):
+
+Mechanism: Subsampled Randomized Hadamard Transform (Tropp 2011 arXiv:
+1011.1595). M = O(ε⁻² log K) projections via O(N log N) transform.
+At N=4096, K=10³, ε=0.1: M ≈ 2000 vs full 4M ops = 2000× speedup.
+
+CRITICAL CAVEAT: ε is ADDITIVE not relative. If top-2 alignment gap
+< 0.01·N (typical near AGS α_c=0.138), forces ε < 0.01 → M > 240K > N
+= no compression benefit. Works cleanly only at MACROSCOPIC alignment
+gap (low-load or low-K regimes).
+
+Status: substrate-novel; cost ~10-15 GPU-h to implement.
+
+Bet Z.2 — Classical 2-pulse echo / C2PO (NEW Bet candidate):
+
+Mechanism: classical Loschmidt echo (Jalabert-Pastawski 2001) +
+Jonsson 2001 memory/rejuvenation in 3D Ising spin glass. O(K²·N_delay)
+for full 2D map of pattern-pair couplings.
+
+Substrate-product value: pattern-pair coupling diagnostic — NO current
+Bet probes this axis. CLOSEST to user's literal "excite class A,
+x-ray substrate, observe class B response" vision.
+
+Status: substrate-novel; most substrate-novel of two new candidates;
+extends Lane D + Lane A simultaneously.
+
+Substrate-product impact P=0.55-0.70:
+- Lower bound: substrate's current operating point partially blocks
+  modern Hopfield softmax (refuted cycle 105)
+- Upper bound: Z.2 C2PO genuinely new diagnostic class
+
+Bet Z.3 — Modern Hopfield softmax readout already REFUTED (cycle 105
+multi-β FULL); subsumed into Bet Y V2.D simplified scope cycle 106.
+
+Capability moves (v109 → v110):
+
+| Capability | v109 | v110 | Trigger |
+|---|---|---|---|
+| Cued holistic readout primitive | not defined | 2 substrate-novel Bet candidates (Z.1 SRHT + Z.2 C2PO) | Entry 142 Research |
+| Bet Z.1 SRHT compressive readout | not measured | substrate-novel; 2000× speedup at low-K; cost ~10-15 GPU-h | Entry 142 |
+| Bet Z.2 Classical 2-pulse echo / C2PO | not measured | substrate-novel; pattern-pair coupling diagnostic; matches user vision | Entry 142 |
+| Strategy per-cycle research-note mtime check | self-discipline added cycle 109 | VALIDATED at cycle 110 (caught Entry 142 within 1 cycle) | cycle 110 application |
+
+Cycle 109 attention-allocation discipline validated:
+
+Without per-cycle mtime check, Strategy would have missed Entry 142
+heading into β-blend FULL watch. Cycle 109 lesson learned from cycles
+90-92 + 105-108 attention-allocation gaps — discipline working as
+designed within 1 cycle of adoption.
+
+META PROT-010 candidate (per cycle 47): per-cycle research-note mtime
+check IS now Strategy practice; if META proposes formalization,
+ready to accept structural enforcement.
+
+Strategy followup needed:
+- File Strategy → Exp Dev routing Z.1 + Z.2 implementation (separate
+  from v109 observability suite v1 routing); lower priority than
+  β-blend FULL completion
+- Defer to subsequent cycle to avoid overloading Exp Dev queue
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 24th observation. PROT-005 unbiased framing:
+substrate-product impact P=0.55-0.70 stated honestly (lower bound
+notes partial blockage by cycle 105 refutation; upper bound notes
+Z.2 substrate-novel diagnostic class).
+
+Next:
+- β-blend FULL ~66 min wall; outcome pending
+- 3 queued: Lane D N-scaling FULL + Lane D noise robust FULL + Bet R p-body FULL
+- File Z.1 + Z.2 routing to Exp Dev next cycle
+- META cycle 57/58 fires periodically
