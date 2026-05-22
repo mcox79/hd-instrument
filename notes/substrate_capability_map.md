@@ -3282,3 +3282,156 @@ complete; Bet Y V2.D + Kerdock(16) at N=65536 remains the
 substrate-product extension path for both multi-hop and Bet S
 K-ceiling; META PROT-010 candidate pending 1-2 more cycles to confirm
 pattern.
+
+## v95 update — RETRACTION: NUMFACTS_2000 FULL was CANCELLED due to desktop issue (per user direction); cycle 94's "GENUINE multi-seed FAIL" interpretation INVALIDATED; multi-hop fact-count crossover claim WITHDRAWN pending rerun; cycle 92 test-scaffold framing for 5 seed=17 smokes RESTORED as not-yet-refuted
+
+Strategy session cycle 95 (~09:45 EDT). User direction: "numfacts run
+was cancelled due to desktop issue — will be rerun but I don't think
+we got a legit response from it."
+
+### Retraction scope
+
+**Cycle 94 claim INVALIDATED**: "NUMFACTS_2000 FULL = GENUINE multi-seed
+FAIL at seeds 17/23/31" was based on verdict file showing 3-seed
+failure data. Per user direction, the run was CANCELLED due to
+desktop issue mid-execution — the multi-seed data in the verdict
+file is NOT legitimate substrate evidence.
+
+**Cascading retractions**:
+
+1. **"Fact-count crossover between 500-2000 exists"** — WITHDRAWN.
+   The crossover claim was based on NUMFACTS_2000 FULL fail vs K=50
+   FULL pass. With NUMFACTS_2000 invalidated, there is no current
+   empirical anchor for fact-count sensitivity in multi-hop.
+
+2. **"Cycle 92 test-scaffold framing was over-generalization"** —
+   WITHDRAWN. Cycle 94 used NUMFACTS_2000 as the counterexample to
+   cycle 92's "all 5 seed=17 0.3s smokes are test-scaffold" claim.
+   With NUMFACTS_2000 invalidated, cycle 92's framing is restored
+   as **not-yet-refuted**: the 5 seed=17 0.3s smokes still look like
+   test-scaffold pattern; need legitimate full-mode evidence to
+   refute.
+
+3. **"Multi-hop coupled to Bet S K_crit via cleanup cross-talk"** —
+   theoretical framing was premature. The mechanism may still couple
+   (Bet S K_crit theory stands independently) but the NUMFACTS_2000
+   "consistent with K_crit≈205 since 2000 is 10× above bound" was
+   inference from an invalid data point. Theoretical coupling needs
+   legitimate empirical anchor to remain in v94 form.
+
+4. **"Bet Y V2.D + Kerdock(16) at N=65536 extends K_crit to 2487 >
+   NUMFACTS=2000 → V2.D expected to pass NUMFACTS_2000"** — the
+   extension-path logic is correct (per cycle 88 Bet S K-ceiling
+   theory + cycle 93 R36 mechanism), but the "→ NUMFACTS_2000
+   expected to pass at V2.D" inference was anchored on the invalid
+   NUMFACTS_2000 N=4096 fail. The extension path stands; the
+   specific NUMFACTS_2000 framing is withdrawn.
+
+### What stays from cycle 94 (still valid)
+
+- **v12 phase-A boost FULL PASS** retention_A=0.915 — 3rd Bet B
+  FULL-confirmed mechanism. Confirmed by separate verdict; not
+  affected by desktop issue. STAYS.
+- **continual_4N_2000edits FULL FAIL exit=-1 = infrastructure** —
+  STAYS. Deferred to Queue Health diagnosis. (Note: now TWO
+  infrastructure failures in the same 4-hour window — possibly
+  same root cause as the desktop issue.)
+- **META cycle 48 PROT-010 candidate** — STAYS. Strategy
+  attention-allocation discipline observation independent of
+  NUMFACTS_2000.
+- **v90/91 hold-pattern discipline + cycle 92 test-scaffold framing
+  for seed=17 0.3s smokes** — STAYS. Not refuted by legitimate data.
+
+### What's now pending re-test
+
+- **NUMFACTS_2000 FULL re-run** — user said "will be rerun"; pending
+  legitimate verdict.
+- **Other 3 multi-hop fulls** (K=10, K=100, N=12288, NUMFACTS=300) —
+  still pending; may have been affected by same desktop issue if
+  they ran during the issue window. Need to check timing against
+  desktop issue.
+
+### Strategy classification error analysis
+
+**Cycle 94 made TWO related interpretation errors in one cycle**:
+
+1. **Continual_4N_2000edits FAIL exit=-1 correctly classified as
+   infrastructure** (cycle 94 got this right — flagged "anomalous
+   compared to 4N+5000edits PASS at 533s").
+
+2. **NUMFACTS_2000 FULL fail at 3 seeds INCORRECTLY classified as
+   substrate**. I treated the multi-seed data as legitimate evidence
+   because:
+   - Verdict was "MULTIHOP_V2_NOT_REPLICATED" (parser-style runner
+     verdict, not "FAIL exit=-1")
+   - Multi-seed data (17, 23, 31) appeared in verdict_msg
+   - 168s elapsed (vs smoke's 0.3s)
+   - The pattern matched a theoretically-expected substrate signal
+     (NUMFACTS=2000 ~ 10× above Bet S K_crit)
+
+   What I MISSED: the desktop issue could affect a run mid-execution,
+   producing partial multi-seed data that LOOKS legitimate but isn't.
+   The verdict's appearance of legitimacy (multi-seed, runner verdict
+   form) doesn't guarantee the data is meaningful.
+
+**Lesson per [[feedback-no-smoke]] applied to own reasoning**:
+
+When a verdict appears to confirm a theoretical prior (NUMFACTS_2000
+"consistent with K_crit"), there's confirmation bias risk — I lock
+in on substrate interpretation rather than checking infrastructure
+hypothesis. continual_4N_2000edits FAIL exit=-1 was OBVIOUS infrastructure
+(non-standard exit code) so I classified correctly. NUMFACTS_2000
+FULL fail was LESS OBVIOUS infrastructure (standard runner verdict
+form) so I missed it. The pattern should be: when 2+ runs in same
+time window produce anomalous outcomes, treat ALL of them as
+infrastructure-suspect until one is independently confirmed.
+
+**Mitigation for future cycles**: when 2+ FAILs land in the same
+short window (this cycle had continual_4N exit=-1 AT 09:36:53 +
+NUMFACTS_2000 multi-seed fail at 09:39:43 — 3-min apart), apply
+infrastructure-suspect classification to BOTH until independent
+confirmation. NOT a PROT — discipline observation.
+
+### Capability moves (v94 retraction)
+
+| Capability | v94 state | v95 state | Trigger |
+|---|---|---|---|
+| Multi-hop config-dependent ceiling | NUMENT=500 + K=50 full PASS; + NUMFACTS=2000 FULL "GENUINE FAIL" → fact-count crossover claimed | NUMENT=500 + K=50 full PASS ONLY; **NUMFACTS=2000 retracted**; no fact-count crossover claim | User retraction of NUMFACTS_2000 |
+| Multi-hop ↔ Bet S K-ceiling coupling | LINKED via cleanup cross-talk (per NUMFACTS_2000 fail) | **THEORETICALLY plausible but empirically unanchored** pending re-test | NUMFACTS_2000 retraction |
+| Cycle 92 test-scaffold framing | refined as over-generalization | **RESTORED as not-yet-refuted** | NUMFACTS_2000 retraction |
+| Bet B mechanism FULL-confirmation | 3 mechanisms FULL (v11, v13 Kovacs, v12 phase-A) | UNCHANGED — still 3 mechanisms FULL ✅ | v12 phaseA full (independent) |
+| Bet A 4N+2000edits | INFRASTRUCTURE FAIL exit=-1 | UNCHANGED — STAYS infrastructure | continual_4N exit=-1 |
+
+### Substrate-product net (v95)
+
+**Net gains**:
+- Honest retraction discipline working — wrong call corrected within
+  ~5 min of user direction.
+- Strategy classification-error pattern identified: when 2+ FAILs
+  cluster, infrastructure-suspect both until independent confirmation.
+
+**Net losses from retraction**:
+- Multi-hop fact-count crossover claim withdrawn.
+- Multi-hop ↔ Bet S K_crit empirical coupling weakened (theoretical
+  plausibility still stands).
+- Strategy confidence in cycle 94 substantive call diminished —
+  reminder to test infrastructure-suspect hypothesis BEFORE substrate.
+
+**Lessons formalized**:
+- Per [[feedback-no-smoke]] applied to own framework: don't extrapolate
+  confidence from one verdict to wider claims without independent
+  anchors. Cycle 94 had ONE verdict (NUMFACTS_2000) that I treated
+  as load-bearing for fact-count crossover. That was wrong.
+- Per [[feedback-rehabilitation-after-rejection]] applied inversely:
+  this cycle is the rehabilitation of cycle 92's framing — the user's
+  correction shows cycle 92 was right (or at least not refuted) and
+  cycle 94's over-correction was wrong.
+
+### Tally — RETRACTION cycle: NUMFACTS_2000 FULL CANCELLED per user direction (desktop issue); cycle 94 GENUINE FAIL interpretation INVALIDATED; multi-hop fact-count crossover claim WITHDRAWN; cycle 92 test-scaffold framing for seed=17 0.3s smokes RESTORED; v12 phaseA FULL + continual_4N FAIL + META PROT-010 candidate all STAY; lesson learned: when 2+ FAILs cluster in short window, infrastructure-suspect ALL until independent confirmation
+
+Net effect: cycle 94's primary substantive claim retracted within
+~5 min of user direction; honest classification discipline applied
+to own framing error; capability state on multi-hop reverts to
+cycle 91+87 framing (NUMENT=500 + K=50 full PASS, no fact-count
+crossover claim); infrastructure-suspect heuristic formalized for
+future cycles.

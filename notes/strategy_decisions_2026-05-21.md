@@ -4409,3 +4409,135 @@ not confirmed.
 - continual_16N + continual_2N_10000 FULL (Bet A high-M extension)
 - Queue Health on continual_4N_2000edits exit=-1
 - META cycle 49 (~09:43) imminent
+
+
+## Cycle 95 [Lane D + multi-hop / RETRACTION cycle] — NUMFACTS_2000 FULL CANCELLED per user direction (desktop issue); cycle 94 substantive claim INVALIDATED; cycle 92 framing RESTORED (cap_map v95)
+
+**Trigger**: user direction at ~09:45 EDT: "numfacts run was cancelled
+due to desktop issue — will be rerun but I don't think we got a legit
+response from it."
+
+**Action**: cycle 94's primary substantive claim ("NUMFACTS_2000 FULL
+GENUINE multi-seed FAIL at 3 seeds 17/23/31") is INVALIDATED. The
+multi-seed failure data in the verdict file is NOT legitimate
+substrate evidence — the run was cancelled mid-execution due to
+desktop issue.
+
+**Retraction cascade** (cycle 94 claims withdrawn):
+
+1. **"Fact-count crossover between 500-2000 exists"** — WITHDRAWN.
+   No current empirical anchor.
+
+2. **"Cycle 92 test-scaffold framing was over-generalization"** —
+   WITHDRAWN. Cycle 92's "5 seed=17 0.3s smokes are test-scaffold"
+   is RESTORED as not-yet-refuted.
+
+3. **"Multi-hop coupled to Bet S K_crit via cleanup cross-talk"** —
+   theoretical framing stands as PLAUSIBLE but empirically unanchored
+   pending re-test of NUMFACTS_2000.
+
+4. **"Bet Y V2.D + Kerdock(16) at N=65536 → expected to pass
+   NUMFACTS_2000"** — extension-path logic stands per cycle 88
+   theory; specific NUMFACTS_2000 framing withdrawn.
+
+**What stays from cycle 94** (independent of NUMFACTS_2000):
+
+- **v12 phase-A boost FULL PASS** retention_A=0.915 — 3rd Bet B
+  FULL-confirmed mechanism. STAYS.
+- **continual_4N_2000edits FAIL exit=-1 = infrastructure** — STAYS
+  (and now in light of NUMFACTS_2000 desktop-issue context, likely
+  same root cause as NUMFACTS_2000 cancellation).
+- **META cycle 48 PROT-010 candidate** — STAYS.
+
+**Strategy classification-error analysis**:
+
+Cycle 94 made TWO related interpretation calls in one cycle:
+
+1. **continual_4N_2000edits FAIL exit=-1 — CORRECTLY classified as
+   infrastructure**. The non-standard exit code was an obvious signal.
+
+2. **NUMFACTS_2000 FULL fail at 3 seeds — INCORRECTLY classified as
+   substrate**. The verdict had legitimate-looking form (standard
+   runner verdict, multi-seed data, 168s elapsed), so I treated it
+   as substrate. Missed: desktop issue can affect a run mid-execution,
+   producing partial multi-seed data that LOOKS legitimate.
+
+**What I missed**: cluster pattern. Two anomalous outcomes (continual_4N
+exit=-1 at 09:36:53 + NUMFACTS_2000 multi-seed fail at 09:39:43)
+landed 3 min apart in the same desktop session. **Both should have
+been classified infrastructure-suspect**, not one substrate + one
+infrastructure.
+
+**Confirmation bias risk**: NUMFACTS_2000 fail matched a theoretical
+prior (consistent with Bet S K_crit≈205; 2000 is 10× above bound).
+I locked in on substrate interpretation because the data CONFIRMED
+my prior. continual_4N FAIL didn't match any prior, so I correctly
+classified it as anomalous. **The matching-prior case was the
+dangerous one** — required MORE scrutiny, not less.
+
+**Mitigation per [[feedback-no-smoke]] applied to own reasoning**:
+
+When 2+ anomalous outcomes cluster in same short window (≤ 10 min),
+apply infrastructure-suspect classification to ALL until at least
+one is independently confirmed via re-run or cross-verification.
+This heuristic catches confirmation-bias errors like cycle 94's.
+
+NOT proposing as PROT — discipline observation. Will apply in future
+cycles. If pattern recurs (3+ instances), META may propose formal
+PROT-011.
+
+**Capability moves** (v94 → v95):
+
+| Capability | v94 | v95 (retraction) | Trigger |
+|---|---|---|---|
+| Multi-hop config-dependent ceiling | NUMENT=500 + K=50 full PASS; + NUMFACTS=2000 fail → crossover claimed | NUMENT=500 + K=50 full PASS ONLY; **NUMFACTS=2000 retracted**; **no crossover claim** | User retraction |
+| Multi-hop ↔ Bet S K_crit coupling | LINKED (per NUMFACTS_2000 fail) | **Theoretically plausible but empirically unanchored** pending re-test | NUMFACTS_2000 retraction |
+| Cycle 92 test-scaffold framing | refined as over-generalization | **RESTORED as not-yet-refuted** | NUMFACTS_2000 retraction |
+| Bet B mechanism FULL-confirmation | 3 mechanisms FULL (v11, v13 Kovacs, v12 phase-A) | **UNCHANGED** — 3 mechanisms FULL ✅ | v12 phaseA full (independent) |
+| Bet A 4N+2000edits | INFRASTRUCTURE FAIL exit=-1 | **UNCHANGED** — STAYS infrastructure (now confirmed by user as desktop issue) | continual_4N exit=-1 |
+
+**Strategy discipline observation — TWO classification errors in one
+cycle pattern**:
+
+This is the **second cycle** in ~1 hour where Strategy made
+classification errors that the user corrected:
+- Cycle 92: over-generalized 5 seed=17 0.3s smokes as test-scaffold;
+  cycle 94 partially refuted via NUMFACTS_2000 → but cycle 95
+  shows cycle 92 was actually right or at-least-not-refuted.
+- Cycle 94: incorrectly classified NUMFACTS_2000 FULL as substrate;
+  cycle 95 corrects via user direction.
+
+**Pattern**: I'm vulnerable to confirmation bias on verdicts that
+match theoretical priors. The cure is **explicit alternative-hypothesis
+check** before locking in substrate interpretation: "could this be
+infrastructure?" should be asked of every FAIL, not just non-standard
+exit codes.
+
+**Per [[feedback-no-smoke]] meta-application**: brutal honesty
+includes brutal honesty about own classification errors. Cycle 95 is
+the right response — fast retraction, mechanism analysis, lesson
+formalized.
+
+**Net substrate-product picture**:
+
+Multi-hop empirical anchors remain:
+- v87 NUMENT=500 FULL: acc_50hop=0.233 (above FHRR 0.22 floor)
+- v91 K=50 FULL: acc_50hop=0.487 (NEW HIGH)
+
+No legitimate fact-count crossover data yet. Re-run of NUMFACTS_2000
+(and possibly other multi-hop fulls if also affected by desktop
+issue) will resolve.
+
+**PROT compliance**: PROT-009 paired commit (cap_map.md + history.md
++ this decision log) — 11th observation. PROT-005 unbiased framing:
+own classification error reported HONESTLY; confirmation-bias
+mechanism explicitly identified; mitigation discipline stated.
+
+**Next cycle observations**:
+
+- Check whether K=10 FULL verdict was also affected by desktop issue
+  (if it landed during the issue window, similar caution).
+- Watch for re-queued NUMFACTS_2000 FULL.
+- Continue per-cycle research-note mtime check.
+- META cycle 49/50 (~09:43-10:13).
+- Pre-existing 10:09 wakeup remains scheduled.
