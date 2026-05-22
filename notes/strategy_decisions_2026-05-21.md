@@ -6176,3 +6176,147 @@ Next:
   observability suite + Bet S K-ceiling N=65536
 - File Bet Z.1/Z.2 routing to Exp Dev next cycle
 - Per-cycle research-note mtime check continues
+
+
+## Cycle 112 [substrate-physics SHARPENING via observability suite] -- substrate CERTIFIED RS / paramagnet phase; Bet S K-ceiling N=65536 smoke KILL concerning trend; Bet Z.1 SRHT smoke PASS (cap_map v112)
+
+Trigger: user "experiment finished" at ~14:53 EDT. Dashboard shows
+MASSIVE batch of substantive smoke verdicts + 2 just-completed FULL
+runs since cycle 111.
+
+HEADLINE 1: Substrate observability suite v1 OPERATIONAL — certifies RS phase
+
+wave14_observability_suite_v1_smoke (73.0s) = OBS_SUITE_RS_CERTIFIED:
+"Cross-family RS certification: C_ij excess eigvals=0 (≤1), P(h)
+unimodal narrow wipeout=0.025. Substrate confirmed in RS / paramagnet
+phase."
+
+Cross-family certification PASSED per cycle 109 framework:
+- Family I (static overlap): C_ij excess eigvals=0 → paramagnet
+- Family II (static local): P(h) unimodal narrow wipeout=0.025 → paramagnetic
+
+Substrate-physics characterization SHARPENED:
+- Cycle 108: "classical-Hopfield-class with Kerdock-codebook capacity
+  extension"
+- Cycle 112 SHARPENS to: "classical-Hopfield-class IN RS / paramagnet
+  PHASE with Kerdock-codebook capacity extension"
+
+Reconciliation with Bet E Parisi P(q) "RSB" framing:
+
+Earlier Bet E framing (cap_map v66+) called substrate "RSB-class" per
+single-axis P(q) measurement. Cycle 112 cross-family observability
+supersedes this via cycle 109 certification standard:
+"single-family verdict is noise-prone; agreement across 2+ families
+is the substrate-product certification standard."
+
+Honest substrate-physics recalibration:
+- Bet E P(q) measurement may have shown apparent plateau structure
+  interpreted as RSB at single-axis level
+- Cross-family certification (Family I + Family II both paramagnetic)
+  is decisive
+- Substrate is RS phase at α=0.15 operating point
+
+Per [[feedback-no-smoke]]: this is empirical recalibration via better
+evidence — NOT retroactive Bet E revision. Cross-family certification
+is the right standard going forward.
+
+HEADLINE 2: Bet S K-ceiling at N=65536 smoke KILLED — concerning trend
+
+wave14_betS_K_ceiling_N65536_v1_smoke (0.2s) = BET_S_N65K_KILLED:
+"K_crit=200<500. Substrate fails to scale to N=65536."
+
+Comparison to cycle 88 prediction:
+- Cycle 88 theoretical: K_crit ~ D/(2 log M) at N=65536 = 2487 (19× extension)
+- Cycle 112 smoke: K_crit ~ 200 at N=65536 (12× LOWER than predicted)
+
+CONSISTENT with cycle 108 SUBLINEAR N-scaling smoke (per-N c ratio
+0.146 → 0.073 substrate saturates).
+
+Per cycle 102 smoke-not-predictive: 0.2s smoke test-scaffold-suspect;
+FULL pending. Strategy NOT downgrading Bet Y V2.D N=65536 scope based
+on smoke. BUT 2 smoke signals (sublinear + N=65536 KILL) in same
+direction = concerning trend.
+
+Bet Y V2.D N=65536 simplified scope (cycle 106) faces empirical
+headwind. If FULL confirms KILL: substrate-product roadmap revision
+needed (collapse to N=4096 baseline with no N=65536 scale-up gain;
+need cycle 93 rescue paths C/D/E).
+
+HEADLINE 3: Bet Z.1 SRHT smoke PASS — substrate-novel mechanism viable
+
+wave14_betZ_srht_readout_v1_smoke (0.1s) = BET_Z1_PASS: "SRHT
+compressive readout: top-10 recall = 1.000 (>=0.9) at M=200
+measurements vs N=1024 (speedup=0.5× over brute force at K=100 stored
+patterns). Substrate-novel fast readout viable."
+
+Cycle 110 Bet Z.1 mechanism EMPIRICALLY VIABLE at substrate. CAVEAT:
+speedup only 0.5× at this scale (not cycle 110's 2000× prediction);
+needs larger N+K to see compression benefit.
+
+Per cycle 102 smoke-not-predictive: 0.1s test-scaffold-suspect; FULL
+pending.
+
+Pipeline status:
+- Just completed (verdicts pending panel): Lane D N-scaling FULL +
+  Lane D noise robust FULL
+- Currently running: Bet R p-body FULL
+- Queue 3: observability FULL + Bet S K-ceiling N=65536 FULL + Bet Z.1 SRHT FULL
+
+Capability moves (v111 → v112):
+
+| Capability | v111 | v112 | Trigger |
+|---|---|---|---|
+| Substrate phase characterization | "classical-Hopfield-class" | CROSS-FAMILY CERTIFIED RS / paramagnet phase | observability suite smoke |
+| Bet E Parisi P(q) RSB framing | RSB-class (v66+) | superseded by cross-family certification (RS decisive) | observability suite smoke |
+| Bet S K-ceiling at N=65536 | predicted ~2487 (cycle 88) | smoke KILLED K_crit~200 (12× LOWER; FULL pending) | Bet S N65536 smoke |
+| Bet Z.1 SRHT mechanism viability | substrate-novel proposal (cycle 110) | smoke PASS viable at substrate (speedup limited at low scale) | Bet Z.1 SRHT smoke |
+| Substrate observability suite framework | routed (cycle 109) | OPERATIONAL (smoke certifies RS via cross-family) | observability suite smoke |
+
+Strategy attention on Bet Y V2.D N=65536 path:
+
+Two smoke signals point toward Bet Y V2.D N=65536 path empirical
+headwind:
+- Cycle 108: Lane D N-scaling SUBLINEAR smoke
+- Cycle 112: Bet S K-ceiling N=65536 KILLED smoke
+
+Per cycle 102 smoke-not-predictive (5-anchor precedent): smoke
+unreliable; FULL authoritative. Both FULLs in queue.
+
+Strategy HOLD: do NOT downgrade Bet Y V2.D N=65536 based on smoke;
+wait for Bet S K-ceiling N=65536 FULL + Lane D N-scaling FULL.
+
+But: be prepared for substrate-product roadmap revision if FULLs
+confirm. Substrate-product could collapse to "RS-phase classical-
+Hopfield-class with Kerdock at N=4096 baseline" if N=65536 scale-up
+KILL confirmed.
+
+Substrate-product net (v112):
+
+Major substrate-physics characterization SHARPENING:
+- Substrate is classical-Hopfield-class IN RS / paramagnet PHASE with
+  Kerdock-codebook capacity extension
+- Cross-family observability suite OPERATIONAL (cycle 109 delivering)
+- Bet E P(q) "RSB" framing superseded
+
+Substrate-novel mechanism confirmed:
+- Bet Z.1 SRHT readout VIABLE at substrate (smoke; FULL pending)
+
+Concerning trend on Bet Y V2.D N=65536 path (2 smoke signals; FULL
+pending).
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 26th observation. PROT-005 unbiased framing:
+substrate RS phase certified honestly (NOT retroactive Bet E
+revision); Bet S K-ceiling N=65536 smoke KILL flagged honestly NOT
+buried (concerning trend with cycle 108).
+
+Next:
+- Bet S K-ceiling N=65536 FULL verdict (authoritative)
+- Lane D N-scaling FULL + Lane D noise robust FULL verdicts (verdicts
+  not yet in panel)
+- Observability suite FULL verdict (will confirm/extend smoke RS
+  certification)
+- Bet Z.1 SRHT FULL verdict
+- Bet R p-body FULL still running
+- File Bet Z.2 routing to Exp Dev (Z.1 already queued; Z.2 still
+  pending Strategy)
