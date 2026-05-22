@@ -5209,3 +5209,205 @@ Net effect: incremental cycle 104 with 2 Lane D smoke findings
 extending cycle 103 wedge story (parallel composition + sequential
 pipeline + joint capacity envelope); FULL verdicts pending; Phase 2
 v2 outcome pending; substantive cap_map updates await FULL mode.
+
+## v105 update — MAJOR: Bet Y Phase 2 v2 FULL multi-β sweep DECISIVELY confirms intermediate regime (ratio=1.00 at β∈{2,8,32} ALL); Lane D end-to-end pipeline ✅ PROMOTED at FULL (composed_acc=1.000 SMOKE→FULL consistent); Lane D capacity envelope WIDER at FULL than smoke (M_S 50→300 = 6×; K 3→25 = 8×; U_stream+X_alphabet didn't bound); substrate-product roadmap: modern dense AM mechanism doesn't activate at any β tested → Bet Y V2.D pivot
+
+Strategy session cycle 105 (~12:47 EDT). User /loop /strategy-cycle.
+Dashboard shows 3 substantive FULL-mode verdicts landed since cycle
+104 — Phase 2 v2 FULL completed cleanly at 2147s (no infrastructure
+timeout), Lane D end-to-end + capacity stress FULL both PASS.
+
+### HEADLINE 1: Bet Y Phase 2 v2 FULL multi-β sweep = DECISIVE intermediate-regime confirmation
+
+`wave14_betY_phase2_kerdock_betacalibrated_v2` FULL (2147.1s = 35.8
+min, clean exit 0) = **BET_Y_PHASE2_PARTIAL**:
+"Best ratio=1.00 at beta=2.0 (1.0 <= ratio < 1.5). Partial
+exp-capacity gain; substrate is in intermediate regime.
+**ratio_per_beta={'2.0': 1.0, '8.0': 1.0, '32.0': 1.0}.** Consider
+beta-blend strategy."
+
+**CRITICAL FINDING**: substrate gives **ratio=1.00 at THREE β values**
+(β=2, β=8, β=32). Modern dense AM provides ZERO advantage over argmax
+across the entire β-sweep range. **Substrate's cleanup operator is
+fundamentally argmax-like across all tested β values.**
+
+**Decisive evidence that substrate is in intermediate hybrid regime**:
+- Cycle 99 v1 smoke: ratio=1.00 at β=32 (single β)
+- Cycle 103 Phase 2 v2 smoke: ratio=1.00 at β=8 (single β)
+- **Cycle 105 Phase 2 v2 FULL: ratio=1.00 at β ∈ {2, 8, 32} (3-β sweep)**
+
+Three independent measurements at distinct β values all give
+ratio=1.00. **This is no longer hypothesis — it's empirical regularity**.
+Substrate's mechanism is NOT modern dense AM exp-capacity at any
+tested β.
+
+**Substrate-product implication — MAJOR roadmap pivot**:
+
+Bet Y V2.D modern dense AM mechanism is **EMPIRICALLY KILLED** as
+substrate-product capacity-extension path at currently-tested β
+values. Per cycle 93 R36 mechanism prediction: at N=65536 with β=0.5
+predicted optimal, modern dense AM SHOULD activate per Lucibello-Mézard
+2024 PRL. But cycle 105 evidence at 3 β values at N=4096 shows
+mechanism doesn't activate.
+
+**Strategy reading**: substrate's argmax-cleanup is so dominant that
+modern dense AM softmax cleanup degenerates to argmax behavior across
+β-range tested. Either:
+1. Substrate at N=4096 is fundamentally NOT in exp-capacity regime
+   regardless of β (substrate-physics constraint)
+2. Modern dense AM cleanup at substrate-side architecture doesn't
+   couple to substrate's representation (mechanism mismatch)
+3. β=0.5 at N=65536 (untested) MAY still activate exp-capacity but
+   3-β sweep at N=4096 makes this less likely
+
+**Strategy decision**: per [[feedback-no-smoke]] applied to Bet Y
+V2.D: substrate-product roadmap pivots from "modern dense AM
+exp-capacity at N=65536" to:
+1. **Substrate's intermediate-regime characterization** as
+   substrate-product distinctive positioning (per
+   [[feedback-value-creation-not-competition]])
+2. **Bet Y V2.D rescue paths** per cycle 93 addendum:
+   - Hybrid β (β fixed for small d, scaled for large)
+   - K-scaling (increase K to compensate)
+   - Partial bipolar relaxation (ternary {-1, 0, +1})
+   - Layered substrate (sparse top + dense bottom)
+3. **Alternative V2 substrate paths**: V2.B (hybrid arch), V2.G (Bet Z
+   STACK with annealing primitives)
+
+**Capability move**: Bet Y V2.D modern dense AM = ❌ **KILLED at
+substrate-axis level** (mechanism doesn't activate at any β tested at
+N=4096). N=65536 untested but P=0.40 outcome 1 (per cycle 100 gate)
+revised downward to P~0.15-0.20.
+
+### HEADLINE 2: Lane D end-to-end pipeline ✅ PROMOTED at FULL
+
+`wave14_lane_D_end_to_end_v1` FULL (1.8s) = LANE_D_E2E_PASS:
+"End-to-end Lane D pipeline composes: composed_acc=1.000 (>=0.50).
+Stages: S=1.000 -> T=1.000 -> X=1.000. Substrate-product chained
+cognitive architecture viable."
+
+**Smoke → FULL CONSISTENT**: both report composed_acc=1.000 with all 3
+stages at 1.000. **This is a CONSISTENT smoke→FULL case** (vs 5-anchor
+divergence precedent per cycle 102). When smoke methodology matches
+FULL methodology (Lane D pipeline test config doesn't change between
+smoke and full apparently), consistency is possible.
+
+**Capability state PROMOTION**: Lane D 3-stage sequential pipeline
+(S→T→X) now ✅ DEMONSTRATED at FULL. Per cycle 103 + 104 + 105:
+- Cycle 103: 4-primitive parallel composition (Lane D wedge)
+- Cycle 104: end-to-end 3-stage pipeline smoke
+- **Cycle 105: end-to-end 3-stage pipeline FULL ✅**
+
+Substrate-product Lane D wedge has TWO load-bearing FULL anchors now:
+1. 4-primitive parallel composition (cycle 103 FULL S=0.983, T=0.978,
+   U=1.0, X=1.0)
+2. **3-stage sequential pipeline (cycle 105 FULL S=1.0 → T=1.0 → X=1.0
+   composed_acc=1.0)**
+
+Per [[feedback-value-creation-not-competition]]: substrate-product
+Lane D ($30-50B+ TAM per META plan) gains second load-bearing FULL
+anchor. Substantive substrate-product positive.
+
+### HEADLINE 3: Lane D capacity envelope WIDER at FULL than smoke
+
+`wave14_lane_D_capacity_stress_v1` FULL (0.8s) = LANE_D_CAPACITY_BOUNDED:
+"2 of 4 axes hit breakpoints in sweep.
+**breakpoints={'M_S': 300, 'K': 25, 'U_stream': None, 'X_alphabet': None}**."
+
+**Smoke vs FULL comparison**:
+| Axis | Smoke breakpoint | FULL breakpoint | Change |
+|---|---|---|---|
+| M_S | 50 | **300** | **6× wider** |
+| K | 3 | **25** | **8× wider** |
+| U_stream | 200 | **None (not bounded)** | substrate wider than sweep |
+| X_alphabet | 5 | **None (not bounded)** | substrate wider than sweep |
+
+**Substrate joint capacity envelope is substantially wider at FULL**:
+- M_S (Bet S capacity): 300 (vs smoke 50)
+- K (Bet T parallel hypotheses): 25 (vs smoke 3)
+- U_stream + X_alphabet: substrate's range EXCEEDS the FULL sweep
+  range (no breakpoint found)
+
+**Substrate-product implication**: substrate operates at substantially
+wider configurations than smoke testing characterized. Lane D
+substrate-product positioning gains capacity-envelope detail with
+M_S=300 (well above Bet S K_crit≈205 from cycle 88 framework!) and
+K=25 (above Bet T's individual K=8 parallel-hypothesis test from
+prereg).
+
+**Note on M_S=300**: cycle 88 framing put Bet S K_crit ≈ D/20 = 205 at
+N=4096 (Ganesan 2021 + Schlegel 2022). Cycle 105's M_S=300 breakpoint
+exceeds this by 46%. Either:
+- Test methodology differs (M_S = capacity in composition test, not
+  pure Bet S K-ceiling)
+- Substrate has wider effective capacity in joint Lane D operating
+  context than pure single-axis Bet S test
+
+Per [[feedback-no-smoke]]: don't lock in interpretation; flag as
+slight inconsistency to investigate; both M_S=205 (single-axis) and
+M_S=300 (joint Lane D) can coexist if test methods differ.
+
+### Substrate-product roadmap PIVOT — cycle 105
+
+**Out**: Bet Y V2.D modern dense AM exp-capacity at N=65536
+- 3-β sweep ratio=1.00 at all β values empirically refutes
+  exp-capacity activation
+- Cycle 100 Outcome 1 (P=0.40 ratio>1.5 = exp-capacity) revised down
+  to P~0.15-0.20
+
+**In**: Substrate-product positioning at intermediate hybrid regime
+- Substrate operates in own regime distinct from classical AGS AND
+  modern dense AM
+- Lane D wedge has 2 load-bearing FULL anchors (parallel composition +
+  sequential pipeline)
+- Joint capacity envelope wider than single-axis tests suggested
+
+**Bet Y V2.D mechanism choice — needs reconsideration**:
+- Modern dense AM (Demircigil 2017 / Krotov-Hopfield 2020 / Ramsauer
+  2020): empirically refuted at substrate
+- Hybrid β strategy: untested; may activate exp-capacity in narrow
+  parameter window
+- K-scaling: untested; increase K to compensate for capacity drop
+- Partial bipolar relaxation: untested; ternary substrate
+- Layered substrate: untested; sparse+dense hybrid
+
+**Strategy followup**: file Strategy → Exp Dev or Research request
+re-evaluating Bet Y V2.D mechanism choice in light of cycle 105
+multi-β refutation. Defer to next cycle.
+
+### Capability moves (v104 → v105)
+
+| Capability | v104 state | v105 state | Trigger |
+|---|---|---|---|
+| Bet Y V2.D modern dense AM mechanism | hypothesis pending Phase 2 FULL | ❌ **MULTI-β REFUTED** at FULL (ratio=1.00 at β∈{2,8,32}); substrate's cleanup is argmax-like across β-range | Phase 2 v2 FULL |
+| Lane D end-to-end pipeline composition | smoke PASS pending FULL | ✅ **PROMOTED at FULL** composed_acc=1.0 (smoke→FULL CONSISTENT) | Lane D end-to-end v1 FULL |
+| Lane D joint capacity envelope | smoke 4-axis breakpoints | ✅ **FULL 2-axis breakpoints + 2 unbounded** (M_S=300/K=25; U_stream + X_alphabet wider than sweep) | Lane D capacity stress v1 FULL |
+| Substrate exp-capacity regime hypothesis | hypothesis | ❌ **REFUTED at N=4096 across 3 β values**; P(exp-capacity at N=65536) revised down P~0.15-0.20 | Phase 2 v2 FULL multi-β |
+
+### Strategy honest framing per [[feedback-no-smoke]]
+
+Cycle 105 has TWO substantively positive findings (Lane D pipeline
+FULL promotion + capacity envelope wider) and ONE substantively
+negative (Bet Y V2.D mechanism refuted at multi-β FULL). Honest mix.
+
+**Per [[feedback-no-smoke]]**: Bet Y V2.D modern dense AM mechanism
+refutation reported as honest substrate signal, NOT as Bet Y failure.
+Substrate is in own regime — that's the substrate-physics finding,
+not failure to be modern dense AM. Per
+[[feedback-value-creation-not-competition]]: substrate-product
+positioning at intermediate hybrid regime is distinctive vs LLM
+systems.
+
+**Per [[feedback-rehabilitation-after-rejection]]**: when Bet Y V2.D
+modern dense AM mechanism fails, cycle 93 addendum's rescue list
+becomes primary path: hybrid β, K-scaling, partial bipolar, layered
+substrate. These need experimental testing before substrate-product
+roadmap can commit to N=65536 path.
+
+### Tally — Bet Y Phase 2 v2 FULL multi-β REFUTES exp-capacity at substrate (ratio=1.00 at β∈{2,8,32} all); Lane D end-to-end pipeline ✅ PROMOTED at FULL composed_acc=1.0; Lane D capacity envelope WIDER at FULL (M_S 50→300, K 3→25, U_stream+X_alphabet unbounded); substrate-product roadmap pivots from modern dense AM to intermediate-regime + rescue list
+
+Net effect: substantive cap_map cycle 105 — Bet Y V2.D mechanism
+empirically refuted across 3 β values; Lane D wedge gains 2nd FULL
+anchor (sequential pipeline); substrate joint capacity envelope wider
+than smoke suggested; substrate-product roadmap pivot needed; rescue
+list per cycle 93 addendum becomes primary Bet Y V2.D path.

@@ -5648,3 +5648,117 @@ Next:
 - Phase 2 v2 FULL outcome (completion or timeout)
 - META cycle 55 fires ~12:43
 - β-blend strategy spec follow-up to Exp Dev pending
+
+
+## Cycle 105 [substrate-product roadmap pivot] -- Bet Y Phase 2 v2 FULL multi-β REFUTES modern dense AM; Lane D pipeline ✅ PROMOTED; Lane D envelope wider at FULL (cap_map v105)
+
+Trigger: /loop /strategy-cycle at ~12:47 EDT. Dashboard shows 3
+substantive FULL-mode verdicts since cycle 104.
+
+HEADLINE 1: Bet Y Phase 2 v2 FULL multi-β = DECISIVE intermediate-regime confirmation
+
+wave14_betY_phase2_kerdock_betacalibrated_v2 FULL (2147s clean exit 0):
+BET_Y_PHASE2_PARTIAL with ratio_per_beta={2.0: 1.0, 8.0: 1.0, 32.0: 1.0}.
+
+3 independent β measurements all give ratio=1.00 = modern dense AM
+provides ZERO exp-capacity advantage across entire β-sweep range.
+Substrate's cleanup operator is fundamentally argmax-like at all
+tested β.
+
+Substrate-product implication: modern dense AM mechanism EMPIRICALLY
+KILLED as Bet Y V2.D capacity-extension path at currently-tested β.
+Cycle 100 Outcome 1 (P=0.40 ratio>1.5 = exp-capacity) revised down
+to P~0.15-0.20.
+
+Strategy roadmap pivot:
+- OUT: "Bet Y V2.D modern dense AM exp-capacity at N=65536"
+- IN: "Intermediate-regime characterization + cycle 93 rescue list
+  primary path"
+
+Bet Y V2.D mechanism choice needs reconsideration:
+- Modern dense AM: empirically refuted at 3 β values
+- Hybrid β strategy: untested
+- K-scaling: untested
+- Partial bipolar relaxation: untested
+- Layered substrate: untested
+
+Strategy followup: file Strategy → Exp Dev or Research request
+re-evaluating Bet Y V2.D mechanism in light of cycle 105 refutation.
+Defer to next cycle.
+
+HEADLINE 2: Lane D end-to-end pipeline ✅ PROMOTED at FULL
+
+wave14_lane_D_end_to_end_v1 FULL (1.8s) = LANE_D_E2E_PASS
+composed_acc=1.000 (S=1.000 → T=1.000 → X=1.000).
+
+Smoke → FULL CONSISTENT (both composed_acc=1.000). Capability state
+PROMOTED to ✅ DEMONSTRATED at FULL.
+
+Lane D wedge anchors:
+- Cycle 103 FULL: 4-primitive parallel composition (S=0.983, T=0.978,
+  U=1.0, X=1.0)
+- Cycle 105 FULL: 3-stage sequential pipeline (S=1.0 → T=1.0 → X=1.0)
+
+Substrate-product Lane D ($30-50B+ TAM per META plan) has 2
+load-bearing FULL anchors. Per [[feedback-value-creation-not-competition]]:
+substrate-product distinctive — LLM systems lack 3-stage
+cognitive-architecture pipeline at structural level.
+
+HEADLINE 3: Lane D capacity envelope WIDER at FULL than smoke
+
+wave14_lane_D_capacity_stress_v1 FULL (0.8s) = LANE_D_CAPACITY_BOUNDED:
+2 of 4 axes hit breakpoints; breakpoints={M_S: 300, K: 25, U_stream:
+None, X_alphabet: None}.
+
+Smoke vs FULL:
+- M_S: 50 → 300 (6× wider)
+- K: 3 → 25 (8× wider)
+- U_stream: 200 → None (unbounded in FULL sweep)
+- X_alphabet: 5 → None (unbounded in FULL sweep)
+
+Substrate joint capacity envelope substantially wider at FULL.
+M_S=300 exceeds Bet S K_crit≈205 single-axis bound — joint-context
+capacity wider than single-axis tests suggested.
+
+Capability moves (v104 → v105):
+
+| Capability | v104 | v105 | Trigger |
+|---|---|---|---|
+| Bet Y V2.D modern dense AM mechanism | hypothesis pending | MULTI-β REFUTED at FULL (β=2/8/32 all ratio=1.00) | Phase 2 v2 FULL |
+| Lane D end-to-end pipeline | smoke PASS pending FULL | PROMOTED at FULL composed_acc=1.0 (smoke→FULL CONSISTENT) | Lane D end-to-end FULL |
+| Lane D joint capacity envelope | smoke 4-axis breakpoints | FULL 2-axis breakpoints + 2 unbounded (substrate wider) | Lane D capacity stress FULL |
+| Substrate exp-capacity regime hypothesis | hypothesis | REFUTED at N=4096 across 3 β values; P(at N=65536) revised P~0.15-0.20 | Phase 2 v2 FULL multi-β |
+
+Substrate-product net (v105):
+
+MAJOR substantive cycle. Mix of positives (Lane D pipeline + envelope
+wider) and negative (Bet Y V2.D mechanism refuted). Honest
+substrate-product story:
+
+- Substrate has its OWN operating regime (intermediate hybrid)
+- Distinct from classical AGS (57× above bound) AND modern dense AM
+  (ratio=1.00 vs argmax across 3 β)
+- Lane D substrate-product wedge has 2 FULL anchors
+- Bet Y V2.D mechanism needs rethink (rescue list primary path)
+
+Per [[feedback-no-smoke]]: Bet Y mechanism refutation framed as
+substrate-physics characterization NOT as Bet Y failure. Substrate
+is in own regime; this is product positioning.
+
+Per [[feedback-rehabilitation-after-rejection]]: cycle 93 addendum
+rescue list (hybrid β + K-scaling + partial bipolar + layered
+substrate) becomes primary Bet Y V2.D mechanism candidate path.
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 21st observation. PROT-005 unbiased framing: Bet Y
+V2.D mechanism refutation honest; Lane D pipeline promotion
+appropriate per FULL CONSISTENT case; envelope wider reported with
+M_S=300 vs Bet S K_crit=205 inconsistency flagged.
+
+Next:
+- File Strategy → Research/Exp Dev re-evaluation of Bet Y V2.D
+  mechanism choice
+- META cycle 55/56
+- active_priorities.md still stale at cycle 70
+- 4 new prereg variants from cycle 102 (betT_hyp8, etc.) still pending
+  Exp Dev pickup; pipeline idle
