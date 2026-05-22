@@ -3671,6 +3671,79 @@ capability for cognitive-architecture story.
 
 ---
 
+## Cycle 89 [Lane D / Phase 2 substrate-product roadmap] — Research backlog complete; N=65536 SOLVED + OAQEC REJECTED + experimental batch (cap_map v89)
+
+**Time**: 2026-05-22 ~08:32 EDT.
+
+**ALL 3 Research backlog items delivered within ~30 min of cycle 86
+routing**:
+- Request 3 (Bet S K-ceiling) — 15 min turnaround (cycle 88 v88)
+- Request 1 (N=65536 codebook) — 25 min turnaround (this cycle)
+- Request 2 (substrate-as-OAQEC) — 28 min turnaround (this cycle)
+
+**Major findings**:
+
+1. **N=65536 codebook construction SOLVED algebraically** — Kerdock(16)
+   or Kasami n=16 (Hammons 1994). Critical link to Bet S: K_crit at
+   N=65536 = 2487 (**19× extension over N=4096's 130**). Kerdock/Kasami
+   substrate at scale is engineering-tractable (P=0.42-0.55 in 6mo).
+   
+   But: codebook construction is only ONE of two questions. R36
+   deep-drill predicts M/N drop at N=65536 from retrieval-side
+   mechanisms (Hopfield AGS + cleanup scaling). Bet Y V2.D + Kerdock(16)
+   construction needed jointly.
+
+2. **Substrate-as-OAQEC REJECTED at current arch** — Harlow 2017
+   theorem requires NON-COMMUTATIVE von Neumann algebra; classical
+   bipolar substrate is commutative → RT formula trivializes.
+   Substrate's R16 BBP free probability framework (Bet I ✅) is ALREADY
+   rigorous + substrate-novel; no improvement from independent OAQEC
+   re-derivation. Defer to V2 with non-commuting structure.
+
+3. **8th HONEST RECALIBRATION pattern**: Research note explicitly
+   tagged this as the 8th instance this session (R17 holographic, R33,
+   R32, annealing, critical, deepdrill, V2.E OAQEC, now dedicated
+   OAQEC note). **Pattern empirically calibrated**: META + Strategy
+   initial framings tend optimistic; Research vet honest;
+   substrate-product gains emerge from honesty pass.
+
+**Experimental batch**:
+- continual_4N_5000edits HOLDS at 100-edit smoke (Bet A M=4N regime)
+- continual_N_5000edits HOLDS at 5000-edit full (Bet A M=N regime)
+- R32 M.1 phasor FULL KILLED at 0.50·N (even worse than smoke's
+  1.0·N; cycle 86 closure firmly confirmed)
+- Bet B Kovacs v1 currently running
+
+**Substrate-product roadmap update**:
+
+**Bet Y V2.D + Kerdock(16) codebook becomes substrate-product
+centerpiece**. Single architectural change extends:
+1. Capacity 5× gain
+2. Multi-hop d-ceiling (per v87 NUMENT_500)
+3. **Bet S K-ceiling 19×** (130 → 2487)
+4. Hu 2024 spherical-code framework absorbs Kerdock at scale
+
+**Strategy decisions**:
+1. Adopt Kerdock(16) or Kasami n=16 as Bet Y V2.D codebook target
+2. Do NOT pursue substrate-as-OAQEC theoretical grounding (R16 BBP
+   already rigorous)
+3. Defer OAQEC to V2 substrate with non-commuting structure (Bet Y
+   exponential energy MAY have non-commuting features per arXiv:2604.07401)
+4. Note Experiment Dev queued multi-hop_FHRR_largeN + FHRR_N8192 + K50
+   — pursuing V2.D / N-scaleup empirical exploration; aligned with
+   Research recommendations
+
+**Substrate-product narrative strengthens**:
+- 3 Research items delivered in 30 min
+- N=65536 path is algebraically solved
+- OAQEC pursuit is closed (R16 BBP suffices)
+- Bet Y V2.D scope clarifies as primary substrate-product architecture
+- 8 honest-recalibration patterns this session (META/Strategy
+  framings tested against literature; substrate-product story emerges
+  more rigorous each time)
+
+---
+
 ## Cycle 88 [Lane D / Phase 2 theoretical grounding] — Bet S K-ceiling THEORETICALLY GROUNDED (cap_map v88)
 
 **Time**: 2026-05-22 ~08:15 EDT.
