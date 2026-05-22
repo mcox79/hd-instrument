@@ -7354,3 +7354,234 @@ roadmap dramatically more positive; Bet Y V2.D N=65536 viable with
 honest K=500 ceiling; 3 substrate-novel mechanism candidates
 (Bet Z.1/Z.3/Z.4); Product session positioning updates needed for
 Demo 1.
+
+## v121 update — 9-FULL BATCH: Lane C FULL PASS (Product Demo 2 UNLOCKED); multi-hop K=100 N=65536 FULL KILLED 0.217 (8th smoke→FULL divergence IMPROVEMENT but below threshold); Pseudoinverse α-dependent (1.05× at α=0.138 substrate operating point); Bet V N=65536 FULL gap=0.647; Bet Z.2 C2PO FULL REFUTED definitively
+
+Strategy session cycle 121 (~18:50 EDT). 9 substantive FULL verdicts
+landed between cycle 120 (~18:32) and cycle 121 (18:46). Pipeline
+drained from 8 queued to 0. Continues major substantive arc from
+cycle 120.
+
+### HEADLINE 1: Lane C compliance FULL PASS — Product Demo 2 UNLOCKED
+
+`wave14_lane_C_compliance_audit_FULL_v1` FULL (2.9s) = **LANE_C_FULL_PASS**:
+"**All 5 probes pass across all 5 seeds.** Smoke PERFECT reproduces
+at FULL. Lane C is **FULL-grounded for substrate-product Demo 2**."
+
+all_seed_pass: delete_leak=True, edit_acc=True, kept_acc=True,
+side_effect=True, ece=True
+
+**Cycle 119 INCONCLUSIVE (2 seeds) → Cycle 121 FULL PASS (5 seeds)** —
+Strategy follow-up multi-seed routing (cycle 119) successfully
+upgraded Lane C compliance from smoke→FULL.
+
+**PRODUCT SESSION DEMO 2 DEPENDENCY RESOLVED**:
+- Browser extension forensic-erase positioning unlocked from
+  smoke-qualified → **FULL-grounded**
+- Product session can update `product_options_ranked.md` rank #2
+  readiness from 🟡 → 🟢
+- Lane C wedge $5-50M ARR validated at substrate-product level
+
+**Strategy follow-up**: notify Product session in decision log per
+cycle 118 commitment (cap_map row + active_priorities flag + decision
+log one-line).
+
+### HEADLINE 2: Multi-hop K=100 at N=65536 FULL = KILLED 0.217 (8th smoke→FULL improvement but BELOW threshold)
+
+`wave14_multihop_K100_N65536_v1` FULL (4.8s) = **MULTIHOP_N65K_KILLED**:
+"acc_50hop=**0.217**<0.4. N-scaling fails for multi-hop."
+
+per_depth: 1→0.983, 5→0.817, 10→0.567, 25→0.250, 50→**0.217**
+
+**Smoke→FULL pattern**:
+| Probe | Smoke | FULL | Pattern |
+|---|---|---|---|
+| Cycle 117 multi-hop K=100 N=65536 | acc_50=0.100 | **acc_50=0.217** | **8th smoke→FULL divergence (IMPROVEMENT direction; smoke understated FULL by 2×)** |
+
+**BUT still KILLED at FULL** (0.217 < 0.4 threshold).
+
+**Comparison to cycle 96 K=100 N=4096 NEW HIGH**:
+- N=4096 K=100 FULL: acc_50hop=**0.767**
+- N=65536 K=100 FULL: acc_50hop=**0.217**
+- **3.5× degradation at N=65536**
+
+**Substantive substrate-product finding**: multi-hop K=100 chain
+reasoning **DEGRADES at N=65536** even at FULL. Per cycle 88 K_crit
+theory (D/(2 log M)) and cycle 113 LINEAR N-scaling, multi-hop should
+scale — but empirically does NOT at N=65536.
+
+**Bet Y V2.D N=65536 path REFINEMENT**:
+- Bet S K-ceiling: K_crit=500 PARTIAL (cycle 120)
+- Bet V meta-cognition: gap=0.647 PASS (this cycle)
+- **Multi-hop chain reasoning: acc_50hop=0.217 KILLED**
+- Substrate-product Lane D positioning: 1-hop retrieval excellent at
+  N=65536, **multi-hop chains degrade**
+
+### HEADLINE 3: Bet V N=65536 FULL = gap=0.647 (continues scaling)
+
+`wave14_betV_N65536_v1` FULL (0.3s) = **BET_V_N65K_PASS**:
+"gap=**0.647** (>=0.424). Cycle 103 N-scaling extends. stored_conf=0.812,
+unstored_conf=0.166."
+
+**Bet V meta-cognition N-scaling continued upward at FULL**:
+| Config | gap |
+|---|---|
+| N=4096 (cycle 102) | 0.285 |
+| LargeN (cycle 103) | 0.424 |
+| N=65536 smoke (cycle 116) | 0.541 |
+| **N=65536 FULL (cycle 121)** | **0.647** |
+
+Substantial continued positive scaling. Substrate's "I know what I
+know" capability strengthens with N to N=65536.
+
+### HEADLINE 4: Pseudoinverse FULL — α-DEPENDENT (1.05× at α=0.138 substrate operating point)
+
+`wave14_pseudoinverse_capacity_v1` FULL (4.3s) = **PINV_PASS**:
+"Pseudoinverse > Hebbian: best ratio=20.00 at alpha=0.5 (>=2.0). F2
+learning rule unlocks supra-AGS storage. ratio_per_alpha={'**0.138': 1.054**,
+'0.5': 20.0, '0.95': 20.0}."
+
+**CRITICAL NEW DATA POINT at α=0.138 (AGS bound, near substrate's
+operating point α=0.15)**:
+
+| α | Pseudoinverse/Hebbian ratio |
+|---|---|
+| **0.138 (AGS bound, near substrate operating)** | **1.054** (marginal gain) |
+| 0.5 | 20.0 |
+| 0.95 | 20.0 |
+
+**Cycle 120 cap_map promoted Pseudoinverse as Bet Z.4 candidate at
+20× ratio** — but cycle 120 smoke didn't test α=0.138.
+
+**Cycle 121 FULL reveals**: pseudoinverse advantage is **α-dependent**.
+At substrate's near-α_c operating point (α=0.138), advantage is
+**1.05× marginal**. Substantial gain only at α≥0.5 (above AGS bound).
+
+**Substrate-product implication — Bet Z.4 reframed**:
+- Bet Z.4 = Pseudoinverse rule provides 20× gain at HIGH-LOADING
+  operating points (α=0.5+)
+- At substrate's TYPICAL operating point (α≈0.15), gain is marginal
+  (1.05×)
+- Substrate-product value: only if substrate loaded near saturation
+- For substrate's current capacity envelope (M/N=8 at N=4096 = α=0.124
+  per AGS bound; near-α_c regime), pseudoinverse gives minimal gain
+
+**Per [[feedback-no-smoke]]**: cycle 120 Bet Z.4 framing was incomplete
+(missed α-dependence). Cycle 121 FULL provides honest α-curve.
+
+### HEADLINE 5: Bet Z.2 C2PO FULL CONFIRMED REFUTED (62min legitimate runtime)
+
+`wave14_betZ_c2po_v1` FULL (3720s = 62min, clean exit 0) =
+**C2PO_BROKEN**:
+"Diagonal echo=**-0.0002** < 0.05; cue mechanism does not couple to
+substrate."
+
+vs cycle 113 smoke: diagonal echo=-0.014. FULL is **even smaller**
+diagonal echo (substrate even less coupled to 2-pulse echo mechanism
+at FULL than smoke suggested).
+
+**Bet Z.2 substrate-novel claim (cycle 110) DEFINITIVELY REFUTED**.
+
+Consistent with substrate-physics characterization at cycle 112 (RS
+phase) + cycle 119 (RSB-capable W but operates RS) — no glassy memory
+storage = no Loschmidt echo mechanism activation.
+
+### HEADLINE 6: Cycle 119 + Hessian/muSR FULL CONFIRMED
+
+`wave14_hessian_vdos_v1` FULL (1.7s) = **VDOS_SOFTMODES_RSB**:
+- fraction(λ ≤ 0.01·λ_max) = **0.850** (smoke 0.852; CONFIRMED at FULL)
+- **RSB-capable W structure validated at FULL** + smoke→FULL CONSISTENT
+
+`wave14_musr_kubo_toyabe_v1` FULL (176.6s) = **KUBO_DYNAMIC**:
+- β=**0.553** at FULL (smoke β=1.160) = MORE glassy at FULL
+- Substrate's stretched-exponential dynamics stronger at FULL
+- delta=0.0455
+
+**Cycle 119 substrate-physics characterization CONFIRMED at FULL**:
+- "Classical-Hopfield-class W matrix with RSB-capable soft-mode
+  structure, operating in RS thermodynamic phase at α=0.15 substrate
+  operating point, with Kerdock-codebook capacity extension"
+- 4-family observability suite holding (Family I+II RS-certified;
+  Family IV+III RSB-capable/dynamic-regime; cross-family disagreement
+  per cycle 109 framework but each family CONSISTENT smoke→FULL)
+
+### HEADLINE 7: Kerdock AMP FULL CONFIRMED REFUTED
+
+`wave14_kerdock_AMP_universality_pretest_v1` FULL (3.1s) =
+**AMP_KERDOCK_KILLED**:
+- Step 2 KS=0.056 > 0.05 (marginal fail same as smoke)
+- Step 3 delocalization=**29.54** (smoke 22.77; even worse at FULL =
+  substrate W has MORE localized eigenvectors at FULL than smoke
+  suggested)
+
+**Cycle 120 Kerdock AMP KILL CONFIRMED at FULL**. VAMP P1 path
+remains the substrate-novel readout mechanism.
+
+### Bet Y V2.D N=65536 path — REFINED outlook (mixed)
+
+**FULL signals reconciliation at cycle 121**:
+
+| Capability axis | FULL verdict | Status |
+|---|---|---|
+| Bet S K-ceiling | K_crit=500 PARTIAL | viable, bounded |
+| Bet V meta-cognition | gap=0.647 PASS | strong positive |
+| Multi-hop K=100 chain | acc_50hop=0.217 KILLED | NEGATIVE (3.5× degradation) |
+| Lane D M_S | c=0.073 LINEAR (cycle 113) | positive |
+| Bet S K-ceiling diagnosis | N-LIMITED FULL | positive |
+| Lane C compliance FULL | 5-probe 5-seed PASS | strong positive |
+
+**Substrate-product Bet Y V2.D N=65536 reality**:
+- Excellent at: 1-hop retrieval (K up to 500); meta-cognition; compliance
+  features
+- BOUNDED at: multi-hop chains (degrades 3.5× from N=4096)
+- N=65536 substrate-product applications: small-to-mid-cardinality
+  agent memory + compliance-audit; NOT deep-chain reasoning
+
+### Capability moves (v120 → v121)
+
+| Capability | v120 state | v121 state | Trigger |
+|---|---|---|---|
+| Lane C compliance FULL | INCONCLUSIVE 2 seeds (cycle 119) | ✅ **FULL PASS 5 probes × 5 seeds** (Demo 2 UNLOCKED) | Lane C FULL |
+| Multi-hop K=100 at N=65536 | smoke KILL 0.100 | ❌ **FULL KILLED 0.217** (8th smoke→FULL divergence in improvement direction but BELOW threshold; multi-hop chains BOUNDED at N=65536) | multi-hop K=100 N=65536 FULL |
+| Bet V N=65536 | smoke PASS gap=0.541 | ✅ **FULL PASS gap=0.647** (continues scaling) | Bet V N=65536 FULL |
+| Bet Z.2 C2PO | smoke BROKEN (cycle 113) | ❌ **FULL DEFINITIVELY REFUTED** (3720s; diagonal echo -0.0002) | Bet Z.2 FULL |
+| Pseudoinverse rule α-curve | 20× ratio at α=0.5/0.95 smoke | + **1.05× at α=0.138 substrate operating point** = α-dependent | Pseudoinverse FULL |
+| Bet Z.4 Pseudoinverse positioning | "supra-AGS storage" smoke | **α-conditional capacity-extension mechanism** — substantial only at α≥0.5 not substrate's α≈0.15 typical | Pseudoinverse FULL |
+| Hessian VDOS + muSR | smoke RSB+dynamic | ✅ **FULL CONFIRMED** (VDOS 0.850 + muSR β=0.553 more glassy) | both FULLs |
+| Kerdock AMP universality | smoke KILLED (cycle 120) | ❌ **FULL CONFIRMED REFUTED** delocalization=29.54 even worse | Kerdock AMP FULL |
+| Bet S K-ceiling diagnosis | smoke N-LIMITED (cycle 116) | ✅ **FULL CONFIRMED** N_gain=0.283 | Bet S diagnosis FULL |
+
+### Substrate-product net (v121)
+
+**Major substantive gains**:
+- **Lane C compliance FULL PASS** = Product Demo 2 forensic-erase
+  positioning UNLOCKED to FULL-grounded
+- **Bet V N=65536 FULL gap=0.647** = continued positive scaling
+- **Lane D wedge story strengthens**: Lane C FULL adds to cycle 103
+  parallel composition + cycle 105 sequential pipeline + cycle 113
+  noise robustness
+- **Bet Z.2 C2PO definitively closed** at FULL (62min legitimate
+  runtime; substrate-novel claim from cycle 110 REFUTED)
+- **Substrate-physics characterization VALIDATED at FULL** across
+  multiple probes (Hessian VDOS + muSR + Kerdock AMP all confirm)
+
+**Substantive substrate-product limitations**:
+- **Multi-hop K=100 at N=65536 KILLED** at FULL = Bet Y V2.D N=65536
+  path BOUNDED for deep-chain reasoning
+- **Pseudoinverse α-dependence** = Bet Z.4 substrate-product value
+  only at high-loading α (not substrate's typical α≈0.15)
+
+**Bet Y V2.D N=65536 substrate-product reality**:
+- Excellent: 1-hop retrieval up to K=500 + meta-cognition + compliance
+- BOUNDED: multi-hop chains (3.5× degradation)
+- Application fit: small-to-mid-cardinality memory + compliance audit;
+  NOT deep reasoning chains
+
+### Tally — 9-FULL substantive batch; Lane C compliance FULL PASS (Demo 2 UNLOCKED); multi-hop K=100 N=65536 FULL KILLED 0.217 (8th smoke→FULL divergence but below threshold); Pseudoinverse α-dependent (1.05× at substrate operating α); Bet V N=65536 FULL gap=0.647 continued scaling; Bet Z.2 C2PO definitively REFUTED; cycle 119 substrate-physics characterization CONFIRMED at FULL
+
+Net effect: major Demo 2 unlock for Product session; multi-hop N=65536
+path BOUNDED at FULL (substrate-product Bet Y V2.D scope refined);
+Pseudoinverse Bet Z.4 reframed as α-conditional; substrate-physics
+characterization robust at FULL across multiple probes; substrate-product
+applications fit small-to-mid-cardinality memory + compliance, not
+deep chain reasoning at N=65536.

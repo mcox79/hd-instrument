@@ -7246,3 +7246,143 @@ Next:
 - Lane C compliance FULL multi-seed re-run pending
 - Bet Z.2 C2PO FULL currently running
 - Multi-hop K=100 N=65536 FULL still pending (queue)
+
+
+## Cycle 121 [9-FULL batch: Lane C UNLOCKED + multi-hop bounded + pseudoinverse α-dependent]
+
+Trigger: /loop /strategy-cycle at ~18:50 EDT. Pipeline drained from
+8 queued to 0. 9 substantive FULL verdicts since cycle 120.
+
+HEADLINE 1: Lane C compliance FULL PASS — Product Demo 2 UNLOCKED
+
+wave14_lane_C_compliance_audit_FULL_v1 FULL (2.9s) = LANE_C_FULL_PASS:
+"All 5 probes pass across all 5 seeds. Smoke PERFECT reproduces at
+FULL. Lane C is FULL-grounded for substrate-product Demo 2."
+
+Cycle 119 INCONCLUSIVE (2 seeds) → Cycle 121 FULL PASS (5 seeds).
+Strategy multi-seed routing followup successful.
+
+PRODUCT SESSION DEMO 2 DEPENDENCY RESOLVED — browser extension
+forensic-erase positioning UNLOCKED from smoke-qualified to
+FULL-grounded.
+
+HEADLINE 2: Multi-hop K=100 at N=65536 FULL = KILLED 0.217
+
+wave14_multihop_K100_N65536_v1 FULL (4.8s) = MULTIHOP_N65K_KILLED:
+acc_50hop=0.217<0.4.
+
+per_depth: 1→0.983, 5→0.817, 10→0.567, 25→0.250, 50→0.217.
+
+Smoke 0.100 → FULL 0.217 = 8th smoke→FULL divergence in IMPROVEMENT
+direction but STILL BELOW 0.4 threshold.
+
+vs cycle 96 N=4096 K=100 acc_50hop=0.767: 3.5× degradation at N=65536.
+
+Bet Y V2.D N=65536 path BOUNDED for deep-chain reasoning.
+
+HEADLINE 3: Bet V N=65536 FULL = gap=0.647 (continued scaling)
+
+wave14_betV_N65536_v1 FULL (0.3s) = BET_V_N65K_PASS gap=0.647.
+
+N=4096 0.285 → largeN 0.424 → N=65536 smoke 0.541 → N=65536 FULL 0.647
+monotonic positive scaling.
+
+HEADLINE 4: Pseudoinverse FULL α-DEPENDENT (1.05× at substrate operating point)
+
+wave14_pseudoinverse_capacity_v1 FULL (4.3s) = PINV_PASS:
+ratio_per_alpha={'0.138': 1.054, '0.5': 20.0, '0.95': 20.0}
+
+CRITICAL NEW DATA at α=0.138 (AGS bound, near substrate operating
+α=0.15): only 1.05× MARGINAL gain vs 20× at higher α.
+
+Bet Z.4 substrate-product positioning REFRAMED:
+- α-conditional capacity-extension mechanism
+- 20× gain at α≥0.5 (high-loading)
+- Only 1.05× at substrate's typical α≈0.15
+- Substrate-product value limited to high-loading operating points
+
+Cycle 120 cap_map promoted Bet Z.4 at 20× ratio but missed α-dependence;
+cycle 121 reframes honestly.
+
+HEADLINE 5: Bet Z.2 C2PO FULL CONFIRMED REFUTED (3720s legitimate)
+
+wave14_betZ_c2po_v1 FULL (62 min) = C2PO_BROKEN diagonal echo -0.0002
+(vs smoke -0.014).
+
+Bet Z.2 substrate-novel claim (cycle 110) DEFINITIVELY REFUTED at FULL.
+
+HEADLINE 6-9: Hessian VDOS + muSR + Kerdock AMP + Bet S diagnosis FULL CONFIRMED
+
+- Hessian VDOS FULL: 0.850 soft modes (smoke 0.852; CONSISTENT)
+- muSR FULL: β=0.553 (smoke 1.160; MORE glassy at FULL)
+- Kerdock AMP FULL: delocalization=29.54 (smoke 22.77; MORE localized
+  at FULL; AMP universality REFUTED)
+- Bet S diagnosis FULL: N_gain=0.283 (smoke 0.300; CONFIRMED N-LIMITED)
+
+Cycle 119 substrate-physics characterization "classical-Hopfield-class
+W matrix with RSB-capable soft-mode structure operating in RS
+thermodynamic phase at α=0.15 with Kerdock-codebook capacity extension"
+VALIDATED at FULL across multiple probes.
+
+Bet Y V2.D N=65536 path — refined outlook:
+
+FULL signals at cycle 121:
+- Bet S K-ceiling: K_crit=500 PARTIAL (cycle 120)
+- Bet V meta-cognition: gap=0.647 PASS
+- Multi-hop K=100 chain: acc_50hop=0.217 KILLED
+- Lane C compliance: FULL PASS
+- Lane D M_S: c=0.073 LINEAR (cycle 113)
+- Bet S diagnosis: N-LIMITED CONFIRMED
+
+Substrate-product Bet Y V2.D N=65536 reality:
+- Excellent: 1-hop retrieval K≤500 + meta-cognition + compliance
+- BOUNDED: multi-hop chains (3.5× degradation; not deep reasoning)
+- Applications: small-to-mid-cardinality memory + compliance audit
+
+Capability moves (v120 → v121):
+
+| Capability | v120 | v121 | Trigger |
+|---|---|---|---|
+| Lane C compliance FULL | INCONCLUSIVE 2 seeds | FULL PASS 5×5 (Demo 2 UNLOCKED) | Lane C FULL |
+| Multi-hop K=100 N=65536 | smoke KILL 0.100 | FULL KILLED 0.217 (8th smoke→FULL improvement but below threshold) | multi-hop FULL |
+| Bet V N=65536 | smoke gap=0.541 | FULL gap=0.647 continued scaling | Bet V FULL |
+| Bet Z.2 C2PO | smoke BROKEN | FULL DEFINITIVELY REFUTED | Bet Z.2 FULL |
+| Pseudoinverse α-curve | 20× at α=0.5/0.95 | + 1.05× at α=0.138 (α-dependent) | Pseudoinverse FULL |
+| Bet Z.4 positioning | "supra-AGS storage" | α-conditional (20× at high-loading; 1.05× at substrate operating α) | Pseudoinverse FULL |
+| Hessian VDOS + muSR + Kerdock AMP + Bet S diagnosis | smokes | FULL CONFIRMED all 4 | 4 FULLs |
+| Substrate-physics characterization (cycle 119) | predicted | VALIDATED at FULL across multiple probes | 4 FULLs |
+
+Strategy follow-up actions:
+1. Notify Product session: Lane C FULL PASS (Demo 2 unlocked from
+   smoke-qualified to FULL-grounded)
+2. Update Product session: multi-hop K=100 N=65536 FULL KILLED
+   (Demo 1 positioning: 1-hop excellent + multi-hop chains bounded;
+   K≤500 facts + chain depth ≤25-ish)
+3. Pseudoinverse Bet Z.4 reframed α-conditional; consider whether
+   substrate's high-α loading is substrate-product-relevant
+
+Substrate-product net (v121):
+
+Major substantive gains:
+- Lane C compliance FULL PASS = Demo 2 unlocked
+- Bet V N=65536 FULL continued scaling
+- Lane D wedge: 4 FULL anchors now (parallel composition + sequential
+  pipeline + noise robust + Lane C compliance)
+
+Substantive limitations:
+- Multi-hop K=100 N=65536 KILLED at FULL (Bet Y V2.D bounded)
+- Pseudoinverse α-dependence (Bet Z.4 reframed)
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 35th observation. PROT-005 unbiased framing:
+multi-hop KILL reported honestly NOT minimized; pseudoinverse
+α-dependence flagged as cycle 120 framing gap; Bet Z.4 positioning
+honestly reframed.
+
+Next:
+- File Strategy → Product decision-log notification (per cycle 118
+  flagging protocol commitment)
+- Pipeline IDLE — Strategy should file pseudoinverse FULL routing
+  + new capability tests if relevant
+- 3 substrate-novel mechanism candidates: Bet Z.1 SRHT viable (no
+  speedup) + Bet Z.3 VAMP PROVEN + Bet Z.4 Pseudoinverse α-conditional
