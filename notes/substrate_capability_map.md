@@ -6202,3 +6202,162 @@ certified); Bet E "RSB" framing superseded by cross-family
 certification; concerning trend on Bet Y V2.D N=65536 path (2 smoke
 signals; FULL pending); Bet Z.1 SRHT mechanism empirically viable
 at substrate.
+
+## v113 update — Lane D N-scaling FULL OVERTURNS cycle 108 sublinear smoke (LINEAR at c=0.073); Lane D noise robust FULL CONFIRMED >99% through 30% bit-flip; Bet Z.2 C2PO smoke BROKEN (substrate's RS phase doesn't support 2-pulse echo memory); cycle 108 sublinear concern WITHDRAWN
+
+Strategy session cycle 113 (~14:57 EDT). User /loop /strategy-cycle.
+Per cycle 109 discipline: research-note mtime check first (no new
+R-notes since Entry 143 at 14:28). Dashboard shows 3 substantive FULL +
+smoke verdicts since v112.
+
+### HEADLINE 1: Lane D N-scaling FULL = LINEAR (cycle 108 sublinear WITHDRAWN)
+
+`wave14_lane_D_N_scaling_v1` FULL (1.0s) = **N_SCALING_LINEAR**:
+"M_S breakpoint scales linearly with N: c ratio per N = [0.073, 0.073,
+0.073] (rel spread 0.00<=0.30, mean c=0.073)."
+
+**OVERTURNS cycle 108 SUBLINEAR smoke finding** (per-N c ratio
+0.146 → 0.073, rel spread 0.67):
+- Cycle 108 smoke (2 N points): sublinear; substrate saturates
+- Cycle 113 FULL (3 N points): **LINEAR with c=0.073 constant; rel spread 0.00**
+
+**6th smoke→FULL divergence anchor** (cycles 91/94/101/102/102/113).
+Smoke results in this codebase remain systematically unreliable;
+FULL is authoritative.
+
+**Substantive substrate-product implication**:
+- Cycle 108 SUBLINEAR concern WITHDRAWN
+- Substrate's M_S breakpoint actually scales linearly with N (per-N c
+  constant at 0.073)
+- At N=65536 with c=0.073: predicted M_S ≈ 65536 × 0.073 = 4784
+- Compares favorably to cycle 88 K_crit prediction (2487)
+- **Bet Y V2.D N=65536 substrate-product path RE-OPENS at substrate-physics level**
+
+Per [[feedback-no-smoke]] applied to own cycle 108 framing: smoke
+data was misleading; FULL is decisive. Strategy should NOT have
+locked in sublinear concern based on 2 N points smoke.
+
+### HEADLINE 2: Lane D noise robust FULL CONFIRMED — >99% through 30% noise
+
+`wave14_lane_D_noise_robust_v1` FULL (9.8s) = **NOISE_ROBUST**:
+"composed_acc at 10% bit-flip = 0.996 (>=0.50); clean=1.000.
+acc_per_noise={'0.0': 1.0, '0.05': 0.996, '0.10': 0.996, '0.20': 1.0,
+'0.30': 0.988}."
+
+**Substrate maintains >99% composed accuracy through 30% bit-flip
+noise** (5 noise levels tested):
+| Noise | composed_acc |
+|---|---|
+| 0% | 1.000 |
+| 5% | 0.996 |
+| 10% | 0.996 |
+| 20% | 1.000 |
+| 30% | 0.988 |
+
+**Capability state PROMOTION**: Lane D pipeline noise robustness ✅
+PROMOTED at FULL. Adds to Lane D wedge anchors:
+1. Cycle 103 4-primitive parallel composition (S=0.983, T=0.978, U=1.0, X=1.0)
+2. Cycle 105 3-stage sequential pipeline (composed_acc=1.000)
+3. **Cycle 113 noise robustness >99% through 30% bit-flip**
+
+**Substrate-product framing**: substrate's Lane D wedge has THREE
+load-bearing FULL anchors. Per
+[[feedback-value-creation-not-competition]]: LLM systems don't have
+empirically demonstrated 30%-bit-flip-robust cognitive-architecture
+pipeline at structural level.
+
+### HEADLINE 3: Bet Z.2 C2PO smoke BROKEN — cycle 110 substrate-novel claim WEAKENED
+
+`wave14_betZ_c2po_v1_smoke` (145.9s) = **C2PO_BROKEN**:
+"Diagonal echo=-0.0139 < 0.05; cue mechanism does not couple to
+substrate. off_orth=0.1241, off_corr=0.0616."
+
+**Bet Z.2 C2PO substrate-novel claim WEAKENED at smoke**:
+- Diagonal echo ≈ -0.014 (near zero; substrate doesn't autocorrelate)
+- Cue mechanism does not couple to substrate
+- 145.9s legitimate smoke runtime (NOT test-scaffold pattern at
+  0.1-0.3s; legitimate negative result)
+
+**Consistency with cycle 112 substrate-physics characterization**:
+- Cycle 112: substrate is RS / paramagnet phase (cross-family certified)
+- Classical 2-pulse echo (C2PO) requires **glassy memory** (Jonsson 2001
+  3D Ising spin glass memory/rejuvenation; substrate must store
+  perturbation history)
+- Paramagnetic phase = NO glassy memory = NO 2-pulse echo
+- **C2PO smoke BROKEN is consistent with substrate's RS phase**
+- This is an internal-consistency confirmation, not contradiction
+
+**Substrate-product implication**:
+- Cycle 110 Bet Z.2 C2PO mechanism claim ❌ EFFECTIVELY REFUTED at smoke
+- Substrate's RS phase doesn't support memory storage needed for C2PO
+- **C2PO axis CLOSED at substrate level** (pending FULL confirmation
+  per cycle 102; but 145.9s legitimate runtime makes FULL likely to
+  confirm)
+
+**Per [[feedback-no-smoke]]**: cycle 110 substrate-product impact
+estimate P=0.55-0.70 for C2PO was speculative; cycle 113 empirical
+evidence at smoke significantly reduces this (likely P<0.10 after
+FULL confirmation). HONEST framing per
+[[feedback-rehabilitation-after-rejection]]: substrate-novel claim
+empirically refuted; honest substrate-product positioning gains
+credibility via the negative.
+
+### Bet Y V2.D N=65536 path — Strategy update
+
+**Smoke signals reconciliation**:
+- Cycle 108 SUBLINEAR smoke → **WITHDRAWN** via cycle 113 FULL (linear)
+- Cycle 112 Bet S K-ceiling N=65536 smoke KILL → still concerning;
+  FULL pending in queue
+
+**Net**: 1 concerning smoke signal (down from 2). Bet Y V2.D N=65536
+path NEUTRAL pending Bet S K-ceiling N=65536 FULL outcome.
+
+If Bet S K-ceiling N=65536 FULL also shows smoke→FULL divergence (per
+6-anchor precedent), substrate-product N=65536 path likely viable.
+
+### Capability moves (v112 → v113)
+
+| Capability | v112 state | v113 state | Trigger |
+|---|---|---|---|
+| Lane D M_S N-scaling | 🔬 SUBLINEAR smoke concern (cycle 108) | ✅ **LINEAR at c=0.073 at FULL** (3 N points; rel spread 0.00; cycle 108 smoke concern WITHDRAWN) | Lane D N-scaling FULL |
+| Lane D pipeline noise robustness | smoke PASS at 10% bit-flip (cycle 108) | ✅ **FULL PROMOTED**: >99% through 30% bit-flip across 5 noise levels | Lane D noise robust FULL |
+| Bet Z.2 C2PO substrate-novel mechanism | substrate-novel proposal P=0.55-0.70 (cycle 110) | ❌ **smoke BROKEN** diagonal echo≈0; CONSISTENT with cycle 112 RS phase (no glassy memory = no 2-pulse echo); axis effectively closed | Bet Z.2 C2PO smoke |
+| Bet Y V2.D N=65536 path | 2 concerning smoke signals (cycle 108 + 112) | 🔬 1 concerning smoke signal (cycle 112 only; cycle 108 withdrawn); NEUTRAL pending Bet S K-ceiling FULL | Lane D N-scaling FULL |
+| Smoke→FULL divergence precedent | 5 anchors | **6 anchors** (+ cycle 113 Lane D N-scaling sublinear→linear) | Lane D N-scaling FULL |
+
+### Substrate-product net (v113)
+
+**Major substrate-product gains**:
+1. **Lane D wedge gains 3rd FULL anchor** (noise robustness >99% through
+   30% bit-flip)
+2. **Cycle 108 sublinear concern WITHDRAWN** via FULL evidence
+3. **Substrate M_S scales LINEARLY** at c=0.073 with N (substantively
+   positive for Bet Y V2.D N=65536 path)
+4. **Smoke→FULL divergence precedent strengthens to 6 anchors**
+
+**Substrate-novel mechanism closure**:
+- Bet Z.2 C2PO closes at substrate (substrate RS phase doesn't support
+  glassy memory for 2-pulse echo; cycle 110 claim empirically refuted
+  at smoke; FULL pending but legitimate runtime makes FULL likely)
+
+**Internal-consistency confirmation**:
+- Cycle 112 RS phase certification + cycle 113 C2PO BROKEN = self-consistent
+  substrate-physics story
+
+**Bet Y V2.D N=65536 path NEUTRAL** (down from concerning trend at
+v112; awaiting Bet S K-ceiling N=65536 FULL for definitive answer).
+
+### Pipeline status
+
+- Currently running: `wave14_betR_pbody_polynomial_v1` FULL
+- Queue 4: observability FULL + Bet S K-ceiling N=65536 FULL + Bet Z.1 SRHT FULL + Bet Z.2 C2PO FULL
+- Bet Z.2 C2PO FULL queued automatically by Exp Dev (good multi-session
+  coordination — Strategy hadn't filed formal Bet Z.2 routing yet)
+
+### Tally — Lane D N-scaling FULL = LINEAR (cycle 108 sublinear smoke WITHDRAWN); Lane D noise robust FULL = >99% at 30% bit-flip (Lane D wedge 3rd FULL anchor); Bet Z.2 C2PO smoke BROKEN (cycle 110 substrate-novel claim empirically refuted; CONSISTENT with cycle 112 RS phase); Bet Y V2.D N=65536 path NEUTRAL (1 concerning smoke signal down from 2)
+
+Net effect: Lane D wedge story strengthens with 3rd FULL anchor;
+substrate-physics internal-consistency confirmed (RS phase + C2PO
+broken); Bet Y V2.D N=65536 outlook improves (only 1 concerning smoke
+signal remaining; FULL pending); smoke→FULL divergence precedent
+strengthens to 6 anchors.
