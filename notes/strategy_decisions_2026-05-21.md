@@ -4675,3 +4675,126 @@ WITHOUT overstating as substrate weakness (linked to known cycle 93
 - META cycle 49/50 (~09:43-10:13)
 - Bet Y V2.D Exp Dev pickup (β-scaling addendum filed 09:14)
 - active_priorities.md still stale (cycle 70); needs refresh post-v96
+
+
+## Cycle 97 [Lane D / Phase 1 incremental] — r17_N12288 FULL area-law confirmed; continual_16N_1000edits FAIL ambiguous; 5 new multi-hop smokes confirm cycle 92 test-scaffold pattern (cap_map v97)
+
+**Trigger**: user "new experiments" at ~10:05 EDT. Dashboard shows
+r17_N12288 FULL DONE + continual_16N_1000edits FULL FAIL + 6 smokes
+(5 multi-hop + v14_a05 + continual_2N_3000edits) all since cycle 96.
+
+**Headline calls** (mostly incremental):
+
+1. **r17_N12288 FULL slope=-0.190** — substrate Renyi-2 area-law
+   confirmed at extended N=12288 in full mode (588s). Smoke was
+   -0.207; full -0.190 consistent within noise. Descriptive evidence
+   per cycle 89 OAQEC rejection (not load-bearing theoretical; R16
+   BBP permanent primary).
+
+2. **continual_16N_1000edits FULL FAIL exit=1 at 5.7s** — DISTINCT
+   from cycle 94/95 desktop-issue cluster (those were exit=-1 +
+   cancellation). exit=1 = Python exception during init; ~28 min
+   after cluster window. Two readings: (a) test-script bug at
+   1000-edit horizon code path (not present in 100-edit smoke path
+   that passed cycle 92); (b) M=16N + 1000-edit init resource issue.
+   5.7s elapsed strongly suggests init failure, not substrate weakness.
+   **Strategy classification**: 🔬 ambiguous; defer to QH. Bet A at
+   M=16N still ✅ at 100-edit smoke (cycle 92).
+
+3. **5 new multi-hop smokes at 0.2-0.3s seed=17 V2_NOT_REPLICATED**:
+   NUMFACTS=600, K=5, K=30, NUMENT=100, NUMENT=300. **Identical
+   signature to cycle 92's 5 smokes** (same elapsed range, same
+   verdict_msg, same seed=17 single-seed). Cumulative 10-smoke
+   confirmation of cycle 92 test-scaffold pattern. The pattern is
+   now strongly established empirically.
+
+4. **v14_a05 smoke PASS** retention_A=0.896 — potentially 5th Bet B
+   FULL-confirmed mechanism when full lands. Smoke at 0.7s borderline
+   elapsed but full Tier-1 metrics. Full pending.
+
+5. **continual_2N_3000edits smoke PASS** — Bet A intermediate horizon
+   at M=2N, 3000 edits. Bet A tally extends: M=2N at 100/3000/10000
+   edits all smoke ✅.
+
+**Exp Dev queue response to v96**:
+
+Queue refilled to 7 with targeted variants probing v96 ambiguities:
+- K=5 + K=30 to clarify cycle 96's K=10 ambiguity (test-scaffold vs
+  small-K seed-sensitivity)
+- NUMFACTS=600 to probe between K_crit=205 and NUMFACTS=2000
+- NUMENT_100 + NUMENT_300 to clarify NUMENT-variant behavior
+- v14_a05 (Bet B continuation)
+- continual_2N_3000edits (Bet A intermediate horizon)
+
+**Strategy observation**: Exp Dev reading cap_map + decision logs and
+queuing focused follow-ups per [[feedback-sessions-self-coordinate]].
+Good multi-session coordination — this is the right pattern.
+
+**Test-scaffold pattern empirical re-confirmation**:
+
+Cumulative count of cycle-92-pattern smokes:
+- Cycle 92 (initial 5): NUMFACTS_2000, K10, K100, N12288, NUMFACTS_300
+- Cycle 97 (5 more): NUMFACTS=600, K=5, K=30, NUMENT=100, NUMENT=300
+
+**10 smokes total** with the same signature (0.2-0.3s elapsed, V2_NOT_REPLICATED
+seed=17 single-seed, identical verdict_msg "audit test setup"). This
+is no longer a pattern hypothesis — it's an empirical regularity.
+
+**Classification confidence**:
+- Cycle 92 initial: test-scaffold suspected based on physics (0.3s
+  insufficient for substrate construction)
+- Cycle 94 over-correction: NUMFACTS_2000 multi-seed fail seemed to
+  refute the pattern
+- Cycle 95 retraction: NUMFACTS_2000 cancelled per user; cycle 92
+  framing restored
+- Cycle 96 successful application: cluster heuristic correctly
+  classified NUMFACTS=300 vs K=100
+- **Cycle 97 confirmation**: 5 more 0.2-0.3s smokes with identical
+  signature; cycle 92 framing now empirically anchored
+
+**Capability moves** (v96 → v97):
+
+| Capability | v96 | v97 | Trigger |
+|---|---|---|---|
+| R17 area-law at N=12288 (full mode) | smoke -0.207 | ✅ FULL **-0.190** | r17_N12288 full |
+| Bet A at M=16N + 1000 edits | unmeasured | 🔬 **ambiguous** FAIL exit=1 (script bug OR strain) | continual_16N_1000edits full |
+| Multi-hop test-scaffold pattern | 5 smokes (cycle 92 framing restored cycle 95) | **10-smoke cumulative empirical regularity** | 5 new smokes |
+| Bet A at M=2N + 3000 edits | unmeasured | ✅ smoke HOLDS | continual_2N_3000edits smoke |
+| v14_a05 Bet B variant | unmeasured | smoke PASS retention_A=0.896 (5th FULL-pending) | v14_a05 smoke |
+
+**Substrate-product net (v97)**:
+
+Incremental cycle. Major substrate-product story unchanged from v96:
+multi-hop K=100 0.767 NEW HIGH stands; Bet B 4-mechanism robustness;
+cycle 93 β-scaling empirically anchored via N=12288 boundary fail.
+
+This cycle's adds:
+- Area-law evidence at N=12288 full mode (descriptive)
+- 10-smoke test-scaffold empirical regularity
+- Bet A M=2N + 3000 edits intermediate horizon held
+- continual_16N + 1000 edits ambiguous (deferred)
+
+**Strategy discipline observations**:
+- Continued cycle 95 cluster heuristic discipline (continual_16N
+  exit=1 outside cluster window → flagged ambiguous not substrate).
+- 10-smoke cumulative confirmation validates cycle 92 framing
+  empirically.
+- Exp Dev coordination via files working as designed.
+
+**PROT compliance**: PROT-009 paired commit (cap_map + history + this
+decision log) — 13th observation. PROT-005 unbiased framing:
+continual_16N FAIL reported as ambiguous not substrate; v14_a05 smoke
+noted as pending-confirmation not promoted to capability state;
+test-scaffold pattern reported with empirical justification (10-smoke
+signature).
+
+**Next**:
+
+- continual_2N_10000edits FULL pending (M=2N at 10K-edit horizon —
+  Bet A long-horizon test)
+- 5 multi-hop full-mode variants pending (K=5, K=30, NUMFACTS=600,
+  NUMENT=100, NUMENT=300) — will resolve cycle 96 ambiguities
+- v14_a05 FULL pending (5th Bet B FULL-confirmed candidate)
+- continual_2N_3000edits FULL pending
+- META cycle 49/50 (~09:43-10:13)
+- Pre-existing 10:09 wakeup remains

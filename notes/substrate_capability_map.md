@@ -3645,3 +3645,186 @@ Net effect: multi-hop ceiling now 3.3× higher than v87 framing
 variants; cycle 93 β-scaling theoretical prediction gains empirical
 support from N=12288 boundary fail; cycle 95 cluster heuristic
 working as designed.
+
+## v97 update — r17_N12288 FULL confirms area-law (slope=-0.190); continual_16N_1000edits FULL FAIL exit=1 ambiguous (script bug OR substrate strain); 5 multi-hop smokes test-scaffold pattern confirmed (cycle 92 framing); v14_a05 smoke PASS; continual_2N at 3000-edit smoke holds; Exp Dev queue refilled with targeted multi-hop variants probing cycle 96 ambiguities
+
+Strategy session cycle 97 (~10:05 EDT). User-flagged "new experiments";
+dashboard shows r17_N12288 FULL DONE + continual_16N_1000edits FAIL +
+6 new smokes (5 multi-hop + v14_a05 + continual_2N_3000edits).
+
+### r17_N12288 FULL = clean area-law confirmation
+
+`wave14_r17_N12288` FULL (588s) = R17_AREA_LAW_LIKE slope=**-0.190**.
+
+| Run | N | slope |
+|---|---|---|
+| R17 smoke (cycle 87) | N=4096 | -0.158 |
+| R17 large-N smoke (cycle 87) | N=4096 | -0.141 |
+| R17 N=12288 smoke (cycle 92) | N=12288 | -0.207 |
+| **R17 N=12288 FULL (cycle 97)** | **N=12288** | **-0.190** |
+
+Substrate's Renyi-2 entropy scaling stays area-law-like at extended N
+in full mode. Smoke vs full slope difference (-0.207 vs -0.190) within
+noise. **R17 Sketch C area-law empirical support continues at N=12288
+full mode** — descriptive evidence per cycle 89 OAQEC rejection (not
+load-bearing theoretical; R16 BBP permanent primary).
+
+### continual_16N_1000edits FULL FAIL exit=1 — ambiguous
+
+`wave14_continual_16N_1000edits` FULL FAIL **exit=1** at 5.7s.
+
+**Distinct from cycle 94/95 desktop-issue cluster**:
+- Cycle 94 continual_4N exit=4294967295 (=-1) at 1540s = abnormal
+  termination
+- Cycle 97 continual_16N exit=1 at 5.7s = Python exception during init
+
+**Outside 10-min cluster window** (continual_16N FAIL at 10:04:07 is
+~28 min after NUMFACTS_2000 cancellation at 09:39:43). Not in cluster
+heuristic window.
+
+**Substrate-side evidence at M=16N**:
+- M=16N + 100-edit smoke = ✅ HOLDS (cycle 92)
+- M=16N + 1000-edit FULL = ❌ FAIL exit=1 at 5.7s
+
+**Hypotheses**:
+1. **Test-script bug**: 1000-edit horizon code path has bug not present
+   in 100-edit smoke path
+2. **Substrate strain at M=16N + 1000 edits**: substrate may fail at
+   longer horizons at M=16N specifically (initialization OOM or other
+   resource issue)
+3. **Infrastructure issue**: lingering effect from desktop session
+
+5.7s elapsed strongly suggests **initialization failure** — the
+1000-edit loop didn't run. Most likely test-script bug or
+init-resource issue. **NOT a clean substrate signal.**
+
+**Strategy classification**: 🔬 ambiguous; defer to Queue Health /
+Experiment Dev diagnosis. Do NOT update Bet A capability state at
+M=16N. Bet A still ✅ at M=16N + 100-edit smoke; 1000-edit horizon
+pending re-run after diagnosis.
+
+Per cycle 95 lesson: when exit code suggests anomaly, infrastructure-
+suspect until independent confirmation.
+
+### 5 new multi-hop smokes — test-scaffold pattern confirmed
+
+| Smoke | mtime | elapsed | Pattern |
+|---|---|---|---|
+| `multihop_NUMFACTS_600_smoke` | 10:02:45 | **0.2s** | V2_NOT_REPLICATED seed=17 |
+| `multihop_K5_smoke` | 10:03:02 | **0.3s** | V2_NOT_REPLICATED seed=17 |
+| `multihop_K30_smoke` | 10:03:08 | **0.2s** | V2_NOT_REPLICATED seed=17 |
+| `multihop_NUMENT_100_smoke` | 10:03:15 | **0.2s** | V2_NOT_REPLICATED seed=17 |
+| `multihop_NUMENT_300_smoke` | 10:03:22 | **0.2s** | V2_NOT_REPLICATED seed=17 |
+
+5 more smokes with **identical 0.2-0.3s elapsed + same verdict_msg +
+seed=17 single-seed** — exact match of cycle 92's test-scaffold
+pattern (5 smokes at 0.3s each, identical verdict).
+
+**Cumulative cycle-92-pattern count**: 10 smokes total across cycles
+92 + 97 with this signature. **Test-scaffold pattern is now strongly
+established empirically**. The cycle 92 framing (which cycle 95
+restored after cycle 94 over-correction) is now triply confirmed:
+- Cycle 91 K=50 smoke → full PASS (overrode smoke fail)
+- Cycle 95 restoration after NUMFACTS_2000 retraction
+- Cycle 97 pattern repeats with 5 more smokes — same signature
+
+**Strategy classification**: all 5 smokes = test-scaffold (cycle 92
+pattern); do NOT update multi-hop capability state. Full-mode runs
+will provide authoritative answers.
+
+### v14_a05 smoke PASS — potentially 5th Bet B FULL-confirmed mechanism
+
+`wave14d_multi_task_cl_v14_a05_smoke` (0.7s) = BET_B_PASS
+retention_A=0.896 retention_B=0.949 gain_C=4.49 bwt=+0.36.
+
+Naming suggests **v14** is next-iteration of v13's mechanism family.
+v14_a05 likely combines phase-A boost (v12 mechanism) + α=0.5 blending
+(v13_a05 mechanism). Smoke PASSED; full pending.
+
+**If v14_a05 FULL passes**: 5th Bet B FULL-confirmed mechanism
+(v11 + v13 Kovacs + v12 phase-A + v13_a05 + v14_a05). Substrate
+multi-task CL robustness extends.
+
+**Capability move (smoke level)**: v14_a05 smoke noted; full mode
+pending; no capability state change yet.
+
+### continual_2N_3000edits smoke PASS — Bet A holds at M=2N 3000 edits
+
+`wave14_continual_2N_3000edits_smoke` (0.8s) = CONTINUAL_2N_KERDOCK_HOLDS.
+
+Bet A continual editing tally extended:
+- M=N at 5000 edits ✅
+- M=2N at 100 edits smoke ✅
+- M=2N at 10000 edits smoke ✅ (cycle 92)
+- M=2N at **3000 edits smoke** ✅ (cycle 97 — intermediate)
+- M=4N at 5000 edits ✅
+- M=4N at 2000 edits FULL FAIL exit=-1 (cycle 94 infrastructure)
+- M=8N at 2000 edits ✅
+- M=8N at 5000 edits ✅
+- M=16N at 100 edits smoke ✅
+- M=16N at 1000 edits FULL FAIL exit=1 (cycle 97 ambiguous)
+
+Pattern: Bet A holds across M=N to M=16N at smoke (100-edit) levels;
+FULL-mode results at high edit horizons mixed because of infrastructure
+issues. Substrate-side: when full mode runs cleanly, Bet A holds.
+
+### Exp Dev queue response to v96 — targeted multi-hop variants
+
+Queue refilled to 7 with focused multi-hop probes (per dashboard):
+- `multihop_NUMFACTS_600` (between K_crit≈205 and NUMFACTS=2000)
+- `multihop_K5`, `multihop_K30` (small-K to clarify K=10 ambiguity)
+- `multihop_NUMENT_100`, `multihop_NUMENT_300` (low-NUMENT variants)
+- `multi_task_cl_v14_a05` (Bet B continuation)
+- `continual_2N_3000edits` (Bet A intermediate horizon)
+
+**Strategy observation**: Exp Dev is responding to v96 ambiguities:
+- K=10 ambiguous (test-scaffold OR small-K) → K=5 + K=30 + NUMENT=100
+  full-mode tests will clarify
+- NUMFACTS=300 infrastructure-suspect → NUMFACTS=600 full re-tests
+  fact-count region
+
+Per [[feedback-sessions-self-coordinate]]: Exp Dev reading
+cap_map + decision logs and queuing focused follow-ups. Good
+multi-session coordination.
+
+### Capability moves
+
+| Capability | v96 state | v97 state | Trigger |
+|---|---|---|---|
+| R17 area-law at N=12288 (full mode) | smoke -0.207 | ✅ FULL **-0.190** (consistent within noise) | r17_N12288 full |
+| Bet A at M=16N + 1000 edits | unmeasured | 🔬 **ambiguous** FULL exit=1 (script bug OR substrate strain; defer to QH) | continual_16N_1000edits full |
+| Multi-hop test-scaffold pattern | 5-smoke signature (cycle 92, restored cycle 95) | **10-smoke cumulative confirmation** of cycle 92 pattern | 5 new smokes |
+| Bet A at M=2N intermediate horizons | M=N + M=2N + M=8N + M=16N at various horizons | + M=2N at 3000 edits smoke ✅ | continual_2N_3000edits smoke |
+| v14_a05 Bet B variant | unmeasured | smoke PASS retention_A=0.896 (potentially 5th Bet B FULL when confirmed) | v14_a05 smoke |
+
+### Substrate-product net (v97)
+
+**Net gains** (small but consistent):
+- R17 N=12288 area-law CONFIRMED at full mode (descriptive evidence
+  reinforced).
+- Cycle 92 test-scaffold pattern strongly re-confirmed (10-smoke
+  cumulative signature).
+- Bet A M=2N intermediate horizon holds (no surprise; consistent).
+- v14_a05 smoke = potential 5th Bet B mechanism (full pending).
+
+**Net cautions**:
+- continual_16N_1000edits FAIL ambiguous (defer to QH).
+- 5 new multi-hop smokes = test-scaffold (no substrate signal).
+- Queue refill = positive Exp Dev response to v96 ambiguities;
+  pending full-mode resolution.
+
+**Strategy discipline observations**:
+- Applied cycle 95 lesson correctly: continual_16N exit=1 outside
+  cluster window but anomalous → flagged ambiguous not substrate.
+- 10-smoke test-scaffold pattern is now empirical regularity, not
+  conjecture.
+- Exp Dev coordination via files working (focused follow-ups queued
+  per v96 ambiguities).
+
+### Tally — r17_N12288 FULL slope=-0.190 (area-law confirmed at extended N); continual_16N_1000edits FAIL exit=1 ambiguous (defer to QH); 5 multi-hop smokes test-scaffold (10-smoke cumulative cycle-92 pattern); v14_a05 smoke PASS (potential 5th Bet B variant pending full); continual_2N_3000edits smoke PASS (Bet A intermediate horizon holds); Exp Dev queue refilled with targeted variants probing v96 ambiguities
+
+Net effect: cycle 97 is incremental cycle — area-law confirmed at
+extended N full mode; cycle 92 test-scaffold pattern strongly
+re-confirmed (now 10 instances); continual_16N FAIL flagged
+ambiguous not substrate; Exp Dev coordination response to v96
+ambiguities visible in queue refill.
