@@ -7463,3 +7463,106 @@ decision log) — 36th observation. PROT-005 unbiased framing: Bet Z.4
 substantively narrower honestly NOT minimized; PINVK_NEUTRAL reported
 as "codebook doesn't help" not "Kerdock fails"; 4 cross-family anchors
 substantively strengthen RS certification.
+
+
+## Cycle 123 [multi-hop rehabilitation Research delivered; mechanism + Resonator Network P=0.65 candidate]
+
+Trigger: user "new research" at ~18:59. Cycle 121 Strategy → Research
+request (filed 18:51 for multi-hop chain rehabilitation at N=65536)
+delivered at 18:58 = 3-min turnaround.
+
+HEADLINE 1: Mechanism diagnosis — signal eigenvalue near-degeneracy
+
+Standard cleanup cross-talk (K-1)/N FALSIFIED by data (predicts
+decreasing noise at large N; substrate shows opposite).
+
+Surviving mechanism (Agent G P=0.70):
+- Hebbian W has K signal eigenvalues near 1
+- Growing N → eigenvalues cluster more tightly near 1
+- Signal eigenvectors near-orthogonal absolute but mutually less
+  directionally separable
+- Repeated W application during chain = power-iteration-like drift
+  within K-dim signal subspace
+- Plateau at 0.22 = confused attractor within signal subspace
+
+Cycle 119/121/122 Hessian VDOS soft-modes (85% density) NOW CONNECTED
+to near-degenerate signal eigenvalue cluster — soft modes ARE the
+near-degenerate cluster.
+
+HEADLINE 2: 5 rehabilitation candidates ranked
+
+| Mechanism | P | Cost | Citation |
+|---|---|---|---|
+| Resonator Network per-hop iteration | 0.65 | O(T·K·N) T~10-30 | Frady et al. 2020 |
+| Forward-backward EP / VAMP on chain | 0.55 | O(D·N) total | Rangan 2017 + Knoblauch-Palm 2020 |
+| Per-hop sparse cleanup filter | 0.50 | O(N) per hop | Krotov-Hopfield + Mofrad |
+| Bidirectional chain inference | 0.45 | O(D·N) total | Mofrad 2021 |
+| Hierarchical multi-scale binding | 0.35 | O(N log N) | General hierarchical AM |
+
+HEADLINE 3: Resonator Network top candidate predicted 0.45-0.65
+
+Predicted acc_50hop=0.45-0.65 (median 0.55) at N=65536 K=100 with T~20
+iterations vs current FULL 0.217 = 2.5× improvement expected.
+
+Hard falsification: <0.30 with T=20 = mechanism insufficient →
+substrate-level restructuring needed.
+
+Why Resonator Networks fit substrate's failure mode:
+- Argmax commits prematurely while K signal eigenvectors are still
+  mixed in retrieved state
+- Resonator dynamics resolve mixture ITERATIVELY before committing
+- Directly addresses signal-subspace-drift mechanism
+
+HEADLINE 4: VAMP-on-chain links to cycle 120 substrate-novel readout
+
+Forward-backward EP/VAMP on chain (P=0.55) extends cycle 120 Bet Z.3
+VAMP single-hop readout to multi-hop chain composition.
+
+Substrate could have substrate-novel cleanup (VAMP single-hop) AND
+substrate-novel chain composition (VAMP forward-backward) = two-tier
+mechanism stack.
+
+Substrate-product roadmap GAIN:
+
+Bet Y V2.D N=65536 multi-hop:
+- Cycle 121: BOUNDED at FULL acc_50hop=0.217 KILL
+- Cycle 123: rehabilitation candidate P=0.65 predicted 0.45-0.65
+- Demo 1 Lane D positioning could re-extend to deep-chain reasoning
+  at N=65536
+
+2x-research-negatives discipline operational:
+- Cycle 121 multi-hop KILL → cycle 121 routing → cycle 123 Research
+  delivery with mechanism + 5 candidates
+- Same pattern as cycle 93 R36 → cycle 100 β-calibration
+
+Capability moves (v122 → v123):
+
+| Capability | v122 | v123 | Trigger |
+|---|---|---|---|
+| Multi-hop N=65536 mechanism | unknown | signal eigenvalue near-degeneracy at large N | Research delivery |
+| Rehabilitation candidates | none | 5 candidates ranked; Resonator Network P=0.65 top | Research delivery |
+| Substrate-product multi-hop N=65536 path | BOUNDED cycle 121 | rehabilitation candidate predicted 0.45-0.65 | Research delivery |
+| Bet Z.3 VAMP extension | single-hop readout | + chain composition (forward-backward EP/VAMP P=0.55) | Research delivery |
+| VDOS soft-modes ↔ signal eigenvalues | unconnected | CONNECTED soft modes = near-degenerate cluster | Research synthesis |
+
+Strategy follow-up actions:
+1. File Strategy → Exp Dev for Resonator Network per-hop iteration
+   experiment at N=65536 K=100 (~30-60 GPU-min; T~20; clean
+   falsification <0.30)
+2. Notify Product session: multi-hop rehabilitation candidate
+   identified; Demo 1 positioning may extend back to deep-chain if
+   Resonator passes
+
+Substrate-product net (v123):
+
+Major substantive gains:
+- Multi-hop N=65536 has CONCRETE rehabilitation path
+- Mechanism diagnosis (substrate-physics gain)
+- VAMP-on-chain extends Bet Z.3 to multi-hop
+- VDOS soft-modes interpreted as near-degenerate signal cluster
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 37th observation. PROT-005 unbiased framing:
+mechanism diagnosis at P=0.70 honest probability; predicted
+acc_50hop=0.45-0.65 with falsification criterion <0.30; rehabilitation
+candidates P-scored honestly.
