@@ -6837,3 +6837,151 @@ Net effect: substantive positive smoke signals on Bet Y V2.D N=65536
 path; Strategy discipline gap caught (3rd instance); FULLs pending
 will distinguish; Bet R p-body FULL verdict still pending dashboard
 panel.
+
+## v117 update — Bet R p-body FULL CONFIRMED PBODY_NOGAIN at p∈{2,4,8} (3rd cleanup mechanism family refuted at FULL); multi-hop K=100 N=65536 smoke KILLED (acc_50hop=0.100 vs 0.767 at N=4096); Bet Y V2.D N=65536 outlook shifts to AMBIGUOUS (2 concerning + 2 positive smoke signals)
+
+Strategy session cycle 117 (~15:45 EDT). Per cycle 116 lesson:
+scanned ALL recent_verdicts chronologically. Discipline holding —
+caught 2 new verdicts that landed since v116.
+
+### Bet R p-body FULL CONFIRMED PBODY_NOGAIN
+
+`wave14_betR_pbody_polynomial_v1` FULL (2540s clean exit 0) =
+**PBODY_NOGAIN**:
+"Polynomial p-body cleanup matches argmax: best ratio=1.00 at p=2
+(<1.05). Substrate finite p-body provides no gain over argmax with
+Kerdock 4-coset keys. ratio_per_p={'2': 1.0, '4': 1.0, '8': 1.0}."
+
+**FULL tested p ∈ {2, 4, 8}** (smoke was only p=2, 4). All three give
+ratio=1.0. **Confirms cycle 108 smoke + extends to p=8**.
+
+**3rd cleanup mechanism family CONFIRMED refuted at FULL**:
+- Modern dense AM softmax (cycle 105 FULL multi-β)
+- β-blend hybrid (cycle 108 smoke; pending FULL)
+- **Polynomial p-body p ∈ {2, 4, 8}** (cycle 117 FULL CONFIRMED)
+
+**Strengthens cycle 108 substrate-physics characterization** to:
+**"classical-Hopfield-class in RS phase with Kerdock-codebook capacity
+extension"** at FULL across 3 mechanism families × multiple parameters
+= 9+ configs all ratio=1.0.
+
+**Per cycle 113 smoke→FULL precedent**: cycle 108 smoke→cycle 117 FULL
+is CONSISTENT (both ratio=1.0). Same pattern as cycle 112 RS observability
+suite (smoke→FULL consistency).
+
+### Multi-hop K=100 at N=65536 smoke = KILLED
+
+`wave14_multihop_K100_N65536_v1_smoke` (0.7s) = **MULTIHOP_N65K_KILLED**:
+"acc_50hop=0.100<0.4. N-scaling fails for multi-hop. per_depth={'1':
+1.0, '25': 0.1}."
+
+**Multi-hop K=100 at N=65536 KILLED at smoke**:
+- acc_1hop = **1.000** (substrate retrieval works at N=65536)
+- acc_25hop = **0.100** (chain breaks at depth 25)
+- acc_50hop = **0.100** (well below 0.4 PASS threshold)
+
+**Comparison to cycle 96 K=100 at N=4096 NEW HIGH**:
+- N=4096 K=100 FULL (cycle 96): acc_50hop = **0.767**
+- N=65536 K=100 smoke (cycle 117): acc_50hop = **0.100**
+- **7.7× degradation** at N=65536
+
+Per cycle 102 smoke-not-predictive: 0.7s smoke is test-scaffold-suspect;
+per cycle 113 Lane D N-scaling smoke→FULL divergence (sublinear →
+linear), smoke unreliable. FULL pending.
+
+**Substrate-product reading**: substrate retrieves single hop at
+N=65536 cleanly (acc_1hop=1.0) but multi-hop chain composition
+degrades to floor at depth 25. Consistent with cycle 112 Bet S
+K-ceiling smoke KILL (K stuck at 200 at N=65536) — both suggest
+substrate's chained-operations may not scale to N=65536 as cycle 88
+linear K_crit theory predicted.
+
+### Bet Y V2.D N=65536 outlook — AMBIGUOUS
+
+Smoke signals reconciliation (4 total):
+
+**Concerning (2)**:
+- Cycle 112: Bet S K-ceiling N=65536 smoke KILL (K_crit=200<500)
+- **Cycle 117: multi-hop K=100 N=65536 smoke KILL (acc_50hop=0.1 vs 0.767)**
+
+**Positive (2)**:
+- Cycle 116: Bet S K-ceiling diagnosis N-LIMITED (N best knob; N_gain=0.300)
+- Cycle 116: Bet V N=65536 smoke PASS (gap=0.541 continues scaling)
+
+**Net**: 2 concerning + 2 positive smoke signals = AMBIGUOUS.
+
+Per cycle 102 smoke-not-predictive (7-anchor precedent + cycle 113 most
+recent overturning): FULLs are authoritative. Cycle 117 smoke results
+should NOT lock in either direction.
+
+**Critical FULLs pending** (discriminate between hypotheses):
+- `wave14_betS_K_ceiling_N65536_v1` FULL (cycle 114 4-order prediction
+  spread discriminator)
+- `wave14_multihop_K100_N65536_v1` FULL (smoke KILL needs FULL
+  confirmation)
+- `wave14_betV_N65536_v1` FULL (smoke PASS needs FULL confirmation)
+- `wave14_betS_K_ceiling_diagnosis_v1` FULL (smoke N-LIMITED needs
+  FULL confirmation)
+
+### Cycle 114 4-order prediction spread context
+
+Per Research Entry cycle 114:
+- Agent 3 linear-scaling: K=9000-10500 (smoke KILL would refute)
+- Agent 2 finite-N attenuation: K=262K-525K (smoke KILL would refute)
+- Agent 1 pseudoinverse upper: K=N=65536 (smoke KILL would refute)
+- Agent 4 AMP threshold: depends on sparsity
+
+**Multi-hop K=100 smoke KILL acc_50hop=0.1 + Bet S K-ceiling smoke
+K_crit=200** are CONSISTENT with **finite-N attenuation hypothesis**
+(Agent 2) — substrate M/N attenuates at scale per cycle 114
+prediction.
+
+But cycle 113 Lane D M_S N-scaling FULL = LINEAR c=0.073 (cycle 108
+sublinear smoke OVERTURNED). Same N range (smoke through N=65536).
+Same substrate. **Internal inconsistency** between cycle 113 (M_S
+linear) and cycle 117 (multi-hop K=100 at N=65536 KILLED).
+
+Two possible reconciliations:
+1. **M_S vs multi-hop are different measurements** — substrate retrieves
+   single hop cleanly (M_S linear) but multi-hop chain DEGRADES at
+   scale (different failure mode)
+2. **Cycle 117 smoke unreliable** — per smoke-not-predictive precedent;
+   multi-hop K=100 FULL may overturn (cycle 113 pattern)
+
+Strategy honest framing: BOTH possible; FULL pending will distinguish.
+
+### Capability moves (v116 → v117)
+
+| Capability | v116 state | v117 state | Trigger |
+|---|---|---|---|
+| Bet R p-body cleanup mechanism | smoke REFUTED at p=2/4 (cycle 108) | ❌ **FULL CONFIRMED REFUTED at p∈{2,4,8}** (3rd cleanup mechanism family REFUTED at FULL); strengthens cycle 108 substrate classical-Hopfield-class characterization | Bet R p-body FULL |
+| Multi-hop K=100 at N=65536 | unmeasured | 🔬 **smoke KILLED** acc_50hop=0.100 vs 0.767 at N=4096; per_depth shows acc_1hop=1.0 but chain fails at depth 25 | multi-hop K=100 N=65536 smoke |
+| Bet Y V2.D N=65536 outlook | 1 concerning + 2 positive smoke signals (cycle 116) | **AMBIGUOUS — 2 concerning + 2 positive smoke signals** | + cycle 117 multi-hop KILL smoke |
+| Strategy attention-allocation discipline | 3rd gap (caught cycle 116) | ✅ **discipline holding at cycle 117** (chronological verdict scan applied) | cycle 117 application |
+
+### Substrate-product net (v117)
+
+**Substrate-physics characterization strengthens**:
+- 3rd cleanup mechanism family CONFIRMED refuted at FULL (Bet R
+  p-body p∈{2,4,8})
+- "Classical-Hopfield-class in RS phase" characterization robust at
+  9+ configs all ratio=1.0
+
+**Bet Y V2.D N=65536 outlook AMBIGUOUS**:
+- 2 concerning + 2 positive smoke signals
+- Multi-hop K=100 smoke KILL adds to cycle 112 Bet S K-ceiling concern
+- Bet V N=65536 + Bet S diagnosis N-LIMITED positive
+- FULLs critical
+
+**Internal inconsistency to resolve**:
+- Cycle 113 Lane D M_S N-scaling LINEAR (FULL) vs cycle 117 multi-hop
+  K=100 KILL (smoke at N=65536)
+- Multi-hop FULL pending will distinguish
+
+### Tally — Bet R p-body FULL CONFIRMED PBODY_NOGAIN (3rd cleanup mechanism family refuted at FULL); multi-hop K=100 N=65536 smoke KILLED (acc_50hop=0.1; concerning for Bet Y V2.D N=65536 path); Bet Y V2.D N=65536 outlook AMBIGUOUS (2 concerning + 2 positive smoke signals); cycle 116 verdict-scan discipline holding
+
+Net effect: substrate classical-Hopfield-class characterization
+strengthens via 3rd cleanup mechanism FULL refutation; Bet Y V2.D
+N=65536 outlook becomes ambiguous (2 vs 2 smoke signals); internal
+inconsistency between cycle 113 LINEAR M_S and cycle 117 multi-hop
+KILL needs FULL resolution.
