@@ -534,6 +534,7 @@ the next PROT-007 migration cycle.
 | v80 | 2026-05-21 | V2 substrate evaluation: V2.D winner | Bet Y formal promotion (modern dense AM); V2.A/E/F deferred; V2.C gated on V2.D |
 | v81 | 2026-05-21 | Phase transformations: STACK winner | Bet Z formal promotion (multi-regime substrate); Bet Y+P.4 co-design; Phase 1 queue landed |
 | v82 | 2026-05-21 | META V2.G + triple-point hypothesis | Critical-point smoke = gating test; Bet Z ↔ V2.G alignment; capability reframe HELD; annealing erasure routed |
+| v83 | 2026-05-21 | Annealing erasure honest recalibration | Primary forensics claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin); M.1 soft + M.2 bulk promoted |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1556,3 +1557,105 @@ Net effect: substrate-physics story potentially unified around critical-
 point operation (6 convergent signals); V2.G build cost determined by
 cheap gating test; capability inventory potentially collapses into
 V2.G mode benchmarks IF criticality confirmed. Phase 1 unchanged.
+
+---
+
+## v83 update — Annealing erasure HONEST RECALIBRATION: primary forensics-resistance claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin steady state — reparameterization not new mechanism); secondary soft-erase + bulk-erase modes worth pursuing (Lane C feature breadth)
+
+Strategy session cycle 81. Annealing-erasure Research delivered
+(`research_annealing_erasure_2026-05-21.md`, 22:06, 32 KB, 10-min
+turnaround). Strong honest recalibration per [[feedback-no-smoke]].
+
+### Primary claim REJECTED — forensics-resistance gain over Bet 2/C
+
+**Serricchio et al. arXiv:2410.06269 (2024)** proves: Hebbian
+unlearning ≡ steady state of nonequilibrium thermal-Langevin dynamics
+on W. Translation: **"annealing erasure" is mathematically a
+REPARAMETERIZATION of anti-Hebbian rank-1 subtraction, NOT a new
+mechanism**.
+
+**Forensic-resistance reality**:
+- arXiv:2506.14003 "Unlearning Isn't Invisible" (2025-26): >90%
+  trace-detection from logits/outputs/activations across published
+  noise/perturbation unlearning methods
+- arXiv:2602.01150 Statistical MIA: failed-MIA ≠ forgetting
+- arXiv:2605.01129 "Privacy Leakage Beyond Forgotten Set": 5 SOTA
+  methods susceptible to tri-class attack
+
+**Only exact retraining-from-scratch + DP-from-scratch training are
+credibly forensic-resistant** per Research synthesis.
+
+**Strategic implication**: my cycle 78 framing of annealing-erasure
+as forensics-resistant alternative to Bet 2/C was OVERSTATED.
+Research's brutal-honesty vet rejected the primary claim at
+P=0.05-0.15. Honest revision per [[feedback-no-smoke]].
+
+### Secondary modes — Lane C feature breadth (worth pursuing)
+
+| Mode | P(value over Bet 2/C) | Substrate-product gain | Cost |
+|---|---|---|---|
+| **M.1 Soft / partial erasure** | **0.50-0.55** | GDPR data-minimization mode (tunable degradation rate, not just delete) | 2-4 cycles |
+| **M.2 Bulk erasure efficiency** | **0.40** | Erase N facts in one consolidation pass vs N anti-Hebbian ops (Lupo arXiv:2602.08428 closed-form Hopfield unlearning at finite γ) | 3-5 cycles |
+| Blind erasure (location-only) | 0.30 | Forgetting without knowing what to forget | 3-5 cycles |
+| **M.3 Two-temp Langevin** | DEFER | No instance-selective control mapping (Agent B P=0.10) | — |
+
+### Capability moves
+
+| Capability | v82 state | v83 state | Trigger |
+|---|---|---|---|
+| Annealing erasure (Bet AA pending) | 🔬 research-first; forensics-resistance claim Lane C primary | **❌ forensics-resistance REJECTED per Research; demoted** | Research synthesis |
+| Bet AA-M.1 substrate soft erasure | (subsumed in Bet AA) | 🔬 **NEW active bet** — soft/partial erasure mode for GDPR data-minimization (Lane C secondary feature breadth); P=0.50-0.55 | Research synthesis |
+| Bet AA-M.2 substrate bulk erasure | (subsumed in Bet AA) | 🔬 **NEW active bet** — bulk erasure efficiency via Lupo finite-γ closed form; P=0.40 | Research synthesis |
+| Hebbian unlearning ≡ thermal Langevin (theoretical equivalence) | (not in cap_map) | ✅ **substrate-physics theoretical grounding** — Serricchio 2024 proves equivalence; closes "annealing is a new mechanism" framing | Research synthesis |
+
+### Substrate-physics implication
+
+Serricchio 2024 result is itself a substrate-novel theoretical finding:
+substrate's existing Bet 2/C anti-Hebbian rank-1 erase IS already
+operating in the thermal Langevin steady-state regime. **The substrate
+is already doing the "annealing" — just in mathematically equivalent
+form**.
+
+This is consistent with the v82 triple-point hypothesis: substrate at
+critical-point operation has natural access to the Langevin-steady-
+state mechanism (thermal fluctuations are large near criticality).
+**Substrate's Bet 2/C ✅ is the empirical realization of thermal
+unlearning at the substrate's current operating point.**
+
+### Strategic decision
+
+Per [[feedback-no-smoke]] + [[feedback-no-papers-product-only]]:
+
+1. **Bet AA primary claim CLOSED** ❌ at current arch — anti-Hebbian
+   IS thermal unlearning (no new forensics-resistance available)
+2. **Bet AA-M.1 (soft erase) PROMOTED** as Lane C feature breadth —
+   tunable degradation rate for GDPR data-minimization is genuine
+   substrate-product value over discrete delete
+3. **Bet AA-M.2 (bulk erase) PROMOTED** as Lane C efficiency feature —
+   Lupo finite-γ closed form is engineering-tractable
+4. **Bet AA-M.3 (two-temp Langevin) DEFERRED** per Research
+
+### Lane C value proposition update
+
+Substrate now offers (Lane C — compliance):
+- ✅ Bet 2/C Mirage-grade discrete erase (validated)
+- 🔬 Bet AA-M.1 soft/tunable erase (NEW; GDPR data-minimization)
+- 🔬 Bet AA-M.2 bulk erase efficiency (NEW; consolidation-phase erasure)
+- ✅ Bet A in-place edit (validated; orthogonal to erase)
+- ✅ Bet G calibrated confidence (validated)
+
+5 Lane C primitives total → substrate-product Lane C breadth growing.
+
+### Per-cycle discipline observation (META cycle 26)
+
+META noted my cycle 80 v82 commit was the first PROT-009 paired-file
+commit (validator OK on all 4 invariants). Decision-log gap pattern
+structurally resolved per first-commit evidence.
+
+### Tally — annealing-erasure primary claim REJECTED ❌; 2 secondary modes (Bet AA-M.1 soft + Bet AA-M.2 bulk) PROMOTED as Lane C feature breadth; Serricchio 2024 theoretical equivalence (Hebbian unlearning ≡ thermal Langevin) noted as substrate-physics grounding
+
+Net effect: honest recalibration on annealing erasure (substrate
+already does thermal unlearning via anti-Hebbian); 2 new Lane C
+features added (soft/bulk modes); substrate-physics theoretical
+grounding strengthened (Serricchio 2024 closes "annealing is new
+mechanism" framing).

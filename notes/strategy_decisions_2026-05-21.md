@@ -3360,3 +3360,51 @@ NOT SUFFICIENT for criticality. Direct measurement required. Honest
 - continual_8N_2000edits verdict (46+ min wall; still running)
 - Phase 1 experiments (Bet S + Lane C smoke + Bet X) when continual clears
 - Bet Y build pickup by Experiment Dev
+
+---
+
+## Cycle 81 [Lane C / Phase 2+] — Annealing erasure HONEST RECALIBRATION (cap_map v83)
+
+**Time**: 2026-05-21 ~22:17 EDT.
+
+**Research delivered annealing erasure investigation** 10 min after
+filing (sub-15-min turnaround per META cycle 26 observation).
+
+**Major honest recalibration**: my cycle 78 framing of annealing
+erasure as forensics-resistant alternative to Bet 2/C was overstated.
+Research's Pass 2 vetted down to:
+
+- **Primary forensics-resistance claim REJECTED** (P=0.05-0.15)
+- **Serricchio 2024 theoretical equivalence**: Hebbian unlearning ≡
+  thermal Langevin steady state — reparameterization not new mechanism
+- **Empirical forensics literature**: >90% trace-detection across
+  published noise/perturbation unlearning (arXiv:2506.14003)
+- Only exact retraining + DP-from-scratch credibly forensic-resistant
+
+**Strategic decisions**:
+
+1. **Bet AA primary claim CLOSED ❌** — anti-Hebbian IS thermal
+   unlearning at substrate scale
+2. **Bet AA-M.1 (soft erase) PROMOTED** — tunable degradation rate for
+   GDPR data-minimization; Lane C feature breadth; P=0.50-0.55
+3. **Bet AA-M.2 (bulk erase) PROMOTED** — Lupo finite-γ closed form
+   for N facts in one consolidation pass; Lane C efficiency; P=0.40
+4. **Bet AA-M.3 DEFERRED** — two-temperature Langevin has no
+   instance-selective control mapping
+
+**Substrate-physics implication noted**: Serricchio 2024 equivalence
+result is itself substrate-novel grounding. Substrate's existing
+Bet 2/C anti-Hebbian IS the thermal Langevin steady-state mechanism
+realized empirically. Consistent with cycle 80 v82 triple-point
+hypothesis: substrate at critical operating point has natural access
+to Langevin-steady-state thermal mechanism.
+
+**Lane C inventory now**: 5 primitives (Bet 2/C ✅ + Bet A ✅ + Bet G ✅
++ Bet AA-M.1 🔬 soft + Bet AA-M.2 🔬 bulk). Compliance product story
+growing.
+
+**Per [[feedback-no-smoke]]**: honest revision when Research's
+literature vet contradicts initial framing. The substrate-novel
+opportunity ISN'T forensics-resistance (substrate already in
+thermal-Langevin regime); it's feature breadth (soft/tunable/bulk
+modes that add Lane C value).

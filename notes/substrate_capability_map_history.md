@@ -7524,3 +7524,8 @@ See live substrate_capability_map.md for full v76 narrative (migrates on next PR
 
 
 ## v82 — (2026-05-21) META triple-point hypothesis (6 convergent signals; P=50-65ear critical point); critical-point smoke = gating test for V2.G architectural cost; Bet Z STACK ↔ V2.G label alignment; capability reframe HELD pending Item 1; annealing erasure routed (cycle 78 user direction); substrate v2 tracks at 4 (V2.D Y + V2.B X + V2.G Z + annealing AA pending)
+
+
+## v83 — (2026-05-21) Annealing erasure honest recalibration; primary forensics-resistance claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin steady state — reparameterization not new mechanism; >90
+
+## v83 - (2026-05-21) Annealing erasure honest recalibration; primary forensics-resistance claim REJECTED (Serricchio 2024 proves Hebbian unlearning is equivalent to thermal Langevin steady state - reparameterization not new mechanism); M.1 soft + M.2 bulk promoted as Lane C feature breadth
