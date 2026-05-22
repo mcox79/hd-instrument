@@ -5411,3 +5411,198 @@ empirically refuted across 3 β values; Lane D wedge gains 2nd FULL
 anchor (sequential pipeline); substrate joint capacity envelope wider
 than smoke suggested; substrate-product roadmap pivot needed; rescue
 list per cycle 93 addendum becomes primary Bet Y V2.D path.
+
+## v108 update — Substrate SHARPENED to "classical-Hopfield-class with Kerdock codebook extension" (3 mechanism families ALL refute exp-capacity activation: modern dense AM + β-blend + p-body polynomial); β-blend Rescue B REFUTED at smoke; Bet R p-body REFUTED at smoke; Lane D noise-robust smoke PASS (10% bit-flip); Lane D N-scaling SUBLINEAR concern (smoke; FULL pending)
+
+Strategy session cycle 108 (~14:03 EDT). User /loop /strategy-cycle.
+Dashboard shows 4 substantive smoke verdicts since cycle 107 — three
+cleanup mechanism refutations and 2 Lane D findings.
+
+### HEADLINE 1: Substrate characterization SHARPENED to "classical-Hopfield-class"
+
+**3 independent cleanup mechanism families all yield ratio=1.0**
+(equivalent to argmax baseline) across multi-parameter sweeps:
+
+| Mechanism | Params tested | All ratio=1.0? | Verdict |
+|---|---|---|---|
+| Modern dense AM softmax (Demircigil/Krotov-Hopfield/Ramsauer) | β ∈ {2.0, 8.0, 32.0} | ✅ YES (cycle 105 FULL) | BET_Y_PHASE2_PARTIAL |
+| β-blend hybrid (β fixed small-d + scaled large-d) | β ∈ {4.0, 8.0} | ✅ YES (cycle 108 smoke) | **BETA_BLEND_CLASSICAL** |
+| Polynomial p-body (degree-p energy) | p ∈ {2, 4} | ✅ YES (cycle 108 smoke) | **PBODY_NOGAIN** |
+
+**Cumulative**: 7 distinct parameter configurations across 3 mechanism
+families — substrate gives ratio=1.0 (argmax-equivalent) at ALL of
+them. The cycle 105 "intermediate hybrid regime" framing is now
+sharpened by Exp Dev's own verdict language:
+
+> "Substrate is **classical-Hopfield-class** for Kerdock 4-coset;
+> modern dense AM provides no capacity gain."
+
+— `betY_phase2_beta_blend_v1_smoke` verdict (cycle 108)
+
+> "Substrate finite p-body provides no gain over argmax with Kerdock
+> 4-coset keys."
+
+— `betR_pbody_polynomial_v1_smoke` verdict (cycle 108)
+
+**Substrate-physics characterization at cycle 108**:
+
+Substrate is **classical-Hopfield-class with Kerdock-codebook
+capacity extension**. Specifically:
+- Mechanism: classical argmax cleanup (NOT modern dense AM exp-capacity,
+  NOT polynomial p-body, NOT β-blend hybrid)
+- Capacity extension: Kerdock 4-coset codebook gives M/N=8 at N=4096
+  (cycle 89; 57× above AGS bound)
+- Extension path: codebook construction (Kerdock(16) at N=65536 → 524K
+  codewords per cycle 89), NOT cleanup mechanism
+
+**Reconciliation with cycle 105 "intermediate hybrid" framing**: cycle
+105 said substrate is intermediate between classical AGS (untuned
+random patterns) AND modern dense AM. Cycle 108 sharpens: substrate
+IS classical-Hopfield CLASS (argmax mechanism), but with codebook-extended
+capacity that places it 57× above the random-pattern AGS bound. Not
+"intermediate regime" — specifically classical mechanism with
+extended capacity.
+
+**Per [[feedback-no-smoke]]**: substrate-physics characterization is
+now sharply specified — no longer "in own intermediate regime" but
+specifically "classical-Hopfield-class". Cleaner substrate-product
+positioning.
+
+### HEADLINE 2: β-blend Rescue B path REFUTED at smoke
+
+`wave14_betY_phase2_beta_blend_v1_smoke` (1.5s) = BETA_BLEND_CLASSICAL:
+"Peak ratio=1.00 at beta=4.0 (<1.05). ratio_per_beta={'4.0': 1.0,
+'8.0': 1.0}."
+
+Cycle 105 mechanism revision identified β-blend as Rescue B path
+per cycle 93 addendum. Cycle 108 smoke shows β-blend ALSO gives
+ratio=1.0 at β∈{4, 8} — modern dense AM mechanism doesn't activate
+with hybrid β strategy either.
+
+**β-blend path EFFECTIVELY REFUTED at smoke level**. FULL still pending
+in queue, but pattern across 7 configurations now strongly suggests
+β-blend FULL will also confirm ratio=1.0.
+
+**Cycle 93 addendum Rescue B path PROBABLY CLOSED** (pending FULL
+confirmation per cycle 102 smoke-not-predictive). Remaining rescue
+paths: K-scaling, partial bipolar relaxation, layered substrate.
+
+### HEADLINE 3: Bet R p-body polynomial REFUTED at smoke
+
+`wave14_betR_pbody_polynomial_v1_smoke` (17.7s) = PBODY_NOGAIN:
+"Polynomial p-body cleanup matches argmax: best ratio=1.00 at p=2
+(<1.05). ratio_per_p={'2': 1.0, '4': 1.0}."
+
+Bet R p-body polynomial cleanup (different mechanism from modern
+dense AM softmax + β-blend hybrid) ALSO gives ratio=1.0 at p∈{2, 4}.
+**Third independent cleanup mechanism class refuted**.
+
+**Substrate-product implication**: substrate is so deeply classical-
+Hopfield-class that NO finite p-body polynomial cleanup provides
+gain. Argmax (p=∞ winner-take-all) is essentially what substrate
+implements.
+
+### HEADLINE 4: Lane D noise robust smoke PASS
+
+`wave14_lane_D_noise_robust_v1_smoke` (1.0s) = NOISE_ROBUST:
+"composed_acc at 10% bit-flip = 1.000 (>=0.50); clean=1.000. Lane D
+pipeline tolerates realistic observation noise. acc_per_noise={'0.0':
+1.0, '0.10': 1.0}."
+
+**Lane D pipeline noise tolerance**: composed_acc maintains 1.0 under
+10% bit-flip observation noise. Same as clean. Substrate-product
+Lane D wedge has noise robustness anchor at smoke.
+
+**Substrate-product framing**: Lane D ($30-50B+ TAM per META plan)
+demonstration robustly survives realistic noise — adds to cycle
+103/105 composition + sequential pipeline anchors. Per
+[[feedback-value-creation-not-competition]]: noise tolerance at 10%
+bit-flip is substrate-product distinctive for cognitive-architecture
+pipelines.
+
+**Per cycle 102 smoke-not-predictive precedent**: smoke noise robust;
+FULL pending will provide tighter characterization.
+
+### HEADLINE 5: Lane D N-scaling SUBLINEAR concern (smoke)
+
+`wave14_lane_D_N_scaling_v1_smoke` (0.6s) = N_SCALING_SUBLINEAR:
+"M_S breakpoint grows sublinearly with N: per-N c ratio = [0.146,
+0.073] (rel spread 0.67>0.30). Substrate saturates."
+
+**Substrate-product N-scaling concern**: M_S breakpoint does NOT
+scale linearly with N at smoke level. per-N c ratio drops from 0.146
+(smaller N) to 0.073 (larger N) = sublinear.
+
+**Implication for Bet Y V2.D N=65536 plan** (per cycle 106 mechanism
+revision): substrate's N=65536 K-extension may underperform cycle 88
+linear K_crit prediction (130 → 2487 = 19× at strict linear; cycle
+108 sublinear smoke suggests less).
+
+**Per cycle 102 smoke-not-predictive precedent**: smoke at 2 N values
+only; FULL needed to characterize N-scaling thoroughly. Don't lock in
+sublinear interpretation without FULL evidence.
+
+**Strategy decision**: do NOT downgrade Bet Y V2.D N=65536 plan based
+on smoke alone. Flag as ambiguous; FULL pending will provide
+authoritative answer. Cycle 88 K_crit theory remains the prediction;
+cycle 108 smoke is one data point against it.
+
+### Substrate-product roadmap implications
+
+**Cleanup-mechanism-extension path**: empirically dead across 3
+families. K-scaling, partial bipolar relaxation, layered substrate
+remain untested as Rescue C/D/E paths from cycle 93 addendum.
+
+**Substrate-product simplifies to**: classical-Hopfield-class
+substrate + Kerdock codebook extension + Lane D wedge demonstration +
+N scale-up via Bet Y V2.D N=65536 simplified scope (per cycle 106).
+
+**N-scaling caveat**: cycle 108 smoke flags sublinear concern.
+Substrate-product story should NOT depend on strict linear N-scaling;
+cycle 88's K_crit theoretical bound is the upper-bound prediction,
+not guaranteed empirical.
+
+### Capability moves (v105 → v108)
+
+| Capability | v105 state | v108 state | Trigger |
+|---|---|---|---|
+| Substrate regime characterization | "intermediate hybrid" | **"classical-Hopfield-class with Kerdock-codebook capacity extension"** | β-blend + p-body smokes confirm 3-family classical |
+| β-blend Rescue B path | rescue list candidate | ❌ smoke REFUTED ratio=1.0 at β∈{4,8}; FULL pending | β-blend smoke |
+| Bet R p-body polynomial cleanup | not tested | ❌ smoke REFUTED ratio=1.0 at p∈{2,4}; FULL pending | Bet R p-body smoke |
+| Lane D pipeline noise robustness | not tested | ✅ smoke composed_acc=1.0 at 10% bit-flip = clean | Lane D noise robust smoke |
+| Lane D M_S N-scaling | predicted linear per cycle 88 theory | 🔬 smoke flags SUBLINEAR (per-N c ratio 0.146→0.073); FULL pending; ambiguous | Lane D N-scaling smoke |
+
+### Substrate-product net (v108)
+
+**Major substrate-physics finding** (negative for cleanup-mechanism path
+but positive for characterization clarity):
+- Substrate is classical-Hopfield-class across 3 mechanism families
+- No cleanup mechanism extension activates (modern dense AM, β-blend,
+  p-body all = argmax)
+- Substrate-product mechanism is fundamentally argmax cleanup with
+  Kerdock-codebook capacity extension
+
+**Lane D wedge gains noise robustness anchor** (positive):
+- composed_acc=1.0 at 10% bit-flip
+- Adds to cycle 103 (parallel composition) + cycle 105 (sequential
+  pipeline) anchors
+
+**N-scaling concern flagged** (smoke; FULL pending):
+- M_S sublinear with N at smoke
+- Cycle 88 K_crit theoretical scaling may overpredict empirical
+
+**Strategy discipline**:
+- 3-family cumulative evidence makes "classical-Hopfield-class"
+  characterization confident
+- Smoke-not-predictive precedent applied to N-scaling concern
+- β-blend Rescue B path effectively closed at smoke (pending FULL
+  confirmation per cycle 102)
+
+### Tally — substrate SHARPENED to "classical-Hopfield-class with Kerdock-codebook extension" (3 mechanism families ALL refute exp-capacity at 7 configs total); β-blend Rescue B + Bet R p-body REFUTED at smoke; Lane D noise robust smoke PASS at 10% bit-flip; Lane D N-scaling SUBLINEAR concern at smoke (FULL pending)
+
+Net effect: substantive substrate-physics characterization
+sharpening; substrate-product roadmap clarifies to
+classical-Hopfield-class + Kerdock-codebook-extension; Lane D wedge
+gains noise robustness; cleanup-mechanism-extension paths all
+empirically closed (modern dense AM + β-blend + p-body); remaining
+Bet Y V2.D rescue paths are K-scaling / partial-bipolar / layered.
