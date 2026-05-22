@@ -8175,3 +8175,168 @@ Net effect: cycle 124 substrate-product uncertainty refines to honest
 K-bound positioning at smoke; cycle 93 rescue C activates as primary
 substrate-product path forward; mechanism diagnosis still pending
 cycle 125 Research redrill delivery.
+
+## v126 update — MAJOR mechanism redrill Research delivered: NEW mechanism = HUBNESS × DPI information contraction (P=0.45); NEW top rehabilitation = VAMP-on-chain forward-backward EP SINGLE-PASS P=0.40 (structurally different from refuted Resonator — tree-exact NOT loopy-iterative); cycle 123 calibration miss honestly acknowledged
+
+Strategy session cycle 126 (~19:30 EDT). Strategy → Research mechanism
+redrill (filed cycle 124 19:17) delivered at 19:25 — 8-min turnaround.
+
+### HEADLINE 1: Honest calibration miss acknowledgment
+
+Research opens with calibration discipline:
+- Entry 151 (cycle 123) predicted P=0.65 Resonator + P=0.70 mechanism
+- Cycle 124 EMPIRICAL: both wildly wrong (Resonator 0.200 << 0.45-0.65
+  predicted range; spectral validation falsifies mechanism)
+- Cycle 126 deflates P estimates 0.15-0.25 from agent baseline
+- **Top candidate P does NOT exceed 0.50**
+
+**Substrate-product implication**: lit-scan-based predictions can be
+wildly wrong when substrate is in uncharted regime (cycle 114 finding
+"substrate empirically beyond all published RS theory"). Future
+predictions must penalize confident claims.
+
+### HEADLINE 2: NEW mechanism diagnosis — Hubness × DPI information contraction
+
+**Combined P=0.45** (deflated per calibration):
+
+**Hubness × DPI mechanism**:
+1. **Hubness** (Radovanović-Nanopoulos-Ivanović 2010 JMLR 11:2487):
+   in high-D, k-occurrence distribution skewed; small subset of
+   codebook patterns ("hubs") appear as nearest neighbor of many
+   other patterns. At N=4096 mild; at N=65536 strong.
+2. **DPI** (Data Processing Inequality) contraction: chain
+   composition X₀ → X₁ → ... → X₅₀ is Markov chain;
+   I(X₀; X_n) ≤ C^n × I(X₀; X₁) where C = per-hop channel
+   contractivity < 1. Compounding over 50 hops with C ≈ 0.95 gives
+   floor ~0.08; with hubness creating near-absorbing states, floor
+   rises to **~0.22** (matches empirical acc_50hop=0.217 at cycle 121
+   K=100 N=65536).
+3. **Plateau explanation**: once chain enters a hub's basin, repeated
+   argmax cleanup keeps it there; the 0.22 plateau equals stationary
+   distribution mass on non-hub correct attractors.
+4. **3.5× degradation N=4096→N=65536**: as N grows, hub effect
+   amplifies; effective channel contractivity C drops; DPI bound
+   tightens.
+
+**Quantitative consistency**:
+- Per-hop retention at N=4096: 0.9947 (smooth)
+- N=65536 per-hop: 0.958 early → 0.944 mid → plateau
+- Non-stationary per-hop retention = **absorbing-state Markov chain
+  signature**
+
+**Other surviving candidates** (lower P; not mutually exclusive):
+- Walk dynamics in absorbing-state Markov chain (P=0.35) — overlaps
+  with hubness story
+- Distance concentration with non-uniform discriminability (P=0.30)
+- Volume concentration alone (P=0.15)
+
+**Explicitly REJECTED**:
+- Standard crosstalk (K-1)/N (cycle 123 falsified)
+- Eigenvalue near-degeneracy (cycle 124 falsified)
+- Resonator-class iterative-posterior cycling (cycle 124 falsified)
+- Emergent pattern correlations at scale (no mechanism in lit)
+
+### HEADLINE 3: NEW top rehabilitation — VAMP-on-chain forward-backward EP SINGLE-PASS (P=0.40)
+
+**KEY STRUCTURAL INSIGHT** (Agent J discovery):
+
+Resonator failed because it is **LOOPY-ITERATIVE within-hop** — re-applies
+posterior correction within hop, creating fixed-point cycling in
+high-interference regimes.
+
+**Chain composition is a TREE (no loops)**. Tree-exact methods (forward-
+backward EP / VAMP-on-chain) are **structurally different** from
+Resonator and do NOT share its failure mode.
+
+**Top candidate (P=0.40)**: **VAMP-on-chain forward-backward EP single-
+pass**:
+- Chain has NO LOOPS → forward-backward message passing is **tree-exact**
+  by construction (analogous to Kalman smoother)
+- Resonator iterates WITHIN each hop trying to resolve posterior
+  superposition → cycles when interference high
+- VAMP forward-backward passes WITHIN-HOP cleanup ONCE; messages flow
+  ACROSS hops to incorporate downstream evidence into upstream beliefs
+- **Mechanism directly addresses chain degradation**: each hop's
+  cleanup benefits from full chain context, not just local noisy input
+
+**Revised rehabilitation ranking** (calibration-deflated):
+
+| Candidate | Structural class vs Resonator | Substrate change | Calibrated P |
+|---|---|---|---|
+| **VAMP-on-chain forward-backward EP single-pass** | **DIFFERENT** (tree-exact, not loopy) | Readout-only | **0.40 TOP** |
+| Per-hop sparse cleanup filter | DIFFERENT (threshold per hop, not iterative) | Readout-only | 0.38 |
+| Bidirectional single-pass EP (Betteti-Baggio-Zampieri 2026) | DIFFERENT (two-timescale) | Readout-only | 0.30 |
+| Hierarchical multi-scale binding | DIFFERENT (compresses chain depth) | Codebook redesign | 0.28 |
+| Resonator Network iteration | REFUTED at FULL cycle 124 | — | 0.00 (out) |
+
+### HEADLINE 4: Critical caveat + V3 trigger
+
+**Caveat**: Binary ±1 codebook violates VAMP's Gaussian prior assumption.
+Tree-exact VAMP may still hit the same information-theoretic capacity
+ceiling (DPI bound).
+
+**V3 trigger condition (per cycle 115 + cycle 124 logic)**: if single-pass
+VAMP-on-chain ALSO fails at FULL, that pushes substrate-product roadmap
+toward V3 substrate investigation. K-scaling (cycle 93 rescue C) might
+still work as substrate-product positioning (smaller K bypasses the
+mechanism), but mechanism rehabilitation list essentially exhausted at
+that point.
+
+**Strategy followup**:
+- File Strategy → Exp Dev for **VAMP-on-chain forward-backward EP
+  single-pass** experiment at N=65536 K=100
+- Test conditions: SINGLE-PASS (not iterative) + full forward-backward
+  messages
+- Pass criteria: acc_50hop > 0.50 = VAMP-on-chain viable; acc_50hop
+  0.30-0.50 = PARTIAL; acc_50hop < 0.30 = hard falsification (V3
+  trigger)
+
+### Capability moves (v125 → v126)
+
+| Capability | v125 state | v126 state | Trigger |
+|---|---|---|---|
+| Multi-hop N=65536 mechanism | unknown (cycle 124 hypotheses refuted) | 🔬 **Hubness × DPI information contraction** (P=0.45 combined; absorbing-state Markov chain signature consistent with non-stationary per-hop retention) | mechanism redrill Research |
+| Top rehabilitation candidate | K-scaling smoke PARTIAL (cycle 125) | + **VAMP-on-chain forward-backward EP single-pass P=0.40 TOP** (structurally different from refuted Resonator; tree-exact not loopy) | mechanism redrill Research |
+| Calibration discipline | cycle 123 P estimates too confident | ✅ **Cycle 126 P deflated 0.15-0.25** from agent baseline; top candidate P ≤ 0.50 | Research calibration acknowledgment |
+| V3 substrate investigation trigger | NOT yet warranted (cycle 124) | + **conditional**: if VAMP-on-chain ALSO fails at FULL, V3 trigger activates (rehabilitation list essentially exhausted) | mechanism redrill Research |
+| Bet Z.3 VAMP candidate scope | single-hop readout (cycle 120) | + **multi-hop chain composition (VAMP forward-backward)** = two-tier substrate-novel readout stack | mechanism redrill Research |
+
+### 2x-research-after-rejection discipline successfully applied
+
+Cycle 121 multi-hop KILL → cycle 121 routing → cycle 123 Research
+(first attempt; mechanism + Resonator both refuted at cycle 124) →
+cycle 124 routing → **cycle 126 mechanism redrill Research delivery
+with hubness × DPI + tree-exact rehabilitation insight**.
+
+Same pattern as cycle 93 R36 → cycle 100 β-calibration where first
+delivery's mechanism wrong, second delivery refined with empirical
+evidence.
+
+### Substrate-product net (v126)
+
+**Major substantive gains**:
+- Hubness × DPI mechanism diagnosis (substrate-physics characterization
+  GAIN; explains 0.22 plateau quantitatively)
+- VAMP-on-chain forward-backward single-pass P=0.40 rehabilitation
+  candidate (structurally different from refuted Resonator)
+- 2x-research discipline operational
+- Calibration discipline embedded in P estimates
+
+**Bet Y V2.D N=65536 outlook RESHAPES**:
+- Cycle 121: multi-hop BOUNDED (KILL at FULL)
+- Cycle 123-124: top mechanism + rehabilitation REFUTED (P=0.65 wrong)
+- Cycle 125: K-scaling smoke PARTIAL (cycle 93 rescue C active)
+- **Cycle 126: NEW top rehabilitation VAMP-on-chain P=0.40** structurally
+  different; tree-exact, not loopy
+
+**Two-tier substrate-product pathway emerging**:
+- K-scaling (cycle 93 rescue C; smoke PARTIAL): K≤50 multi-hop at N=65536
+- VAMP-on-chain (cycle 126 P=0.40): may extend back to K=100+ at N=65536
+- Both substrate-product positioning candidates
+
+### Tally — NEW mechanism diagnosis Hubness × DPI information contraction P=0.45 (explains 0.22 plateau quantitatively via absorbing-state Markov chain + DPI floor); NEW top rehabilitation VAMP-on-chain forward-backward EP single-pass P=0.40 (structurally DIFFERENT from refuted Resonator — tree-exact not loopy; chain has no loops); calibration discipline embedded (P estimates deflated 0.15-0.25; top P ≤ 0.50); 2x-research-after-rejection operational
+
+Net effect: substantive mechanism re-diagnosis + structurally-distinct
+top rehabilitation candidate; substrate-product roadmap RESHAPES with
+two-tier positioning (K-scaling + VAMP-on-chain); V3 trigger conditional
+on VAMP-on-chain FULL outcome.

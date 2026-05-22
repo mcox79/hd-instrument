@@ -7708,3 +7708,101 @@ smoke PARTIAL reported as smoke-level not capability-state (FULL
 pending); cycle 93 rescue C activation noted honestly; substrate
 K-bound failure mode framed as consistent synthesis across cycles
 120+121+125.
+
+
+## Cycle 126 [MAJOR mechanism redrill: Hubness × DPI + VAMP-on-chain tree-exact]
+
+Trigger: user "research back" at ~19:30. Strategy → Research mechanism
+redrill (filed cycle 124 19:17) delivered 19:25 = 8-min turnaround.
+2x-research-after-rejection drill operational.
+
+HEADLINE 1: Honest calibration acknowledgment
+
+Cycle 123 predicted P=0.65 Resonator + P=0.70 mechanism — both
+wildly wrong at cycle 124. Cycle 126 deflates P estimates 0.15-0.25;
+top candidate P ≤ 0.50. Calibration discipline embedded.
+
+HEADLINE 2: NEW mechanism diagnosis Hubness × DPI (P=0.45)
+
+Hubness (Radovanović 2010): high-D codebook has skewed nearest-neighbor
+distribution; small subset of "hub" patterns appear as nearest
+neighbor of many others. Mild N=4096; strong N=65536.
+
+DPI (Data Processing Inequality): chain Markov; I(X_0;X_n) ≤ C^n
+× I(X_0;X_1). C≈0.95 → floor ~0.08. With hubness near-absorbing
+states → floor rises to ~0.22. Matches empirical acc_50hop=0.217.
+
+Non-stationary per-hop retention 0.958 → 0.944 → plateau = absorbing-
+state Markov chain signature.
+
+HEADLINE 3: NEW top rehabilitation VAMP-on-chain forward-backward EP single-pass (P=0.40)
+
+KEY STRUCTURAL INSIGHT: Resonator failed because LOOPY-ITERATIVE
+within-hop; chain composition is TREE (no loops); tree-exact methods
+(forward-backward EP / VAMP-on-chain) STRUCTURALLY DIFFERENT from
+Resonator.
+
+VAMP-on-chain single-pass: Kalman-smoother-analogous; messages flow
+ACROSS hops; each hop's cleanup benefits from full chain context.
+Directly addresses chain degradation mechanism.
+
+Revised ranking (calibration-deflated):
+- VAMP-on-chain forward-backward single-pass: P=0.40 TOP (different)
+- Per-hop sparse cleanup filter: P=0.38 (different)
+- Bidirectional single-pass EP (Betteti et al. 2026): P=0.30 (different)
+- Hierarchical multi-scale: P=0.28 (different)
+- Resonator Network: 0.00 (REFUTED)
+
+HEADLINE 4: Critical caveat + V3 trigger
+
+Binary ±1 violates VAMP Gaussian prior. Tree-exact VAMP may still hit
+DPI ceiling. If VAMP-on-chain ALSO fails → V3 substrate investigation
+trigger (rehabilitation list essentially exhausted).
+
+Two-tier substrate-product pathway:
+- K-scaling (cycle 93 rescue C; smoke PARTIAL): K≤50 at N=65536
+- VAMP-on-chain (cycle 126 P=0.40): may extend back to K=100+ at N=65536
+
+Strategy followup: file Strategy → Exp Dev VAMP-on-chain experiment
+N=65536 K=100 SINGLE-PASS forward-backward.
+
+2x-research-after-rejection discipline operational:
+Cycle 121 multi-hop KILL → cycle 121 routing → cycle 123 first attempt
+(refuted at cycle 124) → cycle 124 routing → cycle 126 mechanism redrill
+with hubness × DPI + tree-exact insight. Same pattern as cycle 93 R36
+→ cycle 100 β-calibration.
+
+Capability moves (v125 → v126):
+
+| Capability | v125 | v126 | Trigger |
+|---|---|---|---|
+| Multi-hop N=65536 mechanism | unknown | Hubness × DPI P=0.45 | redrill Research |
+| Top rehabilitation candidate | K-scaling smoke PARTIAL | + VAMP-on-chain tree-exact P=0.40 | redrill Research |
+| Calibration discipline | cycle 123 too confident | deflated 0.15-0.25; top P ≤ 0.50 | Research acknowledgment |
+| V3 trigger | not warranted | conditional on VAMP-on-chain FULL | redrill Research |
+| Bet Z.3 VAMP scope | single-hop | + multi-hop chain composition two-tier | redrill Research |
+
+Substrate-product net (v126):
+
+Major substantive gains:
+- Hubness × DPI mechanism explains 0.22 plateau quantitatively
+- VAMP-on-chain top candidate structurally different from refuted Resonator
+- 2x-research discipline operational
+- Calibration discipline embedded
+
+Bet Y V2.D N=65536 outlook RESHAPES:
+- Cycle 121: multi-hop BOUNDED
+- Cycle 123-124: REFUTED
+- Cycle 125: K-scaling smoke PARTIAL
+- Cycle 126: VAMP-on-chain P=0.40 + tree-exact insight
+
+Two-tier substrate-product positioning emerging (K-scaling + VAMP-on-chain).
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 40th observation. PROT-005 unbiased framing:
+calibration miss acknowledged honestly; new P=0.40 deflated not
+over-promoted; V3 trigger conditional honestly stated.
+
+Next:
+- File Strategy → Exp Dev for VAMP-on-chain experiment
+- Wait for K-scaling FULL + spectral validation FULL
