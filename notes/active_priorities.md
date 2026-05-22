@@ -3,8 +3,93 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META) read this.
 
-**Last updated:** 2026-05-21 cycle 43 (Bet N KILLED, Bet E ✅, Bet F full=smoke; R17 holographic LARGELY NEGATIVE; multi-hop ❌-architectural closure disciplined)
-**Cap map version this refers to:** v60
+**Last updated:** 2026-05-21 cycle 66 (Bet B v9 third PASS retention_A=0.954 sharp attractor; Bet X UNIFYING insight d=25 IS VSA-class compositional-depth bound; 5 META-promoted bets Bet S/T/U/V/W + Bet Q + Bet R + Bet X awaiting Experiment Dev pickup; PROT-007/008 hygiene cleaned; PROT-009 proposed to META)
+**Cap map version this refers to:** v78
+
+---
+
+## CURRENT TIER-1 BOARD (cap_map v78)
+
+**8 ✅ Validated**: Bet 1 ICL, Bet 2 GDPR erase, Bet A edit-then-query
+(scales to M=32N continual), Bet B multi-task CL (EMA-blend sharp
+0.954 attractor; theoretically grounded R22 van de Ven 2024), Bet C
+Kerdock M/N=8 (v4 substrate-product-optimal per R36 deep-drill),
+Bet E Parisi RSB (5-source agreement; methodology-bounded for Binder
+N-scaling per Fan-Wu 2024 Mattis-phase), Bet G calibration TEMPSCALE
+β=32, Bet H autoregressive generation.
+
+**3 ✅ analytic grounding**: Bet I free probability + R36 sandwich
+bound, Bet M ferromagnetism / modern-Hopfield, Bet L learning theory
+(R26).
+
+**1 🟢 partial-theory**: Bet P-Theory (R36 partial via sandwich).
+
+**8 🔬 active bets pending Experiment Dev pickup**:
+- Bet P-Engineering — pretrained KGE port (cycle 45 filed)
+- Bet Q — facilitation-vs-nucleation (R37 engineering bridge spec ready)
+- Bet R — explicit p-body coupling (R27 L.1)
+- Bet S — pattern completion (META priority #1)
+- Bet T — hypothesis tracking
+- Bet U — working memory + decay
+- Bet V — self-reflective memory
+- Bet W — counterfactual binding
+- Bet X — skill composition (Research-recommended: position-indexed + hybrid + 2-level hierarchy)
+
+**1 ❌-arch CONFIRMED**: Bet F SSH-BSC topological (4/5 rehab sketches PARTIAL — substrate robustness is Kerdock-baseline NOT topology).
+
+**1 🟡 reframed**: Multi-hop d=50 — per Bet X UNIFYING insight, d=25 IS
+the VSA-class compositional-depth bound (matches VSA noise math +
+transformer CoT lower bounds independently; 80-90% P). Substrate
+hits the class bound; V2 substrate or hybrid HRR+bipolar required
+to exceed.
+
+---
+
+## FORWARD DIRECTION (priority ordered)
+
+### Immediate (Experiment Dev queue when current job clears)
+1. **Bet S** Pattern completion (cheap, 70-80% P, META #1; substrate
+   bidirectional recall vs LLM unidirectional)
+2. **Bet Q** facilitation-vs-nucleation (substrate FIRST-OF-ITS-KIND;
+   `wave14_facilitation_nucleation_v1` per R37 bridge)
+3. **Bet T** hypothesis tracking (leverages Bet G ✅; auditable multi-
+   hypothesis vs LLM single-answer)
+4. **Bet R** p-body coupling super-linear capacity
+5. **Bet U** working memory + decay
+6. **Bet P-Engineering** pretrained KGE codebook
+
+### Forward research direction
+- **R33** quantum-repeater honest recalibration: 2-4× constant factor
+  (NOT poly-vs-exp per substrate-classical)
+- **Bet X** skill composition: 30-40% P at current arch; 60-70% at V2
+- **N=65536 scale-up**: R36 prediction M/N ∈ [1.2, 6.1] LOWER than
+  current N=4096's M/N=8 (surprising; substrate scaling is NOT trivially
+  better at higher N)
+
+### Substrate-physics framework (consolidated)
+- 5-source agreement: substrate is in 1RSB/FRSB-character spin-glass
+  regime (R23 + R29 + R16 + R18 theoretical + Bet E empirical)
+- d=25 IS the VSA-class compositional bound (Bet X insight)
+- Substrate's d=25 = transformer CoT depth lower bounds — substrate
+  hits class bound, not below it
+- Kerdock v4 substrate-product-OPTIMAL (ε_corr=0.4 per R36 deep-drill)
+
+### Closures (PROVISIONAL or CONFIRMED with rehab discipline applied)
+- Bet F SSH-BSC topological ❌-arch CONFIRMED (4/5 R28 sketches PARTIAL = Kerdock-baseline)
+- Bet N soft cleanup ❌ (cleanup-amplification axis)
+- Bet O Cooper-pair ❌ (storage-redundancy axis)
+- Adaptive-β ❌ (R8 6/6 closed; in-axis)
+- R17 Sketch D ❌ (no power-law; in-axis)
+
+### Coordination state
+- PROT-001 through PROT-008 active
+- PROT-009 proposed to META (Proposal 10; decision-log entry mandatory
+  alongside cap_map version commits; addresses 5-instance recurrence
+  pattern this session)
+- Research session BLOCKED standing by (4 cycles post-Bet X)
+- META cycle 22 heartbeat (no new proposals)
+
+---
 
 ---
 
