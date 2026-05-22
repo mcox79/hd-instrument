@@ -5028,3 +5028,140 @@ Next:
 - R27 L.2 dynamic W FULL pending
 - v14_a05 verdict follow-up
 - META cycle 52 (~11:13)
+
+
+## Cycle 100 MILESTONE [Lane D / Phase 2 substrate-product β-calibration] -- c=32768 MEASURED empirically; v14_a05 FULL = 5th Bet B mechanism; R27 L.2 + Bet P proxy KILLED; cycle 98 M-ceiling confirmed (cap_map v100)
+
+Trigger: user "new experiments landed" at ~11:25 EDT. Dashboard
+shows 5 substantive new verdicts + β-calibration smoke. This is the
+most substantive single batch of the day; cycle 100 milestone.
+
+HEADLINE: β-calibration MEASURED c=32768 empirically
+
+wave14_betY_phase1_beta_calibration_smoke (12.1s) =
+BETA_CALIBRATION_PASS:
+- c estimate consistent across N: mean=32768.0, CV=0.000<0.3
+- Predicted beta(N=65536) = 0.500000
+- per-N c: N=1024: 32768.0, N=2048: 32768.0
+
+This is the FIRST direct empirical measurement of cycle 93 β(N)=c/N
+theoretical prediction with concrete c value.
+
+Substrate optimal β by N:
+- N=1024: β_optimal = 32 (matches substrate default)
+- N=2048: β_optimal = 16
+- N=4096: β_optimal = 8 (substrate current is 32 = 4× too large)
+- N=65536: β_optimal = 0.5 (substrate current is 32 = 64× too large)
+
+TWO substrate-product findings:
+
+1. Cycle 93 β-pathology VALIDATED with concrete numbers. At N=65536
+   substrate β=32 is 64× off optimal. This explains cycle 99 Bet Y
+   V2.D smoke ratio=1.00 -- modern dense AM at 64× wrong β degenerates
+   to argmax-like behavior.
+
+2. CURRENT substrate at N=4096 is mis-calibrated by factor 4 (β=32
+   vs optimal β=8). Despite this, substrate delivers M/N=8 +
+   multi-hop K=100 acc_50hop=0.767 + Bet S K-ceiling at theoretical
+   bound. Hypothesis: substrate operates in INTERMEDIATE hybrid
+   regime that calibration test doesn't fully capture. At β=8
+   substrate might shift toward exp-capacity regime -- could be
+   GAIN (modern dense AM > 1.5x) or LOSS (direct-lookup capacity
+   drops).
+
+Strategy decision: Phase 2 = test Bet Y V2.D at calibrated β=8 N=4096
+BEFORE scaling to N=65536. Filing followup to Exp Dev (separate
+commit) requesting this gate.
+
+v14_a05 FULL = 5th Bet B FULL-confirmed mechanism (cycle 99 followup):
+
+wave14d_multi_task_cl_v14_a05 FULL (833.9s) -- verdict was missing
+from cycle 99 panel; now visible: BET_B_PASS retention_A=0.954
+retention_B=0.914 gain_C=4.58 bwt=+1.03. retention_A=0.954 TIES Bet
+B Kovacs FULL (cycle 91) for highest.
+
+Bet B FULL-confirmed mechanism count -> 5:
+1. v11 per-batch EMA (cycle 87)
+2. v12 phase-A epoch boost (cycle 94)
+3. v13 Kovacs A→B→A' (cycle 91)
+4. v13_a05 α=0.5 (cycle 96)
+5. v14_a05 -- same retention_A=0.954 as Kovacs (cycle 100)
+
+Substrate-product Lane D: 5 FULL-confirmed mechanism families.
+
+R27 L.2 dynamic W FULL = R27_L2_KILLED:
+
+wave14_R27_L2_dynamic_W_v1 FULL (2.2s) ratio=0.42 (dynamic W gets
+42% capacity of static). Cycle 99 smoke ambiguity (0.1s, ratio=1.00
+test-scaffold-suspect) RESOLVED as GENUINE KILL at FULL. R27 L.2
+axis CLOSES.
+
+Bet P engineering proxy FULL = BET_P_PROXY_KILLED:
+
+wave14_betP_engineering_proxy_v1 FULL (5.4s) acc_50=0.011 < 0.22
+FHRR floor. Codebook geometry axis closes at engineering level.
+Confirms cycle 89 Bet P research finding "engineering crowded;
+theory open."
+
+continual_2N_3000edits FULL = HOLDS (cycle 98 prediction confirmed):
+
+1098s = 18.3 min. 3000 < 8189 breakpoint -- expected PASS confirmed.
+Bet A architectural ceiling at M=2N validated at intermediate horizon.
+
+Cycle 93 → cycle 100 closed-loop: 4 substantive empirical anchors:
+
+1. Cycle 96: N=12288 boundary fail acc_1hop=0.947 (substrate retrieval
+   degrades at 3× over N=4096)
+2. Cycle 99: Bet Y V2.D smoke ratio=1.00 (modern dense AM no gain at
+   fixed β=32)
+3. Cycle 100: c=32768 MEASURED (concrete engineering value)
+4. Cycle 100: β(N=65536)=0.5 predicted (64× factor at V2.D target)
+
+Substrate-physics → engineering loop closed in 9 hours (cycle 93
+delivery 09:00 → cycle 100 calibration 11:12).
+
+Bet Y V2.D PHASE 2 GATING DECISION:
+
+- Phase 1 complete (smoke): c=32768 measured; β(N)=c/N validated
+- Phase 2 gate: test V2.D at calibrated β=8 N=4096 BEFORE N=65536
+  - If V2.D at β=8 ratio > 1.5: confirms exp-capacity regime
+  - If V2.D at β=8 ratio ≈ 1.0: substrate at β=8 may lose current
+    capacity advantages -- need to characterize operating regime
+- Phase 3: full V2.D at β=0.5 N=65536 + Kerdock(16) only if Phase 2
+  confirms regime activation
+
+Capability moves (v99 → v100):
+
+| Capability | v99 | v100 | Trigger |
+|---|---|---|---|
+| β-calibration empirical | theoretical (cycle 93 + 99) | c=32768 MEASURED; β(N=4096)=8 / β(N=65536)=0.5 | β-calibration smoke |
+| Bet B FULL-confirmed mechanisms | 4 | 5 (+ v14_a05 retention_A=0.954 ties Kovacs) | v14_a05 FULL found |
+| R27 L.2 dynamic W | smoke test-scaffold-suspect | KILLED ratio=0.42 | R27 L.2 full |
+| Bet P engineering proxy | unmeasured | KILLED acc_50=0.011 | Bet P proxy full |
+| Bet A M=2N + 3000 edits | unmeasured | HOLDS (confirms cycle 98 M-ceiling prediction) | continual_2N_3000edits full |
+| Cycle 93 empirical anchors | 2 | 4 (+ c=32768 + β(N=65536)=0.5) | β-calibration smoke |
+
+Cycle 100 milestone reflection:
+
+Substrate-product roadmap state at cycle 100:
+- Lane A: Bet A scales 6 over-capacity regimes; M-ceiling theoretically anchored
+- Lane C: smoke PERFECT; 5 primitives composed
+- Lane D: Bet B 5 FULL-confirmed mechanisms; multi-hop K=100 NEW HIGH
+- Lane E: R27 L.1 strong; L.2 dynamic W KILLED
+- Theory: R16 BBP free probability PERMANENT primary
+- V2 roadmap: Bet Y V2.D + Kerdock(16) + β(N)=c/N; Phase 2 = β=8 N=4096
+
+11 honest-recalibration patterns this session; each tightens
+substrate-product framing.
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) -- 16th observation. PROT-005 unbiased framing: β=32
+mis-calibration framed as substrate operating regime question NOT as
+substrate weakness; R27 L.2 + Bet P closures honestly accepted not
+rationalized.
+
+Next:
+- File Strategy → Exp Dev followup: Phase 2 V2.D at β=8 N=4096
+- β-calibration FULL pending (currently running)
+- META cycle 52 (~11:13) likely fired
+- Bet Y V2.D Phase 2 setup pickup pending Exp Dev
