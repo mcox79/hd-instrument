@@ -537,6 +537,7 @@ the next PROT-007 migration cycle.
 | v83 | 2026-05-21 | Annealing erasure honest recalibration | Primary forensics claim REJECTED (Serricchio 2024 proves Hebbian unlearning ≡ thermal Langevin); M.1 soft + M.2 bulk promoted |
 | v84 | 2026-05-21 | Critical-point protocol honest recalibration | Triple-point P=50-65% → 10-20% truly / 35-45% subcritical / 35-50% artifact (Touboul-Destexhe 2017); 4-signature stack required (S.1 FSS + S.2 AT-eigenvalue + S.3 avalanche/σ + S.4 surrogate); V2.G cost-conditional |
 | v85 | 2026-05-21 | Triple-point deepdrill + substrate-product UPGRADE | Critical-point P=0.05; extended critical regime P=0.75 (tricritical 0.30 + Griffiths 0.25 + RFOT mosaic 0.20); Griffiths phase = engineering knob (τ 1.20-1.52 tunable); δ(λ) drift = revised gating test |
+| v86 | 2026-05-22 | Pipeline UNBLOCKED + batch verdict harvest | Lane C smoke PERFECT ✅; Bet S PARTIAL (K-ceiling); R31 S.1 PARTIAL (marginal); R32 M.1 KILLED; Bet B Kovacs smoke PASS; multi-hop d=25 to d=150 test-config-dependent |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -1899,3 +1900,207 @@ critical point" to "in extended critical regime"; Griffiths phase is
 the substrate-novel engineering knob (continuously-tunable exponent
 1.20-1.52); revised gating test is 1-GPU-hour δ(λ) drift; V2.G
 opportunity broadens from fine-tuned-point to parameter-band.
+
+---
+
+## v86 update — Pipeline UNBLOCKED + batch verdict harvest: Lane C smoke ✅ PERFECT; Bet S PARTIAL (high-K degradation); R31 S.1 PARTIAL (marginal); R32 M.1 phasor KILLED; multi-hop d=150 cliff at appropriate config (not d=25); Bet B Kovacs PASS at smoke
+
+Strategy session cycle 86 (after wakeup at 01:26 EDT 2026-05-22).
+continual_8N_2000edits finally cleared during the long heartbeat; Phase
+1 + multiple queued items have run. Major batch harvest.
+
+### Lane C compliance audit smoke — PERFECT PASS (major Lane C milestone)
+
+**Verdict**: `wave14_lane_C_compliance_audit_smoke_v1` at 01:15:13.
+**LANE_C_PRIMITIVES_COMPOSE**. ALL criteria perfect:
+- delete_leak_max = **0.0000** (Mirage-grade; ≤0.05 threshold)
+- edit_acc = **1.000**
+- kept_acc = **1.000**
+- side_effect = **0.0000**
+- ECE = **0.0000**
+
+**Substrate-product implication**: Lane C primitives (Bet 2/C ✅
+Mirage-grade erase + Bet A ✅ edit-then-query + Bet G ✅ TEMPSCALE
+calibration) compose into a working compliance-audit pipeline. **Lane
+C product viability validated at smoke**.
+
+Per META strategic plan: Lane C wedge ($5-50M ARR near-term ceiling)
+has all required primitives — this smoke demonstrates COMPOSITION
+works, not just primitives in isolation. **Significant Lane C
+maturation signal**.
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| Lane C compliance-audit pipeline (composed product) | (primitives ✅ but composition untested) | ✅ **SMOKE PASS** — all 5 multi-probe criteria perfect (Mirage 0.0 leak; edit 1.0; kept 1.0; ECE 0.0); awaits full mode | Lane C smoke |
+
+### Bet S pattern completion PARTIAL — K-dependent capacity
+
+**Verdict**: `wave14_betS_pattern_completion_v1` at 01:15:09.
+**BET_S_PARTIAL**.
+
+Per-K results:
+- K=8: subject=1.0, relation=1.0, object=1.0 ✅ PASS
+- K=50: 0.99/1.0/1.0 ✅ effectively PASS
+- K=200: 0.78/0.88/0.78 — below 0.85 PASS threshold; subject + object directional asymmetry
+- K=800: **0.19/0.36/0.22** — degrades sharply; relation slightly better than subject/object
+
+**Substrate-physics interpretation**: bidirectional recall (Plate
+1995 HRR inversion) works cleanly at K ≤ 50, degrades through
+K=200, fails at K=800. The relation-direction slightly outperforms
+subject/object at K=200 (asymmetry).
+
+**Per [[feedback-no-smoke]]**: NOT promoting to ✅ — PARTIAL because
+K=200 and K=800 fail the 0.85 multi-probe criterion. Substrate
+bidirectional recall has a K-ceiling around 50-100 facts.
+
+**Per PROT-004**: 5 rescue sketches pre-armed in cap_map v75. Not
+filing rehab routing yet — PARTIAL is not ❌ closure; let Experiment
+Dev consider K-curve analysis first to understand the degradation
+mechanism.
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| Bet S Pattern completion (Plate 1995 inversion) | 🔬 active bet — Phase 1 priority #1 | 🟡 **PARTIAL** at K ≤ 50 (PASS); fails at K ≥ 200; bidirectional recall has K-ceiling ~50-100 | Bet S smoke |
+
+### R31 S.1 Pyrkov CGLE PARTIAL — marginal cleanup-amplification
+
+**Verdict**: `wave14r_R31_S1_pyrkov_cgle_v1` at 01:19:57.
+**BET_N_R31_S1_PARTIAL**. best acc_50=**0.233 at k20_l0.5** (just
+above FHRR's 0.22 floor). Other configs (12 total): all below 0.22 or
+marginal.
+
+**Substrate-physics interpretation**: Pyrkov-style dissipative-
+attractor cleanup gives marginal improvement at a SINGLE specific
+config (k=20, λ=0.5) — but most parameter combinations fail. **Not
+a robust rescue; one config is just above floor.**
+
+**Per [[feedback-dont-overextend-theorems]]**: this PARTIAL result
+doesn't reopen the multi-hop closure (still 7+1 active alternative
+rescue paths per cap_map v75). The R31 S.1 axis closes 🟡 marginal
+— substrate-product gain not clear over FHRR baseline.
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| R31 S.1 Pyrkov CGLE dissipative-attractor cleanup | 🔬 active bet — Bet N rehab axis #6 | 🟡 PARTIAL marginal (best acc_50=0.233 at single config; just above FHRR 0.22 floor; not robust) | R31 S.1 smoke |
+
+### Multi-hop d=150 cliff at appropriate config — UPDATES architectural framing
+
+**Verdict**: `wave14r_multihop_depth_200` at 01:23:21.
+**MULTIHOP_DECAY_AT_150**. acc_1hop=0.947; retention=0.986;
+slope=-0.0366/hop. Multi-hop works through depth 100; falls below
+0.10 at depth=150.
+
+**Substrate-physics implication**: substrate's multi-hop cliff is
+**TEST-SETUP-DEPENDENT**. Earlier framing put cliff at d=25 (cycle
+17/23 with specific NUM_FACTS / depth-test config). At appropriate
+config (higher N, different depth-test setup, lower NUM_FACTS),
+substrate retains acc>0.10 through d=100, falls below at d=150.
+
+Combined with multi-hop N-sweep characterization (v76 cap_map):
+- N=1024: hard cliff (NOT_REPLICATED 3 seeds)
+- N=4096: partial signal (>0.10 all depths to ~50)
+- N=8192: similar
+- **N=4096 at appropriate config: holds through d=100**
+
+**Multi-hop class-level VSA bound** per Bet X (v77) was d≈25. New data
+shows substrate operates between **d=25 (specific test config) and
+d=150 (other config)**. The compositional-depth bound applies; but
+the empirical reach is wider than the v17/v23 lower bound suggested.
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| Multi-hop reasoning depth ceiling | 🟡 d=25 cliff + 8 rescue paths; class-level VSA bound (Bet X) | 🟡 **d=25 to d=150 (test-config-dependent)**; substrate holds acc>0.10 through d=100 at appropriate config; class-level bound still applies | depth_200 verdict |
+
+### R32 M.1 phasor codebook ❌ KILLED
+
+**Verdict**: `wave14_R32_M1_phasor_codebook_smoke` at 22:39:05.
+**R32_M1_KILLED**. "Phasor codebook capacity 1.00·N below kill
+threshold 2.0. Phasor substrate not viable."
+
+**Substrate-physics interpretation**: phasor codebook (standing-wave
+modes) at smoke gives M/N ≈ 1.0 — far below Kerdock v4's M/N=8.
+Substrate-novel construction from R32 doesn't deliver substrate-
+product gain at empirical test.
+
+**Per PROT-004**: R32 M.1 was part of multi-hop rescue inventory + a
+Bet P P.7 component. Filing in-axis closure (R32 was the 2x research
+pass; no separate rehab needed).
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| R32 M.1 phasor codebook (magnon standing-wave) | 🔬 active per v68 | ❌ **KILLED** at smoke — M/N=1.0 below 2.0 threshold; phasor substrate not viable | R32 M.1 smoke |
+| Bet P P.7 magnon-coupled codebook | (Bet P sub-axis) | ❌ in-axis killed by R32 M.1 result | R32 M.1 smoke |
+
+Multi-hop rescue inventory updates: was 7+1 active paths (v75) +
+3 new (Bet Y, Bet Z, Bet AA-M.1/M.2) → R32 M.1 closes 1 path. Net
+inventory still healthy.
+
+### Bet B Kovacs v1 smoke — PASS at retention_A=0.937
+
+**Verdict**: `wave14d_betB_kovacs_v1_smoke` at 22:39:12.
+**BET_B_PASS**. retention_A=0.937, retention_B=0.961, gain_C=4.44,
+bwt=+0.21.
+
+**Substrate-physics implication**: double-shift A→B→A' continual
+learning (Bet B Kovacs probe per R18) PASSES at smoke. Substrate
+exhibits Kovacs-like consolidation per van de Ven 2024 framework
+(R22). Awaits full mode.
+
+**Capability moves**:
+
+| Capability | v85 state | v86 state | Trigger |
+|---|---|---|---|
+| Bet B Kovacs double-shift probe (R18 extension) | 🔬 active queued | 🟢 **smoke PASS**; awaits full mode; R18 Kovacs memory effect plausibly substrate-applicable | Bet B Kovacs smoke |
+
+### Other smokes (older, recovered from snapshot)
+
+- `wave14_continual_N_5000edits_smoke`: CONTINUAL_N_KERDOCK_HOLDS at
+  100 edits (M=N regime; Bet A continual confirmed)
+- `wave14_parisi_M4N_smoke`: PARISI_V3_INCONCLUSIVE at M=4N (same
+  pattern as v3a/b/c/d — Bet E methodology-bounded)
+- `wave14_r17_M_stress_smoke`: R17_AREA_LAW_LIKE (slope=-0.207;
+  reconfirms area-law)
+- `wave14r_multihop_NUMFACTS_1000`: NOT_REPLICATED 3 seeds (more
+  facts worsen cliff; consistent with R36 deep-drill)
+
+### Pipeline state after batch
+
+Pipeline now running `wave14_continual_8N_5000edits` (started 01:23:21,
+extending continual editing to 5000 edits at M=8N). Queue depth 6
+pending: v11 per_batch_ema, NUMENT_500, r17_M_stress (full),
+parisi_M4N (full), continual_N_5000edits (full), R32_M1_phasor (full —
+will likely also KILL).
+
+Bet X skill composition — does NOT appear in verdict list. Either
+queued behind continual_8N_5000edits or not yet run.
+
+### Strategic moves required next cycle
+
+1. **Lane C smoke PASS** — flag to user as substrate-product Lane C
+   readiness signal. Consider promoting to full mode + multi-seed.
+2. **Bet S high-K analysis** — does substrate scale pattern-completion
+   to K≥200 with mechanism extension? Possible Bet S v2 with FHRR
+   continuous binding (rescue sketch 1 from v75 spec).
+3. **Bet X verdict** — wait for it to surface.
+4. **R32 M.1 closure** — in-axis closure complete; update Bet P P.7
+   axis as ❌.
+5. **δ(λ) drift critical-point test** — filed cycle 84 but not in
+   queue_pending; verify whether Experiment Dev picked it up.
+
+### Tally — Lane C smoke PERFECT ✅; Bet S PARTIAL (K-ceiling); R31 S.1 PARTIAL (marginal); R32 M.1 KILLED; Bet B Kovacs smoke PASS; multi-hop d=150 cliff at appropriate config
+
+Net effect: major Lane C product validation milestone (smoke); Bet S
+shows K-dependent ceiling; R31 S.1 closure marginal; R32 M.1 closure;
+substrate-product story strengthens at Lane C wedge; multi-hop
+characterization refined (test-config-dependent cliff between d=25
+and d=150).

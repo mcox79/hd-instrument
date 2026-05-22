@@ -3531,3 +3531,80 @@ substrate-product gains via the brutal-honesty pass.
 substrate-product story strengthens, not weakens, with honest
 recalibration. The "extended critical regime with tunable engineering
 knob" is LLM-structurally-impossible capability.
+
+---
+
+## Cycle 86 [Lane C + Lane D / Phase 1 verdict harvest] — Pipeline UNBLOCKED; batch integration (cap_map v86)
+
+**Time**: 2026-05-22 ~01:30 EDT.
+
+continual_8N_2000edits finally cleared during the long heartbeat
+(2026-05-21 21:14 → ~01:14 = ~4 hours wall). Phase 1 + multiple
+queued items have run since.
+
+**Major Phase 1 results**:
+
+- **Lane C compliance audit smoke**: **PERFECT PASS** (delete_leak=0,
+  edit_acc=1.0, kept_acc=1.0, side_effect=0, ECE=0). Lane C primitives
+  COMPOSE cleanly. **Substrate-product Lane C wedge ($5-50M ARR per
+  META plan) has a working composition demo at smoke.**
+
+- **Bet S pattern completion**: PARTIAL. K=8 + K=50 PASS; K=200 + K=800
+  fail 0.85 multi-probe threshold. Substrate's bidirectional recall
+  (Plate 1995 HRR inversion) has a K-ceiling around 50-100 facts.
+  NOT promoting to ✅; needs K-curve analysis or FHRR continuous-
+  binding extension.
+
+- **R31 S.1 Pyrkov CGLE**: PARTIAL marginal. best acc_50=0.233 at
+  k=20, λ=0.5 (just above FHRR 0.22 floor). Most configs fail.
+  Cleanup amplification axis stays weak.
+
+- **R32 M.1 phasor codebook**: ❌ KILLED at smoke (capacity 1.0·N
+  below kill threshold 2.0). In-axis R32 closure; Bet P P.7 axis
+  closes too.
+
+- **Bet B Kovacs v1 smoke**: PASS at retention_A=0.937. Double-shift
+  A→B→A' substrate-applicable per R22 + R18.
+
+- **Multi-hop d=150 cliff at appropriate config**: substrate retains
+  acc>0.10 through d=100, falls below at d=150. **Multi-hop cliff is
+  test-setup-dependent — between d=25 (specific config) and d=150
+  (other config).** Refines v77 Bet X class-level VSA bound framing.
+
+**Strategic moves**:
+
+1. **Lane C smoke PASS** is the largest substrate-product validation
+   this hour. Lane C wedge composition works. Recommend promoting
+   to full mode + multi-seed when Experiment Dev has bandwidth.
+
+2. **Bet S K-ceiling** is a refinement, not a closure. Substrate
+   bidirectional recall demonstrably works at K≤50; degrades
+   sharply higher. Consider K-curve full analysis + FHRR alternative.
+
+3. **R32 M.1 KILLED** = clean in-axis closure; Bet P P.7 axis closes.
+
+4. **Multi-hop d=150** updates v77 class-level bound framing — the
+   compositional bound applies but empirical reach is wider than
+   v17/v23 lower bound suggested. d=25-to-d=150 range per config.
+
+5. **R31 S.1 marginal** = doesn't reopen multi-hop closure (cap_map
+   v75 8-path inventory unchanged); cleanup amplification stays
+   architecturally weak at current arch.
+
+**Substrate-product position after Phase 1 batch**:
+
+- Lane C: 5 primitives + composition smoke ✅ PERFECT (major milestone)
+- Tier-1: 8 ✅ + 1 🟢 mechanism-dependent (Bet B) + 1 🟡 multi-hop
+  (now characterized as d=25-150 test-config-dependent)
+- New 🟡 Bet S (K-ceiling); new ❌ R32 M.1
+- V2 tracks unchanged: Bet Y (V2.D modern dense AM), V2.B hybrid,
+  Bet Z STACK = V2.G (cost-conditional on extended-critical-regime
+  test)
+
+**Pipeline state**: continual_8N_5000edits running; queue depth 6
+pending. Bet X verdict NOT in snapshot — may be queued behind 5000edits
+or not yet run.
+
+**Per [[feedback-no-smoke]]**: Lane C smoke PERFECT is genuine
+substrate-product validation. Bet S PARTIAL is honest K-ceiling
+characterization. Don't overclaim either.
