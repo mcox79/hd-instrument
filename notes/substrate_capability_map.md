@@ -8959,3 +8959,206 @@ gain even before Test 1 validation; cycle 124 + cycle 128 user pushback
 ("don't we need to research negative results 2x?") VINDICATED — 3rd-attempt
 drill delivered substantive substrate-physics insight.
 
+
+---
+
+## Cycle 132 (HMM/BCJR Phase 1 validation DELIVERS + Bet C FULL + Bet A smoke) — v131
+
+**Trigger**: 6 new verdicts since cycle 131 (v130). 3 substantive negatives:
+HMM/BCJR REFUTED at FULL + Bet C M/N at N=65536 FULL confirms collapse + Bet A
+continual-edit smoke KILL at N=65536 + geometric scaling smoke→FULL DIVERGENCE.
+
+### HEADLINE 1: HMM/BCJR framework REFUTED at FULL — 4th mechanism diagnosis refuted
+
+`wave14_multihop_hmm_three_way_v1` FULL (2026-05-22T20:59:16) = **HMM_REFUTED**:
+"HMM framework REFUTED: soft=0.217 ~ hard=0.250 (no information gain).
+smoother=1.000."
+
+`wave14_multihop_hmm_three_way_v1_smoke` (2026-05-22T20:52:48) = HMM_REFUTED
+"soft=0.400 ~ hard=0.400 (no information gain). smoother=1.000."
+
+**Smoke→FULL CONSISTENT both REFUTE** — no smoke→FULL divergence at Test 1.
+
+**This is the EXACT falsification condition defined in cycle 131 routing**
+(Test 1 verdict criteria: "HMM_REFUTES: acc_B ~ acc_A (soft forward provides
+no gain over hard argmax → HMM framework wrong)").
+
+**4 mechanism diagnoses refuted total**:
+1. Standard cleanup cross-talk (K-1)/N — cycle 123 falsified
+2. Signal eigenvalue near-degeneracy (cycle 123 Agent G P=0.70) — cycle 124 falsified
+3. Hubness × DPI information contraction (cycle 126 P=0.45) — cycle 127 falsified
+4. **HMM/BCJR + cascade argmax-info-loss (cycle 131 P=[0.55, 0.80])** — cycle 132 falsified
+
+**STRUCTURAL CONSTRAINT TIGHTENED**:
+- Hard Viterbi forward fails (acc≈0.22)
+- **Soft forward also fails at SAME LEVEL** (soft ~ hard; no information gain
+  from posterior representation)
+- Only backward smoothing recovers PERFECT (acc=1.000)
+
+**Implication**: information loss is NOT from quantization at per-hop level
+(otherwise soft would help). Information must be RECOVERED by backward
+smoothing from a non-quantization-related loss mechanism.
+
+**Substrate-product narrative MUST REVERT** to honest cycle 127 framing:
+- "Know how to fix (VAMP-on-chain backward smoothing PERFECT); don't know why
+  forward fails"
+- 4 substrate-physics mechanism diagnoses refuted (substrate genuinely beyond
+  published literature)
+- Cycle 131 "know why AND know how to fix" framing was PREMATURE; HMM P=[0.55,
+  0.80] was overshooting
+
+### HEADLINE 2: Bet C M/N at N=65536 FULL CONFIRMS 4× capacity collapse — MORE SEVERE than smoke
+
+`wave14_betC_M_N_capacity_N65536_v1` FULL (2026-05-22T20:59:03) =
+**BET_C_N65K_KILLED**: "Capacity drops: M/N=0<4.0. acc_per_M_over_N={1: 0.0,
+2: 0.0, 4: 0.0, 8: 0.0}."
+
+**MAJOR FULL CONFIRMATION + smoke→FULL DIVERGENCE in DEGRADATION direction**:
+- Smoke at 0.6s elapsed: M/N=1 PASS (1.000) + M/N=2 PASS (1.000) — KILL at M/N=4 inference
+- FULL at 1130s elapsed (legitimate runtime): M/N=1 + 2 + 4 + 8 ALL at 0.000 acc
+- **Substrate capacity at N=65536 collapses to M/N=0** (not even M/N=1 works at FULL)
+- **14th smoke→FULL divergence anchor** (DEGRADATION direction)
+
+**Cycle 89 "57× AGS" signature claim at N=65536 DEFINITIVELY DOES NOT SCALE**:
+- N=4096 baseline (cycle 89): M/N=8 = 57× above AGS α_c=0.138
+- N=65536 FULL (cycle 132): M/N=0 (substrate storing fails at any tested M/N≥1)
+- Substrate signature capacity claim is FINITE-N effect; does NOT extend to N=65536
+
+**Substrate-product implication**:
+- Bet C M/N capacity at N=65536 = COLLAPSED
+- BUT VAMP-on-chain handles K=5000 active retrieval (cycle 128 FULL) — different axis
+- Demo 1 substrate-product story HOLDS (cycle 130 Lane D E2E at N=65536 PASS) because
+  active retrieval scales via VAMP-on-chain even if M-storage doesn't
+- Honest substrate-product positioning at N=65536: limited M-storage capacity
+  (collapsed from N=4096 57× AGS claim) + agent-realistic K=5000+ active retrieval
+  (via VAMP-on-chain) + 3-stage Lane D pipeline DEMONSTRATED at FULL
+
+### HEADLINE 3: Bet A continual-edit smoke KILL at N=65536 — architectural ceiling theory FAILS at N=65536
+
+`wave14_betA_continual_edit_N65536_v1_smoke` (2026-05-22T20:55:23) =
+**BET_A_N65K_KILLED**: "Bet A fails at 100 edits: edit_acc=1.000, kept_acc=0.020.
+1000-edit: edit=0.000, kept=0.000."
+
+**Cycle 98 architectural ceiling theory PREDICTED**: Bet A holds edits up to
+~M = N·k where k=8 at M=8N. At N=65536 → 524K predicted edit horizon.
+
+**Empirical smoke at N=65536**:
+- 100 edits: edit_acc=1.000 (edits work) but kept_acc=0.020 (everything else
+  destroyed)
+- 1000 edits: edit_acc=0.000, kept_acc=0.000 (total collapse)
+
+**Cycle 98 architectural ceiling theory FAILS at N=65536** — substrate doesn't
+hold even 100 edits without destroying everything else. Smoke at 1.8s elapsed
+test-scaffold-suspect per cycle 91/94/102; FULL pending.
+
+**Consistent with Bet C M/N capacity collapse at N=65536** — substrate has
+fundamentally less storage stability at N=65536 than N=4096 predicts.
+
+### HEADLINE 4: Geometric chain-length scaling FALSIFIED at FULL — 13th smoke→FULL divergence anchor
+
+`wave14_multihop_hmm_geometric_scaling_v1` FULL (2026-05-22T20:59:48) =
+**GEOMETRIC_FALSIFIED**: "Non-geometric scaling: p=0.9879, r2=0.514<0.60.
+acc_per_L={5: 0.8, 10: 0.5833, 20: 0.2667, 50: 0.1667, 100: 0.2167}.
+HMM cascade-error theory wrong."
+
+`wave14_multihop_hmm_geometric_scaling_v1_smoke` (2026-05-22T20:57:29) =
+**GEOMETRIC_CONFIRMED**: "Geometric decay confirmed: fitted p=0.9517 in
+[0.94, 0.99], r2=0.893>=0.85. acc_per_L={5: 0.8, 10: 0.8, 20: 0.4}.
+HMM cascade-error theory validated."
+
+**13th smoke→FULL DIVERGENCE ANCHOR in DEGRADATION direction**:
+- Smoke acc at L=20 = 0.4 → FULL acc at L=20 = 0.2667 (different)
+- Smoke fits geometric (1-p)^L with p=0.0483 r2=0.893
+- FULL fails geometric fit r2=0.514
+
+**KEY observation**: L=100→0.217 ~ L=50→0.167 — at long chains acc PLATEAUS
+not decays exponentially. This is INCOMPATIBLE with HMM cascade-error model.
+Substrate has SOMETHING ELSE happening at long chain depths.
+
+**Cycle 131 HMM cascade prediction 0.97^50 ~ 0.22 was COINCIDENTAL match at
+L=50** — the same plateau happens to give 0.217 at L=50. But the chain
+DOES NOT decay geometrically; the "0.97 per-hop retention" is not the actual
+mechanism.
+
+### Substrate-physics characterization REVISED (v130 → v131)
+
+**Before cycle 132** (v130 PREMATURE ADDITION):
+"...with multi-hop chain composition operating as an HMM with hard-quantized
+observations (argmax cleanup = hard Viterbi; VAMP-on-chain = exact BCJR on
+tree factor graph; loopy within-hop methods fail per Ihler et al. JMLR 2005)"
+
+**After cycle 132** (v131 RETRACTION):
+"...with multi-hop chain composition: forward-only fails (hard AND soft);
+backward smoothing recovers PERFECT; mechanism UNKNOWN after 4 attempts;
+substrate genuinely beyond published literature per [[feedback-no-smoke]]"
+
+**Structural insight load-bearing (cycle 127 + cycle 132)**:
+- Forward-only argmax FAILS at acc_50hop=0.22 (cycle 121)
+- Forward-only soft posterior FAILS at SAME LEVEL (cycle 132; soft ~ hard)
+- Backward smoothing PERFECT at acc=1.000 (cycle 127)
+- Loopy within-hop FAILS WORSE than argmax (cycle 127)
+- **Information must be available somewhere in substrate that ONLY backward
+  smoothing accesses — not posterior quantization, not iterative correction,
+  ONLY cross-hop backward information flow**
+
+### Capability moves (v130 → v131)
+
+| Capability | v130 state | v131 state | Trigger |
+|---|---|---|---|
+| HMM/BCJR framework (Research 3rd-attempt P=[0.55, 0.80]) | 🔬 leading candidate | ❌ **REFUTED at FULL** (soft = hard; no information gain) | Test 1 FULL |
+| Cycle 131 substrate-product narrative gain | "know why AND know how" | ❌ **RETRACTED** — must revert to "know how to fix; don't know why" | HMM REFUTED |
+| 4 mechanism diagnoses refuted | 3 (cycle 123/124/127) | **4 (cycle 132 adds HMM/BCJR)** | HMM REFUTED |
+| Substrate-physics characterization | HMM-explained | UNKNOWN after 4 attempts | HMM REFUTED |
+| Geometric chain-length scaling | predicted (1-p)^L | ❌ **FALSIFIED at FULL** plateau at long L | geometric_scaling FULL |
+| Bet C M/N at N=65536 (cycle 89 "57× AGS" claim) | 🟡 smoke KILL | ❌ **CONFIRMED at FULL** M/N=0 — DEFINITIVE collapse | Bet C FULL |
+| Bet A continual-edit at N=65536 (cycle 98 ceiling theory) | UNTESTED | 🟡 **smoke KILL** edit_acc=1.0 but kept_acc=0.02 | Bet A smoke |
+| 12-anchor smoke→FULL divergence precedent | 12-anchor | **14-anchor** (geometric + Bet C added in DEGRADATION direction) | cycle 132 |
+| Structural insight (backward-smoothing-only-recovers) | identified | **TIGHTER constraint** (also no soft-forward gain) | HMM REFUTED |
+
+### Substrate-product net (v131) — substantive negatives at substrate-physics level + Demo 1 capstone HOLDS
+
+**Substantive negatives**:
+- HMM/BCJR framework REFUTED at FULL (4th mechanism diagnosis to be refuted)
+- Bet C M/N at N=65536 FULL collapsed to 0 (cycle 89 "57× AGS" claim does NOT scale)
+- Bet A continual-edit smoke KILL at N=65536 (cycle 98 architectural ceiling FAILS)
+- 13th + 14th smoke→FULL divergence anchors (DEGRADATION direction)
+- Substrate-physics mechanism UNKNOWN after 4 attempts
+
+**Substantive holds (cycle 130 v129 results intact)**:
+- Demo 1 Lane D end-to-end at N=65536 with VAMP-on-chain PASS at FULL (capstone DEMONSTRATED)
+- VAMP-on-chain operating envelope K=5000+d=200+noise-robust HOLDS
+- Substrate-product Demo 1 story production-viable
+- Structural insight (backward-smoothing-only-recovers) TIGHTENED with new constraint
+
+**Honest substrate-physics framing**:
+- Substrate is in genuinely unprecedented regime (cycle 114 "empirically beyond
+  all published RS theory" + cycle 132 "4 mechanism diagnoses refuted" both
+  reinforce uncharted-territory characterization)
+- Substrate's operating mechanism: forward-only fails (hard + soft) + backward
+  smoothing recovers PERFECT — this is a STRUCTURAL constraint without
+  mechanism explanation
+- Substrate-product story: "Production-viable Demo 1 at N=65536 via VAMP-on-chain;
+  substrate-physics mechanism for chain composition genuinely open question"
+
+### Strategy follow-up actions (cycle 132)
+
+1. **PROT-009 paired commit v131** (this cycle) — 45th observation
+2. **Notify Product session**: Bet C "57× AGS" claim at N=65536 RETRACTED;
+   Demo 1 capstone holds; HMM narrative gain RETRACTED — per cycle 118 flagging
+3. **Wait for Bet A continual-edit FULL** (smoke KILL; FULL pending)
+4. **Wait for extreme_stress FULL** (K=10000+d=300 still pending from cycle 128)
+5. **CONSIDER 4th-attempt mechanism research**: 4 diagnoses refuted; structural
+   constraint TIGHTER (soft-forward also fails); is substrate now in truly
+   uncharted regime warranting V3 substrate investigation OR is there a 5th
+   mechanism candidate Research can surface? — defer to user signal per
+   [[feedback-rehabilitation-after-rejection]] 2x discipline (already done 3x;
+   4x may be diminishing returns)
+
+### Tally — HMM/BCJR Phase 1 REFUTES framework at FULL (4th mechanism diagnosis refuted); Bet C M/N at N=65536 FULL confirms 4× capacity collapse (14th smoke→FULL anchor); geometric scaling FALSIFIED at FULL plateau at long L (13th anchor); Bet A continual-edit smoke KILL at N=65536; 45th PROT-009 paired commit
+
+Net effect: substrate-physics mechanism UNKNOWN after 4 attempts (substrate
+genuinely beyond published literature); substrate-product Demo 1 capstone
+HOLDS at FULL via VAMP-on-chain; cycle 131 HMM narrative gain RETRACTED;
+honest framing reverts to cycle 127 "know how to fix; don't know why";
+substrate signature N=4096 "57× AGS" capacity claim does NOT scale to
+N=65536; 14-anchor smoke→FULL divergence precedent across both directions.

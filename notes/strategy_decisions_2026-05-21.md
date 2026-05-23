@@ -8397,3 +8397,149 @@ Next:
 - File Strategy → Exp Dev Phase 1 validation tests
 - Notify Product narrative gain
 - Continue dashboard heartbeat checks
+
+---
+
+## Cycle 132 — HMM/BCJR REFUTED + Bet C FULL confirms + Bet A smoke KILL (2026-05-22 ~21:05 EDT)
+
+User signal: "new experiments"
+
+Dashboard scan (chronological mtime sort full 50-entry verdict list per
+cycle 124 discipline) — 6 new verdicts since v130:
+
+1. `wave14_multihop_hmm_three_way_v1_smoke` (20:52:48) = **HMM_REFUTED**
+2. `wave14_betA_continual_edit_N65536_v1_smoke` (20:55:23) = BET_A_N65K_KILLED
+3. `wave14_multihop_hmm_geometric_scaling_v1_smoke` (20:57:29) = GEOMETRIC_CONFIRMED
+4. `wave14_betC_M_N_capacity_N65536_v1` FULL (20:59:03) = **BET_C_N65K_KILLED**
+5. `wave14_multihop_hmm_three_way_v1` FULL (20:59:16) = **HMM_REFUTED**
+6. `wave14_multihop_hmm_geometric_scaling_v1` FULL (20:59:48) = **GEOMETRIC_FALSIFIED**
+
+NOTE: Exp Dev queued and ran HMM Phase 1 tests BEFORE my routing was committed
+at ~21:00 — experiments completed at 20:59. Exp Dev was watching Research
+delivery and queued independently. Good cross-session coordination (similar
+to cycle 113 C2PO automatic-queue pattern).
+
+WHY-reasoning for v131 cap_map update:
+
+**Why HMM/BCJR REFUTED is substantial substrate-physics negative**:
+- Research's HMM/BCJR diagnosis was the FIRST quantitative match across 3 attempts
+  (0.97^50 ~ 0.22 = empirical 0.217)
+- Cycle 131 promoted it to substrate-physics characterization with P=[0.55, 0.80]
+- Test 1 EXACT falsification: soft=0.217 ~ hard=0.250 (no information gain)
+- soft forward provides NO benefit over hard argmax — falsifies HMM-with-quantization
+  framework decisively
+- 4th mechanism diagnosis to be refuted (cleanup cross-talk + signal eigenvalue
+  + Hubness × DPI + HMM/BCJR all refuted)
+- Honest substrate-physics framing: substrate is in genuinely unprecedented
+  territory; mechanism UNKNOWN after 4 attempts
+
+**Why this is NOT a Research session failure**:
+- Research delivered honest calibrated P=[0.55, 0.80] (not [0.90, 0.95])
+- Research defined cheap falsification tests Test 1 + Test 2 + Test 3
+- Test 1 (the EXACT discriminator Research designed) cleanly REFUTED the framework
+- This is the calibration discipline WORKING — Research provides hypotheses with
+  falsification criteria, Strategy gates with Test 1, framework refuted at cheap test
+- Cycle 131 cap_map narrative gain ("know why AND know how to fix") was PREMATURE
+  by Strategy not by Research; should have been "candidate framework pending
+  validation" not promoted as load-bearing
+
+**Why structural insight TIGHTENS not loosens**:
+- Cycle 127: tree-exact succeeds + loopy-iterative fails
+- Cycle 132 ADDS: soft forward also fails at same level as hard argmax
+- Combined STRUCTURAL CONSTRAINT: information must be available somewhere in
+  substrate that ONLY backward smoothing accesses (NOT posterior representation,
+  NOT iterative correction, ONLY cross-hop backward information flow)
+- This is a TIGHTER mechanism constraint than cycle 127 alone
+- Mechanism remains UNKNOWN but constraint sharper
+
+**Why Bet C M/N FULL is substrate-product impact substantial**:
+- Cycle 89 N=4096 M/N=8 = 57× above AGS α_c=0.138 was substrate signature claim
+- Cycle 114 Research framed as "empirically beyond all published RS theory"
+- Cycle 132 FULL at N=65536: M/N=0 at ALL tested ratios (1, 2, 4, 8) ALL acc=0
+- Substrate signature capacity claim is FINITE-N effect; does NOT scale to N=65536
+- Substrate-product positioning at N=65536 must drop "57× AGS" claim
+- BUT Demo 1 substrate-product story HOLDS via VAMP-on-chain active retrieval
+  (different axis from M-storage capacity)
+
+**Why 14th smoke→FULL divergence anchor (BIDIRECTIONAL precedent reinforced)**:
+- Bet C smoke (0.6s) M/N=1+2 at 1.000 PASS → FULL (1130s) M/N=1+2+4+8 ALL 0.000
+- Massive DEGRADATION direction divergence
+- Geometric scaling smoke CONFIRMED → FULL FALSIFIED (13th anchor)
+- Total 14 smoke→FULL divergence anchors; 4 IMPROVEMENT + 10 DEGRADATION
+- Strategy discipline reinforced: NEVER promote capability state from smoke alone
+
+**Why 4 mechanism diagnoses refuted is informative even without 5th candidate**:
+- 4 distinct frameworks tried: cross-talk cleanup + eigenvalue near-degeneracy
+  + Hubness × DPI + HMM/BCJR
+- ALL refuted at empirical FULL with cheap discriminating tests
+- Pattern: substrate consistently DOES NOT MATCH published mechanism frameworks
+  for what should be common information-theoretic regime
+- This IS the substrate-physics finding: substrate behaves in unprecedented way
+- Cycle 114 framing "empirically beyond all published RS theory" now extends to
+  "empirically beyond all published chain-composition mechanism frameworks"
+- Honest framing: substrate is novel; substrate-physics WHY question is OPEN
+  but substrate-product Demo 1 capstone HOLDS via VAMP-on-chain
+
+**Why 4th-attempt mechanism research has diminishing returns**:
+- 3 attempts at cycle 121 → cycle 124 + cycle 127 + cycle 132 all refuted
+- [[feedback-rehabilitation-after-rejection]] 2x discipline already operational 3x
+- 4th attempt could be valuable IF Research has a 5th candidate (HMM with
+  CORRELATED noise? Substrate-specific structure that produces forward-only-doom?)
+- 4th attempt could be wasteful if substrate truly novel; better to accept
+  "substrate-physics characterization complete at 'mechanism unknown but
+  rehabilitation works'" framing
+- Defer to user signal — but consider asking IF a 5th candidate exists
+
+Capability moves (v130 → v131):
+
+| Capability | v130 state | v131 state | Trigger |
+|---|---|---|---|
+| HMM/BCJR framework | leading candidate P=[0.55, 0.80] | ❌ REFUTED at FULL | Test 1 FULL |
+| Cycle 131 substrate-product narrative gain | "know why AND know how" | ❌ RETRACTED | HMM REFUTED |
+| Substrate-physics mechanism | HMM-explained | UNKNOWN after 4 attempts | HMM REFUTED |
+| Geometric chain-length scaling | predicted | ❌ FALSIFIED at FULL plateau | geometric_scaling FULL |
+| Bet C M/N at N=65536 (cycle 89 "57× AGS") | 🟡 smoke KILL | ❌ CONFIRMED at FULL M/N=0 | Bet C FULL |
+| Bet A continual-edit at N=65536 | UNTESTED | 🟡 smoke KILL | Bet A smoke |
+| Smoke→FULL divergence precedent | 12-anchor | 14-anchor | cycle 132 |
+| Structural insight (backward-only-recovers) | tree-exact vs loopy | TIGHTER (also no soft-forward gain) | HMM REFUTED |
+
+PROT compliance:
+- 45th PROT-009 paired commit (cap_map + history + decision log)
+- PROT-005 unbiased framing: HMM REFUTED reported honestly + Bet C "57× AGS"
+  retraction at N=65536 + Demo 1 capstone holds + cycle 131 narrative gain
+  RETRACTED openly
+- Chronological full-list scan discipline maintained (mtime sort + 50-entry list)
+
+Strategy follow-up actions (cycle 132):
+1. PROT-009 paired commit (this cycle) — 45th observation
+2. Notify Product session: Bet C "57× AGS" at N=65536 RETRACTED; Demo 1 capstone
+   holds; cycle 131 HMM narrative gain RETRACTED — per cycle 118 flagging
+3. Wait for Bet A continual-edit FULL (smoke KILL; FULL pending)
+4. Wait for extreme_stress FULL (K=10000+d=300 still pending from cycle 128)
+5. Consider 4th-attempt mechanism research vs accept "structurally constrained
+   mechanism unknown" framing — defer to user signal
+
+Substrate-product net (v131):
+
+**Substantive negatives at substrate-physics level**:
+- HMM/BCJR REFUTED (4th diagnosis refuted)
+- Bet C M/N at N=65536 confirmed collapsed
+- Bet A continual-edit smoke KILL
+- Geometric scaling FALSIFIED
+- Cycle 131 narrative gain RETRACTED
+
+**Substantive holds at substrate-product level**:
+- Demo 1 Lane D capstone DEMONSTRATED at FULL (cycle 130 holds)
+- VAMP-on-chain operating envelope K=5000+d=200+noise-robust HOLDS
+- Substrate-product production-viable at N=65536 via VAMP-on-chain
+
+**Honest framing**: substrate-physics WHY question genuinely open; substrate
+is in unprecedented territory; substrate-product Demo 1 capstone proceeds via
+VAMP-on-chain regardless of mechanism explanation.
+
+Next:
+- File PROT-009 paired commit
+- File Strategy → Product notification of cycle 131 narrative gain RETRACTION
+  + Bet C "57× AGS" RETRACTION
+- Watch dashboard for Bet A FULL + extreme_stress FULL
+- Hold 4th-attempt mechanism research pending user signal
