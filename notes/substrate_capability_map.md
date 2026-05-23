@@ -12203,3 +12203,162 @@ per Strategy Option C; per [[feedback-dont-overextend-theorems]] Sweep
 B's KILL is expected capacity-ceiling behavior not a substrate
 refutation, and Sweep A's OOM is an experiment-memory artifact not a
 substrate property.
+
+## Cycle 176 (Bet A continual-edit v3 = 3rd FULL OOM TODAY = engineering coordination breakdown HARD-GATE applied; envelope expansion of Cap 1 Crooks commercial wedge selected for idle GPU) -- v156
+
+**Trigger**: `wave14_betA_continual_edit_5seed_v3` FULL FAILED at 4.1s
+with CUDA OOM at N=32768 in `build_initial_W`. This is the THIRD
+consecutive Bet A continual-edit FULL OOM today (v1 at N=65536, v2 at
+N=32768 remote, v3 at N=32768 with exp_dev's OOM-safe respec). Combined
+with Sweep A in cycle 174/175, the desktop pipeline has now logged FIVE
+N>=32768 Bet A OOM events in one day. Per
+[[feedback-negative-results-2x-research]] OOM-INCONCLUSIVE verdicts are
+EXPLICITLY EXCLUDED from the 2x Research drill trigger -- this is an
+engineering issue, not a substrate refutation pattern.
+
+GPU is now idle. Strategy must pick the right next move per
+[[feedback-strategy-shore-up-capabilities]] instead of letting exp_dev
+attempt v4.
+
+### OOM root cause (substrate-engineering, not substrate-physics)
+
+`exp_wave14_betA_continual_edit_N65536_v1.py:82-89:build_initial_W`
+materializes `(values.T (N,M) @ keys (M,N)) / N` with both operands
+cast to float32 BEFORE the matmul. At N=32768 this produces an N x N
+float32 intermediate = 4.3 GB plus float32 keys/values cast buffers
+(4 GB combined) plus existing context, exceeding the 8 GB VRAM budget.
+The bfloat16 W storage (2.15 GB at N=32768) is NOT the bottleneck;
+the matmul intermediate is. exp_dev's v3 OOM-safe respec to N=32768
+correctly sized W but did NOT account for the cast intermediates.
+
+This is a fixable engineering wall, not a substrate property. Per
+[[feedback-dont-overextend-theorems]] the substrate-physics
+characterization is UNCHANGED.
+
+### Engineering coordination failure (call it out)
+
+Per [[feedback-no-smoke]] brutal honesty: cycle 175 v155 filed
+`strategy_request_to_exp_dev_betA_M_init_capacity_envelope_v2_followup_2026-05-23.md`
+recommending **Option C (defer)** as Strategy's default for the unmapped
+Bet A region. Exp Dev DID NOT honor Option C; instead it queued a new
+Bet A continual-edit attempt (v3) less than 6 hours later, hitting the
+same OOM family at N=32768. The exp_dev decision rationale in
+`exp_dev_to_queue_betA_5seed_v3_2026-05-23.md` explicitly rejected the
+envelope-expansion option ("Option 2-4 deferred") in favor of "shore up
+contested capability" -- but the capability is NOT contested at the
+rescued operating point M_init=8192 N=65536; only the OOM-DEFERRED
+larger-N region is unmapped. Strategy must apply a HARD-GATE to stop
+the v3/v4/v5 spiral.
+
+### Capability moves (v155 -> v156)
+
+| Capability | v155 state | v156 state | Trigger |
+|---|---|---|---|
+| Bet A continual-edit at M_init=8192 N=65536 (rescued operating point) | ✅ HOLDS (cycle 172 v2 5-seed) | ✅ HOLDS unchanged | unchanged |
+| Bet A M_init capacity ceiling test at N=65536 (Sweep A region) | 🟡 OOM-DEFERRED Option C | 🔴 OOM-DEFERRED **HARD-GATED**: no further Bet A continual-edit FULL attempts at N>=16384 until `build_initial_W` is refactored to (a) use bfloat16 matmul OR (b) chunked allocation along the M axis. Engineering-blocker filed separately to Exp Dev. | continual_edit_5seed v3 FULL OOM at N=32768 |
+| Bet A M_init capacity ceiling at N=8192 (Sweep B region) | 🔬 envelope datapoint M/N<=1 | 🔬 unchanged | unchanged |
+| smoke->FULL precedent count | 22 | **23-anchor** (cycle 176 continual_edit_5seed v3 FULL OOM at N=32768; smoke at N=4096 M_init=512 PASSED at 12s, FULL at N=32768 OOM at 4.1s; DIVERGENCE direction REFUTATION-via-engineering-wall, not substrate-physics) | continual_edit_5seed v3 FULL |
+| Cap 1 Crooks forensic erase commercial wedge (v153 ✅ at FULL) | ✅ FULL-verified at default noise (delta_S_emp < 0.05) | ✅ unchanged at default noise; **envelope-expansion priority queued**: probe under bit-flip noise p in {0.05, 0.10, 0.20} at N=16384 50-trial FULL (Strategy -> Exp Dev request filed cycle 176) | Strategy envelope-expansion call per [[feedback-strategy-shore-up-capabilities]] item 2 |
+
+### Strategic decision: envelope-expand Cap 1 Crooks (NOT another Bet A attempt)
+
+Per [[feedback-strategy-shore-up-capabilities]] item 2: "Push to expand
+existing capabilities". Crooks forensic erase landed ✅ at FULL today
+(cycle 173 v153 noted "Cap 1 Crooks COMMERCIAL WEDGE VERIFIED at FULL")
+and is the named Cap 1 substrate-product wedge (Class 1 = verifiable
+erase per [[project-ai-memory-subsystem-direction]]). It has NOT been
+probed under noise. The substrate-product question is: does the
+Crooks-FT bound (delta_S_emp < 0.05) hold when the substrate is bit-flip
+perturbed during the erase trajectory? If yes, the commercial wedge
+extends to "verifiable erase under realistic noise" -- substantially
+stronger product framing.
+
+**Why this beats the other three options Strategy considered**:
+
+- **Option A (Research drill on chunked-allocation rescue for Bet A)**:
+  REJECTED per [[feedback-negative-results-2x-research]] EXPLICIT
+  EXCLUSION ("Do NOT trigger 2x research for OOM-inconclusive
+  verdicts"). The 3 Bet A OOMs are NOT a substrate refutation; they
+  are an experiment-memory engineering wall. Research drill is wrong
+  tool; Exp Dev engineering-blocker is right tool.
+- **Option C (cross-application probe)**: deferred. Per
+  [[feedback-strategy-shore-up-capabilities]] cross-application
+  probes happen ~once per 24-48h cycle. Today's substantive work
+  (cycle 173 4-cap FULL pipeline + cycle 175 envelope characterization)
+  has already moved the substrate-product portfolio. Crooks-noise
+  envelope expansion is higher-leverage than starting a new app probe
+  with the current idle GPU window.
+- **Option D (scope-expansion Research drill)**: deferred. Six Research
+  drills already filed/delivered today (K_resonance, order_param_2x,
+  semiconductor, anti_linear_coset, quirky_matsci, META_gaps_closing,
+  substrate_capabilities_not_being_probed). Research queue saturation;
+  decreasing marginal value from another drill before consuming
+  existing deliveries.
+
+### Substrate axis being probed
+
+Crooks-erase-under-noise probes the **verifiable forensic erase**
+substrate axis at the **Cap 1 commercial-wedge operating envelope**. If
+delta_S_emp stays below 0.05 under bit-flip noise p in {0.05, 0.10,
+0.20}, the substrate-product claim extends from "verifiable erase at
+clean substrate" to "verifiable erase robust to realistic perturbation
+during the erase trajectory." This is the Cap 1 envelope-expansion
+named in [[feedback-strategy-shore-up-capabilities]] as
+"larger N, longer chain, harsher noise" -- harsher noise applied to
+the existing ✅ row.
+
+### Substrate-physics characterization (unchanged from v155)
+
+> "Substrate is in EXPONENTIAL-decay universality class + MULTI-COMPONENT
+> sub-K-region q_overlap order parameter + anti-RM(1,16) coset bias
+> CONFIRMED. Bet A continual-edit ✅ at M_init=8192 N=65536; capacity
+> envelope at N=8192 confirmed M/N <= 1; lower-half capacity at N=65536
+> not characterized due to 8GB VRAM budget."
+
+### Strategy follow-up actions (cycle 176)
+
+1. **PROT-009 v156 paired commit** -- 70th observation.
+2. **Strategy -> Exp Dev request (envelope expansion)** filed at
+   `notes/strategy_request_to_exp_dev_crooks_noise_envelope_v1_2026-05-23.md`
+   with concrete spec: Crooks audit under bit-flip noise p in
+   {0.05, 0.10, 0.20} at N=16384 50-trial FULL.
+3. **Strategy -> Exp Dev hard-gate addendum** filed at
+   `notes/strategy_request_to_exp_dev_betA_continual_edit_hard_gate_2026-05-23.md`
+   with explicit STOP directive: no further Bet A continual-edit FULL
+   attempts at N>=16384 until `build_initial_W` is refactored to use
+   bfloat16 matmul OR chunked allocation. Includes the matmul-intermediate
+   root cause analysis exp_dev's v3 rationale missed.
+4. Continue waiting on cycle 172 pipeline additions FULL
+   (`wave14_pq_high_resolution_v1` FULL) and Block 4-5 pickups.
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered.
+- **PROT-004/006: NOT triggered** -- no closure row. OOM-INCONCLUSIVE
+  verdicts are explicitly excluded from closure-rehab discipline per
+  [[feedback-negative-results-2x-research]].
+- PROT-007: v156 history block written here; one-line entry added to
+  history.md compact index.
+- **PROT-008**: validator must pass before commit. v156 adds 0 new
+  violations.
+- **PROT-009**: cap_map.md + history.md +
+  strategy_decisions_2026-05-23.md staged atomically.
+
+### Tally (one-line)
+
+continual_edit_5seed v3 FULL OOM at N=32768 (THIRD Bet A continual-edit
+FULL OOM today; root cause is values.T@keys float32 matmul intermediate
+in build_initial_W not chunked or bf16-cast); HARD-GATE applied to
+further Bet A continual-edit attempts at N>=16384 (Exp Dev addendum
+filed); GPU-idle strategic call = Cap 1 Crooks erase-under-noise
+envelope expansion (Strategy -> Exp Dev request filed); 23rd smoke->FULL
+divergence anchor (REFUTATION-via-engineering-wall direction); per
+[[feedback-negative-results-2x-research]] OOM-INCONCLUSIVE explicitly
+excluded from 2x Research trigger -- no rehab routing filed; 70th
+PROT-009 paired commit.
+
+Net effect: substrate-product portfolio at v153 (12 demonstrated
+capabilities) carries forward unchanged; HARD-GATE stops the Bet A
+continual-edit OOM spiral; envelope-expansion of Cap 1 Crooks queued
+to consume the idle-GPU window with predictable GPU-budget-safe
+substrate-product value.
