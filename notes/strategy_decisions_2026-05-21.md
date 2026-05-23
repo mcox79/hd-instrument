@@ -7929,3 +7929,132 @@ Next:
 - File Strategy → Product notification of Demo 1 unlock
 - Update cap_map rows for multi-hop at N=65536 (PASS with VAMP-on-chain)
 - Mechanism diagnosis deferrable to academic Research follow-up
+
+---
+
+## Cycle 128 — 3rd-attempt mechanism research + post-v127 routing (2026-05-22 ~20:15 EDT)
+
+User pushback (TWO in sequence):
+
+**Pushback 1**: "what? exp dev needs strategy guidance"
+- Strategy heartbeat-only response after v127 was INSUFFICIENT
+- Pipeline drained to IDLE (current=None, queue=0) after VAMP-on-chain
+  FULL PERFECT + 4 rehabilitations REFUTED + Hubness FALSIFIED
+- Per [[feedback-two-experiments-per-cycle]]: queue-depth ≥1 invariant
+  violated; "runner never sits idle" discipline applies
+
+**Pushback 2**: "don't we need to research negative results 2x?"
+- Strategy cycle 127 deferral framing ("don't know why know how to fix"
+  + "deferrable to academic Research") was WRONG CALL per
+  [[feedback-rehabilitation-after-rejection]] 2x-research discipline
+- 3 mechanism diagnoses refuted (cleanup cross-talk + signal eigenvalue
+  near-degeneracy + Hubness × DPI) — mechanism question still OPEN
+- 2x-research-after-rejection drill applies REGARDLESS of whether
+  rehabilitation succeeded
+- Drill the negative even when rehabilitation works
+
+Corrective actions taken cycle 128:
+
+**Action 1**: File `notes/strategy_request_to_exp_dev_post_v127_batch_2026-05-22.md`
+- Committed `c1acdbd` — Strategy → Exp Dev post-v127 batch
+- 8 priority experiments: Lane D end-to-end with VAMP-on-chain
+  integration / Bet C M/N at N=65536 / Bet A continual-edit at N=65536 /
+  VAMP-on-chain K-sweep K=200/500/1000 / VAMP-on-chain noise 5/10/20/30% /
+  VAMP-on-chain depth 100/200/500 / Bet Z.3 VAMP single-hop empirical
+- Total estimated 4-8 GPU-hours; smoke + FULL = 16 runs
+- Priority ordering: Lane D Demo 1 integration first; Phase 3 completion
+  second; substrate-product robustness third
+
+**Action 2**: File `notes/strategy_request_to_research_multihop_mechanism_3rd_attempt_2026-05-22.md`
+- Committed `9ae962d` — Strategy → Research 3rd-attempt mechanism diagnosis
+- Structural clue from cycle 127: tree-exact single-pass succeeds +
+  loopy-iterative within-hop fails (Resonator + Sparse + Bidirectional
+  all FAIL at FULL despite different mechanisms)
+- 6 candidate mechanism families to investigate:
+  1. Partial-observation HMM (Kalman-smoother backward pass essential)
+  2. Lossy information channels with feedback (DPI without hubness)
+  3. Substrate memory leakage at large N (argmax commit-or-fail)
+  4. High-D distance concentration without absorbing-state hubness
+  5. Information-theoretic bottleneck (K-dim signal in N-dim substrate;
+     K/N=0.0015 at N=65536 K=100)
+  6. Other mechanisms Research surfaces
+- Calibration discipline per cycle 126: deflate P 0.15-0.25; top P ≤ 0.50
+- Generic-math queries only per [[feedback-query-privacy-decomposition]]
+- 1-2 Research cycles + 2-3x Sonnet lit-scan (~15-30 min)
+- 3rd drill applying [[feedback-rehabilitation-after-rejection]] 2x
+  discipline (cycle 123 first + cycle 125 second + cycle 128 third)
+
+WHY-reasoning:
+
+**Why mechanism diagnosis still matters despite rehabilitation success**:
+- Substrate-physics characterization has substrate-product value
+- Helps predict OTHER substrate failure modes at large N (substrate-
+  product positioning depends on knowing where else this regime hits)
+- Anchors substrate-product positioning ("known failure mode" + "known
+  fix" = stronger narrative than "fix without theory")
+- Could inform V3 substrate restructuring if needed
+- 2x-research-after-rejection applies to REJECTED mechanism hypotheses,
+  not just rejected rehabilitations
+
+**Why structural clue from cycle 127 is informative**:
+- Tree-exact single-pass cross-hop (VAMP-on-chain) = PERFECT 1.000
+- Loopy-iterative within-hop (Resonator, Sparse cleanup, Bidirectional)
+  = FAIL 0.20-0.225
+- This is a structural distinction (information flow topology) NOT a
+  parameter distinction — points to mechanism class with that signature
+- Candidate mechanisms: HMM-like (forward-only lossy; backward smoothing
+  essential), lossy channel + feedback, substrate memory leakage,
+  high-D concentration
+
+**Why 3rd-attempt is warranted**:
+- 1st attempt: signal eigenvalue near-degeneracy (cycle 123, P=0.70 → REFUTED)
+- 2nd attempt: Hubness × DPI information contraction (cycle 126, P=0.45 → REFUTED)
+- Plus baseline: standard cleanup cross-talk (cycle 123 baseline → REFUTED)
+- 3 mechanism diagnoses refuted — mechanism question genuinely open
+- User pushback corrects Strategy's premature deferral
+
+**Strategic significance**:
+- If 3rd attempt also fails: substrate-physics question genuinely open;
+  honest framing stands; can be V3 substrate investigation trigger
+- If 3rd attempt succeeds: substrate-product positioning gains theoretical
+  anchor; Demo 1 substrate-product story strengthens
+- Per cycle 124 user directive 2x-research-after-rejection: this is
+  the 3rd drill applying the discipline (Strategy session habituation
+  of the discipline)
+
+PROT compliance:
+- PROT-005 unbiased framing: 3 mechanism diagnoses refuted reported
+  honestly; deferral acknowledged as wrong call per user pushback
+- 2 attention-allocation gaps caught by user pushback cycle 128:
+  (1) post-v127 pipeline routing missed (exp_dev batch); (2) mechanism
+  research deferral missed (3rd-attempt mechanism diagnosis)
+- Cumulative attention-allocation gaps caught by user this session: 6
+  (cycle 95 numfacts retraction + cycle 117 PROT-009 hygiene gap +
+  cycle 119 multi-seed routing gap + cycle 124 slice-vs-full-list +
+  cycle 128 post-v127 routing + cycle 128 mechanism research deferral)
+- PROT-010 candidate (Strategy attention-allocation discipline)
+  observation count rising; 6 gaps in 40 cycles = ~15% gap rate
+
+Substrate-product net (cycle 128 post-corrections):
+
+Pipeline state:
+- 8 experiments queued via cycle 128 routing (Exp Dev pickup pending)
+- 3rd-attempt mechanism research in flight (Research delivery expected
+  15-30 min)
+- Pipeline continuity invariant restored
+
+Strategy session habituation of disciplines:
+- [[feedback-two-experiments-per-cycle]] queue-depth ≥1 invariant
+  reinforced (user pushback corrected slip)
+- [[feedback-rehabilitation-after-rejection]] 2x-research discipline
+  reinforced (user pushback corrected slip)
+- [[feedback-sessions-self-coordinate]] file-routing pattern maintained
+
+Next:
+- Wait for Exp Dev pickup of post-v127 batch (commit `c1acdbd`)
+- Wait for Research delivery on 3rd-attempt mechanism diagnosis (commit
+  `9ae962d`)
+- Continue heartbeat checks at next wakeup
+- Notify Product session of Demo 1 Lane D deep-chain unlock at N=65536
+  via VAMP-on-chain (per cycle 118 flagging protocol commitment) —
+  pending; lower priority than discipline corrections above
