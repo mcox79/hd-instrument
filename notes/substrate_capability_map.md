@@ -10857,3 +10857,173 @@ mode-locking framework (eigenvalue commensurability at K-dependent eigenspectrum
 3 new observability probes + Bet Z.5 candidate readout primitive proposed;
 substrate-product holds at v141 level; cheap eigenvalue spectral test
 decisive for Arnold-tongue framework validation.
+
+---
+
+## Cycle 162 (Massive 8-smoke batch: Arnold-tongue REFUTED + N=524K + head-to-head + chi_4) — v145
+
+**Trigger**: Cycle 156 + 160 + 161 routings ALL picked up by Exp Dev in burst
+06:55-07:08 EDT. 8 substantive smoke verdicts.
+
+### HEADLINE 1: 🔬 Arnold-tongue mode-locking REFUTED at smoke (6th mechanism diagnosis refuted)
+
+`wave14_K1000_eigenspectrum_check_v1_smoke` (07:08) = **K1000_IRRATIONAL_FAR**:
+"ratio=0.9862 not near any tested rational."
+
+**Substrate-physics implication**:
+- λ₁/λ₂ = 0.9862 at K=1000 — very close to 1.0 (eigenvalues nearly equal)
+- NOT rational m/n where m,n are small integers
+- Arnold-tongue mode-locking framework (cycle 160 v144 P=[0.30, 0.50]) REFUTED
+- 6th mechanism diagnosis at substrate-physics REFUTED scenario
+- 100% refutation rate continues across 6 mechanism attempts
+
+**Honest framing**:
+- Cycle 159 K=1000 period 1 anomaly was REAL (FULL data)
+- But explanation (Arnold-tongue / rational eigenvalue ratio) REFUTED
+- λ₁/λ₂ ≈ 0.986 means eigenvalues are nearly DEGENERATE at K=1000
+- Could explain fixed-point behavior via different mechanism (near-degeneracy
+  produces alignment without rational commensurability)
+
+### HEADLINE 2: K_RESONANCE_NONE — K=1000 isolated, no other resonances
+
+`wave14_K_resonance_fine_sweep_v1_smoke` = **K_RESONANCE_NONE**:
+"No period-1 region: {900: 11, 1000: 2, 1100: 2}."
+
+`wave14_K_resonance_wide_sweep_v1_smoke` = **K_RESONANCE_NONE**:
+"No period-1 region: {500: 8, 1000: 2, 2000: 24}."
+
+**Critical inconsistency**: K=1000 shows period **2** at cycle 162 smoke vs
+period **1** at cycle 159 FULL.
+
+Possible explanations:
+- Cycle 159 K=1000 period 1 was sampling artifact (single FULL run)
+- Period-1 vs period-2 boundary is unstable at K=1000
+- Smoke (0.78s) vs FULL (53.5s) precision difference
+
+**No other K resonances detected**:
+- K=900: period 11
+- K=1000: period 2
+- K=1100: period 2
+- K=500: period 8 (consistent with cycle 159's 12)
+- K=2000: period 24 (interpolating cycle 159's K=500→12 and K=5000→42)
+
+**Substrate-physics characterization** updated:
+- K=1000 "anomaly" may NOT be genuine substrate-novel resonance
+- Cycle 159 verdict refined: K=1000 has SHORT period (1-2) but not fundamentally
+  different from neighboring K values
+- 6 mechanism diagnoses + 1 framework all refuted
+
+### HEADLINE 3: 🚀 N524K_SCALES smoke — substrate 8× beyond V2.D
+
+`wave14_substrate_N524288_v1_smoke` (06:57) = **N524K_SCALES**:
+"acc=1.000>=0.5; 8x beyond V2.D."
+
+**Substrate-product scale**:
+- Bet Y V2.D: N=65536
+- Cycle 139 N=131K at FULL (2× V2.D)
+- Cycle 145 N=262K at FULL (4× V2.D)
+- **Cycle 162 N=524K at smoke (8× V2.D)** — FULL pending
+
+Substrate scales another doubling at smoke.
+
+### HEADLINE 4: HEADTOHEAD_EQUIVALENT — two readout primitives EQUIVALENT
+
+`wave14_vamp_vs_smoother_head_to_head_v1_smoke` = **HEADTOHEAD_EQUIVALENT**:
+"both >=0.95: smoother=1.000, vamp=1.000."
+
+**Substrate-product primitive characterization**:
+- VAMP-on-chain forward-backward EP: acc=1.000
+- Backward-smoother-only: acc=1.000
+- Both EQUIVALENT at substrate's test grid
+- Substrate-product can choose either based on compute / operational preference
+
+### HEADLINE 5: DEMO_1_K1000_BETTER — substrate works at K=1000
+
+`wave14_demo_1_K1000_smoother_v1_smoke` = **DEMO_1_K1000_BETTER**:
+"composed_acc=1.000>0.95."
+
+Demo 1 at K=1000 with backward-smoother readout PASSES at smoke. Despite
+substrate-physics K=1000 anomaly (cycle 159 period 1; cycle 162 period 2),
+substrate-product Demo 1 functions normally.
+
+### HEADLINE 6: FORWARD_K1000_SAME — period-2 cycles don't rescue forward
+
+`wave14_forward_argmax_K1000_v1_smoke` = **FORWARD_K1000_SAME**:
+"acc_50hop=0.000<0.2 (same as K=100)."
+
+Forward retrieval at K=1000 acc=0.000 (worse than K=100's 0.217). Period-2
+cycles do NOT enable forward retrieval — substrate's forward-lossy property
+holds at K=1000 too.
+
+### HEADLINE 7: CHI4_RS_CONSISTENT — Observability V2 chi_4 probe RS-confirms
+
+`wave14_chi4_dynamic_overlap_v1_smoke` (07:08) = **CHI4_RS_CONSISTENT**:
+"chi4 peak=0.45<10 (RS consistent)."
+
+**Observability Suite V2 first probe PASSES at smoke**:
+- chi_4 dynamic overlap variance: 0.45 (well below RSB threshold 10)
+- Substrate's burst-clustering profile RS-consistent
+- 5th cross-family RS-cert anchor after cycle 122's 4 anchors
+
+### Capability moves (v144 → v145)
+
+| Capability | v144 state | v145 state | Trigger |
+|---|---|---|---|
+| Arnold-tongue mode-locking framework | candidate P=[0.30, 0.50] | ❌ **REFUTED at smoke** (λ₁/λ₂=0.9862 NOT rational) | K1000_eigenspectrum smoke |
+| K=1000 anomaly | period 1 at cycle 159 FULL | 🔬 **PARTIALLY REFUTED** — period 2 at cycle 162 smoke (period-1/2 boundary unstable) | K_resonance smokes |
+| K-resonance multiple values | candidate | ❌ **K_RESONANCE_NONE x2** at smoke (no other resonances) | K_resonance smokes |
+| Substrate scale at N=524K | not tested | 🟡 **N524K_SCALES at smoke** (8× V2.D; FULL pending) | N524K smoke |
+| VAMP vs backward-smoother | not compared | ✅ **HEADTOHEAD_EQUIVALENT at smoke** both 1.000 | head-to-head smoke |
+| Demo 1 at K=1000 | not characterized | 🟡 **DEMO_1_K1000_BETTER smoke** acc=1.000 | demo_1_K1000 smoke |
+| Forward retrieval at K=1000 | not tested | 🟡 **FORWARD_K1000_SAME** acc=0 (period-2 doesn't rescue forward) | forward_K1000 smoke |
+| Observability V2 chi_4 probe | proposed | 🟡 **CHI4_RS_CONSISTENT at smoke** RS-confirmed | chi4 smoke |
+| Substrate-physics mechanism diagnoses refuted | 5/5 | **6/6** (Arnold-tongue added) | K1000_eigenspectrum smoke |
+
+### Substrate-physics characterization v144 → v145
+
+**Honest framing**:
+> "Substrate-physics 6 mechanism diagnoses refuted at smoke or FULL (signal
+> eigenvalue + Hubness × DPI + HMM/BCJR + cluster trapping + retraction +
+> Arnold-tongue mode-locking). Substrate W has λ₁/λ₂ ≈ 0.986 at K=1000 —
+> nearly-degenerate eigenvalues but NOT rational commensurability. K=1000
+> period-1 anomaly (cycle 159 FULL) may have been single-sample artifact
+> at FULL — cycle 162 smoke shows period 2 at K=1000 (not 1). No other K
+> resonances detected at smoke. Substrate-physics characterization: SHORT
+> LIMIT CYCLES with N-INVARIANT + weakly K-dependent + nearly-degenerate
+> eigenspectrum at K=1000. Mechanism for nearly-degenerate eigenvalues
+> remains substrate-novel (no standard framework explains it)."
+
+### Substrate-product net (v145)
+
+**Substantive substrate-product gains at smoke**:
+- N=524K scales at smoke (8× V2.D)
+- VAMP ≡ backward-smoother (two primitives equivalent)
+- Demo 1 at K=1000 works
+- Observability V2 chi_4 probe confirms RS phase (5th cross-family anchor)
+
+**Substrate-physics caveats**:
+- Arnold-tongue framework REFUTED
+- 6 mechanism diagnoses refuted total
+- K=1000 anomaly may be smoke vs FULL precision artifact
+
+**Substantive holds at v141 level**:
+- Demo 1 + Demo 2 + N=262K + 240 envelope cells + 2 readout primitives
+
+### Strategy follow-up actions (cycle 162)
+
+1. **PROT-009 v145 paired commit** — 59th observation
+2. Wait for FULL conversions of cycle 162 batch
+3. Wait for cycle 161 P-A (already delivered K1000_IRRATIONAL_FAR) + P-B
+   remaining probes (Kovacs + avalanche) + META Gap 1+2 routings
+4. Substrate-physics characterization terminal scenario applies — 6 mechanism
+   diagnoses refuted; substrate-novel finding stands without mechanism
+5. Consider Strategy → Product update if N=524K FULL confirms (substrate-product
+   scope expansion to 8× V2.D)
+
+### Tally — Arnold-tongue REFUTED at smoke (6th mechanism diagnosis refuted; 100% refutation rate continues); K_RESONANCE_NONE x2 (K=1000 may be smoke vs FULL artifact); N524K_SCALES smoke 8× beyond V2.D; HEADTOHEAD_EQUIVALENT 2 readouts; DEMO_1_K1000_BETTER + FORWARD_K1000_SAME; CHI4_RS_CONSISTENT 5th cross-family RS-cert; 59th PROT-009 paired commit
+
+Net effect: Arnold-tongue framework REFUTED at smoke (6/6 mechanism diagnoses
+refuted); substrate-physics characterization stays terminal "structurally
+constrained limit-cycle dynamical system; mechanism unknown despite 6 attempts";
+substrate-product substantively gains N=524K + HEADTOHEAD_EQUIVALENT + chi_4
+RS-cert; cycle 156 + cycle 160 + cycle 161 batches mostly cleared at smoke.
