@@ -731,3 +731,78 @@ PROT-004/006/008/009 compliance this commit: Cap 2 ❌ PROVISIONAL; 5 rescue ske
 ### Tally (one-line)
 
 wave14_cap2_confidence_margin_probe_v1 FULL = CAP2_MARGIN_KILL at 3.3s (corr(margin, correct) < 0.2 in ALL 4 noise strata; pre-reg hard-fail threshold crossed); SECOND independent metric framing to fail at FULL after v153 tau-iteration-count CRITICAL_NO_CORRELATION; TRUE structural closure (not envelope-narrowing); Cap 2 ❌ PROVISIONAL applied with 5 axis-combination rescue sketches filed per PROT-004/006 (endpoint-id + VAMP posterior variance + chi_4 + Kovacs + Gap C subsumption); Strategy -> Research 2x drill ROUTED per [[feedback-negative-results-2x-research]]; substrate-product portfolio drops 12 -> 11 demonstrated capabilities per [[feedback-no-smoke]] honest accounting; closure SCOPE limited per [[feedback-dont-overextend-theorems]]; substrate-physics characterization unchanged from v159; per verdict event payload Exp Dev routing INTENTIONALLY OMITTED (orchestrator coordinated); 74th PROT-009 paired commit.
+
+---
+
+## Cycle 181 (Cap 5 Online W Polyak-Ruppert noise-corrected bound PARTIAL; Rescue Path #1 CONFIRMED-PARTIAL not FULL; Cap 5 envelope at p_flip <= 0.30 CONFIRMED real structural boundary not metric artifact; FIRST verdict from newly-revived remote CPU runner) -- v161
+
+**Time**: 2026-05-23 13:53 EDT.
+
+**Trigger**: `wave14_online_W_polyak_noise_corrected_v1` FULL verdict `ONLINE_W_POLYAK_PARTIAL` at 0.0s elapsed (pure Python CPU re-analysis on `remote_cpu_queue`).
+
+**verdict_msg**: "Noise-corrected bound PARTIAL: 4/5 noisy cells pass. Originally failing cells rescued: 0/1. Cells still failing after correction: p in [0.4]. Mechanism #1 partially confirmed; deeper structural failure at high p."
+
+### Interpretation
+
+This was the v159 Strategy -> Research 2x drill's first concrete probe (Rescue Path #1 from `strategy_request_to_research_online_W_noise_robust_2026-05-23.md`). Polyak-Juditsky iterate averaging was the highest-ranked rescue sketch (Research P=0.50, deflated per [[feedback-lit-scan-calibration-penalty]]). The CPU re-analysis applies the Polyak-corrected theta_PJ(p) acceptance criterion to the existing v159 trajectory data.
+
+Outcome:
+
+- **PASSES** at p_flip in {0.05, 0.10, 0.20, 0.30} -- but these cells were ALREADY passing the flat 0.95 retention threshold in v159. The Polyak correction is applied to cells that did NOT need rescuing.
+- **FAILS** at p_flip = 0.40 -- the originally-failing cell. The Polyak-corrected theta_PJ(p) does NOT bring p=0.40 inside the operating envelope.
+
+Originally-failing cells rescued: **0/1**. The verdict explicitly identifies p=0.40 as a "deeper structural failure at high p" not addressable by iterate-averaging-style noise-floor corrections.
+
+### Comparison with v158 Cap 1 Sagawa-Ueda flip (precedent failure)
+
+| Metric flip | Originally failing cells | Cells rescued by metric flip | Outcome |
+|---|---|---|---|
+| v158 Cap 1 Sagawa-Ueda theta(p) | 3/3 (p in {0.05, 0.10, 0.20}) | **3/3** | Cap 1 SLA WIDENED to tiered (Tier 1 clean + Tier 2 noisy) |
+| v161 Cap 5 Polyak-Ruppert theta_PJ(p) | 1/1 (p=0.40) | **0/1** | Cap 5 envelope STAYS at p_flip <= 0.30 |
+
+The two re-axiomatizations diverge in outcome. v158 was a successful metric flip (the data was always compatible with the Sagawa-Ueda bound; v157's "narrowing" was an axiom-mismatch artifact). v161 is **NOT** a successful metric flip; the p=0.40 cell is incompatible with the Polyak-corrected bound, indicating a real structural break.
+
+Per [[feedback-no-smoke]] honest framing: the v159 Cap 5 envelope at p_flip <= 0.30 is a **real structural boundary**, not a metric-definition artifact. The Sagawa-Ueda precedent does NOT generalize to every noise envelope; each capability's envelope shape is its own measured quantity.
+
+### Capability moves (v160 -> v161)
+
+| Capability | v160 state | v161 state | Trigger |
+|---|---|---|---|
+| Cap 5 Gap B Online W noise envelope row | ✅ FULL clean + ✅ FULL p_flip<=0.30; pending Polyak rescue determination | ✅ FULL clean + ✅ FULL p_flip<=0.30 UNCHANGED; Polyak rescue PARTIAL; structural boundary at (0.30, 0.40] CONFIRMED | `wave14_online_W_polyak_noise_corrected_v1` FULL PARTIAL |
+| Cap 5 rescue path #1 (Polyak-Juditsky iterate averaging) | proposed P=0.50 (deflated) | CONFIRMED-PARTIAL not CONFIRMED-FULL | v161 verdict |
+| substrate-product portfolio count | 11 demonstrated capabilities | 11 demonstrated capabilities UNCHANGED (Cap 5 still ✅ in operating regime) | n/a |
+
+### Strategy decision (cycle 181)
+
+**v161 next-step recommendation: ACCEPT envelope at p_flip <= 0.30. Do NOT trigger another Research 2x drill on Cap 5 past p=0.30 this cycle.**
+
+Three considerations:
+
+1. **Research bandwidth prioritization** (per [[feedback-strategy-shore-up-capabilities]] item 1): the Research queue already carries (a) Cap 2 self-monitoring rehab v160 (HIGH priority refutation -- portfolio dropped 12 -> 11; restoring Cap 2 has higher product value than widening Cap 5 past p=0.30); (b) Bet T/V rescue sketches v158 (PROT-004/006 backlog); (c) META Gap A spatially-coupled codebook v151 (theorem-backed; awaiting bandwidth); (d) burn-down note for 3 orphaned 2026-05-23 deliveries. Adding a fourth Cap 5 elective hardening drill would over-saturate Research and defer the higher-priority Cap 2 refutation.
+
+2. **Elective vs required hardening**: the existing Cap 5 envelope at p_flip <= 0.30 covers realistic customer noise floors. The 4 remaining rescue sketches (SVRG variance reduction + BSC majority-vote 3-redundant decoder + adaptive SNAP + tiered SLA at higher C-coefficient) are ELECTIVE -- they widen the envelope to p>=0.40 but are not required to ship the existing capability. Per [[feedback-no-papers-product-only]] substrate-product positioning: ship Cap 5 with explicit operating envelope; widen later if customer demand surfaces a p>=0.40 use case.
+
+3. **Diminishing-return signal**: the verdict_msg "deeper structural failure at high p" indicates the p=0.40 boundary is plausibly a SNAP-guard breakdown regime, not an iterate-statistics issue. The remaining 4 rescue paths address different mechanisms (variance reduction; channel decoding; adaptive saturation; calibrated retention bound at a larger acceptance-coefficient). Each would need its own Research drill if pursued; expected gain per drill is moderate-to-low (each rescue addresses a different aspect; none clearly dominates).
+
+**Action**: annotate Cap 5 envelope row as CONFIRMED structural boundary (Polyak rescue partial); mark Rescue Path #1 as CONFIRMED-PARTIAL not CONFIRMED-FULL; keep 4 remaining rescue sketches in substrate-product roadmap as elective hardening pool; do NOT trigger another Research drill on Cap 5 this cycle.
+
+### Strategy follow-up actions (cycle 181)
+
+1. **PROT-009 v161 paired commit** -- 75th observation.
+2. **Cap 5 envelope row annotated** in cap_map.md and active_priorities.md: Polyak rescue PARTIAL; envelope at p_flip <= 0.30 CONFIRMED structural boundary not metric-definition artifact. Rescue Path #1 (Polyak-Juditsky) CONFIRMED-PARTIAL.
+3. **DO NOT trigger another Research 2x drill on Cap 5 envelope past p=0.30 this cycle** (rationale above).
+4. **DO NOT file Exp Dev routing** -- per verdict event payload, orchestrator continues filling queues separately.
+5. **Acknowledge remote CPU runner revival** -- this verdict is the FIRST from the newly-revived `remote_cpu_queue` runner. Pure Python CPU re-analysis (0.0s elapsed) demonstrates the cheap-CPU exploratory probe pipeline is online.
+6. Push v161 to remote per [[feedback-cap-map-update-protocol]].
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006**: NOT triggered for a closure. Cap 5 ✅ still holds in operating regime (p <= 0.30). No new ❌ row added. Rescue Path #1 (Polyak-Juditsky) marked CONFIRMED-PARTIAL; rescues 2-5 remain DRAFT and available. Per [[feedback-dont-overextend-theorems]] the partial confirmation of Polyak-Ruppert does NOT close the broader "noise-corrected retention bound exists for Cap 5" axis -- it specifies that the iterate-averaging family alone is insufficient, but the SVRG / BSC-redundancy / adaptive-SNAP / tiered-SLA-with-larger-C families remain open.
+- **PROT-007**: v161 history block written first to `substrate_capability_map_history.md` (compact one-line at bottom); narrative block also retained inline in cap_map.md per v60+ live cap_map convention.
+- **PROT-008**: validator must pass before commit. v161 adds 0 new ❌ rows; baseline 26 pre-existing violations from v138-v153 era unchanged; v160 Cap 2 ❌ PROVISIONAL row + rehab-file reference unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically. Validator invoked with `--staged-files`.
+
+### Tally (one-line)
+
+wave14_online_W_polyak_noise_corrected_v1 FULL = ONLINE_W_POLYAK_PARTIAL at 0.0s elapsed (FIRST verdict from newly-revived remote CPU runner; 4/5 noisy cells pass Polyak-corrected bound but ALL 4 were already passing flat 0.95 threshold; 0/1 originally-failing p=0.40 cell rescued); UNLIKE v158 Cap 1 Sagawa-Ueda flip (3/3 originally-failing cells rescued; SLA widened to tiered) Cap 5 Polyak-Ruppert does NOT generalize -- structural boundary at (0.30, 0.40] confirmed not metric-definition artifact; Cap 5 envelope STAYS at p_flip <= 0.30; rescue path #1 (Polyak-Juditsky) marked CONFIRMED-PARTIAL not CONFIRMED-FULL per [[feedback-no-smoke]] honest framing; 4 remaining rescue sketches (SVRG + BSC redundancy + adaptive SNAP + tiered-SLA-with-larger-C) stay on substrate-product roadmap as elective hardening options; no Cap 5 closure (✅ still holds at p<=0.30 operating regime); substrate-product portfolio at v160 (11 demonstrated capabilities) carries forward unchanged in count; substrate-physics characterization unchanged from v160 + new observation that Robbins-Monro+SNAP has true noise-tolerance ceiling beyond O(1/t) iterate averaging; per verdict event payload Exp Dev routing INTENTIONALLY OMITTED; strategic call NOT to trigger another Research drill on Cap 5 envelope past p=0.30 this cycle (Research bandwidth prioritized for Cap 2 self-monitoring rehab HIGH priority refutation); FIRST remote-CPU-runner verdict since 2026-05-21 revival; 75th PROT-009 paired commit.
