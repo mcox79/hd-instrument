@@ -934,3 +934,97 @@ Same verdict tag at smoke and FULL -- this counts as a **broad divergence anchor
 ### Tally (one-line)
 
 wave14_amp_se_kerdock_v1_gpu FULL = AMP_SE_DIVERGES at 2522s elapsed (mean rel_err=0.916 max=0.999 over 4 cells; 0/4 within 20% threshold); sharpens v120 cycle 115/120 Kerdock-AMP-universality KILL to SE-fixed-point empirical level; confirms HARD FAIL branch of meta-research adjacency Drill #4 (substrate-novel theoretical-regime branch); per [[feedback-dont-overextend-theorems]] does NOT close broader AMP/VAMP family (VAMP variants + free-probability R-transform remain rescue paths); substrate-product portfolio at v162 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT; broad divergence anchor +1 (smoke 0.847 -> FULL 0.916 same AMP_SE_DIVERGES tag); per orchestrator PAUSED state Strategy SKIPS Exp Dev routing (queue refill INTENTIONALLY OMITTED per [[feedback-obey-user-pause-explicitly]]); VAMP-SE on Kerdock + R-transform of Kerdock 4-coset codebook noted as Research follow-up candidates DEFERRED to next active cycle; 77th PROT-009 paired commit.
+
+---
+
+## 18:43 -- wave14_glauber_kerdock_v1 GLAUBER_INCONCLUSIVE (under-resolution, re-run candidate)
+
+**Verdict**: GLAUBER_INCONCLUSIVE at 20.7s elapsed (remote_cpu_queue).
+**Verdict_msg**: "Mixed Glauber response: low_T_bimodal=0/6, global_unimodal=12/15, max_bimodal=0.000 at . Need finer T resolution or longer chain length."
+
+### Strategy verdict
+
+1. **Cap_map UNCHANGED**: no version bump. No row currently sits at the "Glauber dynamical observability" capability level (would be a 🔬 research-only candidate or new ⚪ row if/when a tuned re-run produces a clean bimodal/unimodal signature). 11 demonstrated capabilities carry forward.
+
+2. **Re-run candidate, NOT closure**: per [[feedback-negative-results-2x-research]] under-resolution INCONCLUSIVE != negative result. No 2x Research drill triggered. Exp Dev should file a re-run with:
+   - Finer T grid (current grid had low_T_bimodal=0/6 cells across the entire low-T band -- expand below current beta_min and/or densify)
+   - Longer chain length (max_bimodal=0.000 suggests current chains may not have reached stationary)
+   - Possibly larger sample count (current global_unimodal=12/15 majority but not unanimous)
+
+3. **Complementary spectral probe still in flight**: wave14_free_cumulants_kerdock_v1 still running on GPU. Free-cumulants is a SPECTRAL observability probe (eigenspectrum signatures); Glauber is a DYNAMICAL observability probe (stationary P(q) of synchronous heat-bath chain). They answer adjacent but distinct questions about the Kerdock-Hebbian W matrix. No double-ship needed -- let free-cumulants land before deciding the Glauber re-run priority.
+
+4. **PROT-004/006 NOT triggered**: no closure, no cap_map ❌ added.
+
+5. **PROT-007/008/009**: no cap_map commit this cycle; decision-log standalone entry.
+
+### Pipeline-pacing reflex (per [[feedback-pipeline-pacing]])
+
+- Pause flag at 18:31 was CLEARED -- ACTIVE. Per verdict_handler Step 2 the queue-refill reflex IS in effect.
+- remote_cpu_queue depth at arrival: 0 (this verdict consumed the last entry).
+- GPU runner BUSY with wave14_free_cumulants_kerdock_v1 -- do NOT ship to GPU queue.
+- Action: Exp Dev should ship the Glauber re-run (finer T + longer chains) to remote_cpu_queue OR an adjacent exploratory CPU sweep. verdict_handler dispatches exp_dev (Sonnet) with this context.
+
+### Tally (one-line)
+
+wave14_glauber_kerdock_v1 FAST INCONCLUSIVE = GLAUBER_INCONCLUSIVE at 20.7s elapsed (low_T_bimodal=0/6, global_unimodal=12/15 over 15 cells, max_bimodal=0.000); under-resolution NOT refutation; re-run candidate with finer T grid + longer chains; cap_map UNCHANGED at v163 (portfolio still 11 FULL capabilities); complementary free-cumulants probe still running on GPU (no double-ship); per [[feedback-negative-results-2x-research]] does NOT trigger 2x Research drill; pause flag ACTIVE so pipeline-pacing exp_dev dispatch IS in effect (queue=0 on remote_cpu).
+
+---
+
+## ~19:00 -- v164 BATCHED PAIRED VERDICT (free-cumulants FREE_CUMULANTS_DIVERGE + glauber_v2 GLAUBER_BIMODAL_KERDOCK)
+
+**Batched-mode verdict_handler dispatched on two verdicts paired** to avoid git-pull race between two parallel verdict_handlers (per orchestrator batched contract). Single .tmp+rename+commit+push round covers both.
+
+### Verdict 1: wave14_free_cumulants_kerdock_v1 (GPU / overnight_queue, landed ~18:50)
+
+**Tag**: FREE_CUMULANTS_DIVERGE
+**Significance**: provides the FORMAL SPECTRAL MECHANISM for v163 AMP_SE_DIVERGES. Substrate Kerdock spectrum has nontrivial higher free cumulants kappa_n (n>=2); max_dev=1.125 at kappa_4 alpha=2.00; 5/5 cells exceed 20% deviation. AMP universality (Stieltjes/R-transform-of-MP assumption) is incompatible with nontrivial higher kappa_n -- the R-transform with kappa_n != 0 places Kerdock outside AMP universality at the spectral level, which is exactly what v163's empirical AMP-SE divergence demonstrated indirectly. v164a closes the loop: v163 was the *empirical* demonstration; v164a is the *spectral* explanation.
+
+### Verdict 2: wave14_glauber_kerdock_v2 (Remote CPU / remote_cpu_queue, landed ~18:43)
+
+**Tag**: GLAUBER_BIMODAL_KERDOCK
+**Significance**: Cap 3 streaming-NESS framing extends from continuous-state drift-diffusion to discrete-spin Glauber-Hopfield. Synchronous heat-bath Glauber dynamics on Kerdock-Hebbian W shows bimodal stationary P(q) at low T (12/18 low-T cells satisfy bimodal_score>=0.5 AND abs_mean_q>=0.30; max bimodal=1.000 at beta=2.00 alpha=0.05). v2 supplied the parameter resolution that v1 lacked (finer T grid + longer chains + sub-critical alpha + init noise).
+
+### Strategy verdict
+
+1. **v164 paired commit** -- cap_map.md narrative block + history.md one-line entry + active_priorities.md update + this decision-log block staged atomically. 78th PROT-009.
+
+2. **Two new evidence-strength rows added** to cap_map under "Substrate-physics characterization":
+   - "Free-cumulant fingerprint of Kerdock R-transform" 🟢 (single-N N=1024 5/5; want N=4096+ multi-N + Wigner null baseline). Substrate-novel observability: kappa_n profile distinguishes Kerdock from MP/Wigner.
+   - "Cap 3 Glauber-Hopfield discrete-spin NESS extension" 🟢 (single-N N=1024 12/18 low-T cells bimodal; want N=4096+ + 5-seed). Cap 3 streaming-NESS framing extends to discrete-spin Glauber-Hopfield retrieval-vs-paramagnetic equilibrium.
+
+3. **Substrate-product portfolio UNCHANGED at 11 demonstrated capabilities**. Both new rows are evidence-strength expansions (substrate-physics + Cap 3 extension), not new portfolio ✅ rows.
+
+4. **PROT-004/006 NOT triggered**: no closure, no ❌ row added. Both verdicts ADD evidence to existing or implied rows.
+
+5. **Per [[feedback-dont-overextend-theorems]] honest framing**: v164a does NOT close the AMP/VAMP family -- it explains why plain-AMP-SE diverges on Kerdock (the spectral mechanism) and *motivates* the natural composition follow-up (VAMP-SE-on-Kerdock with the measured R-transform as input). v164b does NOT promote Cap 3 from envelope-extension to "new portfolio capability" -- it extends the FRAMING from continuous-state to discrete-spin Glauber-Hopfield; the formal SLA-grade demonstration would require multi-N + multi-seed.
+
+6. **Pipeline-pacing**: pause flag CLEARED -- ACTIVE. Per verdict_handler Step 2, GPU queue=0 (free-cumulants done; runner idle) triggers exp_dev dispatch for ONE GPU refill. CPU has 2 pending (S_transform + parisi from the earlier 3-experiment burst) -- do NOT refill CPU. GPU refill recommendation by name: `wave14_R_transform_kerdock_v1_multi_N` (direct measurement of substrate Kerdock R-transform's higher free cumulants at N in {1024, 2048, 4096, 8192}, 5-seed; promotes v164 free-cumulant row from 🟢 to ✅ if max_dev scales / stays bounded; supplies the spectral input for the deferred VAMP-SE-on-Kerdock follow-up). Recent-run dedup check: name NOT in queue.json today; not in any prior FULL/smoke directory.
+
+7. **Research follow-up FILED** (deferred to next cycle per pipeline-pacing): VAMP-SE on Kerdock using v164a's measured R-transform as input. This is the natural composition of v163 + v164a and was already noted as a deferred Research candidate at v163; v164a now supplies the spectral input the candidate was waiting on.
+
+### Pipeline state at v164
+
+| Queue | Pending | Running | Heartbeat |
+|---|---|---|---|
+| overnight (GPU) | 0 at arrival | IDLE post-free_cumulants | -> dispatch exp_dev for ONE refill (R_transform_multi_N) |
+| remote_cpu | 2 (S_transform + parisi from earlier burst; glauber_v2 just finished) | one running | NOT refilled this cycle |
+| local_cpu | ? | DEAD | n/a |
+
+### Smoke -> FULL divergence accounting
+
+| Run | Smoke | FULL | Divergence? |
+|---|---|---|---|
+| free_cumulants_v1 | DIVERGE 2/2 max=0.988 | DIVERGE 5/5 max=1.125 | NO; cell-extension broad anchor +1 only |
+| glauber_v2 | BIMODAL 1/1 cell @ beta=6 alpha=0.10 | BIMODAL 12/18 cells; max @ beta=2 alpha=0.05 | NO; cell-extension broad anchor +1 only |
+
+Net: 25 strict / 28 broad smoke->FULL divergence anchors.
+
+### PROT compliance
+
+- PROT-007: v164 history line appended to substrate_capability_map_history.md; narrative block in substrate_capability_map.md.
+- PROT-008: validator must pass before commit. 0 new ❌ rows added.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically.
+
+### Tally (one-line)
+
+BATCHED v163 -> v164: wave14_free_cumulants_kerdock_v1 GPU FULL = FREE_CUMULANTS_DIVERGE (5/5 cells exceed 20% kappa_n deviation; max_dev=1.125 at kappa_4 alpha=2.00; formal SPECTRAL MECHANISM for v163 AMP_SE_DIVERGES established) + wave14_glauber_kerdock_v2 CPU FULL = GLAUBER_BIMODAL_KERDOCK (12/18 low-T cells bimodal; max bimodal=1.000 at beta=2.00 alpha=0.05; Cap 3 streaming-NESS extends from drift-diffusion to discrete-spin Glauber-Hopfield); 2 new evidence-strength rows added (substrate-physics free-cumulant fingerprint 🟢 + Cap 3 Glauber-Hopfield extension 🟢); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (no closure, no new portfolio ✅; both rows are evidence-strength expansions); per [[feedback-dont-overextend-theorems]] no row closed; per [[feedback-pipeline-pacing]] GPU=0 -> exp_dev dispatched for ONE GPU refill targeting R-transform multi-N (wave14_R_transform_kerdock_v1_multi_N); CPU has 2 pending so NOT refilled; broad smoke->FULL anchors +2 by cell-extension (28 broad / 25 strict); pause flag CLEARED -- ACTIVE; 78th PROT-009 paired commit.

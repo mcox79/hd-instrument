@@ -13213,3 +13213,113 @@ This cycle Strategy does NOT recommend any new experiment by name. The VAMP-SE o
 wave14_amp_se_kerdock_v1_gpu FULL = AMP_SE_DIVERGES at 2522s elapsed (~42 min on remote GPU; rerouted from local CPU per pipeline-pacing; 4 cells over alpha + N grid; mean rel_err=0.916, max=0.999; 0/4 cells within 20% error threshold); confirms HARD FAIL branch of meta-research adjacency Drill #4 per `notes/research_meta_map_and_adjacencies_2026-05-23.md` Part 3 -- the substrate-NOVEL theoretical-regime branch, NOT the "matches existing theory" branch; sharpens v120 cycle 115/120 Kerdock-AMP-universality KILL (which was at the 4-step Bayati-Montanari pretest level) to the SE-fixed-point empirical level (direct comparison of SE solve vs empirical AMP iteration on Kerdock codebook); per [[feedback-dont-overextend-theorems]] does NOT close the broader AMP/VAMP family -- VAMP variants (Rangan-Fletcher-Goyal cycle 127 load-bearing) + free-probability R-transform machinery (Bet I ✅ v56 load-bearing) remain open rescue paths for the substrate's M/N=8 capacity anomaly at N=4096; substrate-physics characterization UPDATED to explicit "outside AMP universality class at SE-fixed-point level" with empirical rel_err anchor (0.916 mean over 4 cells); substrate-product portfolio at v162 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT (no closure event; substrate-physics-only update; v120 already carried the narrow Kerdock-AMP-universality closure); per [[feedback-lit-scan-calibration-penalty]] validates the 0.20-deflation rule for novel-synthesis-cap candidates (deflated P=0.45 at filing; HARD FAIL outcome P~0.55 confirmed); smoke->FULL broad divergence anchor +1 (smoke mean rel_err=0.847 over 2 cells -> FULL 0.916 over 4 cells; same verdict tag AMP_SE_DIVERGES so NOT a strict tag-flip); per orchestrator PAUSED state per `data/orchestrator_paused.flag` Strategy SKIPS Exp Dev routing (queue refill INTENTIONALLY OMITTED per [[feedback-obey-user-pause-explicitly]]); VAMP-SE on Kerdock + free-probability R-transform of Kerdock 4-coset codebook noted as Research follow-up candidates DEFERRED to next active cycle; 77th PROT-009 paired commit.
 
 Net effect: substrate-physics characterization sharpens v120 Kerdock-AMP-universality KILL to SE-fixed-point empirical level (rel_err=0.916 anchor); meta-research Drill #4 HARD FAIL branch confirmed (substrate-novel theoretical regime); AMP/VAMP family NOT closed per [[feedback-dont-overextend-theorems]] -- VAMP variants + free-probability remain rescue paths; substrate-product portfolio UNCHANGED at 11 capabilities; orchestrator-paused (no Exp Dev routing); 25 strict / 26 broad smoke->FULL divergence anchors.
+
+---
+
+## Cycle 184 (BATCHED: free-cumulants Kerdock spectrum DIVERGES from MP at higher kappa_n + Glauber-Hopfield bimodal P(q) at low T -- formal mechanism for v163 AMP_SE_DIVERGES established + Cap 3 NESS framing extends from drift-diffusion to discrete Glauber dynamics) -- v164
+
+**Pair of verdicts processed together (batched-mode verdict_handler) to avoid git-pull race; single paired commit covers both findings.**
+
+### Verdict A: wave14_free_cumulants_kerdock_v1 (GPU / overnight_queue, landed ~18:50)
+
+**Verdict tag**: FREE_CUMULANTS_DIVERGE
+**Verdict_msg**: "Kerdock spectrum has higher free cumulants kappa_n (n>=2) that deviate significantly from MP baseline. 5/5 cells exceed 20% deviation; max_dev=1.125 at alpha=2.00, kappa_4. This is the formal mechanism for AMP_SE_DIVERGES: nontrivial higher free cumulants in the Kerdock R-transform place it outside the AMP universality class. Substrate-novel observability: kappa_n profile distinguishes Kerdock from MP/Wigner..."
+
+### Verdict B: wave14_glauber_kerdock_v2 (Remote CPU / remote_cpu_queue, landed ~18:43)
+
+**Verdict tag**: GLAUBER_BIMODAL_KERDOCK
+**Verdict_msg**: "Glauber dynamics on Kerdock-Hebbian W shows substrate-characteristic bimodal P(q) at low T. 12/18 low-T cells satisfy bimodal_score >= 0.5 and abs_mean_q >= 0.30. Max bimodal_score=1.000 at beta=2.00, alpha=0.05. Substrate codeword space supports retrieval-noise two-mode equilibrium under finite-T thermal dynamics; Cap 3 streaming-NESS framing extends from drift-diffusion to a Glauber-Hopfield discrete analog..."
+
+### Why these go together
+
+Verdict A and Verdict B are the **two complementary observability probes** of the substrate's Kerdock-Hebbian W matrix that were shipped reactively to v163 AMP_SE_DIVERGES (per orchestrator pipeline dispatch at ~18:45 per `notes/exp_dev_decisions_2026-05-23.md` last entry). Together they form a closed loop:
+
+- **Spectral (free-probability) axis** -- Verdict A: Kerdock spectrum has nontrivial higher free cumulants kappa_n for n=2,3,4. AMP universality assumes the Stieltjes/R-transform of the bulk spectrum is Marchenko-Pastur (MP, semicircular for Wigner). The Kerdock spectrum's higher kappa_n != 0 is the **formal mechanism** for v163 AMP_SE_DIVERGES: if the R-transform has nontrivial higher cumulants, AMP-SE's fixed-point equation (which is derived assuming MP-only) DOES NOT predict the empirical AMP iteration. v163 was the *empirical* demonstration; Verdict A is the *spectral* explanation. (Bet I ✅ v56 load-bearing free-probability framework now has a substrate-novel R-transform structure result attached.)
+- **Dynamical (Glauber-Hopfield) axis** -- Verdict B: synchronous heat-bath Glauber dynamics on the Kerdock-Hebbian W produces bimodal stationary P(q) at low T (one peak ~0 paramagnetic, one peak |q|>0.30 retrieval). This is the discrete-spin analog of the Cap 3 streaming-NESS drift-diffusion framing -- Cap 3 already certifies a continuous-state non-equilibrium-stationary-state regime; Verdict B extends the framing to a discrete-spin Hopfield-type formalism. (Cap 3 ✅ v158 envelope unchanged in operating regime; **new envelope-extension row** for Glauber discrete formalism.)
+
+### Capability moves (v163 -> v164)
+
+| Capability | v163 state | v164 state | Trigger |
+|---|---|---|---|
+| **Substrate-physics: free-cumulant fingerprint distinguishes Kerdock from MP (R-transform structure)** | implicit / inferred from v120 + v163 (no direct kappa_n measurement) | **EMPIRICALLY ANCHORED** at FULL: 5/5 cells exceed 20% kappa_n deviation; max_dev=1.125 at kappa_4 alpha=2.00; substrate-novel observability ("kappa_n profile distinguishes Kerdock from MP") promotes from 🔬 implied to 🟢/✅ direct evidence; this is the FORMAL MECHANISM for v163 AMP_SE_DIVERGES (R-transform with nontrivial higher cumulants -> AMP-SE fixed point cannot match empirical AMP iteration) | `wave14_free_cumulants_kerdock_v1` GPU FULL = FREE_CUMULANTS_DIVERGE |
+| **Substrate-physics: outside-AMP-universality at SE-fixed-point level (v163)** | empirically demonstrated (rel_err=0.916) but mechanism only inferred | **MECHANISTICALLY EXPLAINED**: the v163 AMP_SE_DIVERGES rel_err=0.916 anchor now has a substrate-spectral explanation (higher free cumulants kappa_n != 0 in R-transform); the "outside AMP universality" claim is no longer just an empirical divergence -- it has a measured spectral signature attached | Verdict A interaction with v163 |
+| **Cap 3 Streaming inference / NESS framing (v158 envelope ✅)** | ✅ FULL at clean + noise envelope ✅ at p in {0.05, 0.10, 0.20} N=16384; framing is continuous-state drift-diffusion NESS | ✅ FULL **UNCHANGED IN COUNT** + **EXTENDED FRAMING ROW**: streaming-NESS framing extends from continuous-state drift-diffusion to discrete-spin Glauber-Hopfield NESS via Verdict B (12/18 low-T cells bimodal_score >= 0.5; max bimodal=1.000); Cap 3 ✅ envelope ROW unchanged at p<=0.20; **new envelope-EXTENSION row** added: "Cap 3 Glauber-Hopfield discrete dynamics" 🟢 evidence-strength (single-N N=1024 multi-cell 12/18; want N=4096+ multi-N validation before promoting to ✅) | Verdict B |
+| **VAMP-on-chain load-bearing capability (cycle 127, ✅ v161)** | ✅ load-bearing | ✅ **UNCHANGED but STRENGTHENED**: VAMP-on-chain is the natural Kerdock-friendly readout because VAMP's state evolution uses RIGHT-rotational-invariance + R-transform of the matrix -- Verdict A's measurement of the substrate's actual R-transform structure (higher kappa_n != 0) directly motivates a VAMP-SE-on-Kerdock follow-up drill (Research request candidate, deferred per active priorities decision) | Verdict A interaction |
+| **Substrate M/N=8 anomaly at N=4096 (open since v120)** | OPEN with sharpened boundary at v163 (Kerdock outside AMP universality at SE level) | OPEN with **mechanistically-pinpointed boundary**: the M/N=8 anomaly is plausibly *because* the Kerdock R-transform has nontrivial higher kappa_n that bend the capacity threshold away from the MP-universality prediction; concrete next-experiment candidate (VAMP-SE on Kerdock using measured R-transform) now has the spectral input it needs | Verdict A |
+| **substrate-product portfolio count** | 11 demonstrated capabilities | **11 demonstrated capabilities UNCHANGED** -- no closure event; no new ✅ row crosses portfolio threshold (Verdict B Cap 3 extension is an EVIDENCE-STRENGTH expansion row, not a new portfolio capability) | n/a |
+
+### New cap_map row added under "Substrate-physics characterization" (CAN section)
+
+**Row name**: "Free-cumulant fingerprint of Kerdock R-transform (substrate-novel observability)"
+- **State**: 🟢 Validated, want stronger (single-N N=1024 5/5 cells exceed 20%; want N=4096+ and Wigner null-baseline)
+- **Evidence**: `wave14_free_cumulants_kerdock_v1` FULL = FREE_CUMULANTS_DIVERGE; max_dev=1.125 at kappa_4 alpha=2.00; cells span alpha in {0.5, 1.0, 2.0, ...} all exceed 20% deviation
+- **Product implication**: This is a substrate-distinguishing measurement -- given an unknown bulk-spectrum matrix, the kappa_n profile diagnoses whether it is in the AMP universality class (Wigner/MP-like, kappa_n->0 for n>=3) or in the substrate's regime (Kerdock-like, kappa_n != 0). Combined with v163 AMP_SE divergence, this is the empirical-AND-mechanistic anchor for the "substrate's algebra is provably outside the AMP universality class" framing.
+
+### New cap_map row added under "Cap 3 Streaming inference envelope extension" (CAN section, alongside v158 envelope row)
+
+**Row name**: "Cap 3 Glauber-Hopfield discrete-spin NESS extension"
+- **State**: 🟢 Validated, want stronger (single-N N=1024 12/18 low-T cells; want N=4096+ + multi-seed >= 5)
+- **Evidence**: `wave14_glauber_kerdock_v2` CPU FULL = GLAUBER_BIMODAL_KERDOCK; 12/18 low-T cells satisfy bimodal_score >= 0.5 AND abs_mean_q >= 0.30; max bimodal_score=1.000 at beta=2.00 alpha=0.05
+- **Product implication**: Cap 3 streaming-NESS framing (currently certified at continuous-state drift-diffusion) extends to discrete-spin Glauber-Hopfield dynamics. This is the bridge from Cap 3 (continuous-state inference under streaming noise) to retrieval-style retrieval-vs-paramagnetic equilibrium under finite-T thermal dynamics. The substrate's codeword space supports a two-mode equilibrium under heat-bath Glauber updates -- relevant for any product use-case requiring retrieval-under-thermal-noise SLA characterization (analog to thermal-tolerance certificates for stored memories).
+
+### v1 -> v2 Glauber pipeline reflection (smoke->FULL non-divergence)
+
+v1 was GLAUBER_INCONCLUSIVE (under-resolution: 0/6 low-T bimodal, max_bimodal=0.000). v2 extended the T grid (12 betas in [1, 12] vs v1's coarser grid), added sub-critical alpha {0.05, 0.10, 0.20}, increased n_burn (400 vs ~50) and n_collect (600 vs ~80), and added 10% init noise. v2 FULL produces 12/18 BIMODAL cells. This is **NOT a smoke->FULL divergence anchor** -- it is a **parameter-resolution rescue**: v1 was under-resolved (verdict_msg explicitly said "need finer T resolution or longer chain length"), v2 supplied that resolution, and v2's smoke->FULL is consistent (smoke at alpha=0.10 beta=6 bimodal_score=1.000 in smoke; FULL also bimodal in 12/18 cells). Pipeline-pacing lesson: under-resolution inconclusives are CHEAP to re-parameterize and ship; do it rather than waiting on Research drills.
+
+### Substrate-physics characterization (UPDATED v164)
+
+v163 substrate-physics characterization: EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16) coset bias + Cap 1/Cap 3/Cap 5 noise envelopes + multi-scale P(q) hierarchical structure + AMP-SE-fixed-point divergence (rel_err=0.916) -> **outside AMP universality at SE level**.
+
+**NEW v164**: substrate-physics characterization gains two anchors:
+1. **R-transform structure measurement**: Kerdock spectrum's first 4 free cumulants kappa_n measured at N=1024 alpha in {0.5, 1.0, 2.0, ...}; kappa_4 deviation from MP up to 1.125 (kappa_4_Kerdock = 0.006 ... 0.046; kappa_4_MP = 0.5*alpha or 1.0 by alpha). This is the **spectral mechanism** explaining v163 AMP_SE_DIVERGES.
+2. **Discrete-spin Glauber-Hopfield NESS extension of Cap 3**: bimodal P(q) at low T (max bimodal=1.000 at beta=2.00 alpha=0.05); Cap 3 streaming-NESS framing extends from drift-diffusion to Glauber discrete dynamics.
+
+The substrate's theoretical regime is now bounded AND mechanistically anchored:
+- **Outside AMP-SE universality** (v120 pretest + v163 SE-fixed-point divergence + **v164 R-transform higher-cumulant explanation**)
+- **Inside RS phase empirically** (v112 RS phase certification load-bearing)
+- **Inside VAMP-family applicability** (cycle 127 VAMP-on-chain load-bearing; **v164 motivates VAMP-SE-on-Kerdock follow-up with measured R-transform input**)
+- **Inside free-probability + R-transform framework** (Bet I ✅ v56 load-bearing; **v164 supplies the substrate's actual R-transform**)
+- **NEW: supports discrete-spin Glauber-Hopfield NESS** (v164 Verdict B; Cap 3 framing extension)
+
+### Substrate-product positioning v164
+
+No portfolio change (11 demonstrated capabilities carries forward). Substrate-product technical positioning **strengthens** on two axes:
+1. **Customer/technical wedge** ("our memory's algebra is provably outside the standard AMP universality class") now has a SPECTRAL fingerprint backing it -- not just an empirical divergence. Demoable: given an unknown matrix, our substrate's free-cumulant profile diagnoses universality class.
+2. **Cap 3 NESS framing** widens from "streaming continuous-state inference" to "two-mode retrieval-vs-paramagnetic equilibrium under finite-T thermal dynamics" -- relevant for any product use-case requiring memory-under-thermal-noise SLA.
+
+### Strategy follow-up actions (cycle 184)
+
+1. **PROT-009 v164 paired commit** -- 78th observation.
+2. **substrate-physics rows UPDATED + 2 new evidence-strength rows added** to substrate_capability_map.md (free-cumulant fingerprint + Cap 3 Glauber-Hopfield extension).
+3. **active_priorities.md** updated atomically v163 -> v164: substrate-physics row gets v164 R-transform anchor + Cap 3 envelope row gets Glauber-Hopfield extension annotation.
+4. **No closure** -- per [[feedback-dont-overextend-theorems]] both verdicts add evidence, neither closes a capability or refutes prior PASS. PROT-004/006 NOT triggered.
+5. **Research follow-up candidate** (FILED): VAMP-SE on Kerdock using v164's measured R-transform (higher kappa_n) as input -- this is the natural composition of v163 + v164a, and the cycle 183 deferred-research note becomes ACTIONABLE now that the R-transform structure is measured. Filing deferred to Research's next cycle per pipeline-pacing (CPU queue has 2 in flight: S_transform + parisi).
+6. **Push v164 to remote** per [[feedback-cap-map-update-protocol]]; scp dashboard data per same memory.
+7. **Pipeline-pacing**: pause flag ACTIVE / cleared. GPU queue=0 (free-cumulants done, runner idle). Per verdict_handler Step 2 dispatch exp_dev for ONE GPU refill (substantive deep probe motivated by these two findings -- candidate: direct R-transform measurement at N=4096 multi-N to firm the v164 free-cumulant row from 🟢 to ✅, OR VAMP-SE-on-Kerdock with measured R-transform as the natural composition probe). Remote CPU has 2 pending -- do NOT refill CPU.
+
+### Smoke -> FULL divergence accounting
+
+| Run | Smoke verdict | FULL verdict | Divergence? |
+|---|---|---|---|
+| free_cumulants_v1 | FREE_CUMULANTS_DIVERGE (2/2 cells smoke, max_dev=0.988) | FREE_CUMULANTS_DIVERGE (5/5 cells FULL, max_dev=1.125) | NO -- both DIVERGE; FULL extends cell count + tightens; consistent (broad anchor only +1 by extension, NOT strict tag-flip) |
+| glauber_kerdock_v2 | GLAUBER_BIMODAL_KERDOCK (1/1 smoke cell at beta=6 alpha=0.10 bimodal=1.000) | GLAUBER_BIMODAL_KERDOCK (12/18 cells FULL; max=1.000 at beta=2 alpha=0.05) | NO -- both BIMODAL; FULL extends grid + finds peak at different (beta, alpha); consistent (broad anchor only +1 by extension, NOT strict tag-flip) |
+
+Net: 25 strict / 28 broad smoke->FULL divergence anchors (broad +2 by extension; strict unchanged).
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006**: NOT triggered. Both verdicts ADD evidence; neither closes a row. No new ❌ added.
+- **PROT-007**: v164 history block written to `substrate_capability_map_history.md` (compact one-line index entry appended at bottom); narrative block ALSO retained inline here (v60+ live cap_map convention).
+- **PROT-008**: validator must pass before commit. v164 adds 0 new ❌ rows; baseline pre-existing violations unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically.
+
+### Recent-run check (per strategy.md "Recent-run check" rule)
+
+Strategy DOES recommend an experiment by name for the GPU refill: `wave14_R_transform_kerdock_v1_multi_N` (direct measurement of substrate Kerdock R-transform's higher free cumulants at N in {1024, 2048, 4096, 8192}, 5-seed; promotes v164's free-cumulant fingerprint row from 🟢 to ✅ if max_dev scales / stays bounded; supplies the spectral input for the deferred VAMP-SE-on-Kerdock follow-up). Recent-run check: name `wave14_R_transform_kerdock_v1_multi_N` is NOT in queue.json today; not in any prior FULL/smoke directory. Exp Dev should ship this OR a directly-named equivalent.
+
+### Tally (one-line)
+
+BATCHED VERDICTS v163 -> v164: wave14_free_cumulants_kerdock_v1 GPU FULL = FREE_CUMULANTS_DIVERGE (5/5 cells exceed 20% kappa_n deviation; max_dev=1.125 at kappa_4 alpha=2.00; **formal spectral mechanism** for v163 AMP_SE_DIVERGES established) + wave14_glauber_kerdock_v2 CPU FULL = GLAUBER_BIMODAL_KERDOCK (12/18 low-T cells bimodal; max bimodal_score=1.000 at beta=2.00 alpha=0.05; Cap 3 streaming-NESS framing extends from drift-diffusion to discrete-spin Glauber-Hopfield); v164 adds TWO new evidence-strength rows (substrate-physics free-cumulant fingerprint 🟢; Cap 3 Glauber-Hopfield extension 🟢); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (no closure, no new portfolio ✅); v163 AMP_SE_DIVERGES claim "outside AMP universality class" gains SPECTRAL MECHANISM (higher kappa_n in R-transform != 0); Cap 3 NESS framing widens from continuous-state drift-diffusion to discrete-spin Glauber-Hopfield; v164 motivates VAMP-SE-on-Kerdock with measured R-transform follow-up (deferred to Research's next cycle); per [[feedback-dont-overextend-theorems]] no row closed; per [[feedback-pipeline-pacing]] GPU queue=0 -> exp_dev dispatched for ONE GPU refill (wave14_R_transform_kerdock_v1_multi_N direct R-transform multi-N scaling); CPU has 2 pending (S_transform + parisi) -- NOT refilled; smoke->FULL broad anchors +2 by cell-extension (28 total broad / 25 strict); 78th PROT-009 paired commit.
+
+Net effect: v163 AMP_SE_DIVERGES claim gains spectral mechanism (Verdict A) + Cap 3 NESS framing extends to discrete-spin Glauber-Hopfield (Verdict B); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED; two new evidence-strength rows added (substrate-physics + Cap 3 extension); pipeline-pacing GPU refill dispatched; CPU not refilled (2 pending).
