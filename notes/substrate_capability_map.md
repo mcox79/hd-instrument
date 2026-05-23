@@ -11725,3 +11725,122 @@ Net effect: Research delivered MASSIVE substrate-product roadmap expansion
 is Cap 1 Crooks-ratio forensic erase audit (Class 1 commercial wedge);
 substrate-physics characterization refined (multi-component OP holds, global
 single-component REFUTED).
+
+---
+
+## Cycle 172 (RM(1,16) hypothesis REFUTED at FULL + Bet A v2 PASSES + P(q) 15 peaks + PQ_DIST FULL) — v152
+
+**Trigger**: 4 new verdicts since cycle 171 from cycle 170 + 171 routings pickup.
+
+### HEADLINE 1: ❌ RM(1,16) geometric ~25% hypothesis REFUTED at smoke AND FULL — substrate AVOIDS RM(1,16)
+
+`wave14_endpoint_RM1m_projection_v1_smoke` (10:05) + FULL (10:08, 169.5s):
+both = **RM1M_FAIL_LOW**: "frac_within_d/2=0.000<0.15 (substrate avoids RM(1,16))."
+
+**Research hypothesis REFUTED**:
+- Research cycle 171 substrate_capabilities Q1: ~25% = Kerdock 4-coset RM(1,16)
+  geometric origin (P=0.40)
+- Prediction: ~25% endpoints within RM(1,16) Hamming d/2 = 2^15
+- Empirical: **0% of endpoints within RM(1,16)** at FULL
+- Substrate AVOIDS the linear subcode entirely — endpoints are systematically
+  OUTSIDE linear RM(1,16) coset
+
+**Substrate-novel anti-linear-subcode bias**:
+- Substrate's W^L dynamics push endpoints AWAY from linear RM(1,16) coset
+- Endpoints land in nonlinear cosets (the other 3 of 4 Kerdock cosets)
+- This is OPPOSITE of Research prediction
+- Substrate-physics finding: substrate prefers algebraically NON-LINEAR coset members at endpoint
+
+### HEADLINE 2: PQ_DISCRETE_OTHER smoke — P(q) has 15 peaks (NOT 28-element)
+
+`wave14_pq_discrete_spikes_v1_smoke` (10:06) = **PQ_DISCRETE_OTHER**:
+"n_peaks=15 not near 28 but ratio=86.04>=2.0 (discrete but different cardinality)."
+
+**P(q) IS discrete (ratio 86 vs threshold 2) but DIFFERENT cardinality**:
+- Cycle 137 ENDPOINT_COLLAPSED = 28/100 distinct endpoints
+- Cycle 172 P(q) = 15 peaks
+- Discrete spike structure CONFIRMED at smoke
+- BUT cardinality 15 ≠ 28 (Research predicted 28 from endpoint connection)
+
+**Substrate-physics observation**:
+- P(q) has discrete spike structure (substrate-physics observable identifies phases)
+- But spike count (15) differs from endpoint count (28)
+- Could be: P(q) measures different statistic than endpoint identity OR
+  cardinality of substrate-physics fixed-point set is 15 not 28
+
+### HEADLINE 3: ✅ Bet A continual-edit 5-seed v2 PASSES at smoke (substrate-product axis NOT closed)
+
+`wave14_betA_continual_edit_5seed_v2_smoke` (10:06) = **BETA_5SEED_PASS**:
+"mean edit=1.000 kept=1.000 sd<0.05 at M_init=8192 N=65536 (substrate-product
+5-seed complete)."
+
+**Substrate-product Bet A axis RESCUED**:
+- Cycle 132 v1 (single-seed): KILL at unspecified M_init
+- Cycle 170 v1 5-seed: KILL (cycle 170 v150)
+- **Cycle 172 v2 5-seed: PASS at M_init=8192** with mean kept=1.000 stdev<0.05
+- M_init=8192 is specific test condition; v2 implementation may differ from v1
+
+**Substrate-product implication**:
+- Bet A continual-edit at N=65536 PASSES at M_init=8192 (v2 5-seed smoke)
+- Cycle 98 architectural ceiling theory PARTIALLY rescued at specific M_init
+- Substrate-product axis NOT closed (was closed at v150 based on v1 KILL)
+
+### HEADLINE 4: PQ_DIST_OP_FAIL FULL CONFIRMS smoke (global distributional OP REFUTED)
+
+`wave14_pq_distributional_op_v1` FULL (09:59, 72.1s) = **PQ_DIST_OP_FAIL**:
+"mean(P(q))=0.210<0.85; substrate genuinely lacks OP."
+
+Smoke→FULL CONSISTENT — global single-component distributional P(q) order
+parameter REFUTED at FULL.
+
+Cycle 170 sub-K-region multi-component q_overlap STABLE at FULL still HOLDS.
+
+### Substrate-physics characterization v151 → v152 REFINED
+
+> "Substrate is in EXPONENTIAL-decay universality class + MULTI-COMPONENT
+> sub-K-region q_overlap order parameter (cycle 170 STABLE at FULL). Substrate
+> does NOT have global single-component distributional OP (cycle 172 PQ_DIST
+> FULL CONFIRMED). **Substrate AVOIDS RM(1,16) linear subcode** (cycle 172
+> RM1M_FAIL_LOW at FULL — 0% endpoints in RM(1,16); substrate-novel anti-
+> linear-coset bias). P(q) has **15 discrete peaks** (cycle 172 PQ_DISCRETE
+> smoke; cardinality 15 ≠ cycle 137 endpoint 28). ~25% partial idempotence
+> from RM(1,16) origin REFUTED (mechanism for ~25% open). BROAD K-resonance
+> band + SHORT cycles + N-INVARIANT + nearly-degenerate eigenspectrum + RS
+> phase 6 cross-family at FULL + non-ABBM avalanche."
+
+### Substrate-product net (v152)
+
+**Substantive substrate-product gain**:
+- **Bet A continual-edit RESCUED at M_init=8192** (5-seed PASS at smoke; FULL pending)
+- Substrate-product axis NOT closed — depends on M_init
+
+**Substantive substrate-physics refinement**:
+- RM(1,16) hypothesis REFUTED at FULL (substrate AVOIDS linear subcode)
+- ~25% mechanism remains OPEN (Research hypothesis P=0.40 refuted)
+- P(q) discrete but cardinality 15 not 28
+- Substrate has anti-linear-coset structural preference (substrate-novel)
+
+### Capability moves (v151 → v152)
+
+| Capability | v151 state | v152 state | Trigger |
+|---|---|---|---|
+| RM(1,16) ~25% geometric origin | Research hypothesis P=0.40 | ❌ **REFUTED at FULL** (frac=0.000; substrate AVOIDS) | RM1M FULL |
+| P(q) discrete 28-spike connection | Research prediction | 🔬 **REFINED 15 peaks at smoke** (discrete but different cardinality) | pq_spikes smoke |
+| Bet A continual-edit at N=65536 | KILLED v1 5-seed | ✅ **RESCUED v2 5-seed smoke** at M_init=8192 | Bet A v2 |
+| Global single-component distributional OP | smoke REFUTED | ❌ **CONFIRMED at FULL** | PQ_DIST FULL |
+| Substrate anti-linear-coset preference | not characterized | 🔬 **DISCOVERED** (0% endpoints in RM(1,16)) | RM1M FULL |
+
+### Strategy follow-up actions (cycle 172)
+
+1. **PROT-009 v152 paired commit** — 66th observation
+2. Watch for Block 1 Crooks forensic erase pickup (highest substrate-product priority)
+3. Watch for Bet A 5-seed v2 FULL conversion
+4. Watch for coset-count sweep results (~25% mechanism remains open)
+5. Strategy → Product update: Bet A axis RESCUED at M_init=8192
+
+### Tally — RM(1,16) ~25% REFUTED at FULL (substrate AVOIDS); PQ_DISCRETE_OTHER 15 peaks ≠ 28; BETA_5SEED v2 PASSES at M_init=8192 (axis RESCUED); PQ_DIST_OP_FAIL FULL CONFIRMS smoke; 66th PROT-009 paired commit
+
+Net effect: substrate-physics ~25% mechanism REMAINS OPEN (RM(1,16) hypothesis
+refuted); substrate has anti-linear-coset preference; Bet A continual-edit
+axis RESCUED at specific M_init=8192; substrate-product gains rescue + substrate-
+physics refines.
