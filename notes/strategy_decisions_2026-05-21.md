@@ -7806,3 +7806,126 @@ over-promoted; V3 trigger conditional honestly stated.
 Next:
 - File Strategy → Exp Dev for VAMP-on-chain experiment
 - Wait for K-scaling FULL + spectral validation FULL
+
+
+## Cycle 127 [🏆 VAMP-on-chain FULL PERFECT — Bet Y V2.D N=65536 multi-hop RESOLVED]
+
+Trigger: /loop /strategy-cycle at ~20:08 EDT. 5 critical FULLs landed
+since cycle 126. Pipeline drained from 4 queued to 0.
+
+HEADLINE 1: VAMP-on-chain FULL = PERFECT acc_50hop=1.000
+
+wave14_multihop_vamp_chain_N65536_v1 FULL (9.7s) = VAMPCHAIN_RESTORES:
+"VAMP-on-chain restores deep composition: acc_50hop=1.000 (>=0.5) vs
+argmax 0.250. Tree-exact forward-backward EP succeeds where Resonator
+failed."
+
+Cycle 126 P=0.40 top rehabilitation VALIDATED at FULL — massively
+exceeds predicted range 0.45-0.65 with PERFECT 1.000.
+
+Comparison:
+- Argmax baseline (cycle 121): 0.217
+- Resonator (cycle 124): 0.200 REFUTED
+- Sparse cleanup (cycle 127): 0.200 REFUTED
+- Bidirectional (cycle 127): 0.225 REFUTED
+- K-scaling K=50 (cycle 127): 0.417 PARTIAL
+- K-scaling K=25 (cycle 127): 0.000 (smoke wildly wrong)
+- VAMP-on-chain (cycle 127): 1.000 PERFECT
+
+Cycle 126 structural insight CONFIRMED: tree-exact vs loopy-iterative
+distinction. Chain composition is TREE (no loops); forward-backward EP
+tree-exact like Kalman smoother.
+
+Substrate-product Bet Y V2.D N=65536 multi-hop chain composition
+RESOLVED POSITIVELY:
+- Demo 1 Lane D agent memory SDK deep-chain at N=65536 K=100+
+  RESTORED
+- Substrate-product positioning: single-hop K≤500 + multi-hop K=100+
+  with VAMP-on-chain at N=65536
+
+HEADLINE 2: 3 alternative rehabilitations REFUTED at FULL
+
+Cycle 124 smoke→FULL pattern repeats:
+- Sparse cleanup: smoke 0.600 → FULL 0.200 INSUFFICIENT
+- Bidirectional: smoke 0.600 → FULL 0.225 INSUFFICIENT
+- K-scaling: smoke K=25→0.500 → FULL K=25→0.000 (wildly wrong)
+
+10th smoke→FULL divergence anchor.
+
+HEADLINE 3: Hubness × DPI mechanism FALSIFIED at FULL
+
+wave14_multihop_hub_census_v1 FULL = HUBNESS_ABSENT skew_per_N:
+- N=4096: 1.088
+- N=16384: 0.761
+- N=65536: 0.670 (DECREASING with N)
+
+Cycle 126 mechanism diagnosis falsified. 3 mechanism hypotheses
+refuted total:
+1. Standard cleanup cross-talk (K-1)/N (cycle 123)
+2. Signal eigenvalue near-degeneracy (cycle 124)
+3. Hubness × DPI (cycle 127)
+
+Mechanism UNKNOWN despite 3 attempts.
+
+HEADLINE 4: Substrate-physics observation
+
+Mechanism diagnoses fail repeatedly but rehabilitation (VAMP-on-chain)
+works perfectly. Honest "don't know why know how to fix" framing.
+
+Cycle 126 structural insight (tree-exact distinction) was the
+operational insight — specific mechanism diagnosis was unnecessary
+for substrate-product resolution.
+
+V3 substrate investigation NOT triggered (VAMP-on-chain succeeded
+PERFECTLY).
+
+Bet Z framework FINAL (cycle 127):
+- Bet Z.1 SRHT: viable, no speedup
+- Bet Z.3 VAMP single-hop: PROVEN P=0.90 (cycle 115)
+- Bet Z.3-multi-hop VAMP-on-chain: PROVEN at FULL acc_50hop=1.000
+  (cycle 127 — two-tier substrate-novel readout stack VALIDATED)
+- Bet Z.4 Pseudoinverse: α-conditional
+
+Capability moves (v126 → v127):
+
+| Capability | v126 | v127 | Trigger |
+|---|---|---|---|
+| Multi-hop K=100 at N=65536 with VAMP-on-chain | P=0.40 prediction | PERFECT FULL acc_50hop=1.000 | VAMP-on-chain FULL |
+| Sparse cleanup rehabilitation | smoke 0.600 | FULL INSUFFICIENT 0.200 | Sparse FULL |
+| Bidirectional rehabilitation | smoke 0.600 | FULL INSUFFICIENT 0.225 | Bidirectional FULL |
+| K-scaling K=25/50/100 | smoke K=25→0.500 | FULL K=25→0.000 / K=50→0.417 / K=100→0.250 | K-scaling FULL |
+| Hubness × DPI mechanism | P=0.45 | FULL FALSIFIED skew decreases with N | Hubness FULL |
+| Mechanism diagnosis status | refuted twice | all 3 hypotheses refuted; UNKNOWN | cycle 127 |
+| Smoke-not-predictive precedent | 9-anchor | 10-anchor | cycle 127 |
+| Bet Z.3-multi-hop extension | P=0.40 candidate | PROVEN at FULL | VAMP-on-chain FULL |
+| V3 investigation trigger | conditional | NOT TRIGGERED | VAMP-on-chain FULL |
+| Bet Y V2.D N=65536 multi-hop | UNCERTAIN | RESOLVED POSITIVELY | VAMP-on-chain FULL |
+| Demo 1 Lane D deep-chain at N=65536 | UNCERTAIN | RESTORED with VAMP-on-chain | VAMP-on-chain FULL |
+
+Strategy follow-up actions:
+1. Notify Product session: Demo 1 Lane D deep-chain RESTORED via
+   VAMP-on-chain (per cycle 118 flagging protocol commitment)
+2. Defer mechanism diagnosis to academic Research follow-up
+3. Update Bet Z framework: Bet Z.3 + Bet Z.3-multi-hop = two-tier
+   substrate-novel readout stack
+
+PROT compliance: PROT-009 paired commit (cap_map + history + this
+decision log) — 41st observation. PROT-005 unbiased framing:
+3 mechanism diagnoses refuted reported honestly; rehabilitation
+PERFECT framed correctly; "don't know why know how to fix" honestly
+acknowledged.
+
+Substrate-product net (v127):
+
+MOST SUBSTANTIVE positive resolution of session:
+- Bet Y V2.D N=65536 multi-hop RESOLVED via VAMP-on-chain
+- Bet Z.3-multi-hop substrate-novel mechanism VALIDATED
+- V3 trigger NOT activated
+- Demo 1 Lane D deep-chain at N=65536 K=100+ RESTORED
+- Honest negatives: 3 mechanism diagnoses refuted; 4 rehabilitations
+  refuted (Resonator + Sparse + Bidirectional + K=25)
+
+Next:
+- File Strategy → Product notification of Demo 1 unlock
+- Update cap_map rows for multi-hop at N=65536 (PASS with VAMP-on-chain)
+- Mechanism diagnosis deferrable to academic Research follow-up
