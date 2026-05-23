@@ -360,3 +360,165 @@ divergence anchor (REFUTATION-via-engineering-wall direction); per
 [[feedback-negative-results-2x-research]] OOM-INCONCLUSIVE explicitly
 excluded from 2x Research trigger -- no rehab routing filed; 70th
 PROT-009 paired commit.
+
+---
+
+## Cycle 177 -- v157 CROOKS_NOISE_ENVELOPE_KILL: Cap 1 envelope narrows to clean substrate; 5 rescue sketches + 2x Research drill filed; next Exp Dev work routed
+
+**Time**: 2026-05-23 ~11:58 EDT
+**Trigger**: `wave14_crooks_noise_envelope_v1` FULL verdict
+`CROOKS_NOISE_ENVELOPE_KILL` at 29.2s elapsed. v156 envelope-expansion
+probe of Cap 1 Crooks commercial wedge under bit-flip noise
+`p in {0.05, 0.10, 0.20}` at N=16384 50-trial 3-seed.
+
+### What landed
+
+- Baseline p=0 cell: `delta_S_emp = 0.0000` (re-confirms v153 Cap 1
+  ✅ at FULL).
+- All 3 noise cells (p=0.05, 0.10, 0.20): `delta_S_emp >= 0.05`
+  (above bound).
+- Verdict label per v156 acceptance criteria: `CROOKS_NOISE_ENVELOPE_KILL`
+  ("0/3 noise levels satisfy delta_S_emp < 0.05").
+- 29.2s elapsed; experiment completed cleanly (no OOM; this IS a real
+  measurement, n_seeds=3 50-trial per cell).
+
+### Interpretation
+
+Cap 1 envelope under bit-flip noise NARROWS rather than EXTENDS. The
+verifiable Crooks-FT bound holds at the clean operating point already
+validated in v153, but does NOT extend to realistic bit-flip noise
+during the erase trajectory. Per [[feedback-dont-overextend-theorems]]
+this is an envelope-narrowing characterization, not a substrate
+refutation -- Cap 1 ✅ at the clean operating point STILL HOLDS
+unchanged from v153.
+
+Per [[feedback-no-smoke]] brutal honesty: v156's framing that the
+envelope-expansion "would extend Cap 1 from 'verifiable erase at clean
+substrate' to 'verifiable erase robust to realistic perturbation'" is
+now REFUTED. The Cap 1 commercial wedge framing must sharpen with an
+explicit noise-fragility caveat. Demos and customer framing must
+specify clean operating point + noise floor SLA.
+
+### Why this triggers 2x Research drill (PROT-004/006 rehab + 2x trigger)
+
+Per [[feedback-negative-results-2x-research]]: the OOM-INCONCLUSIVE
+exclusion does NOT apply here because the verdict IS a real
+measurement under harsher conditions:
+
+- 29.2s elapsed (no OOM).
+- 3 seeds, 50 trials per cell, 4 cells (p=0 + 3 noise cells).
+- 3 of 3 noise cells fail the delta_S_emp < 0.05 bound.
+- Baseline clean cell PASSES (sanity check confirms protocol works).
+
+This is precisely the [[feedback-rehabilitation-after-rejection]]
+"envelope narrowing under harsher conditions" pattern. Rehab discipline
+applied: 5 axis-combination rescue sketches filed in cap_map v157
+narrative + Strategy -> Research 2x drill request filed.
+
+### Why NOT a closure row (capability holds at clean operating point)
+
+Per PROT-004/006 the rehab discipline FIRES (5 sketches + Research
+request) but the cap_map row does NOT carry a ❌ marker because:
+
+1. Cap 1 ✅ at the clean operating point (p=0) HOLDS unchanged from
+   v153 (v157 re-confirms delta_S_emp = 0.0000 at p=0).
+2. The envelope-narrowing is a NEW capability-row datapoint
+   (substrate fails verifiable-erase bound under bit-flip noise),
+   not a demotion of the existing ✅ row.
+3. PROT-008 validator requires rehab-file references INSIDE ❌ rows;
+   no ❌ rows added so the validator does not require the syntactic
+   reference inside the row (but Strategy still files the Research
+   request as a separate routing artifact per [[feedback-rehabilitation-after-rejection]]).
+
+The capability move is a NEW envelope row (🔬 envelope-narrowed under
+bit-flip noise) + framing-sharpening of the existing ✅ Cap 1 row
+(conditional on clean operating point).
+
+### Capability moves (v156 -> v157)
+
+| Capability | v156 state | v157 state | Trigger |
+|---|---|---|---|
+| Cap 1 Crooks-ratio forensic erase at clean substrate | ✅ FULL-verified | ✅ FULL-verified at clean (p=0) operating point unchanged; v157 re-confirms delta_S_emp = 0.0000 at p=0 | crooks_noise_envelope FULL baseline cell |
+| Cap 1 Crooks-ratio forensic erase under bit-flip noise (NEW envelope row) | envelope-expansion probe queued | 🔬 envelope NARROWED to clean operating point only: 3/3 noise cells at p in {0.05, 0.10, 0.20} fail Crooks-FT bound; 5 rescue sketches filed; Research 2x drill request filed | crooks_noise_envelope FULL noise cells |
+| Cap 1 commercial wedge framing | unconditional "verifiable forensic erase" | ✅ CONDITIONAL on clean operating point with explicit noise-fragility caveat in demos/customer framing | v157 envelope-narrowing finding |
+
+### Five rescue sketches (filed in cap_map v157 narrative)
+
+Pre-armed per PROT-004/006:
+
+1. Redundant erase encoding (replication; r >= 3 copies).
+2. Post-erase verification + retry (closed-loop read-after-erase audit).
+3. Lower-noise operating envelope + monitoring (SLA with noise floor).
+4. Pre-erase denoising filter (signal-processing axis).
+5. Code-based protected erase (binding-algebra axis: BCH-coded keys
+   or FHRR with phase damping).
+
+Non-exhaustive; unvetted; Research 2x drill produces the vetted
+ranking + literature lit-scan.
+
+### Substrate-product implication
+
+Substrate-product portfolio at v153 (12 demonstrated capabilities)
+carries forward unchanged in COUNT. Qualitative change on Cap 1:
+honest noise-fragility caveat now MUST appear in commercial wedge
+framing. The clean-operating-point ✅ is preserved; the unconditional
+"verifiable erase robust to realistic perturbation" claim is
+refuted and removed.
+
+### Strategy follow-up actions (cycle 177)
+
+1. **PROT-009 v157 paired commit** -- 71st observation.
+2. **Strategy -> Research request filed** at
+   `notes/strategy_request_to_research_crooks_noise_robust_2026-05-23.md`
+   per [[feedback-negative-results-2x-research]] 2x drill trigger.
+   Generic-math framing per [[feedback-query-privacy-decomposition]]:
+   noise-robust verifiable erasure in associative memory; bit-flip-
+   tolerant forward-reverse trajectory audits; fluctuation-theorem-
+   bounded information erasure under stochastic perturbation.
+3. **Strategy -> Exp Dev request filed** at
+   `notes/strategy_request_to_exp_dev_post_v157_envelope_expansion_2026-05-23.md`
+   per [[feedback-strategy-shore-up-capabilities]] item 2: next
+   pipeline work picks from envelope-expansion of OTHER ✅ caps
+   (preferred: Cap 3 Streaming inference noise envelope; alt: Gap B
+   Online W chain-length envelope; alt: cross-application probe per
+   [[feedback-periodic-scope-expansion]]).
+4. Pending: Research vetted ranking of the 5 rescue sketches
+   (cycle 178 or later).
+5. Pending: cycle 172 pipeline additions FULL
+   (`wave14_pq_high_resolution_v1` FULL) and Block 4-5 pickups.
+6. Note: runner code change pending (PYTHONIOENCODING=utf-8) will
+   eliminate ASCII restriction in print()/verdict_msg when runner
+   restarts; downstream sub-agents and exp_dev may drop the ASCII
+   grep step on next pickup.
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006: TRIGGERED** -- envelope-narrowing under harsher
+  conditions per [[feedback-rehabilitation-after-rejection]]. 5
+  rescue sketches filed in cap_map v157 narrative + Strategy ->
+  Research 2x drill request file filed. No ❌ row added (Cap 1
+  holds at clean operating point) so PROT-008 validator does not
+  require rehab-file reference inside the row.
+- PROT-007: v157 history block written to
+  `substrate_capability_map_history.md`; one-line entry added to
+  history.md compact index.
+- **PROT-008**: validator must pass before commit. v157 adds 0 new
+  violations; no ❌ rows added; envelope row uses 🔬 marker.
+- **PROT-009**: cap_map.md + history.md +
+  strategy_decisions_2026-05-23.md staged atomically; validator
+  invoked with `--staged-files`.
+
+### Tally (one-line)
+
+crooks_noise_envelope_v1 FULL = CROOKS_NOISE_ENVELOPE_KILL at 29.2s
+(0/3 noise cells satisfy delta_S_emp < 0.05; baseline p=0 cell
+CONFIRMS clean Cap 1 ✅ unchanged); Cap 1 commercial wedge framing
+narrows to clean operating point + honest noise-fragility caveat
+MUST appear in demos/customer framing; 5 axis-combination rescue
+sketches filed + Strategy -> Research 2x drill request filed per
+[[feedback-negative-results-2x-research]] (measurement-based
+refutation under harsher conditions TRIGGERS 2x drill); Strategy ->
+Exp Dev request filed for next pipeline work (preferred Cap 3
+Streaming noise envelope analogous probe); 71st PROT-009 paired
+commit.
