@@ -9564,3 +9564,127 @@ mechanism with HIGHEST P across 4 attempts (8/8 score); substrate-product
 operating envelope EXPANDS via simpler backward-smoother-only primitive;
 substrate-physics characterization "forward-lossy + reverse-invertible"
 HOLDS with two validated readout primitives.
+
+---
+
+## Cycle 136 (Cluster census Phase 1 SMOKES + backward-smoother mega variants FULL) — v135
+
+**Trigger**: cycle 134 cluster census routing `40f9e1f` PICKED UP by Exp Dev;
+3 cluster census smoke verdicts + 5 backward-smoother mega variant FULLs.
+
+### HEADLINE 1: Cluster census Phase 1 SMOKES — PARTIAL validation of cluster-trapping framework
+
+3 cluster census smokes deliver MIXED picture:
+
+**`wave14_cluster_census_N65536_v1_smoke`** = **CLUSTER_TRAPPING_CONFIRMED**:
+"Cluster trapping confirmed: unique=1<10 AND top5_share=1.000>0.9."
+
+**`wave14_W_L_effective_rank_v1_smoke`** = **RANK_COLLAPSE_CONFIRMS**:
+"Subspace collapse: rank(L=1)=100 → rank(L=50)=0 (≥2× drop). {1:100, 5:100, 10:82}."
+
+**`wave14_cluster_census_N_sweep_v1_smoke`** = **CLUSTER_NSCALE_REFUTES**:
+"Fitted gamma=0.00 outside [0.3, 1.3]. cluster_per_N={4096: 1, 8192: 1}."
+
+**Cluster-trapping framework PARTIAL VALIDATION at smoke**:
+
+| Aspect | Predicted | Smoke observed | Verdict |
+|---|---|---|---|
+| Forward-chain trapping at N=65536 K=100 | unique ~5; top5_share > 0.9 | unique = 1; top5_share = 1.000 | ✅ CONFIRMED (but tighter than predicted) |
+| Cluster size at N=65536 K=100 | ~5 (1/5 = 0.20 plateau) | **1** | 🔬 PARTIAL — tighter than predicted |
+| Cluster size at N=4096 K=100 | ~1.4 (1/1.4 = 0.71 plateau) | **1** | 🔬 PARTIAL — same as N=65536 |
+| Cluster N-scaling | N^0.73 (γ ≈ 0.73) | γ = 0.00 (no scaling) | ❌ REFUTED at smoke |
+| W^L rank collapse (Agent O Oseledets) | rank(L=50) ≤ rank(L=1)/2 | rank(L=1)=100 → rank(L=50)=0 = TOTAL collapse | ✅ CONFIRMED |
+
+**Honest reading**:
+- Forward chains DO converge to structured trap (CONFIRMED — substrate has spurious attractors)
+- W^L rank collapse CONFIRMS Agent O mechanism (forward state space genuinely degenerates)
+- BUT cluster size is 1 (single spurious attractor) NOT ~5 (predicted)
+- N-scaling FLAT not N^0.73
+- Cluster-trapping framework as Research's specific quantitative claim (cluster ~5 at N=65536) does NOT hold at smoke
+
+**The structural insight HOLDS** (forward trapping + rank collapse + reverse-rescue);
+the specific quantitative cluster-size + N-scaling predictions do NOT.
+
+**Per [[feedback-no-smoke]] + 15-anchor smoke→FULL precedent**: FULL pending
+for all 3 cluster census tests. Smoke could overturn either direction.
+
+### HEADLINE 2: Backward-smoother mega variants — 5 variant FULLs all V_PASS
+
+Backward-smoother-only mega characterization variants 1-5 all V_PASS at
+FULL with mean=1.000. + `wave14_smoother_validation_matrix_v1_smoke` =
+MATRIX_BROAD_VALIDATED 16/16 cells pass.
+
+**Backward-smoother-only operating envelope ROBUST across all tested
+variant configurations** at FULL. Cycle 135 envelope expansion (d=500,
+30% noise, N-universal) extends across operating-space variants.
+
+### Substrate-physics interpretation v134 → v135
+
+**Cluster-trapping framework P revised down** from cycle 134's [0.55, 0.70]
+to **P=[0.35, 0.55]** pending FULL:
+- Lower 0.35: cluster size and N-scaling predictions REFUTED at smoke
+- Upper 0.55: structural insight (trapping + rank collapse) CONFIRMED at smoke
+- FULL critical for definitive verdict (per 15-anchor smoke→FULL precedent
+  could go either direction)
+
+**Substrate-physics characterization REVISED**:
+> "Substrate's chain composition is **forward-lossy + reverse-invertible**.
+> Forward processing enters a tight spurious attractor (cluster size = 1
+> at smoke; specific size pending FULL) where W^L rank collapses to 0 at
+> L=50 (Oseledets-style total subspace collapse). Cluster N-scaling
+> REFUTED at smoke (substrate has N-INVARIANT trap rather than N^0.73
+> growth). Substrate-novel mechanism class with forward-trapping +
+> rank-collapse signature; specific cluster-size quantitative prediction
+> does not match Research framework."
+
+This is HONEST framing: structural insight survives; quantitative match
+does NOT. Per [[feedback-no-smoke]] cycle 124 hubness pattern — verdict
+direction held but quantitative prediction wrong.
+
+### Capability moves (v134 → v135)
+
+| Capability | v134 state | v135 state | Trigger |
+|---|---|---|---|
+| Cluster trapping at N=65536 K=100 (forward chains converge to structured trap) | predicted | 🔬 **CONFIRMED at smoke** unique=1 top5_share=1.000 | cluster_census smoke |
+| W^L rank collapse (Agent O Oseledets) | predicted | ✅ **CONFIRMED at smoke** rank(L=50)=0 total collapse | rank smoke |
+| Cluster size ~5 at N=65536 K=100 | predicted | 🔬 **PARTIAL — cluster size 1 at smoke** | cluster_census smoke |
+| Cluster N-scaling N^0.73 | predicted | ❌ **REFUTED at smoke** γ=0.00 flat | N-sweep smoke |
+| Cluster-trapping framework P | [0.55, 0.70] | 🔬 [0.35, 0.55] (revised down pending FULL) | smoke verdicts |
+| Substrate-physics characterization | "forward-lossy + reverse-invertible + cluster ~5 + N^0.73" | "forward-lossy + reverse-invertible + tight-trap + rank-collapse + N-INVARIANT" | smoke verdicts |
+| Backward-smoother-only mega variants 1-5 FULL | not characterized | ✅ all V_PASS at FULL mean=1.000 | mega variant FULLs |
+| Backward-smoother-only validation matrix | not characterized | 🟡 16/16 cells pass at smoke (FULL pending) | matrix smoke |
+
+### Substrate-product net (v135)
+
+**Substantive substrate-physics gain (despite mixed cluster census smokes)**:
+- Forward-chain trapping at substrate CONFIRMED at smoke (forward state space
+  degenerates to tight trap)
+- W^L total rank collapse at L=50 CONFIRMS Agent O subspace-collapse mechanism
+- Structural framework "forward-trapping + reverse-invertible" HOLDS regardless
+  of specific cluster size
+
+**Substantive substrate-physics caveat**:
+- Cluster size = 1 (not ~5) at smoke; N-scaling flat (not N^0.73)
+- Research's specific quantitative claims do NOT hold at smoke
+- FULL critical for definitive verdict
+- Substrate-physics characterization needs revision based on FULL
+
+**Substrate-product holds**:
+- Demo 1 Lane D capstone DEMONSTRATED at FULL (cycle 130; holds)
+- Backward-smoother-only operating envelope CONFIRMED at FULL across 5 variants
+- TWO readout primitives substrate-product positioning HOLDS
+
+### Strategy follow-up actions (cycle 136)
+
+1. **PROT-009 v135 paired commit** — 49th observation
+2. Wait for cluster census FULLs (3 tests pending FULL; critical for substrate-physics)
+3. Wait for cycle 136 substantive batch (`d6caeba`) pickup by Exp Dev
+4. Wait for Bet A FULL + extreme_stress FULL + smoother extreme_K FULL
+
+### Tally — Cluster census Phase 1 smokes PARTIAL validation (CLUSTER_TRAPPING_CONFIRMED + RANK_COLLAPSE_CONFIRMS + CLUSTER_NSCALE_REFUTES); cluster size=1 not ~5 + γ=0 not 0.73 + W^L rank collapse to 0 at L=50; backward-smoother mega variants 5/5 V_PASS at FULL + matrix 16/16 smoke; cluster-trapping P revised [0.55, 0.70] → [0.35, 0.55] pending FULL; substrate-physics characterization "forward-lossy + reverse-invertible + tight-trap + rank-collapse + N-INVARIANT" pending FULL; 49th PROT-009 paired commit
+
+Net effect: cluster census Phase 1 smokes deliver MIXED validation —
+structural insight (forward-trap + rank-collapse) CONFIRMED; quantitative
+predictions (cluster ~5 + N^0.73) REFUTED; cluster-trapping P deflated;
+substrate-physics characterization revised honest pending FULL; substrate-product
+holds via backward-smoother-only mega variants + Demo 1 capstone.
