@@ -889,3 +889,48 @@ This cycle Strategy does NOT recommend any new experiment by name. The single op
 ### Tally (one-line)
 
 wave14_pq_high_resolution_v1_full_200seed_rerun_2026-05-23 FULL = PQ_OTHER_CARDINALITY at 126s elapsed (gpu_runner_0; N=16384 K=100 depth=50 200-seed; n_total=60 n_outer=7); pre-reg outcome lands in PQ_OTHER_CARDINALITY (outside both PQ_HIERARCHICAL_28 [24,32] and PQ_FLAT_15 [12,18] brackets); smoke n=31 PQ_HIERARCHICAL_28 -> FULL n=60 PQ_OTHER_CARDINALITY = 24th strict smoke->FULL divergence anchor (25th broad); substrate-physics characterization UPDATED to two-tier hierarchical P(q) structure (7 outer basins + ~8.5 inner sub-modes per basin = 60 total spikes); per [[feedback-dont-overextend-theorems]] RECONCILES with (does NOT refute) cycle 137 28-element endpoint partition -- different observable + different N + different protocol depth; per [[feedback-no-smoke]] honest framing enumerates 2 reconciliation possibilities (coarse-graining hierarchy 60 -> 7 with 28-endpoints intermediate; scale-dependent regime selection) without claiming either; 🔬 "15-peak P(q) substructure mechanism unknown" row UPGRADED to "CHARACTERIZED at this resolution"; Cap 2 Rescue Path #1 (endpoint-ID as confidence proxy) GAINS new multi-cardinality bin-choice degree of freedom; substrate-product portfolio at v161 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT (no closure event; substrate-physics-only update); PROT-004/006 NOT triggered (no refutation); no Research 2x drill triggered (Research bandwidth correctly prioritized for Cap 2 self-monitoring rehab HIGH priority refutation from v160); per verdict event payload no Exp Dev routing; matched-(N,K,L) reconciliation probe noted as 🔬 candidate row only (not named queued experiment); 76th PROT-009 paired commit.
+
+---
+
+## 18:01 -- Cycle 183 Strategy decision -- wave14_amp_se_kerdock_v1_gpu FULL = AMP_SE_DIVERGES (v163)
+
+**Trigger**: `wave14_amp_se_kerdock_v1_gpu` FULL verdict `AMP_SE_DIVERGES` at 2522s elapsed (~42 min on remote GPU; rerouted from local CPU per pipeline-pacing).
+
+**verdict_msg**: "SE fixed-point diverges from empirical AMP. Mean rel err=0.916, max=0.999. Kerdock codebook is OUTSIDE the AMP universality class. Novel finding: Kerdock structure breaks AMP-SE assumptions. Only 0/4 cells < 20% error."
+
+### Strategy action
+
+1. **Cap_map v163** -- substrate-physics characterization UPDATED to explicit "outside AMP universality class at SE-fixed-point level" with empirical rel_err=0.916 anchor over 4 cells. Sharpens v120 pretest-level KILL to SE-fixed-point empirical level. Substrate-product portfolio UNCHANGED at 11 demonstrated capabilities (no closure event; v120 already carried the narrow closure).
+
+2. **Confirms meta-research adjacency Drill #4 HARD FAIL branch** per `notes/research_meta_map_and_adjacencies_2026-05-23.md` Part 3 -- the substrate-NOVEL theoretical-regime branch (NOT the "matches existing theory" branch).
+
+3. **Per [[feedback-dont-overextend-theorems]]** does NOT close broader AMP/VAMP family. VAMP variants (Rangan-Fletcher-Goyal cycle 127 load-bearing) + free-probability R-transform machinery (Bet I v56 load-bearing) remain open rescue paths for substrate's M/N=8 capacity anomaly at N=4096.
+
+4. **Per [[feedback-lit-scan-calibration-penalty]]** validates the 0.20-deflation rule (deflated P=0.45 at filing -> HARD FAIL outcome P~0.55 confirmed).
+
+5. **PROT-004/006 NOT triggered** -- v120 already closed the narrow Kerdock-AMP-universality row; today's verdict SHARPENS at SE-fixed-point empirical level without opening new closure. Per [[feedback-dont-overextend-theorems]] does NOT close broader AMP/VAMP family.
+
+6. **ORCHESTRATOR PAUSED** per `data/orchestrator_paused.flag`. Per [[feedback-obey-user-pause-explicitly]] Strategy SKIPS Exp Dev routing (queue refill INTENTIONALLY OMITTED). Queue=0 is user-intended state.
+
+7. **Research follow-up candidates DEFERRED to next active cycle**: VAMP-SE on Kerdock + free-probability R-transform of Kerdock 4-coset codebook. Both are natural extensions of Drill #4's HARD FAIL outcome.
+
+8. **Push v163 to remote** per [[feedback-cap-map-update-protocol]]; scp dashboard data per same memory.
+
+### Smoke -> FULL divergence note
+
+| Run | Cells | Mean rel_err | Verdict |
+|---|---|---|---|
+| smoke | 2 (alpha in {0.5, 1.0}, N=1024) | 0.847 | AMP_SE_DIVERGES |
+| FULL (GPU) | 4 (extended alpha + N grid) | 0.916 | AMP_SE_DIVERGES |
+
+Same verdict tag at smoke and FULL -- this counts as a **broad divergence anchor only** (not strict tag-flip). FULL extends cell battery and tightens the boundary (0/4 vs 0/2 within threshold).
+
+### PROT compliance
+
+- PROT-007: v163 history line appended to `substrate_capability_map_history.md`; narrative block in `substrate_capability_map.md`.
+- PROT-008: validator must pass before commit. 0 new ❌ rows added.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically.
+
+### Tally (one-line)
+
+wave14_amp_se_kerdock_v1_gpu FULL = AMP_SE_DIVERGES at 2522s elapsed (mean rel_err=0.916 max=0.999 over 4 cells; 0/4 within 20% threshold); sharpens v120 cycle 115/120 Kerdock-AMP-universality KILL to SE-fixed-point empirical level; confirms HARD FAIL branch of meta-research adjacency Drill #4 (substrate-novel theoretical-regime branch); per [[feedback-dont-overextend-theorems]] does NOT close broader AMP/VAMP family (VAMP variants + free-probability R-transform remain rescue paths); substrate-product portfolio at v162 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT; broad divergence anchor +1 (smoke 0.847 -> FULL 0.916 same AMP_SE_DIVERGES tag); per orchestrator PAUSED state Strategy SKIPS Exp Dev routing (queue refill INTENTIONALLY OMITTED per [[feedback-obey-user-pause-explicitly]]); VAMP-SE on Kerdock + R-transform of Kerdock 4-coset codebook noted as Research follow-up candidates DEFERRED to next active cycle; 77th PROT-009 paired commit.
