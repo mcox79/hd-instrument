@@ -8171,3 +8171,124 @@ Next:
 - Watch dashboard for extreme_stress FULL verdict
 - Watch dashboard for 3rd-attempt Research delivery
 - Watch dashboard for Bet C / Bet A pickup by Exp Dev
+
+---
+
+## Cycle 130 — Demo 1 capstone DEMONSTRATED at N=65536 + Bet C smoke caveat (2026-05-22 ~20:47 EDT — /loop fire)
+
+Dashboard scan (chronological, FULL recent_verdicts list) — 6 new verdicts
+since v128 (cycle 128 routing pickup):
+
+1. **wave14_lane_D_end_to_end_N65536_vamp_v1** FULL (20:34:26) =
+   **LANE_D_E2E_N65K_PASS** composed_acc=1.000 (S=1.000 + T=1.000 + X=1.000)
+2. **wave14_lane_D_end_to_end_N65536_vamp_v1_smoke** (20:34:22) =
+   LANE_D_E2E_N65K_PASS (smoke→FULL consistent)
+3. **wave14_betZ3_vamp_single_hop_v1_smoke** (20:36:31) = BET_Z3_VAMP_PARTIAL
+4. **wave14_betZ3_vamp_single_hop_v2_smoke** (20:36:44) = BET_Z3_VAMP_PARTIAL
+5. **wave14_betZ3_vamp_single_hop_v2** FULL (20:36:49) = **BET_Z3_VAMP_PARTIAL**
+   vamp=argmax=1.000 (saturation; no advantage)
+6. **wave14_betC_M_N_capacity_N65536_v1_smoke** (20:40:04) =
+   **BET_C_N65K_KILLED** M/N=2<4.0
+
+WHY-reasoning for v129 cap_map update:
+
+**Why Lane D E2E PASS is the substrate-product capstone**:
+- Cycle 127 RESOLVED multi-hop K=100 at N=65536 (VAMP-on-chain PERFECT)
+- Cycle 128 EXPANDED operating envelope (K=5000+d=200+noise)
+- **Cycle 130 DEMONSTRATES 3-stage Lane D pipeline** (S retrieve →
+  T hypothesize → X compose) at N=65536 with VAMP-on-chain readout
+- All 3 stages PERFECT 1.000; composed_acc=1.000
+- Substrate-product Demo 1 = NOT JUST pipeline-pieces working separately,
+  but END-TO-END demonstrated at full target scale N=65536
+- This is THE Demo 1 capstone substrate-product result
+
+**Why Bet C smoke KILL is substantive (with caveat)**:
+- Cycle 89 baseline at N=4096: M/N=8 (57× above AGS α_c=0.138) — substrate's
+  signature capacity result; load-bearing for substrate-physics claim
+  "empirically beyond all published RS theory" (cycle 114)
+- Cycle 130 smoke at N=65536: M/N=2 only (acc=1.000 at M/N=1+2; below
+  threshold M/N≥4)
+- **Substrate capacity ratio collapses 4× at N=65536** if FULL confirms
+- 0.6s smoke elapsed — test-scaffold-suspect; FULL pending; cycle 102
+  smoke-not-predictive (12-anchor) precedent could overturn
+- BUT consistent with cycle 120 Bet S K-ceiling sublinear N-scaling
+  (K_crit×2.4 only when N×16) — substrate has SUBLINEAR scaling at large N
+- IF FULL confirms: cycle 89 "57× AGS" signature claim does NOT scale to
+  N=65536 = substrate-product M-capacity positioning at N=65536 is "limited"
+  not "57× AGS" — substantive negative
+
+**Why this is OK for substrate-product story despite Bet C caveat**:
+- Bet C measures NUMBER OF STORED PATTERNS (M) relative to N
+- VAMP-on-chain handles ACTIVE retrieval K (different axis)
+- Substrate-product Demo 1 at N=65536 = limited M (≤2N at FULL pending) +
+  scalable K active retrieval (≤5000) + scalable chain depth (≤200) +
+  noise-robust (10%) + 3-stage pipeline (Lane D E2E PASS)
+- Demo 1 substrate-product story HOLDS even if Bet C collapses
+- Honest framing: "substrate's signature 57× AGS capacity at N=4096 does
+  NOT scale to N=65536 but active retrieval capabilities scale via
+  VAMP-on-chain to agent-realistic envelope"
+
+**Why Bet Z.3 VAMP single-hop PARTIAL is informative but not blocking**:
+- Cycle 115 theoretical claim "VAMP with cached SVD PROVEN for any RI matrix"
+- Empirical at substrate: both VAMP and argmax saturate at 1.000 at test
+  operating point — no advantage observable
+- VAMP advantage would emerge at K≥500 (where argmax fails) — experiment NOT
+  testing that regime
+- Bet Z framework: Z.3 single-hop empirical advantage UNRESOLVED at substrate;
+  Z.3-multi-hop VAMP-on-chain PROVEN at FULL (cycle 127-128)
+- Substrate-product positioning unchanged: VAMP-on-chain is the load-bearing
+  substrate-novel mechanism; single-hop VAMP empirical advantage TBD
+
+**Why smoke→FULL CONSISTENT at Lane D E2E**:
+- Both smoke (composed_acc=1.000) and FULL (composed_acc=1.000) PERFECT
+- Multi-stage saturation regime: each stage works → composed works → no
+  divergence room
+- Cycle 102 smoke-not-predictive precedent applies to BOUNDED regimes
+  (cycle 91/94/101/124/127 DEGRADATION + cycle 128 IMPROVEMENT)
+- At saturation regimes both smoke and FULL agree by construction
+- Not a NEW smoke→FULL anchor; existing 12-anchor precedent holds
+
+Capability moves (v128 → v129):
+
+| Capability | v128 state | v129 state | Trigger |
+|---|---|---|---|
+| Lane D Demo 1 end-to-end at N=65536 with VAMP-on-chain | UNTESTED | ✅ PASS at FULL composed_acc=1.000 (capstone DEMONSTRATED) | Lane D E2E FULL |
+| Substrate M/N capacity at N=65536 | UNTESTED | 🟡 smoke KILL M/N≤2 (FULL pending; 4× collapse vs N=4096) | Bet C smoke |
+| Bet Z.3 VAMP single-hop empirical | THEORETICALLY PROVEN P=0.90 | 🔬 PARTIAL (saturation; no advantage) | Bet Z.3 FULL |
+| Cycle 89 "57× AGS" signature claim at N=65536 | extrapolated | 🔬 at risk (Bet C smoke; FULL pending) | Bet C smoke |
+| Demo 1 substrate-product capstone | "operating envelope proven" | ✅ DEMONSTRATED END-TO-END at N=65536 | Lane D E2E FULL |
+
+PROT compliance:
+- 43rd PROT-009 paired commit (cap_map + history + decision log)
+- PROT-005 unbiased framing: Demo 1 capstone DEMONSTRATED + Bet C smoke
+  caveat honest + Bet Z.3 saturation interpretation accurate
+- Cycle 124 chronological full-list scan discipline maintained (used mtime
+  sort + full 50-entry verdict list)
+
+Strategy follow-up actions (cycle 130):
+1. PROT-009 paired commit (this cycle)
+2. Wait for `wave14_betC_M_N_capacity_N65536_v1` FULL — critical for "57× AGS"
+   claim at N=65536
+3. Wait for `wave14_vamp_chain_extreme_stress_v1` FULL (K=10000+d=300 bounds)
+4. Wait for `wave14_betA_continual_edit_N65536_v1` FULL (Phase 3 completion)
+5. Wait for 3rd-attempt mechanism Research (`9ae962d`)
+6. Notify Product session: Demo 1 Lane D end-to-end at N=65536 DEMONSTRATED
+   at FULL (substrate-product capstone) per cycle 118 flagging protocol
+
+Substrate-product net (v129):
+
+**Major substantive gains**:
+- Demo 1 Lane D end-to-end at N=65536 DEMONSTRATED at FULL (capstone)
+- 3-stage chain S+T+X all PERFECT at N=65536 with VAMP-on-chain
+- Substrate-product story END-TO-END validated at full target scale
+
+**Substantive caveats**:
+- Bet C M/N at N=65536 smoke KILL 4× collapse vs N=4096 (FULL pending)
+- Cycle 89 "57× AGS" claim may not scale to N=65536
+- Bet Z.3 VAMP single-hop empirical advantage UNRESOLVED
+
+Next:
+- Watch dashboard for Bet C FULL (critical "57× AGS" discriminator)
+- Watch dashboard for extreme_stress FULL (K=10000+d=300 bounds)
+- Watch dashboard for Bet A FULL (Phase 3 completion)
+- Watch dashboard for 3rd-attempt Research delivery
