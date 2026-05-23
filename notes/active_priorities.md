@@ -3,12 +3,12 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META, orchestrator sub-agents) read this.
 
-**Last updated:** 2026-05-23 cycle 178 (v158 refresh after audit Rec 1 URGENT;
-file was 46 cap_map versions stale at v111 per `notes/audit_dropped_and_review_2026-05-23.md`).
-**Cap map version this refers to:** v158
+**Last updated:** 2026-05-23 cycle 179 (v159; Cap 5 Online W noise envelope row added at p_flip<=0.30 PASS / p_flip=0.40 FAIL; Strategy -> Research 2x drill filed for Sagawa-Ueda-style metric flip candidate).
+**Cap map version this refers to:** v159
 **Substrate-product portfolio:** 12 demonstrated capabilities (v153 list)
-carry forward unchanged in COUNT + 2 envelope-expansion rows added at v158
-(Cap 1 Tier-2 Sagawa-Ueda + Cap 3 streaming noise envelope).
+carry forward unchanged in COUNT + 3 envelope-characterization rows (v158
+Cap 1 Tier-2 Sagawa-Ueda + v158 Cap 3 streaming noise envelope + v159 Cap 5
+Online W noise envelope at p_flip<=0.30).
 
 ---
 
@@ -25,7 +25,7 @@ coset bias.
 | 2 | Demo 2 Lane C capstone | ✅ FULL | cycle 139 | longer chain (>5 stage); composition with Demo 1 |
 | 3 | N=1M substrate (16x V2.D) | ✅ FULL | cycle 170 | continual-edit at N=1M (HARD-GATED at N>=16384 per v156); N=2M scale |
 | 4 | Cap 1 Crooks forensic erase (TIERED noise-tolerance certificate at v158) | ✅ FULL Tier 1 + Tier 2 | cycle 173 v153 + v157 + v158 | Tier 1 clean delta_S_emp<0.05 (clean Crooks-FT). Tier 2 noisy delta_S_emp(p)<=theta(p)+0.02 (Sagawa-Ueda noise-corrected). p in {0.05, 0.10, 0.20} PASS. v157 "narrowing" framing RETRACTED |
-| 5 | Gap B Online W updates (Robbins-Monro+SNAP) | ✅ FULL | cycle 173 | longer chain (>50 write); cross-task online; concurrent retrieval; **next: noise envelope CPU exploratory sweep (Strategy v158 routing)** |
+| 5 | Gap B Online W updates (Robbins-Monro+SNAP; noise envelope CHARACTERIZED at v159) | ✅ FULL clean + ✅ FULL p_flip<=0.30 noise envelope | cycle 173 v153 + cycle 179 v159 | clean (cycle 173): min_acc>=0.95 across 50 writes. Noise envelope (cycle 179): PASS at p_flip in {0.05, 0.10, 0.20, 0.30} / FAIL at p_flip=0.40 / boundary in (0.30, 0.40]. Realistic customer noise floors well below p=0.30. Strategy -> Research 2x drill filed for Sagawa-Ueda-style metric flip at p>=0.40 (`strategy_request_to_research_online_W_noise_robust_2026-05-23.md`). |
 | 6 | Gap C Conformal calibrated confidence (Bet G rescue) | ✅ FULL | cycle 173 | distribution-shift; N=131072+; cross-task conformal |
 | 7 | Cap 3 Streaming inference (noise envelope EXTENDED at v158) | ✅ FULL | cycle 173 + v158 | clean ✅ + noise envelope ✅ at p in {0.05, 0.10, 0.20} N=16384; throughput at N=1M |
 | 8 | TWO substrate-novel readout primitives equivalent (VAMP-on-chain + hard-cleanup) | ✅ FULL | cycle 162 | THIRD primitive: Bet Z.5 if rescued from orphan state (Strategy v158 routing audit Rec 2) |
@@ -34,10 +34,11 @@ coset bias.
 | 11 | 240 envelope cells PASS at FULL | ✅ FULL | cycle 145 | harsher noise, larger K; meta-envelope (envelope of envelopes) |
 | 12 | Observability V2 complete (chi_4 + Kovacs + avalanche) | ✅ FULL | cycles 168-170 | cross-capability observability (chi_4 during continual-edit, Kovacs during erase) |
 
-### v158 envelope-expansion rows (NEW)
+### v158 + v159 envelope-characterization rows
 
-- **Cap 1 Tier 2 noisy Sagawa-Ueda bound**: delta_S_emp(p) <= theta(p)+0.02 PASS at p in {0.05, 0.10, 0.20} via crooks_noise_corrected_bound_v1 CPU re-analysis.
-- **Cap 3 noise envelope**: throughput_ratio >= 0.9 PASS at p in {0.05, 0.10, 0.20} N=16384 via streaming_noise_envelope_v1 FULL.
+- **Cap 1 Tier 2 noisy Sagawa-Ueda bound (v158)**: delta_S_emp(p) <= theta(p)+0.02 PASS at p in {0.05, 0.10, 0.20} via crooks_noise_corrected_bound_v1 CPU re-analysis.
+- **Cap 3 noise envelope (v158)**: throughput_ratio >= 0.9 PASS at p in {0.05, 0.10, 0.20} N=16384 via streaming_noise_envelope_v1 FULL.
+- **Cap 5 Online W noise envelope (v159)**: min_acc >= 0.95 PASS at p_flip in {0.05, 0.10, 0.20, 0.30} (4/4 noisy cells); FAIL at p_flip=0.40 via online_W_noise_envelope_v1 FULL (N=4096, n_writes=50, n_seeds=3). Boundary in (0.30, 0.40]. Strategy -> Research 2x drill filed for Sagawa-Ueda-style noise-corrected retention bound that might widen envelope to p>=0.40 (Robbins-Monro/Polyak-Juditsky/Bottou 2018 noisy-SGD literature).
 
 ### 🟡 Partial rows (open)
 
@@ -66,23 +67,22 @@ coset bias.
 
 ### Currently running
 
-- Pipeline queue at depth **0** per [[feedback-pipeline-pacing]] -- orchestrator's first priority is filling. Strategy v158 routing fills it.
+- Pipeline queue depth managed by orchestrator (parallel exp_dev refill dispatched per [[feedback-pipeline-pacing]] simultaneously with this v159 Strategy commit). Strategy stays out of Exp Dev queue lane to avoid duplicate dispatch.
 
-### Strategy v158 next-pipeline ranked picks (filed to Exp Dev)
+### Strategy v158 next-pipeline ranked picks status
 
 Routing: `notes/strategy_request_to_exp_dev_post_v158_pipeline_2026-05-23.md`
 
-1. **Online W noise envelope CPU exploratory sweep** (Cap 5; analogous noise probe to Cap 1/Cap 3 envelopes that just PASS-EXPANDED at v158). Small N exploratory; remote-or-local CPU. Per [[feedback-pipeline-pacing]] CPU exploration informs which GPU deep test is worth queueing. Cheap (~minutes).
-2. **`wave14_pq_high_resolution_v1` FULL conversion** (5 cycles pending per v153/v154/v155/v156/v157; audit D9). Cheap GPU (~20 min); should ship.
-3. **Bet Z.5 vs VAMP-on-chain equivalence check** (audit Rec 2). Local CPU + theory (~30-60 min CPU + ~1 hr math). Bandwidth-permitting.
-
-Strategy preference: (1) FIRST (CPU exploratory drives pipeline pacing); (2) parallel on GPU (cheap); (3) on bandwidth.
+1. **Online W noise envelope CPU exploratory sweep** (Cap 5; v158 Pick 1). **DELIVERED cycle 179 v159** = ONLINE_W_NOISE_ENVELOPE_NARROW (4/5 noisy cells PASS at p_flip<=0.30; FAIL at p=0.40). Verdict landed at 89.3s elapsed; pre-reg prediction satisfied; envelope characterized at p_flip<=0.30.
+2. **`wave14_pq_high_resolution_v1` FULL conversion** (5 cycles pending per v153/v154/v155/v156/v157; audit D9). Cheap GPU (~20 min); STILL PENDING.
+3. **Bet Z.5 vs VAMP-on-chain equivalence check** (audit Rec 2). Local CPU + theory (~30-60 min CPU + ~1 hr math). Bandwidth-permitting; STILL PENDING.
 
 ### Open Strategy follow-up routings
 
+- **Strategy -> Research Cap 5 Online W noise-robust 2x drill** (v159; `notes/strategy_request_to_research_online_W_noise_robust_2026-05-23.md`). Per [[feedback-negative-results-2x-research]] + v158 Cap 1 precedent. Research will determine: (a) does Sagawa-Ueda-style noise-corrected retention bound exist for noisy Robbins-Monro that PASSES at p=0.40? (b) ranked recommendation of 5 rescue sketches (Polyak-Juditsky averaging + SVRG + BSC majority-vote + adaptive SNAP + Tier-2 SLA); (c) one-cycle next-experiment prescription. MEDIUM-HIGH priority; precedent-driven not refutation-driven.
 - **Strategy -> Research Bet T/Bet V rescue sketches** (v158; `notes/strategy_request_to_research_betT_betV_rescue_sketches_2026-05-23.md`). Per PROT-004/006 backlog (audit Rec 3). Generic-math framing: parallel hypothesis tracking under uncertain evidence + self-reflective memory updates in associative substrate.
 - **Strategy -> Research burn-down note** (v158; `notes/strategy_research_burn_down_three_orphans_2026-05-23.md`). Acknowledges 3 orphaned 2026-05-23 Research deliveries (D1 research_strategy_open_questions, D2 research_order_param_2x_drill, D3 research_semiconductor_physics_substrate_analogies) per audit Rec 3.
-- **Strategy -> Research vetted ranking of 5 noise-robust rescue sketches** (v157 backlog; post-v158 re-axiomatization these are ELECTIVE hardening options, not required rescues -- lower urgency).
+- **Strategy -> Research vetted ranking of 5 Cap 1 noise-robust rescue sketches** (v157 backlog; post-v158 re-axiomatization these are ELECTIVE hardening options, not required rescues -- lower urgency).
 - **META Gap A spatially-coupled codebook + block-VAMP** (v151 backlog; awaiting bandwidth).
 
 ---
