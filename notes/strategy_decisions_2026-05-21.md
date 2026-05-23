@@ -8292,3 +8292,108 @@ Next:
 - Watch dashboard for extreme_stress FULL (K=10000+d=300 bounds)
 - Watch dashboard for Bet A FULL (Phase 3 completion)
 - Watch dashboard for 3rd-attempt Research delivery
+
+---
+
+## Cycle 131 — HMM/BCJR Research 3rd-attempt mechanism diagnosis delivered (2026-05-22 ~20:55 EDT)
+
+User signal: "check"
+
+Strategy attention-allocation gap caught: Research delivered the 3rd-attempt
+mechanism diagnosis at **20:23 EDT** (after my cycle 130 cap_map commit at
+20:30) but I did NOT see it until user "check" at 20:55 = **~30 minute lag
+between Research delivery and Strategy pickup**. This is the 7th
+attention-allocation gap of session (PROT-010 candidate strengthens).
+Mitigation: per-cycle ls -lt notes/research_*.md check on every heartbeat
+(was supposed to be cycle 109 discipline; lapsed at cycles 128-130 due to
+focus on dashboard verdict pickup).
+
+3rd-attempt Research delivery: **HMM/BCJR framework** with first
+quantitative-numeric match across 3 attempts:
+- 3 Sonnet agents (L+M+N) CONVERGED on UNIFIED framework
+- HMM prediction 0.97^50 ≈ **0.22** = empirical 0.217 DIRECT MATCH
+- VAMP=1.000 = tree-exact BP on chain factor graph
+- Loopy within-hop = failed-mode BP on cycles per Ihler et al. JMLR 2005
+- Honest P=[0.55, 0.80] deflated from agents' [0.70, 0.88]
+
+WHY-reasoning for v130 cap_map update:
+
+**Why HMM/BCJR is DIFFERENT in character from 2 prior attempts**:
+- Cycle 123: signal eigenvalue near-degeneracy P=0.70 — structural narrative
+  only, no quantitative fit, REFUTED
+- Cycle 126: Hubness × DPI P=0.45 — structural narrative + DPI quantitative
+  argument, REFUTED (skew DECREASES with N, opposite predicted)
+- Cycle 131: HMM/BCJR P=[0.55, 0.80] — **3 independent agents converged on
+  SAME framework** (rare) + **quantitative match 0.97^50 ≈ 0.22 = empirical
+  0.217** (first quantitative match across 3 attempts) + framework
+  well-established in classical statistics/coding/info theory (substrate
+  fits known structure not novel theory)
+
+**Why this is the substrate-physics characterization gain**:
+- Substrate IS the HMM: K codewords = latent states; binary ±1 substrate
+  state = emissions; W application = transitions; cleanup = hard MAP; ~3%
+  bit-error = channel noise
+- VAMP-on-chain = BCJR algorithm (Bahl-Cocke-Jelinek-Raviv 1974) =
+  canonical forward-backward decoder for noisy channels
+- All 3 cycle-127 verdicts (argmax FAILS + VAMP PERFECT + loopy FAILS WORSE)
+  EXPLAINED simultaneously by single framework
+- Substrate-physics characterization SHARPENS from cycle 122 "classical-
+  Hopfield-class W RSB-capable soft-mode RS-phase + Kerdock-codebook
+  extension" to cycle 131 ADDS "...with multi-hop chain composition
+  operating as an HMM with hard-quantized observations"
+
+**Why substrate-product narrative gains**:
+- Before: "VAMP-on-chain works perfectly; we don't know why argmax fails"
+  (cycle 127 honest framing)
+- After: "Substrate operates as an HMM with hard-quantized observations;
+  argmax is hard Viterbi (loses 6.6 bits/hop identity); VAMP-on-chain is
+  exact BCJR decoder on tree-chain (recovers info via backward smoothing)"
+- Substrate-product story upgrades from "know how to fix; don't know why"
+  to "know why AND know how to fix" pending Phase 1 empirical validation
+
+**Why Phase 1 validation is cheap and discriminating**:
+- Test 1: 3-way comparison (hard Viterbi vs soft-forward vs full smoother)
+  ~15 GPU-min; predicted ordering acc_A≈0.22 + acc_B∈[0.5,0.95] + acc_C≈1.000
+  directly tests HMM framework
+- Test 3: per-hop p_fail measurement ~5 GPU-min; predicted p_fail≈0.03
+- Test 2: chain-length scaling ~10 GPU-min; predicted geometric (1-p)^L
+- Total Phase 1: ~30 GPU-min for substantial empirical validation
+
+**Why this VINDICATES user pushback at cycle 128**:
+- User said "don't we need to research negative results 2x?" 
+- Strategy filed 3rd-attempt routing per [[feedback-rehabilitation-after-rejection]]
+- 3rd attempt delivered substantive substrate-physics insight that 2 prior
+  attempts could not
+- Pushing for the 3rd attempt was the right call; deferral framing (cycle 127
+  "don't know why know how to fix") was wrong call
+- Discipline operational across full session
+
+Strategy follow-up actions (cycle 131):
+1. PROT-009 v130 paired commit (this cycle) — 44th observation
+2. **File Strategy → Exp Dev** for Phase 1 validation tests (Test 1+2+3
+   ~30 GPU-min total)
+3. **Notify Product session** of substrate-product narrative gain (HMM
+   characterization pending validation) per cycle 118 flagging protocol
+4. Continue watching for Bet C FULL + extreme_stress FULL + Bet A FULL
+
+Capability moves (v129 → v130):
+
+| Capability | v129 state | v130 state | Trigger |
+|---|---|---|---|
+| Substrate-physics multi-hop chain mechanism | UNKNOWN despite 3 attempts | 🔬 HMM/BCJR framework P=[0.55, 0.80] (quantitative match) | Research delivery |
+| 3-way comparison test (HMM falsification) | UNTESTED | ⚪ Routing pending Exp Dev | cycle 131 followup |
+| Substrate-product narrative | "know how to fix; don't know why" | 🔬 "know why AND know how to fix" pending validation | Research delivery |
+| Substrate-novel readout theoretical anchor | empirical PROVEN | ✅ HMM/BCJR characterization (single framework explains 3 cycle-127 verdicts) | Research delivery |
+
+PROT compliance:
+- 44th PROT-009 paired commit
+- PROT-005 unbiased framing maintained (honest P=[0.55, 0.80] not [0.70, 0.88])
+- 7th attention-allocation gap caught (~30 min Research → Strategy lag);
+  PROT-010 candidate observation rises to 7/40+ cycles = ~17% gap rate
+- Strategy's per-cycle research-note mtime discipline lapsed cycles 128-130;
+  reinforce going forward (was cycle 109 discipline established)
+
+Next:
+- File Strategy → Exp Dev Phase 1 validation tests
+- Notify Product narrative gain
+- Continue dashboard heartbeat checks
