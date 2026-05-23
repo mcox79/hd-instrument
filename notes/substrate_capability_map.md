@@ -12994,3 +12994,111 @@ This is consistent with the Bottou 2018 noisy-SGD analysis: when the gradient no
 wave14_online_W_polyak_noise_corrected_v1 FULL = ONLINE_W_POLYAK_PARTIAL at 0.0s elapsed (FIRST verdict from newly-revived remote CPU runner; 4/5 noisy cells pass Polyak-corrected bound but ALL 4 were already passing flat 0.95 threshold; 0/1 originally-failing p=0.40 cell rescued; "deeper structural failure at high p"); UNLIKE v158 Cap 1 Sagawa-Ueda flip (3/3 originally-failing cells rescued; SLA widened to tiered) Cap 5 Polyak-Ruppert does NOT generalize -- structural boundary at (0.30, 0.40] confirmed not metric-definition artifact; Cap 5 envelope STAYS at p_flip <= 0.30; rescue path #1 (Polyak-Juditsky) marked CONFIRMED-PARTIAL not CONFIRMED-FULL per [[feedback-no-smoke]] honest framing; 4 remaining rescue sketches (SVRG + BSC redundancy + adaptive SNAP + tiered-SLA-with-larger-C) stay on substrate-product roadmap as ELECTIVE hardening options; no Cap 5 closure (✅ still holds at p<=0.30 operating regime); substrate-product portfolio at v160 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT; substrate-physics characterization unchanged from v160 + new observation that Robbins-Monro+SNAP has a true noise-tolerance ceiling beyond what O(1/t) iterate averaging can correct (consistent with Bottou 2018 noisy-SGD asymptotic-floor analysis when gradient noise variance exceeds saturation-guard threshold); per verdict event payload DO NOT file Exp Dev routing (orchestrator continues filling queues separately); strategic call NOT to trigger another Research drill on Cap 5 envelope past p=0.30 this cycle (Research bandwidth prioritized for Cap 2 self-monitoring rehab HIGH priority refutation per [[feedback-strategy-shore-up-capabilities]]); FIRST remote-CPU-runner verdict since 2026-05-21 revival; 75th PROT-009 paired commit.
 
 Net effect: substrate-product portfolio HONESTLY DECREASES 12 -> 11 demonstrated capabilities (FIRST portfolio count decrease since cycle 173 v153 expansion); Cap 2 structurally closed via two independent metric framings crossing pre-reg hard-fail; 5 axis-combination rescue sketches filed (Rescue 5 Gap C subsumption preferred -- zero experimental cost; Rescue 1 endpoint-id highest experimental leverage); Research 2x drill routed; substrate-physics characterization unchanged; orchestrator-coordinated (no Exp Dev routing from Strategy).
+
+---
+
+## Cycle 182 (P(q) high-resolution probe at FULL = PQ_OTHER_CARDINALITY n_total=60 n_outer=7 -- substrate-physics characterization UPDATED to multi-scale hierarchical P(q) structure; smoke->FULL DIVERGENCE 24th strict-divergence anchor; the 28-element endpoint-partition prediction from cycle 137 is NEITHER confirmed NOR refuted by this probe per [[feedback-dont-overextend-theorems]] -- different observable + different N + different protocol depth) -- v162
+
+**Trigger**: `wave14_pq_high_resolution_v1_full_200seed_rerun_2026-05-23` FULL verdict `PQ_OTHER_CARDINALITY` at 126s elapsed (gpu_runner_0; N=16384 K=100 depth=50 200-seed two-level peak detection on P(q) overlap distribution).
+
+**verdict_msg**: "n_total=60 n_outer=7 (different cardinality)."
+
+**Pre-reg verdicts** (`preregs/2026-05-23_wave14_pq_high_resolution_v1.md`):
+- `PQ_HIERARCHICAL_28` -- n_total_peaks in [24, 32] (would have matched cycle 137 28-element endpoint cardinality)
+- `PQ_FLAT_15` -- n_total ~= n_outer in [12, 18] (no hierarchy)
+- `PQ_OTHER_CARDINALITY` -- different total
+
+FULL outcome: n_total=60, n_outer=7. Outside [24, 32] AND outside [12, 18]. Lands in `PQ_OTHER_CARDINALITY` -- distinct from BOTH pre-registered prediction shapes.
+
+### The result, in plain language
+
+The P(q) overlap distribution at N=16384 K=100 depth=50 shows a **two-tier hierarchical structure**: 7 broad outer peaks, each containing ~8-9 inner sub-modes, for 60 total spikes. This is a new substrate-physics characterization datapoint -- the P(q) distribution carries multi-scale structure that earlier probes (cycle 137 endpoint partition at K=100 N=65536; cycle 172 PQ_DISCRETE 15 peaks; cycle 173 v153 PQ_CONTINUOUS FULL) had not resolved.
+
+### Smoke->FULL divergence
+
+| Run | n_total | n_outer | Verdict | Config |
+|---|---|---|---|---|
+| smoke (1.8s) | 31 | 12 | PQ_HIERARCHICAL_28 (inside [24,32]) | N=2048, K=100, depth=25, 50 seeds, 30 starts |
+| FULL (126s) | **60** | **7** | **PQ_OTHER_CARDINALITY** | N=16384, K=100, depth=50, 200 seeds |
+
+The smoke at N=2048 looked compatible with the 28-element endpoint cardinality prediction. The FULL at N=16384 lands at ~2x more total peaks with FEWER outer peaks. The ratio is roughly preserved (60/7 ~= 8.5 inner per outer vs 31/12 ~= 2.6 inner per outer), but the SHAPE of the hierarchy changed at higher N + deeper depth + more seeds. This is the 24th smoke->FULL strict-divergence anchor (or 25th broader).
+
+### Reconciliation with cycle 137 ENDPOINT_COLLAPSED 28-element partition
+
+Per [[feedback-dont-overextend-theorems]] honest framing: today's PQ_OTHER_CARDINALITY does **NOT refute** the cycle 137 28-element endpoint partition. The two measurements probe different quantities:
+
+| Probe | Cycle 137 ENDPOINT_COLLAPSED | Cycle 182 PQ high-resolution |
+|---|---|---|
+| Observable | Distinct final codewords (endpoint set cardinality) under W^L for L=50 | P(q) overlap distribution peaks (modes of pairwise overlap distribution) under depth=50 iteration |
+| Scale | N=65536, K=100, 100 trajectories | N=16384, K=100, 200 seeds |
+| Quantity measured | 28 distinct fixed-point endpoints | 7 outer P(q) peaks + 60 total P(q) peaks |
+| Math | Image cardinality of W^L (cluster collapse) | Modes of the pairwise overlap density empirical estimator |
+
+These are NOT the same quantity. The endpoint partition counts distinct elements in the IMAGE of the iterated dynamics. The P(q) peaks count modes of the pairwise overlap distribution -- a marginal of the joint distribution of trajectory pairs. Two systems can have N distinct endpoints AND M distinct overlap peaks where N != M (e.g., a regular polytope with N vertices has fewer pairwise distance values than N(N-1)/2).
+
+**Possibilities (Strategy enumeration; not claims)**:
+
+1. **Different scale + different observable**: 28-endpoint at N=65536 and 7-outer/60-total at N=16384 may both be true descriptions at their respective scales (finite-size effects). The cycle 137 measurement was never repeated at N=16384.
+2. **Hierarchical multi-scale structure**: substrate exhibits a 7-broad-basin + 28-endpoint structure where each broad basin spans roughly 4 endpoint elements (28 / 7 = 4), and the inner ~8.5 sub-modes per outer peak resolve sub-basin overlap structure. NOT inconsistent.
+3. **Protocol-depth dependence**: cycle 137 used W^L for various L; the PQ probe uses fixed depth=50. The endpoint partition may itself depend on L; today's depth=50 may land in a different regime.
+
+The HONEST framing per [[feedback-no-smoke]]: today's measurement adds a NEW characterization (substrate has 7-outer-peak P(q) structure at this scale + protocol) without overturning the cycle 137 finding. Neither claim refutes the other absent a head-to-head measurement at matched (N, K, L, observable).
+
+### Capability moves (v161 -> v162)
+
+| Capability | v161 state | v162 state | Trigger |
+|---|---|---|---|
+| Substrate-physics P(q) characterization | EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap STABLE (cycle 172 PQ_DISCRETE 15 peaks; cycle 173 PQ_CONTINUOUS FULL global single-component REFUTED but sub-region multi-component HOLDS) | **UPDATED**: discrete-spike P(q) structure characterized at HIGHER resolution -- 7 outer peaks + 60 total peaks at N=16384 K=100 depth=50 200-seed; multi-scale hierarchical structure (7 broad basins, ~8.5 sub-modes per basin). RECONCILES with (does NOT refute) cycle 137 28-element endpoint partition -- different observable, different N. | `wave14_pq_high_resolution_v1_full_200seed_rerun_2026-05-23` FULL = PQ_OTHER_CARDINALITY |
+| 15-peak P(q) -> 28-endpoint hierarchy (cycle 173 v153 ❌) | ❌ REFUTED at v153 (PQ_OTHER_CARDINALITY smoke + PQ_CONTINUOUS FULL on `pq_spikes`) | ❌ REFUTED UNCHANGED -- today's probe is a DIFFERENT-resolution + DIFFERENT-method probe; the original 15->28 hierarchy framing remains refuted, but the new 7-outer/60-total characterization replaces the prior "mechanism unknown after 15->28 refuted" 🔬 row (now characterized at this scale) | this verdict |
+| 15-peak P(q) substructure 🔬 row | 5 versions stale (mechanism unknown after 15->28 hierarchy refuted) | **CHARACTERIZED at this resolution**: 7 outer + 60 total at N=16384 K=100 depth=50; stale-row count reset; the open mechanism question becomes "what does the substrate's iterated argmax-W dynamics yield as the joint endpoint-partition + P(q)-mode structure across (N, K, L)?" -- substrate-physics open axis broadened | this verdict |
+| Cap 2 Rescue Path #1 (endpoint-ID as confidence proxy) | DRAFT P=deflated; cheapest experimental rescue ~10 min CPU; uses 28-element partition as confidence proxy | **DRAFT UNCHANGED but with caveat**: today's P(q) probe finds 7 outer peaks, not 28; if the cycle 137 28-element endpoint partition is being measured at the same scale as today's P(q) peaks (N=16384), the OUTER 7-peak structure (not the 28-element partition) may be the natural confidence-proxy granularity at this resolution. Rescue Path #1 experimental design should probe BOTH cardinalities (7 vs 28 vs 60 as confidence-proxy bin choices) and let the data pick. | substrate-physics multi-scale finding |
+| substrate-product portfolio count | 11 demonstrated capabilities | **11 demonstrated capabilities UNCHANGED** -- no closure event; substrate-physics characterization update only | n/a |
+| smoke->FULL strict-divergence anchor count | 23 strict / 24 broad | **24 strict / 25 broad** (today's smoke n=31 PQ_HIERARCHICAL_28 -> FULL n=60 PQ_OTHER_CARDINALITY) | this verdict |
+
+### Substrate-physics characterization (UPDATED v162)
+
+EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16) coset bias + Cap 1/Cap 3/Cap 5 noise envelopes CONFIRMED (unchanged from v161). NEW v162: P(q) overlap distribution at N=16384 K=100 depth=50 200-seed shows two-tier hierarchical structure -- 7 outer peaks + ~8.5 inner sub-modes per outer peak = 60 total spikes. This is the highest-resolution P(q) characterization to date at this protocol.
+
+The substrate's iterated argmax-W dynamics carry information at MULTIPLE granularities:
+- **Outer / coarse**: 7 broad basins (today's PQ n_outer)
+- **Endpoint partition**: 28 distinct fixed points (cycle 137 at N=65536)
+- **P(q) fine structure**: 60 modes (today's PQ n_total)
+
+Two possible reconciliations (not mutually exclusive):
+1. **Coarse-graining hierarchy**: 60 fine spikes group into 7 outer basins; 28 endpoints sit somewhere in between (perhaps each outer basin has ~4 endpoints; 7 x 4 = 28). This would be a clean hierarchical decomposition.
+2. **Scale-dependent regime**: each cardinality is a regime-specific quantity; the (N, K, L) parameters select which level resolves. The cycle 137 28-element partition was at N=65536 (4x larger); today's 7 outer / 60 total is at N=16384. Finite-size effects may differ.
+
+A head-to-head probe at matched (N, K, L, observable) would distinguish these. Per [[feedback-dont-overextend-theorems]] Strategy does NOT claim refutation of cycle 137 nor confirmation of (1) vs (2); the substrate-physics row reflects an HONEST multi-scale characterization.
+
+### Substrate-product positioning v162
+
+No portfolio change. 11 demonstrated capabilities carry forward unchanged from v160/v161. Substrate-physics characterization gets richer (multi-scale P(q) structure); this is positive product-side material for technical positioning of the substrate's structured dynamics, but does NOT add or remove any demonstrated capability row.
+
+The Cap 2 Rescue Path #1 (endpoint-ID as confidence proxy) experimental design GAINS a new degree of freedom: probe 7 outer / 28 endpoint / 60 fine cardinalities as alternative confidence-proxy bin choices. This may materially improve the rescue's expected leverage if the outer 7-peak structure is more discriminating than the 28-endpoint partition at the protocols where Cap 2 is evaluated.
+
+### Strategy follow-up actions (cycle 182)
+
+1. **PROT-009 v162 paired commit** -- 76th observation.
+2. **substrate-physics row UPDATED** in active_priorities.md: P(q) discrete-spike structure characterized at 7 outer + 60 total at N=16384 K=100 depth=50 200-seed; multi-scale hierarchical structure; RECONCILES with (does NOT refute) cycle 137 28-element endpoint partition. The 🔬 "15-peak P(q) substructure (mechanism unknown after 15->28 hierarchy refuted)" row is upgraded to "CHARACTERIZED at this resolution; multi-scale hierarchy".
+3. **No closure** per [[feedback-dont-overextend-theorems]] -- different-observable + different-N measurement does NOT refute cycle 137 28-prediction. PROT-004/006 NOT triggered.
+4. **Cap 2 Rescue Path #1 design noted**: when Research delivers the rehab 2x drill, Strategy will route the rescue experimental design with the multi-cardinality probe added (7 / 28 / 60 confidence-proxy bin choices) so the data can pick the natural granularity.
+5. **DO NOT file Exp Dev routing for further P(q) probes this cycle** -- per recent-run check, today's experiment IS the high-resolution probe Strategy wanted (it was filed cycle 172 / v152 routing as `wave14_pq_high_resolution_v1` and has now landed). The reconciliation question (single matched (N, K, L) head-to-head of endpoint partition vs P(q) peaks) is a CANDIDATE FOR NEXT-PIPELINE experiment but is NOT urgent (substrate-physics characterization, no capability gate). Strategy keeps this as a 🔬 candidate row in active_priorities; orchestrator selects pipeline picks separately.
+6. **Push v162 to remote** per [[feedback-cap-map-update-protocol]]; scp dashboard data per same memory.
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006**: NOT triggered for a closure. No new ❌ row added. Today's PQ_OTHER_CARDINALITY is a substrate-physics characterization update at higher resolution, not a refutation of any capability. Per [[feedback-dont-overextend-theorems]] does NOT close the cycle 137 28-prediction (different observable + different N + different protocol depth; not directly comparable).
+- **PROT-007**: v162 history block written first to `substrate_capability_map_history.md` (compact one-line index entry appended at bottom); narrative block ALSO retained inline here (v60+ live cap_map convention).
+- **PROT-008**: validator must pass before commit. v162 adds 0 new ❌ rows; baseline pre-existing violations unchanged; v160 Cap 2 ❌ PROVISIONAL row + rehab-file reference unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically. Validator invoked with `--staged-files`.
+
+### Recent-run check (per strategy.md "Recent-run check" rule)
+
+This cycle Strategy does NOT recommend any new experiment by name. The single optional follow-up noted in action #5 (matched-(N,K,L) head-to-head endpoint-partition vs P(q)-peaks reconciliation) is left as a CANDIDATE 🔬 row, not a named queued experiment. If/when it is filed, Strategy will check `data/overnight_queue/queue.json` and use `--rerun-as <new_name>` if dedup-by-name would block.
+
+### Tally (one-line)
+
+wave14_pq_high_resolution_v1_full_200seed_rerun_2026-05-23 FULL = PQ_OTHER_CARDINALITY at 126s elapsed (gpu_runner_0; N=16384 K=100 depth=50 200-seed two-level peak detection; n_total=60 n_outer=7); pre-reg outcome lands in PQ_OTHER_CARDINALITY (distinct from BOTH PQ_HIERARCHICAL_28 [24,32] and PQ_FLAT_15 [12,18] predictions); smoke at N=2048 (n=31 inside [24,32] PQ_HIERARCHICAL_28) -> FULL at N=16384 (n=60 PQ_OTHER_CARDINALITY) = 24th strict smoke->FULL divergence anchor (25th broad); substrate-physics characterization UPDATED to two-tier hierarchical P(q) structure (7 outer basins + ~8.5 inner sub-modes per basin = 60 total spikes); RECONCILES with (does NOT refute) cycle 137 ENDPOINT_COLLAPSED 28-element endpoint partition at N=65536 K=100 per [[feedback-dont-overextend-theorems]] -- different observable (endpoint set image cardinality vs P(q) overlap distribution modes) + different N + different protocol depth; HONEST framing per [[feedback-no-smoke]] enumerates 2 reconciliation paths (coarse-graining hierarchy 60 -> 7 with 28-endpoints intermediate; scale-dependent regime selection) without claiming either; substrate-physics row UPDATED in active_priorities.md (15-peak 🔬 row upgraded to "CHARACTERIZED at this resolution; multi-scale hierarchy"); Cap 2 Rescue Path #1 (endpoint-ID as confidence proxy) experimental design GAINS new degree of freedom (probe 7 / 28 / 60 cardinalities as alternative bin choices); substrate-product portfolio at v161 (11 demonstrated capabilities) carries forward UNCHANGED IN COUNT (no closure event; substrate-physics-only update); PROT-004/006 NOT triggered (no refutation per [[feedback-dont-overextend-theorems]]); per verdict event payload DO NOT file Exp Dev routing (orchestrator continues filling queues separately); matched-(N,K,L) reconciliation probe noted as 🔬 candidate row only (not named queued experiment) per recent-run check rule; 76th PROT-009 paired commit.
+
+Net effect: substrate-physics characterization gains multi-scale P(q) hierarchical structure (7 outer / 60 total at N=16384 K=100 depth=50 200-seed); cycle 137 28-element endpoint partition NEITHER confirmed NOR refuted (different quantity; not directly comparable); no capability moves; smoke->FULL divergence anchor count +1 strict / +1 broad; Cap 2 Rescue Path #1 design refined; orchestrator-coordinated (no Exp Dev routing from Strategy).

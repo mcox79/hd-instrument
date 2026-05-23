@@ -3,8 +3,8 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META, orchestrator sub-agents) read this.
 
-**Last updated:** 2026-05-23 cycle 181 (v161; Cap 5 Online W Polyak-Ruppert noise-corrected bound PARTIAL -- 4/5 noisy cells PASS but ALL were already passing pre-correction; 0/1 originally-failing p=0.40 cells rescued; Rescue Path #1 CONFIRMED-PARTIAL not FULL; Cap 5 envelope STAYS at p_flip <= 0.30 confirmed structural boundary not metric artifact; FIRST verdict from newly-revived remote CPU runner since 2026-05-21; substrate-product portfolio carries forward unchanged at 11 demonstrated capabilities; no Cap 5 closure event; per [[feedback-no-smoke]] honest framing the Sagawa-Ueda precedent did NOT generalize to Cap 5).
-**Cap map version this refers to:** v161
+**Last updated:** 2026-05-23 cycle 182 (v162; P(q) high-resolution probe at FULL = PQ_OTHER_CARDINALITY n_total=60 n_outer=7 at N=16384 K=100 depth=50 200-seed; substrate-physics characterization UPDATED to two-tier hierarchical P(q) structure -- 7 broad outer basins + ~8.5 inner sub-modes per basin = 60 total spikes; per [[feedback-dont-overextend-theorems]] RECONCILES with [does NOT refute] cycle 137 28-element endpoint partition -- different observable + different N + different protocol depth; smoke->FULL divergence anchor count 23 strict -> 24 strict; no capability moves; substrate-product portfolio at v161 [11 demonstrated capabilities] carries forward UNCHANGED; Cap 2 Rescue Path #1 gains multi-cardinality bin-choice degree of freedom).
+**Cap map version this refers to:** v162
 **Substrate-product portfolio:** **11 demonstrated capabilities** (Cap 2 left the v153 list at v160; v161 carries forward unchanged in count) + 3 envelope-characterization rows (v158 Cap 1 Tier-2 Sagawa-Ueda + v158 Cap 3 streaming noise envelope + v161 Cap 5 Online W noise envelope at p_flip<=0.30 CONFIRMED structural boundary).
 
 ---
@@ -55,7 +55,7 @@ sub-K-region q_overlap + anti-RM(1,16) coset bias (UNCHANGED from v159).
 - **Bet Z.5 Absorbing Diffusion Ensemble Smoother** (P=0.40; cycle 160 v144). 13 versions stale. **Strategy v158 routed to Exp Dev**: cheap CPU equivalence check vs VAMP-on-chain (audit Rec 2). Two-way valuable: close as duplicate OR confirm strictly stronger.
 - **META Gap A spatially-coupled codebook + block-VAMP** (P=0.45; cycle 171 v151). 6 versions stale. Kudekar 2013 threshold-saturation THEOREM exists; tractable but substantial. Awaiting bandwidth.
 - **K-resonance K=1000 fixed-point mechanism** (Arnold-tongue REFUTED; nearly-degenerate eigenvalue candidate noted v145 never tested). 12 versions stale.
-- **15-peak P(q) substructure** (mechanism unknown after 15->28 hierarchy refuted). 5 versions stale.
+- **P(q) discrete-spike structure (CHARACTERIZED at this resolution v162)**: high-resolution probe at N=16384 K=100 depth=50 200-seed finds 7 broad outer basins + ~8.5 inner sub-modes per basin = 60 total spikes. Replaces former "15-peak P(q) substructure (mechanism unknown after 15->28 hierarchy refuted)" row. Multi-scale hierarchical structure. RECONCILES with (does NOT refute) cycle 137 28-element endpoint partition at N=65536 -- different observable + different N + different protocol depth per [[feedback-dont-overextend-theorems]]. Open follow-up (candidate, not queued): matched-(N,K,L) head-to-head probe of endpoint partition vs P(q) peaks at SAME (N, K, L) to distinguish coarse-graining-hierarchy vs scale-dependent-regime reconciliation possibilities. Substrate-physics axis only; no capability gate.
 - **Anti-RM(1,16) coset bias mechanism** (substrate-physics; 0% within linear subcode; mechanism unknown).
 - **P(h) moments observability family** (proposed v109; never fired). 45+ versions stale.
 
@@ -99,7 +99,7 @@ Routing: `notes/strategy_request_to_exp_dev_post_v158_pipeline_2026-05-23.md`
 
 ## Coordination state
 
-- PROT-001 through PROT-009 active. v161 = 75th PROT-009 paired commit.
+- PROT-001 through PROT-009 active. v162 = 76th PROT-009 paired commit.
 - Sessions self-coordinate per [[feedback-sessions-self-coordinate]]; read `notes/active_protocols.md` each cycle.
 - Orchestrator status log surface: `data/orchestrator_status_log.jsonl` (per [[feedback-orchestrator-status-visibility]]; dashboard upgrade pending).
 
