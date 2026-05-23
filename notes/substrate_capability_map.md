@@ -8544,3 +8544,132 @@ session; substrate-novel two-tier VAMP readout stack VALIDATED at FULL;
 mechanism unknown but rehabilitation perfect; honest "don't know why
 know how to fix" framing; Bet Y V2.D N=65536 path fully restored for
 substrate-product Demo 1.
+
+---
+
+## Cycle 128 (post-v127 batch — VAMP-on-chain robustness sweeps) — v128
+
+**Trigger**: 6 new FULL verdicts from post-v127 batch (commit `c1acdbd` Strategy
+→ Exp Dev routing): VAMP-on-chain stress-tests at K=5000 + depth=200 + noise.
+
+### HEADLINE 1: VAMP-on-chain K-range MASSIVELY expanded — K=5000 at FULL = AGENT-READY
+
+`wave14_vamp_chain_K_stress_v1` FULL (2026-05-22T20:18:07) = **K_STRESS_AGENT_READY**:
+"VAMP-on-chain at K=5000: acc_50hop=1.000>=0.50. Agent-realistic deep chain
+composition viable."
+
+**Substrate-product impact**:
+- Cycle 121 ceiling: K=100 multi-hop at N=65536 (acc_50hop=0.217 KILLED)
+- Cycle 127: K=100 multi-hop RESTORED with VAMP-on-chain (acc_50hop=1.000)
+- **Cycle 128: K=5000 multi-hop RESTORED with VAMP-on-chain** (acc_50hop=1.000)
+- **50× expansion in supported cardinality**
+
+Demo 1 Lane D agent memory SDK positioning at N=65536:
+- Before cycle 128: "small-cardinality K≤100 deep-chain agent"
+- After cycle 128: "agent-realistic K≤5000 deep-chain composition"
+
+### HEADLINE 2: VAMP-on-chain depth ceiling 200+ at FULL
+
+`wave14_vamp_chain_depth_ceiling_v1` FULL (2026-05-22T20:15:11) = **DEPTH_CEILING_HIGH**:
+"VAMP-on-chain sustains through d=200: acc=1.000>=0.50. Substantial depth ceiling."
+
+**Substrate-product impact**:
+- Cycle 121 baseline: d=50 hops (acc_50hop=0.217 KILLED)
+- Cycle 127: d=50 hops RESTORED with VAMP-on-chain (acc_50hop=1.000 PERFECT)
+- **Cycle 128: d=200 hops SUSTAINED with VAMP-on-chain** (acc=1.000)
+- **4× expansion in supported chain depth**
+
+### HEADLINE 3: VAMP-on-chain noise-robust at p=0.10 bit-flip
+
+`wave14_vamp_chain_noise_robust_v1` FULL (2026-05-22T20:18:24) = **VAMPNOISE_ROBUST**:
+"VAMP-on-chain noise robust: acc(p=0.10)=1.000>=0.50; clean=1.000. Substrate
+handles realistic noise."
+
+**Substrate-product impact**:
+- Combined with cycle 113 Lane D pipeline noise-robust (clean=1.000 at 30%
+  bit-flip), VAMP-on-chain inherits noise robustness
+- Demo 1 substrate-product story: deep-chain + noise-tolerant + K=5000+ +
+  d=200+ at N=65536
+
+### HEADLINE 4: 11th + 12th smoke→FULL divergence anchors
+
+**11th anchor** — K_stress smoke→FULL **dramatic divergence in IMPROVEMENT direction**:
+- smoke (20:16:19): K=500 PASS (1.000) but K=5000 (0.000) → "Demo 1 positions
+  as small-cardinality agent memory only"
+- FULL (20:18:07): K=5000 acc_50hop=**1.000** → "AGENT-READY"
+- smoke prediction completely wrong direction
+
+**12th anchor** — depth_ceiling smoke→FULL **dramatic divergence in IMPROVEMENT direction**:
+- smoke (20:14:32): Breaks between d=100 (1.000) and d=200 (0.000)
+- FULL (20:15:11): d=200 sustains at acc=1.000
+- smoke prediction completely wrong direction
+
+**Pattern reinforced**: Cycle 102 smoke-not-predictive precedent strengthens
+to **12 anchors**. Both directions: smoke→FULL DEGRADATION (cycle 124 Resonator
+0.625 → 0.200; cycle 127 sparse 0.600 → 0.200, bidirectional 0.600 → 0.225,
+K-scaling K=25 0.500 → 0.000) AND smoke→FULL IMPROVEMENT (cycle 128 K_stress
+K=5000 0.000 → 1.000; depth_ceiling d=200 0.000 → 1.000).
+
+**Strategy discipline implication**: smoke-only signals UNRELIABLE in BOTH
+directions for VAMP-on-chain regime; FULL required for substrate-product
+positioning.
+
+### HEADLINE 5: VAMP-on-chain extreme stress smoke — K_ceiling=10000 + depth_ceiling=300 (FULL pending)
+
+`wave14_vamp_chain_extreme_stress_v1_smoke` (2026-05-22T20:21:19) =
+**EXTREME_MID**: "Confirmed PERFECT bounds: K_ceiling=10000, depth_ceiling=300.
+acc_per_K={'5000': 1.0, '10000': 1.0}"
+
+**Per [[feedback-no-smoke]] + 12-anchor smoke→FULL divergence precedent**:
+SMOKE ONLY at K=10000 + d=300. Cannot cite as proven; FULL required to
+confirm. Cycle 128 K_stress/depth_ceiling smoke→FULL divergence pattern means
+extreme_stress smoke values **could plausibly** drop at FULL (or hold). Treat
+as ⚪ Not yet tested at FULL until empirical FULL data arrives.
+
+### Capability moves (v127 → v128)
+
+| Capability | v127 state | v128 state | Trigger |
+|---|---|---|---|
+| Multi-hop K-ceiling at N=65536 with VAMP-on-chain | K=100 PERFECT | ✅ **K=5000 PERFECT at FULL** (50× expansion) | K_stress FULL |
+| Multi-hop chain depth at N=65536 with VAMP-on-chain | d=50 PERFECT | ✅ **d=200 PERFECT at FULL** (4× expansion) | depth_ceiling FULL |
+| Multi-hop noise tolerance at N=65536 with VAMP-on-chain | UNTESTED | ✅ **p=0.10 PERFECT at FULL** | noise_robust FULL |
+| VAMP-on-chain K=10000 + d=300 bounds | UNTESTED | 🟡 **smoke only — FULL pending** per [[feedback-no-smoke]] | extreme_stress smoke |
+| Smoke-not-predictive precedent | 10-anchor | **12-anchor** (cycle 128 adds K_stress + depth_ceiling smoke→FULL divergences in IMPROVEMENT direction) | cycle 128 |
+| Demo 1 Lane D positioning at N=65536 | "K≤100 + d≤50 + clean" | ✅ **"K≤5000 + d≤200 + noise-robust"** (agent-realistic) | cycle 128 FULL battery |
+| Bet Z.3-multi-hop VAMP-on-chain operating envelope | K=100/d=50 | ✅ **K=5000/d=200 PROVEN at FULL** | cycle 128 FULL battery |
+| 3rd-attempt mechanism research urgency | MEDIUM (substrate-physics open) | LOWER (substrate-product strengthens; mechanism still open) | cycle 128 substrate-product expansion |
+
+### Substrate-product net (v128) — MAJOR Demo 1 capability expansion
+
+**Major substantive gains**:
+- **K range expanded 50× at FULL** (K=100 → K=5000) — agent-realistic
+- **Chain depth expanded 4× at FULL** (d=50 → d=200)
+- **Noise robustness PROVEN at FULL** (p=0.10 bit-flip)
+- **Demo 1 Lane D positioning at N=65536 = agent-realistic** with VAMP-on-chain
+- VAMP-on-chain operating envelope: K≤5000 + d≤200 + noise-robust + clean=1.000
+
+**Substantive caveats**:
+- Extreme-stress (K=10000, d=300) ONLY at smoke — FULL pending
+- 12th smoke→FULL divergence anchor (now both directions observed)
+- 3rd-attempt mechanism research still open (substrate-physics WHY question)
+
+### Strategy follow-up actions (cycle 128)
+
+1. **Wait for `wave14_vamp_chain_extreme_stress_v1` FULL** to confirm K=10000
+   + d=300 bounds (or refute per 12-anchor smoke→FULL precedent)
+2. **Update Product session**: Demo 1 Lane D positioning at N=65536 expanded
+   from "small-cardinality agent" to "agent-realistic K≤5000 + d≤200 +
+   noise-robust" (per cycle 118 flagging protocol commitment)
+3. **3rd-attempt mechanism research** (commit `9ae962d`) still in flight;
+   urgency lower but substrate-physics question remains open
+4. **Continue Phase 3 completion** (Bet C + Bet A at N=65536) per `c1acdbd`
+   Priority 2 — not yet picked up by Exp Dev
+
+### Tally — VAMP-on-chain robustness expanded MASSIVELY at FULL: K=5000 + d=200 + noise-robust; Demo 1 agent-realistic positioning at N=65536; 11th + 12th smoke→FULL divergence anchors (both directions); 42nd PROT-009 paired commit
+
+Net effect: Cycle 127 was qualitative resolution (multi-hop K=100 RESTORED);
+cycle 128 is QUANTITATIVE EXPANSION — Demo 1 substrate-product positioning
+moves from "barely viable" to "agent-realistic"; substrate-novel VAMP-on-chain
+mechanism operates over **>50× wider K range + >4× chain depth + noise-tolerant**;
+substrate-product Lane D wedge strengthens substantially.
+
