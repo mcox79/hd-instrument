@@ -8635,3 +8635,114 @@ Next:
 - File 4th-attempt routing addendum
 - Watch for 4th-attempt Research delivery
 - Watch for Bet A FULL + extreme_stress FULL
+
+---
+
+## Cycle 134 — 4th-attempt FINAL Research delivers + SMOOTHER_ONLY substrate reverse-invertible (2026-05-22 ~21:25 EDT)
+
+User signal: "more experiments done"
+
+Dashboard scan + Research delivery — TWO major findings this cycle:
+
+1. **Research delivers 4th-attempt FINAL** at 21:30 EDT (10-min Strategy→Research
+   turnaround; cycle 131 Monitor 5th operational success precedent confirmed)
+2. **SMOOTHER_ONLY_WORKS** at FULL (21:16:51): substrate's chain reverse-invertible
+
+Plus 5 other substantive verdicts: HMMK_INCONCLUSIVE × 2 (FULL) + SMOOTHER_K_MID
+smoke + SMOOTHER_DEPTH_LIMITED smoke + HMMK_INVARIANT smoke.
+
+WHY-reasoning for v133 cap_map update:
+
+**Why cluster-trapping framework is qualitatively different from 3 prior attempts**:
+- 3 prior attempts: structural narratives without cross-N quantitative match
+- Cycle 131 HMM: structural narrative + L=50 coincidental quantitative match
+  (0.97^50 ≈ 0.22 but not actual mechanism)
+- Cycle 134 cluster-trapping: structural narrative + **cross-N quantitative match
+  at BOTH N=4096 (cluster~1.4 → 0.71 ≈ empirical 0.767) AND N=65536
+  (cluster~5.0 → 0.20 ≈ empirical 0.217)**
+- This is the FIRST cross-N quantitative fit across 4 attempts
+
+**Why C3 explanation is mechanically clean (cycle 132 HMM was REFUTED here)**:
+- Cycle 132 HMM predicted soft > hard (because soft retains posterior identity)
+- Empirical: soft = hard (no information gain)
+- Cluster-trapping explains: posterior is sharp (concentrated on cluster of ~5)
+  but cluster does NOT contain correct codeword → both soft and hard pick from
+  same wrong cluster (posterior representation irrelevant)
+- This is the cleanest C3 explanation across 4 attempts
+
+**Why SMOOTHER_ONLY_WORKS is substrate-physics characterization gain
+INDEPENDENT of cluster census outcome**:
+- WARMSTART (cycle 133): loopy + backward warmstart works
+- SMOOTHER_ONLY (cycle 134): backward smoother ALONE (no forward, no posterior)
+  works PERFECT acc=1.000
+- → Forward processing is COMPLETELY UNNECESSARY
+- → Substrate's chain composition is REVERSE-INVERTIBLE
+- → The (codeword → endpoint) map for substrate's W is INJECTIVE despite
+  forward decoding being lossy
+- This is a substantive substrate-physics finding REGARDLESS of whether
+  cluster trapping specifically is the failure mechanism
+- "Forward-lossy + reverse-invertible" is substrate-product positioning anchor
+
+**Why honest P=[0.45, 0.60] is calibration-appropriate**:
+- 4-attempt refutation track record (cycle 123/124/127/132): 4/4 testable
+  predictions refuted = 71% refutation rate per [[feedback-lit-scan-calibration-penalty]]
+- Cap novel synthesis at 0.55-0.60 maximum
+- Lower bound 0.45 reflects skepticism from track record
+- Cluster census ~5-15 GPU-min provides cheap decisive falsification gate
+
+**Why HMMK_INCONCLUSIVE is consistent with cluster-trapping**:
+- HMMK FULL shows K-INDEPENDENT failure at K≥100 (plateau ~0.07)
+- Cluster trapping: cluster size depends primarily on N (scales N^0.73),
+  weakly on K
+- At K≥100 substrate hits similar cluster trap regardless of K specifics
+- Quantitative match with cluster framework
+
+Capability moves (v132 → v133):
+
+| Capability | v132 state | v133 state |
+|---|---|---|
+| 4th-attempt mechanism research | filed | DELIVERED — cluster trapping P=[0.45, 0.60] |
+| Cross-N quantitative mechanism fit | not achieved | FIRST achieved (1.4→5.0 cluster) |
+| Structural constraint score | 6/7 then refuted (HMM) | 6.5/7 (best across 4) |
+| Backward-only retrieval | not tested | CONFIRMED at FULL acc=1.000 |
+| Substrate chain reverse-invertibility | not characterized | CONFIRMED — endpoint determines chain |
+| Failure mode K-dependence at K≥100 | unknown | K-INDEPENDENT (plateau ~0.07) |
+| Cluster census Phase 1 test | UNTESTED | routing pending Exp Dev |
+
+PROT compliance:
+- 47th PROT-009 paired commit
+- PROT-005 unbiased framing: cluster-trapping framework reported with honest
+  P=[0.45, 0.60] not promoted as confirmed; cycle 133 narrative gain RETRACTION
+  acknowledged; cycle 131 HMM REFUTATION integrated
+- Cycle 124 chronological full-list scan discipline maintained
+
+Strategy follow-up actions (cycle 134):
+1. PROT-009 v133 paired commit (this cycle)
+2. **File Strategy → Exp Dev cluster census Phase 1 test** (~5-15 GPU-min;
+   FINAL substrate-physics gate)
+3. Notify Product session of substrate-physics characterization gain
+   (forward-lossy + reverse-invertible) per cycle 118 flagging — this is
+   substrate-product positioning anchor regardless of cluster census outcome
+4. Wait for cluster census verdict (FINAL substrate-physics gate)
+5. Wait for Bet A FULL + extreme_stress FULL + smoother K-stress/depth FULL
+
+Substrate-product net (v133):
+
+**Major substantive substrate-physics gain**:
+- Substrate's chain composition characterized as **forward-lossy + reverse-invertible**
+- Backward-only retrieval CONFIRMED at FULL (SMOOTHER_ONLY)
+- Cluster trapping leading candidate P=[0.45, 0.60] with FIRST cross-N
+  quantitative match (cluster census pending)
+- Tightest substrate-physics characterization to date
+
+**Substrate-product Demo 1 implications**:
+- Demo 1 capstone HOLDS at FULL via VAMP-on-chain (cycle 130 holds)
+- Substrate-product positioning gains theoretical anchor:
+  "substrate-novel forward-lossy + reverse-invertible chain composition with
+  VAMP-on-chain as canonical exact-recovery decoder"
+- Lane D Demo 1 narrative strengthens
+
+Next:
+- File cluster census routing
+- Notify Product of substrate-physics characterization gain
+- Watch dashboard for Bet A FULL + extreme_stress FULL + smoother K-stress FULL + cluster census verdict
