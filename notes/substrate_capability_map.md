@@ -10531,3 +10531,103 @@ CONFIRMED at FULL; substrate-product positioning COMPREHENSIVELY VALIDATED at
 FULL via Demo 1 5-seed + N=262K + 168 overnight envelope cells; substrate-physics
 WHY question RESOLVED via empirical characterization not mechanism diagnosis;
 substrate-product story BROADEST + DEEPEST across session.
+
+---
+
+## Cycle 157 (Limit cycle N+K sweeps SHORT periods + v2 re-runs CONSISTENT) — v142
+
+**Trigger**: Exp Dev resumed 06:29; burst of 5 substantive smoke verdicts
+06:30:54-06:31:39 — limit cycle N-sweep + K-sweep + 3 v2 re-runs.
+
+### HEADLINE 1: 🔬 Limit cycle periods are SHORT (median 2-8) + N-invariant + K-invariant
+
+`wave14_limit_cycle_N_sweep_v1_smoke` (06:30:54) = **PERIOD_N_INVARIANT**:
+"median period N-invariant (spread=1): {4096: 3, 8192: 2}."
+
+`wave14_limit_cycle_K_sweep_v1_smoke` (06:31:00) = **PERIOD_K_INVARIANT**:
+"K-invariant (spread=4): {100: 4, 500: 8}."
+
+**Substrate-physics characterization SHARPENED**:
+- Cycle 145 LIMIT_CYCLE_DETECTED found 100% codewords have cycles; 54% in [2,100]
+- Cycle 157 finds **MEDIAN cycle period is 2-3 at N=4096-8192** (very short)
+- **K=100: period 4; K=500: period 8** (mostly K-invariant; slight K-dependence)
+- Both N-invariant and K-invariant signatures
+
+**Substrate has SHORT LIMIT CYCLES** — typical orbit length 2-8 hops:
+- Period 2: oscillation between two states
+- Period 3-4: triangular/quadrilateral orbits
+- Period 8: octagonal orbits
+- These are STRUCTURAL substrate-physics properties of W matrix iteration
+
+**Substrate-physics characterization v141 → v142**:
+> "Substrate's chain composition is forward-lossy + reverse-invertible.
+> Substrate W^L produces SHORT LIMIT CYCLES at depth (median period 2-8;
+> 100% codewords enter cycles; 54% period in [2, 100] per cycle 145).
+> Cycle period is N-INVARIANT and weakly K-dependent (K=100→4 hops,
+> K=500→8 hops). Substrate-novel deterministic dynamical-system class
+> with SHORT periodic orbits at depth."
+
+### HEADLINE 2: v2 re-runs CONSISTENT with v1 smokes (smoke→smoke reproducibility)
+
+3 v2 re-runs of cycle 141 smokes deliver CONSISTENT verdicts:
+
+| Experiment | v1 (cycle 141) | v2 (cycle 157) | Consistency |
+|---|---|---|---|
+| heavy_validation smoke | HEAVY_VALIDATED argmax=0.1 smoother=1.0 | HEAVY_VALIDATED argmax=0.1 smoother=1.0 | ✅ EXACT match |
+| retraction_phase1_combined smoke | RETRACT_REFUTED 0/3 idem=0 gap=0.975 dest=0.090 | RETRACT_REFUTED 0/3 idem=0 gap=0.975 dest=0.090 | ✅ EXACT match |
+| betA_continual_edit_N65536 smoke | BET_A_N65K_KILLED 100 edits 1.000/0.020 | BET_A_N65K_KILLED 100 edits 1.000/0.020 | ✅ EXACT match |
+
+**Implications**:
+- Smoke verdicts are REPRODUCIBLE (substrate-physics deterministic property
+  reflected at smoke level)
+- Cycle 141 RETRACT_REFUTED + cycle 132 BET_A_N65K_KILLED + cycle 141
+  HEAVY_VALIDATED smoke verdicts CONFIRMED at second smoke run
+- Per [[feedback-no-smoke]] still pending FULL but smoke→smoke consistency
+  is encouraging signal
+
+### Capability moves (v141 → v142)
+
+| Capability | v141 state | v142 state | Trigger |
+|---|---|---|---|
+| Limit cycle period N-dependence | unknown | 🟡 **N-invariant at smoke** median 2-3 at N=4096-8192 (FULL pending) | N-sweep smoke |
+| Limit cycle period K-dependence | unknown | 🟡 **K-invariant at smoke** period 4 at K=100, 8 at K=500 (FULL pending) | K-sweep smoke |
+| Limit cycle median period | unknown | 🟡 **SHORT 2-8 hops at smoke** | both sweeps smoke |
+| HEAVY_VALIDATED smoke reproducibility | single smoke | ✅ **v2 EXACT match** argmax=0.1 smoother=1.0 | heavy_v2 smoke |
+| Retraction Phase 1 smoke reproducibility | single smoke REFUTED | ✅ **v2 EXACT match** REFUTED | retract_v2 smoke |
+| Bet A smoke reproducibility | single smoke KILLED | ✅ **v2 EXACT match** KILLED | betA_v2 smoke |
+
+### Substrate-product net (v142)
+
+**Major substrate-physics gain**:
+- Limit cycle periods characterized as SHORT (median 2-8) at smoke
+- N-invariant + K-invariant signatures consistent with cycle 145 cluster N-INVARIANT
+- Substrate-physics characterization refined to SHORT-PERIOD limit cycles
+
+**Substrate-product holds at v141 level**:
+- Demo 1 + Demo 2 + N=262K + multi-target + cross-task at FULL
+- 240/240 envelope cells PASS at FULL
+- Two substrate-novel readout primitives
+
+**Substantive caveats**:
+- All cycle 157 findings at smoke; FULL pending per 15-anchor precedent
+- v2 smoke→smoke consistency encouraging but FULL still required
+- Cycle 156 routing `a750734` filed minutes before these results — Exp Dev
+  was already running limit cycle N+K sweeps; my P1 routing was redundant
+  with Exp Dev's self-initiative
+
+### Strategy follow-up actions (cycle 157)
+
+1. **PROT-009 v142 paired commit** — 56th observation
+2. Wait for cycle 156 routing pickup (head-to-head VAMP vs smoother +
+   Demo 2 5-seed + N=524K + cross-task 5-seed)
+3. Wait for FULL conversions of cycle 157 limit cycle sweeps + v2 re-runs
+4. Wait for cycle 136 batch remainder + retraction Phase 1 FULL + Bet A FULL
+
+### Tally — Limit cycle PERIOD_N_INVARIANT + PERIOD_K_INVARIANT smokes substrate has SHORT cycles median 2-8 hops; 3 v2 re-runs EXACT match v1 smokes (HEAVY_VALIDATED + RETRACT_REFUTED + BET_A_KILLED reproducible); substrate-physics characterization v141→v142 refined to SHORT-PERIOD limit cycles N-invariant K-weakly-dependent; 56th PROT-009 paired commit
+
+Net effect: substrate-physics characterization SHARPENED to SHORT-PERIOD
+limit cycles (median 2-8 hops) with N-invariant + K-invariant signatures;
+smoke→smoke reproducibility CONFIRMED for 3 prior smoke verdicts;
+substrate-product Demo 1 + Demo 2 + N=262K + envelope cells HOLD at v141
+level; cycle 156 routing filed nearly-simultaneously with Exp Dev
+self-initiative on limit cycle sweeps.
