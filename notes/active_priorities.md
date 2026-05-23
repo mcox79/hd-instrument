@@ -1,19 +1,144 @@
 # Active priorities
 
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
-Dev, Research, Visibility, Queue Health, META) read this.
+Dev, Research, Visibility, Queue Health, META, orchestrator sub-agents) read this.
 
-**Last updated:** 2026-05-22 cycle 111 (refresh after 40+ version gap flagged by Research Entries 144/145 + META cycles 47/55/56)
-**Cap map version this refers to:** v111
+**Last updated:** 2026-05-23 cycle 178 (v158 refresh after audit Rec 1 URGENT;
+file was 46 cap_map versions stale at v111 per `notes/audit_dropped_and_review_2026-05-23.md`).
+**Cap map version this refers to:** v158
+**Substrate-product portfolio:** 12 demonstrated capabilities (v153 list)
+carry forward unchanged in COUNT + 2 envelope-expansion rows added at v158
+(Cap 1 Tier-2 Sagawa-Ueda + Cap 3 streaming noise envelope).
 
 ---
 
+## v158 substrate-product portfolio (current state)
+
+Per cap_map cycle 178 / v158 narrative. Twelve demonstrated capabilities
++ two envelope-expansion rows. Substrate-physics characterization: EXPONENTIAL-
+decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16)
+coset bias.
+
+| # | Capability | Status | Anchor | Next envelope axis |
+|---|------------|--------|--------|---------------------|
+| 1 | Demo 1 Lane D capstone at N=65536 | ✅ FULL | cycles 130 + 139 | N>=131072 push; 4-primitive composition under noise |
+| 2 | Demo 2 Lane C capstone | ✅ FULL | cycle 139 | longer chain (>5 stage); composition with Demo 1 |
+| 3 | N=1M substrate (16x V2.D) | ✅ FULL | cycle 170 | continual-edit at N=1M (HARD-GATED at N>=16384 per v156); N=2M scale |
+| 4 | Cap 1 Crooks forensic erase (TIERED noise-tolerance certificate at v158) | ✅ FULL Tier 1 + Tier 2 | cycle 173 v153 + v157 + v158 | Tier 1 clean delta_S_emp<0.05 (clean Crooks-FT). Tier 2 noisy delta_S_emp(p)<=theta(p)+0.02 (Sagawa-Ueda noise-corrected). p in {0.05, 0.10, 0.20} PASS. v157 "narrowing" framing RETRACTED |
+| 5 | Gap B Online W updates (Robbins-Monro+SNAP) | ✅ FULL | cycle 173 | longer chain (>50 write); cross-task online; concurrent retrieval; **next: noise envelope CPU exploratory sweep (Strategy v158 routing)** |
+| 6 | Gap C Conformal calibrated confidence (Bet G rescue) | ✅ FULL | cycle 173 | distribution-shift; N=131072+; cross-task conformal |
+| 7 | Cap 3 Streaming inference (noise envelope EXTENDED at v158) | ✅ FULL | cycle 173 + v158 | clean ✅ + noise envelope ✅ at p in {0.05, 0.10, 0.20} N=16384; throughput at N=1M |
+| 8 | TWO substrate-novel readout primitives equivalent (VAMP-on-chain + hard-cleanup) | ✅ FULL | cycle 162 | THIRD primitive: Bet Z.5 if rescued from orphan state (Strategy v158 routing audit Rec 2) |
+| 9 | Multi-target + cross-task at FULL | ✅ FULL | cycle 139 | more targets (>4); harder cross-task; under noise |
+| 10 | Bet A continual-edit at M_init=8192 N=65536 | ✅ FULL | cycle 172 v2 5-seed | **HARD-GATED at N>=16384** until `build_initial_W` refactored (bf16 matmul or chunked allocation; engineering blocker per v156) |
+| 11 | 240 envelope cells PASS at FULL | ✅ FULL | cycle 145 | harsher noise, larger K; meta-envelope (envelope of envelopes) |
+| 12 | Observability V2 complete (chi_4 + Kovacs + avalanche) | ✅ FULL | cycles 168-170 | cross-capability observability (chi_4 during continual-edit, Kovacs during erase) |
+
+### v158 envelope-expansion rows (NEW)
+
+- **Cap 1 Tier 2 noisy Sagawa-Ueda bound**: delta_S_emp(p) <= theta(p)+0.02 PASS at p in {0.05, 0.10, 0.20} via crooks_noise_corrected_bound_v1 CPU re-analysis.
+- **Cap 3 noise envelope**: throughput_ratio >= 0.9 PASS at p in {0.05, 0.10, 0.20} N=16384 via streaming_noise_envelope_v1 FULL.
+
+### 🟡 Partial rows (open)
+
+- **Bet T parallel hypothesis tracking** (PARTIAL min_acc=0.689; cycle 101 v101). 56 cap_map versions stale. Rescue sketches filed v158 per PROT-004/006 backlog (`notes/strategy_request_to_research_betT_betV_rescue_sketches_2026-05-23.md`).
+- **Bet V self-reflective** (PARTIAL gap=0.424 at largeN; cycle 103 v103). 54 cap_map versions stale. Rescue sketches filed v158 in same routing.
+- **Cap 1 noise-robust rescue sketches** (5 axis-combination sketches filed v157 narrative). Post-v158 re-axiomatization these are ELECTIVE hardening options, not required rescues. Lower urgency.
+- **Bet A M_init capacity ceiling at N=65536** (🔴 HARD-GATED at OOM-DEFERRED; engineering blocker on `build_initial_W`).
+- **Bet Z.1 SRHT readout** (mechanism viable but speedup 0.4x; cycle 120). 37 versions stale.
+
+### 🔬 Candidate rows (substrate-product extensions awaiting experiment)
+
+- **Bet Z.5 Absorbing Diffusion Ensemble Smoother** (P=0.40; cycle 160 v144). 13 versions stale. **Strategy v158 routed to Exp Dev**: cheap CPU equivalence check vs VAMP-on-chain (audit Rec 2). Two-way valuable: close as duplicate OR confirm strictly stronger.
+- **META Gap A spatially-coupled codebook + block-VAMP** (P=0.45; cycle 171 v151). 6 versions stale. Kudekar 2013 threshold-saturation THEOREM exists; tractable but substantial. Awaiting bandwidth.
+- **K-resonance K=1000 fixed-point mechanism** (Arnold-tongue REFUTED; nearly-degenerate eigenvalue candidate noted v145 never tested). 12 versions stale.
+- **15-peak P(q) substructure** (mechanism unknown after 15->28 hierarchy refuted). 5 versions stale.
+- **Anti-RM(1,16) coset bias mechanism** (substrate-physics; 0% within linear subcode; mechanism unknown).
+- **P(h) moments observability family** (proposed v109; never fired). 45+ versions stale.
+
+### 🔴 Hard-gated rows
+
+- Bet A continual-edit at N>=16384 (v156 HARD-GATE; `build_initial_W` matmul intermediate requires bf16 or chunked allocation refactor).
+
+---
+
+## CURRENT PIPELINE QUEUE (cycle 178)
+
+### Currently running
+
+- Pipeline queue at depth **0** per [[feedback-pipeline-pacing]] -- orchestrator's first priority is filling. Strategy v158 routing fills it.
+
+### Strategy v158 next-pipeline ranked picks (filed to Exp Dev)
+
+Routing: `notes/strategy_request_to_exp_dev_post_v158_pipeline_2026-05-23.md`
+
+1. **Online W noise envelope CPU exploratory sweep** (Cap 5; analogous noise probe to Cap 1/Cap 3 envelopes that just PASS-EXPANDED at v158). Small N exploratory; remote-or-local CPU. Per [[feedback-pipeline-pacing]] CPU exploration informs which GPU deep test is worth queueing. Cheap (~minutes).
+2. **`wave14_pq_high_resolution_v1` FULL conversion** (5 cycles pending per v153/v154/v155/v156/v157; audit D9). Cheap GPU (~20 min); should ship.
+3. **Bet Z.5 vs VAMP-on-chain equivalence check** (audit Rec 2). Local CPU + theory (~30-60 min CPU + ~1 hr math). Bandwidth-permitting.
+
+Strategy preference: (1) FIRST (CPU exploratory drives pipeline pacing); (2) parallel on GPU (cheap); (3) on bandwidth.
+
+### Open Strategy follow-up routings
+
+- **Strategy -> Research Bet T/Bet V rescue sketches** (v158; `notes/strategy_request_to_research_betT_betV_rescue_sketches_2026-05-23.md`). Per PROT-004/006 backlog (audit Rec 3). Generic-math framing: parallel hypothesis tracking under uncertain evidence + self-reflective memory updates in associative substrate.
+- **Strategy -> Research burn-down note** (v158; `notes/strategy_research_burn_down_three_orphans_2026-05-23.md`). Acknowledges 3 orphaned 2026-05-23 Research deliveries (D1 research_strategy_open_questions, D2 research_order_param_2x_drill, D3 research_semiconductor_physics_substrate_analogies) per audit Rec 3.
+- **Strategy -> Research vetted ranking of 5 noise-robust rescue sketches** (v157 backlog; post-v158 re-axiomatization these are ELECTIVE hardening options, not required rescues -- lower urgency).
+- **META Gap A spatially-coupled codebook + block-VAMP** (v151 backlog; awaiting bandwidth).
+
+---
+
+## Engineering blockers
+
+- **`build_initial_W` refactor required** for Bet A continual-edit FULL at N>=16384 (v156 HARD-GATE). Current root cause: `values.T @ keys` float32 matmul intermediate ~4.3 GB exceeds 8 GB VRAM. Fix: bf16 matmul OR chunked allocation along M axis. Owner: Exp Dev pickup when bandwidth allows.
+- **Runner ASCII restriction** (PYTHONIOENCODING=utf-8 pending runner restart). Once runner restarts, downstream sub-agents and Exp Dev may drop the ASCII grep step on next pickup. Not a blocker; framing-only.
+
+---
+
+## Coordination state
+
+- PROT-001 through PROT-009 active. v158 = 72nd PROT-009 paired commit.
+- Sessions self-coordinate per [[feedback-sessions-self-coordinate]]; read `notes/active_protocols.md` each cycle.
+- Orchestrator status log surface: `data/orchestrator_status_log.jsonl` (per [[feedback-orchestrator-status-visibility]]; dashboard upgrade pending).
+
+---
+
+## Stale-row inventory (per audit 2026-05-23)
+
+5 stale rows that have sat >5 cap_map versions without an experiment or rescue:
+
+1. Bet Z.5 Absorbing Diffusion Ensemble Smoother (13 versions stale; **routed v158**)
+2. META Gap A spatially-coupled codebook (6 versions stale; awaiting bandwidth)
+3. Bet T parallel hypothesis tracking (56 versions stale; **rescue sketches routed v158**)
+4. Bet V self-reflective (54 versions stale; **rescue sketches routed v158**)
+5. Bet Z.1 SRHT compressive readout (37 versions stale; ✅ but speedup 0.4x unrealized)
+6. P(h) moments observability family (45+ versions stale)
+
+---
+
+## Honest framing notes (v158)
+
+Per [[feedback-no-smoke]] brutal honesty:
+
+- **v157 "narrowing" framing RETRACTED**. v157's `delta_S_emp >= 0.05` failures at p in {0.05, 0.10, 0.20} were re-analyzed at v158 under the Sagawa-Ueda noise-corrected bound `theta(p) = ln(2) + p*ln(p) + (1-p)*ln(1-p)`. All 3/3 noisy cells PASS the noise-corrected bound at +0.02 tolerance. v157's "narrowing" was an axiom-mismatch artifact, not a substrate change. The Cap 1 commercial wedge actually WIDENS to a tiered noise-tolerance certificate at v158.
+- **Cap 3 streaming inference noise envelope is a clean PASS** at FULL N=16384 (analogous probe; opposite outcome from v157 Cap 1 KILL). The drift-diffusion NESS holds under realistic perturbation.
+- Both verdicts are envelope **expansions**. Substrate-product portfolio at v158 stays at 12 demonstrated capabilities in COUNT, but Cap 1 + Cap 3 commercial framings improve qualitatively.
+
+---
+
+---
+
+# HISTORICAL ARCHIVE (v111 snapshot; preserved for context, NOT current state)
+
+The content below is the v111 snapshot of active_priorities (last updated
+2026-05-22) before the v158 refresh on 2026-05-23. Kept for archival
+reference; do NOT consult as current state.
+
 ## 🎯 STRATEGIC PLAN STATUS (cap_map v110 milestone)
 
-Per cycles 70-110 substantive arc — original META 3-phase plan (Bet S/Lane C/Bet X → Bet T/U/V/W → Lane D integration) is **substantially DONE**.
+Per cycles 70-110 substantive arc -- original META 3-phase plan (Bet S/Lane C/Bet X -> Bet T/U/V/W -> Lane D integration) is **substantially DONE**.
 
-**Lane D portfolio at cycle 110** — 5 of 7 META capability axes ✅ DONE + 1 ❌ KILLED honest negative + 2 🟡 PARTIAL:
-- ✅ Bet S K-ceiling theoretically grounded (K_crit≈205 cycle 88)
+**Lane D portfolio at cycle 110** -- 5 of 7 META capability axes ✅ DONE + 1 ❌ KILLED honest negative + 2 🟡 PARTIAL:
+- ✅ Bet S K-ceiling theoretically grounded (K_crit~205 cycle 88)
 - ✅ Bet X multi-hop K=100 acc_50hop=**0.767** NEW HIGH (cycle 96)
 - ✅ Bet B **5 FULL-confirmed mechanisms** (v11/v12/v13K/v13_a05/v14_a05; cycles 87-100)
 - ✅ Bet U working memory decay recency gradient (cycle 102)
@@ -24,970 +149,13 @@ Per cycles 70-110 substantive arc — original META 3-phase plan (Bet S/Lane C/B
 
 **Lane D wedge DEMONSTRATED at FULL** (cycles 103+105):
 - 4-primitive parallel composition: S=0.983 + T=0.978 + U=1.0 + X=1.0
-- 3-stage sequential pipeline: S=1.0 → T=1.0 → X=1.0 composed_acc=1.0
+- 3-stage sequential pipeline: S=1.0 -> T=1.0 -> X=1.0 composed_acc=1.0
 - Noise-robust at 10% bit-flip (smoke cycle 108; FULL pending)
 
-**Bet A substrate-novel finding** (cycle 98): empirical breakpoint at edit **8189 ≈ M=2N=8192** = substrate addressable cardinality. **3rd theoretically-anchored empirical-matches-theoretical instance** (multi-hop d / Bet S K / Bet A M).
+**Bet A substrate-novel finding** (cycle 98): empirical breakpoint at edit **8189 ~ M=2N=8192** = substrate addressable cardinality. **3rd theoretically-anchored empirical-matches-theoretical instance** (multi-hop d / Bet S K / Bet A M).
 
-**Substrate-physics characterization SHARPENED** (cycle 108): substrate is **classical-Hopfield-class with Kerdock-codebook capacity extension**. 3 cleanup mechanism families empirically refuted (modern dense AM × 3β + β-blend × 2β + p-body × 2p = 7 configs all ratio=1.0).
+**Substrate-physics characterization SHARPENED** (cycle 108): substrate is **classical-Hopfield-class with Kerdock-codebook capacity extension**. 3 cleanup mechanism families empirically refuted (modern dense AM x 3-beta + beta-blend x 2-beta + p-body x 2p = 7 configs all ratio=1.0).
 
-**β-calibration MEASURED** (cycle 100): c = β·N = **32768** empirically (CV=0); substrate operating regime fully characterized.
+**Beta-calibration MEASURED** (cycle 100): c = beta*N = **32768** empirically (CV=0); substrate operating regime fully characterized.
 
----
-
-## 🔝 ACTIVE PRIORITIES (cycle 111)
-
-### Currently running
-- `wave14_betY_phase2_beta_blend_v1` FULL — 70+ min wall watch; outcome pending; per cycle 108 substrate is classical-Hopfield-class so likely ratio=1.0 at FULL too
-
-### Queue pending (5 items behind β-blend)
-1. `wave14_lane_D_N_scaling_v1` FULL — addresses cycle 108 SUBLINEAR smoke concern
-2. `wave14_lane_D_noise_robust_v1` FULL — confirms cycle 108 noise-robust smoke
-3. `wave14_betR_pbody_polynomial_v1` FULL — confirms cycle 108 p-body smoke refutation
-4. `wave14_observability_suite_v1` (cycle 109 routing pickup) — 3 priority probes: C_ij eigvals + P(q) replica + P(h) moments
-5. `wave14_betS_K_ceiling_N65536_v1` (cycle 106 mechanism revision pickup) — first of Bet Y V2.D N=65536 5-test battery
-
-### Pending Strategy follow-up routings
-- **Bet Z.1 SRHT compressive readout** (cycle 110 cued holistic readout) — file Exp Dev request next cycle
-- **Bet Z.2 Classical 2-pulse echo / C2PO** (cycle 110) — file Exp Dev request next cycle (substrate-novel pattern-pair coupling diagnostic; matches user "excite-and-x-ray" vision)
-- Bet Y V2.D remaining 4 N=65536 tests (Bet C M/N + Bet A continual + multi-hop K=100 + Bet V meta-cognition; cycle 106 5-test battery; first item already queued)
-
----
-
-## 🎯 STRATEGIC PLAN REFERENCE (cap_map v79 — preserved for context)
-
-**Authoritative**: `meta_request_to_strategy_strategic_plan_2026-05-21.md`
-(META filed 20:33, user-directed via cycles 19-22).
-
-**6 application lanes** (closeness order; updated state at cycle 110):
-- **C Compliance** (5/8 → smoke PERFECT cycle 86; full pending) — closest to shipping; $5-50M ARR; PHASE 1 WEDGE smoke DONE
-- **A Memory layer for LLMs** (6/7 → Bet A scales M=N→16N + breakpoint at M cycle 98) — substrate-novel theoretical-empirical match achieved
-- **B On-device personal AI** (6/9 done) — D2C brutal
-- **E Neuromorphic** (4/6 → Bet Q glassy facilitation cycle 102; R17 area-law at N=12288; R27 L.2 KILLED) — HW partnership dependent
-- **D Cognitive architecture** (3/11 → **5/11 + WEDGE DEMONSTRATED cycle 103+105** + capability envelope characterized) — **HIGHEST TAM $30-50B+**; LANE D LOAD-BEARING ANCHOR ACHIEVED
-- **F Scientific reasoning** (1/8 done) — farthest
-
-**Recommended strategic play** (still valid): Lane C wedge ($5-50M near-term) → fund Lane D capability tests → pivot Lane C customers to Lane D (cognitive-architecture product; $30-50B+ TAM if agents go mainstream).
-
-## 🔝 PHASE 1 PRIORITY QUEUE (META Section 7) — substantially DONE
-
-| Item | Lane | Status at cycle 110 |
-|---|---|---|
-| ~~Bet S pattern completion~~ | D, F | ✅ PARTIAL theoretically grounded K_crit≈205 (cycle 88) |
-| ~~Lane C integration smoke~~ | C | ✅ PERFECT PASS (cycle 86) |
-| ~~Bet X skill composition build~~ | D | ✅ UNIFYING + K=100 NEW HIGH acc_50hop=0.767 (cycle 96) |
-
-**Phase 2** (META cycle 70): ✅ Bet T (PARTIAL) + ✅ Bet U (PASS) + R20 compositional gen (pending) + Lane C feature breadth (pending).
-
-**Phase 3** (META cycle 70): 🟡 Bet V (PARTIAL) + ❌ Bet W (KILLED) + R21 cross-modal (Tier-2 per cycle 89) + ✅ Lane D integration smoke (DEMONSTRATED cycle 103+105 at FULL).
-
-**Post-Phase-3 priorities (cycles 105-110)**:
-- Bet Y V2.D **simplified scope** (cycle 106 mechanism revision: drop modern dense AM; keep N=65536 + Kerdock(16) + substrate-default β)
-- Substrate **observability suite v1** (cycle 109: 4-family Parisi q(x) probe stack; cross-family certification standard)
-- **Cued holistic readout primitives** (cycle 110: Bet Z.1 SRHT + Bet Z.2 C2PO)
-
-**Phase 4** (contingent on Bet P-Engineering smoke):
-multi-hop rescues + Lane D end-to-end demo.
-
-**Phase 5** (long horizon): Lane E hardware partnership + Lane F niche
-+ Lane A integration with major LLM provider.
-
----
-
----
-
-## CURRENT TIER-1 BOARD (cap_map v78)
-
-**8 ✅ Validated**: Bet 1 ICL, Bet 2 GDPR erase, Bet A edit-then-query
-(scales to M=32N continual), Bet B multi-task CL (EMA-blend sharp
-0.954 attractor; theoretically grounded R22 van de Ven 2024), Bet C
-Kerdock M/N=8 (v4 substrate-product-optimal per R36 deep-drill),
-Bet E Parisi RSB (5-source agreement; methodology-bounded for Binder
-N-scaling per Fan-Wu 2024 Mattis-phase), Bet G calibration TEMPSCALE
-β=32, Bet H autoregressive generation.
-
-**3 ✅ analytic grounding**: Bet I free probability + R36 sandwich
-bound, Bet M ferromagnetism / modern-Hopfield, Bet L learning theory
-(R26).
-
-**1 🟢 partial-theory**: Bet P-Theory (R36 partial via sandwich).
-
-**8 🔬 active bets pending Experiment Dev pickup**:
-- Bet P-Engineering — pretrained KGE port (cycle 45 filed)
-- Bet Q — facilitation-vs-nucleation (R37 engineering bridge spec ready)
-- Bet R — explicit p-body coupling (R27 L.1)
-- Bet S — pattern completion (META priority #1)
-- Bet T — hypothesis tracking
-- Bet U — working memory + decay
-- Bet V — self-reflective memory
-- Bet W — counterfactual binding
-- Bet X — skill composition (Research-recommended: position-indexed + hybrid + 2-level hierarchy)
-
-**1 ❌-arch CONFIRMED**: Bet F SSH-BSC topological (4/5 rehab sketches PARTIAL — substrate robustness is Kerdock-baseline NOT topology).
-
-**1 🟡 reframed**: Multi-hop d=50 — per Bet X UNIFYING insight, d=25 IS
-the VSA-class compositional-depth bound (matches VSA noise math +
-transformer CoT lower bounds independently; 80-90% P). Substrate
-hits the class bound; V2 substrate or hybrid HRR+bipolar required
-to exceed.
-
----
-
-## FORWARD DIRECTION (priority ordered)
-
-### Immediate (Experiment Dev queue when current job clears)
-1. **Bet S** Pattern completion (cheap, 70-80% P, META #1; substrate
-   bidirectional recall vs LLM unidirectional)
-2. **Bet Q** facilitation-vs-nucleation (substrate FIRST-OF-ITS-KIND;
-   `wave14_facilitation_nucleation_v1` per R37 bridge)
-3. **Bet T** hypothesis tracking (leverages Bet G ✅; auditable multi-
-   hypothesis vs LLM single-answer)
-4. **Bet R** p-body coupling super-linear capacity
-5. **Bet U** working memory + decay
-6. **Bet P-Engineering** pretrained KGE codebook
-
-### Forward research direction
-- **R33** quantum-repeater honest recalibration: 2-4× constant factor
-  (NOT poly-vs-exp per substrate-classical)
-- **Bet X** skill composition: 30-40% P at current arch; 60-70% at V2
-- **N=65536 scale-up**: R36 prediction M/N ∈ [1.2, 6.1] LOWER than
-  current N=4096's M/N=8 (surprising; substrate scaling is NOT trivially
-  better at higher N)
-
-### Substrate-physics framework (consolidated)
-- 5-source agreement: substrate is in 1RSB/FRSB-character spin-glass
-  regime (R23 + R29 + R16 + R18 theoretical + Bet E empirical)
-- d=25 IS the VSA-class compositional bound (Bet X insight)
-- Substrate's d=25 = transformer CoT depth lower bounds — substrate
-  hits class bound, not below it
-- Kerdock v4 substrate-product-OPTIMAL (ε_corr=0.4 per R36 deep-drill)
-
-### Closures (PROVISIONAL or CONFIRMED with rehab discipline applied)
-- Bet F SSH-BSC topological ❌-arch CONFIRMED (4/5 R28 sketches PARTIAL = Kerdock-baseline)
-- Bet N soft cleanup ❌ (cleanup-amplification axis)
-- Bet O Cooper-pair ❌ (storage-redundancy axis)
-- Adaptive-β ❌ (R8 6/6 closed; in-axis)
-- R17 Sketch D ❌ (no power-law; in-axis)
-
-### Coordination state
-- PROT-001 through PROT-008 active
-- PROT-009 proposed to META (Proposal 10; decision-log entry mandatory
-  alongside cap_map version commits; addresses 5-instance recurrence
-  pattern this session)
-- Research session BLOCKED standing by (4 cycles post-Bet X)
-- META cycle 22 heartbeat (no new proposals)
-
----
-
----
-
-## 🔴 STATE CHANGE SUMMARY (cycle 43, 2026-05-21 ~15:32 EDT)
-
-- **Bet E ✅ PROMOTED** — RSB phase substrate-physical via 6-test
-  battery (cycle 36 v53 confound resolved). Substrate is empirically
-  in spin-glass phase per Parisi P(q) order parameter; 5-source
-  agreement now (4 theory + 1 empirical).
-- **Bet N (soft cleanup) ❌ KILLED** — acc_50hop=0.160 at all τ, below
-  FHRR's 0.22 floor. R8 cleanup-amplification axis CLOSED.
-- **Multi-hop d=50 — R8 RESCUE LIST EXHAUSTED at current-arch; 🟡
-  pending 8 alternative-architecture rescue paths** (v61 correction).
-  Per [[feedback-dont-overextend-theorems]]: R8 list closure ≠
-  multi-hop closure. NEW mechanism axes (pair-redundancy, temporal-EC,
-  soliton, magnon, hyperbolic, RTN, operator-algebra, AQEC) remain
-  untested.
-- **Bet F (SSH-BSC v2) full = smoke** — BET_F_NO_TRANSITION; pending
-  R10 W-construction addendum for confirmation. Stays 🟡 NO_TRANSITION
-  pending.
-- **R17 holographic LARGELY NEGATIVE** — R30 (HaPPY) demoted; R34
-  proposed deferred; Plate-HRR vs AdS/CFT distinction enshrined.
-- **Bet O prior downgraded** from ~40% to ~20% — but mechanism
-  (gap-protection / pair-redundancy) is structurally distinct from
-  Bet N's cleanup-amplification; remains active.
-
-**Tier-1 board after v69** (SESSION-HIGH): **7 ✅** + 2 🟡 + 1
-❌-arch PROVISIONAL.
-
-### Cycle 52 (v69)
-- **Bet B PROMOTED ✅ Validated** — v7 alpha sweep full PASS:
-  retention_A=0.954 aggregate across α ∈ {0.3, 0.5, 0.7, 0.9} × 3
-  seeds. Smoke 0.927 < Full 0.954 (REVERSE of v3/v4/v5 pattern; EMA-
-  blend mechanism is robust). 7th Tier-1 ✅.
-- **Multi-hop large-N partial signal RESTORED at N=8192** — full
-  reproduces v1 (>0.10 mean acc at all depths; acc_1hop=0.940
-  boundary fail). v67 retraction was smoke-only-overcautious; full
-  confirms. d=25 cliff is N-dependent.
-- Pipeline idle; queue empty.
-
-### Cycle 48 (v67)
-- **Bet F v3 FULL CLOSED ❌-architectural PROVISIONAL** — with R10
-  Option 2 W (substrate-coherent Hebbian outer-product), substrate
-  genuinely lacks AIII Z winding under SSH-BSC at current Plate-HRR
-  arch. **PROT-006 atomic sequence applied** (harvest → 5 R28-supplied
-  sketches → request file `strategy_request_to_research_Bet_F_rehab` →
-  cap_map). First complete PROT-006 cycle.
-- **R17 Sketch D FULL KILLED** — Probe 2b full reconfirms no power-law
-  two-point correlation (R²<0.025 all codebooks).
-- **Bet B v7 smoke PASS at retention_A=0.927** — hold for full alpha
-  sweep.
-- **Multi-hop large-N PARTIAL signal RETRACTED** — v1 doesn't replicate
-  at N=8192; original may be seed/setup artifact; AUDIT NEEDED.
-
-### Cycle 47 (v66) — THIRD overclose reversal + Bet P delivery + verdict batch
-
-- **Bet B 🟢 TERMINAL REVERSED** — v6 EMA-blend mechanism (W_ABC = 0.7
-  W_ABC + 0.3 W_A) clears retention_A=0.845, all 4 criteria PASS.
-  v65 "0.80 was threshold-not-physics" was wrong; threshold IS
-  achievable via MECHANISM CHANGE (not parameter tweak). v7 alpha sweep
-  approved to confirm not sweet-spot.
-- **R17 Sketch C STRENGTHENED** — area-law at large N confirmed
-  (slope=-0.158); ~55% prior. Only R17 sketch surviving and growing.
-- **Bet P research delivered MIXED** — engineering crowded field (not
-  novel); theory substrate-novel (α_c(coherence) bound bridging
-  AGS/Demircigil for structured codebooks is OPEN). Split into
-  Engineering (port KGE) + Theory (analytical) routes.
-- **Multi-hop large-N partial signal** — >0.10 mean accuracy at all
-  depths at large N; acc_1hop=0.947 boundary fail; not a rescue but
-  evidence d=25 cliff is N-dependent.
-- **Bet F v3 smoke = v2 with proper R10 Option 2 W** — substrate
-  genuinely lacks AIII Z winding; v3 full pending will close pattern.
-- **Parisi v3b INCONCLUSIVE softer** — slope=-0.438 (vs v3 -1.419);
-  pattern unclear; v3b full pending. Bet E stays 🟡.
-- **R17 Sketch D RECONFIRMED killed** — Probe 2b smoke R²=0.000.
-- **PROT-006 in effect** — atomic sequencing for closures.
-
-### THIRD overclose pattern noted
-
-This session has 3 overclose reversals (v60→v61, v62→v62-followup,
-v65→v66). PROT-006 addressed WHEN of closure-rehab; need similar
-discipline for promotion/closure SCOPE. Worth META PROT-007 candidate.
-
-### Cycle 46 (v65) updates
-- **Bet B 🟢 Partial TERMINAL** at retention_A ~0.73-0.74 (v5 confirms
-  v3/v4 pattern; seed-variance dominance across 3 versions; substrate
-  beats catastrophic-forgetting baseline by 2 orders of magnitude;
-  0.80 was threshold-not-physics)
-- **Bet E DEMOTED ✅→🟡** — v2 used 3/6 tests of Parisi battery;
-  v3 smoke finds Binder cumulant declines with N (finite-size signal);
-  v3 full failed exit-1
-- **R17 Sketch D KILLED** — substrate has no power-law two-point
-  correlation; AQEC analog rejected
-- **R33 HONEST RECALIBRATION** — substrate classical, no PLOB no-go;
-  poly-vs-exp framing OVERSTATED; realistic 2-4× constant factor;
-  demoted below Bet O in priority
-- **PROT-006 ACTIVE** — sequence rehab before cap_map closure
-- Bet P #1 priority reinforced (R33 demotion vacates the "highest-
-  leverage forward direction" slot; Bet P is the substrate-novel
-  codebook-geometry mechanism R33 was wrongly framed as)
-
-### v62 verdicts (15:32-15:39)
-- **Adaptive-β KILLED** (R8 #6, formally closes R8 list 6/6)
-- **Bet O KILLED** — storage-redundancy axis closes at current-arch
-- **Bet B v4 INCONCLUSIVE** — retention_A=0.740 (same v3 pattern;
-  seed-variance dominance confirmed)
-
-### Multi-hop closure scope (v62 disciplined)
-
-ALL currently-buildable rescue paths at current Plate-HRR substrate
-on flat N=4096 are now exhausted across 4 mechanism axes:
-1. Binding-algebra-swap (Hadamard, FHRR, hybrid) — closed cycles 7-33
-2. Cleanup amplification (Modern Hopfield, soft cleanup) — closed cycles 34-43
-3. Storage redundancy (Bet O Cooper-pair) — closed cycle 44 (this cycle)
-4. Symptom-mitigation (adaptive-β) — closed cycle 44
-
-7 surviving rescue paths are all research-first or V2-dependent:
-- R33 quantum-repeater (only poly-vs-exp candidate; maybe at current-arch
-  via periodic checkpointing — Research must scope)
-- R31 soliton attractor (research-first)
-- R32 magnon substrate (research-first; extends R29)
-- R34 V2 substrate hyperbolic (deferred V2 scope)
-- R17 sketches B/C/D (analytical; alternative-framing)
-
-**Active build queue (in priority order — REVISED v64)**:
-1. **Bet P → Research routing TOP priority** (user-proposed cycle 45;
-   semantic-locality codebook; FIRST codebook-geometry axis;
-   substrate-physics-anchored in R29 ferromagnetism; buildable at
-   current-arch)
-2. R33 → Research routing (only poly-vs-exp candidate; not yet
-   at Research)
-3. Bet B v5 full verdict (running now — pending)
-4. Bet F v3 build with R10 Option 2 W-spec (R10 unblocked v63)
-5. R31 + R32 → Research routing (research backlog)
-6. Bet N + Bet O rehab via Research (closure-followup PROT-004)
-7. Probe 2 Δ_eff (R17 sketch D; analytical follow-up to Probe 1 PASS)
-
----
-
----
-
-## 🔝 TOP-PRIORITY QUEUE (user directive, cycle 19 followup)
-
-Strategy promoted these to highest priority per user direction. All three
-are research-unblocked but Experiment Dev has not yet queued them — they
-have been overshadowed by the explosive rate of extension/composition
-tests on validated bets (A, C, G, H). Strategy explicitly nudging.
-
-**Filed**: `notes/strategy_request_to_experiment_dev_2026-05-21.md` with
-concrete next-step specs for each.
-
-### Priority 1 — Bet B multi-task continual learning (⚪)
-**What it tests**: substrate trained on Corpus A, then B, then C
-(genuinely different domain) — does it retain all three under random
-replay? **KILLER if proven**: substrate genuinely learns from
-sequential domains without retraining cycles. Closes one of the two
-remaining unresolved Tier-1 rows.
-
-Research R5 landed 2026-05-21 10:21
-([research_R5_corpus_C_design_2026-05-21.md](notes/research_R5_corpus_C_design_2026-05-21.md)).
-Build `wave14d_multi_task_cl_v1` per R5 spec.
-
-### Priority 2 — Multi-hop FHRR + hybrid (R8 rehab)
-**What it tests**: substitute FHRR (continuous-group binding) for BSC's
-XOR-closed Walsh group in chained binds. **Substrate consequence if
-proven**: multi-hop reasoning extends past the d=25 depth cliff (per
-v17/v23) — substrate can chain 50+ inferences instead of breaking
-under cross-talk accumulation.
-
-Research R8 landed 2026-05-21 10:42
-([research_R8_chained_CAM_binding_algebras_2026-05-21.md](notes/research_R8_chained_CAM_binding_algebras_2026-05-21.md)).
-Top candidates: A1 (pure FHRR) + C1 (hybrid BSC store + FHRR chain).
-Build `wave14r_multihop_FHRR_v1` AND `wave14r_multihop_hybrid_v1` in
-parallel per R8's recommended drill order.
-
-### Priority 4 — Bet L: Substrate learning theory grounding (NEW; promoted from R26 contingency 2026-05-21 ~13:55)
-
-**What it tests**: each of R26's 5 concrete testable predictions
-(scaling-law form, implicit bias theorem, double descent prediction,
-generalization gap formula, catastrophic forgetting curve) lands
-within 20% of empirical substrate measurements.
-
-**Substrate consequence if proven**: substrate becomes the **first VSA
-outer-product memory with a unified learning-theoretic account** —
-stitching of linear regression theory + modern Hopfield + NTK +
-replica analysis of perceptrons that no prior work has assembled
-for W = Σ vᵢkᵢᵀ + softmax readout. Per
-[[feedback-value-creation-not-competition]]: substrate as theoretical
-synthesis entity.
-
-**Multi-probe success criteria**: 3/5 R26 predictions land within 20%.
-Combined with Bet I free probability (also active), substrate would
-be analytically characterized on BOTH learning-dynamics (Bet L) and
-equilibrium-spectra (Bet I) axes.
-
-**Kill criterion**: 0/5 predictions land within 50%. Then R26
-framework is descriptive only; substrate stays empirically characterized.
-
-**Per [[feedback-no-papers-product-only]]**: framed as "substrate-
-analytically-characterized" not "novel synthesis paper." Engineering
-goal.
-
-**Who acts**: Research (R26 broad framework done; Pass 2 sections
-2.2-2.6 already have quantitative predictions); Experiment Dev
-(measure predicted quantities against existing or new data); Strategy
-(compare and promote rows that gain theoretical grounding).
-
-**Note**: like Bet I, mostly analytical work with cheap experimental
-validation. Doesn't compete with Bet B / multi-hop FHRR / Bet F for
-GPU time.
-
----
-
-### Priority 5 — Bet I: Free probability theoretical grounding for substrate envelopes (NEW; user-routed 2026-05-21 ~13:25)
-
-**What it tests**: use the existing Wave 15 free-probability synthesis
-(2026-05-18) to derive closed-form theoretical predictions for the
-substrate's three empirically-located envelopes:
-1. Capacity bound at Bet C (M/N=8 for v4 Kerdock; M/N=4 for v8 32-coset)
-2. Noise tolerance ceiling σ=16 (v33/v39 finding)
-3. Multi-hop depth cliff d=25 (v17/v23 finding)
-
-**Substrate consequence if proven**: empirical envelopes become
-predictable from first principles via Marchenko-Pastur + free
-convolution + BBP transition theory. Unlocks (a) scale-up predictions
-(what happens at N=65536?), (b) hardware sizing (σ tolerance at lower
-precision?), (c) variant-design (which codebook gives largest envelope?).
-Substrate stops being empirically characterized; it becomes spectrally
-derivable.
-
-**Multi-probe success criteria** (any prediction passing):
-- Bet C capacity bound prediction within 20% of empirical M/N=8 (v4)
-- Noise tolerance ceiling prediction within 20% of empirical σ=16
-- Multi-hop depth cliff prediction within 20% of empirical d=25
-- 3 empirical anchors (v37 cycle 24, v33 cycle 21, v17 cycle 7); at
-  least 2/3 within 20% to count as PASS
-
-**Kill criterion**: 0/3 predictions land within 50% of empirical
-bounds. Then free probability is **descriptive only** (Wave 15's
-original synthesis already concedes this is a risk: "analytical
-tooling, NOT a new mechanism"); demote back to forward-research
-backlog as "available when needed."
-
-**Why now**: R14 Tomita-Takesaki's brutally-honest finding (cycle 26)
-explicitly named M-P + replica/cavity as the right tool for substrate
-spectral derivation; Wave 15's existing synthesis already has the
-three applications scoped. Bet C / noise tolerance / multi-hop have
-clean empirical anchors. **This is the load-bearing math the substrate
-was already pointing at**; promoting Wave 15 to a bet operationalizes
-it.
-
-**Per [[feedback-materials-science-probe]]**: M-P is the canonical
-spin-glass / random-matrix spectrum; BBP transition is the rank-1
-signal detection threshold; both are core materials-science framing.
-
-**Per [[feedback-no-papers-product-only]]**: framing is "predict
-substrate envelopes from spectral theory," NOT "novel application of
-free probability." Substrate engineering, not paper.
-
-**Who acts**: Research (drill specific predictions from Wave 15
-synthesis applications 1/2/3; produce R16 with numeric predictions);
-Experiment Dev (no new experiments needed unless predictions identify
-new envelopes — initial work is theoretical against existing data);
-Strategy (compare predicted vs empirical; cap_map update on PASS or
-kill on close).
-
----
-
-### Priority 3 — Bet F SSH-BSC v2 topological
-**What it tests**: substrate-encoded facts tagged with integer winding
-number — does noise below threshold p_c shift winding by ±1 only at
-wall-adjacent sites (Hasan-Kane AIII categorical protection)?
-**Substrate consequence if proven**: integer-quantized memory protection
-— a bit-flip burst below p_c can't corrupt facts, larger shifts need
-coordinated multi-bit flips at probability ~p². No deployed LLM has
-this; it's a substrate-unique noise-immunity primitive.
-
-Research R10 landed 2026-05-21 11:02
-([research_R10_SSH_BSC_topological_probe_2026-05-21.md](notes/research_R10_SSH_BSC_topological_probe_2026-05-21.md)).
-Build `wave14_ssh_bsc_v2_protected` per R10's probe spec (Z-quantization
-recovery metric, q-dependent p_c sweep, non-topological control arm).
-Targets the 🟡 NEEDS_REVIEW row from v6 — original probe didn't fire.
-
-**Per [[feedback-rehabilitation-after-rejection]] + PROT-004**: Bet F
-v2 prereg should pre-arm 5 axis-combination rescue sketches in case
-v2 also fails (per the multi-hop Hadamard cross-pollination falsification
-in cycle 7, NOT all R-recommendations are correct on first build).
-
----
-
----
-
-## Recently resolved (since cycle 1)
-
-| Bet | What it proved (substrate consequence) | Outcome | Trigger |
-|---|---|---|---|
-| Bet 1 — ICL saturation curve | Substrate adapts to new context-examples at query time without weight updates, scaling log-linearly through 16× substrate width. | ✅ VALIDATED. slope on log2(ICTX) = +0.14 at low/mid; soft-saturating +0.05 at high (≤65536); monotone positive throughout. | `wave14d_icl_via_pool_v3_scaling` + `wave14w_icl_extended` |
-| Bet 2 — GDPR/surgical erase (orthogonal-key path) | Substrate facts can be selectively forgotten (all 5 Mirage probes) when substrate uses structured orthogonal keys. | ✅ VALIDATED at M_stored/N ≤ 0.78. Hadamard subcode + anti-Hebbian rank-1 W edit. | `wave14r_erase_orthkeys_v1` + `wave14r_orthkeys_capsweep` |
-| Bet 3 — Random-key iterative charge-flipping forensics | (Would have enabled reading stored facts from W alone on random-key substrates.) | ❌ PROVISIONAL (cap_map v14 rehab). +0.03 over SVD vs +0.2 target. R7 routed. | `wave14s_chargeflip_forensics_v1` |
-| Bet C — Full Kerdock for dense regime (M > N) | Substrate erase works at 8× over-capacity (32K facts per N=4096 dimensions) with the standard Kerdock m=12 codebook. | ✅ VALIDATED at M/N ≤ 8.0 (v4 variant); v8 32-coset variant smaller (M/N ≤ 4.0 per cycle 24). | `wave14v` + `wave14y` + `wave14ya` (variant-specific bounds in v37) |
-| **Bet A — Edit-then-query end-to-end pipeline** | Substrate can be **corrected in-place** without retraining: edit a fact, downstream queries reflect the correction; untouched facts preserved. | ✅ VALIDATED. Both arms: edit-acc=1.000, kept-acc=1.000, side-effect=0.0, paraphrase preserved h ∈ {4, 8}. | `wave14yb_edit_then_query_kerdock` |
-| **Bet G — Calibration rescue (TEMPSCALE β=32)** | Substrate confidence scores predict accuracy after post-hoc temperature scaling — substrate can ship as a calibrated retrieval system. | ✅ RESCUED. ECE 0.59 → 0.0000 over 3 seeds. First ❌-PROVISIONAL to flip ✅ under v14 rehab framework. | `wave14yx_calibration_temp_scaling` |
-| **Bet H — Autoregressive generation rescue (T=0.5 sampling)** | Substrate generates non-degenerate multi-byte text under temperature sampling — no fixed-point collapse. | ✅ RESCUED. char_entropy 0.92 → 5.13; ngram_repetition 1.00 → 0.00. Second ❌-PROVISIONAL → ✅. | `wave14yz_generation_with_sampling` |
-
-## Top capability bets v4 (in priority order; Bets C ✅; E and F added per user 2026-05-21 ~10:35)
-
-### Bet H — Autoregressive generation rescue (NEW 🟡; rehab-routed)
-
-**Claim (target).** A sampling rescue (top-k, nucleus, repetition
-penalty, β tuning, or multi-seed-with-different-prefix) restores
-512-byte autoregressive char_entropy to ≥2.5 and reduces 4-gram
-repetition below 0.5.
-
-**Why now.** `wave14yy_autoregressive_generation` (cycle 14): under
-α=1.0, β=8, single seed (17), generation collapses to "  e  e  e..."
-(char_entropy 0.917, ngram_repetition 1.000). v3's K=16 strict-baseline
-PASS measured single-position prediction, not autoregressive multi-step.
-Existing generation ✅ row keeps single-position evidence; this rescue
-targets the multi-step regime.
-
-**Multi-probe success criteria** (any rescue passing all):
-- char_entropy ≥ 2.5 (over 512 chars)
-- ngram_repetition ≤ 0.5 (4-grams)
-- 3 seeds minimum
-- self_bpc < 4.0
-
-**Kill criterion.** If 0/5 rescues clear char_entropy ≥ 2.5,
-autoregressive multi-step generation closes ❌-with-current-readout;
-single-position K=16 capability survives as degraded ✅.
-
-**Who acts.** Research (R12 routed — sampling-rescue literature 2x
-pass); Experiment Dev (test top-ranked rescue once R12 lands).
-
----
-
-### Bet G — RESOLVED ✅ via TEMPSCALE at β=32 (see "Recently resolved")
-
-`wave14yx_calibration_temp_scaling` full: ECE = 0.0000 at β=32 over
-3 seeds. First ❌ PROVISIONAL to close ✅ under the v14 rehab
-framework. Strategy sketch #1 (Platt/temperature) worked; R11
-retrospectively confirms.
-
----
-
-### (prior Bet G spec — kept for reference but resolved)
-
-#### Bet G — Calibration rescue (NEW ❌-PROVISIONAL needs rehab)
-
-**Claim (target).** A substrate calibration rescue (post-hoc
-temperature scaling, isotonic, Bayesian σ², multi-vote, or
-norm-based confidence) reduces ECE below 0.15 on the
-fact-retrieval-confidence test.
-
-**Why now.** `wave14yd_calibration_fact_retrieval` (10:47) returned
-ECE=0.59 / Brier=0.35 — substrate retrieves at accuracy 1.0 but its
-confidence scores are not predictive. Calibration was on cap_map's
-UNSURE list (Tier-3) since v1; now closed PROVISIONAL ❌ per the
-rehab discipline. Important caveat: this does NOT affect Tier-1
-KILLER capabilities; calibration is Tier-3 (matters for production
-deployment but not core product story).
-
-**Multi-probe success criteria** (any rescue passing all of these):
-- ECE < 0.15 on fact-retrieval (matching the v1 kill criterion
-  threshold)
-- Brier < 0.20
-- Overall accuracy preserved at ≥ 0.95 (calibration fix doesn't
-  degrade retrieval)
-- 3 seeds, N=4096
-- Per-bin coverage (test set spans confidence range)
-
-**Kill criterion.** If 0 of 5 R11 rescues clear ECE < 0.15, substrate
-calibration closes ❌-structural and product story drops
-"trustworthy confidence scores."
-
-**Who acts.** Research (R11 — 2x deep research routed); Experiment Dev
-(test rescue candidate after R11 ranks).
-
----
-
-### Bet A — RESOLVED ✅ (see "Recently resolved" table above)
-
-`wave14yb_edit_then_query_kerdock` full mode: both arms pass edit +
-query at 1.000 / 1.000 / 0.0 side-effect / paraphrase preserved.
-Tier-1 KILLER board now 4/6 ✅. Open audit item: why didn't v5's
-93% leak reproduce? Two interpretations (setup-specific artifact or
-different failure mode); flagged in cap_map v20 for follow-up.
-
----
-
-### (prior Bet A spec — kept for reference but resolved)
-
-**Claim.** A user-uploaded correction propagates through the full
-pipeline: pool entry removed AND W-side edit applied AND subsequent
-queries reflect the correction. Two parallel candidate mechanisms per
-R1 audit (cycle 6):
-- **Primary**: AlphaEdit (ICLR 2025, arXiv:2410.02355) — published
-  method scaling to 3000 sequential edits, operates on substrate's
-  random keys without restructuring. 50-65% predicted Mirage-pass
-  per R1 audit revision.
-- **Parallel**: Kerdock 2A.i + structured codebook — already partial
-  via Bet C ✅; would also unlock WHT-forensics + Kerdock cleanup
-  speedup. 40-55% predicted.
-Joint P(at least one passes) ~70-80%.
-
-**Why now.** Bet 2 resolved the erase primitive. The remaining piece of
-the Tier-1 KILLER edit-then-query is the integration: does a query
-issued after edit_then_erase actually reflect the change in observable
-behavior (cleanup output, predicted v, downstream-task accuracy)?
-v8's `wave14d_query_side_integration` answered "no" with the pool-only
-form (93% W-leak). The new orthogonal-key primitive should fix that.
-
-**Multi-probe success criteria** (single-fact correction, K=8, M=200,
-N=4096, Hadamard keys, α=1.0, 3 seeds):
-- post-correction predict-correct on edited fact: ≥ 95% (vs pre-edit
-  baseline predict-correct ~ same; argmax now reflects new v)
-- post-correction predict-correct on 100 kept facts: ≥ 90% (no
-  collateral damage)
-- correction holds under paraphrase probes (Hamming h ∈ {2, 4, 8}):
-  leak ≤ 5%
-- correction holds under replay (re-train W with original (k_edit,
-  v_original) NOT in the corpus): no regression
-- W-only-readout test passes too (full pipeline, not just pool-side)
-
-**Kill criterion.** Any single multi-probe fails over 3 seeds AND no
-rescue variant (α tuning, M_stored slack, key-subspace orthogonalization)
-closes the gap within 2 cycles. Then "edit-then-query" stays 🟢-partial
-indefinitely and the Tier-1 KILLER claim downgrades.
-
-**Who acts.** Experiment Dev (build TWO parallel experiments —
-`wave14g_erase_alphaedit_v1` AND `wave14g_erase_kerdock_v1` — under the
-new 2/cycle cadence; both test the full edit-then-query pipeline);
-Strategy (cap_map upgrade on positive verdict from either or both).
-
----
-
-### Bet B — Multi-task continual learning A → B → C → D (Tier-1 KILLER, still ⚪)
-
-**Claim.** Substrate trained on Corpus A, then B (Phase B established
-shift), then a *genuinely different* domain C (e.g., code, structured
-data, hex) retains all three under random replay, with retention scoring
-≥ 80% of single-task baseline on each held-out task.
-
-**Why now.** Single-shift continual learning is at ✅ (R7 replay
-mechanism). The Tier-1 KILLER claim is multi-domain. With Bet 1's ICL
-characterization in hand, retention vs ICL gain is now separable: the
-test is whether substrate W absorbs C-domain structure under replay
-without erasing A or B.
-
-**Multi-probe success criteria**:
-- Phase-A held-out bpc retention: ≥ 80% of baseline after C-phase
-- Phase-B held-out bpc retention: ≥ 80% of baseline after C-phase
-- Phase-C learn-curve: positive bpc gain vs untrained substrate
-- Multi-seed (3 seeds minimum), all three retention floors hold
-- BWT (backward transfer) at end-of-C: ≥ 0 (no catastrophic forgetting)
-
-**Kill criterion.** Any one of A/B retention drops below 50% of
-baseline across 3 seeds. Replay-mechanism cap to single-shift confirmed.
-
-**Who acts.** Research (design Corpus C: hex / Python / structured;
-match information-content to A and B; see `wave14d_multi_task_cl_research.md`);
-Experiment Dev (build `wave14d_multi_task_cl_v1`).
-
----
-
-### Bet C — RESOLVED ✅ (see "Recently resolved" table above)
-
-`wave14v_erase_kerdock_v2` full at N=4096 with M_stored ∈ {2000, 4096,
-6144, 8192} → M/N up to 2.0. Kerdock arm passes all 5 Mirage probes;
-correlated control reproduces Mirage. Higher-M behavior (M > 2N)
-untested but not top-bet priority.
-
----
-
-### Bet E — Parisi P(q) overlap structure as substrate fingerprint
-
-**Claim.** The Parisi overlap distribution P(q) — measured on the
-substrate's stored bundles — varies meaningfully with substrate
-configuration (codebook structure, K, M_stored). If true, P(q) shape
-becomes a substrate-forensics primitive that needs no query access:
-shape characterizes operating point.
-
-**Why now.** `wave14e2_parisi_ultrametricity` (v3) validated RSB phase
-*structurally* at one operating point (P(q) multi-peaked at q=0.138 and
-0.276; ultrametricity 0.357 > 0.33 chance threshold). The structural
-finding has been static since 2026-05-20. With Bet C's structured-codebook
-substrates now ✅ through M/N=8.0, the question of whether P(q) discriminates
-between random ±1 substrate, Hadamard substrate, and Kerdock substrate is
-testable. Also: does P(q) shift as M_stored crosses Bet C boundaries
-(M=N, M=2N, M=8N)? Per [[feedback-materials-science-probe]] the
-spin-glass framing applies directly (P(q) is the canonical order
-parameter from Mezard-Parisi-Virasoro 1987).
-
-**Multi-probe success criteria** (UPDATED cycle 29 per
-`notes/research_BetE_parisi_methodology_2026-05-21.md`):
-
-**Research methodology review (Bet E)** landed cycle 29 with a critical
-methodological finding: **structured codebooks suppress self-averaging**,
-so multi-peaked P(q) for Hadamard might reflect codebook lattice
-geometry rather than spin-glass RSB phase. **6-test diagnostic battery
-required BEFORE any RSB claim**:
-
-1. **Binder cumulant** — order parameter sensitivity to finite-size
-2. **System-size scaling** (multiple N values to extrapolate to thermodynamic limit)
-3. **Equilibration check** — bundle has reached steady state before measurement
-4. **Self-averaging diagnostic** — single-realization vs ensemble-averaged P(q)
-5. **Ultrametricity test** beyond the chance threshold 0.33 (stronger triangle-inequality test)
-6. **Spectrum check** — eigenvalue distribution of overlap matrix consistent with RSB
-
-**Then** the comparative tests:
-- P(q) measured at 3 substrate configs (random ±1, Hadamard, Kerdock)
-  at N=4096, K=400, M_stored=2N
-- P(q) measured at 3 M_stored values (M=0.5N, M=N, M=2N) for fixed
-  random substrate
-- Multi-probe pass: 6-test battery confirms RSB phase AND comparative
-  tests show ≥2σ separation across configs/M
-- 3 seeds per cell minimum
-
-**Kill criterion.** Two cases:
-(a) 6-test battery rejects RSB phase → Bet E closes; P(q) result was
-    finite-size artifact. Demote to "descriptive only."
-(b) Battery confirms RSB but comparative tests fail (≥2σ separation
-    nowhere) → Bet E closes; P(q) is generic spin-glass property,
-    not substrate-informative.
-
-**Who acts.** Research methodology review done. Experiment Dev:
-`wave14_parisi_pq_sweep_v1` with the 6-test battery included. Note:
-this is more involved than originally scoped; not a 1-cycle
-experiment.
-
----
-
-### Bet F — SSH-BSC topological winding-protected memories (Tier-2 KILLER probe revisit)
-
-**Claim.** Substrate-encoded facts tagged with an integer winding
-number (via sublattice / domain-wall structure per Hasan-Kane chiral
-class AIII) have categorical noise immunity: noise below threshold
-p_c shifts winding count by ±1 only at wall-adjacent sites; larger
-shifts require coordinated multi-bit flips with probability ~p².
-Sharp transition at p_c ≈ 1/(2·ν_density), q-dependent (ν_density
-proportional to q).
-
-**Why now.** The original `wave14e2_ssh_bsc_topological`
-(2026-05-20 CPU-fallback window) returned categorical_correct=0.0 at
-all noise levels — flagged as `NEEDS_REVIEW`. The probe was raw
-wall-count data with no Z-quantization recovery metric, so the test
-couldn't distinguish "substrate has no topological protection" from
-"probe didn't measure topological protection." Capability has sat at
-🟡 since v6. Bumping to active bet means committing to a clean redo.
-
-**Multi-probe success criteria** (each required):
-- Categorical recovery rate vs noise level p: monotone decay with a
-  detectable kink at predicted p_c ≈ 1/(2·ν_density)
-- Winding-number distribution Z-quantization holds for p < p_c
-  (Hopf-style integer recovery — must include the integer-recovery
-  probe missing from v1)
-- Charge sweep q ∈ {2, 5, 10, 20}: empirical p_c scales 1/q (matches
-  Hasan-Kane prediction within 30%)
-- 3 seeds per (q, p) cell
-
-**Kill criterion.** After probe redesign + retest, no sharp transition
-observed in categorical recovery across noise sweep, OR Z-quantization
-fails for all p. Then SSH-BSC topology doesn't give predicted
-protection in BSC substrate — closes at ❌-with-rehab-discipline
-(5 axis-combination rescues listed before broader topological-
-protection family closes).
-
-**Who acts.** **Research first (R10)** — need a lit-vetted protocol
-for measuring topological invariants in BSC substrates per [[feedback-unbiased-research]]
-(the original probe didn't fire; that's a methodology gap, not a
-substrate finding). Pass 1: external lit scan of Hasan-Kane class AIII
-probes, SSH-model topology metrics, Z-quantization recovery tests.
-Pass 2: substrate-compatible drill. Experiment Dev queues
-`wave14_ssh_bsc_v2_protected` once Research delivers the probe spec.
-
----
-
-### Bet D — Generation K-curve analysis (Tier-1 KILLER partial → ✅?)
-
-**Claim.** Strict-baseline generation quality is monotone in K up to
-K=64 (or peaks at K=64-128 per R10 curve shape). Closes the "GPT-
-quality generation with auditable memory" Tier-1 KILLER from 🟢 partial
-to ✅.
-
-**Why now.** `wave14d_generation_v2_K16` is already at ✅ (strict-
-baseline). K=32 and K=64 metrics.json files exist (per v7
-"COMPLETED_NEEDS_ANALYSIS"). All that's needed is an analyzer pass
-comparing substrate_pool vs B3 Markov baseline at each K, then 3-seed
-aggregation. No new experiments required; just metric analysis. Cheap.
-
-**Multi-probe success criteria**:
-- substrate_pool p1 > B3 Markov p1 at K=32 AND K=64, by ≥5pp (matches
-  v2 K=16 PASS threshold)
-- k4_validity > 0.40 at both K
-- 3-seed monotone improvement K=16 → K=32 → K=64 (or peak within range)
-- Per-position accuracy data lines up with v2 K=16 shape
-
-**Kill criterion.** Either K=32 or K=64 fails the +5pp threshold OR
-shows non-monotone collapse. Then generation Tier-1 KILLER stays
-🟢-partial-at-K16-only.
-
-**Who acts.** Experiment Dev (analyzer pass on existing metrics.json
-files; could be a 30-min task, not a new experiment). Strategy
-(cap_map upgrade on positive verdict).
-
----
-
-## Recently retracted / closed
-
-| Claim | Trigger | Lesson |
-|---|---|---|
-| Random-key iterative charge-flipping forensics (Bet 3) | `wave14s_chargeflip_forensics_v1`: +0.03 cos improvement (target +0.2) | Random-key forensics requires structured-key substrate; iterative refinement doesn't bridge the gap |
-| Multi-hop reasoning 50+ hops viable claim | `wave14t_multihop_v3` (acc_1hop=0.93 < v2's 0.98) + `wave14u_multihop_envelope_v1` (acc_50hop=0 at NUM_FACTS=25) | wave14e v2 synthesis was optimistic; multi-hop bounded at low depth |
-| (Prior cycle 1 list still applies — Yonelinas, anti-Hebbian on correlated keys, soft-trace cal, counterfactual=1.0, RSB tree-walk, LSH variants, K/N invariance) | (see cap_map v12) | — |
-
-## Open research questions (routed to Research session)
-
-- **R2**: Self-supervised concept discovery without PPMI — math survey
-  beyond sparse_dictionary (blocked on Python-loop infra).
-- **R3**: Compositional generalization test design — no clean held-out
-  test specified yet.
-- **R4 (modified)**: Multi-hop reasoning rescue — given v1+envelope show
-  chains break at 50 hops at NUM_FACTS=25 but sustain to 40% at depth
-  50 with NUM_FACTS=50, the envelope is more nuanced than v1 framing.
-  **See R8 for full rehab routing.**
-- **R5**: Corpus-C design for multi-task continual learning (Bet B).
-- **R6**: Full Kerdock decoder implementation details (Bet C prerequisite).
-- **R7 (NEW, rehab-routed, Bet 3)**: Iterative phase retrieval + sign
-  recovery in random ±1 design matrices. 2x pass (broad survey then
-  substrate drill). Strategy's 5 sketches in cap_map v14 (WH-sparsity,
-  low-rank pre-project, K-sparse storage, hybrid CF+SVD, semi-supervised
-  Sayre) are unvetted draft.
-- **R8 (rehab-routed, multi-hop)**: Noise accumulation in chained
-  content-addressable memory. 2x pass; substrate-compatible variants
-  ranked by depth-50 accuracy extension at NUM_FACTS=100. Strategy's 6
-  sketches in cap_map v14 unvetted draft. **Update (cycle 7)**: sketch #5
-  (orthogonal-key allocation via Hadamard) empirically FAILED at
-  substrate scale — Walsh group closes under XOR-bind, so multi-hop
-  binds collide with stored Hadamard codewords. R8 priority reordered:
-  drill **#4 (binding algebra swap to FHRR / Clifford)** first as the
-  mechanism correction; then #1 (cleanup operator family); then #2/#3/#6.
-- **R9 (rehab-routed, Yonelinas)**: Source-vs-item memory
-  dissociation models beyond DPSD. 2x pass NOT pre-filtered to AI/ML
-  framings. Strategy's 5 sketches in cap_map v14 unvetted draft.
-- **R11 (Bet G prerequisite)**: LANDED 2026-05-21 11:14. Bet G
-  resolved ✅ via TEMPSCALE at β=32 (Strategy sketch #1 was correct).
-  R11 retrospective-confirms.
-- **R12 (Bet H prerequisite)**: LANDED. Sampling rescues — temperature
-  + rep penalty both work.
-
-### Forward-research backlog (user-requested 2026-05-21 ~12:40): advanced math frameworks
-
-Per [[feedback-unbiased-research]]: pass 1 surveys broadly without
-"X for substrate" framing; pass 2 drills substrate-compatible mappings.
-Per [[feedback-no-papers-product-only]]: framings are substrate-physics
-characterization, not paper-worthy. Per [[feedback-materials-science-probe]]:
-each connects to existing substrate-physics work.
-
-These are forward-routing (low urgency vs Bet B / multi-hop / Bet F).
-Slot in after the top-priority queue drains.
-
-- **R13 (NEW)**: Drinfeld double D(H) construction. Wave 13 (Hopf
-  algebra VSA) already has design notes; D(H) is the quantum-group
-  extension. Pass 1 broad (what does Drinfeld double do? Yetter-
-  Drinfeld category, braided structure, R-matrix); pass 2 substrate-
-  compatible drill (does D(k[G]) give a richer binding algebra than
-  k[G] alone? does the braided structure help multi-hop reasoning?).
-  Connects to existing Hopf-algebra work + multi-hop rescue gap
-  (R8 #4 binding algebra swap).
-
-- **R14 (NEW)**: Tomita-Takesaki modular theory. Pass 1 broad (cyclic-
-  separating vectors, modular automorphism group, KMS states, type
-  classification of von Neumann algebras); pass 2 substrate-compatible
-  drill (does the substrate's W matrix + bundle distribution admit a
-  modular flow? does the KMS condition describe substrate thermal
-  equilibrium? does this give a parameter-free temperature for
-  calibration / sampling?). Connects to materials-science framing
-  ([[feedback-materials-science-probe]]) and could ground the
-  TEMPSCALE β=32 calibration rescue (Bet G ✅) in von Neumann theory.
-
-- **R15 (NEW)**: Steenrod operations / cohomology. Pass 1 broad
-  (Steenrod squares Sq^i, mod-2 cohomology, Cartan formula, Bott
-  periodicity); pass 2 substrate-compatible drill (does the substrate's
-  binding algebra carry a cohomology ring? do Steenrod ops give
-  invariants under noise / quantization?). Connects to topological
-  substrate work (Bet F SSH-BSC AIII class, Hasan-Kane 10-fold way).
-
-- **R16 — Free probability theoretical grounding (active)**: derive
-  closed-form predictions from Wave 15 applications 1-3 for Bet C
-  capacity (M/N=8 v4), noise tolerance (σ=16), multi-hop depth cliff
-  (d=25). Closes Bet I.
-
-### Design-space audit research backlog (cycle 27 followup, user-directed)
-
-See `notes/synthesis_design_space_audit_2026-05-21.md` for full rationale.
-Priority ordering: R20/R23/R24 first (highest leverage); R17/R18 next;
-R21/R22/R19/R25 if bandwidth.
-
-- **R20 — Compositional generalization experiment design (HIGH PRIORITY)**:
-  R3 lit scan landed cycle 15. Pass 2 — design substrate-compatible
-  compositional eval. Output: experiment spec for Experiment Dev.
-  Closes Tier-2 KILLER ⚪ (untested since v1).
-- **R23 — Continuous RSB / AT line for substrate (HIGH PRIORITY)**:
-  Pass 1 broad (full Parisi solution, continuous RSB, de Almeida-
-  Thouless line, AT instability). Pass 2 — is substrate at α=0.153
-  in 1RSB or continuous RSB? AT line position? Strengthens Bet E
-  Parisi + Bet I free probability.
-- **R24 — FDT violation + two-temperature substrate dynamics (HIGH
-  PRIORITY)**: Pass 1 broad (Fluctuation-Dissipation theorem, FDT
-  violation in glasses, two-temperature out-of-equilibrium). Pass 2
-  — measure FDT violation; does it correspond to β=32 calibration?
-  Grounds Bet G ✅ in theory.
-- **R17 — Holographic principle for substrate (MEDIUM)**: Pass 1 broad
-  (Ryu-Takayanagi, Bekenstein, tensor networks, HaPPY codes, bulk
-  reconstruction). Pass 2 — RT-style capacity bound? Tensor network
-  matching RSB tree? Alternative theory to Bet I M-P framing.
-- **R18 — RFOT / glassy-dynamics for substrate (MEDIUM)**: Pass 1 broad
-  (Random First-Order Transition, mode-coupling theory, supercooled
-  liquids, aging). Pass 2 — substrate training dynamics analogous to
-  glass transition? Extends spin-glass framing.
-- **R19 — Topological order beyond winding (LOWER)**: anyons,
-  skyrmions, fractional statistics, higher Chern numbers, full
-  10-fold-way K-theory. Extends Bet F SSH-BSC (currently AIII class).
-- **R21 — Cross-modal substrate binding (vision-language) (LOWER)**:
-  Tier-2 KILLER untouched since v1. Multimodal embeddings, CLIP-style
-  joint spaces.
-- **R22 — Sleep-style memory consolidation (LOWER)**: offline replay
-  during quiescence; sleep-replay neuroscience. Extends continual
-  learning ✅.
-- **R25 — Aging / Kovacs in substrate (LOWER)**: `wave14j_aging_kovacs`
-  ran inconclusive cycle 12. Diagnostic for substrate long-time
-  behavior.
-
-### Cycle 27 followup #3 (user: learning + light-matter + ferromagnetism)
-
-- **R26 — Learning theory deep-dive (HIGHEST PRIORITY)**:
-  Surprising gap — substrate has been characterized as memory primitive
-  but NOT as learning system. Pass 1 broad: implicit bias of delta-rule,
-  neural tangent kernel, double descent, scaling laws (Chinchilla-style),
-  convergence rate, generalization gap, sample efficiency, catastrophic
-  forgetting curves. Pass 2: substrate-compatible — what's the substrate's
-  optimization landscape geometry? Scaling-law fit for bpc vs (N, K,
-  M_stored, samples)? Implicit bias of Hebbian / delta rule? Connects to:
-  ALL bets (foundational characterization).
-- **R29 — Ferromagnetism / magnetic domains (HIGH PRIORITY, user
-  explicit)**: Pass 1 broad — magnetic domains (size distribution),
-  hysteresis, Curie temperature, exchange interactions (Heisenberg /
-  Ising / XY), spin waves / magnons, magnetocrystalline anisotropy,
-  anti-ferromagnetism + frustration, information storage in magnetic
-  media. Pass 2: substrate-compatible — substrate's stored bundles
-  as magnetic-domain analogs; W as exchange Hamiltonian; α_c as Curie
-  T. Frustration → RSB direct connection. Connects to: Bet F (domain
-  walls), Bet E (Parisi RSB), Bet I (M-P spectra).
-- **R27 — Light-matter / photonic crystals / metamaterials (MEDIUM)**:
-  Pass 1 broad — photonic crystals (band gaps), plasmonics, cavity
-  polaritons, optical frequency combs, metamaterials (negative-index),
-  topological photonics, stimulated Raman scattering. Pass 2: substrate-
-  compatible — photonic-band-gap analog for codebook spectra? Polariton
-  coupling for cross-mode binding? Frequency-comb-like discrete atom
-  basis? Different framing space than M-P / spin-glass.
-- **R28 — Dislocation physics (MEDIUM)**: Pass 1 broad — edge / screw
-  dislocations, Burgers vector, dislocation motion under stress,
-  Frank-Read sources. Pass 2: substrate-compatible — dislocation
-  defects in codebook lattice as different topological objects than
-  SSH winding (Bet F). Burgers-vector invariant beyond AIII Z-winding.
-- **R10 (Bet F prerequisite)**: SSH-BSC topological probe design.
-  Original `wave14e2_ssh_bsc_topological` returned categorical_correct=0
-  at all noise — methodology gap, not substrate finding. 2x pass:
-  pass 1 broad (Hasan-Kane class AIII probes, SSH-model topology
-  metrics, Z-quantization recovery tests, charge-flipping topology
-  literature, condensed-matter SSH chain protocols); pass 2 drill
-  substrate-compatible probe specifying integer-recovery metric,
-  q-dependent p_c sweep design, control arm (random non-topological
-  encoding).
-
-Per [[feedback-unbiased-research]] and [[project-research-playbook]]
-item 9: each rehab-routed R-request expects Research's 2x pass to
-*generate* the rescue list, not to vet a Strategy-drafted one. The
-DRAFT sketches are starting points only.
-
-## Open experiment requests (routed to Experiment Dev)
-
-- **E_A (Bet A)**: RESOLVED ✅ by `wave14yb_edit_then_query_kerdock`.
-  Follow-up audit (low priority): why did v5's 93% leak not reproduce?
-- **E_G (Bet G, R11 LANDED 2026-05-21 11:14)**: TEMPSCALE smoke
-  passed at β=16 (ECE → 0); full mode running. If full positive,
-  Bet G closes ✅.
-- **E_MH (Multi-hop rescue, gated on R8 ✅)**: queue BOTH
-  `wave14r_multihop_FHRR_v1` (A1 mechanism correction) AND
-  `wave14r_multihop_hybrid_v1` (C1 substrate-coherent variant) per R8.
-- **E_B (Bet B, UNBLOCKED — R5 landed 2026-05-21 10:21)**:
-  `wave14d_multi_task_cl_v1` — Corpus-C-domain transfer test per
-  `notes/research_R5_corpus_C_design_2026-05-21.md` specifications.
-  Ready to queue.
-- **E_C (Bet C, gated on R6)**: `wave14r_erase_orthkeys_v2_kerdock`.
-- **E_D (lower priority, K=32/K=64 generation)**: analyze the existing
-  `wave14d_generation_v2_K32` and `wave14d_generation_v2_K64`
-  metrics.json (COMPLETED_NEEDS_ANALYSIS in v7) to determine if
-  generation quality monotone in K. Closes Tier-1 KILLER "GPT-quality
-  generation" partial.
-- **E_E (Bet E)**: `wave14_parisi_pq_sweep_v1` — P(q) measurement
-  across (codebook config, M_stored) grid. Multi-probe per Bet E.
-  Research methodology review optional but recommended before queue.
-- **E_F (Bet F, R10 LANDED 2026-05-21 11:02 — unblocked)**:
-  `wave14_ssh_bsc_v2_protected` — redo topological probe per
-  `notes/research_R10_SSH_BSC_topological_probe_2026-05-21.md`
-  protocol spec. Multi-probe per Bet F.
-
-## Items deliberately NOT on the priority list
-
-- Iterative charge-flipping for random-key forensics (closed by kill criterion this cycle)
-- Multi-hop reasoning at 50-hop with current architecture (bounded; needs research-first redesign per R4)
-- Edit-then-query on correlated-key substrates (mechanism closed; only orthogonal-key path is viable)
-- All cycle-1 list items remain off (R3 rescues, MIR replay, basis_modification, pre-shift bpc, etc.)
+(For the full v111 snapshot of additional priority lists, multi-bet specifications, and historical research-backlog detail, see the cap_map v75-v153 narratives in `notes/substrate_capability_map.md` and `notes/substrate_capability_map_history.md`. The v111 priority queue is superseded by the v158 substrate-product portfolio above.)

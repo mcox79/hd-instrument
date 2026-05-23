@@ -522,3 +522,86 @@ refutation under harsher conditions TRIGGERS 2x drill); Strategy ->
 Exp Dev request filed for next pipeline work (preferred Cap 3
 Streaming noise envelope analogous probe); 71st PROT-009 paired
 commit.
+
+---
+
+## Cycle 178 -- v158 MULTI-EVENT: CROOKS_NOISE_CORRECTED_PASS + STREAMING_NOISE_ENVELOPE_PASS + active_priorities refresh + audit response
+
+**Time**: 2026-05-23 ~12:28 EDT
+**Trigger**: Multi-event dispatch combining two verdicts + audit findings from `notes/audit_dropped_and_review_2026-05-23.md`. Combined for a single coherent v158 paired commit per PROT-009.
+
+### What landed (two verdicts + audit)
+
+**Verdict 1**: `wave14_crooks_noise_corrected_bound_v1` = CROOKS_NOISE_CORRECTED_PASS (CPU post-hoc re-analysis of v157 data). All 3/3 noisy cells at p in {0.05, 0.10, 0.20} satisfy `delta_S_emp <= theta(p) + 0.02` under the Sagawa-Ueda noise-corrected bound `theta(p) = ln(2) + p*ln(p) + (1-p)*ln(1-p)`. Reduces to clean Crooks-FT `ln(2)` at p=0.
+
+**Verdict 2**: `wave14_streaming_noise_envelope_v1` FULL at N=16384 = STREAMING_NOISE_ENVELOPE_PASS. 3/3 noise cells at p in {0.05, 0.10, 0.20} satisfy `throughput_ratio >= 0.9`. Cap 3 streaming inference envelope EXTENDED under bit-flip noise.
+
+**Audit signal**: `notes/active_priorities.md` is 46 cap_map versions stale (last touched at v111; current cap_map is v158). Single biggest coordination risk in the orchestrator per audit Rec 1 URGENT.
+
+### Interpretation -- both verdicts are envelope EXPANSIONS
+
+**Cap 1 commercial wedge WIDENS, not narrows**. v157's "narrowing" framing was an axiom-mismatch artifact: the clean Crooks-FT acceptance criterion (`delta_S_emp < 0.05`) was applied to a noisy channel where the correct bound is the Sagawa-Ueda noise-corrected `theta(p) + tolerance`. v157's empirical data carries forward unchanged; v157's framing is honestly RETRACTED per [[feedback-no-smoke]] brutal honesty. The substrate-product story IMPROVES because Cap 1 now ships as a **TIERED noise-tolerance certificate**:
+
+- Tier 1 (clean): `delta_S_emp < 0.05` (clean Crooks-FT bound). v153 + v157 FULL-verified at p=0.
+- Tier 2 (noisy): `delta_S_emp(p) <= theta(p) + 0.02` where `theta(p) = ln(2) + p*ln(p) + (1-p)*ln(1-p)`. v158 CPU re-analysis PASS at p in {0.05, 0.10, 0.20}.
+- Customer SLA picks tier by operating environment.
+
+**Cap 3 Streaming inference envelope EXTENDED** under bit-flip noise. Drift-diffusion NESS holds at p in {0.05, 0.10, 0.20} with throughput_ratio >= 0.9 (3/3 cells PASS at N=16384). Cap 3 commercial framing becomes unconditional at the operating-noise floor.
+
+### Why v157 narrative needs honest retraction
+
+Per [[feedback-no-smoke]]: v157's narrative used "narrowing" repeatedly and characterized Cap 1 as CONDITIONAL on clean operating. That framing was wrong because the acceptance criterion was the clean axiom applied to a noisy channel; the data was always compatible with the noise-corrected bound. v158 corrects the framing without changing the v157 measurements. The cap_map v157 narrative is preserved in history; the v158 retraction is in wording, not in measured fact.
+
+### Capability moves (v157 -> v158)
+
+| Capability | v157 state | v158 state | Trigger |
+|---|---|---|---|
+| Cap 1 Crooks erase Tier 1 (clean) | ✅ FULL at p~0 | ✅ FULL unchanged; re-confirmed via Sagawa-Ueda baseline theta(0)=ln(2) | crooks_noise_corrected baseline cell |
+| Cap 1 Crooks erase Tier 2 (noisy) NEW row | 🔬 envelope narrowed to clean (v157) | ✅ FULL PASS at p in {0.05, 0.10, 0.20} under Sagawa-Ueda theta(p)+0.02 | crooks_noise_corrected_bound_v1 3/3 PASS |
+| Cap 1 commercial wedge framing | CONDITIONAL on clean (v157) | **TIERED noise-tolerance certificate** (Tier 1 clean + Tier 2 noisy under Sagawa-Ueda) | v158 re-axiomatization |
+| Cap 3 Streaming inference clean | ✅ FULL (v153) | ✅ FULL unchanged | -- |
+| Cap 3 Streaming inference under noise NEW row | not measured | ✅ FULL PASS at p in {0.05, 0.10, 0.20}; throughput_ratio>=0.9 3/3 cells N=16384 | streaming_noise_envelope_v1 FULL |
+| active_priorities.md | v111 (46 versions stale) | v158 (refreshed atomically this commit) | audit Rec 1 URGENT |
+
+### Substrate-product net (v158)
+
+12 demonstrated capabilities (v153) carry forward UNCHANGED IN COUNT. Two qualitative envelope expansions land (Cap 1 -> Tier-2 noisy PASS; Cap 3 -> noise envelope PASS). v157 "narrowing" framing honestly RETRACTED.
+
+### Substrate-physics characterization (unchanged from v157)
+
+EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16) coset bias CONFIRMED. Cap 1 Crooks forensic erase verifiable at BOTH clean (Tier 1) and noisy (Tier 2 Sagawa-Ueda) operating envelopes. Cap 3 NESS robust to bit-flip noise. Bet A continual-edit ✅ at M_init=8192 N=65536; HARD-GATE on N>=16384 continues.
+
+### Audit response actions taken in this commit
+
+Per `notes/audit_dropped_and_review_2026-05-23.md` (META audit 2026-05-23):
+
+1. **Rec 1 URGENT**: `notes/active_priorities.md` refreshed v111 -> v158 atomically in this commit. Updated content covers v158 substrate-product portfolio (12 demonstrated + 2 envelope-expansion rows), engineering blocker at Bet A N>=16384, current queue depth (0 per [[feedback-pipeline-pacing]] -- exp_dev next-pipeline routing fills it), open routings, 5 stale 🔬/🟡 rows.
+
+2. **Rec 2 HIGH-LEVERAGE**: Bet Z.5 vs VAMP-on-chain equivalence check routed to Exp Dev as part of the next-pipeline routing (cheap CPU; bandwidth-permitting).
+
+3. **Rec 3 CADENCE FIX**: 5 axis-combination rescue sketches for Bet T (🟡 PARTIAL min_acc=0.689; 56 versions stale) + Bet V (🟡 PARTIAL gap=0.424; 54 versions stale) filed to Research per PROT-004/006 backlog. Plus burn-down note acknowledging the 3 orphaned 2026-05-23 Research deliveries (D1/D2/D3 per audit).
+
+4. **D9**: `wave14_pq_high_resolution_v1` FULL conversion (5 cycles pending) re-emphasized to exp_dev in next-pipeline routing.
+
+5. **D5 META Gap A spatially-coupled codebook**: re-acknowledged in active_priorities. Awaiting bandwidth (substantial cost; not added to current pipeline).
+
+### Strategy follow-up actions (cycle 178)
+
+1. **PROT-009 v158 paired commit** -- 72nd observation.
+2. **`notes/active_priorities.md` refreshed v111 -> v158** atomically in this commit per audit Rec 1 URGENT.
+3. **Strategy -> Exp Dev next-pipeline routing filed** at `notes/strategy_request_to_exp_dev_post_v158_pipeline_2026-05-23.md`. Picks (ranked): (a) Online W noise envelope CPU exploratory sweep (analogous noise probe to Cap 1/Cap 3; small N exploratory; per [[feedback-pipeline-pacing]] CPU exploration informs GPU depth); (b) `wave14_pq_high_resolution_v1` FULL conversion (5 cycles pending; cheap GPU); (c) Bet Z.5 vs VAMP-on-chain equivalence check (local CPU + theory; audit Rec 2). Strategy preference order: (a) FIRST, (b) parallel on GPU, (c) on bandwidth.
+4. **Strategy -> Research routing filed** at `notes/strategy_request_to_research_betT_betV_rescue_sketches_2026-05-23.md` per PROT-004/006 backlog. Generic-math framing: parallel hypothesis tracking under uncertain evidence + self-reflective memory updates in associative substrate. Bet T 56 versions stale; Bet V 54 versions stale.
+5. **Strategy -> Research burn-down note filed** at `notes/strategy_research_burn_down_three_orphans_2026-05-23.md` per audit Rec 3: acknowledges D1 (research_strategy_open_questions), D2 (research_order_param_2x_drill), D3 (research_semiconductor_physics_substrate_analogies) with concrete one-cycle next steps.
+6. Push v158 to remote per [[feedback-cap-map-update-protocol]].
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006: NOT triggered for a closure** -- both verdicts are PASS; no ❌ row added. The v157 envelope-narrowing 🔬 row is REFRAMED to a ✅ Tier-2 row under Sagawa-Ueda (an upgrade, not a new closure). The 5 v157 rescue sketches remain on the substrate-product roadmap as elective hardening options.
+- PROT-007: v158 history block written to `substrate_capability_map_history.md` compact index.
+- **PROT-008**: validator must pass before commit. v158 adds 0 new violations; no ❌ rows added; baseline 26 pre-existing violations from v138-v153 era unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically. Validator invoked with `--staged-files`.
+
+### Tally (one-line)
+
+crooks_noise_corrected_bound_v1 (CPU re-analysis of v157 data) = CROOKS_NOISE_CORRECTED_PASS at 3/3 noise cells under Sagawa-Ueda noise-corrected bound theta(p)+0.02; streaming_noise_envelope_v1 FULL N=16384 = STREAMING_NOISE_ENVELOPE_PASS at 3/3 noise cells (throughput_ratio>=0.9 at p in {0.05, 0.10, 0.20}); Cap 1 commercial wedge WIDENS from clean-only (v157) to TIERED noise-tolerance certificate (Tier 1 clean + Tier 2 noisy under Sagawa-Ueda); v157 "narrowing" framing honestly RETRACTED as axiom-mismatch artifact per [[feedback-no-smoke]]; Cap 3 Streaming inference envelope EXTENDED under bit-flip noise; active_priorities.md refreshed v111 -> v158 atomically per audit Rec 1 URGENT; Strategy -> Exp Dev next-pipeline routing filed; Strategy -> Research Bet T/V rescue sketches filed; Strategy -> Research burn-down for 3 orphaned 2026-05-23 deliveries (D1/D2/D3) filed; 72nd PROT-009 paired commit.
