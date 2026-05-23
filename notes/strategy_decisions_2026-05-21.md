@@ -9099,3 +9099,105 @@ Next:
 - Wait for 5th-attempt Research delivery
 - Wait for Lane D smoother FULL + Demo 2 capstone FULL
 - Watch dashboard for Bet A FULL + extreme_stress FULL + smoother extreme_K FULL
+
+---
+
+## Cycle 174 — Bet A M_init_threshold FULL = OOM artifact, not substrate refutation (2026-05-23 ~10:32 EDT, orchestrator dispatch)
+
+This is the first verdict event processed by the orchestrator after the
+7-session-to-orchestrator migration. Strategy ran normally; no special
+migration handling needed.
+
+WHY-reasoning for v154 cap_map update:
+
+**Why BETA_M_INIT_UNIFORM_KILL is OOM artifact, not substrate refutation**:
+- Verdict text reads "all M_init kill"; per_M_init dict for every M_init
+  in {1024, 2048, 4096, 8192, 16384, 32768} shows `oom=True` with
+  `n_seeds=0` and `mean_kept=0.0`
+- `mean_kept=0.0` is the default value returned when `kept_accs` is
+  empty (see experiments/exp_wave14_betA_M_init_threshold_v1.py lines
+  69-74), NOT a measurement of substrate behavior
+- Every seed at every M_init hit CUDA OOM and was skipped before
+  producing data
+- The substrate did not fail; the experiment's 8GB VRAM allocation
+  strategy at N=65536 failed for every M_init configuration in the sweep
+
+**Why this is NOT a closure (PROT-004/006 not triggered)**:
+- No substrate-physics claim is being refuted here
+- Bet A's v2 5-seed FULL PASS at M_init=8192 N=65536 (cycle 172, verdict
+  BETA_5SEED_PASS, mean kept=1.000 sd<0.05) STILL HOLDS
+- Cycle 173 v153 properly captured the Bet A axis as "fully restored"
+  at the rescued operating point; v154 does NOT touch that row
+- A bare ❌ closure here would over-extend per [[feedback-dont-overextend-theorems]]:
+  the OOM rules out the EXPERIMENT FRAMING at 8GB VRAM, not the
+  substrate capability
+- No rescue sketches owed because there is no substrate question to
+  rescue — the followup is an Exp Dev respec, not a Research rehab
+
+**Why this IS the 21st smoke->FULL divergence anchor**:
+- Smoke at N=4096 with M_init in {256, 1024} returned UNIFORM_PASS
+  (mean_kept=1.0 across 2 seeds for both M_init)
+- FULL at N=65536 with M_init in {1024, 2048, 4096, 8192, 16384, 32768}
+  returned UNIFORM_KILL (OOM at every M_init)
+- Direction is REFUTATION (smoke PASS -> FULL KILL), but the cause is
+  the N change between smoke and FULL, not the M_init knob
+- Prior 20 anchors: 19 IMPROVEMENT direction + 1 REFUTATION direction
+  (cycle 168 Gap 2 q_overlap); cycle 174 is the 2nd REFUTATION-direction
+  anchor
+- All-OOM divergence is a NEW anchor sub-pattern (smoke can't catch
+  memory budget violations because smoke uses smaller N)
+
+**Why the M_init capacity ceiling question remains OPEN**:
+- v2 PASS at M_init=8192 N=65536 is one data point
+- Whether the substrate continues to retain at M_init in {2N, 4N, 8N, ...}
+  at N=65536 is genuinely untested (Bet A cycle 98 finding was an
+  empirical breakpoint at edit ~8189 ~= M=2N, but only at smaller N)
+- Respec needed: per-M_init memory budgeting (free-then-allocate between
+  M_init points, or run smaller M_init {1024, 2048, 4096} only at
+  N=65536 where it fits, then extend at smaller N for the larger M_init
+  end of the sweep)
+
+Capability moves (v153 -> v154):
+
+| Capability | v153 state | v154 state |
+|---|---|---|
+| Bet A continual-edit at M_init=8192 N=65536 (v2) | ✅ FULL PASS | ✅ HOLDS unchanged |
+| Bet A M_init capacity ceiling test (1024-32768 sweep at N=65536) | 🟡 FULL pending | 🟡 OOM-INCONCLUSIVE (needs memory-budgeted respec) |
+| 21-anchor smoke->FULL precedent | 20-anchor | 21-anchor (2nd REFUTATION-direction anchor; OOM sub-pattern) |
+
+PROT compliance:
+- 68th PROT-009 paired commit (cap_map v154 + history v154 + this
+  decision-log entry staged atomically)
+- PROT-004/006 NOT triggered (no closure filed)
+- PROT-007 history block paired (one-line v154 entry appended)
+- PROT-008 validator must pass before commit (baseline shows 26
+  pre-existing ❌ violations from v138-v153 era; cycle 174 adds 0 new
+  violations because no closure row is added)
+- Per [[feedback-no-smoke]]: honest framing applied (OOM-artifact called
+  out explicitly; verdict text "all M_init kill" interpreted against
+  the per_M_init data, not at face value)
+- Per [[feedback-dont-overextend-theorems]]: OOM at all M_init points
+  in this experiment does NOT close the Bet A axis; the rescued
+  operating point at M_init=8192 stands
+
+Strategy follow-up actions (cycle 174):
+1. PROT-009 v154 paired commit (this cycle, atomic)
+2. File `strategy_request_to_exp_dev_betA_M_init_capacity_respec_2026-05-23.md`
+   with respec specification (memory-budgeting strategy + narrower or
+   N-staggered sweep)
+3. Wait for cycle 172 pipeline addition FULLs (`wave14_pq_high_resolution_v1`
+   FULL + Block 4-5 pickups from cycle 171 pipeline queue)
+4. Read Research `anti_linear_coset_and_15_28_hierarchy_2026-05-23.md`
+   delivery (10:20) on next cycle for substrate-physics integration
+
+Substrate-product net (v154): NEUTRAL — no capability promoted, no
+capability closed, no portfolio change vs v153. Bet A's rescued
+operating point holds; capacity ceiling above M_init=8192 N=65536
+remains characterized only by the v2 data point (1 M_init value at FULL).
+
+Next:
+- Watch for Exp Dev pickup of the M_init capacity respec request
+- Watch for cycle 172 pipeline addition FULLs (pq_high_resolution +
+  coset_census remaining)
+- Watch for Block 4-5 pickups from cycle 171 pipeline queue
+- Read Research anti-linear-coset analysis on next cycle

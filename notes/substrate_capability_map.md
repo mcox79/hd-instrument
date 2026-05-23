@@ -11977,3 +11977,94 @@ Net effect: substrate-product MASSIVELY expanded at FULL — 4 NEW capabilities
 including COMMERCIAL WEDGE Crooks forensic erase; META Gap B + C RESCUED
 at FULL; Bet A axis fully restored; substrate-product portfolio at v153
 unprecedented breadth across session arc cycle 89-173.
+
+---
+
+## Cycle 174 (Bet A M_init_threshold FULL = OOM-ARTIFACT not substrate refutation; 21st smoke->FULL divergence anchor) — v154
+
+**Trigger**: `wave14_betA_M_init_threshold_v1` FULL verdict at 2026-05-23 ~10:32 EDT
+(elapsed 138.3s). All six M_init values in {1024, 2048, 4096, 8192, 16384, 32768}
+returned `mean_kept=0.0` with `oom=True` (every seed skipped with CUDA OOM,
+empty kept_accs list). Smoke at 10:25 had returned BETA_M_INIT_UNIFORM_PASS
+at N=4096 with M_init in {256, 1024}. Smoke at smaller N passed; FULL at
+N=65536 exhausted 8GB VRAM at every M_init configuration.
+
+### Honest framing: this is OOM-artifact, not substrate refutation
+
+The verdict text says "all M_init kill" but the per_M_init data shows
+`oom=True` everywhere — no seed produced a measurement. `mean_kept=0.0` is
+the default returned when `kept_accs` is empty, NOT a negative measurement
+of substrate behavior at any M_init. Per the experiment source
+(`experiments/exp_wave14_betA_M_init_threshold_v1.py` lines 69-74), the
+CUDA OOM branch sets `mean_kept: 0.0, n_seeds: 0, oom: True` for any
+M_init where every seed failed memory allocation.
+
+**This is the 21st smoke->FULL divergence anchor**: smoke at N=4096 PASS
+versus FULL at N=65536 OOM. Direction is REFUTATION on paper, but the
+mechanism is hardware-budget exhaustion at the larger N, not a substrate
+property. Per [[feedback-dont-overextend-theorems]]: an OOM at six
+M_init points in this experiment framing does NOT close the Bet A
+continual-edit axis — the v2 5-seed PASS at M_init=8192 N=65536 (cycle 172
+verdict BETA_5SEED_PASS, mean kept=1.000, sd<0.05) STILL HOLDS as the
+rescued operating point.
+
+### Why NOT a closure row
+
+Three reasons this is NOT a bare ❌ closure:
+
+1. The data is "no measurement" not "negative measurement". A row that
+   reads "OOM at every M_init in this experiment" does not refute the
+   substrate; it refutes the experiment's memory budget.
+2. The Bet A axis already has a PASS at FULL: v2 at M_init=8192 N=65536
+   (cycle 172). The capacity ceiling question is OPEN, not closed.
+3. Per PROT-004/006: a closure must come with 5 rescue sketches + a
+   Research rehab request. There is no substrate-physics question
+   refuted here that warrants a Research rehab list. The followup is
+   an Exp Dev respec, not a Research rehab.
+
+### Capability moves (v153 -> v154)
+
+| Capability | v153 state | v154 state | Trigger |
+|---|---|---|---|
+| Bet A continual-edit at M_init=8192 N=65536 | ✅ FULL PASS (v2 5-seed cycle 172) | ✅ HOLDS (cycle 173 v153 noted "axis fully restored"; cycle 174 does NOT touch this) | unchanged |
+| Bet A M_init capacity ceiling test (1024-32768 sweep at N=65536) | 🟡 FULL pending (v153 said "smoke UNIFORM_PASS at all tested M_init") | 🟡 OOM-INCONCLUSIVE at FULL (needs memory-budgeted respec; see Strategy -> Exp Dev request) | M_init_threshold FULL |
+| 21-anchor smoke->FULL precedent | 20-anchor (cycle 173 PQ_CONTINUOUS) | 21-anchor (M_init_threshold OOM at scale) | M_init_threshold FULL |
+
+### Substrate-product implication: NEUTRAL
+
+No substrate-product capability is gained or lost in this cycle. The
+8GB VRAM budget bounds what M_init configurations this experiment can
+exercise at N=65536; it does not bound the substrate. Bet A's operating
+point at M_init=8192 remains validated at FULL. The substrate-product
+portfolio at v153 (12 demonstrated capabilities) carries forward
+unchanged.
+
+### Substrate-physics characterization (unchanged from v153)
+
+> "Substrate is in EXPONENTIAL-decay universality class + MULTI-COMPONENT
+> sub-K-region q_overlap order parameter + anti-RM(1,16) coset bias
+> CONFIRMED. Bet A continual-edit ✅ at FULL at M_init=8192 N=65536;
+> capacity ceiling above 8192 not characterized due to GPU memory
+> budget."
+
+### Strategy follow-up actions (cycle 174)
+
+1. **PROT-009 v154 paired commit** — 68th observation
+2. **Exp Dev request filed**: respec `wave14_betA_M_init_threshold_v1`
+   with explicit per-M_init memory budgeting (e.g., free-then-allocate,
+   smaller-N coverage at large M_init, or accept narrower sweep
+   {1024, 2048, 4096} at N=65536 where memory permits)
+3. Strategy continues to wait on cycle 172 pipeline additions FULL
+   (`wave14_pq_high_resolution_v1` FULL) and Block 4-5 pickups from
+   cycle 171 pipeline queue
+4. Read Research `anti_linear_coset_and_15_28_hierarchy_2026-05-23.md`
+   delivery (10:20) on next cycle for substrate-physics integration
+
+### Tally — BETA_M_INIT_UNIFORM_KILL FULL = OOM artifact (not substrate refutation); Bet A axis HOLDS at M_init=8192 v2 FULL; M_init capacity ceiling test 🟡 OOM-inconclusive pending respec; 21st smoke->FULL divergence anchor (OOM direction); no closure row filed (PROT-004/006 not triggered); 68th PROT-009 paired commit
+
+Net effect: substrate-product portfolio at v153 carries forward unchanged;
+Bet A's rescued operating point at M_init=8192 N=65536 remains validated
+at FULL; M_init capacity ceiling question REMAINS OPEN pending a
+memory-budgeted respec routed to Exp Dev; per [[feedback-dont-overextend-theorems]]
+the OOM does not refute the substrate, only the experiment's memory
+allocation strategy.
