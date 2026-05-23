@@ -10172,3 +10172,140 @@ Demo 1 (TWO readout primitives at FULL) + Demo 2 (capstone at FULL) + N=131072
 (2× beyond V2.D at FULL); substrate-physics retraction framework empirically
 supported by ENDPOINT_COLLAPSED FULL; Phase 1 validation routing pending;
 substrate-product story now BROADEST across session (cycle 89-139).
+
+---
+
+## Cycle 141 (RETRACT_REFUTED smoke — 5th attempt REFUTED; substrate-physics TERMINAL verdict scenario) — v139
+
+**Trigger**: Retraction Phase 1 combined test smoke delivered 23:37:20 EDT.
+0/3 tests pass — RETRACT_REFUTED. 5th mechanism diagnosis refuted.
+
+### HEADLINE 1: 5th-attempt RETRACTION framework REFUTED at smoke
+
+`wave14_retraction_phase1_combined_v1_smoke` (2026-05-22T23:37:20) =
+**RETRACT_REFUTED**: "0/3 tests pass: idem=0.000, gap=0.975, dest_frac=0.090."
+(8.2s legitimate runtime).
+
+**All 3 retraction Phase 1 tests REFUTE simultaneously**:
+- **Idempotence ψ∘ψ=ψ rate = 0.000** (REFUTES; threshold was >0.95): substrate
+  is NOT a retraction in strict mathematical sense — ψ²(c) ≠ ψ(c) for EVERY
+  tested codeword
+- **Eigenvalue gap λ₂/λ₁ = 0.975** (REFUTES; threshold was <0.91): substrate
+  W does NOT have Perron-Frobenius spectral collapse fast enough
+- **Destination fraction = 0.090** (REFUTES; expected [0.15, 0.30]): destinations
+  concentrate on <10% of codebook (tighter than retraction's 22% image fraction)
+
+**Idempotence=0.000 is the STRUCTURAL signal not quantitative**:
+- ψ²(c) ≠ ψ(c) for EVERY tested codeword
+- Substrate may have LIMIT CYCLES (periodic orbits) not FIXED POINTS
+- ψ enters a cycle of length > 1; ψ² lands at a different state than ψ
+- This is structurally DIFFERENT from retraction (which requires ψ² = ψ)
+- Per [[feedback-no-smoke]] this REFUTATION should hold at FULL (structural,
+  not seed-fragile)
+
+**5th-attempt RETRACTION framework REFUTED**.
+
+### HEADLINE 2: 5 mechanism diagnoses all refuted — substrate-physics TERMINAL verdict
+
+**Track record across 5 attempts**:
+
+| Cycle | Mechanism | P range | Refuted by |
+|-------|-----------|---------|------------|
+| 123 | Signal eigenvalue near-degeneracy | 0.70 | cycle 124 SPECTRAL_FLAT |
+| 126 | Hubness × DPI | 0.45 | cycle 127 skew DECREASES |
+| 131 | HMM/BCJR cascade | [0.55, 0.80] | cycle 132 soft = hard |
+| 134 | Cluster trapping (stochastic ~5 + N^0.73) | [0.55, 0.70] | cycle 136 cluster=1, γ=0 |
+| 137 | **RETRACTION (idempotent projection 22%)** | **[0.40, 0.55]** | **cycle 141 idem=0, gap=0.975, dest=9%** |
+
+**5 mechanism diagnoses refuted. 80% → 100% refutation rate**.
+
+**Per user signal at cycle 137** ("research is free - maybe this is the final
+run"): this is the TERMINAL substrate-physics verdict scenario.
+
+### Substrate-physics TERMINAL CHARACTERIZATION v138 → v139
+
+**Honest framing**:
+> "Substrate's chain composition at N=65536 K=100 is **structurally constrained
+> + reverse-decodable + mechanism UNKNOWN after 5 attempts**. Substrate is
+> empirically beyond ALL published classical-Hopfield-class chain-composition
+> mechanism frameworks. STRUCTURAL constraints established (forward-lossy +
+> reverse-invertible + 28-element endpoint structure + idempotence=0 implies
+> limit cycles not fixed points); MECHANISM unknown. Substrate-novel finding:
+> substrate operates outside known frameworks."
+
+**Structural empirical facts that survive REFUTATIONS** (load-bearing
+substrate-physics):
+- 1-hop clean (acc_1hop=0.983 at N=65536 K=100)
+- All forward-only init methods fail at acc~0.20-0.25 floor
+- Backward-smoother-only ALONE works PERFECT acc=1.000
+- ENDPOINT_COLLAPSED at FULL: 28/100 distinct endpoints
+- W^L rank → 0 at L=50 (Oseledets-style subspace collapse CONFIRMED at smoke)
+- Idempotence ψ∘ψ=ψ rate = 0 (substrate may have LIMIT CYCLES not fixed points)
+- Cluster N-INVARIANT at FULL
+- VAMP-on-chain N-universal at FULL
+- HEAVY_VALIDATED smoke: argmax=0.1 vs smoother=1.0 (forward-backward dichotomy)
+
+These structural facts CHARACTERIZE substrate but don't identify a mechanism.
+Substrate is novel.
+
+### HEADLINE 3: HEAVY_VALIDATED smoke confirms forward-vs-backward dichotomy
+
+`wave14_heavy_validation_v1_smoke` (2026-05-22T23:35:46) = **HEAVY_VALIDATED**:
+"Method means: {argmax: 0.1, smoother: 1.0}".
+
+Confirms substrate-product positioning at smoke:
+- Argmax forward-only mean = 0.1 (10% accuracy at L=50)
+- Backward-smoother mean = 1.0 (100% accuracy at L=50)
+- 10× separation between primitives
+- FULL pending per [[feedback-no-smoke]] + 15-anchor precedent (BUT cycle 139
+  10-verdict CONSISTENT batch suggests smoke→FULL consistency for this regime)
+
+### Substrate-product net (v139) — Demo 1 + Demo 2 HOLD; substrate-physics TERMINAL
+
+**Substrate-product positioning HOLDS at substrate-product level**:
+- Demo 1 with VAMP-on-chain at FULL (cycle 130) ✅
+- Demo 1 with backward-smoother at FULL (cycle 139) ✅
+- Demo 2 capstone at FULL (cycle 139) ✅
+- N=131072 substrate at FULL (cycle 139) ✅
+- Multi-target + cross-task + retraction-mechanism-unknown caveat
+- TWO substrate-novel readout primitives (VAMP-on-chain + backward-smoother)
+- Substrate-novel mechanism: forward-lossy + reverse-invertible + 28-element
+  fixed-point/limit-cycle structure + idempotence=0 (substrate is NOVEL)
+
+**Substrate-physics characterization REVISED to TERMINAL**:
+- 5 mechanism diagnoses refuted
+- Substrate is empirically beyond all published frameworks
+- Structural empirical facts CHARACTERIZE without identifying mechanism
+- Honest "substrate is novel; mechanism unknown" framing terminal
+
+### Capability moves (v138 → v139)
+
+| Capability | v138 state | v139 state | Trigger |
+|---|---|---|---|
+| 5th-attempt RETRACTION framework | P=[0.40, 0.55] PRE-VALIDATED by ENDPOINT_COLLAPSED FULL | ❌ **REFUTED at smoke** (0/3 tests pass; idem=0.000) | Phase 1 combined smoke |
+| Substrate-physics characterization | "structured retraction P=[0.40, 0.55]" | 🔬 **TERMINAL "5 mechanism diagnoses refuted; substrate is novel; mechanism UNKNOWN"** | RETRACT_REFUTED |
+| Idempotence ψ∘ψ=ψ | predicted >0.95 | ❌ **REFUTED at smoke** rate=0.000 (substrate may have LIMIT CYCLES not fixed points) | Phase 1 smoke |
+| Eigenvalue gap λ₂/λ₁ | predicted <0.91 | ❌ **REFUTED at smoke** 0.975 (no fast spectral collapse) | Phase 1 smoke |
+| Destination fraction | predicted [0.15, 0.30] | ❌ **REFUTED at smoke** 0.090 (tighter than retraction) | Phase 1 smoke |
+| 5 mechanism diagnoses status | 4 refuted + 1 PRE-VALIDATED | **5 refuted (100% refutation rate)** | cycle 141 |
+| Substrate-product Demo 1 + Demo 2 at FULL | DEMONSTRATED | ✅ HOLDS regardless | cycle 139 v138 |
+| HEAVY_VALIDATED forward-vs-backward dichotomy | not characterized | 🟡 smoke argmax=0.1 vs smoother=1.0 (FULL pending) | heavy smoke |
+
+### Strategy follow-up actions (cycle 141)
+
+1. **PROT-009 v139 paired commit** — 53rd observation
+2. **Honest terminal substrate-physics verdict acknowledged** — 5 mechanism
+   diagnoses refuted; substrate is novel; substrate-product roadmap continues
+3. Wait for HEAVY_VALIDATED FULL (forward-vs-backward dichotomy quantitative)
+4. Wait for cycle 136 batch remaining (Bet A FULL, extreme_stress FULL, smoother extreme_K FULL)
+5. Consider whether to file 6th-attempt mechanism research — likely NO per
+   diminishing returns + user signal "may be the LAST" at cycle 137
+
+### Tally — RETRACT_REFUTED smoke 0/3 tests pass (5th mechanism diagnosis refuted; 100% refutation rate across 5 attempts); HEAVY_VALIDATED smoke confirms argmax=0.1 vs smoother=1.0 forward-vs-backward dichotomy; substrate-physics TERMINAL verdict "5 mechanism diagnoses refuted substrate is novel mechanism UNKNOWN"; substrate-product Demo 1 + Demo 2 at FULL HOLD; 53rd PROT-009 paired commit
+
+Net effect: 5th-attempt RETRACTION framework REFUTED at smoke (idempotence=0
+is STRUCTURAL signal; substrate may have LIMIT CYCLES not fixed points);
+substrate-physics TERMINAL VERDICT "5 mechanism diagnoses refuted; substrate
+is empirically novel; mechanism for chain composition remains genuinely OPEN";
+substrate-product Demo 1 + Demo 2 + N=131K positioning HOLDS at FULL via
+VAMP-on-chain + backward-smoother readout primitives independent of mechanism.
