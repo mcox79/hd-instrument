@@ -11348,3 +11348,105 @@ Net effect: substrate-physics gains BROAD K-resonance band finding at FULL
 at FULL (8× V2.D scope); 4 cycle 162 smokes promoted to FULL (3 CONSISTENT +
 1 IMPROVEMENT direction divergence); substrate-physics characterization
 refined v147→v148.
+
+---
+
+## Cycle 168 (META Gap 1+2 FULL mixed + chi_4 FULL CONFIRMED) — v149
+
+**Trigger**: 3 cycle 163+161 FULL conversions delivered 09:16 EDT.
+
+### HEADLINE 1: META Gap 1 CRIT_EXPONENT_EXPONENTIAL PROMOTED to FULL
+
+`wave14_K_ceiling_critical_exponents_v1` FULL (09:16) = **CRIT_EXPONENT_EXPONENTIAL**:
+"exponential r²=0.922."
+
+**Universality class CONFIRMED at FULL**:
+- Smoke r²=0.950; FULL r²=0.922 (slightly weaker but still > 0.85 threshold)
+- Substrate IS in **EXPONENTIAL-decay universality class** at FULL
+- Substrate-physics QUANTITATIVE universality class claim HOLDS at FULL
+- META Gap 1 recommendation VINDICATED at FULL
+
+### HEADLINE 2: META Gap 2 ORDER_PARAM_NONE — smoke→FULL DIVERGENCE 19th anchor
+
+`wave14_substrate_order_parameter_v1` FULL (09:16) = **ORDER_PARAM_NONE**:
+"q_overlap seed-consistency=0.743<0.85."
+
+**19th smoke→FULL DIVERGENCE ANCHOR** in DEGRADATION direction:
+- Smoke: q_overlap seed-consistency=0.940 → ORDER_PARAM_STABLE
+- FULL: q_overlap seed-consistency=0.743 → ORDER_PARAM_NONE
+- Drops below 0.85 threshold at FULL
+- **Parisi-like q_overlap order parameter REFUTED at FULL**
+
+**Substrate has NO stable order parameter** (across the 3 candidates tested:
+φ_distribution, q_overlap, C_endpoint). Cycle 163 v146 substrate-physics
+"QUANTITATIVE class claim with universality + order parameter" needs revision:
+universality class survives, order parameter does NOT.
+
+### HEADLINE 3: chi_4 RS-cert PROMOTED to FULL
+
+`wave14_chi4_dynamic_overlap_v1` FULL (09:16) = **CHI4_RS_CONSISTENT**:
+"chi4 peak=0.45<10 (RS consistent)."
+
+**Observability V2 chi_4 probe CONFIRMED at FULL**:
+- Smoke chi4=0.45; FULL chi4=0.45 (EXACT match smoke→FULL)
+- Substrate's burst-clustering profile RS-consistent at FULL
+- **5th cross-family RS-cert anchor PROMOTED to FULL** (after cycle 122's 4 anchors at FULL)
+
+### Substrate-physics characterization v148 → v149 REVISED
+
+**Honest framing**:
+> "Substrate is in EXPONENTIAL-decay universality class (cycle 168 META Gap 1
+> FULL r²=0.922 CONFIRMED). **No stable order parameter identified** (cycle
+> 168 META Gap 2 FULL q_overlap seed-consistency=0.743 REFUTED; cycle 163 smoke
+> 0.940 STABLE refuted at FULL). Substrate has BROAD K-resonance band K=900-1500
+> with fixed-point structure (NOT Arnold-tongue). ~25% partial idempotence at
+> depth L=50. SHORT LIMIT CYCLES + N-INVARIANT + weakly K-dependent +
+> nearly-degenerate eigenspectrum + 28-element endpoint partition + RS phase
+> (5 cross-family anchors at FULL including cycle 168 chi_4). 6 mechanism
+> diagnoses refuted; substrate-physics POSITIVE characterization PARTIALLY
+> QUANTITATIVE — universality class survives, order parameter does NOT."
+
+**Cycle 163 v146 "QUALITATIVE → QUANTITATIVE" framing PARTIALLY RETRACTED**:
+- Gap 1 universality class: QUALITATIVE → QUANTITATIVE ✅
+- Gap 2 order parameter: still QUALITATIVE (no stable order parameter found)
+- Half of META's recommended upgrade survives FULL discipline
+
+### Capability moves (v148 → v149)
+
+| Capability | v148 state | v149 state | Trigger |
+|---|---|---|---|
+| EXPONENTIAL universality class | smoke r²=0.950 | ✅ **CONFIRMED at FULL r²=0.922** | Gap 1 FULL |
+| Parisi-like q_overlap order parameter | smoke STABLE 0.940 | ❌ **REFUTED at FULL 0.743** (19th smoke→FULL DIVERGENCE) | Gap 2 FULL |
+| chi_4 RS-cert | smoke 0.45 | ✅ **CONFIRMED at FULL 0.45** (5th cross-family at FULL) | chi_4 FULL |
+| 18-anchor smoke→FULL precedent | 18-anchor | **19-anchor** (order_param IMPROVEMENT→DEGRADATION direction; smoke was wrong) | Gap 2 FULL |
+| Substrate-physics characterization | QUANTITATIVE (universality + order parameter) | 🔬 **PARTIALLY QUANTITATIVE** (universality class only; no stable order parameter) | Gap 2 FULL |
+
+### Substrate-product net (v149)
+
+**Substantive substrate-physics gain (PARTIAL)**:
+- Universality class EXPONENTIAL CONFIRMED at FULL (META Gap 1 ✓)
+- chi_4 RS-cert at FULL (5th cross-family anchor)
+
+**Substantive substrate-physics caveat**:
+- Order parameter NOT identified at FULL (META Gap 2 ✗; smoke claim REFUTED)
+- v146 "QUANTITATIVE characterization" framing retracted to PARTIAL
+
+**Substantive substrate-product holds at v148**:
+- Demo 1 + Demo 2 + N=524K FULL + 240 envelope cells + 2 readout primitives equivalent
+- BROAD K-resonance band K=900-1500 at FULL
+
+### Strategy follow-up actions (cycle 168)
+
+1. **PROT-009 v149 paired commit** — 63rd observation
+2. Wait for remaining cycle 162 batch FULLs (K1000_eigenspectrum + K_resonance_wide_sweep)
+3. Wait for Observability V2 remaining probes (Kovacs + avalanche)
+4. Consider strategy direction: with order parameter REFUTED at FULL, do we
+   need to investigate WHY substrate has universality class but no stable order
+   parameter? — Substrate-physics observation worth noting
+
+### Tally — META Gap 1 CRIT_EXPONENT_EXPONENTIAL CONFIRMED at FULL r²=0.922 (universality class HOLDS); META Gap 2 ORDER_PARAM_NONE at FULL 0.743 19th smoke→FULL DIVERGENCE DEGRADATION direction; chi_4 RS-cert CONFIRMED at FULL 5th cross-family anchor; substrate-physics PARTIALLY QUANTITATIVE (universality only); 63rd PROT-009 paired commit
+
+Net effect: substrate-physics characterization PARTIALLY QUANTITATIVE at FULL —
+universality class EXPONENTIAL CONFIRMED but order parameter UNSTABLE; chi_4
+RS-cert confirms 5 cross-family anchors at FULL; substrate-product holds at
+v148 level.
