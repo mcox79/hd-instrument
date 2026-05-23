@@ -10741,3 +10741,119 @@ Net effect: substrate-physics characterization refined to N-INVARIANT +
 K-SCALES + K-RESONANCE at FULL; K=1000 anomaly (period 1 fixed points)
 substantive substrate-novel observation; substrate-product holds at v141
 level via 2 readout primitives + Demo 1 + Demo 2 + N=262K.
+
+---
+
+## Cycle 160 (Research K-resonance + fresh angles deliveries; Arnold-tongue framework P=[0.30, 0.50]) — v144
+
+**Trigger**: Two Research deliveries since cycle 159:
+1. `research_K_resonance_2026-05-23.md` (06:57 EDT; 7-min turnaround on cycle 159 routing)
+2. `research_fresh_angles_quirky_matsci_2026-05-23.md` (06:58 EDT; user-triggered fresh angles)
+
+### HEADLINE 1: K-RESONANCE — Arnold-tongue mode-locking framework (NOT Kerdock-algebraic)
+
+**Agent X verdict**: **NO algebraic Kerdock feature singles out K=1000**.
+- N=65536 → m=16; Kerdock K(16) has 2^32 codewords; RM(1,16) has 131,072; 32,767 cosets
+- K=1024 (2^10) is 2.4% mismatch from K=1000 — too far for power-of-2 alignment
+- K=1000 misses ALL Kerdock algebraic boundaries
+
+**Agent Y verdict**: **Arnold-tongue mode-locking** is best framework (P=0.45):
+- Iterated argmax-W^L produces Devil's-staircase period-vs-K curve
+- Fixed-point plateaus at rational eigenvalue ratios λ₁/λ₂ ∈ {2.0, 1.5, 1.333, 3.0}
+- K=1000 likely lands at such a resonance via K-dependent eigenspectrum
+- Other frameworks (Sharkovsky, Feigenbaum, Flajolet-Odlyzko, Furstenberg-Kesten)
+  all fail to fit observation
+
+**HONEST P=[0.30, 0.50]** calibration-deflated:
+- Lower 0.30: 80% prior refutation rate; specific K-prediction uncertain
+- Upper 0.50: Arnold-tongue mechanism is structurally well-defined and
+  empirically tractable
+
+**Refined substrate-physics framing** (Research insight):
+> "Substrate's iterated argmax-W^L map ψ is a **K-DEPENDENT dynamical system**
+> with attractor structure varying between FIXED POINTS (specific K resonances)
+> and LIMIT CYCLES (generic K). The retraction framework (cycle 137 Entry 156)
+> holds at specific K values like K=1000; at other K values substrate produces
+> limit-cycle attractors. K-resonance is most plausibly dynamical-systems
+> phenomenon (mode-locking on K-dependent eigenspectrum) NOT algebraic-Kerdock-
+> specific phenomenon."
+
+### HEADLINE 2: Falsifiable predictions — eigenvalue ratio at K=1000 (cheapest)
+
+**Test 5 — Spectral eigenvalue ratio check at K=1000** (~5 min CPU):
+- Compute W's top-10 eigenvalues at K=1000
+- HARD PASS: λ₁/λ₂ ∈ {2.0, 1.5, 1.333, 3.0} ± 0.01 (commensurability confirmed)
+- HARD FAIL: λ₁/λ₂ irrational (e.g., 1.732, 2.718) (commensurability refuted)
+
+**CHEAPEST decisive test** for Arnold-tongue framework.
+
+Other tests (cycle 160 routing P1-P2-P3-P4 already filed in cycle 160
+`7138bc9`):
+- K=800-1200 fine sweep (find anomaly boundary)
+- K-resonance at 333, 500, 2000, 3000 (rational ratios of K=1000)
+- W randomization control (structural vs universal)
+- Sharkovsky co-existence at K=5000 period 42
+
+### HEADLINE 3: 3 fresh research angles (user-triggered Research direction)
+
+`research_fresh_angles_quirky_matsci_2026-05-23.md` provides 3 substrate-product
+oriented research angles:
+
+**Angle 1 — Observability Suite V2** (P=0.40-0.55; CHEAPEST, total <10 min):
+- **chi_4 dynamic overlap variance** (Berthier 2010): detects "burst clustering"
+  invisible to single-replica P(q); 30 sec per N=65k
+- **Kovacs hump (double-quench)** (cond-mat/0512186): probes hidden internal
+  state degrees; ~5 min 3-phase sweep
+- **Avalanche size distribution** (Sci Rep 2021): P(ΔE) power-law slope
+  predicts smooth-cascade vs avalanche-trapping; ~1 min 1000 inits
+
+**Angle 2 — Absorbing Discrete Diffusion Ensemble Smoother / Bet Z.5** (P=0.40):
+- arXiv:2507.07586 (2025) PROVES O(1/√K) Bayesian posterior recovery
+- NEW capability over VAMP: posterior error CERTIFICATE + per-codeword variance
+- Substrate fit: bit-flip channel structurally identical to substrate per-hop noise
+- Cost: ~4-6 hrs impl + 2-3 GPU-hrs validation
+
+**Angle 3 — Bundle Decomposition via AMP Backward Inference** (P=0.35):
+- Forward-lossy axis extension to other substrate primitives
+- (Details in Research note section c)
+
+### Capability moves (v143 → v144)
+
+| Capability | v143 state | v144 state | Trigger |
+|---|---|---|---|
+| K-RESONANCE mechanism | discovered (K=1000 anomaly) | 🔬 **Arnold-tongue mode-locking P=[0.30, 0.50]** (NOT Kerdock-algebraic) | Research delivery |
+| Kerdock algebraic K=1000 hypothesis | candidate | ❌ **REFUTED** by Agent X (no algebraic Kerdock boundary at K=1000) | Research |
+| Substrate-physics characterization | "N-invariant + K-SCALES + K-resonance" | 🔬 refined: "K-DEPENDENT dynamical system with attractor structure varying between fixed points and limit cycles via Arnold-tongue mode-locking" | Research |
+| Observability Suite V2 | not characterized | 🔬 **3 cheap probes proposed** (chi_4 + Kovacs + avalanche; P=0.40-0.55) | Fresh angles |
+| Bet Z.5 Absorbing Diffusion Ensemble | not in framework | 🔬 **NEW candidate** P=0.40 with posterior error certificate | Fresh angles |
+| K-resonance falsification tests | not specified | ⚪ Routing already filed cycle 160 `7138bc9` Priority 1-4 | cycle 160 |
+
+### Substrate-product net (v144)
+
+**Substantive substrate-physics gain**:
+- K-RESONANCE mechanism candidate identified (Arnold-tongue mode-locking)
+- Kerdock-algebraic explanation REFUTED
+- Substrate-physics characterization refined to K-DEPENDENT dynamical system
+- 3 new observability probes proposed for substrate characterization gain
+- Bet Z.5 NEW readout primitive candidate with posterior error certificate
+
+**Substrate-product holds at v141 level**:
+- Demo 1 + Demo 2 + N=262K + envelope cells + 2 readout primitives intact
+
+### Strategy follow-up actions (cycle 160)
+
+1. **PROT-009 v144 paired commit** — 58th observation
+2. **File Strategy → Exp Dev for Test 5 (eigenvalue ratio at K=1000)** —
+   cheapest decisive test for Arnold-tongue framework (~5 min CPU)
+3. **File Strategy → Exp Dev for Observability Suite V2** — cheap probes
+   (chi_4 + Kovacs + avalanche; <10 min total)
+4. **Defer Bet Z.5** to substantive routing (4-6 hrs impl + 2-3 GPU-hrs validation)
+5. Continue waiting for cycle 156 routing pickup + cycle 160 K-resonance routing pickup
+
+### Tally — K-RESONANCE Research delivered Arnold-tongue mode-locking P=[0.30, 0.50] (NOT Kerdock-algebraic); Fresh angles Research delivered Observability Suite V2 (chi_4 + Kovacs + avalanche) + Bet Z.5 + Bundle Decomposition; substrate-physics characterization refined to K-DEPENDENT dynamical system Arnold-tongue mode-locking; 58th PROT-009 paired commit
+
+Net effect: substrate-physics WHY question advances via Arnold-tongue
+mode-locking framework (eigenvalue commensurability at K-dependent eigenspectrum);
+3 new observability probes + Bet Z.5 candidate readout primitive proposed;
+substrate-product holds at v141 level; cheap eigenvalue spectral test
+decisive for Arnold-tongue framework validation.
