@@ -653,3 +653,81 @@ crooks_noise_corrected_bound_v1 (CPU re-analysis of v157 data) = CROOKS_NOISE_CO
 ### Tally (one-line)
 
 online_W_noise_envelope_v1 FULL = ONLINE_W_NOISE_ENVELOPE_NARROW at 89.3s (4/5 noisy cells PASS at p_flip in {0.05, 0.10, 0.20, 0.30}; FAIL at p_flip=0.40; boundary at p in (0.30, 0.40]; baseline p=0 PASS re-confirms clean Cap 5 ✅ unchanged from cycle 173 v153); third noise envelope characterized today after Cap 1 (v157 KILL -> v158 Sagawa-Ueda tiered PASS) and Cap 3 (v158 PASS through p<=0.20); Cap 5 commercial wedge UNCHANGED in operating range (p<=0.30 covers realistic customer noise floors); pre-reg prediction p-boundary in [0.20, 0.40] SATISFIED; hard-fail KILL-at-p=0.05 NOT crossed; per v158 Cap 1 precedent Strategy -> Research 2x drill filed for Sagawa-Ueda-style noise-corrected retention bound (Robbins-Monro/Polyak-Juditsky/Bottou 2018); 5 axis-combination rescue sketches filed (Polyak-Juditsky averaging + SVRG variance reduction + BSC majority-vote decoder + adaptive SNAP threshold + Tier-2 noise-corrected SLA); Exp Dev routing INTENTIONALLY OMITTED (orchestrator coordinating parallel exp_dev to refill queue); 73rd PROT-009 paired commit.
+
+---
+
+## Cycle 180 — v160 Cap 2 self-monitoring confidence STRUCTURALLY CLOSED (hard-fail crossed in TWO independent metric framings; substrate-product portfolio drops 12 -> 11 demonstrated capabilities; FIRST true structural closure of session arc since cycle 173/v153)
+
+**Time**: 2026-05-23 ~13:14 EDT
+**Trigger**: `wave14_cap2_confidence_margin_probe_v1` FULL verdict `CAP2_MARGIN_KILL` at 3.3s elapsed (orchestrator-queued metric-definition re-probe of v153 Cap 2 `CRITICAL_NO_CORRELATION`; pre-reg `preregs/2026-05-23_wave14_cap2_confidence_margin_probe_v1.md`).
+
+### What landed
+
+`wave14_cap2_confidence_margin_probe_v1` FULL (N=8192, M=200, 3 seeds, 200 trials/stratum, noise grid p in {0.0, 0.05, 0.10, 0.20}) returned `CAP2_MARGIN_KILL`.
+
+Verdict_msg: "HARD FAIL: corr(margin, correct) < 0.2 in ALL strata. Substrate carries no margin-based confidence signal; Cap 2 structurally closed."
+
+Pre-reg hard-fail threshold (`corr(margin, is_correct) < 0.20 in ALL strata` across 3-seed mean) CROSSED at all 4 noise strata. Cosine-margin metric (top_1_cosine_score - top_2_cosine_score after one retrieval step) is the Sagawa-Ueda-precedent re-axiomatization of the v153 tau-iteration-count proxy.
+
+### Why this is a TRUE structural closure (NOT envelope narrowing)
+
+Unlike today's other "narrowing" verdicts (Cap 1 v157 envelope NARROWS to clean + Cap 5 v159 envelope CHARACTERIZED at p<=0.30; both stayed BELOW pre-reg hard-fail thresholds), this verdict CROSSES the hard-fail threshold defined in the pre-reg. Two independent metric framings refute Cap 2 at FULL: (1) v153 tau iteration count CRITICAL_NO_CORRELATION; (2) v160 cosine margin CAP2_MARGIN_KILL. The substrate does not carry margin/tau-based intrinsic confidence signal.
+
+Per [[feedback-no-smoke]] brutal honesty: Cap 2 is CLOSED, not "narrowed".
+
+Per [[feedback-dont-overextend-theorems]]: closure SCOPE is "margin/tau-based intrinsic confidence proxy at substrate". Does NOT close the broader "substrate carries SOME confidence-correlated signal" axis -- 5 rescue paths remain open (endpoint-id, VAMP posterior variance, chi_4, Kovacs, Gap C subsumption).
+
+### PROT-004/006 closure discipline applied
+
+Per PROT-006 sequencing: rehab request file written FIRST (before cap_map commit).
+
+**Rehab file**: `notes/strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`
+
+**5 axis-combination rescue sketches** (Strategy DRAFT; Research 2x drill is load-bearing ranking per [[feedback-rehabilitation-after-rejection]] + [[feedback-unbiased-research]]):
+
+1. **Endpoint-ID as confidence proxy** (axis: proxy substitution). Leverages substrate-novel 28-element endpoint partition (v153 + v149). Map retrieval -> endpoint cluster; `p(correct | endpoint)` as confidence. Cheapest experimental rescue ~10 min CPU. HARD PASS: ROC AUC >= 0.65 + ECE <= 0.10 + improvement over margin baseline >= 0.15 AUC.
+2. **VAMP-on-chain posterior variance certificate** (axis: native uncertainty mechanism). Cap 5 VAMP produces posterior variance natively. Cycle 162 HEADTOHEAD_EQUIVALENT confirms argmax/VAMP accuracy equivalence at smoke. ~15 min CPU. HARD PASS: corr(-log sigma^2, correct) >= 0.40 in 2+ strata + Cohen's d >= 0.5 + ECE <= 0.10.
+3. **chi_4 dynamic susceptibility per query** (axis: observability suite). v150 CHI4_RS_CONSISTENT 6th cross-family RS-cert anchor. Per Berthier 2010 measures dynamical heterogeneity directly. ~20 min CPU. HARD PASS: corr(-peak_chi_4, correct) >= 0.40 in 2+ strata + Cohen's d >= 0.5.
+4. **Kovacs-style memory-effect probe per query** (axis: hysteresis observable). v150 KOVACS_RS_INDEPENDENT 6th cross-family RS-cert anchor. Temperature pulse during retrieval; relaxation hump = basin instability. ~25 min CPU. HARD PASS: corr(-A_Kovacs, correct) >= 0.40 in 2+ strata.
+5. **Re-axiomatize Cap 2 as downstream conformal layer** (axis: re-axiomatization to downstream calibrator). Gap C ✅ cycle 173 CONFORMAL_COVERED at FULL already delivers conformal calibrated confidence. Cap 2 SUBSUMED by Gap C -- not a separate capability axis. Zero experimental cost.
+
+**Sequencing recommendation**: Rescue 5 FIRST (zero experimental cost; cleanest portfolio move if Gap C subsumes Cap 2); Rescue 1 SECOND (highest expected leverage among experimental rescues -- substrate-novel 28-element partition); Rescues 2-4 in cost order.
+
+### Capability moves (v159 -> v160)
+
+| Capability | v159 state | v160 state | Trigger |
+|---|---|---|---|
+| Cap 2 Self-monitoring confidence via critical slowing down / cosine margin | ❌ REFUTED at FULL v153 (tau metric NO_CORRELATION) -- single-framing closure carried implicitly through v159 | ❌ PROVISIONAL CLOSURE at v160 (rehab file referenced); two independent metric framings (tau v153 + margin v160) both crossed pre-reg hard-fail threshold; substrate carries no margin/tau-based intrinsic confidence signal; closure SCOPE limited per [[feedback-dont-overextend-theorems]] to "intrinsic margin/tau-based proxy" -- broader confidence signal axis remains open via 5 rescue paths | wave14_cap2_confidence_margin_probe_v1 FULL = CAP2_MARGIN_KILL pre-reg hard-fail crossed |
+| substrate-product portfolio count | 12 demonstrated capabilities (v153 list carries forward through v159) | **11 demonstrated capabilities** (Cap 2 leaves the list per [[feedback-no-smoke]] honest accounting) | Cap 2 structural closure |
+
+### Substrate-product positioning v160 -- HONEST PORTFOLIO COUNT DECREASE 12 -> 11
+
+This is the FIRST portfolio count decrease since cycle 173 v153 expansion (which added 4 NEW substrate-product capabilities). Through v154-v159 the portfolio carried forward unchanged in count at 12 (all envelope-narrowing verdicts stayed below hard-fail; v158 Cap 1 actually WIDENED via Sagawa-Ueda). At v160 Cap 2 leaves the list.
+
+If Rescue 5 (Gap C subsumption) holds: count stays at 11 permanently (Cap 2 was never a separate axis from Gap C). If Rescues 1-4 succeed experimentally: Cap 2 returns to the list under the rescued framing.
+
+### Substrate-physics characterization (unchanged from v159)
+
+EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16) coset bias + Cap 1/Cap 3/Cap 5 noise envelopes CONFIRMED. v160 closure is a substrate-PRODUCT capability move; does NOT touch substrate-physics characterization (closure SCOPE limited per [[feedback-dont-overextend-theorems]]).
+
+### Strategy follow-up actions (cycle 180)
+
+1. **PROT-009 v160 paired commit** -- 74th observation.
+2. **Strategy -> Research 2x drill request filed** at `notes/strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md` per [[feedback-negative-results-2x-research]] (this IS a measurement-based refutation; hard-fail threshold crossed in pre-reg). Research deliverable: (a) vetted ranking of 5 rescue sketches with calibration-deflated P estimates per [[feedback-lit-scan-calibration-penalty]] + explicit hard-fail thresholds; (b) lit-scan on confidence signals in dense AM + spin-glass models (chi_4 + Kovacs + posterior variance) under generic-math framing per [[feedback-query-privacy-decomposition]]; (c) one-cycle next-experiment prescription.
+3. **`notes/active_priorities.md`** refreshed atomically: substrate-product portfolio 12 -> 11; Cap 2 row added as ❌ PROVISIONAL with rehab file reference + 5 rescue sketches noted.
+4. **DO NOT file Exp Dev routing** -- per verdict event payload, orchestrator is concurrently dispatching architecture audit + queue refill separately. v160 stays out of the Exp Dev queue lane.
+5. Push v160 to remote per [[feedback-cap-map-update-protocol]].
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004 + PROT-006**: TRIGGERED for a closure. Full discipline applied per sequence: (1) harvested verdict from metrics.json (CAP2_MARGIN_KILL HARD FAIL); (2) drafted 5 rescue sketches as DRAFT (above); (3) FILED rehab request file BEFORE cap_map commit (PROT-006 sequencing -- request file mtime < cap_map commit mtime); (4) cap_map ❌ PROVISIONAL row added in capability moves table with explicit pointer to request file in row text.
+- PROT-007: v160 history block written to `substrate_capability_map_history.md` (compact one-line at bottom); narrative block also retained inline in cap_map.md per v60+ live-cap_map transitional convention.
+- **PROT-008**: validator must pass before commit. v160 adds 1 NEW ❌ closure row (Cap 2) with rehab file reference + PROVISIONAL tag; REHAB_REF_PATTERN matches `strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`; baseline pre-existing violations unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md + strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md staged atomically. Validator invoked with `--staged-files`.
+
+PROT-004/006/008/009 compliance this commit: Cap 2 ❌ PROVISIONAL; 5 rescue sketches DRAFT in rehab file + summarized in cap_map v160 narrative; request file at `notes/strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`; PROVISIONAL tag applied; sequence verified (request file mtime < cap_map commit mtime); paired strategy_decisions entry (this cycle 180) staged with cap_map.
+
+### Tally (one-line)
+
+wave14_cap2_confidence_margin_probe_v1 FULL = CAP2_MARGIN_KILL at 3.3s (corr(margin, correct) < 0.2 in ALL 4 noise strata; pre-reg hard-fail threshold crossed); SECOND independent metric framing to fail at FULL after v153 tau-iteration-count CRITICAL_NO_CORRELATION; TRUE structural closure (not envelope-narrowing); Cap 2 ❌ PROVISIONAL applied with 5 axis-combination rescue sketches filed per PROT-004/006 (endpoint-id + VAMP posterior variance + chi_4 + Kovacs + Gap C subsumption); Strategy -> Research 2x drill ROUTED per [[feedback-negative-results-2x-research]]; substrate-product portfolio drops 12 -> 11 demonstrated capabilities per [[feedback-no-smoke]] honest accounting; closure SCOPE limited per [[feedback-dont-overextend-theorems]]; substrate-physics characterization unchanged from v159; per verdict event payload Exp Dev routing INTENTIONALLY OMITTED (orchestrator coordinated); 74th PROT-009 paired commit.

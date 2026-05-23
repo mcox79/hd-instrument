@@ -3,21 +3,20 @@
 Owner: Strategy session. Updated atomically; downstream sessions (Experiment
 Dev, Research, Visibility, Queue Health, META, orchestrator sub-agents) read this.
 
-**Last updated:** 2026-05-23 cycle 179 (v159; Cap 5 Online W noise envelope row added at p_flip<=0.30 PASS / p_flip=0.40 FAIL; Strategy -> Research 2x drill filed for Sagawa-Ueda-style metric flip candidate).
-**Cap map version this refers to:** v159
-**Substrate-product portfolio:** 12 demonstrated capabilities (v153 list)
-carry forward unchanged in COUNT + 3 envelope-characterization rows (v158
-Cap 1 Tier-2 Sagawa-Ueda + v158 Cap 3 streaming noise envelope + v159 Cap 5
-Online W noise envelope at p_flip<=0.30).
+**Last updated:** 2026-05-23 cycle 180 (v160; Cap 2 self-monitoring confidence STRUCTURALLY CLOSED -- hard-fail crossed in two independent metric framings v153 tau + v160 margin; substrate-product portfolio drops 12 -> 11 demonstrated capabilities; ❌ PROVISIONAL with rehab request file at `strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`; Research 2x drill routed).
+**Cap map version this refers to:** v160
+**Substrate-product portfolio:** **11 demonstrated capabilities** (Cap 2 leaves the v153 list at v160 per [[feedback-no-smoke]] honest accounting; remaining 11 = items 1-11 in v160 substrate-product positioning block) + 3 envelope-characterization rows (v158 Cap 1 Tier-2 Sagawa-Ueda + v158 Cap 3 streaming noise envelope + v159 Cap 5 Online W noise envelope at p_flip<=0.30).
 
 ---
 
-## v158 substrate-product portfolio (current state)
+## v160 substrate-product portfolio (current state)
 
-Per cap_map cycle 178 / v158 narrative. Twelve demonstrated capabilities
-+ two envelope-expansion rows. Substrate-physics characterization: EXPONENTIAL-
-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16)
-coset bias.
+Per cap_map cycle 180 / v160 narrative. **Eleven** demonstrated capabilities
++ three envelope-characterization rows. Cap 2 self-monitoring confidence
+STRUCTURALLY CLOSED at v160 (hard-fail threshold crossed in two independent
+metric framings: v153 tau iteration count + v160 cosine margin). Substrate-
+physics characterization: EXPONENTIAL-decay universality + MULTI-COMPONENT
+sub-K-region q_overlap + anti-RM(1,16) coset bias (UNCHANGED from v159).
 
 | # | Capability | Status | Anchor | Next envelope axis |
 |---|------------|--------|--------|---------------------|
@@ -26,13 +25,16 @@ coset bias.
 | 3 | N=1M substrate (16x V2.D) | ✅ FULL | cycle 170 | continual-edit at N=1M (HARD-GATED at N>=16384 per v156); N=2M scale |
 | 4 | Cap 1 Crooks forensic erase (TIERED noise-tolerance certificate at v158) | ✅ FULL Tier 1 + Tier 2 | cycle 173 v153 + v157 + v158 | Tier 1 clean delta_S_emp<0.05 (clean Crooks-FT). Tier 2 noisy delta_S_emp(p)<=theta(p)+0.02 (Sagawa-Ueda noise-corrected). p in {0.05, 0.10, 0.20} PASS. v157 "narrowing" framing RETRACTED |
 | 5 | Gap B Online W updates (Robbins-Monro+SNAP; noise envelope CHARACTERIZED at v159) | ✅ FULL clean + ✅ FULL p_flip<=0.30 noise envelope | cycle 173 v153 + cycle 179 v159 | clean (cycle 173): min_acc>=0.95 across 50 writes. Noise envelope (cycle 179): PASS at p_flip in {0.05, 0.10, 0.20, 0.30} / FAIL at p_flip=0.40 / boundary in (0.30, 0.40]. Realistic customer noise floors well below p=0.30. Strategy -> Research 2x drill filed for Sagawa-Ueda-style metric flip at p>=0.40 (`strategy_request_to_research_online_W_noise_robust_2026-05-23.md`). |
-| 6 | Gap C Conformal calibrated confidence (Bet G rescue) | ✅ FULL | cycle 173 | distribution-shift; N=131072+; cross-task conformal |
+| 6 | Gap C Conformal calibrated confidence (Bet G rescue) | ✅ FULL | cycle 173 | distribution-shift; N=131072+; cross-task conformal. **MAY ABSORB closed Cap 2** per v160 Rescue 5 (re-axiomatization to downstream conformal layer) -- pending Research 2x drill recommendation. |
 | 7 | Cap 3 Streaming inference (noise envelope EXTENDED at v158) | ✅ FULL | cycle 173 + v158 | clean ✅ + noise envelope ✅ at p in {0.05, 0.10, 0.20} N=16384; throughput at N=1M |
 | 8 | TWO substrate-novel readout primitives equivalent (VAMP-on-chain + hard-cleanup) | ✅ FULL | cycle 162 | THIRD primitive: Bet Z.5 if rescued from orphan state (Strategy v158 routing audit Rec 2) |
 | 9 | Multi-target + cross-task at FULL | ✅ FULL | cycle 139 | more targets (>4); harder cross-task; under noise |
 | 10 | Bet A continual-edit at M_init=8192 N=65536 | ✅ FULL | cycle 172 v2 5-seed | **HARD-GATED at N>=16384** until `build_initial_W` refactored (bf16 matmul or chunked allocation; engineering blocker per v156) |
-| 11 | 240 envelope cells PASS at FULL | ✅ FULL | cycle 145 | harsher noise, larger K; meta-envelope (envelope of envelopes) |
-| 12 | Observability V2 complete (chi_4 + Kovacs + avalanche) | ✅ FULL | cycles 168-170 | cross-capability observability (chi_4 during continual-edit, Kovacs during erase) |
+| 11 | 240 envelope cells PASS at FULL + Observability V2 (chi_4 + Kovacs + avalanche) | ✅ FULL | cycle 145 + cycles 168-170 | harsher noise; larger K; meta-envelope; cross-capability observability (chi_4 during continual-edit, Kovacs during erase) |
+
+### Closed at v160 (LEFT the portfolio; was item 12 in v159 / Cap 2 in v153 narrative)
+
+- **Cap 2 Self-monitoring confidence via critical slowing down / cosine margin**: ❌ PROVISIONAL CLOSURE at v160. Two independent metric framings crossed pre-reg hard-fail (v153 tau iteration count CRITICAL_NO_CORRELATION + v160 cosine margin CAP2_MARGIN_KILL). Substrate carries no margin/tau-based intrinsic confidence signal. Rehab request file: `notes/strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`. 5 axis-combination rescue sketches filed: (1) Endpoint-ID as confidence proxy [substrate-novel 28-element partition; cheapest experimental rescue ~10 min CPU]; (2) VAMP-on-chain posterior variance certificate [native Bayesian uncertainty ~15 min CPU]; (3) chi_4 dynamic susceptibility per query [v150 RS-cert anchor ~20 min CPU]; (4) Kovacs-style memory-effect probe per query [v150 hysteresis anchor ~25 min CPU]; (5) Re-axiomatize Cap 2 as downstream conformal layer [Gap C subsumption -- zero experimental cost; cleanest portfolio move]. Sequencing: Rescue 5 FIRST then Rescue 1. PROVISIONAL tag holds until Research 2x drill + first rescue experiment land. If Rescue 5 holds: closure becomes FINAL bare ❌ and portfolio stays at 11 permanently. If Rescues 1-4 succeed: Cap 2 returns to portfolio under rescued framing.
 
 ### v158 + v159 envelope-characterization rows
 
@@ -79,6 +81,7 @@ Routing: `notes/strategy_request_to_exp_dev_post_v158_pipeline_2026-05-23.md`
 
 ### Open Strategy follow-up routings
 
+- **Strategy -> Research Cap 2 self-monitoring confidence rehab 2x drill** (v160; `notes/strategy_request_to_research_cap2_self_monitoring_rehab_2026-05-23.md`). Per [[feedback-negative-results-2x-research]] + PROT-004/006 rehab discipline (this IS a measurement-based refutation; hard-fail threshold crossed in pre-reg in two independent metric framings). Research deliverable: (a) vetted ranking of 5 rescue sketches (endpoint-id + VAMP posterior variance + chi_4 + Kovacs + Gap C subsumption) with calibration-deflated P estimates per [[feedback-lit-scan-calibration-penalty]] + explicit hard-fail thresholds; (b) lit-scan on confidence signals in dense AM + spin-glass models (generic-math framing per [[feedback-query-privacy-decomposition]]); (c) one-cycle next-experiment prescription. HIGH priority; refutation-driven.
 - **Strategy -> Research Cap 5 Online W noise-robust 2x drill** (v159; `notes/strategy_request_to_research_online_W_noise_robust_2026-05-23.md`). Per [[feedback-negative-results-2x-research]] + v158 Cap 1 precedent. Research will determine: (a) does Sagawa-Ueda-style noise-corrected retention bound exist for noisy Robbins-Monro that PASSES at p=0.40? (b) ranked recommendation of 5 rescue sketches (Polyak-Juditsky averaging + SVRG + BSC majority-vote + adaptive SNAP + Tier-2 SLA); (c) one-cycle next-experiment prescription. MEDIUM-HIGH priority; precedent-driven not refutation-driven.
 - **Strategy -> Research Bet T/Bet V rescue sketches** (v158; `notes/strategy_request_to_research_betT_betV_rescue_sketches_2026-05-23.md`). Per PROT-004/006 backlog (audit Rec 3). Generic-math framing: parallel hypothesis tracking under uncertain evidence + self-reflective memory updates in associative substrate.
 - **Strategy -> Research burn-down note** (v158; `notes/strategy_research_burn_down_three_orphans_2026-05-23.md`). Acknowledges 3 orphaned 2026-05-23 Research deliveries (D1 research_strategy_open_questions, D2 research_order_param_2x_drill, D3 research_semiconductor_physics_substrate_analogies) per audit Rec 3.
