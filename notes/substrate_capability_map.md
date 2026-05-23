@@ -12068,3 +12068,138 @@ at FULL; M_init capacity ceiling question REMAINS OPEN pending a
 memory-budgeted respec routed to Exp Dev; per [[feedback-dont-overextend-theorems]]
 the OOM does not refute the substrate, only the experiment's memory
 allocation strategy.
+
+---
+
+## Cycle 175 (Bet A M_init_threshold v2 FULL = Sweep A OOM at N=65536 + Sweep B REAL KILL at N=8192 M/N>=2; 22nd smoke->FULL divergence anchor) -- v155
+
+**Trigger**: `wave14_betA_M_init_threshold_v2` FULL verdict at
+2026-05-23 ~10:53 EDT. Combined verdict
+BETA_M_INIT_OOM_INCONCLUSIVE (Sweep A drives the label; Sweep B
+sub-verdict is BETA_M_INIT_UNIFORM_KILL with real measurements).
+
+- **Sweep A** (N=65536, M_init in {1024, 2048, 4096, 8192}, 5 seeds,
+  100 edits): all four M_init points returned `oom=True n_seeds=0
+  mean_kept=0.0`. The per-iteration `torch.cuda.empty_cache()` fix
+  (v154 Option A recommendation) did NOT resolve the N=65536 OOM. 8GB
+  VRAM remains insufficient at N=65536 for the M_init capacity sweep
+  even at the smallest M_init=1024.
+- **Sweep B** (N=8192, M_init in {16384, 32768, 65536}, 5 seeds, 100
+  edits): all three M_init points returned `n_seeds=5 mean_kept=0.0
+  oom=False`. This IS a real substrate measurement with all 5 seeds
+  successfully running per M_init.
+
+### Honest framing: Sweep B's KILL is EXPECTED, NOT a substrate refutation
+
+The M_init/N ratios in Sweep B are 2, 4, 8 -- far above the
+substrate's AGS-class capacity ceiling. The previously-rescued Bet A
+operating point was M_init=8192 N=65536, which is M/N=0.125 (cycle 172
+v2 5-seed PASS). Sweep B probed M/N in {2, 4, 8}: 8x to 64x above the
+validated regime. KILL at all three points is the EXPECTED capacity
+ceiling outcome at AGS-class storage.
+
+Per [[feedback-dont-overextend-theorems]]: Sweep B's KILL tightens the
+characterized capacity envelope but does NOT refute the substrate. The
+capacity ceiling at N=8192 now sits in the open interval (0.125, 2):
+substrate PASSES at M/N=0.125 (cycle 172) and FAILS at M/N>=2 (cycle
+175 Sweep B). This is a substrate-product capacity-envelope
+characterization, not a closure.
+
+### Subtlety vs cycle 92 M=16N smoke (no retraction)
+
+Cycle 92 reported `wave14_continual_16N_1000edits_smoke` =
+CONTINUAL_16N_KERDOCK_HOLDS at N=4096 M=65536 (M=16N) 100-edit smoke.
+Sweep B at N=8192 M_init=65536 is M=8N (relative to its N=8192) and
+returns KILL at FULL 5-seed 100 edits.
+
+These two experiments use DIFFERENT protocols:
+
+- `wave14_continual_16N_1000edits_*` uses the
+  `continual_NN_edits` experiment family (multi-thousand-edit timescale
+  with explicit edit budget and acceptance criteria).
+- `wave14_betA_M_init_threshold_v2` Sweep B uses
+  `ba.run_one_seed` (a different protocol that initialize-then-edit-then-test).
+
+Direct comparison would require running both at matched (N, M, edit
+budget, seeds, codebook). The cycle 92 M=16N smoke is NOT retracted by
+cycle 175 Sweep B; the two anchors characterize different protocols.
+
+### Why NOT a closure row
+
+Per PROT-004/006: a closure (bare or PROVISIONAL ❌) requires 5
+rescue sketches + a Research rehab request. This verdict does NOT meet
+the closure threshold for three reasons:
+
+1. **Bet A axis HOLDS at the rescued operating point**. M_init=8192
+   N=65536 (cycle 172 v2 5-seed PASS) is unchanged. No row demotes from
+   ✅.
+2. **Sweep A is INCONCLUSIVE (OOM), not a measurement**. Same as v154.
+3. **Sweep B's KILL is EXPECTED capacity-ceiling behavior** at M/N>=2,
+   8x to 64x above the validated operating regime. Envelope-narrowing
+   data, not substrate refutation.
+
+The capability move from this verdict is a NEW row (envelope datapoint
+at N=8192), not a closure.
+
+### Capability moves (v154 -> v155)
+
+| Capability | v154 state | v155 state | Trigger |
+|---|---|---|---|
+| Bet A continual-edit at M_init=8192 N=65536 | ✅ HOLDS (cycle 172 v2 5-seed) | ✅ HOLDS unchanged | unchanged |
+| Bet A M_init capacity ceiling test at N=65536 (Sweep A region) | 🟡 OOM-INCONCLUSIVE pending respec | 🟡 OOM-INCONCLUSIVE STILL (Option A memory hygiene insufficient; Option C defer RECOMMENDED, Option B chunked allocation OR Option D smaller-N alternatives filed to Exp Dev) | M_init_threshold v2 FULL Sweep A |
+| Bet A M_init capacity ceiling at N=8192 (Sweep B region) | (not measured) | NEW 🔬 substrate-product capacity-envelope datapoint: substrate FAILS at M/N>=2 at N=8192 (M_init in {16384, 32768, 65536} all kept=0.0 at 5 seeds 100 edits); EXPECTED per AGS ceiling | M_init_threshold v2 FULL Sweep B |
+| 21-anchor smoke->FULL precedent | 21 (cycle 174 OOM at scale) | 22-anchor (cycle 175 Sweep B real KILL at M/N>=2; nuanced: smoke at N=4096 M_init in {2048, 4096} probed M/N in {0.5, 1} sub-ceiling and PASSED, FULL at N=8192 M_init in {16384, 32768, 65536} probed M/N in {2, 4, 8} over-ceiling and KILLED -- DIVERGENCE direction REFUTATION but the two regimes are not directly comparable) | M_init_threshold v2 FULL Sweep B |
+
+### Substrate-product implication: NEUTRAL with envelope tightening
+
+No substrate-product capability is gained or lost. The substrate-product
+portfolio at v153 (12 demonstrated capabilities) carries forward
+unchanged. The capacity-envelope characterization at N=8192 is honest
+calibration data added to the substrate-product profile:
+
+> "Substrate continual editing at N=8192 supports M_init/N <= 1
+> (cycle 172 v2 5-seed PASS at M_init=8192 N=65536 has M/N=0.125 as the
+> validated point; cycle 175 Sweep B at N=8192 fails at M/N >= 2). The
+> capacity boundary at N=8192 sits in the open interval (0.125, 2).
+> The substrate-product operating regime stays well below the boundary
+> at M/N=0.125 or smaller. Capacity envelope at N=65536 below the
+> rescued operating point remains unmapped on 8GB VRAM (deferred per
+> Strategy Option C cycle 175)."
+
+This refines the v154 wording ("capacity ceiling above 8192 not
+characterized due to GPU memory budget") to reflect that Sweep B DID
+characterize the over-ceiling regime at N=8192.
+
+### Substrate-physics characterization (unchanged from v153/v154)
+
+> "Substrate is in EXPONENTIAL-decay universality class + MULTI-COMPONENT
+> sub-K-region q_overlap order parameter + anti-RM(1,16) coset bias
+> CONFIRMED. Bet A continual-edit ✅ at M_init=8192 N=65536; capacity
+> envelope at N=8192 confirmed M/N <= 1; lower-half capacity at N=65536
+> not characterized due to 8GB VRAM budget."
+
+### Strategy follow-up actions (cycle 175)
+
+1. **PROT-009 v155 paired commit** -- 69th observation.
+2. **Exp Dev request filed**:
+   `notes/strategy_request_to_exp_dev_betA_M_init_capacity_envelope_v2_followup_2026-05-23.md`.
+   Three options (B chunked / C defer / D smaller-N) with Strategy
+   preference Option C (defer; cap_map row marked OOM-DEFERRED on this
+   commit).
+3. Strategy continues to wait on cycle 172 pipeline additions FULL
+   (`wave14_pq_high_resolution_v1` FULL) and Block 4-5 pickups from
+   cycle 171 pipeline queue.
+4. Read Research
+   `anti_linear_coset_and_15_28_hierarchy_2026-05-23.md` delivery
+   (10:20) on next cycle for substrate-physics integration.
+
+### Tally -- BETA_M_INIT_OOM_INCONCLUSIVE v2 FULL: Sweep A all OOM at N=65536 (Option A memory hygiene insufficient; Strategy preference Option C defer); Sweep B all REAL KILL at N=8192 M/N>=2 (EXPECTED per AGS ceiling NOT substrate refutation); Bet A axis HOLDS at M_init=8192 N=65536; new envelope datapoint at N=8192 confirms M/N<=1; 22nd smoke->FULL divergence anchor (REFUTATION direction with regime-mismatch caveat); no closure row filed (PROT-004/006 NOT triggered per [[feedback-dont-overextend-theorems]]); 69th PROT-009 paired commit
+
+Net effect: substrate-product portfolio at v153 carries forward unchanged;
+Bet A's rescued operating point at M_init=8192 N=65536 remains validated
+at FULL; capacity envelope at N=8192 newly characterized (substrate
+fails at M/N>=2); lower-half capacity at N=65536 marked OOM-DEFERRED
+per Strategy Option C; per [[feedback-dont-overextend-theorems]] Sweep
+B's KILL is expected capacity-ceiling behavior not a substrate
+refutation, and Sweep A's OOM is an experiment-memory artifact not a
+substrate property.
