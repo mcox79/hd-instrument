@@ -11591,3 +11591,137 @@ via multi-component sub-K-region order parameter (Research distributional
 framework VINDICATED); substrate-product positioning extends to N=1M (16× V2.D)
 at FULL; 6th cross-family RS-cert anchor at FULL; Observability V2 complete;
 substrate-product axis closure (Bet A continual-edit) at 5-seed FULL.
+
+---
+
+## Cycle 171 (3 substantive Research deliveries + PQ_DIST_OP_FAIL refines OP picture) — v151
+
+**Trigger**: 2 Research deliveries (09:49 substrate_capabilities + 09:56 META_gaps_closing) + 1 new smoke (09:58 PQ_DIST_OP_FAIL).
+
+### HEADLINE 1: 🏆 4 NEW substrate capability candidates (Research substrate_capabilities)
+
+`research_substrate_capabilities_not_being_probed_2026-05-23.md` (09:49) —
+4-framework theorem-anchoring (drift-diffusion ≡ BP + non-self-averaging P(q)
++ marginal stability gapless Hessian + RM(1,16) geometric 25%) IMPLIES 4
+NEW substrate capabilities NOT currently probed:
+
+| # | Capability | Theorem source | Class | P |
+|---|---|---|---|---|
+| 1 | **Crooks-ratio forensic erase audit** | drift-diffusion ≡ BP + Crooks FT | **Class 1 COMMERCIAL WEDGE** | **0.55** |
+| 2 | Self-monitoring confidence via critical slowing down | marginal stability gapless Hessian | Class 3 (provenance) | 0.50 |
+| 3 | Steady-state continuous streaming inference | drift-diffusion NESS | Class 1 + throughput | 0.48 |
+| 4 | Phase-detection self-introspection via P(q) shape | non-self-averaging P(q) OP | Class 3 (provenance) | 0.47 |
+
+**Key**: ALL 4 use existing substrate infrastructure (VAMP smoother + P(q)
+measurement + Hadamard bind). Cheapest substrate-capability extensions.
+
+**Cap 1 Crooks-ratio forensic erase = HIGHEST substrate-product VALUE**:
+- Maps to capability class 1 (verifiable forensic erase) = substrate-product
+  commercial wedge
+- Operational: WRITE Hadamard bind → ERASE Hadamard bind (self-inverse) →
+  AUDIT log-ratio = empirical entropy production ΔS_emp
+- Verdict: ΔS_emp < ε → erase VERIFIED; large → partial with quantitative residual
+
+### HEADLINE 2: 🏆 3 META substrate-product breakout gap rescue paths
+
+`research_META_gaps_closing_2026-05-23.md` (09:56) — META identified 3 gaps
+limiting substrate-product breakout; Research delivered 3 rescue paths:
+
+| Gap | Diagnosis | Rescue path | P | Cheap test |
+|-----|-----------|-------------|---|-----------|
+| **A. M-storage collapse at N=65536** | Finite-N to thermodynamic-limit transition (57× gain at N=4096 was finite-N artifact) | **Spatially-coupled codebook + block-VAMP** (Kudekar 2013 threshold saturation THEOREM) | 0.45 | Phase-boundary N-sweep ~1 day |
+| **B. Online W updates not demonstrated** | Substrate has structural property but capability undemonstrated | **Robbins-Monro + SNAP saturation guard** (Xu 2024 arXiv:2410.15318) | 0.50 | Sequential 50-write test with retrieval check |
+| **C. Calibrated confidence at N=65536** (Bet G killed) | TEMPSCALE β-scaling FAILS structurally at N=65536 | **P(q) bootstrap + conformal prediction wrapper** | 0.55 (conformal CP 0.65 theorem-backed) | 50-seed P(q) bootstrap + conformal coverage check |
+
+**Key**: ALL 3 rescue paths use EXISTING substrate infrastructure (VAMP +
+local-additive W + P(q) overlap measurement). No new architecture.
+
+### HEADLINE 3: PQ_DIST_OP_FAIL smoke — global distributional OP REFUTED
+
+`wave14_pq_distributional_op_v1_smoke` (09:58) = **PQ_DIST_OP_FAIL**:
+"mean(P(q))=0.125<0.85; substrate genuinely lacks OP."
+
+**Cycle 170 Priority A (50-seed P(q) global distributional) REFUTED at smoke**:
+- Global P(q) mean=0.125 (well below 0.85 threshold)
+- Substrate does NOT have global single-component distributional OP
+
+**BUT cycle 170 ORDER_PARAM_SUB_REGION_STABLE at FULL still holds**:
+- Multi-component sub-K-region q_overlap STABLE (consistencies 0.879/0.876/0.954)
+- Substrate HAS multi-component order parameter
+- Substrate does NOT have global single-component distributional OP
+
+**Refined substrate-physics**: substrate's order parameter is **multi-component
+NOT global distributional**. Both Research framings have substrate-physics merit:
+- Global P(q) distributional: REFUTED at smoke (cycle 170 P-A)
+- Sub-K-region q_overlap multi-component: STABLE at FULL (cycle 170 P4)
+
+### Substrate-physics characterization v150 → v151 REFINED
+
+> "Substrate is in EXPONENTIAL-decay universality class + **MULTI-COMPONENT
+> sub-K-region q_overlap order parameter** (cycle 170 ORDER_PARAM_SUB_REGION_STABLE
+> at FULL consistencies 0.879/0.876/0.954). Substrate does NOT have global
+> single-component distributional OP (cycle 171 PQ_DIST_OP_FAIL smoke). Order
+> parameter is sub-region-specific not global. ~25% partial idempotence
+> (RM(1,16) geometric origin candidate via Research substrate_capabilities) +
+> BROAD K-resonance band K=900-1500 + SHORT cycles + N-INVARIANT + nearly-degenerate
+> eigenspectrum + 28-element endpoint partition + RS phase (6 cross-family at
+> FULL) + non-ABBM avalanche. Substrate-physics QUANTITATIVE characterization
+> with multi-component OP (NOT global)."
+
+### Substrate-product gaps + rescue paths (META + Research v151 anchor)
+
+**Gap A M-storage collapse at N=65536**:
+- Cycle 132 Bet C M/N=0 at N=65536 (was M/N=8 at N=4096 = 57× AGS)
+- Cycle 132 Bet A KILL at N=65536 (was M=16N at N=4096)
+- Cycle 168 Bet G TEMPSCALE KILL at N=65536
+- ALL 3 = finite-N to thermodynamic-limit transition per Research P=0.45
+- Rescue: spatially-coupled codebook + block-VAMP (Kudekar 2013 THEOREM)
+
+**Gap B Online W updates**:
+- Substrate has local-additive W (no autograd; cycle 89 capability)
+- BUT no demonstration of catastrophic-forgetting-resistant online updates
+- Rescue: Robbins-Monro + SNAP (Xu 2024 arXiv:2410.15318)
+
+**Gap C Calibrated confidence**:
+- Cycle 168 Bet G TEMPSCALE KILLED at N=65536 (β-scaling fails structurally)
+- Rescue: P(q) bootstrap + conformal prediction (theorem-backed coverage)
+
+### Capability moves (v150 → v151)
+
+| Capability | v150 state | v151 state | Trigger |
+|---|---|---|---|
+| 4 NEW substrate capability candidates | not framed | 🔬 **DELIVERED** Crooks forensic erase + self-monitoring + streaming + P(q) introspection | Research substrate_capabilities |
+| 3 META substrate-product breakout rescue paths | not framed | 🔬 **DELIVERED** spatially-coupled codebook + Robbins-Monro/SNAP + P(q) bootstrap+conformal | Research META_gaps |
+| Crooks-ratio forensic erase | not characterized | 🔬 **NEW Cap 1 candidate** P=0.55 commercial wedge | Research |
+| Global distributional P(q) | hypothesized (Research 2x drill) | ❌ **REFUTED at smoke** (cycle 170 P-A; mean=0.125<0.85) | PQ_DIST_OP smoke |
+| Multi-component sub-K-region q_overlap | STABLE at FULL (v150) | ✅ STILL HOLDS (cycle 170 FULL) | -- |
+| Substrate-product breakout paths | identified but no concrete rescue | 🔬 **3 rescue paths with P=0.45-0.65** (concrete cheap empirical tests) | Research META_gaps |
+
+### Substrate-product net (v151)
+
+**Major substantive substrate-product gain via Research**:
+- 4 NEW capability candidates (Crooks forensic erase = commercial wedge)
+- 3 META gap rescue paths (M-storage + Online W + Calibrated confidence)
+- ALL use existing substrate infrastructure
+
+**Substrate-physics refinement**:
+- Multi-component OP STABLE (sub-region); global single-component REFUTED
+- Substrate-physics QUANTITATIVE characterization holds at v150 level
+
+### Strategy follow-up actions (cycle 171)
+
+1. **PROT-009 v151 paired commit** — 65th observation
+2. **File Strategy → Exp Dev for cheapest highest-value tests**:
+   - Cap 1 Crooks-ratio forensic erase audit (Class 1 commercial wedge; cheapest)
+   - Gap B Online W updates (Robbins-Monro+SNAP; sequential 50-write)
+   - Gap C P(q) bootstrap + conformal prediction (~50-seed P(q) reuse + coverage)
+3. Defer Gap A spatially-coupled codebook (~1 day; more substantial)
+4. Wait for cycle 170 P-B coset-count + P-C RM(1,16) projection + P-D discrete spikes pickup
+
+### Tally — 4 NEW substrate capabilities + 3 META rescue paths from Research substantive deliveries; PQ_DIST_OP_FAIL global REFUTED but multi-component sub-region STABLE holds; substrate-physics refined; substrate-product gains 7 NEW candidate experiment directions (4 caps + 3 rescues); 65th PROT-009 paired commit
+
+Net effect: Research delivered MASSIVE substrate-product roadmap expansion
+— 4 capability candidates + 3 META gap rescue paths; cheapest highest-leverage
+is Cap 1 Crooks-ratio forensic erase audit (Class 1 commercial wedge);
+substrate-physics characterization refined (multi-component OP holds, global
+single-component REFUTED).
