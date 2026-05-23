@@ -8746,3 +8746,128 @@ Next:
 - File cluster census routing
 - Notify Product of substrate-physics characterization gain
 - Watch dashboard for Bet A FULL + extreme_stress FULL + smoother K-stress FULL + cluster census verdict
+
+---
+
+## Cycle 135 — Research ADDENDUM + backward-smoother-only envelope EXPANSION (2026-05-22 ~21:30 EDT)
+
+User signal: "check"
+
+Two major findings this cycle:
+
+1. **Research ADDENDUM delivered 21:23 EDT** — 3-min Strategy→Research turnaround
+   on cycle 133 ADDENDUM (Strategy filed at 21:20; Research delivered at 21:23
+   = fastest Strategy→Research turnaround of session)
+2. **5 substantive backward-smoother-only verdicts** EXPANDING operating envelope
+
+WHY-reasoning for v134 cap_map update:
+
+**Why Research ADDENDUM is substantive even without fresh lit-scan**:
+- Cycle 133 empirical findings (WARMSTART + PFAIL + N-sweep) were filed in
+  Strategy ADDENDUM to refine constraint stack
+- Research addendum integrates these findings into cycle 134 cluster-trapping
+  framework
+- ALL 3 cycle 133 findings are PREDICTED by cluster-trapping mechanism:
+  - WARMSTART_RESCUES → backward-warmstart provides cluster-member identity
+  - PFAIL_HIGHER plateau above cascade → 1/cluster_size = 0.20 floor independent of per-hop noise
+  - VAMP N-universal + argmax non-monotonic → cluster N-sensitive but
+    cluster-resolution mechanism N-universal
+- Score IMPROVES from 6.5/7 to 8/8 — first attempt to fit ALL constraints
+- P=[0.55, 0.70] is HIGHEST across 4 attempts; substrate-physics characterization
+  candidate has best evidence to date pending cluster census
+
+**Why backward-smoother-only envelope expansion is substrate-product significant**:
+- Cycle 128 VAMP-on-chain operating envelope: K=5000 + d=200 + 10% noise + N=65536
+- Cycle 135 backward-smoother-only envelope: K=20K smoke + d=500 FULL + 30% noise
+  FULL + N-universal FULL
+- **Backward-smoother-only has SUBSTANTIALLY WIDER operating envelope at FULL**
+  in 3 axes (depth 2.5×, noise 3×, N range 5 values)
+- K-ceiling 4× wider at smoke (FULL pending)
+- This is a SECOND substrate-novel readout primitive with even better envelope
+- Substrate-product positioning gains second anchor: "TWO substrate-novel
+  readout primitives — VAMP-on-chain forward-backward EP + backward-smoother-only
+  message-passing"
+
+**Why SMOOTHER_DEPTH_HIGH at FULL extends to d=500**:
+- Cycle 134 smoke showed d=100 only ("SMOOTHER_DEPTH_LIMITED Only to d=100")
+- Cycle 135 FULL: SMOOTHER_DEPTH_HIGH "Holds to d=500: {50: 1.0, 100: 1.0,
+  200: 1.0, 500: 1.0}"
+- 15th smoke→FULL divergence anchor (IMPROVEMENT direction)
+- Smoke→FULL pattern continues — smoke is unreliable; FULL needed for product positioning
+
+**Why NOISE_ROBUST at 30% is consistent across smoke→FULL**:
+- Smoke: passed at 10%
+- FULL: passes at 5%, 10%, 20%, 30% all acc=1.000
+- No smoke→FULL divergence at noise sweep (FULL stronger than smoke as expected for noise sweeps)
+
+**Why NSWEEP_ALL_PASS confirms N-universal at FULL**:
+- Smoke: N=4096+8192 both pass
+- FULL: N=4096+8192+16384+32768+65536 all pass with acc=1.000
+- Backward-smoother-only is N-universal at FULL (5 N values)
+- Stronger evidence than VAMP-on-chain cycle 134 N-sweep (which was at single test)
+
+**Why EXTREME_K_20K + MEGA at smoke pending FULL per [[feedback-no-smoke]]**:
+- 14-anchor smoke→FULL bidirectional precedent: K=20K could pass FULL or fail
+- Cannot promote K=20K to substrate-product positioning without FULL
+- Same for MEGA_BROAD_ENVELOPE 3/3 cells
+
+**Why this is the strongest substrate-physics candidate across 4 attempts**:
+- Cluster-trapping P=[0.55, 0.70] — highest range across 4 attempts
+- 8/8 constraint signature (vs cycle 131 HMM 6/7 then refuted; cycle 134 cluster
+  6.5/7)
+- 3 independent Sonnet agents converged (cluster-trapping at Entry 154)
+- Cross-N quantitative match (1/cluster_size matches plateau at multiple N)
+- Cluster census Phase 1 is single decisive test — cheap discriminator
+
+Capability moves (v133 → v134):
+
+| Capability | v133 state | v134 state |
+|---|---|---|
+| Cluster-trapping mechanism | 6.5/7 P=[0.45, 0.60] | 8/8 P=[0.55, 0.70] (HIGHEST across 4) |
+| Backward-smoother-only chain depth | not characterized | d=500 FULL |
+| Backward-smoother-only noise tolerance | not characterized | 30% bit-flip FULL |
+| Backward-smoother-only N-universality | confirmed single test | PROVEN at FULL N=4096-65536 all |
+| Backward-smoother-only K-ceiling | mid-confirmed K=1000 | K=20K smoke (FULL pending) |
+| Substrate-product readout primitives | 1 (VAMP-on-chain) | 2 (VAMP-on-chain + backward-smoother-only) |
+| Substrate-product operating envelope | K=5000+d=200+10%noise | EXPANDED via backward-smoother-only |
+| 15th smoke→FULL divergence anchor | 14-anchor | 15-anchor (smoother_depth smoke→FULL IMPROVEMENT) |
+
+PROT compliance:
+- 48th PROT-009 paired commit
+- PROT-005 unbiased framing: cluster-trapping P=[0.55, 0.70] reported with
+  honest 71% prior refutation track record acknowledgment; backward-smoother-only
+  envelope expansion reported with smoke caveats (K=20K and MEGA still smoke)
+- Cycle 124 chronological full-list scan discipline maintained
+
+Strategy follow-up actions (cycle 135):
+1. PROT-009 v134 paired commit (this cycle)
+2. **Notify Product session**: substrate-product positioning EXPANDS via
+   backward-smoother-only — d=500/30% noise/N-universal at FULL + K=20K smoke;
+   TWO substrate-novel readout primitives now validated
+3. Wait for cluster census Phase 1 verdict (cycle 134 routing `40f9e1f`)
+4. Wait for Bet A FULL + extreme_stress FULL + smoother extreme_K FULL + smoother mega FULL
+
+Substrate-product net (v134):
+
+**Major substantive substrate-physics gain**:
+- Cluster-trapping framework P=[0.55, 0.70] HIGHEST across 4 attempts
+- 8/8 constraint signature (best ever)
+- Pending cluster census Phase 1 verdict
+
+**Major substantive substrate-product gain**:
+- Backward-smoother-only is SECOND substrate-novel readout primitive
+- Wider operating envelope than VAMP-on-chain (2.5× depth, 3× noise, N-universal at FULL)
+- Substrate-product positioning gains second anchor for Demo 1 narrative
+
+**Honest framing**:
+- Cluster-trapping mechanism candidate has best evidence yet but P=[0.55, 0.70]
+  not promoted to characterization without cluster census FULL
+- Substrate-physics characterization "forward-lossy + reverse-invertible"
+  HOLDS at FULL regardless of cluster census outcome
+- TWO readout primitives is substantive substrate-product positioning gain
+
+Next:
+- File Strategy → Product update on TWO readout primitives + envelope expansion
+- Watch for cluster census FULL verdict
+- Watch for extreme_K + mega backward-smoother-only FULL verdicts
+- Watch for Bet A FULL
