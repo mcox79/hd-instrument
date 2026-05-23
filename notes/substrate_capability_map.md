@@ -10437,3 +10437,97 @@ empirical observation NOT another mechanism hypothesis; substrate-product
 Demo 1 5-seed + N=262K + 8 burst variants all PASS at smoke (FULL pending);
 substrate-physics WHY question RECONCILED via limit-cycle framework rather
 than mechanism diagnosis.
+
+---
+
+## Cycle 145 (Cycle 144 batch FULL conversions + 7 overnight ON_ENVELOPE batch — substrate-physics LIMIT_CYCLE CONFIRMED at FULL) — v141
+
+**Trigger**: Cycle 144 batch (3 priority + 8 burst) FULL conversions delivered
+~00:49 EDT; PLUS 7 new overnight experiments at ~120s each ALL ON_ENVELOPE
+(24/24 cells pass per experiment = 168/168 cells total).
+
+### HEADLINE 1: 🔬 LIMIT_CYCLE_DETECTED at FULL — substrate-physics POSITIVE characterization CONFIRMED
+
+`wave14_substrate_limit_cycle_period_v1` FULL (2026-05-23T00:49:08) =
+**LIMIT_CYCLE_DETECTED**: smoke→FULL CONSISTENT.
+
+**Substrate-physics characterization v140 → v141 PROMOTED to FULL**:
+- Substrate W^L produces LIMIT CYCLES at depth — CONFIRMED at FULL
+- Substrate-novel deterministic dynamical-system class with structured limit-cycle orbits
+- substrate-novel finding that 5 prior mechanism attempts missed — NOW at FULL
+- Substrate-physics WHY question RECONCILED via limit-cycle framework (not mechanism diagnosis)
+
+### HEADLINE 2: Demo 1 5-seed PASS at FULL with proper variance estimate
+
+`wave14_demo_1_smoother_5seed_v1` FULL (2026-05-23T00:49:13) =
+**DEMO_1_SMOOTHER_5SEED_PASS**: "mean=0.997, stdev=0.007."
+
+**Demo 1 multi-seed FULL hardening**:
+- 5 seeds × Lane D 3-stage pipeline at N=65536 with backward-smoother
+- mean=0.997, stdev=0.007 PASS (threshold mean≥0.95, stdev<0.05)
+- Substrate-product Demo 1 capstone hardened per Research playbook 5-seed discipline
+- Slight degradation vs smoke (1.000) but well within threshold
+
+### HEADLINE 3: N=262K substrate at FULL — 4× beyond V2.D scope CONFIRMED
+
+`wave14_substrate_N262144_v1` FULL (2026-05-23T00:49:18) = **N262K_SCALES**:
+"acc=1.000>=0.5; substrate scales 4x beyond V2.D."
+
+**Substrate scope EXTENDED at FULL**:
+- Bet Y V2.D scope: N=65536
+- Cycle 139 N=131K at FULL (2× beyond V2.D)
+- **Cycle 145 N=262K at FULL (4× beyond V2.D)**
+- Substrate-product positioning extends to N=262144 at FULL
+
+### HEADLINE 4: 7 OVERNIGHT experiments ALL ON_ENVELOPE — 168/168 cells PASS
+
+`wave14_overnight_1_v1` through `wave14_overnight_7_v1` ALL = **ON_ENVELOPE**:
+"24/24 cells pass >=0.5" at ~120s each (legitimate runtime).
+
+**Comprehensive envelope characterization**:
+- 7 overnight FULL experiments × 24 envelope cells = **168/168 cells PASS at FULL**
+- Substrate-product operating envelope ROBUST across overnight batch
+- Each ~2 minutes legitimate runtime (not test-scaffold)
+- Substantial multi-axis empirical validation
+
+### Capability moves (v140 → v141)
+
+| Capability | v140 state | v141 state | Trigger |
+|---|---|---|---|
+| LIMIT_CYCLE_DETECTED | smoke (cycle 144) | ✅ **CONFIRMED at FULL** smoke→FULL CONSISTENT | limit_cycle FULL |
+| Substrate-physics POSITIVE characterization | smoke evidence | ✅ **CONFIRMED at FULL** — substrate W^L produces limit cycles | limit_cycle FULL |
+| Demo 1 with backward-smoother 5-seed | smoke (cycle 144) | ✅ **FULL PASS** mean=0.997, stdev=0.007 | demo_1_5seed FULL |
+| N=262K substrate scope | smoke (cycle 144) | ✅ **FULL PASS** 4× beyond V2.D | N262K FULL |
+| 7 OVERNIGHT envelope cells | not tested | ✅ **168/168 cells PASS at FULL** | overnight 1-7 |
+| Substrate-product operating envelope | cycle 135 8 mega + cycle 144 8 burst | ✅ **+168 overnight cells PASS at FULL** | overnight batch |
+| 8 BURST_PASS variants | smoke | ✅ **all PROMOTED to FULL** (cycle 144 8th = FULL 00:49:05) | burst variants FULL |
+
+### Substrate-product net (v141) — substrate-physics POSITIVE + substrate-product EXPANDED at FULL
+
+**Major substrate-physics gain at FULL**:
+- LIMIT_CYCLE_DETECTED at FULL CONFIRMS substrate-novel characterization
+- Substrate-physics WHY question RESOLVED via limit-cycle framework (positive empirical characterization, not mechanism hypothesis)
+- 5/5 mechanism diagnoses refuted; 1/1 positive characterization CONFIRMED at FULL
+- Substrate-novel deterministic dynamical-system class identified
+
+**Major substrate-product gain at FULL**:
+- Demo 1 5-seed PASS at FULL (mean=0.997, stdev=0.007)
+- N=262K substrate at FULL (4× beyond V2.D)
+- 168/168 overnight envelope cells PASS at FULL (comprehensive validation)
+- Substrate-product positioning COMPREHENSIVELY VALIDATED
+
+### Strategy follow-up actions (cycle 145)
+
+1. **PROT-009 v141 paired commit** — 55th observation
+2. Wait for cycle 136 batch remaining items (Bet A FULL, extreme_stress FULL,
+   smoother extreme_K FULL) + retraction Phase 1 FULL
+3. Consider Strategy → Product update on substrate-physics POSITIVE
+   characterization at FULL + substrate-product expansion to N=262K
+
+### Tally — Cycle 144 batch FULL conversions ALL smoke→FULL CONSISTENT (LIMIT_CYCLE FULL substrate-physics POSITIVE CONFIRMED + Demo 1 5-seed FULL mean=0.997 + N=262K FULL 4× beyond V2.D + 8 BURST_PASS FULL); 7 overnight ON_ENVELOPE 168/168 cells PASS at FULL; substrate-novel finding (LIMIT CYCLES) CONFIRMED at FULL substantive substrate-physics characterization gain; 55th PROT-009 paired commit
+
+Net effect: substrate-physics POSITIVE characterization (limit cycles)
+CONFIRMED at FULL; substrate-product positioning COMPREHENSIVELY VALIDATED at
+FULL via Demo 1 5-seed + N=262K + 168 overnight envelope cells; substrate-physics
+WHY question RESOLVED via empirical characterization not mechanism diagnosis;
+substrate-product story BROADEST + DEEPEST across session.
