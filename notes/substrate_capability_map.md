@@ -13323,3 +13323,107 @@ Strategy DOES recommend an experiment by name for the GPU refill: `wave14_R_tran
 BATCHED VERDICTS v163 -> v164: wave14_free_cumulants_kerdock_v1 GPU FULL = FREE_CUMULANTS_DIVERGE (5/5 cells exceed 20% kappa_n deviation; max_dev=1.125 at kappa_4 alpha=2.00; **formal spectral mechanism** for v163 AMP_SE_DIVERGES established) + wave14_glauber_kerdock_v2 CPU FULL = GLAUBER_BIMODAL_KERDOCK (12/18 low-T cells bimodal; max bimodal_score=1.000 at beta=2.00 alpha=0.05; Cap 3 streaming-NESS framing extends from drift-diffusion to discrete-spin Glauber-Hopfield); v164 adds TWO new evidence-strength rows (substrate-physics free-cumulant fingerprint 🟢; Cap 3 Glauber-Hopfield extension 🟢); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (no closure, no new portfolio ✅); v163 AMP_SE_DIVERGES claim "outside AMP universality class" gains SPECTRAL MECHANISM (higher kappa_n in R-transform != 0); Cap 3 NESS framing widens from continuous-state drift-diffusion to discrete-spin Glauber-Hopfield; v164 motivates VAMP-SE-on-Kerdock with measured R-transform follow-up (deferred to Research's next cycle); per [[feedback-dont-overextend-theorems]] no row closed; per [[feedback-pipeline-pacing]] GPU queue=0 -> exp_dev dispatched for ONE GPU refill (wave14_R_transform_kerdock_v1_multi_N direct R-transform multi-N scaling); CPU has 2 pending (S_transform + parisi) -- NOT refilled; smoke->FULL broad anchors +2 by cell-extension (28 total broad / 25 strict); 78th PROT-009 paired commit.
 
 Net effect: v163 AMP_SE_DIVERGES claim gains spectral mechanism (Verdict A) + Cap 3 NESS framing extends to discrete-spin Glauber-Hopfield (Verdict B); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED; two new evidence-strength rows added (substrate-physics + Cap 3 extension); pipeline-pacing GPU refill dispatched; CPU not refilled (2 pending).
+
+---
+
+## Cycle 185 (BATCHED: S-transform multiplicative free-prob axis corroborates v164a + Parisi P(q) under-resolution inconclusive) -- v165
+
+**Pair of verdicts processed together (batched-mode verdict_handler); single paired commit covers both findings. These verdicts arrived from the S_transform + parisi entries left in remote_cpu_queue post-v164.**
+
+### Verdict A: wave14_S_transform_kerdock_v1 (Remote CPU / remote_cpu_queue, ~531.8s elapsed)
+
+**Verdict tag**: S_TRANSFORM_DIVERGE
+**Verdict_msg**: "Kerdock S-transform coefficients deviate from MP baseline. 5/5 cells exceed 20% deviation; max_dev=1.000 at alpha=4.00, S_1. The multiplicative free-convolution structure of the Kerdock spectrum is non-MP, independently corroborating the free-cumulant probe and providing a second algebraic-free-probability axis on which the substrate departs from AMP universality."
+
+### Verdict B: wave14_parisi_pq_kerdock_v1 (Remote CPU / remote_cpu_queue, ~24.4s elapsed)
+
+**Verdict tag**: PARISI_INCONCLUSIVE
+**Verdict_msg**: "Mixed low-T shapes: {'continuous': 0, 'two_deltas': 0, 'paramagnet': 1, 'undetermined': 11}. Need longer chains or finer T grid."
+
+### Why these go together
+
+Verdict A and Verdict B are the two remaining drills from the v164-era 3-CPU batch (`notes/exp_dev_to_queue_cpu_drill_batch_2026-05-23.md`). Together they were pre-registered as the "multi-axis non-MP signature" probe: free-cumulants (additive free-prob) + S-transform (multiplicative free-prob) + Parisi P(q) (replica overlap distribution) on the same Kerdock 4-coset codebook. Verdict A succeeds and lands the second algebraic-free-prob axis. Verdict B is under-resolved (24.4s on CPU; chains too short, T-grid too coarse) -- INCONCLUSIVE, not refutation.
+
+### Capability moves (v164 -> v165)
+
+| Capability | v164 state | v165 state | Trigger |
+|---|---|---|---|
+| **Substrate-physics: free-cumulant fingerprint distinguishes Kerdock from MP (R-transform structure)** | 🟢 single-N N=1024 5/5 cells; want N=4096+ multi-N + Wigner null baseline before promotion to ✅ | 🟢 **UNCHANGED in state but STRENGTHENED by cross-axis corroboration**: the v164a "free-prob fingerprint" claim is now an additive-AND-multiplicative free-prob claim (additive R-transform via free cumulants kappa_n + multiplicative free-convolution via S-transform). The promotion criterion (N=4096+ multi-N + Wigner null) is UNCHANGED -- cross-axis corroboration does NOT substitute for N-scaling validation. The queued `wave14_R_transform_kerdock_v1_multi_N` (running on GPU) is what gates the 🟢 -> ✅ promotion. Per [[feedback-dont-overextend-theorems]] do not prematurely promote on second-axis evidence when the explicit criterion is N-scaling. | Verdict A interaction with v164a row |
+| **Substrate-physics: outside-AMP-universality at SE-fixed-point level (v163; mechanistically explained v164)** | mechanistically explained via R-transform higher kappa_n (additive free-prob) | **STRENGTHENED**: now mechanistically anchored on TWO independent algebraic axes -- additive (R-transform higher kappa_n != 0; v164) AND multiplicative (S-transform coefficients deviate from MP closed form 1/(c+z); v165). The substrate's departure from AMP universality is not a free-cumulants-only artifact; it shows in both the additive and multiplicative free-convolution structures. | Verdict A interaction with v163 + v164a |
+| **Substrate-product portfolio count** | 11 demonstrated capabilities (UNCHANGED at v164) | **11 demonstrated capabilities UNCHANGED** -- no closure event, no new ✅ row crosses portfolio threshold. Verdict A is an evidence-strength expansion of the existing free-prob fingerprint row; Verdict B is INCONCLUSIVE under-resolution. | n/a |
+
+### New cap_map row added under "Substrate-physics characterization" (CAN section, alongside v164a free-cumulant row)
+
+**Row name**: "Multiplicative free-convolution (S-transform) fingerprint of Kerdock spectrum (substrate-novel observability, complementary to v164a additive R-transform)"
+- **State**: 🟢 Validated, want stronger (single-N N=1024 5/5 cells exceed 20%; max_dev=1.000 at S_1 alpha=4.00; want N=4096+ multi-N + Wigner null baseline -- same promotion criterion as v164a paired row)
+- **Evidence**: `wave14_S_transform_kerdock_v1` Remote CPU FULL = S_TRANSFORM_DIVERGE; 5/5 cells exceed 20% deviation; max_dev=1.000 at alpha=4.00 S_1 coefficient; 531.8s elapsed
+- **Product implication**: Paired with the v164a additive R-transform row, this gives the substrate a TWO-axis algebraic-free-probability fingerprint that distinguishes Kerdock from MP/Wigner. The substrate-product framing "our memory's algebra is provably outside the standard AMP universality class" now has TWO independent spectral signatures (additive + multiplicative) backing it, not just one. Demoable: given an unknown matrix, the substrate's (kappa_n, S_n) profile diagnoses its universality class on both algebraic axes.
+
+### Parisi inconclusive: deferred re-run candidate, NOT closure, NOT a CPU re-ship
+
+Verdict B is a textbook under-resolution INCONCLUSIVE: 24.4s elapsed on remote CPU, 11/12 cells "undetermined" -- the verdict_msg explicitly diagnoses the under-resolution (`Need longer chains or finer T grid`). Per [[feedback-negative-results-2x-research]] under-resolution INCONCLUSIVE is a RE-RUN candidate, NOT a 2x Research drill trigger.
+
+Per the user feedback this cycle ("why did you run on remote cpu as opposed to the idle gpu? ... seems like a mistake"), going forward probes that need >=5-seed x >=10 cells DEFAULT to GPU. The Parisi probe needs both longer chains and finer T grid -- exactly the "needs >5-seed x >=10 cells" regime where CPU systematically under-resolves (Glauber v1 + Parisi v1 both finished in <30s on CPU = under-resolved). Re-shipping to CPU would just recreate the failure mode.
+
+**Decision**: file Parisi v2 as a deferred GPU re-run candidate (longer chains + finer T grid + larger n_seeds). Do NOT queue this cycle -- GPU is currently running `wave14_R_transform_kerdock_v1_multi_N` (the v164 GPU refill). Exp Dev should queue parisi_v2 to overnight_queue AFTER R_transform_multi_N completes; verdict_handler's pipeline-pacing reflex will trigger then.
+
+### Pipeline-pacing reflex this cycle (per [[feedback-pipeline-pacing]] + user's CPU-vs-GPU venue feedback)
+
+- **Pause flag**: CLEARED -- ACTIVE.
+- **GPU**: running `wave14_R_transform_kerdock_v1_multi_N` from v164 refill. Do NOT ship another GPU job; one in flight, one is enough.
+- **Remote CPU**: depth=0 after these two verdicts.
+- **Action**: do NOT auto-ship to remote CPU. Per user feedback this cycle, CPU is the wrong venue for >5-seed x >=10 cells probes (the recurring failure mode is CPU under-resolution: Glauber v1 + Parisi v1 both finished in <30s = under-resolved). CPU should be reserved for genuinely cheap / I/O-bound / non-scalable drills (e.g., metric re-analyses of existing data like v158 Sagawa-Ueda re-analysis, v161 Polyak-Ruppert re-analysis -- both <1s on CPU, both legitimate CPU use cases). Leave CPU queue idle until Exp Dev identifies a genuinely cheap drill.
+- **Parisi v2 GPU re-run**: filed as deferred candidate (notes/strategy_request_to_exp_dev_post_v165_parisi_gpu_rerun_2026-05-23.md to be written by next Exp Dev dispatch; gated on R_transform_multi_N completion).
+
+### New inefficiency LOCKED per [[feedback-lock-in-inefficiency-fixes]]
+
+User flagged this cycle: routing >5-seed-x->=10-cells probes to remote CPU recreates the under-resolution failure mode (Glauber v1 + Parisi v1 both finished in <30s = under-resolved, both filed BACK as re-run candidates). 2 cycles wasted on CPU runs that should have started on GPU. **Fix**: a venue-selection guideline goes into active_protocols.md or a dedicated [[feedback-cpu-vs-gpu-venue-selection]] memory: "probes with >=5 seeds OR >=10 cells OR chain_length>=400 DEFAULT to GPU; CPU is for <=5s metric re-analyses, I/O-bound work, and genuinely cheap drills." Memory curator to file the feedback memory; orchestrator to enforce in routing_handler venue selection. (Memory curator deferred to next active cycle; flag as inefficiency to fix.)
+
+### Substrate-physics characterization (UPDATED v165)
+
+v164 substrate-physics characterization: EXPONENTIAL-decay universality + MULTI-COMPONENT sub-K-region q_overlap + anti-RM(1,16) coset bias + Cap 1/Cap 3/Cap 5 noise envelopes + multi-scale P(q) hierarchical structure + AMP-SE-fixed-point divergence (rel_err=0.916) + R-transform higher kappa_n (additive free-prob mechanism for AMP_SE_DIVERGES) + Cap 3 Glauber-Hopfield NESS extension -> outside AMP universality at SE level WITH spectral mechanism.
+
+**NEW v165**: substrate-physics characterization gains the multiplicative free-convolution (S-transform) axis as a second algebraic anchor for "outside AMP universality". The substrate's departure from MP is now an additive-AND-multiplicative free-prob phenomenon (not just additive). VAMP-family applicability remains open as a rescue path; the substrate's R-transform AND S-transform structures are both candidates for input to a VAMP-SE-on-Kerdock follow-up probe (Research deferred candidate).
+
+### Substrate-product positioning v165
+
+No portfolio change (11 demonstrated capabilities carries forward). Substrate-product technical positioning **strengthens by one axis**: the "outside AMP universality class" technical wedge now has TWO independent algebraic-free-prob fingerprints (additive kappa_n + multiplicative S_n), each at 🟢 and each gated on the same N-scaling promotion criterion (`wave14_R_transform_kerdock_v1_multi_N` running on GPU; analogous S-transform multi-N probe would be the natural follow-up but is NOT queued this cycle).
+
+### Strategy follow-up actions (cycle 185)
+
+1. **PROT-009 v165 paired commit** -- 79th observation.
+2. **One new evidence-strength row added** to cap_map under "Substrate-physics characterization": S-transform multiplicative free-prob fingerprint 🟢 paired with v164a additive free-cumulant row.
+3. **active_priorities.md** updated atomically v164 -> v165: substrate-physics row gets S-transform second-axis anchor.
+4. **No closure** -- per [[feedback-dont-overextend-theorems]] Verdict A adds evidence to existing row at same evidence-strength level; Verdict B is under-resolution INCONCLUSIVE not refutation. PROT-004/006 NOT triggered.
+5. **No premature promotion** -- v164a free-cumulant row STAYS at 🟢 (cross-axis corroboration does NOT substitute for the explicit N-scaling promotion criterion). Promotion gated on `wave14_R_transform_kerdock_v1_multi_N` GPU result.
+6. **Parisi v2 GPU re-run** filed as deferred Exp Dev candidate (gated on R_transform_multi_N completion).
+7. **Push v165 to remote** per [[feedback-cap-map-update-protocol]]; scp dashboard data per same memory.
+8. **Pipeline-pacing**: pause flag CLEARED / ACTIVE. GPU running R_transform_multi_N; do NOT ship another GPU job. Remote CPU queue=0; do NOT auto-ship to CPU per user's CPU-venue feedback this cycle.
+9. **Inefficiency lock**: CPU-vs-GPU venue selection guideline flagged for memory curator (next cycle).
+
+### Smoke -> FULL divergence accounting
+
+| Run | Smoke verdict | FULL verdict | Divergence? |
+|---|---|---|---|
+| S_transform_v1 | S_TRANSFORM_DIVERGE (5/5 smoke 50-99% dev) | S_TRANSFORM_DIVERGE (5/5 FULL max=1.000) | NO -- both DIVERGE; FULL extends cells / tightens; consistent (broad anchor only +1 by extension, NOT strict tag-flip) |
+| parisi_pq_v1 | PARISI_INCONCLUSIVE (smoke-scale artifact, 8/8 self-test PASS) | PARISI_INCONCLUSIVE (11/12 undetermined under-resolution) | NO -- both INCONCLUSIVE; FULL under-resolved on same axes; consistent (no anchor increment -- INCONCLUSIVE not a divergence axis) |
+
+Net: 25 strict / 29 broad smoke->FULL divergence anchors (broad +1 by S-transform cell-extension; strict unchanged; parisi INCONCLUSIVE not counted).
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered (existing artifacts in place).
+- **PROT-004/006**: NOT triggered. Verdict A adds evidence to existing row; Verdict B INCONCLUSIVE under-resolution not a closure. No new ❌ added.
+- **PROT-007**: v165 history block written to `substrate_capability_map_history.md` (compact one-line index entry appended at bottom); narrative block ALSO retained inline here (v60+ live cap_map convention).
+- **PROT-008**: validator must pass before commit. v165 adds 0 new ❌ rows; baseline pre-existing violations unchanged.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md staged atomically.
+
+### Recent-run check (per strategy.md "Recent-run check" rule)
+
+Strategy does NOT recommend a NEW experiment by name this cycle. Parisi v2 GPU re-run is filed as a DEFERRED Exp Dev candidate (gated on `wave14_R_transform_kerdock_v1_multi_N` GPU completion). The name `wave14_parisi_pq_kerdock_v2` would be the natural follow-up; recent-run dedup check pending until Exp Dev queues it.
+
+### Tally (one-line)
+
+BATCHED VERDICTS v164 -> v165: wave14_S_transform_kerdock_v1 Remote CPU FULL = S_TRANSFORM_DIVERGE (5/5 cells exceed 20% S-transform deviation; max_dev=1.000 at alpha=4.00 S_1; INDEPENDENTLY CORROBORATES v164a FREE_CUMULANTS_DIVERGE on a second algebraic-free-prob axis -- multiplicative free-convolution vs additive free cumulants) + wave14_parisi_pq_kerdock_v1 Remote CPU INCONCLUSIVE = PARISI_INCONCLUSIVE (under-resolution at 24.4s elapsed; 11/12 cells "undetermined"; verdict_msg diagnoses "need longer chains or finer T grid"); v165 adds ONE new evidence-strength row (S-transform multiplicative free-prob fingerprint 🟢 paired with v164a additive free-cumulant row); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (no closure, no new portfolio ✅; new row is evidence-strength expansion of existing free-prob fingerprint claim); v164a free-cumulant row STAYS at 🟢 -- cross-axis corroboration does NOT substitute for explicit N-scaling promotion criterion gated on running `wave14_R_transform_kerdock_v1_multi_N`; "outside AMP universality" wedge gains second algebraic anchor (additive + multiplicative free-prob both depart from MP); Parisi v2 filed as DEFERRED Exp Dev candidate for GPU re-run (gated on R_transform_multi_N completion); per [[feedback-dont-overextend-theorems]] no row closed and no premature promotion; per [[feedback-pipeline-pacing]] GPU has work; remote CPU queue=0 and NOT auto-refilled per user's CPU-venue feedback this cycle ("seems like a mistake" -- CPU systematically under-resolves >5-seed x >=10 cells probes; CPU reserved for cheap re-analyses); inefficiency LOCKED: CPU-vs-GPU venue selection guideline flagged for memory curator; smoke->FULL broad anchors +1 by S-transform cell-extension (29 broad / 25 strict; parisi INCONCLUSIVE not counted); 79th PROT-009 paired commit.
+
+Net effect: free-prob fingerprint claim gains second algebraic axis (additive + multiplicative both DIVERGE from MP); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED; one new evidence-strength row added (S-transform multiplicative free-prob); v164a free-cumulant row promotion DEFERRED to N-scaling result; Parisi v2 deferred to GPU; CPU queue intentionally left idle (user feedback); inefficiency locked.
