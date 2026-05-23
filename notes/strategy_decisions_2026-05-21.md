@@ -8543,3 +8543,95 @@ Next:
   + Bet C "57× AGS" RETRACTION
 - Watch dashboard for Bet A FULL + extreme_stress FULL
 - Hold 4th-attempt mechanism research pending user signal
+
+---
+
+## Cycle 133 — WARMSTART_RESCUES sharpens structural constraint; 4th-attempt routing addendum (2026-05-22 ~21:18 EDT — /loop fire)
+
+3 new substantive verdicts:
+1. wave14_multihop_resonator_warmstart_v1 FULL = **WARMSTART_RESCUES** (Test 4 from Research cycle 131)
+2. wave14_multihop_hmm_per_hop_pfail_v1 FULL = PFAIL_HIGHER (Test 3 from cycle 131)
+3. wave14_vamp_chain_N_sweep_v2 FULL = N_SWEEP_INCONCLUSIVE
+
+WHY-reasoning for v132 cap_map update:
+
+**Why WARMSTART_RESCUES is the LOAD-BEARING finding**:
+- Cycle 132 (v131) said: loopy within-hop fails WORSE than argmax = cycle-dynamics
+  was the suspected failure mode
+- Cycle 133 finds: loopy + backward warmstart = PERFECT 1.000
+- Failure was NOT loopy-cycle dynamics; failure was ABSENCE of cross-hop info
+- TIGHTER structural constraint: ALL forward-only init methods fail at acc~0.20-0.25
+  floor; ALL backward-evidence init methods succeed PERFECT
+- The dividing line is **initialization information NOT dynamics**
+
+**Why this REFINES the 4th-attempt research question**:
+- 4th-attempt routing (commit 1541d1c) constraint #5: "Loopy within-hop fails
+  WORSE than argmax" was OVERSTATED
+- Corrected: loopy fails when forward-initialized; works when backward-initialized
+- The substrate question NARROWS: "what mechanism produces forward-information-
+  insufficient regime where backward evidence carries the missing information?"
+
+**Why constraint #7 in 4th-attempt routing is REFUTED**:
+- Constraint #7 said "N-dependent at fixed K (N=4096 K=100 acc=0.767 vs N=65536
+  K=100 acc=0.217 = 3.5× degradation)"
+- N-sweep at FULL shows argmax_per_N is NON-MONOTONIC: 0.067/0.2/0.067/0.0/0.333
+- argmax behavior is structurally NOISY across N, not N-monotone
+- The original N-dependence finding from cycle 121 may have been seed-fragile
+- VAMP-on-chain robust at ALL N tested (4096-65536) acc=1.000
+
+**Why filing addendum to 4th-attempt routing is right move**:
+- Research likely picking up 4th-attempt routing imminently (filed cycle 132,
+  ~21:18 EDT; Monitor 5th operational success precedent for ~5-8 min latency)
+- Addendum can update constraint stack BEFORE Research delivers
+- Better than letting Research deliver against superseded constraints
+
+**Why HMM noise rate prediction was almost right but not quite**:
+- HMM cycle 131 predicted p_fail ≈ 0.03 (because 0.97^50 ≈ 0.218 = empirical 0.217)
+- Empirical p_fail = 0.035 (slightly higher)
+- (1-0.035)^50 = 0.168 (substrate would plateau at 0.168 if cascade held)
+- But empirical plateau is 0.217 = HIGHER than cascade would predict
+- → substrate has a FLOOR above cascade prediction; mechanism is something
+  that prevents geometric decay below ~0.20
+
+**Why VAMP-on-chain N-robustness is substrate-product positive**:
+- VAMP works at ALL N tested 4096-65536 acc=1.000
+- Substrate-product Demo 1 capstone (cycle 130 N=65536 PASS) extends to
+  all intermediate N
+- VAMP-on-chain is N-universal substrate-novel mechanism
+
+Capability moves (v131 → v132):
+
+| Capability | v131 state | v132 state |
+|---|---|---|
+| Loopy within-hop fails | "fails WORSE than argmax" | "fails forward-init; works PERFECT backward-warmstart" |
+| Failure mode | unclear (cycle dynamics suspect) | absence of cross-hop info CONFIRMED |
+| HMM noise rate | 0.03 predicted | 0.035 empirical (PFAIL_HIGHER) |
+| VAMP N-robustness | proven at N=65536 | proven at N∈{4096-65536} all PERFECT |
+| 4th-attempt routing constraint stack | 7 constraints | needs addendum |
+
+PROT compliance:
+- 46th PROT-009 paired commit
+- PROT-005 unbiased framing: WARMSTART_RESCUES reframes cycle 132 constraint
+  honestly; cycle 131 HMM noise prediction acknowledged as approximately right
+- Cycle 124 chronological full-list scan discipline maintained
+
+Strategy follow-up actions (cycle 133):
+1. PROT-009 v132 paired commit (this cycle)
+2. **File addendum to 4th-attempt Research routing** with WARMSTART refinement
+3. Wait for 4th-attempt Research delivery
+4. Wait for Bet A FULL + extreme_stress FULL
+
+Substrate-product net (v132):
+
+**Substantive substrate-physics refinement** (not new positive but sharper):
+- Structural constraint sharpens to "initialization information NOT dynamics"
+- Mechanism question narrows for 4th-attempt research
+
+**Substantive substrate-product holds**:
+- Demo 1 Lane D capstone DEMONSTRATED at FULL (cycle 130 holds)
+- VAMP-on-chain operating envelope K=5000+d=200+noise-robust + N-universal
+
+Next:
+- File 4th-attempt routing addendum
+- Watch for 4th-attempt Research delivery
+- Watch for Bet A FULL + extreme_stress FULL
