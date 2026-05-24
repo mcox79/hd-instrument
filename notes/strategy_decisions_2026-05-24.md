@@ -1728,3 +1728,55 @@ ACTIVE (no flag file). Cap_map v184 committed in ACTIVE state per orchestrator p
 - Local CPU (local_cpu_queue): REVIVED IDLE — runner pid 13804 + 37416 (`cpu_runner_local` heartbeat updated 2026-05-24T13:32:22; status=idle, queue=0).
 - Pickup-ready hand-offs in `notes/exp_dev_handoff_5anchors_post_v183_2026-05-24.md`: 5 design anchors (Ablation A + Ablation B + SSM/S4 + F-6 Boolean + Sellke) + 1 script-fix (MS_1ST_ORDER). Next exp_dev cycle is the structural refill mechanism per [[feedback-no-experiment-design-in-prompts]]; orchestrator inline cycle does not design experiments.
 - Pipeline-pacing reflex (per [[feedback-pipeline-pacing]]): queue refill is gated on pause flag (ABSENT) AND on exp_dev design work being available — the routing notes are filed; next exp_dev dispatch consumes them.
+
+
+---
+
+## Verdict-handler cycle (v185) — ABLATION_A_MIDDLE_BAND single-verdict cap_map update
+
+**Verdict payload received**:
+
+```json
+{"name":"wave14_betB_ablation_A_per_task_v1_2026-05-24","verdict":"ABLATION_A_MIDDLE_BAND","verdict_msg":"retention_A=0.821 in [0.8,0.95); partial structural-separation effect. retention_B=0.982.","queue":"overnight_queue"}
+```
+
+### Step 0 honest re-read (32nd observation post-lock)
+
+- Label: `ABLATION_A_MIDDLE_BAND`; msg: `retention_A=0.821 in [0.8,0.95); partial structural-separation effect. retention_B=0.982.`
+- Script's pre-registered thresholds (`exp_wave14_betB_ablation_A_per_task_v1.py` lines 17-21): HARD-PASS >= 0.95; HARD-FAIL < 0.80; MIDDLE [0.80, 0.95).
+- 0.821 in [0.80, 0.95) → MIDDLE band is mathematically correct.
+- retention_B=0.982 high (post-B retention) sanity-checks the substrate isn't broken.
+- Comparison anchor: baseline single-shared-W A->B->C with replay was ~73%. Ablation A (per-task separate W matrices) lifts retention_A to 82.1% — +9pp above baseline but 13pp below HARD-PASS.
+- **No over-claim**. Label "MIDDLE_BAND" honestly matches per-cell data. 32nd clean observation post-lock; LOCK working as designed.
+- Per-seed data (n=1 in smoke; full ran 5 seeds yielding mean=0.821): script's smoke at seed=17 produced retention_A=0.906 (lucky high seed); full 5-seed mean 0.821 below smoke confirms normal smoke->FULL convergence pattern.
+
+### Cap_map impact
+
+- **Row affected**: "Bet B retention via structural-separation axis" (the 🟡 M-DEPENDENT PARTIAL evidence-strength row added at v184).
+- **State change**: NONE. Row stays 🟡 M-DEPENDENT PARTIAL.
+- **Annotation added**: second-mechanism corroboration — per-task sub-substrate (Ablation A) is a SECOND structural-separation mechanism after v184 MoE. Both partial; neither alone clears HARD-PASS.
+- **Substrate-product finding**: structural-separation axis is the right axis but +9pp lift from per-task substrates alone is insufficient for HARD-PASS. Product spec implication — stacking (compound MoE + per-task) OR longer-tail mechanisms (replay, Lane D 4-stage) needed.
+- **EWC-null closure UNCHANGED**: Ablation A bypasses parameter-importance entirely (zero-init per-task W matrices), so v185 is consistent with the EWC-null closure narrative. Per user's claim "no method exploiting non-uniform parameter importance can do better" — Ablation A doesn't exploit parameter importance and gets +9pp; modest lift confirms the structural-separation axis is alive but distinct from the dead parameter-importance axis.
+- **Pre-registered untested CONSUMED**: v184 Ablation A pre-registered untested row → now consumed at v185 with MIDDLE BAND.
+- **Pre-registered new at v185**:
+  1. Compound MoE + per-task structural-separation untested (axis-stacking question: do two partial mechanisms combine to clear 0.95?).
+  2. Lane D 4-stage continual learning (A->B->C->D) — Priority A KILLER T1 per `strategy_untested_rows_triage_2026-05-24.md`.
+
+### Status_log entry (For You tab)
+
+1 entry written this cycle, importance=HIGH, plain_language: "We tested whether giving the substrate one separate brain-region for each task (per-task sub-substrates) recovers memory after learning many tasks in a row. It helps — going from 73% retention to 82.1% — but not enough to clear the 95% target. Combined with last cycle's MoE result, we now have TWO different structural-separation tricks that each give partial help; neither alone is enough. The axis is real but needs stacking or replay-schedule extensions to fully recover memory."
+
+### Pause flag state
+
+ACTIVE (no flag file). v185 committed in ACTIVE state per orchestrator post-compaction brief Section 1.
+
+### Queue refill state at v185 close (HONEST queue state at handoff time)
+
+- **overnight_queue (GPU)**: 5 pending (NOT 0 as user's verdict-event preamble suggested) — `wave14_betA_continual_edit_5seed_v3` + `wave14_cap2_confidence_margin_probe_v1` + `wave14_pq_high_resolution_v1` + `wave14_demo1_noise_envelope_v1` + `wave14_R_transform_kerdock_v1_multi_N`. Pipeline-pacing reflex DOES NOT FIRE — queue >=1. Per [[feedback-pipeline-pacing]] reflex is "queue=0 → ship" so 5-pending GPU does not trigger emergency refill.
+- **remote_cpu_queue**: 0 pending DRAINED. Pipeline-pacing reflex WOULD fire here — and Task 2 below ships to remote_cpu to refill.
+- **local_cpu_queue**: idle.
+- **11 pickup-ready hand-offs**: 5 from `exp_dev_handoff_5anchors_post_v183_2026-05-24.md` (one CONSUMED at v185 = Ablation A) + 6 from `strategy_untested_rows_triage_2026-05-24.md`. Remaining: 10 design anchors.
+
+### Per [[feedback-dispatch-wrappers-default]] note
+
+Inline v185 commit done in main thread (single sub-agent context dispatched from user; Agent dispatch unavailable per orchestrator post-compaction brief Section 2 — sub-agents internalize multiple role prompts; verdict_handler role logic executed inline). Commit pushed at user discretion (sub-agent push blocked by harness security classifier per [[feedback-subagent-permission-inheritance]]).
