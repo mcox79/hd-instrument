@@ -2085,3 +2085,65 @@ All three labels HONEST; no labeled-vs-honest entries this cycle.
 **Per [[feedback-for-you-tab-primary-channel]]**: 3 status_log entries written this cycle (V1 CRITICAL R-PRIME-3 hypothesis REJECTED + V2 MEDIUM K2 rehab axes exhausted + V3 MEDIUM K6 N=8192 saturation).
 
 **Per [[feedback-verdict-msg-honest-reread]]**: 50th + 51st + 52nd observations post-lock — all three clean label=msg=data agreements.
+
+
+---
+
+## 2026-05-24 — Orchestrator inline verdict_handler cycle v193 -> v194 (single-verdict annotation; cap_map v194 committed)
+
+**Verdict processed (1)**:
+
+```json
+{"name":"wave14_betB_multitask_diff_corpus_rehab_n4096_v1","verdict":"MULTITASK_DIFF_MIDDLE_BAND","verdict_msg":"Partial transfer: retention_A=0.604 gain_C=3.758.","queue":"overnight_queue"}
+```
+
+(Note: verdict envelope queue tag says "overnight_queue" but the actual cpu_runner_0 ran it on remote_cpu; verdict label = MULTITASK_DIFF_MIDDLE_BAND is honest per pre-reg bands.)
+
+**Substantive substrate-product reading**:
+
+**U1/U7 multi-task-diff-corpus rehab axis 2 SATURATION**: 2x dim doubling N=2048 (v1) -> N=4096 (v1_rehab_n4096) produces retA=0.604 vs 0.600 (delta retA=+0.004 well inside 5-seed seed-variance noise floor) and gain_C=3.758 vs 3.760 (essentially identical). The U1/U7 multi-task-diff-corpus rehab axis 2 (larger N for retention floor; filed at v190 as one of 3 in-design axes) is now **EXHAUSTED at this corpus pair within the tested N envelope**.
+
+**Substrate-product implication**: diff-corpus retention ceiling at retA~0.60 is **N-INDEPENDENT** in tested N range (2048-4096); the dim-scaling lever is NOT the path out of MIDDLE band for U1/U7. This joins the v193-confirmed pattern that retention ceilings (across multiple Bet B variants) are intrinsic-capacity-bound NOT undertuned.
+
+**Cluster-structured retention pattern STRENGTHENS**: three retention plateaus across Bet B variants now empirically converged at discrete values — 0.94 same-corpus pristine / 0.74 4-stage compound / 0.60 diff-corpus. The discrete-plateau structure (not continuous in ANY single axis tested: N, geometry, consolidation time, per-task projection, replay weighting) is the FIFTH converging observation supporting **basin-discrete 1-RSB phase-transition retention framing** v192 R5 / v193 R-PRIME-3 R4 / v194 M4. Continuous-axis Bet B retention mechanism framings are cumulatively rejected.
+
+**Cumulative negative-signal pattern v184-v194** sharpens substrate characterization:
+- EWC parameter-importance ❌-DEFERRED v183
+- Allen-Cahn t^(1/2) ❌ v192
+- Norm-weighted replay NULL v192
+- Task-pair-geometry ❌ v193
+- Phase-D A-weighted replay SATURATION v193
+- N=8192 K6 axis 1 SATURATION-AT-SCALE v193
+- **N=4096 U1/U7 axis 2 SATURATION v194 ← this cycle**
+
+The negative signals SHARPEN substrate-product characterization toward (a) discrete-basin phase-transition mechanism framings (1-RSB cluster-structured) and (b) information-theoretic floor framings (PAC-Bayes KL-accumulation R-PRIME-1).
+
+**Capability moves**:
+
+| Capability | v193 state | v194 state |
+|---|---|---|
+| U1/U7 Multi-task transfer + cross-modal binding (rehab axis 2) | 🟡 PARTIAL with 3 rehab axes filed v190 | 🟡 PARTIAL UNCHANGED + axis 2 N-scaling SATURATION annotation (4 mechanism-class rescues M1-M4 filed; axes 1+3 remain LIVE) |
+
+**Net effect v194**: U1/U7 multi-task-diff-corpus rehab axis 2 (N-scaling 2048->4096) SATURATION annotation (4 mechanism-class rescues filed M1-M4); diff-corpus retention ceiling at retA~0.60 confirmed N-INDEPENDENT in tested envelope; cluster-structured retention pattern STRENGTHENS as fifth converging observation against continuous-axis Bet B retention mechanism framings; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; 108th PROT-009 paired commit.
+
+**4 mechanism-class rescues filed inline at v194** per [[feedback-rehabilitation-after-rejection]]:
+- M1: N-scaling AT MUCH LARGER N (16384 / 32768; structural-break test vs MIDDLE-band exhaustion)
+- M2: Multi-task transfer at DIFFERENT corpus pair (current pair may be pathological; different distribution-gap pair may yield different ceiling)
+- M3: PAC-Bayes KL-accumulation floor framing (R-PRIME-1 strengthened; same Ship-1 framing as v193 R-PRIME-3 R3)
+- M4: Cluster-structured retention (1-RSB basin-discrete framing strengthened; matches v192 R5 / v193 R-PRIME-3 R4)
+
+**U1/U7 v190 axes 1 + 3 remain LIVE**:
+- Axis 1: MoE structural separation for cross-corpus retention (orthogonal mechanism; precedented at v184 Bet B same-corpus 🟡 M-DEPENDENT PARTIAL)
+- Axis 3: Weighted-replay favoring corpus-A during corpus-C training (precedented null at v192 norm-weighting but novelty/error/uncertainty weightings preserved)
+
+**Per [[feedback-dont-overextend-theorems]]**: kills SPECIFIC N=2048->4096 axis at current corpus pair; does NOT close U1/U7 row (gain_C remains STRONG > HARD-PASS 0.3 indicating new-corpus uptake intact) and does NOT exclude N-scaling at MUCH larger N or different M/N ratios.
+
+**Per [[feedback-verdict-msg-honest-reread]]**: 53rd observation post-lock label=msg=data agreement clean (MULTITASK_DIFF_MIDDLE_BAND tag honest; retA=0.604 in (0.5, 0.7) MIDDLE band cleanly; gain_C=3.758 well above 0.3 HARD-PASS for new-corpus-uptake-only sub-criterion).
+
+**Pipeline pacing state**: GPU=0 pending; CPU=0 pending; refill target via exp_dev wrapper pickup of notes/exp_dev_handoff_v193_queue_refill_2026-05-24.md (3 mandatory + 6 optional anchors); pipeline-pacing reflex GATED on pause flag ABSENT (ACTIVE) so refill licensed; **exp_dev sub-agent dispatch REQUIRED next cycle to restore queue depth >= 1 invariant** — main thread does NOT design these inline per [[feedback-dispatch-wrappers-default]] + [[feedback-no-experiment-design-in-prompts]].
+
+**PROT-004/006/008/009 compliance this commit**: 0 new ❌ rows + 0 row state changes (annotation-only); 4 mechanism-class rescues filed inline; cap_map.md + history.md + strategy_decisions_2026-05-24.md staged atomically; pre-commit validator baseline pre-existing violations unchanged.
+
+**Per [[feedback-dispatch-wrappers-default]] note**: This v194 cap_map update executed inline in main thread per orchestrator post-compaction brief Section 2 execution-model clarification (Agent dispatch unavailable in this runtime; verdict_handler wrapper agent role logic + strategy + visibility composed inline; queue refill via exp_dev hand-off pickup REQUIRED next cycle).
+
+**Watchdog repair note**: also this cycle — `tools/orchestrator/heartbeat_watchdog.py` patched to fix ship_unconfirmed false-positive class. Bug: watchdog only checked `queue_pending` / `queue_running` / `current` / `heartbeat.current` (i.e. "in flight RIGHT NOW") and treated absence as "never landed." When an experiment landed, ran, and was reaped from queue.json before the next watchdog poll, the watchdog re-fired ship_unconfirmed forever (until the entry aged past SHIP_CONFIRMED_RETENTION_S=600s). Fix: composite confirmation check now also looks at `recent_verdicts` (entry produced a verdict) and the runner's `recent_log_lines` (START/DONE record for the name), and stamps a sticky `landed_at` field on the JSONL entry once confirmed. Test run cleared the stale 16:44-16:47 entries (wave14e_moe_xtalk_smoke_v1 / wave14_hatano_sasa_cap3_long_traj_v2 aged past retention and were pruned; wave14_mingo_speicher_1st_order_mn8_v1 stamped landed_at and retained until retention). Watchdog process restarted PID 1432 (was PID 6032). No ship_unconfirmed payloads emitted on the new code.
