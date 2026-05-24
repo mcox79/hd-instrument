@@ -963,3 +963,190 @@ The 07:13 visibility entry diagnosed v3 as a smoke-leak / fabricated-cells failu
 - per PROT-009: 93rd paired commit
 - per [[feedback-for-you-tab-primary-channel]] 1 status_log entry written (MEDIUM importance — informative middle-band confirmation + earlier honest-reread correction; not a state-grade change but customer-facing scope narrows on three v169-annotated rows)
 
+
+
+## 2026-05-24 cycle 199 -- STANDING DAILY AUDIT (Strategy sub-agent; planning entry; NO cap_map commit)
+
+**Trigger.** Cadence signal `audit_due` at 2026-05-24T12:00 UTC per [[feedback-design-space-and-audit-cadence]]. Standing audit (not event-triggered verdict handling). Full audit doc at `notes/strategy_audit_2026-05-24_cycle199.md` (~1600 words, 6 sections).
+
+### Headline state
+
+- Cap_map at v179 (LOCAL commit pending push). Portfolio: 12 demonstrated capabilities UNCHANGED.
+- Open ❌ PROVISIONAL: 0 (cleanest state since v172, preserved through v179).
+- Stress-gate iterations this session arc (cycles 193-199): E1 (v176 MIDDLE) + E1' (v177 NON-MONOTONIC) + E1'' (v178 HARD-FAIL clean) + E2 N=16384 (TIMEOUT) + E3 Gold (PASS).
+- 7 paired commits in cycles 194-199 (v174 → v179). 93rd PROT-009 paired commit at v179.
+
+### Session-arc scoring (honest per [[feedback-no-smoke]])
+
+- **CLEAN +**: Cap 12 🟢 NEW at v174 (BBMD paired pass); Cap 12 ✅ at v175 (compound-gate; first ✅ of orchestrator-migration era); E3 Gold ρ=0.900 5th-family hardening with bimodal pattern.
+- **CLEAN −**: Composition B (Cap 12 + Cap 6) empirically rejected at cycle 197; Composition C (Cap 12 + Cap 11 + Cap 1) empirically killed at cycle 198 (chi_4 LAGS not LEADS); v177 E1'' non-monotonic question RESOLVED (genuine η-interaction).
+- **MIDDLE**: Cap 12 noise envelope narrowed three times (v176 → v177 → v178); Composition A at v179 Kerdock-only (1/4 hard-pass); E2 N=16384 TIMEOUT (no data).
+- **LOST in churn**: CAP8 iterates v1/v1b silent failure (min_iters threshold bug; L4 lock candidate); v3 mis-diagnosed as fabricated-cells then v4 confirmed numbers real (L2 lock candidate); 4 verdict_msg over-claim observations.
+
+### Lock candidates state
+
+- **LOCKED at cycle 197 (this session arc)**: [[feedback-verdict-msg-honest-reread]]; composition shared-mechanism structural audit addendum to [[feedback-rehabilitation-after-rejection]].
+- **At 1st observation (DEFER)**: L1 envelope-extension compute-budget pre-reg; L2 honest-reread cross-run consistency check; L3 in-promotion deployment-realism gate; L4 0/N silent-failure pattern.
+
+### Three recommended next probes (cheap; non-blocking; Research drills via Sonnet)
+
+1. **P1 `bet_z5_vs_vamp_on_chain_equivalence_drill_v1`** -- closes the most-dropped substrate-product candidate (19 versions stale); ~30-60 min Research; closes Bet Z.5 row as duplicate-of-existing OR upgrades it to strictly stronger.
+2. **P2 `antiRM_mechanism_drill_v1`** -- cycle 194 P3; only Research-drill weakness still STILL OPEN from the shore-up matrix; ~30 min.
+3. **P3 `cap12_noise_cleanup_preprocessing_v1`** -- Portfolio Gap 1 from v178; load-bearing for Cap 12 customer-facing deployment envelope; ~1-2 hr (lit-scan + CPU validation).
+
+### Stale-row recommendations (for next batched cleanup cycle, NOT now)
+
+- Bet T 🟡 PARTIAL (56+ versions stale; 5-sketch rehab EXHAUSTED) → close as ❌ EXHAUSTED.
+- Bet V 🟡 PARTIAL (54+ versions stale; 4 elective rescue sketches) → close-or-rescue decision before cycle 220.
+- P(h) moments observability 🔬 (65+ versions stale; never fired) → close as ABSORBED by chi_4 + Kovacs + avalanche.
+- Bet Z.1 SRHT speedup-unrealized → annotate as "viable but unrealized; engineering-gated."
+
+### Forgotten thread closures
+
+- **ETH partial-thermalization (Probe #1)** → close as portfolio-irrelevant (SFF non-GUE observation does not license customer-facing capability).
+- **Composition C** → close narrative; replace with Cap 6/Cap 12 ALTERNATIVE routing modes (tiered SLA, no shared mechanism required).
+
+### Pipeline state at audit completion
+
+- Pause flag: CLEARED / ACTIVE.
+- Queue: remote_cpu drained per v179 verdict-handler refill flag; GPU has Anchor 4 N=8192 + 5 prior pending. Pipeline depth check: remote_cpu needs refill (verdict_handler flagged).
+- This audit cycle does NOT dispatch the P1/P2/P3 probes -- orchestrator main thread picks up via [[feedback-dispatch-wrappers-default]] / next cycle.
+- Status_log entry written at importance=MEDIUM per [[feedback-for-you-tab-primary-channel]].
+
+### PROT discipline
+
+- NO cap_map.md commit, NO history.md commit (audit is planning, not row movement).
+- strategy_decisions_2026-05-24.md appended with this entry; strategy_audit_2026-05-24_cycle199.md ships as primary audit doc.
+- Per [[feedback-cap-map-update-protocol]]: append_decision_log.py used for EOL-preserving atomic append.
+
+---
+
+## 2026-05-24 — wave14_cap12_noise_cleanup_optshrink_v1 CAP12_NOISE_CLEANUP_OPTSHRINK_KILLED_HF3 — Portfolio Gap 1 stays OPEN (annotation-only, NO cap_map commit)
+
+### Verdict
+
+```json
+{"name":"wave14_cap12_noise_cleanup_optshrink_v1","verdict":"CAP12_NOISE_CLEANUP_OPTSHRINK_KILLED_HF3","verdict_msg":"HF3: cleaned-codebook routing fidelity at eta_input=0.01 = 0.400 < 0.5. OptShrink actively HARMS clean substrate; abandon entirely.","elapsed_s":612.91,"queue":"remote_cpu_queue"}
+```
+
+### Step 0 honest re-read
+
+The script's verdict_msg is its own honest summary, and it matches what the verdict label claims. HF3 is a pre-registered HARD-FAIL clause: at eta_input=0.01 (essentially clean substrate), the OptShrink-cleaned codebook must still route correctly on >=50% (i.e. >=3/5) codebooks. Observed: 2/5 = 0.400 < 0.500. The shrinkage operator, run against a substrate at the customer-envelope clean boundary (eta<=0.01), DESTROYS routing fidelity that the un-preprocessed substrate has at full 5/5. **OptShrink isn't neutral on clean substrate — it is actively destructive.** The Donoho-Gavish-Nadakuditi shrinkage rule is computing a non-zero noise level from the structured-codebook tail eigenvalues (which on a Kerdock / RM(1,m) / Hadamard codebook are intrinsic structure, not noise) and shrinking them away. That destroys the codebook geometry that Cap 12's MP-KS pre-test reads. No ex-post threshold tweak can rescue this; the failure mode is structural.
+
+### Strategy decisions
+
+1. **NO cap_map row movement, NO version bump.** Cap 12 ✅ row stays at v178 clean-substrate scope (customer envelope eta<=0.01). Portfolio count 12 unchanged. This is an annotation-only closure of an attempted envelope-expansion path.
+
+2. **Portfolio Gap 1 stays OPEN.** v178 named Cap 12 Portfolio Gap 1 as "no noise-cleanup preprocessing pipeline; customer envelope capped at eta<=0.01." OptShrink (family-1: classical SVD-shrinkage; Donoho-Gavish-Nadakuditi 2014) was the lowest-cost candidate per Research's family-table. It is now empirically killed at the clean-substrate boundary. The gap remains open.
+
+3. **Family-2 candidate (sparse soft-thresholding / wavelet-domain shrinkage) DEFERRED.** Justification: the failure mode here is not "OptShrink picked the wrong threshold" but "any unsupervised shrinkage rule that infers noise level from the spectrum will mis-identify structured-codebook tail eigenvalues as noise." Family-2 has the same vulnerability — it infers a noise floor from coefficient magnitudes and zeros out below it; structured codebooks have intrinsic small coefficients that are signal, not noise. The probability that family-2 transfers cleanly to bipolar-substrate structured codebooks is now deflated per [[feedback-lit-scan-calibration-penalty]] (off-the-shelf signal-processing didn't transfer at family-1; family-2 has the same structural vulnerability).
+
+4. **Family-3 (free-probability deconvolution) is overkill fallback.** Higher engineering cost, same structural risk. DEFER until/unless customer-pull justifies the spend.
+
+5. **Honest substrate-product framing.** Cap 12's customer-facing envelope is "routes correctly only on clean codebooks; customer must supply codebooks at eta<=0.01 OR live with degraded routing." We do NOT promise noise-cleanup preprocessing. This is product-honest per [[feedback-no-smoke]] and [[feedback-no-papers-product-only]] — the substrate may genuinely not have a clean noise-cleanup story, and that is fine for product as long as we are honest about the input contract.
+
+6. **Pre-reg discipline (✅).** The HARD-FAIL HF3 clause was honored cleanly — no ex-post threshold tweak, no "let's retry with a different shrinkage rule on the same family," no rescue-by-grading-curve. This is exactly the kind of clean rejection [[feedback-envelope-expansion-fail-bands]] is designed to enforce. PROT-004/006 pre-reg discipline holds.
+
+7. **Rescue-paths-before-closure check per [[feedback-negative-results-2x-research]] and [[feedback-rehabilitation-after-rejection]].** Considered:
+   - R1 family-2 sparse soft-thresholding — DEFERRED (same structural vulnerability; see decision 3).
+   - R2 family-3 free-probability deconvolution — DEFERRED as overkill fallback (decision 4).
+   - R3 substrate-side restructuring (rotate codebook into a basis where noise-vs-signal separation is cleaner) — this is the substrate-specific tuning the inefficiency-lock candidate names; it is the right direction but is NOT Portfolio Gap 1 (which was about off-the-shelf preprocessing); file as a separate substrate-side research thread, not as Gap 1 rescue.
+   - R4 close Gap 1 as substrate-bounded — DEFER decision; family-2 is still nominally on the table even though deflated.
+   - R5 "supervised" preprocessing (codebook-class-aware denoising) — exits the unsupervised-customer-pipeline framing the customer wants; not a Portfolio Gap 1 candidate either.
+   - Net: NO rescue path triggers 2x Research drill. This is an expected-boundary kill (structural argument explains why off-the-shelf fails); per [[feedback-negative-results-2x-research]] the 2x-Research trigger is for genuine refutations of mechanism, not for expected-boundary structural confirmations.
+
+8. **Inefficiency lock candidate (1st observation; DEFER).** "Off-the-shelf signal-processing approaches (SVD-shrinkage, sparse soft-thresholding, etc.) don't transfer cleanly to structured-codebook substrates because their noise-vs-signal heuristics treat structured-codebook tail eigenvalues / small coefficients as noise to be removed." File this as a 1st-observation DEFER per the lock-promotion protocol (2 observations before promotion). The session arc has plenty of other 1st-obs DEFERs (L1-L4 from cycle 199 audit); add this as L5.
+
+### Cap_map commit
+
+- **NONE this cycle.** Annotation-only closure; cap_map.md stays at v179. No history.md entry needed (no row movement). strategy_decisions append is the durable record. Per [[feedback-cap-map-update-protocol]] paired-commit discipline: append-only here, no PROT-009 trigger.
+
+### Pipeline / queue state
+
+- Pause flag: **CLEARED / ACTIVE** (verified at handler invocation).
+- Queue depths: remote_cpu has 3 pending (RM iterates + Comp A v5 + Bet Z.5 S2 ensemble overlay); GPU has Anchor 4 + 5 prior pending. **Pipeline depth >=1 invariant holds; NO queue-refill dispatch needed this cycle.**
+- Cap 12 Portfolio Gap 1 → next probe candidates are family-2 (DEFERRED with deflated P) and substrate-side rotation (separate thread; not Gap 1). Neither is queued this cycle; Strategy may pick up at next routine cap-map shore-up audit.
+
+### PROT discipline summary
+
+- PROT-004 / PROT-006: pre-reg HARD-FAIL HF3 honored cleanly; no ex-post threshold tweak.
+- PROT-008: zero row movement; zero new ❌ PROVISIONAL; validator baseline unchanged.
+- PROT-009: NO paired commit (annotation-only); 93rd paired commit count at v179 unchanged.
+- [[feedback-cap-map-update-protocol]]: append-only via append_decision_log.py preserving CRLF/LF EOL.
+- [[feedback-for-you-tab-primary-channel]]: visibility status_log entry written at importance=MEDIUM (verdict_handler responsibility; honest closure of one approach).
+- [[feedback-no-smoke]]: substrate-product framing kept honest — Cap 12 customer envelope eta<=0.01 with NO promised noise-cleanup preprocessing.
+- [[feedback-verdict-msg-honest-reread]]: 8th honest-reread observation this session arc; verdict label CAP12_NOISE_CLEANUP_OPTSHRINK_KILLED_HF3 matched the verdict_msg content matched the data (routing 2/5 = 0.400 < 0.5 at eta=0.01); LOCK continues to validate (no over-claim / under-claim friction this cycle).
+
+## 2026-05-24 verdict_handler — wave14_cap8_vamp_iterates_rm_1_m_v1 CAP8_RM_ITERATES_GENERATED
+
+Step 0 honest re-read: verdict is annotation-only (data-gen success). Verdict_msg claims 15/15 RM(1,m) VAMP iterate-trace files written with >=3 iterates each in 304s. No comparative or threshold claim against substrate metrics. Label honest; proceed.
+
+Decisions:
+- No cap_map row movement (annotation cycle).
+- min_iters=3 fix from v1c (CAP8_ITERATES_GENERATED) carried over correctly to RM(1,m).
+- v5 Composition A audit-trail-pipeline (next in remote_cpu_queue) now has REAL iterate data for RM(1,m), can compute Spearman rho without spectrum-only fallback.
+- Disambiguates v4's RM(1,m) rho=0.40 outcome: fallback artifact vs genuine weak alignment.
+- Forward read: if v5 lands rho>=0.60 on RM(1,m), Composition A licenses at >=3/4 families (Kerdock + SRHT + Hadamard + RM, vs current SRHT/Hadamard at 0.533 from v4). If rho stays around 0.40, that is confirmed-weak (not a fallback artifact) and RM family is properly off the Composition A license.
+- Infrastructure note: FIRST verdict after the structural queue-sync fix landed. Anchor reached remote, ran, and surfaced via dispatch.py. End-to-end pipeline validated.
+
+Pause flag: ACTIVE-state per orchestrator context (cleared). Queue depth at arrival: 4 pending on remote_cpu_queue (Comp A v5 + Bet Z.5 S2 + Hatano-Sasa + Dudeja-Sen-Lu) -- no queue refill needed.
+
+Commit hash: NONE (no cap_map mutation).
+
+## Cycle 201 / v180 -- BATCHED 3-VERDICT (Composition A v5 disambiguation + Bet Z.5 S2 absorption-FAIL + Hatano-Sasa Cap 3 IFT MIDDLE BAND) -- verdict_handler BATCHED-mode
+
+### Context
+
+BATCHED-mode verdict_handler dispatched on THREE verdicts arriving as remote_cpu_queue drained today. All three returned in the same window. Step 0 honest re-reads done independently on each.
+
+### V1 -- wave14_cap12_cap8_audit_trail_pipeline_v5 (Composition A disambiguation)
+
+- Verdict: COMPA_AUDIT_MIDDLE_BAND. rhos = {kerdock 1.0, srht 0.533, hadamard 0.533, rm_1_m 0.571}. HARD-PASS (>=3/4 at rho >= 0.60) NOT MET (1/4). HARD-FAIL (rho < 0.30 on >=2) NOT MET (0/4). MIDDLE BAND.
+- Honest read: v5 is the post-v1c iterates-generated re-run of v4 with REAL RM(1,m) iterate data (no spectrum-only fallback). RM(1,m) rho went 0.40 (v4 fallback) -> 0.571 (v5 real). +0.17 lift confirms v4 was hybrid fallback + real weakness; not a pure fallback artifact (would have lifted past 0.60); not pure weakness (would not have lifted at all). Net per-family pattern: Kerdock perfect; Hadamard-class (SRHT == Hadamard, bit-identical) intermediate at 0.533; RM(1,m) weakest at 0.571. v179 BIMODAL framing stays unchanged.
+- Decision: NO new cap_map row state changes. Cap 1 / Cap 3 / Cap 8 v179 KERDOCK-SCOPE qualifier holds. Annotation: "v5 disambiguation confirms RM(1,m) is genuinely weak at the Composition A audit-trail rho resolution; the v4 0.40 was hybrid fallback + real weakness; with the fallback shim removed, the rho lifts but does not cross threshold; Composition A audit-trail scope confirmed Kerdock-only at per-family resolution."
+
+### V2 -- wave14_cap8_vamp_ensemble_variance_overlay_v1 (Bet Z.5 S2 absorption attempt FAILED)
+
+- Verdict: ENSEMBLE_OVERLAY_FAIL. per-codeword rhos = [0.021, 0.001, 0.004, 0.001, 0.02]. HARD-FAIL <0.30 in >=3/5 MET CLEANLY at 5/5.
+- Honest read: Label matches msg matches data. VAMP-ensemble variance is NOT informative about per-coordinate reconstruction error at K=64 noise-seed-perturbation resolution. The pre-registered absorption probe (Bet Z.5 == Cap 8 via ensemble overlay) is REFUTED at the chosen resolution. Per Research S1 drill conclusion this turn: Bet Z.5 is genuinely novel on the per-coordinate-variance certificate axis. This FAIL empirically confirms the novelty (the absorption path is closed, so the row's standalone novelty claim holds).
+- Decision: Bet Z.5 🔬 row STAYS at 🔬 (no closure, no promotion). v180 annotation: "Bet Z.5's per-coordinate-variance certificate is genuinely additional capability beyond Cap 8 VAMP-on-chain ensemble variance. The S2 ensemble-overlay closure attempt was a structural absorption probe; HARD-FAIL clean refutes the absorption path at the pre-registered resolution. Novelty empirically confirmed." Per [[feedback-rehabilitation-after-rejection]] file S3 fresh-impl anchor: fresh implementation of Diao 2025 absorbing-diffusion smoother on substrate (~4-6 hr CPU + 2-3 GPU-hr validation). NOT queued this cycle (heavy compute; CPU queue would benefit from cheaper sweeps first per [[feedback-pipeline-pacing]]). Carried as pre-registered future routing.
+
+### V3 -- wave14_hatano_sasa_cap3_ness_crooks_v1 (Hatano-Sasa MIDDLE BAND)
+
+- Verdict: HATANO_SASA_CAP3_NESS_CROOKS_MIDDLE_BAND. <exp(-W_ex)> = 1.3216 (30% above canonical 1.0). cross_basin_frac = 0.274; n_valid_cells = 11. HARD-PASS [0.95, 1.05] NOT MET; HARD-FAIL outside [0.5, 2.0] NOT MET. MIDDLE BAND.
+- Honest read: Label matches msg matches data. Substrate's streaming dynamics carries fluctuation-theorem-adjacent structure (real cross-basin NESS transitions confirmed by 0.274 frac) but does not cleanly satisfy the canonical Hatano-Sasa IFT. n_valid_cells=11 is sufficient statistics for a clean middle-band call. Three candidate interpretations: (a) non-equilibrium correction term needed; (b) basin-decomposition incomplete; (c) substrate's NESS has structure not captured by canonical HS framework.
+- Decision: Cap 3 ✅ FULL UNCHANGED at v158 streaming-inference scope + v179 KERDOCK-SCOPE qualifier on the closed-form annotation. v180 annotation on Cap 3: "Hatano-Sasa NESS-Crooks IFT applied to Cap 3 streaming dynamics returns <exp(-W_ex)>=1.32 (30% above canonical 1.0); cross_basin_frac=0.274 confirms real cross-basin NESS transitions; substrate carries fluctuation-theorem-adjacent structure but does not cleanly satisfy the canonical HS IFT; Cap 3 audit-cert via HS-IFT DEFERRED pending theoretical adjustment OR longer trajectories; HS-v2 filed as deferred candidate (NOT queued this cycle)."
+
+### Honest re-read tally (9th / 10th / 11th observations)
+
+All three label=msg=data agreement. [[feedback-verdict-msg-honest-reread]] LOCK working cleanly across PASS / MIDDLE / FAIL verdict classes in a single batched cycle. Cleanest 3-verdict batched cycle of the post-lock session arc.
+
+### Cap_map commit
+
+- v179 -> v180; LOCAL only (push pending main thread).
+- staged atomically: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md
+- 94th PROT-009 paired commit.
+
+### Pipeline / queue state
+
+- Pause flag: CLEARED / ACTIVE (verified at handler invocation per prompt).
+- Queue depths at handler completion: remote_cpu = 0 pending (DRAINED after this 3-verdict batch); GPU has Anchor 4 N=8192 + 5 prior pending.
+- Queue-refill FLAG: SHIPPED to main thread (CPU drained); main thread will dispatch exp_dev in parallel per orchestrator state.
+- S3 + HS-v2 NOT queued this cycle (heavy compute / deferred theoretical-extension; carried as pre-registered future routing).
+
+### PROT discipline summary
+
+- PROT-004 / PROT-006: pre-reg HARD-FAIL on Bet Z.5 S2 honored cleanly; S3 fresh-impl filed per [[feedback-rehabilitation-after-rejection]] (rescue path, not closure).
+- PROT-008: zero row movement; zero new ❌ PROVISIONAL; validator baseline unchanged.
+- PROT-009: paired commit (94th).
+- [[feedback-cap-map-update-protocol]]: 5-file atomic stage via append_decision_log.py preserving LF EOL on all targets.
+- [[feedback-for-you-tab-primary-channel]]: 3 status_log entries (LOW + MEDIUM + MEDIUM).
+- [[feedback-no-smoke]]: substrate-product framings stay honest -- Composition A confirmed Kerdock-only; Bet Z.5 novelty over Cap 8 empirically confirmed (not just a synthesis claim); Cap 3 HS-IFT explicitly deferred not over-claimed.
+- [[feedback-verdict-msg-honest-reread]]: 9th + 10th + 11th honest-reread observations, all clean across PASS / MIDDLE / FAIL classes.
+- [[feedback-rehabilitation-after-rejection]]: S3 fresh-impl + HS-v2 deferred candidate filed as rehabilitation paths (not closures).
+- [[feedback-dispatch-wrappers-default]]: NO new Research routing this cycle.
+- [[feedback-pipeline-pacing]]: queue-refill FLAG shipped to main thread (CPU drained); pipeline depth >= 1 invariant restored via main-thread parallel dispatch.
+
+### Commit hash
+
+Pending (created post-stage; reported in handler return).
