@@ -1708,3 +1708,75 @@ The v170 -> v171 pattern (promote ✅ on single anchor of compound gate, then re
 - Queue-refill NOT triggered. GPU=2 pending+1 running, remote_cpu=8 pending+1 running, local_cpu idle. Queue is healthy per [[feedback-pipeline-pacing]].
 
 ### 85th PROT-009 paired commit
+
+
+
+## (cycle 192) v172 BATCHED SIX-verdict cap_map update -- Cap 2 ❌ PROVISIONAL -> ✅ via Pattern-1 conformal subsumption; Bet T closed per PROT-004/006; Bet V partial-retained; PFK partial-thermalization rejected (QECC annotations preserved); generative LIMITED annotated
+
+Strategy verdict-handler-inline, six paired verdicts in one v172 paired commit.
+
+### Strategy verdict summary
+
+**Cap 2 HEADLINE rescue (V1)** -- `wave14_cap2_conformal_subsumption_v1` FULL = CAP2_CONFORMAL_RESCUE_PASS. 5/5 seeds achieve committed_acc >= 0.9 at abstain <= 0.2 with monotone Pareto front. Cap 2 re-axiomatized as calibrated abstention over Bet G stream per Pattern-1 conformal subsumption. **This is Rescue 5 from the v160 sequencing recommendation** ("Re-axiomatize Cap 2 as downstream conformal layer; Gap C subsumption -- zero experimental cost; cleanest portfolio move"). Rescue 5 was correctly identified as FIRST in sequencing at v160 (rationale: cheapest + cleanest). v172 closes the rehab cycle: Cap 2 ❌ PROVISIONAL -> ✅ FULL via subsumption into Cap 6 (Gap C Conformal calibrated confidence) which already named "MAY ABSORB closed Cap 2 per Rescue 5" in the portfolio table.
+
+The substrate-product portfolio after v172:
+- ZERO open ❌ PROVISIONAL rejections (cleanest portfolio state since PROVISIONAL framing was introduced at v160).
+- 11 demonstrated capabilities UNCHANGED IN COUNT. Cap 2 returns to ✅ via subsumption into existing Cap 6, NOT as a new independent row. Per [[feedback-dont-overextend-theorems]] this is rescue-cleanup, not portfolio inflation.
+- The Cap-12 candidate row from v171 (BBMD-as-substrate-product-class) stays ❌ PROVISIONAL UNCHANGED by this batch (separate rehab cycle; Research vetted ranking pending on the 5 axis-combination sketches filed v171).
+
+**Bet T closure (V2)** -- `wave14_betT_mondrian_anti_RM_conformal_v1` FULL = BETT_MONDRIAN_ANTI_RM_FAIL. Per-coset coverage = 1.0 in 4/4 anti-RM cosets, all out of [0.8, 0.99] target band. This was Sketch #3 from `notes/research_betT_rescue_sketches_2026-05-23.md` (conformal class-wise wrapper applied to anti-RM(1,16) coset; P_deflated=0.40; highest-rank conformal-style rescue). With Sketch #3 HARD-FAILED, the structural analysis of the remaining 4 sketches gives:
+- Sketch #2 (per-hypothesis TEMPSCALE; P=0.45): structurally collapses to Bet G TEMPSCALE which is already a separate ✅ row at Cap 6 -- running it as Bet T rescue would double-count.
+- Sketch #4 (VAMP-on-chain per-hypothesis posterior; P=0.35): structurally collapses to Cap 8 VAMP-on-chain per-hypothesis instantiation (already ✅ at Cap 8 envelope).
+- Sketch #1 (Kerdock-orthogonal hypothesis subspaces; P=0.35): substantively different; stays as elective experimental option but ranks LOWER than Sketch #3 on calibration-deflated P.
+- Sketch #5 (periodic re-anchor + replay; P=0.30): substantively different; stays as elective experimental option; ranks lowest.
+
+Per PROT-004/006 5-sketch rehab discipline: the highest-rank conformal-style rescue (Sketch #3) has failed; Sketches #2/#4 are structurally redundant with already-✅ rows; Sketches #1/#5 are elective. **Bet T closes 🟡 PARTIAL -> ❌ CLOSED at v172** with rescue-paths-exhausted annotation. Sketches #1 and #5 stay as elective hardening options if customer demand surfaces.
+
+**Bet V partial-rescue retained (V3)** -- `wave14_betV_kappa4_separation_v1` FULL = BETV_KAPPA4_RESCUE_PARTIAL. \|kappa4_sep\|=2.51 SD in [1.0, 2.0) band (signal present but not portfolio-rescue strength); sign_consistent=False; kappa4_stored=0.065 vs unstored=2.210 (34x absolute-magnitude ratio but sign-inconsistent across seeds). This was closest to Sketch #1 in `notes/research_betV_rescue_sketches_2026-05-23.md` (meta-binding hierarchy via Kerdock-orthogonal subspaces, applied here with 4th free cumulant as separation observable; P_deflated=0.35). Verdict: PARTIAL not PASS not FAIL.
+
+Per [[feedback-dont-overextend-theorems]]: substrate carries SOME 4th-cumulant signature distinguishing stored vs unstored content (34x absolute-magnitude ratio is real), but NOT a sign-stable separation observable (sign-inconsistent across seeds means the substrate's kappa_4 signature is not a usable confidence proxy for self-reflective separation). Bet V row stays 🟡 PARTIAL UNCHANGED at v172 with annotation noting the partial-rescue outcome. 4 remaining sketches (#3 confidence-conditioned cleanup; #4 provenance chain encoding; #2 N=65536 calibrated cleanup; #5 HRR iterative meta-refinement) stay as elective hardening options. Per [[feedback-strategy-shore-up-capabilities]] do NOT generate a new rescue sketch this cycle.
+
+**PFK framing REJECTED for partial-thermalization, non-GUE annotation retained (V4 + V5 mixed evidence)**:
+
+- V4 `wave14_cactus_factorization_break_kerdock_n6_v1` FULL = PFK_FULL_ETH_BULK. R_6 in [0.95, 1.05] in 10/10 seeds (median=0.9977, mean=0.9977). Cactus factorization dominates at n=6; substrate is **full-ETH-class at n=6 with non-Gaussian bulk shape**. The "BBMD = partial thermalization" reframing from `notes/research_eth_thermalization_drill_2026-05-23.md` is REJECTED at n=6 cactus level. v167 KAPPA_PROFILE_GROWS is REFRAMED as bulk-shape information (non-Gaussian higher cumulants in a thermalized distribution), NOT as partial-thermalization signal.
+
+- V5 `wave14_kerdock_sff_vs_gue_v1` FULL = PFK_SFF_NON_GUE. SFF deviates from GUE by > 15% in dip OR plateau in 5/5 seeds (median dip rel-dev 2.064, median plateau rel-dev 0.149). Substrate has spectral structure that GUE does NOT capture. This SURVIVES.
+
+Honest reading: V4 and V5 are NOT contradictory. V4 says "substrate is fully thermalized at n=6 in the connected-correlator decomposition" (a CACTUS property); V5 says "substrate is not GUE-distributed" (a SPECTRAL property). The substrate can be in a structured-thermalized class that is neither iid-Gaussian-noise nor canonical-GUE. The partial-thermalization MECHANISM-NAME for the non-GUE spectral structure is REJECTED at n=6; the mechanism candidate that survives is the 4-coset MUB-stabilizer structure from the Kerdock-MUB-stabilizer drill (Section 3 + Section 5.2). Per [[feedback-dont-overextend-theorems]] V5 alone does NOT promote a row; substrate-physics characterization gains a v172 annotation noting the non-GUE structure and the rejection of the partial-thermalization mechanism for it.
+
+**v169 Cap 1/Cap 3/Cap 8 QECC closed-form annotations PRESERVED**: Critical clarification per [[feedback-dont-overextend-theorems]]. The v169 closed-form rederivations land via the Kerdock-MUB-stabilizer lens (CCKS 1997 + CRCP 2020 + Klappenecker-Roetteler 2003/2005 + Webb 2016 + Zhu-Kueng-Grassl-Gross 2016 + standard QECC textbook). The mathematical content of these derivations is Clifford-design property + Pauli-channel structure + Schur-Weyl decomposition. NONE of this depends on ETH / cactus / partial-thermalization. The Pauli-twirl is exact for a Clifford 2-design (CRCP 2020); the Holevo capacity of a Pauli channel is exact; the Schur-Weyl decomposition of the Clifford representation is exact. **The V4 rejection of partial-thermalization does NOT touch Cap 1 / Cap 3 / Cap 8 v169 annotations.** They remain valid; the substrate's QECC structure stands independent of its thermalization regime.
+
+**Substrate generative-mode LIMITED (V6)** -- `wave14_substrate_glauber_generative_smoke_v1` FULL = SUBSTRATE_GENERATIVE_LIMITED. At best cell (beta=5.00): novelty=1.000 (PASS), stability=0.967 (PASS), diversity=0.070 (FAIL), coherence=0.120 (FAIL). Kerdock-Hopfield retrieval-mode dominates; substrate CAN generate samples not in the stored set (novelty hit) AND can generate stable samples (stability hit at low temperature), but the generated samples are noisy variants near stored items (low diversity) without coherent compositional structure (low coherence). The 12th-capability candidate framing "substrate as generative-mode model" is REJECTED in its strong 4-gate composite form. Per [[feedback-dont-overextend-theorems]] do NOT add a portfolio row on V6 (partial-pass 2/4 gates is annotation-grade, not row-grade). Per [[feedback-strategy-shore-up-capabilities]] do NOT add a 🔬 candidate row either (Kerdock-Hopfield retrieval-mode is already covered by existing portfolio at Cap 8 / cycle 162 cleanup-mechanism rows; a 🔬 row for generative-mode-LIMITED would be a confusing duplicate-leaning addition). Annotate only on substrate-physics characterization line.
+
+### Portfolio count justification
+
+11 demonstrated capabilities UNCHANGED at v172. Cap 2 was REMOVED at v160 (12 -> 11 explicit removal documented at v160); v172 RETURNS Cap 2 to ✅ via subsumption into existing Cap 6 (Gap C Conformal calibrated confidence), NOT as a new independent row. Cap 6 already named Cap 2 as "MAY ABSORB closed Cap 2 per v160 Rescue 5"; v172 makes the absorption explicit. The portfolio count stays at 11 -- Cap 2's commercial-wedge framing is now delivered via Cap 6's conformal pipeline rather than substrate-intrinsic margin/tau-based proxy. Per [[feedback-no-smoke]] honest framing: this is rescue-cleanup, NOT portfolio inflation; the substrate did not gain a new capability, the substrate's existing Cap 6 capability now covers what Cap 2 originally promised. ZERO open ❌ PROVISIONAL rejections remain in the portfolio after v172 (cleanest portfolio state since v160).
+
+### Strategy follow-up actions (cycle 192)
+
+1. **PROT-009 v172 paired commit** -- 86th observation (atomic stage of 5 files).
+2. **NO new Research routing filed**. The Cap 2 rehab cycle CLOSES (Rescue 5 PASS). The Bet T rehab CLOSES (Sketch #3 HARD-FAIL exhausts the 5-sketch protocol given structural overlap of #2/#4 with already-✅ rows). The Bet V rehab stays open with 4 remaining elective sketches.
+3. **NO new Exp Dev routing filed** (per [[feedback-dispatch-wrappers-default]] verdict_handler does NOT ship Exp Dev routing).
+4. **NO queue-refill triggered** (per [[feedback-pipeline-pacing]] queue is healthy; verdict_handler does NOT ship queue-refill).
+5. **active_priorities.md** updated atomically v171 -> v172: Cap 2 row absorbed into Cap 6 (Gap C); Bet T row moved to closed-list; Bet V row updated with v172 partial-rescue annotation; substrate-physics characterization line updated with V4/V5/V6 annotations.
+
+### Inefficiency locked for memory_curator
+
+**Rescue-sketch FIRST-sequencing pattern (positive worked example)**: when a ❌ PROVISIONAL closure has a zero-cost subsumption-into-existing-row rescue sketch (Cap 2 Rescue 5 = subsumption into Cap 6 / Gap C), that sketch should be FIRST in sequencing. The v160 sequencing recommendation correctly placed Rescue 5 FIRST ("zero experimental cost; cleanest portfolio move"); the rehab took 12 cap_map versions of patience (v160 -> v172) and cleanly PASSED. This is a positive worked example of [[feedback-rehabilitation-after-rejection]] discipline working as designed. **Lock as addendum**: "rescue-sketch FIRST-sequencing discipline -- zero-cost subsumption rescues should be FIRST in sequencing when filed; Cap 2 v160 -> v172 is worked example."
+
+### Files filed this cycle
+
+- `notes/substrate_capability_map.md` -- Cycle 192 narrative + Capability moves table appended.
+- `notes/substrate_capability_map_history.md` -- v172 one-line index entry appended.
+- `notes/active_priorities.md` -- header updated v171 -> v172.
+- `notes/visibility_decisions_2026-05-23.md` -- 6 status_log entries appended (V1 CRITICAL; V2/V3/V4/V5 HIGH; V6 MEDIUM).
+- `notes/strategy_decisions_2026-05-23.md` -- this entry.
+
+### Queue / push status
+
+- Local commit only (sub-agent push blocked per [[feedback-subagent-permission-inheritance]]); main thread executes push.
+- Queue-refill NOT triggered. GPU=2 pending+1 running, remote_cpu=7 pending+1 running (4 just completed this cycle, queue is naturally draining), local_cpu idle. Queue depth >= 1 invariant satisfied per [[feedback-pipeline-pacing]].
+
+### Tally (one-line)
+
+SIX VERDICTS v171 -> v172: V1 Cap 2 ❌ PROVISIONAL -> ✅ via Cap 6 (Gap C) subsumption per Rescue 5 from v160 sequencing FIRST (CAP2_CONFORMAL_RESCUE_PASS 5/5 seeds committed_acc >= 0.9 at abstain <= 0.2 Pareto monotone) -- ONLY open ❌ PROVISIONAL in portfolio closes cleanly; V2 Bet T 🟡 PARTIAL -> ❌ CLOSED per PROT-004/006 5-sketch rehab exhaustion (BETT_MONDRIAN_ANTI_RM_FAIL per-coset coverage 1.0 in 4/4 cosets); V3 Bet V 🟡 PARTIAL UNCHANGED + v172 partial-rescue annotation (BETV_KAPPA4_RESCUE_PARTIAL kappa4_sep=2.51 SD sign-inconsistent); V4 PFK partial-thermalization REJECTED at n=6 cactus level (PFK_FULL_ETH_BULK R_6 median 0.9977) -- substrate is full-ETH-class with non-Gaussian bulk shape; V5 non-GUE spectral structure SURVIVES (PFK_SFF_NON_GUE median dip rel-dev 2.064 plateau 0.149) -- mechanism candidate is 4-coset MUB-stabilizer NOT partial-thermalization; v169 Cap 1/Cap 3/Cap 8 QECC closed-form annotations PRESERVED (Clifford-design / Pauli-channel structure is NOT partial-thermalization); V6 generative LIMITED annotation only (SUBSTRATE_GENERATIVE_LIMITED novelty + stability hit but diversity + coherence fail) -- NO portfolio row added; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (Cap 2 returns via Cap 6 subsumption not new row); **ZERO open ❌ PROVISIONAL rejections remain after v172** (cleanest portfolio state since v160); rehab-cycle FIRST-sequencing discipline VALIDATED (12 cap_map versions of patience v160 -> v172); 86th PROT-009 paired commit.
