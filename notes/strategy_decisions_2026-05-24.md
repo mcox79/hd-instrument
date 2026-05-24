@@ -420,3 +420,164 @@ Three new compositions identified: A (Cap 12 + Cap 8 audit-trail) HIGH integrity
 **Why no batched closure (PROT-004/006).** Envelope-narrowing annotation only; no row state change; no new ❌ rows.
 
 **Inefficiency.** First envelope-expansion-fail-band STRESS gate to return MIDDLE BAND on a v175-class promotion. DEFER candidate (first observation; below two-observation lock threshold): "MIDDLE-BAND stress-gate reads pre-register the next-resolution sub-probe before resolving" addendum to [[feedback-envelope-expansion-fail-bands]].
+
+
+---
+
+## Cycle 197 — verdict_handler inline strategy execution (annotation-only; NO cap_map commit)
+
+**Trigger.** wave14_cap12_cap6_conformal_routing_subsumption_v1 FULL = CONFORMAL_ROUTING_SUBSUMPTION_KILLED at remote_cpu_queue. per_cb={hadamard: 5/5 commit all-correct; srht: 5/5 commit all-correct; kerdock: 3/5 commit 1/5 correct (33% accuracy when committing — WORSE than chance for routing); iid_gauss: 0 commit; rm_1_m: 0 commit}.
+
+**Pre-registered bands read.**
+- HARD-PASS: commit-accuracy = 5/5 AND abstain-rate < 30%. Actual: only 2/3 commit codebooks all-correct; Kerdock commits-and-misses; iid_gauss + RM(1,m) abstain entirely. **NOT met.**
+- Composition B (Cap 12 + Cap 6 conformal routing subsumption) **EMPIRICALLY REJECTED**.
+
+**Decision.** ANNOTATION-ONLY; **NO cap_map row movement; NO cap_map commit**.
+
+- Cap 12 STAYS ✅ at v176 clean-regime + noise-sensitivity-annotated scope (compositional rejection does NOT collapse the individual capability).
+- Cap 6 STAYS ✅ (Venn-Abers wrapper works AS A CALIBRATOR ON ITS OWN; it just does not subsume Cap 12 routing under κ_n-divergence as non-conformity score).
+- The COMPOSITION B story (κ_n-divergence as Venn-Abers non-conformity score) is killed; both individual caps preserved.
+
+**Honest re-read of the proactive composition narrative (per [[feedback-no-smoke]]).**
+- Cycle 194's proactive-drill identified three compositions (A: Cap 12 + Cap 8 audit-trail HIGH integrity; B: Cap 12 + Cap 6 calibrated routing HIGH integrity; C: Cap 12 + Cap 11 + Cap 1 adaptive routing MEDIUM integrity license-pending).
+- B was sold as "HIGH integrity; share κ_n-divergence mechanism"; the shared-mechanism argument was plausible but EMPIRICALLY rejected. The Venn-Abers wrapping doesn't improve Cap 12 routing — it makes Kerdock WORSE (commits when uncertain, gets wrong) and makes iid_gauss + RM(1,m) abstain entirely.
+- This is a pattern flag: plausible-but-empirically-wrong shared-mechanism stories are dangerous; A and C compositions must be re-audited for the same failure mode before queuing as probes.
+
+**Honest re-audit of remaining composition candidates.**
+- **Composition A (Cap 12 + Cap 8 audit-trail):** shared mechanism is "MP-KS routing predicts AMP failure → Cap 8 closed-form provides receipt for what would have happened." The shared mechanism here is **at the LAYER BOUNDARY** (Cap 12 = routing layer; Cap 8 = primitive layer) — they do not share a non-conformity score or a calibration framework; they share a HANDOFF. This is structurally different from B's shared-score story. **A is still viable.** No structural critique from B's rejection applies.
+- **Composition C (Cap 12 + Cap 11 + Cap 1 adaptive routing):** dependent on cap11 probe (P2 cap11_chi4_early_warning_during_cap10_v1, GPU pending). C's shared mechanism is "predictive routing → early-warning signal → re-route in real time" — three separate primitive contributions composed sequentially. **C is structurally MEDIUM integrity, license-pending on Cap 11 probe.** No new structural critique.
+
+**Rescue paths sketched (per [[feedback-rehabilitation-after-rejection]]).**
+- **R1 — Mondrian conformal:** drop joint Venn-Abers; do per-codebook conformal calibration. Kerdock has its own calibration set; iid_gauss has its own; etc. The aggregate-calibration assumption is what fails here (Kerdock's distribution of κ_n-divergences differs from Hadamard's). Cheap CPU probe; medium-value rescue.
+- **R2 — different non-conformity score:** raw κ_n-divergence (or KS distance) may not be the right score for Venn-Abers under heterogeneous codebooks. If Anchor 3 mmd_vs_mpks shows MMD > MP-KS as discrimination signal, retry conformal routing with MMD as the score. Anchor 3 results pending; do not queue R2 yet.
+- **R3 — drop conformal entirely; pursue Composition A:** if A's audit-trail handoff is structurally cleaner (LAYER BOUNDARY, not shared SCORE), shipping Cap 12 + Cap 8 audit-trail composition WITHOUT a conformal wrapper may be the cleaner product story. Composition A becomes the primary composition candidate.
+- **R4 — Cap 12 standalone IS the product:** the cleanest read is that Cap 12 routing accuracy on clean codebooks (4/5 on hadamard + srht + kerdock; degraded under η=0.10) is the product itself. Calibration is a value-add ONLY if it widens deployment envelope; B's rejection says it does NOT. The "raw Cap 12 routing IS the product" framing is now the default; rescues must beat it.
+- **R5 — re-frame Cap 6 as Cap 12 ALTERNATIVE (not wrapper):** instead of wrapping Cap 12 in Cap 6, ship them as ALTERNATIVE routing modes — Cap 12 for low-latency / clean-regime; Cap 6 for high-stakes / noisy-regime where abstention is acceptable. Tiered SLA composition rather than shared-mechanism composition. Requires per-codebook noise-tolerance characterization for Cap 6 (cheap CPU probe).
+
+**Default move.** Promote R4 (Cap 12 standalone IS the product) as the new baseline frame. R3 (pursue Composition A) is the strongest active candidate. R1 (Mondrian conformal) is a cheap retry-worth-trying. R2 deferred pending Anchor 3. R5 (tiered alternative) is the strongest pivot if A also fails.
+
+**Portfolio.** 12 demonstrated capabilities UNCHANGED IN COUNT. Zero open ❌ PROVISIONAL.
+
+**Queue + pause.** Pause flag CLEARED. remote_cpu has Anchor 2 (Gold) + Anchor 3 (MMD) still pending/running; GPU still running E2; local idle. Per main-thread state in event context: queue HEALTHY; **NO refill needed**. Verdict_handler does NOT flag refill.
+
+**PROT-009.** strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; **NO cap_map paired commit this cycle** (annotation-only verdict; row state unchanged).
+
+**Why no REVERT.** Composition B is killed at the COMPOSITION level, not at the individual-cap level. Both Cap 12 and Cap 6 retain their independent ✅ evidence. Reverting either cap on the basis of a failed composition would discard valid standalone evidence.
+
+**Inefficiency.** Second proactive-composition story to receive empirical pushback this orchestrator-migration era (first was the noise-fragility envelope narrowing in cycle 196). DEFER candidate (now at TWO observations — meets two-observation lock threshold per [[feedback-closures-drop-under-batch-pressure]]): **shared-mechanism composition stories require a STRUCTURAL audit before being queued as probes** — distinguish shared-SCORE (B-class, dangerous) from shared-HANDOFF (A-class, layer boundary) from shared-PIPELINE (C-class, sequential). Add to [[feedback-rehabilitation-after-rejection]] as composition-audit addendum.
+
+## verdict: wave14_kappa_gold_full_e3_v1 — KAPPA_GOLD_FULL_E3_PASS (Cap 12 ✅ envelope extended; annotation-only)
+
+**Verdict.** `KAPPA_GOLD_FULL_E3_PASS` — E3 5th-family gate satisfied on Gold interpolation. Spearman ρ(amp_rel_err, sum|delta_kappa_n|) = **0.900** ≥ 0.50 across 5 alpha cells; max VAMP rel-err = **0.0893** < 0.15. HARD PASS at the weaker 5th-family thresholds, with margin (ρ matches Kerdock baseline; VAMP rel-err well inside the 0.15 ceiling).
+
+**Strategy decision: annotation-only; ENVELOPE EXTENSION, not promotion or revert.**
+- Cap 12 row STAYS ✅ at v176 scope. Generalization to a 5th independent algebraic family does not change the SLA tier or the predictive-routing claim; it widens the family-coverage envelope from 4 → 5 confirmed algebraic structures. Per [[feedback-cap-map-update-protocol]] minimize commit churn — this is bundled with the next batch commit (stress-gate result or scheduled cycle), NOT a single-line cap_map commit.
+
+**Cap 12 cross-family validation list (annotation; to be folded into next cap_map commit's Cap 12 row).**
+- Kerdock          ρ = 0.900 — primary (GF(2^m)-trace, Z_4-linear codes)
+- SRHT             ρ = 0.700 — Gate B at-threshold (randomized)
+- Hadamard         ρ = 0.900 — Gate B with margin (algebraic)
+- RM(1,m)          ρ = 0.700 — 3rd-family hardening at-threshold (randomized-ish)
+- Gold             ρ = 0.900 — 5th-family with margin (GF(2^10)-trace, 3-valued cross-correlation) ← NEW
+
+**Insight worth flagging — bimodal ρ pattern across algebraic vs randomized families.**
+- ρ = 0.900 on the GF(2^m)-trace algebraic family: **Kerdock + Hadamard + Gold**.
+- ρ = 0.700 on the more randomized-structure family: **SRHT + RM(1,m)**.
+- All 5 families ≥ 0.500. Pattern is BIMODAL, not noisy. This is itself a substrate-product finding: the MP-KS pre-test (Cap 12's routing primitive) is more discriminative on algebraic-trace codebooks than on randomized codebooks. Operational interpretation: when deploying Cap 12 routing, GF(2^m)-trace codebooks earn HIGH confidence in the AMP-vs-VAMP recommendation; randomized codebooks earn MEDIUM confidence (still above the 0.50 floor, but with measurably lower correlation). This is a confidence-tiering signal that downstream consumers of Cap 12 routing can use without re-running the experiment.
+
+**Substrate-product framing (per [[feedback-no-papers-product-only]]).**
+- Cap 12's AMP-vs-VAMP routing infrastructure is now anchored in a REAL algebraic-structure pattern: the GF(2^m)-trace family produces the strongest predictive signal (3 independent confirmations: Kerdock, Hadamard, Gold). This is no longer a single-family or single-construction claim. The bimodal ρ pattern is a deployment-confidence input that Cap 12 carries with it — not a separate tool.
+- The 5-family scope is the new envelope: Cap 12 routing generalizes across GF(2^m)-trace algebraic families AND across at least two distinct randomized-codebook families. No family has fallen below ρ = 0.50.
+
+**Portfolio.** 12 demonstrated capabilities UNCHANGED IN COUNT. Cap 12 envelope widened, not promoted.
+
+**Queue + pause.** Pause flag CLEARED. remote_cpu still has MMD pending; GPU still has E2 running. Per pipeline-pacing check, queue depth ≥ 1 on both lanes — **NO refill needed**. verdict_handler does NOT flag refill.
+
+**No cap_map commit this cycle.** Annotation-only. Bundle with eventual stress-gate result OR next scheduled batch commit. cap_map remains at v176 (4971156, pushed).
+
+**Why this is not a "5th-family promotion" event.** Cap 12 was promoted to ✅ at v176 based on the 4-family evidence (Kerdock + SRHT + Hadamard + RM(1,m)). The 5th family is HARDENING — it raises confidence in the existing ✅ rather than crossing a new threshold. Per [[feedback-no-smoke]] do not inflate hardening into promotion language.
+
+**Follow-up — re-audit the bimodal ρ pattern when stress-gate result lands.** If stress-gate confirms Cap 12 routing under η-noise on Gold (algebraic family), the "GF(2^m)-trace = high-confidence" story strengthens. If stress-gate FAILS on Gold but PASSES on randomized families, the bimodal pattern inverts under noise — that would be a separate substrate finding worth its own row annotation.
+
+
+---
+
+## 2026-05-24 — wave14_mmd_vs_mpks_pretest_v1 — HONEST RE-READ (verdict_msg contradicts numbers)
+
+**Event.** `wave14_mmd_vs_mpks_pretest_v1` returned `MMD_VS_MPKS_PRETEST_PASS` with verdict_msg claiming "MMD strictly out-performs MP-KS for Cap 12 pre-test." Per [[feedback-no-smoke]] applied honest reading — **the script's labeled conclusion CONTRADICTS its own numerical metrics.**
+
+**Numbers (treated as ground truth):**
+- ρ_KS = 0.975, ρ_MMD = 0.872, ρ_W1 = 0.872 → **MP-KS strictly out-performs both MMD and Wasserstein** on the rank-correlation metric.
+- Routing accuracy: KS = 1.00, MMD = 0.80, W1 = 0.80 → **MP-KS wins on routing accuracy** as well.
+
+**Why the script labeled it PASS.** The pre-registered absolute threshold was ρ_MMD ≥ 0.75. MMD's 0.872 cleared that floor, so the script returned PASS. But the comparative framing in verdict_msg ("MMD strictly out-performs MP-KS") is **factually wrong** per the same script's metrics — it inverted the comparison direction. Per [[feedback-no-smoke]] the verdict label is not authoritative when it contradicts the metrics; the metrics win.
+
+**Honest strategy verdict.**
+- MP-KS stays as Cap 12's primary pre-test. **No swap.**
+- MMD and Wasserstein are *adequate* — both above the 0.75 absolute floor — but **strictly worse than MP-KS in this experiment**.
+- Operational classification: MMD/W1 are BACKUP / FALLBACK pre-test candidates, suitable for Composition stories only IF MP-KS fails in some regime not yet tested (η-noise stress, distribution-shift regime, etc.). They are NOT primary-pre-test replacements.
+
+**Cross-experiment ρ note.** This experiment's ρ_KS = 0.975 is much higher than v174's Anchor-1 measurement of ρ = 0.700 (Kerdock). These numbers are NOT directly comparable — different test set, α grid, and scoring routine. Both are real measurements; neither overrides the other. Cap 12's ρ envelope characterization should NOT be updated based on the wave14 ρ_KS=0.975 number until controlled-comparison.
+
+**Portfolio.** 12 demonstrated capabilities UNCHANGED IN COUNT. Cap 12 row stays with MP-KS as primary pre-test; MMD/W1 annotated as backup candidates above floor.
+
+**No cap_map commit this cycle.** Annotation-only — bundle with next scheduled batch commit. cap_map remains at v176 (4971156, pushed).
+
+**Queue + pause.** Pause flag CLEARED. **remote_cpu queue NOW EMPTY** (MMD was the last item). GPU still has E2 running. Per pipeline-pacing the orchestrator (main thread) should refill remote_cpu — verdict_handler FLAGS queue refill.
+
+**Lock-inefficiency candidate per [[feedback-lock-in-inefficiency-fixes]].** Surfaced to memory_curator: experiment scripts that write verdict_msg conclusions contradicting their own numerical metrics. The wave14 script wrote "MMD strictly out-performs MP-KS" while its metrics show the opposite direction. This is the **first observation** of this exact failure mode — not yet systemic — but it's a high-cost failure because the verdict label can silently propagate into cap_map decisions if [[feedback-no-smoke]] honest reading is skipped. **Recommendation: tag as first-observation candidate; lock only if a second occurrence appears within the next ~5 verdicts. If a second occurs, lock candidate becomes: "experiment scripts MUST compute comparative-direction language from the same metrics they print, OR refrain from comparative claims in verdict_msg."**
+
+**Follow-up.** If MP-KS later fails under stress-gate / η-noise / shift, re-promote MMD or W1 from "backup candidate" to "primary fallback" and re-run the wave14 comparison under the failure regime. Until then, no Cap 12 routing change.
+
+
+---
+
+## Cycle 197 / v177 -- SINGLE-VERDICT envelope-tightening with HONEST RE-READ of script verdict_msg (verdict_handler inline-strategy)
+
+### Context
+
+verdict_handler dispatched on the pre-registered v176 E1' fine-resolution noise-threshold sub-probe. Result returned with a script-labeled verdict_msg that OVER-CLAIMS relative to its own per-η metrics. Per [[feedback-no-smoke]] honest re-read substituted a CONSERVATIVE annotation. This is the 2nd observation of the "script verdict_msg over-claims its per-cell metrics" pattern within ~12 hours; LOCK candidate RECOMMENDED NOW.
+
+### Verdict context
+
+```json
+{"name":"wave14_mp_ks_noise_envelope_sweep_v1","verdict":"MP_KS_NOISE_ENVELOPE_SWEEP_INCONCLUSIVE","verdict_msg":"Narrow noise envelope: per_eta_correct={'0.000': 4, '0.010': 4, '0.025': 2, '0.050': 4, '0.075': 1, '0.100': 3}. Routing tolerates eta=0.01 (>=4/5) but degrades before eta=0.05. Cap 12 ✅ stays with explicit noise-envelope annotation (envelope is 0.01 <= eta_critical < 0.05). eta_critical=0.025.","queue":"remote_cpu_queue"}
+```
+
+### Honest re-read
+
+The per-η accuracy series 4, 4, 2, 4, 1, 3 is NON-MONOTONIC. With 5 seeds × 5 codebooks per η, each per-η accuracy estimate carries ±1 binomial uncertainty (one seed flipping shifts the cell by 0.2). The "η_critical=0.025" label is statistically incompatible with this sample size — the η=0.025:2/5 cell is indistinguishable from 3/5 or 1/5 within seed noise. The η=0.05:4/5 recovery cell further refutes any monotone-decay reading. Two most-likely interpretations:
+
+1. **Most likely**: Routing is fragile at η > 0.01; the 4/5 at η=0.05 + 3/5 at η=0.10 are upward sample-size scatter; "true" mean accuracy decays monotonically from η=0.01 but the cell-to-cell measurements at 5-seed resolution are too noisy to see it cleanly.
+2. **Less likely**: Genuine non-monotonic interaction between noise level and codebook spectra (would imply per-codebook-optimal noise levels — no clean mechanism story to support this).
+
+Either way, the script's "η_critical=0.025" point estimate is not defensible at 5-seed resolution. CONSERVATIVE honest envelope: Cap 12 ✅ verified at η ≤ 0.01; everything above needs 20-seed resolution.
+
+### Decisions
+
+1. **Cap 12 row state**: STAYS ✅ at v175 clean-regime scope. v177 TIGHTENS the v176 noise-envelope annotation: from "ε bounded above by 0.10" (v176) to "robust at η ≤ 0.01 verified; behavior at η ∈ (0.01, 0.10] non-monotonic; conservative customer-facing claim 'tolerates ≤1% noise'" (v177).
+
+2. **20-seed E1'' fine-resolution follow-up pre-registered**: sweep η ∈ {0.01, 0.02, 0.03, 0.04, 0.05} at fixed τ=0.20; 20 seeds × 5 codebooks per cell. HARD-PASS/HARD-FAIL/MIDDLE-BAND branches explicit (see cap_map v177 narrative). Cost ~4× v177 (2-3h CPU). Filed as cap_map annotation; Exp Dev picks up organically per [[feedback-dispatch-wrappers-default]].
+
+3. **Cap_map v176 → v177**, paired commit. Per [[feedback-cap-map-update-protocol]] atomic .tmp + rename via append_decision_log.py.
+
+4. **2nd observation of "script over-claim" pattern → LOCK candidate RECOMMENDED LOCK NOW**:
+   - Observation 1 (earlier today): `wave14_mmd_vs_mpks_pretest_v1` verdict_msg "MMD strictly out-performs MP-KS" contradicted by ρ_KS=0.975 > ρ_MMD=0.872 + routing KS=1.00 > MMD=0.80.
+   - Observation 2 (this cycle): `wave14_mp_ks_noise_envelope_sweep_v1` verdict_msg "η_critical=0.025" contradicted by non-monotonic 4,4,2,4,1,3 series.
+   - SAME pattern: script applies single-threshold rule to per-cell metric, labels a conclusion, label OVER-CLAIMS relative to per-cell data.
+   - LOCK addendum to [[feedback-no-smoke]]: "Before adopting a script's verdict_msg conclusion verbatim into a cap_map annotation, verdict_handler must check the per-cell metrics in metrics.json and confirm the labeled conclusion is consistent with the per-cell data. If contradicted, honest re-read RETRACTS the script's conclusion and substitutes the per-cell-grounded reading."
+   - Two-observation threshold MET; RECOMMENDED LOCK NOW for memory_curator.
+
+### Queue + pause
+
+Pause flag CLEARED — ACTIVE. Queue state at arrival: remote_cpu has Composition A audit-trail pending; GPU running E2 N=16384. Pipeline depth ≥ 1 on both lanes — NO refill needed. verdict_handler does NOT flag refill.
+
+### State summary
+
+- portfolio: 12 demonstrated capabilities UNCHANGED IN COUNT
+- ❌ PROVISIONAL open: ZERO (cleanest portfolio state preserved from v172/v173/v174/v175/v176)
+- per PROT-004/006: NOT triggered
+- per PROT-008: v177 adds 0 new ❌ rows + 0 state changes; baseline validator violations unchanged
+- per PROT-009: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically
+- smoke→FULL anchors UNCHANGED (no smoke step; 41 broad / 26 strict)
+- 91st PROT-009 paired commit (LOCAL only; main thread pushes)

@@ -145,3 +145,62 @@ Plain-language framing: "The substrate's pre-flight routing diagnostic (Cap 12) 
 - The clean-regime ✅ is preserved at its actually-tested scope (5 codebooks × 3 τ × 4 interpolation families); no smoke applied; the narrowing is just honest about what was tested.
 
 Visibility logged for cycle 196 v176 (E1 stress gate MIDDLE BAND → Cap 12 ✅ + noise-sensitivity envelope annotation; portfolio UNCHANGED at 12).
+
+
+---
+
+## Cycle 197 — verdict_handler inline visibility (annotation-only; honest negative)
+
+**Verdict surfaced.** wave14_cap12_cap6_conformal_routing_subsumption_v1 FULL = CONFORMAL_ROUTING_SUBSUMPTION_KILLED. Composition B (Cap 12 + Cap 6 conformal routing) EMPIRICALLY REJECTED.
+
+**Dashboard surfacing.** 1 For You tab status_log entry filed (MEDIUM importance — honest negative; composition narrative refuted; no cap_map state change; no portfolio change).
+
+**Plain-language framing.** "We tested whether the substrate's calibration tool (Cap 6) could wrap and improve its routing diagnostic (Cap 12) using a shared mathematical score. It cannot. The wrapper made one codebook (Kerdock) commit-but-be-wrong (worse than chance) and made two others abstain entirely. The two individual capabilities still work on their own — this was a failure of the COMPOSITION story, not either capability. The cleaner product framing now is: Cap 12 routing IS the product on its own; calibration is a value-add ONLY if it widens deployment envelope, and here it does not."
+
+**Cross-row annotations updated this cycle.**
+- Cap 12 row: ✅ UNCHANGED at v176 (clean-regime + noise-sensitivity envelope from cycle 196 preserved).
+- Cap 6 row: ✅ UNCHANGED (Venn-Abers wrapper works as a standalone calibrator; just does not subsume Cap 12 routing under κ_n-divergence).
+- Cap 8 + v164a/v166 + v163 + v169 closed-form annotations: PRESERVED UNCHANGED.
+
+**Capacity tab.** No row state changes. Portfolio count display stays at 12 demonstrated capabilities. Zero ❌ PROVISIONAL.
+
+**Orchestrator status panel.** Pause flag CLEARED; remote_cpu queue still has Anchor 2 (Gold) + Anchor 3 (MMD) pending/running; GPU running E2 N=16384; local_cpu idle; queue HEALTHY (no refill flagged); **NO cap_map commit this cycle** (annotation-only verdict).
+
+**Honest reading surfaced to user.** Per [[feedback-no-smoke]]:
+- Composition B's shared-mechanism story ("κ_n-divergence is a clean non-conformity score for Cap 12 under Cap 6's Venn-Abers framework") was plausible at the proactive-drill stage but EMPIRICALLY REJECTED.
+- This is the SECOND proactive composition story to receive empirical pushback (after cycle 196's noise-fragility envelope narrowing). Pattern flag: plausible-but-empirically-wrong shared-mechanism stories are a recurring failure mode.
+- Composition A (Cap 12 + Cap 8 audit-trail) is STRUCTURALLY DIFFERENT from B — it shares a LAYER BOUNDARY HANDOFF, not a non-conformity score. A is still viable; B's rejection does NOT propagate to A. C remains license-pending on cap11 probe.
+- The clean product framing is now: Cap 12 standalone IS the product; Composition A is the strongest active composition candidate; Composition C is gated on Cap 11.
+- Five rescue sketches filed (R1 Mondrian conformal; R2 MMD non-conformity score deferred pending Anchor 3; R3 drop conformal pursue Composition A; R4 Cap 12 standalone IS the product as default frame; R5 Cap 6 as tiered-SLA alternative to Cap 12).
+
+Visibility logged for cycle 197 (CONFORMAL_ROUTING_SUBSUMPTION_KILLED → annotation-only; portfolio UNCHANGED at 12; no cap_map commit).
+
+
+---
+
+## 2026-05-24 — wave14_mmd_vs_mpks_pretest_v1 visibility (honest re-read)
+
+**Event tag.** `MMD_VS_MPKS_PRETEST_PASS` (script label) → **HONEST RE-READ: PASS-but-comparative-claim-INVERTED**.
+
+**For You tab entry.** importance = MEDIUM. plain_language explains that the experiment script wrote a conclusion that contradicts its own numbers — MP-KS actually beat MMD on every metric — and the strategy stance is "no swap; keep MP-KS as Cap 12 pre-test." This is a MEDIUM-importance item because the honest reading PROTECTS Cap 12 from an unwarranted primitive swap; it is not a portfolio change.
+
+**Dashboard surfaces.**
+- For You tab: NEW entry surfaced (verdict + honest re-read + lock-candidate flag).
+- Capacity tab: NO row change. Cap 12 ✅ remains with MP-KS as primary pre-test. MMD/W1 annotated as backup candidates (above absolute floor but strictly worse than MP-KS).
+- Orchestrator status panel: pause flag CLEARED; remote_cpu queue **NOW EMPTY** (post-MMD); GPU has E2 running; refill needed.
+- Portfolio count display stays at 12.
+
+**Honest-reading flag.** Per [[feedback-no-smoke]] verdict_msg said "MMD strictly out-performs MP-KS"; numbers said ρ_KS=0.975 > ρ_MMD=0.872 and KS-acc=1.00 > MMD-acc=0.80. Strategy treated numbers as ground truth and rejected the label's comparative claim. Visibility surfaces this as part of the For You-tab line so the user sees the honest re-read, not the misleading script label.
+
+**Pattern flag.** First observation of "script verdict_msg comparative claim contradicting metrics." Memory_curator: candidate for [[feedback-lock-in-inefficiency-fixes]] IF a second occurrence appears. Not locking yet.
+
+Visibility logged for cycle 198 (wave14_mmd_vs_mpks_pretest_v1 → annotation-only; no cap_map commit; queue-refill flagged to main thread).
+
+
+---
+
+## Cycle 197 / v177 -- SINGLE-VERDICT envelope-tightening with HONEST RE-READ
+
+### V1 entry (MEDIUM)
+
+Logged at 04:01 at v177 paired commit. PLAIN: The v176 fine-resolution noise probe came back with a 5-seed-per-cell sweep at η ∈ {0, 0.01, 0.025, 0.05, 0.075, 0.10}. The script wrote "η_critical=0.025" as a confident threshold, but the per-η accuracies are 4/5, 4/5, 2/5, 4/5, 1/5, 3/5 — NON-MONOTONIC, with a recovery cell at η=0.05 that breaks any clean threshold reading. With 5 seeds the per-cell ±1 binomial scatter is large enough to swamp the apparent threshold. Honest re-read: Cap 12 ✅ tolerates noise up to η ≤ 0.01 with verified evidence (4/5 routing at η=0.01 matches clean); behavior above 1% noise needs 20-seed resolution to characterize. The v176 customer-facing claim "ε bounded above by 0.10" TIGHTENS to v177 "tolerates ≤1% noise (verified); >1% needs further characterization." 20-seed E1'' follow-up pre-registered at η ∈ {0.01, 0.02, 0.03, 0.04, 0.05} with explicit HARD-PASS/HARD-FAIL/MIDDLE-BAND branches. Portfolio count UNCHANGED at 12. This is the SECOND time today a script's verdict_msg has labeled a conclusion that its own per-cell metrics contradict (first: wave14_mmd_vs_mpks_pretest_v1 with "MMD strictly out-performs MP-KS" while ρ_KS > ρ_MMD and routing KS > MMD); two-observation lock threshold MET; memory_curator LOCK candidate RECOMMENDED NOW. IMPORTANCE: MEDIUM (envelope-tightening annotation; not a state change but customer-facing scope narrows + 2nd-observation lock signal).
