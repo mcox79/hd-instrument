@@ -1830,3 +1830,25 @@ ACTIVE (no flag file). v186 committed in ACTIVE state per orchestrator post-comp
 ### Per [[feedback-dispatch-wrappers-default]] note
 
 Inline v186 commit done in sub-agent context (single verdict_handler invocation from user; Agent dispatch unavailable per orchestrator post-compaction brief Section 2 -- sub-agents internalize multiple role prompts; verdict_handler executes strategy + visibility role logic inline; commit LOCAL only; push pending main thread per [[feedback-subagent-permission-inheritance]]).
+
+
+## [16:30 LT] Verdict — wave14_betB_compound_pertask_replay_v1_2026-05-24 FULL = COMPOUND_MIDDLE_BAND
+
+**Verdict tag**: COMPOUND_MIDDLE_BAND (label=msg=data agreement clean; 34th honest-reread observation post-lock CLEAN)
+**Verdict_msg**: retention_A=0.915 in (0.821, 0.95); partial axis-stacking benefit; replay adds something but compound still does NOT clear HARD-PASS.
+**Metrics**: retention_A=0.915 mean across SEEDS=[7,17,23,31,41] at N=4096 BATCH=64 EPOCHS=5 PHASE_A_EPOCHS=8 BYTES=200K REPLAY_FRAC=0.5. Sub-additive stacking (additive projection from v185 +9pp + v186 +12pp above 0.73 baseline ~94%; observed 91.5% lands 2.5pp below linear projection).
+
+**Substantive analysis** (Step 0 honest re-read CLEAN):
+- Compound per-task + replay stacks +18.5pp above baseline ~0.73, +9.4pp above per-task-alone (v185 0.821), +6.9pp above replay-only-plateau (v186 0.846). Both axes contribute ADDITIVELY but mildly sub-additively.
+- HARD-PASS gate 0.95 NOT cleared by 3.5pp; intrinsic ceiling of TWO-AXIS compound below HARD-PASS in tested envelope.
+- Per user pre-cycle EWC-null analysis: structural separation is LOAD-BEARING AND PRODUCTIVE but does not fully close Bet B retention alone. CONFIRMED across THREE independent mechanism observations: v184 MoE M-dependent PARTIAL, v185 per-task substrate PARTIAL, v187 compound per-task+replay PARTIAL.
+
+**Cap_map action**: v186 -> v187 single-verdict annotation. Row state STAYS 🟡 M-DEPENDENT PARTIAL with v187 compound-axis-stacking-additive-but-bounded annotation (NOT promoted to ✅; promotion gate of uniform per-cell PASS at HARD-PASS 0.95 across operating range OR characterized M_crit(K) with multi-N replication NOT met by compound-of-two-mechanisms). Portfolio UNCHANGED at 12 + 3 evidence-strength rows. ZERO open ❌ PROVISIONAL preserved from v172-v186. 101st PROT-009 paired commit (commit hash below).
+
+**Pre-registered new routing**:
+- compound + THIRD-axis (compound + MoE / compound + Lane D 4-stage / compound + eligibility-trace consolidation) — cheapest remaining path to HARD-PASS 0.95
+- longer-Phase-A consolidation variant (16-32 epochs vs current 8) — cheap orthogonal axis to structural separation + replay
+
+**Bet B retention portfolio status (post-v187)**: structural-separation axis CONFIRMED CONDITIONAL across THREE mechanism families; the compound of two mechanisms has an intrinsic ceiling below HARD-PASS in tested envelope; a third orthogonal mechanism OR a fundamentally different approach is required to clear product-grade retention >= 0.95. The 🟡 PARTIAL state is the **honest empirical reading after three converging-PARTIAL probes** — the row is NOT close to ✅ promotion via more variants of structural separation alone.
+
+**Per [[feedback-no-experiment-design-in-prompts]]**: exp_dev pickup-ready batch shipped this cycle covers the 10 hand-off anchors (see strategy_decisions_2026-05-24.md companion entry "[16:35 LT] Exp Dev hand-off ship — 5 anchors across GPU + remote CPU + local CPU"). Compound + THIRD axis falls into the v187-new-pre-reg slot for the next cycle.
