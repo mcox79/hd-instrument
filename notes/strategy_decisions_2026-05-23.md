@@ -1163,3 +1163,58 @@ Net: 25 strict / 33 broad smoke->FULL divergence anchors (broad +4 by v166 batch
 ### Tally (one-line)
 
 BATCHED FOUR VERDICTS v165 -> v166: R_transform_multi_N_v2 GPU FULL = R_TRANSFORM_STABLE_IN_N (3/3 alpha cells dimension-stable; v164a 🟢 -> ✅) + codeword_overlap_v2 CPU FULL = KERDOCK_OVERLAPS_NON_GAUSSIAN (6/6 cells KS > 0.10; THIRD algebraic-fingerprint axis; NEW 🟢) + spectral_support_v2 CPU FULL = KERDOCK_SPECTRUM_BULK_BOUNDED (3/3 cells within 5% MP bulk edges; mechanism narrowed to bulk-shape moments NOT outliers; annotation) + kerdock_hessian_tachyon_v2 CPU FULL = KERDOCK_HAS_EXCESS_ZERO_MODES (1/3 cells excess kernel dimension; SURPRISE POSITIVE; NEW 🟢); 1 ✅ promotion + 2 new 🟢 rows + 1 mechanism-narrowing annotation; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (substrate-physics rows only); "outside AMP universality" wedge gains FIRST ✅-grade substrate-physics anchor + THIRD algebraic-fingerprint axis + mechanism narrowed to bulk-shape; v165 S-transform STAYS at 🟢 (additive axis only promoted; each axis carries own criterion per [[feedback-dont-overextend-theorems]]); 4 follow-up Research/Exp Dev candidate experiments noted (Wigner-null moment test + S-transform multi-N + Hessian broader sweep + codeword-overlap multi-N); queue-refill DEFERRED to parallel exp_dev dispatch; verdict_handler does NOT also ship per pipeline-pacing; PROT-004/006 NOT triggered; smoke->FULL broad anchors +4 (33/25); 80th PROT-009 paired commit MILESTONE.
+
+## 20:12 -- v167 SINGLE-VERDICT cap_map update: kappa_n_profile_v1 KAPPA_PROFILE_GROWS
+
+**Verdict**: `kappa_n_profile_v1` FULL = KAPPA_PROFILE_GROWS at 96.67s on overnight_queue. 3/4 alpha cells show |kappa_n/c - 1| growing with n through n=8. Per-cell classes: GROWS=3 DECAYS=0 SATURATES=1 MP_LIKE=0 UNCLEAR=0. Substrate-novel additive-free-prob fingerprint AMPLIFIES at higher cumulants, does NOT decay with n.
+
+**Sibling check**: the previous exp_dev batch shipped 4 experiments (kappa_n_profile_v1 + vamp_amp_universality_contrast_v1 + parisi_pq_kerdock_v2 + amp_se_kerdock_longiter_v1). Only kappa_n_profile_v1 has surfaced a verdict so far. Checked `data/event_outcomes/` (empty) and `data/local_dashboard_snapshot.json` recent_verdicts[] -- the other 3 are NOT yet present. Not batched into this commit; they will land in a future cycle when they complete.
+
+### v167 cap_map changes
+
+1. **PROT-009 v167 paired commit** -- 81st observation (post-MILESTONE).
+
+2. **ZERO new rows + ONE clarifying annotation** on the v164a/v166 ✅ "Free-cumulant fingerprint of Kerdock R-transform" row. Annotation: cumulant-order-stability added as the third stability dimension. The substrate-novel additive-free-prob fingerprint is now stable along all three natural limits: (i) N -> infinity (v166 R_TRANSFORM_STABLE_IN_N), (ii) spectrum support (v166 KERDOCK_SPECTRUM_BULK_BOUNDED -- moment-based only), (iii) cumulant order n (v167 KAPPA_PROFILE_GROWS through n=8).
+
+3. **NO state change on v164a row** -- stays at ✅ per [[feedback-dont-overextend-theorems]]. The ✅ promotion was the explicit additive-axis N-scaling criterion (satisfied at v166). v167 is annotation-grade strengthening, not double-promotion.
+
+4. **No closure** -- positive annotation only. PROT-004/006 NOT triggered.
+
+5. **Substrate-product portfolio UNCHANGED at 11 demonstrated capabilities** -- v167 is substrate-physics observability annotation only; no closure, no new portfolio ✅, no new evidence-strength row.
+
+6. **Honest framing per [[feedback-no-smoke]]**: SATURATES=1 cell explicitly counted -- the GROWS classification is 3/4, NOT 4/4. The DECAYS=0 cell-count is the load-bearing observation; even the saturating cell does NOT decay. The saturating cell is plausibly an asymptotic-floor candidate; n -> infinity claim is NOT made (only "GROWS through n=8"). This honest framing matters for downstream stability claims at very high n.
+
+7. **3 Research/Exp Dev candidate follow-up experiments noted** (NOT shipped this cycle; parallel exp_dev handles queue-refill):
+   - `wave14_kappa_n_profile_v2_higher_n` -- extend to n=12 or n=16; characterize asymptotic behavior (does GROWS flip to SATURATES at higher n?). HIGHEST PRIORITY of the three (directly extends v167's "through n=8" boundary).
+   - `wave14_S_transform_n_profile_v1` -- analogous n-profile probe on the multiplicative axis (S-transform coefficients S_1, S_2, ..., S_n GROWS/DECAYS); would extend cumulant-order-stability to the multiplicative axis (currently only v165's 🟢 row covers the multiplicative axis without n-profile data).
+   - `wave14_kappa_n_profile_multi_N` -- replicate the GROWS finding at N=4096 + N=8192 to confirm cumulant-order stability commutes with N-stability. (Lower priority; v166 already established N-stability for kappa_2..kappa_4; v167 just extends to higher n.)
+
+8. **Pipeline-pacing**: pause flag CLEARED -- ACTIVE. Overnight queue=0 (kappa_n_profile_v1 just finished). Remote CPU queue=0. Per the established working model the orchestrator is firing a PARALLEL `exp_dev` dispatch to handle queue-refill in this cycle; verdict_handler does NOT also ship. Queue-refill responsibility this cycle is the parallel exp_dev's.
+
+9. **No new inefficiency flagged this cycle**. The v165-era CPU-vs-GPU venue selection inefficiency remains LOCKED.
+
+### Pipeline state at v167
+
+| Queue | Pending | Running | Heartbeat |
+|---|---|---|---|
+| overnight (GPU) | 0 at arrival post-verdict (kappa_n_profile_v1 just finished) | IDLE | parallel exp_dev dispatch refilling |
+| remote_cpu | 0 (3 prior CPU verdicts already drained at v166) | IDLE | parallel exp_dev dispatch refilling |
+| local_cpu | 0 / DEAD runner | DEAD | n/a |
+
+### Smoke -> FULL divergence accounting
+
+| Run | Smoke | FULL | Divergence? |
+|---|---|---|---|
+| kappa_n_profile_v1 | (no documented smoke baseline; direct overnight_queue FULL) | KAPPA_PROFILE_GROWS (3/4 alpha cells GROWS through n=8) | no smoke baseline; broad anchor +1 by FULL landing |
+
+Net: 25 strict / 34 broad smoke->FULL divergence anchors (broad +1 by v167; strict unchanged).
+
+### PROT compliance
+
+- PROT-007: v167 history line appended to substrate_capability_map_history.md; narrative block in substrate_capability_map.md.
+- PROT-008: validator must pass before commit. v167 adds 0 new ❌ rows; baseline pre-existing violations unchanged.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md + visibility_decisions_2026-05-23.md staged atomically.
+
+### Tally (one-line)
+
+SINGLE VERDICT v166 -> v167: kappa_n_profile_v1 FULL = KAPPA_PROFILE_GROWS at 96.67s overnight_queue (3/4 alpha cells show kappa_n divergence from MP GROWING with n through n=8; substrate-novel additive-free-prob fingerprint AMPLIFIES at higher cumulants; per-cell classes GROWS=3 DECAYS=0 SATURATES=1 MP_LIKE=0 UNCLEAR=0); v167 adds ZERO new rows + ONE clarifying annotation on the v164a/v166 ✅ free-cumulant fingerprint row (cumulant-order-stability as third stability dimension alongside N-stability + bulk-boundedness); v164a row STATE stays at ✅ per [[feedback-dont-overextend-theorems]]; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT; "outside AMP universality" wedge now anchored on additive-R-transform fingerprint stable along all three natural limits (N -> infty + support + cumulant order n through n=8); SIBLINGS NOT YET LANDED (3 prior-batch experiments still in flight); per [[feedback-no-smoke]] honest framing of SATURATES=1 cell; 3 Research/Exp Dev candidate follow-ups noted; queue-refill DEFERRED to parallel exp_dev; per PROT-004/006 NOT triggered; smoke->FULL broad anchors +1 (34/25); 81st PROT-009 paired commit.
