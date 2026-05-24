@@ -2004,3 +2004,31 @@ Inline v186 commit done in sub-agent context (single verdict_handler invocation 
 **Status_log entries**: 10 entries written this cycle (V1 MEDIUM K2 axis 1 saturation; V2 MEDIUM K2 axis 2 saturation; V3 LOW Cap 8 infrastructure; V4 MEDIUM S4 rerun-confirmation; V5 LOW Sellke inconclusive rerun; V6 LOW S4 duplicate; V7 LOW Boolean rerun-confirmation; V8 HIGH K6 first probe -> PARTIAL; V9 HIGH U1/U7 first probe -> PARTIAL; V10 MEDIUM K5 instrumentation-bug labeled-vs-honest).
 
 **PROT-004/006/008/009 compliance this commit**: K6 ⚪ -> 🟡 + U1/U7 ⚪ -> 🟡 row state changes (2 new evidence-strength rows); 4 K6 rehab axes + 3 U1/U7 rehab axes + Sellke alternate baseline + K5 instrumentation repair filed; PROVISIONAL tag NOT required (these are CREATION of new 🟡 PARTIAL rows not ❌ closures); cap_map.md + history.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; pre-commit validator passes (commit hash in main thread push step).
+
+
+## v191 cycle (2026-05-24, paired promotion) -- K5 instrumentation-rerun HARD-PASS + GPT-quality v1-CANNOT reframe
+
+**Triggered by**: (1) wave14_realtime_inference_learning_v1_rerun FULL = REALTIME_INFERENCE_HARD_PASS delta=-0.548 bpc; (2) USER reframe analysis on GPT-quality v1 ❌ CANNOT row.
+
+**Cycle 191 / paired-verdict + reframe action**:
+
+(V1) K5 instrumentation-repair clean PASS: the v190 V10 INSTRUMENTATION-INCONCLUSIVE annotation was filed because the v190 K5 FULL returned bpc_online=0.000 / bpc_frozen=0.000 (structurally implausible all-zero metrics indicating pretrain_bytes=50000 + T_infer=4000 > corpus_len=48512 making inference stream empty). exp_dev fix: pretrain_bytes now capped at min(40000, corpus_len-T_infer-200) + hard assertions catch any future silent failure. v191 rerun returns bpc_online=2.198 vs bpc_frozen=2.745 in expected range; delta=-0.548 bpc cleared HARD-PASS threshold (delta <= -0.05) by 11x. K5 KILLER Tier 2 ⚪ UNTESTED -> ✅ DEMONSTRATED. First KILLER Tier 2 capability closing at clean PASS at substrate-product level. Portfolio count 12 -> 13 demonstrated capabilities. Honest reread label=msg=data clean agreement (46th observation post-lock).
+
+(V2) GPT-quality generation row reclassification ❌ -> 🟢 PARTIAL: USER substantive Tier-1 reframe analysis (filed at notes/research_tier1_gpt_quality_reframe_2026-05-24.md) identified that the v1 ❌ CANNOT row text at line 122 was STRATEGY POSTURE wearing capability-claim clothes (positioning statement at v1 time, NOT a substrate-physics ceiling test). The v3 grounded reading (2026-05-20) already reclassified the row to 🟢 Partial at line 425; the v1 row survived by drift / non-update, not by evidence. Substrate-physics framework R16 superposition capacity / R23 coding-rate bounds / R26 free-probability composition / R29 noise-tolerant readout does NOT predict a hard quality ceiling that GPT-quality generation cannot reach. The v1 row at line 122 is reclassified ❌ -> 🟢 PARTIAL at v191 with annotation pointing to the reframe note. This is a ROW RECLASSIFICATION not a portfolio promotion (no demonstrated capability addition from this move; the capability count change at v191 is entirely from K5 promotion). 47th observation post-lock clean reframe-discipline.
+
+5 paths filed for GPT-quality empirical/theoretical resolution per USER recommendation:
+- Path 3 (HIGHEST per USER; CHEAPEST): AGS scaling-law extrapolation — exp_dev hand-off at notes/exp_dev_handoff_path3_ags_scaling_2026-05-24.md
+- Path 1 (substantial build): token-level substrate K=128+ head-to-head vs GPT-2-small — exp_dev hand-off at notes/exp_dev_handoff_path1_token_substrate_2026-05-24.md
+- Path 5 (theoretical): Bayes-optimal lower bound via R16+R23+R26 frameworks ~week Research drill — request at notes/research_request_path5_bayes_lower_bound_2026-05-24.md
+- Path 4 (strategic hedge): per-document substrate framing — deferred; Strategy considers after Paths 1/3 land
+- Path 2 (hybrid kNN-LM-like): reserved for follow-up
+
+**PROT-004/006/008/009 compliance this commit**: K5 ⚪ -> ✅ promotion row (no rehab file required; promotion direction) + GPT-quality ❌ -> 🟢 PARTIAL reclassification (UNDOING v1 stale posture; no fresh ❌ closure; no rehab file required); history.md v191 sibling written; strategy_decisions paired; validator pre-existing baseline violations unchanged (60 history-update blocks PROT-007 restructure-in-progress; 29 pre-PROT-004 closures grandfathered); 105th paired commit.
+
+**Pipeline pacing state**: GPU=4 pending (healthy backlog: betB_replay_by_norm + betB_task_geometry_rerun + betB_4stage_phaseD_a_weighted + compositional_holdout_rehab_n8192); CPU=0 pending (refill target post-commit via Path 3 + Path 1 exp_dev hand-offs); pipeline-pacing reflex GATED on pause flag ABSENT (ACTIVE).
+
+**Per [[feedback-no-experiment-design-in-prompts]]**: 3 hand-off files (Path 3 / Path 1 / Path 5) declare task + pointers + deliverable shape + autonomy. No numerical sweep grids, thresholds, formulas, or anchor names specified by main thread. exp_dev + Research own all design parameters.
+
+**Per [[feedback-for-you-tab-primary-channel]]**: 2 status_log entries written (V1 HIGH K5 -> demonstrated 13th + V2 MEDIUM GPT-quality v1 CANNOT -> PARTIAL reclassification + Paths 3/1/5 dispatched).
+
+**Per [[feedback-verdict-msg-honest-reread]]**: 46th + 47th observations post-lock; both clean label=msg=data agreement; LOCK working cleanly across clean-PASS-from-instrumentation-repair + row-reclassification-from-stale-v1-posture.
