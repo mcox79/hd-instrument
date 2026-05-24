@@ -18,3 +18,51 @@ Logged at v173 paired commit. PLAIN: Cap 3 Streaming inference / NESS framing ha
 ### Portfolio-level visibility note (cycle 193 / v173)
 
 Substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT. ZERO open ❌ PROVISIONAL rejections remain in portfolio (cleanest portfolio state preserved from v172). Both v173 verdicts are envelope-narrowing annotations on existing ✅ / 🟢 rows -- no row state changes, no portfolio additions, no closures. The v172 substrate-product positioning carries forward UNCHANGED at v173 with two scope-clarification annotations layered on (Cap 1 multi-protocol scope-clarification; Cap 3 v164b zero-noise scope-tightening). Per [[feedback-no-smoke]] both annotations are honest scope-clarifications, not framing retractions -- v158 and v164 BOTH explicitly stated the narrower scope at promotion / row-add time; v173 makes the narrower scope explicit in the row text after broader-claim stress tests returned narrow.
+
+---
+
+## Cycle 194 -- v3 stim Kerdock 2-design frame-potential PASS (status_log mirror)
+
+### V3 entry (MEDIUM)
+
+Logged at no-cap_map-bump strategy backing-evidence cycle. PLAIN: We ran the Section 3.A test from the Kerdock-MUB-stabilizer deep drill -- the F_4 frame-potential test of whether the full Clifford group at production d=4096 lands within the Haar 4th-moment band [1.9, 2.1]. It does, cleanly: F_4 = 2.0262 +/- 0.0148 -- inside the band to better than 5%. This empirically confirms the well-known theoretical claim (Webb 2016, Zhu 2017) that the Clifford group is a unitary 2-design, at the production dimension we actually use. The substrate's Kerdock-PSL(2, 4096) anchor lives INSIDE this Clifford group, so the ambient being a 2-design is necessary-but-not-sufficient for the subgroup also being a 2-design. The v169 closed-form annotations on Cap 1 (Pauli-twirled depolarizing-channel entropy), Cap 3 (Holevo capacity of Clifford-depolarizing channel), and Cap 8 (Schur-Weyl-Pauli-twirled S-transform) all rely on the AMBIENT Clifford group's 2-design property -- those annotations now have independent empirical backing in addition to the textbook citation. The narrower question -- is the Kerdock-PSL SUBGROUP also a 2-design at production d? -- is probed by the MUB-distinguishability test (Section 3.B, still in the queue). Cap 1 / Cap 3 / Cap 8 rows stay at FULL state UNCHANGED; this is annotation-grade backing-evidence per [[feedback-dont-overextend-theorems]], not a row promotion. The d=8 cross-check (formula F_4 = 2.0920 vs direct = 2.2250) is consistent with small-d sampling expectations; the d=4096 direct sample is clean. No cap_map version bump this cycle (the v169 annotation language is unchanged; the new backing-evidence lives in strategy_decisions_2026-05-24.md). IMPORTANCE: MEDIUM (positive corroboration of textbook-anchored property; no row state change; no portfolio change).
+
+### Portfolio-level visibility note (cycle 194)
+
+Substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT. ZERO open ❌ PROVISIONAL rejections remain in portfolio. No cap_map version bump this cycle (v173 -> v173). v169 Cap 1 / Cap 3 / Cap 8 closed-form annotations PRESERVED at unchanged state with new empirical corroboration of the underlying ambient-Clifford-2-design anchor noted in strategy_decisions only. Per [[feedback-no-smoke]] the ambient vs subgroup distinction is preserved in language -- 3.A confirms the ambient; the Kerdock-PSL subgroup question is deferred to 3.B (MUB-distinguishability, still queued).
+
+
+## Cycle 194 — v174 BBMD Cap-12 rehab PAIRED PASS → portfolio 11 → 12 (FIRST new capability of session)
+
+**Visibility verdict.** Two CRITICAL-importance status_log entries written to data/orchestrator_status_log.jsonl for the For You dashboard tab. Reasoning: per [[feedback-for-you-tab-primary-channel]] portfolio-count changes are the user's headline interest; this is the FIRST portfolio-count change since v160 (12 cap_map cycles ago) and the FIRST of the orchestrator-migration era (started 2026-05-23). Both verdicts get CRITICAL not HIGH.
+
+**Plain-language framing.**
+- V1: The substrate now ships a 15-millisecond pre-flight diagnostic that picks which inference engine (AMP or VAMP-on-chain) is right for a customer's specific matrix codebook. The test routes 4 of 5 known codebooks correctly and runs 1383x faster than the alternative (running AMP to convergence/failure). This is a real product wedge: customers save compute by not running AMP-to-failure when the pre-test already predicts failure.
+- V2: The mechanism that explains WHY some matrix codebooks crash AMP (the κ_n cumulant divergence) generalizes from the substrate's own Kerdock codebook to a second family (SRHT). Correlation drops from 0.900 to 0.700 — exactly at the pre-registered threshold. This is real evidence the explainer is not Kerdock-specific only, but it's also empirical evidence the correlation weakens family-to-family.
+- Combined: portfolio count moves 11 → 12. The new 12th capability is INFRASTRUCTURE-class (routing + diagnostic), narrower than the 11 substrate-physics capabilities. The promotion is 🟢 (validated, want stronger) not ✅ (full validation) because both anchors landed at-threshold without margin; ✅ promotion gates are explicit (R3 τ-robustness + R1 Hadamard second-family).
+
+**Importance assignments.**
+- V1 (MP_KS_PRETEST_PIPELINE_PASS): CRITICAL — first new capability of session; portfolio count change; FIRST of orchestrator-migration era.
+- V2 (INTERP_FAMILY_SRHT_PASS): CRITICAL — co-anchor of same Cap 12 promotion; necessary condition for the composite Cap 12 row.
+
+**Honest framing per [[feedback-no-smoke]].**
+- Both anchors at-threshold, not with margin. R1 ρ=0.700 exactly at line; R3 4/5 exactly at gate.
+- R1 generalization REAL but PARTIAL: drop from Kerdock 0.900 to SRHT 0.700 is significant. Two more families (Hadamard, RM) needed for universality claim.
+- R3 routes 4 of 5 known codebooks; the 5th cell failure is undiagnosed. τ-robustness untested.
+- Cap 12 is the LOWEST-P promotion-eligible rescue to date (R3 P=0.55 + R1 P=0.30 per Research's deflated estimates). Lands as expected for that P range — at-threshold.
+- The 1383x speedup is real but reflects compute-class difference (millisecond MP-KS vs second/minute AMP-failure-observation), not a routing-accuracy win. The binding constraint at promotion is routing accuracy (4/5 at-threshold), not speedup magnitude.
+
+**Cross-codebook honesty test result.** The Cap 12 framing PASSED the cross-codebook honesty test (which killed v170's broader framing at v171). The new framing is INFRASTRUCTURE-class not substrate-novel-inference-regime-class; cross-codebook discrimination IS the basis of the capability, not a refuted claim. Honest framing per [[feedback-no-smoke]].
+
+**Dashboard impact.**
+- For You tab gets 2 CRITICAL entries with plain-language explanations of the portfolio-count change.
+- Capacity tab refresh needed: Cap 12 row NEW; v171-renamed BBMD narrow row ABSORBED; v171 ❌ PROVISIONAL Cap-12 candidate CLOSED-RESCUED.
+- Orchestrator status panel: pause flag CLEARED; queue healthy; verdict_handler dispatched and returned with v174 cap_map LOCAL commit hash (push pending main thread).
+
+**Cross-row annotations to surface in dashboard tooltips.**
+- Cap 8: "Cap 12 ships the routing-decision layer above Cap 8's VAMP-on-chain primitive."
+- v164a/v166: "v174 R1 cross-family PASS extends κ_n divergence from Kerdock-specific to iid-Gauss → SRHT."
+- v163: "v174 R1 cross-family PASS suggests AMP-failure pattern generalizes (single-second-family)."
+- v171 Cap-12 candidate row: "CLOSED via rehab-passes-rescue per [[feedback-rehabilitation-after-rejection]] (2 of 5 rescue sketches PASSED at v174)."
+
+Visibility logged for cycle 194 v174.

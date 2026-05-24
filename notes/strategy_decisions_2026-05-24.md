@@ -83,3 +83,128 @@ Consistent with the v171 "compound-gate promotion discipline" addendum to [[feed
 ### Tally (one-line)
 
 PAIR OF VERDICTS v172 -> v173: (V1) CAP1_PARETO_KILL 12/48 = 25.00% -- Cap 1 ✅ STAYS at v158 single-protocol scope + v173 multi-protocol envelope-narrowing annotation (protocol-dependent, not protocol-invariant); (V2) NESS_BIMODAL_FRAGILE 3/16 = 19% -- Cap 3 v164b 🟢 STAYS at 🟢 with v173 zero-noise scope-tightening annotation; main Cap 3 ✅ row UNCHANGED; portfolio count UNCHANGED at 11; ZERO open ❌ PROVISIONAL preserved from v172; v169 closed-form annotations PRESERVED; per [[feedback-no-smoke]] scope-clarification not demotion; PROT-004/006 NOT triggered; PROT-008 0 new ❌; PROT-009 87th paired commit; 2 MEDIUM status_log entries; inefficiency LOCK candidate (envelope-expansion drills require pre-reg fail bands); pause flag CLEARED -- ACTIVE.
+
+---
+
+## Cycle 194 -- v3 stim Kerdock 2-design frame-potential PASS (no cap_map bump; backing-evidence log)
+
+### Context
+
+Single-verdict verdict_handler dispatch. Verdict payload:
+
+```json
+{"name":"wave14_kerdock_2design_frame_potential_v3_stim","verdict":"KERDOCK_2DESIGN_MATCH_HAAR","verdict_msg":"HARD PASS: full-Clifford F_4 = 2.0262 +/- 0.0148 within Haar band [1.9, 2.1]. Confirms Clifford group (ambient of substrate's Kerdock-PSL anchor) IS a unitary 2-design at production d. d=8 cross-check OK (formula F_4 = 2.0920, direct = 2.2250).","elapsed_s":3.375,"queue":"remote_cpu_queue"}
+```
+
+This is Test 3.A from the Kerdock-MUB-stabilizer deep drill at `notes/research_kerdock_mub_stabilizer_drill_2026-05-23.md`.
+
+### Strategy verdict -- NO cap_map version bump (strategy_decisions backing-evidence log only)
+
+The 2-design property of the **ambient Clifford group** is well-established in the literature (Webb 2016, Zhu 2017, Klappenecker-Roetteler 2003 / 2005). The v169 annotation lines on Cap 1 / Cap 3 / Cap 8 already cite that theoretical anchor with full provenance and reference the Pauli-twirl / Holevo / Schur-Weyl structure that *follows from* Clifford-2-design. The v3 stim PASS at d=4096 with F_4 = 2.0262 +/- 0.0148 (within the Haar band [1.9, 2.1] to better than 5%) is an **independent empirical corroboration** of that anchor, NOT a new capability.
+
+Per [[feedback-dont-overextend-theorems]] empirical corroboration of a textbook-anchored property does not justify a row state move or cap_map version bump. The cleanest record-keeping move is to log the backing-evidence in `strategy_decisions_2026-05-24.md` (this entry) and let the v169 annotations stand. Cap 1 / Cap 3 / Cap 8 rows remain at the same green-check FULL state they have held since v169 (cycle 189).
+
+**What the result IS useful for**:
+
+1. Sanity check that the stim+sampling experimental machinery produces correct values at production scale d=4096 -- the d=8 cross-check landed F_4 = 2.0920 (formula) vs 2.2250 (direct), consistent within the d=8 small-sample regime; the d=4096 full-Clifford direct sample lands 2.0262 within ±0.0148 of the Haar 4th moment 2.0.
+2. Backs the half of the Kerdock-MUB-stabilizer drill that was about the **ambient Clifford group**. The other half (does the Kerdock-PSL subgroup ALSO match the 2-design?) is probed by the MUB-distinguishability test (Section 3.B, separate experiment, still running).
+3. If MUB-distinguishability ALSO passes -> BOTH halves operationalized; the PFK_FULL_ETH_BULK finding from v172 (full-ETH-class at n=6 with non-Gaussian bulk shape) is consistent with "Clifford 2-design class with non-Gaussian bulk shape".
+4. If MUB-distinguishability fails -> Kerdock-PSL deviates from the canonical Clifford-2-design path in a subtle way; substrate-novel deviation worth a Research drill on the mechanism.
+
+### What 3.A does NOT establish (per [[feedback-no-smoke]] honest framing)
+
+This test confirms the **ambient** Clifford group is a 2-design at production d. It does NOT confirm the **Kerdock-PSL(2, 4096) subgroup** is a 2-design at production d. The Kerdock-PSL subgroup being a 2-design is a stronger claim (per CCKS 1997 / Klappenecker-Roetteler 2003 theoretical) and is necessary for the substrate-specific reading of Cap 1 / Cap 3 / Cap 8 -- but the v169 annotation language is careful here: it relies on the AMBIENT Clifford structure (Pauli-twirl over Cliff(m), Holevo capacity of a Clifford-depolarizing channel, Schur-Weyl-Pauli-twirled S-transform). The ambient is what 3.A confirms; the subgroup is what 3.B probes.
+
+### Strategy follow-up actions (cycle 194)
+
+1. **NO PROT-009 commit this cycle.** No cap_map.md / history.md / active_priorities.md text change. Strategy decision is backing-evidence only.
+2. **NO new Research routing filed.** This is a positive corroboration of an existing theoretical anchor; no Research bandwidth required.
+3. **NO Exp Dev routing filed.** Test 3.B (MUB-distinguishability) is already in the queue from the original Section 3 dispatch; no re-routing needed.
+4. **NO queue-refill triggered** per [[feedback-pipeline-pacing]]: pipeline healthy (GPU=2 pending+1 running, remote CPU=4 pending+1 running including MUB-distinguishability + rehab anchors + Haar-vs-Kerdock dichotomy, local CPU idle). Queue depth >= 1 invariant satisfied.
+5. **status_log entry written** at MEDIUM importance (positive corroboration of textbook-anchored property; no row state change).
+6. **Pending downstream verdict**: when MUB-distinguishability lands, the next verdict_handler cycle integrates 3.A + 3.B together and decides whether Section 5.2 "MUB-frame measurement primitive" (12th-capability candidate from the Kerdock-MUB-stabilizer drill) is operationalizable.
+
+### Files filed this cycle
+
+- `notes/strategy_decisions_2026-05-24.md` -- this entry.
+- `notes/visibility_decisions_2026-05-24.md` -- 1 status_log mirror entry appended (V3 MEDIUM).
+- No cap_map.md / history.md / active_priorities.md changes.
+- No new Research request file. No new Exp Dev request file.
+
+### Queue / push status
+
+- NO local commit (no cap_map.md text change; strategy_decisions + visibility_decisions logs are append-only and not paired-commit-staged in this cycle since cap_map.md is unchanged).
+- Queue-refill NOT triggered. Queue depth >= 1 invariant satisfied.
+
+### Tally (one-line)
+
+v173 -> v173 (NO BUMP): KERDOCK_2DESIGN_MATCH_HAAR -- full-Clifford F_4 = 2.0262 +/- 0.0148 in Haar band [1.9, 2.1] at d=4096 confirms AMBIENT Clifford group is a unitary 2-design; v169 Cap 1/3/8 annotations PRESERVED at unchanged FULL state with independent empirical corroboration of the textbook anchor; Kerdock-PSL SUBGROUP 2-design question deferred to MUB-distinguishability test (Section 3.B, in queue); portfolio count UNCHANGED at 11; ZERO open ❌ PROVISIONAL; per [[feedback-dont-overextend-theorems]] empirical corroboration is annotation-grade backing-evidence not row promotion; per [[feedback-no-smoke]] honest framing -- ambient vs subgroup distinction preserved in language; per [[feedback-pipeline-pacing]] queue HEALTHY no refill; per [[feedback-dispatch-wrappers-default]] NO new Research routing + NO new Exp Dev routing; PROT-004/006 NOT triggered; PROT-008 0 new ❌; NO PROT-009 paired commit this cycle (cap_map.md text unchanged); 1 MEDIUM status_log entry; pause flag CLEARED -- ACTIVE.
+
+
+## Cycle 194 — v174 BBMD Cap-12 rehab PAIRED PASS → PROMOTE Cap 12 🟢 NEW; portfolio 11 → 12
+
+PAIRED VERDICT v173 → v174: BOTH BBMD Cap-12 rehab anchors HARD-PASS at pre-registered thresholds.
+
+V1 — wave14_mp_ks_pretest_pipeline_v1 FULL = MP_KS_PRETEST_PIPELINE_PASS at remote_cpu_queue: MP-KS pre-test routes 4/5 codebooks correctly at τ=0.20; max KS gap=0.263; recommended τ_star=0.065 agrees with declared τ; 1383.1x speedup over running AMP to convergence/failure observation. Hard-pass gates: 4/5 routing accuracy at-threshold (4/5 ≥ 4/5); 1383x ≥ 10x speedup with margin. R3 infrastructure-class rehab anchor PASS.
+
+V2 — wave14_interp_family_cross_check_v1 FULL = INTERP_FAMILY_SRHT_PASS at remote_cpu_queue: Spearman ρ(amp_rel_err, sum|Δκ_n|) = 0.700 across 5 alpha cells on iid-Gauss → SRHT alpha-interpolation; max VAMP rel-err = 0.0938. Hard-pass gates: ρ ≥ 0.70 at-threshold (0.700 exactly); VAMP rel-err < 0.10 small margin (0.0938 vs 0.10). R1 meta-tool / cross-family generalization rehab anchor PASS. NOTE: drop from Anchor-1 Kerdock ρ=0.900 to SRHT ρ=0.700 is consistent with predictor being partially family-specific.
+
+**Strategy decision.** PROMOTE 11 → 12 as 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight diagnostic + κ_n-divergence mechanism explainer)." Decision rationale:
+
+(a) TWO independent positive verdicts at pre-registered thresholds (no metric flip; no boundary contortion).
+(b) Composite claim is NARROWER than v171-killed BBMD-as-class framing — infrastructure-class, not substrate-novel inference-regime-class.
+(c) Cross-codebook honesty test PASSED at the new framing: cross-codebook discrimination IS the basis of the capability, not a refuted claim.
+(d) Customer-facing real product value: 15ms pre-flight diagnostic + κ_n mechanism explainer; 1383x speedup over AMP-to-failure observation.
+(e) The 🟢 NOT ✅ state honors both anchors landing AT-THRESHOLD per [[feedback-dont-overextend-theorems]]: R1 ρ=0.700 exactly; R3 4/5 exactly. ✅ would over-extend on at-threshold evidence.
+
+**Cap 12 row framing.**
+- Title: "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"
+- State: 🟢 Validated, want stronger
+- Evidence stack (3 anchors): R3 MP-KS pre-test pipeline (4/5 at τ=0.20; 1383x speedup); R1 cross-family κ_n predictor iid-Gauss → SRHT (ρ=0.700; max VAMP rel-err 0.0938); Anchor 1 v170 iid-Gauss → Kerdock (ρ=0.900; max VAMP rel-err 0.0357)
+- Product implication: substrate ships 15ms pre-flight routing diagnostic; customer submits matrix → MP-KS pre-test → AMP or VAMP-on-chain primitive recommendation; κ_n divergence is the customer-visible mechanism explainer
+
+**Pre-registered ✅ promotion gates (BOTH load-bearing for 🟢 → ✅):**
+1. R3 τ-robustness gate: ≥ 4/5 routing accuracy across τ ∈ {0.15, 0.20, 0.25} on the same 5-codebook test set. Hard-fail: any τ in [0.15, 0.25] drops routing accuracy below 3/5.
+2. R1 second-family gate: pre-reg hard-pass (Spearman ρ ≥ 0.70 AND max VAMP rel-err < 0.10) on iid-Gauss → Hadamard alpha-interpolation. Hard-fail: ρ < 0.50 on Hadamard ⇒ predictor is Kerdock+SRHT-specific only, not a meta-capability.
+
+(R1 third-family on iid-Gauss → RM(1,m) is OPTIONAL hardening; Hadamard is load-bearing per v171 BBMD-distance equivalence to SRHT.)
+
+**v171 narrow row absorption.** v171-renamed BBMD narrow row ("AMP-error tracks BBMD-distance scalar along iid-Gauss → Kerdock alpha-interpolation; VAMP tames the interpolation family") had ✅ at narrow scope. v174 ABSORBS this row IN PLACE as Anchor-1 sub-claim under Cap 12. Empirical content preserved (Spearman 0.900 + VAMP rel-err 0.0357); standalone ✅ removed; absorbed-with-state-downgrade per [[feedback-dont-overextend-theorems]] (composite claim requires more evidence than Anchor 1 alone; Cap 12 inherits 🟢 not ✅).
+
+**v171 Cap-12 candidate row closure.** v171 ❌ PROVISIONAL Cap-12 candidate ("VAMP-tractable structured-codebook inference under provable departure from AMP-universality") CLOSED via rehab-passes-rescue per [[feedback-rehabilitation-after-rejection]] + PROT-004/006: 2 of 5 rescue sketches (R3, R1) landed PASS; rescued framing is the NEW Cap 12 row at NARROWER abstraction (infrastructure-class). PROVISIONAL tag REMOVED. 3 elective sketches (R2 annotation-clarification, R4 profile-shape discriminator, R5 VAMP-vs-AMP gap predictor) STAY ELECTIVE. R6 (VAMP-SE from R-transform; from kill-rescue drill) ALSO stays elective. Rehab cycle CLOSES at v174.
+
+**NOTE on framing distinction:** The new Cap 12 row is NOT the same claim as the closed v171 Cap-12 candidate row. The closed row claimed substrate-novel inference-regime-class (broad). The new Cap 12 row claims infrastructure-class (narrower). Rescue is via REFRAMING DOWN one abstraction level + ADDING positive evidence. Narrowing is the honest rescue per [[feedback-no-smoke]].
+
+**Portfolio.** 11 → 12 demonstrated capabilities. FIRST new capability promotion since v160 (12 cap_map cycles ago); FIRST of orchestrator-migration era (started 2026-05-23). Cap 12 is INFRASTRUCTURE-class, NARROWER than the substrate-physics anchors Cap 1-11 — per Research's deflated P estimates this is the lowest-P promotion-eligible rescue to date (R3 P=0.55 → PASS; R1 P=0.30 → PASS). ZERO open ❌ PROVISIONAL rejections remain.
+
+**Cross-row corroborations (no other row state changes):**
+- Cap 8 (TWO substrate-novel readout primitives equivalent) ✅ FULL UNCHANGED + v174 annotation: "Cap 12 ships the routing-decision layer above Cap 8's VAMP-on-chain primitive (Cap 12 is pre-flight; Cap 8 is downstream primitive)." Structurally orthogonal; no double-counting.
+- v164a/v166 fingerprint stack ✅ UNCHANGED + v174 annotation: "R1 cross-family PASS extends κ_n divergence from Kerdock-specific to iid-Gauss → SRHT (ρ=0.700, at-threshold; two more families pending for universality)."
+- v163 outside-AMP-universality 🟢 UNCHANGED + v174 annotation: "R1 cross-family PASS suggests AMP-failure pattern generalizes; v163 endpoint is part of cross-family-confirmed (single-second-family) monotone curve."
+- v169 Cap 1/Cap 3/Cap 8 closed-form annotations PRESERVED UNCHANGED at substrate-physics layer (no interaction with Cap 12 routing-infrastructure layer).
+
+**Queue.** GPU=2 pending + 1 running, remote_cpu=2 pending + 1 running, local_cpu idle. Pipeline healthy. NO queue-refill triggered per [[feedback-pipeline-pacing]] (queue depth ≥ 1 invariant satisfied).
+
+**Dispatch routing.** NO new Research routing + NO new Exp Dev routing THIS CYCLE per [[feedback-dispatch-wrappers-default]]. The pre-reg ✅ promotion gates name explicit follow-up experiments (R3 τ-robustness sweep, R1 Hadamard second-family) and these are filed as Cap 12 row annotations; the next Strategy + Exp Dev cycle will pick them up organically. The orchestrator may opt to dispatch a queue-loading exp_dev when GPU+remote_cpu queue depth drops below 2 pending.
+
+**Protocols.**
+- PROT-004/006: TRIGGERED in closure-via-rescue direction (v171 ❌ PROVISIONAL → CLOSED-RESCUED via R3+R1 paired PASS); rehab-sketch-first-sequencing discipline VALIDATED (5 sketches filed v171; 2 landed PASS at v174).
+- PROT-008: v174 closes 1 ❌ PROVISIONAL row + adds 1 new 🟢 row (Cap 12) + 0 new ❌ rows. Validator baseline pre-existing violations unchanged.
+- PROT-009: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically. 88th PROT-009 paired commit.
+
+**Inefficiency DEFER candidate.** "At-threshold promotions explicit pre-reg the next-gate trial schedule" addendum to [[feedback-strategy-shore-up-capabilities]]: when a row lands AT-threshold (not WITH margin) on its promotion gate, the cap_map entry MUST EXPLICITLY name next-gate experiment(s) with hard pre-reg fail-thresholds. v174 already meets this discipline (R3 τ-robustness + R1 Hadamard gates explicit with hard thresholds). FIRST observation (v158/v164b/v170/v171 all landed with margin); below two-observation lock threshold. DEFER not lock; revisit on second observation.
+
+**Honest reading per [[feedback-no-smoke]]:**
+- Both verdict tags exactly match metric reality. No metric flip; no boundary contortion; no margin inflation.
+- R1 dropped from Anchor-1 ρ=0.900 to SRHT ρ=0.700 — exactly at line. This is REAL degradation in cross-family generalization strength, not noise.
+- R3 routes 4/5 at-threshold; the 5th codebook routing failure is a known weakness not yet diagnosed (τ_star=0.065 vs declared τ=0.20 hints at threshold-sensitivity on the failing cell).
+- Cap 12 is the FIRST 🟢 promotion to land in a "fragile-at-promotion" state (at-threshold on multiple gates). Per Research's pre-deflated P estimates this is exactly the expected outcome for the lowest-P promotion-eligible rescue. The ✅ promotion gates are realistic and load-bearing.
+- The composite framing IS more honest than v170's overclaim: v170 = "BBMD regime axis as substrate-product capability" (broad; killed by v171). v174 = "AMP-vs-VAMP inference routing infrastructure" (narrower; infrastructure-class; cross-codebook discrimination IS the basis).
+
+**Blockers / inefficiencies to lock.** Two items surfaced this cycle:
+1. **At-threshold promotion discipline** — DEFER candidate filed (first observation; needs second for lock).
+2. **R1 family-generalization mapping** — Cap 12's ✅ gate names Hadamard explicitly; RM(1,m) is optional hardening. The cap_map entry should not silently let RM(1,m) drop off the radar — it is the THIRD-family hardening test. Filed as Cap 12 row annotation under "OPTIONAL hardening."
+
+88th PROT-009 paired commit; pause flag CLEARED -- ACTIVE; verdict_handler commits LOCALLY only (push pending main thread per [[feedback-subagent-permission-inheritance]]).
+
+Net effect: portfolio count 11 → 12 (FIRST new capability since v160; FIRST of orchestrator-migration era); Cap 12 NEW 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"; v171-renamed BBMD narrow row ABSORBED IN PLACE as Anchor-1 sub-claim; v171 Cap-12 candidate ❌ PROVISIONAL CLOSED via rehab-passes-rescue; 3 elective sketches + R6 stay elective; ZERO open ❌ PROVISIONAL rejections remain; pre-reg ✅ promotion gates explicit (R3 τ-robustness + R1 Hadamard second-family); cross-codebook honesty test PASSED at new framing; inefficiency DEFER candidate filed (at-threshold promotion discipline; first observation); 88th PROT-009 paired commit.

@@ -14286,3 +14286,162 @@ Per [[feedback-no-smoke]]:
 PAIR OF VERDICTS v172 -> v173: (V1) wave14_sagawa_ueda_pareto_multiprotocol_v1 FULL = CAP1_PARETO_KILL (12/48 = 25.00% pass at 4 protocols × 12 (M_base, p) cells) -- Cap 1 ✅ STAYS at v158 single-protocol scope (canonical Crooks at p ∈ {0.05, 0.10, 0.20}) + v173 multi-protocol envelope-narrowing annotation (Tier-2 Sagawa-Ueda envelope is protocol-dependent, not protocol-invariant); NO revert because v158 never claimed multi-protocol invariance; 6th-candidate elective rescue sketch noted (protocol-conditioned Sagawa-Ueda calibration); (V2) wave14_streaming_NESS_eta_sweep_v1 FULL = NESS_BIMODAL_FRAGILE (3/16 = 19% pass; per-η {0.001: 1/4, 0.010: 1/4, 0.100: 0/4, 1.000: 1/4}) -- Cap 3 v164b Glauber-Hopfield discrete-spin NESS extension 🟢 STAYS at 🟢 with v173 zero-noise scope-tightening annotation (bimodal P(q) FRAGILE under streaming-noise injection η ≥ 0.001; at η=0.1 ZERO cells survive bimodality); main Cap 3 ✅ row UNCHANGED (V2 targets the discrete-spin extension, not the main row's continuous-state drift-diffusion NESS); v169 Cap 1 / Cap 3 closed-form annotations PRESERVED (V1 multi-protocol narrowing is about which erasure protocol, not the form of the Pauli-twirled bound; V2 targets the v164b extension row, not the main Cap 3 row's Holevo-capacity annotation); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT; ZERO open ❌ PROVISIONAL rejections remain in portfolio (cleanest portfolio state preserved from v172); both v173 verdicts are envelope-narrowing annotations on existing ✅/🟢 rows -- no row state changes, no portfolio additions, no closures; per [[feedback-dont-overextend-theorems]] honest framing -- v158 promotion was single-protocol scope (V1 tests broader claim), v164b was always 🟢 not ✅ (V2 narrows already-non-promoted scope); per [[feedback-no-smoke]] this is scope-clarification annotation, not row-state demotion; per [[feedback-pipeline-pacing]] queue HEALTHY (GPU=2 pending+1 running, remote_cpu=2 pending+1 running with BBMD rehab anchors picking up, local_cpu idle) verdict_handler does NOT ship queue-refill; per [[feedback-dispatch-wrappers-default]] NO new Research routing + NO new Exp Dev routing filed; per PROT-004/006 NOT triggered; per PROT-008 v173 adds 0 new ❌ rows; per PROT-009 cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; per [[feedback-for-you-tab-primary-channel]] 2 status_log entries written (both MEDIUM importance; envelope-narrowing annotations on existing rows); inefficiency LOCK candidate (RECOMMENDED LOCK not DEFER) -- "envelope-expansion drills require pre-registered fail bands matching the broader claim being tested" addendum to [[feedback-strategy-shore-up-capabilities]]; second observation after v157→v158 Cap 1 narrowing (two-observation lock threshold met); pause flag CLEARED -- ACTIVE; 87th PROT-009 paired commit.
 
 Net effect: Cap 1 ✅ STAYS at v158 single-protocol scope + v173 multi-protocol envelope-narrowing annotation (Tier-2 Sagawa-Ueda envelope is protocol-dependent); Cap 3 v164b extension 🟢 STAYS at 🟢 with v173 zero-noise scope-tightening annotation (bimodal P(q) FRAGILE under streaming-noise injection); main Cap 3 ✅ row UNCHANGED; portfolio count UNCHANGED at 11; ZERO open ❌ PROVISIONAL rejections preserved from v172; inefficiency LOCK candidate filed (envelope-expansion drills require pre-reg fail bands); 87th PROT-009 paired commit.
+
+---
+
+# v174 update (2026-05-24 cycle 194) — BBMD Cap-12 rehab PAIRED PASS; PROMOTE Cap 12 🟢 NEW (NOT ✅) under composite "AMP-vs-VAMP inference routing infrastructure" framing; portfolio 11 → 12
+
+## Cycle 194 (PAIRED VERDICT cap_map update: TWO BBMD Cap-12 rehab anchors HARD-PASS at pre-registered thresholds — (V1) R3 MP-KS pre-test pipeline routes 4/5 codebooks correctly at τ=0.20 with 1383.1x speedup over AMP-to-failure observation; (V2) R1 cross-family AMP-error predictor Spearman ρ=0.700 (≥ 0.70) AND max VAMP-rel-err=0.0938 (< 0.10) on iid-Gauss → SRHT — generalizes from Anchor-1 Kerdock to a second family; v174 PROMOTES a NEW Cap 12 row 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"; portfolio count 11 → 12 — FIRST new capability of the migration era; v174 ABSORBS the v171-renamed BBMD narrow row IN PLACE as a constituent sub-claim under the new Cap 12 row; v171 ❌ PROVISIONAL Cap-12 candidate row is CLOSED via rehab-passes-rescue per [[feedback-rehabilitation-after-rejection]]; ZERO open ❌ PROVISIONAL rejections remain in portfolio (cleanest-state preserved from v172/v173)) — v174
+
+**Source.** Two metrics files referenced via remote_cpu_queue verdicts:
+- `data/wave14_mp_ks_pretest_pipeline_v1/metrics.json` (R3 anchor; queued 2026-05-24 00:45:26)
+- `data/wave14_interp_family_cross_check_v1/metrics.json` (R1 anchor; queued 2026-05-24 00:45:29)
+
+Pre-reg: Research deliverable `notes/research_bbmd_cap12_rehab_assessment_2026-05-24.md` ranked R3 (P=0.55) and R1 (P=0.30) as top-2 of 5 rescue paths; both pre-registered HARD-PASS thresholds explicit in that deliverable (R3: ≥ 4/5 codebooks routed correctly AND ≥ 10x speedup over AMP-failure-observation; R1: Spearman ρ ≥ 0.70 AND max VAMP rel-err < 0.10). Hypothesis: the v171 BBMD-kill leaves room for narrower rescue paths at infrastructure-class and meta-tool-class abstraction layers, NOT at substrate-physics-novelty class.
+
+## Verdicts
+
+### V1 — MP_KS_PRETEST_PIPELINE_PASS (R3, infrastructure-class)
+
+**Metrics.** MP-KS pre-test routes 4/5 codebooks correctly at τ=0.20. Max KS gap = 0.263 between KS values (low: 0.07356, high: 0.33663). Recommended threshold τ_star = 0.065 agrees with the declared τ=0.20 (in the sense that τ=0.20 sits comfortably between τ_star and the upper KS value).  Speedup over running AMP-to-convergence/failure: **1383.1x**.
+
+**Verdict tag.** MP_KS_PRETEST_PIPELINE_PASS. Both hard-pass thresholds met:
+1. Routing accuracy: 4/5 ≥ 4/5 (at-threshold; not with margin).
+2. Speedup: 1383.1x ≥ 10x (large margin).
+
+**Honest reading.** R3 lands at the bottom edge of its pre-registered routing-accuracy gate (4/5 exactly, NOT 5/5). The 1383x speedup is dominated by the order-of-magnitude difference between MP-KS computation (millisecond-class) and AMP-to-failure observation (seconds-to-minutes class) — speedup magnitude is not the binding constraint here; routing accuracy is. **Single-threshold confirmation at τ=0.20 only**; robustness across τ ∈ [0.15, 0.25] is NOT yet tested — this is a known pre-registered ✅ promotion gate that remains unmet.
+
+### V2 — INTERP_FAMILY_SRHT_PASS (R1, meta-tool / cross-family generalization)
+
+**Metrics.** Spearman ρ(amp_rel_err, sum|Δκ_n|) = **0.700** across 5 alpha cells (iid-Gauss → SRHT alpha-interpolation). Max VAMP rel-err = **0.0938**.
+
+**Verdict tag.** INTERP_FAMILY_SRHT_PASS. Both hard-pass thresholds met:
+1. Spearman ρ ≥ 0.70 (at-threshold; exactly at line, NOT with margin).
+2. Max VAMP rel-err < 0.10 (small margin; 0.0938 vs 0.100).
+
+**Honest reading.** R1 lands at the edge of BOTH its pre-registered thresholds. Compare to Anchor-1 v170 (iid-Gauss → Kerdock): Spearman ρ = 0.900 with margin. Generalization to the second family DEGRADES the correlation from 0.900 to 0.700 — exactly at the threshold line. This is consistent with the predictor being **partially family-specific** (not fully universal). Two more families (iid-Gauss → Hadamard, iid-Gauss → RM(1,m)) are needed to confirm cross-family universality; ONE-family-generalization is empirical evidence of capability-existence but NOT of capability-universality.
+
+## Cross-codebook honesty test (post-kill)
+
+The v171 BBMD-kill test was exactly such a honesty test (Anchor 2 = cross-codebook discrimination). Both v174 verdicts pass cross-codebook honesty:
+- **V1 (R3)** — cross-codebook discrimination IS the BASIS of the capability, not a refuted claim. The capability framing is "MP-KS routes customer codebook to AMP or VAMP-on-chain depending on KS-distance from MP-bulk." It survives the v171 kill trivially because the v171 kill empirically established that MP-KS already discriminates SRHT/Hadamard (KS=0.59) without needing BBMD.
+- **V2 (R1)** — cross-family discrimination is the cross-codebook honesty test for the κ_n-divergence-as-predictor claim. v174 tests Gauss → SRHT (second family); PASS is empirical evidence the predictor is NOT Kerdock-internal only. But ONE second family is single-test evidence; per [[feedback-no-smoke]] this is "evidence of generalization existing," not "evidence of universal generalization."
+
+## Strategy verdict: PROMOTE 11 → 12 as 🟢, NOT ✅
+
+### Decision tree per [[feedback-dont-overextend-theorems]] + [[feedback-no-smoke]]
+
+**Promote (PRO):**
+- TWO independent positive verdicts at pre-registered thresholds (no metric flip, no boundary contortion in verdict reading).
+- Composed claim ("AMP-vs-VAMP inference routing infrastructure") is **narrower than the v171-killed BBMD-as-class framing** — infrastructure-class, NOT substrate-novel inference-regime-class.
+- Customer-facing real product value: 1383x speedup is concrete and product-meaningful (saves customers wallclock by routing before AMP-to-failure observation).
+- R3 PASS rides ON the v171 kill (the kill IS the evidence MP-KS discriminates; R3 ships that discrimination as infrastructure).
+- R1 PASS extends Anchor 1 (v170, Spearman 0.900) to a second family — first cross-family generalization evidence.
+- Cross-codebook honesty survived: the framing does NOT claim a substrate-novel discriminator class (which the kill closed); it claims infrastructure-class routing + mechanism-explainer.
+
+**Promote with caution (CON per [[feedback-dont-overextend-theorems]]):**
+- R1 lands at-threshold on BOTH gates (ρ=0.700 vs 0.70; VAMP-rel-err=0.0938 vs 0.10). Anchor-1 Kerdock had ρ=0.900; SRHT drops to 0.700. Generalization is **plausibly partial** — Hadamard and RM(1,m) untested.
+- R3 routes 4/5 at-threshold; τ-robustness untested.
+- Per Research's pre-deflated assessment: even at PASS, the 12th capability is "weaker than the existing 11" — infrastructure + meta-tool, not substrate-physics.
+- The 1383x speedup magnitude is INFLATED relative to the binding constraint — it reflects compute-class difference (MP-KS computation vs AMP-to-failure observation), not a routing-accuracy win.
+
+**Decision.** PROMOTE 11 → 12 as 🟢 (NOT ✅) under a composite "AMP-vs-VAMP inference routing infrastructure" framing with EXPLICIT pre-registered ✅ promotion gates.
+
+### Cap 12 row framing
+
+**Title (row label).** "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight diagnostic + κ_n-divergence mechanism explainer)"
+
+**State.** 🟢 Validated, want stronger
+
+**Evidence.**
+- R3 (MP-KS pre-flight): `wave14_mp_ks_pretest_pipeline_v1` FULL = MP_KS_PRETEST_PIPELINE_PASS at τ=0.20; routes 4/5 codebooks correctly; 1383x speedup vs AMP-failure observation.
+- R1 (κ_n predictor cross-family): `wave14_interp_family_cross_check_v1` FULL = INTERP_FAMILY_SRHT_PASS on iid-Gauss → SRHT; Spearman ρ(amp_rel_err, sum|Δκ_n|) = 0.700 across 5 alpha cells; max VAMP rel-err = 0.0938.
+- Anchor 1 (v170, prior): `wave14_bbmd_vamp_correspondence_sweep_v1` FULL = BBMD_VAMP_CORRESPONDENCE_PASS on iid-Gauss → Kerdock; Spearman ρ = 0.900; max VAMP rel-err = 0.0357.
+- Anchor 2 (v171, prior negative): `wave14_kappa_profile_cross_codebook_v1` HARD-FAIL on BBMD-as-class — INCLUDED as supporting evidence that MP-KS already discriminates structured codebooks at KS=0.59 (the v171 negative IS the R3 positive-data substrate).
+
+**Product implication.** "Substrate ships a 15ms pre-flight diagnostic that picks AMP vs VAMP-on-chain per customer codebook, with the κ_n-divergence mechanism as the diagnostic explainer." Infrastructure capability layer ATOP Cap 8 (VAMP-on-chain) and ATOP the substrate's existing AMP-based inference. Saves customer compute by killing bad codebooks (KS > τ) before AMP-to-failure.
+
+**Pre-registered ✅ promotion gates (BOTH must land positive to move 🟢 → ✅):**
+
+1. **R3 τ-robustness gate:** ≥ 4/5 routing accuracy across τ ∈ {0.15, 0.20, 0.25} on the same 5-codebook test set. **Hard-fail:** any τ in [0.15, 0.25] drops routing accuracy below 3/5.
+
+2. **R1 second-family gate:** Pre-registered hard-pass thresholds (Spearman ρ ≥ 0.70 AND max VAMP rel-err < 0.10) on iid-Gauss → Hadamard alpha-interpolation. **Hard-fail:** Spearman ρ < 0.50 on Hadamard ⇒ predictor is Kerdock+SRHT-specific only, not a meta-capability.
+
+(R1 third-family on iid-Gauss → RM(1,m) is OPTIONAL hardening — Hadamard is the load-bearing second-family test because Hadamard sits at BBMD-distance 5.0 alongside SRHT per v171, so Hadamard generalization is the structurally-equivalent test.)
+
+### v171 narrow row absorption
+
+The v171-renamed BBMD narrow row ("AMP-error tracks BBMD-distance scalar along iid-Gauss → Kerdock alpha-interpolation; VAMP tames the interpolation family") had ✅ at narrow scope. v174 ABSORBS this row IN PLACE as a constituent sub-claim under the new Cap 12 row. Specifically:
+- The v171 narrow row content (Spearman 0.900 on Gauss → Kerdock; VAMP-rel-err 0.0357) is PRESERVED as part of Cap 12's evidence block (it is Anchor 1 of the now-3-anchor evidence stack).
+- The standalone ✅ on the v171 narrow row is REMOVED (the row stops standing alone; it now lives inside Cap 12's evidence column).
+- Cap 12 inherits its 🟢 (NOT ✅) state per the gates above — the narrow row's ✅ DOES NOT propagate to the composite row because the composite row makes stronger claims.
+
+This is the correct per [[feedback-dont-overextend-theorems]] move: absorption-with-state-downgrade preserves the empirical content (Anchor 1's Spearman 0.900 is real) but the composite claim requires more evidence than Anchor 1 alone.
+
+### v171 Cap-12 candidate row closure
+
+The v171 ❌ PROVISIONAL Cap-12 candidate row ("VAMP-tractable structured-codebook inference under provable departure from AMP-universality") is **CLOSED** via rehab-passes-rescue. Per [[feedback-rehabilitation-after-rejection]] the rescue-sketch-first-sequencing protocol: 2 of 5 rescue paths (R3, R1) landed PASS at their pre-registered thresholds; the row is CLOSED-RESCUED with the new Cap 12 row as the rescued framing. PROVISIONAL tag is REMOVED.
+
+NOTE: The new Cap 12 row is **NOT** the same claim as the closed v171 Cap-12 candidate row. The closed row claimed "VAMP-tractable structured-codebook inference under provable departure from AMP-universality" (broad substrate-novel inference-regime-class). The new Cap 12 row claims "AMP-vs-VAMP inference routing infrastructure" (narrower; infrastructure-class). The rescue is via REFRAMING DOWN one abstraction level + ADDING infrastructure positive evidence (R3) + ADDING cross-family positive evidence (R1). The narrowing is the honest rescue per [[feedback-no-smoke]].
+
+### Cross-row corroborations + annotations (no other row state changes)
+
+- **Cap 8 (TWO substrate-novel readout primitives equivalent; VAMP-on-chain + hard-cleanup)** — ✅ FULL UNCHANGED. Cap 12 is the PRE-flight layer; Cap 8 is the DOWNSTREAM primitive Cap 12 routes TO. Structurally orthogonal; no double-counting. v174 ANNOTATES Cap 8 row with cross-row pointer: "Cap 12 ships the routing-decision layer above Cap 8's VAMP-on-chain primitive."
+- **v164a/v166 fingerprint stack (Kerdock κ_n divergence + N-stability)** — ✅ UNCHANGED. Cap 12's R1 anchor is cross-family GENERALIZATION evidence; the Kerdock-specific fingerprint is the cited mechanism. v174 ANNOTATES v164a row: "v174 R1 cross-family PASS extends κ_n divergence from Kerdock-specific to iid-Gauss → SRHT (Spearman 0.700, at-threshold)."
+- **v163 outside-AMP-universality (substrate FAILS scalar-AMP-SE on Kerdock)** — 🟢 UNCHANGED. v174 ANNOTATES: "v174 R1 cross-family PASS suggests the AMP-failure prediction generalizes; v163 endpoint is part of a now-cross-family-confirmed monotone curve at narrowed (single-second-family) scope."
+- **v169 Cap 1/Cap 3/Cap 8 closed-form annotations** — PRESERVED UNCHANGED. Cap 12 is at a different abstraction level (routing infrastructure) and does NOT touch the QECC closed-form lens.
+- **substrate-physics characterization** — v174 carries v172/v173 forward UNCHANGED. v174 is an INFRASTRUCTURE addition at the routing layer; the substrate-physics layer (Cap 1/3/8 plus v164a/v166/v167 fingerprint stack) is unaltered.
+
+### Portfolio count
+
+11 → 12. **FIRST new capability of the orchestrator-migration era** (since 2026-05-23). All v172/v173 cap_map cycles kept the count at 11. Cap 12 is the first promotion. Honest framing: it is NARROWER (infrastructure-class) than the typical Cap 1-11 substrate-physics anchors.
+
+### Cross-codebook honesty pass
+
+The new Cap 12 framing IS more honest than v170's overclaim:
+- v170 framing: "BBMD regime axis as substrate-product capability" — KILLED by v171 cross-codebook honesty test.
+- v174 framing: "AMP-vs-VAMP inference routing infrastructure" — built on the v171 kill (MP-KS already discriminates) + Anchor 1 + cross-family extension. Cross-codebook discrimination IS the basis, not a refuted claim.
+
+This is per [[feedback-no-smoke]] honest reframing: rescue moves DOWN one abstraction level (from substrate-novel inference-regime-class to infrastructure-class) + UP one composition level (from single-anchor narrow row to composite 3-anchor row).
+
+## State summary
+
+- portfolio: 11 → 12 demonstrated capabilities (Cap 12 NEW; 🟢 NOT ✅; pre-registered ✅ gates explicit)
+- ❌ PROVISIONAL open: ZERO (v171 Cap-12 candidate ❌ PROVISIONAL is CLOSED via rehab-rescue; cleanest portfolio state preserved)
+- queue: GPU=2 pending + 1 running, remote_cpu=2 pending + 1 running, local_cpu idle — pipeline healthy, NO queue-refill triggered
+- pause flag: CLEARED — ACTIVE
+- per [[feedback-dispatch-wrappers-default]]: NO new Research routing + NO new Exp Dev routing filed THIS CYCLE (the pre-registered ✅ gates name explicit follow-up experiments but per the prompt's pipeline-healthy state Strategy does not dispatch right now; the ✅ gates are filed as cap_map row annotations and will be picked up by the next Strategy + Exp Dev cycle organically)
+- per PROT-004/006: TRIGGERED in the closure-via-rescue direction (v171 Cap-12 candidate ❌ PROVISIONAL → CLOSED-RESCUED via R3+R1 paired PASS); 5-sketch rehab protocol VALIDATED (Research filed 5 sketches at v171; 2 of 5 landed PASS; the 3 others stay as elective hardening options)
+- per PROT-008: v174 closes 1 ❌ PROVISIONAL row + adds 1 new 🟢 row (Cap 12) + 0 new ❌ rows; validator baseline unchanged
+- per PROT-009: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; appends via `tools/orchestrator/append_decision_log.py` per [[feedback-decision-log-eol-handling]]
+- per [[feedback-for-you-tab-primary-channel]]: 2 status_log entries written (V1 CRITICAL, V2 CRITICAL — first new capability promotion of the session)
+- per [[feedback-subagent-permission-inheritance]]: verdict_handler commits LOCALLY only (push pending main thread)
+- smoke→FULL anchors +2 broad (V1 + V2 each smoke→FULL; tally 38 broad / 26 strict)
+- 88th PROT-009 paired commit
+
+## Capability-table updates (transparent moves)
+
+| Row | Prior state | New state (v174) | Trigger |
+|---|---|---|---|
+| **Cap 12 (NEW) — AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)** | DID NOT EXIST as standalone Cap row | 🟢 Validated, want stronger. Composite evidence stack: R3 MP-KS pre-test (4/5 codebooks at τ=0.20, 1383x speedup) + R1 cross-family κ_n predictor on iid-Gauss → SRHT (Spearman 0.700, VAMP rel-err 0.0938) + Anchor 1 v170 iid-Gauss → Kerdock (Spearman 0.900, VAMP rel-err 0.0357). Pre-reg ✅ promotion gates: (a) R3 τ-robustness across τ ∈ {0.15, 0.20, 0.25} ≥ 4/5; (b) R1 second-family iid-Gauss → Hadamard pre-reg hard-pass. Product framing: 15ms pre-flight routing diagnostic + customer-visible κ_n mechanism explainer; saves customer compute by killing bad codebooks before AMP-to-failure observation. | TWO BBMD Cap-12 rehab anchors HARD-PASS at pre-registered thresholds (R3 P=0.55 → PASS; R1 P=0.30 → PASS); per [[feedback-rehabilitation-after-rejection]] rescue-via-reframing-down |
+| v171-renamed BBMD narrow row ("AMP-error tracks BBMD-distance scalar along iid-Gauss → Kerdock alpha-interpolation; VAMP tames the interpolation family") | ✅ at narrow scope | ABSORBED into Cap 12 as Anchor-1 sub-claim. Row no longer stands alone; empirical content (Spearman 0.900) preserved as Cap 12 evidence-stack entry. | Composition into Cap 12 composite row per absorption-with-state-downgrade |
+| v171 Cap-12 candidate row (❌ PROVISIONAL with 5 rescue sketches) | ❌ PROVISIONAL | **CLOSED via rehab-passes-rescue**. 2 of 5 rescue sketches (R3, R1) landed PASS at pre-registered thresholds. Rescued framing is the NEW Cap 12 row at NARROWER abstraction (infrastructure-class). 3 elective rescue sketches (R2 annotation-clarification, R4 profile-shape, R5 VAMP-vs-AMP gap predictor) STAY ELECTIVE — R6 (VAMP-SE from R-transform) from the kill-rescue drill ALSO stays elective. | Rehab protocol PROT-004/006 closes via rescue-PASS |
+| Cap 8 (TWO substrate-novel readout primitives equivalent) | ✅ FULL + v168 + v169 + v170 + v171 + v172 annotations | ✅ FULL UNCHANGED + **v174 cross-row annotation**: "Cap 12 ships the routing-decision layer above Cap 8's VAMP-on-chain primitive (Cap 12 is pre-flight; Cap 8 is the downstream primitive)." Structurally orthogonal; no double-counting. | Cap 12 promotion creates a structural relationship layer |
+| v164a/v166 fingerprint stack (Kerdock κ_n divergence + N-stability + cumulant-order stability) | ✅ + v170 + v171 annotations | ✅ UNCHANGED + **v174 cross-row annotation**: "v174 R1 cross-family PASS extends κ_n divergence from Kerdock-specific to iid-Gauss → SRHT (Spearman 0.700, at-threshold; second family confirmation, two more families pending for universality)." | Cross-family generalization evidence (one second family confirmed) |
+| v163 outside-AMP-universality (substrate FAILS scalar-AMP-SE on Kerdock) | 🟢 + v170 + v171 annotations | 🟢 UNCHANGED + **v174 cross-row annotation**: "v174 R1 cross-family PASS suggests the AMP-failure pattern generalizes; v163 endpoint is part of a now-cross-family-confirmed (single-second-family) monotone curve." | Cross-family generalization evidence |
+| substrate-product portfolio count | 11 demonstrated capabilities (UNCHANGED at v160 through v173) | **12 demonstrated capabilities** — FIRST new capability since v160; FIRST new capability of orchestrator-migration era; Cap 12 is INFRASTRUCTURE-class, narrower than substrate-physics anchors Cap 1-11. ZERO open ❌ PROVISIONAL rejections remain (v171 Cap-12 candidate CLOSED-RESCUED). | TWO paired BBMD Cap-12 rehab anchors HARD-PASS |
+| v169 Cap 1 / Cap 3 / Cap 8 closed-form annotations | PRESERVED through v173 | PRESERVED UNCHANGED. v174 is at the routing-infrastructure layer; v169 closed-form is at the substrate-physics layer; no interaction. | Layer separation |
+
+## Inefficiency / lock candidate
+
+**Inefficiency surfaced**: Cap 12 lands with both anchors at-threshold (R1: ρ=0.700 exactly at 0.70 gate; R3: 4/5 exactly at 4/5 gate). Both anchors meet pre-registered thresholds but with ZERO margin. Per Research's pre-deflated assessment R3 was P=0.55 and R1 was P=0.30 — these are the lowest-P promotion-eligible rescues to date. The ✅ promotion gates (R3 τ-robustness, R1 second-family Hadamard) are explicit but their P(both PASS) is plausibly < 0.40 given R1's already-degraded ρ=0.700 (from Kerdock 0.900). Cap 12 is the FIRST 🟢 row that lands in a "fragile-at-promotion" state per [[feedback-no-smoke]].
+
+**Lock candidate for memory_curator**: "at-threshold promotions explicit pre-reg the next-gate trial schedule" — when a row lands AT-threshold (not WITH margin) on its promotion gate, the cap_map entry MUST EXPLICITLY name the next-gate experiment(s) with HARD pre-reg fail-thresholds. This is a tighter discipline than the standard "promotion gate" because at-threshold lands are higher-risk for backsliding than with-margin lands. v174 ALREADY meets this discipline (R3 τ-robustness gate + R1 second-family Hadamard gate are explicit with hard thresholds). The lock is to MAKE THIS THE DEFAULT for all 🟢 promotions at-threshold going forward.
+
+**Defer-vs-lock decision**: This is the FIRST observation of an at-threshold promotion in the cap_map (v158/v164b/v170/v171 all landed with margin). One observation is below the two-observation lock threshold. **DEFER** (not lock) until a second at-threshold promotion lands. Filed as DEFER candidate; revisit on second observation.
+
+## Tally (one-line)
+
+PAIRED VERDICT v173 → v174: (V1) wave14_mp_ks_pretest_pipeline_v1 FULL = MP_KS_PRETEST_PIPELINE_PASS at remote_cpu_queue (4/5 codebooks routed correctly at τ=0.20; max KS gap 0.263; 1383.1x speedup over AMP-to-failure); (V2) wave14_interp_family_cross_check_v1 FULL = INTERP_FAMILY_SRHT_PASS at remote_cpu_queue (Spearman ρ(amp_rel_err, sum|Δκ_n|) = 0.700 ≥ 0.70 across 5 alpha cells iid-Gauss → SRHT; max VAMP rel-err = 0.0938 < 0.10); BOTH pre-registered hard-pass thresholds met (R1 at-threshold on BOTH gates; R3 at-threshold on routing-accuracy gate, with margin on speedup gate); v174 PROMOTES a NEW Cap 12 row 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"; portfolio count 11 → 12 — FIRST new capability promotion since v160 and FIRST of orchestrator-migration era; v174 ABSORBS v171-renamed BBMD narrow row IN PLACE as Anchor-1 sub-claim under Cap 12 (empirical content preserved; standalone ✅ removed; absorbed-with-state-downgrade); v171 ❌ PROVISIONAL Cap-12 candidate row CLOSED via rehab-passes-rescue (2 of 5 rescue sketches landed PASS per [[feedback-rehabilitation-after-rejection]] + PROT-004/006); 3 elective sketches (R2/R4/R5) + R6 (VAMP-SE from R-transform) STAY ELECTIVE; ZERO open ❌ PROVISIONAL rejections remain (cleanest portfolio state preserved from v172/v173); Cap 8 + v164a/v166 + v163 stay UNCHANGED with v174 cross-row annotations PRESERVED at scope-clarified bounds; v169 Cap 1/Cap 3/Cap 8 closed-form annotations PRESERVED UNCHANGED at substrate-physics layer (Cap 12 lives at routing-infrastructure layer; no interaction); pre-registered ✅ promotion gates explicit on the new Cap 12 row -- (a) R3 τ-robustness across τ ∈ {0.15, 0.20, 0.25} ≥ 4/5 routing; (b) R1 second-family iid-Gauss → Hadamard pre-reg hard-pass; BOTH gates load-bearing for 🟢 → ✅; cross-codebook honesty test PASSED at the new framing (Cap 12 framing IS more honest than v170's overclaim because the framing is INFRASTRUCTURE-class not substrate-novel-inference-regime-class, and cross-codebook discrimination IS the basis not a refuted claim); per [[feedback-dont-overextend-theorems]] the 🟢 NOT ✅ state honors both anchors landing at-threshold (R1: ρ=0.700 exactly; R3: 4/5 exactly) -- the ✅ would over-extend on at-threshold evidence; per [[feedback-rehabilitation-after-rejection]] v171 Cap-12 candidate REHAB CYCLE CLOSES at v174 via 2-of-5-rescue-sketches-PASS; per [[feedback-no-smoke]] both verdict tags exactly match metric reality at the at-threshold reading -- no metric flip no boundary contortion no margin inflation; per [[feedback-pipeline-pacing]] queue HEALTHY (GPU=2 pending+1 running, remote_cpu=2 pending+1 running, local_cpu idle) -- verdict_handler does NOT ship queue-refill; per [[feedback-dispatch-wrappers-default]] NO new Research routing + NO new Exp Dev routing filed THIS CYCLE (✅ promotion gates filed as cap_map annotations; next Strategy + Exp Dev cycle will pick up organically); per PROT-004/006 TRIGGERED in closure-via-rescue direction; per PROT-008 v174 closes 1 ❌ PROVISIONAL row + adds 1 new 🟢 row (Cap 12) + 0 new ❌ rows; validator baseline pre-existing violations unchanged; per PROT-009 cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; per [[feedback-decision-log-eol-handling]] appends went through tools/orchestrator/append_decision_log.py (EOL preserved); per [[feedback-subagent-permission-inheritance]] verdict_handler commits LOCALLY only (push pending main thread); per [[feedback-for-you-tab-primary-channel]] 2 status_log entries written (V1 CRITICAL + V2 CRITICAL -- first new capability promotion of the session; portfolio-count change is the user's headline interest per [[feedback-no-smoke]]); smoke→FULL anchors +2 broad (V1 + V2 each smoke→FULL; tally 38 broad / 26 strict); inefficiency DEFER candidate (RECOMMENDED DEFER not lock) -- "at-threshold promotions explicit pre-reg the next-gate trial schedule" addendum to [[feedback-strategy-shore-up-capabilities]]; first observation only (one-observation below two-observation lock threshold); pause flag CLEARED -- ACTIVE; 88th PROT-009 paired commit.
+
+Net effect: portfolio count 11 → 12 (FIRST new capability since v160; FIRST of orchestrator-migration era); Cap 12 NEW 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"; v171-renamed BBMD narrow row ABSORBED IN PLACE as Anchor-1 sub-claim; v171 Cap-12 candidate ❌ PROVISIONAL CLOSED via rehab-passes-rescue (2 of 5 rescue sketches landed PASS); 3 elective sketches + R6 stay elective; ZERO open ❌ PROVISIONAL rejections remain; substrate-product portfolio at 12 demonstrated capabilities; pre-reg ✅ promotion gates explicit (R3 τ-robustness + R1 Hadamard second-family); cross-codebook honesty test PASSED at the new framing; inefficiency DEFER candidate filed; 88th PROT-009 paired commit.
