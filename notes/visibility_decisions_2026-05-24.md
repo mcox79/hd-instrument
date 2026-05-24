@@ -66,3 +66,56 @@ Substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT. 
 - v171 Cap-12 candidate row: "CLOSED via rehab-passes-rescue per [[feedback-rehabilitation-after-rejection]] (2 of 5 rescue sketches PASSED at v174)."
 
 Visibility logged for cycle 194 v174.
+
+
+---
+
+## 2026-05-24 — wave14_mp_ks_pretest_tau_robustness_v1 MP_KS_TAU_ROBUSTNESS_PASS — Cap 12 first promotion gate satisfied
+
+**Verdict.** Routing robust across tau in {0.15, 0.20, 0.25}; per_tau={0.15: 4, 0.20: 4, 0.25: 4}; >=4/5 correct at every tau. Cap 12 Gate A (R3 tau-robustness) PASSES.
+
+**Strategy outcome.** ANNOTATION-ONLY; NO v175 cap_map commit. Cap 12 row stays 🟢 at v174. Gate A satisfaction documented in strategy_decisions_2026-05-24.md; bundled annotation deferred to eventual v175 commit when Gate B (Hadamard) lands. Per [[feedback-cap-map-update-protocol]] minimize commit churn.
+
+**Dashboard surfacing.** For You tab status_log entry filed; importance=HIGH; framing: "first of two pre-registered promotion gates SATISFIED for Cap 12 ✅ pathway; routing threshold is NOT a fragile hand-picked artifact; Gate B (cross-family Hadamard) still pending."
+
+**Cross-row annotations (deferred to v175 commit; staged here for tooltip refresh on next paired commit).**
+- Cap 12 row tooltip: "Gate A (R3 tau-robustness) SATISFIED 2026-05-24 — 4/5 codebooks routed correctly at EACH tau in {0.15, 0.20, 0.25}; routing threshold structurally robust. Gate B (Hadamard cross-family) STILL PENDING via wave14_interp_family_hadamard_v1."
+- v174 Anchor-1 row: "tau-robustness within Kerdock-family confirmed; cross-family extension test pending."
+
+**Capacity tab.** No refresh needed (no row movement this cycle).
+
+**Orchestrator status panel.** Pause flag CLEARED; pipeline healthy; queue has Gate B + RM(1,m) pending; verdict_handler dispatched and returned with NO new commit (annotation-only path).
+
+Visibility logged for cycle 195 v174 (annotation-only, no commit).
+
+
+---
+
+## 2026-05-24 — Cap 12 🟢 → ✅ COMPOUND-GATE PROMOTION (FIRST ✅ promotion of orchestrator-migration era; v175 paired commit)
+
+**Verdicts.** Two new HARD-PASSES bundled with one previously-deferred Gate A annotation:
+- V1: `INTERP_FAMILY_HADAMARD_PASS` — ρ=0.900 (matches Anchor-1 Kerdock exactly), VAMP rel-err 0.0876.
+- V2: `INTERP_FAMILY_RM_PASS` — ρ=0.700 at-threshold, VAMP rel-err 0.0802.
+- Bundled Gate A (deferred from earlier 2026-05-24): `MP_KS_TAU_ROBUSTNESS_PASS` — per_tau=4/4/4.
+
+**Strategy outcome.** Cap 12 row promotes 🟢 → ✅ on THREE pre-registered passes (compound gate met). v175 paired commit; portfolio count UNCHANGED at 12 IN COUNT (state flip on existing row from v174; not a new row addition). FIRST ✅ capability promotion of orchestrator-migration era (era started 2026-05-23). Pre-registered NEXT envelope-expansion fail bands explicit on the ✅ row (E1 noisy-substrate τ-robustness; E2 N=16384 cross-family; E3 fifth-family Paley-/Walsh-Hadamard) — STRESS gates that could REVERT the ✅, not just confirming-evidence gates.
+
+**Dashboard surfacing.** Two For You tab status_log entries filed (both CRITICAL importance — first ✅ capability promotion of orchestrator-migration era is the highest-importance event class). Plain-language framing: "Substrate now ships a millisecond pre-flight diagnostic that decides AMP vs VAMP-on-chain per customer codebook; cross-validated across 5 codebooks × 3 routing thresholds × 4 codebook families. Honest caveat: per-family strength is bimodal (two families at full Kerdock strength, two at-threshold) — not yet uniformly cross-family."
+
+**Cross-row annotations updated this cycle (v175).**
+- Cap 12 row: 🟢 → ✅; title clarified to "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence cross-family explainer)"; evidence block now lists FOUR positive anchors + τ-robustness PASS; E1/E2/E3 envelope-expansion fail bands explicit.
+- Cap 8 (v168 cross-row): "v168 VAMP-vs-AMP split generalizes BEYOND Kerdock to SRHT + Hadamard + RM(1,m); cross-family corroboration widens empirical envelope of Cap 8." Cap 8 stays ✅ UNCHANGED.
+- v164a/v166 κ_n fingerprint: "κ_n divergence is now a THREE-family AMP-error predictor (Kerdock 0.900 + SRHT 0.700 + Hadamard 0.900); RM(1,m) third-family hardening at ρ=0.700; bimodal cross-family pattern."
+- v163 outside-AMP-universality: "AMP-failure prediction generalizes across three interpolation families."
+
+**Capacity tab.** Refresh: Cap 12 row moves from 🟢 to ✅; portfolio count display stays at 12 demonstrated capabilities but the ✅-grade indicator updates. First ✅-grade addition since orchestrator migration started.
+
+**Orchestrator status panel.** Pause flag CLEARED; pipeline DRAINED to 0 after both verdicts (remote_cpu=0, GPU=0, local idle); silent_idle imminent; verdict_handler flagged queue-refill for main thread; v175 paired commit landed LOCALLY (push pending main thread); 89th PROT-009 paired commit.
+
+**Honest reading surfaced to user.** Per [[feedback-no-smoke]]:
+- Bimodal per-family pattern (two with-margin, two at-threshold) means cross-family strength is uneven; the ✅ rests on a compound gate, not uniform per-family strength.
+- 1/5 stable routing failure persists across all τ values (stable failure mode; customer-facing "routes 4/5" not "routes correctly").
+- The 1383x MP-KS speedup is over AMP-failure-OBSERVATION, NOT over running-correct-VAMP-on-chain; customer framing is "skip AMP failures we predict will fail."
+- N=4096 only; no noise stress test; E1 + E2 are the load-bearing real-world stress tests for whether this ships to customer use.
+
+Visibility logged for cycle 195 v175 (Cap 12 🟢 → ✅ compound-gate promotion; FIRST ✅ promotion of orchestrator-migration era).

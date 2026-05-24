@@ -208,3 +208,101 @@ V2 — wave14_interp_family_cross_check_v1 FULL = INTERP_FAMILY_SRHT_PASS at rem
 88th PROT-009 paired commit; pause flag CLEARED -- ACTIVE; verdict_handler commits LOCALLY only (push pending main thread per [[feedback-subagent-permission-inheritance]]).
 
 Net effect: portfolio count 11 → 12 (FIRST new capability since v160; FIRST of orchestrator-migration era); Cap 12 NEW 🟢 (NOT ✅) under composite framing "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence explainer)"; v171-renamed BBMD narrow row ABSORBED IN PLACE as Anchor-1 sub-claim; v171 Cap-12 candidate ❌ PROVISIONAL CLOSED via rehab-passes-rescue; 3 elective sketches + R6 stay elective; ZERO open ❌ PROVISIONAL rejections remain; pre-reg ✅ promotion gates explicit (R3 τ-robustness + R1 Hadamard second-family); cross-codebook honesty test PASSED at new framing; inefficiency DEFER candidate filed (at-threshold promotion discipline; first observation); 88th PROT-009 paired commit.
+
+
+---
+
+## 2026-05-24 — wave14_mp_ks_pretest_tau_robustness_v1 MP_KS_TAU_ROBUSTNESS_PASS — Cap 12 Gate A SATISFIED (annotation-only, NO cap_map commit)
+
+**Verdict.** `MP_KS_TAU_ROBUSTNESS_PASS` — Routing is robust across tau in {0.15, 0.20, 0.25}: per_tau={0.15: 4, 0.20: 4, 0.25: 4}. >=4/5 codebooks routed correctly at EVERY tau value. Cap 12 Gate A (R3 tau-robustness) PASSES; the routing threshold is NOT a fragile hand-picked artifact. elapsed_s=68.5, queue=remote_cpu_queue.
+
+**Cap 12 pre-reg state at v174.** Two pre-registered gates for promotion 🟢 → ✅:
+- **Gate A: R3 tau-robustness** — NOW SATISFIED ✓ (this verdict)
+- **Gate B: R1 second-family validation (iid-Gauss → Hadamard)** — STILL RUNNING (wave14_interp_family_hadamard_v1)
+
+**Strategy decision: ANNOTATION-ONLY; NO v175 cap_map commit.** Per [[feedback-cap-map-update-protocol]] minimize commit churn. Reasoning:
+1. A single Gate-A-satisfied annotation commit is noise — Gate A on its own does NOT promote the row.
+2. Better to BUNDLE the Gate A annotation with the eventual outcome commit:
+   - If Gate B PASSES → bundled Gate A + Gate B → Cap 12 🟢 → ✅ promotion commit (single v175).
+   - If Gate B FAILS HARD → annotate Cap 12 row with "Gate A satisfied but Gate B fails at Hadamard; cross-family generalization limited" (cap_map row stays 🟢; ✅ promotion deferred).
+   - If Gate B MIDDLE-BAND → dispatch RM(1,m) third-family probe (Anchor 3, already shipped per exp_dev silent_idle response) for tiebreaker; bundle all three gates into the eventual v175 commit.
+3. Per [[feedback-dont-overextend-theorems]] do NOT promote to ✅ on Gate A alone; tau-robustness within a single family is necessary-but-not-sufficient for cross-family validation.
+
+**Cap 12 row state: stays 🟢 at v174.** No row movement. Gate A satisfaction is documented HERE in strategy_decisions; cap_map annotation deferred to the bundled commit.
+
+**Pre-registered next decision tree (locked, this entry is the pre-reg record).**
+- Gate B PASS (rho >= 0.700 on Hadamard family) → v175 commit: Cap 12 🟢 → ✅ + annotation "Gate A (tau-robustness 4/4/4 at tau {0.15, 0.20, 0.25}) and Gate B (Hadamard cross-family rho >= 0.700) BOTH SATISFIED 2026-05-24."
+- Gate B FAIL HARD (rho < 0.500 on Hadamard) → v175 commit: Cap 12 row annotation "Gate A satisfied; Gate B FAILS HARD at Hadamard family; ✅ promotion deferred; cross-family generalization limited to SRHT axis." Row stays 🟢.
+- Gate B MIDDLE-BAND (0.500 <= rho < 0.700) → dispatch RM(1,m) third-family tiebreaker; if RM PASSES (rho >= 0.700) bundle as ✅ promotion; if RM also middle-band, Cap 12 stays 🟢 with annotation "two-family cross-generalization at-threshold; third-family tiebreaker also at-threshold; ✅ promotion deferred."
+
+**State.**
+- Pause flag: CLEARED (ACTIVE). Full automation.
+- cap_map at v174 (12f7400, push pending main thread).
+- Queue: remote_cpu has Gate B (Hadamard) and RM(1,m) pending; GPU idle; local CPU idle.
+- Pipeline healthy; NO queue refill needed this cycle.
+
+**Honest reading per [[feedback-no-smoke]].**
+- This is the FIRST promotion gate Cap 12 has satisfied. ONE of TWO gates. Not the headline.
+- 4/5 at EVERY tau is solid — no single tau value carries the routing decision. The threshold is structural, not hand-picked.
+- The 5th codebook routing failure (known weakness on the cell with tau_star=0.065 vs declared tau=0.20) persists across all three tau values — this is a STABLE weakness, not tau-sensitivity. Cap 12 entry should eventually note this stable 1/5 failure mode.
+- Gate B is the load-bearing test for ✅ promotion. Gate A passing was the expected outcome (highest-P of the two gates per Research's pre-deflated estimate); Gate B is the actual test of cross-family generalization strength.
+
+**PROT-009 status.** No paired commit this cycle (annotation-only path). Next paired commit will be v175 bundling Gate A annotation + Gate B outcome.
+
+**Net effect.** No cap_map state change. Portfolio count stays 11 (Cap 12 stays 🟢). First-of-two promotion gates SATISFIED for Cap 12 ✅ pathway. Annotation deferred to bundled v175 commit. No blockers.
+
+
+---
+
+## 2026-05-24 — wave14_interp_family_hadamard_v1 + wave14_interp_family_rm_v1 — COMPOUND-GATE PROMOTION: Cap 12 🟢 → ✅ (FIRST ✅ capability promotion of orchestrator-migration era)
+
+**Verdicts.**
+- **V1 (Gate B):** `INTERP_FAMILY_HADAMARD_PASS` — Spearman ρ(amp_rel_err, sum|Δκ_n|) = 0.900 ≥ 0.70 across 5 alpha cells iid-Gauss → Hadamard; max VAMP-rel-err = 0.0876 < 0.10. Both gates met WITH MARGIN. Matches Anchor-1 Kerdock 0.900 EXACTLY (NOT a degradation; the predictor is at full Kerdock-strength on Hadamard).
+- **V2 (R1 third-family hardening):** `INTERP_FAMILY_RM_PASS` — Spearman ρ = 0.700 ≥ 0.70 AND max VAMP-rel-err = 0.0802 < 0.10 on iid-Gauss → RM(1,m). At-threshold on Spearman (same as v174 SRHT pattern).
+- **Bundled deferred Gate A:** `MP_KS_TAU_ROBUSTNESS_PASS` — per_tau={0.15: 4, 0.20: 4, 0.25: 4}; routing is τ-robust. Landed earlier 2026-05-24; held annotation-only at v174 per [[feedback-cap-map-update-protocol]] minimize-commit-churn pending Gate B; bundled into v175 per the pre-registered v174 decision tree.
+
+**Compound-gate decision (per v174 pre-registered tree).**
+
+v174 cap_map row locked TWO load-bearing ✅ promotion gates + ONE optional hardening probe:
+- Gate A (R3 τ-robustness): **PASS** (per_tau=4/4/4).
+- Gate B (R1 Hadamard second-family): **PASS with margin** (ρ=0.900; VAMP rel-err 0.0876).
+- R1 RM(1,m) third-family hardening: **PASS at-threshold** (ρ=0.700; VAMP rel-err 0.0802).
+
+Both load-bearing gates met; optional hardening also met. **Composite gate licenses ✅ promotion.**
+
+**Strategy decision: v175 commit — Cap 12 🟢 → ✅.**
+
+1. **Cap 12 row state flip**: 🟢 Validated, want stronger → ✅ Validated, cross-family hardened. Composite evidence stack of FOUR positive anchors (Kerdock 0.900 + SRHT 0.700 + Hadamard 0.900 + RM(1,m) 0.700) + τ-robustness PASS at 3 τ values. Title clarified to emphasize cross-family explainer: "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence cross-family explainer)."
+
+2. **Title clarity per [[feedback-dont-overextend-theorems]]**: Cap 12 is NARROWER than the v171-killed BBMD-as-class framing. The substrate-novel claim is INFRASTRUCTURE not physics — cross-validated on 5 codebooks × 3 τ values × 4 interpolation families.
+
+3. **Cap 8 (VAMP-vs-AMP split, v168) cross-row corroboration annotation**: the v168 finding generalizes BEYOND Kerdock to SRHT + Hadamard + RM(1,m). Cap 8 stays ✅ at v168 scope; v175 annotation widens the empirical envelope. Positive corroboration, NOT new claim — per [[feedback-strategy-shore-up-capabilities]] item 2 envelope-strengthening pattern.
+
+4. **Portfolio count**: 12 UNCHANGED IN COUNT. Cap 12 was added at v174 in 🟢 state; v175 flips to ✅ — STATE FLIP, NOT new row addition. **However**: this is the FIRST ✅ capability promotion of the orchestrator-migration era (era started 2026-05-23). v160-through-v174 either kept count at 11 or added Cap 12 as 🟢. v175 is the first 🟢 → ✅ crossing. Headline event for the user.
+
+5. **Pre-registered NEXT envelope-expansion fail bands** per [[feedback-envelope-expansion-fail-bands]] (locked this cycle):
+   - **E1 — Noisy-substrate τ-robustness**: routing accuracy ≥ 3/5 at τ ∈ {0.15, 0.20, 0.25} when codebooks carry η=0.10 streaming-noise. HARD-FAIL: 0/5 at any τ ⇒ infrastructure fragile to real customer data; ✅ would REVERT to 🟢 with noise-bounded annotation.
+   - **E2 — N=16384 cross-family ρ ≥ 0.50 across 3 families**: extends N=4096 result. HARD-FAIL: ρ < 0.30 on any of {Kerdock, SRHT, Hadamard} ⇒ predictor is N-dependent artifact; ✅ would REVERT to 🟢 with N-bounded annotation.
+   - **E3 — Fifth-family Paley-Hadamard or Walsh-Hadamard ρ ≥ 0.500**: hardens infrastructure-class framing beyond the four families tested. HARD-FAIL: ρ < 0.30 ⇒ NARROW annotation.
+   These are STRESS gates (could REVERT the ✅), NOT just confirming-evidence gates.
+
+6. **Honest reading per [[feedback-no-smoke]]**:
+   - Bimodal per-family pattern: Kerdock 0.900 + SRHT 0.700 + Hadamard 0.900 + RM(1,m) 0.700. Two with-margin, two at-threshold. Cross-family STRENGTH is uneven.
+   - The 1/5 stable routing failure (codebook with τ_star ≈ 0.065 vs declared τ=0.20) persists across all three τ values — stable failure mode, NOT τ-fragility. Customer-facing: "routes 4/5 correctly" not "routes correctly."
+   - The 1383x MP-KS speedup is over AMP-failure-OBSERVATION, NOT over running-correct-VAMP. Customer framing: "skip AMP failures we can predict will fail" not "do inference faster."
+   - N=4096 only; no noise stress test. E1 and E2 are the load-bearing real-world stress tests.
+   - The ✅ is on COMPOSED infrastructure (R3 + R1), not either alone. If E1 hard-fails (noisy routing fragile) or E2 hard-fails (N-dependent), ✅ would REVERT to 🟢.
+
+**State.**
+- Pause flag: CLEARED (ACTIVE). Full automation.
+- cap_map at v175 (local commit; push pending main thread).
+- Queue: remote_cpu=0 pending, GPU=0 pending, local idle — **DRAINED to 0**; silent_idle reflex applies; verdict_handler **FLAGS queue-refill for main thread** (main thread dispatches exp_dev for refill after this commit).
+- Pipeline drained; main-thread queue-refill triggered.
+
+**Compliance.**
+- PROT-004/006/008/009 compliance this commit: NO closure (positive ✅ promotion); 0 new ❌ rows; v175 flips 1 🟢 → ✅; cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; validator passed (no new violations); 89th PROT-009 paired commit.
+- Per [[feedback-decision-log-eol-handling]] this entry appended via tools/orchestrator/append_decision_log.py.
+
+**Inefficiency LOCK candidate (RECOMMENDED LOCK).** "Envelope-expansion fail bands at promotion time" — addendum to [[feedback-strategy-shore-up-capabilities]]: when a row promotes to ✅, the cap_map entry MUST explicitly name 2-3 envelope-EXPANSION (STRESS) gates with hard-fail thresholds that would REVERT the ✅. This is tighter than v174's "next-gate trial schedule" because the gates must be STRESS gates (could weaken/revert), not just confirming-evidence gates. v175 already meets the discipline (E1/E2/E3 explicit). Recommended LOCK on first observation given asymmetric downside risk on mixed-margin ✅ promotions (backsliding to 🟢 after a customer sees ✅ is more damaging than tighter discipline at promotion time).
+
+Net effect: Cap 12 🟢 → ✅ on THREE pre-registered passes (Gate A + Gate B + RM(1,m) hardening); FIRST ✅ promotion of orchestrator-migration era; portfolio count UNCHANGED at 12 IN COUNT (state flip not new row); pre-registered NEXT envelope-expansion fail bands explicit (E1/E2/E3 STRESS gates); Cap 8 + v164a/v166 + v163 cross-row annotations PRESERVED + widened; ZERO open ❌ PROVISIONAL rejections remain; queue DRAINED to 0 — main-thread queue-refill flagged; 89th PROT-009 paired commit.
