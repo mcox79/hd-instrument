@@ -5,6 +5,59 @@ Convention: append-only; newest-first within a cycle; PROT-009 paired-commit sta
 
 ---
 
+## Cycle 206 / inline — User-delivered 5-direction research analysis filed + routing dispatched
+
+### Context
+
+User delivered a substantive 5-direction research analysis verbatim in chat (treated as Research deliverable per dispatch instructions). All 5 directions reframe Bet B's ceiling as a CHARACTERIZATION problem rather than a CLOSURE problem. User explicit framing: "Direction 3 is single highest-leverage. Directions 1, 3, 4 attack characterization; 2, 5 are cheap additions."
+
+### Action taken (inline, NOT a cap_map state change — this is a routing cycle)
+
+1. Filed user's verbatim analysis to `notes/research_5_new_directions_2026-05-24.md` for durability.
+2. Filed Strategy -> Exp Dev routing note at `notes/strategy_request_to_exp_dev_2026-05-24_5_new_directions.md` with WHAT/WHY/CONTRACT/AUTONOMY for the four EMPIRICAL ships (Directions 3, 1, 5, 2 — in user's leverage-ranked order). Direction 4 empirical BLOCKED on Research M_c drill.
+3. Filed Strategy -> Research routing note at `notes/strategy_request_to_research_2026-05-24_5_directions_math.md` with two pure-math drills:
+   - Drill 1: PAC-Bayes bounds for outer-product Hebbian memories under sequential tasks (Direction 1 adjunct)
+   - Drill 2: Closed-form M_c prediction for MoE cross-talk via M-P/BBP (Direction 4 — BLOCKING for empirical ship)
+
+### Why routing notes (not direct queue_add)
+
+Per [[feedback-no-experiment-design-in-prompts]] orchestrator hands DIRECTIONS to exp_dev/Research, not pre-designed parameters. Per [[feedback-dispatch-wrappers-default]] Agent tool unavailable in sub-agent context (post-compaction brief Section 2); next exp_dev cycle and next Research cycle pick up the routing notes via routing_handler / standing /loop cadence.
+
+### Cap_map state change
+
+NONE this cycle. These are scope-expansion candidates that extend characterization rather than closing rescue paths; verdict_handler will fire when individual direction experiments produce results. No PROT-004/006/008/009 trigger this cycle.
+
+### Queue state at cycle close (verified via _queue_pending_count.py)
+
+- overnight_queue: 5 pending (betA_5seed_v3, cap2_margin_probe_v1, pq_high_resolution_v1, demo1_noise_envelope_v1, R_transform_kerdock_v1_multi_N)
+- remote_cpu_queue: 0
+- local_cpu_queue: 0 (runner DEAD per MEMORY.md)
+
+Note: dashboard state_check still reports v182 cap_map and gpu_q:1 cpu_q:9; this stale cache (last_verdict 29m ago) is inconsistent with raw queue.json reads (5+0+0) — Visibility / dashboard sync may need refresh. Flagging as visibility-decisions follow-up.
+
+### Files filed this cycle
+
+- `notes/research_5_new_directions_2026-05-24.md` — user analysis verbatim + triage classification + ship-list ordering
+- `notes/strategy_request_to_exp_dev_2026-05-24_5_new_directions.md` — empirical hand-off (Directions 3, 1, 5, 2; Direction 4 blocked)
+- `notes/strategy_request_to_research_2026-05-24_5_directions_math.md` — pure-math drills (PAC-Bayes adjunct + M_c closed form)
+- `notes/strategy_decisions_2026-05-24.md` — this entry
+- No new cap_map edit. No new exp_dev script ship. No queue_add this cycle.
+
+### Reading on substrate-product story leverage
+
+- Direction 3 (task-geometry, HIGHEST leverage) is the single direction most likely to move the substrate-product story; if HARD-PASS lands, product framing becomes "predict retention at any task pair before training" — qualitatively different positioning vs current cap_map narrative.
+- Direction 1 (M-sweep) is the BINARY decision driver: capacity-bound vs interference-bound determines which product story holds. Either outcome closes Bet B characterization.
+- Direction 4 (M_c phase transition) moves MoE cap_map row from "3/8 cells pass" (currently uninterpretable) to "passes above M_c" (mathematically grounded). Blocked on Research M_c drill.
+- Directions 2 + 5 are cheap additions; expected value lower per direction but combined cost is modest.
+- Timeline: Direction 3 + 1 + 5 ship-able this cycle once exp_dev picks up routing (15-30 min smoke-test + queue_add); Direction 2 same-cycle if bandwidth; Direction 4 Research drill closure expected ~1-3 hours per R16 / R29 precedent; empirical follow-up ~+1 hour.
+
+### PROT compliance
+
+PROT-004/006/008/009: N/A this cycle (no cap_map state change).
+PROT-005: N/A (Strategy is not the actor; Exp Dev /loop cadence picks up routing files on next cycle).
+
+---
+
 ## Cycle 193 / v173 -- BATCHED PAIR envelope-narrowing verdicts (verdict_handler BATCHED-mode)
 
 ### Context
@@ -1902,3 +1955,52 @@ Inline v186 commit done in sub-agent context (single verdict_handler invocation 
 **Per [[feedback-dispatch-wrappers-default]] note**: This cap_map commit + exp_dev ship batch executed in a single sub-agent context dispatched from the user per the orchestrator post-compaction brief (Section 2 -- Agent dispatch unavailable; sub-agents internalize role prompts). Verdict-handler role logic + exp_dev role logic both executed inline. Commit LOCAL only (push deferred to main thread per sub-agent permission gap; [[feedback-subagent-permission-inheritance]]).
 
 **Status_log entry**: 1 entry written this cycle, importance=HIGH, plain_language: "We tested whether the substrate can learn FOUR sequential tasks (A then B then C then D) and still remember each -- this was the FIRST EVER 4-stage continual learning probe at substrate-product level. Result is a partial pass: the substrate retained middle stages (B and C) at 85% and 80% respectively, both above the 70% target; the earliest stage (A) retained at 74%, just short of the 80% target. The mechanism survives the 4-stage load without collapsing -- this matters because it confirms the substrate scales structurally from 3-stage (validated last week) to 4-stage. The KILLER Tier 1 'true continual learning at production scale' row moves from UNTESTED to PARTIAL on the capability map. Rehab paths to clear the full 80% target on stage A: stronger Phase-A consolidation, larger substrate dimension N=8192, or weighting Phase-A more heavily in the late-stage replay buffer."
+
+
+---
+
+## Cycle 215 (2026-05-24 ~16:55 LT) — v190 BATCHED 10-VERDICT cap_map update
+
+**Trigger**: orchestrator batched 10 verdicts inline (verdict_handler role internalized in single sub-agent context per [[feedback-dispatch-wrappers-default]] + orchestrator post-compaction brief Section 2).
+
+**Verdicts processed**:
+- (V1) wave14_betB_4stage_continual_v2_rehab_n8192_v1 FULL = FOURSTAGE_MIDDLE_BAND retA=0.740 retB=0.860 retC=0.808 -- K2 rehab axis 1 SATURATION (vs v189 retA=0.740 retB=0.854 retC=0.798 inside seed-variance)
+- (V2) wave14_betB_4stage_continual_v2_rehab_phaseA_consolidation_v1 FULL = FOURSTAGE_MIDDLE_BAND retA=0.736 retB=0.854 retC=0.796 -- K2 rehab axis 2 SATURATION (no consolidation lift; user pre-cycle confirmation honest)
+- (V3) wave14_cap8_vamp_iterates_srht_hadamard_v1c_cpu_reroute_rerun FULL = CAP8_ITERATES_GENERATED (30 trace files; Composition A v4 audit UNBLOCKED; infrastructure only)
+- (V4) wave14e_s4_depth_smoke_v1_reship FULL = S4_KILLED ratio=0.00 binding_depth=200 ssm_depth=0
+- (V5) wave14_sellke_marginal_stability_v1_reship FULL = SELLKE_INCONCLUSIVE (baseline modes=8 at eps=0; narrower-eps re-queue did NOT fix baseline)
+- (V6) wave14e_s4_depth_smoke_v1 FULL = S4_KILLED duplicate (identical numbers; second-S4 observation closes rehab path)
+- (V7) wave14_boolean_noise_stab_kerdock_kkl_v1_reship FULL = BOOLEAN_NOISE_STAB_HARD_FAIL (rerun confirms v182 V2 F-6 Boolean Cap-13 closure no new info)
+- (V8) wave14_compositional_holdout_v1 FULL = COMPOSITIONAL_MIDDLE_BAND hold_out_acc=0.116 train_acc=0.652 -- K6 KILLER T2 ⚪ -> 🟡 PARTIAL NEW (FIRST K6 probe)
+- (V9) wave14_betB_multitask_diff_corpus_v1 FULL = MULTITASK_DIFF_MIDDLE_BAND retA=0.600 gain_C=3.76 -- U1/U7 ⚪ -> 🟡 PARTIAL NEW (FIRST joint U1/U7 probe; CONDITIONAL transfer)
+- (V10) wave14_realtime_inference_learning_v1 FULL = REALTIME_INFERENCE_MIDDLE_BAND labeled / INCONCLUSIVE-INSTRUMENTATION-BUG honest -- LABEL OVER-CLAIM 3rd labeled-vs-honest divergence this session
+
+**Step 0 honest re-read outcomes (per [[feedback-verdict-msg-honest-reread]])**:
+- V1-V9: label=msg=data agreement clean (37th-44th observations post-lock)
+- V10: LABEL-OVER-CLAIM DETECTED (45th observation post-lock); MIDDLE_BAND tag implies legitimate-middle-band reading but bpc_online=0.000 / bpc_frozen=0.000 / delta=0.000 is structurally implausible (smoke run produced bpc_online=3.762 / bpc_frozen=3.834); honest verdict = INCONCLUSIVE_INSTRUMENTATION_BUG; honest reading treated as authoritative for K5 row interpretation (K5 STAYS ⚪ UNTESTED; instrumentation repair pre-registered)
+- Tally: 8 clean + 1 LABEL-OVER-CLAIM (3 / 45 = 6.7% over-claim rate consistent across heterogeneous verdict classes; LOCK working cleanly)
+
+**Cap_map move**:
+- K2 True continual learning at production scale (A->B->C->D) -- KILLER Tier 1: 🟡 PARTIAL UNCHANGED + v190 axes 1+2 SATURATION annotations (axis 3 Phase-D-replay-weighting still LIVE)
+- K6 Compositional generalization -- KILLER Tier 2: ⚪ UNTESTED -> 🟡 PARTIAL NEW evidence-strength row (FIRST K6 probe; 1.85x chance hold-out; 4 rehab axes filed)
+- U1/U7 Multi-task transfer + cross-modal binding -- UNSURE Tier 2: ⚪ UNTESTED -> 🟡 PARTIAL NEW evidence-strength row (FIRST joint probe; gain_C=3.76 strong + retA=0.600 below HARD-PASS; CONDITIONAL transfer; 3 rehab axes filed)
+- K5 Real-time learning during inference -- KILLER Tier 2: ⚪ UNCHANGED + v190 INSTRUMENTATION-INCONCLUSIVE annotation (labeled-vs-honest divergence; instrumentation repair filed)
+- Cap 8 ✅ UNCHANGED + v190 infrastructure-only annotation
+- Bet S4-as-SSM-depth-extension research-stage UNCHANGED + v190 CLOSED-FAILED annotation (two-observation confirmation)
+- Sellke research-stage UNCHANGED + v190 SECOND INCONCLUSIVE annotation (alternate-baseline-construction filed)
+- F-6 Boolean ❌ closure UNCHANGED + v190 rerun-confirmation annotation
+
+**Portfolio impact**: 12 demonstrated rows UNCHANGED + 6 evidence-strength rows NEW (was 4 -- Bet Z.5 🟢 + Bet V 🟡 + Bet B retention 🟡 + K2 4-stage 🟡; now adds K6 compositional 🟡 + U1/U7 multi-task-transfer 🟡). Closes K6 + U1/U7 ⚪ gaps in v1 KILLER/UNSURE framing. ZERO open ❌ PROVISIONAL preserved from v172-v189.
+
+**v190 rehab promotion gates filed (carry-forward)**:
+- K2 rehab axis 3 (Phase-D-specific replay weighting heavier weight on stage A in Phase D replay) STILL LIVE -- only remaining axis from v189 3-axis list
+- K6 4 rehab axes: (1) N=8192 + 5+ seeds; (2) explicit hierarchical composition pre-binding; (3) cleanup-iteration at composition site; (4) Bet X position-indexed mechanism integration
+- U1/U7 3 rehab axes: (1) MoE structural separation for cross-corpus retention; (2) larger N=8192 for retention floor; (3) weighted-replay favoring corpus-A during corpus-C training
+- Sellke alternate baseline construction (quenched-disorder average OR modes-cutoff redefinition NOT just narrower eps)
+- K5 instrumentation repair (fix metric-collapse bug; rerun as wave14_realtime_inference_learning_v1_rerun BEFORE any K5 capability claim)
+
+**Per [[feedback-dispatch-wrappers-default]] note**: This cap_map commit batched across 10 verdicts executed inline in single sub-agent context per orchestrator post-compaction brief Section 2 execution-model clarification (Agent dispatch unavailable; sub-agents internalize role prompts; verdict_handler + strategy + visibility role logic all executed inline). Commit LOCAL only (push deferred to main thread per sub-agent permission gap; [[feedback-subagent-permission-inheritance]]).
+
+**Status_log entries**: 10 entries written this cycle (V1 MEDIUM K2 axis 1 saturation; V2 MEDIUM K2 axis 2 saturation; V3 LOW Cap 8 infrastructure; V4 MEDIUM S4 rerun-confirmation; V5 LOW Sellke inconclusive rerun; V6 LOW S4 duplicate; V7 LOW Boolean rerun-confirmation; V8 HIGH K6 first probe -> PARTIAL; V9 HIGH U1/U7 first probe -> PARTIAL; V10 MEDIUM K5 instrumentation-bug labeled-vs-honest).
+
+**PROT-004/006/008/009 compliance this commit**: K6 ⚪ -> 🟡 + U1/U7 ⚪ -> 🟡 row state changes (2 new evidence-strength rows); 4 K6 rehab axes + 3 U1/U7 rehab axes + Sellke alternate baseline + K5 instrumentation repair filed; PROVISIONAL tag NOT required (these are CREATION of new 🟡 PARTIAL rows not ❌ closures); cap_map.md + history.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; pre-commit validator passes (commit hash in main thread push step).
