@@ -1502,3 +1502,148 @@ No new experiments queued by this annotation cycle. Queue depths managed by orch
 ### Tally (one-line)
 
 ANNOTATION-ONLY v168 -> v169 paired commit: Cap 1 + Cap 3 + Cap 8 each gain a closed-form-derivation annotation under the Kerdock-MUB-stabilizer-code lens; Cap 1's v158 Sagawa-Ueda envelope theta(p) IS Pauli-twirled depolarizing-channel entropy (CCKS 1997 + CRCP 2020 + standard QECC textbook); Cap 3's v158 throughput envelope IS Holevo capacity of Clifford-depolarizing channel (Klappenecker-Roetteler 2003/2005 + Hayden-Preskill / standard QECC); Cap 8's v168 VAMP-vs-AMP split IS Schur-Weyl-Pauli-twirled-S-transform structure (Webb 2016 / Zhu 2017 + Zhu-Kueng-Grassl-Gross 2016 + CRCP 2020); v169 adds ZERO new rows + ZERO promotions + THREE annotation-grade strengthenings on existing ✅ rows per [[feedback-dont-overextend-theorems]]; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT per [[feedback-strategy-shore-up-capabilities]] item 2 envelope-strengthening pattern; per [[feedback-no-smoke]] honest framing -- NO experiments ran this cycle, NO new empirical evidence, the closed-form derivations land from the lens not from substrate measurements; 12th-capability candidate from source drill Section 5.2 stays GATED on tests 3.A + 3.B (NOT run this cycle); quantitative Zhu-Kueng-Grassl-Gross 4-design-defect formula for Kerdock-PSL(2, 4096) flagged as candidate math follow-up (~1 hr work, no experiment) but NOT shipped this cycle; no Research routing filed (source drill IS the Research delivery); no Exp Dev routing filed (annotation-only); per PROT-004/006 NOT triggered (no closure no new ❌ no row demotion); smoke->FULL broad anchors UNCHANGED (34 broad / 25 strict); pause flag CLEARED -- ACTIVE annotation-only verdict_handler dispatched in ACTIVE state; 83rd PROT-009 paired commit.
+
+## 2026-05-23 - F_4 anchor v1 upstream push: split decision (Option B + Option D parallel)
+
+**Trigger:** routing event from exp_dev — `notes/exp_dev_to_strategy_kerdock_2design_frame_potential_2026-05-23.md`. v1 of wave14_kerdock_2design_frame_potential failed smoke gate: Haar baseline correct (F_4=2.08 at d=64), but Clifford and Kerdock random-word samplers don't reach asymptotes (Clifford F_4=1.70 vs theoretical 2.62; Kerdock ~10^3 due to diagonal-dominated degenerate words). The Aaronson-Gottesman by-hand symplectic-to-Clifford-unitary lift has Gaussian-elimination bugs.
+
+**Decision:** SPLIT.
+- PRIMARY (Option B): re-spec F_4 anchor to use symplectic-rank trace formula directly (Bravyi-Maslov 2020 Lemma 3 / Hostens-Dehaene-De Moor 2005). Closed form |Tr(U_S)|^2 = d / 2^rank(S-I) sidesteps the dense d x d Clifford-unitary construction entirely. No external lib dependency. v2 ETA matches the original 30-60 min drill estimate now that the costly part is removed. Routing note: notes/strategy_to_exp_dev_F4_v2_symplectic_trace_2026-05-23.md.
+- PARALLEL (Option D): ship 3.B MUB-distinguishability probe — no Clifford machinery needed, operates on existing beta_A snapshots, complements 3.A with disjoint failure modes. Two falsifiable tests of the same isomorphism. Routing note: notes/strategy_to_exp_dev_MUB_distinguishability_2026-05-23.md.
+- DEFER (Option C): pure-math Zhu-Kueng-Grassl-Gross 4-design-defect formula applied to PSL(2, 4096) waits until F_4 measurements come back; sharper with empirical comparison in hand.
+- DECLINE (Option A): stim/qiskit runtime dep cost not justified when Option B sidesteps the problem.
+
+**Risk surface (honest):** Option B's main residual risk is F_2 Gaussian-elimination bugs producing the same kind of broken numerics as v1's word samplers. Mitigation built into v2 spec: mandatory d=8 exact-enumeration self-test (504 elements, < 1 min CPU) before queueing the d=4096 production run.
+
+**Pipeline impact:** none right now — both routings are exp_dev re-spec tasks, no queue entries staged. After exp_dev ships v2 and the 3.B probe, two new entries land in remote_cpu_queue (which has 9 pending + 1 running, no urgency). No GPU impact.
+
+**No cap_map change.** Verdict-pending; cap_map state holds until experimental results land.
+
+**Sub-agent context:** routing_handler dispatched from main thread for routing event 'exp_dev->strategy'; strategy logic executed inline per task spec ('wrappers don't recurse'). No re-dispatch of exp_dev — dispatch.py will fire routing events from the two routing notes on the next cycle, keeping event-driven flow intact.
+
+## 2026-05-23 — F_4 v2 d=8 self-test FAILED; routing v3 (Option H = stim)
+
+**Trigger:** routing event from exp_dev — `notes/exp_dev_to_strategy_F4_v2_d8_selftest_failed_2026-05-23.md`. The v2 mandatory d=8 self-test (the structural fix from v1's silent-bug failure) FIRED as designed: F_4=0.2656 vs sanity band [1.5, 4.5]. Rank histogram diagnostic showed the hand-rolled symplectic-block construction was producing essentially-random F_2 matrices instead of genuine Sp(2m, F_2) elements. exp_dev surfaced 4 options (E/F/G/H) and recommended Option E first.
+
+**Decision: Option H (pull in `stim`).** Rationale:
+- Options E (Sp-membership unit test) and F (transvection control) keep debugging the same hand-rolled abstraction — even a successful fix leaves a one-off hand-rolled routine where "subtle convention bug that happens to pass d=8 by coincidence" remains live for d=4096.
+- The structural gate (d=8 self-test) was DESIGNED to catch bugs we don't see. Pulling in a verified library (stim, Google-funded, used by quantum-hardware research labs) is the higher-leverage move — eliminates the bug class entirely.
+- The d=8 mandatory gate STAYS, now verifying stim's output is consistent with theory before scaling.
+- Option G (defer 3.A entirely) is the fallback if stim install fails on the remote runner.
+
+**MUB-distinguishability (3.B):** already running independently on remote_cpu_queue. ETA ~2hr CPU. Covers half of the joint isomorphism evidence regardless of F_4 path.
+
+**Re-spec routing note:** `notes/strategy_to_exp_dev_F4_v3_stim_2026-05-23.md`. Instructions: `pip install stim` on runner; use stim's Clifford sampler + |Tr|^2 = d / 2^{rank(S-I)} formula; KEEP the d=8 mandatory self-test (now verifying stim); on d=8 PASS, ship to remote_cpu_queue at d=4096 as `kerdock_2design_frame_potential_v3_stim`; on d=8 FAIL via stim or install failure, defer to Option G (MUB-distinguishability alone).
+
+**Parallel pure-math follow-up:** `notes/strategy_request_to_research_kerdock_4design_defect_2026-05-23.md` filed in parallel. Pure-math drill (~1hr, no compute cost) to deliver Zhu-Kueng-Grassl-Gross 4-design-defect closed-form for Kerdock-PSL(2, 4096). Gives an INDEPENDENT theoretical anchor to compare against stim's empirical F_4. Was flagged in the prior strategy annotation cycle; now activated.
+
+**Honest risk surface:**
+- stim install may have wheel/glibc friction on remote runner → fallback Option G.
+- stim's API may not expose PSL(2, F_{2^m}) restriction directly → Path A (full Clifford F_4 ~ 3.0) with revised prereg bands.
+- ZKGG defect formula may not specialize cleanly to PSL(2, F_{2^m}) → Research delivers a bound + pointer instead of closed-form.
+
+**No cap_map state change.** Verdict pending. Both F_4 v3 (stim) and MUB-distinguishability must land before cap_map updates.
+
+**Downstream routing filed:**
+1. `notes/strategy_to_exp_dev_F4_v3_stim_2026-05-23.md` (exp_dev — implement v3)
+2. `notes/strategy_request_to_research_kerdock_4design_defect_2026-05-23.md` (research — pure-math drill in parallel)
+
+## 2026-05-23 — F_4 v2 RETROACTIVE PASS (spec formula typo, not code bug)
+
+**Trigger:** routing event from exp_dev — `notes/exp_dev_to_strategy_F4_v3_stim_shipped_plus_v2_retro_2026-05-23.md`. While building v3 (stim) exp_dev cross-checked the trace formula by direct |Tr(U)|^4 averaging from `stim.Tableau.to_unitary_matrix` at d=4 and d=8. The two methods agree ONLY when the formula uses `d^2 / 2^{rank(S-I)}` (exponent 1), NOT `d^2 / 2^{2*rank(S-I)}` (exponent 2 = doubled). The v1 -> v2 -> v3 strategy spec inherited the doubled-exponent typo from the original Bravyi-Maslov / Hostens-Dehaene-De Moor citation chain.
+
+**Retroactive interpretation of v2's d=8 "failure":**
+
+v2's failure report logged the d=8 rank histogram for ALL 504 elements of PSL(2, F_8): `{0: 1, 3: 63, 6: 440}`. Applying the CORRECTED formula `F_4 = sum_S [d^2 / 2^{rank(S-I)}] / |PSL|`:
+
+```
+F_4 = (1 * 64/2^0 + 63 * 64/2^3 + 440 * 64/2^6) / 504
+    = (64 + 504 + 440) / 504
+    = 1008 / 504
+    = 2.000000  exactly
+```
+
+**PSL(2, F_8) IS a Clifford 2-design at d=8 — exact integer F_4 = 2.** Matches Haar value.
+
+v2's hand-rolled GF(2^m) + symplectic-block code was correct end-to-end. The d=8 structural gate fired CORRECTLY — it caught a spec-formula application error before a d=4096 production run. The gate worked exactly as designed; only the strategy-side interpretation of v2's PASS-vs-FAIL was wrong (because strategy applied the same buggy formula to v2's rank histogram and got 0.2656 instead of 2.0).
+
+**Retro updates to cap_map and decision-log narrative:**
+
+- v2 (`wave14_kerdock_2design_frame_potential_v2`) is now classified **PASS** at d=8 (exact enumeration of PSL(2, F_8), F_4 = 2.000000 exactly).
+- The "v2 d=8 self-test FAILED" entry above (cycle preceding this one, same date) remains in the log as the contemporaneous record but is now superseded by THIS retro. Do not edit the prior entry — append-only decision log; future readers see the correction here.
+- v3 (stim) was dispatched on the basis of the false-failure interpretation. v3 is no longer NECESSARY for proving 2-design — v2 already did that at d=8 — but v3 is RETAINED as cross-library confirmation (see disposition below).
+
+**v3 disposition: LET-RUN as confirmatory redundancy.**
+
+Rationale:
+1. v3 is fast — exp_dev benchmark ~3.3s; production run at d=4096 m=12 n=10000 has 1800s timeout but real wall-time expected well inside it.
+2. v3 uses a fundamentally DIFFERENT path: stim (Google-funded verified library) on the remote_cpu_queue runner, vs. v2's hand-rolled GF(2^m) + symplectic-block code at d=8 only. Two independent implementations agreeing on F_4 = 2.0 is stronger evidence than either alone, especially given the structural fragility just exposed (spec-formula typo propagated through three versions undetected).
+3. v3 also delivers F_4 at PRODUCTION d=4096, not just d=8. v2's exact enumeration is d=8 only; the d=4096 PSL anchor remains a follow-up question.
+4. Cancelling v3 saves one CPU queue slot but loses (a) cross-library validation, (b) production-d anchor. The slot cost is cheap (remote_cpu_queue has capacity); the validation value is high. LET-RUN dominates.
+
+If v3 lands F_4 in band [1.90, 2.10] at d=4096: dual-anchor PASS (v2 exact at d=8 + v3 stim at d=4096) -> Cap 3.A unlocks as a FULL demonstration.
+
+If v3 lands OUTSIDE [1.90, 2.10] at d=4096: that's an unexpected divergence between PSL(2, F_8) (where 2-design holds exactly) and full Clifford at m=12 sampled by stim — investigate further; do NOT close yet.
+
+**Optional follow-up (not yet dispatched):** Re-run v2 at m=12 with CORRECTED formula (`exponent 1`) to get a PSL-specific F_4 anchor at production d=4096. One-line change in v2's `f4_contribution`. Trivial to dispatch later if v3 anchors successfully and Strategy wants a redundancy belt. Logged here as a queued idea; not filed as a Strategy -> Exp Dev routing this cycle.
+
+**Structural lock (inefficiency fix per [[feedback-lock-in-inefficiency-fixes]]):**
+
+The root cause was a strategy-spec formula typo that survived through v1 -> v2 -> v3 without being caught by any structural check. Lock filed THIS CYCLE:
+
+- New feedback memory: `feedback_strategy_spec_formula_selftests.md` written to `C:\Users\marsh\.claude\projects\d--AI\memory\`.
+- MEMORY.md index updated with the new entry.
+- Rule: Strategy specs that pass closed-form formulas to Exp Dev MUST include at least one (input -> expected output) self-test pair. For the F_4 formula `|Tr(U)|^2 = d / 2^{rank(S-I)}` a self-test cell would be `for d=2, rank=0: |Tr(U)|^2 == 2`. Exp Dev verifies the SPEC against the self-test before coding the experiment. If the spec's formula doesn't match its own self-test cell, the spec is rejected before any compute is spent.
+
+**No cap_map state change in THIS cycle.** Reasoning: the retro raises v2 from FAIL to PASS at d=8 only — exact enumeration of PSL(2, F_8). Production-d (d=4096) verification is still in-flight via v3. To avoid premature cap_map promotion (Cap 3.A would jump from 🔬 to ✅ on d=8 alone, which is the weak anchor — d=8 has 504 elements only), HOLD cap_map state until v3 lands. THEN: atomic promotion contingent on v3 F_4 in band.
+
+**MUB-distinguishability (3.B)** still running on remote_cpu_queue independently. Both half-tests of the joint isomorphism evidence converge over the next ~2-3 hr.
+
+**Pipeline impact:** none THIS cycle — v3 in-flight, v2 retro is interpretation-only, lock is memory-only (no queue entries). Waiting on v3 + 3.B verdicts to land before next cap_map move.
+
+### Recent-run check
+
+No new experiments queued by this cycle (annotation + retro + lock + status_log only).
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered.
+- **PROT-004/006**: NOT triggered. No closure no new ❌ no row demotion. This is an UPWARD reinterpretation of v2 (FAIL -> PASS) but cap_map state is held until v3 lands; no PROT-004 rehab discipline needed because no closure was applied based on the prior v2 FAIL anyway.
+- **PROT-007**: not triggered (no cap_map version bump).
+- **PROT-008**: not triggered (no commit staged this cycle).
+- **PROT-009**: not triggered (decision-log append-only this cycle, no cap_map pairing).
+
+### Tally (one-line)
+
+v2 RETRO PASS: PSL(2, F_8) at d=8 exact F_4 = 2.000000 (1008/504) under CORRECTED formula `d^2/2^{rank(S-I)}` not `d^2/2^{2*rank(S-I)}`; v2's hand-rolled code was correct end-to-end; the d=8 structural gate fired CORRECTLY -- it caught a spec-formula typo that strategy then mis-applied to v2's rank histogram; v2 reclassified FAIL -> PASS at d=8 (append-only log; prior FAIL entry retained); v3 (stim) shipped to remote_cpu_queue last cycle is now confirmatory cross-library redundancy at production d=4096 -- LET-RUN (fast ~3.3s benchmark, different library + different runner -> useful validation, cap slot cost cheap); cap_map state HELD until v3 verdict lands -- no premature promotion on d=8-only anchor; MUB-distinguishability (3.B) still running independently; structural lock filed THIS cycle per [[feedback-lock-in-inefficiency-fixes]] -> new memory `feedback_strategy_spec_formula_selftests.md` + MEMORY.md index updated -- rule: closed-form formulas in strategy specs MUST include a (input -> expected output) self-test cell that exp_dev verifies before any compute spend; pipeline impact none this cycle; pause flag CLEAR; no PROT-007/008/009 trigger (decision-log only).
+
+
+## v170 — BBMD-VAMP correspondence Anchor 1 of 2 PASSES (cycle 190 single-verdict cap_map update; portfolio count UNCHANGED at 11)
+
+**Verdict**: `wave14_bbmd_vamp_correspondence_sweep_v1` FULL = BBMD_VAMP_CORRESPONDENCE_PASS at 4175.31s remote_cpu_queue. Spearman rho(AMP-error, sum|delta_kappa_n|) = 0.900 > 0.8 across 5 alpha cells; max VAMP-rel-err = 0.0357 < 0.05 across same 5 cells. Both pre-registered HARD PASS thresholds met cleanly with margin (0.100 margin on rho; 0.014 margin on VAMP-rel-err). Metrics file: `data/wave14_bbmd_vamp_correspondence_sweep_v1/metrics.json`. Pre-reg: `preregs/2026-05-23_wave14_bbmd_vamp_correspondence_sweep_v1.md`.
+
+**Cap_map move**: BBMD regime row 🟢 (synthesis-grade with 5-axis observational support at alpha=1.0 only) -> ✅ on Anchor-1 promotion gate (predictive-axis empirically confirmed across the alpha-interpolation Gauss -> Kerdock). Three existing rows gain v170 cross-row corroboration annotations without state change: Cap 8 ✅ (VAMP tames entire BBMD interpolation, not just alpha=1.0); v164a/v166 ✅ (kappa_n divergence is empirically the predictive quantity for AMP-error magnitude); v163 🟢 (AMP-error growth monotonically predicted by BBMD-distance scalar).
+
+**Portfolio count**: 11 demonstrated capabilities UNCHANGED. Cap-12 (VAMP-tractable structured-codebook inference under provable departure from AMP-universality) remains GATED on Anchor 2 (`wave14_kappa_profile_cross_codebook_v1` still pending in remote_cpu_queue). Per pre-registered compound gate in `notes/exp_dev_to_queue_bbmd_anchors_2026-05-23.md` decision tree: Anchor 1 PASS rules out decision-tree branches 3+4; branches 1 vs 2 (substrate-product Cap-12 vs Kerdock-internal Cap-12) is decided by Anchor 2. Per [[feedback-dont-overextend-theorems]]: Cap-12 NOT pre-claimed on Anchor 1 alone.
+
+**Why this matters**: prior 5-axis fingerprint stack (v164a/v165/v166/v167/v168) was 5 quirks MEASURED on one matrix at alpha=1.0; v170 is the first PREDICTIVE-AXIS empirical confirmation -- the kappa_n divergence is empirically demonstrated to predict the AMP-error magnitude across an interpolation family. The 5-axis stack is no longer just an observational signature; it is a regime axis with empirically demonstrated predictive power. This is the first half of the two-anchor validation of the BBMD regime as a substrate-product capability claim.
+
+**Cap 8 strengthening (no state change)**: v168 said "VAMP-on-chain succeeds on Kerdock because VAMP consumes full singular spectrum"; v170 generalizes to "VAMP tames the ENTIRE interpolation Gauss -> Kerdock at < 5% rel-err for all 5 alpha cells." The Cap 8 customer-facing framing widens from "VAMP is the right inference primitive on this substrate" to "VAMP tames the entire BBMD interpolation family that includes this substrate." Cap 8 stays ✅ FULL per [[feedback-strategy-shore-up-capabilities]] item 2 envelope-strengthening pattern.
+
+**v164a/v166 strengthening (no state change)**: v164a measured kappa_n divergence ON Kerdock; v166 added N-stability; v167 added cumulant-order-stability. v170 now wires kappa_n divergence DIRECTLY to the AMP-error magnitude via Spearman 0.900 across the interpolation. The substrate-novel additive-free-prob fingerprint is no longer phenomenological -- it is the predictive quantity. Row stays ✅ per [[feedback-dont-overextend-theorems]] / [[feedback-strategy-shore-up-capabilities]].
+
+**v163 strengthening (no state change)**: v163's alpha=1.0 finding is the endpoint of an empirically-confirmed monotone curve. Row stays 🟢 (its own ✅ promotion gate requires multi-N verification per the v168 pre-reg). v170 annotation strengthens the framing without changing state.
+
+**Queue-refill**: NONE. GPU=2 pending+1 running, remote_cpu=9 pending+1 running, local_cpu idle. Queue is healthy at depth >= 1 invariant per [[feedback-pipeline-pacing]]; verdict_handler does NOT ship queue-refill. Anchor 2 (`wave14_kappa_profile_cross_codebook_v1`) is already in the remote_cpu_queue pending list -- no re-route needed.
+
+**Anchor 2 watch**: when `wave14_kappa_profile_cross_codebook_v1` lands, the next verdict_handler cycle decides v171 portfolio count based on the decision tree:
+- Anchor 2 PASS (ordering iid_gauss <= SRHT < Hadamard <= RM(1,m) < Kerdock + MP-KS < 0.05 for all 5) -> branch 1 -> Cap-12 substrate-product promotion proposed; portfolio count 11 -> 12.
+- Anchor 2 FAIL (ordering scrambled OR MP-KS >= 0.05 for any) -> branch 2 -> Cap-12 framed Kerdock-internal; portfolio count stays 11 with the BBMD regime row staying ✅ at the Kerdock-internal scope.
+
+**Smoke -> FULL anchors**: +1 broad +1 strict (smoke directional PASS at self-test 7/7 with N=1024 + FULL HARD PASS by both pre-registered thresholds = consistent both at qualitative and quantitative levels). Net: 35 broad / 26 strict.
+
+**PROT compliance**: PROT-004/006 NOT triggered (positive Anchor-1 promotion + 3 cross-row annotations; no closure no new ❌). PROT-007 v170 history block written. PROT-008 validator must pass. PROT-009 cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md + visibility_decisions_2026-05-23.md staged atomically (84th PROT-009 paired commit).
+
+**Honest framing per [[feedback-no-smoke]]**: Anchor 1 is a clean PASS with margin on both thresholds (rho 0.900 vs 0.8; max VAMP-rel-err 0.0357 vs 0.05). No axiom-mismatch artifact, no metric flip, no boundary contortion. The verdict is what it says. The 12th capability is NOT pre-claimed; Anchor 2 still needs to land.
+
+**Push gating**: per [[feedback-subagent-permission-inheritance]] commit is LOCAL only; main thread executes `git push origin main` as the mechanical 1-tool action after this dispatch returns.
