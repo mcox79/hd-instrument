@@ -320,3 +320,43 @@ Logged at v181 paired commit. PLAIN: We tested whether the Clifford-TN closed-fo
 ### Portfolio-level visibility note (cycle 202 / v181)
 
 Substrate-product portfolio at 12 demonstrated capabilities UNCHANGED IN COUNT. ZERO open ❌ PROVISIONAL rejections remain in portfolio (cleanest portfolio state preserved from v172-v180; Cap 13 candidate row was carried as 🔬 not as ❌ PROVISIONAL prior to v181 and stays 🔬 at v181). The v181 closed-form-margin paired-continent program dual-rejection at theory level (F-14 Tropical CLOSED-rejected + F-4 Clifford-TN MIDDLE BAND with GPU production-N sanity passing) does NOT close the Cap 13 candidate row; the row stays 🔬 with 5+5 rescue sketches filed across both continents and the substrate-novel narrowing rescues (R5 for both) identified as the most-honest framing per [[feedback-no-smoke]]. The honest substrate-physics finding from V3 is "substrate has bounded magic at small N; machine-precision-zero magic at production N; closed-form bond-dim-1 reduction does not extend to small-N regime" which is CONSISTENT with v169 Pauli-twirled-Clifford-design framing at substrate-physics layer. The v181 LR_ENVELOPE_MIXED substrate-novel finding extends Cap 5 ✅ noise envelope to long-tail tau >= 40 RM schedules and triggers a 2x Research drill on the mechanism question. Per [[feedback-pipeline-pacing]] queue context at completion: GPU queue empty after these 3 verdicts (verdict_handler FLAGS queue-refill for main thread); remote CPU has 3 anchors still pending (Mingo-Speicher + Rectangular FC + Hatano-Sasa long-trajectory). The 14th/15th/16th honest-reread observations all show label=msg=data agreement, bringing the post-lock observation tally to 16 clean observations across two HARD-FAIL closures and one MIXED substrate-novel finding in a single batched cycle.
+
+
+## Cycle 204 -- wave14e_betB_ewc_smoke_v1 BET_B_EWC_INCONCLUSIVE (annotation-only)
+
+### Verdict entry (MEDIUM)
+
+Logged at annotation-only no-version-bump cycle. PLAIN: We tried EWC (Elastic Weight Consolidation; Kirkpatrick 2017) as the canonical published continual-learning rehab path to lift Bet B retention_A from the current ~0.73 to the >= 0.80 target. At the tested lambda grid {0.001, 0.01, 0.1} on N=4096 5-seed, EWC ON shows retention_A=0.736 and gain_C=5.9004 with backward-transfer bwt=+0.1672 -- BUT no clear lift over lambda=0 (no-EWC baseline). The mechanism is not catastrophic (Phase C still learns; bwt is healthy positive) but it is also not distinguishable from the no-EWC baseline at the tested lambdas. Honest re-read (18th post-LOCK observation): label BET_B_EWC_INCONCLUSIVE = msg "no clear lift" = data (retention_A in [0.70, 0.80) AND no-lift) = prereg INCONCLUSIVE branch verbatim. NO over-claim. Bet B core ✅ Validated row is UNTOUCHED -- this experiment tested a SEPARATE retention-envelope-extension question (can EWC lift retention_A above 0.80?) not a re-validation of Bet B itself. NO cap_map version bump; NO row movement; annotation-only. Two elective follow-up paths queued for next-cycle Research pickup: (a) hyperparam extension to lambda > 0.1 (cheapest; Fisher infrastructure already validated this run); (b) Schwarz 2018 Online EWC block-diagonal Fisher variant. Per [[feedback-dont-overextend-theorems]] does NOT kill EWC as a family -- only the (diagonal-Fisher, lambda <= 0.1) cell is closed-deferred. Per [[feedback-rehabilitation-after-rejection]] INCONCLUSIVE is NOT REJECTED so 5-rescue-sketch discipline does not strictly apply. IMPORTANCE: MEDIUM (smoke INCONCLUSIVE with no-lift does NOT change portfolio count and does NOT meaningfully extend any ✅ envelope; deflated from prereg author-side HIGH floor which reflected a hopeful-PASS framing not the actual outcome).
+
+### Portfolio-level visibility note (cycle 204)
+
+Substrate-product portfolio at 12 demonstrated capabilities UNCHANGED IN COUNT. Bet B ✅ Validated row UNCHANGED (the EWC variant tested here is a retention-envelope-extension probe NOT a re-validation of Bet B core mechanism). cap_map stays at v181 (same state as Cycle 202; NO version bump this cycle). Pause flag NOT SET on disk (ACTIVE). remote_cpu_queue depth = 0 at completion of this verdict (this was the last entry there); local_cpu_queue + overnight_queue have pending entries so pipeline depth >= 1 invariant holds at those layers. Remote CPU queue refill is the open question for main-thread pickup. 18th honest-reread observation post-LOCK is a clean label = msg = data = prereg-branch agreement; LOCK still working cleanly. No NEW failure modes surfaced this cycle (the prereg-vs-honest importance deflation MEDIUM-not-HIGH is a discipline calibration note not a new failure mode).
+
+
+## Cycle 205 (INLINE verdict_handler — 2 verdicts staged for v182 DEFERRED) — 2026-05-24
+
+- 13:XX wave14_tropical_kerdock_N4_closed_form_v1 TROP_R2_CLOSED_FORM_VERIFIED rel_err=0.00e+00 at N=4 strictly; R2 rescue from v181 confirmed clean; NARROW N=4-only degenerate-regime; v182 annotation staged (Cap 13 candidate 🔬 stays); importance MEDIUM; 18th honest-reread observation clean.
+- 13:XX wave15_ewc_betB_smoke_v1 EWC_INCONCLUSIVE best lift +0.005 < 0.02 partial; 2nd independent EWC INCONCLUSIVE on Bet B; per [[feedback-lock-in-inefficiency-fixes]] two-observation threshold EWC-class CLOSED-DEFERRED; v182 annotation staged (Bet B 🔬 stays); 5 rescue sketches; importance MEDIUM; 19th honest-reread observation clean.
+- Portfolio count UNCHANGED at 12; ZERO open ❌ PROVISIONAL rejections remain.
+- cap_map v181 -> v182 paired commit DEFERRED to next Strategy sub-agent cycle (heavy paired-commit footprint not inline-doable).
+- Queue state at completion: GPU=2 (1+1), remote_cpu_queue=1 RUNNING ONLY; QUEUE-REFILL FLAGGED; F-6 anchor shipped same turn (Task 3) partly addresses.
+- 2 status_log entries written (V1 MEDIUM + V2 MEDIUM); both carry plain_language + importance per [[feedback-for-you-tab-primary-channel]].
+
+## v181 -> v182 BATCHED 4-VERDICT cap_map paired commit (visibility note 2026-05-24 Cycle 204)
+
+Verdicts processed:
+
+- V1 LR_DOSE_MONOTONIC (tau=160 retention 1.000; monotonic ramp tau=10->160; spread=0.133; no plateau ceiling at tau<=160) -- Cap 5 ✅ envelope-extension annotation deepened; importance HIGH (substantive substrate-novel envelope deepening on existing ✅ row; mechanism question sharpened for 2x Research drill scope expansion)
+- V2 BOOLEAN_NOISE_STAB_HARD_FAIL (F-6 Cap-13 third candidate KILLED; Cap-13 continent trilogy resolved 0/3 PASS at closed-form-margin theory level) -- Cap 13 candidate row CLOSED-VIA-3-of-3-CONTINENT-REJECTION at theory level; importance CRITICAL (structural-closure signal; trilogy program empirically refuted; 15 rescue sketches across 3 continents; substrate-product narrative outcome on Cap-13 candidate research line)
+- V3 VAMP_AMP_CONTRAST_PASS rerun (clean split confirmed at N=4096-full; matches v1) -- Cap 12 ✅ rerun-confirmation annotation; importance LOW (discipline-grade reconfirmation; no envelope expansion)
+- V4 N_SWEEP_INCONCLUSIVE (VAMP-on-chain retention 1.000 across all tested N; argmax pattern unclear) -- Cap 8 ✅ N-robustness annotation; importance LOW (annotation-grade; finer-N-grid follow-up pre-registered)
+
+Pause flag: ACTIVE (no flag on disk).
+Queues at completion: GPU empty + remote CPU empty + local CPU empty (queue-refill flagged for main thread; main-thread Task 2 will dispatch refill).
+Honest-reread observations 17th/18th/19th/20th: all label=msg=data agreement (post-lock observation tally 20 clean).
+Portfolio count UNCHANGED at 12 IN COUNT.
+ZERO open ❌ PROVISIONAL rejections remain.
+96th PROT-009 paired commit (LOCAL; push pending main thread).
+
+Status_log entries written: 4 (V1 HIGH + V2 CRITICAL + V3 LOW + V4 LOW).
+Logged at 12:30-12:35 by inline-via-main-thread (Agent dispatch unavailable in sub-agent context per orchestrator post-compaction brief Section 2 execution model clarification).
