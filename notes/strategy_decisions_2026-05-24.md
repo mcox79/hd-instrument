@@ -906,3 +906,60 @@ FIRST observation. DEFER candidate filed; revisit after the next mixed-margin �
 - Queue depth: ≥ 1 (remote_cpu has v1c cap8 iterates pending; GPU has 5 prior + N=8192 Anchor 4).
 - Verdict_handler does NOT flag queue-refill.
 - v178 commit hash: TBD (recorded in deliverable to main thread for push).
+wave14_cap8_vamp_iterates_srht_hadamard_v1c CAP8_ITERATES_GENERATED: 30 VAMP iterate-trace files written (>=3 iterates each, 844s wallclock). v1c fix: min_iters=3 in full mode. Honest reading: data-generation success, NOT a substrate finding. v1/v1b had threshold bug (min_iters=10 vs VAMP convergence at 5 iters) — files were written but verdict-judge mis-labeled 0/30. No cap_map row movement (annotation-only). Strategy implication: Composition A audit chain UNBLOCKED — main thread ships v4 audit-trail-pipeline pointed at v1c (or v1b data, both valid) to test the full 4-family Spearman rho claim on SRHT + Hadamard. cap_map remains v178 (4980788). Queue-refill flag: v4 audit ship needed (main thread).
+
+## 07:55 — wave14_cap12_cap8_audit_trail_pipeline_v4 COMPA_AUDIT_MIDDLE_BAND (v178 -> v179 cap_map commit; FULL-mode confirmation of v3 numbers + earlier honest-reread CORRECTED)
+
+**Verdict received**: `wave14_cap12_cap8_audit_trail_pipeline_v4` COMPA_AUDIT_MIDDLE_BAND at remote_cpu_queue. verdict_msg: "Composition A MIDDLE BAND v2: pass>=0.60 in 1/4 (no-tie) families; below-0.30 in 0/4. Composition stays plausible per-family; annotations should narrow to family-specific language." rhos={'kerdock': 1.0, 'srht': 0.533, 'hadamard': 0.533, 'rm_1_m': 0.40} tied={kerdock: False, srht: False, hadamard: False, rm_1_m: False}.
+
+**Step 0 honest re-read** (mandatory per [[feedback-verdict-msg-honest-reread]]):
+
+- v4 rho values: Kerdock=1.0, SRHT=0.533, Hadamard=0.533, RM(1,m)=0.40.
+- These are NUMERICALLY IDENTICAL to the v3 rho values that were flagged in the 07:13 visibility entry as a smoke-leak / fabricated-cells failure mode.
+- v4 is the FULL-mode verified run per exp_dev ship report (4 codebooks * 5 seeds, per-family rhos written to on-disk metrics).
+- **Conclusion: v3 was NOT a smoke-leak. The earlier 6th-observation honest-reread was wrong about the "fabricated cells" diagnosis.** The numbers were the real numbers, written through under a different path than the visibility wrapper expected to read from. v4 confirms them.
+- The honest-reread lock IS working in both directions: catches script over-claims AND surfaces when a prior honest-reread itself mis-diagnosed.
+
+**Substantive substrate-product finding** (Composition A audit applied to the v169 closed-form annotations on Cap 1 / Cap 3 / Cap 8):
+
+| Codebook family | rho(kappa_n, Schur-Weyl irrep mass) | tied | Reading |
+|---|---|---|---|
+| Kerdock | 1.00 | F | Perfect correspondence. Composition A REAL on Kerdock. |
+| SRHT | 0.533 | F | Intermediate, not at threshold. |
+| Hadamard | 0.533 | F | Intermediate, not at threshold. IDENTICAL to SRHT. |
+| RM(1,m) | 0.40 | F | Weakest of the 4 families. |
+
+- HARD PASS gate (>=3/4 at rho >= 0.60): NOT MET (1/4 only).
+- HARD FAIL gate (rho < 0.30 on >=2 families): NOT MET (zero families below 0.30).
+- MIDDLE BAND confirmed per pre-reg.
+- SRHT and Hadamard rhos are bit-identical (0.533) — not a measurement artifact at this resolution; both are real-valued Hadamard-class transforms and share the same kappa_n vs Schur-Weyl irrep-mass structure under Cap 8's measurement geometry. Substrate-physics observation, not a capability.
+
+**Cap_map v178 -> v179 changes** (annotation-grade title-narrowing on existing v169 row; NOT a new capability, NOT a closure, NOT a state-grade change):
+
+1. **v169 Cap 1 / Cap 3 / Cap 8 closed-form annotations get a KERDOCK-SCOPE qualifier added.** v169 originally annotated three portfolio rows as having a Kerdock-MUB-stabilizer-code closed-form rederivation of the empirical PASS envelope. The Composition A audit at v4 shows the kappa_n vs Schur-Weyl correspondence holds cleanly (rho=1.0) ONLY for Kerdock; SRHT/Hadamard share intermediate correspondence (rho=0.533); RM(1,m) is weakest (rho=0.40). v179 narrows the closed-form annotations: "the closed-form QECC derivation is portfolio-LICENSED at Kerdock; for SRHT/Hadamard/RM(1,m) codebooks the empirical PASS envelope holds without the closed-form license."
+2. **Cap 8 row gains the bimodal-pattern annotation as substrate-physics observation** (not a capability extension): "kappa_n vs Schur-Weyl irrep-mass correspondence is BIMODAL across structured codebook families — perfect on Kerdock (GF(2^m)-trace algebraic), intermediate-shared on Hadamard-class transforms (SRHT == Hadamard at rho=0.533), weakest on RM(1,m). Composition A as a substrate-product audit story is per-family, not portfolio-wide."
+3. **NO portfolio addition.** Composition A does not license a 12th-capability-adjacent. Portfolio count UNCHANGED at 12.
+
+**Substrate-product framing for the closure note**: "Composition A's kappa_n / Schur-Weyl irrep-mass correspondence holds cleanly only for Kerdock-class codebooks (GF(2^m)-trace algebraic family). Closure stories about a substrate-wide algebraic audit trail need to scope to Kerdock-class codebooks. Other structured families (SRHT, Hadamard) carry partial correspondence (rho=0.533); RM(1,m) is weakest (rho=0.40). Not nothing, but not portfolio-grade as a cross-family audit trail."
+
+**v3 mis-diagnosis observation** (1st obs of this specific failure mode; DEFER candidate, do not lock):
+
+The 07:13 visibility entry diagnosed v3 as a smoke-leak / fabricated-cells failure mode. v4 returns the identical rhos in FULL-mode with on-disk metrics — confirming the v3 numbers were real, not fabricated. The earlier honest-reread had the right discipline (compare verdict_msg to on-disk metrics) but the WRONG conclusion (numbers were real all along, the smoke-mode metrics.json was just missing per-family entries — the v3 verdict_msg numbers came from a different summary path). DEFER candidate filed: "honest-reread methodology should require cross-run consistency check (same numbers across smoke + full) before declaring a fabricated-cells failure mode" addendum to [[feedback-verdict-msg-honest-reread]]. FIRST observation; below 2-obs lock threshold; revisit at next honest-reread mis-diagnosis.
+
+**Pipeline state at completion**:
+
+- Pause flag: CLEARED (ACTIVE).
+- Queue depth: remote_cpu = 0 pending (drained after v4); GPU has Anchor 4 N=8192 + 5 prior pending.
+- Verdict_handler FLAGS queue-refill for main thread (CPU queue drained per [[feedback-pipeline-pacing]]).
+- cap_map v178 -> v179 LOCAL commit (push pending main thread per [[feedback-subagent-permission-inheritance]]).
+
+**PROT discipline**:
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + active_priorities.md + this strategy log + visibility log staged atomically; "Cap map: v178 -> v179 ..." commit
+- per PROT-001 to PROT-003: cap_map.md version table bumped v178 -> v179; narrative block written; capability moves table written
+- per PROT-004/006: NOT triggered (annotation-grade title-narrowing on existing ✅ rows; no new ❌ PROVISIONAL; no closure)
+- per PROT-007: v179 history block written to substrate_capability_map_history.md
+- per PROT-008: validator must pass before commit; v179 adds 0 new ❌ rows + 0 state changes; baseline violations unchanged
+- per PROT-009: 93rd paired commit
+- per [[feedback-for-you-tab-primary-channel]] 1 status_log entry written (MEDIUM importance — informative middle-band confirmation + earlier honest-reread correction; not a state-grade change but customer-facing scope narrows on three v169-annotated rows)
+
