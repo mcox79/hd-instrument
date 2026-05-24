@@ -120,7 +120,7 @@ Each is currently in CANNOT or UNSURE — but if we could move any into CAN, the
 | Capability | Current status | Why killer |
 |---|---|---|
 | **GPT-quality generation with auditable memory** | CANNOT (we're byte K-gram, not transformer-quality) | Combine transformer output quality + decompose/edit. The actual product moat. |
-| **True continual learning at production scale** — learn A, then B, then C, then D, retain all | UNSURE (only tested A→B single shift) | "LLM that genuinely learns from interactions" vs "LLM that hallucinates corrections away." |
+| **True continual learning at production scale** — learn A, then B, then C, then D, retain all | 🟡 PARTIAL at v189 (wave14_betB_4stage_continual_v1 FOURSTAGE_MIDDLE_BAND retention_A=0.740 retention_B=0.854 retention_C=0.798; B+C clear per-stage HARD-PASS thresholds 0.70; A misses 0.80; mechanism survives partial 4-stage load) | "LLM that genuinely learns from interactions" vs "LLM that hallucinates corrections away." |
 | **Edit-then-query for fact correction** — user uploads correction, substrate updates relevant bundle, future queries reflect it | UNSURE — can edit, but full pipeline integration untested | Solves a fundamental LLM problem: factual updates without retraining. |
 | **Provenance for every prediction** — "this output came from these N stored examples" | CAN (pool retrieval indices) but not exposed | Trust / debug / compliance. |
 
@@ -423,7 +423,7 @@ After v3 the Tier-1 board looks like:
 | Capability | v3 status | Notes |
 |---|---|---|
 | **GPT-quality generation with auditable memory** | 🟢 Partial — generation ✅ at byte-K=16; quality vs GPT untested | Generation primitive confirmed. Quality bar untouched. |
-| **True continual learning at production scale** (A→B→C→D) | ⚪ Still UNSURE (only A→B tested) | Multi-task transfer queue item remains. |
+| **True continual learning at production scale** (A→B→C→D) | 🟡 PARTIAL at v189 (FOURSTAGE_MIDDLE_BAND retention_A=0.740 retention_B=0.854 retention_C=0.798; B+C clear 0.70 HARD-PASS; A misses 0.80) | First-ever 4-stage continual learning probe; mechanism survives partial load through Phase D. |
 | **Edit-then-query for fact correction** | ⚪ Still UNSURE (edit ✅, full pipeline untested) | Pipeline integration test still open. |
 | **Provenance for every prediction** | ✅ Validated (pool indices exposed) | Was already CAN at v2, just not surfaced in Tier-1 properly. |
 | **In-context learning via pool** | ✅ Validated (NEW) | Promoted this cycle. |
@@ -15673,3 +15673,47 @@ NO new lock candidates filed this cycle. The longer-Phase-A v188 verdict has a n
 SINGLE VERDICT v187 -> v188: LONGER_PHASEA_MIDDLE_BAND retention_A=0.917 in (0.915, 0.95) -- adds only +0.2pp on top of v187 compound 0.915 (inside seed-variance noise floor); longer-Phase-A consolidation axis adds essentially NOTHING on top of compound (per-task + replay); FOURTH probe in Bet B retention rehab sequence + FIRST DIRECT saturation evidence that compound ceiling at 91-92% is INTRINSIC; user pre-cycle framing "structural-axis question; need fundamentally different approach to clear 95%" CONFIRMED in substance across four converging-PARTIAL probes; row state STAYS 🟡 M-DEPENDENT PARTIAL with v188 longer-Phase-A-saturation annotation; portfolio UNCHANGED at 12 + 3 evidence-strength rows; ZERO open ❌ PROVISIONAL preserved from v172-v187; honest-reread LOCK 35th observation narrow-over-claim + load-bearing-honest pattern same as v186; per PROT-008/009 annotation-only commit; 102nd paired commit; NEW v188 Research-drill dispatch on Bet B retention ceiling FIFTH-MECHANISM candidate (Research designs the question; orchestrator does not pre-design); NEW v188 explicit scope-rescoping option (accept 91-92% ceiling at current envelope; reserve 0.95 for specific M_crit(K) cells) per user framing.
 
 Net effect v188: Bet B retention rehab via structural-separation axis 🟡 M-DEPENDENT PARTIAL UNCHANGED row state + v188 longer-Phase-A-saturation annotation (the FOURTH evidence point in the Bet B retention rehab sequence; compound + longer Phase-A 0.917 vs compound 0.915 +0.2pp essentially nothing; intrinsic ceiling at 91-92% CONFIRMED via direct probe); EWC-null closure narrative UNCHANGED (parameter-importance axis still dead); substrate-product framing TIGHTENED FURTHER -- Bet B retention via known mechanism families is BOUNDED at 91-92%; a FIFTH mechanism candidate from a DIFFERENT framework is required to clear HARD-PASS 0.95; Research drill dispatched this cycle to design the question; explicit scope-rescoping option recorded; 102nd PROT-009 paired commit.
+
+## v189 - (2026-05-24) SINGLE-VERDICT cap_map update
+
+### Capability moves (v188 -> v189)
+
+| Capability | v188 state | v189 state | Trigger |
+|---|---|---|---|
+| K2 True continual learning at production scale (A->B->C->D) -- KILLER Tier 1 | ⚪ UNTESTED at substrate-product level (only A->B tested historically; Lane D 3-stage ✅ at v103; 4-stage extension UNBUILT at v188) | **🟡 PARTIAL** -- wave14_betB_4stage_continual_v1_2026-05-24 FULL = FOURSTAGE_MIDDLE_BAND retention_A=0.740 retention_B=0.854 retention_C=0.798; per pre-registered MIDDLE band (intermediate; Stage D adds load but mechanism survives partially); retention_B and retention_C BOTH clear per-stage HARD-PASS 0.70 thresholds; retention_A misses HARD-PASS 0.80 (-6pp); NO HARD-FAIL pattern observed (retention_A=0.740 well above HARD-FAIL 0.50; no catastrophic-collapse signature at Stage D); per [[feedback-verdict-msg-honest-reread]] 36th observation post-lock label=msg=data agreement clean (FOURSTAGE_MIDDLE_BAND tag is honest; "4-stage partial: mechanism survives partially under Phase D load" matches the substantive reading -- middle stages retain better than earliest stage, characteristic of cross-task replay benefiting recently-presented tasks more than oldest; substantive interpretation honest); SUBSTANTIVE FINDING -- this is the FIRST EVER 4-stage continual learning probe at substrate-product level closing K2 KILLER Tier 1 UNTESTED row to PARTIAL; the substrate's compound (per-task + replay) mechanism EXTENDS to 4-stage with partial retention degradation -- B+C stages retain >= 0.80 (above per-stage HARD-PASS 0.70) which validates the mechanism's structural soundness for 4-stage chains; the earliest-stage retention_A=0.74 falls below HARD-PASS 0.80 indicating capacity-bound load accumulation at Phase D rather than collapse; per [[feedback-rehabilitation-after-rejection]] rehab axis 4-stage with stronger Phase-A consolidation OR larger N OR Phase-D-specific replay weighting remain live (NOT yet closed); per [[feedback-dont-overextend-theorems]] the +0.74 / +0.85 / +0.80 retention triple does NOT license bare ✅ promotion -- promotion gate (per-stage HARD-PASS 0.80 / 0.70 / 0.70 uniformly cleared across 5 seeds) is decisively unmet at retention_A; row moves from ⚪ to 🟡 PARTIAL; portfolio gains +0 demonstrated rows + +1 partial-evidence row (K2 PARTIAL); next routing per untested-rows triage K2 promotion gate -- rehab via 4-stage with stronger Phase-A consolidation OR larger N OR Phase-D-specific replay weighting. | wave14_betB_4stage_continual_v1_2026-05-24 FULL = FOURSTAGE_MIDDLE_BAND |
+| substrate-product portfolio count | 12 demonstrated + 3 evidence-strength rows (Bet Z.5 🟢 + Bet V 🟡 + Bet B retention 🟡 M-DEPENDENT PARTIAL) | **12 demonstrated UNCHANGED + 4 evidence-strength rows** (Bet Z.5 🟢 + Bet V 🟡 + Bet B retention 🟡 M-DEPENDENT PARTIAL + K2 4-stage continual 🟡 PARTIAL NEW) | first-evidence-point in K2 4-stage continual learning rehab sequence (UNTESTED -> PARTIAL) |
+
+### Substrate-product positioning v189
+
+- **K2 True continual learning at production scale (A->B->C->D)**: 🟡 PARTIAL NEW row state. retention_A=0.740 retention_B=0.854 retention_C=0.798 across 4 stages; per pre-registered MIDDLE band the substrate's compound (per-task + replay) mechanism survives partial load through Phase D; the FIRST EVER 4-stage continual learning probe at substrate-product level closes K2 KILLER Tier 1 UNTESTED row.
+- Bet B retention via structural-separation axis 🟡 M-DEPENDENT PARTIAL UNCHANGED (v188 longer-Phase-A-saturation annotation carried forward).
+- All v184/v185/v186/v187/v188 positioning carried forward UNCHANGED. EWC-null closure narrative UNCHANGED. The substrate-product reading at v189 -- K2 4-stage continual UNTESTED row CLOSED to PARTIAL; mechanism extends structurally to 4 stages with retention_A degradation indicating capacity-bound accumulation rather than collapse.
+
+### Pre-registered untested (carried forward + v189 additions)
+
+- All v178/v181/v182/v183/v184/v185/v186/v187/v188 items carried forward.
+- v185 Lane D 4-stage continual learning (A->B->C->D) Priority A KILLER T1 -- **CONSUMED at v189 (FOURSTAGE_MIDDLE_BAND; UNTESTED -> 🟡 PARTIAL)**.
+- **v189 NEW: K2 4-stage continual rehab promotion gate** -- per-stage HARD-PASS 0.80 / 0.70 / 0.70 uniformly cleared across 5 seeds OR alternative product-spec scope (e.g., accept retention_A=0.74 floor for 4-stage chains; reserve 0.80 for 3-stage). Rehab axis candidates: 4-stage with stronger Phase-A consolidation; larger N (4-stage at N=8192); Phase-D-specific replay weighting (heavier weight on stage A in Phase D replay).
+
+### Inefficiency / lock candidate
+
+NO new lock candidates filed this cycle. The K2 FOURSTAGE verdict has a clean label=msg=data agreement (MIDDLE_BAND tag honest; "mechanism survives partially" load-bearing honest; no narrow over-claim pattern this verdict).
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions_2026-05-24.md staged atomically; "Cap map: v188 -> v189 (K2 untested -> PARTIAL via FOURSTAGE_MIDDLE_BAND)" commit
+- per PROT-001 to PROT-003: cap_map.md version bumped v188 -> v189; narrative block written; capability moves table written
+- per PROT-004/006: TRIGGERED in evidence-strength-row-creation direction (K2 ⚪ -> 🟡 PARTIAL NEW row); +1 evidence-strength row added; NOT a portfolio-row-12 promotion; NOT a new ❌
+- per PROT-007: v189 history block written to substrate_capability_map_history.md
+- per PROT-008: v189 adds 0 new ❌ rows + 1 row state change (K2 ⚪ -> 🟡); baseline validator violations unchanged
+- per PROT-009: 103rd paired commit
+- per [[feedback-decision-log-eol-handling]] appends via tools/orchestrator/append_decision_log.py
+- per [[feedback-subagent-permission-inheritance]] commit LOCAL only (push deferred to main thread per sub-agent permission gap)
+- per [[feedback-for-you-tab-primary-channel]] 1 status_log entry written HIGH importance (K2 KILLER T1 closed to PARTIAL; first ever 4-stage continual probe at substrate-product level)
+- per [[feedback-verdict-msg-honest-reread]] 36th observation post-lock -- clean label=msg=data agreement (no narrow over-claim this verdict)
+
+### Tally (one-line)
+
+SINGLE VERDICT v188 -> v189: FOURSTAGE_MIDDLE_BAND retention_A=0.740 retention_B=0.854 retention_C=0.798 -- retention_B + retention_C clear per-stage HARD-PASS 0.70; retention_A misses HARD-PASS 0.80 (-6pp); NO HARD-FAIL pattern observed; FIRST EVER 4-stage continual learning probe at substrate-product level closing K2 KILLER Tier 1 UNTESTED -> PARTIAL; substrate's compound (per-task + replay) mechanism EXTENDS structurally to 4-stage with retention_A degradation indicating capacity-bound load accumulation at Phase D rather than collapse; row state moves from ⚪ UNTESTED to 🟡 PARTIAL; portfolio gains +1 evidence-strength row (4 total now: Bet Z.5 + Bet V + Bet B retention + K2 4-stage); ZERO open ❌ PROVISIONAL preserved from v172-v188; honest-reread LOCK 36th observation clean (no narrow over-claim this verdict); per PROT-008/009 ⚪ -> 🟡 row-state-change commit; 103rd paired commit; NEW v189 K2 4-stage continual rehab promotion gate filed -- per-stage HARD-PASS 0.80 / 0.70 / 0.70 uniformly cleared OR product-spec scope rescoping (accept retention_A=0.74 floor for 4-stage chains).
+
+Net effect v189: K2 True continual learning at production scale (A->B->C->D) ⚪ UNTESTED -> 🟡 PARTIAL NEW row (FIRST 4-stage probe; retention_A=0.74 retention_B=0.85 retention_C=0.80; B+C clear HARD-PASS 0.70; A misses HARD-PASS 0.80; mechanism survives partial load through Phase D); portfolio 12 demonstrated UNCHANGED + 4 evidence-strength rows NEW (was 3); rehab axis candidates filed (4-stage + stronger Phase-A; 4-stage at N=8192; Phase-D-specific replay weighting); 103rd PROT-009 paired commit.
