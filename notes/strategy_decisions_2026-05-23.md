@@ -1647,3 +1647,64 @@ v2 RETRO PASS: PSL(2, F_8) at d=8 exact F_4 = 2.000000 (1008/504) under CORRECTE
 **Honest framing per [[feedback-no-smoke]]**: Anchor 1 is a clean PASS with margin on both thresholds (rho 0.900 vs 0.8; max VAMP-rel-err 0.0357 vs 0.05). No axiom-mismatch artifact, no metric flip, no boundary contortion. The verdict is what it says. The 12th capability is NOT pre-claimed; Anchor 2 still needs to land.
 
 **Push gating**: per [[feedback-subagent-permission-inheritance]] commit is LOCAL only; main thread executes `git push origin main` as the mechanical 1-tool action after this dispatch returns.
+
+---
+
+## Cycle 191 — v171 KAPPA_CROSS_CODEBOOK_KILLED (BBMD-VAMP Anchor 2 of 2 HARD-FAILS)
+
+**Time**: 2026-05-23 (verdict landed via verdict_handler; cycle 191)
+**Trigger**: `wave14_kappa_profile_cross_codebook_v1` FULL verdict KAPPA_CROSS_CODEBOOK_KILLED at remote_cpu_queue.
+
+### What landed
+
+BBMD={'iid_gauss': 0.0308, 'srht': 5.0, 'hadamard': 5.0, 'rm_1_m': 4.6246, 'kerdock': 4.0584}; MP-KS={'srht': 0.5897, 'hadamard': 0.5897, 'rm_1_m': 0.3393}. Pre-registered HARD predictions fail BOTH ways:
+
+1. Ordering predicted SRHT <= Hadamard <= RM <= Kerdock; actual SRHT 5.0 >= Hadamard 5.0 > RM 4.62 > Kerdock 4.06 (Kerdock is the LOWEST not the HIGHEST).
+2. MP-KS predicted PASS for all codebooks (KS ~ 0); actual MP-KS FAILS on SRHT and Hadamard at KS = 0.59 each (standard pre-test already discriminates without BBMD).
+
+### Interpretation
+
+- Anchor 1 (v170 BBMD-VAMP CORRESPONDENCE PASS along iid-Gauss -> Kerdock alpha-interpolation) STILL HOLDS. The Spearman 0.900 + max VAMP-rel-err 0.0357 are real, replicated, and pre-registered.
+- Anchor 2 KILLS the BROADER framing that BBMD is a substrate-distinctive cross-codebook discriminator. Other structured codebooks (Hadamard, SRHT, RM) sit at BBMD-distance >= Kerdock. Kerdock is NOT the outlier; it is a member of a known structured-codebook class.
+- The Cap-12 candidate ("VAMP-tractable structured-codebook inference under provable departure from AMP-universality") is REJECTED per its pre-registered compound gate (BOTH anchors required positive).
+
+### Cap_map decisions
+
+Per [[feedback-no-smoke]] honest comparison of the two options provided in the task:
+
+- REVERT v170 ✅ to 🟢: would amputate real Anchor-1 empirical data.
+- ANNOTATE WITH ROW RENAME: preserves real Anchor-1 finding under a narrower true title; separates the broader rejected claim into its own ❌ PROVISIONAL row.
+
+**Decision: ANNOTATE WITH ROW RENAME.** Honest framing -- the v170 ✅ was PARTIALLY premature: the row TITLE ("BBMD regime axis as substrate-product capability") carried substrate-product framing contingent on Anchor 2, but the empirical content underneath the ✅ (Anchor-1 predictive-axis Spearman 0.900) was real and is real today. The over-extension was in the TITLE, not the observation. v171 renames the row to its narrow scope (AMP-error tracks BBMD-distance along the iid-Gauss -> Kerdock alpha-interpolation; VAMP tames the interpolation family) and preserves the ✅ for that narrower claim.
+
+v171 ADDS a new row "Cap-12 candidate (VAMP-tractable structured-codebook inference under provable departure from AMP-universality)" at ❌ PROVISIONAL with 5 axis-combination rescue sketches per [[feedback-rehabilitation-after-rejection]] + PROT-004/006:
+
+1. **AMP-error predictor capability** within interpolation families. Anchor 1 already 80% demonstrates this within iid-Gauss -> Kerdock; the rescue is reframing as a substrate-product capability that does NOT claim cross-codebook discrimination but DOES license using kappa_n profile to predict AMP-convergence regime for a customer's matrix family.
+2. **Kerdock-specific moment-divergent-bounded fingerprint capability.** Loses BBMD-as-class but keeps the substrate-specific empirical characterization (v164a/v166/v167 stack survives unchanged as Kerdock-specific).
+3. **MP-KS pre-test infrastructure capability.** The v171 negative result -- MP-KS at KS = 0.59 already discriminates SRHT/Hadamard -- IS itself a substrate-product positive: a cheap pre-test pipeline that kills bad codebooks before downstream substrate fit. Substrate-product framing: "the substrate ships with a standard pre-test that catches codebook misfit before downstream cost is incurred."
+4. **Higher-cumulant profile-SHAPE discriminator.** Anchor 2 tested SCALAR sum |delta_kappa_n|; the FULL kappa_n PROFILE shape across n was NOT tested. Different codebooks may carry distinguishable profile SHAPES (Kerdock kappa_n GROWS with n per v167; SRHT/Hadamard kappa_n profile shape not measured). Rescue is to test profile-shape rather than the scalar sum.
+5. **Codebook-architecture-conditioned VAMP-vs-AMP gap predictor.** v168 demonstrated VAMP-vs-AMP split on Kerdock at SE-fixed-point level; rescue is a multi-codebook VAMP-vs-AMP empirical map (which structured codebooks show the split? does the magnitude of the split predict downstream substrate-product utility?).
+
+Portfolio count UNCHANGED at 11 demonstrated capabilities per [[feedback-dont-overextend-theorems]] (rejection paired with rescue sketches PROVISIONAL pending Research vetted ranking; the narrow kappa_n -> AMP-error predictor survives at narrower scope in the renamed Anchor-1 row).
+
+### Inefficiency surfaced and locked
+
+The v170 -> v171 pattern (promote ✅ on single anchor of compound gate, then rename/close when second anchor fails) flags a structural inefficiency. The honest move at v170 would have been to promote the empirical content ✅ under a row TITLE matching the SINGLE-ANCHOR scope (Anchor-1 interpolation-family predictive-axis), and keep the COMPOUND-GATE substrate-product framing in a SEPARATE candidate row that does not promote until both anchors land. This avoids the rename-paired-with-closure cycle.
+
+**Locked for memory_curator**: "compound-gate promotion discipline" addendum to [[feedback-dont-overextend-theorems]]. When a row's promotion gate is COMPOUND (requires multiple anchors), the row TITLE must match the SINGLE-ANCHOR scope when only one anchor has landed; the COMPOUND-GATE substrate-product framing lives in a separate candidate row.
+
+### Files filed this cycle
+
+- `notes/substrate_capability_map.md` -- Cycle 191 narrative + Capability moves table appended.
+- `notes/substrate_capability_map_history.md` -- v171 one-line index entry appended.
+- `notes/active_priorities.md` -- header updated v170 -> v171; BBMD row scope-narrowed; Cap-12 candidate added as ❌ PROVISIONAL.
+- `notes/visibility_decisions_2026-05-23.md` -- CRITICAL-importance plain-language entry appended via verdict_handler.
+- `notes/strategy_decisions_2026-05-23.md` -- this entry.
+- `notes/strategy_request_to_research_bbmd_cap12_rehab_2026-05-23.md` -- NEW; 5 rescue sketches + 2x drill request.
+
+### Queue / push status
+
+- Local commit only (sub-agent push blocked per [[feedback-subagent-permission-inheritance]]); main thread executes push.
+- Queue-refill NOT triggered. GPU=2 pending+1 running, remote_cpu=8 pending+1 running, local_cpu idle. Queue is healthy per [[feedback-pipeline-pacing]].
+
+### 85th PROT-009 paired commit
