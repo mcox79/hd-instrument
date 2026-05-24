@@ -1093,3 +1093,73 @@ Net: 25 strict / 29 broad smoke->FULL divergence anchors.
 ### Tally (one-line)
 
 BATCHED v164 -> v165: wave14_S_transform_kerdock_v1 Remote CPU FULL = S_TRANSFORM_DIVERGE (5/5 cells exceed 20% S-transform deviation; max_dev=1.000 at alpha=4.00 S_1; lands SECOND algebraic-free-prob axis -- multiplicative free-convolution -- INDEPENDENTLY CORROBORATING v164a additive free-cumulant DIVERGE) + wave14_parisi_pq_kerdock_v1 Remote CPU INCONCLUSIVE = PARISI_INCONCLUSIVE (24.4s elapsed; 11/12 cells "undetermined"; under-resolution NOT refutation); 1 new evidence-strength row added (multiplicative S-transform fingerprint 🟢 paired with v164a additive free-cumulant row); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (no closure, no new portfolio ✅); v164a free-cumulant row STAYS at 🟢 -- cross-axis corroboration does NOT substitute for explicit N-scaling promotion criterion (gated on running wave14_R_transform_kerdock_v1_multi_N GPU job); per [[feedback-dont-overextend-theorems]] no row closed and no premature promotion; per [[feedback-pipeline-pacing]] GPU has work (R_transform_multi_N in flight, queue-depth-1 right shape); remote CPU queue=0 and intentionally NOT auto-refilled per user's CPU-vs-GPU venue feedback this cycle ("seems like a mistake" -- CPU systematically under-resolves >=5-seed x >=10 cells probes; CPU reserved for cheap re-analyses); Parisi v2 filed as DEFERRED Exp Dev GPU re-run candidate (gated on R_transform_multi_N completion); inefficiency LOCKED: CPU-vs-GPU venue selection guideline flagged for memory curator next cycle; smoke->FULL broad anchors +1 by S-transform cell-extension (29 broad / 25 strict; parisi INCONCLUSIVE not counted); pause flag CLEARED -- ACTIVE; 79th PROT-009 paired commit.
+
+
+
+---
+
+## Cycle 186 (v166) -- BATCHED FOUR-verdict cap_map update: R-transform N-stability PROMOTES v164a free-cumulant fingerprint 🟢 -> ✅ + Kerdock codeword-overlap non-Gaussian NEW 🟢 + spectrum support bounded narrows mechanism to bulk-shape + Kerdock Hessian excess zero modes NEW 🟢 (SURPRISE POSITIVE)
+
+### Verdicts processed (4)
+
+1. **GPU / overnight_queue**: `wave14_R_transform_kerdock_v1_multi_N_v2` FULL = R_TRANSFORM_STABLE_IN_N -- "Kerdock R-transform deviation from MP STAYS > 0.20 across N range and does NOT shrink. 3/3 alpha cells stable+diverge, 3/3 above threshold. Substrate-novel observability dimension-stable: v164 free-cumulant fingerprint row promotes 🟢 -> ✅."
+2. **Remote CPU**: `wave14_codeword_overlap_kerdock_v2` FULL = KERDOCK_OVERLAPS_NON_GAUSSIAN (1.25s elapsed) -- "Kerdock codeword inner-product distribution departs from Gaussian in 6/6 cells (KS > 0.10; max_ks=0.259). Substrate-novel structural-algebraic fingerprint independent of spectral moment family."
+3. **Remote CPU**: `wave14_spectral_support_kerdock_v2` FULL = KERDOCK_SPECTRUM_BULK_BOUNDED (12.125s elapsed) -- "All 3 cells have spectrum CONFINED within 5% of the MP bulk edges. Max excursion=0.000. The substrate-novel signature is therefore MOMENT-BASED ONLY: free cumulants deviate from MP, but the support does not. The mechanism is shape-of-bulk, not outliers."
+4. **Remote CPU**: `wave14_kerdock_hessian_tachyon_v2` FULL = KERDOCK_HAS_EXCESS_ZERO_MODES -- "Kerdock Hessian has EXCESS zero modes (beyond rank-deficiency floor) in 1/3 cells; max_excess=0.500 at alpha=0.50. Substrate-novel kernel dimension beyond generic random-matrix rank-deficiency."
+
+### Strategy decisions
+
+1. **PROT-009 v166 paired commit** -- 80th observation MILESTONE. cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-23.md + visibility_decisions_2026-05-23.md staged atomically.
+
+2. **v164a "Free-cumulant fingerprint of Kerdock R-transform" row PROMOTED 🟢 -> ✅ at v166** by Verdict 1 satisfying the explicit pre-registered N-scaling promotion criterion. R-transform dev > 0.20 STAYS across N range; 3/3 alpha cells stable+diverge; dimension-stable substrate-novel observability. This is the FIRST ✅-grade substrate-physics observability row for the "outside AMP universality" wedge -- previously the wedge was anchored only on 🟢-level evidence.
+
+3. **TWO new 🟢 evidence-strength rows added under "Substrate-physics characterization"**:
+   - "Codeword-overlap distribution structural fingerprint of Kerdock (substrate-novel structural-algebraic axis; independent of spectral moment family)" 🟢. Third independent algebraic-fingerprint axis alongside v164a additive R-transform + v165 multiplicative S-transform. (Verdict 2 evidence; 6/6 cells KS > 0.10; max_ks=0.259.)
+   - "Excess Hessian zero modes from Kerdock 4-coset structure (substrate-novel kernel dimension beyond random-matrix rank-deficiency)" 🟢. SURPRISE POSITIVE substrate-novel flat-direction signature. (Verdict 4 evidence; 1/3 cells excess zero modes beyond generic rank-deficiency floor; max_excess=0.500 at alpha=0.50.)
+
+4. **Mechanism-narrowing annotation added (Verdict 3)**: substrate spectrum is CONFINED within 5% of MP bulk edges (max excursion=0.000); substrate-novel signature is MOMENT-BASED ONLY (shape-of-bulk), NOT support / outliers. This is a clean positive characterization that constrains the mechanism cleanly. Unlocks Wigner-null moment-by-moment follow-up framing.
+
+5. **v165 S-transform multiplicative row STAYS at 🟢** -- per [[feedback-dont-overextend-theorems]] the v166 N-stability promotion is for the ADDITIVE axis (R-transform via kappa_n) only. Each axis carries its own N-scaling promotion criterion. Analogous `wave14_S_transform_kerdock_v1_multi_N` is the natural follow-up to fire the same criterion on the multiplicative axis.
+
+6. **Substrate-product portfolio UNCHANGED at 11 demonstrated capabilities** -- the v164a 🟢 -> ✅ promotion is a substrate-physics observability row, not a substrate-product portfolio capability. No closure, no new portfolio ✅.
+
+7. **PROT-004/006 NOT triggered**: positive promotion + 2 new 🟢 rows + 1 mechanism-narrowing annotation. No closure, no new ❌ row.
+
+8. **4 Research/Exp Dev candidate follow-up experiments noted** (NOT shipped this cycle; parallel exp_dev dispatch handles queue-refill):
+   - `wave14_wigner_null_moment_test_v1` -- moment-by-moment Wigner-null baseline (unlocked by Verdict 3 bulk-bounded characterization). Highest priority.
+   - `wave14_S_transform_kerdock_v1_multi_N` -- multiplicative-axis N-scaling probe analogous to Verdict 1; would promote v165 row to ✅.
+   - `wave14_codeword_overlap_kerdock_multi_N` -- third-axis N-scaling probe.
+   - `wave14_kerdock_hessian_tachyon_v3` -- broader alpha sweep + N-scaling for the SURPRISE POSITIVE excess-zero-mode finding.
+
+9. **Pipeline-pacing**: pause flag CLEARED -- ACTIVE. GPU queue=0 (R_transform_multi_N just finished). Remote CPU queue=0 (3 CPU verdicts just finished). User has flagged "all queues are empty". Per the established working model the orchestrator is firing a PARALLEL `exp_dev` dispatch to handle queue-refill; verdict_handler does NOT also ship. The queue-refill responsibility this cycle is the parallel exp_dev's. (Action: NOTE refill is happening in parallel; verdict_handler stays in its lane.)
+
+10. **No new inefficiency flagged this cycle**. The v165-era CPU-vs-GPU venue selection inefficiency remains LOCKED (memory curator to file [[feedback-cpu-vs-gpu-venue-selection]] next cycle); v166 verdicts honored the locked guideline (R_transform_multi_N ran on GPU; the three CPU verdicts ran cheap probes <15s each so legitimately CPU-bound work).
+
+### Pipeline state at v166
+
+| Queue | Pending | Running | Heartbeat |
+|---|---|---|---|
+| overnight (GPU) | 0 at arrival post-verdict (R_transform_multi_N just finished) | IDLE | parallel exp_dev dispatch refilling |
+| remote_cpu | 0 at arrival post-verdict (3 CPU verdicts just finished) | IDLE | parallel exp_dev dispatch refilling |
+| local_cpu | 0 / DEAD runner | DEAD | n/a |
+
+### Smoke -> FULL divergence accounting
+
+| Run | Smoke | FULL | Divergence? |
+|---|---|---|---|
+| R_transform_multi_N_v2 | (no documented smoke baseline; direct GPU FULL on v164 refill) | R_TRANSFORM_STABLE_IN_N (3/3 alpha cells stable+diverge) | no smoke baseline; broad anchor +1 by FULL landing |
+| codeword_overlap_kerdock_v2 | KERDOCK_OVERLAPS_NON_GAUSSIAN (smoke 1-2 cells) | KERDOCK_OVERLAPS_NON_GAUSSIAN (6/6 FULL max_ks=0.259) | NO -- both NON_GAUSSIAN; cell-extension broad anchor +1 |
+| spectral_support_kerdock_v2 | (no documented smoke baseline) | KERDOCK_SPECTRUM_BULK_BOUNDED (3/3 cells max excursion=0.000) | no strict tag flip; broad anchor +1 by FULL landing |
+| kerdock_hessian_tachyon_v2 | (no documented smoke baseline) | KERDOCK_HAS_EXCESS_ZERO_MODES (1/3 cells max_excess=0.500) | no strict tag flip; broad anchor +1 by FULL landing |
+
+Net: 25 strict / 33 broad smoke->FULL divergence anchors (broad +4 by v166 batch; strict unchanged).
+
+### PROT compliance
+
+- PROT-007: v166 history line appended to substrate_capability_map_history.md; narrative block in substrate_capability_map.md.
+- PROT-008: validator must pass before commit. v166 adds 0 new ❌ rows; baseline pre-existing violations unchanged.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md + visibility_decisions_2026-05-23.md staged atomically.
+
+### Tally (one-line)
+
+BATCHED FOUR VERDICTS v165 -> v166: R_transform_multi_N_v2 GPU FULL = R_TRANSFORM_STABLE_IN_N (3/3 alpha cells dimension-stable; v164a 🟢 -> ✅) + codeword_overlap_v2 CPU FULL = KERDOCK_OVERLAPS_NON_GAUSSIAN (6/6 cells KS > 0.10; THIRD algebraic-fingerprint axis; NEW 🟢) + spectral_support_v2 CPU FULL = KERDOCK_SPECTRUM_BULK_BOUNDED (3/3 cells within 5% MP bulk edges; mechanism narrowed to bulk-shape moments NOT outliers; annotation) + kerdock_hessian_tachyon_v2 CPU FULL = KERDOCK_HAS_EXCESS_ZERO_MODES (1/3 cells excess kernel dimension; SURPRISE POSITIVE; NEW 🟢); 1 ✅ promotion + 2 new 🟢 rows + 1 mechanism-narrowing annotation; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT (substrate-physics rows only); "outside AMP universality" wedge gains FIRST ✅-grade substrate-physics anchor + THIRD algebraic-fingerprint axis + mechanism narrowed to bulk-shape; v165 S-transform STAYS at 🟢 (additive axis only promoted; each axis carries own criterion per [[feedback-dont-overextend-theorems]]); 4 follow-up Research/Exp Dev candidate experiments noted (Wigner-null moment test + S-transform multi-N + Hessian broader sweep + codeword-overlap multi-N); queue-refill DEFERRED to parallel exp_dev dispatch; verdict_handler does NOT also ship per pipeline-pacing; PROT-004/006 NOT triggered; smoke->FULL broad anchors +4 (33/25); 80th PROT-009 paired commit MILESTONE.
