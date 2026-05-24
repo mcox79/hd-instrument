@@ -306,3 +306,117 @@ Both load-bearing gates met; optional hardening also met. **Composite gate licen
 **Inefficiency LOCK candidate (RECOMMENDED LOCK).** "Envelope-expansion fail bands at promotion time" — addendum to [[feedback-strategy-shore-up-capabilities]]: when a row promotes to ✅, the cap_map entry MUST explicitly name 2-3 envelope-EXPANSION (STRESS) gates with hard-fail thresholds that would REVERT the ✅. This is tighter than v174's "next-gate trial schedule" because the gates must be STRESS gates (could weaken/revert), not just confirming-evidence gates. v175 already meets the discipline (E1/E2/E3 explicit). Recommended LOCK on first observation given asymmetric downside risk on mixed-margin ✅ promotions (backsliding to 🟢 after a customer sees ✅ is more damaging than tighter discipline at promotion time).
 
 Net effect: Cap 12 🟢 → ✅ on THREE pre-registered passes (Gate A + Gate B + RM(1,m) hardening); FIRST ✅ promotion of orchestrator-migration era; portfolio count UNCHANGED at 12 IN COUNT (state flip not new row); pre-registered NEXT envelope-expansion fail bands explicit (E1/E2/E3 STRESS gates); Cap 8 + v164a/v166 + v163 cross-row annotations PRESERVED + widened; ZERO open ❌ PROVISIONAL rejections remain; queue DRAINED to 0 — main-thread queue-refill flagged; 89th PROT-009 paired commit.
+
+
+---
+
+## 2026-05-24 — POST-CAP-12 PORTFOLIO ASSESSMENT (proactive Strategy drill; cap_map v175; NO row movement this cycle)
+
+**Trigger.** Orchestrator directive: pipeline has free capacity (E1+E2 Cap 12 stress gates running, E3 5th-family pending Research pick); per [[feedback-strategy-shore-up-capabilities]] use the quiet window for proactive composition-narrative + gap drilling. Cap 12 ✅ FULL (89th PROT-009 paired commit) is the first ✅ promotion of the orchestrator-migration era and re-shapes what compositions are tellable. This entry is PLANNING — no cap_map commit. Per [[feedback-no-smoke]] honesty rule: compositions are only counted when they share a real mechanism, not when prose stitches them together.
+
+### Task 1 — New cross-capability composition stories licensed by Cap 12
+
+Three honest compositions enabled by Cap 12 that did NOT exist pre-v175:
+
+**Composition A — Cap 12 + Cap 8 (VAMP-on-chain): audit-trail-included inference routing.**
+- *Mechanism shared.* Cap 12's MP-KS pre-flight decides "AMP or VAMP" before any inference fires; Cap 8 provides the VAMP-on-chain readout when Cap 12 routes to VAMP. The κ_n-divergence explainer (Cap 12 Anchor-1 across 4 families ρ ∈ {0.700, 0.900, 0.900, 0.700}) tells the customer WHY AMP would have failed (which moment-aware structure forced the routing decision). Cap 8 v168 closed-form via MUB-stabilizer lens IS the algebraic justification for "VAMP succeeds because it consumes full singular spectrum."
+- *What the composite licenses.* "Route to VAMP + give the customer a κ_n-fingerprint explaining why" — pre-flight + readout + provenance in ONE pipeline. Pre-v175 Cap 8 had no upstream "should I have used VAMP at all?" gate; pre-v175 Cap 12 didn't exist. The composite is "trust + explanation" not just "compute."
+- *Honesty audit.* HIGH integrity. Both rows already share the κ_n-divergence mechanism (Cap 8 v168 + Cap 12 R1 use the SAME predictor, just at endpoint vs across-family). The composite is a real pipeline, not a prose juxtaposition.
+
+**Composition B — Cap 12 + Cap 6 (Conformal calibrated confidence, which now absorbs Cap 2): calibrated routing with abstention coverage guarantees.**
+- *Mechanism shared.* Cap 12 outputs a routing decision; Cap 6 (Bet G TEMPSCALE + Venn-Abers wrap that subsumed Cap 2 at v172) provides a conformal layer over the AMP/VAMP committed prediction. The κ_n-divergence score Cap 12 emits per cell is itself a candidate non-conformity score for the Venn-Abers wrapper — substrate-novel non-conformity from the AMP-error predictor.
+- *What the composite licenses.* "Route + commit-or-abstain at calibrated coverage" — the 1/5 stable routing failure (τ_star ≈ 0.065 cell) becomes a clean ABSTAIN under Cap 6's threshold rather than a silent mis-route. Customer framing flips from "routes 4/5" to "commits on 4/5 and abstains on the hard 1/5 with calibrated coverage."
+- *Honesty audit.* HIGH integrity. Cap 6 v172 absorbed Cap 2 specifically via Pattern-1 metric re-axiomatization (downstream conformal wrap of the substrate's confidence stream). Cap 12's routing score IS exactly the right kind of confidence stream for Venn-Abers consumption. Both rows already use conformal machinery as the bridge. The composite is a 1-cycle CPU re-analysis of Cap 12 cell logs through Cap 6's pipeline; no new mechanism build.
+
+**Composition C — Cap 12 + Cap 11 (chi_4 / Kovacs observability) + Cap 1 (Crooks forensic erase): noise-aware routing under erase events.**
+- *Mechanism shared.* Cap 12 routes on a static substrate snapshot. Cap 11's chi_4/Kovacs dynamic observability traces are PER-WRITE / PER-ERASE measurements during active phase. The κ_n-fingerprint Cap 12 uses is computed from the substrate spectrum; chi_4 spike DURING a Cap 1 erase event temporarily perturbs that spectrum, which would change the Cap 12 routing decision. The natural composition is "re-route AMP-vs-VAMP after each erase event if chi_4 spike crosses threshold."
+- *What the composite licenses.* "Adaptive routing under continual operation" — the Cap 12 ✅ holds on STATIC codebooks at N=4096; the composite extends to CONTINUAL operation by re-firing the MP-KS pre-flight whenever Cap 11 observability reports a spectrum perturbation. Pre-v175 there was no upstream "when to re-route" trigger.
+- *Honesty audit.* MEDIUM integrity. The mechanism IS shared (substrate spectrum drives both), but this composition is the most speculative of the three — it requires (a) Cap 11 chi_4 to predict spectrum perturbation magnitude (probe NOT YET RUN; cap11_chi4_early_warning_during_cap10_v1 from the shore-up matrix is the natural anchor) AND (b) Cap 12 routing decision to be sensitive to small spectrum perturbations (UNTESTED at v175; E1 noisy stress gate touches this). Conditional on E1 passing AND cap11 early-warning probe landing, the composition becomes HIGH integrity. Filed as "license-pending composition."
+
+**Skipped non-composition (per [[feedback-no-smoke]]):** Cap 12 + Cap 5 (Online W updates) initially looked tellable as "live routing on streaming substrate writes." But Cap 12 routing is on the codebook (static spectrum) not on W (which evolves under online updates). The κ_n-divergence is not a function of W. Composition is PROSE-LEVEL, not mechanism-shared — declined.
+
+### Task 2 — Re-audit of the 7 weaknesses from `strategy_research_shoreup_matrix_2026-05-23.md`
+
+Re-audit reflects all verdicts landed since matrix was filed (v172 batched six-verdict + v173 multi-protocol Cap 1 narrowing + v174 Cap 12 🟢 + v175 Cap 12 ✅).
+
+| # | Weakness | Status | Evidence |
+|---|----------|--------|----------|
+| 1 | Cap 2 self-monitoring confidence: ❌ PROVISIONAL with unrun rehab | **ADDRESSED** (closed) | v172 wave14_cap2_conformal_subsumption_v1 PASS (5/5 seeds; Pareto monotone); Cap 2 absorbed into Cap 6 row via Pattern-1 Rescue 5 conformal subsumption (sequenced FIRST at v160 → cleanly passed at v172). |
+| 2 | Bet T parallel hypothesis tracking: 🟡 PARTIAL 67 versions stale | **ADDRESSED** (closed-by-exhaustion) | v172 wave14_betT_mondrian_anti_RM_conformal_v1 FAIL (per-coset coverage 1.0 in 4/4 cosets, outside [0.8, 0.99]). Mondrian was Sketch #3 highest-rank conformal-style; 5-sketch rehab EXHAUSTED → CLOSED per PROT-004/006. |
+| 3 | Bet V self-reflective: 🟡 PARTIAL 65 versions stale | **MITIGATED** (partial annotation; row stays 🟡) | v172 wave14_betV_kappa4_separation_v1 PARTIAL (|kappa4_sep|=2.51 SD; sign-inconsistent across seeds). Signal exists but not stable. 4 remaining sketches elective. |
+| 4 | Anti-RM(1,16) coset bias: mechanism unknown | **STILL OPEN** | No Research drill dispatched this session arc. QECC-Kerdock-MUB adjacency remains the strongest open lit-scan target. Filed in matrix; not yet routed. |
+| 5 | Portfolio gap: no generative-mode capability | **MITIGATED** (probe ran; row not promoted) | v172 wave14_substrate_glauber_generative_smoke_v1 GENERATIVE_LIMITED (best cell beta=5.00: novelty=1.000 + stability=0.967 PASS; diversity=0.070 + coherence=0.120 FAIL). Substrate is NOT a generative model in 4-gate composite sense; gap honestly characterized as RETRIEVAL-ONLY portfolio. Annotation only, no row. Gap remains structurally open but answer is in. |
+| 6 | Portfolio gap: no failure-mode-observability anchor (Cap 11 passive) | **STILL OPEN** | cap11_chi4_early_warning_during_cap10_v1 NOT yet shipped. Pre-v175 the probe was MEDIUM-HIGH; post-Cap-12 it is now ELEVATED because Composition C above licenses adaptive routing if the probe lands. Recommend prioritize. |
+| 7 | Engineering wall: Cap 10 OOM at N>=16384 | **STILL OPEN** | `build_initial_W` refactor not yet done. Engineering owns this; no research dispatch applies. |
+
+**Closure rate: 2/7 ADDRESSED (closed), 2/7 MITIGATED, 3/7 STILL OPEN.** 28.6% closed; 28.6% mitigated; 42.9% open. The two clean closures (Cap 2 + Bet T) were both via the conformal/Mondrian-conformal route; Pattern-1 metric re-axiomatization remains the highest-leverage cheap intervention in the portfolio per [[feedback-rescue-sketch-first-sequencing]].
+
+### Task 3 — New gap audit (updated from cycle 188 Task 4)
+
+Three gaps that arguably still matter at v175, beyond the shore-up matrix:
+
+1. **No "routing under continual operation" anchor.** Cap 12 ✅ is on STATIC codebooks at N=4096. The portfolio has NO row that tests Cap 12's routing decision under streaming-noise or under active Cap 1/Cap 5/Cap 10 perturbation. E1 (noisy τ-robustness η=0.10) partially addresses this but only on noise; it does NOT test routing during ACTIVE Cap 1 or Cap 5 firing. This is the post-Cap-12 analog of the cycle-188 Composition C gap and is the natural anchor for Composition C above.
+2. **No customer-facing abstention SLA explicit on the Cap 12 row.** Cap 6 v172 absorbed Cap 2 specifically because the substrate doesn't carry intrinsic confidence; the right framing is conformal abstention. Cap 12's "routes 4/5" claim is implicitly an SLA with 80% commit / 20% abstain rate, but the cap_map row does NOT make that explicit. Customer-facing framing is at risk per [[feedback-no-smoke]]. Recommend annotation on Cap 12 row pulling Composition B forward as the customer-facing SLA pattern.
+3. **No 5th and 6th interpolation family pre-reg locked.** v175 E3 names Paley-Hadamard OR Walsh-Hadamard for the 5th family (Research is picking). At the durable-substrate-product layer, the cap_map row would be stronger with TWO additional family validations rather than one, to harden cross-family generalization beyond the four. This is a "fortify the ✅" gap, not a new-capability gap. Cost is cheap CPU (~30 min per family).
+
+### Task 4 — Recommended next batch of probes (≥2 candidates with anchor names + queue + ETA + hypothesis)
+
+Three candidates ranked by expected portfolio impact. All are cheap and non-blocking on E1/E2/E3 currently in flight.
+
+**P1 — `cap12_cap6_conformal_routing_subsumption_v1`** (CPU anchor; ~30 min remote_cpu_queue + ~1 hr theory).
+- *Hypothesis.* Wrap Cap 12's per-cell κ_n-divergence routing scores through Cap 6's Venn-Abers conformal layer; the 1/5 stable routing failure becomes a clean ABSTAIN at >= 0.90 coverage / <= 0.20 abstain. Customer-facing SLA flips from "routes 4/5" to "commits on 4/5 with calibrated coverage; abstains on 1/5."
+- *Why now.* Composition B is the highest-integrity new composition; CPU re-analysis of saved v174/v175 logits + Venn-Abers wrapper; no new substrate test. Zero substrate change. Pattern-1 re-axiomatization (same family of move that rescued Cap 2 at v172).
+- *Hard-fail.* Venn-Abers coverage < 0.90 at <= 0.20 abstain on Cap 12 routing stream → composition does not deliver a customer-facing SLA; revert to Cap 12 standalone framing.
+
+**P2 — `cap11_chi4_early_warning_during_cap10_v1`** (GPU anchor; ~45 min when GPU frees up).
+- *Hypothesis.* During Cap 10 continual-edit at M_init=8192 N=65536 (validated operating point), chi_4 dynamic susceptibility traces show measurable spike (SNR >= 3) BEFORE M/N crosses the v155 capacity boundary; spike precedes failure by >= N_warning writes.
+- *Why now.* This is the cycle-188 weakness #6 anchor + Composition C license-gate. Converts Cap 11 PASSIVE → PREDICTIVE; if it lands, Composition C (adaptive Cap 12 routing under Cap 1/Cap 5/Cap 10 perturbation) goes from MEDIUM-integrity to HIGH-integrity. Single probe, two payoffs.
+- *Hard-fail.* SNR < 3 across three host capabilities (Cap 1 / Cap 5 / Cap 10) → observability primitive noise-floor-limited; Composition C is closed.
+
+**P3 — `antiRM_mechanism_drill_v1`** (Research drill, no compute; ~30 min).
+- *Hypothesis.* Anti-RM(1,16) coset 0% overlap is the off-syndrome condition of the Kerdock stabilizer code (QECC-Kerdock-MUB STRONG adjacency from probe #2 cross-domain matrix); v169 closed-form Pauli-twirled lens for Cap 1/3/8 provides the mechanism vocabulary.
+- *Why now.* Only Research-drill weakness still STILL OPEN from the shore-up matrix; cheapest possible probe; either upgrades the substrate-physics row to theorem-anchored or closes it cleanly per [[feedback-dont-dismiss-adjacent-methods]]. Generic-math framing per [[feedback-query-privacy-decomposition]].
+- *Hard-fail.* Lit-scan finds no relevant published explanation AND no clean substrate-internal kappa_n connection → close the substrate-physics row as "observable without mechanism narrative" and stop trying.
+
+**Sequencing.** P1 first (CPU available now; cheapest; highest composition-integrity payoff). P3 in parallel (Research drill, no compute slot). P2 when GPU frees from E2 N=16384 stress gate.
+
+### Net effect (planning entry; NO cap_map commit)
+
+Three new compositions identified: A (Cap 12 + Cap 8 audit-trail) HIGH integrity, B (Cap 12 + Cap 6 calibrated routing) HIGH integrity, C (Cap 12 + Cap 11 + Cap 1 adaptive routing) MEDIUM integrity license-pending. Cap 12 + Cap 5 declined as prose-only. Weakness re-audit: 2/7 closed (Cap 2 + Bet T both via conformal), 2/7 mitigated (Bet V + generative gap), 3/7 still open (anti-RM mechanism + cap11 predictive + build_initial_W refactor). Three new gaps: routing under continual operation, customer-facing abstention SLA on Cap 12, 5th/6th interpolation family. Three candidate probes filed: P1 cap12_cap6_conformal_routing_subsumption_v1 (CPU, cheap, highest payoff), P2 cap11_chi4_early_warning_during_cap10_v1 (GPU, cycle-188 weakness #6 + Composition C license), P3 antiRM_mechanism_drill_v1 (Research drill, cheapest still-open shore-up). NO cap_map commit (this is planning, not row movement). No blockers.
+
+---
+
+## Cycle 196 — verdict_handler inline strategy execution (v175 → v176)
+
+**Trigger.** wave14_mp_ks_noisy_substrate_v1 FULL = MP_KS_NOISY_SUBSTRATE_INCONCLUSIVE at remote_cpu_queue. Per_tau={'0.15': 2, '0.20': 2, '0.25': 2} under η=0.10. Pre-registered v175 E1 stress gate.
+
+**Pre-registered bands read.**
+- HARD-PASS: ≥4/5 at each τ under η=0.10. Actual: 2/5 each. **NOT met.**
+- HARD-FAIL: 0/5 at any τ. Actual: 2/5 each. **NOT met.**
+- MIDDLE BAND: 1-3/5 at one or two τ values. Actual: 2/5 at all THREE τ. **Strictly MIDDLE BAND.**
+
+**Decision.** ANNOTATE IN PLACE, no revert per [[feedback-envelope-expansion-fail-bands]].
+
+- Cap 12 STAYS ✅ at v175 clean-regime promotion scope.
+- v176 ADDS noise-sensitivity envelope annotation: "✅ holds at η=0 clean substrate; routing accuracy degrades 4/5 → 2/5 at η=0.10 (50% degradation); customer-facing envelope NARROWS to 'η ≤ ε' where ε bounded above by 0.10."
+- Customer-facing claim narrowed but more honest per [[feedback-no-smoke]].
+
+**Pre-registered E1' fine-resolution noise-threshold sub-probe.**
+- Sweep η ∈ {0.01, 0.025, 0.05, 0.075, 0.10} across τ ∈ {0.15, 0.20, 0.25}.
+- HARD-PASS: ≥4/5 at η ≤ 0.05 across all τ ⇒ envelope widens to η ≤ 0.05.
+- HARD-FAIL: <4/5 at η = 0.01 ⇒ Cap 12 REVERTS ✅ → 🟢 with noise-fragile annotation.
+- MIDDLE BAND: ≥4/5 at η = 0.01 but ≤3/5 at η = 0.05 ⇒ narrow tolerance window ε ∈ [0.01, 0.05].
+
+**Other rows.** Cap 8 + v164a/v166 + v163 + v169 closed-form annotations all PRESERVED UNCHANGED (noise-sensitivity of routing layer does NOT propagate to downstream Cap 8 primitive or substrate-physics layer). v171 closure preserved.
+
+**Portfolio.** 12 demonstrated capabilities UNCHANGED IN COUNT. Zero open ❌ PROVISIONAL.
+
+**Queue + pause.** Pause flag CLEARED. remote_cpu likely DRAINED (E1 just finished); GPU still running E2 N=16384; local idle. Verdict_handler FLAGS queue-refill for main thread.
+
+**PROT-009.** cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; 90th paired commit.
+
+**Why no REVERT.** Capability does NOT collapse to 0/5; clean-regime evidence (5 codebooks × 3 τ × 4 families) is real and replicated; REVERT would erase that evidence. Per v171 precedent the honest move is annotate-in-place + narrow customer-facing scope to match what was actually tested.
+
+**Why no batched closure (PROT-004/006).** Envelope-narrowing annotation only; no row state change; no new ❌ rows.
+
+**Inefficiency.** First envelope-expansion-fail-band STRESS gate to return MIDDLE BAND on a v175-class promotion. DEFER candidate (first observation; below two-observation lock threshold): "MIDDLE-BAND stress-gate reads pre-register the next-resolution sub-probe before resolving" addendum to [[feedback-envelope-expansion-fail-bands]].

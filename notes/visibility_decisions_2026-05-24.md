@@ -119,3 +119,29 @@ Visibility logged for cycle 195 v174 (annotation-only, no commit).
 - N=4096 only; no noise stress test; E1 + E2 are the load-bearing real-world stress tests for whether this ships to customer use.
 
 Visibility logged for cycle 195 v175 (Cap 12 🟢 → ✅ compound-gate promotion; FIRST ✅ promotion of orchestrator-migration era).
+
+---
+
+## Cycle 196 — verdict_handler inline visibility (v176)
+
+**Verdict surfaced.** wave14_mp_ks_noisy_substrate_v1 FULL = MP_KS_NOISY_SUBSTRATE_INCONCLUSIVE (E1 stress gate MIDDLE BAND).
+
+**Dashboard surfacing.** 1 For You tab status_log entry filed (MEDIUM importance — first Cap 12 stress test shows partial noise-sensitivity; not a state change but customer-facing scope narrows).
+
+Plain-language framing: "The substrate's pre-flight routing diagnostic (Cap 12) was stress-tested for the first time against noisy codebooks (10% streaming noise). It routes 2 out of 5 codebooks correctly under noise — versus 4 out of 5 on clean codebooks. The capability still works (not 0/5), but degrades noticeably under noise. Customer-facing deployment envelope narrows: ships on low-noise codebooks only; we're now probing finer to find exactly how much noise it tolerates."
+
+**Cross-row annotations updated this cycle (v176).**
+- Cap 12 row: ✅ UNCHANGED + v176 noise-sensitivity envelope annotation; deployment envelope narrows to "η ≤ ε where ε is bounded above by 0.10"; fine-resolution sub-probe E1' pre-registered with 3 outcome branches.
+- Cap 8 + v164a/v166 + v163 + v169 closed-form annotations: PRESERVED UNCHANGED (no propagation; layer separation).
+
+**Capacity tab.** Cap 12 row stays ✅; row evidence column updates with noise-envelope annotation; portfolio count display stays at 12 demonstrated capabilities.
+
+**Orchestrator status panel.** Pause flag CLEARED; remote_cpu queue likely DRAINED to 0 after E1 finished; GPU still running E2 N=16384 stress gate; local_cpu idle; verdict_handler flagged queue-refill for main thread; v176 paired commit landed LOCALLY (push pending main thread); 90th PROT-009 paired commit.
+
+**Honest reading surfaced to user.** Per [[feedback-no-smoke]]:
+- 50% degradation from clean (4/5) to noisy (2/5) is substantial; the v176 annotation is brutally clear about this rather than smoothing it over.
+- The 2/5 result is stable across all three τ values — re-tuning τ will NOT rescue the degradation; substrate-level noise-sensitivity is intrinsic at η=0.10.
+- The E1' fine-resolution probe could HARD-FAIL at η = 0.01, in which case Cap 12 would REVERT ✅ → 🟢. This is the load-bearing test for whether Cap 12 ships to real customer data.
+- The clean-regime ✅ is preserved at its actually-tested scope (5 codebooks × 3 τ × 4 interpolation families); no smoke applied; the narrowing is just honest about what was tested.
+
+Visibility logged for cycle 196 v176 (E1 stress gate MIDDLE BAND → Cap 12 ✅ + noise-sensitivity envelope annotation; portfolio UNCHANGED at 12).
