@@ -1615,3 +1615,55 @@ See v183 cap_map narrative block for full table. Summary:
 - per [[feedback-subagent-permission-inheritance]] commit LOCAL only (push pending main thread; orchestrator main-thread executes git push as 1-tool mechanical action).
 - per [[feedback-for-you-tab-primary-channel]] 9 status_log entries written with plain_language + importance.
 
+
+## 2026-05-24 — Orchestrator inline cycle: 2 verdicts processed + GPU CPU-bound reroute
+
+### Task 1 — GPU CPU-bound job rerouted
+
+GPU runner was running `wave14_amp_se_kerdock_longiter_v1` (pure-numpy AMP iteration; no torch.cuda anywhere in script) on the overnight_queue. GPU utilization 0% confirmed via 3-sample nvidia-smi. Killed pid 295004 on remote.
+
+Runner moved to next pending: `wave14_cap8_vamp_iterates_srht_hadamard_v1c` — **SECOND CPU-bound script** queued to overnight_queue (no torch.cuda; pure numpy SRHT+VAMP iterates). Same anti-pattern. Killed pids 76776 + 472720.
+
+After kills, runner picked up `wave14e_moe_xtalk_v1_post_device_fix_rerun_2026-05-24` which uses `torch.device("cuda" if torch.cuda.is_available() else "cpu")` and `torch.cuda.empty_cache()`. **Verified GPU util = 81%, 2204 MiB memory** — genuine CUDA work in flight.
+
+Both CPU-bound scripts rerouted to remote_cpu_queue:
+- `wave14_amp_se_kerdock_longiter_v1_cpu_reroute_rerun_2026-05-24` (now running on cpu_runner_0)
+- `wave14_cap8_vamp_iterates_srht_hadamard_v1c_cpu_reroute_rerun_2026-05-24` (pending)
+
+**Structural recommendation**: 2 CPU-bound scripts shipped to GPU queue in a single cycle is recurring failure. Suggest exp_dev add a `torch.cuda` pre-check before queuing to overnight_queue (analogous to remote --self-test gate). Filed as inefficiency-fix candidate; not actioned this cycle.
+
+### Task 3 — Verdict processing
+
+#### V1: BINDER_RS_CONFIRMED — wave14_binder_ratio_v1
+**Data**: g4 = {512: 0.1902, 1024: 0.0459, 2048: -0.2507, 4096: -0.2647, 8192: -1.4102}; slope=-0.4001 monotone decreasing.
+
+**Honest re-read**: verdict label = "BINDER_RS_CONFIRMED" — matches msg ("g4 monotone decreasing with N (RS self-averaging confirmed)") matches data (5 N values all monotone, slope clearly negative). Clean label=msg=data agreement (30th observation post-lock).
+
+**Cap_map impact** — annotation-grade, NOT portfolio change:
+- Binder ratio g4 monotone-decreasing-with-N is the textbook signature of **RS (replica-symmetric) self-averaging** — order parameter distribution concentrates at thermodynamic limit (g4 -> 0 or negative for RS; positive plateau for RSB/structural-glass).
+- Substrate-physics implication: substrate's order-parameter distribution is self-averaging across N, consistent with the convex-not-glassy reading from R26 / EWC-null analysis.
+- This LINKS to the EWC-null finding: if substrate is RS at the spin-glass-framing level, then per-parameter-importance regularization (EWC) is structurally low-traction (the loss landscape doesn't have the multi-basin metastable structure EWC presumes). Consistent.
+- Per [[feedback-dont-overextend-theorems]]: single-N anchor, single observable (g4 only); NOT promoting any row. Annotation-grade for next cap_map cycle: add to substrate-physics characterization narrative as supportive evidence for "convex-not-glassy" reading.
+- Importance: **MEDIUM** (substantive substrate-physics evidence; consistent with prior EWC-null + R26 framings; not portfolio-changing).
+
+**No commit this cycle** — annotation-grade adds get folded into next Strategy cap_map cycle (v184 batched commit).
+
+#### V2: MS_1ST_ORDER_INCONCLUSIVE rerun — wave14_mingo_speicher_1st_order_full_v2_rerun_2026-05-24
+**Data**: verdict_msg="Need iid_gauss + kerdock cells." Identical to v183 V3 INCONCLUSIVE.
+
+**Honest re-read**: label = msg = "missing cells". The rerun produced the SAME failure mode as the v183 attempt despite being a different script invocation. Per user's read: the script itself has a schema bug that doesn't actually emit the iid_gauss + kerdock cells in `full` mode. **Re-running this script will produce the same INCONCLUSIVE infinitely.**
+
+**Cap_map impact**: zero portfolio change (still research-stage probe). Close the v183 "MS re-queue with iid_gauss + kerdock cells filed" pre-registered routing line — that re-queue is now CONFIRMED to be blocked by script bug, not data. The path requires **script fix**, not another rerun. Per [[feedback-lock-in-inefficiency-fixes]]: 2 observations of same script-bug closure -> lock the path as "MS_1ST_ORDER script has a full-mode cell-schema bug; do not re-queue without fixing the script first."
+
+**Next action**: file a script-bug-fix task for exp_dev (NOT a rerun). Importance: **LOW** (already a deprecated probe; the fix is owed but not urgent).
+
+### Status_log entries
+
+2 entries written this cycle:
+- V1 BINDER_RS_CONFIRMED, importance=MEDIUM, plain_language: "Substrate's order-parameter distribution self-averages with N — supports the convex-not-glassy reading from EWC analysis."
+- V2 MS_1ST_ORDER_INCONCLUSIVE_RERUN, importance=LOW, plain_language: "Mingo-Speicher 1st-order probe inconclusive AGAIN with the same root cause; script has a cell-schema bug; rerun path locked pending script fix."
+
+### Pause flag state
+
+ACTIVE (no flag file). Task 2 ship dispatched in ACTIVE state per orchestrator post-compaction brief Section 1.
+
