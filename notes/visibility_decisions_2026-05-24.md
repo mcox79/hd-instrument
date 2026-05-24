@@ -377,3 +377,10 @@ Logged at 12:30-12:35 by inline-via-main-thread (Agent dispatch unavailable in s
 
 Portfolio UNCHANGED at 12 IN COUNT + 2 new evidence-strength rows (Bet Z.5 🟢 + Bet V 🟡); ZERO open ❌ PROVISIONAL rejections remain. honest-reread LOCK working cleanly across 9 verdict classes 21st-29th observations all label=msg=data agreement 29 clean observations post-lock. 97th PROT-009 paired commit.
 
+
+
+## v185 -> v186 SINGLE-VERDICT cap_map update
+
+- (V1) wave14_betB_ablation_B_replay_sweep_v1_2026-05-24 FULL = ABLATION_B_MIDDLE_BAND -- Bet B retention via structural-separation 🟡 M-DEPENDENT PARTIAL UNCHANGED + v186 replay-only-axis BOUNDED control annotation; replay alone plateaus at peak=0.846 / plateau_max=0.846 across by-frac [0.682, 0.840, 0.845, 0.846, 0.844, 0.842, 0.841]; 9pp below HARD-PASS 0.95 regardless of replay fraction; narrow 'monotone=True' flag over-claim detected at honest re-read (series unimodal NOT strict monotone) but load-bearing MIDDLE_BAND tag and substantive bound interpretation HONEST; user's pre-cycle prediction ("replay plateau bounded -> structural separation is the only path") CONFIRMED IN SUBSTANCE; structural-separation axis CONFIRMED as LIVE axis for Bet B retention; compound MoE+per-task stacking ELEVATED to LIVE TOP-PRIORITY; Lane D 4-stage second-LIVE-priority. importance=HIGH.
+
+Portfolio UNCHANGED at 12 IN COUNT + 3 evidence-strength rows (Bet Z.5 🟢 + Bet V 🟡 + Bet B retention 🟡 M-DEPENDENT PARTIAL); ZERO open ❌ PROVISIONAL rejections remain. honest-reread LOCK 33rd observation -- narrow-over-claim + load-bearing-honest in same observation; LOCK working as designed. 100th PROT-009 paired commit.

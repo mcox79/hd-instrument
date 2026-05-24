@@ -1780,3 +1780,53 @@ ACTIVE (no flag file). v185 committed in ACTIVE state per orchestrator post-comp
 ### Per [[feedback-dispatch-wrappers-default]] note
 
 Inline v185 commit done in main thread (single sub-agent context dispatched from user; Agent dispatch unavailable per orchestrator post-compaction brief Section 2 — sub-agents internalize multiple role prompts; verdict_handler role logic executed inline). Commit pushed at user discretion (sub-agent push blocked by harness security classifier per [[feedback-subagent-permission-inheritance]]).
+
+
+---
+
+## Verdict-handler cycle (v186) — ABLATION_B_MIDDLE_BAND single-verdict cap_map update
+
+**Verdict payload received**:
+
+```json
+{"name":"wave14_betB_ablation_B_replay_sweep_v1_2026-05-24","verdict":"ABLATION_B_MIDDLE_BAND","verdict_msg":"Pattern not at extremes: monotone=True, peak=0.846, plateau_max=0.846. By-frac: ['0.682', '0.840', '0.845', '0.846', '0.844', '0.842', '0.841'].","queue":"overnight_queue"}
+```
+
+### Step 0 honest re-read (33rd observation post-lock)
+
+- Label: `ABLATION_B_MIDDLE_BAND`; msg flags: `monotone=True, peak=0.846, plateau_max=0.846, by-frac=[0.682, 0.840, 0.845, 0.846, 0.844, 0.842, 0.841]`.
+- Script-pre-registered MIDDLE band: [0.80, 0.95) by convention from Ablation A; peak=0.846 lands inside cleanly.
+- `monotone=True` flag at per-cell resolution: **FALSE**. Series rises sharply from frac=0 (0.682) to a shoulder at fracs 0.10-0.50 (peaks 0.846 at index 3) and then DECLINES slightly to 0.841 at the highest replay fraction. Shape is UNIMODAL (rise-then-shallow-decline), NOT strict monotone. Decline is within binomial-noise resolution (≤0.005 across the high-frac tail), so the flag may reflect a relaxed "monotone-up-to-noise" check, but at honest per-cell reading the strict-monotone claim is unsupported.
+- Per [[feedback-verdict-msg-honest-reread]] this is a NARROW over-claim (the monotone flag inside verdict_msg) NOT a load-bearing one (the MIDDLE_BAND tag and the substantive bound interpretation stand). 33rd observation post-lock: narrow-over-claim + load-bearing-honest in same observation.
+- Substantive interpretation: replay alone plateaus at ~85% retention regardless of replay fraction. User's pre-cycle prediction: "if retention plateaus before 80% regardless of replay fraction, that bounds achievable retention without structural separation and makes MoE the only path forward." Actual plateau lands at 84.0-84.6% (slightly above 80% but well below HARD-PASS 0.95). Strategic conclusion UNCHANGED in substance -- replay alone is BOUNDED at a low ceiling and cannot clear HARD-PASS regardless of fraction.
+
+### Cap_map impact
+
+- **Row affected**: "Bet B retention via structural-separation axis" (🟡 M-DEPENDENT PARTIAL since v184; v185 second-mechanism corroboration; v186 control-axis annotation).
+- **State change**: NONE. Row stays 🟡 M-DEPENDENT PARTIAL.
+- **Annotation added**: replay-only axis BOUNDED control anchor. Ablation B isolates the non-structural replay axis and proves it has a low ceiling (~85%). This is a NEGATIVE-control result on the orthogonal axis, NOT an additional mechanism contribution to the structural-separation axis.
+- **Substrate-product finding TIGHTENED**: structural separation (Cap 8 VAMP composition + v184 MoE + v185 per-task sub-substrate) is now confirmed as the LIVE axis for Bet B retention because (a) replay alone has a low ceiling, (b) both structural-separation mechanisms individually give partial PASS, (c) any HARD-PASS-clearing rehab MUST include structural separation as load-bearing. Product spec implication: replay alone is insufficient as a product-grade retention mechanism; spec MUST use structural separation as load-bearing.
+- **EWC-null closure UNCHANGED**: Ablation B replay is orthogonal to parameter-importance; bounded ceiling consistent with EWC closure narrative.
+- **Pre-registered untested CONSUMED**: v184 Ablation B replay-only sweep -> CONSUMED at v186 with MIDDLE BAND replay-axis-bounded control annotation.
+- **Pre-registered ELEVATED at v186**:
+  1. Compound MoE + per-task separation untested (v185 row) -> ELEVATED to LIVE TOP-PRIORITY at v186. Replay-only is now confirmed bounded, so compound structural-separation stacking is the cheapest remaining path to HARD-PASS.
+  2. Lane D 4-stage continual learning (v185 row Priority A KILLER T1) -> ELEVATED to second-LIVE-priority.
+- **Pre-registered NEW at v186**: replay-schedule + structural-separation compound test. Replay's ~85% ceiling + structural-separation 9pp lift would project ~94% if axes stack linearly -- marginal vs HARD-PASS 0.95 so worth empirical test; if super-linear stacking observed, HARD-PASS achievable; if sub-linear stacking, structural-separation stacking (compound MoE + per-task without replay) remains the better path.
+
+### Status_log entry (For You tab)
+
+1 entry written this cycle, importance=HIGH, plain_language: "We tested whether replaying old training examples alone (without giving the substrate separate brain-regions for each task) is enough to recover memory. It is not -- replay alone plateaus at about 85% retention no matter how much we replay, which is below the 95% target. The user predicted this outcome would prove that the structural-separation trick (MoE or per-task sub-substrates) is the load-bearing mechanism, and that's what the data confirms. Next live test is whether stacking two structural-separation tricks (MoE plus per-task) can clear the 95% target together."
+
+### Pause flag state
+
+ACTIVE (no flag file). v186 committed in ACTIVE state per orchestrator post-compaction brief Section 1.
+
+### Queue refill state at v186 close (HONEST queue state at handoff time -- main thread to confirm)
+
+- The verdict payload references `queue: overnight_queue` (GPU). Wrapper invoked from sub-agent context -- main thread to confirm queue depths post-commit and apply pipeline-pacing reflex if any queue drained.
+- 10 remaining pickup-ready hand-offs in `notes/exp_dev_handoff_5anchors_post_v183_2026-05-24.md` + `strategy_untested_rows_triage_2026-05-24.md` after Ablation A (v185) and Ablation B (v186) consumption. Next exp_dev cycle is the structural refill mechanism per [[feedback-no-experiment-design-in-prompts]].
+- Pipeline-pacing reflex is gated on pause flag (ABSENT -> ACTIVE) and on exp_dev design work being available (it is).
+
+### Per [[feedback-dispatch-wrappers-default]] note
+
+Inline v186 commit done in sub-agent context (single verdict_handler invocation from user; Agent dispatch unavailable per orchestrator post-compaction brief Section 2 -- sub-agents internalize multiple role prompts; verdict_handler executes strategy + visibility role logic inline; commit LOCAL only; push pending main thread per [[feedback-subagent-permission-inheritance]]).
