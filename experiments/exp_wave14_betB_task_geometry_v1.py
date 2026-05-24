@@ -235,13 +235,33 @@ def compute_ppmi(data, vocab=VOCAB):
     return ppmi.float()
 
 
+def _safe_eigvalsh(mat):
+    """Eigenvalues of a symmetric matrix, robust to rank-deficient PPMI.
+
+    PPMI matrices from narrow-byte-alphabet corpora (e.g. Python source) have
+    many zero columns -> repeated 0 eigenvalues that confuse some LAPACK paths
+    (error code 19 on Windows torch). Symmetrize explicitly and add a tiny
+    ridge to ensure well-conditioned input. Falls back to SVD if eigh still
+    crashes.
+    """
+    sym = 0.5 * (mat + mat.T)
+    ridge = 1e-7 * float(sym.diag().abs().max() + 1.0)
+    sym = sym + ridge * torch.eye(sym.shape[0], dtype=sym.dtype)
+    try:
+        return torch.linalg.eigvalsh(sym)
+    except Exception:
+        # SVD of a symmetric matrix returns sigma = |eigenvalues|; we lose
+        # sign information but the distance metric works on magnitudes anyway.
+        return torch.linalg.svdvals(sym)
+
+
 def spectral_distance(corpus_A, corpus_X, byte_atoms_cpu):
     """KL divergence between top-eigenvalue histograms of W-projected PPMI."""
     ppmi_A = compute_ppmi(corpus_A)
     ppmi_X = compute_ppmi(corpus_X)
     # Top-PPMI_RANK_CAP eigenvalues. PPMI is symmetric so use eigh; descending.
-    eigs_A = torch.linalg.eigvalsh(ppmi_A).flip(0)[:PPMI_RANK_CAP]
-    eigs_X = torch.linalg.eigvalsh(ppmi_X).flip(0)[:PPMI_RANK_CAP]
+    eigs_A = _safe_eigvalsh(ppmi_A).flip(0)[:PPMI_RANK_CAP]
+    eigs_X = _safe_eigvalsh(ppmi_X).flip(0)[:PPMI_RANK_CAP]
     lo = float(min(eigs_A.min(), eigs_X.min()))
     hi = float(max(eigs_A.max(), eigs_X.max())) + 1e-9
     bins = torch.linspace(lo, hi, EIG_BINS + 1)
