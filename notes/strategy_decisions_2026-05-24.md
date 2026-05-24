@@ -1667,3 +1667,64 @@ Both CPU-bound scripts rerouted to remote_cpu_queue:
 
 ACTIVE (no flag file). Task 2 ship dispatched in ACTIVE state per orchestrator post-compaction brief Section 1.
 
+
+
+## Verdict batch v183 -> v184 (2026-05-24 13:35 local; orchestrator inline cycle 206)
+
+### V1: MOE_PASS labeled / MOE_PARTIAL_M_DEPENDENT honest — wave14e_moe_xtalk_v1_post_device_fix_rerun_2026-05-24
+
+**Data (5 seeds: 7, 17, 23, 31, 41; per-cell across 4 M × 2 K = 8 cells):**
+
+| M | K | ratio (5-seed mean) | passes 1.3? |
+|---|---|---|---|
+| 500 | 4 | 1.035 | NO |
+| 500 | 8 | 1.046 | NO |
+| 2000 | 4 | 1.110 | NO |
+| 2000 | 8 | 1.154 | NO |
+| 8000 | 4 | 1.260 | NO (just below) |
+| 8000 | 8 | 1.399 | YES |
+| 32000 | 4 | 1.422 | YES |
+| 32000 | 8 | 1.738 | YES |
+
+**Honest re-read**: verdict_msg "MoE reduces cross-talk: at M=32000, K=8, ratio=1.799 >= 1.3" cherry-picks the BEST cell of 8. Per-cell view shows: (a) ratio is monotone-increasing in M across all 4 M levels at both K values; (b) HARD-PASS threshold (ratio >= 1.3) met cleanly at 3/8 cells (high-M K=8 from M=8K up, plus M=32K K=4); (c) 5/8 cells fail the threshold (low-M cells); (d) the substantive substrate-product structure is "MoE structurally reduces cross-talk in the cross-talk-pressure regime (M >> N or M*K large) but NOT in the low-pressure regime (M << N)." Per [[feedback-verdict-msg-honest-reread]] this is an OVER-CLAIM: verdict_msg label PASS over-claims at per-cell resolution. Honest verdict tag: **MOE_PARTIAL_M_DEPENDENT** — the propagatable interpretation to cap_map.
+
+**Substantive substrate-product finding**: the orthogonal-axis hypothesis from earlier user analysis "MoE becomes higher leverage after EWC fails" is **CONFIRMED CONDITIONALLY**. EWC parameter-importance axis is dead (EWC-null closure preserved). Structural-separation axis (MoE-style) is ALIVE in the cross-talk-pressure regime — works where the substrate is load-stressed, fails where it's not. Substrate-product spec implication: a production deployment using MoE for Bet B retention needs to size K(M) — at heavier load (M=32K at K=8) ratio is 1.74; at lighter load (M=500 at K=4) ratio is only 1.04 (barely above 1.0). The K=8 cell consistently dominates the K=4 cell across M (more experts -> more cross-talk relief; expert_loads show heavy-tailed concentration in middle experts).
+
+**Cap_map impact** — NEW evidence-strength row: Bet B retention rehab via structural-separation axis 🟡 M-DEPENDENT PARTIAL.
+- Filed as new evidence-strength row UNDER Bet B retention rehab (NOT a new portfolio row at the Cap-N level — it's a within-Bet B rehab anchor).
+- Portfolio count UNCHANGED at 12; evidence-strength row count grows from 2 (Bet Z.5 🟢 + Bet V 🟡) to 3 (+ Bet B retention via structural-separation 🟡 M-DEPENDENT PARTIAL).
+- ✅ promotion gate: uniform per-cell PASS ratio >= 1.3 across operating range OR characterized M_crit(K) threshold with multi-N replication. Pre-registered future routing.
+- Per [[feedback-rehabilitation-after-rejection]] this is rehab PASS (conditional) for the structural-separation axis; the EWC parameter-importance axis remains CLOSED.
+- Per [[feedback-dont-overextend-theorems]] honest M-conditional reading NOT promoted to ✅; the cap_map row reflects the per-cell partial pattern.
+
+**Importance**: **HIGH** — substantive substrate-product finding; first verdict-level confirmation that structural-separation axis works (in stressed regime); the orthogonal-axis CONFIRMATION the EWC-null closure analysis predicted.
+
+### V2: EMP_MARGIN_WELL_DEFINED — wave14_tropical_R2_substrate_scale_n4096
+
+**Data**: N=4096, 4-coset Kerdock MM = 16384 codewords; n_total=250, n_used=250; mean_margin=2004.19, std=7.24, cv=0.004; deg_frac=0.000; p25=1998.00.
+
+**Honest re-read**: verdict_msg "Empirical bit-flip margin baseline well-defined at N=4096" matches data (cv=0.004 is extremely tight; no degeneracy; sufficient n). Label = msg = data agreement (31st observation post-lock).
+
+**Cap_map impact**: annotation-grade ONLY; zero portfolio row change.
+- F-14 Tropical Cap-13 closed-form margin theory KILLED at v181 stands UNCHANGED.
+- This is the empirical-margin layer (orthogonal to closed-form-theory layer) — a clean reference baseline for future bit-flip-resilience or noise-stratified margin probes.
+- Per [[feedback-dont-overextend-theorems]] single-N baseline annotation does NOT license any row promotion or rescue.
+- **Importance**: **LOW** — clean baseline; supplies reference for downstream margin work; no portfolio movement.
+
+### Status_log entries
+
+2 entries written this cycle:
+- V1 MOE_PARTIAL_M_DEPENDENT (honest reading; labeled MOE_PASS), importance=HIGH, plain_language: "We tested mixture-of-experts on Bet B retention. MoE makes the substrate handle dense memory (lots of items) MUCH better — at the heaviest load tested, MoE retrieves ~74% better than single-W. But the help only kicks in when load is high; at light load, MoE is roughly tied with single-W. So MoE is a structural fix for the cross-talk regime, not a uniform win. This CONFIRMS the orthogonal-axis hypothesis that MoE wins where EWC-style parameter-importance failed."
+- V2 EMP_MARGIN_WELL_DEFINED, importance=LOW, plain_language: "Tropical R2 empirical bit-flip margin baseline measured cleanly at production scale (N=4096) — tight statistics (cv=0.004) and no degeneracy. This is a reference baseline for future bit-flip resilience work; no portfolio change."
+
+### Pause flag state
+
+ACTIVE (no flag file). Cap_map v184 committed in ACTIVE state per orchestrator post-compaction brief Section 1.
+
+### Queue refill state at v184 close
+
+- GPU (overnight_queue): IDLE, queue empty.
+- Remote CPU (remote_cpu_queue): 1 pending (`wave14_cap8_vamp_iterates_srht_hadamard_v1c_cpu_reroute_rerun_2026-05-24`); the long-running `wave14_amp_se_kerdock_longiter_v1_cpu_reroute_rerun_2026-05-24` is in flight.
+- Local CPU (local_cpu_queue): REVIVED IDLE — runner pid 13804 + 37416 (`cpu_runner_local` heartbeat updated 2026-05-24T13:32:22; status=idle, queue=0).
+- Pickup-ready hand-offs in `notes/exp_dev_handoff_5anchors_post_v183_2026-05-24.md`: 5 design anchors (Ablation A + Ablation B + SSM/S4 + F-6 Boolean + Sellke) + 1 script-fix (MS_1ST_ORDER). Next exp_dev cycle is the structural refill mechanism per [[feedback-no-experiment-design-in-prompts]]; orchestrator inline cycle does not design experiments.
+- Pipeline-pacing reflex (per [[feedback-pipeline-pacing]]): queue refill is gated on pause flag (ABSENT) AND on exp_dev design work being available — the routing notes are filed; next exp_dev dispatch consumes them.
