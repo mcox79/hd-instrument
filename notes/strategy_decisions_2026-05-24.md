@@ -1537,3 +1537,81 @@ Inline-via-main-thread (Agent dispatch unavailable in sub-agent context per orch
 ### Tally (one-line)
 
 BATCHED 4 VERDICTS v181 -> v182 inline-via-main-thread: LR_DOSE_MONOTONIC (Cap 5 ✅ envelope-extension deepening tau<=160 monotone) + BOOLEAN_NOISE_STAB_HARD_FAIL (F-6 Cap-13 third KILLED; trilogy resolved 0/3 PASS at theory level; Cap 13 candidate row CLOSED-VIA-3-of-3-CONTINENT-REJECTION at closed-form-margin theory level; 15 rescue sketches across 3 continents; R5 substrate-novel narrowing rescue load-bearing per [[feedback-no-smoke]]; future rehab REFRAME at production-N substrate-physics layer per [[feedback-dont-overextend-theorems]]) + VAMP_AMP_CONTRAST_PASS rerun (Cap 12 ✅ rerun-confirmation N=4096-full) + N_SWEEP_INCONCLUSIVE (Cap 8 ✅ N-robustness annotation; argmax follow-up pre-registered); Step 0 honest re-read 17th/18th/19th/20th observations all label=msg=data agreement; portfolio UNCHANGED at 12; ZERO open ❌ PROVISIONAL; commit LOCAL (push pending main thread); 4 status_log entries (V1 HIGH + V2 CRITICAL + V3 LOW + V4 LOW); pause flag CLEARED ACTIVE; 96th PROT-009 paired commit.
+
+---
+
+## Cycle 205 (2026-05-24) — v183 BATCHED 9-VERDICT cap_map update + Strategy priority ranking refresh
+
+**Inline verdict_handler / strategy / visibility composition** (Agent dispatch unavailable in sub-agent context per orchestrator post-compaction brief Section 2 execution model clarification). 9 verdicts processed in one batched cap_map commit.
+
+### Step 0 honest re-read summary
+
+All 9 verdict_msg labels reviewed against per-cell metrics in the user's payload. Findings:
+
+- (V1) HATANO_SASA_CAP3_LONG_TRAJ_V2_HARD_FAIL: rerun confirms v2 result. Honest — two independent observations both NESS non-canonical at long-trajectory canonical-HS-IFT framing.
+- (V2) BETZ5_STRICTLY_STRONGER: r=0.458 < 0.99 redundancy threshold AND variance cert=62.6470 > separator threshold met pre-reg HARD-PASS clean. Honest — both conjunctive thresholds met.
+- (V3) MS_1ST_ORDER_INCONCLUSIVE: needs iid_gauss + kerdock cells per user analysis. Honest — script ran at incomplete cell schema.
+- (V4) SELLKE_INCONCLUSIVE: baseline modes=8 at eps=0 (not cleanly RS). Honest — baseline not at the phase Sellke probe assumes.
+- (V5) QND_CB_INVARIANT: max_drift_F=0.000000 BOTH codebooks at machine precision. Honest — STRUCTURALLY GUARANTEED label matches per-cell-data zero-drift across both codebooks.
+- (V6) BET_V_N65K_PASS: gap=0.647 at N=65536. Honest — single-anchor PASS at unprecedented N; ✅ promotion gate would need multi-N replication.
+- (V7) CAP2_ENDPOINT_KILL: ROC AUC<0.55 in 4/4 strata met pre-reg HARD-FAIL clean. Honest — all 4 strata met the kill threshold.
+- (V8) BET_V_PARTIAL self-reflective: gap=0.285. Honest — clear sign-of-effect but well below the N=65K PASS gap=0.647; partial-rescue annotation is the right move.
+- (V9) DEMO1_NOISE_ENVELOPE_PASS: composed_acc=1.0 at p=0.10 noise AND clean=1.0. Honest — zero degradation under noise at composition-task scale.
+
+All 9 observations show clean label=msg=data agreement; 21st through 29th post-lock observations. [[feedback-verdict-msg-honest-reread]] LOCK working cleanly across 9 verdict classes. 29 clean observations post-lock.
+
+### Strategy priority ranking refresh — per user analysis 2026-05-24
+
+The user delivered a substantive Research-grade analysis on the EWC null and its downstream priority implications. Filed verbatim at `notes/strategy_priority_ranking_2026-05-24_post_ewc_null.md`. Key moves filed to active_priorities.md:
+
+**OFFICIALLY CLOSED-DEFERRED for Bet B retention work**: EWC family (EWC, MAS, SI, Path Integral). The EWC null is structural per R26 — substrate W = sum v_i k_i^T is maximally distributed; Fisher matrix is approximately uniform; parameter-importance regularization provides zero traction on substrate retention by construction. Practical implication: Bet B's 73% retention_A is not movable via parameter-importance methods. DROP from queue.
+
+**ELEVATED (highest active leverage after EWC null)**:
+1. MoE GPU run — single highest-leverage active item; attacks Bet B retention via structural-separation axis orthogonal to EWC's parameter-importance axis. Smoke PASSED at N=512 (ratio=1.44). GPU full attempt crashed at runtime (exit_code=1 in 2.4s; script bug). MUST fix or rebuild.
+2. Tropical R2 substrate-scale validation — 0.0e+0 closed-form analytic-match at N=4 is rare in substrate-physics work (R16 free probability landed within 20%). Should jump to HIGH priority for substrate-scale test.
+
+**NEW ABLATIONS unlocked by EWC null** (added to ship queue):
+A. **Per-task sub-substrate ablation** — train 3 separate W matrices on Bet B's three corpora, concatenate at retrieval. If retention_A jumps to ~95%+, structural separation IS the load-bearing axis. This is the structural-separation-axis falsifier for the EWC-null implication.
+B. **Replay-only sweep at varying fractions** — if random replay alone explains 73%, increasing replay fraction toward 1.0 should monotonically improve retention until cost dominates. If retention plateaus before 80% regardless of replay fraction, that bounds achievable retention without structural separation.
+
+**DEMOTED**: EWC-family follow-ups (MAS, SI, Path Integral).
+
+**REMAINING ranked list per user**:
+1. MoE GPU run (waiting; FIX REQUIRED)
+2. Tropical R2 substrate-scale test
+3. SSM/S4 re-queue with corrected task (W as state transition matrix, key as input, value as readout, standard copy-task / selective-copying benchmark; previous smoke failed at task-design level not substrate-level)
+4. Self-supervised contrastive (once script lands)
+5. F-6 Boolean re-queue with proper schema
+6. Ablation A per-task sub-substrate (NEW)
+7. Ablation B replay-only sweep (NEW)
+
+### Capability moves committed at v183
+
+See v183 cap_map narrative block for full table. Summary:
+
+- Cap 8 ✅ FULL UNCHANGED + v183 QND-structural-closure annotation (machine-precision invariance; substantive strengthening).
+- Bet Z.5 🔬 -> 🟢 PROMOTE on fresh-impl strictly-stronger-than-VAMP PASS.
+- Bet V 🔬 -> 🟡 PARTIAL on N=65K PASS + self-reflective PARTIAL composite.
+- Cap 2 ✅ UNCHANGED + Rescue 1 closed annotation.
+- Cap 3 ✅ UNCHANGED + HS-v2 rehab closed annotation.
+- Demo 1 ✅ UNCHANGED + noise envelope extends to p<=0.10.
+- MS + Sellke INCONCLUSIVE with re-queues filed.
+- Portfolio count UNCHANGED at 12.
+
+### Routing outbound
+
+- **Exp Dev**: dispatched inline for ship list per refreshed priority ranking. Ablation A + Ablation B + Tropical R2 substrate-scale + SSM/S4 re-queue + F-6 Boolean re-queue + MoE GPU fix-or-rebuild.
+- **Research**: standing list extended with v183 additions (Bet Z.5 ✅ gate, Bet V ✅ gate, Cap 3 alternate-NESS-framing, MS re-queue cell-schema correction).
+
+### Pipeline-pacing reflex
+
+- queue depth 0 across all three CPU queues at completion (GPU runner alive on amp_se_kerdock_longiter); v183 commit fires exp_dev refill per [[feedback-pipeline-pacing]].
+- Pause flag CLEARED — ACTIVE — refill authorized.
+
+### Commit discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; "Cap map: v182 -> v183 ..." commit.
+- per PROT-009: 97th paired commit.
+- per [[feedback-subagent-permission-inheritance]] commit LOCAL only (push pending main thread; orchestrator main-thread executes git push as 1-tool mechanical action).
+- per [[feedback-for-you-tab-primary-channel]] 9 status_log entries written with plain_language + importance.
+

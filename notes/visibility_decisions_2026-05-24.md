@@ -360,3 +360,20 @@ ZERO open ❌ PROVISIONAL rejections remain.
 
 Status_log entries written: 4 (V1 HIGH + V2 CRITICAL + V3 LOW + V4 LOW).
 Logged at 12:30-12:35 by inline-via-main-thread (Agent dispatch unavailable in sub-agent context per orchestrator post-compaction brief Section 2 execution model clarification).
+
+---
+
+## 2026-05-24 cycle 205 — v183 BATCHED 9-VERDICT cap_map update
+
+- (V1) wave14_hatano_sasa_cap3_long_traj_v2 FULL = HATANO_SASA_CAP3_LONG_TRAJ_V2_HARD_FAIL — Cap 3 ✅ UNCHANGED; v180 HS-v2 rehab CLOSED-FAILED (rerun confirms NESS non-canonical). importance=MEDIUM.
+- (V2) wave14_betZ5_strictly_stronger_v1 FULL = BETZ5_STRICTLY_STRONGER — Bet Z.5 🔬 -> 🟢 PROMOTE on fresh-impl strictly-stronger-than-VAMP PASS (r=0.458<0.99; variance cert=62.6470). importance=HIGH.
+- (V3) wave14_mingo_speicher_1st_order FULL = MS_1ST_ORDER_INCONCLUSIVE — re-queue with iid_gauss + kerdock cells filed. importance=LOW.
+- (V4) wave14_sellke FULL = SELLKE_INCONCLUSIVE — re-queue at narrower eps grid filed. importance=LOW.
+- (V5) wave14_qnd_cb_invariant FULL = QND_CB_INVARIANT — Cap 8 ✅ FULL UNCHANGED + v183 QND-structural-closure annotation (max_drift_F=0.000000 BOTH codebooks; STRUCTURALLY GUARANTEED at machine precision). importance=CRITICAL.
+- (V6) wave14_betV_N65536_v1 FULL = BET_V_N65K_PASS — Bet V 🔬 -> 🟡 PARTIAL composite with V8; gap=0.647 at N=65536 first verdict-level evidence at unprecedented N. importance=HIGH.
+- (V7) wave14_cap2_endpoint_id_confidence_remote_v1 FULL = CAP2_ENDPOINT_KILL — Cap 2 ✅ via Cap 6 absorption UNCHANGED; Rescue 1 endpoint-ID REFUTED (elective rescue closed). importance=MEDIUM.
+- (V8) wave14_betV_self_reflective_v1 FULL = BET_V_PARTIAL self-reflective — Bet V 🟡 PARTIAL composite with V6; gap=0.285 partial-rescue annotation. importance=MEDIUM.
+- (V9) wave14_demo1_noise_envelope_v2 FULL = DEMO1_NOISE_ENVELOPE_PASS — Demo 1 ✅ FULL UNCHANGED + v183 noise envelope extends to p<=0.10 (composed_acc=1.0 at p=0.10; clean=1.0). importance=MEDIUM.
+
+Portfolio UNCHANGED at 12 IN COUNT + 2 new evidence-strength rows (Bet Z.5 🟢 + Bet V 🟡); ZERO open ❌ PROVISIONAL rejections remain. honest-reread LOCK working cleanly across 9 verdict classes 21st-29th observations all label=msg=data agreement 29 clean observations post-lock. 97th PROT-009 paired commit.
+
