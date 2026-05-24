@@ -581,3 +581,328 @@ Pause flag CLEARED — ACTIVE. Queue state at arrival: remote_cpu has Compositio
 - per PROT-009: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically
 - smoke→FULL anchors UNCHANGED (no smoke step; 41 broad / 26 strict)
 - 91st PROT-009 paired commit (LOCAL only; main thread pushes)
+
+
+---
+
+## Cycle 198 / annotation-only -- wave14_cap12_cap8_audit_trail_pipeline_v1 HONEST RE-READ (verdict_handler inline-strategy)
+
+### Context
+
+verdict_handler dispatched on Composition A audit-trail anchor. Script verdict_msg labels "MIDDLE BAND: weak structural sharing. pass>=0.60 in 1/4 families; below-0.30 in 0/4." Per per-cell metrics:
+
+```
+rhos = {
+  'kerdock':  0.9999999999999998,   # PERFECT
+  'srht':     NaN,                  # DATA MISSING (no saved Cap 8 VAMP iterate trace)
+  'hadamard': NaN,                  # DATA MISSING (no saved Cap 8 VAMP iterate trace)
+  'rm_1_m':   0.3999999999999999    # below-threshold
+}
+```
+
+This is the THIRD observation today of "script verdict_msg over-claims its per-cell metrics" (LOCK candidate locked just landed this cycle: [[feedback-verdict-msg-honest-reread]]). Per the locked rule, verdict_handler MUST compare verdict_msg labels to per-cell numbers and override if over-claimed.
+
+### Honest re-read
+
+The script's "1/4 families pass" framing CONFLATES "data missing" with "weak sharing." The two NaN families are NOT below-threshold readings — they are MISSING SAMPLES. The audit-trail anchor's denominator should be {data-available families} = 2, not {all families} = 4.
+
+True per-cell statement:
+
+> Composition A is **PERFECT on Kerdock** (ρ=1.0 between κ_n divergence components and Schur-Weyl irrep mass fractions); **below-threshold on RM(1,m)** (ρ=0.40 < 0.60); **UNTESTED on SRHT + Hadamard** because the Cap 8 VAMP iterate trace was not saved for those codebooks. With 1 perfect + 1 fail in 2 data-available families, Composition A is **not licensed**, but it is also **not killed** — the perfect Kerdock reading is incompatible with "weak structural sharing across all families."
+
+The honest verdict is **PARTIAL-DATA-AMBIGUOUS**, not MIDDLE BAND. Calling this "1/4 pass" hides that 2/4 cells lack data.
+
+### Decisions
+
+1. **Composition A status: PARTIAL-DATA-AMBIGUOUS (not killed, not licensed).** Kerdock ρ=1.0 perfect; RM(1,m) ρ=0.40 below 0.60 threshold; SRHT + Hadamard data missing. Cannot complete the cross-family audit without re-running Cap 8 VAMP on SRHT + Hadamard codebooks WITH iterate traces saved.
+
+2. **No cap_map state change. No cap_map commit this cycle.** Annotation-only. The v169 closed-form annotations on Composition A stay UNCHANGED at the substrate-physics layer. Per [[feedback-cap-map-update-protocol]] minimize-commit-churn, this annotation BUNDLES into the next paired commit if one materializes; otherwise it lives in the strategy_decisions log only.
+
+3. **Pre-register the follow-up pair**:
+
+   **Phase 1: `wave14_cap8_vamp_iterates_srht_hadamard_v1`** (remote_cpu_queue).
+   Re-run Cap 8 VAMP inference on SRHT + Hadamard codebooks at the same N, ρ, α grid as the original Cap 8 Anchor-1 run, but with the per-iterate kappa_n trace SAVED to disk. Match family-by-family the saved trace schema Composition A consumes (same iterate granularity, same κ_n decomposition basis). Estimated 30-45 min CPU. Cheap.
+
+   **Phase 2: `wave14_cap12_cap8_audit_trail_pipeline_v2`** (remote_cpu_queue, depends on Phase 1).
+   Re-run Composition A audit-trail with all 4 families now data-available. Hard-pass: ρ ≥ 0.60 across ≥3/4 families. Hard-fail: ρ < 0.30 on ≥2/4 families. Middle band: 2 above + 2 below, or 1 above + 1 below + 2 missing (regression-only outcome). Honest re-read protocol REMAINS in force on the v2 run.
+
+4. **No new ❌ PROVISIONAL row.** This is data-missing, not a refutation.
+
+5. **3rd observation of [[feedback-verdict-msg-honest-reread]] mattering**: the LOCK that landed THIS cycle caught THIS verdict on its first post-lock test. Three observations in ~24 hours; pattern is firmly established + the lock is now load-bearing. Strategy notes the lock as VALIDATED on first contact.
+
+### Queue + pause
+
+- Pause flag: CLEARED — ACTIVE.
+- Queue state at arrival: remote_cpu_queue NOW EMPTY (both E1' + Composition A finished); GPU has E2 still running; local idle.
+- Pipeline-pacing FLAG raised: CPU lane drained, exp_dev refill needed by main thread.
+- Per [[feedback-pipeline-pacing]] queue-refill is the orchestrator's first reaction; verdict_handler flags it but does not ship it from this sub-agent context (Exp Dev dispatch belongs to main thread when CPU is empty post-verdict).
+
+### State summary
+
+- portfolio: 12 demonstrated capabilities UNCHANGED IN COUNT
+- ❌ PROVISIONAL open: ZERO (cleanest-state preserved)
+- cap_map version: stays at v177 (0df222b LOCAL; push pending per [[feedback-subagent-permission-inheritance]])
+- per PROT-004/006: NOT triggered (no closure, no new ❌)
+- per PROT-008: 0 row changes
+- per PROT-009: NOT triggered (no commit this cycle; annotation-only)
+- per [[feedback-for-you-tab-primary-channel]]: 1 status_log entry written (importance MEDIUM)
+- per [[feedback-verdict-msg-honest-reread]]: 3rd observation; LOCK validated on first post-lock contact
+
+### Notes for next cycle
+
+- Exp Dev: file `wave14_cap8_vamp_iterates_srht_hadamard_v1` AND chain `wave14_cap12_cap8_audit_trail_pipeline_v2` (dependency). Both at remote_cpu_queue. Both ASCII-only per [[feedback-ascii-only-in-scripts]].
+- Main thread: push v177 (0df222b) to remote when permission window opens; this annotation needs no commit of its own.
+
+
+## 2026-05-24 verdict: wave14_cap11_chi4_early_warning_anchor_v1 CAP11_CHI4_FAIL (lead-time refutation)
+
+**Labeled verdict_msg:** `chi4 SNR=6422501087.19 (<1.5) OR seeds_with_negative_lead=5 (>=3 of 5). chi4 not predictive.`
+
+**Honest re-read per [[feedback-verdict-msg-honest-reread]] (Step 0):**
+The verdict_msg "(<1.5)" inline annotation labels the threshold the OR-clause is checking, not a claim that 6.4B < 1.5. The clause itself is `(snr < 1.5) OR (neg_lead >= 3)`. Reading the per-cell numerical metrics:
+- `chi4_snr = 6.42e9` — chi_4 spike at boundary is ENORMOUS, 9 orders of magnitude above the SNR>=3 hard-pass threshold the Research drill set. chi_4 IS a strong indicator of capacity-boundary heterogeneity.
+- `seeds_with_negative_lead = 5 / 5` — every seed's chi_4 peaks AT OR PAST retrieval knee. lead_time_frac at aggregate = 0.000.
+- Trigger: condition_B fired alone (chi_4 peaks coincide with / lag retrieval knee). condition_A did NOT fire — calling chi_4 "not predictive" understates the result.
+
+**Honest interpretation:** chi_4 is a strong POST-HOC characterization indicator at the capacity boundary (consistent with Berthier-Biroli-Bouchaud chi_4 signal strength), but on this substrate it LAGS rather than LEADS retrieval breakdown. It does not function as an early-warning predictor for Cap 10.
+
+**Cap 11 row impact:** STAYS ✅ at current scope (passive characterization at boundary). The early-warning EXTENSION (proposed by today's Research drill) fails; the existing Cap 11 capability stands unchanged. NO cap_map mutation; annotation-only.
+
+**Composition C status:** KILLED. Composition C (Cap 12 + Cap 11 + Cap 1 = adaptive routing under continual operation with predictive observability) was classified as PIPELINE / HANDOFF per [[feedback-composition-classification]]. The handoff mechanism requires Cap 11 to predict approaching Cap 10 boundary BEFORE retrieval breakdown so Cap 1 can re-route in time; empirical refutation here removes the predictive leg. Cap 12 and Cap 11 both retain standalone ✅; Composition C as a product narrative is dead.
+
+**Parallel-indicator rescue check (per Research drill design):**
+The script computes ac1_snr, var_snr, tau_R_snr but does NOT compute lead-time for them. From the smoke-run per-alpha series (alpha_grid=[0.05,0.10,0.14,0.18], alpha_c=0.14):
+- ac1_mean_per_alpha = [0.0, 0.0, 0.058, 0.612] — monotonic; peaks at 0.18 (past knee at 0.14)
+- var_mean_per_alpha = [0, ~5e-7, ~1e-6, ~6.7e-6] — monotonic; peaks at 0.18 (past knee)
+- tau_R_mean_per_alpha = [2, 2, 3, 30] — monotonic; peaks at 0.18 (past knee)
+
+All three "complementary" indicators co-peak with chi_4 at alpha=0.18 (past the alpha_c=0.14 knee). They show the SAME post-hoc / lagging behavior on this substrate. No rescue via AC(1), Var, or tau_R is available — the substrate's capacity transition is too sharp (the Research drill's named risk: "sharp Kerdock transition killing lead-time"). The risk materialized.
+
+**Composition C rescue options exhausted at this experiment scope.** Further rescue would require:
+- (R1) Coarser alpha grid below alpha_c=0.14 (e.g., [0.08, 0.10, 0.12, 0.13, 0.14]) to see if indicators rise before knee at finer resolution.
+- (R2) Lower noise_p (currently 0.05) to give chi_4 more room to grow before retrieval collapses.
+- (R3) Different family than Kerdock (Research drill flagged Kerdock as the sharp-transition risk).
+
+Files (R1/R2/R3) as Composition C rescue probes if user wants to keep the predictive-observability narrative alive. Otherwise Composition C is fully dead.
+
+**Honest-reread tally:** 4th observation of script verdict_msg producing label-vs-numbers tension (prior 3: MMD vs MP-KS over-claim; η-noise-envelope inconclusive labeled INCONCLUSIVE while data supports band-not-point; Composition B routing labeling; this one's "(<1.5)" inline-threshold confusing template). The just-locked [[feedback-verdict-msg-honest-reread]] is now load-bearing 4x — Step 0 caught the contradiction-looking-but-actually-template artifact AND the more important under-statement ("not predictive" vs "post-hoc characterization indicator with huge SNR").
+
+**Cap_map mutation:** NONE. Annotation-only. cap_map stays at v177 / 0df222b.
+
+**Portfolio count:** 12, unchanged.
+
+
+## 2026-05-24 — wave14_interp_family_N16384_v1 TIMEOUT — Cap 12 ✅ N-envelope ANNOTATION ONLY (no row movement; no cap_map commit)
+
+**Verdict context (rescued from diagnostic; not surfaced through dispatch.py).**
+
+```
+wave14_interp_family_N16384_v1 — TIMEOUT at wall_s=10800 (3h cap). Empty result dir. GPU lane. Pre-registered as E2 N-scaling stress gate for Cap 12 (κ_n divergence predictor at ρ ≥ 0.50 across {Kerdock, SRHT, Hadamard} at N=16384).
+```
+
+**Step 0 honest re-read.** Label = "TIMEOUT"; data = no metrics, no result dir. Label is HONEST — it correctly states we do NOT have a number. No over-claim. Per [[feedback-verdict-msg-honest-reread]] label = honest reading; no labeled-vs-honest entry needed. The honest reading IS: we do not know whether κ_n predictor holds at N=16384 on this hardware in 3h.
+
+**Strategy verdict: Cap 12 row state UNCHANGED. ANNOTATION ONLY. No cap_map commit this cycle.**
+
+### Cap 12 envelope effect (annotation-in-log-only; cap_map row body unchanged)
+
+- Cap 12 ✅ promotion landed at v175 on Gate A (R3 τ-robustness 4/4/4) + Gate B (R1 Hadamard cross-family) + RM(1,m) third-family hardening at N ∈ {1024, 4096}.
+- E2 was the pre-registered N=16384 stress gate (cap_map line 285). It did NOT produce a number; the GPU lane timed out at the 3h cap (wall_s=10800) with empty result dir.
+- **N-envelope of the κ_n predictor at v175-v177 (honest reading):**
+  - N=1024 — predictor PASSES (Gate A/B/RM landed)
+  - N=4096 — predictor PASSES (R1 cross-family ρ=0.700 et al.)
+  - N=16384 — UNTESTED (compute budget exceeded; no PASS, no FAIL, no data)
+- Cap 12 ✅ STAYS at its v175 scope (N ∈ {1024, 4096}). The broader claim "predictor holds for all N" is NOT validated. Pre-reg HARD-FAIL clause ("ρ < 0.30 on any family ⇒ ✅ REVERT to 🟢 with N-bounded annotation") does NOT trigger — there is no ρ value to evaluate.
+
+### Decision tree for re-run
+
+Per [[feedback-envelope-expansion-fail-bands]] (locked this turn; honest-reread tally 4th positive observation per the verdict context), pre-register the re-run of E2 as one of three branches; pick AFTER the timeout is parsed against algorithmic profiling:
+
+- **Option A — N=8192 sketch (`wave14_interp_family_N8192_v1`):** halve N from 16384; same design across {Kerdock, SRHT, Hadamard}; ETA = N=4096 runtime × scaling factor (~4× for VAMP O(N log N) iterates; likely <3h on the same GPU). CHEAPEST; pre-registered as the immediate follow-up.
+- **Option B — N=16384 on a longer budget OR with algorithmic optimization:** overnight ≥12h budget OR single-seed (replace 10-seed averaging) OR FFT-accelerated VAMP iterates. More expensive but lands at the originally targeted N.
+- **Option C — DEFER N=16384 entirely:** ship Cap 12 ✅ as product at N ∈ {1024, 4096} without claiming broader N-scaling. Honest framing per [[feedback-no-papers-product-only]] — substrate-product does not require N=16384 to be customer-shippable.
+
+**Recommendation order:** Option A FIRST (cheapest; tractable in 3h budget; gives a useful intermediate data point). If A passes → file Option B for the originally targeted N=16384 with overnight budget. Option C is the fallback if both A and B fail or time out.
+
+**No Exp Dev routing filed THIS cycle** per [[feedback-dispatch-wrappers-default]] and per the verdict context's explicit instruction "main thread re-shipping the chain that didn't land." Queue-refill is DEFERRED to main thread. When main thread completes its re-ship, the next routine cycle picks up Option A as the next CPU/GPU sweep candidate.
+
+### Cap_map operations this cycle
+
+**NONE.** No cap_map.md commit, no history.md commit. The annotation lives HERE in strategy_decisions_2026-05-24.md only. Cap 12 row body and version table are UNTOUCHED. Reasoning: (a) row state does NOT change (still ✅), (b) the data does NOT exist to revise the row prose, (c) per [[feedback-cap-map-update-protocol]] cap_map commits should reflect ACTUAL data movement, not log-style observations. If a future Option-A or Option-B verdict lands, that cap_map cycle will fold this N-envelope clarification in alongside the new evidence.
+
+### Portfolio + cap_map state
+
+- Portfolio: 12 demonstrated capabilities UNCHANGED.
+- cap_map version: v177 (0df222b, pushed) UNCHANGED.
+- Open ❌ PROVISIONAL rejections: 0 UNCHANGED.
+- Open 🟢 → ✅ promotion candidates with pre-registered gates: UNCHANGED.
+
+### Inefficiency observation — defer lock (1st observation)
+
+This is the FIRST timeout-failure in the session. Per [[feedback-envelope-expansion-fail-bands]] envelope-extension drills SHOULD carry explicit COMPUTE BUDGET pre-registration (e.g., "E2 stress gate at N=16384; pre-registered budget = 6h GPU; if budget exceeded → re-design at smaller N OR longer-budget runner"). Locking after the 1st observation is premature per the 2x-confirmation discipline; flagging the candidate inefficiency here for the 2nd observation to fire the lock. Candidate name: `[[feedback-envelope-extension-compute-budget-pre-reg]]`.
+
+### Cross-references
+
+- Verdict source: rescued from diagnostic (not surfaced via dispatch.py); verdict_handler dispatched explicitly by orchestrator.
+- Pre-reg of E2: strategy_decisions_2026-05-24.md line 285 (v174/v175 era).
+- Cap 12 ✅ row state: cap_map.md v175 (commit referenced in history.md v175 update entry); v176/v177 carried forward unchanged.
+## wave14_cap8_vamp_iterates_srht_hadamard_v1b CAP8_ITERATES_FAILED (verdict_handler, 2026-05-24)
+
+- **Honest re-read (Step 0):** verdict_msg label HONEST — "Data-gap not filled: only 0/30 files written" matches reality. Output directory does not exist on disk (data/wave14_cap8_vamp_iterates_srht_hadamard_v1b/ absent). 599s elapsed + 0/30 trace files = full silent script failure. No over-claim; no labeled-vs-honest contradiction.
+- **Significance classification:** ENGINEERING failure, NOT substrate finding. No cap_map row movement. Cap 12 + Cap 8 Composition A remain UNRESOLVED at SRHT/Hadamard branches. Kerdock rho=1.0 holds from v1.
+- **Downstream impact:** Composition A v3 (next in queue) consumes these per-iteration trace files as input. With traces absent, v3 will NaN-out on SRHT/Hadamard exactly as v1 did. Result will be the same MIDDLE-BAND verdict as v1.
+- **DECISION (called by verdict_handler, deferring to orchestrator if disagreement):** LET v3 RUN. Rationale: (a) ~30 min CPU is cheap; (b) confirms the data-dependency assumption — if v3 happens to NOT NaN, we learn something about its internal fallback paths; (c) keeps queue depth >=1 per [[feedback-pipeline-pacing]] while diagnostic runs in parallel; (d) v4 with bug-fix will be queued after parallel diagnostic agent identifies the v1b silent-failure root cause.
+- **Inefficiency lock candidate:** 0/N files written WITHOUT an error verdict (just "Data-gap not filled") is a silent-failure failure mode. Per [[feedback-verdict-msg-honest-reread]] two-strikes rule: 1st observation in this session — DEFER lock; tag for pattern-match on next occurrence.
+- **State at handler exit:** pause flag CLEARED (ACTIVE); cap_map v177 (0df222b, already pushed); queue depths: remote CPU 2 pending (v3 + v2b noise envelope) + 0 running, GPU has Anchor 4 N=8192 + 5 prior pending, local CPU idle; pipeline-pacing — no refill needed (queue has work).
+- **Portfolio:** 12 (unchanged).
+- **Strategy/visibility handled inline by main thread per handoff context** — no sub-agent fan-out from this wrapper invocation.
+
+---
+
+## Cycle 194 / v177 -- COMPA_AUDIT v3 STEP 0 LABEL-VS-HONEST FLAG (verdict_handler, no cap_map version bump)
+
+### Context
+
+Verdict_handler dispatched on:
+
+```json
+{"name":"wave14_cap12_cap8_audit_trail_pipeline_v3","verdict":"COMPA_AUDIT_MIDDLE_BAND","verdict_msg":"Composition A MIDDLE BAND v2: pass>=0.60 in 1/4 (no-tie) families; below-0.30 in 0/4. rhos={'kerdock': 1.0, 'srht': 0.533, 'hadamard': 0.533, 'rm_1_m': 0.40}","queue":"remote_cpu_queue"}
+```
+
+### Step 0 honest re-read of metrics.json
+
+`data/exp_wave14_cap12_cap8_audit_trail_pipeline_v3_smoke/metrics.json` says:
+
+- `verdict`: `COMPA_AUDIT_INCONCLUSIVE` (NOT `MIDDLE_BAND`)
+- on-disk `verdict_msg`: "only 1 of 4 hard families measured; need all of ['kerdock', 'srht', 'hadamard', 'rm_1_m']"
+- `summary.config.codebooks`: `["kerdock", "iid_gauss"]` -- only TWO codebooks ran; SRHT / Hadamard / RM(1,m) were NOT measured
+- `summary.codebook_results`: TWO entries (kerdock rho_aggregate=1.0 single-seed, iid_gauss rho_aggregate=1.0 single-seed)
+- `config.mode`: `smoke`; `n_seeds`: 1; `n_max_order`: 4; `N`: 1024; `use_iterates`: false
+
+### Labeled-vs-honest contradiction
+
+The verdict_handler-supplied `verdict_msg` claims numeric rho values for SRHT (0.533), Hadamard (0.533), RM(1,m) (0.40) that DO NOT APPEAR in the metrics.json on disk. The on-disk run is a smoke-mode 2-codebook 1-seed pipeline that completed cleanly INCONCLUSIVE because it only measured kerdock + iid_gauss, not the four required hard families.
+
+Possible explanations (none currently confirmed):
+1. The supplied numbers came from a different (later / unsaved / unindexed) run that was conflated with v3_smoke.
+2. The orchestrator received a stale or post-processed analysis line that fabricated the SRHT/Hadamard/RM(1,m) rows by interpolation from prior wave14 audits and got tagged onto the v3 smoke verdict.
+3. The verdict_msg was hand-edited upstream and the metrics.json was never refreshed.
+
+### Authoritative interpretation per [[feedback-verdict-msg-honest-reread]]
+
+The honest reading is: **COMPA_AUDIT_INCONCLUSIVE (smoke-mode 2-codebook 1-seed; insufficient evidence for any Composition A portfolio claim, narrow OR broad)**. The "Kerdock-specific narrow holds; bimodal pattern is REAL not noise" framing in the verdict_handler-supplied dispatch is NOT supported by this metrics.json -- it would require the 4-codebook FULL run, not a 2-codebook smoke.
+
+### Strategy decisions (under honest reading)
+
+1. **NO cap_map version bump.** v177 stays. No v169-annotation scope-tightening based on this verdict, because the data file does not contain the four-family rho evidence the verdict_msg claims. Re-issuing v169-narrowing language right now would propagate the over-claim into cap_map (forbidden per Step 0).
+
+2. **NO portfolio promotion. NO closure.** Portfolio count UNCHANGED at 12.
+
+3. **Queue refill: NONE.** Pipeline depths reported healthy in the dispatch context (remote CPU has v2b noise envelope + v1c cap8 iterates pending; GPU has Anchor 4 + 5 prior; local idle). No exp_dev dispatch needed (pause flag is ACTIVE = unpaused, but queue >= 1 invariant satisfied).
+
+4. **FOLLOW-UP gate before any v178 cap_map bump on this experiment family**: require a FULL-mode metrics.json with `codebooks: [kerdock, srht, hadamard, rm_1_m]` AND `n_seeds >= 5` AND on-disk rho values present per-codebook. The verdict_handler-supplied SRHT=Hadamard=0.533 (identical) tied-rho observation, IF it appears in a future FULL run, is worth a follow-up sub-anchor (could indicate Schur-Weyl irrep mass equivalence under Cap 8's measurement, OR a tied-rank binning artifact, OR an implementation collision treating SRHT and Hadamard identically) -- but it is NOT actionable from a smoke 2-codebook file.
+
+5. **Bimodal pattern (algebraic GF(2^m)-trace family vs randomized + RM family) substrate-physics finding**: filed as a HYPOTHESIS to confirm with FULL-mode v3 run, not as a verified observation. Was observed cleanly across Cap 12 testing (v174/v175), but THIS v3_smoke verdict does NOT add evidence for or against it.
+
+6. **SRHT=Hadamard tied-rho flag**: NOTED for follow-up annotation if it appears in a future FULL-mode run; not a standalone anchor (would need to show up in >= 2 independent runs first per envelope-stability discipline).
+
+### Status_log entry written
+
+importance=MEDIUM -- informative middle-band claim is contradicted by on-disk smoke INCONCLUSIVE; not promotion, not kill, not even confirmed measurement; honest re-read flag is the load-bearing finding.
+
+### Per [[feedback-verdict-msg-honest-reread]] 6th observation
+
+This is the 6th honest-reread observation locking the discipline (prior: MMD vs MP-KS; eta noise envelope; 3 others noted in the dispatch). The pattern this time is a DIFFERENT failure mode than prior labeled-vs-honest cases: prior cases were over-claiming a label given correct underlying numbers. This case is the supplied verdict_msg containing numbers that aren't in the metrics file at all -- a "fabricated cells" failure mode. Worth distinguishing in [[feedback-verdict-msg-honest-reread]] addendum.
+
+### PROT-009 NOT triggered (log-only cycle)
+
+No cap_map.md or substrate_capability_map_history.md write. strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md get appended; no atomic paired commit; no v178.
+
+
+
+## 07:25 — v178 cap_map: Cap 12 ✅ title-level scope-tightening on pre-registered v177 E1'' 20-seed HARD-FAIL
+
+**Trigger.** wave14_mp_ks_noise_envelope_sweep_v2b FULL = MP_KS_NOISE_ENVELOPE_SWEEP_V2_KILLED (per_eta_correct={'0.010': 5, '0.020': 2, '0.030': 3, '0.040': 2, '0.050': 4}; elapsed_s=2311.72; remote_cpu_queue). Pre-registered v177 E1'' 20-seed at η ∈ {0.01, 0.02, 0.03, 0.04, 0.05} HARD-FAIL clause `per_eta_correct_codebooks ≤ 3 at η=0.02` MET EXACTLY (actual 2 ≤ 3).
+
+### Step 0 honest re-read (per [[feedback-verdict-msg-honest-reread]])
+
+verdict_msg label MATCHES per-cell data. NO over-claim, NO fabricated cells. This is the FIRST clean post-lock 20-seed test of the [[feedback-verdict-msg-honest-reread]] discipline. The discipline holds.
+
+Two honest readings co-exist:
+
+1. **STRICT-FLOOR (verdict_msg's reading)**: Cap 12 deployment-safe envelope is η ≤ 0.01. Customer cannot guarantee correct routing above η=0.01 because somewhere in (0.01, 0.10] there's a failure cell.
+2. **NON-MONOTONE (the data's reading)**: The substrate has a non-monotone interaction with η — specific η values trigger codebook-spectral resonances. The η=0.05 recovery (4/5) is NOT noise — it's a real signal that the failure is η-specific. Confirms v177's open question "is the non-monotonic finding genuine codebook-noise interference or 5-seed scatter?" — RESOLVED. It is GENUINE η-interaction.
+
+BOTH agree η ≤ 0.01 is confidently routable (5/5). BOTH agree η ∈ (0.01, 0.05] is not safely deployable as-is.
+
+### Decision: Cap 12 ✅ STAYS + TITLE-LEVEL scope-tightening
+
+Per [[feedback-envelope-expansion-fail-bands]]: HARD-FAIL on envelope-EXPANSION stress gate reads as TITLE-LEVEL scope-tightening NOT ✅ → 🟢 REVERT given:
+
+- v175 promotion gates (Gate A R3 τ-robustness + Gate B R1 Hadamard + RM(1,m) third-family) ALL passed on CLEAN substrate; the ✅ scope is and was clean-substrate.
+- E1'' at η = 0.01 returns 5/5 — STRONGER than v175 clean-substrate gates which were 4/5. The clean-regime ✅ promotion is REINFORCED by the 20-seed η=0.01 datum, not weakened.
+- Reverting to 🟢 would imply v175 gates didn't actually pass — they did, at their actually-tested scope.
+
+**Cap 12 row title changes from (v175):**
+
+> "AMP-vs-VAMP inference routing infrastructure (MP-KS pre-flight + κ_n-divergence cross-family explainer)"
+
+**to (v178):**
+
+> "AMP-vs-VAMP inference routing infrastructure for CLEAN-SUBSTRATE codebooks (MP-KS pre-flight + κ_n-divergence cross-family explainer; noise envelope η ≤ 0.01 verified at 20-seed; degrades sharply above with non-monotone η-interaction)"
+
+This is the FIRST TITLE-LEVEL scope-tightening of the orchestrator-migration era. v176 and v177 added envelope annotations to the row's evidence-block tail; v178 elevates the noise-envelope qualifier INTO the title because the v175 v176 v177 chain of annotation-tail tightenings was insufficient to honestly scope the customer-facing claim.
+
+### Customer-facing claim NARROWS
+
+"Cap 12 routes inference primitive selection correctly between AMP and VAMP for codebooks with noise η ≤ 0.01 (≤1% per-entry sign-flip). Above η = 0.01 routing accuracy degrades sharply (2-3/5 at η = 0.02-0.04) with non-monotone η-interaction; deploy only on clean-substrate or noise-cleaned codebooks."
+
+### Portfolio gap flagged
+
+"Noise-cleanup pre-processing as downstream capability" — UNTESTED. Customer deployment in noisy environments (η > 0.01) currently requires upstream codebook denoising pipeline. Candidate mechanisms: (a) projection back to bipolar lattice; (b) majority-vote across multiple noisy copies; (c) explicit error-correcting codebook structure (Reed-Muller, Kerdock with parity); (d) consensus filtering. NOT filed as Research routing this cycle (Research already loaded with Comp-A iterates + E2 N=16384). Carried forward as portfolio-gap flag for next scope-expansion cycle per [[feedback-strategy-shore-up-capabilities]].
+
+### v175 promotion retrospective (per [[feedback-no-smoke]] brutal honesty)
+
+**Was v175 ✅ premature?** Honest answer: **NOT premature in protocol, but premature in design.**
+
+- ON PROTOCOL: the v175 compound gate (Gate A clean τ-robustness + Gate B clean Hadamard + RM(1,m) clean third-family) fired honestly. Three pre-registered gates ALL passed. The ✅ promotion was correctly issued against gates-as-written.
+- ON DESIGN: the gates were too narrow on the deployment-realism axis. With three increasing-evidence stress-gate iterations (E1 → E1' → E1'') successively tightening the envelope, the cumulative honest reading is: "a more disciplined promotion would have required E1-passing AT PROMOTION TIME, not as a post-promotion stress gate."
+
+This is exactly the [[feedback-envelope-expansion-fail-bands]] LOCK candidate from v175 — and v178 confirms its diagnostic value: stress-gate-deferred promotions ARE brittle on the deferred axis. The v178 title narrowing is the cost of that deferral; the row's customer-facing scope narrows.
+
+### NEW deferred lock candidate (FIRST observation)
+
+"Deployment-realism gate IN-promotion for ✅ at mixed-margin or stress-deferred compound gates" addendum to [[feedback-envelope-expansion-fail-bands]]:
+
+- When a row promotes to ✅ on a mixed-margin compound gate (any single gate at-threshold rather than with-margin), the cap_map entry MUST include AT LEAST ONE deployment-realism stress gate IN-PROMOTION not deferred-as-stress-gate.
+- "Deployment-realism" = at-least-one-axis-of customer-data-realism (noise, drift, finite-precision, multi-tenant adversarial input, etc.).
+- Without this, promoted ✅ rows ARE brittle on the deferred-realism axis and require ≥3 stress-gate iterations to converge on the actual envelope.
+
+FIRST observation. DEFER candidate filed; revisit after the next mixed-margin ✅ promotion to test pattern recurrence.
+
+### Pre-registered NEXT — what closes, what stays
+
+**CLOSED this cycle**:
+- v177 E1'' 20-seed sub-probe at η ∈ {0.01, 0.02, 0.03, 0.04, 0.05} τ=0.20 — RAN as wave14_mp_ks_noise_envelope_sweep_v2b; HARD-FAIL branch FIRED; pre-reg closed cleanly.
+- v177 open question "non-monotone genuine or 5-seed scatter?" — RESOLVED. GENUINE η-interaction (η=0.05 recovery confirmed at 20-seed).
+
+**STAYS pre-registered untested**:
+- E2 N=16384 cross-family ρ ≥ 0.50 across 3 families (running on GPU per v177's queue note).
+- E3 fifth-family iid-Gauss → Paley-Hadamard or Walsh-Hadamard ρ ≥ 0.500.
+
+**NEW pre-registered** (NONE this cycle): no new stress gate filed. η-envelope at sufficient resolution for product-framing scope; further drilling 50-seed+ out of CPU budget for marginal customer-claim refinement.
+
+### PROT discipline
+
+- PROT-001 to PROT-003: cap_map.md version table bumped v177 → v178; narrative block + capability moves table written.
+- PROT-004/006: NOT triggered (title-level scope-tightening annotation on existing ✅ row; no new ❌ PROVISIONAL; no closure).
+- PROT-007: v178 history block written to substrate_capability_map_history.md.
+- PROT-008: validator must pass before commit; v178 adds 0 new ❌ rows + 0 state changes (title-only change).
+- PROT-009: cap_map.md + history.md + active_priorities.md + strategy_decisions_2026-05-24.md + visibility_decisions_2026-05-24.md staged atomically; 92nd paired commit.
+
+### Pipeline state at completion
+
+- Pause flag: CLEARED (ACTIVE).
+- Queue depth: ≥ 1 (remote_cpu has v1c cap8 iterates pending; GPU has 5 prior + N=8192 Anchor 4).
+- Verdict_handler does NOT flag queue-refill.
+- v178 commit hash: TBD (recorded in deliverable to main thread for push).

@@ -204,3 +204,49 @@ Visibility logged for cycle 198 (wave14_mmd_vs_mpks_pretest_v1 → annotation-on
 ### V1 entry (MEDIUM)
 
 Logged at 04:01 at v177 paired commit. PLAIN: The v176 fine-resolution noise probe came back with a 5-seed-per-cell sweep at η ∈ {0, 0.01, 0.025, 0.05, 0.075, 0.10}. The script wrote "η_critical=0.025" as a confident threshold, but the per-η accuracies are 4/5, 4/5, 2/5, 4/5, 1/5, 3/5 — NON-MONOTONIC, with a recovery cell at η=0.05 that breaks any clean threshold reading. With 5 seeds the per-cell ±1 binomial scatter is large enough to swamp the apparent threshold. Honest re-read: Cap 12 ✅ tolerates noise up to η ≤ 0.01 with verified evidence (4/5 routing at η=0.01 matches clean); behavior above 1% noise needs 20-seed resolution to characterize. The v176 customer-facing claim "ε bounded above by 0.10" TIGHTENS to v177 "tolerates ≤1% noise (verified); >1% needs further characterization." 20-seed E1'' follow-up pre-registered at η ∈ {0.01, 0.02, 0.03, 0.04, 0.05} with explicit HARD-PASS/HARD-FAIL/MIDDLE-BAND branches. Portfolio count UNCHANGED at 12. This is the SECOND time today a script's verdict_msg has labeled a conclusion that its own per-cell metrics contradict (first: wave14_mmd_vs_mpks_pretest_v1 with "MMD strictly out-performs MP-KS" while ρ_KS > ρ_MMD and routing KS > MMD); two-observation lock threshold MET; memory_curator LOCK candidate RECOMMENDED NOW. IMPORTANCE: MEDIUM (envelope-tightening annotation; not a state change but customer-facing scope narrows + 2nd-observation lock signal).
+
+
+---
+
+## 2026-05-24 — wave14_cap12_cap8_audit_trail_pipeline_v1 visibility (honest re-read)
+
+**Event tag.** `COMPA_AUDIT_MIDDLE_BAND` (script label) → **HONEST RE-READ: PARTIAL-DATA-AMBIGUOUS**.
+
+**For You tab entry.** importance = MEDIUM. plain_language explains that the Composition A audit looks like a mixed result on the surface but ONLY 2 of the 4 codebook families actually have data; one of those two (Kerdock) is a PERFECT correlation (ρ=1.0), the other (RM(1,m)) misses the threshold (ρ=0.40), and the other two families (SRHT + Hadamard) are NaN because the Cap 8 VAMP iterate trace was never saved for them. The "1/4 pass" framing was misleading; the honest reading is "data missing on 2 families; perfect on 1, fail on 1, can't decide."
+
+**Dashboard surfaces.**
+- For You tab: NEW entry surfaced (Composition A: data-missing, not killed; follow-up pre-registered).
+- Capacity tab: NO row change. Composition A annotation still rides on the v169 closed-form annotations across Cap 1 / Cap 3 / Cap 8.
+- Orchestrator status panel: pause flag CLEARED; remote_cpu queue NOW EMPTY (post Composition A + E1'); GPU still running E2; CPU refill flagged to main thread.
+- Portfolio count display stays at 12.
+
+**Honest-reading flag.** Per [[feedback-verdict-msg-honest-reread]] (LOCK landed THIS cycle) verdict_msg labelled "1/4 families pass" / "weak structural sharing" — the honest re-read substitutes "PERFECT on Kerdock + below-threshold on RM(1,m) + 2 NaN families (data missing, not weak); not licensed, not killed; re-run after saving Cap 8 VAMP iterates on SRHT + Hadamard." This is the THIRD observation today of "script verdict_msg over-claims its per-cell metrics" — the LOCK just landed THIS cycle is now VALIDATED on its first post-lock test.
+
+**Pattern flag.** Three observations of the over-claim pattern: (1) wave14_mmd_vs_mpks_pretest_v1 "MMD strictly out-performs MP-KS" (contradicted by ρ_KS > ρ_MMD); (2) wave14_mp_ks_noise_envelope_sweep_v1 "η_critical=0.025" (contradicted by non-monotonic 4,4,2,4,1,3); (3) THIS verdict "1/4 pass" (conflates data-missing with weak). LOCK [[feedback-verdict-msg-honest-reread]] caught this one on first post-lock contact.
+
+Visibility logged for cycle 198 (wave14_cap12_cap8_audit_trail_pipeline_v1 → annotation-only; no cap_map commit; queue-refill flagged to main thread).
+
+- 2026-05-24 ~10:25 verdict wave14_cap11_chi4_early_warning_anchor_v1 CAP11_CHI4_FAIL — chi_4 spike huge (SNR 6.4e9) BUT all 5 seeds negative lead-time; chi_4 is post-hoc characterization, not early-warning. Composition C (Cap12+Cap11+Cap1) KILLED at composition level; Cap 11 stays ✅ at current scope. Honest re-read flagged "(<1.5)" inline-threshold label as 4th observation under just-locked [[feedback-verdict-msg-honest-reread]]. Cap_map unchanged (annotation-only). Portfolio count 12.
+
+## 10:20 — wave14_interp_family_N16384_v1 TIMEOUT (rescued from diagnostic)
+
+GPU lane timed out at wall_s=10800 (3h cap) with empty result dir on the pre-registered E2 Cap 12 N-scaling stress gate (κ_n divergence predictor at N=16384 across {Kerdock, SRHT, Hadamard}). Strategy verdict: Cap 12 ✅ STAYS at v175 scope (N ∈ {1024, 4096}); N=16384 UNTESTED (not failed). Portfolio 12 UNCHANGED. No cap_map commit; annotation-only in strategy_decisions_2026-05-24.md. Follow-up sketch: `wave14_interp_family_N8192_v1` (halve N to fit 3h budget) — DEFERRED to main thread re-ship. FIRST timeout-failure of the session; flags candidate inefficiency `envelope-extension-compute-budget-pre-reg` (1st observation, lock deferred per 2x discipline).
+
+PLAIN: We tried to push the new Cap 12 predictor (which tells customers when AMP-style inference will fail and they should use VAMP instead) to a larger problem size (N=16384) to confirm it scales. The GPU ran out of time (3h cap) before producing any data — so we DON'T know if the predictor still works at that size. Cap 12 is still ✅ at the smaller sizes (1024, 4096) where it was validated. Next try: halve the problem size to fit in the time budget.
+
+IMPORTANCE: MEDIUM
+- 2026-05-24 wave14_cap8_vamp_iterates_srht_hadamard_v1b CAP8_ITERATES_FAILED — silent script failure (0/30 trace files, 599s); engineering not substrate; importance=MEDIUM; portfolio 12 unchanged; no cap_map commit; Composition A v3 will likely NaN on SRHT/Hadamard from missing input traces — let it run; v4 fix follows parallel diagnostic.
+
+---
+
+## Cycle 194 / v177 -- COMPA_AUDIT v3 STEP 0 LABEL-VS-HONEST FLAG (verdict_handler, log-only)
+
+### Single entry (MEDIUM)
+
+PLAIN: Step 0 honest re-read of `data/exp_wave14_cap12_cap8_audit_trail_pipeline_v3_smoke/metrics.json` contradicts the verdict_handler-supplied verdict_msg. The supplied message claims a 4-codebook Composition A audit with rhos={kerdock:1.0, srht:0.533, hadamard:0.533, rm_1_m:0.40} and a MIDDLE_BAND label; the on-disk metrics file says COMPA_AUDIT_INCONCLUSIVE with only TWO codebooks (kerdock + iid_gauss) and n_seeds=1 in smoke mode. The SRHT/Hadamard/RM(1,m) rho values quoted in the verdict_msg are not present in the data file. Honest reading: insufficient evidence for ANY Composition A claim from this run; the narrative about "Kerdock-specific narrow holds; bimodal pattern is REAL" is NOT supported by this metrics.json (it would require the FULL-mode 4-codebook 5-seed run). No cap_map version bump; no v169 annotation scope-tightening; portfolio stays at 12. Queue refill NONE (pipeline healthy). Per [[feedback-verdict-msg-honest-reread]] this is the 6th honest-reread observation, and a NEW failure mode worth distinguishing -- prior cases were over-claiming a label given correct underlying numbers; this case is the supplied verdict_msg containing numbers that aren't in the metrics file at all (fabricated-cells failure mode). Follow-up gate: require FULL-mode 4-codebook metrics.json with on-disk per-family rhos before any v178 bump on this experiment family. IMPORTANCE: MEDIUM (informative honest-reread flag; not promotion, not kill, not even confirmed measurement).
+
+
+
+## 07:25 — wave14_mp_ks_noise_envelope_sweep_v2b KILLED; Cap 12 ✅ stays with TITLE-LEVEL scope-tightening (v178 cap_map commit)
+
+The pre-registered v177 E1'' 20-seed noise-threshold follow-up returned per_eta_correct={'0.010': 5, '0.020': 2, '0.030': 3, '0.040': 2, '0.050': 4} — the HARD-FAIL clause `per_eta_correct ≤ 3 at η=0.02` fires exactly. Per [[feedback-envelope-expansion-fail-bands]] this is title-level scope-tightening (Cap 12 row title now reads "AMP-vs-VAMP inference routing infrastructure for CLEAN-SUBSTRATE codebooks ... noise envelope η ≤ 0.01 verified at 20-seed; degrades sharply above with non-monotone η-interaction"), NOT ✅ → 🟢 revert — the v175 promotion gates were clean-substrate-only and E1'' at η=0.01 reinforces the clean-substrate ✅ at 5/5 (stronger than v175's 4/5). Customer-facing deployment claim narrows materially to "η ≤ 0.01 codebooks; deploy only on clean-substrate or noise-cleaned input." Portfolio count unchanged at 12. New portfolio gap flagged ("noise-cleanup pre-processing as downstream capability" — UNTESTED). Step 0 honest re-read PASSES — verdict_msg matches per-cell data (first clean post-lock 20-seed test of [[feedback-verdict-msg-honest-reread]]). PLAIN: Our most-recent capability promotion (Cap 12, the "is AMP enough or do we need VAMP?" pre-flight router for matrix-inverse-style inference primitive selection) just confirmed at full 20-seed statistics that it only routes correctly on clean codebooks — at ≥2% per-entry noise it gets the routing wrong on most codebook families, with the failure being η-specific rather than monotone-decay. The capability remains validated for clean-substrate use; the customer-facing claim narrows to "clean codebooks only (≤1% noise)"; a new portfolio gap — codebook denoising as a pre-processor — is now on the research radar. IMPORTANCE: HIGH (major customer-facing scope narrowing on the first ✅ promotion of the orchestrator-migration era; title-level annotation is load-bearing; pre-registered hard-fail discipline working as designed).
