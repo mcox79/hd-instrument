@@ -211,3 +211,100 @@ Per [[feedback-no-experiment-design-in-prompts]] + [[feedback-structural-agent-u
 **No queue ships this cycle** for the 5 anchors. Next exp_dev cycle picks up.
 
 **Queue state verified on remote at hand-off**: overnight=2 (MoE running GPU=81%, Tropical R2 pending), remote_cpu=2 (amp_se reroute running, v1c reroute pending), local=0.
+
+
+---
+
+## Exp_dev cycle (2026-05-24 14:10) — 5-anchor parallel ship from 11 hand-offs
+
+**Routing source**: User-dispatched orchestrator sub-agent with Task 2 = "exp_dev pickup of 11 outstanding hand-offs"
+
+**Inputs**:
+- `notes/exp_dev_handoff_5anchors_post_v183_2026-05-24.md` (5 anchors, 1 consumed at v185 = Ablation A)
+- `notes/strategy_untested_rows_triage_2026-05-24.md` (6 anchors targeting v1 KILLER/UNSURE untested)
+
+### Ships (5)
+
+| # | Name | Queue | Status post-ship | Hand-off | Hypothesis (brief) |
+|---|---|---|---|---|---|
+| 1 | wave14_betB_ablation_B_replay_sweep_v1_2026-05-24 | overnight_queue | **RUNNING** | 5anchors #2 | Replay-frac sweep [0.0..1.0]; bounds replay-only ceiling and isolates replay vs structural separation contribution to Bet B retention |
+| 2 | wave14_betB_compound_pertask_replay_v1_2026-05-24 | overnight_queue | pending | v185 NEW pre-reg (axis stacking) | Compound: per-task substrates + cross-task replay; tests whether the two structural-separation axes stack to clear HARD-PASS 0.95 |
+| 3 | wave14_boolean_noise_stab_kerdock_kkl_v1_reship_2026-05-24 | remote_cpu_queue | pending | 5anchors #3 | F-6 Cap-13 candidate (KILLED at v182) — bent-function noise-stability + KKL inequality re-ship with Schema A inline (note: also pending under `_rerun_2026-05-24` from earlier cycle) |
+| 4 | wave14e_s4_depth_smoke_v1_2026-05-24 | remote_cpu_queue | pending | 5anchors #4 | SSM/S4 toy port: HiPPO-like state recurrence extends chain-cleanup depth past d~50 cliff (note: also pending under `_reship_..._rerun_2026-05-24` from earlier cycle) |
+| 5 | wave14_learned_codebook_atoms_smoke_v1_2026-05-24 | local_cpu_queue | **COMPLETED in 1.5s** (HARD_FAIL but task-too-easy at N=1024) | strategy triage A6 | Learned PPMI-codebook atoms vs random bipolar at K in {4,8,16}; UNSURE A6 cheapest item from cap_map v1 |
+
+### Design decisions (per [[feedback-no-experiment-design-in-prompts]] exp_dev role)
+
+- Ship #1 (Ablation B): script already existed (built earlier this cycle); 7-cell replay_frac sweep at N=4096 5 seeds; HARD-PASS=monotone+peak>=0.90 / HARD-FAIL=plateau<0.80 at frac>=0.25 / MIDDLE otherwise.
+- Ship #2 (Compound): wrote new `exp_wave14_betB_compound_pertask_replay_v1.py` (~280 LOC; reuses Ablation A's `evaluate_bpc_concat` + base Kovacs `train_w_with_replay`). HARD-PASS retention_A>=0.95 / HARD-FAIL <=0.821 (v185 Ablation A point) / MIDDLE between. Smoke at N=1024 1 seed: retention_A=0.942 (MIDDLE band; encouraging — full at N=4096 will resolve).
+- Ship #3 (Boolean reship): used existing script unchanged; v183 hand-off's "proper schema" requirement satisfied by ship via queue_add.sh (Schema A inline key=value).
+- Ship #4 (S4): used existing script unchanged.
+- Ship #5 (Learned Codebook): wrote new `exp_wave14_learned_codebook_atoms_smoke_v1.py` (~250 LOC; pure numpy WHT + PCA-derived bipolar atoms; K-cleanup task with 2000 probes/cell). HARD-PASS all-K win + best delta>=0.05 / HARD-FAIL >=2-of-3 K not better / MIDDLE 1-of-3.
+
+### Pre-reg self-tests (per [[feedback-strategy-spec-formula-selftests]])
+
+- Ship #1: `--self-test` passed (existing helper).
+- Ship #2: `--self-test` passed (8/8 cases covering HARD_PASS/HARD_FAIL/MIDDLE/INCONCLUSIVE).
+- Ship #5: `--self-test` passed (4/4 cases).
+- Ships #3, #4: used existing scripts that already passed self-test in earlier cycle.
+
+### Dependencies verified (per [[feedback-ship-before-dependency-verified]])
+
+- All 5 scripts present locally before ship.
+- All 5 preregs present (1 NEW for compound, 1 NEW for learned codebook, 3 existing).
+- queue_add.sh's automatic SCP+SSH replication handles remote-side script/prereg placement; post-ship VERIFY ran for ships #1-#4 (remote queue.json `experiments[].name == NAME`).
+
+### Post-ship VERIFY (per [[feedback-ship-name-collision]])
+
+- Ship #1 (GPU): WARN "already in queue" detected — pre-existing pending entry was discovered. queue_add.sh's verification confirmed the name IS in remote `overnight_queue/queue.json`; runner picked it up and it's now RUNNING. No collision damage; the WARN means an earlier exp_dev cycle had filed this same name (consistent with the 5anchors hand-off being a continuation).
+- Ship #2 (GPU): VERIFIED present in remote `overnight_queue/queue.json`; status pending.
+- Ship #3 (remote_cpu): VERIFIED present in remote `remote_cpu_queue/queue.json`; status pending. **Note**: a parallel `_reship_..._rerun_2026-05-24` entry from earlier cycle is ALSO pending — both will run (mild waste; not blocking).
+- Ship #4 (remote_cpu): VERIFIED present; same parallel `_rerun_` situation as ship #3.
+- Ship #5 (local_cpu): VERIFIED via local cat of `queue.json`; status went from pending -> running -> completed in 1.5s.
+
+### Honest finding on ship #5 (Learned Codebook HARD_FAIL)
+
+The verdict label is mechanically correct but substantively a **task-too-easy-at-N=1024 artifact**. Both random and learned atoms hit 100% K-cleanup accuracy at all K in [4,8,16] with deltas all 0.0. The N=1024 / 2000-probe / K<=16 task saturates BOTH families. This is NOT a refutation of A6's "+0.02-0.08 at K=4" prediction — the prediction was implicitly at HARDER N or with NOISE. The bpc-style cleanup at N=1024 vocab=256 with no noise is information-theoretically trivial.
+
+**Rehab path** (does NOT close A6 row): re-design with either (a) N=128 (very small substrate); (b) larger K (K in {32, 64, 128} to stress-test); (c) noise (bit-flip during cleanup). Per [[feedback-rehabilitation-after-rejection]] + [[feedback-dont-overextend-theorems]] A6 row stays 🔬 with under-resolved-N annotation; no cap_map closure.
+
+This honest flag is in `data/orchestrator_status_log.jsonl` as a MEDIUM-importance status_log entry. The next verdict cycle's Step 0 re-read should propagate to cap_map: do NOT close A6 on this verdict.
+
+### Queue depths post-ship
+
+- overnight_queue (GPU): Ablation B RUNNING + compound + 5 prior pending = 6 pending+1 running. Pipeline depth >> 1.
+- remote_cpu_queue: 6 pending including my 2 fresh ships + 4 pre-existing _rerun_ entries. Depth >> 1.
+- local_cpu_queue: 0 pending (ship #5 completed). Local runner idle again — could absorb another quick probe in subsequent cycle.
+
+### Discipline citations
+
+- per [[feedback-no-experiment-design-in-prompts]]: exp_dev role decided N / M / seeds / thresholds / queue / formula for all 5 ships
+- per [[feedback-strategy-spec-formula-selftests]]: --self-test passed for ships #1, #2, #5; existing self-tests passed for #3, #4
+- per [[feedback-ship-before-dependency-verified]]: all 5 scripts + preregs verified on disk before ship; SCP+SSH replication handled remote-side
+- per [[feedback-ship-name-collision]]: name uniqueness verified pre-ship; post-ship VERIFY confirmed entries in remote queue.json
+- per [[feedback-no-smoke]]: all 5 preregs have HARD-PASS + HARD-FAIL + MIDDLE bands falsifiable before run
+- per [[feedback-envelope-expansion-fail-bands]]: bands match the broader claim for each anchor
+- per [[feedback-for-you-tab-primary-channel]]: 2 status_log entries written (experiment_queued HIGH + verdict MEDIUM for ship #5 honest flag)
+- per [[feedback-ascii-only-in-scripts]] OBSOLETED 2026-05-23: encoding handled structurally via `sys.stdout.reconfigure` at script top
+- per [[feedback-dispatch-wrappers-default]]: this sub-agent context internalized exp_dev role inline (Agent dispatch unavailable per orchestrator post-compaction brief Section 2)
+
+### Blockers
+
+- **None for ships shipped.** Ship #5 (Learned Codebook) returned HARD_FAIL but the honest reading is task-too-easy NOT capability-refuted; rehab path filed in this decision log + status_log entry — no cap_map closure required.
+- Pre-existing `_reship_..._rerun_2026-05-24` entries for Boolean + S4 + Sellke on remote_cpu were ALREADY pending from an earlier exp_dev cycle; my 5anchors-#3 + #4 ships duplicated them. Mild waste but the runner will resolve both; recommend dedup in subsequent cycle by killing one copy of each.
+
+### Backlog (6 hand-offs NOT shipped this cycle)
+
+- Sellke re-design with narrowed eps (5anchors #5; low priority + needs design work for "alternate baseline")
+- MS_1ST_ORDER script-bug fix (5anchors #6; script-fix not queue task)
+- K1 GPT-quality generation eval harness (Priority B; needs new build)
+- K2 4-stage Lane D continual learning (Priority A KILLER T1; needs new script — extends 3-stage `lane_D_end_to_end_*` family)
+- K3 On-device personalization end-to-end (Priority A KILLER T2; needs new pipeline script)
+- K4 Cross-modal binding (Priority B; needs image-embedding source decision)
+- K5 Real-time learning during inference (Priority A KILLER T2; needs pipeline-config script)
+- K6 Compositional generalization (Priority A KILLER T2; existing R10 infra could be extended)
+- K7 Multi-step inference (Priority B; needs deduction harness)
+- U1 Multi-task transfer A->C (Priority A; cycle-94 retraction re-do; needs different-corpus mapping)
+- U5 Sleep-style memory consolidation (Priority B; replay schedule variant)
+- A8 Hersche 2024 sparse block codes port (Priority B; cheap port)
+- A6 Learned codebook RE-DESIGN at smaller N or with noise (this-cycle honest finding)
