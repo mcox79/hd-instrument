@@ -1218,3 +1218,56 @@ Net: 25 strict / 34 broad smoke->FULL divergence anchors (broad +1 by v167; stri
 ### Tally (one-line)
 
 SINGLE VERDICT v166 -> v167: kappa_n_profile_v1 FULL = KAPPA_PROFILE_GROWS at 96.67s overnight_queue (3/4 alpha cells show kappa_n divergence from MP GROWING with n through n=8; substrate-novel additive-free-prob fingerprint AMPLIFIES at higher cumulants; per-cell classes GROWS=3 DECAYS=0 SATURATES=1 MP_LIKE=0 UNCLEAR=0); v167 adds ZERO new rows + ONE clarifying annotation on the v164a/v166 ✅ free-cumulant fingerprint row (cumulant-order-stability as third stability dimension alongside N-stability + bulk-boundedness); v164a row STATE stays at ✅ per [[feedback-dont-overextend-theorems]]; substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT; "outside AMP universality" wedge now anchored on additive-R-transform fingerprint stable along all three natural limits (N -> infty + support + cumulant order n through n=8); SIBLINGS NOT YET LANDED (3 prior-batch experiments still in flight); per [[feedback-no-smoke]] honest framing of SATURATES=1 cell; 3 Research/Exp Dev candidate follow-ups noted; queue-refill DEFERRED to parallel exp_dev; per PROT-004/006 NOT triggered; smoke->FULL broad anchors +1 (34/25); 81st PROT-009 paired commit.
+
+## 20:35 -- Cycle 188 v168 SINGLE VERDICT: vamp_amp_universality_contrast_v1 GPU FULL = VAMP_AMP_CONTRAST_PASS
+
+**Verdict**: `vamp_amp_universality_contrast_v1` GPU FULL = VAMP_AMP_CONTRAST_PASS at 1325.66s elapsed on overnight_queue. VAMP-SE tracks empirical VAMP (3/3 cells under 20% rel err, mean=0.021) while AMP-SE diverges from empirical AMP (1/3 cells close, mean=0.450). Clean substrate-product split per pre-reg HARD PASS criterion; deflated P=0.45 -> HARD PASS confirmed.
+
+### Strategic call (per [[feedback-dont-overextend-theorems]] and [[feedback-no-smoke]])
+
+This is likely the strongest single substrate-product result of the session. It is the constructive obverse of the v164a/v165/v166/v167 negative-direction fingerprint stack: on the SAME Kerdock codebook where AMP breaks (mean rel err=0.450 / v163 mean=0.916), VAMP holds (mean rel err=0.021). Mechanism story is algebraically clean: AMP uses scalar first moment only; VAMP uses full singular spectrum = S-transform-equivalent info. Substrate's higher kappa_n (v164a) + non-MP S-transform (v165) make AMP fail but do NOT break VAMP.
+
+**Decision on portfolio count: 11 UNCHANGED. NO 12th portfolio capability.** Justification:
+- Cap 8 already reads "TWO substrate-novel readout primitives equivalent (VAMP-on-chain + hard-cleanup) ✅ FULL cycle 162." VAMP-on-chain is ALREADY in the portfolio.
+- The new finding does NOT introduce a new readout primitive; it provides the ALGEBRAIC-MECHANISM JUSTIFICATION for why VAMP-on-chain works on the Kerdock codebook. This is envelope-strengthening anchor on Cap 8, not a 12th row.
+- Adding "uses VAMP not AMP" as a separate 12th-row would double-count what Cap 8 already covers per [[feedback-dont-overextend-theorems]].
+- The substrate-product implication "substrate forces moment-aware inference" is REAL and SUBSTANTIVE per the user's strategic-guidance framing, but it lives WITHIN Cap 8 (as the algebraic-mechanism strengthening annotation) not alongside it.
+
+**Decision on new evidence-strength row: 🟢 NEW (not ✅).** Per [[feedback-dont-overextend-theorems]] and the v164a precedent: single-N N=4096 + 3 alpha cells {0.5, 1.0, 2.0} + 5 seeds = single-N evidence-strength grade. ✅ promotion requires the explicit pre-registered multi-N replication criterion. The pre-registration at `preregs/2026-05-23_wave14_vamp_amp_universality_multi_N_v1.md` already names the multi-N (N=8192/16384) follow-up; that fires the explicit N-stability promotion gate.
+
+**Honest framing of AMP-SE 1/3 cells close** per [[feedback-no-smoke]]: the lowest-alpha cell at alpha=0.5 plausibly stays close to scalar AMP-SE (AMP-SE is known to be diagnostic at sub-critical alpha even on non-RI matrices). The "AMP breaks" claim is NOT "AMP fails at all alpha"; the v167 KAPPA_PROFILE_GROWS prediction is that AMP failure WORSENS at higher alpha (where higher kappa_n diverge more). Extended-alpha VAMP-vs-AMP probe is the right next test.
+
+### Capability moves (v167 -> v168)
+
+| Capability | v167 state | v168 state | Trigger |
+|---|---|---|---|
+| **Substrate-physics: outside-AMP-universality at SE-fixed-point level** | mechanistically anchored on FOUR algebraic-fingerprint axes (additive R-transform ✅ + multiplicative S-transform 🟢 + codeword-overlap 🟢 + excess Hessian zero modes 🟢) + cumulant-order-stability annotation | **STRENGTHENED with CONSTRUCTIVE OBVERSE**: VAMP-SE empirically tracks empirical VAMP at mean rel err=0.021 (3/3 cells); AMP-SE empirically diverges at mean rel err=0.450 (1/3 cells close). "Outside AMP universality" now characterized on BOTH SIDES of the universality boundary (substrate FAILS scalar-AMP-SE AND PASSES full-spectrum-VAMP-SE) | Verdict (VAMP_AMP_CONTRAST_PASS) |
+| **NEW ROW: VAMP-vs-AMP universality split on Kerdock at SE-fixed-point level** | did not exist | 🟢 NEW v168 at FULL: positive-direction inference-primitive anchor; constructive obverse to v164a/v165/v166/v167 fingerprint stack. Single-N N=4096 + 3 alpha cells + 5 seeds. ✅ promotion gate: multi-N replication (wave14_vamp_amp_universality_multi_N_v1 pre-reg already filed) + extended alpha range (alpha up to 4-8 to confirm AMP failure worsens) | Verdict |
+| **Cap 8 TWO substrate-novel readout primitives equivalent ✅ FULL** | ✅ FULL (cycle 162) | **ENVELOPE-STRENGTHENING ANCHOR ADDED, STATE UNCHANGED at ✅**: VAMP-on-chain gains clean algebraic-mechanism justification on Kerdock -- VAMP succeeds because it consumes full singular spectrum (S-transform-equivalent info); scalar-AMP fails because it uses first-moment only. Per [[feedback-dont-overextend-theorems]] annotation-grade strengthening, not state change | Verdict (algebraic-mechanism strengthening) |
+| **substrate-product portfolio count** | 11 demonstrated capabilities (UNCHANGED at v161 through v167) | **11 demonstrated capabilities UNCHANGED IN COUNT** -- Cap 8 already names VAMP-on-chain so adding "uses VAMP not AMP" as separate 12th-row double-counts; substantive substrate-product implication lives within Cap 8 | n/a (Cap 8 pre-existing) |
+
+### Strategy actions (cycle 188)
+
+1. **PROT-009 v168 single-verdict commit** -- 82nd PROT-009 paired commit.
+2. **substrate_capability_map.md** appended atomically with v168 narrative + capability moves table.
+3. **substrate_capability_map_history.md** appended with v168 one-line index entry.
+4. **active_priorities.md** updated atomically v167 -> v168: substrate-physics row gains v168 positive-direction inference-primitive anchor; Cap 8 row gains algebraic-mechanism strengthening annotation.
+5. **strategy_decisions_2026-05-23.md** this entry.
+6. **visibility_decisions_2026-05-23.md** appended with HIGH-importance plain-language v168 substrate-product story.
+7. **Push v168 to remote**: deferred to main thread (sub-agent push blocked per [[feedback-subagent-permission-inheritance]]).
+8. **Queue-refill** NOT triggered: pending=5 (GPU=3, CPU=2). Pipeline healthy per [[feedback-pipeline-pacing]].
+9. **3 NEW Research/Exp Dev candidate experiments noted** (multi-N VAMP-vs-AMP via pre-existing multi_N_v1 pre-reg [HIGHEST priority -- fires explicit N-stability promotion gate] + extended-alpha VAMP-vs-AMP {alpha 2, 4, 8} + R-transform-driven VAMP-SE composition using v164/v166-measured R-transform as input rather than empirical SVD).
+10. **Pipeline-pacing**: pause flag CLEARED -- ACTIVE. Queue depth 5 healthy. Verdict_handler does NOT also ship.
+11. **No new inefficiencies surfaced this cycle.** v165-era CPU-vs-GPU venue selection guideline holds (v168 ran on GPU at 1325.66s -- correct venue choice; SVD + 300-iter VAMP/AMP at N=4096 alpha=2 is GPU-bound per memory + iteration intensity).
+
+### PROT compliance this cycle
+
+- PROT-001/002/003: not triggered.
+- PROT-004/006: NOT triggered (positive evidence + new 🟢 row + Cap 8 strengthening; no closure no new ❌).
+- PROT-007: v168 history block written.
+- PROT-008: validator must pass; v168 adds 0 new ❌ rows.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-23.md + active_priorities.md + visibility_decisions_2026-05-23.md staged atomically.
+
+### Tally (one-line)
+
+SINGLE VERDICT v167 -> v168: vamp_amp_universality_contrast_v1 GPU FULL = VAMP_AMP_CONTRAST_PASS at 1325.66s overnight_queue (VAMP-SE 3/3 cells <20% rel err mean=0.021 + AMP-SE 1/3 cells close mean=0.450; clean substrate-product split per pre-reg HARD PASS criterion; deflated P=0.45 -> HARD PASS confirmed); v168 lands FIRST positive-direction substrate-physics anchor for "outside AMP universality" -- the constructive obverse to the v164a/v165/v166/v167 negative-direction fingerprint stack (substrate FAILS scalar-AMP-SE per v163 AND PASSES full-spectrum-VAMP-SE per v168 on SAME Kerdock codebook); mechanism story algebraically clean (AMP uses scalar first moment only and breaks on substrate's higher kappa_n; VAMP uses full singular spectrum = S-transform-equivalent info and holds); v168 adds ONE new 🟢 evidence-strength row ("VAMP-vs-AMP universality split on Kerdock at SE-fixed-point level"; positive-direction inference-primitive anchor) + ONE Cap 8 envelope-strengthening annotation (algebraic-mechanism justification for VAMP-on-chain on Kerdock); substrate-product portfolio at 11 demonstrated capabilities UNCHANGED IN COUNT per [[feedback-dont-overextend-theorems]] -- Cap 8 ALREADY names VAMP-on-chain as one of TWO substrate-novel readout primitives (cycle 162 anchor); adding "uses VAMP not AMP" as separate 12th-row would double-count Cap 8; substrate-product implication "substrate forces moment-aware inference" REAL and substantive but lives WITHIN Cap 8 not alongside it; new 🟢 row STAYS at 🟢 (single-N N=4096 + 3 alpha cells + 5 seeds; explicit ✅ promotion gate = multi-N via wave14_vamp_amp_universality_multi_N_v1 pre-reg already filed + extended-alpha range); per [[feedback-no-smoke]] honest framing of AMP-SE 1/3 cells close (lowest-alpha alpha=0.5 plausibly tracks scalar AMP-SE; AMP failure expected to worsen at higher alpha per v167 KAPPA_PROFILE_GROWS); 3 NEW Research/Exp Dev candidate experiments noted (multi-N VAMP-vs-AMP HIGHEST priority + extended-alpha + R-transform-driven VAMP-SE composition); per [[feedback-pipeline-pacing]] queue healthy at depth 5 (GPU=3 + CPU=2) -- verdict_handler does NOT ship; SIBLINGS NOT YET LANDED (2 remaining from v167-era batch -- parisi_pq_kerdock_v2 + amp_se_kerdock_longiter_v1 -- still in flight); per PROT-004/006 NOT triggered; smoke->FULL broad anchors UNCHANGED (v168 no smoke step; 34/25); pause flag CLEARED -- ACTIVE single-verdict verdict_handler dispatched in ACTIVE state; 82nd PROT-009 paired commit.
