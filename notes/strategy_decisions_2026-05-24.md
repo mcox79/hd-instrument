@@ -2510,3 +2510,43 @@ Annotation-only. No row state changes. Portfolio 13 demonstrated + 5 evidence-st
 ### per PROT-009
 
 114th paired commit (cap_map.md v201 + history.md v201 + this strategy_decisions entry).
+
+## v202 verdict_handler — 2026-05-24 — Bet B Alt 2 W-internal signature W_INTERNAL_HARD_FAIL
+
+**Verdict event**: wave14_betB_W_internal_signature_v1 completed on GPU (22:08:43 per runner log), verdict W_INTERNAL_HARD_FAIL. Smoke config: N=512, 1 seed, 3 corpus pairs, 13 W-internal signatures tested.
+
+**Step 0 honest re-read**: label W_INTERNAL_HARD_FAIL; verdict_msg "No W-internal signature predicts retention: best r^2=0.000 < 0.2. Post-Phase-A internal state contains no information about subsequent retention." Per-cell check: all 13 signatures (lam1/lam2/lam3/spectral_gap/spectral_gap_ratio/frob_norm_normalized/bundle_norm_mean/bundle_norm_std/bundle_norm_var/bundle_norm_kurtosis/bundle_norm_skewness/row_norm_mean/row_norm_std) have r^2=0.0. Retention values DO vary across 3 pairs (shuffled_same_corpus 1.015 / python_source 0.950 / random_bytes 0.870) -- variance existed for a predictor to capture; none of the 13 W signatures captured any of it. Label=msg=data CLEAN. Honest caveat: smoke config (1 seed, N=512, 3 pairs); r^2=EXACTLY 0.0 across all 13 signatures is strong signal that these spectral/norm observables are structurally non-predictive of retention under Phase-A initialization, not just noisy.
+
+### Decision 1: Alt 2 predictor CLOSED at smoke scale
+
+v200 Alt 2 (substrate-internal W-spectrum / bundle-norm / replica overlap after Phase-A) = W_INTERNAL_HARD_FAIL. All 13 tested signatures yield r^2=0.0 against retention. Per [[feedback-dont-overextend-theorems]]: this closes the specific W-spectral / bundle-norm / row-norm observable family as predictors of retention. Does NOT close the broader question of whether substrate carries any confidence-correlated signal via OTHER internal observables (endpoint-id partition, VAMP-on-chain posterior variance, chi_4 dynamic susceptibility, Kovacs-style hysteresis per query -- these remain open per v162/v150 annotations).
+
+### Decision 2: Rescue candidates for Alt 2 (per feedback-rehabilitation-after-rejection)
+
+Alt 2 HARD_FAIL on W-spectral/bundle-norm observables. 5 rescue sketches before closure:
+1. **Activation-pattern signatures** (NOT W-matrix): retrieve patterns x_A from Phase-A; measure overlap distribution, entropy, or activity statistics as predictor. Different axis from W-spectral -- might carry retention information even if W itself is uninformative.
+2. **Phase-B weight delta norm** (||W_B - W_A||_F): measure how much learning-in-B actually changes W; high delta may correlate with forgetting of A. Requires Phase-B run, not pure Phase-A signature.
+3. **Per-token prediction error trajectory during Phase-A** (BPC trajectory): measure how quickly Phase-A BPC plateaus; fast convergence may signal shallow encoding easily overwritten.
+4. **Effective rank of W_A** (nuclear norm / Frobenius norm ratio): tests whether W_A has low-rank structure leaving more capacity for Phase-B encoding without collision; distinct from eigenvalue magnitudes alone.
+5. **Mutual information proxy via Phase-A test-set BPC**: use Phase-A generalization quality (not internal weights) as predictor -- a substrate that generalizes better from Phase-A may have more robust encoding. External behavior, not W-internal, but rescues the predictability concept at a different observable level.
+
+All 5 rescues are zero-new-compute or cheap-CPU. Per [[feedback-rescue-sketch-first-sequencing]]: Rescue 3 (BPC trajectory) and Rescue 5 (test BPC) are cheapest -- both extractable from existing per-experiment metrics.json files without new runs. NOT dispatched this cycle (annotation-only; exp_dev owns design parameters).
+
+### Decision 3: Predictor search space state after v202
+
+- Alt 1 (discrete task-class predictor): SHIFT_CLASS_HARD_PASS at re-analysis level (v201); full-replication SHIFT_CLASS_REPLICATION_HARD_PASS also completed (wave14_betB_shift_class_full_replication_v1 -- separate verdict pending verdict_handler dispatch).
+- Alt 2 (W-internal signature): W_INTERNAL_HARD_FAIL (this verdict). Closed at smoke scale; 5 rescues registered.
+- Alt 3 (PAC-Bayes KL predictor): ALT3_LAPLACE_ASSUMPTION_VIOLATED (wave14_betB_pac_bayes_kl_predictor_v1 -- separate verdict pending verdict_handler dispatch).
+- **Net**: Alt 1 is the ONLY confirmed predictor family. Alt 2 + Alt 3 both produced HARD_FAILs at smoke scale. The predictability claim rests on Alt 1 discrete task-class classifier. Per [[feedback-dont-overextend-theorems]]: W-spectral and PAC-Bayes failures do NOT close Alt 2 rescues 1-5 above nor Alt 3 rescues (different KL formulations, tighter Laplace prior, direct bound computation remain untested).
+
+### Capability moves
+
+Annotation-only. No row state changes. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED.
+
+### Pipeline pacing
+
+No queue-refill dispatched (orchestrator handles separately per task contract).
+
+### per PROT-009
+
+115th paired commit (cap_map.md v202 + history.md v202 + this strategy_decisions entry).
