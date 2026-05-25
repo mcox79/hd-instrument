@@ -2327,3 +2327,77 @@ The negative signals SHARPEN substrate-product characterization toward (a) discr
 **PROT compliance**: NO commit (no cap_map state change); decision-log only entry per Step 0 honest re-read finding that v195 already consumed this anchor's FULL verdict.
 
 **Per [[feedback-verdict-msg-honest-reread]]**: The pre-PROT 57th observation would have been -- if the SMOKE artifact had been blindly processed -- a regression-class violation (re-processing already-consumed anchor with degraded data). Honest re-read caught this. The on-disk artifact is the stale pre-ship smoke; the canonical FULL Pred-2 verdict is in orchestrator_status_log.jsonl at 19:58:25 and was already absorbed at v195.
+
+
+---
+
+## v198+v199 -- BUG-RECOVERY: cascade-depth + capacity-plateau FULL results retrieved; root cause diagnosed; structural fix locked
+
+**Trigger**: User dispatch: investigate SMOKE-vs-FULL config mismatch from v196/v197 verdicts; diagnose root cause; re-ship if needed; patch shipping process.
+
+**Step 0 honest re-read**: FULL experiments already ran on remote GPU. No re-ship needed.
+
+### Root cause (confirmed)
+
+**Cause class**: Local artifact pollution -- exp_dev ran pre-ship smoke check under production `HDLAB_EXP_NAME` (not `{name}_smoke` suffix), writing `data/exp_wave14_1rsb_cascade_depth_v1/metrics.json` with `mode: smoke` config at 19:35 local. When the FULL ran on remote GPU (completed 19:56 cascade_depth, 20:10 capacity_plateau), it wrote FULL results to REMOTE's same path. The LOCAL file was never updated. Verdict_handler read LOCAL stale smoke artifact instead of REMOTE FULL results.
+
+**Evidence trail**:
+- Local cascade_depth metrics.json mtime: 2026-05-24 19:35 (mode=smoke, N=1024, seeds=[17], depths=[2,3,4])
+- Remote cascade_depth metrics.json mtime: 2026-05-24 19:56 (mode=full, N=4096, seeds=[7,17,23,31,41], depths=[2,3,4,5])
+- Local capacity_plateau metrics.json mtime: 2026-05-24 19:36 (mode=smoke)
+- Remote capacity_plateau metrics.json mtime: 2026-05-24 20:10 (mode=full, N=4096, 7 M points)
+- Both smokes written at pre-ship time (exp_dev manual smoke run under production name)
+- Both FULLs confirmed running at FULL config on remote (queue.json status=completed; remote metrics.json mode=full)
+
+**NOT a queue_add.sh bug**: queue_add.sh correctly passes `--skip-smoke` for remote queues (smoke runs locally before SSH). The bug is upstream: exp_dev used production `HDLAB_EXP_NAME` for manual smoke, not the `_smoke` suffix.
+
+### FULL verdicts (canonical, after SCP pull)
+
+**cascade_depth FULL (N=4096, 5 seeds, 5 epochs, depths 2-5)**:
+- CASCADE_DEPTH_RS_SMOOTH: max_delta=0.068, var_delta=0.00187; both HARD-FAIL conditions met
+- Profile: depth=2:0.680, 3:0.714, 4:0.720, 5:0.652 -- non-monotone, no cliff
+- **Pred-5 HARD-FAIL on cascade-depth indirect proxy**
+- 1-RSB retention-plateau framing from 0.94/0.74/0.60 direct observations UNAFFECTED
+
+**capacity_plateau FULL (N=4096, 3 seeds, 7 M points)**:
+- CAPACITY_PLATEAU_RS_SMOOTH: max_delta=0.031; clean HARD-FAIL
+- Profile: flat at retA~0.71-0.74 across all 7 M values (25k-400k bytes/stage); NO M-degradation
+- **Pred-1/3 HARD-FAIL on capacity-plateau indirect proxy**
+- Flat M-profile itself informative: retention floor is M-independent at this N (4-stage hierreplay maintains basin regardless of M within tested range)
+- 1-RSB retention-plateau framing UNAFFECTED
+
+### Structural fix (per [[feedback-lock-in-inefficiency-fixes]])
+
+**Fix 1 (process rule, locked now)**: Verdict_handler protocol must include a remote-pull step for experiments on overnight_queue or remote_cpu_queue. Before reading `data/exp_{name}/metrics.json` locally, check if the experiment ran on a remote queue and SCP-pull the remote artifact if so. Without this step, local stale smoke artifacts (written by exp_dev pre-ship manual smoke) shadow the FULL remote results.
+
+**Fix 2 (exp_dev practice)**: When running pre-ship manual smoke check, exp_dev MUST use `{name}_smoke` as `HDLAB_EXP_NAME` (matching queue_add.py's gate convention), NOT the production name. Running smoke under production name writes a ghost artifact that will be shadowed (and confuse verdict_handler) when FULL results come back from remote.
+
+**Fix 3 (queue_add.sh enhancement, deferred)**: Consider having queue_add.sh's remote path also SCP back the smoke metrics from remote (currently smoke runs locally via queue_add.py gate which uses `{name}_smoke` suffix -- correct, no collision). The collision only happens when exp_dev runs manual smoke under production name BEFORE calling queue_add.sh. The current queue_add.sh gate correctly uses `{name}_smoke` suffix for its own smoke run; the bug is in exp_dev's practice, not in queue_add.sh itself.
+
+**Locked as**: verdict_handler SCP-pull check (Fix 1) + exp_dev practice note on smoke-suffix (Fix 2). Structural, not memorial.
+
+### Capability moves
+
+- Pred-5 (cascade-depth): v196 INCONCLUSIVE (smoke ghost) -> **v198 HARD-FAIL (FULL, formula-honest)**
+- Pred-1/3 (capacity-plateau): v197 INCONCLUSIVE (smoke ghost) -> **v199 HARD-FAIL (FULL, formula-honest)**
+- RSB phase / ultrametric index row: ANNOTATION-ONLY; pool-level RSB UNAFFECTED; 1-RSB retention-plateau framing UNAFFECTED
+- Portfolio: 13 demonstrated + 5 evidence-strength UNCHANGED
+
+### Pipeline pacing
+
+- overnight_queue: 0 pending (cascade_depth + capacity_plateau completed)
+- remote_cpu_queue: wave14_1rsb_hysteresis_v1 RUNNING (Pred-4; highest-leverage 1-RSB discriminator)
+- No refill triggered this cycle (queue depth >=1 on remote_cpu; orchestrator defers further refill)
+
+### per [[feedback-verdict-msg-honest-reread]]: 57th+58th observations
+
+- 57th (v198 cascade_depth FULL): formula-honest; verdict_msg "RS smooth" bounded to cascade-depth axis; not an over-extension; clean.
+- 58th (v199 capacity_plateau FULL): formula-honest; verdict_msg "RS smooth" bounded to capacity-plateau axis; "1-RSB NOT supported" language is axis-bounded per [[feedback-dont-overextend-theorems]]; clean at FULL resolution.
+
+### Per [[feedback-no-experiment-design-in-prompts]]
+
+No re-ship was executed because FULL results already existed on remote. If FULL had not run, exp_dev would have designed re-ship parameters autonomously.
+
+### PROT-009
+
+112th paired commit (cap_map.md v198+v199 + history.md v198+v199 + this strategy_decisions entry + visibility_decisions entry + status_log entry).

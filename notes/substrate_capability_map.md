@@ -16094,3 +16094,147 @@ ANNOTATION-ONLY v195 -> v196: (V1) wave14_1rsb_cascade_depth_v1 on-disk artifact
 ### Tally (one-line)
 
 ANNOTATION-ONLY v196 -> v197: (V1) wave14_1rsb_capacity_plateau_v1 on-disk artifact = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.067 Profile M=10k:0.885 / M=50k:0.817 / M=200k:0.805 deltas 0.067/0.012 at SMOKE-GRADE config (N=1024 1 seed 3 M points; pre-shipped FULL was 7 M points multi-seed N=4096 per v195 exp_dev handoff); Pred-1/Pred-3 capacity-plateau axis CANNOT EXCLUDE 1-RSB cliffs at unsampled M values from a 3-point single-seed grid; verdict_msg claim "1-RSB NOT supported" OVER-EXTENDS at this resolution -- honest reading is "smoke CONSISTENT WITH RS but does NOT exclude 1-RSB"; same runner-config-mismatch pattern as v196 cascade_depth (both GPU anchors shipped together at 19:40 to overnight_queue both have smoke configs on disk; runner-config-mismatch bug SUSPECTED across the GPU pair); pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED; 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED at orthogonal axis; Pred-4 hysteresis (shipped at b552776) remains highest-leverage 1-RSB diagnostic; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 56th observation -- label formula-honest but verdict_msg over-extension is load-bearing call; pause flag ABSENT (ACTIVE); 111th PROT-009 paired commit.
+
+
+## v198 - (2026-05-24) ANNOTATION: Pred-5 cascade-depth HARD-FAIL at FULL config (bug-recovery from v196)
+
+### Capability moves (v197 -> v198)
+
+| Capability | v197 state | v198 state | Trigger |
+|---|---|---|---|
+| RSB phase / ultrametric index | Unchanged + v196 cascade-depth INCONCLUSIVE at smoke artifact | **Unchanged + Pred-5 cascade-depth HARD-FAIL at FULL config** (CASCADE_DEPTH_RS_SMOOTH max_delta=0.068 var_delta=0.00187 at N=4096 5-seed 5-epoch depths 2-5; both HARD-FAIL conditions met). **ROOT CAUSE IDENTIFIED**: v196 verdict read LOCAL metrics.json (pre-ship smoke gate artifact written at 19:35 by exp_dev manual smoke run under production HDLAB_EXP_NAME) instead of REMOTE FULL results. The FULL ran on remote GPU at 19:56 (confirmed by remote mtime + remote metrics.json mode=full N=4096 5 seeds). Verdict_handler pulled LOCAL artifact. No re-ship was needed: FULL already ran. Local metrics.json now corrected via SCP from remote. | (V1 v198) wave14_1rsb_cascade_depth_v1 REMOTE FULL = CASCADE_DEPTH_RS_SMOOTH |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only; HARD-FAIL on indirect proxy axis) | annotation-only |
+
+### Step 0 honest re-read of FULL cascade-depth result
+
+- **Remote metrics.json (mode=full, N=4096, seeds=[7,17,23,31,41], epochs=5, depths=[2,3,4,5])**:
+  - depth=2: mean_retA=0.6796; depth=3: mean_retA=0.7136; depth=4: mean_retA=0.7204; depth=5: mean_retA=0.6522
+  - Signed step deltas (prev-curr): -0.034, -0.007, +0.068
+  - max_delta (signed)=0.068 < 0.08 SMOOTH_MAX_DELTA -- **HARD-FAIL condition 1 MET**
+  - var_delta=0.00187 < 0.002 SMOOTH_VAR -- **HARD-FAIL condition 2 MET**
+  - n_cliffs (delta>=0.15): 0 -- HARD-PASS condition NOT met
+- **Label CASCADE_DEPTH_RS_SMOOTH is FORMULA-HONEST at FULL resolution**: both HARD-FAIL conditions met cleanly; this is a genuine substrate-physics reading, not an artifact.
+- **verdict_msg "RS smooth-degradation SUPPORTED; 1-RSB cascade-depth NOT supported"**: honest at formula level; per [[feedback-dont-overextend-theorems]] the "NOT supported" language applies ONLY to the cascade-depth indirect proxy axis, NOT to the 1-RSB framing from direct retention-plateau observations.
+- Profile interpretation: depth=4 shows HIGHEST retention (0.720 vs depth-2 baseline 0.680). Non-monotone but no cliff. Variance between depth steps is small (var=0.00187). The substrate does NOT show discrete cliff-and-plateau behavior under chain depth variation at this M/N operating point.
+- **57th post-lock observation**: formula-honest label + verdict_msg is cascade-depth-axis-bounded; honest re-read clean.
+
+### Root cause of the v196 bug (structural)
+
+**Root cause**: exp_dev ran the pre-ship smoke check via `python exp_wave14_1rsb_cascade_depth_v1.py --smoke` with `HDLAB_EXP_NAME=wave14_1rsb_cascade_depth_v1` (production name, NOT the `_smoke` suffix used by queue_add.py's gate). This wrote `data/exp_wave14_1rsb_cascade_depth_v1/metrics.json` with `mode: smoke` config at 19:35. When the FULL ran on remote GPU (completing at 19:56), it wrote the FULL results to the REMOTE's `data/exp_wave14_1rsb_cascade_depth_v1/metrics.json`. The LOCAL file was never updated. The verdict_handler read the LOCAL smoke artifact instead of pulling from remote.
+
+**This is a systematic gap in the verdict workflow**: verdict_handler reads LOCAL `data/exp_{name}/metrics.json` but for overnight_queue/remote_cpu_queue experiments, the canonical artifact lives on the REMOTE machine. If exp_dev ran a pre-ship smoke under the production HDLAB_EXP_NAME (not `_smoke` suffix), the local file is a stale smoke artifact until an explicit SCP pull.
+
+**Structural fix**: verdict_handler protocol must include a remote-pull step for experiments that ran on overnight_queue or remote_cpu_queue before reading local metrics.json. Added to decisions log below.
+
+**One-off component**: exp_dev should run manual smoke check under `{name}_smoke` suffix (matching queue_add.py's gate convention) OR use `--skip-smoke` and rely on queue_add.py's gate. Running smoke under production name overwrites the slot that FULL results will use on local (for locally-run experiments) and creates the ghost artifact pattern for remote experiments.
+
+### Pred-5 (cascade-depth) implications at FULL resolution
+
+- **RS smooth on the cascade-depth axis**: depth-variation from 2 to 5 stages at fixed M_per_stage shows no discrete cliff. The substrate retention degradation with depth is modest and non-monotone (depth=4 actually recovers slightly above depth=2).
+- **Does NOT refute 1-RSB framing**: the basin-discrete 1-RSB framing rests on 5+ converging observations of discrete retention plateaus at 0.94/0.74/0.60 across Bet B variants v184-v194. Those are DIRECT retention-level observations orthogonal to cascade-depth sensitivity. Pred-5 tests an INDIRECT proxy: whether adding chain stages produces 1-RSB-style cliff-and-plateau. RS smooth on Pred-5 means cascade-depth is NOT the discriminating axis at this M_per_stage loading; it does NOT mean basin-discrete structure is absent.
+- **Per [[feedback-dont-overextend-theorems]]**: cascade-depth RS smooth kills Pred-5 specifically, not the broader 1-RSB retention-plateau framing. The 0.94/0.74/0.60 discrete plateaus are pool-level / retention-level observations that stand independently.
+- **Rehabilitation sketch (Pred-5 specific)**: cascade-depth sensitivity requires larger M_per_stage (the cliff, if any, may be at much higher load than smoke/FULL tested); OR the cascade-depth axis is genuinely RS-smooth while capacity-plateau axis is 1-RSB (partial orthogonality between axes is physically consistent).
+
+### 1-RSB battery status after v198
+
+- Pred-1 (capacity_plateau / GPU): v199 update forthcoming this commit; FULL results pulled from remote
+- Pred-2 (pq_retained / CPU): v195 CONSUMED = MIDDLE; W-vector axis q_EA~0; INCONCLUSIVE
+- Pred-3 (= same script as Pred-1): v199 update forthcoming
+- Pred-4 (hysteresis): SHIPPED at b552776 to remote_cpu_queue; IN FLIGHT
+- Pred-5 (cascade_depth / GPU): **v198 FULL = CASCADE_DEPTH_RS_SMOOTH; HARD-FAIL on cascade-depth indirect proxy; 1-RSB framing from retention plateaus UNAFFECTED**
+- Pred-5 ultrametric_triples: smoke ULTRAMETRIC_1RSB_CONFIRMED at N=512 trivially; FULL N=2048 pending
+
+### Substrate-product positioning v198
+
+- **Cascade-depth sensitivity does NOT show 1-RSB signature at FULL resolution**: 5 seeds 5 epochs N=4096 confirm smooth (var<0.002) degradation with depth. This narrows the 1-RSB framing: if discrete basin structure exists, it manifests in retention LEVEL (the 0.94/0.74/0.60 plateaus) not in depth-sensitivity.
+- **Pred-4 hysteresis (in flight) remains highest-leverage 1-RSB diagnostic**: first-order vs continuous transition discrimination at capacity axis is the cleanest binary call.
+- All v197 portfolio positioning UNCHANGED.
+
+### Pre-registered untested (carried forward + v198 updates)
+
+- ~~v196 OPEN: cascade-depth FULL re-run~~ **CONSUMED AT v198**: remote FULL results pulled. CASCADE_DEPTH_RS_SMOOTH at N=4096 5-seed 5-epoch depths 2-5.
+- v197 OPEN: capacity-plateau FULL re-run — CONSUMED AT v199 (this same commit; see v199 block).
+- v195 OPEN: Pred-4 hysteresis SHIPPED at commit b552776 (remote_cpu_queue) — in flight.
+- v195 OPEN: ultrametric_triples FULL at N=2048 12 seeds — not yet shipped.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions staged atomically.
+- per PROT-004/006: 0 new closures on portfolio rows; annotation-only on RSB row.
+- per PROT-007: v198 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes on capability rows.
+- per PROT-009: 112th paired commit.
+- per [[feedback-verdict-msg-honest-reread]]: 57th post-lock observation; CASCADE_DEPTH_RS_SMOOTH formula-honest at FULL; verdict_msg over-extension bounded to cascade-depth axis only; honest re-read clean.
+- per [[feedback-dont-overextend-theorems]]: Pred-5 HARD-FAIL on cascade-depth proxy axis does NOT kill 1-RSB framing from retention plateaus (orthogonal axis, direct observations).
+
+### Tally (one-line)
+
+ANNOTATION v197 -> v198 (BUG-RECOVERY): (V1) wave14_1rsb_cascade_depth_v1 REMOTE FULL = CASCADE_DEPTH_RS_SMOOTH max_delta=0.068 var_delta=0.00187 at N=4096 5-seed 5-epoch depths 2-5 (both HARD-FAIL conditions met; formula-honest label); ROOT CAUSE: verdict_handler v196 read LOCAL smoke artifact (19:35 mtime) not REMOTE FULL (19:56 mtime); exp_dev ran pre-ship smoke under production HDLAB_EXP_NAME writing ghost smoke artifact to production local path; structural fix: verdict_handler must SCP-pull remote metrics before reading for overnight_queue/remote_cpu_queue experiments; Pred-5 cascade-depth HARD-FAIL on indirect proxy axis; 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete plateaus from Bet B variants v184-v194) UNAFFECTED at orthogonal axis; pool-level RSB UNAFFECTED; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 57th observation clean; 112th PROT-009 paired commit.
+
+
+## v199 - (2026-05-24) ANNOTATION: Pred-1/Pred-3 capacity-plateau HARD-FAIL at FULL config (bug-recovery from v197)
+
+### Capability moves (v198 -> v199)
+
+| Capability | v198 state | v199 state | Trigger |
+|---|---|---|---|
+| RSB phase / ultrametric index | Unchanged + v198 cascade-depth Pred-5 HARD-FAIL at FULL | **Unchanged + Pred-1/Pred-3 capacity-plateau HARD-FAIL at FULL** (CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.031 at N=4096 3-seed 7-M-point sweep; HARD-FAIL cleanly). Same root cause as v198: verdict_handler read LOCAL smoke artifact (19:36 mtime) instead of REMOTE FULL (20:10 mtime). Local metrics.json corrected via SCP. | (V1 v199) wave14_1rsb_capacity_plateau_v1 REMOTE FULL = CAPACITY_PLATEAU_RS_SMOOTH |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only) | annotation-only |
+
+### Step 0 honest re-read of FULL capacity-plateau result
+
+- **Remote metrics.json (mode=full, N=4096, seeds=[7,17,23], M_sweep=[25k,50k,100k,150k,200k,300k,400k])**:
+  - M=25k:retA=0.7408, M=50k:0.7093, M=100k:0.7064, M=150k:0.7163, M=200k:0.7255, M=300k:0.7229, M=400k:0.7156
+  - Consecutive deltas: -0.0315, -0.0029, +0.0099, +0.0092, -0.0026, -0.0073
+  - max_delta=0.0315 < 0.08 HARD-FAIL threshold -- **HARD-FAIL MET cleanly**
+  - n_cliffs (>=0.15): 0 -- HARD-PASS NOT met
+- **Label CAPACITY_PLATEAU_RS_SMOOTH is FORMULA-HONEST at FULL resolution**: clean HARD-FAIL.
+- **Profile interpretation**: retA is essentially FLAT at ~0.71-0.74 across all 7 M values. The shape is neither the 1-RSB prediction (cliff+plateau) nor the RS prediction (smooth monotone decay); it is a FLAT CAPACITY FLOOR with only 3% variation across M. This is actually an interesting finding: retention does NOT fall off with M at this operating point, suggesting the substrate is in a regime where the 4-stage chain maintains retA~0.72 regardless of task load up to M=400k bytes/stage.
+- **verdict_msg "RS smooth capacity decay SUPPORTED; 1-RSB capacity plateau NOT supported"**: the RS-smooth label is formula-honest (max_delta<0.08). Per [[feedback-dont-overextend-theorems]]: "1-RSB NOT supported" on the capacity-plateau indirect proxy axis is bounded to this axis; it does NOT refute 1-RSB retention-plateau framing from direct observations.
+- **58th post-lock observation**: formula-honest label at FULL resolution; verdict_msg scoped to capacity-plateau axis; honest re-read clean.
+
+### Pred-1/Pred-3 (capacity-plateau morphology) implications at FULL resolution
+
+- **No cliff-plateau morphology at FULL config**: The 7-point M sweep at N=4096 3-seed shows flat retA~0.72 without discrete structure. Pred-1/Pred-3 HARD-FAIL on indirect proxy.
+- **Alternative reading**: the flat profile at retA~0.72 is ITSELF a signature -- the substrate does not degrade with increasing load up to M=400k. This is CONSISTENT with the 4-stage M1 hierreplay architecture providing a stable retention basin regardless of M at this N. It is NOT consistent with simple RS continuous-decay theory which predicts monotone fall-off.
+- **Does NOT refute 1-RSB framing from retention plateaus**: the 0.94/0.74/0.60 discrete plateaus in Bet B variants (v184-v194) are DIRECT retention-level observations. Pred-1 tests whether retA vs M_stored morphology shows cliff-plateau structure. The absence of cliff in M-sweep is orthogonal to the presence of discrete retention levels across different task configurations.
+- **Rehabilitation sketch (Pred-1 specific)**: cliff morphology may require a different load axis (e.g., sweep N not M; or sweep corpus diversity not bytes); OR the M-floor at retA~0.72 is exactly the prediction of a 1-RSB basin-floor model where the basin has a fixed floor independent of M.
+
+### 1-RSB battery joint status after v198 + v199
+
+- Pred-1 (capacity_plateau / GPU): **v199 FULL = CAPACITY_PLATEAU_RS_SMOOTH; HARD-FAIL; flat retA~0.72 across M; 1-RSB framing UNAFFECTED**
+- Pred-2 (pq_retained / CPU): v195 = MIDDLE; W-vector axis INCONCLUSIVE
+- Pred-3 (same as Pred-1): v199 FULL = HARD-FAIL
+- Pred-4 (hysteresis): IN FLIGHT at remote_cpu_queue (highest-leverage discriminator)
+- Pred-5 (cascade_depth / GPU): v198 FULL = HARD-FAIL; cascade-depth proxy RS smooth
+- Pred-5 ultrametric_triples: trivial at N=512 smoke; FULL N=2048 pending
+
+**Joint pattern (definitive after v198+v199)**: Both GPU indirect-proxy 1-RSB Pred axes (Pred-1/3 capacity-plateau + Pred-5 cascade-depth) produce HARD-FAIL at FULL resolution. Pred-2 (W-vector) is INCONCLUSIVE. NONE produced HARD-PASS for 1-RSB. The basin-discrete-1-RSB framing from DIRECT retention-plateau observations (5+ converging 0.94/0.74/0.60 plateaus across Bet B variants v184-v194) is NEITHER STRENGTHENED nor REFUTED by the indirect-axis battery. The indirect axes were chosen to detect 1-RSB signatures in derivative quantities; their RS-smooth outcomes suggest the 1-RSB basin structure, if real, does not manifest as sharp sensitivity to these indirect probes. Pred-4 hysteresis (in flight) is the cleanest remaining binary call: first-order transition produces hysteresis; continuous transition does not.
+
+### Substrate-product positioning v199
+
+- **Both GPU 1-RSB diagnostic Pred axes complete at FULL resolution**: neither shows 1-RSB cliff-plateau morphology. The retention level sits at ~0.72 flat (Pred-1) and degrades smoothly with chain depth (Pred-5). These are INDIRECT proxy tests; the 1-RSB framing from direct retention-plateau observations stands.
+- **Pred-4 hysteresis remains highest-leverage discriminator**: in flight at remote_cpu_queue.
+- **Structural fix locked in**: verdict_handler must SCP-pull remote metrics before reading LOCAL artifacts for overnight_queue/remote_cpu_queue experiments. See decisions log.
+- All v198 portfolio positioning UNCHANGED.
+
+### Pre-registered untested (carried forward + v199 updates)
+
+- ~~v197 OPEN: capacity-plateau FULL re-run~~ **CONSUMED AT v199**: remote FULL results pulled. CAPACITY_PLATEAU_RS_SMOOTH at N=4096 3-seed 7-M-points.
+- v195 OPEN: Pred-4 hysteresis SHIPPED at commit b552776 (remote_cpu_queue) — in flight.
+- v195 OPEN: ultrametric_triples FULL at N=2048 12 seeds — not yet shipped.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions staged atomically.
+- per PROT-004/006: 0 new closures on portfolio rows; annotation-only on RSB row.
+- per PROT-007: v199 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes on capability rows.
+- per PROT-009: 112th paired commit (same commit as v198).
+- per [[feedback-verdict-msg-honest-reread]]: 58th post-lock observation; CAPACITY_PLATEAU_RS_SMOOTH formula-honest at FULL; verdict_msg scoped to capacity-plateau axis; honest re-read clean.
+- per [[feedback-dont-overextend-theorems]]: Pred-1/3 HARD-FAIL on capacity-plateau proxy axis does NOT kill 1-RSB framing from direct retention-plateau observations.
+- per [[feedback-lock-in-inefficiency-fixes]]: structural fix (verdict_handler SCP-pull before local read) locked in decisions log this commit.
+
+### Tally (one-line)
+
+ANNOTATION v198 -> v199 (BUG-RECOVERY): (V1) wave14_1rsb_capacity_plateau_v1 REMOTE FULL = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.031 flat retA~0.71-0.74 across all 7 M values at N=4096 3-seed (clean HARD-FAIL; formula-honest); ROOT CAUSE same as v198: verdict_handler v197 read LOCAL smoke artifact (19:36 mtime) not REMOTE FULL (20:10 mtime); structural fix (SCP-pull before local read) locked in decisions log; Pred-1/3 capacity-plateau HARD-FAIL on indirect proxy; flat M-profile at retA~0.72 is itself informative (no M-degradation up to 400k bytes/stage); 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete plateaus from Bet B v184-v194) UNAFFECTED; pool-level RSB UNAFFECTED; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 58th observation clean; 112th PROT-009 paired commit.

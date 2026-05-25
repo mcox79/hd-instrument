@@ -403,3 +403,24 @@ Portfolio UNCHANGED at 12 IN COUNT + 3 evidence-strength rows (Bet Z.5 🟢 + Be
 verdict: PQ_RETAINED_MIDDLE | binder=-0.164 | max_sep_sigma=2.37 | n_peaks=4 | mean_q~0 | n_seeds=10
 cap_map: v195 annotation-only (no row state change); RSB pool-level row UNCHANGED
 1-RSB battery: Pred-2 INCONCLUSIVE (W-vector q_EA~0); Pred-4 hysteresis is next CPU target
+
+
+---
+
+## v198+v199 -- BUG-RECOVERY visibility record
+
+**Event**: cascade_depth + capacity_plateau FULL results retrieved from remote GPU; root cause diagnosed; cap_map updated to v198+v199.
+
+**For-You tab entry** (HIGH importance):
+
+Both 1-RSB GPU diagnostic experiments that ran overnight completed with FULL configs -- we had a bug where the verdict was read from a stale local smoke file instead of the remote full results. Root cause: before shipping, the manual smoke check wrote a smoke-config file to the same path that the full results would use locally. When the GPU ran the full experiments, results landed on the remote machine only.
+
+After pulling the remote metrics:
+- cascade_depth (Pred-5): HARD-FAIL at full config (5 seeds, 5 epochs, N=4096, depths 2-5). Smooth profile, no cliff. max_delta=0.068, var=0.00187 -- both hard-fail conditions met.
+- capacity_plateau (Pred-1/3): HARD-FAIL at full config (3 seeds, 7 M-points, N=4096). Flat profile at retA~0.72 across all M values (25k-400k bytes/stage). max_delta=0.031.
+
+What this means: the cascade-depth and capacity-plateau indirect proxies don't show 1-RSB signature. This does NOT affect the 1-RSB framing from the direct retention-plateau observations (the 0.94/0.74/0.60 discrete levels across Bet B variants). Pred-4 hysteresis is still running (remote CPU, highest-leverage remaining test). No re-ship needed.
+
+Structural fix locked: verdict_handler must pull remote metrics before reading local files for GPU queue experiments. exp_dev must use the `_smoke` name suffix for manual pre-ship smoke checks.
+
+**status_log entry**: written with importance=HIGH.

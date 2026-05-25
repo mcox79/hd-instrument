@@ -7800,3 +7800,21 @@ Pred-5 of the 1-RSB diagnostic battery: on-disk metrics.json carries SMOKE confi
 Triggered by: wave14_1rsb_capacity_plateau_v1 on-disk artifact = CAPACITY_PLATEAU_RS_SMOOTH (max_delta=0.067 Profile M=10k:0.885 / M=50k:0.817 / M=200k:0.805 deltas 0.067/0.012).
 
 Pred-1/Pred-3 of the 1-RSB diagnostic battery: on-disk metrics.json carries SMOKE config (N=1024, seeds=[17], 3 M points {10k,50k,200k}) NOT the v195-handoff FULL config (7 M points, multi-seed, N=4096). The verdict_msg formula label CAPACITY_PLATEAU_RS_SMOOTH is honest per pre-reg bands (max_delta<0.08 met HARD-FAIL formula); BUT the verdict_msg explicit claim "1-RSB capacity plateau NOT supported" OVER-EXTENDS at this resolution per [[feedback-dont-overextend-theorems]] -- a 3-point single-seed grid cannot exclude 1-RSB cliffs at unsampled M values. Honest reading: smoke CONSISTENT WITH RS smooth decay but does NOT exclude 1-RSB cliffs. Same runner-config-mismatch pattern suspected as v196 cascade_depth (both GPU anchors shipped together at 19:40, both have smoke configs on disk). 1-RSB retention-plateau framing from 0.94/0.74/0.60 discrete plateaus (5+ converging observations v184-v194) UNAFFECTED at orthogonal axis. Pred-4 hysteresis (shipped at b552776) remains highest-leverage. FULL re-run pre-registered. Annotation-only; no row state changes; portfolio 13+5 UNCHANGED.
+
+
+## v198 -- (2026-05-24) BUG-RECOVERY: Pred-5 cascade-depth HARD-FAIL at FULL config
+
+Triggered by: bug-recovery: verdict_handler v196 read LOCAL smoke artifact instead of REMOTE FULL results. Remote FULL pulled via SCP.
+
+wave14_1rsb_cascade_depth_v1 REMOTE FULL = CASCADE_DEPTH_RS_SMOOTH max_delta=0.068 var_delta=0.00187 at N=4096 5-seed 5-epoch depths 2-5. Both HARD-FAIL conditions met (max<0.08 AND var<0.002). Profile: depth=2:retA=0.680, depth=3:retA=0.714, depth=4:retA=0.720, depth=5:retA=0.652. No cliff (max_delta=0.068 < cliff threshold 0.15). Root cause: exp_dev ran pre-ship smoke under production HDLAB_EXP_NAME writing ghost smoke artifact to data/exp_wave14_1rsb_cascade_depth_v1/metrics.json at 19:35; FULL ran on remote GPU at 19:56 writing REMOTE artifact; verdict_handler read LOCAL stale smoke instead of pulling REMOTE FULL. Structural fix: verdict_handler must SCP-pull remote metrics for overnight_queue/remote_cpu_queue experiments before reading LOCAL artifacts. Pred-5 HARD-FAIL on cascade-depth indirect proxy; 1-RSB retention-plateau framing from 0.94/0.74/0.60 direct observations (Bet B v184-v194) UNAFFECTED. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 57th post-lock observation clean. 112th PROT-009 paired commit.
+
+History ref: see cap_map.md v198 block for full narrative.
+
+
+## v199 -- (2026-05-24) BUG-RECOVERY: Pred-1/Pred-3 capacity-plateau HARD-FAIL at FULL config
+
+Triggered by: bug-recovery: verdict_handler v197 read LOCAL smoke artifact instead of REMOTE FULL results. Remote FULL pulled via SCP.
+
+wave14_1rsb_capacity_plateau_v1 REMOTE FULL = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.031 flat retA~0.71-0.74 across all 7 M values at N=4096 3-seed. Clean HARD-FAIL (max_delta<0.08). Profile: M=25k:0.741, M=50k:0.709, M=100k:0.706, M=150k:0.716, M=200k:0.725, M=300k:0.723, M=400k:0.716 -- essentially flat. Same root cause as v198: LOCAL smoke artifact from 19:36 stale vs REMOTE FULL at 20:10. Pred-1/3 HARD-FAIL on capacity-plateau indirect proxy; flat M-profile at retA~0.72 is itself informative (no M-degradation up to 400k bytes/stage). 1-RSB retention-plateau framing UNAFFECTED. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 58th post-lock observation clean. 112th PROT-009 paired commit (same as v198).
+
+History ref: see cap_map.md v199 block for full narrative.
