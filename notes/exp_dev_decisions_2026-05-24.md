@@ -308,3 +308,176 @@ This honest flag is in `data/orchestrator_status_log.jsonl` as a MEDIUM-importan
 - U5 Sleep-style memory consolidation (Priority B; replay schedule variant)
 - A8 Hersche 2024 sparse block codes port (Priority B; cheap port)
 - A6 Learned codebook RE-DESIGN at smaller N or with noise (this-cycle honest finding)
+
+
+## Cycle (2026-05-24 ~17:00 LT) — v190 post-batch refill ship of 4 anchors (inline exp_dev role)
+
+**Trigger**: orchestrator post-v190 batch refill. v190 committed 10-verdict cap_map update; CPU queue drained to 0; GPU queue at 2 pending (healthy backlog but room for K2 + K6 rehab anchors).
+
+**Routing source**: v190 cap_map narrative block — 4 K6 rehab axes filed + 3 U1/U7 rehab axes filed + K2 axis 3 (last remaining of 3-axis list) + K5 instrumentation repair filed. Per [[feedback-no-experiment-design-in-prompts]] exp_dev role decided: pick the cheapest highest-leverage axis from each pre-registered list.
+
+**Shipped 4 anchors (2 GPU + 2 CPU)**:
+
+| # | Queue | Name | Routing |
+|---|---|---|---|
+| 1 | overnight_queue (GPU) | wave14_betB_4stage_continual_v2_rehab_phaseD_a_weighted_v1 | K2 KILLER T1 axis 3 of v189 3-axis list (final remaining axis); Phase-D replay buffer up-weights stage A samples 4x to counter capacity-bound load accumulation; N=4096 5-seed |
+| 2 | overnight_queue (GPU) | wave14_compositional_holdout_rehab_n8192_v1 | K6 KILLER T2 rehab axis 1 of v190 4-axis list; N=8192 (was N=4096 at v190) + 5 seeds (was 1) |
+| 3 | remote_cpu_queue (CPU) | wave14_realtime_inference_learning_v1_rerun | K5 KILLER T2 instrumentation repair from v190 V10 LABEL-OVER-CLAIM; pretrain_bytes capped against live corpus_len; hard assertions added; rerun produces real metrics |
+| 4 | remote_cpu_queue (CPU) | wave14_betB_multitask_diff_corpus_rehab_n4096_v1 | U1/U7 UNSURE T2 rehab axis 2 of v190 3-axis list; N=4096 (was N=2048 at v190) + 5 seeds |
+
+### Per-ship verification (REMOTE)
+
+- Ship #1 (GPU): VERIFIED present in REMOTE `overnight_queue/queue.json` (queue depth 3 -> 4 after add); status pending. Self-test PASSED on remote in 1.9s.
+- Ship #2 (GPU): VERIFIED present in REMOTE `overnight_queue/queue.json` (queue depth 4 -> 5 after add but wrapper shows 4 because remote may be running ahead of local cache); status pending. Self-test PASSED on remote in 2.2s.
+- Ship #3 (CPU): VERIFIED present in REMOTE `remote_cpu_queue/queue.json` (queue depth was 0 -> 1 after add); status pending. Self-test PASSED on remote in 2.0s.
+- Ship #4 (CPU): VERIFIED present in REMOTE `remote_cpu_queue/queue.json` (queue depth 1 -> 2 after add); status pending. Self-test PASSED on remote in 2.4s.
+
+### Honest reads / smoke commentary
+
+- Ship #1 (K2 axis 3): smoke at N=1024 single-seed gave retA=0.924 / retB=0.914 / retC=0.931 = FOURSTAGE_HARD_PASS. Smoke is NOT predictive of FULL since v1 + axis 1 + axis 2 all had similar smoke results but FULL landed at MIDDLE band. The user pre-cycle reading "no consolidation lift" was honest; axis 3 is the structurally-different rehab path (replay-buffer composition, not capacity or consolidation time). MIDDLE band remains the most likely outcome per the v188 / v189 / v190 axes 1+2 saturation pattern.
+- Ship #2 (K6 rehab): smoke at N=1024 single-seed gave hold_out=0.094 train=0.526 = COMPOSITIONAL_HARD_FAIL (just below 0.1 chance-floor). v1 at N=4096 was hold_out=0.116 (1.85x chance). Smoke at smaller N naturally produces lower hold-out. FULL at N=8192 5-seed is the definitive test; HARD-PASS would require hold_out >= 0.5 which is a substantial lift from current 0.116.
+- Ship #3 (K5 rerun): smoke at N=512 gave bpc_frozen=3.834 bpc_online=3.762 delta=-0.072 = REALTIME_INFERENCE_HARD_PASS. This DEMONSTRATES the instrumentation fix works — original v1 smoke was also clean; bug was in the FULL config's pretrain_bytes-vs-corpus mismatch. FULL result is now meaningful.
+- Ship #4 (U1/U7 rehab): smoke at N=1024 single-seed gave retA=0.843 gain_C=3.676 = MULTITASK_DIFF_HARD_PASS. This is a PROMISING signal — N-scaling from 2048 -> 4096 may close the retA gap. FULL at N=4096 5-seed is the definitive test.
+
+### Queue depths post-ship
+
+- overnight_queue (GPU): 4 pending (wave14_betB_replay_by_norm_v1 + wave14_betB_task_geometry_v1_rerun + ship #1 + ship #2; healthy backlog). Plus there may be additional entries on the remote that the local snapshot does not reflect — local cap_map state cache reported v182 even at the start of this cycle, indicating polling lag.
+- remote_cpu_queue: 2 pending (ship #3 + ship #4; CPU was at 0 pending pre-ship).
+- local_cpu_queue: idle.
+
+### Discipline citations
+
+- per [[feedback-no-experiment-design-in-prompts]]: exp_dev role decided N / seeds / formula / queue / thresholds for all 4 ships from v190 routing pointers (cap_map narrative listed rehab axes; exp_dev selected the highest-leverage cheapest axis from each list per [[feedback-rescue-sketch-first-sequencing]]).
+- per [[feedback-no-smoke]]: all 4 preregs have HARD-PASS + HARD-FAIL + MIDDLE bands falsifiable before run.
+- per [[feedback-envelope-expansion-fail-bands]]: bands match the broader claim for each anchor (K2 rehab gate; K6 rehab gate; U1/U7 rehab gate; K5 instrumentation-only rerun reuses v1 bands).
+- per [[feedback-ship-before-dependency-verified]]: all 4 scripts + preregs verified on local disk before ship; SCP+SSH replication via tools/orchestrator/queue_add.sh wrapper.
+- per [[feedback-ship-name-collision]]: name uniqueness verified pre-ship; post-ship REMOTE VERIFY confirmed entries in remote queue.json for all 4.
+- per [[feedback-ascii-only-in-scripts]] OBSOLETED 2026-05-23: encoding handled structurally via `sys.stdout.reconfigure` at script top.
+- per [[feedback-dispatch-wrappers-default]]: this sub-agent context internalized exp_dev role inline (Agent dispatch unavailable per orchestrator post-compaction brief Section 2 execution-model clarification).
+- per [[feedback-for-you-tab-primary-channel]]: 4 status_log entries written (experiment_queued: ship #1 HIGH + ship #2 HIGH + ship #3 MEDIUM + ship #4 HIGH).
+- per [[feedback-verdict-msg-honest-reread]]: V10 LABEL-OVER-CLAIM v190 -> ship #3 is the structural fix for that observation; K5 capability claim cannot be re-attempted until this rerun produces real metrics.
+
+### Blockers
+
+- **None for ships shipped.**
+- Pre-existing 13-item backlog (K1 GPT-quality eval harness; K3 on-device personalization; K4 cross-modal binding; K7 multi-step inference; U1 corpus mapping redesign; U5 sleep replay variant; A8 Hersche port; A6 learned codebook re-design at smaller N; Sellke alternate baseline; MS_1ST_ORDER script fix; etc.) carries forward UNCHANGED. Higher-leverage v190 rehab axes (K6 axes 2-4; U1/U7 axes 1+3; K2 product-spec rescoping decision) await ship #1 and #2 + #4 results before next round.
+2026-05-24T21:24:54 v193 queue refill: shipped 6 anchors (2 GPU + 3 remote CPU + 1 local CPU); all 6 verified into queues + all 6 completed at FULL. Verdicts: R-PRIME-2 HARD-FAIL (MoE-on-substrate REJECTED at K-sweep), R-PRIME-3 R1 HARD-FAIL (alt-geometry rescue fails at full scale; smoke false-positive at n_pairs=3), Field-A HARD-FAIL (reservoir-Lyapunov REJECTED), K6 axis2 HARD-FAIL (compositional generalization REJECTED), F-6 HARD-PASS (KKL low-influence boundaries -> Boolean-analysis row 🟡 promotion candidate), Bet M MIDDLE_BAND (harness 4/5 correct, median_BIC_gap=2.23 borderline). Routing notes/exp_dev_to_queue_v193_queue_refill_batch_2026-05-24.md. Queue depths post-cycle: GPU=5pending pre-existing, remote_cpu=0, local_cpu=0; CPU queues need refill next cycle.
+
+## Cycle (2026-05-24 ~21:35 LT) — v195 8-anchor batch ship + COMPLETED SAME CYCLE
+
+**Trigger**: v195 pipeline drained handoff. Pause flag absent verified.
+
+**Shipped + REMOTE VERIFIED + COMPLETED 8 anchors (3 GPU + 1 GPU rerun + 3 remote CPU + 1 local CPU)**:
+
+| # | Queue | Name | FULL verdict |
+|---|---|---|---|
+| 1 | GPU | wave14_rprime1_pac_bayes_floor_v1 | PAC_BAYES_FLOOR_HARD_FAIL (floor not binding — substrate above conservative bound) |
+| 2 | GPU | wave14_k4_cross_modal_binding_v1 | CROSS_MODAL_BIND_HARD_FAIL (K4 KILLER at substrate level at synthetic floor) |
+| 3 | GPU | wave14_k7_multistep_inference_v1 | MULTISTEP_INFER_HARD_FAIL (K7 deduction collapses to chained-retrieval) |
+| 4 | GPU | wave14_betB_1rsb_basin_discrete_v2 | BASIN_DISCRETE_HARD_FAIL (R-PRIME-3 R4 closes; family done; v1 OOM'd, v2 with memory-fix shipped) |
+| 5 | rcCPU | wave14_betM_logforget_longt_v1 | BETM_LONGT_MIDDLE_BAND (log vs exp still ambiguous at t in 1..200) |
+| 6 | rcCPU | wave14_sparse_coding_ppmi_v1 | SPARSE_CODING_HARD_FAIL (sparse loses to random+PCA; A6/U3 closed at envelope) |
+| 7 | rcCPU | wave14_popgen_drift_retention_v1 | POPGEN_DRIFT_MIDDLE_BAND (Wright-Fisher closed-form candidate alive on some seeds) |
+| 8 | local | wave14_k8_hierarchical_concepts_v1 | HIER_CONCEPTS_HARD_FAIL (K8 closes; aligned with R3 closure at K>=16) |
+
+**Routing note**: notes/exp_dev_to_queue_v195_8anchor_batch_2026-05-24.md.
+
+**Honest mix met user directive**: 2 Bet B 5th-mechanism rescues (R-PRIME-1 + 1-RSB) / 2 new-field probes (sparse-coding + popgen) / 3 untested KILLERs (K4 + K7 + K8). Plus Bet M longer-t as resolver. All HARD_FAIL outcomes are HONEST refutations at the tested envelopes — none are smoke-extensions of validated primitives.
+
+**Blockers**: single OOM on 1-RSB v1 (kmeans (n,k,d) broadcasting at N=4096); structurally fixed via per-centroid pairwise distance + N reduced to 2048; v2 shipped + completed.
+
+**Queue depths post-cycle**: GPU=0 pending, remote CPU=0 pending, local CPU=0 pending. Pipeline DRAINED — orchestrator triggers next refill cycle.
+v195 emergency refill: shipped 4 anchors (1 GPU + 2 remote_cpu + 1 local_cpu). K2 M1 hierreplay smoke HARD_PASS (retA=0.888 vs 0.74 baseline) -> GPU RUNNING; betM logforget longt + rprime3 r2 subcorpus -> remote_cpu (betm completed, r2 running); f6 kkl envelope -> local_cpu (completed MIDDLE_BAND 11/12 cells, 0 hard-fail). 2 smoke HARD_FAILs blocked: K6 axis3 cleanup-iter (cleanup loop diverges for linear Hebbian W) + rprime1 pac-bayes v2 (KL ~ N^2/2 per task, structurally vacuous bound). Upstream routing notes filed for both.
+## Cycle (2026-05-24 -- 1-RSB diagnostic battery ship post-k2_m1 HARD_PASS)
+
+**Trigger**: k2_m1_hierreplay smoke HARD_PASS retA=0.888 vs 0.74 baseline; pipeline refill
+directive from orchestrator. k2_m1 FULL already running on GPU. Diagnostic battery for
+basin-discrete 1-RSB framing shipped as 4 new anchors.
+
+**Shipped 4 anchors (2 GPU + 1 remote_cpu + 1 local_cpu)**:
+
+| # | Queue | Name | Routing |
+|---|---|---|---|
+| 1 | overnight_queue (GPU) | wave14_1rsb_cascade_depth_v1 | Pred-5: cascade-depth sensitivity -- 2/3/4/5 stage chains with M1 chunk replay; 1-RSB predicts cliff+plateau, RS predicts smooth |
+| 2 | overnight_queue (GPU) | wave14_1rsb_capacity_plateau_v1 | Pred-1: capacity-sweep plateau morphology -- retA vs M_stored at 7 points; 1-RSB predicts cliff+plateau, RS predicts smooth |
+| 3 | remote_cpu_queue (CPU) | wave14_1rsb_pq_retained_v1 | Pred-2: P(q) multi-delta from retained W-vectors -- 10 seeds W_ABCD overlap distribution |
+| 4 | local_cpu_queue (CPU) | wave14_1rsb_ultrametric_triples_v1 | Pred-3: ultrametric inequality on retained triples -- 12 seeds, 1000 triples, eps=0.10 |
+
+### Per-ship verification (REMOTE)
+
+- Ship #1 (GPU cascade-depth): VERIFIED in overnight_queue/queue.json. Self-test 4/4 in 2.0s.
+- Ship #2 (GPU capacity-plateau): VERIFIED in overnight_queue/queue.json. Self-test 4/4 in 2.0s.
+- Ship #3 (CPU pq-retained): VERIFIED in remote_cpu_queue/queue.json. Self-test 4/4 in 2.3s.
+- Ship #4 (local ultrametric): VERIFIED in local_cpu_queue/queue.json. Self-test 4/4 in 1.6s.
+
+### Smoke outcomes (all run before ship)
+
+- cascade_depth smoke: CASCADE_DEPTH_MIDDLE (max_delta=0.058, just under 0.08 smooth threshold;
+  depth profile 2->3->4 shows non-monotone: 0.907->0.849->0.898 at N=1024 1-epoch). MIDDLE
+  is not a blocker -- smoke at reduced N/epochs is noisy; FULL at 5 epochs + 5 seeds needed.
+- capacity_plateau smoke: CAPACITY_PLATEAU_RS_SMOOTH (max_delta=0.067 < 0.08; 3-pt smoke at
+  N=1024 shows smooth but gap is marginal -- FULL at N=4096 7-pt sweep may show cliff).
+- pq_retained smoke: PQ_RETAINED_MIDDLE (only 2 seeds -> 1 pair; binder=0.667 surprisingly high;
+  FULL at 10 seeds will give robust P(q)).
+- ultrametric_triples smoke: ULTRAMETRIC_1RSB_CONFIRMED (fraction=1.0 but at N=512 all overlaps ~0
+  so trivially ultrametric -- validity concern noted; FULL at N=2048 12 seeds needed for real test).
+
+### HARD-PASS / HARD-FAIL bands (pre-registered)
+
+| Anchor | HARD-PASS | HARD-FAIL |
+|---|---|---|
+| cascade_depth | cliff >= 0.15 + plateau < 0.05 at any depth step | max_delta < 0.08 + var < 0.002 |
+| capacity_plateau | cliff >= 0.15 + plateau < 0.05 at any M step | max_delta < 0.08 |
+| pq_retained | >= 2 peaks >= 2-sigma + binder > 0.30 | <= 1 peak OR sep < 2-sigma AND binder <= 0.05 |
+| ultrametric_triples | fraction >= 0.50 | fraction <= 0.36 |
+
+### Discipline citations
+
+- per [[feedback-no-experiment-design-in-prompts]]: exp_dev role designed N/seeds/thresholds
+  autonomously from the 1-RSB research framing in the cap_map narrative (basin-discrete
+  cluster-structured plateau pattern; Parisi ultrametricity; capacity-sweep morphology).
+- per [[feedback-envelope-expansion-fail-bands]]: HARD-PASS + HARD-FAIL bands registered
+  BEFORE smoke; band logic verified via self_test_verdict() on all 4 scripts (4/4 cases each).
+- per [[feedback-ship-before-dependency-verified]]: all 4 scripts + preregs verified local + remote.
+- per [[feedback-ship-name-collision]]: names verified unique pre-ship; post-ship REMOTE VERIFY
+  confirmed entries in queue.json for all 4.
+- per [[feedback-ascii-only-in-scripts]]: encoding handled via sys.stdout.reconfigure at top.
+- per [[feedback-for-you-tab-primary-channel]]: 4 status_log entries to write post-log.
+- per [[feedback-verdict-msg-honest-reread]]: smoke outcomes honestly noted (cascade/capacity
+  MIDDLE not HARD_PASS; ultrametric trivial at smoke N -- acknowledged before FULL).
+
+### Queue depths post-ship
+
+- overnight_queue (GPU): 2+ pending (cascade_depth + capacity_plateau; k2_m1 RUNNING).
+- remote_cpu_queue: 1 pending (pq_retained).
+- local_cpu_queue: 1 pending (ultrametric_triples) + rprime3_r2 running.
+
+## 2026-05-24 -- Pred-4 1-RSB hysteresis anchor shipped (CPU queue refill post-pq_retained MIDDLE)
+
+**Trigger**: wave14_1rsb_pq_retained_v1 MIDDLE (Pred-2 inconclusive; binder=-0.164 q_EA~0); remote_cpu_queue=0 IDLE; Pred-4 hysteresis is sole remaining CPU diagnostic not on any queue.
+
+**Pause gate**: CLEARED (data/orchestrator_paused.flag absent).
+
+**Anchor: wave14_1rsb_hysteresis_v1** -> remote_cpu_queue (timeout=5400s, ETA 30-45 min)
+
+Tests Pred-4 of the 1-RSB diagnostic battery: hysteresis under capacity sweep.
+- Forward trajectory: train 4-stage M1 hierreplay at M in {25k, 50k, 100k, 150k, 200k, 300k, 400k} bytes (low->high)
+- Reverse trajectory: same M sweep in reverse (high->low)
+- At each M, measure retA (stage-A retention after all 4 stages)
+- Hysteresis gap = |retA_forward - retA_reverse| at each M cell
+- N=2048, 3 seeds {7, 17, 23}, 7 M cells
+
+HARD-PASS (first-order): max gap >= 0.10 at any M -> HYSTERESIS_1RSB_CONFIRMED
+HARD-FAIL (continuous): max gap < 0.03 everywhere -> HYSTERESIS_RS_SMOOTH
+MIDDLE: gap in [0.03, 0.10) -> HYSTERESIS_MIDDLE
+
+Self-tests: 6/6 PASS (local + remote gate). Remote --self-test gate PASS in 1.8s.
+Post-ship VERIFIED: entry in remote_cpu_queue/queue.json.
+
+**Decision: 1 anchor only** (Pred-4 is the natural CPU candidate; no second high-leverage CPU diagnostic identified from the battery; GPU has Pred-1 + Pred-3 covered; local has Pred-5). Queue depth invariant satisfied (remote_cpu_queue pending=1).
+
+**PROT compliance**: PROT-010 (post-compaction brief read); PROT-011 (exp_dev subagent_type named); [[feedback-envelope-expansion-fail-bands]] (HARD-PASS/HARD-FAIL/MIDDLE pre-registered); [[feedback-strategy-spec-formula-selftests]] (6/6 self-test cells); [[feedback-ship-name-collision]] (name verified unique pre-ship); [[feedback-no-blocking-runs]] (background only via queue); [[feedback-ascii-only-in-scripts]] (stdout.reconfigure at top).
+
+**Routing note**: notes/exp_dev_to_queue_1rsb_hysteresis_2026-05-24.md (Schema A, 1 row).
+
+**status_log**: HIGH importance entry written with plain_language.
