@@ -2401,3 +2401,61 @@ No re-ship was executed because FULL results already existed on remote. If FULL 
 ### PROT-009
 
 112th paired commit (cap_map.md v198+v199 + history.md v198+v199 + this strategy_decisions entry + visibility_decisions entry + status_log entry).
+
+
+---
+
+## v200 annotation -- Strategic reframe post R-PRIME-3 + 1-RSB batch (2026-05-24)
+
+### Trigger
+
+User strategic reframe analysis delivered after R-PRIME-3 HARD-FAIL (v193) + 1-RSB indirect battery completion (v195-v199; 0-of-3 HARD-PASS). Annotation-only cap_map bump. 7 decisions filed.
+
+### Decision 1: R-PRIME-3 scope (feedback-dont-overextend-theorems)
+
+R-PRIME-3 HARD-FAIL at r^2=0.103 narrows the corpus-pair-cosine-distance geometry axis. Does NOT close all predictor families. Three zero-new-compute alternative predictor families filed this cycle:
+- Alt 1 (most likely): discrete task-class predictor -- classify shift-class, map to 0.94/0.74/0.60 plateaus
+- Alt 2: substrate-internal signature -- W spectrum / bundle-norm distribution / replica overlap after Phase-A
+- Alt 3 (pending R-PRIME-1 derivation): PAC-Bayes posterior-over-W KL term, NOT input-data KL
+
+Decision: cap_map annotated; alternatives registered in v200 pre-registered-untested section. No new experiments dispatched (this is annotation-only; exp_dev owns design parameters for the alt analyses).
+
+### Decision 2: Discrete-plateau dominance
+
+After 6 converging observations against continuous-axis Bet B mechanisms (v184-v194), the three retention plateaus (0.94 same-corpus / 0.74 4-stage / 0.60 diff-corpus) are the dominant Bet B finding. Decision: annotate explicitly as dominant finding and as defensible product claim. Framing: "substrate has known retention plateaus per task-shift class."
+
+### Decision 3: Substrate-physics framework track record
+
+First mixed-result 1-RSB indirect battery (0-of-3 HARD-PASS; Pred-1/3/5 HARD-FAIL; Pred-2 INCONCLUSIVE; Pred-4 pending). Decision: annotate framework as no longer monotone-positive. Future predictions derived from substrate-physics framework require empirical confirmation rather than assumed reliability. Framework stays load-bearing (direct retention plateaus + K5 + GPT-quality + Bet I 2/3 + R29 + R16 all still supported).
+
+### Decision 4: K5 product-story prominence
+
+K5 Real-time learning during inference is the first Tier-2 KILLER at clean PASS (bpc delta=-0.548, 11x HARD-PASS). Decision: annotate explicitly as product-story anchor independent of Bet B resolution or multi-hop. Substrate-novel (Hebbian-only, no train/inference separation).
+
+### Decision 5: GPT-quality reframe confirmation
+
+v191 ❌->🟢 reclassification confirmed correct at v200. Capability is UNTESTED not REJECTED. P unchanged at 20-30%. Honest characterization of evidence is accurate: no hard ceiling established; substrate-physics frameworks do not predict ceiling; empirical gap unresolved via Paths 3/1/5.
+
+### Decision 6: Combined Tier-1 probability recalibration
+
+Updated to 40-55% (was 55-75% per v79 strategic plan). Downward update driven by substrate-physics framework reliability slip (first mixed-result 1-RSB batch). MoE / Bet N / SSM-HiPPO all independently motivated; this is calibration discipline, not pessimism about substrate.
+
+### Decision 7: local_cpu_runner infrastructure failure (OPERATIONAL FLAG)
+
+**local_cpu_runner (desktop CPU) has been DEAD since 2026-05-21.** At time of v200 commit, this is 3+ days unresolved. Open infrastructure failure compounding the pipeline-pacing gap (desktop CPU underutilized; CPU-tier drills routing to remote_cpu or skipped). Revive steps are in project_cpu_resource_underutilized.md.
+
+**Resolution deadline: 2026-05-27 (72h from 2026-05-24).** If still DEAD at deadline, escalate (file as explicit blocker, reroute all CPU-tier drills to remote_cpu, or accept the bandwidth reduction with explicit acknowledgment).
+
+### Capability moves
+
+All annotation-only. No row state changes. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED.
+
+### Pipeline pacing
+
+- GPU: Pred-4 hysteresis in flight at remote_cpu_queue (highest-leverage remaining 1-RSB diagnostic)
+- Desktop CPU: DEAD since 2026-05-21 (see Decision 7)
+- Exp_dev dispatch for Alt 1 / Alt 2 / Alt 3 predictor re-analyses: NOT dispatched this cycle (annotation-only per task contract; exp_dev owns design parameters)
+
+### per PROT-009
+
+113th paired commit (cap_map.md v200 + history.md v200 + this strategy_decisions entry).

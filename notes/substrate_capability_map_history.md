@@ -7818,3 +7818,28 @@ Triggered by: bug-recovery: verdict_handler v197 read LOCAL smoke artifact inste
 wave14_1rsb_capacity_plateau_v1 REMOTE FULL = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.031 flat retA~0.71-0.74 across all 7 M values at N=4096 3-seed. Clean HARD-FAIL (max_delta<0.08). Profile: M=25k:0.741, M=50k:0.709, M=100k:0.706, M=150k:0.716, M=200k:0.725, M=300k:0.723, M=400k:0.716 -- essentially flat. Same root cause as v198: LOCAL smoke artifact from 19:36 stale vs REMOTE FULL at 20:10. Pred-1/3 HARD-FAIL on capacity-plateau indirect proxy; flat M-profile at retA~0.72 is itself informative (no M-degradation up to 400k bytes/stage). 1-RSB retention-plateau framing UNAFFECTED. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 58th post-lock observation clean. 112th PROT-009 paired commit (same as v198).
 
 History ref: see cap_map.md v199 block for full narrative.
+
+
+## v200 -- (2026-05-24) ANNOTATION-ONLY: Strategic reframe post R-PRIME-3 + 1-RSB batch (7 annotation points)
+
+Triggered by: user strategic reframe analysis post R-PRIME-3 HARD-FAIL (v193) + 1-RSB indirect battery completion (v195-v199; 0-of-3 HARD-PASS).
+
+Seven annotation points filed. Zero row state changes. Zero experiments dispatched.
+
+(1) R-PRIME-3 NARROWS not CLOSES: r^2=0.103 HARD-FAIL on corpus-pair cosine distance eliminates the specific geometry metric tested. Three zero-new-compute alternative predictor families filed: Alt 1 discrete task-class classifier mapping shift-class to 0.94/0.74/0.60 plateaus; Alt 2 substrate-internal signature (W spectrum / bundle-norm / replica overlap after Phase-A); Alt 3 PAC-Bayes posterior-over-W KL term (depends on R-PRIME-1 derivation). Per [[feedback-dont-overextend-theorems]].
+
+(2) Convergent discrete-plateau structure (0.94/0.74/0.60) named DOMINANT Bet B finding. Robust under N, geometry, time, per-task projection, replay weighting -- all rejected as continuous-axis levers. Defensible product claim: "substrate has known retention plateaus per task-shift class."
+
+(3) Substrate-physics framework track record updated: first mixed-result batch (1-RSB indirect battery 0-of-3 clean HARD-PASS; Pred-1/3/5 HARD-FAIL; Pred-2 INCONCLUSIVE; Pred-4 pending). Framework still load-bearing for direct retention plateaus, K5, GPT-quality reframe, Bet I 2/3, R29, R16. No longer monotone-positive; future predictions require confirmation.
+
+(4) K5 product-story prominence annotation: first Tier-2 KILLER at clean PASS; substrate-novel; independent of Bet B / multi-hop.
+
+(5) GPT-quality row v191 reclassification confirmed correct (UNTESTED not REJECTED; P=20-30% unchanged; honest characterization of evidence).
+
+(6) Combined Tier-1 probability recalibrated to 40-55% (was 55-75%); downward update from framework reliability slip; MoE / Bet N / SSM-HiPPO independently motivated.
+
+(7) local_cpu_runner DEAD since 2026-05-21 flagged in cap_map + decisions log; 72h resolution target (2026-05-27).
+
+Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 113th PROT-009 paired commit.
+
+History ref: see cap_map.md v200 block for full narrative.

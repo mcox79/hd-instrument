@@ -16238,3 +16238,70 @@ ANNOTATION v197 -> v198 (BUG-RECOVERY): (V1) wave14_1rsb_cascade_depth_v1 REMOTE
 ### Tally (one-line)
 
 ANNOTATION v198 -> v199 (BUG-RECOVERY): (V1) wave14_1rsb_capacity_plateau_v1 REMOTE FULL = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.031 flat retA~0.71-0.74 across all 7 M values at N=4096 3-seed (clean HARD-FAIL; formula-honest); ROOT CAUSE same as v198: verdict_handler v197 read LOCAL smoke artifact (19:36 mtime) not REMOTE FULL (20:10 mtime); structural fix (SCP-pull before local read) locked in decisions log; Pred-1/3 capacity-plateau HARD-FAIL on indirect proxy; flat M-profile at retA~0.72 is itself informative (no M-degradation up to 400k bytes/stage); 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete plateaus from Bet B v184-v194) UNAFFECTED; pool-level RSB UNAFFECTED; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 58th observation clean; 112th PROT-009 paired commit.
+
+
+## v200 - (2026-05-24) ANNOTATION-ONLY: Strategic reframe post R-PRIME-3 + 1-RSB batch (7 annotation points)
+
+### Capability moves (v199 -> v200)
+
+| Capability | v199 state | v200 state | Trigger |
+|---|---|---|---|
+| Bet B retention (R-PRIME predictability search space) | 🟡 PARTIAL + R-PRIME-3 HARD-FAIL annotation v193 (predictability closed on corpus-pair spectral distance metric) | **🟡 PARTIAL UNCHANGED + R-PRIME-3 HARD-FAIL NARROWS search space, does NOT close it** (per [[feedback-dont-overextend-theorems]]). Three zero-new-compute alternative predictor families filed this cycle in parallel: (Alt 1, most likely) discrete task-class predictor -- classify shift-class of corpus pair, map to 0.94/0.74/0.60 plateaus; (Alt 2) substrate-internal signature -- W spectrum / bundle-norm distribution / replica overlap after Phase-A as predictor; (Alt 3, depends on R-PRIME-1 derivation in parallel Research dispatch) PAC-Bayes posterior-over-W KL term, NOT input-data KL. R-PRIME-3 HARD-FAIL at r^2=0.103 < 0.2 on cosine metric is a narrowing of the geometry axis NOT a closure of all predictor families. | User strategic reframe post R-PRIME-3 |
+| Bet B retention -- discrete-plateau dominance | 🟡 PARTIAL with cluster-structured retention pattern noted at v194 (five converging observations against continuous-axis framings) | **🟡 PARTIAL UNCHANGED + DOMINANT BET B FINDING ANNOTATION**: convergent discrete-plateau structure (0.94 same-corpus / 0.74 4-stage / 0.60 diff-corpus) is robust under N, geometry, time, per-task projection, and replay weighting -- all rejected as continuous-axis levers. Defensible product claim: "substrate has known retention plateaus per task-shift class." This is the load-bearing Bet B result whether or not a predictor for plateau selection is found. | User strategic reframe |
+| RSB phase / ultrametric index -- substrate-physics framework track record | Pool-level RSB ✅; 1-RSB indirect battery v195-v199 (Pred-2 INCONCLUSIVE, Pred-1/3/5 HARD-FAIL, Pred-4 in flight) | **✅ UNCHANGED (pool-level RSB) + framework track record annotation: FIRST MIXED-RESULT batch on 1-RSB indirect battery (0-of-3 clean HARD-PASS; Pred-1/3/5 HARD-FAIL, Pred-2 only positive signal, Pred-4 hysteresis still pending)**. Substrate-physics framework still load-bearing for: direct retention plateaus, K5 real-time inference learning ✅, GPT-quality reframe ✅ (v191), Bet I 2/3 predictions, R29, R16. Framework is NO LONGER monotone-positive. Future predictions from substrate-physics framework require confirmation rather than assumed reliability. Pred-4 hysteresis remains the cleanest remaining binary call: first-order (1-RSB) vs continuous (RS) transition discrimination. | v195-v199 1-RSB battery outcome |
+| K5 Real-time learning during inference | ✅ DEMONSTRATED (v191 REALTIME_INFERENCE_HARD_PASS bpc_online=2.198 vs bpc_frozen=2.745 delta=-0.548) | **✅ UNCHANGED + product-story prominence annotation: K5 is the FIRST Tier-2 KILLER capability; real-time learning during inference; substrate-novel (no train/inference separation required); does NOT depend on Bet B resolution or multi-hop. Per user strategic reframe: K5 ✅ stands on its own as a product story anchor independent of Bet B uncertainty.** | User strategic reframe |
+| GPT-quality generation with auditable memory | 🟢 PARTIAL reclassified v191 (❌ -> 🟢; strategy posture not capability claim; 5 paths filed; Paths 3/1/5 dispatched) | **🟢 PARTIAL UNCHANGED + confirmation annotation: v191 ❌->🟢 reclassification is correct** (capability UNTESTED, not capability REJECTED). P estimate unchanged at 20-30% (Paths 3/1/5 outcomes pending). Honest characterization of evidence is now accurate: no hard ceiling established; substrate-physics frameworks do not predict ceiling; empirical gap unresolved. | User strategic reframe |
+| Combined Tier-1 probability (MoE / Bet N / SSM-HiPPO -- at least 1 lands category-defining) | Unquantified Tier-1 combined probability | **ANNOTATION: Combined Tier-1 probability updated to 40-55% (was 55-75% per v79 strategic plan)**. Downward update driven by substrate-physics framework reliability slip: first mixed-result 1-RSB batch (0-of-3 clean HARD-PASS on indirect proxies) modestly reduces confidence in framework-derived predictions. MoE / Bet N / SSM-HiPPO independently supported; adjustment is calibration not retraction. | User strategic reframe |
+| Operational infrastructure -- local_cpu_runner | DEAD since 2026-05-21 (project_cpu_resource_underutilized.md) | **OPEN INFRASTRUCTURE FAILURE ANNOTATION: local_cpu_runner (desktop CPU) DEAD since 2026-05-21; 3+ days unresolved. Compounding pipeline-pacing gap (desktop CPU underutilized; CPU-tier drills routing to remote_cpu or skipped). Operational attention required WITHIN 72h of 2026-05-24 (deadline 2026-05-27). See project_cpu_resource_underutilized.md for revive command.** | User strategic reframe |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only; no row promotions or demotions) | annotation-only cycle |
+
+### Substrate-product positioning v200
+
+- **R-PRIME-3 NARROWS not CLOSES**: the r^2=0.103 HARD-FAIL on corpus-pair cosine distance eliminates the specific geometry metric tested. Three alternative predictor families remain open (Alt 1 discrete task-class classifier; Alt 2 substrate-internal W-spectrum / bundle-norm signature; Alt 3 PAC-Bayes posterior-over-W KL term pending R-PRIME-1 derivation). All three are zero-new-compute re-analyses of existing data. Per [[feedback-dont-overextend-theorems]], the R-PRIME-3 HARD-FAIL at r^2=0.103 does NOT close the predictor question; it narrows the geometry axis of the search space.
+
+- **Convergent discrete-plateau structure is the DOMINANT Bet B finding**: after v184-v194 negative results across N-scaling, geometry, consolidation time, per-task projection, and replay weighting, the three retention plateaus (0.94 / 0.74 / 0.60) are the most defensible product claim in the Bet B portfolio. Six converging observations all support the plateau structure being substrate-intrinsic and not a tuning artifact. The claim "substrate has known retention plateaus per task-shift class" is the bankable Bet B result irrespective of predictor resolution.
+
+- **Substrate-physics framework: first mixed-result batch filed honestly**: three Pred axes (Pred-1/3 capacity-plateau + Pred-5 cascade-depth) produced HARD-FAIL at FULL on indirect 1-RSB proxies; Pred-2 INCONCLUSIVE; Pred-4 hysteresis still pending. The pool-level RSB validated at v3 stands unaffected (different axis). The framework remains load-bearing for multiple rows but is no longer assumed monotone-positive. Predictions routed through substrate-physics framework require empirical confirmation.
+
+- **K5 product-story prominence**: K5 Real-time learning during inference is the first Tier-2 KILLER capability at clean PASS (bpc lift delta=-0.548 = 11x HARD-PASS threshold). It is substrate-novel (Hebbian-only, no autograd, no train/inference barrier), does not depend on Bet B uncertainty or multi-hop resolution, and represents a distinct product differentiator on its own.
+
+- **GPT-quality honest characterization**: the v191 reclassification from ❌ to 🟢 PARTIAL is confirmed as correct. The capability is UNTESTED not REJECTED. P=20-30% unchanged; Paths 3/1/5 are the empirical/theoretical path to updating that estimate.
+
+- **Combined Tier-1 probability recalibrated to 40-55%** (was 55-75%): the substrate-physics framework reliability slip (first mixed-result batch) modestly reduces framework-derived predictions. The reduction is calibration discipline, not pessimism about the substrate; MoE, Bet N, SSM-HiPPO all remain independently motivated.
+
+- **local_cpu_runner infrastructure failure flagged as time-critical**: DEAD since 2026-05-21 is 3+ days unresolved at time of v200 commit. Compounding pipeline-pacing gap. 72h resolution target.
+
+- All v199 positioning carried forward UNCHANGED.
+
+### Pre-registered untested (carried forward v199 + v200 additions)
+
+- All v178-v199 items carried forward.
+- v195 OPEN: Pred-4 hysteresis SHIPPED at commit b552776 (remote_cpu_queue) -- in flight.
+- v195 OPEN: ultrametric_triples FULL at N=2048 12 seeds -- not yet shipped.
+- **v200 NEW: Alt 1 predictor (discrete task-class)** -- classify shift-class of corpus pair, map to 0.94/0.74/0.60 plateau; zero-new-compute re-analysis of existing Bet B data.
+- **v200 NEW: Alt 2 predictor (substrate-internal signature)** -- W spectrum / bundle-norm distribution / replica overlap after Phase-A as predictor of plateau assignment; zero-new-compute re-analysis.
+- **v200 NEW: Alt 3 predictor (PAC-Bayes posterior-over-W KL term)** -- depends on R-PRIME-1 derivation in parallel Research dispatch; NOT input-data KL.
+- **v200 NEW: local_cpu_runner revive** -- 72h deadline (2026-05-27); see project_cpu_resource_underutilized.md.
+
+### Inefficiency / lock candidate
+
+- No new lock candidates. All 7 annotation points are position corrections or calibration updates -- no process failures flagged.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions_2026-05-24.md staged atomically; "Cap map: strategic reframe annotations post R-PRIME-3 + 1-RSB batch (annotation-only)" commit.
+- per PROT-001 to PROT-003: cap_map.md version bumped v199 -> v200; narrative block written; capability moves table written.
+- per PROT-004/006: annotation-only; 0 new closures; no row state changes; no rehab file required.
+- per PROT-007: v200 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes.
+- per PROT-009: 113th paired commit.
+- per [[feedback-decision-log-eol-handling]]: strategy_decisions_2026-05-24.md appended via tools/orchestrator/append_decision_log.py.
+- per [[feedback-subagent-permission-inheritance]]: commit LOCAL only (push deferred to main thread per sub-agent permission gap).
+- per [[feedback-for-you-tab-primary-channel]]: 1 status_log entry planned (MEDIUM v200 strategic reframe annotations + 1-RSB battery track-record update + K5 prominence + CPU infra flag).
+- per [[feedback-verdict-msg-honest-reread]]: no new verdict reads this cycle; annotation-only.
+
+### Tally (one-line)
+
+ANNOTATION-ONLY v199 -> v200: (1) R-PRIME-3 HARD-FAIL NARROWS not CLOSES predictability search space (per [[feedback-dont-overextend-theorems]]); 3 zero-new-compute alt predictor families filed (Alt 1 discrete task-class / Alt 2 substrate-internal W-spectrum+bundle-norm+replica-overlap / Alt 3 PAC-Bayes posterior-over-W KL pending R-PRIME-1); (2) convergent discrete-plateau 0.94/0.74/0.60 named DOMINANT Bet B finding (robust under N, geometry, time, per-task projection, replay weighting -- all rejected as continuous-axis levers; defensible product claim "substrate has known retention plateaus per task-shift class"); (3) substrate-physics framework track record updated -- FIRST MIXED-RESULT batch (1-RSB indirect battery 0-of-3 HARD-PASS; Pred-2 only positive signal; Pred-4 hysteresis pending; framework still load-bearing for retention plateaus + K5 + GPT-quality + Bet I 2/3 + R29 + R16 but NO LONGER monotone-positive; predictions require confirmation); (4) K5 ✅ product-story prominence annotation (first Tier-2 KILLER; substrate-novel real-time inference learning; does NOT depend on Bet B / multi-hop); (5) GPT-quality row reframe confirmed correct (UNTESTED not REJECTED; P=20-30% unchanged; honest characterization); (6) combined Tier-1 probability recalibrated 40-55% (was 55-75%; downward from framework reliability slip; MoE/Bet N/SSM-HiPPO independently motivated); (7) local_cpu_runner DEAD since 2026-05-21 flagged in cap_map + decisions log (infrastructure failure compounding; 72h resolution target 2026-05-27); portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; no row state changes; 113th PROT-009 paired commit.
+
+Net effect v200: 7 strategic-reframe annotation points filed (R-PRIME-3 scope + discrete-plateau dominance + framework track record honest + K5 product prominence + GPT-quality confirmation + Tier-1 probability recalibration + CPU infra flag); zero row state changes; zero new experiments dispatched (annotation-only per task contract); 113th PROT-009 paired commit.
