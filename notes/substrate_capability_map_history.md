@@ -7786,3 +7786,10 @@ History ref: see cap_map.md v194 block for the full per-version narrative; this 
 Triggered by: wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED_MIDDLE (binder=-0.164; q_EA~0; n_peaks=4; max_sep_sigma=2.37).
 
 Pred-2 of the 1-RSB diagnostic battery: W_ABCD vectors across 10 seeds show q near zero (mean_q=1.1e-6; std_q=3.2e-6 -- tighter than random bipolar). Negative Binder cumulant (-0.164) means anti-clustering. INCONCLUSIVE: neither confirms 1-RSB W-level basin-trapping (which requires q_EA >> 0, positive Binder) nor cleanly refutes (RS null also gives q_EA~0 at this N). Pool-level RSB unaffected (different axis). Pred-4 hysteresis sole remaining CPU diagnostic. Annotation-only; no row state changes; portfolio 13+5 UNCHANGED.
+
+
+## v196 -- (2026-05-24) ANNOTATION-ONLY: Pred-5 cascade-depth INCONCLUSIVE at smoke-grade artifact
+
+Triggered by: wave14_1rsb_cascade_depth_v1 on-disk artifact = CASCADE_DEPTH_MIDDLE (max_delta=0.058 n_cliffs=0 n_plateaus=1 var_delta=0.0029; retA profile depth=2:0.907 / depth=3:0.849 / depth=4:0.898).
+
+Pred-5 of the 1-RSB diagnostic battery: on-disk metrics.json carries SMOKE config (N=1024, seeds=[17], epochs=1, depths=[2,3,4]) NOT the v195-handoff FULL config (5 seeds, 5 epochs, depths 2-5). MIDDLE-band verdict at smoke-grade does NOT discriminate 1-RSB cliff-and-plateau from RS smooth decay; non-monotone depth=4 RECOVERY is symptomatic of 1-seed noise. Pred-5 CANNOT discriminate at this artifact resolution. Watchdog silent_idle at 20:14:48 confirms GPU drained — either FULL ran and overwrote artifact with smoke values (runner-config-mismatch bug suspected) or only smoke ran. Honest re-read flags rather than inflates. 1-RSB retention-plateau framing from 0.94/0.74/0.60 discrete plateaus (5+ converging observations v184-v194) UNAFFECTED. Pred-4 hysteresis (shipped at b552776) remains highest-leverage. FULL re-run pre-registered. Annotation-only; no row state changes; portfolio 13+5 UNCHANGED.

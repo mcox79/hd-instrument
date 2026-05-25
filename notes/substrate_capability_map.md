@@ -16017,3 +16017,41 @@ Net effect v194: U1/U7 multi-task-diff-corpus rehab axis 2 (N-scaling 2048->4096
 ### Tally (one-line)
 
 ANNOTATION-ONLY v194 -> v195: (V1) wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED_MIDDLE n_peaks=4 max_sep_sigma=2.37 binder=-0.164 ultrametric_frac=1.0; Pred-2 W-vector P(q) INCONCLUSIVE (q_EA~0; negative Binder = anti-clustering; W vectors seed-diverse NOT basin-trapped); pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED (different axis); 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED; Pred-4 hysteresis sole remaining CPU diagnostic not queued; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 54th observation clean; remote_cpu_queue=0 IDLE (exp_dev refill authorized, ACTIVE); 109th PROT-009 paired commit.
+
+
+## v196 - (2026-05-24) ANNOTATION-ONLY: Pred-5 cascade-depth diagnostic INCONCLUSIVE at smoke-grade artifact
+
+### Capability moves (v195 -> v196)
+
+| Capability | v195 state | v196 state | Trigger |
+|---|---|---|---|
+| RSB phase / ultrametric index | ✅ Validated (structural, pool-level) + W-vector P(q) axis INCONCLUSIVE v195 annotation | **✅ UNCHANGED + Pred-5 cascade-depth axis annotation: INCONCLUSIVE at smoke-grade artifact** (max_delta=0.058 < 0.08 smooth threshold AND n_cliffs=0 BUT var_delta=0.0029 > 0.002 HARD-FAIL var threshold). `wave14_1rsb_cascade_depth_v1` artifact on disk = CASCADE_DEPTH_MIDDLE; verdict_msg label is HONEST per pre-reg bands (cliff>=0.15 + plateau<0.05 fails for HARD-PASS; max_delta<0.08 AND var<0.002 fails for HARD-FAIL on var). HONEST RE-READ: on-disk metrics.json reports `mode: "smoke", N: 1024, seeds: [17], epochs: 1, depths: [2,3,4]` — the artifact is SMOKE-GRADE (single seed, 1 epoch, 3 depths), NOT the pre-shipped FULL config (5 seeds, 5 epochs, depths 2-5 per v195 exp_dev handoff). The non-monotone retA profile (depth=2:0.907 -> depth=3:0.849 -> depth=4:0.898 RECOVERY) is symptomatic of 1-seed noise, not a substrate-physics signal that discriminates 1-RSB from RS. Row state UNCHANGED. Pred-5 cascade-depth axis CANNOT discriminate at this artifact resolution; FULL re-run with multi-seed required before any substrate-physics inference. | (V1 v196) wave14_1rsb_cascade_depth_v1 artifact = CASCADE_DEPTH_MIDDLE max_delta=0.058 n_cliffs=0 n_plateaus=1 var_delta=0.0029 at SMOKE-GRADE artifact (1 seed, 1 epoch, depths {2,3,4}) |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only) | annotation-only cycle |
+
+### Substrate-product positioning v196
+
+- **Pred-5 (cascade-depth sensitivity) INCONCLUSIVE at smoke-grade**: the on-disk artifact `data/exp_wave14_1rsb_cascade_depth_v1/metrics.json` carries SMOKE config not FULL — depths {2,3,4} only (FULL would include 5), single seed 17 only (FULL would be 5 seeds), 1 epoch (FULL would be 5). The MIDDLE-band verdict at smoke does NOT discriminate 1-RSB cliff-and-plateau from RS smooth decay; the depth=4 RECOVERY is most likely seed noise.
+- **Watchdog signal `silent_idle` at 20:14:48 confirms GPU queue is drained** — either the FULL ran and overwrote the artifact with smoke values (a runner-config-mismatch bug), or only the smoke ever ran. Either way, the on-disk data is what it is, and Step 0 honest re-read flags this rather than inflating an inference.
+- **1-RSB framing for retention plateaus unaffected**: the 5+ converging observations (0.94/0.74/0.60 discrete plateaus; all continuous-axis mechanisms failing v184-v194) motivating 1-RSB are orthogonal to Pred-5's cascade-depth axis. Pred-5 INCONCLUSIVE at smoke does not weaken the discrete-plateau framing nor strengthen it.
+- **Pred-4 hysteresis (shipped to remote_cpu_queue at commit b552776) remains the highest-leverage 1-RSB diagnostic** — first-order vs continuous transition discrimination, pre-reg HARD-PASS gap>=0.10.
+- All v195 positioning carried forward UNCHANGED.
+
+### Pre-registered untested (carried forward + v196 additions)
+
+- All v178-v195 items carried forward.
+- ~~v195 Pred-5 (cascade-depth) FULL~~ **CANNOT MARK CONSUMED — on-disk artifact is SMOKE-grade; FULL re-run with 5 seeds + 5 epochs + depths {2,3,4,5} is still pre-registered**.
+- **v196 OPEN: cascade-depth FULL re-run** with v195-handoff config (5 seeds, 5 epochs, depths 2-5) — needs ship to GPU.
+- v195 OPEN: Pred-4 hysteresis SHIPPED at commit b552776 (remote_cpu_queue).
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions_2026-05-24.md staged atomically.
+- per PROT-004/006: 0 new closures; annotation-only; no rehab file required.
+- per PROT-007: v196 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes.
+- per PROT-009: 110th paired commit.
+- per [[feedback-verdict-msg-honest-reread]]: 55th post-lock observation; CASCADE_DEPTH_MIDDLE label HONEST per pre-reg bands; HOWEVER the SMOKE-vs-FULL config mismatch is the load-bearing honest observation — would-have-been over-claim if labelled "FULL Pred-5 = INCONCLUSIVE" without flagging that the artifact is smoke-grade.
+
+### Tally (one-line)
+
+ANNOTATION-ONLY v195 -> v196: (V1) wave14_1rsb_cascade_depth_v1 on-disk artifact = CASCADE_DEPTH_MIDDLE max_delta=0.058 n_cliffs=0 var_delta=0.0029 at SMOKE-GRADE config (N=1024, seeds=[17], epochs=1, depths=[2,3,4]; pre-shipped FULL was 5 seeds, 5 epochs, depths 2-5 per v195 exp_dev handoff); Pred-5 cascade-depth axis CANNOT DISCRIMINATE 1-RSB from RS at this resolution; non-monotone retA profile (depth=2:0.907 -> 3:0.849 -> 4:0.898 RECOVERY) is symptomatic of 1-seed noise; on-disk artifact may indicate runner-config-mismatch bug OR FULL never ran; either way honest read is INCONCLUSIVE at smoke-grade with FULL re-run pre-registered; pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED; 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED; Pred-4 hysteresis (shipped at b552776) remains highest-leverage 1-RSB diagnostic; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 55th observation clean (label honest; SMOKE-vs-FULL config-mismatch is the load-bearing honest call); pause flag ABSENT (ACTIVE); 110th PROT-009 paired commit.

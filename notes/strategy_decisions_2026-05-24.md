@@ -2183,3 +2183,51 @@ The negative signals SHARPEN substrate-product characterization toward (a) discr
 
 **PROT-004/006/008/009 compliance**: 0 new closures; annotation-only.
 **Per [[feedback-verdict-msg-honest-reread]]**: 54th post-lock observation; label=msg=data CLEAN.
+
+
+---
+
+## v196 -- wave14_1rsb_cascade_depth_v1 CASCADE_DEPTH_MIDDLE annotation (smoke-grade artifact)
+
+**Step 0 honest re-read**: verdict_msg label CASCADE_DEPTH_MIDDLE is HONEST per pre-reg bands.
+- max_delta=0.058 < 0.08 smooth threshold (FAILS HARD-PASS cliff>=0.15)
+- n_cliffs=0 (FAILS HARD-PASS cliff>=0.15)
+- var_delta=0.0029 > 0.002 (FAILS HARD-FAIL var<0.002 — so NOT HARD-FAIL)
+- Profile: depth=2 retA=0.907 / depth=3 retA=0.849 / depth=4 retA=0.898 (NON-MONOTONE with depth=4 RECOVERY)
+- LABEL CORRECT: MIDDLE band
+
+**CRITICAL SECONDARY HONEST READ — artifact is SMOKE not FULL**:
+- on-disk metrics.json carries `mode: "smoke", N: 1024, batch_size: 32, epochs: 1, seeds: [17], depths: [2,3,4]`
+- v195 exp_dev handoff (notes/exp_dev_decisions_2026-05-24.md lines 401-417) pre-shipped FULL with 5 seeds + 5 epochs + depths {2,3,4,5}
+- The SMOKE artifact values exactly match the pre-ship smoke captured at handoff time (max_delta=0.058)
+- Watchdog silent_idle at 20:14:48 says GPU drained; either FULL ran and overwrote artifact with smoke values (runner-config-mismatch bug) OR only smoke ever ran on the queue
+- Non-monotone depth=4 RECOVERY is most plausibly 1-seed sampling noise NOT substrate signal
+
+**Pred-5 (cascade-depth) implications at this artifact resolution**:
+- CANNOT discriminate 1-RSB (predicted cliff>=0.15 then plateau<0.05 at some depth step) from RS (predicted smooth monotone decay) at smoke-grade
+- The 1-RSB framing rest mostly on the 5+ converging observations of discrete 0.94/0.74/0.60 retention plateaus across Bet B variants v184-v194 — those are pool-level / retention-level discrete-plateau observations and are ORTHOGONAL to the cascade-depth axis
+- Pred-5 status: INCONCLUSIVE at smoke-grade artifact; FULL re-run with v195-handoff config pre-registered
+
+**1-RSB battery status after Pred-5 (smoke-grade) annotation**:
+- Pred-1 (capacity_plateau): on-disk artifact = CAPACITY_PLATEAU_RS_SMOOTH at smoke-grade (annotation v197 forthcoming this cycle)
+- Pred-2 (pq_retained): v195 ALREADY CONSUMED FULL = MIDDLE; W-vector axis q_EA~0
+- Pred-3 (capacity_plateau / GPU): SAME as Pred-1 above
+- Pred-4 (hysteresis): SHIPPED at commit b552776 to remote_cpu_queue
+- Pred-5 (cascade_depth): SMOKE-grade INCONCLUSIVE this cycle (v196)
+- Pred-5 ultrametric_triples: local CPU smoke ULTRAMETRIC_1RSB_CONFIRMED at N=512 trivially (FULL at N=2048 pending)
+
+**Joint pattern read (preliminary; capacity_plateau v197 still pending this cycle)**: 5 of 5 Pred axes have produced SMOKE or MIDDLE outcomes at the artifact resolution accessible; NO Pred axis has produced a clean HARD-PASS for 1-RSB; NO Pred axis has produced a clean HARD-FAIL either. The basin-discrete-1-RSB framing from retention plateaus is NEITHER strengthened NOR refuted by the diagnostic battery at these resolutions. Per [[feedback-dont-overextend-theorems]] this does NOT close the 1-RSB framing; it surfaces the limit of indirect-axis 1-RSB diagnostics at smoke-grade compute.
+
+**Capability moves**:
+
+| Row | v195 state | v196 state |
+|---|---|---|
+| RSB phase / ultrametric index | ✅ Validated structural (pool-level) + v195 W-vector P(q) annotation INCONCLUSIVE | UNCHANGED + v196 cascade-depth annotation: INCONCLUSIVE at smoke-grade artifact |
+
+**Net effect v196**: ANNOTATION-ONLY. No row state changes. Pool-level RSB stands. 1-RSB framing from retention plateaus (0.94/0.74/0.60) unaffected. Pred-5 SMOKE artifact does not discriminate; FULL re-run pre-registered.
+
+**Pipeline pacing**: gpu_q:0 cpu_q:0 (per state_check 20:17 reading; watchdog silent_idle at 20:14:48); pause_state=ACTIVE; exp_dev refill DEFERRED to orchestrator per turn directive (orchestrator dispatching exp_dev separately to avoid parallel cap_map race).
+
+**PROT-004/006/008/009 compliance**: 0 new closures; annotation-only.
+**Per [[feedback-verdict-msg-honest-reread]]**: 55th post-lock observation; label CASCADE_DEPTH_MIDDLE honest at smoke-grade; SMOKE-vs-FULL config mismatch is the load-bearing honest call.
+**Per [[feedback-no-experiment-design-in-prompts]]**: this verdict_handler cycle does NOT prescribe FULL re-run parameters — exp_dev decides when re-shipped.
