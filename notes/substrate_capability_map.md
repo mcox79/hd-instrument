@@ -16470,3 +16470,115 @@ v203 processes the 5 remaining terminal verdicts AND corrects the v202 forward-l
 BATCHED 5-VERDICT + v202 CORRECTION v202 -> v203: (V1) wave14_betB_shift_class_full_replication_v1 = SHIFT_CLASS_REPLICATION_HARD_FAIL n_nonoverlapping=4/6 (< 5 strict-replication gate); K-W omnibus p=0.000000 retained so GROUP DIFFERENCES survive but the v201 operational 6-distinct-plateaus claim is WALKED BACK to group-level claim — CORRECTS v202 forward-looking SHIFT_CLASS_REPLICATION_HARD_PASS-pending statement; (V2) wave14_betB_pac_bayes_kl_predictor_v1 = ALT3_INSTRUMENTATION_FAIL 0 valid cells exit 0.022s — CORRECTS v202 forward-looking ALT3_LAPLACE_ASSUMPTION_VIOLATED-pending statement (actual is INSTRUMENTATION not LAPLACE-assumption-violation); (V3) wave14_1rsb_ultrametric_triples_full_v1 = label CONFIRMED OVERRIDE to INCONCLUSIVE per [[feedback-verdict-msg-honest-reread]] 66th observation post-lock — verdict_msg ITSELF flags trivial satisfaction at q_EA~1e-6 (UV-problem at N=2048); pool-level RSB unaffected; (V4) wave14_1rsb_hysteresis_v1 = INSTRUMENTATION_FAIL TypeError at base.evaluate_bpc() exit 112s; pre-reg OPEN + debt; (V5) wave14_moe_alpha_c_prestep_v1 = ALPHA_C_OUT_OF_RANGE alpha_c=0.3906 vs theoretical [0.08, 0.25] (1.6x upper-bound exceedance); MoE rebuild GATED pending substrate-implementation audit; combined Tier-1 probability deflated 40-55% -> 30-45% (substrate-physics framework reliability slip ADVANCES; 0-of-3 clean on Bet B predictability rescues; 0-of-4 clean on 1-RSB indirect battery with 1 instrumentation gap); product claim walks back from v201 "operational predictability" to v200 "group-level structure"; 3 new lock candidates filed (production-codepath smoke in self-tests; row-state-promotion gate before product-claim sharpening; forward-looking-pending-label honest re-read); 1 honest-reread override (Pred-3); 2 instrumentation debts (Alt 3 + Pred-4); 1 anomaly (MoE alpha_c); 2 v202 forward-looking-label corrections (Alt 1 + Alt 3); portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 64th-67th observations post-lock with Pred-3 override LOAD-BEARING third time and v202 corrections EXTENDING lock scope to narrative-level forward-looking labels; 116th PROT-009 paired commit.
 
 Net effect v203: substantive batch demoting Bet B operational predictor claim back to group-level claim; substrate-physics framework reliability deflated 40-55% -> 30-45%; MoE rebuild gated on alpha_c calibration anomaly; 2 instrumentation debts (Pred-4 + Alt 3 require script fixes); Pred-3 honest-reread override to INCONCLUSIVE (LOAD-BEARING lock evidence third time); 2 v202 forward-looking-label corrections; 3 new lock candidates; portfolio unchanged; 116th PROT-009 paired commit.
+
+
+## v204 - (2026-05-24) ANNOTATION-ONLY: Diagnostic correction on v202 Alt 2 W-internal smoke + reliability-calc revisit; NO RECLASSIFICATION (FULL evidence already exists; closure stands at production scale)
+
+### Trigger
+
+Diagnostic agent finding (agent a1ff36d4e31e57994) flagged that v202 Alt 2 `wave14_betB_W_internal_signature_v1` smoke r^2=0 across all 13 signatures was structurally guaranteed by smoke design (1 seed -> zero predictor variance -> Pearson r^2 mechanically 0; denominator collapses). Strategic intent dispatched: reclassify v202 Alt 2 status HARD-FAIL -> INCONCLUSIVE pending FULL re-run; revise framework reliability deflation 40-55% -> 30-45% (Alt 2 deflator retraction) up to a corrected v204 range; file exp_dev handoff to re-ship at FULL config.
+
+### Step 0 honest re-read - dispatch premise CONTRADICTED by existing cap_map evidence
+
+Per [[feedback-verdict-msg-honest-reread]] mandatory honest re-read of verdict_msg vs per-cell metrics AND downstream narrative (extended scope per v203 lock candidate), the dispatch premise must be checked against existing cap_map state BEFORE executing the reclassification.
+
+**Finding (load-bearing)**: v203 cap_map line 16417 ("Substrate-product positioning v203") ALREADY documents the FULL Alt 2 W-internal run executed at production scale:
+
+> "Alt 2 substrate-internal W-signature axis CLOSURE (already noted at v202) STANDS: v202 processed Alt 2 W_INTERNAL_HARD_FAIL from the SMOKE artifact (N=512, 1 seed, 3 corpus pairs); the FULL run terminated successfully at 21:58:00 with best r^2=0.001 on 25 cells (5 seeds x 5 corpus pairs, 13 signatures). The FULL substantive conclusion (Alt 2 W-internal-features axis CLOSED) AGREES with the v202 SMOKE-level closure but at production-grade evidence (25 cells, 5 seeds, N=2048). No correction needed to v202's substantive Alt 2 conclusion; v203 notes only that the production-grade run reached the same closure, strengthening rather than overturning the v202 decision."
+
+The dispatched reclassification reasoning assumes FULL never ran. It already ran at 21:58:00 with 25 cells / 5 seeds / 5 corpus-pairs / 13 signatures and produced best r^2=0.001 — well below any reasonable HARD-PASS threshold (e.g. r^2 >= 0.5). At 5 seeds per corpus-pair the predictor-variance objection from the diagnostic agent (which is correct as stated for the 1-seed smoke) does NOT apply to FULL — at 5 distinct signature values per signature per corpus-pair, Pearson denominator is non-zero and r^2 is a real signal estimate.
+
+### Per-cell evidence (FULL run, post-v202 / documented at v203)
+
+| Aspect | Smoke (v202) | FULL (post-v202, documented v203 line 16417) |
+|---|---|---|
+| Seeds | 1 | 5 |
+| Corpus pairs | 3 | 5 |
+| Total cells | 3 | 25 |
+| Predictor variance per signature per pair | 0 (mechanically) | non-zero (5 seed values) |
+| Best r^2 across 13 signatures | 0.000 (structural) | 0.001 (real signal estimate) |
+| Substantive closure | Yes, but artifact-contaminated | Yes, production-grade |
+| Closure status | Held provisionally at v202 | Held robustly at v203 line 16417 |
+
+### Diagnostic correction (smoke r^2=0 mechanism)
+
+The diagnostic agent's claim IS CORRECT as a narrow technical point about the SMOKE run: with 1 seed per corpus-pair, predictor variance across the 1-element distribution is exactly zero, so Pearson r^2 is mechanically 0 (denominator collapses) regardless of whether the signature carries signal. This is a real smoke-design artifact and v202's "HARD-FAIL" label, taken in isolation against ONLY the smoke evidence, is over-strong — at the smoke scale the run is INCONCLUSIVE on the predictor-variance grounds the diagnostic raises.
+
+**However**, the v203 cap_map already documented that FULL ran (5 seeds x 5 corpus-pairs) AND reached the same closure with best r^2=0.001 across 13 signatures at production-grade evidence. The diagnostic correction applies ONLY to the v202 smoke-evidence basis; the v203 FULL-evidence basis is unaffected and stands.
+
+### Reclassification verdict: NOT WARRANTED
+
+Per [[feedback-no-smoke]] honest scope and [[feedback-dont-overextend-theorems]]:
+
+- The Alt 2 W-internal-features axis CLOSURE is supported at production scale (25 cells, 5 seeds, best r^2=0.001 across 13 signatures), not just at smoke scale.
+- Reclassifying v202 from HARD-FAIL -> INCONCLUSIVE pending FULL would IGNORE the FULL-run evidence v203 already documents at line 16417.
+- The "pending FULL re-run" framing in the dispatch is moot — FULL ran, results are in cap_map, closure is robust.
+
+**v202 LABEL CORRECTION (narrow, not status change)**: the v202 entry that called the smoke result "HARD-FAIL" should more accurately have read "smoke-level closure SUPPORTED but smoke evidence basis is artifact-contaminated; FULL required for production-grade confirmation." That FULL ran (per v203 line 16417) and the closure was confirmed at production scale. The Alt 2 status remains CLOSED, but the historical record should note that:
+
+1. v202's HARD-FAIL label on smoke evidence alone was over-strong (smoke r^2=0 is structurally guaranteed, not a real failure signal).
+2. v203's documented FULL run at 25 cells / 5 seeds is the actual basis for closure; smoke is no longer load-bearing for the v202 -> v203 inference chain.
+3. Net status outcome: identical (Alt 2 W-internal-features axis CLOSED).
+4. Net process outcome: lock candidate (smoke-evidence-only HARD-FAIL labels for r^2-based predictors with 1 seed per group are structurally invalid; require FULL or explicit "smoke-only-cannot-compute-r^2-meaningfully" status).
+
+### Framework-reliability-calc revisit
+
+v203 deflated combined Tier-1 probability 40-55% -> 30-45% based on three Bet-B-predictability negative data points (Alt 1 replication HARD-FAIL, Alt 2 W-internal closure, Pred-3 honest-override INCONCLUSIVE) plus 1-RSB indirect battery composite (0-of-4 clean with 1 instrumentation gap).
+
+The dispatched strategic intent assumes "if Alt 2 reclassified to INCONCLUSIVE pending FULL, deflation was premature." Per the step-0 finding above, Alt 2 is NOT reclassified — FULL evidence already exists confirming closure. Therefore:
+
+- Alt 2 deflator REMAINS VALID at production-grade evidence (not retracted).
+- v203 reliability deflation 40-55% -> 30-45% STANDS UNCHANGED.
+- No correction to v203 framework-reliability calc warranted.
+- Other deflators (Pred-1/3/5 HARD-FAIL, R-PRIME-3 HARD-FAIL, R-PRIME-2 MoE HARD-FAIL, Alt 1 FULL replication walk-back) also stand unchanged.
+
+**Combined Tier-1 probability v204 = 30-45% UNCHANGED from v203.**
+
+### Capability moves (v203 -> v204)
+
+| Capability | v203 state | v204 state | Trigger |
+|---|---|---|---|
+| Bet B retention (Alt 2 substrate-internal W-spectrum signature predictor) | Alt 2 W-internal-features axis CLOSED at smoke v202 + FULL agreement at v203 line 16417 (best r^2=0.001 on 25 cells) | **CLOSED UNCHANGED + DIAGNOSTIC ANNOTATION**: v202 smoke evidence basis was structurally artifact-contaminated (1 seed -> zero predictor variance -> Pearson r^2 mechanically 0 regardless of signal); the smoke-only HARD-FAIL label was over-strong on smoke evidence alone. v203 FULL run (5 seeds x 5 corpus-pairs = 25 cells, best r^2=0.001 across 13 signatures) is the actual load-bearing evidence for closure. Status outcome IDENTICAL (CLOSED); process outcome: lock candidate filed against smoke-only HARD-FAIL labels for predictor-variance-sensitive metrics. | Diagnostic agent a1ff36d4e31e57994 + Step 0 honest re-read of v203 line 16417 |
+| Substrate-physics framework reliability (combined Tier-1 prob) | v203 deflated 40-55% -> 30-45% based partly on Alt 2 closure (among other deflators) | **30-45% UNCHANGED** — Alt 2 deflator REMAINS VALID at production-grade evidence; v203 deflation NOT retracted; all other deflators unchanged | Step 0 honest re-read; Alt 2 closure stands at FULL scale |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** | v204 annotation-only; no row-state moves |
+
+### v204 OPEN items update
+
+- All v203 open items carried forward UNCHANGED.
+- Alt 2 W-internal closure status documented robustly at production-grade evidence (no exp_dev handoff required for re-run).
+
+### Substrate-product positioning v204
+
+- **Alt 2 W-internal closure STANDS at production-grade evidence**: 25 cells / 5 seeds / 5 corpus-pairs / 13 signatures / best r^2=0.001. The diagnostic agent's structural-zero observation is correct for the SMOKE basis but does not retract the FULL-basis closure that v203 already documented at line 16417.
+- **v202 process-discipline finding**: v202's smoke-only HARD-FAIL label for a Pearson-r^2-sensitive predictor with 1 seed per group was structurally invalid as a falsifying observation (the r^2=0 was guaranteed by smoke design, not signal absence). The substantive closure was correct ex-post because FULL agreed, but the v202 inference chain SHOULD have flagged "cannot compute r^2 meaningfully at 1 seed; status INCONCLUSIVE-pending-FULL until production run." Lock candidate filed.
+- **Framework reliability calc UNCHANGED at 30-45%**: Alt 2 deflator valid at FULL evidence; v203 deflation stands.
+- All v200/v201/v202/v203 positioning carried forward UNCHANGED where not contradicted. R-PRIME-3 HARD-FAIL on continuous geometry UNCHANGED; K5 ✅ prominence UNCHANGED; GPT-quality 🟢 PARTIAL UNCHANGED; pool-level RSB ✅ UNCHANGED. local_cpu_runner infrastructure failure flag UNCHANGED (still DEAD; 72h deadline 2026-05-27).
+
+### Pre-registered untested (carried forward v203)
+
+- All v178-v203 items carried forward.
+- No new pre-reg items at v204 (annotation-only).
+
+### Lock candidate
+
+- **NEW lock candidate (v204)**: amend [[feedback-strategy-spec-formula-selftests]] OR [[feedback-envelope-expansion-fail-bands]] to require: when a predictor-quality metric (Pearson r^2, Spearman rho, K-W p-value, etc.) is sensitive to per-group sample size, smoke runs MUST EITHER (a) include enough seeds per group to make the metric computable (typically >=3) OR (b) explicitly label the smoke result as INCONCLUSIVE-PENDING-FULL on metric-computability grounds, not as a HARD-FAIL on the substantive claim. v202's smoke HARD-FAIL on Alt 2 W-internal was a textbook case: 1 seed per corpus-pair makes Pearson r^2 mechanically 0 regardless of signal, so the smoke can never falsify the predictor claim. The substantive closure ex-post was correct (FULL agreed) but the v202 inference chain should not have closed it on smoke alone. 68th observation post honest-reread lock.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md staged atomically; "Cap map: v203 -> v204 (diagnostic-correction on v202 Alt 2 W-internal smoke — closure stands at FULL evidence; framework reliability 30-45% UNCHANGED; lock candidate filed; verdict-reclassification request)" commit.
+- per PROT-001 to PROT-003: cap_map.md version bumped v203 -> v204; narrative block written; capability moves table written (3 rows: Alt 2 unchanged with diagnostic annotation; framework reliability unchanged; portfolio unchanged).
+- per PROT-004/006: annotation-only update; 0 axis closures; 0 row-state moves; 1 process-discipline lock candidate filed.
+- per PROT-007: v204 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 axis-closures; 0 portfolio-row demotions; 0 INSTRUMENTATION_FAIL debts; 0 ANOMALIES; 0 honest-reread OVERRIDES this cycle (but a lock candidate against smoke-only HARD-FAIL labels for r^2-sensitive metrics); 1 process-discipline correction filed (v202 smoke-evidence-basis labeling over-strong; status outcome identical because FULL agreed ex-post).
+- per PROT-009: 117th paired commit.
+- per [[feedback-decision-log-eol-handling]]: strategy_decisions_2026-05-24.md to be appended via tools/orchestrator/append_decision_log.py by main thread.
+- per [[feedback-subagent-permission-inheritance]]: commit LOCAL only (push deferred to main thread per sub-agent permission gap).
+- per [[feedback-for-you-tab-primary-channel]]: 1 status_log entry (verdict-reclassification cycle) written with plain_language + importance=medium (process-discipline finding; status outcome unchanged from v203).
+- per [[feedback-verdict-msg-honest-reread]]: 68th observation post-lock; load-bearing — caught the dispatch premise contradiction against existing cap_map line 16417 BEFORE executing the (incorrect) reclassification; honest re-read saved a cap_map state regression (would have re-opened a properly-closed branch) AND a spurious exp_dev handoff (FULL run already exists).
+- per task contract: NO exp_dev handoff written (FULL run already documented at v203 line 16417; re-running would duplicate existing evidence). NO queue-refill triggered. Status outcome: Alt 2 closure stands; framework reliability unchanged.
+
+### Tally (one-line)
+
+DIAGNOSTIC-CORRECTION ANNOTATION v203 -> v204: dispatched reclassification request (v202 Alt 2 W-internal HARD-FAIL -> INCONCLUSIVE pending FULL) NOT WARRANTED per Step 0 honest re-read of v203 line 16417 which already documents FULL run at 25 cells / 5 seeds / 5 corpus-pairs / 13 signatures with best r^2=0.001 confirming closure at production-grade evidence; diagnostic agent's structural-zero observation IS CORRECT as a narrow technical point about smoke r^2 with 1 seed per group (Pearson denominator collapses) but does NOT retract the FULL-basis closure; Alt 2 W-internal-features axis remains CLOSED; framework reliability 30-45% UNCHANGED (Alt 2 deflator valid at production-grade evidence); NO exp_dev handoff filed (FULL already ran); 1 lock candidate filed (smoke-only HARD-FAIL labels for predictor-variance-sensitive metrics with 1 seed per group are structurally invalid as falsifying observations); v202 process discipline noted (smoke-evidence-basis labeling was over-strong; ex-post substantive outcome identical because FULL agreed); honest-reread LOCK 68th observation post-lock — LOAD-BEARING (caught dispatch premise contradiction against existing cap_map BEFORE executing incorrect reclassification; saved both cap_map state regression and spurious exp_dev handoff); portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; 117th PROT-009 paired commit.
+
+Net effect v204: ANNOTATION ONLY (no status changes); v202 smoke HARD-FAIL label retroactively flagged as over-strong-on-smoke-evidence-alone but substantive outcome stands because v203 documented FULL agreement; framework reliability UNCHANGED at 30-45%; 1 new lock candidate (smoke-only r^2-sensitive-metric HARD-FAIL labels); honest-reread 68th observation LOAD-BEARING; 117th PROT-009 paired commit.

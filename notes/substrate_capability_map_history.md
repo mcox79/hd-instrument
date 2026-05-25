@@ -7876,3 +7876,39 @@ Combined Tier-1 probability deflated 40-55% -> 30-45%. Substrate-physics framewo
 Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 116th PROT-009 paired commit.
 
 History ref: see cap_map.md v203 block for full narrative.
+
+
+## v204 - (2026-05-24) ANNOTATION-ONLY: Diagnostic correction on v202 Alt 2 W-internal smoke; NO RECLASSIFICATION
+
+### Trigger
+
+Diagnostic agent a1ff36d4e31e57994 flagged v202 Alt 2 W-internal smoke r^2=0 across 13 signatures as structurally guaranteed by smoke design (1 seed -> zero predictor variance -> Pearson r^2 mechanically 0). Strategic intent dispatched: reclassify v202 HARD-FAIL -> INCONCLUSIVE pending FULL re-run; revise framework reliability deflation; file exp_dev handoff for FULL re-run.
+
+### Step 0 honest re-read finding (load-bearing)
+
+Per [[feedback-verdict-msg-honest-reread]] honest re-read of cap_map line 16417 (v203 Substrate-product positioning): FULL Alt 2 W-internal run ALREADY EXECUTED at production scale - 25 cells / 5 seeds / 5 corpus-pairs / 13 signatures with best r^2=0.001. v203 already documented FULL agreement strengthening the smoke-level closure. The dispatched reclassification premise ("FULL never ran") was contradicted by existing cap_map state. Reclassification NOT warranted.
+
+### Substantive outcome
+
+- Alt 2 W-internal-features axis CLOSED UNCHANGED at production-grade evidence
+- Framework reliability 30-45% UNCHANGED from v203 (Alt 2 deflator valid at FULL evidence)
+- NO exp_dev handoff filed (would duplicate existing FULL evidence)
+- NO row-state changes
+- Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED
+
+### Process discipline finding
+
+- v202's smoke-only HARD-FAIL label for predictor-variance-sensitive metric (Pearson r^2) with 1 seed per group was structurally over-strong - smoke r^2=0 was mechanically guaranteed regardless of signal
+- Substantive outcome correct ex-post (FULL agreed) but inference chain should have flagged INCONCLUSIVE-PENDING-FULL at v202 on metric-computability grounds, not closed as HARD-FAIL on substantive claim
+
+### Lock candidate (v204)
+
+Amend [[feedback-strategy-spec-formula-selftests]] or [[feedback-envelope-expansion-fail-bands]]: when a predictor-quality metric is sensitive to per-group sample size, smoke runs MUST EITHER include enough seeds per group to make the metric computable (typically >=3) OR explicitly label the smoke result as INCONCLUSIVE-PENDING-FULL on metric-computability grounds, not as HARD-FAIL on the substantive claim.
+
+### Honest-reread observation count
+
+68th observation post-lock. LOAD-BEARING: caught dispatch premise contradiction against existing cap_map BEFORE executing incorrect reclassification; saved cap_map state regression (would have re-opened a properly-closed branch) AND spurious exp_dev handoff (FULL already ran).
+
+117th PROT-009 paired commit.
+
+History ref: see cap_map.md v204 block for full narrative.
