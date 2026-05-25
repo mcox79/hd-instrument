@@ -7943,3 +7943,29 @@ Nine research deliveries and three local-batch experimental results integrated f
 ANNOTATION ONLY. 11 capability move rows. 0 row-state changes. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 118th PROT-009 paired commit.
 
 History ref: see cap_map.md v205 block for full narrative.
+
+
+## v206 - (2026-05-25) MAJOR POSITIVE: Saad-Solla 4-corpus CONFIRMED + REPLAY structural axis CONFIRMED; framework reliability promoted to 40-55%
+
+### Trigger
+
+Two independent local-batch experiments completing after v205: (1) `exp_wave14_betB_4corpus_equalspacing_v1` — 4-corpus equal-spacing HARD_PASS; (2) `exp_wave14_betB_replay_structural_axis_v1` — REPLAY structural axis REPLAY_STRONG_EFFECT.
+
+### Key changes
+
+**4-corpus equal-spacing HARD_PASS** (independent of v205 saddle-cascade reanalysis): BIC_delta=-121.3 (threshold <-30; 4x threshold), spacing_error=0.0035 (threshold <0.05; 14x below), all CI pairs non-overlapping (rank-biserial r=1.0). gap_ratio=0.955 outside pre-reg band [0.45, 0.65] on more-equal side; spacing_error overrides per honest-reread protocol. 4-tier G1_SAME/G2_REPLAY/G3_STAGE4/G4_DIFF taxonomy validated. Combined with v205 BIC delta=194.9: TWO independent positive arithmetic probes — first double-positive in substrate-physics framework history. Theoretical-home row: annotation-🔬 -> 🟢 CORROBORATED.
+
+**REPLAY structural axis CONFIRMED**: Cohen's d=13.3 (replay vs no-replay within same-corpus class), rank_biserial_r=1.000, forgetting_recovery_fraction=0.631. REPLAY is the dominant structural axis within same-corpus retention. 4-tier taxonomy empirically justified. H-A consolidation best supported; H-B/C need dedicated probes. New 🟢 CONFIRMED row.
+
+**Framework reliability promoted 🟡 -> 🟢 40-55%**: double-positive arithmetic (v205 + v206) + REPLAY structural confirmation gives framework its first sustained positive run. Previous deflations (v203 to 30-45%, v205 partial restore to 32-48%) were correct; v206 40-55% reflects two independent positive probes. Pred-4 hysteresis still the key discriminator.
+
+**MoE SHIFT/PARTITION v2 annotated as next high-priority ship**: 9/9 selftests + smoke PASS; routing note at `notes/exp_dev_to_queue_moe_shift_partition_v2_2026-05-25.md`.
+
+**Three Tier-1 handoffs awaiting SSH restoration**: MoE v2 (highest priority), Bet N (Cao 2023), SSM-HiPPO (HiPPO-LegS W-init).
+
+### Outcome
+
+MAJOR POSITIVE upgrade cycle. 6 capability move rows. 3 row-state advances (theoretical-home annotation->🟢, REPLAY structural axis NEW 🟢, framework reliability 🟡->🟢). Portfolio 13 demonstrated + 6 evidence-strength rows (+1). 119th PROT-009 paired commit.
+
+History ref: see cap_map.md v206 block for full narrative.
+
