@@ -2550,3 +2550,72 @@ No queue-refill dispatched (orchestrator handles separately per task contract).
 ### per PROT-009
 
 115th paired commit (cap_map.md v202 + history.md v202 + this strategy_decisions entry).
+
+
+## v203 verdict_handler — 2026-05-24 — BATCHED 5-VERDICT + v202 CORRECTION: Bet B Alt 1 FULL replication HARD-FAIL + Alt 3 INSTRUMENTATION + Pred-3 trivial-CONFIRMED override + Pred-4 INSTRUMENTATION + MoE alpha_c OUT_OF_RANGE
+
+**Trigger**: post-watchdog-silent_idle (22:21:54 fire) batch processing of 5 terminal verdicts that completed between v201 commit and current cycle. A parallel verdict_handler instance committed v202 (commit 34605ac) processing only Alt 2 W_INTERNAL_HARD_FAIL and attaching INCORRECT forward-looking labels to the other pending verdicts: "SHIFT_CLASS_REPLICATION_HARD_PASS pending" for Alt 1 and "ALT3_LAPLACE_ASSUMPTION_VIOLATED pending" for Alt 3. Actual dashboard verdicts: SHIFT_CLASS_REPLICATION_HARD_FAIL and ALT3_INSTRUMENTATION_FAIL. v203 corrects both and processes Pred-3 + Pred-4 + MoE which v202 did not address.
+
+**Step 0 honest re-reads (5 verdicts)**:
+
+(V1) wave14_betB_shift_class_full_replication_v1: label SHIFT_CLASS_REPLICATION_HARD_FAIL; verdict_msg "REPLICATION FAILED: v1 HARD-PASS was small-n artifact. n_nonoverlapping=4 < 5. n_nonoverlapping=4/6. K-W p=0.000000. Bet B predictability claim does NOT hold at n>=15." Per-cell n_nonoverlapping=4 confirms label against >=5 gate. HOWEVER K-W p=0.000000 (omnibus group-differences test) survives at very high significance. Honest re-read SOFTENS the verdict from "Bet B predictability claim does NOT hold" to "the OPERATIONAL 6-distinct-plateaus claim does not hold at n>=15; pairwise CI separation collapses from 6/6 (n=5) to 4/6 (n>=15); K-W omnibus survives (group differences are real); ONE adjacent class-pair boundary blurs." 64th observation post-lock; clean against gate. CORRECTS v202 forward-looking statement.
+
+(V2) wave14_betB_pac_bayes_kl_predictor_v1: label ALT3_INSTRUMENTATION_FAIL; verdict_msg "Fewer than 3 valid cells (0). Cannot compute r^2." exit 0.022s. 22ms exit is consistent with config/load-time crash NOT per-cell Laplace KL computation failure. v202's forward-looking ALT3_LAPLACE_ASSUMPTION_VIOLATED label was a hallucinated prediction without dashboard re-read. 65th observation post-lock; EXTENDS lock scope to forward-looking narrative labels.
+
+(V3) wave14_1rsb_ultrametric_triples_full_v1: label ULTRAMETRIC_1RSB_CONFIRMED; verdict_msg contains contradicting diagnostic in same body: "DIAGNOSTIC: mean_q=0.000001 near zero -- W-vectors from different seeds are nearly orthogonal (UV-problem persists at N=2048). Ultrametric test is on near-zero overlaps; trivial satisfaction expected." OVERRIDE label CONFIRMED -> INCONCLUSIVE per [[feedback-verdict-msg-honest-reread]]. 66th observation post-lock; third LOAD-BEARING override since lock landed (after v177 MMD-vs-MP-KS and v197 over-extension).
+
+(V4) wave14_1rsb_hysteresis_v1: NO verdict file emitted; SSH probe to remote shows queue.json status=failed, exit_code=1, wall=112s; remote log tail shows `TypeError: evaluate_bpc() missing 4 required positional arguments`. INSTRUMENTATION_FAIL — Pred-4 did not produce a substrate-physics signal.
+
+(V5) wave14_moe_alpha_c_prestep_v1: label ALPHA_C_OUT_OF_RANGE; verdict_msg "alpha_c_measured=0.3906 outside expected range [0.08, 0.25]." 1.6x theoretical upper-bound exceedance. 67th observation post-lock; clean against gate.
+
+### Decision 1: cap_map v202 -> v203 batched substantive bump (NOT annotation-only)
+
+5 substantive verdicts + 2 v202 narrative corrections. Bet B operational-predictor claim walked back to group-level claim. Substrate-internal Alt 2 axis closure stands (v202). Substrate-physics framework reliability deflated 40-55% -> 30-45%. MoE rebuild gated on alpha_c anomaly. 2 instrumentation debts (Alt 3 + Pred-4). 1 honest-reread override (Pred-3). Row-state changes none; sub-claim demotions one (Alt 1 operational-predictor). Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED.
+
+### Decision 2: Bet B product claim walks back from v201 operational predictability to v200 group-level structure
+
+v201 sharpened from existence ("substrate has known retention plateaus per task-shift class") to operational predictability ("substrate retains X% on shift-class K, with K predictable from corpus-pair classification"). v203 replication HARD-FAIL reveals v201 was small-n artifact. Defensible product claim returns to v200 framing: "substrate has known retention plateau STRUCTURE per task-shift class (group differences highly significant at K-W p=0.000000); the 6-class taxonomy explains retention variance at group level; operational per-class prediction has class-boundary blurring at small effect sizes." Per [[feedback-no-smoke]] honest scope: this is a WALK-BACK from v201 sharpening, not a Bet B closure — the group-level claim survives.
+
+### Decision 3: Substrate-physics framework reliability deflated 40-55% -> 30-45%
+
+Three additional negative data points beyond v202: Alt 1 replication fail erases v201 partial offset; Alt 2 closure (already at v202); Pred-3 trivial-CONFIRMED override advances 1-RSB indirect battery to 0-of-4 clean. Framework track record on Bet B predictability rescues: 0-of-3 clean. Recalibration per [[feedback-lit-scan-calibration-penalty]]. Framework still load-bearing for K5 ✅, GPT-quality ✅, Bet I 2/3, R29, R16, pool-level RSB ✅, direct retention plateau STRUCTURE.
+
+### Decision 4: MoE rebuild GATED on alpha_c calibration anomaly
+
+alpha_c=0.39 vs theoretical [0.08, 0.25] = 1.6x upper-bound exceedance. Two readings: substrate-implementation drift OR instrument bias. MoE rebuild dispatch REMAINS GATED pending: (a) primary capacity_K script re-measurement of alpha_c; (b) BSC binding/cleanup chain audit; (c) N=1024 default drift verification. Filed as v203 NEW pre-reg.
+
+### Decision 5: Three new lock candidates filed
+
+(L1) Self-test smoke against production code path: amend [[feedback-strategy-spec-formula-selftests]] to require at least one end-to-end first-cell smoke against production code path. Alt 3 (0 valid cells in 0.022s) and Pred-4 (TypeError at first cell in 112s) both passed spec-level self-tests but crashed immediately on production-code-path API mismatches. Two instrumentation fails in one 6-verdict batch is signal, not noise.
+
+(L2) Row-state-promotion gate before product-claim sharpening: amend [[feedback-rescue-sketch-first-sequencing]] to require row-state-promotion replication BEFORE product-claim sharpening, not after. The v200->v201 ~15-min cycle was celebrated as a worked example; v203 reveals the celebration was premature — operational-predictor claim sharpening at v201 was on small-n evidence, and the n>=15 gate failure at v203 reverses the sharpening.
+
+(L3) Forward-looking pending-verdict label honest re-read: amend [[feedback-verdict-msg-honest-reread]] scope to cover forward-looking narrative labels. v202 attached preliminary labels to "pending" verdicts without honest re-read of dashboard verdict_msg; both labels were factually wrong. Discipline: when filing cap_map narrative referencing a "pending" verdict, EITHER cite actual dashboard verdict if terminal OR use explicit "not-yet-read" status with no preliminary label.
+
+### Decision 6: Pre-reg item tracking
+
+- ~~v201 NEW Alt 1 higher-seed replication~~ **CONSUMED at v203 with SHIFT_CLASS_REPLICATION_HARD_FAIL (operational predictor claim walked back; group-level claim retained)**.
+- ~~v200 Alt 2 predictor (substrate-internal W-signature)~~ CONSUMED at v202 with W_INTERNAL_HARD_FAIL (FULL-run 25-cell production-grade agreement noted v203).
+- v200 OPEN: Alt 3 predictor (PAC-Bayes posterior-over-W KL) — **INSTRUMENTATION_FAIL at v203; remains OPEN with debt; requires script diagnostic before re-ship (NOT a Laplace-assumption violation as v202 stated)**.
+- v200 OPEN: local_cpu_runner revive (72h deadline 2026-05-27).
+- ~~v195 OPEN: ultrametric_triples FULL at N=2048 12 seeds~~ **CONSUMED at v203 with label CONFIRMED OVERRIDE to INCONCLUSIVE (UV-problem at q_EA ~1e-6)**.
+- v195 OPEN: Pred-4 hysteresis — **INSTRUMENTATION_FAIL at v203 (TypeError evaluate_bpc); remains OPEN with debt; requires script API-call-site fix before re-ship**.
+- **v203 NEW: MoE rebuild substrate-implementation audit** (alpha_c gating).
+- **v203 NEW: Alt 1 SOFT-rescue R6** (group-level taxonomy as product feature).
+- **v203 NEW: 3 lock candidates** (L1 production-codepath smoke; L2 row-state-promotion gate before product-claim sharpening; L3 forward-looking pending-label honest re-read).
+
+### Capability moves
+
+Substantive batch. 1 sub-claim demotion (Alt 1 operational predictor walked back to group-level); 1 honest-reread override (Pred-3 to INCONCLUSIVE); 2 instrumentation debts (Alt 3 + Pred-4); 1 anomaly (MoE alpha_c); 1 framework recalibration (40-55% -> 30-45%); 2 v202 narrative corrections (Alt 1 + Alt 3). Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED.
+
+### Pipeline pacing
+
+- Queue-refill NOT triggered (per task contract — orchestrator dispatches exp_dev separately in same turn).
+- Pred-4 hysteresis re-ship REQUIRES script fix on base.evaluate_bpc call site before next exp_dev dispatch — flagged for orchestrator's exp_dev refill cycle.
+- Alt 3 PAC-Bayes KL predictor re-ship REQUIRES instrumentation diagnostic (likely missing Phase-A artifacts or empty cell-enumeration) before next exp_dev dispatch — flagged for orchestrator's exp_dev refill cycle.
+- MoE rebuild GATED until substrate-implementation audit clears alpha_c anomaly — orchestrator should NOT dispatch MoE rebuild on next cycle.
+- Alt 1 higher-seed replication ALREADY at n=15 strict-replication scale = HARD-FAIL; no further n-increase rescue plausible without changing the OPERATIONAL 6-class claim. R6 SOFT-rescue (group-level taxonomy as product feature) is annotation, not a dispatch trigger.
+
+### per PROT-009
+
+116th paired commit (cap_map.md v203 + history.md v203 + this strategy_decisions entry).
