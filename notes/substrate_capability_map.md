@@ -16055,3 +16055,42 @@ ANNOTATION-ONLY v194 -> v195: (V1) wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED
 ### Tally (one-line)
 
 ANNOTATION-ONLY v195 -> v196: (V1) wave14_1rsb_cascade_depth_v1 on-disk artifact = CASCADE_DEPTH_MIDDLE max_delta=0.058 n_cliffs=0 var_delta=0.0029 at SMOKE-GRADE config (N=1024, seeds=[17], epochs=1, depths=[2,3,4]; pre-shipped FULL was 5 seeds, 5 epochs, depths 2-5 per v195 exp_dev handoff); Pred-5 cascade-depth axis CANNOT DISCRIMINATE 1-RSB from RS at this resolution; non-monotone retA profile (depth=2:0.907 -> 3:0.849 -> 4:0.898 RECOVERY) is symptomatic of 1-seed noise; on-disk artifact may indicate runner-config-mismatch bug OR FULL never ran; either way honest read is INCONCLUSIVE at smoke-grade with FULL re-run pre-registered; pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED; 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED; Pred-4 hysteresis (shipped at b552776) remains highest-leverage 1-RSB diagnostic; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 55th observation clean (label honest; SMOKE-vs-FULL config-mismatch is the load-bearing honest call); pause flag ABSENT (ACTIVE); 110th PROT-009 paired commit.
+
+
+## v197 - (2026-05-24) ANNOTATION-ONLY: Pred-1/Pred-3 capacity-plateau diagnostic INCONCLUSIVE at smoke-grade artifact
+
+### Capability moves (v196 -> v197)
+
+| Capability | v196 state | v197 state | Trigger |
+|---|---|---|---|
+| RSB phase / ultrametric index | ✅ Validated (structural, pool-level) + v195 W-vector P(q) INCONCLUSIVE + v196 cascade-depth INCONCLUSIVE at smoke-grade | **✅ UNCHANGED + Pred-1/Pred-3 capacity-plateau axis annotation: INCONCLUSIVE at smoke-grade artifact** (max_delta=0.067 < 0.08 HARD-FAIL threshold MET; smooth monotone decay across 3 M points BUT smoke config is 3-point single-seed NOT v195-handoff FULL 7-point multi-seed). `wave14_1rsb_capacity_plateau_v1` artifact on disk = CAPACITY_PLATEAU_RS_SMOOTH; verdict_msg label "RS smooth capacity decay SUPPORTED; 1-RSB capacity plateau NOT supported" is FORMULA-HONEST per pre-reg bands (max_delta<0.08 triggers HARD-FAIL classification) BUT the FORMULA is NOT predictive at this artifact resolution per [[feedback-verdict-msg-honest-reread]] — a 3-point single-seed sweep with M in {10k, 50k, 200k} CANNOT reliably distinguish "true RS smooth" from "1-RSB with cliff between sampled M values." HONEST RE-READ: on-disk metrics.json reports `mode: "smoke", N: 1024, seeds: [17], M_sweep: [10000, 50000, 200000]` — the artifact is SMOKE-GRADE (3 M cells, single seed), NOT the pre-shipped FULL config (7 M points, multi-seed, N=4096 per v195 exp_dev handoff). Per [[feedback-dont-overextend-theorems]] the verdict_msg claim "1-RSB NOT supported" OVER-EXTENDS at this resolution — the actual honest read is "smoke-grade data is CONSISTENT WITH smooth RS decay but does NOT exclude 1-RSB cliffs at unsampled M values." Row state UNCHANGED. Pred-1/Pred-3 capacity-plateau axis status: INCONCLUSIVE at smoke-grade; FULL re-run with 7+ M points multi-seed required before any substrate-physics inference. | (V1 v197) wave14_1rsb_capacity_plateau_v1 artifact = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.067 Profile M=10k:0.885 / M=50k:0.817 / M=200k:0.805 at SMOKE-GRADE config (1 seed, 3 M cells) |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only) | annotation-only cycle |
+
+### Substrate-product positioning v197
+
+- **Pred-1/Pred-3 (capacity-plateau morphology) INCONCLUSIVE at smoke-grade**: the on-disk artifact `data/exp_wave14_1rsb_capacity_plateau_v1/metrics.json` carries SMOKE config not FULL — only 3 M points {10k, 50k, 200k}, single seed 17, 1 epoch. v195 handoff envisioned 7-point M sweep with multi-seed for FULL. The smoke 3-point sweep CAN report monotone decay (max_delta=0.067, deltas 0.067 and 0.012) but CANNOT exclude a 1-RSB cliff between e.g. M=25k and M=80k that the coarse 3-point grid skips over. The verdict_msg over-extension ("1-RSB capacity plateau NOT supported") would, if accepted at face value, prematurely reject the 1-RSB framing at insufficient resolution.
+- **Pattern across the 1-RSB battery**: same smoke-vs-FULL config-mismatch story as v196 cascade_depth — runner-config-mismatch bug SUSPECTED across BOTH GPU anchors (cascade_depth + capacity_plateau both shipped together at 19:40 to overnight_queue, both have smoke configs on disk). The watchdog silent_idle at 20:14:48 confirms GPU drained but the artifact resolution is too low to license substrate-physics inference either way.
+- **1-RSB framing for retention plateaus unaffected**: the 5+ converging observations (0.94/0.74/0.60 discrete plateaus across Bet B variants v184-v194) motivating 1-RSB are orthogonal to capacity-plateau morphology AND to cascade-depth AND to W-vector P(q). The 1-RSB framing rests on retention-plateau direct observations not on these indirect diagnostics. Per [[feedback-dont-overextend-theorems]] neither the smoke-grade Pred-1/3/5 INCONCLUSIVE results NOR the v195 Pred-2 W-vector INCONCLUSIVE result weakens the retention-plateau framing.
+- **Pred-4 hysteresis (shipped to remote_cpu_queue at b552776) remains the highest-leverage 1-RSB diagnostic** — first-order vs continuous transition discrimination at the capacity axis, multi-cell multi-seed by design.
+- All v196 positioning carried forward UNCHANGED.
+
+### Pre-registered untested (carried forward + v197 additions)
+
+- All v178-v196 items carried forward.
+- ~~v195 Pred-1/Pred-3 (capacity-plateau) FULL~~ **CANNOT MARK CONSUMED — on-disk artifact is SMOKE-grade; FULL re-run with 7 M points + multi-seed + N=4096 is still pre-registered**.
+- **v197 OPEN: capacity-plateau FULL re-run** with v195-handoff config (7-point M sweep, multi-seed, N=4096) — needs ship to GPU.
+- v196 OPEN: cascade-depth FULL re-run with v195-handoff config (5 seeds, 5 epochs, depths 2-5) — needs ship to GPU.
+- v195 OPEN: Pred-4 hysteresis SHIPPED at commit b552776 (remote_cpu_queue) — in flight.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions_2026-05-24.md staged atomically.
+- per PROT-004/006: 0 new closures; annotation-only; no rehab file required.
+- per PROT-007: v197 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes.
+- per PROT-009: 111th paired commit.
+- per [[feedback-verdict-msg-honest-reread]]: 56th post-lock observation; CAPACITY_PLATEAU_RS_SMOOTH label is FORMULA-HONEST per pre-reg but the FORMULA OVER-EXTENDS at smoke resolution (verdict_msg "1-RSB NOT supported" is the load-bearing dishonest claim if accepted at face value); honest correction is "smoke data CONSISTENT WITH smooth RS decay but does NOT exclude 1-RSB cliffs at unsampled M values."
+
+### Tally (one-line)
+
+ANNOTATION-ONLY v196 -> v197: (V1) wave14_1rsb_capacity_plateau_v1 on-disk artifact = CAPACITY_PLATEAU_RS_SMOOTH max_delta=0.067 Profile M=10k:0.885 / M=50k:0.817 / M=200k:0.805 deltas 0.067/0.012 at SMOKE-GRADE config (N=1024 1 seed 3 M points; pre-shipped FULL was 7 M points multi-seed N=4096 per v195 exp_dev handoff); Pred-1/Pred-3 capacity-plateau axis CANNOT EXCLUDE 1-RSB cliffs at unsampled M values from a 3-point single-seed grid; verdict_msg claim "1-RSB NOT supported" OVER-EXTENDS at this resolution -- honest reading is "smoke CONSISTENT WITH RS but does NOT exclude 1-RSB"; same runner-config-mismatch pattern as v196 cascade_depth (both GPU anchors shipped together at 19:40 to overnight_queue both have smoke configs on disk; runner-config-mismatch bug SUSPECTED across the GPU pair); pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED; 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED at orthogonal axis; Pred-4 hysteresis (shipped at b552776) remains highest-leverage 1-RSB diagnostic; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 56th observation -- label formula-honest but verdict_msg over-extension is load-bearing call; pause flag ABSENT (ACTIVE); 111th PROT-009 paired commit.

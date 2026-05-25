@@ -2231,3 +2231,52 @@ The negative signals SHARPEN substrate-product characterization toward (a) discr
 **PROT-004/006/008/009 compliance**: 0 new closures; annotation-only.
 **Per [[feedback-verdict-msg-honest-reread]]**: 55th post-lock observation; label CASCADE_DEPTH_MIDDLE honest at smoke-grade; SMOKE-vs-FULL config mismatch is the load-bearing honest call.
 **Per [[feedback-no-experiment-design-in-prompts]]**: this verdict_handler cycle does NOT prescribe FULL re-run parameters — exp_dev decides when re-shipped.
+
+
+---
+
+## v197 -- wave14_1rsb_capacity_plateau_v1 CAPACITY_PLATEAU_RS_SMOOTH annotation (smoke-grade artifact; verdict_msg over-extends)
+
+**Step 0 honest re-read**: verdict_msg label CAPACITY_PLATEAU_RS_SMOOTH is FORMULA-HONEST per pre-reg bands; verdict_msg EXPLICIT CLAIM "1-RSB capacity plateau NOT supported" OVER-EXTENDS at smoke resolution.
+- max_delta=0.067 < 0.08 (FAILS HARD-PASS cliff>=0.15; MEETS HARD-FAIL max_delta<0.08)
+- Profile: M=10k retA=0.885 / M=50k retA=0.817 / M=200k retA=0.805 (smooth monotone decay across the THREE sampled M points)
+- Deltas: 0.067 (10k->50k), 0.012 (50k->200k) -- both < 0.15 cliff threshold
+- LABEL CORRECT per formula: RS_SMOOTH; FORMULA OVER-EXTENDS: "1-RSB NOT supported" is NOT a valid inference from a 3-point single-seed grid
+- 56th observation post-lock; this is a label-honest-but-verdict_msg-over-extension case (vs prior v177 MMD-vs-MP-KS where label itself contradicted data)
+
+**CRITICAL SECONDARY HONEST READ -- artifact is SMOKE not FULL**:
+- on-disk metrics.json carries `mode: "smoke", N: 1024, batch_size: 32, epochs: 1, seeds: [17], M_sweep: [10000, 50000, 200000]`
+- v195 exp_dev handoff (notes/exp_dev_decisions_2026-05-24.md lines 401-417) pre-shipped FULL with 7 M points + multi-seed + N=4096
+- The SMOKE artifact values exactly match the pre-ship smoke captured at handoff time (max_delta=0.067)
+- Watchdog silent_idle at 20:14:48 says GPU drained; same runner-config-mismatch pattern as cascade_depth v196
+- 3-point single-seed grid cannot exclude 1-RSB cliffs between e.g. M=25k and M=80k that the coarse grid skips over
+
+**Pred-1/Pred-3 (capacity-plateau morphology) implications at this artifact resolution**:
+- CANNOT discriminate 1-RSB (predicted cliff>=0.15 then plateau<0.05 at some M step) from RS (predicted smooth monotone decay) at smoke-grade
+- The 1-RSB framing rests on the 5+ converging observations of discrete 0.94/0.74/0.60 retention plateaus across Bet B variants v184-v194 -- those are pool-level / retention-level discrete-plateau observations ORTHOGONAL to capacity-plateau morphology along an M axis
+- Pred-1/Pred-3 status: INCONCLUSIVE at smoke-grade artifact; FULL re-run with v195-handoff config pre-registered
+
+**1-RSB battery joint status after v195/v196/v197 cycle (5 of 5 Preds resolved at the resolution accessible)**:
+- Pred-1 (capacity_plateau / GPU): v197 SMOKE-grade INCONCLUSIVE this cycle (verdict_msg over-extension flagged)
+- Pred-2 (pq_retained / CPU): v195 ALREADY CONSUMED FULL = MIDDLE; W-vector axis q_EA~0; INCONCLUSIVE
+- Pred-3 (capacity_plateau): SAME as Pred-1
+- Pred-4 (hysteresis): SHIPPED at commit b552776 to remote_cpu_queue; IN FLIGHT
+- Pred-5 (cascade_depth / GPU): v196 SMOKE-grade INCONCLUSIVE this cycle
+- Pred-5 ultrametric_triples: smoke ULTRAMETRIC_1RSB_CONFIRMED at N=512 trivially (FULL at N=2048 pending)
+
+**Joint pattern read (definitive after v197)**: 3 of 5 indirect Pred axes returned INCONCLUSIVE at the resolution accessible (Pred-1/3 capacity-plateau smoke + Pred-2 W-vector P(q) FULL + Pred-5 cascade-depth smoke). NONE produced clean HARD-PASS for 1-RSB. NONE produced clean HARD-FAIL after honest re-read (verdict_msg Pred-1 over-extension flagged; otherwise formula HARD-FAIL on cascade_depth was blocked by var threshold). The basin-discrete-1-RSB framing motivated by retention-plateau direct observations (5+ converging plateaus 0.94/0.74/0.60 across Bet B variants v184-v194) is NEITHER strengthened NOR refuted by the indirect-axis diagnostic battery. Per [[feedback-dont-overextend-theorems]] this does NOT close the 1-RSB framing; it surfaces the limit of indirect-axis 1-RSB diagnostics at smoke-grade compute. Pred-4 hysteresis (in flight at remote_cpu) is the highest-leverage discriminator still pending; first-order vs continuous transition is the cleanest binary call available.
+
+**Capability moves**:
+
+| Row | v196 state | v197 state |
+|---|---|---|
+| RSB phase / ultrametric index | ✅ Validated structural (pool-level) + v195 W-vector + v196 cascade-depth annotations INCONCLUSIVE | UNCHANGED + v197 capacity-plateau annotation: INCONCLUSIVE at smoke-grade artifact + verdict_msg over-extension flagged |
+
+**Net effect v197**: ANNOTATION-ONLY. No row state changes. Pool-level RSB stands. 1-RSB framing from retention plateaus (0.94/0.74/0.60) unaffected. Pred-1/3 SMOKE artifact does not discriminate; FULL re-run pre-registered. Verdict_msg over-extension ("1-RSB NOT supported") flagged as load-bearing dishonest claim if accepted at face value.
+
+**Pipeline pacing**: gpu_q:0 cpu_q:0 (per state_check 20:17 reading; watchdog silent_idle at 20:14:48); pause_state=ACTIVE; exp_dev refill DEFERRED to orchestrator per turn directive (orchestrator dispatching exp_dev separately to avoid parallel cap_map race + double-ship).
+
+**PROT-004/006/008/009 compliance**: 0 new closures; annotation-only.
+**Per [[feedback-verdict-msg-honest-reread]]**: 56th post-lock observation; label CAPACITY_PLATEAU_RS_SMOOTH formula-honest at smoke; verdict_msg "1-RSB NOT supported" OVER-EXTENDS at 3-point single-seed resolution; the verdict_msg over-extension is the load-bearing honest call. This is the THIRD observation of the verdict_msg-over-extension pattern across 2-3 cycles (1st: v177 MMD-vs-MP-KS factually wrong on direction; 2nd: v197 capacity-plateau "1-RSB NOT supported" over-extends; 3rd: structural pattern emerges -- verdict_msg authors should be more conservative with explicit-claim language when the underlying formula is at low-resolution sample size).
+**Per [[feedback-no-experiment-design-in-prompts]]**: this verdict_handler cycle does NOT prescribe FULL re-run parameters -- exp_dev decides when re-shipped.
+**Per [[feedback-lock-in-inefficiency-fixes]]**: candidate structural lock: add a verdict_msg-over-extension check to the verdict_handler honest-reread protocol (specifically flag when verdict_msg makes explicit substrate-physics support/refute claims that exceed the data resolution).
