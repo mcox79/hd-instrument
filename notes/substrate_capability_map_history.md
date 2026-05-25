@@ -7780,3 +7780,9 @@ ANNOTATION-ONLY v193 -> v194: (V1) wave14_betB_multitask_diff_corpus_rehab_n4096
 Trigger experiments: (V1) wave14_betB_multitask_diff_corpus_rehab_n4096_v1 FULL MULTITASK_DIFF_MIDDLE_BAND.
 
 History ref: see cap_map.md v194 block for the full per-version narrative; this entry is the history mirror per PROT-007.
+
+## v195 -- (2026-05-24) ANNOTATION-ONLY: Pred-2 W-vector P(q) INCONCLUSIVE
+
+Triggered by: wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED_MIDDLE (binder=-0.164; q_EA~0; n_peaks=4; max_sep_sigma=2.37).
+
+Pred-2 of the 1-RSB diagnostic battery: W_ABCD vectors across 10 seeds show q near zero (mean_q=1.1e-6; std_q=3.2e-6 -- tighter than random bipolar). Negative Binder cumulant (-0.164) means anti-clustering. INCONCLUSIVE: neither confirms 1-RSB W-level basin-trapping (which requires q_EA >> 0, positive Binder) nor cleanly refutes (RS null also gives q_EA~0 at this N). Pool-level RSB unaffected (different axis). Pred-4 hysteresis sole remaining CPU diagnostic. Annotation-only; no row state changes; portfolio 13+5 UNCHANGED.

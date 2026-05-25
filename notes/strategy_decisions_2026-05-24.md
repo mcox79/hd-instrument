@@ -2147,3 +2147,39 @@ The negative signals SHARPEN substrate-product characterization toward (a) discr
 **Per [[feedback-dispatch-wrappers-default]] note**: This v194 cap_map update executed inline in main thread per orchestrator post-compaction brief Section 2 execution-model clarification (Agent dispatch unavailable in this runtime; verdict_handler wrapper agent role logic + strategy + visibility composed inline; queue refill via exp_dev hand-off pickup REQUIRED next cycle).
 
 **Watchdog repair note**: also this cycle — `tools/orchestrator/heartbeat_watchdog.py` patched to fix ship_unconfirmed false-positive class. Bug: watchdog only checked `queue_pending` / `queue_running` / `current` / `heartbeat.current` (i.e. "in flight RIGHT NOW") and treated absence as "never landed." When an experiment landed, ran, and was reaped from queue.json before the next watchdog poll, the watchdog re-fired ship_unconfirmed forever (until the entry aged past SHIP_CONFIRMED_RETENTION_S=600s). Fix: composite confirmation check now also looks at `recent_verdicts` (entry produced a verdict) and the runner's `recent_log_lines` (START/DONE record for the name), and stamps a sticky `landed_at` field on the JSONL entry once confirmed. Test run cleared the stale 16:44-16:47 entries (wave14e_moe_xtalk_smoke_v1 / wave14_hatano_sasa_cap3_long_traj_v2 aged past retention and were pruned; wave14_mingo_speicher_1st_order_mn8_v1 stamped landed_at and retained until retention). Watchdog process restarted PID 1432 (was PID 6032). No ship_unconfirmed payloads emitted on the new code.
+
+## v195 -- wave14_1rsb_pq_retained_v1 PQ_RETAINED_MIDDLE annotation
+
+**Step 0 honest re-read**: verdict_msg label PQ_RETAINED_MIDDLE is HONEST per pre-reg bands.
+- n_peaks=4 satisfies >=2 (check); max_sep_sigma=2.37 satisfies >=2.0 (check)
+- binder=-0.164 FAILS binder>0.30 HARD-PASS threshold
+- binder is NEGATIVE (anti-clustering; sub-Gaussian overlap structure)
+- mean_q~1e-6, std_q~3e-6: W vectors are NEARLY ORTHOGONAL across seeds (q_EA~0)
+- HONEST READ: 4 near-zero-overlap clusters; NOT genuine 1-RSB (requires non-zero q_EA + positive Binder); NOT RS either (RS = single broad unimodal, not 4 peaks); MIDDLE band correct
+
+**Pred-2 (W-vector P(q)) implications**:
+- W_ABCD vectors across 10 seeds have overlaps clustering near q=0 (nearly orthogonal)
+- High-dimensional: at N=2048, random bipolar vectors have E[q]~0 and std[q]~0.022; observed std_q=3.2e-6 is MUCH TIGHTER -- W vectors are MORE orthogonal than random (each seed finds a diverse solution)
+- Does NOT refute pool-level RSB (wave14e2_parisi_ultrametricity validated at pool level; different axis)
+- Does NOT support W-level basin-trapping (genuine 1-RSB would need q_EA >> 0 with positive Binder)
+- ANNOTATION: W-vector P(q) axis INCONCLUSIVE (binder=-0.164 < 0.30 threshold; q_EA~0)
+
+**1-RSB battery status after Pred-2**:
+- Pred-1 (cascade_depth): GPU running
+- Pred-2 (pq_retained): MIDDLE -- W-vector axis inconclusive; q_EA~0
+- Pred-3 (capacity_plateau): GPU pending
+- Pred-4 (hysteresis): NOT SHIPPED -- sole remaining CPU diagnostic; distinguishes first-order vs continuous transition
+- Pred-5 (ultrametric_triples): local CPU running
+
+**Capability moves**:
+
+| Row | v194 state | v195 state |
+|---|---|---|
+| RSB phase / ultrametric index | validated structural (pool-level) | UNCHANGED + W-vector P(q) annotation: INCONCLUSIVE (binder=-0.164; q_EA~0) |
+
+**Net effect v195**: ANNOTATION-ONLY. No row state changes. Pool-level RSB stands. 1-RSB framing from retention plateaus (0.94/0.74/0.60) unaffected. Pred-4 hysteresis is highest-leverage remaining CPU test.
+
+**Pipeline pacing**: remote_cpu_queue=0 (IDLE); pause_state=ACTIVE; exp_dev refill authorized.
+
+**PROT-004/006/008/009 compliance**: 0 new closures; annotation-only.
+**Per [[feedback-verdict-msg-honest-reread]]**: 54th post-lock observation; label=msg=data CLEAN.

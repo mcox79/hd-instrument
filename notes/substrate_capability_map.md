@@ -15981,3 +15981,39 @@ Net effect v193: R-PRIME-3 task-pair-geometry HYPOTHESIS REJECTED (5 rescues fil
 ANNOTATION-ONLY v193 -> v194: (V1) wave14_betB_multitask_diff_corpus_rehab_n4096_v1 FULL = MULTITASK_DIFF_MIDDLE_BAND retention_A=0.604 gain_C=3.758 at N=4096 vs v1 N=2048 retA=0.600 gain_C=3.760 (delta retA=+0.004 well inside 5-seed seed-variance noise floor); U1/U7 multi-task-diff-corpus rehab axis 2 (larger N for retention floor) SATURATION; diff-corpus retention ceiling at retA~0.60 is N-INDEPENDENT in tested N range (2048-4096); dim-scaling lever exhausted at this corpus pair within tested envelope; cluster-structured retention pattern STRENGTHENS (three discrete plateaus 0.94 same-corpus / 0.74 4-stage / 0.60 diff-corpus across Bet B variants matches 1-RSB basin-discrete framing v192 R5 / v193 R-PRIME-3 R4 / v194 M4); negative-signal pattern v184-v194 SHARPENS substrate-product characterization away from continuous-axis retention mechanisms (EWC/Allen-Cahn/norm-replay/geometry/Phase-D-replay/N-scaling all NULL or SATURATED) toward (a) discrete-basin phase-transition mechanism framings (1-RSB cluster-structured) and (b) information-theoretic floor framings (PAC-Bayes KL-accumulation R-PRIME-1); 4 mechanism-class rescues filed (M1 N >> 4096 structural-break test / M2 different corpus pair / M3 PAC-Bayes KL floor R-PRIME-1 elevated / M4 cluster-structured 1-RSB basin-discrete); U1/U7 rehab axes 1 (MoE structural separation) + 3 (weighted-replay favoring corpus-A) remain LIVE from v190 — leading leverage paths after axis 2 exhaustion; portfolio count UNCHANGED at 13 demonstrated + 5 evidence-strength; honest-reread LOCK 53rd observation clean; pipeline pacing GPU=0 pending CPU=0 pending (refill target via exp_dev wrapper next cycle per v193 hand-off notes/exp_dev_handoff_v193_queue_refill_2026-05-24.md); 108th PROT-009 paired commit.
 
 Net effect v194: U1/U7 multi-task-diff-corpus rehab axis 2 (N-scaling 2048->4096) SATURATION annotation (4 mechanism-class rescues filed M1-M4); diff-corpus retention ceiling at retA~0.60 confirmed N-INDEPENDENT in tested envelope; cluster-structured retention pattern STRENGTHENS as fifth converging observation against continuous-axis Bet B retention mechanism framings; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; 108th PROT-009 paired commit.
+
+## v195 - (2026-05-24) ANNOTATION-ONLY: Pred-2 W-vector P(q) INCONCLUSIVE (binder=-0.164; q_EA~0)
+
+### Capability moves (v194 -> v195)
+
+| Capability | v194 state | v195 state | Trigger |
+|---|---|---|---|
+| RSB phase / ultrametric index | ✅ Validated (structural, pool-level); tree-walk 🔬 | **✅ UNCHANGED + W-vector P(q) axis annotation (Pred-2): INCONCLUSIVE (binder=-0.164 < 0.30 threshold; q_EA~0; mean_q=1.1e-6 std_q=3.2e-6 at N=2048 10 seeds)**. `wave14_1rsb_pq_retained_v1` FULL = PQ_RETAINED_MIDDLE n_peaks=4 max_sep_sigma=2.37 binder=-0.164. Honest re-read: n_peaks and sep satisfy HARD-PASS criteria but binder FAILS (binder=-0.164 < 0.30). Negative Binder means sub-Gaussian q-distribution (anti-clustering); mean_q~0 means W_ABCD vectors are NEARLY ORTHOGONAL across seeds (q_EA~0). This is EXPECTED in high-dimensional systems (random bipolar at N=2048: E[q]=0, std[q]~0.022; observed std_q=3.2e-6 is TIGHTER than random -- seeds find diverse solutions, not shared basin). Does NOT refute pool-level RSB validated by wave14e2_parisi_ultrametricity (different axis: pool vectors vs retained W vectors). Does NOT support W-level basin-trapping (genuine 1-RSB W-level would require q_EA >> 0 with positive Binder). Row state UNCHANGED. | (V1 v195) wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED_MIDDLE n_peaks=4 max_sep_sigma=2.37 binder=-0.164 ultrametric_frac=1.0 n_seeds=10 |
+| substrate-product portfolio count | 13 demonstrated + 5 evidence-strength rows | **13 demonstrated UNCHANGED + 5 evidence-strength rows UNCHANGED** (annotation-only) | annotation-only cycle |
+
+### Substrate-product positioning v195
+
+- **Pred-2 (W-vector P(q)) INCONCLUSIVE**: The W_ABCD overlap distribution across 10 seeds is concentrated near q=0 (mean_q=1e-6, std_q=3e-6 -- tighter than random bipolar). This reflects HIGH-DIMENSIONAL DIVERSITY: each seed finds a weight solution far from other seeds' solutions, not trapped in a shared basin. At N=2048 this is expected; it does NOT discriminate RS from 1-RSB (RS null hypothesis also produces q_EA~0 at this dimensionality in the over-parameterized regime tested here).
+- **Pool-level RSB validated (pool P(q), ultrametric_frac=0.357) stands unaffected.** The W-vector axis is fundamentally different from the pool-vector axis: pool vectors are the stored memories; W vectors are the learned weight matrices. Pool RSB (Bet E/wave14e2) is the substrate physics; W-level diversity is the learning-trajectory physics.
+- **1-RSB framing for retention plateaus unaffected**: The 5+ converging observations (0.94/0.74/0.60 discrete plateaus; all continuous-axis mechanisms failing) motivating 1-RSB are orthogonal to Pred-2's W-vector axis. Pred-2 INCONCLUSIVE does not weaken the discrete-plateau framing.
+- **Pred-4 (hysteresis-under-capacity-sweep) is now the sole remaining CPU-targeted 1-RSB diagnostic** not on any queue. GPU battery (Pred-1 cascade_depth running; Pred-3 capacity_plateau pending) continues. Local (Pred-5 ultrametric_triples running).
+- All v194 positioning carried forward UNCHANGED.
+
+### Pre-registered untested (carried forward v194 + v195 additions)
+
+- All v178-v194 items carried forward.
+- ~~v195 Pred-2 W-vector P(q)~~ **CONSUMED at v195 V1 = PQ_RETAINED_MIDDLE binder=-0.164 q_EA~0; INCONCLUSIVE; W-vector axis does not discriminate RS from 1-RSB at N=2048**.
+- **v195 OPEN: Pred-4 hysteresis-under-capacity-sweep** -- sole remaining CPU-targeted 1-RSB diagnostic; distinguishes first-order (discontinuous jump at alpha_c) from continuous transition. NOT yet on any queue as of v195.
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md staged atomically.
+- per PROT-004/006: 0 new closures; annotation-only; no rehab file required.
+- per PROT-007: v195 history block written to substrate_capability_map_history.md.
+- per PROT-008: 0 new closed rows; 0 state changes.
+- per PROT-009: 109th paired commit.
+- per [[feedback-verdict-msg-honest-reread]]: 54th post-lock observation; PQ_RETAINED_MIDDLE label HONEST (binder=-0.164 clearly in MIDDLE band; HARD-PASS fails at binder<0.30); clean label=msg=data agreement.
+
+### Tally (one-line)
+
+ANNOTATION-ONLY v194 -> v195: (V1) wave14_1rsb_pq_retained_v1 FULL = PQ_RETAINED_MIDDLE n_peaks=4 max_sep_sigma=2.37 binder=-0.164 ultrametric_frac=1.0; Pred-2 W-vector P(q) INCONCLUSIVE (q_EA~0; negative Binder = anti-clustering; W vectors seed-diverse NOT basin-trapped); pool-level RSB validated (wave14e2_parisi_ultrametricity) UNAFFECTED (different axis); 1-RSB retention-plateau framing (0.94/0.74/0.60 discrete) UNAFFECTED; Pred-4 hysteresis sole remaining CPU diagnostic not queued; portfolio 13 demonstrated + 5 evidence-strength UNCHANGED; honest-reread LOCK 54th observation clean; remote_cpu_queue=0 IDLE (exp_dev refill authorized, ACTIVE); 109th PROT-009 paired commit.
