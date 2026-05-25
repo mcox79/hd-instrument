@@ -2280,3 +2280,50 @@ The negative signals SHARPEN substrate-product characterization toward (a) discr
 **Per [[feedback-verdict-msg-honest-reread]]**: 56th post-lock observation; label CAPACITY_PLATEAU_RS_SMOOTH formula-honest at smoke; verdict_msg "1-RSB NOT supported" OVER-EXTENDS at 3-point single-seed resolution; the verdict_msg over-extension is the load-bearing honest call. This is the THIRD observation of the verdict_msg-over-extension pattern across 2-3 cycles (1st: v177 MMD-vs-MP-KS factually wrong on direction; 2nd: v197 capacity-plateau "1-RSB NOT supported" over-extends; 3rd: structural pattern emerges -- verdict_msg authors should be more conservative with explicit-claim language when the underlying formula is at low-resolution sample size).
 **Per [[feedback-no-experiment-design-in-prompts]]**: this verdict_handler cycle does NOT prescribe FULL re-run parameters -- exp_dev decides when re-shipped.
 **Per [[feedback-lock-in-inefficiency-fixes]]**: candidate structural lock: add a verdict_msg-over-extension check to the verdict_handler honest-reread protocol (specifically flag when verdict_msg makes explicit substrate-physics support/refute claims that exceed the data resolution).
+
+
+---
+
+## pq_retained re-processing request — NO CAP_MAP BUMP (already consumed at v195)
+
+**Step 0 honest re-read of the on-disk artifact**:
+- `data/exp_wave14_1rsb_pq_retained_v1/metrics.json` mtime 2026-05-24 19:35:38
+- Reports: n_peaks=1, max_sep_sigma=0.0, binder=0.6666666387006333, ultrametric_frac=NaN, n_pairs=1, mean_q=-9.5e-5, std_q=0.0, n_seeds=2
+- Config: mode="smoke", N=512, batch_size=16, epochs=1, seeds=[7,17], n_triples=100
+- verdict_msg: "Intermediate P(q): 1 peaks max_sep_sigma=0.00 binder=0.667. Inconclusive 1-RSB vs RS at this axis."
+- LABEL: PQ_RETAINED_MIDDLE (honest at smoke-grade -- 2 seeds gives 1 pair; std_q=0.0 is the trivial 1-sample value; binder=2/3 is the trivial 1-sample value; n_peaks=1 from 1 pair is degenerate)
+
+**Why no cap_map v198 bump**:
+- v195 cap_map (commit 3a6de2a) ALREADY CONSUMED the wave14_1rsb_pq_retained_v1 FULL verdict
+- v195-consumed numbers: n_peaks=4, max_sep_sigma=2.37, binder=-0.164, ultrametric_frac=1.0, n_seeds=10, at N=2048 (from orchestrator_status_log.jsonl 2026-05-24T19:58:25 verdict event)
+- Current on-disk metrics.json carries the PRE-SHIP smoke values that were also explicitly captured in exp_dev_decisions_2026-05-24.md line 420 as the smoke-gate reading at handoff time
+- The FULL run REMOTE artifact has not been pulled back to overwrite the local smoke; v195's verdict was consumed via the remote verdict event, not via local artifact read
+- Processing the SMOKE on-disk artifact as a new "pq_retained = MIDDLE" verdict would be a regression / double-process (would record the SAME anchor as MIDDLE twice with degraded data)
+
+**Net effect**: NO cap_map bump for pq_retained this cycle. v195 remains the canonical Pred-2 W-vector P(q) annotation. Pred-2 status STAYS at v195 reading: INCONCLUSIVE at q_EA~0 negative Binder; W vectors seed-diverse not basin-trapped; pool-level RSB unaffected.
+
+**1-RSB battery joint status after the cascade_depth(v196) + capacity_plateau(v197) + pq_retained(v195-already-consumed) cycle**:
+- Pred-1 (capacity_plateau / GPU): v197 SMOKE-grade INCONCLUSIVE (verdict_msg over-extension flagged)
+- Pred-2 (pq_retained / CPU): v195 ALREADY CONSUMED FULL = MIDDLE; W-vector axis q_EA~0; INCONCLUSIVE
+- Pred-3 (= same script as Pred-1)
+- Pred-4 (hysteresis): SHIPPED at b552776 to remote_cpu_queue; IN FLIGHT
+- Pred-5 (cascade_depth / GPU): v196 SMOKE-grade INCONCLUSIVE
+- Pred-5 ultrametric_triples: smoke 1RSB_CONFIRMED at N=512 trivially; FULL N=2048 pending
+
+**Joint pattern across the entire 1-RSB falsifier battery (definitive after v195/v196/v197)**:
+- THREE indirect Pred axes returned INCONCLUSIVE at the resolution accessible (Pred-1/3 capacity-plateau smoke + Pred-2 W-vector P(q) FULL + Pred-5 cascade-depth smoke)
+- NONE produced clean HARD-PASS for 1-RSB
+- NONE produced clean HARD-FAIL (Pred-1 verdict_msg over-extension flagged; Pred-2 FULL gives anti-clustering not refutation; Pred-5 smoke formula MIDDLE)
+- The basin-discrete-1-RSB framing motivated by retention-plateau direct observations (5+ converging plateaus 0.94/0.74/0.60 across Bet B variants v184-v194) is NEITHER strengthened NOR refuted by the indirect-axis diagnostic battery
+- Per [[feedback-dont-overextend-theorems]] this does NOT close the 1-RSB framing
+- Per [[feedback-no-smoke]] the substrate-product-relevant claim "Bet B retention is basin-discrete at three plateaus" still rests on the DIRECT retention-plateau observations, which the indirect-axis battery was supposed to corroborate but instead returned inconclusive at smoke-grade compute
+- Pred-4 hysteresis (in flight at remote_cpu) remains the highest-leverage discriminator still pending; first-order vs continuous transition at the capacity axis is the cleanest binary call available
+
+**Recommended next steps (NOT executed this cycle per turn directive)**:
+1. Investigate runner-config-mismatch: why did GPU runner ship SMOKE configs for cascade_depth + capacity_plateau when v195-handoff specified FULL? Same pattern across both GPU anchors shipped together is suggestive of a systematic bug.
+2. Re-ship cascade_depth + capacity_plateau at FULL config (5 seeds, 5 epochs, depths 2-5 for cascade; 7 M points multi-seed N=4096 for capacity_plateau). Orchestrator dispatches exp_dev separately per turn directive.
+3. Wait on Pred-4 hysteresis (in flight); first-order signature would be the cleanest 1-RSB positive evidence available.
+
+**PROT compliance**: NO commit (no cap_map state change); decision-log only entry per Step 0 honest re-read finding that v195 already consumed this anchor's FULL verdict.
+
+**Per [[feedback-verdict-msg-honest-reread]]**: The pre-PROT 57th observation would have been -- if the SMOKE artifact had been blindly processed -- a regression-class violation (re-processing already-consumed anchor with degraded data). Honest re-read caught this. The on-disk artifact is the stale pre-ship smoke; the canonical FULL Pred-2 verdict is in orchestrator_status_log.jsonl at 19:58:25 and was already absorbed at v195.
