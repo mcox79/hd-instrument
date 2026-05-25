@@ -2459,3 +2459,54 @@ All annotation-only. No row state changes. Portfolio 13 demonstrated + 5 evidenc
 ### per PROT-009
 
 113th paired commit (cap_map.md v200 + history.md v200 + this strategy_decisions entry).
+
+
+## v201 verdict_handler — 2026-05-24 — Bet B Alt 1 discrete task-class predictor SHIFT_CLASS_HARD_PASS at re-analysis level
+
+**Verdict event**: wave14_betB_shift_class_predictor_v1 completed 21:19:39 local_cpu, verdict SHIFT_CLASS_HARD_PASS. Re-analysis of existing per-experiment metrics.json artifacts (replay_by_norm n=49 + ablation_B + 4stage variants + diff_corpus_v1/n4096 + Kovacs v9/v11/v12 synthesized) classified into 6 discrete shift classes.
+
+**Step 0 honest re-read**: label SHIFT_CLASS_HARD_PASS; verdict_msg "6/6 classes have non-overlapping 95% CIs, K-W p=0.0000<0.05"; per-cell metrics.json confirms n_nonoverlapping=6 (>= pre-registered HARD-PASS gate 4) and kw_p=2.9e-14 (< pre-registered HARD-PASS gate 0.05). Six classes ordered by mean retention_A: SAME_CORPUS_PRISTINE 0.941 [0.924, 0.957] n=5 / COMPOUND_SAME_CORPUS 0.885 [0.861, 0.908] n=15 / REPLAY_SAME_CORPUS 0.845 [0.841, 0.848] n=49 / STAGE_4_COMPOUND 0.734 [0.729, 0.739] n=20 / NO_REPLAY_SAME_CORPUS 0.682 [0.676, 0.687] n=5 / DIFF_CORPUS_2TASK 0.633 [0.601, 0.666] n=13. CI separation when ordered by mean: PRISTINE/COMPOUND gap 0.016; COMPOUND/REPLAY gap 0.013; REPLAY/STAGE_4 gap 0.102; STAGE_4/NO_REPLAY gap 0.042; NO_REPLAY/DIFF_CORPUS gap 0.010. All 5 adjacent pairs clean. Label = msg = data. CLEAN per [[feedback-verdict-msg-honest-reread]] 59th observation post-lock.
+
+**Smoke-vs-FULL caveat**: per metrics.json config "mode": "full" the run was the FULL pre-registered re-analysis. User task framing "smoke-only at this point" reads as honest-scope note that the re-analysis pulls from existing per-experiment seed data with modest per-class seed counts (n=5 for 2/6 classes: SAME_CORPUS_PRISTINE + NO_REPLAY_SAME_CORPUS). The analytical bar (n_nonoverlapping >= 4 AND K-W p < 0.05) is cleanly met at this scale; replication at higher per-class seed count would tighten CIs and is the row-state-promotion gate.
+
+### Decision 1: cap_map v200 -> v201 annotation (NOT row-state move)
+
+Per user task framing and [[feedback-dont-overextend-theorems]]: annotation-only bump at re-analysis level. R-PRIME-3 HARD-FAIL row (v193) NOT moved to Alt 1 PASS row; instead the Bet B retention (R-PRIME predictability search space) row from v200 receives v201 annotation that Alt 1 (discrete task-class predictor) has positive zero-new-compute re-analysis evidence at SHIFT_CLASS_HARD_PASS. Row-state promotion gate filed: target n>=15 per class for small-n classes (~50 new seed runs).
+
+### Decision 2: Product claim sharpens from existence to operational predictability
+
+v200 dominant Bet B finding: "substrate has known retention plateaus per task-shift class" (existence claim). v201 upgrade: "substrate retains X% on shift-class K, with K predictable from corpus-pair classification" (operational predictor claim). 6-class taxonomy itself (SAME_CORPUS_PRISTINE / COMPOUND_SAME_CORPUS / REPLAY_SAME_CORPUS / NO_REPLAY_SAME_CORPUS / STAGE_4_COMPOUND / DIFF_CORPUS_2TASK) becomes substrate-characterization product feature. Plateau values refined from 3-point summary (0.94 / 0.74 / 0.60) to 6-point distribution (0.94 / 0.88 / 0.84 / 0.73 / 0.68 / 0.63) with class-conditional CIs.
+
+### Decision 3: R-PRIME-3 rescue R5 WORKED EXAMPLE
+
+Per [[feedback-rehabilitation-after-rejection]]: R-PRIME-3 v193 HARD-FAIL filed 5 rescue candidates (R1 alternative geometry metric / R2 sub-corpus geometry / R3 PAC-Bayes floor / R4 cluster-structured retention / R5 abandon geometry framing). v201 result lands as R5 specifically (categorical classification framing replacing continuous geometry framing). R-PRIME-3 closure on the SPECIFIC metric tested stands; the broader predictor question is rescued at a different framing family. This is the WORKED EXAMPLE of R-PRIME-3 rescue R5 landing positive.
+
+### Decision 4: v200 -> v201 cycle validates rescue-sketch-first-sequencing
+
+Per [[feedback-rescue-sketch-first-sequencing]] (positive worked example: Cap 2 v160 -> v172): cheapest / subsumption rescues sequenced first paid off here. v200 strategic reframe filed at ~21:15 with three alternative predictor families ordered by cost (Alt 1 zero-compute re-analysis "most likely" / Alt 2 substrate-internal signature requires GPU run / Alt 3 PAC-Bayes pending R-PRIME-1 derivation). Alt 1 dispatched immediately as zero-new-compute re-analysis; v201 confirmation landed at 21:19:39 = ~15 min reframe-to-confirmation cycle. SECOND positive worked example for the rescue-sketch-first-sequencing discipline.
+
+### Decision 5: Substrate-physics framework reliability slip from v200 PARTIALLY OFFSET
+
+v200 flagged the substrate-physics framework as no-longer-monotone-positive after 1-RSB indirect battery 0-of-3 result. v201 is positive evidence for an orthogonal framework prediction (discrete-plateau classifier per Bet B retention discrete-structure framing). Framework remains load-bearing; Alt 1 success is a calibration data-point in the positive direction. Combined Tier-1 probability NOT re-recalibrated this cycle (single positive analytic re-analysis; await Alt 2 / Alt 3 / Pred-4 / higher-seed Alt 1 replication before re-touching the 40-55% estimate from v200).
+
+### Decision 6: Pre-reg item tracking
+
+- ~~v200 Alt 1 predictor (discrete task-class)~~ **CONSUMED at v201 V1 = SHIFT_CLASS_HARD_PASS at re-analysis level**.
+- v200 OPEN: Alt 2 predictor (substrate-internal W-signature) -- wave14_betB_W_internal_signature_v1 RUNNING on GPU since 21:23:31 per diagnostic_watchdog_truth log.
+- v200 OPEN: Alt 3 predictor (PAC-Bayes posterior-over-W KL term) -- depends on R-PRIME-1 derivation in parallel Research dispatch.
+- v201 NEW: Alt 1 higher-seed replication -- target n>=15 per class for SAME_CORPUS_PRISTINE + NO_REPLAY_SAME_CORPUS (~50 new seed runs); row-state promotion gate.
+
+### Capability moves
+
+Annotation-only. No row state changes. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED.
+
+### Pipeline pacing
+
+- Queue-refill NOT triggered (per user task framing -- orchestrator handles separately in same turn if needed).
+- Alt 1 higher-seed replication NOT dispatched (annotation-only per task contract; exp_dev owns design parameters; orchestrator may pick up the v201 NEW pre-reg item next cycle).
+- Alt 2 RUNNING on GPU (started 21:23:31 -- 2-3h job; verdict expected ~midnight local).
+- Pred-4 hysteresis still in flight on remote_cpu_queue.
+
+### per PROT-009
+
+114th paired commit (cap_map.md v201 + history.md v201 + this strategy_decisions entry).
