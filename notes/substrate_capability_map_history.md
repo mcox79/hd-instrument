@@ -7912,3 +7912,34 @@ Amend [[feedback-strategy-spec-formula-selftests]] or [[feedback-envelope-expans
 117th PROT-009 paired commit.
 
 History ref: see cap_map.md v204 block for full narrative.
+
+
+## v205 - (2026-05-25) ANNOTATION-ONLY: Heavy-research-night integration
+
+### Trigger
+
+Nine research deliveries and three local-batch experimental results integrated from the 2026-05-24/25 heavy research night.
+
+### Key changes
+
+**Saad-Solla saddle-cascade ELEVATED to LEADING theoretical home** for the 3-plateau retention structure. `wave14_betB_saddle_cascade_reanalysis_v1` BIC delta=194.9 vs sigmoid (97x the 2.0 threshold); equal-spacing formula error=0.038 (below 0.05 threshold). Both pre-registered criteria pass cleanly. 1-RSB demoted to "one-of-several candidates" pending Pred-4 hysteresis discrimination.
+
+**IB-phase-transition CLOSED** as competing theoretical home. Plateau count does not track K; IB spacing-formula max error=0.30 >> threshold 0.10. Candidate (iv) closed; saddle-cascade (candidate v) survives.
+
+**LINEAR-HETEROASSOC LOCKED as primary substrate architecture.** Per `notes/research_primitive_decision_linear_vs_recurrent_2026-05-25.md`. Asymmetric Tier-1 fit (MoE 4x per-expert capacity advantage; linear preserves audit signal). Recurrent gets one narrow K6 cleanup-head probe at P=0.30; linear-heteroassoc is the primary path.
+
+**Bet N promoted to design-ready.** Handoff at `notes/exp_dev_handoff_bet_n_design_2026-05-25.md`. Cao 2023 direct precedent. P_deflated=0.28 category-defining; P=0.55 material-promotion. LOWEST-DEPENDENCY Tier-1 path.
+
+**SSM-HiPPO framed as HiPPO-LegS W-initializer.** Per `notes/research_ssm_hippo_compatibility_2026-05-25.md`. v190 ssm_depth=0 grounded by Jelassi 2024 Thm 2.7. P_deflated=0.18; cheap CPU probe filed.
+
+**Product positioning sharpened** to "algebraically-canonical fast-weight memory with exposed W for audit / verifiable-erase / provenance." Strongest AI-memory-subsystem framing to date.
+
+**MoE alpha_c anomaly RESOLVED.** `wave14_moe_alpha_c_formula_verify_v1` confirms alpha_c band [0.40, 0.70]; M_per_expert=1612 at N=4096 locked. MoE rebuild unblocked post-SSH.
+
+**Framework reliability slightly improved to 32-48%** (was 30-45%). Saad-Solla positive BIC partially offsets the 1-RSB deflators from v203.
+
+### Outcome
+
+ANNOTATION ONLY. 11 capability move rows. 0 row-state changes. Portfolio 13 demonstrated + 5 evidence-strength UNCHANGED. 118th PROT-009 paired commit.
+
+History ref: see cap_map.md v205 block for full narrative.
