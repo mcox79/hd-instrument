@@ -437,12 +437,15 @@ class Poller:
         ad_hoc_runs = [a for a in ad_hoc_all if a["name"] not in tracked_names]
 
         # Orchestrator status log: local file read (no SSH — same machine as dashboard).
-        # Read the last 300 lines to keep memory bounded.
+        # Read the last 1000 lines to keep memory bounded while ensuring all acked
+        # items remain visible in the window (prevents acked items from being pushed
+        # out of the truncation window and reappearing as unread). At ~100 bytes/line
+        # this is ~100 KB — negligible.
         status_log_raw = ""
         try:
             if _STATUS_LOG_PATH.is_file():
                 lines = _STATUS_LOG_PATH.read_text(encoding="utf-8", errors="replace").splitlines()
-                status_log_raw = "\n".join(lines[-300:])
+                status_log_raw = "\n".join(lines[-1000:])
         except Exception:
             pass
         status_log: list[dict] = []
@@ -470,6 +473,8 @@ class Poller:
 
         # Tier summary: derived from the already-fetched capability map.
         tier_summary = parsers.extract_tier_summary(self._last_capability_md)
+        # Structured per-row payload for the redesigned Capability tab UI.
+        capability_rows = parsers.extract_capability_rows(self._last_capability_md)
 
         # ---- Local CPU queue (local filesystem; no SSH) ----
         local_cpu_view: dict = {}
@@ -651,6 +656,7 @@ class Poller:
             "capability_skip_count": self._capability_skip_count,
             "status_log": status_log,
             "tier_summary": tier_summary,
+            "capability_rows": capability_rows,
             "ad_hoc_runs": ad_hoc_runs,
             "in_flight": in_flight,
             "orchestrator_questions": open_questions,

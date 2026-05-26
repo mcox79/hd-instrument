@@ -203,13 +203,64 @@ def _infer_plain_language(entry: dict) -> str:
 # Event kinds that promote to "news" on the For You tab. Routine churn events
 # (sub_agent_dispatched/returned, queue_change, queue_add, routing) are filtered
 # out — the user does not want to see them on the news feed.
+#
+# Policy: include anything a user would want to see (capability map changes,
+# verdicts, research deliveries, audits, infra events, diagnostics).
+# Exclude: routing_decision, routing_handled, exp_dev_dispatch, queue_refill,
+# queue_state, runner_state, memory_write, exp_shipped, exp_dev_ship,
+# routing, research_routing, exp_dev_upstream_push, upstream_push,
+# exp_dev_handoff_filed, placeholder_filed, research_routing_filed — these
+# are internal plumbing events that generate noise without user value.
 _NEWS_KINDS = {
+    # Core verdicts and capability map
     "verdict",
-    "cap_map_committed",
+    "verdict_processed",       # verdict_handler processed output (includes cap map impact)
+    "cap_map_committed",       # old name
+    "cap_map_commit",          # new name (same semantic)
+    "cap_map_change",          # inline annotation / CRITICAL cap map mutations
+    "cap_map_annotation",
+    # Research
     "audit",
+    "meta_audit",
     "research_delivery",
+    "research_drill_closure",
+    "research_drill_delivered",
+    "research_delivered",
+    # Dispatch / pipeline
+    # NOTE: experiment_queued intentionally excluded — it generates O(40+) entries
+    # per wave and appears as "unread spam" since new experiments are queued constantly.
+    # It is internal plumbing equivalent to exp_shipped/exp_dev_ship which are
+    # already in the exclude list. Restored from _NEWS_KINDS 2026-05-26.
     "major_dispatch",
     "hard_gate",
+    "architecture_rollout",
+    # Infrastructure events the user cares about
+    "watchdog_armed",
+    "watchdog_patch",
+    "watchdog_cache_staleness_fix",
+    "watchdog_restart_or_patch",
+    # Diagnostics and audits (sub-agent quality, routing ratio, etc.)
+    "exp_dev_skill_audit",
+    "diagnostic_test_quality_audit",
+    "diagnostic_watchdog_truth",
+    "diagnostic_routing_ratio_fix",
+    "for_you_tab_diagnostic_fix",  # self-reference for diagnostic fix
+    "for_you_ack_fix",             # self-reference for ack-persistence fix (2026-05-26)
+    # Lifecycle / infra milestones
+    "orchestrator_init",
+    "migration",
+    "infra",
+    "fix",
+    "resume",
+    "runner_revived",
+    "local_runner_revived",
+    "strategy_proactive",
+    "strategy_proactive_drill",
+    "strategy_triage",
+    "experiment_completed_batch",
+    "gpu_reroute",
+    "gpu_queue_drained_with_2_new_verdicts",
+    "verdict_reclassification_cycle_v204",
 }
 
 
@@ -555,6 +606,294 @@ def extract_tier_summary(cap_md: str) -> dict:
                     pass
 
     return {"totals": totals, "parse_ok": True, "raw_table": [split_row(t) for t in table_lines]}
+
+
+# ---------------------------------------------------------------------------
+# Structured capability-row extraction for the redesigned Capability tab.
+# ---------------------------------------------------------------------------
+
+# State icons used in the capability map. Order matters for first-match wins
+# (longer / more-specific glyphs first when one is a prefix of another).
+_CAP_STATE_GLYPHS = [
+    ("✅", "validated"),       # ✅
+    ("\U0001F7E2", "want_stronger"),  # 🟢
+    ("\U0001F7E1", "inconclusive"),   # 🟡
+    ("\U0001F52C", "research_only"),  # 🔬
+    ("⚪", "untested"),        # ⚪
+    ("❌", "closed"),          # ❌
+]
+
+# Map the high-level section under which a row lives to a UI "group" the
+# dashboard wants to show separately. The cap_map.md has four primary sections
+# (numbered 1-4): CAN / CANNOT / UNSURE / KILLER. Anything else (e.g., later
+# narrative blocks "Tier-1 board after vN", "What's now under-tested ...") is
+# kept under a generic "OTHER" bucket so the parser never raises.
+_CAP_SECTION_GROUP = {
+    "can": "PORTFOLIO",         # 1. CAN — capabilities with empirical evidence
+    "cannot": "CLOSED",         # 2. CANNOT — empirically closed limits
+    "unsure": "UNSURE",         # 3. UNSURE — known unknowns
+    "killer": "KILLER",         # 4. KILLER — game-changing capabilities
+}
+
+# Order in which groups should be rendered in the UI (top to bottom).
+_CAP_GROUP_ORDER = ["KILLER", "UNSURE", "PORTFOLIO", "CLOSED", "OTHER"]
+
+
+def _classify_state(state_cell: str) -> str:
+    """Return canonical state key for a state cell. 'unknown' on no match.
+
+    Detection order: explicit glyph -> text keywords. The text fallback
+    catches KILLER / UNSURE rows where the "current status" column is
+    prose like "CANNOT (we're byte K-gram...)" or "🟡 PARTIAL at v189
+    ..." or "UNSURE — multimodal research synthesis exists".
+    """
+    if not state_cell:
+        return "unknown"
+    for glyph, key in _CAP_STATE_GLYPHS:
+        if glyph in state_cell:
+            return key
+    # Text-only fallback for KILLER / UNSURE prose states.
+    s = state_cell.upper()
+    if "CANNOT" in s or "REFUTED" in s or "CLOSED" in s or "DEAD" in s:
+        return "closed"
+    if "PARTIAL" in s or "INCONCLUSIVE" in s or "MIDDLE" in s:
+        return "inconclusive"
+    if "VALIDATED" in s or "DEMONSTRATED" in s or "PASSES" in s:
+        return "validated"
+    if "RESEARCH ONLY" in s or "RESEARCH-ONLY" in s:
+        return "research_only"
+    if "UNSURE" in s or "UNTESTED" in s or "PROPOSED" in s:
+        return "untested"
+    return "unknown"
+
+
+def _identify_group(section_h2: str) -> str:
+    """Map a `## N. NAME` H2 text to a group key. 'OTHER' if no canonical fit."""
+    s = section_h2.lower()
+    for token, group in _CAP_SECTION_GROUP.items():
+        if token in s:
+            return group
+    return "OTHER"
+
+
+def extract_capability_rows(cap_md: str) -> dict:
+    """Parse the v1 cap_map.md table sections into structured rows for the UI.
+
+    The capability map has four canonical sections (## 1. CAN / 2. CANNOT /
+    3. UNSURE / 4. KILLER). Each contains sub-sections (### Memory primitives,
+    etc.) with markdown tables whose first column is the capability name and
+    second column contains a state icon. Later "vN update" prose blocks add
+    annotations but do NOT define new portfolio rows -- the v1 table is the
+    canonical structure the user reads as "the capability map."
+
+    This parser walks the file top-to-bottom and emits ONE row per table row
+    found inside any of the four canonical sections (parser STOPS at the
+    first `## vN` history-narrative H2 because those blocks contain narrative
+    moves not new portfolio rows).
+
+    Returns:
+      {
+        "parse_ok": bool,
+        "groups": [
+          {
+            "key": "KILLER",
+            "label": "KILLER — game-changing capabilities",
+            "subsections": [
+              {
+                "name": "Tier 1: would define the product",
+                "rows": [
+                  {"name": "...", "state": "validated"/"want_stronger"/...,
+                   "state_glyph": "✅", "raw_state": "✅ Validated",
+                   "evidence": "...", "product": "..."},
+                  ...
+                ],
+              },
+              ...
+            ],
+          },
+          ...
+        ],
+        "totals": {validated: N, ...},  # rollup across rows (best-effort)
+      }
+    """
+    if not cap_md:
+        return {"parse_ok": False, "groups": [], "totals": {}}
+
+    lines = cap_md.split("\n")
+    # By-group containers; we accumulate then sort by _CAP_GROUP_ORDER.
+    by_group: dict[str, list[dict]] = {}
+    totals: dict[str, int] = {}
+
+    current_group: str | None = None
+    current_section_label: str = ""
+    current_subsection: str = ""
+    section_h2_full: str = ""
+
+    i = 0
+    N = len(lines)
+    while i < N:
+        line = lines[i]
+        # Detect canonical H2 like "## 1. CAN" — we only walk the v1 region.
+        m_h2 = re.match(r"^##\s+(\d+)\.\s+(.+?)\s*$", line)
+        if m_h2:
+            section_h2_full = m_h2.group(2).strip()
+            current_group = _identify_group(section_h2_full)
+            current_section_label = f"{m_h2.group(1)}. {section_h2_full}"
+            current_subsection = ""
+            i += 1
+            continue
+        # Stop the parser as soon as we see the first `## vN update` (history
+        # narrative) — those blocks are NOT canonical row sources.
+        if re.match(r"^##\s+v\d+\b", line) or re.match(r"^#\s+v\d+\b", line):
+            break
+        # Detect non-numbered H2 (Summary tally, Open questions, etc.) and
+        # treat as end of the canonical four-section walk. Anything that
+        # starts with `## ` but DOESN'T have a `<digit>. ` prefix is meta.
+        m_meta_h2 = re.match(r"^##\s+([A-Z][a-zA-Z].+)$", line)
+        if m_meta_h2 and not re.match(r"^##\s+\d+\.", line):
+            current_group = None
+            current_subsection = ""
+            i += 1
+            continue
+        # H3 subsection (### Memory primitives etc.)
+        m_h3 = re.match(r"^###\s+(.+?)\s*$", line)
+        if m_h3 and current_group is not None:
+            current_subsection = m_h3.group(1).strip()
+            i += 1
+            continue
+        # A table starts when we hit a line beginning with `|` and the NEXT
+        # line is a separator row. We tolerate the table being in either CAN
+        # or any other section.
+        if current_group is not None and line.lstrip().startswith("|") and (
+            i + 1 < N and re.match(r"^\s*\|[\s\-:|]+\|?\s*$", lines[i + 1])
+        ):
+            header_cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            # Skip the separator and walk rows until the table ends.
+            j = i + 2
+            while j < N and lines[j].lstrip().startswith("|"):
+                row = [c.strip() for c in lines[j].strip().strip("|").split("|")]
+                # The first column may be a tally row; skip rows where col-0
+                # is "Section" / contains many state glyphs (the Summary tally
+                # table has 6 state-icon column headers, not row content).
+                row_text = " ".join(row)
+                glyph_count = sum(1 for g, _ in _CAP_STATE_GLYPHS if g in row_text)
+                # If a row has >=4 distinct state glyphs in it, it's almost
+                # certainly the Summary tally header/data row, not a cap row.
+                if glyph_count >= 4 and not row[0].startswith("**"):
+                    j += 1
+                    continue
+                if len(row) < 2:
+                    j += 1
+                    continue
+                name = row[0].strip()
+                state_cell = row[1].strip()
+                if not name or name == "Section":
+                    j += 1
+                    continue
+                state = _classify_state(state_cell)
+                if state == "unknown":
+                    # Some sections (CANNOT / UNSURE) put the state INTO the
+                    # name/comment instead of a dedicated column. Probe the
+                    # full row text for a state glyph or keyword.
+                    state = _classify_state(row_text)
+                # CANNOT section rows are all closed by definition even when
+                # the table uses an unmarked first column.
+                if state == "unknown" and current_group == "CLOSED":
+                    state = "closed"
+                # UNSURE rows without explicit state (e.g. "Capability
+                # questions we haven't asked") are by definition untested.
+                if state == "unknown" and current_group == "UNSURE":
+                    state = "untested"
+                # KILLER rows without explicit state default to untested
+                # ("Tier 3 bonus capabilities (nice if cheap)" entries).
+                if state == "unknown" and current_group == "KILLER":
+                    state = "untested"
+                # Evidence / product columns vary by section. We pull the
+                # next two cells if present (most CAN tables: state, evidence,
+                # product implication; KILLER tables: current status, why
+                # killer; UNSURE: direction, what it might give, test path,
+                # estimate). The UI groups them as evidence + meta.
+                evidence = row[2] if len(row) > 2 else ""
+                product = row[3] if len(row) > 3 else ""
+                # Find the state glyph string actually present in the cell.
+                state_glyph = ""
+                for glyph, key in _CAP_STATE_GLYPHS:
+                    if key == state and glyph in (state_cell or row_text):
+                        state_glyph = glyph
+                        break
+                row_dict = {
+                    "name": _strip_md_bold(name),
+                    "state": state,
+                    "state_glyph": state_glyph,
+                    "raw_state": state_cell,
+                    "evidence": evidence,
+                    "product": product,
+                    "subsection": current_subsection,
+                    "section": current_section_label,
+                }
+                by_group.setdefault(current_group, []).append(row_dict)
+                if state in totals:
+                    totals[state] += 1
+                else:
+                    totals[state] = 1
+                j += 1
+            i = j
+            continue
+        i += 1
+
+    # Build the ordered groups payload.
+    out_groups: list[dict] = []
+    group_labels = {
+        "KILLER": "KILLER — game-changing capabilities to chase",
+        "UNSURE": "UNSURE — known unknowns",
+        "PORTFOLIO": "PORTFOLIO — demonstrated capabilities (CAN)",
+        "CLOSED": "CLOSED — empirically refuted limits (CANNOT)",
+        "OTHER": "OTHER",
+    }
+    for group_key in _CAP_GROUP_ORDER:
+        rows = by_group.get(group_key)
+        if not rows:
+            continue
+        # Bucket by subsection for collapsibility.
+        subsections: dict[str, list[dict]] = {}
+        order: list[str] = []
+        for r in rows:
+            sub = r.get("subsection") or "(general)"
+            if sub not in subsections:
+                subsections[sub] = []
+                order.append(sub)
+            subsections[sub].append(r)
+        sub_payload = [
+            {"name": sub, "rows": subsections[sub]} for sub in order
+        ]
+        # Per-group state tally for the section header pill.
+        gtotals: dict[str, int] = {}
+        for r in rows:
+            gtotals[r["state"]] = gtotals.get(r["state"], 0) + 1
+        out_groups.append({
+            "key": group_key,
+            "label": group_labels.get(group_key, group_key),
+            "subsections": sub_payload,
+            "totals": gtotals,
+            "row_count": len(rows),
+        })
+
+    return {
+        "parse_ok": bool(out_groups),
+        "groups": out_groups,
+        "totals": totals,
+    }
+
+
+def _strip_md_bold(s: str) -> str:
+    """Strip leading/trailing markdown bold so capability names render cleanly."""
+    if not s:
+        return s
+    # **name** -> name; keep inner content unchanged.
+    m = re.match(r"^\*\*(.+?)\*\*(.*)$", s)
+    if m:
+        return (m.group(1) + m.group(2)).strip()
+    return s
 
 
 def parse_in_flight(text: str) -> dict:

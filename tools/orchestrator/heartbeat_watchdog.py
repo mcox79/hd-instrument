@@ -57,6 +57,23 @@ ROUTING_RATIO_SCRIPT = REPO / "tools" / "orchestrator" / "routing_ratio.py"
 # successful local-side exit; watchdog cross-references against the queue
 # dashboard to detect SSH/SCP/queue-write silent failures.
 SHIP_ATTEMPTS_PATH = REPO / "data" / "recent_ship_attempts.jsonl"
+STATUS_LOG_PATH = REPO / "data" / "orchestrator_status_log.jsonl"
+LOCAL_CPU_QUEUE_JSON = REPO / "data" / "local_cpu_queue" / "queue.json"
+RESEARCH_FIELD_ADVISOR_SCRIPT = REPO / "tools" / "orchestrator" / "research_field_advisor.py"
+
+# ---- Remote SSH queue polling (Option A fix for cache-staleness false-idle) ----
+# The local_dashboard_snapshot.json can be minutes out of date relative to the
+# REAL queue state on marsh@home. heartbeat_watchdog now SSH-polls
+# overnight_queue and remote_cpu_queue directly, caching results for
+# REMOTE_QUEUE_CACHE_TTL_S to avoid hammering SSH.
+SSH_TARGET = "marsh@home"
+REPO_REMOTE = "C:/dev/hd-instrument"
+REMOTE_OVERNIGHT_QUEUE = f"{REPO_REMOTE}/data/overnight_queue/queue.json"
+REMOTE_CPU_QUEUE = f"{REPO_REMOTE}/data/remote_cpu_queue/queue.json"
+QUEUE_PENDING_COUNT_SCRIPT = f"{REPO_REMOTE}/tools/orchestrator/_queue_pending_count.py"
+REMOTE_PYTHON = f"{REPO_REMOTE}/.venv/Scripts/python.exe"
+REMOTE_QUEUE_CACHE_TTL_S = 30.0  # cache SSH results for this many seconds
+SSH_CONNECT_TIMEOUT = 8  # seconds; fast fail so we fall back to snapshot
 
 POLL_INTERVAL_S = 60.0
 IDLE_THRESHOLD_S = 120.0
@@ -74,6 +91,19 @@ COOLDOWN_S = 600.0
 SHIP_UNCONFIRMED_THRESHOLD_S = 60.0
 SHIP_CONFIRMED_RETENTION_S = 600.0  # drop entries older than this; they're either confirmed long ago or surfaced already
 SHIP_UNCONFIRMED_COOLDOWN_S = 300.0  # don't re-fire on the same name within this window
+
+# ---- Event C: for_you_stale ----
+# Fires when no status_log entry has been written in FOR_YOU_STALE_MINUTES.
+# Cooldown FOR_YOU_STALE_COOLDOWN_S between fires.
+FOR_YOU_STALE_MINUTES = 30.0
+FOR_YOU_STALE_COOLDOWN_S = 1800.0
+
+# ---- Event D: research_overdue ----
+# Fires when no research_drill_closure / research_delivered event in past
+# RESEARCH_OVERDUE_HOURS. Cooldown RESEARCH_OVERDUE_COOLDOWN_S between fires.
+RESEARCH_OVERDUE_HOURS = 24.0
+RESEARCH_OVERDUE_COOLDOWN_S = 3600.0
+RESEARCH_EVENT_KINDS = frozenset({"research_drill_closure", "research_delivered"})
 
 # Routing-ratio enforcement (audit recommendation #3,
 # notes/orchestrator_process_audit_2026-05-24.md).
@@ -102,6 +132,109 @@ def load_json(path: Path) -> dict[str, Any] | None:
         return None
 
 
+# ---------------------------------------------------------------------------
+# Remote queue polling — Option A cache-staleness fix
+# ---------------------------------------------------------------------------
+
+# Module-level cache: (result_tuple, fetched_at_monotonic)
+# result_tuple = (gpu_pending: int | None, cpu_pending: int | None,
+#                 gpu_running: bool, cpu_running: bool)
+_remote_queue_cache: tuple[tuple[int | None, int | None, bool, bool], float] | None = None
+
+
+def _ssh_count_queue(queue_json_path: str) -> int | None:
+    """Return pending+running count for a single remote queue.json via SSH.
+
+    Uses a one-liner PowerShell command rather than the helper script so we
+    need only one SSH round-trip for both queues.  Returns None on any error
+    (SSH timeout, parse failure) so caller falls back to snapshot.
+    """
+    # PowerShell one-liner: read queue.json, count entries with pending/running status.
+    ps = (
+        f"(Get-Content '{queue_json_path}' -Raw | ConvertFrom-Json).experiments"
+        f" | Where-Object {{ $_.status -in @('pending','running') }}"
+        f" | Measure-Object | Select-Object -ExpandProperty Count"
+    )
+    try:
+        result = subprocess.run(
+            ["ssh", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
+             "-o", "BatchMode=yes",
+             SSH_TARGET, f"powershell -Command \"{ps}\""],
+            capture_output=True,
+            text=True,
+            timeout=SSH_CONNECT_TIMEOUT + 5,
+        )
+        if result.returncode != 0:
+            return None
+        raw = result.stdout.strip()
+        if raw == "":
+            return 0
+        return int(raw)
+    except Exception:
+        return None
+
+
+def _fetch_remote_queue_counts() -> tuple[int | None, int | None, bool, bool]:
+    """SSH-poll both remote queues in a single multiplexed SSH batch.
+
+    Returns (gpu_pending, cpu_pending, gpu_has_running, cpu_has_running).
+    Any value can be None if the SSH call failed (caller uses snapshot fallback).
+
+    Batches both queue queries into ONE ssh call via a compound PS command to
+    minimise round-trip cost (typical SSH + PS startup ~0.5-1.5 s).
+    """
+    # Compound PowerShell: emit two lines "GPU:<n>" and "CPU:<n>" so we parse
+    # them positionally without a second round-trip.
+    ps = (
+        f"$g=(Get-Content '{REMOTE_OVERNIGHT_QUEUE}' -Raw | ConvertFrom-Json).experiments;"
+        f"$c=(Get-Content '{REMOTE_CPU_QUEUE}' -Raw | ConvertFrom-Json).experiments;"
+        f"'GPU:' + (($g | Where-Object {{ $_.status -in @('pending','running') }} | Measure-Object).Count);"
+        f"'CPU:' + (($c | Where-Object {{ $_.status -in @('pending','running') }} | Measure-Object).Count);"
+        f"'GPU_RUN:' + (($g | Where-Object {{ $_.status -eq 'running' }} | Measure-Object).Count);"
+        f"'CPU_RUN:' + (($c | Where-Object {{ $_.status -eq 'running' }} | Measure-Object).Count)"
+    )
+    try:
+        result = subprocess.run(
+            ["ssh", "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
+             "-o", "BatchMode=yes",
+             SSH_TARGET, f"powershell -Command \"{ps}\""],
+            capture_output=True,
+            text=True,
+            timeout=SSH_CONNECT_TIMEOUT + 10,
+        )
+        if result.returncode != 0:
+            return (None, None, False, False)
+        lines = {
+            line.split(":", 1)[0]: line.split(":", 1)[1]
+            for line in result.stdout.strip().splitlines()
+            if ":" in line
+        }
+        gpu_pending = int(lines["GPU"]) if "GPU" in lines else None
+        cpu_pending = int(lines["CPU"]) if "CPU" in lines else None
+        gpu_running = int(lines.get("GPU_RUN", "0")) > 0
+        cpu_running = int(lines.get("CPU_RUN", "0")) > 0
+        return (gpu_pending, cpu_pending, gpu_running, cpu_running)
+    except Exception:
+        return (None, None, False, False)
+
+
+def get_remote_queue_counts(now: float) -> tuple[int | None, int | None, bool, bool]:
+    """Return cached remote queue counts, refreshing if TTL has expired.
+
+    Returns (gpu_pending, cpu_pending, gpu_has_running, cpu_has_running).
+    Returns (None, None, False, False) if SSH is unavailable; caller falls
+    back to the local dashboard snapshot.
+    """
+    global _remote_queue_cache
+    if _remote_queue_cache is not None:
+        counts, fetched_at = _remote_queue_cache
+        if (now - fetched_at) < REMOTE_QUEUE_CACHE_TTL_S:
+            return counts
+    counts = _fetch_remote_queue_counts()
+    _remote_queue_cache = (counts, now)
+    return counts
+
+
 def in_flight_count() -> int:
     """Count orchestrator dispatches currently registered as running.
 
@@ -126,42 +259,77 @@ def evaluate_idle() -> dict[str, Any] | None:
     """Return a payload dict iff the silent-idle condition currently holds.
 
     Condition:
-      - dashboard snapshot loadable
-      - gpu.queue_pending_count == 0 AND cpu.queue_pending_count == 0
+      - gpu queue pending+running count == 0 AND cpu queue pending+running count == 0
       - gpu.heartbeat.status != 'running' AND cpu.heartbeat.status != 'running'
       - in_flight_count() == 0
 
-    Returns None if any of those is false (or the snapshot is unreadable).
+    Queue counts are obtained by SSH-polling the remote queue.json files
+    directly (Option A fix for cache-staleness false-alarms). If the SSH call
+    fails we fall back to the local_dashboard_snapshot.json, which may be
+    stale — in that case we treat the result as "not idle" to avoid a false
+    positive (safe-side: only fire when we have fresh evidence of real idleness).
+
+    Returns None if any of those is false or data is unavailable.
     """
-    if not DASHBOARD.exists():
-        return None
-    d = load_json(DASHBOARD)
-    if not isinstance(d, dict):
-        return None
+    now = time.time()
 
-    gpu = d.get("gpu") or {}
-    cpu = d.get("cpu") or {}
-    gpu_pending = gpu.get("queue_pending_count")
-    cpu_pending = cpu.get("queue_pending_count")
-    gpu_status = ((gpu.get("heartbeat") or {}).get("status") or "").lower()
-    cpu_status = ((cpu.get("heartbeat") or {}).get("status") or "").lower()
+    # ---- Step 1: Get REMOTE queue counts (authoritative) ----
+    remote_gpu_pending, remote_cpu_pending, remote_gpu_running, remote_cpu_running = (
+        get_remote_queue_counts(now)
+    )
 
-    # Treat unknown / None pending as "not idle" — we only fire on clear evidence.
-    if gpu_pending is None or cpu_pending is None:
-        return None
+    remote_available = remote_gpu_pending is not None and remote_cpu_pending is not None
+
+    if remote_available:
+        gpu_pending = remote_gpu_pending
+        cpu_pending = remote_cpu_pending
+        # For status strings we still read the snapshot (it's only used in the
+        # payload for human context; the actual idle gate uses the counts).
+        gpu_has_running = remote_gpu_running
+        cpu_has_running = remote_cpu_running
+        source = "remote_ssh"
+    else:
+        # SSH unavailable — fall back to snapshot but treat as "not idle" to
+        # avoid false positives.  Emit a fallback note in the payload if we
+        # do end up firing.
+        if not DASHBOARD.exists():
+            return None
+        d = load_json(DASHBOARD)
+        if not isinstance(d, dict):
+            return None
+        gpu = d.get("gpu") or {}
+        cpu = d.get("cpu") or {}
+        gpu_pending = gpu.get("queue_pending_count")
+        cpu_pending = cpu.get("queue_pending_count")
+        if gpu_pending is None or cpu_pending is None:
+            return None
+        gpu_status_str = ((gpu.get("heartbeat") or {}).get("status") or "").lower()
+        cpu_status_str = ((cpu.get("heartbeat") or {}).get("status") or "").lower()
+        gpu_has_running = gpu_status_str == "running"
+        cpu_has_running = cpu_status_str == "running"
+        source = "snapshot_fallback"
+
+    # ---- Step 2: Apply idle gate ----
     if gpu_pending != 0 or cpu_pending != 0:
         return None
-    if gpu_status == "running" or cpu_status == "running":
+    if gpu_has_running or cpu_has_running:
         return None
     if in_flight_count() != 0:
         return None
 
+    # Derive status strings for the payload (best-effort from snapshot)
+    snap = load_json(DASHBOARD) if DASHBOARD.exists() else {}
+    snap = snap or {}
+    gpu_status = ((snap.get("gpu") or {}).get("heartbeat") or {}).get("status") or "unknown"
+    cpu_status = ((snap.get("cpu") or {}).get("heartbeat") or {}).get("status") or "unknown"
+
     return {
         "gpu_pending": gpu_pending,
         "cpu_pending": cpu_pending,
-        "gpu_status": gpu_status or "unknown",
-        "cpu_status": cpu_status or "unknown",
+        "gpu_status": gpu_status.lower(),
+        "cpu_status": cpu_status.lower(),
         "in_flight": 0,
+        "queue_source": source,
     }
 
 
@@ -227,6 +395,44 @@ def load_ship_attempts() -> list[dict[str, Any]]:
     return out
 
 
+def _name_in_local_cpu_queue_direct(name: str) -> bool:
+    """Fallback for local_cpu_queue: read data/local_cpu_queue/queue.json directly.
+
+    The dashboard snapshot has no `local_cpu` section, so
+    `_name_in_dashboard_queue` would always return False for local_cpu_queue
+    ships. This causes `landed_at` to never be stamped and triggers repeated
+    ship_unconfirmed fires on completed local_cpu anchors.
+
+    Confirmation paths:
+      1. Any experiment entry whose name matches and status is NOT pending
+         (completed / failed / killed / running) → anchor landed and ran.
+      2. Any experiment with status "pending" or "queued" and the name matches
+         → anchor is in the queue, actively waiting.
+      3. The experiment is absent from queue.json entirely → cannot confirm
+         presence, but caller may still confirm via recent_verdicts or runner logs.
+    """
+    if not LOCAL_CPU_QUEUE_JSON.is_file():
+        return False
+    try:
+        doc = json.loads(LOCAL_CPU_QUEUE_JSON.read_text(encoding="utf-8"))
+    except Exception:
+        return False
+    if not isinstance(doc, dict):
+        return False
+    exps = doc.get("experiments")
+    if not isinstance(exps, list):
+        return False
+    for exp in exps:
+        if not isinstance(exp, dict):
+            continue
+        exp_name = exp.get("name")
+        if exp_name == name:
+            # Entry found in queue.json — regardless of status (pending, running,
+            # completed, failed, killed) its presence proves the ship landed.
+            return True
+    return False
+
+
 def _name_in_dashboard_queue(snapshot: dict[str, Any], queue: str, name: str) -> bool:
     """Return True iff `name` appears in any queue.json reflected by the dashboard
     snapshot for the matching `queue` label.
@@ -234,7 +440,9 @@ def _name_in_dashboard_queue(snapshot: dict[str, Any], queue: str, name: str) ->
     Queue label mapping:
       overnight_queue  -> snapshot["gpu"]
       remote_cpu_queue -> snapshot["cpu"]
-      local_cpu_queue  -> snapshot["local_cpu"] (if present)
+      local_cpu_queue  -> snapshot["local_cpu"] (if present); falls back to
+                          reading data/local_cpu_queue/queue.json directly
+                          because the dashboard snapshot has no local_cpu section.
 
     Membership check looks at both queue_pending and queue_running lists. If the
     experiment already completed and was reaped from the queue, we treat that as
@@ -250,21 +458,30 @@ def _name_in_dashboard_queue(snapshot: dict[str, Any], queue: str, name: str) ->
     key = label_map.get(queue)
     if key is None:
         return False
+
     section = snapshot.get(key) or {}
-    if not isinstance(section, dict):
-        return False
-    for field in ("queue_pending", "queue_running"):
-        v = section.get(field) or []
-        if isinstance(v, list) and name in v:
+    if isinstance(section, dict) and section:
+        # Dashboard has the section — use it normally.
+        for field in ("queue_pending", "queue_running"):
+            v = section.get(field) or []
+            if isinstance(v, list) and name in v:
+                return True
+        # Currently-running heartbeat catches the short window where queue.json
+        # may be re-written without the entry but the runner is mid-execution.
+        cur = section.get("current")
+        if cur and cur == name:
             return True
-    # Currently-running heartbeat catches the short window where queue.json may
-    # be re-written without the entry but the runner is mid-execution.
-    cur = section.get("current")
-    if cur and cur == name:
-        return True
-    hb = section.get("heartbeat") or {}
-    if isinstance(hb, dict) and hb.get("current") == name:
-        return True
+        hb = section.get("heartbeat") or {}
+        if isinstance(hb, dict) and hb.get("current") == name:
+            return True
+        return False
+
+    # Dashboard section is absent or empty. For local_cpu_queue this is the
+    # structural blind-spot: the snapshot writer never includes a `local_cpu`
+    # key. Fall back to reading the local queue file directly.
+    if queue == "local_cpu_queue":
+        return _name_in_local_cpu_queue_direct(name)
+
     return False
 
 
@@ -463,6 +680,139 @@ def evaluate_ship_unconfirmed(
     return payloads
 
 
+def _tail_status_log(n: int = 200) -> list[dict[str, Any]]:
+    """Return the last *n* parsed entries from data/orchestrator_status_log.jsonl.
+
+    Skips malformed lines. Returns [] if the file is missing or unreadable.
+    """
+    if not STATUS_LOG_PATH.is_file():
+        return []
+    try:
+        text = STATUS_LOG_PATH.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return []
+    out: list[dict[str, Any]] = []
+    for line in text.splitlines():
+        s = line.strip()
+        if not s:
+            continue
+        try:
+            obj = json.loads(s)
+        except Exception:
+            continue
+        if isinstance(obj, dict):
+            out.append(obj)
+    return out[-n:]
+
+
+def _parse_ts(ts_str: str | None) -> float | None:
+    """Parse an ISO-8601 timestamp string to a Unix float. Returns None on failure."""
+    if not ts_str:
+        return None
+    try:
+        return datetime.fromisoformat(ts_str).timestamp()
+    except Exception:
+        return None
+
+
+def evaluate_for_you_stale(now: float) -> dict[str, Any] | None:
+    """Return a payload iff the for_you_stale condition holds.
+
+    Condition: the most-recent entry in data/orchestrator_status_log.jsonl
+    has a 'ts' field older than FOR_YOU_STALE_MINUTES minutes ago (or the file
+    has no parseable entries at all).
+
+    Payload fields:
+      minutes_since_last_event  float  how many minutes since the last log entry
+      most_recent_event_kind    str    event_kind of the most-recent entry, or "(none)"
+    """
+    entries = _tail_status_log(50)
+    if not entries:
+        return {
+            "minutes_since_last_event": round(FOR_YOU_STALE_MINUTES, 1),
+            "most_recent_event_kind": "(none)",
+        }
+    # Walk backwards to find the most-recent valid ts
+    for entry in reversed(entries):
+        ts_val = _parse_ts(entry.get("ts"))
+        if ts_val is not None:
+            age_minutes = (now - ts_val) / 60.0
+            if age_minutes > FOR_YOU_STALE_MINUTES:
+                return {
+                    "minutes_since_last_event": round(age_minutes, 1),
+                    "most_recent_event_kind": entry.get("event_kind", "(unknown)"),
+                }
+            return None  # recent enough — no event needed
+    # No parseable timestamps at all → treat as stale
+    return {
+        "minutes_since_last_event": round(FOR_YOU_STALE_MINUTES, 1),
+        "most_recent_event_kind": "(none)",
+    }
+
+
+def _get_top_research_field() -> str:
+    """Run research_field_advisor.py --json and return the top scope-expansion field name.
+
+    Returns an empty string on any failure (advisor is optional enrichment only).
+    """
+    if not RESEARCH_FIELD_ADVISOR_SCRIPT.is_file():
+        return ""
+    try:
+        result = subprocess.run(
+            [sys.executable, str(RESEARCH_FIELD_ADVISOR_SCRIPT), "--json"],
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+        if result.returncode not in (0, 1):
+            return ""
+        doc = json.loads(result.stdout)
+        scope = doc.get("scope_expansion")
+        if isinstance(scope, list) and scope:
+            return scope[0].get("field", "")
+    except Exception:
+        pass
+    return ""
+
+
+def evaluate_research_overdue(now: float) -> dict[str, Any] | None:
+    """Return a payload iff the research_overdue condition holds.
+
+    Condition: the most-recent entry with event_kind in RESEARCH_EVENT_KINDS
+    is older than RESEARCH_OVERDUE_HOURS hours (or no such entry exists).
+
+    Payload fields:
+      hours_since_last_research  float   hours since most-recent research event
+      suggested_field            str     top scope-expansion field from advisor, or ""
+    """
+    entries = _tail_status_log(200)
+    threshold_s = RESEARCH_OVERDUE_HOURS * 3600.0
+
+    most_recent_research_ts: float | None = None
+    for entry in reversed(entries):
+        if entry.get("event_kind") in RESEARCH_EVENT_KINDS:
+            ts_val = _parse_ts(entry.get("ts"))
+            if ts_val is not None:
+                most_recent_research_ts = ts_val
+                break
+
+    if most_recent_research_ts is None:
+        # No research event in the tail at all; check age as if from epoch 0
+        # but cap the reported hours at a sane ceiling (1 week).
+        hours_ago = min(RESEARCH_OVERDUE_HOURS * 2, 168.0)
+    else:
+        age_s = now - most_recent_research_ts
+        if age_s <= threshold_s:
+            return None  # recent enough — no event needed
+        hours_ago = age_s / 3600.0
+
+    return {
+        "hours_since_last_research": round(hours_ago, 1),
+        "suggested_field": _get_top_research_field(),
+    }
+
+
 def evaluate_routing_ratio(primary: dict[str, Any] | None) -> dict[str, Any] | None:
     """Return payload iff routing_ratio_low condition holds, else None."""
     if not isinstance(primary, dict):
@@ -498,6 +848,10 @@ def main() -> None:
             "routing_ratio_window": ROUTING_RATIO_WINDOW,
             "ship_unconfirmed_threshold_s": SHIP_UNCONFIRMED_THRESHOLD_S,
             "ship_unconfirmed_cooldown_s": SHIP_UNCONFIRMED_COOLDOWN_S,
+            "for_you_stale_minutes": FOR_YOU_STALE_MINUTES,
+            "for_you_stale_cooldown_s": FOR_YOU_STALE_COOLDOWN_S,
+            "research_overdue_hours": RESEARCH_OVERDUE_HOURS,
+            "research_overdue_cooldown_s": RESEARCH_OVERDUE_COOLDOWN_S,
         },
     )
 
@@ -505,6 +859,8 @@ def main() -> None:
     last_fire_ts: float | None = None
     last_routing_recompute_ts: float = 0.0
     last_routing_fire_ts: float | None = None
+    last_for_you_fire_ts: float | None = None
+    last_research_overdue_fire_ts: float | None = None
     # Per-(queue,name) cooldown timestamps for ship_unconfirmed events.
     ship_unconfirmed_last_fire: dict[str, float] = {}
 
@@ -567,6 +923,32 @@ def main() -> None:
                         rr_payload["paused"] = pause_is_set()
                         emit("routing_ratio_low", rr_payload)
                         last_routing_fire_ts = now
+
+            # ---- Event C: for_you_stale ----
+            # Fires when status_log has not been written in FOR_YOU_STALE_MINUTES.
+            fy_payload = evaluate_for_you_stale(now)
+            if fy_payload is not None:
+                in_fy_cooldown = (
+                    last_for_you_fire_ts is not None
+                    and (now - last_for_you_fire_ts) < FOR_YOU_STALE_COOLDOWN_S
+                )
+                if not in_fy_cooldown:
+                    fy_payload["detected_at"] = datetime.now().isoformat(timespec="seconds")
+                    emit("for_you_stale", fy_payload)
+                    last_for_you_fire_ts = now
+
+            # ---- Event D: research_overdue ----
+            # Fires when no research event written in RESEARCH_OVERDUE_HOURS.
+            ro_payload = evaluate_research_overdue(now)
+            if ro_payload is not None:
+                in_ro_cooldown = (
+                    last_research_overdue_fire_ts is not None
+                    and (now - last_research_overdue_fire_ts) < RESEARCH_OVERDUE_COOLDOWN_S
+                )
+                if not in_ro_cooldown:
+                    ro_payload["detected_at"] = datetime.now().isoformat(timespec="seconds")
+                    emit("research_overdue", ro_payload)
+                    last_research_overdue_fire_ts = now
 
             time.sleep(POLL_INTERVAL_S)
         except KeyboardInterrupt:
