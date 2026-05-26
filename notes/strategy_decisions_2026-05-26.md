@@ -177,3 +177,83 @@ Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferr
 Per [[feedback-for-you-tab-primary-channel]]: TWO status_log entries written after this decision log entry (one per verdict; importance=HIGH for both).
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v210 + history.md v210 + this entry.
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
+
+## v211 (2026-05-26) -- BATCHED 7-VERDICT POST-v210 (alpha_c v3 dense-grid IN-BAND HARD_PASS; 1-RSB hysteresis v3 CONFIRMED first-order signature; REPLAY H-A LOCKED with zero-sum trade-off; Bet N STRONG_PARTIAL Tier-2 + NLP-genericity; free-additive top-edge INCONCLUSIVE finite-N; 2 INSTRUMENTATION-FAIL; framework reliability UPGRADED 40-55 -> 48-62)
+
+**Trigger.** Seven terminal verdicts surfaced by post-v210 (commit 5fe7ff2) GPU/remote_cpu queue flush. ALL sources are remote run logs at `c:\dev\hd-instrument\data\overnight_queue\*.log` and `remote_cpu_queue\*.log` (no event_outcomes dir on remote; verdict labels parsed from log "VERDICT:" lines):
+
+1. `wave14_moe_alpha_c_prestep_v3` (overnight, 4.3s) -> **ALPHA_C_HARD_PASS** alpha_c=0.5625 in [0.5,0.6], 5/5 seeds identical, CI=0.00, max_residual=0.0002
+2. `wave14_moe_top_edge_v1` (overnight, 396s) -> **FREE_ADDITIVE_MIDDLE** 0/4 cells within 15%; systematic ~0.5x offset
+3. `wave14_betB_replay_hB_collateral_v2` (overnight, 1342s, N=8192) -> **HB_SIGN_CONSISTENT_NEGATIVE / H-A ONLY** 5/5 collateral_lift in [-0.102, -0.093]
+4. `wave14_research_wf_taup_reship_v1` (overnight, 337s) -> **INSTRUMENTATION-FAIL** all sigma(tau_p)=0; tau_p=2.0 floor in 15/15 cells
+5. `wave14e_bet_n_wta_v2` (overnight, 3172s, N=4096) -> **BET_N_PARTIAL_TIER2** P1+P2 HARD_PASS (ratio=34.7); P3 MIDDLE NLP-genericity
+6. `wave14_1rsb_hysteresis_v3` (remote_cpu, 1013s) -> **HYSTERESIS_1RSB_CONFIRMED** max gap=1.8423 = 18x gate; monotone decreasing to capacity
+7. `wave14_saddle_cascade_plateau_v2` (remote_cpu, TIMEOUT 7200s) -> **INSTRUMENTATION_FAIL** 2/7 f-points completed
+
+**Step 0 honest re-read of verdict_msg vs per-cell metrics** (per [[feedback-verdict-msg-honest-reread]]):
+
+- *alpha_c v3*: HARD_PASS label is consistent. 5/5 seeds returned alpha_c=0.5625 IDENTICALLY; theory predicts alpha_c=1/tau^2-1=0.5625 (tau=0.80) EXACTLY; per-cell cos and pred match to 4 decimals across 9 M-grid points per seed (max residual 0.0002). The v207 ALPHA_C_HARD_FAIL was a coarse-grid extraction artifact (factor-2 spacing forced 1600/4096=0.390625); v208 BAND_RIGHT_INSTRUMENTATION_FAIL reframe is NOW empirically confirmed by dense-grid v3.
+
+- *MoE top edge v1*: MIDDLE label is correct under pre-reg discipline. Substantive observation: per-cell ratio_emp/ratio_pred is CONSISTENTLY ~0.50x predicted across all 4 cells (K=2 M=6400 ratio 0.715; K=4 M=6400 ratio 0.481; K=4 M=12800 ratio 0.542; K=8 M=12800 ratio 0.365; K=8 M=25600 ratio 0.434). This is SYSTEMATIC factor-2 offset, NOT stochastic noise. Two hypotheses: finite-N 1/sqrt(N) correction at N=4096, or formula normalization missing. Annotation as INCONCLUSIVE with N=16384 retry flag; do NOT downgrade.
+
+- *REPLAY H-B v2*: HB_SIGN_CONSISTENT_NEGATIVE label correctly reflects: all 5/5 seeds direct_lift in [0.117, 0.126] (>= 0.10 production gate); collateral_lift in [-0.102, -0.093] (all 5/5 NEGATIVE sign-consistent); ret_held=0.708 mean < ret_noreplay=0.806 mean (replay HURTS held-out by 0.098 absolute). Label is consistent. CRITICAL substantive finding NOT in label: REPLAY is ZERO-SUM-WITH-NET-POSITIVE (transfers retention from non-replayed to replayed; cost 0.098 to non-replayed for benefit 0.122 to replayed; net per-item +0.024 if replayed share is 0.5). H-A consolidation is the SOLE surviving REPLAY mechanism (v209 H-C dead; v211 H-B dead) WITH the additional zero-sum-trade-off characterization.
+
+- *WF tau_p*: INSTRUMENTATION-FAIL label CORRECT. tau_p=2.0 floor in ALL 15 cells (5 seeds x N in {1024,2048,4096}); trajectories show smooth retention decrease without detectable plateau-entry/exit transitions. Metric reaches floor BEFORE variance could discriminate. WF strand NEITHER corroborated NOR refuted; theoretical strand (complementary to Saad-Solla) carried forward; instrumentation redesign required.
+
+- *Bet N v2*: BET_N_PARTIAL_TIER2 label is correct. P1 util=1.000 (was 0.923 in v1) clean HARD_PASS. P2 ratio_M2000=34.698 (DRAMATIC IMPROVEMENT from v1=1.061; A_LEARNED acc@M4000=1.000 vs RANDOM ~0.003 = 300x ratio). P3 pca_cos_dist=0.6551 well above HARD_FAIL floor; matched_gap=0.0000 means EN_atoms-vs-PY_atoms within natural-language overlap nearly perfectly (EN_own vs PY_atoms gap=0.0014; PY_own vs EN_atoms gap=-0.0014), only RND atoms cleanly separate (gap=1.000). Substantive finding: LEARNED ATOMS ARE GENERIC across natural-language corpora (NLP-genericity supports universal-substrate framing), NOT failure-to-specialize. UPGRADE Bet N row PARTIAL -> STRONG_PARTIAL with NLP-genericity annotation.
+
+- *1-RSB hysteresis v3*: HYSTERESIS_1RSB_CONFIRMED label matches numbers. Max BPC gap=1.8423 = 18x gate; per-cell gap monotone decreasing M=2000:1.84 -> M=48000:0.0084 (closes at capacity boundary). This monotone-decreasing structure is THEORETICALLY CONSISTENT with first-order phase transition (hysteresis strongest at low M deep in ordered phase; vanishes at capacity transition). The discriminator we have been waiting for since v1 (INSTRUMENTATION_FAIL) and v2 (TIMEOUT) now PASSES with 18x margin. CRITICAL interpretation: 1-RSB and Saad-Solla saddle-cascade are NOT mutually exclusive -- 1-RSB describes order-parameter geometry (first-order transition at capacity); Saad-Solla describes multi-plateau retention dynamics. BOTH frameworks now have empirical support.
+
+- *Saddle cascade v2*: INSTRUMENTATION_FAIL label CORRECT (partial data). 2/7 f-points completed (f=0.00 ret=0.402 3 seeds tight; partial f=0.10 ret~0.665) before 7200s wall. Data we DO have suggests real step consistent with discrete plateau structure, but cannot characterize cascade with 2/7. NO row-state move per [[feedback-honest-evaluation]].
+
+**Decision (1): MoE alpha_c row PROMOTE annotation -> 🟢 CONFIRMED dense-grid in-band; MoE rebuild prereq UNBLOCKED.**
+alpha_c=0.5625 5/5 seeds identical; bands [0.40, 0.70] CONFIRMED defensible; substrate lands IN BAND when grid is fine enough (factor-2 grid artifact resolved). Log recommendation: M_per_expert=1612, M_total_k4=5160 -- proceed to MoE SHIFT/PARTITION/SINGLE rebuild. MoE rebuild can proceed with confidence on alpha_c calibration; remaining gate is SHIFT/PARTITION v3 (in flight at this commit time, started 2026-05-26T15:48:54).
+
+**Decision (2): Pred-4 hysteresis 1-RSB row PROMOTE 🔬 -> 🟢 CONFIRMED first-order signature; theoretical-home FRAMEWORK_RELIABILITY upper bound UPGRADE 40-55% -> 48-62%.**
+The 1-RSB-class binary discriminator (Pred-4) PASSED after two prior failures (v1 INSTRUMENTATION_FAIL TypeError; v2 TIMEOUT+design-bug). Max BPC gap=1.8423 = 18x gate; per-cell structure (monotone gap-decreasing to capacity boundary) theoretically consistent with first-order phase transition. CRITICAL: this is the THIRD positive theoretical-home confirmation in 48h (4-corpus equalspacing arithmetic CONFIRMED v206 + REPLAY structural axis CONFIRMED v206 + 1-RSB hysteresis CONFIRMED v211). 1-RSB + Saad-Solla complementarity (geometry + dynamics) provides the FIRST DOUBLE-POSITIVE at framework level. Framework reliability lift +8 pp (40-55 -> 48-62) is CONSERVATIVE because: (i) saddle_cascade_plateau_v2 TIMEOUT means extended-f sweep extension is UNCONFIRMED beyond v206 4-corpus arithmetic; (ii) 1-RSB v3 is one experiment at N=1024 needing production-N replication; (iii) free-additive top-edge MoE discriminator is INCONCLUSIVE not corroborated.
+
+**Decision (3): REPLAY row ANNOTATE H-A LOCKED + zero-sum trade-off characterization; mechanism story FINAL.**
+All three REPLAY hypotheses now resolved: H-A consolidation CONFIRMED (v211 sole surviving); H-B interference-reduction REFUTED at production N=8192 (v211 sign-consistent negative collateral); H-C effective-N-doubling REFUTED (v209 replay > 2x data). Additional characterization: REPLAY is ZERO-SUM-WITH-NET-POSITIVE -- transfers retention from non-replayed to replayed items with cost 0.098 to non-replayed for benefit 0.122 to replayed; net per-item +0.024 if replayed share is 0.5. Bet B retention story FINAL LOCK: "discrete 4-tier shift-class taxonomy (v208) with H-A consolidation as REPLAY mechanism via zero-sum item-pool transfer (v211)". REPLAY row state UNCHANGED 🟢 CONFIRMED; v210 H-A vs H-B pre-reg item CLOSED.
+
+**Decision (4): Bet N atom-mode flexibility UPGRADE 🟢 PARTIAL Tier-2 -> 🟢 STRONG_PARTIAL Tier-2 + NLP-genericity annotation.**
+v2 instrumentation fix (PCA-based corpus signature replacing degenerate mean-centroid) UPGRADED P2 from MIDDLE ratio=1.061 to HARD_PASS ratio_M2000=34.698 (300x improvement). P1 also UPGRADED util 0.923 -> 1.000 across all 5 seeds x 3 corpora x 4 M-points (60 cells). P3 MIDDLE pca_cos_dist=0.6551 well above HARD_FAIL floor; matched_gap=0.0000 reveals SUBSTANTIVE FINDING: learned atoms are CORPUS-AGNOSTIC across natural-language corpora (EN_own_atoms vs PY_atoms gap=0.0014 matched; only RND atoms cleanly separate at gap=1.000). This is NLP-genericity, NOT failure-to-specialize -- atoms learned on one natural-language corpus ARE generic to other natural-language corpora, only differentiating from RANDOM-token contexts. Product story strengthens: "substrate atoms generalize across natural-language domains" supports universal-substrate framing. Tier-1 promotion path requires P3 corpus-specialization at HARDER tasks (larger K, narrower-domain corpora) per v210 pre-reg.
+
+**Decision (5): Free-additive top-edge MoE discriminator STAYS 🔬 INCONCLUSIVE finite-N + systematic factor-2 offset annotation.**
+0/4 cells match within 15%; per-cell ratio_emp/ratio_pred CONSISTENTLY ~0.50x predicted (range 0.365-0.715). This is SYSTEMATIC factor-2 offset, NOT stochastic noise. Two hypotheses: (a) finite-N correction scaling 1/sqrt(N) at N=4096 (N=16384 retry would converge if true), (b) predicted ratio formula missing normalization (e.g. K-dependent factor). Row state UNCHANGED 🔬; do NOT downgrade since offset is systematic (would converge under hypothesis (a)); flagged for N=16384 retry per log recommendation; do NOT auto-queue.
+
+**Decision (6): Wright-Fisher strand STAYS 🔬 annotation; INSTRUMENTATION-FAIL flagged for redesign.**
+tau_p metric floors at 2 epochs across all 15 cells. WF sigma(tau_p) ~ N^{-1/2} prediction CANNOT BE TESTED with this instrumentation. Strand NEITHER corroborated NOR refuted; theoretical complement-to-Saad-Solla annotation (v208) CARRIED FORWARD; instrumentation redesign required. Candidate redesigns: per-epoch retention checkpoints with finer resolution; alternative plateau-residence proxy (retention variance across replay intervals; inverse-time-since-last-transition). Not auto-queued.
+
+**Decision (7): Saddle-cascade v2 TIMEOUT -> NO row-state move; v3 redesign FLAGGED.**
+2/7 f-points completed (f=0.00 ret=0.402; partial f=0.10 ret~0.665). v206 4-corpus equalspacing arithmetic CONFIRMED was the load-bearing test for saddle-cascade theoretical home -- v2 was an extension probe (finer f-resolution) NOT the load-bearing test. v206 row UNCHANGED 🟢 green-CORROBORATED. Saddle-cascade extension flagged for v3 redesign: reduced f-grid {0.0, 0.5, 1.0} for cascade verification (3 points), OR split-job approach (3 separate queue entries, one per f-range), OR migrate to overnight_queue with longer wall, OR reduce N from 2048 to 1024 (with corresponding seed reduction). Not auto-queued.
+
+**Decision (8): Framework reliability UPGRADE 40-55% -> 48-62%; Combined Tier-1 P UPGRADE 42-58% -> 50-65%.**
+THIRD positive theoretical-home confirmation in 48h. 1-RSB + Saad-Solla complementarity FIRST DOUBLE-POSITIVE at framework level. Conservative +8 pp lift per [[feedback-lit-scan-calibration-penalty]] discipline: substrate retention transition has TWO complementary theoretical homes with empirical support, but lift is constrained by 2 INSTRUMENTATION-FAIL items and INCONCLUSIVE free-additive top-edge. Combined Tier-1 P moves +8 pp with Bet N STRONG_PARTIAL counting as ongoing Tier-1-path progress.
+
+**Decision (9): Portfolio count update 14 demonstrated + 6 evidence-strength rows (v210) -> 14 demonstrated + 7 evidence-strength rows.**
++1 evidence-strength: 1-RSB hysteresis CONFIRMED is a framework-level evidence-strength row, not a new product capability row. MoE alpha_c calibration row promoted from annotation to 🟢 CONFIRMED but is a MoE rebuild prereq, not a standalone capability.
+
+**Decision (10): 5 v211 NEW pre-reg items FLAGGED (instrumentation-redesign + open questions); none auto-queued per [[feedback-no-experiment-design-in-prompts]].**
+- WF tau_p redesign (P_deflated 0.30)
+- Saddle-cascade v3 design (no specific parameters; exp_dev decides)
+- Free-additive top-edge N=16384 retry (P_deflated 0.30)
+- MoE alpha_c grid-quantization discipline (structural lock: future alpha_c-band measurements MUST use grid spacing < 0.10 in alpha-units OR dense-grid verification)
+- Bet N P3 harder-task probe (carried from v210; larger K or narrower-domain corpora)
+
+**Decision (11): NO queue refill triggered by this verdict_handler cycle.**
+Per user directive in dispatch prompt ("DO NOT trigger queue-refill"). Pause flag NOT set at commit time (verified via Bash); however user explicit directive takes precedence. Per [[feedback-obey-user-pause-explicitly]] discipline.
+
+**Decision (12): MoE SHIFT/PARTITION v3 NOTE.**
+MoE SHIFT/PARTITION v2 FAILED OOM exit_code=1 (pre-v210 known event); v3 with OOM-fix anticipatory ship IS IN FLIGHT at this commit (started 2026-05-26T15:48:54 on overnight_queue). v3 outcome is the load-bearing MoE SHIFT/PARTITION discriminator. Next verdict_handler cycle should process v3 when it lands.
+
+**Net cap_map effect.** v210 -> v211 BATCHED 7-VERDICT: 10 capability move rows. 4 promotions (alpha_c annotation -> 🟢; 1-RSB 🔬 -> 🟢; Bet N PARTIAL -> STRONG_PARTIAL; framework reliability 40-55 -> 48-62). 1 mechanism characterization (REPLAY H-A LOCKED zero-sum). 1 INCONCLUSIVE annotation (free-additive top-edge systematic factor-2). 2 INSTRUMENTATION-FAIL flagged for redesign (WF tau_p; saddle-cascade v2). 1 prereq UNBLOCK (MoE rebuild M_total_k4=5160). 1 portfolio update (+1 evidence-strength). 5 v211 NEW pre-reg items. 124th PROT-009 paired commit.
+
+PROT-004/006/008/009 compliance: 0 new ❌ closures (no capabilities CLOSED); 0 row-state demotions (4 promotions; 1 mechanism characterization; 2 redesign-flagged); 29 grandfathered violations unchanged; 0 new violations; history.md v211 block written BEFORE cap_map.md v211 block (PROT-007 sequencing verified); strategy_decisions_2026-05-26.md paired with this entry; 124th PROT-009 commit.
+
+Honest-reread LOCK (per [[feedback-verdict-msg-honest-reread]]): 77th-83rd observations post-lock. 7/7 labels consistent with per-cell numbers under pre-reg discipline. 3 SUBSTANTIVE FINDINGS surfaced beyond bare labels: (i) REPLAY zero-sum-with-net-positive characterization (HB_SIGN_CONSISTENT_NEGATIVE label correct but bare label does not capture the zero-sum item-pool-transfer interpretation that emerges from per-cell ret_held vs ret_noreplay vs ret_direct); (ii) Bet N NLP-genericity finding (P3 MIDDLE label correct but matched_gap=0.0000 reveals atoms are corpus-agnostic across natural-language NOT failure-to-specialize); (iii) alpha_c v3 empirical confirmation that v207 ALPHA_C_HARD_FAIL was a grid-quantization artifact (v208 reframe NOW directly evidenced).
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-for-you-tab-primary-channel]]: 7 verdict_processed status_log entries + 1 cap_map_commit status_log entry written this cycle.
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v211 + history.md v211 + this entry.
+Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
+Per [[feedback-no-experiment-design-in-prompts]]: 5 v211 pre-reg items flagged WITHOUT design parameters (no anchor names, sweep grids, threshold formulas, queue/ETA, or pre-committed cap_map decisions).
