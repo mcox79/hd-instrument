@@ -1,0 +1,6 @@
+@echo off
+REM Launches cpu_runner_0 on the remote machine, fully detached from any parent shell.
+REM Invoked via SSH after SCP; survives SSH disconnect because `start /B` redirects
+REM stdio to NUL which breaks the inheritance from the SSH-spawned cmd.
+start "" /B "C:\dev\hd-instrument\.venv\Scripts\python.exe" "C:\dev\hd-instrument\experiments\runner_v2_prod.py" --queue-dir "C:\dev\hd-instrument\data\remote_cpu_queue" --id cpu_runner_0 --idle-exit-minutes 240 >NUL 2>&1
+exit 0
