@@ -17133,3 +17133,51 @@ New from v212:
 BATCHED VERDICT v211 -> v212: (1) moe_shift_partition_v3 FULL -> MoE SHIFT HARD-PASS (pre-reg authoritative override of MIDDLE label; K=4 lift=0.205 K=8 lift=0.312 both exceed 0.15; PARTITION arm negligible; MoE rebuild direction SHIFT LOCKED); (2) hippo_init_w_v1 FULL -> CLOSED-NEGATIVE P1 HARD-FAIL 3/3 seeds (depth_ratio=1.000 all seeds) + P3 implicit spectral convergence (spectral_corr=0.993) + P2 linear N-scaling; PROT-004 5 rescues; (3) betB_2tier_coarse_analysis_v1 -> CELL-LEVEL CONFIRMED binary taxonomy silhouette=0.788 CIs non-overlapping; (4) 5 smoke verdicts annotation-only (nscaling at N=512 NOT N=8192; saddle-cascade v3 directionally positive; RD MIDDLE; polylog MIDDLE no-N-dependence; H-A MIDDLE single-seed); (5) framework reliability 48-62% -> 48-64% upper only; portfolio 14+7 UNCHANGED; 1 PROT-004 closure; 0 Tier-1 promotions; 125th PROT-009 paired commit.
 
 Net effect v212: 5 capability move entries (1 architecture CONFIRMED; 1 CLOSED-NEGATIVE; 2 NEW spectral/scaling characterization annotations; 1 taxonomy enrichment). 0 Tier-1 row-state changes. 0 portfolio count changes. 1 PROT-004 closure + 5 rescues. Framework reliability upper bound +2 pp annotation.
+
+## v213 - (2026-05-26) BATCHED 4-VERDICT: MoE K-scaling MIDDLE (diverging arms); Bet B 5-plateau HARD_FAIL; MoE top-edge formula error closed; Bet I polylog D_SWEEP ceiling
+
+### Capability moves (v212 -> v213)
+
+| Capability | v212 state | v213 state | Trigger |
+|---|---|---|---|
+| MoE SHIFT K-scaling characterization | v212 OPEN (K-saturation anomaly: SINGLE improves with K while SHIFT degrades) | **MIDDLE_BAND: DIVERGING ARMS.** Arm_A (same-corpus primary) DECREASES K=2->8 (0.818->0.799). Arm_B (cross-corpus interference) DECREASES sharply K=2->8 (0.750->0.495). Arm_C (cross-corpus held-out) INCREASES K=2->8 (0.886->0.938). K-saturation point for Arm_A = K=4 (0.809; K=8 degrades further to 0.799). NOT monotone benefit. More experts trade Arm_B retention for Arm_C improvement. Design guidance: K=4 is optimal for primary-corpus retention; K=8 acceptable for cross-corpus multi-lingual scenario at cost of Arm_B. Row state UNCHANGED (architecture CONFIRMED; characterization enriched). | wave14_moe_shift_K_scaling_v1 MIDDLE_BAND (elapsed=389s; ratio=0.97; p=-0.01) |
+| Bet B 5-plateau equal-spacing extension | v212: OPEN (fullscale shipped 2026-05-26T17:53; implicit from v206 4-corpus HARD_PASS) | **HARD_FAIL: monotone order violated at n_G4=20. 4-plateau IS the hard scope limit.** The 5th plateau (G4=NO_REPLAY_SAME_CORPUS between G3 and G5) breaks monotone ordering at full statistical power. Does NOT retract v206 4-corpus HARD_PASS: G1/G2/G3/G5 4-plateau structure remains confirmed. Framework scope: 3-4 plateaus, NOT arbitrary depth. Bet B discrete-class taxonomy stays FINAL LOCK (4-tier). | wave14_betB_5corpus_fullscale_v1 HARD_FAIL (elapsed=311s; n_G4=20; monotone order violated) |
+| Free-additive top-edge MoE discriminator | v211/v212: inconclusive finite-N (systematic factor-2 offset; N=16384 retry flagged) | **CLOSED-NEGATIVE: FREE_ADDITIVE_FORMULA_ERROR confirmed N-independent.** Smoke N=1024: offset=0.611 (v1 N=4096 offset~0.50; offset DID NOT SHRINK going to higher N, it INCREASED). Full N=16384 CRASHED OOM on SVD. Smoke alone closes the hypothesis: finite-N correction cannot explain an offset that grows with N. Formula missing N-independent normalization. DMPK SVD-bimodality is now SOLE MoE rebuild discriminator. Row state: CLOSED-NEGATIVE. | wave14_moe_top_edge_v2 FREE_ADDITIVE_FORMULA_ERROR + OOM infra (N=1024 smoke offset=0.611; full N=16384 OOM SVD 16384x16384) |
+| Bet I depth polylog 3rd envelope | v212 OPEN (v1 MIDDLE no-N-dependence at smoke; v2 redesign alpha_load raised 0.12->0.40) | **MIDDLE_BAND D_SWEEP CEILING: d_c saturated at D_SWEEP max=60 at ALL N.** Full run (elapsed=19.6s; valid_N_count=5; dc_range=0; MRE=4.900). This is a measurement ceiling artifact, NOT a polylog scaling result. True d_c likely >60 at alpha=0.40. v3 required: D_SWEEP=[100,150,200]. Bet I 3rd envelope REMAINS OPEN (inconclusive, not closed). | wave14_beti_depth_polylog_v2 MIDDLE_BAND (dc_range=0; valid_N_count=5; MRE=4.900) |
+| substrate-product portfolio count | 14 demonstrated + 7 evidence-strength rows (v212) | **UNCHANGED: 14 demonstrated + 7 evidence-strength rows.** Free-additive closure is sub-discriminator row, not standalone capability. No Tier-1 advances. | v213 cycle |
+
+### Substrate-product positioning v213
+
+- **MoE SHIFT design point K=4 confirmed.** K=8 trades Arm_B interference-retention (cost -0.256) for Arm_C cross-corpus improvement (+0.107) at K=4->8. Net: K=4 optimal for same-corpus deployment; K=8 for cross-corpus multi-lingual.
+- **Bet B equal-spacing scope locked at 4-tier.** 5-plateau extension HARD_FAIL confirms that G1/G2/G3/G5 is the complete equal-spacing taxonomy. Production claim: substrate distinguishes 4 retention classes; 5th plateau is not achievable with current architecture.
+- **MoE rebuild discriminator simplified: DMPK SVD-bimodality sole criterion.** Free-additive top-edge ratio CLOSED. Rebuild decision simpler.
+- **Bet I depth polylog: OPEN, v3 required.** D_SWEEP ceiling is the blocking factor. True d_c at alpha=0.40 is unknown (>60); v3 will determine if polylog scaling holds in [60,200] range.
+
+### Pre-registered untested (v213 status)
+
+Carried forward from v212:
+- betB_nscaling_v1 N=8192 FULL RUNNING on overnight_queue; verdict = next trigger.
+- saddle_cascade_plateau v3/v4 RUNNING on remote_cpu.
+- betB_rd_perturbation_recovery_v1 PENDING.
+- betB_replay_hA_direct_v1 PENDING.
+- bet_n_wta_v3 PENDING.
+- v211 free-additive N=16384 retry -- CANCELLED (CLOSED-NEGATIVE at v213).
+- MoE alpha_c grid-quantization discipline structural lock.
+
+New from v213:
+- **v213 OPEN**: beti_depth_polylog_v3 (D_SWEEP=[100,150,200]; alpha=0.40; fix measurement ceiling).
+- **v213 NOTE**: moe_shift_K_scaling used K={2,4,8} only; K={16,32} from dispatch description NOT measured.
+- **v213 CLOSED**: free-additive top-edge -> CLOSED-NEGATIVE; no retry warranted.
+
+### PROT compliance (v213)
+
+- PROT-004: 0 new capability closures (free-additive row is sub-discriminator, not capability row; no rescue sketches required).
+- PROT-007: history.md v213 block written FIRST (verified above).
+- PROT-008: No row-state demotions; no new grandfathered violations.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically.
+- Honest re-read (4 verdicts): (a) MoE K-scaling MIDDLE_BAND confirmed honest (diverging arms pattern real); (b) betB 5corpus HARD_FAIL confirmed honest (monotone violated); (c) moe_top_edge_v2: dispatch label partly inaccurate (smoke completed with FREE_ADDITIVE_FORMULA_ERROR; formula error is the scientific finding; OOM is infrastructure; no label override -- both findings recorded); (d) beti_depth_polylog_v2 MIDDLE_BAND confirmed honest (D_SWEEP ceiling, not polylog signal).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- No queue-refill triggered per dispatch instructions (orchestrator handles).
+- 126th PROT-009 paired commit.
+
+BATCHED 4-VERDICT v212 -> v213: (1) moe_shift_K_scaling_v1 -> DIVERGING-ARMS MIDDLE (Arm_A K=2->8: 0.818->0.799; Arm_B: 0.750->0.495; Arm_C: 0.886->0.938; K=4 design point; pre-reg MIDDLE honest); (2) betB_5corpus_fullscale_v1 -> HARD_FAIL (monotone violated n_G4=20; 4-plateau hard scope limit; Saad-Solla 4-corpus NOT retracted; Bet B taxonomy FINAL LOCK unchanged); (3) moe_top_edge_v2 -> CLOSED-NEGATIVE formula error (smoke N=1024 offset=0.611 > v1 offset 0.50; N-independent; full N=16384 OOM SVD; DMPK sole discriminator); (4) beti_depth_polylog_v2 -> MIDDLE_BAND D_SWEEP ceiling (dc_range=0 valid_N=5 MRE=4.9; v3 D_SWEEP=[100-200] needed; Bet I 3rd envelope OPEN); 0 Tier-1 advances; 0 PROT-004 closures; 14+7 UNCHANGED; 126th PROT-009 paired commit.

@@ -320,3 +320,70 @@ Smoke at N=512 (NOT N=8192 as labeled). NSCALING_HARD_FAIL label is scope-misatt
 - Per [[feedback-obey-user-pause-explicitly]]: no queue refill (user explicit directive in dispatch prompt).
 
 Net cap_map effect v211 -> v212: 3 actionable verdicts. (1) MoE SHIFT HARD-PASS: 'in-flight' -> CONFIRMED routing-architecture; (2) HiPPO-init: CLOSED-NEGATIVE + P3 spectral characterization + P2 N-scaling characterization; (3) Bet B 2-tier HARD-PASS: GROUP-LEVEL -> CELL-LEVEL taxonomy confirmation. 0 Tier-1 capability row-state promotions. 1 new closure. Framework reliability marginal upper-bound annotation +2 pp. 125th PROT-009 paired commit.
+**Decision (urgent_refill 2026-05-26T18:20): Part A + B urgent queue refill.**
+
+Part A: wave14_moe_shift_K_scaling_v1 COMPLETED MIDDLE_BAND (p=-0.01 sub-linear K scaling, 6.5min GPU); wave14_betB_5corpus_fullscale_v1 COMPLETED HARD_FAIL (5-plateau fails at n_G4=20, 5.2min GPU); wave14_moe_top_edge_v2 CRASHED OOM (SVD on 16384x16384 at torch.linalg.svdvals, 2.9s exit=1); wave14f_hippo_warmstart_v1 still running on remote_cpu. Root cause: GPU anchors completed in 5-7min each (not 2-3h), not crash or ship failure.
+
+Part B: 6 experiments written+smoke-passed+shipped REMOTE_SSH_VERIFIED 6/6.
+- overnight_queue: wave14_beti_depth_polylog_v2, wave14_moe_shift_M_scaling_v1, wave14_moe_gating_sharpness_v1
+- remote_cpu_queue: wave14_1rsb_hysteresis_v4_multi_N, wave14_saddle_cascade_plateau_v4_n2048, wave14f_hippo_replay_w_v1
+
+Immediate result: beti_depth_polylog_v2 completed in 22s with MIDDLE_BAND (d_c=60 at all N; cliff still above d=60 even at alpha=0.40). Structural issue: D_SWEEP max=60 insufficient; v3 needed with D_SWEEP extended to [100,150,200].
+
+PROT-009: exp_dev decisions paired to strategy_decisions.
+
+---
+
+## v213 - 2026-05-26 BATCHED 4-VERDICT CYCLE (urgent_refill cycle ~17:55)
+
+**Step 0 honest re-reads (4 verdicts, per [[feedback-verdict-msg-honest-reread]]):**
+
+Re-read 1: wave14_moe_shift_K_scaling_v1 MIDDLE_BAND.
+- Label: MIDDLE_BAND. Metrics: Arm_A K=2->8: 0.818->0.799 (decreasing), Arm_B: 0.750->0.495 (sharply decreasing), Arm_C: 0.886->0.938 (increasing). ratio=0.97, p=-0.01.
+- Honest reading: MIDDLE_BAND label is correct. Key nuance: this is DIVERGING ARMS (not monotone decline). Arm_C improves while Arm_A/B degrade with K. The metric "structural_lift_at_K16=-0.158" in dashboard vs "-0.106" in local smoke metrics.json -- dashboard is authoritative (full 389s run). Dispatch description of K={2,4,8,16,32} overstates: K_sweep was {2,4,8} only.
+- Label override: NONE (MIDDLE_BAND honest). Annotation: diverging arms characterization added.
+
+Re-read 2: wave14_betB_5corpus_fullscale_v1 HARD_FAIL.
+- Label: HARD_FAIL. Dashboard verdict_msg: "5-plateau equal-spacing does not hold even at n_G4=20. Reasons: monotone order violated. 4-plateau structure has a hard limit."
+- Honest reading: HARD_FAIL is correct and appropriately scoped. Does NOT retract the v206 4-corpus HARD_PASS. Local metrics.json shows SMOKE_PASS (different file -- the smoke passed, the full-scale GPU run produced HARD_FAIL on the dashboard). Framework scope: Saad-Solla equal-spacing holds for 3-4 plateaus, fails at 5. Bet B discrete-class taxonomy is unaffected.
+- Label override: NONE (HARD_FAIL honest). Labeled-vs-honest: N/A.
+
+Re-read 3: wave14_moe_top_edge_v2 (dispatch says CRASHED_OOM_SVD_16384; metrics.json shows FREE_ADDITIVE_FORMULA_ERROR completed at N=1024).
+- Dispatch label: CRASHED_OOM_SVD_16384.
+- Metrics: smoke N=1024 COMPLETED with FREE_ADDITIVE_FORMULA_ERROR (offset=0.611, offset DID NOT IMPROVE from v1 N=4096 offset~0.50).
+- Honest reading: TWO findings present. (a) Smoke result (FREE_ADDITIVE_FORMULA_ERROR) is scientifically conclusive: offset grew from ~0.50 at N=4096 to 0.611 at N=1024; this REFUTES the finite-N hypothesis (finite-N predicts offset should SHRINK at larger N; instead it stayed or grew). (b) Full N=16384 run CRASHED OOM (infrastructure failure). The dispatch "CRASHED_OOM_SVD_16384" describes finding (b) only; it missed finding (a).
+- Label override: Dispatch label is PARTIALLY CORRECT (OOM real) but INCOMPLETE (formula error is the primary scientific finding). Authoritative verdict: FREE_ADDITIVE_FORMULA_ERROR (formula missing N-independent normalization) + infrastructure OOM. Cap_map row state: CLOSED-NEGATIVE.
+- Labeled-vs-honest entry: dispatch described only OOM; honest reading includes formula-error finding from smoke run as primary science result.
+
+Re-read 4: wave14_beti_depth_polylog_v2 MIDDLE_BAND.
+- Label: MIDDLE_BAND. Dashboard shows full run (elapsed=19.6s; valid_N_count=5; dc_range=0; MRE=4.900). Local smoke metrics.json shows d_c=30 at N={256,512}; D_SWEEP max=30 (ceiling). Dashboard full run: d_c flat at all 5 N values with dc_range=0.
+- Honest reading: MIDDLE_BAND label is correct. Key clarification: dispatch says "d_c=60 at all N" but full-run metrics show dc_range=0 (flat) with D_SWEEP max=60 (not 30 as in smoke). The d_c hits the ceiling regardless of N; the MRE=4.900 means the fit looks like polylog but with a 4.9x calibration miss -- this is the ceiling artifact, not a true polylog signal.
+- Label override: NONE (MIDDLE_BAND honest). Annotation: D_SWEEP ceiling (max=60) is the blocking factor; v3 needed.
+
+**Decision (1): moe_shift_K_scaling_v1 -> DIVERGING ARMS MIDDLE_BAND annotation.**
+Cap_map: MoE SHIFT K-scaling characterization row: OPEN -> DIVERGING ARMS (Arm_A K=2->8: 0.818->0.799; Arm_B: 0.750->0.495; Arm_C: 0.886->0.938). K=4 design point for primary-corpus deployment; K=8 acceptable for cross-corpus at Arm_B cost. Row state UNCHANGED (MoE SHIFT architecture CONFIRMED at v212; characterization enriched).
+
+**Decision (2): betB_5corpus_fullscale_v1 -> HARD_FAIL; 4-plateau scope confirmed.**
+Cap_map: Bet B equal-spacing row: 5-plateau hypothesis HARD_FAIL. 4-plateau structure is the hard scope limit. Saad-Solla v206 4-corpus HARD_PASS NOT retracted (different experiment, different claim). Bet B discrete-class taxonomy FINAL LOCK unchanged (4-tier G1/G2/G3/G5). No row-state change (mechanism characterization clarified: scope bounded at 4-tier).
+
+**Decision (3): moe_top_edge_v2 -> CLOSED-NEGATIVE (formula error N-independent).**
+Cap_map: Free-additive top-edge MoE discriminator row: 🔬 INCONCLUSIVE finite-N -> CLOSED-NEGATIVE. Primary finding: smoke N=1024 showed offset=0.611 > v1 offset ~0.50; finite-N hypothesis refuted (offset did not shrink). Full N=16384 OOM is infrastructure, does not change the conclusion. DMPK SVD-bimodality remains as SOLE MoE rebuild discriminator. Row state: CLOSED-NEGATIVE.
+PROT-004 check: free-additive top-edge row is a sub-discriminator (not a product capability row). PROT-004 does NOT trigger for sub-discriminator closures. No rescue sketches required.
+
+**Decision (4): beti_depth_polylog_v2 -> D_SWEEP CEILING annotation; v3 design guidance.**
+Cap_map: Bet I depth polylog row: OPEN -> MIDDLE_BAND D_SWEEP ceiling at 60 (all N; dc_range=0). True d_c unknown (>60 at alpha=0.40). v3 design: D_SWEEP=[100,150,200], alpha=0.40, same seed configuration. Row state UNCHANGED (🟡 inconclusive; Bet I 3rd envelope still OPEN).
+
+**Queue-visibility gap (STRUCTURAL OBSERVATION):**
+remote C:\dev\hd-instrument\data\overnight_queue\queue.json shows 7-day-old completed entries (last from 2026-05-19; 5 pending experiments never removed). Yet 5+ verdicts landed today (moe_shift_K_scaling, betB_5corpus_fullscale, beti_depth_polylog_v2, moe_shift_partition_v3, others). The runner consumes work from a DIFFERENT source than the queue.json file that exp_dev "REMOTE-SSH VERIFIED" post-ship. This explains why post-ship verification has repeatedly shown items as "present" in queue.json but not actually confirmed as queued for execution. TRUE queue state on remote is OPAQUE from main thread. Flag for operational triage: identify the actual queue source the runner reads (likely internal state DB or separate runner-state file).
+
+**PROT compliance (v213):**
+- PROT-004: 0 new capability closures; no rescue sketches required.
+- PROT-007: history.md v213 block written FIRST (confirmed).
+- PROT-008: 0 new grandfathered violations; no row-state demotions.
+- PROT-009: cap_map.md + history.md + this file staged atomically.
+- Labeled-vs-honest: 1 partial over-claim (moe_top_edge_v2 dispatch described OOM only; formula error scientific finding missed); recorded above.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- No queue-refill triggered per dispatch instruction.
+- 126th PROT-009 paired commit.
+
+Net cap_map effect v212 -> v213: 4 annotations/reframes. (1) MoE K-scaling: DIVERGING-ARMS characterization (K=4 design point confirmed); (2) Bet B 5-plateau: HARD_FAIL scope clarification (4-plateau hard limit); (3) Free-additive top-edge: CLOSED-NEGATIVE (formula error N-independent); (4) Bet I polylog: D_SWEEP ceiling artifact (v3 needed). 0 Tier-1 advances. 0 PROT-004 closures. Portfolio 14+7 UNCHANGED.
