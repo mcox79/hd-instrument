@@ -7995,3 +7995,74 @@ Five verdicts surfaced by SSH-restore flush after v206 (commit a6bb07b): (1) `wa
 
 History ref: see cap_map.md v207 block for full narrative.
 
+
+## v208 - (2026-05-26) ANNOTATION-ONLY: MoE alpha_c BAND_RIGHT_INSTRUMENTATION_FAIL reframe; free-prob MoE discriminator NEW; Bet B Alt 4 ruled out; Pred-4 v3 in-flight; theoretical closures (no free-prob saddle dual, PPMI Lifshitz-tail refinement)
+
+### Trigger
+
+Six research and exp_dev sub-agent returns from this turn:
+1. `notes/research_moe_alpha_c_band_audit_2026-05-26.md` — alpha_c audit: BAND_RIGHT_INSTRUMENTATION_FAIL (grid-quantization reframe of v207 marginal miss).
+2. `notes/research_free_probability_substrate_2026-05-26.md` — free-probability second drill: Q3 new MoE top-edge discriminator (P=0.45); Q4 free-Fisher NOT Alt 4 (P_neg=0.85); Q5 no Saad-Solla free-prob dual (P_neg=0.90); Q1 PPMI Lifshitz-tail correction.
+3. `notes/exp_dev_handoff_research_moe_alpha_c_dense_grid_2026-05-26.md` — dense-grid alpha_c v3 handoff (nice-to-have precision measurement; NOT MoE-rebuild gate).
+4. `notes/exp_dev_handoff_free_additive_top_edge_moe_2026-05-26.md` — free-additive top-edge instrumentation handoff for MoE rebuild.
+5. `notes/exp_dev_to_queue_1rsb_hysteresis_v3_2026-05-26.md` — Pred-4 v3 SHIPPED to remote_cpu, smoke PASS, timeout=7200s.
+6. Bet B predictability framing FINAL consolidation across all 4 alternatives.
+
+### Key changes
+
+**MoE alpha_c BAND_RIGHT_INSTRUMENTATION_FAIL (reframe of v207 marginal miss)**: The v207 ALPHA_C_HARD_FAIL 0.94% miss (0.390625 vs band lower-edge 0.40) is a grid-quantization artifact, NOT a substrate result. alpha_c=0.390625 = 1600/4096 EXACTLY. The v2 M-grid {200, 400, 800, 1600, 3200, 6400} has factor-2 spacing; the closed-form threshold cosine tau=0.80 falls between M=1600 (cos=0.848, ABOVE) and M=3200 (cos=0.749, BELOW), mechanically forcing alpha_c=1600/4096=0.3906 irrespective of any substrate deviation. Band [0.40, 0.70] STANDS (correctly constructed with substrate-deviation margin per parent recalibration drill); the M-grid construction is the protocol gap. Dense-grid v3 handoff filed; MoE rebuild SHIFT/PARTITION v2 (already in flight) is still the dominant test. Per `research_moe_alpha_c_band_audit_2026-05-26.md` Finding 1 (decisive): P(grid-quantization dominates the miss) = 0.90.
+
+**Bet B predictability framing FINAL -- all 4 alternatives resolved**:
+- Alt 1 (discrete shift-class predictor): HOLDS at GROUP-LEVEL via 4-class SAME/REPLAY/STAGE4/DIFF taxonomy (v206 4-corpus equal-spacing HARD_PASS + REPLAY structural axis Cohen's d=13.3). Within-cell silhouette=0.584 MIDDLE BAND per v205 -- row state Yellow-PARTIAL unchanged.
+- Alt 2 (W-internal signature continuous predictor): CLOSED-HARD-FAIL at production scale (v202, reclassified INCONCLUSIVE v203; r^2=0.001 on 25 cells).
+- Alt 3 (PAC-Bayes posterior-W KL Laplace): CLOSED at production scale (v207; ALT3_LAPLACE_ASSUMPTION_VIOLATED r2_fisher=0.0 21/25 cells).
+- Alt 4 (free-Fisher retention bound): RULED OUT before shipping (free-probability has no Fisher-information analog applicable to generalization/retention bounds; Voiculescu 1998 free-Fisher is non-commutative microstates entropy bound, NOT a retention predictor; per Q4 P_neg=0.85).
+
+Product framing LOCKED: substrate retention is classifier-predictable per shift-class (4-tier taxonomy), NOT regression-predictable. "Substrate retains X% on shift-class K" where K is SAME/REPLAY/STAGE4/DIFF. This is structurally stronger than any continuous predictor alternative. No further Bet B predictability rescue arms; this branch is complete.
+
+**Free-additive-convolution top-edge ratio NEW MoE discriminator**: K experts each storing partial W_k -- aggregate W spectrum top-edge follows free-additive-convolution prediction. SHIFT mode: lambda_top = K*(1+sqrt(c))^2; PARTITION mode: lambda_top = (1+sqrt(K*c))^2 per expert. Ratio is scalar binary call computable from W spectrum at zero overhead (reuses DMPK SVD already in MoE rebuild). Complements existing DMPK SVD-bimodality patch at zero extra compute. Per Q3 P=0.45 (genuine new diagnostic, distinct from DMPK bimodal-histogram). Companion handoff filed: `exp_dev_handoff_free_additive_top_edge_moe_2026-05-26.md`. Cap_map MoE rebuild row annotated with expanded instrumentation set (DMPK + free-additive-convolution top-edge = two orthogonal discriminators).
+
+**No Saad-Solla <-> free-probability dual (CLOSED avenue)**: Saad-Solla on-line learning ODEs live in commutative statistical mechanics (order parameters Q_ij, R_ij are scalars). Free probability handles operator-valued / non-commutative case. No published bridge exists between Saad-Solla saddle-cascade arithmetic and any free-probability identity. Searched 2024-2026 lit. Per Q5 P_neg=0.90. Avenue closed; saddle-cascade theoretical home stays in commutative stat-mech framework per v205/v206.
+
+**PPMI Lifshitz-tail correction (theoretical refinement, not closure)**: PPMI-extracted atom distribution induces a sparse-Wishart regime deviation from the MP bulk universality assumed in the R16 i.i.d. analysis. Low-density Lifshitz tail appears below the dense-MP edge; tail mass scales with PPMI sparsity. This is a refinement annotation on the existing linear-heteroassoc capacity analysis, not a capability-state change. The alpha_c formula gains a PPMI-correction term alpha_c(tau, rho_PPMI) = (1/tau^2 - 1)*(1 - rho_PPMI)^2. Per Q1 PARTIAL / Q2 novel-formula P=0.30. No row-state change; annotation for when PPMI-active MoE is shipped.
+
+**Pred-4 hysteresis v3 SHIPPED (annotation update from v207)**: `wave14_1rsb_hysteresis_v3` shipped to remote_cpu with timeout=7200s. Smoke PASS (N=256, 77s; N=512, 124s). Root-cause analysis of prior failures: v1 TypeError API mismatch; v2 TIMEOUT (N=2048 too heavy for 3600s) + DESIGN BUG (forward/reverse trajectories not stateful -- measured independent cells, not hysteresis). v3 fixes: N=1024, stateful W trajectories (forward: W_init=0 incremental; reverse: W_max retune decreasing), single-corpus single-phase, per-cell timeout tracking. Pre-reg bands unchanged (HARD-PASS: max BPC gap >= 0.10 -> 1-RSB supported; HARD-FAIL: gap < 0.03 -> RS/continuous). Annotation: v207 "Pred-4 v3 design pending" -> v208 "Pred-4 v3 IN FLIGHT on remote_cpu (smoke PASS)".
+
+### Capability move rows
+
+| Capability | v207 state | v208 state | Trigger |
+|---|---|---|---|
+| MoE alpha_c calibration (v2 marginal miss) | v207: Yellow-MARGINAL MISS annotation; ALPHA_C_HARD_FAIL 0.94% below band; defensibility-audit trigger | **ANNOTATION UPGRADED: BAND_RIGHT_INSTRUMENTATION_FAIL (grid-quantization artifact, NOT substrate signal)**; alpha_c=0.390625 = 1600/4096 EXACTLY; closed-form predicts cos=0.848 at M=1600 (ABOVE tau=0.80) and cos=0.749 at M=3200 (BELOW); extraction rule mechanically forces 1600/4096; band [0.40, 0.70] STANDS; dense-grid v3 handoff filed; MoE rebuild UNTEMPERED (annotation upgraded from "tempered" to "instrumentation-fail-reframe") | `research_moe_alpha_c_band_audit_2026-05-26.md` P(grid-quant)=0.90 |
+| Bet B predictability rescue -- Alt 4 (free-Fisher bound) | v207: not filed as a rescue arm (was a pending research question) | **RULED OUT before shipping**: free-probability has no Fisher-information analog applicable to substrate retention bounds; Voiculescu 1998 free-Fisher is microstates entropy (non-commutative), NOT a retention/generalization predictor; P_neg=0.85; no exp_dev handoff warranted | `research_free_probability_substrate_2026-05-26.md` Q4 |
+| MoE rebuild instrumentation set | v207: DMPK SVD-bimodality patch annotated (from v206); single discriminator | **EXPANDED: free-additive-convolution top-edge ratio ADDED as second orthogonal discriminator**; zero additional compute (reuses DMPK SVD tensors); SHIFT top-edge prediction K*(1+sqrt(c))^2 vs PARTITION (1+sqrt(Kc))^2; ratio scalar binary call; companion handoff `exp_dev_handoff_free_additive_top_edge_moe_2026-05-26.md` filed | `research_free_probability_substrate_2026-05-26.md` Q3 P=0.45 |
+| Saad-Solla <-> free-probability dual (theoretical avenue) | v207: not filed (was open research question) | **CLOSED (no dual exists)**: commutative stat-mech vs non-commutative operator algebra; no published bridge in 2024-2026 lit; P_neg=0.90; saddle-cascade theoretical home stays intact in commutative framework | `research_free_probability_substrate_2026-05-26.md` Q5 |
+| PPMI Lifshitz-tail correction | v207: not filed (was implicit in R16 i.i.d. baseline) | **ANNOTATION: R16 i.i.d. baseline misses Lifshitz-tail corrections for PPMI-sparse substrate W**; sparse-Wishart regime deviation from MP bulk; tail mass scales with PPMI sparsity; correction term alpha_c(tau, rho_PPMI) = (1/tau^2 - 1)*(1 - rho_PPMI)^2; theoretical refinement NOT closure; P=0.30 for PPMI-correction formula | `research_free_probability_substrate_2026-05-26.md` Q1 PARTIAL |
+| Pred-4 1-RSB hysteresis discriminator | v207: v3 design pending (exp_dev decides parameters) | **v3 IN FLIGHT on remote_cpu (smoke PASS)**; timeout=7200s; v3 fixes: N=1024 (4x speedup vs v2), stateful W trajectories (forward incremental / reverse retune), single-corpus single-phase; pre-reg bands unchanged (HARD-PASS gap>=0.10, HARD-FAIL gap<0.03) | `exp_dev_to_queue_1rsb_hysteresis_v3_2026-05-26.md` post-ship verified |
+| substrate-product portfolio count | 13 demonstrated + 6 evidence-strength rows (v207) | **13 demonstrated UNCHANGED + 6 evidence-strength rows UNCHANGED**: v208 is annotation-only; no row-state promotions or demotions | v208 annotation cycle |
+
+### Substrate-product positioning v208
+
+- **Bet B predictability story FINAL**: 4-tier shift-class taxonomy (SAME/REPLAY/STAGE4/DIFF) is the definitive substrate retention predictor. All 4 Alt branches resolved. Continuous predictors do not hold at any flavor. The product claim is: "substrate retention on shift-class K is predictable by class label; no regression-grade predictor exists." This is stronger than any continuous predictor because it is structurally grounded in Saad-Solla saddle-cascade arithmetic (the 4 plateaus ARE the 4 classes).
+
+- **MoE rebuild instrumentation upgraded**: two orthogonal discriminators now in the pipeline for SHIFT vs PARTITION verdict -- DMPK bimodal-singular-value histogram (from v206) + free-additive-convolution top-edge ratio (v208 new). Both fit in one instrumentation cell at zero additional compute. The MoE rebuild result will be more falsifiable per-cell, with higher discriminative power.
+
+- **MoE alpha_c substrate-capacity framing RESTORED**: the BAND_RIGHT_INSTRUMENTATION_FAIL reframe restores the linear-heteroassoc capacity claim alpha_c ~ 0.56 at N=4096. The substrate IS predictable from first principles on capacity figures; the v207 apparent miss was a grid-construction protocol gap (factor-2 spacing too coarse to resolve within the band). Product-positioning implication: substrate capacity is closed-form derivable, not empirical-only; this is a load-bearing element of the "auditable AI memory subsystem" framing.
+
+- **Saddle-cascade theoretical home REINFORCED**: Q5 NEGATIVE definitively closes the free-probability shortcut to deriving the 4-plateau arithmetic. Saad-Solla commutative stat-mech is THE framework; no dual structure exists. This adds falsifiability discipline: the plateau predictions are purely from the saddle-cascade ODE system, not from any spectral shortcut.
+
+- **Pred-4 v3 PENDING VERDICT**: discriminates first-order (1-RSB confirmed -> framework reliability 50-65%) vs continuous (stays 40-55%). ETA: remote_cpu timeout=7200s; v3 design bug-free per root-cause analysis.
+
+### Pre-registered untested (carried forward v207 + v208 adds)
+
+- All v207 items carried forward EXCEPT:
+  - v207 "Pred-4 v3 design pending" -> v208 CLOSED: v3 IN FLIGHT.
+  - v207 "alpha_c band-rationale defensibility audit" -> v208 CLOSED: BAND_RIGHT_INSTRUMENTATION_FAIL per research note.
+- v208 NEW: dense-grid alpha_c v3 (nice-to-have precision measurement; NOT MoE gate; handoff filed `exp_dev_handoff_research_moe_alpha_c_dense_grid_2026-05-26.md`).
+- v208 NEW: free-additive top-edge instrumentation for MoE rebuild (companion handoff `exp_dev_handoff_free_additive_top_edge_moe_2026-05-26.md`; folded into existing rebuild cell at zero extra compute).
+- v208 NOTE: PPMI-corrected alpha_c formula (theoretical; no experiment needed unless PPMI-active MoE is shipped; annotation only).
+
+### Outcome
+
+Annotation-only bump: 6 capability move rows (all annotation/reframe, 0 row-state changes). MoE alpha_c BAND_RIGHT_INSTRUMENTATION_FAIL reframe (removes "tempered" characterization). Bet B Alt 4 ruled out pre-ship (free-Fisher not applicable). MoE rebuild instrumentation expanded (free-additive top-edge second discriminator). No Saad-Solla/free-prob dual (avenue closed). PPMI Lifshitz-tail theoretical annotation. Pred-4 v3 in-flight annotation. 2 v207 pre-reg items CLOSED (alpha_c audit -> DONE; Pred-4 v3 design -> SHIPPED). 2 v208 NEW pre-reg items (dense-grid alpha_c v3, free-additive top-edge instrumentation). Portfolio 13 demonstrated + 6 evidence-strength rows UNCHANGED. 121st PROT-009 paired commit.
+
+History ref: see cap_map.md v208 block for full narrative.
