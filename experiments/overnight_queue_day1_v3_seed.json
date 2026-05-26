@@ -1,0 +1,21 @@
+{
+  "experiments": [
+    {
+      "name": "scaling_extreme_128K_256K",
+      "status": "completed",
+      "result": "100% recovery at N=131K and N=262K across all configs"
+    },
+    {
+      "name": "phase_b2_pool_size_sweep_v2",
+      "status": "completed",
+      "result": "C2 matches/beats C1 at all sizes; sweet spot P=4K; degrades P=16K"
+    },
+    {
+      "name": "phase_b2_pool_size_annealed",
+      "script": "experiments/exp_wave14b_phase_b2_pool_size_annealed.py",
+      "status": "pending",
+      "purpose": "Diagnostic: does sqrt(log P) BETA scaling restore P=16K BWT? Tests Velickovic 2024 softmax-bias prediction.",
+      "timeout_s": 1800
+    }
+  ]
+}

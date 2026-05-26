@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "hard_nn_pool_sweep_workstation",
+      "script": "experiments/exp_wave14b_hard_nn_pool_sweep.py",
+      "status": "pending",
+      "purpose": "Soft vs hard NN retrieval on workstation CPU (parallel to laptop)",
+      "timeout_s": 3600
+    }
+  ]
+}

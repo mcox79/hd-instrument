@@ -1,0 +1,16 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_n8k_annealed_pool_sweep",
+      "status": "completed",
+      "result": "Production validation (already ran in earlier queue)"
+    },
+    {
+      "name": "c3_minimal",
+      "script": "experiments/exp_wave14b_c3_minimal.py",
+      "status": "pending",
+      "purpose": "C3 compositional retrieval - the HEADLINE test (partial-ctx match)",
+      "timeout_s": 1200
+    }
+  ]
+}

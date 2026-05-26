@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "c3_minimal_v3",
+      "script": "experiments/exp_wave14b_c3_minimal.py",
+      "status": "pending",
+      "purpose": "C3 compositional retrieval HEADLINE (re-queue after format fix)",
+      "timeout_s": 1200
+    }
+  ]
+}

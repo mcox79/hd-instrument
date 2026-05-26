@@ -1,0 +1,31 @@
+{
+  "experiments": [
+    {
+      "name": "m2_slot_attention_v2",
+      "status": "failed"
+    },
+    {
+      "name": "m2_sparse_autoencoder_v2",
+      "status": "completed"
+    },
+    {
+      "name": "m2_nmf_v2",
+      "status": "completed"
+    },
+    {
+      "name": "m2_cp_tensor",
+      "status": "completed"
+    },
+    {
+      "name": "m2_slot_attention_v3",
+      "status": "completed"
+    },
+    {
+      "name": "rerank_sanity_check",
+      "script": "experiments/exp_wave14b_rerank_sanity_check.py",
+      "status": "pending",
+      "purpose": "Identity rerank: tests if my buggy softmax-over-top-M actually breaks things",
+      "timeout_s": 600
+    }
+  ]
+}

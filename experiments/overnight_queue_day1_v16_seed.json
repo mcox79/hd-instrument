@@ -1,0 +1,15 @@
+{
+  "experiments": [
+    {
+      "name": "rerank_sanity_check",
+      "status": "completed_pending_check"
+    },
+    {
+      "name": "memory_editing",
+      "script": "experiments/exp_wave14b_memory_editing.py",
+      "status": "pending",
+      "purpose": "Tier-1 capability demo: CRUD via decompose-edit-rebundle (uniquely VSA)",
+      "timeout_s": 300
+    }
+  ]
+}

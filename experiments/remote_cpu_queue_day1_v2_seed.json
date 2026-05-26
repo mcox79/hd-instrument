@@ -1,0 +1,15 @@
+{
+  "experiments": [
+    {
+      "name": "hard_nn_pool_sweep_workstation",
+      "status": "completed"
+    },
+    {
+      "name": "retrieval_3way",
+      "script": "experiments/exp_wave14b_retrieval_3way.py",
+      "status": "pending",
+      "purpose": "3-way: hard NN vs fixed soft (beta=8) vs annealed soft. Final deployment-strategy comparison.",
+      "timeout_s": 7200
+    }
+  ]
+}

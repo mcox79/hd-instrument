@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_n8k_annealed_pool_sweep",
+      "script": "experiments/exp_wave14b_phase_b2_n8k_annealed_pool_sweep.py",
+      "status": "pending",
+      "purpose": "Production validation: N=8192 + annealed BETA + pool {1K,4K,16K}",
+      "timeout_s": 3600
+    }
+  ]
+}

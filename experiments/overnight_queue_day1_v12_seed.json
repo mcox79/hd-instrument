@@ -1,0 +1,25 @@
+{
+  "experiments": [
+    {
+      "name": "m2_slot_attention",
+      "script": "experiments/exp_wave14b_m2_slot_attention.py",
+      "status": "pending",
+      "purpose": "Most ambitious: slot attention discovery (Locatello 2020)",
+      "timeout_s": 1200
+    },
+    {
+      "name": "m2_sparse_autoencoder",
+      "script": "experiments/exp_wave14b_m2_sparse_autoencoder.py",
+      "status": "pending",
+      "purpose": "Top-K SAE - highest empirical ceiling per research",
+      "timeout_s": 1800
+    },
+    {
+      "name": "m2_nmf",
+      "script": "experiments/exp_wave14b_m2_nmf.py",
+      "status": "pending",
+      "purpose": "NMF on atom-activation matrix - HDC-native, provable",
+      "timeout_s": 1200
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "experiments": [
+    {
+      "name": "memory_recomposition",
+      "script": "experiments/exp_wave14b_memory_recomposition.py",
+      "status": "pending",
+      "purpose": "Tier-1 capability: synthesize bundles from parts of multiple memories",
+      "timeout_s": 300
+    },
+    {
+      "name": "interpretability_demo",
+      "script": "experiments/exp_wave14b_interpretability_demo.py",
+      "status": "pending",
+      "purpose": "Tier-1 capability: show what's IN stored memories via PPMI concept readouts",
+      "timeout_s": 300
+    },
+    {
+      "name": "m2_with_proper_rerank",
+      "script": "experiments/exp_wave14b_m2_with_proper_rerank.py",
+      "status": "pending",
+      "purpose": "Tier-2: definitive theorem retest with corrected linear-combine fusion",
+      "timeout_s": 600
+    }
+  ]
+}

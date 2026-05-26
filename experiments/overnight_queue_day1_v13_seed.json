@@ -1,0 +1,32 @@
+{
+  "experiments": [
+    {
+      "name": "m2_slot_attention_v2",
+      "script": "experiments/exp_wave14b_m2_slot_attention.py",
+      "status": "pending",
+      "purpose": "Slot attention - re-queued after race condition (script now exists)",
+      "timeout_s": 1200
+    },
+    {
+      "name": "m2_sparse_autoencoder_v2",
+      "script": "experiments/exp_wave14b_m2_sparse_autoencoder.py",
+      "status": "pending",
+      "purpose": "Top-K SAE - re-queued after race condition",
+      "timeout_s": 1800
+    },
+    {
+      "name": "m2_nmf_v2",
+      "script": "experiments/exp_wave14b_m2_nmf.py",
+      "status": "pending",
+      "purpose": "NMF (pure-numpy, no sklearn)",
+      "timeout_s": 1200
+    },
+    {
+      "name": "m2_cp_tensor",
+      "script": "experiments/exp_wave14b_m2_cp_tensor.py",
+      "status": "pending",
+      "purpose": "CP tensor decomposition - Kruskal uniqueness",
+      "timeout_s": 1800
+    }
+  ]
+}

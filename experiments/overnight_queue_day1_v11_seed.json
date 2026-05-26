@@ -1,0 +1,11 @@
+{
+  "experiments": [
+    {
+      "name": "m2_concept_extraction_v2",
+      "script": "experiments/exp_wave14b_m2_concept_extraction.py",
+      "status": "pending",
+      "purpose": "M2 minimal: concept atoms + C3 over consolidated. Tests additive hypothesis.",
+      "timeout_s": 1200
+    }
+  ]
+}

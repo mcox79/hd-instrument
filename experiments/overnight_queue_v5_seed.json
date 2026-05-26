@@ -1,0 +1,26 @@
+{
+  "experiments": [
+    {
+      "name": "phase_b2_alpha_sweep",
+      "status": "completed",
+      "result": "Gap -0.04 to -0.06 across ALPHA"
+    },
+    {
+      "name": "phase_b2_llr_calibration",
+      "status": "completed",
+      "result": "FALSIFIED: gap got worse, misapplied per-coord theory"
+    },
+    {
+      "name": "phase_b2_beta_sweep",
+      "status": "completed",
+      "result": "CONFIRMED: at BYTE_BETA=16, C2 matches C1 within 0.0001 bpc"
+    },
+    {
+      "name": "phase_b2_alpha_with_beta16",
+      "script": "experiments/exp_wave14b_cl_phase_b2_alpha_with_beta16.py",
+      "status": "pending",
+      "purpose": "Robustness: confirm BETA=16 fix closes the gap at all ALPHA values",
+      "timeout_s": 3600
+    }
+  ]
+}
