@@ -123,3 +123,57 @@ Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferr
 Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after this decision log entry (importance=HIGH; replay mechanism is load-bearing Bet B finding).
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename; paired commit cap_map.md v209 + history.md v209 + this entry.
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve CRLF.
+
+
+## v210 (2026-05-26) — Mixed verdict batch (Bet N + recurrent K6); cap_map v209 -> v210; portfolio 13 -> 14
+
+**Trigger.** Two production-scale verdicts batched into ONE cap_map version bump (per orchestrator routing + [[feedback-cap-map-update-protocol]] atomicity discipline):
+1. `wave14e_bet_n_wta_v1` -> `BET_N_ATOM_MODE_FLEXIBILITY` composite (mtime 2026-05-26T11:13; elapsed 9.71s GPU; N=4096, K=128, k_active=12, 5 seeds, 3 corpora EN/PY/RND, M_grid {500,1000,2000,4000})
+2. `wave14g_recurrent_cleanup_k6_v1` -> `RECURRENT_HARD_FAIL` (mtime 2026-05-26T10:58; elapsed 31.73s GPU; N=4096, d_values {10,25,50}, M_grid {50,100,200,500}, T_values {2,3,5}, 5 seeds)
+
+**Step 0 honest re-read (per [[feedback-verdict-msg-honest-reread]]).**
+
+*Bet N composite:* label matches per-cell numbers exactly per the handoff verdict-tag taxonomy ("P1 HARD-PASS, P2 MIDDLE" -> BET_N_ATOM_MODE_FLEXIBILITY). P1 util=0.923 (>= 0.70 gate) + sparsity_avg=12.0 (k_active exact; ratio 1.00 centered in [0.8, 1.2]) -> clean HARD_PASS. P2 cleanup_acc_ratio_M2000=0.974 -> MIDDLE in (0.80, 1.10). P3 cos_dist=1.79e-07 + corp_gap=0.000 -> below 0.40 HARD_FAIL floor. **Anomaly flagged**: P3 EXACT-ZERO cos_dist + EXACT-ZERO corp_gap + per-corpus M2000 ratios IDENTICAL to 4 decimal places across EN/PY/RND is the empirical signature of "atoms not actually trained corpus-specifically" (atoms identical by construction), NOT of "atoms trained on 3 corpora that failed to differentiate". Verdict label HARD_FAIL stands under pre-reg discipline; underlying mechanism question is NOT yet refuted -- instrumentation may not have actually run corpus-specific training. P3 v2 redesign flagged as NEW pre-reg item.
+
+*Recurrent cleanup K6:* label matches per-cell numbers exactly per the handoff HARD-FAIL band (">=3/4 d=25 cells with non-positive delta"). Actual: 4/4 d=25 cells with strict delta=-1.000. All 12 (d, M) cells across d in {10,25,50} have linear=1.000, lift=-1.000, ci_width=0.000. **Anomaly flagged**: linear=1.000 EXACTLY across ALL 36 (d, M, seed) cells (including d=50 d-cliff region where this probe was specifically designed) means K=6 is in the SUB-d-cliff regime (cliff manifests at K >= 8 per cap_map v60). The linear primitive saturates the test by construction; recurrent has zero room for benefit. The HARD_FAIL stands AND is strengthened: not just "recurrent didn't help" but "linear already saturates this regime". The lift=-1.000 (full collapse to anti-correlated output) is sign-Hopfield divergence to an orthogonal fixed point; pre-reg INSTRUMENTATION-FAIL band requires CI width >= 0.10 OR >20% convergence-failure, neither triggers (CI=0.000 deterministic; output is deterministic if anti-correlated). Label is correct under pre-reg. Closure scope NARROW per [[feedback-dont-overextend-theorems]]: K=6 multi-hop d=25 only; ACF-resonator at decomposition layer UNAFFECTED; K!=6 / non-d-cliff regimes NOT closed.
+
+**Decision (1): Bet N -> 🟢 PARTIAL Tier-2 NEW row "atom-mode flexibility (capacity-equivalent learned atoms)".** Per handoff compound row-state matrix line 64 ("P1 HARD-PASS + P2 MIDDLE + * -> 🔬 -> 🟢 PARTIAL atom-mode flexibility Tier-2"). Portfolio 13 -> 14 demonstrated. FIRST Tier-1-path row-state advance since v205 design-ready handoff. Product claim ratified: "substrate can learn its own atoms via self-supervised competitive-WTA at full utilization (0.923) and 97.4% of PPMI baseline capacity at M=2000" -- distinctive vs transformers (no atom-basis analog in KV-cache).
+
+**Decision (2): Recurrent-cleanup-head K6 multi-hop variant -> ❌ HARD_FAIL CLOSED narrow scope.** Per handoff line 45: "Close the recurrent-variant question for multi-hop. The primitive decision tightens to 'linear is sole primitive across all evaluated tasks'." Scope NARROW: K=6 multi-hop d=25 only.
+
+**Decision (3): v205 LINEAR-heteroassoc primary EMPIRICALLY corroborated.** Annotation on existing linear-heteroassoc ✅ row (no new row, no row-state change). The recurrent K6 closure is the empirical anchor for the v205 theoretical lock. Product framing UNCHANGED but with stronger empirical grounding.
+
+**Decision (4): PROT-004 rescue sketches for recurrent-cleanup-head K6 closure (per [[feedback-rehabilitation-after-rejection]] + [[feedback-rescue-sketch-first-sequencing]] cheapest-first sequencing).**
+
+  1. **T > 5 same-K probe (CHEAPEST)**: bounded-iteration with T in {8, 16, 32} at SAME K=6 / d=25. Tests whether sign-Hopfield divergence is the only failure mode or whether convergence at higher iteration count could recover benefit. ETA ~15-30 min CPU. P_rescue ~ 0.10 (low; if T=5 collapses to anti-correlated output, larger T is unlikely to recover -- but it's the cheapest direct probe of the convergence question).
+
+  2. **Continuous-readout (non-sign) iterative variant**: replace sign() nonlinearity with tanh or linear identity in the recurrence y_{t+1} = nonlinearity((1/N) Σ_j <y_t, v_j> k_j). Continuous variants avoid the orthogonal-fixed-point divergence behavior. ETA ~30-60 min CPU. P_rescue ~ 0.20.
+
+  3. **K=8 (d-cliff regime) probe**: shift K from 6 to 8 to access the d-cliff regime where linear baseline does NOT saturate (cap_map v60: d-cliff manifests at K >= 8). Tests whether recurrent benefit (if any) manifests when linear baseline has room to improve. ETA ~30-60 min GPU. P_rescue ~ 0.25 (moderate; if recurrent is going to help anywhere it's in the linear-non-saturated regime).
+
+  4. **Iterative refinement ON PPMI atoms (not heteroassoc W)**: apply the bounded-iteration cleanup to PPMI atom retrieval rather than heteroassoc storage. Tests whether the recurrent pattern works at the atom layer (where Bet N now shows partial success) rather than at the storage layer (where linear saturates). ETA ~1-2 h CPU. P_rescue ~ 0.15.
+
+  5. **Attention-style modern-Hopfield iteration (HEAVIEST)**: full Ramsauer modern-Hopfield iteration as the cleanup head (softmax attention iterates to nearest pattern). Tests the FULLY-iterative-attention rescue, distinct from sign-Hopfield. ETA ~2-4 h GPU. P_rescue ~ 0.10 (modern-Hopfield as label readout was already closed at cap_map v??; modern-Hopfield as multi-hop cleanup is the not-yet-tested variant).
+
+Strategy decides which (if any) to elevate. Verdict_handler does NOT queue these. Per [[feedback-no-experiment-design-in-prompts]] this is rescue-arm enumeration, not experiment specification.
+
+**Decision (5): Bet N P3-only v2 redesign FLAGGED as v210 NEW pre-reg item (instrumentation-priority).** Question: does Cao 2023 competitive-WTA produce corpus-specialized atoms when instrumentation correctly trains per-corpus? The v1 EXACT-ZERO + EXACT-MATCH-across-corpora signature suggests instrumentation may not have actually run corpus-specific training. P_deflated(P3 v2 HARD_PASS | instrumentation fixed) ~ 0.40 (Cao 2023 reports corpus-adaptive specialization at K >= 128; substrate is at K=128). Not auto-queued; surfaced for strategy/exp_dev consideration. Per [[feedback-no-experiment-design-in-prompts]] no design parameters specified -- task-level flag.
+
+**Decision (6): Bet N P2 capacity-sweep extension FLAGGED as v210 NEW pre-reg item (scope-expansion).** Question: is there an M_stored cell where cleanup_acc_ratio >= 1.10 (full Tier-1 promotion threshold)? Candidates: M < 2000 (PPMI baseline drops first) or M >> 4000 (learned-atom basis adapts to higher load). P_deflated ~ 0.30. Not auto-queued.
+
+**Decision (7): Combined Tier-1 probability recalibrated MARGINALLY UP** from 40-55% (v206 band) to ~42-58%. Rationale: FIRST Tier-1-path row-state advance since v205 design-ready handoff; direct evidence Tier-1 paths CAN advance. Lift is small (~2-3 pp) because partial (Tier-2 not full Tier-1 promotion) and based on one verdict pair. Conservative calibration.
+
+**Decision (8): Framework reliability (saddle-cascade, linear-heteroassoc) UNCHANGED at 40-55%.** Bet N atom-discovery layer is orthogonal to saddle-cascade reliability. Recurrent K6 closure reinforces linear-primary architecture lock but is not a saddle-cascade prediction confirmation. No quantitative update warranted from this batch.
+
+**Decision (9): Theoretical note for future recurrent-variant design (cap_map annotation).** K=6 is sub-d-cliff regime. Future recurrent-variant probes for multi-hop SHOULD target K >= 8 to access the d-cliff regime where linear baseline is not saturated and recurrent benefit (if any) has room to manifest. This is design guidance, not a closure.
+
+**Decision (10): NO queue refill triggered by this verdict_handler cycle.** Per user directive ("DO NOT trigger queue-refill") + pause-gate discipline ([[feedback-obey-user-pause-explicitly]] + [[feedback-pipeline-pacing]]).
+
+**Net cap_map effect.** v209 -> v210 MIXED VERDICT BATCH: 6 capability move rows. +1 portfolio (Bet N -> 🟢 Tier-2 NEW row; 13 -> 14 demonstrated). 1 NEW ❌ HARD_FAIL closure (recurrent-cleanup-head K6 multi-hop variant; scope NARROW). 1 EMPIRICAL CORROBORATION annotation (v205 linear-primary). 1 INSTRUMENTATION-SUSPECT annotation (Bet N P3 v2 flagged). 2 v210 NEW pre-reg items (P3 v2, P2 M-sweep). 1 theoretical note (K=6 sub-d-cliff). 1 architectural closure with 5 rescue sketches. 123rd PROT-009 paired commit.
+
+PROT-004/006/008/009 compliance this commit: 1 new ❌ closure (recurrent-cleanup-head K6 -- NARROW scope per [[feedback-dont-overextend-theorems]]) with 5 rescue sketches filed in THIS entry (Decision 4); satisfies PROT-004 3-5 sketches requirement. 0 row-state demotions (new Tier-2 🟢 is promotion from 🔬; new ❌ is on a NEW row not previously in cap_map). 29 grandfathered violations unchanged; validator should pass on the new ❌ row (narrow probe-variant scope, not substrate-wide capability row). history.md v210 block written BEFORE cap_map.md v210 commit (PROT-007 sequencing verified). strategy_decisions_2026-05-26.md paired. 123rd PROT-009 commit.
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-for-you-tab-primary-channel]]: TWO status_log entries written after this decision log entry (one per verdict; importance=HIGH for both).
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v210 + history.md v210 + this entry.
+Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
