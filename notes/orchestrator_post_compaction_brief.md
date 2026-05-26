@@ -183,20 +183,50 @@ Per [[feedback-pipeline-pacing]] the orchestrator's reflex is "queue empty → s
 
 ---
 
+## 4b. WATCHDOG EVENT-HANDLING CONTRACT
+
+`tools/orchestrator/heartbeat_watchdog.py` runs as a second Monitor process (in addition to `dispatch.py`). It emits events to stdout in the same `EVENT <kind> <payload-json>` format. The Monitor armed on it should filter for actionable event kinds only (not `ready` / `error` / `heartbeat`).
+
+**Arm command (Monitor on heartbeat_watchdog.py — use this regex to surface only actionable events):**
+
+```
+Monitor(
+  command="python tools/orchestrator/heartbeat_watchdog.py",
+  pattern="EVENT (silent_idle|for_you_stale|research_overdue|routing_ratio_low|ship_unconfirmed)"
+)
+```
+
+**Four watchdog event kinds and mandatory orchestrator response:**
+
+| Event | Trigger condition | Cooldown | Orchestrator mandatory response |
+|---|---|---|---|
+| `silent_idle` | Both GPU+CPU queues = 0 AND no in-flight dispatches AND no runner running for > 120s | 600s | Dispatch exp_dev for emergency refill (GATED on pause flag — if paused, write a `for_you` status_log entry instead explaining nothing is running). |
+| `for_you_stale` | No status_log entry written in the past 30 min | 1800s | (A) Write a "still working on X" status_log entry for whatever the orchestrator has been doing, OR (B) if truly nothing is happening, dispatch a research drill so there is something to report, OR (C) if paused and idle, surface stale-state to the user in chat. At minimum, write a `heartbeat` status_log entry with plain_language so the For You tab does not go dark. |
+| `research_overdue` | No `research_drill_closure` or `research_delivered` event in the past 24 h | 3600s | Dispatch the research sub-agent with `suggested_field` from the payload (or any cross-domain probe if `suggested_field` is empty). Per [[feedback-periodic-scope-expansion]] and auto-probe trigger B in Section 5b above. Always allowed — research is not pause-gated. |
+| `routing_ratio_low` | `routing_ratio` < 0.75 over last 20 turns AND turn count >= 8 | 900s | (a) Re-read Section 2 above. (b) Route the NEXT event through its proper wrapper. (c) Write a `routing_ratio_correction` status_log entry acknowledging the drift. |
+| `ship_unconfirmed` | `queue_add.sh` returned success locally but the experiment name has not appeared in any queue/verdict/log within 60s | 300s (per name) | Investigate: check `data/recent_ship_attempts.jsonl` + run `python tools/orchestrator/state_check.py` + confirm queue status via dashboard. Re-ship if the experiment genuinely did not land. |
+
+**Monitor note:** The Monitor armed on `dispatch.py` receives verdict / routing / queue_add events (from the repo file-system poller). The Monitor armed on `heartbeat_watchdog.py` receives the five structural-health events above. Both should be armed simultaneously; they share the same `EVENT <kind>` format and the orchestrator reads from whichever fires first.
+
+---
+
 ## 5. SKILLS REGISTRY
 
-**Two registration formats coexist — DIFFERENT discovery paths (clarified 2026-05-24 after orchestrator self-invoke failure):**
+**Updated 2026-05-24: 7 subagent types.** All 7 core patterns now have subagent type definitions at `C:\Users\marsh\.claude\agents\<name>.md`. The full contract (pause gate, self-discovery, autonomy, hard constraints, return format) lives in the subagent system prompt. Orchestrator job per dispatch: `Agent({subagent_type: "<name>", description: "<name>: <args>", prompt: "<args>"})` — ONE call, args only.
 
-| Format | Path | User can `/name`? | Orchestrator `Skill(name=...)` callable? |
-|---|---|---|---|
-| **Slash commands** (legacy) | `C:\Users\marsh\.claude\commands\<name>.md` | YES | **NO** — these do NOT appear in the orchestrator's system-reminder available-skills list |
-| **Skills** (new format) | `C:\Users\marsh\.claude\skills\<name>\SKILL.md` (with `name:` + `description:` frontmatter) | YES (via `/name`) | YES — appears in available-skills list after orchestrator session restart |
+**Three registration formats — DIFFERENT discovery paths:**
 
-The harness scans both paths at orchestrator session start and lists discovered skills in the system-reminder. **Newly-added skills are NOT visible to the currently-running orchestrator session** — they become invokable on the NEXT session start. Use the Agent-fallback path (below) until then.
+| Format | Path | User can `/name`? | Orchestrator `Skill(name=...)` callable? | Orchestrator `Agent(subagent_type=...)` callable? |
+|---|---|---|---|---|
+| **Slash commands** (legacy) | `C:\Users\marsh\.claude\commands\<name>.md` | YES | NO | NO |
+| **Skills** (new format) | `C:\Users\marsh\.claude\skills\<name>\SKILL.md` | YES (via `/name`) | YES — after session restart | YES (skills now just route to subagent_type) |
+| **Subagent types** (new) | `C:\Users\marsh\.claude\agents\<name>.md` | NO | NO | YES — any time |
+
+The harness scans `~/.claude/agents/` at session start. Subagent types are available immediately via `Agent(subagent_type: "<name>", ...)` without a session restart. Skills are a discovery shortcut to the same Agent call.
 
 ### Slash commands (`C:\Users\marsh\.claude\commands\`) — user-only
 
-These exist as user-facing slash commands. The user types `/name <args>` in chat. The orchestrator CANNOT call them via the `Skill` tool.
+These exist as user-facing slash commands. The orchestrator CANNOT call them via the `Skill` tool.
 
 - `/orchestrator-status` — state summary (state_check.py)
 - `/orchestrator-verdict` — verdict_handler dispatch
@@ -207,44 +237,35 @@ These exist as user-facing slash commands. The user types `/name <args>` in chat
 
 ### Skills (`C:\Users\marsh\.claude\skills\<name>\SKILL.md`) — user AND orchestrator
 
-These are created in the new SKILL.md format with `name:` + `description:` frontmatter. They appear in the orchestrator's available-skills list after the orchestrator session restarts and become invokable via `Skill(skill="<name>", args="...")`.
+Skills are now minimal: each body is exactly one Agent call where the prompt is the raw args. The frozen contract is in the subagent definition, not the skill.
 
-| Skill | Purpose | Arguments | Role-agent body |
-|---|---|---|---|
-| `exp_dev` | Dispatch exp_dev sub-agent for an experiment-shipping cycle. Pause-gated. Pre-reg per envelope-fail-bands; smoke gate; ship via queue_add.sh; post-ship REMOTE VERIFY (exit-5). Autonomy declaration enforced — orchestrator passes TASK SHAPE + POINTERS only, exp_dev designs all parameters. | routing-note path/name OR free-form task statement | `tools/orchestrator/agents/exp_dev.md` |
-| `research` | Dispatch research sub-agent (Opus) for a single research-drill cycle. 2x discipline; generic terms per query-privacy; lit-scan calibration penalty; parallel Sonnet lit-scan sub-agents for breadth, Opus synthesis for depth. | routing-note path/name OR free-form topic statement | `tools/orchestrator/agents/research.md` |
-| `verdict_handler` | Dispatch verdict_handler sub-agent for a single verdict event (end-to-end). Internally composes Step 0 (honest re-read) + parallel strategy + visibility + status_log + optional exp_dev queue-refill (pause-gated). Returns ONE line; orchestrator pushes commit hash as 1-tool follow-up. | verdict payload block OR anchor name OR empty (defaults to most-recent in dashboard) | `tools/orchestrator/agents/verdict_handler.md` |
-
-**Orchestrator self-invoke syntax** (once skills appear in available-skills list):
+**Orchestrator invoke syntax (preferred — one tool call):**
 ```
-Skill(skill="exp_dev", args="<routing-note-name-or-task>")
-Skill(skill="research", args="<topic-or-routing-note>")
-Skill(skill="verdict_handler", args="<verdict-payload-or-anchor-name>")
+Skill(skill="<name>", args="<raw args>")
 ```
 
-### Agent-fallback path (use this when SKILL is not yet in the available-skills list)
-
-If `Skill(skill="<name>", ...)` returns "Unknown skill: <name>" then the SKILL.md is not yet in the orchestrator's session-start scan. Use the Agent tool with the role-prompt body inlined. This is the structural workaround per [[feedback-dispatch-wrappers-default]]:
-
+**Orchestrator may also call subagent types directly (equally valid, works without session restart):**
 ```
-Agent({
-  description: "<name>: <one-line task shape>",
-  subagent_type: "general-purpose",
-  model: "sonnet"  # or "opus" for research / verdict_handler
-  prompt: "Act as the <name> skill at tools/orchestrator/agents/<name>.md.\n\n## Task\n<WHAT>\n\n## Pointers\n<WHY>\n\n## Contract\n<CONTRACT>\n\n## Autonomy declaration\n<AUTONOMY>\n\npause_state: <ACTIVE|PAUSED>"
-})
+Agent({subagent_type: "<name>", description: "<name>: <args>", prompt: "<args>"})
 ```
 
-The SKILL.md file becomes role documentation (and is auto-discovered on next session restart); the Agent dispatch with the inlined role-prompt body is the runtime path until then.
+### Subagent type definitions (`C:\Users\marsh\.claude\agents\`) — 7 types
 
-**Skill-vs-direct-dispatch decision rule (unchanged):** prefer a skill over an inline `Agent(...)` dispatch. Skills encode the dispatch-prompt style rule (WHAT / WHY pointers / CONTRACT / AUTONOMY DECLARATION), the pause-state check, and the "paste one-line return verbatim" rule. Direct `Agent(...)` is correct only when (a) the wrapper is missing, (b) the user explicitly typed an Agent call, or (c) the action is a 1-tool mechanical.
+Each file is `<name>.md` with YAML frontmatter (name, description, model) and a system prompt that contains the full contract. The orchestrator never reads or composes these — the subagent runs them.
 
-**What the orchestrator expects back from each skill:** one verbatim line.
-- `exp_dev`: `exp_dev: shipped <N> anchors to <queue list>; REMOTE VERIFY <pass/fail counts>; next: <one-line plan>`
-- `research`: `research: delivered <topic> → notes/research_<topic>_<date>.md ; HEADLINE: <one-line>; P_deflated=<value>; next-drill candidate: <field>`
-- `verdict_handler`: `<name> <verdict_tag>: <verdict_msg>. <strategy_outcome>. <visibility 1line>. [Queue refill: <exp_dev outcome>] [Cap_map: v<N> <change>]`
+| Subagent type | Model | Role contract pointer | Pause-gated? | Returns |
+|---|---|---|---|---|
+| `exp_dev` | sonnet | `tools/orchestrator/agents/exp_dev.md` | YES — aborts if flag exists | `exp_dev: shipped <N> anchors to <queue list>; REMOTE VERIFY <counts>; next: <plan>` |
+| `research` | opus | `tools/orchestrator/agents/research.md` | NO — allowed while paused | `research: delivered <topic> -> <path>; HEADLINE: <line>; P_deflated=<val>; next-drill: <field>` |
+| `verdict_handler` | opus | `tools/orchestrator/agents/verdict_handler.md` | Step 2 gated (exp_dev refill skipped if paused) | `<name> <tag>: <msg>. <strategy>. <visibility>. [Queue refill: <outcome>] [Cap_map: v<N>] [commit: <hash>]` |
+| `strategy_scribe` | sonnet | `tools/orchestrator/agents/strategy.md` | Annotation allowed; handoff files blocked if paused | `strategy_scribe: bumped cap_map v<N>->v<N+1> (<change>); handoff filed <path>; commit <hash> (orchestrator: push it)` |
+| `routing_handler` | sonnet | `tools/orchestrator/agents/routing_handler.md` | exp_dev recipient blocked if paused | `routing_handler: dispatched <recipient> on <topic>; outcome: <phrase>` |
+| `meta_audit` | sonnet | (absent — works from inline instructions) | NO — always allowed | `meta_audit: wrote <path>; <N> findings; <M> new PROT (<phrase>); next audit: <cadence>` |
+| `memory_curator` | sonnet | `tools/orchestrator/agents/memory_curator.md` | NO — always allowed | `memory_curator: wrote <N> new + updated <M> existing; MEMORY.md index updated; types: <breakdown>` |
 
-Paste verbatim to chat; do NOT integrate into a multi-line synthesis.
+**Paste return verbatim to chat. Do NOT integrate into a multi-line synthesis.**
+
+**Commit-hash special case (verdict_handler + strategy_scribe):** if the return contains a git commit hash, run `git -C d:/AI/hd-instrument push origin main` as a single Bash call (sub-agents cannot push per [[feedback-subagent-permission-inheritance]]).
 
 ---
 

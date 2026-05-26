@@ -481,3 +481,42 @@ Post-ship VERIFIED: entry in remote_cpu_queue/queue.json.
 **Routing note**: notes/exp_dev_to_queue_1rsb_hysteresis_2026-05-24.md (Schema A, 1 row).
 
 **status_log**: HIGH importance entry written with plain_language.
+
+
+## 2026-05-24 -- Bet B Alt1/Alt2 + 1-RSB GPU anchor batch ship (3 anchors)
+
+**Trigger**: User dispatch: R-PRIME-3 HARD-FAIL eliminated continuous-geometry predictor; 3 alternative predictor families + 1 GPU anchor requested. Overnight queue IDLE. Local queue IDLE.
+
+**Pause gate**: CLEARED (data/orchestrator_paused.flag absent).
+
+### Anchor 1: wave14_betB_shift_class_predictor_v1 -> local_cpu_queue (timeout=300s)
+
+Alt1 of R-PRIME-3 rescues. Tests whether discrete shift-class taxonomy (6 classes) predicts Bet B retention better than continuous spectral geometry. Zero-new-compute: pure re-analysis of existing metrics.json artifacts. Smoke showed SHIFT_CLASS_HARD_PASS (6/6 non-overlapping CIs, K-W p~0.0). HARD-PASS pre-reg: >=4/6 non-overlapping CIs AND K-W p<0.05. Self-tests: 9/9 PASS.
+
+Post-ship VERIFIED: wave14_betB_shift_class_predictor_v1 in local_cpu_queue.
+
+### Anchor 2: wave14_betB_W_internal_signature_v1 -> overnight_queue (GPU, timeout=10800s)
+
+Alt2 of R-PRIME-3 rescues. Tests whether substrate-INTERNAL W signatures measured AFTER Phase-A (before Phase-B) predict Phase-B retention. 13 signatures: top-3 eigenvalues, spectral gap, spectral gap ratio, normalized Frobenius norm, bundle-norm mean/std/var/kurtosis/skewness, row-norm mean/std. HARD-PASS: best r2>=0.50. 5 seeds x 5 corpus pairs = 25 cells.
+
+REFRAME NOTE: Originally specified as zero-new-compute re-analysis of existing artifacts. Investigated: W checkpoints are NOT saved (only metrics.json). bpc_gap achieves r2=0.988 with retention_A but is tautological (requires Phase-B already run). bpc_A_baseline alone: r2=0.011. Reframed as NEW GPU experiment that runs Phase-A only, saves W, measures internal signatures, then runs Phase-B across 5 held-out corpus pairs. Documented honestly in prereq.
+
+Smoke: HARD_FAIL as expected (N=512 1-seed; all signatures constant across pairs from same seed/Phase-A).
+Self-tests: 9/9 PASS. Post-ship VERIFIED in overnight_queue.
+
+### Anchor 3: wave14_1rsb_ultrametric_triples_full_v1 -> overnight_queue (GPU, timeout=7200s)
+
+Pre-registered open item from v199 cap_map. 1-RSB diagnostic: do W-vector triples satisfy Parisi ultrametricity at N=2048 12-seed FULL? Smoke at N=512 trivially CONFIRMED due to near-zero overlaps (UV-problem: q_EA~0 -> isosceles condition trivially met). FULL at N=2048 with C(12,3)=220 possible triples and N_TRIPLES=1000 bootstrap is the discriminating run.
+
+HARD-PASS: fraction>=0.50 (1-RSB ultrametric supported). HARD-FAIL: fraction<=0.36 (near 0.33 random baseline). If mean_q near zero (|mean_q|<0.01), UV-problem logged as diagnostic note.
+Self-tests: 4/4 PASS. Post-ship VERIFIED in overnight_queue.
+
+### Alt3 placeholder
+
+Alt3 (PAC-Bayes posterior-over-W KL predictor) deferred until R-PRIME-1 KL derivation lands. Routing note filed at notes/strategy_request_to_exp_dev_alt3_pac_bayes_placeholder_2026-05-24.md. Trigger condition: research delivers R-PRIME-1 posterior-over-W KL derivation.
+
+**PROT compliance**: PROT-010 (post-compaction brief read via summary); PROT-011 (exp_dev subagent_type named); [[feedback-envelope-expansion-fail-bands]] (HARD-PASS/HARD-FAIL/MIDDLE pre-registered for all anchors); [[feedback-strategy-spec-formula-selftests]] (9/9 Alt1, 9/9 Alt2, 4/4 Alt3); [[feedback-ship-name-collision]] (queue_add.sh VERIFIED all anchors post-ship); [[feedback-no-blocking-runs]] (background only via queue); [[feedback-ascii-only-in-scripts]] (verified); [[feedback-no-experiment-design-in-prompts]] (all parameters decided by exp_dev per contract).
+
+**status_log**: 4 entries written (Alt1 HIGH, Alt2 HIGH, GPU2 HIGH, Alt3-placeholder LOW).
+Shipped wave14_moe_alpha_c_prestep_v1 (GPU, alpha_c calibration mandatory pre-step for MoE rebuild) and wave14_betB_pac_bayes_kl_predictor_v1 (GPU, Alt3 Laplace-Fisher KL predictor unblocked by R-PRIME-1 derivation commit 0140545). Both verified in overnight_queue. Smoke passed for both (5/5 self-tests each).
+2026-05-24 exp_dev: MoE unblock -- shipped wave14_moe_alpha_c_prestep_v2 (recalibrated bands [0.40,0.70], full GPU 5-seed) + wave14_moe_shift_partition_v1 (3-arm SHIFT/PARTITION/SINGLE, K in {1,2,4,8}, M_per_expert=1600 from alpha_c=0.56). Both smoke-PASSED, remote-verified overnight_queue. Prestep runs first (15-30 min); main arm follows (4-6 hr). Walk-back: smoke d=0.446 borderline but per-cell K=4 lift +0.19 exceeds HARD-PASS 0.15 threshold; full 5-seed N=4096 will resolve. Arm C (SINGLE) uses random projection + binarization to sqrt(K)*N; comparison is conservative (penalizes C) -- acceptable per pre-reg.exp_dev 2026-05-25: Shipped 7 local_cpu_queue re-analysis probes (heavy CPU night, SSH down): (1) alt_taxonomy_sweep_v1 -- MIDDLE 4-class silhouette 0.584; (2) pac_bayes_laplace_selftests_v1 -- SELF_TEST_PASS 7/7; (3) saddle_cascade_reanalysis_v1 -- CASCADE_PASS delta_BIC=194.9; (4) moe_alpha_c_formula_verify_v1 -- FORMULA_VERIFIED M_per_expert=1612; (5) verdict_pattern_mining_v1 -- PATTERN_FOUND multi-agent V=0.32; (6) ib_plateau_kswoop_v1 -- IB_INCONSISTENT; (7) retention_gap_structure_v1 -- STRUCTURE_DIFFUSE K=1.2026-05-25: Queued 4 local_cpu Tier C re-analyses: saddle_saadsolla_plateau_arithmetic_v1 (angle spacing vs height spacing discriminant -- smoke NEITHER_EQUAL; angle_gap_ratio=0.70 outside [0.80,1.25]), verdict_dispatch_context_v1 (dispatch sub-pattern follow-up -- smoke NO_REFINEMENT; multi-agent gap unexplained by dispatch style or concreteness), pac_bayes_kl_extended_corpus_v1 (PAC-Bayes floor extrapolation -- smoke FLOOR_VIOLATED; 3-anchor power-law insufficient, GPU v2 needed), taxonomy_contrast_retention_sep_v1 (K=2/3/4 contrast -- smoke TWO_TIER_SUFFICIENT; F-ratio 334->266->256 drops with more classes despite sil improvement 0.22->0.32->0.58).
