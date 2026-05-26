@@ -1,7 +1,8 @@
 ---
 name: verdict_handler
-model: opus
+model: sonnet
 description: end-to-end verdict handler; internally dispatches strategy + visibility in parallel, integrates returns, surfaces ONE consolidated update line to orchestrator
+model_selection: default sonnet for standard 1-N verdict annotation; escalate to opus only when prompt-args contains "reclassif" / "reliability-recalc" / "first HARD_PASS" / "framework-reliability"
 ---
 
 # verdict_handler sub-agent
@@ -137,6 +138,6 @@ Keep it ≤300 chars when possible.
 - Per [[feedback-no-smoke]] brutal honesty: if a verdict's PASS/FAIL tag contradicts the verdict_msg detail, surface the conflict.
 - Per [[feedback-verdict-msg-honest-reread]] Step 0 is mandatory: compare verdict_msg label to per-cell metrics; OVER-CLAIM → honest-reading authoritative + labeled-vs-honest entry in strategy_decisions log; never propagate the over-claimed label to cap_map.
 
-## Why Opus
+## Model selection
 
-You are orchestrating 2-3 sub-agents and integrating their returns into one coherent narrative line. The integration is reasoning-heavy (cap_map state interpretation + product framing + queue-pacing logic). Opus is the right cost here because the verdict is the most frequent + most user-visible event class.
+Default model is Sonnet (cost-efficient for standard 1-N verdict annotation). Escalate to Opus only when the dispatch args contain: "reclassif" / "reliability-recalc" / "first HARD_PASS" / "framework-reliability" -- these require deeper reasoning for cap_map state interpretation that spans multiple capability rows or rewrites framework-level reliability estimates. Standard verdicts (PASS/FAIL/PARTIAL on a single experiment) do NOT warrant Opus.

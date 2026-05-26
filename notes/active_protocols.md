@@ -691,3 +691,88 @@ META reads decision logs and reconciles against this file.
 
 Never remove a protocol entry — change status instead. The historical record
 matters for audit.
+
+## PROT-014 -- research dispatches must use subagent_type='general-purpose' with description starting "research:"
+
+- **Status**: active (approved 2026-05-26; audit fix 4; background: v206-era "Agent type 'research' not found" wasted 1 Opus call + 2 retries)
+- **Applies to**: Orchestrator
+- **Trigger**: any research-skill dispatch (Skill tool invocation of /research or direct Agent() call to research role)
+- **One-shot**: yes (orchestrator internalizes; no per-cycle action required once internalized)
+
+**What to do**: Every research dispatch MUST use:
+- `subagent_type: "general-purpose"` (custom subagent_types are NOT registered in the harness; `subagent_type: "research"` fails with "Agent type 'research' not found")
+- `description` field MUST start with `"research:"` to identify the role
+
+Correct form:
+```
+Agent({
+  subagent_type: "general-purpose",
+  description: "research: <topic>",
+  prompt: "<full prompt>"
+})
+```
+
+Wrong form (fails):
+```
+Agent({
+  subagent_type: "research",   // NOT registered -- causes immediate error
+  ...
+})
+```
+
+**Background**: v206-era dispatch attempted `subagent_type: "research"`. The harness returned "Agent type 'research' not found" on the first call. Orchestrator retried twice before falling back to `general-purpose`. One Opus call wasted, 2 retries consumed. The root cause is that named subagent_type definitions in `C:\Users\marsh\.claude\agents\` are NOT the same as the `subagent_type` enum the harness accepts -- only "general-purpose" is valid for Agent() calls from the main thread.
+
+**Note on PROT-011 interaction**: PROT-011 says "use named subagent_type for defined roles." PROT-014 is a targeted override: research is the one role where the named type is NOT registered. PROT-014 takes precedence for research dispatches.
+
+**Adherence marker**:
+
+```
+PROT-014 compliance: research dispatch used subagent_type: "general-purpose"; description starts with "research:".
+```
+
+---
+
+## PROT-015 -- orchestrator cold-start cap at 2 main-thread calls
+
+- **Status**: active (approved 2026-05-26; audit fix 5; background: 2026-05-25 session-open cluster of 12 sequential Read+Bash calls in 2 minutes flagged by Audit Part 2 agent a890c0fbde6f5ea65 as dominant historical drag on routing_ratio)
+- **Applies to**: Orchestrator
+- **Trigger**: orchestrator session start (cold-start sequence per brief Section 7)
+- **One-shot**: yes per session
+
+**What to do**: at cold-start, the orchestrator is allowed AT MOST 2 main-thread calls:
+
+1. `Read notes/orchestrator_post_compaction_brief.md` (PROT-010 requirement)
+2. `python tools/orchestrator/state_check.py` (pipeline state snapshot)
+
+Any additional orientation work -- reading recent decisions, listing handoff files, grepping cap_map, tailing the dashboard snapshot, checking queue.json, reading active_protocols.md -- MUST be dispatched to a state-check sub-agent (general-purpose Agent() call with description: "state-check: cold-start orientation"). That sub-agent performs all additional reads and returns a 1-paragraph summary.
+
+**Why**: the 2026-05-25 cold-start had 12 sequential Read+Bash calls in the first 2 minutes. Each main-thread call is a denominator increment in routing_ratio. A cold-start cluster of 12 zeros-out the ratio for the first 20-turn window (routing_ratio = 0/12 = 0.00 for those turns). A single state-check sub-agent dispatch counts as 1 dispatch in the numerator instead.
+
+**Adherence marker**:
+
+```
+PROT-015 compliance: cold-start limited to 2 main-thread calls (brief + state_check.py); additional orientation dispatched to state-check sub-agent.
+```
+
+---
+
+## PROT-013 -- evaluate_bpc signature self-test in all new scripts (exp_dev-originated)
+
+- **Status**: active (filed 2026-05-26 by exp_dev; META to ratify next audit cycle)
+- **Applies to**: Experiment Dev (script writing)
+- **Trigger**: every new script that calls base.evaluate_bpc or imports from a kovacs/betB chain
+
+**Canonical signature** (exp_wave14d_betB_kovacs_v1.py line 198):
+  evaluate_bpc(W, pool_vecs, pool_labels, pool_used, byte_atoms, pos_atoms, eval_bytes, eval_targets, batch_size, device) -- 10 args
+
+**What to do**: Include in _instrumentation_selftest() a callable check:
+  # assert callable without TypeError at smoke scale
+  _ = base.evaluate_bpc(W_tiny, pool_v, pool_l, pool_u, ba, pa, eb, et, 8, device)
+
+This catches the arg-count mismatch that caused v1 INSTRUMENTATION_FAIL on:
+  exp_wave14_1rsb_hysteresis_v1.py (Pred-4 v1, TypeError)
+  exp_wave14_betB_pac_bayes_kl_predictor_v1 (defensive fix applied)
+  exp_wave14_betB_replay_hA_direct_v1 ("same evaluate_bpc signature bug fixed in all 3 arm functions")
+
+**Adherence marker**:
+PROT-013 compliance: _instrumentation_selftest() includes evaluate_bpc callable check (or script does not call evaluate_bpc).

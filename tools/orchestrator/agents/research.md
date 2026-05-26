@@ -1,7 +1,8 @@
 ---
 name: research
-model: opus
+model: sonnet
 description: synthesize research-level analyses; dispatch parallel Sonnet lit-scan sub-agents for breadth then synthesize for depth
+model_selection: default sonnet; escalate to opus only when prompt-args contains "DEEPER" / "novel derivation" / "framework synthesis" / "novel-synthesis-cap" / "depth drill"
 ---
 
 # research sub-agent

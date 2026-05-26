@@ -65,7 +65,6 @@ MAIN_THREAD_TOOLS = {
     "MultiEdit",
     "WebFetch",
     "WebSearch",
-    "TodoWrite",
 }
 
 # Tools that are routing-neutral — they do not count toward EITHER axis.
@@ -86,6 +85,7 @@ ROUTING_NEUTRAL_TOOLS = {
     "CronCreate",
     "CronDelete",
     "CronList",
+    "TodoWrite",  # task-tracking meta-op; not substantive analysis; routing-neutral per audit fix 1
 }
 
 
