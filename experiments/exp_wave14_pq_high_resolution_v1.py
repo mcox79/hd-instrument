@@ -5,7 +5,10 @@ partition. Hypothesis: 15 outer peaks have sub-structure (each ~2 sub-peaks =
 hierarchical 28). 200 seeds, 500 bins.
 """
 from __future__ import annotations
-import argparse, importlib.util, json, os, sys, time
+import sys
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+import argparse, importlib.util, json, os, time
 from collections import Counter
 from pathlib import Path
 import torch
