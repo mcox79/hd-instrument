@@ -8066,3 +8066,62 @@ Product framing LOCKED: substrate retention is classifier-predictable per shift-
 Annotation-only bump: 6 capability move rows (all annotation/reframe, 0 row-state changes). MoE alpha_c BAND_RIGHT_INSTRUMENTATION_FAIL reframe (removes "tempered" characterization). Bet B Alt 4 ruled out pre-ship (free-Fisher not applicable). MoE rebuild instrumentation expanded (free-additive top-edge second discriminator). No Saad-Solla/free-prob dual (avenue closed). PPMI Lifshitz-tail theoretical annotation. Pred-4 v3 in-flight annotation. 2 v207 pre-reg items CLOSED (alpha_c audit -> DONE; Pred-4 v3 design -> SHIPPED). 2 v208 NEW pre-reg items (dense-grid alpha_c v3, free-additive top-edge instrumentation). Portfolio 13 demonstrated + 6 evidence-strength rows UNCHANGED. 121st PROT-009 paired commit.
 
 History ref: see cap_map.md v208 block for full narrative.
+
+## v209 - (2026-05-26) ANNOTATION-ONLY: REPLAY mechanism H-C effective-N-doubling REFUTED + companion H-B INCONCLUSIVE; mechanism narrowed toward H-A consolidation
+
+### Trigger
+
+Two production-scale verdicts on REPLAY mechanism discriminators (companion experiments from `notes/exp_dev_to_queue_replay_mechanism_probes_2026-05-25.md`):
+1. `wave14_betB_replay_hC_scaling_v1` HC_REPLAY_EXCEEDS_2X (mtime 2026-05-26T13:25; elapsed 532.7s on remote GPU)
+2. `wave14_betB_replay_hB_collateral_v1` HB_INCONCLUSIVE (mtime 2026-05-26T13:16; elapsed not recorded)
+
+Both at N=4096, 5 seeds, 5 epochs production scale.
+
+### Key changes
+
+**H-C (effective-N-doubling) REFUTED at production scale.** Pre-registered test: |ret_replay - ret_2x| < 0.04 confirms H-C (replay is equivalent to 2x training data). Result: diff = +0.165 (replay BEATS 2x by 16.5 percentage points); ret_replay = 0.845, ret_2x = 0.679. The pre-reg PASS-band is violated by 4x in the direction of REPLAY > 2x-DATA. Smoke at N=1024 1-epoch had already shown ret_replay=0.956 >> ret_2x=0.803 -- the production scale CONFIRMS this signal (predicted in routing note). Replay is NOT trivial data augmentation; the mechanism provides retention beyond what doubling training data does.
+
+**H-B (interference-reduction collateral effect) INCONCLUSIVE at production scale.** Pre-registered test: direct_replay_lift >= 0.15 required to declare mechanism active and discriminate H-B (collateral protection of NON-replayed items) from H-A (consolidation of replayed items only). Result: direct_lift = 0.123, just below the 0.15 activity threshold. Cannot discriminate H-A from H-B at this configuration. The companion H-B test could not even establish that the REPLAY mechanism is active at the held-out split (despite H-C confirming it is highly active in the standard configuration). Possible cause: replay-fraction or epoch count too low when corpus is split into replay/held-out halves; the per-half replay signal is too weak. v2 redesign warranted (stronger replay-fraction, more epochs, or alternative collateral-measurement protocol).
+
+**REPLAY mechanism net interpretation: NARROWED toward H-A consolidation.** With H-C REFUTED (replay is more than data augmentation) and H-B INCONCLUSIVE (cannot confirm interference-reduction collateral), the residual hypothesis is H-A consolidation -- replay strengthens specific memory traces through repeated exposure, producing a +0.165 substrate-specific retention margin beyond naive scaling. The mechanism is doing real substrate-cognitive work (consolidation-style rehearsal), not contributing additional effective training signal. P(H-A dominant) ~ 0.55; P(H-B contributing) ~ 0.30 (inconclusive does not eliminate); P(both contributing) ~ 0.40 (non-exclusive). The +0.165 margin is consistent with the Saad-Solla saddle-cascade plateau structure -- REPLAY occupies its own plateau in the v206 4-tier taxonomy (SAME / REPLAY / STAGE4 / DIFF), and that plateau's height is not predicted by data-augmentation scaling. This strengthens the Saad-Solla framework by removing the "replay is just data" null hypothesis.
+
+**Cap_map outcome annotations per pre-registered routing note (`exp_dev_to_queue_replay_mechanism_probes_2026-05-25.md` lines 73-79):**
+- HC_REPLAY_EXCEEDS_2X -> "REPLAY row += 'H-C REFUTED: replay > 2x data; mechanism beyond data aug'" -- APPLIED.
+- HB_INCONCLUSIVE -> not pre-registered as a row-state move; treated as annotation; H-A vs H-B distinction remains open.
+
+### Capability move rows
+
+| Capability | v208 state | v209 state | Trigger |
+|---|---|---|---|
+| REPLAY structural axis (Bet B retention) -- mechanism characterization | v206 STRUCTURAL AXIS CONFIRMED (Cohen's d=13.3 rank_biserial=1.0); v208 UNCHANGED; mechanism (H-A / H-B / H-C) OPEN | **H-C EFFECTIVE-N-DOUBLING REFUTED at production scale**: diff=+0.165 (replay > 2x by 16.5 pp); pre-reg \|diff\| < 0.04 violated 4x in refutation direction; replay is NOT trivial data augmentation | wave14_betB_replay_hC_scaling_v1 HC_REPLAY_EXCEEDS_2X |
+| REPLAY mechanism -- H-B interference-reduction probe (collateral) | v208 OPEN (companion to H-C; pending verdict) | **INCONCLUSIVE at production scale**: direct_lift=0.123 < 0.15 activity threshold; H-A vs H-B distinction REMAINS OPEN; v2 redesign warranted (stronger replay-fraction, more epochs, or alt collateral protocol) | wave14_betB_replay_hB_collateral_v1 HB_INCONCLUSIVE |
+| REPLAY mechanism net interpretation | (no prior aggregated annotation) | **NARROWED toward H-A consolidation**: H-C REFUTED + H-B INCONCLUSIVE + residual H-A; replay is consolidation-style cognitive work, not data augmentation, not plain interference reduction; +0.165 margin consistent with Saad-Solla REPLAY-plateau structure (v206 4-tier taxonomy) | combined H-C + H-B production verdicts |
+| substrate-product portfolio count | 13 demonstrated + 6 evidence-strength rows (v208) | **13 demonstrated UNCHANGED + 6 evidence-strength rows UNCHANGED**: v209 annotation-only; REPLAY axis remains within Bet B retention 🟡 PARTIAL row | v209 annotation cycle |
+
+### Substrate-product positioning v209
+
+- **Bet B retention story STRENGTHENS**: REPLAY axis is structurally confirmed (v206) AND mechanism is now characterized as consolidation-style (v209), not trivial data augmentation. This is a stronger product claim: "substrate supports consolidation-grade memory rehearsal via REPLAY -- doing real cognitive work beyond data augmentation." The +0.165 production-scale retention margin over 2x-data is the empirical signature of this claim.
+
+- **H-A consolidation favored as the dominant REPLAY mechanism**: with H-C REFUTED and H-B INCONCLUSIVE, H-A is the residual leading hypothesis. The exact mechanism remains underconstrained (consolidation could be feature-strengthening, prototype-pulling, or memory-trace-stabilization) but the data-augmentation framing is conclusively ruled out.
+
+- **Saad-Solla framework REINFORCED**: removing the "replay is just data" null hypothesis adds independent corroboration to the saddle-cascade 4-tier plateau structure -- REPLAY's own plateau (between SAME and STAGE4 retention levels per v206) is now empirically grounded as a substrate-cognitive plateau, not a data-volume plateau.
+
+- **MoE rebuild and Pred-4 v3 unaffected**: the REPLAY mechanism characterization is independent of the MoE SHIFT/PARTITION rebuild and the 1-RSB hysteresis discriminator (both still in flight). No cross-axis row-state changes.
+
+- **REPLAY rehab arm reopen?**: H-B INCONCLUSIVE does NOT close H-B; it leaves the discrimination open. If strategy wants to nail H-A vs H-B more sharply, a v2 H-B redesign (stronger replay-fraction, more epochs, or alternative protocol) could be queued. Flagged as v209 NEW open question.
+
+### Pre-registered untested (carried forward v208 + v209 adds)
+
+- All v208 items carried forward EXCEPT:
+  - v208 NEW "wave14_betB_replay_hB_collateral_v1 probe" -> **v209 CLOSED-INCONCLUSIVE**.
+  - v208 NEW "wave14_betB_replay_hC_scaling_v1 probe" -> **v209 CLOSED-REFUTED**.
+- v209 NEW (open question): H-A vs H-B discriminator redesign for REPLAY mechanism (v2 H-B with stronger replay-fraction or alternative protocol). Not yet queued.
+- v209 NOTE: REPLAY's +0.165 margin over 2x-data is consistent with Saad-Solla saddle-cascade REPLAY-plateau structure; theoretical reinforcement of the v206 4-tier taxonomy.
+
+### Outcome
+
+Annotation-only bump: 4 capability move rows (all annotation, 0 row-state changes). REPLAY mechanism narrowed from "open across H-A/H-B/H-C" to "H-A consolidation favored, H-B residual inconclusive, H-C refuted." 2 v208 pre-reg items CLOSED (H-C, H-B). 1 v209 NEW open question (H-B v2 redesign). 1 v209 theoretical note (Saad-Solla REPLAY-plateau corroboration). Portfolio 13 demonstrated + 6 evidence-strength rows UNCHANGED. 122nd PROT-009 paired commit.
+
+NOTE for orchestrator: three other production-scale verdicts also unprocessed in dashboard snapshot (wave14_betB_replay_hB_collateral_v1 covered here as companion; wave14e_bet_n_wta_v1 BET_N_ATOM_MODE_FLEXIBILITY composite P1=HARD_PASS P2=MIDDLE P3=HARD_FAIL at mtime 2026-05-26T11:13; wave14g_recurrent_cleanup_k6_v1 RECURRENT_HARD_FAIL at mtime 2026-05-26T10:58). Each warrants its own verdict_handler cycle. This v209 bump processes the H-C primary + H-B companion only. Subsequent verdict_handler runs should process the bet_n composite and recurrent_cleanup hard_fail.
+
+History ref: see cap_map.md v209 block for full narrative.

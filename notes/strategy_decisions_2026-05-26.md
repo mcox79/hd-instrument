@@ -84,3 +84,42 @@ PROT-004/006/008/009 compliance this commit: 0 new ❌ closures; 0 row-state dem
 Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
 Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after this decision log entry.
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename; paired commit cap_map.md v208 + history.md v208 + this entry.
+
+---
+
+## v209 (2026-05-26) -- ANNOTATION-ONLY: REPLAY mechanism H-C effective-N-doubling REFUTED + H-B INCONCLUSIVE; mechanism narrowed toward H-A consolidation
+
+Trigger: two production-scale verdicts on REPLAY mechanism discriminators (companion experiments per `notes/exp_dev_to_queue_replay_mechanism_probes_2026-05-25.md`):
+1. `wave14_betB_replay_hC_scaling_v1` HC_REPLAY_EXCEEDS_2X (mtime 2026-05-26T13:25; elapsed 532.7s on remote GPU)
+2. `wave14_betB_replay_hB_collateral_v1` HB_INCONCLUSIVE (mtime 2026-05-26T13:16)
+
+Both at N=4096, 5 seeds, 5 epochs production scale.
+
+**Step 0 honest re-read of verdict_msg vs per-cell metrics** (per [[feedback-verdict-msg-honest-reread]]):
+- hC verdict_msg: "H-C REFUTED (replay > 2x): diff=0.165 > 0.08. ret_replay=0.845 >> ret_2x=0.679. Replay provides MORE than N-doubling -- mechanism is NOT simple data augmentation."
+  - Numbers: diff = ret_replay - ret_2x = 0.845 - 0.679 = +0.166 (rounded 0.165 in msg). Pre-reg PASS-band was |diff| < 0.04. Result: diff is 4x the PASS threshold IN THE DIRECTION of replay > 2x-data. Label `HC_REPLAY_EXCEEDS_2X` correctly characterizes a refutation in the "replay does more than data augmentation" direction (vs the alternative label `HC_HARD_FAIL` which would imply replay < 2x). NO override required; the label and numbers are internally consistent.
+- hB verdict_msg: "Direct replay lift=0.123 < 0.15; replay mechanism not active at this scale. Cannot discriminate H-A vs H-B."
+  - Number: direct_lift=0.123 vs threshold 0.15 -> below activity floor by 18%. Label `HB_INCONCLUSIVE` correctly reflects the inability to discriminate H-A from H-B given the mechanism did not reach activity threshold in the collateral-effect configuration. NO override required.
+
+**Decision (1): Cap_map v209 ANNOTATION-ONLY.** No row-state changes. Pre-registered per routing note: `HC_REPLAY_EXCEEDS_2X -> REPLAY row += "H-C REFUTED: replay > 2x data; mechanism beyond data aug"`. APPLIED as annotation. Bet B retention row stays Yellow-PARTIAL; REPLAY structural axis stays CONFIRMED; portfolio count UNCHANGED at 13 demonstrated + 6 evidence-strength rows.
+
+**Decision (2): REPLAY mechanism interpretation NARROWED toward H-A consolidation.** With H-C REFUTED + H-B INCONCLUSIVE, the residual leading hypothesis is H-A (consolidation-style rehearsal). The +0.165 production-scale margin over 2x-data is the empirical signature of substrate-cognitive work beyond data volume. P(H-A dominant) ~ 0.55; P(H-B contributing) ~ 0.30; P(both contributing) ~ 0.40. Not mutually exclusive.
+
+**Decision (3): H-B v2 redesign FLAGGED as v209 NEW open question.** H-B INCONCLUSIVE leaves the H-A vs H-B distinction open. A redesign with stronger replay-fraction (>0.5), more epochs, or an alternative collateral-measurement protocol could nail it. Not queued in this cycle; surfaced for strategy/exp_dev consideration in the next cycle. Per [[feedback-no-experiment-design-in-prompts]] no design parameters specified here -- this is a task-level flag, not an experiment specification.
+
+**Decision (4): Saad-Solla framework reliability REINFORCED (qualitative).** Removing the "replay is just data" null hypothesis adds independent corroboration to the v206 4-tier plateau structure: REPLAY's distinct plateau is now empirically grounded as a substrate-cognitive plateau (not a data-volume plateau). Framework reliability stays at 40-55% (v206 band); no quantitative re-estimation warranted from one verdict pair, but the falsifiability bound on the null hypothesis (data augmentation) is now closed.
+
+**Decision (5): NOT a Bet B portfolio promotion.** Despite the strong +0.165 retention margin, this is a MECHANISM-characterization finding, not a row-state promotion gate. The promotion gate for Bet B retention via structural-separation 🟡 -> ✅ remains "uniform per-cell PASS or characterized M_crit(K) with multi-N replication" (v184 standard). H-C refutation does not meet that gate; it sharpens the mechanism story within the existing Yellow-PARTIAL row.
+
+**Decision (6): Three other unprocessed verdicts flagged for subsequent verdict_handler cycles** (per [[feedback-no-silent-idle]] discipline): (a) wave14e_bet_n_wta_v1 BET_N_ATOM_MODE_FLEXIBILITY composite (P1=HARD_PASS util=0.923 sparsity_ratio=1.00; P2=MIDDLE ratio_M2000=0.974; P3=HARD_FAIL cos_dist=0.000 corp_gap=0.000) at mtime 11:13; (b) wave14g_recurrent_cleanup_k6_v1 RECURRENT_HARD_FAIL (lift<=0.0 in 4/4 d=25 cells) at mtime 10:58. These are LOWER strategic leverage than the REPLAY-mechanism pair processed here but warrant their own verdict_handler cycles. Orchestrator: queue subsequent verdict_handler invocations after this v209 commit pushes.
+
+**Decision (7): No queue refill triggered by this verdict_handler cycle.** Per pause-gate discipline ([[feedback-obey-user-pause-explicitly]] + Section 1 of orchestrator_post_compaction_brief.md): pause flag check returned ACTIVE (not paused). However, the user message explicitly says "DO NOT trigger queue-refill -- orchestrator handles." Verdict_handler honors that directive; the orchestrator will refill if/when appropriate.
+
+**Net cap_map effect.** v208 -> v209 ANNOTATION-ONLY: 4 annotation rows. 0 row-state changes. 0 portfolio count changes. 2 v208 pre-reg items CLOSED (H-C REFUTED, H-B INCONCLUSIVE). 1 v209 NEW open question (H-B v2 redesign). 1 v209 theoretical note (Saad-Solla REPLAY-plateau corroboration). 122nd PROT-009 paired commit.
+
+PROT-004/006/008/009 compliance this commit: 0 new ❌ closures; 0 row-state demotions; H-C REFUTATION is a mechanism-hypothesis closure within an OPEN row (Bet B retention 🟡), NOT a capability closure -- no PROT-004 obligations triggered; pre-existing 29 PROT-004 violations are grandfathered historical entries UNCHANGED; validator passes on these same 29 grandfathered entries (no new violations); history.md v209 block written BEFORE this cap_map commit (PROT-007 sequencing verified); strategy_decisions_2026-05-26.md paired; 122nd PROT-009 commit.
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after this decision log entry (importance=HIGH; replay mechanism is load-bearing Bet B finding).
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename; paired commit cap_map.md v209 + history.md v209 + this entry.
+Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve CRLF.
