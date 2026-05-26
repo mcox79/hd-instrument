@@ -257,3 +257,66 @@ Per [[feedback-for-you-tab-primary-channel]]: 7 verdict_processed status_log ent
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v211 + history.md v211 + this entry.
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
 Per [[feedback-no-experiment-design-in-prompts]]: 5 v211 pre-reg items flagged WITHOUT design parameters (no anchor names, sweep grids, threshold formulas, queue/ETA, or pre-committed cap_map decisions).
+
+## v212 BATCH VERDICT CYCLE (2026-05-26)
+
+**Step 0: Honest re-read of verdict labels vs per-cell metrics**
+
+LABEL-VS-HONEST FINDING 1: exp_wave14_moe_shift_partition_v3 FULL RUN
+- Verdict label: MOE_SHIFT_MIDDLE
+- Honest reading: MOE_SHIFT_HARD_PASS at K>=4
+- Evidence: K=4 M=12800 lift_A=0.2052 > 0.15 threshold; K=8 M=12800 lift_A=0.3120 > 0.15 threshold. Pre-reg HARD-PASS: 'Arm A (SHIFT) mean_lift > Arm C (SINGLE) mean_lift by > 0.15 across K=[4,8]'. Mode-collapse Gini=0.003-0.004 (well below 0.4 ceiling). ALL K=[4,8] cells meet HARD-PASS condition.
+- Cap_map treatment: HARD-PASS is the authoritative label; MIDDLE NOT propagated.
+
+LABEL-VS-HONEST FINDING 2: exp_wave14_betB_nscaling_v1 SMOKE
+- Verdict label: NSCALING_HARD_FAIL 'N=8192 4-class taxonomy FAILS'
+- Honest reading: Smoke ran at N=512 (NOT N=8192). Full N_FULL=8192 run RUNNING on remote.
+- Contradiction: verdict_msg claims N=8192 failed; config shows N=512 (16x smaller).
+- Cap_map treatment: NO cap_map action. Await full N=8192 results.
+
+LABEL-VS-HONEST FINDING 3: exp_wave14_beti_depth_polylog_v1 SMOKE
+- Verdict_msg says 'Some N-dependence present'; d_c_range_across_N=0 (ZERO variation).
+- Honest reading: NO N-dependence at smoke scale (d_c=20 for both N=256 and N=512).
+- Cap_map treatment: MIDDLE_BAND label correct; 'N-dependence present' phrase inaccurate.
+
+**Decision (1): MoE SHIFT/PARTITION v3 FULL -> HARD-PASS; MoE SHIFT mechanism CONFIRMED.**
+exp_wave14_moe_shift_partition_v3 FULL (N=4096, K=[1,2,4,8], 5 seeds, 3639s GPU). Per pre-reg HARD-PASS bands: K=4 M=12800 lift=0.2052 > 0.15; K=8 M=12800 lift=0.3120 > 0.15. Mode-collapse Gini < 0.005 across all K=[4,8] cells. Pre-reg HARD-PASS conditions ALL MET. Algorithm emitted MIDDLE; pre-reg bands are authoritative per [[feedback-verdict-msg-honest-reread]]; HARD-PASS stands.
+Strategic: MoE SHIFT mechanism CONFIRMED at production scale (N=4096, 5 seeds). PARTITION arm (Arm B) provides minimal benefit (lift 0.003-0.032 vs SINGLE) -- routing SHIFT beats PARTITION decisively. MoE rebuild direction: SHIFT routing, not PARTITION. This is the load-bearing discriminator awaited since v211 commit.
+Cap_map: MoE SHIFT/PARTITION row: 'v211 in-flight' -> '🟢 SHIFT HARD-PASS CONFIRMED'. PARTITION arm closes (insufficient benefit; SINGLE baseline comparable). Framework reliability marginal +2 pp upper annotation: 48-64% (MoE SHIFT is architecture-level, not framework-level).
+
+**Decision (2): HiPPO-init W v1 FULL -> P1 HARD-FAIL on 3/3 seeds; framing CLOSED-NEGATIVE.**
+exp_wave14f_hippo_init_w_v1 FULL (N=4096, 3 seeds, 1629s GPU). P1: depth_ratio=1.00x on ALL 3 seeds (pre-reg HARD-FAIL: ratio <= 1.0x on ANY seed). P2: ndouble_ratio=1.000 = MIDDLE (not < 0.8 HARD-PASS; not >= 1.8 HARD-FAIL). P3: spectral_corr=0.993 across 3 seeds = HARD-PASS.
+Per pre-reg cap_map outcome for P1 HARD-FAIL: 'close HiPPO-init W as inapplicable'. P2 characterization: N-doubling provides LINEAR scaling (not SSM-bound); substrate is NOT in the regime where N-doubling is insufficient. P3 finding: post-Hebbian W implicitly learns HiPPO-like eigenspace (spectral convergence, not by initialization).
+Cap_map: Open new row 'HiPPO-init W chain-cleanup' as CLOSED-NEGATIVE (P1 HARD-FAIL all seeds). P3 spectral finding annotated as 'Hebbian training converges to HiPPO-like eigenspace regardless of init; init provides no additional benefit'. P2 N-doubling characterization annotated as 'linear N-scaling in depth; NOT SSM-bound per Jelassi MIDDLE regime'.
+PROT-004 (1 closure): 5 rescue sketches:
+1. (SUBSUMPTION) P3 implicit HiPPO convergence: annotate into depth/Cap3 rows as spectral characterization. Zero cost.
+2. (CHEAP CPU) HiPPO-init as warm-start: test convergence SPEED (not final depth). Pre-reg: convergence epochs with HiPPO-init vs random.
+3. (CHEAP CPU) HiPPO-init on REPLAY W: inter-phase consolidation arm (H-A) has temporal dynamics potentially receptive to long-range HiPPO structure.
+4. (CPU/GPU) Test at K >= 8 (d-cliff regime per v60). HiPPO benefit may be regime-specific; K=12 probe is sub-cliff.
+5. (THEORETICAL) Spectral regularization forcing W to remain in HiPPO basis throughout Hebbian training; would make HiPPO a structural constraint not just emergent result.
+
+**Decision (3): betB_2tier_coarse_analysis_v1 -> 2TIER_HARD_PASS; binary taxonomy CONFIRMED at cell level.**
+Pure re-analysis (elapsed=0.015s, N=99 data points from betB_shift_class_full_replication_v1). Silhouette=0.788 >= 0.70, CIs non-overlapping (HIGH [0.848, 0.863] vs LOW [0.673, 0.715]), KW p=0.0005. All pre-reg HARD-PASS conditions met.
+Cap_map: Bet B discrete-class taxonomy row: upgrade from 'GROUP-LEVEL CONFIRMED' to 'CELL-LEVEL CONFIRMED, binary taxonomy (2-tier silhouette=0.788, non-overlapping CIs at 95%)'. Row state UNCHANGED (🟢 mechanism characterization enriched).
+
+**Decision (4): betB_nscaling_v1 SMOKE -> NO CAP_MAP ACTION.**
+Smoke at N=512 (NOT N=8192 as labeled). NSCALING_HARD_FAIL label is scope-misattributed. Full N=8192, 5 seeds RUNNING on remote. Await.
+
+**Decision (5): Remaining smoke verdicts -- annotation only, no row-state changes.**
+- betB_rd_perturbation_recovery_v1 smoke: RD_MIDDLE_BAND. Lambda negative. Full PENDING.
+- beti_depth_polylog_v1 smoke: MIDDLE_BAND (NO N-dependence at smoke). Full PENDING.
+- betB_replay_hA_direct_v1 smoke: HA_MIDDLE lift=0.028. Single seed N=512. Full PENDING.
+- saddle_cascade_plateau_v3 smoke: CASCADE_HARD_PASS directionally. Full RUNNING.
+- moe_shift_K_scaling_v1 smoke: MIDDLE_BAND. Anomaly: Arm_C INCREASES with K while Arm_A DECREASES. No full pre-reg.
+
+**PROT compliance (v212):**
+- PROT-004: 1 new closure (HiPPO-init W). 5 rescue sketches filed (Decision 2). Cheap-first sequencing honored.
+- PROT-007: history.md v212 block written BEFORE cap_map.md v212 update.
+- PROT-008: validate_capmap_commit.py run before commit.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically.
+- 2 labeled-vs-honest findings surfaced per [[feedback-verdict-msg-honest-reread]].
+- Per [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- Per [[feedback-no-experiment-design-in-prompts]]: rescue sketches named WITHOUT design parameters.
+- Per [[feedback-obey-user-pause-explicitly]]: no queue refill (user explicit directive in dispatch prompt).
+
+Net cap_map effect v211 -> v212: 3 actionable verdicts. (1) MoE SHIFT HARD-PASS: 'in-flight' -> CONFIRMED routing-architecture; (2) HiPPO-init: CLOSED-NEGATIVE + P3 spectral characterization + P2 N-scaling characterization; (3) Bet B 2-tier HARD-PASS: GROUP-LEVEL -> CELL-LEVEL taxonomy confirmation. 0 Tier-1 capability row-state promotions. 1 new closure. Framework reliability marginal upper-bound annotation +2 pp. 125th PROT-009 paired commit.

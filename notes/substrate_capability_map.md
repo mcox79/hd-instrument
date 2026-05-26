@@ -551,6 +551,9 @@ the next PROT-007 migration cycle.
 | v207 | 2026-05-26 | BATCHED 5-VERDICT: Bet B Alt 3 PAC-Bayes Laplace CLOSED; MoE alpha_c v2 marginal hard-fail; Pred-4 v2 TIMEOUT; SHIFT/PARTITION v1 OOM; 4-corpus v3 already-processed | 1 Closed-Negative (Alt 3); all 3 Bet B rescues resolved; discrete-class framing locked |
 | v208 | 2026-05-26 | ANNOTATION-ONLY: MoE alpha_c BAND_RIGHT_INSTRUMENTATION_FAIL reframe; Bet B Alt 4 ruled out; free-prob MoE discriminator NEW; Pred-4 v3 in-flight | 6 annotation moves; Alt 4 pre-ship ruled out; free-additive top-edge discriminator added; Pred-4 v3 smoke PASS in flight |
 | v209 | 2026-05-26 | REPLAY mechanism: H-C effective-N-doubling REFUTED (replay > 2x data) | wave14_betB_replay_hC_scaling_v1 HC_REPLAY_EXCEEDS_2X: ret_replay=0.845 ret_2x=0.679 diff=+0.165 >> 0.04 PASS-band; replay is NOT trivial data augmentation; H-A consolidation favored over H-B (companion hB INCONCLUSIVE direct_lift=0.123 < 0.15 threshold); annotation-only; 122nd PROT-009 commit |
+| v210 | 2026-05-26 | MIXED VERDICT BATCH: Bet N ATOM_MODE_FLEXIBILITY NEW Tier-2 row; recurrent-cleanup-head K6 CLOSED; linear-primary corroborated; portfolio 13 -> 14 | P1 HARD_PASS util=0.923; P2 MIDDLE ratio_M2000=0.974; P3 INSTRUMENTATION-SUSPECT; recurrent K6 lift=-1.000 4/4 cells; 123rd PROT-009 commit |
+| v211 | 2026-05-26 | BATCHED 7-VERDICT: alpha_c v3 in-band CONFIRMED; 1-RSB hysteresis v3 CONFIRMED; REPLAY H-A LOCKED zero-sum; Bet N STRONG_PARTIAL + NLP-genericity; free-additive top-edge INCONCLUSIVE; 2 INSTRUMENTATION-FAIL; framework reliability 40-55 -> 48-62 | FIRST DOUBLE-POSITIVE framework level: 1-RSB + Saad-Solla complementarity; MoE rebuild prereq UNBLOCKED; portfolio 14+7 ev-strength; 124th PROT-009 commit |
+| v212 | 2026-05-26 | BATCHED VERDICT: MoE SHIFT HARD-PASS CONFIRMED (K=4 lift=0.205 K=8 lift=0.312); HiPPO-init W CLOSED-NEGATIVE P1 HARD-FAIL 3/3 seeds; Bet B 2-tier CELL-LEVEL CONFIRMED silhouette=0.788 | Label-honest override: MOE_SHIFT_MIDDLE -> HARD-PASS per pre-reg bands; 1 PROT-004 closure + 5 rescues; spectral HiPPO convergence finding; framework reliability 48-64% upper; 125th PROT-009 commit |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -17074,3 +17077,59 @@ Net effect v210: 6 capability move rows (1 NEW 🟢 PARTIAL Tier-2 row +1 portfo
 BATCHED 7-VERDICT v210 -> v211: (1) alpha_c v3 -> 🟢 CONFIRMED dense-grid in-band (5/5 seeds alpha_c=0.5625; bands defensible; MoE rebuild prereq UNBLOCKED); (2) 1-RSB hysteresis v3 -> 🟢 CONFIRMED first-order signature (gap=1.8423 = 18x gate; closes at capacity boundary); (3) REPLAY H-B v2 -> H-A LOCKED zero-sum (5/5 collateral_lift NEGATIVE; ret_held<ret_noreplay; ZERO-SUM transfer characterization); (4) Bet N v2 -> 🟢 STRONG_PARTIAL Tier-2 (P2 MIDDLE 1.061 -> HARD_PASS 34.698 = 300x; NLP-genericity finding); (5) free-additive top-edge v1 -> 🔬 INCONCLUSIVE finite-N (systematic 2x offset; N=16384 retry flagged); (6) WF tau_p reship -> INSTRUMENTATION-FAIL (metric floor at 2 epochs; redesign flagged); (7) saddle-cascade v2 -> INSTRUMENTATION_FAIL TIMEOUT (2/7 f-points; v3 redesign flagged); (8) framework reliability 40-55% -> 48-62% (FIRST DOUBLE-POSITIVE 1-RSB + Saad-Solla complementarity); (9) Combined Tier-1 P 42-58% -> 50-65%; (10) Portfolio 14 demonstrated + 7 evidence-strength rows (+1 ev-strength: 1-RSB CONFIRMED); 5 v211 NEW pre-reg items; 124th PROT-009 paired commit.
 
 Net effect v211: 10 capability move rows (4 promotions; 1 mechanism characterization; 1 INCONCLUSIVE annotation; 2 INSTRUMENTATION-FAIL flagged for redesign; 1 prereq UNBLOCK; 1 framework reliability upgrade). FIRST framework-level double-positive. Portfolio +1 evidence-strength (1-RSB).
+
+## v212 - (2026-05-26) BATCHED VERDICT: MoE SHIFT HARD-PASS CONFIRMED; HiPPO-init W CLOSED-NEGATIVE; Bet B 2-tier binary taxonomy CELL-LEVEL CONFIRMED; 5 smoke verdicts annotation-only
+
+### Capability moves (v211 -> v212)
+
+| Capability | v211 state | v212 state | Trigger |
+|---|---|---|---|
+| MoE SHIFT/PARTITION routing architecture | v211: 'SHIFT/PARTITION v3 in overnight_queue; alpha_c prereq UNBLOCKED; load-bearing discriminator pending' | **MoE SHIFT HARD-PASS CONFIRMED** (label-honest override of MOE_SHIFT_MIDDLE). K=4 M=12800: lift_A=0.2052 > 0.15; K=8 M=12800: lift_A=0.3120 > 0.15. Mode-collapse Gini < 0.005 all K=[4,8] cells. PARTITION arm negligible (lift 0.003-0.032 vs SINGLE). Pre-reg HARD-PASS conditions met; algorithm label overridden per Step 0 honest re-read and [[feedback-verdict-msg-honest-reread]]. MoE rebuild direction LOCKED: SHIFT routing (context-shift expert assignment); PARTITION provides insufficient benefit. | wave14_moe_shift_partition_v3 HARD-PASS (pre-reg authoritative; N=4096 5 seeds 3639s) |
+| HiPPO-init W chain-cleanup (new probe row from smoke) | v211: smoke P1_HARD_FAIL P2_SKIP P3_HARD_PASS; full run in overnight_queue | **CLOSED-NEGATIVE: P1 HARD-FAIL 3/3 seeds at N=4096.** depth_ratio=1.000 on all 3 seeds (depth_hippo=200 = depth_random=200). HiPPO-LegS initialization of W provides NO chain-cleanup depth benefit over random init. Per pre-reg: 'close HiPPO-init W as inapplicable'. P2 MIDDLE: ndouble_ratio=1.000 (linear N-scaling; NOT in SSM recall-bound Jelassi regime). P3 HARD-PASS: spectral_corr=0.993 (Hebbian training converges to HiPPO-like eigenspace regardless of init). PROT-004: 1 new closure; 5 rescue sketches filed in strategy_decisions v212 entry (cheap-first: subsumption annotation, warm-start speed test, REPLAY-W probe, K>=8 regime, spectral regularization). | wave14f_hippo_init_w_v1 P1_HARD_FAIL 3/3 seeds (N=4096, d_max=200, 1629s) |
+| Implicit HiPPO-like eigenspace in post-Hebbian W | (no prior row) | **NEW ANNOTATION: P3 spectral characterization.** spectral_corr=0.993 between top-32 SVs of HiPPO-init W and post-Hebbian random-init W across 3/3 seeds. Hebbian rule implicitly learns HiPPO-LegS temporal-memory eigenstructure regardless of initialization. Annotated into depth/Cap3 characterization rows; not a new capability row. | wave14f_hippo_init_w_v1 P3_HARD_PASS spectral_corr=0.993 |
+| Chain-cleanup N-scaling characterization | (implicit) | **NEW ANNOTATION: linear N-scaling regime.** ndouble_ratio=1.000 = depth_at_half scales linearly with N (NOT SSM-bound per Jelassi 2024 Theorem 2.7). Substrate in MIDDLE P2 regime: N-doubling provides proportional depth benefit (not sub-linear SSM-bound and not super-linear). Annotated as positive depth characterization. | wave14f_hippo_init_w_v1 P2_MIDDLE ndouble_ratio=1.000 |
+| Bet B discrete-class taxonomy (binary split) | v211: GROUP-LEVEL CONFIRMED (4-corpus equalspacing + REPLAY H-A zero-sum) | **CELL-LEVEL CONFIRMED: binary 2-tier taxonomy.** silhouette=0.788 >= 0.70; HIGH tier [0.848, 0.863] vs LOW tier [0.673, 0.715] with NON-OVERLAPPING CIs; KW p=0.0005. Pre-reg HARD-PASS all conditions met. The fundamental HIGH/LOW split (same-corpus-load vs cross-corpus-or-multi-stage-load) is confirmed at PER-CELL 95% CI level, not just group-level omnibus. Row state UNCHANGED (mechanism characterization enriched: GROUP-LEVEL + CELL-LEVEL both confirmed). | wave14_betB_2tier_coarse_analysis_v1 2TIER_HARD_PASS silhouette=0.788 |
+| Theoretical-home framework reliability | v211: 48-62% (first double-positive 1-RSB + Saad-Solla) | **48-64% (marginal upper-bound annotation only).** MoE SHIFT HARD-PASS confirms architecture works (routing mechanism is real). Does NOT test 1-RSB or Saad-Solla directly. +2 pp on upper bound only; center estimate unchanged. Constrained by saddle-cascade v3 running, 1-RSB one N, free-additive INCONCLUSIVE. | MoE SHIFT architecture confirmation |
+| substrate-product portfolio count | 14 demonstrated + 7 evidence-strength rows (v211) | **14 demonstrated UNCHANGED + 7 evidence-strength rows UNCHANGED.** MoE SHIFT is architecture confirmation (routing mechanism), not a new standalone demonstrated capability row. HiPPO-init closure is PROT-004 closure, not a capability demote. | v212 cycle |
+
+### Substrate-product positioning v212
+
+- **MoE rebuild direction LOCKED as SHIFT routing.** SHIFT provides 20-31% retention lift at K>=4 vs SINGLE baseline. PARTITION provides negligible benefit (0.3-3.2%). Product story: context-shift expert routing is the right MoE architecture for the substrate.
+
+- **HiPPO-init closed, implicit spectral convergence is positive.** Explicit HiPPO initialization does not help (CLOSED-NEGATIVE at P1). But the substrate's Hebbian learning rule NATURALLY converges to HiPPO-like spectral structure (P3 spectral_corr=0.993). The substrate has built-in temporal memory geometry; no special initialization needed.
+
+- **Bet B binary taxonomy confirmed at cell level.** The 2-tier HIGH/LOW split (silhouette=0.788, non-overlapping CIs) closes the "group-level only" caveat from v206-v211. Binary classifier for retention prediction is CI-defensible.
+
+### Pre-registered untested (carried forward v211 + v212 adds)
+
+Carried forward from v211:
+- v211 WF tau_p redesign (P_deflated 0.30).
+- v211 free-additive top-edge N=16384 retry (P_deflated 0.30; systematic 2x offset).
+- v210/v211 Bet N P3 harder-task probe + P2 M-sweep scope-expansion.
+- v211 MoE alpha_c grid-quantization discipline structural lock.
+
+New from v212:
+- **v212 OPEN**: betB_nscaling_v1 N=8192 FULL RUNNING on overnight_queue; full N=8192 verdict = v213 trigger.
+- **v212 OPEN**: saddle_cascade_plateau_v3 RUNNING on remote_cpu; v3 full result = v213 trigger.
+- **v212 OPEN**: betB_rd_perturbation_recovery_v1 PENDING on remote_cpu; RD-terrace discriminator full result pending.
+- **v212 OPEN**: beti_depth_polylog_v1 PENDING; Bet I 3rd envelope full result pending.
+- **v212 OPEN**: betB_replay_hA_direct_v1 PENDING; H-A inter-phase timing full result pending (5 seeds N=4096).
+- **v212 OPEN**: bet_n_wta_v3 PENDING; Bet N P3 corpus-adaptivity v3 full result pending.
+- **v212 OPEN (architecture)**: MoE SHIFT K-scaling anomaly characterization (SINGLE improves with K while SHIFT degrades; K-saturation point needed).
+- **v212 OPEN (PROT-004 HiPPO rescues)**: 5 sketches on hold; not auto-queued.
+
+### PROT compliance (v212)
+- PROT-004: 1 new closure (HiPPO-init W). 5 rescue sketches filed. Cheap-first sequencing per [[feedback-rescue-sketch-first-sequencing]]. Subsumption rescue (P3 spectral annotation) sequences first.
+- PROT-007: history.md v212 block written FIRST (verified).
+- PROT-008: validate_capmap_commit.py run before commit.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically.
+- [[feedback-verdict-msg-honest-reread]]: 2 over-claim labels found and overridden (MoE SHIFT MIDDLE -> HARD-PASS; nscaling smoke scope-mismatch).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-for-you-tab-primary-channel]]: status_log entries written this cycle.
+- [[feedback-no-experiment-design-in-prompts]]: rescue sketches named without design parameters.
+- [[feedback-obey-user-pause-explicitly]]: no queue refill (user explicit directive in dispatch).
+- 125th PROT-009 paired commit.
+
+BATCHED VERDICT v211 -> v212: (1) moe_shift_partition_v3 FULL -> MoE SHIFT HARD-PASS (pre-reg authoritative override of MIDDLE label; K=4 lift=0.205 K=8 lift=0.312 both exceed 0.15; PARTITION arm negligible; MoE rebuild direction SHIFT LOCKED); (2) hippo_init_w_v1 FULL -> CLOSED-NEGATIVE P1 HARD-FAIL 3/3 seeds (depth_ratio=1.000 all seeds) + P3 implicit spectral convergence (spectral_corr=0.993) + P2 linear N-scaling; PROT-004 5 rescues; (3) betB_2tier_coarse_analysis_v1 -> CELL-LEVEL CONFIRMED binary taxonomy silhouette=0.788 CIs non-overlapping; (4) 5 smoke verdicts annotation-only (nscaling at N=512 NOT N=8192; saddle-cascade v3 directionally positive; RD MIDDLE; polylog MIDDLE no-N-dependence; H-A MIDDLE single-seed); (5) framework reliability 48-62% -> 48-64% upper only; portfolio 14+7 UNCHANGED; 1 PROT-004 closure; 0 Tier-1 promotions; 125th PROT-009 paired commit.
+
+Net effect v212: 5 capability move entries (1 architecture CONFIRMED; 1 CLOSED-NEGATIVE; 2 NEW spectral/scaling characterization annotations; 1 taxonomy enrichment). 0 Tier-1 row-state changes. 0 portfolio count changes. 1 PROT-004 closure + 5 rescues. Framework reliability upper bound +2 pp annotation.

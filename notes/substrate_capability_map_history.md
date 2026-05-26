@@ -8323,3 +8323,73 @@ Batched 7-verdict bump: 8 capability move rows. 4 promotions (alpha_c annotation
 NOTE for orchestrator: post-commit, push the 3-file commit to remote (per [[feedback-cap-map-update-protocol]]; dashboard reads from remote). NO queue refill triggered by this cycle (user directive). MoE SHIFT/PARTITION v3 IN FLIGHT at remote -- verdict_handler cycle pending its completion.
 
 History ref: see cap_map.md v211 block for condensed narrative.
+
+## v212 - (2026-05-26) BATCHED 3-VERDICT (FULL): MoE SHIFT HARD-PASS CONFIRMED; HiPPO-init W CLOSED-NEGATIVE; Bet B 2-tier binary taxonomy CELL-LEVEL CONFIRMED; 5 smoke verdicts annotation-only; HiPPO PROT-004 closure + 5 rescues; framework reliability 48-62% -> 48-64%
+
+### Overview
+
+This cycle processes the first batch of completed experiments since v211. Three decisive full-scale verdicts and five smoke-level verdicts (annotated but no row-state change).
+
+**Step 0 honest re-reads found 2 label discrepancies:**
+1. moe_shift_partition_v3: labeled MOE_SHIFT_MIDDLE, but per pre-registered bands K=4 lift=0.205 and K=8 lift=0.312 both exceed the 0.15 HARD-PASS threshold. HARD-PASS is the authoritative reading.
+2. betB_nscaling_v1: verdict_msg claims "N=8192 4-class taxonomy FAILS" but experiment ran at N=512 (smoke scale). Full N=8192 still running. No cap_map action.
+
+### Capability moves (v211 -> v212)
+
+| Capability | v211 state | v212 state | Trigger |
+|---|---|---|---|
+| MoE SHIFT/PARTITION routing rebuild (architecture) | v211: 'v211 in-flight' annotation; alpha_c prereq UNBLOCKED; SHIFT/PARTITION v3 in overnight_queue | **🟢 SHIFT HARD-PASS CONFIRMED** (K=4 lift=0.205, K=8 lift=0.312 both exceed 0.15 pre-reg gate; mode-collapse Gini<0.005; 5 seeds N=4096). PARTITION arm provides minimal benefit (lift 0.003-0.032 vs SINGLE across ALL cells). MoE rebuild direction LOCKED: SHIFT routing (context-shift expert assignment) is the load-bearing mechanism; PARTITION (disjoint expert sets) does not justify rebuild complexity. | wave14_moe_shift_partition_v3 HARD-PASS (honest-read override of MOE_SHIFT_MIDDLE label) |
+| HiPPO-init W chain-cleanup capability | v211: NEW probe row (smoke: P1_HARD_FAIL P2_SKIP P3_HARD_PASS smoke) | **❌ CLOSED-NEGATIVE: P1 HARD-FAIL on 3/3 seeds FULL scale.** depth_ratio=1.000 across all 3 seeds at N=4096 (pre-reg: HARD-FAIL if ANY seed has ratio <= 1.0x). HiPPO-LegS initialization of W provides NO chain-cleanup depth benefit vs random initialization. P2 MIDDLE: ndouble_ratio=1.000 = linear N-scaling (substrate NOT in SSM recall-bound regime; N-doubling provides proportional benefit). P3 HARD-PASS: spectral_corr=0.993 = Hebbian training converges to HiPPO-like eigenspace REGARDLESS of init. PROT-004: 5 rescue sketches filed in strategy_decisions v212 entry. | wave14f_hippo_init_w_v1 P1_HARD_FAIL 3/3 seeds |
+| HiPPO-like spectral structure in post-Hebbian W | (no prior row) | **NEW ANNOTATION: Hebbian training implicitly learns HiPPO-like eigenspace.** spectral_corr=0.993 between top-32 singular values of HiPPO-init W and post-Hebbian random-init W across all 3 seeds. This is a characterization of the substrate's learned geometry: the Hebbian rule converges to eigenvectors consistent with HiPPO-LegS temporal memory structure, independent of initial conditions. Not a new capability row; annotated as depth/Cap3 eigenspace characterization. | wave14f_hippo_init_w_v1 P3_HARD_PASS spectral_corr=0.993 |
+| N-scaling of chain-cleanup depth | (implicit in Cap3 rows) | **NEW ANNOTATION: Linear N-scaling (NOT SSM-bound).** ndouble_ratio=1.000 = depth_at_half scales linearly with N (doubling N doubles depth). Substrate is NOT in the Jelassi 2024 SSM recall-bound regime where N-doubling cannot rescue depth. This MIDDLE regime (between HARD-PASS < 0.8 and HARD-FAIL >= 1.8) is a positive substrate characterization: depth scales predictably with N. | wave14f_hippo_init_w_v1 P2_MIDDLE ndouble_ratio=1.000 |
+| Bet B discrete-class taxonomy (binary 2-tier) | v211: GROUP-LEVEL CONFIRMED (v206 4-corpus equalspacing + v211 REPLAY H-A zero-sum) | **CELL-LEVEL CONFIRMED: 2-tier binary taxonomy** (silhouette=0.788 >= 0.70; HIGH [0.848, 0.863] vs LOW [0.673, 0.715] CIs non-overlapping; KW p=0.0005). The fundamental binary split (HIGH = same-corpus load / LOW = cross-corpus or multi-stage load) is confirmed at per-cell CI level, not just at group omnibus level. Row state UNCHANGED (🟢 mechanism characterization enriched). | wave14_betB_2tier_coarse_analysis_v1 2TIER_HARD_PASS silhouette=0.788 |
+| Theoretical-home framework reliability | v211: 🟢 48-62% (first double-positive 1-RSB + Saad-Solla) | **🟢 48-64% (marginal upper-bound annotation only)**. MoE SHIFT HARD-PASS is a Tier-2 architecture confirmation (routing mechanism works); it does NOT test the 1-RSB or Saad-Solla theoretical homes directly. Marginal +2 pp annotation on upper bound only; center estimate unchanged. Constrained by same factors as v211 (saddle-cascade v3 in flight; 1-RSB one N; free-additive INCONCLUSIVE). | MoE SHIFT architecture confirmation |
+| substrate-product portfolio count | 14 demonstrated + 7 evidence-strength rows (v211) | **14 demonstrated UNCHANGED + 7 evidence-strength rows UNCHANGED**. MoE SHIFT is an architecture confirmation (routing works) not a new demonstrated capability row. HiPPO-init closure is a PROT-004 closure, not a portfolio demote. | v212 cycle |
+
+### PROT-004 compliance — HiPPO-init W closure
+
+New ❌ closure: HiPPO-init W chain-cleanup (P1 HARD-FAIL 3/3 seeds full scale).
+
+5 rescue sketches (cheap-first per [[feedback-rescue-sketch-first-sequencing]]):
+1. **SUBSUMPTION (zero cost)**: P3 finding (spectral_corr=0.993) annotated into existing depth/Cap3 rows as 'Hebbian training converges to HiPPO-like eigenspace; no initialization required'. Closes with existing substrate characterization.
+2. **CHEAP CPU**: HiPPO-init as warm-start for Hebbian convergence SPEED. If init accelerates epoch-to-criterion without improving final depth, there is a training-efficiency benefit. Pre-reg: convergence epochs to criterion vs random init.
+3. **CHEAP CPU**: HiPPO-init on REPLAY W (H-A inter-phase consolidation arm). Temporal dynamics of consolidation (sleep-like offline processing) may be receptive to HiPPO-LegS long-range temporal structure in ways the main W is not.
+4. **CPU/GPU**: K >= 8 regime probe (d-cliff regime per v60 cap_map). HiPPO benefit may be regime-specific; K=12 probe (pre-reg N=4096 with k_active not stated) may sit below the d-cliff where linear W is saturated.
+5. **THEORETICAL**: Spectral regularization to force W to maintain HiPPO basis throughout Hebbian training. If the substrate naturally converges to HiPPO eigenspace (P3), a constraint that enforces this DURING training might accelerate or stabilize convergence.
+
+### Substrate-product positioning v212
+
+- **MoE rebuild direction LOCKED**: SHIFT routing confirmed at production scale. PARTITION adds negligible benefit. The MoE product story is: context-shift expert routing at K>=4 provides 20-31% retention lift over single-expert baseline. This is a real architecture advantage with clear product interpretation (domain-specific expert assignment).
+
+- **HiPPO-init closed, but spectral finding is positive**: The closure is narrow -- HiPPO INITIALIZATION doesn't help, but the substrate's LEARNED geometry (post-Hebbian) is HiPPO-like. This validates the theoretical prediction while ruling out the engineering shortcut. Product story unchanged; substrate learns temporally-structured memory representations regardless of init.
+
+- **Bet B taxonomy locked at cell level**: The 2-tier binary (same-corpus-load vs cross-corpus-or-multi-stage) is now a per-cell CI-confirmed separation, not just a group-level effect. Product claim: retention is PREDICTABLY binary-classifiable (high vs low) by input configuration, without needing fine-grained 4-tier taxonomy for most use cases.
+
+### Pre-registered untested (carried forward v211 + v212 adds)
+
+Carried forward from v211:
+- v211 WF tau_p redesign (P_deflated 0.30).
+- v211 saddle-cascade v3 RUNNING on remote CPU (full results pending).
+- v211 free-additive top-edge N=16384 retry (P_deflated 0.30; systematic 2x offset).
+- v210 Bet N P3 harder-task probe (larger K or narrower-domain corpora).
+- v208 Bet N P2 M-sweep scope-expansion (P_deflated 0.30).
+
+New from v212:
+- **v212 OPEN (architecture probe)**: MoE SHIFT K-scaling characterization at production N=4096. Smoke showed SINGLE improves with K while SHIFT degrades -- this K-regime anomaly warrants a fuller sweep with 5 seeds to characterize the K-saturation point for SHIFT mechanism.
+- **v212 OPEN (envelope expansion)**: betB_nscaling_v1 N=8192 FULL RUNNING (will produce v213 verdict).
+- **v212 OPEN (full runs pending)**: saddle_cascade_plateau_v3, betB_rd_perturbation_recovery_v1, beti_depth_polylog_v1, betB_replay_hA_direct_v1, bet_n_wta_v3 all RUNNING or PENDING on remote; await v213+ cycle.
+- **v212 OPEN (PROT-004 HiPPO rescues)**: 5 rescue sketches on hold; not auto-queued per [[feedback-no-experiment-design-in-prompts]].
+
+### PROT-009 paired commit log
+- cap_map.md v212 + history.md v212 + strategy_decisions_2026-05-26.md v212 entry staged atomically.
+- per [[feedback-cap-map-update-protocol]]: "Cap map: v211 -> v212 (BATCHED VERDICT: MoE SHIFT HARD-PASS; HiPPO-init CLOSED; Bet B 2-tier CELL-LEVEL; 5 smoke annotations)" commit.
+- per PROT-007: history.md v212 written FIRST (this block).
+- per PROT-008: validate_capmap_commit.py run before commit.
+- per [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- per [[feedback-for-you-tab-primary-channel]]: status_log entries written this cycle.
+- per [[feedback-verdict-msg-honest-reread]]: 2 over-claim labels surfaced and corrected.
+- 125th PROT-009 paired commit.
+
+BATCHED VERDICT v211 -> v212: (1) MoE SHIFT/PARTITION v3 FULL -> HARD-PASS (label honest-read override: K=4 lift=0.205, K=8 lift=0.312 both >0.15; PARTITION arm negligible 0.003-0.032; MoE rebuild direction SHIFT LOCKED); (2) HiPPO-init W v1 FULL -> CLOSED-NEGATIVE P1 HARD-FAIL 3/3 seeds + P3 spectral convergence finding (substrate learns HiPPO eigenspace regardless of init) + P2 linear N-scaling characterization; PROT-004: 5 rescues filed; (3) Bet B 2-tier -> CELL-LEVEL CONFIRMED binary taxonomy silhouette=0.788 non-overlapping CIs; (4) 5 smoke verdicts annotation-only (saddle-cascade v3 directionally positive; nscaling smoke scope-mismatch; RD MIDDLE; polylog MIDDLE; H-A MIDDLE); (5) framework reliability 48-62% -> 48-64% upper-bound annotation only; 1 PROT-004 closure; 0 Tier-1 promotions; portfolio 14+7 UNCHANGED; 125th PROT-009 paired commit.
+
+Net effect v212: 5 capability move entries (1 architecture CONFIRMED; 1 CLOSED-NEGATIVE + PROT-004 rescues; 2 NEW characterization annotations; 1 mechanism enrichment). 0 portfolio count changes. Framework reliability upper bound annotation +2 pp. 5 smoke result annotations (no row-state changes).
