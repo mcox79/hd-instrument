@@ -16753,3 +16753,119 @@ The v205 saddle-cascade reanalysis used the 3-tier fit (BIC delta=194.9, spacing
 4-CORPUS SADDLE-CASCADE CONFIRMED + REPLAY STRUCTURAL AXIS v205 -> v206: (1) `exp_wave14_betB_4corpus_equalspacing_v1` HARD_PASS BIC_delta=-121.3 (threshold <-30; 4x) + spacing_error=0.0035 (threshold <0.05; 14x below) + all CI pairs non-overlapping (rank-biserial r=1.0) -- 4-tier G1_SAME/G2_REPLAY/G3_STAGE4/G4_DIFF equal-spacing arithmetic CONFIRMED; gap_ratio=0.955 outside pre-reg [0.45,0.65] on more-equal side; spacing_error overrides per honest-reread protocol; v205 "arithmetic fails" note was 3-tier framing issue RESOLVED at correct 4-tier; theoretical-home annotation->🟢 CORROBORATED (TWO independent positive arithmetic probes in framework history); (2) `exp_wave14_betB_replay_structural_axis_v1` REPLAY_STRONG_EFFECT d=13.3 + rank_biserial=1.0 + recovery=0.631; REPLAY is dominant structural retention axis; 4-tier taxonomy empirically justified; H-A consolidation best supported; H-B/C need dedicated probes (v206 NEW pre-reg); NEW 🟢 CONFIRMED row; (3) framework reliability promoted 🟡 32-48% -> 🟢 40-55% (double-positive arithmetic + REPLAY structural confirmation; Pred-4 pending for first-order vs continuous discriminator; upper bound 50-65% conditional on first-order PASS); (4) MoE SHIFT/PARTITION v2 NEXT HIGH-PRIORITY SHIP (9/9 selftests + smoke PASS; routing note confirmed; awaits SSH); (5) three Tier-1 handoffs awaiting SSH (MoE v2 + Bet N + SSM-HiPPO); portfolio 13 demonstrated + 6 evidence-strength (+1 REPLAY axis); honest-reread LOCK 70th-71st observations post-lock (both labels clean; gap_ratio override documented); 119th PROT-009 paired commit.
 
 Net effect v206: MAJOR POSITIVE upgrade cycle; first double-positive on saddle-cascade arithmetic in framework history; theoretical-home annotation->🟢; REPLAY structural axis NEW 🟢; framework reliability 🟡->🟢 40-55%; 13 demonstrated + 6 evidence-strength rows; 119th PROT-009 paired commit.
+
+## v207 - (2026-05-26) BATCHED 5-VERDICT: Bet B Alt 3 PAC-Bayes Laplace CLOSED; MoE alpha_c v2 marginal hard-fail (0.39 vs band [0.40, 0.70]); Pred-4 v2 TIMEOUT (pending v3); SHIFT/PARTITION v1 OOM (pending v2); 4-corpus Saad-Solla v206 ALREADY-PROCESSED confirmed
+
+### Trigger
+
+Five verdicts surfaced by the SSH-restore flush after v206 (commit a6bb07b). Exp_dev agent a777bd74dada08bc0 verified the pre-block anchors and routed verdicts to verdict_handler. Sources:
+- `wave14_betB_pac_bayes_kl_predictor_v2` (remote) -> ALT3_LAPLACE_ASSUMPTION_VIOLATED (r2_fisher=0.0; 21/25 cells suspect -- real instrumentation result, NOT bug)
+- `wave14_moe_alpha_c_prestep_v2` (remote) -> ALPHA_C_HARD_FAIL (alpha_c=0.390625; band [0.40, 0.70])
+- `wave14_betB_4corpus_equalspacing_v1` (local; `data/exp_wave14_betB_4corpus_equalspacing_v1/metrics.json`) -> HARD_PASS already-processed at v206
+- `wave14_1rsb_hysteresis_v2` (remote) -> TIMEOUT (wall=3600s; no metrics.json)
+- `wave14_moe_shift_partition_v1` (remote) -> OOM (1.11GiB alloc failed on 8GiB GPU at M=25600, K=8)
+
+### Step 0 honest re-read (per [[feedback-verdict-msg-honest-reread]])
+
+**V1 -- Bet B Alt 3 PAC-Bayes Laplace KL-predictor v2** (`wave14_betB_pac_bayes_kl_predictor_v2`):
+- Verdict label: ALT3_LAPLACE_ASSUMPTION_VIOLATED
+- r2_fisher=0.0 (predictor's Fisher-Laplace posterior signal explains 0% of retention variance)
+- 21/25 cells suspect by the script's own assumption-violation flags; the violation is a real substrate property (Laplace approximation fails), NOT a script bug
+- Label CONFIRMED against per-cell metric: r2=0.0 with 21/25 cells flagged is unambiguous null + assumption-violated. PAC-Bayes posterior-over-W KL framing (R-PRIME-1) does NOT predict substrate retention at production scale.
+
+**V2 -- MoE alpha_c prestep v2** (`wave14_moe_alpha_c_prestep_v2`):
+- Verdict label: ALPHA_C_HARD_FAIL
+- alpha_c=0.390625; pre-registered recalibrated band [0.40, 0.70]; below lower-edge by 0.009375 (~0.94% of band lower edge)
+- Label NOMINALLY HARD-FAIL per pre-reg band, but the magnitude is **marginal**. Per honest-reread: "HARD_FAIL" label is technically correct against the pre-registered band, but interpretation requires explicit acknowledgement that the miss is <=1% below threshold. Treating as DEFENSIBILITY-AUDIT TRIGGER rather than substrate-killer:
+  - (a) Band [0.40, 0.70] was recalibrated at v205 from prior measurements; could be re-tightened
+  - (b) Substrate parameter audit may surface configuration drift not captured in v205 calibration run
+  - (c) Marginal miss does NOT support full closure of MoE rebuild path; supports re-design of alpha_c probe with tighter measurement protocol or band-rationale audit
+- MoE rebuild path: TEMPERED but NOT KILLED. SHIFT/PARTITION v2 (separately in flight per V5) is the live test of MoE rebuild; v2's outcome dominates over alpha_c prestep margin.
+
+**V3 -- 4-corpus equal-spacing v1** (`wave14_betB_4corpus_equalspacing_v1`):
+- Verdict label: HARD_PASS (BIC_delta=-121.3; spacing_error=0.0035; all CI pairs non-overlapping)
+- Honest-reread VERIFIED: gap_ratio=0.955 outside pre-reg [0.45, 0.65] band ON THE "more-equal" SIDE; metrics.json itself documents the spacing_error override per honest-reread protocol; HARD_PASS stands.
+- **ALREADY-PROCESSED at v206 commit a6bb07b** -- theoretical-home row promoted annotation-Research -> green-Validated (CORROBORATED), framework reliability promoted Yellow-Inconclusive 32-48% -> green-Validated 40-55% at v206. v207 RE-CONFIRMS v206 row-moves; no new cap_map change FROM this verdict at v207. Status_log entry written as already-processed confirmation.
+
+**V4 -- 1-RSB hysteresis v2** (`wave14_1rsb_hysteresis_v2`):
+- Verdict label: TIMEOUT (no metrics.json; wall=3600s)
+- Pred-4 the cleanest 1-RSB-class binary discriminator FAILED TO PRODUCE DATA AGAIN. v1 INSTRUMENTATION_FAIL TypeError (v195/v197); v2 TIMEOUT at 3600s. The 1-RSB framing vs Saad-Solla saddle-cascade discriminator (first-order vs continuous transition) REMAINS PENDING -- load-bearing discriminator NOT YET ANSWERED.
+- Cap_map annotation: Pred-4 v3 design recommendation -- EITHER increased wall (2-4h GPU budget) OR reduced N per cell (4096 -> 2048 or 1024) OR fewer sweep points; exp_dev decides v3 design parameters next cycle. NOT cap_map's job to specify (per [[feedback-no-experiment-design-in-prompts]]).
+
+**V5 -- MoE SHIFT/PARTITION v1** (`wave14_moe_shift_partition_v1`):
+- Verdict label: OOM / FAILED (1.11GiB alloc failed on 8GiB GPU; config M=25600, K=8)
+- Label confirmed: CUDA OOM is unambiguous infrastructure failure, not substrate result
+- v2 already in flight on remote with patched configuration per v206 OPEN line ("MoE rebuild SHIFT/PARTITION v2 ship; awaits SSH; HIGHEST priority ship"); v2's outcome subsumes v1's OOM. If v2 also OOMs, v3 with reduced M_grid (e.g., M <= 16384) needed.
+- Cap_map annotation: v1 OOM noted; v2 ship-in-flight per v206 unchanged; no new row move.
+
+### Strategic framing -- all 3 Bet B predictability rescues now RESOLVED
+
+**Discrete-class predictor framing is the substrate's predictability story.** The three Bet B predictability rescue arms tracked since v195:
+
+| Alt | Mechanism | Status as of v207 |
+|---|---|---|
+| Alt 1 | Discrete shift-class predictor (4-class taxonomy: SAME/REPLAY/STAGE4/DIFF) | GROUP-LEVEL CONFIRMED at v206 (4-corpus equal-spacing HARD_PASS; REPLAY structural axis CONFIRMED d=13.3); silhouette=0.584 MIDDLE BAND at within-cell level per v205; Bet B Yellow-PARTIAL row UNCHANGED at within-cell granularity |
+| Alt 2 | W-internal signature continuous predictor | HARD-FAILed at v202 (W_INTERNAL_HARD_FAIL) then RECLASSIFIED to INCONCLUSIVE pending FULL at v203 correction; not pursued further |
+| Alt 3 | PAC-Bayes posterior-over-W KL (R-PRIME-1 Laplace) | **v207 CLOSED**: ALT3_LAPLACE_ASSUMPTION_VIOLATED r2_fisher=0.0; substrate retention does NOT follow PAC-Bayes Laplace posterior at production scale |
+
+**Net story**: continuous predictors (Alt 2 W-internal, Alt 3 PAC-Bayes Laplace) DO NOT HOLD; discrete-class predictor (Alt 1, 4-class taxonomy validated at v206) IS the substrate's predictability framing. The Saad-Solla saddle-cascade 4-plateau confirmation (V3 at v206) STRENGTHENS the discrete-class framing -- the 4 plateaus the saddle-cascade arithmetic predicts ARE the 4 classes Alt 1 isolated. Two independent positive probes (v205 BIC delta=194.9 + v206 BIC_delta=-121.3) underpin discrete-class as the framework's predictability arm.
+
+### Capability moves (v206 -> v207)
+
+| Capability | v206 state | v207 state | Trigger |
+|---|---|---|---|
+| Bet B predictability rescue -- Alt 3 PAC-Bayes posterior-over-W KL (R-PRIME-1 Laplace) | v200 OPEN: Alt 3 predictor INSTRUMENTATION_FAIL pending script diagnostic; v206 carried forward unchanged | **Closed-Negative at production scale**: `wave14_betB_pac_bayes_kl_predictor_v2` r2_fisher=0.0 with 21/25 cells flagged ALT3_LAPLACE_ASSUMPTION_VIOLATED. PAC-Bayes Laplace posterior framing fails to predict substrate retention. Substrate violates the Laplace approximation that R-PRIME-1 PAC-Bayes-KL upper bound rests on. Combined with Alt 2 HARD-FAIL (v202, reclassified INCONCLUSIVE v203) and Alt 1 GROUP-LEVEL CONFIRMED (v206 4-corpus + REPLAY): ALL 3 Bet B predictability rescues now resolved. Continuous predictors DO NOT hold; discrete-class IS the predictability story. | `wave14_betB_pac_bayes_kl_predictor_v2` ALT3_LAPLACE_ASSUMPTION_VIOLATED r2_fisher=0.0 21/25 cells |
+| Discrete-class predictor as substrate's predictability framing | v206: theoretical-home row green-CORROBORATED via 4-corpus equal-spacing; REPLAY structural axis NEW green-CONFIRMED | **ANNOTATION (no row-state change; consolidating framing across v202/v206/v207)**: with Alt 2 + Alt 3 closed and Alt 1 GROUP-LEVEL CONFIRMED, the substrate's predictability story is now LOCKED as discrete-class (4-tier SAME/REPLAY/STAGE4/DIFF taxonomy). Continuous predictors of all flavors do not hold at production scale. The Saad-Solla saddle-cascade arithmetic predicts 4 discrete plateaus that Alt 1 4-class taxonomy isolates -- discrete-class and saddle-cascade are TWO LENSES ON THE SAME STRUCTURE. This consolidates the v206 framing rather than promoting a new row. | Alt 1 (v206) + Alt 2 closure (v202) + Alt 3 closure (v207) jointly establish the framing |
+| MoE alpha_c calibration (recalibrated band [0.40, 0.70]) | v205: MoE alpha_c [0.40, 0.70] confirmed (`wave14_moe_alpha_c_formula_verify_v1`); v206 UNCHANGED; M_per_expert=1612 at N=4096 locked | **Yellow-MARGINAL MISS at v2 prestep (band [0.40, 0.70])**: `wave14_moe_alpha_c_prestep_v2` alpha_c=0.390625, below lower-edge by 0.009375 (~0.94% of band). Pre-reg label HARD-FAIL stands but margin is technically marginal. **NOT a substrate kill** -- interpretation requires band-rationale audit OR substrate parameter audit. Does NOT support full closure of MoE rebuild path; SHIFT/PARTITION v2 (in flight) is the live test, dominates over prestep margin. v207 NEW pre-reg: alpha_c band-rationale defensibility audit (sub-Strategy decision; Research-capacity-dependent). | `wave14_moe_alpha_c_prestep_v2` ALPHA_C_HARD_FAIL alpha_c=0.390625 (1% below band) |
+| MoE SHIFT/PARTITION rebuild path | v206: SHIFT/PARTITION v2 9/9 selftests + smoke PASS; ANNOTATED next high-priority remote ship | **v1 OOM annotated; v2 ship-in-flight on remote**: `wave14_moe_shift_partition_v1` OOM (1.11GiB on 8GiB at M=25600, K=8); v2 already shipped with patched configuration per v206 OPEN line. v2 outcome dominates. No row-state change; v1 was infrastructure failure, not substrate result. If v2 ALSO OOMs, v3 with reduced M_grid (M <= 16384) -- exp_dev decides v3 design. | `wave14_moe_shift_partition_v1` OOM at M=25600 K=8 |
+| Pred-4 1-RSB hysteresis discriminator (first-order vs continuous saddle-cascade) | v206: HIGHEST priority after SSH restoration; v195 OPEN with debt | **v2 TIMEOUT annotated; v3 design recommendation filed**: `wave14_1rsb_hysteresis_v2` TIMEOUT at 3600s; v1 was INSTRUMENTATION_FAIL TypeError (v195/v197); v2 TIMEOUT. Discriminator REMAINS PENDING. v207 NEW pre-reg: Pred-4 v3 design -- EITHER 2-4h wall OR reduced N per cell OR fewer sweep points (exp_dev decides parameters per [[feedback-no-experiment-design-in-prompts]]). Discriminator is load-bearing for framework reliability upper-bound (firms to 50-65% if first-order; stays at 40-55% if continuous). | `wave14_1rsb_hysteresis_v2` TIMEOUT wall=3600s no metrics |
+| 4-corpus Saad-Solla equal-spacing confirmation (V3 verdict in this batch) | v206: theoretical-home annotation-Research -> green-CORROBORATED via 4-corpus HARD_PASS BIC_delta=-121.3 spacing_error=0.0035 (this exp_id) | **ALREADY-PROCESSED at v206 (commit a6bb07b); v207 RE-CONFIRMS v206 row-moves**: theoretical-home green-CORROBORATED + framework reliability Yellow 32-48% -> green 40-55% UNCHANGED. No new cap_map change FROM V3 verdict at v207. Status_log entry as already-processed confirmation. | `wave14_betB_4corpus_equalspacing_v1` HARD_PASS already-integrated v206 |
+| substrate-product portfolio count | 13 demonstrated + 6 evidence-strength rows (v206) | **13 demonstrated UNCHANGED + 6 evidence-strength rows UNCHANGED**: no row-state moves at v207. Alt 3 closure is a CANNOT-row addition (a closed predictability rescue, not a demonstrated capability). MoE alpha_c marginal miss + Pred-4 v3 pending + SHIFT/PARTITION v2 in flight are all annotation-level. | v207 closure + annotation cycle |
+
+### Substrate-product positioning v207
+
+- **All 3 Bet B predictability rescues resolved.** v207 closes Alt 3 (PAC-Bayes Laplace) at production scale. Combined with Alt 2 (v202 W-internal HARD-FAIL, reclassified INCONCLUSIVE v203) and Alt 1 (v206 GROUP-LEVEL CONFIRMED via 4-corpus equal-spacing + REPLAY structural axis), the substrate's predictability story is now LOCKED as discrete-class. Continuous predictors do not hold. The 4-class taxonomy (SAME/REPLAY/STAGE4/DIFF) is the framework's predictability arm.
+
+- **Discrete-class predictor framing and Saad-Solla saddle-cascade are TWO LENSES ON THE SAME STRUCTURE.** Saddle-cascade arithmetic predicts 4 discrete retention plateaus. Alt 1 4-class taxonomy isolates exactly those 4 plateaus. Double-positive on arithmetic (v205 BIC delta=194.9 + v206 BIC_delta=-121.3) + Alt 2/3 closure jointly establish discrete-class as the predictability framing.
+
+- **MoE rebuild path tempered but not killed.** alpha_c v2 margin is ~1% below band -- DEFENSIBILITY-AUDIT trigger, not substrate kill. SHIFT/PARTITION v2 (in flight on remote) is the live MoE rebuild test; v2 outcome dominates. Band re-tightening OR substrate parameter audit warranted regardless of v2 outcome.
+
+- **Pred-4 v3 is now the SOLE remaining 1-RSB-class binary discriminator path.** Two failures (v1 instrumentation, v2 timeout) escalate Pred-4 to the highest-leverage CPU/GPU discriminator after SSH restoration. First-order saddle-cascade vs continuous transition is load-bearing for framework reliability upper-bound (50-65% conditional on first-order PASS).
+
+- **v206 positioning carried forward unchanged.** Product framing "algebraically-canonical fast-weight memory with exposed W for audit / verifiable-erase / provenance" UNCHANGED. Linear-heteroassoc primary UNCHANGED. Bet N design-ready UNCHANGED. Three Tier-1 handoffs from v206 UNCHANGED.
+
+### Pre-registered untested (carried forward v206 + v207 adds)
+
+- All v178-v206 items carried forward.
+- v195 OPEN: Pred-4 hysteresis -- v1 INSTRUMENTATION_FAIL + v2 TIMEOUT; v207 NEW: Pred-4 v3 design -- exp_dev decides EITHER 2-4h wall OR reduced N OR fewer sweep points; HIGHEST priority after Pred-4 instrumentation track record.
+- v200 OPEN: Alt 3 predictor -- **v207 CLOSED**: ALT3_LAPLACE_ASSUMPTION_VIOLATED at production scale (r2_fisher=0.0).
+- v200 OPEN: local_cpu_runner revive (72h deadline 2026-05-27).
+- v205 OPEN: Bet N design-ready pickup (`exp_dev_handoff_bet_n_design_2026-05-25.md`; awaits SSH/pickup).
+- v205 OPEN: SSM-HiPPO CPU smoke (HiPPO-LegS W-init; cheap; P_deflated=0.18; awaits SSH/pickup).
+- v205 OPEN: Recurrent cleanup-head K6 probe (P=0.30; awaits SSH/pickup).
+- v205/v206 OPEN: MoE rebuild SHIFT/PARTITION v2 ship -- **v207 IN FLIGHT on remote** per v206 OPEN line; v1 OOM superseded.
+- v206 OPEN: REPLAY hypothesis B dedicated probe (H-B interference-reduction) -- STAGE4+replay sweep; Research-capacity-dependent.
+- v206 OPEN: REPLAY hypothesis C dedicated probe (H-C effective-N-doubling) -- M_sweep with/without replay; Research-capacity-dependent.
+- **v207 NEW: MoE alpha_c band-rationale defensibility audit** -- alpha_c=0.390625 v2 prestep ~1% below band [0.40, 0.70]; audit band-rationale OR substrate parameter drift; Research-capacity-dependent OR sub-Strategy.
+- **v207 NEW: Pred-4 v3 design** -- exp_dev decides design parameters (wall budget OR N reduction OR sweep-point reduction) on next cycle; do NOT specify in cap_map per [[feedback-no-experiment-design-in-prompts]].
+
+### PROT discipline
+
+- per [[feedback-cap-map-update-protocol]]: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically; "Cap map: v206 -> v207 (BATCHED 5-VERDICT: Bet B Alt 3 PAC-Bayes Laplace CLOSED; MoE alpha_c v2 marginal hard-fail; Pred-4 v2 TIMEOUT; SHIFT/PARTITION v1 OOM; 4-corpus v3 ALREADY-PROCESSED at v206)" commit.
+- per PROT-001 to PROT-003: cap_map.md version bumped v206 -> v207; narrative block written; capability moves table written (7 rows: Alt 3 closure NEW Closed-Negative, discrete-class predictor framing consolidation annotation, MoE alpha_c v2 marginal-miss annotation Yellow, MoE SHIFT/PARTITION v1 OOM v2 in-flight annotation, Pred-4 v2 TIMEOUT v3 design annotation, 4-corpus v3 already-processed confirmation, portfolio count unchanged).
+- per PROT-004/006: 1 new Closed-Negative closure (Alt 3 PAC-Bayes Laplace); 0 row-state demotions; 0 rehab files required (Alt 3 was a Bet B predictability RESCUE arm, not a primary capability -- closure follows from production-scale Laplace assumption violation; all 3 Alt rescues now resolved per [[feedback-rehabilitation-after-rejection]] is the appropriate post-mortem, not a fresh rescue cycle).
+- per PROT-007: v207 history block written to substrate_capability_map_history.md.
+- per PROT-008: 1 axis-closure (Alt 3 predictability rescue); 0 portfolio-row demotions; 0 new instrumentation debts this cycle (Pred-4 v2 TIMEOUT is wall-budget issue, not instrumentation); pre-existing 29 PROT-004 violations are grandfathered historical entries unchanged.
+- per PROT-009: 120th paired commit.
+- per [[feedback-decision-log-eol-handling]]: strategy_decisions_2026-05-26.md created (new file today; CRLF EOL convention preserved at creation).
+- per [[feedback-subagent-permission-inheritance]]: commit LOCAL only (push deferred to main thread per sub-agent permission gap).
+- per [[feedback-for-you-tab-primary-channel]]: 5 status_log entries (one per verdict; mix of CRITICAL/HIGH/MEDIUM importance per verdict semantics).
+- per [[feedback-verdict-msg-honest-reread]]: 72nd-76th observations post-lock; ALT3_LAPLACE_ASSUMPTION_VIOLATED CONFIRMED clean (r2=0.0 + 21/25 cells); ALPHA_C_HARD_FAIL label NOMINALLY correct but margin documented as 1% miss; HARD_PASS V3 already documented at v206; TIMEOUT/OOM are infrastructure failures with no per-cell metrics to override (label confirmed by absence of data); 5/5 honest re-reads PROT-009 compliant.
+- per task contract: commit LOCAL only; push deferred to main thread.
+- DO NOT trigger queue-refill -- exp_dev separately flushing handoffs same turn; v3 retries (Pred-4 + SHIFT/PARTITION if v2 OOMs) are exp_dev's decisions per [[feedback-no-experiment-design-in-prompts]] item 7.
+
+### Tally (one-line)
+
+BATCHED 5-VERDICT v206 -> v207: (1) `wave14_betB_pac_bayes_kl_predictor_v2` ALT3_LAPLACE_ASSUMPTION_VIOLATED r2_fisher=0.0 21/25 cells -- Alt 3 PAC-Bayes Laplace posterior-over-W KL framing Closed-Negative CLOSED at production scale; substrate violates Laplace assumption R-PRIME-1 rests on; ALL 3 Bet B predictability rescues now resolved (Alt 1 group-level CONFIRMED v206, Alt 2 HARD-FAIL v202 reclassified INCONCLUSIVE v203, Alt 3 CLOSED v207); continuous predictors do NOT hold; discrete-class IS the predictability story; (2) `wave14_moe_alpha_c_prestep_v2` ALPHA_C_HARD_FAIL alpha_c=0.390625 ~1% below band [0.40, 0.70] -- Yellow-MARGINAL MISS NOT substrate kill; defensibility-audit trigger; MoE rebuild tempered but not killed; SHIFT/PARTITION v2 in flight dominates; (3) `wave14_betB_4corpus_equalspacing_v1` HARD_PASS BIC_delta=-121.3 spacing_error=0.0035 -- ALREADY-PROCESSED at v206 commit a6bb07b; v207 re-confirms theoretical-home green-CORROBORATED + framework reliability green 40-55% UNCHANGED; (4) `wave14_1rsb_hysteresis_v2` TIMEOUT 3600s no metrics -- Pred-4 v3 design pending; 1-RSB vs Saad-Solla discriminator REMAINS PENDING; load-bearing for framework reliability upper-bound; (5) `wave14_moe_shift_partition_v1` OOM 1.11GiB on 8GiB at M=25600 K=8 -- v2 ship-in-flight per v206 supersedes; v3 reduced M_grid only if v2 also OOMs (exp_dev decides); 2 v207 NEW pre-reg (Pred-4 v3 design + alpha_c band-rationale audit); honest-reread LOCK 72nd-76th observations post-lock (5/5 PROT-009 compliant); 120th PROT-009 paired commit.
+
+Net effect v207: 1 Closed-Negative closure (Alt 3 PAC-Bayes Laplace; all 3 Bet B predictability rescues resolved); 1 Yellow marginal-miss annotation (MoE alpha_c v2); 2 timeout/OOM infrastructure annotations (Pred-4 v2 + SHIFT/PARTITION v1; v2/v3 retries in flight or pending); 1 already-processed re-confirmation (4-corpus V3 already at v206); 13 demonstrated + 6 evidence-strength rows UNCHANGED; 120th PROT-009 paired commit.

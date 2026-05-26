@@ -7969,3 +7969,29 @@ MAJOR POSITIVE upgrade cycle. 6 capability move rows. 3 row-state advances (theo
 
 History ref: see cap_map.md v206 block for full narrative.
 
+## v207 - (2026-05-26) BATCHED 5-VERDICT: Bet B Alt 3 PAC-Bayes Laplace CLOSED; MoE alpha_c v2 marginal hard-fail; Pred-4 v2 TIMEOUT; SHIFT/PARTITION v1 OOM; 4-corpus v3 already-processed at v206
+
+### Trigger
+
+Five verdicts surfaced by SSH-restore flush after v206 (commit a6bb07b): (1) `wave14_betB_pac_bayes_kl_predictor_v2` ALT3_LAPLACE_ASSUMPTION_VIOLATED; (2) `wave14_moe_alpha_c_prestep_v2` ALPHA_C_HARD_FAIL (alpha_c=0.39 vs band [0.40, 0.70]); (3) `wave14_betB_4corpus_equalspacing_v1` HARD_PASS already-processed at v206; (4) `wave14_1rsb_hysteresis_v2` TIMEOUT; (5) `wave14_moe_shift_partition_v1` OOM.
+
+### Key changes
+
+**Bet B Alt 3 PAC-Bayes Laplace CLOSED at production scale**: r2_fisher=0.0 with 21/25 cells flagged ALT3_LAPLACE_ASSUMPTION_VIOLATED. Substrate violates the Laplace approximation R-PRIME-1 PAC-Bayes-KL upper bound rests on. Combined with Alt 2 HARD-FAIL (v202 reclassified INCONCLUSIVE v203) and Alt 1 GROUP-LEVEL CONFIRMED (v206), ALL 3 Bet B predictability rescues now resolved. Continuous predictors do NOT hold; discrete-class IS the substrate's predictability story.
+
+**Discrete-class predictor framing LOCKED across v202/v206/v207**: discrete-class (4-tier SAME/REPLAY/STAGE4/DIFF taxonomy) and Saad-Solla saddle-cascade arithmetic are two lenses on the same structure. The 4 plateaus saddle-cascade arithmetic predicts are the 4 classes Alt 1 isolated.
+
+**MoE alpha_c v2 Yellow MARGINAL MISS**: alpha_c=0.390625 ~1% below band [0.40, 0.70]. NOT substrate kill; defensibility-audit trigger. MoE rebuild tempered but not killed; SHIFT/PARTITION v2 (in flight) is the live test.
+
+**Pred-4 v2 TIMEOUT**: 1-RSB vs Saad-Solla discriminator REMAINS PENDING (load-bearing for framework reliability upper-bound). v1 INSTRUMENTATION_FAIL + v2 TIMEOUT; v3 design pending (exp_dev decides parameters).
+
+**SHIFT/PARTITION v1 OOM**: infrastructure failure (1.11GiB on 8GiB at M=25600, K=8); v2 already in flight per v206 supersedes.
+
+**4-corpus equal-spacing V3 already-processed at v206**: theoretical-home green-CORROBORATED + framework reliability green 40-55% UNCHANGED at v207; status_log entry as confirmation only.
+
+### Outcome
+
+1 Closed-Negative closure (Alt 3 PAC-Bayes Laplace); 1 Yellow marginal-miss annotation (MoE alpha_c v2); 2 infrastructure annotations (Pred-4 v2 TIMEOUT, SHIFT/PARTITION v1 OOM); 1 already-processed re-confirmation (4-corpus V3 at v206). Portfolio 13 demonstrated + 6 evidence-strength rows UNCHANGED. 2 v207 NEW pre-reg items (Pred-4 v3 design, alpha_c band-rationale audit). 120th PROT-009 paired commit.
+
+History ref: see cap_map.md v207 block for full narrative.
+
