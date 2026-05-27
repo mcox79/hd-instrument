@@ -886,3 +886,34 @@ For **Saad-Solla _n naming-defect 73rd recurrence**:
 - 147th PROT-009 paired commit.
 
 BATCHED 16-VERDICT v233 -> v234: [label-vs-honest 71st-75th catches + 76th evidence-direction] (1) tcft_fresh_erase_v3 MIDDLE_BAND [71st: 3rd smoke replicate var_ratio=0.0155 monotone-improving but still single-seed; FULL 5-seed UNCHANGED PRIMARY rescue]; (2-4) v233-carryover drift_diffusion_bp_v1 + spectral_v2 + CA_v1 re-confirmed; (5) spectral_graph_lambda2_v3 MIDDLE_BAND DISCONFIRMING [v2/v3 sign-flip: v2 corr=+0.615 multi-seed-multi-N vs v3 corr=-0.881 single-seed-N=512; spectral-graph row DEMOTED 🟢->🟡; multi-seed FULL PRIMARY rescue]; (6) cellular_automata_substrate_v2 MIDDLE_BAND honest (orbit/short_period/tanh_fp all 1.000; CA-dynamics 🟡 STRENGTHENED ANNOTATION); (7) sagawa_ueda_deletion_cert_v2 MIDDLE_BAND honest (2/2 N-values HP1 + excess positive; SU 🟡 STRENGTHENED ANNOTATION); (8) drift_diffusion_bp_v2 MIDDLE_BAND honest (damp-formulation rescues bp_gain v1 fail; damp_gain=0.840 erase_corr=0.859 both HP); (9) bet_b_hebb_consolidation_v1 MIDDLE_BAND partial (K-specific preservation HP=1/1 mean_lift=0 mean_preserve=1.25; Bet B Hebbian sub-mechanism partial-positive); (10) tropical_geometry_substrate_v1 MIDDLE_BAND honest [NEW 🟡 sub-framing row: spectral-range HP=1/1 cosim HP=0/1]; (11) skahm_subclass_discriminator_v2 MIDDLE_BAND [72nd evidence-direction: sharpening HP=0/1 weakens C sub-class evidence from v1]; (12) quantum_error_correction_substrate_v1 MIDDLE_BAND honest [NEW 🟡 sub-framing: corr=0.927 HP=1/1 + thresh_N_corr negative]; (13) saad_solla_v8_n2048 MIDDLE_BAND [73rd _n naming-defect: anchor n2048 / actual N_run=512 / r2=0.7706 single-seed encouraging vs parent r2=0.322 / large-N FULL UNCHANGED 🔬 OPEN]; (14) large_deviations_substrate_v1 HARD_FAIL DECISIVE smoke [NEW sub-framing CLOSED-NEGATIVE: gc_r2=0.040 asymm=4.936; substrate does NOT satisfy GC relation]; (15) bet_b_n8192_4stage_v1 FOURSTAGE_HARD_PASS [74th _n naming-defect: anchor n8192 / actual N=1024 smoke / BUT retention_A=0.848 retention_B=0.905 retention_C=0.874 all three HP cleared; NEW 🟢-smoke-only Bet B 4-stage architectural sub-row; first 4-stage compositional CL evidence at smoke; FULL N=8192 multi-seed required for production-bar lift; **THE HEADLINE OF THIS BATCH**]; (16) hatano_sasa_v3_n8192_multiseed MIDDLE_BAND [75th _n naming-defect: anchor n8192_multiseed / actual N=512 single-seed; mean_hs=0.6713 out-of-range mean_sigma=0; Hatano-Sasa 🔬 -> 🟡 probed-partial-negative; FULL multi-seed pending]; portfolio 14+14 -> 14+18; framework reliability SPLIT (general 65-75% UNCHANGED / specific-documented 48-58% -> 45-55% MODEST DOWN spectral-graph demotion offsets prior upward / product-feature 55-70% UNCHANGED); 0 capability-row closures; 1 sub-framing CLOSED-NEGATIVE (large-deviations); 1 demotion (spectral-graph 🟢->🟡 documented with v2/v3 sign-flip); 4 new 🟡 rows + 1 new 🟢-smoke-only row + 1 promotion (Hatano-Sasa 🔬->🟡); 73rd _n naming-defect catch -- structural protocol update recommended next routing cycle; 147th PROT-009 paired commit.
+
+## v235 -- 2026-05-27 wave14_1rsb_hysteresis_v5_n4096_gpu INSTRUMENTATION_FAIL @ 15:18
+
+**Trigger.** Single verdict: wave14_1rsb_hysteresis_v5_n4096_gpu failed 15:18 (overnight_queue, elapsed=null, verdict_msg=null from remote state cache).
+
+**Step 0 honest re-read [LABEL-VS-HONEST 77th catch].**
+- Remote state verdict: 'failed', verdict_msg=null (process death; no verdict emitted by runner).
+- Local metrics.json: verdict='HARD_PASS', max_gap=0.8349, BUT config.N_run=512 (NOT N=4096 as named), smoke=true, seeds=[17] single-seed only.
+- This is the same _n naming-defect + process-death pattern as v221 (saddle_cascade_plateau_v5_n4096) and recurrence #73+ of _n naming-defect.
+- Additional: gap collapses to 0.025 at M=48000 (near-zero); hysteresis only apparent at M=2000 and M=10000 (low-load regime).
+- Honest verdict: INSTRUMENTATION_FAIL (runner process death at GPU escalation; metrics.json written by smoke-N=512 pre-check, not the actual N=4096 production run).
+- CRITICALLY: v211 hysteresis CONFIRMATION (gap=1.84 at N=1024, 18x gate) STANDS UNCHANGED. This v5 failure is infra/naming, NOT a substrate contradiction.
+- The low-M gap=0.835 (v5 smoke) is directionally consistent with v211 but at reduced gap (N=512 vs N=1024); gap collapse at M=48000 is a REGIME issue (high capacity load reduces hysteresis width), not a contradiction.
+- NO conflict with v211: different N, smoke-only, process death before N=4096 test ran.
+
+**Cap_map state moves (v234 -> v235).**
+- **1-RSB hysteresis row**: UNCHANGED. v211 confirmation (gap=1.84, N=1024, 18x gate) is the authoritative result. v5 is an INSTRUMENTATION_FAIL with naming defect; does not alter the v211 positive finding.
+- **ANNOTATION ONLY**: add v5 INSTRUMENTATION_FAIL note to 1-RSB row. N=4096 production test remains OPEN (unresolved); the naming defect must be fixed before re-ship.
+- **No capability row closures.** PROT-004/006 not triggered.
+- **Portfolio count**: UNCHANGED (14+18).
+- **Framework reliability**: UNCHANGED (specific-documented 45-55%; v5 infra-fail adds no information to 1-RSB theoretical home question).
+
+**PROT compliance (v235).**
+- PROT-004/006: 0 closures; 0 rescues required.
+- PROT-008: No demotion (INSTRUMENTATION_FAIL does not alter cap_map row state).
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically. 148th PROT-009 paired commit.
+- [[feedback-verdict-msg-honest-reread]]: 77th label-vs-honest catch applied.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- Queue-refill: SKIPPED per orchestrator explicit instruction.
+
+SINGLE-VERDICT v234 -> v235: [label-vs-honest 77th catch] wave14_1rsb_hysteresis_v5_n4096_gpu INSTRUMENTATION_FAIL (runner process death; metrics.json is smoke N=512 pre-check NOT N=4096 production run; naming defect _v5_n4096 vs N_run=512; gap=0.835 N=512 smoke directionally consistent with v211; gap collapses at M=48000 high-load regime; v211 hysteresis confirmation UNCHANGED; cap_map annotation-only; 0 closures; 148th PROT-009 commit).
