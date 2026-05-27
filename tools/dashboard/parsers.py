@@ -652,7 +652,7 @@ def extract_cap_version_meta(cap_md: str) -> dict:
     version: int | None = None
     version_date: str = ""
     _ver_table_re = re.compile(r"^\|\s*v(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})")
-    _ver_h2_re = re.compile(r"^##\s+v(\d+)\s+[-–—]+\s+\((\d{4}-\d{2}-\d{2})\)")
+    _ver_h2_re = re.compile(r"^##\s+v(\d+)\s+[-–—]+\s+\(?(\d{4}-\d{2}-\d{2})\)?")
     for line in cap_md.splitlines():
         s = line.strip()
         for rx in (_ver_table_re, _ver_h2_re):

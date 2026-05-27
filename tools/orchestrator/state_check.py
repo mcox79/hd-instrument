@@ -106,7 +106,7 @@ def _cap_map_version() -> str:
     versions: list[int] = []
     versions += [int(m.group(1)) for m in re.finditer(r"^##\s+v(\d+)\s+update", text, flags=re.MULTILINE)]
     versions += [int(m.group(1)) for m in re.finditer(r"^##\s+Cycle\s+\d+.*?--\s+v(\d+)\s*$", text, flags=re.MULTILINE)]
-    versions += [int(m.group(1)) for m in re.finditer(r"^##\s+v(\d+)\s+-\s+", text, flags=re.MULTILINE)]
+    versions += [int(m.group(1)) for m in re.finditer(r"^##\s+v(\d+)\s+[-–—]+\s+", text, flags=re.MULTILINE)]
     if not versions:
         versions = [int(m.group(1)) for m in re.finditer(r"\bv(\d+)\b", text)]
     return f"v{max(versions)}" if versions else "v?"
