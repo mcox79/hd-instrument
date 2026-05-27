@@ -110,3 +110,16 @@ Pre-reg bands check:
 **Per PROT-001 to PROT-003:** version-table row v219->v220 written; annotation-only narrative; no capability-moves table needed (no state moves).
 
 Net effect v220: ANNOTATION-ONLY. MoE SHIFT K-scaling ceiling mechanism diagnosed as M2_DOMINANT (LSH gating entropy). K=4 design point reconfirmed. Learned router upgrade path identified. Row state, framework reliability, portfolio all UNCHANGED. 133rd PROT-009 paired commit.
+
+## v221 -- 2026-05-27 [label-vs-honest] wave14_saddle_cascade_plateau_v5_n4096
+
+**Trigger.** wave14_saddle_cascade_plateau_v5_n4096 completed 2026-05-27T02:26:10 with verdict HARD_PASS.
+
+**Step 0 honest re-read.** LABEL-VS-HONEST detected:
+- Original verdict_msg: "Structure persists N=1024 (v3) -> N=2048 (v4 if PASS) -> N=4096 (v5): genuine substrate physics not finite-size artifact."
+- Contradicted by metrics: actual N values are v3=N=256, v4=N=512 (smoke), v5=N=512 (smoke).
+- The experiment names v4_n2048 and v5_n4096 are aspirational labels, not actual HDC dimensionality.
+- ALL saddle-cascade experiments ran single-seed (seeds=[17]) at N<=512.
+- Honest reading: Equal-spacing HARD_PASS pattern confirmed at N<=512 across 3 smoke/full runs; the N-scaling progression narrative in verdict_msg is unsupported. 3-point metric is honest (r2=0.770, max_dev=0.0855).
+- Per [[feedback-verdict-msg-honest-reread]]: label authoritative on HARD_PASS conclusion; N-scaling narrative overridden.
+- Cap_map decision: saddle-cascade row UNCHANGED ✅ (no upgrade from non-existent N-scaling; no downgrade from smoke pass). ANNOTATION-ONLY.

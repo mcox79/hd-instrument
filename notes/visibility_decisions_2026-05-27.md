@@ -20,3 +20,9 @@ Routing-ratio compliance: this handler executed inline (Agent tool unavailable i
 ## 02:29 -- wave14_moe_shift_K_perarm_v1 M2_DOMINANT (cap_map v220)
 
 Verdict: M2_DOMINANT. LSH gating entropy rises K=2:0.78b->K=64:5.32b (pre-reg threshold 3.0b crossed at K=16). M3 IEC max=0.0006 (ruled out). M1 m_cap=0.694 constant (ruled out). K=4 design point reconfirmed (ent=1.60b healthy, ret=0.809). Engineering fix: replace LSH with learned K-NN router. Cap_map v220 annotation-only. MoE SHIFT row unchanged ✅ engineering-rate-limited. Framework reliability 48-62% PROVISIONAL unchanged. Portfolio 14+7 unchanged.
+
+## 05:00 -- wave14_saddle_cascade_plateau_v5_n4096 HARD_PASS (label-vs-honest: N=512 not N=4096)
+
+Verdict HARD_PASS logged. [label-vs-honest] experiment name claimed N=4096 but actual N=512 smoke run (seeds=[17]). Equal-spacing pattern confirmed at N<=512 (r2=0.770, max_dev=0.0855). N-scaling narrative in verdict_msg over-claimed -- no data above N=512 exists in saddle-cascade series. Saddle-cascade row UNCHANGED ✅. Cap_map v221 ANNOTATION-ONLY committed. Genuine large-N FULL run (N>=4096, multi-seed) remains the open next probe.
+PLAIN: The substrate's saddle-cascade memory pattern was confirmed again at the N=512 level. However, the experiment name claimed to test N=4096 -- it didn't; the actual run was N=512 smoke only. The 'N-scaling confirmed' narrative is not supported; equal-spacing holds at small N but we haven't yet tested it at the larger scales the experiment name implied.
+IMPORTANCE: MEDIUM
