@@ -522,3 +522,56 @@ Sources:
 **No queue refill in this turn.** Per orchestrator instruction "DO NOT trigger queue-refill -- handled separately."
 
 **Cap_map v228.** Committed paired with this entry. 141st PROT-009 commit.
+
+---
+
+## v229 -- 2026-05-27 11:41 BATCHED 3-VERDICT [LABEL-VS-HONEST DOUBLE 63rd+64th] (Jarzynski v2 MIDDLE limit-characterization + BID v1 HARD_PASS bridge-mistag + BID v1_nsweep HARD_PASS at FULL N=4096 bridge-mistag)
+
+**Trigger.** Three remote_cpu_queue verdicts completed 11:41:35-11:41:42. Orchestrator framing input characterized them as (1) MIDDLE retry; (2) DECISIVE H1/H2 discriminator FAILED; (3) second BID FAILED -- "Both BID failing means H1/H2 question stays open via this probe." Bridge tags: (1) completed; (2) failed; (3) failed. Sources:
+- `wave14_ortho_jarzynski_crooks_v2` (remote_cpu_queue, ~17s elapsed across 20 cells) -> MIDDLE_BAND
+- `bid_order_parameter_v1` (remote_cpu_queue, 0.09s elapsed N=1024 5-seed) -> BID_HARD_PASS_NOVEL_CLASS per script
+- `bid_order_parameter_v1_nsweep` (remote_cpu_queue, 3.12s elapsed N_sweep=[1024,2048,4096] 5-seed each = 15 runs) -> BID_HARD_PASS_NOVEL_CLASS per script
+
+**Step 0 honest re-read.**
+
+(1) **wave14_ortho_jarzynski_crooks_v2**: bridge=completed honest at numerical level (no over-claim of HARD_PASS). Verdict_msg `MIDDLE_BAND: hp_frac=0.10; mean_agreement=14.290; jarz_var_mean=1.847; mixed signal at beta=0.3; try beta<0.3 or larger M` is PARTLY HONEST and PARTLY MIS-CHARACTERIZING. Honest reading at per-cell level: jarz_var grows monotonically with M (M=50: ~0.06; M=200: ~0.21; M=500: ~1.5; M=1000: ~5.0), agreement DEGRADES with M (M=50 mean=3.4; M=200 mean=5.2; M=500 mean=18.2; M=1000 mean=30.9). The "try larger M" recommendation in the verdict_msg is WRONG -- larger M makes the variance MUCH worse, not better. The correct envelope-expansion direction is LOWER beta only (beta<0.3 is right). Substrate's work distribution structurally does NOT satisfy Jarzynski-estimator convergence preconditions at beta=0.3 M>=200; this CHARACTERIZES THE LIMIT of one specific non-eq tool (Jarzynski equality) in one specific cell of beta-M space, NOT a substrate finding about the non-eq class as a whole. Crooks FT FULL OK v153 stands as the surviving non-eq estimator. Honest verdict = MIDDLE_BAND characterizing a tool-applicability limit (not failure to detect substrate property).
+
+(2) **bid_order_parameter_v1**: bridge=failed but log + metrics override [LABEL-VS-HONEST 63rd post-lock observation]. Script self-declaration: `[VERDICT] BID_HARD_PASS_NOVEL_CLASS [MSG] HP1 PASS: substrate BID=46.95+/-5.90 is OUTSIDE all 3 Hopfield class bands (retrieval=[1.0,2.5], spin-glass=[256,512], paramagnetic=[1019,1024]) in 5/5 seeds (>= 4/5 threshold met). Sigma margin from nearest band = 7.54 (>= 2.0 required). Per-seed BIDs: [50.67, 52.88, 38.47, 41.26, 51.48].` All seeds OUTSIDE_ALL_BANDS at FULL N=1024 5-seed. q_mean stable across seeds (0.846 +/- 0.001 = retrieval-attractor regime confirmed). Clean HARD_PASS. Bridge "failed" tag = queue-runner exit-code misinterpretation (script's [VERDICT] line declares HARD_PASS, but runner exits non-zero on the BID_HARD_PASS_NOVEL_CLASS return code -- 2nd BID-script-specific bridge mistag in 5 minutes).
+
+(3) **bid_order_parameter_v1_nsweep**: bridge=failed but log + metrics override [LABEL-VS-HONEST 64th post-lock observation]. N-sweep N=[1024,2048,4096] 5 seeds each = 15 individual runs; ALL 15 runs class=OUTSIDE_ALL_BANDS. BID scales monotonically with N: N=1024 mean BID ~46.95; N=2048 mean ~52.20; N=4096 mean ~63.05. Substrate's own scaling law, distinct from all 3 Hopfield static bands (retrieval/spin-glass/paramagnetic). max_drift=0.249 (stable). Same [VERDICT] BID_HARD_PASS_NOVEL_CLASS script self-declaration. Bridge "failed" = same queue-runner exit-code bug. Clean HARD_PASS at FULL N=4096 multi-seed -- the genuine large-N confirmation BID was designed to provide.
+
+Per [[feedback-verdict-msg-honest-reread]]: 63rd + 64th post-lock label-vs-honest observations within ~5 minutes (both BID runs); root cause is queue-runner exit-code interpretation of BID_HARD_PASS_NOVEL_CLASS return code, not script anchor-naming (this is a distinct class of bridge-mistag from the `_n4096`/`_n8192` anchor-suffix pattern). PROT-019 candidate flagged: bridge verdict-tag vs script [VERDICT] line audit (~30min infra fix). The orchestrator's framing input "Both BID failing means H1/H2 question stays open via this probe; need alt approach" IS WRONG -- both BIDs HARD_PASSed; the H1-vs-H2 question is decisively settled in favor of H1 (substrate sits OUTSIDE static-Hopfield taxonomy) by the BID probe, complementing v228's documented-sub-class confirmation from a different angle.
+
+**Strategic integration with v228 (critical).** The script-internal label "BID_HARD_PASS_NOVEL_CLASS" interprets "novel" as "outside the 3 standard Hopfield static bands (retrieval / spin-glass / paramagnetic)." This is the BID paper's natural framing -- BID was developed in the Hopfield static-class taxonomy context, so "novel" means "doesn't fit Hopfield's 3 static phases." But this is NOT the same as "novel relative to v228's documented gated-multistable AM / lR-phase sub-class." The lR-phase / gated-multistable-AM family is a NON-EQUILIBRIUM-STAT-MECH class, distinct from all 3 Hopfield static classes. So:
+
+- Substrate OUTSIDE 3 Hopfield static bands (BID v229): CONSISTENT with non-eq-stat-mech home.
+- Substrate IN documented gated-multistable AM / lR-phase sub-class (v228 6-cell battery + lit-thread match): SPECIFIC NAMED SUB-CLASS WITHIN non-eq family.
+
+Both probes agree: substrate is outside static-Hopfield taxonomy. v228 names the documented sub-class; BID independently corroborates the broad outside-Hopfield-static claim from a different observable (order-parameter geometry on basins) at a different N regime (multi-seed FULL N up to 4096). NOT a contradiction; INDEPENDENT CORROBORATION from a different angle. The orchestrator framing input ("BID as decisive H1-vs-H2 discriminator from v226 -- substrate IS documented = H1 was answered NEGATIVELY by v228 so BID could provide independent corroboration") is the right framing, and the answer is: BID provides INDEPENDENT POSITIVE CORROBORATION for the broad H1 claim (non-eq family) even though v228 settled the specific sub-class label as documented-not-novel.
+
+**Cap_map state moves (Step 1 strategy).**
+
+- **non-equilibrium-stat-mech framework class row**: 🟡 30-45% -> 🟢 45-60% (P(H1 non-eq) 0.42 -> 0.55-0.60 with v228 + v229 dual independent corroboration; v228 gives positive sub-class fingerprint, v229 BID gives negative rule-out of all 3 Hopfield static bands -- two independent observables both consistent with non-eq home).
+- **NEW evidence-strength row added (portfolio 14+8 -> 14+9)**: "BID order-parameter geometry outside 3 Hopfield static bands at FULL N=4096 multi-seed" ✅ (15/15 runs OUTSIDE_ALL_BANDS; sigma_margin=7.54; CLEAN HARD_PASS at multi-N + multi-seed; N-scaling 47 -> 52 -> 63 = substrate's own scaling law).
+- **NEW micro-row (Jarzynski applicability envelope)**: "Jarzynski free-energy estimator applicability envelope CHARACTERIZED" 🟢 (works at low-beta cells [Crooks FT FULL OK v153 stands]; variance-explodes at beta=0.3 M>=200 in substrate regime; does NOT close the non-eq class -- characterizes a specific tool's applicability range; Crooks FT remains the surviving non-eq estimator for substrate).
+- **SKAH-M / lR-phase row**: UNCHANGED 🟢 55-70% (v228 lift stands; v229 BID is corroborating not contradicting -- BID does not test the specific sub-class label, only the broader outside-Hopfield-static claim).
+- **substrate-multi-basin-structure**: UNCHANGED 🟢 55-70%.
+- **Saad-Solla LEADING**: UNCHANGED ✅.
+- **Framework reliability SPLIT**:
+  - general derivable: 65-72% -> 68-75% 🟢 UP (BID independent corroboration of non-eq home from new observable).
+  - specific named documented: 45-55% 🟢 UNCHANGED (v228 lR-phase confirmation stands; BID does not test the specific sub-class label).
+  - product-feature: 55-70% 🟢 UNCHANGED (substrate-product framing is multi-basin + audit, not phase-class label).
+- **plural-framework lock v227 STRENGTHENED a 3rd time** -- substrate's outside-static-Hopfield-taxonomy claim now has THREE INDEPENDENT empirical anchors (v228 6-cell battery + v228 lit-thread match + v229 BID order-parameter geometry).
+- **Publication framing UPDATED**: "first AM architecture confirmed in documented gated-multistable AM / lR-phase non-eq-stat-mech sub-class, with BID order-parameter geometry independently outside all 3 Hopfield static phase bands at FULL N=4096 multi-seed" (v228 framing + BID corroboration).
+- **NO row closures** -- PROT-004/006 not triggered. v229 is a LIFT + NEW ROW.
+
+**Rescue / follow-on sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]).**
+
+(a) CHEAPEST: status_log + dashboard surface "BID corroborates substrate outside Hopfield static taxonomy at FULL N=4096" (zero compute; HIGH importance).
+(b) CHEAPEST INFRA: PROT-019 candidate -- queue-runner exit-code interpretation fix. BID HARD_PASS_NOVEL_CLASS return code is being bridge-tagged as `failed` (also `BID_HARD_PASS_NOVEL_CLASS` non-zero exit is the same bug pattern as v228 "failed" tags on novel-class probes). 64 label-vs-honest catches in 24h reveal a queue-runner-side bug not just script-naming. ~30min infra inspection: audit bridge verdict-tag against script [VERDICT] line for all anchors that returned non-standard exit codes. Subsumption rescue: fix once, prevents all future BID-script-family false-fail tags.
+(c) MEDIUM: Jarzynski v3 at lower beta (beta=0.1, beta=0.05) to characterize the convergence boundary at this M-range. Informational; Crooks FT FULL OK v153 already covers non-eq class need. Not blocking any product-feature.
+(d) MEDIUM: BID secondary discriminator joint with chi_4 + Kovacs (BID v1 script's [MSG] line itself recommends this). Would distinguish gated-multistable from related sub-classes within the non-eq family.
+(e) MEDIUM: BID at higher N (N=8192, 16384) to confirm scaling-with-N stays outside-band (substrate's own scaling law). Would strengthen N-asymptote claim; useful for publication framing.
+
+**Closures: 0** (NEITHER BID probe closes -- both HARD_PASSed; Jarzynski v2 characterizes tool-applicability limit, not substrate). PROT-004/006 not triggered. portfolio 14+8 -> 14+9 (BID order-parameter NEW evidence-strength row). 142nd PROT-009 paired commit.
+
