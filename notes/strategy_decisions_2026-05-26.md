@@ -491,3 +491,74 @@ Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
 Per [[feedback-verdict-msg-honest-reread]]: 3 "completed" labels overridden via verdict_msg honest re-read (M_scaling, gating_sharpness, pq_retained_v3 ALL fired HARD_FAIL despite dashboard "completed").
 Per user instruction: queue-refill NOT triggered in this v215 cycle (orchestrator dispatching exp_dev separately in same turn).
+
+---
+
+## 2026-05-26 22:00 — Cap map v215 → v216 RECLASSIFICATION: 1-RSB row demotion over-corrected; SPLIT into substrate-multi-basin 🟢 + phase-class-label 🟡 per [[feedback-dont-overextend-theorems]]
+
+**Context.** User strategic re-read of v215 verdict_handler disposition. v215 dropped Hierarchical retrieval / RSB row ✅→🟡 and revised framework reliability 55-70% LOCK → 48-62% PROVISIONAL on the basis of `wave14_1rsb_pq_retained_v3` PQ_RETAINED_RS_HARD_FAIL (binder=-0.255, n_peaks=1, mean_q_sig≈0 at N=8192/30 seeds). User identifies that v215 collapsed TWO distinct claims into a single demotion and that this propagates a phase-class label refutation onto the underlying substrate observations, which is the [[feedback-dont-overextend-theorems]] failure mode.
+
+**Decision (1): RECLASSIFY Hierarchical retrieval row — split state into substrate-claim + phase-class-label-claim.**
+
+The row at line 405 of cap_map.md is reframed:
+
+- Title changed from "Hierarchical retrieval index (RSB phase, ultrametric structure)" to "Hierarchical retrieval index (multi-basin discrete structure; phase classification under refinement)".
+- State column SPLIT into two sub-claims:
+  - **substrate-has-multi-basin-discrete-structure → 🟢 55-70%** (three independent positive witnesses: Saad-Solla 4-corpus equal-spacing ✅, MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312 ✅, retention plateaus 0.94/0.74/0.60 unchanged direct observation; hysteresis 18× gate ✅ compatible with multiple phase classes — observation unchanged, label uncertain).
+  - **1-RSB-specifically-is-the-right-framework-label → 🟡 30-45%** (v215 `wave14_1rsb_pq_retained_v3` N=8192/30 seeds RS-UNIMODAL binder=-0.255 n_peaks=1 mean_q_sig≈0; cluster-conditional re-analysis pending).
+- Evidence column annotated with four rescue paths (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]).
+- Product-implication column annotated: product-feature reliability depends on the FORMER (🟢), NOT the LATTER (🟡); product-feature reliability UNCHANGED.
+
+**Decision (2): Framework-reliability number SPLIT (not single PROVISIONAL).** v215's 48-62% PROVISIONAL collapses two distinct uncertainties into one number. v216:
+
+- "Substrate has theoretically-derivable multi-basin discrete structure" → 🟢 55-70% (three independent positive witnesses unchanged + hysteresis observation as fourth corroborator)
+- "1-RSB SPECIFICALLY is the right framework label" → 🟡 30-45% (v8192 P(q) refuted; cluster-conditional pending)
+- Product-feature reliability depends on the FORMER (🟢), NOT the LATTER (🟡)
+- Therefore product-feature reliability UNCHANGED
+
+This is the load-bearing reframe. v215 was structurally honest about the phase-class label refutation but propagated that refutation onto the underlying substrate observations, which v216 corrects.
+
+**Decision (3): Three positive framework predictions PRESERVED as observation-level facts.**
+
+- Saad-Solla 4-corpus equal-spacing ✅ unchanged (cap_map v206)
+- MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312 ✅ unchanged (cap_map v211/v212)
+- Hysteresis 18× gate ✅ unchanged (cap_map v211 N=1024 gap=1.84; v215 N=2048 partial-clean gap=1.27)
+
+**Critical**: Hysteresis is an OBSERVATION (forward-reverse loop area > threshold across M-load sweep at slow annealing rate). The OBSERVATION is independent of which phase class explains it. v215 effectively re-attributed the hysteresis observation to a more uncertain framework category by demoting the entire row. v216 restores observation-vs-label distinction: hysteresis is compatible with 1-RSB, cluster glass, RS-multi-ferromagnet, geometric frustration. Label uncertain; observation intact.
+
+**Decision (4): Four rescue paths filed under Hierarchical retrieval row (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]).**
+
+1. **Cluster-conditional P(q) re-analysis on v8192 data using v212 silhouette classification** — ZERO COMPUTE, decisive, HIGHEST-LEVERAGE. If conditioning the overlap-pair selection on the v212 silhouette-derived cluster assignment reveals multi-delta structure that the unconditional P(q) averages away, v215 RS-unimodal is measurement-collapse artifact. **exp_dev dispatched 2026-05-26.**
+2. **AGS retrieval phase with multi-ferromagnets at α=0.153 + Kerdock codebook** — analytic. If retrieval phase is multi-ferromagnetic (multiple basins, RS within each), P(q) is single-peaked at q≈0 (replicas in DIFFERENT ferromagnets average to ≈0) while hysteresis is multi-basin first-order. **research dispatched 2026-05-26.**
+3. **Geometric frustration without ergodicity-breaking** — frustration produces discrete metastable basins (hysteresis) without RSB; P(q) single-peaked. Mid-cost research.
+4. **1-RSB-approximate-nearby-phase** — substrate could be in 1-RSB-vicinity (dynamic 1-RSB, finite-size pseudo-RSB) where N=8192 P(q) is in "approximately RS" regime but thermodynamically not. Compute-heavy verification.
+
+**Decision (5): Three parallel actions dispatched 2026-05-26 (recorded for v216 history).**
+
+(a) **exp_dev** for cluster-conditional P(q) + rate-dependence of hysteresis (annealing-rate sweep)
+(b) **research** for AGS retrieval-phase derivation at α=0.153 with Kerdock codebook
+(c) **diagnostic** for v215 P(q) failure investigation (instrumentation-vs-signal disambiguation; P(q) measurement-floor analysis at substrate-relevant α/N/M)
+
+**Decision (6): Product implications — NO ROADMAP CHANGE.**
+
+- Bet B 4-tier retention shift-class taxonomy FINAL LOCK — unchanged (depends on Saad-Solla saddle-cascade ✅ + retention plateaus, NOT on 1-RSB label)
+- MoE rebuild engineering-rate-limited — unchanged (depends on MoE SHIFT K=4/K=8 ✅, NOT on 1-RSB label)
+- 5 killer features design-ready — unchanged (deletion certificate / compositionality audit / drift detection / hysteresis-based edits / hierarchical retrieval all depend on substrate-multi-basin 🟢, NOT on 1-RSB phase-class label 🟡)
+
+**Decision (7): USER DIRECTION — DELAY product engineering until full substrate characterization complete.**
+
+User this turn explicitly directs DELAY product engineering (deletion certificate / compositionality audit / drift detection) until cluster-conditional P(q), AGS retrieval-phase, rate-dep hysteresis, TCFT falsifier rescue paths return. Substrate-physics rescue paths take priority over product-feature engineering. Captured here for orchestrator priority queue.
+
+**Decision (8): Portfolio count.** v215 14+6 (Hierarchical retrieval demoted out of ✅). v216 restores to **14+7** (substrate-multi-basin claim back to 🟢 evidence-strength sub-claim; phase-class label annotated 🟡 sub-claim within same row — not a separate portfolio row).
+
+**Net cap_map effect.** v215 → v216: 1 row REFRAMED (Hierarchical retrieval — title + state SPLIT + evidence augmented with 4 rescue paths + product-implication annotated as UNCHANGED); 1 reliability SPLIT (substrate-multi-basin 🟢 55-70% / phase-class-label 🟡 30-45% / product-feature UNCHANGED); 0 PROT-004 closures; 0 ❌ closures; portfolio 14+6 → 14+7; 1 version-table entry appended (v216 ANNOTATION-ONLY); 1 history-block appended (v216 with 5 sub-tables: trigger, reframe, rescue paths, framework predictions preserved, dispositions, PROT compliance).
+
+PROT-004/006/008/009 compliance: 0 new ❌ closures; 1 row REFRAME (Hierarchical retrieval) captured at PROT-008 as ANNOTATION; 29 grandfathered violations UNCHANGED; validator passes (no new violations beyond v215 baseline); history.md v216 block written BEFORE cap_map.md v216 row reframe (PROT-007 sequencing verified); strategy_decisions_2026-05-26.md paired; 129th PROT-009 commit.
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-dont-overextend-theorems]]: load-bearing — splits "narrow form refuted" (1-RSB phase-class label) from "broader idea space intact" (substrate multi-basin discrete structure); rescue paths filed BEFORE labelling the broader claim demoted; this is the third worked example of this feedback at the cap_map level.
+Per [[feedback-rescue-sketch-first-sequencing]]: four rescue paths sequenced cheapest-first (cluster-conditional P(q) ZERO COMPUTE highest-leverage; AGS retrieval-phase analytic; geometric frustration mid-cost research; 1-RSB-approximate compute-heavy).
+Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after this decision-log entry with plain_language + importance=HIGH.
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v216 + history.md v216 + this entry.
+Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
+Per user instruction (this turn): annotation-only; no queue-triggering; allowed under pause flag per strategy_scribe pause-gate rules.

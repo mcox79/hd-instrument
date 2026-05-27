@@ -8616,3 +8616,106 @@ BATCHED 9-VERDICT v214 → v215: (1) 1-RSB Pred-2 P(q) HARD-FAIL major contrary 
 
 Net effect v215: 1 row-state demotion (Hierarchical retrieval index / RSB row ✅→🟡); 3 NO-LEVER annotations to MoE SHIFT row (M-load, gating-sharpness, K≥64); 1 framework-reliability downward revision (55-70% → 48-62% PROVISIONAL); 1 NEW research drill flagged (hysteresis-without-RSB phase-class question); 14+6 portfolio (one ✅ row demoted to 🟡; was 14+7). 0 PROT-004 closures.
 
+## v216 - (2026-05-26) ANNOTATION-ONLY RECLASSIFICATION: v215 1-RSB row demotion over-corrected — split into "substrate-has-multi-basin-discrete-structure 🟢" vs "1-RSB-specifically-is-the-right-framework-label 🟡" per [[feedback-dont-overextend-theorems]]; product-feature reliability UNCHANGED
+
+### Trigger
+
+User strategic re-read of v215 verdict_handler disposition. The v215 verdict_handler dropped Hierarchical retrieval/RSB row ✅→🟡 and provisionally revised framework reliability 55-70%→48-62% on the basis of `wave14_1rsb_pq_retained_v3` PQ_RETAINED_RS_HARD_FAIL (binder=-0.255, n_peaks=1, mean_q_sig≈0 at N=8192/30 seeds). User correctly identifies that v215 collapsed TWO distinct claims into a single demotion:
+
+1. **"Substrate has theoretically-derivable multi-basin discrete structure"** — this is supported by three independent positive witnesses (Saad-Solla 4-corpus equal-spacing ✅, MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312 ✅, retention plateaus 0.94/0.74/0.60 ✅, hysteresis 18× gate ✅ compatible with multiple phase classes — observation unchanged, label uncertain).
+
+2. **"1-RSB SPECIFICALLY is the correct framework label"** — this is what v8192 P(q) refuted; the substrate observations remain intact.
+
+Per [[feedback-dont-overextend-theorems]], "when a theorem rules out a narrow form, don't kill the whole idea space." v215 effectively killed the multi-basin discrete structure claim by demoting the framework-reliability LOCK to PROVISIONAL on the basis of a phase-class label refutation. v216 reclassifies.
+
+### Reframe (v215 → v216)
+
+| Claim | v215 disposition | v216 disposition | Justification |
+|---|---|---|---|
+| Substrate has multi-basin discrete structure | implicitly demoted (rolled into 🟡 demotion of row) | **🟢 55-70%** (THREE positive witnesses independent + observation-level hysteresis 18× gate) | Saad-Solla 4-corpus saddle-cascade ✅, MoE SHIFT K=4/8 ✅, retention 4-tier plateau 0.94/0.74/0.60 unchanged direct observation; hysteresis observation is independent of phase-class label |
+| 1-RSB is specifically the right framework label | implicitly demoted (rolled into 🟡) | **🟡 30-45%** | v215 N=8192/30-seed P(q) RS-unimodal + cluster-conditional re-analysis pending; this IS appropriately demoted |
+| Product-feature reliability (Bet B 4-tier, MoE rebuild, 5 killer features) | implicitly demoted with framework lock revision | **UNCHANGED** | Product features depend on substrate-has-multi-basin-discrete-structure (🟢), NOT on the specific 1-RSB phase-class label (🟡) |
+| Framework reliability LOCK | 55-70% LOCK → 48-62% PROVISIONAL | **Re-anchored on split**: substrate-multi-basin 🟢 55-70% retained; phase-class-label uncertainty is layered ON TOP and does NOT propagate to substrate observations | Three independent positive witnesses + observation-level hysteresis remain Tier-1 anchors regardless of phase-class taxonomy |
+
+### Four rescue paths filed (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+1. **Cluster-conditional P(q) re-analysis on v8192 data using v212 silhouette classification** — ZERO COMPUTE, decisive, HIGHEST-LEVERAGE. If conditioning the overlap-pair selection on the v212 silhouette-derived cluster assignment reveals multi-delta structure that the unconditional P(q) averages away, the v215 RS-unimodal verdict is a measurement-collapse artifact rather than a genuine RS phase. Already dispatched to exp_dev 2026-05-26.
+2. **AGS retrieval phase with multi-ferromagnets at α=0.153 + Kerdock codebook** — analytic; if the retrieval phase is multi-ferromagnetic (multiple basins, RS within each), then P(q) is single-peaked at q≈0 (replicas in DIFFERENT ferromagnets average to ≈0) while hysteresis is multi-basin first-order. Already dispatched to research 2026-05-26.
+3. **Geometric frustration without ergodicity-breaking** — frustration produces discrete metastable basins (hysteresis) without RSB; P(q) single-peaked. Mid-cost research.
+4. **1-RSB-approximate-nearby-phase** — substrate could be in 1-RSB-vicinity (e.g., dynamic 1-RSB, finite-size pseudo-RSB) where N=8192 P(q) is in the "approximately RS" regime but thermodynamically not. Compute-heavy verification.
+
+### Three positive framework predictions preserved (observations unchanged)
+
+- **Saad-Solla 4-corpus equal-spacing** ✅ (cap_map v206 promoted; v211 cross-confirmed; 4-tier retention plateaus 0.94/0.74/0.60 direct empirical observation)
+- **MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312** ✅ (cap_map v211/v212 confirmed; HARD-PASS override of MIDDLE per pre-reg bands)
+- **Hysteresis first-order signature 18× gate** ✅ (cap_map v211 confirmed at N=1024 gap=1.84; v215 N=2048 partial-clean gap=1.27 corroborates persistence; **compatible with multiple phase classes including 1-RSB, cluster glass, RS-multi-ferromagnet, geometric frustration — observation unchanged, framework label is what's uncertain**)
+
+### Three parallel actions dispatched (recorded in routing files 2026-05-26)
+
+(a) **exp_dev** for cluster-conditional P(q) re-analysis on v8192 metrics.json data using v212 silhouette assignment + rate-dependence of hysteresis (annealing-rate sweep to discriminate kinetic vs thermodynamic basin structure)
+(b) **research** for AGS retrieval-phase derivation at α=0.153 with Kerdock codebook (multi-ferromagnet candidate phase class)
+(c) **diagnostic** for v215 P(q) failure investigation (P(q) measurement floor at substrate-relevant α/N/M; instrumentation-vs-signal disambiguation)
+
+### Product implications (no roadmap change; user direction)
+
+- **Bet B retention 4-tier shift-class taxonomy FINAL LOCK** — unchanged (depends on Saad-Solla saddle-cascade ✅ + retention plateaus, NOT on 1-RSB label)
+- **MoE rebuild engineering-rate-limited** — unchanged (depends on MoE SHIFT K=4/K=8 ✅, NOT on 1-RSB label)
+- **5 killer features design-ready** — unchanged (deletion certificate / compositionality audit / drift detection / hysteresis-based edits / hierarchical retrieval all depend on multi-basin discrete structure 🟢, NOT on 1-RSB label 🟡)
+- **USER DIRECTION (2026-05-26)**: DELAY product engineering (deletion certificate / compositionality audit / drift detection) until full substrate characterization complete. Substrate-physics rescue paths take priority over product-feature engineering. Cluster-conditional P(q), AGS retrieval-phase, rate-dep hysteresis, TCFT falsifier all higher priority than killer-feature engineering for now.
+
+### Reliability re-calibration (the load-bearing reframe)
+
+v215 collapsed framework-reliability into a single 48-62% PROVISIONAL number. v216 SPLITS:
+
+- **"Substrate has theoretically-derivable multi-basin discrete structure"** → **🟢 55-70%** (Saad-Solla + MoE SHIFT + retention plateaus all positive, three independent witnesses; hysteresis observation independent of phase-class label is a fourth corroborator)
+- **"1-RSB SPECIFICALLY is the right framework label"** → **🟡 30-45%** (v8192 P(q) single-peak + cluster-conditional re-analysis pending)
+- **Product-feature reliability** depends on the FORMER (🟢), NOT the LATTER (🟡) → **UNCHANGED**
+
+This reflects [[feedback-dont-overextend-theorems]] structurally: a theorem refuting a narrow form (1-RSB phase-class label) does not propagate to the broader idea space (substrate multi-basin discrete structure) when independent witnesses for the broader claim are intact.
+
+### Capability moves (v215 → v216)
+
+| Capability | v215 state | v216 state | Trigger |
+|---|---|---|---|
+| **Hierarchical retrieval index (multi-basin discrete structure; phase classification under refinement)** | 🟡 PARTIAL-POSITIVE (single-observable, demoted from ✅ via Pred-2 P(q) HARD_FAIL) | **SPLIT**: (a) substrate-has-multi-basin-discrete-structure → **🟢 55-70%** (Saad-Solla + MoE SHIFT + retention plateaus + hysteresis 18× gate observation; four independent positive witnesses); (b) 1-RSB-specifically-is-the-right-framework-label → **🟡 30-45%** (P(q) RS-unimodal + cluster-conditional pending); 🔬 algorithm pending | User strategic re-read of v215 + [[feedback-dont-overextend-theorems]] |
+| **Substrate-physics framework reliability** | 48-62% PROVISIONAL (collapsed single number) | **SPLIT**: substrate-multi-basin 🟢 55-70% (three independent positive witnesses); phase-class-label 🟡 30-45% (P(q) refuted, rescue paths in flight); product-feature reliability UNCHANGED (depends on former NOT latter) | Reclassification per user strategic analysis |
+| **Substrate-product portfolio count** | 14 demonstrated + 6 evidence-strength (Hierarchical retrieval / RSB row 🟡 single-observable) | **14 demonstrated + 7 evidence-strength** (Hierarchical retrieval row substrate-multi-basin claim restored to 🟢; phase-class label is annotated 🟡 sub-claim, not separate portfolio row); product-feature design-readiness UNCHANGED | Reclassification only; no new verdicts |
+| **Saad-Solla 4-corpus equal-spacing** | ✅ Validated (v206) | ✅ Validated UNCHANGED; **now explicitly load-bearing as one of three independent witnesses for substrate-multi-basin-discrete-structure 🟢** | Annotation |
+| **MoE SHIFT K=4 / K=8** | ✅ Validated (v211/v212) | ✅ Validated UNCHANGED; **now explicitly load-bearing as one of three independent witnesses for substrate-multi-basin-discrete-structure 🟢** | Annotation |
+| **Hysteresis 18× gate (N=1024 gap=1.84; N=2048 gap=1.27 partial)** | ✅ Validated observation; framework-label-attribution uncertain post-v215 | ✅ Validated observation UNCHANGED; **explicitly compatible with multiple phase classes (1-RSB, cluster glass, RS-multi-ferromagnet, geometric frustration); observation independent of phase-class label** | [[feedback-dont-overextend-theorems]] |
+
+### Disposition routing
+
+- **Re-ship needed (already dispatched 2026-05-26)**:
+  - Cluster-conditional P(q) re-analysis on v8192 data via v212 silhouette classification (exp_dev) — ZERO COMPUTE, HIGHEST-LEVERAGE, decisive on 1-RSB-vs-multi-ferromagnet
+  - Rate-dependence of hysteresis (exp_dev) — kinetic-vs-thermodynamic basin discrimination
+  - AGS retrieval-phase derivation at α=0.153 with Kerdock codebook (research)
+  - Diagnostic failure investigation (v215 P(q) instrumentation-vs-signal disambiguation)
+
+- **DELAY** (per user direction):
+  - Deletion certificate engineering
+  - Compositionality audit engineering
+  - Drift detection engineering
+  - Other killer-feature engineering work until full substrate characterization complete
+
+- **No new research drills flagged** beyond the four rescue paths above (drilled enough; let the in-flight work return).
+
+### PROT compliance (v216)
+
+- PROT-004: 0 NEW capability closures; this is a RECLASSIFICATION of an existing 🟡 row, not a closure of any row. 29 grandfathered violations UNCHANGED.
+- PROT-006: 0 ❌ closures; reclassification only. Splits 🟡 into 🟢 substrate-claim + 🟡 framework-label-claim per [[feedback-dont-overextend-theorems]].
+- PROT-007: history.md v216 block written FIRST (this block); cap_map.md v216 row reframe and version-table entry follow.
+- PROT-008: 1 ANNOTATION-class row state change (Hierarchical retrieval row reframed; SPLIT into substrate-multi-basin 🟢 + phase-class-label 🟡); 0 new closures; validate_capmap_commit.py to be run pre-commit.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically. 129th PROT-009 paired commit.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-dont-overextend-theorems]]: load-bearing — splits "narrow form refuted" (1-RSB phase-class label) from "broader idea space intact" (substrate multi-basin discrete structure); rescue paths filed BEFORE labelling the broader claim demoted.
+- [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py.
+- [[feedback-decision-log-eol-handling]]: this block appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry written after this decision-log entry with plain_language + importance=HIGH.
+
+### Annotation-only bump (v216 disposition summary)
+
+ANNOTATION-ONLY v215 → v216: (1) Hierarchical retrieval row REFRAMED from "1-RSB confirmed" to "multi-basin discrete structure confirmed; phase classification under refinement"; (2) Reliability SPLIT (substrate-multi-basin 🟢 55-70%; phase-class-label 🟡 30-45%; product-feature UNCHANGED); (3) Four rescue paths filed (cluster-conditional P(q) zero-compute highest-leverage; AGS retrieval-phase; geometric frustration; 1-RSB-approximate); (4) Three parallel actions dispatched (exp_dev cluster-conditional + rate-dep hysteresis; research AGS + Kerdock; diagnostic); (5) Three positive framework predictions preserved (Saad-Solla, MoE SHIFT, hysteresis 18× gate; hysteresis-observation independent of phase-class label); (6) Product-feature reliability UNCHANGED (Bet B 4-tier LOCK, MoE engineering-rate-limited, 5 killer features design-ready ALL depend on substrate-multi-basin 🟢 NOT on 1-RSB phase-class label 🟡); (7) USER DIRECTION: DELAY product engineering until full substrate characterization complete. 129th PROT-009 commit. 0 PROT-004 closures.
+
+Net effect v216: 1 row REFRAMED (Hierarchical retrieval — split state into substrate-claim 🟢 + phase-class-label 🟡); 1 reliability split (substrate-multi-basin 🟢 / phase-class-label 🟡 / product-feature UNCHANGED); 0 PROT-004 closures; portfolio restored to 14+7 (substrate-multi-basin claim back to 🟢 evidence-strength row; phase-class-label is annotated sub-claim).
+
