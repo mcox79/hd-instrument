@@ -978,6 +978,19 @@
   }
   .cap-link:hover { text-decoration: underline; }
 
+  /* Version + metrics header band at top of Capability tab */
+  .cap-version-banner {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--info);
+    background: rgba(125,167,217,0.07);
+    border: 1px solid rgba(125,167,217,0.25);
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
   /* Redesigned capability tab — grouped + collapsible + color-coded */
   .cap-group {
     background: var(--pane);
@@ -1629,6 +1642,27 @@
     border-radius: 3px;
     color: var(--info);
   }
+  /* Recent drill notes list */
+  .recent-notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .rn-note-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 8px;
+    align-items: baseline;
+    padding: 5px 8px;
+    background: var(--pane);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--info);
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  .rn-note-mtime { font-family: var(--mono); color: var(--dim); font-size: 11px; }
+  .rn-note-title { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rn-note-size { font-family: var(--mono); color: var(--dimmer); font-size: 11px; text-align: right; white-space: nowrap; }
   .research-section {
     background: var(--pane);
     border: 1px solid var(--border);
@@ -2201,7 +2235,15 @@
   <div class="research-container">
     <div class="research-intro">
       <h2>Research meta-map &amp; hypothesis explorer</h2>
-      <div class="sub">110 framework drills 2026-05-21 to 2026-05-23. Source: <code>notes/research_meta_map_and_adjacencies_2026-05-23.md</code></div>
+      <div class="sub" id="research-intro-sub">loading...</div>
+    </div>
+
+    <!-- Section R0: Recent drill outputs -->
+    <div class="research-section">
+      <div class="research-section-head">Recent drill outputs (notes/research_*.md, newest first)</div>
+      <div id="research-recent-notes" class="recent-notes-list">
+        <div class="tests-empty">loading...</div>
+      </div>
     </div>
 
     <!-- Section A: Tier counts -->
@@ -3636,11 +3678,24 @@ function _capRowMatchesSearch(row, q) {
   return hay.includes(q);
 }
 
-function renderCapability(md, status, skipCount, tierSummary, capRows) {
+function renderCapability(md, status, skipCount, tierSummary, capRows, capVersionMeta) {
   lastCapabilityMd = md || "";
   lastCapabilityStatus = status || "";
   const body = document.getElementById("capability-body");
   body.replaceChildren();
+
+  // Version + framework-reliability header band (shown when we have version meta).
+  const vMeta = capVersionMeta || {};
+  if (vMeta.version) {
+    const metaLine = [];
+    metaLine.push(`v${vMeta.version}`);
+    if (vMeta.version_date) metaLine.push(vMeta.version_date);
+    if (vMeta.portfolio_count) metaLine.push(vMeta.portfolio_count);
+    if (vMeta.framework_reliability) metaLine.push(`framework reliability: ${vMeta.framework_reliability}`);
+    if (vMeta.tier1_p) metaLine.push(`Tier-1 P: ${vMeta.tier1_p}`);
+    const banner = el("div", {class: "cap-version-banner"}, metaLine.join("  |  "));
+    body.append(banner);
+  }
 
   // Status banner for mid-write / errors (unchanged behavior).
   if (status && status !== "ok" && status !== "unknown") {
@@ -3888,6 +3943,19 @@ function renderResearchAll() {
       '<div class="tests-empty">Failed to load research map. Check server logs.</div>';
     return;
   }
+  // Update intro subtitle dynamically from API data.
+  const introSub = document.getElementById("research-intro-sub");
+  if (introSub) {
+    const count = (researchData.matrix || []).length;
+    const src = researchData.source_path || "";
+    const srcName = src.split("\\").pop() || src.split("/").pop() || src;
+    const parseOk = researchData.parse_ok;
+    const errMsg = researchData.error ? ` — error: ${researchData.error}` : "";
+    introSub.textContent = parseOk
+      ? `${count} framework drills parsed. Source: ${srcName}${errMsg}`
+      : `(meta-map not parsed${errMsg}; source: ${srcName || "not found"})`;
+  }
+  renderResearchRecentNotes(researchData.recent_notes || []);
   renderResearchTiers(researchData.tiers || {});
   renderResearchFields(researchData.fields || []);
   renderResearchFieldsUntouched(researchData.fields_not_explored || []);
@@ -3895,6 +3963,31 @@ function renderResearchAll() {
   renderResearchAdjacency(researchData.adjacency || []);
   renderResearchSuggestPick(researchData.adjacency || []);
   renderResearchTopDrills(researchData.top_drills || []);
+}
+
+function renderResearchRecentNotes(notes) {
+  const container = document.getElementById("research-recent-notes");
+  if (!container) return;
+  container.innerHTML = "";
+  if (!notes || notes.length === 0) {
+    container.innerHTML = '<div class="tests-empty">No recent research notes found in notes/research_*.md</div>';
+    return;
+  }
+  // Show up to 20 most-recent notes; they arrive sorted by mtime desc.
+  const toShow = notes.slice(0, 20);
+  for (const n of toShow) {
+    const mtime = n.mtime_iso ? n.mtime_iso.replace("T", " ").slice(0, 16) : "";
+    const sizeKb = n.size ? Math.round(n.size / 1024) + " KB" : "";
+    const row = el("div", {class: "rn-note-row", title: n.path || ""});
+    row.append(el("span", {class: "rn-note-mtime"}, mtime));
+    row.append(el("span", {class: "rn-note-title"}, n.title || n.name || ""));
+    row.append(el("span", {class: "rn-note-size"}, sizeKb));
+    container.appendChild(row);
+  }
+  if (notes.length > 20) {
+    container.appendChild(el("div", {class: "tests-empty"},
+      `... and ${notes.length - 20} more (showing 20 of ${notes.length})`));
+  }
 }
 
 function renderResearchFields(fields) {
@@ -4350,12 +4443,13 @@ async function refresh() {
     const md = snap.capability_map || "";
     const cstatus = snap.capability_status || "";
     const capRows = snap.capability_rows || {parse_ok: false, groups: [], totals: {}};
+    const capVersionMeta = snap.cap_version_meta || {};
     // Fingerprint changes when md OR parsed rows OR search filter changes.
     const fp = md.length + "|" + cstatus + "|" + (capRows.groups || []).length + "|" + _capUIState.search;
     if (fp !== _capUIState.lastFingerprint
         || document.getElementById("capability-body").children.length === 0) {
       _capUIState.lastFingerprint = fp;
-      renderCapability(md, cstatus, snap.capability_skip_count || 0, snap.tier_summary || null, capRows);
+      renderCapability(md, cstatus, snap.capability_skip_count || 0, snap.tier_summary || null, capRows, capVersionMeta);
     }
 
     renderHealth(snap._health);

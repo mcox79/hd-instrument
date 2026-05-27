@@ -475,6 +475,8 @@ class Poller:
         tier_summary = parsers.extract_tier_summary(self._last_capability_md)
         # Structured per-row payload for the redesigned Capability tab UI.
         capability_rows = parsers.extract_capability_rows(self._last_capability_md)
+        # Version + key metrics (framework reliability, Tier-1 P) for the cap tab header.
+        cap_version_meta = parsers.extract_cap_version_meta(self._last_capability_md)
 
         # ---- Local CPU queue (local filesystem; no SSH) ----
         local_cpu_view: dict = {}
@@ -657,6 +659,7 @@ class Poller:
             "status_log": status_log,
             "tier_summary": tier_summary,
             "capability_rows": capability_rows,
+            "cap_version_meta": cap_version_meta,
             "ad_hoc_runs": ad_hoc_runs,
             "in_flight": in_flight,
             "orchestrator_questions": open_questions,

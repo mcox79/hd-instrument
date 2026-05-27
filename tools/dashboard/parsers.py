@@ -288,10 +288,23 @@ def derive_news_items(
     written at log time) or derived via heuristics (Option B — fallback for existing
     entries).
 
+    Sorting: CRITICAL items always appear first, then HIGH, then MEDIUM, then LOW.
+    Within each importance tier, items are ordered newest-first (status_log default).
+    This ensures the user never has to scroll past LOW-importance items to find a
+    CRITICAL result that landed in the same poll cycle.
+
     status_log is expected sorted newest-first (parse_status_log default).
     """
+    _IMPORTANCE_RANK = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}
+
     out: list[dict] = []
+    # Collect up to 3× limit candidates so importance-sorting can surface buried
+    # CRITICAL/HIGH items that would otherwise fall below the raw limit cutoff.
+    _collect_limit = min(limit * 3, len(status_log))
+    _collected = 0
     for entry in status_log:
+        if _collected >= _collect_limit:
+            break
         kind = entry.get("event_kind", "")
         if kind not in _NEWS_KINDS:
             continue
@@ -329,9 +342,14 @@ def derive_news_items(
             "importance": importance,
             "raw": entry,
         })
-        if len(out) >= limit:
-            break
-    return out
+        _collected += 1
+
+    # Sort: CRITICAL first, then HIGH, then MEDIUM, then LOW; newest-first within tier.
+    # Stable sort preserves the within-tier newest-first order from status_log walk.
+    out.sort(key=lambda item: _IMPORTANCE_RANK.get(
+        (item.get("importance") or "LOW").upper(), 3
+    ))
+    return out[:limit]
 
 
 def parse_acks(text: str) -> set[str]:
@@ -606,6 +624,103 @@ def extract_tier_summary(cap_md: str) -> dict:
                     pass
 
     return {"totals": totals, "parse_ok": True, "raw_table": [split_row(t) for t in table_lines]}
+
+
+def extract_cap_version_meta(cap_md: str) -> dict:
+    """Extract current cap_map version number and key framework-reliability metrics.
+
+    Scans the version-history table (lines like '| v211 | date | ...') for the
+    highest version number, and also scans recent narrative blocks for the
+    framework reliability and Combined Tier-1 P strings.
+
+    Returns:
+      {
+        "version": int | None,         # e.g. 211
+        "version_date": str,           # e.g. "2026-05-26"
+        "framework_reliability": str,  # e.g. "48-62%" or ""
+        "tier1_p": str,                # e.g. "50-65%" or ""
+        "portfolio_count": str,        # e.g. "14 demonstrated + 7 evidence-strength" or ""
+      }
+    """
+    if not cap_md:
+        return {"version": None, "version_date": "", "framework_reliability": "",
+                "tier1_p": "", "portfolio_count": ""}
+
+    # Find the highest vNNN version number from two formats:
+    #   1. Compact table row: "| v211 | 2026-05-26 | ..."
+    #   2. H2 narrative header: "## v211 - (2026-05-26) ..."
+    version: int | None = None
+    version_date: str = ""
+    _ver_table_re = re.compile(r"^\|\s*v(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})")
+    _ver_h2_re = re.compile(r"^##\s+v(\d+)\s+[-–—]+\s+\((\d{4}-\d{2}-\d{2})\)")
+    for line in cap_md.splitlines():
+        s = line.strip()
+        for rx in (_ver_table_re, _ver_h2_re):
+            m = rx.match(s)
+            if m:
+                v = int(m.group(1))
+                if version is None or v > version:
+                    version = v
+                    version_date = m.group(2)
+                break
+
+    # Extract framework reliability and Tier-1 P from the most recent vNNN narrative
+    # block. Scan the last 100 KB of the file (most recent history block) so we catch
+    # long v211 narrative sections. Pick the LAST match (most recent update wins).
+    framework_reliability: str = ""
+    tier1_p: str = ""
+    portfolio_count: str = ""
+
+    # Two patterns per metric:
+    #   A) "UPGRADED X -> Y" — extract Y (the new value after the arrow)
+    #   B) plain "... X%" — extract X
+    # Pattern A is checked first; if found, its match is preferred over pattern B.
+    _frel_upg_re = re.compile(
+        r"framework reliability\s+UPGRADED\s+\d{2,3}[-–—]\d{2,3}\s*[-–—>]+\s*(\d{2,3}[-–—]\d{2,3}%?)",
+        re.IGNORECASE,
+    )
+    _frel_re = re.compile(r"framework reliability\s*[^0-9\n]*?(\d{2,3}[-–—]\d{2,3}%)", re.IGNORECASE)
+    _t1p_upg_re = re.compile(
+        r"[Cc]ombined\s+Tier-1\s+P\s+\S+\s*[-–—>]+\s*(\d{2,3}[-–—]\d{2,3}%?)",
+        re.IGNORECASE,
+    )
+    _t1p_re = re.compile(r"[Cc]ombined\s+Tier-1\s+P\s*[^0-9\n]*?(\d{2,3}[-–—]\d{2,3}%)", re.IGNORECASE)
+    _port_re = re.compile(r"(\d+\s+demonstrated\s*\+\s*\d+\s+evidence-strength\s*rows?)", re.IGNORECASE)
+
+    # Use 100 KB tail — the v211 block is large (~50 KB of narrative).
+    tail = cap_md[-100_000:]
+
+    # Framework reliability: prefer the UPGRADED pattern (extracts new value after arrow).
+    all_upg = list(_frel_upg_re.finditer(tail))
+    if all_upg:
+        v = all_upg[-1].group(1)
+        framework_reliability = v if v.endswith("%") else v + "%"
+    else:
+        all_frel = list(_frel_re.finditer(tail))
+        if all_frel:
+            framework_reliability = all_frel[-1].group(1)
+
+    # Combined Tier-1 P: prefer the upgrade pattern too (e.g. "50-65% ->")
+    all_t1p_upg = list(_t1p_upg_re.finditer(tail))
+    if all_t1p_upg:
+        v = all_t1p_upg[-1].group(1)
+        tier1_p = v if v.endswith("%") else v + "%"
+    else:
+        all_t1p = list(_t1p_re.finditer(tail))
+        if all_t1p:
+            tier1_p = all_t1p[-1].group(1)
+
+    all_port = list(_port_re.finditer(tail))
+    if all_port:
+        portfolio_count = all_port[-1].group(1)
+
+    return {
+        "version": version,
+        "version_date": version_date,
+        "framework_reliability": framework_reliability,
+        "tier1_p": tier1_p,
+        "portfolio_count": portfolio_count,
+    }
 
 
 # ---------------------------------------------------------------------------
