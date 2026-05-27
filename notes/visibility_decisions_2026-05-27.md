@@ -17,3 +17,6 @@ Framework reliability UNCHANGED 48-62% PROVISIONAL (per v215 lock-down). RD clos
 Portfolio count UNCHANGED 14 demonstrated + 7 evidence-strength rows. No row-state moves. Annotation-only on theoretical-home framework section.
 
 Routing-ratio compliance: this handler executed inline (Agent tool unavailable in environment per system reminders); standard verdict_handler→strategy+visibility pipeline composed in-thread; status_log written via tools/orchestrator/state.py log_event; cap_map atomic commit via standard Edit/Write tools.
+## 02:29 -- wave14_moe_shift_K_perarm_v1 M2_DOMINANT (cap_map v220)
+
+Verdict: M2_DOMINANT. LSH gating entropy rises K=2:0.78b->K=64:5.32b (pre-reg threshold 3.0b crossed at K=16). M3 IEC max=0.0006 (ruled out). M1 m_cap=0.694 constant (ruled out). K=4 design point reconfirmed (ent=1.60b healthy, ret=0.809). Engineering fix: replace LSH with learned K-NN router. Cap_map v220 annotation-only. MoE SHIFT row unchanged ✅ engineering-rate-limited. Framework reliability 48-62% PROVISIONAL unchanged. Portfolio 14+7 unchanged.

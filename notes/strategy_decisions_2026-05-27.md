@@ -63,3 +63,50 @@ What survives: Saad-Solla saddle-cascade arithmetic ✅, multi-basin discrete st
 **Per PROT-001 to PROT-003:** cap_map.md version bumped v218 → v219; narrative block written; capability-moves table written (3 rows: theoretical-home framework section annotation; framework reliability UNCHANGED; portfolio UNCHANGED).
 
 Net effect v219: ANNOTATION-ONLY (no row-state moves; no portfolio count change); RD ruled out as theoretical home; UNIFIED master-mechanism REJECTED; plural-theoretical-home framing locked; Saad-Solla LEADING UNCHANGED ✅; framework reliability UNCHANGED 48-62% PROVISIONAL; 132nd PROT-009 paired commit.
+## v220 -- 2026-05-27 ANNOTATION: MoE SHIFT K_perarm_v1 M2_DOMINANT mechanism diagnosis
+
+**Trigger.** wave14_moe_shift_K_perarm_v1 completed 2026-05-27T01:31:00 on remote_cpu_queue (elapsed=2288.9s). Pre-reg: K sweep {2,4,8,16,32,64} with routing_entropy, IEC, m_cap diagnostics. Triggered by K_scaling_v1 diverging-arms MIDDLE_BAND at v213.
+
+**Step 0: Honest re-read.** verdict_msg = 'M2_DOMINANT: LSH gating degrades at K=64. routing_entropy=5.32b >= 3.0b.' Label is honest; minor imprecision only (threshold crossed at K=16 not K=64, but pre-reg says 'at high K' which K=64 satisfies). No over-claim. Per-cell data:
+
+| K  | ret_A  | ent (bits) | IEC     | m_cap  |
+|----|--------|------------|---------|--------|
+| 2  | 0.8209 | 0.776      | -0.0004 | 0.6944 |
+| 4  | 0.8086 | 1.604      | -0.0006 | 0.6944 |
+| 8  | 0.8012 | 2.487      | -0.0006 | 0.6944 |
+| 16 | 0.7959 | 3.401      | +0.0003 | 0.6944 |
+| 32 | 0.7919 | 4.347      | +0.0005 | 0.6944 |
+| 64 | 0.7883 | 5.316      | -0.0003 | 0.6944 |
+
+Pre-reg bands check:
+- M2 (ent>3.0b at high K): CONFIRMED at K=16 (3.40b), K=32 (4.35b), K=64 (5.32b).
+- M3 (IEC>=0.3 at K>=8): RULED OUT. Max IEC = 0.0006, orders of magnitude below threshold.
+- M1 (m_cap>0.9 at K>=16): RULED OUT. m_cap=0.694 constant across all K (capacity utilization fixed).
+- Result: M2 is the SOLE mechanism. Routing entropy rises linearly with log2(K) (0.78b at K=2, approaching log2(K) = theoretical max for uniform routing).
+
+**Decision (1): ANNOTATION-ONLY. No row-state move for MoE SHIFT row.** MoE SHIFT is ✅ (v212 HARD-PASS), classified engineering-rate-limited (v214). K_perarm characterizes the K-scaling ceiling mechanism but does not change the architecture's CONFIRMED status. Row stays ✅ engineering-rate-limited.
+
+**Decision (2): K=4 design point RECONFIRMED.** At K=4: ent=1.60b vs theoretical max log2(4)=2.0b (80% of max). This is elevated but retention=0.809 is healthy. K=4 is the safe design point for primary-corpus deployment. K=8 (ent=2.49b, 78% of log2(8)=3.0b max) is borderline-approaching threshold; acceptable for cross-corpus scenarios per v213 design guidance.
+
+**Decision (3): MoE SHIFT no-lever set updated.** v215 annotated three no-levers (M-load uniformly negative; gating-sharpness sharper-is-worse; K>=64 OOM). K_perarm adds mechanism diagnosis: M2 gating is the SOLE degradation source. This means (a) M-load negative result is now understood -- more capacity per expert does not fix gating entropy; (b) gating-sharpness sharper-is-worse is consistent -- sharpening a near-uniform LSH distribution gives minimal benefit; (c) the architectural fix is clear: replace LSH with a LEARNED router that maintains selectivity at K>4.
+
+**Decision (4): Rescue path sharpened.** Engineering-rate-limited status means the learned-router upgrade is an engineering task, not a research question. No research dispatch warranted. Learned K-NN router annotation added to MoE SHIFT engineering notes. No new strategy_request_to_exp_dev filed (queue is healthy at 15+6 pending; no queue-refill needed per orchestrator instruction).
+
+**Decision (5): No PROT-004.** No capability closure. PROT-004 does not apply.
+
+**Decision (6): No pipeline-pacing exp_dev dispatch.** Queue healthy (GPU=6+1, CPU=15+1). Per orchestrator instruction, NO queue-refill triggered.
+
+**v220 cap_map updates.**
+- Version-table row v219 -> v220: MoE SHIFT K_perarm M2_DOMINANT annotation. Mechanism diagnosis: LSH gating entropy sole degradation source; M3 IEC and M1 capacity ruled out. K=4 design point reconfirmed. Engineering fix: learned router.
+- Row-state: MoE SHIFT UNCHANGED ✅ engineering-rate-limited.
+- Framework reliability: UNCHANGED 48-62% PROVISIONAL.
+- Portfolio: UNCHANGED 14+7.
+- 133rd PROT-009 paired commit.
+
+**Per [[feedback-cap-map-update-protocol]]:** pull-first done (already up to date); atomic .tmp+rename via standard Edit/Write; commit message follows.
+
+**Per [[feedback-for-you-tab-primary-channel]]:** status_log entry MEDIUM importance written (mechanism characterization, not new capability; no portfolio change).
+
+**Per PROT-001 to PROT-003:** version-table row v219->v220 written; annotation-only narrative; no capability-moves table needed (no state moves).
+
+Net effect v220: ANNOTATION-ONLY. MoE SHIFT K-scaling ceiling mechanism diagnosed as M2_DOMINANT (LSH gating entropy). K=4 design point reconfirmed. Learned router upgrade path identified. Row state, framework reliability, portfolio all UNCHANGED. 133rd PROT-009 paired commit.
