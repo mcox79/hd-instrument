@@ -554,6 +554,8 @@ the next PROT-007 migration cycle.
 | v210 | 2026-05-26 | MIXED VERDICT BATCH: Bet N ATOM_MODE_FLEXIBILITY NEW Tier-2 row; recurrent-cleanup-head K6 CLOSED; linear-primary corroborated; portfolio 13 -> 14 | P1 HARD_PASS util=0.923; P2 MIDDLE ratio_M2000=0.974; P3 INSTRUMENTATION-SUSPECT; recurrent K6 lift=-1.000 4/4 cells; 123rd PROT-009 commit |
 | v211 | 2026-05-26 | BATCHED 7-VERDICT: alpha_c v3 in-band CONFIRMED; 1-RSB hysteresis v3 CONFIRMED; REPLAY H-A LOCKED zero-sum; Bet N STRONG_PARTIAL + NLP-genericity; free-additive top-edge INCONCLUSIVE; 2 INSTRUMENTATION-FAIL; framework reliability 40-55 -> 48-62 | FIRST DOUBLE-POSITIVE framework level: 1-RSB + Saad-Solla complementarity; MoE rebuild prereq UNBLOCKED; portfolio 14+7 ev-strength; 124th PROT-009 commit |
 | v212 | 2026-05-26 | BATCHED VERDICT: MoE SHIFT HARD-PASS CONFIRMED (K=4 lift=0.205 K=8 lift=0.312); HiPPO-init W CLOSED-NEGATIVE P1 HARD-FAIL 3/3 seeds; Bet B 2-tier CELL-LEVEL CONFIRMED silhouette=0.788 | Label-honest override: MOE_SHIFT_MIDDLE -> HARD-PASS per pre-reg bands; 1 PROT-004 closure + 5 rescues; spectral HiPPO convergence finding; framework reliability 48-64% upper; 125th PROT-009 commit |
+| v213 | 2026-05-26 | BATCHED 4-VERDICT: MoE K-scaling MIDDLE diverging arms; Bet B 5-plateau HARD_FAIL (4-plateau hard limit); MoE top-edge formula-error CLOSED-NEGATIVE; Bet I polylog D_SWEEP ceiling annotation | K=4 design point confirmed; DMPK sole MoE discriminator; 4-tier taxonomy scope locked; 14+7 UNCHANGED; 126th PROT-009 commit |
+| v214 | 2026-05-26 | ANNOTATION-ONLY: 48h inversion strategic synthesis + 5 killer features + 8 LLM-leapfrog directions + SVD-cascade smoke HARD-FAIL | Framework reliability 48-64% -> 55-70% LOCKED; Bet B customer-facing spec LOCKED; MoE rebuild engineering-rate-limited; Bet N universality upgrade; 2 new cap_map sections (product-roadmap + leapfrog); R26 priority research flagged; 127th PROT-009 commit |
 
 For v1-v59, see compact index table at top of history.md.
 
@@ -17181,3 +17183,94 @@ New from v213:
 - 126th PROT-009 paired commit.
 
 BATCHED 4-VERDICT v212 -> v213: (1) moe_shift_K_scaling_v1 -> DIVERGING-ARMS MIDDLE (Arm_A K=2->8: 0.818->0.799; Arm_B: 0.750->0.495; Arm_C: 0.886->0.938; K=4 design point; pre-reg MIDDLE honest); (2) betB_5corpus_fullscale_v1 -> HARD_FAIL (monotone violated n_G4=20; 4-plateau hard scope limit; Saad-Solla 4-corpus NOT retracted; Bet B taxonomy FINAL LOCK unchanged); (3) moe_top_edge_v2 -> CLOSED-NEGATIVE formula error (smoke N=1024 offset=0.611 > v1 offset 0.50; N-independent; full N=16384 OOM SVD; DMPK sole discriminator); (4) beti_depth_polylog_v2 -> MIDDLE_BAND D_SWEEP ceiling (dc_range=0 valid_N=5 MRE=4.9; v3 D_SWEEP=[100-200] needed; Bet I 3rd envelope OPEN); 0 Tier-1 advances; 0 PROT-004 closures; 14+7 UNCHANGED; 126th PROT-009 paired commit.
+
+## v214 - (2026-05-26) ANNOTATION-ONLY: Strategic synthesis post-48h inversion window + 5 design-ready killer features + 8 LLM-leapfrog directions + SVD-cascade smoke HARD-FAIL
+
+### Capability moves (v213 -> v214)
+
+| Capability | v213 state | v214 state | Trigger |
+|---|---|---|---|
+| Substrate-physics framework reliability | 48-64% (upper-bound annotation; 1-RSB + Saad-Solla double-positive) | **55-70% LOCKED** (48h inversion: 3 Tier-1 positives in 48h inverted prior negative-monotone period) | 48h inversion strategic synthesis |
+| Bet B substrate-product positioning | 4-tier taxonomy FINAL LOCK; binary classifier CI-defensible (silhouette=0.788) | **LOCKED customer-facing spec**: "94% same-corpus / 74% 4-stage continual / 60% diff-corpus; 4-plateau hard limit; information-theoretic floor + basin-discrete structure" | User strategic synthesis |
+| MoE rebuild rate-limiter classification | Engineering prereqs resolved; SHIFT CONFIRMED; K=4 design point | **Engineering-rate-limited** (not research-rate-limited); K=4 primary-corpus, K=8 cross-corpus; all research gates cleared | MoE SHIFT v212 + K-scaling v213 |
+| Bet N substrate-novel atom-genericity | STRONG_PARTIAL Tier-2 + NLP-genericity (EN/PY gap=0.0014) | **STRONG_PARTIAL annotation upgrade**: substrate-novel finding = atom universality across NLP corpora; supports universal-substrate framing | Bet N v2 NLP-genericity |
+| SVD-cascade unified framework | Not in cap_map | **NEW 🔬 SMOKE HARD-FAIL**: wave14_unified_svd_cascade_falsifier_v1 UNIFIED_HARD_FAIL N=256 (spacing_error ~2-3 vs 0.15 threshold; spike-structured singular spectrum). Three theoretical homes may be INDEPENDENT. FULL pending. | SVD-cascade smoke result |
+| Product roadmap | Not in cap_map | **NEW SECTION**: 5 design-ready killer features; 2 product categories (A=Audit+Compliance, B=Operational Reliability) | User strategic input |
+| LLM-leapfrog directions | Not in cap_map | **NEW SECTION**: 8 directions + 3 narratives + 3 paths to category leadership | User strategic input |
+| Substrate-product portfolio count | 14 demonstrated + 7 evidence-strength rows | **UNCHANGED** | Annotation-only cycle |
+
+### Substrate-product positioning v214
+
+**Framework reliability -- LOCKED REVISED RANGE**
+
+Combined Tier-1 P: 55-70% (v214 definitive lock). Prior trajectory: 40-55% (v210) -> 42-58% (v210) -> 50-65% (v211) -> 55-70% (v214 lock). Three independent positive Tier-1 results in 48h (Saad-Solla 4-corpus CONFIRMED v206; 1-RSB first-order CONFIRMED v211; MoE SHIFT architecture CONFIRMED v212) inverted a prior negative-monotone period. Conservative upper bound because: saddle-cascade extended-f sweep INSTRUMENTATION_FAIL twice; 1-RSB at one N needing production-N replication; SVD-cascade smoke HARD-FAIL (three homes may be independent).
+
+**Bet B retention -- LOCKED CUSTOMER-FACING PRODUCT SPEC**
+
+v214 FINAL LOCK: "substrate retains 94% on same-corpus / 74% on 4-stage continual / 60% on diff-corpus; 4-plateau hard limit; information-theoretic floor + basin-discrete structure." Stronger than prior "73-92% on this corpus triple" framing because: information-theoretic floor = mathematical guarantee; basin-discrete = Saad-Solla grounding; 4-plateau hard limit = HARD_FAIL falsification of 5-plateau closes overpromise risk; retention numbers are conservative (worst-case in 4-tier taxonomy). Combined with binary taxonomy (silhouette=0.788 CELL-LEVEL at v212) and H-A consolidation mechanism (zero-sum trade-off at v211).
+
+**MoE rebuild -- engineering-rate-limited declaration**
+
+All research dependencies resolved: alpha_c=0.5625 confirmed dense-grid (v211); SHIFT mechanism HARD-PASS K=4 lift=0.205 K=8 lift=0.312 (v212); K=4 primary-corpus design point confirmed (v213 diverging-arms K-saturation); K=8 cross-corpus design point confirmed (v213 Arm_C improvement with K). Build-out can proceed without new research gates.
+
+### NEW v214 product roadmap -- 5 design-ready killer features
+
+Two product categories:
+- **Category A -- Audit + Compliance**: deletion certificate + compositionality audit API + per-fact retention policy
+- **Category B -- Operational Reliability**: live concept drift detection + edit-with-impact-prediction
+
+| Feature | Category | Leverage | Engineering ETA | Research dependency | Status |
+|---|---|---|---|---|---|
+| Deletion certificate primitive | A | HIGH | ~2-3 weeks | None | DESIGN-READY |
+| Compositionality audit API | A | HIGH | ~1-2 weeks | None | DESIGN-READY |
+| Per-fact retention policy | A | MEDIUM | ~3-4 weeks | None | DESIGN-READY |
+| Live concept drift detection | B | HIGH | ~2-3 weeks | None | DESIGN-READY |
+| Edit-with-impact-prediction | B | MEDIUM | ~3-4 weeks | SVD-cascade FULL | CONTINGENT |
+
+### NEW v214 LLM-leapfrog directions (8 directions, 3 narratives, 3 paths)
+
+**Category 1 -- LLM failure modes substrate could structurally solve**: (1) hallucination as structural impossibility (constructive from atoms, not generative from distribution); (2) cost-per-token at 1-10% of LLM inference via CPU-deployability + Hebbian-only; (3) genuine personalization at user-scale (per-user substrate on-device).
+
+**Category 2 -- LLM commodity capabilities substrate could do better**: (4) verifiable knowledge cutoff updates via authoritative-stream + deletion certificates; (5) multi-substrate composition with provable isolation (enterprise multi-tenant mathematical data-flow guarantees); (6) real-time model surgery during deployment (runtime edit operations).
+
+**Category 3 -- New problem spaces substrate enables**: (7) CI/CD for AI knowledge ("Git for facts"); (8) verifiable AI compliance attestation (cryptographic proofs of GDPR/HIPAA/SOC2/EU-AI-Act, $20B+ market).
+
+**Three product narratives**:
+- **(A) "the hallucination-impossible LLM"**: features 1+4+6; target healthcare/legal/financial; anchors: verifiable-erase + deletion certificate (DESIGN-READY) + compositionality audit (DESIGN-READY)
+- **(B) "AI that respects data sovereignty"**: features 3+5+7; target enterprise; anchors: VSA binding + MoE SHIFT K=4/K=8 + per-fact retention (DESIGN-READY)
+- **(C) "compliance-native AI"**: features 4+8 + deletion certificate + per-fact retention; target regulated industries; anchors: verifiable-erase + Bet B 4-tier + binary classifier
+
+**Three paths to category leadership**:
+- **(a) substrate gen matches GPT-quality**: P=20-30%; binding constraint = generation quality at compute-matched cost
+- **(b) substrate gen good enough at 1-10% cost + audit/edit/compliance wins markets**: P=60-75%; HIGHEST STRATEGIC PRIORITY; probable + transformative
+- **(c) substrate as memory-layer complement to LLMs**: P=80-90%; most likely; lowest transformative upside
+
+Path (b) is highest strategic priority. Binding constraint = substrate generation quality at deployable cost. **R26 AGS-style scaling-law extrapolation flagged as PRIORITY NEXT RESEARCH DRILL** (estimates generation ceiling; path (b) viability depends on this).
+
+### SVD-cascade unified framework annotation
+
+wave14_unified_svd_cascade_falsifier_v1 smoke UNIFIED_HARD_FAIL at N=256 (spacing_error ~2-3 vs 0.15 threshold; singular spectrum spike-structured, not equally-spaced). If FULL confirms: Bachtis-Biroli-Decelle-Seoane SVD-cascade is NOT the substrate's unifying picture; three independent homes is acceptable (arguably stronger product story -- three distinct mathematical validations). No existing theoretical home row-states changed. Full run verdict is the load-bearing result.
+
+**24-36 month competitive window**: MoE rebuild and Category A features (deletion certificate, compositionality audit, per-fact retention) are all engineering-rate-limited. Engineering velocity on Category A is the near-term competitive moat.
+
+### Pre-registered untested (v214 status)
+
+Carried forward from v213: betB_nscaling_v1 N=8192 FULL RUNNING; saddle_cascade_plateau v4 RUNNING on remote_cpu; betB_rd_perturbation_recovery_v1 PENDING; betB_replay_hA_direct_v1 PENDING; bet_n_wta_v3 PENDING; v211 WF tau_p redesign (P_deflated 0.30); v213 beti_depth_polylog_v3 (D_SWEEP=[100,150,200]); MoE alpha_c grid-quantization structural lock.
+
+New from v214:
+- **PRIORITY RESEARCH**: R26 AGS-style scaling-law extrapolation for substrate generation ceiling.
+- **OPEN**: wave14_unified_svd_cascade_falsifier_v1 FULL run pending.
+- **DESIGN-READY**: deletion certificate, compositionality audit API, per-fact retention policy, live concept drift detection (no research deps). Edit-with-impact-prediction contingent on SVD-cascade FULL.
+- **NOTE**: SVD-cascade smoke HARD-FAIL does NOT affect Saad-Solla, 1-RSB, or MoE SHIFT existing row states.
+
+### PROT compliance (v214)
+
+- PROT-004: 0 new capability closures. Annotation-only.
+- PROT-007: history.md v214 block written FIRST (verified).
+- PROT-008: No row-state demotions; no new grandfathered violations; validate_capmap_commit.py run before commit.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- No queue-refill triggered (annotation-only; orchestrator handles).
+- 127th PROT-009 paired commit.
+
+ANNOTATION-ONLY v213 -> v214: (1) Framework reliability 48-64% -> 55-70% LOCKED (48h inversion: Saad-Solla + 1-RSB + MoE SHIFT all positive); (2) Bet B customer-facing spec LOCKED ("94%/74%/60% + 4-plateau hard limit + info-theoretic floor + basin-discrete"); (3) MoE rebuild engineering-rate-limited declaration; (4) Bet N STRONG_PARTIAL + substrate-novel universality upgrade (EN/PY gap=0.0014); (5) SVD-cascade NEW 🔬 SMOKE HARD-FAIL row (three theoretical homes may be independent; FULL pending); (6) NEW product-roadmap section: 5 DESIGN-READY killer features, 2 categories (A=Audit+Compliance, B=Operational Reliability); (7) NEW LLM-leapfrog section: 8 directions + 3 narratives + 3 paths; path (b) highest priority P=60-75%; (8) R26 flagged as PRIORITY research drill; (9) 24-36 month competitive window acknowledged. 0 Tier-1 row-state changes; 14 demonstrated + 7 evidence-strength rows UNCHANGED; 127th PROT-009 paired commit.
