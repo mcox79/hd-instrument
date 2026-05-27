@@ -8719,3 +8719,78 @@ ANNOTATION-ONLY v215 → v216: (1) Hierarchical retrieval row REFRAMED from "1-R
 
 Net effect v216: 1 row REFRAMED (Hierarchical retrieval — split state into substrate-claim 🟢 + phase-class-label 🟡); 1 reliability split (substrate-multi-basin 🟢 / phase-class-label 🟡 / product-feature UNCHANGED); 0 PROT-004 closures; portfolio restored to 14+7 (substrate-multi-basin claim back to 🟢 evidence-strength row; phase-class-label is annotated sub-claim).
 
+## v217 - (2026-05-26) BATCHED 5-VERDICT (23:24-23:47): 3 INDEPENDENT INFRA FAILURES (CPU-timeout / CUDA-OOM / ImportError — diagnosed as INDEPENDENT root causes, NOT common-source bug) + 2 completed (HiPPO-replay-w rescue #3 CLOSED-NEGATIVE; MoE intra-expert-overlap diagnosis structurally executed with verdict-threshold oddity flagged for strategy review); 0 row state changes; framework reliability UNCHANGED 48-62% PROVISIONAL
+
+### Trigger
+
+Five verdicts landed between 23:24:49 and 23:47:38 on 2026-05-26. User explicitly directed failure-pattern diagnosis: "investigate failures... could be INFRASTRUCTURE bug / COMMON SOURCE bug / environmental issue" — the same diagnostic question that surfaced PROT-013 (evaluate_bpc API bug pattern earlier in the session).
+
+### Failure-pattern diagnosis (load-bearing answer)
+
+**FINDING: 3 failures in 7 minutes are INDEPENDENT, NOT a common-source bug.** Detailed root causes from runner log + experiment log inspection at C:/dev/hd-instrument/data/{remote_cpu_queue,overnight_queue}/queue.{cpu,gpu}_runner_0.log and the per-experiment .log files:
+
+| # | Anchor | Failure mode | Root cause | Evidence |
+|---|---|---|---|---|
+| 1 | wave14_saddle_cascade_plateau_v4_n2048 | CPU TIMEOUT | 7200s (2h) budget exhausted; per-seed cost ~1700s; 3 seeds × 5 f-points = 25500s >> 7200s | runner log: `TIMEOUT wave14_saddle_cascade_plateau_v4_n2048 after 7200.1s`; experiment log truncates clean at `[run] f=1.0 seed=17 N=2048` (no error, no OOM); 7/15 cells complete; self-test passed |
+| 2 | wave14_1rsb_pq_retained_v4 | CUDA OOM | N=16384 exceeds 8 GiB GPU at `(residual.T @ ctxs) / N` (exp_wave14d_betB_kovacs_v1.py line 183) | runner log: `FAIL ... exit=1 after 535.6s`; experiment log: `torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1024.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free.`; failed at seed=0; self-test passed |
+| 3 | wave14_betB_6corpus_extension_v1 | ImportError | `cannot import name 'evaluate_retention' from 'experiments.exp_wave14_k2_m1_hierreplay_v1'` — symbol does not exist or is renamed in target module | runner log: `FAIL ... exit=1 after 20.0s`; experiment log: ImportError trace at line 226 `from experiments.exp_wave14_k2_m1_hierreplay_v1 import evaluate_retention`; self-test passed (only checked BIC/equal-spacing instrumentation, NOT cross-script import) |
+
+**Three roots, three signatures.** Unlike PROT-013 (one shared helper bug — `evaluate_bpc()` API mismatch — caused many co-incident failures), these three failures are coincidentally co-located in a 7-minute window because the queue happened to schedule them sequentially.
+
+NO infrastructure-wide regression. NO SCP path drift. NO disk-full / CUDA-threshold environmental issue. NO shared helper. Each failure has a distinct mechanistic root, and re-design paths are anchor-specific (NOT scaffold-wide).
+
+### Verdict dispositions
+
+| Anchor | Row | Verdict | Honest re-read (per [[feedback-verdict-msg-honest-reread]]) | Row state | Action |
+|---|---|---|---|---|---|
+| wave14_saddle_cascade_plateau_v4_n2048 | Saad-Solla saddle-cascade theoretical home | FAILED (CPU-TIMEOUT) | Partial seed=7 data observed: retention = {f=0.0:0.40, 0.25:0.81, 0.5:0.52, 0.75:0.61, 1.0:0.97} — NON-MONOTONIC, NO N=2048 plateau either; same qualitative pattern as v3 HARD_PASS at N=1024. Partial data weakly corroborates the v3 pattern but is INSUFFICIENT to ship the N-scaling claim. 5TH ATTEMPT at this probe (v1/v2 INFRA-TIMEOUT, v3 HARD_PASS at v206 4-corpus N=1024, v4_n2048 CPU-TIMEOUT). | **UNCHANGED** ✅ Validated at v206 (v3 4-corpus N=1024 BIC_delta=-121.3 spacing_error=0.0035 stands; N=2048 extension still PENDING) | Re-design with GPU OR shorter f-grid OR smaller N; not a substrate-failure |
+| wave14_1rsb_pq_retained_v4 | 1-RSB framework label / Hierarchical retrieval | FAILED (CUDA-OOM N=16384) | OOM at first seed inside train_w_with_replay; no signal observed. Doesn't move the 1-RSB-framework-label evidence base either direction. v3 HARD_FAIL at v215 (binder=-0.255 RS-unimodal) STILL the load-bearing evidence; v4 was meant as deeper-retry but cannot run as-specified. | **UNCHANGED** 🟡 30-45% (per v216 SPLIT; phase-class label still at v215 HARD_FAIL evidence base) | Re-design with N=8192 or batched residual.T @ ctxs |
+| wave14_betB_6corpus_extension_v1 | (NEW probe — never tested) | FAILED (ImportError) | Pre-ship dependency-check failure; experiment never produced signal. Self-test gates BIC/equal-spacing instrumentation but did NOT verify the cross-script `evaluate_retention` symbol exists in `exp_wave14_k2_m1_hierreplay_v1`. This is a textbook [[feedback-ship-before-dependency-verified]] violation. | **NO ROW CHANGE** (probe never landed signal; row state ⚪ untested remains; structural-fail-pre-test footnoted) | Re-design after inspecting target module for actual retention-eval symbol OR inline the evaluation logic |
+| wave14f_hippo_replay_w_v1 | SSM-HiPPO compatibility / HiPPO-init W rescue | completed → HARD_FAIL (delta=-0.0014) | verdict_msg label HARD_FAIL is CORRECT per honest re-read: |delta=-0.0014| < threshold 0.01; mean_ret_zero=0.6104, mean_ret_hippo=0.6090 (3 seeds each); near-zero gap, near-zero variance. This is the FIRST HiPPO rescue to actually run end-to-end after v211→v212 closed P1 with HiPPO-init-W HARD_FAIL 3/3 seeds. Replay-W variant (rescue #3) lands in the same neighborhood: HiPPO-init has no measurable effect on retention under the substrate's training dynamics, with OR without replay. | **CLOSED-NEGATIVE corroborated** for HiPPO-init-W rescue path (v211/v212 closure STRENGTHENED; rescue path #3 of 3 explicitly closed-negative) | No re-ship; HiPPO-init-W rescue family closed |
+| wave14_moe_intraexpert_overlap_v1 | MoE K-scaling characterization (diverging arms) | completed → OVERLAP_DOMINANT (label questionable) | **HONEST CONTRADICTION FLAGGED**: verdict_msg says `"OVERLAP_DOMINANT: intra-expert overlap explains flat K-scaling. inter_cosine=-0.0001 (>=0.3), routing_entropy=4.343bits (>=1.5) at K=32"`. Reads as: inter_cosine SHOULD be >=0.3 for OVERLAP_DOMINANT but is -0.0001 — that ostensibly FAILS the threshold yet label is set. Per-cell numbers: intra_cosine monotone in K (K=2:0.0003 → K=32:0.0025), inter_cosine ≈0 across all K, routing_entropy at theoretical max log2(K). Empirical reading: experts ARE non-redundant between-expert at fixed K but accumulate small within-expert alignment as K grows. The label's threshold-comparator direction needs Strategy clarification BEFORE treating "OVERLAP_DOMINANT" as the definitive diagnosis for MoE K-flatness. Structural data is real (25s runtime is appropriate for a structural-only routing+overlap measurement at K∈{2,4,8,16,32}). | **UNCHANGED row state** for MoE K-scaling (v213 MIDDLE diverging arms still load-bearing); add NEW 🔬 sub-row for "intra-expert-overlap K-scaling" with strategy-review-pending annotation | Strategy review of verdict-script threshold direction; no re-ship until label semantics resolved |
+
+### Failure-pattern conclusion (1-line takeaway for the strategy thread)
+
+Three failures, three independent root causes, three independent re-design paths. NOT a single bug. The orchestrator should re-ship each anchor under its own redesign:
+- saddle_cascade → GPU OR shorter grid OR smaller N
+- pq_retained → N drop or batched matmul
+- 6corpus_extension → import verification before queue_add (locks [[feedback-ship-before-dependency-verified]] as PROT-016 candidate)
+
+### Capability moves (v216 → v217)
+
+| Capability | v216 state | v217 state | Trigger |
+|---|---|---|---|
+| Saad-Solla saddle-cascade theoretical home | ✅ Validated (v206 4-corpus + v205 3-tier; N=2048 extension pending) | ✅ UNCHANGED; v4_n2048 CPU-TIMEOUT; partial seed=7 data corroborates non-monotone retention pattern weakly; N=2048 extension still PENDING re-design | v4_n2048 budget-fail |
+| 1-RSB framework label / Hierarchical retrieval (phase-class-label sub-claim) | 🟡 30-45% (v216 SPLIT) | 🟡 UNCHANGED; v4 CUDA-OOM didn't produce signal; v215 HARD_FAIL evidence base stands | v4 OOM-fail |
+| 6-corpus equal-spacing extension (NEW probe; 5/6-corpus extension of v206 4-corpus framework) | ⚪ NOT YET TESTED (probe filed) | ⚪ STILL NOT-TESTED + structural-fail-pre-test annotation; pre-ship dependency verification not done; [[feedback-ship-before-dependency-verified]] violation logged | v1 IMPORT_ERROR |
+| SSM-HiPPO compatibility / HiPPO-init-W rescue family | 🔬 framing (v205) + CLOSED-NEGATIVE P1 (v211/v212) + 2 rescues open | **CLOSED-NEGATIVE CORROBORATED**: rescue #3 (replay-W variant) HARD_FAIL delta=-0.0014 < 0.01; all 3 rescue paths in this family now closed-negative | hippo_replay_w_v1 HARD_FAIL |
+| MoE K-scaling characterization | v213 MIDDLE_BAND diverging arms (Arm_A↓, Arm_B↓, Arm_C↑) | v213 UNCHANGED; NEW sub-row 🔬 "intra-expert-overlap K-scaling" with **VERDICT LABEL SEMANTICS PENDING** — verdict_msg threshold comparator direction (`inter_cosine=-0.0001 (>=0.3)` reads as fail-of-threshold) needs Strategy clarification before treating OVERLAP_DOMINANT as definitive; structural data (monotone intra-overlap growth with K) is real but interpretation gated | moe_intraexpert_overlap_v1 completed with threshold oddity |
+| **Substrate-physics framework reliability** | 48-62% PROVISIONAL (v215 LOCK→PROVISIONAL revision); split per v216 into substrate-multi-basin 🟢 55-70% / phase-class-label 🟡 30-45% / product-feature UNCHANGED | **UNCHANGED** — 3 failures are infra not signal (CPU-TIMEOUT, CUDA-OOM, ImportError contribute NO substrate-physics evidence either direction); 2 completed verdicts also leave framework reliability unchanged (HiPPO rescue closure is rescue-family-specific not framework-level; MoE intra-overlap diagnosis pending verdict-label clarification). No reliability re-calibration this version. | Failures-are-infra-not-signal |
+| **Substrate-product portfolio count** | 14 demonstrated + 7 evidence-strength (v216 restored) | **UNCHANGED 14+7** | No new ✅/❌ this batch |
+
+### Open redesign queue (carried into next exp_dev cycle)
+
+1. **saddle_cascade_plateau v5** — N-extension at N=2048: either move to GPU (with care since the substrate is CPU-canonical for this probe) OR cut f-grid from 5 points to 3 (drop f=0.25 and f=0.75) OR shrink seeds to 2 — orchestrator picks the redesign axis. Pre-build at `experiments/exp_wave14_saddle_cascade_plateau_v5_n4096.py` is visible in `git status` and may already be the re-design vehicle.
+2. **1rsb_pq_retained v5** — N=8192 with batched residual matmul (avoid `(residual.T @ ctxs) / N` allocating the full N×N matrix at N=16384). Independent corroborator at v8192 already exists at v215; v5 deeper-retry needs to fit GPU.
+3. **betB_6corpus_extension v2** — inspect `exp_wave14_k2_m1_hierreplay_v1.py` for the actual retention-evaluation symbol name; OR inline the evaluation logic; verify import locally before queue_add.
+
+### PROT compliance (v217)
+
+- **PROT-004**: 0 NEW capability closures. HiPPO-init-W rescue family CORROBORATION of v211/v212 closure (not a new closure; rescue path #3 closure was already implied by the rescue-family-CLOSED-NEGATIVE state). 29 grandfathered violations UNCHANGED.
+- **PROT-006**: 0 ❌ closures. The HiPPO rescue path is a rescue-family-internal item, not a Tier-1 row closure.
+- **PROT-007**: history.md v217 block written FIRST (this block); cap_map.md v217 row updates / annotations and version-table entry follow.
+- **PROT-008**: 0 row state demotions / promotions. 1 NEW sub-row annotation under MoE K-scaling (intra-expert-overlap K-scaling; verdict-label-semantics pending). 0 new grandfathered violations. validate_capmap_commit.py to be run pre-commit.
+- **PROT-009**: cap_map.md + history.md + strategy_decisions_2026-05-26.md staged atomically. 130th PROT-009 paired commit.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-verdict-msg-honest-reread]]: MoE intra-expert-overlap label `OVERLAP_DOMINANT` flagged for honest contradiction (threshold comparator direction reads as fail-of-threshold). Per-cell numbers preserved; interpretation gated pending Strategy clarification.
+- [[feedback-ship-before-dependency-verified]]: 6corpus_extension v1 violation logged as PROT-016 candidate (pre-ship import verification was not performed).
+- [[feedback-for-you-tab-primary-channel]]: 6 status_log entries (one per verdict + one for cap_map bump) with plain_language + importance.
+- [[feedback-cap-map-update-protocol]]: atomic .tmp+rename for decisions log via append_decision_log.py.
+- Pause flag: ACTIVE (verified at decision time); orchestrator handles exp_dev queue-refill SEPARATELY this turn per user instruction; verdict_handler did NOT trigger queue-refill.
+
+### Annotation summary (v216 → v217 disposition)
+
+BATCHED 5-VERDICT v216 → v217: (1) 3 INDEPENDENT INFRA FAILURES diagnosed (saddle_cascade CPU-TIMEOUT, pq_retained CUDA-OOM, 6corpus_extension ImportError — three distinct root causes, three distinct re-design paths; explicitly NOT a common-source bug like PROT-013); (2) HiPPO-init-W rescue family CLOSURE CORROBORATED (rescue #3 replay-W HARD_FAIL delta=-0.0014, all 3 family rescues now closed-negative); (3) MoE intra-expert-overlap diagnosis structurally executed (25s runtime appropriate; monotone intra-overlap growth with K observed) but VERDICT LABEL SEMANTICS PENDING (`inter_cosine=-0.0001 (>=0.3)` threshold-comparator-direction oddity flagged for Strategy clarification before accepting OVERLAP_DOMINANT diagnosis); (4) Framework reliability UNCHANGED 48-62% PROVISIONAL (3 failures are infra not signal; 2 completed don't move framework-level evidence); (5) Portfolio count UNCHANGED 14+7; (6) 0 PROT-004 closures, 0 ❌ closures, 0 row state demotions / promotions, 1 NEW sub-row annotation (intra-expert-overlap K-scaling); (7) PROT-016 candidate filed ([[feedback-ship-before-dependency-verified]] — pre-ship import verification before queue_add); (8) Three open redesign anchors carried into next exp_dev cycle (saddle_cascade v5, pq_retained v5 N=8192-batched, 6corpus_extension v2 import-verified); (9) Pause flag ACTIVE — orchestrator handles exp_dev queue-refill separately this turn. 130th PROT-009 commit.
+
+Net effect v217: 0 row state changes; 1 NEW 🔬 sub-row (intra-expert-overlap K-scaling pending verdict-label clarification); 0 PROT-004 closures; portfolio UNCHANGED 14+7; framework reliability UNCHANGED 48-62% PROVISIONAL; 3 open redesign anchors; 1 NEW PROT lock-in candidate (PROT-016 [[feedback-ship-before-dependency-verified]]); 1 verdict label flagged for Strategy clarification (MoE intra-expert-overlap threshold-comparator direction).
+

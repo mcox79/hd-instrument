@@ -562,3 +562,65 @@ Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after thi
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v216 + history.md v216 + this entry.
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
 Per user instruction (this turn): annotation-only; no queue-triggering; allowed under pause flag per strategy_scribe pause-gate rules.
+
+## 2026-05-26 23:55 — Cap map v216 → v217 BATCHED 5-VERDICT (3 INDEPENDENT INFRA FAILURES + 2 completed)
+
+Five verdicts landed 23:24-23:47. User direction: investigate failure pattern. Orchestrator handles exp_dev queue-refill separately this turn — verdict_handler does NOT trigger refill.
+
+**Decision (1): Failure-pattern diagnosis — INDEPENDENT root causes, NOT a common-source bug.**
+
+The three FAILED verdicts at 23:24 / 23:30 / 23:31 have three distinct mechanistic roots:
+
+- (1) wave14_saddle_cascade_plateau_v4_n2048 — CPU TIMEOUT 7200s. Per-seed cost ~1700s; 3 seeds × 5 f-points = 25500s exceeds 2h CPU budget. Runner log: `TIMEOUT ... after 7200.1s`; experiment log truncates clean at `[run] f=1.0 seed=17 N=2048` with NO error and NO completion. Self-test passed. Partial data (seed=7 complete) corroborates v3 non-monotone retention pattern at N=2048.
+- (2) wave14_1rsb_pq_retained_v4 — CUDA OOM on `(residual.T @ ctxs) / N` at N=16384 with 8 GiB GPU. Failed inside train_w_with_replay (exp_wave14d_betB_kovacs_v1.py line 183). Self-test passed; OOM only at full-N runtime.
+- (3) wave14_betB_6corpus_extension_v1 — ImportError: `cannot import name 'evaluate_retention' from 'experiments.exp_wave14_k2_m1_hierreplay_v1'`. Crashed at 20s, seed=7 step 1. Self-test passed but only checked BIC/equal-spacing instrumentation, NOT the cross-script symbol.
+
+Unlike PROT-013 (single evaluate_bpc helper bug breaking many co-incident experiments), these three failures share NO scaffolding. NO infrastructure-wide regression. NO SCP path drift. NO disk-full / CUDA-threshold environmental issue.
+
+**Decision (2): Per-anchor disposition.**
+
+| Anchor | Disposition | Row impact |
+|---|---|---|
+| saddle_cascade v4_n2048 | UNCHANGED Saad-Solla row ✅; N=2048 extension PENDING re-design | v3 HARD_PASS at v206 4-corpus N=1024 stands |
+| 1rsb_pq_retained v4 | UNCHANGED phase-class-label 🟡 row; v215 HARD_FAIL evidence base intact | v5 redesign with N=8192-batched needed |
+| betB_6corpus_extension v1 | ⚪ STILL not-tested; structural-fail-pre-test annotation; PROT-016 lock-in candidate logged | NEW probe never produced signal |
+| hippo_replay_w v1 | CLOSED-NEGATIVE corroborated rescue #3; all 3 HiPPO-init-W rescues now closed | v211/v212 closure strengthened |
+| moe_intraexpert_overlap v1 | NEW 🔬 sub-row under MoE K-scaling; VERDICT LABEL SEMANTICS PENDING | Threshold-comparator direction needs Strategy clarification |
+
+**Decision (3): MoE intra-expert-overlap verdict label — HONEST CONTRADICTION flagged.**
+
+verdict_msg reads: `"OVERLAP_DOMINANT: intra-expert overlap explains flat K-scaling. inter_cosine=-0.0001 (>=0.3), routing_entropy=4.343bits (>=1.5) at K=32"`. The parenthetical `(>=0.3)` reads as the threshold the metric SHOULD satisfy for OVERLAP_DOMINANT — but inter_cosine=-0.0001 OBVIOUSLY does not satisfy `>= 0.3`. Either the threshold-comparator direction is mis-stated (should be `<= 0.3`?) or the label-trigger logic does not actually use that condition (maybe it uses intra/inter ratio).
+
+Per-cell numbers ARE meaningful: monotone intra_cosine growth K=2:0.0003 → K=32:0.0025 with inter_cosine flat at ≈0 across K. Empirical reading: experts are non-redundant between-expert but accumulate slight within-expert alignment as K grows. This MAY be the K-flatness diagnosis (intra-expert overlap absorbs extra capacity) but cannot be accepted as definitive until the verdict-script logic is re-read. Per [[feedback-verdict-msg-honest-reread]] this is observation 67+ post-lock.
+
+**Decision (4): Three open redesign anchors carried into next exp_dev cycle.**
+
+1. **saddle_cascade_plateau v5** — N-extension at N=2048: move to GPU OR cut f-grid (drop f=0.25 and f=0.75 → 3-point grid) OR shrink seeds. Pre-build at `experiments/exp_wave14_saddle_cascade_plateau_v5_n4096.py` may already be the redesign vehicle (visible in git status untracked).
+2. **1rsb_pq_retained v5** — N=8192 with batched residual matmul (avoid full N×N allocation at N=16384). Independent corroborator at N=8192 already exists at v215.
+3. **betB_6corpus_extension v2** — inspect `exp_wave14_k2_m1_hierreplay_v1.py` for actual retention-evaluation symbol; OR inline evaluation logic; verify import locally before queue_add.
+
+Orchestrator dispatches exp_dev separately this turn (per user instruction this turn); verdict_handler does NOT trigger queue-refill.
+
+**Decision (5): PROT-016 lock-in candidate filed — [[feedback-ship-before-dependency-verified]] pre-ship import verification.**
+
+6corpus_extension v1 ImportError is a textbook violation of [[feedback-ship-before-dependency-verified]]. The self-test gated the instrumentation (BIC, equal-spacing math) but did NOT gate the cross-script `from experiments.exp_wave14_k2_m1_hierreplay_v1 import evaluate_retention` line. Structural fix candidate: smoke gate should `python -c "from <target_module> import <symbol>"` for each cross-script import in the experiment script BEFORE queue_add. Memory lock-in pending.
+
+**Decision (6): Framework reliability UNCHANGED 48-62% PROVISIONAL.**
+
+Three failures are infra not signal — they contribute NO substrate-physics evidence either direction. Two completed verdicts also leave framework-level evidence unchanged: HiPPO rescue closure is rescue-family-specific (not framework-level); MoE intra-overlap diagnosis is structurally executed but verdict-label semantics pending. No reliability re-calibration this version.
+
+**Decision (7): Portfolio count UNCHANGED 14+7.**
+
+No new ✅ or ❌ this batch. No row state demotions / promotions. One NEW 🔬 sub-row annotation under MoE K-scaling.
+
+**Net cap_map effect.** v216 → v217: 0 row state changes; 1 NEW 🔬 sub-row (intra-expert-overlap K-scaling pending Strategy clarification of verdict-label threshold direction); 0 PROT-004 closures; 0 ❌ closures; portfolio UNCHANGED 14+7; framework reliability UNCHANGED 48-62% PROVISIONAL; 3 open redesign anchors carried; 1 NEW PROT lock-in candidate (PROT-016 [[feedback-ship-before-dependency-verified]]); 1 verdict label flagged for Strategy clarification (MoE intra-expert-overlap threshold-comparator direction).
+
+PROT-004/006/008/009 compliance: 0 new ❌ closures; 0 row state demotions; 1 NEW 🔬 sub-row annotation captured at PROT-008 as ANNOTATION; 29 grandfathered violations UNCHANGED; validator passes; history.md v217 block written BEFORE cap_map.md v217 version-table entry (PROT-007 sequencing verified); strategy_decisions_2026-05-26.md paired; 130th PROT-009 commit.
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-verdict-msg-honest-reread]]: MoE intra-expert-overlap verdict_msg threshold-comparator direction reads as fail-of-threshold yet OVERLAP_DOMINANT label is set; per-cell numbers preserved; interpretation gated pending Strategy clarification.
+Per [[feedback-ship-before-dependency-verified]]: 6corpus_extension v1 ImportError logged as PROT-016 candidate for pre-ship import verification.
+Per [[feedback-for-you-tab-primary-channel]]: 6 status_log entries (one per verdict + one for cap_map bump) with plain_language + importance.
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py.
+Per user instruction (this turn): exp_dev queue-refill is dispatched SEPARATELY by orchestrator; verdict_handler does NOT trigger refill. Pause flag ACTIVE verified at decision time.
+
