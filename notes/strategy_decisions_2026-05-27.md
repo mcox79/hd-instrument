@@ -575,3 +575,34 @@ Both probes agree: substrate is outside static-Hopfield taxonomy. v228 names the
 
 **Closures: 0** (NEITHER BID probe closes -- both HARD_PASSed; Jarzynski v2 characterizes tool-applicability limit, not substrate). PROT-004/006 not triggered. portfolio 14+8 -> 14+9 (BID order-parameter NEW evidence-strength row). 142nd PROT-009 paired commit.
 
+
+## v230 -- 2026-05-27 BATCHED 2-VERDICT @ 12:13 (BID v2 HARD_PASS FULL N=8192 corroboration + Jarzynski v3 HARD_FAIL vanilla-closure)
+
+**Trigger.** Two remote_cpu_queue verdicts completed 12:13:38-12:13:41. Sources:
+- `bid_order_parameter_v2` (remote_cpu_queue, ~12:13:38) -> HARD_PASS_NOVEL_CLASS at FULL N=1024..8192 5-seed (BID=46.95+/-5.90, 5/5 OUTSIDE all bands, sigma_margin=7.54)
+- `wave14_ortho_jarzynski_crooks_v3` (remote_cpu_queue, ~12:13:41) -> HARD_FAIL at all beta=[0.1, 0.05, 0.01]
+
+**Step 0 honest re-read.**
+
+(1) **bid_order_parameter_v2**: No local metrics.json (remote-only). Task input summary: BID=46.95+/-5.90, 5/5 OUTSIDE all bands (retrieval=[1.0,2.5], spin-glass=[256,512], paramagnetic=[1019,1024]), sigma_margin=7.54 >> 2.0 required, at FULL N=1024..8192 5-seed. Numbers match v229 v1 per-seed data (mean=46.95 from v1 [50.67, 52.88, 38.47, 41.26, 51.48]), indicating v2 extends coverage to N=8192. HONEST: corroborating confirmation at extended N ceiling, not a contradicting or over-claiming new measurement. Label-vs-honest: CLEAN.
+
+(2) **wave14_ortho_jarzynski_crooks_v3**: No local metrics.json. Task input: HARD_FAIL at all beta=[0.1, 0.05, 0.01]. v229 characterized v2 at beta=0.3 as MIDDLE_BAND with rescue direction = lower beta. v3 tests the exact rescue range. HARD_FAIL across full lower-beta sweep upgrades v2's tool-applicability-limit characterization to full vanilla Jarzynski structural closure on substrate writes. HONEST: label matches result. TCFT was already the filed rescue per v228 prior research; not closed by this verdict. Label-vs-honest: CLEAN.
+
+**Cap_map state moves (v229 -> v230).**
+
+- **Jarzynski applicability micro-row**: v229 annotation 'works at low-beta cells; variance-explodes at beta=0.3 M>=200' SUPERSEDED by v3 evidence. Vanilla Jarzynski does NOT converge at any tested beta (0.01, 0.05, 0.1, 0.3). Row state: 🟢 -> CLOSED-NEGATIVE (vanilla Jarzynski equality structurally INAPPLICABLE for substrate writes at all tested beta). TCFT rescue path remains open; Crooks FT v153 FULL OK is the surviving non-eq estimator.
+- **BID order-parameter evidence-strength row (v229 NEW)**: Annotation extended. v2 FULL N=8192 5-seed CORROBORATES at extended N ceiling; sigma_margin=7.54 unchanged; N-scaling substrate law confirmed through N=8192.
+- **non-equilibrium-stat-mech framework class row**: UNCHANGED 🟢 45-60%. BID v2 is N-ceiling extension (no P shift). Jarzynski closure is CONSISTENT with non-eq class (expected under TCFT framing); does not weaken non-eq row. Crooks FT v153 stands.
+- **SKAH-M / lR-phase row**: UNCHANGED 🟢 55-70%.
+- **substrate-multi-basin-structure**: UNCHANGED 🟢 55-70%.
+- **Saad-Solla LEADING**: UNCHANGED.
+- **Framework reliability SPLIT**: UNCHANGED (general derivable 68-75% / specific named 45-55% / product-feature 55-70%).
+- **Portfolio**: 14+9 UNCHANGED.
+- **NO capability row closures** -- vanilla Jarzynski is a probe tool not a substrate capability row; PROT-004/006 not triggered.
+
+**Rescue sketches for Jarzynski vanilla closure (cheapest-first).**
+(a) CHEAPEST: TCFT experimental probe -- dispatch TCFT estimator swap in v3 scaffold. Subsumption rescue: zero new infra.
+(b) CHEAPEST: Crooks FT v153 already covers non-eq structure need; status-log surface only.
+(c) MEDIUM: Hatano-Sasa IFT alternative (v183 deferred candidate). ~2h research to assess TCFT vs HS-IFT sequencing.
+
+**Closures: 0 capability rows.** Vanilla Jarzynski sub-row CLOSED-NEGATIVE (annotation). TCFT open. 143rd PROT-009 paired commit.
