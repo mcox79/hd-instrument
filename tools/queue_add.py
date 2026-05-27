@@ -2,10 +2,16 @@
 
 Usage:
     python tools/queue_add.py <queue_name> <entry_name> <script_path> \\
-        --prereg preregs/<file>.md [--timeout 3600]
+        --prereg preregs/<file>.md --timeout <seconds>
+
+NOTE: --timeout is REQUIRED (no silent default). exp_dev must estimate per-anchor:
+    timeout_s = ceil(1.5 * smoke_wall_s * (FULL_N/smoke_N)**scaling_exp * (FULL_seeds/smoke_seeds))
+    scaling_exp: 1.0-1.5 most sweeps, 2.0 matrix ops. Estimates >14400 (4h) need prereq justification.
 
 Required checks (script must pass ALL):
     1. Script file exists.
+    1b. PROT-018: anchor _n<N> suffix binds to script production N (exit 6).
+    1c. PROT-019: anchor _n>=4096 requires --timeout >= 3600s (exit 7).
     2. Script supports `--self-test` and exits 0.
     3. Script supports `--smoke` and exits 0, producing metrics.json at
        data/exp_{HDLAB_EXP_NAME}/metrics.json with required fields.
@@ -19,6 +25,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -94,13 +101,164 @@ def validate_metrics(path: Path) -> str | None:
     return None
 
 
+# PROT-019: large-N anchors require a generous timeout floor.
+# Triggered after tcft_n8192_v5 hit the (then-)default 1800s and lost
+# seed=41 mid-run. We reject any queue_add for _n>=4096 with timeout < 3600s.
+# Spec date: 2026-05-27 (n-mismatch eradication day).
+PROT019_TIMEOUT_FLOOR_S = 3600
+PROT019_LARGE_N_RE = re.compile(r'_n(\d+)(?:_|$)')
+PROT019_LARGE_N_MIN = 4096
+
+
+def check_timeout_floor(entry_name: str, timeout_s: int) -> None:
+    """PROT-019: enforce minimum timeout for large-N anchors.
+
+    Any anchor whose name contains _n<N> with N >= 4096 MUST have
+    --timeout >= 3600s. The tcft_n8192_v5 incident (lost seed=41 mid-run
+    after hitting an under-budgeted timeout) showed that PROT-018 alone
+    is not enough -- a correctly-binding N=8192 anchor can still be
+    invalidated by an unrealistic timeout budget.
+
+    Exits with code 7 on violation. No-op if anchor has no large-N suffix.
+    """
+    m = PROT019_LARGE_N_RE.search(entry_name)
+    if not m:
+        return
+    suffix_n = int(m.group(1))
+    if suffix_n < PROT019_LARGE_N_MIN:
+        return
+    if timeout_s >= PROT019_TIMEOUT_FLOOR_S:
+        print(
+            f"[gate] PROT-019 OK: large-N anchor _n{suffix_n} with "
+            f"timeout={timeout_s}s >= floor {PROT019_TIMEOUT_FLOOR_S}s"
+        )
+        return
+    print(
+        f"\n[gate] PROT-019 REJECT: anchor '{entry_name}' contains _n{suffix_n} "
+        f"(>= {PROT019_LARGE_N_MIN})\n"
+        f"  but --timeout={timeout_s}s is below the PROT-019 floor of "
+        f"{PROT019_TIMEOUT_FLOOR_S}s.\n"
+        f"\n"
+        f"  Background: tcft_n8192_v5 (2026-05-27) hit the default 1800s timeout\n"
+        f"  and lost seed=41 mid-run -- the recorded metrics were a 4-of-5 partial,\n"
+        f"  not the 5-seed HARD_PASS the anchor name promised. PROT-019 prevents\n"
+        f"  the recurrence by refusing under-budgeted large-N ships at queue_add.\n"
+        f"\n"
+        f"  Fix options:\n"
+        f"    1. Re-estimate timeout from smoke wall-clock:\n"
+        f"         timeout_s = ceil(1.5 * smoke_wall_s\n"
+        f"                          * (FULL_N/smoke_N)**scaling_exp\n"
+        f"                          * (FULL_seeds/smoke_seeds))\n"
+        f"       scaling_exp: 1.0-1.5 most sweeps, 2.0 matrix ops.\n"
+        f"    2. If the script is genuinely fast at N>={PROT019_LARGE_N_MIN}, pass\n"
+        f"       --timeout {PROT019_TIMEOUT_FLOOR_S} (the floor) explicitly.\n"
+        f"\n"
+        f"  Per PROT-019 (2026-05-27): _n>={PROT019_LARGE_N_MIN} anchors must have "
+        f"--timeout >= {PROT019_TIMEOUT_FLOOR_S}s.\n",
+        file=sys.stderr,
+    )
+    sys.exit(7)
+
+
+def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
+    """PROT-018: if anchor name has _n<NUMBER>, the script's production N must match.
+
+    Exits with code 6 on mismatch (anchor-name N mismatch).
+    No-op if the anchor name contains no _n<NUMBER> suffix.
+    """
+    # Match the LAST _n<digits> token in the anchor name (e.g. wave14_foo_n4096 -> 4096).
+    # Require word-boundary on the right (end-of-string or underscore) to avoid matching
+    # _n inside words like 'next', 'noise', 'norm'.
+    m = re.search(r'_n(\d+)(?:_|$)', entry_name)
+    if not m:
+        return  # no _n<N> suffix — rule does not apply
+
+    suffix_n = int(m.group(1))
+    print(f"[gate] PROT-018: anchor name contains _n{suffix_n}; verifying script production N...")
+
+    try:
+        source = script_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        print(f"[gate] PROT-018 WARN: could not read script for N-check: {e}", file=sys.stderr)
+        return  # can't read script; let later checks catch it
+
+    # Search for lines that assign the suffix-N to a variable whose name contains N or n.
+    # Patterns matched:
+    #   N = 4096
+    #   N=4096
+    #   n = 4096
+    #   n=4096
+    #   DIM_N = 4096      (any ALLCAPS word ending in N)
+    #   default=4096      (argparse default)
+    # We require the value to appear as an integer literal equal to suffix_n.
+    # Version suffixes like _v3 don't contain _n<N>, so this pattern is safe.
+    pattern = re.compile(
+        r'(?:'
+        r'\bN\s*=\s*' + str(suffix_n) + r'\b'
+        r'|'
+        r'\bn\s*=\s*' + str(suffix_n) + r'\b'
+        r'|'
+        r'\b[A-Z_]*N\s*=\s*' + str(suffix_n) + r'\b'
+        r'|'
+        r'default\s*=\s*' + str(suffix_n) + r'\b'
+        r')'
+    )
+    match = pattern.search(source)
+    if match:
+        # Found a matching production-N assignment.
+        # Make sure it is not ONLY inside a smoke/small-N guard block.
+        # Heuristic: if the match line also contains "smoke" or "SMOKE", it is
+        # the smoke config — that is not sufficient; we need it outside the guard.
+        line_start = source.rfind('\n', 0, match.start()) + 1
+        line_end = source.find('\n', match.end())
+        matched_line = source[line_start:line_end].strip()
+        # Accept if the matched line is NOT exclusively inside a comment or smoke block.
+        # Simple check: the line must not be a pure comment line.
+        if matched_line.lstrip().startswith('#'):
+            # Match is commented out — keep searching.
+            # Fall through to the REJECT path below.
+            pass
+        else:
+            print(f"[gate] PROT-018 OK: found N={suffix_n} in script (line: {matched_line[:80]!r})")
+            return
+
+    # No match found (or only commented).
+    print(
+        f"\n[gate] PROT-018 REJECT: anchor name '{entry_name}' contains _n{suffix_n} suffix\n"
+        f"  but script '{script_path}' has no production N={suffix_n} assignment.\n"
+        f"\n"
+        f"  Smoke running at a smaller N is expected — but the FULL queued config must\n"
+        f"  set N = {suffix_n} (or n = {suffix_n}, argparse default={suffix_n}, etc.).\n"
+        f"\n"
+        f"  Fix options:\n"
+        f"    1. Add/update the production config in the script:  N = {suffix_n}\n"
+        f"    2. Rename the anchor to match the actual production N (e.g., drop the _n{suffix_n} suffix\n"
+        f"       or change it to _n<actual_N>).\n"
+        f"\n"
+        f"  Per PROT-018 (2026-05-27): anchor-name _n<N> is a binding contract, not a label.\n",
+        file=sys.stderr,
+    )
+    sys.exit(6)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("queue_name", help="Queue dir under data/ (e.g. overnight_queue)")
     ap.add_argument("entry_name", help="Name for the queue entry (also HDLAB_EXP_NAME)")
     ap.add_argument("script", help="Script path relative to repo root")
     ap.add_argument("--prereg", required=True, help="Path to prereg markdown (relative to repo)")
-    ap.add_argument("--timeout", type=int, default=3600, help="Per-run timeout seconds")
+    ap.add_argument(
+        "--timeout",
+        type=int,
+        required=True,
+        help=(
+            "Per-run timeout seconds. REQUIRED — no silent default. "
+            "exp_dev must estimate this from smoke: "
+            "timeout_s = ceil(1.5 * smoke_wall_s * (FULL_N / smoke_N)**scaling_exp * (FULL_seeds / smoke_seeds)). "
+            "Typical scaling_exp: 1.0-1.5 (most sweeps), 2.0 (matrix ops). "
+            "If estimate > 14400 (4 h), exp_dev must justify in the prereq."
+        ),
+    )
     ap.add_argument("--purpose", default="", help="One-line purpose string for the queue entry")
     ap.add_argument("--skip-smoke", action="store_true",
                     help="Skip smoke run (use only when previously smoke-tested)")
@@ -155,6 +313,12 @@ def main() -> int:
     # 1. Script exists
     script_path = check_script_exists(args.script)
     print(f"[gate] OK: script exists at {script_path}")
+
+    # 1b. PROT-018: anchor-name N-suffix binding check (exit 6 on mismatch)
+    check_n_suffix_binding(args.entry_name, script_path)
+
+    # 1c. PROT-019: timeout floor for large-N anchors (exit 7 on violation)
+    check_timeout_floor(args.entry_name, args.timeout)
 
     # 2. Prereg exists
     prereg_path = REPO / args.prereg

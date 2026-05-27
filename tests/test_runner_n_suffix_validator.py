@@ -175,6 +175,131 @@ def test_validator_pass_with_n_run_field():
         assert validate_n_suffix_binding("saad_solla_v9_n4096", p) is None
 
 
+# ---------- End-to-end runner refusal test (n-mismatch eradication 2026-05-27) ----------
+
+def test_runner_refuses_mismatched_n_suffix_in_real_run():
+    """Simulate the end-to-end runner-refusal contract.
+
+    Constructs the exact post-run state the runner sees on disk:
+      - anchor name = 'fake_test_n8192_v1' (carries _n8192 contract)
+      - metrics.json present with summary.N=512 (smoke leak into FULL slot)
+      - the script's argv would lack --N 8192 (or the script ran with N=512)
+
+    Asserts:
+      1. validate_n_suffix_binding returns a non-None error.
+      2. The error message names BOTH the contracted N (8192) and the
+         actual recorded N (512), with 'n_mismatch' as the leading token,
+         matching the exact contract documented in
+         experiments/runner_v2_prod.py and the runner's mark_outcome
+         error= field.
+
+    This guards the runner-side refusal even if a future refactor
+    accidentally silently passes the validator.
+    """
+    with tempfile.TemporaryDirectory() as td:
+        # Stage the metrics.json as a real smoke run would have written it.
+        p = _write_metrics(Path(td), {
+            "verdict": "HARD_PASS",
+            "verdict_msg": "smoke 1-seed pass",
+            "elapsed_s": 12.3,
+            "summary": {"N": 512},
+            "config": {"mode": "smoke", "N": 512},
+        })
+        err = validate_n_suffix_binding("fake_test_n8192_v1", p)
+        # Contract 1: refusal must fire (non-None).
+        assert err is not None, (
+            "Runner validator FAILED to refuse a mismatched anchor: "
+            "'fake_test_n8192_v1' with metrics N=512 must be rejected."
+        )
+        # Contract 2: error message must lead with 'n_mismatch'.
+        assert err.startswith("n_mismatch:"), (
+            f"Refusal error must lead with 'n_mismatch:' for downstream "
+            f"orchestrator error= parsing; got: {err!r}"
+        )
+        # Contract 3: error must name BOTH numerical Ns.
+        assert "8192" in err, f"refusal error missing contracted N=8192: {err!r}"
+        assert "512" in err, f"refusal error missing recorded N=512: {err!r}"
+        # Contract 4: must surface the PROT-018 reference.
+        assert "PROT-018" in err, (
+            f"refusal error must cite PROT-018 (the protocol it enforces); "
+            f"got: {err!r}"
+        )
+
+
+# ---------- PROT-019 timeout floor (n-mismatch eradication 2026-05-27) ----------
+
+def _import_queue_add():
+    """Lazy import for the PROT-019 checker so this test file stays standalone."""
+    sys.path.insert(0, str(REPO / "tools"))
+    import importlib
+    import queue_add as qa
+    importlib.reload(qa)
+    return qa
+
+
+def test_prot019_passes_large_n_with_sufficient_timeout():
+    """_n8192 anchor with timeout=5400s -- ABOVE floor -- must pass."""
+    qa = _import_queue_add()
+    # No exception, no SystemExit, no return value.
+    qa.check_timeout_floor("tcft_n8192_v6", 5400)
+
+
+def test_prot019_passes_at_exactly_the_floor():
+    """_n8192 anchor with timeout=3600s -- AT floor -- must pass."""
+    qa = _import_queue_add()
+    qa.check_timeout_floor("tcft_n8192_v6", 3600)
+
+
+def test_prot019_passes_small_n_with_short_timeout():
+    """_n1024 anchor with timeout=600s -- below floor but small N -- must pass.
+
+    PROT-019 only applies to N >= PROT019_LARGE_N_MIN (4096).
+    """
+    qa = _import_queue_add()
+    qa.check_timeout_floor("small_v1_n1024", 600)
+
+
+def test_prot019_passes_no_suffix_with_short_timeout():
+    """anchor with no _n<N> suffix -- timeout floor does not apply."""
+    qa = _import_queue_add()
+    qa.check_timeout_floor("no_n_suffix_v1", 600)
+
+
+def test_prot019_rejects_n8192_under_3600s():
+    """The exact 83rd-catch case: tcft_n8192_v5 with --timeout 1800 must REJECT."""
+    qa = _import_queue_add()
+    try:
+        qa.check_timeout_floor("tcft_n8192_v5", 1800)
+    except SystemExit as e:
+        assert e.code == 7, f"PROT-019 must exit 7 on violation; got exit {e.code}"
+        return
+    raise AssertionError(
+        "check_timeout_floor must SystemExit(7) on _n8192 + timeout<3600s"
+    )
+
+
+def test_prot019_rejects_n4096_under_3600s():
+    """N=4096 is the floor of large-N classification per PROT019_LARGE_N_MIN."""
+    qa = _import_queue_add()
+    try:
+        qa.check_timeout_floor("any_anchor_n4096", 3599)
+    except SystemExit as e:
+        assert e.code == 7, f"PROT-019 must exit 7; got {e.code}"
+        return
+    raise AssertionError("PROT-019 must reject _n4096 with timeout=3599s")
+
+
+def test_prot019_rejects_n16384_under_3600s():
+    """Forward-compatibility: arbitrarily large N still triggers the floor."""
+    qa = _import_queue_add()
+    try:
+        qa.check_timeout_floor("future_anchor_n16384", 60)
+    except SystemExit as e:
+        assert e.code == 7
+        return
+    raise AssertionError("PROT-019 must reject _n16384 with timeout=60s")
+
+
 # ---------- Standalone runner ----------
 
 if __name__ == "__main__":
