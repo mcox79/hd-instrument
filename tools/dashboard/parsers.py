@@ -543,8 +543,10 @@ def parse_status_log(text: str) -> list[dict]:
         ev.setdefault("event_kind", "observation")
         ev.setdefault("summary", "")
         entries.append(ev)
-    # Sort newest-first by ts string (ISO, so lexicographic is correct)
-    entries.sort(key=lambda e: e.get("ts", ""), reverse=True)
+    # Sort newest-first by ts string (ISO, so lexicographic is correct).
+    # Coerce to str so legacy entries with numeric (Unix epoch) ts don't crash
+    # the comparison — they sort to the end of the list, which is fine.
+    entries.sort(key=lambda e: str(e.get("ts", "")), reverse=True)
     return entries
 
 
