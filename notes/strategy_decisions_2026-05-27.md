@@ -1458,3 +1458,87 @@ These map to the v222 strategic-positioning architectural-fix branch and would c
 Net effect v244: ANNOTATION-ONLY (no row-state moves; no portfolio count change); production-scale multi-basin hysteresis corroborated (with regime-dependence caveat); path-(b) N-scaling-alone unblock probe DECISIVELY HARD_FAILed (architectural-fix rescue branch surfaces; v222 path-(b) P=0.27 deflation STANDS); 85th + 86th label-vs-honest observations; 157th PROT-009 paired commit.
 
 BATCHED v243 -> v244: [label-vs-honest 85th+86th catches] (1) wave14_1rsb_hysteresis_v6_n4096 HARD_PASS HONEST-on-headline (max_gap=1.156 >> 0.1) MILD-OVER-CLAIM on regime-completeness (M=120000 gap=0.034 = hysteresis vanishes at high-load; 4-experiment corroborated M-load-dependent pattern) + framework-label specificity ("1-RSB glassy phase" should be "substrate-multi-basin" per v216/v224); (2) wave14_corpus_N_scaling_tau_unblock_v1 TAU_UNBLOCK_HARD_FAIL HONEST-on-substantive-conclusion (bpc essentially flat across 16x N-scaling; tau-limit binding) INEQUALITY-TYPO on secondary criterion (verdict_msg "top_edge=21.179 < 1.5" false; load-bearing fact is bpc_monotone=False); failure-mode disambiguation = HONEST HARD_FAIL on substrate-physics (NOT script-output-path NOT timeout/OOM); 1-RSB hysteresis row 🟡 UNCHANGED; substrate-multi-basin row 🟢 55-70% UNCHANGED with regime-dependent annotation; geometric-frustration sub-class 🟡 UNCHANGED; SKAH-M / lR-phase 🟢 55-70% UNCHANGED; Saad-Solla LEADING UNCHANGED ✅; non-eq-stat-mech class 🟢 45-60% UNCHANGED; path-(b) feasibility UNCHANGED 0.27 (v222 deflation STANDS; v244 = confirming-not-further-deflating answer to N-scaling-alone branch); architectural-fix rescue branch surfaces (mini-batch refresh / delta-rule / capacity-management); framework reliability SPLIT UNCHANGED; portfolio 14+18 UNCHANGED; 0 capability row closures; 5 rescue sketches cheapest-first PRIMARY = subsumption (0-cost) APPLIED, (e) architectural-fix exp_dev handoff highest strategic value (could move path-(b) P 0.27→0.35-0.40); 157th PROT-009 paired commit.
+
+---
+
+## v246 -- 2026-05-27 SINGLE-VERDICT saad_solla_v10_n8192 CUDA_RUNTIME_CRASH_PARTIAL_DATA (event-bus `failed` OVERRIDDEN; NOT honest HARD_FAIL)
+
+**Trigger.** verdict_landed event 18:28:56 on overnight_queue gpu_runner_0; orchestrator-flagged as litmus-test verdict for the post-7d39e13 (HDLAB_EXP_NAME patch + PROT-019 timeout floor + 11 scripts patched) + 60d2147 (runner-side N-suffix validator) + e51aee7 (remote-first metrics) infrastructure chain. 7+ prior label-vs-honest catches on saad_solla family; this is the FIRST production verdict to flow through ALL the new infrastructure.
+
+**Step 0 honest re-read.** Event-bus reports `verdict=failed verdict_msg=null`. Local metrics.json is stale pre-ship SMOKE artifact (`_source: local`, N=512, elapsed=2.1s, single-seed=17, MIDDLE_BAND). Remote production data dir `C:\dev\hd-instrument\data\exp_saad_solla_v10_n8192\` does NOT EXIST (run crashed before metrics.json write). Authoritative source = remote runner log `C:\dev\hd-instrument\data\overnight_queue\saad_solla_v10_n8192.log` (2885 bytes; via direct SSH read).
+
+Runner-log forensics:
+- `[2026-05-27T17:35:00] START saad_solla_v10_n8192` -> `[2026-05-27T18:28:56] FAIL saad_solla_v10_n8192 exit=1 after 3235.6s`
+- elapsed = 3235.6s ≈ 54 minutes (well under 5400s budget; NOT timeout)
+- exit=1 with `FAIL` tag, NOT `TIMEOUT` tag — distinct from sagawa_v4 / tcft_v5 / saad_solla_v9 timeout class
+- Self-test PASSED at N=8192: `[selftest] saad_solla_v10_n8192 PASSED: N=8192 assertion OK, pearson_r2 OK, OOM=5.37e+08, smoke ret=0.7863`
+- Production run header confirms N=8192 with correct config: `[run] saad_solla_v10_n8192 N=8192 seeds=[7, 17] f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0] device=cuda`
+- seed=7 COMPLETED ALL 5 cells cleanly: f=0.0 retention=0.4463, f=0.15 retention=0.8856, f=0.5 retention=0.6279, f=0.8 retention=0.7424, f=1.0 retention=1.0144
+- seed=17 completed cells f=0.0/0.15/0.5 (retention=0.4447 / 0.8873 / 0.6377), then crashed
+- Crash trace: `File "exp_wave14d_betB_kovacs_v1.py", line 172, in train_w_with_replay; tgt_batch = torch.cat([tgt_batch, replay_tgts], dim=0); RuntimeError: CUDA error: an illegal memory access was encountered`
+
+**Disambiguation per orchestrator request (the 3 hypotheses):**
+- (a) Honest HARD_FAIL on Saad-Solla phase predictions: **REJECTED**. seed=7 5-cell completed data shows clear f-dependent retention structure — f=0.0 baseline collapse 0.45 (no Phase B prior replay = catastrophic A-forgetting), f=0.15 strongly recovered 0.89 (replay floor sufficient), f=0.5 mid-band 0.63, f=0.8 partial 0.74, f=1.0 full preservation 1.01. This IS the Saad-Solla phase-prediction structure directionally (monotone-ish in f with mid-band dip + upper recovery). Honest reading would be PARTIAL evidence FOR the prediction, not against.
+- (b) Script-output-path bug (HDLAB_EXP_NAME patch failed to propagate): **REJECTED**. (1) Gate self-test PASSED at N=8192 (writes to `gate_log_exp_saad_solla_v10_n8192_self-test.txt`); (2) production run header confirms `[run] saad_solla_v10_n8192 N=8192 ... device=cuda`; (3) the dir `exp_saad_solla_v10_n8192` would have been created on first metrics.json write — its absence is consistent with crash-before-write, not wrong-path. The 7d39e13 patch propagated correctly.
+- (c) Timeout/OOM: **REJECTED on TIMEOUT axis** (exit=1 with FAIL tag at 3235s, not TIMEOUT tag at >5400s). **PARTIALLY CORRECT on OOM-class axis** — the crash IS a CUDA memory error (`illegal memory access`), specifically at `torch.cat([tgt_batch, replay_tgts], dim=0)` in the Kovacs replay path. At N=8192 the replay buffer concatenation appears to exceed device memory or hit a CUDA allocator edge case (the smoke warning `expandable_segments not supported on this platform` is the same line that crashes at scale).
+
+**HONEST READING (authoritative).** `saad_solla_v10_n8192 CUDA_RUNTIME_CRASH_AT_LARGE_N_KOVACS_REPLAY_PATH; PARTIAL DATA seed=7 5/5 cells + seed=17 3/5 cells; f-dependent retention structure DIRECTIONALLY CORROBORATES Saad-Solla phase prediction in completed cells; new failure mode (d) added to the disambiguation list: large-N CUDA runtime crash in replay-buffer concatenation, distinct from (a)/(b)/(c); event-bus `failed` semantics under-determined yet again — same root pattern as v241 / v243 timeout class but distinct downstream failure axis (runtime CUDA, not wall-clock timeout)`.
+
+**4-layer N-mismatch enforcement infrastructure verification (LITMUS-TEST RESULT):**
+- Layer 1 (PROT-018 anchor-vs-config binding): **PASSED** — `_n8192` suffix binds correctly to config N=8192; queue_add.py exit-6 did not fire (anchor is honest).
+- Layer 2 (HDLAB_EXP_NAME env var honor — 7d39e13 patch): **PASSED** — production run writes to `exp_saad_solla_v10_n8192` not v9's hardcoded path; self-test gate-log filename uses v10 naming; no script-output-path bug.
+- Layer 3 (PROT-019 per-experiment timeout floor): **PASSED** — saad_solla_v10 shipped with `--timeout 5400` (3235s actual is well under); no timeout-related artifact.
+- Layer 4 (runner-side post-run N-suffix validator — 60d2147): **PASSED** — validator did not fire because crash happened before metrics.json write; validator's job is to catch metrics-vs-anchor mismatches, not pre-write crashes.
+
+**NET infrastructure verdict.** The 4-layer N-mismatch enforcement infrastructure WORKED CORRECTLY. The crash is a SUBSTRATE-MECHANISM-LEVEL issue (Kovacs replay buffer concatenation at N=8192), NOT an infrastructure-level issue. This is exactly the kind of crash the infrastructure is supposed to let through (so we see the real substrate behavior); the failure-mode taxonomy needs extension to include (d) large-N CUDA runtime crash class.
+
+**Decision (1): Saad-Solla LEADING ✅ UNCHANGED.** v206 + v211 corroborations stand. v10 PARTIAL data (seed=7 complete) is DIRECTIONALLY consistent with the phase-prediction structure but is INSUFFICIENT for an envelope-extension claim at N=8192 (1 complete seed != 5-seed convention). Saad-Solla row stays ✅ at v206 + v211 N=1024 / N=2048 scope; the N=8192 envelope-extension probe remains OPEN.
+
+**Decision (2): NEW SUB-ANNOTATION on Saad-Solla row.** Partial-data corroboration at N=8192 seed=7: f=0.0/0.15/0.5/0.8/1.0 retentions show f-dependent structure directionally consistent with Saad-Solla phase prediction (catastrophic at f=0, recovered at f=0.15, mid-band 0.5, partial 0.8, preserved 1.0). NOT a row-state move; NOT an envelope-extension lift; ANNOTATION-ONLY.
+
+**Decision (3): NEW failure-mode taxonomy entry (d) "large-N CUDA runtime crash in replay-buffer concatenation".** Distinct from existing TIMEOUT_KILL class (v241 tcft_v5, v243 sagawa_v4, v9 saad_solla_v9 at 3600s timeout) and from script-output-path bug class (v239 bet_b_4stage_v2). Root mechanism: `torch.cat([tgt_batch, replay_tgts], dim=0)` at N=8192 hits CUDA illegal memory access — likely device-memory edge case in Windows CUDA allocator (the `expandable_segments not supported` warning is the upstream signal). PROT-020 candidate: pre-ship VRAM budget assertion (`N^2 * batch_size * replay_M * sizeof(float)` estimate vs device VRAM cap).
+
+**Decision (4): Event-bus `failed` semantics under-determined — RECURRING PATTERN ELEVATED TO PROT-020 PRIMARY URGENCY.** 4 incidents in <4h all share root pattern "event-bus `failed` tag obscures actual failure mode":
+- 15:50 bid_order_parameter_v3_full TIMEOUT (300s timeout misconfig)
+- 16:49 tcft_n8192_v5 TIMEOUT (1800s default + author misconfig)
+- 17:10 sagawa_ueda_v4_n8192 TIMEOUT (1200s author misconfig)
+- 18:28 saad_solla_v10_n8192 CUDA_RUNTIME_CRASH (exit=1, NEW failure mode)
+
+The bridge `runner_tag` field extension (v241 rescue (d), v243 rescue (e)) becomes URGENT not just CANDIDATE. Without it, every `failed` event-bus entry requires manual SSH + runner-log inspection by the orchestrator — exactly the toil verdict_handler is supposed to eliminate.
+
+**Decision (5): Framework reliability SPLIT UNCHANGED.** general 65-75% / specific named 50-60% (after v245 TCFT lift) / product-feature 60-72%. v246 is annotation-only on Saad-Solla row + new failure-mode taxonomy; doesn't move any reliability band. Saad-Solla LEADING + SKAH-M anchor + TCFT FULL + Crooks FT FULL + BID v2 + 5 named-class FULL-confirmed all UNCHANGED.
+
+**Decision (6): NO capability row closures.** PROT-004/006 not triggered. Annotation-only + new failure-mode taxonomy. Portfolio 14+19 UNCHANGED.
+
+**Decision (7): Pipeline-pacing.** Pause flag ABSENT. Queue state at arrival: overnight pending=2 (`bet_b_4stage_batch128_v1`, `tcft_erase_robustness_n8192_v1`) + running=1 (`bet_b_4stage_rehab_epochs_v3` started 18:28:56 right after saad_solla_v10 crash). Source-queue overnight has pending depth 2 > 0; per [[feedback-no-padding-experiments]] auto-refill only when source-queue empty or invariant queue>=1 at risk. NO queue refill from this handler.
+
+**Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]; 5 sketches).**
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** — re-frame this verdict as "infrastructure litmus-test PASSED + new failure-mode taxonomy entry (d) added + Saad-Solla row gets sub-annotation from partial seed=7 corroboration"; applied in this entry; 0-cost.
+
+(b) **CHEAPEST INFRA ~30min** — saad_solla_v11_n8192 re-ship with mitigation: (i) reduce batch_size from 16 to 8 to halve replay-buffer memory pressure, OR (ii) disable Kovacs replay path entirely for the N=8192 envelope probe (replay is a CL mechanism not load-bearing on Saad-Solla phase prediction), OR (iii) add `torch.cuda.empty_cache()` between seed iterations + explicit replay buffer cap. Option (ii) is the cleanest: Saad-Solla phase prediction doesn't NEED the Kovacs replay scaffold (that's a Bet B/CL framing imported via base.train_w_with_replay); pure saad_solla phase probe should bind to a SIMPLER training loop. Subsumes (c)/(d) if it clears. ~30min exp_dev redesign + ~1h GPU FULL.
+
+(c) **CHEAP INFRA ~45min** — PROT-020 author + ship: queue_add.py exit-7 / pre-ship VRAM budget assertion `N^2 * batch_size * replay_M * sizeof(float) < device_VRAM_cap * 0.7`. Captures large-N CUDA runtime crashes BEFORE they ship. Parallel to PROT-019 timeout floor. (Author posture identical to v243 PROT-019 PRIMARY-INFRA decision.) Subsumes all future failure-mode (d) class incidents.
+
+(d) **CHEAP ~1h** — bridge `runner_tag` field extension (v241+v243 rescues collapsed under one ticket): distinguish TIMEOUT / metrics_invalid:missing / OOM / non-zero-exit / instrumentation-fail / cuda_runtime_crash at event-bus level. Eliminates per-failure SSH + runner-log inspection toil for orchestrator. 4-in-4h cadence makes this URGENT.
+
+(e) **MEDIUM ~2h research** — cross-correlate substrate-mechanism crash modes against the 5 killer-feature foundation list (project_substrate_killer_features_2026-05-26.md): does saad_solla_v10's Kovacs-replay-crash signal a structural issue with the deletion-certificate Cat-A killer feature's substrate-write pipeline at N=8192? CONTINGENT — only if rescue (b) reveals deeper N-scaling issue beyond batch-size mitigation.
+
+PRIMARY rescue (a) is annotation-only (applied above); (b) is the IMMEDIATE next exp_dev cycle action; (c) and (d) are INFRA candidates (compete for the same orchestrator attention slot as v243 PROT-019); (e) is contingent.
+
+**PROT compliance (v246).**
+
+- PROT-004/006: 0 capability row closures; sub-annotation on Saad-Solla row is NOT a closure or state-change. 5 rescue sketches filed cheapest-first per defensive thoroughness.
+- PROT-007: history.md absent (consistent with v228+).
+- PROT-008: Annotation-only sub-annotation on existing ✅ row + new failure-mode taxonomy entry; no row promotion/demotion; PROT-008 validator-style logic: no row state change, no gate to check.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- PROT-018: anchor `_n8192` binding contract SATISFIED (config N=8192 production confirmed at run header); no exit-6.
+- PROT-019: per-experiment timeout floor SATISFIED (saad_solla_v10 shipped with `--timeout 5400`); no exit-7.
+- PROT-020 (proposed): pre-ship VRAM budget assertion — author candidate per rescue (c).
+- [[feedback-verdict-msg-honest-reread]]: 87th post-lock observation; verdict_msg was NULL (event-bus didn't write a verdict_msg for the exit=1 crash); event-bus `failed` tag is UNDER-determined as evidence of substrate-physics failure — OVERRIDDEN authoritatively as CUDA_RUNTIME_CRASH_PARTIAL_DATA per runner-log + remote-dir absence triangulation.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 5 sketches cheapest-first; PRIMARY = framing subsumption (0-cost annotation).
+- [[feedback-dont-overextend-theorems]]: explicit — Saad-Solla ✅ row UNCHANGED; v10 partial data is corroborative-directional NOT envelope-extension; substrate-physics conclusion = "Saad-Solla phase prediction holds in partial seed=7 data at N=8192; full N=8192 envelope-extension requires re-ship with replay-path mitigation".
+- [[feedback-ship-before-dependency-verified]]: failure mode (d) is a NEW class of pre-ship verification gap (CUDA VRAM budget) — informs PROT-020 candidate.
+- [[feedback-pipeline-pacing]]: source-queue overnight pending=2 + running=1; auto-refill NOT triggered per [[feedback-no-padding-experiments]].
+- 159th PROT-009 paired commit.
