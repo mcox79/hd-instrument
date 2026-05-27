@@ -6,6 +6,10 @@ Feature parity with the live runner PLUS:
   * tolerates older single-runner clients (defaults --id to 'runner_0',
     writes heartbeat.runner_0.json AND legacy heartbeat.json)
   * OMP/MKL env vars are respected (already set in os.environ by launcher)
+  * CPU usage cap: on Windows, child experiment processes are spawned at
+    BELOW_NORMAL priority so the desktop stays usable during runs.
+    The runner process itself should be launched at BELOWNORMAL via the
+    launcher .bat (start /BELOWNORMAL). No per-ship opt-in needed.
 
 CLI (preserves run_overnight_queue.py positional arg):
   python runner_v2_prod.py                          # uses overnight_queue, id=runner_0
@@ -177,6 +181,11 @@ def run_one(entry: dict) -> str:
     # may now use unicode freely in print() / verdict_msg.
     child_env = {**os.environ, "HDLAB_EXP_NAME": name, "PYTHONIOENCODING": "utf-8"}
 
+    # On Windows: spawn child at BELOW_NORMAL priority so the desktop stays
+    # usable during long CPU-bound runs. This is DEFAULT-ON for all remote_cpu
+    # experiments; no per-ship flag needed. On non-Windows the flag is 0 (no-op).
+    _below_normal_flag = getattr(subprocess, "BELOW_NORMAL_PRIORITY_CLASS", 0)
+
     t0 = time.perf_counter()
     try:
         with log_path.open("w", encoding="utf-8") as logf:
@@ -187,6 +196,7 @@ def run_one(entry: dict) -> str:
                 stdout=logf,
                 stderr=subprocess.STDOUT,
                 timeout=entry.get("timeout_s", DEFAULT_TIMEOUT_S),
+                creationflags=_below_normal_flag,
             )
         dt = time.perf_counter() - t0
 
@@ -290,6 +300,8 @@ def main() -> int:
     log(f"Python:    {sys.executable}")
     log(f"OMP_NUM_THREADS: {os.environ.get('OMP_NUM_THREADS', '(unset)')}")
     log(f"Lock backend:    {lock_backend_name()}")
+    _bnf = getattr(subprocess, "BELOW_NORMAL_PRIORITY_CLASS", 0)
+    log(f"CPU cap:         child experiments launched at {'BELOW_NORMAL priority (Windows)' if _bnf else 'default priority (non-Windows)'}")
     heartbeat("idle")
 
     threading.Thread(target=_heartbeat_loop, daemon=True).start()

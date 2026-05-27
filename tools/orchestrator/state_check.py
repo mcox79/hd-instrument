@@ -14,6 +14,11 @@ Prints one line to stdout:
 
     [HH:MM] cap_map v157 | gpu_q:1 cpu_q:0 local_q:2 | gpu:RUN cpu:DEAD local:IDLE | last_verdict 4m ago: <name>
 
+Queue depths and runner states are read from data/remote_state_cache.json
+(populated by heartbeat_watchdog's SCP pull every 30s) when that cache is
+fresh (< 120s old).  Falls back to local_dashboard_snapshot.json when the
+bridge cache is stale or missing.  This eliminates SSH calls for reads.
+
 Exits 0 always (orchestrator parses the output line; even DEGRADED state should not break the orchestrator's flow).
 """
 
@@ -29,6 +34,22 @@ REPO = Path(__file__).resolve().parents[2]
 DASHBOARD = REPO / "data" / "local_dashboard_snapshot.json"
 CAP_MAP = REPO / "notes" / "substrate_capability_map.md"
 STATUS_LOG = REPO / "data" / "orchestrator_status_log.jsonl"
+
+# Remote-bridge consumer API — prefer over direct SSH for reads
+try:
+    import importlib.util as _ilu
+    _rs_spec = _ilu.spec_from_file_location(
+        "remote_state",
+        Path(__file__).parent / "remote_state.py",
+    )
+    _rs_mod = _ilu.module_from_spec(_rs_spec)  # type: ignore[arg-type]
+    _rs_spec.loader.exec_module(_rs_mod)  # type: ignore[union-attr]
+    _rs_get_queue_state = _rs_mod.get_queue_state
+    _rs_get_runner_state = _rs_mod.get_runner_state
+    _rs_is_stale = _rs_mod.is_stale
+    _REMOTE_STATE_AVAILABLE = True
+except Exception:
+    _REMOTE_STATE_AVAILABLE = False
 
 
 def _safe_read_json(path: Path) -> dict:
@@ -113,6 +134,21 @@ def _last_verdict() -> tuple[str, float | None]:
 
 
 def _queue_depths(d: dict) -> dict[str, int | None]:
+    # Prefer remote_state bridge (local file, no SSH) when cache is fresh
+    if _REMOTE_STATE_AVAILABLE and not _rs_is_stale():
+        gpu_entries = _rs_get_queue_state("overnight_queue")
+        cpu_entries = _rs_get_queue_state("remote_cpu_queue")
+        gpu_count = sum(1 for e in gpu_entries if e.get("status") in ("pending", "running"))
+        cpu_count = sum(1 for e in cpu_entries if e.get("status") in ("pending", "running"))
+        # local_cpu_queue is not in the remote bridge (it is local); read from snapshot
+        local = d.get("local_cpu") or d.get("cpu_local") or {}
+        return {
+            "gpu": gpu_count,
+            "cpu": cpu_count,
+            "local": local.get("queue_pending_count"),
+            "_source": "remote_bridge",
+        }
+    # Fallback: read from local dashboard snapshot
     gpu = d.get("gpu") or {}
     cpu = d.get("cpu") or {}
     local = d.get("local_cpu") or d.get("cpu_local") or {}
@@ -120,7 +156,38 @@ def _queue_depths(d: dict) -> dict[str, int | None]:
         "gpu": gpu.get("queue_pending_count"),
         "cpu": cpu.get("queue_pending_count"),
         "local": local.get("queue_pending_count"),
+        "_source": "snapshot_fallback",
     }
+
+
+def _runner_state_from_bridge(runner_id: str) -> str | None:
+    """Return runner state token from remote_state cache, or None if unavailable."""
+    if not _REMOTE_STATE_AVAILABLE or _rs_is_stale():
+        return None
+    r = _rs_get_runner_state(runner_id)
+    if not r:
+        return None
+    status = (r.get("status") or "").lower()
+    hb_ts = r.get("heartbeat_ts")
+    alive = r.get("alive", False)
+    if not alive:
+        return "DEAD"
+    if status == "running":
+        # Check heartbeat age for STALE
+        if hb_ts:
+            try:
+                dt = datetime.fromisoformat(hb_ts)
+                if dt.tzinfo is not None:
+                    dt = dt.replace(tzinfo=None)
+                mins = (datetime.now() - dt).total_seconds() / 60.0
+                if mins > 5.0:
+                    return "STALE"
+            except Exception:
+                pass
+        return "RUN"
+    if status in ("idle", "waiting"):
+        return "IDLE"
+    return (status or "?").upper()
 
 
 def main() -> int:
@@ -129,8 +196,10 @@ def main() -> int:
 
     cap_v = _cap_map_version()
     depths = _queue_depths(d)
-    gpu_state = _runner_state(d.get("gpu") or {})
-    cpu_state = _runner_state(d.get("cpu") or {})
+
+    # Prefer remote bridge for runner states; fall back to snapshot
+    gpu_state = _runner_state_from_bridge("gpu_runner_0") or _runner_state(d.get("gpu") or {})
+    cpu_state = _runner_state_from_bridge("cpu_runner_0") or _runner_state(d.get("cpu") or {})
     local_state = _runner_state(d.get("local_cpu") or d.get("cpu_local") or {})
 
     name, mins_ago = _last_verdict()
@@ -143,9 +212,12 @@ def main() -> int:
     def _fmt(v: int | None) -> str:
         return "?" if v is None else str(v)
 
+    source_tag = depths.get("_source", "snapshot_fallback")
+    src_label = "" if source_tag == "remote_bridge" else " [snap]"
+
     line = (
         f"[{ts}] cap_map {cap_v} | "
-        f"gpu_q:{_fmt(depths['gpu'])} cpu_q:{_fmt(depths['cpu'])} local_q:{_fmt(depths['local'])} | "
+        f"gpu_q:{_fmt(depths['gpu'])} cpu_q:{_fmt(depths['cpu'])} local_q:{_fmt(depths['local'])}{src_label} | "
         f"gpu:{gpu_state} cpu:{cpu_state} local:{local_state} | "
         f"{verdict_seg}"
     )

@@ -47,6 +47,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+# Suppress console-window pop-ups when this script is launched by Task Scheduler
+# or pythonw.exe (no attached console).  Applies to all subprocess.run/Popen calls
+# that set this flag — harmless on non-Windows platforms.
+_CREATE_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+
 REPO = Path(__file__).resolve().parents[2]
 DASHBOARD = REPO / "data" / "local_dashboard_snapshot.json"
 IN_FLIGHT = REPO / "data" / "orchestrator_in_flight.json"
@@ -60,6 +65,14 @@ SHIP_ATTEMPTS_PATH = REPO / "data" / "recent_ship_attempts.jsonl"
 STATUS_LOG_PATH = REPO / "data" / "orchestrator_status_log.jsonl"
 LOCAL_CPU_QUEUE_JSON = REPO / "data" / "local_cpu_queue" / "queue.json"
 RESEARCH_FIELD_ADVISOR_SCRIPT = REPO / "tools" / "orchestrator" / "research_field_advisor.py"
+
+# ---- Remote-bridge cache pull ----
+# heartbeat_watchdog pulls remote_state_cache.json from marsh@home every
+# REMOTE_CACHE_PULL_INTERVAL_S seconds.  This feeds the remote_state.py
+# consumer API so sub-agents can read queue/runner state without SSH.
+REMOTE_STATE_CACHE_PATH = REPO / "data" / "remote_state_cache.json"
+REMOTE_CACHE_PULL_INTERVAL_S = 30.0  # how often to SCP the cache file
+REMOTE_CACHE_SOURCE = "marsh@home:C:/dev/hd-instrument/data/remote_state_cache.json"
 
 # ---- Remote SSH queue polling (Option A fix for cache-staleness false-idle) ----
 # The local_dashboard_snapshot.json can be minutes out of date relative to the
@@ -118,6 +131,54 @@ ROUTING_RATIO_RECOMPUTE_S = 180.0
 ROUTING_RATIO_COOLDOWN_S = 900.0
 
 
+# ---------------------------------------------------------------------------
+# Remote-bridge cache pull
+# ---------------------------------------------------------------------------
+
+_last_cache_pull_ts: float = 0.0
+
+
+def pull_remote_state_cache(now: float) -> None:
+    """SCP remote_state_cache.json from marsh@home to the local data dir.
+
+    Called once per REMOTE_CACHE_PULL_INTERVAL_S inside the main watchdog
+    loop.  Failures are silent — the consumer API (remote_state.py) handles
+    staleness gracefully.  We use SCP with a short connect timeout to avoid
+    blocking the watchdog poll loop for more than ~10s on SSH outage.
+    """
+    global _last_cache_pull_ts
+    if (now - _last_cache_pull_ts) < REMOTE_CACHE_PULL_INTERVAL_S:
+        return
+    _last_cache_pull_ts = now
+    try:
+        REMOTE_STATE_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        tmp = REMOTE_STATE_CACHE_PATH.with_suffix(".pull.tmp")
+        result = subprocess.run(
+            [
+                "scp",
+                "-o", f"ConnectTimeout={SSH_CONNECT_TIMEOUT}",
+                "-o", "BatchMode=yes",
+                "-o", "StrictHostKeyChecking=no",
+                REMOTE_CACHE_SOURCE,
+                str(tmp),
+            ],
+            capture_output=True,
+            text=True,
+            timeout=SSH_CONNECT_TIMEOUT + 10,
+            creationflags=_CREATE_NO_WINDOW,
+        )
+        if result.returncode == 0 and tmp.exists():
+            import os as _os
+            _os.replace(tmp, REMOTE_STATE_CACHE_PATH)
+        else:
+            try:
+                tmp.unlink(missing_ok=True)
+            except Exception:
+                pass
+    except Exception:
+        pass  # SCP failure is non-fatal; consumers fall back to direct SSH
+
+
 def emit(kind: str, payload: dict[str, Any]) -> None:
     print(
         f"EVENT {kind} {json.dumps(payload, separators=(',', ':'), default=str)}",
@@ -163,6 +224,7 @@ def _ssh_count_queue(queue_json_path: str) -> int | None:
             capture_output=True,
             text=True,
             timeout=SSH_CONNECT_TIMEOUT + 5,
+            creationflags=_CREATE_NO_WINDOW,
         )
         if result.returncode != 0:
             return None
@@ -201,6 +263,7 @@ def _fetch_remote_queue_counts() -> tuple[int | None, int | None, bool, bool]:
             capture_output=True,
             text=True,
             timeout=SSH_CONNECT_TIMEOUT + 10,
+            creationflags=_CREATE_NO_WINDOW,
         )
         if result.returncode != 0:
             return (None, None, False, False)
@@ -354,6 +417,7 @@ def recompute_routing_ratio() -> dict[str, Any] | None:
             stderr=subprocess.DEVNULL,
             timeout=30,
             check=False,
+            creationflags=_CREATE_NO_WINDOW,
         )
     except Exception:
         return None
@@ -764,6 +828,7 @@ def _get_top_research_field() -> str:
             text=True,
             timeout=30,
             check=False,
+            creationflags=_CREATE_NO_WINDOW,
         )
         if result.returncode not in (0, 1):
             return ""
@@ -852,6 +917,8 @@ def main() -> None:
             "for_you_stale_cooldown_s": FOR_YOU_STALE_COOLDOWN_S,
             "research_overdue_hours": RESEARCH_OVERDUE_HOURS,
             "research_overdue_cooldown_s": RESEARCH_OVERDUE_COOLDOWN_S,
+            "remote_bridge_cache_pull_interval_s": REMOTE_CACHE_PULL_INTERVAL_S,
+            "remote_bridge_cache_source": REMOTE_CACHE_SOURCE,
         },
     )
 
@@ -867,6 +934,10 @@ def main() -> None:
     while True:
         try:
             now = time.time()
+
+            # ---- Remote-bridge cache pull (every REMOTE_CACHE_PULL_INTERVAL_S) ----
+            pull_remote_state_cache(now)
+
             payload = evaluate_idle()
 
             if payload is None:
