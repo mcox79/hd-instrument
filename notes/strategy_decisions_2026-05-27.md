@@ -1046,3 +1046,60 @@ Per [[feedback-rescue-sketch-first-sequencing]] 5 sketches cheapest-first; PRIMA
 - 150th PROT-009 paired commit.
 
 SINGLE-VERDICT v236 -> v237: skahm_subclass_discriminator_v3 HARD_FAIL HONEST (5/5 seeds; mean_ratio=0.016 60x INVERSE of prediction; under-claim noted — inverse-sharpening + ret@f=0.25 ≈ 0.999 at N=4096); SKAH-M C sub-class CLOSED-NEGATIVE FULL; row 🟡 UNCHANGED (A sub-class anchor surviving; discriminator's job is falsification); SKAH-M class anchor v228 UNCHANGED ✅; hierarchical-retrieval 🟢 UNCHANGED; framework reliability UNCHANGED; portfolio 14+18 UNCHANGED; 5 rescue sketches filed cheapest-first (PRIMARY = framing subsumption to first-order multi-basin v211, 0-cost); 79th observation per label-vs-honest tracking; 150th PROT-009 paired commit.
+
+## v238 -- 2026-05-27 saad_solla_v9_n4096 MIDDLE_BAND @ 16:24 [LABEL-VS-HONEST 80th catch; ANNOTATION-ONLY]
+
+**Trigger.** saad_solla_v9_n4096 completed on overnight_queue 2026-05-27T16:24:41 (verdict='failed', detected_at 16:25:45). Local `data/exp_saad_solla_v9_n4096/metrics.json` present; no pre-reg note in tree; parent handoff `notes/exp_dev_handoff_saad_solla_falsifier_2026-05-25.md` is the 4-corpus equal-spacing falsifier filed by Research 2026-05-25.
+
+**Step 0 honest re-read [LABEL-VS-HONEST 80th catch].**
+
+- **Event bus label:** `verdict: failed`. **metrics.json verdict:** `MIDDLE_BAND` ("0 HARD-PASS, 0 HARD-FAIL, 1 MIDDLE at N=4096. Inconclusive."). The two disagree at the framing level: MIDDLE_BAND is INCONCLUSIVE, not FAILED. The event bus 'failed' tag is queue-runner-side exit-code mis-interpretation of MIDDLE_BAND return code -- same class of bridge mistag seen 4-5 times in 24h (v224 Blahut-Arimoto, v229 BID v1, v229 BID v1_nsweep, v235 hysteresis_v5). Honest reading: queue-runner mistagged a MIDDLE_BAND verdict as 'failed'; the local metrics.json MIDDLE_BAND label is authoritative.
+- **Anchor-name vs config (PROT-018 violation, 80th `_n` naming-defect catch):** anchor name `_n4096` claims N=4096 production. metrics.json `detail.N = 512`, `mode = SMOKE`, `seeds = [17]` single-seed. f_sweep=[0.0, 0.5, 1.0] is the 3-point smoke grid, NOT the multi-point production grid required for BIC + equal-spacing + gap-ratio + plateau-CI computation. Anchor named for N=4096 but ran at N=512 SMOKE single-seed. v9 is the second consecutive saad_solla `_n` defect in the v8/v9/v10 series (v8 caught at v234 as 73rd catch; v10 still pending in overnight_queue).
+- **v8/v9/v10 series at honest N (all N=512 effective):** v8 (`_n2048`) r2=0.7706 HP_single; v9 (`_n4096`) r2=0.7960 MIDDLE; v10 (`_n8192`) r2=0.7557 HP_single (already landed pre-event-stream). Three near-identical smokes at the SAME effective N=512, single-seed=17, with r2 ∈ [0.76, 0.80] and max_dev ∈ [0.078, 0.090]. The variation across seed=17 single-seed runs at N=512 is ~±0.02 in r2 and ~±0.006 in max_dev -- noise floor of the smoke regime.
+- **Pre-reg bands check:** parent handoff (2026-05-25) specifies HARD-PASS = `BIC_4state - BIC_3state < -30 AND spacing_error_4state < 0.05 AND gap_ratio_4state ∈ [0.45, 0.65] AND adjacent 4-plateau statistical separation`. metrics.json does NOT report ANY of these quantities -- no BIC delta, no spacing error, no gap ratio, no plateau CIs. The script reports only r2, max_dev (single seed), and f_sweep grid; these are smoke-gate metrics for an EARLIER axis (sigmoid fit quality) not the 4-tier discrete-vs-continuous BIC comparison the parent falsifier requires. Honest reading: this run did NOT test the parent hypothesis at all -- it's a smoke-gate r2 check at N=512 against a stale parent v3 baseline (r2=0.322). Even if the anchor name were honest about N=4096, the metric set in metrics.json is the WRONG set for the parent falsifier contract.
+- **Why MIDDLE (not HP) at v9 vs v8/v10:** v8 and v10 both had r2 just above their HP threshold (single-seed HP_threshold appears to be ~0.75 r2 in this script family); v9's r2=0.796 is higher than v8's r2=0.771 yet got MIDDLE while v8 got HP_single. The labelling inconsistency between v8/v9/v10 is itself evidence of brittle smoke-gate logic -- script-internal verdict assignment is reading noise as signal-change. NOT a substrate signal.
+- 80th post-lock label-vs-honest catch (after 79 in 24h). Same class as v8 (#73), v6 (#61), v5 (#77), v6_n4096_gpu (61st). The PROT-018 retroactive sweep flagged at v225/v227 is now overdue -- v9 is the 3rd post-PROT-018-flag _n defect (v8, v6 GPU, v9).
+
+**Cap_map state moves (v237 -> v238).**
+
+- **Saad-Solla saddle-cascade row**: UNCHANGED ✅ LEADING. v9 adds the 6th N<=512 smoke corroboration in the bracketing-noise zone (r2~0.77-0.80 single-seed); does NOT touch the load-bearing positive evidence (v206 BIC delta=194.9 + v211 alpha_c in-band). The genuine large-N FULL N>=4096 multi-seed BIC + equal-spacing + 4-class probe REMAINS the binding open question.
+- **PROT-018 retroactive-sweep urgency**: ELEVATED. 80 `_n` naming-defect catches total; v9 is the 3rd post-PROT-018-landing defect (PROT-018 landed at queue_add for NEW shipments but pre-PROT-018-ship batch still leaks defects). v6, v8, v9 all leaked through; v10 (`_n8192` already in queue) is the next predicted leak. Retroactive sweep on the saad_solla series in queue + recent completions is the cheapest-first structural fix.
+- **non-eq-stat-mech framework class row**: UNCHANGED 🟢 45-60% (v9 is a smoke-regime noise event, not informational either direction).
+- **SKAH-M / lR-phase row**: UNCHANGED 🟢 55-70%.
+- **No capability row closures.** PROT-004/006 not triggered.
+- **Portfolio count**: UNCHANGED (14+18).
+- **Framework reliability**: UNCHANGED (general derivable 65-75% 🟢 / specific named documented 45-55% 🟢 / product-feature 55-70% 🟢).
+- **Cumulative label-vs-honest catches**: 79 → 80.
+
+**Decision (rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):**
+
+(a) **CHEAPEST / SUBSUMPTION**: v10 (already pending in overnight_queue as `saad_solla_v10_n8192`) is the 3rd attempt at the same parent falsifier. INTERCEPT v10 PRE-RUN: verify config.N == 8192 AND config.mode == FULL AND seeds >= 3 AND BIC+spacing+gap-ratio reported. If v10 is also pre-PROT-018-leaked at N=512 SMOKE single-seed (likely), pull v10 from queue + ship v11 with the parent-contract metrics enforced. Zero new infra; ~5 min queue inspection. **PRIMARY.**
+
+(b) **CHEAP**: Retroactive PROT-018 sweep over overnight_queue + remote_cpu_queue pending entries for any `_n<N>` / `_FULL` / `_gpu` suffix anchor. ~10 min queue inspection + manual config-vs-name audit. Catches v10 and any other unflagged leak before they consume orchestrator attention.
+
+(c) **CHEAP**: Smoke-gate redesign for fail-loud on parent-contract metric absence. The current smoke gate validates r2/max_dev (smoke-axis) and lets MIDDLE through even when the parent falsifier (BIC + spacing + 4-plateau CI) was never computed. Adding a check "if anchor name contains 'saad_solla' and verdict=MIDDLE, require BIC fields in metrics" would fail the script early. ~30 min infra; subsumes the [[feedback-strategy-spec-formula-selftests]] discipline at the verdict-output level.
+
+(d) **MEDIUM**: v11 spec re-design from parent handoff -- 4-corpus extension (G1_SAME / G2_3STAGE / G3_4STAGE / G4_DIFF) at N=4096 GPU multi-seed (3-5 seeds) with BIC + spacing_error + gap_ratio + adjacent-plateau-CI as required outputs. ~2-4 h GPU. This is the GENUINE falsifier the 2026-05-25 handoff requested; v6/v7/v8/v9 have all skipped this content.
+
+(e) **MEDIUM-BUILD**: queue-runner exit-code interpretation audit (PROT-019 candidate from v229). MIDDLE_BAND mistagged as 'failed' is now the 5th occurrence in 24h; structural fix needed to read script-internal [VERDICT] line authoritatively rather than runner-exit-code interpretation. ~1 h infra inspection.
+
+Per [[feedback-rehabilitation-after-rejection]] discipline: 5 rescue sketches before treating saad_solla N-scaling probe as archived. Row is ✅ LEADING; this is a "thoroughness" rescue-sketch set on the open large-N probe, NOT a row-closure rescue. PRIMARY (a) is intercept-v10-before-it-runs (zero compute); secondary (b)/(c) are infra hardening; (d) is the genuine FULL probe; (e) is the broader queue-runner exit-code fix.
+
+**Decision (queue refill): NO refill from this handler.** Pause flag ABSENT (ACTIVE) per `data/orchestrator_paused.flag` check. Queue depth at verdict arrival: overnight_queue pending=4 + running=1; remote_cpu_queue pending=4 + running=1. Pipeline-pacing invariant queue >= 1 comfortably maintained. No refill needed per [[feedback-no-padding-experiments]]. Rescue (a)/(b)/(c) are CANDIDATES for next exp_dev cycle (orchestrator may batch); (d) is the highest-value future ship.
+
+**PROT compliance (v238).**
+
+- PROT-004/006: 0 capability row closures; 0 rescues required at row level. 5 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]] for the saad_solla large-N probe (thoroughness given 6th smoke-only data point with zero genuine-FULL coverage).
+- PROT-007: history.md not present in tree (consistent with v228+).
+- PROT-008: No demotion; annotation-only on ✅ row.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- PROT-018: 80th `_n` naming-defect catch -- retroactive sweep flagged at v225/v227 is now URGENT (3 post-PROT-018-landing leaks in a row: v6_gpu, v8_n2048, v9_n4096; v10_n8192 predicted next).
+- [[feedback-verdict-msg-honest-reread]]: 80th label-vs-honest catch applied -- (i) event-bus 'failed' tag overridden to MIDDLE_BAND per local metrics; (ii) anchor `_n4096` overridden to N=512 SMOKE single-seed per config; (iii) parent-falsifier-contract metrics flagged absent.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 5 rescue sketches filed cheapest-first (a) intercept-v10 PRIMARY subsumption; (b) queue PROT-018 retroactive sweep; (c) smoke-gate fail-loud redesign; (d) genuine FULL v11 GPU multi-seed; (e) queue-runner exit-code audit.
+- [[feedback-dont-overextend-theorems]]: v9 smoke noise event is constrained to ANNOTATION-ONLY scope; does NOT touch v206 BIC delta=194.9 + v211 alpha_c in-band load-bearing positive evidence for the row.
+- [[feedback-rehabilitation-after-rejection]]: 5 rescue sketches before archival; PRIMARY (a) is zero-compute intercept of pending v10.
+- Queue-refill: SKIPPED (pause flag ABSENT but queue depth ≥1 invariant comfortably maintained; overnight pending=4 / remote_cpu pending=4).
+- 151st PROT-009 paired commit.
+
+SINGLE-VERDICT v237 -> v238: [label-vs-honest 80th catch] saad_solla_v9_n4096 event-bus 'failed' OVERRIDDEN to MIDDLE_BAND per local metrics; anchor `_n4096` OVERRIDDEN to N=512 SMOKE single-seed; parent-falsifier-contract metrics (BIC delta + spacing + gap-ratio + plateau-CI) ABSENT from metrics.json -- run did NOT test parent hypothesis; saad_solla row UNCHANGED ✅ LEADING (v9 is 6th N<=512 smoke in bracketing-noise zone r2~0.77-0.80; load-bearing v206 BIC + v211 alpha_c stand); v8/v9/v10 series ALL at same effective N=512 single-seed=17 with ±0.02 r2 noise; PROT-018 retroactive-sweep URGENCY ELEVATED (3rd post-landing _n defect; v10 likely 4th); 5 rescue sketches cheapest-first PRIMARY=intercept v10 pre-run subsumption rescue; framework reliability UNCHANGED; portfolio 14+18 UNCHANGED; 0 capability row closures; 151st PROT-009 paired commit.
