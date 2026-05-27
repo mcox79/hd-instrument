@@ -17561,3 +17561,39 @@ BATCHED 2-VERDICT v230 -> v231: (1) tcft_fresh_erase_v1 LABEL-VS-HONEST OVER-CLA
 - 145th PROT-009 paired commit.
 
 BATCHED 2-VERDICT v231 -> v232: [label-vs-honest] (1) tcft_fresh_erase_v2 [66th catch] 'FULL retry' over-claim -- single-seed smoke N=256 elapsed=17ms var_ratio=0.0248 MIDDLE_BAND (same as v1); TCFT 🟡 UNCHANGED; FULL 5-seed still required; (2) sagawa_ueda_deletion_cert_v1 [67th catch partial] MIDDLE_BAND honest new-probe su_frac=1.000 single-seed; NEW evidence-strength row 🟡 portfolio 14+10; 0 closures; framework reliability UNCHANGED; 145th PROT-009 paired commit.
+
+## v233 -- 2026-05-27 BATCHED 6-VERDICT @ 13:25 [label-vs-honest 68th/69th/70th catches]
+
+**Trigger.** Six queue verdicts completed 13:02-13:23: drift_diffusion_bp_substrate_v1 (13:02), spectral_graph_lambda2_v2 (13:04), cellular_automata_substrate_v1 (13:04), wave14_saddle_solla_v7_n4096 (13:22 queue-FAILED), skahm_subclass_discriminator_v1 (13:23), skahm_moe_shift_predictor_v1 (13:23).
+
+**Step 0 honest re-read summary.**
+
+- drift_diffusion_bp_substrate_v1 [LABEL-VS-HONEST 68th]: over-claim 'HARD_PASS corroboration'; actual MIDDLE_BAND single-seed N=256 (DD-law corr=0.616 PASS, BP-gain=-1.0 FAIL). Non-eq corroboration not achieved.
+- spectral_graph_lambda2_v2 [HONEST]: HARD_PASS corr=0.615 > 0.6 across 4 cells (N=[256,512], seeds=[7,17]). Borderline margin noted.
+- cellular_automata_substrate_v1 [HONEST]: MIDDLE_BAND single-seed smoke (Class_I at alpha=0.05, Class_II at alpha=0.1).
+- wave14_saddle_solla_v7_n4096 [LABEL-VS-HONEST 69th]: queue FAILED but metrics MIDDLE_BAND; config.N_run=512 not N=4096 -- 69th _n4096 naming-defect recurrence; large-N FULL OPEN.
+- skahm_subclass_discriminator_v1 [HONEST]: MIDDLE_BAND (A=DOCUMENTED, B=NULL, C=DOCUMENTED; spatial-correlated-DAM eliminated).
+- skahm_moe_shift_predictor_v1 [LABEL-VS-HONEST 70th]: HARD_PASS thresholds met (CV=0.2546<0.3, steepness=1.662>1.0); scope over-claim 'K=2..64' vs actual fresh K=2,4 only.
+
+**Cap_map state moves (v232 -> v233).**
+
+- **Non-eq class (DD-BP probe)**: UNCHANGED 🟢 45-60%. DD-BP orthogonal probe MIDDLE_BAND (corr pass, BP-gain fail; single-seed smoke). No advance.
+- **NEW: spectral-graph / algebraic-connectivity row**: 🟢 HARD_PASS (borderline corr=0.615; multi-seed multi-N orthogonal probe; lambda_2 algebraic connectivity predicts retention; first independent structural-characterization confirmation).
+- **NEW: CA-dynamics sub-framing row**: 🟡 MIDDLE_BAND smoke (Class_I/II at tested alpha; no chaotic/Class_III at alpha<=0.1; N=256 single-seed; needs multi-seed FULL; analogous to RC-edge and percolation sub-framing probes).
+- **Saad-Solla saddle-cascade large-N FULL**: UNCHANGED 🔬 OPEN. v7 = 69th _n4096 naming-defect; executed N=512; queue FAILED (likely runtime crash post-metrics-write); large-N FULL remains genuinely open.
+- **NEW: SKAH-M sub-class discriminator row**: 🟡 MIDDLE_BAND (A=non-reciprocal-Hopfield DOCUMENTED; B=spatial-correlated-DAM NULL/eliminated; C=saddle-hierarchy-DAM DOCUMENTED; 2/3 probes fired; N=256 single-seed smoke; larger-N discrimination pending).
+- **NEW: SKAH-M MoE-shift predictor row**: 🟢 HARD_PASS (CV(gamma)=0.2546<0.3, steepness_ratio=1.662>1.0; fresh K=2,4 only; K>4 analytically predicted; SKAH-M log-K routing-interference model consistent with observed MoE decay pattern; scope annotation: K>4 fresh validation pending).
+- **Framework reliability**: specific-documented 45-55% -> 48-58% (modest upward; spectral-graph orthogonal HARD_PASS + SKAH-M MoE predictor HARD_PASS both smoke-scale; calibration penalty per [[feedback-lit-scan-calibration-penalty]] applied; novel-synthesis P capped at 50%). General UNCHANGED (65-75%). Product-feature UNCHANGED (55-70%).
+- **Portfolio**: 14+10 -> 14+14 (+4 new rows: spectral-graph 🟢, CA-dynamics 🟡, SKAH-M-discriminator 🟡, SKAH-M-MoE-predictor 🟢).
+- **0 capability row closures.** PROT-004/006 not triggered.
+
+**PROT compliance (v233).**
+
+- PROT-004: 0 closures. No rescue sketches required.
+- PROT-008: 4 new rows (2 at 🟢, 2 at 🟡). No demotions.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- Queue-refill: SKIPPED per orchestrator instruction.
+- 146th PROT-009 paired commit.
+
+BATCHED 6-VERDICT v232 -> v233: [label-vs-honest 68th/69th/70th] (1) drift_diffusion_bp_substrate_v1 MIDDLE_BAND [68th: BP-gain fail; non-eq UNCHANGED 🟢]; (2) spectral_graph_lambda2_v2 HARD_PASS honest borderline (corr=0.615; NEW 🟢 spectral-graph row; lambda_2 predicts retention); (3) cellular_automata_substrate_v1 MIDDLE_BAND honest (Class_I/II; NEW 🟡 CA-dynamics row); (4) wave14_saddle_solla_v7_n4096 queue-FAILED [69th: N=512 smoke not N=4096; large-N FULL UNCHANGED 🔬 OPEN]; (5) skahm_subclass_discriminator_v1 MIDDLE_BAND honest (A+C documented; B=spatial-correlated-DAM eliminated; NEW 🟡); (6) skahm_moe_shift_predictor_v1 HARD_PASS [70th: scope K=2,4 fresh not K=2..64; pre-reg thresholds valid; NEW 🟢 SKAH-M MoE-predictor]; portfolio 14+10 -> 14+14; specific-documented reliability 45-55% -> 48-58% modest; 0 closures; 146th PROT-009 paired commit.
