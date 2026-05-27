@@ -624,3 +624,21 @@ Per [[feedback-for-you-tab-primary-channel]]: 6 status_log entries (one per verd
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py.
 Per user instruction (this turn): exp_dev queue-refill is dispatched SEPARATELY by orchestrator; verdict_handler does NOT trigger refill. Pause flag ACTIVE verified at decision time.
 
+
+## wave14f_hippo_eigenspace_v1 INSTRUMENTATION_FAIL — annotation v217->v218 (2026-05-27T00:16:22)
+
+### Step 0: honest re-read
+- verdict tag: INSTRUMENTATION_FAIL
+- verdict_msg: "Vanilla baseline depth_at_half=1.0 < 2.0. Training is not working at this scale."
+- per-cell: all 3 seeds (7/17/23) — hippo depth_at_half=1.0, vanilla depth_at_half=1.0; cosines drop to near-zero (< 0.02) after layer 1; mean_ratio=1.0
+- HONEST: label is accurate. Both branches degenerate identically. No comparison signal possible.
+
+### cap_map decision: ANNOTATION-ONLY v217->v218
+- HiPPO family status: CLOSED-NEGATIVE (v212) — CONFIRMED by 4th arm
+- Rescue #1 (hippo_warmstart_v1): WARMSTART_HARD_FAIL — speedup_ratio=1.0, no convergence advantage
+- Rescue #2 (hippo_warmstart already batched); Rescue #3 (hippo_replay_w_v1): HIPPO_REPLAY_HARD_FAIL delta=-0.0014
+- Rescue #4 (hippo_eigenspace_v1): INSTRUMENTATION_FAIL — degenerate training at N=1024
+- All 4 rescue arms closed. Closure REVISIT ruled out: no positive result in any arm.
+- v212 CLOSED-NEGATIVE stands. No row-state move. Annotation only.
+
+### pipeline-pacing: SKIP (overnight=7 pending, cpu=19 pending — queues non-empty)
