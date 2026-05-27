@@ -2,9 +2,12 @@
 
 **Purpose:** After context compaction / summarization, behavioral knowledge gets lost. This file is the dense restoration document. The orchestrator reads this FIRST on cold start AND right after any context summarization, before doing anything else.
 
-**Last updated:** 2026-05-24 by skill-registry-fix sub-agent — added `/verdict_handler` skill; clarified slash-command vs SKILL.md discovery split; documented Agent-fallback path for current orchestrator session (new SKILL.md files become Skill-tool-invokable only on next session start).
+**Last updated:** 2026-05-27 (comprehensive pre-compaction handoff). New Section 6 (bridge architecture canonical reference), Section 7 (cap_map state snapshot at v233 with substrate-class confirmations), Section 8 (today's structural-process additions consolidated index). Section 3 gains OOM pre-check gate + import-chain coverage in smoke as enforced hard rules. Section 4b watchdog event set carried forward at 13 events. Section 5 carries PROT-014 obsolete + 7 subagent_types registered. Section 5c carries PROT-018 + runner singleton + per-experiment timeout.
 
-**Previous update:** 2026-05-23 by orchestration-architect sub-agent, after user flagged 5+ times that the orchestrator does substantive work in main thread and disobeys pause directives.
+**Previous updates:**
+- 2026-05-27 (earlier) by memory_curator sub-agent — Section 4b updated to 13 watchdog event kinds (added `bridge_cache_stale`); Section 5 clarified that custom subagent_types DO register and PROT-014 is obsolete; new Section 5c documents PROT-018 anchor-name binding + runner singleton lock + per-experiment timeout policy as enforced (not advisory) rules.
+- 2026-05-24 by skill-registry-fix sub-agent — added `/verdict_handler` skill; clarified slash-command vs SKILL.md discovery split; documented Agent-fallback path for current orchestrator session.
+- 2026-05-23 by orchestration-architect sub-agent, after user flagged 5+ times that the orchestrator does substantive work in main thread and disobeys pause directives.
 
 ---
 
@@ -166,6 +169,44 @@ The wrappers return one-line summaries the orchestrator pastes verbatim. If you 
 
 Per [[feedback-pipeline-pacing]] the orchestrator's reflex is "queue empty → ship." That reflex is **suspended** when the pause flag exists. Don't dispatch exp_dev for "queue refill" when paused; that's exactly the failure mode the user flagged.
 
+### 3g. Anchor-name N-suffix is a binding contract (PROT-018)
+
+60+ mismatches (2026-05-27): anchor `_n4096` ran at N=512 (smoke config leaked into the full run). The `_n<NUMBER>` suffix in an anchor name is a HARD CONTRACT — the script's PRODUCTION N must equal that number.
+
+- **exp_dev pre-ship check**: `grep -E "(N\s*=|n\s*=)\s*<SUFFIX_N>"` must find a match — if not, BLOCK.
+- **queue_add.py exit-6**: ship-time validator rejects mismatches before smoke runs.
+- **`_v<N>` is version, not N-binding** — only `_n<NUMBER>` triggers this rule.
+- Unit-tested 10/10 cases at lock-in.
+- Full rule: `notes/active_protocols.md` PROT-018.
+
+### 3h. Per-experiment `--timeout` REQUIRED (no silent default)
+
+`queue_add.py` no longer accepts ships without `--timeout <seconds>`. The 7200s silent default is REMOVED. Formula:
+
+```
+timeout = ceil(1.5 * smoke_wall_s * (FULL_N / smoke_N)^exp * (FULL_seeds / smoke_seeds))
+```
+
+with `exp ∈ {1.0, 1.5, 2.0}` (default 1.5 if scaling unknown). Timeouts > 14400s are BLOCKED pre-ship pending justification — surface to orchestrator. Memory: `feedback_per_experiment_timeout_required.md`.
+
+### 3i. Runner singleton PID-file lock
+
+Before any `start /BELOWNORMAL python ...` or `schtasks /Run` for cpu_runner_0 / gpu_runner_0 / remote_state_emitter / heartbeat_watchdog:
+
+- Check `tasklist | findstr <runner_script>` FIRST.
+- `runner_v2_prod.py --singleton-pid-file <path>` enforces; launchers pass the flag.
+- New launches abort cleanly if PID file shows an alive process.
+- Watchdog `duplicate_runner_detected` / `duplicate_watchdog_detected` events fire on N>1.
+- 3 runner-duplication incidents on 2026-05-27 forced this. Memory: `feedback_runner_singleton_check.md`.
+
+### 3j. OOM pre-check gate (6GB ceiling)
+
+O(N²) matrix ops at large N must pass a 6GB GPU/RAM ceiling check BEFORE ship. exp_dev computes peak memory analytically (e.g. `8 * N^2` bytes for a float64 N×N) and BLOCKS the ship if predicted peak > 6 GB without explicit `--allow-large-mem` justification. Multiple O(N²) OOM crashes on 2026-05-27 triggered this.
+
+### 3k. Import-chain coverage in smoke
+
+Smoke runs MUST exercise the same `from experiments.X import ...` chain that FULL will use — no smoke-only stub imports, no try/except-swallow on the import line. Several FULL runs on 2026-05-27 passed smoke and then ImportError'd in production because smoke shimmed an import. Smoke is a production-codepath audit, not just a numerical sanity check.
+
 ---
 
 ## 4. THE 7 KNOWN FAILURE MODES (from 2026-05-23 audit)
@@ -192,27 +233,37 @@ Per [[feedback-pipeline-pacing]] the orchestrator's reflex is "queue empty → s
 ```
 Monitor(
   command="python tools/orchestrator/heartbeat_watchdog.py",
-  pattern="EVENT (silent_idle|for_you_stale|research_overdue|routing_ratio_low|ship_unconfirmed)"
+  pattern="EVENT (silent_idle|gpu_idle|cpu_idle|gpu_queue_low|cpu_queue_low|ship_unconfirmed|for_you_stale|research_overdue|verdict_landed|bridge_cache_stale|routing_ratio_low|duplicate_runner_detected|duplicate_watchdog_detected)"
 )
 ```
 
-**Four watchdog event kinds and mandatory orchestrator response:**
+**Thirteen watchdog event kinds and mandatory orchestrator response:**
 
 | Event | Trigger condition | Cooldown | Orchestrator mandatory response |
 |---|---|---|---|
 | `silent_idle` | Both GPU+CPU queues = 0 AND no in-flight dispatches AND no runner running for > 120s | 600s | Dispatch exp_dev for emergency refill (GATED on pause flag — if paused, write a `for_you` status_log entry instead explaining nothing is running). |
+| `gpu_idle` | overnight_queue pending=0 AND GPU runner NOT running for > 120s (CPU state irrelevant) | 600s | Dispatch exp_dev to refill the GPU lane (GATED on pause flag). Fires independently of CPU — use this to catch GPU going empty while CPU is still busy. |
+| `cpu_idle` | remote_cpu_queue pending=0 AND CPU runner NOT running for > 120s (GPU state irrelevant) | 600s | Dispatch exp_dev to refill the CPU lane (GATED on pause flag). Fires independently of GPU. |
+| `gpu_queue_low` | overnight_queue pending <= 1 AND GPU runner IS running (proactive: fires BEFORE idle) | 600s (LOW); 300s (SEVERELY_LOW when pending=0) | Dispatch exp_dev refill PROACTIVELY — fires while ~30-60 min of work still in flight so the lane never goes idle. Payload includes `gpu_pending`, `threshold`. GATED on pause flag. |
+| `cpu_queue_low` | remote_cpu_queue pending <= 1 AND CPU runner IS running (same logic as gpu_queue_low) | 600s (LOW); 300s (SEVERELY_LOW) | Same as gpu_queue_low for the CPU lane. |
+| `ship_unconfirmed` | `queue_add.sh` returned success locally but the experiment name has not appeared in any queue/verdict/log within 60s | 300s (per name) | Investigate: check `data/recent_ship_attempts.jsonl` + run `python tools/orchestrator/state_check.py` + confirm queue status via dashboard. Re-ship if the experiment genuinely did not land. |
 | `for_you_stale` | No status_log entry written in the past 30 min | 1800s | (A) Write a "still working on X" status_log entry for whatever the orchestrator has been doing, OR (B) if truly nothing is happening, dispatch a research drill so there is something to report, OR (C) if paused and idle, surface stale-state to the user in chat. At minimum, write a `heartbeat` status_log entry with plain_language so the For You tab does not go dark. |
 | `research_overdue` | No `research_drill_closure` or `research_delivered` event in the past 24 h | 3600s | Dispatch the research sub-agent with `suggested_field` from the payload (or any cross-domain probe if `suggested_field` is empty). Per [[feedback-periodic-scope-expansion]] and auto-probe trigger B in Section 5b above. Always allowed — research is not pause-gated. |
+| `verdict_landed` | A new verdict appears in the remote_state bridge cache (ended_at > last_seen_ts) | 0s per verdict (each fires once) | Dispatch verdict_handler with the verdict name from payload `{"name": ..., "verdict": ..., "ended_at": ..., "queue": ...}`. Gated on pause flag for exp_dev refill step inside verdict_handler. **Bootstrap fix:** on first watchdog start, `last_seen_ts = max(ended_at) - 1` so the newest verdict still fires once instead of being silently skipped. |
+| `bridge_cache_stale` | Local `data/remote_state_cache_local.json` mtime > 90s (3x emitter cadence) | 600s | Verify both schtasks alive (`hd_remote_state_emitter` on remote, local heartbeat_watchdog with `pull_remote_state_cache`). Restart whichever is dead per `docs/bridge_recovery.md`. Bridge staleness blinds the whole agent stack — treat as HIGH-priority. |
 | `routing_ratio_low` | `routing_ratio` < 0.75 over last 20 turns AND turn count >= 8 | 900s | (a) Re-read Section 2 above. (b) Route the NEXT event through its proper wrapper. (c) Write a `routing_ratio_correction` status_log entry acknowledging the drift. |
-| `ship_unconfirmed` | `queue_add.sh` returned success locally but the experiment name has not appeared in any queue/verdict/log within 60s | 300s (per name) | Investigate: check `data/recent_ship_attempts.jsonl` + run `python tools/orchestrator/state_check.py` + confirm queue status via dashboard. Re-ship if the experiment genuinely did not land. |
+| `duplicate_runner_detected` | >1 real Python interpreter instance found on marsh@home whose commandline matches a runner kind (cpu_runner_0, gpu_runner_0, remote_state_emitter); venv shim launchers (~4 MB) are excluded | 900s per runner kind | Dispatch a focused dedup sub-agent to identify the non-leader instance(s) and terminate them (e.g. via SSH `taskkill /PID <pid>`). Payload contains `runner_kind`, `instance_count`, `pids`. Per [[feedback-runner-singleton-check]]. |
+| `duplicate_watchdog_detected` | >1 local heartbeat_watchdog.py Python instance found on THIS machine | 900s | Kill all instances except the one with the highest PID (newest). The payload `pids` list + `own_pid` field shows which to keep. |
 
-**Monitor note:** The Monitor armed on `dispatch.py` receives verdict / routing / queue_add events (from the repo file-system poller). The Monitor armed on `heartbeat_watchdog.py` receives the five structural-health events above. Both should be armed simultaneously; they share the same `EVENT <kind>` format and the orchestrator reads from whichever fires first.
+**Monitor note:** The Monitor armed on `dispatch.py` receives verdict / routing / queue_add events (from the repo file-system poller). The Monitor armed on `heartbeat_watchdog.py` receives the thirteen structural-health events above. Both should be armed simultaneously; they share the same `EVENT <kind>` format and the orchestrator reads from whichever fires first.
 
 ---
 
 ## 5. SKILLS REGISTRY
 
 **Updated 2026-05-24: 7 subagent types.** All 7 core patterns now have subagent type definitions at `C:\Users\marsh\.claude\agents\<name>.md`. The full contract (pause gate, self-discovery, autonomy, hard constraints, return format) lives in the subagent system prompt. Orchestrator job per dispatch: `Agent({subagent_type: "<name>", description: "<name>: <args>", prompt: "<args>"})` — ONE call, args only.
+
+**PROT-014 OBSOLETE (clarified 2026-05-27):** Earlier guidance suggested that custom subagent_types might not register reliably. This is FALSE in the current harness. All 7 of `exp_dev`, `research`, `verdict_handler`, `strategy_scribe`, `memory_curator`, `meta_audit`, `routing_handler` are addressable via `Agent(subagent_type=...)` without session restart. The Skill tool is a discovery shortcut to the same Agent call. Prefer either; both work.
 
 **Three registration formats — DIFFERENT discovery paths:**
 
@@ -269,6 +320,48 @@ Each file is `<name>.md` with YAML frontmatter (name, description, model) and a 
 
 ---
 
+## 5c. ENFORCED SHIP-TIME PROTOCOLS (PROT-018 + singleton + timeout)
+
+These three rules became **structurally enforced** on 2026-05-27 (not advisory). Each one was conversationally violated 3+ times before enforcement landed. They are documented here so the orchestrator knows what queue_add.py / runner launchers / exp_dev will reject and why.
+
+### PROT-018 — anchor-name `_n<N>` binding contract
+
+The `_n<NUMBER>` suffix in an anchor name (e.g. `bid_v2_n8192_5seed_FULL`) is a HARD CONTRACT — the script's PRODUCTION N must equal that number.
+
+- **exp_dev pre-ship check:** `grep -E "(N\s*=|n\s*=)\s*<SUFFIX_N>"` against the script. If no match, BLOCK.
+- **queue_add.py exit-6:** ship-time validator rejects mismatches before smoke even runs.
+- **`_v<N>` is version, not N-binding** — only `_n<NUMBER>` triggers the rule.
+- 60+ label-vs-honest catches accumulated on 2026-05-27 before enforcement landed; smoke configs leaked into FULL-run paths, producing unfalsifiable evidence.
+- Memory: `feedback_no_label_vs_honest_anchor_names.md`.
+
+### Runner singleton lock (PID-file)
+
+Before any `start /BELOWNORMAL python ...` or `schtasks /Run` for cpu_runner_0 / gpu_runner_0 / remote_state_emitter / heartbeat_watchdog:
+
+- `runner_v2_prod.py --singleton-pid-file <path>` accepts the flag; launchers pass it.
+- New launches abort cleanly if PID file shows an alive process.
+- Watchdog `duplicate_runner_detected` / `duplicate_watchdog_detected` events fire when N>1 instance is found.
+- 3 runner-duplication incidents on 2026-05-27 forced this fix. Duplicates compete for queue items and write conflicting heartbeats.
+- Memory: `feedback_runner_singleton_check.md`.
+
+### Per-experiment `--timeout` (required, no silent default)
+
+`queue_add.py` now REQUIRES `--timeout <seconds>` (the silent 7200s default is removed).
+
+Formula exp_dev uses at ship time:
+
+```
+timeout = ceil(1.5 * smoke_wall_s * (FULL_N / smoke_N)^exp * (FULL_seeds / smoke_seeds))
+```
+
+with `exp ∈ {1.0, 1.5, 2.0}` (default 1.5 if scaling unknown). Timeouts > 14400s are blocked pre-ship pending review — surface to orchestrator.
+
+Forced by multiple TIMEOUT failures on 2026-05-27 (Bet I depth_polylog v3/v4 + hysteresis variants).
+
+Memory: `feedback_per_experiment_timeout_required.md`.
+
+---
+
 ## 5b. RESEARCH FIELD ADVISOR + AUTO-PROBE TRIGGERS
 
 Research sub-agent now has explicit triggers for "what to search next" decisions, grounded in the 110-drill field-coverage data parsed from `notes/research_meta_map_and_adjacencies_*.md`.
@@ -301,7 +394,110 @@ The orchestrator does NOT need to run the advisor itself -- the research sub-age
 
 ---
 
-## 6. MEMORY FILES FOR FURTHER READING
+## 6. BRIDGE ARCHITECTURE (canonical reference)
+
+The remote-state bridge replaced per-call SSH for state reads on 2026-05-27. SSH is now reserved for WRITES (queue_add, runner control, file deploys). State READS go through a 30s-cached JSON file.
+
+**Components:**
+- **Remote emitter**: `tools/orchestrator/remote_state_emitter.py` running on marsh@home via schtask `hd_remote_state_emitter` ONLOGON. Writes `C:/dev/hd-instrument/data/remote_state_cache.json` every 30s.
+- **Local puller**: integrated into `heartbeat_watchdog.py` via `pull_remote_state_cache()` — SCP fetch every 30s into `data/remote_state_cache_local.json`.
+- **API**: `tools/orchestrator/remote_state.py` — 6 functions:
+  - `get_queue_state()`
+  - `get_runner_state()`
+  - `get_recent_verdicts()`
+  - `is_stale()`
+  - `snapshot_ts()`
+  - `queue_pending_count()`
+
+**Performance:** 0.5ms cache read vs 600-2000ms SSH = **1161× speedup**. Latency budget for state_check.py / dashboard / watchdog dropped from seconds to milliseconds.
+
+**Recovery:** `docs/bridge_recovery.md` documents how to restart both sides after either machine reboots. Both ends use schtasks ONLOGON triggers so reboot survival is automatic; manual recovery only needed if a schtask is disabled or the emitter crashes mid-cycle.
+
+**Atomic heartbeat write:** `.tmp + os.replace` semantics on the cache file; dashboard tolerates parse failure (last-good fallback) so a torn read during emitter write doesn't blank the UI.
+
+**Dashboard runner-grouping:** venv-shim PID + interpreter PID pairs are grouped as ONE logical runner instance. Child experiments are labeled as such (not as duplicate runners) so `duplicate_runner_detected` doesn't false-fire during a normal experiment launch.
+
+**Watchdog interaction:** `bridge_cache_stale` event (Section 4b) fires when the local cache file mtime > 90s (3× emitter cadence). Treat as HIGH priority — staleness blinds the whole agent stack.
+
+Memory: `feedback_remote_bridge_architecture.md`.
+
+---
+
+## 7. CAP_MAP SNAPSHOT AT COMPACTION HANDOFF (2026-05-27)
+
+Cap_map at **v233** (commit 052161f or successor pushed). Read `notes/capability_map.md` for the full row-by-row state; this section captures the strategic shape.
+
+### Substrate-class confirmations (today)
+
+- **SKAH-M class CONFIRMED at v228**: substrate IS the documented gated-multistable AM / lR-phase class (P=0.48 modal). 6-cell positive-identifier battery HARD_PASS at N=8192, 5-seed. 15+ static-phase rejections preceded. Three lit threads converge:
+  - Non-reciprocal Hopfield (arxiv 2501.00983)
+  - Spatial-correlated DAM (arxiv 2207.05218)
+  - Saddle-hierarchy DAM (arxiv 2508.19151)
+  - Substrate is a hybrid match. Memory: `project_substrate_skahm_class_confirmed_2026-05-27.md`.
+
+- **Non-equilibrium-stat-mech framework class** (v229 row): BID v2 HARD_PASS at FULL N=1024-8192, 5-seed (sigma_margin=7.54 OUTSIDE all Hopfield static bands). Surviving frameworks: Crooks, Sagawa-Ueda, drift-diffusion-BP, free-probability. Static-phase drills PARKED as class. Memory: `project_substrate_non_eq_stat_mech_class_2026-05-27.md`.
+
+- **Plural-framework lock** (3rd independent confirmation): Saad-Solla saddle-cascade ✅ + 1-RSB hysteresis 🟡 + MoE SHIFT ✅ are INDEPENDENT phase observations. NOT unified by SVD-cascade — that was decisively rejected at v219+v224.
+
+### Bet states
+
+- **Bet B retention 4-tier shift-class taxonomy FINAL LOCK** (silhouette=0.788).
+- **Bet N STRONG_PARTIAL**: atom-genericity confirmed; EN/PY gap=0.0014.
+- **Bet I MoE rebuild engineering-rate-limited** at K=4/K=8: LSH gating entropy is the sole degradation source per K_perarm; cosine-dot + Hebbian-anchor learned-router rescues BOTH HARD_FAILed.
+- **Saad-Solla large-N FULL still genuinely open** — PROT-018 now blocks the 5+ label-vs-honest catches that previously masked this. Memory: `project_pred4_hysteresis_first_order_confirmed_2026-05-27.md` for adjacent results.
+- **Path-b feasibility revised 0.45 → 0.27**: corpus-size scaling HARD_FAIL; τ-limit + PPMI saturation are the bottleneck.
+
+### Framework reliability (split)
+
+- General: 🟢 65-75% (unchanged)
+- Specific-documented: 🟢 48-58% (raised from 45-55%)
+- Product-feature: 🟢 55-70% (unchanged)
+
+### Portfolio
+
+- **14 demonstrated + 14 evidence-strength rows**.
+- **5 killer features design-ready**: deletion certificate / compositionality audit API / per-fact retention policy / live drift detection / edit-with-impact-prediction. Memory: `project_substrate_killer_features_2026-05-26.md`.
+- **3 LLM-leapfrog product narratives**: Audit+Compliance / Operational Reliability / AI-data-sovereignty. Memory: `project_llm_leapfrog_directions_2026-05-26.md`.
+
+### Engineering posture
+
+- **Product engineering DEFERRED** per user until full substrate characterization (non-eq framework drills still active).
+- **Plumbing/SDK/dashboard is the rate-limiter**, not physics. Weight product-engineering work HIGHER than additional theoretical confirmation when characterization completes. Window: 24-36 months. Memory: `feedback_substrate_value_framing_2026-05-26.md`, `project_substrate_strategic_inversion_48h_2026-05-26.md`.
+
+---
+
+## 8. TODAY'S STRUCTURAL-PROCESS ADDITIONS (2026-05-27 consolidated index)
+
+| Addition | Status | Where enforced |
+|---|---|---|
+| PROT-018 anchor-name N-suffix binding | LOCKED, unit-tested 10/10 | exp_dev pre-ship grep + queue_add.py exit-6; brief Section 3g |
+| PROT-015 cold-start cap 2 calls | LOCKED | Section 10 cold-start sequence below |
+| PROT-014 research-must-use-general-purpose | **OBSOLETED today** | All 7 custom subagent_types confirmed registered; Section 5 |
+| Runner singleton PID-file lock | LOCKED | `--singleton-pid-file` flag + watchdog `duplicate_runner_detected` event; Section 3i |
+| Per-experiment `--timeout` REQUIRED + formula | LOCKED | queue_add.py rejects missing flag; >14400s blocked; Section 3h |
+| OOM pre-check gate (6GB ceiling) | LOCKED | exp_dev computes peak analytically + BLOCKs without `--allow-large-mem`; Section 3j |
+| Import-chain coverage in smoke | LOCKED | smoke uses same `from experiments.X import ...` as FULL; Section 3k |
+| 13-event watchdog set | LOCKED | `heartbeat_watchdog.py` (5 new: gpu_idle, cpu_idle, gpu_queue_low, cpu_queue_low, duplicate_watchdog_detected; 8 carried forward); Section 4b. Memory: `feedback_watchdog_full_event_set.md`. |
+| Bridge architecture (1161× SSH reduction; 30s TTL) | LOCKED | Section 6. Memory: `feedback_remote_bridge_architecture.md` |
+| Heartbeat atomic write | LOCKED | `.tmp + os.replace` in emitter; Section 6 |
+| Dashboard runner-grouping | LOCKED | venv-shim+interpreter pairs grouped; child experiments labeled; Section 6 |
+| Memory_curator wrote 7 new memories today | DONE | 3 project + 4 feedback in `C:\Users\marsh\.claude\projects\d--AI\memory\` — see MEMORY.md index |
+
+The 7 new memories today (slugs):
+- `project_substrate_skahm_class_confirmed_2026-05-27.md`
+- `project_substrate_non_eq_stat_mech_class_2026-05-27.md`
+- `project_pred4_hysteresis_first_order_confirmed_2026-05-27.md`
+- `feedback_no_label_vs_honest_anchor_names.md`
+- `feedback_runner_singleton_check.md`
+- `feedback_per_experiment_timeout_required.md`
+- `feedback_remote_bridge_architecture.md`
+- `feedback_watchdog_full_event_set.md`
+
+(8 files; original count "7" reflects the major lock-ins — `feedback_watchdog_full_event_set.md` is bundled with the 13-event watchdog rollout.)
+
+---
+
+## 9. MEMORY FILES FOR FURTHER READING
 
 Read these if you need deeper context on any rule:
 
@@ -316,15 +512,31 @@ Read these if you need deeper context on any rule:
 
 ---
 
-## 7. WHAT TO DO RIGHT NOW (after reading this brief)
+## 10. WHAT TO DO RIGHT NOW (cold-start procedure, PROT-015 cap = 2 calls)
 
-1. Re-read section 0 (For You tab imperative) — internalize it before doing anything else.
-2. Check pause state (see section 1).
-3. If PAUSED, your first response to the user surfaces that: "Pause flag is set ([reason]). Doing structural / observation work only. Run /orchestrator-resume-experiments to enable exp_dev dispatches."
-3b. **If the user then explicitly authorizes resume**, invoke the `/orchestrator-resume-experiments` skill — do NOT `rm` the flag manually from a Bash call. The skill wraps flag-clear + log_event in one atomic action. Manual `rm` is a [[feedback-lock-in-inefficiency-fixes]] violation: it bypasses the skill that exists precisely to prevent this orchestration scaffolding from drifting back into the main thread.
-4. Read `notes/active_protocols.md` for current standing protocols.
-5. Read most recent `notes/strategy_decisions_*.md` and `notes/meta_audit_*.md` tails.
-6. Arm Monitor on `python tools/orchestrator/dispatch.py` if not already armed.
-7. Tell the user: orchestrator READY + pause state + summary. Write a status_log entry for the cold-start event.
+PROT-015 caps cold-start at TWO main-thread tool calls before dispatching for any further exploration. The two slots are:
 
-Do NOT dispatch experiment-shipping sub-agents until step 2 confirms ACTIVE.
+1. **Call 1 — Read this brief** (the file you are reading now).
+2. **Call 2 — `python tools/orchestrator/state_check.py`** (consolidates pause state + queue state + recent verdicts + runner heartbeats + cap_map version in one Bash call).
+
+Anything else — reading active_protocols, strategy_decisions, meta_audit tails, memory files — goes through the **state-check sub-agent** or a memory_curator dispatch. No additional Reads from main thread.
+
+**After the two cold-start calls, arm the Monitor:**
+
+```
+Monitor(
+  command="python tools/orchestrator/heartbeat_watchdog.py",
+  pattern="EVENT (silent_idle|gpu_idle|cpu_idle|gpu_queue_low|cpu_queue_low|ship_unconfirmed|for_you_stale|research_overdue|verdict_landed|bridge_cache_stale|routing_ratio_low|duplicate_runner_detected|duplicate_watchdog_detected)"
+)
+```
+
+This arming is permitted as the 2nd-call slot's continuation (PROT-015 allows the Monitor arm as part of cold-start setup, not a separate exploratory call).
+
+**Then surface state to user:**
+- If PAUSED, first response: "Pause flag is set ([reason from flag file line 1]). Doing structural / observation work only. Run /orchestrator-resume-experiments to enable exp_dev dispatches."
+- If ACTIVE, first response: "Orchestrator READY. Cap_map v<N>; <queue depths>; <recent verdict tail>; <last-strategy-bump>."
+- Write a `cold_start` status_log entry with plain_language + importance=MEDIUM.
+
+**If user then explicitly authorizes resume**, invoke the `/orchestrator-resume-experiments` skill — do NOT `rm` the flag manually from Bash. The skill wraps flag-clear + log_event in one atomic action. Manual `rm` is a [[feedback-lock-in-inefficiency-fixes]] violation.
+
+Do NOT dispatch experiment-shipping sub-agents until call 2 confirms ACTIVE.
