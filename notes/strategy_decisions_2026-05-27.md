@@ -427,3 +427,59 @@ The lumped 48-62% was conflating two distinct claims; SPLIT is more honest.
 
 Net effect v226: STRATEGIC REFRAME (not annotation-only); 1 NEW evidence-strength row added (portfolio 14+7 -> 14+8); framework reliability SPLIT into general (UP to 60-70% 🟢) / specific (DOWN to 30-45% 🟡) / product-feature (UNCHANGED 55-70%); static-phase drills PARKED as class; non-eq-stat-mech drills PRIORITIZED; substrate-product positioning UPDATED to moat-asset framing; Bet B + 5 killer features + LLM-leapfrog UNCHANGED; BID decisive probe handoff already filed; 139th PROT-009 paired commit.
 [label-vs-honest] wave14_saddle_cascade_plateau_v5_n4096: HARD_PASS label OVER-CLAIMS N=4096 FULL. HONEST READ: metrics.json shows config.N=512, config.seeds=[17], config.smoke=true, elapsed_s=2.567s. The anchor name _n4096 is a naming fiction; the script ran smoke-config N=512 single-seed (wall_s=2.6s is consistent with <5s smoke, NOT 4096-scale FULL which should take >60s). This is the 60th+ label-vs-honest catch this session for _n4096/_n8192 anchors. Honest verdict: SMOKE_REPEAT (N=512, 1 seed). Saad-Solla saddle-cascade large-N FULL (N>=4096 multi-seed) REMAINS GENUINELY OPEN. Cap_map v226->v227: saddle_cascade_large_N_FULL row UNCHANGED OPEN. Anchor-naming-convention flag: _n4096 suffix does NOT guarantee large-N execution; this pattern has fired 60+ times; upstream fix needed in exp_dev ship protocol to enforce N in smoke gate.
+
+## v227 -- 2026-05-27 [label-vs-honest 61st catch] exp_wave14_saddle_cascade_plateau_v6_n4096_gpu
+
+**Trigger.** exp_wave14_saddle_cascade_plateau_v6_n4096_gpu completed 2026-05-27T11:18:21. Anchor + orchestrator framing claimed "PROPER FULL Saad-Solla saddle-cascade large-N test... genuine N=4096 GPU multi-seed" that had been awaited all day. v6 explicitly shipped this morning to be the genuine large-N FULL probe.
+
+**Step 0 honest re-read — LABEL-VS-HONEST 61st catch.** verdict_msg internally honest ("MIDDLE_BAND: 1 HARD-PASS, 0 HARD-FAIL, 0 MIDDLE at N=512. Mixed evidence at full scale.") but anchor name `_v6_n4096_gpu` + orchestrator framing OVER-CLAIM. Metrics.json config:
+- `mode: SMOKE`
+- `N: 512` (NOT 4096)
+- `seeds: [17]` (1 seed, NOT multi-seed)
+- `device: cpu` (NOT gpu despite "_gpu" suffix)
+- `elapsed_s: 2.64` (NOT 30+ min consistent with N=4096 GPU FULL; 2.64s is unambiguous SMOKE wall-time)
+- `f_sweep: [0.0, 0.5, 1.0]` — only 3-point (cannot resolve plateau structure at production scale)
+
+Per-seed verdict: seed 17 r2=0.7824, max_dev=0.0845 — comparable to v5 smoke r2=0.770 (no real change in evidence). NO BIC_delta, NO spacing_error, NO plateau structure, NO CI overlap structure reported in summary — these production-scale metrics WERE NOT MEASURED because the production-scale run was not executed.
+
+**Authoritative interpretation:** v6 is the 4th N<=512 smoke corroboration of equal-spacing pattern (after v3/v4/v5). The "PROPER FULL large-N GPU multi-seed Saad-Solla test we've been waiting all day for" DID NOT RUN. The probe that v6 was supposed to be REMAINS GENUINELY OPEN.
+
+**Pattern fired 61 times.** _n4096/_n8192/_gpu/_FULL anchor suffixes do NOT enforce production-scale execution. PROT-018 anchor-name-vs-config audit (flagged in v225) was supposed to land at queue_add time at ~10:00; v6 was shipped BEFORE PROT-018 landed (this morning) and so escaped the structural fix. RECOMMENDATION: PROT-018 should be augmented with a RETROACTIVE SWEEP of all already-queued anchors with _n4096/_n8192/_FULL/_gpu suffixes — re-validate each against its actual config before running, OR re-ship as _smoke if config mismatches name.
+
+**Decision (1): Saad-Solla saddle-cascade row UNCHANGED ✅ LEADING.** No upgrade (no genuine large-N N>=4096 multi-seed evidence delivered). No downgrade (existing positive evidence v206 BIC delta=194.9 + v211 alpha_c in-band remains; smoke MIDDLE_BAND at N=512 with 1 seed is below any reliability threshold to move the row in either direction). LARGE-N FULL probe (N>=4096 multi-seed GPU, ~30+min wall_s) STAYS the binding open question. 5th consecutive smoke-regime corroboration; smoke saturation point reached — further smoke runs add zero information.
+
+**Decision (2): Framework reliability SPLIT UNCHANGED.** General derivable 60-70% 🟢 / specific named 30-45% 🟡 / product-feature 55-70% 🟢 ALL UNCHANGED. The conditional in orchestrator framing ("if v6 HARD_PASS at genuine N=4096... specific-framework reliability uplift") does NOT activate — v6 did not run at N=4096.
+
+**Decision (3): non-eq-stat-mech framework row 🟡 30-45% UNCHANGED.** v226 NEW row not affected — Saad-Solla saddle-cascade FALLS UNDER non-eq-stat-mech class (gradient-flow dynamics, NOT static phase-taxonomy); v6 smoke result neither lifts nor weakens that class-level row.
+
+**Decision (4): PROT-018 anchor-name-audit retroactive sweep RECOMMENDED.** This is the 61st label-vs-honest catch and the same _n4096/_n8192/_gpu suffix pattern that has fired 60+ times. PROT-018 landing at queue_add time prevents NEW occurrences but does not flag already-queued/already-shipped anchors. A retroactive sweep of the current queue + last-7-days completed runs would catch any remaining _n4096-claiming-N=512-actual anchors before they consume orchestrator attention as "the proper FULL test we've been waiting for."
+
+**Decision (5): Rescue sketches for closing saddle-cascade large-N FULL probe** (NOT triggering closure; row stays OPEN; per [[feedback-rehabilitation-after-rejection]] + [[feedback-rescue-sketch-first-sequencing]] cheapest-first):
+1. (CHEAPEST) Re-ship v7 with explicit GPU device assertion + N=4096 hard-coded in spec body (not anchor name) + smoke-gate disabled (subsumption rescue: zero new infra; just unambiguous config).
+2. (MEDIUM) Re-ship v7 with N=2048 multi-seed (5 seeds) GPU as FULL stepping-stone before N=4096 — shorter wall_s, full BIC + spacing_error + plateau-CI reporting.
+3. (MEDIUM-BUILD) Smoke-gate audit + override: redesign smoke_to_full gate to fail-loud when config N differs from anchor name N, requiring explicit override; ~1h infra.
+
+**Decision (6): NO queue-refill triggered.** Orchestrator handles separately (per dispatch instructions).
+
+**Decision (7): PROT-004 not triggered** (0 row closures; large-N FULL probe stays OPEN not closed).
+
+**Decision (8): PROT-006 not triggered** (no closed-row commit).
+
+**v227 cap_map updates.**
+- Version-table row v226 -> v227: ANNOTATION-ONLY [label-vs-honest 61st catch].
+- Row updates: saddle-cascade row gets v227 annotation (5th N<=512 smoke; smoke saturation; large-N FULL still OPEN); non-eq-stat-mech class row UNCHANGED.
+- Framework reliability: UNCHANGED SPLIT 60-70% / 30-45% / 55-70%.
+- Portfolio: UNCHANGED 14+8.
+- 140th PROT-009 paired commit.
+
+**Per [[feedback-cap-map-update-protocol]]:** atomic .tmp + rename on both cap_map.md + history.md; paired stage with strategy_decisions_2026-05-27.md; commit message follows PROT-009; push deferred to main thread per [[feedback-subagent-permission-inheritance]].
+
+**Per [[feedback-verdict-msg-honest-reread]]:** verdict_msg "MIDDLE_BAND at N=512" internally honest but anchor + dispatch framing over-claimed N=4096 GPU FULL; override applied; honest reading authoritative (smoke MIDDLE_BAND single-seed; large-N probe didn't run). 61st post-lock observation. PROT-018 retroactive sweep RECOMMENDED.
+
+**Per [[feedback-for-you-tab-primary-channel]]:** status_log entry written (importance HIGH — 61st label-vs-honest is structurally significant + load-bearing physics probe still not delivered after 4 attempts).
+
+**Per [[feedback-rehabilitation-after-rejection]] + [[feedback-rescue-sketch-first-sequencing]]:** 3 rescue sketches filed cheapest-first BEFORE any closure consideration; row stays OPEN.
+
+**Per PROT-001 to PROT-003:** version-table row v226 -> v227 written; full v227 narrative appended; history.md block written first (PROT-007 ordering preserved).
+
+Net effect v227: ANNOTATION-ONLY [label-vs-honest 61st catch]. 0 row-state emoji changes. Saad-Solla LEADING UNCHANGED ✅ (5th N<=512 smoke corroboration; smoke saturation reached; large-N FULL N>=4096 multi-seed GPU STILL OPEN after 4 attempts). Framework reliability SPLIT UNCHANGED. non-eq-stat-mech class row UNCHANGED. Portfolio 14+8 UNCHANGED. 61st label-vs-honest catch — PROT-018 retroactive sweep RECOMMENDED for all already-queued/recently-shipped _n4096/_n8192/_gpu suffix anchors. 140th PROT-009 paired commit.

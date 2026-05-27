@@ -9179,3 +9179,39 @@ Previous 48-62% PROVISIONAL range conflated two different claims. Revise into sp
 
 STRATEGIC REFRAME v225 -> v226: (1) NEW evidence-strength row added "non-equilibrium-stat-mech framework class as substrate's home" 🟡 30-45% P=0.42; (2) framework reliability SPLIT: general derivable 60-70% 🟢 UP / specific named 30-45% 🟡 DOWN / product-feature 55-70% UNCHANGED; (3) static-phase framework drills PARKED as class pending BID outcome (NOT permanently closed); (4) non-equilibrium-stat-mech drills PRIORITIZED as next-drill class (Crooks / Sagawa-Ueda / drift-diff-BP / free-prob extensions / large-deviations / stochastic-thermo / FDT-OoE); (5) substrate-product positioning UPDATED to "first non-eq-stat-mech AM class, structurally rejecting all standard static-phase classes" -- moat-asset framing per [[feedback-no-papers-product-only]]; Bet B / 5 killer features / LLM-leapfrog UNCHANGED; (6) BID decisive probe handoff already filed; (7) portfolio 14+7 -> 14+8 (new row); 139th PROT-009 paired commit.
 
+
+## v227 - (2026-05-27) ANNOTATION-ONLY [label-vs-honest 61st catch]: exp_wave14_saddle_cascade_plateau_v6_n4096_gpu was anticipated as "PROPER FULL Saad-Solla saddle-cascade large-N test"; metrics.json shows mode=SMOKE N=512 device=cpu seeds=[17] elapsed_s=2.64s f_sweep=3-point — 4th attempt at the genuine large-N FULL probe failed to actually run at production scale; saddle-cascade row UNCHANGED ✅ LEADING (smoke saturation); PROT-018 retroactive sweep RECOMMENDED
+
+**Trigger.** exp_wave14_saddle_cascade_plateau_v6_n4096_gpu completed 2026-05-27T11:18:21. Anchor name + orchestrator dispatch framing claimed this would be the "proper FULL Saad-Solla saddle-cascade large-N test we've been waiting all day for" — genuine N=4096 GPU multi-seed with proper equal-spacing arithmetic. Multiple prior v5_n4096 attempts (v3/v4/v5) had been caught as label-vs-honest smoke configs.
+
+**Files updated.**
+- `notes/substrate_capability_map.md` (this file's version table)
+- `notes/substrate_capability_map_history.md` (this v227 block, written FIRST per PROT-007)
+- `notes/strategy_decisions_2026-05-27.md` (v227 narrative appended via append_decision_log.py)
+
+**Evidence inputs.**
+- `data/exp_wave14_saddle_cascade_plateau_v6_n4096_gpu/metrics.json` — verdict MIDDLE_BAND, config.mode=SMOKE config.N=512 config.device=cpu config.seeds=[17], elapsed_s=2.64
+- `data/local_dashboard_snapshot.json` (stale; bridge_recovery in progress; not the source of truth this turn — metrics.json read directly)
+
+**Step 0 honest re-read — LABEL-VS-HONEST 61st catch.** verdict_msg internally honest ("MIDDLE_BAND: 1 HARD-PASS, 0 HARD-FAIL, 0 MIDDLE at N=512. Mixed evidence at full scale.") but anchor `_v6_n4096_gpu` + orchestrator framing over-claim "PROPER FULL large-N GPU multi-seed". Config + wall_s + seed count + device unambiguously prove smoke regime ran. NO BIC_delta / NO spacing_error / NO plateau-CI in summary — production-scale metrics absent because production-scale run absent. v6 is the 4th attempt at the genuine large-N FULL probe; the 4th time the smoke-config ran instead.
+
+**Decisions.**
+- Saad-Solla saddle-cascade row UNCHANGED ✅ LEADING (5th N<=512 smoke corroboration; smoke saturation reached — further smoke runs add zero information).
+- Large-N FULL N>=4096 multi-seed GPU probe STAYS the binding open question.
+- Framework reliability SPLIT UNCHANGED (60-70% 🟢 / 30-45% 🟡 / 55-70% 🟢).
+- non-equilibrium-stat-mech class row 🟡 UNCHANGED (Saad-Solla falls under this class; v6 smoke neither lifts nor weakens).
+- PROT-018 anchor-name-vs-config retroactive sweep RECOMMENDED: PROT-018 lands at queue_add for NEW shipments; v6 was shipped pre-PROT-018; retroactive sweep needed on already-queued + last-7-days completed runs to flag any remaining _n4096/_n8192/_gpu mismatches before they consume orchestrator attention.
+- 3 rescue sketches for the still-open large-N FULL probe (cheapest-first): (a) v7 explicit GPU device assertion + N=4096 hard-coded in spec body + smoke-gate disabled; (b) v7 N=2048 multi-seed GPU as FULL stepping-stone; (c) smoke-gate redesign to fail-loud on anchor-config mismatch.
+- PROT-004 not triggered (0 row closures). PROT-006 not triggered.
+
+**PROT compliance.**
+- PROT-007: this history block written FIRST (verified before cap_map.md version-table edit and append_decision_log.py call).
+- PROT-008/009: row-state emoji changes = 0 (annotation-only); demotion validator does not trigger.
+- [[feedback-cap-map-update-protocol]]: paired stage with strategy_decisions_2026-05-27.md; commit message "Cap map: v226 -> v227 (label-vs-honest 61st catch + saddle-cascade large-N FULL still OPEN + PROT-018 retroactive sweep recommended)" per PROT-009.
+- [[feedback-subagent-permission-inheritance]]: local commit only; push deferred to main thread.
+- [[feedback-verdict-msg-honest-reread]]: 61st post-lock observation; honest reading authoritative; over-claimed framing not propagated to cap_map.
+- [[feedback-rehabilitation-after-rejection]] + [[feedback-rescue-sketch-first-sequencing]]: 3 rescue sketches filed cheapest-first; row stays OPEN.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH importance written.
+- 140th PROT-009 paired commit.
+
+ANNOTATION-ONLY v226 -> v227: (1) saddle-cascade row 5th N<=512 smoke corroboration (smoke saturation); (2) large-N FULL probe STILL OPEN after 4 attempts; (3) PROT-018 anchor-name-audit RETROACTIVE SWEEP recommended; (4) 3 rescue sketches filed cheapest-first; (5) 61st label-vs-honest post-lock observation — same _n4096/_n8192/_gpu pattern that has fired 60+ times; (6) framework reliability SPLIT UNCHANGED; (7) non-eq-stat-mech class row UNCHANGED; (8) Bet B / 5 killer features / LLM-leapfrog UNCHANGED; (9) portfolio 14+8 UNCHANGED; 140th PROT-009 paired commit.
