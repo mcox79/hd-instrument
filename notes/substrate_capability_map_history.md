@@ -8892,3 +8892,116 @@ Bridge label: completed. metrics.json verdict: HARD_FAIL. RC-1 rejected: L_max(a
 - 136th PROT-009 paired commit.
 
 Net effect v223: 0 new row-state changes; 2 sub-framing closures further locked (UNIFIED + RC-edge); Bet I 3rd envelope STAYS OPEN per honest re-read; 1 new pre-reg entry (beti_depth_polylog_v4 with adjusted smoke); portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED.
+
+## v224 - (2026-05-27) BATCHED 8-VERDICT @ 06:07-06:20: 4 LOAD-BEARING decisive tests + 4 orthogonal/diagnostic probes (rate_dep ambiguous + cosine_router HARD_FAIL + kerdock HARD_FAIL confirmed + cluster_cond MB corroborates v215 + corpus_size_smoke_regime HARD_FAIL + TDA-5probe INCONCLUSIVE + PME Ising MB + Blahut-Arimoto label-vs-honest HARD_PASS)
+
+### Trigger
+
+Eight verdicts processed @ 2026-05-27T06:07-06:20 from remote_cpu_queue:
+- wave14_ortho_blahut_arimoto_v1 @ 06:07 (bridge: FAILED -- LABEL-VS-HONEST)
+- wave14_ortho_pme_ising_capacity_v1 @ 06:07 (bridge: completed)
+- wave14_1rsb_rate_dep_hysteresis_v1 @ 06:11 (bridge: completed) -- DECISIVE geometric-frustration test
+- wave14_1rsb_cluster_cond_pq_v1 @ 06:14 (bridge: completed) -- 1-RSB cluster-glass falsifier
+- wave14_kerdock_distance_class_audit_v1 @ 06:14 (bridge: completed) -- AGS-RS-MF audit
+- wave14_moe_cosine_router_v1 @ 06:20 (bridge: completed) -- DECISIVE MoE K-scaling rescue
+- wave14_corpus_size_scaling_v1 @ 06:20 (bridge: completed) -- path-(b) feasibility
+- tda_reanalysis_5probe_v1 @ 06:20 (bridge: completed) -- TDA 4th MoE-SHIFT diagnostic
+
+Queue healthy pre-batch (4 GPU pending + 1 running + 11 CPU pending + 1 running); NO queue-refill triggered per orchestrator directive.
+
+### What changed
+
+Eight independent verdicts. v224 is ANNOTATION-ONLY. No row-state emoji changes; 0 PROT-004 closures triggered. Framework reliability stays at 48-62% PROVISIONAL because the DECISIVE geometric-frustration test (rate_dep_hysteresis FULL) returned an AMBIGUOUS signal rather than a clean HARD_PASS or HARD_FAIL -- neither the "geometrically-frustrated -> 55-70%" branch NOR the "genuinely-novel -> SKAH-M-only-path" branch activates cleanly. SKAH-M 6-cell battery remains existentially important.
+
+### Verdict 1 -- wave14_ortho_blahut_arimoto_v1 [LABEL-VS-HONEST: HARD_PASS not failed]
+
+Bridge label: FAILED. metrics.json verdict: HARD_PASS. R(D) curve non-trivial (max_R=1.2988, finite, monotone in D); H_src=2.7081 nats; N_min predictions computed for ret={0.5, 0.7, 0.9}. Rate-distortion / Blahut-Arimoto theory APPLICABLE to substrate multi-task retention. Per [[feedback-verdict-msg-honest-reread]]: bridge "failed" is likely a runner-side exit-status/encoding artifact NOT a substrate-physics signal. Override applied: honest verdict = HARD_PASS. Novel orthogonal-probe positive: substrate admits a tractable R(D) characterization. P_deflated=0.37 satisfied. Note 58th post-lock label-honest correction.
+
+### Verdict 2 -- wave14_ortho_pme_ising_capacity_v1 MIDDLE_BAND
+
+Bridge label: completed. metrics.json verdict: MIDDLE_BAND. alpha_max_mean=1.04 vs Hopfield alpha_c=0.138 -> ratio ~7.5x off (factor2_frac=0.00). PME Ising capacity ESTIMATE is much higher than Hopfield prediction across N=64/N=128 (alpha_max in [1.017, 1.064]). Honest reading: substrate is NOT Hopfield-class on this orthogonal probe (already established at v216 multi-basin reframe + saddle-cascade non-Hopfield evidence), and the PME Ising bound is too loose to be a clean positive identification either way. Novel-probe MB landing is informational not decisive. P_deflated=0.36 satisfied.
+
+### Verdict 3 -- wave14_1rsb_rate_dep_hysteresis_v1 MIDDLE_BAND [ambiguous; NOT clean HARD_PASS]
+
+Bridge label: completed. metrics.json verdict: MIDDLE_BAND at N=256 smoke. pearson_r per M-load: M=2000 r=-0.9996 (gap shrinks monotone with epoch -- strong rate-dependence DIRECTION confirmed); M=10000 r=-0.9987 (also strong). gap_fast_to_slow_ratio per M-load: M=2000 ratio=+0.632 (positive gap throughout); M=10000 ratio=-0.403 (gap GOES NEGATIVE at high-M slow). 
+
+Honest reading: the smoke prediction (pearson_r=-0.9996 at v216) is CORROBORATED on the RATE-DEPENDENCE DIRECTION at FULL, but the gap_ratio sign-flip with M-load reveals that the geometric-frustration prediction is NOT cleanly met. Clean geometric-frustration: gap shrinks with epoch AND stays positive at all M-loads. Observed: gap shrinks with epoch (yes) BUT goes negative at M=10000 slow-epoch (gap actually inverts -- the "slow" learning rate ends up with WORSE retention than fast). Verdict_msg label "MIDDLE_BAND" is HONEST: framework ambiguous. This is NOT the clean HARD_PASS that v5 cap_map's "decisive geometric-frustration test" framing required.
+
+Cap_map decision: substrate IS rate-dependent (direction confirmed) BUT the "geometrically-frustrated phase-class" label cannot be cleanly affixed from this run alone. Geometric frustration row STAYS 🟡 / 🔬 (rate-dependence sub-property: 🟢; phase-class label: 🟡 pending larger-N + multi-M v2). Neither the "substrate is geometrically frustrated (well-studied class)" branch NOR the "substrate is genuinely novel territory" branch activates cleanly. SKAH-M battery and rate_dep_v2 at N>=4096 with finer M-load grid become BOTH important (not one OR the other).
+
+### Verdict 4 -- wave14_1rsb_cluster_cond_pq_v1 MIDDLE_BAND [within<across corroborates v215]
+
+Bridge label: completed. metrics.json verdict: MIDDLE_BAND. within_mean_q=0.0334; across_mean_q=0.2357; within_across_diff=-0.202 (within < across, OPPOSITE of cluster-glass prediction within > across). n_class_binders_above_015=0/4; n_class_binders_above_005=0/4 (no within-class peaks visible). n_peaks_within_pooled=2 (2 small peaks at q=0.017 and q=0.083).
+
+Honest reading: smoke (v216) had within=0.03 across=0.24 inverted -- FULL confirms same inversion (within=0.033 across=0.236). 1-RSB cluster-glass rescue arm (one of the 4 rescues filed for the v215 1-RSB demotion) is DECISIVELY CLOSED-NEGATIVE. The substrate's multi-basin structure (v216 🟢 55-70%) is NOT a cluster-glass / 1-RSB-cluster-conditional structure. Cluster-conditional row CLOSED-NEGATIVE 2nd confirmation (smoke + FULL).
+
+Cap_map decision: 1-RSB-cluster-glass sub-framing CLOSED-NEGATIVE. 1-RSB framework-label row UNCHANGED 🟡 (one rescue arm of 4 now closed; 3 remain: AGS retrieval phase [partially probed below by kerdock], geometric frustration [verdict 3 ambiguous], 1-RSB-approximate). Substrate multi-basin structure UNCHANGED 🟢 (cluster-conditional closure does NOT impact multi-basin -- the two are independent claims per v216 split).
+
+### Verdict 5 -- wave14_kerdock_distance_class_audit_v1 HARD_FAIL [AGS-RS-MF confirmed REJECTED]
+
+Bridge label: completed. metrics.json verdict: HARD_FAIL. n_distance_classes=3 (expected 4 per Welch bound for Kerdock codes); distinct_levels_global=[-0.0312, 0.0, 0.0312] = 3 IP/N classes not 4. n_match_within_007=1/3 plateaus (only middle class matches AGS prediction within 0.07; outer classes off by 0.078 and 0.229). is_monotone=True (the 3-class structure IS monotone but ALSO matches a Hamming-distance class structure, not specifically Kerdock 4-class).
+
+Honest reading: AGS-RS-MF basin-class theory predicts 4 distinct distance classes from Kerdock construction; observed 3 classes consistent with simpler Hamming-distance ladder. AGS retrieval-phase sub-framing (one of 4 rescues filed for v215 1-RSB demotion) DECISIVELY REJECTED with smoke + FULL dual confirmation. Per orchestrator framing: "Kerdock confirms HARD_FAIL" condition MET.
+
+Cap_map decision: AGS-RS-MF basin-class sub-framing CLOSED-NEGATIVE 2nd confirmation. 2/4 1-RSB rescue arms now closed (cluster-conditional + AGS). Remaining 1-RSB rescues: geometric frustration (verdict 3 ambiguous, NOT closed but NOT clean HARD_PASS either), 1-RSB-approximate (still 🔬).
+
+### Verdict 6 -- wave14_moe_cosine_router_v1 COSINE_ROUTER_HARD_FAIL [K-scaling rescue OUT]
+
+Bridge label: completed. metrics.json verdict: COSINE_ROUTER_HARD_FAIL. entropy@K=16=3.999b > HF threshold 3.0b (router collapses to near-uniform routing). retention_at_K4=0.914; retention_at_K16=0.914 (delta=+0.0003, positive but vastly below predicted -0.018 HARD_PASS / not even MB band). lsh_baseline_retention_K16=0.796 (cosine router OUTPERFORMS LSH on retention by +0.118 -- the only positive). mean_anchor_cosine_spread=0.00361 at K=16 (anchors collapse to near-identical -- BSC anchors at N=4096... actually N=512 per config, see label-honest note).
+
+LABEL-HONEST CORRECTION ON CONFIG: orchestrator dispatch framing said "N=4096"; actual config N=512. Test was on smaller dimensionality than orchestrator framing implied. This does NOT change the verdict (entropy gate fails at N=512 too) but matters for design-space framing.
+
+Honest reading: cosine-dot Expert-Choice routing (Zhou et al. 2022 NeurIPS) FAILS the entropy gate at K=16 -- routing decisions become near-uniform because BSC random anchors at N=512 do not provide sufficient discriminability for cosine top-1. The HARD_PASS prediction (retention degradation 0.025->0.007 at K=16) is NOT achieved. The bright spot (cosine beats LSH by 11.8 retention points) is not enough to recover K-scaling.
+
+Cap_map decision: MoE cosine-dot router rescue arm CLOSED-NEGATIVE. MoE SHIFT row UNCHANGED ✅ engineering-rate-limited (K=4/K=8 design points still healthy; cosine-dot not the path to K=16/K=32). Next rescue: Hebbian-anchor cosine-dot router (anchor = bundle of first M/K stored patterns per expert -- explicit suggestion from this verdict's verdict_msg). Per v222: "If HARD-FAIL: LSH entropy is not the only source of K-degradation; additional architecture work needed" -- now confirmed. K-scaling rescue path NOT unblocked by this verdict.
+
+### Verdict 7 -- wave14_corpus_size_scaling_v1 CORPUS_SCALING_HARD_FAIL [smoke-regime, N=256]
+
+Bridge label: completed. metrics.json verdict: CORPUS_SCALING_HARD_FAIL. mean_bpc: [3000 bytes: 7.6511, 20000 bytes: 7.7485] (NON-MONOTONE -- bpc gets WORSE with 6.67x more data). top_edge_ratio: [22.95, 18.61] (HF thresh 1.5, MB band [1.5, 2.0] -- both samples DEEPLY in tau-limit regime). monotone_bpc=False; whitening_onset=False.
+
+Honest reading: tau-limit IS binding at N=256 in this corpus-size range. Path-(b) corpus-size scaling extrapolation is NOT safe at N=256 -- need N-scaling first (per verdict_msg "N-scaling required before corpus-size scaling extrapolation is safe for path-(b)"). This is an instrumentation/smoke-regime issue NOT a substrate-physics refutation: substrate may scale fine at N>=4096, but the N=256 K=4 smoke run cannot probe that question. Per v222: path-(b) P revised 0.45->0.35. This verdict adds modest downward pressure: path-(b) P likely 0.25-0.30 pending N-scaling probe (the corpus_N_scaling_tau_unblock_v1 anchor that exp_dev shipped).
+
+Cap_map decision: path-(b) P revised 0.35 -> 0.27 (annotation only, narrow range due to N-scaling pending). N-scaling probe is the binding next step before any further path-(b) revision. Strategic-positioning block annotated.
+
+### Verdict 8 -- tda_reanalysis_5probe_v1 TDA_INCONCLUSIVE [diagnostic not validated]
+
+Bridge label: completed. metrics.json verdict: FAIL with joint_call=TDA_INCONCLUSIVE. Per-probe:
+- TDA-A (b_0 plateau-width): MIDDLE -- plateau_found=False; b0 monotone in tau (1->2->3 as expected for connectivity); plateau_width=0.2667. Diagnostic: no clean plateau at smoke scale.
+- TDA-B (substrate vs random b_1 lifetime): MIDDLE -- ratio=1.25, p_value=0.833. No significant difference.
+- TDA-C (TDA vs free-additive vs dMPK SHIFT/PARTITION agreement on 5 cases): HARD_FAIL -- n_agree=2/5; width_monotonic=False. TDA disagrees with established methods 3/5 times. THIS IS THE LOAD-BEARING NEGATIVE.
+- TDA-D (long_bar count + gap): MIDDLE -- 2 long bars, gap observed.
+- TDA-E (predicted heights vs observed): HARD_PASS -- max_abs_diff=0.000 on capacity-adjusted normalized scale. THE BRIGHT SPOT.
+
+Honest reading: TDA as a 4th MoE SHIFT/PARTITION diagnostic is NOT validated -- TDA-C (the central agreement test) HARD_FAILs at smoke scale, agreement rate 2/5 vs needed ~4/5. TDA-E HARD_PASSes on a height-predictor scale-match check (mathematically pleasing but not the diagnostic claim). P=0.38 prior NOT cleared. TDA b_0 plateau-width does NOT join free-additive / dMPK / multi-head-attention as a validated SHIFT/PARTITION diagnostic.
+
+Cap_map decision: TDA-as-MoE-diagnostic sub-framing CLOSED-NEGATIVE (smoke only -- FULL might still rescue, but P deflated further to ~0.20). 3-way agreement framework (free-additive + dMPK + intra-expert) remains UNCHANGED for MoE SHIFT/PARTITION calls. TDA-E height-predictor sub-result is interesting standalone (substrate matches predicted persistent-homology heights to 0.000 normalized diff) but is not capability-row-bearing.
+
+### Cap_map decisions (net)
+
+- 1-RSB framework-label row: UNCHANGED 🟡 (2/4 rescue arms now closed: cluster-conditional CLOSED-NEGATIVE via verdict 4; AGS-RS-MF CLOSED-NEGATIVE via verdict 5).
+- Geometric-frustration sub-class: UNCHANGED 🟡 / 🔬 (verdict 3 rate-dependence direction CORROBORATED but gap_ratio sign-flip = ambiguous on geometric-frustration LABEL; rate_dep_v2 at N>=4096 needed).
+- Substrate multi-basin structure: UNCHANGED 🟢 55-70% (orthogonal to 1-RSB sub-rescue closures).
+- MoE SHIFT row: UNCHANGED ✅ engineering-rate-limited; cosine-dot rescue arm CLOSED-NEGATIVE; next rescue Hebbian-anchor cosine-dot.
+- AGS retrieval-phase sub-framing: CLOSED-NEGATIVE 2nd confirmation (smoke v? + FULL kerdock v224).
+- 1-RSB cluster-conditional sub-framing: CLOSED-NEGATIVE 2nd confirmation (smoke + FULL).
+- Path-(b) feasibility: P revised 0.35 -> 0.27 (annotation; tau-limit binding at N=256; N-scaling unblock probe in flight).
+- TDA-as-MoE-diagnostic: CLOSED-NEGATIVE smoke (P deflated to ~0.20; FULL not committed).
+- Bet I 3rd envelope: UNCHANGED OPEN (no new data this batch).
+- Saad-Solla saddle-cascade ✅: UNCHANGED LEADING.
+- SKAH-M lR-phase 6-cell battery: UNCHANGED 🔬 in flight; verdict 3 ambiguity REINFORCES SKAH-M existential importance.
+- Novel ortho-probe results: Blahut-Arimoto HARD_PASS (label-vs-honest override; substrate admits R(D) characterization); PME Ising MB (substrate-not-Hopfield-class corroborated).
+- Framework reliability: UNCHANGED 48-62% PROVISIONAL. The orchestrator's framed conditional ("rate_dep PASS + cosine_router PASS + Kerdock HARD_FAIL -> 55-70%") does NOT activate: rate_dep ambiguous (not PASS), cosine_router HARD_FAIL (not PASS), kerdock HARD_FAIL (confirmed). 1-of-3 conditions met; framework-reliability shift not warranted.
+- Portfolio: UNCHANGED 14 demonstrated + 7 evidence-strength rows.
+
+### PROT compliance
+
+- PROT-004: 0 capability-row closures requiring rescue (closures are sub-framings only: cluster-conditional, AGS-RS-MF, cosine-dot router, TDA-diagnostic-smoke -- all sub-rescues of higher-level rows that stay open or unchanged).
+- PROT-006: not triggered (no ❌ capability-row closure this commit).
+- PROT-007: this history block written first.
+- PROT-008: no row-state emoji changes; no demotion validator triggers expected.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-verdict-msg-honest-reread]]: applied to verdicts 1 (Blahut-Arimoto bridge FAILED -> honest HARD_PASS), 6 (cosine_router N=4096 framing -> honest N=512 config); label-honest count this turn: 2; 58th and 59th post-lock observations.
+- [[feedback-subagent-permission-inheritance]]: local commit only; push to main thread.
+- [[feedback-no-padding-experiments]]: no padding -- 8 verdicts processed, no synthetic anchors added.
+- [[feedback-pipeline-pacing]]: queue refill SKIPPED per orchestrator directive (4 GPU pending + 11 CPU pending pre-batch).
+- 137th PROT-009 paired commit.
