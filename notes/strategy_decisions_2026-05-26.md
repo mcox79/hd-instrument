@@ -443,3 +443,51 @@ Per [[feedback-for-you-tab-primary-channel]]: status_log entry written after thi
 Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename; paired commit cap_map.md v214 + history.md v214 + this entry.
 Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
 Per [[feedback-no-experiment-design-in-prompts]]: R26 flagged as research task WITHOUT design parameters (no anchor names, sweep grids, threshold formulas).
+
+---
+
+## 2026-05-26 21:50 — cap_map v215 BATCHED 9-VERDICT MAJOR
+
+**Trigger.** Orchestrator processed 8 verdicts (user-listed) plus 1 diagnostic (queue_source_diag_test_v1) that landed 2026-05-26 18:24-21:24 and were not picked up immediately due to orchestrator out-of-cycle window. Honest re-read mandated by [[feedback-verdict-msg-honest-reread]]: dashboard "completed" labels for moe_shift_M_scaling_v1, moe_gating_sharpness_v1, and 1rsb_pq_retained_v3 all hide HARD_FAIL verdict_msg payloads.
+
+**Per-verdict label/numbers honest re-read.**
+
+| Anchor | Dashboard | verdict_msg (honest) | Disposition |
+|---|---|---|---|
+| moe_shift_M_scaling_v1 | completed | HARD_FAIL: lift uniformly negative across M ∈ {0.25,0.40,0.55,0.70,0.85,1.0}·αc·N=2304 (-0.0205 → -0.0468, MORE NEGATIVE with load) | M-load NOT a lever for MoE SHIFT; annotation to MoE SHIFT row |
+| moe_gating_sharpness_v1 | completed | GATING_HARD_FAIL: max_lift=-0.0018 (τ=0.01); sharper gating monotonically HURTS (-0.0581 at τ=1, -0.1009 at τ=2) | Gating sharpness NOT a lever; annotation to MoE SHIFT row |
+| queue_source_diag_test_v1 | completed | R_TRANSFORM_STABLE_IN_N: Kerdock R-transform dev > 0.20 STAYS across N=1024,4096; 3/3 α-cells stable+diverge | Free-cumulant fingerprint N-stability RE-CONFIRMED (already ✅ at v166); canary plumbing verified |
+| moe_shift_K_scaling_v2 | failed | OOM K=64 outer_product_store CUDA 8GB cap; K∈{2,4,8,16,32} clean data shows A=0.821→0.792 / B=0.750→0.272 / C=0.885→0.967 | INFRASTRUCTURE-FAIL on K=64; K≤32 partial-clean corroborates K=4 design point |
+| moe_top_edge_v3 | failed | OOM SVD at N=16384 K=2 (3rd consecutive top-edge OOM) | INFRASTRUCTURE-FAIL; row already CLOSED-NEGATIVE v213; CONFIRMED CLOSED |
+| betB_replay_hA_direct_v2 | completed | HA_MIDDLE: N=8192 inter=0.677 intra=0.717 no_replay=0.515; lift=-0.04 inter-vs-intra (weak) but replay > no-replay by 16pp directionally | MIDDLE; H-A directional consolidation present; inter-vs-intra timing weak at this scale |
+| 1rsb_pq_retained_v3 | completed | PQ_RETAINED_RS_HARD_FAIL: N=8192 / 30 seeds / 435 overlaps; binder=-0.255 (<<+0.05); n_peaks=1; mean_q_sig≈0.0017; q distribution UNIMODAL at q≈0 (mean_q=1.87e-5, std=2e-4) | **MAJOR CONTRARY**: 1-RSB Pred-2 P(q) independent corroborator HARD-FAIL at production scale; RS-unimodal opposite of expected 1-RSB multi-delta |
+| 1rsb_hysteresis_v4_multi_N | failed | Runner-killed mid N=4096 seed=17 reverse M=80000 (no metrics.json, no traceback); N=2048 clean max_gap=1.27; N=4096 partial seed=7 corroborates persistence | INFRASTRUCTURE-FAIL (process death); N=2048 partial-clean confirms hysteresis at higher N (gap shrinks but persists) |
+
+**Decision (1): 1-RSB row demoted ✅ → 🟡 PARTIAL-POSITIVE.** "Hierarchical retrieval index (RSB phase, ultrametric structure)" row was ✅ Validated structural via `wave14e2_parisi_ultrametricity` (P(q) multi-peaked, ultrametricity 0.357) at smaller N. v215 `wave14_1rsb_pq_retained_v3` at N=8192 / 30 seeds fires RS-UNIMODAL (binder=-0.255, n_peaks=1) — direct contradiction at production scale with well-resolved statistics. Row demoted to 🟡 with both findings annotated. Honest disposition: the earlier ultrametricity finding may have been finite-N pseudo-RSB OR the production-scale measurement may have a measurement floor masking true multi-delta. Resolution drill flagged (Decision 5).
+
+**Decision (2): Framework reliability LOCK 55-70% REVISED DOWN to 48-62% PROVISIONAL.** v214's lock at 55-70% was predicated on THREE independent Tier-1 positives (Saad-Solla 4-corpus, MoE SHIFT, 1-RSB hysteresis CONFIRMED + 1-RSB Pred-2 P(q) AWAITED as independent corroborator). The corroborator just fired NEGATIVE at the highest-resolution measurement. 1-RSB framework now stands on hysteresis alone — single-observable evidence is structurally weaker than double-corroborator evidence. Backstep to 48-62% PROVISIONAL until: (a) hysteresis N-scaling re-ship completes (v4 was infra-fail); (b) Pred-3 / Pred-4 independent observables available; (c) resolution research drill returns explanation for hysteresis-positive / P(q)-RS-unimodal disconnect.
+
+**Decision (3): MoE SHIFT architecture engineering-locked at K=4 / K=8 / default τ / default M_per_expert.** Three v215 hard-fails close three major architectural exploration axes: (a) M-load is uniformly negative (no axis); (b) gating sharpness is uniformly negative (no axis); (c) K≥64 hits 8GB OOM cliff (script-design failure on K=64, NOT signal; K≤32 partial-clean already established K=4 saturation pattern). MoE rebuild engineering-rate-limited classification (v214) STRENGTHENED by elimination of three axes as levers. v214 K=4 primary / K=8 cross-corpus design point is the operating regime.
+
+**Decision (4): Free-additive top-edge framework CONFIRMED CLOSED.** wave14_moe_top_edge_v3 is the 3rd consecutive OOM at N=16384 SVD step. Row already CLOSED-NEGATIVE v213 (FORMULA_ERROR + OOM). v215 result is third-strike confirmation. **Do NOT re-ship at N=16384**. DMPK SVD-bimodality remains sole MoE rebuild discriminator (v213 lock holds).
+
+**Decision (5): NEW research drill flagged — hysteresis-without-RSB phase-class question.** The disconnect between hysteresis CONFIRMED (v211: gap=1.84 at N=1024) and Pred-2 P(q) RS-UNIMODAL (v215: binder=-0.255 at N=8192 / 30 seeds) is anomalous if both are read as canonical 1-RSB markers. Candidate explanations: (a) different phase class — hysteresis without thermodynamic RSB is known in glass literature (kinetic arrest without ergodicity breaking); (b) P(q) measurement floor at substrate-relevant α/M masks finite multi-delta structure (mean_q=1.87e-5 vs floor=0.011 — measurement is below floor, possibly inverted resolution issue); (c) hysteresis is metastability artifact rather than thermodynamic 1-RSB signature. Cheapest decisive drill: literature search on hysteresis-without-RSB phase classes AND post-hoc P(q) floor sensitivity analysis on existing v3 metrics.json data. **Flag for research routing (NOT done in this v215 cycle to avoid expanding scope).**
+
+**Decision (6): Re-ship dispositions.**
+- `wave14_1rsb_hysteresis_v5_n4096_n8192`: MEDIUM PRIORITY — N=2048 already confirmed (drop), re-ship N=4096 multi-seed + N=8192 with faster runner heartbeat to detect process-death sooner. Confirms-or-closes hysteresis N-scaling extrapolation.
+- `wave14_moe_shift_K_scaling_v3` chunked or N=2048: LOW PRIORITY — K-saturation answer already obtained at K≤32; K=64+ is research-quality-of-data not load-bearing.
+- `wave14_moe_top_edge_v4`: **DO NOT SHIP** — row CLOSED 3 times confirmed.
+- `wave14_moe_shift_M_scaling_v2`, `wave14_moe_gating_sharpness_v2`: **DO NOT SHIP** — lever absent, no architectural axis to extend.
+
+**Decision (7): Portfolio count revision.** 14 demonstrated + 7 evidence-strength → 14 demonstrated + 6 evidence-strength (Hierarchical retrieval / RSB row ✅→🟡 moves out of ✅ portfolio). Free-cumulant fingerprint stays ✅ (already promoted v166; v215 re-confirms but no new state). Net: -1 ✅ row.
+
+**Net cap_map effect.** v214 → v215: 1 row-state demotion (Hierarchical retrieval / RSB ✅→🟡 with contrary-evidence annotation); 3 NO-LEVER annotations to MoE SHIFT row (M-load HARD_FAIL, gating-sharpness HARD_FAIL, K≥64 OOM infra cliff); 1 framework-reliability LOCK→PROVISIONAL backstep (55-70% → 48-62%); 1 confirmed closure (free-additive top-edge — already closed v213); 1 NEW research drill flagged (hysteresis-without-RSB phase-class question); H-A direct annotation (MIDDLE directional). 14+6 portfolio (was 14+7); 0 PROT-004 NEW closures.
+
+PROT-004/006/008/009 compliance: 0 new ❌ closures (top-edge already CLOSED v213); 1 row-state demotion (Hierarchical retrieval / RSB ✅→🟡) captured at PROT-008; 29 grandfathered violations UNCHANGED; validator passes (no new violations beyond v214 baseline); history.md v215 block written BEFORE cap_map.md v215 row (PROT-007 sequencing verified); strategy_decisions_2026-05-26.md paired; 128th PROT-009 commit.
+
+Per [[feedback-subagent-permission-inheritance]]: commit LOCAL only; push deferred to main thread.
+Per [[feedback-for-you-tab-primary-channel]]: status_log entries written after this decision-log entry — one per verdict + one cap_map_commit summary.
+Per [[feedback-cap-map-update-protocol]]: atomic .tmp+rename via append_decision_log.py; paired commit cap_map.md v215 + history.md v215 + this entry.
+Per [[feedback-decision-log-eol-handling]]: this entry appended via tools/orchestrator/append_decision_log.py to preserve EOL convention.
+Per [[feedback-verdict-msg-honest-reread]]: 3 "completed" labels overridden via verdict_msg honest re-read (M_scaling, gating_sharpness, pq_retained_v3 ALL fired HARD_FAIL despite dashboard "completed").
+Per user instruction: queue-refill NOT triggered in this v215 cycle (orchestrator dispatching exp_dev separately in same turn).
