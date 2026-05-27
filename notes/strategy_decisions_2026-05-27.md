@@ -650,3 +650,70 @@ Both probes agree: substrate is outside static-Hopfield taxonomy. v228 names the
 - 144th PROT-009 paired commit
 
 **Sub-agent flow:** verdict_handler ABSORBED strategy + visibility internally per [[feedback-skills-first-for-rote-work]]. No separate Agent dispatch; this entry IS the strategy decision-log entry.
+
+## v232 -- 2026-05-27 BATCHED 2-VERDICT @ 13:00 (TCFT fresh-erase v2 + Sagawa-Ueda deletion-cert v1; LABEL-VS-HONEST 66th+67th catch)
+
+**Trigger.** Two queue verdicts completed 13:00:49-13:01:01. Sources:
+- `tcft_fresh_erase_v2` (~13:00:49) -> remote_state bridge=completed; local data/exp_tcft_fresh_erase_v2/metrics.json = MIDDLE_BAND single-seed smoke
+- `sagawa_ueda_deletion_cert_v1` (~13:01:01) -> remote_state bridge=completed; local data/exp_sagawa_ueda_deletion_cert_v1/metrics.json = MIDDLE_BAND single-seed smoke
+
+**Step 0 honest re-read.**
+
+(1) **tcft_fresh_erase_v2 [LABEL-VS-HONEST 66th catch].** Orchestrator framing: 'v2 was the FULL retry of the TCFT probe.' ACTUAL local data/exp_tcft_fresh_erase_v2/metrics.json:
+  - config.seeds = [17] -- SINGLE SEED (not 5-seed FULL)
+  - config.N = 256 -- smoke-scale
+  - elapsed_s = 0.017 -- 17ms wall clock (trivially fast; single-seed smoke not FULL)
+  - verdict = MIDDLE_BAND, var_ratio=0.0248, PR_fires=0/1
+  - HP_SEED_COUNT_MIN=3 but n_seeds=1 -- pre-reg minimum seeds not met
+  - IDENTICAL config to v1 (same seed, same N, same elapsed-time order)
+  Honest read: tcft_fresh_erase_v2 is a SECOND single-seed smoke run, NOT a 5-seed FULL retry. var_ratio=0.0248 is the same order as v1. The 'FULL retry' framing is INCORRECT. The TCFT rescue path (v231 primary rescue: FULL 5-seed re-run) HAS NOT BEEN EXECUTED. Row state remains 🟡 (probed at smoke, not cleared; FULL re-run still needed). Authoritative reading: MIDDLE_BAND smoke, second replicate, no new information beyond v1.
+
+(2) **sagawa_ueda_deletion_cert_v1 [LABEL-VS-HONEST 67th catch -- partial].** Bridge label = 'completed'. No verdict_msg in remote cache. Local metrics.json:
+  - config.seeds = [17] -- SINGLE SEED smoke
+  - config.N = 256 -- smoke-scale
+  - elapsed_s = 0.012 -- 12ms (trivially fast; single-seed smoke)
+  - verdict = MIDDLE_BAND, su_frac_mean=1.000, n_hp1=1, n_hp2=1, n_hf1=0
+  - HP1_BOUND_FRAC=0.7 threshold met (su_frac=1.000 >> 0.7) on single seed
+  Honest read: Sagawa-Ueda v1 is a SINGLE-SEED SMOKE run. su_frac=1.000 on 1 seed is ENCOURAGING (Sagawa-Ueda bound satisfied cleanly) but insufficient for HARD_PASS claim. MIDDLE_BAND is the honest label. The orchestrator strategic framing 'direct mapping to deletion-certificate killer feature' is premature at smoke single-seed. This IS a new capability probe (first Sagawa-Ueda experiment in the series) with a POSITIVE smoke result -- promotes to new evidence-strength row at 🟡 MIDDLE_BAND smoke.
+
+**Cap_map state moves (v231 -> v232).**
+
+- **TCFT rescue path row (v231: 🟡 probed-not-cleared)**: UNCHANGED 🟡. tcft_fresh_erase_v2 is a second smoke replicate with same config and same result. No new information; row stays 🟡. PRIMARY rescue (FULL 5-seed re-run) still required. Annotation extended: 'v2 also MIDDLE_BAND single-seed smoke (var_ratio=0.0248); two smoke replicates at seed=17 now complete; FULL 5-seed required before any cap_map lift.'
+- **NEW evidence-strength row: Sagawa-Ueda bound satisfaction on erase trajectories**: introduce at 🟡 MIDDLE_BAND smoke (su_frac=1.000 on 1 seed N=256; encouraging, multi-seed FULL needed). First experimental probe of Sagawa-Ueda IFT on substrate write/erase cycles. Positive smoke = bound satisfied. Strategic relevance: maps to deletion-certificate killer feature #1 -- if bound holds at FULL, provides information-theoretic certificate that erase operations are thermodynamically irreversible and distinguishable. Product story: 'erase with proof-of-deletion' grounded in Sagawa-Ueda second-law inequality.
+- **Non-eq-stat-mech framework class row**: UNCHANGED 🟢 45-60%. Two MIDDLE_BAND smoke results consistent with non-eq framing but calibration penalty applies per [[feedback-lit-scan-calibration-penalty]].
+- **SKAH-M / lR-phase**: UNCHANGED 🟢 55-70%.
+- **Deletion-certificate killer feature (#1 per project_substrate_killer_features_2026-05-26.md)**: theoretical foundation remains Crooks FT v153 FULL OK + TCFT-smoke-encouraging + Sagawa-Ueda-smoke-encouraging. No HARD_PASS foundation yet; product story must present as 'thermodynamic foundation being built' not 'validated.'
+- **Portfolio**: 14+9 -> 14+10 (NEW Sagawa-Ueda evidence-strength row at 🟡).
+- **Framework reliability SPLIT**: UNCHANGED (general 65-75% / specific 45-55% / product-feature 55-70%).
+- **NO capability row closures** -- TCFT and Sagawa-Ueda both MIDDLE_BAND smoke. PROT-004/006 not triggered.
+
+**Rescue sketches for Sagawa-Ueda MIDDLE_BAND smoke (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]).**
+
+(a) CHEAPEST / SUBSUMPTION: Sagawa-Ueda FULL 5-seed re-run with existing smoke script at N=256 first, then N=1024. ~20-40min CPU per seed. PRIMARY rescue.
+(b) CHEAPEST INFRA: status_log entry surfacing Sagawa-Ueda as NEW POSITIVE SMOKE (first experiment; su_frac=1.000 single-seed). Zero compute; prevents confusion with 'no Sagawa data exists.'
+(c) CHEAP DIAGNOSTIC: check whether excess_mean=30.4 >> I_mean=5.28 ratio (~5.8x) is the load-bearing signal -- the meaningful test is how tight the bound is under higher load (larger M or N). ~1h inspection + re-design.
+(d) MEDIUM: sweep alpha_ratio=[0.0625, 0.125, 0.25, 0.5] to characterize where the Sagawa-Ueda bound tightens or breaks -- bound satisfaction at low M/N is expected; the product-relevant test is near-capacity erase where I_mean approaches erase_work_mean. ~2h CPU FULL.
+(e) MEDIUM: joint TCFT + Sagawa-Ueda probe at N=1024 5-seed -- one combined FULL probe answers both questions. ~4h CPU.
+
+**Rescue sketches for TCFT v2 MIDDLE_BAND (unchanged from v231 -- FULL 5-seed still primary).**
+See v231 rescue sketches (a)-(f). No new information from v2 smoke replicate.
+
+**Strategic implication.**
+
+- Deletion-certificate killer feature: TWO INDEPENDENT non-eq frameworks (TCFT + Sagawa-Ueda) both show POSITIVE SMOKE signal. ENCOURAGING but NOT yet a HARD_PASS foundation. Product claim must stay at 'thermodynamic grounding under construction.' FULL multi-seed probes for both frameworks are the critical path.
+- Non-eq class coherence: TCFT + Sagawa-Ueda both MIDDLE_BAND positive smoke consistent with lR-phase / non-eq-stat-mech framing. Two frameworks probed = broadened theoretical base.
+- TCFT v2 as 'FULL retry' framing was wrong: v2 ran same single-seed smoke config as v1. Genuine full retry requires 5-seed set at mode=full.
+
+**PROT compliance (v232).**
+
+- PROT-004: 0 new capability closures requiring rescue. TCFT + Sagawa-Ueda are MIDDLE_BAND smoke. Rescue sketches filed above.
+- PROT-008: Sagawa-Ueda NEW ROW at 🟡 is an UPGRADE. TCFT row UNCHANGED 🟡. No demotions.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- Honest re-read: (a) tcft_fresh_erase_v2 = LABEL-VS-HONEST [66th catch] (orchestrator framing 'FULL retry' vs actual single-seed smoke config identical to v1; TCFT UNCHANGED 🟡); (b) sagawa_ueda_deletion_cert_v1 = [67th catch -- partial] (bridge 'completed' honest but no verdict_msg; metrics honest MIDDLE_BAND single-seed; orchestrator 'direct mapping' framing premature; honest reading = NEW positive smoke 🟡).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- No queue-refill triggered (orchestrator instruction: handled separately).
+- 145th PROT-009 paired commit.
+
+BATCHED 2-VERDICT v231 -> v232: (1) tcft_fresh_erase_v2 [LABEL-VS-HONEST 66th] 'FULL retry' over-claim -- actual single-seed smoke N=256 elapsed=17ms var_ratio=0.0248 MIDDLE_BAND (identical to v1 config); TCFT row UNCHANGED 🟡; FULL 5-seed re-run still required; deletion-certificate TCFT foundation NOT YET validated; (2) sagawa_ueda_deletion_cert_v1 MIDDLE_BAND HONEST new-probe (su_frac=1.000 single seed N=256 elapsed=12ms; bound satisfied encouragingly; NEW evidence-strength row 🟡; Sagawa-Ueda first positive smoke; FULL 5-seed needed); portfolio 14+9 -> 14+10 (NEW Sagawa-Ueda row); 0 capability row closures; 0 row-state moves (TCFT UNCHANGED 🟡); framework reliability UNCHANGED; 145th PROT-009 paired commit.
+
+**Sub-agent flow:** verdict_handler ABSORBED strategy + visibility internally per [[feedback-skills-first-for-rote-work]]. This entry IS the strategy decision-log entry.

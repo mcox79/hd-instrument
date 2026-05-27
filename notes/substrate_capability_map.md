@@ -17538,3 +17538,26 @@ v227 | 2026-05-27T10:12 | [label-vs-honest] wave14_saddle_cascade_plateau_v5_n40
 - 144th PROT-009 paired commit.
 
 BATCHED 2-VERDICT v230 -> v231: (1) tcft_fresh_erase_v1 LABEL-VS-HONEST OVER-CLAIM [65th catch] (orchestrator-input "HARD_PASS 5/5 seeds var_ratio<0.01" vs actual MIDDLE_BAND smoke single-seed var_ratio=0.0248 PR_fires=0/1; TCFT rescue path filed v230 step (a) probed-but-not-cleared; row 🔬 -> 🟡; FULL 5-seed re-run is PRIMARY rescue; deletion-certificate killer-feature theoretical-foundation claim NOT YET supported by TCFT data); (2) network_percolation_substrate_v1 HARD_FAIL (label honest; smoke single-seed; 3-alpha-cell sweep; tau_range=0.067 + corr=-0.5; network-percolation-theory MoE K-scaling lens CLOSED-NEGATIVE as sub-framing analogous to v223 RC-edge; MoE SHIFT + Saad-Solla remain live K-scaling lenses); 0 Tier-1 advances; 1 TCFT row upgrade 🔬 -> 🟡 (probed); 1 new sub-framing CLOSED-NEGATIVE row (percolation); 0 capability row closures; 0 portfolio changes (14+9 UNCHANGED); framework reliability UNCHANGED (general 65-75% / specific 45-55% / product-feature 55-70%); 144th PROT-009 paired commit.
+
+## v232 -- 2026-05-27 BATCHED 2-VERDICT @ 13:00 (TCFT fresh-erase v2 + Sagawa-Ueda deletion-cert v1; LABEL-VS-HONEST 66th+67th catch)
+
+**Step 0 honest re-read.**
+
+(1) tcft_fresh_erase_v2 [66th catch]: orchestrator framed as 'FULL retry'; actual config.seeds=[17] N=256 elapsed=17ms -- IDENTICAL to v1 smoke config. MIDDLE_BAND var_ratio=0.0248. NOT a FULL 5-seed re-run. Honest: second MIDDLE_BAND smoke replicate, no new information.
+
+(2) sagawa_ueda_deletion_cert_v1 [67th catch -- partial]: bridge has no verdict_msg; local metrics honest MIDDLE_BAND single-seed smoke (config.seeds=[17] N=256 elapsed=12ms su_frac=1.000 n_hp1=1 n_hp2=1 n_hf1=0). Orchestrator 'direct mapping to deletion-certificate' framing premature. Honest: NEW positive smoke at 🟡.
+
+**Cap_map state moves (v231 -> v232).**
+
+- TCFT rescue path row: UNCHANGED 🟡. v2 = second smoke replicate same config; PRIMARY rescue (FULL 5-seed) still required. Annotation: 'two smoke replicates at seed=17 complete; FULL 5-seed required.'
+- NEW evidence-strength row: Sagawa-Ueda bound satisfaction on substrate erase trajectories: 🟡 MIDDLE_BAND smoke (su_frac=1.000 N=256 1-seed; first Sagawa-Ueda probe; bound satisfied; multi-seed FULL needed; maps to deletion-certificate killer feature #1).
+- Non-eq-stat-mech framework class row: UNCHANGED 🟢 45-60%.
+- SKAH-M / lR-phase: UNCHANGED 🟢 55-70%.
+- Framework reliability SPLIT: UNCHANGED (general 65-75% / specific 45-55% / product-feature 55-70%).
+- Portfolio: 14+9 -> 14+10 (NEW Sagawa-Ueda row).
+- 0 capability row closures. PROT-004/006 not triggered.
+- 5 rescue sketches filed for Sagawa-Ueda cheapest-first: (a) FULL 5-seed re-run primary; (b) status_log surface; (c) bound-tightness diagnostic; (d) alpha_ratio sweep FULL; (e) joint TCFT+SU probe. TCFT v231 rescues unchanged.
+- Strategic: TWO INDEPENDENT non-eq frameworks (TCFT + Sagawa-Ueda) show POSITIVE SMOKE. Deletion-certificate foundation 'under construction'; product claim must NOT say 'validated.'
+- 145th PROT-009 paired commit.
+
+BATCHED 2-VERDICT v231 -> v232: [label-vs-honest] (1) tcft_fresh_erase_v2 [66th catch] 'FULL retry' over-claim -- single-seed smoke N=256 elapsed=17ms var_ratio=0.0248 MIDDLE_BAND (same as v1); TCFT 🟡 UNCHANGED; FULL 5-seed still required; (2) sagawa_ueda_deletion_cert_v1 [67th catch partial] MIDDLE_BAND honest new-probe su_frac=1.000 single-seed; NEW evidence-strength row 🟡 portfolio 14+10; 0 closures; framework reliability UNCHANGED; 145th PROT-009 paired commit.
