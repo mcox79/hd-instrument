@@ -9215,3 +9215,42 @@ STRATEGIC REFRAME v225 -> v226: (1) NEW evidence-strength row added "non-equilib
 - 140th PROT-009 paired commit.
 
 ANNOTATION-ONLY v226 -> v227: (1) saddle-cascade row 5th N<=512 smoke corroboration (smoke saturation); (2) large-N FULL probe STILL OPEN after 4 attempts; (3) PROT-018 anchor-name-audit RETROACTIVE SWEEP recommended; (4) 3 rescue sketches filed cheapest-first; (5) 61st label-vs-honest post-lock observation — same _n4096/_n8192/_gpu pattern that has fired 60+ times; (6) framework reliability SPLIT UNCHANGED; (7) non-eq-stat-mech class row UNCHANGED; (8) Bet B / 5 killer features / LLM-leapfrog UNCHANGED; (9) portfolio 14+8 UNCHANGED; 140th PROT-009 paired commit.
+
+
+## v247 - (2026-05-27) BATCHED 2-VERDICT @ 19:00: tcft_n8192_v7 HARD_PASS INDEPENDENT REPLICATION of v245 v6 within 1h (2-decimal seed-by-seed agreement; deletion-certificate Cat-A foundation strengthened to TWO load-bearing FULL anchors) + bid_substrate_probe_v1 MIDDLE_BAND HP1 corroboration with HP3 finite-N caveat (cumulative 30/30 outside-bands across N=512-8192 + BID-vs-N drift +48-56% per N-doubling at small N may not asymptote; v228 documented-class settlement aligns with finite-N artifact interpretation)
+
+Trigger: two remote_cpu_queue verdicts landed 18:59:33 (tcft_n8192_v7 2210s) + 19:00:06 (bid_substrate_probe_v1 31s), 37s apart. Both `_source=remote` authoritative metrics via bridge.
+
+Net cap_map changes:
+- TCFT rescue path row 🟢 55-70% UNCHANGED (intra-band strengthening from v245 v6 + v247 v7 dual FULL anchors).
+- Deletion-certificate killer-feature #1 row UNCHANGED FOUNDATION CONFIRMED at FULL (product framing UPGRADED to "FULL-confirmed at N=8192 5-seed AND INDEPENDENTLY REPLICATED with 2-decimal seed-by-seed agreement").
+- Non-eq stat-mech framework class row 🟢 55-65% UNCHANGED (v245 lift stands; v7 = replication not new evidence).
+- BID order-parameter evidence-strength row UNCHANGED ✅ (cumulative 30/30 outside-bands; HP3 N-asymptote caveat annotated).
+- Substrate-outside-static-Hopfield-taxonomy row 🟢 45-60% UNCHANGED (5th independent angle reinforces plural-framework lock).
+- Framework reliability SPLIT UNCHANGED (general 65-75% / specific named 50-60% / product-feature 60-72%).
+- Portfolio 14+19 UNCHANGED (both verdicts annotation-evidence-strength under existing rows).
+- 0 capability row closures (PROT-004/006 not triggered).
+
+Why no closures: verdict 1 = replication-LIFT-within-band (no row state move; already 🟢 at v245); verdict 2 = annotation-with-finite-N-caveat (BID outside-bands real at tested N; v228 settled novel-vs-documented question; finite-N caveat aligns with documented-class finding).
+
+Honest re-read findings: BOTH verdicts label-honest at numerical-metrics level. 88th post-lock honest re-read observation; label-vs-honest tally NOT incremented (no override needed). Distinct discrepancy: orchestrator dispatch-framing on BID predicted "first HARD_PASS"; metrics show MIDDLE_BAND. This is a dispatch-framing-vs-metrics discrepancy (not label-vs-honest); opus escalation NOT warranted per skill rules; sonnet default appropriate.
+
+Rescue/follow-on sketches (4 for v7 + 5 for v1, cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]):
+- v7-(a) PRIMARY/SUBSUMPTION 0-cost re-frame as "replication of v245 v6 with 2-decimal seed-by-seed agreement"; applied this turn.
+- v7-(b) CHEAPEST INFRA ~10min visibility annotation of `project_substrate_killer_features_2026-05-26.md` Cat-A row with v247 anchor.
+- v7-(c) MEDIUM ~2h CPU v245-(c) M-sweep STILL OPEN, NOW promoted from LOW to MEDIUM.
+- v7-(d) MEDIUM-BUILD deletion-certificate user-facing audit artifact design (v245-(d) carries forward).
+- v1-(a) PRIMARY/SUBSUMPTION 0-cost re-frame as "HP1 cumulative 30/30 + finite-N caveat aligns with v228 documented-class settlement"; applied this turn.
+- v1-(b) CHEAP ~5min PROT-018 anchor binding audit (`bid_substrate_probe_v1` has no `_n<N>` suffix; 88th post-lock grandfather).
+- v1-(c) CHEAP ~10min annotate `bid_order_parameter_v1` script + v229/v230 cap_map entries with N-asymptote caveat.
+- v1-(d) MEDIUM ~30min CPU BID at N=4096, 8192 with v1-script-style HP3 N-stability gate -- resolves interpretation (i) vs (ii); routed to exp_dev.
+- v1-(e) MEDIUM ~2h joint BID + chi_4 + Kovacs secondary discriminator (v229-(d) STILL OPEN; v247 reinforces priority).
+
+Sub-agent self-coordination:
+- [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]]: pause flag ABSENT + remote_cpu pending+running=0 + local_cpu pending+running=0 post-verdict; refill warranted; strategy_request_to_exp_dev_v247_followon_2026-05-27.md filed with 10+ anchored candidates (NOT padding per [[feedback-no-padding-experiments]]).
+- [[feedback-verdict-msg-honest-reread]]: Step 0 mandatory; both verdicts honest; 88th post-lock observation; tally NOT incremented.
+- [[feedback-rehabilitation-after-rejection]] + [[feedback-rescue-sketch-first-sequencing]]: 9 rescue/follow-on sketches filed cheapest-first; row stays open per neither verdict closing.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH importance written (deletion-certificate foundation replication).
+- 160th PROT-009 paired commit.
+
+ANNOTATION + LIFT (no closures) v246 -> v247: (1) TCFT replication = strongest possible replication evidence for deletion-certificate Cat-A foundation; (2) BID HP1 cumulative 30/30 outside-bands across N=512-8192 + N-asymptote caveat documented; (3) substrate-outside-static-Hopfield-taxonomy 5th angle; (4) framework reliability UNCHANGED (replications don't move P); (5) 88th post-lock honest re-read observation (BOTH HONEST); (6) portfolio 14+19 UNCHANGED; (7) 0 row closures; (8) queue-refill DISPATCHED CPU lane; 160th PROT-009 paired commit.

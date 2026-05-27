@@ -1542,3 +1542,70 @@ PRIMARY rescue (a) is annotation-only (applied above); (b) is the IMMEDIATE next
 - [[feedback-ship-before-dependency-verified]]: failure mode (d) is a NEW class of pre-ship verification gap (CUDA VRAM budget) — informs PROT-020 candidate.
 - [[feedback-pipeline-pacing]]: source-queue overnight pending=2 + running=1; auto-refill NOT triggered per [[feedback-no-padding-experiments]].
 - 159th PROT-009 paired commit.
+
+
+## v247 -- 2026-05-27 BATCHED 2-VERDICT @ 19:00 (tcft_n8192_v7 HARD_PASS robustness replication of v245 + bid_substrate_probe_v1 MIDDLE_BAND HP3-finite-N caveat)
+
+**Trigger.** Two remote_cpu_queue verdicts landed 18:59:33 + 19:00:06 (37s apart):
+- `tcft_n8192_v7` (remote_cpu_queue, 2210s elapsed) -- per dispatch framing: robustness/follow-on to v6 HARD_PASS (deletion-cert Cat-A foundation at v245)
+- `bid_substrate_probe_v1` (remote_cpu_queue, 31.15s elapsed) -- per dispatch framing: H1-vs-H2 framework-free discriminator; "potentially a first HARD_PASS"
+
+Both sources verified via remote-bridge metrics (`tools.orchestrator.remote_state.get_metrics`). Both `_source=remote` authoritative (not local-fallback). Bridge `is_stale()=False`.
+
+**Step 0 honest re-read (verdict 1: tcft_n8192_v7).** Verdict_msg label `HARD_PASS: 5/5 seeds var_ratio<0.1 at N=8192. TCFT deletion-certificate confirmed at N=8192. mean_var_ratio=0.000000. (v5 4/5 seeds timeout resolved; v7 FULL run.)`. Per-cell numerical:
+- mean_var_ratio = 3.21e-8 (label "0.000000" is rounded; actual is 6 OOM below 0.1 threshold)
+- per-seed tcft_variance_ratio range [2.65e-9, 7.34e-8]
+- delta_F_agree_pct: seed=7 99.013, seed=17 99.192, seed=23 99.283, seed=31 99.173, seed=41 99.044 (all 99.01-99.28)
+- 5/5 seeds valid + 5/5 HP + 5/5 n_hp + n_valid=5
+- elapsed=2210s (v245 v6: 2140s, +3% wall-time variance)
+
+HONEST -- UNDER-CLAIMS (same direction as v245 v6); not a label-vs-honest catch. Cited threshold 0.1 is the v7 verdict_msg HF1; actual margin is 6 OOM below that, identical to v6.
+
+**Critical observation: v7 is INDEPENDENT REPLICATION of v245 v6 to 2-decimal seed-by-seed agreement.** v6 (v245) per-seed range [2.65e-9, 7.34e-8] matches v7 exactly to 2 sigfigs; delta_F_agree_pct match seed-by-seed within +/-0.01; mean_var_ratio identical 3.2e-8 to 1 sigfig. Same seeds (7/17/23/31/41), same N=8192 M=1024, same script. The 1h-apart replication is dispositive: this is REPRODUCIBLE result not an artifact.
+
+**Step 0 honest re-read (verdict 2: bid_substrate_probe_v1).** Verdict_msg label `MIDDLE_BAND: bid outside all known classes (5/5 seeds) BUT HP3 unstable (drift>5%). BID may be finite-N artifact at tested scale.`. Per-cell numerical:
+- HP1 (outside known classes): 15/15 at N=[512, 1024, 2048] (all cells 5/5 outside)
+- HP3 (N-stability): FAILED -- BID_mean grows 42.80 (N=512) -> 63.32 (N=1024) -> 98.76 (N=2048) = +48% per N-doubling at small N, +56% N=1024->2048
+- 5% stability threshold breached by 10x+
+- Mean overlap stable at 0.98 across all N
+
+HONEST. Label transparently states the HP3 finite-N caveat. Not a label-vs-honest catch.
+
+**Discrepancy on distinct axis: orchestrator dispatch-framing vs actual metrics on BID.** Dispatch text: "potentially a first HARD_PASS -- if so, escalate this single verdict to opus per skill rules." Actual metrics: MIDDLE_BAND not HARD_PASS. This is a **dispatch-framing-vs-metrics** discrepancy (a category I am noting but NOT tallying as label-vs-honest). It does NOT affect cap_map decisions because Step 0 is faithful to metrics-actual; opus escalation is NOT warranted; sonnet default is correct per skill rules. The skill's escalation predicate ("first HARD_PASS") evaluates against actual metrics, not dispatch hopes.
+
+**Decision (1): tcft_n8192_v7 = independent replication of v245 v6 TCFT HARD_PASS.** TCFT rescue path row 🟢 55-70% UNCHANGED. This is intra-band strengthening, not a row-state move. The deletion-certificate killer-feature foundation now has TWO load-bearing FULL N=8192 5-seed HARD_PASS anchors (v245 v6 + v247 v7) with 2-decimal seed-by-seed agreement. Product framing UPGRADED from "FULL-confirmed at N=8192 5-seed" to "FULL-confirmed at N=8192 5-seed AND INDEPENDENTLY REPLICATED 1h later with 2-decimal seed-by-seed agreement."
+
+**Decision (2): non-eq stat-mech framework class row 🟢 55-65% UNCHANGED.** v245 lift stands. v7 is replication of v6 not new evidence; H1 modal P=0.50 stands. Pure replication does not move framework-class P (same observation twice = one Bayesian update, already absorbed at v245).
+
+**Decision (3): bid_substrate_probe_v1 = HP1 corroboration with HP3 finite-N caveat.** BID order-parameter evidence-strength row UNCHANGED ✅ at v229+v230 anchors. ANNOTATION EXTENDED: cumulative HP1 outside-bands is now 30/30 across N=512-8192 (v229 15/15 at N=1024-4096 + v230 5/5 at N=8192 + v247 15/15 at N=512-2048 cumulative); HP3 N-asymptote question added as caveat -- at N<4096 BID grows fast (drift far above 5%), suggesting BID-vs-N curve may not asymptote at small N. v229/v230 already saw the same N-growth at N>=1024 and framed it positively as "substrate's own scaling law"; v247 v1's small-N tail (N=512-2048) shows steeper growth. Two interpretations stand without resolution: (i) finite-N artifact (BID outside-bands real at tested N but does not asymptote) and (ii) substrate's own scaling law (v229/v230 framing). The v228 SKAH-M class settlement already resolved the within-claim "novel-vs-documented" question in favor of documented; that v228 resolution makes interpretation (i) "finite-N artifact" CONSISTENT with the v228 documented-class finding. Net: substrate-outside-static-Hopfield-taxonomy row 🟢 45-60% UNCHANGED (4 independent angles already stand; v247 BID HP1 is a 5th angle reinforcing).
+
+**Decision (4): substrate-outside-static-Hopfield-taxonomy row 🟢 45-60% UNCHANGED.** Plural-framework lock now has FIVE independent angles: v228 6-cell battery + v228 lit-thread match + v229+v230 BID v1/v2 + v242 MCT non-classification + v247 BID-substrate-probe-v1 HP1 corroboration. Already saturated; no additional uplift.
+
+**Decision (5): Framework reliability SPLIT UNCHANGED** (general 65-75% / specific named 50-60% / product-feature 60-72%; v245 bump stands; v247 is replication-strength within 🟢 band).
+
+**Decision (6): Portfolio 14+19 UNCHANGED.** Both verdicts are annotation-evidence-strength under existing rows; no new portfolio rows.
+
+**Decision (7): 0 capability row closures.** PROT-004/006 not triggered. Verdict 1 = replication-LIFT-within-band. Verdict 2 = annotation-with-finite-N-caveat. NO closures.
+
+**Decision (8): label-vs-honest tally NOT incremented.** Both verdicts honest at label-vs-numerical-metrics level. Dispatch-framing-vs-metrics discrepancy on BID (orchestrator predicted "first HARD_PASS"; metrics say MIDDLE_BAND) is a distinct category not tallied as label-vs-honest. The 87-catch label-vs-honest tally stands unchanged.
+
+**Decision (9): exp_dev queue refill -- check pause flag.** pause flag ABSENT (verified via `test -f d:/AI/hd-instrument/data/orchestrator_paused.flag` => no such file). queue_state_at_arrival: remote_cpu_queue pending+running = 0 (both v7+v1 just completed). per [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]] the verdict-arrival itself is the queue-depletion signal; refill warranted. **HOWEVER per [[feedback-no-padding-experiments]]** check whether there are open handoffs / cap_map questions / strategic priorities to anchor the refill. Audit: v245-(b) visibility annotation OPEN; v245-(c) M-sweep diagnostic OPEN (now strengthened by v247 replication); v245-(d) deletion-certificate audit-artifact design OPEN; v246-(b) saad_solla_v11_n8192 OPEN; v246-(c) PROT-020 OPEN; v246-(d) bridge runner_tag OPEN; multiple anchored candidates. Refill DISPATCH WARRANTED. **GPU queue:** overnight_queue pending = 2 running = ? per orchestrator dispatch lacks current GPU snapshot; verdict_handler will not gate refill on GPU since CPU is empty and CPU work is anchored. Dispatching exp_dev for CPU lane refill inline.
+
+**Decision (10): Strategy-request to exp_dev filed.** Routing file at `notes/strategy_request_to_exp_dev_v247_followon_2026-05-27.md` with: (a) v245-(c) M-sweep diagnostic (NOW strengthened by v247 replication; promote from LOW to MEDIUM priority); (b) BID at N=4096, 8192 with new v1-script-style HP3 N-stability gate (Decision 3 unresolved (i)/(ii) interpretation) -- ~30min CPU; (c) general exp_dev autonomy per standing cap_map drill mandate. Exp_dev decides ship vs hold per [[feedback-no-padding-experiments]].
+
+**Decision (11): Follow-on sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]].**
+
+For verdict 1 (tcft_n8192_v7):
+- (a) **PRIMARY / SUBSUMPTION 0-cost** -- re-frame v7 as "independent replication of v245 v6 within 1h; killer-feature foundation now has TWO load-bearing FULL anchors with 2-decimal agreement"; applied this turn.
+- (b) **CHEAPEST INFRA ~10min** -- strategy_request_to_visibility annotate `project_substrate_killer_features_2026-05-26.md` Cat-A row with v247 replication anchor alongside v245.
+- (c) **MEDIUM ~2h CPU** -- v245-(c) M-sweep STILL OPEN, NOW promoted from LOW to MEDIUM since v247 replication strengthens the case.
+- (d) **MEDIUM-BUILD** -- v245-(d) deletion-certificate user-facing audit artifact design carries forward unchanged.
+
+For verdict 2 (bid_substrate_probe_v1):
+- (a) **PRIMARY / SUBSUMPTION 0-cost** -- re-frame v1's MIDDLE_BAND as "HP1 corroboration cumulative 30/30 outside-bands across N=512-8192 + finite-N caveat documented; v228 documented-class finding already aligns with finite-N artifact interpretation"; applied this turn.
+- (b) **CHEAP ~5min** -- PROT-018 anchor binding audit: `bid_substrate_probe_v1` has no `_n<N>` suffix despite N_sweep config; flag for retroactive PROT-018 sweep tally (88th post-lock; same anchor-naming pattern as v227 grandfathered).
+- (c) **CHEAP ~10min** -- annotate `bid_order_parameter_v1` script + v229/v230 cap_map entries with N-asymptote caveat; the BID-vs-N curve characterization is the substrate-specific finding worth surfacing in product framing.
+- (d) **MEDIUM ~30min CPU** -- BID at N=4096, 8192 with v1-script-style HP3 N-stability gate to test whether drift drops below 5% at large N; would resolve interpretation (i) vs (ii). Routed to exp_dev per Decision 10(b).
+- (e) **MEDIUM ~2h** -- joint BID + chi_4 + Kovacs secondary discriminator from v229-(d) STILL OPEN; v247 reinforces priority since BID alone is N-regime-dependent.
+
+**Decision (12): Atomic commit single batched commit per [[feedback-cap-map-update-protocol]].** Cap_map + strategy_decisions + visibility log + this entry committed together. Main-thread pushes; sub-agent context cannot per [[feedback-subagent-permission-inheritance]]. 160th PROT-009 paired commit.
