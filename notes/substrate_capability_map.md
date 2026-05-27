@@ -17781,3 +17781,43 @@ BATCHED 16-VERDICT v233 -> v234: [label-vs-honest 71st-75th catches + 76th evide
 - 149th PROT-009 paired commit.
 
 SINGLE-VERDICT v235 -> v236: [label-vs-honest 78th catch] wave14_moe_attention_routing_v1 ATTENTION_ROUTER_HARD_FAIL HONEST (retention_delta K=4→K=8 = -0.150 << -0.05 HF threshold 3×; "all router families" generalization OVERRIDDEN per [[feedback-dont-overextend-theorems]] — Hebbian-anchor arm UNTESTED; "k16_retention" field is mislabel for K=8 cell); MoE SHIFT row UNCHANGED ✅ engineering-rate-limited (annotation-only); 2 of 4 learned-router rescue arms closed (cosine v224 + attention v236); Hebbian-anchor PRIMARY-next cheapest rescue + K=4-lock product-narrative subsumption + gradient-trained fallback FILED; K-scaling ceiling diagnosis CORROBORATED across 3 router families = substrate-level constraint not router-architecture-specific; K=4 native MoE design point LOCKED; framework reliability UNCHANGED (general 68-75% / specific-documented 45-55% / product-feature 55-70%); portfolio 14+18 UNCHANGED; 0 capability row closures; 149th PROT-009 paired commit.
+
+## v237 -- 2026-05-27 skahm_subclass_discriminator_v3 HARD_FAIL @ 16:20 [ANNOTATION-ONLY; C=saddle-hierarchy-DAM sub-class CLOSED-NEGATIVE FULL]
+
+**Trigger.** skahm_subclass_discriminator_v3 completed remote_cpu_queue 2026-05-27T16:19:47 (elapsed 1038s; FULL multi-seed 5 seeds N=[512,4096]). Verdict label `HARD_FAIL: no sharpening with N. ratio<1.1 in 5/5 seeds; ratio<1.0 in 5/5 seeds. mean_ratio=0.016` is HONEST AND modestly UNDER-CLAIMS: per-cell N=4096 d_transition collapses to ~0.04 vs N=512 ~2.45 (60x INVERSE), while ret@f=0.25 ≈ 0.998-0.999 (transitions concentrate near f≈0). Saddle-hierarchy-DAM prediction "broader transitions with N" decisively negated; observed pattern is inverse-sharpening consistent with v211 first-order multi-basin framing (sharp near-f=0 transitions).
+
+**Cap_map state moves (v236 -> v237).**
+
+- **SKAH-M sub-class discriminator row**: 🟡 UNCHANGED with annotation: "v237 FULL 5-seed N=[512,4096] HARD_FAIL on sharpening ratio prediction (mean_ratio=0.016 = 60x INVERSE of HP threshold); C=saddle-hierarchy-DAM sub-class CLOSED-NEGATIVE FULL; A=non-reciprocal-Hopfield remains sole surviving DOCUMENTED probe (1/3); row stays 🟡 because (a) surviving A is load-bearing for broader SKAH-M class anchor v228, (b) discriminator-row's job is to falsify wrong sub-classes — C falsified per pre-reg authorization. Honest stronger reading: inverse-sharpening + ret@f=0.25 ≈ 0.999 at N=4096 = first-order multi-basin signature per project_pred4_hysteresis_first_order_confirmed_2026-05-27. PRIMARY rescue = framing subsumption to first-order multi-basin (0-cost annotation; substrate observation re-anchors on v211 instead of saddle-hierarchy-DAM)."
+- **SKAH-M class anchor (v228)**: UNCHANGED ✅ (6-cell battery N=8192 5-seed FULL stands; sub-class C closure does NOT touch the broader-class confirmation).
+- **Hierarchical-retrieval row**: UNCHANGED 🟢 55-70% (multi-basin discrete substrate-level structure is independent of sub-class C).
+- **No capability row closures.** PROT-004/006 not triggered at row level.
+- **No demotions.** PROT-008 documented: 🟡 → 🟡 with honest evidence-breakdown update (2/3 → 1/3 positive sub-class probes); demoting an explicitly-discriminator row for doing-its-falsification-job would be incoherent.
+- **Portfolio count**: UNCHANGED (14+18).
+- **Framework reliability**: UNCHANGED (general 65-75% / specific-documented 45-55% / product-feature 55-70%); pre-reg HARD_FAIL on a specific sub-class prediction is *correct calibration*, not a reliability hit.
+- **Cumulative label-vs-honest catches**: 78 → 79 (UNDER-CLAIM noted — label says "no sharpening", data shows "inverse sharpening + sharp near-f=0 transitions"; numerical HF authoritative).
+
+**Rescue sketches (5; cheapest-first per [[feedback-rescue-sketch-first-sequencing]] and [[feedback-rehabilitation-after-rejection]]).**
+
+(a) **CHEAPEST / SUBSUMPTION (PRIMARY)**: re-frame as "first-order multi-basin closure" — observation is consistent with v211 first-order multi-basin (sharp transitions concentrate near f≈0), which is already DOCUMENTED substrate behavior. 0-cost annotation rescue; drop C sub-class label, anchor on first-order multi-basin language. Implemented as part of this v237 entry.
+(b) **CHEAP**: intermediate-N probe at N=[1024,2048] single-seed smoke (clarify gradual-vs-step-function transition between v3's N=512/N=4096 cells). ~3-5min local CPU. Candidate for next exp_dev cycle.
+(c) **CHEAP**: f-resolution probe near f=0 at N=4096 (step 0.01 instead of 0.05) to characterize the true sharp transition. ~2min smoke. Candidate for next exp_dev cycle.
+(d) **MEDIUM**: ALPHA_RATIO variation probe at N=4096 to test load-regime dependence. ~10min smoke.
+(e) **MEDIUM**: heavy-tail / structured-orbit weight-init variant at N=4096 to test narrower-regime saddle-hierarchy-DAM compatibility. ~20min smoke (low P; thoroughness arm).
+
+PRIMARY rescue is annotation-only (already applied above); (b)/(c) are CANDIDATES for next exp_dev cycle per [[feedback-no-padding-experiments]] (not auto-queued).
+
+**PROT compliance (v237).**
+
+- PROT-004/006: 0 row closures. 5 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]] for the C=saddle-hierarchy-DAM sub-class even though row stays 🟡 (defensive thoroughness given 2/3 → 1/3 probe-positive contraction).
+- PROT-007: history.md absent (consistent with v228+).
+- PROT-008: No demotion; annotation-only on 🟡 row with honest sub-class breakdown update.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-verdict-msg-honest-reread]]: 79th observation; label HONEST mild under-claim ("no sharpening" understates "inverse sharpening + sharp near-f=0 transitions"); numerical HF authoritative.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 5 sketches cheapest-first; PRIMARY = annotation subsumption (0-cost).
+- [[feedback-dont-overextend-theorems]]: explicit — C sub-class CLOSED ≠ SKAH-M class CLOSED; v228 anchor + hierarchical-retrieval row UNCHANGED.
+- Queue-refill: SKIPPED in this handler (orchestrator decides based on actual pending count post-verdict; (b)/(c) are CANDIDATES not auto-queued).
+- 150th PROT-009 paired commit.
+
+SINGLE-VERDICT v236 -> v237: skahm_subclass_discriminator_v3 HARD_FAIL HONEST (5/5 seeds; mean_ratio=0.016 = 60x INVERSE of HP threshold; under-claim noted — inverse-sharpening + ret@f=0.25 ≈ 0.999 at N=4096); SKAH-M C=saddle-hierarchy-DAM sub-class CLOSED-NEGATIVE FULL; row 🟡 UNCHANGED (A sub-class anchor surviving; discriminator's job IS falsification); SKAH-M class anchor v228 UNCHANGED ✅; hierarchical-retrieval 🟢 UNCHANGED; framework reliability UNCHANGED; portfolio 14+18 UNCHANGED; 5 rescue sketches filed cheapest-first (PRIMARY = framing subsumption to first-order multi-basin v211, 0-cost); 79th label-vs-honest observation; 150th PROT-009 paired commit.
