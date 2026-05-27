@@ -2,7 +2,7 @@
 
 **Purpose:** After context compaction / summarization, behavioral knowledge gets lost. This file is the dense restoration document. The orchestrator reads this FIRST on cold start AND right after any context summarization, before doing anything else.
 
-**Last updated:** 2026-05-27 (comprehensive pre-compaction handoff). New Section 6 (bridge architecture canonical reference), Section 7 (cap_map state snapshot at v233 with substrate-class confirmations), Section 8 (today's structural-process additions consolidated index). Section 3 gains OOM pre-check gate + import-chain coverage in smoke as enforced hard rules. Section 4b watchdog event set carried forward at 13 events. Section 5 carries PROT-014 obsolete + 7 subagent_types registered. Section 5c carries PROT-018 + runner singleton + per-experiment timeout.
+**Last updated:** 2026-05-27 incremental delta v234+v235 (compaction handoff v2). Section 7 updated: portfolio 14+18, framework reliability split revised, Bet B 4-stage smoke row added, spectral-graph demoted, large-deviations closed. 4 unprocessed verdicts pending next session. Previous: 2026-05-27 (comprehensive pre-compaction handoff). New Section 6 (bridge architecture canonical reference), Section 7 (cap_map state snapshot at v233 with substrate-class confirmations), Section 8 (today's structural-process additions consolidated index). Section 3 gains OOM pre-check gate + import-chain coverage in smoke as enforced hard rules. Section 4b watchdog event set carried forward at 13 events. Section 5 carries PROT-014 obsolete + 7 subagent_types registered. Section 5c carries PROT-018 + runner singleton + per-experiment timeout.
 
 **Previous updates:**
 - 2026-05-27 (earlier) by memory_curator sub-agent — Section 4b updated to 13 watchdog event kinds (added `bridge_cache_stale`); Section 5 clarified that custom subagent_types DO register and PROT-014 is obsolete; new Section 5c documents PROT-018 anchor-name binding + runner singleton lock + per-experiment timeout policy as enforced (not advisory) rules.
@@ -423,9 +423,11 @@ Memory: `feedback_remote_bridge_architecture.md`.
 
 ---
 
-## 7. CAP_MAP SNAPSHOT AT COMPACTION HANDOFF (2026-05-27)
+## 7. CAP_MAP SNAPSHOT AT COMPACTION HANDOFF (2026-05-27 v235)
 
-Cap_map at **v233** (commit 052161f or successor pushed). Read `notes/capability_map.md` for the full row-by-row state; this section captures the strategic shape.
+Cap_map at **v235** (commit bb0ecd9 or successor pushed). Read `notes/capability_map.md` for the full row-by-row state; this section captures the strategic shape.
+
+**DELTA from prior brief (v233 → v235):** Portfolio 14+14 → 14+18. Spectral-graph demoted 🟢→🟡. Large-deviations CLOSED-NEGATIVE. Bet B 4-stage NEW row 🟢-smoke-only. Framework reliability specific-documented revised down 48-58% → 45-55%. 77 cumulative label-vs-honest catches (was 70+ at v233). 4 verdicts unprocessed at compaction time (see below).
 
 ### Substrate-class confirmations (today)
 
@@ -437,27 +439,51 @@ Cap_map at **v233** (commit 052161f or successor pushed). Read `notes/capability
 
 - **Non-equilibrium-stat-mech framework class** (v229 row): BID v2 HARD_PASS at FULL N=1024-8192, 5-seed (sigma_margin=7.54 OUTSIDE all Hopfield static bands). Surviving frameworks: Crooks, Sagawa-Ueda, drift-diffusion-BP, free-probability. Static-phase drills PARKED as class. Memory: `project_substrate_non_eq_stat_mech_class_2026-05-27.md`.
 
-- **Plural-framework lock** (3rd independent confirmation): Saad-Solla saddle-cascade ✅ + 1-RSB hysteresis 🟡 + MoE SHIFT ✅ are INDEPENDENT phase observations. NOT unified by SVD-cascade — that was decisively rejected at v219+v224.
+- **Plural-framework lock** (3rd independent confirmation): Saad-Solla saddle-cascade + 1-RSB hysteresis (🟡) + MoE SHIFT are INDEPENDENT phase observations. NOT unified by SVD-cascade -- that was decisively rejected at v219+v224.
 
 ### Bet states
 
 - **Bet B retention 4-tier shift-class taxonomy FINAL LOCK** (silhouette=0.788).
+- **Bet B 4-stage compositional CL: NEW 🟢-smoke-only row** (v234). retention_A=0.848 / ret_B=0.905 / ret_C=0.874 at N=1024 smoke (pre-PROT-018 ship; labeled N=8192). FIRST 4-stage compositional CL evidence. FULL N=8192 multi-seed REQUIRED. If FULL confirms ret_A >= 0.80, promotes to Tier-1 demonstrated -- product-spec advance. Memory: `project_bet_b_4stage_smoke_pass_2026-05-27.md`.
 - **Bet N STRONG_PARTIAL**: atom-genericity confirmed; EN/PY gap=0.0014.
 - **Bet I MoE rebuild engineering-rate-limited** at K=4/K=8: LSH gating entropy is the sole degradation source per K_perarm; cosine-dot + Hebbian-anchor learned-router rescues BOTH HARD_FAILed.
-- **Saad-Solla large-N FULL still genuinely open** — PROT-018 now blocks the 5+ label-vs-honest catches that previously masked this. Memory: `project_pred4_hysteresis_first_order_confirmed_2026-05-27.md` for adjacent results.
-- **Path-b feasibility revised 0.45 → 0.27**: corpus-size scaling HARD_FAIL; τ-limit + PPMI saturation are the bottleneck.
+- **Saad-Solla large-N FULL still genuinely open** -- 77th label-vs-honest catch in v234 (Saad-Solla v8_n2048 still ran at N=512; 6th attempt). PROT-018 now blocks new such catches. Memory: `project_pred4_hysteresis_first_order_confirmed_2026-05-27.md` for adjacent results.
+- **Path-b feasibility revised 0.45 → 0.27**: corpus-size scaling HARD_FAIL; tau-limit + PPMI saturation are the bottleneck.
+- **Spectral-graph DEMOTED 🟢→🟡** (v3 single-seed corr=-0.881 disconfirmed v2 multi-seed corr=+0.615; directional sign flip on replication).
+- **Large-deviations substrate CLOSED-NEGATIVE** (gc_r2=0.040 HARD_FAIL).
+- **Sagawa-Ueda deletion-cert** 🟢 continues building (v2 2/2 HARD_PASS); v3 FAILED 15:41 -- unprocessed at compaction.
+- **Drift-diffusion-BP** v2 damp-formulation rescue in flight; v3 completed 15:45 -- unprocessed.
+- **TCFT** still MIDDLE_BAND smoke; v4 completed 15:31 -- unprocessed.
+- **Cellular-automata / tropical-geometry / quantum-error-correction**: NEW 🟡 sub-framing rows added.
+- **Hatano-Sasha**: probed partial-negative (smoke single-seed sigma=0).
+- **SKAH-M sub-class discriminator v2 weakens** lit-thread C (spatial-correlated DAM) per honest re-read.
+
+### Unprocessed verdicts at compaction (handle first in next session)
+
+1. tcft_fresh_erase_v4 -- completed 15:31 (3rd TCFT iteration; trend to evaluate)
+2. sagawa_ueda_deletion_cert_v3 -- FAILED 15:41 (Sagawa-Ueda v3; compare to v2 2/2 HARD_PASS)
+3. drift_diffusion_bp_v3 -- completed 15:45 (follow v2 damp-formulation rescue)
+4. bid_order_parameter_v3_full -- FAILED 15:50
+
+### False-alarm cluster (watchdog cooldown artifact)
+
+wave14_saddle_solla_v7_n4096 and multiple older anchors (bid_v1, bid_v1_nsweep, etc.) continued firing ship_unconfirmed false-alarms via watchdog restart cycle. These are completed earlier-today anchors re-triggering the 61s threshold on watchdog restart. Not genuine unconfirmed ships.
 
 ### Framework reliability (split)
 
-- General: 🟢 65-75% (unchanged)
-- Specific-documented: 🟢 48-58% (raised from 45-55%)
-- Product-feature: 🟢 55-70% (unchanged)
+- General: 65-75% (UNCHANGED from v233)
+- Specific-documented: 45-55% (MODEST DOWN from 48-58%; spectral-graph demotion offsets prior upward revision)
+- Product-feature: 55-70% (UNCHANGED from v233)
 
 ### Portfolio
 
-- **14 demonstrated + 14 evidence-strength rows**.
+- **14 demonstrated + 18 evidence-strength rows** (was 14+14 at v233; +4 new sub-framing rows).
 - **5 killer features design-ready**: deletion certificate / compositionality audit API / per-fact retention policy / live drift detection / edit-with-impact-prediction. Memory: `project_substrate_killer_features_2026-05-26.md`.
 - **3 LLM-leapfrog product narratives**: Audit+Compliance / Operational Reliability / AI-data-sovereignty. Memory: `project_llm_leapfrog_directions_2026-05-26.md`.
+
+### Label-vs-honest catch counter
+
+77 cumulative catches as of v235. PROT-018 enforces at ship-time for NEW anchors. Pre-PROT-018 anchors continue completing as smoke-named-as-FULL throughout the day. **Next session sweep recommended**: identify queue items shipped before 10:00 on 2026-05-27 and re-design under PROT-018-compliant names or accept smoke-only status. Memory: `feedback_no_label_vs_honest_anchor_names.md`.
 
 ### Engineering posture
 
