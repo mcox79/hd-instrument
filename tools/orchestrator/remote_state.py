@@ -32,6 +32,8 @@ freshness should check is_stale() first and fall back to direct SSH if True.
 from __future__ import annotations
 
 import json
+import re
+import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
@@ -170,6 +172,123 @@ def queue_pending_count(queue_name: str) -> int:
     )
 
 
+# ---------------------------------------------------------------------------
+# Remote-first metrics.json fetch (verdict_handler N-mismatch ceiling-fix)
+# ---------------------------------------------------------------------------
+#
+# Local data/exp_<name>/metrics.json is frequently STALE relative to the
+# production run that landed on marsh@home. Concrete pattern (2026-05-27,
+# wave14_saddle_cascade_plateau_v6_n4096_gpu): local recorded N=512 SMOKE
+# 2.64s on cpu, remote recorded N=4096 FULL 6821s on cuda HARD_PASS 5/5.
+# Verdict_handler trusted local and emitted 78+ false label-vs-honest
+# catches in a single day.
+#
+# Fix: every metrics read goes through get_metrics(name) which fetches from
+# marsh@home first via SSH and only falls back to local on remote failure.
+# A 'source' field is injected at the top of the returned dict so the
+# caller can distinguish remote (authoritative) from local (last-resort).
+# See notes/verdict_handler_remote_metrics_fix_2026-05-27.md.
+
+# Whitelist of characters allowed in an experiment anchor name. Mirrors the
+# queue_add.py convention. Prevents shell-meta injection into the SSH command.
+_NAME_RE = re.compile(r"^[A-Za-z0-9._-]+$")
+
+# ssh marsh@home is configured in the user's ~/.ssh/config and is the same
+# alias used by tools/audit_n_mismatch.py and tools/queue_add.py.
+_SSH_TARGET = "marsh@home"
+_REMOTE_METRICS_PATH_TPL = r"C:\dev\hd-instrument\data\exp_{name}\metrics.json"
+
+
+def _ssh_type_remote_metrics(name: str, timeout_s: float = 12.0) -> str | None:
+    """Run `ssh marsh@home type <remote metrics path>` and return raw stdout.
+
+    Returns None on any failure (timeout, non-zero exit, parse error, missing
+    file). Callers fall back to local on None.
+    """
+    if not _NAME_RE.match(name):
+        return None
+    remote_path = _REMOTE_METRICS_PATH_TPL.format(name=name)
+    cmd = ["ssh", _SSH_TARGET, f"type {remote_path}"]
+    try:
+        out = subprocess.check_output(
+            cmd,
+            stderr=subprocess.DEVNULL,
+            timeout=timeout_s,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except Exception:
+        return None
+    # Strip any SSH banner / pq-warning lines that come before the JSON body.
+    # The JSON object starts at the first '{' on a line by itself or inline.
+    idx = out.find("{")
+    if idx < 0:
+        return None
+    return out[idx:]
+
+
+def get_remote_metrics(name: str) -> dict[str, Any] | None:
+    """Fetch data/exp_<name>/metrics.json from marsh@home over SSH.
+
+    Returns parsed JSON dict on success, None on any failure. The returned
+    dict has '_source': 'remote' injected so the caller can confirm the
+    read crossed the wire (vs. quietly falling back to a stale local copy).
+    """
+    raw = _ssh_type_remote_metrics(name)
+    if not raw:
+        return None
+    try:
+        doc = json.loads(raw)
+    except Exception:
+        return None
+    if not isinstance(doc, dict):
+        return None
+    doc["_source"] = "remote"
+    return doc
+
+
+def get_local_metrics(name: str) -> dict[str, Any] | None:
+    """Read data/exp_<name>/metrics.json from the local repo. Returns None
+    if the file is missing, unreadable, or not a JSON object."""
+    if not _NAME_RE.match(name):
+        return None
+    path = _REPO / "data" / f"exp_{name}" / "metrics.json"
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8", errors="replace"))
+    except Exception:
+        return None
+    if not isinstance(doc, dict):
+        return None
+    doc["_source"] = "local"
+    return doc
+
+
+def get_metrics(name: str, *, prefer_remote: bool = True) -> dict[str, Any] | None:
+    """Remote-first metrics.json fetch for verdict_handler / strategy / audit.
+
+    Args:
+        name: experiment anchor (e.g. 'wave14_saddle_cascade_plateau_v6_n4096_gpu').
+              Must match `_NAME_RE` -- alnum, dot, underscore, dash only.
+        prefer_remote: if True (default) try SSH first, fall back to local on
+                       failure. If False, read local directly (legacy path).
+
+    Returns:
+        Parsed metrics dict with '_source' field set to 'remote' or 'local';
+        None if both reads fail or name is invalid.
+
+    Notes:
+        Remote fetch uses `ssh marsh@home type <C:\\dev\\hd-instrument\\data\\
+        exp_<name>\\metrics.json>` with a 12s timeout. Local fallback reads
+        d:/AI/hd-instrument/data/exp_<name>/metrics.json directly.
+    """
+    if prefer_remote:
+        doc = get_remote_metrics(name)
+        if doc is not None:
+            return doc
+    return get_local_metrics(name)
+
+
 def any_runner_active() -> bool:
     """Return True if any runner has status == 'running' in the cache."""
     doc = _load_cache()
@@ -211,3 +330,24 @@ if __name__ == "__main__":
     print(f"recent_verdicts (last 5): {len(verdicts)} entries")
     for v in verdicts:
         print(f"  {v.get('name')} -> {v.get('verdict')}")
+
+    # Optional: test the remote-first metrics fetch on a CLI-supplied anchor.
+    import sys as _sys
+    if len(_sys.argv) > 1:
+        anchor = _sys.argv[1]
+        print()
+        print(f"=== get_metrics({anchor!r}) ===")
+        m = get_metrics(anchor)
+        if m is None:
+            print("  result: None (both remote and local reads failed)")
+        else:
+            cfg = m.get("config") or {}
+            summ = m.get("summary") or {}
+            print(f"  _source        : {m.get('_source')}")
+            print(f"  verdict        : {m.get('verdict')}")
+            print(f"  config.mode    : {cfg.get('mode')}")
+            print(f"  config.N       : {cfg.get('N')}")
+            print(f"  config.device  : {cfg.get('device')}")
+            print(f"  summary.N      : {summ.get('N')}")
+            print(f"  summary.seeds  : {summ.get('seeds')}")
+            print(f"  elapsed_s      : {m.get('elapsed_s')}")

@@ -14,7 +14,7 @@ You are the cap_map owner — the only writer of `notes/substrate_capability_map
 
 For verdict event:
 - Read the verdict from the event payload
-- Read the corresponding metrics.json if linked
+- For per-cell metrics, ALWAYS use `tools.orchestrator.remote_state.get_metrics(name)` (remote-first SSH; falls back to local). DO NOT read `data/exp_<name>/metrics.json` directly -- the local file is frequently a stale pre-ship smoke artifact and trusting it causes label-vs-honest false catches. If `get_metrics(name)['_source'] == 'local'`, treat the read as suspect and flag in the decision log. If `get_metrics` returns `None`, treat the verdict as `UNKNOWN` and decline the cap_map transition. See `notes/verdict_handler_remote_metrics_fix_2026-05-27.md`.
 - Decide cap_map state changes (✅ / 🟢 / 🟡 / 🔬 / ⚪ / ❌)
 - Apply PROT-004/006/008/009 discipline (see below)
 - Atomic commit: cap_map + history + decisions all staged together
