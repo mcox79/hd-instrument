@@ -606,3 +606,47 @@ Both probes agree: substrate is outside static-Hopfield taxonomy. v228 names the
 (c) MEDIUM: Hatano-Sasa IFT alternative (v183 deferred candidate). ~2h research to assess TCFT vs HS-IFT sequencing.
 
 **Closures: 0 capability rows.** Vanilla Jarzynski sub-row CLOSED-NEGATIVE (annotation). TCFT open. 143rd PROT-009 paired commit.
+
+
+## 12:34 -- BATCHED 2-VERDICT v230 -> v231 (verdict_handler) -- TCFT LABEL-VS-HONEST 65th catch + percolation HARD_FAIL sub-framing closure
+
+**Verdict 1: tcft_fresh_erase_v1 -- LABEL-VS-HONEST [65th catch in 24h]**
+
+- **Label (orchestrator dispatch input):** "Per prior exp_dev prediction: HARD_PASS 5/5 seeds, var_ratio<0.01. If confirmed, TCFT provides NON-EQ THERMODYNAMIC foundation for the deletion-certificate killer feature (#1 in product roadmap)."
+- **Honest reading from `data/exp_tcft_fresh_erase_v1/metrics.json`:**
+  - `verdict: MIDDLE_BAND` (explicit)
+  - `verdict_msg: "MIDDLE_BAND: TCFT var_ratio=0.0248 (strong seeds=1/1 < 3); PR_fires=0/1."`
+  - `config.mode: "smoke"` -- NOT FULL
+  - `config.seeds: [17]` -- SINGLE-SEED, NOT 5-seed
+  - `summary.n_valid_seeds: 1` -- 1, NOT 5
+  - `per_seed[0].variance_ratio: 0.024772` -- 2.5x ABOVE the pre-reg HF1 var_ratio<0.01 threshold
+  - `per_seed[0].pr_fires: false` -- PR-trigger did NOT fire
+  - `per_seed[0].tcft_agreement_pct: 99.86` -- mean-agreement high (interesting but not the gating metric)
+- **Contradicting cells/metrics:**
+  (a) mode: smoke (label claimed FULL by implication of "5/5 seeds")
+  (b) n_seeds: 1 (label claimed 5)
+  (c) var_ratio: 0.0248 > 0.01 (label claimed <0.01)
+  (d) strong_seeds: 1/1 < pre-reg threshold of 3 (verdict_msg states this explicitly)
+  (e) PR_fires: 0/1 (label implied production-relevant trigger fired)
+- **Authoritative interpretation for downstream:** TCFT rescue path (filed v230 step (a) as primary CHEAPEST/SUBSUMPTION rescue for vanilla Jarzynski closure) has been PROBED at smoke and lands MIDDLE_BAND -- partially encouraging (var_ratio=0.0248 is dramatically lower than vanilla Jarzynski's variance-explosion characterized v229/v230, showing TCFT trajectory-class averaging IS reducing variance in the expected direction) BUT does NOT clear the pre-registered hard-pass band. The rescue path is **not validated**; it is **probed-but-not-cleared**. Downstream cap_map and product-framing must NOT propagate "HARD_PASS confirmed" or "deletion-certificate foundation validated" until FULL 5-seed re-run lands.
+- **Cap_map impact:** TCFT row 🔬 (research-only filed candidate) -> 🟡 (probed inconclusive). NOT 🟢. Non-eq class row UNCHANGED 45-60% (no upward move from over-claimed smoke). Framework reliability UNCHANGED.
+- **[label-vs-honest] prefix surfaced in verdict_handler return line per [[feedback-verdict-msg-honest-reread]].**
+- **PRIMARY rescue:** TCFT FULL 5-seed re-run with existing script (mode=smoke -> mode=full, seeds=5); pre-reg HF1 var_ratio<0.01 across >=3/5 strong seeds; ~2h CPU.
+
+**Verdict 2: network_percolation_substrate_v1 -- HARD_FAIL (label honest)**
+
+- **Label:** "HARD_FAIL: tau_c shows no systematic variation with alpha. tau_range=0.067; corr(tau_c,ret)=-0.5. No percolation-like behavior at substrate capacity transition."
+- **Honest reading from metrics.json:** matches label. Single-seed smoke (n_seeds=1, alpha_sweep=[0.05, 0.14, 0.22], tau_c values [0.667, 0.600, 0.667] -- non-monotonic in alpha, range 0.067 trivially small, retrieval_rate drops 1.0 -> 1.0 -> 0.45 across alpha_c=0.138 but tau_c does NOT track this transition). HF criterion (tau_range tiny + correlation wrong sign) met cleanly.
+- **Caveat:** smoke single-seed; multi-seed FULL would strengthen the closure but low priority (this was an orthogonal disconfirming probe, not a substrate-capability under test).
+- **Cap_map impact:** Network-percolation-theory MoE K-scaling lens introduced as NEW SUB-FRAMING ROW with CLOSED-NEGATIVE state. Analogous to v223 reservoir-computing-edge-of-chaos closure (sub-framing rejected, substrate capability intact). NOT a PROT-004 capability closure -- no rescue sketches required.
+- **Strategic:** narrows live MoE K-scaling theoretical homes to MoE SHIFT (cap_map v222+) + Saad-Solla saddle-cascade (v223). Plural-framework lock v230 strengthened (negative direction; another candidate lens eliminated).
+
+**Combined cap_map decision (v230 -> v231):**
+- TCFT row 🔬 -> 🟡 (probed not cleared; FULL re-run pending)
+- Network-percolation sub-framing: NEW ROW, CLOSED-NEGATIVE
+- 0 capability row closures
+- 0 portfolio changes (14+9 UNCHANGED)
+- Framework reliability UNCHANGED (general 65-75% / specific 45-55% / product-feature 55-70%)
+- 144th PROT-009 paired commit
+
+**Sub-agent flow:** verdict_handler ABSORBED strategy + visibility internally per [[feedback-skills-first-for-rote-work]]. No separate Agent dispatch; this entry IS the strategy decision-log entry.

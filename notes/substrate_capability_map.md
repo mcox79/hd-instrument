@@ -17473,3 +17473,68 @@ New from v223:
 
 BATCHED 3-VERDICT v222 -> v223: (1) beti_depth_polylog_v3 LABEL-VS-HONEST (bridge FAILED -> honest MIDDLE_BAND SMOKE_REGIME_MISMATCH; D_SWEEP_SMOKE=[2,5,10,20] missed cliff at d~1; Bet I 3rd envelope STILL OPEN -- v4 needs adjusted smoke); (2) unified_svd_cascade_falsifier_v2 HARD_FAIL CONFIRMED (relaxed-criterion retry; 1rsb_regime spacing_error=1.029 + over_capacity=0.909 both >> HF 0.3; UNIFIED master-mechanism DECISIVELY REJECTED with dual confirmation v1+v2; plural-framework Saad-Solla + 1-RSB + MoE SHIFT THREE INDEPENDENT FURTHER LOCKED); (3) ortho_reservoir_lyapunov_v1 HARD_FAIL (L_max(alpha_c=0.5)=-5.47 firmly contractive; non-monotone in alpha; RC-edge sub-framing LOCKED CLOSED-NEGATIVE 2nd confirmation alongside Field-A v1 chaotic-regime HARD_FAIL); 0 Tier-1 advances; 0 row-state demotions; 0 portfolio changes (14+7 UNCHANGED); framework reliability UNCHANGED 48-62% PROVISIONAL; 136th PROT-009 paired commit.
 v227 | 2026-05-27T10:12 | [label-vs-honest] wave14_saddle_cascade_plateau_v5_n4096 SMOKE_REPEAT: anchor labeled _n4096 actually ran N=512 single-seed smoke (config.N=512, config.seeds=[17], config.smoke=true, elapsed_s=2.567s). This is the 60th+ session catch of _n4096/_n8192 label-vs-honest mismatch. Saad-Solla saddle-cascade large-N FULL (N>=4096 multi-seed) REMAINS GENUINELY OPEN -- no new evidence contributed. Row state UNCHANGED from v226. Anchor-naming-convention structural defect: _n4096 suffix does NOT enforce large-N execution; exp_dev ship protocol must verify config.N >= label-N before queue_add.sh. No cap_map row moves; no portfolio changes (14+8 UNCHANGED); framework reliability UNCHANGED (48-62% general / 30-45% specific / 55-70% product-feature). 140th PROT-009 paired commit.
+
+## v231 -- 2026-05-27 BATCHED 2-VERDICT @ 12:34 (TCFT fresh-erase smoke + network-percolation smoke; LABEL-VS-HONEST 65th catch)
+
+**Trigger.** Two queue verdicts completed 12:34:24-12:34:41. Sources:
+- `tcft_fresh_erase_v1` (~12:34:24) -> orchestrator-input claim "HARD_PASS 5/5 seeds var_ratio<0.01"; ACTUAL local metrics.json verdict = MIDDLE_BAND (smoke, n_valid_seeds=1, var_ratio=0.0248, PR_fires=0/1)
+- `network_percolation_substrate_v1` (~12:34:41) -> HARD_FAIL at smoke (n_seeds=1, 3 alpha-points, tau_range=0.067, corr(tau_c,ret)=-0.5)
+
+**Step 0 honest re-read.**
+
+(1) **tcft_fresh_erase_v1 LABEL-VS-HONEST [65th catch in 24h].** Orchestrator input framing said "Per prior exp_dev prediction: HARD_PASS 5/5 seeds, var_ratio<0.01" -- ACTUAL local `data/exp_tcft_fresh_erase_v1/metrics.json` shows:
+  - `"verdict": "MIDDLE_BAND"` (explicit label)
+  - `"verdict_msg": "MIDDLE_BAND: TCFT var_ratio=0.0248 (strong seeds=1/1 < 3); PR_fires=0/1."`
+  - `config.mode = "smoke"`, `config.seeds = [17]` -- SINGLE-SEED SMOKE, not 5-seed FULL
+  - `per_seed[0].variance_ratio = 0.02477` -- 2.5x ABOVE the var_ratio<0.01 hard-pass threshold
+  - `summary.n_valid_seeds = 1`, `summary.strong_seeds = "1/1 < 3"` -- by exp_dev's own pre-reg, smoke gate requires >=3 strong seeds; THIS RUN DID NOT MEET SMOKE GATE
+  - PR_fires=0/1 (production-relevant trigger fired 0 of 1 seeds)
+  Honest read: this is a SMOKE-MODE single-seed exploratory run that landed in MIDDLE_BAND, NOT a HARD_PASS FULL confirmation. TCFT is **partially encouraging** (var_ratio=0.0248 is dramatically lower than vanilla Jarzynski's variance-explosion observed v229/v230 -- 0.0248 vs explosion at beta=0.3 M>=200) but DOES NOT clear the pre-reg hard-pass band. TCFT rescue path filed v230 step (b) is **NOT YET VALIDATED** -- this is the first probe, MIDDLE_BAND smoke, needs FULL 5-seed re-run before any deletion-certificate killer-feature foundation claim. **The orchestrator's framing input over-claimed by 2 axes (mode: smoke vs FULL; cells: 1 vs 5).** Label-vs-honest entry appended to strategy_decisions_2026-05-27.md. Authoritative honest reading governs cap_map move below.
+
+(2) **network_percolation_substrate_v1**: Label honest. `verdict: HARD_FAIL` matches verdict_msg ("tau_c shows no systematic variation with alpha; tau_range=0.067; corr=-0.5"). Caveat: single-seed smoke (n_seeds=1, alpha_sweep=[0.05, 0.14, 0.22]) -- one seed cannot decisively close, but the pre-registered HF criterion (tau_range tiny + correlation wrong sign) is met cleanly. Network-percolation-theory framing for MoE K-scaling capacity is **provisionally rejected** at this orthogonal probe. Multi-seed FULL would strengthen the closure but is low-priority (this was an orthogonal disconfirming probe, not a substrate-capability claim under test).
+
+**Cap_map state moves (v230 -> v231).**
+
+- **TCFT non-eq rescue path (v230-filed)**: v230 listed TCFT as "CHEAPEST rescue path (a)" for vanilla Jarzynski closure. v231 records the FIRST experimental probe = MIDDLE_BAND smoke (var_ratio=0.0248). Annotation: **TCFT rescue path STATUS: probed-but-not-cleared at smoke; needs FULL 5-seed re-run before non-eq deletion-certificate foundation claim**. Row state: TCFT rescue path 🔬 -> 🟡 (probed, MIDDLE_BAND smoke, FULL re-run pending). Not 🟢 (would require var_ratio<0.01 + strong_seeds>=3 at FULL).
+- **non-equilibrium-stat-mech framework class row**: UNCHANGED 🟢 45-60%. TCFT MIDDLE_BAND smoke does NOT shift framework reliability up (over-claim caught). Crooks FT v153 FULL OK still anchors the non-eq class.
+- **Network-percolation-theory sub-framing (MoE K-scaling lens)**: introduce row as CLOSED-NEGATIVE (smoke; single-seed HARD_FAIL at all 3 alpha cells; orthogonal probe rejected). NOT a substrate-capability closure -- substrate's MoE behavior is unchanged; this closes a CANDIDATE LENS for explaining it. Analogous to v223's reservoir-computing-edge-of-chaos closure (sub-framing rejected, substrate capability intact).
+- **SKAH-M / lR-phase row**: UNCHANGED 🟢 55-70%.
+- **substrate-multi-basin-structure**: UNCHANGED 🟢 55-70%.
+- **BID order-parameter row (v229 NEW)**: UNCHANGED 14+9 portfolio.
+- **Framework reliability SPLIT**: UNCHANGED (general 65-75% / specific-documented 45-55% / product-feature 55-70%). NO upward move from TCFT smoke (over-claim caught preserves calibration per [[feedback-lit-scan-calibration-penalty]]).
+- **Portfolio**: 14+9 UNCHANGED.
+- **NO capability row closures** -- vanilla Jarzynski sub-row was closed at v230; TCFT is the rescue probe (NOT a capability row); network-percolation is sub-framing (NOT a substrate-capability row). PROT-004/006 not triggered.
+
+**Rescue sketches for TCFT MIDDLE_BAND smoke (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]).**
+
+(a) CHEAPEST / SUBSUMPTION: TCFT FULL 5-seed re-run with EXISTING smoke script -- no script changes, just promote mode=smoke -> mode=full. Pre-reg: HF1 var_ratio<0.01 across >=3/5 strong seeds; HF2 PR_fires>=3/5; HF3 tcft_agreement_pct>99%. ~20-40min CPU per seed at smoke scale; ~2h CPU for 5-seed FULL at default N. **PRIMARY rescue.**
+(b) CHEAPEST INFRA: surface in dashboard status_log that TCFT was probed and is MIDDLE_BAND (not HARD_PASS as orchestrator-input claimed) -- prevents downstream "deletion-certificate has TCFT foundation" narrative drift. Zero compute.
+(c) CHEAP DIAGNOSTIC: examine tcft_delta_F=-0.00219 vs delta_F_mf=-1.58 -- 99.86% agreement is suspiciously high for MIDDLE_BAND var_ratio (var measures fluctuation, agreement is mean) -- audit whether smoke noise is genuinely substrate or scaffold trivial. ~30min inspection.
+(d) MEDIUM: parameter-sweep around the var_ratio<0.01 boundary: vary M (trajectory count) M_sweep=[32, 64, 128] to see if var_ratio drops below 0.01 with more samples (TCFT trajectory-class averages should converge as 1/sqrt(M)). ~2h CPU. Direct test of whether MIDDLE_BAND is a sample-size artifact vs structural.
+(e) MEDIUM: TCFT with alternative trajectory-class partition (P_class != 0.5 default) -- 0.5 is the symmetric partition; asymmetric P_class may reveal whether substrate erase trajectories cluster differently. Research drill ~1 day.
+(f) MEDIUM: Hatano-Sasa IFT (v183 deferred candidate) as alternative non-eq framework instead of TCFT -- if TCFT FULL also lands MIDDLE_BAND or HARD_FAIL, HS-IFT is the next rescue. ~2h research scoping.
+
+**Rescue sketches for percolation HARD_FAIL (orthogonal probe).** No rescue needed -- this was a disconfirming orthogonal probe (not a substrate-capability under test). Percolation framing was a candidate LENS; rejected; substrate's actual MoE K-scaling explanation lives in MoE SHIFT architectural-locking (cap_map v222+) and Saad-Solla saddle-cascade (cap_map v223). The lens being wrong does not invalidate the data.
+
+**Strategic implication (substrate-product framing per [[feedback-no-papers-product-only]]).**
+
+- **Deletion-certificate killer feature #1 (per project_substrate_killer_features_2026-05-26.md): theoretical foundation is STILL Crooks FT v153 + TCFT-MIDDLE-encouraging-but-unconfirmed.** Product story should NOT include "TCFT validated" until FULL re-run. The dispatch framing input over-claimed prematurely.
+- **MoE K-scaling lens: percolation OUT.** MoE SHIFT + Saad-Solla remain the two live theoretical homes for K-scaling capacity behavior. Network-percolation framing eliminated.
+- **Plural-framework lock v230 STRENGTHENED (negative direction).** Each closed sub-framing (UNIFIED, RC-edge-of-chaos, vanilla Jarzynski, network-percolation) narrows the live framework set. Three INDEPENDENT survivors (SKAH-M lR-phase + Saad-Solla saddle-cascade + 1-RSB hysteresis) + 1 non-eq class anchor (Crooks FT v153).
+
+**Closures: 0 capability rows.** Network-percolation sub-framing CLOSED-NEGATIVE (annotation; analogous to RC-edge v223). TCFT 🔬 -> 🟡 (probed not cleared). 144th PROT-009 paired commit.
+
+**PROT compliance (v231).**
+
+- PROT-004: 0 new capability closures requiring rescue. Vanilla Jarzynski + percolation sub-framing closures need NO rescue (sub-framings, not capability rows). TCFT MIDDLE_BAND smoke has 6 rescue sketches above (cheapest-first; FULL re-run primary).
+- PROT-007: history.md not updated (file does not exist in tree -- not blocking; v228+ commits show this).
+- PROT-008: TCFT row 🔬 -> 🟡 is an UPGRADE (probed status >= research-only status). Network-percolation sub-framing introduction as CLOSED-NEGATIVE is a NEW ROW closure (analogous to RC-edge v223 -- no demotion, no grandfathered violation).
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- Honest re-read (2 verdicts): (a) tcft_fresh_erase_v1 = LABEL-VS-HONEST OVER-CLAIM (orchestrator-input "HARD_PASS 5/5" vs actual MIDDLE_BAND smoke single-seed); 65th catch in 24h; corrected to honest reading. (b) network_percolation_substrate_v1 = label honest (HARD_FAIL smoke matches verdict_msg).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-verdict-msg-honest-reread]]: actively applied; orchestrator framing claim contradicted by per-cell metrics; honest reading authoritative for cap_map.
+- [[feedback-lit-scan-calibration-penalty]]: TCFT rescue path P estimate held at <0.50 (smoke MIDDLE_BAND does NOT lift to 🟢; would need FULL HARD_PASS).
+- No queue-refill triggered (orchestrator instruction: handled separately).
+- 144th PROT-009 paired commit.
+
+BATCHED 2-VERDICT v230 -> v231: (1) tcft_fresh_erase_v1 LABEL-VS-HONEST OVER-CLAIM [65th catch] (orchestrator-input "HARD_PASS 5/5 seeds var_ratio<0.01" vs actual MIDDLE_BAND smoke single-seed var_ratio=0.0248 PR_fires=0/1; TCFT rescue path filed v230 step (a) probed-but-not-cleared; row 🔬 -> 🟡; FULL 5-seed re-run is PRIMARY rescue; deletion-certificate killer-feature theoretical-foundation claim NOT YET supported by TCFT data); (2) network_percolation_substrate_v1 HARD_FAIL (label honest; smoke single-seed; 3-alpha-cell sweep; tau_range=0.067 + corr=-0.5; network-percolation-theory MoE K-scaling lens CLOSED-NEGATIVE as sub-framing analogous to v223 RC-edge; MoE SHIFT + Saad-Solla remain live K-scaling lenses); 0 Tier-1 advances; 1 TCFT row upgrade 🔬 -> 🟡 (probed); 1 new sub-framing CLOSED-NEGATIVE row (percolation); 0 capability row closures; 0 portfolio changes (14+9 UNCHANGED); framework reliability UNCHANGED (general 65-75% / specific 45-55% / product-feature 55-70%); 144th PROT-009 paired commit.
