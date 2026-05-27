@@ -86,3 +86,8 @@ Closures: 0. PROT-004/006 not triggered. v229 is LIFT + NEW ROW.
 
 v229 local commit complete; push deferred to main thread per [[feedback-subagent-permission-inheritance]] (commit hash filled in below). 142nd PROT-009 paired commit. Queue-refill SKIPPED per user instruction (no exp_dev dispatch).
 
+
+
+## 16:03 wave14_moe_attention_routing_v1 ATTENTION_ROUTER_HARD_FAIL (label-vs-honest 78th catch)
+
+[label-vs-honest 78th] wave14_moe_attention_routing_v1 ATTENTION_ROUTER_HARD_FAIL HONEST at retention leg (delta K=4->K=8 = -0.150 << -0.05 HF 3x). Two over-claims in verdict_msg: (a) 'k16_retention' field mislabels the K=8 cell (per_K dict shows K in {4,8} only; elapsed=0.32s smoke single-seed); (b) 'MoE K-scaling fundamentally broken for all router families' OVERRIDDEN -- 3 of 4 families tested (LSH baseline v220 + cosine v224 + attention v236); Hebbian-anchor 4th arm UNTESTED per [[feedback-dont-overextend-theorems]]. Cap_map v235 -> v236 ANNOTATION-ONLY: MoE SHIFT row UNCHANGED engineering-rate-limited; 2 of 4 learned-router rescue arms closed (cosine + attention); Hebbian-anchor PRIMARY-next cheapest rescue + K=4-lock product-narrative subsumption + gradient-trained fallback FILED. K-scaling ceiling diagnosis CORROBORATED across 3 router families = substrate-level constraint not router-architecture-specific; K=4 native MoE design point LOCKED. Framework reliability UNCHANGED. Portfolio 14+18 UNCHANGED. 0 closures. Queue: remote_cpu pending=4 / overnight pending=4 (no refill; queue invariant maintained). 149th PROT-009 paired commit.
