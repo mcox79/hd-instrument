@@ -1312,7 +1312,7 @@ The 4/5 var_ratio=0.0000 is the strongest TCFT signal observed across v1/v2/v3/v
 
 **Sub-agent flow:** verdict_handler ABSORBED strategy + visibility internally per [[feedback-skills-first-for-rote-work]]. This entry IS the strategy decision-log entry.
 
-## v243 -- 2026-05-27 TCFT FULL N=8192 5-seed HARD_PASS @ 17:58:13
+## v245 -- 2026-05-27 TCFT FULL N=8192 5-seed HARD_PASS @ 17:58:13
 
 **Trigger.** `tcft_n8192_v6` completed on remote_cpu_queue. v6 was the timeout-corrected re-ship of v5 (4/5 HP, seed=41 killed by 1800s) per exp_dev 17:23 cycle decision. Remote-bridge metrics fetch (authoritative, _source=remote): verdict=HARD_PASS; 5/5 seeds (7/17/23/31/41) at N=8192 M=1024; mean_var_ratio=3.2e-8; per-seed tcft_variance_ratio range [2.65e-9, 7.34e-8]; delta_F_agree_pct 99.01-99.28; elapsed_s=2140.
 
@@ -1354,9 +1354,9 @@ The 4/5 var_ratio=0.0000 is the strongest TCFT signal observed across v1/v2/v3/v
 
 **Decision (12): Strategy-request to exp_dev filed at notes/strategy_request_to_exp_dev_tcft_followon_2026-05-27.md** with: (a) the TCFT M-sweep diagnostic as MEDIUM-priority CPU candidate (b) general queue-refill autonomy per exp_dev's standing cap_map drill mandate. Exp_dev decides ship vs hold; orchestrator routes via routing_handler.
 
-**v243 cap_map updates.** Version-table row appended with TCFT FULL HARD_PASS + deletion-certificate foundation summary. No row demotions; portfolio annotation 14+18 -> 14+19; framework reliability SPLIT specific-named + product-feature both nudged up; 156th PROT-009 paired commit.
+**v245 cap_map updates.** Version-table row appended with TCFT FULL HARD_PASS + deletion-certificate foundation summary. No row demotions; portfolio annotation 14+18 -> 14+19; framework reliability SPLIT specific-named + product-feature both nudged up; 158th PROT-009 paired commit. [Renumbered from working v243 to v245 mid-turn to avoid collision with concurrent v243 sagawa_ueda timeout + v244 batched-2-verdict entries that landed during this turn — concurrent strategy work; ordering preserved.]
 
-**Per [[feedback-cap-map-update-protocol]]:** pull-first attempted (pre-existing unstaged changes block; documented but proceeding with atomic commit on cap_map + decisions log only -- working tree dirty across many sessions, pull-rebase will happen on main thread before push). Atomic commit: notes/substrate_capability_map.md + notes/strategy_decisions_2026-05-27.md + notes/strategy_request_to_exp_dev_tcft_followon_2026-05-27.md. Commit message: `Cap map: v228 -> v243 (TCFT FULL N=8192 5-seed HARD_PASS; deletion-certificate killer-feature foundation CONFIRMED; non-eq class 45-60% -> 55-65%; framework reliability specific-named + product-feature both nudged up; 156th PROT-009 commit)`. Main-thread pushes; sub-agent context cannot per [[feedback-subagent-permission-inheritance]].
+**Per [[feedback-cap-map-update-protocol]]:** pull-first attempted (pre-existing unstaged changes block; documented but proceeding with atomic commit on cap_map + decisions log + visibility log + routing-file only -- working tree dirty across many sessions, pull-rebase will happen on main thread before push). Atomic commit: notes/substrate_capability_map.md + notes/strategy_decisions_2026-05-27.md + notes/visibility_decisions_2026-05-27.md + notes/strategy_request_to_exp_dev_tcft_followon_2026-05-27.md. Commit message: `Cap map: v244 -> v245 (TCFT FULL N=8192 5-seed HARD_PASS; deletion-certificate killer-feature foundation CONFIRMED; non-eq class 45-60% -> 55-65%; framework reliability specific-named + product-feature both nudged up; 158th PROT-009 commit)`. Main-thread pushes; sub-agent context cannot per [[feedback-subagent-permission-inheritance]].
 
 ## v244 -- 2026-05-27 BATCHED 2-VERDICT @ 17:35 (wave14_1rsb_hysteresis_v6_n4096 HARD_PASS + wave14_corpus_N_scaling_tau_unblock_v1 TAU_UNBLOCK_HARD_FAIL) [label-vs-honest 85th+86th catches]
 
