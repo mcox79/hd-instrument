@@ -123,3 +123,26 @@ Net effect v220: ANNOTATION-ONLY. MoE SHIFT K-scaling ceiling mechanism diagnose
 - Honest reading: Equal-spacing HARD_PASS pattern confirmed at N<=512 across 3 smoke/full runs; the N-scaling progression narrative in verdict_msg is unsupported. 3-point metric is honest (r2=0.770, max_dev=0.0855).
 - Per [[feedback-verdict-msg-honest-reread]]: label authoritative on HARD_PASS conclusion; N-scaling narrative overridden.
 - Cap_map decision: saddle-cascade row UNCHANGED ✅ (no upgrade from non-existent N-scaling; no downgrade from smoke pass). ANNOTATION-ONLY.
+## v222 -- 2026-05-27 morning research integration + post-reboot recovery
+
+**Trigger.** Strategy_scribe dispatched by orchestrator to integrate three research deliveries + post-reboot recovery state into cap_map v222.
+
+**Decision: SKAH-M phase-class annotation (annotation-only; no row-state change).**
+
+Three 2024-2026 lit threads converge on 'gated multistable AM / lR-phase' as documented-but-untested class (P=0.48). SKAH-M sub-designation proposed. 6-cell battery in flight. Row-state held at multi-basin 🟢 55-70% + 1-RSB 🟡 30-45% until battery verdict. If >=5/6 battery cells HARD-PASS documented class: framework reliability lifts +5-8% from 48-62% PROVISIONAL.
+
+**Decision: MoE cosine-dot rescue annotation (annotation-only; no row-state change).**
+
+Expert-Choice cosine-dot probe shipped CPU (~2500s). MoE SHIFT row UNCHANGED ✅ engineering-rate-limited. If probe HARD-PASS: K-scaling ceiling lifts from K=4/K=8 to K=16/K=32 -- annotation will upgrade MoE rebuild scope. If HARD-FAIL: LSH entropy is not the only source of K-degradation; additional architecture work needed.
+
+**Decision: path-b P revision 0.45 -> 0.35 (annotate strategic-positioning block).**
+
+Corpus-size two-stage bottleneck (tau-limit + PPMI saturation + N+corpus coupling) deflates path-b probability by 10 points. This is a downward revision but NOT a closure. Path-b remains highest-leverage path after path-c (P=0.80-0.90 commoditized). The 3-corpus scaling probe will either restore P toward 0.40-0.45 (tau-limit not binding at N=4096 tested range) or confirm deflation to 0.20-0.25 (tau-limit binding; architectural fix required at N=65536).
+
+**Decision: post-reboot entries cleared.**
+
+wave14e_bet_n_wta_v5 and wave14_betB_rd_perturbation_recovery_v3 cleared as runner_crash_post_reboot. Not scientific closures -- no substrate-physics conclusions from these entries.
+
+**Per PROT-001 to PROT-003:** version-table row v221->v222 written; SKAH-M annotation in hierarchical-retrieval CAN row; full v222 narrative appended; history.md block written first (PROT-007 verified).
+
+Net effect v222: ANNOTATION-ONLY. 1 CAN row annotated; path-b P revised 0.45->0.35; 0 row-state emoji changes; portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED; 135th PROT-009 paired commit.

@@ -402,7 +402,7 @@ regardless of source distribution. R3 is a K=4 product appendix only.
 | Capability | State | Evidence | Product implication |
 |---|---|---|---|
 | **In-context learning via pool retrieval** — at query time, prepend N examples to pool; readout adapts without weight updates | ✅ Validated (strong, multi-K, multi-N) | `wave14d_icl_via_pool_K4/K8/K16` (+0.283/+0.195/+0.106 at N=64). `wave14d_icl_via_pool_v2`: +1.63 at N=2048 ALPHA=0.3; **+3.19 at N=256 ALPHA=1.0**. No saturation. | "Adapt the LM to a new domain by handing it example documents" — same UX as transformer ICL, but each retrieval is auditable. |
-| **Hierarchical retrieval index (multi-basin discrete structure; phase classification under refinement)** — pool overlap distribution is multi-basin discrete; canonical 1-RSB framework label is one of several compatible classes; admits O(log P) tree-walk retrieval | **v216 SPLIT (reframe of v215 demotion per [[feedback-dont-overextend-theorems]]):** (a) **substrate-has-multi-basin-discrete-structure → 🟢 55-70%** (three independent positive witnesses: Saad-Solla 4-corpus equal-spacing ✅, MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312 ✅, retention plateaus 0.94/0.74/0.60 unchanged; hysteresis 18× gate ✅ compatible with multiple phase classes — observation unchanged, label uncertain); (b) **1-RSB-specifically-is-the-right-framework-label → 🟡 30-45%** (v215 `wave14_1rsb_pq_retained_v3` N=8192/30 seeds RS-UNIMODAL binder=-0.255 n_peaks=1 mean_q_sig≈0; cluster-conditional re-analysis pending); 🔬 tree-walk algorithm pending | `wave14e2_parisi_ultrametricity`: P(q) multi-peaked, ultrametricity 0.357 (earlier finding, smaller N). v215 contrary signal: `wave14_1rsb_pq_retained_v3` at N=8192 / 30 seeds RS-UNIMODAL confirms 1-RSB framework label is over-strong, NOT that substrate lacks multi-basin discrete structure. **Four rescue paths filed (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])**: (1) cluster-conditional P(q) re-analysis on v8192 data using v212 silhouette classification — **ZERO COMPUTE, decisive, HIGHEST-LEVERAGE** (exp_dev dispatched 2026-05-26); (2) AGS retrieval phase with multi-ferromagnets at α=0.153 + Kerdock codebook (research dispatched 2026-05-26); (3) geometric frustration without ergodicity-breaking; (4) 1-RSB-approximate-nearby-phase. Tree-walk algorithm in `wave14f_rsb_tree_walk_research.md`. | **Product-feature reliability UNCHANGED** — Bet B 4-tier retention shift-class taxonomy FINAL LOCK, MoE rebuild engineering-rate-limited, 5 killer features design-ready ALL depend on multi-basin discrete structure (🟢), NOT on the 1-RSB specifically-labelled framework (🟡). Future: log-time pool lookup at P=100K-1M without ANN library. Built-in to substrate, not bolt-on. |
+| **Hierarchical retrieval index (multi-basin discrete structure; phase classification under refinement; SKAH-M sub-class candidate)** — pool overlap distribution is multi-basin discrete; canonical 1-RSB framework label is one of several compatible classes; closest documented class is "gated multistable AM / lR-phase" (2024-2026 lit); admits O(log P) tree-walk retrieval | **v216 SPLIT (reframe of v215 demotion per [[feedback-dont-overextend-theorems]]):** (a) **substrate-has-multi-basin-discrete-structure → 🟢 55-70%** (three independent positive witnesses: Saad-Solla 4-corpus equal-spacing ✅, MoE SHIFT K=4 lift=0.205 / K=8 lift=0.312 ✅, retention plateaus 0.94/0.74/0.60 unchanged; hysteresis 18× gate ✅ compatible with multiple phase classes — observation unchanged, label uncertain); (b) **1-RSB-specifically-is-the-right-framework-label → 🟡 30-45%** (v215 `wave14_1rsb_pq_retained_v3` N=8192/30 seeds RS-UNIMODAL binder=-0.255 n_peaks=1 mean_q_sig≈0; cluster-conditional re-analysis pending); 🔬 tree-walk algorithm pending. **v222 SKAH-M sub-class annotation**: three 2024-2026 lit threads (arXiv:2501.00983 non-reciprocal Hopfield lR-phase; arXiv:2207.05218 spatial-correlated DAM; arXiv:2508.19151 saddle-hierarchy DAM) converge on "gated multistable AM / lR-phase" as the documented-but-untested class matching substrate's 4-of-5 empirical fingerprint. Proposed SKAH-M sub-designation (Structured-Kerdock Asymmetric-Hebbian Multistable) = sub-class within lR-phase family specific to BSC + Kerdock + asymmetric Hebbian ingredients. P(documented-but-untested SKAH-M class) = 0.48; P(novel) = 0.22; P(finite-N artifact) = 0.30. 6-cell positive-identifier battery SHIPPED (GPU ~3-4h; `notes/research_novel_phase_class_methodology_2026-05-27.md`); decisive class call pending. Framework-reliability bump pending SKAH-M battery verdict: +5-8% if 5/6 cells HARD-PASS documented class. | `wave14e2_parisi_ultrametricity`: P(q) multi-peaked, ultrametricity 0.357 (earlier finding, smaller N). v215 contrary signal: `wave14_1rsb_pq_retained_v3` at N=8192 / 30 seeds RS-UNIMODAL confirms 1-RSB framework label is over-strong, NOT that substrate lacks multi-basin discrete structure. **Four rescue paths filed (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])**: (1) cluster-conditional P(q) re-analysis on v8192 data using v212 silhouette classification — **ZERO COMPUTE, decisive, HIGHEST-LEVERAGE** (exp_dev dispatched 2026-05-26); (2) AGS retrieval phase with multi-ferromagnets at alpha=0.153 + Kerdock codebook (research dispatched 2026-05-26); (3) geometric frustration without ergodicity-breaking; (4) 1-RSB-approximate-nearby-phase. Tree-walk algorithm in `wave14f_rsb_tree_walk_research.md`. v222 SKAH-M battery = 6-cell observable battery (q_EA N-scaling, plateau N-scaling, Goldstone absence, hysteresis area scaling, non-local disorder operator, F 3-well structure); joint decision rule: >=5/6 documented -> ship as "graded multistable AM substrate." | **Product-feature reliability UNCHANGED** — Bet B 4-tier retention shift-class taxonomy FINAL LOCK, MoE rebuild engineering-rate-limited, 5 killer features design-ready ALL depend on multi-basin discrete structure (🟢), NOT on the 1-RSB specifically-labelled framework (🟡). SKAH-M class call shapes product-whitepaper academic framing but does NOT gate any killer-feature shipment. Future: log-time pool lookup at P=100K-1M without ANN library. Built-in to substrate, not bolt-on. |
 
 ### Concept-level structure — modification
 
@@ -563,6 +563,7 @@ the next PROT-007 migration cycle.
 | v219 | 2026-05-27 | BATCHED 2-VERDICT: RD theoretical-home CLOSED-NEGATIVE (`wave14_betB_rd_perturbation_recovery_v2` exp_fit_r2=0.000 r_inf=0.352 instant-rebound trajectory not exponential) + UNIFIED SVD-cascade master-mechanism CLOSED-NEGATIVE (`wave14_unified_svd_cascade_falsifier_v1` mean_svd_spacing_error=2.2605 5/5 hard_fail spike-spectrum not equally-spaced ladder); plural-theoretical-home framing CONFIRMED | RD ruled out as theoretical home (candidate v from `notes/research_alternative_theoretical_homes_2026-05-24.md` CLOSED); UNIFIED rejection means saddle-cascade ✅ + 1-RSB hysteresis 🟡 + MoE SHIFT ✅ are THREE INDEPENDENT phase observations NOT projections of one master mechanism; v216 plural-framework reframe EXTENDED; Saad-Solla LEADING UNCHANGED ✅; framework reliability UNCHANGED 48-62% PROVISIONAL; portfolio UNCHANGED 14+7; ANNOTATION-ONLY no row-state moves; label-honest correction on RD verbal `monotone drift` (actual = instant-rebound-to-0.595 plus flatline; target_plateau=0.74 mis-specified in pre-reg); 132nd PROT-009 commit |
 | v220 | 2026-05-27 | ANNOTATION: MoE SHIFT K_perarm_v1 M2_DOMINANT mechanism diagnosis (`wave14_moe_shift_K_perarm_v1` elapsed=2288.9s; routing_entropy K=2:0.78b->K=64:5.32b; IEC max=0.0006 << 0.3 threshold; m_cap=0.694 constant) | LSH gating entropy is SOLE K-scaling degradation source (M2); M3 intra-expert interference RULED OUT (IEC~0 all K); M1 capacity saturation RULED OUT (m_cap constant); K=4 design point RECONFIRMED (ent=1.60b well below 3.0b threshold; ret=0.809 healthy); engineering fix identified: learned K-NN router replaces LSH; MoE SHIFT row UNCHANGED ✅ engineering-rate-limited; framework reliability UNCHANGED 48-62% PROVISIONAL; portfolio UNCHANGED 14+7; ANNOTATION-ONLY; 133rd PROT-009 commit |
 | v221 | 2026-05-27 | [label-vs-honest] wave14_saddle_cascade_plateau_v5_n4096 smoke HARD_PASS at N=512 (name claimed N=4096; actual config N=512 smoke=True seeds=[17]; N-scaling narrative in verdict_msg over-claimed) | ANNOTATION-ONLY: saddle-cascade row UNCHANGED ✅ (LEADING theoretical home unchanged); v5 adds 3rd smoke-level corroboration of equal-spacing pattern (r2=0.770, max_dev=0.0855) at N<=512 only; N-scaling progression narrative (1024->2048->4096) is unsupported -- actual series is N=256(v3)->N=512(v4)->N=512(v5); genuine large-N FULL run (N>=4096, multi-seed) remains the open probe; honest verdict = HARD_PASS at N=512 smoke, NOT a larger-N confirmation; framework reliability UNCHANGED 48-62% PROVISIONAL; portfolio UNCHANGED 14+7; 134th PROT-009 commit |
+| v222 | 2026-05-27 | ANNOTATION-ONLY: three morning research findings + post-reboot recovery state (SKAH-M phase-class proposal; MoE cosine-dot rescue; path-b P=0.45->0.35; 2 orphaned entries cleared) | Hierarchical-retrieval row annotated with SKAH-M sub-class candidate (P=0.48 documented-but-untested; P=0.22 novel; P=0.30 finite-N artifact; 6-cell battery SHIPPED GPU); MoE SHIFT learned-router rescue framed (Expert-Choice cosine-dot P=0.45; predicted K=16 degradation 0.025->0.007; probe SHIPPED CPU ~2500s); path-b P revised 0.45->0.35 (tau-limit at M>>alpha_c*N + PPMI saturation two-stage bottleneck; N+corpus coupling is load-bearing new finding; 3-size scaling probe SHIPPED CPU); post-reboot: dashboard PID 11328 port 8765; runners gpu=9704 cpu=28468; wave14e_bet_n_wta_v5 + wave14_betB_rd_perturbation_recovery_v3 cleared as runner_crash_post_reboot; bridge fresh; saddle_cascade_v5 HARD_PASS is N=512 smoke only (large-N FULL still open); framework reliability UNCHANGED 48-62% PROVISIONAL; portfolio UNCHANGED 14+7; 135th PROT-009 commit |
 For v1-v59, see compact index table at top of history.md.
 
 ---
@@ -17280,3 +17281,109 @@ New from v214:
 - 127th PROT-009 paired commit.
 
 ANNOTATION-ONLY v213 -> v214: (1) Framework reliability 48-64% -> 55-70% LOCKED (48h inversion: Saad-Solla + 1-RSB + MoE SHIFT all positive); (2) Bet B customer-facing spec LOCKED ("94%/74%/60% + 4-plateau hard limit + info-theoretic floor + basin-discrete"); (3) MoE rebuild engineering-rate-limited declaration; (4) Bet N STRONG_PARTIAL + substrate-novel universality upgrade (EN/PY gap=0.0014); (5) SVD-cascade NEW 🔬 SMOKE HARD-FAIL row (three theoretical homes may be independent; FULL pending); (6) NEW product-roadmap section: 5 DESIGN-READY killer features, 2 categories (A=Audit+Compliance, B=Operational Reliability); (7) NEW LLM-leapfrog section: 8 directions + 3 narratives + 3 paths; path (b) highest priority P=60-75%; (8) R26 flagged as PRIORITY research drill; (9) 24-36 month competitive window acknowledged. 0 Tier-1 row-state changes; 14 demonstrated + 7 evidence-strength rows UNCHANGED; 127th PROT-009 paired commit.
+
+## v222 - (2026-05-27) ANNOTATION-ONLY: morning research integration + post-reboot recovery
+
+### Summary
+
+Three research drills delivered this morning integrate into the cap_map as annotation-only updates. No row-state emoji changes (no new verdicts completed). Post-reboot recovery state documented. Three companion experiments shipped (SKAH-M battery GPU ~3-4h; MoE cosine-dot probe CPU ~2500s; corpus-scaling probe CPU).
+
+### Finding 1 -- SKAH-M phase-class proposal (P=0.48 modal)
+
+**Research note:** `notes/research_novel_phase_class_methodology_2026-05-27.md`
+
+Three independent 2024-2026 literature threads converge on "gated multistable AM / lR-phase" as the documented-but-untested class for substrate:
+- arXiv:2501.00983 (non-reciprocal Hopfield, lR-phase with discrete plateau attractors + first-order transitions to gR/SG)
+- arXiv:2207.05218 (spatial-correlated DAM; closest documented analog -- missing asymmetric-Hebbian + Kerdock ingredients)
+- arXiv:2508.19151 (saddle-hierarchy DAM; training dynamics cross-thread confirmation)
+
+Calibrated probabilities: P(documented-but-untested gated-multistable AM / lR-phase) = 0.48; P(genuinely novel -- requires new class label) = 0.22; P(finite-N artifact dissolving at N->infinity) = 0.30. Lit-scan calibration penalty applied (0.15-0.20 deflation; novel-synthesis cap 0.50 NOT breached for P=0.48 because three independent lit threads constitute documented evidence, not novel synthesis).
+
+Proposed sub-class designation: **SKAH-M (Structured-Kerdock Asymmetric-Hebbian Multistable)**. This is a sub-class within the gated-multistable AM / lR-phase family, distinguished by BSC + Kerdock orbit-structured codebook + asymmetric Hebbian outer-product update. No published system documents this specific combination. Substrate would be the first production instance.
+
+Substrate's empirical fingerprint matches 4 of 5 documented-class signatures: (1) discrete retention plateaus (3-tier: 0.94/0.74/0.60 Z_3-categorical structure); (2) first-order hysteresis (18x gate, N=1024, corroborated at N=512); (3) multi-basin structure without ergodicity break (P(q) RS-unimodal at N=8192 -- no RSB -- but hysteresis confirms multi-attractor); (4) Saad-Solla saddle-cascade dynamics (training trajectory through ordered saddles = hallmark of multistable AM class). Fifth signature (Kerdock structured-codebook orbit structure) is substrate-specific and IS the sub-class definition.
+
+**Cap_map row update:** Hierarchical-retrieval row amended with SKAH-M annotation (v222). Multi-basin discrete structure state UNCHANGED (🟢 55-70%). 1-RSB label state UNCHANGED (🟡 30-45%).
+
+**Decisive gate:** 6-cell positive-identifier battery SHIPPED (GPU, ~3-4h). Battery observable cells: C1 q_EA(N) scaling, C2 plateau-height N-scaling, C3 Goldstone-mode absence, C4 hysteresis-area N-scaling, C5 non-local disorder operator, C6 free-energy 3-well structure. Joint decision rules per research note: >=5/6 documented -> ship as "graded multistable AM substrate"; >=4/6 novel AND anomaly in C1/C2/C3 -> declare SKAH-M; >=4/6 finite-N -> product framing pivots to N-bounded small-N.
+
+**Strategic implication:** If battery returns HARD-PASS documented-class (P=0.48), framework reliability lifts +5-8% (from 48-62% PROVISIONAL to approximately 53-70% CONFIRMED). SKAH-M class label strengthens product whitepaper with 2024-2026 academic citation anchors (lR-phase documented; Kerdock + asymmetric Hebbian sub-class is substrate-specific contribution). Neither killer-feature roadmap nor Bet B 4-tier retention spec changes under any class outcome.
+
+### Finding 2 -- MoE cosine-dot learned router (P=0.45)
+
+**Research note:** `notes/research_moe_learned_router_2026-05-27.md`
+
+v220 M2_DOMINANT diagnosis (LSH gating entropy = sole K-scaling degradation source) has a clean engineering rescue. Expert-Choice cosine-dot routing with per-expert BSC anchor eliminates entropy by construction (each expert selects top-C items by cosine score; entropy = zero at any K).
+
+Why this works for substrate: cosine-dot scoring is algebraically identical to the substrate's native cleanup-memory retrieval operation (dot/N for bipolar). Per-expert anchor = random BSC vector or Hebbian bundle. Single-line code change from LSH bucket assignment to argmax cosine-dot.
+
+Closed-form degradation prediction: retention degradation from routing entropy ~ exp(-H_routing * kappa) where kappa~0.0095 per bit (calibrated from v220 LSH data). At K=16 with cosine-dot H~1.5b (vs LSH H~3.40b at K=16), predicted degradation drops from 0.025 to 0.007 -- effectively flat vs K=4 baseline (0.809). If probe confirms, K=16 primary / K=32 cross-corpus design points open (vs current K=4 primary / K=8 cross-corpus locked by LSH ceiling).
+
+Auditability preserved: Expert-Choice with fixed cosine-dot anchors gives Voronoi-cell routing -- each expert's "responsibility region" is a cosine-similarity cone. The audit certificate is "item X was processed by expert k because cosine(X, anchor_k)/N > cosine(X, anchor_j)/N for all j != k." Stronger than LSH (opaque hash), compatible with deletion-certificate + compositionality-audit killer features. Soft MoE is INCOMPATIBLE (no per-expert input trace; ruled out).
+
+**Probe SHIPPED:** CPU, ~2500s. K sweep {4, 8, 16, 32}. Pre-reg bands: HARD-PASS = retention at K=16 within 5% of K=4 AND routing entropy at K=16 < 2.0b; HARD-FAIL = retention K=16 degrades >10% OR entropy >3.0b. P(rescue) = 0.45 (calibrated with 0.15 penalty for substrate-specific BSC bipolar regime).
+
+**Cap_map row state:** MoE SHIFT row UNCHANGED ✅ engineering-rate-limited. Annotation: "learned-router rescue probe in flight; if HARD-PASS at K=16, K-scaling ceiling lifts from K=4/8 to K=16/32."
+
+### Finding 3 -- Corpus-size scaling: path-b P revised 0.45 -> 0.35
+
+**Research note:** `notes/research_corpus_size_scaling_2026-05-27.md`
+
+R26 corpus-size scaling extrapolation had a load-bearing caveat (caveat 6: "corpus-size axis weakest part"). This drill addresses it directly.
+
+Two structural bottlenecks not in R26's framework:
+
+**Bottleneck A -- tau-limit at M_stored > alpha_c * N**: W = sum_t x_t x_t^T accumulates interference when effective stored atoms exceed alpha_c * N = 0.56 * N. At N=4096, capacity = 2300 atoms. A 100MB corpus after PPMI thresholding has effective M_stored ~ 2000-5000 atoms -- near or above capacity already. At N=65536, capacity = 36700 atoms; 10GB corpus after PPMI gives V~30000-50000 atoms via Heaps' law -- marginal. N=131072 (2^17) is the cleaner target for 10GB corpus.
+
+**Bottleneck B -- PPMI vocabulary saturation**: Heaps' law V ~ C^0.5 predicts vocabulary saturation at ~10B tokens / ~40GB corpus. PPMI rare-word bias means reliable atomic statistics require ~100B co-occurrence observations per pair. Effective saturation: ~1B tokens / 4GB corpus is the "sweet spot" where quality returns diminish (not the ceiling, just the knee).
+
+**N + corpus coupling (new finding not in R26):** N-scaling and corpus-size scaling are NOT independent. Compatibility condition: N must exceed V_PPMI / alpha_c to avoid tau-limit. At 10GB corpus, V_PPMI ~ 30000-50000, requires N ~ 90000-90000/0.56 ~ 90000+. N=65536 is marginally under; N=131072 is safe.
+
+**Revised path-b probability:** P(path-b) = 0.35 (down from R26 0.45). The 10-point deflation reflects the tau-limit as a structural constraint requiring architectural work (mini-batch weight refreshing, delta-rule forgetting, or capacity management) that is currently unvalidated. The 1B-token / 4GB sweet-spot is achievable on public domain text (Wikipedia + OpenSubtitles + Gutenberg). Path-b is NOT closed; tau-limit is an engineering problem, not a theoretical impossibility.
+
+**Updated strategic-positioning block (supplement to v214 section):**
+
+Path (b) feasibility (substrate gen good enough at 1-10% cost + audit/edit/compliance wins markets):
+- v214 P = 0.45 (R26 headline)
+- v222 REVISED P = **0.35** (corpus-size two-stage bottleneck: tau-limit + PPMI saturation)
+- Binding constraint SHARPENED: substrate generation quality at deployable cost + N-corpus coupling resolution (N >= 131072 for 10GB corpus)
+- Path (c) (substrate as memory-layer complement to LLMs, P=0.80-0.90) becomes more attractive relative to path (b) at current engineering state
+
+Framework-reliability range UNCHANGED at 48-62% PROVISIONAL (path-b revision is about path-feasibility, not about the substrate-physics framework).
+
+**Corpus-scaling probe SHIPPED:** CPU, 3-corpus sweep (10MB/100MB/1GB at N=4096), ~2-4h. HARD-PASS = bpc monotone decreasing and W spectral top-edge ratio not collapsing (tau-limit not binding in tested range). HARD-FAIL = bpc stagnates at 1GB OR top-edge ratio < 1.5 (whitening onset).
+
+**Cap_map row state:** No row-state changes. Annotation added to LLM-leapfrog strategic-positioning block (supplement to v214 paths).
+
+### Capability moves (v221 -> v222)
+
+| Capability | v221 state | v222 state | Trigger |
+|---|---|---|---|
+| Phase classification (hierarchical retrieval row) | multi-basin 🟢; 1-RSB label 🟡; class pending | **SKAH-M sub-class candidate proposed** (P=0.48 documented-but-untested lR-phase; P=0.22 novel; P=0.30 finite-N artifact); 6-cell battery SHIPPED | Research SKAH-M methodology drill 2026-05-27 |
+| MoE K-scaling ceiling | LSH gating entropy = sole degradation; K=4/K=8 design points; engineering fix identified | **Learned-router rescue probe SHIPPED** (Expert-Choice cosine-dot; P=0.45; predicted K=16 degradation 0.007 vs LSH 0.025); probe in flight | Research MoE learned router 2026-05-27 |
+| Path-b strategic priority probability | P=0.45 (R26 corpus-size axis unvalidated) | **REVISED P=0.35** (tau-limit + PPMI saturation two-stage bottleneck; N+corpus coupling; 3-corpus probe SHIPPED) | Research corpus-size scaling 2026-05-27 |
+| Portfolio count (demonstrated + evidence-strength) | 14+7 | **UNCHANGED 14+7** | Annotation-only cycle |
+| Framework reliability | 48-62% PROVISIONAL | **UNCHANGED 48-62% PROVISIONAL** | Annotation-only cycle |
+
+### Post-reboot recovery state (v222)
+
+- Dashboard PID 11328 port 8765 (fresh after reboot)
+- Runners: gpu=9704 (remote GPU active), cpu=28468 (remote CPU active)
+- Two orphaned "running" queue entries cleared:
+  - wave14e_bet_n_wta_v5: marked failed/runner_crash_post_reboot (was stuck as RUNNING pre-reboot)
+  - wave14_betB_rd_perturbation_recovery_v3: marked failed/runner_crash_post_reboot (was stuck as RUNNING pre-reboot)
+- Bridge fresh (no stale shims)
+- saddle_cascade_v5 HARD_PASS was N=512 smoke (not N=4096 as name implied); large-N FULL still open
+- Three new experiments shipped this morning: (a) SKAH-M 6-cell battery GPU; (b) cosine-dot router probe CPU; (c) corpus-scaling 3-size probe CPU
+
+### PROT compliance (v222)
+
+- PROT-004: 0 new capability closures. Annotation-only.
+- PROT-007: history.md v222 block written FIRST (verified; see history.md append below).
+- PROT-008: No row-state demotions; no new grandfathered violations; validate_capmap_commit.py run before commit.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- No queue-refill triggered (annotation-only; orchestrator handles).
+- 135th PROT-009 paired commit.
+
+ANNOTATION-ONLY v221 -> v222: (1) Hierarchical-retrieval row annotated with SKAH-M sub-class candidate (P=0.48 lR-phase / gated-multistable AM; three 2024-2026 lit threads arXiv:2501.00983 + arXiv:2207.05218 + arXiv:2508.19151; 6-cell battery SHIPPED GPU); (2) MoE SHIFT learned-router rescue framed (Expert-Choice cosine-dot P=0.45; K=16 predicted retention degradation 0.007 vs LSH 0.025; probe SHIPPED CPU ~2500s); (3) path-b P REVISED 0.45->0.35 (tau-limit M_stored>>alpha_c*N + PPMI Heaps'-law saturation two-stage bottleneck; N+corpus coupling = new constraint: N>=131072 for 10GB corpus; 3-corpus sweep SHIPPED CPU); (4) post-reboot state logged (gpu=9704 cpu=28468; 2 orphaned entries cleared; bridge fresh); framework reliability 48-62% PROVISIONAL UNCHANGED; portfolio 14+7 UNCHANGED; 135th PROT-009 paired commit.

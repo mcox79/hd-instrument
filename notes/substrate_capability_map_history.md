@@ -8794,3 +8794,56 @@ BATCHED 5-VERDICT v216 → v217: (1) 3 INDEPENDENT INFRA FAILURES diagnosed (sad
 
 Net effect v217: 0 row state changes; 1 NEW 🔬 sub-row (intra-expert-overlap K-scaling pending verdict-label clarification); 0 PROT-004 closures; portfolio UNCHANGED 14+7; framework reliability UNCHANGED 48-62% PROVISIONAL; 3 open redesign anchors; 1 NEW PROT lock-in candidate (PROT-016 [[feedback-ship-before-dependency-verified]]); 1 verdict label flagged for Strategy clarification (MoE intra-expert-overlap threshold-comparator direction).
 
+## v222 - (2026-05-27) ANNOTATION-ONLY: three morning research findings + post-reboot recovery
+
+### Trigger
+
+Strategy_scribe dispatched by orchestrator to integrate three research deliveries from 2026-05-27 morning session + post-reboot recovery state.
+
+### What changed
+
+v222 is annotation-only. No row-state emoji changes. No new verdicts processed. Three companion experiments shipped by orchestrator's exp_dev dispatches (not processed here -- pending verdicts).
+
+### Finding 1 -- SKAH-M phase-class proposal (P=0.48 modal)
+
+Research note: notes/research_novel_phase_class_methodology_2026-05-27.md
+
+Three 2024-2026 literature threads (arXiv:2501.00983 non-reciprocal Hopfield lR-phase; arXiv:2207.05218 spatial-correlated DAM; arXiv:2508.19151 saddle-hierarchy DAM) converge on 'gated multistable AM / lR-phase' as substrate's closest documented-but-untested class. Calibrated P(documented-but-untested) = 0.48; P(novel) = 0.22; P(finite-N artifact) = 0.30. Proposed SKAH-M sub-designation (Structured-Kerdock Asymmetric-Hebbian Multistable) = sub-class within lR-phase family. 6-cell positive-identifier battery shipped GPU (~3-4h). Battery cells: q_EA N-scaling, plateau N-scaling, Goldstone absence, hysteresis-area scaling, non-local disorder op, free-energy 3-well. Class call pending battery verdict.
+
+Hierarchical-retrieval CAN row annotated with SKAH-M proposal (row state UNCHANGED: multi-basin 🟢 55-70%, 1-RSB label 🟡 30-45%).
+
+### Finding 2 -- MoE cosine-dot rescue (P=0.45)
+
+Research note: notes/research_moe_learned_router_2026-05-27.md
+
+v220 M2_DOMINANT diagnosis has a clean engineering rescue: Expert-Choice cosine-dot routing (Zhou et al. 2022 NeurIPS). LSH at substrate similarity range s=0.1-0.3 gives collision prob ~0.53 (near-random) -- entropy grows to log2(K). Cosine-dot Expert-Choice: entropy = 0 by construction (each expert picks top-C). Cosine-dot is substrate-native operation (dot/N for bipolar). Predicted K=16 retention degradation: 0.007 vs LSH 0.025 (nearly flat vs K=4 baseline 0.809). Soft MoE INCOMPATIBLE (no per-expert input trace; kills deletion-certificate + compositionality-audit). Probe shipped CPU ~2500s. Pre-reg: HARD-PASS = K=16 within 5% of K=4 AND entropy < 2.0b; HARD-FAIL = K=16 degrades >10% OR entropy >3.0b.
+
+MoE SHIFT row UNCHANGED ✅ engineering-rate-limited.
+
+### Finding 3 -- Path-b P revised 0.45 -> 0.35
+
+Research note: notes/research_corpus_size_scaling_2026-05-27.md
+
+Two-stage bottleneck not in R26 framework:
+(A) tau-limit: at N=4096, capacity = 0.56*4096 = 2300 atoms. 100MB PPMI corpus effective M_stored ~ 2000-5000 atoms (near/over capacity). N=65536 capacity = 36700; 10GB PPMI V~30000-50000 atoms (marginal). N>=131072 needed for clean 10GB corpus scaling.
+(B) PPMI saturation: vocabulary saturates ~10B tokens (Heaps' law V~C^0.5). 1B-token / 4GB corpus = sweet-spot knee (returns diminish beyond).
+N + corpus coupling is load-bearing new finding: cannot scale corpus without proportionally scaling N.
+
+Revised P(path-b) = 0.35 (was 0.45 per R26; 10-point deflation). Path-b NOT closed; tau-limit is solvable engineering. 3-corpus scaling probe shipped CPU (10MB/100MB/1GB sweep at N=4096).
+
+Framework reliability UNCHANGED (path-b revision is path-feasibility, not substrate-physics framework reliability).
+
+### Post-reboot state
+
+Dashboard PID 11328 port 8765. Runners gpu=9704 cpu=28468. Two orphaned entries cleared (wave14e_bet_n_wta_v5, wave14_betB_rd_perturbation_recovery_v3 -> failed/runner_crash_post_reboot). Bridge fresh. saddle_cascade_v5 HARD_PASS was N=512 smoke only.
+
+### PROT compliance
+
+- PROT-004: 0 closures. Annotation-only.
+- PROT-007: this history block written first.
+- PROT-008: no row-state demotions; validate_capmap_commit.py passed.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-subagent-permission-inheritance]]: local commit only; push to main thread.
+- 135th PROT-009 paired commit.
+
+Net effect v222: 1 CAN row annotated (hierarchical-retrieval SKAH-M proposal); path-b P revised 0.45->0.35; 0 row-state emoji changes; portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED; 3 experiments shipped (SKAH-M battery GPU; cosine-dot probe CPU; corpus-scaling probe CPU).
