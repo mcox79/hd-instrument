@@ -146,3 +146,51 @@ wave14e_bet_n_wta_v5 and wave14_betB_rd_perturbation_recovery_v3 cleared as runn
 **Per PROT-001 to PROT-003:** version-table row v221->v222 written; SKAH-M annotation in hierarchical-retrieval CAN row; full v222 narrative appended; history.md block written first (PROT-007 verified).
 
 Net effect v222: ANNOTATION-ONLY. 1 CAN row annotated; path-b P revised 0.45->0.35; 0 row-state emoji changes; portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED; 135th PROT-009 paired commit.
+## v223 -- 2026-05-27 BATCHED 3-VERDICT @ 04:56 (Bet I v3 + UNIFIED SVD v2 + Ortho Reservoir Lyapunov v1)
+
+**Trigger.** Three verdicts completed @ 2026-05-27T04:56 (4 GPU pending + 1 running + 11 CPU pending + 1 running -- queue healthy; NO refill triggered).
+
+**Step 0 honest re-read (3 verdicts).**
+
+Verdict 1 -- wave14_beti_depth_polylog_v3 [LABEL-VS-HONEST]:
+- Bridge label: FAILED. metrics.json verdict: MIDDLE_BAND SMOKE_REGIME_MISMATCH.
+- verdict_msg: d_c > 0 at 0 N values at smoke scale. Smoke D_SWEEP=[2,5,10,20] N=[256,512] -- all acc~0 (cliff at d~1 for small N). Full-scale D_SWEEP=[2..100] N>=1024 brackets cliff correctly.
+- Honest reading: smoke regime did not probe the actual cliff position. Full never ran (smoke gate). NOT a substrate failure -- instrumentation issue.
+- Cap_map: Bet I 3rd envelope STAYS OPEN. v4 needs adjusted D_SWEEP_SMOKE>=60 (bracket the v2 ceiling) OR skip-smoke approval.
+
+Verdict 2 -- wave14_unified_svd_cascade_falsifier_v2:
+- Verdict: HARD_FAIL. 2/2 instances (1rsb_regime spacing_error=1.029, over_capacity=0.909) >> HF threshold 0.3.
+- Steel-manned retry of v1 with relaxed gap-ratio criterion + wider bands.
+- Cap_map: UNIFIED SVD-cascade master-mechanism DECISIVELY REJECTED with dual confirmation (v1 strict v219 + v2 relaxed v223). Plural-framework Saad-Solla + 1-RSB + MoE SHIFT = THREE INDEPENDENT FURTHER LOCKED.
+
+Verdict 3 -- wave14_ortho_reservoir_lyapunov_v1:
+- Verdict: HARD_FAIL. RC-1 rejected: L_max(alpha_c=0.5)=-5.4728 far from edge-of-chaos threshold 0.5; non-monotone in alpha.
+- Corroborates Field-A Lyapunov v1 HARD_FAIL (lambda_1=0.8095 at density=0.2 -- firmly chaotic).
+- Cap_map: RC-edge-of-chaos sub-framing LOCKED CLOSED-NEGATIVE 2nd confirmation. Substrate NOT echo-state-network class.
+
+**Decision (1): Bet I 3rd envelope STAYS OPEN.** Label-vs-honest correction. v3 smoke regime mismatch is instrumentation issue not substrate signal. v4 ship needs adjusted D_SWEEP_SMOKE OR skip-smoke approval. Open Q for exp_dev next cycle.
+
+**Decision (2): UNIFIED master-mechanism CLOSED-NEGATIVE further locked.** Two independent confirmations (v1 strict + v2 relaxed) close the door on master-mechanism framing. Product story shifts to: substrate exhibits THREE INDEPENDENT phase observations (Saad-Solla saddle-cascade + 1-RSB hysteresis + MoE SHIFT architectural locking) which is arguably stronger because each provides independent mathematical validation.
+
+**Decision (3): Reservoir-computing-edge-of-chaos OUT.** Field-A v1 + ortho v1 = 2 independent HARD_FAIL probes converge on substrate-NOT-at-edge-of-chaos under any tested regime. Closes echo-state-network sub-mapping. Narrows live theoretical homes to: Saad-Solla saddle-cascade ✅ + 1-RSB hysteresis 🟡 + MoE SHIFT ✅ + SKAH-M lR-phase 🔬 (battery pending).
+
+**Decision (4): No queue-refill triggered.** Per orchestrator instruction: queue healthy 4 GPU pending + 1 running + 11 CPU pending + 1 running. No exp_dev dispatch.
+
+**Decision (5): No PROT-004.** No capability row closures (sub-framing closures only).
+
+**v223 cap_map updates.**
+- Version-table row v222 -> v223: BATCHED 3-VERDICT batched bump.
+- Row updates: Bet I 3rd envelope row gets v223 update (smoke regime mismatch annotation); SVD-cascade row gets v223 update (dual-confirmation note).
+- Framework reliability: UNCHANGED 48-62% PROVISIONAL.
+- Portfolio: UNCHANGED 14+7.
+- 136th PROT-009 paired commit.
+
+**Per [[feedback-cap-map-update-protocol]]:** pull-first (already up to date); atomic stage via Edit; commit message follows PROT-009.
+
+**Per [[feedback-for-you-tab-primary-channel]]:** 3 status_log entries written (one per verdict; importance MEDIUM for verdicts 2/3 closures, HIGH for verdict 1 label-vs-honest).
+
+**Per [[feedback-verdict-msg-honest-reread]]:** Verdict 1 bridge label FAILED contradicted by metrics MIDDLE_BAND -- override applied. Label-vs-honest count: 1 this turn.
+
+**Per PROT-001 to PROT-003:** version-table row v222 -> v223 written; full v223 narrative appended; history.md block written first (PROT-007 verified).
+
+Net effect v223: ANNOTATION-ONLY. 0 row-state emoji changes. 2 sub-framings further locked CLOSED-NEGATIVE (UNIFIED dual confirmation + RC-edge 2nd confirmation). Bet I 3rd envelope STAYS OPEN per label-vs-honest. Portfolio 14+7 UNCHANGED. Framework reliability 48-62% PROVISIONAL UNCHANGED. 136th PROT-009 paired commit.

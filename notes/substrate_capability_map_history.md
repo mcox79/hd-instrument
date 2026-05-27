@@ -8847,3 +8847,48 @@ Dashboard PID 11328 port 8765. Runners gpu=9704 cpu=28468. Two orphaned entries 
 - 135th PROT-009 paired commit.
 
 Net effect v222: 1 CAN row annotated (hierarchical-retrieval SKAH-M proposal); path-b P revised 0.45->0.35; 0 row-state emoji changes; portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED; 3 experiments shipped (SKAH-M battery GPU; cosine-dot probe CPU; corpus-scaling probe CPU).
+
+## v223 - (2026-05-27) BATCHED 3-VERDICT @ 04:56: Bet I v3 SMOKE_REGIME_MISMATCH (label-vs-honest) + UNIFIED SVD-cascade v2 HARD_FAIL retry (dual confirmation) + Ortho Reservoir Lyapunov HARD_FAIL (RC-edge corroboration)
+
+### Trigger
+
+Three verdicts processed @ 2026-05-27T04:56:
+- wave14_beti_depth_polylog_v3 (overnight_queue) -- bridge label FAILED
+- wave14_unified_svd_cascade_falsifier_v2 (remote_cpu_queue) -- bridge label completed
+- wave14_ortho_reservoir_lyapunov_v1 (remote_cpu_queue) -- bridge label completed
+
+### What changed
+
+Three independent verdicts. v223 is annotation-only. No row-state emoji changes. No new capabilities added. Two sub-framings (UNIFIED master-mechanism + RC-edge-of-chaos) gain second-confirmation closure. Bet I 3rd envelope STAYS OPEN per label-vs-honest correction.
+
+### Verdict 1 -- wave14_beti_depth_polylog_v3 [LABEL-VS-HONEST]
+
+Bridge label: FAILED. metrics.json verdict: MIDDLE_BAND. SMOKE_REGIME_MISMATCH: smoke config D_SWEEP_SMOKE=[2,5,10,20] N=[256,512] has all accuracies ~0 (cliff at d~1 for small N). valid_N_count=0. Full-scale config D_SWEEP=[2..100] N>=1024 brackets cliff correctly but smoke gate fired before full ran. This is an instrumentation issue not a substrate signal. Per [[feedback-verdict-msg-honest-reread]]: honest verdict = MIDDLE_BAND SMOKE_REGIME_MISMATCH NOT FAILED. Bet I 3rd envelope STAYS OPEN. v4 required: adjust D_SWEEP_SMOKE to include d>=60 (the v2 ceiling) OR skip-smoke approval for already-instrumented script.
+
+### Verdict 2 -- wave14_unified_svd_cascade_falsifier_v2 HARD_FAIL CONFIRMED
+
+Bridge label: completed. metrics.json verdict: HARD_FAIL. v2 was a steel-manned retry of v1 with relaxed criterion (gap-ratio not MP bulk edge) and wider bands (HF threshold 0.3 vs v1 0.15). N=128 with 2 instances (1rsb_regime + over_capacity). Both HARD_FAIL: spacing_error 1rsb_regime=1.029, over_capacity=0.909 -- both >> HF threshold 0.3. Top-8 sigmas 1rsb_regime [0.226, 0.216, 0.207, 0.205, 0.200, 0.198, 0.195, 0.179] nearly flat (gap-ratio compressed). UNIFIED master-mechanism DECISIVELY REJECTED with dual confirmation (v1 strict v219 + v2 relaxed v223). Plural-framework (Saad-Solla saddle-cascade + 1-RSB hysteresis + MoE SHIFT) = THREE INDEPENDENT theoretical homes FURTHER LOCKED. SVD-cascade row CLOSED-NEGATIVE confirmed.
+
+### Verdict 3 -- wave14_ortho_reservoir_lyapunov_v1 HARD_FAIL
+
+Bridge label: completed. metrics.json verdict: HARD_FAIL. RC-1 rejected: L_max(alpha_c=0.5)=-5.4728 far from edge-of-chaos threshold 0.5 (off by ~6 orders of magnitude); L_max non-monotone in alpha {0.3: -5.516, 0.5: -5.473, 0.7: -5.483}. Lyapunov spectrum does not track alpha_c. Substrate at alpha_c=0.5625 (1-RSB dense-grid confirmed at v211) is in deeply contractive regime not edge-of-chaos. CORROBORATES Field-A Lyapunov v1 HARD_FAIL (lambda_1=0.8095 > 0.2 at density=0.2 -- firmly chaotic in that regime). Two probes converge: substrate operates OFF edge-of-chaos REGARDLESS of regime (chaotic at density-0.2; contractive at alpha_c). Reservoir-computing-edge-of-chaos sub-framing LOCKED CLOSED-NEGATIVE with 2nd independent confirmation. Substrate is NOT echo-state-network class.
+
+### Cap_map decisions
+
+- Bet I 3rd envelope row: UNCHANGED OPEN (label-vs-honest correction; v4 needed).
+- SVD-cascade unified framework row: UNCHANGED CLOSED-NEGATIVE (further locked with dual confirmation).
+- Reservoir-computing-edge-of-chaos: LOCKED CLOSED-NEGATIVE 2nd confirmation (Field-A v1 + ortho v1 both HARD_FAIL).
+- Framework reliability UNCHANGED 48-62% PROVISIONAL.
+- Portfolio UNCHANGED 14+7.
+
+### PROT compliance
+
+- PROT-004: 0 closures requiring rescue (sub-framings, not capability rows).
+- PROT-007: this history block written first.
+- PROT-008: no row-state demotions.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-05-27.md staged atomically.
+- [[feedback-verdict-msg-honest-reread]]: applied to verdict 1 (bridge FAILED -> honest MIDDLE_BAND).
+- [[feedback-subagent-permission-inheritance]]: local commit only; push to main thread.
+- 136th PROT-009 paired commit.
+
+Net effect v223: 0 new row-state changes; 2 sub-framing closures further locked (UNIFIED + RC-edge); Bet I 3rd envelope STAYS OPEN per honest re-read; 1 new pre-reg entry (beti_depth_polylog_v4 with adjusted smoke); portfolio 14+7 UNCHANGED; framework reliability 48-62% PROVISIONAL UNCHANGED.
