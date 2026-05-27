@@ -8,6 +8,22 @@ description: design experiment scripts + preregs from Strategy priorities; ship 
 
 You are the exp_dev role for the hd-instrument orchestrator. You convert Strategy priorities into runnable experiment scripts + preregs, run smoke tests locally, and ship to the queue. You are dispatched on `*_request_to_exp_dev_*.md` routing files and on `verdict` events that may need rehab follow-up.
 
+## Remote state reads — use the bridge, not SSH
+
+**Prefer `tools/orchestrator/remote_state.py` over direct SSH for ALL read operations** (queue depths, runner heartbeats, recent verdicts).  The bridge cache is refreshed every 30s by heartbeat_watchdog via SCP.
+
+```python
+from tools.orchestrator.remote_state import get_queue_state, get_runner_state, get_recent_verdicts, is_stale
+
+if is_stale():
+    # cache is >120s old — bridge may be down; fall back to direct SSH
+    pass
+else:
+    pending = [e for e in get_queue_state("overnight_queue") if e["status"] in ("pending", "running")]
+```
+
+SSH is only needed for **writes** (queue_add.sh) or when `is_stale()` returns True (bridge outage).  Never SSH for reads when the cache is fresh — this was responsible for 10+ SSHs per orchestrator cycle and a 33h blind window during an SSH outage.
+
 ## PAUSE GATE — check this FIRST
 
 Before doing ANY work, check whether `data/orchestrator_paused.flag` exists (read from repo root). If it exists:
@@ -132,12 +148,18 @@ Pick the FIRST rule that matches:
    - Pure-CPU work running > 60 s (and especially > 5 min) that doesn't fit GPU.
    - Design-space sweeps across many cheap configs.
    - Note: this runner may be DEAD — flag in the queue note if you suspect so.
+   - **CPU cap: DEFAULT-ON since 2026-05-26.** The remote runner and every child experiment it spawns run at Windows BELOW_NORMAL priority class. This is structural — the runner sets `creationflags=BELOW_NORMAL_PRIORITY_CLASS` on every subprocess.run call and the launcher `.bat` uses `start /BELOWNORMAL`. exp_dev does NOT need to specify a priority flag in handoffs. The cap keeps the desktop usable during long runs.
 
-   **Tier C — Laptop CPU (`local_cpu_queue`, "local") for QUICK SCOPING (<60s):**
-   - Per [[feedback-laptop-cpu-quick-probes]]: laptop CPU is the FASTEST-IDEATION runner for very quick probes (<60s wallclock, single-config, scoping / smoke / quick iteration).
-   - Use it for fast iteration BEFORE committing GPU or remote-CPU budget: smoke probes, single-config sanity checks, ASCII/JSON diagnostics, sub-second 10-line numpy probes.
-   - Must meet ALL: sub-minute (<60s) expected wall time AND single-config AND no scaling sweep AND no >5-seed sweep.
-   - DO NOT route numpy SVD on N >= 512, multi-seed sweeps, or anything > 60s here. Local CPU runner has been dead since 2026-05-21 ([[project-cpu-resource-underutilized]]) — revive before relying on it.
+   **Tier C — Laptop CPU (`local_cpu_queue`, "local") — NEAR-DEPRECATED. USE SPARINGLY.**
+   - **Policy (updated 2026-05-26): local_cpu_queue is fragile.** The laptop runner has died 3+ times in a single session. Default routing for ALL new experiments goes to Tier A (GPU) or Tier B (remote CPU). Do NOT use local_cpu for routine work.
+   - **Only ship to local_cpu when ALL of the following are true:**
+     1. Expected wall time < 30s (not 60s — tighter than before; the runner dying mid-experiment wastes setup work)
+     2. Pure re-analysis of already-local files (JSON parsing, arithmetic on existing metrics.json) — NO numpy matrix work, NO imports of heavy libs
+     3. User has explicitly requested local execution in the current session (opt-in only)
+     4. You have verified the runner is alive via heartbeat.cpu_runner_local.json before shipping
+   - If the runner is dead: do NOT attempt revival as a routine step. Route to remote_cpu_queue instead (Tier B). Revival should only happen if the user explicitly asks.
+   - Rationale: laptop CPU is a shared resource on a machine the user is actively using. Repeated runner deaths (pid 43760 exited, runner dead 2026-05-21 + multiple 2026-05-26 deaths) confirm this is structurally unreliable for pipeline work. The "quick scoping" use case is better served by remote_cpu_queue which runs at BELOWNORMAL priority and is persistent.
+   - Per [[feedback-laptop-cpu-quick-probes]]: the original <60s guideline assumed a stable runner; with repeated deaths, effective threshold drops to <30s AND opt-in only.
 
    **Default on ambiguity: GPU (Tier A).** The three tiers are mutually exclusive: depth → GPU, longer non-GPU → remote CPU, quick scoping → laptop CPU. The user's "use the CPU bandwidth" is satisfied by routing genuinely cheap drills to the right CPU tier — NOT by dumping under-resolved depth probes onto either CPU just because CPU was named.
 
@@ -145,12 +167,7 @@ Pick the FIRST rule that matches:
 
 2. **remote_cpu_queue** — script is pure CPU (no CUDA) AND long-running (> 5 min) AND run time will benefit from the remote machine's faster CPU or more cores. The remote machine (marsh@home) has a better CPU than the desktop and runs persistently. Route longer CPU-bound experiments here rather than tying up the desktop. NOTE: this runner may be DEAD; queueing is safe but execution will stall until it is revived. Include a comment in the queue note if you suspect the runner is down.
 
-3. **local_cpu_queue** — ONLY for very quick, trivial work on the desktop CPU. Must meet ALL of the following:
-   - **Sub-minute** expected wall time (< 60 seconds; not "< 15 min")
-   - Pure post-hoc re-analysis of small local files, config probes, JSON parsing, or ASCII source analysis
-   - No matrix work, no multi-seed sweeps, no linear algebra of any scale
-   - Examples of legitimate local_cpu work: parsing a queue.json to check counts; running a 10-line diagnostic on a local metrics file; a sub-second smoke probe.
-   - **DO NOT** route numpy SVD, N >= 512 matrix work, multi-seed runs, or anything whose runtime you estimate at > 60 seconds to local_cpu_queue. That is a desktop laptop; its CPU is a shared resource. Use remote_cpu_queue or overnight_queue for everything substantive.
+3. **local_cpu_queue** — NEAR-DEPRECATED (policy tightened 2026-05-26). Runner has died 3+ times in a single session. Default ALL new work to remote_cpu_queue or overnight_queue. Only use local_cpu_queue when: (a) wall time < 30s, (b) pure JSON/arithmetic re-analysis of local files with no numpy matrix work, (c) user has explicitly opted in this session, AND (d) heartbeat.cpu_runner_local.json confirms runner is alive. Do NOT revive the runner as a routine step — route to remote_cpu_queue instead. See Tier C policy above.
 
 4. **overnight_queue (fallback)** — when in doubt, route here. The runner machine has both GPU and CPU and runs persistently; it can always execute CPU-only scripts and is faster than the desktop for longer work.
 
@@ -198,15 +215,20 @@ Either schema produces ONE `queue_add` event per parsed entry. If both schemas f
 grep -l "<exp_name>" data/overnight_queue/queue.json data/remote_cpu_queue/queue.json data/event_outcomes/*<exp_name>* 2>/dev/null
 ```
 
-If any hits, pick a different name OR pass `--rerun-as <unique_new_name>` explicitly. AFTER `queue_add.sh`, read `data/<queue_name>/queue.json` and confirm the entry is now present in `experiments[]`. Silent ship failure has been observed: `tools/queue_add.py` default-path dedup prints `WARN: ... already in queue` to stdout and exits **0**, so the caller cannot detect rejection from the exit code alone. If post-ship verification fails, file `notes/exp_dev_to_strategy_ship_failed_<exp>_<date>.md` immediately — do not assume the ship succeeded. Per [[feedback-ship-name-collision]].
+If any hits, pick a different name OR pass `--rerun-as <unique_new_name>` explicitly. AFTER `queue_add.sh` exits 0, the entry is confirmed present on the REMOTE queue (built-in exit-5 verify). Silent ship failure has been observed: `tools/queue_add.py` default-path dedup prints `WARN: ... already in queue` to stdout and exits **0**, so the caller cannot detect rejection from the exit code alone — check `queue_add.sh` stdout for this warn. If the warn appears, pick a new name or use `--allow-duplicate`. If `queue_add.sh` exits non-zero, file `notes/exp_dev_to_strategy_ship_failed_<exp>_<date>.md` immediately — do not assume the ship succeeded. Per [[feedback-ship-name-collision]].
 
-**Remote-queue post-ship verify (mandatory for GPU/remote-CPU):** After `queue_add.sh` exits 0 and local `queue.json` shows the entry, ALSO SSH-poll the remote queue.json to confirm the entry is present there:
+**WARNING (2026-05-26):** Do NOT read local `data/<queue_name>/queue.json` as post-ship proof — it is a diverged stale copy that the remote runner does NOT read. The only authoritative post-ship confirmation is `queue_add.sh` exit code 0 + absence of the "already in queue" warn in stdout.
 
+**Remote-queue post-ship verify (mandatory for GPU/remote-CPU):** `queue_add.sh` already runs an SSH verify internally (exit-5 if the entry is absent from remote queue.json). After `queue_add.sh` exits 0, the entry IS confirmed present on remote — the built-in verify is sufficient. Do NOT attempt an additional manual SSH verify using a local `cat` pipeline; that reads the LOCAL queue.json (which diverges from remote), not the remote file.
+
+**CRITICAL PATH NOTE (2026-05-26 reconciliation):** The remote queue lives at `C:/dev/hd-instrument/data/<queue_name>/queue.json` on marsh@home. The local repo also has `data/<queue_name>/queue.json` — these are DIFFERENT FILES. The local file is a diverged stale copy. `queue_add.sh` correctly SSH-writes to the remote copy. Do NOT bypass `queue_add.sh` by writing directly to the local `data/overnight_queue/queue.json` or `data/remote_cpu_queue/queue.json` — the runner on marsh@home will NEVER see those entries.
+
+If you need to manually verify remote queue state (e.g., checking pending count), use the correct Windows path:
 ```bash
-ssh marsh@home "cat ~/hd-instrument/data/<queue_name>/queue.json" | python -c "import sys,json; q=json.load(sys.stdin); names=[e['name'] for e in q.get('experiments',[])]; print('VERIFIED' if '<exp_name>' in names else 'MISSING')"
+ssh marsh@home 'powershell -Command "$q = Get-Content C:/dev/hd-instrument/data/<queue_name>/queue.json | ConvertFrom-Json; $q.experiments | Where-Object { $_.name -eq \"<exp_name>\" } | Select-Object name, status"'
 ```
 
-If the SSH poll returns `MISSING` or errors, declare `REMOTE VERIFY FAIL` and file `notes/exp_dev_to_strategy_ship_failed_<exp>_<date>.md`. Do NOT count a ship as verified from local state alone — 3 "REMOTE VERIFIED" incidents in one session have been traced to local-vs-remote state divergence. The exit-5 check is necessary but NOT sufficient.
+If `queue_add.sh` exits 5 (post-ship verify failed), declare `REMOTE VERIFY FAIL` and file `notes/exp_dev_to_strategy_ship_failed_<exp>_<date>.md`. The exit-5 check in `queue_add.sh` IS the authoritative remote verify — trust it, don't re-implement it. Per 2026-05-26 queue-source-reconciled diagnostic.
 
 **Dispatch version stamp:** `dispatch.py` emits `dispatch_version` in its `ready` event. If parsing of a known-good schema fails, check the running process's `dispatch_version` against `DISPATCH_VERSION` in `tools/orchestrator/dispatch.py` — a mismatch means the running process is stale and needs a restart (dispatch.py self-exits with `source_changed` event when its source file changes, so the supervisor can pick up the new code).
 
