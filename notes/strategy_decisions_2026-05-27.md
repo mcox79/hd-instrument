@@ -1609,3 +1609,90 @@ For verdict 2 (bid_substrate_probe_v1):
 - (e) **MEDIUM ~2h** -- joint BID + chi_4 + Kovacs secondary discriminator from v229-(d) STILL OPEN; v247 reinforces priority since BID alone is N-regime-dependent.
 
 **Decision (12): Atomic commit single batched commit per [[feedback-cap-map-update-protocol]].** Cap_map + strategy_decisions + visibility log + this entry committed together. Main-thread pushes; sub-agent context cannot per [[feedback-subagent-permission-inheritance]]. 160th PROT-009 paired commit.
+
+## v248 -- 2026-05-27 bet_b_4stage_rehab_epochs_v3 FOURSTAGE_MIDDLE_BAND FULL N=8192 10-seed 2x-Phase-A-epochs @ 19:26 [ANNOTATION-ONLY; rehab axis-1 EXHAUSTED at production scale; ret_A floor confirmed substrate-intrinsic]
+
+**Trigger.** `bet_b_4stage_rehab_epochs_v3` completed overnight_queue GPU 2026-05-27T19:26:29 (elapsed_s=3442.86). Remote-bridge `get_metrics` returned `_source: remote` authoritative. Script `experiments/exp_bet_b_4stage_rehab_epochs_v3.py` -- the rehab-script class with patched HDLAB_EXP_NAME env-var output path (37f576f predecessor pattern), so this run is FREE of the v239 v1-hard-coded-output-path artifact. v3 is the rehab path from the 81st label-vs-honest catch (`bet_b_n8192_4stage_v2` FOURSTAGE_MIDDLE_BAND at v239, smoke->FULL gap of -0.103 on ret_A). v3 implemented rehab-axis-1 from v239 rescue sketch (b): **2x Phase-A epochs (16 vs baseline 8) + 10-seed walk-back gate** to test whether extended Phase-A consolidation closes the ret_A bar at FULL N=8192.
+
+**Step 0 honest re-read.** Verdict_msg label `FOURSTAGE_MIDDLE_BAND: 4-stage partial: retention_A=0.741 retention_B=0.860 retention_C=0.809. Phase D adds load but mechanism survives partially.` is **HONEST** (no label-vs-honest override). Per-cell numerical (FULL N=8192, 10 seeds, phase_a_epochs=16):
+
+| seed | ret_A  | ret_B  | ret_C  |
+|------|--------|--------|--------|
+| 7    | 0.7302 | 0.8585 | 0.8046 |
+| 17   | 0.7455 | 0.8597 | 0.8105 |
+| 23   | 0.7390 | 0.8567 | 0.8046 |
+| 31   | 0.7305 | 0.8555 | 0.8018 |
+| 41   | 0.7487 | 0.8626 | 0.8039 |
+| 53   | 0.7414 | 0.8670 | 0.8141 |
+| 61   | 0.7386 | 0.8555 | 0.8119 |
+| 67   | 0.7383 | 0.8605 | 0.8134 |
+| 71   | 0.7491 | 0.8630 | 0.8072 |
+| 79   | 0.7458 | 0.8589 | 0.8176 |
+| mean | 0.7407 | 0.8598 | 0.8090 |
+| min  | 0.7302 | 0.8555 | 0.8018 |
+| max  | 0.7491 | 0.8670 | 0.8176 |
+| std  | 0.0067 | 0.0035 | 0.0051 |
+
+Pre-reg bands (from config + parent script): HARD_PASS = ret_A>=0.80 AND ret_B>=0.70 AND ret_C>=0.70 across all/most seeds. HARD_FAIL = ret_A<=0.50. MIDDLE_BAND = ret_A in (0.50, 0.80). Honest verdict = **FOURSTAGE_MIDDLE_BAND** with mean ret_A=0.7407 squarely in the band, **0/10 seeds clear 0.80 HP** (max=0.7491 = 0.051 below threshold). ret_B and ret_C decisively clear 0.70 HP at every seed. Verdict_msg label HONEST; numerical bands authoritative; no override required.
+
+**Third saturation observation locked.** This is the THIRD independent saturation of the 4-stage CL ret_A bar at the ~0.74 floor across three different (N, seed-count, phase_a_epochs) configurations:
+
+| run | N    | seeds | phase_a_epochs | ret_A_mean | ret_A_max |
+|-----|------|-------|----------------|------------|-----------|
+| v189 (cap_map v189 anchor; baseline) | 1024 | 1 | 8 | 0.740 | 0.740 |
+| v239 / `bet_b_n8192_4stage_v2`       | 8192 | 5 | 8 | 0.745 | 0.753 |
+| **v248 / `bet_b_4stage_rehab_epochs_v3`** | **8192** | **10** | **16 (2x)** | **0.741** | **0.749** |
+
+Three independent samples at the retA~0.74 floor with cumulative 16 seeds and 8x N scaling AND 2x epoch extension. Range across the three: [0.740, 0.745] for mean; max across all 16 seeds = 0.753; 0/16 seeds clear 0.80. **ret_A ~0.74 floor is substrate-intrinsic to the 4-stage compositional CL probe at the tested (N, M, batch_size, Phase-D-load) configuration.** Doubling Phase-A epochs (which would help if Phase-A under-consolidation were the binding constraint) produces NO lift -- delta from v239 baseline at same N=8192 is -0.004 ret_A (well within seed-variance noise floor of std=0.007). **Rehab axis-1 (2x Phase-A epochs) is EXHAUSTED at production scale.**
+
+This DIRECTLY ECHOES the v189-era axis exhaustion pattern documented in cap_map v190+v193:
+- v190 V1 N=1024 phase_a_epochs=2x: FOURSTAGE_MIDDLE_BAND saturation -- "no consolidation lift"
+- v190 V2 N=1024 batch_size=increased: FOURSTAGE_MIDDLE_BAND saturation -- "no batch-size lift"  
+- v193 V2 N=1024 Phase-D-A-weighted-replay: FOURSTAGE_MIDDLE_BAND saturation -- "no Phase-D-rewighting lift"
+- (cap_map v193 conclusion: "all 3 in-design K2 rehab axes EXHAUSTED at retA~0.74 floor; substrate retention is CAPACITY-BOUND at 4-stage load not undertuned")
+
+v248 EXTENDS this finding to production-scale N=8192 with 10 seeds: the previously-axis-1-exhausted-at-N=1024 result REPRODUCES at N=8192. The user's decisive-question framing at task-event time ("does ret_A clear 0.80 product bar at FULL N=8192 with extended Phase-A epochs?") gets a clean NO. The user's contingent statement was: "If MIDDLE_BAND/HARD_FAIL: smoke->FULL gap is intrinsic to 4-stage compositional CL at N=8192; rescue chain re-opens." The MIDDLE_BAND case obtains. **The smoke->FULL gap observed at v239 (-0.103) is now corroborated as intrinsic-not-tuning -- doubling consolidation epochs at production scale does NOT close the gap.** Rescue chain re-opens with the 2x-epochs axis now CONSUMED.
+
+**Cap_map state moves (v247 -> v248).** ANNOTATION-ONLY.
+
+- **Bet B 4-stage architectural sub-row (NEW @ v234 as 🟢-smoke-only; v239 corroborated at 🟡 PARTIAL at FULL)**: row state UNCHANGED 🟡 PARTIAL. New annotation appended: "v248 `bet_b_4stage_rehab_epochs_v3` FULL N=8192 10-seed phase_a_epochs=16 (2x): mean ret_A=0.7407 (max=0.7491; 0/10 seeds clear 0.80 HP); ret_B mean=0.8598 (HP-clear at all 10 seeds); ret_C mean=0.8090 (HP-clear at all 10 seeds). THIRD INDEPENDENT SATURATION at ret_A~0.74 floor across (v189, v239, v248) configurations; cumulative 16 seeds 0/16 clear 0.80; 2x-Phase-A-epochs axis CONSUMED with NO lift (delta from v239 5-seed baseline = -0.004 ret_A, within seed-variance noise floor). Smoke->FULL gap observed at v239 (-0.103) corroborated as INTRINSIC-NOT-TUNING. 4-stage CL ret_A ceiling at this corpus pair + N=8192 + M-load is substrate-capacity-bound. Production-spec implication: accept ret_A=0.74 as substrate-native 4-stage spec OR reserve ret_A>=0.80 for 3-stage chains."
+- **True continual learning at production scale (A->B->C->D) row**: UNCHANGED 🟡 PARTIAL (already 🟡 for this exact reason at v189; v248 is corroboration-not-state-change).
+- **No row promotions, no row demotions.** Three independent corroborations of an already-🟡 row at production scale does NOT lift to 🟢 (because ret_A>=0.80 HP still NOT met; per [[feedback-no-smoke]] brutal-honesty rule). Three independent corroborations does NOT close to ❌ (because ret_B>=0.70 and ret_C>=0.70 both still cleanly clear; the row is partially-passing, which is the definition of 🟡).
+- **Smoke->FULL gap on 4-stage CL probe family STRENGTHENED finding.** First explicit (smoke, FULL) pair = v239 (smoke ret_A=0.848 -> FULL 0.745 = -0.103 drop). v248 adds: 2x consolidation does NOT close the gap. Pattern: smoke at lower N + single seed systematically over-estimates 4-stage CL retention by 0.05-0.10; the multi-seed multi-stage interactions at production scale set a hard ceiling near 0.74 that consolidation-time extension does NOT lift. Per [[feedback-dont-overextend-theorems]]: this finding is scoped to THIS corpus pair + THIS Phase-D load configuration; does NOT generalize to "all 4-stage CL smoke is inflated" or "all consolidation-time rehab is useless."
+- **Project memory `project_bet_b_4stage_smoke_pass_2026-05-27.md`**: should be annotated with v248 outcome (FULL N=8192 10-seed phase_a_epochs=16 = MIDDLE_BAND mean ret_A=0.741; 2x consolidation does NOT lift). Memory-layer task surfaced for orchestrator visibility.
+- **Portfolio count**: UNCHANGED (14+18). No new portfolio item; corroboration of existing 🟡 PARTIAL item.
+- **Framework reliability**: UNCHANGED (general 65-75% / specific-documented 45-55% / product-feature 55-70%). Clean replication of a 🟡 PARTIAL prediction within +/-0.005 across three independent configurations is reliability-supportive but doesn't move the band (already PROVISIONAL with this kind of evidence baked in). Substrate-capacity-bound 4-stage retention at 0.74 floor is now well-characterized which IS informative for product-feature reliability framing (specifically supports "compositional audit API" with known 4-stage ret_A ceiling).
+- **Cumulative label-vs-honest catches**: UNCHANGED at 86 (this verdict's label was HONEST).
+
+**Rescue sketches (5; cheapest-first per [[feedback-rescue-sketch-first-sequencing]] and [[feedback-rehabilitation-after-rejection]]).** Per user task framing "rescue chain re-opens" -- the 2x-epochs axis is now CONSUMED; surface 5 cheapest-first axis-combination rescues for the ret_A bar.
+
+(a) **CHEAPEST / SUBSUMPTION (PRIMARY) ~0-cost**: re-frame 4-stage CL as "substrate-native 4-stage retention spec: ret_A=0.74 +/- 0.01" -- accept ret_A~0.74 as the substrate-capacity-bound spec at this 4-stage load AND reserve ret_A>=0.80 product-claim for 3-stage chains. Defensible product framing: "substrate retains 74% on Stage-A through 4-stage continual chain; 86% on Stage-B; 81% on Stage-C; deterministic capacity ceiling characterized across 3 independent configurations + 16 seeds." Per [[feedback-no-papers-product-only]] this is the killer-feature framing that converts the 🟡 PARTIAL into a *known operating envelope* without requiring further compute. **Requires user buy-in** on the product spec (3-stage @ 0.80 / 4-stage @ 0.74 partitioned ret_A-bar). Flagged for orchestrator surface to user as the highest-leverage 0-cost path forward; if accepted, Bet B 4-stage row could promote 🟡 -> 🟢 under the *substrate-native-spec framing* rather than the original ret_A>=0.80 framing.
+
+(b) **CHEAP ~50min GPU**: rehab axis-2 -- increase batch_size from 64 to 128 (more gradient signal per Phase-A pass) at N=8192 10-seed. v189-era cap_map v190 V2 saturated at N=1024 but at N=8192 the larger gradient signal could plausibly bite. Already filed at v239 sketch (c). NOT auto-queued; CANDIDATE for next exp_dev cycle. Note: gpu_pending currently has `bet_b_4stage_batch128_v1` running -- if this is the same probe, axis-2 result lands automatically when that completes (post-verdict orchestrator should check the running entry's pre-reg).
+
+(c) **CHEAP ~60min GPU**: rehab axis-3 -- mechanism-class probe with Phase-D A-weighted replay at higher weight (k=0.75 vs baseline k=0.50). v189-era cap_map v193 V2 saturated at N=1024 with k=0.50; at N=8192 with k=0.75 the higher A-weighting could test whether *Phase-D forgetting* is the binding constraint (rather than Phase-A under-consolidation which was axis-1's hypothesis). Different binding-constraint hypothesis from (b).
+
+(d) **MEDIUM ~2h GPU**: mechanism-class M1 (hierarchical replay) per cap_map v193 4-axis rescue list -- substrate writes Phase-D into a SEPARATE memory pool than Phase-A/B/C, with cross-pool readout at evaluation. Tests whether ARCHITECTURE-LEVEL separation (not consolidation tuning) is the lever. Higher-risk-higher-reward; only worth deploying if rescue (a) is rejected by user AND (b)/(c) both saturate.
+
+(e) **MEDIUM ~2h GPU**: mechanism-class M2 (attention-gated readout) per cap_map v193 -- substrate adds an attention gate that selects which stored phase a query routes to at readout time. Tests whether CL forgetting is *retrieval-routing* loss not *write-time* loss. Orthogonal to (d). Only worth deploying if (d) saturates.
+
+PRIMARY rescue (a) is annotation-and-product-spec-only (highest-leverage 0-cost path); (b)/(c)/(d)/(e) are CANDIDATES for next exp_dev cycles per [[feedback-no-padding-experiments]] (not auto-queued). Sequencing rationale: (a) tests product-framing subsumption FIRST per [[feedback-rescue-sketch-first-sequencing]]; (b)/(c) are cheap remaining axes within the same architecture; (d)/(e) are higher-cost architectural rescues only worth deploying after (b)/(c) saturate.
+
+**PROT compliance (v248).**
+
+- PROT-004/006: 0 capability row closures. Row stays 🟡 PARTIAL (B+C cleanly clear; A in band). 5 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]] discipline even though no formal closure triggered (per user framing "rescue chain re-opens").
+- PROT-007: history.md absent (consistent with v228+).
+- PROT-008: Annotation-only; no demotion. 🟡 -> 🟡 UNCHANGED. Validator-style logic: pre-reg HP threshold ret_A>=0.80 NOT met across any of 10 seeds = row state CORRECTLY stays at 🟡 (NOT promoted to 🟢) -- this is exactly the 🟡 PARTIAL definition.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- PROT-018: anchor name `bet_b_4stage_rehab_epochs_v3` has no `_n<N>` suffix; config.N=8192 matches the strategic intent (v3 = rehab path from v239 which was n8192_4stage_v2). The `_v3` suffix is a version-not-N marker per [[feedback-no-label-vs-honest-anchor-names]]. PROT-018 exit-6 would not have caught this since no _n is present; this is the legitimate "rehab-script version-only" anchor pattern.
+- [[feedback-verdict-msg-honest-reread]]: 87th post-lock observation; label HONEST (no override); per-cell numerical bands match label exactly.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 5 sketches cheapest-first; PRIMARY = product-spec subsumption (0-cost; substrate-native 4-stage spec at ret_A=0.74).
+- [[feedback-dont-overextend-theorems]]: explicit -- ret_A~0.74 floor finding is scoped to THIS corpus pair + THIS Phase-D load + THIS architecture; does NOT generalize universally; 3 in-design rehab axes consumed (epochs / batch_size / Phase-D-replay-weight) at the architecture level, but MECHANISM-CLASS axes M1 (hierarchical replay) and M2 (attention-gated readout) remain LIVE per cap_map v193 4-axis rescue list.
+- [[feedback-rehabilitation-after-rejection]]: 5 rescue sketches filed cheapest-first BEFORE accepting "rescue chain saturated"; PRIMARY rescue (a) subsumption is the highest-leverage path.
+- [[feedback-no-padding-experiments]]: 4 of 5 rescues are CANDIDATES not auto-queued; rescue (b) may auto-resolve if `bet_b_4stage_batch128_v1` (currently running on GPU) is the same axis-2 probe.
+- [[feedback-no-smoke]] brutal-honesty: 4-stage CL at N=8192 retA mean=0.741 with 0/10 seeds clearing 0.80 is NOT a "killer feature ready to ship" headline; it IS a "well-characterized 4-stage retention spec at 74%" honest framing. The narrative shift from "4-stage CL substrate killer feature" to "substrate has known retention plateaus per task-shift class" is the v201/v203/v214 customer-facing-spec lock that PRIMARY rescue (a) operationalizes for this row.
+- Queue-refill: SKIPPED in this handler (pause flag ABSENT but GPU pending+running=2 maintained; axis-2 probe `bet_b_4stage_batch128_v1` already running answers rescue (b) within the next cycle; queue-depth-invariant comfortably maintained).
+- 158th PROT-009 paired commit.
+
+SINGLE-VERDICT v247 -> v248: bet_b_4stage_rehab_epochs_v3 FOURSTAGE_MIDDLE_BAND HONEST FULL N=8192 10-seed phase_a_epochs=16 (2x baseline); mean ret_A=0.7407 (max=0.7491; 0/10 seeds clear 0.80 HP); ret_B mean=0.8598 + ret_C mean=0.8090 both HP-clear at all 10 seeds; THIRD independent saturation at retA~0.74 floor across (v189 N=1024 single-seed baseline, v239 N=8192 5-seed baseline, v248 N=8192 10-seed 2x-epochs) configurations; cumulative 16 seeds 0/16 clear 0.80; 2x-Phase-A-epochs axis (v239 rescue sketch b) EXHAUSTED with NO lift (delta = -0.004 from v239 baseline within seed-variance noise floor); smoke->FULL gap observed at v239 (-0.103 ret_A) corroborated as INTRINSIC-NOT-TUNING; Bet B 4-stage row 🟡 PARTIAL UNCHANGED (B+C pass cleanly; A still in band; row already PARTIAL for this exact ret_A floor reason); 5 rescue sketches filed cheapest-first (PRIMARY (a) = 0-cost product-spec subsumption "substrate-native 4-stage retention=0.74"; (b) batch_size=128 axis-2 already running on GPU; (c) Phase-D higher A-weight; (d) M1 hierarchical replay; (e) M2 attention-gated readout); user task-event decisive question "does ret_A clear 0.80?" gets clean NO at production scale; substrate-capacity-bound finding strengthens; framework reliability UNCHANGED; portfolio 14+18 UNCHANGED; 87th post-lock honest re-read observation (HONEST label); 158th PROT-009 paired commit.
