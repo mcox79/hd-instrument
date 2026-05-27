@@ -9005,3 +9005,70 @@ Cap_map decision: TDA-as-MoE-diagnostic sub-framing CLOSED-NEGATIVE (smoke only 
 - [[feedback-no-padding-experiments]]: no padding -- 8 verdicts processed, no synthetic anchors added.
 - [[feedback-pipeline-pacing]]: queue refill SKIPPED per orchestrator directive (4 GPU pending + 11 CPU pending pre-batch).
 - 137th PROT-009 paired commit.
+
+
+## v225 - (2026-05-27) BATCHED 2-VERDICT @ 08:59: wave14_betB_cosine_geometry_n8192_v1 [LABEL-VS-HONEST -- name claims n8192 / config is N=512 smoke single seed] + wave14_beti_depth_polylog_v4 SMOKE_REGIME_MISMATCH 3rd persistence
+
+### Trigger
+
+Two LOAD-BEARING completed verdicts at 2026-05-27T08:59 (~2-3s apart). Orchestrator framed verdict 1 as "proper large-N FULL confirm for Saad-Solla saddle-cascade" and verdict 2 as "Bet I 3rd envelope v4 supposed to fix smoke regime; failed again." NO queue-refill triggered per orchestrator directive. Pre-batch queue state: pause flag ABSENT (ACTIVE pipeline state); verdicts 1+2 free CPU/GPU runner slots.
+
+### Step 0 honest re-read (2 verdicts)
+
+**Verdict 1 -- wave14_betB_cosine_geometry_n8192_v1 [LABEL-VS-HONEST]:**
+- Bridge label: completed; metrics.json verdict: HARD_PASS.
+- Orchestrator framing: "proper large-N FULL confirm for Saad-Solla saddle-cascade ... HARD_PASS at N=8192 with proper equal-spacing -> framework reliability lifts toward 55-70%."
+- Per-cell metrics.json: config = {mode: smoke, N: 512, seeds: [7], parent: wave14_betB_2tier_coarse_analysis_v1 silhouette=0.788}. n_seeds=1, max_between_class_dist=0.358, ratio=1.789 vs N=4096 baseline=0.2.
+- verdict_msg: "HARD_PASS: N=512 max_cosine_dist=0.3578 ratio=1.789 >= 1.15 vs N=4096 baseline=0.2."
+- Honest reading: anchor NAME claims n8192 and orchestrator dispatch claimed this was the FULL N=8192 confirm. Config shows mode=smoke / N=512 / single seed 7. SECOND consecutive saddle-cascade-related anchor where the anchor NAME and dispatch FRAMING claim a much larger N than the actual config (v221 caught the same pattern on wave14_saddle_cascade_plateau_v5_n4096 which was also smoke at N=512). 60th post-lock label-vs-honest observation. The verdict_msg itself is internally honest at the N=512 numerical level (cites N=512 and the cosine_dist value at that N) -- the over-claim lives in the FRAMING (anchor name + orchestrator dispatch). Honest reading: HARD_PASS at N=512 smoke (single seed), comparison to N=4096 baseline=0.2 is a single-cell cross-N ratio NOT an N=8192 FULL run. Saad-Solla N-scaling narrative is NOT supported by this verdict; the genuine large-N FULL probe (N>=4096, multi-seed) STILL has not run. This is now the 4th smoke-level corroboration of equal-spacing / cosine-geometry at N<=512 (v3 at N=256, v4 at N=512, v5 at N=512, this v1 at N=512) and ZERO FULL runs.
+- Implication for framework reliability: orchestrator's pre-batch conditional ("HARD_PASS at N=8192 with proper equal-spacing -> framework reliability lifts toward 55-70%") does NOT activate because the test was not actually at N=8192. The "HARD_FAIL -> saddle-cascade label in serious question" branch ALSO does not activate (no FULL HARD_FAIL ran). Framework reliability STAYS at 48-62% PROVISIONAL.
+- Cap_map decision: ANNOTATION-ONLY on Saad-Solla saddle-cascade row. Add to existing v221 annotation: 4th N<=512 smoke corroboration on cosine-geometry sub-axis. Saad-Solla row UNCHANGED LEADING (v206 BIC delta=194.9 + v211 alpha_c in-band stand as the load-bearing positive evidence; smoke-only corroborations at small-N do not strengthen but do not weaken either). Per [[feedback-verdict-msg-honest-reread]]: label-honest framing override is the authoritative interpretation.
+
+**Verdict 2 -- wave14_beti_depth_polylog_v4 SMOKE_REGIME_MISMATCH (3rd persistence on smoke-regime axis; 4th on Bet I 3rd envelope question overall):**
+- Bridge label: failed. metrics.json verdict: MIDDLE_BAND.
+- verdict_msg: "MIDDLE_BAND: only 0/2 N values have measurable d_c_emp > 0; not enough for R2 fit. Smoke N=[[1024, 2048]] d_sweep=[2, 5, 10, 20, 30, 40]"
+- Per-cell metrics.json: config.K_GRAM=10, ALPHA_LOAD=0.4, smoke=True, N_sweep=[1024, 2048], d_sweep=[2,5,10,20,30,40], seeds=[7,17]. Results: at N=1024, d_c_empirical=0.0, d_c_predicted=26.64, acc_by_d all 0.0 at d in [2,5,10,20,30,40]; at N=2048, d_c_empirical=0.0, d_c_predicted=39.52, acc_by_d all 0.0 same d-sweep.
+- Honest reading: label is internally honest. valid_N_count=0; substrate accuracy is 0 across the entire smoke d_sweep at both N. The substrate does not retain ANY accuracy above the smallest-d=2 cell -- not even at d=2 which should be trivially easy. This suggests the smoke regime is mis-configured at alpha=0.40 / K_GRAM=10 / N in {1024,2048} setting (corpus saturation, codec mismatch, or evaluation pipeline bug -- NOT a polylog scaling signal).
+- v3 (per v223 honest correction): D_SWEEP_SMOKE=[2,5,10,20] N=[256,512] all hit cliff at d~1 -> valid_N_count=0. v4 extended N up (1024,2048) and d_sweep ceiling up (40) but acc_by_d is 0 EVERYWHERE -- WORSE than v3's pattern (v3 hit cliff; v4 has no measurable signal at all).
+- Persistence pattern: v1 MIDDLE_BAND (no N-dependence at smoke); v2 MIDDLE_BAND (D_SWEEP ceiling at 60 saturated); v3 SMOKE_REGIME_MISMATCH (D_SWEEP_SMOKE too low); v4 SMOKE_REGIME_MISMATCH (acc_by_d all 0). FOUR consecutive smoke-regime failures on the same Bet I 3rd envelope question.
+- Diagnosis: this is INFRASTRUCTURE / measurement-regime issue, not a substrate-signal issue. The specific combination (alpha=0.40, K_GRAM=10, large N, the d-cliff at high d) appears to push the test out of any band where the polylog scaling can be empirically discriminated.
+- Cap_map decision: Bet I 3rd envelope row stays UNCHANGED OPEN structurally. HOWEVER, this is the 4th consecutive smoke-regime failure on the same question, crossing the threshold for "infrastructure-blocked" classification per [[feedback-rehabilitation-after-rejection]] discipline. Apply rescue-sketch FIRST sequencing per [[feedback-rescue-sketch-first-sequencing]]: file 3 cheapest-first rescue sketches BEFORE recommending close-as-infrastructure-blocked. (1) **Skip-smoke approval** (CHEAPEST): skip smoke gate and run FULL D_SWEEP=[10,30,50,100,150,200] at N=[4096, 8192] multi-seed directly. ZERO new infra; just removes the smoke gate. (2) **alpha-load lowering** (MEDIUM): drop alpha=0.40 back to 0.25 to keep substrate accuracy non-degenerate; ~30min CPU. (3) **per-N independent d-sweep** (MEDIUM-BUILD): replace global d_sweep with per-N d_sweep targeting predicted d_c +/- 50% bracket per N (e.g., at N=4096 d in [13, 53] around predicted ~26; at N=8192 d in [20, 80] around predicted ~40); recovers dynamic range that fixed d_sweep loses; ~1h. Filed for next exp_dev cycle. NOT closing the row at this batch -- per [[feedback-rehabilitation-after-rejection]] 3 rescues must precede closure.
+
+### Decisions
+
+**Decision (1): NO row-state move on Saad-Solla saddle-cascade row.** Row UNCHANGED ✅ LEADING. 4th N<=512 smoke corroboration added as annotation; large-N FULL probe REMAINS OPEN. Per [[feedback-verdict-msg-honest-reread]] override the orchestrator's framing-level over-claim.
+
+**Decision (2): NO row-state move on Bet I 3rd envelope.** Row UNCHANGED OPEN. 3 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]]; closure deferred pending at least one rescue attempt. Persistent-failure pattern noted: 4 consecutive smoke-regime failures on this question is a STRUCTURAL SIGNAL warranting attention but not yet a clean refutation.
+
+**Decision (3): Framework reliability UNCHANGED 48-62% PROVISIONAL.** Neither verdict moves the band. Verdict 1 framing-over-claim correction prevents the spurious uplift; verdict 2 is infrastructure-level not substrate-level. The genuine N>=4096 multi-seed Saad-Solla FULL run REMAINS the binding next probe for any framework-reliability shift. SKAH-M battery (still in flight on GPU) REMAINS existentially important.
+
+**Decision (4): Pattern lock-in candidate.** Two N=512-smoke-anchors-claiming-larger-N caught in 24h (v221 + v225). 60th post-lock label-vs-honest observation. The specific failure mode (anchor name encodes N that does not match config; orchestrator dispatch propagates the name-encoded N as if it were the actual config) warrants a structural fix candidate. Lock-in candidate: PROT-018 "anchor-name-vs-config audit" -- exp_dev MUST verify config.N matches the N-suffix in anchor name before queue_add; verdict_handler should grep config.smoke / config.N from metrics.json BEFORE accepting any verdict_msg with a numeric-N claim. Defer specification to next active strategy cycle.
+
+**Decision (5): NO queue-refill triggered.** Per orchestrator directive. Pause flag absent (ACTIVE state) but explicit "DO NOT trigger queue-refill" instruction overrides standard pipeline-pacing.
+
+**Decision (6): PROT-004 not triggered.** No capability-row closures.
+
+**Decision (7): PROT-006 not triggered.** No closed row this commit.
+
+### Cap_map updates
+
+- Saad-Solla saddle-cascade row: ANNOTATION extension on existing v221 entry. 4 consecutive N<=512 smoke corroborations (v3 N=256, v4 N=512, v5 N=512, cosine_geometry_n8192_v1 N=512); ZERO genuine FULL runs at N>=4096. Large-N FULL probe REMAINS the binding open question.
+- Bet I 3rd envelope row: ANNOTATION extension on existing v223 entry. 4th consecutive smoke-regime failure (v1 / v2 / v3 / v4); persistence-pattern flag added; 3 rescue sketches filed cheapest-first (skip-smoke; alpha-lower; per-N d_sweep); CLOSURE DEFERRED pending rescue attempt.
+- Version-table row v224 -> v225 with batched 2-verdict annotation summary.
+- Framework reliability: UNCHANGED 48-62% PROVISIONAL.
+- Portfolio: UNCHANGED 14+7.
+- 138th PROT-009 paired commit.
+
+### PROT compliance
+
+- PROT-004: not triggered (0 row closures).
+- PROT-006: not triggered.
+- PROT-007: this history block written first.
+- PROT-008/009: no row-state emoji changes; demotion validator not triggered.
+- [[feedback-verdict-msg-honest-reread]]: applied to verdict 1 (anchor name + orchestrator dispatch framing claimed N=8192 FULL; config is N=512 smoke single seed); label-honest override authoritative for cap_map decision; 60th post-lock observation.
+- [[feedback-rehabilitation-after-rejection]]: 3 rescue sketches filed for Bet I 3rd envelope before any closure (rescue-sketch FIRST sequencing per [[feedback-rescue-sketch-first-sequencing]]: skip-smoke CHEAPEST -> alpha-lower MEDIUM -> per-N d_sweep MEDIUM-BUILD).
+- [[feedback-subagent-permission-inheritance]]: local commit only; push deferred to main thread.
+- [[feedback-obey-user-pause-explicitly]]: pause flag absent + orchestrator-directed no-refill -> queue dispatch skipped.
+- [[feedback-no-padding-experiments]]: no padding -- 2 verdicts processed.
+- 138th PROT-009 paired commit.
+
