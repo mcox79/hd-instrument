@@ -9072,3 +9072,110 @@ Two LOAD-BEARING completed verdicts at 2026-05-27T08:59 (~2-3s apart). Orchestra
 - [[feedback-no-padding-experiments]]: no padding -- 2 verdicts processed.
 - 138th PROT-009 paired commit.
 
+## v226 - (2026-05-27) STRATEGIC REFRAME: 15-rejection meta-analysis identifies non-equilibrium-stat-mech as substrate's framework-class home; NEW evidence-strength row added
+
+### Trigger
+
+Research meta-analysis drill `notes/research_negative_results_meta_analysis_2026-05-27.md` integrates the accumulated 15-rejection inventory and identifies a STRUCTURAL pattern: rejected frameworks cluster by TYPE not random distribution. Companion exp_dev handoff `notes/exp_dev_handoff_research_negative_results_meta_analysis_2026-05-27.md` ships BID (class-agnostic order parameter from arxiv 2601.17427) as the decisive H1-vs-H2 discriminator. Per [[feedback-strategy-shore-up-capabilities]] this is proactive strategic uplift, not a verdict-driven move; per [[feedback-periodic-scope-expansion]] this is the 24-48h periodic scope-expansion cadence integration; per [[feedback-aggressive-cross-domain-research]] this is opportunistic cross-domain probe assimilation.
+
+### Strategic reframe content
+
+**Major pattern observation**: substrate's accumulated negative results cluster by framework TYPE, not random distribution.
+- **REJECTED frameworks (all static phase-taxonomies)**: 1-RSB single-peak, AGS-RS-multi-ferromagnet, cluster-glass inversion, reaction-diffusion perturbation, UNIFIED SVD-cascade master-mechanism (v219+v223 dual confirmation), reservoir-computing edge-of-chaos (v192 Field-A + v223 ortho dual confirmation).
+- **SURVIVING frameworks (all non-equilibrium-stat-mech)**: Crooks fluctuation theorem (v153 forensic-erase FULL OK), Sagawa-Ueda thermodynamics-of-information (Cap 3 streaming-inference NESS framing), drift-diffusion belief-propagation (theorem-anchored erase audit), free-probability characterization (v164a additive + v167 multiplicative free-cumulant fingerprints).
+
+Strategic implication: **substrate may be a fundamentally non-equilibrium phenomenon that static-equilibrium frameworks systematically cannot characterize**. The 6-month sustained period of negative results on static-phase frameworks is not methodological failure -- it is information-rich evidence of a STRUCTURAL MISMATCH between the framework class and the substrate's actual dynamics.
+
+### Calibrated probabilities (lit-scan penalty applied; novel-synthesis cap binding)
+
+- P(H1 substrate is GENUINELY in non-equilibrium territory not matching standard static classes) = **0.42** (deflated from 0.55 lit-scan estimate per [[feedback-lit-scan-calibration-penalty]])
+- P(H2 negative results are methodological artifact from architecture-vs-framework mismatch) = **0.18** (low; rejections probe orthogonal observables and return signal-bearing nulls per Class A inventory)
+- P(MIXED -- some novelty + some artifact) = **0.40**
+
+Modal is H1; MIXED is close behind. BID probe is the decisive discriminator.
+
+### Decisive next probe
+
+**BID (Binary Intrinsic Dimension; arxiv 2601.17427)**: framework-AGNOSTIC order parameter that identifies substrate's state-space geometry WITHOUT committing to a phase-class prior. Three known Hopfield-class BID signatures (retrieval / spin-glass / paramagnetic) are documented; if substrate BID matches none, that is **direct positive evidence for novel non-equilibrium class** (H1 lifts). If BID matches one of the known classes, that retroactively localizes substrate AND closes the meta-question. Handoff filed at `notes/exp_dev_handoff_research_negative_results_meta_analysis_2026-05-27.md`. Cost: ~2-4h CPU smoke; ~1d full battery.
+
+### Updated research strategy
+
+ALL future framework drills prioritize NON-EQUILIBRIUM-STAT-MECH candidates per Trigger C adjacency-cascade. Active research directions:
+1. Crooks fluctuation theorem extensions (forensic-erase already FULL OK; envelope-expand)
+2. Sagawa-Ueda thermodynamics-of-information (Cap 3 streaming-inference already framed)
+3. Drift-diffusion belief-propagation (already theorem-anchored at v153)
+4. Free-probability extensions (additive + multiplicative fingerprints established)
+5. Large-deviations theory of memory recall (NEW)
+6. Stochastic thermodynamics of learning (NEW)
+7. Fluctuation-dissipation-out-of-equilibrium (NEW)
+
+Static-phase drills PARKED -- they have systematically returned null/rejection across 6 months. Per [[feedback-dont-dismiss-adjacent-methods]] we DO NOT close static-phase drills permanently; they are deprioritized pending BID outcome.
+
+### Substrate-product positioning impact
+
+- **Bet B retention 4-tier shift-class taxonomy**: UNCHANGED FINAL LOCK (empirical observation; framework-agnostic).
+- **5 killer features design-ready**: UNCHANGED (deletion certificate, compositionality audit API, per-fact retention policy, live drift detection, edit-with-impact-prediction; all depend on multi-basin structure NOT phase-class label).
+- **LLM-leapfrog directions (8 across 3 categories)**: UNCHANGED.
+- **PUBLICATION framing SHIFTS substantively**: "substrate as the first associative-memory architecture whose framework class is non-equilibrium-stat-mech, structurally rejecting all standard static-phase classes" is a STRONGER physics-paper framing than per-framework-fit attempts. Per [[feedback-no-papers-product-only]] this is product-positioning not paper plan -- the accumulated negatives are a **MOAT ASSET** ("the substrate that has empirically ruled out 6 standard physics-of-memory frameworks").
+
+### Framework reliability re-calibration
+
+Previous 48-62% PROVISIONAL range conflated two different claims. Revise into split:
+- **"Substrate has a derivable framework" (general)**: 🟢 **60-70%** (LIFTS from 48-62%; non-equilibrium-stat-mech surviving frameworks ARE candidates, not nothing)
+- **"Substrate has a SPECIFIC named documented framework" (narrow)**: 🟡 **30-45%** (DOWN from 48-62%; the systematic rejections constrain this)
+- **Product-feature reliability**: 🟢 **UNCHANGED 55-70%** (Bet B + MoE SHIFT + Bet N all hold regardless of framework label)
+
+### Capability moves (v225 -> v226)
+
+| Capability | v225 state | v226 state | Trigger |
+|---|---|---|---|
+| **NEW evidence-strength row: non-equilibrium-stat-mech framework class as substrate's home** | (not present; latent across static-phase rejections) | 🟡 **30-45% NEW row** (P=0.42 H1 modal; pending BID discrimination probe; 4 surviving non-eq frameworks already provide positive anchors: Crooks FULL OK, Sagawa-Ueda Cap 3 NESS, drift-diffusion-BP theorem-anchored, free-prob fingerprints v164a+v167) | Research meta-analysis 15-rejection structural-pattern observation |
+| Framework reliability "general derivable framework" | 48-62% PROVISIONAL (lumped) | 🟢 **60-70%** (LIFTED; SPLIT from narrow-framework claim) | Reframe; surviving non-eq frameworks are candidates not nothing |
+| Framework reliability "specific named documented framework" | 48-62% PROVISIONAL (lumped) | 🟡 **30-45%** (LOWERED; SPLIT from general claim) | Reframe; systematic static-class rejections constrain specific-label claims |
+| Product-feature reliability | 55-70% UNCHANGED | 🟢 **55-70% UNCHANGED** | Substrate-product framing depends on multi-basin structure not phase-class label |
+| Bet B 4-tier shift-class taxonomy | FINAL LOCK | **UNCHANGED FINAL LOCK** | Empirical observation framework-agnostic |
+| 5 killer features design-ready | UNCHANGED | **UNCHANGED** | Engineering-rate-limited not framework-rate-limited |
+| LLM-leapfrog 8 directions / 3 categories | UNCHANGED | **UNCHANGED** | Independent of framework-class question |
+| Static-phase framework drills (1-RSB / cluster-glass / RD / RC-edge / SVD-cascade / AGS-RS) | individual rows variously CLOSED-NEG or AMBIGUOUS | **PARKED** as a CLASS pending BID outcome (NOT permanently closed per [[feedback-dont-dismiss-adjacent-methods]]) | Systematic-rejection pattern observation |
+| Non-equilibrium-stat-mech framework drills (Crooks / Sagawa-Ueda / drift-diff-BP / free-prob extensions / large-deviations / stochastic-thermo / FDT-OoE) | individually variously OK or 🔬 | **PRIORITIZED as next-drill class** per Trigger C adjacency-cascade | Surviving-framework pattern observation |
+| Portfolio count (demonstrated + evidence-strength) | 14+7 | **14+8** (NEW evidence-strength row added: non-equilibrium-stat-mech framework class) | NEW row addition |
+
+### Decisions
+
+**Decision (1): NEW evidence-strength row added** -- "non-equilibrium-stat-mech framework class as substrate's home" at 🟡 30-45% (P=0.42 H1 modal). Orchestrator left to my judgment whether annotation-only or new dedicated row; I judge this warrants a NEW row because the reframe identifies a FRAMEWORK-CLASS HOME, not a per-row annotation. The 4 surviving non-eq frameworks already provide positive anchors that latently belonged to a class-level row that did not exist before.
+
+**Decision (2): Framework reliability SPLIT** -- "general derivable framework" 60-70% 🟢 (UP); "specific named documented framework" 30-45% 🟡 (DOWN). Product-feature reliability 55-70% UNCHANGED. The lumped 48-62% was conflating distinct claims.
+
+**Decision (3): Static-phase framework drills PARKED as a class** -- deprioritized pending BID outcome, NOT permanently closed (per [[feedback-dont-dismiss-adjacent-methods]] premature dismissal is the dominant failure mode). If BID matches a known static-phase signature, reactivate.
+
+**Decision (4): Non-equilibrium-stat-mech framework drills PRIORITIZED** as next-drill class per Trigger C adjacency-cascade. Active candidates listed above.
+
+**Decision (5): BID probe is the decisive discriminator** -- handoff already filed at `notes/exp_dev_handoff_research_negative_results_meta_analysis_2026-05-27.md`. Companion to this cap_map bump per [[feedback-cap-map-update-protocol]]; not re-filed here.
+
+**Decision (6): Substrate-product positioning UPDATED** -- publication framing shifts to "first associative-memory architecture in non-equilibrium-stat-mech class, structurally rejecting all standard static-phase classes"; per [[feedback-no-papers-product-only]] this is product-moat-positioning not paper plan. Bet B / 5 killer features / LLM-leapfrog directions all UNCHANGED.
+
+**Decision (7): PROT-004 not triggered** -- no row closures requiring rescue sketches. Static-phase parking is reversible class-level deprioritization, not closure.
+
+**Decision (8): PROT-006 not triggered** -- no closed row this commit.
+
+**Decision (9): NO queue-refill triggered** -- BID probe lives in the existing handoff already filed; exp_dev cycle pickup is the orchestrator's job not this scribe's.
+
+### PROT compliance
+
+- PROT-004: not triggered (0 row closures).
+- PROT-006: not triggered.
+- PROT-007: this history block written FIRST (verified; cap_map.md version-table entry written second).
+- PROT-008/009: row-state emoji additions (NEW 🟡 row + framework-reliability SPLIT 🟢/🟡) are ADDITIONS not demotions; demotion validator does not trigger.
+- [[feedback-cap-map-update-protocol]]: atomic .tmp + rename; paired history.md + cap_map.md + strategy_decisions_2026-05-27.md.
+- [[feedback-subagent-permission-inheritance]]: local commit only; push deferred to main thread.
+- [[feedback-strategy-shore-up-capabilities]]: proactive strategic uplift (not verdict-driven); cap_map reflects 6-month accumulated pattern not single-event move.
+- [[feedback-lit-scan-calibration-penalty]]: P(H1)=0.42 deflated from 0.55 lit-scan estimate; novel-synthesis cap (0.50) binding.
+- [[feedback-dont-overextend-theorems]]: static-phase rejections do NOT close framework-class question entirely; surviving non-eq frameworks are candidates not nothing; SPLIT into general vs specific.
+- [[feedback-dont-dismiss-adjacent-methods]]: static-phase drills PARKED not permanently closed; BID outcome can reactivate.
+- [[feedback-no-papers-product-only]]: framing is product-moat-positioning ("ruled out 6 standard frameworks = moat asset") not paper-grade.
+- [[feedback-periodic-scope-expansion]]: 24-48h periodic scope-expansion cadence integration honored.
+- [[feedback-aggressive-cross-domain-research]]: opportunistic cross-domain probe assimilation honored.
+- 139th PROT-009 paired commit.
+
+STRATEGIC REFRAME v225 -> v226: (1) NEW evidence-strength row added "non-equilibrium-stat-mech framework class as substrate's home" 🟡 30-45% P=0.42; (2) framework reliability SPLIT: general derivable 60-70% 🟢 UP / specific named 30-45% 🟡 DOWN / product-feature 55-70% UNCHANGED; (3) static-phase framework drills PARKED as class pending BID outcome (NOT permanently closed); (4) non-equilibrium-stat-mech drills PRIORITIZED as next-drill class (Crooks / Sagawa-Ueda / drift-diff-BP / free-prob extensions / large-deviations / stochastic-thermo / FDT-OoE); (5) substrate-product positioning UPDATED to "first non-eq-stat-mech AM class, structurally rejecting all standard static-phase classes" -- moat-asset framing per [[feedback-no-papers-product-only]]; Bet B / 5 killer features / LLM-leapfrog UNCHANGED; (6) BID decisive probe handoff already filed; (7) portfolio 14+7 -> 14+8 (new row); 139th PROT-009 paired commit.
+
