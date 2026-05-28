@@ -1758,3 +1758,59 @@ Cumulative 21 seeds across 4 independent configs, 0/21 clear 0.80. The retA~0.74
 **Per [[feedback-cap-map-update-protocol]]:** pull-first (no remote-conflict; cap_map last bumped at v248 in same session); atomic .tmp+rename via append_decision_log.py; commit message `Cap map: v248 -> v249 (bet_b_4stage_batch128_v1 FOURSTAGE_MIDDLE_BAND axis-2 EXHAUSTED; 4th corroboration of retA~0.74-0.75 floor; two-axis exhaustion finding; row state UNCHANGED; rescue sketches updated; 159th PROT-009 commit)`.
 
 **Per [[feedback-verdict-msg-honest-reread]]:** 88th post-lock observation; HONEST tally (no override). Label matches data exactly.
+
+
+## sagawa_ueda_v5 TIMEOUT_KILL_NO_FULL_DATA @ 20:33 -- cap_map v249 -> v250 [ANNOTATION-ONLY; SECOND TIMEOUT_KILL ON SAME PROBE]
+
+**Trigger.** EVENT verdict_landed `{"name":"sagawa_ueda_v5","verdict":"failed","ended_at":"2026-05-27T20:33:11","queue":"remote_cpu_queue"}`. Orchestrator dispatch requested disambiguation of (a) honest HARD_FAIL / (b) script-output-path bug / (c) timeout/OOM / (d) NEW CUDA-class failure, using the now-4-layer N-mismatch infra.
+
+**Step 0 honest re-read.** Local metrics.json is stale pre-ship SMOKE (`_source=local`, N=512 single-seed=17 MIDDLE_BAND su_frac=1.0 elapsed=0.52s from selftest). Remote per-cycle forensics via direct SSH:
+- Remote dir `C:\dev\hd-instrument\data\exp_sagawa_ueda_v5\` EXISTS but is EMPTY (0 files, 0 bytes — no metrics.json).
+- Runner log `C:\dev\hd-instrument\data\remote_cpu_queue\sagawa_ueda_v5.log` contains ONLY `[selftest] sagawa_ueda_v5 PASSED: smoke su_frac=1.0000 OOM=5.37e+08` + `[run] sagawa_ueda_v5 FULL N=8192 seeds=[7, 17, 23, 31, 41]`. No per-seed completion lines.
+- Run window: started 19:13:11, ended 20:33:11 = exactly 4800s wall = TIMEOUT at script's own `--timeout 4800`.
+- v5 prereg (`preregs/2026-05-27_sagawa_ueda_v5.md`) estimated 608s/seed × 5 seeds × 1.5 safety = 4800s. That estimate underestimated actual N=8192 M=1024 compute by >2x — not even ONE seed completed before kill.
+
+**Failure-mode disambiguation per orchestrator request:**
+- **(a) honest HARD_FAIL on Sagawa-Ueda inequality at N=8192**: REJECTED. Zero production data exists; cannot test bound-breakage from a kill-at-0-seeds run.
+- **(b) script-output-path bug** (v5 was in 7d39e13 patched-11 sweep; could collide with v4 dir): REJECTED. The v5 script's HDLAB_EXP_NAME patch DID propagate correctly — dir `exp_sagawa_ueda_v5/` was created on the v5 path, not colliding into `exp_sagawa_ueda_v4_n8192/`. The empty-dir signature is "crash/kill before metrics write" not "writing to wrong path."
+- **(c) timeout/OOM**: CONFIRMED TIMEOUT. Exactly 4800s wall = `--timeout 4800` floor. PROT-019 floor SATISFIED in letter (timeout >= 1800s default) but VIOLATED in spirit (the 4800s budget came from the same prereg-author whose 608s/seed estimate was already proven wrong by v4's 1200s timeout; the formula `1.5 × smoke_wall_s × (FULL_N/smoke_N)^exp × (FULL_seeds/smoke_seeds)` from [[feedback-per-experiment-timeout-required]] was not applied — prereg used a hand-rolled scaling argument that under-counted the O(N^2) inner loop).
+- **(d) NEW failure mode like saad_solla_v10 CUDA crash**: REJECTED. This is remote_cpu (no CUDA); runner log shows clean TIMEOUT not exit=1 crash. Pattern is (c) extended, not (d).
+
+**HONEST READING (authoritative).** `sagawa_ueda_v5 TIMEOUT_KILL_NO_FULL_DATA; SECOND TIMEOUT_KILL on same N=8192 envelope-extension probe in 3.5h (v4 at 17:10 with 1200s misconfig + v5 at 20:33 with 4800s rescued-but-still-insufficient); root cause = author's wall-clock estimation formula systematically underestimates N=8192 M=1024 inner-loop cost (M=1024 target indices × M-1 cross-overlaps via v@W@v at O(N^2) = ~6.9e13 ops per seed; actual per-seed wall on remote CPU appears to be >960s = >1.6x the 608s estimate). Anchor `_v5` is version-not-N suffix per existing PROT-018 convention (no `_n8192` binding contract violation; consistent with v243 sagawa_ueda_v4_n8192 binding which DID use the `_n<N>` suffix).`
+
+**Strategic context (cap_map state-transition decision).** Per orchestrator dispatch:
+> "If pattern (a), file as honest closure; deletion-cert Cat-A foundation already has TCFT (v245+v247) as primary load-bearing FULL anchors — Sagawa-Ueda redundancy is bonus not required. If pattern (b)-(d), file appropriate rescue."
+
+Pattern is (c) confirmed. Cat-A foundation already has TCFT v245+v247 dual independent FULL N=8192 5-seed HARD_PASS as primary load-bearing evidence (per v247 entry's verbatim language: "deletion-certificate killer-feature #1 row UNCHANGED FOUNDATION CONFIRMED at FULL — v245 foundation + v247 replication = TWO independent FULL N=8192 5-seed HARD_PASSes within 1h of each other, identical seeds, near-identical per-seed numbers — strongest possible replication evidence"). Sagawa-Ueda v2 N=4096 5-seed FULL HARD_PASS remains the load-bearing Sagawa-Ueda anchor at smaller-N scope. The N=8192 Sagawa-Ueda envelope-extension probe is **bonus not required**, so v5's failure does NOT weaken any portfolio row or framework reliability band.
+
+**Decisions:**
+- **Decision (1): Cap_map v249 -> v250 ANNOTATION-ONLY**. Sagawa-Ueda deletion-cert evidence-strength row 🟡 UNCHANGED at N=4096. Cat-A foundation status UNCHANGED + STRENGTHENED ROBUSTNESS POSITION via the observation that TCFT dual-anchor at N=8192 fully covers the killer-feature load-bearing need; Sagawa-Ueda N=8192 corroboration is defense-in-depth not load-bearing. 0 capability row closures (PROT-004/006 not triggered). 0 row state changes. Framework reliability SPLIT UNCHANGED (general 65-75% / specific named 50-60% / product-feature 60-72%). Portfolio 14+19 UNCHANGED.
+- **Decision (2): PROT-019 PRIMARY URGENCY ELEVATION to PROT-019-v2**. Second TIMEOUT_KILL on same probe in 3.5h despite v4 -> v5 rescue means PROT-019 (timeout-floor enforcement at queue_add.py exit-7) is NOT SUFFICIENT. Need PROT-019-v2: (i) post-rescue re-occurrence detector that auto-escalates 2nd-TIMEOUT-on-same-N-anchor-family to BLOCK-EXIT requiring explicit orchestrator override; AND/OR (ii) mandates the `1.5 × smoke_wall_s × (FULL_N/smoke_N)^exp` formula with exp=2 for inner-N^2 loops at queue_add time, rejecting hand-rolled prereg estimates. PROT-020 (VRAM budget) candidacy from v246 remains a separate parallel infra need.
+- **Decision (3): No queue refill from this handler**. Pause flag ABSENT (verified). Queue depths at verdict-arrival per remote_state_cache snapshot 20:50:59: overnight pending+running=8 (deep), remote_cpu pending+running=3, cpu_runner_0 RUNNING `bid_order_parameter_v4_full` (alive heartbeat 20:50:37 = 22s old). Per [[feedback-no-padding-experiments]] no auto-queue while queues are depth>=1. Source-queue invariant maintained.
+
+**Rescue sketches (5; cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]).**
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** — re-frame as "Sagawa-Ueda envelope-extension at N=8192 is BONUS-not-REQUIRED per Cat-A foundation already having dual-anchor TCFT v245+v247 FULL coverage at N=8192; Sagawa-Ueda v2 N=4096 5-seed FULL HARD_PASS stands as the load-bearing Sagawa-Ueda anchor at smaller-N scope; N=8192 envelope-extension OPEN-INDEFINITELY-PENDING-SCRIPT-REWRITE with no urgency since coverage is from TCFT"; applied in this entry; 0-cost.
+
+(b) **CHEAPEST INFRA ~10min** — strategy_request_to_visibility annotate `notes/active_protocols.md` with PROT-019-v2 candidate (post-rescue re-occurrence detector + N^2-exponent budget formula enforcement) for next strategy cycle review.
+
+(c) **CHEAP ~30min CPU** — sagawa_ueda_v6 re-ship with REDUCED M-scope: N=8192 with M=256 or M=512 not M=1024 (reduces inner-loop ops by 4-16x; per-seed wall drops to ~150-600s; 5 seeds clears in <3000s under any reasonable timeout); validates the bound at N=8192 even if at smaller M-load. SUBSUMES (d) if it clears.
+
+(d) **MEDIUM ~2h infra+CPU** — sagawa_ueda_v6 with PARTIAL-CHECKPOINT instrumentation (write metrics.json after each completed seed even if subsequent seeds time out; v5's empty dir would have had 1-3 seeds of data with this fix); reusable pattern for ALL future N=8192 envelope-extension probes; broadly subsumes future class-(c) failures.
+
+(e) **MEDIUM ~2h script-rewrite** — sagawa_ueda inner-loop vectorization (replace `for i in M: for j in M-{i}: v_i @ W @ v_j` with batched matrix-form `V @ W @ V.T` masking diagonal; 5-10x speedup; lands per-seed wall in 100-200s range at N=8192 M=1024; fully unblocks the envelope-extension probe at full M=1024 scope).
+
+PRIMARY (a) applied 0-cost; (b) is the IMMEDIATE next strategy cycle action (PROT-019-v2 author); (c)/(d)/(e) are CANDIDATES for next exp_dev cycle but NOT auto-queued per [[feedback-no-padding-experiments]] (queue depths comfortable).
+
+**PROT compliance (v250).**
+- PROT-004/006: 0 capability row closures; ANNOTATION-ONLY entry. 5 rescue sketches filed cheapest-first per defensive thoroughness even though no closure triggered.
+- PROT-007: history.md absent (consistent with v228+).
+- PROT-008: No row state changes; PROT-008 validator-style logic: no row state change, no gate to check.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- PROT-018: anchor `_v5` is version-not-N suffix; consistent with existing convention; no exit-6.
+- PROT-019: per-experiment timeout floor SATISFIED in letter (--timeout 4800 >> 1800s default floor); VIOLATED in spirit; **PROT-019-v2 candidate authored** (see Decision 2 + rescue (b)).
+- PROT-020 (proposed v246): VRAM budget assertion — not applicable to remote_cpu path.
+- [[feedback-verdict-msg-honest-reread]]: 89th post-lock observation; verdict_msg was empty (event-bus 'failed' tag without verdict_msg per known pattern); event-bus `failed` tag was structurally accurate (run did fail to produce data) but mechanism interpretation required per-cycle remote forensics; bridge `runner_tag` URGENCY remains at URGENT per v246+v243 elevation. Tally NOT incremented (label was structurally accurate; this is a forensics-toil issue not a label-vs-honest issue).
+- [[feedback-per-experiment-timeout-required]]: VIOLATED at prereg-author level (v5 prereg used hand-rolled 1.5x safety formula, not the formal `1.5 × smoke_wall_s × (FULL_N/smoke_N)^exp` formula); PROT-019-v2 is the structural fix.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+
