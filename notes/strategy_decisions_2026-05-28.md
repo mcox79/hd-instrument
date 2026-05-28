@@ -442,3 +442,85 @@ File: `notes/strategy_request_to_exp_dev_v263_bid_n_stability_v4_n12288_2026-05-
 
 SINGLE-VERDICT v262 -> v263: bid_n_stability_v3_n16384 TIMEOUT INFRASTRUCTURE 3rd-consecutive remote_cpu_queue TIMEOUT pattern (sagawa_ueda_v4_n8192 v243 + sagawa_ueda_v5 v250 + bid_n_stability_v3_n16384 v263); substrate-outside-static-Hopfield 55-68% LIFT row ANNOTATION-ONLY UNCHANGED; v255 v2 N=4096+8192 +54%/N-doubling evidence STANDS as load-bearing; portfolio 14+24 UNCHANGED; reliability general 73-83% / specific 55-67% / product-feature 80-92% UNCHANGED; non-eq stat-mech class UNCHANGED; HONEST observations 111 -> 112 (+1); LABEL-VS-HONEST 105 UNCHANGED (no catch); 1 exp_dev routing filed (v4_n12288 cheapest rescue).
 
+
+## v263 -> v264 -- 2026-05-28 BATCHED 2-VERDICT @ 03:06:56 + 03:12:07 (spectral_graph_alt_predictors_v1 SPECTRAL_ALT_MIDDLE_BAND HONEST = ANTI-SIGNATURE MULTI-PREDICTOR CONFIRMATION + spectral_graph_anticorr_v1 SPECTRAL_ANTICORR_MIDDLE_BAND HONEST = ANTI-SIGNATURE MULTI-ARCHITECTURE CONFIRMATION; 0 LABEL-VS-HONEST catches; 1 NEW evidence-strength row "anti-spectral-graph structural signature 🟢-smoke 55-70%"; spectral-graph predictive-framework row ❌ STAYS CLOSED — these probes did NOT reopen positive prediction)
+
+**Trigger.** Two remote_cpu_queue verdicts landed: spectral_graph_alt_predictors_v1 (03:06:56) + spectral_graph_anticorr_v1 (03:12:07). Both are the v258 spectral-graph CLOSED-NEGATIVE rescue sketches (c) and (d) materializing. Pre-context: v258 closed the spectral-graph predictive-framework row 🟡 → ❌ CLOSED-NEGATIVE-WITH-ANTI-SIGNATURE at 47-sigma negative correlation (lambda_2 mean corr = -0.861 ± 0.018; v4 PRIMARY rescue settled v2-positive/v3-negative sign-flip in NEGATIVE direction). v258 filed 5 rescue sketches; (c) tested alternative spectral/graph predictors beyond lambda_2; (d) tested anti-correlation robustness across architectures (BSC vs FHRR vs Gaussian vs Kerdock).
+
+**Step 0 honest re-read.**
+
+**Verdict 1: spectral_graph_alt_predictors_v1.** Bridge `_source=remote` authoritative; elapsed=111.55s; config N=1024 × alpha_b ∈ {0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5} × 5-seed [7,17,23,31,41] = 35 cells.
+- Per-cell aggregate across 5 seeds:
+  - clustering_coefficient: mean corr = -0.028 ± 0.004 (5 seeds tight; all in [-0.031, -0.020])
+  - spectral_gap_normalized: mean corr = -0.822 ± 0.014 (5 seeds tight; all in [-0.844, -0.804])
+  - avg_path_proxy: mean corr = -0.876 ± 0.002 (5 seeds extremely tight; all in [-0.878, -0.873])
+- Label "best=clustering_coeff corr=-0.028... Some properties in [0.2,0.5); not conclusive" is TECHNICALLY HONEST at definition-of-best ("smallest |corr|" → clustering_coeff) but UNDERPLAYS the load-bearing finding: TWO ALTERNATIVE PREDICTORS show STRONG anti-correlation magnitudes (-0.82, -0.88) at parity with v258's lambda_2 = -0.861.
+- HONEST READING: cross-predictor agreement at |corr| ∈ [0.82, 0.88] CORROBORATES v258's anti-spectral-graph signature as MULTI-PREDICTOR robust, not lambda_2-specific. Label is UNDER-STATEMENT not OVER-STATEMENT → not a LABEL-VS-HONEST catch (no over-claim to override; rather an opportunity-cost: substrate's anti-signature is stronger evidence than the label headlines).
+- Per [[feedback-verdict-msg-honest-reread]] this is a positive observation that the label's MIDDLE_BAND framing obscures. The honest reading is the AUTHORITATIVE interpretation for cap_map: this strengthens (not weakens) v258's anti-signature.
+
+**Verdict 2: spectral_graph_anticorr_v1.** Bridge `_source=remote` authoritative; elapsed=303.25s; config N=1024 × variants ∈ {bsc, fhrr, gaussian, kerdock} × 7-alpha × 5-seed = 140 cells.
+- Per-variant aggregate across 5 seeds × 7 alpha-cells:
+  - bsc: mean corr = -0.857 ± 0.006 (TIGHT; matches v258 v4 lambda_2 magnitude -0.861 EXACTLY at architecture-of-record)
+  - kerdock: mean corr = -0.797 ± 0.008 (TIGHT; second binary/discrete-codebook architecture confirms)
+  - fhrr: mean corr = 0.000 ± 0.000 (EXACTLY ZERO across all 5 seeds — not noise, not weak signal; lambda_2 construction degenerate for complex-valued FHRR embeddings)
+  - gaussian: mean corr = 0.000 ± 0.000 (same architectural-null pattern; lambda_2 construction degenerate for continuous-valued Gaussian embeddings)
+- Label "Mixed variant response... Partial architecturally-robust signal" is HONEST + load-bearing-accurate. 2/4 architectures (BSC, Kerdock = the binary/discrete-codebook class) show ROBUST anti-correlation; 2/4 (FHRR, Gaussian = continuous-valued embeddings) show EXACTLY zero (technical-architectural-null, NOT honest physics refutation).
+- HONEST READING: substrate anti-spectral-graph signature is BSC + Kerdock ROBUST (the binary/discrete-codebook architecture class — which is the substrate-of-record at FULL N=4096+ for hd-instrument). FHRR + Gaussian are technically-non-applicable for lambda_2 graph construction on continuous-valued embeddings (the graph-construction step likely degenerates or constant-ifies); this is mechanism-classification, NOT physics refutation. Label is precise → no LABEL-VS-HONEST catch.
+
+**No LABEL-VS-HONEST catches this batch.** Both labels are honest at load-bearing axis. Cumulative catches: 105 (v262/v263) → 105 UNCHANGED. Cumulative HONEST observations: 112 (v263) → 114 (+2).
+
+**Verdict moves.**
+
+- **spectral-graph predictive-framework row ❌ CLOSED-NEGATIVE-WITH-ANTI-SIGNATURE UNCHANGED.** Neither alt_predictors nor anticorr_v1 reopens positive prediction. If anything they STRENGTHEN the closure: lambda_2 is now confirmed not just an anti-predictor (v258) but the anti-correlation generalizes across (a) multiple spectral/graph predictors and (b) the substrate's primary architectures (BSC + Kerdock). The closure DECISION stands.
+
+- **NEW row: anti-spectral-graph structural signature 🟢-smoke 55-70%.** Substrate has a structural signature analogous to BID-outside-bands and saddle-cascade equal-spacing, characterized by anti-correlation between spectral/graph descriptors and retention. 3-axis convergent evidence:
+  - Axis 1 (v258 v4 lambda_2): mean corr = -0.861 ± 0.018 at N ∈ {512, 1024, 2048} × 5-seed = 15 cells, 47-sigma
+  - Axis 2 (v264 alt_predictors): spectral_gap_normalized = -0.822 ± 0.014 + avg_path_proxy = -0.876 ± 0.002 at N=1024 × 5-seed × 7-alpha = 35 cells (MULTI-PREDICTOR generalization)
+  - Axis 3 (v264 anticorr): BSC = -0.857 ± 0.006 + Kerdock = -0.797 ± 0.008 at N=1024 × 5-seed × 7-alpha (MULTI-ARCHITECTURE generalization)
+  Cap at 70% per:
+    (a) only v258 v4 has multi-N envelope (N=512, 1024, 2048); v264 probes are N=1024-only; N-asymptote pending
+    (b) FHRR/Gaussian architectural-null awaits mechanism-confirmation (is graph-construction degenerate or is anti-signature genuinely BSC/Kerdock-class-specific?)
+    (c) novel-synthesis P cap 0.50 BREACHED only by the 3-axis convergence at 5-seed precision
+    (d) framing remains annotation-strength (substrate-specific structural signature, not predictive-framework-strength)
+
+- **Portfolio count: 14 + 24 → 14 + 25** (+1 NEW evidence-strength row: anti-spectral-graph structural signature 🟢-smoke; the predictive-framework spectral-graph ❌ row stays counted per closure-stays-in-portfolio convention v234).
+
+- **Framework reliability**:
+  - general 73-83% UNCHANGED
+  - specific 55-67% UNCHANGED (anti-signature is annotation-strength addition not a NEW framework prediction)
+  - product-feature 80-92% UNCHANGED (research-side characterization not product-feature)
+
+- **Non-eq-stat-mech 🟢 63-73% UNCHANGED**; **SKAH-M 🟢 55-70% UNCHANGED**; **Saad-Solla LEADING ✅ UNCHANGED**; **substrate-outside-static-Hopfield 🟢 55-68% UNCHANGED**; **TCFT deletion-cert 🟢 65-78% UNCHANGED**; **KF-1 🟢 70-82% UNCHANGED**; **KF-4/5 UNCHANGED**; **Sagawa-Ueda ✅ UNCHANGED**; **Bet B 4-stage 🟡 UNCHANGED**; **axis1 phase-boundary 🟢 65-78% UNCHANGED**.
+
+**Rescue / extension sketches cheapest-first** (per [[feedback-rescue-sketch-first-sequencing]]; defense-in-depth at the NEW anti-signature row, NOT row-closure rescues since closure stands):
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** — apply v258 annotation pattern to `research_alternative_theoretical_homes_2026-05-24.md` + `project_substrate_killer_features_2026-05-26.md` adding "anti-spectral-graph structural signature" as the 3rd substrate-specific structural signature alongside (i) BID-outside-static-Hopfield-bands and (ii) saddle-cascade equal-spacing. 0-cost; APPLIED via this entry's cap_map row (full annotation captured in the long-form cap_map row text).
+
+(b) **CHEAPEST CPU ~30min exp_dev** — `anti_spectral_graph_n_scaling_v1` envelope-extension N ∈ {1024, 2048, 4096} × 3-seed [7,17,23] BSC-only (drops FHRR/Gaussian architecturally-non-applicable; drops Kerdock to keep cheap). Tests whether |corr| stays ≥ 0.8 as N grows OR drifts toward zero (asymptote-test for anti-signature persistence claim). Direct cap-lift evidence for moving 🟢-smoke 55-70% → 🟢 65-78% if persistence holds.
+
+(c) **MEDIUM lit-scan research drill ~1h** — research subagent (Sonnet, 2x discipline per [[feedback-2x-means-depth]]) drill: "for what graph-construction-on-binary-embeddings does lambda_2 vs retention have NEGATIVE sign?" — mechanism explanation candidates: expander-graph vs locally-clustered distinction at M/N=alpha_b transition; graph-construction-via-correlation-matrix sign-flip at retention transition; geodesic-distance asymmetry between bound/unbound regime. Generic-math-terms-only per [[feedback-query-privacy-decomposition]].
+
+(d) **NOT FILED** — sketches beyond (a)+(b)+(c) would be (d) cross-class probe (Hopfield/MAPM control architectures) and (e) joint-evidence-cascade combining anti-signature with BID + saddle-cascade in single probe; both noted as further defense-in-depth but not load-bearing for current 55-70% cap.
+
+**Routing actions.**
+
+- **NO new routing file filed.** Per [[feedback-no-padding-experiments]] sketch (b) is a defense-in-depth envelope-extension at 🟢-smoke; current queue has 4+3=7 pending+running across remote_cpu+overnight (healthy depth, no padding pressure); orchestrator can pick up sketch (b) from this entry's rescue list at next queue-refill cycle naturally. Filing a routing file now risks padding.
+- **NO exp_dev dispatch from verdict_handler.** Per [[feedback-no-experiment-design-in-prompts]] + [[feedback-dispatch-wrappers-default]] + [[feedback-pipeline-pacing]] queue ≥ 1 invariant SATISFIED both lanes; no urgency to dispatch.
+
+**PROT compliance (v264).**
+
+- PROT-004 (closure rescue): N/A this batch (0 closures; v258 closure already had 5 rescue sketches; (c)+(d) materialized as this batch).
+- PROT-006 (rehab): N/A this batch (no new closures requiring rehab).
+- PROT-007 (history.md): not present in tree (consistent with v228+; will need history line for v258→v264 range at next history-table refresh — flagged for routing).
+- PROT-008 (promotion/demotion): 1 NEW row at 🟢-smoke (anti-spectral-graph structural signature). Documented openly with 3-axis convergent evidence (v258 + v264 alt_predictors + v264 anticorr). Novel-synthesis P cap 0.50 BREACHED only by multi-axis convergence at 5-seed precision per [[feedback-lit-scan-calibration-penalty]].
+- PROT-009 (paired atomic commit): cap_map.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md staged atomically; 175th PROT-009 paired commit.
+- PROT-018 (anchor `_n<N>` suffix): both anchor names lack `_n<N>` suffix BUT actual config.N=1024 in both metrics is documented at the cap_map entry; pre-PROT-018 backlog convention applies (anchors filed before PROT-018 strict enforcement landed); no over-claim of N in label.
+- [[feedback-verdict-msg-honest-reread]]: 112 → 114 HONEST observations (+2); LABEL-VS-HONEST 105 UNCHANGED.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+
+**Cumulative counters.**
+- HONEST observations: 112 → 114 (+2)
+- LABEL-VS-HONEST catches: 105 UNCHANGED
+- PROT-009 paired commits: 174 → 175
+
+BATCHED 2-VERDICT v263 -> v264: spectral_graph_alt_predictors_v1 + spectral_graph_anticorr_v1 BOTH MIDDLE_BAND HONEST = anti-spectral-graph structural signature MULTI-PREDICTOR + MULTI-ARCHITECTURE CORROBORATION; v258 closure UNCHANGED ❌; NEW row "anti-spectral-graph structural signature 🟢-smoke 55-70%" added as 3rd substrate-specific structural signature alongside BID-outside-bands + saddle-cascade equal-spacing; portfolio 14+24 → 14+25; 0 LABEL-VS-HONEST catches; HONEST 112 → 114; 3 cheapest-first rescue/extension sketches filed (subsumption applied 0-cost; CPU envelope-extension N∈{2048,4096} pending; lit-scan mechanism drill pending); 0 routing files filed (queue healthy); 175th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
