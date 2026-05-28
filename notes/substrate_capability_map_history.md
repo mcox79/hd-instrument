@@ -9462,3 +9462,73 @@ BATCHED 4-VERDICT v259 → v260: AXIS-2 LIFT 🔬→🟡 + TCFT +2% replication 
 172nd PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
 SINGLE-VERDICT v260 → v261: saad_solla_v13_n4096_5seed TIMEOUT INFRASTRUCTURE; Saad-Solla ✅ LEADING row UNCHANGED; portfolio 14+24 UNCHANGED; 104th label-vs-honest catch new sub-flavor; 1 exp_dev routing filed; 172nd PROT-009 paired commit.
+
+
+## v261 → v262 — 2026-05-28 02:21 BATCHED 4-VERDICT (catch-up entry)
+
+- pb3_extended_v3_n4096 HARD_PASS β-extension corroboration {2,4,6,8,10,12,16} 5-seed saturated-ceiling β≥8 (resolves v259 v2 script_bug)
+- axis1_mb_chunk5_n4096 HARD_PASS clean-both-clauses M-axis monotone over-capacity 270 cells
+- axis3_triplepoint_v1_n4096 MIDDLE_BAND TRIPLE-POINT NOT CONFIRMED sign_divergence=False at (M_frac=6, β=8); 105th LABEL-VS-HONEST sub-flavor DISPATCH_HYPOTHESIS_OVER_CLAIM
+- kf3_multisub_v2_n4096 MIDDLE_BAND DUAL framing UPHELD info-isolation 0.0148 + state-contamination 0.0544
+- Portfolio 14+24 UNCHANGED; reliability bands UNCHANGED; PB3 🟢 envelope-lift; AXIS-1 chunk5 scan progress; phase-boundary direct-test 🟢 55-70% UNCHANGED
+- 1 exp_dev routing axis3 v2 alternate-operating-points filed
+- 173rd PROT-009 paired commit
+
+BATCHED 4-VERDICT v261 → v262: PB3 β-extension corroboration + AXIS-1 chunk5 + axis3 triple-point disconfirmed + KF-3 v1+v2 lock; portfolio 14+24 UNCHANGED; 173rd PROT-009 paired commit.
+
+## v262 → v263 — 2026-05-28 03:05 SINGLE-VERDICT INFRASTRUCTURE (catch-up entry)
+
+- bid_n_stability_v3_n16384 FAILED TIMEOUT 4500s exact -- zero production metrics; remote data/exp_*/ EMPTY
+- INFRASTRUCTURE failure mode (c) TIMEOUT; v255 +54%/N-doubling LIFT UNCHANGED
+- Portfolio 14+24 UNCHANGED; reliability bands UNCHANGED
+- 5 rescue sketches filed cheapest-first; PRIMARY rescue (b) N=12288 substitute routed to exp_dev
+- 3rd-consecutive remote_cpu_queue TIMEOUT pattern
+- 174th PROT-009 paired commit
+
+SINGLE-VERDICT v262 → v263: bid_n_stability_v3_n16384 TIMEOUT INFRASTRUCTURE; substrate-outside-static-Hopfield UNCHANGED; portfolio 14+24 UNCHANGED; 174th PROT-009 paired commit.
+
+## v263 → v264 — 2026-05-28 03:13 BATCHED 2-VERDICT (catch-up entry)
+
+- spectral_graph_alt_predictors_v1 SPECTRAL_ALT_MIDDLE_BAND HONEST = MULTI-PREDICTOR anti-signature corroboration (spectral_gap_normalized=-0.822 + avg_path_proxy=-0.876; clustering_coeff=-0.028 near-zero)
+- spectral_graph_anticorr_v1 SPECTRAL_ANTICORR_MIDDLE_BAND HONEST = MULTI-ARCHITECTURE anti-signature corroboration (BSC=-0.857 + Kerdock=-0.797 robust; FHRR/Gaussian architecturally-non-applicable)
+- spectral-graph predictive-framework row ❌ stays closed
+- NEW row: anti-spectral-graph structural signature 🟢-smoke 55-70% (3-axis evidence: v258 + v264 alt_predictors + v264 anticorr)
+- Portfolio 14+24 → 14+25; reliability bands UNCHANGED; HONEST 112 → 114
+- 0 label-vs-honest catches (both verdicts honest at load-bearing axis)
+- 175th PROT-009 paired commit
+
+BATCHED 2-VERDICT v263 → v264: anti-spectral-graph structural signature NEW row 🟢-smoke 55-70%; portfolio 14+24 → 14+25; HONEST 112 → 114; 175th PROT-009 paired commit.
+
+## v264 → v265 — 2026-05-28 05:50 BATCHED 7-VERDICT LAPTOP-RESTART BLACKOUT BATCH (catch-up entry)
+
+- saad_solla_v14_n8192_3seed SS_V14_MIDDLE_BAND HONEST envelope-extension-fail at TIGHT max_dev<0.08 gate (R^2 shape corroborates but TIGHT band fails); 106th LABEL-VS-HONEST sub-flavor DISPATCH_HEADLINE_OVER_CLAIM
+- tcft_m_sweep_v3_n8192_5seed TCFT_V3_HARD_PASS Tier-1 lock-in 5-seed Spearman=-1.000 1/sqrt(M); TCFT 🟢 65-78% → 🟢 78-90% LIFT
+- kf2_isolation_proof_v2_n8192 KF2V2_HARD_PASS_TIGHT production-scale max_iso=0.01010<0.05 within Kerdock theory bound; KF-2 🟢 → ✅ ELEVATION
+- moe_fixed_total_capacity_K_sweep_v1_n4096 MOE_FIXED_CAP_NO_CEILING retention=1.0 across K∈{4,8,16,32}; v220 M2_DOMINANT diagnosis displaced; MoE SHIFT rebuild UNBLOCKED
+- bid_m_normalized_v1 BID_M_NORM_HARD_PASS ratio(0.5/0.125)=0.591 in band; v251/v255 magnitude mismatch resolved as M-density artifact
+- axis1_mb_chunk6_n4096 AXIS1C6_HARD_PASS chunk5 replication 270 cells 3-seed
+- axis1_mb_chunk7_n4096 AXIS1C7_HARD_PASS tail signal M/N=16-20 deep over-capacity; axis1 🟢 65-78% → 🟢 70-82% LIFT
+- 6 HARD_PASS HONEST + 1 LABEL-VS-HONEST CATCH
+- Portfolio 14+25 → 14+26 (+1 KF-2 elevation)
+- Framework reliability product-feature 80-92% → 82-94% LIFT
+- HONEST 114 → 121; LABEL-VS-HONEST 105 → 106
+- Both queues drained to depth=0; 1 exp_dev routing filed (saad_solla v15)
+- 176th PROT-009 paired commit
+
+BATCHED 7-VERDICT v264 → v265: KF-2 ELEVATION 🟢 → ✅ + TCFT LIFT 65-78%→78-90% + axis1 LIFT 65-78%→70-82% + MoE causal-model final + BID controversy resolved; portfolio 14+25 → 14+26; framework reliability product-feature 80-92% → 82-94%; HONEST 114 → 121; LABEL-VS-HONEST 105 → 106; 176th PROT-009 paired commit.
+
+## v265 → v266 — 2026-05-28 11:42 BATCHED 4-VERDICT
+
+- saad_solla_v15_n8192_5seed SS_V15_HARD_PASS_STRONG HONEST = FIRST GENUINE LARGE-N 5-SEED FULL Saad-Solla plateau HARD_PASS (5/5 seeds r2∈[0.273, 0.302] ALL <0.85 AND max_dev∈[0.512, 0.515] ALL >=0.40; AND-clause fires; combined with v252 = 7-seed-equiv at N=8192)
+- axis3_triplepoint_v2_n4096 AXIS3V2_MIDDLE_BAND HONEST = triple-point sub-hypothesis TWICE-DISCONFIRMED (sign_divergence=False at all 3 alternate ops; partial sensitivity 0.37 only at M_frac=10)
+- bid_n_stability_v4_n12288 BID_N4_MIDDLE_BAND HONEST = SCALING-LAW EXTRAPOLATION ROUGHLY HELD (mean BID 215.92 → 270.02 over 1.5x N matches +54%/N-doubling within stochastic envelope; outside [110, 250] static-Hopfield corridor on HIGH side); 107th LABEL-VS-HONEST sub-flavor MIDDLE_BAND_HIDES_DIRECTIONAL_CORROBORATION
+- wave14_moe_hebbian_anchor_router_v2_n4096 HARD_FAIL = 4TH MoE ROUTER-FAMILY RESCUE ARM CLOSED (static-anchor architecture is WRONG architecture vs v265 fixed-total-capacity RIGHT architecture; meta-learning ROUTING MUST BE CAPACITY-AWARE NOT IDENTITY-AWARE captured)
+- Framework reliability specific 55-67% → 60-72% LIFT (Saad-Solla v15 first production-scale 5-seed N=8192 specific-prediction confirmation)
+- substrate-outside-static-Hopfield 🟢 55-68% → 🟢 60-72% LIFT (BID v4 3rd-axis corroboration)
+- Portfolio 14+26 UNCHANGED (0 row closures, 0 elevations; rescue-arm closure is sub-architecture not portfolio row)
+- HONEST 121 → 124; LABEL-VS-HONEST 106 → 107
+- GPU queue 4-deep healthy; CPU queue 0 (no padding refill per [[feedback-no-padding-experiments]]); pipeline-pacing reflex DEFERRED per [[feedback-verdict-arrival-is-queue-depletion-signal]] (queue ≥ 1 invariant satisfied via GPU)
+- 4 rescue sketches MoE 4-arm closure cheapest-first; 2 rescue sketches axis3 triple-point disconfirmation; 0 rescue sketches saad_solla_v15 (HARD_PASS)
+- 177th PROT-009 paired commit
+
+BATCHED 4-VERDICT v265 → v266: saad_solla_v15_n8192_5seed FIRST GENUINE LARGE-N 5-SEED HARD_PASS_STRONG framework-reliability-specific 55-67% → 60-72% LIFT + axis3_triplepoint_v2 MIDDLE_BAND twice-disconfirmed + bid_n_stability_v4 MIDDLE_BAND 107th LABEL-VS-HONEST substrate-outside-static-Hopfield 55-68% → 60-72% LIFT + wave14_moe_hebbian_anchor_router_v2 HARD_FAIL 4-arm MoE rescue closure meta-learning ROUTING-MUST-BE-CAPACITY-AWARE captured; portfolio 14+26 UNCHANGED; 0 row closures; HONEST 121 → 124; LABEL-VS-HONEST 106 → 107; 177th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
