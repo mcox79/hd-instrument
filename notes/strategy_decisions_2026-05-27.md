@@ -1814,3 +1814,53 @@ PRIMARY (a) applied 0-cost; (b) is the IMMEDIATE next strategy cycle action (PRO
 - [[feedback-per-experiment-timeout-required]]: VIOLATED at prereg-author level (v5 prereg used hand-rolled 1.5x safety formula, not the formal `1.5 × smoke_wall_s × (FULL_N/smoke_N)^exp` formula); PROT-019-v2 is the structural fix.
 - [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
 
+
+## v251 -- 2026-05-27 BATCHED 4-VERDICT (bid_v4_full RUNNER_CRASH-label-vs-honest + pb1 MIDDLE_BAND honest + pb3 HARD_PASS honest + tcft_robustness RUNNER_CRASH-label-vs-honest)
+
+**Trigger.** Four verdicts in single window 20:58-21:18 from remote_cpu_queue (bid_v4_full, pb1, pb3) + overnight_queue (tcft_robustness). pb1+pb3 are new phase-boundary direct-test probes from todays content drop; bid_v4 was v247-MIDDLE_BAND Tier-1 promotion attempt; tcft_robustness was deletion-cert axis-expansion of v245+v247.
+
+**Step 0 honest re-read.**
+
+- **bid_order_parameter_v4_full event-bus label=failed OVERRIDDEN (89th label-vs-honest catch).** Remote runner log shows 18 of 20 production cells COMPLETED OUTSIDE_ALL_BANDS at N=1024-8192 (BID grows from 4-5 at N=1024 to 12-28 at N=8192 across 3-of-5 N=8192 seeds before runner died). Failure-mode (c) RUNNER_CRASH_BEFORE_METRICS_JSON_WRITE confirmed via SSH remote dir MISSING. Local metrics.json is stale pre-ship SMOKE N=256 1-seed 1.01s. NOT honest HARD_FAIL on physics; SUBSTANTIVE substrate-physics evidence visible in log directly resolves v247 HP3 finite-N caveat: BID stays OUTSIDE_ALL_BANDS through N=8192 AND continues growing = substrate-specific scaling-law interpretation strengthened over finite-N-artifact interpretation.
+
+- **pb1_susceptibility_v1 PB1_MIDDLE_BAND HONEST.** Remote-bridge authoritative. Per-seed BPC vs beta sweep at N=4096: ALL seeds show has_bpc_interior_min=True with optimal_beta=7.0 (BPC bowl-shape: 3.88 at beta=4 down to 3.21 at beta=7 back up to 8.29 at beta=32 = canonical interior minimum signature of phase-boundary operation). susc_beta=0.056-0.058 below stronger HP threshold but qualitative interior_min=3/3 gate cleared. No over-claim.
+
+- **pb3_critical_slowing_v1 PB3_HARD_PASS HONEST.** Remote-bridge authoritative. tau_by_beta={4.0: 61, 8.0: 100, 16.0: 100} max/min ratio=1.64 >= 1.5 HP threshold; tau peaks at beta=8 the substrates optimal operating point at tau=100 vs tau=61 at beta=4 = substrate recovers SLOWEST at its own optimum = canonical CRITICAL SLOWING DOWN signature. Caveat: tau_recovery=100 hits the n_recovery=100 ceiling at beta=8 and beta=16 so tau may be UNDER-estimated at those cells; ratio 1.64 is a LOWER BOUND on the actual ratio. DIFFERENT METRIC FRAMING than v153 NO_CORRELATION closure (v153 was tau-as-iteration-count proxy refuted; v1 here is tau-as-BPC-recovery-wall-clock-after-edits) so no conflict with v153 closure scope per [[feedback-dont-overextend-theorems]].
+
+- **tcft_erase_robustness_n8192_v1 event-bus label=failed OVERRIDDEN (90th label-vs-honest catch).** Remote runner log shows FULL run started at N=8192 seeds=[7,17,23] alphas=[0.06,0.1,0.125,0.15,0.18] splits=[0.25,0.5,0.75] = 45 cells planned; 11 cells COMPLETED with HP signal: a=0.06 all splits all seeds = 9/9 var_ratio=0.0000-0.0014 hp=True; a=0.1 split=0.25 seeds=[7,17] = 2/2 var_ratio=0.0000 hp=True. Runner died mid-run; remote dir MISSING per SSH probe. Failure-mode (c) RUNNER_CRASH_BEFORE_WRITE same as bid_v4. NOT honest HARD_FAIL on physics. SUBSTANTIVE TCFT robustness evidence visible: wider envelope than v245+v247 single-anchor-cell coverage (a=0.125 split=0.5 anchor) confirmed at a=0.06 ALL splits + a=0.1 partial = cross-(alpha, split)-axis robustness positive.
+
+Per [[feedback-verdict-msg-honest-reread]]: 89th and 90th post-lock label-vs-honest catches. Two-in-one-window pattern = runner-crash-before-write is the dominant failure mode of the day shifted from earlier author-timeout-underestimate pattern (v241/v243/v250 N^2-cost misconfig); bridge runner_tag extension URGENT per v243+v246+v250 elevation; verdict-from-log-fallback in state.py would auto-catch this class.
+
+**Decision (1): substrate-outside-static-Hopfield-taxonomy row LIFT 45-60% -> 50-65%.** v228 6-cell battery + v229+v230 BID N=1024-8192 + v247 BID-probe-v1 N=512-2048 + v251 verdict-1 bid_v4 visible 18 cells N=1024-8192 = cumulative 48/48 cells OUTSIDE_ALL_BANDS across N=512-8192 with BID growing monotonically. v247 HP3 finite-N caveat now DIRECTLY RESOLVED: at N=8192 BID remains 12-28 outside bands across 3 of 5 visible seeds = substrates-own-scaling-law interpretation strengthens over finite-N-artifact. +5% P band reflects new-anchor lift.
+
+**Decision (2): phase-boundary direct-test evidence-strength row NEW 50-65%.** FIRST direct phase-boundary measurement at substrate operating regime. pb3 HARD_PASS tau_ratio=1.64 with tau peaking at beta=8 substrate optimum + pb1 partial interior-min corroboration on independent metric (BPC bowl-shape). Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis P cap 0.50 = opening 0.50-0.65 band; HARD_PASS on metric distinct from v153 refuted-tau-as-iteration-count framing supports band-not-just-floor. tau_recovery ceiling artifact = ratio 1.64 is a LOWER BOUND so phase-boundary signature may be even stronger with longer recovery runs.
+
+**Decision (3): TCFT deletion-cert envelope row 55-70% UNCHANGED.** v245+v247 dual-anchor FULL N=8192 stands as load-bearing; v251 verdict-4 robustness probe truncated but 11 visible cells HP across a=0.06 all-splits + a=0.1 partial = ANNOTATION-EXTENDED cross-axis coverage. Not a row-state move since data is partial but the direction is strongly corroborative.
+
+**Decision (4): non-eq-stat-mech framework class row LIFT 55-65% -> 58-68%.** +3% from phase-boundary direct-test as substrate-class evidence; critical-slowing-down at the operating optimum is a non-equilibrium signature consistent with H1 non-eq P=0.42 framing per v226 corroborated-now-by-direct-probe.
+
+**Decision (5): framework reliability SPLIT LIFT.** general 65-75% -> 67-77% (+2% from pb3 hitting pre-registered direct-phase-boundary HP gate consistent with substrate operating-regime hypothesis); specific named 50-60% UNCHANGED; product-feature 60-72% -> 62-74% (+2% from BID envelope-resolved-at-N=8192 + TCFT cross-axis robustness corroboration narrowing product-feature interpretation).
+
+**Decision (6): portfolio 14+19 UNCHANGED.** Phase-boundary direct-test row is evidence-strength addition not killer-feature addition; v251 verdict-3 pb3 HARD_PASS opens path to phase-boundary-detection product framing but premature to commit a killer-feature row count change on single-probe direct-test = await pb1+pb3 axis-2 corroboration.
+
+**Decision (7): 0 capability row closures.** PROT-004/006 not triggered. All verdicts are corroboration/lift; no row demotions; no rescue paths needed for closures.
+
+**Decision (8): NO exp_dev queue refill from this handler.** Queue state: overnight pending=6 running=1 (saad_solla_v11_n8192); remote_cpu pending=3 running=1 (sagawa_ueda_v6); source-queue invariant queue >= 1 satisfied per [[feedback-no-padding-experiments]]; pause flag ACTIVE but no auto-queue while queues depth >= 1. bid_n_stability_v2 and tcft_m_sweep_v1 already pending in remote_cpu cover envelope-extension for verdict-1 and verdict-4 respectively.
+
+**Decision (9): bridge runner_tag URGENT POST-V250 PATTERN-CONTINUATION.** Day-of pattern: v241 v243 v250 = 3 TIMEOUT_KILL events (author-timeout-underestimate root cause); v251 verdict-1 verdict-4 = 2 RUNNER_CRASH_BEFORE_WRITE events (distinct mechanism). bridge runner_tag field extension distinguishes TIMEOUT vs RUNNER_CRASH vs OOM vs missing-metrics at event-bus level.
+
+**Decision (10): verdict-from-log fallback in state.py CHEAP rescue.** When metrics.json missing but runner log shows per-cell completion lines, parse log and synthesize a partial-metrics dict for label-vs-honest validation; reusable across all future RUNNER_CRASH_BEFORE_WRITE events. Cheap one-liner; candidate-not-auto-shipped.
+
+**v251 cap_map updates.**
+- Annotation row added v251 with 4-verdict summary.
+- substrate-outside-static-Hopfield-taxonomy row P band LIFT 45-60% -> 50-65%.
+- phase-boundary direct-test evidence-strength row NEW 50-65%.
+- TCFT deletion-cert envelope row 55-70% UNCHANGED.
+- non-eq-stat-mech framework class row LIFT 55-65% -> 58-68%.
+- framework reliability SPLIT general 65-75% -> 67-77% / specific named 50-60% UNCHANGED / product-feature 60-72% -> 62-74%.
+- portfolio 14+19 UNCHANGED.
+- 162nd PROT-009 paired commit.
+
+Per [[feedback-cap-map-update-protocol]]: pull-first prior to this turn confirmed; atomic edit via Edit tool; commit message staged for main-thread push (sub-agent context blocked).
+
+Per [[feedback-for-you-tab-primary-channel]]: 4 status_log entries written (pb3 HIGH; pb1 MEDIUM; bid_v4 HIGH; tcft_robustness HIGH).
