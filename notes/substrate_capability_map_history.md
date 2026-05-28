@@ -9440,3 +9440,25 @@ ANNOTATION-WITH-DOUBLE-LIFTS-1-RESCUE-DISCHARGED v256 → v257: (1) TCFT deletio
 171st PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
 BATCHED 4-VERDICT v259 → v260: AXIS-2 LIFT 🔬→🟡 + TCFT +2% replication + KF-2 ACTIVATION (portfolio 14+24) + MoE entropy-source REJECTED (SHIFT path partial-unblock) + 2 label-vs-honest catches + framework reliability product-feature 78-90% → 80-92% + 3 exp_dev routings filed + 0 closures; 171st PROT-009 paired commit.
+
+
+## v260 → v261 -- 2026-05-28 02:30 SINGLE-VERDICT INFRASTRUCTURE (saad_solla_v13_n4096_5seed TIMEOUT 2nd-consecutive cheap-sketch-fail; ANNOTATION-ONLY Saad-Solla LEADING ✅ row; 104th LABEL-VS-HONEST CATCH new sub-flavor DISPATCH-CONTEXT-vs-QUEUE.JSON timeout-budget-mismatch)
+
+**Trigger.** Single GPU verdict 02:19:14. Dispatch context claimed `timeout=14400s`; queue.json forensics show actual `timeout_s=3600` → wall_s=3600.02 exact = TIMEOUT KILL.
+
+**Net effect:**
+- 0 capability-row CLOSURES
+- 0 capability LIFTS
+- 1 ANNOTATION-ONLY (Saad-Solla LEADING ✅ — 3rd consecutive saad_solla 5-seed FULL infra failure)
+- 1 LABEL-VS-HONEST CATCH (104th, NEW SUB-FLAVOR: `DISPATCH_CONTEXT_VS_QUEUE_JSON_TIMEOUT_BUDGET_MISMATCH` — verdict_handler Step 0 must now cross-check `timeout_s` in queue.json against dispatch-context timeout claim, not just N/seeds)
+- 1 INFRASTRUCTURE-FAILURE correctly diagnosed via queue.json wall_s + timeout_s + remote-metrics-absence + local-metrics-stale-smoke four-way triangulation
+- Portfolio 14 + 24 UNCHANGED
+- Framework reliability UNCHANGED (general 73-83% / specific 55-67% / product-feature 80-92%)
+- 1 exp_dev routing filed: `strategy_request_to_exp_dev_v261_saad_solla_v14_extended_timeout_2026-05-28.md` (sketches (b)/(c)/(d) extended-timeout reship; recommend (c) N=8192 3-seed timeout_s=12600 safer-margin)
+- Queue-refill: GPU queue depleted (overnight_queue pending=0); exp_dev refill triggered per [[feedback-pipeline-pacing]]
+
+**106 → 107 HONEST observations**; **103 → 104 LABEL-VS-HONEST catches** (104th: DISPATCH-CONTEXT-vs-QUEUE.JSON timeout-budget-mismatch new sub-flavor — exp_dev shipped v259 sketch (b) cheapest-N at timeout_s=3600 but dispatch context claimed v259 sketch (c) extended-timeout at timeout_s=14400; orchestrator dispatch_text drifted from actual queue.json by the time verdict landed).
+
+172nd PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+SINGLE-VERDICT v260 → v261: saad_solla_v13_n4096_5seed TIMEOUT INFRASTRUCTURE; Saad-Solla ✅ LEADING row UNCHANGED; portfolio 14+24 UNCHANGED; 104th label-vs-honest catch new sub-flavor; 1 exp_dev routing filed; 172nd PROT-009 paired commit.

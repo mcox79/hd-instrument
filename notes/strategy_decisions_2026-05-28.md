@@ -219,3 +219,90 @@ For Verdict 4 (MoE entropy-source model REJECTED):
 **Per [[feedback-cap-map-update-protocol]]:** atomic commit of cap_map.md (v259 → v260 batched line + history append) + strategy_decisions_2026-05-28.md (this entry) + visibility_decisions_2026-05-28.md (one-line) + 3 strategy_request routing files. Commit message: `Cap map: v259 -> v260 (BATCHED 4-VERDICT: axis2 MIDDLE_BAND -> AXIS-2 row 🔬->🟡 antipodal-only-outlier; tcft_m_sweep_v2 HARD_PASS REPLICATION not 5-seed LIFT +2%; kf2_isolation_proof_v1 FIRST-HARD_PASS REFRAME -> KF-2 ACTIVATED portfolio 14+23->14+24; moe_gradient_router_v1 PRE-REG-FIRES retention-clears entropy-source-model REJECTED MoE-SHIFT path partial-unblock; 2 LABEL-VS-HONEST 103rd+102nd; framework reliability product-feature 78-90% -> 80-92%; 3 exp_dev rescue routings filed; 171st PROT-009 paired commit)`.
 
 Net effect v260: 1 LIFT (AXIS-2 🔬→🟡 35-50%) + 1 ENVELOPE LIFT (TCFT +2%) + 1 KF ACTIVATION (KF-2 portfolio +1) + 1 REINTERPRETATION (MoE entropy-source rejected; SHIFT path partial-unblock) + 2 LABEL-VS-HONEST CATCHES (tcft_v2 dispatch-framing + moe_gradient_router pre-reg-proxy-vs-honest) + 4 HONEST observations + 3 exp_dev routings filed + portfolio 14+23 → 14+24 + framework reliability product-feature +2%; 171st PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+
+## v260 -> v261 SINGLE-VERDICT @ 02:19 (saad_solla_v13_n4096_5seed FAILED — TIMEOUT 3600s ≡ timeout_s 2nd-consecutive infrastructure timeout; sketch (b) cheapest-N substitute FAILED to escape budget; ANNOTATION-ONLY Saad-Solla LEADING ✅ row; NO portfolio/reliability move; sketch (c) extended-timeout reship filed)
+
+**Trigger.** saad_solla_v13_n4096_5seed verdict event landed 02:19:14 (event_outcome: verdict=failed, queue=overnight_queue). Dispatch context CLAIMED `timeout=14400s and N=4096`. Per [[feedback-verdict-msg-honest-reread]] + [[feedback-trust-queue.json-wall_s]] Step 0 honest re-read forensics via remote queue.json:
+
+**Evidence (definitive from C:\dev\hd-instrument\data\overnight_queue\queue.json on marsh@home):**
+- `name: saad_solla_v13_n4096_5seed`
+- `timeout_s: 3600` (NOT 14400 as dispatch context claimed — DISPATCH-CONTEXT-VS-REALITY mismatch)
+- `wall_s: 3600.0196925999917` (EXACT match to timeout_s → TIMEOUT KILL)
+- `error: "timeout"`
+- `started_at: 2026-05-28T01:19:13` / `ended_at: 2026-05-28T02:19:14` → 60-minute wall
+- `script: experiments/exp_saad_solla_v13_n4096_5seed.py`
+- Remote `data/exp_saad_solla_v13_n4096_5seed/metrics.json` DOES NOT EXIST (SSH-probe `type` returns "The system cannot find the file specified." — runner killed before write)
+- Local metrics.json at d:/AI/hd-instrument/data/exp_saad_solla_v13_n4096_5seed/metrics.json is STALE PRE-SHIP SMOKE (`_source=local`, N=512, smoke=True, seed=17) — would have triggered false honest-fail-on-N=512-smoke if used; remote-first ceiling-fix did its job
+
+### Step 0 honest re-read — DISPATCH-CONTEXT label vs queue.json reality (104th label-vs-honest catch, new sub-flavor):
+
+- **Dispatch-context label:** "v13 used timeout=14400s and N=4096 per the v259 rescue"
+- **Honest reading from queue.json:** v13 used `timeout_s=3600` (NOT 14400). Exp_dev shipped sketch (b) [N=4096 5seed with ~1800s estimated wall] but with timeout_s=3600 budget rather than 1800; v259 sketch (b) anticipated ~1875s wall in 1800s budget, but actual wall hit 3600 exactly → 2x over original estimate at N=4096 5-seed (per-cell wall NOT ~125s/cell as 1875/15 implied; closer to ~240s/cell × 15 cells = 3600s).
+- **Cells contradicting:** 0 production cells visible (no metrics.json) — the contradiction is at the timeout-budget-assumption level, not the verdict_msg-level. Dispatch context claimed v13 was the extended-timeout sketch (c) variant when it was actually the cheapest-N sketch (b) variant. 104th label-vs-honest catch this is a NEW SUB-FLAVOR: **DISPATCH-CONTEXT-vs-QUEUE.JSON-MISMATCH** (orchestrator dispatch_text claimed budget the runner did not have).
+
+This is the same family as the 78+ N-mismatch false-fires of 2026-05-27 (root cause: dispatch context drifts from actual queue.json by the time verdict lands). Lock: verdict_handler Step 0 forensics now MUST cross-check `timeout_s` value in queue.json against dispatch-context timeout claim, not just N/seeds.
+
+**Honest reading authoritative:** Saad-Solla v13 n4096 5seed envelope-extension probe HIT TIMEOUT BUDGET. The TIMEOUT is again an INSTRUMENTATION error — this time at the rescue-sketch-selection level: exp_dev chose sketch (b) [cheapest N=4096 with ~1875s estimate] but underestimated wall by ~2x. NOT a substrate signal.
+
+### Pattern detection: 3 consecutive saad_solla 5-seed FULL infrastructure failures
+
+- v9 → v10 → v11 (2-seed completed @ wall=3223s, timeout_s=4500) — v252 LEADING ✅ evidence
+- v12 5-seed @ N=8192 timeout_s=1800 → TIMEOUT (wall=1800.0)
+- v13 5-seed @ N=4096 timeout_s=3600 → TIMEOUT (wall=3600.0)
+
+Per-cell wall estimate was systematically under-estimated. Sketch (b) selection was the cheap-path bet; it failed. Time to ship sketch (c) at the full timeout_s=14400 ceiling per [[feedback-per-experiment-timeout-required]].
+
+**Decision (1): Cap_map state — ANNOTATION-ONLY on Saad-Solla LEADING ✅ row. NO portfolio/reliability move.**
+
+- Saad-Solla LEADING ✅ row v252 2-seed N=8192 FULL HARD_PASS evidence STANDS UNCHANGED.
+- Portfolio count: 14 + 24 UNCHANGED (per v260 KF-2 activation).
+- Framework-reliability product-feature 80-92% UNCHANGED.
+- Framework-reliability specific-named 52-62% UNCHANGED.
+- Framework-reliability general 73-83% UNCHANGED.
+- All other rows UNCHANGED.
+
+This is the THIRD consecutive INFRA-only verdict at the Saad-Solla 5-seed envelope-extension probe (v12 → v13 → pending v14). Per [[feedback-no-padding-experiments]] each reship must be justified by open scope-spanning need; v252 2-seed N=8192 FULL HARD_PASS already constitutes LARGE-N substrate-product closure. The defense-in-depth 5-seed evidence is **not load-bearing for cap_map state** — it would be a +1-2% LIFT IF it lands, but the row stands at LEADING ✅ without it.
+
+**Decision (2): Rescue sketches cheapest-first (sub-objective rescue chain, NOT row-closure rescues per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]):**
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** — re-affirm v252 2-seed HARD_PASS already constitutes Saad-Solla LARGE-N closure for substrate-product purposes; 5-seed envelope-extension is defense-in-depth not load-bearing; if next reship also fails OR queue is congested, PARK the 5-seed envelope-extension entirely and treat v252 2-seed as the closing evidence. Applied; 0-cost.
+
+(b) **CHEAPEST CORRECTION ~5min exp_dev** — Ship sketch (c) from v259 routing: `saad_solla_v14_n8192_5seed_extended_timeout` with `--timeout 14400` flag (4hr GPU ceiling per [[feedback-per-experiment-timeout-required]] cap). Estimated wall per v259 formula: `1.5 * smoke_wall_s * (FULL_N/smoke_N)^exp * (FULL_seeds/smoke_seeds)` = 1.5 × 500s × 1 × (5/2) ≈ 3750s/cell × 3 f-cells ≈ 11250s → 14400s = 28% headroom. This is the v259 "MOST-FAITHFUL" option that exp_dev did not pick.
+
+(c) **MEDIUM ~10min** — Drop seed count to 3 = {7, 17, 23}; 3 seeds × 3 f = 9 cells × 240s (calibrated from v13 wall) ≈ 2160s; timeout_s=4500 (matches v11 successful budget). Anchor: `saad_solla_v14_n8192_3seed`. Produces 3-seed evidence at N=8192 (envelope-extends v252's 2-seed by +1 seed at correct N).
+
+(d) **MEDIUM ~15min** — Split into 5 separate single-seed N=8192 jobs each timeout_s=2500; aggregate offline. Highest robustness but most queue traffic.
+
+(e) **LAST RESORT** — PARK the 5-seed envelope-extension entirely after sketch (b) attempt; v252 2-seed evidence becomes the load-bearing N=8192 evidence for the row. Per [[feedback-no-padding-experiments]] — no further reships if (b) also fails.
+
+**Decision (3): exp_dev routing file — ONE filed.**
+
+- `notes/strategy_request_to_exp_dev_v261_saad_solla_v14_extended_timeout_2026-05-28.md` — sketch (b)/(c)/(d); RECOMMEND (b) extended-timeout N=8192 per v259 sketch (c) framing; explicit `--timeout 14400` flag mandatory per [[feedback-per-experiment-timeout-required]]; smoke gate N=1024 5-seed first.
+
+**Decision (4): Queue-refill (Step 2 pipeline-pacing).**
+
+- Pause flag: ABSENT (ACTIVE per Bash test at task start).
+- overnight_queue pending+running = 0 (drained — v260 batch entries all completed before this verdict's handling).
+- remote_cpu_queue pending+running = 5 (healthy: bid_n_stability_v3_n16384 running + 4 pending).
+- Per [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]]: GPU queue depth 0 IS the loudest refill signal. Refill GPU queue via exp_dev skill dispatch.
+- Candidate pool (NOT pre-designed per [[feedback-no-experiment-design-in-prompts]]): saad_solla_v14 extended-timeout (this verdict's rescue (b)) + v259 pb3_v3_genfix (still open) + v260 axis2 antipodal-rescue (still open) + v260 moe_fixed_total_capacity (still open) + v260 kf2_n8192_envelope_extension (still open) + v257 (c) tcft_m_sweep_v2_5seed_proper (still open per v260 LABEL-VS-HONEST CATCH).
+- Exp_dev picks 1-2 best-fit based on GPU queue priority + dependencies; emits `_n<N>` anchors per PROT-018; ships via queue_add.sh.
+
+### PROT compliance (v261)
+
+- PROT-004/006: 0 capability-row CLOSURES; Saad-Solla ✅ row STANDS at LEADING; rescue sketches filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]] but at SUB-OBJECTIVE level not row-level closure.
+- PROT-007: history.md UPDATED (entry for v260 → v261 single-verdict line).
+- PROT-008: No demotions; annotation-only on 1 row.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md + history.md + 1 routing file staged atomically (single commit, 5 files); 172nd PROT-009 paired commit.
+- PROT-018: anchor `saad_solla_v14_n8192_5seed_extended_timeout` SATISFIES `_n<N>` suffix at queue_add gate; v13 anchor `saad_solla_v13_n4096_5seed` SATISFIED PROT-018 (N=4096 in name matched runtime); failure was NOT at the PROT-018 layer.
+- [[feedback-verdict-msg-honest-reread]]: 106 → 107 observations (+1); LABEL-VS-HONEST 103 → 104 (+1 this verdict: DISPATCH-CONTEXT-vs-QUEUE.JSON timeout-budget-mismatch new sub-flavor).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-trust-queue.json-wall_s]]: queue.json wall_s + timeout_s + error fields DISPOSITIVE for failure-mode disambiguation (wall=3600.02 ≡ timeout_s=3600 → TIMEOUT confirmed; remote metrics.json MISSING confirms no production metrics produced; local metrics.json STALE SMOKE confirmed via `_source=local` + smoke=True + N=512 — three-way cross-check successful).
+- [[feedback-dispatch-context-trust]]: dispatch context claimed `timeout=14400s` — VERIFIED FALSE against queue.json `timeout_s=3600`; dispatch context inaccurate on rescue-sketch-selection-which-was-actually-shipped; honest reading authoritative.
+- [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]]: GPU queue depleted; refill triggered.
+- [[feedback-no-experiment-design-in-prompts]]: routing file specifies TASK + WHY + CONTRACT + AUTONOMY only; does NOT pre-specify N values / sweep grids / HF thresholds — refers exp_dev to v259 sketch (c) framing.
+
+**Per [[feedback-cap-map-update-protocol]]:** atomic commit of cap_map.md (v260 → v261 single-verdict line + history append) + strategy_decisions_2026-05-28.md (this entry) + visibility_decisions_2026-05-28.md (one-line) + 1 strategy_request routing file. Commit message: `Cap map: v260 -> v261 (SINGLE-VERDICT INFRASTRUCTURE: saad_solla_v13_n4096_5seed TIMEOUT 3600s 2nd-consecutive cheap-sketch-fail; ANNOTATION-ONLY Saad-Solla LEADING ✅ row; portfolio 14+24 UNCHANGED; reliability bands UNCHANGED; sketch-(b) extended-timeout v14 reship routing filed; 104th LABEL-VS-HONEST CATCH new sub-flavor DISPATCH-CONTEXT-vs-QUEUE.JSON timeout-budget-mismatch; 172nd PROT-009 paired commit)`.
+
+Net effect v261: 0 CLOSURES + 0 LIFTS + 1 ANNOTATION-ONLY + 1 LABEL-VS-HONEST CATCH (104th, NEW SUB-FLAVOR dispatch-context-vs-queue.json timeout-budget-mismatch) + 1 INFRASTRUCTURE-FAILURE correctly diagnosed via queue.json wall_s + timeout_s + remote-metrics-absent triangulation; portfolio + reliability UNCHANGED; 1 exp_dev routing filed; queue-refill triggered (GPU depleted); verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
