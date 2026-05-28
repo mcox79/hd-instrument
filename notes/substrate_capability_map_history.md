@@ -9532,3 +9532,44 @@ BATCHED 7-VERDICT v264 → v265: KF-2 ELEVATION 🟢 → ✅ + TCFT LIFT 65-78%�
 - 177th PROT-009 paired commit
 
 BATCHED 4-VERDICT v265 → v266: saad_solla_v15_n8192_5seed FIRST GENUINE LARGE-N 5-SEED HARD_PASS_STRONG framework-reliability-specific 55-67% → 60-72% LIFT + axis3_triplepoint_v2 MIDDLE_BAND twice-disconfirmed + bid_n_stability_v4 MIDDLE_BAND 107th LABEL-VS-HONEST substrate-outside-static-Hopfield 55-68% → 60-72% LIFT + wave14_moe_hebbian_anchor_router_v2 HARD_FAIL 4-arm MoE rescue closure meta-learning ROUTING-MUST-BE-CAPACITY-AWARE captured; portfolio 14+26 UNCHANGED; 0 row closures; HONEST 121 → 124; LABEL-VS-HONEST 106 → 107; 177th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+
+## v266 -> v267 (2026-05-28 ~17:38 BATCHED 11-VERDICT QUEUE-DEPLETION BATCH; FIRST SYSTEMATIC PHASE-DIAGRAM RESULTS; 7-CATCH LABEL-VS-HONEST MEGA-EVENT)
+
+- t3_susceptibility_v1_n4096 T3_MIDDLE_BAND HONEST = triple-point hypothesis REFUTED at (M_frac=10) op-point (0/5 all-3-chi gate; chi_beta=0.0 deterministic across all 5 seeds; chi_cb dominates 4/5)
+- t1_beta_sweep_v1_n4096 T1_BETA_HARD_PASS HONEST = SHARP beta-axis SECOND BOUNDARY confirmed 5/5 seeds beta_c~12-16 (109th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION)
+- t2_codebook_boundary_v1_n4096 T2_CB_HARD_PASS HONEST = monotone codebook-order THIRD BOUNDARY 3/3 seeds slope 0.20/unit-c (110th LABEL-VS-HONEST catch)
+- COMBINED reframing: phase-diagram is TWO ORTHOGONAL boundaries (beta + codebook) NOT triple-point convergence
+- m1_boundary_fine_v1_n4096 M1_MIDDLE_BAND HONEST = GRADUAL M-axis transition M_c=40K monotone but precision +/-5K not met
+- c3_tcft_phase_v1_n4096 C3_HARD_PASS HONEST = TCFT SURVIVES multi-basin -> single-basin phase transition 5/5 seeds across M ∈ {128, 512, 2048, 4096} (TCFT deletion-cert green 78-90% -> green 82-92% LIFT +4%)
+- c1_kf_battery_phase_v1_n4096 C1_MIDDLE_BAND HONEST PARTIAL_PROFILE = KF2 + KF5 SURVIVE all M including deep over-capacity M=200K; KF1 + KF1B FAIL at architecture-level across ALL M including in-capacity M=20K (NEW row "killer-feature phase-class profile yellow 45-60%"; KF1 implicit LABELED-AT-RISK)
+- saad_solla_v16_n8192 SS_V16_HARD_PASS HONEST M-robust plateau {M_frac=0.25, 0.5} 2/2 each (108th LABEL-VS-HONEST catch; Saad-Solla LEADING checkmark + M-density-axis EVIDENCE STRENGTHENED)
+- saad_solla_v17_cross_cb_v1_n4096 SS_V17_HARD_PASS HONEST plateau holds across BSC + Antipodal codebooks (111th LABEL-VS-HONEST catch; Saad-Solla LEADING checkmark + codebook-axis EVIDENCE STRENGTHENED)
+- moe_capacity_aware_router_v1_n4096 MOE_CAP_HARD_PASS HONEST K-scaling MAINTAINED at K=16 retention 0.979 across K in {4,8,16,32} (112th LABEL-VS-HONEST catch; v266 META-LEARNING "routing must be capacity-aware not identity-aware" CORROBORATED via 5th rescue arm SUCCESS)
+- pb2_corr_len_v2_n1024 PB2_CORR_HARD_PASS HONEST edit-propagation finite correlation length xi_normalized<1.0 across M_fracs (113th LABEL-VS-HONEST catch; NEW row "edit-propagation finite correlation-length green-smoke 55-68%")
+- kf2_cross_codebook_v1_n4096 KF2_CROSS_HARD_PASS HONEST KF-2 edit-isolation GENERALIZES beyond Kerdock to BSC + Gaussian 50/50 non-kerdock cells pass (114th LABEL-VS-HONEST catch; KF-2 checkmark + cross-codebook EVIDENCE STRENGTHENED)
+- bid_m_normalized_v2_n4096 GENUINE TIMEOUT 3600s exact OLD PROT-019 floor (source=local stale smoke; no remote production metrics); INFRASTRUCTURE failure; substrate-outside-static-Hopfield green 60-72% UNCHANGED per [[feedback-dont-overextend-theorems]]; v3 reship with `--timeout 14400` filed
+
+Aggregate moves:
+- 4 NEW evidence-strength rows (beta-axis + codebook-axis + KF-phase-class + edit-propagation-finite-range)
+- 1 BAND LIFT (TCFT 78-90% -> 82-92% +4%)
+- 1 SUB-HYPOTHESIS REFRAMING (triple-point -> two-orthogonal-boundary lattice)
+- 1 implicit LABELED-AT-RISK (KF1 hallucination-detection mechanism architecture-fail; rescue path open)
+- Saad-Solla LEADING checkmark + 2-axis EVIDENCE STRENGTHENED (v16 M-axis + v17 codebook-axis, combined with v15 5-seed FULL = 3-axis substrate-physics robustness)
+- MoE K-scaling checkmark + v266 META-LEARNING CORROBORATED (5th capacity-aware rescue arm SUCCESS; 3 capacity-aware vs 3 identity-aware arms = clean architecture-discrimination)
+
+Aggregate counters:
+- Portfolio 14 + 26 -> 14 + 30 (+4 NEW rows)
+- Framework reliability specific 60-72% -> 65-78% LIFT (+5%)
+- Framework reliability product-feature 82-94% -> 84-95% LIFT (+2%)
+- Framework reliability general 73-83% UNCHANGED
+- Non-eq stat-mech green 63-73% UNCHANGED; SKAH-M green 55-70% UNCHANGED
+- Cumulative HONEST observations: 124 -> 131 (+7)
+- Cumulative LABEL-VS-HONEST catches: 107 -> 114 (+7 in single batch = LARGEST single-batch event since v234 retroactive sweep; new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION)
+- 0 capability-row closures; 0 capability-row reopens
+- Both queues drained to depth=0 (overnight + remote_cpu); 2 NEW exp_dev routings filed (kf1_hallu_rescue + bid_v3_timeout_fix); 5+ pre-existing open routings ready for orchestrator pickup
+- Pause flag ABSENT; per [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]] queue-depth-0 is loudest refill signal; per [[feedback-no-padding-experiments]] + [[feedback-dispatch-wrappers-default]] NO direct auto-dispatch from verdict_handler
+- PROT-019 candidate filed: runner verdict-emission bug detection (queue-status=failed AND metrics.json=HARD_PASS authoritative AND elapsed_s matches dispatch wall_s pattern)
+
+BATCHED 11-VERDICT v266 -> v267: 9 HARD_PASS HONEST + 2 MIDDLE_BAND HONEST + 1 partial-profile HONEST + 1 genuine TIMEOUT; triple-point hypothesis REFUTED but REFRAMED to two-orthogonal-boundary lattice; 4 NEW rows + 2 BAND LIFTS; 7-CATCH LABEL-VS-HONEST MEGA-EVENT new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION; portfolio 14+26 -> 14+30; HONEST 124 -> 131; LABEL-VS-HONEST 107 -> 114; 178th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+

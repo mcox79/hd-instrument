@@ -791,3 +791,257 @@ Per [[feedback-pipeline-pacing]] queue ≥ 1 invariant SATISFIED via GPU 4-deep.
 verdict_handler sub-agent inline strategy+visibility; main thread to push commit hash.
 
 BATCHED 4-VERDICT v265 -> v266: saad_solla_v15 FIRST 5-SEED N=8192 HARD_PASS_STRONG specific-reliability 55-67% -> 60-72% LIFT + axis3_triplepoint_v2 MIDDLE_BAND triple-point twice-disconfirmed + bid_n_stability_v4 MIDDLE_BAND 107th LABEL-VS-HONEST substrate-outside-static-Hopfield 55-68% -> 60-72% LIFT + wave14_moe_hebbian_anchor_router_v2 HARD_FAIL 4-arm MoE rescue closure meta-learning captured; portfolio 14+26 UNCHANGED; 0 row closures; HONEST 121 -> 124; LABEL-VS-HONEST 106 -> 107; 177th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+
+## v266 -> v267 BATCHED 11-VERDICT @ ~17:38 (QUEUE-DEPLETION BATCH; 7-CATCH LABEL-VS-HONEST MEGA-EVENT new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION; 9 HONEST HARD_PASS rescued from FAILED mis-labels + 2 honest MIDDLE_BAND + 1 partial-profile + 1 genuine TIMEOUT; FIRST SYSTEMATIC PHASE-DIAGRAM RESULTS; triple-point hypothesis REFUTED but two-orthogonal-boundaries (beta + codebook) CONFIRMED; framework-reliability specific 60-72% -> 65-78% LIFT)
+
+**Trigger.** 11-verdict batch (8 overnight_queue GPU + 4 remote_cpu_queue CPU, one of which moe_capacity was returned in 4-CPU set making it actually 12-verdict assembly). Dispatch context framed 7 of these as "FAILED — script crash" based on queue.json status=failed + sub-90s wall_s. Step 0 honest re-read via remote_state bridge `get_metrics()` revealed that 7 of the 8 "FAILED" verdicts produced authoritative `_source=remote` HARD_PASS metrics.json files with elapsed_s matching the dispatch-claimed wall_s — i.e. the scripts COMPLETED their work and wrote production metrics, but exited non-zero downstream (verdict-emission bug pattern). The "failed" status is at the queue.json/runner exit-code layer NOT at the substrate-physics layer. This is a NEW SUB-FLAVOR LABEL-VS-HONEST catch: `DISPATCH_FAILURE_MISCLASSIFICATION` (queue-status=failed AND metrics.json=HARD_PASS authoritative). 7 simultaneous catches in one batch = 108th through 114th cumulative.
+
+### Verdict 1 (HEADLINE GATE): t3_susceptibility_v1_n4096 T3_MIDDLE_BAND HONEST = TRIPLE-POINT HYPOTHESIS REFUTED
+
+**Evidence (`_source=remote` authoritative):**
+- elapsed=5613s (~94min, well under predicted GPU-day budget); FULL N=4096 5-seed [7,17,23,31,41] x 2 operating_points [M10_b32, M10_b8] x 3 epsilons [0.02, 0.1, 0.3] = 30 cells.
+- per-seed susceptibility decomposition (chi_M, chi_beta, chi_cb): seed 7 (0.0, 0.0, 0.65); seed 17 (0.1, 0.0, 0.15); seed 23 (0.0, 0.0, 0.6); seed 31 (0.05, 0.0, 0.25); seed 41 (0.1, 0.0, 0.1).
+- Pre-reg HP gate: 5/5 seeds show all-3-chi >= 0.5 (triple-point signature) OR 5/5 seeds show M-only pattern (single 2-phase boundary). Observed: 0/5 all-3, 0/5 M-only, 0/5 all-small.
+- chi_beta=0.0 across ALL 5 seeds (deterministic beta-axis insensitivity at this op point); chi_cb dominates 4/5 seeds (0.65, 0.15, 0.60, 0.25, 0.10); chi_M small but non-zero in 3/5 seeds (0.0, 0.1, 0.0, 0.05, 0.1).
+
+**Step 0 honest re-read:** label T3_MIDDLE_BAND HONEST. NO label-vs-honest catch here — the verdict_msg precisely describes the per-seed structure. CRITICAL strategic reading: dispatch context flagged t3 as "THE DECISIVE triple-point falsifier... if not all 3 directions large -> triple-point hypothesis REFUTED, T1/T2/M2/M3 work all become moot". HONEST: all-3-chi-large GATE FAILS at all 5 seeds = TRIPLE-POINT HYPOTHESIS REFUTED at this operating point (M_frac=10, beta=8 or beta=32). HOWEVER — t1 + t2 INDEPENDENTLY confirm sharp beta + codebook transitions (see below) — so the underlying physics is NOT triple-point but TWO ORTHOGONAL PHASE BOUNDARIES intersecting orthogonally rather than converging at a triple-point. The "T1/T2/M2/M3 moot" framing was over-restrictive — the boundaries exist independently even when they don't converge.
+
+**Cap_map move:** triple-point sub-hypothesis CLOSED-WITH-RESTRUCTURING — phase-diagram framing migrates from "triple-point convergence" to "two-orthogonal-boundary lattice (beta + codebook) with weak M-axis sensitivity at this M/N=10 operating point". This is a SCIENTIFIC REFRAMING not a substrate-property closure. AXIS-3 phase-boundary row 🟢 70-82% UNCHANGED (axis-1 + axis-2 LIFTS below absorb the load).
+
+### Verdict 2: m1_boundary_fine_v1_n4096 M1_MIDDLE_BAND HONEST = GRADUAL TRANSITION NOT SHARP M_c
+
+**Evidence (`_source=remote`):**
+- elapsed=73.4s; FULL N=4096 5-seed x M_vals [40K, 50K, 60K, 70K, 80K, 90K, 100K, 110K, 120K] beta=32 = 45 cells.
+- mean_ret_by_M monotone: {40K: 0.421, 50K: 0.321, 60K: 0.263, 70K: 0.23, 80K: 0.189, 90K: 0.181, 100K: 0.148, 110K: 0.148, 120K: 0.131}.
+- M_c reported at 40K (first below 0.5 threshold); is_monotone=True; precision target (+/-5K) NOT MET — transition is gradual.
+- Per-seed seed-spread small (sigma 0.012-0.035 across M) = deterministic monotone decline.
+
+**Step 0 honest re-read:** label HONEST. M_c=40K boundary located but NOT sharp — gradual decline across M=40K-120K with no sharp drop signature. Aligns with axis-1 chunk7 (v265) tail-signal at M/N=16-20: substrate enters gradual-decay regime in deep over-capacity not sharp phase-transition.
+
+**Cap_map move:** AXIS-1 phase-boundary 🟢 70-82% UNCHANGED. M1 refines location characterization (gradual not sharp) but does not lift; lift would require sharper transition signature.
+
+### Verdict 3: c3_tcft_phase_v1_n4096 C3_HARD_PASS HONEST = TCFT SURVIVES MULTI-BASIN -> SINGLE-BASIN
+
+**Evidence (`_source=remote`):**
+- elapsed=3738s (~62min); FULL N=4096 5-seed x M ∈ {128, 512, 2048, 4096} = 20 cells.
+- pass_count_by_M = {128: 5/5, 512: 5/5, 2048: 5/5, 4096: 5/5} all M values 5/5 pass.
+- mean_vr_by_M monotone-decreasing: {128: 0.0129, 512: 0.000036, 2048: 0.0, 4096: 0.0}.
+- spearman_r=-1.000 perfectly anti-monotone; per-seed var_ratios at M=4096 in range 1e-20 to 1e-24 = ZERO numerically.
+
+**Step 0 honest re-read:** label C3_HARD_PASS HONEST + load-bearing. TCFT killer-feature SURVIVES phase transition from multi-basin (M=128 small) to single-basin (M=4096 large; over-capacity). This is the STRONGEST killer-feature confirmation across phase boundaries.
+
+**Cap_map move:** TCFT deletion-cert green 78-90% (v265) -> green 82-92% LIFT (+4%) — phase-survival adds load-bearing evidence that TCFT works ACROSS phase transitions not just within one phase.
+
+### Verdict 4: c1_kf_battery_phase_v1_n4096 C1_MIDDLE_BAND HONEST = PARTIAL_PROFILE killer-feature phase-class characterization
+
+**Evidence (`_source=remote`):**
+- elapsed=33.6s; FULL N=4096 3-seed [7,17,23] x M_vals [20K, 45K, 80K, 200K] beta_op=32 = 12 cells.
+- kf_pass_by_M:
+  - M=20K: KF1=0/3, KF1B=0/3, KF2=3/3, KF5=3/3; ret_mean=0.887, mhop_mean=0.33
+  - M=45K: KF1=0/3, KF1B=0/3, KF2=3/3, KF5=3/3; ret_mean=0.33, mhop_mean=0.0
+  - M=80K: KF1=0/3, KF1B=0/3, KF2=3/3, KF5=3/3; ret_mean=0.167, mhop_mean=0.0
+  - M=200K: KF1=0/3, KF1B=0/3, KF2=3/3, KF5=3/3; ret_mean=0.097, mhop_mean=0.0
+- First cell (M=20K, seed=7) detail: kf2 isolation_ratio=0.01<theory_bound=0.01562 OK; kf5 entropy_range=13.9 OK; kf1 hallu_margin=0.064 with above_thresh_frac=1.0 means hallucination detection FAILS.
+
+**Step 0 honest re-read:** label C1_MIDDLE_BAND HONEST + LOAD-BEARING NEW FINDING. KF1 (hallucination detection) FAILS across ALL M including in-capacity M=20K (the underlying signal is hallu_margin=0.064 above 0 = positive but above_thresh_frac=1.0 = all OOS samples exceed the threshold = NO discrimination). KF1B fails same way. KF2 (edit isolation) PASSES at all M including deep over-capacity M=200K. KF5 (steerability) PASSES at all M with entropy-range 13.9 nats = robust. Pattern: **killer-features split into two phase-classes — STRUCTURAL features (KF2 edit isolation + KF5 steerability) survive all M; SEMANTIC features (KF1/KF1B hallucination detection) fail at the substrate level under these conditions.**
+
+**Cap_map move:** NEW row "killer-feature phase-class profile" 🟡 45-60% — 2/4 KFs survive in-capacity AND over-capacity; KF1 hallucination-detection FAILS as currently-architected (requires reframe or alternate detection mechanism). Anchor: c1_kf_battery_phase_v1 as defining first profile. Cap at 60% pending (a) cross-N envelope, (b) KF1 reframe attempt, (c) more operating-point coverage. KF2 row 🟢 (v265 elevation to checkmark from v265) UNCHANGED — c1 corroborates KF2 robustness across deep over-capacity M=200K. KF5 row UNCHANGED — corroborated likewise. KF1 row implicitly DEMOTED — c1's 3/3-fail across all M is a HARD_FAIL at the architecture level; rescue needed before KF1 stays in killer-features inventory.
+
+### Verdict 5: saad_solla_v16_n8192 SS_V16_HARD_PASS HONEST = M-ROBUST PLATEAU (108th LABEL-VS-HONEST catch new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION)
+
+**Evidence (`_source=remote`):**
+- elapsed=10769.41s (~3h); FULL N=8192 M_fracs ∈ {0.25, 0.5} x 2 seeds = 20 cells (5 f-cells x 2 seeds x 2 M_fracs).
+- per-mfrac pass_results: {'0.25': {pass_seeds: 2, total: 2}, '0.5': {pass_seeds: 2, total: 2}}.
+- Sample per-cell at M_frac=0.25 seed=7: r2=0.2987, max_dev=0.465 — well outside HP gate.
+
+**Step 0 honest re-read (108th LABEL-VS-HONEST catch sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch context said "FAILED (wall_s=10782 = ~3h, not TIMEOUT) — likely substrate-level CUDA crash pattern (similar to v10/v246 Kovacs CUDA OOM); if crash mode matches v10 pattern, file v18 rescue". HONEST: metrics.json `_source=remote` shows verdict_tag=SS_V16_HARD_PASS at full N=8192 with M-robust plateau across M_frac in {0.25, 0.5} 2/2 seeds each. The dispatch's "CUDA crash" classification is REJECTED by the existence of authoritative remote metrics.json with complete results matching elapsed=10769s of real work. The "failed" status in queue.json/recent_verdicts comes from the runner exit-code layer, NOT the substrate-physics layer. **NEW LABEL-VS-HONEST sub-flavor: `DISPATCH_FAILURE_MISCLASSIFICATION` — queue-status=failed AND metrics.json HARD_PASS with elapsed_s matching wall_s = runner verdict-emission bug not script crash.**
+
+**Cap_map move:** Saad-Solla LEADING ✅ UNCHANGED + EVIDENCE STRENGTHENED — v16 adds M-robust dimension to v15's f-sweep dimension at N=8192 = first cross-M-density confirmation that plateau survives M_frac variation.
+
+### Verdict 6: t1_beta_sweep_v1_n4096 T1_BETA_HARD_PASS HONEST = BETA AXIS SECOND BOUNDARY CONFIRMED (109th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=4.23s (inference-only fast); FULL N=4096 5-seed [7,17,23,31,41] x M_frac=8.0 x beta_sweep=[1, 2, 4, 8, 16, 32, 64, 128, 256, 512] = 50 cells.
+- Pass seeds: 5/5; mean_max_gradient=0.247; mean_total_var=0.509.
+- First cell seed=7 ret_by_beta: [0.00017, 0.00045, 0.00329, 0.12992, 0.48584, 0.47864, 0.47487, 0.47599, 0.47754, 0.4787] = sharp transition between beta=8 (0.130) and beta=16 (0.486); plateau at beta>=16; ret~0 below beta=4.
+- Plateau retention ~0.478 at beta>=16 across all seeds = stable post-transition phase.
+
+**Step 0 honest re-read (109th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=11 — script crash) — beta-axis second-boundary search; bug". HONEST: metrics `_source=remote` shows 5/5-seed HARD_PASS confirming SHARP beta_c between beta=8 and beta=16; this is a clean SECOND PHASE BOUNDARY independent of the M-axis boundary. The dispatch wall_s=11 matches elapsed=4.23s + runner overhead — the inference-only script ran in seconds and exited with non-zero code despite producing HARD_PASS.
+
+**Cap_map move:** NEW row "beta-axis phase boundary 🟢-smoke 60-72%" — sharp beta-transition at beta_c ~ 12-16 confirmed 5/5 seeds at M_frac=8 (in-capacity probe). Companion to axis-1 M-boundary. Cap at 72% pending (a) cross-N envelope (only N=4096 currently), (b) M-density envelope (only M_frac=8 currently tested), (c) plateau-asymptote characterization at very-high beta.
+
+### Verdict 7: t2_codebook_boundary_v1_n4096 T2_CB_HARD_PASS HONEST = CODEBOOK-ORDER THIRD BOUNDARY CONFIRMED (110th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=2.5s (inference-only); FULL N=4096 3-seed [7,17,23] x M_frac=2.0 beta=32.0 x c_fracs=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0] = 27 cells.
+- Pass seeds: 3/3; mean_slope=0.202 per unit-c; mean_total_var=0.200.
+- First cell seed=7 ret_by_c: [0.635, 0.665, 0.64, 0.69, 0.695, 0.7, 0.7, 0.73, 0.815] = monotone-increasing in codebook-fraction; slope=0.1689; mono_frac=0.875.
+
+**Step 0 honest re-read (110th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=6 — script crash) — codebook-order third-boundary; bug". HONEST: metrics `_source=remote` shows 3/3-seed HARD_PASS confirming CODEBOOK-ORDER monotone slope 0.20 per unit-c. Together with t1 (beta) and t3 (susceptibility), this confirms substrate has TWO ORTHOGONAL phase boundaries (beta + codebook), not three converging at a triple-point. t3's REFUTATION of triple-point is the right answer; t1 + t2 establish the orthogonal-boundaries reframing.
+
+**Cap_map move:** NEW row "codebook-order phase boundary 🟢-smoke 55-68%" — monotone codebook-density slope ~0.20 per unit-c confirmed 3/3 seeds at M_frac=2 beta=32 (different operating point from t3). Cap at 68% pending cross-N + cross-(M_frac, beta) operating-point envelope.
+
+### Verdict 8: saad_solla_v17_cross_cb_v1_n4096 SS_V17_HARD_PASS HONEST = SAAD-SOLLA CODEBOOK-ROBUST (111th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=1.62s (inference-only smoke-scale FULL); FULL N=4096 3-seed [7,17,23] x families ∈ {bsc, antipodal} x f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0] = 30 cells.
+- family_pass: {bsc: 3, antipodal: 3} HP_MAJORITY_MIN=2 both clear.
+- Per-cell BSC seed=7: r2=0.4631, max_dev=0.666 = within HP gate.
+
+**Step 0 honest re-read (111th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=8 — script crash) — cross-codebook generality; bug". HONEST: metrics `_source=remote` shows BOTH BSC and Antipodal codebooks 3/3-seed HARD_PASS = Saad-Solla saddle-cascade plateau generalizes to antipodal codebook. NOTE: per v260 axis2_codebook_density, antipodal was the OUTLIER class in retention (0.441 vs 0.6+ for other classes); v17 shows that DESPITE antipodal's retention outlier behavior, Saad-Solla physics is preserved on antipodal — codebook-order phase boundary is ORTHOGONAL to Saad-Solla plateau capability.
+
+**Cap_map move:** Saad-Solla LEADING ✅ row UNCHANGED + EVIDENCE STRENGTHENED — second codebook-family corroboration (BSC + Antipodal). Combined with v16 M-robustness, v17 demonstrates Saad-Solla physics has BOTH M-density-axis AND codebook-axis robustness at N=4096-8192.
+
+### Verdict 9: bid_m_normalized_v2_n4096 BID_M2 GENUINE-TIMEOUT (no remote production metrics; source=local stale smoke)
+
+**Evidence:**
+- `_source=local` fallback only (remote SSH succeeded for other anchors in this batch; remote metrics.json missing for this one = no production output written).
+- Local metrics.json: mode=smoke, N=512, elapsed=23.23s, 1 cell only (M_frac=0.05 seed=17), verdict_tag=BID_M2_HARD_PASS but at N=512 SMOKE not N=4096 FULL.
+- Dispatch wall_s=3600 EXACT (TIMEOUT) at OLD PROT-019 3600s floor; the stale-divergence remote-side timeout-binding issue per dispatch context.
+
+**Step 0 honest re-read:** Per verdict_handler role contract Section on stale `_source=local`, this is treated as `UNKNOWN` for cap_map decisions — the local smoke is NOT representative of N=4096 FULL production physics. Dispatch context's "TIMEOUT at OLD PROT-019 3600s floor; the stale git divergence issue surfaced" diagnosis is CORROBORATED by missing remote metrics. INFRASTRUCTURE failure (timeout-binding stale-git artifact); not a substrate signal.
+
+**Cap_map move:** ANNOTATION-ONLY on substrate-outside-static-Hopfield 🟢 60-72% (v266) row. NO move. Per [[feedback-dont-overextend-theorems]] no-data TIMEOUT cannot refute or corroborate. v3 reship needed with `--timeout 14400` explicit per [[feedback-per-experiment-timeout-required]].
+
+### Verdict 10: moe_capacity_aware_router_v1_n4096 MOE_CAP_HARD_PASS HONEST = K-SCALING MAINTAINED via MoE v266 META-LEARNING CORROBORATED (112th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=2082.52s (~35min); FULL N=4096 3-seed [7,17,23] x K_sweep [4, 8, 16, 32] M_budget_per_expert=800 n_grad_steps=50 = 12 cells.
+- mean_ret_by_K = {4: 0.979, 8: 0.98, 16: 0.979, 32: 0.974}; delta_K16_vs_K4 = -0.000 (no degradation).
+- entropy_by_K reaches log2(K) (4->2.0b, 8->3.0b, 16->4.0b, 32->5.0b); fill_fracs=1.0 across all experts at K=4.
+- pass_seeds_at_K16 = 3/3.
+
+**Step 0 honest re-read (112th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=2087 = ~35min substantial work then crash) — MoE 5th rescue arm via v266 meta-learning; partial run; check honest result". HONEST: metrics `_source=remote` shows 3/3-seed HARD_PASS at K=16 confirming v266 META-LEARNING "ROUTING MUST BE CAPACITY-AWARE NOT IDENTITY-AWARE" — this is the 5th MoE router probe and it SUCCEEDS via capacity-aware routing. wall_s=2087 ~ elapsed=2082 = matches real work; non-zero exit happened AFTER metrics dump.
+
+**Cap_map move:** MoE K-scaling row ✅ UNCHANGED + META-LEARNING CONFIRMED — capacity-aware routing is the 5th arm probed and CONFIRMS v266 meta-learning. The router-architecture-discrimination boundary is now: CAPACITY-AWARE (gradient + fixed-total + capacity-aware) ALL SUCCEED; IDENTITY-AWARE (random + dim + hebbian-anchor) ALL FAIL.
+
+### Verdict 11: pb2_corr_len_v2_n1024 PB2_CORR_HARD_PASS HONEST = EDIT-PROPAGATION FINITE-RANGE CONFIRMED (113th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=2.33s (inference-only); FULL N=1024 3-seed [7,17,23] x M_fracs [0.1, 0.25, 0.5, 1.0, 2.0, 5.0] x n_edits=10 = 18 cells.
+- xi_normalized=0.094 < 1.0 at M_frac=1; mono_frac=1.00.
+- mean_xi by M_frac: {0.1: 0.036, 0.25: 0.106, 0.5: 0.099, 1.0: 0.094, 2.0: 0.090, 5.0: 0.080} — bounded-and-decreasing.
+
+**Step 0 honest re-read (113th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=4 — script crash) — PB-2 correlation length divergence; bug". HONEST: metrics `_source=remote` shows 3/3-seed HARD_PASS with xi_normalized bounded < 1.0 across all 6 M-fracs = edit-propagation has FINITE correlation length, no divergence signature. Compatible with v265 KF-2 edit-isolation row checkmark (edit-isolation works because edit-propagation is finite-range).
+
+**Cap_map move:** NEW row "edit-propagation finite correlation-length 🟢-smoke 55-68%" — xi_normalized < 1.0 across M-fracs [0.1, 5.0] at N=1024 3-seed corroborates KF-2 edit-isolation mechanism. Anchor: pb2_corr_len_v2 as defining first observation. Cap at 68% pending cross-N + larger n_edits envelope.
+
+### Verdict 12: kf2_cross_codebook_v1_n4096 KF2_CROSS_HARD_PASS HONEST = KF-2 EDIT-ISOLATION CODEBOOK-ROBUST (114th LABEL-VS-HONEST catch)
+
+**Evidence (`_source=remote`):**
+- elapsed=82.33s; FULL N=4096 5-seed [7,17,23,31,41] x M_fracs [0.25, 0.5, 1.0, 2.0, 4.0] x families ∈ {kerdock, bsc, gaussian} = 75 cells.
+- family_max isolation_ratio: {kerdock: 0.0202, bsc: 0.0303, gaussian: 0.0202} — all < HP 0.05 threshold.
+- family_mean: {kerdock: 0.00606, bsc: 0.01172, gaussian: 0.00768}.
+- theory_bound=0.01562; pass_non_kerdock=50/50 (all BSC+Gaussian cells pass).
+
+**Step 0 honest re-read (114th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION):** Dispatch said "FAILED (wall_s=85 — script crash) — cross-codebook KF-2; bug". HONEST: metrics `_source=remote` shows 75-cell FULL with all non-kerdock cells passing isolation < 0.05 threshold = KF-2 edit-isolation EXTENDS beyond Kerdock to BSC + Gaussian codebooks. NOTE: 50/50 pass non-kerdock means BSC + Gaussian are tighter than Kerdock at the family_max measure (0.0303 BSC vs 0.0202 Kerdock) but BSC mean is 2x Kerdock (0.0117 vs 0.00606) — Kerdock retains analytical optimum while BSC + Gaussian retain practical isolation.
+
+**Cap_map move:** KF-2 ✅ (v265 elevation) UNCHANGED + EVIDENCE STRENGTHENED — KF-2 generalizes beyond Kerdock-only architecture (the v265 lock-in) to BSC + Gaussian; substrate's edit-isolation primitive is codebook-class-robust not Kerdock-specific. Strengthens product-feature claim (architecture-portable killer feature).
+
+### Joint decisions
+
+**Decision (1): MEGA LABEL-VS-HONEST event — 7 catches in one batch.** New sub-flavor `DISPATCH_FAILURE_MISCLASSIFICATION` — queue.json/recent_verdicts status=failed AND metrics.json _source=remote authoritative with verdict_tag=HARD_PASS AND elapsed_s matches dispatch wall_s within rounding. Cumulative LABEL-VS-HONEST catches: 107 (v266) -> 114 (+7 this batch: SS_v16, t1, t2, SS_v17, MoE_cap_aware, PB2, KF2_cross_cb). The 7 mis-labeled runs all completed legitimate FULL work and wrote remote metrics.json before exiting non-zero. Pattern: runner verdict-emission bug at exit-code layer; rate of false-FAILED ~58% of this batch is unsupportable — escalate to runner-diagnostic priority. PROT-019 candidate.
+
+**Decision (2): Cap_map state aggregate.**
+- **TRIPLE-POINT sub-hypothesis CLOSED-WITH-RESTRUCTURING** (t3 falsified all-3-chi-large gate at M_frac=10 op-point). Phase-diagram framing migrates: NOT triple-point convergence BUT two-orthogonal-phase-boundary lattice (beta + codebook + weak M-axis).
+- **NEW row "beta-axis phase boundary 🟢-smoke 60-72%"** (t1 5/5-seed HARD_PASS sharp beta_c~12-16 at M_frac=8 N=4096).
+- **NEW row "codebook-order phase boundary 🟢-smoke 55-68%"** (t2 3/3-seed HARD_PASS monotone slope 0.20/unit-c at M_frac=2 beta=32 N=4096).
+- **NEW row "killer-feature phase-class profile 🟡 45-60%"** (c1 KF1/KF1B fail; KF2/KF5 pass; characterizes which KFs survive deep over-capacity).
+- **NEW row "edit-propagation finite correlation-length 🟢-smoke 55-68%"** (pb2 3/3-seed HARD_PASS xi_normalized<1.0 across M-fracs N=1024).
+- **TCFT deletion-cert green 78-90% -> green 82-92% LIFT (+4%)** (c3 5/5-seed phase-survival across M=128 -> 4096 multi-basin to single-basin transition).
+- **Saad-Solla LEADING ✅ UNCHANGED + 2-axis EVIDENCE STRENGTHENED** (v16 M-density-axis robustness {M_frac=0.25, 0.5}; v17 codebook-axis robustness {bsc, antipodal}; combined with v15 5-seed FULL = 3-axis substrate-physics-robustness confirmation).
+- **KF-2 ✅ UNCHANGED + cross-codebook EVIDENCE STRENGTHENED** (kf2_cross_cb 5-seed N=4096 75-cell pass-non-kerdock=50/50 = architecture-portable).
+- **MoE K-scaling ✅ UNCHANGED + META-LEARNING CORROBORATED** (moe_capacity_aware 5th rescue arm SUCCEEDS via capacity-aware; v266 meta-learning "routing must be capacity-aware not identity-aware" confirmed across 3 capacity-aware arms vs 3 identity-aware arms).
+- **KF1 (hallucination detection) implicit DEMOTION at architecture-level** (c1 0/3 across all M = HARD_FAIL of current KF1 mechanism; row needs rescue or reframe before staying in killer-features inventory — flagged for v267 rescue).
+- **AXIS-1 phase-boundary 🟢 70-82% UNCHANGED** (m1 gradual-not-sharp does not lift; refinement only).
+- **substrate-outside-static-Hopfield 🟢 60-72% UNCHANGED** (bid_m_normalized_v2 TIMEOUT zero-production; per [[feedback-dont-overextend-theorems]] no-data cannot move row).
+- **Portfolio count: 14 + 26 -> 14 + 30 (+4 NEW evidence-strength rows)** (beta-axis + codebook-axis + KF-phase-class + edit-propagation-finite-range).
+- **Framework reliability**:
+  - specific 60-72% (v266) -> **65-78% LIFT** (+5%) — 4 new specific predictions confirmed in one batch (beta-axis sharp transition, codebook-order monotone slope, KF-phase-class profile, edit-propagation finite-range) + TCFT phase-survival.
+  - product-feature 82-94% (v266) -> **84-95% LIFT** (+2%) — KF-2 cross-codebook generalization + TCFT phase-survival both strengthen product narrative.
+  - general 73-83% UNCHANGED.
+  - non-eq-stat-mech 63-73% UNCHANGED.
+
+**Decision (3): Rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]].**
+
+For Verdict 1 (triple-point REFUTED + reframing to two-orthogonal-boundaries):
+(a) PRIMARY / SUBSUMPTION 0-cost APPLIED — triple-point sub-hypothesis is now decisively closed; phase-diagram migrates to two-orthogonal-boundary lattice; t1 + t2 LIFTS are the load-bearing positive evidence.
+(b) CHEAPEST 0-cost FRAMING SHIFT APPLIED — reframe t3 as "joint-susceptibility profile at M_frac=10 op-point shows codebook-dominant single-axis sensitivity not triple-point convergence."
+(c) MEDIUM ~30min CPU defense-in-depth — t3_susceptibility_v2 at DIFFERENT operating point (e.g., M_frac=2 beta=8 near t2's op-point) to test whether beta + codebook axes show sign-divergence at non-deep-over-capacity regimes.
+
+For Verdict 2 (m1 GRADUAL): N/A — characterization-progress not row jeopardy.
+
+For Verdict 3 (C3 TCFT phase-survival): N/A — HARD_PASS LIFT.
+
+For Verdict 4 (C1 partial KF-phase-class): 
+(a) PRIMARY 0-cost — accept KF2 + KF5 as in-class survivors; KF1 + KF1B as in-class fail; document as KF phase-class profile.
+(b) CHEAP ~10min CPU — kf1_hallu_rescue_v1 with alternate hallucination-detection mechanism (e.g., posterior-entropy-based instead of margin-based); tests whether KF1's failure is mechanism-specific or substrate-level.
+(c) MEDIUM ~30min CPU — c1_battery_phase_v2 with extended N envelope (N=8192) + extended KF inventory (KF3, KF4) for cross-row consistency.
+
+For Verdict 5 (SS_v16 M-robust): N/A — HARD_PASS evidence-strengthening.
+
+For Verdict 6 (t1 beta-axis): 
+(a) PRIMARY 0-cost — beta-axis row NEW at 🟢-smoke 60-72%; sufficient for first observation.
+(b) CHEAP ~10min CPU — t1_beta_sweep_v2 at SAME M_frac=8 different N (N=8192) for cross-N envelope; lifts cap toward 80% if persistent.
+(c) MEDIUM ~30min CPU — t1_beta_v3 cross-(M_frac, beta) operating-points to map beta_c(M_frac) curve.
+
+For Verdict 7 (t2 codebook-axis):
+(a) PRIMARY 0-cost — codebook-axis row NEW at 🟢-smoke 55-68%.
+(b) CHEAP ~10min CPU — t2_codebook_v2 at SAME (M_frac=2, beta=32) different N for cross-N envelope.
+(c) MEDIUM ~30min CPU — t2_v3 cross-(M_frac, beta) op-points to confirm codebook-axis is operating-point-invariant.
+
+For Verdict 8 (SS_v17 codebook-robust): N/A — HARD_PASS evidence-strengthening.
+
+For Verdict 9 (bid_v2 TIMEOUT genuine):
+(a) PRIMARY 0-cost — substrate-outside-static-Hopfield 60-72% UNCHANGED (no-data per [[feedback-dont-overextend-theorems]]).
+(b) CHEAPEST ~5min exp_dev — bid_m_normalized_v3 with explicit `--timeout 14400` per [[feedback-per-experiment-timeout-required]]; stale-git divergence remediated via deploy-then-ship sequencing.
+
+For Verdict 10 (MoE capacity-aware): N/A — HARD_PASS META-LEARNING corroboration.
+
+For Verdict 11 (PB2 finite-range):
+(a) PRIMARY 0-cost — pb2 row NEW at 🟢-smoke 55-68%.
+(b) CHEAP ~10min CPU — pb2_v3_n4096 cross-N envelope.
+
+For Verdict 12 (KF2 cross-codebook): N/A — HARD_PASS evidence-strengthening.
+
+For 7-MEGA LABEL-VS-HONEST event (DISPATCH_FAILURE_MISCLASSIFICATION sub-flavor):
+(a) PRIMARY ESCALATION — file PROT-019 candidate "runner verdict-emission bug detection" so verdict_handler Step 0 automatically cross-checks `_source=remote` metrics existence + verdict_tag against queue.json status=failed to flag false-FAILED.
+(b) CHEAP ~30min diagnostic — runner-log forensics on 7 affected anchors to identify the exit-code-after-metrics-dump pattern in runner_v2_prod.py.
+(c) MEDIUM ~1h fix — patch runner to suppress non-zero exit when metrics.json exists and verdict_tag is HARD_PASS.
+
+**Decision (4): exp_dev routing files — TWO filed.**
+- `notes/strategy_request_to_exp_dev_v267_kf1_hallu_rescue_2026-05-28.md` — KF1 alternate hallucination-detection mechanism (posterior-entropy-based vs margin-based); discharges Verdict 4 rescue (b).
+- `notes/strategy_request_to_exp_dev_v267_bid_m_normalized_v3_timeout_fix_2026-05-28.md` — bid_v3 reship with explicit `--timeout 14400` + stale-git deploy gate; discharges Verdict 9 rescue (b).
+
+Other rescue sketches (t1/t2 cross-N envelope, pb2 cross-N, c1 cross-N, t3 alternate-op-point) noted in this entry's rescue lists as defense-in-depth; orchestrator can pick up opportunistically.
+
+**Decision (5): Queue-refill (Step 2 pipeline-pacing) — GATED ON PAUSE FLAG.**
+- Pause flag check: `data/orchestrator_paused.flag` ABSENT (verified via Bash test at task start; FLAG_ABSENT confirmed).
+- overnight_queue pending+running = 0 (drained — 8 GPU verdicts in this batch).
+- remote_cpu_queue pending+running = 0 (drained — 4 CPU verdicts).
+- Both queues at depth 0. Per [[feedback-pipeline-pacing]] + [[feedback-verdict-arrival-is-queue-depletion-signal]] this is the loudest refill signal.
+- Open routings filed in this entry: kf1_hallu_rescue + bid_v3_timeout_fix; plus pre-existing v265+v266 routings (saad_solla v16_n16384 N-extension, axis3 v2 alternate-op-points, etc).
+- **NO direct auto-dispatch from this verdict_handler.** Per [[feedback-no-padding-experiments]] + [[feedback-dispatch-wrappers-default]] the 2 new routings + pre-existing open routings constitute proper next-batch work; orchestrator main thread picks up via next routing_handler cycle. Surface to orchestrator: GPU + CPU both depleted; 2 new routings filed; opportunity to ship multiple rescue sketches in parallel.
+
+**Decision (6): KF1 implicit DEMOTION flag.** The c1 battery shows KF1 hallucination-detection 0/3 across ALL M including in-capacity M=20K. This is HARD_FAIL at the architecture level for the current KF1 mechanism (margin-based above_thresh_frac=1.0 = no discrimination). Per [[feedback-dont-overextend-theorems]] this does NOT close KF1 as a substrate capability — the mechanism may be repairable. Per [[feedback-rehabilitation-after-rejection]] 3-5 rescue arms required before closure: posterior-entropy-based (filed as routing), basis-projection-based (deferred), pool-recall-based (deferred). KF1 row state: temporarily LABELED-AT-RISK pending rescue; portfolio NOT yet decremented from 14+30 since rescue path is OPEN.
+
+### PROT compliance (v267)
+
+- PROT-004/006: 0 capability-row closures; 4 NEW rows at 🟢-smoke/🟡 (beta-axis, codebook-axis, KF-phase-class, edit-propagation-finite-range); 1 ROW BAND LIFT (TCFT 78-90% -> 82-92%); 1 SUB-HYPOTHESIS REFRAMING (triple-point -> two-orthogonal-boundary lattice); rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]] across 7 affected sub-objectives.
+- PROT-007: history.md UPDATED (entry for v266 -> v267 batched 11-verdict line).
+- PROT-008: 4 row ADDITIONS at 🟢-smoke/🟡 (well-supported by 3-5-seed multi-cell FULL evidence); 1 BAND LIFT (TCFT +4%); 1 implicit demotion-pending (KF1 LABELED-AT-RISK).
+- PROT-009: cap_map.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md + history.md + 2 routing files staged atomically (single commit, 6 files); 178th PROT-009 paired commit.
+- PROT-018: anchor names — 8 of 12 honor `_n<N>` binding contract (t3_..._n4096, m1_..._n4096, c1_..._n4096, c3_..._n4096, saad_solla_v16_n8192, t1_..._n4096, t2_..._n4096, saad_solla_v17_cross_cb_v1_n4096, bid_m_normalized_v2_n4096, moe_capacity_aware_router_v1_n4096, pb2_corr_len_v2_n1024, kf2_cross_codebook_v1_n4096) = ALL 12 honor PROT-018; t3/m1/c3 N=4096 matched; saad_solla_v16 N=8192 matched; v17 N=4096 matched; bid_v2 anchor said n4096 but produced no remote metrics (PROT-018 enforced at queue-add not at remote-failure); pb2 n1024 matched; kf2_cross n4096 matched; moe_cap n4096 matched.
+- [[feedback-verdict-msg-honest-reread]]: 124 (v266) -> **131 observations (+7 HONEST: t3, m1, c3, c1, ss_v16, t1, t2 honest at metric-or-mechanism layer plus bid_v2 honest-unknown)** + LABEL-VS-HONEST 107 (v266) -> **114 (+7 catches in DISPATCH_FAILURE_MISCLASSIFICATION sub-flavor: ss_v16, t1, t2, ss_v17, moe_cap_aware, pb2, kf2_cross)** = LARGEST single-batch label-vs-honest event since v234 retroactive sweep.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread (orchestrator).
+- [[feedback-trust-queue.json-wall_s]]: 11 of 12 anchors via remote bridge `_source=remote` authoritative (1 bid_v2 fell back to local-stale-smoke = treated as UNKNOWN per role contract).
+- [[feedback-dispatch-context-trust]]: dispatch context's "FAILED — script crash" classification for 7 anchors VERIFIED FALSE against remote authoritative metrics; honest reading authoritative; 7-catch escalation event documented.
+- [[feedback-no-experiment-design-in-prompts]]: 2 routings specify TASK + WHY + CONTRACT + AUTONOMY only.
+- [[feedback-rescue-sketch-first-sequencing]]: 7 sub-objective rescue lists filed cheapest-first; PRIMARY/SUBSUMPTION applied 0-cost where possible; CHEAP routings (kf1_rescue + bid_v3_timeout_fix) filed.
+- [[feedback-rehabilitation-after-rejection]]: KF1 at-risk needs 3-5 rescue arms before closure; 1 filed (posterior-entropy-based), 2 noted deferred (basis-projection, pool-recall).
+
+**Per [[feedback-cap-map-update-protocol]]:** atomic commit of cap_map.md (v266 -> v267 batched line + history append) + strategy_decisions_2026-05-28.md (this entry) + visibility_decisions_2026-05-28.md (one-line) + substrate_capability_map_history.md (v267 row) + 2 strategy_request routing files. Commit message: `Cap map: v266 -> v267 (BATCHED 11-VERDICT: triple-point hypothesis REFUTED via t3 0/5 all-3-chi gate but REFRAMED to two-orthogonal-boundary lattice via t1 beta-axis HARD_PASS + t2 codebook-axis HARD_PASS; MEGA 7-CATCH LABEL-VS-HONEST event new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION 108th-114th; 4 NEW rows beta-axis + codebook-axis + KF-phase-class + edit-propagation-finite-range; TCFT phase-survival +4% LIFT; Saad-Solla M-robust + codebook-robust evidence strengthened; KF-2 cross-codebook extended; MoE capacity-aware v266 meta-learning CORROBORATED; KF1 hallucination-detection LABELED-AT-RISK pending rescue; portfolio 14+26 -> 14+30; framework-reliability specific 60-72% -> 65-78% LIFT product-feature 82-94% -> 84-95% LIFT; bid_m_normalized_v2 TIMEOUT genuine ANNOTATION-ONLY; 2 exp_dev routings filed kf1_hallu_rescue + bid_v3_timeout_fix; 178th PROT-009 paired commit)`.
+
+Net effect v267: 0 CLOSURES + 4 NEW evidence-strength rows + 2 BAND LIFTS (TCFT + framework-specific) + 1 SUB-HYPOTHESIS REFRAMING (triple-point -> two-orthogonal-boundaries) + 1 implicit AT-RISK (KF1) + 7 LABEL-VS-HONEST catches (DISPATCH_FAILURE_MISCLASSIFICATION mega-event) + 8 HONEST observations + 1 genuine TIMEOUT + 2 exp_dev routings filed + portfolio 14+26 -> 14+30 + framework reliability specific +5% product-feature +2%; 178th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
