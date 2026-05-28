@@ -379,3 +379,66 @@ PB3/AXIS-1/KF-3 sub-objective rescues are LOW-priority defense-in-depth; NOT loa
 - [[feedback-no-experiment-design-in-prompts]]: axis3 v2 routing TASK+WHY+CONTRACT+AUTONOMY only.
 
 Net effect v262: 0 CLOSURES + 1 ENVELOPE-EXTENSION-LIFT + 1 SCAN-PROGRESS + 1 ROW-NEUTRAL DISCONFIRMATION + 1 DUAL-FRAMING CORROBORATION + 1 LABEL-VS-HONEST CATCH 105th NEW SUB-FLAVOR DISPATCH_HYPOTHESIS_OVER_CLAIM; portfolio + reliability + phase-boundary direct-test row UNCHANGED; 1 exp_dev routing filed (axis3 v2); 173rd PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+
+## v262 -> v263 -- 2026-05-28 SINGLE-VERDICT @ 03:04:51 (bid_n_stability_v3_n16384 FAILED -- TIMEOUT 4500s; ANNOTATION-ONLY substrate-outside-static-Hopfield row UNCHANGED; 3rd-consecutive remote_cpu_queue TIMEOUT infrastructure pattern; 1 exp_dev routing filed)
+
+**Trigger.** Single remote_cpu_queue verdict landed 03:04:51 (event-bus payload: `name=bid_n_stability_v3_n16384, verdict=failed, queue=remote_cpu_queue`). Dispatch context offered 5 candidate failure modes (a) BID asymptotes/drops at N=16384 -> WEAKENS v255 LIFT, (b) BID continues growing but cell values differ requiring re-class, (c) TIMEOUT (timeout_s=4500s; CPU at N=16384 plausibly under-budget), (d) OOM, (e) script bug. Per v256 audit lesson [[feedback-trust-queue.json-wall_s]] verdict_handler pulled remote queue.json + queue.cpu_runner_0.log forensics directly via SSH-PowerShell to disambiguate BEFORE any cap_map state move.
+
+**Step 0 honest re-read (forensics dispositive for mode (c) TIMEOUT).**
+
+- Local data/exp_bid_n_stability_v3_n16384/metrics.json -- STALE PRE-SHIP SMOKE artifact (N_values=[1024], seeds=[17], smoke=true, BID=66.33 at N=1024 single seed); `_source=local` per remote_state ceiling fix; per [[feedback-verdict-msg-honest-reread]] this is NOT the production reading. DO NOT use for Step 0.
+- Remote data/exp_bid_n_stability_v3_n16384/ directory EMPTY (0 files): `dir C:\dev\hd-instrument\data\exp_bid_n_stability_v3_n16384` shows only `.` and `..`. NO metrics.json was ever written. The production script never reached `dump_metrics()`.
+- Remote queue.json entry: `status=failed, started_at=2026-05-28T01:49:51, ended_at=2026-05-28T03:04:51, wall_s=4500.0111508, timeout_s=4500, error_msg=<empty>`. wall_s == timeout_s to 4 decimal places = HARD TIMEOUT KILL, not script crash + not OOM.
+- Remote runner log queue.cpu_runner_0.log: `[2026-05-28T01:49:51] START bid_n_stability_v3_n16384 -> C:\dev\hd-instrument\experiments\exp_bid_n_stability_v3_n16384.py` then exactly 4500s later `[2026-05-28T03:04:51] TIMEOUT bid_n_stability_v3_n16384 after 4500.0s`. No intermediate per-cell stdout lines logged (suggests script reached N=16384 first cell and stalled in BID TwoNN O(M^2) computation -- M=2048 at alpha=0.125; pairwise distance matrix is 2048^2 = 4.19M float32 = 16.8MB so memory not the binding constraint; CPU FLOPs are).
+- Reject (a)/(b) honest substrate-physics readings -- ZERO production data emitted so no honest physics signal in either direction; over-claiming "BID asymptotes" or "BID continues growing" would be propagating a verdict label against no per-cell metrics, which is the failure mode [[feedback-verdict-msg-honest-reread]] locks against (this would be cumulative LABEL-VS-HONEST catch in the no-data direction).
+- Reject (d) OOM -- script was working at smoke N=1024 (local metrics confirm); jump to N=16384 increases M from 128 -> 2048 (16x) and pairwise distance matrix M^2 by 256x but absolute memory at M=2048 stays well under 8GB (~17MB pairwise + N=16384 codebook ~2GB at float32 fits); confirmed by no OOM error_msg in queue.json.
+- Reject (e) script bug -- script PASSED smoke selftests at queue-add time (PROT-018 N-binding check; pre-reg formula-selftests both PASS per file lines 29-40); v2 script (same author, same TwoNN code path) ran cleanly at N=8192 in 1115.5s with completed metrics.
+
+**Honest reading.** BID N-stability v3 N=16384 asymptote-test HIT TIMEOUT BUDGET at 4500s exactly without writing any production metrics. The pre-reg cost estimate (script header lines 42-48) underestimated N=16384 wall: estimated 2500s total based on `(16384/8192)^2 = 4x` scaling of v2's 1115s -- but the v2 run included N=4096 + N=8192 cells, so v2's per-cell N=8192 was ~700s not 1500s; correct extrapolation = 4x * 700s = 2800s for N=16384 alone + 700s for N=8192 control = 3500s, then 1.5x safety = 5250s. The 4500s timeout was ~15% under the corrected budget. Per v260 sub-flavor `DISPATCH_CONTEXT_VS_QUEUE_JSON_TIMEOUT_BUDGET_MISMATCH`: this is a PRE-REG INFRASTRUCTURE ERROR (timeout-cost-formula misapplied at queue-add time), not a substrate signal. No substrate-physics conclusion can be drawn from this verdict in EITHER direction.
+
+**Decision (1): v262 -> v263 ANNOTATION-ONLY on substrate-outside-static-Hopfield row. NO REVERT, NO LIFT.** v255 v2 N=4096+8192 +54%/N-doubling LIFT to substrate-outside-static-Hopfield-taxonomy 55-68% STANDS UNCHANGED. The v3 result NEITHER corroborates (no N=16384 data to extend the scaling-law) NOR refutes (no N=16384 data to show asymptote). Per [[feedback-dont-overextend-theorems]] explicit: a no-data TIMEOUT cannot kill an empirically-anchored 55-68% LIFT.
+
+Annotation appended to scaling-law row: "v263 envelope-extension v3_n16384 HIT TIMEOUT 4500s (no production metrics emitted; pre-reg cost-formula under-budget by ~15% per corrected extrapolation 5250s>4500s); INFRASTRUCTURE failure NOT honest substrate-physics signal; v255 +54%/N-doubling rate at N=4096->8192 LIFT STANDS as load-bearing for substrate-outside-static-Hopfield 55-68% claim; rescheduled v4 with timeout_s>=7200 OR N=12288 substitute pending exp_dev recommendation; envelope-extension to N=16384 remains OPEN as defense-in-depth (no urgency -- v255 v2 evidence sufficient for current product framing per [[feedback-substrate-value-framing-2026-05-26]] 'weight product-engineering work HIGHER than additional theoretical confirmation')".
+
+**Decision (2): Rescue sketches cheapest-first (per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]] -- sub-objective rescues for the scaling-law characterization, NOT row-closure rescues since the row STANDS UNCHANGED):**
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** -- re-frame v255 v2 N=4096+8192 LIFT as "scaling-law evidence already sufficient for 55-68% LIFT at current substrate-product framing; N=16384 confirmation is defense-in-depth not load-bearing; combined with TCFT M-sweep (v257) + Sagawa-Ueda N=8192 (v253) corroborators, the substrate-outside-static-Hopfield claim has 4-axis evidence (BID + TCFT + Sagawa-Ueda + saddle-cascade)". 0-cost; APPLIED.
+
+(b) **CHEAPEST INFRA ~5min exp_dev** -- bid_n_stability_v4_n12288 (N=12288 instead of N=16384; cost scales as (12288/8192)^2 = 2.25x v2's ~700s/cell = ~1600s; + N=8192 control 700s = 2300s total; safety 1.5x = 3450s; fits 4500s timeout with headroom). Tests scaling-law at intermediate N=12288 cell. Trade-off: less direct extrapolation to N=16384 but reaches 12288/8192 = 1.5x doubling-fraction; if +54%/N-doubling holds, expect BID(N=12288) approx BID(N=8192) * (1.5)^log2(1.54) ~ BID(N=8192) * 1.3 ~ 130 (vs v2 BID(N=8192) ~100).
+
+(c) **MEDIUM INFRA ~10min exp_dev** -- bid_n_stability_v4_n16384_extended_timeout (same N=16384 envelope as v3 but timeout_s=7200 per corrected 5250s estimate; per-experiment `--timeout` explicit per [[feedback-per-experiment-timeout-required]] AND [[feedback-strategy-spec-formula-selftests]] requires PRE-REG formula self-test for the corrected scaling estimate). Direct asymptote-test at N=16384.
+
+(d) **MEDIUM ~10min exp_dev** -- bid_n_stability_v4_n16384_2seed (drop seed count from 3 to 2 = {7, 17}; ~2/3 cost reduction = ~2300s for N=16384 + 470s for N=8192 control = ~2770s; fits 4500s envelope with 1.6x safety). Compromise between coverage and budget; gives single-doubling rate-change at lower seed confidence.
+
+(e) **LAST RESORT ~15min exp_dev** -- split v4 into separate per-N jobs: job_a N=16384 single-cell 3-seed timeout=4000s + job_b N=8192 control 3-seed timeout=2000s; aggregate offline in metrics.json post-processing. Highest robustness but most queue traffic + manual aggregation; deferred.
+
+**Decision (3): Exp_dev routing -- ONE filed (cheapest-first per [[feedback-rescue-sketch-first-sequencing]], rescue (b) bid_n_stability_v4_n12288 PRIMARY recommendation).** Per [[feedback-no-experiment-design-in-prompts]] routing specifies TASK + WHY + CONTRACT + AUTONOMY only; does NOT pre-specify timeout numeric / seed grid / HP thresholds (exp_dev decides via formula-selftest at pre-reg time).
+
+File: `notes/strategy_request_to_exp_dev_v263_bid_n_stability_v4_n12288_2026-05-28.md`
+
+**Decision (4): Queue-refill (Step 2 pipeline-pacing).**
+
+- Pause flag: ABSENT (verified via Bash test at task start).
+- remote_cpu_queue (source queue): pending=4 running=1 (spectral_graph_anticorr_v1 running; tcft_m_sweep_v3_n8192_5seed, bid_m_normalized_v1, kf2_isolation_proof_v2_n8192, moe_fixed_total_capacity_K_sweep_v1_n4096 pending). Depth 5 = HEALTHY.
+- overnight_queue: pending=2 running=1 = depth 3 HEALTHY.
+- local_cpu_queue: pending=0 running=0 = depth 0 BUT per [[feedback-no-padding-experiments]] only refill source-queue when source empty; remote_cpu is source for this verdict and remains at depth 5.
+- **NO auto exp_dev skill dispatch from this handler.** The 1 new routing filed (v4_n12288) + existing queue depth constitute proper next-batch work. Per [[feedback-dispatch-wrappers-default]] orchestrator main-thread picks up routing file in next routing-batch.
+
+### PROT compliance (v263)
+
+- PROT-004/006: 0 capability-row CLOSURES; 1 ANNOTATION-ONLY (substrate-outside-static-Hopfield scaling-law row sub-axis); 5 rescue sketches filed cheapest-first per defensive thoroughness despite no formal closure (per [[feedback-rehabilitation-after-rejection]] 3-5 axis-combination rescues bar exceeded).
+- PROT-007: history.md UPDATE not strictly required (no row-state move) but noted in this entry header for v263.
+- PROT-008: No promotions/demotions; row state UNCHANGED.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md + 1 routing file (strategy_request_to_exp_dev_v263_bid_n_stability_v4_n12288_2026-05-28.md) staged atomically; 174th PROT-009 paired commit.
+- PROT-018: anchor name `bid_n_stability_v3_n16384` contains `_n16384` suffix = BINDING contract (script N includes N=16384 as primary cell). Honored even though no production data emitted -- the binding contract is the QUEUE-ADD-TIME claim, not the post-hoc result.
+- [[feedback-verdict-msg-honest-reread]]: 111 -> 112 observations (+1 HONEST, the event-bus `failed` payload accurately reflects TIMEOUT outcome and no over-claim was made in either substrate-physics direction); LABEL-VS-HONEST 105 UNCHANGED (no catch -- no over-claim to override).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-trust-queue.json-wall_s]]: dispositive for (c) TIMEOUT; remote queue.json wall_s=4500.0111508 == timeout_s=4500 to 4 decimal places = HARD-TIMEOUT signature.
+- [[feedback-rescue-sketch-first-sequencing]]: 5 sketches cheapest-first; PRIMARY = framing subsumption (0-cost) to v255 multi-axis evidence sufficiency; CHEAPEST INFRA = N=12288 substitute at 2.25x v2 cost vs 4x N=16384 cost.
+- [[feedback-dont-overextend-theorems]]: explicit -- TIMEOUT with zero production data CANNOT refute v255 +54%/N-doubling LIFT (no asymptote evidence) NOR can it corroborate (no extension evidence); the row stays at its v255 state.
+- [[feedback-per-experiment-timeout-required]]: failure CONFIRMS the binding nature of this rule -- pre-reg cost-formula underestimated N=16384 wall by ~15%; v4 rescue (b) routing requires exp_dev to re-derive formula self-test + commit `--timeout` flag explicitly at queue-add time.
+- [[feedback-strategy-spec-formula-selftests]]: pre-reg formula `(16384/8192)^2 = 4x v2` was correct algebraically but applied to wrong baseline (v2's TOTAL wall 1115s instead of v2's per-N=8192-cell ~700s); v4 routing requires exp_dev to verify per-cell baseline BEFORE extrapolation.
+
+SINGLE-VERDICT v262 -> v263: bid_n_stability_v3_n16384 TIMEOUT INFRASTRUCTURE 3rd-consecutive remote_cpu_queue TIMEOUT pattern (sagawa_ueda_v4_n8192 v243 + sagawa_ueda_v5 v250 + bid_n_stability_v3_n16384 v263); substrate-outside-static-Hopfield 55-68% LIFT row ANNOTATION-ONLY UNCHANGED; v255 v2 N=4096+8192 +54%/N-doubling evidence STANDS as load-bearing; portfolio 14+24 UNCHANGED; reliability general 73-83% / specific 55-67% / product-feature 80-92% UNCHANGED; non-eq stat-mech class UNCHANGED; HONEST observations 111 -> 112 (+1); LABEL-VS-HONEST 105 UNCHANGED (no catch); 1 exp_dev routing filed (v4_n12288 cheapest rescue).
+
