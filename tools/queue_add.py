@@ -102,62 +102,99 @@ def validate_metrics(path: Path) -> str | None:
 
 
 # PROT-019: large-N anchors require a generous timeout floor.
-# Triggered after tcft_n8192_v5 hit the (then-)default 1800s and lost
-# seed=41 mid-run. We reject any queue_add for _n>=4096 with timeout < 3600s.
-# Spec date: 2026-05-27 (n-mismatch eradication day).
-PROT019_TIMEOUT_FLOOR_S = 3600
+# Triggered after tcft_n8192_v5 hit the (then-)default 1800s and lost seed=41
+# mid-run. Tiered floors (raised 2026-05-28) reflect actual observed FULL
+# runtimes: 14400s for _n4096 multi-seed FULL, 21600s for _n>=8192 multi-seed
+# FULL. A separate purpose-keyword warning catches multi-M-point batteries.
 PROT019_LARGE_N_RE = re.compile(r'_n(\d+)(?:_|$)')
 PROT019_LARGE_N_MIN = 4096
+# Tiered floors: (min_N_inclusive, floor_s). Sorted descending by N.
+PROT019_TIMEOUT_FLOOR_TIERS = [
+    (8192, 21600),  # _n>=8192 -> >= 6h
+    (4096, 14400),  # _n>=4096 -> >= 4h
+]
+# Multi-M-point / battery / sweep anchors should budget for multiple-GPU-day
+# runtime; we WARN (not block) if purpose hints at this scope and timeout is
+# below 86400s (24h). The c1_kf_battery_phase_v1_n4096 case (predicted 2-3
+# GPU-days, shipped at 14400s = would have timed out at 4h) drove this rule.
+PROT019_BATTERY_KEYWORDS = ("battery", "gpu-day", "gpu day", "sweep", "boundary curve")
+PROT019_BATTERY_FLOOR_S = 86400
 
 
-def check_timeout_floor(entry_name: str, timeout_s: int) -> None:
-    """PROT-019: enforce minimum timeout for large-N anchors.
+def _prot019_floor_for(entry_name: str) -> tuple[int | None, int | None]:
+    """Return (suffix_n, required_floor_s) for this anchor, or (None, None).
 
-    Any anchor whose name contains _n<N> with N >= 4096 MUST have
-    --timeout >= 3600s. The tcft_n8192_v5 incident (lost seed=41 mid-run
-    after hitting an under-budgeted timeout) showed that PROT-018 alone
-    is not enough -- a correctly-binding N=8192 anchor can still be
-    invalidated by an unrealistic timeout budget.
-
-    Exits with code 7 on violation. No-op if anchor has no large-N suffix.
+    No-op return (None, None) when the anchor has no _n<N> suffix or N<min.
     """
     m = PROT019_LARGE_N_RE.search(entry_name)
     if not m:
-        return
+        return None, None
     suffix_n = int(m.group(1))
-    if suffix_n < PROT019_LARGE_N_MIN:
+    for tier_min, tier_floor in PROT019_TIMEOUT_FLOOR_TIERS:
+        if suffix_n >= tier_min:
+            return suffix_n, tier_floor
+    return suffix_n, None
+
+
+def check_timeout_floor(entry_name: str, timeout_s: int, purpose: str = "") -> None:
+    """PROT-019: enforce tiered minimum timeout for large-N anchors.
+
+    Tiers (raised 2026-05-28 after c1_kf_battery / c3_tcft_phase incidents):
+      _n>=8192 multi-seed FULL -> --timeout >= 21600 (6h)
+      _n>=4096 multi-seed FULL -> --timeout >= 14400 (4h)
+
+    Also warns (does NOT block) when purpose contains battery/sweep keywords
+    suggesting multi-M-point or GPU-day-scope work below an 86400s budget.
+
+    Exits with code 7 on tier violation. Prints warning on purpose-mismatch.
+    """
+    suffix_n, floor_s = _prot019_floor_for(entry_name)
+    if floor_s is None:
+        if suffix_n is not None and suffix_n >= PROT019_LARGE_N_MIN:
+            print(f"[gate] PROT-019 OK: _n{suffix_n} no tier (below 4096)")
         return
-    if timeout_s >= PROT019_TIMEOUT_FLOOR_S:
+    if timeout_s < floor_s:
         print(
-            f"[gate] PROT-019 OK: large-N anchor _n{suffix_n} with "
-            f"timeout={timeout_s}s >= floor {PROT019_TIMEOUT_FLOOR_S}s"
+            f"\n[gate] PROT-019 REJECT: anchor '{entry_name}' contains _n{suffix_n} "
+            f"(>= {PROT019_LARGE_N_MIN})\n"
+            f"  but --timeout={timeout_s}s is below the PROT-019 tier floor "
+            f"of {floor_s}s ({floor_s // 3600}h).\n"
+            f"\n"
+            f"  Background: tcft_n8192_v5 (2026-05-27) hit a 1800s timeout and\n"
+            f"  lost seed=41 mid-run -- recorded metrics were a 4-of-5 partial,\n"
+            f"  not the 5-seed HARD_PASS the anchor name promised. Tiers were\n"
+            f"  raised 2026-05-28 after c1_kf_battery_phase_v1_n4096 (predicted\n"
+            f"  2-3 GPU-days) was shipped at only 14400s (4h).\n"
+            f"\n"
+            f"  Fix options:\n"
+            f"    1. Re-estimate timeout from smoke wall-clock:\n"
+            f"         timeout_s = ceil(1.5 * smoke_wall_s\n"
+            f"                          * (FULL_N/smoke_N)**scaling_exp\n"
+            f"                          * (FULL_seeds/smoke_seeds))\n"
+            f"       scaling_exp: 1.0-1.5 most sweeps, 2.0 matrix ops.\n"
+            f"    2. If the script is genuinely fast, pass --timeout {floor_s}\n"
+            f"       (the floor) explicitly.\n"
+            f"\n"
+            f"  Tiers (PROT-019 2026-05-28 raise):\n"
+            f"    _n>=8192 -> --timeout >= 21600s\n"
+            f"    _n>=4096 -> --timeout >= 14400s\n",
+            file=sys.stderr,
         )
-        return
+        sys.exit(7)
     print(
-        f"\n[gate] PROT-019 REJECT: anchor '{entry_name}' contains _n{suffix_n} "
-        f"(>= {PROT019_LARGE_N_MIN})\n"
-        f"  but --timeout={timeout_s}s is below the PROT-019 floor of "
-        f"{PROT019_TIMEOUT_FLOOR_S}s.\n"
-        f"\n"
-        f"  Background: tcft_n8192_v5 (2026-05-27) hit the default 1800s timeout\n"
-        f"  and lost seed=41 mid-run -- the recorded metrics were a 4-of-5 partial,\n"
-        f"  not the 5-seed HARD_PASS the anchor name promised. PROT-019 prevents\n"
-        f"  the recurrence by refusing under-budgeted large-N ships at queue_add.\n"
-        f"\n"
-        f"  Fix options:\n"
-        f"    1. Re-estimate timeout from smoke wall-clock:\n"
-        f"         timeout_s = ceil(1.5 * smoke_wall_s\n"
-        f"                          * (FULL_N/smoke_N)**scaling_exp\n"
-        f"                          * (FULL_seeds/smoke_seeds))\n"
-        f"       scaling_exp: 1.0-1.5 most sweeps, 2.0 matrix ops.\n"
-        f"    2. If the script is genuinely fast at N>={PROT019_LARGE_N_MIN}, pass\n"
-        f"       --timeout {PROT019_TIMEOUT_FLOOR_S} (the floor) explicitly.\n"
-        f"\n"
-        f"  Per PROT-019 (2026-05-27): _n>={PROT019_LARGE_N_MIN} anchors must have "
-        f"--timeout >= {PROT019_TIMEOUT_FLOOR_S}s.\n",
-        file=sys.stderr,
+        f"[gate] PROT-019 OK: large-N anchor _n{suffix_n} with "
+        f"timeout={timeout_s}s >= tier-floor {floor_s}s"
     )
-    sys.exit(7)
+    purpose_lc = (purpose or "").lower()
+    battery_hit = next((kw for kw in PROT019_BATTERY_KEYWORDS if kw in purpose_lc), None)
+    if battery_hit and timeout_s < PROT019_BATTERY_FLOOR_S:
+        print(
+            f"[gate] PROT-019 WARNING: purpose contains '{battery_hit}' suggesting "
+            f"multi-M-point / GPU-day scope; --timeout={timeout_s}s is below the "
+            f"recommended battery-floor of {PROT019_BATTERY_FLOOR_S}s (24h). Not "
+            f"blocking -- but consider raising if the run is genuinely a battery.",
+            file=sys.stderr,
+        )
 
 
 def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
@@ -317,8 +354,9 @@ def main() -> int:
     # 1b. PROT-018: anchor-name N-suffix binding check (exit 6 on mismatch)
     check_n_suffix_binding(args.entry_name, script_path)
 
-    # 1c. PROT-019: timeout floor for large-N anchors (exit 7 on violation)
-    check_timeout_floor(args.entry_name, args.timeout)
+    # 1c. PROT-019: timeout floor for large-N anchors (exit 7 on violation).
+    # Pass purpose so the battery/sweep WARNING can fire on multi-M-point work.
+    check_timeout_floor(args.entry_name, args.timeout, getattr(args, "purpose", "") or "")
 
     # 2. Prereg exists
     prereg_path = REPO / args.prereg
