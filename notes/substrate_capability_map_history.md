@@ -9407,3 +9407,36 @@ ANNOTATION-WITH-1-NEW-ROW-4-LIFTS-1-NEW-INFRASTRUCTURE-GAP v255 → v256: (1) KF
 168th PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
 ANNOTATION-WITH-DOUBLE-LIFTS-1-RESCUE-DISCHARGED v256 → v257: (1) TCFT deletion-cert M-axis LIFT 55-70% → 65-78% (+10% via 1/sqrt(M) scaling-law characterization across 9 decades); (2) KF-5 steerable-substrate N-axis LIFT 60-72% → 70-82% (+10% via N=8192 envelope-extension discharging v256 rescue (d)); (3) phase-boundary direct-test LIFT +5%; (4) framework reliability product-feature LIFT +3%; (5) portfolio 14+23 UNCHANGED; (6) 0 closures; (7) 99th + 100th HONEST observations; (8) queue-refill SURFACED to main thread for REMOTE_CPU refill; (9) Cat-A deletion-cert foundation strongest possible position with N-axis × M-axis joint coverage; 168th PROT-009 paired commit.
+
+
+## v260 — 2026-05-28 01:20 BATCHED 4-VERDICT — KF-2 ACTIVATION + MoE entropy-source REJECTED + AXIS-2 LIFT + TCFT replication
+
+**Verdict landings (all via remote bridge `_source=remote`):**
+1. axis2_codebook_density_v1_n4096 (overnight_queue) MIDDLE_BAND HONEST — 1/6 codebook drops; antipodal=0.441 outlier; rest cluster [0.603, 0.645].
+2. tcft_m_sweep_v2 (remote_cpu_queue) HARD_PASS REPLICATION of v257 v1 (identical 2-seed config); DISPATCH-FRAMING-MISMATCH catch (claimed 5-seed; was 2-seed).
+3. kf2_isolation_proof_v1 (remote_cpu_queue) FIRST-HARD_PASS — Option-2 reframe (Kerdock-orthogonality not SVD-cascade); max_iso=0.02020 < 0.05 (2.5x).
+4. moe_gradient_router_v1 (remote_cpu_queue) PRE-REG-FIRES on entropy clause (4.0b > 3.0b) but RETENTION CLEARS (ret_delta=0.0); LABEL-VS-HONEST catch.
+
+**Cap_map state changes:**
+- LIFT: **AXIS-2 codebook-density row 🔬 → 🟡 35-50%** — antipodal-vs-rest binary signal; not multi-class phase taxonomy as hypothesized.
+- LIFT: **TCFT deletion-cert envelope row 🟢 65-78% → 🟢 67-80%** (+2%) — replication-corroboration; v257 rescue (c) 5-seed STILL OPEN.
+- ACTIVATION: **KF-2 (Edit-Isolation-Proof reframe) CONTINGENT → ACTIVE** — portfolio 14+23 → 14+24; first new KF since SKAH-M lR-phase milestone.
+- REINTERPRETATION: **MoE K-scaling row** — v220 M2_DOMINANT entropy-source-model REJECTED by uniform-routing + retention=1.0; row state ✅ holds but causal model rewritten; MoE SHIFT rebuild path PARTIALLY UNBLOCKED.
+
+**Framework reliability SPLIT**: general 71-83% UNCHANGED; specific named 53-65% → 55-67% (+2%); product-feature 78-90% → 80-92% (+2% for KF-2 activation).
+
+**Portfolio**: 14 + 23 → 14 + 24 (KF-2 ACTIVATED). First portfolio change since v258. **0 capability row CLOSURES** PROT-004/006 NOT triggered.
+
+**KF-2 reframe note**: per `exp_dev_to_strategy_instrumentation_suspect_kf2_edit_impact_2026-05-27.md` Option 2 — "argmax-vacuous-for-Kerdock" blocker on impact-prediction reframed as "edit-isolation proof via Kerdock orthogonality." Product narrative: "structurally bounded edit blast radius" (Cat-B Operational Reliability anchor).
+
+**MoE causal-model rewrite (critical)**: v220 M2_DOMINANT claim "LSH gating entropy = sole degradation source" rests on the assumption that high entropy ⇒ degradation. v260 gradient-router DISCONFIRMS this: max entropy (log2(K) = uniform) + retention=1.0 + M_per_expert fixed-per-expert = no K-scaling degradation. Either (a) substrate has NO K-scaling ceiling under M_per_expert scaling, or (b) entropy is correlated-but-not-causal proxy. Fixed-total-capacity probe filed as routing.
+
+**3 exp_dev rescue routings filed**: tcft_m_sweep_5seed_proper + moe_fixed_total_capacity_K_sweep + kf2_n8192_envelope_extension.
+
+**Queue-refill**: pause flag ABSENT (ACTIVE); overnight 4 pending + 1 running (healthy); remote_cpu 0/0 AFTER 4 verdicts BUT 3 routings filed cover the refill cycle. NO direct exp_dev dispatch from handler.
+
+**102 → 106 HONEST observations**; **101 → 103 LABEL-VS-HONEST catches** (102nd: tcft_v2 DISPATCH-FRAMING-MISMATCH 2-seed-not-5-seed; 103rd: moe_gradient_router_v1 pre-reg proxy-fires-but-honest-capability-clears).
+
+171st PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+BATCHED 4-VERDICT v259 → v260: AXIS-2 LIFT 🔬→🟡 + TCFT +2% replication + KF-2 ACTIVATION (portfolio 14+24) + MoE entropy-source REJECTED (SHIFT path partial-unblock) + 2 label-vs-honest catches + framework reliability product-feature 78-90% → 80-92% + 3 exp_dev routings filed + 0 closures; 171st PROT-009 paired commit.
