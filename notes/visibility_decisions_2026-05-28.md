@@ -1,0 +1,3 @@
+# Visibility decisions — 2026-05-28
+
+00:48 — BATCHED 2-VERDICT v258→v259 ANNOTATION-ONLY: saad_solla_v12_n8192_5seed TIMEOUT (wall_s=1800.0 ≡ timeout_s; seed=7 cells f∈{0.00, 0.15, 0.50} completed before kill; ~500s/cell → 7500s budget needed for 5seedx3f) + pb3_extended_v2_n4096 SCRIPT_BUG (RuntimeError torch.rand generator device mismatch at exp_wave14b_cl_phase_a.py:78, wall_s=3.13s). Both INFRASTRUCTURE — Saad-Solla ✅ LEADING + PB3 🟢 rows UNCHANGED; portfolio 14+23 UNCHANGED. Reships: v13 (timeout_s=14400 OR N=4096) + pb3_v3 (CPU generator fix). 2 strategy_request_to_exp_dev routings filed. 102nd verdict_msg honest re-read (both labels honest). 170th PROT-009 paired commit.
