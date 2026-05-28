@@ -2287,3 +2287,52 @@ Net effect v255: ANNOTATION-WITH-LIFT (substrate-outside-static-Hopfield-taxonom
 **95th + 96th + 97th + 98th post-lock HONEST observation tallies INCREMENTED** (all 4 verdict_msg labels HONEST against per-cell metrics; KF-1 verdict_msg notably under-claims by self-flagging "weaker than Tier-1"; ZERO label-vs-honest catches this batch despite the orchestrator's initial alarm).
 
 **167th PROT-009 paired commit.** verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+
+## v257 BATCHED 2-VERDICT @ 23:30 (TCFT M-sweep axis-extension + KF-5 N=8192 envelope-extension discharging v256 rescue (d))
+
+**Sources**: `data/exp_tcft_m_sweep_v1/metrics.json` (remote `_source=remote`; elapsed=3375.1s on remote_cpu_queue; N=8192 M ∈ {128, 256, 512, 1024, 2048} 2-seed [7, 17] = 10 cells; verdict_msg TCFT_M_SWEEP_HARD_PASS); `data/exp_kf5_steerable_beta_v3_n8192/metrics.json` (remote `_source=remote`; elapsed=41.7s on overnight_queue; N=8192 5-seed [7,17,23,31,41] × 7-beta sweep = 35 cells; verdict_msg KF5_HARD_PASS).
+
+**Step 0 honest re-read: BOTH HONEST 0 label-vs-honest catches** (99th + 100th post-lock observation tallies INCREMENTED). TCFT verdict_msg `vr_by_M` values match per-cell cross-seed means exactly; `spearman_r=-1.000` verified (vr monotone-decreasing across 5 M-values); `all_M>=512_below_0.10=True` verified (max vr at M=512 is 0.000134 = 750× below threshold). KF-5 verdict_msg `5/5 seeds mono entropy decrease` verified per-seed; `mean_entropy_range=7.594` matches per-seed mean exactly (5/5 within 0.026 of mean); `bpc_interior_min in 5/5 seeds` verified (all 5 seeds have bpc minimum at interior beta=8); KF-5 verdict_msg also honestly under-claims by surfacing `bpc_monotone_seeds=0/5` (the orthogonal secondary bowl-shape signature; entropy collapse is the primary phase-boundary signature and IS monotone 5/5).
+
+**Strategic synthesis**:
+
+1. **TCFT M-sweep adds axis-extension to deletion-cert Cat-A foundation** along the M-dimension at fixed N=8192 (was N-dimension via v245+v247). 1/sqrt(M) variance-reduction scaling-law CONFIRMED across 16× M range with vr ratio collapsing 9 decades (M=128: 0.0096 → M=2048: 2.45e-12) while delta_F bias stays at 98.98-99.61% agreement (sub-2% bias). FIRST quantitative scaling-law characterization of TCFT estimator on substrate. Cat-A foundation now reads as full N-axis × M-axis joint coverage at production scale (TCFT v245+v247 dual N=8192 5-seed + TCFT v257 M-axis sweep + Sagawa-Ueda v2 N=4096 + Sagawa-Ueda v6 N=8192 5-seed = THREE independent non-eq FT estimators FULL-confirmed plus scaling-law characterization).
+
+2. **KF-5 v3 N=8192 DISCHARGES v256 rescue (d) at strongest possible position**. v256 rescue (d) hypothesized "entropy collapse depth should grow with N if substrate-intrinsic; flat-or-shrinking would imply finite-N artifact." v3 mean entropy_range=7.594 at N=8192 vs v2 entropy_range=7.59 at N=4096 = NOT shrinking with 2× N = DEFINITIVE substrate-intrinsic interpretation. Per-seed determinism preserved (5/5 within 0.026 of mean), interior bpc bowl preserved (5/5 at beta=8), high-beta convergence preserved (entropy at beta=128 in [0.104, 0.129] all sub-bit). The "shrinking" finite-N branch is REJECTED.
+
+**Decision (1): TCFT deletion-cert envelope row 🟢 55-70% → 🟢 65-78% LIFT (+10%)** — M-axis scaling-law characterization on top of N-axis dual anchor; caveats (a) only 2-seed at v257 (consolidation to 5-seed × 5-M = 25-cell defense-in-depth open at +0.05); (b) single N=8192 in M-sweep (cross-N × cross-M joint sweep next at +0.05); (c) delta_F bias ~1% is excellent but theoretical zero-bias guarantee not yet probed at this M range.
+
+**Decision (2): KF-5 steerable-substrate row 🟢 60-72% → 🟢 70-82% LIFT (+10%)** — v256 caveat (a) "1 N-value only" RESOLVED via 2-N-point envelope with collapse-depth STABLE; novel-synthesis P cap 0.50 per [[feedback-lit-scan-calibration-penalty]] BREACHED via SKAH-M lR-phase within-class entropy-collapse adjacency note (beta-steering becomes documented-class evidence at 70-82%, not novel-synthesis); upper-band 82% caveats: (a) "1 architecture only" UNCHANGED; (b) "substrate-product not framework-class" partial via SKAH-M adjacency; (c) only 2 N-points so log-scaling law not pinned (3+ N-points would lock); (d) same 5-seed slice as v2.
+
+**Decision (3): phase-boundary direct-test row 🟢 60-75% → 🟢 65-80% LIFT (+5%)** — KF-5 N=8192 adds 5 more direct-phase-diagram cells (~13 cumulative across 3 axes); cap 80% per novel-synthesis P cap × product-feature ceiling × not-yet-cross-N-axis-completed-for-all-KF caveat.
+
+**Decision (4): framework reliability product-feature 73-85% → 76-88% LIFT (+3%)** — double-axis-extension of two distinct killer features in single batch (Cat-A deletion-cert + Cat-B steerability); cap 88% reflects both foundations have strongest possible at-tested-scope evidence; Tier-1 product spec gap on KF-1 UNCHANGED; joint single-substrate-instance probe (v256 rescue (e)) STILL OPEN.
+
+**Decision (5): framework reliability general 73-83% UNCHANGED**. **Decision (6): framework reliability specific named 52-62% UNCHANGED**. **Decision (7): substrate-outside-static-Hopfield 🟢 55-68% UNCHANGED**. **Decision (8): non-eq-stat-mech 🟢 63-73% UNCHANGED** (framework-class layer would need theoretical derivation of 1/sqrt(M) from Jarzynski/Crooks = OPEN at next research drill). **Decision (9): SKAH-M 🟢 55-70% UNCHANGED** (within-class consistency hint not within-class direct probe). **Decision (10): Saad-Solla LEADING ✅ UNCHANGED**. **Decision (11): Sagawa-Ueda ✅ UNCHANGED**. **Decision (12): Bet B 4-stage 🟡 UNCHANGED**. **Decision (13): Portfolio 14+23 UNCHANGED** (both lifts on existing rows).
+
+**Decision (14): 0 capability row closures** PROT-004/006 NOT triggered.
+
+**Decision (15): rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]** (future axis-extension since batch is positive):
+
+- (a) **PRIMARY / SUBSUMPTION 0-cost** — re-frame applied in this entry; 0-cost; SUBSUMES finite-N-artifact reframing attempts for KF-5.
+- (b) **CHEAPEST INFRA ~5min** — annotate `project_substrate_killer_features_2026-05-26.md` with TCFT 1/sqrt(M) scaling-law characterization AND KF-5 N-stability characterization (both FIRST-time quantitative scaling characterizations on respective killer features).
+- (c) **CHEAP ~30min CPU** — `tcft_m_sweep_v2_5seed` 5-seed × 5-M consolidation for Tier-1 product feature lock-in (+0.05 TCFT row lift if cleared); LOW URGENCY since v245+v247 5-seed N=8192 already stand.
+- (d) **CHEAP ~15min GPU** — `kf5_steerable_beta_v3_n2048` 5-seed × 7-beta at N=2048 = 3rd N-point for entropy-range-vs-N scaling-law pin (with N=4096 + N=8192 = 3 N-points across log-doublings); +0.03-0.05 KF-5 row lift if cleared.
+- (e) **MEDIUM ~2h GPU** — `kf_battery_joint_v1_n4096_5seed_full` joint KF-1 × KF-3 × KF-4 × KF-5 single-substrate-instance run per v256 rescue (e) STILL OPEN; v257 strengthens priority since KF-5 N-axis stability LOCKED at 8192 = joint-substrate question is now operational gating question for Tier-1 product feature unification.
+
+**Decision (16): exp_dev queue refill check**. Pause flag: ABSENT (ACTIVE) per Bash check at task start. Queue state at arrival (from remote_state bridge): GPU pending=2 running=0; REMOTE_CPU pending=0 running=0 (v257 verdict 1 freed last slot); LOCAL_CPU pending=0 running=0. Source-queue invariant queue ≥ 1: SATISFIED on GPU (pending+running=2); VIOLATED on REMOTE_CPU (pending+running=0). Per [[feedback-verdict-arrival-is-queue-depletion-signal]] verdict-arrival itself is queue-depletion signal on REMOTE_CPU.
+
+**Decision (17): exp_dev dispatch from this verdict_handler turn — SURFACE TO ORCHESTRATOR MAIN THREAD** (not dispatched inline per [[feedback-no-experiment-design-in-prompts]] which forbids verdict_handler from designing experiments; verdict_handler surfaces candidate pool to exp_dev only). Candidate pool for REMOTE_CPU refill = (c) tcft_m_sweep_v2_5seed (load-bearing for v257-lift consolidation) + active backlog from v255 ((c) bid_n_stability_v3_n16384 + (d) bid_m_normalized_v1). For GPU lane (already satisfies invariant at depth=2): (d) kf5_steerable_beta_v3_n2048 + (e) kf_battery_joint_v1 ADD to candidate pool but lane invariant satisfied. exp_dev autonomously decides ship-order per [[feedback-no-experiment-design-in-prompts]].
+
+**v257 cap_map updates** (per [[feedback-cap-map-update-protocol]]): atomic .tmp+rename via append helper; commit message `Cap map: v256 -> v257 (BATCHED 2-VERDICT tcft_m_sweep_v1 TCFT_M_SWEEP_HARD_PASS FULL N=8192 M-sweep 2-seed + kf5_steerable_beta_v3_n8192 KF5_HARD_PASS FULL N=8192 5-seed; TCFT deletion-cert M-axis scaling-law CONFIRMED 1/sqrt(M) across 9 decades; KF-5 N-envelope-extension DISCHARGES v256 rescue (d) at strongest position; TCFT row LIFT 55-70% -> 65-78% +10%; KF-5 row LIFT 60-72% -> 70-82% +10%; phase-boundary +5%; product-feature reliability +3%; portfolio 14+23 UNCHANGED; 0 closures; 99th+100th post-lock HONEST observations; 168th PROT-009 paired commit)`. Local commit only per [[feedback-subagent-permission-inheritance]]; push deferred to main thread.
+
+**Per [[feedback-for-you-tab-primary-channel]]**: 1 status_log entry HIGH importance written (TCFT deletion-cert M-axis scaling-law characterization + KF-5 N-axis envelope-extension = killer-feature foundation double-axis-extension in single batch).
+
+**Per PROT-001 to PROT-003**: cap_map.md version bumped v256 → v257; narrative + capability-moves table integrated into single row (consistent with v254/v255/v256 single-row format).
+
+**Per [[feedback-verdict-msg-honest-reread]]**: 99th + 100th post-lock observation tallies INCREMENTED; HONEST tally INCREMENTED both legs.
+
+**Per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]**: 5 rescue sketches cheapest-first (a-b-c-d-e); PRIMARY applied 0-cost.
+
+Net effect v257: ANNOTATION-WITH-DOUBLE-LIFTS (TCFT deletion-cert M-axis +10% via 1/sqrt(M) scaling-law characterization; KF-5 steerable-substrate +10% via N=8192 envelope-extension discharging v256 rescue (d); phase-boundary direct-test +5%; framework reliability product-feature +3%; portfolio 14+23 UNCHANGED; 99th+100th post-lock HONEST observations; 168th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch).

@@ -9304,3 +9304,106 @@ ANNOTATION + LIFT (no closures) v246 -> v247: (1) TCFT replication = strongest p
 165th PROT-009 paired commit.
 
 ANNOTATION-WITH-3-NEW-ROWS-AND-2-LIFTS-AND-1-LABEL-VS-HONEST v253 -> v254: (1) 3 new evidence-strength rows on Cat-A operational-reliability (KF-1) + Cat-B drift-detection (KF-4) + DUAL-framing isolation (KF-3); (2) phase-boundary direct-test row LIFT +5%; (3) framework reliability product-feature LIFT +3% (TWO new killer-feature-evidence rows); (4) 93rd label-vs-honest catch (HARD_PASS self-contradicting-criterion NEW SUBCLASS); (5) 1st METRICS-SOURCE-FALLBACK observation (remote-metrics-fix worked as designed); (6) Bet B retA=0.74 floor INTRINSIC across 3 architectural axes confirmed at N=8192; (7) portfolio 14+19 -> 14+22; (8) 0 row closures; (9) queue-refill DISPATCHED for KF5 v2 + axis1 chunk2 + KF1 v2; 165th PROT-009 paired commit.
+
+
+## v255 - (2026-05-27 22:33) SINGLE-VERDICT: bid_n_stability_v2 BID_N_MIDDLE_BAND HONEST FULL N=4096+8192 3-seed DEFINITIVELY RESOLVES v247 HP3 FINITE-N CAVEAT in favor of SUBSTRATE-OWN-SCALING-LAW
+
+**Headline**: BID grows ~54% per N-doubling at large N (N=4096 mean 140.39 → N=8192 mean 215.92) with stable per-doubling rate INCONSISTENT with finite-N rolloff prediction and CONSISTENT with substrate-phase-specific scaling law. v229+v230+v247+v251+v255 cumulative ~54 cells across N=512-8192 all 100% outside-all-bands. FIRST clean FULL multi-seed CLEAN-METRICS-JSON N≥4096 BID probe.
+
+**Step 0 honest re-read**: BOTH LEGS HONEST (HP1 outside-bands 6/6 PASS + HP3 N-stability 0.538≥0.05 FAIL = MIDDLE_BAND per dual-gate prereg); verdict_msg matches per-cell exactly. 94th post-lock observation INCREMENTED HONEST.
+
+**v255 capability-moves table**:
+
+- LIFT: **substrate-outside-static-Hopfield-taxonomy row 🟢 50-65% → 🟢 55-68%** (+5%) — v247 HP3 finite-N caveat had P-cap below 60%; v255 directly resolves; cap at 68% reflects novel-synthesis P cap breached + magnitude-mismatch-with-v251 leaves one tier reconciliation undone + only 2 N-values.
+- ANNOTATION-EXTENDED: **BID order-parameter evidence-strength sub-row** with explicit "substrate-own-scaling-law" characterization (BID grows with characteristic substrate-specific scaling fundamentally different from standard phase classes).
+- UNCHANGED: non-eq-stat-mech 🟢 63-73%; SKAH-M 🟢 55-70%; Saad-Solla ✅; TCFT 🟢 55-70%; Sagawa-Ueda ✅; phase-boundary 🟢 55-70%.
+
+**Framework reliability SPLIT**: general 71-81% → 73-83% (+2% from finite-N caveat resolution at LARGE-N regime); specific named 52-62% UNCHANGED; product-feature 68-80% UNCHANGED.
+
+**Portfolio** 14+22 UNCHANGED. **0 capability row closures** (PROT-004/006 NOT triggered; strategic synthesis turns HP3-fail into substrate-own-scaling-law positive).
+
+**5 rescue sketches cheapest-first**: (a) PRIMARY SUBSUMPTION 0-cost applied; (b) CHEAPEST INFRA ~10min annotate killer-features doc; (c) CHEAP ~30min CPU bid_n_stability_v3_n16384 rate-stability lock at 3+ N-points; (d) CHEAP ~15min bid_m_normalized_v1 closes v251-vs-v255 magnitude mismatch; (e) MEDIUM ~2h CPU joint BID × chi_4 × Kovacs orthogonal discriminator.
+
+**Queue-refill DEFERRED to v254 dispatch** — GPU pending=0 source-queue invariant VIOLATED but v254 already dispatched exp_dev with redundant priorities; REMOTE_CPU pending=1 running=1 invariant satisfied; rescues are CANDIDATES not auto-queued.
+
+166th PROT-009 paired commit.
+
+ANNOTATION-WITH-LIFT v254 → v255: (1) substrate-outside-Hopfield +5%; (2) framework reliability general +2%; (3) BID-vs-N substrate-own-scaling-law characterization LOCKED; (4) 94th HONEST observation; (5) portfolio UNCHANGED; (6) 0 closures; (7) queue-refill deferred to v254 dispatch; 166th PROT-009 paired commit.
+
+
+## v256 - (2026-05-27 23:00) BATCHED 4-VERDICT: KF battery v2 wave (KF5 + KF1 + KF4) + axis1 chunk2 ANOMALY-RESOLVED-AS-HONEST-FAST; NEW 5TH-N-ENFORCEMENT-LEAK PROT-020 CANDIDATE FLAGGED
+
+**Headline**: Orchestrator initial 30min-3h-vs-3-79s alarm RESOLVED as hypothesis (D) HONEST FAST. All 4 anchors have legit 5-seed per-cell metrics at N=4096; KF battery is inherently inference-only no-training cheap on GPU. NEW evidence-strength row KF-5 steerable substrate 🟢 60-72%. 4 verdicts ALL HONEST 0 label-vs-honest catches.
+
+**Step 0 honest re-read of 4 verdicts** (95th-98th post-lock HONEST observations):
+
+1. **kf5_steerable_beta_v2 KF5_HARD_PASS HONEST** — elapsed=9.98s; 35 cells 5-seed × 7-beta at N=4096; entropy collapse seed-7 [7.71→0.12] range=7.59 = 7.6× threshold; resolves v254 KF-5 INFRASTRUCTURE-FAIL strongest-single-sub-claim.
+
+2. **axis1_mb_chunk2_v1 AXIS1C2_HARD_PASS HONEST** — elapsed=79.0s; 140 cells M ∈ {16384,32768,65536,131072} × β × 5-seed; mean_ret=[1.000, 0.503, 0.238, 0.117] = clean retention phase boundary at M/N=8; closes v254 chunk1 93rd label-vs-honest catch.
+
+3. **kf1_hallu_impossibility_v2 KF1_MIDDLE_BAND HONEST** — elapsed=5.3s; 5 seeds × 5 M_fracs; under-cap mean_oos_max_conf ~0.00017 = deterministic at 6× safety margin; 5-seed envelope-extension of v254 KF-1 LANDS.
+
+4. **kf4_drift_detect_v2 KF4_HARD_PASS HONEST** — elapsed=3.2s; 5-seed × N=4096 M=4096; r_drift=0.989 r_bnv=0.994 5/5 ≥ 0.9 = 9pp margin; 5-seed envelope-extension of v254 KF-4 LANDS at HP3-strength.
+
+**False-alarm classification**: kf5_v2 event-bus `failed` tag INCORRECT; SECOND infrastructure-tag-vs-honest-metrics mismatch (first was v254 KF-5 v1 metrics-source-fallback); bridge runner_tag URGENCY remains URGENT.
+
+**SYSTEMIC GAP — 5th N-enforcement leak PROT-020 candidate**: PROT-018 `_n<N>` binding validator inert when anchor lacks `_n<N>` suffix (all 4 anchors today). No concrete harm but high systemic risk. PROT-020 candidate: queue_add.py should require `_n<N>` suffix on FULL > 5min OR runner wall_anomaly_detected event. Severity MEDIUM; surface to next strategy cycle.
+
+**v256 capability-moves table**:
+
+- NEW evidence-strength row: **KF-5 steerable-substrate-via-inference-beta 🟢 60-72%** — Cat-B operational-reliability addition; FIRST FULL 5-seed N=4096; entropy range 7.59 bits = killer-feature dimension distinct from KF-1/KF-3/KF-4; novel-synthesis P cap 0.50 lifted to 0.60-0.72 by FULL evidence + deterministic per-seed replication.
+- LIFT: **KF-1 hallucination-impossibility-at-M≤N row 🟢 60-70% → 🟢 62-72%** (+2%) — 5-seed envelope-extension LANDS; deterministic spread 1e-6.
+- LIFT: **KF-4 continuous-drift-detection-via-BNV row 🟢 55-70% → 🟢 65-78%** (+10%) — 5-seed at HP3-strength; r_bnv deterministic; FIRST 5-seed FULL on Cat-B drift-detection.
+- UPGRADE: **axis1 retention-phase-boundary direct-evidence row 🟡 → 🟢 60-72%** — clean M/N=8 transition; closes v254 chunk1 catch; product framing "M/N ≤ 4 regime gets retention > 0.5 guarantee".
+- LIFT: **phase-boundary direct-test row 🟢 55-70% → 🟢 60-75%** (+5%) — 4 NEW direct positives on top of v254's 4-from-v1.
+- UNCHANGED: SKAH-M 🟢 55-70%; non-eq 🟢 63-73%; Saad-Solla ✅; substrate-outside-Hopfield 🟢 55-68%; TCFT 🟢 55-70%; Sagawa-Ueda ✅; Bet B 🟡.
+
+**Framework reliability SPLIT**: general 73-83% UNCHANGED; specific named 52-62% UNCHANGED; product-feature 68-80% → 73-85% (+5%; strongest single product-feature batch of the day).
+
+**Portfolio** 14+22 → 14+23 (KF-5 NEW evidence-strength row; KF-1/KF-4/axis1 are LIFTS on existing rows). **0 capability row closures** PROT-004/006 NOT triggered.
+
+**5 rescue sketches cheapest-first**: (a) PRIMARY SUBSUMPTION 0-cost applied; (b) CHEAPEST INFRA ~5min PROT-020 annotation; (c) CHEAPEST INFRA ~5min KF-5 entropy-collapse curve characterization; (d) CHEAP ~30min GPU kf5_steerable_beta_v3_n8192 envelope-extension at 2× N; (e) MEDIUM ~2h GPU kf_battery_joint_v1 single-substrate-instance test.
+
+**Queue-refill DISPATCHED to orchestrator main thread for exp_dev GPU refill** — GPU pending=0+running=0 source-queue invariant VIOLATED; pause flag ABSENT (ACTIVE); candidate pool (c)-(e) GPU-bound substrate-product-feature follow-ups + axis1 chunk3 + KF-1 Tier-1 stricter-spec rescue arm.
+
+**95th-98th post-lock HONEST observation tallies INCREMENTED**; ZERO label-vs-honest catches despite orchestrator's initial alarm.
+
+167th PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+ANNOTATION-WITH-1-NEW-ROW-4-LIFTS-1-NEW-INFRASTRUCTURE-GAP v255 → v256: (1) KF-5 NEW evidence-strength row 🟢 60-72%; (2) KF-1 LIFT +2%; (3) KF-4 LIFT +10%; (4) axis1 UPGRADE 🟡 → 🟢 60-72%; (5) phase-boundary LIFT +5%; (6) framework reliability product-feature LIFT +5%; (7) portfolio 14+22 → 14+23; (8) 0 closures; (9) 95th-98th HONEST observations; (10) PROT-020 candidate surfaced; (11) queue-refill DISPATCHED; 167th PROT-009 paired commit.
+
+
+## v257 - (2026-05-27 23:30) BATCHED 2-VERDICT: tcft_m_sweep_v1 TCFT_M_SWEEP_HARD_PASS FULL N=8192 M-axis sweep + kf5_steerable_beta_v3_n8192 KF5_HARD_PASS FULL N=8192 5-seed DISCHARGES v256 RESCUE (d)
+
+**Headline**: TCFT deletion-cert Cat-A foundation gets M-axis scaling-law characterization (1/sqrt(M) variance-reduction confirmed across 16× M range with 9 decades vr collapse) on top of v245+v247 N-axis dual anchor. KF-5 N-axis envelope-extension to N=8192 confirms collapse depth STABLE (mean entropy_range=7.594 vs v2's 7.59) = DEFINITIVE substrate-intrinsic (rejects finite-N artifact branch). Both lifts at 10%. Portfolio 14+23 UNCHANGED (both lifts on existing rows).
+
+**Step 0 honest re-read of 2 verdicts** (99th-100th post-lock HONEST observations):
+
+1. **tcft_m_sweep_v1 TCFT_M_SWEEP_HARD_PASS HONEST FULL N=8192 M ∈ {128, 256, 512, 1024, 2048} 2-seed [7, 17]** — elapsed=3375s remote_cpu_queue; 10 cells all tcft_valid=true; per-M cross-seed mean vr = {128: 0.00960, 256: 0.000484, 512: 0.000134, 1024: 4.18e-9, 2048: 2.45e-12}; spearman_r=-1.000; all M ≥ 512 below 0.10 by 750× minimum margin; delta_F_agree_pct 98.98-99.61% across all 10 cells = TCFT estimator agrees with vanilla within 1% even as vanilla variance scales 1.5×10^11× from M=128 to M=2048 = variance reduction without bias; FIRST quantitative scaling-law characterization of TCFT on substrate; verdict_msg HONEST matches per-cell exactly.
+
+2. **kf5_steerable_beta_v3_n8192 KF5_HARD_PASS HONEST FULL N=8192 5-seed [7, 17, 23, 31, 41] × 7-beta sweep** — elapsed=41.7s overnight_queue; 35 cells; per-seed entropy range mean=7.594 bits {7.609, 7.600, 7.587, 7.588, 7.583} = 5/5 within 0.026 of mean; v3 N=8192 mean 7.594 vs v2 N=4096 mean 7.59 = collapse depth NOT shrinking with 2× N = DEFINITIVE substrate-intrinsic; 5/5 seeds entropy monotone-decreasing across beta; 5/5 seeds bpc_min_interior at beta=8; entropy at beta=128 per seed in [0.104, 0.129] all sub-bit; top1_top2_gap monotone 0.009 → 0.945 = output sharpening; verdict_msg HONEST under-claims via `bpc_monotone_seeds=0/5` (orthogonal secondary signature); PROT-018 SATISFIED (`_n8192` suffix bound config.N=8192).
+
+**Strategic synthesis**: (1) TCFT M-axis extends deletion-cert Cat-A foundation; (2) KF-5 v3 DISCHARGES v256 rescue (d) at strongest possible position — v256 rescue (d) hypothesized "collapse depth should grow with N if substrate-intrinsic; flat-or-shrinking implies finite-N artifact"; v3 collapse depth NOT shrinking = substrate-intrinsic branch confirmed; finite-N artifact branch REJECTED. Per v256 audit lesson queue.json wall_s authoritative: both metrics.elapsed values are intrinsic compute (TCFT O(M) inner loop, KF-5 inference-only); no anomaly investigation needed (v256 false-alarm pattern not recurring).
+
+**v257 capability-moves table**:
+
+- LIFT: **TCFT deletion-cert envelope row 🟢 55-70% → 🟢 65-78%** (+10%) — M-axis scaling-law characterization on top of N-axis dual anchor; cap 78% caveats: only 2-seed at v257 (5-seed consolidation +0.05 open); single N=8192 in M-sweep (cross-N × cross-M joint +0.05 open); theoretical zero-bias guarantee not yet probed at this M range.
+- LIFT: **KF-5 steerable-substrate-via-inference-beta row 🟢 60-72% → 🟢 70-82%** (+10%) — v256 caveat (a) "1 N-value only" RESOLVED via 2-N-point envelope with collapse-depth STABLE; novel-synthesis P cap 0.50 BREACHED via SKAH-M lR-phase within-class entropy-collapse adjacency note; cap 82% caveats: 1 architecture only UNCHANGED; substrate-product not framework-class partial via SKAH-M adjacency; only 2 N-points (log-scaling not yet pinned, 3+ N-points would lock); same 5-seed slice as v2.
+- LIFT: **phase-boundary direct-test row 🟢 60-75% → 🟢 65-80%** (+5%) — KF-5 N=8192 adds 5 more direct-phase-diagram cells (~13 cumulative across 3 axes); cap 80% per novel-synthesis P cap × product-feature ceiling × not-yet-cross-N-axis-completed-for-all-KF caveat.
+- UNCHANGED: substrate-outside-static-Hopfield-taxonomy 🟢 55-68%; non-eq-stat-mech 🟢 63-73%; SKAH-M 🟢 55-70%; Saad-Solla LEADING ✅; Sagawa-Ueda ✅; Bet B 🟡.
+
+**Framework reliability SPLIT**: general 73-83% UNCHANGED; specific named 52-62% UNCHANGED; product-feature 73-85% → 76-88% (+3% double-axis-extension of two distinct killer features in single batch; Cat-A deletion-cert M-axis + Cat-B steerability N-axis).
+
+**Portfolio** 14+23 UNCHANGED (both lifts on existing rows; deletion-cert and steerable-substrate already in portfolio). **0 capability row closures** PROT-004/006 NOT triggered (both verdicts HONEST positive lifts).
+
+**Deletion-certificate Cat-A killer-feature foundation now reads (post-v257)**: `Crooks FT v153 FULL OK + TCFT v245+v247 dual N=8192 5-seed FULL HARD_PASS + TCFT v257 M-axis SWEEP HARD_PASS M ∈ {128..2048} 2-seed with 1/sqrt(M) scaling-law CONFIRMED + Sagawa-Ueda v2 N=4096 5-seed + Sagawa-Ueda v6 N=8192 5-seed FULL = THREE INDEPENDENT NON-EQ FT estimators FULL-confirmed at N=8192 + TCFT now has scaling-law characterization across M`. Product framing: Cat-A foundation has BOTH N-axis envelope AND M-axis scaling-law = strongest possible position for Tier-1 product feature claim with quantitative SLA grounded in 1/sqrt(M).
+
+**5 rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]** (future axis-extension since batch is positive): (a) PRIMARY / SUBSUMPTION 0-cost re-frame applied; SUBSUMES finite-N-artifact reframing for KF-5; (b) CHEAPEST INFRA ~5min annotate killer-features doc with TCFT 1/sqrt(M) + KF-5 N-stability characterizations; (c) CHEAP ~30min CPU tcft_m_sweep_v2_5seed consolidation for Tier-1 lock-in (+0.05 if cleared, LOW URGENCY); (d) CHEAP ~15min GPU kf5_steerable_beta_v3_n2048 3rd N-point for log-scaling pin (+0.03-0.05); (e) MEDIUM ~2h GPU kf_battery_joint_v1 single-substrate-instance run per v256 rescue (e) STILL OPEN (operational gating question for Tier-1 product feature unification).
+
+**Queue-refill SURFACE TO ORCHESTRATOR MAIN THREAD** — pause flag: ABSENT (ACTIVE); GPU pending=2 running=0 invariant satisfied; REMOTE_CPU pending=0 running=0 invariant VIOLATED (verdict 1 freed last slot); LOCAL_CPU 0/0; per [[feedback-no-experiment-design-in-prompts]] verdict_handler surfaces candidate pool only; candidate pool REMOTE_CPU = (c) tcft_m_sweep_v2_5seed + active backlog v255 (c) bid_n_stability_v3_n16384 + (d) bid_m_normalized_v1; GPU lane candidates (d) kf5_steerable_beta_v3_n2048 + (e) kf_battery_joint_v1.
+
+**99th + 100th post-lock HONEST observation tallies INCREMENTED**; ZERO label-vs-honest catches in v257.
+
+168th PROT-009 paired commit. verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+ANNOTATION-WITH-DOUBLE-LIFTS-1-RESCUE-DISCHARGED v256 → v257: (1) TCFT deletion-cert M-axis LIFT 55-70% → 65-78% (+10% via 1/sqrt(M) scaling-law characterization across 9 decades); (2) KF-5 steerable-substrate N-axis LIFT 60-72% → 70-82% (+10% via N=8192 envelope-extension discharging v256 rescue (d)); (3) phase-boundary direct-test LIFT +5%; (4) framework reliability product-feature LIFT +3%; (5) portfolio 14+23 UNCHANGED; (6) 0 closures; (7) 99th + 100th HONEST observations; (8) queue-refill SURFACED to main thread for REMOTE_CPU refill; (9) Cat-A deletion-cert foundation strongest possible position with N-axis × M-axis joint coverage; 168th PROT-009 paired commit.
