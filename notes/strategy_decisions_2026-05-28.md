@@ -306,3 +306,76 @@ This is the THIRD consecutive INFRA-only verdict at the Saad-Solla 5-seed envelo
 **Per [[feedback-cap-map-update-protocol]]:** atomic commit of cap_map.md (v260 → v261 single-verdict line + history append) + strategy_decisions_2026-05-28.md (this entry) + visibility_decisions_2026-05-28.md (one-line) + 1 strategy_request routing file. Commit message: `Cap map: v260 -> v261 (SINGLE-VERDICT INFRASTRUCTURE: saad_solla_v13_n4096_5seed TIMEOUT 3600s 2nd-consecutive cheap-sketch-fail; ANNOTATION-ONLY Saad-Solla LEADING ✅ row; portfolio 14+24 UNCHANGED; reliability bands UNCHANGED; sketch-(b) extended-timeout v14 reship routing filed; 104th LABEL-VS-HONEST CATCH new sub-flavor DISPATCH-CONTEXT-vs-QUEUE.JSON timeout-budget-mismatch; 172nd PROT-009 paired commit)`.
 
 Net effect v261: 0 CLOSURES + 0 LIFTS + 1 ANNOTATION-ONLY + 1 LABEL-VS-HONEST CATCH (104th, NEW SUB-FLAVOR dispatch-context-vs-queue.json timeout-budget-mismatch) + 1 INFRASTRUCTURE-FAILURE correctly diagnosed via queue.json wall_s + timeout_s + remote-metrics-absent triangulation; portfolio + reliability UNCHANGED; 1 exp_dev routing filed; queue-refill triggered (GPU depleted); verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
+## v261 -> v262 BATCHED 4-VERDICT @ 02:21 (pb3_extended_v3_n4096 HARD_PASS β-EXTENSION REPLICATION + axis1_mb_chunk5_n4096 HARD_PASS CHUNK-PROGRESS + axis3_triplepoint_v1_n4096 MIDDLE_BAND TRIPLE-POINT-NOT-CONFIRMED 105th LABEL-VS-HONEST + kf3_multisub_v2_n4096 MIDDLE_BAND DUAL-FRAMING UPHELD)
+
+**Trigger.** 4 GPU verdicts on overnight_queue (02:20:03, 02:21:09, 02:21:17, 02:21:28). All 4 metrics fetched via remote bridge `_source=remote`. Step 0 honest re-read applied to each.
+
+### Verdict 1: pb3_extended_v3_n4096 PB3V3_HARD_PASS
+
+Config N=4096 5-seed β∈{2,4,6,8,10,12,16}; elapsed 46s. ratio=100>=1.5; peak_at_train_beta=True at β=8; tau_by_beta={2:1, 4:61, 6:91, 8:100, 10:100, 12:100, 16:100}. **Step 0 honest re-read:** β=2 fast (τ=1); β=4→6→8 rising edge 61→91→100 confirms slow-down onset; β≥8 hits the n_recovery=100 ceiling = saturation caveat (can't distinguish β=8 peak from continuing rise through β=16). Label HONEST; saturation is sub-objective measurement caveat. Resolves v259 v2 SCRIPT_BUG. PB3 🟢 row ENVELOPE-EXTENSION CORROBORATION.
+
+### Verdict 2: axis1_mb_chunk5_n4096 AXIS1C5_HARD_PASS
+
+Config N=4096, m_fracs=[4,5,6,7,8,12], 15 betas; elapsed 64s; 270 cells. M4_hb=1.0>=0.5 ✓ AND M8_lb=0.001<0.1 ✓; mean_conf_by_M monotone 0.605→0.525→0.445→0.385→0.315→0.202. **Step 0 honest re-read:** both pre-reg clauses fire cleanly; monotone M-axis with no kinks. Label HONEST. AXIS-1 phase-diagram scan extends to over-capacity regime (M/N=4-12).
+
+### Verdict 3: axis3_triplepoint_v1_n4096 AXIS3_MIDDLE_BAND [LABEL-vs-DISPATCH-FRAMING CATCH 105th — DISPATCH_HYPOTHESIS_OVER_CLAIM sub-flavor]
+
+Config N=4096 M_frac=6.0 β=8.0 n_dirs=6 = 150 cells; elapsed 5s. max|delta_ret|=0.25; sign_divergence=False. mean_delta_by_dir: M_minus=+0.013, M_partial_swap=-0.063, M_plus=-0.084, W_noise=+0.001, beta_down=0.0, beta_up=0.0. pos_dirs=[]. neg_dirs=[M_plus, M_partial_swap].
+
+**Step 0 honest re-read [LABEL-vs-DISPATCH-FRAMING CATCH]:** verdict_msg label MIDDLE_BAND honest at metric level. BUT dispatch context framed this as "potentially MAJOR phase-boundary confirmation: triple-point signature is exactly 3 phases converging." Triple-point signature requires `sign_divergence=True` (opposing-sign deltas indicating 3 distinct phases meeting); observed sign_divergence=False; only 2 of 6 directions exceed |0.05|, BOTH negative; 4 of 6 directions essentially flat (β_down, β_up, W_noise, M_minus). **Triple-point hypothesis REJECTED at (M_frac=6, β=8).** Operating point is INTERIOR to single phase with M-axis-only sensitivity (redundant with AXIS-1, not novel triple-point evidence).
+
+105th label-vs-honest catch, NEW SUB-FLAVOR: DISPATCH_HYPOTHESIS_OVER_CLAIM (dispatch context's hypothesis-confirmation framing rejected by sign_divergence falsifier; distinct from v260 dispatch-framing-mismatch which was experimental-config layer).
+
+**Decision (3): phase-boundary direct-test row 🟢 55-70% UNCHANGED.** Axis3 disconfirms triple-point sub-hypothesis but does NOT falsify row (v251 pb3 + v254 KF-1/KF-4 evidence stack intact). Annotation only.
+
+### Verdict 4: kf3_multisub_v2_n4096 KF3V2_MIDDLE_BAND
+
+Config N=4096 coupling_counts=[0,1,5,25,100] n_probe=200; elapsed 9s. max_leakage_clean=0.0148 (HP<0.01 fails 1.48x); max_contam_clean=0.0544 (HP<0.05 fails 1.09x); mean_acc_B=1.000.
+
+**Step 0 honest re-read:** label HONEST; both HP clauses fail by clear margins. v1 (v254) was DUAL framing (INFO_ISOLATED max_leak=0.0054 + STATE_CONTAMINATED 5% baseline). v2 extended coupling sweep — neither framing dominates: info-leakage SLIGHTLY worse (0.0054→0.0148, both HP-fail), state-contamination unchanged (~5%). DUAL framing UPHELD across extended coupling axis. KF-3 row 🟡 45-60% UNCHANGED. Product compliance contract "info-isolation YES + state-isolation NO at shared substrate" STANDS.
+
+### Joint decisions
+
+**Decision (5): Cap_map aggregate.**
+- PB3 🟢 ENVELOPE-EXTENSION CORROBORATION (β-range {2-16} 5-seed); v251 evidence STANDS + extended.
+- AXIS-1 chunk5 SCAN-PROGRESS at over-capacity regime; no row-state move (scan, not closure).
+- Phase-boundary direct-test 🟢 55-70% UNCHANGED (axis3 row-neutral disconfirmation).
+- KF-3 🟡 45-60% UNCHANGED (DUAL framing corroborated).
+- Portfolio 14 + 24 UNCHANGED.
+- Framework reliability: general 73-83% / specific 55-67% / product-feature 80-92% UNCHANGED.
+- Non-eq stat-mech class 63-73% UNCHANGED.
+- Cumulative HONEST observations: 107 → 111 (+4).
+- Cumulative LABEL-VS-HONEST catches: 104 → 105 (+1 NEW SUB-FLAVOR DISPATCH_HYPOTHESIS_OVER_CLAIM).
+
+**Decision (6): Rescue sketches cheapest-first.**
+
+For Verdict 1 (PB3 saturation): (a) SUBSUMPTION 0-cost — v3 corroboration suffices; ceiling caveat sub-objective. (b) CHEAP ~5min — pb3_v4 n_recovery=500 for sharper β-peak. (c) MEDIUM — pb3_v4_n8192 cross-N corroboration.
+
+For Verdict 2 (AXIS-1 chunk5): (a) SUBSUMPTION — scan progression continues. (b) CHEAP — axis1_chunk6_n4096 continuation.
+
+For Verdict 3 (axis3 triple-point REFUTED): (a) SUBSUMPTION 0-cost — sub-hypothesis rejected; operating point reframed as single-phase interior. (b) CHEAP ~10min — axis3_v2 at DIFFERENT operating point (e.g., M_frac=8 β=8 near AXIS-1 chunk5 transition) to test sign-divergence emergence at actual phase-transition. (c) MEDIUM ~30min — multi-operating-point sweep across AXIS-1 chunk5 surface to find triple-point IF anywhere in M×β plane.
+
+For Verdict 4 (KF-3 DUAL framing): (a) SUBSUMPTION — v1+v2 lock; product contract documented. (b) CHEAP ~10min — kf3_v3 with PER-TENANT substrate state architecture (eliminate state-contamination by-design). (c) MEDIUM — formalize regulated-deployment compliance spec.
+
+**Decision (7): exp_dev routing files — ONE filed.**
+- `notes/strategy_request_to_exp_dev_v262_axis3_triplepoint_v2_alternate_operating_points_2026-05-28.md` — axis3 v2 at near-transition operating points.
+
+PB3/AXIS-1/KF-3 sub-objective rescues are LOW-priority defense-in-depth; NOT load-bearing; orchestrator may pick them up opportunistically.
+
+**Decision (8): Queue-refill — NO auto exp_dev skill dispatch.** Pause flag ABSENT. overnight_queue depth = 0 IS a refill signal, BUT 6+ properly-anchored routings already filed (v259 pb3_v3_genfix DISCHARGED by this verdict 1; v261 saad_solla_v14 open; v260 tcft_5seed_proper / moe_fixed_total_capacity / kf2_n8192_envelope open; this v262 axis3 v2 NEW). Per [[feedback-dispatch-wrappers-default]] + [[feedback-no-padding-experiments]] orchestrator's next routing_handler cycle ships them — no auto-dispatch from verdict_handler. remote_cpu_queue healthy at pending=4 running=1.
+
+### PROT compliance (v262)
+
+- PROT-004/006: 0 row closures; 1 ENVELOPE-LIFT (PB3) + 1 SCAN-PROGRESS (AXIS-1 chunk5) + 1 ROW-NEUTRAL DISCONFIRMATION (axis3) + 1 DUAL-FRAMING CORROBORATION (KF-3); sub-objective rescues cheapest-first.
+- PROT-007: history.md unchanged (no formal row state moves).
+- PROT-008: no demotions; all moves LIFT/CORROBORATION/NEUTRAL.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md + 1 routing file atomic commit; 173rd PROT-009 paired commit.
+- PROT-018: all 4 anchor names + new v2 anchor carry `_n<N>` suffix.
+- [[feedback-verdict-msg-honest-reread]]: 107 → 111 (+4); LABEL-VS-HONEST 104 → 105 (+1 axis3 DISPATCH_HYPOTHESIS_OVER_CLAIM sub-flavor).
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-trust-queue.json-wall_s]]: all 4 metrics remote-authoritative; elapsed_s 46s/64s/5s/9s consistent with v256 audit lesson (inference-only N=4096 intrinsically fast).
+- [[feedback-dispatch-context-trust]]: axis3 dispatch "triple-point signature" framing VERIFIED FALSE against sign_divergence=False.
+- [[feedback-no-experiment-design-in-prompts]]: axis3 v2 routing TASK+WHY+CONTRACT+AUTONOMY only.
+
+Net effect v262: 0 CLOSURES + 1 ENVELOPE-EXTENSION-LIFT + 1 SCAN-PROGRESS + 1 ROW-NEUTRAL DISCONFIRMATION + 1 DUAL-FRAMING CORROBORATION + 1 LABEL-VS-HONEST CATCH 105th NEW SUB-FLAVOR DISPATCH_HYPOTHESIS_OVER_CLAIM; portfolio + reliability + phase-boundary direct-test row UNCHANGED; 1 exp_dev routing filed (axis3 v2); 173rd PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
