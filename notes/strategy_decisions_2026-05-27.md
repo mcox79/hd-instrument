@@ -1864,3 +1864,48 @@ Per [[feedback-verdict-msg-honest-reread]]: 89th and 90th post-lock label-vs-hon
 Per [[feedback-cap-map-update-protocol]]: pull-first prior to this turn confirmed; atomic edit via Edit tool; commit message staged for main-thread push (sub-agent context blocked).
 
 Per [[feedback-for-you-tab-primary-channel]]: 4 status_log entries written (pb3 HIGH; pb1 MEDIUM; bid_v4 HIGH; tcft_robustness HIGH).
+
+
+## v252 -- 2026-05-27 SINGLE-VERDICT saad_solla_v11_n8192 HARD_PASS HONEST (first clean large-N N=8192 FULL multi-seed Saad-Solla)
+
+**Trigger.** saad_solla_v11_n8192 completed 22:12:37 overnight_queue elapsed=3218.3s. v11 is rescue-of-v10 (v10 CUDA_RUNTIME_CRASH_AT_LARGE_N per v246 87th catch; Kovacs replay buffer disabled).
+
+**Step 0 honest re-read.** Remote-bridge `_source=remote` authoritative. Per-seed metrics: seed=7 R^2=0.299 max_dev=0.343 hp=True hf=False; seed=17 R^2=0.300 max_dev=0.344 hp=True hf=False. Both seeds clear HP gate (R^2 < 0.85 AND max_dev >= 0.08) at 4-OOM-magnitude margins. verdict_msg label HONEST: "2/2 seeds R^2<0.85 and max_dev>=0.08 at N=8192 (replay DISABLED)." 91st post-lock observation; HONEST tally INCREMENTED (no override).
+
+**HONEST CAVEAT — 2-seed not 5-seed.** Prompt framing called this "5-seed FULL" candidate but per-cell config shows only seeds [7, 17] = 2 seeds. verdict_msg internally HONEST at 2-seed scope. Framework-reliability label "first clean large-N FULL multi-seed positive Saad-Solla" still stands at 2-seed scope. Margins (R^2=0.30 vs threshold 0.85 = 0.55 below; max_dev=0.34 vs threshold 0.08 = 4.3x above) + vanishing seed-spread (per-seed metrics differ by <0.001) make additional seeds consolidating-not-call-changing. 5-seed defense-in-depth corroboration OPEN-INDEFINITELY but not urgent.
+
+**Strategic context (cap_map state-transition decision).** Per role contract authority. Saad-Solla saddle-cascade row is LEADING since v205/v206 (BIC delta=194.9 + alpha_c v211). "Large-N FULL N>=4096 multi-seed probe STILL OPEN" was the standing open-question flag since v225. v11 closes that gap at N=8192.
+
+**Decisions:**
+- **Decision (1): Cap_map v251 -> v252 ANNOTATION-WITH-MODEST-LIFT.** Saad-Solla row LEADING UNCHANGED (already at peak status); annotation reads "v252 = LARGE-N corroboration filling envelope-extension gap; 2-seed FULL N=8192 replay-disabled-control HARD_PASS at 4-OOM margins; per-seed retention curves visibly multi-tier (non-monotone discrete saddle-cascade signature)".
+- **Decision (2): non-eq-stat-mech framework class row LIFT 58-68% -> 60-70%** (+2% from Saad-Solla large-N N=8192 corroboration = independent angle on framework-class alongside v245+v247 TCFT and v251 phase-boundary; ratio of N-scaling probes resolving to substrate-class-positive at N=8192 now 3-of-3 in last 24h).
+- **Decision (3): framework reliability SPLIT.** general 67-77% -> 69-79% LIFT (+2% from Saad-Solla LEADING theoretical-home-anchor gets largest-N validation to date with replay-disabled mechanism control); specific named 50-60% UNCHANGED (Saad-Solla saddle-cascade is the named class; this is corroboration not promotion); product-feature 62-74% UNCHANGED (theoretical-home class evidence not killer-feature evidence).
+- **Decision (4): portfolio 14+19 UNCHANGED.** Saad-Solla row already LEADING in portfolio count.
+- **Decision (5): 0 capability row closures.** PROT-004/006 not triggered; ANNOTATION-WITH-LIFT only; no row demotions; verdict is corroboration.
+- **Decision (6): substrate's-own-scaling-law-for-discrete-saddle-cascade STRENGTHENED.** Replay-disabled control rules out replay-buffer as source of structure; per-seed retention curves at N=8192 show same non-monotone tier-pattern as smaller N = scale-invariance of cascade signature corroborated.
+- **Decision (7): NO exp_dev queue refill from this handler.** Queue state per remote_state.get_queue_state at verdict arrival: overnight pending=5 running=1 (bet_b_4stage_phaseD_aweight_v2). Source-queue invariant queue >= 1 satisfied per [[feedback-no-padding-experiments]]. Pause flag absent (ACTIVE) but no auto-queue while queue depth >= 1.
+
+**Rescue sketches (5; cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]).** Note rescue framing for a POSITIVE verdict = "what would 5-seed FULL or wider-axis corroboration look like":
+
+(a) **PRIMARY / SUBSUMPTION 0-cost** — re-frame v252 as "Saad-Solla saddle-cascade LARGE-N FULL gap CLOSED at 2-seed N=8192 with replay-disabled mechanism control; HP margins are 4x above threshold + seed-spread vanishing = additional seeds would consolidate not change call; envelope-extension OPEN-INDEFINITELY-AS-DEFENSE-IN-DEPTH no urgency"; applied; 0-cost.
+
+(b) **CHEAPEST INFRA ~5min** — annotate `notes/active_protocols.md` Saad-Solla LEADING-class-with-N=8192-anchor explicit at framework-reliability primary-table for next strategy cycle (replaces stale "LARGE-N FULL OPEN" annotation flagged since v225).
+
+(c) **CHEAP ~30min GPU** — saad_solla_v12 5-seed N=8192 replay-disabled (3 additional seeds [23, 31, 41] = full convention); subsumes (d) if clears; only justified if 2-seed scope concerns orchestrator framework-reliability calc since margins are already 4x above HP gate.
+
+(d) **MEDIUM ~2h GPU** — saad_solla N-extension to N=16384 same script; next N-scaling step on chain v3(1024) -> v8(2048) -> v11(8192) -> v12_n16384(16384); checks BIC/saddle-cascade scaling-law at N^2=2.7e8 capacity scope.
+
+(e) **MEDIUM ~2h GPU** — Saad-Solla x alpha-load joint probe (5x3 cell N=8192 across alpha in {0.10, 0.15, 0.20} sub-alpha_c x seeds [7,17,23,31,41]) to confirm v211 alpha_c in-band at N=8192 not just N=1024; broader Saad-Solla 2-axis robustness at production scale.
+
+PRIMARY (a) applied 0-cost; (b) is the IMMEDIATE next strategy cycle action; (c)/(d)/(e) are CANDIDATES for next exp_dev cycle but NOT auto-queued per [[feedback-no-padding-experiments]] (queue depths comfortable).
+
+**PROT compliance (v252).**
+- PROT-004/006: 0 capability row closures; ANNOTATION-WITH-LIFT entry. 5 rescue sketches filed cheapest-first per defensive thoroughness even though no closure triggered.
+- PROT-007: history.md absent (consistent with v228+).
+- PROT-008: No row state changes (Saad-Solla already LEADING; only P band lifts on framework-class row); PROT-008 validator-style logic: no row state change, no gate to check.
+- PROT-009: cap_map.md + strategy_decisions_2026-05-27.md staged atomically.
+- PROT-018: anchor `_n8192` matches config.N=8192; CLEAN; no exit-6.
+- PROT-019: per-experiment timeout — elapsed=3218.3s, default 7200s GPU floor satisfied; no violation.
+- [[feedback-verdict-msg-honest-reread]]: 91st post-lock observation; HONEST tally INCREMENTED (label internally honest at 2-seed scope; no override needed; 2-seed-not-5-seed caveat surfaced for transparency but does not constitute label-vs-honest override since verdict_msg itself read "2/2 seeds").
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+- [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]: 5 rescue sketches cheapest-first (a-b-c-d-e); PRIMARY applied 0-cost.

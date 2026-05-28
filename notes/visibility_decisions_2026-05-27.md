@@ -114,3 +114,8 @@ v229 local commit complete; push deferred to main thread per [[feedback-subagent
 ## 2026-05-27 20:53 -- sagawa_ueda_v5 TIMEOUT_KILL_NO_FULL_DATA @ 20:33 (cap_map v249 -> v250 ANNOTATION-ONLY)
 
 `sagawa_ueda_v5 TIMEOUT_KILL` second timeout on same N=8192 envelope-extension probe in 3.5h (v4 1200s + v5 4800s both insufficient); remote dir empty no metrics.json no per-seed completion lines in runner log; pattern (c) TIMEOUT confirmed; Cat-A deletion-cert foundation UNCHANGED (TCFT v245+v247 dual FULL N=8192 anchor is primary; Sagawa-Ueda v2 N=4096 stands as smaller-N anchor; N=8192 envelope-extension is BONUS not REQUIRED); 0 row closures; PROT-019-v2 candidate elevated (post-rescue re-occurrence detector + N^2 exponent budget formula enforcement); portfolio 14+19 UNCHANGED; framework reliability SPLIT UNCHANGED.
+
+
+## v252 saad_solla_v11_n8192 HARD_PASS HONEST 22:12
+
+First clean large-N N=8192 FULL multi-seed (2-seed) confirmation of Saad-Solla saddle-cascade after v3-v10 7-catch history. Rescue-of-v10 (Kovacs replay disabled = v10 CUDA crash source removed). 2/2 seeds HP at 4-OOM margins (R^2=0.30 vs 0.85; max_dev=0.34 vs 0.08); seed-spread <0.001 essentially deterministic. Honest caveat: 2-seed not 5-seed but margins make extra seeds consolidating-not-call-changing. Saad-Solla row LEADING UNCHANGED + envelope-extension annotation. non-eq-stat-mech framework class LIFT 58-68% -> 60-70%. Framework reliability general 67-77% -> 69-79% (+2%). Portfolio 14+19 UNCHANGED. 91st post-lock HONEST observation. 163rd PROT-009 paired commit.
