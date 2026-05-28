@@ -53,7 +53,7 @@ echo "[queue-add] queue=${QUEUE} name=${NAME}"
 SHIP_SENTINEL="${REPO_LOCAL}/data/recent_ship_attempts.jsonl"
 record_ship_attempt() {
   local now
-  now="$(date -u +%Y-%m-%dT%H:%M:%S)"
+  now="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   mkdir -p "$(dirname "${SHIP_SENTINEL}")"
   # JSONL line; single-line, no embedded newlines. Atomic append is fine on
   # local FS; torn writes are tolerated by the watchdog parser.

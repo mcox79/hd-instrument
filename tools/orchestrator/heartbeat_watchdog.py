@@ -43,7 +43,7 @@ import json
 import subprocess
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -635,9 +635,12 @@ def _is_confirmed(
     """
     if attempt_landed:
         return True
-    if _name_in_dashboard_queue(snapshot, queue, name):
-        return True
+    # recent_verdicts check first: covers completed/failed/killed entries that
+    # already ran and were reaped from queue.json. Any verdict status counts as
+    # "landed" -- the runner picked up the entry and ran it to completion.
     if _name_in_recent_verdicts(snapshot, name):
+        return True
+    if _name_in_dashboard_queue(snapshot, queue, name):
         return True
     if _name_in_runner_logs(snapshot, queue, name):
         return True
@@ -677,6 +680,12 @@ def evaluate_ship_unconfirmed(
         attempted_iso = att.get("attempted_at") or att.get("ts")
         try:
             attempted_dt = datetime.fromisoformat(attempted_iso)
+            # Legacy entries (pre-Z-suffix) are naive UTC; stamp tzinfo so
+            # .timestamp() does not silently apply the local-machine offset
+            # and produce a spurious 4-8h age inflation that re-fires
+            # ship_unconfirmed forever.
+            if attempted_dt.tzinfo is None:
+                attempted_dt = attempted_dt.replace(tzinfo=timezone.utc)
             attempted_ts = attempted_dt.timestamp()
         except Exception:
             # Malformed timestamp: keep it but skip evaluation.
