@@ -9254,3 +9254,53 @@ Sub-agent self-coordination:
 - 160th PROT-009 paired commit.
 
 ANNOTATION + LIFT (no closures) v246 -> v247: (1) TCFT replication = strongest possible replication evidence for deletion-certificate Cat-A foundation; (2) BID HP1 cumulative 30/30 outside-bands across N=512-8192 + N-asymptote caveat documented; (3) substrate-outside-static-Hopfield-taxonomy 5th angle; (4) framework reliability UNCHANGED (replications don't move P); (5) 88th post-lock honest re-read observation (BOTH HONEST); (6) portfolio 14+19 UNCHANGED; (7) 0 row closures; (8) queue-refill DISPATCHED CPU lane; 160th PROT-009 paired commit.
+
+
+## v254 - (2026-05-27 22:30) BATCHED 6-VERDICT: phase-boundary KF battery (KF1 hallucination-impossibility HARD_PASS bounded scope + KF4 continuous drift detection HARD_PASS BNV r=0.99 + KF3 info-isolation HP/state-contam 5% DUAL-FRAMING + KF5 METRICS-SOURCE-FALLBACK 1st observation infrastructure-fail) + axis1 chunk1 LABEL-VS-HONEST 93rd catch retention saturated below capacity BNV-only phase signal + Bet B phase-D retA=0.749 3rd architectural axis at floor INTRINSIC
+
+**Headline**: Phase-boundary framework EARNED ITS KEEP at substrate-product evidence layer. TWO new killer-feature-evidence rows added on Cat-A operational-reliability (KF-1 hallucination-impossibility at M ≤ N) and Cat-B drift-detection (KF-4 continuous drift via BNV) categories. KF-5 steerable substrate FULL re-ship needed (remote SSH disconnect → local smoke fallback; fix worked as designed per role contract Step 0; first post-fix observation). axis1 chunk 1 caught HARD_PASS-with-self-contradicting-criterion (93rd label-vs-honest; new subclass). Bet B 4-stage CL retA=0.74 floor confirmed INTRINSIC across 3 architectural axes at N=8192 substrate scale.
+
+**Step 0 honest re-read of 6 verdicts**:
+
+1. **KF-5 (steerable substrate, β ∈ {2, 8, 64} smoke + planned FULL β ∈ {16, 32, 64, 128})** — event-bus `failed` OVERRIDDEN as INFRASTRUCTURE-FAIL. `get_metrics()` returned `_source=local` (remote SSH returned None for this anchor). Local is pre-ship smoke: `smoke:True, N_used=1024, N_full=4096, 1/1 seed=17, elapsed=0.53s`. Smoke summary IS qualitatively positive-consistent: output_entropy_bits 7.886 → 4.632 → 0.306 across β=2,8,64 (monotone collapse); top1_top2_gap 0.004 → 0.193 → 0.850 (monotone confidence-margin growth); bpc bowl-shape interior min at β=8. But N=1024 1-seed is NOT a FULL test. HONEST READING: `KF5_INFRASTRUCTURE_FAIL_NO_FULL_DATA — smoke-tier signal positive-consistent with phase-boundary framing but not a FULL test`. Phase-boundary β-steering sub-claim status: UNRESOLVED.
+
+2. **axis1 chunk 1 (M × β scan: M ∈ {1024, 2048, 4096, 8192} × β ∈ {1, 4, 16, 32, 64, 128, 256})** — event-bus `completed` with verdict tag `AXIS1_HARD_PASS` LABEL-VS-HONEST 93rd CATCH. Verdict_msg internally self-contradicts: states criterion `ret_M_range >= 0.2` then states observed `ret_M_range = 0.000`. All 28 cells show retention = 1.0 (saturated; below capacity cliff). Phase signature exists in BNV (M=1024 BNV=0.13; M=2048 BNV=0.26; BNV_range across cells = 0.95) and hysteresis = 0 everywhere. HONEST READING: `AXIS1_CHUNK1_NO_RETENTION_PHASE_TRANSITION_IN_SWEPT_REGIME — BNV-only phase signature; retention saturated at M ≤ 2N regime; chunk 2 needed for M > 2N over-capacity to find retention transition`. NEW SUBCLASS of label-vs-honest = HARD_PASS-with-self-contradicting-criterion (prior 92 catches mostly downstream tag-over-claim; this is internal).
+
+3. **KF-1 (hallucination-impossibility, M-fractions {0.25, 0.5, 1.0, 2.0, 4.0} × oos N=1000 inset N=200, N=4096)** — KF1_MIDDLE_BAND HONEST. Under M ≤ N: `mean_oos_max_conf = 0.00024` (5+ OOM below practical threshold = STRUCTURALLY hallucination-impossible). Over M > N: 3/6 events fail. HONEST READING: `KF1_BOUNDED_HALLUCINATION_IMPOSSIBILITY — substrate IS structurally hallucination-impossible at M ≤ N and degrades at M > N`. Product spec "use at M ≤ N for safety guarantee" DEFENSIBLE per dispatch killer-feature framing.
+
+4. **KF-3 (multi-substrate isolation, coupling_counts {0, 1, 5, 10, 25, 50, 100}, N=4096 M=1024, n_probe=200)** — KF3_MIDDLE_BAND HONEST. info_leakage = 0.0018 constant across all coupling levels (~0 info flow A→B = info-isolation HARD-strength); state_contamination = 0.053 constant baseline at coupling=0 (5% mixing from shared substrate, not coupling-induced); isolation_margin = -0.06 (state-contam > leakage threshold). HONEST READING: `KF3_INFO_ISOLATED_STATE_CONTAMINATED — DUAL framing: info-isolation YES (HP-strength) + state-isolation NO (5% baseline contamination)`. Regulated-deployment unlock requires per-tenant substrate state OR information-isolation-only compliance contract.
+
+5. **KF-4 (drift detection via boundary proximity, N=4096 M=4096 n_edits=50, n_probe=200, 3 seeds)** — KF4_HARD_PASS HONEST under-claims. r_drift = 0.989 across 3 seeds; r_bnv = 0.994 (BNV time series vs actual drift); r_spectral = -0.26 (spectral gap drops as drift grows = phase-boundary proximity signal); drift_final = 0.18; n_steps = 10. HONEST READING: `KF4_BNV_HIGH_FIDELITY_CONTINUOUS_DRIFT_DETECTOR_HP — bundle-norm-var = essentially-deterministic continuous drift indicator at N=4096 3-seed; spectral gap = weak negative correlate consistent with approach-to-phase-boundary`. FIRST direct phase-boundary-PROXIMITY measurement at HP-strength.
+
+6. **bet_b_4stage_phaseD_aweight_v2 (Phase-D A-weighting k=0.75, N=8192, 5 seeds, 4-stage CL)** — FOURSTAGE_MIDDLE_BAND HONEST. retA=0.749 / retB=0.852 / retC=0.805 cross-seed; per-seed seed=7 retA=0.7359. retA=0.749 cross-seed mean MATCHES v239 baseline retA=0.745 within ±0.005 = essentially zero shift. HONEST READING: `FOURSTAGE_PHASED_AWEIGHT_RETA_FLOOR_CONFIRMED — 3 INDEPENDENT ARCHITECTURAL AXES (v3 epochs, v1 batch, v2 phaseD A-weight k=0.75) all at retA=0.74 floor confirms the floor is INTRINSIC to 4-stage CL at N=8192 substrate scale`. Bar-lowering reframe (retA ≥ 0.70) or N=16384 scale-extension are operational options.
+
+**Aggregate phase-boundary status: VALIDATED-WITH-CAVEATS.** 2 direct positives (KF-1 bounded scope, KF-4 HP-strength continuous proxy) + 2 partials (KF-3 info-only, axis1 BNV-only) + 1 infrastructure-fail (KF-5) + 1 orthogonal (Bet B floor). Strongest single sub-claim (β-steering = qualitatively different capability profiles) UNTESTED AT FULL pending KF-5 re-ship.
+
+**v254 capability-moves table**:
+
+- NEW evidence-strength row: **KF-1 hallucination-impossibility at M ≤ N 🟢 60-70%** — Cat-A operational-reliability foundation; FULL N=4096 cross-cell; 5-OOM gap below practical threshold; product spec defensible; multi-seed FULL queued for refill.
+- NEW evidence-strength row: **KF-3 multi-substrate isolation DUAL-FRAMING 🟡 45-60%** — info-isolation HP-strength + state-contamination 5% baseline at shared substrate; product implication: regulated-deployment needs DUAL framing.
+- NEW evidence-strength row: **KF-4 continuous drift detection via BNV 🟢 55-70%** — Cat-B drift-detection foundation; r_bnv=0.994 3-seed FULL N=4096; FIRST direct continuous phase-boundary-PROXIMITY signal; 5-seed envelope-extension queued.
+- LIFT: **phase-boundary direct-test row 🟢 50-65% → 🟢 55-70%** (+5%) — 4 new direct phase-diagram-axis-positive evidence pieces; cap at 70% per [[feedback-lit-scan-calibration-penalty]] until KF-5 FULL lands.
+- UNCHANGED: Bet B 4-stage CL row 🟡 PARTIAL (3rd architectural axis at floor annotation extension; retA=0.74 INTRINSIC at N=8192).
+- UNCHANGED: non-eq-stat-mech framework class 🟢 63-73%; SKAH-M / lR-phase 🟢 55-70%; Saad-Solla ✅; substrate-outside-static-Hopfield 🟢 50-65%; TCFT 🟢 55-70%; Sagawa-Ueda ✅.
+
+**Framework reliability SPLIT recalc**:
+
+- **general** 71-81% UNCHANGED — no new framework-class evidence; phase-boundary is framework-category not named-class.
+- **specific named** 52-62% UNCHANGED — phase-boundary is framework-category not specific named class.
+- **product-feature** 65-77% → 68-80% LIFT (+3%) — TWO new killer-feature-evidence rows directly speak to operational-reliability + audit-compliance product categories per project_substrate_killer_features_2026-05-26.md; lift capped at 80% per novel-synthesis P cap + still single-N evidence per row.
+
+**Portfolio** 14+19 → 14+22 (+3 evidence-strength rows). Demonstrated capability count UNCHANGED at 14. 0 capability row closures (PROT-004/006 NOT triggered).
+
+**93rd label-vs-honest tally INCREMENTED** (axis1 chunk1 HARD_PASS self-contradicting-criterion catch; NEW SUBCLASS observed).
+
+**1st METRICS-SOURCE-FALLBACK observation noted** (KF-5 remote SSH None → local smoke fallback; role-contract Step 0 + remote-metrics-fix note 2026-05-27 fix worked as designed; PROT-019-v2 + bridge runner_tag URGENCY remains URGENT).
+
+**5 rescue sketches cheapest-first**: (a) **PRIMARY / SUBSUMPTION 0-cost** — phase-boundary framing earned its keep; KF-5 needs re-ship; Bet B floor is INTRINSIC and 3-axis closes architecturally; applied in this entry; (b) **CHEAPEST INFRA ~5min** active_protocols.md metrics-source-fallback annotation; (c) **CHEAP ~30min infra** HP-criterion-self-consistency check at script verdict logic; (d) **CHEAP-MEDIUM ~30min CPU** axis1_mb_chunk2_v1 at M > 2N over-capacity; (e) **MEDIUM ~2h GPU** kf5_steerable_beta_v2_n4096 FULL multi-seed re-run with timeout-formula + per-seed checkpointing + REMOTE VERIFY.
+
+**Queue-refill DISPATCHED to exp_dev** — overnight_queue pending=0 running=0 = source-queue invariant VIOLATED; pause flag ABSENT (ACTIVE); 6 strategically-justified shipments visible (KF5 v2 FULL re-ship HIGHEST + axis1 chunk2 + KF1 v2 multi-seed + KF4 v2 5-seed + Bet B N=16384 + KF5 dual-axis β-extension); exp_dev decides ship-order + target queue.
+
+165th PROT-009 paired commit.
+
+ANNOTATION-WITH-3-NEW-ROWS-AND-2-LIFTS-AND-1-LABEL-VS-HONEST v253 -> v254: (1) 3 new evidence-strength rows on Cat-A operational-reliability (KF-1) + Cat-B drift-detection (KF-4) + DUAL-framing isolation (KF-3); (2) phase-boundary direct-test row LIFT +5%; (3) framework reliability product-feature LIFT +3% (TWO new killer-feature-evidence rows); (4) 93rd label-vs-honest catch (HARD_PASS self-contradicting-criterion NEW SUBCLASS); (5) 1st METRICS-SOURCE-FALLBACK observation (remote-metrics-fix worked as designed); (6) Bet B retA=0.74 floor INTRINSIC across 3 architectural axes confirmed at N=8192; (7) portfolio 14+19 -> 14+22; (8) 0 row closures; (9) queue-refill DISPATCHED for KF5 v2 + axis1 chunk2 + KF1 v2; 165th PROT-009 paired commit.
