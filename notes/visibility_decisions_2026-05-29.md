@@ -76,3 +76,12 @@ v273->v274 BATCHED 4-VERDICT Section-4 branching trigger: saad_solla_v20 FAILED 
 - Pipeline-pacing: CPU=9 substantive pending (caller-confirmed just refilled) HEALTHY; GPU=25 pending HEALTHY; refill conditions NOT met; NO exp_dev dispatch per caller directive
 - Upstream: tcft_m_sweep_v3_n8192_5seed RUNNING 4/5 seeds done via seed_checkpoint helper; SEPARATE dispatch when 5th seed lands; NOT processed in this batch
 - 187th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch
+
+
+## v276 -> v277 @ post-v276 GPU completion wave BATCHED 2-VERDICT
+
+- tcft_m_sweep_v3_n8192_5seed TCFT_V3_HARD_PASS PRODUCTION-SCALE 5-SEED x 5-M_frac N=8192 spearman=-1.000 mean_vr_by_M {128:0.0119, 256:0.0015, 512:0.0001, 1024:0, 2048:0} 25/25 cells valid all_M>=512 5/5 seeds clear — HIGHEST-EVIDENCE-DENSITY TCFT CORROBORATION in cap_map history; TCFT deletion-cert row green 85-94% -> green 88-96% LIFT (+3%) per dispatch directive RELIABILITY-RECALC EVENT; discharges v260 + v257 open routings; PROT-019 seed-checkpoint helper paid off (5/5 partial_metrics + final aggregate)
+- bet_b_4stage_batch128_v1 FOURSTAGE_MIDDLE_BAND mean ret_A=0.7449 5/5 seeds [0.7352-0.7530] tight sd~0.008 N=8192 batch=128 RE-RUN of v249 — 5TH INDEPENDENT BET-B STAGE-A SUB-0.80 CORROBORATION (cumulative 26 seeds 0/26 clear 0.80 HP across 5 rehab axes); Bet B yellow UNCHANGED with 5TH-AXIS BATCH-128 RE-RUN annotation; substrate-native-spec rescue PROMOTED to PRIMARY-RECOMMENDED
+- Portfolio 14+31 UNCHANGED; Non-eq-stat-mech 67-77% -> 69-79% LIFT (+2%); product-feature 88-97% -> 89-98% LIFT (+1%); specific 70-83% UNCHANGED; general 73-83% UNCHANGED
+- HONEST 184->186 (+2); LABEL-VS-HONEST 133 UNCHANGED; 0 NEW routings filed (V1 discharges 2; V2 inherits Cluster C in queue); 188th PROT-009 paired commit
+- Queue refill SKIPPED — GPU 23 pending + CPU 10 pending HEALTHY; refill conditions NOT met per [[feedback-pipeline-pacing]] + [[feedback-no-padding-experiments]]
