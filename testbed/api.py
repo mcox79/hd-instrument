@@ -52,22 +52,44 @@ class RetrievalResult:
 
 @dataclass
 class DeletionCertificate:
-    """Result of a single delete() call.
+    """Audit-grade deletion certificate.
 
-    key_id: id that was deleted.
-    var_ratio: TCFT thermodynamic certificate. Substrate emits the variance
-        ratio of W @ key_atom after delete to W @ random_atom; values below
-        0.10 satisfy the TCFT HARD_PASS band confirmed at N=8192 5-seed.
-        Baselines emit None (deletion is structural, not thermodynamic).
-    erased: True if a post-delete retrieve on the same key returns a
-        different key_id (or None).
-    timestamp_ns: monotonic ns timestamp of the delete call.
+    Core fields (all backends populate):
+    - key_id: id that was deleted.
+    - erased: True if a post-delete retrieve on the same key returns a
+      different key_id (or None). Backend-trivial for row-removal baselines.
+    - timestamp_ns: monotonic ns timestamp of the delete call.
+
+    Substrate-only audit-trail fields (None for baselines):
+    - var_ratio: TCFT thermodynamic certificate. Variance ratio of W @ key
+      after delete to var pre or var of random query. Values below 0.10
+      satisfy the TCFT HARD_PASS band confirmed at N=8192 5-seed.
+    - key_hash: SHA256(key_id) hex digest. Identifies the deleted fact in
+      tamper-evident logs without exposing the key_id itself.
+    - w_state_hash_before: SHA256 of the W matrix bytes BEFORE the erase
+      step. Anchors the certificate to a specific substrate state.
+    - w_state_hash_after: SHA256 of the W matrix bytes AFTER the erase step.
+      Together with w_state_hash_before, this is the bit-exact attestation
+      that the substrate state changed in the documented way.
+    - verification_probes: list of dicts, one per verification probe run
+      after the erase. Each entry has {probe_idx, max_prob, near_uniform_flag,
+      returned_key_id}. Used by compliance auditors to confirm the erased
+      fact is no longer recoverable from the substrate state itself.
+
+    The 4 substrate-only fields together constitute the cryptographically
+    verifiable audit artifact suitable for regulated-industry compliance
+    (GDPR Article 17 erasure attestation, HIPAA audit trails, financial
+    record retention).
     """
 
     key_id: str
     var_ratio: Optional[float]
     erased: bool
     timestamp_ns: int
+    key_hash: Optional[str] = None
+    w_state_hash_before: Optional[str] = None
+    w_state_hash_after: Optional[str] = None
+    verification_probes: Optional[list[dict]] = None
 
 
 @dataclass

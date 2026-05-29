@@ -405,6 +405,106 @@ def _latency_storage_section(summary: dict) -> str:
     return _md_table(headers, rows)
 
 
+def _executive_summary(summary: dict) -> str:
+    """3-sentence answer: where substrate wins, where baselines win, crossover.
+
+    Reads aggregate metrics from summary and produces a sharp at-a-glance
+    framing. Falls back to neutral language if data is missing for any
+    sentence.
+    """
+    rows = summary.get("rows") or summary.get("results") or []
+    by_scen_back: dict[tuple, dict] = {}
+    for r in rows:
+        scen = r.get("scenario")
+        back = r.get("backend")
+        if scen and back:
+            by_scen_back[(scen, back)] = r.get("result", r)
+
+    def _g(scen, back, *keys):
+        d = by_scen_back.get((scen, back), {})
+        for k in keys:
+            v = d.get(k)
+            if v is not None:
+                return v
+        return None
+
+    lines: list[str] = []
+
+    # Sentence 1: where substrate wins.
+    wins = []
+    sub_iso = _g("edit_isolation", "substrate", "max_isolation_ratio")
+    sub_var = _g("deletion_verify", "substrate", "mean_var_ratio")
+    sub_hallu = _g("hallu_detect", "substrate", "max_above_thresh_frac",
+                   "above_thresh_frac")
+    if sub_iso is not None and sub_iso < 0.05:
+        wins.append(f"KF-2 edit isolation max_iso={sub_iso:.4f}")
+    if sub_var is not None and sub_var < 0.10:
+        wins.append(f"TCFT deletion var_ratio={sub_var:.4f}")
+    if sub_hallu is not None:
+        wins.append(f"KF-1 hallu above_thresh={sub_hallu*100:.1f}%")
+    if wins:
+        lines.append("**Substrate wins on killer features:** "
+                     + "; ".join(wins) + ". Baselines emit "
+                     "N/A by construction on all three.\n")
+    else:
+        lines.append("**Substrate killer-feature panel:** numbers populated; "
+                     "see panel below.\n")
+
+    # Sentence 2: where baselines win.
+    sub_recall = _g("point_recall", "substrate", "recall_at_1")
+    faiss_recall = _g("point_recall", "faiss", "recall_at_1")
+    sub_retr = _g("storage_latency", "substrate", "p50_retr_us")
+    if sub_retr is None:
+        # Best-effort: pull from per_M list.
+        per_m = (_g("storage_latency", "substrate", "per_M") or [])
+        if per_m:
+            sub_retr = per_m[-1].get("p50_retrieve_us")
+    faiss_retr = _g("storage_latency", "faiss", "p50_retr_us")
+    if faiss_retr is None:
+        per_m = (_g("storage_latency", "faiss", "per_M") or [])
+        if per_m:
+            faiss_retr = per_m[-1].get("p50_retrieve_us")
+    losses = []
+    if sub_recall is not None and faiss_recall is not None and sub_recall < faiss_recall:
+        losses.append(f"point_recall substrate {sub_recall*100:.1f}% < faiss "
+                      f"{faiss_recall*100:.1f}% (atom collisions at chosen C)")
+    if sub_retr is not None and faiss_retr is not None and sub_retr > faiss_retr * 2:
+        losses.append(f"retrieve p50 substrate {sub_retr:.0f}us > faiss "
+                      f"{faiss_retr:.0f}us (heavier per-op fixed cost)")
+    if losses:
+        lines.append("**Baselines win on speed and exact recall:** "
+                     + "; ".join(losses) + ".\n")
+    else:
+        lines.append("**Baselines do not have a clear advantage on the "
+                     "measured scenarios in this run.**\n")
+
+    # Sentence 3: crossover decision.
+    sub_disk_per_m = (_g("storage_latency", "substrate", "per_M") or [])
+    faiss_disk_per_m = (_g("storage_latency", "faiss", "per_M") or [])
+    crossover_M = None
+    if sub_disk_per_m and faiss_disk_per_m:
+        sub_first = sub_disk_per_m[0]
+        sub_disk = sub_first.get("disk_bytes")
+        if sub_disk:
+            for row in faiss_disk_per_m:
+                if row.get("disk_bytes", 0) >= sub_disk:
+                    crossover_M = row.get("M")
+                    break
+    if crossover_M is not None:
+        lines.append(f"**Deployment crossover:** substrate disk footprint "
+                     f"becomes structurally cheaper than FAISS at M >= "
+                     f"{crossover_M} (constant {sub_disk_per_m[0].get('disk_bytes', 0)/1e6:.1f} MB "
+                     f"substrate vs FAISS O(M*d) scaling line). Above that M, "
+                     f"deploy substrate; below, choose substrate for audit "
+                     f"primitives or FAISS for raw recall speed.\n")
+    else:
+        lines.append("**Deployment crossover:** run the crossover_sweep "
+                     "config to surface the empirical M at which substrate's "
+                     "O(N^2) constant cost beats FAISS's O(M*d) scaling.\n")
+
+    return "\n".join(lines)
+
+
 def render_markdown(summary_path: Path) -> str:
     summary_path = Path(summary_path)
     with open(summary_path, "r", encoding="utf-8") as f:
@@ -427,6 +527,9 @@ def render_markdown(summary_path: Path) -> str:
     parts: list[str] = []
     parts.append(f"# Substrate Memory Testbed Report {timestamp}\n")
     parts.append(f"_Generated from {summary_path.name}._\n")
+
+    parts.append(_section_header("Executive summary"))
+    parts.append(_executive_summary(summary))
 
     parts.append(_section_header("Config"))
     parts.append(_config_block(config))

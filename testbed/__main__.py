@@ -118,23 +118,38 @@ def _minimal_yaml(text: str) -> dict:
 
 def _build_backend(name: str, config: dict):
     dim = int(config.get("dim", 4096))
-    if name == "substrate":
+    # substrate + variants: name in {substrate, substrate_v1, substrate_v2_softdelete,
+    # substrate_v3_kerdock, substrate_v4_double_hebbian}. "substrate" aliases v1.
+    nm = name.strip().lower() if isinstance(name, str) else name
+    if nm == "substrate" or nm.startswith("substrate_v"):
         try:
-            from testbed.substrate_memory import SubstrateMemory  # type: ignore
+            from testbed.variants import VARIANT_REGISTRY  # type: ignore
         except ImportError as exc:
             raise RuntimeError(
-                f"substrate backend not yet available: {exc}. "
-                "Workstream D ships testbed/substrate_memory.py."
+                f"substrate variants not available: {exc}. "
+                "Expected testbed/variants/__init__.py."
             ) from exc
+        resolved = "substrate_v1" if nm == "substrate" else nm
+        if resolved not in VARIANT_REGISTRY:
+            raise ValueError(
+                f"unknown substrate variant {name!r} "
+                f"(registered: {sorted(VARIANT_REGISTRY)})"
+            )
+        cls = VARIANT_REGISTRY[resolved]
+        # v3_kerdock defaults its kind to 'kerdock' internally; do NOT force
+        # codebook_kind from the config for that variant.
+        cfg_kind = str(config.get("codebook_kind", "bsc"))
+        if resolved == "substrate_v3_kerdock":
+            cfg_kind = "kerdock"
         kwargs = {
             "N": int(config.get("N", 4096)),
-            "codebook_kind": str(config.get("codebook_kind", "bsc")),
+            "codebook_kind": cfg_kind,
             "codebook_scale": int(config.get("codebook_scale", 4)),
             "beta": float(config.get("beta", 32.0)),
             "hallu_threshold": float(config.get("hallu_threshold", 0.5)),
             "device": str(config.get("substrate_device", "cpu")),
         }
-        return SubstrateMemory(**kwargs)
+        return cls(**kwargs)
     if name == "faiss":
         from testbed.baselines.faiss_adapter import FaissMemory
         return FaissMemory(dim=dim)
@@ -411,7 +426,8 @@ def _cmd_smoke(args: argparse.Namespace) -> int:
             bad += 1
             continue
         r1 = r.get("recall_at_1", 0.0)
-        ok = (r1 >= 0.95) if b != "substrate" else (r1 >= 0.5)
+        is_substrate = (b == "substrate") or b.startswith("substrate_v")
+        ok = (r1 >= 0.5) if is_substrate else (r1 >= 0.95)
         flag = "PASS" if ok else "FAIL"
         print(f"[smoke] backend {b}: recall_at_1={r1:.4f} [{flag}]")
         if not ok:
@@ -466,6 +482,17 @@ def _build_parser() -> argparse.ArgumentParser:
                       help="comma-separated backend names, e.g. dict,faiss,sqlite_vec")
     p_sm.add_argument("--out-dir", default=None)
     p_sm.set_defaults(func=_cmd_smoke)
+
+    p_sw = sub.add_parser("sweep",
+                          help="cross-product parameter sweep with response surface")
+    p_sw.add_argument("--grid", required=True,
+                      help="path to sweep YAML (base_config + grid)")
+    p_sw.add_argument("--backend", default=None,
+                      help="comma-separated backend names (overrides YAML)")
+    p_sw.add_argument("--out-dir", default=None,
+                      help="override out_root (default: testbed_data/benchmarks)")
+    from testbed.sweep import cmd_sweep as _cmd_sweep
+    p_sw.set_defaults(func=_cmd_sweep)
 
     return p
 

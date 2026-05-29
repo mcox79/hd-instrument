@@ -114,17 +114,23 @@ def build_backend(name: str, config: dict) -> MemoryBackend:
         db_path = db_dir / f"{config_name}.db"
         return SqliteVecMemory(db_path=db_path, dim=dim)
 
-    if nm == "substrate":
-        # Workstream D owns this import; we route the kwargs through.
-        from testbed.substrate_memory import SubstrateMemory  # type: ignore
+    # Substrate + variants. "substrate" is an alias for "substrate_v1".
+    from testbed.variants import VARIANT_REGISTRY  # type: ignore
 
+    if nm == "substrate":
+        nm = "substrate_v1"
+
+    if nm in VARIANT_REGISTRY:
+        cls = VARIANT_REGISTRY[nm]
         opts = dict(config.get("substrate", {}) or {})
         opts.setdefault("N", dim)
-        return SubstrateMemory(**opts)
+        return cls(**opts)
 
     raise ValueError(
         f"build_backend: unknown backend {name!r} "
-        "(expected substrate|faiss|chroma|sqlite_vec|dict)"
+        "(expected substrate|substrate_v1|substrate_v2_softdelete|"
+        "substrate_v3_kerdock|substrate_v4_double_hebbian|"
+        "faiss|chroma|sqlite_vec|dict)"
     )
 
 

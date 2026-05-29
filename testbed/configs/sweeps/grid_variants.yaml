@@ -1,0 +1,40 @@
+# grid_variants.yaml
+# Runs all 6 scenarios on the 4 registered substrate variants.
+# N=4096 chosen so log2(N)=12 is even (Kerdock-eligible) and BSC stays valid.
+# M_total=512 keeps wall under a few minutes on a CPU.
+
+N: 4096
+dim: 4096
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 2
+beta: 32.0
+hallu_threshold: 0.5
+
+M_total: 512
+edit_isolation_M: 16
+deletion_M: 16
+deletion_k_probes: 4
+hallu_M_fracs: [0.25, 0.5]
+hallu_n_oos: 256
+continual_M: 64
+storage_latency_Ms: [256, 512]
+storage_latency_n_queries: 64
+
+seeds: [7]
+
+backends:
+  - substrate_v1
+  - substrate_v2_softdelete
+  - substrate_v3_kerdock
+  - substrate_v4_double_hebbian
+
+scenarios:
+  - point_recall
+  - edit_isolation
+  - deletion_verify
+  - hallu_detect
+  - continual_4stage
+  - storage_latency
+
+out_root: testbed_data/benchmarks

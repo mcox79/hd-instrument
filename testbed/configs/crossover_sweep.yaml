@@ -1,0 +1,31 @@
+# Crossover sweep config: empirical substrate-vs-FAISS crossover on storage and latency.
+# storage_latency scenario sweeps M internally; this config drives that sweep wide.
+# Drops dict + sqlite_vec (their O(M^2 d) brute force makes M=20k untenable).
+# substrate + faiss only. ~15-25 min wall on remote CPU.
+
+config_name: crossover_sweep
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 16384       # 8x N to keep substrate collision rate low at M=20k
+codebook_scale: 8
+beta: 32.0
+hallu_threshold: 0.5
+
+# Only storage_latency runs; the others would also need M_total scaling.
+M_total: 2000
+edit_isolation_M: 256
+deletion_M: 128
+deletion_k_probes: 16
+hallu_M_fracs: [0.25, 0.5, 1.0]
+hallu_n_oos: 128
+continual_M: 256
+
+# THE CROSSOVER SWEEP: 4 M points covering the FAISS-vs-substrate transition.
+storage_latency_Ms: [2000, 5000, 10000, 20000]
+storage_latency_n_queries: 256
+
+seeds: [7]
+backends: [substrate, faiss]
+scenarios: [storage_latency]
+out_root: testbed_data/benchmarks

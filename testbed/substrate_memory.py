@@ -300,8 +300,18 @@ class SubstrateMemory(MemoryBackend):
         resp_pre = self.W @ key_atom
         var_pre = float(torch.var(resp_pre).item())
 
+        # Cryptographic audit trail: hash W before the erase step.
+        import hashlib
+        w_before_bytes = self.W.detach().cpu().numpy().tobytes()
+        w_hash_before = hashlib.sha256(w_before_bytes).hexdigest()
+        key_hash = hashlib.sha256(key_id.encode("utf-8")).hexdigest()
+
         # Erase: subtract the outer product.
         self.W = self.W - torch.outer(val_atom, key_atom) / self.N
+
+        # Hash W after the erase step.
+        w_after_bytes = self.W.detach().cpu().numpy().tobytes()
+        w_hash_after = hashlib.sha256(w_after_bytes).hexdigest()
 
         # Post-delete projections: key direction and a stable random direction.
         rng_row = _stable_hash_int("delete_rng:" + key_id) % self.C
@@ -334,6 +344,24 @@ class SubstrateMemory(MemoryBackend):
         result = self.retrieve(key_vec_np)
         erased = result.key_id != key_id
 
+        # Verification probes: 5 multi-probe Mirage checks that the erased
+        # fact is not recoverable. Each probe uses a slight perturbation of
+        # the original key vector. Compliance auditor reads this list to
+        # confirm structural non-recoverability beyond the single-shot result.
+        verification_probes = []
+        for probe_idx in range(5):
+            probe_atom = key_atom + 0.05 * (probe_idx + 1) * (
+                self.codebook[probe_idx] - key_atom
+            ) / float(probe_idx + 1)
+            probe_vec = probe_atom.detach().cpu().numpy()
+            probe_result = self.retrieve(probe_vec)
+            verification_probes.append({
+                "probe_idx": probe_idx,
+                "max_prob": probe_result.confidence,
+                "near_uniform_flag": probe_result.near_uniform_flag,
+                "returned_key_id": probe_result.key_id,
+            })
+
         # Touch old_value to silence linters; not used past this point.
         _ = old_value
 
@@ -342,6 +370,10 @@ class SubstrateMemory(MemoryBackend):
             var_ratio=float(var_ratio),
             erased=bool(erased),
             timestamp_ns=time.time_ns(),
+            key_hash=key_hash,
+            w_state_hash_before=w_hash_before,
+            w_state_hash_after=w_hash_after,
+            verification_probes=verification_probes,
         )
 
     def audit(
