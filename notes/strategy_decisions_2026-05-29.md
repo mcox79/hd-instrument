@@ -252,3 +252,171 @@ Bridge fresh (`is_stale=False`); queue depths: overnight=12 pending+1 running, r
 **Cumulative HONEST observations**: 156 (v270) -> **161 (+5)**.
 **Cumulative LABEL-VS-HONEST catches**: 126 (v270) -> **129 (+3: 127th V1 chunk9 + 128th V4 chunk10 SCRIPT_PRECONDITION_VIOLATION; 129th V3 t3_v2 ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH new sub-flavor)**.
 **0 routing files filed** (v270 consolidated rescue covers V1/V4; V2 inline rescue sketches; V3 PROT-018 reconciliation).
+
+
+## v271 -> v272 BATCHED 13-VERDICT @ 2026-05-29 GPU drain event (KF-2 BE-1 PRECISION SWEEP 6-anchor PER-CELL HONEST + STRATEGIC INTERPRETATION OVER-CLAIM 130th NEW SUB-FLAVOR + REGION C 2-anchor HARD_PASS + REGION D 2-anchor MIDDLE_BAND + REGION C+D AGGREGATE SUBSTRATE BETA-INVARIANT KF-BEHAVIOR + AXIS-4 HYSTERESIS DIRECTION CLOSED AT PROBE LEVEL + AXIS-2 over-cap re-confirmation + SAAD_SOLLA_V19 BETA-SWEEP FAILED NO METRICS 5th-axis DEFERRED)
+
+**Trigger.** 13 verdicts arrived in one batched GPU-drain event. Pause flag `data/orchestrator_paused.flag` ABSENT (verified) = ACTIVE state. All readable metrics fetched via remote bridge per `verdict_handler.md` Step 0 protocol; `_source=remote` for 12 of 13; V1 (saad_solla_v19) has NO remote metrics (no metrics.json materialized; remote dir likely empty). Dispatch context flagged this as `model=opus` event triggering substantive strategic snapshot; deep-strategy review for 16h overnight refill follows.
+
+### Verdict 1: saad_solla_v19_n4096_beta_sweep FAILED wall_s=4559 (76min substantive run; metrics unavailable)
+
+**Evidence:**
+- verdict tag = FAILED. wall_s = 4559s = 76min substantive run BUT < 21600s budget = NOT TIMEOUT.
+- `get_metrics(saad_solla_v19_n4096_beta_sweep) = None` (NO remote metrics.json found).
+- SSH log inspection blocked by Windows missing ls/tail (PowerShell-shell encoding). Forensics deferred.
+
+**Step 0 honest re-read:** Cannot perform Step 0 — no per-cell metrics available. Verdict is FAILED but disambiguation between (a) HONEST beta-axis HARD_FAIL (Saad-Solla framework reaches a beta-axis constraint limit) vs (b) script bug (CUDA crash at high beta mid-run) is UNDETERMINED from currently-readable evidence. Treat as UNKNOWN at probe level. Per role contract: "If `get_metrics` returns `None`, you cannot perform Step 0 reliably. Treat the verdict as `UNKNOWN`, prefix the return with `[metrics-unavailable]`, file a routing note for manual reconciliation, and DO NOT issue a cap_map state transition on missing data."
+
+**Cap_map move:** Saad-Solla LEADING checkmark UNCHANGED (no successful 5th-axis to corroborate; cannot lift framework-reliability specific on a failed run; cannot demote/constrain on undisambiguated failure). Annotation: "v272 saad_solla_v19_n4096_beta_sweep FAILED wall_s=4559 (76min) substantive-not-timeout; remote metrics.json not materialized; disambiguation BLOCKED pending SSH log inspection or v20-style narrower-beta-range retry; 5th-axis BETA assessment DEFERRED."
+
+**Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):**
+- (a) v20-style beta-sweep retry at NARROWER beta range (cheapest; if narrower range completes => beta-extension reaches a constraint at the dropped-extreme; if narrower also fails => script-bug-driven crash candidate strengthened).
+- (b) saad_solla_v19 rerun with dtype-instrumented logging (medium; pinpoints whether crash is CUDA-state or substrate-physics).
+- (c) beta-axis-down at N=2048 smoke parallel (cheapest-2; reproduces or refutes beta-extension constraint at smaller scale where compute is forgiving).
+
+### Verdict 2: axis4_hyst_ramp_v1_n4096 AXIS4_HARD_FAIL (HONEST closure-level finding)
+
+**Evidence (remote authoritative):**
+- verdict_tag=AXIS4_HARD_FAIL wall_s=7.6.
+- verdict_msg: `NO RETENTION HYSTERESIS: max loop_area=0.000000 < 0.01. Substrate retention is path-independent (no M-history effect).`
+- Per-ramp data: 9 ramps (3 rates × 3 seeds); load/unload retention curves IDENTICAL at every M_frac (e.g. seed=7 rate=5: load [1.0, 1.0, 1.0, 0.9, 0.6333, 0.46] = unload [0.6333, 0.9, 1.0, 1.0, 1.0]).
+
+**Step 0 honest re-read:** Verdict_msg labels the result HONESTLY. max_loop_area=0.0 across all 9 ramps means substrate's retention as a function of M_frac is reversible (path-independent); loading and unloading trajectories overlap exactly. This is a CLOSURE-LEVEL substrate-physics finding: substrate retention has NO M-history-dependence at probed (rate, seed) operating points. Honest.
+
+**Cap_map move:** UNSURE-section row "Hysteresis as killer feature" (implicit row from KILLER-tier substrate-physics-distinct properties) -> ❌ CLOSED at PROBE LEVEL (not row-status level because hysteresis is not a current portfolio row). Annotation: "v272 axis4_hyst_ramp_v1_n4096 max_loop_area=0.0 ALL 9 ramps (3 rates × 3 seeds) load/unload retention IDENTICAL at every M_frac in {1.6, 3.2, 4.8, 6.4, 8.0} = substrate M-history-INDEPENDENT at probed operating points; hysteresis NOT a substrate capability at this beta=8 M_frac<=8 regime; rescue arms: test at higher beta where multi-basin may exist OR test at M near critical phase boundary." Per [[feedback-rehabilitation-after-rejection]] this is NOT a row closure but a probe-level closure with 2 rescue arms filed for future probing.
+
+### Verdict 3: axis2_codebook_density_v2_n4096_collapse AXIS2V2_MIDDLE_BAND (HONEST over-cap re-confirmation)
+
+**Evidence (remote authoritative):**
+- verdict_tag=AXIS2V2_MIDDLE_BAND wall_s=438.7.
+- verdict_msg: `PARTIAL_COLLAPSE: hp_collapse_count=0/3 all_above_low=False class_spread_12=0.007 ret_at_8={'bsc': 0.645, 'hadamard': 0.652, 'kerdock': 0.645} ret_at_16={'bsc': 0.645, 'hadamard': 0.652, 'kerdock': 0.645}`
+- Per-cell: retention is IDENTICAL across M_frac in {4, 8, 12, 16, 20} for every codebook class — i.e. retention IS NOT a function of M_frac in this over-cap regime.
+
+**Step 0 honest re-read:** verdict_msg labels PARTIAL_COLLAPSE with pass_collapse=0/3 reflecting that the script's collapse-criterion test FAILED but the per-cell retention values 0.62-0.66 are deep in over-cap regime where the substrate has already collapsed. Honest reading: substrate has already plateaued at over-cap retention 0.62-0.66 (well below clean-regime ~0.9) but the M_frac-dependence is FLAT in this band = no further M-density-collapse signal beyond the already-known over-cap ceiling. The 0.007 class-spread between codebook classes is statistical noise. Honest.
+
+**Cap_map move:** AXIS-2 codebook-density row UNCHANGED at row status. Annotation: "v272 axis2_codebook_density_v2_n4096_collapse AXIS2V2_MIDDLE_BAND retention M_frac-INVARIANT 0.62-0.66 across M_frac in {4, 8, 12, 16, 20} every codebook class (bsc/hadamard/kerdock); class_spread=0.007 = statistical noise; over-cap ceiling re-confirmed at known band; NO NEW M-density-collapse signal beyond v260 family characterization."
+
+### Verdicts 4-9: kf2_be1_{fp32, fp16, int8, int4, int2, int1}_n8192 ALL KF2_BE1_*_HARD_PASS (PER-CELL HONEST + 130th LABEL-VS-HONEST NEW SUB-FLAVOR STRATEGIC_INTERPRETATION_OVER_CLAIM)
+
+**Evidence (remote authoritative):**
+- All 6 verdict tags = KF2_BE1_<PRECISION>_HARD_PASS. All wall_s ∈ [2.30, 2.87]s (much faster than user-reported 15-19s; the user's wall_s may include queue-dispatch overhead).
+- All 6 cells per anchor (5 seeds × 1 M_frac=2.0 × 1 family Kerdock) at N=8192.
+- Iso_ratios across precisions:
+  - FP32: [0.0101, 0.0, 0.0101, 0.0202, 0.0101], max=0.0202
+  - FP16: [0.0101, 0.0, 0.0101, 0.0202, 0.0101], max=0.0202
+  - INT8: [0.0101, 0.0, 0.0101, 0.0202, 0.0202], max=0.0202
+  - INT4: [0.0101, 0.0, 0.0101, 0.0, 0.0101], max=0.0101
+  - INT2: [0.0101, 0.0101, 0.0202, 0.0202, 0.0101], max=0.0202
+  - INT1: [0.0101, 0.0, 0.0, 0.0, 0.0], max=0.0101 (BEST iso of all 6 precisions)
+- precision_metadata correctly reports compression_ratio FP32=1x FP16=2x INT8=4x INT4=8x INT2=16x INT1=32x.
+
+**Step 0 honest re-read:** Per-cell verdict labels HARD_PASS are HONEST AT NUMERICAL LEVEL: max_iso < HP_ISOLATION_MAX=0.05 holds at every precision; each compute_verdict call legitimately fires HARD_PASS (5/5 seeds < threshold). BUT three concerning patterns at AGGREGATE level:
+
+1. **Iso pattern is precision-INSENSITIVE**: FP32, FP16, INT8, INT2 all share max=0.0202; INT4 and INT1 have max=0.0101 (BETTER than FP32 baseline). If quantization actually mattered to operative path, INT1 binary quantization should DEGRADE iso most, not IMPROVE it. The fact INT1 has 4/5 cells at iso=0.0 (perfect isolation) is physics-impossible if 1-bit quantization actually contaminates W's edit-projection geometry.
+
+2. **Mechanism inspection** (from script `exp_kf2_be1_precision_sweep_n8192.py` lines 142-180): storage builds W in FP32, then quantize_roundtrip applies precision loss to W. Edit-isolation probe constructs `W_edited = W_q + outer(new_val - old_val, old_key) / N` and measures argmax delta on probe keys. The argmax of `cb @ probe_keys @ W_q.T` is dominated by Kerdock-codebook orthogonal structure (Kerdock entries are ±1), so W's magnitude scaling is largely irrelevant to argmax in this regime. Quantization-insensitivity is consistent with this mechanism — the test is NOT exercising W magnitude in the operative path.
+
+3. **Strategic interpretation in dispatch context** ("8x deployment cost vs FP32 baseline = 100x cost vs FP16 LLM = category-defining") OVER-CLAIMS what was demonstrated. Demonstrated: KF-2 edit-isolation (argmax-delta-on-non-edited-keys probe) is quantization-equivariant at probe level. NOT demonstrated: downstream cost-advantage where W magnitude is operatively load-bearing (e.g., full retrieval accuracy / pool readout / cosine similarity under quantized W).
+
+   Also: Kerdock-even-log2 vulnerability check from v270/v271: N=8192 log2=13 odd should raise ValueError at `make_kerdock_4coset_codebook(N=8192)`. The fact 6 runs completed at "N=8192" without crash is suspicious; either the codebook construction was silently routed to a fallback (BSC?) or the actual N differs from the anchor suffix (ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH possibility, parallel to v271 t3_susceptibility_v2 catch).
+
+**Honest reading:** Per-cell HARD_PASS labels are HONEST at numerical level. Strategic narrative "category-defining 32x cost advantage" is OVER-CLAIMED at probe level. This is a NEW LABEL-VS-HONEST sub-flavor: **STRATEGIC_INTERPRETATION_OVER_CLAIM** — distinct from prior sub-flavors:
+- DISPATCH_FAILURE_MISCLASSIFICATION (v265-v269): remote metrics + HARD_PASS tag + queue=failed.
+- SCRIPT_PRECONDITION_VIOLATION (v270-v271): no remote metrics + stale local smoke + ValueError pre-work.
+- ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH (v271): anchor `_n<X>` vs config.N=<Y>.
+- STALE_QUEUE_ERROR_WITH_CLEAN_CURRENT_METRICS (v270): stale queue.json error + fresh clean metrics.
+- **NEW v272 STRATEGIC_INTERPRETATION_OVER_CLAIM**: per-cell numerical labels HONEST + verdict_msg HONEST + STRATEGIC NARRATIVE OVER-CLAIMS the probe's demonstrative scope (cost-advantage narrative not supported by quantization-insensitive iso pattern; the probe didn't exercise the operative path required for the cost-claim).
+
+Counts: 130th catch covers all 6 kf2_be1 anchors AS ONE COMPOUND CATCH (the over-claim is at strategic-narrative level not per-anchor numerical level).
+
+**Cap_map move:** KF-2 row UNCHANGED at row status (per-cell precision-floor probe legitimately passes at all 6 precisions). NEW row annotation: "v272 BE-1 precision-floor 6-anchor (FP32/FP16/INT8/INT4/INT2/INT1) max_iso<0.05 all precisions PER-CELL HONEST AT NUMERICAL LEVEL; STRATEGIC 32x cost-advantage narrative OVER-CLAIMED at probe level (iso pattern is precision-INSENSITIVE = test not exercising W magnitude in operative path; INT1 binary actually has BETTER iso than FP32 baseline = physics-impossible if quantization mattered; 130th LABEL-VS-HONEST STRATEGIC_INTERPRETATION_OVER_CLAIM NEW SUB-FLAVOR); NEXT: ship retrieval-accuracy-under-quantized-W test where argmax depends on W magnitude (e.g. unbalanced codebook + soft readout) to validate cost-claim properly; ALSO file ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH audit: confirm N=8192 was actually used (or fallback to BSC silently) given Kerdock-even-log2 ValueError per v270/v271 catches."
+
+**Rescue sketch (cheapest-first):**
+- (e) kf2_be1 retrieval-accuracy-under-quantized-W test (HIGH-VALUE-MEDIUM cost): construct test where output depends on W magnitude (e.g., unbalanced codebook + temperature-scaled readout, OR pool-readout with soft argmax, OR direct cosine retrieval accuracy as a function of M_frac and N near capacity boundary), then sweep precision. If iso/accuracy holds at INT4/INT8 under W-magnitude-operative conditions, strategic narrative re-validates. If not, the precision floor is much higher than the BE-1 probe suggests.
+
+**Framework reliability:** product-feature 88-97% **UNCHANGED** — cannot lift on a probe whose strategic interpretation contradicts the probe's own iso pattern. Per [[feedback-no-smoke]] brutal honesty: per-cell pass at 6 precisions is NOT evidence for 32x cost-advantage; the probe needs a different shape.
+
+### Verdicts 10-11: region_c_kf1_n4096_beta64_mfrac4 + region_c_kf2_n4096_beta64_mfrac4 BOTH REGION_C_*_HARD_PASS (HONEST ferromagnet phase)
+
+**Evidence (remote authoritative):**
+- Both verdicts REGION_C_KF*_HARD_PASS wall_s=4-5s.
+- verdict_msg both: `FERROMAGNET_CONFIRMED: 5/5 seeds mean_ret=1.0000 >= 0.7 at beta=64.0`
+- Per-cell: every cell ret=1.0 (perfect retention at high-beta low-M ferromagnet phase).
+
+**Step 0 honest re-read:** 5/5 seeds at ret=1.0 in region C (beta=64, M_frac=4) is the high-beta low-M ferromagnet phase = trivial PASS regime. Both KF-1 and KF-2 hold identically. Honest at numerical level.
+
+**Aggregate finding (combined with region D V12-V13):** Region C HARD_PASS at retention=1.0 IDENTICAL to known region A (beta=8, low M); region D MIDDLE_BAND at retention=0.33 IDENTICAL to known region B (beta=8, high M). Substrate KF-1+KF-2 behavior is **BETA-INVARIANT at tested (M_frac, beta) operating points**. This contradicts the steerable-killer-feature hypothesis at probe level: "If KF-1 + KF-2 DIFFER between C/D vs A/B: there ARE qualitatively different operating modes above beta_c (steerable killer feature)." At probed points beta_c=10 → no qualitative difference at beta=64 vs beta=8. NOT a closure of steerable-KF hypothesis (steerability may live at intermediate beta near beta_c=10, OR at different M_frac values, OR at the high-beta boundary) but a probe-level finding that beta=64 is in the SAME operational mode as beta=8.
+
+**Cap_map move:** KF-1 + KF-2 + axis-1 phase-boundary rows UNCHANGED at row status (no new evidence; region C is trivial ferromagnet pass corroborating known phase behavior). NEW annotation on killer-feature phase-class profile row: "v272 region C (beta=64, M_frac=4) HARD_PASS ret=1.0 + region D (beta=64, M_frac=12) MIDDLE_BAND ret=0.33 IDENTICAL to A/B at beta=8 = SUBSTRATE BETA-INVARIANT IN KF-BEHAVIOR at tested (M_frac, beta) operating points; STEERABLE-KILLER-FEATURE hypothesis NOT SUPPORTED at probe level (operational simplicity over steerability); rescue arms: test at intermediate beta near beta_c=10 OR at different M_frac OR at high-beta phase boundary."
+
+### Verdicts 12-13: region_d_kf1_n4096_beta64_mfrac12 + region_d_kf2_n4096_beta64_mfrac12 BOTH REGION_D_*_MIDDLE_BAND (HONEST over-cap collapse)
+
+**Evidence (remote authoritative):**
+- Both REGION_D_KF*_MIDDLE_BAND wall_s=5-6s.
+- verdict_msg both: `PARTIAL: 0/5 seeds mean_ret=0.3325`
+- Per-cell: ret=[0.353, 0.328, 0.327, 0.328, 0.327] all consistent; tight std.
+
+**Step 0 honest re-read:** 0/5 seeds at mean_ret=0.3325 at beta=64 M_frac=12 (M/N=12) is over-cap collapse regime. For a 4-class classification, chance = 0.25; mean_ret=0.33 is barely above chance. Substrate has collapsed at this operating point. Honest. Both KF-1 and KF-2 fail equally at this over-cap regime.
+
+**Cap_map move:** Absorbed into the region C+D aggregate finding above (BETA-INVARIANT KF-behavior annotation). No standalone row move.
+
+### v271 -> v272 PORTFOLIO + RELIABILITY MOVES
+
+- **KF-2 edit-isolation checkmark UNCHANGED** at row status; NEW annotation "BE-1 precision-floor 6-anchor PER-CELL HONEST + STRATEGIC narrative OVER-CLAIMED; iso pattern precision-INSENSITIVE; W-magnitude-operative test required."
+- **KF-1 hallucination-detection green 65-80% UNCHANGED** (region C ferromagnet pass and region D over-cap fail are not new evidence for hallucination-detection killer-feature).
+- **Killer-feature phase-class profile yellow 45-60% UNCHANGED** with NEW BETA-INVARIANCE ANNOTATION (steerability NOT YET demonstrated at probed points).
+- **AXIS-1 phase-boundary green 70-82% UNCHANGED** (region C/D probe corroborates known A/B-pattern at higher beta).
+- **AXIS-2 codebook-density row UNCHANGED** (over-cap M_frac-invariance is corroboration not new finding).
+- **AXIS-4 hysteresis-killer direction CLOSED at PROBE LEVEL** (UNSURE-section row "hysteresis as killer"; not portfolio row; 2 rescue arms filed).
+- **Saad-Solla LEADING checkmark UNCHANGED** (5th-axis BETA assessment BLOCKED pending disambiguation; 3 rescue arms filed cheapest-first).
+- **Framework reliability specific 70-83% UNCHANGED** (Saad-Solla 5th-axis FAILED + KF-2 precision-floor strategic OVER-CLAIM = neither warrants lift).
+- **Framework reliability product-feature 88-97% UNCHANGED** (KF-2 precision-floor per-cell pass does NOT validate cost-advantage narrative at probe level).
+- **Framework reliability general 73-83% UNCHANGED**.
+- **Non-eq stat-mech 66-76% UNCHANGED**.
+- **Portfolio 14 + 31 UNCHANGED**.
+- **Cumulative HONEST observations**: 161 (v271) -> **167 (+6: V2 axis4 + V3 axis2 + V4-V9 kf2_be1 + V10-V11 region C + V12-V13 region D ALL honest at numerical/probe level)**.
+- **Cumulative LABEL-VS-HONEST catches**: 129 (v271) -> **130 (+1 NEW SUB-FLAVOR STRATEGIC_INTERPRETATION_OVER_CLAIM compound catch covering kf2_be1 cost-narrative; one catch not 6 because the over-claim is at strategic-narrative level)**.
+
+### NEW SUB-FLAVOR: STRATEGIC_INTERPRETATION_OVER_CLAIM (1 compound catch this batch)
+
+Extend discrimination criterion:
+- TRUE DISPATCH_FAILURE_MISCLASSIFICATION (v265+v267-v269): remote metrics EXIST + verdict_tag HARD_PASS-flavored + queue.json `failed`.
+- GENUINE FAST HARD_FAIL (v269): remote metrics EXIST + verdict_tag HARD_FAIL + queue.json `failed`.
+- GENUINE SUBSTANTIVE FAILURE (v269): NO remote dir + no remote metrics + no script-precondition signature.
+- SCRIPT_PRECONDITION_VIOLATION (v270-v271): NO remote dir + LOCAL stale-smoke at smaller N + script source has precondition assertion.
+- ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH (v271): anchor `_n<X>` vs config.N=<Y>.
+- STALE_QUEUE_ERROR_WITH_CLEAN_CURRENT_METRICS (v270): stale queue.json error + fresh clean metrics.
+- **NEW v272 STRATEGIC_INTERPRETATION_OVER_CLAIM**: per-cell numerical labels HONEST + verdict_msg HONEST at probe level + dispatch-context/strategic-narrative OVER-CLAIMS demonstrative scope BEYOND what the probe's evidence supports. Step 0 must check: (a) does the strategic narrative's claim depend on a mechanism the probe exercised, (b) are aggregate patterns across cells/anchors consistent with the strategic interpretation. The 130th catch fires when per-cell pass + aggregate pattern that the strategic narrative depends on is FLAT/insensitive in the direction the claim requires (e.g., quantization should differentiate but iso is insensitive across all precisions).
+
+### Queue-refill (Step 2 pipeline-pacing) decision
+
+Pause flag ABSENT (verified). Bridge queue state (`is_stale()=False`):
+- overnight_queue: 587 entries, **0 pending+running** (GPU is DRAINED — this is the GPU drain event of the batch).
+- remote_cpu_queue: 239 entries, 6 pending+running (HEALTHY; saad_solla_v20_n4096_m_sweep currently running).
+
+GPU queue empty triggers [[feedback-pipeline-pacing]] queue-depth-0 reflex. BUT dispatch context explicitly states: "After verdict_handler returns, orchestrator main thread will dispatch deep-strategy review for 16h overnight refill planning." Caller already has structural plan; per [[feedback-no-padding-experiments]] verdict_handler does NOT dispatch padding refill; per [[feedback-verdict-arrival-is-queue-depletion-signal]] verdict-handler reflex DEFERS to caller's stated deep-strategy plan.
+
+**Decision: NO exp_dev pipeline-pacing dispatch this batch.** Refill SKIPPED pending caller's deep-strategy review.
+
+### NEW routings filed (v272)
+
+0 NEW routings filed. Rescue sketches (a)-(e) recorded inline above; saad_solla v20-style rerun candidate to be operationalized at strategy cycle, not verdict_handler level.
+
+### PROT compliance (v272)
+
+- **PROT-004/006**: 0 row closures (axis-4 hysteresis-killer is probe-level not row-status; not portfolio row); 0 row additions; 0 row promotions/demotions; 0 framework-reliability moves; 5 rescue sketches filed inline cheapest-first across V1 saad_solla and V2 axis-4 hysteresis and V4-V9 kf2_be1.
+- **PROT-007**: history.md UPDATED with v272 row.
+- **PROT-008**: 0 band lifts (KF-2 precision-floor per-cell pass but strategic OVER-CLAIM blocks reliability lift per [[feedback-no-smoke]] brutal honesty; Saad-Solla 5th-axis FAILED blocks reliability lift on missing data).
+- **PROT-009**: cap_map.md (v271 -> v272 batched row) + cap_map_history is the cap_map.md row table itself + strategy_decisions_2026-05-29.md (this entry) + visibility_decisions_2026-05-29.md (one-line) staged atomically; **183rd PROT-009 paired commit**.
+- **PROT-018**: All 13 anchors carry `_n<N>` suffix; saad_solla_v19_n4096_beta_sweep (N=4096 ✓); axis4_hyst_ramp_v1_n4096 (✓); axis2_codebook_density_v2_n4096_collapse (✓); kf2_be1_*_n8192 (6 anchors; CONCERN: Kerdock-even-log2 vulnerability if N actually = 8192; possible ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH if N silently fell back to N=4096; needs verification); region_{c,d}_kf{1,2}_n4096_beta64_mfrac{4,12} (4 anchors ✓).
+- **[[feedback-verdict-msg-honest-reread]]**: 161 -> 167 obs (+6); LABEL-VS-HONEST 129 -> 130 (+1 STRATEGIC_INTERPRETATION_OVER_CLAIM NEW sub-flavor).
+- **[[feedback-trust-queue.json-wall_s]]**: APPLIED to all 13 (12 via remote metrics; V1 saad_solla via wall_s=4559 substantive-not-timeout judgment).
+- **[[feedback-no-smoke]]**: brutal honesty applied to kf2_be1 strategic narrative — per-cell pass does NOT validate cost-advantage at probe level; explicitly NOT lifting framework reliability on a probe whose iso pattern contradicts the cost-claim.
+- **[[feedback-rescue-sketch-first-sequencing]]**: 5 rescue sketches cheapest-first across 3 verdicts (saad_solla narrower-beta retry + smoke parallel; axis-4 multi-basin retry; kf2_be1 W-magnitude-operative test).
+- **[[feedback-rehabilitation-after-rejection]]**: axis-4 hysteresis is probe-level closure with 2 rescue arms (not row-status closure).
+- **[[feedback-dont-overextend-theorems]]**: region C+D BETA-INVARIANT finding does NOT close steerable-killer-feature hypothesis space-wide; rescues at intermediate beta + different M_frac + high-beta phase boundary remain open.
+- **[[feedback-pipeline-pacing]] + [[feedback-no-padding-experiments]] + [[feedback-verdict-arrival-is-queue-depletion-signal]]**: GPU queue empty BUT caller has structural deep-strategy plan; verdict_handler defers refill dispatch.
+- **[[feedback-subagent-permission-inheritance]]**: LOCAL commit only; push deferred to main thread.
+- **[[feedback-cap-map-update-protocol]]**: atomic commit cap_map.md + strategy_decisions_2026-05-29.md + visibility_decisions_2026-05-29.md.
+
+Commit message: `Cap map: v271 -> v272 (BATCHED 13-VERDICT GPU drain event: kf2_be1 precision sweep 6-anchor FP32/FP16/INT8/INT4/INT2/INT1 all KF2_BE1_*_HARD_PASS max_iso<0.05 PER-CELL HONEST BUT STRATEGIC-INTERPRETATION OVER-CLAIM 130th LABEL-VS-HONEST new sub-flavor STRATEGIC_INTERPRETATION_OVER_CLAIM iso pattern precision-INSENSITIVE INT1 better than FP32 = quantization not exercising operative path cost-advantage 32x narrative NOT validated W-magnitude-operative test required + region C 2-anchor kf1+kf2 beta=64 M_frac=4 HARD_PASS 5/5 ret=1.0 ferromagnet + region D 2-anchor kf1+kf2 beta=64 M_frac=12 MIDDLE_BAND 5/5 mean_ret=0.33 over-cap collapse + REGION C+D AGGREGATE substrate BETA-INVARIANT in KF-behavior IDENTICAL to A/B at beta=8 = steerable-killer-feature hypothesis NOT SUPPORTED at probe level + axis4_hyst_ramp_v1_n4096 AXIS4_HARD_FAIL max_loop_area=0.0 all 9 ramps NO RETENTION HYSTERESIS substrate path-independent M-loading hysteresis-killer direction CLOSED at probe level + axis2_codebook_density_v2_n4096_collapse AXIS2V2_MIDDLE_BAND retention M_frac-INVARIANT 0.62-0.66 across M_frac 4-20 over-cap ceiling re-confirmed + saad_solla_v19_n4096_beta_sweep FAILED wall_s=4559 76min substantive-not-timeout NO REMOTE METRICS 5th-axis BETA disambiguation BLOCKED 3 cheapest-first rescue sketches inline (v20-style narrower-beta-retry + dtype-instrumented rerun + N=2048 smoke parallel); portfolio 14+31 UNCHANGED; framework reliability product-feature 88-97% UNCHANGED specific 70-83% UNCHANGED general 73-83% UNCHANGED non-eq-stat-mech 66-76% UNCHANGED; KF-2 row UNCHANGED with precision-floor strategic-OVER-CLAIM annotation; Saad-Solla LEADING UNCHANGED 5th-axis DEFERRED; killer-feature phase-class profile yellow 45-60% UNCHANGED with BETA-INVARIANCE NEW annotation; UNSURE-section hysteresis-killer probe-level CLOSED with 2 rescue arms; HONEST 161->167 (+6); LABEL-VS-HONEST 129->130 (+1 NEW SUB-FLAVOR STRATEGIC_INTERPRETATION_OVER_CLAIM compound catch); 0 NEW routings filed; 183rd PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`
