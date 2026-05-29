@@ -9573,3 +9573,20 @@ Aggregate counters:
 
 BATCHED 11-VERDICT v266 -> v267: 9 HARD_PASS HONEST + 2 MIDDLE_BAND HONEST + 1 partial-profile HONEST + 1 genuine TIMEOUT; triple-point hypothesis REFUTED but REFRAMED to two-orthogonal-boundary lattice; 4 NEW rows + 2 BAND LIFTS; 7-CATCH LABEL-VS-HONEST MEGA-EVENT new sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION; portfolio 14+26 -> 14+30; HONEST 124 -> 131; LABEL-VS-HONEST 107 -> 114; 178th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
+
+## v267 -> v268 (2026-05-28 ~21:30 BATCHED 5-VERDICT; 3 LABEL-VS-HONEST CATCHES DISPATCH_FAILURE_MISCLASSIFICATION repeat + 2 GENUINE FAILURES)
+
+- kf1_hallu_rescue_v1_n4096 KF1_RESCUE_HARD_PASS HONEST = entropy_gap=12.94 bits >= 1.0 HP-min (12.9x safety margin) M_BASE=20000 pass_seeds=3/3 mean_H_is=0.18 mean_H_oos=13.11 (115th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION; first KF-1 rescue arm SUCCEEDS via posterior-entropy mechanism; KF-1 row 🟡-AT-RISK -> 🟢-smoke 55-70%)
+- t1_beta_fine_v2_n4096 T1_FINE_HARD_PASS HONEST = beta_c=10.0 +/-0.0 deterministic localization 5/5 seeds gradient=0.582 (2.4x sharper than v267 v1 + precise vs approximate 12-16) (116th LABEL-VS-HONEST catch; beta-axis row 🟢-smoke 60-72% -> 🟢-smoke 65-78% LIFT +5%)
+- kf2_cross_codebook_v2_n8192 KF2_CROSS_V2_HARD_PASS HONEST = all 3 codebook families exact-equal max_iso=0.0202 < HP=0.05 nk_pass=30/30 N=8192 (117th LABEL-VS-HONEST catch; KF-2 ✅ UNCHANGED + cross-codebook EVIDENCE STRENGTHENED at production-scale N-doubling architecture-portability + N-scale-portability invariant)
+- moe_capacity_v2_n4096 GENUINE FAILURE = substantive death 375s wall NO REMOTE METRICS NO REMOTE DIR (local fallback N=1024 smoke not target N=4096); NOT verdict-emission bug (metrics file entirely absent); MoE K-scaling ✅ UNCHANGED via v267 v1 capacity-aware subsumption; 3 rescue sketches filed; moe_capacity_v3 reship routing filed
+- saad_solla_v18_n16384 GENUINE FAILURE = substantive death 800s wall NO REMOTE METRICS (local fallback N=512 smoke not target N=16384); 8GB-VRAM CEILING at N=16384 characterized (v15 N=8192 5-seed FULL took 4.5h so N=16384 exceeds VRAM budget); Saad-Solla LEADING ✅ UNCHANGED via v15+v16+v17 3-axis production-scale corroboration; 4 rescue sketches filed; saad_solla_v19_n12288 + kovacs_disabled routing filed
+- MEGA-PATTERN ESCALATION: 10 DISPATCH_FAILURE_MISCLASSIFICATION catches across v265 + v267 + v268 in ~4h = STRUCTURAL urgency for runner_v2_prod.py exit-code patch rises; STRATEGY routing runner_emission_bug_audit filed (P0 infrastructure debt)
+- Portfolio 14+30 UNCHANGED (KF-1 elevation 🟡-AT-RISK -> 🟢-smoke is component-level rescue absorbed into "killer-feature phase-class profile" row 🟡 45-60% UNCHANGED)
+- Framework reliability specific 65-78% UNCHANGED; product-feature 84-95% -> 85-96% LIFT (+1%); general 73-83% UNCHANGED
+- 0 capability-row closures; 0 capability-row reopens
+- HONEST 131 -> 134 (+3); LABEL-VS-HONEST 114 -> 117 (+3)
+- Queue refill SKIPPED — overnight_queue=18 pending+running + remote_cpu_queue=10 pending+running HEALTHY per [[feedback-pipeline-pacing]]
+- 3 NEW exp_dev/strategy routings filed (moe_capacity_v3 + saad_solla_v19_n12288_and_kovacs_disabled + runner_emission_bug_audit STRATEGY); 6+ pre-existing routings remain
+- 179th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch
+

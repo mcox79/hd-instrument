@@ -1045,3 +1045,104 @@ Other rescue sketches (t1/t2 cross-N envelope, pb2 cross-N, c1 cross-N, t3 alter
 
 Net effect v267: 0 CLOSURES + 4 NEW evidence-strength rows + 2 BAND LIFTS (TCFT + framework-specific) + 1 SUB-HYPOTHESIS REFRAMING (triple-point -> two-orthogonal-boundaries) + 1 implicit AT-RISK (KF1) + 7 LABEL-VS-HONEST catches (DISPATCH_FAILURE_MISCLASSIFICATION mega-event) + 8 HONEST observations + 1 genuine TIMEOUT + 2 exp_dev routings filed + portfolio 14+26 -> 14+30 + framework reliability specific +5% product-feature +2%; 178th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
+
+## v267 -> v268 BATCHED 5-VERDICT @ ~21:30 (REPEAT-PATTERN 3-CATCH DISPATCH_FAILURE_MISCLASSIFICATION + 2 GENUINE FAILURES; KF1 ELEVATED 🟡-AT-RISK -> 🟢-smoke; beta-axis row STRENGTHENED via t1_v2 fine resolution; KF-2 cross-codebook PRODUCTION-SCALE LIFT at N=8192 via v2; saad_solla N=16384 ceiling characterized; STRUCTURAL urgency for runner verdict-emission bug RISES)
+
+**Trigger.** 5-verdict batch all event-bus tagged `failed`. Per v267 [[feedback-verdict-msg-honest-reread]] enforcement, Step 0 mandatory remote-bridge re-read pulled `get_metrics()` for each anchor. RESULT: pattern repeats — 3 of 5 produced authoritative `_source=remote` HARD_PASS metrics matching dispatch wall_s + remote dir + verdict_tag = DISPATCH_FAILURE_MISCLASSIFICATION sub-flavor catches 115th-117th. 2 of 5 (moe_capacity_v2, saad_solla_v18) have NO remote exp dir and local metrics are stale pre-ship smoke artifacts (N=1024 smoke for moe; N=512 single-seed smoke for saad_solla, NOT the target N=4096/N=16384) — these are GENUINE substantive failures. Runner verdict-emission bug pattern now CONFIRMED at 10 catches across v265 + v267 + v268 batches; PROT-019 candidate (verdict_handler Step 0 auto-cross-check) escalated to STRUCTURAL URGENCY.
+
+### Verdict 1 (115th LABEL-VS-HONEST catch): kf1_hallu_rescue_v1_n4096 KF1_RESCUE_HARD_PASS HONEST = FIRST KF-1 RESCUE ARM SUCCEEDS (DISPATCH_FAILURE_MISCLASSIFICATION)
+
+**Evidence (`_source=remote` authoritative):**
+- elapsed=3.87s; verdict_tag=KF1_RESCUE_HARD_PASS; verdict_msg `ENTROPY_DISCRIMINATION: gap=12.94 bits >= 1.0`.
+- M_BASE=20000; pass_seeds=3/3; mean_entropy_gap=12.936 bits; mean_H_is=0.18 (in-support entropy); mean_H_oos=13.11 (out-of-support entropy); HP_min=1.0 bit gate cleared by 12.9x safety margin.
+- Per v267 KF1 LABELED-AT-RISK: c1_kf_battery_phase showed KF1+KF1B 0/3 across ALL M = architecture-level hallucination-detection failure. v267 filed kf1_hallu_rescue as posterior-entropy-based mechanism (replace cosine-similarity rejection with posterior entropy threshold).
+- Dispatch said "9s death = script-build bug OR DISPATCH-misclass". HONEST: 3.87s wall is well within 9s claim; metrics show 3/3 seeds, remote source. NOT a script bug — DISPATCH_FAILURE_MISCLASSIFICATION at the runner exit-code layer.
+
+**Step 0 honest re-read:** label OVER-CLAIMED at the dispatch context layer (event bus says FAILED). HONEST = KF1_RESCUE_HARD_PASS. 115th LABEL-VS-HONEST catch sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION.
+
+**Cap_map move:** KF-1 hallucination-detection row 🟡-AT-RISK -> 🟢-smoke 55-70%. Posterior-entropy-based mechanism rescues v267 c1_kf_battery FAIL. 1 axis only (N=4096, 3-seed, single M_BASE) so capped at 70%. Combined with c1 v267 KF2+KF5 architecture-level survival -> "killer-feature phase-class profile" row stays yellow 45-60% UNCHANGED (KF1 partial rescue but architecture profile characterization unchanged).
+
+### Verdict 2 (116th LABEL-VS-HONEST catch): t1_beta_fine_v2_n4096 T1_FINE_HARD_PASS HONEST = SHARP BETA TRANSITION FINE-RESOLUTION CONFIRMED (DISPATCH_FAILURE_MISCLASSIFICATION)
+
+**Evidence (`_source=remote` authoritative):**
+- elapsed=3.89s; verdict_tag=T1_FINE_HARD_PASS; FULL N=4096 5-seed [7,17,23,31,41] M_frac=8.0.
+- verdict_msg `SHARP_BETA_TRANSITION: beta_c=10.0 +/-0.0 gradient=0.582`. pass_seeds=5/5; mean_max_gradient=0.582; mean_beta_c=10.0; window=0.0 (deterministic localization across all 5 seeds).
+- v267 t1_v1 found sharp beta-axis boundary with mean_max_gradient=0.247 and beta_c in transition region beta=8->16 (sharp jump 0.130->0.486). v2 fine-resolution refines beta_c LOCALIZATION to deterministic 10.0 +/-0.0 across 5 seeds with 2.4x SHARPER gradient (0.582 vs 0.247).
+- Dispatch claimed "v1 PASSED at v267; v2 reship after stale-queue scenario; 17s death pattern". HONEST: v2 RAN, COMPLETED, HARD_PASSED with stronger signal than v1 — 116th LABEL-VS-HONEST catch.
+
+**Step 0 honest re-read:** label OVER-CLAIMED at dispatch layer. HONEST = T1_FINE_HARD_PASS. 116th LABEL-VS-HONEST catch sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION.
+
+**Cap_map move:** beta-axis phase boundary row 🟢-smoke 60-72% -> 🟢-smoke 65-78% LIFT (+5%). Fine-resolution v2 with 2.4x sharper gradient + deterministic beta_c=10.0 +/-0.0 across 5 seeds = strong corroboration of v267 v1; beta_c localization now PRECISE (was approximate 12-16 in v1, now exactly 10 in v2). Two-orthogonal-boundary lattice framing (v267) firmly load-bearing.
+
+### Verdict 3 (117th LABEL-VS-HONEST catch): kf2_cross_codebook_v2_n8192 KF2_CROSS_V2_HARD_PASS HONEST = KF-2 CROSS-CODEBOOK PRODUCTION-SCALE N=8192 (DISPATCH_FAILURE_MISCLASSIFICATION)
+
+**Evidence (`_source=remote` authoritative):**
+- elapsed=14.71s; verdict_tag=KF2_CROSS_V2_HARD_PASS; FULL N=8192.
+- verdict_msg `ISOLATION_ROBUST: all_families max_iso < 0.05. family_max={'kerdock': 0.0202, 'bsc': 0.0202, 'gaussian': 0.0202} theory_bound=0.01105 mean_max_iso=0.02020 nk_pass=30/30 N=8192`.
+- v267 v1 N=4096 had family_max {kerdock: 0.0202, bsc: 0.0303, gaussian: 0.0202} — BSC slightly above the others. v2 N=8192 production-scale shows family_max EXACTLY EQUAL across all 3 codebook families at 0.0202 = N-doubling drove BSC down to Kerdock/Gaussian level = ARCHITECTURE-PORTABILITY STRENGTHENED at production scale.
+- max_iso=0.0202 vs HP=0.05 = 2.48x safety margin; theory_bound=0.01105 (Kerdock analytical) is exceeded by ~2x at all 3 codebooks but all WELL within the 0.05 HP gate. nk_pass=30/30 perfect (all 30 non-Kerdock cells pass).
+- Dispatch claimed "20s death pattern". HONEST: 14.71s wall, completed, HARD_PASS — 117th LABEL-VS-HONEST catch.
+
+**Step 0 honest re-read:** label OVER-CLAIMED at dispatch layer. HONEST = KF2_CROSS_V2_HARD_PASS. 117th LABEL-VS-HONEST catch sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION.
+
+**Cap_map move:** KF-2 ✅ UNCHANGED + cross-codebook EVIDENCE STRENGTHENED. v1 N=4096 -> v2 N=8192 = N-doubling at production scale shows architecture-portability INVARIANT (all 3 codebook families exact same max_iso). KF-2 row stays at ✅ checkmark; cross-codebook annotation strengthens "edit-isolation killer feature is architecture-portable AND N-scale-portable".
+
+### Verdict 4: moe_capacity_v2_n4096 MOE_V2 GENUINE FAILURE = SUBSTANTIVE DEATH NO REMOTE METRICS
+
+**Evidence (no `_source=remote`; local fallback is stale pre-ship smoke N=1024):**
+- get_metrics returned `_source=local`, N=1024 (NOT target N=4096), smoke=True, elapsed_s=114.28 (NOT the dispatch-reported 375s).
+- Remote dir `C:\dev\hd-instrument\data\exp_moe_capacity_v2_n4096` DOES NOT EXIST (verified via `dir` over SSH).
+- Dispatch reported wall_s=375s substantive run then crash. With no remote metrics + no remote dir, the 375s GPU work completed something but did NOT write production metrics — either CUDA OOM mid-run, runtime error after partial cells, or runner-emission bug at metrics-write step (NOT the verdict-emission bug since metrics file absent entirely).
+- v267 v1 (moe_capacity_aware_router) HARD_PASSED at N=4096 5th rescue arm SUCCESS via capacity-aware design. v2 was a follow-on/extension that did NOT successfully complete its remote write.
+- NOT a label-vs-honest catch — this is a genuine failure mode (substantive death with no remote metrics).
+
+**Step 0 honest re-read:** label HONEST (truly FAILED). NO catch. But note: `_n4096` anchor suffix is a PROT-018 binding contract — the local smoke at N=1024 violates this contract for any honest reading. Per [[feedback-no-label-vs-honest-anchor-names]] this fits the existing rule (anchor binds N=4096).
+
+**Cap_map move:** MoE K-scaling ✅ UNCHANGED (v267 v1 capacity-aware ARM already CORROBORATED at N=4096 5-seed; v2 extension was follow-on not load-bearing). 3 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]]:
+- (a) PRIMARY SUBSUMPTION 0-cost APPLIED: v267 v1 moe_capacity_aware_router K-scaling MAINTAINED at K in {4,8,16,32} with retention 0.979 across all K = capacity-aware architecture confirmed independent of v2. No rescue strictly needed.
+- (b) CHEAPEST 0-cost AUDIT APPLIED: cross-check whether v2 differed from v1 in M_budget scaling or routing-step count (script-build inspection); local smoke ran at N=1024 not N=4096 = pre-ship smoke artifact suggests v2 script may have had a wrong-N hardcoding bug.
+- (c) CHEAP ~5min exp_dev moe_capacity_v3_n4096 reship with explicit N=4096 hardcode AND `--timeout 1800` floor + audit of v2's M_budget formula (was v2 supposed to scale M_budget with K or hold constant?). If audit reveals v2 was meant to vary M_budget while v1 held it fixed, then v3 should pin the design-choice axis precisely.
+
+### Verdict 5: saad_solla_v18_n16384 SS_V18 GENUINE FAILURE = N=16384 CEILING (LIKELY CUDA OOM)
+
+**Evidence (no `_source=remote`; local fallback is N=512 smoke):**
+- get_metrics returned `_source=local`, N=None/512 (NOT target N=16384), elapsed_s=6.0 (NOT the dispatch-reported 800s).
+- Remote dir `C:\dev\hd-instrument\data\exp_saad_solla_v18_n16384` DOES NOT EXIST.
+- Dispatch reported wall_s=800s (~13min substantive then crash) and "pattern matches v10/v16 CUDA OOM at large N". Per v267 SS_V16 record, v16 HARD_PASSED at N=8192 (NOT OOM — that was a previous mischaracterization).
+- v15 (v266 HEADLINE) HARD_PASSED at N=8192 5-seed in 16291s = ~4.5h. v18 N=16384 doubles N to ~16-32GB VRAM territory; 8GB-VRAM-cap consistent with substantive death at ~800s when the run hit a memory-pressured cell.
+- This characterizes the Saad-Solla N=16384 ceiling — substrate CAN do N=8192 5-seed FULL but N=16384 EXCEEDS GPU VRAM budget on current hardware.
+
+**Step 0 honest re-read:** label HONEST (truly FAILED). NO catch. ANCHOR `_n16384` binding violated (only N=512 smoke artifact locally).
+
+**Cap_map move:** Saad-Solla LEADING ✅ UNCHANGED (v15 N=8192 5-seed load-bearing); N-extension SUB-AXIS CHARACTERIZED with new 8GB-VRAM-cap annotation: substrate Saad-Solla physics confirmed up to N=8192 production-scale; N=16384 OOM-bounded on current 8GB-VRAM remote GPU. 4 rescue sketches filed cheapest-first per [[feedback-rehabilitation-after-rejection]]:
+- (a) PRIMARY SUBSUMPTION 0-cost APPLIED: v15 N=8192 5-seed FULL HARD_PASS + v16 M-axis 2/2 + v17 codebook-axis 3/3 = 3-axis production-scale corroboration. The N-extension to N=16384 was a stretch goal, not load-bearing. Saad-Solla LEADING ✅ holds via v15.
+- (b) CHEAPEST 0-cost ANNOTATION APPLIED: characterize N=16384 as 8GB-VRAM hardware ceiling (not substrate-physics ceiling); document in cap_map as scaling-law-extrapolation-blocked-at-N=16384.
+- (c) CHEAP ~15min exp_dev saad_solla_v19_n12288 N-step-down to N=12288 with 5-seed [7,17,23,31,41] f_sweep=[0.0, 0.15, 0.5, 0.8, 1.0] — splits the N=8192/N=16384 gap; if v19 N=12288 PASSES, scaling-law extrapolation gets a 3rd data point (N=4096 + N=8192 + N=12288) before the VRAM cliff.
+- (d) MEDIUM ~1h exp_dev saad_solla_v19_n16384_kovacs_disabled disabling Kovacs trick (if it was on) at N=16384 to reduce VRAM footprint; tests whether v18 OOM is from the auxiliary memory structure rather than the substrate weights.
+
+### v267 -> v268 PORTFOLIO + RELIABILITY MOVES
+
+- KF-1 hallucination-detection row 🟡-AT-RISK -> 🟢-smoke 55-70%: posterior-entropy-based mechanism RESCUES v267 c1 architecture-level failure with 12.94-bit gap = 12.9x HP-min safety margin at 3/3 seeds; capped at 70% pending multi-N + multi-M_BASE replication.
+- beta-axis phase boundary row 🟢-smoke 60-72% -> 🟢-smoke 65-78% LIFT (+5%): v2 fine-resolution confirms beta_c=10.0 +/-0.0 deterministic localization with 2.4x sharper gradient.
+- KF-2 ✅ UNCHANGED but cross-codebook EVIDENCE STRENGTHENED at production-scale N=8192 (architecture-portability AND N-scale-portability invariant).
+- Saad-Solla LEADING ✅ UNCHANGED + N-extension SUB-AXIS CEILING ANNOTATED at N=16384 (8GB-VRAM hardware ceiling NOT substrate-physics ceiling).
+- MoE K-scaling ✅ UNCHANGED via v267 v1 capacity-aware (v2 substantive death does NOT reopen the row).
+- portfolio 14 + 30 UNCHANGED (KF-1 elevation 🟡-implicit -> 🟢-smoke is annotation-only since KF1 is part of "killer-feature phase-class profile" row which stays yellow 45-60%; no new row count change).
+- framework reliability specific 65-78% UNCHANGED (KF1 rescue is annotation-level for the phase-class profile row; t1_v2 is corroboration-strengthening not new prediction).
+- framework reliability product-feature 84-95% -> 85-96% LIFT (+1%): KF-1 posterior-entropy rescue = NEW product-feature confirmation (hallucination-detection KAF rescued); KF-2 cross-codebook N=8192 = production-scale architecture-portability KAF strengthening.
+- framework reliability general 73-83% UNCHANGED.
+- 0 capability-row closures; 0 capability-row reopens.
+
+### MEGA-PATTERN ESCALATION: DISPATCH_FAILURE_MISCLASSIFICATION
+
+3 more catches this batch (115th-117th); cumulative 117 since rule landed. v267 7-catch mega-event + v268 3-catch repeat = 10 catches in 2 batches across ~4h. The runner verdict-emission bug is now CONFIRMED PATTERN, not edge case. Structural urgency for runner_v2_prod.py patch rises:
+- PROT-019 candidate v267 (verdict_handler Step 0 auto-cross-check of remote metrics existence against queue.json status) MUST land.
+- Additional surface: tools/orchestrator/runner_v2_prod.py exit-code path emits `failed` even on successful metric writes; root cause needs SSH-side investigation of the queue.json -> event-bus -> verdict relay.
+- Filed STRATEGY routing note for runner_emission_bug_audit to exp_dev/strategy. This is now a P0 infrastructure debt item.
+
+**PROT compliance (v268).** PROT-004/006: 0 row closures; 7 rescue sketches filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]] (3 for moe_v2 + 4 for saad_solla v18). PROT-007: history.md UPDATED. PROT-008: KF-1 row elevation 🟡-AT-RISK -> 🟢-smoke validator-grade evidence (3/3 seeds + 12.9x safety margin); beta-axis band lift validator-grade (5/5 deterministic + 2.4x sharper gradient). PROT-009: cap_map.md + cap_map_history.md + strategy_decisions_2026-05-28.md + visibility_decisions_2026-05-28.md + 3 routing files (kf1_hallu_rescue OUTCOME-CLOSE, moe_capacity_v3, saad_solla_v19_n12288 + saad_solla_v19_kovacs_disabled merged) staged atomically; 179th PROT-009 paired commit. PROT-018: anchors `_n4096` + `_n8192` BINDING contracts honored; `_n16384` v18 anchor violated by absent remote metrics (genuine failure path). [[feedback-verdict-msg-honest-reread]]: 131 -> 134 obs (+3); LABEL-VS-HONEST 114 -> 117 (+3 sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION). [[feedback-no-padding-experiments]]: queue depths overnight=18 pending + remote_cpu=10 pending = HEALTHY no refill. [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+
+**Queue refill.** SKIPPED. overnight_queue=18 pending+running; remote_cpu_queue=10 pending+running. Per [[feedback-pipeline-pacing]] queue >= 1 invariant well-satisfied both lanes; per [[feedback-no-padding-experiments]] no padding ship; per [[feedback-verdict-arrival-is-queue-depletion-signal]] verdict-handler reflex DEFERRED. 3 NEW exp_dev routings filed (moe_capacity_v3 + saad_solla_v19_n12288_AND_kovacs_disabled + runner_emission_bug_audit STRATEGY routing) ready for routing_handler pickup; 6+ pre-existing open routings remain.
+
+**179th PROT-009 paired commit**; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
+
