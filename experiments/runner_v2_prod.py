@@ -137,7 +137,18 @@ def record_outcome(exit_code: int) -> None:
 
 # ---------- Metrics schema validation ----------
 
-_METRICS_REQUIRED_FIELDS = ("verdict", "verdict_msg", "elapsed_s", "summary")
+# Required scalar fields the verdict relay actually consumes downstream.
+# - verdict_msg and elapsed_s are TRULY required (verdict_handler reads them).
+# - The verdict label may be carried under EITHER `verdict` OR `verdict_tag`
+#   (legacy + KF/PB/MoE scripts emit `verdict_tag`; T1/saad/bid scripts emit
+#   `verdict`). Both shapes are HARD_PASS-valid; the gate must accept either.
+# - `summary` was historically gated here but the runner does NOT read it for
+#   any control flow -- scripts variously emit `summary`, `cells`, `all_cells`,
+#   or `config` instead. Requiring it caused 30+ false-failed verdicts on
+#   legitimate HARD_PASS runs (KF1/KF2/PB2/T1/MoE/bid/anchor_battery families).
+#   verdict_msg + elapsed_s + a verdict label is sufficient for the relay.
+_METRICS_REQUIRED_FIELDS = ("verdict_msg", "elapsed_s")
+_METRICS_VERDICT_FIELDS = ("verdict", "verdict_tag")
 
 
 def _validate_metrics_schema(path: Path) -> str | None:
@@ -155,7 +166,9 @@ def _validate_metrics_schema(path: Path) -> str | None:
     missing = [f for f in _METRICS_REQUIRED_FIELDS if f not in data]
     if missing:
         return f"missing_fields: {missing}"
-    if not data.get("verdict") or not isinstance(data["verdict"], str):
+    # Verdict label may be carried as either `verdict` or `verdict_tag`.
+    verdict_val = data.get("verdict") or data.get("verdict_tag")
+    if not verdict_val or not isinstance(verdict_val, str):
         return "empty_verdict"
     if not data.get("verdict_msg") or not isinstance(data["verdict_msg"], str):
         return "empty_verdict_msg"

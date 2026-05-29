@@ -310,3 +310,121 @@ All deliverables in the user's mandate are closed:
 
 Per feedback_no_label_vs_honest_anchor_names, feedback_ship_before_dependency_verified,
 feedback_ascii_only_in_scripts, feedback_lock_in_inefficiency_fixes.
+
+
+---
+
+## 8. PROT-019 extension: per-seed checkpoint resume (2026-05-28)
+
+### 8a. Trigger event
+
+  Three multi-seed losses in one day:
+    - saad_solla_v10_n8192:  3235s, seed=7 5/5 cells HARD_PASS clean,
+                             CUDA crash at seed=17 -- ALL data lost on reship.
+    - saad_solla_v18_n16384: 800s, OOM crash -- ALL seed data lost on reship.
+    - tcft_n8192_v5:         1800s, 4 of 5 seeds completed, lost on retry.
+
+  Common failure mode: multi-seed scripts aggregate seed results in an
+  in-process dict and only write metrics.json AT THE END. A mid-run crash
+  loses every completed seed in that run, and the reship starts from seed 0.
+
+### 8b. Spec
+
+  Per-seed atomic checkpoint contract:
+
+    experiments/_seed_checkpoint.py exposes:
+      list_completed_keys(out_dir)        -> list[str]
+      resumable_seeds(seeds, out_dir)     -> (done, remaining)
+      write_partial(out_dir, seed, body)  -> Path        # atomic
+      write_partial_key(out_dir, key, body)              # for inverted loops
+      load_partial_key(out_dir, key)      -> dict | None
+      aggregate_partials(out_dir, seeds)  -> dict[str,dict]
+      clear_partials(out_dir)             -> int
+
+    Disk layout under data/exp_<name>/ :
+      partial_metrics_<seed>.json         -- one per completed seed
+      partial_metrics_<seed>.json.tmp     -- crash residue (ignored)
+      metrics.json                        -- final aggregate
+
+    Script adoption pattern (outer-loop seed):
+      done, remaining = resumable_seeds(seeds, out_dir)
+      for seed in remaining:
+          r = run_one_seed(seed, ...)
+          write_partial(out_dir, seed, r)        # atomic .tmp + os.replace
+      per_seed = aggregate_partials(out_dir, seeds)
+
+    Inverted-loop variant (outer = N or M, inner = seed):
+      cell_key = f"N{N_val}_seed{seed}"
+      if cell_key in list_completed_keys(out_dir): continue
+      r = run_one_cell(N_val, seed)
+      write_partial_key(out_dir, cell_key, {"N": N_val, "cell": r})
+
+### 8c. Atomicity guarantee
+
+  Writes go to <name>.json.tmp first, fsync()ed, then os.replace()d to the
+  final name. os.replace is atomic on both POSIX (within filesystem) and
+  Windows (NTFS overwrite). A crash mid-write leaves the .tmp orphan but
+  the .json never half-formed.
+
+  Recovery scan validates each partial_metrics_<seed>.json by:
+    1. json.load succeeds (not truncated)
+    2. top-level is dict
+    3. recorded "seed" field matches filename
+  Any failure -> the seed is treated as not-done and re-runs.
+
+### 8d. Retrofitted scripts (2026-05-28 first pass)
+
+  - experiments/exp_saad_solla_v15_n8192_5seed.py      (5 seeds at N=8192)
+  - experiments/exp_saad_solla_v18_n16384.py            (2 seeds at N=16384)
+  - experiments/exp_tcft_m_sweep_v3_n8192_5seed.py      (5 seeds at N=8192)
+  - experiments/exp_bid_n_stability_v4_n12288.py        (inverted loop)
+
+  These are the high-rerun scripts that experienced losses today. Retrofit
+  is a small mechanical edit (~10 lines per script): import the helper,
+  scan for done seeds at top of run(), write partial after each seed,
+  aggregate at the end. The remaining ~50 multi-seed scripts can be
+  retrofitted in a separate pass when they next get re-shipped or
+  modified -- the helper is reusable.
+
+### 8e. Tests
+
+  tests/test_seed_checkpoint.py (21 tests, all pass):
+    Empty dir / nonexistent dir   -- all seeds remain (2 tests)
+    Partial dir with N of M done  -- only remaining run (3 tests)
+    Atomicity / crash recovery    -- .tmp residue ignored, corrupted
+                                      partials re-run (5 tests)
+    Write / load round-trip       -- payload fidelity (5 tests)
+    Aggregate                     -- {seed: payload} dict (3 tests)
+    clear_partials                -- cleanup utility (2 tests)
+    End-to-end resume scenario    -- run 1 crashes after 2 seeds, run 2
+                                      resumes and completes (1 test)
+
+  Run with: python -m pytest tests/test_seed_checkpoint.py -v
+
+### 8f. Implication for timeout budgeting
+
+  Before: a 5-seed run with a 14400s budget that crashes at seed 4 wastes
+  all 14400s (and all 4 completed seeds) on the reship.
+
+  After: the same crash wastes only the in-flight seed. Reship has 1 seed
+  of remaining work -- nominally 14400/5 = 2880s of compute, even if the
+  reship is granted the full original budget.
+
+  Timeout budgets become effectively PER-SEED budgets across the
+  crash-and-resume sequence. A 5-seed 24h run tolerates up to 4 crashes
+  (each consuming one seed's worth of work) before the budget is
+  exhausted -- a 4x effective reliability multiplier for the
+  CUDA-crash-prone large-N regime.
+
+  NOTE: the 21600s / 14400s PROT-019 floors are still required for
+  FRESH-RUN safety (no partials present). They are not lowered. The
+  checkpoint contract is a recovery accelerant, not a budget shrinker.
+
+### 8g. Remote-git divergence dependency
+
+  These scripts must be propagated to the GPU/CPU runner hosts before the
+  resume contract is live in production. The runner-pickup invariant is
+  "next ship uses the new code AFTER the remote-git divergence is
+  resolved". The helper file is self-contained and adds no new runtime
+  deps (stdlib json/os/re/time only) -- propagation is a single git
+  fetch + checkout on each runner host.

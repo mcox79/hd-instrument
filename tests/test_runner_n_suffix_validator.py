@@ -18,6 +18,7 @@ sys.path.insert(0, str(REPO / "experiments"))
 from runner_v2_prod import (  # type: ignore  # noqa: E402
     _extract_anchor_n,
     _extract_metrics_n,
+    _validate_metrics_schema,
     validate_n_suffix_binding,
 )
 
@@ -298,6 +299,197 @@ def test_prot019_rejects_n16384_under_3600s():
         assert e.code == 7
         return
     raise AssertionError("PROT-019 must reject _n16384 with timeout=60s")
+
+
+# ---------- _validate_metrics_schema (DISPATCH_FAILURE_MISCLASSIFICATION fix) ----------
+#
+# Background: runner_v2_prod historically required ("verdict", "verdict_msg",
+# "elapsed_s", "summary") as a hard schema gate. This caused 30+ false-failed
+# verdicts on legitimate HARD_PASS runs whose scripts either (a) emit
+# `verdict_tag` instead of `verdict` (KF/PB/MoE families) or (b) omit `summary`
+# and use `cells` / `all_cells` / `config` instead (T1, anchor_battery, bid,
+# kf1_hallu_rescue, kf2_cross_codebook, pb2_corr_len, moe_capacity_v2, etc.).
+# The verdict_handler reactively caught these via remote metrics re-read, but
+# each catch wastes Opus cycle time and inflates the LABEL-VS-HONEST counter.
+# Fix: require only verdict_msg + elapsed_s + a verdict label that can be EITHER
+# `verdict` or `verdict_tag`. `summary` is no longer required.
+
+
+def _staged_metrics(td: str, body: dict) -> Path:
+    p = Path(td) / "metrics.json"
+    p.write_text(json.dumps(body), encoding="utf-8")
+    return p
+
+
+def test_schema_accepts_verdict_tag_alias():
+    """KF2/PB2/MoE families emit `verdict_tag` not `verdict`. Must pass gate."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "mode": "smoke",
+            "N": 1024,
+            "cells": [{"M": 512, "isolation_ratio": 0.01}] * 9,
+            "elapsed_s": 3.62,
+            "verdict_tag": "KF2_CROSS_HARD_PASS",
+            "verdict_msg": "EDIT ISOLATION CODEBOOK-ROBUST: isolation holds across 3 families",
+        })
+        assert _validate_metrics_schema(p) is None, (
+            "verdict_tag must satisfy verdict-label requirement; this is the "
+            "exact KF2/PB2/MoE family false-failed signature."
+        )
+
+
+def test_schema_accepts_missing_summary():
+    """T1/anchor_battery/bid/kf1 families omit `summary` and use `cells` instead."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "anchor": "t1_beta_fine_v2_n4096",
+            "N": 1024,
+            "cells": [{"seed": 17, "beta_c_est": 10.0, "max_gradient": 0.314}],
+            "verdict": "T1_FINE_MIDDLE_BAND",
+            "verdict_msg": "DIFFUSE_OR_PARTIAL: gradient=0.314",
+            "elapsed_s": 0.34,
+        })
+        assert _validate_metrics_schema(p) is None, (
+            "missing `summary` must NOT fail the gate; the runner does not read "
+            "it and 30+ HARD_PASS runs were false-failed by this requirement."
+        )
+
+
+def test_schema_accepts_kf2_actual_payload():
+    """End-to-end reproducer of one of the 10 user-cited misclassified runs."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "mode": "smoke",
+            "N": 1024,
+            "m_fracs": [0.5, 1.0, 2.0],
+            "seeds": [17],
+            "codebook_families": ["kerdock", "bsc", "gaussian"],
+            "elapsed_s": 3.62,
+            "cells": [],
+            "verdict_tag": "KF2_CROSS_HARD_PASS",
+            "verdict_msg": "EDIT ISOLATION CODEBOOK-ROBUST",
+        })
+        # exit=0 + this payload MUST tag completed (validator returns None).
+        assert _validate_metrics_schema(p) is None
+
+
+def test_schema_accepts_moe_capacity_actual_payload():
+    """End-to-end reproducer of moe_capacity_v2_n4096 (375s substantive run)."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "anchor": "moe_capacity_v2_n4096",
+            "N": 1024,
+            "K_sweep": [32, 64],
+            "M_budget": 400,
+            "seeds": [17],
+            "cells": [{"K": 32, "seed": 17, "mean_ret": 0.953}],
+            "verdict": "MOE_V2_HARD_PASS",
+            "verdict_msg": "HIGH_K_SCALING: k64_mean=0.953 >= 0.5",
+            "elapsed_s": 114.28,
+        })
+        assert _validate_metrics_schema(p) is None
+
+
+# Padding key to push test payloads above the 100-byte METRICS_MIN_BYTES floor
+# (which is enforced BEFORE the field-level schema checks).
+_PAD = "_padding_to_clear_min_bytes_" + "x" * 64
+
+
+def test_schema_still_rejects_missing_verdict_msg():
+    """verdict_msg remains REQUIRED -- verdict_handler reads it for labelling."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "verdict": "PASS",
+            "elapsed_s": 1.0,
+            "summary": {"N": 1024},
+            "pad": _PAD,
+        })
+        err = _validate_metrics_schema(p)
+        assert err is not None, f"expected reject; got None"
+        assert "verdict_msg" in err, f"expected verdict_msg in err; got: {err!r}"
+
+
+def test_schema_still_rejects_missing_elapsed_s():
+    """elapsed_s remains REQUIRED -- timeline reconciliation needs it."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "verdict": "PASS",
+            "verdict_msg": "ok",
+            "summary": {"N": 1024},
+            "pad": _PAD,
+        })
+        err = _validate_metrics_schema(p)
+        assert err is not None, f"expected reject; got None"
+        assert "elapsed_s" in err, f"expected elapsed_s in err; got: {err!r}"
+
+
+def test_schema_still_rejects_no_verdict_label_at_all():
+    """If NEITHER verdict NOR verdict_tag is present, MUST reject."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "verdict_msg": "looks ok",
+            "elapsed_s": 1.0,
+            "summary": {"N": 1024},
+            "pad": _PAD,
+        })
+        err = _validate_metrics_schema(p)
+        assert err is not None, f"expected reject; got None"
+        # empty_verdict OR no verdict label -> mention verdict in err
+        assert "verdict" in err, f"expected verdict in err; got: {err!r}"
+
+
+def test_schema_still_rejects_empty_verdict_string():
+    """Empty-string verdict still rejected (and no verdict_tag fallback)."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "verdict": "",
+            "verdict_msg": "ok",
+            "elapsed_s": 1.0,
+            "pad": _PAD,
+        })
+        err = _validate_metrics_schema(p)
+        assert err is not None, f"expected reject; got None"
+        assert err == "empty_verdict", f"got: {err!r}"
+
+
+def test_schema_still_rejects_empty_verdict_msg():
+    """Empty-string verdict_msg still rejected."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _staged_metrics(td, {
+            "verdict": "HARD_PASS",
+            "verdict_msg": "",
+            "elapsed_s": 1.0,
+            "pad": _PAD,
+        })
+        err = _validate_metrics_schema(p)
+        assert err is not None, f"expected reject; got None"
+        assert err == "empty_verdict_msg", f"got: {err!r}"
+
+
+def test_schema_still_rejects_missing_file():
+    p = Path(tempfile.gettempdir()) / "nonexistent_metrics_xyz_test.json"
+    if p.exists():
+        p.unlink()
+    err = _validate_metrics_schema(p)
+    assert err == "missing"
+
+
+def test_schema_still_rejects_invalid_json():
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "metrics.json"
+        p.write_text("not json {" + "x" * 200, encoding="utf-8")
+        err = _validate_metrics_schema(p)
+        assert err is not None
+        assert err.startswith("invalid_json")
+
+
+def test_schema_still_rejects_too_small():
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / "metrics.json"
+        p.write_text("{}", encoding="utf-8")  # only 2 bytes; min is 100
+        err = _validate_metrics_schema(p)
+        assert err is not None
+        assert err.startswith("too_small")
 
 
 # ---------- Standalone runner ----------
