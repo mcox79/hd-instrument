@@ -34,3 +34,4 @@
 - Pipeline-pacing: GPU drained (overnight_queue 0 pending+running); per dispatch context caller has structural deep-strategy plan for 16h overnight refill — verdict_handler DEFERS refill dispatch per [[feedback-no-padding-experiments]] + [[feedback-verdict-arrival-is-queue-depletion-signal]]
 - 0 NEW routings filed (5 rescue sketches inline; saad_solla v20-rerun candidate to be operationalized at strategy cycle)
 - 183rd PROT-009 paired commit
+v272->v273 ANNOTATION-ONLY: user-delivered triage strategy commit; 3 at-risk claims (BE-1 cost-advantage/steerability/Bet-B-arch) documented in cap_map annotation; A1 soft-readout BE-1 designated RUN-FIRST; 5-cluster overnight refill plan with TIER 1/2/3/4 allocation routed to exp_dev; no state moves until verdicts land
