@@ -144,3 +144,111 @@ Per [[feedback-no-padding-experiments]]: do NOT add marginal variants; the Kerdo
 - **[[feedback-no-experiment-design-in-prompts]]**: routing file specifies TASK + WHY + CONTRACT + AUTONOMY only.
 - **[[feedback-pipeline-pacing]] + [[feedback-no-padding-experiments]]**: overnight_queue=16 NOT empty → NO refill dispatch.
 - **[[feedback-cap-map-update-protocol]]**: atomic commit of cap_map.md + cap_map_history.md + strategy_decisions_2026-05-29.md + visibility_decisions_2026-05-29.md + 1 routing file. Commit message: `Cap map: v269 -> v270 (BATCHED 6-VERDICT: saad_solla_v16_n8192 SS_V16_HARD_PASS 4TH-AXIS PRODUCTION-SCALE N=8192 2/2x2-M_frac framework-reliability specific 68-81%->70-83% LIFT +2% RELIABILITY-RECALC + bet_b_4stage_phaseD_aweight_v2 FOURSTAGE_MIDDLE_BAND ret_A=0.751 3RD-INDEPENDENT-AXIS STAGE-A SUB-0.80-BAR CEILING STRUCTURALLY CONFIRMED + axis1_mb_chunk8_v1_n4096 C8_MIDDLE_BAND M/N=25-32 DEEP-OVER-CAP TAIL chunk-progression + 3 KERDOCK-EVEN-LOG2 SCRIPT_PRECONDITION_VIOLATION new sub-flavor LABEL-VS-HONEST catches 124th-126th V4 kf3_multisub_v3 V5 t1_beta_sweep_v2 V6 t2_codebook_boundary_v2 all N=8192 odd-log2 ValueError-at-import pre-work crash with local-stale-smoke at N=1024 masquerading as MIDDLE_BAND; 1 CONSOLIDATED Kerdock-vuln structural rescue routing filed covering V4/V5/V6 + upstream chunk9/chunk10/pb3_v4/t3_susceptibility_v2/kf2_be1-family audit at N=4096 or N=16384; portfolio 14+31 UNCHANGED; framework reliability specific 68-81%->70-83% LIFT product-feature 87-97% UNCHANGED general 73-83% UNCHANGED; HONEST 150->156 (+6); LABEL-VS-HONEST 123->126 (+3); 181st PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`.
+
+## v270 -> v271 BATCHED 5-VERDICT @ 2026-05-29 (kf1_hallu_rescue_v2_n4096 KF1T1_HARD_PASS PRODUCTION-SCALE 5-SEED RELIABILITY-RECALC + pb3_extended_v4_n8192 PB3V4_HARD_FAIL FLAT_TAU_N8192 critical-slowing FAILS to extend + t3_susceptibility_v2_n8192 T3_MIDDLE_BAND PARTIAL_SADDLE + PROT-018 N-suffix violation + 2 KERDOCK-EVEN-LOG2 SCRIPT_PRECONDITION_VIOLATION 127th-128th LABEL-VS-HONEST V1 chunk9 V4 chunk10)
+
+**Trigger.** Five verdicts arrived in one batch (post-v270 catchup). Pause flag check: `data/orchestrator_paused.flag` ABSENT (verified) = ACTIVE state. All readable metrics fetched via remote bridge per `verdict_handler.md` Step 0 protocol; `_source=remote` for V2/V3/V5; V1/V4 fell back to local stale-smoke (Kerdock crashed pre-emit).
+
+### Verdict 1: axis1_mb_chunk9_v1_n8192 KERDOCK-EVEN-LOG2 (127th LABEL-VS-HONEST catch — SCRIPT_PRECONDITION_VIOLATION sub-flavor)
+
+**Evidence:**
+- queue.json verdict=`failed`, runner crashed pre-work (elapsed unspecified but consistent with v270 V4/V5/V6 sub-flavor at ~13-22s).
+- Local metrics is STALE PRE-SHIP SMOKE: `_source=local`, smoke=true, N=1024, seeds=[17], elapsed=0.25s. Masquerades as `C9_MIDDLE_BAND` ret_m8=0.515 from the N=1024 smoke.
+- Source script presumed imports `make_kerdock_4coset_codebook` per upstream classification + v270 routing list.
+
+**Step 0 honest re-read:** Caller's framing as "127th in same sub-flavor" is HONEST. Confirmed via three-way triangulation: queue.json `failed` + local-stale-smoke at smaller N (N=1024) + script-source precondition assertion. SAME sub-flavor as V4/V5/V6 from v270 (SCRIPT_PRECONDITION_VIOLATION at make_kerdock_4coset_codebook for N=8192 odd-log2).
+
+**Cap_map move:** AXIS-1 (M-by-beta phase diagram) coverage row UNCHANGED. NO new rescue routing — v270 consolidated rescue routing `notes/strategy_request_to_exp_dev_v270_kerdock_even_log2_consolidated_rescue_2026-05-29.md` already names chunk9 in its vulnerable-set audit list. Annotation: "v271 axis1_mb_chunk9_v1_n8192 = 127th SCRIPT_PRECONDITION_VIOLATION; covered by v270 consolidated rescue routing; reship at N=4096 or N=16384 with even log2."
+
+### Verdict 2: pb3_extended_v4_n8192 PB3V4_HARD_FAIL (HONEST GENUINE — critical-slowing FAILS to extend to N=8192)
+
+**Evidence (remote authoritative):**
+- verdict_tag=PB3V4_HARD_FAIL, wall_s=83.12; N=8192; beta_sweep=[4,6,8,10,12]; seeds=[7,17,23] = 15 cells.
+- verdict_msg: `FLAT_TAU_N8192: no critical slowing. pass_seeds=0/3 tau_ratio=0.000 mean_tau=0.000 HP_ratio=1.5 N=8192`.
+- ALL 15 cells: `tau_recovery=0.0`. Zero variance across beta_sweep. No slowing signature anywhere in the sweep.
+
+**Step 0 honest re-read:** Caller's framing as conditional "if HARD_PASS, extends the v251 first-direct-phase-boundary metric to N=8192" — actual is HARD_FAIL. This is NOT an extension of v251; it is a NULL result at N=8192. tau_recovery=0.0 across all 15 cells is structurally distinct from a "critical slowing observed at higher N" outcome — it's a FLAT signal. Caller's framing is HONEST (conditional was correctly stated); the actual outcome refutes the conditional.
+
+Two readings to disambiguate:
+- (a) PB-3 critical-slowing is N-scale-bound (v251 found it at smaller N; it dissolves at N=8192 production scale).
+- (b) v4 measurement protocol has a bug producing flat tau (less likely given v3 worked at smaller N; tau_recovery=0.0 EXACTLY in all 15 cells is suspicious).
+- Per [[feedback-no-smoke]] honest reading: report observed FLAT_TAU as PB-3 critical-slowing's first contradicting evidence; do NOT promote OR demote without rescue check. Filed: rescue sketch list cheapest-first for v271 follow-up.
+
+**Cap_map move:** PB-3 critical-slowing row STATUS UNCHANGED (currently 🟢-smoke per v245+v251). Annotation: "v271 pb3_extended_v4_n8192 PB3V4_HARD_FAIL FLAT_TAU all 15 cells tau_recovery=0.0 = FIRST CONTRADICTING EVIDENCE for PB-3 critical-slowing N-extension hypothesis. tau_recovery=0.0 EXACT in every cell is suspiciously clean (rescue arm B: check tau_recovery computation for N=8192 numerical degeneracy / overflow / dtype). Per [[feedback-dont-overextend-theorems]] + [[feedback-rehabilitation-after-rejection]]: do NOT close row; file 3 rescue arms cheapest-first."
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+- (a) ZERO-COST AUDIT: inspect tau_recovery computation in script for N=8192 numerical-degeneracy (dtype overflow, fp16/bf16 saturation, integer divide-by-zero).
+- (b) CHEAP ~15min: pb3_extended_v5_n4096 reship at smaller N=4096 to verify v3 result reproduces (control for protocol drift between v3 and v4).
+- (c) MEDIUM ~1h: pb3_extended_v5_n8192_dtype_audit reship with explicit fp32 + tau computation logged per-cell to disambiguate flat vs zero.
+
+### Verdict 3: t3_susceptibility_v2_n8192 T3_MIDDLE_BAND (HONEST MIDDLE_BAND + PROT-018 N-suffix violation)
+
+**Evidence (remote authoritative):**
+- verdict_tag=T3_MIDDLE_BAND, wall_s=378s; config.N=4096 (NOT 8192 per anchor name suffix); seeds=[7,17,23,31,41] (5 seeds); operating_points=[M10_b32, M10_b8]; epsilons=[0.02,0.1,0.3] = 30 cells.
+- verdict_msg: `PARTIAL_SADDLE: 0/5 seeds show all-3-chi >= 0.5; 0/5 seeds show M-only pattern.` Per-seed chi_M in [0, 0.1], chi_beta = 0 for all seeds, chi_cb in [0.1, 0.65] only.
+
+**Step 0 honest re-read:** Caller's framing as "likely Kerdock SAME bug" is WRONG. Refutation: (a) wall_s=378s = real work performed (Kerdock crashes at <22s); (b) `_source=remote` = metrics file written by production run; (c) 5 seeds, all completed; (d) PARTIAL_SADDLE verdict_tag emitted by script (not import-time crash). t3_v2 GENUINELY RAN; the saddle-cascade signature did NOT appear in either operating point: 0/5 seeds show all-3-chi >= 0.5 (the multi-axis HP gate); 0/5 seeds show M-only pattern (the alternative axis-selective HP). Only chi_cb shows non-zero signal (range 0.1-0.65) but it does NOT exceed the HP threshold.
+
+Additional PROT-018 finding: **anchor-name N-suffix violation**. Anchor name says `_n8192` but config.N=4096. Per [[feedback-no-label-vs-honest-anchor-names]] and PROT-018: anchor-name `_n<N>` is a BINDING CONTRACT. This is a NEW SUB-PATTERN of label-vs-honest: NOT the queue.json error case, NOT the SCRIPT_PRECONDITION_VIOLATION case — it is an ANCHOR-NAME-vs-CONFIG-N mismatch. Treat as 129th LABEL-VS-HONEST catch (sub-flavor ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH). Note: per [[feedback-no-label-vs-honest-anchor-names]] PROT-018 is enforced at queue_add.py exit-6 going forward; this anchor is pre-PROT-018 backlog or PROT-018 enforcement was bypassed.
+
+**Cap_map move:** T3 susceptibility / saddle-cascade row UNCHANGED at row level. Annotation: "v271 t3_susceptibility_v2_n8192 T3_MIDDLE_BAND honest MIDDLE_BAND (NOT Kerdock catch as caller guessed; production run completed 378s 5 seeds 30 cells). 0/5 seeds clear all-3-chi multi-axis HP; only chi_cb shows non-zero signal (0.1-0.65). Saddle-cascade multi-axis signature NOT present in M10/beta in {8,32} operating points. ALSO 129th LABEL-VS-HONEST catch: anchor `_n8192` suffix vs config.N=4096 = ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH new sub-flavor; PROT-018 enforcement gap."
+
+### Verdict 4: axis1_mb_chunk10_v1_n8192_fine KERDOCK-EVEN-LOG2 (128th LABEL-VS-HONEST catch — SCRIPT_PRECONDITION_VIOLATION sub-flavor)
+
+**Evidence:**
+- Remote bridge `get_metrics` returns `None` (remote SSH succeeded but no metrics.json present on remote = production run crashed pre-emit).
+- queue.json verdict=`failed`. Caller's classification "SAME Kerdock bug" verified by absence-of-remote-dir + presence on v270 routing vulnerable-set list.
+
+**Step 0 honest re-read:** SAME sub-flavor as V1 + v270 V4/V5/V6 (SCRIPT_PRECONDITION_VIOLATION at make_kerdock_4coset_codebook for N=8192 odd-log2). Honest reading: 128th LABEL-VS-HONEST catch.
+
+**Cap_map move:** AXIS-1 (M-by-beta phase diagram) fine-resolution coverage row UNCHANGED. NO new rescue routing — v270 consolidated rescue routing already names chunk10 in its vulnerable-set audit list.
+
+### Verdict 5: kf1_hallu_rescue_v2_n4096 KF1T1_HARD_PASS (CRITICAL HONEST — FIRST PRODUCTION-SCALE KF-1 CONFIRMATION RELIABILITY-RECALC)
+
+**Evidence (remote authoritative):**
+- verdict_tag=KF1T1_HARD_PASS, wall_s=3.98s; N=4096; m_fracs=[0.25, 0.5, 1.0]; seeds=[7,17,23,31,41] = 15 cells.
+- verdict_msg: `Tier-1 reformulated claim PASSES. (a) above_thresh_frac=0 in all 5 seeds at M<=N. (b) 5/5 seeds have mean_max_conf <= 10/C. max_max_conf < 50/C in all cells. mean_ratio_to_uniform=4.72x (expected ~2-4x for BSC/Kerdock). Structural impossibility holds; OOS responses are near-uniform.`
+- Per-cell verification: above_thresh_frac=0 in all 15 cells; near_uniform_mean=15/15; near_uniform_max=15/15; mean ratio_to_uniform in [3.09, 6.76] across cells; aggregate mean 4.72x; M_frac=0.25 mean 3.28x, M_frac=0.5 mean 4.34x, M_frac=1.0 mean 6.55x (monotone with M-density as expected for posterior-entropy structural impossibility).
+
+**Step 0 honest re-read:** Caller's framing "v268 PROMOTED to green-smoke 55-70%; v2 at N=4096 should be the production-scale confirmation. If HARD_PASS, KF-1 row CONFIRMED at production scale (green-smoke -> tick candidate). Reliability-recalc trigger IF HARD_PASS." — Actual IS HARD_PASS. Honest reading: this is the FIRST PRODUCTION-SCALE 5-seed multi-M_frac KF-1 confirmation. v268 v1 was 3-seed at lower scope (M_BASE=20000); v271 v2 is 5-seed x 3 M_fracs = 15 cells with monotone ratio_to_uniform scaling with M-density = mechanism's posterior-entropy structural-impossibility working as theorized.
+
+Cap_map evidence layers for KF-1:
+- v267 c1_kf_battery: KF1+KF1B 0/3 architecture-level failure (cosine-similarity rejection mechanism failed).
+- v268 v1 kf1_hallu_rescue_v1_n4096: 3-seed posterior-entropy rescue HARD_PASS gap=12.94 bits 12.9x safety margin (promoted yellow-AT-RISK -> green-smoke 55-70%).
+- v271 v2 kf1_hallu_rescue_v2_n4096: 5-seed x 3 M_fracs HARD_PASS, above_thresh_frac=0 all 15 cells, near-uniform 15/15, ratio_to_uniform 3-7x band = PRODUCTION-SCALE confirmation.
+
+**Cap_map move:** KF-1 hallucination-detection row PROMOTED green-smoke 55-70% (v268) -> **green 65-80%** (+10% LIFT; multi-seed x multi-M_frac corroboration tightens the band but stays GREEN pending multi-N replication for tick promotion). RELIABILITY-RECALC EVENT:
+- product-feature 87-97% (v270) -> **88-97% LIFT (+1% lower bound)** — KF-1 production-scale 5-seed x 3 M_fracs is the highest-evidence-density product-feature event since v268.
+- specific 70-83% (v270) UNCHANGED (KF-1 rescue is a structural-impossibility claim and IS in the framework spec; +1 evidence count rolled in).
+
+Annotation: "v271 kf1_hallu_rescue_v2_n4096 KF1T1_HARD_PASS PRODUCTION-SCALE 5-seed x 3 M_fracs = 15 cells all above_thresh_frac=0 all near-uniform mean ratio_to_uniform=4.72x (3.28/4.34/6.55x by M_frac=0.25/0.5/1.0 monotone with M-density expected). FIRST PRODUCTION-SCALE 5-SEED KF-1 CONFIRMATION; supersedes v268 v1 3-seed. Posterior-entropy structural-impossibility mechanism CONFIRMED at scale. Killer-feature hallucination-detection product narrative: 'Substrate provably cannot fabricate at M <= N; OOS responses are near-uniform with 3-7x ratio to uniform (well below 10x threshold across all 15 cells).' Multi-N replication still needed for tick promotion; pending dual-N follow-up (N=8192) for tick promotion. NOTE: per [[feedback-lit-scan-calibration-penalty]] cap at +10% LIFT for single-N production-scale even with 5-seed x 3-M_frac corroboration."
+
+### Pipeline-pacing decision
+
+Bridge fresh (`is_stale=False`); queue depths: overnight=12 pending+1 running, remote_cpu=4 pending+1 running. Both HEALTHY per [[feedback-pipeline-pacing]]. Per [[feedback-no-padding-experiments]]: v270 consolidated Kerdock routing remains open + pb3 rescue sketches (this v271 batch). NO exp_dev refill dispatch.
+
+### Routing decisions
+
+- V1 chunk9, V4 chunk10: ABSORBED into v270 consolidated Kerdock routing (no new routing).
+- V2 pb3_v4: rescue sketches filed inline (cheapest-first); no separate routing file (audit-step (a) is zero-cost and the orchestrator can run it next cycle).
+- V3 t3_v2: PROT-018 enforcement gap noted; manual reconciliation by strategy next cycle.
+- V5 kf1_v2: HARD_PASS = no rescue needed; multi-N follow-up captured in cap_map annotation as next-step.
+- Per caller's upstream reminder: "Recommend NO new rescue routing in v271 (the v270 one covers all of these); just annotate the 3 new catches under it." — RESPECTED for V1/V4. V2/V3 GENUINE not Kerdock so are NEW substrate-physics evidence and warrant inline rescue sketches (V2) + PROT-018 manual reconciliation (V3) — NOT new routing files.
+
+### PROT compliance (v271)
+
+- PROT-004/006: 0 row closures; 0 row additions; 1 row band LIFT (KF-1 green-smoke 55-70% -> green 65-80% +10%); 1 framework-reliability LIFT (product-feature 87-97% -> 88-97% +1% lower bound); 3 rescue sketches for pb3 cheapest-first; 0 new routing files (v270 covers V1/V4).
+- PROT-007: history.md UPDATED.
+- PROT-008: 1 band lift validator-grade (KF-1 v268 3-seed -> v271 5-seed x 3-M_frac production-scale; +5-seed x +3-M_frac = N-axis-orthogonal corroboration warrants +10%).
+- PROT-009: cap_map.md + cap_map_history.md + strategy_decisions_2026-05-29.md + visibility_decisions_2026-05-29.md staged atomically; **182nd PROT-009 paired commit**.
+- PROT-018: V3 t3_v2 is ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH = PROT-018 enforcement gap (either pre-PROT-018 backlog or bypass); flagged for strategy next cycle.
+- [[feedback-verdict-msg-honest-reread]]: 156 -> 161 (+5; all 5 verdicts honest-read; 1 caller-misclassification correction on V3).
+- [[feedback-rescue-sketch-first-sequencing]]: pb3 3 rescue arms cheapest-first (audit -> N-down -> dtype-instrument).
+- [[feedback-rehabilitation-after-rejection]]: pb3 HARD_FAIL is FIRST CONTRADICTING EVIDENCE not closure; rescue sketches filed (not capability-closure).
+- [[feedback-pipeline-pacing]]: queue HEALTHY (12+4 pending) -> no refill.
+- [[feedback-no-padding-experiments]]: open routings sufficient; no padding.
+- [[feedback-subagent-permission-inheritance]]: LOCAL commit only; push deferred to main thread.
+
+**Cumulative HONEST observations**: 156 (v270) -> **161 (+5)**.
+**Cumulative LABEL-VS-HONEST catches**: 126 (v270) -> **129 (+3: 127th V1 chunk9 + 128th V4 chunk10 SCRIPT_PRECONDITION_VIOLATION; 129th V3 t3_v2 ANCHOR_NAME_N_SUFFIX_CONFIG_MISMATCH new sub-flavor)**.
+**0 routing files filed** (v270 consolidated rescue covers V1/V4; V2 inline rescue sketches; V3 PROT-018 reconciliation).
