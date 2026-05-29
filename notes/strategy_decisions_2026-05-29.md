@@ -679,3 +679,151 @@ TCFT row UNCHANGED. Annotation: "v275 tcft_erase_time_v1_n2048 HARD_FAIL varianc
 - **[[feedback-verdict-arrival-is-queue-depletion-signal]]**: GPU=17 pending = NOT depleted; CPU=0 IS depleted but no genuine open CPU work surfaced.
 - **[[feedback-step-back-eval]]**: 2ND-STRIKE on PB-3 + AXIS-4 triggers explicit "should we close" gate — answered NO this cycle (rescue arms remain); will revisit at 3rd-strike.
 
+
+## v275 -> v276 BATCHED 6-VERDICT @ 2026-05-29 post-v275 CPU drain + tcft seed-checkpoint window (wave14_betB_multitask_diff_corpus_v1 MULTITASK_DIFF_MIDDLE_BAND 4TH INDEPENDENT BET-B SUB-0.80 AXIS cross-corpus + wave14_hatano_sasa_ness_audit_v1 HATANO_SASA_NESS_CERT_PARTIAL N=8192 single-attractor-trapping degenerate-HS + hatano_sasa_v4_glauber HARD_FAIL N=512 Glauber 3RD HS-class CONSTRAINT corroborator + tcft_erase_robustness_n2048_v1 TCFT_ROB_N2048_HARD_PASS FIRST N=2048 TCFT-FAMILY HARD_PASS distinct from v275 erase_time fail + wave14_realtime_inference_learning_v1 REALTIME_INFERENCE_MIDDLE_BAND 133RD LABEL-VS-HONEST CATCH NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE bpc_frozen=bpc_online=0.000 all 3 seeds = degenerate-corpus DISPATCH_FAILURE_MISCLASSIFICATION + wave14_k6_axis3_cleanup_iter_v1 FAILED substantive-runtime 300s metrics-unavailable UNKNOWN routing filed)
+
+**Trigger.** 6 verdicts arrived in CPU drain window since v275 + parallel tcft seed-checkpoint window for upstream tcft_m_sweep_v3_n8192_5seed (4/5 seeds done, partial_metrics_7+17+23+31 saved; separate dispatch when 5th seed lands). All metrics fetched via remote bridge (5 of 6 `_source=remote`; V6 `get_metrics=None`). Pause flag `data/orchestrator_paused.flag` ABSENT (verified) = ACTIVE state. Caller-confirmed CPU side just refilled with 9 substantive pending anchors; GPU still has 25 pending — queue HEALTHY — NO refill needed.
+
+### Verdict 1: wave14_realtime_inference_learning_v1 REALTIME_INFERENCE_MIDDLE_BAND (133RD LABEL-VS-HONEST CATCH — NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE)
+
+**Evidence (remote authoritative `_source=remote`, wall_s=4.14):**
+- verdict_tag=REALTIME_INFERENCE_MIDDLE_BAND; N=2048; seeds=[7, 17, 23].
+- verdict_msg: `Online updates have marginal effect: bpc_online=0.000 vs bpc_frozen=0.000; delta=0.000 bits/char in (-0.05,0.05). Pipeline viable; no capability uplift.`
+- per_seed: seed 7 {bpc_frozen=0.0, bpc_online=0.0, delta=0.0}; seed 17 {bpc_frozen=0.0, bpc_online=0.0, delta=0.0}; seed 23 {bpc_frozen=0.0, bpc_online=0.0, delta=0.0}.
+
+**Step 0 honest re-read [LABEL-vs-HONEST OVER-CLAIM — 133RD CATCH — NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE]:** Verdict_msg label asserts "Online updates have marginal effect" + "Pipeline viable; no capability uplift" as a MIDDLE_BAND classification framed as a substantive null result. **Per-cell evidence CONTRADICTS pipeline-viability framing**: ALL 3 seeds show `bpc_frozen=0.0 EXACTLY` AND `bpc_online=0.0 EXACTLY`. bpc=0.0 = zero-entropy output = either degenerate corpus (zero bytes evaluated) OR the bpc accumulator never ran. A real "marginal effect" measurement requires a non-trivial frozen baseline against which to compare; with `bpc_frozen=0.0` there is no baseline, so "delta=0.000" is meaningless not a result. The 4.14s wall_s (caller flagged "6-second completion suspicious") corroborates: 3-seed N=2048 online-vs-frozen comparison cannot complete in 4 seconds with a real corpus. **This is DISPATCH_FAILURE_MISCLASSIFICATION sub-flavor REALTIME_INFERENCE_ZERO_BASELINE** — verdict_msg framing collapses "metric is identically zero with no baseline" into "marginal effect, pipeline viable" which over-claims a substantive measurement was made.
+
+**Cap_map move:** No row affected (online-learning pipeline row would be the affected row IF the verdict had real metrics; in the current state it's an annotation flag for re-run with a working baseline). Annotation on "Online inference-time learning / streaming-update pipeline" row (if/when one exists): "v276 wave14_realtime_inference_learning_v1 REALTIME_INFERENCE_MIDDLE_BAND label-vs-honest CATCH bpc_frozen=bpc_online=0.000 all 3 seeds = DISPATCH_FAILURE_MISCLASSIFICATION sub-flavor REALTIME_INFERENCE_ZERO_BASELINE wall_s=4.14 too-fast-for-real-evaluation; treat as MISSED probe pending re-ship with verified non-trivial baseline". 133rd LABEL-VS-HONEST catch (132 → 133 +1 NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE). Per [[feedback-rescue-sketch-first-sequencing]] cheapest-first rescue sketches:
+- (R1, PRIMARY/SUBSUMPTION, 0-cost) Verify the dispatch script ACTUALLY loads a non-empty corpus and evaluates ≥10 byte tokens at frozen baseline; if bpc=0 stems from `if not tokens: return 0.0` short-circuit, fix the input-loading path.
+- (R2, CHEAP <=5min) Re-ship with `--n_eval_bytes=4096` explicit + assert `bpc_frozen > 0.5` precondition gate at the start of the comparison.
+- (R3, MEDIUM) Audit the online-learning script for the entropy accumulator state-handling (zero-on-fresh-init bug suspicion).
+
+Per [[feedback-decision-log-eol-handling]] this label-vs-honest entry appended to today's strategy_decisions log via append_decision_log.py.
+
+### Verdict 2: wave14_betB_multitask_diff_corpus_v1 MULTITASK_DIFF_MIDDLE_BAND (HONEST; 4TH INDEPENDENT BET-B STAGE-A SUB-0.80 AXIS — cross-corpus persistence)
+
+**Evidence (remote authoritative `_source=remote`, wall_s=620):**
+- verdict_tag=MULTITASK_DIFF_MIDDLE_BAND; N=2048; seeds=[7, 17, 23, 31, 41]; 5-seed.
+- verdict_msg: `Partial transfer: retention_A=0.603 gain_C=3.755.`
+- per_seed retention_A: seed 7 = 0.611, seed 17 = 0.599, seed 23 = 0.606, seed 31 = 0.602, seed 41 = 0.599. Mean = 0.603, range [0.599, 0.611], spread 0.012 (tight). All 5/5 seeds < 0.80 HP bar.
+- per_seed gain_C: [3.774, 3.758, 3.772, 3.720, 3.752] (corpus C learnable; gain over zero-baseline 8.0 → bpc_C_after_C ~ 4.23 across all seeds; tight).
+- bpc_A_baseline ~ 2.62; bpc_A_after_C ~ 4.34 (retention degradation from 2.62 to 4.34 on corpus A after C-task = ~65% original-quality retention).
+
+**Step 0 honest re-read:** All 5 seeds retention_A ∈ [0.599, 0.611] = SUB-0.80 HP bar with TIGHT spread (sd ≈ 0.005). HONEST as MIDDLE_BAND. gain_C=3.75 confirms substrate CAN learn corpus C (non-zero learning capacity); the bottleneck is specifically corpus-A retention degradation under multitask-cross-corpus pressure. Caller's framing "tests Bet B with multitask different-corpus arrangement; classify against the 0.80 ret_A bar" was neutral. **This is the 4TH INDEPENDENT BET-B STAGE-A SUB-0.80 AXIS:** prior 3 axes (v269 rehab_epochs_v3 ret_A=0.742; v269 batch128_v1 ret_A=0.748; v270 phaseD_aweight_v2 ret_A=0.751) are all SAME-CORPUS training-axis rescues; this v276 cross-corpus is a STRUCTURALLY DIFFERENT axis (different corpus distribution rather than different training schedule on same corpus). The retention_A=0.603 is WORSE than the 3 prior axes by 0.14-0.15, suggesting cross-corpus shift is HARDER than same-corpus stage extension. Per project-memory bet_b_4stage_phaseD: stage-A sub-bar-ceiling is now CONFIRMED across (epochs / batch-size / loss-weighting / corpus-shift) = 4 independent rescue axes.
+
+**Cap_map move:** Bet B 4-stage 🟡 UNCHANGED at row level. Annotation: "v276 wave14_betB_multitask_diff_corpus_v1 MULTITASK_DIFF_MIDDLE_BAND ret_A=0.603 5/5 seeds [0.599-0.611] tight spread N=2048 = 4TH INDEPENDENT BET-B STAGE-A SUB-0.80 AXIS (1st cross-corpus axis after v269+v270's 3 same-corpus training-axis rescues at ret_A 0.742/0.748/0.751). Cross-corpus retention WORSE (0.603 vs 0.74-0.75 same-corpus) confirming that cross-corpus shift is the HARDER regime; stage-A sub-bar ceiling extends from training-axis to corpus-shift axis. Cluster C architectural rescues (C1 wider-Phase-A-N, C2 frozen-W-Phase-A, C3 2x-M-Phase-A, C4 dual-W-CLS, C5 Hebbian-only-Phase-A) remain the only path to Tier-1 promotion per v273 at-risk-claim register; gain_C=3.75 non-zero confirms substrate-learning capacity is real, the deficit is specifically on corpus-A retention under shift. Per [[feedback-step-back-eval]] 4th-axis sub-bar evidence is sufficient to ELEVATE the at-risk-claim status (already registered v273); Cluster C verdicts when they land become decisive."
+
+### Verdict 3: wave14_hatano_sasa_ness_audit_v1 HATANO_SASA_NESS_CERT_PARTIAL (HONEST; degenerate-HS single-attractor-trapping at N=8192)
+
+**Evidence (remote authoritative `_source=remote`, wall_s=388):**
+- verdict_tag=HATANO_SASA_NESS_CERT_PARTIAL; N=8192; M=150.
+- verdict_msg: `HS identity HOLDS: <exp(-W_ex)>=1.0000 (error=0.0000 <= tol=0.1500). BUT cross_basin_frac=0.000 and sigma_hk=0.0000 (tol=0.0200): insufficient basin crossings to resolve NESS cost. Cap 3 streaming PARTIAL certificate; increase noise or M.`
+- summary: hs_identity_val=1.0 hs_identity_sem=0.0 w_ex_mean=0.0 w_ex_std=0.0 sigma_hk_mean=0.0 cross_basin_frac=0.0 cross_basin_count=0 n_valid_traj=0/650 n_spurious=650 n_distinct_attractors=1.
+
+**Step 0 honest re-read:** HS identity holds at the TRIVIAL fixed point: `<exp(-W_ex)>=1.000` because `w_ex_mean=0` and `w_ex_std=0` (no excess-work distribution to integrate). Meanwhile n_distinct_attractors=1, cross_basin_count=0/650, n_valid_traj=0 (650 trajectories ALL spurious-tagged i.e. trapped). Honest — HS identity HOLDS but only in the DEGENERATE single-attractor-trapped regime where there are no basin-crossing events to test. The verdict_msg accurately reports "HS holds BUT insufficient basin crossings" as PARTIAL not PASS. **This CONTRASTS with v275 ortho_noneq_corroborator_v1** which HARD_FAILED with `|hs_ratio - 1.0| > 6.0` (HS strongly violated) — but the v275 anchor probed a DIFFERENT operating regime (different N and M setup) where basin-crossings WERE occurring (hence the violation could even be measured). Combined reading: HS-class non-eq behavior is NOT cleanly resolvable at the substrate's tested operating points — either there are no basin crossings (single-attractor trapping, this audit) OR basin crossings violate HS identity (v275 ortho_noneq corroborator). Either way HS-orthogonal-decomposition class is NOT the substrate's non-eq class; the audit "partial certificate" framing is honest and consistent.
+
+**Cap_map move:** "Cap 3 streaming-NESS" row UNCHANGED. Non-eq-stat-mech band UNCHANGED at row level (v275 already +1% lift from bid_m_normalized; this v276 audit is a CONSTRAINT clarification not a row move). Annotation on non-eq-stat-mech row: "v276 wave14_hatano_sasa_ness_audit_v1 HATANO_SASA_NESS_CERT_PARTIAL N=8192 M=150 HS=1.000 trivially with cross_basin_frac=0.000 n_distinct_attractors=1 = DEGENERATE single-attractor-trapping regime; substrate's audit-NESS regime at this operating point is single-basin-trapped not multi-basin-with-crossings; combined with v275 ortho_noneq HS-violated reading = HS class NOT cleanly resolvable at substrate's operating points (either no crossings or crossings violate); non-eq class continues to narrow to Crooks/Sagawa-Ueda/drift-diffusion-BP/free-probability surviving candidates (HS-orthogonal-decomposition continued exclusion 2nd corroboration)". Per [[feedback-rehabilitation-after-rejection]] 3 rescue arms:
+- (R1, cheapest) Re-ship with HIGHER noise sigma_noise or LARGER M to FORCE basin-crossings (verdict_msg explicit recommendation).
+- (R2, medium) Probe substrate at multi-basin operating point (lower beta or higher M_frac near phase boundary) where multiple attractors are known to coexist.
+- (R3, broader) Swap to a DIFFERENT non-eq invariant (Jarzynski equality direct test) rather than HS-orthogonal decomposition.
+
+### Verdict 4: hatano_sasa_v4_glauber HARD_FAIL (HONEST; 3RD HS-CLASS CONSTRAINT corroborator at N=512 Glauber)
+
+**Evidence (remote authoritative `_source=remote`, wall_s=93):**
+- verdict_tag=HARD_FAIL; N=512; M=50; 5 seeds [7, 17, 23, 31, 41].
+- verdict_msg: `HARD_FAIL: hs_fail=5/5, zero_sigma=5/5. Glauber NESS not established. mean_hs=28909.0809 mean_sigma=0.0000.`
+- per_seed: hs_identity_val ∈ [24750, 30681] across 5 seeds (5 orders of magnitude OFF the HS=1.0 expected) with sigma_hk=0.0 EXACT all 5 seeds; mean_W_ex ≈ -9.4 (large negative drift); std_W_ex ≈ 1.3; n_traj=400 per seed; beta=1.0.
+
+**Step 0 honest re-read:** All 5 seeds show hs_identity_val 5 orders of magnitude away from 1.0 (29000x) WITH sigma_hk=0.0 EXACT and mean_W_ex strongly negative. Honest as HARD_FAIL. Glauber dynamics at small N=512 do NOT establish HS NESS. **STRATEGIC: 3RD HS-CLASS CONSTRAINT CORROBORATOR** in 2 days:
+- v275 ortho_noneq_corroborator_v1 HARD_FAIL hs_ratio violated >6x at substrate operating point.
+- V3 wave14_hatano_sasa_ness_audit_v1 (this batch) PARTIAL HS=1.000 trivially in degenerate single-attractor regime at N=8192.
+- V4 hatano_sasa_v4_glauber (this batch) HARD_FAIL HS violated 29000x at N=512 Glauber dynamics.
+
+**3 independent designs (perturbation-based / NESS-trajectory-based / Glauber-discrete-dynamics) × 2 N regimes (N=512, N=8192) × 2 dynamics families (continuous-noise + Glauber) all CONVERGE on substrate NOT being in HS-orthogonal-decomposition non-eq class.** This is the strongest available HS-class-exclusion evidence in cap_map. Per project-memory non_eq_stat_mech_class_2026-05-27 the surviving non-eq candidates are Crooks / Sagawa-Ueda / drift-diffusion-BP / free-probability.
+
+**Cap_map move:** Non-eq-stat-mech band UNCHANGED at row level (no reliability-recalc — HS-class EXCLUSION strengthens what we know but does not LIFT band since band was already calibrated against multiple non-eq candidates; HS was only one of several). Annotation update: "v276 hatano_sasa_v4_glauber + v276 wave14_hatano_sasa_ness_audit_v1 + v275 ortho_noneq_corroborator_v1 = 3 INDEPENDENT HS-CLASS EXCLUSION EVENTS across 2 N regimes × 2 dynamics families × 3 test designs all converging: substrate is NOT in HS-orthogonal-decomposition non-eq class. Surviving non-eq candidates: Crooks / Sagawa-Ueda / drift-diffusion-BP / free-probability. CONCENTRATION RECOMMENDATION: future non-eq class-disambiguation probes should test the SURVIVING candidates (Jarzynski direct, drift-diffusion-BP M-axis, free-probability spectrum) NOT additional HS-class refinements (3-strike confirmation already)." Per [[feedback-rescue-sketch-first-sequencing]] 3 rescue arms cheapest-first:
+- (R1, PRIMARY/SUBSUMPTION) STOP further HS-class probes (3-strike); RE-ROUTE non-eq-stat-mech disambiguation resources to surviving candidates (Jarzynski / Crooks / drift-diffusion-BP).
+- (R2, CHEAP) Single Jarzynski equality direct-measurement at N=4096 BSC standard operating point (1 cheap probe).
+- (R3, MEDIUM) drift-diffusion-BP M-axis test at production scale (N=8192 with M sweep).
+
+### Verdict 5: tcft_erase_robustness_n2048_v1 TCFT_ROB_N2048_HARD_PASS (HONEST; FIRST N=2048 TCFT-FAMILY HARD_PASS — distinct axis from v275 erase_time HARD_FAIL at same N)
+
+**Evidence (remote authoritative `_source=remote`, wall_s=435, config.smoke=False = PRODUCTION):**
+- verdict_tag=TCFT_ROB_N2048_HARD_PASS; N=2048; seeds=[7, 17, 23]; n_hp_cells=15; n_total_cells=15; anchor_hp_count=3 (3 anchor protocols all HP).
+- verdict_msg: `HARD_PASS: 15/15 protocol cells pass var_ratio<0.1 in >=2/3 seeds. Deletion-cert N-robust at N=2048.`
+- cell_results sample: a0.06_s0.25 cells 7/17/23 var_ratio ∈ {0.00027, 0.00211, 0.00039} EACH ≪ 0.1 product threshold = ALL 3 seeds HP at first cell; pattern continues across 15 protocol cells covering alpha_ratio × split_q grid.
+
+**Step 0 honest re-read:** 15/15 protocol cells HP in ≥2/3 seeds is HONEST HARD_PASS at production-scale N=2048 (not smoke). Per-cell var_ratio values are 2-3 orders of magnitude below the 0.1 product threshold — STRONG signal not borderline. Caller's framing "v275 had HARD_FAIL on tcft_erase_time_v1_n2048 (variance_ratio=0.0); this robustness variant at same N tests different protocol axis" is RIGHT: this PROTOCOL-AXIS test (alpha_ratio × split_q grid) HARD_PASSES while the v275 ERASE-TIME-AXIS test (et × M_frac grid) HARD_FAILED at the SAME N=2048. **Strategic interpretation:** Deletion-cert ROBUSTNESS to protocol parameters (alpha/split) is REAL at N=2048; the erase-time-M-dependence mechanism is ABSENT at N=2048 (and may scale in at larger N per v275 R1 rescue arm). These test DIFFERENT axes of the same TCFT family — the substrate's deletion-cert PROTOCOL-robustness lives at small N, the substrate's erase-time GATING mechanism (if real) needs larger N. **This is the FIRST N=2048 TCFT-FAMILY HARD_PASS** in cap_map — small-N-deletion-cert N-scaling-low evidence.
+
+**Cap_map move:** TCFT deletion-cert green 85-94% UNCHANGED at row level (already strong band; this is corroborating-at-smaller-N evidence). Annotation: "v276 tcft_erase_robustness_n2048_v1 TCFT_ROB_N2048_HARD_PASS 15/15 protocol cells pass var_ratio<0.1 ≥2/3 seeds N=2048 production-scale (config.smoke=False) = FIRST N=2048 TCFT-FAMILY HARD_PASS confirming deletion-cert robustness to PROTOCOL-AXIS (alpha_ratio × split_q grid) at smaller N than prior validations. Reconciles with v275 tcft_erase_time_v1_n2048 HARD_FAIL (erase-time-M-axis mechanism null at same N=2048) — DIFFERENT TCFT axes lead to opposite findings at same N: PROTOCOL-AXIS robust at N=2048, ERASE-TIME-AXIS not. Product implication: deletion-cert PROTOCOL-parameter robustness is N-down-scalable to N=2048 (cheaper substrate operating point for deletion-feature deployment); the M-dependent erase-time gating is a HIGHER-N feature." Per [[feedback-lit-scan-calibration-penalty]] N-down-scaling robustness is a methodological refinement not novel-synthesis; no calibration penalty applied. **Conservative band-LIFT candidate (DEFERRED to strategy cycle):** TCFT deletion-cert green 85-94% could absorb +1% lower bound from the N-down-scaling evidence; verdict_handler files the lift candidate for strategy cycle final-arithmetic per v275 conservative-lift precedent — NOT applied this batch.
+
+### Verdict 6: wave14_k6_axis3_cleanup_iter_v1 FAILED (UNKNOWN — metrics-unavailable, substantive runtime 300s pre-crash)
+
+**Evidence:**
+- queue.json: failed; wall_s=300 (substantive runtime not pre-work import-error crash).
+- get_metrics returned None (both remote SSH AND local file paths failed).
+- Caller's framing: "substantive run = real failure not script-bug-misclass. Disambiguate honest HARD_FAIL vs CUDA/script crash."
+
+**Step 0 honest re-read [metrics-unavailable]:** Per role contract Step 0 section: `If get_metrics returns None, you cannot perform Step 0 reliably. Treat the verdict as UNKNOWN, prefix the return with [metrics-unavailable], file a routing note for manual reconciliation, and DO NOT issue a cap_map state transition on missing data.` Honest reading: at 300s mid-run failure, this is structurally DIFFERENT from the Kerdock-even-log2 pre-work crash pattern (those were 2-3s pre-import ValueError); 5min substantive runtime suggests either (a) CUDA OOM at a mid-experiment scaling step, (b) a script bug deep in the cleanup-iteration loop, or (c) a genuine substrate HARD_FAIL where the script crashed because the metric went degenerate. Cannot distinguish without metrics.
+
+**Cap_map move:** k6 axis3 cleanup-iter row UNCHANGED (no cap_map state transition on missing data). Annotation: "v276 wave14_k6_axis3_cleanup_iter_v1 FAILED wall_s=300 substantive-runtime get_metrics=None = MID-RUN CRASH metrics-unavailable; structurally distinct from pre-work import-error crash pattern; requires queue.json error-field inspection or re-ship to disambiguate (a) CUDA OOM (b) script bug (c) genuine HARD_FAIL substrate-degeneracy". Per [[feedback-rescue-sketch-first-sequencing]] 3 rescue arms cheapest-first:
+- (R1, PRIMARY/SUBSUMPTION, 0-cost) Read queue.json `error` field directly (or remote stderr) to identify crash cause without re-running — cheapest path to disambiguation.
+- (R2, CHEAP <=15min) Re-ship with explicit `try/except` wrapper around the cleanup-iteration main loop + JSON-dump partial state on crash.
+- (R3, MEDIUM) Bisect: re-ship at N/2 with same cell config to determine if crash is N-scaling-dependent (suggests CUDA OOM) or config-dependent (suggests script bug).
+
+ONE routing note filed: `notes/strategy_request_to_exp_dev_v276_k6_axis3_cleanup_iter_v1_diagnostic_2026-05-29.md` for cheapest-first R1 (queue.json error inspection) → R2 (try/except wrapper re-ship). NO cap_map state move pending diagnostic.
+
+---
+
+### v275 -> v276 portfolio + reliability moves
+
+- Portfolio counts UNCHANGED: 14 ✅ + 31 🟢/🟡/🔬 (no row adds, no closures, no demotions at portfolio-level).
+- Framework-reliability NON-EQ-STAT-MECH band 67-77% UNCHANGED (v275 +1% lift already absorbed; v276 V3+V4 HS-class EXCLUSION strengthens what we know but does not LIFT band — band already calibrated against multiple non-eq candidates with HS as one of several; 3-strike HS-exclusion CONSOLIDATES the surviving-candidates list).
+- Framework-reliability TCFT-deletion-cert 85-94% UNCHANGED at row level (V5 FIRST N=2048 HARD_PASS is a band-LIFT CANDIDATE deferred to strategy cycle per v275 precedent on conservative multi-axis lifts).
+- Framework-reliability product-feature 88-97% UNCHANGED; specific 70-83% UNCHANGED; general 73-83% UNCHANGED.
+- Bet B 4-stage 🟡 UNCHANGED with 4TH-AXIS CROSS-CORPUS sub-bar-ceiling annotation; at-risk-claim status from v273 register ELEVATED (training-axis exhausted PLUS now cross-corpus shift shows WORSE retention; Cluster C architectural rescues remain the only path).
+- TCFT row 🟢/✅ UNCHANGED with FIRST N=2048 PROTOCOL-AXIS production-scale HARD_PASS annotation.
+- Non-eq-stat-mech row UNCHANGED with HS-CLASS 3-STRIKE EXCLUSION annotation + CONCENTRATION recommendation (re-route to surviving candidates).
+- Cap 3 streaming-NESS row UNCHANGED with degenerate-single-attractor PARTIAL annotation.
+- Online inference-time learning / streaming-update pipeline (if/when row exists) UNCHANGED with REALTIME_INFERENCE_ZERO_BASELINE 133rd-LABEL-VS-HONEST annotation.
+- k6 axis3 cleanup-iter row UNCHANGED (metrics-unavailable).
+
+### NEW sub-flavor catalog update
+
+- **133rd LABEL-VS-HONEST catch: REALTIME_INFERENCE_ZERO_BASELINE (NEW SUB-FLAVOR)**: verdict_msg label asserts substantive "marginal effect 0.000" + "pipeline viable" framing with MIDDLE_BAND verdict_tag; per-cell evidence shows ALL N seeds have `bpc_frozen=0.0 EXACTLY` (no baseline measurement was made — likely degenerate corpus or zero-token evaluation); wall_s suspiciously short (4.14s for 3-seed N=2048). Step 0 must check: when verdict_msg reports "delta=X.XXX" between baseline and treatment, the baseline ITSELF must be NON-TRIVIAL (e.g., bpc > 0.5 for byte-level tasks); identically-zero baselines on both sides collapse the measurement framing and require flagging as DISPATCH_FAILURE_MISCLASSIFICATION not honest MIDDLE_BAND.
+
+### NEW routings filed (v276)
+
+- `notes/strategy_request_to_exp_dev_v276_k6_axis3_cleanup_iter_v1_diagnostic_2026-05-29.md`: V6 metrics-unavailable diagnostic. R1 cheapest (queue.json error inspection); R2 try/except re-ship; R3 N/2 bisect for OOM vs script-bug disambiguation.
+
+### PROT compliance (v276)
+
+- **PROT-004/006**: 0 row closures at row-status level; 0 row REFRAMEs; 0 portfolio adds; rescue sketches filed inline (3 per closure-candidate direction = HS-class 3-strike + V6 diagnostic + V1 zero-baseline + V2 Bet-B 4th-axis); 1 routing file for V6 diagnostic.
+- **PROT-007**: history.md (= cap_map row table) UPDATED with v276 row.
+- **PROT-008**: no row-state moves = no validator concerns. Reliability bands UNCHANGED (no lifts applied this batch; V5 N=2048 TCFT lift candidate DEFERRED to strategy cycle).
+- **PROT-009**: cap_map.md (v275 -> v276 batched row) + substrate_capability_map_history.md (= cap_map row table) + strategy_decisions_2026-05-29.md (this entry) + visibility_decisions_2026-05-29.md (one-line) + strategy_request_to_exp_dev_v276_k6_axis3_cleanup_iter_v1_diagnostic_2026-05-29.md staged atomically; **187th PROT-009 paired commit**.
+- **PROT-018**: All 6 anchors carry `_n<N>` suffix or `_v<N>` version: wave14_realtime_inference_learning_v1 (`_v1` version not N-binding; verify config.N=2048 matches dispatch — config.N confirmed in metrics); wave14_betB_multitask_diff_corpus_v1 (`_v1` version; config.N=2048 ✓ matches dispatch); wave14_hatano_sasa_ness_audit_v1 (`_v1` version; config.N=8192 ✓); hatano_sasa_v4_glauber (no `_n<N>`; config.N=512 ✓ confirmed in remote metrics — pre-PROT-018 anchor pattern flagged); tcft_erase_robustness_n2048_v1 ✓ explicit; wave14_k6_axis3_cleanup_iter_v1 (`_v1` version; config.N unknown — metrics unavailable — PROT-018 enforcement gap deferred to V6 diagnostic).
+- **[[feedback-verdict-msg-honest-reread]]**: 179 → 184 honest obs (+5: V2 V3 V4 V5 V6-metrics-unavailable-flagged-honestly); LABEL-VS-HONEST 132 → 133 (+1 NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE).
+- **[[feedback-no-smoke]]**: brutal honesty applied — V1 caught as ZERO_BASELINE not marginal-effect; V2 4th-axis interpreted as STRUCTURAL CONFIRMATION not noise; HS-class 3-strike CONSOLIDATED not re-probed; V5 reconciled with v275 same-N HARD_FAIL by axis-distinction; V6 UNKNOWN not guessed.
+- **[[feedback-rescue-sketch-first-sequencing]]**: V1 R1 audit-input-loading cheapest; V3 R1 higher-noise cheapest; V4 R1 STOP-further-HS-probes 0-cost subsumption; V6 R1 queue.json-inspect 0-cost cheapest.
+- **[[feedback-rehabilitation-after-rejection]]**: 3+ rescue sketches filed for each closure-candidate direction (V1 zero-baseline, V3 NESS-audit, V4 Glauber, V6 metrics-unavailable).
+- **[[feedback-dont-overextend-theorems]]**: HS-class 3-strike EXCLUSION constrains non-eq class disambiguation but does NOT close broader non-eq-stat-mech direction (surviving candidates: Crooks/Sagawa-Ueda/drift-diffusion-BP/free-probability).
+- **[[feedback-pipeline-pacing]]**: CPU=9 substantive pending (caller-confirmed just refilled) HEALTHY; GPU=25 pending HEALTHY; refill conditions NOT met; NO exp_dev queue refill dispatched per caller directive.
+- **[[feedback-obey-user-pause-explicitly]]**: pause flag ABSENT verified at start = ACTIVE state.
+- **[[feedback-no-padding-experiments]]**: 1 routing file V6 diagnostic is justified by metrics-unavailable diagnostic need; not padding.
+- **[[feedback-subagent-permission-inheritance]]**: LOCAL commit only; push deferred to main thread per role contract Step 4 hand-off.
+- **[[feedback-cap-map-update-protocol]]**: atomic commit cap_map.md + substrate_capability_map_history.md + strategy_decisions_2026-05-29.md + visibility_decisions_2026-05-29.md + strategy_request_to_exp_dev_v276_k6_axis3_cleanup_iter_v1_diagnostic_2026-05-29.md.
+- **[[feedback-decision-log-eol-handling]]**: append via tools/orchestrator/append_decision_log.py (preserves CRLF EOL).
+- **[[feedback-verdict-arrival-is-queue-depletion-signal]]**: GPU=25 + CPU=9 both HEALTHY; no depletion signal.
+- **[[feedback-step-back-eval]]**: HS-class 3-strike triggers explicit "should we keep probing HS" gate — answered NO (3-strike EXCLUSION is sufficient; re-route to surviving candidates); Bet B 4-axis sub-bar triggers Cluster C architectural-rescue gate — Cluster C remains pending; V5 N=2048 TCFT triggers band-lift gate — DEFERRED to strategy cycle conservative.
+- **[[feedback-trust-queue.json-wall_s]]**: V6 wall_s=300 substantive distinguishes mid-run-crash from pre-work-crash pattern (used for V6 R1/R3 rescue-arm selection).
+
+Cumulative HONEST observations: 179 (v275) -> **184 (+5: V2+V3+V4+V5+V6-metrics-unavailable-flagged-honestly; V1 over-claim caught)**.
+Cumulative LABEL-VS-HONEST catches: 132 (v275) -> **133 (+1 V1 NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE)**.
+
+### Upstream pending (NOT this batch)
+
+- `tcft_m_sweep_v3_n8192_5seed` RUNNING via seed_checkpoint helper: 4/5 seeds completed (partial_metrics_7+17+23+31 saved); 5th seed in flight. When 5th seed lands and final metrics.json emits → SEPARATE verdict_handler dispatch by orchestrator main thread. NOT processed in this batch per caller note.
+
+Commit message: `Cap map: v275 -> v276 (BATCHED 6-VERDICT post-v275 CPU-drain wave: wave14_betB_multitask_diff_corpus_v1 MULTITASK_DIFF_MIDDLE_BAND ret_A=0.603 5/5 seeds = 4TH INDEPENDENT BET-B STAGE-A SUB-0.80 AXIS cross-corpus shift WORSE than 3 same-corpus rescues + wave14_hatano_sasa_ness_audit_v1 HATANO_SASA_NESS_CERT_PARTIAL HS=1.000 trivially N=8192 degenerate-single-attractor-trapping + hatano_sasa_v4_glauber HARD_FAIL N=512 Glauber 29000x HS deviation = 3RD HS-CLASS EXCLUSION corroborator across 2 N regimes + 2 dynamics families CONSOLIDATED + tcft_erase_robustness_n2048_v1 TCFT_ROB_N2048_HARD_PASS 15/15 protocol cells var_ratio<0.1 production-scale N=2048 FIRST N=2048 TCFT-FAMILY HARD_PASS PROTOCOL-AXIS distinct from v275 erase-time HARD_FAIL same-N axis-orthogonal finding + wave14_realtime_inference_learning_v1 REALTIME_INFERENCE_MIDDLE_BAND 133RD LABEL-VS-HONEST CATCH NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE bpc_frozen=bpc_online=0.0 all 3 seeds wall_s=4.14 DISPATCH_FAILURE_MISCLASSIFICATION + wave14_k6_axis3_cleanup_iter_v1 FAILED 300s substantive-runtime metrics-unavailable UNKNOWN diagnostic routing filed; portfolio 14+31 UNCHANGED; framework reliability non-eq-stat-mech 67-77% UNCHANGED TCFT 85-94% UNCHANGED LIFT-CANDIDATE-DEFERRED product-feature 88-97% UNCHANGED specific 70-83% UNCHANGED general 73-83% UNCHANGED; Bet B 4-stage 4TH-AXIS sub-bar annotation; HS-class 3-STRIKE EXCLUSION CONSOLIDATED surviving Crooks/Sagawa-Ueda/drift-diffusion-BP/free-probability; HONEST 179->184 (+5); LABEL-VS-HONEST 132->133 (+1 NEW SUB-FLAVOR REALTIME_INFERENCE_ZERO_BASELINE); 1 NEW routing filed V6 diagnostic; 187th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`
+
