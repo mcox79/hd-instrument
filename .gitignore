@@ -74,3 +74,4 @@ metrics.json
 
 # Prereqs typo directory (real pre-registrations live in preregs/)
 prereqs/
+testbed_data/

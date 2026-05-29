@@ -1,0 +1,33 @@
+# Tiny smoke config: must complete < 30s on a Windows laptop CPU.
+# Used as the workstream-E definition-of-done gate.
+
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_C: 2048        # 4 * N
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+M_total: 64
+edit_isolation_M: 8
+deletion_M: 8
+deletion_k_probes: 4
+hallu_M_fracs: [0.25, 0.5]
+hallu_n_oos: 64
+continual_M: 16
+storage_latency_Ms: [64]
+storage_latency_n_queries: 16
+
+seeds: [7]
+
+backends: [dict, faiss, sqlite_vec]
+scenarios:
+  - point_recall
+  - edit_isolation
+  - deletion_verify
+  - hallu_detect
+  - continual_4stage
+  - storage_latency
+
+out_root: testbed_data/benchmarks

@@ -1,0 +1,467 @@
+"""Markdown report emitter for the testbed.
+
+Reads a summary.json from a run directory and renders a markdown report
+with: config block, cross-backend table, killer-feature panel (substrate
+contrast), per-scenario detail tables, HARD_PASS/HARD_FAIL gate summary,
+latency-and-storage block, and a reproduction line.
+
+All output is ASCII-only and uses pure-markdown tables via tabulate.
+"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+from pathlib import Path
+from typing import Any
+
+try:
+    from tabulate import tabulate
+except ImportError:  # pragma: no cover
+    tabulate = None
+
+
+_NA = "N/A"
+_NA_BY_CONSTRUCTION = "N/A (by construction)"
+
+
+def _fmt(v: Any, kind: str = "auto", digits: int = 4) -> str:
+    if v is None:
+        return _NA
+    if isinstance(v, bool):
+        return str(v)
+    if isinstance(v, (int,)):
+        return str(v)
+    if isinstance(v, float):
+        if kind == "pct":
+            return f"{v * 100:.2f}%"
+        if kind == "us":
+            return f"{v:.1f}"
+        if kind == "ms":
+            return f"{v:.2f}"
+        return f"{v:.{digits}f}"
+    return str(v)
+
+
+def _md_table(headers: list[str], rows: list[list[Any]]) -> str:
+    if tabulate is None:
+        # Manual pipe-table fallback.
+        lines = []
+        lines.append("| " + " | ".join(headers) + " |")
+        lines.append("| " + " | ".join("---" for _ in headers) + " |")
+        for r in rows:
+            lines.append("| " + " | ".join(str(x) for x in r) + " |")
+        return "\n".join(lines)
+    return tabulate(rows, headers=headers, tablefmt="github")
+
+
+def _git_sha(repo_root: Path) -> str:
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            timeout=5,
+        )
+        if out.returncode == 0:
+            return out.stdout.strip() or "unknown"
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+    return "unknown"
+
+
+def _key_metric(scenario: str, result: dict | None) -> str:
+    """One-line key metric per (scenario, backend) for the cross-backend table."""
+    if not result:
+        return _NA
+    if scenario == "point_recall":
+        return f"R@1 {_fmt(result.get('recall_at_1'), 'pct')}"
+    if scenario == "edit_isolation":
+        return f"max_iso {_fmt(result.get('max_isolation_ratio'))}"
+    if scenario == "deletion_verify":
+        es = result.get("erase_success_rate")
+        vr = result.get("mean_var_ratio")
+        if vr is None:
+            return f"erase {_fmt(es, 'pct')}"
+        return f"erase {_fmt(es, 'pct')} var {_fmt(vr)}"
+    if scenario == "hallu_detect":
+        return f"above {_fmt(result.get('max_above_thresh_frac'), 'pct')}"
+    if scenario == "continual_4stage":
+        return f"retA->D {_fmt(result.get('ret_A_after_D'), 'pct')}"
+    if scenario == "storage_latency":
+        per = result.get("per_M") or {}
+        if not per:
+            return _NA
+        last_M = sorted(per.keys(), key=lambda s: int(s))[-1]
+        return f"p50_retr@M={last_M} {_fmt(per[last_M].get('p50_retrieve_us'), 'us')}us"
+    return _NA
+
+
+def _gate_cell(scenario: str, backend: str, result: dict | None,
+               thresholds: dict | None) -> str:
+    """Return GREEN/YELLOW/RED for a (scenario, backend) cell.
+
+    Substrate uses substrate thresholds; everyone else uses baseline ones.
+    Storage-latency has no gate; returns dash.
+    """
+    if not result:
+        return _NA
+    if scenario == "storage_latency":
+        return "-"
+    if not thresholds:
+        return _NA
+    band = thresholds.get("substrate") if backend == "substrate" else thresholds.get("baselines")
+    if not band:
+        return _NA
+    hp = band.get("hard_pass", {}) or {}
+    hf = band.get("hard_fail", {}) or {}
+
+    if scenario == "point_recall":
+        r = result.get("recall_at_1")
+        if r is None:
+            return _NA
+        hp_thresh = hp.get("recall_at_1") or hp.get("recall_at_1_at_M_over_N_le_1") or 0.0
+        hf_thresh = hf.get("recall_at_1") or hf.get("recall_at_1_at_M_over_N_eq_0p25") or 0.0
+        if r >= hp_thresh:
+            return "GREEN"
+        if r < hf_thresh:
+            return "RED"
+        return "YELLOW"
+
+    if scenario == "edit_isolation":
+        v = result.get("max_isolation_ratio")
+        if v is None:
+            return _NA
+        hp_thresh = hp.get("max_isolation_ratio", 0.0)
+        hf_thresh = hf.get("max_isolation_ratio", float("inf"))
+        if v < hp_thresh:
+            return "GREEN"
+        if v >= hf_thresh:
+            return "RED"
+        return "YELLOW"
+
+    if scenario == "deletion_verify":
+        if backend == "substrate":
+            v = result.get("mean_var_ratio")
+            es = result.get("erase_success_rate", 0.0)
+            hp_var = hp.get("mean_var_ratio", float("inf"))
+            hp_es = hp.get("erase_success_rate", 0.0)
+            hf_var = hf.get("mean_var_ratio", float("inf"))
+            if v is None:
+                return _NA
+            if v < hp_var and es >= hp_es:
+                return "GREEN"
+            if v >= hf_var:
+                return "RED"
+            return "YELLOW"
+        es = result.get("erase_success_rate")
+        if es is None:
+            return _NA
+        if es >= hp.get("erase_success_rate", 0.99):
+            return "GREEN"
+        if es < hf.get("erase_success_rate", 0.5):
+            return "RED"
+        return "YELLOW"
+
+    if scenario == "hallu_detect":
+        if backend == "substrate":
+            ab = result.get("max_above_thresh_frac")
+            mc = result.get("max_mean_oos_max_conf")
+            if ab is None:
+                return _NA
+            if ab <= hp.get("above_thresh_frac", 0.0) and (mc or 0.0) < hp.get("mean_oos_max_conf", 0.001):
+                return "GREEN"
+            if ab > hf.get("above_thresh_frac_strictly_gt", 0.0):
+                return "RED"
+            return "YELLOW"
+        # Baselines: gate on OOS recall (false positives).
+        per = result.get("per_subrun") or []
+        if not per:
+            return _NA
+        worst = max(s.get("recall_at_1_on_OOS", 0.0) for s in per)
+        if worst < hp.get("recall_at_1_on_OOS", 0.01):
+            return "GREEN"
+        if worst >= hf.get("recall_at_1_on_OOS", 0.05):
+            return "RED"
+        return "YELLOW"
+
+    if scenario == "continual_4stage":
+        v = result.get("ret_A_after_D")
+        if v is None:
+            return _NA
+        if v >= hp.get("ret_A_after_D", 0.99):
+            return "GREEN"
+        if v < hf.get("ret_A_after_D", 0.0):
+            return "RED"
+        return "YELLOW"
+
+    return _NA
+
+
+def _section_header(text: str) -> str:
+    return f"\n## {text}\n"
+
+
+def _config_block(config: dict) -> str:
+    lines = ["```yaml"]
+    for k, v in config.items():
+        lines.append(f"{k}: {v}")
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def _killer_feature_panel(summary: dict) -> str:
+    backends: list[str] = summary.get("backends", [])
+    by_backend: dict[str, dict] = summary.get("results_by_backend", {})
+    headers = ["backend", "KF-1 above_thresh", "KF-1 mean_oos_conf",
+               "KF-2 max_iso", "TCFT mean_var_ratio"]
+    rows: list[list[Any]] = []
+    for b in backends:
+        results = by_backend.get(b, {})
+        hallu = results.get("hallu_detect") or {}
+        edit = results.get("edit_isolation") or {}
+        delv = results.get("deletion_verify") or {}
+        if b == "substrate":
+            row = [
+                b,
+                _fmt(hallu.get("max_above_thresh_frac"), "pct"),
+                _fmt(hallu.get("max_mean_oos_max_conf")),
+                _fmt(edit.get("max_isolation_ratio")),
+                _fmt(delv.get("mean_var_ratio")),
+            ]
+        else:
+            row = [
+                b,
+                _NA_BY_CONSTRUCTION,
+                _NA_BY_CONSTRUCTION,
+                _NA_BY_CONSTRUCTION,
+                _NA_BY_CONSTRUCTION,
+            ]
+        rows.append(row)
+    table = _md_table(headers, rows)
+    note = ("\n*Footnote*: Baselines emit N/A for killer-feature metrics by "
+            "construction. KF-1 (hallucination structural impossibility), KF-2 "
+            "(edit isolation bound 1/sqrt(N)), and TCFT (thermodynamic erase "
+            "certificate) are emergent properties of the substrate's outer-"
+            "product W matrix. Embedding/dict backends have no analogous "
+            "internal state to audit.\n")
+    return table + "\n" + note
+
+
+def _cross_backend_table(summary: dict) -> str:
+    scenarios: list[str] = summary.get("scenarios", [])
+    backends: list[str] = summary.get("backends", [])
+    by_backend: dict[str, dict] = summary.get("results_by_backend", {})
+    headers = ["backend"] + scenarios
+    rows: list[list[Any]] = []
+    for b in backends:
+        results = by_backend.get(b, {})
+        row: list[Any] = [b]
+        for s in scenarios:
+            row.append(_key_metric(s, results.get(s)))
+        rows.append(row)
+    return _md_table(headers, rows)
+
+
+def _gate_table(summary: dict) -> str:
+    scenarios: list[str] = summary.get("scenarios", [])
+    backends: list[str] = summary.get("backends", [])
+    by_backend: dict[str, dict] = summary.get("results_by_backend", {})
+    thresholds_map: dict[str, dict] = summary.get("thresholds_by_scenario", {})
+    headers = ["backend"] + scenarios
+    rows: list[list[Any]] = []
+    for b in backends:
+        row: list[Any] = [b]
+        for s in scenarios:
+            r = by_backend.get(b, {}).get(s)
+            row.append(_gate_cell(s, b, r, thresholds_map.get(s)))
+        rows.append(row)
+    return _md_table(headers, rows)
+
+
+def _per_scenario_detail(summary: dict) -> str:
+    scenarios: list[str] = summary.get("scenarios", [])
+    backends: list[str] = summary.get("backends", [])
+    by_backend: dict[str, dict] = summary.get("results_by_backend", {})
+    chunks: list[str] = []
+    for s in scenarios:
+        chunks.append(f"\n### {s}\n")
+        if s == "point_recall":
+            headers = ["backend", "R@1", "R@5", "mean_normed_correct",
+                       "mean_native_conf", "p50_store_us", "p95_store_us",
+                       "p50_retr_us", "p95_retr_us", "n_items"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                rows.append([b,
+                             _fmt(r.get("recall_at_1"), "pct"),
+                             _fmt(r.get("recall_at_5"), "pct"),
+                             _fmt(r.get("mean_normalized_correctness")),
+                             _fmt(r.get("mean_native_confidence")),
+                             _fmt(r.get("p50_store_us"), "us"),
+                             _fmt(r.get("p95_store_us"), "us"),
+                             _fmt(r.get("p50_retrieve_us"), "us"),
+                             _fmt(r.get("p95_retrieve_us"), "us"),
+                             _fmt(r.get("n_items"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "edit_isolation":
+            headers = ["backend", "max_iso", "mean_iso", "within_theory_frac",
+                       "edit_wall_us", "n_items"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                rows.append([b,
+                             _fmt(r.get("max_isolation_ratio")),
+                             _fmt(r.get("mean_isolation_ratio")),
+                             _fmt(r.get("within_theory_frac")),
+                             _fmt(r.get("edit_wall_us"), "us"),
+                             _fmt(r.get("n_items"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "deletion_verify":
+            headers = ["backend", "mean_var_ratio", "erase_success",
+                       "p50_delete_us", "p95_delete_us", "n_probes"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                rows.append([b,
+                             _fmt(r.get("mean_var_ratio")),
+                             _fmt(r.get("erase_success_rate"), "pct"),
+                             _fmt(r.get("p50_delete_us"), "us"),
+                             _fmt(r.get("p95_delete_us"), "us"),
+                             _fmt(r.get("n_probes"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "hallu_detect":
+            headers = ["backend", "M/N", "M", "mean_oos_max_conf",
+                       "above_thresh_frac", "near_uniform_frac",
+                       "recall_at_1_on_OOS"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                for sub in (r.get("per_subrun") or []):
+                    rows.append([b,
+                                 _fmt(sub.get("M_over_N")),
+                                 _fmt(sub.get("M")),
+                                 _fmt(sub.get("mean_oos_max_conf")),
+                                 _fmt(sub.get("above_thresh_frac"), "pct"),
+                                 _fmt(sub.get("near_uniform_frac"), "pct"),
+                                 _fmt(sub.get("recall_at_1_on_OOS"), "pct")])
+            chunks.append(_md_table(headers, rows))
+        elif s == "continual_4stage":
+            headers = ["backend", "ret_A_after_A", "ret_A_after_B",
+                       "ret_A_after_C", "ret_A_after_D", "ret_B_after_D",
+                       "ret_C_after_D", "M_per_batch"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                rows.append([b,
+                             _fmt(r.get("ret_A_after_A"), "pct"),
+                             _fmt(r.get("ret_A_after_B"), "pct"),
+                             _fmt(r.get("ret_A_after_C"), "pct"),
+                             _fmt(r.get("ret_A_after_D"), "pct"),
+                             _fmt(r.get("ret_B_after_D"), "pct"),
+                             _fmt(r.get("ret_C_after_D"), "pct"),
+                             _fmt(r.get("M_per_batch"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "storage_latency":
+            headers = ["backend", "M", "disk_bytes", "p50_store_us",
+                       "p95_store_us", "p50_retr_us", "p95_retr_us",
+                       "cold_load_ms"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                for mkey, mval in sorted((r.get("per_M") or {}).items(),
+                                          key=lambda kv: int(kv[0])):
+                    rows.append([b,
+                                 mval.get("M"),
+                                 mval.get("disk_bytes"),
+                                 _fmt(mval.get("p50_store_us"), "us"),
+                                 _fmt(mval.get("p95_store_us"), "us"),
+                                 _fmt(mval.get("p50_retrieve_us"), "us"),
+                                 _fmt(mval.get("p95_retrieve_us"), "us"),
+                                 _fmt(mval.get("cold_load_ms"), "ms")])
+            chunks.append(_md_table(headers, rows))
+    return "\n".join(chunks)
+
+
+def _latency_storage_section(summary: dict) -> str:
+    backends: list[str] = summary.get("backends", [])
+    by_backend: dict[str, dict] = summary.get("results_by_backend", {})
+    headers = ["backend", "M", "disk_bytes", "p50_store_us", "p50_retr_us",
+               "cold_load_ms"]
+    rows: list[list[Any]] = []
+    for b in backends:
+        r = by_backend.get(b, {}).get("storage_latency") or {}
+        per_M = r.get("per_M") or {}
+        for mkey, mval in sorted(per_M.items(), key=lambda kv: int(kv[0])):
+            rows.append([b,
+                         mval.get("M"),
+                         mval.get("disk_bytes"),
+                         _fmt(mval.get("p50_store_us"), "us"),
+                         _fmt(mval.get("p50_retrieve_us"), "us"),
+                         _fmt(mval.get("cold_load_ms"), "ms")])
+    if not rows:
+        return "_storage_latency scenario was not run; no data._"
+    return _md_table(headers, rows)
+
+
+def render_markdown(summary_path: Path) -> str:
+    summary_path = Path(summary_path)
+    with open(summary_path, "r", encoding="utf-8") as f:
+        summary = json.load(f)
+
+    run_dir = summary_path.parent
+    timestamp = summary.get("timestamp", "unknown-ts")
+    config = summary.get("config", {})
+    cli_cmd = summary.get("cli_command", "python -m testbed run ...")
+
+    repo_root = run_dir
+    for _ in range(8):
+        if (repo_root / ".git").exists():
+            break
+        if repo_root.parent == repo_root:
+            break
+        repo_root = repo_root.parent
+    sha = _git_sha(repo_root)
+
+    parts: list[str] = []
+    parts.append(f"# Substrate Memory Testbed Report {timestamp}\n")
+    parts.append(f"_Generated from {summary_path.name}._\n")
+
+    parts.append(_section_header("Config"))
+    parts.append(_config_block(config))
+
+    parts.append(_section_header("Cross-backend table"))
+    parts.append("Key metric per (scenario, backend). See per-scenario detail "
+                 "for full numbers.\n")
+    parts.append(_cross_backend_table(summary))
+
+    parts.append(_section_header("Killer-feature panel"))
+    parts.append("Substrate-only metrics: KF-1 (hallucination detection), "
+                 "KF-2 (edit isolation), TCFT (deletion certificate).\n")
+    parts.append(_killer_feature_panel(summary))
+
+    parts.append(_section_header("Per-scenario detail"))
+    parts.append(_per_scenario_detail(summary))
+
+    parts.append(_section_header("HARD_PASS / HARD_FAIL gate summary"))
+    parts.append("GREEN = HARD_PASS band met. YELLOW = within window. RED = "
+                 "HARD_FAIL band hit. Dash = no gate registered.\n")
+    parts.append(_gate_table(summary))
+
+    parts.append(_section_header("Latency and storage"))
+    parts.append(_latency_storage_section(summary))
+
+    parts.append(_section_header("How to reproduce"))
+    parts.append(f"Run from repo root at git SHA `{sha}`:\n")
+    parts.append(f"```\n{cli_cmd}\n```\n")
+
+    md = "\n".join(parts) + "\n"
+
+    out_path = run_dir / "report.md"
+    try:
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(md)
+    except OSError:
+        pass
+    return md
