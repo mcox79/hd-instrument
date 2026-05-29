@@ -25,3 +25,23 @@ v265 05:50 BATCHED 7-VERDICT (LAPTOP-RESTART BLACKOUT BATCH 04:17-05:47) saad_so
 
 5 GPU verdicts all event-bus-tagged FAILED arrived in batch @ ~21:30. Step 0 remote-bridge re-read pulled get_metrics() for each: 3 of 5 (kf1_hallu_rescue_v1_n4096, t1_beta_fine_v2_n4096, kf2_cross_codebook_v2_n8192) returned `_source=remote` HARD_PASS metrics with remote dirs + matching elapsed_s = 115th-117th LABEL-VS-HONEST catches sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION (runner verdict-emission bug repeats pattern; cumulative 117 catches; 10 catches in last 2 batches = STRUCTURAL urgency for runner_v2_prod.py patch); kf1 rescue v267-filed posterior-entropy-based hallucination-detection mechanism PASSES with 12.94-bit entropy gap = 12.9x HP-min safety margin 3/3 seeds (KF-1 row 🟡-AT-RISK -> 🟢-smoke 55-70% rescue arm SUCCESS); t1_v2 fine-resolution confirms beta_c=10.0 +/-0.0 deterministic localization 5/5 seeds with 2.4x sharper gradient than v267 v1 (beta-axis row 🟢-smoke 60-72% -> 🟢-smoke 65-78% LIFT +5%); kf2_cross_codebook v2 N=8192 production-scale shows family_max EXACTLY EQUAL 0.0202 across kerdock/bsc/gaussian (N-doubling drove BSC down to others = architecture-portability AND N-scale-portability invariant; KF-2 ✅ UNCHANGED but evidence STRENGTHENED). 2 of 5 (moe_capacity_v2_n4096, saad_solla_v18_n16384) had NO remote dirs + only stale pre-ship smoke local artifacts (N=1024 and N=512 respectively) = GENUINE substantive failures; moe_v2 substantive death at 375s wall (v267 v1 capacity-aware ARM already corroborates K-scaling so row stays via subsumption; v3 reship filed with hardcoded N + audit of v2 M_budget formula); saad_solla v18 substantive death at 800s wall = N=16384 8GB-VRAM CEILING characterized (Saad-Solla LEADING ✅ UNCHANGED via v15 v16 v17 3-axis production-scale corroboration; v19_n12288 N-step-down + kovacs-disabled rescue filed). Portfolio 14+30 UNCHANGED (KF-1 elevation absorbed into "killer-feature phase-class profile" row 🟡 45-60% UNCHANGED); framework reliability specific 65-78% UNCHANGED; product-feature 84-95% -> 85-96% LIFT +1%; general 73-83% UNCHANGED; 0 closures; 0 reopens; HONEST 131 -> 134 +3; LABEL-VS-HONEST 114 -> 117 +3 sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION. Queue refill SKIPPED — overnight_queue=18 pending+running + remote_cpu_queue=10 pending+running both HEALTHY per [[feedback-pipeline-pacing]]; 3 NEW exp_dev/strategy routings filed (moe_capacity_v3 + saad_solla_v19_n12288 + runner_emission_bug_audit STRATEGY routing for the runner_v2_prod.py exit-code patch); 179th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch.
 
+
+
+## v268 -> v269 2026-05-29 ~02:30 BATCHED 16-VERDICT verdict_handler inline strategy+visibility
+
+- 6 LABEL-VS-HONEST CATCHES DISPATCH_FAILURE_MISCLASSIFICATION 118th-123rd (tcft_alpha N=8192 + moe_fixed K=32 + pb2 finite-range N=4096 + lyapunov_v1 N=4096 + lyapunov_v2 N=8192 BSC + bid_order_v5 N=8192 BSC)
+- Sagawa-Ueda v6 N=8192 5-seed SU_HARD_PASS = thermodynamic-foundation production-scale STRONGEST-SINGLE-EXPERIMENT EVIDENCE
+- pb2 ROW PROMOTION edit-propagation finite-range 🟢-smoke 55-68% -> 🟢 65-78% (+10%) via N=4096 3/3-seed 50x safety margin
+- MoE K=32 retention=1.0 PERFECT ceiling-buster production-scale annotation
+- NEW row edge-of-chaos Lyapunov dynamical structure 🟡-smoke 55-68% from dual-N 4-cell-monotone N=4096 + 3-seed BSC N=8192
+- substrate-outside-static-Hopfield +4% via bid_order N=8192 BSC; TCFT +3% + non-eq-stat-mech +3% via Sagawa-Ueda foundation
+- 3 bid family GENUINE TIMEOUTS (v3 4h, v4 6h, n_sweep 1h) bid_m_normalized.py STRUCTURAL WALL; bid_order_parameter variant completes fine at 94.82s
+- bet_b_4stage rehab_epochs_v3 + batch128_v1 BOTH ret_A=0.74-0.75 below 0.80 HP bar = structural sub-bar ceiling
+- t1_m_sweep HARD_FAIL = beta-axis M-INVARIANT structural refinement of two-orthogonal-boundary lattice (beta_c=10 universal)
+- KF-4 drift-detection LABELED-AT-RISK gap=0.0 0/3 (analog v267 KF-1 pre-rescue; 3 rescue sketches filed)
+- KF-5 phase-mechanism subhypothesis CLOSED pending rescue (ratio=1.0 RANGE_INVARIANT; KF-5 base capability UNCHANGED)
+- Portfolio 14+30 -> 14+31 (+1 NEW Lyapunov row)
+- HONEST 134 -> 150 (+16 LARGEST single-batch); LABEL-VS-HONEST 117 -> 123 (+6)
+- Framework reliability specific 65-78% -> 68-81% LIFT (+3%); product-feature 85-96% -> 87-97% LIFT (+2%)
+- Queue refill SKIPPED; 11+ open routings constitute proper next-batch work; 3 NEW routings filed
+- 180th PROT-009 paired commit

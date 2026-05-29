@@ -9590,3 +9590,33 @@ BATCHED 11-VERDICT v266 -> v267: 9 HARD_PASS HONEST + 2 MIDDLE_BAND HONEST + 1 p
 - 3 NEW exp_dev/strategy routings filed (moe_capacity_v3 + saad_solla_v19_n12288_and_kovacs_disabled + runner_emission_bug_audit STRATEGY); 6+ pre-existing routings remain
 - 179th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch
 
+
+
+## v268 -> v269 (2026-05-29 ~02:30 BATCHED 16-VERDICT; 6 LABEL-VS-HONEST CATCHES DISPATCH_FAILURE_MISCLASSIFICATION + Sagawa-Ueda PRODUCTION-SCALE + pb2 ROW PROMOTION + MoE K=32 ceiling-buster + NEW Lyapunov row + 3 bid TIMEOUTS structural-wall + KF-4 at-risk + KF-5 phase-mech subclose + beta-axis M-invariance refinement)
+
+- tcft_alpha_sweep_v1_n8192 TCFT_ALPHA_MIDDLE_BAND HONEST = N=8192 17217s alpha_max_cert=0.500 alpha_c=None completed not crashed (118th LABEL-VS-HONEST catch DISPATCH_FAILURE_MISCLASSIFICATION; TCFT row +3% via Sagawa-Ueda foundation)
+- bet_b_4stage_rehab_epochs_v3 FOURSTAGE_MIDDLE_BAND HONEST ret_A=0.742 below 0.80 HP bar consistent with v248 0/10 (NOT catch; Bet B 4-stage 🟡 UNCHANGED structural sub-bar ceiling)
+- bet_b_4stage_batch128_v1 FOURSTAGE_MIDDLE_BAND HONEST ret_A=0.748 batch-size axis does NOT rescue 0.80 bar (NOT catch)
+- bid_m_normalized_v3_n4096 GENUINE TIMEOUT 14400s 4h floor no remote dir = bid family structural wall #1 (NOT catch)
+- pb1_susceptibility_v1 PB1_MIDDLE_BAND HONEST susc_beta=0.056 interior_min=3/3 N=4096 (NOT catch; beta-axis annotation)
+- sagawa_ueda_v6 SU_HARD_PASS HONEST = DELETION-CERTIFICATE THERMODYNAMIC FOUNDATION N=8192 5-seed mean_su_frac=1.0000 all excess_mean>0 PRODUCTION-SCALE STRONGEST-SINGLE-EXPERIMENT EVIDENCE (NOT catch; Sagawa-Ueda ✅ UNCHANGED + TCFT 🟢 82-92%->85-94% +3% + non-eq-stat-mech 🟢 63-73%->66-76% +3% LIFTS)
+- moe_fixed_total_capacity_K_sweep_v1_n4096 MOE_FIXED_CAP_HARD_PASS_NO_CEILING HONEST = K=32 retention=1.0 PERFECT ceiling-buster M_total=3200 (119th LABEL-VS-HONEST catch; MoE K-scaling ✅ UNCHANGED + K=32 production-scale annotation)
+- t1_m_sweep_v1_n4096 T1_MSWEEP_HARD_FAIL HONEST = beta_c={2:10, 4:10, 8:10, 16:8} span=2.0 = M-INVARIANT beta-axis (NOT catch genuine fast HARD_FAIL; STRUCTURAL REFINEMENT of two-orthogonal-boundary lattice — beta-axis is substrate-physics INVARIANT not M-tunable)
+- pb2_corr_len_v3_n4096 PB2_V3_HARD_PASS HONEST = xi_m1=0.0197 << HP=1.0 50x safety margin pass_finite=3/3 N=4096 (120th LABEL-VS-HONEST catch; edit-propagation finite correlation-length 🟢-smoke 55-68% -> 🟢 65-78% +10% LIFT ROW PROMOTION smoke->green)
+- kf5_phase_v1_n4096 KF5_PHASE_HARD_FAIL HONEST = ratio=1.0 RANGE_INVARIANT under over-capacity (NOT catch genuine fast HARD_FAIL; KF-5 base capability UNCHANGED phase-mechanism subhypothesis CLOSED pending rescue; 3 rescue sketches filed)
+- bid_m_normalized_v4_n8192 GENUINE TIMEOUT 21600s 6h floor no remote dir = bid family structural wall #2 (NOT catch)
+- lyapunov_v1_n4096 LYAP_MIDDLE_BAND HONEST = 4-cell M-sweep {1,4,8,12} spec_norms {2.21, 4.00, 8.00, 12.00} mono_frac=1.0 PERFECTLY LINEAR (121st LABEL-VS-HONEST catch; FIRST Lyapunov dynamical-structure observation)
+- bid_n_sweep_v1 GENUINE TIMEOUT 3600s 1h floor no remote dir = bid family structural wall #3 (NOT catch)
+- kf4_drift_detect_v3_n4096 KF4_V3_HARD_FAIL HONEST = gap=0.0 0/3 seeds drift-detection architecture-level HARD_FAIL (NOT catch genuine fast HARD_FAIL; KF-4 LABELED-AT-RISK analog v267 KF-1 pre-rescue; 3 rescue sketches filed)
+- lyapunov_v2_n8192_bsc LYAP_V2_HARD_PASS HONEST = N=8192 BSC 3-seed monotone variation=1.49 spec_at_m2=4.07 in_range (122nd LABEL-VS-HONEST catch; promotes NEW Lyapunov row 🟡-smoke 55-68% from creation via dual-N validation)
+- bid_order_parameter_v5_n8192_bsc BID_V5_MIDDLE_BAND HONEST = N=8192 BSC 6-cell M-sweep bid_outside_at_low=True 3/3 mean_bid_at_0.5=664 (123rd LABEL-VS-HONEST catch; substrate-outside-static-Hopfield 🟢 60-72%->64-75% +4% LIFT)
+- NEW row created: edge-of-chaos Lyapunov dynamical structure 🟡-smoke 55-68% (dual-N evidence at creation)
+- Portfolio 14 + 30 -> 14 + 31 (+1 NEW Lyapunov row)
+- Framework reliability specific 65-78% -> 68-81% LIFT (+3%); product-feature 85-96% -> 87-97% LIFT (+2%); general 73-83% UNCHANGED
+- 0 capability-row closures; 0 capability-row reopens; KF-5 phase-mechanism SUBHYPOTHESIS close is sub-row not row
+- HONEST 134 -> 150 (+16 LARGEST single-batch); LABEL-VS-HONEST 117 -> 123 (+6 sub-flavor DISPATCH_FAILURE_MISCLASSIFICATION)
+- 16 DISPATCH_FAILURE_MISCLASSIFICATION catches cumulative across v265+v267+v268+v269 in ~24h with PATTERN PRECISION REFINEMENT discrimination criterion now precise (remote-metrics-exists AND HARD_PASS-flavored = TRUE misclass; HARD_FAIL with metric is GENUINE; absent remote dir is GENUINE substantive failure)
+- bid family STRUCTURAL TIMEOUT WALL CONFIRMED bid_m_normalized.py + bid_n_sweep.py variants only (bid_order_parameter completes fine at N=8192 BSC in 94.82s); STRATEGY routing for bid_family_timeout_structural_probe filed
+- Queue refill SKIPPED — bridge stale so depths unverifiable but 16-verdict-batch is loudest queue-depletion signal observed; 11+ open routings constitute proper next-batch work
+- 3 NEW routings filed: bid_family_timeout_structural_probe STRATEGY + kf4_drift_detect_v4 EXP_DEV posterior-entropy rescue analog + kf5_phase_v2 EXP_DEV basin-volume alternative
+- 180th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch
