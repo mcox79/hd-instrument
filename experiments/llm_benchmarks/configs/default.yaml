@@ -1,0 +1,38 @@
+# Default config schema for the LLM editing benchmark harness.
+# Mirrors the CLI args of edit_benchmark_harness.py; extensible per Phase-2.
+# ASCII-only.
+
+run:
+  exp_name: llm1_substrate_vs_baselines_v1
+  output_dir: null            # null -> data/exp_${HDLAB_EXP_NAME or exp_name}
+  seed: 17
+
+method:
+  name: substrate              # one of: substrate, rome, memit, alphaedit, mend
+  # Substrate-specific
+  N: 4096                      # substrate dimensionality; Kerdock requires N=2^k with k even
+  device: cpu                  # cpu / cuda
+  # Baseline-specific (Phase-2): model_name, hf_token, layer_idx, edit_layer, lr, etc.
+  baseline:
+    model_name: null
+    layer_idx: null
+
+dataset:
+  name: counterfact            # one of: counterfact, zsre, sequential
+  path: null                   # required for non-empty runs; see datasets/README.md
+  max_edits: 100               # cap on evaluated cases; null = full
+
+metrics:
+  - efficacy
+  - specificity
+  - paraphrase
+  - sequential_count
+
+reporting:
+  atomic_json: true
+  emit_verdict: false          # full Phase-3: emit substrate_vs_baseline verdict
+  verdict_thresholds:
+    efficacy_min: 0.50
+    specificity_min: 0.70
+    paraphrase_min: 0.30
+    sequential_count_min: 1000
