@@ -19650,3 +19650,212 @@ NO exp_dev refill this batch -- per user prompt explicit "NO exp_dev refill (orc
 Commit message stored below.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v288 update -- BATCHED 6-VERDICT R+S1 batch MAJOR STRATEGIC EVENT: Multi-hop DIFFERENTIAL SURVIVAL identified PAST M_c -- Path D = production-scale ROBUST mechanism; Path B M-bounded; Path E partial / niche; 40% noise tolerance HARD_PASS; per-hop engineering bottlenecks identified
+
+### Trigger
+
+6-verdict batch (R-batch first 5 anchors + S-batch S1): R1=multi_hop_stress_at_breaking_v1_n4096 MH_STRESS_MIDDLE_BAND DIFFERENTIAL SURVIVAL (mechanism differentiation FIRST surfaced) + R2=mechanism_composition_at_breaking_v2_n4096 COMP_MIDDLE_BAND fall-through-not-error-correction (REFUTES error-correction hypothesis from v287 R3) + R4=path_e_latency_envelope_v1_n4096 PATH_E_ENV_HARD_PASS 90/90 cells above HP (full envelope confirmation) + R5=multi_hop_noise_robustness_v1_n4096 MH_NOISE_HARD_PASS 1.000 at sigma=0.4 ALL 3 paths (extraordinary robustness with sub-capacity M=2048 caveat) + R-chunked=chunked_codebook_n16384_v6 CB_N16384_HARD_FAIL 3rd attempt 9/9 OOM (hardware-instrumentation-blocked at N=16384) + S1=per_hop_latency_decomposition_v1_n4096 S1_HARD_PASS bottlenecks identified per-mechanism (engineering targets per E1.2). S-batch (S2-S14) still mid-execution; this batch refines multi-hop characterization SUBSTANTIALLY.
+
+### Honest re-read (Step 0; PROT-009 per [[feedback-verdict-msg-honest-reread]])
+
+bridge get_metrics: _source=remote for ALL 6 anchors; metrics fresh; no fallback required.
+
+#### Anchor R1 -- multi_hop_stress_at_breaking_v1_n4096 (MH_STRESS_MIDDLE_BAND) ** DIFFERENTIAL SURVIVAL **
+
+**Label vs metrics.** verdict_msg "DIFFERENTIAL_SURVIVAL: 12 cells < 0.6; worst-cell means {'B': 0.0004, 'D': 1.0, 'E': 0.4952}". Per-cell remote: 90 seed-cells = 18 distinct cells (3 paths x 2 M-values x 3 depths) x 5 seeds.
+- **Path B**: ALL 6 cells (M16384/24576 x d10/15/20) mean=0.000-0.0004 (single seed = 0.002 outlier; 29/30 seed-cells exactly 0.000). TOTAL COLLAPSE past M_c.
+- **Path D**: ALL 6 cells unanimous 1.000 (30/30 seed-cells at 1.000). Zero degradation at any tested extreme cell.
+- **Path E**: ALL 6 cells partial 0.467-0.495. CRITICAL OBSERVATION: E_M16384 == E_M24576 identical per-cell (0.4668/0.4760/0.4952 vs 0.4668/0.4760/0.4952). Path E accuracy is M-INDEPENDENT in this regime (queries spectral coherence pattern not substrate codebook size).
+
+**Honest reading.** Label HONEST. MIDDLE_BAND tag correct (12 cells <0.6); the per-mechanism worst-cell decomposition is what makes this CRITICAL. The mechanism differentiation that v287 P1 + Q2/Q3 could not surface (because all individuals saturated 1.000 at production-scale envelope) FINALLY surfaces at past-M_c stress. Path D's unanimous survival is EXPLAINED by mechanism construction (per-hop independent Bayesian posterior reduction over K=500 candidates does NOT propagate substrate state across hops; bypasses M-capacity bottleneck). Path B's total collapse matches the F-batch continuous-output substrate M-degradation finding past M_c. Path E's M-invariant ~0.5 indicates spectral mechanism queries pattern-level coherence not codebook size; the ~0.5 plateau is mechanism-floor not random.
+
+#### Anchor R2 -- mechanism_composition_at_breaking_v2_n4096 (COMP_MIDDLE_BAND) ** REFUTES error-correction hypothesis **
+
+**Label vs metrics.** verdict_msg "COMPOSITION_NEUTRAL / mixed delta" + per-cell at extreme regime cells: M16384d15 + M24576d10 both show B=0.000, D=1.000, E=0.000, cA=0.000, cB=1.000, cC=1.000.
+
+**Honest reading.** Label HONEST. The fall-through pattern (cA empty-intersection 0.000; cB weighted-vote 1.000 = Path D wins; cC consensus-check 1.000 = Path D confidence above threshold) means compositions DO NOT do error-correction when individual mechanisms fail -- they fall through to the best-individual. REFUTES the v287 R3 hypothesis that "mechanisms make different errors so composition gives error-correction lift". Composition is useful as fall-through SAFETY-NET (cB/cC = Path D backstop), not as additive capability. Closes the error-correction research direction empirically.
+
+#### Anchor R4 -- path_e_latency_envelope_v1_n4096 (PATH_E_ENV_HARD_PASS)
+
+**Label vs metrics.** verdict_msg "PATH_E_WIDE_ENVELOPE + SUB_LINEAR_ADVANTAGE: cfgs=90 above_hp=90 sublinear_monotone_cells=11/18". Per-cell remote: 450 seed-cells = 90 distinct cells (6 depths x 5 K-values x 3 M-points) x 5 seeds. ALL 90 distinct cells mean=1.000 5/5 unanimous (verified worst-mean=1.0). Below_HP(0.70)=0/90. Worst extreme cells (M=8192, d=20, K=5000): 1.000 5/5.
+
+**Honest reading.** Label HONEST. This is EVEN STRONGER than the verdict_msg implies -- not just 90/90 above HP threshold 0.70 but 90/90 EXACTLY 1.000 unanimous. Path E maintains full retrieval accuracy across the ENTIRE characterization grid up to M=8192 (= 2N). Sub-linear K-scaling (11/18 cells with sub-linear monotone advantage) gives engineering edge at high K vs B/D. CAVEAT: M_max=8192 (= 2N); does NOT extend to past-M_c stress regime where R1 shows Path E plateaus at ~0.5 (M-invariant). Scope: Path E wide envelope is "Q-regime envelope (M up to 2N)" not "production-past-M_c envelope".
+
+#### Anchor R5 -- multi_hop_noise_robustness_v1_n4096 (MH_NOISE_HARD_PASS)
+
+**Label vs metrics.** verdict_msg "GRACEFUL_DEGRADATION: paths=['B', 'D', 'E'] robust to sigma<=0.2. ALL 3 paths: s0.00=1.000 s0.05=1.000 s0.10=1.000 s0.20=1.000 s0.40=1.000". Per-cell remote: 75 seed-cells = 15 distinct cells (3 paths x 5 sigma values) x 5 seeds. ALL 15 distinct cells mean=1.000 5/5 unanimous. Config: M=2048, depth=5, K_paths=100, N=4096 -> M/N=0.5 (well sub-capacity).
+
+**Honest reading.** Label HARD_PASS HONEST. ZERO degradation through sigma=0.4 (40% noise per the test specification) is extraordinary -- far beyond the pre-reg HP threshold (>=0.65 at sigma=0.2). HOWEVER: M=2048 at N=4096 is sub-capacity (M/N=0.5); the substrate has massive cosine-similarity margin in this regime. Honest interpretation: noise robustness within Pattern-B continuous-output sub-capacity regime is exceptional; whether the same robustness holds at production-scale M near M_c is UNTESTED. Cannot extend the claim to "noise-robust past M_c" until tested. Critical-for-agentic-deployment framing valid IF deployment operates sub-capacity (which is the strategic positioning per v287 substrate Killer Features).
+
+NOTE: noise injection schema not visible in metrics payload (no per-cell noise-application audit). Assuming spec applied sigma to facts AND queries per test design; verdict_handler cannot independently audit schema from metrics alone. Recorded honest as labeled with sub-capacity caveat.
+
+#### Anchor R-chunked -- chunked_codebook_n16384_v6 (CB_N16384_HARD_FAIL)
+
+**Label vs metrics.** verdict_msg "OOM_AT_M=[2048, 4096, 8192]: per_M_recall=0.0 for all 3 M; max_M_at_95=0; peak_gib=inf; oomed=9/9". Per-cell remote: 9 cells all peak_gpu_gib_final=0.0 (crash before memory tracking init); strategy="A_chunked_inplace" failed at INSTRUMENTATION level.
+
+**Honest reading.** Label HARD_FAIL HONEST. v6 + v5 (and v287-sub3) all OOM at N=16384 codebook construction; 8GB GPU cannot allocate the structure regardless of M. peak_gib=inf is sentinel for "crashed before memory tracking initialized" not "infinite memory consumption". This is 3rd HARD_FAIL at the chunked-codebook approach (v5, v6, v287-sub3) on current hardware. Question remains UNTESTED not REFUTED -- Modern Hopfield activation hypothesis cannot be answered at N=16384 on this hardware.
+
+#### Anchor S1 -- per_hop_latency_decomposition_v1_n4096 (S1_HARD_PASS)
+
+**Label vs metrics.** verdict_msg "BOTTLENECKS_IDENTIFIED: top_b=time_W_kquery_per_hop(216/240 cells dominant) top_d=time_posterior_max(196/240) top_e=time_compare_spectra(240/240 unanimous)". Per-cell remote: 240 distinct cells (4 M x 4 depths x 3 K x 5 seeds) profiled with per-hop wall-time decomposition.
+
+**Honest reading.** Label HONEST. Each path has a CLEAN single bottleneck (>=82% of cells; Path E unanimous 240/240). Engineering targets per mechanism:
+- Path B: time_W_kquery_per_hop (substrate matmul per hop) -> batched matmul + lower-precision intermediates
+- Path D: time_posterior_max (K-path posterior reduction) -> vectorized argmax + early termination
+- Path E: time_compare_spectra (spectral comparison across hops) -> caching + partial spectral decomposition
+
+This is exactly what E1.2 path-specific optimization work needs. Engineering-feasibility confirmed: each mechanism has a single clean target rather than diffuse multi-source latency.
+
+### Cap_map decisions (v287 -> v288) -- 1 ROW SPLIT-LIFT-via-annotation + 5 ANNOTATIONS + 1 RESEARCH-DIRECTION CLOSURE + 1 INSTRUMENTATION-BLOCKED STATE + 0 NEW ROWS + 0 FRAMEWORK-RELIABILITY CHANGES
+
+#### SPLIT-via-annotation + LIFT -- Multi-hop parallel-mechanism row B/D/E -> per-mechanism breakdown (Path D LIFTed; Path B caveat-affirmed; Path E ANNOTATED engineering-distinct)
+
+Per user prompt direction and per [[feedback-dont-overextend-theorems]], the v287 combined-row 0.75-0.85 SUBSUMED three mechanisms with very different production-scale durability profiles. R1 finally surfaces the differentiation. Decision: KEEP combined-row position at 0.75-0.85 (anchored to B/D/E all-saturate at Q-regime envelope M<=2N + K<=1000) BUT add THREE per-mechanism sub-row annotations capturing the differential:
+
+- **Multi-hop Path D (sub-row LIFT annotation)**: 0.78-0.88 (above combined-row mid). Production-scale + extreme-cell durability confirmed: D unanimous 1.000 through M=24576 (1.5x past M_c) at depths 10-15-20. Mechanism explanation: per-hop independent Bayesian posterior reduction over K candidates does NOT propagate substrate state, so M_c saturation bottleneck is BYPASSED by construction. Engineering implication: Path D is the production-scale robust mechanism; deploy as DEFAULT multi-hop path.
+- **Multi-hop Path B (sub-row caveat-LIFT annotation)**: 0.65-0.78 (below combined-row mid; sub-capacity caveat reaffirmed). Total collapse past M_c (mean 0.000 at M=16384+24576 all depths). Matches continuous-output substrate M-degradation finding from F-batch. Engineering implication: deploy Path B only at sub-capacity M < M_c with explicit envelope guard.
+- **Multi-hop Path E (sub-row engineering-distinct annotation)**: 0.65-0.75 (niche). Wide accuracy envelope at M<=8192 (R4 90/90 unanimous 1.000) + partial M-invariant ~0.5 plateau at past-M_c stress (R1) + sub-linear K-scaling (Q3 + R4) + non-monotonic depth-recovery (v287 P1). Engineering-distinct from B/D: spectral-coherence queries pattern not codebook size; deploy at high-K, high-depth, sub-capacity regimes.
+
+**Combined row position**: 🟢 0.75-0.85 UNCHANGED (anchored to Q-regime durability + triple-mechanism corroboration); per-mechanism sub-rows capture production-scale differentiation per [[feedback-dont-overextend-theorems]].
+
+**Per [[feedback-no-padding-experiments]]** CONSERVATIVE bound: Path D sub-row 0.78-0.88 NOT 0.80-0.90 aggressive because (a) compositional generalization untested at past-M_c (R2 ceiling-fall-through-only), (b) noise robustness at past-M_c untested (R5 sub-capacity only), (c) Path D mechanism construction is well-understood and explains the survival but cross-regime validation is single-regime only.
+
+#### ANNOTATION -- Composition error-correction hypothesis CLOSED (research direction)
+
+R2 fall-through pattern empirically REFUTES the v287 R3 (& v287 cross-mechanism-composition hypothesis) error-correction lift hypothesis at breaking regime. The cA empty-intersection 0.000 + cB/cC fall-through-to-D 1.000 pattern shows compositions act as FALL-THROUGH BEST-INDIVIDUAL not as additive ERROR-CORRECTION.
+
+- **Annotation on multi-hop combined row**: "Composition at breaking regime (M=16384d15, M=24576d10) shows fall-through-to-best-individual (cB/cC track Path D 1.000; cA empty-intersection 0.000) NOT additive error-correction. Error-correction hypothesis EMPIRICALLY REFUTED in this regime. Composition useful as Path D backstop / consensus check, not as additive capability."
+- **CLOSED research direction**: cross-mechanism error-correction at breaking regime. Future composition work re-routes to OTHER hypotheses (e.g., score-level confidence calibration, handoff-level routing-by-regime, pipeline-level multi-stage decomposition per [[feedback-composition-classification]] SCORE/HANDOFF/PIPELINE classification).
+
+This is a SCOPE-CONTROLLED closure per [[feedback-dont-overextend-theorems]]: ONE specific hypothesis (error-correction at breaking regime) closed; composition-class evaluation remains open for OTHER classifications. Portfolio count UNCHANGED (composition was never a separately-counted row).
+
+#### ANNOTATION -- Multi-hop noise robustness at sub-capacity (40% noise tolerance ALL 3 paths)
+
+R5 = ALL 3 paths sustain 1.000 through sigma=0.4 at M=2048 (M/N=0.5 sub-capacity).
+
+- **Annotation on multi-hop combined row**: "Noise robustness within sub-capacity regime (M=2048, N=4096): ALL 3 paths sustain 1.000 through sigma=0.4 (40% noise on facts AND queries per test spec); 75/75 seed-cells 1.000 unanimous. Robustness at production-scale M near M_c UNTESTED. Engineering implication: agentic deployment with sub-capacity operating margin is noise-robust to substantial input corruption."
+- **CAVEAT (per [[feedback-dont-overextend-theorems]])**: claim scope = sub-capacity only; does NOT extend to past-M_c stress regime where Path B collapses + Path E plateaus.
+
+No row movement (annotation within existing row); supports Pattern-B planning context (substrate Killer Features 2026-05-26 strategic positioning + Pattern-B Modern Hopfield activation question + production agentic deployment).
+
+#### ANNOTATION -- Per-hop bottleneck engineering targets (S1 reference data for E1.2 optimization)
+
+S1 = clean single bottleneck per mechanism (>=82% cells dominant; Path E unanimous 240/240).
+
+- **Annotation on multi-hop combined row**: "Per-hop latency bottlenecks identified (S1 v1 n4096 240-cell decomposition): Path B = time_W_kquery_per_hop (substrate matmul per hop; 216/240 cells); Path D = time_posterior_max (K-path posterior reduction; 196/240); Path E = time_compare_spectra (spectral comparison; 240/240 unanimous). Engineering targets per E1.2 path-specific optimization: batched matmul + lower-precision (B); vectorized argmax + early-termination (D); caching + partial spectral decomposition (E)."
+- No row movement; engineering reference data for downstream optimization work.
+
+#### ANNOTATION -- Path E wide envelope (R4 90/90 confirmation)
+
+R4 = ALL 90 distinct (M,d,K) cells unanimous 1.000 (M<=8192, depths 3-20, K 100-5000).
+
+- **Annotation on multi-hop combined row + Path E sub-row annotation**: "Path E Q-regime envelope characterized at 90 distinct (M up to 8192, depth up to 20, K up to 5000) cells unanimous 1.000 5-seed (450 seed-cells; R4 PATH_E_ENV_HARD_PASS). Sub-linear K-scaling realized in 11/18 sub-linear-monotone cells (engineering advantage at high K vs B/D). CAVEAT: M_max=8192 (= 2N); Path E plateau at ~0.5 past M_c (R1) is independent scope; wide envelope claim bounded to M<=2N."
+- No row movement (within Path E sub-row annotation).
+
+#### ANNOTATION -- chunked_codebook N=16384 INSTRUMENTATION-BLOCKED state (3rd attempt failure on current hardware)
+
+R-chunked v6 = 3rd HARD_FAIL on chunked-codebook at N=16384 (v5 + v6 + v287-sub3 series). All 9 cells OOM; peak_gib=inf sentinel = crash-before-tracking.
+
+- **Annotation**: "codebook-chunking N=16384 chunked-strategy v6 -> 3rd consecutive HARD_FAIL (v5+v6+v287-sub3) on 8GB GPU; INSTRUMENTATION-BLOCKED on current hardware (codebook structure cannot allocate). Modern Hopfield activation hypothesis remains UNTESTED at N=16384 -- question NOT refuted. Rescue routing: v8 with fundamentally different approach required (CPU-only build + CPU/GPU staged operations; OR hardware upgrade path investigation; OR alternative non-chunked N=16384 vanilla baseline probe to isolate the activation-question from the codebook-handling question)."
+- No row movement (codebook-chunking remains in characterization-state; not a row-anchored position).
+- Per [[feedback-dont-overextend-theorems]] scope-control: HARD_FAIL classifies the SPECIFIC instrumentation approach (chunked at N=16384 on 8GB hardware) as infeasible; does NOT classify Modern Hopfield activation hypothesis as refuted.
+
+### Framework-reliability ranges (ALL UNCHANGED)
+
+- Non-eq-stat-mech 73-83% UNCHANGED
+- SKAH-M 60-75% UNCHANGED
+- Substrate-outside-static-Hopfield 64-75% UNCHANGED
+- TCFT 92-97% UNCHANGED
+- Deletion-cert 92-98% UNCHANGED
+- KF-1 65-78% UNCHANGED
+- Specific 70-83% UNCHANGED
+- General 73-83% UNCHANGED
+- Product-feature 89-98% UNCHANGED
+- Substrate-GPU operational baseline 0.75-0.85 UNCHANGED
+- Multi-hop parallel-mechanism COMBINED row 0.75-0.85 UNCHANGED (per-mechanism sub-rows annotated: Path D 0.78-0.88; Path B 0.65-0.78; Path E 0.65-0.75)
+- Adaptive-threshold characterization: CLOSED at standard regimes UNCHANGED
+
+**Portfolio**: 14 + 36 UNCHANGED (no new rows; no closures; 0 row movements at row-position level; 1 SPLIT-via-annotation within existing row + 5 annotations + 1 research-direction closure + 1 instrumentation-blocked state).
+
+**HONEST 236 -> 242 (+6)**: all 6 anchors honest re-read; 6 fully-honest labels (R1 + R2 + R4 + R5 + R-chunked + S1); zero NEW LABEL-VS-HONEST catches this batch.
+
+**LABEL-VS-HONEST 147 UNCHANGED**.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**R1 multi-hop differential survival (consolidated SPLIT-LIFT):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "v287 combined-row 0.75-0.85 maintained anchored to Q-regime durability; per-mechanism sub-rows ANNOTATED capturing past-M_c differentiation (D 0.78-0.88 + B 0.65-0.78 + E 0.65-0.75); composition error-correction hypothesis REFUTED at breaking regime; engineering implications surfaced (deploy D as default, B sub-capacity-guard, E high-K/high-depth niche)". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy lock: future multi-hop probes report per-mechanism survival at past-M_c regime BY DEFAULT (not just aggregate); differential-survival surfacing prevents combined-row over-claim. APPLIED as pre-reg policy.
+- **R3 (CHEAP, ~30min CPU)** -- Path E plateau-mechanism probe at past-M_c: characterize WHY E plateaus at ~0.5 (M-invariant) -- is it 50% truth-vs-distractor binary baseline? half-of-K-paths correctly identified? something else? Knowing the plateau mechanism informs whether Path E is salvageable past M_c via mechanism modification. NOT-AUTO-DISPATCHED.
+- **R4 (MEDIUM, ~30min GPU)** -- Path D production-deployment stress: characterize Path D upper-envelope (M >= 32768; depths >= 25; K >= 2000; noise sigma >= 0.4 at past-M_c) to find Path D's breaking point. Currently Path D unanimous past tested upper envelope = no known breaking point. NOT-AUTO-DISPATCHED.
+
+**R2 composition fall-through closure (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "composition error-correction hypothesis REFUTED at breaking regime; cross-mechanism work re-routes to OTHER composition-class hypotheses (SCORE/HANDOFF/PIPELINE per [[feedback-composition-classification]])". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy: future composition probes must specify composition-class (SCORE/HANDOFF/PIPELINE) and pre-register the lift-hypothesis being tested; "error-correction at breaking" is now empirically closed and CANNOT be re-claimed without new mechanism design. APPLIED as pre-reg policy.
+- **R3 (CHEAP, ~30min CPU)** -- HANDOFF-class composition probe: route-by-regime (sub-capacity -> B + D + E ensemble vote; past-M_c -> Path D only) as deployment-shape probe; tests whether HANDOFF classification rescues composition value-add even when SCORE-level error-correction failed. NOT-AUTO-DISPATCHED.
+
+**R5 noise robustness sub-capacity annotation (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "40% noise tolerance ALL 3 paths at M=2048 sub-capacity; agentic-deployment-relevant for sub-capacity operating regime per substrate Killer Features 2026-05-26". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy: future noise-robustness probes must include past-M_c stress cell + noise-injection-schema audit (verify spec applied) to extend claim scope beyond sub-capacity. APPLIED as pre-reg policy.
+- **R3 (CHEAP, ~30min CPU)** -- Noise robustness past M_c at Path D only (Path B already collapses cleanly; Path E plateaus): tests whether Path D's mechanism-construction-bypass survives noise injection at past-M_c. NOT-AUTO-DISPATCHED.
+
+**S1 per-hop bottleneck reference data (engineering targets):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "S1 240-cell decomposition surfaces clean single bottleneck per mechanism (B + D + E each); engineering targets identified for E1.2 path-specific optimization". APPLIED inline above.
+- **R2 (CHEAP, engineering)** -- E1.2 dispatch path-specific optimization work to exp_dev with the 3 engineering targets as scoped tasks: (a) Path B batched matmul + lower-precision; (b) Path D vectorized argmax + early termination; (c) Path E caching + partial spectral decomposition. NOT-AUTO-DISPATCHED.
+
+**R-chunked codebook N=16384 instrumentation-blocked (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "3rd HARD_FAIL on chunked-codebook N=16384 (v5+v6+v287-sub3); INSTRUMENTATION-BLOCKED on 8GB GPU; Modern Hopfield activation hypothesis UNTESTED not REFUTED". APPLIED inline above.
+- **R2 (CHEAP, ~30min CPU)** -- v8 routing: investigate CPU-only codebook build + CPU/GPU staged operations to bypass GPU memory ceiling. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, 0-compute)** -- Alternative-question route: probe N=16384 NON-chunked vanilla substrate baseline (smaller M than typical) to isolate the Modern Hopfield activation question from codebook-chunking instrumentation. NOT-AUTO-DISPATCHED.
+- **R4 (CHEAP, 0-compute)** -- Hardware-upgrade investigation: 16GB+ GPU would lift the instrumentation-blocked state; surface hardware-capability check to user. NOT-AUTO-DISPATCHED.
+
+### Top-3 follow-on recommendations
+
+1. **Path D production-stress at upper envelope** (R4 of R1 SPLIT-LIFT) -- MEDIUM GPU ~30min; characterize Path D's breaking point (M >= 32768; depths >= 25; K >= 2000; noise at past-M_c); Path D's unanimous 1.000 at all tested cells is a "no-known-breaking-point" finding. Knowing the upper envelope is load-bearing for production deployment claims. HIGH-PRIORITY because Path D is the production-scale ROBUST mechanism this batch identified.
+
+2. **HANDOFF-class composition probe** (R3 of R2) -- CPU ~30min; route-by-regime composition (sub-capacity -> B+D+E ensemble; past-M_c -> Path D only); error-correction at breaking is closed empirically but HANDOFF-class composition value-add remains open per [[feedback-composition-classification]]. MEDIUM-PRIORITY: clarifies whether composition has ANY classification with value-add at production scale.
+
+3. **Path E plateau-mechanism probe at past-M_c** (R3 of R1 SPLIT-LIFT) -- CPU ~30min; characterize WHY Path E plateaus at ~0.5 M-invariant at past-M_c (binary-truth-vs-distractor floor? half-K-paths correctly identified? other?). Informs whether Path E is salvageable past M_c via mechanism modification or is fundamentally bounded by spectral-coherence-discrimination floor. MEDIUM-PRIORITY: refines Path E sub-row position and deployment scope.
+
+### Queue-refill recommendation
+
+NO exp_dev refill this batch -- per user prompt explicit "NO exp_dev refill (S-batch still running; orchestrator handles next batch decision based on this)". S-batch has 12 more anchors pending; orchestrator dispatches refill or batch-completion decision separately.
+
+### PROT compliance (v287 -> v288)
+
+- **PROT-004/006**: 5 rescue sets filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 16 rescues total; R1 0-compute subsumption-annotation APPLIED inline in all 5 sets.
+- **PROT-007**: substrate_capability_map_history.md v288 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279/v280/v282/v283/v284/v285/v286/v287 PROT-007 backlogs).
+- **PROT-008**: validator NOT run inline (annotation+SPLIT-via-annotation batch within existing row; 0 row movements at row-position level; 5 annotations + 1 research-direction closure + 1 instrumentation-blocked state; portfolio unchanged 14+36; no new rows; no closures; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v288 entry) + substrate_capability_map_history.md (v288 row) + strategy_decisions_2026-05-30.md (v287 -> v288 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; 199th PROT-009 paired commit.
+- **PROT-018**: 6 substantive anchors spot-checked for _n<N> suffix vs config.N: all CLEAN.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on all 6 verdicts; 0 NEW LABEL-VS-HONEST CATCHES; 6 labels HONEST as worded. Critical-scrutiny applied per user prompt: (a) R1 Path D unanimous 1.000 explained mechanically (per-hop independent Bayesian, bypasses M-capacity by construction) -- genuine production-scale durability not test-trivialization; (b) R4 90/90 above HP verified at 90 distinct cells worst-mean=1.000 actually stronger than label implies; (c) R5 1.000 at sigma=0.4 explained by sub-capacity margin (M/N=0.5); noise-injection-schema NOT independently audited from metrics (recorded as caveat); (d) R2 composition NEUTRAL = fall-through-not-error-correction = research-direction closure not row-movement.
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics returned _source=remote for 6/6 anchors; no fallback required.
+- **[[feedback-rehabilitation-after-rejection]]**: 0 capability-row closures in this batch; the composition error-correction hypothesis closure is research-direction-level (one hypothesis closed; composition class remains open with SCORE/HANDOFF/PIPELINE re-routing per [[feedback-composition-classification]]); the chunked_codebook N=16384 3rd-attempt is instrumentation-blocked-state NOT capability closure (Modern Hopfield activation question UNTESTED not REFUTED).
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption sequenced FIRST in all 5 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: SPLIT-via-annotation scoped to per-mechanism sub-row ANNOTATIONS within combined row (does not split row count; does not re-anchor combined-row position); noise robustness LIFT scoped sub-capacity only (does not extend past M_c); chunked_codebook HARD_FAIL scoped to specific instrumentation approach at specific hardware (does not classify Modern Hopfield activation hypothesis refuted).
+- **[[feedback-no-padding-experiments]]**: Path D sub-row 0.78-0.88 CONSERVATIVE (not 0.80-0.90) because compositional generalization untested + noise-at-past-M_c untested; B 0.65-0.78 reflects total-collapse observed; E 0.65-0.75 reflects niche M-invariant signature.
+- **[[feedback-strategy-shore-up-capabilities]]**: per-mechanism sub-row annotations are envelope-characterization for multi-path deployment shape; engineering-target reference data (S1) directly supports E1.2 optimization work.
+- **[[feedback-lit-scan-calibration-penalty]]**: no novel-synthesis claims this batch; characterization-of-already-LIFTed row only.
+- **[[feedback-obey-user-pause-explicitly]]**: pause-flag ABSENT; user prompt explicit "NO exp_dev refill (S-batch still running)" honored; verdict_handler does NOT dispatch exp_dev refill.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; commit hash surfaced to orchestrator main-thread for push.
+- **[[feedback-decision-log-eol-handling]]**: strategy_decisions_2026-05-30.md entry appended via tools/orchestrator/append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty applied -- R1 differential survival mechanism explanations surfaced (Path D bypasses by construction; Path B M-bounded as expected; Path E M-invariant identified suspicious then explained as mechanism floor); R2 fall-through-not-error-correction explicitly REFUTES v287 R3 hypothesis; R5 sub-capacity caveat NOT swept under the "extraordinary robustness" framing.
+- **[[feedback-for-you-tab-primary-channel]]**: 5 status_log entries with plain_language + importance fields per user prompt (1 CRITICAL differential mechanism survival + 1 HIGH noise robustness + 1 MEDIUM per-hop bottlenecks + 1 MEDIUM composition fall-through + 1 MEDIUM N=16384 instrumentation-blocked).
+- **[[feedback-composition-classification]]**: composition error-correction hypothesis closed at SCORE level (cA empty-intersection + cB/cC fall-through); HANDOFF-class probe surfaced as top-3 follow-on #2.
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 6 substantive anchors PROT-018 spot-check all CLEAN.
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
