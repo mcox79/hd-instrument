@@ -120,6 +120,27 @@ def build_backend(name: str, config: dict) -> MemoryBackend:
     if nm == "substrate":
         nm = "substrate_v1"
 
+    if nm == "substrate_sharded":
+        opts = dict(config.get("sharded", {}) or {})
+        opts.setdefault("N", int(config.get("N", dim)))
+        opts.setdefault("K_shards", int(config.get("shard_K", 10)))
+        opts.setdefault(
+            "codebook_C", int(config.get("shard_codebook_C", 8192))
+        )
+        opts.setdefault("codebook_kind", config.get("codebook_kind", "bsc"))
+        opts.setdefault("beta", float(config.get("beta", 32.0)))
+        opts.setdefault(
+            "hallu_threshold", float(config.get("hallu_threshold", 0.5))
+        )
+        opts.setdefault(
+            "shared_codebook", bool(config.get("shard_shared_codebook", True))
+        )
+        opts.setdefault("routing", "hash")
+        opts.setdefault("device", str(config.get("substrate_device", "cpu")))
+        opts.setdefault("seed", int(config.get("seed", 0)))
+        cls = VARIANT_REGISTRY[nm]
+        return cls(**opts)
+
     if nm in VARIANT_REGISTRY:
         cls = VARIANT_REGISTRY[nm]
         opts = dict(config.get("substrate", {}) or {})

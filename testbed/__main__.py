@@ -39,6 +39,7 @@ _SCENARIO_NAMES = [
     "storage_latency",
     "large_M_constant_cost",
     "audit_chain_validation",
+    "multi_substrate_sharding",
 ]
 
 
@@ -121,8 +122,37 @@ def _minimal_yaml(text: str) -> dict:
 def _build_backend(name: str, config: dict):
     dim = int(config.get("dim", 4096))
     # substrate + variants: name in {substrate, substrate_v1, substrate_v2_softdelete,
-    # substrate_v3_kerdock, substrate_v4_double_hebbian}. "substrate" aliases v1.
+    # substrate_v3_kerdock, substrate_v4_double_hebbian, substrate_sharded}.
+    # "substrate" aliases v1.
     nm = name.strip().lower() if isinstance(name, str) else name
+    if nm == "substrate_sharded":
+        try:
+            from testbed.variants import VARIANT_REGISTRY  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError(
+                f"substrate variants not available: {exc}. "
+                "Expected testbed/variants/__init__.py."
+            ) from exc
+        cls = VARIANT_REGISTRY["substrate_sharded"]
+        opts = dict(config.get("sharded", {}) or {})
+        opts.setdefault("N", int(config.get("N", dim)))
+        opts.setdefault("K_shards", int(config.get("shard_K", 10)))
+        opts.setdefault(
+            "codebook_C", int(config.get("shard_codebook_C", 8192))
+        )
+        opts.setdefault("codebook_kind", config.get("codebook_kind", "bsc"))
+        opts.setdefault("beta", float(config.get("beta", 32.0)))
+        opts.setdefault(
+            "hallu_threshold", float(config.get("hallu_threshold", 0.5))
+        )
+        opts.setdefault(
+            "shared_codebook", bool(config.get("shard_shared_codebook", True))
+        )
+        opts.setdefault("routing", "hash")
+        opts.setdefault("device", str(config.get("substrate_device", "cpu")))
+        seeds = config.get("seeds") or [0]
+        opts.setdefault("seed", int(seeds[0]) if seeds else 0)
+        return cls(**opts)
     if nm == "substrate" or nm.startswith("substrate_v"):
         try:
             from testbed.variants import VARIANT_REGISTRY  # type: ignore
@@ -454,7 +484,11 @@ def _cmd_smoke(args: argparse.Namespace) -> int:
             bad += 1
             continue
         r1 = r.get("recall_at_1", 0.0)
-        is_substrate = (b == "substrate") or b.startswith("substrate_v")
+        is_substrate = (
+            (b == "substrate")
+            or b.startswith("substrate_v")
+            or b == "substrate_sharded"
+        )
         ok = (r1 >= 0.5) if is_substrate else (r1 >= 0.95)
         flag = "PASS" if ok else "FAIL"
         print(f"[smoke] backend {b}: recall_at_1={r1:.4f} [{flag}]")

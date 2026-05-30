@@ -24,12 +24,14 @@ from testbed.variants.v1_reference import SubstrateV1Reference
 from testbed.variants.v2_softdelete import SubstrateV2Softdelete
 from testbed.variants.v3_kerdock import SubstrateV3Kerdock
 from testbed.variants.v4_double_hebbian import SubstrateV4DoubleHebbian
+from testbed.variants.sharded_substrate import ShardedSubstrate
 
 VARIANT_REGISTRY: dict[str, type] = {
     "substrate_v1": SubstrateV1Reference,
     "substrate_v2_softdelete": SubstrateV2Softdelete,
     "substrate_v3_kerdock": SubstrateV3Kerdock,
     "substrate_v4_double_hebbian": SubstrateV4DoubleHebbian,
+    "substrate_sharded": ShardedSubstrate,
 }
 
 __all__ = [
@@ -38,4 +40,5 @@ __all__ = [
     "SubstrateV2Softdelete",
     "SubstrateV3Kerdock",
     "SubstrateV4DoubleHebbian",
+    "ShardedSubstrate",
 ]

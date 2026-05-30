@@ -1,0 +1,35 @@
+config_name: shard_smoke
+N: 512
+dim: 512
+codebook_kind: bsc
+beta: 32.0
+hallu_threshold: 0.5
+
+shard_K: 3
+shard_codebook_C: 512
+shard_N: 512
+shard_shared_codebook: true
+shard_M_sweep: [256, 512]
+shard_n_recall_samples: 50
+shard_n_latency_queries: 20
+shard_n_delete: 20
+shard_n_tamper: 5
+
+sharded:
+  N: 512
+  K_shards: 3
+  codebook_kind: bsc
+  codebook_C: 512
+  beta: 32.0
+  hallu_threshold: 0.5
+  shared_codebook: true
+  routing: hash
+  device: cpu
+  seed: 7
+
+seeds: [7]
+backends: [substrate_sharded]
+scenarios:
+  - multi_substrate_sharding
+
+out_root: testbed_data/benchmarks

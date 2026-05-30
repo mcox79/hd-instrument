@@ -1,0 +1,52 @@
+# Multi-substrate sharding config.
+#
+# Tests whether K sharded substrates at FIXED codebook_C extend the operating
+# envelope to K * (C/4) keys while preserving the killer features per shard
+# and the audit chain across shard boundaries.
+#
+# Comparison row:
+#   substrate (reference) - constant-C, recall craters above M ~ C/4
+#   substrate_sharded     - sharding at fixed C; envelope = K * (C/4)
+#   faiss                 - linear-in-M, kept as the speed/recall baseline
+
+config_name: shard
+N: 2048
+dim: 2048
+codebook_kind: bsc
+beta: 32.0
+hallu_threshold: 0.5
+
+# Sharding knobs. codebook_C is FIXED (NOT codebook_M_hint-adaptive).
+shard_K: 10
+shard_codebook_C: 8192
+shard_N: 2048
+shard_shared_codebook: true
+shard_M_sweep: [2000, 5000, 10000, 20000]
+shard_n_recall_samples: 200
+shard_n_latency_queries: 100
+shard_n_delete: 100
+shard_n_tamper: 10
+
+# Reference-substrate codebook sizing for the 3-way visual. Adaptive sizing
+# is fair to the reference substrate; the sharded backend ignores this.
+codebook_M_hint_auto: true
+
+# Sharded backend kwargs (forwarded by harness build_backend / __main__).
+sharded:
+  N: 2048
+  K_shards: 10
+  codebook_kind: bsc
+  codebook_C: 8192
+  beta: 32.0
+  hallu_threshold: 0.5
+  shared_codebook: true
+  routing: hash
+  device: cpu
+  seed: 7
+
+seeds: [7]
+backends: [substrate, substrate_sharded, faiss]
+scenarios:
+  - multi_substrate_sharding
+
+out_root: testbed_data/benchmarks

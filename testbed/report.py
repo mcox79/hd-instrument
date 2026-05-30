@@ -114,6 +114,22 @@ def _key_metric(scenario: str, result: dict | None) -> str:
         if ci is None:
             return f"audit_cov {_fmt(cov, 'pct')}"
         return f"chain {_fmt(ci, 'pct')} cov {_fmt(cov, 'pct')} tamper {_fmt(td, 'pct')}"
+    if scenario == "multi_substrate_sharding":
+        per = result.get("per_M") or {}
+        if not per:
+            return _NA
+        K = result.get("K_shards")
+        live = {k: v for k, v in per.items() if not v.get("skipped")}
+        if not live:
+            return "skipped"
+        last_M = sorted(live.keys(), key=lambda s: int(s))[-1]
+        disk_MB = live[last_M].get("disk_MB")
+        r1 = live[last_M].get("recall_at_1")
+        ci = live[last_M].get("cross_shard_chain_integrity")
+        return (
+            f"K={K} shards disk@M={last_M} {_fmt(disk_MB)}MB "
+            f"R@1 {_fmt(r1, 'pct')} chain={_fmt(ci, 'pct')}"
+        )
     return _NA
 
 
@@ -418,6 +434,32 @@ def _per_scenario_detail(summary: dict) -> str:
                              _fmt(r.get("tamper_detection_rate"), "pct"),
                              _fmt(r.get("p50_delete_us"), "us"),
                              _fmt(r.get("chain_check_supported"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "multi_substrate_sharding":
+            headers = ["backend", "M", "K", "shards_used", "disk_MB",
+                       "p50_retr_us", "recall@1", "chain_integrity",
+                       "tamper_rate", "edit_ok", "note"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                for mkey, mval in sorted((r.get("per_M") or {}).items(),
+                                          key=lambda kv: int(kv[0])):
+                    if mval.get("skipped"):
+                        rows.append([b, mval.get("M"), _NA, _NA, _NA, _NA,
+                                     _NA, _NA, _NA, _NA,
+                                     mval.get("reason", "skipped")])
+                        continue
+                    rows.append([b,
+                                 mval.get("M"),
+                                 mval.get("K"),
+                                 mval.get("shards_used"),
+                                 _fmt(mval.get("disk_MB")),
+                                 _fmt(mval.get("p50_retrieve_us"), "us"),
+                                 _fmt(mval.get("recall_at_1"), "pct"),
+                                 _fmt(mval.get("cross_shard_chain_integrity"), "pct"),
+                                 _fmt(mval.get("tamper_detection_rate"), "pct"),
+                                 _fmt(mval.get("edit_ok")),
+                                 ""])
             chunks.append(_md_table(headers, rows))
         elif s == "storage_latency":
             headers = ["backend", "M", "disk_bytes", "p50_store_us",
