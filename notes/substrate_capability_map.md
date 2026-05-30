@@ -19256,8 +19256,10 @@ Sparse-W ACTUALLY HOLDS at M_c~16K (where dense baseline degrades per v283 m_c_p
 
 #### FRAMEWORK-COMPONENT-DEGRADATION — adaptive-threshold prediction sub-component (from LABEL-VS-HONEST #144 + first instrumented confirmation)
 
-- **NEW ANNOTATION** on substrate-physics framework row: "adaptive-threshold prediction sub-component DEGRADED — systematic 2-7× miscalibration in tau-space at 6/9 operational cells (3 cells degenerate-untestable per LABEL-VS-HONEST #144 DEGENERATE_CELLS_OVERCOUNT). Component-level only — other framework components (beta_c=10 invariance v278+v280+v281 multi-anchor confirmed; NESS thermodynamics; SKAH-M class identification; deletion-cert TCFT) remain valid. Sub-component fix path: re-derive tau_pred scalar coefficient from substrate-physics scaling argument or replace with empirical-fit formula."
-- **NEW BACKLOG ROW**: "Framework-prediction sub-component degradation tracking" 🔬 P=0.50 (first such entry; awaiting sub-component-audit follow-up). Tracks the SPECIFIC theoretical-prediction sub-components confirmed degraded vs other sub-components remaining valid; protects the framework from over-extension closure per [[feedback-dont-overextend-theorems]].
+**v286 REVERT NOTICE**: The "DEGRADED" annotation below was written by verdict_handler at v285 and is RETRACTED at v286. Research drill (commit ee0d4f8; notes/research_tau_pred_rederivation_v1_2026-05-30.md) determined: (a) tau_pred has no theoretical derivation — it is a heuristic formula; (b) the "miscalibration pattern" is the formula's own image at tau_emp=0.05 sweep-boundary tiebreak (NOT a measured optimum); (c) 3/9 cells are substrate-non-operational and 6/9 cells were saturated (best_score=1.0 constant across full sweep at beta>=10) — ZERO empirical optima were measured; (d) the classification (B) framework-degradation reading was WRONG because no derived prediction existed to be degraded. This is the THIRD-OCCURRENCE INSTRUMENTATION PATHOLOGY (v283+v284+v285 adaptive_threshold series). Framework-reliability bands UNCHANGED. See v286 block for full revert annotation + sub-flavor #146 INSTRUMENTATION_PATHOLOGY_PERSISTENCE.
+
+- **RETRACTED ANNOTATION** (v285; reverted v286): "adaptive-threshold prediction sub-component DEGRADED — systematic 2-7x miscalibration in tau-space at 6/9 operational cells (3 cells degenerate-untestable per LABEL-VS-HONEST #144 DEGENERATE_CELLS_OVERCOUNT). Component-level only — other framework components (beta_c=10 invariance v278+v280+v281 multi-anchor confirmed; NESS thermodynamics; SKAH-M class identification; deletion-cert TCFT) remain valid. Sub-component fix path: re-derive tau_pred scalar coefficient from substrate-physics scaling argument or replace with empirical-fit formula."
+- **RETRACTED BACKLOG ROW** (v285; reverted v286): "Framework-prediction sub-component degradation tracking" 🔬 P=0.50. Retraction rationale: no theoretical prediction existed to be tracked as degraded; tau_pred is a one-line heuristic, not a substrate-physics derivation. Backlog row withdrawn. Adaptive_threshold_rescue_v3 needed with non-saturating discriminant + extended tau sweep + non-degeneracy selftest before ANY framework-prediction component can be assessed for the adaptive-threshold axis.
 - Framework-reliability impact: ALL major ranges UNCHANGED (non-eq 73-83%; SKAH-M 60-75%; TCFT 92-97%; deletion-cert 92-98%; KF-1 65-80%→65-78% (-2% upper bound from KF-1 trim); product-feature 89-98%; specific 70-83%; general 73-83%). The framework reliability is DEFINED OVER aggregate confirmation evidence; one sub-component degradation does not move the aggregate per [[feedback-dont-overextend-theorems]].
 
 #### ANNOTATIONS (no row movement)
@@ -19275,7 +19277,7 @@ Sparse-W ACTUALLY HOLDS at M_c~16K (where dense baseline degrades per v283 m_c_p
 
 All 3 filed in consolidated rescue routing note at `notes/strategy_request_to_exp_dev_2026-05-30_n_batch_serialized_gpu_reship.md`. NOT auto-dispatched per user explicit no-refill carry-over from F-batch.
 
-#### Framework-reliability ranges (most UNCHANGED; 1 sub-component DEGRADED annotation; KF-1 -2% upper)
+#### Framework-reliability ranges (most UNCHANGED; KF-1 -2% upper; v285 sub-component DEGRADED annotation REVERTED at v286)
 
 - Non-eq-stat-mech 73-83% UNCHANGED
 - SKAH-M 60-75% UNCHANGED
@@ -19286,7 +19288,7 @@ All 3 filed in consolidated rescue routing note at `notes/strategy_request_to_ex
 - Specific 70-83% UNCHANGED
 - General 73-83% UNCHANGED
 - Product-feature 89-98% UNCHANGED
-- Adaptive-threshold sub-component: DEGRADED (NEW ANNOTATION; component-level only)
+- Adaptive-threshold sub-component: REVERTED at v286 (v285 DEGRADED annotation was instrumentation-pathology artifact; no framework component is degraded; tau_pred is heuristic not a derived prediction; third-occurrence instrumentation pathology)
 
 **Portfolio update**: 14 + 35 → 14 + 36 (+1 NEW row: parallel-mechanism multi-hop B/D/E). Adaptive-threshold-degradation backlog row tracked separately (not a capability row). Sparse-W row LIFTed within existing row position.
 
@@ -19376,5 +19378,67 @@ NOT auto-shipping per user explicit no-refill; orchestrator surfaces to user for
 ### Commit and push
 
 Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v286 update -- CORRECTIVE BUMP: REVERT v285 framework-degradation annotation (commit triggered by research drill ee0d4f8 tau_pred re-derivation; notes/research_tau_pred_rederivation_v1_2026-05-30.md)
+
+### Trigger
+
+Research drill at commit ee0d4f8 (notes/research_tau_pred_rederivation_v1_2026-05-30.md) determined that the v285 framework-prediction-component-DEGRADED annotation written by verdict_handler for adaptive_threshold_rescue_v2_n4096 was based on incorrect premises. This is a corrective annotation-only bump.
+
+### Honest re-read (Step 0 corrective -- research-drill-triggered)
+
+The v285 annotation classified adaptive_threshold_rescue_v2_n4096 AT_R2_HARD_FAIL as a classification (B) framework-degradation event. The research drill found:
+
+1. **tau_pred has no theoretical derivation.** It is labelled as a heuristic in the script source. There was never a substrate-physics prediction to be confirmed or degraded -- only an empirical guess. A framework-prediction component cannot be DEGRADED if no prediction was derived in the first place.
+
+2. **The "miscalibration pattern" is the formula's own image.** At tau_emp=0.05 the tiebreak rule pins the reported optimum to the lowest tau in the sweep. The log2_miss measures the distance from tau_pred to the fallback floor, not to any measured empirical optimum. The "systematic 2-7x miscalibration" is the formula reflecting itself back.
+
+3. **ZERO empirical optima were actually measured.** 3/9 cells: substrate non-operational (best_score=0.0 across entire tau_sweep). 6/9 cells: saturated (best_score=1.0 constant across full sweep at beta>=10). In ALL 9 cells the reported tau_emp was a sweep-boundary tiebreak, NOT a genuine empirical optimum. The test never produced the data needed to assess framework calibration.
+
+4. **This is the THIRD-OCCURRENCE INSTRUMENTATION PATHOLOGY.** v283: adaptive_threshold_characterization_v1 -- broken metric scoring (best_score=0.0 always). v284: ATC_HARD_FAIL -- test-instrument over-claim (LABEL-VS-HONEST #142). v285: AT_R2_HARD_FAIL -- saturated-metric tiebreak artifact (this occurrence). All three anchors returned ZERO genuine empirical optima. The test-design itself is systematically broken.
+
+**Correction.** The v285 classification (B) framework-degradation reading IS WRONG. No framework component was degraded. The substrate-physics framework reliability bands are UNCHANGED.
+
+### Cap_map decisions (v285 -> v286) -- ANNOTATION-ONLY: 1 REVERT + 1 NEW LABEL-VS-HONEST SUB-FLAVOR (#146)
+
+#### REVERT -- v285 framework-degradation annotation on substrate-physics framework row
+
+- **Action**: v285 "adaptive-threshold prediction sub-component DEGRADED" annotation RETRACTED.
+- **Replacement annotation**: "v285 framework-degradation annotation REVERTED v286: research drill determined tau_pred has no derived theoretical prediction (heuristic only); 'miscalibration pattern' was sweep-boundary instrumentation artifact (third-occurrence pathology v283/v284/v285); no framework component is degraded; adaptive_threshold_rescue_v3 needed with non-saturating discriminant + extended tau sweep + non-degeneracy selftest."
+- **Framework-reliability bands REMAIN UNCHANGED** (correction of an over-claim, not a band shift):
+  - Non-eq-stat-mech 73-83% UNCHANGED
+  - SKAH-M 60-75% UNCHANGED
+  - TCFT 92-97% UNCHANGED
+  - Deletion-cert 92-98% UNCHANGED
+  - KF-1 65-78% UNCHANGED (v285 LIFT-DOWN stands; this revert does not affect it)
+  - Specific 70-83% UNCHANGED
+  - General 73-83% UNCHANGED
+  - Product-feature 89-98% UNCHANGED
+  - Adaptive-threshold sub-component: NOT DEGRADED (v285 annotation REVERTED)
+- **Portfolio 14 + 36 UNCHANGED** (no row state changes; retracted "framework-prediction-degradation tracking" backlog row was not counted in portfolio total).
+
+#### NEW LABEL-VS-HONEST SUB-FLAVOR #146 -- INSTRUMENTATION_PATHOLOGY_PERSISTENCE
+
+- **Catch**: verdict_handler processed AT_R2_HARD_FAIL as classification (B) framework-degradation without cross-checking whether a theoretical derivation existed for the "framework prediction" being tested. The framework-degradation annotation committed at v285 was based on a heuristic formula compared against a sweep-boundary tiebreak -- neither constitutes a framework-vs-measurement comparison.
+- **Sub-flavor name**: INSTRUMENTATION_PATHOLOGY_PERSISTENCE -- "instrumented test rescues that themselves carry the same broken-instrumentation signature; test design needs explicit non-degeneracy + non-saturation selftest before classification."
+- **Meta-catch**: this is the THIRD occurrence of the same instrumentation failure mode across adaptive_threshold v1/v2/ATC. The persistence across three rescue attempts indicates the test-design itself is fundamentally broken (not the substrate, not the framework). Future framework-degradation annotations from verdict_handler must cross-check: does a theoretical derivation exist for the prediction being tested? If no derivation exists, classification (B) is unavailable regardless of the empirical miss pattern.
+- **Policy lock**: future adaptive_threshold anchors MUST include explicit non-degeneracy selftest (reject if best_score=0.0 in any cell) AND non-saturation selftest (reject if best_score=1.0 constant across full sweep in any cell) BEFORE computing tau_emp. Boundary-tiebreak tau_emp values are NOT empirical optima and MUST NOT be compared against tau_pred.
+- **Cumulative**: LABEL-VS-HONEST 145 -> 146 (+1 META sub-flavor; caught by research drill, not inline by verdict_handler).
+
+### HONEST count
+
+**HONEST 230 -> 231 (+1)**: the v286 corrective revert is itself an honest correction event -- +1 honest observation (research drill produced the authoritative reading; verdict_handler over-classified). Framework reliability all bands UNCHANGED post-revert.
+
+### PROT compliance (v285 -> v286)
+
+- **PROT-004/006**: no row closures in this bump; N/A.
+- **PROT-007**: substrate_capability_map_history.md v286 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING.
+- **PROT-008**: validator run on staged files.
+- **PROT-009**: cap_map.md (this v286 entry) + substrate_capability_map_history.md (v286 row) + strategy_decisions_2026-05-30.md (v285->v286 revert entry) staged atomically; 197th PROT-009 paired commit.
+
+### Commit and push
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
