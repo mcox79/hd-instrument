@@ -197,6 +197,56 @@ def check_timeout_floor(entry_name: str, timeout_s: int, purpose: str = "") -> N
         )
 
 
+def check_gpu_queue_uses_torch(queue_name: str, script_path: Path, allow_override: bool) -> None:
+    """PROT-020: scripts queued to GPU queue (overnight_queue) must import torch.
+
+    Rationale: the GPU runner slot is a finite resource. NumPy-only scripts
+    occupy that slot but execute entirely on CPU, leaving the GPU idle for
+    hours while genuinely GPU-accelerated work waits. Two real incidents:
+      - tcft_m_sweep_v3_n8192_5seed (NumPy-only, ran on GPU runner 2026-05-28)
+      - tcft_erase_robustness_n8192_v1 (NumPy-only, ran 4h on GPU runner
+        2026-05-29 before user noticed near-zero GPU utilization)
+
+    Exits with code 8 if a NumPy-only script targets overnight_queue.
+    Override with --allow-numpy-on-gpu (rare; only when the script is
+    explicitly using GPU-host-CPU for a reason that won't fit remote_cpu_queue).
+
+    No-op for non-GPU queues (remote_cpu_queue, local_cpu_queue).
+    """
+    if queue_name != "overnight_queue":
+        return
+    try:
+        source = script_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        print(f"[gate] PROT-020 WARN: could not read script for torch-check: {e}", file=sys.stderr)
+        return
+    uses_torch = bool(re.search(r'^\s*(?:import\s+torch\b|from\s+torch\b)', source, re.MULTILINE))
+    if uses_torch:
+        print("[gate] PROT-020 OK: script imports torch (GPU queue routing justified)")
+        return
+    if allow_override:
+        print("[gate] PROT-020 WARN: NumPy-only script on GPU queue (override flag set)")
+        return
+    print(
+        f"\n[gate] PROT-020 REJECT: queue='overnight_queue' but script '{script_path.name}'\n"
+        f"  does not import torch — it is NumPy-only and cannot use the GPU.\n"
+        f"\n"
+        f"  Occupying the GPU runner slot with a CPU-bound script wastes hours of\n"
+        f"  GPU access while torch+cuda anchors wait in the queue. Two prior\n"
+        f"  incidents: tcft_m_sweep_v3_n8192_5seed and tcft_erase_robustness_n8192_v1\n"
+        f"  (the latter ran 4h before the user noticed near-zero GPU utilization).\n"
+        f"\n"
+        f"  Fix options:\n"
+        f"    1. Re-target the CPU queue:\n"
+        f"         bash tools/orchestrator/queue_add.sh remote_cpu_queue ...\n"
+        f"    2. Port the script to torch+cuda (preferred for matmul-heavy work).\n"
+        f"    3. Pass --allow-numpy-on-gpu if you genuinely need the GPU host's\n"
+        f"       CPU for a reason that doesn't fit remote_cpu_queue.\n",
+        file=sys.stderr,
+    )
+    sys.exit(8)
+
+
 def check_n_suffix_binding(entry_name: str, script_path: Path) -> None:
     """PROT-018: if anchor name has _n<NUMBER>, the script's production N must match.
 
@@ -319,6 +369,15 @@ def main() -> int:
             "Refuses if status is 'running' or 'pending' (use --rerun-as for those)."
         ),
     )
+    ap.add_argument(
+        "--allow-numpy-on-gpu",
+        action="store_true",
+        help=(
+            "Override PROT-020: allow a NumPy-only script on overnight_queue (the GPU queue). "
+            "Rare; only when the script genuinely needs the GPU host's CPU for a reason that "
+            "doesn't fit remote_cpu_queue."
+        ),
+    )
     args = ap.parse_args()
 
     # ── Host guard ──────────────────────────────────────────────────────────────
@@ -357,6 +416,11 @@ def main() -> int:
     # 1c. PROT-019: timeout floor for large-N anchors (exit 7 on violation).
     # Pass purpose so the battery/sweep WARNING can fire on multi-M-point work.
     check_timeout_floor(args.entry_name, args.timeout, getattr(args, "purpose", "") or "")
+
+    # 1d. PROT-020: GPU-queue routing audit — NumPy-only scripts cannot use the
+    # GPU and waste the runner slot. Exit 8 on violation; --allow-numpy-on-gpu
+    # overrides.
+    check_gpu_queue_uses_torch(args.queue_name, script_path, args.allow_numpy_on_gpu)
 
     # 2. Prereg exists
     prereg_path = REPO / args.prereg
