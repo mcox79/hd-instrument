@@ -191,6 +191,39 @@ def _key_metric(scenario: str, result: dict | None) -> str:
             f"comp OOS {_fmt(oos, 'pct')} stored FP {_fmt(stored, 'pct')} "
             f"d_vs_post {_fmt(delta, 'pct')}"
         )
+    if scenario == "factorized_vs_dense":
+        if result.get("substrate_only_scenario"):
+            return "substrate-only"
+        delta = result.get("max_w_parity_max_abs_delta")
+        ok = result.get("math_identity_holds")
+        mem_win = result.get("first_memory_win_ratio")
+        lat_win = result.get("first_latency_win_ratio")
+        mem_str = f"mem<at M/N={mem_win:.2f}" if mem_win is not None else "mem<never"
+        lat_str = f"lat<at M/N={lat_win:.2f}" if lat_win is not None else "lat<never"
+        ok_str = "ID_OK" if ok else "ID_BREAK"
+        return f"parity {_fmt(delta)} {ok_str} {mem_str} {lat_str}"
+    if scenario == "hierarchical_capacity":
+        if result.get("skipped"):
+            return "skipped"
+        per = result.get("per_M") or {}
+        if not per:
+            return _NA
+        last_M = sorted(per.keys(), key=lambda s: int(s))[-1]
+        last = per[last_M]
+        r1 = last.get("recall_at_1")
+        ra = last.get("routing_accuracy")
+        ci = last.get("cross_level_chain_integrity")
+        disk_MB = last.get("disk_MB")
+        if ra is None:
+            return (
+                f"single@M={last_M} R@1 {_fmt(r1, 'pct')} "
+                f"disk {_fmt(disk_MB)}MB"
+            )
+        return (
+            f"hier@M={last_M} R@1 {_fmt(r1, 'pct')} "
+            f"route {_fmt(ra, 'pct')} chain {_fmt(ci, 'pct')} "
+            f"disk {_fmt(disk_MB)}MB"
+        )
     return _NA
 
 
@@ -539,6 +572,32 @@ def _per_scenario_detail(summary: dict) -> str:
                                  _fmt(mval.get("p50_retrieve_us"), "us"),
                                  _fmt(mval.get("p95_retrieve_us"), "us"),
                                  _fmt(mval.get("cold_load_ms"), "ms")])
+            chunks.append(_md_table(headers, rows))
+        elif s == "hierarchical_capacity":
+            headers = ["backend", "M", "K", "N_top", "N_leaf", "disk_MB",
+                       "p50_retr_us", "mean_retr_us", "recall@1",
+                       "routing_acc", "chain_integrity"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                if r.get("skipped"):
+                    rows.append([b, _NA, _NA, _NA, _NA, _NA, _NA, _NA, _NA,
+                                 _NA, _NA])
+                    continue
+                for mkey, mval in sorted((r.get("per_M") or {}).items(),
+                                          key=lambda kv: int(kv[0])):
+                    rows.append([b,
+                                 mval.get("M"),
+                                 mval.get("K_topics"),
+                                 mval.get("N_top"),
+                                 mval.get("N_leaf",
+                                          mval.get("N_single_substrate")),
+                                 _fmt(mval.get("disk_MB")),
+                                 _fmt(mval.get("p50_retrieve_latency_us"), "us"),
+                                 _fmt(mval.get("mean_retrieve_latency_us"), "us"),
+                                 _fmt(mval.get("recall_at_1"), "pct"),
+                                 _fmt(mval.get("routing_accuracy"), "pct"),
+                                 _fmt(mval.get("cross_level_chain_integrity"), "pct")])
             chunks.append(_md_table(headers, rows))
         elif s == "multi_signal_kf1":
             headers = ["backend", "M/N", "M",

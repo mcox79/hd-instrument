@@ -1,0 +1,46 @@
+# Tiny smoke config for hierarchical_capacity scenario.
+# Target wall time: < 60s on Windows laptop CPU.
+
+config_name: hierarchical_smoke
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+# Hierarchical knobs.
+hier_K_topics: 3
+hier_N_top: 256
+hier_N_leaf: 512
+hier_M_capacity_per_leaf: 100
+hier_codebook_C_top: 1024
+hier_codebook_C_leaf: 2048
+hier_M_totals: [100]
+hier_n_recall_samples: 50
+hier_n_latency_queries: 30
+hier_n_delete: 10
+
+single_substrate_Ns: [512]
+
+# Backend kwargs forwarded by build_backend.
+hierarchical:
+  N_top: 256
+  N_leaf: 512
+  K_topics: 3
+  codebook_kind: bsc
+  codebook_C_top: 1024
+  codebook_C_leaf: 2048
+  beta: 32.0
+  hallu_threshold: 0.5
+  M_capacity_per_leaf: 100
+  routing: hash
+  device: cpu
+  seed: 7
+
+seeds: [7]
+backends: [substrate_hierarchical, substrate]
+scenarios:
+  - hierarchical_capacity
+
+out_root: testbed_data/benchmarks

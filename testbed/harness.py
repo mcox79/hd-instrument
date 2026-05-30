@@ -141,10 +141,44 @@ def build_backend(name: str, config: dict) -> MemoryBackend:
         cls = VARIANT_REGISTRY[nm]
         return cls(**opts)
 
+    if nm == "substrate_hierarchical":
+        opts = dict(config.get("hierarchical", {}) or {})
+        opts.setdefault("N_top", int(config.get("hier_N_top", 512)))
+        opts.setdefault("N_leaf", int(config.get("hier_N_leaf",
+                                                 config.get("N", dim))))
+        opts.setdefault("K_topics", int(config.get("hier_K_topics", 10)))
+        opts.setdefault(
+            "codebook_C_top", int(config.get("hier_codebook_C_top", 2048))
+        )
+        opts.setdefault(
+            "codebook_C_leaf", int(config.get("hier_codebook_C_leaf", 8192))
+        )
+        opts.setdefault("codebook_kind", config.get("codebook_kind", "bsc"))
+        opts.setdefault("codebook_scale",
+                        int(config.get("codebook_scale", 4)))
+        opts.setdefault("beta", float(config.get("beta", 32.0)))
+        opts.setdefault(
+            "hallu_threshold", float(config.get("hallu_threshold", 0.5))
+        )
+        m_cap = config.get("hier_M_capacity_per_leaf")
+        if m_cap is not None:
+            opts.setdefault("M_capacity_per_leaf", int(m_cap))
+        opts.setdefault("routing", "hash")
+        opts.setdefault("device", str(config.get("substrate_device", "cpu")))
+        opts.setdefault("seed", int(config.get("seed", 0)))
+        cls = VARIANT_REGISTRY[nm]
+        return cls(**opts)
+
     if nm in VARIANT_REGISTRY:
         cls = VARIANT_REGISTRY[nm]
         opts = dict(config.get("substrate", {}) or {})
         opts.setdefault("N", dim)
+        # Factorized needs M_capacity; derive from config if not provided.
+        if nm == "substrate_factorized" and "M_capacity" not in opts:
+            opts["M_capacity"] = int(config.get(
+                "M_capacity",
+                config.get("M_total", opts.get("N", dim)),
+            ))
         return cls(**opts)
 
     raise ValueError(

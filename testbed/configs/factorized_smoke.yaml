@@ -1,0 +1,22 @@
+# Tiny smoke config for factorized_vs_dense scenario.
+# Designed to complete in < 30s on a Windows laptop CPU.
+
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+# M/N sweep at small N for speed.
+factorized_M_per_N_ratios: [0.10, 0.25, 0.50, 1.0]
+factorized_n_recall_samples: 50
+factorized_n_latency_queries: 30
+
+seeds: [7]
+
+backends: [substrate_factorized]
+scenarios:
+  - factorized_vs_dense
+
+out_root: testbed_data/benchmarks

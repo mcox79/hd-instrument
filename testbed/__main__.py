@@ -47,6 +47,8 @@ _SCENARIO_NAMES = [
     "large_N_envelope",
     "approx_retrieve_sweep",
     "multi_signal_kf1",
+    "factorized_vs_dense",
+    "hierarchical_capacity",
 ]
 
 
@@ -160,7 +162,42 @@ def _build_backend(name: str, config: dict):
         seeds = config.get("seeds") or [0]
         opts.setdefault("seed", int(seeds[0]) if seeds else 0)
         return cls(**opts)
-    if nm == "substrate" or nm.startswith("substrate_v"):
+    if nm == "substrate_hierarchical":
+        try:
+            from testbed.variants import VARIANT_REGISTRY  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError(
+                f"substrate variants not available: {exc}. "
+                "Expected testbed/variants/__init__.py."
+            ) from exc
+        cls = VARIANT_REGISTRY["substrate_hierarchical"]
+        opts = dict(config.get("hierarchical", {}) or {})
+        opts.setdefault("N_top", int(config.get("hier_N_top", 512)))
+        opts.setdefault("N_leaf", int(config.get("hier_N_leaf",
+                                                 config.get("N", dim))))
+        opts.setdefault("K_topics", int(config.get("hier_K_topics", 10)))
+        opts.setdefault(
+            "codebook_C_top", int(config.get("hier_codebook_C_top", 2048))
+        )
+        opts.setdefault(
+            "codebook_C_leaf", int(config.get("hier_codebook_C_leaf", 8192))
+        )
+        opts.setdefault("codebook_kind", config.get("codebook_kind", "bsc"))
+        opts.setdefault("codebook_scale",
+                        int(config.get("codebook_scale", 4)))
+        opts.setdefault("beta", float(config.get("beta", 32.0)))
+        opts.setdefault(
+            "hallu_threshold", float(config.get("hallu_threshold", 0.5))
+        )
+        m_cap = config.get("hier_M_capacity_per_leaf")
+        if m_cap is not None:
+            opts.setdefault("M_capacity_per_leaf", int(m_cap))
+        opts.setdefault("routing", "hash")
+        opts.setdefault("device", str(config.get("substrate_device", "cpu")))
+        seeds = config.get("seeds") or [0]
+        opts.setdefault("seed", int(seeds[0]) if seeds else 0)
+        return cls(**opts)
+    if nm == "substrate" or nm.startswith("substrate_v") or nm == "substrate_factorized":
         try:
             from testbed.variants import VARIANT_REGISTRY  # type: ignore
         except ImportError as exc:
@@ -188,6 +225,21 @@ def _build_backend(name: str, config: dict):
             "hallu_threshold": float(config.get("hallu_threshold", 0.5)),
             "device": str(config.get("substrate_device", "cpu")),
         }
+        # Factorized needs M_capacity at construction.
+        if resolved == "substrate_factorized":
+            m_cap = config.get("M_capacity")
+            if m_cap is None:
+                # Default to max stored M across scenario knobs, else N.
+                candidates = [
+                    int(config.get("M_total", 0) or 0),
+                    int(config.get("edit_isolation_M", 0) or 0),
+                    int(config.get("deletion_M", 0) or 0),
+                    int(config.get("continual_M", 0) or 0),
+                ]
+                ms_list = config.get("storage_latency_Ms") or []
+                candidates += [int(x) for x in ms_list if isinstance(x, (int, float))]
+                m_cap = max(candidates) if any(candidates) else int(config.get("N", 4096))
+            kwargs["M_capacity"] = int(m_cap)
         # Shine plan A.3.1: pass codebook_M_hint when present. Auto-derive from
         # the largest scenario M when codebook_M_hint_auto is True. v1 reference
         # accepts the kwarg; older variants do not, so pass it conditionally.
@@ -495,6 +547,8 @@ def _cmd_smoke(args: argparse.Namespace) -> int:
             (b == "substrate")
             or b.startswith("substrate_v")
             or b == "substrate_sharded"
+            or b == "substrate_factorized"
+            or b == "substrate_hierarchical"
         )
         ok = (r1 >= 0.5) if is_substrate else (r1 >= 0.95)
         flag = "PASS" if ok else "FAIL"

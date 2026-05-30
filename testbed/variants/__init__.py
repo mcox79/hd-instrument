@@ -25,6 +25,8 @@ from testbed.variants.v2_softdelete import SubstrateV2Softdelete
 from testbed.variants.v3_kerdock import SubstrateV3Kerdock
 from testbed.variants.v4_double_hebbian import SubstrateV4DoubleHebbian
 from testbed.variants.sharded_substrate import ShardedSubstrate
+from testbed.variants.factorized_substrate import FactorizedSubstrate
+from testbed.variants.hierarchical_substrate import HierarchicalSubstrate
 
 VARIANT_REGISTRY: dict[str, type] = {
     "substrate_v1": SubstrateV1Reference,
@@ -32,6 +34,8 @@ VARIANT_REGISTRY: dict[str, type] = {
     "substrate_v3_kerdock": SubstrateV3Kerdock,
     "substrate_v4_double_hebbian": SubstrateV4DoubleHebbian,
     "substrate_sharded": ShardedSubstrate,
+    "substrate_factorized": FactorizedSubstrate,
+    "substrate_hierarchical": HierarchicalSubstrate,
 }
 
 __all__ = [
@@ -41,4 +45,6 @@ __all__ = [
     "SubstrateV3Kerdock",
     "SubstrateV4DoubleHebbian",
     "ShardedSubstrate",
+    "FactorizedSubstrate",
+    "HierarchicalSubstrate",
 ]
