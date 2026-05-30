@@ -158,6 +158,17 @@ def _key_metric(scenario: str, result: dict | None) -> str:
         return (
             f"{_fmt(ops)}ops/s drift {_fmt(ratio)} KF1 {_fmt(nu, 'pct')}"
         )
+    if scenario == "approx_retrieve_sweep":
+        op = result.get("operating_point") or {}
+        if not op:
+            return "no op_pt"
+        sf = op.get("sample_frac")
+        rec = op.get("recall_at_1")
+        lat = op.get("p50_latency_us")
+        sf_str = f"{sf:.2f}" if sf is not None else _NA
+        rec_str = f"{rec*100:.1f}%" if rec is not None else _NA
+        lat_str = f"{lat:.0f}" if lat is not None else _NA
+        return f"approx_op_pt sample={sf_str} recall={rec_str} latency={lat_str}us"
     if scenario == "large_N_envelope":
         if result.get("skipped"):
             return "skipped"
@@ -170,6 +181,16 @@ def _key_metric(scenario: str, result: dict | None) -> str:
             v = per_N[N_key]
             parts.append(f"N={N_key}:{v if v is not None else 'none'}")
         return "max M @ 95% recall: " + " ".join(parts)
+    if scenario == "multi_signal_kf1":
+        if result.get("substrate_only_scenario"):
+            return "substrate-only"
+        oos = result.get("min_oos_composite_fire_rate")
+        stored = result.get("max_stored_composite_fire_rate")
+        delta = result.get("composite_minus_posterior_oos_at_worst_regime")
+        return (
+            f"comp OOS {_fmt(oos, 'pct')} stored FP {_fmt(stored, 'pct')} "
+            f"d_vs_post {_fmt(delta, 'pct')}"
+        )
     return _NA
 
 
@@ -518,6 +539,36 @@ def _per_scenario_detail(summary: dict) -> str:
                                  _fmt(mval.get("p50_retrieve_us"), "us"),
                                  _fmt(mval.get("p95_retrieve_us"), "us"),
                                  _fmt(mval.get("cold_load_ms"), "ms")])
+            chunks.append(_md_table(headers, rows))
+        elif s == "multi_signal_kf1":
+            headers = ["backend", "M/N", "M",
+                       "oos_post", "oos_low_norm", "oos_low_conc",
+                       "oos_high_dist", "oos_composite",
+                       "stored_post_FP", "stored_composite_FP"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                if r.get("substrate_only_scenario"):
+                    rows.append([b, "n/a", "n/a", _NA_BY_CONSTRUCTION,
+                                 _NA_BY_CONSTRUCTION, _NA_BY_CONSTRUCTION,
+                                 _NA_BY_CONSTRUCTION, _NA_BY_CONSTRUCTION,
+                                 _NA_BY_CONSTRUCTION, _NA_BY_CONSTRUCTION])
+                    continue
+                for sub in (r.get("per_subrun") or []):
+                    ops = sub.get("oos_per_signal_fire_rate") or {}
+                    sps = sub.get("stored_per_signal_fire_rate") or {}
+                    rows.append([
+                        b,
+                        _fmt(sub.get("M_over_N")),
+                        _fmt(sub.get("M")),
+                        _fmt(ops.get("posterior_entropy"), "pct"),
+                        _fmt(ops.get("low_norm"), "pct"),
+                        _fmt(ops.get("low_concentration"), "pct"),
+                        _fmt(ops.get("high_distance"), "pct"),
+                        _fmt(sub.get("oos_composite_fire_rate"), "pct"),
+                        _fmt(sps.get("posterior_entropy"), "pct"),
+                        _fmt(sub.get("stored_composite_fire_rate"), "pct"),
+                    ])
             chunks.append(_md_table(headers, rows))
     return "\n".join(chunks)
 

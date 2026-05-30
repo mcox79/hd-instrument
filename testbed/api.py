@@ -39,6 +39,14 @@ class RetrievalResult:
     distance: backend-specific distance (FAISS/Chroma); None for substrate.
     top_k_ids: ranked list of candidate key_ids (length up to k).
     top_k_scores: backend-native scores aligned with top_k_ids.
+    hallu_signals: optional Path-15 multi-signal hallucination detection
+        panel. Substrate populates with a dict containing
+        {posterior_entropy_flag, low_norm_flag, low_concentration_flag,
+        high_distance_flag, composite_flag, composite_score, response_norm,
+        concentration_ratio, min_dist_to_stored}. Baselines leave this None.
+        See substrate_memory._compute_hallu_signals for details. This field
+        is additive: it does NOT replace near_uniform_flag (which remains the
+        canonical KF-1 single-signal flag tied to the existing audit panel).
     """
 
     key_id: Optional[str]
@@ -48,6 +56,7 @@ class RetrievalResult:
     distance: Optional[float] = None
     top_k_ids: list[str] = field(default_factory=list)
     top_k_scores: list[float] = field(default_factory=list)
+    hallu_signals: Optional[dict] = None
 
 
 @dataclass
@@ -98,6 +107,14 @@ class AuditReport:
 
     All substrate-specific killer-feature metrics are Optional; baselines
     populate them with None to make the contrast explicit in the report.
+
+    Path-15 multi-signal hallucination detection fields:
+    - kf1_composite_fire_rate: composite_flag fire rate on OOS samples.
+      Composite fires when at least 2 of {posterior_entropy, low_norm,
+      low_concentration, high_distance} agree. None for baselines.
+    - kf1_per_signal_fire_rates: dict {posterior_entropy, low_norm,
+      low_concentration, high_distance} -> fire rate on OOS samples.
+      None for baselines.
     """
 
     backend: str
@@ -108,6 +125,8 @@ class AuditReport:
     tcft_mean_var_ratio: Optional[float]
     storage_bytes: int
     config: dict
+    kf1_composite_fire_rate: Optional[float] = None
+    kf1_per_signal_fire_rates: Optional[dict] = None
 
 
 class MemoryBackend(ABC):

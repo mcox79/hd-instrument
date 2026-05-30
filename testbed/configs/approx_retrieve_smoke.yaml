@@ -1,0 +1,22 @@
+# Smoke config for approx_retrieve_sweep: tiny N=512, complete in <60s.
+
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_C: 2048
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+approx_M: 256
+approx_n_queries: 100
+approx_op_recall_target: 0.85
+approx_sample_fracs: [1.0, 0.5, 0.3, 0.2, 0.1, 0.05]
+
+seeds: [7]
+
+backends: [substrate]
+scenarios:
+  - approx_retrieve_sweep
+
+out_root: testbed_data/benchmarks

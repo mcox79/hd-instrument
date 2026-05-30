@@ -45,6 +45,8 @@ _SCENARIO_NAMES = [
     "hot_path_skew",
     "mixed_crud_workload",
     "large_N_envelope",
+    "approx_retrieve_sweep",
+    "multi_signal_kf1",
 ]
 
 

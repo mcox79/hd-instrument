@@ -128,6 +128,14 @@ class SubstrateMemory(MemoryBackend):
         self._used_key_rows: set[int] = set()
         self._used_value_rows: set[int] = set()
 
+        # Path-15: running statistic for the median stored-response norm.
+        # Set lazily by _compute_hallu_signals if there are stored items.
+        # None until at least one fact has been written.
+        self._median_stored_response_norm: Optional[float] = None
+        # Sample budget for the median estimator; cached for one retrieve
+        # cycle then re-sampled when registry size changes by >25%.
+        self._median_norm_n_items: int = 0
+
     # --- helpers --------------------------------------------------------------
 
     def _atom_for_key_id(self, key_id: str, key_vec: Optional[np.ndarray] = None) -> int:
@@ -209,6 +217,165 @@ class SubstrateMemory(MemoryBackend):
         sims = self.codebook @ q  # (C,)
         return int(torch.argmax(sims).item())
 
+    # --- Path-15: multi-signal hallucination detection -----------------------
+
+    def _refresh_median_stored_response_norm(self) -> None:
+        """Estimate median ||W @ stored_key_atom|| over current stored items.
+
+        Cached on the instance. Recomputed when the stored-item count drifts
+        by more than 25% from the last sample, or when invalidated by edit/
+        delete. Uses a stratified sample of up to 64 items for cost.
+        """
+        n_items = len(self.key_registry)
+        if n_items == 0:
+            self._median_stored_response_norm = None
+            self._median_norm_n_items = 0
+            return
+        # Stratified sample: deterministic order by insertion.
+        all_ids = list(self.key_registry.keys())
+        if len(all_ids) > 64:
+            step = max(1, len(all_ids) // 64)
+            sampled = all_ids[::step][:64]
+        else:
+            sampled = all_ids
+        rows = [self.key_registry[k] for k in sampled]
+        atoms = self.codebook[rows]  # (n_sample, N)
+        # Batched responses: (n_sample, N) = atoms @ W.T
+        resps = atoms @ self.W.T  # (n_sample, N)
+        norms = torch.linalg.norm(resps, dim=1)  # (n_sample,)
+        self._median_stored_response_norm = float(torch.median(norms).item())
+        self._median_norm_n_items = n_items
+
+    def _compute_hallu_signals(
+        self,
+        q_atom: torch.Tensor,
+        response: torch.Tensor,
+        P: torch.Tensor,
+    ) -> dict:
+        """Compute Path-15 multi-signal hallucination detection dict.
+
+        Inputs:
+            q_atom:   (N,) codebook atom the query snapped to.
+            response: (N,) substrate response W @ q_atom.
+            P:        (C,) softmax over codebook similarities.
+
+        Returns a dict with 4 individual flags, the composite_flag,
+        composite_score (heuristic weighting, NOT derived), and the raw
+        signals for downstream auditing. Composite weights are documented
+        in the scenario; they are a starting heuristic and should be
+        re-tuned per-deployment if the scenario shows drift.
+        """
+        # Signal (a): posterior entropy via max_prob * C threshold (existing
+        # KF-1 convention preserved bit-for-bit).
+        max_prob = float(P.max().item())
+        posterior_entropy_flag = bool((max_prob * self.C) < 50.0)
+
+        # Signal (b): bundle-norm signature. Low norm => no stored fact
+        # activated => probably OOS.
+        response_norm = float(torch.linalg.norm(response).item())
+        if (self._median_stored_response_norm is None
+                or self._median_norm_n_items == 0
+                or abs(len(self.key_registry) - self._median_norm_n_items)
+                / max(1, self._median_norm_n_items) > 0.25):
+            self._refresh_median_stored_response_norm()
+        med = self._median_stored_response_norm
+        if med is None or med <= 0.0:
+            # Empty store: no notion of "low" norm. Default to non-firing.
+            low_norm_flag = False
+        else:
+            low_norm_flag = bool(response_norm < med * 0.5)
+
+        # Signal (c): spectral concentration via top-2 ratio. Spread mass
+        # across the codebook (ambiguous) => probably OOS.
+        # Sort the top 2 P values cheaply via topk.
+        top2 = torch.topk(P, 2)
+        top2_vals = top2.values.tolist()
+        if len(top2_vals) >= 2:
+            concentration_ratio = float(
+                top2_vals[0] / (top2_vals[1] + 1e-9)
+            )
+        else:
+            concentration_ratio = float("inf")
+        low_concentration_flag = bool(concentration_ratio < 2.0)
+
+        # Signal (d): geometric distance to nearest stored key atom.
+        # min_dist = 1 - max cosine over stored key atoms.
+        if self.key_registry:
+            stored_rows = list(self._used_key_rows)
+            stored_atoms = self.codebook[stored_rows]  # (n_stored, N)
+            # Cosine: stored_atoms @ q_atom / (||stored_atoms|| * ||q_atom||).
+            # All atoms have the same norm sqrt(N) for BSC (+/-1 entries) and
+            # roughly the same for gaussian, so we still use a proper cosine
+            # to stay generic across codebook kinds.
+            q_norm = float(torch.linalg.norm(q_atom).item())
+            sa_norms = torch.linalg.norm(stored_atoms, dim=1)
+            denom = sa_norms * max(q_norm, 1e-9)
+            denom = torch.where(denom > 0.0, denom, torch.ones_like(denom))
+            cos_sims = (stored_atoms @ q_atom) / denom
+            max_cos = float(cos_sims.max().item())
+            min_dist_to_stored = float(1.0 - max_cos)
+        else:
+            min_dist_to_stored = 1.0
+        high_distance_flag = bool(min_dist_to_stored > 0.5)
+
+        # Composite: at least 2 of the 4 individual flags fire.
+        flags_list = [
+            posterior_entropy_flag,
+            low_norm_flag,
+            low_concentration_flag,
+            high_distance_flag,
+        ]
+        n_fired = sum(1 for f in flags_list if f)
+        composite_flag = bool(n_fired >= 2)
+
+        # Composite score: heuristic weighted sum (NOT derived). Each
+        # component is mapped to a [0, 1] strength prior to weighting so
+        # the score is interpretable on a 0..1 scale.
+        # - posterior strength: clipped 50 / (max_prob * C) ... rises to 1
+        #   exactly at the flag boundary, saturates at 1 below.
+        # - low_norm strength: clipped 1 - response_norm / median. 1 when
+        #   response is zero, 0 when response matches typical magnitude.
+        # - low_concentration strength: clipped 1 - (concentration_ratio
+        #   - 1) / (2 - 1). 1 when concentration_ratio==1, 0 at ==2.
+        # - high_distance strength: min_dist_to_stored mapped to [0, 1]
+        #   via clip.
+        post_strength = 0.0
+        if max_prob > 0.0:
+            post_strength = min(1.0, 50.0 / (max_prob * self.C + 1e-9))
+        if med is not None and med > 0.0:
+            low_norm_strength = max(0.0, min(1.0, 1.0 - response_norm / med))
+        else:
+            low_norm_strength = 0.0
+        if concentration_ratio <= 1.0:
+            low_conc_strength = 1.0
+        elif concentration_ratio >= 2.0:
+            low_conc_strength = 0.0
+        else:
+            low_conc_strength = max(0.0, min(1.0, 2.0 - concentration_ratio))
+        high_dist_strength = max(0.0, min(1.0, min_dist_to_stored))
+        composite_score = float(
+            0.4 * post_strength
+            + 0.3 * low_norm_strength
+            + 0.2 * low_conc_strength
+            + 0.1 * high_dist_strength
+        )
+
+        return {
+            "posterior_entropy_flag": posterior_entropy_flag,
+            "low_norm_flag": low_norm_flag,
+            "low_concentration_flag": low_concentration_flag,
+            "high_distance_flag": high_distance_flag,
+            "composite_flag": composite_flag,
+            "composite_score": composite_score,
+            "response_norm": response_norm,
+            "median_stored_response_norm": (
+                float(med) if med is not None else None
+            ),
+            "concentration_ratio": concentration_ratio,
+            "min_dist_to_stored": min_dist_to_stored,
+            "max_prob": max_prob,
+        }
+
     # --- ABC implementation ---------------------------------------------------
 
     def store(self, key_id: str, key_vec: np.ndarray, value: str) -> None:
@@ -284,6 +451,8 @@ class SubstrateMemory(MemoryBackend):
                 top_k_ids.append(stored_ids_order[idx])
                 top_k_scores.append(float(scores[idx].item()))
 
+        hallu_signals = self._compute_hallu_signals(q_atom, response, P)
+
         return RetrievalResult(
             key_id=matching_key_id,
             value=value,
@@ -292,7 +461,256 @@ class SubstrateMemory(MemoryBackend):
             distance=None,
             top_k_ids=top_k_ids,
             top_k_scores=top_k_scores,
+            hallu_signals=hallu_signals,
         )
+
+    # --- Approximate retrieval (Path 5: random column sampling) --------------
+
+    def retrieve_approx(
+        self,
+        query_vec: np.ndarray,
+        sample_frac: float = 0.2,
+        k: int = 1,
+        seed: Optional[int] = None,
+    ) -> RetrievalResult:
+        """Approximate retrieve via uniform random sampling of W columns.
+
+        Computes response_partial = W[:, cols] @ q_atom[cols] * (N / |cols|)
+        instead of the full W @ q_atom, where cols is a random subset of
+        size int(N * sample_frac) drawn from [0, N). At sample_frac=1.0 the
+        rescale is a no-op and the result is bit-identical to retrieve().
+
+        This is the Halko-Martinsson-Tropp randomized matrix-vector pattern:
+        an unbiased estimator of the full matvec whose variance scales as
+        1 / |cols|. Trades latency for a small recall hit on hot read paths.
+
+        seed: if provided, makes column selection reproducible. Otherwise a
+        per-call rng is seeded from time.perf_counter_ns(). At sample_frac
+        of 1.0, cols is the full range [0, N) regardless of seed (the
+        correctness-gate path).
+        """
+        if not (0.0 < sample_frac <= 1.0):
+            raise ValueError(
+                f"sample_frac must be in (0, 1]; got {sample_frac}"
+            )
+
+        q_row = self._snap_to_atom(query_vec)
+        q_atom = self.codebook[q_row]
+
+        if sample_frac >= 1.0:
+            # No-op path: bit-identical to retrieve(). Skip sampling entirely.
+            response = self.W @ q_atom
+            n_sampled = self.N
+        else:
+            n_sampled = max(1, int(self.N * sample_frac))
+            if seed is None:
+                rng = np.random.default_rng(time.perf_counter_ns() & 0xFFFFFFFF)
+            else:
+                rng = np.random.default_rng(int(seed))
+            cols_np = rng.choice(self.N, size=n_sampled, replace=False)
+            cols_t = torch.as_tensor(cols_np, dtype=torch.long, device=self.device)
+            # Sub-matvec: (N, S) @ (S,) = (N,). Rescale to preserve magnitude.
+            W_sub = self.W.index_select(1, cols_t)  # (N, S)
+            q_sub = q_atom.index_select(0, cols_t)  # (S,)
+            response = (W_sub @ q_sub) * (self.N / float(n_sampled))
+
+        sims = (self.codebook @ response) / self.N  # (C,)
+        P = torch.softmax(self.beta * sims, dim=0)  # (C,)
+
+        argmax_row = int(torch.argmax(P).item())
+        max_prob = float(P[argmax_row].item())
+
+        # Same reverse-lookup + tie-break logic as retrieve().
+        matching_key_id: Optional[str] = None
+        candidates = [
+            kid for kid, vrow in self.value_atom_registry.items()
+            if vrow == argmax_row
+        ]
+        if candidates:
+            if len(candidates) == 1:
+                matching_key_id = candidates[0]
+            else:
+                key_rows = [self.key_registry[c] for c in candidates]
+                key_atoms = self.codebook[key_rows]
+                k_sims = key_atoms @ q_atom
+                best = int(torch.argmax(k_sims).item())
+                matching_key_id = candidates[best]
+
+        value = self.value_registry.get(matching_key_id) if matching_key_id else None
+        near_uniform = (max_prob * self.C) < 50.0
+
+        top_k_ids: list[str] = []
+        top_k_scores: list[float] = []
+        stored_ids_order = list(self.key_registry.keys())
+        if stored_ids_order:
+            stored_v_rows = [self.value_atom_registry[k] for k in stored_ids_order]
+            scores = P[stored_v_rows]
+            order = torch.argsort(scores, descending=True)
+            take = min(max(k, 1), len(stored_ids_order))
+            for idx in order[:take].tolist():
+                top_k_ids.append(stored_ids_order[idx])
+                top_k_scores.append(float(scores[idx].item()))
+
+        result = RetrievalResult(
+            key_id=matching_key_id,
+            value=value,
+            confidence=max_prob,
+            near_uniform_flag=bool(near_uniform),
+            distance=None,
+            top_k_ids=top_k_ids,
+            top_k_scores=top_k_scores,
+        )
+        # Annotate sampling actually used for the harness. RetrievalResult is
+        # a frozen-ish dataclass but we can attach metadata via setattr; the
+        # harness reads this via getattr(..., "sampling_used", None).
+        setattr(result, "sampling_used", {
+            "sample_frac": float(sample_frac),
+            "n_sampled": int(n_sampled),
+            "N": int(self.N),
+        })
+        return result
+
+    def retrieve_batch_approx(
+        self,
+        query_vecs: np.ndarray,
+        sample_frac: float = 0.2,
+        k: int = 1,
+        seed: Optional[int] = None,
+    ) -> list[RetrievalResult]:
+        """Batched form of retrieve_approx.
+
+        One column-subset is shared across the whole batch (the variance of
+        the randomized matvec is independent across queries given the same
+        cols; sharing keeps the matmul fused). Bit-identical to
+        retrieve_batch() at sample_frac=1.0.
+        """
+        q_arr = np.asarray(query_vecs)
+        if q_arr.ndim != 2:
+            raise ValueError(
+                f"retrieve_batch_approx: query_vecs must be 2-D (B, N); got {q_arr.shape}"
+            )
+        if q_arr.shape[1] != self.N:
+            raise ValueError(
+                f"retrieve_batch_approx: query dim {q_arr.shape[1]} != N={self.N}"
+            )
+        if not (0.0 < sample_frac <= 1.0):
+            raise ValueError(
+                f"sample_frac must be in (0, 1]; got {sample_frac}"
+            )
+
+        B = q_arr.shape[0]
+        if B == 0:
+            return []
+
+        Q = torch.as_tensor(q_arr, dtype=torch.float32, device=self.device)
+        snap_sims = Q @ self.codebook.T
+        snap_rows = torch.argmax(snap_sims, dim=1)
+        Q_atoms = self.codebook[snap_rows]  # (B, N)
+
+        if sample_frac >= 1.0:
+            responses = self.W @ Q_atoms.T  # (N, B)
+            n_sampled = self.N
+        else:
+            n_sampled = max(1, int(self.N * sample_frac))
+            if seed is None:
+                rng = np.random.default_rng(time.perf_counter_ns() & 0xFFFFFFFF)
+            else:
+                rng = np.random.default_rng(int(seed))
+            cols_np = rng.choice(self.N, size=n_sampled, replace=False)
+            cols_t = torch.as_tensor(cols_np, dtype=torch.long, device=self.device)
+            W_sub = self.W.index_select(1, cols_t)  # (N, S)
+            Q_sub = Q_atoms.index_select(1, cols_t)  # (B, S)
+            responses = (W_sub @ Q_sub.T) * (self.N / float(n_sampled))  # (N, B)
+
+        sims = (self.codebook @ responses) / self.N  # (C, B)
+        P = torch.softmax(self.beta * sims, dim=0)  # (C, B)
+
+        argmax_rows = torch.argmax(P, dim=0)  # (B,)
+        max_probs = P.gather(0, argmax_rows.unsqueeze(0)).squeeze(0)
+
+        reverse_v: dict[int, list[str]] = {}
+        for kid, vrow in self.value_atom_registry.items():
+            reverse_v.setdefault(int(vrow), []).append(kid)
+
+        stored_ids_order = list(self.key_registry.keys())
+        stored_v_rows_t: Optional[torch.Tensor] = None
+        if stored_ids_order:
+            stored_v_rows_t = torch.tensor(
+                [self.value_atom_registry[kk] for kk in stored_ids_order],
+                device=self.device,
+                dtype=torch.long,
+            )
+
+        argmax_rows_cpu = argmax_rows.detach().cpu().tolist()
+        max_probs_cpu = max_probs.detach().cpu().tolist()
+
+        all_scores = P[stored_v_rows_t] if stored_v_rows_t is not None else None
+        take_k = max(int(k), 1)
+        if all_scores is not None and stored_ids_order:
+            if take_k == 1:
+                top1_idx = torch.argmax(all_scores, dim=0)
+                top1_idx_cpu = top1_idx.detach().cpu().tolist()
+                top1_score = all_scores.gather(0, top1_idx.unsqueeze(0)).squeeze(0)
+                top1_score_cpu = top1_score.detach().cpu().tolist()
+            else:
+                topk_take = min(take_k, len(stored_ids_order))
+                vals_t, idx_t = torch.topk(all_scores, topk_take, dim=0)
+                vals_cpu = vals_t.detach().cpu().tolist()
+                idx_cpu = idx_t.detach().cpu().tolist()
+
+        results: list[RetrievalResult] = []
+        c_thresh = 50.0 / self.C
+        for b in range(B):
+            argmax_row = int(argmax_rows_cpu[b])
+            max_prob = float(max_probs_cpu[b])
+
+            matching_key_id: Optional[str] = None
+            candidates = reverse_v.get(argmax_row, [])
+            if candidates:
+                if len(candidates) == 1:
+                    matching_key_id = candidates[0]
+                else:
+                    key_rows = [self.key_registry[c] for c in candidates]
+                    key_atoms = self.codebook[key_rows]
+                    k_sims = key_atoms @ Q_atoms[b]
+                    best = int(torch.argmax(k_sims).item())
+                    matching_key_id = candidates[best]
+
+            value = (
+                self.value_registry.get(matching_key_id)
+                if matching_key_id else None
+            )
+            near_uniform = max_prob < c_thresh
+
+            top_k_ids: list[str] = []
+            top_k_scores: list[float] = []
+            if all_scores is not None and stored_ids_order:
+                if take_k == 1:
+                    ti = int(top1_idx_cpu[b])
+                    top_k_ids.append(stored_ids_order[ti])
+                    top_k_scores.append(float(top1_score_cpu[b]))
+                else:
+                    for kk2 in range(len(vals_cpu)):
+                        ti = int(idx_cpu[kk2][b])
+                        top_k_ids.append(stored_ids_order[ti])
+                        top_k_scores.append(float(vals_cpu[kk2][b]))
+
+            r = RetrievalResult(
+                key_id=matching_key_id,
+                value=value,
+                confidence=max_prob,
+                near_uniform_flag=bool(near_uniform),
+                distance=None,
+                top_k_ids=top_k_ids,
+                top_k_scores=top_k_scores,
+            )
+            setattr(r, "sampling_used", {
+                "sample_frac": float(sample_frac),
+                "n_sampled": int(n_sampled),
+                "N": int(self.N),
+            })
+            results.append(r)
+        return results
 
     # --- Batched ABC overrides -----------------------------------------------
 
@@ -506,6 +924,36 @@ class SubstrateMemory(MemoryBackend):
                 vals_t, idx_t = torch.topk(all_scores, topk_take, dim=0)
                 vals_cpu = vals_t.detach().cpu().tolist()
                 idx_cpu = idx_t.detach().cpu().tolist()
+
+        # Path-15: batched multi-signal hallu detection.
+        # response_norm per query: (B,) = ||responses[:, b]||
+        resp_norms_t = torch.linalg.norm(responses, dim=0)  # (B,)
+        resp_norms_cpu = resp_norms_t.detach().cpu().tolist()
+        # top-2 concentration ratio per query.
+        top2_b = torch.topk(P, 2, dim=0)
+        top2_vals_b = top2_b.values  # (2, B)
+        top2_cpu = top2_vals_b.detach().cpu().tolist()
+        # high_distance per query: cosine over stored key atoms.
+        if self.key_registry:
+            stored_key_rows = list(self._used_key_rows)
+            stored_key_atoms = self.codebook[stored_key_rows]  # (n_stored, N)
+            q_norms_b = torch.linalg.norm(Q_atoms, dim=1)  # (B,)
+            sa_norms = torch.linalg.norm(stored_key_atoms, dim=1)  # (n_stored,)
+            denom = sa_norms.unsqueeze(1) * q_norms_b.unsqueeze(0).clamp_min(1e-9)
+            denom = torch.where(denom > 0.0, denom, torch.ones_like(denom))
+            cos_b = (stored_key_atoms @ Q_atoms.T) / denom  # (n_stored, B)
+            max_cos_b = cos_b.max(dim=0).values  # (B,)
+            min_dist_b = (1.0 - max_cos_b).detach().cpu().tolist()
+        else:
+            min_dist_b = [1.0] * B
+        # Ensure median is fresh once for the whole batch.
+        if (self._median_stored_response_norm is None
+                or self._median_norm_n_items == 0
+                or abs(len(self.key_registry) - self._median_norm_n_items)
+                / max(1, self._median_norm_n_items) > 0.25):
+            self._refresh_median_stored_response_norm()
+        med = self._median_stored_response_norm
+
         results: list[RetrievalResult] = []
         c_thresh = 50.0 / self.C
 
@@ -544,6 +992,68 @@ class SubstrateMemory(MemoryBackend):
                         top_k_ids.append(stored_ids_order[ti])
                         top_k_scores.append(float(vals_cpu[kk2][b]))
 
+            # Path-15: per-query multi-signal panel.
+            posterior_entropy_flag = bool((max_prob * self.C) < 50.0)
+            response_norm = float(resp_norms_cpu[b])
+            if med is None or med <= 0.0:
+                low_norm_flag = False
+                low_norm_strength = 0.0
+            else:
+                low_norm_flag = bool(response_norm < med * 0.5)
+                low_norm_strength = max(
+                    0.0, min(1.0, 1.0 - response_norm / med)
+                )
+            t0v = float(top2_cpu[0][b])
+            t1v = float(top2_cpu[1][b]) if len(top2_cpu) > 1 else 0.0
+            concentration_ratio = float(t0v / (t1v + 1e-9))
+            low_concentration_flag = bool(concentration_ratio < 2.0)
+            if concentration_ratio <= 1.0:
+                low_conc_strength = 1.0
+            elif concentration_ratio >= 2.0:
+                low_conc_strength = 0.0
+            else:
+                low_conc_strength = max(
+                    0.0, min(1.0, 2.0 - concentration_ratio)
+                )
+            min_dist_val = float(min_dist_b[b])
+            high_distance_flag = bool(min_dist_val > 0.5)
+            high_dist_strength = max(0.0, min(1.0, min_dist_val))
+            post_strength = 0.0
+            if max_prob > 0.0:
+                post_strength = min(1.0, 50.0 / (max_prob * self.C + 1e-9))
+            n_fired = sum(
+                1
+                for f in (
+                    posterior_entropy_flag,
+                    low_norm_flag,
+                    low_concentration_flag,
+                    high_distance_flag,
+                )
+                if f
+            )
+            composite_flag = bool(n_fired >= 2)
+            composite_score = float(
+                0.4 * post_strength
+                + 0.3 * low_norm_strength
+                + 0.2 * low_conc_strength
+                + 0.1 * high_dist_strength
+            )
+            hallu_signals = {
+                "posterior_entropy_flag": posterior_entropy_flag,
+                "low_norm_flag": low_norm_flag,
+                "low_concentration_flag": low_concentration_flag,
+                "high_distance_flag": high_distance_flag,
+                "composite_flag": composite_flag,
+                "composite_score": composite_score,
+                "response_norm": response_norm,
+                "median_stored_response_norm": (
+                    float(med) if med is not None else None
+                ),
+                "concentration_ratio": concentration_ratio,
+                "min_dist_to_stored": min_dist_val,
+                "max_prob": max_prob,
+            }
+
             results.append(
                 RetrievalResult(
                     key_id=matching_key_id,
@@ -553,6 +1063,7 @@ class SubstrateMemory(MemoryBackend):
                     distance=None,
                     top_k_ids=top_k_ids,
                     top_k_scores=top_k_scores,
+                    hallu_signals=hallu_signals,
                 )
             )
         return results
@@ -698,6 +1209,8 @@ class SubstrateMemory(MemoryBackend):
 
         kf1_above = None
         kf1_mean_max = None
+        kf1_composite_fire_rate: Optional[float] = None
+        kf1_per_signal_fire_rates: Optional[dict] = None
         if n_items > 0 and free_rows:
             n_oos_use = min(n_oos, len(free_rows))
             perm = torch.randperm(len(free_rows), generator=rng).tolist()
@@ -710,6 +1223,63 @@ class SubstrateMemory(MemoryBackend):
             max_confs = P.max(dim=1).values  # (n_oos,)
             kf1_above = float((max_confs >= self.hallu_threshold).float().mean().item())
             kf1_mean_max = float(max_confs.mean().item())
+
+            # Path-15 multi-signal panel on the same OOS sample.
+            # Refresh median stored response norm so the bundle-norm threshold
+            # reflects the current store state.
+            self._refresh_median_stored_response_norm()
+            med = self._median_stored_response_norm
+
+            # response_norm per oos query: ||resp[i, :]||
+            resp_norms_oos = torch.linalg.norm(resp, dim=1)
+            # top-2 concentration per query
+            top2_oos = torch.topk(P, 2, dim=1)
+            top2_vals_oos = top2_oos.values  # (n_oos, 2)
+            conc_oos = top2_vals_oos[:, 0] / (top2_vals_oos[:, 1] + 1e-9)
+            # high distance per query: min over stored
+            if self.key_registry:
+                stored_key_rows = list(self._used_key_rows)
+                stored_key_atoms = self.codebook[stored_key_rows]
+                q_norms_oos = torch.linalg.norm(oos_atoms, dim=1)
+                sa_norms = torch.linalg.norm(stored_key_atoms, dim=1)
+                denom = sa_norms.unsqueeze(0) * q_norms_oos.unsqueeze(1).clamp_min(1e-9)
+                denom = torch.where(denom > 0.0, denom, torch.ones_like(denom))
+                cos_oos = (oos_atoms @ stored_key_atoms.T) / denom  # (n_oos, n_stored)
+                max_cos_oos = cos_oos.max(dim=1).values
+                min_dist_oos = 1.0 - max_cos_oos
+            else:
+                min_dist_oos = torch.ones(n_oos_use)
+
+            posterior_flag_oos = (max_confs * self.C) < 50.0
+            if med is None or med <= 0.0:
+                low_norm_flag_oos = torch.zeros_like(posterior_flag_oos)
+            else:
+                low_norm_flag_oos = resp_norms_oos < (med * 0.5)
+            low_conc_flag_oos = conc_oos < 2.0
+            high_dist_flag_oos = min_dist_oos > 0.5
+
+            n_fired_oos = (
+                posterior_flag_oos.int()
+                + low_norm_flag_oos.int()
+                + low_conc_flag_oos.int()
+                + high_dist_flag_oos.int()
+            )
+            composite_flag_oos = n_fired_oos >= 2
+            kf1_composite_fire_rate = float(
+                composite_flag_oos.float().mean().item()
+            )
+            kf1_per_signal_fire_rates = {
+                "posterior_entropy": float(
+                    posterior_flag_oos.float().mean().item()
+                ),
+                "low_norm": float(low_norm_flag_oos.float().mean().item()),
+                "low_concentration": float(
+                    low_conc_flag_oos.float().mean().item()
+                ),
+                "high_distance": float(
+                    high_dist_flag_oos.float().mean().item()
+                ),
+            }
 
         # --- KF-2: edit-isolation panel --------------------------------------
         kf2_max_iso = None
@@ -810,6 +1380,8 @@ class SubstrateMemory(MemoryBackend):
                 "hallu_threshold": self.hallu_threshold,
                 "seed": self.seed,
             },
+            kf1_composite_fire_rate=kf1_composite_fire_rate,
+            kf1_per_signal_fire_rates=kf1_per_signal_fire_rates,
         )
 
     # --- persistence ----------------------------------------------------------
