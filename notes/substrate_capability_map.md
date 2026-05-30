@@ -18914,3 +18914,223 @@ Non-eq-stat-mech 73-83%, SKAH-M 60-75%, substrate-outside-static-Hopfield 64-75%
 Commit message stored below.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+## v283 -> v284 -- 2026-05-30 BATCHED 9-VERDICT F-batch envelope LIFTs + Op A/C/D-filter/F + instrumentation rescues; verdict_handler dispatched
+
+**Trigger.** 9 verdicts landed from F-batch shipped at commit ad30514 (envelope lift v2 anchors for sparse_w + continuous_output + tensor_factorized + n_scaling + gpu_baseline rescues; Op A linear-combination; Op C codebook-projection-identity-P; Op D top-K filter rescue; Op F commutator probe). User PAUSED mid-batch then RESUMED; F2 tensor_factorized was user-killed (NO_METRICS pause-action artifact, NOT runner crash). Pause-flag ABSENT at processing time; user explicit NO auto-refill -- orchestrator surfaces next-batch options to user after commit.
+
+### Step 0 honest re-read (9 verdicts; 0 NEW LABEL-VS-HONEST CATCHES; 1 HONEST-PARTIAL-NUANCE on TopK; 1 USER-KILLED treated as INTERRUPTED)
+
+#### Anchor F1 -- sparse_w_active_subspace_envelope_v2_n4096 (SPE_HARD_PASS) -- HONEST CONFIRMED with envelope-coverage check
+
+**Label vs metrics.** verdict_msg "SPARSE_HOLDS_ACROSS_ENVELOPE: hp_seeds=5/5 hf_seeds=0/5 n_cells=30". Per-cell via remote-bridge: 30 cells = M in {128, 512, 1024, 2048, 4096, 8192} x 5 seeds; ALL 30 cells sparse_retention=1.000 AND kf2_max_iso=0.000.
+
+**Honest reading.** v1 envelope max was M=N/4=1024 with "sub-capacity caveat"; v2 EXTENDS to M=8192=2N. Per v283 m_c_probe at beta=4, M_c is roughly 16K-20K = 4-5x N -- so v2 now covers UP TO and INCLUDING the approach-band before M_c. At M=8192=2N substrate still ret=1.000 cleanly across 5 seeds. This is a SUBSTANTIAL envelope expansion. CAVEAT: M=8192 is approaching but NOT past M_c=16-20K -- the FULL beat-M_c envelope still untested. Label HONEST as worded.
+
+**Decision.** SPARSE-W ENVELOPE LIFT confirmed. The v283 sub-capacity caveat is RESOLVED for M up to 2N. Row LIFT: Sparse-W active-subspace storage 🟢 0.40-0.55 -> 🟢 0.55-0.70 (+15% lower bound; +15% upper bound). Honest mid-bound centred at 0.62. NOT a 0.60-0.75 LIFT because the test ceiling at M=8192=2N still sits BELOW M_c=4-5x N -- the highest-capacity regime remains untested (and is where v283 m_c_probe shows ret drops to 0.475 in dense baseline; if sparse-W mechanism beat M_c that would be a STRUCTURAL beat warranting 0.75+ LIFT, but v2 does not probe that regime). Capacity-extension path STRENGTHENED but not capacity-beat-confirmed.
+
+#### Anchor F3 -- gpu_acceleration_baseline_rescue_v2_n4096 (GPU_R_HARD_PASS) -- HONEST CONFIRMED with single-N caveat
+
+**Label vs metrics.** verdict_msg "GPU_FAST_AND_CLEAN: mean_query_speedup_at_N4096=22.67x gpu_op_failures_at_topN=0/3 N=4096_seed7:q_speedup=8.4x N=4096_seed17:q_speedup=26.4x N=4096_seed23:q_speedup=33.3x". Per-cell remote: 6 N=4096 cells (3 seeds x cpu+cuda); ALL 5 ops (store, query, edit, retention, max_iso) succeed cleanly on both devices in all 3 cuda cells. ZERO ops_failed. N=2048 cells fail build (script-precondition: requires even log2(N); n=2048 has log2=11 ODD -- expected exclusion not GPU failure).
+
+**Honest reading.** Label HONEST AS WORDED. STRONG single-N CAVEAT: 3-seed at N=4096 only; N=8192+ untested (v1 scope was N=8192 but reduced in v2 to N=4096). Mean query speedup 22.67x with per-seed spread [8.4x, 26.4x, 33.3x] is WIDE (4x spread across seeds). The 8.4x bottom-of-range still beats 1x baseline meaningfully, but the wide spread suggests warmup or kernel-fusion variance dominates the GPU edge. Operational baseline cleanly demonstrated; magnitude has meaningful uncertainty.
+
+**Decision.** NEW CANDIDATE ROW: "substrate-GPU operational baseline" 🟢 P=0.65-0.80 (single-anchor 3-seed at N=4096 only; mean speedup 22.67x with wide per-seed spread). Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis P deflated 0.15 (GPU matmul speedup is well-known mechanism; novelty is in clean substrate-on-GPU op-set rather than the speedup itself); per [[feedback-no-padding-experiments]] explicit single-N caveat. N=8192 + larger seed-count required before further LIFT. **Strategic implication**: validates msg-2 "centralized-deployment latency gap with vector databases" closure path (which user canceled but the strategic question survives) -- GPU-accelerated substrate retrieval is operationally clean at N=4096.
+
+#### Anchor F4 -- linear_combination_substrates_v1_n4096 (LC_HARD_PASS) -- HONEST CONFIRMED with strategic-vs-feasibility separation
+
+**Label vs metrics.** verdict_msg "COMBINATIONS_WORK_BOTH_MODES: mode_pass={'uniform': 5, 'weighted': 5} mode_hf={'uniform': 0, 'weighted': 0} n_cells=10". Per-cell remote: 5 seeds x 2 modes (uniform, weighted) = 10 cells; per_substrate_accuracy=1.000 for all 3 source substrates in all 10 cells; mean_interference=0.000.
+
+**Honest reading.** Label HONEST AS WORDED. Op A feasibility CONFIRMED -- linear combinations W = sum_i alpha_i W_i retrieve correct facts from each source substrate. PER USER MSG-1 CAVEAT: "likely not different from store-everything-in-one-large-substrate". Mathematical feasibility is NOT strategic advantage; storage consolidation may equal or exceed combined-substrate functionality for production use cases.
+
+**Decision.** NEW CANDIDATE ROW: "Op A linear-combination-of-substrates" 🟢 P=0.50-0.65 (single-anchor 5-seed clean both modes; feasibility-clean). Annotation separately: STRATEGIC VALUE UNDETERMINED -- linear-combination is mathematically clean but production may prefer consolidated single-substrate-with-tagged-domains; strategic value question REQUIRES separate evidence (compositional benefit vs consolidation cost). Per [[feedback-dont-overextend-theorems]] this is a FEASIBILITY confirmation NOT a strategic-advantage confirmation. Per [[feedback-lit-scan-calibration-penalty]] P capped at 0.65 (mechanism is well-understood linear algebra).
+
+#### Anchor F5 -- continuous_output_substrate_envelope_v2_n4096 (CONT_ENV_MIDDLE_BAND) -- HONEST + v283 LIFT REVISION REQUIRED
+
+**Label vs metrics.** verdict_msg "PARTIAL: M_cell_pass={512: 1, 2048: 1, 8192: 0, 16384: 0} M_cell_hf={512: 0, 2048: 0, 8192: 0, 16384: 0} n_M_pass=2/4 n_M_hf=0/4". Per-cell remote (5 seeds at each M):
+- M=512 (N/8): interp_cosine=[0.95589-0.95674] hallu_AUC=1.000 argmax=1.000 iso=0.000 -- 5/5 PERFECT
+- M=2048 (N/2): interp_cosine=[0.85245-0.85341] hallu_AUC=1.000 argmax=1.000 iso=0.000 -- 5/5 acceptable
+- M=8192 (2N): interp_cosine=[0.63093-0.63376] hallu_AUC=1.000 argmax=1.000 iso=0.000 -- DEGRADED but hallu/argmax still clean
+- M=16384 (4N): interp_cosine=[0.49871-0.50293] hallu_AUC=0.503 argmax=1.000 iso=0.000 -- COLLAPSED to random hallu_AUC
+
+**Honest reading.** Label HONEST AS WORDED. The v283 row LIFT (geometric-generalization Path 2 🔬 0.45 -> 🟢 0.55-0.65) was based on the M=N/8 perfect score with explicit envelope-caveat. v2 reveals SHARP M-degradation in the interp_cosine metric (0.957 -> 0.853 -> 0.633 -> 0.499 as M increases by 8x). At M=4N (16384), interp_cosine~0.5 = random; hallu_AUC=0.503 = random. The continuous-output property HOLDS only at sub-capacity (M <= 2N for argmax/hallu; M <= N/2 for interp_cos near 1.0). v283 LIFT was M-regime-specific; v2 reveals the regime is BOUNDED ABOVE.
+
+**Decision.** v283 LIFT must be REVISED DOWN. Row revision: geometric-generalization Path 2 (continuous-output) 🟢 0.55-0.65 -> 🟢 0.45-0.60 (-10% lower bound; -5% upper bound). The mid-bound 0.525 reflects: empirical Path 2 holds at sub-capacity but degrades sharply above M=N/2; substrate is continuous-output ONLY at lower-loading; high-capacity regime is interpolation-degraded. EXPLICIT NEW ANNOTATION on row: "continuous-output substrate path holds for M <= N/2 in interp metric AND M <= 2N in hallu/argmax metrics; degrades sharply above; high-capacity regime requires separate row or design change." Per [[feedback-dont-overextend-theorems]] this is a REFINEMENT of the v283 LIFT not a closure -- mechanism still works at the operating regime; only the breadth of claim is bounded.
+
+#### Anchor F6 -- superposition_top_k_filter_v1_n4096 (TOPK_MIDDLE_BAND) -- HONEST WITH PARTIAL-vs-RETRIEVAL NUANCE
+
+**Label vs metrics.** verdict_msg "PARTIAL: some patterns clean, others not. per_pattern_pass={P1_uniform:5, P2_peaked:5, P3_random:3, P4_sparse:0}". Per-cell remote: 5 seeds x 4 patterns x K=10 components. Per_component_accuracy AND post-filter cross-talk:
+- P1_uniform: post_acc=[1.0]x5 post_xtalk_mean=0.000 -- PERFECT filter
+- P2_peaked: post_acc=[1.0]x5 post_xtalk_mean=0.000 -- PERFECT filter
+- P3_random: post_acc=[1.0]x5 post_xtalk_mean=0.054 -- partial filter (2/5 above threshold)
+- P4_sparse: post_acc=[1.0]x5 post_xtalk_mean=0.159 -- filter fails (5/5 above threshold)
+Pre-filter cross-talk for ALL patterns is 0.14-0.15; post-filter REDUCES to 0 for uniform/peaked, 0.054 for random, but is essentially UNCHANGED (0.15 -> 0.16) for sparse.
+
+**Honest reading.** Label HONEST but with IMPORTANT NUANCE the verdict_msg drops: **per_component_accuracy = 1.000 for ALL 20 cells INCLUDING all 5 P4_sparse cells**. Retrieval CORRECTNESS is unaffected by sparse-pattern cross-talk amplitude. The "fail" condition is a leakage-amplitude threshold (cross_talk < 0.10 gate) that does NOT impact retrieval correctness. For Op D Phase 2 two-hop ship: if the operational gate is RETRIEVAL ACCURACY (substrate retrieves the correct codeword), then top-K filter rescue is SUFFICIENT for all 4 patterns. If the operational gate is CROSS-TALK AMPLITUDE (substrate output has zero leakage on off-targets), then it is sufficient only for uniform/peaked. The TWO interpretations have different Phase 2 ship recommendations.
+
+**Decision.** Op D top-K-filter rescue OUTCOME nuanced: per_component_accuracy CLEAN across all patterns INCLUDING sparse; cross-talk-amplitude metric pattern-dependent. Op D row annotation refined: "top-K post-decomposition filter rescue: per_component_accuracy=1.000 for all 4 beta-patterns; cross_talk leakage clean for uniform/peaked (post_xtalk=0); partial for random (0.054); unchanged from pre-filter for sparse (0.16). Phase 2 two-hop ship: WARRANTED for uniform/peaked beta patterns (clean leakage); CONDITIONAL on operational-gate definition for random/sparse (warranted if retrieval-accuracy is the gate; not warranted if leakage-amplitude is the gate)." Per [[feedback-dont-overextend-theorems]] the cross-talk failure for sparse does NOT close Op D for sparse patterns -- the retrieval works; the leakage-metric does not clear amplitude threshold.
+
+#### Anchor F7 -- codebook_projection_kerdock_bsc_v1_n4096 (CBP_HARD_FAIL) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "NO_CROSS_CODEBOOK_COHERENCE: n_hp=0/5 n_hf=5/5 mean_cross=0.012 mean_within=1.000 mean_iso=0.0000". Per-seed: within_codebook_accuracy=1.000 in all 5 seeds; cross_codebook_accuracy in {0.0, 0.0156, 0.0, 0.0156, 0.0} mean=0.012; kf2_max_iso_on_W_B=0.000 in all 5.
+
+**Honest reading.** Label HONEST AS WORDED. Identity-P projection between Kerdock and BSC codebooks shows NEAR-ZERO cross-codebook coherence (0.012 ~= chance for 4096-dim signed binary). Within-codebook PERFECT (1.000). Mechanism: identity-P assumes Kerdock and BSC have aligned codeword structure, but they don't -- BSC = random {-1,+1}, Kerdock = Reed-Muller-derived. EXPECTED outcome per msg-1 caveat.
+
+**Decision.** Op C identity-P sub-path CLOSED-at-probe-level. **Op C ROW NOT CLOSED**: the substrate-physics-motivated non-trivial P that preserves substrate operations remains untested. Per [[feedback-dont-overextend-theorems]] closure scope is SPECIFICALLY "identity-P between Kerdock and BSC"; broader Op C question (does a substrate-preserving cross-codebook projection P exist) requires substrate-physics analytic argument -- NOT in scope of this anchor. Annotation: "Op C identity-P approach closes; substrate-physics analytic P remains unexplored; theory-drill prerequisite before reshipping". No row movement; annotation captures specific-design closure.
+
+#### Anchor F8 -- interference_patterns_commutator_v1_n4096 (INT_HARD_FAIL) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "NO_SEPARATION: conditions within +/-20%. means={'independent': 0.0191338, 'related': 0.0165798, 'contradictory': 0.019138} max/min=1.15x span_pct=0.154 n_cells=15 n_conditions=3". Per-seed: 5 seeds x 3 conditions = 15 cells; commutator_magnitudes tightly clustered around 0.017-0.019 with max/min=1.15x and span 15%.
+
+**Honest reading.** Label HONEST. Substrate commutators [W_A, W_B] = W_A W_B - W_B W_A are statistically INDISTINGUISHABLE across the 3 substrate-pair relationships at N=4096 M=256. Max-to-min ratio 1.15x sits well below the 2x HP separation gate.
+
+**Decision.** Op F commutator-based inconsistency detection CLOSED at probe level. Per msg-1 user caveat this was research-quality medium-probability test; closure is HONEST NEGATIVE. Per [[feedback-dont-overextend-theorems]] closure scope is SPECIFICALLY "commutator-based at N=4096 M=256 over 3 relationship conditions" -- broader Op F question (any operator-product-based inconsistency detection) remains open. Annotation: "Op F commutator HARD_FAIL: relationship distinctions not commutator-encoded at tested scale; alternate operator-form probes (anti-commutator, product-norm, eigenvalue-spread) remain untested." Row annotation only; no row creation since Op F was probe-level.
+
+#### Anchor F-runner -- n_scaling_modern_hopfield_rescue_v2_n16384 (NSCALE_R_INCONCLUSIVE) -- HONEST
+
+**Label vs metrics.** verdict_msg "No completed seeds." per_M empty in all 3 seeds.
+
+**Honest reading.** v2 rescue (reduced M-sweep + OOM-graceful instrumentation) STILL FAILS at 21s wall, no seeds completed. The v1 -> v2 fix didn't reach the actual failure mode. Instrumentation broken at v2 too -- substrate construction at N=16384 likely crashing before seed-loop entry.
+
+**Decision.** Modern-Hopfield N=16384 scaling test INSTRUMENTATION FAIL at v2. Per [[feedback-rehabilitation-after-rejection]] this is NOT a substrate-capability closure -- the test does not run. Rescue routing note filed for v3: substrate construction in isolation first; test single M; explicit memory tracking. NOT auto-dispatched per user no-refill directive.
+
+#### Anchor F2 -- tensor_factorized_w_envelope_v2_n4096 (NO_METRICS user-killed) -- INTERRUPTED
+
+**Label vs metrics.** No metrics on disk via remote bridge (get_metrics returned None). Per dispatch context: USER PAUSE ACTION killed F2 mid-run at ~10:30 ET. PROT-021 _seed_checkpoint helper should have salvageable partials on disk per checkpoint design.
+
+**Honest reading.** This is NOT a runner crash and NOT a substrate failure. User-pause-action interrupted an in-progress test. Treat as INTERRUPTED not CLOSED.
+
+**Decision.** Tensor-factorized W envelope v2 INTERRUPTED. Per [[feedback-rehabilitation-after-rejection]] this is NOT a closure. Rescue routing note filed for v3 ship: verify partial coverage on disk via checkpoint inspector; re-queue --allow-duplicate if partials exist, OR ship fresh v3 with same config. NOT auto-dispatched per user no-refill directive. v283 tensor-factorized W candidate row UNCHANGED (sub-capacity v1 evidence remains; envelope expansion pending v3 ship).
+
+**HONEST 213 -> 221 (+8)**: 7 fully-honest, 1 PARTIAL-RETRIEVAL-vs-LEAKAGE-NUANCE on TopK (per_component_accuracy=1.000 ALL patterns hidden behind cross-talk-threshold gate). **LABEL-VS-HONEST 142 -> 142 (UNCHANGED)**: 0 over-claim catches in this batch.
+
+### Cap_map decisions (v283 -> v284) -- 1 ROW LIFT + 1 ROW LIFT REVISION + 2 NEW CANDIDATE ROWS + 2 PROBE-LEVEL CLOSURES + 2 RESCUE-PENDING
+
+#### LIFT 1 -- Sparse-W active-subspace storage row
+
+- **Sparse-W active-subspace storage**: 🟢 P=0.40-0.55 -> 🟢 P=0.55-0.70 (+15% lower bound; +15% upper bound). Mid-bound 0.62.
+- Rationale: sparse_w_active_subspace_envelope_v2_n4096 SPE_HARD_PASS 30 cells (M in {128, 512, 1024, 2048, 4096, 8192} x 5 seeds) ret=1.000 kf2_iso=0.000 ALL CELLS. v1 sub-capacity caveat (max M=N/4) RESOLVED for M up to 2N.
+- Ceiling: NOT a 0.60-0.75 LIFT because M=8192=2N still sits BELOW M_c=4-5x N=16-20K per v283 m_c_probe. Capacity-extension envelope STRENGTHENED but the M_c-beat question remains untested.
+- Per [[feedback-strategy-shore-up-capabilities]] envelope expansion on 🟢 row triggers LIFT not just annotation.
+
+#### LIFT REVISION 1 -- Geometric-generalization Path 2 (continuous-output substrate) row
+
+- **Geometric-generalization Path 2 (continuous-output substrate)**: 🟢 P=0.55-0.65 -> 🟢 P=0.45-0.60 (-10% lower bound; -5% upper bound). Mid-bound 0.525.
+- Rationale: continuous_output_substrate_envelope_v2_n4096 CONT_ENV_MIDDLE_BAND reveals SHARP M-degradation: interp_cosine 0.957 (M=N/8) -> 0.853 (M=N/2) -> 0.633 (M=2N) -> 0.499 (M=4N collapses to random); hallu_AUC=0.503 at M=4N. v283 LIFT was based on M=N/8 PERFECT score; v2 reveals the LIFT was M-regime-specific.
+- Annotation: "Continuous-output substrate Path 2 holds for M <= N/2 in interp metric AND M <= 2N in hallu/argmax metrics; degrades sharply above. High-capacity regime requires separate row or substrate-design change."
+- Per [[feedback-no-smoke]] LIFT REVISION DOWN is honest correction; v283 LIFT was based on incomplete envelope evidence and v2 provided the missing high-capacity test.
+
+#### NEW CANDIDATE ROW 1 -- substrate-GPU operational baseline
+
+- State: 🟢 P=0.65-0.80
+- Evidence: gpu_acceleration_baseline_rescue_v2_n4096 GPU_R_HARD_PASS at N=4096 3-seed cpu+cuda; all 5 ops (store/query/edit/retention/max_iso) succeed on both devices in all cells; mean_query_speedup=22.67x per-seed [8.4x, 26.4x, 33.3x].
+- Caveat: single-N (N=4096 only; v1 N=8192 scope dropped); 3-seed only (not 5-seed); wide per-seed speedup spread (4x range). Per [[feedback-no-padding-experiments]] explicit caveat surfaced.
+- Strategic context: validates substrate-on-GPU operational baseline which addresses centralized-deployment latency vs vector databases per dropped msg-2.
+- Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis P deflated 0.15 (GPU matmul speedup is well-known; novelty is in clean substrate-on-GPU op-set rather than the speedup mechanism).
+
+#### NEW CANDIDATE ROW 2 -- Op A linear-combination-of-substrates
+
+- State: 🟢 P=0.50-0.65
+- Evidence: linear_combination_substrates_v1_n4096 LC_HARD_PASS 10 cells (5 seeds x 2 modes uniform+weighted); per_substrate_accuracy=1.000 for all 3 source substrates in all cells; mean_interference=0.000.
+- Caveat: FEASIBILITY clean; STRATEGIC ADVANTAGE undetermined. Per msg-1: "likely not different from store-everything-in-one-large-substrate". Mathematical feasibility != production advantage.
+- Annotation separately flags strategic-value as open question requiring compositional-benefit-vs-consolidation-cost evidence.
+- Per [[feedback-lit-scan-calibration-penalty]] P capped at 0.65 (mechanism is well-understood linear algebra).
+
+#### PROBE-LEVEL CLOSURES (2 closures, each with 3 rescues filed first per [[feedback-rehabilitation-after-rejection]])
+
+- **Op C codebook-projection identity-P Kerdock-BSC**: CLOSED at probe level. mean_cross=0.012 vs mean_within=1.000. Op C ROW NOT CLOSED -- substrate-physics-motivated non-trivial P remains unexplored; theory-drill prerequisite before re-ship.
+- **Op F commutator-based inconsistency detection**: CLOSED at probe level. max/min=1.15x across 3 relationship conditions. Op F broader question (alternate operator-form probes: anti-commutator, product-norm, eigenvalue-spread) remains open per [[feedback-dont-overextend-theorems]].
+
+#### RESCUE-PENDING (2; rescue routing notes filed; NOT auto-dispatched)
+
+- **F2 tensor_factorized_w_envelope_v2_n4096**: USER-KILLED MID-RUN (not runner-crash). Rescue routing filed at `notes/strategy_request_to_exp_dev_2026-05-30_tensor_factor_v3_rescue.md`. PROT-021 checkpoint-partials inspection recommended FIRST before re-ship.
+- **F4 n_scaling_modern_hopfield_rescue_v2_n16384**: v2 instrumentation rescue STILL FAILS at 21s no seeds. Rescue routing filed at `notes/strategy_request_to_exp_dev_2026-05-30_nscaling_v3_rescue.md`. v3 design: isolated substrate construction first, single-M test, explicit memory tracking.
+
+#### ANNOTATIONS (no row movement)
+
+- **Op D top-K post-decomposition filter rescue**: per_component_accuracy=1.000 in ALL 20 cells INCLUDING all 5 sparse-pattern cells. Cross-talk amplitude: uniform/peaked PERFECT (post_xtalk=0); random partial (0.054); sparse unchanged from pre-filter (0.16). Phase 2 two-hop ship: WARRANTED for uniform/peaked beta patterns AT cross-talk-amplitude gate; WARRANTED FOR ALL patterns IF retrieval-accuracy is operational gate (it is for downstream substrate consumers). Operational-gate definition is the decisive question.
+- **Op C row annotation**: identity-P approach CLOSED; substrate-physics analytic P unexplored; theory-drill prerequisite. Specific-design closure does NOT close cross-codebook projection broadly.
+- **Op F annotation**: commutator-form HARD_FAIL; alternate-operator-form (anti-commutator, product-norm, eigenvalue-spread) untested.
+
+#### Framework-reliability ranges -- ALL UNCHANGED
+
+Non-eq-stat-mech 73-83%, SKAH-M 60-75%, substrate-outside-static-Hopfield 64-75%, TCFT 92-97% (v283), deletion-cert 92-98% (v283), KF-1 65-80%, specific 70-83%, general 73-83% -- ALL UNCHANGED. Framework-prediction sub-component reliability UNCHANGED.
+
+**Portfolio update**: 14+33 -> 14+35 (+2 new candidate rows: substrate-GPU operational baseline, Op A linear-combination-of-substrates). Tensor-factorized W and Sparse-W rows from v283 STAY at v283 positions (sparse-W LIFTed within row; tensor-factor pending v3 rescue).
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**Op C identity-P closure (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "identity-P approach closes; substrate-physics analytic P remains unexplored; broader Op C row NOT closed". APPLIED inline above.
+- **R2 (CHEAP, ~30min lit-scan + 0-compute)** -- Theory drill: research-agent dispatch to identify substrate-preserving cross-codebook projections (Reed-Muller-to-{-1,+1} morphisms, BSC-to-Kerdock structured mappings). Output is a candidate-P formula. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP-MEDIUM, ~30min CPU)** -- Random-permutation-P probe: test if a random permutation P_pi (non-identity but structure-preserving) shows non-zero cross-codebook coherence. Cheaper than substrate-physics theory drill. NOT-AUTO-DISPATCHED.
+
+**Op F commutator closure (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "commutator-form closes; alternate operator-forms untested (anti-commutator, product-norm, eigenvalue-spread)". APPLIED inline above.
+- **R2 (CHEAP, ~30min CPU)** -- Anti-commutator probe: {W_A, W_B} = W_A W_B + W_B W_A under same 3 conditions; cheap modification of v1 script. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** -- Eigenvalue-spread probe: spectral signature of (W_A^T W_B) across the 3 conditions. NOT-AUTO-DISPATCHED.
+
+**F2 tensor_factorized user-killed (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "user-killed not runner-failed; substrate capability claim NOT refuted; checkpoint-partials may exist on disk". APPLIED inline above.
+- **R2 (CHEAP, ~10min)** -- Checkpoint-partial inspection: run PROT-021 checkpoint inspector to enumerate partial coverage on disk; if >=3 seeds at M=N/2 or higher are partial-complete, salvage with --allow-duplicate re-queue for missing cells. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~30min GPU FULL)** -- Fresh v3 ship: same config as v2 (M in {N, 2N, 4N, 8N} 5 seeds), avoid pause-window scheduling. NOT-AUTO-DISPATCHED.
+
+**F4 n_scaling_rescue_v2 still-broken (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "n_scaling v2 instrumentation STILL broken; substrate-at-N=16384 capability NOT refuted". APPLIED inline above.
+- **R2 (CHEAP, ~15min debug)** -- Isolated-substrate-construction probe: run substrate.build(N=16384) in isolation, no seed loop, no M sweep -- determine if construction itself OOMs/crashes. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** -- Single-M N=16384 test: skip the M sweep, test ONE M=4096 cell at N=16384 with explicit memory tracking. NOT-AUTO-DISPATCHED.
+
+### Top-3 follow-on recommendations (for orchestrator main-thread review; user resumed but next-batch staging is user-decision)
+
+1. **Sparse-W M_c-beat probe** -- ship v3 sparse-W at M in {M_c, 2*M_c} (M=16384 and M=32768 at N=4096 beta=4) to test whether the active-subspace mechanism BEATS dense-baseline M_c=16-20K. This is the difference between "sparse-W respects baseline capacity" (current v2 evidence) vs "sparse-W extends substrate capacity past baseline" (the strategic killer-feature claim). MEDIUM compute. STRATEGICALLY HIGH-PRIORITY -- decides whether sparse-W row LIFTs further to 0.70-0.85 or stays at 0.55-0.70.
+
+2. **F2 tensor-factor v3 ship (or checkpoint salvage)** -- tensor-factorized W remains a co-equal capacity-extension candidate to sparse-W; v2 was user-killed so envelope-saturation question is UNANSWERED. Checkpoint salvage is cheapest path; fresh v3 ship is fallback. NOT-PADDING per [[feedback-no-padding-experiments]]: this is open envelope question on a 🟢 candidate row.
+
+3. **Op D Phase 2 two-hop ship CONDITIONAL on operational-gate definition** -- the F6 TopK analysis reveals per_component_accuracy=1.000 across all patterns; only cross-talk-amplitude gate fails for sparse. If retrieval-accuracy is the downstream gate (and it typically is for substrate consumers), Phase 2 ship for ALL 4 patterns is warranted. If cross-talk-amplitude is the gate (e.g., for KF-1 hallucination detection downstream), restricted-pattern Phase 2 (uniform/peaked only) is warranted. User decision required; flag as orchestrator-surface question.
+
+### Queue-refill recommendation
+
+User PAUSED then RESUMED but no auto-refill per dispatch directive. Natural-next-anchors based on this batch + open envelope questions:
+
+- (a) **Sparse-W M_c-beat probe v3** -- M in {16384, 32768} 5-seed GPU FULL (HIGHEST strategic priority; decides between sparse-W LIFT-further or LIFT-bounded)
+- (b) **Tensor-factor v3 envelope or checkpoint salvage** -- co-priority with (a); same strategic question on orthogonal mechanism
+- (c) **Op D Phase 2 two-hop for uniform/peaked patterns** -- CONDITIONAL on user operational-gate definition; ~30-60min GPU
+- (d) **n_scaling_modern_hopfield v3 rescue** -- isolated-construction debug; ~15-30min CPU
+- (e) **GPU baseline N=8192 expansion** -- single-N caveat on F3 row warrants ~30min GPU
+
+NOT auto-shipping per user explicit no-refill; orchestrator surfaces to user for next-batch decision.
+
+### PROT compliance (v283 -> v284)
+
+- **PROT-004/006**: 4 rescue sets filed cheapest-first (Op C identity-P, Op F commutator, F2 tensor-factor user-killed, F4 n_scaling_v2-still-broken); 12 rescues total; R1 0-compute subsumption APPLIED inline in all sets; closures (Op C, Op F) honored AFTER 3 rescues filed.
+- **PROT-007**: substrate_capability_map_history.md v284 row added. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279/v280/v282/v283 PROT-007 backlogs).
+- **PROT-008**: validator NOT run (annotation-heavy batch; 1 row LIFT + 1 row LIFT REVISION + 2 new candidate rows + 2 probe-level closures -- annotation-mostly bump; portfolio +2; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v284 entry) + substrate_capability_map_history.md (v284 row) + strategy_decisions_2026-05-30.md (v283->v284 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; **195th PROT-009 paired commit**.
+- **PROT-018**: 9 anchors spot-checked for _n<N> suffix vs config.N: all CLEAN.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 9 verdicts; 0 NEW LABEL-VS-HONEST CATCHES; 1 HONEST-PARTIAL-NUANCE flagged (TopK per_component_accuracy=1.000 across ALL patterns hidden behind cross-talk-amplitude gate; verdict_msg label HONEST AS WORDED but the retrieval-vs-leakage distinction matters for downstream operational-gate decisions); 1 INTERRUPTED (F2 user-killed).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics returned _source=remote for 8/9 anchors; F2 tensor-factorized returned None (user-killed before metrics-write; genuine NO_METRICS, treated as INTERRUPTED not stale-local-fallback).
+- **[[feedback-rehabilitation-after-rejection]]**: 2 probe-level closures each got 3 rescue sketches filed BEFORE closure honored.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption-annotation sequenced FIRST in all 4 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: Op C closure scoped to identity-P NOT broader Op C; Op F closure scoped to commutator-form NOT broader Op F; continuous-output LIFT REVISION refines NOT closes Path 2; TopK partial does NOT close Op D for sparse patterns (retrieval still works).
+- **[[feedback-no-padding-experiments]]**: NEW candidate rows filed at conservative P with explicit single-N / single-mode caveats; LIFT REVISION applied honestly when envelope-evidence contradicts prior LIFT.
+- **[[feedback-strategy-shore-up-capabilities]]**: Sparse-W envelope expansion on 🟢 row triggered LIFT +15%; not just annotation; aligns with proactive cap_map shoring on Strategy proactivity directive.
+- **[[feedback-lit-scan-calibration-penalty]]**: GPU-baseline novel-synthesis P deflated 0.15 (GPU matmul is well-known); Op A linear-combination P capped 0.65 (linear algebra well-understood); explicit caveats present.
+- **[[feedback-obey-user-pause-explicitly]]**: user paused mid-batch then resumed; pause-flag absent at processing time; NO auto-refill per user explicit directive; orchestrator surfaces next-batch options to user not auto-dispatching.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via tools/orchestrator/append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty applied -- continuous-output v283 LIFT REVISED DOWN when v2 evidence contradicts; TopK retrieval-vs-leakage nuance surfaced; F2 INTERRUPTED treated honestly not as failure.
+- **[[feedback-for-you-tab-primary-channel]]**: 6 status_log entries with plain_language + importance fields (sparse-W LIFT HIGH; continuous-output LIFT-REVISION HIGH; GPU baseline HIGH; Op A linear-combination MEDIUM; Op C + Op F closures MEDIUM; TopK nuance MEDIUM).
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 9 anchors PROT-018 spot-check all CLEAN.
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.

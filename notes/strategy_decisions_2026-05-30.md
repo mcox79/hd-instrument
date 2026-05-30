@@ -451,3 +451,103 @@ Non-eq-stat-mech 73-83%, SKAH-M 60-75%, substrate-outside-static-Hopfield 64-75%
 Commit message stored below.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+
+## v283 -> v284 @ BATCHED 9-VERDICT F-batch envelope LIFTs + Op A/C/D-filter/F + instrumentation rescues; verdict_handler dispatched (195th PROT-009 paired commit)
+
+**Context.** 9 verdicts from F-batch shipped at ad30514 (envelope-lift v2 for sparse_w + continuous_output + tensor_factor + n_scaling + gpu_baseline; Op A linear-combination; Op C codebook-projection identity-P; Op D top-K filter rescue; Op F commutator probe). User PAUSED mid-batch at ~10:30 then RESUMED; F2 tensor_factorized killed by pause-action (NO_METRICS = user-action artifact NOT runner crash). Pause-flag ABSENT at processing. User explicit: NO auto-refill -- orchestrator surfaces next-batch options to user after this commit.
+
+### Verdict mix (9 total)
+
+- **3 HARD_PASS substantive**: sparse_w_active_subspace_envelope_v2 SPE_HP envelope LIFT (M up to 2N); gpu_acceleration_baseline_rescue_v2 GPU_R_HP 22.67x mean N=4096 only; linear_combination_substrates_v1 LC_HP both modes 5/5.
+- **2 MIDDLE_BAND**: continuous_output_substrate_envelope_v2 CONT_ENV_MB sharp M-degradation 0.957->0.853->0.633->0.499; superposition_top_k_filter_v1 TOPK_MB pattern-dependent leakage (retrieval still 1.000).
+- **2 HARD_FAIL probe-level closures**: codebook_projection_kerdock_bsc_v1 CBP_HF mean_cross=0.012; interference_patterns_commutator_v1 INT_HF max/min=1.15x.
+- **1 INSTRUMENTATION-FAIL**: n_scaling_modern_hopfield_rescue_v2_n16384 NSCALE_R_INCONCLUSIVE v2 still broken.
+- **1 USER-KILLED**: tensor_factorized_w_envelope_v2_n4096 NO_METRICS pause-action artifact.
+
+### Step 0 honest re-read summary (9 verdicts; 0 NEW LABEL-VS-HONEST catches; 1 TopK NUANCE; 1 USER-KILLED INTERRUPTED)
+
+All 8 readable labels HONEST AS WORDED. Important nuances surfaced:
+
+- **F6 TopK**: verdict_msg per_pattern_pass={uniform:5, peaked:5, random:3, sparse:0} is HONEST AT cross-talk-amplitude threshold (post_xtalk<0.10 gate). BUT per_component_accuracy=1.000 in ALL 20 cells INCLUDING all 5 P4_sparse cells. Retrieval CORRECTNESS clean across all patterns; only leakage-amplitude metric fails for sparse. Phase 2 ship recommendation depends on operational gate definition (retrieval-accuracy vs leakage-amplitude).
+- **F5 continuous_output**: v283 LIFT (Path 2 0.45->0.55-0.65) based on M=N/8 perfect. v2 reveals sharp M-degradation: interp_cos 0.957->0.499 over M=512->16384. v283 LIFT was M-regime-specific; LIFT REVISION DOWN required (not just annotation) per honest envelope evidence.
+- **F2 tensor_factorized**: get_metrics returns None. Per dispatch context user-paused at ~10:30 killed mid-run. Treat as INTERRUPTED not failure; PROT-021 checkpoint inspector may salvage partials.
+
+Per-anchor honest readings recorded in cap_map v284 entry; full per-cell metrics from remote bridge get_metrics() with _source=remote for 8/9 anchors.
+
+### Cap_map decisions -- consolidated
+
+1. **Sparse-W active-subspace storage LIFT**: green 0.40-0.55 -> green 0.55-0.70 (+15% both bounds). 30 cells M in {128..8192} 5-seed all ret=1.000. Sub-capacity caveat RESOLVED for M up to 2N; M_c-beat still untested (M_c=4-5x N per v283 m_c_probe).
+2. **Geometric-generalization Path 2 LIFT REVISION**: green 0.55-0.65 -> green 0.45-0.60 (-10% lower / -5% upper). v283 LIFT was M-regime-specific; v2 reveals sharp degradation above M=N/2.
+3. **NEW substrate-GPU operational baseline ROW**: green P=0.65-0.80. Single-N (N=4096) 3-seed; 22.67x mean speedup; per-seed 4x spread; novel-synthesis P deflated 0.15.
+4. **NEW Op A linear-combination-of-substrates ROW**: green P=0.50-0.65. 10 cells 5-seed both modes feasibility clean; strategic-value separate question (msg-1 "likely no advantage over consolidated").
+5. **Op C identity-P probe CLOSED**: identity-P specific design CLOSED; broader Op C row NOT closed (substrate-physics analytic P unexplored).
+6. **Op F commutator probe CLOSED**: commutator-form CLOSED; broader Op F (anti-commutator, product-norm, eigenvalue-spread) untested.
+7. **Op D row annotation refined**: top-K filter rescue per_component_accuracy=1.000 ALL patterns; leakage gate pattern-dependent; Phase 2 ship CONDITIONAL on operational-gate definition.
+8. **F2 tensor-factorized**: row UNCHANGED; rescue routing filed for v3 ship or checkpoint salvage.
+9. **F4 n_scaling**: row UNCHANGED; rescue routing filed for v3 isolated-construction debug.
+
+**Framework reliability**: ALL UNCHANGED -- non-eq 73-83%, SKAH-M 60-75%, substrate-outside-static-Hopfield 64-75%, TCFT 92-97%, deletion-cert 92-98%, KF-1 65-80%, specific 70-83%, general 73-83%.
+
+**Portfolio**: 14+33 -> 14+35 (+2 new candidate rows: substrate-GPU baseline + Op A linear-combination).
+
+**HONEST 213 -> 221 (+8)**; **LABEL-VS-HONEST 142 UNCHANGED**.
+
+### Rescue sketches (4 sets cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+- **Op C identity-P (3 rescues)**: R1 0-compute subsumption-annotation APPLIED; R2 cheap theory-drill substrate-physics P candidate; R3 cheap random-permutation-P probe.
+- **Op F commutator (3 rescues)**: R1 0-compute subsumption-annotation APPLIED; R2 cheap anti-commutator probe; R3 cheap eigenvalue-spread probe.
+- **F2 tensor-factor user-killed (3 rescues)**: R1 0-compute subsumption-annotation APPLIED; R2 cheap PROT-021 checkpoint-partials inspection; R3 medium fresh v3 ship.
+- **F4 n_scaling v2-still-broken (3 rescues)**: R1 0-compute subsumption APPLIED; R2 cheap isolated-substrate-construction probe; R3 cheap single-M N=16384 test with memory tracking.
+
+### Routing files filed
+
+- `notes/strategy_request_to_exp_dev_2026-05-30_tensor_factor_v3_rescue.md` -- F2 rescue: checkpoint salvage OR fresh v3 ship. NOT-AUTO-DISPATCHED.
+- `notes/strategy_request_to_exp_dev_2026-05-30_nscaling_v3_rescue.md` -- F4 rescue: isolated substrate construction first, single-M test, explicit memory tracking. NOT-AUTO-DISPATCHED.
+
+### Top-3 follow-on recommendations (orchestrator surfaces to user for next-batch decision)
+
+1. **Sparse-W M_c-beat probe v3** -- HIGHEST strategic priority. M in {16384, 32768} 5-seed GPU FULL. Decides between further LIFT (0.70-0.85 if mechanism BEATS dense M_c) vs current LIFT-bounded (0.55-0.70 if sparse-W respects dense capacity).
+2. **F2 tensor-factor v3 ship or checkpoint salvage** -- co-priority with #1; same envelope-saturation question on orthogonal mechanism (SVD vs sparse compression families).
+3. **Op D Phase 2 two-hop CONDITIONAL on operational-gate definition** -- per_component_accuracy=1.000 across all patterns; user decision required: retrieval-accuracy gate (ship ALL patterns) vs leakage-amplitude gate (ship uniform/peaked restricted).
+
+### Queue-refill recommendation -- next-batch natural anchors
+
+NOT auto-shipping per user explicit no-refill. Natural-next-anchors surfaced:
+
+- (a) Sparse-W M_c-beat probe v3 (HIGHEST)
+- (b) Tensor-factor v3 envelope or checkpoint salvage
+- (c) Op D Phase 2 two-hop for uniform/peaked patterns (conditional)
+- (d) n_scaling v3 isolated-construction rescue (cheap CPU)
+- (e) GPU baseline N=8192 expansion (cheap GPU)
+
+### PROT compliance (v283 -> v284)
+
+- **PROT-004/006**: 4 rescue sets filed cheapest-first; R1 0-compute subsumption APPLIED in all sets; probe-level closures (Op C identity-P + Op F commutator) honored AFTER 3 rescues filed per [[feedback-rehabilitation-after-rejection]]; F2 + F4 not closed (rescue-pending).
+- **PROT-007**: cap_map_history.md v284 row appended. BACKLOG: v277 + v278 history rows STILL MISSING (carried from v279/v280/v282/v283).
+- **PROT-008**: validator NOT run (annotation-heavy batch; 1 LIFT + 1 LIFT-REVISION + 2 new rows + 2 probe-level closures; portfolio +2; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (v284 entry) + history.md (v284 row) + strategy_decisions_2026-05-30.md (this entry) + visibility_decisions_2026-05-30.md (one-line) staged atomically; **195th PROT-009 paired commit**.
+- **PROT-018**: 9 anchors PROT-018 spot-check all CLEAN.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 on 9 verdicts; 0 NEW catches; 1 TopK retrieval-vs-leakage NUANCE; 1 USER-KILLED INTERRUPTED.
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics _source=remote for 8/9; F2 None genuine NO_METRICS.
+- **[[feedback-rehabilitation-after-rejection]]**: 2 probe-level closures each got 3 rescues BEFORE honored.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption FIRST in all 4 sets.
+- **[[feedback-dont-overextend-theorems]]**: Op C closure scoped identity-P; Op F closure scoped commutator-form; continuous-output LIFT REVISION refines not closes; TopK partial does NOT close sparse-pattern Op D.
+- **[[feedback-no-padding-experiments]]**: NEW rows conservative-P with explicit caveats; LIFT REVISION honest down-correction.
+- **[[feedback-strategy-shore-up-capabilities]]**: Sparse-W envelope LIFT +15% on proactive cap_map shoring.
+- **[[feedback-lit-scan-calibration-penalty]]**: GPU-baseline P deflated 0.15; Op A capped 0.65.
+- **[[feedback-obey-user-pause-explicitly]]**: user paused then resumed; NO auto-refill per explicit dispatch directive.
+- **[[feedback-cap-map-update-protocol]]**: atomic batch commit; sub-agent push BLOCKED.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty -- continuous-output LIFT REVISED DOWN when v2 contradicts v283; TopK nuance surfaced; F2 INTERRUPTED treated honestly.
+- **[[feedback-for-you-tab-primary-channel]]**: 6 status_log entries with plain_language + importance (sparse-W LIFT HIGH; continuous-output LIFT-REVISION HIGH; GPU baseline HIGH; Op A MEDIUM; Op C+Op F closures MEDIUM; TopK nuance MEDIUM).
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 9 anchors all CLEAN.
+
+### Commit & push
+
+Commit message stored in cap_map v284 entry.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
