@@ -120,6 +120,13 @@ class SubstrateMemory(MemoryBackend):
         self.value_atom_registry: dict[str, int] = {}
         # ordered list of key_ids for deterministic iteration
         self._insertion_order: list[str] = []
+        # Persistent occupancy sets for O(1) allocation lookups (Path 9 fix).
+        # Invariant: _used_key_rows == set(key_registry.values()) and
+        # _used_value_rows == set(value_atom_registry.values()) at all times
+        # between API calls. Updated incrementally on store / edit / delete
+        # so we never re-build set(registry.values()) on the hot path.
+        self._used_key_rows: set[int] = set()
+        self._used_value_rows: set[int] = set()
 
     # --- helpers --------------------------------------------------------------
 
@@ -139,7 +146,7 @@ class SubstrateMemory(MemoryBackend):
         cached = self.key_registry.get(key_id)
         if cached is not None:
             return cached
-        used = set(self.key_registry.values())
+        used = self._used_key_rows
         if len(used) >= self.C:
             raise RuntimeError(
                 f"codebook exhausted: {len(used)} keys, C={self.C}"
@@ -151,6 +158,7 @@ class SubstrateMemory(MemoryBackend):
         # Linear probe to first free row.
         while row in used:
             row = (row + 1) % self.C
+        used.add(row)
         return row
 
     def _atom_for_value(self, key_id: str, value: str) -> int:
@@ -160,19 +168,32 @@ class SubstrateMemory(MemoryBackend):
         already held by this key_id, which is the row being replaced on edit).
         Conditioning the seed on key_id keeps edits to the same key isolated.
         """
-        used = set(self.value_atom_registry.values())
+        used = self._used_value_rows
         # On edit, the current value row is the one we are vacating; allow
         # the new hash to land on it (no-op edit case) by not excluding it.
+        # We temporarily remove `cur` from the persistent set so the probe
+        # sees the vacated state; the chosen row (possibly == cur) is added
+        # back before returning, leaving the invariant intact.
         cur = self.value_atom_registry.get(key_id)
-        if cur is not None:
+        cur_was_present = False
+        if cur is not None and cur in used:
             used.discard(cur)
+            cur_was_present = True
         if len(used) >= self.C:
+            # Restore invariant before raising.
+            if cur_was_present:
+                used.add(cur)
             raise RuntimeError(
                 f"codebook exhausted (value): {len(used)} values, C={self.C}"
             )
         row = _stable_hash_int("val:" + key_id + "::" + value) % self.C
         while row in used:
             row = (row + 1) % self.C
+        used.add(row)
+        # If we vacated `cur` but the new row landed elsewhere, the old row
+        # is now genuinely free; the caller (edit) is responsible for not
+        # re-adding it. Nothing else to do here: the invariant is restored
+        # at the caller's bookkeeping site.
         return row
 
     def _snap_to_atom(self, query_vec: np.ndarray) -> int:
@@ -329,10 +350,11 @@ class SubstrateMemory(MemoryBackend):
         new_val_rows: list[int] = []
         new_indices: list[int] = []  # index into items for registry updates
 
-        # Maintain running occupancy sets for O(1) linear-probe checks
-        # instead of rebuilding set(registry.values()) per item.
-        key_used: set[int] = set(self.key_registry.values())
-        val_used: set[int] = set(self.value_atom_registry.values())
+        # Use the persistent occupancy sets directly. They are kept in sync
+        # with the registries by store/edit/delete/_atom_for_*, so we never
+        # need to rebuild set(registry.values()) here either.
+        key_used = self._used_key_rows
+        val_used = self._used_value_rows
 
         # Sequential allocation pass (linear probe needs current registry state).
         for idx, (key_id, key_vec, value) in enumerate(items):
@@ -343,8 +365,7 @@ class SubstrateMemory(MemoryBackend):
                     self._flush_store_batch(new_key_rows, new_val_rows, new_indices, items)
                     new_key_rows, new_val_rows, new_indices = [], [], []
                 self.edit(key_id, value)
-                # edit() mutates value_atom_registry; refresh val_used.
-                val_used = set(self.value_atom_registry.values())
+                # edit() updates _used_value_rows incrementally; nothing to refresh.
                 continue
 
             if len(key_used) >= self.C:
@@ -358,7 +379,7 @@ class SubstrateMemory(MemoryBackend):
             while key_row in key_used:
                 key_row = (key_row + 1) % self.C
 
-            # Inline _atom_for_value (uses running val_used set).
+            # Inline _atom_for_value (uses persistent val_used set).
             if len(val_used) >= self.C:
                 raise RuntimeError(
                     f"codebook exhausted (value): {len(val_used)} values, C={self.C}"
@@ -606,7 +627,11 @@ class SubstrateMemory(MemoryBackend):
         # Use the min: a successful delete satisfies either condition strongly.
         var_ratio = min(shrinkage, key_vs_rng)
 
-        # Remove registry entries.
+        # Remove registry entries. Drop the rows from the persistent occupancy
+        # sets BEFORE the registry pops so the invariant
+        # _used_key_rows == set(key_registry.values()) is maintained.
+        self._used_key_rows.discard(self.key_registry[key_id])
+        self._used_value_rows.discard(self.value_atom_registry[key_id])
         del self.key_registry[key_id]
         old_value = self.value_registry.pop(key_id)
         del self.value_atom_registry[key_id]
@@ -855,6 +880,11 @@ class SubstrateMemory(MemoryBackend):
         self.value_atom_registry = {
             k: int(v) for k, v in val_blob["value_atom_registry"].items()
         }
+        # Rebuild persistent occupancy sets once from the loaded registries.
+        # Hot-path allocators use these sets directly; they must match the
+        # registries exactly after load() returns.
+        self._used_key_rows = set(self.key_registry.values())
+        self._used_value_rows = set(self.value_atom_registry.values())
 
     def __len__(self) -> int:
         return len(self.key_registry)

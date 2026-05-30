@@ -134,6 +134,20 @@ def main() -> int:
         print("[smoke-batched] FAIL: value_registry mismatch between paths")
         return 1
 
+    # Path 9 occupancy-set invariant: persistent set must equal registry-derived set.
+    for name, mem in (("single", mem_single), ("batched", mem_batched)):
+        expected_k = set(mem.key_registry.values())
+        expected_v = set(mem.value_atom_registry.values())
+        if mem._used_key_rows != expected_k:
+            print(f"[smoke-batched] FAIL: {name}._used_key_rows out of sync "
+                  f"(persistent={len(mem._used_key_rows)} vs registry={len(expected_k)})")
+            return 1
+        if mem._used_value_rows != expected_v:
+            print(f"[smoke-batched] FAIL: {name}._used_value_rows out of sync "
+                  f"(persistent={len(mem._used_value_rows)} vs registry={len(expected_v)})")
+            return 1
+    print("[smoke-batched] occupancy-set invariant OK on both paths")
+
     # Batched retrieve (best of n_repeats).
     batched_retrieve_walls: list[float] = []
     batched_results: list = []
