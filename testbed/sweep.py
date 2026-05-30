@@ -25,7 +25,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
-from testbed.scenarios._continuous_metrics import continuous_metrics
+from testbed.scenarios.continuous_metrics import continuous_metrics
 
 
 # ---------------------------------------------------------------------------
