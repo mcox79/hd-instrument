@@ -197,6 +197,73 @@ def check_timeout_floor(entry_name: str, timeout_s: int, purpose: str = "") -> N
         )
 
 
+CHECKPOINT_IMPORT_RE = re.compile(
+    r'^\s*(?:from\s+_seed_checkpoint\b|import\s+_seed_checkpoint\b)',
+    re.MULTILINE,
+)
+PROT021_TIMEOUT_THRESHOLD_S = 14400  # 4h — anchors at/above this floor must checkpoint
+
+
+def check_long_timeout_has_checkpoint(
+    entry_name: str,
+    script_path: Path,
+    timeout_s: int,
+    allow_override: bool,
+) -> None:
+    """PROT-021: anchors with timeout >= 14400s must import _seed_checkpoint.
+
+    Rationale: a script that takes 4+ hours and writes output only at the end
+    discards 100% of compute on any kill / timeout / OOM. The _seed_checkpoint
+    helper (experiments/_seed_checkpoint.py) is in-repo and supports any
+    hashable key (per-seed, per-cell-seed, etc) via write_partial_key /
+    list_completed_keys. The 2026-05-29 tcft_erase_robustness_n8192_v1
+    incident wasted 4h of GPU runner time because the script had no checkpoint;
+    after PROT-021, that ship is blocked at gate-time.
+
+    Exits with code 9 if a long-timeout script doesn't import _seed_checkpoint.
+    Override with --allow-no-checkpoint (rare; only for single-shot probes that
+    genuinely can't be cell-decomposed).
+
+    No-op for short-timeout anchors (< 14400s).
+    """
+    if timeout_s < PROT021_TIMEOUT_THRESHOLD_S:
+        return
+    try:
+        source = script_path.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        print(f"[gate] PROT-021 WARN: could not read script for checkpoint-check: {e}",
+              file=sys.stderr)
+        return
+    if CHECKPOINT_IMPORT_RE.search(source):
+        print(f"[gate] PROT-021 OK: long-timeout anchor imports _seed_checkpoint")
+        return
+    if allow_override:
+        print(f"[gate] PROT-021 WARN: long-timeout anchor lacks checkpoint "
+              f"(override flag set)")
+        return
+    print(
+        f"\n[gate] PROT-021 REJECT: anchor '{entry_name}' has --timeout={timeout_s}s\n"
+        f"  (>= {PROT021_TIMEOUT_THRESHOLD_S}s = 4h) but script '{script_path.name}'\n"
+        f"  does not import _seed_checkpoint.\n"
+        f"\n"
+        f"  A script that runs 4+ hours and writes output only at the end discards\n"
+        f"  100% of compute on any kill / timeout / OOM. Real incident:\n"
+        f"  tcft_erase_robustness_n8192_v1 wasted 4h on the GPU runner on\n"
+        f"  2026-05-29 before being killed -- zero recoverable output.\n"
+        f"\n"
+        f"  Fix options:\n"
+        f"    1. Wire the in-repo helper experiments/_seed_checkpoint.py into\n"
+        f"       the script. Public API: resumable_seeds / write_partial /\n"
+        f"       write_partial_key / aggregate_partials. See the helper's\n"
+        f"       docstring for the adoption template. tcft_m_sweep_v3 and\n"
+        f"       saad_solla_v15 are working examples.\n"
+        f"    2. Pass --allow-no-checkpoint for single-shot probes that\n"
+        f"       genuinely cannot be cell-decomposed (rare).\n",
+        file=sys.stderr,
+    )
+    sys.exit(9)
+
+
 def check_gpu_queue_uses_torch(queue_name: str, script_path: Path, allow_override: bool) -> None:
     """PROT-020: scripts queued to GPU queue (overnight_queue) must import torch.
 
@@ -378,6 +445,15 @@ def main() -> int:
             "doesn't fit remote_cpu_queue."
         ),
     )
+    ap.add_argument(
+        "--allow-no-checkpoint",
+        action="store_true",
+        help=(
+            "Override PROT-021: allow a long-timeout (>=14400s) script without "
+            "_seed_checkpoint. Rare; only for single-shot probes that genuinely "
+            "cannot be cell-decomposed."
+        ),
+    )
     args = ap.parse_args()
 
     # ── Host guard ──────────────────────────────────────────────────────────────
@@ -421,6 +497,13 @@ def main() -> int:
     # GPU and waste the runner slot. Exit 8 on violation; --allow-numpy-on-gpu
     # overrides.
     check_gpu_queue_uses_torch(args.queue_name, script_path, args.allow_numpy_on_gpu)
+
+    # 1e. PROT-021: long-timeout anchors must import _seed_checkpoint so a kill
+    # / timeout / OOM doesn't discard hours of compute. Exit 9 on violation;
+    # --allow-no-checkpoint overrides.
+    check_long_timeout_has_checkpoint(
+        args.entry_name, script_path, args.timeout, args.allow_no_checkpoint
+    )
 
     # 2. Prereg exists
     prereg_path = REPO / args.prereg
