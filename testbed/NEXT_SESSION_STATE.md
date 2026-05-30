@@ -9,6 +9,17 @@ Most of Tier 2 (T2/T3/T4) is shipped; T5 async cert remains. Currently in **verd
 mode for experiment-side P1/P2/Q1/Q2/Q3 (24-48h horizon) before committing to multi-week
 P1 engineering.
 
+**2026-05-30 UPDATE 2:** User filed comprehensive 14-item testbed track queue
+(6 tracks: multi-hop perf, critical-op timing, MH capability extension, prod
+stress, comparison battery, optimization). See
+`testbed/TESTBED_TRACK_QUEUE_2026-05-30.md`. Six items are READY (no
+experiment-side dependency); eight are BLOCKED on multi-hop primitives or
+verdicts. Next concrete action after N=16384 finishes: **Q3 (E2.3 operation
+composition latency)** — extends mixed_crud to 100K ops at 5 mix ratios to
+root-cause the prior 12% drift observation. Q4 (cold/warm timing), Q6 (vector
+DB comparison), Q10 (multi-tenant isolation K=50), Q11 (failure recovery) are
+the other ready items.
+
 ## Immediate state (what's running, what's next)
 
 ### Currently running on remote (marsh@home)
