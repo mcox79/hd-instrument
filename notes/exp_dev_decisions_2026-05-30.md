@@ -6,3 +6,38 @@ exp_dev 2026-05-30: shipped bet_b_k1_ceiling_stress_n8192_v1 to overnight_queue 
 - 08:55 SHIPPED 11 E-test batch (msg-5 E1-E21 deduplicated): n_scaling_modern_hopfield_v1_n16384 (capacity exp-vs-linear at large N), continuous_output_substrate_v1_n4096 (no-argmax + interp/hallu/argmax/iso), multi_signal_kf1_design_v1_n4096 (5-signal composite KF-1 across 3 ops), adaptive_threshold_characterization_v1_n4096 (9-cell empirical-vs-framework), adaptive_cleanup_operator_v1_n4096 (7-alpha sweep), phase_boundary_characterization_v1_n4096 (14-cell beta+M boundary probes), tensor_factorized_w_feasibility_v1_n4096 (SVD-rank), block_structured_w_feasibility_v1_n4096 (4-domain blocks), hierarchical_w_feasibility_v1_n4096 (2-level), sparse_w_active_subspace_v1_n4096 (M-linear storage), gpu_acceleration_baseline_v1_n8192 (CPU-vs-GPU baseline). 11/11 self-test PASS, 11/11 smoke COMPLETED (gate passed; mostly MIDDLE_BAND/HARD_FAIL at smoke N as expected), 11/11 REMOTE VERIFY OK via queue_add.sh exit-5 internal verify. E21 initial 14400s rejected by PROT-019 tier-floor; re-shipped at 21600s. All 11 to overnight_queue --skip-smoke (local smoke already passed). Pipeline now has 8+ pending entries; gpu_runner_0 began continuous_output_substrate v1_n4096 immediately.
 exp_dev 2026-05-30: shipped 9-anchor follow-up batch to overnight_queue. F1 continuous_output_substrate_envelope_v2_n4096 (21600s), F2 tensor_factorized_w_envelope_v2_n4096 (21600s), F3 sparse_w_active_subspace_envelope_v2_n4096 (14400s) lift sub-capacity caveats on the 3 new HP rows from commit 75c565d (cap_map v283). F4 n_scaling_modern_hopfield_rescue_v2_n16384 (86400s) rescues v1 instrumentation failure with reduced M-sweep [N/8..2N] + graceful failure + memory logging. F5 gpu_acceleration_baseline_rescue_v2_n4096 (14400s) rescues v1 NO_METRICS with scope reduced to N<=4096 (3 ops only). F6 superposition_top_k_filter_v1_n4096 (14400s) tests Op D cross-talk rescue (gates T1 P2 two-hop ship per 2a6bf84). F7 linear_combination_substrates_v1_n4096, F8 codebook_projection_kerdock_bsc_v1_n4096, F9 interference_patterns_commutator_v1_n4096 (each 14400s) cover the remaining msg-1 multi-substrate ops (T5 A, T6 C, T7 F). 9/9 self-tests PASS; 9/9 smoke runs produce metrics.json with non-null metrics; PROT-018 binding clean on all 9 (queue_add.py gate); 9/9 queue_add.sh exit 0 + REMOTE VERIFY PASS. Queue depth was 0; after batch >=7 pending plus 2 already running. EARLY: F1 continuous_output_substrate_envelope_v2_n4096 already landed as 'completed' in recent_verdicts during this dispatch cycle; F2 currently running on gpu_runner_0.
 exp_dev 2026-05-30 12:00Z: SHIPPED 3-anchor CPU batch (user-authorized fill after F-batch return; cpu_q was empty + cpu_runner IDLE): C1 n_scaling_modern_hopfield_rescue_v3_n16384 (timeout=21600s PROT-019 floor; 4-step incremental construction diagnostic for v1+v2 N=16384 INSTRUMENTATION_FAIL root cause), C2 tensor_factorized_w_envelope_v3_n4096 (timeout=21600s; fresh re-ship after v2 KILLED mid-run; PROT-021 per-cell-seed checkpoint; 75 cell-seeds), C3 superposition_top_k_filter_v2_n4096 (timeout=14400s; 60 cell-seeds; 2 new filter designs vs v1 naive baseline for F6 sparse-pattern rescue). All 3 PROT-018 binding OK; 3/3 self-test PASS; 3/3 smoke produce non-suspect non-null metrics; 3/3 REMOTE VERIFY OK via queue_add.sh exit-5 internal verify. EARLY: C1 already COMPLETED in 2.3s with NSCALE_R_V3_HARD_FAIL DIAGNOSTIC_SUCCESS at step1_construct OOM -- root cause IDENTIFIED: make_kerdock_4coset_codebook(N=16384) torch.cat tries to allocate 4 GiB but only 1.88 GiB free on 8GB GPU (script ran on GPU because torch.cuda.is_available()=True on remote_cpu host; informative because v1/v2 hit the same codebook OOM). C2 RUNNING; C3 PENDING. Commit deferred to main thread (3 scripts + 3 preregs + this log entry).
+
+## 2026-05-30 12:55Z — exp_dev: 12-anchor next-phase batch shipped + early verdicts
+
+Shipped 12 anchors per user's updated research plan (T1.1/T1.3/T2.2/T2.3/T2.4/T4.1abc/T4.3/Multi-hop B/D/E). All to overnight_queue. REMOTE VERIFY 12/12.
+
+Shared modules created and scp'd to remote:
+- experiments/_relation_graph.py (closed relation + coherent/incoherent path samplers; used by N2/N3/N4)
+- experiments/_workload_harness.py (DenseStore/SparseStore + cert chain + workload generators; used by N8/N9/N10)
+
+Anchors shipped:
+- N1 sparse_w_mc_beat_v1_n4096_m32k          21600s  GPU
+- N2 continuous_output_multi_hop_v1_n4096    21600s  GPU
+- N3 path_probability_propagation_v1_n4096   21600s  GPU
+- N4 spectral_path_identification_v1_n4096   21600s  GPU  (exploratory P=0.30-0.40)
+- N5 gpu_baseline_expansion_v1_n8192         21600s  GPU  (re-shipped: see fix below)
+- N6 multi_signal_kf1_design_v2_n4096        14400s  GPU
+- N7 adaptive_threshold_rescue_v2_n4096      14400s  GPU
+- N8 sparse_w_edit_heavy_v1_n4096            14400s  GPU
+- N9 sparse_w_mixed_crud_v1_n4096            21600s  GPU
+- N10 sparse_w_deletion_sequences_v1_n4096   14400s  GPU
+- N11 sparse_w_gpu_integration_v1_n4096      14400s  GPU
+- N12 n_scaling_chunked_codebook_v4_n16384   86400s  GPU  (battery-class)
+
+Early verdicts landed during ship cycle:
+- N1: SP_MCB_HARD_FAIL — sparse degrades past M_c (5/5 seeds). PRE-REGISTERED HF clean fire. Confirms sparse-W envelope ceiling near M_c estimate, characterizes the regime past N/2.
+- N2: CONT_MH_HARD_PASS — depth_means 1.0 at ALL depths {2,3,4,5}. Multi-hop Path B (continuous-output state propagation) OPEN at M=256.
+- N3: PPP_HARD_PASS — 10/10 cells, accuracy 1.0 at depth 4 K>=100. Multi-hop Path D (Bayesian posterior product) OPEN.
+- N4: SPEC_PATH_HARD_PASS — depth 3 AUC=1.0 in 5/5 seeds. Multi-hop Path E (spectral coherence) OPEN. EXPLORATORY P=0.30-0.40 was strongly UNDER-estimated.
+- N5 first ship: failed (Kerdock requires N=2^even; N=8192 = 2^13 not supported). FIXED with inline BSC codebook (matches user spec "N=8192, BSC"). Re-shipped + REMOTE VERIFY.
+
+Interpretation note for N2/N3/N4: all three hit acc=1.0 / AUC=1.0 at M=256 << N=4096. Suspicion: this is the "easy regime" where the substrate is far from capacity and retrieval is near-deterministic; closed relations therefore close perfectly. Recommend Strategy commission a higher-M follow-up before strong multi-hop capability claims; M=1024 or M=2048 would stress the path-closure mechanism without triggering CONT_ENV_MIDDLE_BAND (M=2048 boundary).
+
+Blockers: NONE. All 12 shipped. The N5 BSC fix was a substrate-spec mismatch caught by the remote runner; corrected within the same cycle.
+
+Commit pending: 12 scripts + 12 preregs + 2 shared modules + this decision-log entry. Push deferred to main thread per role contract (sub-agent permission inheritance).
