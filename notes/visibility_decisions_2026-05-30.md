@@ -34,3 +34,16 @@
 - Pipeline-pacing: user explicit no-refill directive HONORED; pause flag absent but precedent applied per [[feedback-obey-user-pause-explicitly]]; NO exp_dev dispatch
 - 3 status_log entries: Op D MEDIUM (mechanism-distinct), Op B HIGH (BSC-closure with narrow scope), Op E MEDIUM (specific-metric-closure narrow scope)
 - 193rd PROT-009 paired commit; verdict_handler inline single-batch strategy+visibility no Agent sub-dispatch
+
+## 2026-05-30 BATCHED 16-VERDICT major-batch verdict_handler dispatch (v282 -> v283)
+
+- 16 verdicts processed: 6 HARD_PASS (3 first-HARD_PASS new-mechanism candidates), 5 MIDDLE_BAND, 3 HARD_FAIL, 2 INSTRUMENTATION-FAIL (1 NO_METRICS + 1 INCONCLUSIVE-no-seeds)
+- Step 0 honest re-read: 1 LABEL-VS-HONEST catch (adaptive_threshold ATC OVER-CLAIMS framework failure when metric scoring is broken; best_score=0.0 in every cell); 3 ENVELOPE-CAVEAT annotations on first-HARD_PASS rows (continuous-output, tensor-factor, sparse-W all at sub-capacity M=N/8-N/4 envelope); 12 fully-honest
+- Cap_map v282 -> v283: 2 row LIFTs (TCFT 88-96 -> 92-97; deletion-cert 89-98 -> 92-98); LIFT geometric-gen Path 2 0.45 -> 0.55-0.65; 3 NEW candidate rows (tensor-factor-W 🟢 0.40-0.55, sparse-W active-subspace 🟢 0.40-0.55, bet_b K=1 ceiling-character 🟢 0.80-0.90); 2 capacity-extension sub-path closures (block-W within_ret=0.343, hierarchical-W acc=0.062)
+- Portfolio 14+31 -> 14+33; HONEST 198 -> 213 (+15); LABEL-VS-HONEST 141 -> 142 (+1)
+- Framework reliability: TCFT + deletion-cert LIFTED; non-eq-stat-mech 73-83, SKAH-M 60-75, substrate-outside-static-Hopfield 64-75, KF-1 65-80, specific 70-83, general 73-83 UNCHANGED; adaptive_threshold ATC LABEL-VS-HONEST catch PROTECTS framework-prediction sub-component reliability from spurious demotion
+- Rescue sketches: 5 rescue sets cheapest-first; R1 0-compute subsumption APPLIED inline in v283 entry; closures (block-W, hierarchical-W) honored after rescues filed
+- Pipeline-pacing: queue=0 detected; user pending refill decision (dispatch note); NO exp_dev dispatch per `[Queue refill: skipped: USER-PENDING]`
+- 2 rescue routing notes filed for instrumentation-fail anchors (n_scaling_n16384 + gpu_baseline) at notes/strategy_request_to_exp_dev_2026-05-30_*.md; NOT auto-dispatched
+- 6 status_log entries with plain_language + importance: 3 CRITICAL (continuous-output first-HARD_PASS Path 2 confirmation; tensor-factor + sparse-W first-HARD_PASS capacity-extension paths; bet_b K=1 + TCFT broad-envelope), 1 HIGH (adaptive_threshold ATC LABEL-VS-HONEST catch protecting framework reliability), 1 MEDIUM (phase_boundary metric-dependence refinement), 1 LOW (5 MIDDLE_BAND annotations + 2 capacity-extension closures + 2 instrumentation-fail rescue routings)
+- 194th PROT-009 paired commit; verdict_handler inline strategy+visibility single batch dispatch no Agent sub-dispatch

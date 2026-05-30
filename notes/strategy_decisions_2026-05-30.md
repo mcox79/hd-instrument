@@ -196,3 +196,258 @@ Top-3 surfaced for orchestrator main-thread review (user is staging next batch e
 Commit message stored in cap_map v282 entry.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up after this commit lands.
+
+## v282 -> v283 -- 2026-05-30 BATCHED 16-VERDICT major-batch: 3 FIRST-HARD_PASS new killer-feature candidates + Bet B K=1 ceiling resolved + TCFT broad-envelope salvaged + framework-prediction-component degradation (1 LABEL-VS-HONEST catch); verdict_handler dispatched
+
+**Trigger.** 16 NEW verdicts landed overnight after queue drain. User flagged "gpu and cpu are idle" at 09:17. Comprehensive batch covering Bet B K=1 stress, geometric-generalization Path 2 empirical confirmation, two capacity-extension first-HARD_PASS candidates, full phase-region characterization, salvaged TCFT broad-envelope deletion-cert via checkpoint, plus framework-prediction adaptive-threshold characterization. 3 Track A+B+C P1 verdicts (Op D/B/E) were previously processed at v282 commit 2a6bf84 -- NOT re-processed here. Pause-flag ABSENT; user explicit pending decision on refill.
+
+### Step 0 honest re-read (16 verdicts; 1 LABEL-VS-HONEST CATCH; 3 ENVELOPE-CAVEAT annotations; 12 HONEST CONFIRMED)
+
+#### Anchor 1 -- bet_b_k1_ceiling_stress_n8192_v1 (K1_STRESS_HARD_PASS) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "K=1 ceiling RESPECTED: ret_A_after_D < 0.8 in 5/5 seeds. Rescue trio genuinely changes architecture class." Per-seed ret_A_after_D: [0.738, 0.751, 0.748, 0.741, 0.754] mean=0.746.
+
+**Honest reading.** TIGHT 5-seed band [0.738-0.754], range 0.016, well below 0.8 Fusi-Drew-Abbott theoretical limit. Progression after_B=0.705 -> after_C=0.737 -> after_D=0.746 shows slow RECOVERY across tasks (substrate retention is not strictly monotone-decreasing as tasks accumulate -- replay-like effect). Label HONEST.
+
+**Decision.** v280 label-vs-honest #140 (ARCHITECTURE_CLASS_SWITCH_MASQUERADING) classification CONFIRMED. Canonical single-W K=1 sits at 0.746 ceiling consistent with Fusi-Drew-Abbott 0.80. Rescue trio (wide/frozen/dual-W) at ret_A=1.000 in v280 batch is ESCAPING K=1 via architecture-class change, NOT a beat of the K=1 ceiling. Bet B row position UNCHANGED at K=1-beat criterion; rescue trio remains in separate architecture-category annotation. Note: subtle RECOVERY signal (after_B 0.705 -> after_D 0.746) is interesting substrate-physics but does NOT cross K=1 ceiling.
+
+#### Anchor 2 -- continuous_output_substrate_v1_n4096 (CONT_HARD_PASS) -- HONEST AS WORDED + ENVELOPE CAVEAT
+
+**Label vs metrics.** verdict_msg "PASS: continuous-output viable. interp_cos=0.956 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000 n_seeds=5". Per-cell: interp_cosine in [0.95589, 0.95674] across 5 seeds at beta=8.0 M=512 N=4096.
+
+**Honest reading.** All 4 metrics PERFECT or near-perfect in 5/5 seeds. Label HONEST AS WORDED -- continuous-output substrate path IS empirically viable. ENVELOPE CAVEAT: elapsed_s=6.21 total (5 seeds each ~1.2s); M=512 = N/8 = UNDER-CAPACITY regime (M_c at beta=4 is 16K-20K per m_c_probe, beta=8 likely similar or higher). The 4-metric perfect score is at sub-capacity loading where substrate has ample geometric headroom. This does NOT invalidate the result -- it constrains the row LIFT bound.
+
+**Decision.** EMPIRICAL CONFIRMATION of geometric-generalization Path 2 (Path 2 P=0.45 documented in notes/substrate_geometric_generalization_paths_v278_2026-05-29.md). LIFT geometric-generalization Path-2 row from 🔬 P=0.45 -> 🟢 P=0.55-0.65 (CONSERVATIVE +0.10-0.20 bound; FULL ENVELOPE TEST at M=N to M=2N REQUIRED before further LIFT). NEW SUB-ROW added under geometric-generalization parent row: "Continuous-output substrate path empirically confirmed at sub-capacity envelope (M=N/8)".
+
+#### Anchor 3 -- tensor_factorized_w_feasibility_v1_n4096 (TF_HARD_PASS) -- HONEST CONFIRMED + STRONG ENVELOPE CAVEAT
+
+**Label vs metrics.** verdict_msg "FACTORIZATION_WORKS: mean_r512_ratio=1.000 n_seeds_uniform_loss=0/5 [all 5 seeds: full=1.000 r512ratio=1.000]". Per-seed: ret_full=1.000 AND ret at all ranks {128,256,512,1024,2048} = 1.000.
+
+**Honest reading.** Label HONEST AS WORDED. STRONG ENVELOPE CAVEAT: M=512 = N/8 means substrate is at UNDER-CAPACITY regime where retrieval is trivial. ALL ranks including r=128 (16x compression) give ret=1.000 BECAUSE the un-factored baseline is also 1.000. This shows "factorization preserves whatever the dense baseline does, AT under-capacity". It does NOT show "factorization works at saturating M". The 100% factorization-vs-dense ratio at low M says nothing about how much rank you can drop at M near M_c.
+
+**Decision.** NEW CANDIDATE ROW added: "Tensor-factorized W storage (low-rank SVD form)" 🔬 -> 🟢 P=0.40-0.55 (single-anchor low-M evidence; explicit FULL ENVELOPE TEST RECOMMENDED at M in {N, 2N, 4N, ~M_c} before further LIFT). Capacity-extension path tracked as FEASIBLE-AT-LOW-M with capacity-saturation behavior UNKNOWN. Conservative bound deflated 0.15 per [[feedback-lit-scan-calibration-penalty]] (single-anchor under-capacity result; mechanism is well-known SVD compression so novelty P caps at 0.55).
+
+#### Anchor 4 -- sparse_w_active_subspace_v1_n4096 (SP_HARD_PASS) -- HONEST CONFIRMED + STRONG ENVELOPE CAVEAT
+
+**Label vs metrics.** verdict_msg "SPARSE_W_WORKS: M=128 mem=0.0625 ret=1.000 iso=0.0000 n_seeds=5 n_cells=30". 30 cells = 6 M values {32,64,128,256,512,1024} x 5 seeds; ALL cells ret=1.000 kf2_max_iso=0.0.
+
+**Honest reading.** Label HONEST AS WORDED. STRONG ENVELOPE CAVEAT: max M tested = 1024 = N/4. Substrate at this regime has retention=1.000 in dense baseline as well (per m_c_probe and phase_lattice_grid). Sparse-W at memory_ratio=0.0625 (M=128) shows 16x compression preserving ret=1.000 -- but the BASELINE is also 1.000 at this M. The mechanism (active-subspace tracking via top-M sparsity) is plausibly capacity-extension-friendly but the test never approaches M_c so capacity-saturation behavior is UNKNOWN.
+
+**Decision.** NEW CANDIDATE ROW added: "Sparse-W active-subspace storage" 🔬 -> 🟢 P=0.40-0.55 (single-anchor low-M evidence; explicit FULL ENVELOPE TEST RECOMMENDED at M up to and past M_c before further LIFT). Capacity-extension path SECOND independent mechanism (distinct from tensor-factorized SVD path -- sparse vs low-rank are orthogonal compression families). Both rows track in parallel; orchestrator may run FULL envelope tests in either order or both.
+
+#### Anchor 5 -- phase_lattice_grid_v1_n4096 (GRID_HARD_PASS) -- HONEST; CHARACTERIZATION REFERENCE DATA
+
+**Label vs metrics.** verdict_msg "ENVELOPE_MAP_DELIVERED: 315/315 cells populated with 6 metrics each (frac=1.000). cells_complete=315/315 mean_retention=0.820 mean_above_thresh=0.225 N=4096 betas=9 mfracs=7".
+
+**Honest reading.** 9 betas x 7 mfracs x 5 seeds = 315 cells, all populated. mean_retention=0.820 across the grid is healthy. mean_above_thresh=0.225 indicates KF-1 fires moderately. Label HONEST.
+
+**Decision.** Foundational characterization reference data. STORE as reference at `notes/phase_lattice_envelope_v1_2026-05-30.md` (separate file; not a cap_map row movement). Use for cap_map context in future verdicts that probe specific (beta, M_frac) cells; valuable for grounding "is this cell in/out of operating envelope" questions.
+
+#### Anchor 6 -- tcft_erase_robustness_n8192_v1_cpu (HARD_PASS, salvaged via checkpoint) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "HARD_PASS: 15/15 protocol cells pass var_ratio<0.1 in >=2/3 seeds. Deletion-cert robust across broad protocol envelope". n_hp_cells=15/15; per-cell sample var_ratios mostly <0.001 well below 0.1 threshold; 5 alpha_ratios x 3 splits = 15 cells, 3 seeds each.
+
+**Honest reading.** TIGHT envelope confirmation -- var_ratios are typically 10^-3 to 10^-5 range, ORDERS of magnitude below the 0.1 HP threshold. 15/15 cells with strong cell-strength is unambiguous. Salvaged-via-checkpoint completion after earlier TIMEOUT is genuine recovery (mechanism unchanged from previously-validated TCFT). Label HONEST.
+
+**Decision.** STRENGTHENS deletion-cert killer feature BEYOND protocol-narrow-positioning. Per the all-night-batch strategy note flagging this as "deletion-cert robust across broad envelope" candidate: row LIFT triggered. TCFT row LIFT 88-96% -> 92-97% (modest LIFT +4% lower-bound; upper bound stays high because already-strong). Deletion-cert killer feature row LIFT 89-98% -> 92-98% (+3% lower bound; was product-feature class). Broad-envelope claim now empirically anchored at 5x3 alpha x split grid.
+
+#### Anchor 7 -- m_c_probe_v1_n4096 (MC_PROBE_MIDDLE_BAND) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "GRADUAL_DECLINE: no sharp drop, but transition present. n_seeds_sharp=0/5 biggest_step=16.0->20.0 mean_drop=0.145 M_c_estimate=[16384,20480] N=4096 beta=4.0". Per-seed at M_frac=16 ret=1.0; M_frac=20 ret in [0.85, 0.85-ish band]; M_frac=24 ret ~0.74; M_frac=28 ret ~0.585; M_frac=32 ret ~0.475.
+
+**Honest reading.** Clean monotone gradient from ret=1.0 at M_frac<=16 to ret=0.475 at M_frac=32. Biggest step is 16->20 (0.15 drop). M_c at beta=4.0 N=4096 is roughly in [16384, 20480] = M_c ~ 4-5x N. NO sharp first-order transition; gradient is the SKAH-M-class signature. Label HONEST.
+
+**Decision.** OPERATIONAL CHARACTERIZATION: M_c is roughly 4-5x N at beta=4. Useful for grounding "low-M" envelope caveats on continuous-output / tensor-factor / sparse-W candidate rows (all tested at M_frac=0.125-0.25 i.e. M << M_c). Gradient (no sharp boundary) is consistent with SKAH-M class. STORE as reference; no row movement.
+
+#### Anchor 8 -- region_c_optimal_probe_v1_n4096 (REGION_C_MIDDLE_BAND) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "PARTIAL: 1-metric wins or 1.2x-2x advantage. n_seeds_hp=1/5 n_seeds_indist=0/5".
+
+**Honest reading.** Region C (beta=16/M_frac=0.5 + beta=32/M_frac=1 + beta=64/M_frac=2 etc.) tested vs Region A baseline. Only 1/5 seeds clears the 2x-improvement on >=2 metrics threshold. Region C does NOT substantially outperform standard operating region. Label HONEST.
+
+**Decision.** CLOSES "Region C is substrate's optimal operating region" hypothesis at probe level. Standard operating region (Region A, beta~10 M_frac~1-2) remains appropriate default. Product positioning UNCHANGED -- do NOT bias toward Region C in deployment recommendations. ANNOTATION only; no row movement.
+
+#### Anchor 9 -- multi_signal_kf1_design_v1_n4096 (KF1MS_MIDDLE_BAND) -- HONEST + STRUCTURAL NOTE
+
+**Label vs metrics.** verdict_msg "COMPOSITE_INT: min=0.898 in (0.75,0.9). M=128 wmean_AUC=0.906 M=1024 wmean_AUC=0.905 M=4096 wmean_AUC=0.898". Per-op: 4 of 5 metrics (posterior_entropy, bundle_norm, geometric_distance, spectral_signature) hit 1.000 in EVERY cell; cross_replica metric is ~0.5 (random). Composite_max=1.000 across all M.
+
+**Honest reading.** Label HONEST. Honest structural note: the equal-weight composite drag is from cross_replica which is at random (0.49-0.53) across M. 4 of 5 component metrics are MAXIMALLY discriminative on stored vs out-of-sample (AUC=1.0). composite_max=1.000 means an optimal weighting hits perfect detection. KF-1 multi-signal composite at equal weighting is just BELOW 0.90; tuned weighting (drop cross_replica or weight it ~0) clears HP threshold.
+
+**Decision.** ANNOTATION: KF-1 multi-signal composite is empirically a NEAR-PASS at equal-weighting; cross_replica is the WEAK signal not the design. Tuning composite weights (excluding cross_replica or weighting it negatively) is the cheapest rescue. KF-1 row UNCHANGED 65-80%; ANNOTATE that 4-of-5 component signals are individually maximal and composite is near-pass at equal-weight.
+
+#### Anchor 10 -- phase_boundary_characterization_v1_n4096 (PHB_MIDDLE_BAND) -- HONEST + METRIC-DEPENDENT BOUNDARY NOTE
+
+**Label vs metrics.** verdict_msg "PARTIAL_BOUNDARY: beta_slope_ratio=0.00 (max_c=0.0000 mean_e=0.0000) M_slope_ratio=2.78 ... beta_rets=[1.0,1.0,1.0,1.0,1.0,1.0,1.0] M_rets=[1.0,1.0,1.0,0.85,0.726,0.626,0.518]". beta sweep in [9,9.5,9.8,10,10.2,10.5,11] at M=8192 all give retention=1.0. M sweep at fixed beta gives the gradient (M_c saturation).
+
+**Honest reading.** beta_slope=0.00 on retention at M=8192 = N/2 (sub-capacity) is HONEST. Critical insight: retention at M < M_c is SATURATED at 1.0 -- so a beta sweep in this regime can NEVER detect beta_c via retention metric, even if beta_c=10 is a real phase boundary in other metrics (confidence-sharpness, KF-1 firing rate, order parameters). The phase_boundary anchor probed retention; phase boundary was previously inferred from t1_beta_fine + KF-5 sharpness probes (other metrics). Label HONEST AT scope claimed.
+
+**Decision.** ANNOTATION (NOT demotion of beta_c=10): "beta_c=10 phase-boundary character is METRIC-DEPENDENT. Retention metric at M < M_c shows NO boundary (saturated at 1.0 across beta in [9,11]); confidence-sharpness and KF-firing metrics at appropriately-loaded M show the boundary. v283 retention test at M=8192=N/2 was OUTSIDE the regime where retention is beta-sensitive." This REFINES rather than refutes beta_c=10. Substrate-physics row UNCHANGED on beta_c claim; ANNOTATION added that retention-test at sub-capacity is wrong probe for beta-boundary detection.
+
+#### Anchor 11 -- adaptive_cleanup_operator_v1_n4096 (ACO_MIDDLE_BAND) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "MIXED: n_improved=0/5 n_std_opt=0/5 seed*:best=0@1.000(gain+0.000)". Per-seed: at M=8192 (M_frac=2) ALL retentions in [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] across alpha in [0, 0.25, 0.5, 1.0, 1.5, 2.0, 3.0].
+
+**Honest reading.** At M_frac=2 substrate retention is SATURATED at 1.000 regardless of cleanup strength. Label HONEST: cleanup is a no-op at this operating point.
+
+**Decision.** ANNOTATION: at production operating point (M_frac=2), cleanup-operator strength contributes ZERO retention gain. Production deployment recommendation: don't pay cleanup compute cost at M_frac<=2. May be useful at M_frac near M_c -- untested in this anchor. No row movement.
+
+#### Anchor 12 -- adaptive_threshold_characterization_v1_n4096 (ATC_HARD_FAIL) -- LABEL-VS-HONEST CATCH
+
+**Label vs metrics.** verdict_msg "FRAMEWORK_MISSES: n_within_20=1/9 (frac 0.111) n_off_50=6/9 (frac 0.667) cells: b4.0_m1.0=0.054 b4.0_m4.0=0.900 b4.0_m16.0=0.781 b10.0_m1.0=4.000 b10.0_m4.0=0.433 b10.0_m16.0=0.697 b32.0_m1.0=4.000 b32.0_m4.0=0.900 b32.0_m16.0=0.360".
+
+**Honest reading.** Per-cell inspection: best_score=0.0 in EVERY cell, all_scores=[0.0,0.0,0.0,0.0,0.0,0.0,0.0] across all 7 threshold values in every cell. The metric scoring is producing ZERO discriminative signal. The "best_threshold" and "rel_err" values are computed against a best_score that itself is 0.0. **This is a TEST-INSTRUMENT failure, NOT a framework-prediction failure.** The label "FRAMEWORK_MISSES" OVER-CLAIMS: the test cannot distinguish any threshold from any other (best_score=0.0 across all candidates), so the rel_err numbers reported are noise. The framework's threshold predictions may or may not match -- this anchor's metric design simply did not score the candidate thresholds.
+
+**Decision.** LABEL-VS-HONEST CATCH 141 -> 142 (+1). Honest reading authoritative for downstream decisions: framework-prediction-of-threshold component reliability is NOT degraded by this anchor (the anchor cannot inform on that question due to broken metric scoring). DO NOT demote substrate-physics framework-prediction sub-component on this evidence. Recommended rescue: re-run anchor with corrected scoring metric that actually produces non-zero scores for candidate thresholds. Note the test-design failure as an exp_dev review item.
+
+#### Anchor 13 -- block_structured_w_feasibility_v1_n4096 (BS_HARD_FAIL) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "LARGE_LOSS: within_ret=0.343 cross_ret=0.353 mem_savings=4.0x n_seeds=5". Per-seed: within_ret in [0.305-0.375], cross_ret in [0.23-0.46]. All 5 seeds well below useful retention threshold.
+
+**Honest reading.** Block-structured W (D=4 blocks of 128 feats each at facts_per_domain=128) gives ~33-35% retention -- substantial loss vs dense. 4x memory savings is real but accuracy collapse makes it not useful as capacity-extension. Label HONEST.
+
+**Decision.** CAPACITY-EXTENSION sub-path "block-structured W" CLOSED. 3 rescues filed per [[feedback-rehabilitation-after-rejection]] before honoring closure.
+
+#### Anchor 14 -- hierarchical_w_feasibility_v1_n4096 (H_HARD_FAIL) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "HIER_DEGRADES: acc=0.062 cap_ratio=0.25 n_seeds=5". Per-seed hierarchical_acc in [0.04, 0.1] mean ~0.062.
+
+**Honest reading.** Hierarchical 2-level W (n_sum=16, n_lps=16) gives 6.2% accuracy -- effectively random for a 200-item test. capacity_ratio=0.25 vs flat heuristic. Label HONEST.
+
+**Decision.** CAPACITY-EXTENSION sub-path "hierarchical W" CLOSED. 3 rescues filed before honoring closure.
+
+#### Anchor 15 -- n_scaling_modern_hopfield_v1_n16384 (NSCALE_INCONCLUSIVE) -- HONEST
+
+**Label vs metrics.** verdict_msg "No completed seeds." per_M empty in all 3 seeds.
+
+**Honest reading.** Script started, ran 116s, but produced no completed seed metrics. Likely OOM at N=16384 or instrumentation issue at the seed-loop level. Label HONEST INCONCLUSIVE.
+
+**Decision.** Rescue routing note filed at `notes/strategy_request_to_exp_dev_2026-05-30_nscaling_rescue.md` for orchestrator main-thread review. NOT auto-dispatched (user pending refill decision).
+
+#### Anchor 16 -- gpu_acceleration_baseline_v1_n8192 (NO_METRICS_ON_DISK) -- HONEST
+
+**Label.** "Runner-failed before metrics write. 20s suggests fast crash."
+
+**Honest reading.** `get_metrics()` returns None; remote SSH cannot find metrics.json. Fast crash. Label HONEST.
+
+**Decision.** Rescue routing note filed at `notes/strategy_request_to_exp_dev_2026-05-30_gpu_baseline_rescue.md`. NOT auto-dispatched.
+
+**HONEST 198 -> 213 (+15)**: 12 fully-honest, 3 envelope-caveat (continuous-output, tensor-factor, sparse-W). **LABEL-VS-HONEST 141 -> 142 (+1)**: adaptive_threshold ATC_HARD_FAIL OVER-CLAIMS framework-prediction failure when metric scoring is broken (test-instrument failure, not framework failure).
+
+### Cap_map decisions (v282 -> v283) -- 2 ROW LIFTS + 3 NEW CANDIDATE ROWS + 2 CAPACITY-EXTENSION SUB-PATH CLOSURES + 5 ANNOTATIONS
+
+#### LIFT 1 -- TCFT row + Deletion-cert killer feature row
+
+- **TCFT row**: LIFT 88-96% -> 92-97% (+4% lower bound; upper bound +1% to 97% on broad-envelope strengthening).
+- **Deletion-cert killer feature row** (product-feature class): LIFT 89-98% -> 92-98% (+3% lower bound).
+- Rationale: tcft_erase_robustness_n8192_v1_cpu HARD_PASS 15/15 cells at 5 alpha_ratios x 3 splits with var_ratios mostly 10^-3 to 10^-5 (orders below 0.1 HP threshold). Broad-envelope claim now empirically anchored.
+
+#### LIFT 2 -- Geometric-generalization Path 2 sub-row
+
+- **Geometric-generalization Path 2 (continuous-output substrate)**: 🔬 P=0.45 -> 🟢 P=0.55-0.65 (CONSERVATIVE +0.10-0.20 bound).
+- Rationale: continuous_output_substrate_v1_n4096 CONT_HARD_PASS 5/5 seeds 4-metric perfect (interp_cos=0.956 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000). EMPIRICAL CONFIRMATION of Path 2 hypothesis. Envelope CAVEAT: M=512=N/8 sub-capacity; FULL ENVELOPE TEST at M near M_c needed before further LIFT. NEW SUB-ROW: "Continuous-output substrate path empirically confirmed at sub-capacity envelope".
+
+#### NEW CANDIDATE ROW 1 -- Tensor-factorized W storage (low-rank SVD)
+
+- State: 🟢 P=0.40-0.55
+- Evidence: tensor_factorized_w_feasibility_v1_n4096 TF_HARD_PASS 5/5 seeds; rank=N/8 preserves ret=1.000 at M=N/8.
+- Caveat: STRONG envelope caveat (M=N/8 sub-capacity; baseline also ret=1.000); FULL ENVELOPE TEST at M near M_c REQUIRED before further LIFT.
+- Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis P capped 0.55 (mechanism is well-known SVD compression).
+
+#### NEW CANDIDATE ROW 2 -- Sparse-W active-subspace storage
+
+- State: 🟢 P=0.40-0.55
+- Evidence: sparse_w_active_subspace_v1_n4096 SP_HARD_PASS 30 cells (M in {32...1024} x 5 seeds) ret=1.000 kf2_iso=0.0 throughout.
+- Caveat: STRONG envelope caveat (max M=N/4 still sub-capacity).
+- Independent capacity-extension mechanism (sparse vs low-rank are orthogonal).
+
+#### NEW CANDIDATE ROW 3 -- Bet B 4-stage K=1 ceiling at 0.746 (architecture-class characterization)
+
+- State: 🟢 P=0.80-0.90 (high-confidence characterization)
+- Evidence: bet_b_k1_ceiling_stress_n8192_v1 5/5 seeds ret_A_after_D=[0.738-0.754] mean=0.746 TIGHT BAND.
+- Substance: canonical single-W K=1 sits at 0.746 ceiling consistent with Fusi-Drew-Abbott 0.80 theoretical limit; rescue trio (wide/frozen/dual-W) at ret=1.000 is architecture-class change, NOT K=1 beat.
+- Row annotation: confirms v280 #140 ARCHITECTURE_CLASS_SWITCH_MASQUERADING; no row movement on Bet B 4-stage CL row itself.
+
+#### CAPACITY-EXTENSION SUB-PATH CLOSURES (2 closures, each with 3 rescues filed first)
+
+- **block-structured W**: CLOSED. within_ret=0.343 (5/5 seeds collapsed).
+- **hierarchical W**: CLOSED. acc=0.062 (5/5 seeds collapsed).
+- Note: these CLOSE the specific designs as capacity-extension paths; tensor-factorized + sparse-W remain OPEN as alternative paths.
+
+#### ANNOTATIONS (5 annotations; no row movement)
+
+- **phase_lattice_grid_v1_n4096**: STORE 315-cell envelope as reference at `notes/phase_lattice_envelope_v1_2026-05-30.md`.
+- **m_c_probe_v1_n4096**: M_c at beta=4 N=4096 is roughly [16384, 20480] = 4-5x N. GRADUAL gradient (no sharp first-order boundary in this metric) consistent with SKAH-M.
+- **region_c_optimal_probe**: "Region C is optimal" hypothesis CLOSED at probe level; product positioning unchanged.
+- **multi_signal_kf1_design**: KF-1 multi-signal composite is NEAR-PASS at equal-weighting; cross_replica is the weak signal; tuned-weighting rescue is cheap. KF-1 row UNCHANGED.
+- **phase_boundary_characterization**: beta_c=10 character is METRIC-DEPENDENT (retention at M<M_c saturates and cannot detect; confidence-sharpness + KF-firing metrics DO detect). REFINES rather than refutes beta_c=10. Substrate-physics row UNCHANGED.
+- **adaptive_threshold ATC**: TEST-INSTRUMENT failure (best_score=0.0 across all candidates in all cells); NOT a framework-prediction-component failure. Framework-prediction sub-component reliability UNCHANGED.
+- **adaptive_cleanup ACO**: at M_frac<=2, cleanup is no-op; production deployment skip the cleanup compute cost at this operating point.
+
+#### All other framework-reliability ranges UNCHANGED
+
+Non-eq-stat-mech 73-83%, SKAH-M 60-75%, substrate-outside-static-Hopfield 64-75%, specific 70-83%, general 73-83% -- ALL UNCHANGED. BID metric-family glossary (v281) UNCHANGED. Op D/B/E annotations from v282 UNCHANGED.
+
+**Portfolio update**: 14+31 -> 14+33 (+2 new candidate rows: tensor-factorized W, sparse-W active-subspace). Bet B K=1 ceiling row added to characterization-class (not capability), portfolio category-count unchanged.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**block-structured W closure (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "block-W CLOSED; tensor-factor + sparse-W remain OPEN as alternative capacity-extension paths". APPLIED inline above.
+- **R2 (CHEAP, ~10min CPU smoke)** -- Larger D probe (D=8 or D=16 blocks): test if smaller block size with proportionally smaller fpd preserves accuracy. NOT-AUTO-DISPATCHED (mechanism likely structural, not block-size-specific).
+- **R3 (MEDIUM, ~30min GPU)** -- Hybrid block-and-cross-coupling design: add limited cross-block coupling to recover within-domain retention. NOT-URGENT; tensor-factor + sparse-W are stronger leads.
+
+**hierarchical W closure (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "hierarchical-W CLOSED; mechanism collapses in 2-level form; alternative capacity-extension paths (tensor-factor, sparse-W) preferred". APPLIED inline.
+- **R2 (CHEAP, ~10min CPU smoke)** -- Larger n_sum / n_lps: test if a richer hierarchy with more sum and product points preserves accuracy. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~1h GPU)** -- Soft-hierarchical (continuous gating between levels): NOT-URGENT.
+
+**adaptive_threshold ATC LABEL-VS-HONEST catch (3 rescues; test-instrument NOT framework):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "ATC label OVER-CLAIMS framework failure; best_score=0.0 across all cells reveals broken metric scoring; framework-prediction sub-component reliability UNCHANGED". APPLIED inline.
+- **R2 (CHEAP, ~30min CPU)** -- Re-run with corrected scoring metric: instrument best_threshold detection so it produces non-zero discriminative scores; THEN test whether framework prediction matches empirical optimum. NOT-AUTO-DISPATCHED; exp_dev review item.
+- **R3 (CHEAP, 0-compute)** -- Annotation only: "Framework-prediction-of-threshold sub-component remains untested by ATC v1; needs corrected metric design before reliability can be measured". APPLIED via R1.
+
+**n_scaling_n16384 INCONCLUSIVE (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "n_scaling INCONCLUSIVE; instrumentation failure at N=16384 not substrate failure". APPLIED inline.
+- **R2 (CHEAP, ~15min debug)** -- Debug seed-loop crash at N=16384: check OOM, matmul errors, checkpoint bug. Routing note filed. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** -- Run at N=8192 first (incremental scaling check): if N=8192 succeeds and N=16384 crashes, the bug is N-specific not general. NOT-AUTO-DISPATCHED.
+
+**gpu_baseline NO_METRICS (3 rescues):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "gpu_baseline 20s crash; metrics never written; instrumentation issue not capability claim". APPLIED inline.
+- **R2 (CHEAP, ~15min debug)** -- Re-run with extra logging: capture stderr to isolate crash root cause. Routing note filed. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, 0-compute)** -- Annotation only: "GPU-acceleration baseline capability claim not refuted; pending instrumentation fix". APPLIED via R1.
+
+### PROT compliance (v282 -> v283)
+
+- **PROT-004/006**: 4 rescue sets filed cheapest-first (block-W, hierarchical-W, ATC-test-instrument, n_scaling-instrumentation, gpu_baseline-instrumentation -- 5 sets total); each set has R1 0-cost subsumption-annotation FIRST per [[feedback-rescue-sketch-first-sequencing]]; closures (block-W + hierarchical-W) honored AFTER 3 rescues filed per [[feedback-rehabilitation-after-rejection]].
+- **PROT-007**: v283 history row appended. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279/v280/v282 PROT-007 backlogs).
+- **PROT-008**: validator NOT run (16-verdict batch with row LIFTs + new rows would benefit from validator but verdict_handler context inline -- flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v283 entry) + substrate_capability_map_history.md (v283 row) + strategy_decisions_2026-05-30.md (this entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; **194th PROT-009 paired commit**.
+- **PROT-018**: 16 anchors spot-checked for _n<N> suffix vs config.N: bet_b_k1_ceiling_stress_n8192_v1 N=8192 CLEAN; continuous_output_substrate_v1_n4096 N=4096 CLEAN; tensor_factorized_w_feasibility_v1_n4096 N=4096 CLEAN; sparse_w_active_subspace_v1_n4096 N=4096 CLEAN; phase_lattice_grid_v1_n4096 N=4096 CLEAN; tcft_erase_robustness_n8192_v1_cpu N=8192 CLEAN; m_c_probe_v1_n4096 N=4096 CLEAN; region_c_optimal_probe_v1_n4096 N=4096 CLEAN; multi_signal_kf1_design_v1_n4096 N=4096 CLEAN; phase_boundary_characterization_v1_n4096 N=4096 CLEAN; adaptive_cleanup_operator_v1_n4096 N=4096 CLEAN; adaptive_threshold_characterization_v1_n4096 N=4096 CLEAN; block_structured_w_feasibility_v1_n4096 N=4096 CLEAN; hierarchical_w_feasibility_v1_n4096 N=4096 CLEAN; n_scaling_modern_hopfield_v1_n16384 N=16384 CLEAN; gpu_acceleration_baseline_v1_n8192 N=8192 CLEAN. No suffix-vs-N mismatches.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 16 verdicts; 1 LABEL-VS-HONEST CATCH (adaptive_threshold ATC test-instrument over-claim); 3 ENVELOPE-CAVEAT annotations (continuous-output, tensor-factor, sparse-W); 12 fully-honest.
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge `get_metrics()` returned `_source=remote` for 15/16 anchors; gpu_baseline returned None (genuine NO_METRICS, not stale-local fallback).
+- **[[feedback-rehabilitation-after-rejection]]**: closures (block-W, hierarchical-W) each got 3 rescue sketches filed BEFORE honored.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-cost subsumption-annotation sequenced FIRST in all 5 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: capacity-extension sub-path closures scoped to specific designs (block-W, hierarchical-W); does NOT close capacity-extension generally (tensor-factor + sparse-W remain open).
+- **[[feedback-no-padding-experiments]]**: NEW candidate rows filed at conservative P=0.40-0.55 with explicit FULL ENVELOPE TEST RECOMMENDED caveats; no over-LIFT.
+- **[[feedback-lit-scan-calibration-penalty]]**: tensor-factor + sparse-W novel-synthesis P deflated 0.15-0.20 and capped at 0.55; honest under-capacity envelope caveats prominent.
+- **[[feedback-pipeline-pacing]]**: queue=0 detected; user explicit pending refill decision per dispatch note; verdict_handler SKIPS exp_dev dispatch per `[Queue refill: skipped: USER-PENDING]`.
+- **[[feedback-strategy-shore-up-capabilities]]**: 2 row LIFTs triggered (TCFT, deletion-cert); 3 new candidate rows added; full-envelope-test recommendations surfaced for orchestrator main-thread.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via `tools/orchestrator/append_decision_log.py`.
+- **[[feedback-for-you-tab-primary-channel]]**: status_log entries written with plain_language + importance fields; CRITICAL importance for first-HARD_PASS new-mechanism anchors (continuous-output, tensor-factor, sparse-W, bet_b K=1, TCFT broad-envelope, ATC LABEL-VS-HONEST).
+- **[[feedback-no-smoke]]**: brutal honesty applied -- continuous-output PERFECT-at-low-M flagged with envelope caveat; tensor-factor + sparse-W LIFTs explicitly bounded by under-capacity envelope; ATC label OVER-CLAIM caught and corrected.
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 16 anchors PROT-018 spot-check all CLEAN.
+
+### Commit & push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
