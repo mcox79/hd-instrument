@@ -59,3 +59,27 @@ Commit pending: 12 scripts + 12 preregs + 2 shared modules + this decision-log e
 - Self-test 5/5 PASS; smoke 5/5 PASS; REMOTE VERIFY 5/5 PASS; PROT-018 N-suffix 5/5 verified
 - R3 smoke ran on CPU (no local GPU); GPU memory peak measured on FULL via torch.cuda.max_memory_allocated
 - Single commit + push DEFERRED to main thread per spec
+
+## 2026-05-30 exp_dev: SHIP 14-anchor multi-hop optimization + timing characterization batch
+- S1 per_hop_latency_decomposition_v1_n4096 (E1.1; M[512,2048,4096,8192]xdepth[3,5,8,12]xK[100,500,1000]x5seeds; HP=per-path dom op>=50% AND consistent; timeout=21600s)
+- S2 latency_crossover_analysis_v1_n4096 (E1.3; M[512,2048,8192]xdepth[3,5,8,12,16,20]xK[100,500,1000,2000,5000]; HP=each path wins one cell at >=95% best-acc; timeout=21600s)
+- S3 multi_hop_memory_efficiency_v1_n4096 (E1.4; M=8192 depth=5 K=1000; HP=max_amp <=4x AND no >2x spike; HF >=10x; timeout=14400s)
+- S4 modern_hopfield_n16384_v7_resilient (EC1; 3 resilient strategies a/b/c; M=N/8,N/4,N/2,N; HP=median_max_M > N/4; timeout=43200s -- USER APPROVED >14400s)
+- S5 path_optimization_baseline_v1_n4096 (E1.2; M=2048 d=5 K=500x5seeds; HP=CV<=50% across seeds AND dom_op named; timeout=14400s)
+- S6 multi_hop_edit_isolation_v1_n4096 (E3.2; rates[10,100,1000]xpatterns[on/off/mixed]x5seeds; HP=all 3 paths >=85% at rate=100 + audit valid; HF=any<50% or audit-corrupt; timeout=21600s)
+- S7 op_timing_atlas_v1_n4096 (E2.1; 10 ops 1000 samples each x5seeds; HP=all p99/med<=5; timeout=21600s)
+- S8 latency_accuracy_tradeoff_v1_n4096 (E2.2; 4 ops x sweeps; HP=Pareto >=3 pts per op; HF=no tradeoff; timeout=21600s)
+- S9 mixed_confidence_multi_hop_v1_n4096 (E3.4; 50/30/20 conf dist; HP=>=1 path calibrated +/-15% AND acc>=blind AND lat<=20%; timeout=21600s)
+- S10 approximate_multi_hop_sampling_v1_n4096 (E6.2; rates[0.10,0.25,0.50,0.75,1.00]; HP=>=1 path 3x speedup at <5% loss; timeout=14400s)
+- S11 multi_hop_gpu_baseline_v1_n4096 (E6.4; CPU+GPU runs; HP=>=1 path 5x speedup + acc parity 5%; timeout=14400s)
+- S12 adversarial_multi_hop_probing_v1_n4096 (E4.2; 5 patterns crosstalk/collision/deleted/edited/composition; HP=>=90% defense + 0% leak; HF=any<70% or >20% leak; timeout=21600s)
+- S13 novel_query_construction_v1_n4096 (E3.5; novel chains from single-hop facts; HP=>=1 path 60% at d3-4; HF=all <20%; P=0.30-0.50 prior; timeout=14400s)
+- S14 joint_path_execution_v1_n4096 (E6.5; seq vs joint; HP=>=70% speedup + mem<=2x + acc preserved; HF=joint slower OR mem>5x; timeout=14400s)
+- Shared module experiments/_multi_hop_mechanisms.py (reuses _relation_graph + _metric_battery; selftest PASS)
+- Self-test 14/14 PASS; smoke 14/14 PASS; REMOTE VERIFY 14/14 (queue_add.sh exit 0 + remote queue.json contains anchor)
+- PROT-018 N-suffix 14/14 verified; PROT-019 timeout floors met; ASCII 14/14 (non_ascii=0)
+- S4 timeout=43200s flagged >7200s in for_you status_log entry; user explicitly authorized in dispatch
+- Queue depth after ship: 15 pending (14 new + 1 prior multi_hop_noise_robustness_v1_n4096)
+- SCP'd shared module experiments/_multi_hop_mechanisms.py to remote pre-ship (first ship of S1 caught missing module via gate self-test; fixed in same cycle)
+- Smoke verdicts at smoke-scale (single seed, smaller M/depth): S1=HP S2=HF S3=HF S4=HP S5=HP S6=HF S7=HP S8=HF S9=HP S10=HP S11=MB(no_GPU_locally) S12=HF S13=HP S14=HF -- ALL smoke-scale artifacts NOT blockers
+- Commit + push DEFERRED to main thread per role contract sub-agent-permission-inheritance gap
