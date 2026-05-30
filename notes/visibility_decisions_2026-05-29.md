@@ -85,3 +85,16 @@ v273->v274 BATCHED 4-VERDICT Section-4 branching trigger: saad_solla_v20 FAILED 
 - Portfolio 14+31 UNCHANGED; Non-eq-stat-mech 67-77% -> 69-79% LIFT (+2%); product-feature 88-97% -> 89-98% LIFT (+1%); specific 70-83% UNCHANGED; general 73-83% UNCHANGED
 - HONEST 184->186 (+2); LABEL-VS-HONEST 133 UNCHANGED; 0 NEW routings filed (V1 discharges 2; V2 inherits Cluster C in queue); 188th PROT-009 paired commit
 - Queue refill SKIPPED — GPU 23 pending + CPU 10 pending HEALTHY; refill conditions NOT met per [[feedback-pipeline-pacing]] + [[feedback-no-padding-experiments]]
+
+
+## 2026-05-29 ~21:16 — bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL (annotation-only; cap_map v278→v279; 190th PROT-009 commit)
+
+- BID v7 N=4096 BSC 3-seed HARD_FAIL on `normalized_bid > 0.55` predicate (inherited from `bid_m_normalized_v1`); = METRIC-DEFINITION DISAGREEMENT vs v2 N=8192 5-seed FULL HARD_PASS gap-predicate, NOT framework refutation.
+- Classification B: v2 and v7 use IDENTICAL BSC codebook; v7's absolute BID [377..536] @ N=4096 sits in v2's gap-region BELOW spin-glass band [1024, 2048]; substrate consistent across both probes when properly translated.
+- Substrate-outside-static-Hopfield row UNCHANGED 🟢; Non-eq-stat-mech 69-79% UNCHANGED; SKAH-M 55-70% UNCHANGED; portfolio 14+31 UNCHANGED.
+- 135th LABEL-VS-HONEST catch NEW SUB-FLAVOR METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM (verdict_msg "collapses inside Hopfield bands" honest at metric level, misleading at framework level when v7 measures different predicate than v2 anchor).
+- 5 rescue sketches filed cheapest-first: R1 SUBSUMPTION 0-cost metric-family annotation RECOMMENDED-FIRST; R2 0-cost cap_map BID-metric-family glossary RECOMMENDED; R3 MEDIUM v8 N=4096 BSC with v2 metric NOT-URGENT; R4 demote REJECTED; R5 codebook-effect REJECTED.
+- HONEST 186→187 (+1 V1 honest-at-metric); LABEL-VS-HONEST 134→135 (+1 NEW SUB-FLAVOR).
+- Queue refill SKIPPED per user no-refill directive (token-efficient mode); pause flag absent but user-directive honored.
+- PROT-007 BACKLOG NOTE: v277 + v278 history.md row entries missing (last row was v276); flagged for strategy_scribe / META backfill next cycle.
+- 190th PROT-009 paired commit; verdict_handler sub-agent inline.

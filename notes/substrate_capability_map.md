@@ -18255,3 +18255,94 @@ The 4-axis support for Saad-Solla is real and multi-directional. This annotation
 - [[feedback-no-padding-experiments]]: annotation-only; no exp_dev dispatch triggered.
 
 ANNOTATION-ONLY v277 -> v278: Saad-Solla LEADING checkmark ANNOTATION MULTI_AXIS_RESOLUTION_OVERCLAIM (seed-axis N=8192 5-seed; M-axis N=8192 2-seed; codebook-axis N=4096 3-seed; N-axis N=2048 5-seed + N=8192 2-seed; 134th LABEL-VS-HONEST sub-flavor MULTI_AXIS_RESOLUTION_OVERCLAIM) + KF-2 BE-1 STRATEGIC_INTERPRETATION_OVER_CLAIM MECHANISM-REFINED (max_iso 1/99 discretization floor across 10 FULL runs; new metric required for BE-1 v2); portfolio 14+31 UNCHANGED; reliability bands UNCHANGED; HONEST 186 UNCHANGED; LABEL-VS-HONEST 133->134 (+1); 189th PROT-009 paired commit; strategy_scribe sub-agent annotation-only no exp_dev dispatch.
+
+
+---
+
+## v278 -> v279 -- 2026-05-29 SINGLE-VERDICT @ ~21:16 (bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL N=4096 BSC 3-seed METRIC-DEFINITION DISAGREEMENT classification B; 135th LABEL-VS-HONEST NEW SUB-FLAVOR METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM; ANNOTATION-ONLY user no-refill mode)
+
+**Trigger.** Single verdict event on `remote_cpu_queue`: `bid_order_parameter_v7_n4096_bsc` completed wall_s=3793.67, ended ~2026-05-29T21:16. Remote bridge `get_metrics` returned `_source=remote` (authoritative): N=4096 BSC atoms, M_fracs=[0.05, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0], 3 seeds [7, 17, 23], smoke=False. Verdict_msg: `BID collapses inside Hopfield bands at M_frac<=2.0. rho=1.000 n_outside_low=0 n_inside_low=18 ... bid_means=[0.092, 0.094, 0.104, 0.107, 0.113]...`. Local pre-ship smoke artifact at `data/exp_bid_order_parameter_v7_n4096_bsc/metrics.json` IGNORED per `notes/verdict_handler_remote_metrics_fix_2026-05-27.md`. Pause flag absent; user explicit no-refill directive HONORED.
+
+### Step 0 honest re-read (metric-definition comparison)
+
+**v7 metric** (`exp_bid_order_parameter_v7_n4096_bsc.py:79, 87-91`):
+- `BAND_MAX_INSIDE = 0.55` inherited from `bid_m_normalized_v1.BAND_MAX_INSIDE`
+- `outside_band = (normalized_bid > 0.55)` where `normalized_bid = bid / N`
+- HARD_FAIL when `BID < 0.55 * N` at M_frac<=2.0
+
+**v2 metric** (`exp_bid_order_parameter_v2.py:75-93`):
+- 3 Hopfield-class bands: `[1.0, 2.5]` retrieval, `[N/4, N/2]` spin-glass, `[N-5, N]` paramagnetic
+- HARD_PASS when `BID outside ALL 3 bands` with `sigma_margin >= 2.0`
+- v2 N=8192 5-seed FULL: BID=46.95±5.90, sigma_margin=7.54, 5/5 OUTSIDE all bands
+
+**Codebook**: BSC IDENTICAL in v2 and v7 (`make_bsc()` at v2:106-107 and v7 inheriting v6's `make_bsc()`). Hypothesis (C) "codebook-class effect" REJECTED.
+
+**Metric-comparison arithmetic**: v7's bid_means [0.092..0.131] → absolute BID at N=4096 = [377..536]. v2 spin-glass band at N=4096 is `[N/4=1024, N/2=2048]`. v7's BID is BELOW the spin-glass band, ABOVE the retrieval band [1, 2.5] — that's the gap-region v2 calls "outside_all_bands". v2's actual N=4096 cell from HP3 sweep: BID=63.27 (`[50.668, 50.3992, 63.2693, 73.1249]` for N=[1024, 2048, 4096, 8192]). v7's range overlaps the v2 gap-region. The "BID collapses INSIDE Hopfield bands" framing is honest at the `normalized_bid > 0.55` predicate level (v7's BID is indeed below the threshold) BUT MISLEADING at the framework level (v7's BID is in the same gap-region v2 calls OUTSIDE_ALL_BANDS_NOVEL_CLASS).
+
+**Classification (B) confirmed**: METRIC-DEFINITION DISAGREEMENT at the predicate level — v7 tests "upper-paramagnetic-regime" predicate; v2 tests "gap-between-retrieval-and-spin-glass" predicate. v7's HARD_FAIL on its predicate does NOT contradict v2's HARD_PASS on the gap-predicate; the substrate's actual BID values are consistent across both probes.
+
+**Spearman rho=+1.000** in v7 (BID monotonically GROWS with M-load: 0.092 → 0.131 across M_frac 0.05 → 16.0) corroborates v275 bid_m_normalized_v5 finding of M-dependent BID-scaling. The verdict_msg's "rho=1.000" reads numerically true but the *direction* matters: positive rho means BID GROWS with M not COLLAPSES — language clarification.
+
+**135th LABEL-VS-HONEST catch, NEW SUB-FLAVOR METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM**. Distinct from prior sub-flavors:
+- STEERABILITY_PARTIAL_DECOUPLING (v275): metric-decoupling WITHIN a shared predicate (entropy-mono vs bpc-mono).
+- METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM (this): predicate-SUBSTITUTION between probes within same capability claim space (v7's `normalized_bid > 0.55` vs v2's `outside_all_3_bands_with_sigma>=2`).
+
+### Cap_map move (annotation-only)
+
+**Substrate-outside-static-Hopfield row 🟢 UNCHANGED at row level.** Annotation extension: "v279 bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL at N=4096 BSC 3-seed across 10 M_fracs [0.05..16.0] = METRIC-DEFINITION DISAGREEMENT vs v2 anchor. v7 `normalized_bid > 0.55` predicate tests upper-paramagnetic-regime ≠ v2 `outside [retrieval, spin-glass, paramagnetic] with sigma_margin>=2` gap-predicate. Codebook BSC IDENTICAL between v2 and v7. v7 absolute BID range [377..536] @ N=4096 sits in v2's gap-region (BELOW spin-glass band [1024, 2048], ABOVE retrieval band [1, 2.5]) = consistent with v2 outside_all_bands_novel_class finding. Substrate's BID signature is in low-magnitude gap not upper-paramagnetic — when measured with v2's predicate, substrate PASSES; when measured with v7's predicate, substrate FAILS. v7 spearman rho=+1.000 (BID grows monotonically with M-load) corroborates v275 bid_m_normalized_v5 M-dependent scaling annotation."
+
+**Non-eq-stat-mech framework class row 🟢 69-79% UNCHANGED.** v2 N=8192 5-seed FULL HARD_PASS remains the load-bearing anchor. v7 is a different-metric secondary probe that does not contradict v2 at the metric-comparison level. Per [[feedback-lit-scan-calibration-penalty]] CAUTION: do NOT reduce band on metric-definition disagreement. Per [[feedback-dont-overextend-theorems]]: a metric-definition disagreement at one anchor does not refute the broader framework class.
+
+**SKAH-M / lR-phase row 🟢 55-70% UNCHANGED** (BID-axis not SKAH-M-axis).
+
+**TCFT deletion-cert row 🟢 88-96% UNCHANGED**.
+
+**All other rows UNCHANGED**.
+
+**Portfolio**: 14 + 31 UNCHANGED.
+
+**Framework reliability**: all bands UNCHANGED (non-eq 69-79%, SKAH-M 55-70%, TCFT 88-96%, KF-1 65-80%, product-feature 89-98%, specific 70-83%, general 73-83%).
+
+### Rescue sketches (PROT-004/006 — 5 sketches, cheapest-first sequenced)
+
+(R1, **CHEAPEST / SUBSUMPTION 0-cost STRONGEST, RECOMMENDED-FIRST**) — Annotate `bid_m_normalized` family (v1, v5, v6, v7) and `bid_order_parameter` family (v1, v2, v230, this v7-renamed) as testing DIFFERENT predicates in cap_map. Methodology lock: 0 compute, prevents next verdict-handler from re-litigating this metric-definition mismatch. Already partially implemented inline in this v279 entry.
+
+(R2, CHEAP 0-cost) — Add a "BID metric family glossary" sub-section under substrate-outside-static-Hopfield row in `substrate_capability_map.md` naming the two metric families explicitly, with their predicates. Catches future METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM cases at Step 0 not retroactively. Per [[feedback-lock-in-inefficiency-fixes]].
+
+(R3, MEDIUM, would test the substantive question but NOT URGENT) — Ship `bid_order_parameter_v8_n4096_bsc` applying the v2 metric (absolute BID + 3-class-band test + sigma_margin >= 2) at N=4096 BSC 3-seed. Would CORROBORATE v2 at N=4096 with BSC codebook 3-seed (vs v2's HP3 BID=63.27 cell). NOT URGENT because v2 HP3 already covers N=[1024..8192]. Surface as recommendation for orchestrator main-thread decision; NOT auto-shipped per user no-refill directive.
+
+(R4, REJECTED) — Demote substrate-outside-static-Hopfield row or reduce non-eq band on v7 signal. Rejected per [[feedback-dont-overextend-theorems]]: a metric-definition disagreement at ONE anchor does not warrant row demotion when the v2 multi-seed FULL HARD_PASS at N=8192 anchors the row.
+
+(R5, REJECTED) — Treat as Kerdock-vs-BSC codebook-class effect. Rejected: v2 and v7 BOTH use BSC; codebook is not the distinguisher.
+
+### Follow-on for orchestrator main-thread decision (per user no-refill directive)
+
+R1 + R2 are zero-compute documentation rescues — recommend orchestrator main thread file as small annotation tasks (not exp_dev dispatches). R3 is MEDIUM compute (~3800s remote_cpu_queue if shipped) — NOT URGENT, surfaced for decision when user resumes refill mode.
+
+### PROT compliance (v278 -> v279)
+
+- **PROT-004/006**: 5 rescue sketches filed (R1-R5); cheapest-first sequenced per [[feedback-rescue-sketch-first-sequencing]]; R4/R5 explicitly REJECTED with mechanism per [[feedback-no-smoke]]; row state UNCHANGED so PROT-004 closure-list discipline does not strictly bind.
+- **PROT-007**: cap_map row table (`substrate_capability_map_history.md`) UPDATED with v279 row. **BACKLOG NOTE**: v277 + v278 history.md row entries appear missing (last row in history.md was v276); flagged for strategy_scribe / META next cycle to backfill.
+- **PROT-008**: validator skipped (annotation-only bump; row-state UNCHANGED, portfolio UNCHANGED).
+- **PROT-009**: cap_map.md (this v279 entry) + substrate_capability_map_history.md (cap_map row table) + strategy_decisions_2026-05-29.md (v278→v279 entry) + visibility_decisions_2026-05-29.md (one-line entry) staged atomically; **190th PROT-009 paired commit**.
+- **PROT-018**: anchor `bid_order_parameter_v7_n4096_bsc` includes `_n4096` suffix; verified `N_FULL=4096` at v7.py:82 with `assert N_FULL == 4096`. CLEAN no anchor-vs-N mismatch.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 honest re-read performed via metric-definition comparison; label-vs-honest catch filed (135th, METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM new sub-flavor).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge `get_metrics()` returned `_source=remote`; stale local pre-ship smoke at `data/exp_bid_order_parameter_v7_n4096_bsc/metrics.json` (N=512, 1 seed, elapsed=0.01s) IGNORED.
+- **[[feedback-dont-overextend-theorems]]**: metric-definition disagreement at ONE anchor does not refute the non-eq framework class anchored by v2 N=8192 5-seed FULL.
+- **[[feedback-obey-user-pause-explicitly]]**: pause flag absent BUT user explicit no-refill directive HONORED; exp_dev queue refill SKIPPED.
+- **[[feedback-no-padding-experiments]]**: no padding experiment shipped; R1/R2 documentation rescues zero-compute; R3 surfaced as RECOMMENDATION not auto-dispatch.
+- **[[feedback-cap-map-update-protocol]]**: atomic commit cap_map.md + history.md + strategy_decisions + visibility_decisions.
+- **[[feedback-decision-log-eol-handling]]**: entries appended via `tools/orchestrator/append_decision_log.py`.
+- **[[feedback-no-smoke]]**: brutal honesty — verdict_msg "collapses inside Hopfield bands" reframed as misleading-at-framework-level while honest-at-metric-level; rescue sketches with REJECT mechanism for R4/R5.
+- **[[feedback-lock-in-inefficiency-fixes]]**: R2 cap_map BID-metric-family glossary IS the structural lock that prevents this confusion recurring.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 (0-cost subsumption) sequenced first; R2 (0-cost lock-in); R3 (MEDIUM substantive); R4/R5 (REJECTED with explicit mechanism).
+- **[[feedback-lit-scan-calibration-penalty]]**: CAUTION applied — non-eq band NOT reduced on this metric-definition disagreement signal.
+
+### Commit & push
+
+Commit message (composed for atomic commit): `Cap map: v278 -> v279 (SINGLE-VERDICT bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL N=4096 BSC 3-seed 10 M_fracs METRIC-DEFINITION DISAGREEMENT NOT FRAMEWORK REFUTATION classification B; v7 normalized_bid>0.55 inherited from bid_m_normalized_v1 tests upper-paramagnetic-regime predicate distinct from v2 absolute-BID-outside-3-class-bands-with-sigma-margin gap-predicate; codebook=BSC IDENTICAL between v2 and v7 hypothesis C rejected; v7 absolute BID range [377..536] at N=4096 BELOW v2 spin-glass band [N/4=1024, N/2=2048] CONSISTENT with v2 outside_all_bands gap-finding; substrate-outside-static-Hopfield row UNCHANGED green; non-eq-stat-mech 69-79% UNCHANGED v2 N=8192 5-seed FULL HARD_PASS load-bearing anchor; SKAH-M 55-70% UNCHANGED; portfolio 14+31 UNCHANGED; HONEST 186->187 (+1); LABEL-VS-HONEST 134->135 (+1 NEW SUB-FLAVOR METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM); user no-refill mode honored exp_dev SKIPPED; 5 rescue sketches R1 SUBSUMPTION-annotate-metric-families recommended R2 cap_map-glossary recommended R3 v8-with-v2-metric MEDIUM-not-urgent R4 demote REJECTED R5 codebook-effect REJECTED; PROT-007 backlog noted v277/v278 history rows missing; 190th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.

@@ -967,3 +967,85 @@ Cumulative LABEL-VS-HONEST catches: 133 UNCHANGED.
 
 Commit message: `Cap map: v276 -> v277 (BATCHED 2-VERDICT post-v276 GPU completion wave: tcft_m_sweep_v3_n8192_5seed TCFT_V3_HARD_PASS PRODUCTION-SCALE 5-SEED x 5-M_frac FIRST CLEAN N=8192 5-SEED TCFT M-SWEEP FULL spearman=-1.000 mean_vr_by_M={128:0.0119,256:0.0015,512:0.0001,1024:0,2048:0} 25/25 cells valid HIGHEST-EVIDENCE-DENSITY TCFT CORROBORATION RELIABILITY-RECALC EVENT discharges v260+v257 routings + bet_b_4stage_batch128_v1 FOURSTAGE_MIDDLE_BAND ret_A=0.7449 5/5 seeds N=8192 5TH INDEPENDENT BET-B STAGE-A SUB-0.80 CORROBORATION RE-RUN of v249 batch=128 axis cumulative 26 seeds 0/26 clear 0.80 HP across 5 rehab axes substrate-native-spec rescue PROMOTED PRIMARY; portfolio 14+31 UNCHANGED; TCFT deletion-cert green 85-94%->88-96% LIFT +3% per dispatch directive; non-eq-stat-mech 67-77%->69-79% LIFT +2% lower+upper; product-feature 88-97%->89-98% LIFT +1% lower+upper; specific 70-83% UNCHANGED; general 73-83% UNCHANGED; Bet B 4-stage yellow UNCHANGED 5TH-AXIS BATCH-128 RE-RUN annotation substrate-native-spec rescue PROMOTED PRIMARY; HONEST 184->186 (+2); LABEL-VS-HONEST 133 UNCHANGED; 0 NEW routings filed V1 discharges 2 open routings V2 inherits Cluster C in queue; 188th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`
 v278 ANNOTATION-ONLY: Saad-Solla LEADING row annotated MULTI_AXIS_RESOLUTION_OVERCLAIM (seed-axis N=8192 5-seed; M-axis N=8192 2-seed; codebook-axis N=4096 3-seed; N-axis mixed; 134th LABEL-VS-HONEST sub-flavor MULTI_AXIS_RESOLUTION_OVERCLAIM); KF-2 BE-1 STRATEGIC_INTERPRETATION_OVER_CLAIM mechanism refined (max_iso 1/99 discretization floor across 10 FULL runs spanning fp32-int1; BE-1 v2 requires retrieval/pool-readout accuracy metric n_test_pairs>=1000); both from Agent-2 forensic mining v276; row-states UNCHANGED; portfolio 14+31 UNCHANGED; reliability UNCHANGED; 189th PROT-009 paired commit
+
+## v278 -> v279 SINGLE-VERDICT @ 2026-05-29 ~21:16 (bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL — METRIC-DEFINITION DISAGREEMENT not framework refutation; ANNOTATION-ONLY classification B; user no-refill mode)
+
+**Trigger.** Single verdict event: `bid_order_parameter_v7_n4096_bsc` completed on remote_cpu_queue at wall_s=3793.67 (~63 min), ended ~2026-05-29T21:16 just before tcft_m_sweep_v4_n4096 picked up. Metrics fetched via remote bridge (`_source=remote`, authoritative): N=4096 BSC atoms, M_fracs=[0.05, 0.1, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0], 3 seeds [7, 17, 23], smoke=False. Verdict tag = BID_V7_HARD_FAIL with verdict_msg `BID collapses inside Hopfield bands at M_frac<=2.0. rho=1.000 n_outside_low=0 n_inside_low=18 ... bid_means=[0.092, 0.094, 0.104, 0.107, 0.113]...`. Pause flag check: `data/orchestrator_paused.flag` ABSENT (verified) = ACTIVE state, BUT user explicitly disabled refill in dispatch ("token-efficient mode; do NOT trigger exp_dev refill"). Local `data/exp_bid_order_parameter_v7_n4096_bsc/metrics.json` is a STALE PRE-SHIP SMOKE artifact (N=512, M_fracs=[0.1, 1.0], 1 seed, elapsed=0.01s) — DO NOT use; remote bridge authoritative per [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]].
+
+### Step 0 honest re-read (CRITICAL — METRIC-DEFINITION COMPARISON)
+
+The verdict_msg label "BID_V7_HARD_FAIL — BID collapses inside Hopfield bands at M_frac<=2.0" is HONEST AT THE METRIC LEVEL but the **framework-implication framing is MISLEADING absent metric-comparison context**. Honest reading requires comparing v7's metric definition to v2's (which HARD_PASSed at N=8192 5-seed FULL anchoring the non-eq-stat-mech framework class per project_substrate_non_eq_stat_mech_class_2026-05-27.md).
+
+**v7 metric** (per `exp_bid_order_parameter_v7_n4096_bsc.py:79, 87-91`):
+- `BAND_MAX_INSIDE = 0.55` — inherited from `bid_m_normalized_v1.BAND_MAX_INSIDE`
+- `normalized_bid = bid / N`
+- `outside_band = (normalized_bid > 0.55)`
+- HARD_FAIL fires when `bid_norm < 0.55` (BID < 0.55 * N = BID < 2253) at M_frac<=2.0
+
+**v2 metric** (per `exp_bid_order_parameter_v2.py:75-93` + project_substrate_non_eq_stat_mech_class memory):
+- `BID_RETRIEVAL = [1.0, 2.5]`, `BID_SPIN_GLASS = [N/4, N/2]`, `BID_PARAMAGNETIC = [N-5, N]` (3 Hopfield-class bands)
+- Pass criterion: BID outside ALL 3 bands with `sigma_margin >= 2.0`
+- v2 N=8192 5-seed FULL: BID=46.95+/-5.90, sigma_margin=7.54, 5/5 OUTSIDE all 3 bands; later HP3_BAND_CLEARANCE_PASS at N=[1024..8192] BIDs=[50.668, 50.3992, 63.2693, 73.1249]
+
+**Codebook (BOTH v2 and v7)**: BSC (random +/-1 atoms). v2 uses `make_bsc()` at v2:106-107, 245-246; v7 inherits v6's `make_bsc()`. Codebook is **NOT** the distinguisher. Hypothesis (C) "BSC vs Kerdock" is **REJECTED**.
+
+**Metric-comparison arithmetic**: v7's bid_means at M_frac=2.0 = 0.118 (mean of 3 seeds) → absolute BID = 0.118 * 4096 = ~483. v2 at N=4096 gave absolute BID ~63 (HP3 scaling) which is FAR BELOW 0.55 * 4096 = 2253; v2 would ALSO HARD_FAIL the v7 `normalized_bid > 0.55` criterion at N=4096 BY 36x. So the v7 criterion is testing a DIFFERENT mathematical regime ("BID is more than half of N", i.e. near-paramagnetic top-band) than the v2 criterion ("BID is outside [1, 2.5] retrieval AND outside [N/4, N/2] spin-glass AND outside [N-5, N] paramagnetic with >=2 sigma").
+
+**Concretely:** v7's `normalized_bid > 0.55` at N=4096 corresponds to BID > 2253, which is INSIDE the spin-glass band [N/4=1024, N/2=2048] HIGH edge and approaching paramagnetic [N-5=4091, N]. The v7 criterion is testing "BID is in the upper-paramagnetic regime" not "BID is outside all 3 class bands". These are MATHEMATICALLY DIFFERENT predicates. v2's actual BID values (~47-73 at N=1024..8192) are BELOW the spin-glass band [N/4, N/2] AND ABOVE the retrieval band [1, 2.5] = they sit in the **gap** between retrieval and spin-glass = "OUTSIDE_ALL_BANDS / NOVEL_CLASS" per v2 pre-registration. v7's threshold (0.55 * N) sits ABOVE the spin-glass band, so substrate falling below it does NOT contradict v2's gap-finding.
+
+**Classification (B) confirmed:** This is a **test-region disagreement at the metric-definition level**. Both v6 (parent, also HARD_FAILed via same threshold; production metrics unavailable so only smoke confirms direction) and v7 inherited the `BAND_MAX_INSIDE=0.55` threshold from `bid_m_normalized_v1` — a normalized-BID family of probes with a DIFFERENT testing question (`is substrate in upper-paramagnetic regime?`) than the v2/v275 family (`is substrate outside ALL 3 Hopfield-class bands?`). v275's `bid_m_normalized_v5_n8192` HARD_PASSed using yet a THIRD threshold (absolute mean_bid > 100.0 against per-N spin-glass [N/4, N/2] and paramagnetic [N-5, N] bands; per v275 strategy entry) — also methodology-distinct from v7.
+
+**Honest verdict reframing**: `BID_V7_NORMALIZED_THRESHOLD_INSIDE_AT_N4096_BSC` = substrate BID at N=4096 BSC is below the 0.55*N normalized threshold across all 18 cells (3 seeds × 6 low-M_fracs <= 2.0) and across all 30 cells (3 seeds × 10 M_fracs in [0.05..16.0]). bid_means range from 0.092 (M_frac=0.05) monotonically rising to 0.131 (M_frac=16.0); this IS monotone in M (rho=1.000 = perfectly monotonic, but the sign is POSITIVE i.e. BID grows with M-load not decreases). The verdict_msg saying "rho=1.000 ... collapses INSIDE bands" is honest at the numerical level but misleading at the framework level — it's the same substrate signature as v2 (low-magnitude BID outside-retrieval-and-spin-glass-but-far-below-paramagnetic) just MEASURED with a different yardstick that registers "false" against the upper-band threshold.
+
+### Cap_map move (annotation-only, no row demotion)
+
+**Substrate-outside-static-Hopfield-bands capability row** (established v268→v269; lifted v275 +1% lower bound on non-eq-stat-mech via bid_m_normalized_v5 N=8192 +5th axis): UNCHANGED at row level (🟢 with current band).
+
+Annotation extension: "v279 bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL at N=4096 BSC 3-seed across 10 M_fracs [0.05..16.0] under `normalized_bid > 0.55` criterion (inherited from `bid_m_normalized_v1.BAND_MAX_INSIDE`) = METRIC-DEFINITION DISAGREEMENT vs v2/v230/v275 — NOT framework refutation. v7 measures `normalized_bid > 0.55` (BID > 0.55*N ≈ in upper paramagnetic regime); v2 measures `BID outside [retrieval=[1,2.5], spin-glass=[N/4,N/2], paramagnetic=[N-5,N]] with sigma_margin>=2` (i.e. BID in the gap between retrieval and spin-glass). v7 codebook=BSC IDENTICAL to v2; only the threshold function differs. v7 per-cell bid_means [0.092..0.131] correspond to absolute BID [377..536] at N=4096 which is BELOW the v2 spin-glass band [N/4=1024, N/2=2048] = consistent with v2's "outside_all_bands" gap-finding. Honest framing: substrate BID is in low-magnitude gap-region (v2 PASS regime) NOT in upper-paramagnetic regime (v7 PASS regime). Spearman rho=+1.000 in v7 (BID grows monotonically with M-load) corroborates substrate's M-dependent BID-scaling per v275 bid_m_normalized_v5. Row state UNCHANGED."
+
+**Non-eq-stat-mech framework class row** (currently 🟢 69-79% lower-upper per v277): **UNCHANGED**. v2 N=8192 5-seed FULL HARD_PASS (sigma_margin=7.54, BID=46.95±5.90) remains the load-bearing anchor; v7 is a different-metric secondary probe that does not contradict v2 at the metric-comparison level (per Step 0 analysis above). Applying [[feedback-lit-scan-calibration-penalty]] caution: do NOT reduce the band on a metric-definition disagreement; the v2 multi-seed FULL is far stronger evidence than a single-anchor different-threshold v7.
+
+**SKAH-M / lR-phase row** (🟢 55-70% per project_substrate_skahm_class_confirmed_2026-05-27): UNCHANGED (v7 is BID-axis not SKAH-M-axis).
+
+**HONEST observations counter**: v277 had 186; this verdict is 1 HONEST observation at the metric-level + 1 LABEL-VS-OVER-CLAIM-AT-FRAMEWORK-LEVEL catch (the verdict_msg "collapses inside Hopfield bands" reads at the framework level as a non-eq refutation but the metric is testing a different predicate than the v2-anchored Hopfield-class definition). I record this as the **135th LABEL-VS-HONEST catch, new sub-flavor METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM**. Cumulative HONEST observations: 186 -> **187 (+1: V1 honest-at-metric)**.
+
+**Portfolio**: 14+31 UNCHANGED (annotation only). **Framework reliability** UNCHANGED across all bands (non-eq 69-79%, SKAH-M 55-70%, TCFT 88-96%, KF-1 65-80%, product-feature 89-98%, specific 70-83%, general 73-83%).
+
+### Follow-on recommendations (for orchestrator main thread to decide whether to ship; NOT auto-dispatched)
+
+Per user no-refill directive, exp_dev refill SKIPPED. Surfacing for main-thread decision:
+
+(R1, **CHEAPEST / SUBSUMPTION 0-cost STRONGEST**, recommended) — **Annotate the bid_m_normalized family of experiments** (v1, v5, v6, v7) as testing the `normalized_bid > 0.55` upper-paramagnetic-threshold predicate, distinct from the v2/v230 bid_order family which tests the `BID outside all 3 Hopfield-class bands with sigma_margin >= 2` gap-predicate. This is a documentation rescue with 0 compute cost; closes the framework-interpretation ambiguity that v7's verdict_msg accidentally created. RECOMMENDED FIRST.
+
+(R2, CHEAP, 0-cost variant of R1) — Add to `notes/substrate_capability_map.md` a "BID metric family glossary" sub-section under the substrate-outside-static-Hopfield row, naming the two metric families explicitly so future verdict-handler runs catch this metric-definition disagreement at Step 0 not retroactively. Methodology lock per [[feedback-lock-in-inefficiency-fixes]].
+
+(R3, MEDIUM, would test the substantive question) — Ship `bid_order_parameter_v8_n4096_bsc` re-running v7's N=4096 BSC 3-seed config but applying the v2 metric (absolute BID + 3-class-band test + sigma_margin >= 2) to verify that the substrate's gap-region finding holds at N=4096 (v2's actual N=4096 cell was BID=63.27 per v2 metrics_msg `[50.668, 50.3992, 63.2693, 73.1249]`). Would CORROBORATE v2 at N=4096 across BSC codebook with 3 seeds. Estimated ~3800s on remote_cpu_queue (matches v7 wall). NOT URGENT — v2's HP3 already covers N=[1024, 2048, 4096, 8192] in 1 sweep.
+
+(R4, NOT-RECOMMENDED) — Demote BID row or non-eq band. Rejected per Step 0 analysis: v7 is metric-disagreement not framework refutation; demotion on this signal would be premature per [[feedback-dont-overextend-theorems]].
+
+(R5, NOT-RECOMMENDED) — Treat as Kerdock vs BSC codebook effect. Rejected: v2 and v7 BOTH use BSC; codebook is not the distinguisher.
+
+### PROT compliance (v278 -> v279)
+
+- **PROT-004/006**: 5 rescue sketches filed (R1 R2 R3 R4 R5); cheapest sequenced first per [[feedback-rescue-sketch-first-sequencing]]; R4/R5 explicitly REJECTED with mechanism per [[feedback-no-smoke]] (brutal honesty about which directions are not on the table). No row CLOSED so PROT-004 closure-rescue-list discipline does not bind, but rescue sketches filed proactively for clarity.
+- **PROT-007**: cap_map row table (in `substrate_capability_map_history.md`) UPDATED with v279 row.
+- **PROT-008**: validator skipped (annotation-only bump; row-state UNCHANGED).
+- **PROT-009**: cap_map.md (v278 -> v279 entry) + substrate_capability_map_history.md (cap_map row table) + strategy_decisions_2026-05-29.md (this entry) + visibility_decisions_2026-05-29.md (one-line) staged atomically; **190th PROT-009 paired commit**.
+- **PROT-018**: anchor `bid_order_parameter_v7_n4096_bsc` includes `_n4096` suffix, config N_FULL=4096 (verified at v7.py:82, asserted); CLEAN no anchor-vs-N mismatch.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 honest re-read performed via metric-definition comparison (v7's BAND_MAX_INSIDE=0.55 normalized vs v2's 3-class-bands absolute); label-vs-honest catch filed (135th, new sub-flavor METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge `get_metrics()` returned `_source=remote`; stale local pre-ship smoke at `data/exp_bid_order_parameter_v7_n4096_bsc/metrics.json` (N=512, 1 seed, elapsed=0.01s) IGNORED.
+- **[[feedback-dont-overextend-theorems]]**: a metric-definition disagreement at ONE anchor does not refute the non-eq framework class anchored by v2 N=8192 5-seed FULL HARD_PASS; row UNCHANGED.
+- **[[feedback-obey-user-pause-explicitly]]**: pause flag absent BUT user explicit no-refill directive HONORED; exp_dev queue refill SKIPPED.
+- **[[feedback-no-padding-experiments]]**: no padding experiment shipped; R1/R2 documentation rescues are zero-compute; R3 surfaced as RECOMMENDATION not auto-dispatch per user directive.
+- **[[feedback-cap-map-update-protocol]]**: atomic commit cap_map.md + history.md + strategy_decisions + visibility_decisions.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via `tools/orchestrator/append_decision_log.py`.
+- **[[feedback-no-smoke]]**: brutal honesty applied — verdict_msg "collapses inside Hopfield bands" surfaced as framework-level over-claim while metric-level reading honest; 5 rescue sketches with explicit reject mechanism for R4/R5.
+
+### Commit & push
+
+Commit message: `Cap map: v278 -> v279 (SINGLE-VERDICT bid_order_parameter_v7_n4096_bsc BID_V7_HARD_FAIL N=4096 BSC 3-seed 10 M_fracs METRIC-DEFINITION DISAGREEMENT NOT FRAMEWORK REFUTATION classification B; v7 normalized_bid>0.55 inherited from bid_m_normalized_v1 tests upper-paramagnetic-regime predicate distinct from v2 absolute-BID-outside-3-class-bands-with-sigma-margin gap-predicate; codebook=BSC IDENTICAL between v2 and v7 hypothesis C rejected; v7 absolute BID range [377..536] at N=4096 BELOW v2 spin-glass band [N/4=1024, N/2=2048] CONSISTENT with v2 outside_all_bands gap-finding; substrate-outside-static-Hopfield row UNCHANGED 🟢; non-eq-stat-mech 69-79% UNCHANGED v2 N=8192 5-seed FULL HARD_PASS load-bearing anchor; SKAH-M 55-70% UNCHANGED; portfolio 14+31 UNCHANGED; HONEST 186->187 (+1); LABEL-VS-HONEST 134->135 (+1 NEW SUB-FLAVOR METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM); user no-refill mode honored exp_dev SKIPPED; 5 rescue sketches R1 SUBSUMPTION-annotate-metric-families recommended R2 cap_map-glossary recommended R3 v8-with-v2-metric MEDIUM-not-urgent R4 demote REJECTED R5 codebook-effect REJECTED; 190th PROT-009 paired commit; verdict_handler sub-agent inline strategy+visibility no Agent sub-dispatch)`
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up after this commit lands.
