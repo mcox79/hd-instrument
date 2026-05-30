@@ -168,4 +168,24 @@ C:\dev\hd-instrument\testbed_data\
 
 Local has same structure under d:/AI/hd-instrument/testbed_data/ (gitignored).
 
-## End of state file. Repo SHA at write: 90b12e5
+## Production validation results (added 2026-05-30 post-restart)
+
+### T4 cached_hot_path PROD VALIDATION (N=2048 M=2000 Zipfian alpha=1.2)
+- substrate_cached: hot=1770us cold=8568us hit_rate=86.32% verification_failures=0 (audit holds)
+- substrate (uncached): 7142us uniform
+- faiss: 708us uniform
+- dict: 11114us
+- Findings: cache hit rate clears 80% target; 4x lift over uncached; misses <1ms stretch goal at N=2048 (smoke at N=512 was 85us). Audit integrity preserved.
+
+### T2+T3 batched workloads PROD VALIDATION (N=1024 M=5000 batch=64)
+- substrate write_heavy: 4419 ops/s (from 170 original, 113 broken-batched -> 26x lift)
+- substrate mixed_crud: 131 ops/s (from 45 -> 2.9x lift)
+- faiss write_heavy: 116,542 ops/s
+- Substrate now 26x slower than FAISS on write_heavy (was 260x before hashed codebook). Gap closed dramatically.
+- Smoke 22.9x lift HELD at production scale.
+
+### N=16384 envelope STILL RUNNING (bench 3 of chain b29dfhv12)
+- Will answer modern Hopfield exponential capacity question
+- Expected wall ~45-90 min; ~30 min elapsed at last check
+
+## End of state file. Repo SHA at write: 90b12e5 + later commits 4803c0c (T4)
