@@ -2,6 +2,13 @@
 
 Persistent state file written BEFORE context compaction. Read this FIRST on session resume.
 
+**2026-05-30 UPDATE:** Experiment-side handoff received — testbed priorities reshaped.
+Read `testbed/EXPERIMENT_SIDE_HANDOFF_2026-05-30.md` for the new priority order.
+Old T7 (LLM-substrate integration) is now **Priority 1** (Pattern B + Path B multi-hop).
+Most of Tier 2 (T2/T3/T4) is shipped; T5 async cert remains. Currently in **verdict-wait**
+mode for experiment-side P1/P2/Q1/Q2/Q3 (24-48h horizon) before committing to multi-week
+P1 engineering.
+
 ## Immediate state (what's running, what's next)
 
 ### Currently running on remote (marsh@home)
