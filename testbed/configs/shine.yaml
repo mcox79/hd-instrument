@@ -1,0 +1,49 @@
+# Shine config: exercises the 2 new scenarios that surface substrate's
+# structural advantages most cleanly.
+#  - large_M_constant_cost: substrate is constant-disk vs FAISS linear-in-M
+#  - audit_chain_validation: substrate emits verifiable hash chain; baselines None
+#
+# Per shine plan A.3.1: codebook_M_hint_auto picks the largest M from the
+# config sweeps so substrate codebook is provisioned for the post-N regime.
+
+config_name: shine
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_scale: 4
+beta: 32.0
+hallu_threshold: 0.5
+
+# Adaptive codebook sizing (shine plan A.3.1).
+codebook_M_hint_auto: true
+
+# Standard scenario shapes (kept lean so the shine pass completes in ~30 min).
+M_total: 2000
+edit_isolation_M: 256
+deletion_M: 128
+deletion_k_probes: 16
+hallu_M_fracs: [0.25, 0.5, 1.0]
+hallu_n_oos: 256
+continual_M: 256
+storage_latency_Ms: [1000, 2000, 5000]
+storage_latency_n_queries: 256
+
+# Large-M scenario knobs (B.2.1). 4 M-points showing substrate-constant
+# vs FAISS-linear-in-M. Sub-recall and sub-latency are sampled at 200 keys
+# so M=20k still finishes in reasonable wall.
+large_M_Ms: [2000, 5000, 10000, 20000]
+large_M_n_recall_samples: 200
+large_M_n_latency_queries: 200
+
+# Audit-chain scenario knobs (D.2.3). 100-cert chain + 10 tamper injections.
+audit_chain_M: 512
+audit_chain_K: 100
+audit_chain_K_tamper: 10
+
+seeds: [7]
+backends: [substrate, faiss]
+scenarios:
+  - large_M_constant_cost
+  - audit_chain_validation
+
+out_root: testbed_data/benchmarks

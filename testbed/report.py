@@ -95,6 +95,25 @@ def _key_metric(scenario: str, result: dict | None) -> str:
             return _NA
         last_M = sorted(per.keys(), key=lambda s: int(s))[-1]
         return f"p50_retr@M={last_M} {_fmt(per[last_M].get('p50_retrieve_us'), 'us')}us"
+    if scenario == "large_M_constant_cost":
+        per = result.get("per_M") or {}
+        if not per:
+            return _NA
+        # Skip-aware: pick the largest M with actual measurements.
+        live = {k: v for k, v in per.items() if not v.get("skipped")}
+        if not live:
+            return "skipped"
+        last_M = sorted(live.keys(), key=lambda s: int(s))[-1]
+        disk_MB = live[last_M].get("disk_MB")
+        r1 = live[last_M].get("recall_at_1")
+        return f"disk@M={last_M} {_fmt(disk_MB)}MB R@1 {_fmt(r1, 'pct')}"
+    if scenario == "audit_chain_validation":
+        ci = result.get("chain_integrity_pct")
+        cov = result.get("audit_anchor_coverage")
+        td = result.get("tamper_detection_rate")
+        if ci is None:
+            return f"audit_cov {_fmt(cov, 'pct')}"
+        return f"chain {_fmt(ci, 'pct')} cov {_fmt(cov, 'pct')} tamper {_fmt(td, 'pct')}"
     return _NA
 
 
@@ -362,6 +381,43 @@ def _per_scenario_detail(summary: dict) -> str:
                              _fmt(r.get("ret_B_after_D"), "pct"),
                              _fmt(r.get("ret_C_after_D"), "pct"),
                              _fmt(r.get("M_per_batch"))])
+            chunks.append(_md_table(headers, rows))
+        elif s == "large_M_constant_cost":
+            headers = ["backend", "M", "M/N", "disk_MB", "p50_store_us",
+                       "p50_retr_us", "p95_retr_us", "recall@1", "note"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                for mkey, mval in sorted((r.get("per_M") or {}).items(),
+                                          key=lambda kv: int(kv[0])):
+                    if mval.get("skipped"):
+                        rows.append([b, mval.get("M"), _NA, _NA, _NA, _NA, _NA,
+                                     _NA, mval.get("reason", "skipped")])
+                        continue
+                    rows.append([b,
+                                 mval.get("M"),
+                                 _fmt(mval.get("M_over_N")),
+                                 _fmt(mval.get("disk_MB")),
+                                 _fmt(mval.get("p50_store_us"), "us"),
+                                 _fmt(mval.get("p50_retrieve_us"), "us"),
+                                 _fmt(mval.get("p95_retrieve_us"), "us"),
+                                 _fmt(mval.get("recall_at_1"), "pct"),
+                                 ""])
+            chunks.append(_md_table(headers, rows))
+        elif s == "audit_chain_validation":
+            headers = ["backend", "K", "chain_integrity",
+                       "audit_anchor_coverage", "tamper_detection_rate",
+                       "p50_delete_us", "chain_supported"]
+            rows = []
+            for b in backends:
+                r = by_backend.get(b, {}).get(s) or {}
+                rows.append([b,
+                             _fmt(r.get("K")),
+                             _fmt(r.get("chain_integrity_pct"), "pct"),
+                             _fmt(r.get("audit_anchor_coverage"), "pct"),
+                             _fmt(r.get("tamper_detection_rate"), "pct"),
+                             _fmt(r.get("p50_delete_us"), "us"),
+                             _fmt(r.get("chain_check_supported"))])
             chunks.append(_md_table(headers, rows))
         elif s == "storage_latency":
             headers = ["backend", "M", "disk_bytes", "p50_store_us",

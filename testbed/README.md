@@ -78,10 +78,41 @@ testbed/
     hallu_detect.py           # KF-1: M/N sub-sweeps, OOS confidence panel
     continual_4stage.py       # Bet B-light 4-stage CL ret_A_after_D
     storage_latency.py        # disk bytes + p50/p95 store/retrieve + cold load
+    large_M_constant_cost.py  # SHINE: substrate-constant vs FAISS-linear-in-M
+    audit_chain_validation.py # SHINE: cryptographic chain + tamper detection
   configs/
     default.yaml              # N=4096, M=10000, all backends
     smoke.yaml                # N=512, M=64, 30s end-to-end gate
+    shine.yaml                # SHINE: large_M + audit_chain scenarios
 ```
+
+## SHINE scenarios (2026-05-29)
+
+Two new scenarios surface substrate's structural advantages most cleanly vs
+FAISS / dict / Chroma / sqlite_vec baselines:
+
+- `large_M_constant_cost`: sweep M into {2k, 5k, 10k, 20k} and report per-M
+  disk_MB + p50_retr_us + recall@1. Substrate is CONSTANT (W matrix is N x N
+  regardless of M); FAISS Flat scales LINEARLY in M. Pairs with adaptive
+  codebook sizing (set `codebook_M_hint_auto: true` so the codebook is
+  provisioned for the largest M in the sweep).
+- `audit_chain_validation`: 100 sequential deletes, collect every
+  DeletionCertificate, validate the SHA256 chain
+  (cert[k].w_state_hash_after == cert[k+1].w_state_hash_before), and
+  inject 10 byte-level corruptions to measure tamper_detection_rate.
+  Substrate emits 100% chain integrity + 100% audit anchor coverage + 100%
+  tamper detection; baselines emit None on all three (the cert dataclass
+  lacks the hash anchors for embedding-store backends).
+
+Run the shine pair with:
+
+```
+python -m testbed run --scenario large_M_constant_cost,audit_chain_validation \
+    --backend substrate,faiss --config testbed/configs/shine.yaml
+```
+
+See `notes/testbed_shine_plan_2026-05-29.md` for the full 8-add plan + risk
+register + production decision matrix design.
 
 Persistent state lives outside the repo on remote at:
 

@@ -37,6 +37,8 @@ _SCENARIO_NAMES = [
     "hallu_detect",
     "continual_4stage",
     "storage_latency",
+    "large_M_constant_cost",
+    "audit_chain_validation",
 ]
 
 
@@ -149,7 +151,33 @@ def _build_backend(name: str, config: dict):
             "hallu_threshold": float(config.get("hallu_threshold", 0.5)),
             "device": str(config.get("substrate_device", "cpu")),
         }
-        return cls(**kwargs)
+        # Shine plan A.3.1: pass codebook_M_hint when present. Auto-derive from
+        # the largest scenario M when codebook_M_hint_auto is True. v1 reference
+        # accepts the kwarg; older variants do not, so pass it conditionally.
+        m_hint = config.get("codebook_M_hint")
+        if (m_hint is None) and bool(config.get("codebook_M_hint_auto", False)):
+            candidates = [
+                int(config.get("M_total", 0) or 0),
+                int(config.get("edit_isolation_M", 0) or 0),
+                int(config.get("deletion_M", 0) or 0),
+                int(config.get("continual_M", 0) or 0),
+            ]
+            ms_list = config.get("storage_latency_Ms") or []
+            candidates += [int(x) for x in ms_list if isinstance(x, (int, float))]
+            large_ms = config.get("large_M_Ms") or []
+            candidates += [int(x) for x in large_ms if isinstance(x, (int, float))]
+            m_hint = max(candidates) if candidates else 0
+        if m_hint:
+            try:
+                kwargs["codebook_M_hint"] = int(m_hint)
+            except (TypeError, ValueError):
+                pass
+        try:
+            return cls(**kwargs)
+        except TypeError:
+            # Variant subclass that does not accept codebook_M_hint kwarg.
+            kwargs.pop("codebook_M_hint", None)
+            return cls(**kwargs)
     if name == "faiss":
         from testbed.baselines.faiss_adapter import FaissMemory
         return FaissMemory(dim=dim)

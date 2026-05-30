@@ -78,7 +78,14 @@ class SubstrateMemory(MemoryBackend):
         hallu_threshold: float = 0.5,
         device: str = "cpu",
         seed: int = 0,
+        codebook_M_hint: int | None = None,
     ) -> None:
+        """Initialize SubstrateMemory.
+
+        codebook_M_hint: if provided, codebook size C = max(codebook_scale*N, 4*M).
+        This lets large-M scenarios (>>N) configure a codebook big enough to avoid
+        atom collisions. None = legacy behavior (C = codebook_scale * N).
+        """
         self.N = int(N)
         self.codebook_kind = codebook_kind
         self.codebook_scale = int(codebook_scale)
@@ -86,9 +93,16 @@ class SubstrateMemory(MemoryBackend):
         self.hallu_threshold = float(hallu_threshold)
         self.device = torch.device(device)
         self.seed = int(seed)
+        self.codebook_M_hint = (
+            int(codebook_M_hint) if codebook_M_hint is not None else None
+        )
 
         # Codebook size: bsc/gaussian honor codebook_scale; kerdock is fixed at 4N.
+        # Adaptive sizing per shine plan A.3.1: when an M hint is provided,
+        # bump C to at least 4*M to keep collision rate low at large M.
         C_target = self.codebook_scale * self.N
+        if self.codebook_M_hint is not None:
+            C_target = max(C_target, 4 * self.codebook_M_hint)
         self.codebook = get_codebook(
             codebook_kind, self.N, C_target, seed=self.seed
         ).to(self.device)
@@ -540,6 +554,9 @@ class SubstrateMemory(MemoryBackend):
                 "device": str(self.device),
                 "seed": self.seed,
                 "C": self.C,
+                "codebook_M_hint": (
+                    self.codebook_M_hint if self.codebook_M_hint is not None else 0
+                ),
             },
             path / "config.yaml",
         )
@@ -554,6 +571,11 @@ class SubstrateMemory(MemoryBackend):
         self.hallu_threshold = float(cfg["hallu_threshold"])
         self.device = torch.device(cfg.get("device", "cpu"))
         self.seed = int(cfg["seed"])
+        hint = cfg.get("codebook_M_hint", 0)
+        try:
+            self.codebook_M_hint = int(hint) if int(hint) > 0 else None
+        except (TypeError, ValueError):
+            self.codebook_M_hint = None
 
         W_mm = load_W_memmap(path / "W.npy")
         # Materialize once into a torch tensor so subsequent edits/deletes work.
