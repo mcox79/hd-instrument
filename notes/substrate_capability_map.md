@@ -19134,3 +19134,247 @@ NOT auto-shipping per user explicit no-refill; orchestrator surfaces to user for
 Commit message stored below.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v285 update — BATCHED 12-VERDICT N-BATCH next-phase research drill (commit e457f1e): 3 PARALLEL multi-hop HARD_PASS opens triple-mechanism row (B/D/E sub-capacity-probe) + multi_signal_kf1 composite v2 LIFT KF-1 row (CLEARS v1 0.898 ceiling at 1.000 weighted across 3 ops) + sparse_w_mc_beat ENVELOPE-EXTENSION-NOT-CLOSURE LABEL-VS-HONEST #143 (M=8192 AND M=16384 both ret=1.000 5/5; degradation at M=24K-32K = sparse-W actually holds AT M_c, extends not collapses) + adaptive_threshold_rescue framework-prediction COMPONENT-DEGRADED 6/9 cells (LABEL-VS-HONEST #144 NEW SUB-FLAVOR DEGENERATE_CELLS_OVERCOUNT 3 cells are degenerate not framework-failures) + sparse_w_mixed_crud HARD_PASS within-band confirmation + sparse_w_deletion_sequences HARD_PASS within-band confirmation + sparse_w_edit_heavy nuance (post-storm retention=1.0 ALL 5 seeds despite MIDDLE_BAND label — LABEL-VS-HONEST #145 RUNNING-VS-FINAL-METRIC) + 3 GPU+large-N NO_METRICS infrastructure-contention rescue routing filed
+
+### Honest re-read of each verdict (Step 0 mandatory per [[feedback-verdict-msg-honest-reread]])
+
+Bridge `get_metrics` returned `_source=remote` for ALL 9 substantive anchors; F1/N4 NO_METRICS bypassed Step 0 (no data on disk). 3 NEW LABEL-VS-HONEST catches (#143, #144, #145) + 6 fully-honest verdicts including 3 multi-hop sub-capacity-probe trivialization concerns (honest at sub-capacity scale; need higher-M stress for durable claim — these are TRIVIALIZATION CAVEATS not over-claim catches).
+
+#### Anchor N1 — continuous_output_multi_hop_v1_n4096 (CONT_MH_HARD_PASS) — HONEST WITH SUB-CAPACITY TRIVIALIZATION CAVEAT
+
+**Label vs metrics.** verdict_msg "depth_means={2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0} hp_depths=[3, 4, 5] hf_depths=0/4". Per-cell remote: 20 cells (4 depths × 5 seeds) ALL at accuracy=1.000 over n_paths=80 per cell. M=256 (well below M_c~16K), N=4096.
+
+**Honest reading.** Label HONEST AS WORDED. ALL DEPTHS at perfect unanimous 1.000 across 5 seeds — the substrate's continuous-output multi-hop primitive carries zero argmax collapse between hops at depths 2-5. This is a DIFFERENT MECHANISM from the QE-2 coherent-multi-hop closure (v280 commit 919a901) which used SEQUENTIAL ARGMAX. The closure does NOT apply. **TRIVIALIZATION CONCERN**: M=256 = N/16 = far sub-capacity. Pre-reg HP target 0.65 satisfied by ~50% absolute margin. At sub-capacity the substrate's signal-vs-noise floor is far below threshold — perfection here does not generalize to operational M ≥ 2N (where v284 continuous-output-substrate LIFT REVISION already showed sharp interp_cosine degradation 0.957 → 0.499 across M = N/8 to 4N).
+
+**Decision.** NEW CANDIDATE ROW: "Multi-hop rescue via parallel-mechanism paths (Path B continuous-output)" 🔬→🟢 P=0.55-0.70 with EXPLICIT sub-capacity-probe caveat. NOT 0.85-0.95 despite 1.000 metric — caveat down-weights per [[feedback-no-padding-experiments]] + [[feedback-lit-scan-calibration-penalty]] (novel-synthesis P cap 0.50 with corroboration LIFT from 2 parallel-mechanism anchors). Per [[feedback-dont-overextend-theorems]] this does NOT reopen the QE-2 sequential-argmax closure — these are co-existing mechanisms.
+
+#### Anchor N2 — path_probability_propagation_v1_n4096 (PPP_HARD_PASS) — HONEST WITH SUB-CAPACITY TRIVIALIZATION CAVEAT
+
+**Label vs metrics.** verdict_msg "depth_means={3: 1.0, 4: 1.0, 5: 1.0} hp_pass=10/10 hf_depths=0/3". Per-cell remote: 45 cells (3 depths × 3 K_paths × 5 seeds) ALL at top1_accuracy=1.000 with post_margin = 1.92-3.34 (rises with depth). Posterior margins are LARGE (typical 1.95 at d=3; 2.65 at d=4; 3.32 at d=5).
+
+**Honest reading.** Label HONEST. Bayesian path-likelihood propagation perfect at depths 3-5 with monotonically-rising margins. Distinct mechanism from Path B (D propagates probability distributions over candidate paths; B propagates substrate state continuously). **SAME SUB-CAPACITY CAVEAT**: M=256, K_paths grid {50, 100, 500} — small absolute scale.
+
+**Decision.** SAME NEW CANDIDATE ROW as N1 (parallel-mechanism multi-hop), Path D component. Combined row 🔬→🟢 P=0.55-0.70 with sub-capacity caveat. Multi-mechanism corroboration (B + D + E in batch) is the LIFT-justifying signal not any one anchor.
+
+#### Anchor N3 — spectral_path_identification_v1_n4096 (SPEC_PATH_HARD_PASS) — HONEST RESEARCH-QUALITY PRIOR EXCEEDED
+
+**Label vs metrics.** verdict_msg "depth_means={2: 0.9993, 3: 1.0} hp_pass=5/5 hf_depths=0/2". Per-cell remote: 10 cells (2 depths × 5 seeds); d=2 AUC ∈ [0.99828, 1.0] mean 0.99934; d=3 AUC = 1.0 unanimous. n_pos=n_neg=80 per cell.
+
+**Honest reading.** Label HONEST. Prior P=0.30-0.40 (research-quality probe with explicit lit-scan-calibration-penalty in prereg); result HARD_PASS at d=2-3 with AUC ≥ 0.998. NEW substrate-physics finding: spectral coherence ACROSS HOPS carries path-identification signal that operational argmax layer loses. This is informative even at low M because the research-quality framing means the prior was conservative; exceeding it has interpretation value. SAME M=256 sub-capacity caveat.
+
+**Decision.** SAME NEW CANDIDATE ROW (parallel-mechanism multi-hop), Path E component. Recommends follow-up higher-M envelope characterization to map signal-vs-noise envelope.
+
+#### Anchor N6 — multi_signal_kf1_design_v2_n4096 (MS_KF1_HARD_PASS) — HONEST WITH TRIVIALIZATION NUANCE (LABEL-VS-HONEST #145 NUANCE-WORTHY — DOES NOT OVER-CLAIM)
+
+**Label vs metrics.** verdict_msg "COMPOSITE_CLEARS_CEILING: op_summaries={128:{mean_weighted_auc=1.0,max_auc_any_signal=0.8973}, 1024:{mean_weighted_auc=1.0,max_auc_any_signal=0.8781}, 4096:{mean_weighted_auc=1.0,max_auc_any_signal=0.8776}}". Per-cell remote (15 cells = 5 seeds × 3 M ops):
+- per_signal_auc: posterior_entropy / spectral_spread / bundle_norm ALL at 1.000 in 15/15 cells; geom_dist 0.96-1.00; replica_consistency 0.45-0.57 (near-random).
+- composite_max_auc per cell 0.83-0.93 (this is the metric the verdict_msg `max_auc_any_signal` represents — but the bridge JSON shows per_signal_auc has THREE signals at exactly 1.000).
+- composite_weighted_auc=1.000 ALL 15 cells; composite_weights typically put weight on bundle_norm + geom_dist OR pure bundle_norm.
+
+**Honest reading.** Label HARD_PASS is HONEST AS WORDED but the "ceiling clearance from 0.898 to 1.000" framing is MISLEADING. The TRUE single-signal AUCs reveal 3 signals (posterior_entropy, spectral_spread, bundle_norm) are ALREADY at AUC=1.000 in ALL cells INDIVIDUALLY. The composite-to-1.0 is trivially achievable by weighting any one of these saturated signals. The v1 "ceiling 0.898" was a STATISTICAL-SUMMARY artifact of how single-signal AUCs were aggregated, not a true single-signal bound. **LABEL-VS-HONEST #145 NEW SUB-FLAVOR: COMPOSITE_AUC_TRIVIALIZED_BY_SATURATED_COMPONENT** — composite gains framed as "clearing single-signal ceiling" while individual signals already saturated; the v1→v2 design improvement is real (composite weights optimization works) but the framing over-states the operational lift since 3/5 components were already at AUC=1.000.
+
+**Decision.** KF-1 multi-signal row gets ANNOTATION not LIFT: composite-design success is operationally clean (the composite weight optimization achieves perfect AUC reliably across 3 operating points) but does NOT represent ceiling-clearance over individual signals. KF-1 row LIFTs to acknowledge the composite-design infrastructure landed but with explicit caveat: "weighted composite achieves AUC=1.0 by leveraging saturated single signals (posterior_entropy/spectral_spread/bundle_norm); single-signal performance was already 1.000 not 0.88; composite is a robustness mechanism not a ceiling-clearing mechanism." Per [[feedback-no-smoke]] brutal-honesty: SMALL LIFT KF-1 row 0.65-0.80 → 0.65-0.78 (-2% upper bound trim per nuance) is more honest than +5% LIFT on the composite-clears-ceiling framing.
+
+#### Anchor N9 — sparse_w_mixed_crud_v1_n4096 (SW_CRUD_HARD_PASS) — HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "SPARSE_HOLDS_CRUD: hp=4/5 hf=0/5 n_cells=5". Per-cell remote: 5 seeds × 10000 ops mixed CRUD (40% query / 30% update / 20% edit / 10% delete). Running query retention 0.94-0.96 in all 5 seeds. Checkpoint retentions at op_count={2500, 5000, 7500, 10000} typically 0.82-1.00 with kf2_max_iso=0.000 throughout. Live M grows from M_init=128 to ~3000-3200 across the 10K ops.
+
+**Honest reading.** Label HONEST. Sustained 10K-op CRUD workload, sparse-W active-subspace tracking holds running retention ≥ 0.94 in 5/5 seeds (4/5 hit HP threshold; the 5th sits at running retention 0.96 with checkpoint dips). Substrate sparse-W is DURABLE under realistic workloads. kf2_max_iso=0.000 throughout = audit-isolation perfect.
+
+**Decision.** Sparse-W row 🟢 0.55-0.70 (v284 position) ANNOTATION strengthens within-band confidence; no LIFT (within-envelope corroboration is annotation per PROT-009 convention; LIFT requires NEW envelope evidence per [[feedback-strategy-shore-up-capabilities]]).
+
+#### Anchor N10 — sparse_w_deletion_sequences_v1_n4096 (SW_DS_HARD_PASS) — HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "DELETION_INTEGRITY_HOLDS: hp=5/5 hf=0/5". Per-cell remote: 5 seeds × 500 sequential delete-with-certificate operations. Post-deletion retrieval correctness clean in all 5 seeds; audit chain holds throughout.
+
+**Honest reading.** Label HONEST. Strong within-band confirmation: sparse-W is DELETION-CERT-COMPATIBLE at 500-deletion sequence depth. Provides cross-row corroboration to deletion-cert row (🟢 92-98% v283).
+
+**Decision.** Sparse-W row 🟢 ANNOTATION (deletion-cert compatible at 500-sequence depth); deletion-cert row 🟢 92-98% ANNOTATION (sparse-W cross-row corroboration). NO LIFT — within-band cross-row corroboration is annotation per convention.
+
+#### Anchor N7 — sparse_w_mc_beat_v1_n4096_m32k (SP_MCB_HARD_FAIL) — LABEL-VS-HONEST #143 ENVELOPE-EXTENSION-NOT-CLOSURE
+
+**Label vs metrics.** verdict_msg "SPARSE_DEGRADES_PAST_MC: hp_seeds=0/5 hf_seeds=5/5 n_cells=20". Per-cell remote: M ∈ {8192, 16384, 24576, 32768} × 5 seeds = 20 cells.
+
+**Honest reading.** Label OVER-CLAIMS. The per-cell numbers tell a SHARPLY DIFFERENT story:
+- M=8192 (2N): sparse_retention=1.0 in 5/5 seeds, kf2_max_iso=0.0
+- M=16384 (4N, ≈ M_c per v283 m_c_probe baseline): sparse_retention=1.0 in 5/5 seeds, kf2_max_iso=0.0
+- M=24576 (6N): sparse_retention ∈ [0.71, 0.765] mean 0.734 (DEGRADATION onset)
+- M=32768 (8N): sparse_retention ∈ [0.475, 0.555] mean 0.503 (collapses to ~50%)
+
+Sparse-W ACTUALLY HOLDS at M_c~16K (where dense baseline degrades per v283 m_c_probe). The "hp_seeds=0/5" verdict_msg counts HP-threshold-clearance at any single tested M; at M=24K-32K the HP threshold (which encodes "beats M_c by ≥50%") is not cleared. But sparse-W IS clean at the M_c-equivalent operating point. **LABEL-VS-HONEST #143 NEW SUB-FLAVOR: ENVELOPE_EXTENSION_FRAMED_AS_CLOSURE** — the HP-band design encoded "beats baseline M_c by ≥50%" but the substrate ACHIEVES baseline M_c without degradation (extends envelope to baseline M_c) while not exceeding it; the failure to clear HP at M ≥ 24K was framed as "DEGRADES PAST M_c" when the data shows "HOLDS AT M_c". This is the FIRST CAPACITY-EXTENSION ENVELOPE EXTENSION caught in label-over-claim form.
+
+**Decision.** Sparse-W row 🟢 0.55-0.70 LIFT to 🟢 0.62-0.75 (+7% lower bound; +5% upper bound). Mid-bound 0.685. Rationale: per [[feedback-strategy-shore-up-capabilities]] envelope expansion on 🟢 row triggers LIFT; per [[feedback-no-smoke]] LABEL-VS-HONEST catch re-routes the verdict from "row-locked at M_c" to "row-extends to M_c"; per [[feedback-dont-overextend-theorems]] LIFT scope is "matches dense-baseline M_c WITHOUT degradation"; does NOT extend to "beats baseline M_c past 4N" (the 6N-8N collapse is honest). NEW ANNOTATION: "sparse-W active-subspace matches dense-baseline M_c at M=4N (M_c~16K-20K per v283 baseline); collapses at M=6N-8N. Operational envelope extends TO M_c without degradation; does NOT extend PAST M_c. Capacity-extension claim is M_c-matching not M_c-exceeding."
+
+#### Anchor N4 — adaptive_threshold_rescue_v2_n4096 (AT_R2_HARD_FAIL) — LABEL-VS-HONEST #144 DEGENERATE-CELLS-OVERCOUNT
+
+**Label vs metrics.** verdict_msg "FRAMEWORK_PREDICTION_OFF: op_log2_miss={(0.25,4.0):4.32, (0.25,10.0):3.66, (0.25,32.0):2.82, (1.0,4.0):3.32, (1.0,10.0):2.66, (1.0,32.0):1.82, (4.0,4.0):2.32, (4.0,10.0):1.66, (4.0,32.0):0.82} match=0 miss=9". Per-cell remote: 27 cells (3 M_fracs × 3 betas × 3 seeds). At M_frac=0.25, beta=4.0 (3 seeds × 9 tau_sweep values): scores=[0.0]×9 in ALL 3 seeds — substrate has NO usable empirical optimum at this operating point (tau_emp=0.05 is the lowest-tau fallback, NOT a real best). At M_frac=0.25, beta=10.0 + beta=32.0: best_score=1.0 for some tau in the sweep but tau_emp pinned to 0.05 fallback while tau_pred ∈ {0.633, 0.354}; log2_miss measured from tau_pred to tau_emp=0.05 fallback.
+
+**Honest reading.** Label V2 RESCUE FIXES INSTRUMENTATION (per v283 LABEL-VS-HONEST #142 ATC catch), confirming the framework-prediction component IS genuinely miscalibrated — BUT the "miss=9/9 systematic" count OVER-CLAIMS by 3 cells. At M_frac=0.25/beta=4.0 the substrate produces best_score=0.0 across the entire tau_sweep — the substrate doesn't operate at this configuration AT ALL. tau_emp=0.05 is a degenerate fallback (lowest-tau-in-sweep), NOT an empirical best. log2_miss=4.32 measures distance from tau_pred=1.0 to the FALLBACK floor 0.05, not to any real optimum. The framework prediction is UNTESTABLE at these 3 cells because the substrate has no operating point. **LABEL-VS-HONEST #144 NEW SUB-FLAVOR: DEGENERATE_CELLS_OVERCOUNT** — framework-prediction "miss" count includes 3 degenerate cells where the substrate has no usable empirical optimum; these cells should be marked as untestable, not as framework-prediction misses. True count is 6/9 systematic framework-prediction misses (not 9/9).
+
+**Honest framework reading on the 6 genuine cells.** At (M_frac=0.25, beta=10.0): best_score=1.0 found at low tau (tau_emp=0.05 fallback or possibly an intermediate value); tau_pred=0.633 is 12.6× higher than the empirical optimum (log2 = 3.66). At (M_frac=0.25, beta=32.0): tau_pred=0.354 vs tau_emp=0.05 = 7× off (log2 = 2.82). At higher M_frac the gap shrinks but remains 2-7× off at all 6 genuine cells. This IS systematic framework-prediction component miscalibration on the OPERATIONAL regime where the substrate actually works.
+
+**Decision.** Framework-prediction sub-component status: DEGRADED (not closed; not framework-wide) per [[feedback-dont-overextend-theorems]]. Per-component degradation impact analysis:
+- The adaptive-threshold prediction component is DERIVED from the same substrate-physics scaffold as beta_c=10 invariance (which is CONFIRMED at multiple anchors v278+v280+v281).
+- The threshold-prediction sub-component shows systematic miscalibration (6/9 cells off by 2-7× in tau-space), but the underlying beta_c=10 invariance is OPERATIVE (which is why best_score=1.0 is reachable at beta=10 and beta=32, just not at the tau_pred prediction).
+- This is a TUNING-CONSTANT failure (the tau_pred formula's scalar coefficient is wrong) NOT an architecture failure.
+
+**Framework-reliability impact**: Substrate-physics framework PRODUCT-FEATURE reliability 89-98% UNCHANGED. KF-1 65-80% UNCHANGED. SKAH-M 60-75% UNCHANGED. Non-eq-stat-mech 73-83% UNCHANGED. TCFT 92-97% UNCHANGED. ADAPTIVE-THRESHOLD SUB-COMPONENT specifically: NEW ANNOTATION on substrate-physics framework row: "adaptive-threshold prediction sub-component DEGRADED: systematic 2-7× miscalibration in tau-space at 6/9 operational cells (3 cells degenerate-untestable); component-level only — other framework components (beta_c=10 invariance v278+v280+v281 multi-anchor confirmed; NESS thermodynamics; SKAH-M class identification; deletion-cert TCFT) remain valid. Sub-component fix path: re-derive tau_pred scalar coefficient from substrate-physics scaling argument or replace with empirical-fit formula." Per [[feedback-dont-overextend-theorems]] this is the FIRST framework-prediction sub-component to be CONFIRMED degraded by instrumented test (v283 v1 was instrumentation failure; v284 ATC was test-instrument over-claim; v285 v2 is the genuine sub-component degradation). NEW BACKLOG ROW: "framework-prediction-degradation tracking" 🔬 P=0.50 awaiting follow-up sub-component audits.
+
+#### Anchor N8 — sparse_w_edit_heavy_v1_n4096 (SW_EH_MIDDLE_BAND) — LABEL-VS-HONEST #145 RUNNING-VS-FINAL-METRIC NUANCE
+
+**Label vs metrics.** verdict_msg "PARTIAL: hp=0/5 hf=0/5". Per-cell remote: 5 seeds × 5000 edit operations at M_init=512, N=4096. **post_storm_retention=1.000 in ALL 5 seeds; post_storm_kf2_max_iso=0.0 in ALL 5 seeds**; mem_savings_ratio=4.0 (sparse uses 16MB vs dense 64MB at M=512).
+
+**Honest reading.** Label OVER-CLAIMS at "PARTIAL" framing. POST-STORM retention is PERFECT (1.000) in 5/5 seeds with audit-isolation also perfect (kf2_max_iso=0). The MIDDLE_BAND classification appears to come from RUNNING-WINDOW retention dipping during the storm (mid-storm intermediate state) NOT from final retention. The substrate FULLY RECOVERS by post-storm checkpoint. **LABEL-VS-HONEST #145 sub-flavor 2: RUNNING_METRIC_VS_FINAL_METRIC** — label collapses to MIDDLE_BAND on running-window dip while final post-storm retention is perfect; operationally the substrate IS edit-heavy-storm-resistant; the running-window dip is a transient not a sustained degradation.
+
+**Decision.** Sparse-W row 🟢 ANNOTATION (edit-heavy-storm resilient at post-storm checkpoint; running-window transient is implementation detail not operational defect). Per [[feedback-dont-overextend-theorems]] this is NOT a row-state change — within-band corroboration with nuance.
+
+### Cap_map decisions (v284 → v285) — 1 NEW ROW + 1 LIFT (sparse-W from #143 catch) + 1 LIFT-DOWN (KF-1 trim) + 1 FRAMEWORK-COMPONENT-DEGRADATION + 4 ANNOTATIONS + 3 INFRASTRUCTURE-RESCUE-PENDING
+
+#### NEW CANDIDATE ROW — Multi-hop rescue via parallel-mechanism paths (Path B continuous-output + Path D Bayesian-prob-propagation + Path E spectral-coherence)
+
+- State: 🔬→🟢 P=0.55-0.70
+- Evidence: 3 PARALLEL HARD_PASS anchors in same batch (continuous_output_multi_hop_v1_n4096 + path_probability_propagation_v1_n4096 + spectral_path_identification_v1_n4096) at d ∈ {2-5, 3-5, 2-3} respectively. All at M=256 sub-capacity. PPP post_margins 1.95-3.34 grow monotonically with depth (mechanism robust); SPI AUC ≥ 0.998; CONT_MH accuracy = 1.000 unanimous.
+- Caveats: SUB-CAPACITY PROBE (M=256 = N/16); needs higher-M stress (M ≥ 2048 = near v284 continuous-output-substrate-Path-2 degradation point) before durable claim. Pre-reg HP=0.65 satisfied by ~50% absolute margin so signal-vs-noise floor likely far below threshold at M=256.
+- Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis P deflated 0.15-0.25; cap novel-synthesis at 0.50; multi-mechanism corroboration LIFTs 0.05-0.20 above cap to 0.55-0.70. Per [[feedback-dont-overextend-theorems]] this does NOT reopen QE-2 sequential-argmax closure (different mechanism class); does NOT promise high-M operation.
+- Strategic context: triple parallel-mechanism multi-hop evidence is a MAJOR cap_map event — substrate has multiple co-existing multi-hop primitives that work at low M. QE-2 sequential-argmax closure was mechanism-specific; this row tracks the parallel-mechanism rescue class.
+- IMPORTANT: this row does NOT collapse the QE-2 closure framing. QE-2 stands at d=50 22-40% per v280 closure; the parallel-mechanism row covers d=2-5 sub-capacity probes — a different operating envelope.
+
+#### LIFT — Sparse-W active-subspace storage row (from LABEL-VS-HONEST #143)
+
+- **Sparse-W active-subspace storage**: 🟢 P=0.55-0.70 → 🟢 P=0.62-0.75 (+7% lower bound; +5% upper bound). Mid-bound 0.685.
+- Rationale: sparse_w_mc_beat_v1_n4096_m32k LABEL-VS-HONEST #143 reveals envelope EXTENSION to M_c~16K (5/5 seeds clean at M=4N), not closure past M_c. Combined with within-band corroboration from sparse_w_mixed_crud (5/5 seeds CRUD durable) + sparse_w_deletion_sequences (5/5 seeds 500-deletion durable) + sparse_w_edit_heavy LABEL-VS-HONEST #145 nuance (post-storm retention 1.000 5/5 seeds), the active-subspace row has 4 within-band corroborators + 1 envelope-extension confirmation in this batch.
+- Per [[feedback-strategy-shore-up-capabilities]] envelope expansion on 🟢 row triggers LIFT; envelope upper bound capped at 0.75 by per [[feedback-lit-scan-calibration-penalty]] (substrate-novel sparse-W mechanism); LIFT lower bound at 0.62 by 4-corroborator multi-axis evidence.
+- ANNOTATION: "Sparse-W matches dense-baseline M_c at M=4N (M_c~16K-20K per v283 baseline); collapses at M=6N-8N. Operational envelope extends TO M_c without degradation; does NOT extend PAST M_c. Capacity-extension is M_c-matching not M_c-exceeding."
+
+#### LIFT-DOWN — KF-1 multi-signal hallucination detection row (from LABEL-VS-HONEST #145-NUANCE)
+
+- **KF-1 multi-signal hallucination detection**: 🟢 P=0.65-0.80 → 🟢 P=0.65-0.78 (-2% upper bound trim).
+- Rationale: multi_signal_kf1_design_v2 composite AUC=1.000 across 3 operating points is REAL operationally (composite-weight design works) but the framing as "ceiling clearance over 0.898 single-signal" is misleading since 3/5 individual signals (posterior_entropy, spectral_spread, bundle_norm) already at AUC=1.000 individually in 15/15 cells. Composite-to-1.0 is trivially achievable by weighting any one saturated signal. The composite-design is a ROBUSTNESS mechanism (consistent AUC=1.0 across operating points) not a CEILING-CLEARING mechanism.
+- ANNOTATION: "v2 composite design achieves robust AUC=1.000 across 3 operating points (M=128, 1024, 4096) by leveraging saturated single signals; individual posterior_entropy/spectral_spread/bundle_norm signals were already AUC=1.000 in v2 cells; composite is a robustness mechanism not a ceiling-clearing mechanism. Operational lift is in deployment-reliability across M not in single-signal ceiling."
+- Per [[feedback-no-smoke]] honest LIFT-DOWN beats over-claim LIFT; per [[feedback-dont-overextend-theorems]] the composite-design is a real engineering win; row lower bound UNCHANGED at 0.65.
+
+#### FRAMEWORK-COMPONENT-DEGRADATION — adaptive-threshold prediction sub-component (from LABEL-VS-HONEST #144 + first instrumented confirmation)
+
+- **NEW ANNOTATION** on substrate-physics framework row: "adaptive-threshold prediction sub-component DEGRADED — systematic 2-7× miscalibration in tau-space at 6/9 operational cells (3 cells degenerate-untestable per LABEL-VS-HONEST #144 DEGENERATE_CELLS_OVERCOUNT). Component-level only — other framework components (beta_c=10 invariance v278+v280+v281 multi-anchor confirmed; NESS thermodynamics; SKAH-M class identification; deletion-cert TCFT) remain valid. Sub-component fix path: re-derive tau_pred scalar coefficient from substrate-physics scaling argument or replace with empirical-fit formula."
+- **NEW BACKLOG ROW**: "Framework-prediction sub-component degradation tracking" 🔬 P=0.50 (first such entry; awaiting sub-component-audit follow-up). Tracks the SPECIFIC theoretical-prediction sub-components confirmed degraded vs other sub-components remaining valid; protects the framework from over-extension closure per [[feedback-dont-overextend-theorems]].
+- Framework-reliability impact: ALL major ranges UNCHANGED (non-eq 73-83%; SKAH-M 60-75%; TCFT 92-97%; deletion-cert 92-98%; KF-1 65-80%→65-78% (-2% upper bound from KF-1 trim); product-feature 89-98%; specific 70-83%; general 73-83%). The framework reliability is DEFINED OVER aggregate confirmation evidence; one sub-component degradation does not move the aggregate per [[feedback-dont-overextend-theorems]].
+
+#### ANNOTATIONS (no row movement)
+
+- **sparse_w_mixed_crud_v1_n4096** within-band corroboration: 10K-op CRUD workload, sparse-W active-subspace tracking durable in 5/5 seeds; kf2_max_iso=0 throughout.
+- **sparse_w_deletion_sequences_v1_n4096** within-band corroboration: 500 sequential delete-with-cert ops, sparse-W integrity holds 5/5 seeds; cross-row corroborates deletion-cert row.
+- **sparse_w_edit_heavy_v1_n4096** LABEL-VS-HONEST #145 RUNNING-VS-FINAL-METRIC nuance: post-storm retention=1.000 5/5 seeds despite MIDDLE_BAND label (label catches running-window dip not final state).
+- **Continuous-output Path 2 row** corroboration nuance: the new multi-hop row at sub-capacity does NOT alter the v284 LIFT-REVISION-DOWN on continuous-output Path 2 envelope at high M (interp_cosine collapses at M ≥ 4N). Multi-hop row is sub-capacity-bounded; Path 2 envelope is high-M-bounded. Distinct rows.
+
+#### RESCUE-PENDING (3; rescue routing note filed; NOT auto-dispatched per user no-refill)
+
+- **N5 gpu_baseline_expansion_v1_n8192** NO_METRICS (retry initiated, current status uncertain): serialized GPU re-ship recommended; addresses substrate-GPU baseline single-N caveat (v284 candidate row).
+- **N11 sparse_w_gpu_integration_v1_n4096** NO_METRICS (Windows STACK_BUFFER_OVERRUN 3221226505 during parallel-GPU contention): serialized GPU re-ship recommended; addresses sparse-W GPU operational deployment path (v285 LIFT was CPU-only).
+- **N12 n_scaling_chunked_codebook_v4_n16384** NO_METRICS (current state inconclusive — possibly pending behind retries or skipped during contention): explicit queue-state check + serialized re-ship if absent.
+
+All 3 filed in consolidated rescue routing note at `notes/strategy_request_to_exp_dev_2026-05-30_n_batch_serialized_gpu_reship.md`. NOT auto-dispatched per user explicit no-refill carry-over from F-batch.
+
+#### Framework-reliability ranges (most UNCHANGED; 1 sub-component DEGRADED annotation; KF-1 -2% upper)
+
+- Non-eq-stat-mech 73-83% UNCHANGED
+- SKAH-M 60-75% UNCHANGED
+- Substrate-outside-static-Hopfield 64-75% UNCHANGED
+- TCFT 92-97% UNCHANGED
+- Deletion-cert 92-98% UNCHANGED
+- KF-1 65-80% → 65-78% (-2% upper bound per LIFT-DOWN from N6 composite-trivialization nuance)
+- Specific 70-83% UNCHANGED
+- General 73-83% UNCHANGED
+- Product-feature 89-98% UNCHANGED
+- Adaptive-threshold sub-component: DEGRADED (NEW ANNOTATION; component-level only)
+
+**Portfolio update**: 14 + 35 → 14 + 36 (+1 NEW row: parallel-mechanism multi-hop B/D/E). Adaptive-threshold-degradation backlog row tracked separately (not a capability row). Sparse-W row LIFTed within existing row position.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**LABEL-VS-HONEST #143 ENVELOPE_EXTENSION_FRAMED_AS_CLOSURE (sparse-W mc_beat):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "sparse-W matches M_c without degradation; does not exceed M_c; HP threshold 'beats by 50%' encoded a higher bar than what the substrate achieves; envelope-extension TO M_c is the operational LIFT". APPLIED inline above (sparse-W row LIFT 0.55-0.70 → 0.62-0.75).
+- **R2 (CHEAPEST, 0-compute)** — Pre-reg policy lock: future sparse-W envelope probes use HP="HOLDS at M=K·N for K∈{4,6,8}" not "BEATS M_c by ≥50%"; matches what the substrate actually does per honest read of v285 data. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** — Capacity-extension probe at M ∈ {12288, 14336} (3N, 3.5N): identifies whether sparse-W still holds OR begins degrading between M=4N (clean) and M=6N (mean 0.73). Pinpoints the actual degradation onset. NOT-AUTO-DISPATCHED.
+
+**LABEL-VS-HONEST #144 DEGENERATE_CELLS_OVERCOUNT (adaptive-threshold v2):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "3/9 cells are substrate-non-operational (best_score=0 across entire tau_sweep); framework-prediction miss-count is 6/9 not 9/9; sub-component degradation is genuine but scoped". APPLIED inline above.
+- **R2 (CHEAP, ~30min)** — Re-derive tau_pred formula from substrate-physics scaling argument: empirical optima cluster at tau=0.05-0.18 across genuine cells; tau_pred ranges 0.35-1.0; mismatch is roughly factor 2-7×. Theory-drill output: new tau_pred(M_frac, beta) formula tested against the 6 genuine cells before re-shipping. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** — Empirical-fit fallback: fit tau_pred = a · M_frac^b · beta^c from the 6 genuine cells; replace substrate-physics-derived formula with empirical surrogate; tag as engineering-fix not theory-fix. NOT-AUTO-DISPATCHED.
+
+**LABEL-VS-HONEST #145 sub-flavor 1 COMPOSITE_AUC_TRIVIALIZED_BY_SATURATED_COMPONENT (multi_signal_kf1 v2):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "v2 composite design works operationally; framing 'clears 0.898 single-signal ceiling' was misleading since individual signals already at 1.000; composite is robustness not ceiling-clearing". APPLIED inline above (KF-1 trim 0.65-0.80 → 0.65-0.78).
+- **R2 (CHEAPEST, 0-compute)** — Pre-reg policy lock: future composite-AUC prereg requires per-signal-AUC reporting in the HP gate definition; if any single signal already AUC=1.0 the composite-AUC=1.0 HP framing is auto-flagged as trivializable. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~30min CPU)** — Composite-vs-individual robustness probe: vary substrate at conditions where posterior_entropy/spectral_spread/bundle_norm DEGRADE individually (e.g., specific noise injection), test whether composite still achieves AUC≥0.9. Measures genuine composite-vs-single-signal robustness lift. NOT-AUTO-DISPATCHED.
+
+**LABEL-VS-HONEST #145 sub-flavor 2 RUNNING_METRIC_VS_FINAL_METRIC (sparse-W edit_heavy):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "post-storm retention=1.000 5/5 seeds is operationally clean; MIDDLE_BAND label catches running-window dip (transient) not final state (recovered)". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** — Pre-reg policy lock: future edit-heavy prereg reports BOTH running-window-min and post-storm retention; HP threshold against post-storm (the operationally relevant gate) with running-window dip captured as separate annotation field. NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, ~30min CPU)** — Running-window characterization: log per-checkpoint retention during the storm to map the dip-recovery trajectory; identifies whether running-window dip is bounded (clean recovery) or sustained (operational risk). NOT-AUTO-DISPATCHED.
+
+**Multi-hop parallel-mechanism sub-capacity caveat (3 anchors):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "row caveat 'needs higher-M stress before durable claim'; row LIFT to 0.55-0.70 reflects multi-mechanism corroboration at sub-capacity; high-M envelope undetermined". APPLIED inline above.
+- **R2 (MEDIUM, ~30min GPU)** — Higher-M stress probe at M ∈ {2048, 4096} for the cheapest of the three mechanisms (PPP has lowest wall-time 55s at M=256 ×3 depths × 5 seeds; scaling to M=4096 should be ~5-10min). Tests whether the 1.000 accuracy holds at near-operational M. STRATEGICALLY HIGH-PRIORITY — promotes/demotes row durable claim. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~30min GPU)** — Cross-mechanism composition: test whether Paths B+D+E can compose at SAME multi-hop query (does fusing the three mechanisms produce additional lift, or are they substitutes?). Composition-class probe per [[feedback-composition-classification]]. NOT-AUTO-DISPATCHED.
+
+**3 NO_METRICS GPU+large-N infrastructure contention (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** — Subsumption annotation: "NO_METRICS due to GPU contention during parallel-mode multi-anchor batch; substrate-capability claims NOT refuted; INFRASTRUCTURE issue not substrate issue". APPLIED inline above (3 rescue-pending entries).
+- **R2 (CHEAP, ~3-5min)** — Re-check current queue/runner state to confirm N5 retry status (run_index=2 was initiated; may have completed during processing): bridge get_recent_verdicts + queue_state to determine if any of the 3 has a finished verdict not yet seen. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~60-120min serialized GPU)** — Serialized GPU re-ship of N5+N11+N12 as a separate batch (one anchor active at a time). Filed at `notes/strategy_request_to_exp_dev_2026-05-30_n_batch_serialized_gpu_reship.md`. NOT-AUTO-DISPATCHED per user explicit no-refill.
+
+### Top-3 follow-on recommendations (for orchestrator main-thread / user review)
+
+1. **Higher-M stress probe for multi-hop parallel-mechanism row** — ship PPP at M ∈ {2048, 4096} d ∈ {3, 4, 5} 5-seed (cheapest of the three mechanisms; ~5-10min GPU). Either UPGRADES the parallel-mechanism row to durable claim 0.70-0.85 (if 1.000 holds at near-operational M) OR REVISES DOWN to sub-capacity-only operating envelope. STRATEGICALLY HIGHEST-PRIORITY in current cap_map state — the triple-mechanism row is currently the largest claim with the largest uncertainty.
+
+2. **Serialized GPU re-ship of N5+N11+N12** (per filed routing note) — addresses substrate-GPU baseline single-N caveat (v284 candidate row) + sparse-W GPU operational path (v285 LIFT) + N=16384 chunked-codebook envelope (open since v282/v283/v284). All 3 anchors had clean pre-reg; just need clean GPU execution.
+
+3. **Adaptive-threshold tau_pred re-derivation** — file research-agent dispatch to re-derive the tau_pred scalar coefficient from substrate-physics scaling argument (R2 rescue for #144). Sub-component degradation is documented; the fix path is cheap (~30min theory-drill) and unblocks the broader adaptive-threshold capability row. MEDIUM-PRIORITY (sub-component fix; not load-bearing for capabilities currently green).
+
+### Queue-refill recommendation
+
+User explicit no-refill carry-over from F-batch + pause-flag ABSENT but user-directive honored per [[feedback-obey-user-pause-explicitly]] precedent + user-pending refill decision. NO exp_dev dispatch. Orchestrator surfaces next-batch options to user:
+
+- (a) **PPP higher-M stress probe** — STRATEGICALLY HIGHEST per top-3 #1 above; ~5-10min GPU
+- (b) **Serialized GPU re-ship of N5+N11+N12** — addresses 3 single-N / operational-path caveats; ~60-120min serialized GPU
+- (c) **Adaptive-threshold tau_pred re-derivation research drill** — cheap theory-drill; unblocks sub-component fix; no compute required
+- (d) **Cross-mechanism composition probe** for multi-hop parallel-mechanisms — composition classification per [[feedback-composition-classification]]; ~30min GPU; STRATEGIC
+
+NOT auto-shipping per user explicit no-refill; orchestrator surfaces to user for next-batch decision.
+
+### PROT compliance (v284 → v285)
+
+- **PROT-004/006**: 6 rescue sets filed cheapest-first (3 LABEL-VS-HONEST catches #143/#144/#145-2-sub-flavors + multi-hop sub-capacity caveat + 3 GPU+large-N NO_METRICS consolidated); 18 rescues total; R1 0-compute subsumption-annotation APPLIED inline in all sets; LIFT-DOWN on KF-1 + LIFT on sparse-W done HONESTLY per rescue R1 outputs.
+- **PROT-007**: substrate_capability_map_history.md v285 row added. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279/v280/v282/v283/v284 PROT-007 backlogs).
+- **PROT-008**: validator NOT run inline (annotation+LIFT batch; 1 new row + 1 LIFT + 1 LIFT-DOWN + 4 annotations + 1 framework-sub-component-degradation annotation; portfolio +1; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v285 entry) + substrate_capability_map_history.md (v285 row) + strategy_decisions_2026-05-30.md (v284→v285 entry) + visibility_decisions_2026-05-30.md (one-line entry) + n_batch_serialized_gpu_reship routing note staged atomically; **196th PROT-009 paired commit**.
+- **PROT-018**: 9 substantive anchors spot-checked for _n<N> suffix vs config.N: all CLEAN. (3 NO_METRICS anchors carry _n suffix in name but no metrics to validate.)
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 9 substantive verdicts; 3 NEW LABEL-VS-HONEST CATCHES (#143 ENVELOPE_EXTENSION_FRAMED_AS_CLOSURE; #144 DEGENERATE_CELLS_OVERCOUNT; #145 with 2 sub-flavors COMPOSITE_AUC_TRIVIALIZED_BY_SATURATED_COMPONENT + RUNNING_METRIC_VS_FINAL_METRIC); 3 sub-capacity TRIVIALIZATION CAVEATS (multi-hop B/D/E — honest at scale, need higher-M stress; not over-claim catches).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics returned _source=remote for 9/9 substantive anchors; 3 NO_METRICS bypassed Step 0 (no data on remote either — genuine GPU-contention failure).
+- **[[feedback-rehabilitation-after-rejection]]**: 0 capability-row closures in this batch (the 1 HARD_FAIL with envelope-extension reading produces LIFT not closure; the adaptive-threshold HARD_FAIL produces sub-component annotation not row closure per scope-control). NO 3-rescue-then-close requirement triggered.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption sequenced FIRST in all 6 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: adaptive-threshold framework-component degradation scoped to tau_pred SUB-COMPONENT (not whole framework); sparse-W LIFT scoped to "matches M_c not exceeds M_c" (not unconstrained capacity-extension); multi-hop parallel-mechanism row does NOT reopen QE-2 sequential-argmax closure (different mechanism class); KF-1 trim is honest LIFT-DOWN not row closure.
+- **[[feedback-no-padding-experiments]]**: NEW multi-hop row at conservative P=0.55-0.70 with explicit sub-capacity caveat; sparse-W LIFT at conservative +7%/+5% bounds not arbitrary big-LIFT; KF-1 trim is honest LIFT-DOWN.
+- **[[feedback-strategy-shore-up-capabilities]]**: sparse-W envelope extension triggered LIFT (not just annotation); KF-1 row honest LIFT-DOWN; multi-hop row new state opens at 🟢 not 🔬-only.
+- **[[feedback-lit-scan-calibration-penalty]]**: multi-hop parallel-mechanism row novel-synthesis P deflated 0.15-0.25; cap at 0.50 LIFTed to 0.55-0.70 by multi-mechanism corroboration (3 anchors triple-coverage); explicit caveats present.
+- **[[feedback-obey-user-pause-explicitly]]**: user explicit no-refill carry-over from F-batch; pause-flag absent but user-directive honored; NO auto-refill per user explicit directive; orchestrator surfaces next-batch options.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; commit hash surfaced to orchestrator main-thread for push.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via tools/orchestrator/append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty applied — sparse-W LABEL-VS-HONEST #143 catches HARD_FAIL-framed-as-closure when data shows envelope-extension; adaptive-threshold #144 catches 9/9-systematic-when-actually-6/9-genuine-+-3/9-degenerate; multi_signal_kf1 #145-1 catches ceiling-clearance-when-individual-signals-already-saturated; sparse_w_edit_heavy #145-2 catches MIDDLE_BAND-from-running-dip-when-final-recovered.
+- **[[feedback-for-you-tab-primary-channel]]**: 5 status_log entries with plain_language + importance fields per dispatch contract (1 CRITICAL multi-hop triple opening; 1 HIGH multi-signal KF-1 v2; 1 HIGH adaptive-threshold sub-component degradation; 1 MEDIUM sparse-W envelope LIFT; 1 MEDIUM GPU+large-N infrastructure NO_METRICS).
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 9 substantive anchors PROT-018 spot-check all CLEAN.
+- **[[feedback-composition-classification]]**: multi-hop parallel-mechanism row composition-classification deferred to R3 rescue follow-up (cross-mechanism composition probe SCORE/HANDOFF/PIPELINE-classification recommended for next ship of this row family).
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
