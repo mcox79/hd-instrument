@@ -19442,3 +19442,211 @@ The v285 annotation classified adaptive_threshold_rescue_v2_n4096 AT_R2_HARD_FAI
 ### Commit and push
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v287 update -- BATCHED 5-VERDICT P+Q batch MAJOR EVENT: Multi-hop parallel-mechanism row sub-capacity caveat RESOLVED at production-scale M=8192 AND production-scale K_paths=1000 (commit ee0d4f8+392242b)
+
+### Trigger
+
+5-verdict batch from P+Q tracks completed: P1 (multi_hop_higher_m_stress_v1_n4096) + P2 (gpu_large_n_rescue_serialized_v1_n8192) + Q1 (adaptive_threshold_rescue_v3_n4096) + Q2 (mechanism_composition_v1_n4096) + Q3 (large_k_path_scaling_v1_n4096). P1+Q3 jointly confirm production-scale multi-hop durability across BOTH M-axis AND K_paths-axis. P2 sub1 confirms substrate-GPU at N=8192 (dual-N coverage with v284 N=4096). Q2 ceiling-bound (cannot differentiate compositions). Q1 fourth instrumentation pathology BUT meta-finding is INFORMATIVE (substrate too clean for adaptive-threshold question to be empirically meaningful in standard regime).
+
+### Honest re-read (Step 0; PROT-009 per [[feedback-verdict-msg-honest-reread]])
+
+bridge get_metrics: _source=remote for ALL 5 anchors; metrics fresh; no fallback required.
+
+#### Anchor P1 -- multi_hop_higher_m_stress_v1_n4096 (MH_M_STRESS_HARD_PASS)
+
+**Label vs metrics.** verdict_msg "DURABLE_AT_PRODUCTION_M PATHS=B,D,E" with explicit per-cell numbers for M in {2048, 4096, 8192} x depth in {3, 4, 5}. Per-cell remote (27 cells, 5 seeds each = 135 seed-cells; hp_record={B:{M_all=5/5}, D:{M_all=5/5}, E:{M_all=5/5}}):
+- **Path B**: 8/9 cells at 1.000; weakest cell B_8192_5=0.968 (still HP-clearing).
+- **Path D**: 9/9 cells at 1.000 -- unanimous through M=8192 depth=5.
+- **Path E**: 6/9 cells at 1.000; weakest cell E_8192_3=0.864 (still HP-clearing); non-monotonic in depth (E_8192_3=0.864 < E_8192_5=0.971; deeper depth RECOVERS at high M).
+
+**Honest reading.** Label HONEST. All three mechanisms sustain at production M=8192 (= 2N = saturating regime). Sub-capacity caveat from v285 (M=256 = N/16) is RESOLVED. Path D is most robust (1.000 unanimous through M=8192 depth=5). Path E shows distinct mechanism signature (non-monotonic depth-dependence at high M; recovers at deeper depth). This is a TWO-MECHANISM-AT-PRODUCTION-M + ONE-MECHANISM-WITH-CHARACTERIZED-DEGRADATION = THREE WORKING PATHS at production-relevant operating envelope. Path E's non-monotonic-recovery is engineering-distinct (deeper-depth-aids-spectral-discrimination signature).
+
+#### Anchor Q3 -- large_k_path_scaling_v1_n4096 (LKPS_HARD_PASS)
+
+**Label vs metrics.** verdict_msg "PATH_B_SCALES: accs_by_K=ALL_1.000 at K in {10,50,100,250,500,1000} for ALL 3 paths". Per-cell remote: 6 K_paths cells x 3 paths x 5 seeds = 90 seed-cells. ALL cells at 1.000 accuracy. hp_path_winners@K1000={B:5, D:5, E:5}. lat_ratios_K1000/K100={B:12.49, D:12.49, E:9.27}.
+
+**Honest reading.** Label HONEST. Production-realistic K_paths range (K=1000 = 10x N-batch test scale of K=100) confirmed for ALL 3 mechanisms at 1.000 unanimous. Latency scales LINEARLY for B/D (12.49x for 10x K; expected linear); SUB-LINEARLY for E (9.27x for 10x K; engineering advantage). Bayesian enumeration combinatorial-bottleneck concern EMPIRICALLY REFUTED -- Path D scales linearly not quadratically at K=1000. Path E sub-linear K-scaling is a SECOND engineering-distinct mechanism property (joint with non-monotonic depth signature).
+
+#### Anchor Q2 -- mechanism_composition_v1_n4096 (MCOMP_MIDDLE_BAND)
+
+**Label vs metrics.** verdict_msg "PARTIAL: depth_means at d=5: B=1.0 D=1.0 E=1.0 cA=1.0 cB=1.0 cC=1.0 (inconc_C=0.0) hp_winning@d5=0/5 hp_inconc_ok@d5=5/5 hf_depths_failing=0/3". Per-cell remote: 15 cells at d=3 + 15 at d=4 + 15 at d=5 = 45 cells (3 depths x 3 compositions x 5 seeds). At d=5 ALL accuracies at 1.000.
+
+**Honest reading.** Label HONEST. CEILING EFFECT not refutation -- all individual mechanisms (B/D/E) already at 1.000 by depth=5 at M=2048, so compositions cA/cB/cC cannot show lift above ceiling. hp_winning=0/5 means no composition BEATS best individual; hp_inconc_ok=5/5 means composition_C did NOT introduce inconclusivity. hf_depths_failing=0/3 confirms NO design degrades. This is information-positive (composition does not hurt) and information-negative (cannot establish composition-adds-value). Test re-run needed at harder regime (M near M_c, deeper depths, higher noise) to differentiate compositions empirically.
+
+#### Anchor P2 -- gpu_large_n_rescue_serialized_v1_n8192 (RESCUE_MIDDLE_BAND with 3 sub-verdicts)
+
+**Label vs metrics.** verdict_msg "METRICS_EMITTED_NOT_ALL_HP: sub1=SUB1_HARD_PASS sub2=SUB2_MIDDLE_BAND sub3=SUB3_HARD_FAIL". Per-cell remote across 3 sub-tests:
+- **sub1 (GPU N=8192 baseline)**: 3 seeds at M=2048 N=8192 cuda; mean_speedup=22.68x; speedup_per_batch ranges {1:20-26x, 16:27-47x, 64:65-90x, 256:70-81x}; gpu_retention=1.0 ALL seeds; gpu_max_iso=0.0 ALL seeds; gpu_kf_pass=True ALL seeds. SUB1 HARD_PASS HONEST.
+- **sub2 (sparse_w_gpu_integration)**: 9 cells at M=128 (sub-capacity); sparse_retention=1.0 ALL cells; kf2_max_iso=0.0 ALL cells; mem_savings=16x. But hp=0/3 hf=0/3 = MIDDLE_BAND because at sub-capacity M=128 the cross-comparison vs dense baseline did not exceed HP threshold. Honest: sparse-W GPU operationally CLEAN at sub-capacity; no HP-band-clearance signal because M=128 is too low for the HP comparison to exercise sparse-vs-dense advantage.
+- **sub3 (chunked_codebook N=16384)**: 3 seeds. ONLY seed=7 reaches max_M_at_95_recall=4096 with retention_by_M={2048:1.0, 4096:1.0, 8192:-1.0, 16384:-1.0}. seeds 17 AND 23 return max_M=0 with retention_by_M all -1.0 (-1.0 is sentinel for no-measurement). Label "LINEAR_CAPACITY_AT_N16384 mean_max=4096" mathematically computed as mean(4096, 0, 0)/3 = 1365 NOT 4096. **LABEL-VS-HONEST #147 NEW SUB-FLAVOR**: SEED_AGGREGATION_OVER_DEGENERATE_FAILURE -- aggregate mean was computed over -1.0 sentinel values not filtered out (or only 1/3 seeds was used in mean rather than mean across all 3). True read: 1/3 seeds reaches max_M=4096=N/4; 2/3 seeds instrumentation-degenerate (-1.0 sentinel = no measurement). HARD_FAIL framing is correct as net assessment (1/3 working seeds insufficient for capacity claim) but the "mean_max=4096" wording over-claims by mean-of-1-not-3.
+
+**Honest reading on sub-verdicts.**
+- sub1 (GPU N=8192 baseline): HONEST HARD_PASS; extends v284 N=4096 GPU baseline result to N=8192 dual-N coverage.
+- sub2 (sparse_w_gpu_integration): HONEST MIDDLE_BAND; sub-capacity probe at M=128 is below threshold for sparse-vs-dense comparison; sparse-W GPU mechanism operationally clean at this point but cannot extend the v285 LIFT.
+- sub3 (chunked_codebook): #147 sub-flavor catch; net assessment HARD_FAIL is correct (codebook-chunking N=16384 does NOT work reliably; 2/3 seeds degenerate). Sub3 is a genuine codebook-chunking failure for v7-rescue routing.
+
+#### Anchor Q1 -- adaptive_threshold_rescue_v3_n4096 (ATR3_HARD_FAIL) -- FOURTH-OCCURRENCE INSTRUMENTATION PATHOLOGY
+
+**Label vs metrics.** verdict_msg "BOUNDARY_SATURATION_PERSISTS: interior=1/9 boundary=8/9 span_orders=0.30 8/9 cells: med_tau_emp=0.0005 (sweep lower boundary), interior_seeds=0/3 1/9 cells: (M_frac=1.0, beta=32.0) med_tau_emp=0.001, interior_seeds=3/3". Per-cell remote: 9 cells x 3 seeds = 27 cells.
+- M_frac=1.0, beta=4.0 (3 seeds): `operational: false`; js=[1.0, 1.0, 0.0, 0.0, 0.0, ..., 0.0] (2/11 tau values have js=1.0; 9/11 have js=0.0); tau_emp=0.0005 (lowest tau in sweep); in_mean=0.00331; oos_mean=8e-05; in/oos discriminant ratio approx 41x but ABSOLUTE in_mean only 0.003.
+- M_frac=1.0 beta=10.0 + beta=32.0 + higher M_fracs: similar boundary-saturation pattern at tau=0.0005-0.001.
+- Only 1/9 cells (M_frac=1.0, beta=32.0) shows interior-seeds=3/3 with med_tau_emp=0.001 (still at sweep lower-boundary 2nd-from-bottom).
+
+**Honest reading.** Label HONEST as failure-state characterization. This IS the FOURTH-OCCURRENCE INSTRUMENTATION PATHOLOGY (v283+v284+v285+v287 adaptive_threshold series). BUT the meta-finding is INFORMATIVE per user prompt: substrate's in-store-vs-OOS distributions are so well-separated that ANY threshold below a critical value works equally well -- the substrate is "too clean" for the adaptive-threshold question to be empirically meaningful in standard regimes (M_frac in [1.0, 4.0, 16.0] x beta in [4, 10, 32]). The 1/9 cell with interior optimum (M_frac=1.0, beta=32.0) is the EDGE REGIME where adaptive-threshold discrimination becomes meaningful. This is a substrate-characterization POSITIVE finding (substrate cleaner than the question's operational regime requires); the test-design is NOT broken (v3 added non-saturation selftest per v286 #146 policy lock) -- the substrate's NATURAL discriminant width simply exceeds the parameter range tested.
+
+**Decision per user prompt.** STOP the instrumentation-rescue cycle for adaptive_threshold in standard regimes. New annotation: adaptive-threshold question characterization is CLOSED (not a row demotion; not a framework degradation; characterization-of-substrate-property at the question's regime boundary). Future adaptive-threshold work must move to edge regimes (beta >= 32, M_frac near M_c) where discrimination matters.
+
+### Cap_map decisions (v286 -> v287) -- 2 ROW LIFTs + 5 ANNOTATIONS + 1 RESCUE-PENDING (sub3 codebook chunking v7) + 0 ROW CLOSURES + 0 NEW ROWS
+
+#### LIFT -- Multi-hop parallel-mechanism row B/D/E (sub-capacity caveat from v285 RESOLVED)
+
+- **Multi-hop parallel-mechanism paths B/D/E**: 🟢 P=0.55-0.70 (v285 position with sub-capacity caveat) -> 🟢 P=0.75-0.85 (+20% lower bound; +15% upper bound). Mid-bound 0.80.
+- **Rationale**: P1 + Q3 = TWO INDEPENDENT confirmations of production-scale durability:
+  - P1 confirms all 3 paths sustain at M=2048/4096/8192 (M_axis = 0.5N/N/2N) at depths 3-5; HP-record=5/5 seeds at ALL 9 cells per path. Most-degraded cell still HP-clearing (B_8192_5=0.968; D unanimous 1.000; E_8192_3=0.864 above the per-prereg HP threshold).
+  - Q3 confirms all 3 paths sustain at K_paths in {10..1000} = 10x N-batch test K_range = 100% scale-up; latency scales LINEARLY (B/D) or SUB-LINEARLY (E); combinatorial-bottleneck concern empirically refuted.
+- **LIFT-band justification (per [[feedback-lit-scan-calibration-penalty]] + [[feedback-strategy-shore-up-capabilities]])**:
+  - Two independent envelope-axis confirmations (M-axis P1 + K-axis Q3) each at production scale.
+  - Triple-mechanism corroboration (B+D+E all clear).
+  - Path D unanimous 1.000 through full envelope (M=8192, depth=5, K=1000).
+  - Per [[feedback-lit-scan-calibration-penalty]] novel-synthesis cap was 0.50; multi-mechanism corroboration LIFTs above cap; with TWO production-scale envelope confirmations PLUS triple-mechanism unanimity LIFT is justified to 0.75-0.85 (multi-axis evidence shore-up).
+  - CONSERVATIVE not AGGRESSIVE per [[feedback-no-padding-experiments]]: upper bound 0.85 not 0.90 because (a) compositional generalization untested in this batch (Q2 ceiling-bound), (b) cross-mechanism-composition probe deferred, (c) higher-noise regime untested.
+- **Per [[feedback-dont-overextend-theorems]]** LIFT scope: "parallel-mechanism row sustains at M up to 2N AND K_paths up to 1000 at depths 2-5; durable claim production-relevant scale." Does NOT reopen QE-2 sequential-argmax closure (v280 919a901) -- different mechanism class (parallel vs sequential argmax); QE-2 stands at d=50 22-40%; this row covers d=2-5 d-range with 1.0 accuracy in 3 parallel mechanisms.
+
+#### LIFT -- Substrate-GPU baseline row (dual-N confirmation)
+
+- **Substrate-GPU operational baseline**: 🟢 P=0.65-0.80 (v284 candidate single-N N=4096 only) -> 🟢 P=0.75-0.85 (+10% lower bound; +5% upper bound). Mid-bound 0.80.
+- **Rationale**: P2 sub1 = SUB1_HARD_PASS at N=8192 dual-N coverage with v284 N=4096 result. mean_speedup=22.68x at N=8192 within band of v284 22.67x at N=4096. gpu_retention=1.0 ALL seeds; gpu_kf_pass=True ALL seeds; gpu_max_iso=0.0 ALL seeds. Dual-N coverage at N=4096 AND N=8192 satisfies single-N-caveat. Per [[feedback-strategy-shore-up-capabilities]] N-axis envelope expansion on 🟢 row triggers LIFT; per [[feedback-lit-scan-calibration-penalty]] LIFT bound conservative because (a) only 2 N values tested; (b) sub2 at M=128 sub-capacity = sparse-W-GPU integration probe inconclusive at HP-level (mechanism clean, gate untriggered); (c) sub3 chunked_codebook at N=16384 is a DIFFERENT capability question (codebook-chunking) not the substrate-GPU baseline.
+- **ANNOTATION**: "substrate-GPU baseline sustains at N=4096 (v284 mean_speedup=22.67x 3-seed) AND N=8192 (v287 P2 sub1 mean_speedup=22.68x 3-seed); dual-N coverage satisfies single-N-caveat; envelope upper N=16384 untested with sub3 chunked-codebook failure indicating large-N codebook handling separate from baseline GPU acceleration."
+
+#### ANNOTATION -- Path E engineering-distinct mechanism (TWO new signatures)
+
+- Path E (spectral_coherence multi-hop mechanism) shows TWO engineering-distinct properties not shared by Paths B/D:
+  - **Non-monotonic depth-dependence at high M**: E_8192_3=0.864 < E_8192_4=0.931 < E_8192_5=0.971 (deeper-depth aids spectral discrimination); Paths B/D are monotone-decreasing in depth at high M (B_8192_5=0.968 vs B_8192_3=1.000; D_8192 unanimous).
+  - **Sub-linear K-scaling**: E lat_ratio K1000/K100 = 9.27x vs B/D = 12.49x at the same scaling factor; spectral-decomposition cost scales sub-linearly with K_paths.
+- **Annotation on parallel-mechanism row**: "Path E (spectral-coherence-based) is engineering-distinct from Paths B/D (continuous-output + Bayesian-prob-propagation): non-monotonic depth-dependence with high-depth RECOVERY at production M (E_8192 depth-recovery 0.864 -> 0.971); sub-linear K-scaling 9.27x vs 12.49x for B/D at K_paths=1000. Engineering implication: Path E preferred for high-K deployment; Paths B/D preferred for low-depth high-throughput. Multi-path deployment can route by operating-regime."
+
+#### ANNOTATION -- adaptive_threshold characterization-CLOSED (NOT a row demotion; NOT a framework degradation)
+
+- **Adaptive-threshold characterization** at standard regimes: CLOSED with rationale per [[feedback-dont-overextend-theorems]].
+- **Per [[feedback-dont-overextend-theorems]]** scope-control: this is a CHARACTERIZATION-OF-SUBSTRATE-PROPERTY closure NOT a framework component degradation closure NOT a capability row demotion. The substrate-physics framework reliability bands UNCHANGED (89-98% product-feature; non-eq 73-83%; SKAH-M 60-75%; TCFT 92-97%; deletion-cert 92-98%; KF-1 65-78%; specific 70-83%; general 73-83%) per [[feedback-dont-overextend-theorems]] same logic as v286 revert.
+- **Substrate-property characterization**: the in-store / OOS discriminant width substrate-naturally exceeds the parameter range tested in v283/v284/v285/v287 adaptive_threshold series. The 4-occurrence "instrumentation pathology" pattern is now reframed as substrate-characterization positive: substrate is naturally cleaner than the question's standard operational regime requires.
+- **New annotation**: "Adaptive-threshold characterization CLOSED at standard regimes (M_frac in [1.0, 4.0, 16.0] x beta in [4, 10, 32]): substrate's in-store-vs-OOS discriminant naturally exceeds the question's discrimination threshold; fixed thresholds at the substrate's natural lower-boundary work as well as any adaptive scheme in this regime. Adaptive-threshold question only operationally meaningful at edge regimes (beta >= 32 M_frac near M_c) where 1/9 cells in v287 ATR_v3 showed interior optimum; future adaptive-threshold work routes to edge-regime probes only. STOP-instrumentation-rescue-cycle: 4-occurrence pattern v283/v284/v285/v287 is informative substrate-property characterization, NOT instrumentation pathology requiring further v4 rescue."
+- **Process-improvement annotation** (per user prompt direction): future capability questions must include a CHARACTERIZATION-PRE-CHECK step before queueing rescue cycles -- if 2 successive instrumented rescues show the same saturation/degeneracy pattern, the question itself may be regime-mis-framed (substrate property exceeds question's operational range); STOP-rescue and re-formulate before v3/v4/v5.
+
+#### ANNOTATION -- mechanism_composition CEILING EFFECT (no row movement)
+
+- **Composition test ceiling effect**: at M=2048 depths 3-5 ALL individual mechanisms (B/D/E) saturate at 1.000 by depth=5; cA/cB/cC compositions cannot demonstrate lift above ceiling.
+- **Annotation on parallel-mechanism row**: "Composition feasibility test ceiling-bound at M=2048; designs cA/cB/cC do NOT introduce inconclusivity (5/5 seeds clean); no composition beats individual at saturated regime. Re-test at harder regime (M near M_c, deeper depths, higher noise) required to differentiate composition value-add empirically. Composition test CLEAN as feasibility check (no design degrades); value-add untested."
+- **No row movement**: composition-class evaluation deferred; row position 🟢 0.75-0.85 (post-LIFT) reflects multi-hop parallel-mechanism evidence WITHOUT composition-class lift.
+
+#### ANNOTATION -- chunked_codebook sub3 HARD_FAIL (rescue routing for v7)
+
+- **Codebook-chunking N=16384** (v5 v6 series; v287 P2 sub3 4th attempt): 1/3 seeds reaches max_M=4096; 2/3 seeds degenerate (-1.0 sentinel). #147 SUB-FLAVOR catch: mean_max=4096 over-claim by mean-of-1-not-3.
+- **No row movement**: codebook-chunking row remains in characterization state; not a capability row anchored to a 🟢 / 🟡 specific position.
+- **Rescue routing**: file rescue routing for v7 codebook-chunking with different strategy (e.g., explicit chunk-boundary handling; per-seed instrumentation isolation; OR accept hardware constraint = codebook-chunking infeasible at N=16384 with current substrate construction).
+- **Annotation**: "codebook-chunking N=16384 v6 -> v287 sub3 = 4th attempted approach; 1/3 seeds operational; v7 rescue path or hardware-constraint acceptance pending."
+
+#### LABEL-VS-HONEST #147 (NEW SUB-FLAVOR) -- SEED_AGGREGATION_OVER_DEGENERATE_FAILURE
+
+- **Catch**: sub3 mean_max_M=4096 was computed using only operational seed=7 (which actually reaches 4096); aggregate was NOT computed across degenerate seeds 17 and 23 with sentinel -1.0 values. True 3-seed mean across all seeds would be (4096 + 0 + 0) / 3 = 1365 NOT 4096. Sub-flavor catch is that verdict-label aggregation should EXPLICITLY note seed-degeneracy rate (2/3 here) and report mean across ALL seeds including degenerate-failure cells as 0.
+- **Cumulative**: LABEL-VS-HONEST 146 -> 147 (+1).
+- **Policy lock**: future seed-aggregation in verdict_msg for capacity / max_M / retention-by-seed metrics MUST report (a) per-seed values with sentinel-degeneracy flags, (b) aggregate computed over ALL seeds (degenerate as 0 or NaN-excluded explicit), (c) operational-seed-rate (n_operational / n_total). HARD_FAIL gate remains at aggregate-mean-clear-HF-threshold; per-seed reporting prevents label-over-claim like "mean_max=4096" computed over 1/3 seeds.
+
+### Framework-reliability ranges (UNCHANGED)
+
+- Non-eq-stat-mech 73-83% UNCHANGED
+- SKAH-M 60-75% UNCHANGED
+- Substrate-outside-static-Hopfield 64-75% UNCHANGED
+- TCFT 92-97% UNCHANGED
+- Deletion-cert 92-98% UNCHANGED
+- KF-1 65-78% UNCHANGED
+- Specific 70-83% UNCHANGED
+- General 73-83% UNCHANGED
+- Product-feature 89-98% UNCHANGED
+- Substrate-GPU operational baseline 0.65-0.80 -> 0.75-0.85 (LIFT this batch)
+- Multi-hop parallel-mechanism 0.55-0.70 -> 0.75-0.85 (LIFT this batch)
+- Adaptive-threshold characterization: CLOSED at standard regimes (not a degradation; substrate-property characterization)
+
+**Portfolio**: 14 + 36 UNCHANGED (no new rows; no closures; 2 LIFTs within existing rows).
+
+**HONEST 231 -> 236 (+5)**: 5 substantive anchors all honest re-read; 4 fully-honest labels (P1 + Q3 + Q2 + Q1) + 1 LABEL-VS-HONEST catch (#147 sub3 mean-over-1-not-3).
+
+**LABEL-VS-HONEST 146 -> 147 (+1)**: #147 SEED_AGGREGATION_OVER_DEGENERATE_FAILURE.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**P1+Q3 multi-hop LIFT (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "multi-hop row sub-capacity caveat from v285 RESOLVED; LIFT 0.55-0.70 -> 0.75-0.85 with TWO independent envelope confirmations (M-axis + K-axis); Path D unanimous; Path B near-unanimous; Path E engineering-distinct with two new signatures (non-monotonic depth-recovery + sub-linear K)". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy lock for cross-mechanism composition probe (deferred from v285 + this batch): use HARDER REGIME (M near M_c per v283 baseline M_c~16K-20K; OR higher-noise injection; OR longer depth like 8-12 chained hops) so individual mechanisms do not saturate at 1.000; composition value-add can then be empirically differentiated. APPLIED as annotation on Q2 ceiling-effect.
+- **R3 (MEDIUM, ~30min GPU)** -- Cross-mechanism composition probe at HARDER REGIME (M=16384 near baseline M_c + depths 5-10 + noise injection). Tests whether Paths B+D+E composed produce additional lift above individual mechanisms when individuals do NOT saturate. Composition-class probe per [[feedback-composition-classification]] (SCORE/HANDOFF/PIPELINE classification). NOT-AUTO-DISPATCHED.
+
+**P2 sub1 substrate-GPU LIFT (consolidated):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "GPU baseline row N-axis envelope expanded N=4096 (v284) + N=8192 (v287) = dual-N coverage satisfies single-N-caveat; LIFT 0.65-0.80 -> 0.75-0.85 conservative bound; envelope upper N=16384 untested separately from codebook-chunking question". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy lock: future substrate-GPU envelope probes use N in {4096, 8192, 16384} 3-N axis; N=16384 with NON-chunked codebook (vanilla substrate construction not chunked-codebook variant) to extend operational-baseline row independently from codebook-handling question. NOT-AUTO-DISPATCHED.
+- **R3 (MEDIUM, ~30min GPU)** -- N=16384 substrate-GPU baseline non-chunked probe at M in {1024, 4096} 3-seed; isolates substrate-GPU baseline at N=16384 separately from sub3 codebook-chunking failure. NOT-AUTO-DISPATCHED.
+
+**P2 sub3 chunked_codebook HARD_FAIL (rescue routing for v7):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "codebook-chunking N=16384 = 4th attempted approach (v5+v6+v7-pending+v287-sub3); 1/3 seeds operational at max_M=4096=N/4; v7 rescue path OR hardware-constraint acceptance". APPLIED inline above.
+- **R2 (CHEAP, ~30min)** -- v7 chunked-codebook with explicit per-chunk boundary handling: validate chunk-boundary atomic operations + per-seed instrumentation isolation to distinguish failure mode (chunking-implementation-bug vs N=16384 substrate-overload). NOT-AUTO-DISPATCHED.
+- **R3 (CHEAP, 0-compute)** -- Hardware-constraint acceptance: classify codebook-chunking at N=16384 as ENGINEERING-INFEASIBLE; alternative approach = N=8192 non-chunked (sub1 confirmed clean) or N=16384 non-chunked vanilla (R3 of P2 sub1 above). NOT-AUTO-DISPATCHED.
+
+**Q1 adaptive_threshold instrumentation-rescue-cycle STOPPED (substrate-characterization positive):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "4-occurrence pattern v283/v284/v285/v287 is substrate-property characterization (substrate naturally cleaner than question's regime); STOP instrumentation-rescue-cycle; substrate too clean for question to be empirically meaningful in standard regime; adaptive-threshold characterization CLOSED at standard regimes". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Process-improvement annotation: future capability questions include CHARACTERIZATION-PRE-CHECK before queueing rescue cycles; if 2 successive instrumented rescues show same saturation/degeneracy pattern, STOP-rescue and re-formulate question; prevents 4-occurrence rescue cycles. APPLIED as process-improvement annotation.
+- **R3 (CHEAP, ~30min CPU)** -- Edge-regime adaptive-threshold probe at beta >= 32 + M_frac near M_c (the 1/9 cell in v287 ATR_v3 showed interior optimum at this regime); tests whether adaptive-threshold becomes operationally meaningful at edge-regime; ONLY scientifically meaningful adaptive-threshold question remaining. NOT-AUTO-DISPATCHED.
+
+**Q2 mechanism_composition ceiling-bound (re-test at harder regime):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "Composition feasibility test ceiling-bound at M=2048; designs do NOT introduce inconclusivity (5/5 clean); no row movement; harder-regime re-test required to differentiate composition value-add empirically". APPLIED inline above.
+- **R2 (CHEAPEST, 0-compute)** -- Pre-reg policy lock: composition tests prereg requires non-saturated-individual-mechanism check; if any single mechanism already at ceiling, composition test re-routes to HARDER regime BEFORE shipping. APPLIED as pre-reg policy.
+- **R3 (MEDIUM, ~30min GPU)** -- Composition re-test at HARDER regime (M=16384 near M_c + depths 5-8 + noise injection); see R3 of P1+Q3 above (same probe). NOT-AUTO-DISPATCHED.
+
+### Top-3 follow-on recommendations
+
+1. **Cross-mechanism composition probe at HARDER regime** (R3 of P1+Q3 + Q2 consolidated) -- ~30min GPU; M=16384 near M_c + depths 5-10 + noise injection; tests whether Paths B+D+E COMPOSED produce additional lift above individual mechanisms when individuals do NOT saturate at 1.000; composition-class classification per [[feedback-composition-classification]] (SCORE/HANDOFF/PIPELINE); STRATEGICALLY HIGH-PRIORITY because parallel-mechanism row is now LIFTed to 0.75-0.85 and composition is the next open question.
+
+2. **Substrate-GPU N=16384 non-chunked probe** (R3 of P2 sub1) -- ~30min GPU; isolates substrate-GPU baseline at N=16384 separately from codebook-chunking question; extends GPU baseline row to 3-N axis (4096 + 8192 + 16384); would support further LIFT toward 0.80-0.88 if N=16384 clean. MEDIUM-PRIORITY.
+
+3. **Adaptive-threshold edge-regime probe at beta >= 32 + M_frac near M_c** (R3 of Q1) -- ~30min CPU; only scientifically meaningful adaptive-threshold question remaining post-characterization-closure; either confirms adaptive-threshold operationally meaningful at edge regime (re-opens question) OR confirms substrate cleaner than question even at edge (closes question fully). MEDIUM-PRIORITY (substrate-characterization positive; not load-bearing for currently-green rows).
+
+### Queue-refill recommendation
+
+NO exp_dev refill this batch -- per user prompt explicit "NO exp_dev refill (orchestrator dispatching 5 new experiments in parallel with this verdict_handler)". Orchestrator main thread handles refill via parallel exp_dev dispatch.
+
+### PROT compliance (v286 -> v287)
+
+- **PROT-004/006**: 4 rescue sets filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 12 rescues total; R1 0-compute subsumption-annotation APPLIED inline in all 4 sets; LIFTs done HONESTLY per rescue R1 outputs.
+- **PROT-007**: substrate_capability_map_history.md v287 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279/v280/v282/v283/v284/v285/v286 PROT-007 backlogs).
+- **PROT-008**: validator NOT run inline (annotation+LIFT batch; 2 LIFTs within existing rows + 5 annotations + 1 rescue-pending; portfolio unchanged 14+36; no new rows; no closures; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v287 entry) + substrate_capability_map_history.md (v287 row) + strategy_decisions_2026-05-30.md (v286 -> v287 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; 198th PROT-009 paired commit.
+- **PROT-018**: 5 substantive anchors spot-checked for _n<N> suffix vs config.N: all CLEAN.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 5 substantive verdicts; 1 NEW LABEL-VS-HONEST CATCH (#147 SEED_AGGREGATION_OVER_DEGENERATE_FAILURE on P2 sub3); 4 labels HONEST as worded (P1 + Q3 + Q2 + Q1 net assessment).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics returned _source=remote for 5/5 anchors; no fallback required.
+- **[[feedback-rehabilitation-after-rejection]]**: 0 capability-row closures in this batch; the Q1 4th-occurrence pattern is reframed as substrate-property characterization closure NOT a row demotion NOT a framework component degradation per [[feedback-dont-overextend-theorems]].
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption sequenced FIRST in all 4 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: adaptive-threshold closure scoped CHARACTERIZATION-OF-SUBSTRATE-PROPERTY (not row demotion not framework degradation); multi-hop LIFT scoped to M=2N + K=1000 envelope (does not claim higher-M or higher-K untested); GPU LIFT scoped to dual-N coverage (does not claim N=16384 untested separately from codebook-chunking question).
+- **[[feedback-no-padding-experiments]]**: multi-hop LIFT band 0.75-0.85 chosen CONSERVATIVE (not 0.78-0.90 aggressive) because compositional generalization untested and cross-mechanism composition untested; GPU LIFT band 0.75-0.85 chosen CONSERVATIVE because only 2 N values tested.
+- **[[feedback-strategy-shore-up-capabilities]]**: multi-hop row envelope expansion (M-axis + K-axis) triggered LIFT (not just annotation); GPU row envelope expansion (N-axis) triggered LIFT.
+- **[[feedback-lit-scan-calibration-penalty]]**: multi-hop novel-synthesis P deflated 0.15-0.25; cap 0.50 LIFTed to 0.75-0.85 by TWO independent envelope-axis confirmations + triple-mechanism corroboration (per LIFT-band justification block above).
+- **[[feedback-obey-user-pause-explicitly]]**: pause-flag ABSENT; user prompt explicit "NO exp_dev refill" honored (orchestrator dispatches in parallel); verdict_handler does NOT dispatch exp_dev.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; commit hash surfaced to orchestrator main-thread for push.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via tools/orchestrator/append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty applied -- adaptive-threshold 4th-occurrence reframed as substrate-characterization positive NOT instrumentation pathology; Q2 ceiling-effect surfaced honestly; #147 mean-over-1-not-3 catch.
+- **[[feedback-for-you-tab-primary-channel]]**: 4 status_log entries with plain_language + importance fields per dispatch contract (1 CRITICAL multi-hop production-scale durability; 1 HIGH GPU substrate dual-N confirmation; 1 HIGH adaptive-threshold instrumentation-rescue-cycle stopped; 1 MEDIUM composition ceiling-effect).
+- **[[feedback-composition-classification]]**: cross-mechanism composition probe deferred to top-3 follow-on #1 (SCORE/HANDOFF/PIPELINE classification at harder regime).
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 5 substantive anchors PROT-018 spot-check all CLEAN.
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
