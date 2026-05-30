@@ -40,6 +40,11 @@ _SCENARIO_NAMES = [
     "large_M_constant_cost",
     "audit_chain_validation",
     "multi_substrate_sharding",
+    "write_heavy_stream",
+    "edit_heavy_stream",
+    "hot_path_skew",
+    "mixed_crud_workload",
+    "large_N_envelope",
 ]
 
 

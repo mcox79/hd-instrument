@@ -130,6 +130,46 @@ def _key_metric(scenario: str, result: dict | None) -> str:
             f"K={K} shards disk@M={last_M} {_fmt(disk_MB)}MB "
             f"R@1 {_fmt(r1, 'pct')} chain={_fmt(ci, 'pct')}"
         )
+    if scenario == "write_heavy_stream":
+        ops = result.get("ops_per_sec")
+        ratio = result.get("p99_last_over_first")
+        return (
+            f"{_fmt(ops)}ops/s p99_last/first {_fmt(ratio)}"
+        )
+    if scenario == "edit_heavy_stream":
+        wall = result.get("mean_edit_query_wall_us")
+        corr = result.get("post_edit_correctness_rate")
+        return (
+            f"edit+q {_fmt(wall, 'us')}us corr {_fmt(corr, 'pct')}"
+        )
+    if scenario == "hot_path_skew":
+        hp = result.get("hot_p50_retrieve_us")
+        cp = result.get("cold_p50_retrieve_us")
+        r = result.get("hot_cold_ratio")
+        return (
+            f"hot {_fmt(hp, 'us')}us cold {_fmt(cp, 'us')}us r {_fmt(r)}"
+        )
+    if scenario == "mixed_crud_workload":
+        ops = result.get("ops_per_sec_sustained")
+        ratio = result.get("ops_ratio_last_over_first")
+        nu = result.get("post_delete_near_uniform_rate")
+        if nu is None:
+            return f"{_fmt(ops)}ops/s drift {_fmt(ratio)}"
+        return (
+            f"{_fmt(ops)}ops/s drift {_fmt(ratio)} KF1 {_fmt(nu, 'pct')}"
+        )
+    if scenario == "large_N_envelope":
+        if result.get("skipped"):
+            return "skipped"
+        env = result.get("envelope") or {}
+        per_N = env.get("max_M_at_95_recall_per_N") or {}
+        if not per_N:
+            return _NA
+        parts = []
+        for N_key in sorted(per_N.keys(), key=lambda s: int(s)):
+            v = per_N[N_key]
+            parts.append(f"N={N_key}:{v if v is not None else 'none'}")
+        return "max M @ 95% recall: " + " ".join(parts)
     return _NA
 
 

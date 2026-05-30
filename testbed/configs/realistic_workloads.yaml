@@ -1,0 +1,75 @@
+# Realistic-workload scenarios: write_heavy_stream + edit_heavy_stream +
+# hot_path_skew + mixed_crud_workload.
+#
+# Tuned for ~5-15 min total on remote CPU (laptop also fine).
+# M_base / M_total / N values are tractable for the substrate at N=1024.
+
+config_name: realistic_workloads
+
+N: 1024
+dim: 1024
+codebook_kind: bsc
+codebook_C: 8192            # 8 * N, headroom for ~2000 stored items
+codebook_scale: 8
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+# write_heavy_stream knobs
+write_heavy_M_total: 5000
+write_heavy_n_deciles: 10
+
+# edit_heavy_stream knobs
+edit_heavy_M_base: 2000
+edit_heavy_N_edits: 5000
+
+# hot_path_skew knobs
+hot_path_M: 2000
+hot_path_N_queries: 5000
+hot_path_zipf_alpha: 1.2
+hot_path_hot_fraction: 0.2
+
+# mixed_crud_workload knobs
+mixed_crud_M_base: 2000
+mixed_crud_N_ops: 5000
+mixed_crud_p_retrieve: 0.70
+mixed_crud_p_edit: 0.20
+mixed_crud_p_delete: 0.10
+mixed_crud_n_deciles: 10
+
+# Generic sizing fallbacks (consumed by setup() when scenario-specific
+# config keys are missing).
+M_base: 2000
+M_total: 5000
+
+# Sharded substrate options (only used when backend = substrate_sharded).
+shard_K: 4
+shard_codebook_C: 4096
+shard_shared_codebook: true
+sharded:
+  N: 1024
+  K_shards: 4
+  codebook_kind: bsc
+  codebook_C: 4096
+  beta: 32.0
+  hallu_threshold: 0.5
+  shared_codebook: true
+  routing: hash
+  device: cpu
+  seed: 7
+
+seeds: [7]
+
+backends:
+  - substrate
+  - substrate_sharded
+  - faiss
+  - dict
+
+scenarios:
+  - write_heavy_stream
+  - edit_heavy_stream
+  - hot_path_skew
+  - mixed_crud_workload
+
+out_root: testbed_data/benchmarks
