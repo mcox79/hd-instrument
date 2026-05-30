@@ -1,0 +1,40 @@
+# cached_hot_path smoke config: must complete in < 60s on a Windows
+# laptop CPU. N=512, M=200, 500 Zipfian queries, cache_size=100. Smoke
+# uses dict baseline alongside substrate variants to keep the run cheap.
+
+config_name: cached_hot_path_smoke
+
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_C: 2048
+codebook_scale: 4
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+substrate_device: cpu
+
+cached_hot_path_M: 200
+cached_hot_path_N_queries: 500
+cached_hot_path_zipf_alpha: 1.2
+cached_hot_path_hot_fraction: 0.2
+
+cached:
+  cache_size: 100
+  eviction_policy: lru
+
+M_total: 200
+hot_path_M: 200
+
+seeds: [7]
+
+backends:
+  - substrate_cached
+  - substrate
+  - faiss
+  - dict
+
+scenarios:
+  - cached_hot_path
+
+out_root: testbed_data/benchmarks

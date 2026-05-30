@@ -49,6 +49,7 @@ _SCENARIO_NAMES = [
     "multi_signal_kf1",
     "factorized_vs_dense",
     "hierarchical_capacity",
+    "cached_hot_path",
 ]
 
 
@@ -197,6 +198,40 @@ def _build_backend(name: str, config: dict):
         seeds = config.get("seeds") or [0]
         opts.setdefault("seed", int(seeds[0]) if seeds else 0)
         return cls(**opts)
+    if nm == "substrate_cached":
+        try:
+            from testbed.variants import VARIANT_REGISTRY  # type: ignore
+        except ImportError as exc:
+            raise RuntimeError(
+                f"substrate variants not available: {exc}."
+            ) from exc
+        cls = VARIANT_REGISTRY["substrate_cached"]
+        cached_opts = dict(config.get("cached", {}) or {})
+        kwargs = {
+            "N": int(config.get("N", 4096)),
+            "codebook_kind": str(config.get("codebook_kind", "bsc")),
+            "codebook_scale": int(config.get("codebook_scale", 4)),
+            "beta": float(config.get("beta", 32.0)),
+            "hallu_threshold": float(config.get("hallu_threshold", 0.5)),
+            "device": str(config.get("substrate_device", "cpu")),
+            "cache_size": int(cached_opts.get("cache_size", 1000)),
+            "eviction_policy": str(cached_opts.get("eviction_policy", "lru")),
+        }
+        seeds = config.get("seeds") or [0]
+        kwargs["seed"] = int(seeds[0]) if seeds else 0
+        m_hint = config.get("codebook_M_hint")
+        if (m_hint is None) and bool(config.get("codebook_M_hint_auto", False)):
+            candidates = [
+                int(config.get("M_total", 0) or 0),
+                int(config.get("hot_path_M", 0) or 0),
+            ]
+            m_hint = max(candidates) if candidates else 0
+        if m_hint:
+            try:
+                kwargs["codebook_M_hint"] = int(m_hint)
+            except (TypeError, ValueError):
+                pass
+        return cls(**kwargs)
     if nm == "substrate" or nm.startswith("substrate_v") or nm == "substrate_factorized":
         try:
             from testbed.variants import VARIANT_REGISTRY  # type: ignore
@@ -549,6 +584,7 @@ def _cmd_smoke(args: argparse.Namespace) -> int:
             or b == "substrate_sharded"
             or b == "substrate_factorized"
             or b == "substrate_hierarchical"
+            or b == "substrate_cached"
         )
         ok = (r1 >= 0.5) if is_substrate else (r1 >= 0.95)
         flag = "PASS" if ok else "FAIL"

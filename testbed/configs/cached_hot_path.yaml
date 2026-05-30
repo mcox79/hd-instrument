@@ -1,0 +1,43 @@
+# cached_hot_path full config: Tier 2 T4 cache test at production-realistic
+# scale. M=2000 items at N=2048, 5000 Zipfian queries (alpha=1.2),
+# substrate_cached cache_size=1000. Compares substrate_cached vs substrate
+# vs faiss vs dict.
+
+config_name: cached_hot_path
+
+N: 2048
+dim: 2048
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 4
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+substrate_device: cpu
+
+# cached_hot_path knobs
+cached_hot_path_M: 2000
+cached_hot_path_N_queries: 5000
+cached_hot_path_zipf_alpha: 1.2
+cached_hot_path_hot_fraction: 0.2
+
+# Substrate cache config
+cached:
+  cache_size: 1000
+  eviction_policy: lru
+
+M_total: 2000
+hot_path_M: 2000
+
+seeds: [7]
+
+backends:
+  - substrate_cached
+  - substrate
+  - faiss
+  - dict
+
+scenarios:
+  - cached_hot_path
+
+out_root: testbed_data/benchmarks

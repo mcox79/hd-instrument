@@ -169,6 +169,17 @@ def build_backend(name: str, config: dict) -> MemoryBackend:
         cls = VARIANT_REGISTRY[nm]
         return cls(**opts)
 
+    if nm == "substrate_cached":
+        cls = VARIANT_REGISTRY[nm]
+        opts = dict(config.get("substrate", {}) or {})
+        opts.setdefault("N", dim)
+        cached_cfg = dict(config.get("cached", {}) or {})
+        opts.setdefault("cache_size", int(cached_cfg.get("cache_size", 1000)))
+        opts.setdefault(
+            "eviction_policy", str(cached_cfg.get("eviction_policy", "lru"))
+        )
+        return cls(**opts)
+
     if nm in VARIANT_REGISTRY:
         cls = VARIANT_REGISTRY[nm]
         opts = dict(config.get("substrate", {}) or {})

@@ -27,6 +27,7 @@ from testbed.variants.v4_double_hebbian import SubstrateV4DoubleHebbian
 from testbed.variants.sharded_substrate import ShardedSubstrate
 from testbed.variants.factorized_substrate import FactorizedSubstrate
 from testbed.variants.hierarchical_substrate import HierarchicalSubstrate
+from testbed.variants.cached_substrate import CachedSubstrate
 
 VARIANT_REGISTRY: dict[str, type] = {
     "substrate_v1": SubstrateV1Reference,
@@ -36,6 +37,7 @@ VARIANT_REGISTRY: dict[str, type] = {
     "substrate_sharded": ShardedSubstrate,
     "substrate_factorized": FactorizedSubstrate,
     "substrate_hierarchical": HierarchicalSubstrate,
+    "substrate_cached": CachedSubstrate,
 }
 
 __all__ = [
@@ -47,4 +49,5 @@ __all__ = [
     "ShardedSubstrate",
     "FactorizedSubstrate",
     "HierarchicalSubstrate",
+    "CachedSubstrate",
 ]

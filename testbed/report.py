@@ -149,6 +149,20 @@ def _key_metric(scenario: str, result: dict | None) -> str:
         return (
             f"hot {_fmt(hp, 'us')}us cold {_fmt(cp, 'us')}us r {_fmt(r)}"
         )
+    if scenario == "cached_hot_path":
+        hp = result.get("hot_p50_retrieve_us")
+        cp = result.get("cold_p50_retrieve_us")
+        hr = result.get("cache_hit_rate")
+        cvf = result.get("cache_verification_failures")
+        if hr is None:
+            return (
+                f"hot {_fmt(hp, 'us')}us cold {_fmt(cp, 'us')}us "
+                f"cache N/A vfail {_fmt(cvf)}"
+            )
+        return (
+            f"hot {_fmt(hp, 'us')}us cold {_fmt(cp, 'us')}us "
+            f"hit {_fmt(hr, 'pct')} vfail {_fmt(cvf)}"
+        )
     if scenario == "mixed_crud_workload":
         ops = result.get("ops_per_sec_sustained")
         ratio = result.get("ops_ratio_last_over_first")
