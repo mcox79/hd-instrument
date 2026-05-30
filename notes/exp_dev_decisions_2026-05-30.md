@@ -49,3 +49,13 @@ Commit pending: 12 scripts + 12 preregs + 2 shared modules + this decision-log e
 - All 3 self-tests PASS; all 3 smoke runs PASS; REMOTE VERIFY PASS (3/3 via queue_add.sh built-in exit-5 check).
 - Smoke wall times: Q1=0.16s, Q2=0.45s, Q3=0.79s (CPU N_SMOKE=1024).
 - Commit deferred to main thread (user policy).
+
+## 2026-05-30 exp_dev: 5-anchor production-stress batch shipped
+- multi_hop_stress_at_breaking_v1_n4096 (overnight_queue, 21600s) — 3 paths x 2 M (16384/24576) x 3 depth (10/15/20) x 5 seeds boundary characterization
+- mechanism_composition_at_breaking_v2_n4096 (overnight_queue, 14400s) — composition rehab at hard cells; 3 designs cA/cB/cC
+- chunked_codebook_n16384_v6 (overnight_queue, 43200s) — Strategy A in-place codebook chunking, M={2048,4096,8192}
+- path_e_latency_envelope_v1_n4096 (overnight_queue, 21600s) — 90-cell (depth, K, M) envelope for path E
+- multi_hop_noise_robustness_v1_n4096 (overnight_queue, 14400s) — sigma sweep [0.00, 0.05, 0.10, 0.20, 0.40] for paths B/D/E
+- Self-test 5/5 PASS; smoke 5/5 PASS; REMOTE VERIFY 5/5 PASS; PROT-018 N-suffix 5/5 verified
+- R3 smoke ran on CPU (no local GPU); GPU memory peak measured on FULL via torch.cuda.max_memory_allocated
+- Single commit + push DEFERRED to main thread per spec
