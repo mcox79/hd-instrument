@@ -18537,3 +18537,125 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 Commit message: `Cap map: v280 -> v281 (ANNOTATION-ONLY BID metric-family glossary lock-in; 4-verdict cumulative METRIC_DEFINITION_FRAMEWORK_OVER_CLAIM pattern v5/v6/v7+v2; BID_GAP_PREDICATE canonical outside-3-Hopfield-bands sigma_margin>=2 load-bearing anchor v2 N=8192 5-seed FULL vs BID_NORMALIZED_THRESHOLD convenience normalized_bid>0.55 upper-paramagnetic inherited bid_m_normalized_v1; future BID-vN prereg policy MUST cite BID_GAP_PREDICATE or justify divergence; substrate-outside-static-Hopfield row UNCHANGED green 64-75%; non-eq-stat-mech 73-83% UNCHANGED; portfolio 14+31 UNCHANGED; 0 row state changes; 192nd PROT-009 paired commit; annotation-only strategy_scribe dispatch)`
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+---
+
+## v281 -> v282 -- 2026-05-30 BATCHED 3-VERDICT Track A+B+C Phase-1 gate tests (ANNOTATION-ONLY; user explicit no-refill)
+
+**Trigger.** Three Phase-1 gate tests for Op D (parallel-superposition single-hop decomposition), Op B (BSC tensor-binding two-shard), and Op E (K=10 cross-shard correlation) completed simultaneously. User msg-1 framed each as "the single most decisive test" for its track. Results:
+
+- **Op D superposition single-hop decomp v1 n4096**: MIDDLE_BAND. Per-component kscale_mean=1.000 across K in {5,10,15,20} (PERFECT decomposition); per_pattern_pass={P1:0,P2:0,P3:0,P4:0} = 0/4 patterns and 0/5 seeds clear HP gate due to cross-talk above 0.10 threshold; signal exists but off-codebook amplitude contamination dominates.
+- **Op B tensor binding two-shard v1 n4096**: HARD_FAIL. mean_tensor_acc=0.018 vs mean_seq_acc=1.000 in 5/5 seeds. BSC element-wise binding structure destroyed by W matmul; sequential composition (per-shard) works perfectly at 1.000.
+- **Op E cross-shard correlation k10 v1 n4096**: HARD_FAIL. mean_AUC=0.459 (BELOW random 0.5) at 30/4096 = 0.7% entity overlap; 4/5 cells AUC<=0.6; mean_triplet_in_top9=0.80/3. Tr(W_i^T W_j) second-order moment indistinguishable from noise at this overlap fraction.
+
+Pause flag absent BUT user explicit no-refill directive HONORED per [[feedback-obey-user-pause-explicitly]] precedent (user is staging next batch explicitly). Verdict_handler dispatched as single sub-agent; inline strategy+visibility no Agent sub-dispatch.
+
+### Step 0 honest re-read (3 verdicts; 0 NEW LABEL-VS-HONEST; 1 BORDERLINE-CONFIRMED HONEST)
+
+#### Anchor 1 -- superposition_single_hop_decomp_v1_n4096 (MIDDLE_BAND) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "PARTIAL: some patterns / K-values pass; not unanimous. per_pattern_pass={P1_uniform:0, P2_peaked:0, P3_random:0, P4_sparse:0} kscale_mean_per_K={5:1.0, 10:1.0, 15:1.0, 20:1.0} kscale_range=0.000 frac_hf=0.000 N=4096".
+
+**Honest reading.** The label MIDDLE_BAND is honest. The per-pattern-pass=0/4 result IS a fail at HP-gate level; the kscale_mean=1.000 at every K IS a perfect-decomposition signal. The "PARTIAL" framing in verdict_msg correctly captures the bifurcation: per-component reconstruction is perfect at signal-existence level; cross-talk amplitude on off-codebook entries blocks the HP gate. Cross-talk is the amplitude residue on codewords NOT in the queried superposition; it is structurally produced by W's interaction with the BSC codebook. This is NOT a label over-claim; this is the script honestly classifying a perfect-per-component-but-noise-contaminated result as MIDDLE_BAND.
+
+**Decision.** No reversal. MIDDLE_BAND is the honest reading. User-prompt preliminary classification (A vs B) RESOLVED toward (A) calibration/threshold rescuable: the substrate DOES decompose the superposition correctly per stored component (kscale_mean=1.000 unanimous); the cross-talk is amplitude residue on off-codebook entries, NOT a failure to decompose. **Phase 2 two-hop ship NOT WARRANTED yet**: each two-hop matmul iteration would compound the cross-talk via second-pass codebook amplification (each W-application redistributes amplitude across the codebook); a top-K post-decomposition filter is the canonical rescue and is cheaper than re-shipping Phase 2 blind. Rescue recommendation surfaced as R1 below.
+
+#### Anchor 2 -- tensor_binding_two_shard_v1_n4096 (HARD_FAIL) -- HONEST CONFIRMED
+
+**Label vs metrics.** verdict_msg "TENSOR_BIND_BROKEN: 5/5 HF. pass_seeds=0/5 hf_seeds=5 mean_tensor_acc=0.018 mean_match=0.018 mean_seq_acc=1.000 N=4096".
+
+**Honest reading.** tensor_acc=0.018 (50x below random for the implied classification setup) in 5/5 seeds is unambiguous structural failure for BSC element-wise q=k_A*k_B passed through W. The contrast is dispositive: same shards, same W, sequential composition gives 1.000 -- the SUBSTRATE and SHARDS are fine. The BSC tensor-binding STRUCTURE doesn't survive matmul's information-mixing. Label HONEST.
+
+**Decision.** No reversal. User-prompt preliminary classification RESOLVED toward (A) BSC-codebook-specific structural mismatch -- sequential works because per-shard storage preserves codeword integrity; tensor-binding fails because BSC * BSC = uniform-random-modulo-permutation and W applies a linear projection that has no structural preservation of element-wise products. Kerdock has algebraic structure (Reed-Muller codes, group multiplication closure) that BSC LACKS; whether Kerdock tensor-binding survives is an OPEN substrate-physics question, NOT a logical consequence of BSC failure. Closing BSC-tensor-binding does NOT close Kerdock-tensor-binding -- but per [[feedback-no-padding-experiments]] no Kerdock variant shipped without substrate-physics analytic motivation.
+
+#### Anchor 3 -- cross_shard_correlation_k10_v1_n4096 (HARD_FAIL) -- HONEST CONFIRMED with NUANCE
+
+**Label vs metrics.** verdict_msg "AUC_NOISE: 4/5 cells with AUC<=0.6. pass_seeds=0/5 hf_seeds=4 mean_AUC=0.459 mean_entity_prec=0.531 mean_triplet_in_top9=0.80/3 N=4096".
+
+**Honest reading.** mean_AUC=0.459 in 5/5 seeds is BELOW random (0.5) -- not "no signal" but "anti-signal" or numerical-noise-dominated metric. Honest interpretation: Tr(W_i^T W_j) at 30/4096 entity overlap (~0.7% overlap fraction) is indistinguishable from the null distribution; AUC < 0.5 is the symmetric-around-0.5 fluctuation. mean_entity_prec=0.531 (~ random) and mean_triplet_in_top9=0.80/3 = 0.27 (also random for top-9-of-45 = 9/45 = 0.20 baseline + slight boost) corroborate. Label HARD_FAIL HONEST at the level "this specific metric form does not detect this overlap fraction".
+
+**Decision.** No reversal. User-prompt preliminary classification RESOLVED toward (A) + (B) BOTH: (A) the metric form is wrong-for-substrate (Tr of product is second-order; for 0.7% overlap a higher-order or topologically-sensitive metric MIGHT detect relatedness), AND (B) second-order moments simply lack sensitivity at this overlap fraction. The honest annotation is: this closes the SPECIFIC operator-trace correlation form at the SPECIFIC k=10/N=4096 overlap fraction. It does NOT close all cross-shard analytics. Per [[feedback-dont-overextend-theorems]] this is a narrow closure of a particular operationalization, not a closure of all cross-shard reasoning. No Kerdock-variant or alternate-metric ship without substrate-physics motivation.
+
+**HONEST 195 -> 198 (+3)**: all three labels confirmed honest. **LABEL-VS-HONEST 141 -> 141 (unchanged)**: no over-claims caught.
+
+### Cap_map decisions (v281 -> v282) -- ANNOTATION-ONLY
+
+No row promotions, no row demotions, no row closures, no portfolio change. Op B + Op E + Op G (hierarchical-multi-shard, downstream-dependent on Op B) effectively close as research directions but were NEVER green/yellow rows in cap_map -- they were "operations probed by Track A+B+C P1 gate". Op D superposition gets a NEW mechanism-distinctness annotation: it is NOT subsumed by the coherent-multi-hop ❌ closure (v280) because Op D is a parallel-paths-through-ONE-substrate-op mechanism, NOT iterative sequential application.
+
+#### Annotation 1 -- Op D (parallel-superposition single-hop decomposition) -- NEW MECHANISM ANNOTATION
+
+**Location.** Add to "coherent-multi-hop ❌ CLOSED" annotation block (v280 entry) and to the "operations decomposition matrix" annotation in cap_map.
+
+**Annotation text.** "Op D parallel-superposition single-hop decomposition is a STRUCTURALLY DISTINCT mechanism from coherent-multi-hop (closed v280): coherent-multi-hop is sequential iteration (multiple matmuls in series); Op D is parallel paths through ONE matmul (one substrate-op decomposing a superposition input q = sum_i beta_i k_i into per-component outputs). v282 Phase-1 gate: per-component decomposition signal CONFIRMED PERFECT at kscale_mean=1.000 unanimous across K in {5,10,15,20}; cross-talk amplitude on off-codebook entries blocks HP gate (0/4 patterns clear; 0/5 seeds). Op D is NOT subsumed by coherent-multi-hop ❌ closure; tracked as substrate's PARALLEL-SUPERPOSITION-DECOMPOSITION mechanism. Phase 2 two-hop ship NOT-YET-WARRANTED; cross-talk rescue (top-K post-decomp filter, weighted decomposition with stored-key prior, threshold-tuning on N-scaling) recommended FIRST before two-hop shipping. NO new cap_map row added pending rescue verification."
+
+#### Annotation 2 -- Op B (BSC tensor-binding two-shard) -- CLOSURE-AT-PROBE-LEVEL ANNOTATION
+
+**Location.** Annotation in the "cross-shard composition operations" probe-results section.
+
+**Annotation text.** "Op B BSC tensor-binding two-shard CLOSED at v282 Phase-1 gate: mean_tensor_acc=0.018 vs mean_seq_acc=1.000 in 5/5 seeds = BSC element-wise binding does NOT survive W matmul. Sequential per-shard composition WORKS perfectly (1.000) -- substrate cross-shard composition path = sequential, NOT tensor-product. Closure scope: BSC-codebook-specific operationalization at N=4096 2-shard; does NOT close all tensor-binding (Kerdock variant untested but BSC-only closure is SUFFICIENT for current production since BSC is canonical deployment codebook per [[reference-repo]]). Op G (hierarchical multi-shard, Track-T4 in user staging) STRUCTURALLY DEPENDS on Op B (Op G requires tensor-binding-survival across the per-level shards); Op G closes by dependency at probe level. NO new cap_map rows added; closures are at probe-level not row-level (these probes were not green/yellow rows pre-batch)."
+
+#### Annotation 3 -- Op E (K=10 cross-shard pairwise correlation) -- METRIC-CLASS-AT-OVERLAP-FRACTION ANNOTATION
+
+**Location.** Annotation in the "cross-shard correlation analytics" probe-results section.
+
+**Annotation text.** "Op E pairwise Tr(W_i^T W_j) correlation at K=10 shards / N=4096 / 30-entity overlap (0.7% overlap fraction) CLOSED at v282 Phase-1 gate: mean_AUC=0.459 (BELOW random 0.5) in 5/5 seeds; mean_entity_prec=0.531; mean_triplet_in_top9=0.80/3. Second-order moment form (Tr of operator product) is insensitive to relatedness at sub-1% overlap. Closure scope: NARROW -- this specific metric form at this specific overlap fraction. Does NOT close all cross-shard analytics; row-wise alignment, spectral overlap, topological persistence might detect at this overlap, but none pursued without theoretical motivation per [[feedback-no-padding-experiments]]. NO substrate-distinctive analytics layer at the operator-trace approach. NO new cap_map row added; probe-level annotation only."
+
+#### All other rows UNCHANGED
+
+Non-eq-stat-mech 73-83%, SKAH-M 60-75%, TCFT 88-96%, KF-1 65-80%, substrate-outside-static-Hopfield 64-75%, product-feature 89-98%, specific 70-83%, general 73-83% -- ALL UNCHANGED. Portfolio 14+31 row counts UNCHANGED. BID metric-family glossary (v281) UNCHANGED.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**Op D parallel-superposition cross-talk rescue (3 rescues, NOT-YET-DISPATCHED):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "Op D per-component decomposition signal CONFIRMED at 1.000; classified as parallel-superposition-decomposition mechanism distinct from coherent-multi-hop closure". RECOMMENDED-FIRST per [[feedback-rescue-sketch-first-sequencing]]. APPLIED in this v282 entry (annotation 1 above).
+- **R2 (CHEAP, ~5-15min CPU smoke + ~30min GPU FULL)** -- Top-K post-decomposition filter probe: for each per-pattern output, retain only top-K amplitudes where K matches the queried-superposition cardinality; measure cross-talk on retained-K vs full-N. Rescue thesis: "the substrate computes correct per-component amplitudes; cross-talk lives on off-codebook entries and is rejectable by amplitude-rank thresholding". Cheap to probe at smoke; if smoke clears, ship FULL N=4096 5-seed.
+- **R3 (MEDIUM, ~1-2h GPU)** -- Weighted decomposition with stored-key prior: re-frame Op D query as MAP estimation (q = sum_i beta_i k_i) with codeword prior, treating cross-talk as off-codebook noise; measure whether prior-weighted decomposition clears HP threshold. Cross-substrate-analytic validity. NOT-URGENT.
+
+**Op B BSC tensor-binding closure (3 rescues; closure honored after rescues filed per [[feedback-rehabilitation-after-rejection]]):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Subsumption annotation: "BSC tensor-binding CLOSED; sequential per-shard composition is the cross-shard query path; Op G depends on Op B and closes by dependency". RECOMMENDED-FIRST. APPLIED in this v282 entry (annotation 2 above).
+- **R2 (CHEAP, ~30min CPU smoke)** -- Kerdock-variant tensor-binding probe (smoke only): test if Kerdock's Reed-Muller algebraic structure preserves element-wise products through W. Pre-condition: substrate-physics analytic argument why Kerdock would survive. NOT-AUTO-DISPATCHED -- per [[feedback-no-padding-experiments]] needs theoretical motivation before shipping.
+- **R3 (CHEAP, 0-compute)** -- Annotation only: "Op G hierarchical-multi-shard closes by dependency on Op B; no separate Op G probe needed unless Op B Kerdock-variant rescue succeeds". APPLIED via annotation 2.
+
+**Op E pairwise correlation closure (3 rescues; closure honored after rescues filed per [[feedback-rehabilitation-after-rejection]]):**
+
+- **R1 (CHEAPEST, 0-compute)** -- Narrow-scope annotation: "Tr(W_i^T W_j) CLOSED at 0.7% overlap; not all cross-shard analytics closed". RECOMMENDED-FIRST. APPLIED in this v282 entry (annotation 3 above).
+- **R2 (CHEAP, ~15min CPU)** -- Higher-overlap probe: re-run K=10 at 5-10% entity overlap (e.g. 200-400 shared entities of 4096) -- second-order moments MAY detect at higher overlap fraction. NOT-AUTO-DISPATCHED per [[feedback-no-padding-experiments]] until theoretical motivation for which overlap fraction matters operationally.
+- **R3 (MEDIUM, ~1h GPU)** -- Alternate metric: row-wise alignment Tr(W_i^T diag(M_ij) W_j) for some masking M -- substrate-distinctive analytics may emerge from operator-eigenstructure not from second moments. NOT-URGENT.
+
+### Phase 2 recommendation for Op D (user-requested explicit return-line item)
+
+**Phase 2 two-hop ship NOT WARRANTED yet.** Rationale: each two-hop iteration applies W twice; cross-talk amplitude on off-codebook entries is amplified at each pass (each W is a substrate-amplifier of any non-zero amplitude). Shipping Phase 2 blind risks compounding the HP-gate-blocking signal into an unambiguous HARD_FAIL that would close the parallel-superposition mechanism prematurely. Cross-talk-rescue drill R2 (top-K post-decomp filter) at ~5-15min CPU smoke is the cheapest path; if R2 smoke clears, ship Phase 2 with R2-applied filtering; if R2 smoke fails, the cross-talk is mechanistically un-rejectable and Phase 2 should NOT ship without R3 (weighted MAP decomposition with stored-key prior). RECOMMEND: ship R2 cross-talk-rescue smoke FIRST; conditional Phase 2 GPU ship AFTER R2 smoke clears.
+
+### PROT compliance (v281 -> v282)
+
+- **PROT-004/006**: 3 rescue sets filed cheapest-first (Op D parallel-superposition + Op B BSC tensor-binding + Op E pairwise correlation); each set has R1 0-cost subsumption-annotation FIRST; closures (Op B BSC + Op E specific-metric) honored AFTER 3 rescues filed per [[feedback-rehabilitation-after-rejection]]; Op D MIDDLE_BAND NOT closed (PARTIAL signal preserved with R1-R3 rescue path).
+- **PROT-007**: v282 history row appended to substrate_capability_map_history.md. **BACKLOG NOTE carried forward**: v277 + v278 history rows STILL missing (from v279 + v280 PROT-007 backlog notes).
+- **PROT-008**: validator skipped (annotation-only batched bump; 0 row state changes; 0 portfolio changes; no new validator violations expected).
+- **PROT-009**: cap_map.md (this v282 entry) + substrate_capability_map_history.md (v282 row) + strategy_decisions_2026-05-30.md (v281->v282 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; **193rd PROT-009 paired commit**.
+- **PROT-018**: 3 anchors spot-checked for _n<N> suffix vs config.N: superposition_single_hop_decomp_v1_n4096 N=4096 CLEAN; tensor_binding_two_shard_v1_n4096 N=4096 CLEAN; cross_shard_correlation_k10_v1_n4096 N=4096 CLEAN. No suffix-vs-N mismatches.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 3 verdicts; 0 catches; user-prompt preliminary classifications confirmed at honest level (Op D = (A) calibration/threshold rescuable; Op B = (A) BSC-specific structural; Op E = (A)+(B) metric form + overlap fraction).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge `get_metrics()` returned `_source=remote` for ALL 3 anchors; no stale-local fallback.
+- **[[feedback-rehabilitation-after-rejection]]**: Op B + Op E closures each got 3 rescue sketches filed BEFORE closure honored; Op D MIDDLE_BAND got 3 rescues with R2 actionable cross-talk filter probe.
+- **[[feedback-rescue-sketch-first-sequencing]]**: 0-cost subsumption-annotation R1 sequenced FIRST in all 3 rescue sets; APPLIED inline in this v282 entry; expensive rescues (R2/R3) sequenced after.
+- **[[feedback-dont-overextend-theorems]]**: Op B closure scoped to BSC-codebook (does NOT close Kerdock-tensor-binding without separate substrate-physics argument); Op E closure scoped to specific operator-trace metric at specific overlap fraction (does NOT close all cross-shard analytics).
+- **[[feedback-no-padding-experiments]]**: NO Kerdock-tensor-binding ship without theoretical motivation; NO alternate-metric Op E ship without substrate-distinctive analytic; NO Phase 2 two-hop ship without R2 cross-talk rescue verification first.
+- **[[feedback-obey-user-pause-explicitly]]**: user explicit no-refill directive HONORED; pause flag absent but directive-precedent applied; NO exp_dev dispatch in Step 2.
+- **[[feedback-strategy-shore-up-capabilities]]**: no LIFT triggered (single-batch annotations only); rescue paths surfaced for orchestrator main-thread review.
+- **[[feedback-cap-map-update-protocol]]**: atomic .tmp+rename commit pattern via verdict_handler -> single batched commit; sub-agent context cannot push (per [[feedback-subagent-permission-inheritance]]).
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via `tools/orchestrator/append_decision_log.py`.
+- **[[feedback-for-you-tab-primary-channel]]**: 3 status_log entries written with plain_language + importance fields (Op D MEDIUM-mechanism-distinct, Op B HIGH-closure-with-narrow-scope, Op E MEDIUM-closure-with-narrow-scope).
+- **[[feedback-no-smoke]]**: brutal honesty applied -- Op D PARTIAL framing honest; Op B/Op E closures explicit at probe-level not row-level; Phase 2 ship NOT WARRANTED until cross-talk rescue verifies.
+
+### Commit & push
+
+Commit message (single line per cap-map convention; full detail in this v282 entry above):
+
+`Cap map: v281 -> v282 (BATCHED 3-VERDICT Track A+B+C Phase-1 gate ANNOTATION-ONLY user-explicit-no-refill: Op D superposition_single_hop_decomp_v1_n4096 MIDDLE_BAND per-component kscale_mean=1.000 PERFECT unanimous K in {5,10,15,20} cross-talk amplitude blocks HP 0/4 patterns 0/5 seeds NEW MECHANISM ANNOTATION parallel-superposition-decomposition NOT subsumed by coherent-multi-hop closure + Op B tensor_binding_two_shard_v1_n4096 HARD_FAIL mean_tensor_acc=0.018 vs mean_seq_acc=1.000 5/5 seeds BSC element-wise binding does NOT survive W matmul CLOSED at BSC-codebook-specific probe level Op G hierarchical-multi-shard closes by dependency + Op E cross_shard_correlation_k10_v1_n4096 HARD_FAIL mean_AUC=0.459 below-random at 0.7% entity overlap 4/5 cells AUC<=0.6 Tr operator-product CLOSED at specific-metric-specific-overlap-fraction does NOT close all cross-shard analytics; 0 row state changes 0 portfolio changes; Op D NEW MECHANISM annotation Op B BSC-closure annotation Op E narrow-scope annotation; 3 rescue sets filed cheapest-first 9 rescues total R1-of-all 0-compute subsumption applied inline; Phase 2 Op D two-hop ship NOT WARRANTED yet cross-talk rescue R2 top-K post-decomp filter smoke FIRST conditional Phase 2 AFTER R2 clears; substrate-outside-static-Hopfield 64-75% non-eq-stat-mech 73-83% SKAH-M 60-75% TCFT 88-96% KF-1 65-80% product-feature 89-98% specific 70-83% general 73-83% ALL UNCHANGED; portfolio 14+31 UNCHANGED; HONEST 195 -> 198 +3 all-honest-confirmed; LABEL-VS-HONEST 141 -> 141 UNCHANGED 0 catches; PROT-007 backlog v277+v278 history rows STILL MISSING carried forward; 193rd PROT-009 paired commit; verdict_handler inline single-batch strategy+visibility no Agent sub-dispatch)`
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.

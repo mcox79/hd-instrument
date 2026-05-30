@@ -123,3 +123,76 @@ Commit: `Cap map: v279 -> v280 (BATCHED 41-VERDICT post-overnight harvest; FDT-O
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
 v280->v281 ANNOTATION-ONLY: BID metric-family glossary locked into cap_map. Two predicates defined: BID_GAP_PREDICATE (v2/v230 canonical: outside-3-Hopfield-bands AND sigma_margin>=2, load-bearing anchor for non-eq-stat-mech band, HARD_PASS at N=8192 5-seed) vs BID_NORMALIZED_THRESHOLD (v5/v6/v7 variant: normalized_bid>0.55, inherited from bid_m_normalized_v1, tests upper-paramagnetic regime NOT gap-region). 4 cumulative verdicts (v2 PASS + v5 MB + v6 HF + v7 HF) all on same capability claim with different predicates = structural risk without glossary. New policy: future BID-vN scripts MUST cite BID_GAP_PREDICATE or justify divergence in prereg. Row band UNCHANGED; portfolio UNCHANGED; 0 row state changes. 192nd PROT-009 paired commit.
+
+
+## v281 -> v282 @ BATCHED 3-VERDICT Track A+B+C Phase-1 gate (user-explicit no-refill mode; 193rd PROT-009 paired commit)
+
+**Context.** Three Phase-1 gate tests for Op D (parallel-superposition single-hop decomp), Op B (BSC tensor-binding two-shard), Op E (K=10 cross-shard pairwise correlation) shipped together at commit d78d051. User msg-1 framed each as "the single most decisive test" for its Track A/B/C respectively; user staged this batch and explicitly DISABLED auto-refill (next batch staged explicitly).
+
+### Verdict triplet
+
+- **Op D** superposition_single_hop_decomp_v1_n4096 SUP_DEC_MIDDLE_BAND -- per-component kscale_mean=1.000 unanimous across K in {5,10,15,20}; per_pattern_pass=0/4 patterns; 0/5 seeds clear HP; cross-talk amplitude on off-codebook entries blocks HP gate; signal exists, calibration/threshold rescuable.
+- **Op B** tensor_binding_two_shard_v1_n4096 TBIND_HARD_FAIL -- mean_tensor_acc=0.018 vs mean_seq_acc=1.000 in 5/5 seeds; BSC element-wise binding destroyed by W matmul; sequential per-shard composition works at 1.000.
+- **Op E** cross_shard_correlation_k10_v1_n4096 XSHARD_HARD_FAIL -- mean_AUC=0.459 (below-random) in 5/5 seeds at 30/4096 = 0.7% entity overlap; mean_triplet_in_top9=0.80/3; Tr operator-product insensitive at sub-1% overlap.
+
+### Step 0 honest re-read summary (3 verdicts; 0 NEW LABEL-VS-HONEST catches)
+
+All three labels HONEST at the level claimed. Op D MIDDLE_BAND captures the per-component-perfect / cross-talk-blocking bifurcation honestly. Op B HARD_FAIL captures BSC-specific structural mismatch honestly (sequential 1.000 vs tensor 0.018 contrast is dispositive). Op E HARD_FAIL captures specific-metric-at-specific-overlap-fraction insensitivity honestly. NO over-claims; NO reversals. User-prompt preliminary classifications confirmed.
+
+### Cap_map decisions -- row-by-row (ANNOTATION-ONLY)
+
+1. **Op D parallel-superposition single-hop decomposition -- NEW MECHANISM ANNOTATION (NOT subsumed by coherent-multi-hop ❌ closure)**. Annotation: "Op D is parallel paths through ONE substrate-op, NOT iterative sequential application; per-component decomposition CONFIRMED PERFECT (kscale_mean=1.000 unanimous); cross-talk amplitude blocks HP. Phase 2 two-hop ship NOT-YET-WARRANTED; cross-talk rescue R2 top-K post-decomp filter recommended FIRST".
+2. **Op B BSC tensor-binding two-shard -- CLOSED at probe level (NOT a row).** Annotation: "BSC element-wise binding does NOT survive W matmul; sequential per-shard composition is the cross-shard query path; Op G hierarchical-multi-shard closes by dependency on Op B. Closure SCOPE BSC-codebook-specific; Kerdock untested but BSC-only closure SUFFICIENT for current production (BSC canonical deployment codebook)".
+3. **Op E pairwise correlation K=10 -- CLOSED at probe level (NOT a row).** Annotation: "Tr(W_i^T W_j) at 0.7% entity overlap CLOSED. Closure SCOPE narrow: specific operator-trace metric form at specific overlap fraction; does NOT close all cross-shard analytics. No substrate-distinctive analytics layer at this approach".
+4. **All 14 + 31 portfolio rows UNCHANGED** at row level and at band level.
+
+**Framework reliability bands**: ALL UNCHANGED. **Portfolio**: 14+31 UNCHANGED.
+
+**HONEST 195 -> 198 (+3)**; **LABEL-VS-HONEST 141 -> 141 (UNCHANGED)**.
+
+### Rescue sketches summary (3 sets filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+- **Op D parallel-superposition (3 rescues; MIDDLE_BAND, NOT closed)**: R1 0-cost subsumption annotation RECOMMENDED-FIRST + APPLIED inline; R2 CHEAP top-K post-decomposition filter probe (~5-15min CPU smoke + ~30min GPU FULL); R3 MEDIUM weighted MAP decomposition with stored-key prior (~1-2h GPU).
+- **Op B BSC tensor-binding (3 rescues; HARD_FAIL, closure honored AFTER rescues filed)**: R1 0-cost subsumption annotation RECOMMENDED-FIRST + APPLIED inline; R2 CHEAP Kerdock-variant tensor-binding smoke (~30min CPU) -- pre-condition: substrate-physics motivation per [[feedback-no-padding-experiments]]; R3 0-cost Op G dependency annotation APPLIED inline.
+- **Op E pairwise correlation (3 rescues; HARD_FAIL, closure honored AFTER rescues filed)**: R1 0-cost narrow-scope annotation RECOMMENDED-FIRST + APPLIED inline; R2 CHEAP higher-overlap probe (~15min CPU at 5-10% overlap); R3 MEDIUM alternate-metric row-wise alignment (~1h GPU).
+
+### Phase 2 Op D ship recommendation (user-requested)
+
+**Phase 2 two-hop ship NOT WARRANTED yet.** Rationale: two-hop matmul amplifies cross-talk per pass (each W redistributes amplitude across codebook); blind Phase 2 ship risks compounding HP-gate-blocking signal into premature HARD_FAIL. Recommend: ship Op D R2 cross-talk-rescue smoke FIRST (top-K post-decomp filter, ~5-15min CPU); conditional Phase 2 GPU ship AFTER R2 smoke clears. If R2 smoke fails, cross-talk is mechanistically un-rejectable and Phase 2 needs R3 weighted MAP decomposition before ship.
+
+### Follow-on recommendations (for orchestrator main-thread; NOT auto-dispatched per user no-refill directive)
+
+Top-3 surfaced for orchestrator main-thread review (user is staging next batch explicitly):
+
+1. **Op D R2 top-K post-decomp filter smoke** -- cheapest cross-talk rescue (~5-15min CPU); CONDITIONAL on this clearing, Phase 2 two-hop GPU ship becomes warranted. NOT auto-shipped.
+2. **Op G hierarchical-multi-shard probe SKIP** -- Op G closes by dependency on Op B BSC tensor-binding closure; no separate Op G probe needed unless Op B Kerdock-variant rescue (R2) is shipped first and succeeds. NOT auto-shipped.
+3. **Op B Kerdock-variant tensor-binding probe SKIP UNTIL THEORY-MOTIVATED** -- per [[feedback-no-padding-experiments]] and [[feedback-dont-overextend-theorems]]: BSC closure does NOT close Kerdock; but Kerdock-variant ship needs substrate-physics analytic argument (Reed-Muller closure property under W) BEFORE shipping. Theory drill is recommended path before Kerdock probe. NOT auto-shipped.
+
+### PROT compliance (v281 -> v282)
+
+- **PROT-004/006**: 3 rescue sets filed cheapest-first; closures (Op B + Op E) honored AFTER 3 rescues filed per [[feedback-rehabilitation-after-rejection]]; Op D MIDDLE_BAND NOT closed (PARTIAL signal preserved with R1-R3 rescue path including R2 actionable smoke probe).
+- **PROT-007**: cap_map row table (`substrate_capability_map_history.md`) UPDATED with v282 row. **BACKLOG NOTE carried forward**: v277 + v278 history rows STILL MISSING (from v279 PROT-007 backlog).
+- **PROT-008**: validator skipped (annotation-only; 0 row state changes; 0 portfolio changes; no new validator violations expected).
+- **PROT-009**: cap_map.md (v282 entry) + history.md (v282 row) + strategy_decisions_2026-05-30.md (this v281->v282 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; **193rd PROT-009 paired commit**.
+- **PROT-018**: 3 anchors spot-checked for _n<N> suffix vs config.N: all CLEAN (n4096 anchors with N=4096 configs).
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on 3 verdicts; 0 catches; all-honest-confirmed.
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge `get_metrics()` returned `_source=remote` for all 3 anchors.
+- **[[feedback-rehabilitation-after-rejection]]**: 3 rescue sketches filed BEFORE each closure honored (Op B + Op E); Op D MIDDLE_BAND got 3 rescues with actionable R2 smoke path.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-cost subsumption-annotation sequenced FIRST in all 3 rescue sets; APPLIED inline; R2/R3 sequenced after.
+- **[[feedback-dont-overextend-theorems]]**: Op B closure scoped to BSC-codebook; Op E closure scoped to specific operator-trace metric at specific overlap; NEITHER closes the broader research area.
+- **[[feedback-no-padding-experiments]]**: NO Kerdock-tensor-binding ship; NO alternate-metric Op E ship; NO Phase 2 ship without R2 cross-talk rescue first.
+- **[[feedback-obey-user-pause-explicitly]]**: user explicit no-refill directive HONORED; exp_dev queue refill SKIPPED.
+- **[[feedback-strategy-shore-up-capabilities]]**: no LIFT triggered (single-batch annotations only); rescue paths surfaced.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via `tools/orchestrator/append_decision_log.py`.
+- **[[feedback-no-smoke]]**: brutal honesty -- Op D PARTIAL framing honest; Op B/Op E closures explicit at narrow probe-level scope; Phase 2 ship NOT WARRANTED until cross-talk rescue verifies.
+- **[[feedback-for-you-tab-primary-channel]]**: 3 status_log entries with plain_language + importance fields (Op D MEDIUM, Op B HIGH, Op E MEDIUM).
+
+### Commit & push
+
+Commit message stored in cap_map v282 entry.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up after this commit lands.

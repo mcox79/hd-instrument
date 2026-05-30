@@ -21,3 +21,16 @@
 - Pipeline-pacing: user explicit no-refill directive HONORED; pause flag absent but directive precedent per [[feedback-obey-user-pause-explicitly]]; NO exp_dev dispatch
 - 5 status_log entries with plain_language + importance fields (FDT-OOE CRITICAL, Bet B trio HIGH-with-caveat, QE-2 closure CRITICAL, Maes-Netocny reversal HIGH, batched summary HIGH)
 - 191st PROT-009 paired commit; verdict_handler opus-escalated single-batch inline strategy+visibility no Agent sub-dispatch
+
+
+## v281 -> v282 @ BATCHED 3-VERDICT Track A+B+C Phase-1 gate (ANNOTATION-ONLY; user-explicit no-refill; 193rd PROT-009 paired commit)
+
+- Triplet shipped at d78d051: Op D superposition_single_hop_decomp_v1_n4096 MIDDLE_BAND (per-component kscale_mean=1.000 unanimous K in {5,10,15,20}; 0/4 patterns clear HP; cross-talk blocks gate) + Op B tensor_binding_two_shard_v1_n4096 HARD_FAIL (mean_tensor_acc=0.018 vs seq_acc=1.000 5/5 seeds; BSC element-wise binding NOT survive W matmul) + Op E cross_shard_correlation_k10_v1_n4096 HARD_FAIL (mean_AUC=0.459 below-random at 0.7% overlap; Tr operator-product insensitive)
+- Step 0 honest re-read: 0 LABEL-VS-HONEST catches; all 3 labels HONEST at scope claimed; user-prompt preliminary classifications confirmed (Op D = calibration/threshold rescuable; Op B = BSC-specific structural; Op E = metric+overlap-fraction narrow)
+- Cap_map v281 -> v282 ANNOTATION-ONLY: Op D NEW MECHANISM ANNOTATION (parallel-superposition-decomposition NOT subsumed by coherent-multi-hop ❌ closure); Op B CLOSED at BSC-probe level (Op G hierarchical-multi-shard closes by dependency); Op E CLOSED at narrow specific-metric-specific-overlap-fraction
+- Portfolio 14+31 UNCHANGED row count; framework reliability ALL UNCHANGED; HONEST 195 -> 198 +3; LABEL-VS-HONEST 141 UNCHANGED
+- Rescue sketches: 3 sets cheapest-first; R1 0-compute subsumption APPLIED inline in v282 entry; Op D R2 top-K post-decomp filter smoke is actionable next probe; Op B R2 Kerdock-variant requires substrate-physics motivation pre-ship; Op E R2 higher-overlap probe requires operational motivation pre-ship
+- Phase 2 Op D two-hop ship NOT WARRANTED; cross-talk amplifies per matmul; ship R2 cross-talk rescue smoke FIRST; conditional Phase 2 GPU ship AFTER R2 clears
+- Pipeline-pacing: user explicit no-refill directive HONORED; pause flag absent but precedent applied per [[feedback-obey-user-pause-explicitly]]; NO exp_dev dispatch
+- 3 status_log entries: Op D MEDIUM (mechanism-distinct), Op B HIGH (BSC-closure with narrow scope), Op E MEDIUM (specific-metric-closure narrow scope)
+- 193rd PROT-009 paired commit; verdict_handler inline single-batch strategy+visibility no Agent sub-dispatch
