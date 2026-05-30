@@ -1,0 +1,56 @@
+# Batched-substrate workload sweep. Exercises store_batch + retrieve_batch
+# overrides on the substrate plus native batched paths on FAISS / dict /
+# Chroma. Compare ops/sec vs the unbatched run in
+# configs/realistic_workloads.yaml.
+#
+# Expected: substrate write throughput rises 10-50x on write_heavy_stream;
+# substrate read throughput rises 5-20x on mixed_crud_workload's 70% read mix.
+# FAISS native batched search closes ~2-3x at this N (already very fast).
+
+config_name: workloads_batched
+
+N: 1024
+dim: 1024
+codebook_kind: bsc
+codebook_C: 8192
+codebook_scale: 8
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+# write_heavy_stream knobs
+write_heavy_M_total: 5000
+write_heavy_n_deciles: 10
+write_heavy_batch_size: 64
+
+# mixed_crud_workload knobs
+mixed_crud_M_base: 2000
+mixed_crud_N_ops: 5000
+mixed_crud_p_retrieve: 0.70
+mixed_crud_p_edit: 0.20
+mixed_crud_p_delete: 0.10
+mixed_crud_n_deciles: 10
+mixed_crud_read_batch_size: 32
+
+# large_M_constant_cost knobs (default natural batching B=128)
+large_M_Ms: [2000, 5000]
+large_M_store_batch_size: 128
+large_M_n_recall_samples: 100
+large_M_n_latency_queries: 100
+
+# Generic fallbacks
+M_base: 2000
+M_total: 5000
+
+seeds: [7]
+
+backends:
+  - substrate
+  - faiss
+  - dict
+
+scenarios:
+  - write_heavy_stream
+  - mixed_crud_workload
+
+out_root: testbed_data/benchmarks

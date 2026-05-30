@@ -159,6 +159,39 @@ class MemoryBackend(ABC):
     def __len__(self) -> int:
         """Number of stored (key_id, value) pairs."""
 
+    # --- Optional batched API ------------------------------------------------
+    # Default implementations loop over the single-item ops so every backend
+    # transparently supports batching. Backends with a native batched form
+    # (substrate's matmul-fused outer-product accumulation, FAISS's
+    # index.search(B), Chroma's collection.query(B)) override these.
+
+    def store_batch(self, items: list[tuple[str, np.ndarray, str]]) -> None:
+        """Store a batch of (key_id, key_vec, value) tuples.
+
+        Default: loop over self.store. Backends override to fuse the work.
+        Order MUST be preserved: item i is stored before item i+1 from the
+        caller's perspective (so any atom-allocation determinism, edit
+        sequencing, or audit ordering remains identical to a single-item
+        loop).
+        """
+        for key_id, key_vec, value in items:
+            self.store(key_id, key_vec, value)
+
+    def retrieve_batch(
+        self, query_vecs: np.ndarray, k: int = 1
+    ) -> list[RetrievalResult]:
+        """Retrieve top-k results for a batch of query vectors.
+
+        query_vecs: shape (B, dim) float ndarray. Returns list of length B.
+        Default: loop over self.retrieve. Backends override to fuse the work.
+        """
+        q = np.asarray(query_vecs)
+        if q.ndim != 2:
+            raise ValueError(
+                f"retrieve_batch: query_vecs must be 2-D (B, dim); got shape {q.shape}"
+            )
+        return [self.retrieve(q[i], k=k) for i in range(q.shape[0])]
+
     def supports_killer_features(self) -> bool:
         """Override to True on the substrate backend. Baselines stay False;
         report.py uses this to populate the killer-feature panel."""

@@ -88,6 +88,68 @@ class DictMemory(MemoryBackend):
             top_k_scores=top_scores,
         )
 
+    def retrieve_batch(self, query_vecs: np.ndarray, k: int = 1) -> list[RetrievalResult]:
+        """Single matmul over (B, dim) x (M, dim).T for the whole batch."""
+        q_arr = np.asarray(query_vecs, dtype=np.float32)
+        if q_arr.ndim != 2:
+            raise ValueError(
+                f"dict_adapter.retrieve_batch: query_vecs must be 2-D; got {q_arr.shape}"
+            )
+        B = q_arr.shape[0]
+        if B == 0:
+            return []
+        if not self._items:
+            empty = RetrievalResult(
+                key_id=None,
+                value=None,
+                confidence=0.0,
+                near_uniform_flag=False,
+                distance=None,
+                top_k_ids=[],
+                top_k_scores=[],
+            )
+            return [empty for _ in range(B)]
+
+        ids = list(self._items.keys())
+        vecs = np.stack([self._items[i][0] for i in ids], axis=0)
+        vn = np.linalg.norm(vecs, axis=1)
+        vn[vn == 0.0] = 1.0
+        qn = np.linalg.norm(q_arr, axis=1)
+        qn[qn == 0.0] = 1.0
+        # sims: (B, M)
+        sims = (q_arr @ vecs.T) / (qn[:, None] * vn[None, :])
+        kk = max(1, min(k, len(ids)))
+        # top-kk indices per row
+        if kk == 1:
+            top_idx = np.argmax(sims, axis=1, keepdims=True)
+        else:
+            # partial-sort top kk descending
+            part = np.argpartition(-sims, kth=kk - 1, axis=1)[:, :kk]
+            # order each row's top-kk by their sim
+            row_sims = np.take_along_axis(sims, part, axis=1)
+            order = np.argsort(-row_sims, axis=1)
+            top_idx = np.take_along_axis(part, order, axis=1)
+
+        results: list[RetrievalResult] = []
+        for b in range(B):
+            row_top = top_idx[b]
+            top_ids = [ids[i] for i in row_top]
+            top_scores = [float(sims[b, i]) for i in row_top]
+            best = top_ids[0]
+            best_score = top_scores[0]
+            results.append(
+                RetrievalResult(
+                    key_id=best,
+                    value=self._items[best][1],
+                    confidence=best_score,
+                    near_uniform_flag=False,
+                    distance=float(1.0 - best_score),
+                    top_k_ids=top_ids,
+                    top_k_scores=top_scores,
+                )
+            )
+        return results
+
     def edit(self, key_id: str, new_value: str) -> None:
         if key_id not in self._items:
             raise KeyError(f"dict_adapter: edit on missing key_id {key_id!r}")

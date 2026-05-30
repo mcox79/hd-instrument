@@ -96,6 +96,9 @@ def setup(config: dict) -> dict:
     dim = int(config.get("dim", 4096))
     seed = _first_seed(config)
     n_deciles = int(config.get("write_heavy_n_deciles", 10))
+    batch_size = int(config.get("write_heavy_batch_size", config.get("batch_size", 1)))
+    if batch_size < 1:
+        batch_size = 1
     rng = np.random.default_rng(seed + 7100)
 
     raw = rng.integers(0, 2, size=(M, dim), dtype=np.int8).astype(np.float32)
@@ -111,6 +114,7 @@ def setup(config: dict) -> dict:
         "dim": dim,
         "seed": seed,
         "n_deciles": n_deciles,
+        "batch_size": batch_size,
     }
 
 
@@ -120,6 +124,7 @@ def run(backend: MemoryBackend, data: dict) -> dict:
     values: list[str] = data["values"]
     M = int(data["M"])
     n_deciles = int(data["n_deciles"])
+    batch_size = int(data.get("batch_size", 1))
 
     decile_size = max(1, M // n_deciles)
     is_substrate = (
@@ -132,15 +137,35 @@ def run(backend: MemoryBackend, data: dict) -> dict:
     w_rms_per_decile: list[float | None] = []
 
     t_total_0 = time.perf_counter_ns()
-    for i in range(M):
-        d = min(i // decile_size, n_deciles - 1)
-        t0 = time.perf_counter_ns()
-        backend.store(key_ids[i], key_vecs[i], values[i])
-        t1 = time.perf_counter_ns()
-        store_us_per_decile[d].append((t1 - t0) / 1000.0)
-        # Sample W RMS at decile boundary (cheap; only n_deciles samples).
-        if is_substrate and ((i + 1) % decile_size == 0):
-            w_rms_per_decile.append(_w_rms(backend))
+    if batch_size <= 1:
+        for i in range(M):
+            d = min(i // decile_size, n_deciles - 1)
+            t0 = time.perf_counter_ns()
+            backend.store(key_ids[i], key_vecs[i], values[i])
+            t1 = time.perf_counter_ns()
+            store_us_per_decile[d].append((t1 - t0) / 1000.0)
+            if is_substrate and ((i + 1) % decile_size == 0):
+                w_rms_per_decile.append(_w_rms(backend))
+    else:
+        # Batched path. Each batch attributes its wall time evenly across the
+        # B items so per-decile p50/p95/p99 still reflect "per-item amortized"
+        # cost. ops_per_sec is computed from total wall and total M.
+        i = 0
+        while i < M:
+            end = min(i + batch_size, M)
+            chunk = [
+                (key_ids[j], key_vecs[j], values[j]) for j in range(i, end)
+            ]
+            t0 = time.perf_counter_ns()
+            backend.store_batch(chunk)
+            t1 = time.perf_counter_ns()
+            per_item_us = (t1 - t0) / 1000.0 / max(1, end - i)
+            for j in range(i, end):
+                d = min(j // decile_size, n_deciles - 1)
+                store_us_per_decile[d].append(per_item_us)
+                if is_substrate and ((j + 1) % decile_size == 0):
+                    w_rms_per_decile.append(_w_rms(backend))
+            i = end
     t_total_1 = time.perf_counter_ns()
     total_wall_s = (t_total_1 - t_total_0) / 1e9
     ops_per_sec = M / total_wall_s if total_wall_s > 0 else 0.0
@@ -174,6 +199,7 @@ def run(backend: MemoryBackend, data: dict) -> dict:
         "n_items": M,
         "n_deciles": n_deciles,
         "decile_size": decile_size,
+        "batch_size_used": batch_size,
         "per_decile": per_decile,
         "total_wall_s": total_wall_s,
         "ops_per_sec": ops_per_sec,

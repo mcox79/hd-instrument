@@ -69,6 +69,14 @@ def setup(config: dict) -> dict:
     N_ops = int(config.get("mixed_crud_N_ops", 5000))
     dim = int(config.get("dim", 4096))
     seed = _first_seed(config)
+    # Read-batch size: when > 1, consecutive retrieve ops are flushed in
+    # one retrieve_batch call. Edits and delete-then-store stay per-item
+    # (delete has chain-anchor sequencing, edit is rare and order-sensitive).
+    read_batch_size = int(
+        config.get("mixed_crud_read_batch_size", config.get("batch_size", 1))
+    )
+    if read_batch_size < 1:
+        read_batch_size = 1
     mix_retrieve = float(config.get("mixed_crud_p_retrieve", 0.70))
     mix_edit = float(config.get("mixed_crud_p_edit", 0.20))
     mix_delete = float(config.get("mixed_crud_p_delete", 0.10))
@@ -109,6 +117,7 @@ def setup(config: dict) -> dict:
         "op_dice": op_dice,
         "target_picks": target_picks,
         "seed": seed,
+        "read_batch_size": read_batch_size,
     }
 
 
@@ -123,6 +132,7 @@ def run(backend: MemoryBackend, data: dict) -> dict:
     n_deciles = int(data["n_deciles"])
     op_dice: np.ndarray = data["op_dice"]
     target_picks: np.ndarray = data["target_picks"]
+    read_batch_size = int(data.get("read_batch_size", 1))
 
     is_substrate = (
         backend.name == "substrate"
@@ -130,9 +140,18 @@ def run(backend: MemoryBackend, data: dict) -> dict:
         or backend.name == "substrate_sharded"
     )
 
-    # Initial store
-    for i in range(M_base):
-        backend.store(initial_ids[i], initial_vecs[i], f"mv_init_{i}")
+    # Initial store: use batched store when read_batch_size > 1 (the same
+    # config knob signals "this run wants batched substrate operations").
+    if read_batch_size > 1:
+        init_chunk = 64
+        for i in range(0, M_base, init_chunk):
+            end = min(i + init_chunk, M_base)
+            backend.store_batch(
+                [(initial_ids[j], initial_vecs[j], f"mv_init_{j}") for j in range(i, end)]
+            )
+    else:
+        for i in range(M_base):
+            backend.store(initial_ids[i], initial_vecs[i], f"mv_init_{i}")
 
     # Live set: list of (key_id, key_vec). Use a list for O(1) random index,
     # and a dict for O(1) deletion check.
@@ -161,6 +180,38 @@ def run(backend: MemoryBackend, data: dict) -> dict:
 
     errors = 0
 
+    # Retrieve buffer for read-batching. Each entry: (kvec, is_post_delete, deleted_kid)
+    retrieve_buf: list[tuple[np.ndarray, bool, str | None, int]] = []
+
+    def _flush_retrieves():
+        nonlocal errors
+        nonlocal post_delete_retrieve_attempts
+        nonlocal post_delete_near_uniform_hits
+        nonlocal post_delete_correct_rejections
+        if not retrieve_buf:
+            return
+        q_stack = np.stack([entry[0] for entry in retrieve_buf], axis=0)
+        t_b0 = time.perf_counter_ns()
+        try:
+            batch_res = backend.retrieve_batch(q_stack, k=1)
+        except Exception:
+            errors += len(retrieve_buf)
+            retrieve_buf.clear()
+            return
+        t_b1 = time.perf_counter_ns()
+        per_item_us = (t_b1 - t_b0) / 1000.0 / max(1, len(retrieve_buf))
+        for (_kvec, is_pd, dkid, d_idx), res in zip(retrieve_buf, batch_res):
+            retrieve_us.append(per_item_us)
+            decile_ops[d_idx] += 1
+            decile_wall_ns[d_idx] += int(per_item_us * 1000)
+            if is_pd:
+                post_delete_retrieve_attempts += 1
+                if res.near_uniform_flag:
+                    post_delete_near_uniform_hits += 1
+                if res.key_id != dkid:
+                    post_delete_correct_rejections += 1
+        retrieve_buf.clear()
+
     t_total_0 = time.perf_counter_ns()
 
     for step in range(N_ops):
@@ -173,6 +224,11 @@ def run(backend: MemoryBackend, data: dict) -> dict:
         else:
             op = "delete_store"
 
+        # Flush pending retrieves before any non-retrieve op so causal
+        # ordering with edits/deletes is preserved.
+        if read_batch_size > 1 and op != "retrieve" and retrieve_buf:
+            _flush_retrieves()
+
         t0 = time.perf_counter_ns()
 
         if op == "retrieve":
@@ -181,55 +237,57 @@ def run(backend: MemoryBackend, data: dict) -> dict:
             # 80% of retrieve traffic targets live keys; 20% targets a
             # previously-deleted key to stress KF-1.
             tp = int(target_picks[step]) % 100
+            is_post_delete = False
+            target_kid: str | None = None
+            target_kvec: np.ndarray | None = None
             if tp < 80 and live_ids:
                 idx = int(target_picks[step]) % len(live_ids)
-                kid = live_ids[idx]
-                kvec = live_vecs[kid]
-                try:
-                    res = backend.retrieve(kvec, k=1)
-                except Exception:
-                    errors += 1
-                    t1 = time.perf_counter_ns()
-                    retrieve_us.append((t1 - t0) / 1000.0)
-                    decile_ops[d] += 1
-                    decile_wall_ns[d] += (t1 - t0)
-                    continue
+                target_kid = live_ids[idx]
+                target_kvec = live_vecs[target_kid]
             elif deleted_ever:
-                # post-delete retrieve probe
                 dk_list = list(deleted_ever)
-                kid = dk_list[int(target_picks[step]) % len(dk_list)]
-                kvec = deleted_vecs.get(kid)
-                if kvec is None:
-                    # shouldn't happen; fall back to live
-                    if live_ids:
-                        idx = int(target_picks[step]) % len(live_ids)
-                        kid = live_ids[idx]
-                        kvec = live_vecs[kid]
-                    else:
-                        t1 = time.perf_counter_ns()
-                        decile_ops[d] += 1
-                        decile_wall_ns[d] += (t1 - t0)
-                        continue
-                try:
-                    res = backend.retrieve(kvec, k=1)
-                except Exception:
-                    errors += 1
-                    t1 = time.perf_counter_ns()
-                    retrieve_us.append((t1 - t0) / 1000.0)
-                    decile_ops[d] += 1
-                    decile_wall_ns[d] += (t1 - t0)
-                    continue
-                post_delete_retrieve_attempts += 1
-                if res.near_uniform_flag:
-                    post_delete_near_uniform_hits += 1
-                if res.key_id != kid:
-                    post_delete_correct_rejections += 1
+                target_kid = dk_list[int(target_picks[step]) % len(dk_list)]
+                target_kvec = deleted_vecs.get(target_kid)
+                if target_kvec is None and live_ids:
+                    idx = int(target_picks[step]) % len(live_ids)
+                    target_kid = live_ids[idx]
+                    target_kvec = live_vecs[target_kid]
+                else:
+                    is_post_delete = True
             else:
-                # No deleted yet, no live: pathological. Skip.
                 t1 = time.perf_counter_ns()
                 decile_ops[d] += 1
                 decile_wall_ns[d] += (t1 - t0)
                 continue
+
+            if target_kvec is None:
+                t1 = time.perf_counter_ns()
+                decile_ops[d] += 1
+                decile_wall_ns[d] += (t1 - t0)
+                continue
+
+            if read_batch_size > 1:
+                retrieve_buf.append((target_kvec, is_post_delete, target_kid, d))
+                if len(retrieve_buf) >= read_batch_size:
+                    _flush_retrieves()
+                continue
+
+            try:
+                res = backend.retrieve(target_kvec, k=1)
+            except Exception:
+                errors += 1
+                t1 = time.perf_counter_ns()
+                retrieve_us.append((t1 - t0) / 1000.0)
+                decile_ops[d] += 1
+                decile_wall_ns[d] += (t1 - t0)
+                continue
+
+            if is_post_delete:
+                post_delete_retrieve_attempts += 1
+                if res.near_uniform_flag:
+                    post_delete_near_uniform_hits += 1
+                if res.key_id != target_kid:
+                    post_delete_correct_rejections += 1
 
             t1 = time.perf_counter_ns()
             retrieve_us.append((t1 - t0) / 1000.0)
@@ -283,6 +341,10 @@ def run(backend: MemoryBackend, data: dict) -> dict:
             decile_ops[d] += 1
             decile_wall_ns[d] += (t1 - t0)
 
+    # Drain any pending batched retrieves before stopping the clock.
+    if read_batch_size > 1 and retrieve_buf:
+        _flush_retrieves()
+
     t_total_1 = time.perf_counter_ns()
     total_wall_s = (t_total_1 - t_total_0) / 1e9
     ops_per_sec_sustained = N_ops / total_wall_s if total_wall_s > 0 else 0.0
@@ -323,6 +385,7 @@ def run(backend: MemoryBackend, data: dict) -> dict:
         "M_base": M_base,
         "N_ops": N_ops,
         "mix": {"retrieve": p_r, "edit": p_e, "delete_store": p_d},
+        "read_batch_size_used": read_batch_size,
         "total_wall_s": total_wall_s,
         "ops_per_sec_sustained": ops_per_sec_sustained,
         "first_decile_ops_per_sec": first_ops,

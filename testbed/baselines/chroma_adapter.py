@@ -136,6 +136,85 @@ class ChromaMemory(MemoryBackend):
             top_k_scores=top_scores,
         )
 
+    def store_batch(self, items: list[tuple[str, np.ndarray, str]]) -> None:
+        """Single collection.add call for the whole batch."""
+        if not items:
+            return
+        ids: list[str] = []
+        embs: list[list[float]] = []
+        docs: list[str] = []
+        for key_id, key_vec, value in items:
+            v = np.asarray(key_vec, dtype=np.float32).reshape(-1)
+            if self.dim is None:
+                self.dim = int(v.shape[0])
+            ids.append(key_id)
+            embs.append(v.tolist())
+            docs.append(value)
+        self.collection.add(ids=ids, embeddings=embs, documents=docs)
+
+    def retrieve_batch(self, query_vecs: np.ndarray, k: int = 1) -> list[RetrievalResult]:
+        """Native batched query."""
+        q_arr = np.asarray(query_vecs, dtype=np.float32)
+        if q_arr.ndim != 2:
+            raise ValueError(
+                f"chroma_adapter.retrieve_batch: query_vecs must be 2-D; got {q_arr.shape}"
+            )
+        B = q_arr.shape[0]
+        if B == 0:
+            return []
+        n = len(self)
+        if n == 0:
+            empty = RetrievalResult(
+                key_id=None,
+                value=None,
+                confidence=0.0,
+                near_uniform_flag=False,
+                distance=None,
+                top_k_ids=[],
+                top_k_scores=[],
+            )
+            return [empty for _ in range(B)]
+        kk = max(1, min(k, n))
+        res = self.collection.query(
+            query_embeddings=[q_arr[i].tolist() for i in range(B)],
+            n_results=kk,
+        )
+        ids_lists = res.get("ids") or []
+        dist_lists = res.get("distances") or []
+        doc_lists = res.get("documents") or []
+        results: list[RetrievalResult] = []
+        for i in range(B):
+            ids_row = ids_lists[i] if i < len(ids_lists) else []
+            dist_row = dist_lists[i] if i < len(dist_lists) else []
+            docs_row = doc_lists[i] if i < len(doc_lists) else []
+            if not ids_row:
+                results.append(
+                    RetrievalResult(
+                        key_id=None,
+                        value=None,
+                        confidence=0.0,
+                        near_uniform_flag=False,
+                        distance=None,
+                        top_k_ids=[],
+                        top_k_scores=[],
+                    )
+                )
+                continue
+            top_ids = list(ids_row)
+            top_scores = [float(1.0 / (1.0 + float(d))) for d in dist_row]
+            results.append(
+                RetrievalResult(
+                    key_id=top_ids[0],
+                    value=docs_row[0] if docs_row else None,
+                    confidence=top_scores[0],
+                    near_uniform_flag=False,
+                    distance=float(dist_row[0]) if dist_row else None,
+                    top_k_ids=top_ids,
+                    top_k_scores=top_scores,
+                )
+            )
+        return results
+
     def edit(self, key_id: str, new_value: str) -> None:
         self.collection.update(ids=[key_id], documents=[new_value])
 

@@ -273,6 +273,269 @@ class SubstrateMemory(MemoryBackend):
             top_k_scores=top_k_scores,
         )
 
+    # --- Batched ABC overrides -----------------------------------------------
+
+    def _batch_snap_to_atoms(self, key_vecs: np.ndarray) -> torch.Tensor:
+        """Snap a (B, N) batch of key vectors to nearest codebook rows.
+
+        One matmul + per-row argmax. Returns a torch.LongTensor of shape (B,).
+        """
+        q = torch.as_tensor(key_vecs, dtype=torch.float32, device=self.device)
+        if q.ndim != 2 or q.shape[1] != self.N:
+            raise ValueError(
+                f"_batch_snap_to_atoms: key_vecs shape {tuple(q.shape)} != (B, N={self.N})"
+            )
+        sims = q @ self.codebook.T  # (B, C)
+        return torch.argmax(sims, dim=1)
+
+    def store_batch(self, items: list[tuple[str, np.ndarray, str]]) -> None:
+        """Fused-matmul batched store.
+
+        For pure-new key_ids the W update collapses from B outer products to
+        a single (N, N) = (N, B) @ (B, N) matmul. Atom allocation runs in the
+        same sequential order as the single-item path (registries updated
+        between allocations) so the resulting W matrix is bit-identical to
+        a one-at-a-time store sequence on the same input.
+
+        Items whose key_id is already stored fall through to per-item edit()
+        (rare path; matches single-item store() behavior).
+        """
+        if not items:
+            return
+
+        # Pre-snap all key_vecs in one matmul. This is the dominant fixed
+        # cost in the single-item path (codebook @ q + argmax per item). For
+        # items that snap to an already-occupied row, the linear-probe path
+        # still runs per-item below.
+        fresh_indices: list[int] = []
+        fresh_vecs: list[np.ndarray] = []
+        for idx, (key_id, key_vec, _value) in enumerate(items):
+            if key_id in self.key_registry:
+                continue
+            if key_vec is None:
+                continue
+            fresh_indices.append(idx)
+            fresh_vecs.append(np.asarray(key_vec, dtype=np.float32).reshape(-1))
+
+        snapped_rows: dict[int, int] = {}
+        if fresh_vecs:
+            stack = np.stack(fresh_vecs, axis=0)
+            snapped = self._batch_snap_to_atoms(stack)
+            snapped_cpu = snapped.detach().cpu().tolist()
+            for j, item_idx in enumerate(fresh_indices):
+                snapped_rows[item_idx] = int(snapped_cpu[j])
+
+        new_key_rows: list[int] = []
+        new_val_rows: list[int] = []
+        new_indices: list[int] = []  # index into items for registry updates
+
+        # Maintain running occupancy sets for O(1) linear-probe checks
+        # instead of rebuilding set(registry.values()) per item.
+        key_used: set[int] = set(self.key_registry.values())
+        val_used: set[int] = set(self.value_atom_registry.values())
+
+        # Sequential allocation pass (linear probe needs current registry state).
+        for idx, (key_id, key_vec, value) in enumerate(items):
+            if key_id in self.key_registry:
+                # Drain any pending fused matmul before the edit so the
+                # edit reads the up-to-date W. Matches single-item ordering.
+                if new_key_rows:
+                    self._flush_store_batch(new_key_rows, new_val_rows, new_indices, items)
+                    new_key_rows, new_val_rows, new_indices = [], [], []
+                self.edit(key_id, value)
+                # edit() mutates value_atom_registry; refresh val_used.
+                val_used = set(self.value_atom_registry.values())
+                continue
+
+            if len(key_used) >= self.C:
+                raise RuntimeError(
+                    f"codebook exhausted: {len(key_used)} keys, C={self.C}"
+                )
+            if idx in snapped_rows:
+                key_row = snapped_rows[idx]
+            else:
+                key_row = _stable_hash_int("key:" + key_id) % self.C
+            while key_row in key_used:
+                key_row = (key_row + 1) % self.C
+
+            # Inline _atom_for_value (uses running val_used set).
+            if len(val_used) >= self.C:
+                raise RuntimeError(
+                    f"codebook exhausted (value): {len(val_used)} values, C={self.C}"
+                )
+            val_row = _stable_hash_int("val:" + key_id + "::" + value) % self.C
+            while val_row in val_used:
+                val_row = (val_row + 1) % self.C
+
+            # Reserve rows so subsequent in-batch allocations see them.
+            self.key_registry[key_id] = key_row
+            self.value_atom_registry[key_id] = val_row
+            key_used.add(key_row)
+            val_used.add(val_row)
+
+            new_key_rows.append(key_row)
+            new_val_rows.append(val_row)
+            new_indices.append(idx)
+
+        if new_key_rows:
+            self._flush_store_batch(new_key_rows, new_val_rows, new_indices, items)
+
+    def _flush_store_batch(
+        self,
+        key_rows: list[int],
+        val_rows: list[int],
+        indices: list[int],
+        items: list[tuple[str, np.ndarray, str]],
+    ) -> None:
+        """Single fused matmul for a contiguous run of pure-new stores."""
+        # K: (B, N) of key atoms; V: (B, N) of value atoms.
+        K = self.codebook[key_rows]
+        V = self.codebook[val_rows]
+        # W += V.T @ K / N      shapes: (N, B) @ (B, N) = (N, N).
+        self.W = self.W + (V.T @ K) / self.N
+
+        # Bookkeeping: value_registry + _insertion_order.
+        for idx in indices:
+            key_id, _kvec, value = items[idx]
+            self.value_registry[key_id] = value
+            self._insertion_order.append(key_id)
+
+    def retrieve_batch(
+        self, query_vecs: np.ndarray, k: int = 1
+    ) -> list[RetrievalResult]:
+        """Fused-matmul batched retrieve.
+
+        Per-query path: snap each query to a codebook row (one batched
+        matmul + argmax), then one batched W @ Q_atoms.T and one batched
+        codebook @ responses to get sims; softmax + argmax over the
+        codebook axis gives the candidate value-atom row per query.
+        """
+        q_arr = np.asarray(query_vecs)
+        if q_arr.ndim != 2:
+            raise ValueError(
+                f"retrieve_batch: query_vecs must be 2-D (B, N); got {q_arr.shape}"
+            )
+        if q_arr.shape[1] != self.N:
+            raise ValueError(
+                f"retrieve_batch: query dim {q_arr.shape[1]} != N={self.N}"
+            )
+
+        B = q_arr.shape[0]
+        if B == 0:
+            return []
+
+        # If the store is empty, return empties to match single-item semantics
+        # (single-item retrieve still runs the matmul; replicate that here so
+        # outputs are shape-identical).
+        Q = torch.as_tensor(q_arr, dtype=torch.float32, device=self.device)  # (B, N)
+
+        # Snap to codebook rows: one matmul, then argmax per row.
+        snap_sims = Q @ self.codebook.T  # (B, C)
+        snap_rows = torch.argmax(snap_sims, dim=1)  # (B,)
+        Q_atoms = self.codebook[snap_rows]  # (B, N)
+
+        # Fused responses: (N, B) = W @ Q_atoms.T
+        responses = self.W @ Q_atoms.T  # (N, B)
+
+        # Fused sims: (C, B) = codebook @ responses / N
+        sims = (self.codebook @ responses) / self.N  # (C, B)
+        P = torch.softmax(self.beta * sims, dim=0)  # (C, B)
+
+        argmax_rows = torch.argmax(P, dim=0)  # (B,)
+        # Pull max_prob via gather along dim 0.
+        max_probs = P.gather(0, argmax_rows.unsqueeze(0)).squeeze(0)  # (B,)
+
+        # Pre-compute reverse lookup once: value_atom_row -> [candidate key_ids].
+        reverse_v: dict[int, list[str]] = {}
+        for kid, vrow in self.value_atom_registry.items():
+            reverse_v.setdefault(int(vrow), []).append(kid)
+
+        # Cache for the recall-rank scores (top-k path).
+        stored_ids_order = list(self.key_registry.keys())
+        stored_v_rows_t: Optional[torch.Tensor] = None
+        if stored_ids_order:
+            stored_v_rows_t = torch.tensor(
+                [self.value_atom_registry[kk] for kk in stored_ids_order],
+                device=self.device,
+                dtype=torch.long,
+            )
+
+        # Fast top-k for k==1: skip Python-level argsort.
+        argmax_rows_cpu = argmax_rows.detach().cpu().tolist()
+        max_probs_cpu = max_probs.detach().cpu().tolist()
+
+        # Pre-compute scored stored ids (used by top_k_ids/scores per query).
+        # For k==1 we still need to populate top_k with size 1.
+        if stored_v_rows_t is not None:
+            # all_scores shape (n_stored, B)
+            all_scores = P[stored_v_rows_t]
+        else:
+            all_scores = None
+
+        take_k = max(int(k), 1)
+        if all_scores is not None and stored_ids_order:
+            if take_k == 1:
+                top1_idx = torch.argmax(all_scores, dim=0)  # (B,)
+                top1_idx_cpu = top1_idx.detach().cpu().tolist()
+                top1_score = all_scores.gather(0, top1_idx.unsqueeze(0)).squeeze(0)
+                top1_score_cpu = top1_score.detach().cpu().tolist()
+            else:
+                # Take top take_k via topk along stored axis.
+                topk_take = min(take_k, len(stored_ids_order))
+                vals_t, idx_t = torch.topk(all_scores, topk_take, dim=0)
+                vals_cpu = vals_t.detach().cpu().tolist()
+                idx_cpu = idx_t.detach().cpu().tolist()
+        results: list[RetrievalResult] = []
+        c_thresh = 50.0 / self.C
+
+        for b in range(B):
+            argmax_row = int(argmax_rows_cpu[b])
+            max_prob = float(max_probs_cpu[b])
+
+            matching_key_id: Optional[str] = None
+            candidates = reverse_v.get(argmax_row, [])
+            if candidates:
+                if len(candidates) == 1:
+                    matching_key_id = candidates[0]
+                else:
+                    key_rows = [self.key_registry[c] for c in candidates]
+                    key_atoms = self.codebook[key_rows]
+                    k_sims = key_atoms @ Q_atoms[b]
+                    best = int(torch.argmax(k_sims).item())
+                    matching_key_id = candidates[best]
+
+            value = (
+                self.value_registry.get(matching_key_id)
+                if matching_key_id else None
+            )
+            near_uniform = max_prob < c_thresh
+
+            top_k_ids: list[str] = []
+            top_k_scores: list[float] = []
+            if all_scores is not None and stored_ids_order:
+                if take_k == 1:
+                    ti = int(top1_idx_cpu[b])
+                    top_k_ids.append(stored_ids_order[ti])
+                    top_k_scores.append(float(top1_score_cpu[b]))
+                else:
+                    for kk2 in range(len(vals_cpu)):
+                        ti = int(idx_cpu[kk2][b])
+                        top_k_ids.append(stored_ids_order[ti])
+                        top_k_scores.append(float(vals_cpu[kk2][b]))
+
+            results.append(
+                RetrievalResult(
+                    key_id=matching_key_id,
+                    value=value,
+                    confidence=max_prob,
+                    near_uniform_flag=bool(near_uniform),
+                    distance=None,
+                    top_k_ids=top_k_ids,
+                    top_k_scores=top_k_scores,
+                )
+            )
+        return results
+
     def edit(self, key_id: str, new_value: str) -> None:
         """In-place value swap: subtract old outer, add new outer."""
         if key_id not in self.key_registry:

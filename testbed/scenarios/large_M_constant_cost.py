@@ -109,6 +109,7 @@ def setup(config: dict) -> dict:
         "seed": seed,
         "n_recall_samples": n_recall_samples,
         "n_latency_queries": n_latency_queries,
+        "large_M_store_batch_size": int(config.get("large_M_store_batch_size", 128)),
     }
 
 
@@ -147,13 +148,28 @@ def run(backend: MemoryBackend, data: dict) -> dict:
         # factory above. For baselines the factory ignores the hint.
 
         # Store loop (full M). Latency samples are the first n_latency_queries.
+        # Default to batched store with B=128 so per-item Python overhead does
+        # not bottleneck the headline scaling chart. First n_latency_queries
+        # items are still stored one-at-a-time so the latency histogram is
+        # implementation-fair vs FAISS's per-add cost.
+        store_batch_size = int(data.get("large_M_store_batch_size", 128))
         store_us: list[float] = []
-        for i in range(M):
+        # Per-item path for the first n_latency_queries items (latency sampling).
+        boundary = min(n_latency_queries, M)
+        for i in range(boundary):
             t0 = time.perf_counter_ns()
             sub_backend.store(ids[i], vecs[i], values[i])
             t1 = time.perf_counter_ns()
-            if i < n_latency_queries:
-                store_us.append((t1 - t0) / 1000.0)
+            store_us.append((t1 - t0) / 1000.0)
+        # Batched path for the remainder.
+        if boundary < M:
+            j = boundary
+            while j < M:
+                end = min(j + store_batch_size, M)
+                sub_backend.store_batch(
+                    [(ids[k_], vecs[k_], values[k_]) for k_ in range(j, end)]
+                )
+                j = end
 
         # Retrieve latency: n_latency_queries random keys.
         q_count = min(n_latency_queries, M)
