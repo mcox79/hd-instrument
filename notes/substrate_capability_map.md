@@ -20502,3 +20502,88 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 **Commit message:**
 
 (See git log; v291 -> v292 3-ROUTING PORTFOLIO EXPANSION; NEW "5. Production positioning" category section + 7 NEW rows PP-1..PP-7 + PP-8; R-COW-INFEASIBILITY R3 annotated with M1+M2 PRIMARY + M2 smoke + cross-application probe note; 3 tactical clarifications Modern Hopfield no-reconciliation + Pattern-B-vs-Path-B terminology lock + cloud telemetry audit flag; portfolio 15+36 -> 22+36 +7 NEW rows; HONEST UNCHANGED; LABEL-VS-HONEST UNCHANGED; 203rd PROT-009 paired commit.)
+
+## v292 -> v293 @ BATCHED 6-VERDICT CPU-RECOVERY CLEANUP + POST-FIX LANDING (verdict_handler 204th PROT-009 paired commit)
+
+**Context.** CPU runner stalled silently 2026-05-31 10:58:40 to 13:26 due to CUDA contention (3 CPU-queue scripts auto-selected CUDA while V2 sustained_workload monopolized GPU). Patched 4 scripts to force CPU (commit 3ebb009). Runner restarted; processing 6 verdicts accumulated since verdict_last_seen_ts 2026-05-30T23:15:33.
+
+### Step 0 honest re-read summary -- 2 LOCAL-FALLBACK KILLED + 3 DUPLICATE-ALREADY-PROCESSED + 1 GENUINE-NEW
+
+#### V1 -- modern_hopfield_pipeline_validation_v1_n2048_n4096 -- DUPLICATE (already processed v290)
+source=remote, 39/39 cells success=True recall=1.0, cert_all_valid=True. verdict_msg: PIPELINE_HARD_PASS cloud-ready N=[2048,4096]. LABEL HONEST. ALREADY PROCESSED in v290 as V1 pipeline validation annotation (201st PROT-009 paired commit). No additional cap_map action.
+
+#### V2 -- modern_hopfield_cpu_backup_extended_v1_n16384 -- DUPLICATE (already processed v291 as C1)
+source=remote, 3/3 seeds construction_success=True, per_M recall=1.0 for all M in {16384,32768,65536}, max_M_per_seed=[65536,65536,65536]. verdict_msg: C1_HARD_PASS CEILING_EXTENDS_PAST_2N. LABEL HONEST (conservative -- actual data is PAST_4N; sub-flavor #156 already filed in v291). ALREADY PROCESSED in v290->v291 C1 event (Modern Hopfield 0.65-0.80 -> 0.75-0.88 LIFT). No additional cap_map action.
+
+#### V3 -- multi_hop_caching_baseline_v1_n4096 -- [label-vs-honest] KILLED (CUDA contention infrastructure failure)
+source=LOCAL (remote SSH returned None; CUDA-stall anchor). elapsed_s=0.06s = STALE PRE-SHIP SMOKE ARTIFACT. The production run stalled due to CUDA contention; remote dir absent. The local verdict_msg C2_HARD_PASS hit=0.867 hot=0.74ms elapsed=0.06s is NOT from the production run. HONEST READING: KILLED -- CUDA contention infrastructure failure; anchor science UNRESOLVED. Root cause: CUDA device auto-selection conflicted with V2 sustained_workload GPU monopolization. Status: device-forcing fix NOT yet shipped for this script (commit 3ebb009 covers 4 other scripts; multi_hop_caching still pending). Research routing filed: notes/strategy_request_to_research_multi_hop_caching_stall_investigation_2026-05-31.md. NO cap_map demotion; NO science conclusion drawn. NEW label-vs-honest catch #157 (LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT).
+
+#### V4 -- sparse_w_large_n_integration_v1 -- DUPLICATE (already processed v291 as C8)
+source=remote, 9/9 KF cells N=8192 all retention=1.0 max_iso=0.0 kf_pass=True; footprint cells N=4096 sparse_match_theory=True all 4 M values; slope=1.0 deployable=True. verdict_msg: C8_HARD_PASS COMPOSITION_OK. LABEL HONEST. ALREADY PROCESSED in v290->v291 C8 event (Sparse-W 0.55-0.70 -> 0.60-0.75 LIFT). No additional cap_map action.
+
+#### V5 -- substrate_state_compression_v1_n4096 -- [label-vs-honest] KILLED (CUDA contention; FIX SHIPPED 3ebb009)
+source=LOCAL (remote SSH returned None; CUDA-stall anchor). elapsed_s=0.98s = STALE PRE-SHIP SMOKE ARTIFACT. The production run stalled due to CUDA contention. The local verdict_msg C3_HARD_PASS COMPRESSION_VIABLE n_hp=2 is NOT from the production run. HONEST READING: KILLED -- CUDA contention infrastructure failure; FIX SHIPPED commit 3ebb009 (device forced to CPU). Re-ship recommended after current 4 pending CPU anchors drain. NO cap_map demotion. Sub-flavor #158 (2nd occurrence LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT; same pattern as V3).
+
+#### V6 -- edit_audit_trail_refinement_v1_n4096 -- GENUINE NEW HARD_PASS (C5; post-recovery first landing)
+source=remote authoritative. elapsed_s=5.17s wall. 5 seeds x 6 scenarios = 30/30 all complete=True chain_valid=True integrity_under_failure=True max_entry_bytes<=291B. verdict_msg: C5_HARD_PASS AUDIT_SCHEMA_COMPLETE. LABEL HONEST -- all 6 scenarios (s1_single_edit, s2_sequential_edits, s3_delete_with_certificate, s4_interrupted_recovery, s5_concurrent_serialization, s6_failed_deletion_audit) clean across seeds {7,17,23,31,41}. FIRST FULL MULTI-SEED audit-trail schema validation at production N=4096 M=2048. Validates the audit trail schema for deletion certificate Cat-A killer feature: edit + delete + recovery + concurrency serialization all produce complete, valid, hash-linked audit chains <=291B per entry. Cap_map annotation warranted. PROT-018 NOTE: anchor lacks _n4096 suffix; flagged as retroactive violation tally (pre-ship naming oversight; not blocking this verdict).
+
+### Cap_map changes (v292 -> v293)
+
+**ANNOTATION-ONLY.** No new rows. No emoji state transitions.
+
+**Deletion-cert killer feature (Cat-A) audit-trail schema ANNOTATION.**
+edit_audit_trail_refinement_v1_n4096 C5_HARD_PASS (5 seeds x 6 scenarios = 30/30; max_entry_bytes<=291B; all chain_valid=True; all integrity_under_failure=True at N=4096 M=2048) adds FIRST FULL MULTI-SEED audit-trail schema validation. Closes the audit-trail-schema sub-question within deletion-cert Cat-A feature scope. Prior evidence: TCFT v245/v247 (thermodynamic witness) + Sagawa-Ueda v237 + Crooks FT v153 + v272 KF-2 precision sweep (isolation proof). C5 adds: edit audit trail schema completeness + chain integrity under failure. Deletion-cert product-feature row 92-98% UNCHANGED (C5 is implementation-level schema validation; thermodynamic foundation + isolation proof rows remain load-bearing; row-band move NOT warranted for schema validation alone).
+
+NEW CAP_MAP ANNOTATION ADDED: "C5 edit_audit_trail_refinement_v1_n4096 (2026-05-31) -- 30/30 scenarios 5 seeds N=4096 M=2048; audit-trail schema complete for s1 single-edit + s2 sequential-edits + s3 delete-with-certificate + s4 interrupted-recovery + s5 concurrent-serialization + s6 failed-deletion-audit; max_entry_bytes<=291B deployable; hash-linked chain valid under failure scenarios; audit-schema sub-question CLOSED at N=4096."
+
+**2 INFRASTRUCTURE-KILLED ANNOTATIONS.**
+V3 multi_hop_caching_baseline_v1_n4096: KILLED (CUDA contention; device-forcing fix NOT yet shipped; re-ship pending after fix).
+V5 substrate_state_compression_v1_n4096: KILLED (CUDA contention; FIX SHIPPED 3ebb009; re-ship recommended after CPU drain).
+Both classified as infrastructure events, NOT science evidence. NO cap_map demotion for either.
+
+**3 DUPLICATE ACKNOWLEDGEMENTS.**
+V1 (pipeline_validation) + V2 (cpu_backup C1) + V4 (sparse_w C8) already processed in v290/v291 respectively; tallied in honest count; no redundant cap_map moves.
+
+### Framework reliability bands (v292 -> v293)
+
+All bands UNCHANGED. Deletion-cert killer feature 92-98% UNCHANGED (C5 is schema validation not new thermodynamic evidence).
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 265 (v291 basis) + 1 (V6 genuine new) + 3 (V1+V2+V4 duplicates re-confirmed) = **269**
+- LABEL-VS-HONEST: 156 (v291 basis) + 1 (V3 new sub-flavor #157) + 1 (V5 2nd occurrence #158) = **158**
+
+Sub-flavor #157 NEW: LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT -- remote_state.get_metrics() returned _source=local with elapsed_s < 1.0; production run stalled before remote write; verdict_msg from local smoke file passed as production verdict; root cause CUDA contention 2026-05-31.
+
+### Portfolio
+
+22 + 36 -> **22 + 36 UNCHANGED** (annotation only; no row additions/closures).
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched)
+
+1. Re-ship V3 multi_hop_caching_baseline_v1_n4096 (MEDIUM priority). Requires device-forcing fix (same pattern as 3ebb009). PROT-018 check on anchor name before re-ship. Gates multi-hop caching science conclusion.
+2. Re-ship V5 substrate_state_compression_v1_n4096 (MEDIUM priority). FIX SHIPPED (3ebb009). Wait for current 4 CPU anchors to drain. Re-ship adds compression science conclusion.
+3. C9 M-sweep past 4N at N=16384 (HIGH priority, v291 carry-forward). ~30-45min CPU. Closes test-envelope-ceiling caveat on Modern Hopfield row; if no ceiling found at 16N, justifies next LIFT to 0.85-0.92.
+
+### PROT compliance (v292 -> v293)
+
+- PROT-004/006: No new closures; no rescue sets required (V3+V5 infrastructure events not science failures).
+- PROT-007: substrate_capability_map_history.md v293 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING.
+- PROT-008: validate_capmap_commit.py MUST pass before commit (annotation-only; validator pass expected).
+- PROT-009: cap_map.md (v293 annotation entry) + substrate_capability_map_history.md (v293 row) + strategy_decisions_2026-05-31.md (this entry) + visibility_decisions_2026-05-31.md (one-line) staged atomically; 204th PROT-009 paired commit.
+- PROT-018: edit_audit_trail_refinement_v1_n4096 lacks _n4096 suffix; flagged for retroactive backlog sweep tally (pre-ship naming oversight; not blocking).
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 6 verdicts; 2 LOCAL-FALLBACK label-vs-honest catches (#157 + #158); 3 duplicate acknowledgements; 1 honest PASS.
+- [[feedback-cap-map-update-protocol]]: atomic commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]].
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT; GPU queue 16 pending/running (not zero); pipeline-pacing exp_dev dispatch NOT triggered.
+- [[feedback-for-you-tab-primary-channel]]: 3 status_log entries filed.
+- [[feedback-no-padding-experiments]]: no new anchor names dispatched; orchestrator decides re-ship timing.
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py.
+- [[feedback-no-label-vs-honest-anchor-names]]: V6 PROT-018 suffix violation noted for retroactive tally.
+
+### Commit and push
+
+Commit message: "Cap map: v292 -> v293 BATCHED 6-VERDICT CPU-recovery (2x CUDA-KILLED V3+V5 LOCAL-SMOKE-ARTIFACT label-vs-honest #157/#158 NEW sub-flavor; 3x DUPLICATE V1+V2+V4 acknowledged; V6 edit-audit-trail C5 HARD_PASS 30/30 5-seed schema ANNOTATION; HONEST 265->269; LABEL-VS-HONEST 156->158) (2026-05-31)"
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main.
