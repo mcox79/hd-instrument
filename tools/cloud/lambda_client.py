@@ -46,7 +46,10 @@ from datetime import datetime, timezone
 from typing import Any, Optional
 
 
-LAMBDA_API_BASE = "https://cloud.lambdalabs.com/api/v1"
+# Lambda has been migrating from cloud.lambdalabs.com to the shorter
+# cloud.lambda.ai domain. Both have been live; the newer endpoint is what
+# the current dashboard hands users for `curl -u <key>:` examples.
+LAMBDA_API_BASE = "https://cloud.lambda.ai/api/v1"
 _DEFAULT_TIMEOUT_S = 30.0
 
 
