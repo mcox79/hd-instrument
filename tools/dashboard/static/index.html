@@ -170,6 +170,19 @@
     color: rgb(220, 100, 100);
     border-top-color: rgba(220, 100, 100, 0.4);
   }
+  /* Lambda per-experiment progress line inside a runner card. */
+  .rn-tail.progress {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg);
+    border-top: 1px dashed var(--border);
+    padding-top: 4px;
+    margin-top: 4px;
+  }
+  .rn-tail.progress.stale {
+    color: var(--dim);
+    border-top-color: rgba(160, 160, 160, 0.3);
+  }
   .session-row:last-child { border-bottom: none; }
   .session-row .session-name {
     font-weight: 600;
@@ -3524,6 +3537,39 @@ function hbFreshness(r) {
   return { cls: "fresh", txt: stale != null ? `hb ${fmtElapsed(stale)} ago` : "live" };
 }
 
+// Lambda per-experiment progress: append a "cell N/M (X%) phase ETA Ks" line
+// to the Lambda card when ProgressPoller has SCP-pulled a fresh
+// data/lambda_progress_<anchor>_<id>.json. No-op when absent.
+// Schema:
+//   { anchor, instance_id, cell, total_cells, phase, eta_sec,
+//     updated_at, stale_s, source_file }
+function appendLambdaProgressLine(card, progress) {
+  if (!card || !progress || typeof progress !== "object") return;
+  const cell = Number(progress.cell);
+  const total = Number(progress.total_cells);
+  if (!Number.isFinite(cell) || !Number.isFinite(total) || total <= 0) return;
+  const stale = Number(progress.stale_s);
+  const isStale = Number.isFinite(stale) && stale > 90;
+  const pct = (cell / total) * 100;
+  const anchor = progress.anchor || "";
+  const phaseRaw = (progress.phase || "").trim();
+  const phase = phaseRaw.length > 50 ? phaseRaw.slice(0, 47) + "..." : phaseRaw;
+  const eta = progress.eta_sec;
+  const etaStr = Number.isFinite(Number(eta)) ? `ETA ${fmtElapsed(Number(eta))}` : "";
+  const ageStr = Number.isFinite(stale) ? `${fmtElapsed(stale)} ago` : "";
+  const parts = [];
+  parts.push(`cell ${cell}/${total} (${pct.toFixed(0)}%)`);
+  if (phase) parts.push(phase);
+  if (etaStr) parts.push(etaStr);
+  const titleParts = [];
+  if (anchor) titleParts.push(`anchor: ${anchor}`);
+  if (progress.instance_id) titleParts.push(`instance: ${progress.instance_id.slice(0, 14)}...`);
+  if (ageStr) titleParts.push(`updated: ${ageStr}`);
+  const cls = isStale ? "rn-tail progress stale" : "rn-tail progress";
+  card.append(el("div", {class: cls, title: titleParts.join("\n")},
+    parts.join("  |  ")));
+}
+
 // Cloud cost tracker: append a small "spend" line to a runner card when
 // data/cloud_cost_tracker.json is present. No-op when the tracker is absent.
 // Schema:
@@ -3576,10 +3622,23 @@ function renderRightNow(runs, system) {
       head.append(el("span", {class: "rn-runner"}, disp));
       head.append(el("span", {class: "rn-hb stale"}, "inactive"));
       card.append(head);
-      card.append(el("div", {class: "rn-name idle"}, "cloud session not started"));
+      const snap = window.__lastSnapshot || {};
+      // If a Lambda experiment is actively in progress, show the anchor name
+      // in the slot's "name" line; otherwise show the inactive placeholder.
+      const progress = snap.lambda_progress;
+      const lambdaActive = progress && typeof progress === "object" &&
+        Number.isFinite(Number(progress.stale_s)) && Number(progress.stale_s) < 90;
+      if (lambdaActive) {
+        card.append(el("div", {class: "rn-name", title: progress.source_file || ""},
+          progress.anchor || "in flight"));
+      } else {
+        card.append(el("div", {class: "rn-name idle"}, "cloud session not started"));
+      }
+      // Progress line (only when a fresh lambda_progress_*.json exists).
+      appendLambdaProgressLine(card, progress);
       // Cost line: only render if the cost-tracker file is present (handled
       // by appendCostLine; safe no-op when absent).
-      appendCostLine(card, window.__lastSnapshot && window.__lastSnapshot.cloud_cost);
+      appendCostLine(card, snap.cloud_cost);
       grid.append(card);
       continue;
     }

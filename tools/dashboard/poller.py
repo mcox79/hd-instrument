@@ -53,6 +53,10 @@ _SESSION_NAMES = ("orchestrator", "research", "testbed", "cloud")
 # Absent until the cloud session activates; dashboard renders an "inactive"
 # Lambda card with no cost line in the meantime.
 _CLOUD_COST_PATH = _DATA_DIR / "cloud_cost_tracker.json"
+# Lambda per-experiment progress files written by ProgressPoller in
+# tools/cloud/launch_experiment.py. One per (anchor, instance_id) pair.
+# Dashboard picks the freshest as the active-experiment indicator.
+_LAMBDA_PROGRESS_GLOB = "lambda_progress_*.json"
 
 POLL_INTERVAL_S = 3.0
 HISTORY_LIMIT = 80
@@ -535,6 +539,49 @@ class Poller:
         except Exception:
             cloud_cost = None
 
+        # Lambda per-experiment progress (freshest of any in-flight runs).
+        # ProgressPoller writes lambda_progress_<anchor>_<instance_id>.json
+        # via SCP-pull every 30s. The freshest file represents the currently
+        # running experiment; stale files persist after run terminates.
+        # Schema (from ProgressEmitter):
+        #   {phase, cell, total_cells, eta_sec, updated_at}
+        lambda_progress: dict | None = None
+        try:
+            candidates = list(_DATA_DIR.glob(_LAMBDA_PROGRESS_GLOB))
+            candidates = [c for c in candidates if c.suffix == ".json"]
+            if candidates:
+                candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+                freshest = candidates[0]
+                body = parsers.safe_json(
+                    freshest.read_text(encoding="utf-8", errors="replace")
+                )
+                if isinstance(body, dict):
+                    # Parse anchor + instance_id from filename:
+                    #   lambda_progress_<anchor>_<instance_id_32hex>.json
+                    stem = freshest.stem
+                    if stem.startswith("lambda_progress_"):
+                        suffix = stem[len("lambda_progress_"):]
+                        parts = suffix.rsplit("_", 1)
+                        anchor = parts[0] if len(parts) == 2 else suffix
+                        instance_id = parts[1] if len(parts) == 2 else None
+                    else:
+                        anchor, instance_id = stem, None
+                    mtime = freshest.stat().st_mtime
+                    stale_s = max(0.0, time.time() - mtime)
+                    lambda_progress = {
+                        "anchor": anchor,
+                        "instance_id": instance_id,
+                        "phase": body.get("phase"),
+                        "cell": body.get("cell"),
+                        "total_cells": body.get("total_cells"),
+                        "eta_sec": body.get("eta_sec"),
+                        "updated_at": body.get("updated_at"),
+                        "stale_s": round(stale_s, 1),
+                        "source_file": freshest.name,
+                    }
+        except Exception:
+            lambda_progress = None
+
         # Per-session inbox depths: count of unprocessed routing files for each
         # session. See session_synchronization_v1.md Pattern B. Counted at the
         # filesystem level so this stays fresh even if the poller has stale
@@ -800,6 +847,7 @@ class Poller:
             "orchestrator_health": routing_ratio_doc,
             "sessions": sessions_map,
             "cloud_cost": cloud_cost,
+            "lambda_progress": lambda_progress,
             "_debug": debug_info,
         }
 

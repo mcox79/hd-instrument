@@ -233,6 +233,15 @@ class ProgressPoller(threading.Thread):
 
 
 def main() -> int:
+    # Line-buffer stdout so launcher prints flush per line even when the
+    # parent harness captures stdout to a file (Python defaults to fully
+    # buffered in that case, so progress prints stay hidden until exit).
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+        sys.stderr.reconfigure(line_buffering=True)
+    except (AttributeError, OSError):
+        pass
+
     parser = argparse.ArgumentParser(description="Generic Lambda experiment launcher")
     parser.add_argument("--anchor", required=True,
                         help="Experiment anchor name (folder under data/exp_X)")
