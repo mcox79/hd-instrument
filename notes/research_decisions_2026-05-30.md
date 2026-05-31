@@ -13,3 +13,18 @@
 **Note path.** notes/research_tau_pred_rederivation_v1_2026-05-30.md (7 verified internal citations; 0 external).
 
 **Next-drill candidate.** Strategy follow-up: cap_map note correction + adaptive_threshold_rescue_v3 anchor design (instrumentation-class, NOT theory).
+
+
+---
+
+## adversarial_defense_analysis_v1 — 2026-05-30 (research:opus)
+
+**Drill.** Mathematical analysis of v290 U2 codebook-collision (Pattern 2 100% breach) + edit-fact-traverse (Pattern 4 99.4% breach) adversarial vulnerabilities. Mapped 8 defense families; ranked top-3 by engineering cost x expected defense rate x KF compatibility.
+
+**Outcome.** Pattern 2 breach is algebraic certainty of outer-product retrieval at M=2048 (max pairwise codeword cosine ~ sqrt(2 ln M^2 / N) ~ 0.085 = adversary lever arm). Pattern 4 breach is rank-1 edit perturbation vs depth-5 spectral dominance (consistent with v272 KF-2 BE-1 W-magnitude-not-operative finding). Top-3 ranked defenses: D1 query-similarity-margin gate (1 day, P_deflated 0.55-0.70), D7 edit-log-replay (5-10 days, P_deflated 0.45-0.60), D2 per-query codebook rotation (3-5 days, P_deflated 0.40-0.55).
+
+**Note path.** notes/research_adversarial_defense_analysis_v1_2026-05-30.md (5 external citations verified: Krotov DAM-robust + Cohen randomized smoothing + RS-Del + LSM-adversarial + cosine-OOD).
+
+**Companion handoff.** notes/exp_dev_handoff_research_adversarial_defense_analysis_2026-05-30.md (3 anchor candidates rank-ordered for G9+ batch; D1 is the cheap-and-likely-to-work primary).
+
+**Next-drill candidate.** Once G8/G9 D1 smoke verdict lands: if HARD_PASS, drill on D7 edit-log-replay engineering design + adjacency to v290 R-COW-INFEASIBILITY R3 alternative-edit-isolation routing. If HARD_FAIL, drill on D2 codebook-rotation as alternative codebook-collision defense + augmentation with Path E spectral-coherence composition probe.
