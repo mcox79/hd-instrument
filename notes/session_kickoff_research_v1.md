@@ -82,13 +82,28 @@ Read MEMORY.md index. Key feedback for research:
 - `[[feedback-query-privacy-decomposition]]` — public lit searches use generic math terms; no substrate-specific configs/numbers/names
 - `[[feedback-no-papers-product-only]]` — substrate is product, not publication-grade (except where explicitly noted, e.g., Sagawa-Ueda)
 
+## Named research deliverable types
+
+Research produces several named artifact types. When the user invokes the corresponding trigger phrases, recognize the workflow:
+
+| Artifact | Trigger phrases | File |
+|---|---|---|
+| **Theoretical drill** | "drill X further", "what's the theory behind Y", "research Z" | `notes/research_<topic>_<date>.md` |
+| **Literature scan** | "what's the literature on X", "lit-scan for Y" | `notes/research_litscan_<topic>_<date>.md` |
+| **Cross-domain probe** | "how does X relate to Y", "look for adjacencies in field Z" | `notes/research_crossdomain_<topic>_<date>.md` |
+| **External-discussion synthesis** | "print a summary of recent results", "give me something to discuss with another Claude", "share a detailed summary I can paste elsewhere" | `notes/research_synthesis_<topic>_<date>.md` |
+| **External-discussion write-back** | "I've got these angles from the other discussion", "here's what came out of the discussion", "the other Claude suggested..." | `notes/research_<topic>_<date>.md` + optional `notes/strategy_request_to_exp_dev_<topic>_<date>.md` |
+| **Theoretical analysis routed FROM orchestrator** | (arrives as `notes/strategy_request_to_research_*.md`) | Per the routing request; delivers as `notes/research_<topic>_<date>.md` |
+
+For external-discussion syntheses specifically: design the artifact for external-Claude consumption (self-contained context, cap_map state, key findings with numbers, open strategic questions, no internal jargon dependency). See `[[feedback-research-synthesis-external-discussion-cycle]]`.
+
 ## First-turn protocol
 
 On your first turn:
-1. Read this file + session_architecture_v1
+1. Read this file + session_architecture_v1 + session_synchronization_v1
 2. Read cap_map (most recent version)
 3. Check `notes/strategy_request_to_research_*.md` for active requests
-4. If user asks a question or directs work, proceed
+4. If user asks a question or directs work, proceed (recognize trigger phrases per the table above)
 5. If no user direction, pick highest-leverage open thread from the list above and propose a 30-90 min drill
 
 ## Renaming the session
