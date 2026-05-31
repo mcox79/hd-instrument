@@ -142,11 +142,60 @@ P_deflated for >=20% multi-hop QA accuracy gain at 1-3B scale: **0.45** (from Su
 - `notes/substrate_capability_map.md` v290-v291 (Path D / Modern Hopfield / ICL via pool / autoregressive generation / real-time learning -- the substrate properties this integration depends on)
 - Memory: `project_substrate_killer_features_2026-05-26.md`, `project_substrate_strategic_inversion_48h_2026-05-26.md`
 
-## NOT AUTO-DISPATCHED
+## DECISIONS RESOLVED (user 2026-05-31, work-start UNBLOCKED)
 
-Three decisions BLOCK work-start (user must confirm via orchestrator):
-- (a) GPU resource (8GB local / 24GB local / 24GB+ cloud)
-- (b) Commitment depth (Week 1 smoke only / full 4-6w upfront)
-- (c) Queue sequencing (this drill first / cheaper drills first / parallel)
+- **(a) GPU resource: LOCAL REMOTE DESKTOP (marsh@home or equivalent).** User explicitly preferred local over cloud. Default assumption is marsh@home 8GB VRAM (Phi-3-mini-4bit / QLoRA path; P_def 0.25-0.30). **Verification step at Week 0 start:** testbed runs `nvidia-smi` (or equivalent) on the remote desktop to confirm actual VRAM; if >8GB available (e.g., RTX 3090/4090 24GB), upgrade base LM to Phi-3-mini-fp16, expect 4-8x faster training wall, P_def lifts to 0.40-0.45. NO cloud spend authorized; if a hardware blocker requires cloud, escalate to orchestrator + user before any cloud-runner activation.
 
-Once those land, testbed begins Week 1. Testbed reads this handoff, blocks on the decisions, then proceeds.
+- **(b) Commitment depth: WEEK 1 FEASIBILITY SMOKE FIRST.** Do NOT commit to full 4-6w upfront. Week 1 deliverables (below) are the GO/NO-GO gate. After Week 1 PASS, full 4-6w build commits with confidence. After Week 1 FAIL, we know what to fix or pivot.
+
+- **(c) Queue sequencing: WEEK 0 = MISSING 7 FIRST, then WEEK 1 SMOKE, then WEEKS 2-6.** Missing 7 (LLM-integration latency budget characterization) gates the architectural assumption: the soft-prompt prefix-injection design presumes substrate Path D + bridge fit inside the LLM's per-token generation window (typically 10-50ms). Measure this before building. Missing 2 (storage efficiency) + Missing 3 (audit-trail rotation) are CPU-bound parallel work that doesn't gate this build; testbed may interleave them with weeks 2-6 GPU training time, or defer.
+
+## WEEK 0: MISSING 7 -- LLM-INTEGRATION LATENCY BUDGET CHARACTERIZATION (~1 week wall)
+
+**Why before Week 1**: the recommended starting architecture assumes substrate Path D depth=5 + bridge MLP forward pass fits within the LLM's per-token generation latency window (10-50ms is the published range for small LMs). If substrate ops take 100ms+, the soft-prompt prefix-injection pattern needs rework (batched-async, precomputed-prefix, or coarser-granularity integration). Resolving this BEFORE Week 1 saves 1-3 weeks of wrong-design rework.
+
+**Measurements (testbed instruments, no training):**
+
+1. **Substrate baseline latency on the target hardware:**
+   - Single store at N=4096 and N=8192 (current published: ~530us at N=16384; need same at the prototype's N)
+   - Single retrieve (Path D depth=1) at N=4096, K_paths=500
+   - Path D depth=5 retrieve at N=4096, K_paths=500 (the production multi-hop op)
+   - Use 5 seeds, report mean + p99
+2. **Bridge MLP latency (scaffold the 2-layer MLP, no training):**
+   - Forward pass R^4096 -> R^2048 -> R^d_model (Phi-3-mini d=3072), batch_size=1 and batch=8
+   - Reverse direction R^d_model -> R^4096
+3. **Phi-3-mini-4bit token-generation latency on the target GPU:**
+   - Per-token latency at seq_len in {128, 512, 2048}
+   - Mean + p99 across 100 generations
+4. **End-to-end integrated forward-pass:**
+   - Phi-3-mini emits query head -> substrate Path D depth=5 -> bridge -> prefix tokens -> Phi-3-mini decoder
+   - Measure total wall per integrated query
+
+**Decision criteria:**
+- **PASS** (proceed to Week 1 substrate-LLM smoke): substrate Path D depth=5 + bridge round-trip < 50ms p99. Soft-prompt prefix-injection design viable.
+- **MIDDLE** (proceed to Week 1 with design caveats): in [50ms, 150ms] -- design works but latency tight; mention as deployment-deployment caveat in eval.
+- **FAIL** (escalate to research before Week 1): >150ms p99. Substrate-side throughput is the bottleneck; needs research drill on async-batched or precomputed-prefix variants BEFORE committing to Week 1 build.
+
+**Deliverable: `notes/testbed_missing7_llm_integration_latency_v1_<date>.md`** with the 4 measurements + PASS/MIDDLE/FAIL classification + recommendation for Week 1.
+
+**Wall budget:** ~1 week single-person; CPU + small GPU profiling.
+
+## WEEK 1 GATE (after Missing 7 PASS)
+
+Week 1 feasibility smoke per the existing build plan above. Decide GO/NO-GO for Weeks 2-6 based on the four gates already specified (bridge mechanical-connect / baseline Phi-3-mini numbers / no hardware blocker / substrate Path D depth=5 integration works in the testbed environment).
+
+## SEQUENCE SUMMARY
+
+| Week | Work | Owner | Gate at end |
+|---|---|---|---|
+| 0 | Missing 7: LLM-integration latency budget | testbed | PASS / MIDDLE / FAIL on substrate-fits-in-LLM-token-window |
+| 1 | substrate-LLM feasibility smoke (Phi-3-mini-4bit baseline + bridge scaffold + smoke forward-pass) | testbed | GO / NO-GO for Weeks 2-6 |
+| 2 | Phase 1 bridge-only training (frozen base, 50K synthetic examples) | testbed | bridge converges; LLM-only baseline preserved within 5pp |
+| 3 | Multi-hop iteration with Rescue C (substrate-autonomous Path D depth=5) | testbed | substrate-augmented MuSiQue beats LLM-only by >=10pp |
+| 4 | Phase 2 QLoRA on Phi-3-mini-4bit | testbed | LoRA boost measurable vs frozen-base |
+| 5 | Substrate-favored eval suite + 3-way comparison | testbed | bespoke benchmarks show substrate-distinctive capabilities |
+| 6 | Buffer + polish + write-up + cap_map LIFT proposal to orchestrator | testbed -> orchestrator | research delivery files testbed_substrate_llm_integration_v1_<date>.md |
+
+Parallel CPU-bound work (any week with available person-time): Missing 2 (storage efficiency analysis) + Missing 3 (audit-trail rotation) per `notes/strategy_request_to_strategy_research_focus_expansion_2026-05-31.md`.
+
+Testbed begins Week 0 immediately upon reading this handoff. No further user confirmation required; surface to orchestrator if any of the 6 risks materializes in a way that requires re-architecting.

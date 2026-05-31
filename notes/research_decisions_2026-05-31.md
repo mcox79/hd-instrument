@@ -48,3 +48,10 @@
 - BLOCKS work-start on 3 user-side decisions: (a) GPU resource 8GB/24GB/cloud; (b) commitment depth Week 1 smoke vs full 4-6w; (c) queue sequencing vs the 3 cheaper drills
 - Surfaces 3 top risks (query-decomposition bottleneck, bridge-alignment training, 8GB VRAM ceiling)
 - Per session-architecture session-ownership: I (research) wrote the handoff routing file; testbed implements; orchestrator coordinates cap_map decisions + cloud-cost approvals if applicable. I do NOT cross into experiments/ or testbed/ directories.
+
+**Decisions resolved (user 2026-05-31 "agreed - lets get these tests going"; testbed UNBLOCKED):**
+- (a) GPU: LOCAL remote desktop. Default assumption marsh@home 8GB; testbed verifies actual VRAM at Week 0 start; upgrade to fp16 + faster wall if >8GB. NO cloud spend authorized.
+- (b) Commitment depth: Week 1 feasibility smoke FIRST as GO/NO-GO gate.
+- (c) Queue sequencing: WEEK 0 = Missing 7 LLM-integration latency budget (gates architectural assumption that substrate Path D + bridge fit in LLM token window); WEEK 1 = substrate-LLM feasibility smoke; WEEKS 2-6 = full build if Week 1 PASS. Missing 2 + Missing 3 in parallel as CPU-bound work.
+
+Testbed handoff updated inline with Week 0 Missing 7 spec (4 measurements + PASS/MIDDLE/FAIL criteria) + full 7-week sequence table. Testbed begins Week 0 upon reading.
