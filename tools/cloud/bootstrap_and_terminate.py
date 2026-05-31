@@ -204,26 +204,67 @@ def main() -> int:
     except (AttributeError, ValueError):
         pass
 
-    # --- Launch ---
+    # --- Launch (pre-snapshot + 5xx retry + orphan reconcile) ---
+    # Lambda's API can return 502/503/504 mid-launch while still spinning
+    # up the instance, leaving an orphan we never learn the id of. Pattern:
+    # snapshot active ids before; retry transient 5xx; reconcile any new
+    # active ids since snapshot as "ours" regardless of API reply.
     print(f"\n[1/4] Launching {target.name} in {region}...")
     launch_ts = datetime.now(timezone.utc)
-    try:
-        new_ids = client.launch_instance(
-            region_name=region,
-            instance_type_name=target.name,
-            ssh_key_names=[args.ssh_key_name],
-            quantity=1,
-            name="bootstrap-canary",
-        )
-    except LambdaClientError as exc:
-        print(f"[ERROR] launch: {exc}")
+
+    def _snapshot_active_ids() -> set[str]:
+        try:
+            return {
+                i.instance_id for i in client.list_instances()
+                if i.status in ("active", "booting", "terminating", "unhealthy")
+            }
+        except Exception:
+            return set()
+
+    pre_launch_ids = _snapshot_active_ids()
+    print(f"  pre-launch active instances on account: {len(pre_launch_ids)}")
+
+    new_ids: list[str] = []
+    last_exc: Exception | None = None
+    backoff = 2.0
+    for attempt in range(3):
+        try:
+            new_ids = client.launch_instance(
+                region_name=region,
+                instance_type_name=target.name,
+                ssh_key_names=[args.ssh_key_name],
+                quantity=1,
+                name="bootstrap-canary",
+            )
+            if new_ids:
+                break
+        except LambdaClientError as exc:
+            last_exc = exc
+            msg = str(exc)
+            transient = any(c in msg for c in (" 502 ", " 503 ", " 504 "))
+            print(f"  launch attempt {attempt+1} failed: {exc}")
+            if not transient:
+                break
+            if attempt < 2:
+                print(f"  transient 5xx; retrying in {backoff:.0f}s...")
+                time.sleep(backoff)
+                backoff *= 2
+
+    time.sleep(5)
+    post_launch_ids = _snapshot_active_ids()
+    orphan_ids = sorted(post_launch_ids - pre_launch_ids - set(new_ids))
+    all_ours = list(set(new_ids) | set(orphan_ids))
+    if orphan_ids:
+        print(f"  reconciliation detected {len(orphan_ids)} orphan(s): {orphan_ids}; "
+              f"registering for cleanup")
+
+    if not all_ours:
+        print(f"[ERROR] launch produced no instance (last_error={last_exc!r})")
         return 1
-    if not new_ids:
-        print("[ERROR] no instance ids returned")
-        return 1
-    instance_id = new_ids[0]
-    _TERMINATE_STATE["instance_ids"] = [instance_id]
-    print(f"  launched: {instance_id}")
+
+    _TERMINATE_STATE["instance_ids"] = all_ours
+    instance_id = new_ids[0] if new_ids else orphan_ids[0]
+    print(f"  launched: {instance_id}  (tracked total: {len(all_ours)})")
 
     # --- Wait active ---
     print(f"[2/4] Waiting for active...")

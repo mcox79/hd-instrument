@@ -315,26 +315,79 @@ def main() -> int:
     except (AttributeError, ValueError):
         pass
 
-    # --- Launch ---
+    # --- Launch (with pre-launch snapshot + 5xx retry + orphan detection) ---
+    # A 502/503/504 from Lambda's API does NOT mean the launch failed --
+    # the instance may have spun up but the reply got lost. Without a
+    # pre-launch snapshot we'd orphan the instance because we never learn
+    # its id. Pattern:
+    #   1. snapshot active ids
+    #   2. retry launch on 5xx
+    #   3. reconcile: any new active id since snapshot is "ours" and gets
+    #      registered for termination, even if the API never told us
     print(f"\n[1/5] Launching {target.name} in {region}...")
     launch_ts = datetime.now(timezone.utc)
-    try:
-        new_ids = client.launch_instance(
-            region_name=region,
-            instance_type_name=target.name,
-            ssh_key_names=[args.ssh_key_name],
-            quantity=1,
-            name="v1-reproducer-canary",
-        )
-    except LambdaClientError as exc:
-        print(f"[ERROR] launch: {exc}")
+
+    def _snapshot_active_ids() -> set[str]:
+        try:
+            return {
+                i.instance_id for i in client.list_instances()
+                if i.status in ("active", "booting", "terminating", "unhealthy")
+            }
+        except Exception:
+            return set()
+
+    pre_launch_ids = _snapshot_active_ids()
+    print(f"  pre-launch active instances on account: {len(pre_launch_ids)}")
+
+    new_ids: list[str] = []
+    last_exc: Exception | None = None
+    backoff = 2.0
+    for attempt in range(3):
+        try:
+            new_ids = client.launch_instance(
+                region_name=region,
+                instance_type_name=target.name,
+                ssh_key_names=[args.ssh_key_name],
+                quantity=1,
+                name="v1-reproducer-canary",
+            )
+            if new_ids:
+                break
+        except LambdaClientError as exc:
+            last_exc = exc
+            msg = str(exc)
+            transient = any(c in msg for c in (" 502 ", " 503 ", " 504 "))
+            print(f"  launch attempt {attempt+1} failed: {exc}")
+            if not transient:
+                # Non-transient (auth, validation, etc.): don't retry but
+                # still reconcile in case Lambda created something.
+                break
+            if attempt < 2:
+                print(f"  transient 5xx; retrying in {backoff:.0f}s...")
+                time.sleep(backoff)
+                backoff *= 2
+
+    # Reconcile: did Lambda actually create instance(s) regardless of what
+    # the API replied? Wait a moment for state to propagate, then diff.
+    time.sleep(5)
+    post_launch_ids = _snapshot_active_ids()
+    orphan_ids = sorted(post_launch_ids - pre_launch_ids - set(new_ids))
+    all_ours = list(set(new_ids) | set(orphan_ids))
+    if orphan_ids:
+        print(f"  reconciliation detected {len(orphan_ids)} orphan(s) from failed/incomplete "
+              f"launches: {orphan_ids}; registering for cleanup")
+
+    if not all_ours:
+        # Nothing recorded AND nothing orphaned -> hard fail.
+        print(f"[ERROR] launch produced no instance "
+              f"(last_error={last_exc!r})")
         return 1
-    if not new_ids:
-        print("[ERROR] no instance_ids")
-        return 1
-    instance_id = new_ids[0]
-    _TERMINATE_STATE["instance_ids"] = [instance_id]
-    print(f"  launched: {instance_id}")
+
+    _TERMINATE_STATE["instance_ids"] = all_ours
+    # Pick the canonical "our" instance (prefer API-reported new_id; fall
+    # back to orphan if launch never reported).
+    instance_id = new_ids[0] if new_ids else orphan_ids[0]
+    print(f"  launched: {instance_id}  (tracked total: {len(all_ours)})")
 
     # --- Wait active ---
     print(f"[2/5] Waiting for active...")
