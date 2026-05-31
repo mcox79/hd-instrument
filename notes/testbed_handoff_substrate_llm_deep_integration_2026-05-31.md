@@ -351,10 +351,118 @@ These were considered but defer:
 
 Testbed scopes these as Phase 2 targets if Phase 1 PASSES.
 
-### 5 open questions empirically resolvable during Phase 1
+### Open questions empirically resolvable during Phase 1 (updated post-aggressive-eval)
 
 1. Does Q-Former cross-attention handle bipolar {-1,+1} keys without softmax-attention-weight collapse? **Smoke-testable Week 1.**
 2. Does Stage 2 next-token loss overwrite Stage 1 discriminability? **Empirical Week 2 with halt criterion above.**
-3. How much per-hop intermediate benefit is scale-gated at 3.8B vs 7B+? **Empirical Week 3.**
+3. How much per-hop intermediate benefit is scale-gated at 3.8B vs 7B+? **Empirical Week 3 via Ablation B below.**
 4. Can the bridge be trained with synthetic substrate outputs vs requiring paired (codeword, LLM-correct-answer) data? **Empirical Week 2. HIGHEST engineering risk.**
-5. At what posterior-entropy threshold does adaptive depth help? **Defer to Phase 2.**
+5. Does real-time learning during eval preserve Path D's confidence calibration? **Empirical Week 4 via mixed-confidence ablation.**
+6. At what LLM-uncertainty threshold does adaptive depth provide net benefit? **Empirical Week 3 via Ablation A below; calibrate threshold on held-out subset first.**
+
+## AGGRESSIVE-EVAL ADDITIONS (locked-in 2026-05-31; supersedes "deferred to Phase 2" framing where overlapping)
+
+User pushed back on Phase 2 deferrals ("why are we deferring some of the most exciting things?"). Aggressive audit of all deferrals + cap_map-validated capabilities surfaced 3 over-conservative deferrals + 3 implicit ablations + 1 missing benchmark + hardware fallback spec. Full reasoning in `notes/research_substrate_llm_aggressive_eval_v1_2026-05-31.md`. Testbed implements the additions; they extend Phase 1 budget by ~1.5-2 weeks (total ~7-8 weeks vs original ~6-7).
+
+### 3 PROMOTIONS from Phase 2 to Phase 1 (add to build spec)
+
+**Promotion 1: Adaptive Path D depth based on LLM uncertainty (~1-2 days)**
+- LLM uncertainty signal: next-token-distribution entropy from Phi-3-mini logits
+- Routing rule: `depth = 5 if entropy > threshold else 1`; threshold calibrated on held-out subset Week 3
+- Fixed-max-length prefix (40 tokens budget for depth=5) + zero-mask unused hops at lower depths → avoids variable-length prefix engineering
+- Substrate-unique inference optimization; impossible in dense RAG
+
+**Promotion 2: Real-time learning during inference (~1 day)**
+- After each LLM+substrate correct answer, substrate writes the (question_codeword, answer_codeword) atom to W
+- Substrate's edit-isolation (T2 PASS 45/45 cells) prevents corruption during eval
+- Demonstrates v191 ✅ Validated Tier-2 killer capability (`wave14_realtime_inference_learning_v1_rerun` HARD_PASS at 11x threshold) -- the strongest empirically-validated substrate-distinctive feature; should not be omitted
+- LLM-only-control variant does NOT write back to anywhere; LLM-only has no write mechanism
+
+**Promotion 3: Mixed-confidence Path D retrieval (~2 days)**
+- Path D's Bayesian posterior produces a confidence scalar per hop (entropy of posterior over K_paths=500)
+- Bridge surfaces this scalar as extra prefix-token dimension (~1 dim per hop)
+- LLM trained to emit confidence-threshold token in output; eval harness parses + applies abstention threshold
+- Path D mixed-confidence validated v290 T1 (conservative-calibration; safe direction = under-predicts)
+
+### 3 ABLATIONS (add to Week 5 eval suite; ~5-8 days total wall)
+
+**Ablation A: static-depth-5 vs adaptive-depth (~3-5 days)**
+- Variant (a1): LLM+substrate with fixed depth=5 always (revised baseline)
+- Variant (a2): LLM+substrate with adaptive depth per Promotion 1
+- Measures whether adaptive-depth provides real gain or whether depth=5 alone is sufficient
+- Pre-reg threshold: adaptive beats static-depth-5 by >=2pp on at least 1 multi-hop benchmark for ablation to count as supportive
+
+**Ablation B: per-hop prefix groups vs single converged codeword (~2-3 days)**
+- Variant (b1): all 5 hops as separate prefix-token groups (revised baseline; 40 prefix tokens)
+- Variant (b2): only final converged codeword (8 prefix tokens)
+- Tests the CoT-mechanistic prediction that per-hop intermediate states transfer at 2.8B+ scale
+- Pre-reg threshold: per-hop beats single-converged by >=3pp on at least 1 multi-hop benchmark
+
+**Ablation C: frozen-base Stage 2 vs Phase-2-QLoRA Stage 2 (~0 incremental wall)**
+- Variant (c1): frozen Phi-3-mini-4bit, Stage 1 + Stage 2 bridge training only
+- Variant (c2): Phase-2-QLoRA-on-Phi-3-mini-4bit, full bridge + LLM-LoRA training
+- Reuses the Phase 2 QLoRA confounder control variant from the eval-rigor protocol
+- Pre-reg threshold: QLoRA beats frozen Stage 2 by >=5pp on at least 1 benchmark to justify the extra training week
+
+### Hardware fallback 5-tier ladder (explicit decision criteria)
+
+OOM-trigger: training-loop forward pass at batch_size=1 + grad-accum=4 + Stage 2 max seq_len=1024.
+
+| Tier | Bridge | Base LLM | Path D | Expected P_def (8GB) |
+|---|---|---|---|---|
+| Tier 1 (revised baseline) | Q-Former 8 query tokens | Phi-3-mini-4bit | depth=5 per-hop | 0.51-0.65 |
+| Tier 2 (Q-Former OOM) | 2-layer MLP | Phi-3-mini-4bit | depth=5 per-hop | 0.40-0.55 |
+| Tier 3 (Phi-3-mini OOM at Tier 2) | Q-Former 8 query tokens | TinyLlama-1.1B fp16 | depth=5 per-hop | 0.30-0.45 |
+| Tier 4 (everything OOM at Tier 3) | 2-layer MLP | TinyLlama-1.1B fp16 | depth=3 single-prefix | 0.20-0.35 |
+| Tier 5 (Tier 4 OOM) | escalate to user | escalate | escalate | N/A; no silent cloud downgrade |
+
+### Eval-rigor additions
+
+**Test-set contamination acknowledgment (~1 day)**
+- Phi-3-mini-4bit was pretrained on web data that likely overlaps with MuSiQue / HotpotQA / 2WikiMultihop / TriviaQA training portions
+- Report verbatim question-string contamination check (look for question strings in Phi-3-mini's reported training corpus or via a contamination-detection tool)
+- **Strongest defensible claims come from substrate-favored bespoke benchmarks** (constructed synthetically from substrate populations; CANNOT be in any LLM pretraining set)
+
+**4th bespoke benchmark: "real-time-learn-then-query" (~1-2 days)**
+- 500 questions; substrate is initially empty (or populated with K=500 unrelated facts)
+- Per question: (i) LLM-only answers using pretraining knowledge; (ii) LLM+substrate runs LLM-only first, writes (question, answer-fragment) pair to substrate via Promotion 2, then re-answers SAME question
+- LLM+substrate should show LARGER accuracy on second pass than LLM-only does on second pass (because LLM-only didn't update)
+- Demonstrates the "every query makes substrate smarter" property
+- Substrate-unique; LLM-only and LLM+text-RAG cannot match this
+
+### Updated Phase 1 budget table
+
+| Phase 1 item | Original wall | Revised wall |
+|---|---|---|
+| Week 0 Missing 7 latency | 1 week | 1 week |
+| Week 1 feasibility smoke | 1 week | 1 week |
+| Week 2 Stage 1 bridge training | 1 week | 1 week |
+| Week 3 multi-hop iteration + Promotion 1 + adaptive-depth threshold calibration | 1 week | 1 week |
+| Week 4 Phase 2 QLoRA + Promotion 2 + Promotion 3 + halt-criterion monitoring | 1 week | 1 week |
+| Week 5 4-condition eval + 3 ablations + 4 bespoke benchmarks + contamination check | 1 week | **2 weeks** |
+| Week 6+ buffer + polish + cap_map LIFT routing | 1 week | 1 week |
+| **Total** | **6 weeks** | **7-8 weeks** |
+
+### Updated joint P_def estimates
+
+| Hardware path | Pre-optimization | Post-optimization | Post-aggressive-eval |
+|---|---|---|---|
+| 8GB marsh@home | 0.25-0.30 | 0.43-0.55 | **0.51-0.65** |
+| 24GB GPU (cloud or local) | 0.40-0.45 | 0.55-0.65 | **0.63-0.75** |
+
+Build is now ~coin-flip-or-better on 8GB hardware; materially different from "probably-not."
+
+### What stays deferred (post-aggressive-eval; reasons audited)
+
+| Item | Stays deferred? | Reason after aggressive audit |
+|---|---|---|
+| Speculative substrate prefetch | YES | Substrate at 1-3ms vs LLM token 10-50ms; LLM is latency-dominant; prefetch saves <5% wall; literature gain assumes inverted regime |
+| Trainable VSA-style memory layer | YES | From-scratch pretraining; multi-month scope; genuinely Phase 3+ |
+| Path E spectral coherence retrieval | YES (optional) | Niche use cases don't have a Phase 1 evaluation need; +1 week if added; modest payoff |
+| N=8192 / N=16384 substrate operating point | YES | Bridge has not been validated at higher input dim; Phase 1 stays N=4096 |
+| Compositional query construction via bind/unbind | YES | Substantial design work; LLM must emit structured queries |
+| Concept drift detection mechanism | YES (parallel research) | Needs own ~2-3 week research drill before any engineering; dispatch in parallel |
+| Cross-modal binding | YES | Phase 1 is text-only |
+| Edit-with-impact-prediction | YES | Underlying SVD-cascade falsifier HARD_FAILED; killer feature parked |
+
+Testbed should NOT add any of these to Phase 1 without orchestrator + research re-evaluation.
