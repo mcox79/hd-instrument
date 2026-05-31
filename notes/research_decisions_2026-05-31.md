@@ -41,3 +41,10 @@
 **Method note.** 3 Sonnet lit-scan subagents in parallel = ~30 min wall, ~110K tokens combined. Same pattern as morning's alt-edit-isolation drill; token-efficient pattern reconfirmed. The "intrinsic language" framing IS unpublished (NVSA opposite direction; substrate is the inverse case) -- this drill formalized the design space that was implicit in the user's question.
 
 **Next-drill candidate.** Once user decides GPU resource + sequencing: Week 1 feasibility smoke (Phi-3-mini-4bit baseline on lm-eval-harness + bridge scaffold + smoke forward-pass) is the cheap-decisive-test that gates the full 4-6w commit. Alternatively: ship the 3 cheaper drills first (Missing 7 LLM-integration latency budget; Missing 2 storage efficiency; Missing 3 audit-trail rotation) per [[feedback-rescue-sketch-first-sequencing]] cheapest-first principle -- they inform the larger build.
+
+**Routing update (later same turn, after user said "good experiment to run; route it to testbed and/or orchestrator to implement"):** Testbed handoff filed at `notes/testbed_handoff_substrate_llm_deep_integration_2026-05-31.md`. The handoff:
+- Hands the engineering build to testbed (Phi-3-mini loader + bridge MLP + substrate-codeword glue + Path D autonomous multihop + synthetic training data + lm-eval-harness + LLM+text-RAG baseline + 3 substrate-favored bespoke benchmarks)
+- Pre-decides design choices testbed implements without re-arbitrating (base LM, adapter pattern, Rescue C multi-hop strategy, training procedure, discrete-gradient handling)
+- BLOCKS work-start on 3 user-side decisions: (a) GPU resource 8GB/24GB/cloud; (b) commitment depth Week 1 smoke vs full 4-6w; (c) queue sequencing vs the 3 cheaper drills
+- Surfaces 3 top risks (query-decomposition bottleneck, bridge-alignment training, 8GB VRAM ceiling)
+- Per session-architecture session-ownership: I (research) wrote the handoff routing file; testbed implements; orchestrator coordinates cap_map decisions + cloud-cost approvals if applicable. I do NOT cross into experiments/ or testbed/ directories.
