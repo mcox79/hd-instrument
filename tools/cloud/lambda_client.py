@@ -141,6 +141,10 @@ class LambdaClient:
         headers = {
             "Authorization": self._auth_header(),
             "Accept": "application/json",
+            # Cloudflare in front of cloud.lambda.ai blocks Python's default
+            # urllib User-Agent ('Python-urllib/3.x') with a 403. A standard
+            # curl/browser UA passes the WAF cleanly.
+            "User-Agent": "curl/8.4.0",
         }
         data: Optional[bytes] = None
         if body is not None:
