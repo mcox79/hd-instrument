@@ -38,8 +38,22 @@ capacity does NOT activate (no exponential bend), but envelope is super-linear
 at large N. Per-cell: KF-1 near_uniform_frac=1.0 across all 4 cells, KF-2
 max_iso=0.0 across all cells (killer features hold at N=16384). TCFT degrades
 0.20 -> 0.66 with M; HARD_PASS only at M=N/4. See updated CAPABILITY_MAP.md
-section "Recall envelope is SUPER-LINEAR at large N". Next: build Q3
-(composition latency) per pre-authorization.
+section "Recall envelope is SUPER-LINEAR at large N".
+
+**2026-05-30 UPDATE 5 — Q3 LAUNCHED + v3 QUEUE FILED:**
+Q3 (composition_latency) shipped to remote and launched as background task
+bhgup5p8r. Expected wall ~3-4 hours (5 mix ratios x 100K ops x backend
+substrate/faiss/dict). Per-ratio progress + partial JSON enabled per
+[[feedback-testbed-progress-logging-and-restart]].
+
+User filed v3 queue (testbed/TESTBED_TRACK_QUEUE_v3_POST_N16384_2026-05-30.md)
+post-N=16384: TB1 cost model (READY, 4-6h doc work, NEXT), TB2 Pattern B with
+large-N framing (BLOCKED on Path D), TB3 adversarial defense (BLOCKED on GPU 5),
+TB4 multi-tenant at larger scale (READY, supersedes Q10).
+
+**Recommended cadence:** TB1 cost model NOW (no compute contention with Q3) ->
+Q4 cold/warm in parallel if time -> TB4 after hardware-feasibility check for
+K=20 N=16384 -> wait on verdicts for TB2/TB3/Tier 3.
 
 ## Immediate state (what's running, what's next)
 
