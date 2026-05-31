@@ -281,6 +281,80 @@ Before Week 5 evaluation kicks off, testbed writes a brief pre-registration to `
 
 This locks the claims testbed will make BEFORE seeing the data.
 
-## OPEN: optimization drill in flight
+## REVISED BASELINE (post-optimization drill 2026-05-31; supersedes original Pattern 3 baseline)
 
-Research session dispatched a ~45-min Sonnet drill (2026-05-31) on substrate-LLM interface optimization (bridge depth/capacity, codebook representation, prefix-token granularity, Path D output format, joint training signal, inference-time tricks). When that drill returns, this handoff will be amended with any high-impact deviations from the baseline spec. Testbed should pause Week 1 design choices that could be affected (specifically: bridge architecture + codebook representation + prefix-token granularity) until the drill lands. Week 0 Missing 7 latency measurements are NOT affected and should proceed.
+Research session optimization drill (`notes/research_substrate_llm_interface_optimization_v1_2026-05-31.md`) identified 3 high-impact deviations from the original baseline that lift joint P_def by +0.18-0.29. Cost: ~1 extra week training wall on 8GB. Net build window still 4-6 weeks. **TESTBED USES THE REVISED BASELINE for Week 1+ design.** Week 0 Missing 7 latency-budget measurements proceed unchanged (architecture-agnostic profiling).
+
+### Revised Deviation 1: Q-Former cross-attention bridge (replaces 2-layer MLP)
+
+- **Architecture**: Q-Former-style cross-attention bridge with **8-16 learnable query tokens PER substrate codeword** (start with 8; ablate to 16 if Phase 1 underperforms)
+- **Parameter count**: ~30-50M params (vs 14.7M MLP baseline)
+- **Why**: BLIP-2 ablation shows cross-attention preserves structure that MLP destroys; specifically the per-hop posterior structure (~9 bits sparsely concentrated in 4096-dim codeword, NOT uniformly distributed). MLP is a flat compressor; Q-Former's bottleneck is selective.
+- **Training time**: Phase 1 bridge-only ~8-20h on A100, ~32-80h on 8GB consumer
+- **Implementation note**: Use HuggingFace transformers `Blip2QFormerModel` or equivalent as scaffolding; cross-attention keys+values are the substrate codewords (passed through a linear embedding layer to handle bipolar -> continuous), queries are learnable token vectors
+
+### Revised Deviation 2: BLIP-2 two-stage training (replaces single-stage end-to-end)
+
+**Stage 1 (bridge-only pre-training, ~1-2 weeks wall on 8GB):**
+- Bridge trained against frozen substrate with **three objectives** (BLIP-2 ITC/ITM/ITG analogs):
+  - **Codeword-text contrastive loss (ITC)**: minimize distance between bridge-projected codeword and correct answer embedding; maximize distance to negatives
+  - **Codeword-answer matching (ITM)**: binary classifier head over bridge output: "does this codeword retrieve the correct candidate?"
+  - **Codeword-conditioned generation (ITG, optional)**: small decoder head that generates the correct answer text from bridge output -- enables generative loss signal even before LLM joining
+- Bridge weights at Stage 1 end initialize Stage 2
+
+**Stage 2 (joint bridge + LLM, ~1 week wall on 8GB):**
+- LLM frozen; bridge fine-tuned with **next-token loss only** against the LLM
+- **Monitor codeword-retrieval-accuracy on held-out validation set during Stage 2**; halt Stage 2 if drops more than 5% below Stage 1 endpoint (catches the discriminability-overwrite failure mode)
+
+**Implementation note**: Stage 1 dataset is `(codeword, correct_answer, incorrect_candidates)` triples; can be constructed entirely from substrate population (no LLM queries required). Stage 2 dataset is `(prompt, substrate_codeword, gold_completion)` from real benchmark data (MuSiQue/HotpotQA/synthetic substrate-augmented Q&A).
+
+### Revised Deviation 3: Per-hop codeword sequence as separate prefix-token groups
+
+- **Output format**: Substrate Path D depth=5 emits **ALL 5 hop posteriors** (not just final converged). Bridge produces 5 prefix-token groups (8 tokens each = 40 prefix tokens total at depth=5).
+- **Why**: CoT mechanistic literature (Nag et al. 2025) shows intermediate reasoning states encode transferable features above ~2.8B scale; 3.8B Phi-3-mini is just above this threshold
+- **Context overhead**: 40 prefix tokens / 2048 prompt window = ~2% (acceptable)
+- **Fallback**: if Stage 1 reconstruction loss is similar between per-hop and single-prefix variants, fall back to single-prefix (Rescue C original) to save context budget for user-question
+
+### Revised Codebook representation: HYBRID bipolar storage + continuous bridge projection
+
+- Substrate stores + computes in bipolar throughout (unchanged)
+- Bridge receives raw bipolar {-1,+1}^4096 codeword AND projects through continuous embedding layer immediately at bridge input
+- **NEVER binarize inside the bridge during training** (avoids the spec'd-tanh train-test distribution gap)
+- This is the natural pattern with Q-Former cross-attention (queries continuous; keys can be bipolar without internal binarization)
+
+### Updated trainable parameter count
+
+- Q-Former bridge: ~30-50M params
+- Query read-out head (LLM -> bipolar codeword for initial query emission): ~12.6M params
+- Optional ITG decoder head for Stage 1: ~5-10M params (small)
+- Phase 2 QLoRA on Phi-3-mini-4bit (if Week 1 GO): ~30M params
+- **Total trainable**: ~80-100M params (vs ~57M original spec). Still <3% of base LLM.
+
+### Decision matrix for testbed (Week 0 / Week 1 design freezes)
+
+| Choice | Original spec | REVISED spec (use this) |
+|---|---|---|
+| Bridge architecture | 2-layer MLP | Q-Former cross-attention 8-16 query tokens |
+| Training stages | 1-stage end-to-end | 2-stage: Stage 1 bridge-alone (contrastive+ITM+ITG); Stage 2 joint with next-token |
+| Codebook handling | Continuous-relaxed (tanh) during training, sign() at deploy | Hybrid: bipolar throughout; continuous projection at bridge input only |
+| Substrate output | Final converged codeword only (Rescue C) | All 5 hop posteriors as 5 prefix-token groups |
+| Total trainable params | ~57M | ~80-100M |
+| Phase 1 wall on 8GB | 16-32h | 40-80h (about +1 week) |
+| Joint P_def | 0.25-0.30 | **0.43-0.55** |
+
+### Deferred to Phase 2+ (NOT in 4-6w window)
+
+These were considered but defer:
+- Adaptive Path D depth based on LLM uncertainty (highest-leverage substrate-unique inference trick; needs dynamic Path D depth + uncertainty signal extraction)
+- Speculative substrate prefetch (TeleRAG-style 1.53x latency reduction; needs substrate async API + LLM forward-pass hooks)
+- Trainable VSA-style memory layer drop-in (DNC pattern; from-scratch pretraining; multi-month scope)
+
+Testbed scopes these as Phase 2 targets if Phase 1 PASSES.
+
+### 5 open questions empirically resolvable during Phase 1
+
+1. Does Q-Former cross-attention handle bipolar {-1,+1} keys without softmax-attention-weight collapse? **Smoke-testable Week 1.**
+2. Does Stage 2 next-token loss overwrite Stage 1 discriminability? **Empirical Week 2 with halt criterion above.**
+3. How much per-hop intermediate benefit is scale-gated at 3.8B vs 7B+? **Empirical Week 3.**
+4. Can the bridge be trained with synthetic substrate outputs vs requiring paired (codeword, LLM-correct-answer) data? **Empirical Week 2. HIGHEST engineering risk.**
+5. At what posterior-entropy threshold does adaptive depth help? **Defer to Phase 2.**

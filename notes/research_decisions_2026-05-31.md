@@ -55,3 +55,25 @@
 - (c) Queue sequencing: WEEK 0 = Missing 7 LLM-integration latency budget (gates architectural assumption that substrate Path D + bridge fit in LLM token window); WEEK 1 = substrate-LLM feasibility smoke; WEEKS 2-6 = full build if Week 1 PASS. Missing 2 + Missing 3 in parallel as CPU-bound work.
 
 Testbed handoff updated inline with Week 0 Missing 7 spec (4 measurements + PASS/MIDDLE/FAIL criteria) + full 7-week sequence table. Testbed begins Week 0 upon reading.
+
+
+## substrate_llm_interface_optimization_v1 -- 2026-05-31 (research:opus + 1 Sonnet drill)
+
+**Drill.** User asked "should we do a research turn on how we can optimize this substrate interface with the LLM?" + raised eval-rigor concerns. Research session: (a) locked 9-section eval-rigor protocol into testbed handoff inline (Phase 2 QLoRA confounder control variant = highest-rigor item; 4-way comparison: LLM-only / LLM-only-control / LLM+text-RAG / LLM+substrate; pre-registration before Week 5); (b) dispatched 1 Sonnet ~45-min optimization drill on 6 axes (bridge depth, codebook representation, prefix-token granularity, Path D output, training schedule, inference-time tricks).
+
+**Outcome.** Optimization drill identified 3 high-impact deviations from the original baseline that lift joint P_def by ~+0.18-0.29:
+- D1 (P_def lift +0.08-0.12): Q-Former cross-attention bridge (8-16 query tokens per codeword, ~30-50M params) REPLACES 2-layer MLP. Cross-attention preserves per-hop posterior sparse-bit-structure that flat MLP destroys.
+- D2 (+0.06-0.10): BLIP-2 two-stage training. Stage 1 bridge-alone with contrastive+ITM+ITG auxiliary losses; Stage 2 joint LLM-bridge with next-token loss. Stage 2 halts if discriminability drops below Stage 1 endpoint.
+- D3 (+0.04-0.07): Per-hop codeword sequence as separate prefix-token groups (5 hops x 8 tokens = 40 prefix tokens at depth=5) REPLACES single converged codeword. CoT mechanistic evidence at 2.8B+ supports.
+
+Also: hybrid bipolar-storage + continuous-bridge-projection (Codebook Option 3) supersedes the spec's continuous-relaxed-during-training (Option 2). Natural fit with Q-Former. Adaptive Path D depth + speculative substrate prefetch DEFER to Phase 2 (highest-leverage substrate-unique inference tricks; require substrate async API + LLM forward-pass hooks).
+
+Updated joint P_def: 8GB GPU **0.43-0.55** (was 0.25-0.30); 24GB GPU **0.55-0.65** (was 0.40-0.45). Optimization closes most of the 8GB-vs-24GB gap; rate-limiter shifts from architecture-choice to wall-time-on-consumer-GPU.
+
+**Note path.** `notes/research_substrate_llm_interface_optimization_v1_2026-05-31.md` (6 external citations: BLIP-2 + Memory Layers at Scale + MM1 + STE-ICML22 + CoT-mechanistic-Nag2025 + TeleRAG; 4 internal cross-refs; 5 open synthesis questions empirically resolvable in Phase 1).
+
+**Testbed handoff updated.** Revised baseline section locked in (Q-Former + 2-stage training + per-hop prefix-token groups + hybrid codebook handling). Decision matrix table contrasting original vs revised spec; trainable param count +40-75% (57M -> 80-100M); Phase 1 wall +1 week (~16-32h -> ~40-80h on 8GB). Eval-rigor 9-section protocol (Phase 2 QLoRA confounder control variant, 4-way comparison, pre-registration, 3 bespoke benchmarks, etc.) also locked.
+
+**Method note.** Single Sonnet subagent ~45 min wall, ~36K tokens. Token-efficient pattern reconfirmed: targeted optimization drill is cheaper than full re-architecting research drill; the 6-axis structure surfaces high-impact deviations without re-litigating the integration premise.
+
+**Next-drill candidate.** Once testbed Week 0 Missing 7 latency measurement lands: if substrate Path D + Q-Former bridge fit within 50ms p99 (PASS gate), proceed to Week 1 feasibility smoke with revised baseline. Hold any further research drills until Week 1 / Week 2 empirical answers to the 5 open questions land.
