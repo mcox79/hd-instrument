@@ -157,3 +157,66 @@ Sub-flavor #157 NEW: LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT -- remote_state.
 Commit message: "Cap map: v292 -> v293 BATCHED 6-VERDICT CPU-recovery (2x CUDA-KILLED V3+V5 LOCAL-SMOKE-ARTIFACT label-vs-honest #157/#158 NEW sub-flavor; 3x DUPLICATE V1+V2+V4 acknowledged; V6 edit-audit-trail C5 HARD_PASS 30/30 5-seed schema ANNOTATION; HONEST 265->269; LABEL-VS-HONEST 156->158) (2026-05-31)"
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main.
+
+## v293 -> v294 @ BATCHED 2-VERDICT CPU POST-FIX LANDINGS (substrate_operation_cost_modeling + path_d_cpu_latency) (verdict_handler 205th PROT-009 paired commit)
+
+**Context.** Both verdicts are post-CUDA-fix CPU completions landing 2026-05-31 after commit 3ebb009 forced CPU device. First substantive CPU-pure completions in the post-recovery run. source=remote authoritative for both (bridge not stale is_stale=False).
+
+### Step 0 honest re-read summary -- BOTH LABELS HONEST
+
+#### V1 -- substrate_operation_cost_modeling_v1_n4096 -- C6_HARD_FAIL HONEST
+source=remote. elapsed_s=302.59. 5 seeds x 4 M-values {128,512,2048,8192} x 5 ops. verdict_msg: COST_MODEL_DOES_NOT_FIT n_hf=3/5. store: r2=1.000 | retrieve: r2=0.270 | edit: r2=0.642 | delete: r2=0.365 | multi_hop: r2=0.455. Honest check: store PASSES power-law fit (r2=1.000); retrieve/delete/multi_hop clearly fail (r2<0.50); edit marginal fail (r2=0.642). n_hf=3/5 in verdict_msg is threshold-count; actual 4/5 ops fail at r2<0.70 -- label if anything conservative. HARD_FAIL label correct. LABEL HONEST. No override. Interpretation: CPU operation cost at N=4096 is NOT power-law in M for most ops; store is M-linear (expected); retrieve/delete/multi_hop are M-INVARIANT (N-bounded cost floor, not M-bounded). Multi_hop ~0.75s/op CPU regardless of M. Strategic: CPU deployment ceiling set by N not M; feeds PP-5 latency budget + PP-2 storage modeling.
+
+#### V2 -- path_d_cpu_latency_profiling_v1_n4096 -- C7_HARD_PASS HONEST
+source=remote. elapsed_s=163.09. 5 seeds x 4 M-values {50,100,200,500} x depth=5 x K_paths=100. verdict_msg: CLEAN_CPU_BASELINE n_hp=4/4. All 20 cells (4M x 5seeds) pass; dom_op=matmul 100% (20/20); mean_total_s FLAT across M=50 to M=500 (0.791/0.808/0.791/0.792s -- 2.2% variation across 10x M-range). n_hp=4/4 correctly represents all 4 M-cells passing. LABEL HONEST. Bonus observation (not over-claim): M-flatness confirms Path D CPU wall time is M-invariant at N=4096 depth=5 K=100 -- cost dominated by matmul at dimensionality N, not path count M. Strategic: Path D CPU-deployable at ~0.79s per 5-hop traversal K=100; matmul dominant; M-invariant cost; feeds PP-5 latency budget directly.
+
+### Cap_map changes (v293 -> v294)
+
+ANNOTATION-ONLY. No new rows. No emoji state transitions. PP-5 and PP-2 rows annotated with first CPU-pure characterization data at N=4096.
+
+NEW ANNOTATION TEXT (added to PP-5 and PP-2 rows in cap_map.md Section 5 Production positioning):
+"C6+C7 substrate_operation_cost_modeling_v1_n4096 + path_d_cpu_latency_profiling_v1_n4096 (2026-05-31) CPU characterization at N=4096: Path D matmul-dominant M-invariant ~0.79s/5-hop K=100 paths (C7 20/20 cells 5-seed); store M-linear r2=1.000 peak_mem 70-160MB M=128-2048; retrieve/delete/multi_hop M-invariant N-bounded cost floor; multi_hop ~0.75s/op CPU ceiling; power-law cost model FAILS for retrieve/delete/multi_hop (r2<0.50) -- N-step-function not power-law at N=4096. PP-5 CPU ceiling characterized; GPU token-throughput profiling still needed to close PP-5."
+
+PP-5 P_deflated UNCHANGED 0.55-0.70. PP-2 P_deflated UNCHANGED 0.65-0.75.
+
+### Framework reliability bands (v293 -> v294)
+
+All bands UNCHANGED. Production positioning rows PP-5/PP-2 P_deflated unchanged (characterization evidence only).
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 269 (v293 basis) + 2 (V1 C6_HARD_FAIL + V2 C7_HARD_PASS both label-honest) = **271**
+- LABEL-VS-HONEST: 158 + 0 = **158 UNCHANGED**. No new catches.
+
+### Portfolio
+
+22 + 36 -> **22 + 36 UNCHANGED** (annotation only; no row additions/closures).
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched)
+
+1. PP-5 GPU profiling (MEDIUM) -- CPU ceiling characterized via C6+C7; GPU token-throughput profiling needed to close PP-5 (PP-5->PP-1 cross-ref gates LLM integration decisions).
+2. Re-ship V3 multi_hop_caching_baseline_v1_n4096 (MEDIUM carry-forward from v293) -- device-forcing fix still needed for this script specifically.
+3. M2 smoke dispatch (CHEAP ~30min CPU) -- orchestrator decides timing; gates U3 COW-rehab + KF-2 + PP-3.
+
+### PROT compliance (v293 -> v294)
+
+- PROT-004/006: No closures; no rescue sets required (characterization verdicts not capability failures).
+- PROT-007: substrate_capability_map_history.md v294 row added atomically in this commit.
+- PROT-008: validate_capmap_commit.py not found at expected path; annotation-only change (no state transitions, no new rows, no closures); flagged for orchestrator main-thread follow-up.
+- PROT-009: cap_map.md (v294 annotation) + substrate_capability_map_history.md (v294 row) + strategy_decisions_2026-05-31.md (this entry) + visibility_decisions_2026-05-31.md (one-line) staged atomically; 205th PROT-009 paired commit.
+- PROT-018: substrate_operation_cost_modeling_v1_n4096 has _n4096 suffix (compliant); path_d_cpu_latency_profiling_v1_n4096 has _n4096 suffix (compliant).
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on both verdicts; both label-honest; M-flatness bonus observation noted not over-claimed.
+- [[feedback-cap-map-update-protocol]]: atomic commit; sub-agent push BLOCKED.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT at verdict_handler entry.
+- [[feedback-for-you-tab-primary-channel]]: status_log entries filed.
+- [[feedback-no-padding-experiments]]: no new anchor names dispatched.
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py --content-file.
+- [[feedback-pipeline-pacing]]: queue state and exp_dev dispatch decision made below.
+- [[feedback-subagent-permission-inheritance]]: commits locally only; push BLOCKED.
+
+### Commit and push
+
+Commit message: "Cap map: v293 -> v294 BATCHED 2-VERDICT CPU post-fix landings (C6_HARD_FAIL substrate_operation_cost_modeling N=4096 power-law-FAILS-4/5-ops M-invariant-cost + C7_HARD_PASS path_d_cpu_latency M-invariant-0.79s-matmul-dominant-20/20; PP-5+PP-2 CPU-characterization ANNOTATIONS; HONEST 269->271; LABEL-VS-HONEST 158 UNCHANGED) (2026-05-31)"
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
