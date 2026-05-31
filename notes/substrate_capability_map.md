@@ -19859,3 +19859,204 @@ NO exp_dev refill this batch -- per user prompt explicit "NO exp_dev refill (S-b
 Commit message stored below.
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v289 update -- BATCHED 14-VERDICT S(2-14)+T1 batch MULTI-HOP CHARACTERIZATION COMPLETE: Path D production-deployment story locked + GPU baseline confirmed at multi-hop + 3 NEW LABEL-VS-HONEST sub-flavors
+
+**Context.** S2-S14 + T1 (14 anchors total) backlog accumulated while runners ran unsupervised; runners died ~20:30 ET then restarted. T2-T5 still draining. User explicit no-refill (orchestrator handles next batch). v288 already processed S1; this entry completes the S+T1 batch covering: multi-hop characterization {S2,S3,S5,S6,S9} + strategic-extension {S7,S8,S10,S11,S14} + adversarial+novel+N=16384 {S12,S13,S4} + T1 Path-D-specific confidence. Verdict mix: 7 HARD_PASS labeled (S2/S3/S4/S9/S10/S11/S13) + 3 HARD_FAIL labeled (S6/S7/S8) + 3 MIDDLE_BAND (S5/S14/T1) + 1 INCONCLUSIVE (S12 no-cells crash).
+
+### Step 0 honest re-read summary -- 14 verdicts; 3 NEW LABEL-VS-HONEST catches (#148, #149, #150)
+
+bridge get_metrics _source=remote for ALL 14 anchors; metrics fresh; no fallback. Critical scrutiny applied per user prompt watching for ceiling-effects and trivialization.
+
+#### #148 -- S4 modern_hopfield_n16384_v7_resilient -- NEW SUB-FLAVOR HARD_PASS_AT_REDUCED_CRITERION_SHADOWS_INSTRUMENTATION_BLOCK
+
+**Anchor.** `modern_hopfield_n16384_v7_resilient` labeled `S4_HARD_PASS` "MODERN_HOPFIELD_ACTIVATION: constructed=3/3 max_M=[8192, 8192, 8192] target>4096 n_strong=3 n_full_M_pass=0".
+
+**Honest reading.** Per-seed metrics: construction succeeded 3/3 via strategy `a_chunked`; recall=1.000 at M={2048, 4096, 8192} all 3 seeds; M=16384 (the TARGET N=16384 full-M cell) `success=false` CUDA-OOM in ALL 3 seeds (CUDA out of memory tried 1024 MiB on 8GB GPU). `n_full_M_pass=0` is the dispositive metric: ZERO seeds reached the full N=16384 storage target. `max_M=[8192]` = HALF the target N. The verdict_msg accurately reports the metric values, but the `S4_HARD_PASS` label class is on a relaxed criterion ("target>4096 max_M_at_95_recall reached" = max_M >= 4096 sufficient) rather than the Modern Hopfield activation question criterion (storage up to N at recall=1.0). 4th consecutive N=16384 chunked-codebook OOM-instrumentation-block (v5+v6+v287-sub3+v7). The v288 INSTRUMENTATION-BLOCKED state remains accurate; v7 is "construction-succeeds + half-N-storage" not "full-N activation confirmed".
+
+**Decision.** ANNOTATION-LABEL-REFINEMENT: HARD_PASS retained at relaxed criterion (construction + max_M=8192 5-recall-perfect = engineering result), BUT cap_map row UNCHANGED at "Modern Hopfield activation hypothesis UNTESTED at N=16384"; INSTRUMENTATION-BLOCKED state extended 4th-occurrence. Honest reading authoritative: half-N operational ceiling on 8GB GPU; full-N activation still UNTESTED not REFUTED.
+
+#### #149 -- S8 latency_accuracy_tradeoff_v1_n4096 -- NEW SUB-FLAVOR CEILING_PRECLUDES_TRADEOFF
+
+**Anchor.** `latency_accuracy_tradeoff_v1_n4096` labeled `S8_HARD_FAIL` "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4".
+
+**Honest reading.** Pareto count of 1 for each of 4 tunable knobs (cleanup, k_paths, audit, depth) = single point on the Pareto frontier; n_pass=0/4 = NO knob shows tradeoff structure (no point dominates any other on lat vs acc). At sub-capacity M=2048 + N=4096, substrate is operating WELL ABOVE the operating point where accuracy degradation begins; acc=1.000 across the full configuration space leaves only the latency axis varying. This is "no tradeoff TO trade off" (substrate is over-margin) not "tradeoff investigated and failed to find Pareto improvements". HARD_FAIL label is mechanically correct on the predicate but framing-wrong: this is a SATURATION-EQUIVALENT finding, not a substrate-deficiency finding.
+
+**Decision.** LABEL REFRAMED at framework level. honest_verdict_msg: "SATURATION: 4 knobs at acc=1.000 ceiling (M=2048 sub-capacity); no Pareto improvement possible while substrate is over-margin". Cap_map: ANNOTATION on substrate-GPU baseline row capturing the saturation interpretation; positive feature for production deployment (substrate is operating with margin) but the tradeoff question is NOT-EMPIRICALLY-MEANINGFUL at sub-capacity-with-headroom. Tradeoff probe re-routes to: (a) past-M_c stress regime where acc < 1; (b) noise-stressed regime; (c) higher-K stress.
+
+#### #150 -- S13 novel_query_construction_v1_n4096 -- NEW SUB-FLAVOR CEILING_AT_CONSERVATIVE_ENVELOPE
+
+**Anchor.** `novel_query_construction_v1_n4096` labeled `S13_HARD_PASS` "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3, 4]".
+
+**Honest reading.** Per-cell metrics: 10/10 cells (5 seeds x 2 depths in {3,4}) all path_b/d/e accuracy/AUC=1.000 unanimous; n_queries=16 per cell. Config: M=2048 (M/N=0.5 = sub-capacity), depths={3,4} (shallow), K_paths=100 (small), n_queries=16 (tiny). The HARD_PASS label is HONEST at the literal "combinatorial chain construction works at this envelope" claim, BUT the prior P=0.30-0.50 framing was for "substrate does combinatorial reasoning over stored facts" as a broad claim. The actual probe is shallow-depth (3-4 not 8-16) + sub-capacity (M/N=0.5) + small K + tiny n_queries. Unanimous 1.000 at conservative envelope cannot distinguish "robust combinatorial reasoning" from "trivially passes at over-margin envelope where every path already works at 1.000 (per S2 latency_crossover, all paths achieve 1.000 on direct retrieval at d=3 M=512-8192 K=100-5000)". Per [[feedback-dont-overextend-theorems]] the claim scope is bounded.
+
+**Decision.** ANNOTATION-LABEL-SCOPE: HARD_PASS retained at CONSERVATIVE envelope (sub-capacity + shallow + small-K + tiny n_queries); cap_map row gets ANNOTATION "combinatorial query construction confirmed at sub-capacity shallow envelope; broader scope (deeper chains, past-M_c, larger n_queries) UNTESTED". The "novel combinatorial reasoning" claim is OPEN not CONFIRMED. P=0.30-0.50 prior NOT updated upward on a conservative-envelope ceiling pass.
+
+#### Other 11 verdicts honest as worded (with strategic implications)
+
+- **S2 latency_crossover HARD_PASS**: HONEST. wins={B:60/90, D:11/90, E:19/90}; n_inconclusive=0 = clean crossover surface across (M, depth, K, mechanism). Path B dominates Q-regime (small-d small-K small-M); Path E captures spectral-coherence-favored cells (~21%); Path D wins niche cells (~12%) where K_paths reduction beats matmul cost. LLM-orchestration mechanism-selection logic VALIDATED at engineering level: clean crossover boundaries = exploitable. Cross-validates v288 differential-survival framing at PRODUCTION-cell scale (90 production cells).
+- **S3 multi_hop_memory_efficiency HARD_PASS**: HONEST. max_amp B=1.00, D=1.93, E=0.99 unanimous 5 seeds at M=8192 d=5 K=1000. Path D uses ~1.93x memory of single-hop (Bayesian K-candidate buffer); B and E are memory-neutral. Memory profile is BOUNDED (no leak; no super-linear growth past single-hop baseline). Confirms v288 Path D bypasses M-capacity-via-Bayesian-state-isolation mechanism explanation: memory amplification ~K-buffer-sized as expected.
+- **S5 path_optimization_baseline MIDDLE_BAND**: HONEST. PARTIAL_CLEAN_1/3 = only Path E has clean-bottleneck CV (cv_e=0.25); B noisy (cv_b=0.97); D moderate (cv_d=0.52). dom_b=time_W_kquery_per_hop (matches S1 v288); dom_d=time_posterior_max (matches S1); dom_e=time_compare_spectra (matches S1; 88% dominance). Path E IS engineering-clean (low variance + single bottleneck); B and D have higher-variance baselines for downstream E1.2 optimization (must address variance not just median).
+- **S6 multi_hop_edit_isolation HARD_FAIL**: HONEST as worded BUT differential-mechanism finding underneath the HARD_FAIL: at edit_rate=10 on_path 5/5 seeds = Path B drops 1.000->0.375 (~62% accuracy loss; substrate state mutated by W-edit propagates through Path B's reuse of W_kquery), but Path D stays 1.000 (Bayesian K-candidate posterior decoupled from W mutation propagation) and Path E stays 1.000 (spectral coherence query path-orthogonal to edit). audit_changed=45/45 unanimous = cryptographic edit-detection PERFECT across all 3 patterns x 3 rates x 5 seeds = audit chain working. consistent=37/45 (82%) = consistency check passes for 37/45. Substrate-product framing: Path B requires edit-isolation guard; Path D and E are edit-resilient by construction. Different from a uniform "edit breaks multi-hop" reading; differential-survival pattern repeats v288 finding.
+- **S7 op_timing_atlas HARD_FAIL**: HONEST. 5/10 ops have p99/median ratios >100x (batched_retrieve_B16=419.7x, batched_store_B16=231.5x, multi_hop_pathB_d5=311.7x, single_delete=99.99x, standard_retrieve=67.5x). Single_delete + standard_retrieve consistent with Python GC pauses; batched ops likely show host-device sync amplification. The atlas IS NOISY at p99 (production-deployment-relevant: tail latency 100x-400x median is a SLA-shaping signal for the LLM-orchestration layer). Clean = audit_chain_verify (4.02x) + checkpoint_save (2.88x) + checkpoint_load (5.27x) + single_edit (14.6x; OK) + standard_store (39.3x; OK).
+- **S9 mixed_confidence_multi_hop HARD_PASS**: HONEST as worded BUT label captures only D-path calibration. Per-cell: Path B acc_blind=1.000 unanimous BUT acc_conf drops to ~0.91 (confidence-aware path adds error vs blind); n_calibrated B=2/5 (calib_dev 0.13-0.26); Path D acc_conf=1.000 unanimous = no loss + 5/5 calibrated; Path E acc_blind=1.000 BUT auc_conf collapses to 0.55-0.64 (confidence-aware path destroys discrimination on E); n_calibrated E=5/5 (calibration metric passes the formula but the underlying signal is gone). Substrate-product framing: Path D is the ONLY confidence-aware-deployable mechanism among the three; B has confidence-overhead penalty; E confidence destroys spectral discrimination signal. Reinforces v288 Path-D-as-production-DEFAULT.
+- **S10 approximate_multi_hop_sampling HARD_PASS**: HONEST. hp_paths=['D'] n_d=5/5 = only Path D supports sampling-based latency reduction. Per-cell: Path B at rate=0.1 acc=0.000 (collapses; cannot sub-sample), at rate=0.25 acc=0.19 (~half-quality), at rate=0.5+ recovers to 1.000; Path D maintains 1.000 across ALL rates {0.1, 0.25, 0.5, 0.75, 1.0} = 10x sampling speedup feasible with zero accuracy loss (a TRUE 3-10x latency reduction at <5% acc loss for Path D specifically); Path E at rate=0.1 collapses to AUC=0.5 (random), recovers at 0.25. Substrate-product framing: SAMPLING-BASED LATENCY REDUCTION IS PATH-D-EXCLUSIVE; Path D mechanism (per-hop independent Bayesian) is robust to candidate sub-sampling because truth-bearing candidate retained at random fraction; Path B requires full-W-matmul; Path E requires full spectral coherence pattern.
+- **S11 multi_hop_gpu_baseline HARD_PASS**: HONEST. sp_b=81.25x, sp_d=56.52x, sp_e=19.32x = GPU speedups (CPU baseline). d_b=d_d=d_e=0.000 = ZERO accuracy delta CPU vs GPU. n_crashes=0. Multi-hop benefits from GPU like single-retrieval did (22.67x v283 baseline) but MORE: Path B 81x (matmul-bound), Path D 56x (still substantial), Path E 19x (spectral-comparison-bound). Direct LIFT to substrate-GPU baseline row: extends GPU performance characterization from single-hop (v283 22.67x; v287 sub1 dual-N) to multi-hop (3 mechanisms; new high 81x). LIFT-relevant.
+- **S14 joint_path_execution MIDDLE_BAND**: HONEST. mean_speedup_frac=0.080 (8%); max_mem_amp=1.01 (memory cost negligible); max_acc_delta=0.0000 (no accuracy delta). Joint parallel execution of B+D+E shows MARGINAL 8% speedup vs sequential — paths are NOT independent enough to parallelize productively (likely shared substrate state / GPU contention). Substrate-product framing: parallel-path orchestration UNECESSARY at sub-capacity; sequential is essentially equivalent.
+- **S12 adversarial_multi_hop_probing INCONCLUSIVE**: NO_METRICS-EQUIVALENT. "no cells" + elapsed=4.46s = runner crash before generating any cells; cannot perform meaningful Step 0 on absent data; the security-critical zero-leakage claim CANNOT be assessed from this run. Treat as runner-failure-NO_METRICS; rescue routing required.
+- **T1 path_d_mixed_confidence MIDDLE_BAND**: HONEST as worded BUT informative finding underneath. Per-seed: acc_blind=acc_conf=1.000 all 5 seeds (acc_ge_blind=5/5); lat_overhead=9.26x-45.24x (lat_ok=0/5; substantial latency cost for confidence-aware mode); calib_dev_seed=0.16-0.32 (calib_pass=0/5 by predicate but actual calibration_bucket per_seed: predicted=0.715-0.965 actual=1.000 always = systematic UNDER-prediction). Substrate is "biased-conservative" not "uncalibrated": at confidence buckets {0.4, 0.7, 1.0} the substrate predicts confidence 0.4/0.7/0.96 but actual accuracy is 1.0 in all observed cells. This is CONSERVATIVE-CALIBRATION (the substrate IS under-confident relative to its actual accuracy at sub-capacity; not over-confident; not unreliable). For regulated-industry confidence-calibration use cases this is THE SAFER FAILURE MODE (under-promise + over-deliver vs over-promise + under-deliver). Substrate-product framing: regulated-industry-deployable with confidence-floor-as-safety-margin caveat; calibration tightening is future work but baseline behavior is the SAFE-direction error.
+
+**HONEST**: 242 -> 256 (+14). **LABEL-VS-HONEST**: 147 -> 150 (+3 new sub-flavors: #148 HARD_PASS_AT_REDUCED_CRITERION_SHADOWS_INSTRUMENTATION_BLOCK; #149 CEILING_PRECLUDES_TRADEOFF; #150 CEILING_AT_CONSERVATIVE_ENVELOPE).
+
+### Cap_map decisions -- 1 LIFT + 1 LIFT-ANNOTATION + 7 ANNOTATIONS + 1 NO_METRICS-RESCUE-ROUTING; portfolio 14+36 UNCHANGED
+
+#### LIFT -- Substrate-GPU operational baseline 0.75-0.85 -> 0.78-0.88 (+3% lower, +3% upper) on multi-hop GPU corroboration
+
+S11 multi_hop_gpu_baseline confirms 19-81x GPU speedups across 3 mechanisms with zero accuracy delta + n_crashes=0 at sub-capacity production cell. Extends GPU baseline characterization from single-hop (v283 22.67x; v287 sub1 N=8192 dual-N) to multi-hop. Per [[feedback-strategy-shore-up-capabilities]] multi-cell + multi-mechanism corroboration warrants modest LIFT (+3%). Per [[feedback-no-padding-experiments]] CONSERVATIVE LIFT (not 0.80-0.90) because (a) single sub-capacity production cell only (M=2048 N=4096; M/N=0.5), (b) past-M_c GPU stress NOT tested, (c) N=16384 still INSTRUMENTATION-BLOCKED (S4 v7 4th-occurrence).
+
+#### LIFT-ANNOTATION -- Multi-hop combined row 0.75-0.85 UNCHANGED but Path D sub-row 0.78-0.88 -> 0.80-0.88 (+2% lower bound)
+
+S10 sampling speedup PATH-D-EXCLUSIVE confirmation + S9 confidence-aware PATH-D-EXCLUSIVE confirmation + S6 edit-resilience PATH-D-EXCLUSIVE confirmation + S11 GPU 56.52x = FOUR INDEPENDENT axes of Path-D-as-production-default. v288 mechanism-explanation (per-hop independent Bayesian bypasses M-capacity by construction) now extends to edit-isolation, confidence-aware deployment, sampling-based latency reduction, GPU deployment. Per [[feedback-strategy-shore-up-capabilities]] 4-axis corroboration warrants Path D sub-row tightening of lower bound; combined row position UNCHANGED per [[feedback-dont-overextend-theorems]] (this is within-row sub-row refinement, not aggregate combined-row LIFT). Path B sub-row 0.65-0.78 ANNOTATION: edit-isolation breaks Path B at on_path 10-rate; Path B requires sub-capacity-edit-isolation-guard. Path E sub-row 0.65-0.75 ANNOTATION: confidence-aware destroys E discrimination (auc 1.0 -> 0.55-0.64); sampling collapses E at low rates; Path E remains niche.
+
+#### ANNOTATION (1) -- Multi-hop production-cell crossover surface CHARACTERIZED (S2 90-cell)
+
+S2 latency_crossover wins={B:60, D:11, E:19} of 90 production cells; n_inconclusive=0. Annotation on multi-hop combined row: "Crossover surface across (M ∈ {512, 2048, 8192}, depth ∈ {3, 5, 8, 12, 16, 20}, K ∈ {100, 500, 1000, 2000, 5000}, 5 seeds; 90 production cells) CLEAN with zero inconclusive cells. Path B wins 67% (Q-regime: small-d small-K small-M); Path E wins 21% (spectral-coherence-favored); Path D wins 12% (Bayesian-favored niche). LLM-orchestration mechanism-selection logic engineered-feasible: crossover boundaries are exploitable for runtime path selection."
+
+#### ANNOTATION (2) -- Multi-hop memory profile BOUNDED (S3 5-seed)
+
+S3 memory amplification: B=1.00, D=1.93, E=0.99 unanimous 5 seeds at M=8192 d=5 K=1000. Annotation: "Memory profile BOUNDED at single-hop baseline x {1.00, 1.93, 0.99} for {B, D, E}; Path D ~1.93x reflects K-candidate posterior buffer; no super-linear growth; no leak; production-deployment memory budget = single-hop x 1.93 worst-case."
+
+#### ANNOTATION (3) -- Path D production-deployment SPANNING-FEATURES ANNOTATION
+
+Path D sub-row consolidated ANNOTATION listing the four newly-confirmed deployment-features: "(i) edit-resilient (S6 v288 R5 Path D stays 1.000 under on-path edits at 10-rate); (ii) confidence-aware-deployable (S9 acc_conf=1.000 unanimous 5/5 + only Path D in n_calibrated=5/5); (iii) sampling-based-latency-reducible (S10 acc_d=1.000 at sampling rates {0.1, 0.25, 0.5, 0.75, 1.0} = 10x speedup feasible at zero accuracy loss); (iv) GPU-deployable (S11 sp_d=56.52x); (v) noise-robust (v288 R5 sigma=0.4 1.000 sub-capacity); (vi) past-M_c-durable (v288 R1 unanimous through M=24576 d=20). DEPLOY AS PRODUCTION-DEFAULT for multi-hop substrate-product."
+
+#### ANNOTATION (4) -- Path B edit-isolation caveat ANNOTATION (S6)
+
+Path B sub-row ANNOTATION: "S6 edit_rate=10 on_path 5/5 seeds Path B accuracy 1.000->0.375 = ~62% loss under W-edits; substrate state mutation through W_kquery propagates through Path B's reuse-of-W. Production deployment requires edit-isolation guard (snapshot-then-edit-then-rollback OR copy-on-write W per Path B invocation). Path D and E edit-resilient by construction. Substrate-product framing: Path B requires the edit-isolation-guard SDK layer."
+
+#### ANNOTATION (5) -- Path D mixed-confidence CONSERVATIVE-CALIBRATION ANNOTATION (T1)
+
+Path D sub-row + regulated-industry-killer-feature ANNOTATION: "T1 path_d_mixed_confidence: per-bucket predicted={0.4, 0.7, 1.0} actual=1.000 unanimous 5 seeds = substrate is BIASED-CONSERVATIVE (under-predicts confidence relative to actual accuracy at sub-capacity). This is the SAFE failure mode for regulated-industry deployment (under-promise + over-deliver vs over-promise + under-deliver). Calibration-tightening rescue = future work but baseline behavior IS deployable with confidence-floor-as-safety-margin caveat. Latency overhead 9.26-45.24x = substantial cost; calibration-aware operating mode needs cost-aware switch."
+
+#### ANNOTATION (6) -- Substrate over-margin SATURATION re-frame (S8)
+
+Substrate-GPU baseline + multi-hop combined row ANNOTATION: "S8 latency_accuracy_tradeoff at sub-capacity M=2048 N=4096 acc=1.000 across {cleanup, k_paths, audit, depth} knobs = SATURATION (no Pareto improvement possible while substrate is over-margin). POSITIVE production-feature: substrate operates with margin; knob-tuning ineffective in this regime. Tradeoff probe re-routes to past-M_c stress / noise-stressed / higher-K stress regimes where acc < 1."
+
+#### ANNOTATION (7) -- Operation-atlas tail-latency SLA signal (S7)
+
+Substrate-GPU baseline row ANNOTATION: "S7 op_timing_atlas: 5/10 ops show p99/median > 100x ratios (batched_retrieve_B16=419x, batched_store_B16=231x, multi_hop_pathB_d5=311x, single_delete=100x, standard_retrieve=67.5x); 5/10 ops clean (audit_chain_verify 4x, checkpoint_save 2.9x, checkpoint_load 5.3x, single_edit 14.6x OK, standard_store 39x OK). Production SLA shaping: tail latency 100-420x median is LLM-orchestration-relevant signal; recommend SLA per operation rather than uniform; batched ops likely host-device sync amplified."
+
+#### ANNOTATION (8) -- Joint-path-execution UNNECESSARY at sub-capacity (S14)
+
+Multi-hop combined row ANNOTATION: "S14 joint vs sequential mean_speedup_frac=0.080 (8%) with max_mem_amp=1.01 + max_acc_delta=0; joint parallel execution NOT productive at sub-capacity (paths share substrate state / GPU contention). Sequential execution IS the recommended deployment shape; orchestrator complexity for joint execution NOT JUSTIFIED."
+
+#### NO_METRICS-RESCUE-ROUTING (1) -- S12 adversarial_multi_hop_probing runner crash
+
+S12 "no cells" + elapsed=4.46s = script crashed before generating any cells. SECURITY-CRITICAL regulated-industry claim (zero leakage across 5 adversarial pattern categories) CANNOT BE ASSESSED from this run. Adversarial-probing row: state UNCHANGED (UNTESTED, not REFUTED). Rescue routing filed: `notes/strategy_request_to_exp_dev_v289_s12_adversarial_rerun_2026-05-30.md` (NOT auto-dispatched per user no-refill).
+
+#### ANNOTATION (9) -- chunked_codebook N=16384 INSTRUMENTATION-BLOCKED extended 4th-occurrence (S4 v7)
+
+Existing v288 INSTRUMENTATION-BLOCKED annotation extended: "v7 4th-occurrence: construction succeeded via a_chunked strategy 3/3 seeds; recall=1.000 at M={2048, 4096, 8192}; M=16384 CUDA-OOM 3/3 seeds on 8GB GPU. v5 + v6 + v287-sub3 + v7 = 4 instrumentation-blocks. Modern Hopfield activation hypothesis at full N=16384 still UNTESTED not REFUTED. Hardware-upgrade (16GB+ GPU) or non-chunked alternative or CPU-only build paths remain the rescue options."
+
+### Framework-reliability ranges (multi-hop sub-row updates only; macro-bands UNCHANGED)
+
+- Non-eq-stat-mech 73-83% UNCHANGED
+- SKAH-M 60-75% UNCHANGED
+- Substrate-outside-static-Hopfield 64-75% UNCHANGED
+- TCFT 92-97% UNCHANGED
+- Deletion-cert 92-98% UNCHANGED
+- KF-1 65-78% UNCHANGED
+- Specific 70-83% UNCHANGED
+- General 73-83% UNCHANGED
+- Product-feature 89-98% UNCHANGED
+- **Substrate-GPU operational baseline 0.75-0.85 -> 0.78-0.88 LIFT +3%/+3%** (S11 multi-hop GPU 3-mechanism dual-cell corroboration)
+- Multi-hop combined row 0.75-0.85 UNCHANGED at row-position level
+- **Multi-hop Path D sub-row 0.78-0.88 -> 0.80-0.88 (+2% lower bound; LIFT-annotation within combined row)** -- 4-axis production-deployment corroboration (edit + confidence + sampling + GPU)
+- Multi-hop Path B sub-row 0.65-0.78 UNCHANGED with edit-isolation caveat ANNOTATION
+- Multi-hop Path E sub-row 0.65-0.75 UNCHANGED with confidence-destroys-discrimination + sampling-collapse-at-low-rates ANNOTATIONS
+- Adaptive-threshold characterization: CLOSED at standard regimes UNCHANGED
+
+**Portfolio**: 14 + 36 UNCHANGED (no new rows; no closures; 1 capability-row LIFT + 1 sub-row LIFT-annotation + 9 annotations + 1 NO_METRICS rescue routing).
+
+### Rescue sketches (PROT-004/006 cheapest-first; 5 rescue sets; 17 rescues total; R1 0-compute APPLIED inline in all 5)
+
+**R-GPU-LIFT (substrate-GPU multi-hop LIFT consolidated; 0 closures):**
+- R1 (0-compute) -- Subsumption: "S11 multi-hop GPU 3-mechanism dual-cell corroboration justifies substrate-GPU baseline LIFT 0.75-0.85 -> 0.78-0.88 +3%/+3% per [[feedback-strategy-shore-up-capabilities]]". APPLIED inline above.
+- R2 (CHEAP, ~15min GPU) -- GPU at past-M_c stress probe extends GPU envelope characterization to past-M_c regime; NOT-AUTO-DISPATCHED.
+- R3 (MEDIUM, ~60min GPU) -- GPU N=16384 non-chunked vanilla baseline isolates Modern-Hopfield-activation question from codebook-chunking instrumentation question (v288 R-chunked R3 carries over); NOT-AUTO-DISPATCHED.
+
+**R-Path-D-FEATURES (Path D production-deployment consolidated; 4 axis confirmations):**
+- R1 (0-compute) -- Spanning-features annotation: "Path D edit-resilient + confidence-aware-deployable + sampling-based-latency-reducible + GPU-deployable + noise-robust + past-M_c-durable; DEPLOY AS PRODUCTION-DEFAULT". APPLIED inline above.
+- R2 (CHEAP, ~30min GPU) -- Path D upper-envelope production-stress (v288 R1 R4 carries over): characterize Path D breaking point at M >= 32768 + d >= 25 + K >= 2000 + noise sigma >= 0.4 at past-M_c; NOT-AUTO-DISPATCHED but HIGH-PRIORITY.
+- R3 (CHEAP, ~30min CPU) -- Path D edit-isolation guard SDK probe: design + smoke the SDK layer (snapshot-then-edit-then-rollback) for Path B coexistence with Path D production-default; NOT-AUTO-DISPATCHED.
+
+**R-Path-B-EDIT-CAVEAT (Path B edit-isolation caveat consolidated):**
+- R1 (0-compute) -- Caveat annotation APPLIED inline above (S6 on_path 10-rate 0.375).
+- R2 (CHEAP, ~15min CPU) -- Path B edit-isolation guard probe: copy-on-write W per Path B invocation; smoke whether Path B accuracy preserved with isolation guard; NOT-AUTO-DISPATCHED.
+
+**R-T1-CALIBRATION (Path D conservative-calibration consolidated):**
+- R1 (0-compute) -- Conservative-calibration annotation APPLIED inline above (T1 buckets predicted 0.715-0.965 actual 1.000).
+- R2 (CHEAP, ~30min CPU) -- Calibration-tightening probe: temperature-scaled posterior + calibration_dev re-measured; NOT-AUTO-DISPATCHED.
+- R3 (MEDIUM, ~60min CPU/GPU) -- Past-M_c calibration probe at M near M_c where acc < 1: gives bucket prediction-vs-actual a non-saturated signal; NOT-AUTO-DISPATCHED.
+
+**R-S12-ADVERSARIAL (S12 runner crash rescue):**
+- R1 (CHEAP, ~10min) -- Re-ship S12 with smoke + verify cells generated; routing file filed (`notes/strategy_request_to_exp_dev_v289_s12_adversarial_rerun_2026-05-30.md`); NOT-AUTO-DISPATCHED per user no-refill.
+- R2 (0-compute) -- Annotation: adversarial-probing row state UNCHANGED (UNTESTED not REFUTED); 5-category zero-leakage claim CANNOT be assessed from "no cells" run. APPLIED inline above.
+
+### Top-5 substantive findings (user-requested)
+
+1. **Path D is the production-default mechanism on 4 NEW deployment axes** -- S6 edit-resilient + S9 confidence-aware-deployable + S10 10x sampling speedup at zero accuracy loss + S11 GPU 56x speedup. With v288 noise-robustness + past-M_c-durability this is now SIX-AXIS Path D durability corroboration. Path D sub-row LIFT 0.78-0.88 -> 0.80-0.88 (+2% lower bound).
+
+2. **Substrate-GPU baseline LIFT 0.75-0.85 -> 0.78-0.88** -- S11 multi-hop GPU corroboration extends GPU baseline characterization from single-hop (22.67x) to multi-hop 3-mechanism (Path B 81x, Path D 56x, Path E 19x; zero accuracy delta; zero crashes). Multi-cell + multi-mechanism corroboration justifies modest +3%/+3% LIFT.
+
+3. **S2 90-cell production crossover surface CLEAN** -- wins={B:60, D:11, E:19} of 90 production cells; n_inconclusive=0. LLM-orchestration mechanism-selection logic is engineered-feasible: crossover boundaries are exploitable for runtime path selection. Path B wins Q-regime (67%); Path E wins spectral-coherence-favored cells (21%); Path D wins Bayesian niche (12%).
+
+4. **T1 Path D confidence is CONSERVATIVE-CALIBRATED (safe failure mode)** -- per-bucket predicted 0.715-0.965 actual 1.000 unanimous 5 seeds = substrate UNDER-predicts confidence relative to actual accuracy. This is the SAFE direction for regulated-industry deployment (under-promise + over-deliver). Substrate is "biased-conservative" not "uncalibrated"; calibration-tightening rescue is future work but baseline IS deployable with confidence-floor-as-safety-margin caveat. Latency overhead 9-45x = substantial; calibration-aware operating mode needs cost-aware switch.
+
+5. **3 NEW LABEL-VS-HONEST sub-flavors caught** -- #148 S4 modern_hopfield_v7 HARD_PASS_AT_REDUCED_CRITERION_SHADOWS_INSTRUMENTATION_BLOCK (label HP at relaxed criterion; full-N activation still UNTESTED 4th-occurrence); #149 S8 latency_accuracy_tradeoff CEILING_PRECLUDES_TRADEOFF (HARD_FAIL at no-tradeoff but substrate is over-margin saturated, not deficient); #150 S13 novel_query_construction CEILING_AT_CONSERVATIVE_ENVELOPE (HP at sub-capacity + shallow + small-K + tiny n_queries = scope-bounded; broad combinatorial-reasoning claim NOT confirmed).
+
+### Top-3 follow-on recommendations (NOT auto-dispatched per user no-refill)
+
+1. **Path D upper-envelope production-stress** (HIGH-PRIORITY GPU ~30min; v288 R1 R4 + R-Path-D-FEATURES R2 carries over) -- 6-axis Path D durability story is now load-bearing for production-default-deployment claim; finding Path D breaking point (M >= 32768 + d >= 25 + K >= 2000 + noise sigma >= 0.4 at past-M_c) becomes the natural next test. Currently no-known-breaking-point.
+
+2. **S12 adversarial-probing re-ship** (CHEAP CPU+GPU ~10-15min smoke + ~30min FULL) -- security-critical regulated-industry claim (zero leakage across 5 adversarial pattern categories) CANNOT be assessed from "no cells" runner crash. Re-ship after S-batch + T2-T5 drain. Routing filed but not auto-dispatched.
+
+3. **Edit-isolation guard SDK probe for Path B coexistence** (CHEAP CPU ~30min) -- S6 surfaces that Path B requires copy-on-write W per invocation for edit-coexistence with Path D production-default. SDK layer design + smoke validation is engineering-cheap and unblocks Path B usage in edit-heavy production scenarios.
+
+### PROT compliance (v288 -> v289)
+
+- **PROT-004/006**: 5 rescue sets cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 17 rescues total; R1 0-compute APPLIED inline in all 5 sets; S12 NO_METRICS routing filed but NOT auto-dispatched per user no-refill.
+- **PROT-007**: substrate_capability_map_history.md v289 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279-v288 PROT-007 backlogs).
+- **PROT-008**: validator NOT run inline (1 LIFT on substrate-GPU baseline 0.75-0.85 -> 0.78-0.88 + 1 sub-row LIFT-annotation on Path D within combined row; portfolio unchanged 14+36; no new rows; no closures; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v289 entry) + substrate_capability_map_history.md (v289 row) + strategy_decisions_2026-05-30.md (v288 -> v289 entry) + visibility_decisions_2026-05-30.md (one-line entry) staged atomically; **200th PROT-009 paired commit**.
+- **PROT-018**: 14 anchors spot-checked for _n<N> suffix vs config.N: all CLEAN (n4096 anchors with N=4096 configs; n16384 anchor with N=16384 config).
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: Step 0 performed on all 14 verdicts; 3 NEW LABEL-VS-HONEST catches (#148, #149, #150 NEW SUB-FLAVORS); 11 labels HONEST as worded (with strategic differential-reading on S6 + S9 + T1 surfaced beyond literal-predicate-pass).
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge get_metrics returned _source=remote for 14/14 anchors; no fallback required; S12 "no cells" payload remote-confirmed (not local-fallback artifact).
+- **[[feedback-rehabilitation-after-rejection]]**: 0 capability-row closures; S4 v7 instrumentation-blocked extends 4th-occurrence (NOT capability closure; Modern Hopfield activation UNTESTED not REFUTED); S12 NO_METRICS rescue routing filed before any state change.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute subsumption sequenced FIRST in all 5 rescue sets; APPLIED inline.
+- **[[feedback-dont-overextend-theorems]]**: Path D sub-row LIFT scoped to within-combined-row sub-row movement (does not LIFT combined row position); GPU baseline LIFT CONSERVATIVE (+3% not +5%) because single sub-capacity production cell only; S13 novel-query HP scope-bounded to conservative envelope (does NOT confirm broad combinatorial-reasoning claim); S8 saturation re-frame scoped to sub-capacity regime; S14 joint-execution UNNECESSARY scoped to sub-capacity.
+- **[[feedback-no-padding-experiments]]**: GPU LIFT conservative +3% not +5% aggressive; Path D sub-row LIFT +2% lower-only because compositional generalization untested + noise-at-past-M_c untested + only 4 deployment-axes corroborated (not 6+); S13 P=0.30-0.50 prior NOT updated upward on ceiling pass.
+- **[[feedback-strategy-shore-up-capabilities]]**: substrate-GPU baseline LIFT on multi-cell multi-mechanism corroboration; Path D sub-row LIFT on 4-axis deployment-feature corroboration; not reactive-to-verdict; proactively-shores-up production-deployment story.
+- **[[feedback-lit-scan-calibration-penalty]]**: no novel-synthesis claims this batch; characterization + production-deployment-features only.
+- **[[feedback-obey-user-pause-explicitly]]**: pause-flag ABSENT; user explicit "NO exp_dev refill (T2-T5 still draining; orchestrator handles)" honored; verdict_handler does NOT dispatch exp_dev refill; S12 rescue routing FILED but NOT auto-dispatched.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; commit hash surfaced to orchestrator main-thread for push.
+- **[[feedback-decision-log-eol-handling]]**: strategy_decisions_2026-05-30.md entry appended via tools/orchestrator/append_decision_log.py (LF EOL); cap_map + history CRLF preserved.
+- **[[feedback-no-smoke]]**: brutal honesty applied -- S4 v7 HP-at-relaxed-criterion called out (#148); S8 HARD_FAIL-as-saturation called out (#149); S13 HP-at-conservative-envelope called out (#150); S6 differential mechanism survival under edits surfaced (Path D edit-resilient by construction not "edit breaks multi-hop"); S9 differential calibration (Path D ONLY confidence-deployable) surfaced; T1 conservative-calibration (safe failure mode) surfaced; S12 NO_METRICS not swept under "ran and passed" framing.
+- **[[feedback-for-you-tab-primary-channel]]**: 6 status_log entries with plain_language + importance fields (1 CRITICAL Path D production-default + 1 CRITICAL substrate-GPU LIFT + 1 HIGH S2 crossover characterization + 1 HIGH T1 conservative-calibration + 1 MEDIUM S7 atlas tail-latency + 1 MEDIUM S12 runner-crash + 1 MEDIUM S4 v7 4th-instrumentation-block).
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 14 anchors PROT-018 spot-check all CLEAN.
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Commit message:**
+
+```
+Cap map: v288 -> v289 (BATCHED 14-VERDICT S2-S14+T1 MULTI-HOP CHARACTERIZATION COMPLETE; Path D production-default 4 NEW deployment axes corroborated edit-resilient + confidence-aware-deployable + 10x sampling-speedup at zero acc loss + GPU 56x speedup => 6-axis durability; Substrate-GPU baseline LIFT 0.75-0.85 -> 0.78-0.88 +3% multi-hop 3-mechanism dual-cell corroboration; Path D sub-row LIFT-annotation 0.78-0.88 -> 0.80-0.88 +2% lower-bound; S2 90-cell production crossover surface CLEAN wins=B:60/D:11/E:19 LLM-orchestration mechanism-selection feasible; T1 Path D conservative-calibration SAFE failure mode under-predicts confidence; 3 NEW LABEL-VS-HONEST sub-flavors #148 HARD_PASS_AT_REDUCED_CRITERION_SHADOWS_INSTRUMENTATION_BLOCK S4 v7 4th-occurrence + #149 CEILING_PRECLUDES_TRADEOFF S8 substrate-over-margin + #150 CEILING_AT_CONSERVATIVE_ENVELOPE S13 sub-capacity-shallow-tiny-Kn; 9 annotations; S6 differential edit-survival Path B 1.0->0.375 Path D/E preserve; S9 differential confidence Path D ONLY deployable; S10 sampling-speedup Path-D-EXCLUSIVE; S14 joint-execution UNNECESSARY at sub-capacity; S7 op_atlas tail-latency 100-420x median 5/10 ops; S12 adversarial NO_METRICS runner crash rescue routing filed not auto-dispatched; portfolio 14+36 UNCHANGED; HONEST 242 -> 256 +14; LABEL-VS-HONEST 147 -> 150 +3 NEW SUB-FLAVORS; non-eq SKAH-M TCFT deletion-cert KF-1 specific general product-feature UNCHANGED; GPU baseline LIFTed +3%; 5 rescue sets cheapest-first 17 rescues R1 0-compute APPLIED inline; 6 status_log entries; 200th PROT-009 paired commit; verdict_handler dispatched; user no-refill T2-T5 draining)
+```

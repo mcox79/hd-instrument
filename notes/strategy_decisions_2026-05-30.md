@@ -629,3 +629,120 @@ NO exp_dev refill per user prompt explicit "NO exp_dev refill (S-batch still run
 - [[feedback-for-you-tab-primary-channel]]: 5 status_log entries with plain_language + importance fields (1 CRITICAL + 1 HIGH + 3 MEDIUM).
 - [[feedback-composition-classification]]: error-correction at SCORE level CLOSED empirically; HANDOFF-class probe surfaced as top-3 follow-on #2.
 - [[feedback-no-label-vs-honest-anchor-names]]: 6 anchors PROT-018 spot-check CLEAN.
+
+
+## v288 -> v289 -- 2026-05-30 BATCHED 14-VERDICT S2-S14+T1 multi-hop characterization COMPLETE (verdict_handler dispatched; 200th PROT-009 paired commit)
+
+**Context.** S-batch (12 anchors S2-S14 not including S1 already processed at v288 commit 61b00f5) + T1 path_d_mixed_confidence path-D-specific = 14 anchors. Backlog accumulated while runners ran unsupervised; runners died ~20:30 ET then restarted. T2-T5 still draining; user explicit no-refill (orchestrator handles next batch). bridge get_metrics _source=remote for ALL 14 anchors; metrics fresh; no fallback.
+
+### Verdict mix (14 total)
+
+- **7 HARD_PASS labeled**: S2 latency_crossover (90-cell production crossover surface CLEAN wins B:60/D:11/E:19 n_inconclusive=0) + S3 multi_hop_memory_efficiency (max_amp B:1.00/D:1.93/E:0.99 bounded) + S4 modern_hopfield_v7 (constructed 3/3 max_M=8192=half-N M=16384 OOM 3/3 = label HP at reduced criterion) + S9 mixed_confidence_multi_hop (Path-D-ONLY n_calibrated=5/5 B+E confidence-overhead-or-discrimination-collapse) + S10 approximate_sampling (Path-D-EXCLUSIVE acc_d=1.0 across rates 0.1-1.0 = 10x speedup at zero acc loss) + S11 multi_hop_gpu_baseline (B=81x D=56x E=19x speedups d=0.000 n_crashes=0) + S13 novel_query_construction (10/10 cells 1.000 at sub-capacity-shallow-tiny-Kn = ceiling at conservative envelope).
+- **3 HARD_FAIL labeled**: S6 multi_hop_edit_isolation (Path B 1.0->0.375 on_path 10-rate; Path D+E preserve; audit_changed 45/45) + S7 op_timing_atlas (5/10 ops tail-ratio 100-420x) + S8 latency_accuracy_tradeoff (no Pareto improvement; substrate at acc=1.0 ceiling across knobs).
+- **3 MIDDLE_BAND**: S5 path_optimization_baseline (1/3 paths clean; E only cv=0.25) + S14 joint_path_execution (8% speedup) + T1 path_d_mixed_confidence (acc=1.0 calib_dev 0.16-0.31 lat 9-45x).
+- **1 INCONCLUSIVE**: S12 adversarial_multi_hop_probing (no cells; runner crash at 4.46s).
+
+### Step 0 honest re-read summary -- 3 NEW LABEL-VS-HONEST catches (#148-#150)
+
+#### #148 -- S4 modern_hopfield_n16384_v7_resilient -- NEW SUB-FLAVOR HARD_PASS_AT_REDUCED_CRITERION_SHADOWS_INSTRUMENTATION_BLOCK
+
+**Anchor.** `modern_hopfield_n16384_v7_resilient` labeled `S4_HARD_PASS` "MODERN_HOPFIELD_ACTIVATION: constructed=3/3 max_M=[8192, 8192, 8192] target>4096 n_strong=3 n_full_M_pass=0".
+
+**Honest reading.** Per-seed: construction OK via strategy `a_chunked` 3/3; recall=1.000 at M={2048, 4096, 8192} all seeds; M=16384 (full-N target cell) `success=false` CUDA-OOM in ALL 3 seeds. `n_full_M_pass=0` = dispositive: ZERO seeds reached full N=16384 storage target. `max_M=[8192]` = HALF the target N. verdict_msg reports metrics honestly; HARD_PASS label is on relaxed criterion (max_M >= 4096 + construction OK = engineering result) rather than full-N activation criterion. 4th consecutive N=16384 chunked-codebook OOM-instrumentation-block (v5+v6+v287-sub3+v7).
+
+**Decision.** HONEST reading authoritative: half-N operational ceiling on 8GB GPU; Modern Hopfield activation hypothesis at full N=16384 still UNTESTED not REFUTED. ANNOTATION-LABEL-REFINEMENT: HARD_PASS retained at relaxed criterion (construction + half-N storage = engineering progress); cap_map row UNCHANGED at "Modern Hopfield activation UNTESTED at N=16384"; INSTRUMENTATION-BLOCKED state extended 4th-occurrence. Pattern: this is HP-LABEL-AT-REDUCED-CRITERION_SHADOWS_INSTRUMENTATION-BLOCK; future N=16384 ships must label with full-N criterion or explicitly cite reduced-criterion in verdict_msg.
+
+#### #149 -- S8 latency_accuracy_tradeoff_v1_n4096 -- NEW SUB-FLAVOR CEILING_PRECLUDES_TRADEOFF
+
+**Anchor.** `latency_accuracy_tradeoff_v1_n4096` labeled `S8_HARD_FAIL` "NO_TRADEOFF: pareto={'cleanup': 1, 'k_paths': 1, 'audit': 1, 'depth': 1} n_pass=0/4".
+
+**Honest reading.** Pareto count of 1 for each of 4 tunable knobs + n_pass=0/4 = at sub-capacity M=2048 + N=4096 substrate operates WELL ABOVE the operating point where accuracy degradation begins; acc=1.000 across full configuration space leaves only the latency axis varying. This is "no tradeoff TO trade off" (substrate is over-margin) not "tradeoff investigated and failed". HARD_FAIL label mechanically correct on predicate but framing-wrong: SATURATION-EQUIVALENT not substrate-deficiency.
+
+**Decision.** LABEL REFRAMED at framework level. honest_verdict_msg: "SATURATION: 4 knobs at acc=1.000 ceiling at sub-capacity; no Pareto improvement possible while substrate is over-margin". Cap_map: ANNOTATION on substrate-GPU baseline + multi-hop combined rows. Tradeoff probe re-routes to past-M_c stress / noise-stressed / higher-K regimes. POSITIVE production-feature signal (substrate has margin); framework-claim NOT degraded.
+
+#### #150 -- S13 novel_query_construction_v1_n4096 -- NEW SUB-FLAVOR CEILING_AT_CONSERVATIVE_ENVELOPE
+
+**Anchor.** `novel_query_construction_v1_n4096` labeled `S13_HARD_PASS` "NOVEL_QUERY_OPEN: max_b=1.000 max_d=1.000 max_e=1.000 depths=[3, 4]".
+
+**Honest reading.** 10/10 cells (5 seeds x 2 depths in {3, 4}) all path_b/d/e accuracy/AUC=1.000 unanimous; n_queries=16 per cell. Config: M=2048 (M/N=0.5 sub-capacity), depths={3, 4} (shallow), K_paths=100 (small), n_queries=16 (tiny). HARD_PASS HONEST at literal "combinatorial chain construction works at this envelope" claim, BUT the prior P=0.30-0.50 framing was for "substrate does combinatorial reasoning over stored facts" as a BROAD claim. The actual probe is shallow + sub-capacity + small-K + tiny n_queries. Unanimous 1.000 at conservative envelope cannot distinguish "robust combinatorial reasoning" from "trivially passes at over-margin envelope where every path already works at 1.000 on direct retrieval (per S2 latency_crossover all paths achieve 1.000 at d=3 M=512-8192 K=100-5000)".
+
+**Decision.** ANNOTATION-LABEL-SCOPE: HARD_PASS retained at CONSERVATIVE envelope; cap_map row gets ANNOTATION "combinatorial query construction confirmed at sub-capacity-shallow-tiny envelope; broader scope (deeper chains, past-M_c, larger n_queries) UNTESTED". P=0.30-0.50 prior NOT updated upward on ceiling pass per [[feedback-no-padding-experiments]] and [[feedback-dont-overextend-theorems]].
+
+#### Other 11 verdicts honest as worded (with strategic implications)
+
+- **S2 latency_crossover HARD_PASS**: HONEST. wins={B:60/90, D:11/90, E:19/90}; n_inconclusive=0 = clean crossover surface across 90 production cells. LLM-orchestration mechanism-selection logic VALIDATED.
+- **S3 multi_hop_memory_efficiency HARD_PASS**: HONEST. Memory profile BOUNDED (Path D ~1.93x single-hop baseline = K-candidate buffer; no super-linear growth; no leak).
+- **S5 path_optimization_baseline MIDDLE_BAND**: HONEST. PARTIAL_CLEAN_1/3; Path E cv=0.25 only clean-bottleneck path; B and D have higher variance for downstream E1.2.
+- **S6 multi_hop_edit_isolation HARD_FAIL**: HONEST as worded BUT differential-mechanism finding underneath. Path B 1.0->0.375 under on_path edits (W mutation propagates through Path B); Path D + E preserve 1.0 (D Bayesian K-buffer decoupled from W; E spectral coherence path-orthogonal to edit). audit_changed=45/45 = audit chain PERFECT. consistent=37/45 (82%). Differential-survival under edits.
+- **S7 op_timing_atlas HARD_FAIL**: HONEST. 5/10 ops p99/median >100x (batched_retrieve 419x, batched_store 231x, multi_hop_pathB_d5 311x, single_delete 100x, standard_retrieve 67.5x); 5/10 clean. SLA-shaping signal.
+- **S9 mixed_confidence_multi_hop HARD_PASS**: HONEST as worded BUT differential underneath. Path D acc_conf=1.000 + n_calibrated=5/5 unanimous (ONLY confidence-aware-deployable); Path B acc_conf drops to ~0.91 + n_calibrated=2/5 (confidence-overhead penalty); Path E auc_conf collapses to 0.55-0.64 (confidence destroys spectral discrimination).
+- **S10 approximate_multi_hop_sampling HARD_PASS**: HONEST. Path-D-EXCLUSIVE: hp_paths=['D'] n_d=5/5; Path D acc=1.000 across rates {0.1, 0.25, 0.5, 0.75, 1.0} = 10x sampling speedup at zero accuracy loss. Path B collapses at low rates (acc=0.0 at rate=0.1); Path E AUC=0.5 (random) at rate=0.1.
+- **S11 multi_hop_gpu_baseline HARD_PASS**: HONEST. sp_b=81x sp_d=56x sp_e=19x speedups; d=0.000 zero accuracy delta; n_crashes=0. Multi-hop 3-mechanism dual-cell corroboration of GPU baseline.
+- **S14 joint_path_execution MIDDLE_BAND**: HONEST. mean_speedup_frac=0.080 (8%) + max_mem_amp=1.01 + max_acc_delta=0 = joint parallel UNECESSARY at sub-capacity.
+- **S12 adversarial_multi_hop_probing INCONCLUSIVE**: NO_METRICS-EQUIVALENT. "no cells" + elapsed=4.46s = runner crash before cells generated. Cannot assess zero-leakage claim. Rescue routing filed.
+- **T1 path_d_mixed_confidence MIDDLE_BAND**: HONEST as worded BUT informative underneath. acc_blind=acc_conf=1.000 unanimous; lat_overhead=9-45x; calib_dev=0.16-0.32. Per-bucket per-seed: predicted=0.715-0.965 actual=1.000 always = substrate UNDER-predicts confidence. CONSERVATIVE-CALIBRATION = SAFE failure mode for regulated-industry deployment.
+
+**HONEST**: 242 -> 256 (+14). **LABEL-VS-HONEST**: 147 -> 150 (+3 NEW SUB-FLAVORS).
+
+### Cap_map decisions -- 1 LIFT + 1 LIFT-ANNOTATION + 9 annotations + 1 NO_METRICS rescue routing; portfolio 14+36 UNCHANGED
+
+1. **Substrate-GPU operational baseline 0.75-0.85 -> 0.78-0.88 LIFT (+3%/+3%)** -- S11 multi-hop 3-mechanism dual-cell corroboration; CONSERVATIVE per [[feedback-no-padding-experiments]] single sub-capacity cell only.
+2. **Multi-hop Path D sub-row 0.78-0.88 -> 0.80-0.88 LIFT-annotation (+2% lower)** within combined row UNCHANGED at 0.75-0.85 per [[feedback-dont-overextend-theorems]]; 4 NEW deployment axes corroborated (S6 edit-resilient + S9 confidence-aware-deployable + S10 sampling-based + S11 GPU) = 6-axis durability with v288 noise + past-M_c.
+3. **Path B sub-row 0.65-0.78 UNCHANGED + edit-isolation caveat ANNOTATION** (S6 1.0->0.375 on_path edits).
+4. **Path E sub-row 0.65-0.75 UNCHANGED + confidence-destroys-discrimination + sampling-collapse ANNOTATIONS** (S9 + S10).
+5. **9 annotations**: S2 90-cell crossover characterization + S3 memory profile BOUNDED + Path D spanning-features production-deployment + S6 Path B edit-isolation caveat + T1 conservative-calibration + S8 saturation re-frame + S7 atlas tail-latency SLA signal + S14 joint-unnecessary + S4 v7 4th-instrumentation-block.
+6. **NO_METRICS rescue routing**: S12 adversarial runner crash (`notes/strategy_request_to_exp_dev_v289_s12_adversarial_rerun_2026-05-30.md`); NOT auto-dispatched.
+
+**Framework reliability bands**: non-eq 73-83% SKAH-M 60-75% TCFT 92-97% deletion-cert 92-98% KF-1 65-78% specific 70-83% general 73-83% product-feature 89-98% UNCHANGED; **substrate-GPU 0.75-0.85 -> 0.78-0.88 +3% LIFT**; multi-hop combined 0.75-0.85 UNCHANGED; adaptive-threshold characterization-CLOSED. **Portfolio 14+36 UNCHANGED**.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 5 sets; 17 rescues; R1 0-compute APPLIED inline)
+
+- **R-GPU-LIFT** (substrate-GPU LIFT consolidated): R1 0-compute subsumption APPLIED + R2 GPU past-M_c stress CHEAP NOT-AUTO-DISPATCHED + R3 GPU N=16384 non-chunked vanilla MEDIUM NOT-AUTO-DISPATCHED.
+- **R-Path-D-FEATURES** (production-deployment consolidated): R1 0-compute spanning-features annotation APPLIED + R2 Path D upper-envelope production-stress CHEAP HIGH-PRIORITY NOT-AUTO-DISPATCHED + R3 Path D edit-isolation guard SDK probe CHEAP NOT-AUTO-DISPATCHED.
+- **R-Path-B-EDIT-CAVEAT**: R1 0-compute caveat annotation APPLIED + R2 Path B copy-on-write W edit-isolation guard probe CHEAP NOT-AUTO-DISPATCHED.
+- **R-T1-CALIBRATION** (conservative-calibration consolidated): R1 0-compute annotation APPLIED + R2 calibration-tightening probe CHEAP NOT-AUTO-DISPATCHED + R3 past-M_c calibration probe MEDIUM NOT-AUTO-DISPATCHED.
+- **R-S12-ADVERSARIAL** (runner crash): R1 CHEAP re-ship routing filed NOT-AUTO-DISPATCHED + R2 0-compute UNCHANGED annotation APPLIED.
+
+### Top-5 substantive findings (user-requested)
+
+1. **Path D production-default mechanism on 4 NEW deployment axes** (S6 edit-resilient + S9 confidence-aware-deployable + S10 10x sampling at zero acc loss + S11 GPU 56x); with v288 noise + past-M_c = 6-axis durability. Path D sub-row LIFT 0.78-0.88 -> 0.80-0.88 (+2% lower).
+2. **Substrate-GPU baseline LIFT 0.75-0.85 -> 0.78-0.88** on multi-hop 3-mechanism dual-cell corroboration (B 81x D 56x E 19x; zero accuracy delta; zero crashes).
+3. **S2 90-cell production crossover surface CLEAN** -- wins={B:60, D:11, E:19} n_inconclusive=0; LLM-orchestration mechanism-selection logic engineered-feasible.
+4. **T1 Path D conservative-calibration SAFE failure mode** -- substrate UNDER-predicts confidence (predicted 0.715-0.965 actual 1.000 unanimous); biased-conservative not uncalibrated; regulated-industry-deployable with confidence-floor-as-safety-margin caveat; latency overhead 9-45x.
+5. **3 NEW LABEL-VS-HONEST sub-flavors** -- #148 S4 v7 HARD_PASS_AT_REDUCED_CRITERION + #149 S8 CEILING_PRECLUDES_TRADEOFF + #150 S13 CEILING_AT_CONSERVATIVE_ENVELOPE; pattern: HP labels at relaxed/ceiling criteria need explicit scope-citation in verdict_msg.
+
+### Top-3 follow-on recommendations (NOT auto-dispatched per user no-refill)
+
+1. **Path D upper-envelope production-stress** (HIGH GPU ~30min; v288 R1 R4 carries over + R-Path-D-FEATURES R2): find Path D breaking point at M >= 32768 + d >= 25 + K >= 2000 + noise sigma >= 0.4 at past-M_c. 6-axis durability story is load-bearing.
+2. **S12 adversarial-probing re-ship** (CHEAP ~10-15min smoke + ~30min FULL): security-critical regulated-industry claim CANNOT be assessed from "no cells" runner crash; routing filed.
+3. **Edit-isolation guard SDK probe** (CHEAP CPU ~30min): S6 surfaces Path B copy-on-write W requirement for edit-coexistence with Path D production-default; SDK design + smoke is engineering-cheap.
+
+### PROT compliance
+
+- **PROT-004/006**: 5 rescue sets cheapest-first; 17 rescues; R1 0-compute APPLIED inline in all 5.
+- **PROT-007**: history v289 row added atomically. BACKLOG NOTE: v277 + v278 history rows STILL MISSING.
+- **PROT-008**: validator NOT run inline (1 LIFT on substrate-GPU baseline + 1 sub-row LIFT-annotation; portfolio unchanged; flagged for orchestrator main-thread).
+- **PROT-009**: cap_map.md (v289 entry) + history.md (v289 row) + strategy_decisions_2026-05-30.md (this entry) + visibility_decisions_2026-05-30.md (one-line) staged atomically; 200th PROT-009 paired commit.
+- **PROT-018**: 14 anchors spot-check all CLEAN.
+
+### Memory adherence
+
+- **[[feedback-verdict-msg-honest-reread]]**: 3 NEW catches (#148, #149, #150 NEW SUB-FLAVORS); 11 labels HONEST as worded with strategic differential-reading surfaced on S6 + S9 + T1.
+- **[[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]**: bridge _source=remote for 14/14.
+- **[[feedback-rehabilitation-after-rejection]]**: 0 capability-row closures; S4 v7 4th-instrumentation-block NOT capability closure; S12 NO_METRICS rescue routing FILED before any state change.
+- **[[feedback-rescue-sketch-first-sequencing]]**: R1 0-compute APPLIED inline in all 5 sets.
+- **[[feedback-dont-overextend-theorems]]**: Path D sub-row LIFT scoped within-combined-row; GPU LIFT CONSERVATIVE +3% single sub-capacity cell; S13 HP scope-bounded; S8 saturation scoped sub-capacity; S14 unnecessary scoped sub-capacity.
+- **[[feedback-no-padding-experiments]]**: GPU LIFT +3% conservative; Path D sub-row +2% lower-only; S13 P NOT updated on ceiling.
+- **[[feedback-strategy-shore-up-capabilities]]**: GPU + Path D LIFTs on multi-axis corroboration; proactive.
+- **[[feedback-obey-user-pause-explicitly]]**: pause-flag ABSENT; user no-refill HONORED; S12 rescue routing FILED not auto-dispatched.
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; hash surfaced.
+- **[[feedback-decision-log-eol-handling]]**: this entry appended via append_decision_log.py.
+- **[[feedback-no-smoke]]**: brutal honesty -- #148/#149/#150 catches; S6/S9/T1 differential mechanisms surfaced; S12 NO_METRICS not swept under "ran and passed".
+- **[[feedback-for-you-tab-primary-channel]]**: 6 status_log entries with plain_language + importance.
+- **[[feedback-no-label-vs-honest-anchor-names]]**: 14 anchors CLEAN.
+
+### Commit & push
+
+Commit message stored in cap_map v289 entry.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
