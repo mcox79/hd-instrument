@@ -77,9 +77,10 @@ prereqs/
 testbed_data/
 
 # Cloud credentials and ephemeral state (architecture v1 multi-session).
-# Lambda Cloud API key MUST NEVER be committed.
+# Lambda Cloud API key + Anthropic API key MUST NEVER be committed.
 .env.lambda
 .env.cloud
+.env.anthropic
 data/cloud_cost_tracker.json
 data/lambda_canary_report.json
 data/session_heartbeat_*.json
