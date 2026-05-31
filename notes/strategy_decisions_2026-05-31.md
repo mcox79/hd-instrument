@@ -327,3 +327,88 @@ Sub-flavor notes (no new catches but observations recorded):
 Commit message: "Cap map: v294 -> v295 BATCHED 3-VERDICT post-CUDA-fix CPU landing (V1 C9_HARD_PASS modern_hopfield_cpu_extended_v9 M-ceiling-past-16N-9/9-cells LIFT 0.65-0.80 -> 0.78-0.92; V2 D1_HARD_FAIL query_margin_gate_smoke defense=0+legit=0 dysfunction annotation-only red-row-unchanged D1-candidate-closed rescue-laddered-R2/R3/R4-routed; V3 C3_HARD_PASS substrate_state_compression_v2 c_quant/bits8 4x N=4096 5-seed all-KF-PASS PP-2 first-empirical-foothold annotation; HONEST 271->274; LABEL-VS-HONEST 158 UNCHANGED; framework-reliability marginal-LIFT-1-of-3-green-rows) (2026-05-31)"
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v295 -> v296 @ multi_hop_caching_baseline_v2_n4096 VERDICT [label-vs-honest #159] CONFOUNDED-DESIGN (verdict_handler 207th PROT-009 paired commit)
+
+**Context.** Single-anchor verdict for multi_hop_caching_baseline_v2_n4096. v1 was KILLED by CUDA contention (infrastructure failure, not science). v2 landed with CPU fix applied (commit 3ebb009 device=cpu). source=remote authoritative (is_stale=False, _source=remote). elapsed_s=759.84 (~13min CPU). 5 seeds x 3 alphas x 16 N_STARTS = 15 cells. Pause-flag ABSENT. GPU queue 16 pending/running, CPU queue 2 pending/running.
+
+### Step 0 honest re-read -- [label-vs-honest #159] CONFOUNDED-DESIGN (LABEL OVER-CLAIMS scientific characterization)
+
+**Label.** verdict_msg: 'PARTIAL: a=0.5: hit=0.984 hot=51.04ms audit=1.000 | a=1.0: hit=0.984 hot=53.74ms audit=1.000 | a=1.5: hit=0.984 hot=48.23ms audit=1.000'. Classified C2_MIDDLE_BAND.
+
+**Honest reading.** Per-cell analysis (15 cells):
+- hit_rate: 0.984 in ALL 15 cells (identical across alpha=0.5, 1.0, 1.5 and all 5 seeds)
+- audit_integrity: 1.000 in ALL 15 cells
+- hot_latency vs cold_latency: mean ratio=1.0036; 8/15 cells hot SLOWER than cold; NO latency benefit
+- ROOT CAUSE: CACHE_CAPACITY=256 > K_PATHS=100. Cache can hold ALL 100 unique path prefixes. Once warmed, every repeated query hits regardless of Zipfian alpha. The alpha sweep is CONFOUNDED -- cache saturation artifact, not Zipfian-skew characterization.
+- Expected behavior (if experiment were valid): hit_rate would increase monotonically with alpha (0.5->1.0->1.5); observed: flat 0.984 at all alpha.
+- The 1.6% misses (16/1000) are first-access cold misses ONLY, not alpha-dependent.
+
+**OVER-CLAIM.** Label C2_MIDDLE_BAND implies legitimate scientific characterization of alpha-dependent caching behavior. Honest reading: the alpha sweep produced NO discriminating signal because the design was confounded (cache over-provisioned). This is NOT a MIDDLE_BAND result; it is a CONFOUNDED-DESIGN outcome. Science question 'does LRU cache yield meaningful hit-rate at moderate Zipfian skew?' remains UNANSWERED.
+
+New label-vs-honest sub-flavor #159: CONFOUNDED_DESIGN_AS_SCIENTIFIC_RESULT -- cache saturation artifact reported as alpha-dependent characterization.
+
+### Cap_map changes (v295 -> v296)
+
+**ANNOTATION-ONLY.** No new rows. No emoji state transitions. No P-band changes.
+
+**PP row (multi-hop caching / Path D production optimization) ANNOTATION:**
+'multi_hop_caching_baseline_v2_n4096 (2026-05-31) CONFOUNDED: CACHE_CAPACITY=256 > K_PATHS=100; hit_rate=0.984 uniform across alpha={0.5,1.0,1.5} 5 seeds (cache saturation artifact not Zipfian-skew signal); hot_latency=cold_latency (mean ratio=1.004; no latency benefit); alpha sweep non-discriminating; experiment redesign required: CACHE_CAPACITY < K_PATHS (e.g., capacity=16 K_PATHS=100) to test Zipfian sensitivity; PP conclusion deferred pending redesign.'
+
+**No PP-row P-band change.** The confounded design produced zero scientific signal about caching viability. Neither positive nor negative evidence for LRU caching as production optimization. PP row remains research-only at current P_deflated band.
+
+### Framework reliability bands (v295 -> v296)
+
+ALL UNCHANGED. Confounded-design outcome provides no framework-class evidence.
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 274 (v295 basis) + 0 (label over-claimed; confounded not honest) = **274 UNCHANGED**
+- LABEL-VS-HONEST: 158 + 1 (new #159 CONFOUNDED_DESIGN_AS_SCIENTIFIC_RESULT) = **159**
+
+### Portfolio
+
+22 + 36 -> **22 + 36 UNCHANGED** (annotation only; confounded result does not add or close rows).
+
+### Rescue sketches (PROT-004/006 -- redesign before abandoning caching hypothesis)
+
+Per [[feedback-rehabilitation-after-rejection]] and [[feedback-rescue-sketch-first-sequencing]], cheapest first:
+
+R1 (CHEAPEST -- subsumption annotation): The caching MECHANISM is not refuted. The experiment design was confounded (CACHE_CAPACITY > K_PATHS). The hypothesis 'LRU caching provides latency benefit for Zipfian-skewed multi-hop workloads' REMAINS UNTESTED. Applied inline.
+R2 (CHEAP ~30min CPU smoke): Redesign with CACHE_CAPACITY=16, K_PATHS=100, alpha in {0.5, 1.0, 1.5}. Pre-reg: HP = hit_rate(a=1.5) >= 0.80 AND hit_rate(a=0.5) <= 0.50 (demonstrates alpha sensitivity); HF = hit_rate flat across alpha within +-0.05 band (no sensitivity). This is the definitive discriminating test. NOT-AUTO-DISPATCHED.
+R3 (CHEAP ~30min CPU smoke): Alternatively vary K_PATHS holding CACHE_CAPACITY=32 fixed: K_PATHS in {32, 128, 512}. Tests cache saturation boundary directly. NOT-AUTO-DISPATCHED.
+R4 (MEDIUM): Path-prefix locality experiment -- measure repeat-access rate under realistic LLM-retrieval pattern (vs pure Zipfian synthetic). Tests production-relevance of caching at typical query distributions. NOT-AUTO-DISPATCHED.
+R5 (HIGHER COST): LRU vs LFU vs FIFO cache policy comparison at production-realistic K_PATHS / CACHE_CAPACITY ratios. Only if R2 or R3 shows positive alpha sensitivity. DEFERRED.
+
+### Top-3 follow-on decisions for orchestrator
+
+1. Re-ship caching experiment with corrected design (R2 CHEAPEST substantive test): CACHE_CAPACITY=16, K_PATHS=100, pre-reg alpha-sensitivity bands. ~30min CPU. MEDIUM priority (PP hypothesis unresolved; cheap to answer correctly this time).
+2. (Carry-forward) C9 next envelope extension M-sweep 32N=524288 at N=16384 (~1.5h CPU). MEDIUM priority.
+3. (Carry-forward) D1 reimplementation or D7 edit-log-replay adversarial defense (~30-60min CPU smoke). MEDIUM priority.
+
+### PROT compliance (v295 -> v296)
+
+- PROT-004/006: No capability-row closures. Caching hypothesis NOT closed; confounded design = implementation gap, not capability failure. 5 rescue sketches R1-R5 filed per [[feedback-rehabilitation-after-rejection]]; R1 applied inline; R2/R3 routed for orchestrator decision; R4/R5 deferred.
+- PROT-007: substrate_capability_map_history.md v296 row to be appended atomically.
+- PROT-008: validate_capmap_commit.py ABSENT (carried forward); annotation-only change does not risk state regression.
+- PROT-009: cap_map.md (v296 annotation) + substrate_capability_map_history.md (v296 row) + strategy_decisions_2026-05-31.md (this entry) + visibility_decisions_2026-05-31.md (one-line) staged atomically; 207th PROT-009 paired commit.
+- PROT-018: anchor name multi_hop_caching_baseline_v2_n4096 has _n4096 suffix matching config.N=4096 (compliant).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed; label-vs-honest #159 caught (CONFOUNDED_DESIGN_AS_SCIENTIFIC_RESULT); honest reading authoritative for cap_map.
+- [[feedback-cap-map-update-protocol]]: atomic commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]].
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT; queue NOT empty (GPU 16 + CPU 2); exp_dev dispatch NOT triggered.
+- [[feedback-pipeline-pacing]]: queue state CHECKED (non-zero); exp_dev dispatch NOT triggered.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry filed with plain_language + importance.
+- [[feedback-no-padding-experiments]]: no new anchor names dispatched.
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 (subsumption annotation, cheapest) applied first; R2 (redesign smoke, cheap) second; R3 (K_PATHS sweep, cheap) third; R4 (medium) fourth; R5 (expensive composition, only if positive signal) last.
+- [[feedback-rehabilitation-after-rejection]]: 5 rescue sketches before caching-hypothesis abandonment.
+- [[feedback-no-label-vs-honest-anchor-names]]: anchor name compliant.
+
+### Commit and push
+
+Commit message: 'Cap map: v295 -> v296 multi_hop_caching_baseline_v2 [label-vs-honest #159] CONFOUNDED-DESIGN cache-saturation-artifact (CACHE_CAPACITY=256 > K_PATHS=100; hit=0.984-uniform-all-alpha; no-latency-benefit; alpha-sweep non-discriminating; PP-caching deferred pending redesign; rescue sketches R1-R5 filed; HONEST 274 UNCHANGED; LABEL-VS-HONEST 158->159) (2026-05-31)'
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main.
