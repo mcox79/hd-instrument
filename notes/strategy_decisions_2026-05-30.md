@@ -921,3 +921,60 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 ```
 Cap map: v289 -> v290 (BATCHED 8-VERDICT T2-T5+U1-U3+V1 MAJOR EVENT; NEW ROW "Modern Hopfield activation regime at large N" 0.65-0.80 P-band T3 max_M=N=16384 CPU 3-seed unanimous 4x linear-capacity-floor AT MINIMUM "bend" framing TEST-ENVELOPE-CEILING-INFERRED needs M>N replication + cross-codebook; Path D sub-row LIFT-annotation 0.80-0.88 -> 0.85-0.95 +5%/+7% U1 no-ceiling within 16N x depth=50 envelope 100/100 cells unanimous 1.000 per-hop-independent-Bayesian mechanism; Path E sub-row LIFT 0.65-0.75 -> 0.70-0.82 +5%/+7% T4 3-niche-application confirmation; substrate-product-feature row ANNOTATED REGULATED-INDUSTRY-DEPLOYMENT-BLOCKER pending U2 codebook-collision 100% breach + edit-fact-traverse 99.4% breach adversarial defenses; COW mechanism-dead-end ANNOTATION U3 cons=1.00 audit=5/5 OK but 10.13x mem-amp + 7-8x throughput-slower INFEASIBLE; V1 Phase-1 cloud-pipeline-validation ANNOTATION 39/39 cells 0 crashes N=2048+4096; T2 Path D edit-isolation-under-load 45/45 cells unanimous label-understates-data; T5 Path B sub-capacity acc=1.000 60/60 unanimous PARTIAL sources from geom_cos not accuracy METRIC-SOURCE-MISIDENTIFIED; 5 NEW LABEL-VS-HONEST sub-flavors #151 CEILING_AT_TEST_ENVELOPE_PRECLUDES_BEND_CLAIM T3 + #152 LABEL_NARRATIVE_UNDERSTATES_DATA T2 5th-occurrence + #153 METRIC_SOURCE_MISIDENTIFIED T5 + #154 PER_CELL_BREACH_STRONGER_THAN_AVG U2 + #155 SCRIPT_THRESHOLD_DISAGREES_WITH_DATA U3; portfolio 14+36 -> 15+36 NEW ROW; HONEST 256 -> 263 +7 (8 verdicts - 1 over-claim #151 + label-honest extensions); LABEL-VS-HONEST 150 -> 155 +5 NEW; non-eq SKAH-M TCFT deletion-cert KF-1 KF-2 KF-3 specific general substrate-GPU multi-hop-combined product-feature UNCHANGED at row position; 6 rescue sets cheapest-first 18 rescues R1 0-compute APPLIED inline; 7 status_log entries (2 CRITICAL T3 modern-Hopfield + U1 Path-D-no-ceiling; 1 HIGH U2 adversarial; 4 MEDIUM U3 COW + V1 pipeline + T2 + T4); 3 research routings filed codebook-collision-defense + edit-adversarial-defense + alt-edit-isolation NOT auto-dispatched per V2 still running + G1-G4 pending; 201st PROT-009 paired commit; verdict_handler dispatched; user no-refill V2/G1-G4 in-flight)
 ```
+
+## v290 -> v291 @ BATCHED 2-VERDICT C1+C8 EXTENSION EVENT (verdict_handler-dispatched; 202nd PROT-009 paired commit)
+
+**Context.** Batched 2-verdict event: C1 modern_hopfield_cpu_backup_extended_v1_n16384 HARD_PASS (1023s; max_M=4N=65536 all 3 seeds) + C8 sparse_w_large_n_integration_v1 HARD_PASS (59s; 9/9 KF cells N=8192 + projection slope=1.0 to N=16384). Both verdicts EXTEND prior cap_map state (Modern Hopfield NEW row from v290 + Sparse-W LIFT from v284) along their next-natural axes. User explicit: "NO exp_dev refill (orchestrator dispatching follow-up batch in parallel with this)."
+
+### Step 0 honest re-read summary -- 1 NEW SUB-FLAVOR catch (#156); C8 LABEL-HONEST as worded
+
+#### #156 -- C1 LABEL_CONSERVATIVELY_UNDERSTATES_CEILING_BAND (NEW SUB-FLAVOR; opposite valence of typical over-claim)
+
+**Anchor.** `modern_hopfield_cpu_backup_extended_v1_n16384` HARD_PASS labeled "CEILING_EXTENDS_PAST_2N: constructed=3/3 max_M_per_seed=[65536, 65536, 65536] target_hp>=32768 target_hf=16384".
+
+**Honest reading.** Per-cell metrics: all 3 seeds {7, 17, 23} x all 3 M values {16384, 32768, 65536} = 9/9 cells recall=1.0 unanimous. max_M_at_95_recall = 65536 = 4N for ALL 3 seeds. Pre-reg HP threshold target_hp >= 32768 = 2N MET BY 2x at every seed. Label says "PAST_2N" but data shows PAST_4N (the test envelope SATURATED at 4N with no degradation). This is a CONSERVATIVELY UNDERSTATED label -- opposite valence of typical over-claim. Critical caveat preserved: test envelope SATURATES at M=4N; actual ceiling past 4N is UNTESTED.
+
+**Decision.** HARD_PASS HONEST CONSERVATIVELY. NEW SUB-FLAVOR #156 LABEL_CONSERVATIVELY_UNDERSTATES_CEILING_BAND filed (distinct from #151 CEILING_AT_TEST_ENVELOPE_PRECLUDES_BEND_CLAIM: #151 was over-claim risk, #156 is conservative-understatement of empirical band). Cap_map decision: Modern Hopfield row promoted yellow -> green 0.65-0.80 -> 0.75-0.88 LIFT (+10%/+8%). 2-anchor confirmation at N=16384 BSC (T3 + C1) + max_M >= 4N empirically RESOLVES v290 "untested past M=N" caveat fully and PARTIALLY RESOLVES "single anchor" caveat. Remaining caveats: (a) single codebook BSC at N=16384 still open; (b) actual ceiling past 4N still untested; (c) cross-N (N=8192 G5/G6 still in flight) still open; (d) cross-N at activation regime envelope untested.
+
+#### C8 -- LABEL-HONEST as worded (no over-claim, no under-claim)
+
+**Anchor.** `sparse_w_large_n_integration_v1` HARD_PASS labeled "COMPOSITION_OK: M=512:3/3_pass; M=2048:3/3_pass; M=8192:3/3_pass | slope=1.0 deployable=True".
+
+**Honest reading.** KF cells: 9/9 (3 M x 3 seeds) all retention=1.0, max_iso=0.0, above_thresh_frac=0.0, kf_pass=True at N_validation=8192. Footprint cells at N=4096 confirm sparse_match_theory=True at all 4 M values. Projection at N=16384 via slope=1.0 power-law (matches theory) yields on_device_anchor M=2048 ratio=0.25 deployable=True. The `deployable=True` flag is EMPIRICAL at N=8192 (validation cell) but PROJECTED at N=16384 (extrapolated). Label HONEST -- script transparently exposes the projection mechanism via `projection_at_n16384` keys; not hidden under-rug.
+
+**Decision.** HARD_PASS HONEST. C8 = FIRST independent confirmation of v283/v284 sparse-W active-subspace envelope on N-axis EXTENSION (N=4096 -> N=8192). Cap_map: Sparse-W row 0.55-0.70 -> 0.60-0.75 LIFT (+5%/+5%). MODEST LIFT (not +10%/+10%) because N=16384 deployment is PROJECTED via power-law not empirically validated + sparse-W in modern-Hopfield activation regime (M >> N) UNTESTED.
+
+### Cap_map decisions -- row-by-row
+
+1. **Modern Hopfield activation regime at large N: 0.65-0.80 (yellow) -> 0.75-0.88 (green) LIFT (+10%/+8%).** Mid-band 0.815. Promote yellow -> green because (a) 2-anchor confirmation T3 + C1 both at N=16384 BSC RESOLVES single-anchor caveat partially, (b) max_M >= 4N RESOLVES untested-past-M=N caveat fully, (c) per-cell metrics 9/9 cells unanimous recall=1.0. Conservative upper bound 0.88 (not 0.92+) reflects remaining caveats (single codebook BSC + ceiling-past-4N untested + cross-N untested + cross-N-at-activation-regime untested). NEW SUB-FLAVOR #156 LABEL_CONSERVATIVELY_UNDERSTATES_CEILING_BAND.
+
+2. **Sparse-W active-subspace storage: 0.55-0.70 -> 0.60-0.75 LIFT (+5%/+5%).** Mid-band 0.675. Modest LIFT reflects N-axis envelope extension N=4096 -> N=8192 (9/9 cells unanimous + slope=1.0 power-law match-theory) + N=16384 PROJECTED not empirical. R2 (C12 direct N=16384 validation) closes projection caveat at MEDIUM compute cost.
+
+**Portfolio**: 15 + 36 UNCHANGED at row count (both LIFTs are within-row band moves; Modern Hopfield row promoted yellow -> green within existing row position).
+
+**Framework reliability bands**: ALL bands UNCHANGED at framework-class level (non-eq, SKAH-M, TCFT, KF-1, KF-2, KF-3, deletion-cert, specific, general, product-feature, substrate-GPU, multi-hop-combined + sub-rows). Only the 2 row-specific bands (Modern Hopfield activation + Sparse-W active-subspace) lift; no framework-class shifts.
+
+**HONEST 263 -> 265 (+2)**; **LABEL-VS-HONEST 155 -> 156 (+1 NEW SUB-FLAVOR #156)**.
+
+### Rescue sketches summary (2 sets filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+- **R-MODERN-HOPFIELD-EXTENSION (4 rescues):** R1 0-compute subsumption-annotation RECOMMENDED-FIRST (test-envelope-ceiling extension at next sweep level + conservative LIFT pending M>4N + cross-codebook + multi-N); R2 CHEAP C9 M sweep {4N, 8N, 16N} past N=16384 (HIGH PRIORITY); R3 CHEAP C10 Kerdock cross-codebook at N=16384; R4 MEDIUM C11 cross-N at N=12288 + N=20480.
+- **R-SPARSE-W-LARGE-N (3 rescues):** R1 0-compute subsumption-annotation RECOMMENDED-FIRST (N-axis envelope extension + projection-not-empirical caveat); R2 MEDIUM C12 direct N=16384 sparse-W validation (MEDIUM PRIORITY); R3 MEDIUM C13 sparse-W at modern-Hopfield activation regime M >> N composition.
+
+### Follow-on recommendations (for orchestrator main-thread; NOT auto-dispatched per orchestrator-follow-up-batch-in-parallel directive)
+
+Top-3 surfaced for orchestrator main-thread review:
+
+1. **C9 M-sweep past 4N at N=16384** (HIGH PRIORITY CPU ~30-45min) -- characterize WHERE Modern Hopfield activation actually breaks past M=4N=65536; same harness as C1; closes last remaining test-envelope-ceiling caveat. If no ceiling at 16N, justifies LIFT to 0.85-0.92 next cycle.
+
+2. **C12 direct N=16384 sparse-W validation** (MEDIUM PRIORITY CPU/GPU ~30-60min) -- empirically confirms C8's slope=1.0 projection at N=16384; closes projection caveat on sparse-W row.
+
+3. **C10 Kerdock cross-codebook at N=16384 + C13 sparse-W at modern-Hopfield activation regime composition** (MEDIUM PRIORITY ~60-90min total) -- C10 addresses Modern Hopfield "single codebook BSC" caveat; C13 tests sparse-W mechanism in past-M=N activation regime (compositional with C1 axis).
+
+### PROT compliance (v290 -> v291)
+
+- **PROT-004/006**: 2 rescue sets cheapest-first; 7 rescues total; R1 0-compute APPLIED inline in both sets.
+- **PROT-007**: cap_map_history.md v291 row added; **BACKLOG NOTE carried forward**: v277 + v278 history rows STILL missing (from v279-v290 PROT-007 backlogs).
+- **PROT-008**: NOT run inline (2 within-row band LIFTs + 1 row promotion yellow -> green; portfolio 15+36 UNCHANGED).
+- **PROT-009**: cap_map.md (v291 entry) + history.md (v291 row) + this strategy_decisions append + 2 status_log entries; **202nd PROT-009 paired commit**.
+- **PROT-018**: 2/2 anchors spot-checked CLEAN (C1 _n16384 matches config.N=16384; C8 multi-N exemption per v283 precedent).
