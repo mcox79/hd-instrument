@@ -387,18 +387,43 @@ def main() -> int:
         return 1
 
     # --- V1 dispatch ---
+    # ALWAYS verbose, per [[feedback-always-verbose-remote-dispatch]]:
+    #   - `set -e` exits on error, `set -x` traces every shell command
+    #   - `python -u` + `stdbuf -oL` keep stdio line-buffered so partial
+    #     lines survive an SSH 'Connection reset by peer'
+    #   - tee'd remote log file is SCPed back below even if the dispatch
+    #     fails (so we always have ground truth on what actually ran)
     print(f"\n[4/5] Dispatching V1 via SSH (timeout {args.v1_timeout_min:.0f} min)...")
     v1_cmd = (
-        "cd ~/hd-instrument && "
+        "set -e; "
+        "cd ~/hd-instrument; "
         "PY=$(if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi); "
         f"REMOTE_OUT=data/exp_{_V1_ANCHOR}; "
-        f"mkdir -p $REMOTE_OUT && "
-        f"$PY {_V1_SCRIPT} 2>&1 | tail -250; "
-        f"echo '=== metrics.json ==='; "
+        f"REMOTE_LOG=$REMOTE_OUT/v1_run.log; "
+        f"mkdir -p $REMOTE_OUT; "
+        "echo '--- environment ---'; "
+        "echo PY=$PY; $PY --version; "
+        "$PY -c 'import sys; print(\"path[0]:\", sys.path[0])' || true; "
+        "$PY -c 'import torch; print(\"torch:\", torch.__version__, \"cuda:\", torch.cuda.is_available())' || echo 'torch import fail'; "
+        "$PY -c 'import numpy; print(\"numpy:\", numpy.__version__)' || echo 'numpy import fail'; "
+        "free -h | head -2; "
+        "df -h / | tail -1; "
+        "echo '--- dispatch (set -x; tee to $REMOTE_LOG) ---'; "
+        # Run V1 unbuffered + line-buffered, tee everything to the remote
+        # log file. The outer `|| echo` captures the V1 exit code so the
+        # surrounding `set -e` does not kill the script before we read
+        # the metrics file.
+        f"set -x; "
+        f"(stdbuf -oL $PY -u {_V1_SCRIPT} 2>&1 | tee $REMOTE_LOG; "
+        f"  echo \"V1_EXIT=${{PIPESTATUS[0]}}\") || echo 'V1_DISPATCH_FAIL'; "
+        f"set +x; "
+        "echo '--- result ---'; "
         f"if [ -f $REMOTE_OUT/metrics.json ]; then "
         f"  echo 'METRICS_OK'; ls -la $REMOTE_OUT/metrics.json; "
         f"else "
         f"  echo 'NO_METRICS_PRODUCED'; "
+        f"  echo '--- last 200 lines of remote log ---'; "
+        f"  tail -200 $REMOTE_LOG || true; "
         f"fi"
     )
     rc, out, err = _ssh_run(
@@ -413,7 +438,21 @@ def main() -> int:
     log_path = _REPO_ROOT / "data" / f"lambda_v1_canary_{instance_id}.log"
     log_path.parent.mkdir(parents=True, exist_ok=True)
     log_path.write_text(out + "\n[stderr]\n" + err, encoding="utf-8")
-    print(f"  saved log: {log_path}")
+    print(f"  saved local log: {log_path}")
+
+    # Per [[feedback-always-verbose-remote-dispatch]], pull the REMOTE log
+    # file back even on failure. This is independent of metrics.json --
+    # the remote log captures whatever V1 printed before any crash, and
+    # is often the only diagnostic data we get.
+    remote_log_path = _REPO_ROOT / "data" / f"lambda_v1_canary_remote_log_{instance_id}.log"
+    if _scp_from(
+        ip, args.ssh_key_path,
+        f"~/hd-instrument/data/exp_{_V1_ANCHOR}/v1_run.log",
+        remote_log_path,
+    ):
+        print(f"  saved remote log: {remote_log_path}")
+    else:
+        print(f"  [WARN] could not SCP remote v1_run.log (instance may have crashed before tee)")
 
     metrics: dict | None = None
     v1_ok = False
