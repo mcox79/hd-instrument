@@ -30,6 +30,17 @@ testbed/. Q3/Q4/Q11 parallel-track READY items unchanged.
 launch Q3 (composition latency, pre-authorized) -> start Q4 in parallel ->
 monitor S2 verdict for T10 unblock.
 
+**2026-05-30 UPDATE 4 — N=16384 ENVELOPE RESULT LANDED:**
+Bench finished at 22:39 local after 11.5h wall (vs 45-90 min estimate, 8-15x
+underestimate). Result: `max_M_at_95_recall = 8192 = N/2` at N=16384,
+**2x the linear N/4 extrapolation from N<=8192**. Modern Hopfield exponential
+capacity does NOT activate (no exponential bend), but envelope is super-linear
+at large N. Per-cell: KF-1 near_uniform_frac=1.0 across all 4 cells, KF-2
+max_iso=0.0 across all cells (killer features hold at N=16384). TCFT degrades
+0.20 -> 0.66 with M; HARD_PASS only at M=N/4. See updated CAPABILITY_MAP.md
+section "Recall envelope is SUPER-LINEAR at large N". Next: build Q3
+(composition latency) per pre-authorization.
+
 ## Immediate state (what's running, what's next)
 
 ### Currently running on remote (marsh@home)

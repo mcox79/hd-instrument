@@ -1,0 +1,21 @@
+# Smoke-test for composition_latency. Tiny N_ops to verify code path.
+config_name: composition_latency_smoke
+
+N: 512
+dim: 512
+codebook_kind: bsc
+codebook_C: 1024
+codebook_scale: 2
+codebook_M_hint_auto: true
+beta: 32.0
+hallu_threshold: 0.5
+
+composition_latency_M_base: 100
+composition_latency_N_ops_per_ratio: 200
+composition_latency_read_batch_size: 16
+composition_latency_n_deciles: 5
+
+seeds: [7]
+backends: [substrate, dict]
+scenarios: [composition_latency]
+out_root: testbed_data/benchmarks
