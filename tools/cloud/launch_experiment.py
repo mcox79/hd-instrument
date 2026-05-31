@@ -34,6 +34,7 @@ import os
 import signal
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,6 +48,10 @@ from tools.cloud.cost_tracker import update_cost  # noqa: E402
 
 
 _TERMINATE_STATE: dict = {"client": None, "instance_ids": [], "done": False}
+_PROGRESS_POLL_INTERVAL_S = 30
+_DEFAULT_CELL_REGEX = (
+    r"^\s+(?:M=\d+\s+d=\d+\s+)?seed=\d+\s+(?:ok=|acc=|FAILED:)"
+)
 
 
 def _load_key(key_file_arg: str) -> str | None:
@@ -157,6 +162,76 @@ def _scp_from(ip: str, key: str | None, remote: str, local: Path) -> bool:
         return False
 
 
+class ProgressPoller(threading.Thread):
+    """Background SCP-poller for the remote progress.json.
+
+    Pulls ~/hd-instrument/data/exp_<anchor>/progress.json every
+    poll_interval_s, mirrors it to data/lambda_progress_<anchor>_<id>.json,
+    and prints a one-line live status (cell N/M, percent, ETA).
+
+    Stops cleanly when stop_event is set OR the main thread exits.
+    """
+
+    def __init__(
+        self,
+        ip: str,
+        ssh_key_path: str | None,
+        instance_id: str,
+        anchor: str,
+        stop_event: threading.Event,
+        poll_interval_s: int = _PROGRESS_POLL_INTERVAL_S,
+    ):
+        super().__init__(daemon=True, name=f"progress-poller-{anchor}")
+        self.ip = ip
+        self.ssh_key_path = ssh_key_path
+        self.instance_id = instance_id
+        self.anchor = anchor
+        self.stop_event = stop_event
+        self.poll_interval_s = poll_interval_s
+        self.remote_path = f"~/hd-instrument/data/exp_{anchor}/progress.json"
+        self.local_path = (
+            _REPO_ROOT / "data" / f"lambda_progress_{anchor}_{instance_id}.json"
+        )
+        self._last_cell: int | None = None
+
+    def run(self) -> None:
+        if self.stop_event.wait(timeout=10):
+            return
+        while not self.stop_event.is_set():
+            try:
+                self._poll_once()
+            except Exception as exc:
+                print(f"[progress-poller] error (continuing): {exc}", flush=True)
+            if self.stop_event.wait(timeout=self.poll_interval_s):
+                break
+
+    def _poll_once(self) -> None:
+        tmp = self.local_path.with_suffix(self.local_path.suffix + ".tmp")
+        ok = _scp_from(self.ip, self.ssh_key_path, self.remote_path, tmp)
+        if not ok or not tmp.is_file():
+            return
+        try:
+            entry = json.loads(tmp.read_text(encoding="utf-8"))
+        except Exception:
+            tmp.unlink(missing_ok=True)
+            return
+        os.replace(str(tmp), str(self.local_path))
+        cell = entry.get("cell")
+        total = entry.get("total_cells")
+        phase = entry.get("phase") or ""
+        eta = entry.get("eta_sec")
+        if cell is None or total is None:
+            return
+        if cell == self._last_cell:
+            return
+        self._last_cell = int(cell)
+        pct = (cell / total * 100) if total else 0
+        eta_str = f"ETA {eta}s" if eta is not None else "ETA -"
+        ts = datetime.now().astimezone().strftime("%H:%M:%S")
+        print(f"[progress {ts}] {self.anchor} cell {cell}/{total}  "
+              f"({pct:.1f}%)  {phase}  {eta_str}", flush=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generic Lambda experiment launcher")
     parser.add_argument("--anchor", required=True,
@@ -175,6 +250,12 @@ def main() -> int:
                         default="https://github.com/mcox79/hd-instrument.git")
     parser.add_argument("--branch", default="main")
     parser.add_argument("--experiment-timeout-min", type=float, default=60.0)
+    parser.add_argument("--total-cells", type=int, default=0,
+                        help="Expected cell-completion lines (>0 enables "
+                             "ProgressPoller; 0 disables progress tracking)")
+    parser.add_argument("--cell-regex", default=_DEFAULT_CELL_REGEX,
+                        help="Regex matching one cell-completion stdout "
+                             "line; default fits substrate experiments")
     args = parser.parse_args()
 
     api_key = _load_key(args.key_file)
@@ -333,6 +414,22 @@ def main() -> int:
     # Dispatch experiment (layer 2 safety: verbose tracing + tee remote log)
     print(f"\n[4/4] Dispatching experiment ({args.experiment_timeout_min:.0f}m timeout)...")
     remote_anchor_dir = f"data/exp_{args.anchor}"
+    progress_enabled = args.total_cells > 0
+    if progress_enabled:
+        # Wrap target script in generic_progress_wrapper for per-cell ETA emission.
+        # Escape single quotes in regex by using a heredoc-friendly shell pattern.
+        regex_escaped = args.cell_regex.replace("'", "'\\''")
+        target_cmd = (
+            f"$PY -u tools/cloud/generic_progress_wrapper.py "
+            f"--anchor {args.anchor} "
+            f"--script {args.script} "
+            f"--total-cells {args.total_cells} "
+            f"--cell-regex '{regex_escaped}'"
+        )
+        print(f"  progress tracking ON (total_cells={args.total_cells})")
+    else:
+        target_cmd = f"$PY -u {args.script}"
+        print(f"  progress tracking OFF (--total-cells=0)")
     exp_cmd = (
         "set -e; "
         "cd ~/hd-instrument; "
@@ -346,15 +443,34 @@ def main() -> int:
         "free -h | head -2; df -h / | tail -1; "
         "echo '--- dispatch ---'; "
         "set -x; "
-        f"(stdbuf -oL $PY -u {args.script} 2>&1 | tee $REMOTE_LOG; "
+        f"(stdbuf -oL {target_cmd} 2>&1 | tee $REMOTE_LOG; "
         f"  echo \"EXP_EXIT=${{PIPESTATUS[0]}}\") || echo 'EXP_DISPATCH_FAIL'; "
         "set +x; "
         "echo '--- result ---'; "
         f"if [ -f $REMOTE_OUT/metrics.json ]; then echo 'METRICS_OK'; ls -la $REMOTE_OUT/metrics.json; "
         f"else echo 'NO_METRICS'; tail -100 $REMOTE_LOG || true; fi"
     )
-    rc, out, err = _ssh_run(ip, args.ssh_key_path, exp_cmd,
-                             timeout_s=int(args.experiment_timeout_min * 60))
+
+    # Spawn ProgressPoller BEFORE the blocking SSH dispatch so live cell
+    # updates print to stdout while the experiment runs. Stops on _ssh_run
+    # return or signal.
+    progress_stop = threading.Event()
+    progress_poller: ProgressPoller | None = None
+    if progress_enabled:
+        progress_poller = ProgressPoller(
+            ip=ip, ssh_key_path=args.ssh_key_path,
+            instance_id=instance_id, anchor=args.anchor,
+            stop_event=progress_stop,
+        )
+        progress_poller.start()
+
+    try:
+        rc, out, err = _ssh_run(ip, args.ssh_key_path, exp_cmd,
+                                 timeout_s=int(args.experiment_timeout_min * 60))
+    finally:
+        if progress_poller is not None:
+            progress_stop.set()
+            progress_poller.join(timeout=5)
     print("---- experiment stdout tail ----")
     print(out[-4000:])
     if err:
@@ -378,6 +494,12 @@ def main() -> int:
                  f"~/hd-instrument/{remote_anchor_dir}/exp_run.log",
                  remote_log_local):
         print(f"  remote log: {remote_log_local}")
+    progress_local = _REPO_ROOT / "data" / f"lambda_exp_{args.anchor}_progress_final_{instance_id}.json"
+    if progress_enabled and _scp_from(
+            ip, args.ssh_key_path,
+            f"~/hd-instrument/{remote_anchor_dir}/progress.json",
+            progress_local):
+        print(f"  progress (final): {progress_local}")
 
     # Terminate (layer 1 safety: retry+leak flag via _force_terminate)
     print(f"\n[terminate]")
