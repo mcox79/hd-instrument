@@ -124,6 +124,15 @@ single-threaded per operation (store / retrieve), but BSC codebook lookup uses
 some thread-parallelism. Observed effective utilization 5-7 threads during heavy
 store loops with no other load.
 
+**Cold-start vs warm steady-state (validated Q4 2026-05-31):** substrate
+latency at N=2048 is essentially flat across phases: cold (first 10 ops)
+p50=12.56 ms; warm (ops 100-1000) p50=11.80 ms; long-running (ops 1000+)
+p50=11.73 ms. **Cold/warm ratio = 1.06x** -- no measurable cold-start penalty.
+Production-relevant: capacity planning at steady-state latency also covers
+cold-start latency. FAISS by comparison oscillates during warm-up (cold/warm
+0.58x but warm has larger long tails; settles by ops 1000+). Dict warms up
+~13% over the run.
+
 **Per-store latency by N (observed):**
 
 | N      | Per-store wall (single-thread) |

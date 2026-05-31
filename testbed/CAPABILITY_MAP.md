@@ -43,6 +43,24 @@ Anchor format: scenario file + config + key metric numbers + run timestamp where
 
 ## Single-substrate scaling envelope (the empirical boundary)
 
+### Cold-start vs warm steady-state (Q4 / E2.4)
+
+`cold_warm_timing` scenario (run 2026-05-31T03-03-38, 70 sec wall, N=2048 M=2000 on remote):
+
+| Backend | Cold (10 ops) p50 | Warming (90 ops) p50 | Warm (900 ops) p50 | Long-run (1000 ops) p50 | Cold/Warm | Warm/Long |
+|---|---|---|---|---|---|---|
+| substrate | 12.56 ms | 10.82 ms | 11.80 ms | 11.73 ms | **1.06x** | 0.994 |
+| faiss | 0.92 ms | 1.05 ms | 1.59 ms | 1.29 ms | 0.58x | 0.813 |
+| dict | 19.18 ms | 19.05 ms | 19.18 ms | 16.62 ms | 1.01x | 0.867 |
+
+**Substrate finding (PROVEN):** essentially zero cold-start penalty (1.06x = 6% slower for first 10 ops; well below the 5x HARD_PASS threshold). No drift from warm to long-running (0.994). Substrate latency is **predictable from op 1**.
+
+**FAISS finding (WARN):** non-monotonic. Cold faster than warm (cold/warm=0.58 means cold is 58% of warm latency), but warm has larger long tails (warm p99=12 ms vs cold p99=11 ms). Long-running stabilizes (warm/long=0.81 = long-run 19% faster than warm). FAISS oscillates during warm-up before settling.
+
+**Dict finding (WARN):** flat cold/warm, gets faster long-running (Python interpreter warm-up).
+
+**Strategic implication:** substrate's predictability is a deployment advantage — capacity planning at warm steady-state latency is also the cold-start latency. FAISS deployments need warm-up periods to characterize actual steady-state latency.
+
 ### Recall envelope is SUPER-LINEAR at large N, not exponential
 
 `large_N_envelope` scenarios (runs 2026-05-30T01-26-03 + 2026-05-30T15-02-06, total ~17,700 sec wall):
