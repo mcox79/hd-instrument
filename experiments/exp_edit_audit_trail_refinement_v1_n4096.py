@@ -406,7 +406,7 @@ def main():
     args = p.parse_args()
     if args.self_test:
         sys.exit(0)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
     smoke = args.smoke
     N_cfg = N_SMOKE if smoke else N_FULL
     M = M_SMOKE if smoke else M_PROD
