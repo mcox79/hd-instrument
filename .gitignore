@@ -75,3 +75,11 @@ metrics.json
 # Prereqs typo directory (real pre-registrations live in preregs/)
 prereqs/
 testbed_data/
+
+# Cloud credentials and ephemeral state (architecture v1 multi-session).
+# Lambda Cloud API key MUST NEVER be committed.
+.env.lambda
+.env.cloud
+data/cloud_cost_tracker.json
+data/lambda_canary_report.json
+data/session_heartbeat_*.json
