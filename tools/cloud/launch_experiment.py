@@ -44,7 +44,7 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from tools.cloud.lambda_client import LambdaClient, LambdaClientError  # noqa: E402
-from tools.cloud.cost_tracker import update_cost  # noqa: E402
+from tools.cloud.cost_tracker import update_cost, accumulate_run_cost  # noqa: E402
 
 
 _TERMINATE_STATE: dict = {"client": None, "instance_ids": [], "done": False}
@@ -380,7 +380,6 @@ def main() -> int:
     print(f"  active: ip={inst.ip}")
     ip = inst.ip
     update_cost(
-        accumulated_today_usd=0.0,
         current_hourly_rate_usd=inst.hourly_rate_usd,
         active_instances=[{
             "instance_id": instance_id,
@@ -528,11 +527,9 @@ def main() -> int:
     print(f"  Experiment rc: {rc}")
     print(f"  Metrics:       {metrics_local if metrics_local.is_file() else 'NOT PRODUCED'}")
 
-    update_cost(
-        accumulated_today_usd=actual_cost,
-        current_hourly_rate_usd=0.0,
-        active_instances=[],
-    )
+    update_cost(current_hourly_rate_usd=0.0, active_instances=[])
+    new_total = accumulate_run_cost(actual_cost)
+    print(f"  Cumulative today: ${new_total:.2f}")
 
     report = {
         "anchor": args.anchor,

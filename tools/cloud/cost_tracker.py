@@ -42,32 +42,44 @@ _COST_PATH = _DATA_DIR / "cloud_cost_tracker.json"
 
 
 def update_cost(
-    accumulated_today_usd: float,
-    current_hourly_rate_usd: float,
+    accumulated_today_usd: Optional[float] = None,
+    current_hourly_rate_usd: Optional[float] = None,
     active_instances: Optional[Iterable[dict]] = None,
     daily_budget_usd: Optional[float] = None,
 ) -> None:
-    """Write a fresh cost-tracker snapshot.
+    """Atomically merge values into the cost-tracker snapshot.
+
+    Any argument left as None preserves the existing value in the JSON
+    file. Pass an explicit float / list to overwrite. This is the merge
+    semantic the launchers actually want: "set hourly_rate now without
+    resetting cumulative spend".
+
+    To INCREMENT accumulated cost (the common case at run termination),
+    use accumulate_run_cost() instead of computing the new total here.
 
     Args:
-        accumulated_today_usd: total spend so far today (UTC).
+        accumulated_today_usd: total spend so far today (UTC). None = preserve.
         current_hourly_rate_usd: aggregate $/hr across all active instances.
+            None = preserve. Set to 0.0 explicitly at terminate.
         active_instances: list of dicts describing currently-spending
-            instances (instance_id, instance_type, hourly_rate_usd,
-            started_at). Optional.
-        daily_budget_usd: OPTIONAL per-UTC-day cap. Omit (or pass None) to
-            indicate per-run-authorized model with no daily cap; the
-            dashboard then suppresses the percent display. Pass a float
-            only if a hard daily ceiling is meaningful in the deployment.
+            instances. None = preserve. Pass [] explicitly at terminate.
+        daily_budget_usd: OPTIONAL per-UTC-day cap. None = preserve
+            existing value (or absence). Pass 0 / float to overwrite.
     """
+    existing = read_cost() or {}
     entry = {
-        "accumulated_today_usd": float(accumulated_today_usd),
-        "current_hourly_rate_usd": float(current_hourly_rate_usd),
+        "accumulated_today_usd": float(accumulated_today_usd) if accumulated_today_usd is not None
+            else float(existing.get("accumulated_today_usd") or 0.0),
+        "current_hourly_rate_usd": float(current_hourly_rate_usd) if current_hourly_rate_usd is not None
+            else float(existing.get("current_hourly_rate_usd") or 0.0),
         "last_updated": datetime.now().astimezone().isoformat(timespec="seconds"),
-        "active_instances": list(active_instances or []),
+        "active_instances": list(active_instances) if active_instances is not None
+            else list(existing.get("active_instances") or []),
     }
     if daily_budget_usd is not None:
         entry["daily_budget_usd"] = float(daily_budget_usd)
+    elif "daily_budget_usd" in existing and existing["daily_budget_usd"] is not None:
+        entry["daily_budget_usd"] = float(existing["daily_budget_usd"])
     _COST_PATH.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_path = tempfile.mkstemp(
         dir=str(_COST_PATH.parent), prefix=_COST_PATH.name + ".", suffix=".tmp"
@@ -82,6 +94,20 @@ def update_cost(
         except OSError:
             pass
         raise
+
+
+def accumulate_run_cost(actual_cost_usd: float) -> float:
+    """Increment cumulative session spend by a completed run's cost.
+
+    Reads the current accumulated_today_usd, adds actual_cost_usd, writes
+    back. Returns the new total. Use this at run termination instead of
+    overwriting accumulated_today_usd with a single run's cost.
+    """
+    existing = read_cost() or {}
+    current = float(existing.get("accumulated_today_usd") or 0.0)
+    new_total = current + float(actual_cost_usd)
+    update_cost(accumulated_today_usd=new_total)
+    return new_total
 
 
 def read_cost() -> Optional[dict]:

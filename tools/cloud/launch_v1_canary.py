@@ -56,7 +56,7 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from tools.cloud.lambda_client import LambdaClient, LambdaClientError  # noqa: E402
-from tools.cloud.cost_tracker import update_cost  # noqa: E402
+from tools.cloud.cost_tracker import update_cost, accumulate_run_cost  # noqa: E402
 
 
 _V1_ANCHOR = "modern_hopfield_pipeline_validation_v1_n2048_n4096"
@@ -496,7 +496,6 @@ def main() -> int:
     print(f"  active: ip={inst.ip}")
     ip = inst.ip
     update_cost(
-        accumulated_today_usd=0.0,
         current_hourly_rate_usd=inst.hourly_rate_usd,
         active_instances=[{
             "instance_id": instance_id,
@@ -676,11 +675,9 @@ def main() -> int:
         print(f"  Delta:               ${actual_cost - predicted:+.2f}  ({rel:+.1f}%)")
     print(f"  V1 verdict:          {'PASS' if v1_ok else 'FAIL'}  ({verdict_msg})")
 
-    update_cost(
-        accumulated_today_usd=actual_cost,
-        current_hourly_rate_usd=0.0,
-        active_instances=[],
-    )
+    update_cost(current_hourly_rate_usd=0.0, active_instances=[])
+    new_total = accumulate_run_cost(actual_cost)
+    print(f"  Cumulative today: ${new_total:.2f}")
 
     report = {
         "instance_id": instance_id,
