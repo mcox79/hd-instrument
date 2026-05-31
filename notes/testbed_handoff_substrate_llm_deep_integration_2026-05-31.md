@@ -199,3 +199,88 @@ Week 1 feasibility smoke per the existing build plan above. Decide GO/NO-GO for 
 Parallel CPU-bound work (any week with available person-time): Missing 2 (storage efficiency analysis) + Missing 3 (audit-trail rotation) per `notes/strategy_request_to_strategy_research_focus_expansion_2026-05-31.md`.
 
 Testbed begins Week 0 immediately upon reading this handoff. No further user confirmation required; surface to orchestrator if any of the 6 risks materializes in a way that requires re-architecting.
+
+## EVALUATION RIGOR PROTOCOL (locked-in before Week 5; testbed reads + applies throughout)
+
+User raised the question: are we measuring rigorously enough to make causal claims about substrate contribution? Standard ML eval rigor is necessary but NOT sufficient here -- the Phase 2 QLoRA introduces a confounder that needs explicit control. The protocol below makes the substrate-vs-baseline comparison causally interpretable.
+
+### 1. Mirror LLM implementation (load-bearing requirement)
+
+Same Phi-3-mini-4bit weights, same GPU, same Python/torch/transformers versions, same lm-evaluation-harness commit hash, same random seeds.
+
+Three eval conditions per benchmark question:
+- **LLM-only**: Phi-3-mini-4bit; standard prompt structure `[Question] [Answer:]`
+- **LLM+text-RAG**: same Phi-3-mini-4bit + FAISS-retrieved Wikipedia passages stuffed into context: `[Retrieved passages] [Question] [Answer:]`
+- **LLM+substrate**: same Phi-3-mini-4bit + substrate-retrieved bipolar codewords projected through bridge into soft-prompt prefix: `[substrate-prefix-tokens] [Question] [Answer:]`
+
+All three use IDENTICAL: decode params (temperature, top-p, top-k, max_tokens), seed, compute budget cap.
+
+### 2. Phase 2 QLoRA confounder control (HIGHEST-rigor item)
+
+**Problem**: when Phase 2 fine-tunes the base on substrate-augmented examples, the LLM+substrate condition benefits from BOTH (a) substrate retrieval at inference AND (b) the fine-tune signal. Without controlling (b), a Week 5 "+12pp on MuSiQue" gain could be a fine-tune effect (the model learned MuSiQue style from the training data), not a substrate effect.
+
+**Control variant**: train an LLM-only-control with the SAME Phase 2 QLoRA, on the SAME substrate-augmented training data, but with the substrate prefix MASKED to a null/empty-prefix token sequence during training. This control variant has been fine-tuned identically EXCEPT it never saw the substrate prefix during training, so any LLM+substrate gain over THIS control isolates the substrate contribution.
+
+Final 4-way comparison at Week 5:
+- (i) LLM-only (no fine-tune)
+- (ii) LLM-only-control (Phase 2 QLoRA on null-prefix training data)
+- (iii) LLM+text-RAG (no fine-tune)
+- (iv) LLM+substrate (Phase 2 QLoRA on substrate-prefix training data)
+
+The "substrate effect" is rigorously `(iv) - (ii)`, not `(iv) - (i)`. Report both deltas.
+
+### 3. Statistical protocol
+
+- Minimum **3 random seeds** per condition; report mean + min/max + standard deviation
+- **Paired comparisons**: same set of questions run across all 4 conditions; per-question delta computed; bootstrap CI over 1000 resamples
+- **Multiple-comparison correction**: Bonferroni or Benjamini-Hochberg across the 6 paired comparisons ((i)-(ii), (i)-(iii), (i)-(iv), (ii)-(iii), (ii)-(iv), (iii)-(iv))
+- Pre-register the PRIMARY hypothesis test BEFORE running Week 5: "LLM+substrate (iv) beats LLM-only-control (ii) by >=10pp on MuSiQue EM at p<0.05 across 3 seeds" -- this is THE claim Week 5 lives or dies on
+
+### 4. Per-query latency measurement
+
+End-to-end wall measured per question, not just LLM inference:
+- LLM forward-pass time (Phi-3-mini generation)
+- Substrate retrieval time (Path D depth=5 for LLM+substrate; FAISS lookup for LLM+text-RAG)
+- Bridge MLP forward time (LLM+substrate only)
+- Total wall = sum of above
+
+Report p50 + p99 per condition. Same compute budget cap enforced across conditions (e.g., 30 second hard timeout per question).
+
+### 5. Substrate atom-population protocol
+
+For LLM+substrate condition on benchmarks like MuSiQue / HotpotQA / 2WikiMultihop: populate substrate W from the benchmark's gold-context passages (parsed into entity-relation triples or atomic facts). For text-RAG: index the same passages in FAISS. **Both retrieval conditions get the same source corpus** -- substrate gets it as bipolar atoms in W; text-RAG gets it as token sequences in FAISS index. This isolates retrieval-MECHANISM differences from corpus differences.
+
+For TriviaQA closed-book: substrate gets a Wikipedia subset; text-RAG gets the same Wikipedia subset. Same atom-population scale per benchmark; document the size + composition per benchmark.
+
+### 6. Substrate-favored bespoke benchmarks (testbed designs Week 5)
+
+Three benchmarks that test substrate-distinctive capabilities the LLM cannot deliver alone:
+
+**(A) Edit-then-query**: 1000 questions over a substrate populated with K=2000 facts; for 200 of those questions, edit the gold answer (substrate's edit primitive on (k_v, ov, nv)); measure whether each condition serves the UPDATED answer or stale. LLM-only and LLM-only-control will serve stale (no edit mechanism); LLM+text-RAG depends on whether the FAISS index was re-indexed (typically NO in production = stale); LLM+substrate uses the edited W and should serve updated. **Metric**: post-edit accuracy on the 200 edited questions.
+
+**(B) Deletion-cert audit**: 100 questions where the gold fact was previously erased from substrate via M2 log-structured-store deletion-cert; verifier checks whether the substrate-augmented LLM response contains the erased fact (it should NOT). Each substrate query produces a cryptographic deletion-cert that the auditor verifies. LLM-only / text-RAG cannot produce audit certs. **Metric**: (a) post-deletion accuracy (should drop to 0 for properly-deleted facts); (b) audit-cert verifiability (testbed implements verifier; counts cert-verified responses).
+
+**(C) Provenance citation**: 500 multi-hop questions; for each substrate-augmented response, the bridge surfaces which substrate atoms contributed (via Path D's compositional decomposition + per-hop posteriors); testbed checks whether the cited atoms match the gold-evidence atoms. LLM-only / text-RAG cannot produce atom-level provenance. **Metric**: cited-atom precision + recall vs gold evidence.
+
+### 7. Benchmark dataset versioning
+
+Pin: lm-evaluation-harness git commit hash; HuggingFace datasets versions for ARC/HellaSwag/PIQA/BoolQ/WinoGrande/TriviaQA/MuSiQue/HotpotQA/2WikiMultihop; FAISS version. Record in `notes/testbed_decisions_*.md` at Week 0 (so the run is reproducible).
+
+### 8. Failure-mode logging
+
+For each Week 5 benchmark run, log per-question outcomes across all 4 conditions in JSONL: question_id, condition, response, gold, correct (bool), wall_ms, retrieved_atoms (substrate only), retrieved_passages (text-RAG only). Enables post-hoc qualitative analysis: where does substrate beat text-RAG? Where does the QLoRA-control beat LLM-only without any retrieval? Failure-mode tables surface the substrate-distinctive vs fine-tune-distinctive cases.
+
+### 9. Pre-registration
+
+Before Week 5 evaluation kicks off, testbed writes a brief pre-registration to `notes/testbed_substrate_llm_prereg_<date>.md`:
+- Primary hypothesis (the one Week 5 lives or dies on)
+- Secondary hypotheses (the 6 paired comparisons)
+- Per-benchmark expected directionality (e.g., ARC: no delta; TriviaQA: +5-15pp; MuSiQue: +10-30pp; bespoke benchmarks: substrate-only capability)
+- HARD-PASS / HARD-FAIL thresholds per benchmark
+- Statistical test + multiple-comparison correction method
+
+This locks the claims testbed will make BEFORE seeing the data.
+
+## OPEN: optimization drill in flight
+
+Research session dispatched a ~45-min Sonnet drill (2026-05-31) on substrate-LLM interface optimization (bridge depth/capacity, codebook representation, prefix-token granularity, Path D output format, joint training signal, inference-time tricks). When that drill returns, this handoff will be amended with any high-impact deviations from the baseline spec. Testbed should pause Week 1 design choices that could be affected (specifically: bridge architecture + codebook representation + prefix-token granularity) until the drill lands. Week 0 Missing 7 latency measurements are NOT affected and should proceed.
