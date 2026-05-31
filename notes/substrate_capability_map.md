@@ -483,6 +483,51 @@ edit-then-query pipeline, multi-task transfer, ICL saturation curve.
 
 ---
 
+## 5. Production positioning — research-only rows mapping product-deployment gaps (added v292 2026-05-31)
+
+**Scope.** These rows track plumbing / product-engineering / market-positioning capabilities that are NOT substrate-physics drills. Each is `🔬 Research only` -- design space + literature + scoping have been done; no experimental anchor has been shipped yet. Per [[feedback-substrate_value_framing_2026-05-26]] (plumbing is the rate-limiter, not physics) and the 2026-05-31 research-focus-expansion routing, queue weighting should shift toward these rows as the substrate matures past "validate capabilities" into "ship killer features."
+
+**Calibration note.** P_deflated bands include [[feedback-lit-scan-calibration-penalty]] (deflate 0.10-0.20 from raw estimates; lower than novel-synthesis penalty because most are local-empirical not pure lit-scan synthesis). All bands are joint probabilities of "the drill closes with a defensible product-positioning answer in the stated engineering budget."
+
+**Sources.** Routing files filed 2026-05-31:
+- `notes/strategy_request_to_strategy_alt_edit_isolation_2026-05-31.md` (M1+M2 log-structured store; substrate for row PP-3)
+- `notes/strategy_request_to_strategy_research_focus_expansion_2026-05-31.md` (rows PP-1, PP-2, PP-3, PP-4, PP-5, PP-6, PP-7)
+- `notes/strategy_request_to_strategy_substrate_llm_deep_integration_2026-05-31.md` (row PP-8; cross-references PP-1 as load-bearing benchmark)
+
+| Row | Capability | Status | P_deflated | Caveats | Cross-refs |
+|---|---|---|---|---|---|
+| **PP-1** | **Substrate-augmented LLM absolute-quality benchmark vs LLM-only baseline** -- "GPT-quality with auditable memory" claim is currently relative-to-frozen-substrate (bpc 2.198 vs 2.745), NOT absolute vs LLM-only (which hits bpc < 1). Tests at small open-source LLM scale (1-3B) on Lambada/ARC/HellaSwag. | 🔬 Research only | **0.40-0.55** | (a) open-source LLM availability; (b) substrate's K-scaling behavior at LLM-relevant K (likely K>>16) not directly characterized; (c) 2-3 weeks engineering + 1-2 weeks research framing. | Load-bearing test for PP-8; depends on PP-7 latency-budget closure first. Source: research_focus_expansion routing 2026-05-31 Missing #1. |
+| **PP-2** | **Storage efficiency at production scale** -- substrate state + codebook + audit chain + multi-tenant overhead per fact vs FAISS/Pinecone/Weaviate; required for production cost-of-ownership modeling. | 🔬 Research only | **0.65-0.75** | (a) sparse-W 16x compression known + Modern Hopfield super-linear known; (b) codebook compression untested; (c) audit-chain growth-rate untested; (d) CPU-bound analysis + small GPU validation; ~1-2 weeks. | Depends on PP-3 audit rotation strategy for chain-growth bounds. Source: research_focus_expansion routing 2026-05-31 Missing #2. |
+| **PP-3** | **Audit trail design + rotation strategy** -- deletion-cert killer feature is hollow without growth/compression/rotation; compliance customers need both completeness AND reasonable storage cost. M1+M2 log-structured rank-1 store (today's alt-edit-isolation drill) provides the substrate-deployable mechanism. | 🔬 Research only | **0.55-0.70** | (a) LSM compaction + transparent log certificate-rotation lit precedent strong; (b) novel-synthesis is substrate-specific replay semantics; (c) GDPR/HIPAA/SOC2 retention windows define acceptable rotation cadence; (d) V2 24h workload output is input data for design; ~2 weeks CPU-bound. | Substrate for PP-2 storage modeling; complements V2 24h workload validation. M1+M2 from alt_edit_isolation routing 2026-05-31. Source: research_focus_expansion routing 2026-05-31 Missing #3. |
+| **PP-4** | **Concept drift detection mechanism** -- Tier-2 killer feature listed but no research filed; SAME/REPLAY/STAGE4/DIFF shift-class detection from continual-learning internal state. | 🔬 Research only | **0.40-0.55** | (a) mechanism is speculative; substrate's continual-learning state COULD distinguish shift-classes but no direct empirical evidence yet; (b) requires known-drift scenarios on local GPU; ~2-3 weeks. | Complements live drift detection killer feature (project_substrate_killer_features_2026-05-26). Source: research_focus_expansion routing 2026-05-31 Missing #6. |
+| **PP-5** | **Substrate-LLM token-throughput latency budget** -- if substrate ops > LLM token-gen time (typically 10-50ms), substrate is the bottleneck; practical-integration go/no-go. | 🔬 Research only | **0.55-0.70** | (a) current single-store at N=16384 ~530us is borderline at 10-50ms token windows; (b) batching gets you there asymptotically; (c) profiling-focused; ~1-2 weeks local GPU. | Cheapest, smallest scope; gates everything LLM-integration-flavored. Sequenced FIRST in research_focus_expansion recommendation. Source: research_focus_expansion routing 2026-05-31 Missing #7. |
+| **PP-6** | **Per-store latency optimization for bursty-write workloads** -- G13 agentic batch covers sustained read-mostly; bursty-write (data import, bulk updates) is open; determines market reach (read-heavy vs general). | 🔬 Research only | **0.55-0.70** | (a) standard engineering; (b) batched-store + GPU acceleration target ~10x throughput at N=4096-8192; (c) local GPU store-op profiling; ~2-3 weeks. | Complements G13 agentic batch envelope. Source: research_focus_expansion routing 2026-05-31 Missing #5. |
+| **PP-7** | **Multi-substrate composition at enterprise scale (hierarchical / per-domain / ensemble)** -- enterprise architecture fit; different domains often have different retention/access/audit policies. **REQUIRES RE-ANCHORING** before any test design. | 🔬 Research only -- needs re-anchoring | **TBD (re-anchor first)** | (a) DO NOT reference the v282 K=10 sharding context -- v282 K=10 was the Op E cross-shard pairwise-correlation probe CLOSED at AUC=0.459 below random (NOT a sharding capability); (b) start with research drill on hierarchical-substrate / domain-substrate / ensemble-substrate literature (~30-60 min); (c) engineering follow-on TBD after re-anchoring. | Re-anchor before design test. Source: research_focus_expansion routing 2026-05-31 Missing #4 (re-anchoring caveat). |
+| **PP-8** | **Substrate-LLM deep integration via codebook-native interface** -- substrate's bipolar codeword as "intrinsic language" the LLM could consume without text-tokenization round-trip; Pattern 3 (Flamingo/LLaMA-Adapter style) frozen 1-3B base LM + ~27M-param bidirectional MLP bridge + substrate Path D depth=5 autonomous multi-hop (Rescue C: bypasses small-LM query-decomposition bottleneck). | 🔬 Research only | **0.30-0.45** (range: 8GB-local 0.25-0.30 vs 24GB-cloud 0.40-0.45) | (a) bipolar-codeword-to-LLM-input direction is unpublished; NVSA (Hersche, Nature MI 2023) is closest precedent in the OPPOSITE direction (neural -> bipolar); (b) query-decomposition bottleneck at small-LM scale (1-3B) UNKNOWN -- binding research risk; (c) hardware constraint (8GB local vs 24GB cloud) determines feasibility window; (d) requires synthetic training data construction (~50K-200K paired examples) -- its own engineering risk; (e) bridge-alignment training is binding engineering risk; (f) total ~4-6 weeks single-person; (g) PRE-COMMIT WEEK 1 feasibility smoke RECOMMENDED before Weeks 2-6 commitment. | **Load-bearing test design for PP-1 absolute-quality benchmark.** Depends on PP-5 latency budget closure. Decision-gated: (i) GPU resource 8GB-local vs 24GB-cloud, (ii) Week 1 feasibility smoke GO/NO-GO, (iii) sequencing vs other queue items (recommend smaller drills FIRST). One of 3 cloud-warranted candidates per cloud-routing-discipline (~$200-400 H100 80GB for 4-6 weeks build). Source: substrate_llm_deep_integration routing 2026-05-31. Primary deliverable: `notes/research_substrate_llm_deep_integration_v1_2026-05-31.md`. |
+
+**Cross-references within Production positioning category:**
+- PP-1 <-> PP-8: PP-8 is the test design (architecture + build plan + test design) for the PP-1 benchmark. Closing PP-8 produces the benchmark methodology for PP-1.
+- PP-2 <-> PP-3: PP-3 audit-rotation determines audit-chain growth bound, which is a load-bearing input to PP-2 storage modeling.
+- PP-5 -> PP-1, PP-8: PP-5 is the cheapest LLM-integration gate; closing PP-5 first surfaces hardware/latency blockers before committing to PP-1 / PP-8 budgets.
+- PP-3 substrate: M1+M2 log-structured store (from alt_edit_isolation routing 2026-05-31) IS the substrate for PP-3; PP-3 closes around its rotation/compression strategy.
+
+**Sequencing recommendation (orchestrator decides timing; not auto-dispatched):**
+- IMMEDIATE (this week, pause-gated if applicable): cross-framework probe (overdue ~24-48h cadence per [[feedback-aggressive-cross-domain-research]]); compositionality-audit-API research drill (~30-60min); telemetry-source audit on 08:52 cloud event (~15min testbed); PP-7 re-anchoring drill (~30-60min).
+- NEAR-TERM (1-2 weeks): PP-5 (cheapest, smallest scope, gates everything LLM-flavored); PP-2 (CPU-bound, independent); PP-3 (builds on M1+M2 + V2 24h workload).
+- MEDIUM-TERM (3-6 weeks): PP-1 (highest-leverage product test, longest engineering scope, load-bearing item); PP-6; PP-4.
+- LONGER-TERM: PP-8 Weeks 2-6 build (only if Week 1 feasibility smoke PASSES + GPU resource decision lands).
+
+**Cloud-routing discipline (adopted v292 as standing principle).** Cloud-warranted experiments are EXCEPTIONS, not defaults. Default routing is LOCAL. Three explicitly cloud-warranted candidates per 2026-05-31 routing:
+1. N=32768 envelope sweep (only if super-linear pattern matters strategically AND local sparse-W/sharding alternatives are insufficient; ~$55-90 cloud H100 if run)
+2. PP-8 substrate-LLM deep-integration build at production-quality LLMs (~$200-400 for 4-6 weeks)
+3. 7-day sustained workload (only if local 48h validates clean; ~$300-500)
+
+---
+
+
+
+---
+
 ## Version history
 
 Per PROT-007 (Proposal 8, approved cycle 13 followup): version-update narratives for v1-v59 are archived in [substrate_capability_map_history.md](substrate_capability_map_history.md). The compact version index table at the top of the history file gives one-line summaries per version.
@@ -20169,8 +20214,10 @@ Cap map: v288 -> v289 (BATCHED 14-VERDICT S2-S14+T1 MULTI-HOP CHARACTERIZATION C
 **R-COW-INFEASIBILITY (U3 mechanism dead-end; alternative-mechanism rescues per [[feedback-rehabilitation-after-rejection]] before closure):**
 - R1 (0-compute) — Subsumption: "COW MECHANISM correctness OK (cons=1.00 + audit=5/5) but COST infeasible (10.13x mem + 7-8x throughput-slower); Path D achieves edit-resilience by DIFFERENT mechanism (per-hop Bayesian independence); closure documents COW dead-end NOT capability closure." APPLIED inline above.
 - R2 (0-compute) — Subsumption: "Path D edit-resilience is the surviving mechanism (T2 + v289 S6 + v288 R4 + v287 noise + past-M_c = 7-axis Path D durability)." APPLIED inline.
-- R3 (CHEAP, ~30min research) — Research drill on alternative edit-isolation mechanisms: delta-encoding (store edits as diffs, materialize lazily) + edit-log replay (don't modify W, replay log at retrieval) + per-hop independence (Path D's mechanism, generalized) + locality-sensitive isolation (only invalidate W subspace touched by edit); routing filed: `notes/strategy_request_to_research_v290_alt_edit_isolation_2026-05-30.md` (NOT auto-dispatched).
-- R4 (MEDIUM, ~60min CPU+exp_dev) — Edit-log-replay engineering smoke: design + smoke an edit-log-replay layer; measure throughput + mem-amp vs COW baseline; NOT-AUTO-DISPATCHED.
+- R3 (CHEAP, ~30min research) — Research drill on alternative edit-isolation mechanisms: delta-encoding (store edits as diffs, materialize lazily) + edit-log replay (don't modify W, replay log at retrieval) + per-hop independence (Path D's mechanism, generalized) + locality-sensitive isolation (only invalidate W subspace touched by edit); routing filed: `notes/strategy_request_to_research_v290_alt_edit_isolation_2026-05-30.md` (NOT auto-dispatched). **v292 ANNOTATION 2026-05-31:** R3 research drill DELIVERED in `notes/research_alt_edit_isolation_v1_2026-05-31.md` (3 parallel Sonnet lit-scan subagents drilled 4 candidate architectures). **PRIMARY substrate-deployable alternative: log-structured rank-1 store (M1+M2 unified -- delta-encoding + LSM lazy-replay viewed from write-path + read-path perspectives).** Mem-amp formula 1 + 2K/N gives 2.0x at K=M and 3.0x at K=N (under the 4x target vs COW's 10.13x). Throughput projection 8-12K q/s GPU (orders above 50/s target vs COW's 6-7.5/s). **Key architectural win: the edit log IS the audit log by construction, providing KF-2 deletion-cert compatibility for free + substrate for PP-3 audit-trail rotation row.** P_deflated 0.40-0.50 that all three targets (mem-amp, throughput, consistency >= 0.95) are met within a 7-day engineering budget; load-bearing empirical risk is FP drift over K rank-1 corrections at depth=5 (Kahan compensated summation mitigation). M3+M4 CRDT+LSH-hybrid SECONDARY (P_deflated 0.35) as fallback if FP-drift gate fails. CRDT-alone REJECTED as standalone (depth>=2 retrieval breaks eventual-consistency semantics) but reused as audit-log primitive in both paths. **M2 SMOKE RECOMMENDED (defer dispatch timing to orchestrator):** cosine(q_lazy, q_materialized) >= 0.9999 across K in {64, 256, 1024, 2048} at N=512, d=5; pre-reg HARD-PASS/HARD-FAIL/MIDDLE-BAND in PART D of research file; ~30min CPU laptop; queue AFTER current G5/G6 modern-Hopfield batch (no priority conflict; engineering not theory). Routing file `notes/strategy_request_to_strategy_alt_edit_isolation_2026-05-31.md` processed into v292; moved to `notes/routed_completed/`.
+- R4 (MEDIUM, ~60min CPU+exp_dev) — Edit-log-replay engineering smoke: design + smoke an edit-log-replay layer; measure throughput + mem-amp vs COW baseline; NOT-AUTO-DISPATCHED. **v292 ANNOTATION 2026-05-31:** R4 SUPERSEDED by M2 smoke recommendation under R3 -- M2 is the cheaper, more-targeted variant (cosine consistency at K-sweep N=512 d=5) that closes the consistency-mechanism gate before any full throughput-comparison smoke. R4 retained as deeper follow-on after M2 PASSes.
+
+**v292 CROSS-APPLICATION PROBE NOTE (PART C):** Path D's per-hop Bayesian independence (T2 HARD_PASS 45/45 cells edit-isolation-under-load + U1 100/100 cells unanimous 1.000 across 16N x depth=50) is the SUBSTRATE-NATIVE GENERALIZATION of CRDT-style per-op independence at the RETRIEVAL layer. M1+M2 log-structured rank-1 store generalizes this SAME MECHANISM (independence-of-operations) to the W-MUTATION layer. This is an explanatory bridge between two cap_map rows that previously appeared independent: (a) v290 Path D edit-resilience at retrieval (per-hop Bayesian independence) + (b) v292 M1+M2 alternative-edit-isolation at W-mutation (log-structured replay with audit-by-construction). The unifying invariant: edit-isolation is achieved by deferring/decoupling the cross-operation interaction (Path D defers via per-hop Bayesian marginal; M1+M2 defers via lazy log replay). This unifies the substrate's edit-isolation story across retrieval and mutation layers; future M2 smoke PASS unlocks BOTH U3 COW-rehab AND KF-2 deletion-cert co-engineering AND PP-3 audit-trail rotation substrate.
 
 **R-T5-PATH-B-HONEST-REFRAME (label-vs-honest acc-vs-geom-coherence; cap_map honest reading):**
 - R1 (0-compute) — Annotation: "Path B accuracy envelope CLEAN 60/60 cells at sub-capacity; geom_cos degradation at M=500 d=8 is substrate-physics observation NOT accuracy boundary; T5 PARTIAL label sources from geom_cos metric not accuracy." APPLIED inline above.
@@ -20349,3 +20396,109 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 **Commit message:**
 
 (See git log; v290 -> v291 BATCHED 2-VERDICT C1+C8 entry; Modern Hopfield 0.65-0.80 yellow -> 0.75-0.88 green; Sparse-W 0.55-0.70 -> 0.60-0.75; portfolio 15+36 UNCHANGED; 202nd PROT-009 paired commit.)
+
+## v291 -> v292 @ 3-ROUTING PORTFOLIO EXPANSION EVENT (research session 2026-05-31 -- 7 NEW PRODUCTION-POSITIONING ROWS + R-COW-INFEASIBILITY M1+M2 ANNOTATION + CROSS-APPLICATION PROBE NOTE + 3 TACTICAL CLARIFICATIONS)
+
+**Trigger.** 3 strategy_request_to_strategy_*_2026-05-31 routing files filed by research session today, processed jointly per [[feedback-research-synthesis-external-discussion-cycle]] context (routing file #2 originated from R1 workflow: user took synthesis to external Claude, came back with angles, research verified and routed):
+
+1. `notes/strategy_request_to_strategy_alt_edit_isolation_2026-05-31.md` -- M1+M2 log-structured rank-1 store recommended as PRIMARY substrate-deployable alternative to U3 COW; M2 smoke design pre-registered; cross-application probe linking Path D per-hop independence to W-mutation layer.
+2. `notes/strategy_request_to_strategy_research_focus_expansion_2026-05-31.md` -- 6 new research-only rows + 1 new row needing re-anchoring + 3 tactical drops (Modern Hopfield "reconciliation", Pattern B/Path B terminology, cloud-telemetry-source).
+3. `notes/strategy_request_to_strategy_substrate_llm_deep_integration_2026-05-31.md` -- 1 new research-only row (substrate-LLM deep integration); cross-references row PP-1 as load-bearing benchmark.
+
+### Cap_map decisions
+
+1. **NEW SECTION "5. Production positioning" added to cap_map.md** with 7 new rows under research-only (🔬) banner:
+   - **PP-1** Substrate-augmented LLM absolute-quality benchmark vs LLM-only baseline (P_deflated 0.40-0.55; 2-3 weeks eng + 1-2 weeks research)
+   - **PP-2** Storage efficiency at production scale (P_deflated 0.65-0.75; ~1-2 weeks CPU+small GPU)
+   - **PP-3** Audit trail design + rotation strategy (P_deflated 0.55-0.70; ~2 weeks CPU-bound; substrate is M1+M2 log-structured store from #1)
+   - **PP-4** Concept drift detection mechanism (P_deflated 0.40-0.55; ~2-3 weeks local GPU)
+   - **PP-5** Substrate-LLM token-throughput latency budget (P_deflated 0.55-0.70; ~1-2 weeks local GPU profiling)
+   - **PP-6** Per-store latency optimization for bursty-write workloads (P_deflated 0.55-0.70; ~2-3 weeks local GPU)
+   - **PP-7** Multi-substrate composition at enterprise scale (REQUIRES RE-ANCHORING; the external doc's v282 K=10 reference was the CLOSED Op E cross-shard pairwise-correlation probe AUC=0.459, NOT a sharding capability; re-anchor with literature drill first)
+   - **PP-8** Substrate-LLM deep integration via codebook-native interface (P_deflated 0.30-0.45; range 0.25-0.30 on 8GB-local vs 0.40-0.45 on 24GB-cloud; ~4-6 weeks 3-phase build; pre-commit Week 1 feasibility smoke RECOMMENDED; load-bearing test design for PP-1)
+
+   All 8 rows research-only (🔬); no experimental anchor shipped. Cross-references locked: PP-1 <-> PP-8 (PP-8 is test design for PP-1 benchmark); PP-2 <-> PP-3 (audit growth bounds storage modeling); PP-5 -> PP-1, PP-8 (latency gate sequenced first); PP-3 substrate from #1 M1+M2 log-structured store. Sequencing recommendation: IMMEDIATE cross-framework probe + compositionality-audit-API drill + telemetry audit + PP-7 re-anchoring; NEAR-TERM PP-5 + PP-2 + PP-3; MEDIUM-TERM PP-1 + PP-6 + PP-4; LONGER-TERM PP-8 Weeks 2-6 if Week 1 PASSes.
+
+2. **v290 R-COW-INFEASIBILITY R3 + R4 ANNOTATION (alt_edit_isolation routing #1).** M1+M2 log-structured rank-1 store annotated as PRIMARY substrate-deployable alternative; mem-amp 2.0-3.0x (under 4x target vs COW's 10.13x); throughput 8-12K q/s GPU projection (vs COW's 6-7.5/s); edit-log IS audit log by construction (KF-2 compatibility free). P_deflated 0.40-0.50 for 7-day engineering budget. M3+M4 CRDT+LSH-hybrid SECONDARY (P_deflated 0.35). CRDT-alone REJECTED standalone (depth>=2 retrieval breaks eventual-consistency). M2 SMOKE RECOMMENDED (~30min CPU laptop; cosine(q_lazy, q_materialized) >= 0.9999 at K in {64, 256, 1024, 2048} N=512 d=5; pre-reg in research file PART D); orchestrator decides dispatch timing per pause-flag. R4 SUPERSEDED by M2 (M2 is cheaper, more-targeted gate).
+
+3. **CROSS-APPLICATION PROBE NOTE added to R-COW-INFEASIBILITY block.** Path D per-hop Bayesian independence (T2 + U1) is the SUBSTRATE-NATIVE GENERALIZATION of CRDT-style per-op independence at the RETRIEVAL layer; M1+M2 generalizes the SAME MECHANISM (independence-of-operations) to the W-MUTATION layer. Unifies edit-isolation story across retrieval + mutation; M2 smoke PASS unlocks U3 COW-rehab + KF-2 deletion-cert co-engineering + PP-3 audit-trail rotation substrate.
+
+4. **TACTICAL CLARIFICATION #1 -- Modern Hopfield "reconciliation" DROP (research_focus_expansion routing #2).** External doc's "reconcile max_M=N/2 vs G5/G6" recommendation is based on stale state: the N/2 reading was v288 GPU-OOM (resolved by CPU path in v290 + extended in v291); today's v291 C1 verdict pushed max_M to 4N=65536 BSC 3-seed unanimous 9/9 cells; v291 LIFTed the row yellow -> green (0.75-0.88). NOTHING TO RECONCILE. Remaining open caveats per v291 are explicit: (a) Kerdock cross-codebook at N=16384 still untested, (b) actual ceiling past M=4N untested, (c) cross-N validation of activation regime untested (single-N at N=16384 for both T3 + C1 anchors). G5/G6 batch will partially address cross-codebook at N=8192. v292 ANNOTATION: NO row state change to Modern Hopfield; v291 LIFT stands; do not pursue "reconciliation" framing.
+
+5. **TACTICAL CLARIFICATION #2 -- "Pattern B" vs "Path B" terminology distinction.** Cap_map uses "Path B" EXCLUSIVELY for the geometric-cosine multi-hop retrieval mechanism (one of Path B / Path D / Path E three multi-hop mechanisms; substrate-physics scope). The external doc's "Pattern B LLM integration prototype" conflates this with an undefined LLM-integration framework. v292 ANNOTATION: reframe as "open-source LLM integration prototype" without the misleading Path-B/Pattern-B anchor. The substrate-LLM deep-integration framework (PP-8) is the canonical name; "Pattern B" should NOT appear in cap_map or routing as a product-integration framework name without orchestrator-explicit definition. Future routing files using "Pattern B" require disambiguation.
+
+6. **TACTICAL CLARIFICATION #3 -- Cloud telemetry audit needed (08:52 cloud event).** External doc's "$5 cloud spend at 50% budget" framing reads as crisis; verification surfaces TWO internal inconsistencies: (i) 08:52 event reports $7.50/$10 which is 75% mathematically, NOT 50% as labeled; (ii) 08:57 testbed event confirms Lambda hasn't been activated yet (awaiting user API key). Cloud cost telemetry appears spurious. v292 ANNOTATION: flag for telemetry-source audit (~15 min testbed task) -- is cloud emitting fake telemetry? Is the dashboard surfacing canary-test events as production cost? NOT a crisis; investigate as telemetry-source bug.
+
+7. **Strategic queue-weighting shift (adopted v292 as standing principle).** Per [[feedback-substrate_value_framing_2026-05-26]] -- substrate has matured past "validate capabilities" -- plumbing is the rate-limiter, not physics. Queue weight shifts toward: (a) product validation (PP-1 absolute-quality vs LLM), (b) production-engineering (PP-2/PP-3/PP-5/PP-6), (c) compliance positioning (PP-3 audit rotation per GDPR/HIPAA/SOC2 retention). Substrate-physics drills CONTINUE but scoped to closing specific deployment blockers: Kerdock cross-codebook at N=16384 (closes last v291 Modern Hopfield caveat); cross-N validation of activation regime; 2x-research on negative results; ~24-48h cadence cross-framework probes (OVERDUE).
+
+8. **Cloud-routing discipline (adopted v292 as standing principle).** Cloud-warranted experiments are EXCEPTIONS, not defaults. Default routing is LOCAL. Three explicitly cloud-warranted candidates: (i) N=32768 envelope sweep (~$55-90 H100 if super-linear pattern matters strategically AND local alternatives insufficient); (ii) PP-8 substrate-LLM deep-integration build at production-quality LLMs (~$200-400 for 4-6 weeks); (iii) 7-day sustained workload (~$300-500 only if local 48h clean). Reduces prior planning assumption by ~$1500-2500.
+
+### Framework reliability bands (v291 -> v292)
+
+- **Non-eq-stat-mech 73-83% UNCHANGED**
+- **SKAH-M / lR-phase 60-75% UNCHANGED**
+- **Substrate-outside-static-Hopfield 64-75% UNCHANGED**
+- **TCFT 92-97% UNCHANGED**
+- **Deletion-cert 92-98% UNCHANGED (KF-2 implicitly strengthened by M1+M2 audit-by-construction synergy; band UNCHANGED pending M2 smoke PASS)**
+- **KF-1 65-78% UNCHANGED**
+- **KF-2 UNCHANGED (annotation: M1+M2 substrate provides audit-by-construction PRIMARY path)**
+- **KF-3 multi-substrate isolation UNCHANGED (annotation: PP-7 re-anchoring required before any KF-3 envelope move)**
+- **Specific 70-83% UNCHANGED**
+- **General 73-83% UNCHANGED**
+- **Product-feature 89-98% UNCHANGED**
+- **Substrate-GPU operational baseline 0.78-0.88 UNCHANGED**
+- **Multi-hop combined row 0.75-0.85 UNCHANGED**
+- **Multi-hop Path D sub-row 0.85-0.95 UNCHANGED (annotation: per-hop independence mechanism EXTENDS to W-mutation layer via M1+M2 generalization; cross-application probe note added)**
+- **Multi-hop Path B sub-row 0.65-0.78 UNCHANGED (annotation: terminology lock -- "Path B" is geometric-cosine multi-hop mechanism, NOT product-integration framework name)**
+- **Multi-hop Path E sub-row 0.70-0.82 UNCHANGED**
+- **Modern Hopfield activation regime at large N 0.75-0.88 UNCHANGED (annotation: NO RECONCILIATION needed per v291 LIFT; remaining caveats explicit; G5/G6 in flight)**
+- **Sparse-W active-subspace storage 0.60-0.75 UNCHANGED**
+- **Adaptive-threshold characterization CLOSED at standard regimes UNCHANGED**
+- **PP-1 through PP-8: NEW rows 🔬 research-only; P_deflated bands per row table above**
+
+**Portfolio**: 15 + 36 -> **22 + 36** (+7 NEW research-only rows in new Production positioning category section). NO HARD_PASS / HARD_FAIL events processed in v292 (this is research-row addition; honest count +0; label-vs-honest count +0).
+
+### Rescue sketches (PROT-004/006)
+
+No NEW closures in v292; no NEW rescue sets required. v290 R-COW-INFEASIBILITY R3 + R4 received v292 annotations (M1+M2 as primary alternative + M2 smoke recommendation + R4 superseded). v290 rescue sets carry forward unchanged otherwise.
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag-honoring discipline)
+
+1. **GPU resource decision for PP-8 substrate-LLM deep integration** (HIGHEST LEVERAGE). 8GB marsh@home (Phi-3-mini-4bit; P_def 0.25-0.30; 1-3 days Phase 2 QLoRA wall-time) vs 24GB local 4090 OR cloud H100 80GB (Phi-3-mini fp16; P_def 0.40-0.45; 4-8 days Phase 2). Cloud option ~$200-400 total for 4-6 weeks build (within cloud-budget envelope per cloud-routing-discipline). Determines feasibility window for the load-bearing product-positioning test.
+
+2. **M2 smoke dispatch timing** (CHEAP ~30 min CPU laptop). Cosine(q_lazy, q_materialized) >= 0.9999 at K in {64, 256, 1024, 2048} N=512 d=5; pre-reg HARD-PASS/HARD-FAIL/MIDDLE-BAND in research file PART D. Suggest queueing AFTER current G5/G6 modern-Hopfield batch (no priority conflict). Gates U3 COW-rehab + KF-2 deletion-cert co-engineering + PP-3 audit-trail rotation substrate. Orchestrator decides timing per pause-flag.
+
+3. **Smaller-drill sequencing decision** (~1-2 week scope). Per substrate_llm_deep_integration routing recommendation: ship 3 smaller drills FIRST (PP-5 latency budget ~1-2 weeks; PP-2 storage efficiency ~1-2 weeks CPU; PP-3 audit-trail rotation ~2 weeks CPU using M1+M2 substrate + V2 24h workload) BEFORE committing Week 1 feasibility smoke of PP-8 build. Cheap insurance against committing to 4-6 week build that hits hard blocker. Also overdue: cross-framework probe (~24-48h cadence per [[feedback-aggressive-cross-domain-research]]); PP-7 re-anchoring drill (~30-60min); compositionality-audit-API drill (~30-60min); telemetry-source audit on 08:52 cloud event (~15min testbed task).
+
+### PROT compliance (v291 -> v292)
+
+- **PROT-004/006**: No new closures in v292; v290 R-COW-INFEASIBILITY R3 received annotation update (M1+M2 primary alternative; M2 smoke recommended; cross-application probe note); R4 SUPERSEDED by M2.
+- **PROT-007**: substrate_capability_map_history.md v292 row added atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING (from v279-v291 PROT-007 backlogs).
+- **PROT-008**: validator NOT run inline by strategy_scribe (7 NEW rows + 1 annotation + 3 tactical clarifications + 1 new category section header; portfolio 15+36 -> 22+36 +7 NEW rows; flagged for orchestrator main-thread validator follow-up).
+- **PROT-009**: cap_map.md (this v292 entry + new "5. Production positioning" section + R-COW-INFEASIBILITY annotations) + substrate_capability_map_history.md (v292 row) + strategy_decisions_2026-05-31.md (consolidated entry covering all 3 routing files) + visibility_decisions_2026-05-31.md (one-line) + 3 routing files moved to routed_completed/ staged atomically; **203rd PROT-009 paired commit**.
+- **PROT-018**: No new anchor names introduced in v292 (research-row additions only; no _n<N> suffixes to spot-check). All routing files reference existing anchor names with their established conventions.
+
+### Memory adherence
+
+- **[[feedback-cap-map-update-protocol]]**: atomic single-batch commit; sub-agent push BLOCKED; commit hash surfaced to orchestrator main-thread for push.
+- **[[feedback-decision-log-eol-handling]]**: strategy_decisions_2026-05-31.md entry appended via tools/orchestrator/append_decision_log.py (LF EOL); cap_map + history CRLF preserved.
+- **[[feedback-no-experiment-design-in-prompts]]**: v292 NOT a hand-off file; NO experiment anchor names, sweep grids, or HF1/HF2/HF3 numerical bounds specified here -- M2 smoke design lives in research file PART D as pointer; PP-8 build plan lives in research file as pointer.
+- **[[feedback-no-padding-experiments]]**: 7 new rows added research-only (🔬) because each maps a distinct production-positioning gap surfaced by the 3 routing files; none added to "hit a queue-depth target"; rows are POINTERS not EXPERIMENTS.
+- **[[feedback-substrate_value_framing_2026-05-26]]**: queue-weighting shift adopted as standing principle in this version; plumbing > physics in current cycle; substrate-physics drills scoped to closing specific deployment blockers.
+- **[[feedback-strategy-shore-up-capabilities]]**: Production positioning category is the proactive shore-up move; 6 of 7 rows close gaps Strategy was not previously tracking; PP-8 closes a load-bearing test-design gap for PP-1.
+- **[[feedback-lit-scan-calibration-penalty]]**: All 8 row P_deflated bands include calibration penalty per memory; PP-8 novel-synthesis cap (bipolar-codeword-to-LLM-input direction unpublished) capped at 0.45 not 0.50+.
+- **[[feedback-obey-user-pause-explicitly]]**: pause-flag CHECKED ABSENT at strategy_scribe entry; v292 is annotation + portfolio expansion; NO hand-off files written that would trigger exp_dev dispatch; M2 smoke + Week 1 feasibility smoke + smaller drills WAIT for orchestrator decision.
+- **[[feedback-research-synthesis-external-discussion-cycle]]**: routing file #2 originated from R1 workflow (user took synthesis to external Claude; came back with angles; research verified and routed); v292 honors that workflow by adopting routing-recommendation-as-cap_map without re-deriving the upstream synthesis.
+- **[[feedback-for-you-tab-primary-channel]]**: 3 status_log entries written with plain_language + importance fields (HIGH for v292 bump consolidated + HIGH for PP-8 deep-integration row + MEDIUM for M1+M2 alt-edit-isolation annotation).
+- **[[feedback-capabilities-mapping-not-competitive-analysis]]**: Production positioning rows are capability-mapping (what does substrate need to deliver in production?), NOT competitive-analysis (who else is in the market?); PP-2 storage efficiency lists FAISS/Pinecone/Weaviate as COST BASELINES not competitive positioning.
+- **[[feedback-subagent-permission-inheritance]]**: strategy_scribe commits locally only; push BLOCKED from sub-agent context; commit hash surfaced for orchestrator main-thread push.
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Commit message:**
+
+(See git log; v291 -> v292 3-ROUTING PORTFOLIO EXPANSION; NEW "5. Production positioning" category section + 7 NEW rows PP-1..PP-7 + PP-8; R-COW-INFEASIBILITY R3 annotated with M1+M2 PRIMARY + M2 smoke + cross-application probe note; 3 tactical clarifications Modern Hopfield no-reconciliation + Pattern-B-vs-Path-B terminology lock + cloud telemetry audit flag; portfolio 15+36 -> 22+36 +7 NEW rows; HONEST UNCHANGED; LABEL-VS-HONEST UNCHANGED; 203rd PROT-009 paired commit.)
