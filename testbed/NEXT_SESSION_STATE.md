@@ -14,11 +14,21 @@ P1 engineering.
 stress, comparison battery, optimization). See
 `testbed/TESTBED_TRACK_QUEUE_2026-05-30.md`. Six items are READY (no
 experiment-side dependency); eight are BLOCKED on multi-hop primitives or
-verdicts. Next concrete action after N=16384 finishes: **Q3 (E2.3 operation
-composition latency)** — extends mixed_crud to 100K ops at 5 mix ratios to
-root-cause the prior 12% drift observation. Q4 (cold/warm timing), Q6 (vector
-DB comparison), Q10 (multi-tenant isolation K=50), Q11 (failure recovery) are
-the other ready items.
+verdicts.
+
+**2026-05-30 UPDATE 3:** v288 cap_map shifted production multi-hop mechanism
+from Path B to **Path D (Bayesian path-probability propagation)**. New queue
+v2 filed at `testbed/TESTBED_TRACK_QUEUE_v2_PATH_D_2026-05-30.md` with 8 new
+Path-D-focused Tier-3-5 items (T10 posterior max opt, T11 batch parallelism,
+T12 GPU, T13 cached priors, T17 hybrid extreme depth, T18 sustained workload,
+T19 vector DB comparison, T21 multi-tenant) + 3 cross-track items (T14
+mixed-confidence, T15 edit isolation, T22 N=16384). Multi-hop items wait on
+S2 latency_crossover verdict (experiment-session) and/or Path D primitives in
+testbed/. Q3/Q4/Q11 parallel-track READY items unchanged.
+
+**Recommended cadence:** Hold for N=16384 envelope bench (in flight) ->
+launch Q3 (composition latency, pre-authorized) -> start Q4 in parallel ->
+monitor S2 verdict for T10 unblock.
 
 ## Immediate state (what's running, what's next)
 

@@ -1,5 +1,12 @@
 # Testbed Track Queue (filed 2026-05-30)
 
+**SUPERSEDED for multi-hop items by `TESTBED_TRACK_QUEUE_v2_PATH_D_2026-05-30.md`.**
+v288 cap_map identified Path D (Bayesian path-probability propagation) as the
+production-scale robust mechanism, replacing the Path B emphasis assumed here.
+This file remains authoritative for the parallel-track READY items (Q3 composition
+latency, Q4 cold/warm timing, Q11 failure recovery) which are not Path-D-dependent.
+See v2 file for the reconciliation table.
+
 User-delivered comprehensive testbed roadmap. 14 items across 6 tracks. Each item is
 a separate substantial work unit. This queue captures status, dependencies, and
 ready-to-start partition.
