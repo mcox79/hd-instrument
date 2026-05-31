@@ -39,6 +39,15 @@ _ROUTING_RATIO_PATH    = Path(r"D:\AI\hd-instrument\data\orchestrator_routing_ra
 # (v2 served, v189 local at 2026-05-24). Treat local as the source of truth and
 # fall back to the remote SFTP read only if the local file is missing.
 _LOCAL_CAPABILITY_MAP_PATH = Path(r"D:\AI\hd-instrument\notes\substrate_capability_map.md")
+# Remote state cache — populated every 30s by heartbeat_watchdog SCP pull.
+# Contains logical_processes: grouped + classified Python process list from the emitter.
+_REMOTE_STATE_CACHE_PATH = Path(r"D:\AI\hd-instrument\data\remote_state_cache.json")
+
+# Session heartbeat files — one per session (orchestrator, research, testbed,
+# cloud). Each session writes its own; dashboard surfaces freshness + focus.
+# See tools/orchestrator/session_heartbeat.py for the writer.
+_DATA_DIR = Path(r"D:\AI\hd-instrument\data")
+_SESSION_NAMES = ("orchestrator", "research", "testbed", "cloud")
 
 POLL_INTERVAL_S = 3.0
 HISTORY_LIMIT = 80
@@ -73,6 +82,10 @@ class Poller:
         # experiments (short GPU bursts interleaved with CPU prep). alpha=0.10
         # with 3s polls gives ~30s effective window.
         self._gpu_util_ema: float | None = None
+        # Last-good heartbeat per queue label — used as a fallback when the
+        # current poll returns unparseable (mid-write) JSON, preventing the
+        # brief "HEARTBEAT UNREADABLE" flash that would otherwise appear.
+        self._last_good_heartbeat: dict[str, dict] = {}
 
     async def run_forever(self) -> None:
         while True:
@@ -193,8 +206,16 @@ class Poller:
             q_raw = by_key.get(f"{label}_queue") or ""
             log_raw = by_key.get(f"{label}_log_tail") or ""
             exp_tail = by_key.get(f"{label}_exp_tail")  # may be None
+            # Parse heartbeat with last-good fallback: if JSON parse fails
+            # (e.g. mid-write race), use the previous successful parse so the
+            # dashboard shows stale-but-valid data instead of "HEARTBEAT UNREADABLE".
+            hb_parsed = parsers.safe_json(hb_raw)
+            if hb_parsed is not None:
+                self._last_good_heartbeat[label] = hb_parsed
+            elif label in self._last_good_heartbeat:
+                hb_parsed = self._last_good_heartbeat[label]
             per_queue_raw[label] = {
-                "heartbeat": parsers.safe_json(hb_raw),
+                "heartbeat": hb_parsed,
                 "queue": parsers.safe_json(q_raw),
                 "log_raw": log_raw,
                 "exp_tail": exp_tail,
@@ -394,6 +415,29 @@ class Poller:
         system["gpu_proc_mem_mib"] = gpu_procs_total_mib
         system["gpu_proc_total_all_apps"] = len(gpu_apps_all)  # diagnostic: WDDM noise count
 
+        # Logical process classification from remote_state_cache (populated by emitter via SCP).
+        # Groups venv-shim+interpreter pairs and classifies as runner/emitter/experiment_child.
+        logical_procs: list[dict] = []
+        logical_procs_ts: str = ""
+        try:
+            if _REMOTE_STATE_CACHE_PATH.is_file():
+                cache_doc = parsers.safe_json(
+                    _REMOTE_STATE_CACHE_PATH.read_text(encoding="utf-8", errors="replace")
+                )
+                if isinstance(cache_doc, dict):
+                    lp = cache_doc.get("logical_processes")
+                    if isinstance(lp, list):
+                        logical_procs = lp
+                    logical_procs_ts = cache_doc.get("snapshot_ts", "")
+        except Exception:
+            pass
+        system["logical_processes"] = logical_procs
+        system["logical_processes_ts"] = logical_procs_ts
+        # Summary counts for quick rendering
+        system["logical_runner_count"] = sum(1 for p in logical_procs if p.get("type") == "runner")
+        system["logical_emitter_count"] = sum(1 for p in logical_procs if p.get("type") == "emitter")
+        system["logical_experiment_count"] = sum(1 for p in logical_procs if p.get("type") == "experiment_child")
+
         # Cross-reference with active runner PIDs to surface orphan GPU contexts.
         active_runner_pids: set[int] = set()
         for label, _ in QUEUES:
@@ -470,6 +514,34 @@ class Poller:
                 orchestrator_questions = parsers.parse_questions_md(questions_raw)
         except Exception:
             pass
+
+        # Per-session heartbeats: local file reads (one per active session).
+        # Each session writes data/session_heartbeat_<session>.json on substantive
+        # activity. Dashboard surfaces "alive (current focus)" vs "stale" per session.
+        sessions_map: dict = {}
+        for sess in _SESSION_NAMES:
+            hb_path = _DATA_DIR / f"session_heartbeat_{sess}.json"
+            if not hb_path.is_file():
+                continue
+            try:
+                entry = parsers.safe_json(hb_path.read_text(encoding="utf-8", errors="replace"))
+            except Exception:
+                entry = None
+            if not isinstance(entry, dict):
+                continue
+            hb_ts = parsers.parse_iso_local(entry.get("ts", ""))
+            stale_after = int(entry.get("stale_after_s") or 3600)
+            age_s = (now - hb_ts).total_seconds() if hb_ts else None
+            is_stale = age_s is not None and age_s > stale_after
+            sessions_map[sess] = {
+                "session": sess,
+                "ts": entry.get("ts"),
+                "current_focus": entry.get("current_focus") or "",
+                "last_event_ts": entry.get("last_event_ts"),
+                "stale_after_s": stale_after,
+                "age_s": round(age_s, 1) if age_s is not None else None,
+                "is_stale": bool(is_stale),
+            }
 
         # Tier summary: derived from the already-fetched capability map.
         tier_summary = parsers.extract_tier_summary(self._last_capability_md)
@@ -668,6 +740,7 @@ class Poller:
             "news_acks_count": len(acked_ids),
             "answers_count": len(answers),
             "orchestrator_health": routing_ratio_doc,
+            "sessions": sessions_map,
             "_debug": debug_info,
         }
 

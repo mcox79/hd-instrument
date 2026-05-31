@@ -234,13 +234,42 @@ def capability_rows():
 
 
 @app.get("/api/status_log")
-def status_log(limit: int = 50, kind: str | None = None):
-    """Paginated, optionally filtered orchestrator status log entries (newest first)."""
+def status_log(
+    limit: int = 50,
+    kind: str | None = None,
+    source: str | None = None,
+):
+    """Paginated, optionally filtered status log entries (newest first).
+
+    Filters:
+      kind   - event_kind exact match (e.g. "verdict_processed")
+      source - source session match: orchestrator|research|testbed|cloud.
+               Entries without a source field match only when source=='legacy'.
+    """
     snap = app.state.poller.get_snapshot()
     entries: list[dict] = snap.get("status_log", [])
     if kind:
         entries = [e for e in entries if e.get("event_kind") == kind]
+    if source:
+        if source == "legacy":
+            entries = [e for e in entries if not e.get("source")]
+        else:
+            entries = [e for e in entries if e.get("source") == source]
     return {"entries": entries[:max(1, min(300, limit))], "total": len(entries)}
+
+
+@app.get("/api/sessions")
+def sessions():
+    """Per-session activity indicators.
+
+    Returns the heartbeat for each session that has written one. Each entry
+    has {session, ts, current_focus, last_event_ts, stale_after_s, age_s,
+    is_stale}. Sessions that have never written a heartbeat are absent.
+
+    See tools/orchestrator/session_heartbeat.py for the writer.
+    """
+    snap = app.state.poller.get_snapshot()
+    return {"sessions": snap.get("sessions", {})}
 
 
 @app.get("/api/exp/{name}/tail")
