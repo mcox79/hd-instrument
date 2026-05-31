@@ -83,20 +83,61 @@ _TERMINATE_STATE: dict = {"client": None, "instance_ids": [], "done": False}
 
 
 def _force_terminate():
+    """Idempotent terminate with retry. Tolerates transient network failures.
+
+    Cleanup MUST succeed even if local DNS / network blips at the wrong
+    moment (we observed [Errno 11001] getaddrinfo failed on a real run,
+    which leaked an instance until manual cleanup). Retry up to 6 times
+    with exponential backoff (1s, 2s, 4s, 8s, 16s, 32s = ~63s total).
+
+    If all retries fail the function writes a sticky file at
+    data/lambda_LEAKED_instance_<id>.flag so the dashboard / next session
+    sees the leak and can manually clean up.
+    """
     if _TERMINATE_STATE["done"] or not _TERMINATE_STATE["client"]:
         return
     if not _TERMINATE_STATE["instance_ids"]:
         _TERMINATE_STATE["done"] = True
         return
+    instance_ids = list(_TERMINATE_STATE["instance_ids"])
+    backoff = 1.0
+    last_exc: Exception | None = None
+    for attempt in range(6):
+        try:
+            terminated = _TERMINATE_STATE["client"].terminate_instances(instance_ids)
+            print(f"[launch_v1_canary] cleanup attempt {attempt+1}: terminated {terminated}",
+                  flush=True)
+            _TERMINATE_STATE["done"] = True
+            return
+        except Exception as exc:
+            last_exc = exc
+            print(f"[launch_v1_canary] cleanup attempt {attempt+1} failed: {exc}",
+                  flush=True)
+            if attempt < 5:
+                print(f"  retrying in {backoff:.0f}s...", flush=True)
+                try:
+                    time.sleep(backoff)
+                except Exception:
+                    pass
+                backoff *= 2
+    # All retries exhausted -- leave a sticky flag so the leak is visible.
+    print(f"[launch_v1_canary] CLEANUP EXHAUSTED RETRIES: {last_exc}", flush=True)
+    print(f"  Instance ids: {instance_ids}", flush=True)
+    print(f"  MANUALLY TERMINATE VIA LAMBDA WEB CONSOLE", flush=True)
     try:
-        terminated = _TERMINATE_STATE["client"].terminate_instances(
-            _TERMINATE_STATE["instance_ids"]
+        flag = _REPO_ROOT / "data" / f"lambda_LEAKED_instance_{instance_ids[0]}.flag"
+        flag.parent.mkdir(parents=True, exist_ok=True)
+        flag.write_text(
+            json.dumps({
+                "instance_ids": instance_ids,
+                "leaked_at": datetime.now(timezone.utc).isoformat(),
+                "last_error": str(last_exc),
+            }, indent=2),
+            encoding="utf-8",
         )
-        print(f"[launch_v1_canary] cleanup: terminated {terminated}", flush=True)
-    except Exception as exc:
-        print(f"[launch_v1_canary] CLEANUP FAILED: {exc}", flush=True)
-        print(f"  Instance ids: {_TERMINATE_STATE['instance_ids']}", flush=True)
-        print(f"  MANUALLY TERMINATE VIA LAMBDA WEB CONSOLE NOW", flush=True)
+        print(f"  leak flag written: {flag}", flush=True)
+    except Exception as exc2:
+        print(f"  could not write leak flag: {exc2}", flush=True)
     _TERMINATE_STATE["done"] = True
 
 
