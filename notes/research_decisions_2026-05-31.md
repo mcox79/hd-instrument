@@ -206,3 +206,28 @@ This is substrate-distinctive but narrower than original framing. Competitive mo
 - Explicit annotation that reviewer did NOT touch substrate-side risks; those remain the higher empirical unknowns
 
 **Method note.** Main-thread audit ~20 min; no subagent dispatch needed (the work is critique-of-external-input + cross-reference against existing spec). Per [[feedback-no-smoke]] honest engagement: reviewer was sharp on bridge engineering, blind on substrate physics; don't dismiss because non-human source AND don't over-defer because authoritative-sounding.
+
+
+## llm1_token_prediction_2x_deep_optimization_v1 -- 2026-05-31 (research:opus + 2 parallel Sonnet drills)
+
+**Drill.** User: "do a 2x deep research on this experiment to maximize possibility of passing" per [[feedback-2x-means-depth]] = operational depth on design choices that determine pass/fail. Main-thread audit FIRST identified 5 design issues with original spec (ambiguous encoding; hand-waved capacity; wrong retrieval primitive; weak baselines; worst-case open-domain Wikipedia). 2 parallel Sonnet drills then OPERATIONALIZED the open design questions: (A) encoding + capacity; (B) domain + baseline + criteria.
+
+**Outcome.** The original LLM-1 spec was set up to fail (1M-token open-domain Wikipedia at ~2% coverage with weak baselines like uniform/random which are trivially beatable). 2x deep optimization produced a config with substantively better pass odds:
+
+- **Drill A (encoding + capacity)**: Permutation binding recommended (vs Plate HRR bundling -- better capacity scaling for sequence encoding). N_substrate = 16384 (use modern Hopfield validated envelope per v297). N_ctx = 4-5 (NOT 8 -- interference quadratic in context length). |V| = 8000 BPE. PMI-weighted storage (medium-entropy contexts where Kneser-Ney handles worst, NOT random/frequency-weighted which give trivial coverage of patterns KN already captures perfectly). P_def 0.15 on open-domain Wikipedia. **Load-bearing open risk**: Zipfian function-word interference (frequent tokens appear in nearly every context, creating systematic off-diagonal interference in W not captured by random-pattern capacity analysis).
+
+- **Drill B (domain + baseline + criteria)**: Python source code is the strongest domain (high structural regularity; coverage compounds in repetitive code; baseline n-gram models on code already report much lower perplexity than on natural language). Baseline set: MKN-5 (modified Kneser-Ney 5-gram via KenLM) + FAISS k-NN (closest competitor for product positioning) + tiny LSTM (~1-2M params) + GPT-2-small reference. Primary metric: Coverage-Weighted Top-1 (CWT1) + Coverage Fraction (CF) reported separately. Composite score = 0.40 × CWT1 + 0.20 × audit + 0.20 × edit-consistency + 0.20 × deletion-consistency (substrate-distinctive headline because baselines score 0 on the last 3 columns). P_def **0.37 raw CWT1 wins** vs full baseline set; **0.60-0.70 composite-score wins** even if losing CWT1.
+
+**Joint P_def**: ~0.55-0.70 for at least one HARD-PASS band (raw OR composite-only); ~0.15-0.25 for HARD-FAIL across all bands.
+
+**Honest framing**: substrate at 50K patterns on Python source has ~37% chance beating MKN-5 + FAISS k-NN on raw next-token accuracy; ~65% chance winning on composite that includes audit + edit + deletion. The composite-win case is NOT a consolation -- it shifts the strategic narrative from "substrate is a next-token-predictor" to "substrate is an auditable retrieval system that handles cases LLMs structurally cannot." Both outcomes are pre-registered as meaningful per [[feedback-no-smoke]].
+
+**Cap_map implications.**
+- NEW row proposed: "Substrate as next-token-predictor at limited-capacity (Python source)" at 0.30-0.45 raw / 0.55-0.70 composite P-bands
+- Caveats: Python source code specifically; coverage fraction >= 0.10 is the meaningful-comparison threshold; Zipfian interference is the load-bearing open risk; single-hop classical retrieval NOT Path D depth=5
+
+**Note path.** `notes/research_llm1_design_audit_v1_2026-05-31.md` (5 design issues with original spec). `notes/strategy_request_to_strategy_llm1_token_prediction_optimized_2026-05-31.md` (full optimized experiment spec; ~1-2w + ~1-2h GPU local; NO cloud spend; pre-reg HARD-PASS/HARD-FAIL/MIDDLE-BAND for both raw and composite tracks).
+
+**Method note.** Main-thread audit FIRST (~25 min) surfaced design issues; 2 Sonnet drills parallel ~45 min wall each, ~90K tokens combined; main-thread synthesis ~25 min. Pattern reconfirmed: audit before drill dispatch when the input spec has hand-waved design choices; the audit informs which drills to dispatch (encoding + domain were the highest-leverage open questions; capacity math and baseline strength followed). Per [[feedback-2x-means-depth]] -- the drills did NOT re-verify "can substrate do next-token prediction" abstractly; they operationalized "WHICH config gives substrate fair shot" empirically.
+
+**Next-drill candidate.** None pending. Watch for orchestrator queueing the experiment. If LLM-1 PASSES (either band), LLM-2 (compositional generation through binding) becomes the natural follow-on; LLM-3 (substrate-only language modeling at narrow scale) is contingent on LLM-2 PASS. If LLM-1 HARD-FAILs across both bands, the substrate-as-LLM-replacement direction is closed empirically; memory-layer positioning is definitively right.
