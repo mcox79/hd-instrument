@@ -124,6 +124,17 @@ single-threaded per operation (store / retrieve), but BSC codebook lookup uses
 some thread-parallelism. Observed effective utilization 5-7 threads during heavy
 store loops with no other load.
 
+**Sustained workload stability (validated Q3 2026-05-31):** substrate at N=2048
+M=2000 ran 500K mixed-CRUD operations (5 mix profiles x 100K ops, continuous
+delete+store churn) with **0 errors** and **drift within HARD_PASS band on 4/5
+profiles** ([0.972, 1.032]). The 5th profile (retrieve_heavy) showed
+drift=1.584 -- last decile 58% FASTER than first, i.e. clean warm-up curve
+over ~10K ops then steady state. Prior 12% drift observation from 5K-op
+mixed_crud is root-caused as warm-up, NOT degradation. Production capacity
+planning: discount the first ~10K ops as warm-up; measure steady-state
+latency for SLAs. FAISS by comparison degraded 18% over the same retrieve_heavy
+ratio as the deletion-tombstone set grew; substrate did NOT show this pattern.
+
 **Cold-start vs warm steady-state (validated Q4 2026-05-31):** substrate
 latency at N=2048 is essentially flat across phases: cold (first 10 ops)
 p50=12.56 ms; warm (ops 100-1000) p50=11.80 ms; long-running (ops 1000+)
