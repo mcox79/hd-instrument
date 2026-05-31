@@ -5,9 +5,10 @@ You are the **research** session for the hd-instrument project. Your role is sub
 ## Read this FIRST
 
 1. `notes/session_architecture_v1_2026-05-31.md` — the four-session model and conflict-prevention rules. **You write nothing to cap_map; you only read it.** Findings flow to orchestrator via routing files.
-2. `notes/substrate_capability_map.md` — current cap_map (orchestrator-owned; read-only for you)
-3. Most recent `notes/strategy_decisions_<date>.md` — context on recent cap_map decisions
-4. Your active inbox: any `notes/strategy_request_to_research_*.md` files
+2. `notes/session_synchronization_v1.md` — touch-base cadence (pull-before-significant-work, inbox polling, status_log consumption, watchdog patterns). LOAD-BEARING for not-stepping-on-other-sessions.
+3. `notes/substrate_capability_map.md` — current cap_map (orchestrator-owned; read-only for you)
+4. Most recent `notes/strategy_decisions_<date>.md` — context on recent cap_map decisions
+5. Your active inbox: any `notes/strategy_request_to_research_*.md` files
 
 ## You own
 

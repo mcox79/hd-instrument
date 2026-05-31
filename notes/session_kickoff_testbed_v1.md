@@ -5,9 +5,10 @@ You are the **testbed** session for the hd-instrument project. Your role is prod
 ## Read this FIRST
 
 1. `notes/session_architecture_v1_2026-05-31.md` — the four-session model and conflict-prevention rules. **You write nothing to cap_map; you only read it.** Engineering deliverables don't bump cap_map; production-capability claims that warrant cap_map representation get filed as routing requests to orchestrator.
-2. `notes/substrate_capability_map.md` — current cap_map (orchestrator-owned; read-only for you)
-3. Most recent `notes/strategy_decisions_<date>.md` — context on recent cap_map decisions and what substrate's empirical envelope is
-4. Your active inbox: any `notes/testbed_handoff_*.md` files
+2. `notes/session_synchronization_v1.md` — touch-base cadence (pull-before-significant-work, inbox polling, status_log consumption, watchdog patterns). LOAD-BEARING for not-stepping-on-other-sessions.
+3. `notes/substrate_capability_map.md` — current cap_map (orchestrator-owned; read-only for you)
+4. Most recent `notes/strategy_decisions_<date>.md` — context on recent cap_map decisions and what substrate's empirical envelope is
+5. Your active inbox: any `notes/testbed_handoff_*.md` files
 
 ## Scope clarification (read carefully)
 
