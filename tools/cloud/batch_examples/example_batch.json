@@ -1,0 +1,21 @@
+[
+  {
+    "anchor": "exp_one_anchor_v1_n4096",
+    "script": "experiments/exp_one_anchor_v1_n4096.py",
+    "total_cells": 15,
+    "experiment_timeout_min": 60
+  },
+  {
+    "anchor": "exp_two_anchor_v1_n4096",
+    "script": "experiments/exp_two_anchor_v1_n4096.py",
+    "total_cells": 5,
+    "cell_regex": "^\\s+seed=\\d+\\s+(?:ok=|FAILED:)",
+    "experiment_timeout_min": 30
+  },
+  {
+    "anchor": "exp_three_anchor_v1_n4096",
+    "script": "experiments/exp_three_anchor_v1_n4096.py",
+    "total_cells": 12,
+    "experiment_timeout_min": 90
+  }
+]
