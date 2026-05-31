@@ -504,12 +504,15 @@ edit-then-query pipeline, multi-task transfer, ICL saturation curve.
 | **PP-6** | **Per-store latency optimization for bursty-write workloads** -- G13 agentic batch covers sustained read-mostly; bursty-write (data import, bulk updates) is open; determines market reach (read-heavy vs general). | 🔬 Research only | **0.55-0.70** | (a) standard engineering; (b) batched-store + GPU acceleration target ~10x throughput at N=4096-8192; (c) local GPU store-op profiling; ~2-3 weeks. | Complements G13 agentic batch envelope. Source: research_focus_expansion routing 2026-05-31 Missing #5. |
 | **PP-7** | **Multi-substrate composition at enterprise scale (hierarchical / per-domain / ensemble)** -- enterprise architecture fit; different domains often have different retention/access/audit policies. **REQUIRES RE-ANCHORING** before any test design. | 🔬 Research only -- needs re-anchoring | **TBD (re-anchor first)** | (a) DO NOT reference the v282 K=10 sharding context -- v282 K=10 was the Op E cross-shard pairwise-correlation probe CLOSED at AUC=0.459 below random (NOT a sharding capability); (b) start with research drill on hierarchical-substrate / domain-substrate / ensemble-substrate literature (~30-60 min); (c) engineering follow-on TBD after re-anchoring. | Re-anchor before design test. Source: research_focus_expansion routing 2026-05-31 Missing #4 (re-anchoring caveat). |
 | **PP-8** | **Substrate-LLM deep integration via codebook-native interface** -- substrate's bipolar codeword as "intrinsic language" the LLM could consume without text-tokenization round-trip; Pattern 3 (Flamingo/LLaMA-Adapter style) frozen 1-3B base LM + ~27M-param bidirectional MLP bridge + substrate Path D depth=5 autonomous multi-hop (Rescue C: bypasses small-LM query-decomposition bottleneck). | 🔬 Research only | **0.30-0.45** (range: 8GB-local 0.25-0.30 vs 24GB-cloud 0.40-0.45) | (a) bipolar-codeword-to-LLM-input direction is unpublished; NVSA (Hersche, Nature MI 2023) is closest precedent in the OPPOSITE direction (neural -> bipolar); (b) query-decomposition bottleneck at small-LM scale (1-3B) UNKNOWN -- binding research risk; (c) hardware constraint (8GB local vs 24GB cloud) determines feasibility window; (d) requires synthetic training data construction (~50K-200K paired examples) -- its own engineering risk; (e) bridge-alignment training is binding engineering risk; (f) total ~4-6 weeks single-person; (g) PRE-COMMIT WEEK 1 feasibility smoke RECOMMENDED before Weeks 2-6 commitment. | **Load-bearing test design for PP-1 absolute-quality benchmark.** Depends on PP-5 latency budget closure. Decision-gated: (i) GPU resource 8GB-local vs 24GB-cloud, (ii) Week 1 feasibility smoke GO/NO-GO, (iii) sequencing vs other queue items (recommend smaller drills FIRST). One of 3 cloud-warranted candidates per cloud-routing-discipline (~$200-400 H100 80GB for 4-6 weeks build). Source: substrate_llm_deep_integration routing 2026-05-31. Primary deliverable: `notes/research_substrate_llm_deep_integration_v1_2026-05-31.md`. |
+| **PP-9** | **Reasoning amortization economics** -- LLM derives reasoning chain once, substrate stores as fact-chain atoms, subsequent similar queries retrieve stored reasoning via Path D; measures cost reduction and quality equivalence vs LLM-derive-each-query baseline. Direct commercial-value claim: 10-100x cost reduction for workloads with repeated reasoning patterns. Substrate-distinctive because audit + edit-isolation + deletion-cert make the cache safe under regulatory scrutiny. | 🔬 Research only | **0.55-0.70** | (a) cost comparison meaningful only if substrate reasoning-retrieval has EQUIVALENT QUALITY to freshly-derived LLM reasoning -- experiment measures both; (b) reasoning storage IS fact-chain retrieval per [[research_substrate_as_reasoning_store_audit]] pending encoding-scheme drill verdict; (c) P-band range reflects uncertainty in what fraction of customer workloads have repeated-reasoning patterns. Experiment: reasoning_amortization_economics_v1_n4096 -- testbed Tier 2b harness extension; ~$50-100 Anthropic API + ~2-3 weeks engineering. Sequencing: AFTER substrate-LLM Week 0 Missing 7 verdict + D7 Bet B ret_A rescue; BEFORE D1 compositional binding production-scope. | Source: research_substrate_as_reasoning_store_audit_v1_2026-05-31.md; strategy_request_to_strategy_reasoning_amortization_experiment_2026-05-31.md (research-filed; user-authorized 2026-05-31). Testbed handoff pending this turn. PP-5 gates LLM-integration latency prerequisite. |
 
 **Cross-references within Production positioning category:**
 - PP-1 <-> PP-8: PP-8 is the test design (architecture + build plan + test design) for the PP-1 benchmark. Closing PP-8 produces the benchmark methodology for PP-1.
 - PP-2 <-> PP-3: PP-3 audit-rotation determines audit-chain growth bound, which is a load-bearing input to PP-2 storage modeling.
 - PP-5 -> PP-1, PP-8: PP-5 is the cheapest LLM-integration gate; closing PP-5 first surfaces hardware/latency blockers before committing to PP-1 / PP-8 budgets.
 - PP-3 substrate: M1+M2 log-structured store (from alt_edit_isolation routing 2026-05-31) IS the substrate for PP-3; PP-3 closes around its rotation/compression strategy.
+- PP-9 -> PP-5: PP-9 cost-economics depend on substrate retrieval latency not dominating LLM token-gen time; PP-5 latency budget closure is a prerequisite.
+- PP-9 -> PP-1: PP-9 provides commercial-value numbers (cost per repeated reasoning query) that inform PP-1 benchmark design and product-positioning conversations.
 
 **Sequencing recommendation (orchestrator decides timing; not auto-dispatched):**
 - IMMEDIATE (this week, pause-gated if applicable): cross-framework probe (overdue ~24-48h cadence per [[feedback-aggressive-cross-domain-research]]); compositionality-audit-API research drill (~30-60min); telemetry-source audit on 08:52 cloud event (~15min testbed); PP-7 re-anchoring drill (~30-60min).
@@ -521,6 +524,25 @@ edit-then-query pipeline, multi-task transfer, ICL saturation curve.
 1. N=32768 envelope sweep (only if super-linear pattern matters strategically AND local sparse-W/sharding alternatives are insufficient; ~$55-90 cloud H100 if run)
 2. PP-8 substrate-LLM deep-integration build at production-quality LLMs (~$200-400 for 4-6 weeks)
 3. 7-day sustained workload (only if local 48h validates clean; ~$300-500)
+
+---
+
+## v297 -> v298 @ ANNOTATION-ONLY PP-9 NEW ROW (reasoning amortization economics; research-only; user-authorized 2026-05-31)
+
+**Trigger.** User-authorized turn: strategy_request_to_strategy_reasoning_amortization_experiment_2026-05-31.md landed (from research audit of external 8-experiment proposal; 5 of 8 were duplicates; this files the one genuinely-new experiment).
+
+**Change.** NEW ROW PP-9 "Reasoning amortization economics" added to Section 5 Production positioning. 🔬 Research only, P_deflated 0.55-0.70. ANNOTATION-ONLY: no portfolio state transitions, no emoji moves, no P-band changes on existing rows.
+
+**PP-9 rationale.** Amortization gains are mechanically predictable given non-zero substrate hit-rate; P-band range reflects uncertainty on what fraction of customer workloads have repeated-reasoning patterns. Experiment anchor reasoning_amortization_economics_v1_n4096 files as testbed Tier 2b harness extension (~$50-100 Anthropic API + ~2-3 weeks engineering). Cross-refs added: PP-9 -> PP-5 (latency gate); PP-9 -> PP-1 (commercial-value numbers for benchmark design).
+
+**Portfolio.** 22 + 36 -> **23 + 36** (+1 new research-only PP-9 row in Production positioning category).
+
+**PROT compliance (v297 -> v298).**
+- PROT-004/006: annotation-only; no closures; no rescue sketches required.
+- PROT-007: substrate_capability_map_history.md v298 row appended atomically.
+- PROT-008: annotation-only; no cap_map state transitions; validator not blocking.
+- PROT-009: cap_map.md (this v298 entry) + substrate_capability_map_history.md (v298 row) + strategy_decisions_2026-05-31.md + visibility_decisions_2026-05-31.md staged atomically; **209th PROT-009 paired commit**.
+- PROT-018: PP-9 is a research-only row addition (no anchor shipped yet); not applicable.
 
 ---
 
