@@ -46,6 +46,7 @@ import os
 import signal
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -60,7 +61,10 @@ from tools.cloud.cost_tracker import update_cost  # noqa: E402
 
 _V1_ANCHOR = "modern_hopfield_pipeline_validation_v1_n2048_n4096"
 _V1_SCRIPT = f"experiments/exp_{_V1_ANCHOR}.py"
+_V1_WRAPPER = "tools/cloud/v1_progress_wrapper.py"
 _REMOTE_METRICS_PATH = f"data/exp_{_V1_ANCHOR}/metrics.json"
+_REMOTE_PROGRESS_PATH = f"data/exp_{_V1_ANCHOR}/progress.json"
+_PROGRESS_POLL_INTERVAL_S = 30
 
 
 def _load_key(key_file_arg: str) -> str | None:
@@ -177,6 +181,86 @@ def _ssh_run(
         return (-1, "", f"ssh error: {exc}")
 
 
+class ProgressPoller(threading.Thread):
+    """Background SCP-poller for the remote progress.json.
+
+    Pulls ~/hd-instrument/data/exp_<anchor>/progress.json every
+    poll_interval_s, mirrors it to data/lambda_progress_<id>.json, and
+    prints a one-line live status (cell N/M, percent, ETA).
+
+    Stops cleanly when stop_event is set OR the main thread exits.
+    """
+
+    def __init__(
+        self,
+        ip: str,
+        ssh_key_path: str | None,
+        instance_id: str,
+        stop_event: threading.Event,
+        poll_interval_s: int = _PROGRESS_POLL_INTERVAL_S,
+    ):
+        super().__init__(daemon=True, name="progress-poller")
+        self.ip = ip
+        self.ssh_key_path = ssh_key_path
+        self.instance_id = instance_id
+        self.stop_event = stop_event
+        self.poll_interval_s = poll_interval_s
+        self.local_path = (
+            _REPO_ROOT / "data" / f"lambda_progress_{instance_id}.json"
+        )
+        self._last_cell: int | None = None
+
+    def run(self) -> None:
+        # Small initial delay so the wrapper has time to write the first
+        # progress.json before we poll.
+        if self.stop_event.wait(timeout=10):
+            return
+        while not self.stop_event.is_set():
+            try:
+                self._poll_once()
+            except Exception as exc:
+                # Poller must NEVER take down the main run.
+                print(f"[progress-poller] error (continuing): {exc}", flush=True)
+            if self.stop_event.wait(timeout=self.poll_interval_s):
+                break
+
+    def _poll_once(self) -> None:
+        # Use a tempfile so a partial SCP write never corrupts the local
+        # path we keep around as the canonical view.
+        tmp = self.local_path.with_suffix(self.local_path.suffix + ".tmp")
+        ok = _scp_from(
+            self.ip,
+            self.ssh_key_path,
+            f"~/hd-instrument/{_REMOTE_PROGRESS_PATH}",
+            tmp,
+        )
+        if not ok or not tmp.is_file():
+            # Progress file might not exist yet (V1 hasn't printed first cell).
+            return
+        try:
+            entry = json.loads(tmp.read_text(encoding="utf-8"))
+        except Exception:
+            tmp.unlink(missing_ok=True)
+            return
+        os.replace(str(tmp), str(self.local_path))
+        cell = entry.get("cell")
+        total = entry.get("total_cells")
+        phase = entry.get("phase") or ""
+        eta = entry.get("eta_sec")
+        if cell is None or total is None:
+            return
+        # Only print when the cell count moves (no noisy duplicates).
+        if cell == self._last_cell:
+            return
+        self._last_cell = int(cell)
+        pct = (cell / total * 100) if total else 0
+        eta_str = f"ETA {eta}s" if eta is not None else "ETA -"
+        ts = datetime.now().astimezone().strftime("%H:%M:%S")
+        print(f"[progress {ts}] cell {cell}/{total}  ({pct:.1f}%)  "
+              f"{phase}  {eta_str}",
+              flush=True)
+
+
 def _scp_from(
     ip: str,
     ssh_key_path: str | None,
@@ -203,38 +287,51 @@ def _scp_from(
 def _evaluate_v1_metrics(metrics: dict) -> tuple[bool, str, dict]:
     """Apply V1's pre-registered HARD_PASS criteria to a metrics dict.
 
-    Per the script docstring:
-      HARD_PASS = all cells at BOTH N values produce non-null metrics for
-                  every measurement AND no operation crashes
-      HARD_FAIL = any cell produces null metric OR any operation crashes
+    V1's actual metrics.json schema (confirmed from a real run):
+      {
+        "elapsed_s": float,
+        "summary":   {...per-cell aggregates...},
+        "verdict":   "PIPELINE_HARD_PASS" | "PIPELINE_HARD_FAIL" | "PIPELINE_MIDDLE_BAND",
+        "verdict_msg": "PIPELINE_VALID: n_total=39 n_success=39 n_non_null=39
+                        n_crashed=0 Ns=[2048, 4096] per_N={...}
+                        cert_all_valid=True -- cloud-ready at N=[...]"
+      }
 
-    Different V1 revisions emit slightly different keys; we look for the
-    canonical fields with reasonable fallbacks.
+    Earlier versions of this function looked for `verdict_label` and
+    `n_*_total` at top level; neither exists. The verdict label IS at
+    `verdict` and the counts are inline in `verdict_msg`. Parse both.
     """
-    summary = {}
-    label = (metrics.get("verdict_label") or metrics.get("label") or "").upper()
+    import re as _re
+    summary: dict = {}
+    label = (metrics.get("verdict") or metrics.get("verdict_label") or "").upper()
+    msg = metrics.get("verdict_msg") or ""
     summary["verdict_label"] = label
+    summary["verdict_msg"] = msg
 
-    # Cell counts (canonical fields).
-    n_crashed = metrics.get("n_crashed_total")
-    n_non_null = metrics.get("n_non_null_total")
-    n_total = metrics.get("n_cells_total")
-    if n_crashed is None and "per_cell" in metrics:
-        per_cell = metrics["per_cell"]
-        if isinstance(per_cell, list):
-            n_total = len(per_cell)
-            n_crashed = sum(1 for c in per_cell if c.get("crashed"))
-            n_non_null = sum(1 for c in per_cell if not c.get("crashed"))
-    summary["n_crashed_total"] = n_crashed
-    summary["n_non_null_total"] = n_non_null
-    summary["n_cells_total"] = n_total
+    # Extract per-cell counts from verdict_msg.
+    def _grab(field: str) -> int | None:
+        m = _re.search(rf"{field}=(\d+)", msg)
+        return int(m.group(1)) if m else None
 
-    cert_all_valid = metrics.get("cert_all_valid")
+    n_total = _grab("n_total")
+    n_success = _grab("n_success")
+    n_non_null = _grab("n_non_null") or n_success
+    n_crashed = _grab("n_crashed")
+    if n_crashed is None and n_total is not None and n_success is not None:
+        n_crashed = n_total - n_success
+    summary["n_total"] = n_total
+    summary["n_success"] = n_success
+    summary["n_non_null"] = n_non_null
+    summary["n_crashed"] = n_crashed
+
+    cert_match = _re.search(r"cert_all_valid=(\w+)", msg)
+    cert_all_valid = None
+    if cert_match:
+        cert_all_valid = cert_match.group(1).lower() == "true"
     summary["cert_all_valid"] = cert_all_valid
 
-    # Pass conditions (lenient -- accept either label or per-cell evidence).
     if "PIPELINE_HARD_PASS" in label or "HARD_PASS" in label:
-        return True, f"verdict label HARD_PASS ({label})", summary
+        return True, f"verdict={label}", summary
     if (n_crashed == 0 and n_non_null is not None and n_total is not None
             and n_non_null == n_total and cert_all_valid is True):
         return True, "per-cell: 0 crashed + all non-null + certs valid", summary
@@ -242,7 +339,7 @@ def _evaluate_v1_metrics(metrics: dict) -> tuple[bool, str, dict]:
         return False, f"FAIL: {n_crashed} cells crashed", summary
     if n_total is not None and n_non_null is not None and n_non_null < n_total:
         return False, f"FAIL: {n_total - n_non_null}/{n_total} cells null", summary
-    return False, f"unable to determine pass/fail from metrics", summary
+    return False, "unable to determine pass/fail from metrics", summary
 
 
 def main() -> int:
@@ -446,6 +543,20 @@ def main() -> int:
     #     lines survive an SSH 'Connection reset by peer'
     #   - tee'd remote log file is SCPed back below even if the dispatch
     #     fails (so we always have ground truth on what actually ran)
+    # Start the progress poller BEFORE we kick off V1. Daemon thread polls
+    # the remote progress.json every 30s, prints live "cell N/M (X%)"
+    # status lines, mirrors latest snapshot to data/lambda_progress_<id>.json.
+    progress_stop = threading.Event()
+    poller = ProgressPoller(
+        ip=ip,
+        ssh_key_path=args.ssh_key_path,
+        instance_id=instance_id,
+        stop_event=progress_stop,
+    )
+    poller.start()
+    print(f"  progress poller started (poll every {_PROGRESS_POLL_INTERVAL_S}s; "
+          f"mirror at data/lambda_progress_{instance_id}.json)")
+
     print(f"\n[4/5] Dispatching V1 via SSH (timeout {args.v1_timeout_min:.0f} min)...")
     v1_cmd = (
         "set -e; "
@@ -467,7 +578,11 @@ def main() -> int:
         # surrounding `set -e` does not kill the script before we read
         # the metrics file.
         f"set -x; "
-        f"(stdbuf -oL $PY -u {_V1_SCRIPT} 2>&1 | tee $REMOTE_LOG; "
+        # Dispatch via the progress-emitting wrapper instead of V1 directly.
+        # Wrapper streams V1's stdout unchanged AND writes progress.json
+        # next to metrics.json, which the local ProgressPoller thread SCPs
+        # back every 30s.
+        f"(stdbuf -oL $PY -u {_V1_WRAPPER} 2>&1 | tee $REMOTE_LOG; "
         f"  echo \"V1_EXIT=${{PIPESTATUS[0]}}\") || echo 'V1_DISPATCH_FAIL'; "
         f"set +x; "
         "echo '--- result ---'; "
@@ -483,6 +598,9 @@ def main() -> int:
         ip, args.ssh_key_path, v1_cmd,
         timeout_s=int(args.v1_timeout_min * 60),
     )
+    # V1 finished (one way or another); stop the progress poller cleanly.
+    progress_stop.set()
+    poller.join(timeout=5)
     print("---- v1 stdout tail ----")
     print(out[-3500:])
     if err:
