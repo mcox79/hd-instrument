@@ -466,3 +466,63 @@ Build is now ~coin-flip-or-better on 8GB hardware; materially different from "pr
 | Edit-with-impact-prediction | YES | Underlying SVD-cascade falsifier HARD_FAILED; killer feature parked |
 
 Testbed should NOT add any of these to Phase 1 without orchestrator + research re-evaluation.
+
+## EXTERNAL-FEEDBACK UPDATES (locked-in 2026-05-31; sharpens 3 areas of the bridge design)
+
+User shared the bridge design with an external technical reviewer; 3 substantive points returned. Per-point evaluation in `notes/research_decisions_2026-05-31.md`. The 3 updates below tighten the spec:
+
+### Update 1: VQ-Bottleneck Tier 1.5 fallback for LLM→memory query emission
+
+**Problem the reviewer flagged**: STE + tanh-relaxation at the binarization step (sign() at deployment) has well-documented train/test distribution shift. Tanh values typically hover near 0 during training to maintain gradient flow; sign() violently snaps them to ±1 at inference. This is one of the load-bearing risks (a) in the "5 open questions" list above.
+
+**Tier 1.5 fallback (use if Tier 1 STE training is unstable)**: replace the LLM→memory query emission path with a VQ-VAE-style bottleneck. The LLM's hidden state at the [QUERY] position passes through a small linear head producing a continuous readout vector; map to nearest centroid in a LEARNED CODEBOOK of memory-query centroids (k=512-2048 centroids; size TBD). Commitment loss + codebook update path per van den Oord et al. 2017 VQ-VAE.
+
+**Why this fixes the problem**: at inference, the lookup is the SAME nearest-neighbor operation as at training — no train/test distribution shift. Bonus: the LLM emits one of a finite vocabulary of "query types", which likely IMPROVES training stability (constrained output space).
+
+**Trigger conditions to pivot Tier 1 → Tier 1.5**: any of (a) Stage 2 retrieval accuracy gap between train (continuous-tanh) and eval (sign()-binarized) >5pp; (b) Stage 1 contrastive loss fails to converge after 3 epochs; (c) downstream multi-hop accuracy below 50% at Week 3 ablation A.
+
+**Engineering cost of pivot**: ~3-5 days. Replaces the linear query-readout head with the VQ codebook lookup; rest of the architecture unchanged. Adds k_centroids × d_model params (~1.5-6M extra for k=512, d=3072 to k=2048, d=3072).
+
+**Decision authority**: testbed pivots Tier 1 → Tier 1.5 inline (does not require orchestrator re-arbitration) IF the trigger conditions fire AND testbed has confirmed via 1-2 day diagnostic that STE is the culprit (not e.g. data scale or learning rate).
+
+### Update 2: Stage 1 hard-negative generation via teacher-model bootstrap
+
+**Problem the reviewer flagged**: Stage 1 contrastive + ITM losses need HARD negatives to avoid the bridge learning shallow lexical-matching shortcuts. Original spec just said "construct paired examples from substrate population" without specifying negative-mining.
+
+**Concrete addition**: bootstrap Stage 1 training data via teacher-model synthesis. Use Anthropic API (key already available per `project_anthropic_api_key_available`; Tier 2b LLM comparison harness already integrates with the API) to generate (query, ground-truth retrieval trace, hard-negative trace, final answer) tuples. The teacher model is provided with a graph snapshot of the substrate's stored facts/chains and asked to construct queries where the hard-negative is plausible-but-wrong (e.g., adjacent fact with the same predicate; off-by-one-hop chain; correct entities but wrong relation).
+
+**Volume**: ~50K tuples for Stage 1 training (~$50-150 Anthropic spend; within reasoning-amortization experiment's filed budget). Adds ~1 day setup + ~6 hours generation wall.
+
+**Validation gate**: after generation, manually inspect ~50 random tuples to verify the hard-negatives are actually plausible-but-wrong (not trivial random negatives). If <80% pass quality bar, re-prompt the teacher with sharper instructions; iterate.
+
+**Reuse path**: tuple-generation pipeline becomes infrastructure for the reasoning-amortization experiment (`notes/strategy_request_to_strategy_reasoning_amortization_experiment_2026-05-31.md`); not throwaway.
+
+### Update 3: Zero-out ablation arm added to Phase 1 Week 3
+
+**Problem the reviewer flagged**: per-hop prefix-token groups (40 prefix tokens at depth=5) may cause attention collapse at small/quantized base-LM scale. The LLM might just attend to the final prefix token and ignore the reasoning trace — treating memory as a single-hop lookup rather than mechanistic CoT.
+
+**Diagnostic test (Week 3, runs alongside Ablation B)**: zero out the intermediate hop prefix tokens (keep only the final memory-state prefix token group), measure downstream accuracy.
+
+**Pre-reg interpretation bands**:
+- **CoT-effective**: ≥3pp accuracy drop on multi-hop benchmarks (MuSiQue / HotpotQA / 2WikiMultihop) when intermediate hops zeroed → LLM IS using the reasoning trace; per-hop prefix-token design pays off
+- **Single-hop lookup**: <1pp drop → LLM is ignoring the reasoning trace; treating memory as a single-hop oracle. Per-hop prefix-token design is dead weight; revert to single-converged prefix
+- **Partial**: 1-3pp drop → LLM uses the trace sometimes; consider Q-Former tuning (e.g., increase per-hop token count from 8 to 16) before deciding
+
+**Cost**: ~0 incremental wall (re-runs Week 3 evaluation suite with the prefix-zeroing modification; ~1 day extra eval-run time).
+
+**Why this matters for the build's positioning**: the per-hop prefix-token design is one of the 3 optimization-drill deviations from the original baseline (+0.04-0.07 P_def lift); if the zero-out ablation shows the LLM isn't using the trace at this scale, the lift collapses and the build returns to single-converged-codeword (Rescue C original framing).
+
+### Updated open-question list (post-external-feedback)
+
+7. **Does STE binarization actually train stably, or does Tier 1.5 VQ-Bottleneck become the default?** Empirical Week 2 (Stage 1 contrastive loss convergence) and Week 3 (eval retrieval accuracy gap).
+8. **Does the teacher-model-generated hard-negative regime actually produce hard negatives, or does the LLM teacher generate easy-to-distinguish negatives that lead to shallow bridge learning?** Inspected at data-generation time + via Stage 1 contrastive loss curve.
+9. **Does the LLM attend to intermediate hop prefixes at base-LM-3.8B scale, or does attention collapse to final-prefix-only?** Empirical Week 3 zero-out ablation; binary classifier on the LLM's behavior at this scale.
+
+### What the external reviewer DID NOT address (carried forward)
+
+The reviewer engaged with the LLM-side bridge but did NOT touch the substrate-side empirical risks:
+- Structured-key envelope (drill α today; P_def 0.35 unmitigated; conclusion re-encoding mitigation needed)
+- Inter-hop key construction gap (drill β today; substrate is retrieval primitive not reasoning primitive)
+- 44K shared-rule-atoms threshold for spectral collapse (drill A today)
+
+These remain the higher empirical risks. The bridge is well-grounded engineering; the substrate's structured-key behavior at production scope is the empirical unknown.

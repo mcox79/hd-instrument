@@ -179,3 +179,30 @@ This is substrate-distinctive but narrower than original framing. Competitive mo
 **Method note.** 3 Sonnet drills parallel ~45min each, ~135K tokens combined. Main-thread synthesis ~25min. The 2x deepening was significantly more valuable than the original encoding drill alone -- without drills α + β, the Scheme B encoding finding would have created FALSE CONFIDENCE that "Scheme B works algebraically therefore reasoning storage works." Drills α + β surfaced (a) structured-key envelope problem and (b) inter-hop key construction gap -- both load-bearing operational constraints. Pattern reconfirmed per [[feedback-2x-means-depth]]: 2x = depth not verification.
 
 **Next-drill candidate.** None pending in this cycle. Watch for orchestrator to dispatch the reasoning-storage Phase 1 smoke; results will inform whether the cap_map row promotes to 🟡 (Arm 2 HARD-PASS or with-mitigation HARD-PASS) or stays 🔬 with documented limits (HARD-FAIL across multiple arms). If smoke passes, the amortization experiment becomes meaningful empirically. If smoke fails, reasoning storage row stays at 0.20-0.35 with mitigation tracks pursued in research.
+
+
+## external_reviewer_feedback_integration -- 2026-05-31 (research:opus main-thread audit; no subagent)
+
+**Trigger.** User shared the bridge design with an external technical reviewer (LLM-class reviewer per user disclosure); 3 substantive feedback points returned.
+
+**Per-point evaluation:**
+
+1. **STE/binarization risk**: reviewer correctly identified the train/test distribution-shift failure mode (tanh values hover near 0 during training to maintain gradient flow; sign() snaps violently at inference). Their proposed VQ-Bottleneck (VQ-VAE-style learned codebook of memory-query centroids with commitment loss) is a genuinely good alternative not in our spec. At inference, nearest-neighbor lookup matches training behavior → no distribution shift. Bonus: constrained output space likely improves training stability. Gumbel-Softmax suggestion is less clean fit (our query side is high-dim sign-thresholded continuous, not categorical distribution over codebook entries).
+
+2. **Stage 1 hard-negative data construction**: reviewer correctly flagged that contrastive + ITM losses need HARD negatives to avoid shallow lexical-matching shortcuts. Original spec was underspecified ("paired examples from substrate population"). Their teacher-model-bootstrap suggestion (use Anthropic API to generate (query, GT trace, hard-negative trace, answer) tuples) maps cleanly to existing Tier 2b infrastructure + Anthropic key already available.
+
+3. **Attention collapse + zero-out ablation diagnostic**: reviewer correctly flagged attention collapse risk at small/quantized base-LM scale (4-bit Phi-3-mini + 40 prefix tokens). Their proposed diagnostic (zero out intermediate hop prefix tokens; if LLM accuracy unchanged → LLM treating memory as single-hop lookup; if drops meaningfully → LLM is using the reasoning trace) is a sharp single-arm null test that wasn't in my Phase 1 spec.
+
+**What the reviewer MISSED:** all substrate-side empirical risks (structured-key envelope from drill α; inter-hop key construction gap from drill β; 44K shared-rule-atoms threshold from drill A). Reviewer engaged with the LLM-side bridge but implicitly assumed substrate multi-hop primitive transfers to structured reasoning chains. These remain the higher empirical risks.
+
+**Verdict:** "grain of salt" framing was too dismissive. 3 of 3 points substantive; 2 of 3 result in concrete updates to testbed handoff; 1 is a candidate architectural alternative (Tier 1.5 VQ fallback) worth specifying with trigger conditions.
+
+**Action items implemented:**
+- Testbed handoff updated with 3-section "EXTERNAL-FEEDBACK UPDATES" block:
+  - Tier 1.5 VQ-Bottleneck fallback (decision authority delegated to testbed if trigger conditions fire)
+  - Stage 1 hard-negative generation via teacher-model bootstrap (reuses Tier 2b infrastructure + Anthropic API)
+  - Zero-out ablation arm added to Week 3 (alongside Ablation B; ~0 incremental wall)
+- Open-questions list extended from 6 to 9
+- Explicit annotation that reviewer did NOT touch substrate-side risks; those remain the higher empirical unknowns
+
+**Method note.** Main-thread audit ~20 min; no subagent dispatch needed (the work is critique-of-external-input + cross-reference against existing spec). Per [[feedback-no-smoke]] honest engagement: reviewer was sharp on bridge engineering, blind on substrate physics; don't dismiss because non-human source AND don't over-defer because authoritative-sounding.
