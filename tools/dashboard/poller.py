@@ -49,6 +49,10 @@ _REMOTE_STATE_CACHE_PATH = Path(r"D:\AI\hd-instrument\data\remote_state_cache.js
 _DATA_DIR = Path(r"D:\AI\hd-instrument\data")
 _REPO_ROOT_NOTES = Path(r"D:\AI\hd-instrument\notes")
 _SESSION_NAMES = ("orchestrator", "research", "testbed", "cloud")
+# Cloud cost tracker -- written by the cloud session's cost-discipline layer.
+# Absent until the cloud session activates; dashboard renders an "inactive"
+# Lambda card with no cost line in the meantime.
+_CLOUD_COST_PATH = _DATA_DIR / "cloud_cost_tracker.json"
 
 POLL_INTERVAL_S = 3.0
 HISTORY_LIMIT = 80
@@ -516,6 +520,21 @@ class Poller:
         except Exception:
             pass
 
+        # Cloud cost tracker: local file read. Present only after the cloud
+        # session has activated and started writing cost telemetry. Schema:
+        #   {daily_budget_usd, accumulated_today_usd, current_hourly_rate_usd,
+        #    last_updated, active_instances}
+        cloud_cost: dict | None = None
+        try:
+            if _CLOUD_COST_PATH.is_file():
+                cloud_cost = parsers.safe_json(
+                    _CLOUD_COST_PATH.read_text(encoding="utf-8", errors="replace")
+                )
+                if not isinstance(cloud_cost, dict):
+                    cloud_cost = None
+        except Exception:
+            cloud_cost = None
+
         # Per-session inbox depths: count of unprocessed routing files for each
         # session. See session_synchronization_v1.md Pattern B. Counted at the
         # filesystem level so this stays fresh even if the poller has stale
@@ -780,6 +799,7 @@ class Poller:
             "answers_count": len(answers),
             "orchestrator_health": routing_ratio_doc,
             "sessions": sessions_map,
+            "cloud_cost": cloud_cost,
             "_debug": debug_info,
         }
 

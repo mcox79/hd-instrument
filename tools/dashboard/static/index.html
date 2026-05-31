@@ -157,6 +157,19 @@
     color: var(--dimmer);
     border-color: transparent;
   }
+  /* Cloud cost line inside a runner card (Lambda). */
+  .rn-tail.cost {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    border-top: 1px dashed var(--border);
+    padding-top: 4px;
+    margin-top: 4px;
+  }
+  .rn-tail.cost.over {
+    color: rgb(220, 100, 100);
+    border-top-color: rgba(220, 100, 100, 0.4);
+  }
   .session-row:last-child { border-bottom: none; }
   .session-row .session-name {
     font-weight: 600;
@@ -3499,6 +3512,7 @@ const RUNNER_DISPLAY = {
   gpu:       { label: "GPU (overnight)", queue_dir: "overnight_queue" },
   cpu:       { label: "Remote CPU",      queue_dir: "remote_cpu_queue" },
   local_cpu: { label: "Local CPU",       queue_dir: "local_cpu_queue" },
+  lambda:    { label: "Lambda GPU",      queue_dir: "lambda_queue" },
 };
 
 function hbFreshness(r) {
@@ -3508,6 +3522,33 @@ function hbFreshness(r) {
   if (sev === "error" || (stale != null && stale > 120)) return { cls: "dead", txt: stale != null ? `hb ${fmtElapsed(stale)} ago` : "no hb" };
   if (sev === "warn" || (stale != null && stale > 30)) return { cls: "stale", txt: `hb ${fmtElapsed(stale)} ago` };
   return { cls: "fresh", txt: stale != null ? `hb ${fmtElapsed(stale)} ago` : "live" };
+}
+
+// Cloud cost tracker: append a small "spend" line to a runner card when
+// data/cloud_cost_tracker.json is present. No-op when the tracker is absent.
+// Schema:
+//   { daily_budget_usd, accumulated_today_usd, current_hourly_rate_usd,
+//     last_updated, active_instances: [...] }
+function appendCostLine(card, cost) {
+  if (!card || !cost || typeof cost !== "object") return;
+  const acc = Number(cost.accumulated_today_usd);
+  const budget = Number(cost.daily_budget_usd);
+  const rate = Number(cost.current_hourly_rate_usd);
+  const haveAcc = Number.isFinite(acc);
+  const haveBudget = Number.isFinite(budget);
+  const haveRate = Number.isFinite(rate);
+  if (!haveAcc && !haveBudget && !haveRate) return;
+  const parts = [];
+  if (haveAcc && haveBudget) {
+    const pct = budget > 0 ? Math.min(100, (acc / budget) * 100) : 0;
+    parts.push(`$${acc.toFixed(2)} / $${budget.toFixed(2)} (${pct.toFixed(0)}%)`);
+  } else if (haveAcc) {
+    parts.push(`$${acc.toFixed(2)} today`);
+  }
+  if (haveRate && rate > 0) parts.push(`$${rate.toFixed(2)}/hr active`);
+  const cls = (haveAcc && haveBudget && acc >= 0.85 * budget) ? "rn-tail cost over" : "rn-tail cost";
+  card.append(el("div", {class: cls, title: cost.last_updated || ""},
+    parts.join("  |  ")));
 }
 
 function renderRightNow(runs, system) {
@@ -3522,9 +3563,26 @@ function renderRightNow(runs, system) {
   }
   let active = 0;
   const grid = el("div", {class: "rn-grid"});
-  for (const label of ["gpu", "cpu", "local_cpu"]) {
+  for (const label of ["gpu", "cpu", "local_cpu", "lambda"]) {
     const r = runs[label];
-    if (!r) continue;
+    // Lambda card: always render a slot, even when the cloud session hasn't
+    // activated yet, so the user sees the runner topology and knows where the
+    // cost tracker will live. Other runners stay hidden when missing.
+    if (!r) {
+      if (label !== "lambda") continue;
+      const card = el("div", {class: "rn-card idle"});
+      const head = el("div", {class: "rn-head"});
+      const disp = (RUNNER_DISPLAY[label] || {label}).label;
+      head.append(el("span", {class: "rn-runner"}, disp));
+      head.append(el("span", {class: "rn-hb stale"}, "inactive"));
+      card.append(head);
+      card.append(el("div", {class: "rn-name idle"}, "cloud session not started"));
+      // Cost line: only render if the cost-tracker file is present (handled
+      // by appendCostLine; safe no-op when absent).
+      appendCostLine(card, window.__lastSnapshot && window.__lastSnapshot.cloud_cost);
+      grid.append(card);
+      continue;
+    }
     const cur = r.queue_running_name || r.current || r.log_running_name || "";
     const isRunning = !!cur && r.queue_marks_running !== false;
     if (isRunning) active++;

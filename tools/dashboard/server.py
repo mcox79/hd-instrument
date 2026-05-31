@@ -258,6 +258,19 @@ def status_log(
     return {"entries": entries[:max(1, min(300, limit))], "total": len(entries)}
 
 
+@app.get("/api/cloud_cost")
+def cloud_cost():
+    """Cloud cost tracker snapshot.
+
+    Returns the contents of data/cloud_cost_tracker.json if the cloud session
+    is writing it; null otherwise. Schema (when present):
+      { daily_budget_usd, accumulated_today_usd, current_hourly_rate_usd,
+        last_updated, active_instances: [...] }
+    """
+    snap = app.state.poller.get_snapshot()
+    return {"cloud_cost": snap.get("cloud_cost")}
+
+
 @app.get("/api/sessions")
 def sessions():
     """Per-session activity indicators.
