@@ -132,12 +132,30 @@
   /* Sessions panel (Live tab). One row per active session. */
   .session-row {
     display: grid;
-    grid-template-columns: 110px 78px 1fr 90px;
+    grid-template-columns: 110px 78px 1fr 70px 90px;
     gap: 10px;
     padding: 6px 0;
     border-bottom: 1px solid var(--border);
     font-size: 12.5px;
     align-items: center;
+  }
+  .session-row .session-inbox {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-align: center;
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--dim);
+    border: 1px solid var(--border);
+  }
+  .session-row .session-inbox.has-items {
+    color: rgb(220, 160, 70);
+    border-color: rgba(220, 160, 70, 0.4);
+    background: rgba(220, 160, 70, 0.08);
+  }
+  .session-row .session-inbox.empty {
+    color: var(--dimmer);
+    border-color: transparent;
   }
   .session-row:last-child { border-bottom: none; }
   .session-row .session-name {
@@ -1072,8 +1090,18 @@
     border: 1px solid rgba(125,167,217,0.25);
     border-radius: 4px;
     padding: 6px 12px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     letter-spacing: 0.02em;
+  }
+  .cap-version-trigger {
+    font-size: 11.5px;
+    color: var(--dim);
+    padding: 0 12px 0 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
   }
 
   /* Redesigned capability tab — grouped + collapsible + color-coded */
@@ -2804,6 +2832,12 @@ function renderSessions(sessions) {
     row.append(statusCell);
     row.append(el("div", {class: "session-focus", title: e.current_focus || ""},
       e.current_focus || "(idle)"));
+    const inbox = e.inbox_depth || 0;
+    const inboxCell = el("div",
+      {class: "session-inbox " + (inbox > 0 ? "has-items" : "empty"),
+       title: inbox > 0 ? `${inbox} unprocessed routing file(s)` : "inbox empty"},
+      `${inbox} in`);
+    row.append(inboxCell);
     const ageStr = e.age_s == null ? "—" : fmtElapsed(e.age_s);
     row.append(el("div", {class: "session-age"}, ageStr));
     body.append(row);
@@ -3939,11 +3973,20 @@ function renderCapability(md, status, skipCount, tierSummary, capRows, capVersio
     const metaLine = [];
     metaLine.push(`v${vMeta.version}`);
     if (vMeta.version_date) metaLine.push(vMeta.version_date);
+    if (vMeta.last_bumped_by) metaLine.push(`bumped by ${vMeta.last_bumped_by}`);
     if (vMeta.portfolio_count) metaLine.push(vMeta.portfolio_count);
     if (vMeta.framework_reliability) metaLine.push(`framework reliability: ${vMeta.framework_reliability}`);
     if (vMeta.tier1_p) metaLine.push(`Tier-1 P: ${vMeta.tier1_p}`);
     const banner = el("div", {class: "cap-version-banner"}, metaLine.join("  |  "));
     body.append(banner);
+    // Second line: the most-recent bump summary (clipped to one line; full text
+    // in the title attribute on hover). Architecture v1 multi-session attribution.
+    if (vMeta.last_bump_summary) {
+      const trigger = el("div",
+        {class: "cap-version-trigger", title: vMeta.last_bump_summary},
+        `Trigger: ${vMeta.last_bump_summary}`);
+      body.append(trigger);
+    }
   }
 
   // Status banner for mid-write / errors (unchanged behavior).

@@ -662,13 +662,16 @@ def extract_cap_version_meta(cap_md: str) -> dict:
         return {"version": None, "version_date": "", "framework_reliability": "",
                 "tier1_p": "", "portfolio_count": ""}
 
-    # Find the highest vNNN version number from two formats:
+    # Find the highest vNNN version number from three formats:
     #   1. Compact table row: "| v211 | 2026-05-26 | ..."
     #   2. H2 narrative header: "## v211 - (2026-05-26) ..."
+    #   3. H2 transition header: "## v289 -> v290 @ ..." (multi-session era;
+    #      no date in header -- date sourced from later narrative if needed)
     version: int | None = None
     version_date: str = ""
     _ver_table_re = re.compile(r"^\|\s*v(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})")
     _ver_h2_re = re.compile(r"^##\s+v(\d+)\s+[-–—]+\s+\(?(\d{4}-\d{2}-\d{2})\)?")
+    _ver_transition_re = re.compile(r"^##\s+v\d+\s*[-–—>]+\s*v(\d+)\s*@")
     for line in cap_md.splitlines():
         s = line.strip()
         for rx in (_ver_table_re, _ver_h2_re):
@@ -679,6 +682,14 @@ def extract_cap_version_meta(cap_md: str) -> dict:
                     version = v
                     version_date = m.group(2)
                 break
+        # Transition headers don't have a date in the header; only the version.
+        m_trans = _ver_transition_re.match(s)
+        if m_trans:
+            v = int(m_trans.group(1))
+            if version is None or v > version:
+                version = v
+                # Keep the prior version_date (from the most recent dated entry)
+                # unless this is the very first version we've seen.
 
     # Extract framework reliability and Tier-1 P from the most recent vNNN narrative
     # block. Scan the last 100 KB of the file (most recent history block) so we catch
@@ -730,12 +741,41 @@ def extract_cap_version_meta(cap_md: str) -> dict:
     if all_port:
         portfolio_count = all_port[-1].group(1)
 
+    # Last-bump attribution (architecture v1 multi-session):
+    # Only the orchestrator writes cap_map, so last_bumped_by is always
+    # 'orchestrator'. The interesting field is the trigger context taken from
+    # the most-recent version-header narrative. Headers look like:
+    #   '## v289 -> v290 @ BATCHED 8-VERDICT T2-T5 + ... MAJOR EVENT (...)'
+    # We strip the leading 'vXXX -> vYYY @ ' and keep the rest as the summary.
+    last_bumped_by = "orchestrator"
+    last_bump_summary = ""
+    if version is not None:
+        # Find the H2 header for the current top version, in the tail block.
+        _hdr_re = re.compile(
+            rf"^##\s+v\d+\s*[-–—>]+\s*v{version}\s*@?\s*(.*)$",
+            re.MULTILINE,
+        )
+        m = _hdr_re.search(tail)
+        if m:
+            last_bump_summary = m.group(1).strip()[:280]
+        else:
+            # Fallback: try the H2 single-version form
+            _hdr_solo_re = re.compile(
+                rf"^##\s+v{version}\s*[-–—>:]+\s*(.*)$",
+                re.MULTILINE,
+            )
+            m2 = _hdr_solo_re.search(tail)
+            if m2:
+                last_bump_summary = m2.group(1).strip()[:280]
+
     return {
         "version": version,
         "version_date": version_date,
         "framework_reliability": framework_reliability,
         "tier1_p": tier1_p,
         "portfolio_count": portfolio_count,
+        "last_bumped_by": last_bumped_by,
+        "last_bump_summary": last_bump_summary,
     }
 
 

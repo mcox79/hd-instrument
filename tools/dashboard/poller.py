@@ -47,6 +47,7 @@ _REMOTE_STATE_CACHE_PATH = Path(r"D:\AI\hd-instrument\data\remote_state_cache.js
 # cloud). Each session writes its own; dashboard surfaces freshness + focus.
 # See tools/orchestrator/session_heartbeat.py for the writer.
 _DATA_DIR = Path(r"D:\AI\hd-instrument\data")
+_REPO_ROOT_NOTES = Path(r"D:\AI\hd-instrument\notes")
 _SESSION_NAMES = ("orchestrator", "research", "testbed", "cloud")
 
 POLL_INTERVAL_S = 3.0
@@ -515,6 +516,28 @@ class Poller:
         except Exception:
             pass
 
+        # Per-session inbox depths: count of unprocessed routing files for each
+        # session. See session_synchronization_v1.md Pattern B. Counted at the
+        # filesystem level so this stays fresh even if the poller has stale
+        # heartbeats. Inbox-file glob per session is fixed by architecture v1.
+        _NOTES_DIR = _REPO_ROOT_NOTES
+        inbox_globs = {
+            "orchestrator": ["strategy_request_to_strategy_*.md",
+                             "strategy_request_to_exp_dev_*.md"],
+            "research":     ["strategy_request_to_research_*.md"],
+            "testbed":      ["testbed_handoff_*.md", "exp_dev_handoff_*.md"],
+            "cloud":        ["cloud_handoff_*.md"],
+        }
+        inbox_depth: dict[str, int] = {}
+        for sess, patterns in inbox_globs.items():
+            count = 0
+            try:
+                for pat in patterns:
+                    count += len(list(_NOTES_DIR.glob(pat)))
+            except Exception:
+                count = 0
+            inbox_depth[sess] = count
+
         # Per-session heartbeats: local file reads (one per active session).
         # Each session writes data/session_heartbeat_<session>.json on substantive
         # activity. Dashboard surfaces "alive (current focus)" vs "stale" per session.
@@ -541,7 +564,23 @@ class Poller:
                 "stale_after_s": stale_after,
                 "age_s": round(age_s, 1) if age_s is not None else None,
                 "is_stale": bool(is_stale),
+                "inbox_depth": int(inbox_depth.get(sess, 0)),
             }
+        # Even sessions without a heartbeat get a stub entry if their inbox
+        # has items waiting -- otherwise inbox-depth-low watchdog signals
+        # would be invisible until the session next checks in.
+        for sess, depth in inbox_depth.items():
+            if sess not in sessions_map and depth > 0:
+                sessions_map[sess] = {
+                    "session": sess,
+                    "ts": None,
+                    "current_focus": "",
+                    "last_event_ts": None,
+                    "stale_after_s": None,
+                    "age_s": None,
+                    "is_stale": True,
+                    "inbox_depth": depth,
+                }
 
         # Tier summary: derived from the already-fetched capability map.
         tier_summary = parsers.extract_tier_summary(self._last_capability_md)
