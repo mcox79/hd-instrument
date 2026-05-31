@@ -380,7 +380,6 @@ def main() -> int:
     print(f"  active: ip={inst.ip}")
     ip = inst.ip
     update_cost(
-        daily_budget_usd=args.budget_cap_usd,
         accumulated_today_usd=0.0,
         current_hourly_rate_usd=inst.hourly_rate_usd,
         active_instances=[{
@@ -530,7 +529,6 @@ def main() -> int:
     print(f"  Metrics:       {metrics_local if metrics_local.is_file() else 'NOT PRODUCED'}")
 
     update_cost(
-        daily_budget_usd=args.budget_cap_usd,
         accumulated_today_usd=actual_cost,
         current_hourly_rate_usd=0.0,
         active_instances=[],

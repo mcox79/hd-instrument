@@ -42,29 +42,32 @@ _COST_PATH = _DATA_DIR / "cloud_cost_tracker.json"
 
 
 def update_cost(
-    daily_budget_usd: float,
     accumulated_today_usd: float,
     current_hourly_rate_usd: float,
     active_instances: Optional[Iterable[dict]] = None,
+    daily_budget_usd: Optional[float] = None,
 ) -> None:
     """Write a fresh cost-tracker snapshot.
 
     Args:
-        daily_budget_usd: per-UTC-day cap. The cost-discipline layer
-            triggers shutdown when accumulated_today_usd >= this.
         accumulated_today_usd: total spend so far today (UTC).
         current_hourly_rate_usd: aggregate $/hr across all active instances.
         active_instances: list of dicts describing currently-spending
             instances (instance_id, instance_type, hourly_rate_usd,
             started_at). Optional.
+        daily_budget_usd: OPTIONAL per-UTC-day cap. Omit (or pass None) to
+            indicate per-run-authorized model with no daily cap; the
+            dashboard then suppresses the percent display. Pass a float
+            only if a hard daily ceiling is meaningful in the deployment.
     """
     entry = {
-        "daily_budget_usd": float(daily_budget_usd),
         "accumulated_today_usd": float(accumulated_today_usd),
         "current_hourly_rate_usd": float(current_hourly_rate_usd),
         "last_updated": datetime.now().astimezone().isoformat(timespec="seconds"),
         "active_instances": list(active_instances or []),
     }
+    if daily_budget_usd is not None:
+        entry["daily_budget_usd"] = float(daily_budget_usd)
     _COST_PATH.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_path = tempfile.mkstemp(
         dir=str(_COST_PATH.parent), prefix=_COST_PATH.name + ".", suffix=".tmp"

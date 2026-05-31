@@ -3581,18 +3581,24 @@ function appendCostLine(card, cost) {
   const budget = Number(cost.daily_budget_usd);
   const rate = Number(cost.current_hourly_rate_usd);
   const haveAcc = Number.isFinite(acc);
-  const haveBudget = Number.isFinite(budget);
+  // Per-run-authorized model: only show budget percent when an explicit
+  // daily_budget_usd is set in the cost-tracker file. Otherwise show
+  // spend + active rate only (no misleading "X of Y" framing).
+  const haveBudget = Number.isFinite(budget) && budget > 0;
   const haveRate = Number.isFinite(rate);
-  if (!haveAcc && !haveBudget && !haveRate) return;
+  if (!haveAcc && !haveRate) return;
   const parts = [];
-  if (haveAcc && haveBudget) {
-    const pct = budget > 0 ? Math.min(100, (acc / budget) * 100) : 0;
-    parts.push(`$${acc.toFixed(2)} / $${budget.toFixed(2)} (${pct.toFixed(0)}%)`);
-  } else if (haveAcc) {
-    parts.push(`$${acc.toFixed(2)} today`);
+  if (haveAcc) {
+    if (haveBudget) {
+      const pct = Math.min(100, (acc / budget) * 100);
+      parts.push(`$${acc.toFixed(2)} / $${budget.toFixed(2)} (${pct.toFixed(0)}%)`);
+    } else {
+      parts.push(`$${acc.toFixed(2)} today`);
+    }
   }
   if (haveRate && rate > 0) parts.push(`$${rate.toFixed(2)}/hr active`);
-  const cls = (haveAcc && haveBudget && acc >= 0.85 * budget) ? "rn-tail cost over" : "rn-tail cost";
+  const overBudget = haveAcc && haveBudget && acc >= 0.85 * budget;
+  const cls = overBudget ? "rn-tail cost over" : "rn-tail cost";
   card.append(el("div", {class: cls, title: cost.last_updated || ""},
     parts.join("  |  ")));
 }
