@@ -60,6 +60,35 @@ SUBSTRATE_TOOLS_ANTHROPIC: list[dict[str, Any]] = [
         },
     },
     {
+        "name": "substrate_edit_fact",
+        "description": (
+            "Update the value of an existing stored fact in place. The atom_id "
+            "and key remain unchanged; only the bound value is swapped. Emits an "
+            "audit record with substrate state hashes before and after the edit "
+            "for chain-integrity verification. Use this whenever the user "
+            "corrects, updates, or refines a previously stored fact."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "atom_id": {
+                    "type": "string",
+                    "description": "Atom id of the fact to edit (from store_fact response).",
+                },
+                "new_value": {
+                    "type": "string",
+                    "description": "New value text that replaces the previously bound value.",
+                },
+                "requester_id": {"type": "string", "default": "unknown"},
+                "notes": {
+                    "type": "string",
+                    "description": "Optional human-readable reason for the edit.",
+                },
+            },
+            "required": ["atom_id", "new_value"],
+        },
+    },
+    {
         "name": "substrate_delete_fact",
         "description": (
             "Delete a fact from substrate and emit an Ed25519-signed deletion "
@@ -154,6 +183,7 @@ SUBSTRATE_TOOLS_OPENAI: list[dict[str, Any]] = [_to_openai(t) for t in SUBSTRATE
 _TOOL_ROUTES: dict[str, tuple[str, str]] = {
     "substrate_retrieve_fact": ("POST", "/retrieve_fact"),
     "substrate_store_fact": ("POST", "/store_fact"),
+    "substrate_edit_fact": ("POST", "/edit_fact"),
     "substrate_delete_fact": ("POST", "/delete_fact"),
     "substrate_compose_query": ("POST", "/compose_query"),
     "substrate_get_audit": ("GET", "/audit/{record_id}"),

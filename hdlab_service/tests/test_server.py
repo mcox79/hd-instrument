@@ -205,21 +205,89 @@ def test_all_endpoints_json_schema_valid(client: TestClient) -> None:
     assert all(k in a for k in ["id", "ts_ns", "operation", "request_payload", "response_payload", "latency_ms", "substrate_state_hash", "sha256_chain_prev", "sha256_self"])
 
 
+def test_edit_fact_preserves_atom_id(client: TestClient) -> None:
+    """Edit swaps the bound value but keeps atom_id + key addressable."""
+    store = client.post(
+        "/store_fact",
+        json={"key": "edit_key_1", "value": "version_one"},
+    ).json()
+    atom_id = store["atom_id"]
+    original_audit_id = store["audit_record_id"]
+
+    # Retrieve to confirm initial state.
+    r1 = client.post(
+        "/retrieve_fact",
+        json={"query": "edit_key_1", "min_confidence": 0.1},
+    ).json()
+    assert r1["status"] == "match"
+    assert r1["fact_text"] == "version_one"
+
+    # Edit.
+    e = client.post(
+        "/edit_fact",
+        json={
+            "atom_id": atom_id,
+            "new_value": "version_two",
+            "requester_id": "test_admin",
+            "notes": "correction per test",
+        },
+    ).json()
+    assert all(k in e for k in [
+        "status", "fact_id", "atom_id", "old_value", "new_value",
+        "state_hash_before", "state_hash_after", "audit_record_id",
+    ])
+    assert e["status"] == "edited"
+    assert e["atom_id"] == atom_id      # atom_id preserved
+    assert e["old_value"] == "version_one"
+    assert e["new_value"] == "version_two"
+    # State hashes differ -- the edit changed the substrate state.
+    assert e["state_hash_before"] != e["state_hash_after"]
+    # New audit record id, distinct from the store call.
+    assert e["audit_record_id"] != original_audit_id
+
+    # Re-query: gets the post-edit value.
+    r2 = client.post(
+        "/retrieve_fact",
+        json={"query": "edit_key_1", "min_confidence": 0.1},
+    ).json()
+    assert r2["status"] == "match"
+    assert r2["fact_text"] == "version_two"
+
+    # Audit record for the edit includes the diff fields.
+    a = client.get(f"/audit/{e['audit_record_id']}").json()
+    assert a["operation"] == "edit_fact"
+    resp = a["response_payload"]
+    assert resp["old_value"] == "version_one"
+    assert resp["new_value"] == "version_two"
+    assert resp["state_hash_before"] == e["state_hash_before"]
+    assert resp["state_hash_after"] == e["state_hash_after"]
+
+
+def test_edit_fact_unknown_atom_id_404(client: TestClient) -> None:
+    """Editing a non-existent atom_id returns 404 without mutating state."""
+    resp = client.post(
+        "/edit_fact",
+        json={"atom_id": "atom_does_not_exist", "new_value": "x"},
+    )
+    assert resp.status_code == 404
+
+
 def test_tool_definitions_well_formed() -> None:
-    """tool_definitions exposes 5 tools in both formats with matching names."""
+    """tool_definitions exposes 6 tools in both formats with matching names."""
     from hdlab_service.tool_definitions import (
         SUBSTRATE_TOOLS_ANTHROPIC,
         SUBSTRATE_TOOLS_OPENAI,
     )
 
-    assert len(SUBSTRATE_TOOLS_ANTHROPIC) == 5
-    assert len(SUBSTRATE_TOOLS_OPENAI) == 5
+    assert len(SUBSTRATE_TOOLS_ANTHROPIC) == 6
+    assert len(SUBSTRATE_TOOLS_OPENAI) == 6
     anthropic_names = {t["name"] for t in SUBSTRATE_TOOLS_ANTHROPIC}
     openai_names = {t["function"]["name"] for t in SUBSTRATE_TOOLS_OPENAI}
     assert anthropic_names == openai_names
     expected = {
         "substrate_retrieve_fact",
         "substrate_store_fact",
+        "substrate_edit_fact",
         "substrate_delete_fact",
         "substrate_compose_query",
         "substrate_get_audit",

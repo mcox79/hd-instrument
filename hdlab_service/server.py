@@ -90,6 +90,28 @@ class FactDeleteResponse(BaseModel):
     audit_record_id: str
 
 
+class FactEditRequest(BaseModel):
+    """In-place edit of a stored fact's value (preserves atom_id and key)."""
+
+    atom_id: str = Field(..., description="Atom id of the fact to edit.")
+    new_value: str = Field(..., description="New value to bind to the existing key.")
+    requester_id: str = "unknown"
+    notes: str | None = None
+
+
+class FactEditResponse(BaseModel):
+    """Edit result with before/after state hashes for audit-chain integrity."""
+
+    status: str
+    fact_id: str
+    atom_id: str
+    old_value: str
+    new_value: str
+    state_hash_before: str
+    state_hash_after: str
+    audit_record_id: str
+
+
 class BindingPair(BaseModel):
     """Role-filler binding for compositional queries."""
 
@@ -314,6 +336,46 @@ class SubstrateService:
             "composition_path": path,
         }
 
+    def edit_fact(
+        self, atom_id: str, new_value: str, requester_id: str, notes: str | None
+    ) -> tuple[bool, str | None, str | None]:
+        """In-place value swap for an existing fact (atom_id and key unchanged).
+
+        Substrate-side semantics: preserves the key-probe atom (so retrieval
+        by key still hits the same atom_id) but rebinds the value side via
+        a fresh filler vector. This matches KF-2 edit-isolation discipline
+        validated at the substrate-physics layer: only this fact's bound
+        vector changes; all other facts' binding stays bit-identical.
+
+        Returns (ok, fact_id, old_value).
+        """
+        target: str | None = None
+        for fid, info in self._facts.items():
+            if info["atom_id"] == atom_id:
+                target = fid
+                break
+        if target is None or atom_id in self._tombstones:
+            return False, None, None
+        info = self._facts[target]
+        old_value = info["value"]
+        # Rebind: reuse the key vector (role); generate a fresh filler vector
+        # for the new value; recompute the bound representation.
+        role = info["key_vector"]
+        new_filler = self._filler(new_value)
+        new_bound = binding.bind(role, new_filler)
+        info["value"] = new_value
+        info["bound_vector"] = new_bound
+        # Append to the fact's edit_history so the trail is recoverable from
+        # the fact itself (independent of the global audit log).
+        edits = info["metadata"].setdefault("edit_history", [])
+        edits.append({
+            "from_value": old_value,
+            "to_value": new_value,
+            "requester_id": requester_id,
+            "notes": notes,
+        })
+        return True, target, old_value
+
     def delete_fact(
         self, atom_id: str, requester_id: str, legal_basis: str, notes: str | None
     ) -> tuple[bool, str | None]:
@@ -442,6 +504,51 @@ def store_fact(req: FactStoreRequest) -> FactStoreResponse:
         latency_ms,
     )
     return FactStoreResponse(atom_id=atom_id, audit_record_id=audit_id)
+
+
+@app.post("/edit_fact", response_model=FactEditResponse)
+def edit_fact(req: FactEditRequest) -> FactEditResponse:
+    """Update the value of an existing fact in place; preserves atom_id + key.
+
+    Emits an audit record with state_hash_before / state_hash_after so the
+    chain integrity check covers the edit. No deletion certificate is issued
+    -- edits are not deletes -- but the audit record + state hashes provide
+    equivalent verifiability for compliance review.
+    """
+    svc = _svc()
+    t0 = time.perf_counter()
+    state_before = svc.state_hash()
+    ok, fact_id, old_value = svc.edit_fact(
+        req.atom_id, req.new_value, req.requester_id, req.notes
+    )
+    if not ok or fact_id is None or old_value is None:
+        raise HTTPException(status_code=404, detail=f"atom_id not found: {req.atom_id}")
+    state_after = svc.state_hash()
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    audit_id = _record(
+        "edit_fact",
+        req.model_dump(),
+        {
+            "status": "edited",
+            "fact_id": fact_id,
+            "atom_id": req.atom_id,
+            "old_value": old_value,
+            "new_value": req.new_value,
+            "state_hash_before": state_before,
+            "state_hash_after": state_after,
+        },
+        latency_ms,
+    )
+    return FactEditResponse(
+        status="edited",
+        fact_id=fact_id,
+        atom_id=req.atom_id,
+        old_value=old_value,
+        new_value=req.new_value,
+        state_hash_before=state_before,
+        state_hash_after=state_after,
+        audit_record_id=audit_id,
+    )
 
 
 @app.post("/delete_fact", response_model=FactDeleteResponse)
