@@ -39,13 +39,22 @@ from typing import Any, Protocol, Sequence
 
 @dataclass
 class LLMMessage:
-    """One turn in the conversation. role: user | assistant | tool_result."""
+    """One turn in the conversation. role: user | assistant | tool_result.
+
+    For role=assistant turns that emitted tool_use blocks, the harness MUST
+    populate tool_uses with the prior LLMResponse.tool_uses. Anthropic's
+    API rejects tool_result user turns whose tool_use_ids do not match a
+    preceding assistant turn's tool_use blocks. The mock client ignores
+    this field; real Anthropic uses it to rebuild the assistant content.
+    """
     role: str
     content: str
     # Optional structured fields used by the tool-use loop.
     tool_use_id: str | None = None
     tool_name: str | None = None
     tool_input: dict | None = None
+    # For role=assistant: the tool_use blocks emitted in this turn (if any).
+    tool_uses: list["ToolUseRequest"] | None = None
 
 
 @dataclass
@@ -254,20 +263,95 @@ def _answer_from_context(system_prompt: str, keys: list[str]) -> str:
 
 @dataclass
 class AnthropicLLMClient:
-    """Thin Anthropic wrapper. Stub until ANTHROPIC_API_KEY is wired.
+    """Anthropic API client implementing the LLMClient protocol.
 
-    Implementation note for the next session:
-      - Read ANTHROPIC_API_KEY from env
-      - Use anthropic.Anthropic() client
-      - Map LLMMessage list to Anthropic's messages format
-      - Map LLMResponse.tool_uses from the response's `content` blocks
-        where block.type == "tool_use"
-      - tokens_in / tokens_out come from response.usage.input_tokens /
-        output_tokens
+    Reads ANTHROPIC_API_KEY from env if api_key not provided. Uses the
+    anthropic SDK (must be installed: `pip install anthropic`).
+
+    Maps the harness's LLMMessage list to Anthropic's messages format,
+    including tool_result turns. Maps the response's content blocks to
+    LLMResponse.text + tool_uses.
     """
     name: str = "anthropic-claude"
     api_key: str | None = None
     model: str = "claude-sonnet-4-5-20250929"
+    _client: Any = None  # populated lazily on first call
+
+    def _ensure_client(self) -> Any:
+        if self._client is not None:
+            return self._client
+        try:
+            import anthropic
+        except ImportError as exc:
+            raise RuntimeError(
+                "anthropic SDK not installed. Run `pip install anthropic` "
+                "in the testbed/hdlab_service venv."
+            ) from exc
+        import os
+        key = self.api_key or os.environ.get("ANTHROPIC_API_KEY")
+        if not key:
+            raise RuntimeError(
+                "ANTHROPIC_API_KEY not found. Set the env var or pass "
+                "api_key= when constructing AnthropicLLMClient."
+            )
+        self._client = anthropic.Anthropic(api_key=key)
+        return self._client
+
+    def _to_anthropic_messages(
+        self, messages: Sequence[LLMMessage]
+    ) -> list[dict]:
+        """Map LLMMessage list to Anthropic's messages format.
+
+        Rules:
+          - user / assistant text-only -> {role, content: str}
+          - assistant with tool_uses   -> {role: "assistant",
+                                            content: [optional text block,
+                                                      tool_use blocks...]}
+          - tool_result turns          -> coalesced into a single user turn
+                                          with content: [tool_result blocks].
+                                          Consecutive tool_result messages
+                                          merge into ONE user turn because
+                                          Anthropic requires the entire
+                                          tool_result set in one message.
+        """
+        out: list[dict] = []
+        pending_tool_results: list[dict] = []
+
+        def _flush_tool_results() -> None:
+            if pending_tool_results:
+                out.append({"role": "user", "content": list(pending_tool_results)})
+                pending_tool_results.clear()
+
+        for m in messages:
+            if m.role == "tool_result":
+                pending_tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": m.tool_use_id or "",
+                    "content": m.content,
+                })
+                continue
+            _flush_tool_results()
+            if m.role == "user":
+                out.append({"role": "user", "content": m.content})
+            elif m.role == "assistant":
+                if m.tool_uses:
+                    blocks: list[dict] = []
+                    if m.content:
+                        blocks.append({"type": "text", "text": m.content})
+                    for tu in m.tool_uses:
+                        blocks.append({
+                            "type": "tool_use",
+                            "id": tu.tool_use_id,
+                            "name": tu.tool_name,
+                            "input": tu.tool_input,
+                        })
+                    out.append({"role": "assistant", "content": blocks})
+                else:
+                    out.append({"role": "assistant", "content": m.content})
+            else:
+                raise ValueError(f"unknown LLMMessage role: {m.role}")
+        _flush_tool_results()
+        return out
 
     def call(
         self,
@@ -276,9 +360,40 @@ class AnthropicLLMClient:
         tools: Sequence[dict] | None = None,
         max_tokens: int = 1024,
     ) -> LLMResponse:
-        raise NotImplementedError(
-            "AnthropicLLMClient.call is a stub. Wire ANTHROPIC_API_KEY and "
-            "implement once Tier 2b credentials arrive."
+        client = self._ensure_client()
+        params: dict[str, Any] = {
+            "model": self.model,
+            "max_tokens": max_tokens,
+            "system": system_prompt,
+            "messages": self._to_anthropic_messages(messages),
+        }
+        if tools:
+            params["tools"] = list(tools)
+        resp = client.messages.create(**params)
+
+        text_parts: list[str] = []
+        tool_uses: list[ToolUseRequest] = []
+        for block in (resp.content or []):
+            btype = getattr(block, "type", None)
+            if btype == "text":
+                text_parts.append(getattr(block, "text", "") or "")
+            elif btype == "tool_use":
+                tool_uses.append(ToolUseRequest(
+                    tool_use_id=getattr(block, "id", ""),
+                    tool_name=getattr(block, "name", ""),
+                    tool_input=dict(getattr(block, "input", {}) or {}),
+                ))
+        usage = getattr(resp, "usage", None)
+        tokens_in = int(getattr(usage, "input_tokens", 0) or 0) if usage else 0
+        tokens_out = int(getattr(usage, "output_tokens", 0) or 0) if usage else 0
+        stop_reason = getattr(resp, "stop_reason", "end_turn") or "end_turn"
+        return LLMResponse(
+            stop_reason=stop_reason,
+            text="".join(text_parts),
+            tool_uses=tool_uses,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+            raw=None,  # callers can re-create from resp if needed; avoid pickling SDK obj
         )
 
 

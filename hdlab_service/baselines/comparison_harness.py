@@ -53,15 +53,33 @@ _SYSTEM_PROMPT_SUBSTRATE = (
     "You answer questions by calling substrate tools. The substrate stores "
     "facts as (key, value) pairs; the user will tell you which keys to look "
     "up via a 'KEYS:' line. Call substrate_retrieve_fact once per key, then "
-    "compose a final answer separated by ' | '. Do not fabricate; if a tool "
-    "returns no_match, report it."
+    "compose a final answer. If a tool returns no_match, report it as "
+    "'(not_found)'.\n\n"
+    "OUTPUT FORMAT (strict): Respond with ONLY the value(s). If one key, "
+    "respond with only that value. If multiple keys, join values with "
+    "exactly ' | ' (space-pipe-space). No preamble, no labels, no markdown, "
+    "no bolding, no quotation marks, no key names, no explanatory text. "
+    "Example: a question with KEYS p_00, p_01 where the values are 'Quinn' "
+    "and 'engineer' must produce exactly:\n"
+    "Quinn | engineer\n"
+    "Not 'The values are: Quinn | engineer' or '**Quinn** | **engineer**' "
+    "or 'p_00=Quinn | p_01=engineer'."
 )
 
 _SYSTEM_PROMPT_LLM_ONLY = (
     "You answer questions strictly from the fact corpus provided below. The "
     "user will give a question with a 'KEYS:' line indicating which keys to "
-    "look up. Look the keys up in the corpus and return their values joined "
-    "by ' | '. Do not fabricate; if a key is absent, return '(not_found)'.\n\n"
+    "look up.\n\n"
+    "OUTPUT FORMAT (strict): Respond with ONLY the value(s). If one key, "
+    "respond with only that value. If multiple keys, join values with "
+    "exactly ' | ' (space-pipe-space). No preamble, no labels, no markdown, "
+    "no bolding, no quotation marks, no key names, no explanatory text. "
+    "If a key is absent, return '(not_found)' verbatim. Do not fabricate. "
+    "Example: a question with KEYS p_00, p_01 where the corpus contains "
+    "'p_00__name = Quinn' and 'p_01__role = engineer' must produce exactly:\n"
+    "Quinn | engineer\n"
+    "Not 'p_00__name = Quinn | p_01__role = engineer' (do not echo the key "
+    "or the assignment syntax).\n\n"
     "{corpus_dump}"
 )
 
@@ -121,6 +139,7 @@ def run_comparison(
     conditions: Sequence[str] = ("substrate_with_tools", "llm_only"),
     tools: Sequence[dict] | None = None,
     max_tool_loop_iters: int = 6,
+    key_to_atom: dict[str, str] | None = None,
 ) -> HarnessReport:
     """Run the full question set across the requested conditions.
 
@@ -148,10 +167,11 @@ def run_comparison(
 
     rows: list[QuestionResult] = []
     for q in questions:
-        # Optional pre-question setup (edits, etc.). Applied to substrate
-        # state so both conditions see the same post-edit corpus.
+        # Optional pre-question setup (edits, etc.). Applied to BOTH the
+        # substrate state AND the in-memory corpus so the two conditions
+        # see the same post-edit state.
         if q.requires_edit_setup:
-            _apply_edit_setup(client, q.requires_edit_setup)
+            _apply_edit_setup(client, q.requires_edit_setup, corpus, key_to_atom)
 
         for cond in conditions:
             if cond == "substrate_with_tools":
@@ -190,10 +210,12 @@ def run_comparison_full_setup(
     """Store the corpus then run the comparison.
 
     Returns (report, key_to_atom_id_map) so the caller can inspect or
-    apply additional edits between runs.
+    apply additional edits between runs. Threads the key_to_atom mapping
+    into run_comparison so per-question edit setups can actually apply.
     """
     key_to_atom = _store_corpus(client, corpus)
-    report = run_comparison(client, corpus, questions, llm, **kwargs)
+    report = run_comparison(client, corpus, questions, llm,
+                            key_to_atom=key_to_atom, **kwargs)
     return report, key_to_atom
 
 
@@ -226,6 +248,14 @@ def _run_substrate_with_tools(
         tokens_in_total += resp.tokens_in
         tokens_out_total += resp.tokens_out
         if resp.stop_reason == "tool_use" and resp.tool_uses:
+            # Anthropic's API requires the assistant turn (with tool_use
+            # blocks) to precede the tool_result user turn. Mock ignores
+            # this field; real backends use it to reconstruct content.
+            messages.append(LLMMessage(
+                role="assistant",
+                content=resp.text or "",
+                tool_uses=list(resp.tool_uses),
+            ))
             for tu in resp.tool_uses:
                 tool_result = _dispatch_tool(client, tu.tool_name, tu.tool_input)
                 n_tool_calls += 1
@@ -301,19 +331,47 @@ def _store_corpus(client: TestClient, corpus: Corpus) -> dict[str, str]:
     return key_to_atom
 
 
-def _apply_edit_setup(client: TestClient, edits: dict) -> None:
-    """Apply pre-question edits keyed by corpus key (not atom_id)."""
-    # We need the atom_id for each key. Quick lookup via /retrieve_fact's
-    # response is not feasible (response gives fact_id not atom_id), so
-    # we list known mapping via /audit/{}. For the test harness simpler:
-    # require the caller pass a key->atom_id mapping. In practice we do
-    # this inside run_comparison_full_setup; the standalone _apply_edit_setup
-    # is currently best-effort.
-    # Future improvement: expose /list_facts in the service. For now,
-    # caller-controlled edits are applied in the test directly.
-    if edits:
-        # Surfaced as a no-op here; tests apply edits before run_comparison.
+def _apply_edit_setup(
+    client: TestClient,
+    edits: dict,
+    corpus: Corpus,
+    key_to_atom: dict[str, str] | None,
+) -> None:
+    """Apply pre-question edits to BOTH the substrate AND the in-memory corpus.
+
+    Substrate: POST /edit_fact with the atom_id (from the key_to_atom map
+    built by _store_corpus) and the new value. The substrate's audit-chain
+    handles versioning + post-edit retrieval semantics.
+
+    Corpus: mutate the CorpusFact.value in-place so the next call to
+    corpus_as_context_string (used by _run_llm_only) sees the edited value.
+    Without this, the substrate condition gets the edit but the llm_only
+    condition sees the original corpus dump -- which produces the same
+    systematic miss we just diagnosed (Phase 1 first run, both conditions
+    at 0pct exact on edit_aware while passing other categories).
+    """
+    if not edits:
         return
+    if not key_to_atom:
+        raise RuntimeError(
+            "_apply_edit_setup needs key_to_atom mapping; pass through "
+            "run_comparison_full_setup or supply explicitly to run_comparison."
+        )
+    for key, new_value in edits.items():
+        atom_id = key_to_atom.get(key)
+        if not atom_id:
+            raise RuntimeError(f"no atom_id for edit key {key!r}")
+        r = client.post(
+            "/edit_fact",
+            json={"atom_id": atom_id, "new_value": str(new_value)},
+        )
+        if r.status_code != 200:
+            raise RuntimeError(f"edit_fact failed for {key}: {r.status_code} {r.text}")
+        # Update the in-memory corpus so llm_only condition sees the edit too.
+        for f in corpus.facts:
+            if f.key == key:
+                f.value = str(new_value)
+                break
 
 
 def _dispatch_tool(
