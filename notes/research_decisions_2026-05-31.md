@@ -141,3 +141,41 @@ Sonnet drill dispatched on the encoding-scheme question (Plate HRR, Eliasmith SP
 **Method note.** Audit + 1 drill = ~25 min main-thread + ~40 min Sonnet (in flight). Pattern: when external doc proposes large N of experiments, cross-reference against in-flight work FIRST, then dispatch drills only on genuinely-novel questions. Avoids 8-simultaneous-drill padding per [[feedback-no-padding-experiments]] and [[feedback-no-smoke]] (don't validate by dispatch volume; validate by leverage and overlap).
 
 **Next-drill candidate.** When encoding-scheme drill returns: if Scheme A sufficient, reframe D1 to optionally include reasoning-chain corpus (modest scope expansion); if Scheme B required, file a separate experiment for the distinct binding scheme. No additional drills pending in this cycle.
+
+
+## reasoning_storage_2x_deep_synthesis_v1 -- 2026-05-31 (research:opus + 3 parallel Sonnet drills)
+
+**Drill.** User: "re your research of storing reasoning chains on substrate - do 2x deep research" per [[feedback-2x-means-depth]]. Three parallel Sonnet drills covering complementary depth angles: (A) encoding-scheme question Scheme A vs B vs C (which scheme actually works in bipolar algebra?); (α) structured-key Path D analysis (does validated 32N envelope transfer to reasoning chains with structural constraints?); (β) operational worked example (explicit bipolar math through Path D depth=5 for one concrete reasoning chain).
+
+**Outcome.** 2x deepening produced SHARPER + MORE HONEST picture than original "substrate-as-reasoning-store" framing:
+
+- **Drill A**: Scheme B IS distinct from Scheme A under bipolar MAP-B algebra. Three-way binding `k_step = r_type ⊙ k_premise1 ⊙ k_premise2` decomposes EXACTLY via element-wise multiplication. Hersche NVSA Nature MI 2023 closest precedent (87.7% RAVEN). HARD-FAIL threshold: >~44K shared-rule-atoms at N=4096 (32N/3 from interference math). P_def 0.62 Scheme B unlocks capabilities Scheme A cannot.
+
+- **Drill α**: Path D's 32N envelope DOES NOT transfer to structured-key reasoning chains without mitigation. P_def 0.35 unmitigated. De Marzo-Iannelli (Physica A 2023) + Amit-Gutfreund-Sompolinsky (1985) predict 5-25% capacity degradation with pattern correlation. Critical operational finding: depth-50 chain accuracy compounding -- 2% per-hop bias → (0.98)^50 ≈ 0.36 chain accuracy. Top mitigation: conclusion re-encoding via binding transform (Steinberg-Sompolinsky 2022 precedent), cost = 1 binding op per hop.
+
+- **Drill β**: 6 OPERATIONAL GAPS that abstract framing hid. Most important: substrate is a RETRIEVAL primitive not REASONING primitive. After hop 1 retrieves v_BookA, substrate CANNOT autonomously construct q_1 = bind(v_BookA, v_author) -- the relation v_author comes from outside (LLM OR pre-stored rule-atoms via Scheme B Proposal 2). Other gaps: composition atom blowup (5-20x capacity at N=16384 for Proposal 1), control flow external, unbinding exact for stored but approximate after retrieval noise (depth >5 needs hop-by-hop cleanup), grounding gap, capacity saturation requires N≥65K for F=10K + R=100.
+
+**The honest product framing** (replaces original doc's "substrate as reasoning store"):
+> Substrate is a fast, algebraically-auditable fact store that can execute PRE-SPECIFIED reasoning chains with microsecond-per-hop latency and unbinding-based audit, WHEN orchestrated by an external agent that supplies the initial query and rule-activation markers. Open-ended reasoning remains LLM-driven; substrate's contribution is speed, isolation, and audit fidelity for retrieval steps.
+
+This is substrate-distinctive but narrower than original framing. Competitive moat real (algebraic audit + ~1000x latency for pre-stored chains + edit-isolation) but substrate doesn't autonomously discover new chains.
+
+**Updated P-bands:**
+- Substrate Scheme B reasoning storage at N=16384 sub-saturation with re-encoding mitigation: **0.40-0.55** (cap_map new row)
+- Substrate autonomously discovers new reasoning chains (original doc's strongest claim): 0.05-0.10 (very low)
+- Substrate retrieval of pre-stored chains at ~1ms vs LLM CoT ~1s (latency): 0.85-0.95
+- Algebraic audit via exact unbinding under MAP-B: 0.85-0.95
+- Amortization economics for repeated reasoning patterns (Exp 2 still valid): 0.55-0.70
+
+**Routing.** `notes/research_substrate_reasoning_storage_2x_synthesis_v1_2026-05-31.md` (full synthesis; 6 operational gaps; mitigation rankings; pre-registered thresholds). `notes/strategy_request_to_strategy_reasoning_storage_phase1_smoke_2026-05-31.md` (concrete experiment design: 4 arms - Scheme B encoding exactness + structured-key Path D differential + conclusion re-encoding mitigation + shared-rule threshold sweep; ~3 weeks engineering + ~4-8h GPU, NO cloud spend; sequenced after D7 + Week 0, before D1 + amortization).
+
+**Cap_map implications.**
+- NEW row proposed: "Substrate reasoning-storage via Scheme B three-way binding" at 0.40-0.55
+- UPDATE to substrate-product-feature row: "reasoning storage" scoped to PRE-STORED chains with external chain construction; not autonomous open-ended reasoning
+- D1 (Scheme A compositional binding) STAYS as is — doesn't subsume Scheme B
+- Amortization experiment (filed earlier today) STAYS as is — reframed as caching pre-stored Scheme B chains
+- Substrate-LLM build's Rescue C is HONEST per worked-example finding; caveat-list update recommended
+
+**Method note.** 3 Sonnet drills parallel ~45min each, ~135K tokens combined. Main-thread synthesis ~25min. The 2x deepening was significantly more valuable than the original encoding drill alone -- without drills α + β, the Scheme B encoding finding would have created FALSE CONFIDENCE that "Scheme B works algebraically therefore reasoning storage works." Drills α + β surfaced (a) structured-key envelope problem and (b) inter-hop key construction gap -- both load-bearing operational constraints. Pattern reconfirmed per [[feedback-2x-means-depth]]: 2x = depth not verification.
+
+**Next-drill candidate.** None pending in this cycle. Watch for orchestrator to dispatch the reasoning-storage Phase 1 smoke; results will inform whether the cap_map row promotes to 🟡 (Arm 2 HARD-PASS or with-mitigation HARD-PASS) or stays 🔬 with documented limits (HARD-FAIL across multiple arms). If smoke passes, the amortization experiment becomes meaningful empirically. If smoke fails, reasoning storage row stays at 0.20-0.35 with mitigation tracks pursued in research.
