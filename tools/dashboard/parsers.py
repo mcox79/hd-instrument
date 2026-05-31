@@ -274,6 +274,10 @@ _NEWS_KINDS = {
     "cloud_budget_exceeded",
     "cloud_instance_launched",
     "cloud_instance_terminated",
+    "cloud_watchdog_armed",
+    # cloud_api_error intentionally excluded -- transient network blips are noise
+    # in the news feed. Errors still hit status_log so the dashboard's debug
+    # endpoint surfaces them; the user-facing feed stays clean.
 }
 
 
