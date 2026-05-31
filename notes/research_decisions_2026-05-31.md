@@ -94,3 +94,29 @@ Updated joint P_def for "working build delivering substrate-augmented gain on at
 **Method note.** Aggressive audit completed in main thread (no subagent dispatch needed); ~20 min wall. Pattern: when the work is critique-of-own-work + cross-reference against existing artifacts, main-thread audit is cheaper and more accurate than subagent dispatch (subagent doesn't have access to memory of own prior reasoning).
 
 **Next-drill candidate.** None pending; the substrate-LLM Phase 1 spec is now fully scoped at the most-aggressive defensible Phase 1 scope. Testbed Week 0 Missing 7 latency measurement remains the next concrete action. Concurrently, the cheaper drills from morning's research-focus-expansion routing (Missing 2 storage efficiency; Missing 3 audit-trail rotation) can run in parallel as CPU-bound work; Missing 6 concept drift detection mechanism needs its own ~2-3w research drill before any engineering.
+
+
+## capability_exploration_12_directions_audit_v1 -- 2026-05-31 (research:opus + 3 parallel Sonnet drills)
+
+**Drill.** User shared external Claude evaluation proposing 12 substrate capability-exploration directions ("eventually deep dive into all of the below; can we start researching these"). Research session: (a) main-thread audit categorizing 12 directions into 4 ownership classes (substrate-physics / capability tests of validated mechanisms / new mechanism design / engineering integrations); (b) cross-reference against substrate-LLM build's 4 bespoke benchmarks revealed Directions 5/7/10 partially covered; (c) dispatched 3 parallel Sonnet drills on highest-leverage subset.
+
+**Outcome.** 12-direction audit + 3 experiment designs:
+
+- **Direction 1 (compositional binding algebra)**: production-scope envelope M=3-5×M_c, d={3,4,5}, K=500, 32-64 n_queries, 5 seeds, 20% memorization trap density. 4-protocol audit-trail verification (binding-op null test corrupts intermediate key → if accuracy stable, audit decorative). HARD-PASS comp accuracy ≥0.78 across depths + trap selection ≤0.08 + Path D-Path B margin ≥0.15. **P_def=0.42**. Substrate-physics moat-strengthening.
+
+- **Direction 6 (hierarchical concept formation)**: cheap INSTRUMENTATION on EXISTING post-V2 24h substrate W; SVD spectral concentration as primary signature (algebraically guaranteed by predicate-sharing: sum_l v_l p^T = (sum_l v_l) p^T); semantic-ablation discrimination (substrate-physics claim predicts spectral structure survives substituting random value codewords). HARD-PASS σ_1/σ_2 > 3.0 + silhouette > 0.25 vs null < 0.10 + cross-relation transfer cos > 0.35. **P_def=0.35-0.50**. ~1 week analysis; no new experiment.
+
+- **Direction 7 (Bet B 4-stage ret_A rescue)**: top candidate Hebbian replay of Stage-A atoms during Stage B/C/D writes at p_replay=20-30%. Closes KNOWN cap_map gap (ret_A=0.745 vs HARD-PASS threshold 0.80; missing 5.5pp; 5 stage A/B/C/D continual learning Tier-1 killer at 🟡 PARTIAL @ v189). HARD-PASS ret_A>=0.820 + ret_B/C don't drop below 0.800. **P_def=0.57** standalone Rank 1; **0.65** combined Rank 1+2 (replay + orthogonal codebook).
+
+**Routing.** `notes/strategy_request_to_strategy_capability_exploration_3_drills_2026-05-31.md` proposing 3 experiments + 3 cap_map row movements + sequencing recommendation (D7 first, D6 parallel, D1 last). Cumulative ~4-5 person-weeks engineering + ~5-10 hours compute; no cloud spend; compatible with parallel substrate-LLM build.
+
+**12-direction prioritization (different from doc):**
+- HIGHER than doc: Direction 7 (closes known gap; doc had MEDIUM, I argue HIGH); Direction 5 partial-duplication with build flagged not buried
+- SAME as doc: Directions 1, 6 top-3
+- DEFERRED with explicit criteria: Directions 3 (counterfactual; SVD-cascade falsifier HARD_FAILED predecessor parked), 8 (meta-learning), 9 (causal binding semantics), 11 (DP), 12 (universal approximator); NEXT-CYCLE candidates Directions 2 (analogical), 4 (cross-domain), 5 (few-shot generalization scoped distinctly from build), 10 (ML-pipeline-integration variant of explainability)
+
+**Note path.** `notes/research_capability_exploration_12_directions_audit_v1_2026-05-31.md` (12-direction audit; 4-category split; overlap analysis; sequencing; deferral criteria).
+
+**Method note.** 3 Sonnet drills parallel ~30 min wall, ~100K tokens combined. Pattern recommended for multi-direction prioritization drills: dispatch 3 highest-leverage in parallel; main-thread audit categorizes the broader N; routing synthesizes the 3 with concrete experiment designs. Avoids 12-simultaneous-drill padding per [[feedback-no-padding-experiments]].
+
+**Next-drill candidate.** If orchestrator queues D7 + D6 + D1 per sequencing, no further research drills needed in this cycle. Watch for D7 verdict → potential Direction 7 cap_map row promotion 🟡 → 🟢; D6 verdict → new cap_map row; D1 verdict → new cap_map row at production-validated substrate-physics moat. After 1-2 of these land, Direction 5 (few-shot generalization scoped distinctly from substrate-LLM build) becomes the natural next research drill.
