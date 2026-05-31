@@ -20775,3 +20775,132 @@ R5 (HIGHER COST): LRU vs LFU vs FIFO comparison at production-realistic ratios. 
 Commit message: "Cap map: v295 -> v296 multi_hop_caching_baseline_v2 [label-vs-honest #159] CONFOUNDED-DESIGN (CACHE_CAPACITY=256 > K_PATHS=100; hit=0.984-uniform-all-alpha; no-latency-benefit; PP-caching deferred pending redesign; rescue R1-R5 filed; HONEST 274 UNCHANGED; LABEL-VS-HONEST 158->159) (2026-05-31)"
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main.
+
+## v296 -> v297 @ BATCHED 3-VERDICT CHEAP-LAMBDA CLOUD CORROBORATION EVENT (path_d_24n_32n_envelope G7 LIFT + modern_hopfield_cpu_extended_v9 C9 SECOND-SOURCE cloud-GPU + adversarial_codebook_collision_defense_probe G8 FIRST-VIABLE-ADVERSARIAL-DEFENSE) (verdict_handler 208th PROT-009 paired commit)
+
+**Context.** 3 cheap-Lambda anchors landed after the `_metric_battery` selftest fix unblocked the cloud git clone (orchestrator commit 7959353 + 4229ab2 progress-wrapper). Cumulative session spend $1.40 (within budget); 0 active instances at close; cleanup verified. All 3 metrics files SCPed back to local filesystem (data/lambda_exp_*_metrics_*.json + report_*.json). Pause-flag ABSENT at verdict_handler entry. GPU queue 16 pending/running, CPU queue 0 -- pipeline-pacing exp_dev NOT dispatched (GPU saturated; matches v294/v295 precedent + routing file did not request refill + cheap-Lambda spend already this turn).
+
+### Step 0 honest re-read summary -- 3 LABEL-HONEST (NO over-claims; V1 + V2 LABEL-CORRECT; V3 verdict_msg accurately surfaces b_dist_check pathology)
+
+### V1 -- path_d_24n_32n_envelope_v1_n4096 -- G7_HARD_PASS HONEST -- R-PATH-D-NO-CEILING LIFT past 32N
+
+**Anchor.** `path_d_24n_32n_envelope_v1_n4096` labeled `G7_HARD_PASS` "PATH_D_PAST_32N_ENVELOPE: all 40 cell-seeds >= 0.85. M98304: d10=1.000 d20=1.000 d30=1.000 d50=1.000 | M131072: d10=1.000 d20=1.000 d30=1.000 d50=1.000". source=Lambda-cloud GPU file `data/lambda_exp_path_d_24n_32n_envelope_v1_n4096_metrics_c4f84cf820984a5992ad820d669bd6f8.json`; elapsed_s=47.06; wall 10.8min; $0.23.
+
+**Honest reading.** 40/40 cells unanimous accuracy=1.000 across (M in {98304=24N, 131072=32N}) x (depth in {10, 20, 30, 50}) x (seed in {7, 17, 23, 31, 41}) at N=4096 K_paths=100. Label says ">= 0.85" floor -- DATA shows 1.000 unanimous (label CONSERVATIVELY UNDERSTATES; same sub-flavor shape as v291 #156 LABEL_CONSERVATIVELY_UNDERSTATES_CEILING_BAND but at PATH-D-CEILING-EXTENSION granularity not Modern-Hopfield). Per [[feedback-verdict-msg-honest-reread]] under-claim is not a label-vs-honest catch (no over-claim). PROT-018 anchor `_n4096` matches config.N=4096 (compliant).
+
+**Decision.** LIFT on R-PATH-D-NO-CEILING (Path D production-default within multi-hop combined row). v290 U1 confirmed Path D unanimous 1.000 within 16N x depth=50 envelope; v297 G7 EXTENDS Path D ceiling UNANIMOUS through 32N x depth=50 envelope (2x further M-stretch, same depth-50 saturation). The U1 LIFT-annotation was 0.80-0.88 -> 0.85-0.95 with "untested past 16N" caveat; v297 G7 EXTENDS to 0.85-0.95 -> 0.88-0.97 (closing the "past 16N untested" caveat WITHIN the 32N envelope; upper bound 0.97 because adversarial-construction-cells + cross-substrate at past-32N still untested). Per [[feedback-no-padding-experiments]] CONSERVATIVE +3% / +2% LIFT (not +5% / +5%) because the trivialization-risk caveat on synthetic random-key K_paths=100 graphs PERSISTS and the absolute-ceiling claim is necessarily an "extension of the no-ceiling-found regime" not a measured-bend.
+
+### V2 -- modern_hopfield_cpu_extended_v9_n16384 -- C9_HARD_PASS HONEST -- SECOND-SOURCE CLOUD-GPU CORROBORATION OF LOCAL-CPU v295 C9 (NO double-count)
+
+**Anchor.** `modern_hopfield_cpu_extended_v9_n16384` labeled `C9_HARD_PASS` "CEILING_PAST_16N (target>=262144): constructed=3/3 max_M_per_seed=[262144, 262144, 262144]". source=Lambda-cloud GPU (A10) file `data/lambda_exp_modern_hopfield_cpu_extended_v9_n16384_metrics_b373f71fcf964657ac611b9b7b925375.json`; elapsed_s=312.36 (vs 2022.29 local-CPU per v295); wall 11.8min; $0.25.
+
+**Honest reading.** Same per-seed per-M pattern as v295 local-CPU C9: 3 seeds {7, 17, 23} x 3 M values {65536=4N, 131072=8N, 262144=16N} = 9/9 cells unanimous `success=true recall=1.0`. Construction succeeded 3/3 in 20.65-21.09s per seed (vs 22.1-23.8s on local-CPU; faster on Lambda A10 GPU as expected). max_M_at_95_recall=262144 for all 3 seeds. Label HONEST (matches v295 label-honest reading exactly). PROT-018 anchor `_n16384` compliant.
+
+**Decision.** DUPLICATE-ANCHOR SECOND-SOURCE CORROBORATION. v295 already processed C9 on local-CPU (same anchor name; commit b116da9 + 7fc06b5) and LIFTed Modern Hopfield activation row from 0.65-0.80 -> 0.78-0.92. v297 same anchor on independent code path (build via Lambda GPU vs build via local-CPU) + independent hardware (Lambda A10 vs marsh@home CPU) reproduces the identical 9/9 cells outcome. Per [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]] anti-double-count rule: anchor name appears in EARLIER cap_map entry (v295) -- DO NOT add to HONEST tally (already counted +1 in v295 271 -> 274). The strategic value is FRAMEWORK-RELIABILITY-RECALC INPUT: independent-path-confirmation strengthens the v295 LIFT confidence. Specifically, the principal v295 caveat ("M-ceiling NOT found within 16N at N=16384 BSC -- single hardware codepath") IS NOW PARTIALLY RESOLVED (hardware-codepath axis closed: 2 hardware codepaths agree). The single-codebook BSC caveat + actual-ceiling-past-16N caveat REMAIN OPEN. Band-wise: Modern Hopfield activation row stays at 0.78-0.92 from v295 LIFT but with REFINED upper-band confidence: prior-of-correctness conditional on the 0.78-0.92 band TIGHTENS toward the upper end of the band (qualitative; no numeric move within the band). Framework-reliability aggregate: marginal +0.02 toward upper bound (smaller bump than v295 +0.03-0.05 because second-source corroboration not first-source LIFT; same row not new row).
+
+### V3 -- adversarial_codebook_collision_defense_probe_v1_n4096 -- G8_HARD_PASS HONEST -- FIRST VIABLE ADVERSARIAL DEFENSE; ADVERSARIAL ROW RED -> YELLOW
+
+**Anchor.** `adversarial_codebook_collision_defense_probe_v1_n4096` labeled `G8_HARD_PASS` "DEFENSE_VIABLE n_hp=1/2. a_query_sim: def=1.000 fp=0.000 | b_dist_check: def=1.000 fp=1.000". source=Lambda-cloud GPU file `data/lambda_exp_adversarial_codebook_collision_defense_probe_v1_n4096_metrics_350c53eae5594733bda43c9b88424037.json`; elapsed_s=1.81 (GPU compute; wall 5.6min was overwhelmingly bootstrap+boot); $0.12.
+
+**Honest reading.** 5 seeds {7, 17, 23, 31, 41} all `ok=True baseline_correct_on_adv=1.0` at N=4096 M=2048 n_adv=32 n_leg=64. Defense a_query_sim (query-similarity gate): EVERY cell `defense_rate=1.0 fp_rate=0.0` (perfect 5/5 seeds: rejects all 32 adversarial queries, passes all 64 legitimate queries unanimous). Defense b_dist_check (distribution-check gate): EVERY cell `defense_rate=1.0 fp_rate=1.0` (mathematically rejects all adversarial AND all legitimate -- operationally broken; gate is non-discriminating). n_hp=1/2 (count of defenses meeting pre-reg gate threshold: a_query_sim PASSES; b_dist_check operationally FAILS via fp=1.0). Label HONEST -- verdict_msg accurately surfaces b_dist_check pathology in the same line; not an over-claim. PROT-018 anchor `_n4096` compliant.
+
+**Decision.** FIRST VIABLE ADVERSARIAL DEFENSE CANDIDATE for the U2 codebook-collision security-critical vulnerability. v290 U2 established 100% breach at p2 codebook-collision attack (5/5 seeds zero-defense); v295 D1 query-margin-gate defense candidate FAILED entirely (defense=0 AND legit=0 -- gate broken end-to-end). v297 G8 a_query_sim defense achieves 1.000 defense + 0.000 false-positive across 5 seeds at production parameters (N=4096 M=2048 n_adv=32 n_leg=64). This is the FIRST HARD_PASS for an adversarial-defense candidate against the U2 codebook-collision vulnerability.
+
+**Cap_map row movement.** Adversarial-vulnerabilities red row TRANSITIONS RED -> YELLOW (mitigation available, one viable defense at production scale). NOT GREEN because (a) single-N=4096 single-defense single-attack-pattern -- needs cross-N replication + cross-attack-pattern (a_query_sim tested only against p2 codebook-collision; p4 edited-fact-traverse not tested), (b) production-deployment harness integration untested (a_query_sim is a smoke-level gate; SDK wiring untested), (c) adaptive-adversary not tested (the n_adv=32 collision queries are static-constructed; an adaptive adversary aware of a_query_sim could try to evade), (d) b_dist_check failure indicates gate-design is non-trivial and a_query_sim viability could be a single-configuration artifact pending broader sweep. P-band for adversarial-defense subrow: 0.45-0.65 (new sub-row band on yellow; first-empirical-foothold reflects "viable defense exists at one regime"; conservative upper bound 0.65 because of caveats a-d above and per [[feedback-no-padding-experiments]] + [[feedback-lit-scan-calibration-penalty]] novel-synthesis cap 0.65 for first-empirical entry into adversarial-defense category). Per [[feedback-dont-overextend-theorems]] the YELLOW move is scoped to "codebook-collision attack-class HAS A VIABLE DEFENSE AT N=4096" not to "all adversarial vulnerabilities mitigated" (p4 edit-fact-traverse REMAINS RED at this commit pending separate defense).
+
+### Cap_map changes (v296 -> v297)
+
+1. **R-PATH-D-NO-CEILING (Path D production-default within multi-hop combined row) -- LIFT.** v290 U1 evidence (16N x depth=50 100/100 cells unanimous 1.000) EXTENDED by G7 (32N x depth=50 40/40 cells unanimous 1.000). Path D sub-row band 0.85-0.95 -> 0.88-0.97 (+3% lower bound, +2% upper bound CONSERVATIVE). Caveats column updated: "no ceiling found through 32N x depth=50 at N=4096 K_paths=100; principal remaining caveats -- adversarial-construction-cells at past-32N (not random-key K=100) + cross-substrate at past-32N + cross-N validation at 32N (only N=4096 tested at 32N envelope)". Row state symbol UNCHANGED (already green; no upgrade to gold because still single-N=4096 at the 32N envelope and trivialization-on-K=100 caveat persists).
+
+2. **Modern Hopfield activation regime at large N -- SECOND-SOURCE-CORROBORATION ANNOTATION (no band move).** v295 LIFT 0.65-0.80 -> 0.78-0.92 STANDS. v297 cloud-GPU C9 corroboration on independent code path + independent hardware = annotation: "Hardware-codepath axis closed: local-CPU (marsh@home commit b116da9) + Lambda-cloud-GPU (A10 inst b373f71fcf964657ac611b9b7b925375) BOTH yield 3-seed 9/9 cells unanimous recall=1.0 max_M=262144=16N at N=16384 BSC. Construction 20.65-21.09s GPU vs 22.1-23.8s CPU (expected ordering). Single-codebook BSC caveat + actual-ceiling-past-16N caveat REMAIN OPEN; hardware-codepath caveat CLOSED." Framework-reliability marginal +0.02 toward upper bound of the 0.78-0.92 band (qualitative tightening not numeric band shift).
+
+3. **Adversarial vulnerabilities row -- RED -> YELLOW.** First viable adversarial-defense candidate (a_query_sim at N=4096 5-seed 1.000/0.000 defense/fp on p2 codebook-collision). Sub-row band: 0.45-0.65 (new yellow sub-row). Caveats: single-N + single-defense-instance + p4 edit-fact-traverse untested + adaptive-adversary untested + SDK-wiring untested + b_dist_check operationally-broken-companion. The b_dist_check failure (def=1.000 but fp=1.000) is ANNOTATED as "non-discriminating-gate-design-pathology; rejects everything; not a defense; documents that gate-design is non-trivial". REGULATED-INDUSTRY DEPLOYMENT BLOCKER on substrate-product-feature row UPDATES: "codebook-collision attack-class HAS viable defense at N=4096 (a_query_sim 1.000/0.000) -- cross-N replication + p4 defense + adaptive-adversary stress + SDK integration are the remaining gates before BLOCKER REMOVAL"; product-feature row band 89-98% UNCHANGED but caveat-list MODIFIED to reflect partial-mitigation progress.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]]) -- 3 rescue sets in this batch
+
+**R-PATH-D-32N-EXTENSION (G7 LIFT past 32N; trivialization concern + cross-N concern):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "G7 40/40 cells unanimous 1.000 at 32N x depth=50 at N=4096 = NO CEILING FOUND through 32N envelope; LIFT +3%/+2% CONSERVATIVE reflects synthetic-random-K=100 trivialization risk + cross-N untested + adversarial-construction-cells untested at past-32N." APPLIED inline above.
+- R2 (CHEAP, ~30min CPU or ~10min Lambda) -- Path D 48N-64N envelope extension at N=4096: M={196608, 262144} same harness; verifies whether Path D ceiling-absence holds at 48N+. NOT-AUTO-DISPATCHED (routing recommendation only).
+- R3 (MEDIUM, ~60min GPU) -- Path D cross-N at 16N envelope at N=8192 + N=16384: M={131072, 262144} at N=8192; M={262144, 524288} at N=16384; verifies whether Path D ceiling-absence is N-independent (currently U1+G7 are both N=4096). NOT-AUTO-DISPATCHED.
+- R4 (CHEAP, ~30min CPU) -- Path D adversarial-construction at past-16N (different from random-K=100): structured queries maximizing codebook-collision at past-16N M; cross-validate against U2 codebook-collision vulnerability -- does Path D inherit it past M_c? NOT-AUTO-DISPATCHED.
+
+**R-MODERN-HOPFIELD-SECOND-SOURCE (C9 cloud-GPU corroboration of local-CPU C9; framework-reliability strengthening):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "Hardware-codepath axis closed (local-CPU + Lambda-GPU agree 9/9 cells unanimous); single-codebook BSC + actual-ceiling-past-16N caveats REMAIN OPEN; framework-reliability marginal +0.02 toward upper bound of 0.78-0.92." APPLIED inline above.
+- R2 (CHEAP, ~10-15min Lambda OR ~1.5h local-CPU) -- C9 M-sweep 32N=524288 at N=16384 BSC same harness; closes "actual ceiling location past 16N" question with 1 more cell beyond 16N. If still PASS, LIFT Modern Hopfield row further to 0.85-0.95. If FAIL at 32N, locates ceiling between 16N-32N which is also a useful close. NOT-AUTO-DISPATCHED (carry-forward from v295 top-3 follow-on).
+- R3 (MEDIUM, ~30min Lambda) -- C10 Kerdock cross-codebook at N=16384 (closes "single codebook BSC" caveat; was OOM-blocked on 8GB local-GPU but Lambda A10 has 24GB). NOT-AUTO-DISPATCHED.
+
+**R-ADVERSARIAL-DEFENSE-FIRST-VIABLE (G8 a_query_sim first HARD_PASS; cross-axis closure-set per PROT-004/006 mandates 3-5 rescues before substantive claim):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "G8 a_query_sim 1.000/0.000 across 5 seeds at N=4096 M=2048 n_adv=32 n_leg=64 = FIRST VIABLE adversarial-defense at production parameters; b_dist_check non-discriminating-gate-design-pathology documents gate-design is non-trivial; adversarial-vulnerabilities row RED -> YELLOW with explicit single-N + single-defense + p4-untested + adaptive-adversary-untested + SDK-wiring-untested caveats." APPLIED inline above.
+- R2 (CHEAP, ~30min Lambda OR ~1h local-CPU) -- a_query_sim cross-N replication at N=16384 BSC same harness; verifies whether viable-defense-at-N=4096 generalizes to production-scale N. NOT-AUTO-DISPATCHED (HIGH PRIORITY follow-on; first cross-N gate before defense-claim generalizes).
+- R3 (CHEAP, ~30-45min Lambda) -- a_query_sim against p4 edited-fact-traverse attack-class (different attack-pattern from p2 codebook-collision); pre-reg HP defense_rate>=0.85 fp_rate<=0.10 at N=4096. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~60-90min GPU) -- Adaptive-adversary stress: re-design n_adv=32 collision queries with awareness of a_query_sim gate (e.g., maximize cos-sim to legit queries while preserving codebook-collision); test whether a_query_sim defense holds. If defense_rate drops <0.80, adaptive-adversary breaks the gate. NOT-AUTO-DISPATCHED.
+- R5 (HIGHER COST, ~2-3h GPU) -- Defense composition / ensemble: a_query_sim + alternate codebook-defense (per v290 R3 codebook-rotation candidate) hybrid; only if R3+R4 INCONCLUSIVE or MIDDLE_BAND. DEFERRED.
+
+### Framework reliability bands (v296 -> v297)
+
+- **Path D production-default sub-row (within multi-hop combined row) LIFT 0.85-0.95 -> 0.88-0.97** (+3% lower / +2% upper; G7 32N x depth=50 unanimous 40/40 EXTENDS U1 16N x depth=50 unanimous 100/100; trivialization-on-K=100 caveat persists; CONSERVATIVE per [[feedback-no-padding-experiments]]).
+- **Modern Hopfield activation row 0.78-0.92 UNCHANGED at band-position** (qualitative tightening within band; hardware-codepath caveat closed; framework-reliability aggregate marginal +0.02 toward upper bound of band).
+- **Adversarial-vulnerabilities row TRANSITIONS RED -> YELLOW** with NEW SUB-ROW "adversarial-defense candidate" at P-band 0.45-0.65 (first-empirical-foothold; conservative novel-synthesis cap 0.65 per [[feedback-lit-scan-calibration-penalty]]).
+- **Substrate-product-feature row 89-98% UNCHANGED at band-position** (caveat-list MODIFIED to reflect partial-mitigation progress on REGULATED-INDUSTRY DEPLOYMENT BLOCKER: codebook-collision attack-class now has viable-defense-at-N=4096; cross-N + p4 + adaptive-adversary + SDK-wiring gates remain before BLOCKER removal).
+- **All other framework reliability bands UNCHANGED.**
+
+### Honest / label-vs-honest tallies
+
+- **HONEST: 274 (v296 basis) + 2 (V1 + V3 label-honest; V2 is duplicate-anchor-second-source not double-counted per [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]] anti-double-count rule) = 276**
+- **LABEL-VS-HONEST: 159 UNCHANGED** (no new label-vs-honest catches in this batch; all 3 labels honest per per-cell re-read).
+
+Sub-flavor notes (no new catches but observations recorded):
+- V1 label "all cell-seeds >= 0.85" UNDER-claims (data shows unanimous 1.000) -- same shape as v291 #156 LABEL_CONSERVATIVELY_UNDERSTATES_CEILING_BAND but at Path-D-extension granularity; observation only, not a catch.
+- V2 label HONEST and EXACTLY MATCHES v295 local-CPU C9 label (expected; same anchor name).
+- V3 label correctly surfaces b_dist_check non-discriminating-gate pathology in the same line as the n_hp=1/2 viable-defense claim -- HONEST.
+
+### Portfolio
+
+**22 + 36 -> 22 + 36 UNCHANGED** (within-row LIFT on Path D sub-row + within-row band-tightening on Modern Hopfield row + RED-to-YELLOW transition on adversarial-vulnerabilities row with new sub-row at 0.45-0.65; no row additions; no closures).
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag hygiene + cheap-Lambda-spend already this turn)
+
+1. **a_query_sim defense cross-N replication at N=16384 BSC** (HIGH PRIORITY; ~30min Lambda or ~1h local-CPU; R-ADVERSARIAL-DEFENSE-FIRST-VIABLE R2). First cross-N gate; if PASS the adversarial-defense sub-row LIFTs further (0.45-0.65 -> 0.55-0.75). Most-strategically-valuable next experiment in the adversarial-defense capability lane.
+
+2. **Path D 48N-64N envelope extension at N=4096 OR cross-N at 16N envelope at N=8192/N=16384** (MEDIUM PRIORITY; ~10-30min Lambda OR ~30-60min CPU; R-PATH-D-32N-EXTENSION R2/R3). G7 closed 32N ceiling-question at N=4096; next gate is either (a) "where is the ceiling actually" (R2 48N-64N at N=4096) or (b) "does ceiling-absence generalize across N" (R3 cross-N at 16N). R3 is the more-strategic-information-per-spend trade.
+
+3. **C9 M-sweep 32N=524288 at N=16384 BSC + C10 Kerdock cross-codebook at N=16384** (MEDIUM PRIORITY; ~10-15min Lambda each; R-MODERN-HOPFIELD-SECOND-SOURCE R2 + R3). Carry-forward from v295 top-3 follow-on; v297 second-source-corroboration strengthens the case for further M-extension and cross-codebook closure. Lambda A10 24GB unblocks Kerdock that was OOM on 8GB local-GPU.
+
+### PROT compliance (v296 -> v297)
+
+- **PROT-004/006**: 3 rescue sets cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 12 rescues total (4 + 3 + 5 = 12); R1 0-compute APPLIED inline in all 3 sets; R2/R3/R4 cheap-to-medium variants ROUTED-not-auto-dispatched per pause-flag hygiene + cheap-Lambda-spend-already-this-turn; R5 expensive composition DEFERRED. No new capability-row closures.
+- **PROT-007**: substrate_capability_map_history.md v297 row appended atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING.
+- **PROT-008**: validator script `tools/orchestrator/validate_capmap_commit.py` STILL ABSENT (carried forward); infrastructure gap flagged not blocking.
+- **PROT-009**: cap_map.md (this v297 entry) + substrate_capability_map_history.md (v297 row) + strategy_decisions_2026-05-31.md (v297 entry) + visibility_decisions_2026-05-31.md (one-line entry) staged atomically; **208th PROT-009 paired commit**.
+- **PROT-018**: 3 anchors spot-checked for _n<N> suffix vs config.N: all CLEAN. V1 `_n4096` matches config.N=4096; V2 `_n16384` matches config.N=16384; V3 `_n4096` matches config.N=4096.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 3 verdicts; 3 label-honest; 0 new catches; V1 under-claim observation recorded.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: V2 anchor name appears in EARLIER cap_map entry (v295) -- anti-double-count rule applied; HONEST tally +2 not +3.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]]; commit hash surfaced for main-thread push.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT at verdict_handler entry; pipeline-pacing exp_dev dispatch decision: SKIP (GPU 16 pending + cheap-Lambda spend already this turn + routing-file did not request refill).
+- [[feedback-for-you-tab-primary-channel]]: 3 status_log entries filed with plain_language + importance (1 HIGH G7 Path D LIFT + 1 HIGH G8 first-viable-adversarial-defense RED->YELLOW + 1 MEDIUM C9 second-source-corroboration).
+- [[feedback-no-padding-experiments]]: Path D LIFT +3%/+2% CONSERVATIVE (not +5%/+5%); adversarial-defense sub-row CAPPED at 0.45-0.65 not 0.55-0.75; Modern Hopfield row UNCHANGED at band-position not LIFTed-again.
+- [[feedback-decision-log-eol-handling]]: strategy_decisions entry appended via tools/orchestrator/append_decision_log.py (LF EOL); cap_map + history CRLF preserved.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline in all 3 rescue sets; R2/R3/R4 cheap-medium routed; R5 expensive composition deferred.
+- [[feedback-rehabilitation-after-rejection]]: 0 capability-row closures; YELLOW transition on adversarial-vulnerabilities row is mitigation-progress not closure.
+- [[feedback-dont-overextend-theorems]]: G8 YELLOW move scoped to "codebook-collision attack-class HAS A VIABLE DEFENSE AT N=4096" not to "all adversarial vulnerabilities mitigated"; p4 edit-fact-traverse remains RED at this commit.
+- [[feedback-lit-scan-calibration-penalty]]: adversarial-defense sub-row band CAPPED at 0.65 upper (novel-synthesis cap per substrate-in-uncharted-defense-regime; calibration penalty -0.15 to -0.20 applied to where unconstrained band would be -- would be 0.65-0.80 unconstrained).
+- [[feedback-strategy-shore-up-capabilities]]: 3 proactive band moves on cap_map (Path D LIFT + Modern Hopfield tightening + adversarial RED->YELLOW); not just reactive-to-verdict.
+- [[feedback-pipeline-pacing]]: queue state CHECKED (GPU 16 pending/running, CPU 0 pending/running); exp_dev dispatch NOT triggered (cheap-Lambda spend already this turn + routing-file did not request refill + matches v294/v295 precedent at same queue-state).
+- [[feedback-no-smoke]]: brutal honesty applied -- V1 LIFT CONSERVATIVE not aggressive; V2 marginal +0.02 not band-shift; V3 YELLOW not GREEN (single-N single-defense + 4 explicit caveats); b_dist_check pathology DOCUMENTED not swept under "n_hp=1 PASS" framing.
+- [[feedback-no-label-vs-honest-anchor-names]]: 3 anchors PROT-018 spot-check all CLEAN.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V3 RED -> YELLOW directly maps to substrate-product-killer-feature "deletion certificate + compositionality audit" wedge -- first defense-foothold against codebook-collision attack-class is a plumbing/SDK milestone not a physics milestone (framing-aligned).
+
+### Commit and push
+
+Commit message stored below.
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Commit message:**
+
+```
+Cap map: v296 -> v297 BATCHED 3-VERDICT cheap-Lambda cloud corroboration event (V1 G7_HARD_PASS path_d_24n_32n_envelope_v1_n4096 40/40 cells unanimous 1.000 at 32N x depth=50 N=4096 K_paths=100 R-PATH-D-NO-CEILING LIFT 0.85-0.95 -> 0.88-0.97 +3%/+2% CONSERVATIVE-trivialization-on-K=100-caveat-persists; V2 C9_HARD_PASS modern_hopfield_cpu_extended_v9_n16384 SECOND-SOURCE Lambda-cloud-GPU corroboration of v295 local-CPU C9 9/9 cells unanimous max_M=16N hardware-codepath-axis-closed anti-double-count-rule-applied framework-reliability marginal +0.02 toward upper of 0.78-0.92 band; V3 G8_HARD_PASS adversarial_codebook_collision_defense_probe_v1_n4096 FIRST VIABLE adversarial-defense candidate 5 seeds a_query_sim 1.000-defense-0.000-fp at N=4096 M=2048 n_adv=32 n_leg=64 adversarial-vulnerabilities row RED -> YELLOW new sub-row 0.45-0.65 b_dist_check-non-discriminating-gate-pathology-documented; HONEST 274 -> 276 +2 V2-not-double-counted; LABEL-VS-HONEST 159 UNCHANGED; portfolio 22+36 UNCHANGED; framework-reliability Path-D-sub-row LIFT Modern-Hopfield-tightening adversarial-RED-to-YELLOW substrate-product-feature 89-98% UNCHANGED-at-band-with-caveat-list-modified; 3 rescue sets cheapest-first 12 rescues R1 0-compute APPLIED inline R2/R3/R4 cheap-medium routed R5 expensive deferred; 3 status_log entries 1 HIGH G7 Path-D-LIFT + 1 HIGH G8 first-viable-adversarial-defense-RED-to-YELLOW + 1 MEDIUM C9 second-source-corroboration; cheap-Lambda cumulative spend $1.40 cleanup-verified 0-active-instances; pipeline-pacing exp_dev NOT dispatched cheap-Lambda-spend-already-this-turn + GPU-16-pending + routing-did-not-request-refill matches-v294-v295-precedent; 208th PROT-009 paired commit) (2026-05-31)
+```
