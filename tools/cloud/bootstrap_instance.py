@@ -188,10 +188,14 @@ def _do_bootstrap(
     if skip_deps:
         print("\n[bootstrap] --skip-deps set; jumping to import smoke")
     else:
-        # Stage 3: venv. Lambda's image already ships a workable Python; we use it.
+        # Stage 3: venv. CRITICAL: use --system-site-packages so the venv
+        # inherits the image's pre-installed torch (Lambda's image ships
+        # torch + CUDA matched to the driver; pip would otherwise pull a
+        # newer torch that requires a newer CUDA driver -> CUDA disabled).
+        # If the venv already exists from a prior run we leave it alone.
         venv_cmd = (
             "cd ~/hd-instrument && "
-            "if [ ! -d .venv ]; then python3 -m venv .venv; fi && "
+            "if [ ! -d .venv ]; then python3 -m venv --system-site-packages .venv; fi && "
             ".venv/bin/python -m pip install --upgrade pip wheel setuptools"
         )
         if not _step("create-venv", venv_cmd, timeout_s=180):
@@ -199,16 +203,19 @@ def _do_bootstrap(
             return results
 
         # Stage 4: install requirements. Try cloud-specific first, fall back to main.
+        # CRITICAL: do NOT install torch via the inline fallback. The image's
+        # system torch is matched to the CUDA driver; pip-installing torch
+        # pulls a newer build whose CUDA needs a newer driver.
         install_cmd = (
             "cd ~/hd-instrument && "
             f"REQ={requirements_file}; "
             "if [ ! -f $REQ ]; then "
             "  if [ -f requirements_cloud.txt ]; then REQ=requirements_cloud.txt; "
             "  elif [ -f requirements.txt ]; then REQ=requirements.txt; "
-            "  elif [ -f testbed/api.py ] && [ ! -f requirements.txt ]; then "
-            "    echo 'no requirements file found; installing core deps directly'; "
-            "    .venv/bin/python -m pip install numpy scipy torch 2>&1 | tail -20; REQ=__inline__; "
-            "  else REQ=__none__; fi; "
+            "  else "
+            "    echo 'no requirements file found; installing minimal deps (no torch)'; "
+            "    .venv/bin/python -m pip install numpy scipy faiss-cpu fastapi pydantic httpx cryptography pytest pyyaml 2>&1 | tail -20; REQ=__inline__; "
+            "  fi; "
             "fi && "
             "if [ \"$REQ\" != \"__inline__\" ] && [ \"$REQ\" != \"__none__\" ]; then "
             "  echo \"using $REQ\"; .venv/bin/python -m pip install -r $REQ 2>&1 | tail -40; fi"
@@ -244,7 +251,24 @@ def _do_bootstrap(
     print(out or "(no stdout)")
     if err:
         print(f"(stderr) {err}")
-    results["ok"] = bool(rc == 0 and "IMPORT FAIL" not in out)
+    # Load-bearing checks: numpy + torch + cuda + hdlab. faiss is optional
+    # (many experiments don't need it). Anything else missing is a warning.
+    load_bearing_ok = (
+        rc == 0
+        and "numpy IMPORT FAIL" not in out
+        and "torch IMPORT FAIL" not in out
+        and "hdlab IMPORT FAIL" not in out
+        and "cuda: True" in out  # explicit: torch.cuda must be available
+    )
+    # Warnings for non-load-bearing failures (e.g., faiss missing).
+    optional_fails = []
+    for marker in ("faiss IMPORT FAIL",):
+        if marker in out:
+            optional_fails.append(marker.split(" IMPORT FAIL")[0])
+    if optional_fails:
+        print(f"\n[WARN] optional deps missing (non-blocking): {optional_fails}")
+    results["ok"] = bool(load_bearing_ok)
+    results["optional_fails"] = optional_fails
     return results
 
 
