@@ -261,6 +261,19 @@ _NEWS_KINDS = {
     "gpu_reroute",
     "gpu_queue_drained_with_2_new_verdicts",
     "verdict_reclassification_cycle_v204",
+    # Multi-session events (architecture v1 2026-05-31). Each parallel session
+    # writes log_event(..., source='<session>'). The For-You source filter chips
+    # let the user view by session; these event kinds opt-in to the news feed.
+    "testbed_delivery",
+    "testbed_session_started",
+    "research_delivery",  # already above but kept here for documentation
+    "research_session_started",
+    "cloud_session_started",
+    "cloud_delivery",
+    "cloud_cost_alert",
+    "cloud_budget_exceeded",
+    "cloud_instance_launched",
+    "cloud_instance_terminated",
 }
 
 
@@ -331,6 +344,7 @@ def derive_news_items(
             "id": nid,
             "ts": entry.get("ts", ""),
             "event_kind": kind,
+            "source": entry.get("source", ""),  # session attribution (architecture v1)
             "headline": headline,
             "detail": detail,
             "outcome": entry.get("outcome", ""),

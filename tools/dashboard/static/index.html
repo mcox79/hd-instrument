@@ -93,6 +93,91 @@
     flex-direction: column;
     gap: 22px;
   }
+  /* Source filter chips (For-You). Tabs by session: All/Orchestrator/Research/Testbed/Cloud. */
+  .fy-source-filter {
+    max-width: 900px;
+    margin: 0 auto 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .fy-chip {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--dim);
+    padding: 4px 12px;
+    border-radius: 13px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.10s, color 0.10s, border-color 0.10s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fy-chip:hover { color: var(--fg); border-color: var(--fg); }
+  .fy-chip.active {
+    background: var(--accent, #5b8def);
+    color: white;
+    border-color: var(--accent, #5b8def);
+  }
+  .fy-chip-count {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    opacity: 0.85;
+  }
+  .fy-chip-count:empty { display: none; }
+  /* Sessions panel (Live tab). One row per active session. */
+  .session-row {
+    display: grid;
+    grid-template-columns: 110px 78px 1fr 90px;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    align-items: center;
+  }
+  .session-row:last-child { border-bottom: none; }
+  .session-row .session-name {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  .session-row .session-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 1px 8px;
+    border-radius: 3px;
+    text-align: center;
+  }
+  .session-row .session-status.alive {
+    background: rgba(70, 200, 100, 0.15);
+    color: rgb(70, 200, 100);
+  }
+  .session-row .session-status.stale {
+    background: rgba(220, 160, 70, 0.15);
+    color: rgb(220, 160, 70);
+  }
+  .session-row .session-focus {
+    color: var(--dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .session-row .session-age {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dimmer);
+    text-align: right;
+  }
+  .sessions-empty {
+    color: var(--dimmer);
+    font-style: italic;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 12.5px;
+  }
   .fy-section-head {
     font-size: 11px;
     text-transform: uppercase;
@@ -2090,6 +2175,13 @@
 
 <!-- ========== For You tab (DEFAULT) ========== -->
 <section id="foryou-view">
+  <div class="fy-source-filter" id="fy-source-filter" role="tablist" aria-label="Filter news by session">
+    <button class="fy-chip active" data-source="all" role="tab" aria-selected="true">All<span class="fy-chip-count" id="fy-count-all"></span></button>
+    <button class="fy-chip" data-source="orchestrator" role="tab" aria-selected="false">Orchestrator<span class="fy-chip-count" id="fy-count-orchestrator"></span></button>
+    <button class="fy-chip" data-source="research" role="tab" aria-selected="false">Research<span class="fy-chip-count" id="fy-count-research"></span></button>
+    <button class="fy-chip" data-source="testbed" role="tab" aria-selected="false">Testbed<span class="fy-chip-count" id="fy-count-testbed"></span></button>
+    <button class="fy-chip" data-source="cloud" role="tab" aria-selected="false">Cloud<span class="fy-chip-count" id="fy-count-cloud"></span></button>
+  </div>
   <div class="fy-container">
     <div>
       <div class="fy-section-head">
@@ -2114,6 +2206,14 @@
 
 <!-- ========== Live tab ========== -->
 <main id="live-view" hidden>
+  <section class="pane" id="pane-sessions">
+    <div class="pane-head">
+      <div>Sessions</div>
+      <div class="right" id="sessions-meta"></div>
+    </div>
+    <div class="pane-body" id="sessions-body"><div class="placeholder">loading...</div></div>
+  </section>
+
   <section class="pane" id="pane-rightnow">
     <div class="pane-head">
       <div>Right Now</div>
@@ -2576,26 +2676,70 @@ function renderQuestionCard(q) {
   return card;
 }
 
+// For-You source filter state (architecture v1). One of:
+//   "all" | "orchestrator" | "research" | "testbed" | "cloud"
+// Persisted in localStorage; survives reloads.
+let fySourceFilter = (() => {
+  try {
+    const v = localStorage.getItem("fy_source_filter");
+    if (["all","orchestrator","research","testbed","cloud"].includes(v)) return v;
+  } catch {}
+  return "all";
+})();
+
+function setFySourceFilter(source) {
+  fySourceFilter = source;
+  try { localStorage.setItem("fy_source_filter", source); } catch {}
+  for (const chip of document.querySelectorAll("#fy-source-filter .fy-chip")) {
+    const active = chip.dataset.source === source;
+    chip.classList.toggle("active", active);
+    chip.setAttribute("aria-selected", active ? "true" : "false");
+  }
+  if (window.__lastSnapshot) renderForYou(window.__lastSnapshot);
+}
+
 function renderForYou(snap) {
   const newsBody = document.getElementById("news-body");
   const newsCount = document.getElementById("news-count");
   const questionsBody = document.getElementById("questions-body");
   const questionsCount = document.getElementById("questions-count");
 
+  // Per-source counts (over all unacked items, before filter). News items
+  // without an explicit source fall under orchestrator (legacy default).
+  const allNews = (snap.news_items || []).filter(it => !locallyAcked.has(it.id));
+  const perSource = {all: allNews.length, orchestrator: 0, research: 0, testbed: 0, cloud: 0};
+  for (const it of allNews) {
+    const src = it.source || "orchestrator";  // legacy entries default to orchestrator
+    if (perSource[src] !== undefined) perSource[src] += 1;
+  }
+  for (const s of ["all","orchestrator","research","testbed","cloud"]) {
+    const node = document.getElementById(`fy-count-${s}`);
+    if (node) node.textContent = perSource[s] ? String(perSource[s]) : "";
+  }
+
+  // Apply source filter.
+  const news = fySourceFilter === "all"
+    ? allNews
+    : allNews.filter(it => (it.source || "orchestrator") === fySourceFilter);
+
   // News
   newsBody.replaceChildren();
-  const news = (snap.news_items || []).filter(it => !locallyAcked.has(it.id));
-  newsCount.textContent = news.length ? `${news.length} unread` : "all caught up";
+  const filterSuffix = fySourceFilter === "all" ? "" : ` (${fySourceFilter})`;
+  newsCount.textContent = news.length
+    ? `${news.length} unread${filterSuffix}`
+    : (fySourceFilter === "all" ? "all caught up" : `no unread ${fySourceFilter} news`);
   if (!news.length) {
-    newsBody.append(el("div", {class: "fy-empty"},
-      "No unread news. The dashboard will show new verdicts, cap-map commits, audits, and research deliveries here as they happen."));
+    const emptyMsg = fySourceFilter === "all"
+      ? "No unread news. The dashboard will show new verdicts, cap-map commits, audits, and research deliveries here as they happen."
+      : `No unread news from the ${fySourceFilter} session.`;
+    newsBody.append(el("div", {class: "fy-empty"}, emptyMsg));
   } else {
     for (const item of news) {
       newsBody.append(renderNewsItem(item));
     }
   }
 
-  // Questions
+  // Questions (not filtered by source — questions come from orchestrator only today)
   questionsBody.replaceChildren();
   const qs = snap.orchestrator_questions || [];
   questionsCount.textContent = qs.length ? `${qs.length} open` : "none";
@@ -2608,15 +2752,61 @@ function renderForYou(snap) {
     }
   }
 
-  // Update tab badge.
+  // Update tab badge (uses pre-filter total so the badge always reflects all
+  // unread items regardless of which source filter is active).
   const tabBadge = document.getElementById("tab-foryou-badge");
-  const total = news.length + qs.length;
+  const total = allNews.length + qs.length;
   if (total > 0) {
     tabBadge.style.display = "";
     tabBadge.textContent = String(total);
     tabBadge.className = qs.length > 0 ? "badge" : "badge muted";
   } else {
     tabBadge.style.display = "none";
+  }
+}
+
+// Apply persisted chip state once on first paint so the chip styling
+// matches the active filter even before the first snapshot arrives.
+requestAnimationFrame(() => {
+  try { setFySourceFilter(fySourceFilter); } catch {}
+});
+
+// ============================================================================
+// Sessions panel (Live tab) — per-session activity from heartbeat files.
+// ============================================================================
+
+function renderSessions(sessions) {
+  const body = document.getElementById("sessions-body");
+  const meta = document.getElementById("sessions-meta");
+  if (!body) return;
+  body.replaceChildren();
+  const order = ["orchestrator", "research", "testbed", "cloud"];
+  const entries = order
+    .map(name => [name, sessions ? sessions[name] : null])
+    .filter(([_, e]) => e);
+  if (meta) {
+    const alive = entries.filter(([_, e]) => !e.is_stale).length;
+    meta.textContent = entries.length
+      ? `${alive} alive / ${entries.length} reported`
+      : "";
+  }
+  if (!entries.length) {
+    body.append(el("div", {class: "sessions-empty"},
+      "No session heartbeats yet. Sessions appear here as they write their first heartbeat."));
+    return;
+  }
+  for (const [name, e] of entries) {
+    const row = el("div", {class: "session-row"});
+    row.append(el("div", {class: "session-name"}, name));
+    const statusCell = el("div",
+      {class: "session-status " + (e.is_stale ? "stale" : "alive")},
+      e.is_stale ? "stale" : "alive");
+    row.append(statusCell);
+    row.append(el("div", {class: "session-focus", title: e.current_focus || ""},
+      e.current_focus || "(idle)"));
+    const ageStr = e.age_s == null ? "—" : fmtElapsed(e.age_s);
+    row.append(el("div", {class: "session-age"}, ageStr));
+    body.append(row);
   }
 }
 
@@ -2776,15 +2966,74 @@ function renderSystem(s) {
       el("span", null, "")));
   }
 
-  body.append(
-    el("div", {class: "section-label"}, "Python processes"),
-    el("div", {class: "stat-row"},
-       el("span", {class: "label"}, "total"),
-       el("span", {class: "val"}, `${s.python_proc_count ?? "?"} (${s.python_proc_mem_mb ?? "?"} MB)`)),
-    el("div", {class: "stat-row"},
-       el("span", {class: "label"}, "python on GPU"),
-       el("span", {class: "val"}, `${s.gpu_proc_count ?? 0} (${s.gpu_proc_mem_mib ?? 0} MiB)`)),
-  );
+  // Logical processes panel — from remote_state_cache (emitter-classified, shim+interp grouped)
+  const lprocs = s.logical_processes || [];
+  if (lprocs.length > 0) {
+    const tsLabel = s.logical_processes_ts ? ` (${s.logical_processes_ts.slice(11,19)})` : "";
+    body.append(el("div", {class: "section-label"}, `Remote processes${tsLabel}`));
+    const runners_l   = lprocs.filter(p => p.type === "runner");
+    const emitters_l  = lprocs.filter(p => p.type === "emitter");
+    const exp_l       = lprocs.filter(p => p.type === "experiment_child");
+    const unknown_l   = lprocs.filter(p => p.type === "unknown");
+
+    body.append(el("div", {class: "stat-row"},
+      el("span", {class: "label"}, "runners"),
+      el("span", {class: "val"}, `${runners_l.length}`)));
+    body.append(el("div", {class: "stat-row"},
+      el("span", {class: "label"}, "emitter"),
+      el("span", {class: "val"}, `${emitters_l.length}`)));
+    if (exp_l.length) {
+      body.append(el("div", {class: "stat-row"},
+        el("span", {class: "label"}, "active experiments"),
+        el("span", {class: "val"}, `${exp_l.length}`)));
+    }
+
+    // Per-runner detail row
+    const chipRow = el("div", {class: "pid-chip-row"});
+    for (const p of runners_l) {
+      const memMb = p.mem_kb ? Math.round(p.mem_kb / 1024) : 0;
+      chipRow.append(el("span", {class: "pid-chip runner", title: p.cmdline_short || ""},
+        `${p.name || "runner"}:${p.pid}`,
+        el("span", {class: "mib"}, ` ${memMb}MB`)));
+    }
+    for (const p of emitters_l) {
+      chipRow.append(el("span", {class: "pid-chip runner", title: "remote_state_emitter"},
+        `emitter:${p.pid}`));
+    }
+    for (const p of exp_l) {
+      chipRow.append(el("span", {class: "pid-chip", title: p.cmdline_short || ""},
+        `exp:${p.pid}`,
+        el("span", {class: "mib"}, ` ${p.name || ""}`)));
+    }
+    if (unknown_l.length) {
+      for (const p of unknown_l) {
+        chipRow.append(el("span", {class: "pid-chip unknown", title: p.cmdline_short || ""},
+          `?:${p.pid}`));
+      }
+    }
+    if (chipRow.children.length) body.append(chipRow);
+
+    // Experiment children detail: "currently running: <name>" per runner
+    if (exp_l.length) {
+      body.append(el("div", {class: "section-label"}, "Active experiment children"));
+      for (const p of exp_l) {
+        body.append(el("div", {class: "stat-row"},
+          el("span", {class: "label"}, `pid ${p.pid}`),
+          el("span", {class: "val"}, p.name || p.cmdline_short || "(unknown)")));
+      }
+    }
+  } else {
+    // Fallback: old raw PID count when emitter hasn't updated yet
+    body.append(
+      el("div", {class: "section-label"}, "Python processes (raw)"),
+      el("div", {class: "stat-row"},
+         el("span", {class: "label"}, "total PIDs"),
+         el("span", {class: "val"}, `${s.python_proc_count ?? "?"} (${s.python_proc_mem_mb ?? "?"} MB)`)),
+      el("div", {class: "stat-row"},
+         el("span", {class: "label"}, "python on GPU"),
+         el("span", {class: "val"}, `${s.gpu_proc_count ?? 0} (${s.gpu_proc_mem_mib ?? 0} MiB)`)),
+    );
+  }
 
   const procs = s.gpu_procs || [];
   const runners = s.active_runner_count ?? 0;
@@ -4331,6 +4580,10 @@ document.addEventListener("click", (e) => {
   const tab = e.target.closest(".tab");
   if (tab && tab.dataset.tab) { setTab(tab.dataset.tab); return; }
 
+  // For-You source-filter chips (architecture v1 multi-session).
+  const fyChip = e.target.closest("#fy-source-filter .fy-chip[data-source]");
+  if (fyChip) { setFySourceFilter(fyChip.dataset.source); return; }
+
   const ssKindChip = e.target.closest("[data-ss-kind]");
   if (ssKindChip) {
     ssToggleKind(ssKindChip.dataset.ssKind);
@@ -4429,6 +4682,7 @@ async function refresh() {
 
     // Live tab panels — each wrapped so one broken renderer cannot blank the rest
     const safeCall = (label, fn) => { try { fn(); } catch (err) { console.error(`[live] ${label} failed:`, err); } };
+    safeCall("sessions",     () => renderSessions(snap.sessions || {}));
     safeCall("rightNow",     () => renderRightNow(snap.runs || {}, snap.system || {}));
     safeCall("workingOn",    () => renderWorkingOn(snap.in_flight || {dispatches: []}));
     safeCall("orchHealth",   () => renderOrchestratorHealth(snap.orchestrator_health || null));
