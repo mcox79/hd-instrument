@@ -480,3 +480,71 @@ Commit message: 'Cap map: v296 -> v297 BATCHED 3-VERDICT cheap-Lambda cloud corr
 
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main.
 2026-05-31 v297->v298 ANNOTATION-ONLY: NEW ROW PP-9 'Reasoning amortization economics (LLM-derive-once + substrate-cache vs LLM-derive-each-query)' added to Section 5 Production positioning; 🔬 Research only P_deflated 0.55-0.70; testbed Tier 2b harness extension ~0-100 Anthropic API + ~2-3 weeks eng; routing file strategy_request_to_strategy_reasoning_amortization_experiment_2026-05-31.md closed -> routed_completed/; portfolio 22+36 -> 23+36 (+1); 209th PROT-009 paired commit; push deferred to orchestrator main thread.
+## 2026-05-31 v298 -> v299 verdict_handler (210th PROT-009 paired commit)
+
+BATCHED 3-VERDICT Lambda v2 cloud batch event. All 3 verdicts HARD_PASS LABEL-HONEST per Step 0 honest re-read.
+
+### Step 0 honest re-read (mandatory)
+
+- **V1 CROSS_N_HARD_PASS adversarial_codebook_collision_a_query_sim_cross_n_v1_n16384** source=Lambda-cloud-GPU file `data/lambda_exp_adversarial_codebook_collision_a_query_sim_cross_n_v1_n16384_metrics_11e98f7934ac43d896357bb5f26280ed.json` elapsed_s=28.86. Per-cell: 15/15 cells unanimous defense_rate=1.0 fp_rate=0.0 ok=True at N=16384 across M={4096,8192,12288} x 5 seeds {7,17,23,31,41} n_adv=32 n_leg=64. LABEL-HONEST -- matches per-cell numerics exactly; zero variance. PROT-018 `_n16384` compliant.
+- **V2 P4_AQSIM_HARD_PASS adversarial_a_query_sim_vs_p4_edit_fact_traverse_v1_n4096** source=Lambda-cloud-GPU file `data/lambda_exp_adversarial_a_query_sim_vs_p4_edit_fact_traverse_v1_n4096_metrics_f72fefe0247e46cfbc749e0df27d0429.json` elapsed_s=1.74 GPU. Per-cell: 5/5 cells unanimous defense_rate=1.0 fp_rate=0.0 baseline_defense_rate=1.0 ok=True at N=4096 M=2048 seeds {7,17,23,31,41} n_edit=32. LABEL-HONEST. PROT-018 `_n4096` compliant. FIRST defense-generality HARD_PASS (a_query_sim defeats p2 codebook-collision AND p4 edited-fact-traverse).
+- **V3 G7EXT_HARD_PASS path_d_48n_64n_envelope_v1_n4096** source=Lambda-cloud-GPU file `data/lambda_exp_path_d_48n_64n_envelope_v1_n4096_metrics_32eb7d0474254b5585630d7f2e0fcae2.json` elapsed_s=22.07. Per-cell: 12/12 cells unanimous accuracy=1.0 at N=4096 K_paths=100 M={196608=48N,262144=64N} x depth={30,50} x 3 seeds. LABEL-HONEST -- matches per-cell numerics exactly. PROT-018 `_n4096` compliant.
+
+### Cap_map decision (v298 -> v299; portfolio 23+36 UNCHANGED)
+
+1. **Adversarial-defense candidate sub-row LIFT 0.45-0.65 -> 0.55-0.75** (+10%/+10% CONSERVATIVE; closes single-N caveat via V1 cross-N replication + closes single-attack-pattern caveat via V2 defense-generality; adaptive-adversary + SDK-wiring + cross-substrate + b_dist_check companion still operationally-broken caveats REMAIN; novel-synthesis upper cap 0.75 short of 0.80 per [[feedback-lit-scan-calibration-penalty]]).
+2. **Adversarial-vulnerabilities row YELLOW UNCHANGED at row-state symbol** (sub-row band LIFTed within YELLOW; row promotion to GREEN gated by adaptive-adversary + SDK-wiring per [[feedback-dont-overextend-theorems]]).
+3. **R-PATH-D-NO-CEILING Path D production-default sub-row LIFT 0.88-0.97 -> 0.92-0.98** (+4%/+1% CONSERVATIVE; combined U1(16N depth=50) + G7(24N-32N) + G7EXT(48N-64N) = 4 unanimous envelope-extensions at N=4096 K=100; cross-N + adversarial-construction + cross-substrate + K>100 trivialization caveats REMAIN).
+4. **Substrate-product-feature row 89-98% UNCHANGED at band-position** with REGULATED-INDUSTRY DEPLOYMENT BLOCKER caveat-list MODIFIED to reflect 2-of-5 BLOCKER caveats CLOSED: codebook-collision attack-class CROSS-N DEFENSE-VIABLE (was N=4096-only); edit-fact-traverse attack-class DEFENSE-VIABLE (was untested). Remaining: adaptive-adversary + SDK-wiring + cross-substrate.
+5. **PP-8 substrate-LLM deep-integration row ANNOTATION-only (no band move)**: D7 edit-log-replay defense engineering item carry-forward from v292/v295/v296 top-3 follow-on SUPERSEDED by V2 defense-generality (a_query_sim subsumes the adversarial pattern D7 was designed to defend). D7 DOWNGRADED REQUIRED -> OPTIONAL-FOLLOW-ON; testbed P6 "implement D7" engineering item bandwidth re-allocates to PP-8 Week 1 OR PP-5 latency OR PP-9 Tier 2b harness.
+
+### Tallies
+
+- HONEST: 276 (v297 basis) + 3 (V1 + V2 + V3 all label-honest; no anti-double-count rule applies because all 3 are NEW anchors) = **279**.
+- LABEL-VS-HONEST: **159 UNCHANGED** (zero new catches; all 3 labels match per-cell numerics).
+- Portfolio: 23 + 36 UNCHANGED.
+
+### Rescue sketches (PROT-004/006 cheapest-first; 3 rescue sets; 13 rescues; R1 0-compute APPLIED inline in all 3)
+
+- **R-ADVERSARIAL-DEFENSE-CROSS-N-GENERALITY**: R1 0-compute subsumption APPLIED inline. R2 (CHEAP ~30-45min Lambda) a_query_sim vs next adversarial attack-class NOT-AUTO-DISPATCHED. R3 (MEDIUM ~60-90min GPU) adaptive-adversary stress NOT-AUTO-DISPATCHED (HIGH PRIORITY; closes most-strategically-valuable remaining caveat). R4 (MEDIUM ~2-3h GPU + eng) SDK-wiring production-path integration NOT-AUTO-DISPATCHED. R5 (HIGH ~3-5h) defense composition / ensemble DEFERRED.
+- **R-PATH-D-PAST-64N**: R1 0-compute APPLIED inline. R2 (CHEAP ~30min Lambda) Path D 96N-128N at N=4096 K=100 NOT-AUTO-DISPATCHED. R3 (MEDIUM ~60-90min GPU) Path D cross-N at 32N envelope at N=8192/16384 NOT-AUTO-DISPATCHED (HIGH PRIORITY; closes cross-N caveat). R4 (CHEAP ~30min CPU) Path D adversarial-construction at past-32N NOT-AUTO-DISPATCHED. R5 (MEDIUM ~60min) Path D at K_paths=200/500/1000 NOT-AUTO-DISPATCHED (closes K=100 trivialization caveat).
+- **R-PP-8-D7-SUPERSEDED**: R1 0-compute subsumption APPLIED inline (PP-8 research-note column annotation). R2 (NO-COMPUTE routing-only) D7 engineering bandwidth re-allocation to PP-8 Week 1 OR PP-5 OR PP-9 deferred to orchestrator strategy thread. R3 (NO-COMPUTE documentation-only) D7 standalone cap_map representation check -- D7 appears only in carry-forward rescue sketches in v290+v295+v296; no standalone row mutation required; APPLIED inline as documentation.
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag-absent-but-cheap-Lambda-spend-already-this-turn)
+
+1. **a_query_sim defense vs adaptive-adversary at N=4096** (HIGH PRIORITY ~60-90min GPU; R-ADVERSARIAL-DEFENSE-CROSS-N-GENERALITY R3). Closes most-strategically-valuable remaining caveat on adversarial-defense sub-row. If PASS sub-row LIFTs further 0.55-0.75 -> 0.65-0.85 candidate; adversarial-vulnerabilities row YELLOW -> GREEN promotion candidate (gated additionally by SDK-wiring closure).
+2. **Path D cross-N at 32N envelope at N=8192 + N=16384** (MEDIUM PRIORITY ~60-90min GPU; R-PATH-D-PAST-64N R3). Closes cross-N caveat on Path D production-default sub-row. If PASS LIFTs further 0.92-0.98 -> 0.93-0.99 candidate; if FAIL locates cross-N ceiling (also useful).
+3. **PP-8 Week 1 feasibility smoke OR PP-5 latency-budget closure** (MEDIUM PRIORITY ~1-2 weeks engineering). With D7 SUPERSEDED bandwidth re-allocates; orchestrator strategy decision required.
+
+### PROT compliance
+
+- PROT-004/006: 3 rescue sets cheapest-first; 13 rescues; R1 0-compute APPLIED inline in all 3; R2-R5 cheap-medium-high routed; 0 new closures.
+- PROT-007: substrate_capability_map_history.md v299 row appended atomically. v277+v278 backlog carried forward.
+- PROT-008: validator script ABSENT; carried forward. Annotation-+-LIFT change; no portfolio state regression risk.
+- PROT-009: cap_map.md (v299 entry) + substrate_capability_map_history.md (v299 row) + this strategy_decisions entry + visibility_decisions one-line + 3 status_log entries staged atomically; 210th PROT-009 paired commit.
+- PROT-018: 3 anchors spot-checked _n<N> vs config.N -- all CLEAN. V1 `_n16384` matches 16384; V2 `_n4096` matches 4096; V3 `_n4096` matches 4096.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 3; 3 label-honest; 0 catches.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: 3 NEW anchors; no anti-double-count rule applies; HONEST +3.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]]; commit hash surfaced.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT (`data/orchestrator_paused.flag` does not exist); pipeline-pacing exp_dev dispatch SKIP (cheap-Lambda spend already this turn $0.42 batch / $1.82 cumulative + routing-file did not request refill).
+- [[feedback-for-you-tab-primary-channel]]: 3 status_log entries with plain_language + importance (1 HIGH cross-N + 1 CRITICAL defense-generality + 1 HIGH Path D 64N).
+- [[feedback-no-padding-experiments]]: CONSERVATIVE LIFTs (+10%/+10% vs +15%; +4%/+1% vs +5%/+2%); novel-synthesis cap on adversarial-defense sub-row at 0.75 not 0.80.
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first in all 3 sets.
+- [[feedback-rehabilitation-after-rejection]]: 0 closures; both LIFTs are mitigation-progress.
+- [[feedback-dont-overextend-theorems]]: YELLOW UNCHANGED at row-state (only sub-row band LIFTed); D7-supersession scoped to defense-engineering-motivation not all D7-flavored engineering.
+- [[feedback-lit-scan-calibration-penalty]]: Adversarial-defense sub-row upper bound CAPPED at 0.75 not 0.80.
+- [[feedback-strategy-shore-up-capabilities]]: 2 proactive band-LIFTs + 1 engineering-roadmap reduction triggered by verdict-arrival.
+- [[feedback-pipeline-pacing]]: queue state checked; SKIP refill (Lambda spend already + routing did not request).
+- [[feedback-no-smoke]]: CONSERVATIVE bands; b_dist_check companion still operationally-broken NOT glossed over; +1% upper on Path D not +2% because cross-N untested at 64N.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V1+V2 + V3 all map to substrate-product-killer-features (deletion-cert + compositionality-audit-API + Path-D-as-production-default); plumbing-over-physics framing.
+
+### Commit and push
+
+Commit message: 'Cap map: v298 -> v299 BATCHED 3-VERDICT Lambda v2 cloud cross-N defense + defense-generality + Path D past 64N (V1 CROSS_N_HARD_PASS adversarial_codebook_collision_a_query_sim_cross_n_v1_n16384 15/15 cells unanimous 1.000-defense-0.000-fp at N=16384 CLOSES single-N caveat; V2 P4_AQSIM_HARD_PASS adversarial_a_query_sim_vs_p4_edit_fact_traverse_v1_n4096 5/5 cells unanimous FIRST defense-generality HARD_PASS a_query_sim defeats p2 AND p4 D7-engineering-item SUPERSEDED; V3 G7EXT_HARD_PASS path_d_48n_64n_envelope_v1_n4096 12/12 cells unanimous at 48N-64N x depth=50 N=4096 K=100 combined-with-U1-G7 Path D no-ceiling 16N-64N; Adversarial-defense sub-row LIFT 0.45-0.65 -> 0.55-0.75 +10%/+10% CONSERVATIVE; Path D sub-row LIFT 0.88-0.97 -> 0.92-0.98 +4%/+1% CONSERVATIVE; Adversarial-vulnerabilities row YELLOW UNCHANGED at row-state; Substrate-product-feature row 89-98% UNCHANGED 2-of-5-BLOCKER-caveats-CLOSED; PP-8 D7 engineering item SUPERSEDED; HONEST 276 -> 279 +3; LABEL-VS-HONEST 159 UNCHANGED; portfolio 23+36 UNCHANGED; 3 rescue sets 13 rescues R1 0-compute inline; 3 status_log entries 1 HIGH + 1 CRITICAL + 1 HIGH; Lambda batch $0.42 cumulative $1.82 cleanup-verified; pipeline-pacing exp_dev NOT dispatched; 210th PROT-009 paired commit) (2026-05-31)'.
+
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main.
+
