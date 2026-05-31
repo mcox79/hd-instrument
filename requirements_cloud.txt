@@ -16,8 +16,13 @@
 # Add torch back here only if you've also pinned it to the exact version
 # matching the image's CUDA driver.
 
-numpy>=1.24
-scipy>=1.10
+# numpy: pin to <2 because Lambda's image-pre-installed torch 2.7.0 was
+# compiled against numpy 1.x ABI. Installing numpy 2.x breaks
+# torch.from_numpy / torch <-> numpy conversions at runtime even though
+# `import torch` still succeeds (warning: 'Failed to initialize NumPy:
+# _ARRAY_API not found'). Substrate experiments hit this constantly.
+numpy>=1.24,<2.0
+scipy>=1.10,<1.14
 faiss-cpu>=1.7.4
 pydantic>=2.0
 fastapi>=0.100
