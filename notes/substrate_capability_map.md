@@ -3181,3 +3181,133 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 ```
 Cap map: v296 -> v297 BATCHED 3-VERDICT cheap-Lambda cloud corroboration event (V1 G7_HARD_PASS path_d_24n_32n_envelope_v1_n4096 40/40 cells unanimous 1.000 at 32N x depth=50 N=4096 K_paths=100 R-PATH-D-NO-CEILING LIFT 0.85-0.95 -> 0.88-0.97 +3%/+2% CONSERVATIVE-trivialization-on-K=100-caveat-persists; V2 C9_HARD_PASS modern_hopfield_cpu_extended_v9_n16384 SECOND-SOURCE Lambda-cloud-GPU corroboration of v295 local-CPU C9 9/9 cells unanimous max_M=16N hardware-codepath-axis-closed anti-double-count-rule-applied framework-reliability marginal +0.02 toward upper of 0.78-0.92 band; V3 G8_HARD_PASS adversarial_codebook_collision_defense_probe_v1_n4096 FIRST VIABLE adversarial-defense candidate 5 seeds a_query_sim 1.000-defense-0.000-fp at N=4096 M=2048 n_adv=32 n_leg=64 adversarial-vulnerabilities row RED -> YELLOW new sub-row 0.45-0.65 b_dist_check-non-discriminating-gate-pathology-documented; HONEST 274 -> 276 +2 V2-not-double-counted; LABEL-VS-HONEST 159 UNCHANGED; portfolio 22+36 UNCHANGED; framework-reliability Path-D-sub-row LIFT Modern-Hopfield-tightening adversarial-RED-to-YELLOW substrate-product-feature 89-98% UNCHANGED-at-band-with-caveat-list-modified; 3 rescue sets cheapest-first 12 rescues R1 0-compute APPLIED inline R2/R3/R4 cheap-medium routed R5 expensive deferred; 3 status_log entries 1 HIGH G7 Path-D-LIFT + 1 HIGH G8 first-viable-adversarial-defense-RED-to-YELLOW + 1 MEDIUM C9 second-source-corroboration; cheap-Lambda cumulative spend $1.40 cleanup-verified 0-active-instances; pipeline-pacing exp_dev NOT dispatched cheap-Lambda-spend-already-this-turn + GPU-16-pending + routing-did-not-request-refill matches-v294-v295-precedent; 208th PROT-009 paired commit) (2026-05-31)
 ```
+
+
+## v302 -> v303 @ BATCHED 4-VERDICT CPU evening wave 2 (V1 reasoning_storage_threshold_sweep v1 RSTS HARD_PASS-LABEL-VS-HONEST-CATCH-162 capacity-envelope-exceeds-theoretical-prediction-but-theory-refuted + V2 substrate_state_compression v4 C3V4 HARD_PASS PP-2 cross-N N=16384 single-M corroboration 3rd PP-2 data-point + V3 adversarial_a_query_sim_defense_cpu_n8192 AQS_CPU_INCONCLUSIVE Kerdock-log2-odd INFRA_FAILURE no cap_map shift + V4 compressed_path_d_composition v1 CPD HARD_PASS first compositional HARD_PASS in portfolio at single-M N=4096 5-seed unanimous delta=0.0) (verdict_handler 214th PROT-009 paired commit; framework-reliability event + first compositional HARD_PASS + 162nd label-vs-honest catch)
+
+**Trigger.** 4 CPU verdicts landed 2026-05-31 21:38-21:43: V1 reasoning_storage_threshold_sweep_v1_n4096 wall_s=372 (~6min), V2 substrate_state_compression_v4_n16384 wall_s=179 (~3min), V3 adversarial_a_query_sim_defense_cpu_n8192 wall_s=9 (INFRA_FAILURE: 0 cells), V4 compressed_path_d_composition_v1_n4096 wall_s=117 (~2min). All 4 source=remote via bridge get_metrics. Pause-flag CHECKED ABSENT at verdict_handler entry. GPU queue 6 pending+running, CPU queue 0 (IDLE post-batch). REMOTE-FIRST honest re-read on all 4 (Step 0 MANDATORY per [[feedback-verdict-msg-honest-reread]]).
+
+### Step 0 honest re-read summary -- 1 NEW LABEL-VS-HONEST catch (V1) + V3 INFRA_FAILURE no-cap-shift + V2 and V4 label-honest
+
+### V1 -- reasoning_storage_threshold_sweep_v1_n4096 -- RSTS_HARD_PASS LABEL VS HONEST CATCH 162 (theoretical-prediction REFUTED but capacity stronger than predicted; over-claim is "theory-empirical alignment confirmed" when alignment did not occur)
+
+**Anchor.** `reasoning_storage_threshold_sweep_v1_n4096` labeled `RSTS_HARD_PASS` `"No spectral collapse at any n_chains <= 100000. sigma_1/sigma_2 stays below 3x MP edge across all sweep points. seeds=3"`. Per-seed re-read: 3 seeds {7, 17, 23} at N=4096 across n_chains {100, 1K, 10K, 44K, 100K} 15 cells total.
+
+**Honest reading.** The pre-reg HP was BIDIRECTIONAL: (a) ratio_s1_s2 < 3x MP edge at n_chains <= 44K AND (b) collapse evident at n_chains = 100K. Per-cell empirical: ratio_s1_s2 unanimous ~1.00-1.02 at ALL n_chains {100, 1K, 10K, 44K, 100K} across all 3 seeds; sigma_1/mp_edge_ref stays ~1.6x across all sweep points (top-singular-mode tracks MP-edge scaling but NOT collapsed). NO spectral collapse observed at n_chains = 100K (ratio 1.0031/1.0014/1.0067 = no signal-loss-into-shared-rule-code-component). The theoretical 32N/3 = 4096*32/3 ~= 44K threshold prediction is **REFUTED** -- substrate retains spectral integrity 2.27x BEYOND the theoretical limit through 100K chains. The HARD_PASS label is OVER-CLAIM: the pre-reg specified theory-empirical alignment confirmation as HARD_PASS criterion, but the data shows theory was WRONG (substrate stronger than predicted). The verdict_msg text itself is honest ("No spectral collapse at any n_chains <= 100000"); the HARD_PASS tag is the over-claim. This is a CAPACITY-ENVELOPE-EXTENSION (good news for substrate-as-reasoning-store capacity) but NOT a theory-empirical-alignment HARD_PASS.
+
+**Cap_map.** PP-11 reasoning-store-primitive row LIFT 0.40-0.55 -> 0.45-0.60 (+5%/+5% CONSERVATIVE) on capacity-envelope-extension; theory-empirical-alignment narrative REMOVED (32N/3 prediction REFUTED; substrate exceeds the predicted threshold). Annotation: "shared-rule spectral integrity preserved through 100K chains at N=4096 (2.27x beyond theoretical 32N/3 prediction); theory-empirical alignment NOT achieved but capacity envelope EXTENDED." LABEL-VS-HONEST catch #162 (cumulative). PROT-018 `_n4096` matches config.N=4096 (compliant).
+
+### V2 -- substrate_state_compression_v4_n16384 -- C3V4_HARD_PASS HONEST (PP-2 cross-N corroboration 3rd data-point; bits8 unanimous 3-seed; M=32768 cell missing from execution)
+
+**Anchor.** `substrate_state_compression_v4_n16384` labeled `C3V4_HARD_PASS` `"CROSS_N_COMPRESSION_CONFIRMED n_hp_configs=1. c_quant/bits4: comp=8.00x retr=0.000 hp_seeds=0/3 kfs=BREAK | c_quant/bits8: comp=4.00x retr=1.000 hp_seeds=3/3 kfs=OK | c_quant/bits16: comp=2.00x retr=1.000 hp_seeds=0/3 kfs=OK"`. Per-cell re-read: 3 seeds {7, 17, 23} at N=16384 M=8192 (only). M=32768 cell from pre-reg M_grid {8192, 32768} did NOT execute (summary.M=8192 + M_grid in summary only [8192]). 3 configs per seed (bits4/bits8/bits16) = 9 cells executed at M=8192.
+
+**Honest reading.** Label HARD_PASS HONEST for bits8 config at M=8192: per-seed kfs_all_pass=True unanimous, retr=1.000 unanimous, compression_ratio=4.0x unanimous, KF-1/KF-2/KF-3=1.000 unanimous. verdict_msg `n_hp_configs=1` is structurally honest (only bits8 wins; bits4 retr=0 fails; bits16 only 2x compression). HOWEVER: M=32768 cell missing from execution = partial M-coverage caveat (single-M not full M sweep). PROT-018 `_n16384` matches config.N=16384 (compliant). Net: 3rd PP-2 corroboration data-point (after v295 nominal-N=4096 + v302 adversarial-N=4096); cross-N at N=16384 single-M unanimous-3-seed.
+
+**Cap_map.** PP-2 storage efficiency row LIFT 0.70-0.80 -> 0.75-0.85 (+5%/+5% CONSERVATIVE). 3rd PP-2 corroboration; cross-N validation at N=16384 single-M (M=8192) unanimous-3-seed perfect. Single-M caveat persists (M=32768 not executed; pre-reg specified both M-values but only M=8192 ran). CONSERVATIVE +5%/+5% per [[feedback-no-padding-experiments]] (single-M + bits8-only + perfect-numerics-at-single-cell-config). PP-2 row state symbol stays Validated; band shifts.
+
+### V3 -- adversarial_a_query_sim_defense_cpu_n8192 -- AQS_CPU_INCONCLUSIVE / INFRA_FAILURE -- NO CAP_MAP SHIFT
+
+**Anchor.** `adversarial_a_query_sim_defense_cpu_n8192` labeled `AQS_CPU_INCONCLUSIVE` `"no cells"`. Wall_s=9 (instant rejection), elapsed_s=0.0, cells=[] (empty). Diagnosis: same Kerdock log2(8192)=13 odd MM-construction-constraint pre-check violation that hit v300 V2 substrate_state_compression_v3_n8192 (recorded in v300 cap_map entry); 0 cells executed = experiment rejected at startup; PROT-022 guard not yet landed at queue_add time.
+
+**Honest reading.** Label AQS_CPU_INCONCLUSIVE is HONEST about failure; verdict_msg "no cells" is structurally honest (no science possible from 0 cells). a_query_sim cross-codepath at N=8192 REMAINS UNTESTED. INFRA-FAILURE class: MM-construction-constraint log2(N) must-be-even.
+
+**Cap_map.** NO STATE TRANSITION. Adversarial-defense sub-row 0.55-0.75 UNCHANGED (V3 provides zero empirical signal on a_query_sim cross-N at N=8192). ANNOTATION carry-forward: a_query_sim cross-codepath at N=8192 INFRA-BLOCKED via MM-construction-constraint; PROT-022 queue_add guard urgency REINFORCED (V3 is the SECOND INFRA-FAILURE this hour from the SAME root cause; first was v300 V2 substrate_state_compression_v3_n8192). PROT-018 `_n8192` matches config.N=8192 (PROT-018 compliant but INFRA-FAILURE bypasses PROT-018 anchor-name semantic check). Cumulative-tally not affected (no cells = no per-cell sample size contribution).
+
+### V4 -- compressed_path_d_composition_v1_n4096 -- CPD_HARD_PASS HONEST (FIRST COMPOSITIONAL HARD_PASS in portfolio; PP-2 c_quant/bits8 x R-PATH-D-NO-CEILING COMPOSE at single-M; M=32768 cell missing from execution)
+
+**Anchor.** `compressed_path_d_composition_v1_n4096` labeled `CPD_HARD_PASS` `"COMPOSITION_PRODUCTION_READY n_m_hp=1/1. mean_acc_base=1.000 mean_acc_comp=1.000 mean_delta=0.0000 n_cells=5 | M=8192: mean_acc_comp=1.000 n=5"`. Per-cell re-read: 5 seeds {7, 17, 23, 31, 41} at N=4096 M=8192 (only) depth=5 K_paths=100. M=32768 cell from pre-reg M_grid {8192, 32768} did NOT execute (only M=8192 ran).
+
+**Honest reading.** Label HARD_PASS HONEST at M=8192: per-cell ok=True unanimous all 5 seeds; acc_baseline=1.000 unanimous; acc_compressed=1.000 unanimous; delta=0.0 unanimous (no degradation under c_quant/bits8 4x compression on Path D depth=5). verdict_msg `n_m_hp=1/1` is structurally honest (only 1 M tested; that 1 M passes). HOWEVER: M=32768 cell missing means "8N envelope" composition not tested; only 2N (M=8192=2*4096) was. PROT-018 `_n4096` matches config.N=4096 (compliant). Net: this is the FIRST COMPOSITIONAL HARD_PASS in portfolio (PP-2 c_quant/bits8 compression + R-PATH-D-NO-CEILING Path D production-default COMPOSE at M=2N N=4096 K=100 depth=5 5-seed unanimous delta=0.0). Caveats: single-M (M=8192=2N only), single-N (N=4096 only), single-K (K=100 only -- not stress-tested), single-depth (depth=5 only).
+
+**Cap_map.** NEW SUB-ROW (attached to PP-2 storage efficiency row): "PP-2 x R-PATH-D production-default compositional substrate (c_quant/bits8 x Path D)" -- Validated single-M (M=2N) single-N (N=4096) P-band 0.65-0.80 (CONSERVATIVE; partial M-coverage + single-K + single-depth + 5-seed). First compositional HARD_PASS in portfolio. Substrate-product-feature row 89-98% UNCHANGED at band-position (compositional HARD_PASS belongs there narratively but stays at band per [[feedback-no-padding-experiments]] -- single-M execution not full pre-reg sweep; full LIFT pends M=32768 cell + cross-K + cross-depth confirmation).
+
+### Cap_map state-transition decisions (v302 -> v303)
+
+1. **PP-2 storage efficiency row LIFT 0.70-0.80 -> 0.75-0.85** (+5%/+5% CONSERVATIVE). V2 third corroboration; cross-N at N=16384 single-M 3-seed unanimous perfect.
+2. **PP-11 reasoning-store-primitive row LIFT 0.40-0.55 -> 0.45-0.60** (+5%/+5% CONSERVATIVE). V1 capacity-envelope-extension through 100K chains at N=4096 (2.27x beyond theoretical 32N/3 prediction); theory-empirical-alignment narrative REMOVED.
+3. **NEW SUB-ROW under PP-2** "PP-2 x R-PATH-D production-default compositional substrate (c_quant/bits8 x Path D)" -- Validated single-M (M=2N) single-N (N=4096) P-band 0.65-0.80. FIRST COMPOSITIONAL HARD_PASS.
+4. **Adversarial-defense candidate sub-row** 0.55-0.75 UNCHANGED. V3 INFRA_FAILURE no signal.
+5. **PP-9 reasoning-amortization-economics row** 0.55-0.70 UNCHANGED at band-position. PP-11 LIFT informs upper-quality-budget bound (capacity now stronger by 2.27x at shared-rule storage at N=4096); narrative refresh only.
+6. **Substrate-product-feature row 89-98% UNCHANGED at band-position**. First compositional HARD_PASS narratively belongs here but stays at band per CONSERVATIVE policy on single-M execution.
+
+### Framework reliability bands (v302 -> v303)
+
+- **PP-2 storage efficiency row LIFT 0.70-0.80 -> 0.75-0.85** (+5%/+5% CONSERVATIVE; 3rd corroboration via cross-N).
+- **PP-11 reasoning-store-primitive row LIFT 0.40-0.55 -> 0.45-0.60** (+5%/+5% CONSERVATIVE; capacity-envelope-extension; theory-empirical-alignment narrative removed).
+- **NEW SUB-ROW under PP-2 0.65-0.80** (first compositional HARD_PASS at single-M).
+- **All other framework reliability bands UNCHANGED at band-position**.
+
+### Portfolio
+
+26 + 36 -> **26 + 36 UNCHANGED** (PP-2 LIFT within row; PP-11 LIFT within row; NEW compositional sub-row attaches to PP-2 not a portfolio addition; V3 KILLED no row; V1 reframed not new row). 4 verdicts processed; 3 cap_map mutations (2 row LIFTs + 1 sub-row addition); 0 closures.
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 285 + 2 (V2 + V4 label-honest at the cells that executed) = **287** (V1 label-vs-honest catch; V3 no-cells contributes 0).
+- LABEL-VS-HONEST: 161 + 1 (V1 RSTS_HARD_PASS theoretical-alignment over-claim) = **162**.
+- INFRA_FAILURE (V3): not contributing to either tally; cumulative INFRA_FAILURE count via this root cause is 2 (v300 V2 + v303 V3).
+- Per-cell sample size this batch: V1 15 cells, V2 9 cells (3 seeds x 3 configs at M=8192), V4 5 cells = 29 new cells (V1 cells contribute to per-cell evidence but anchor labeled over-claim at the HARD_PASS-tag level).
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]]) -- 3 rescue/extension sets; 13 rescues; R1 0-compute APPLIED inline in ALL 3 sets
+
+**R-V1-PP-11-CAPACITY-ENVELOPE-EXTENSION (PP-11 LIFT 0.40-0.55 -> 0.45-0.60; theory REFUTED; capacity beyond predicted threshold):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V1 ratio_s1_s2 ~1.00 unanimous at ALL n_chains {100, 1K, 10K, 44K, 100K} 3-seed at N=4096 = NO spectral collapse at any tested capacity; theoretical 32N/3 ~ 44K prediction REFUTED; substrate exceeds predicted threshold 2.27x through 100K chains; PP-11 row LIFT 0.40-0.55 -> 0.45-0.60 CONSERVATIVE on capacity-envelope-extension; theory-empirical-alignment narrative REMOVED from cap_map." APPLIED inline above.
+- R2 (CHEAP, ~30-60min CPU) -- n_chains sweep extension to {200K, 500K, 1M} at N=4096 same harness; locate the actual spectral-collapse threshold (or confirm absence through 1M chains). NOT-AUTO-DISPATCHED (cheap rescue; high strategic value for closing capacity-envelope at production-relevant scale).
+- R3 (MEDIUM, ~1-2h CPU) -- Cross-N reasoning-storage threshold at N=8192 N=16384 (where Kerdock log2-even works): does the capacity-envelope scale with N? Pre-reg HP: ratio_s1_s2 < 3x MP-edge through n_chains = 100K at all N tested. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1-2h CPU) -- Alternative encoding probe (FHRR/HRR Fourier-circular-convolution vs Scheme B three-way XOR) at the same n_chains sweep; does capacity-envelope differ by encoding? NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Adaptive-collision adversary at high-capacity (n_chains >= 50K); deferred pending R2 capacity-envelope closure.
+
+**R-V2-PP-2-CROSS-N-CORROBORATION (PP-2 LIFT 0.70-0.80 -> 0.75-0.85; 3rd corroboration; M=32768 cell missing from execution):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V2 3-seed unanimous c_quant/bits8 retr=1.000 KFs-OK at N=16384 M=8192 = 3rd PP-2 corroboration after v295 nominal-N=4096 + v302 adversarial-N=4096; PP-2 row LIFT 0.70-0.80 -> 0.75-0.85 CONSERVATIVE on cross-N at single-M; M=32768 cell missing from execution caveat persists." APPLIED inline above.
+- R2 (CHEAP, ~10-30min CPU OR ~5-10min Lambda) -- Re-run V2 with M=32768 cell forced into execution; closes M-coverage caveat at N=16384. NOT-AUTO-DISPATCHED (cheap routing-only rescue).
+- R3 (MEDIUM, ~30-60min CPU) -- PP-2 cross-config probe at N=16384 M=8192: c_quant alternative bit-widths {6, 10, 12} to map quality-vs-compression frontier. NOT-AUTO-DISPATCHED.
+- R4 (CHEAP, ~30min CPU) -- PP-2 adversarial extension at N=16384 (combining V2 cross-N + v302 V2 adversarial-codebook): does c_quant/bits8 4x compression preserve audit-cert at adv_100% at N=16384? NOT-AUTO-DISPATCHED (HIGH STRATEGIC VALUE; closes "single-N N=4096 adversarial" caveat).
+- R5 (HIGH-COST, deferred) -- Full PP-2 cross-N x cross-M x cross-attack-axis grid; deferred pending R2/R4 cheap completions.
+
+**R-V4-COMPOSITIONAL-HARD-PASS-EXTENSION (FIRST compositional HARD_PASS at single-M N=4096; sub-row P 0.65-0.80; cross-M + cross-K + cross-depth pending):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V4 5-seed unanimous acc_compressed=1.000 delta=0.0 at N=4096 M=8192 depth=5 K=100 = FIRST compositional HARD_PASS in portfolio (PP-2 c_quant/bits8 x R-PATH-D-NO-CEILING COMPOSE); NEW SUB-ROW under PP-2 Validated P 0.65-0.80 CONSERVATIVE; single-M single-N single-K single-depth caveats." APPLIED inline above.
+- R2 (CHEAP, ~10-30min CPU OR ~5-10min Lambda) -- Re-run V4 with M=32768 cell forced into execution; closes M-coverage caveat at N=4096 (M=8N envelope test). NOT-AUTO-DISPATCHED (cheap routing-only rescue; HIGH STRATEGIC VALUE for compositional-HARD_PASS upper-band LIFT).
+- R3 (MEDIUM, ~1-2h CPU) -- Compositional cross-N at N=8192 N=16384 (M={16K, 32K, 64K, 128K} appropriately): verifies first-compositional-HARD_PASS holds cross-N. NOT-AUTO-DISPATCHED (closes cross-N caveat on compositional sub-row).
+- R4 (MEDIUM, ~1-2h CPU) -- Compositional cross-K (K=200/500/1000) at single-N M=8192: stress-tests trivialization at K=100 of Path D no-ceiling result combined with compression. NOT-AUTO-DISPATCHED.
+- R5 (MEDIUM, ~1-2h CPU) -- Compositional cross-depth (depth=10/20/50) at M=8192 K=100: stress-tests compression x deep-path interaction. NOT-AUTO-DISPATCHED.
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag-absent-but-orchestrator-discretion)
+
+1. **V4 R2: M=32768 cell re-run for compositional HARD_PASS upper-band LIFT** (HIGH PRIORITY; ~10-30min CPU OR ~5-10min Lambda; R-V4 R2). Closes M-coverage caveat on FIRST compositional HARD_PASS; if PASS, compositional sub-row LIFTs and substrate-product-feature row eligible for LIFT consideration.
+2. **V1 R2: n_chains capacity-envelope extension to {200K, 500K, 1M}** (HIGH PRIORITY; ~30-60min CPU; R-V1 R2). Locates actual spectral-collapse threshold (or confirms absence through 1M chains); closes capacity-envelope caveat on PP-11 LIFT.
+3. **V2 R4: PP-2 adversarial extension at N=16384** (MEDIUM PRIORITY; ~30min CPU; R-V2 R4). Tests whether c_quant/bits8 4x compression preserves audit-cert at adv_100% at N=16384; closes "single-N N=4096 adversarial" caveat for PP-2 row.
+
+### PROT compliance (v302 -> v303)
+
+- PROT-004/006: 3 rescue sets cheapest-first 13 rescues R1 0-compute APPLIED inline all 3 sets; R2 cheap rescues routed; R3-R5 medium-high-cost routed/deferred; 0 capability-row closures.
+- PROT-007: history v303 row appended atomically.
+- PROT-008: validator ABSENT carried forward; PP-2 + PP-11 band-LIFTs within-row + sub-row addition no regression risk on existing portfolio.
+- PROT-009: cap_map.md (v303) + history.md (v303 row) + strategy_decisions_2026-05-31.md (v303 entry) + visibility_decisions_2026-05-31.md (one-line entry) + 4 status_log entries staged atomically; **214th PROT-009 paired commit**.
+- PROT-018: V1 `_n4096` V2 `_n16384` V4 `_n4096` all match config.N; V3 `_n8192` PROT-018 compliant in name but INFRA-FAILURE bypasses cell-execution gate.
+- PROT-019: V3 INFRA_FAILURE at 9s wall well below 21600s timeout floor (instant Kerdock pre-check rejection).
+- PROT-022: V3 INFRA_FAILURE is the SECOND log2-odd MM-construction-constraint catch this hour (first was v300 V2 substrate_state_compression_v3_n8192); PROT-022 queue_add guard urgency REINFORCED.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 on all 4; 1 label-vs-honest catch (V1 RSTS_HARD_PASS theoretical-alignment over-claim) recorded with honest reading (capacity-envelope-extension not theory-empirical-alignment); V2 + V4 label-honest; V3 INFRA-FAILURE not a label issue.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: all 4 source=remote bridge get_metrics; no SCP fallback needed.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]] orchestrator-main-thread executes git push as 1-tool follow-up.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT; CPU queue IDLE; pipeline-pacing exp_dev dispatch SKIPPED (4 verdicts already substantive; routing did not request refill; user prompt context flagged CPU runner IDLE as known state feeding morning Week 1 GO/NO-GO conversation).
+- [[feedback-for-you-tab-primary-channel]]: 4 status_log entries with plain_language + importance.
+- [[feedback-no-padding-experiments]]: PP-2 LIFT +5%/+5% CONSERVATIVE; PP-11 LIFT +5%/+5% CONSERVATIVE; compositional sub-row P 0.65-0.80 CONSERVATIVE on single-M execution; substrate-product-feature row UNCHANGED on partial M-coverage.
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline in all 3 rescue sets.
+- [[feedback-rehabilitation-after-rejection]]: 0 capability-row closures; V3 INFRA_FAILURE clear infrastructure remedy (PROT-022 guard); broader scientific question (a_query_sim cross-codepath at N=8192) REMAINS UNTESTED at failing-N regime.
+- [[feedback-dont-overextend-theorems]]: V1 capacity-envelope-extension scoped to "shared-rule spectral integrity preserved through 100K chains at N=4096" NOT to "spectral integrity preserved at all capacities at all N". V4 compositional HARD_PASS scoped to "PP-2 c_quant/bits8 x Path D production-default composes at M=2N N=4096 K=100 depth=5 5-seed" NOT to "compression x Path D composes at all M, all K, all depth".
+- [[feedback-lit-scan-calibration-penalty]]: PP-11 LIFT to 0.45-0.60 lower-end of capacity-evidence band per CONSERVATIVE policy on 32N/3 theoretical prediction refutation (theory provided one piece of evidence; empirical refutation removes that piece; capacity claim now anchored on empirical evidence alone).
+- [[feedback-no-smoke]]: brutal honesty -- V1 over-claim caught and recorded; V3 INFRA_FAILURE called out; V2 + V4 partial M-coverage called out as caveats not papered over.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V4 FIRST compositional HARD_PASS maps to substrate-product-killer-feature (compositional-audit-API + production-default-positioning); plumbing/SDK rate-limiter framing maintained; CONSERVATIVE sub-row band reflects single-M caveats not narrative restraint on the milestone itself.
+
+### Commit and push
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Commit message (atomic single commit):
+```
+Cap map: v302 -> v303 BATCHED 4-VERDICT CPU evening wave 2 (V1 reasoning_storage_threshold_sweep RSTS HARD_PASS LABEL-VS-HONEST-CATCH-162 capacity-envelope-extension-but-theory-refuted + V2 substrate_state_compression v4 PP-2 cross-N N=16384 single-M corroboration LIFT 0.70-0.80 -> 0.75-0.85 + V3 a_query_sim N=8192 Kerdock-log2-odd INFRA_FAILURE no-cap-shift + V4 compressed_path_d_composition FIRST COMPOSITIONAL HARD_PASS NEW SUB-ROW under PP-2 P 0.65-0.80; PP-11 LIFT 0.40-0.55 -> 0.45-0.60; 214th PROT-009 paired commit) (2026-05-31)
+```
