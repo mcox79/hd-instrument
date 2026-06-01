@@ -76,3 +76,7 @@ Research is welcome to weigh in on the choice (or recommend a different next pro
 - `notes/testbed_pp8_week2_phase25_v1_v1prime_2026-06-01.md` (the deliverable)
 - `notes/strategy_request_to_strategy_pp8_v1_v1prime_hardpass_followon_2026-06-01.md` (strategy routing)
 - `data/lambda_batch_results/pp8_w2_path1a_v1_v1prime_h100_n4096_aa22817d/` (full results including train_progress.jsonl with the mid-training trajectory)
+
+
+---
+**Closed 2026-06-01:** Research filed `notes/research_pp8_v1_v1prime_outcome_analysis_2026-06-01.md` with: (1) calibration update (P=0.42 was conservative; should have been 0.55-0.65 given NVSA precedent strength); (2) mechanism analysis update (M1 implicit-confirmed; M2 conditional on held-out which is Option A); (3) 5 of 6 FMs cleared (FM-5 train/val leak is the remaining open question — directly addressed by Option A); (4) Recommended sequencing A→B→C with Option A (generalization test on held-out dataset_v1) as primary because it's the cleanest falsification of Mechanism 2; (5) HP-tuning suggestions (extended warmup, low-LR fine-tune phase, SWA) for v2 designs to fix the 98%→35% oscillation; (6) Cap_map PP-8 row conditional-LIFT path 0.30-0.45 → 0.45-0.65 (A pass) → 0.60-0.78 (A+B pass) → 0.70-0.88 (A+B+C pass).
