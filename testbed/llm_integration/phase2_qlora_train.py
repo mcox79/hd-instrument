@@ -80,6 +80,42 @@ def _bipolar_from_soft(soft_query: torch.Tensor) -> torch.Tensor:
     return bipolar
 
 
+def _substrate_retrieve_soft(
+    codebook: torch.Tensor, key_idx: torch.Tensor, val_idx: torch.Tensor,
+    soft_query: torch.Tensor, temperature: float = 1.0,
+) -> torch.Tensor:
+    """Phase 2.5 iteration 2: soft-substrate retrieval (attention-weighted).
+
+    Fully differentiable replacement for the STE pipeline. Computes attention
+    weights from soft_query to each key codeword in the substrate, then takes
+    a weighted sum of the corresponding value codewords:
+
+      sim = soft_query @ codebook[key_idx].T / temperature  # (B, M)
+      attn = softmax(sim, dim=-1)                            # (B, M)
+      retrieved = attn @ codebook[val_idx]                  # (B, n_sub)
+
+    Compared to STE (which had backward-identity-through-discrete-retrieval),
+    the gradient through softmax-attention DIRECTLY tells the readout: "the
+    way to retrieve a more useful value codeword is to make soft_query more
+    similar to key codeword K_i (where K_i is the key whose value would help
+    the bridge produce a better prefix)."
+
+    Temperature parameter:
+    - High (>10): smooth attention; weak inductive bias toward discrete keys
+    - 1.0: standard softmax; well-separated keys produce sharp attention
+    - Low (<0.1): nearly argmax; vanishing gradients into low-weight keys
+
+    Start at 1.0 (default). If training converges at this temperature, can
+    anneal toward smaller values for more discrete behavior.
+    """
+    keys_codebook = codebook[key_idx].to(dtype=soft_query.dtype)  # (M, n_sub)
+    vals_codebook = codebook[val_idx].to(dtype=soft_query.dtype)  # (M, n_sub) aligned
+    sim = soft_query @ keys_codebook.T / max(temperature, 1e-6)  # (B, M)
+    attn = torch.softmax(sim, dim=-1)
+    retrieved = attn @ vals_codebook  # (B, n_sub)
+    return retrieved
+
+
 def _substrate_retrieve_ste(
     codebook: torch.Tensor, key_idx: torch.Tensor, val_idx: torch.Tensor,
     relation: dict, soft_query: torch.Tensor,
@@ -241,12 +277,19 @@ def _load_phi3_lora(device: torch.device, lora_r: int, lora_alpha: int):
 def _train_step(
     model, readout, bridge, batch, tokenizer, device, optimizer, scheduler=None,
     substrate_in_loop: bool = False, substrate_tuple=None,
+    substrate_soft: bool = False, substrate_soft_temperature: float = 1.0,
 ) -> float:
     """One training step. Returns scalar loss.
 
-    If substrate_in_loop, the readout's soft tanh goes through the substrate
-    key->value retrieval (with STE for gradient flow) before entering the
-    bridge. Otherwise (Phase 2 baseline), soft_tanh goes directly to bridge.
+    Three modes for the readout -> bridge intermediate:
+      - substrate_soft (Phase 2.5 iteration 2): softmax-attention-weighted
+        retrieval over keys; fully differentiable; gradient pushes readout
+        toward "produce queries that select better keys"
+      - substrate_in_loop (Phase 2.5 iteration 1, STE): discrete cleanup +
+        argmax + relation lookup, STE for backward; empirically degenerate
+        because STE gradient = identity through retrieval
+      - neither (Phase 2 baseline): soft_tanh straight to bridge; bypasses
+        substrate; validates bridge trainability but not substrate utility
     """
     input_ids, attention_mask, targets = _tokenize_batch(tokenizer, batch, device)
 
@@ -259,14 +302,18 @@ def _train_step(
     hidden = _last_position_hidden(out, attention_mask).to(dtype=torch.float32)
 
     soft_query = readout(hidden)  # (B, n_sub) tanh-bounded
-    if substrate_in_loop and substrate_tuple is not None:
-        # Phase 2.5: substrate-in-loop training with STE.
+    if substrate_soft and substrate_tuple is not None:
+        codebook, _W, key_idx, val_idx, _relation = substrate_tuple
+        bridge_input = _substrate_retrieve_soft(
+            codebook, key_idx, val_idx, soft_query,
+            temperature=substrate_soft_temperature,
+        )
+    elif substrate_in_loop and substrate_tuple is not None:
         codebook, _W, key_idx, val_idx, relation = substrate_tuple
         bridge_input = _substrate_retrieve_ste(
             codebook, key_idx, val_idx, relation, soft_query,
         )
     else:
-        # Phase 2 baseline: substrate-bypassed training.
         bridge_input = soft_query
     prefix_tokens = bridge(bridge_input)  # (B, n_queries, d_model)
 
@@ -294,6 +341,7 @@ def _eval(
     model, readout, bridge, val_rows, tokenizer, device,
     substrate_tuple, batch_size: int = 4, max_samples: int | None = None,
     use_substrate_in_loop: bool = True,
+    substrate_soft: bool = False, substrate_soft_temperature: float = 1.0,
 ) -> dict[str, Any]:
     """Validation eval. Reports top-1 accuracy on val set.
 
@@ -322,10 +370,12 @@ def _eval(
         hidden = _last_position_hidden(out, attention_mask).to(dtype=torch.float32)
 
         soft_query = readout(hidden)  # (B, n_sub)
-        if use_substrate_in_loop:
-            # Phase 2.5: true key->value retrieval via relation graph (STE
-            # used in training; eval is no_grad so STE is a no-op here, but
-            # using the same function keeps train + eval paths consistent).
+        if substrate_soft:
+            codeword_batch = _substrate_retrieve_soft(
+                codebook, key_idx, val_idx, soft_query,
+                temperature=substrate_soft_temperature,
+            )
+        elif use_substrate_in_loop:
             codeword_batch = _substrate_retrieve_ste(
                 codebook, key_idx, val_idx, relation, soft_query,
             )
@@ -374,14 +424,21 @@ def main() -> int:
                              "the eval pipeline; auto-enabled when "
                              "--substrate-in-loop-train is set.")
     parser.add_argument("--substrate-in-loop-train", action="store_true",
-                        help="(Phase 2.5) Train with substrate IN THE LOOP "
-                             "(readout -> sign -> key cleanup -> relation graph "
-                             "value lookup -> bridge), with STE for gradient "
-                             "flow through the discrete retrieval. Required for "
-                             "the toy task's val accuracy to be meaningful "
-                             "(Phase 2 substrate-bypass training was empirically "
-                             "unable to learn the held-out val task; commit "
-                             "c54948b deliverable).")
+                        help="(Phase 2.5 STE iteration; superseded by "
+                             "--substrate-soft) Train with substrate IN THE LOOP "
+                             "via discrete cleanup + STE. Empirically degenerate "
+                             "(STE gradient bypasses substrate's discriminative "
+                             "function; commit 8d1e44a deliverable).")
+    parser.add_argument("--substrate-soft", action="store_true",
+                        help="(Phase 2.5 iteration 2) Train with substrate "
+                             "IN THE LOOP via softmax-attention-weighted "
+                             "retrieval (fully differentiable). Replaces the "
+                             "STE pipeline. Auto-enables substrate-soft eval "
+                             "for train/eval pipeline consistency.")
+    parser.add_argument("--substrate-soft-temperature", type=float, default=1.0,
+                        help="Temperature for soft-substrate softmax attention "
+                             "(higher = smoother attention over keys; lower = "
+                             "more peaked toward argmax). Default 1.0.")
     parser.add_argument("--mock-model", action="store_true",
                         help="Use a CPU mock model (GPT-2 at d_model=3072) "
                              "with model frozen and only readout+bridge "
@@ -402,6 +459,10 @@ def main() -> int:
     if args.substrate_in_loop_train and not args.substrate_in_loop_eval:
         args.substrate_in_loop_eval = True
         print("[qlora_train] --substrate-in-loop-train set; auto-enabling "
+              "--substrate-in-loop-eval for train/eval pipeline consistency")
+    if args.substrate_soft and not args.substrate_in_loop_eval:
+        args.substrate_in_loop_eval = True
+        print("[qlora_train] --substrate-soft set; auto-enabling "
               "--substrate-in-loop-eval for train/eval pipeline consistency")
 
     out_dir = Path(args.out_dir)
@@ -524,6 +585,8 @@ def main() -> int:
                     optimizer, scheduler,
                     substrate_in_loop=args.substrate_in_loop_train,
                     substrate_tuple=substrate_tuple,
+                    substrate_soft=args.substrate_soft,
+                    substrate_soft_temperature=args.substrate_soft_temperature,
                 )
             except Exception as exc:
                 print(f"[ERROR] step {step}: {exc}", file=sys.stderr)
@@ -583,6 +646,8 @@ def main() -> int:
                     substrate_tuple, batch_size=args.batch_size,
                     max_samples=args.eval_max_samples,
                     use_substrate_in_loop=args.substrate_in_loop_eval,
+                    substrate_soft=args.substrate_soft,
+                    substrate_soft_temperature=args.substrate_soft_temperature,
                 )
                 eval_wall = time.perf_counter() - eval_t0
                 lift_over_random = ev["acc_top1"] / max(1e-9, random_baseline)
@@ -632,6 +697,8 @@ def main() -> int:
         substrate_tuple, batch_size=args.batch_size,
         max_samples=None,  # full val set
         use_substrate_in_loop=args.substrate_in_loop_eval,
+        substrate_soft=args.substrate_soft,
+        substrate_soft_temperature=args.substrate_soft_temperature,
     )
     final_lift = final_eval["acc_top1"] / max(1e-9, random_baseline)
     total_wall = time.perf_counter() - t0
