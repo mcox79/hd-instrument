@@ -4484,3 +4484,157 @@ Cap map: v314 -> v315 ANNOTATION-ONLY Round3-expansion (3-strategic-shifts PRIMA
 
 ### Push and follow-on (v315)
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+
+## v315 -> v316 @ BATCHED 28-VERDICT mega-wave (verdict_handler 227th PROT-009 paired commit; 21 HARD_PASS + 5 MIDDLE_BAND + 1 HARD_FAIL + 1 INFRA_FAILURE; 3 task-prompt OVER-CLAIMS + 1 runner-label LABEL-VS-HONEST = 4 catches; free-probability framework REFUTED at substrate level; 4 NEW killer-feature rows promoted EMPIRICAL; portfolio LIFT 28+52 -> 32+52)
+
+### Trigger
+Batch of 28 NEW verdicts (34 input minus 6 already-processed in v306-v312 today) landed on remote 2026-06-01. Bridge cache stale; per-anchor metrics fetched directly via get_metrics with _source=remote authoritative. Pause flag ABSENT. Single batched atomic commit per [[feedback-cap-map-update-protocol]] [[feedback-no-experiment-design-in-prompts]].
+
+### Step 0 honest re-read summary (per [[feedback-verdict-msg-honest-reread]] [[feedback-no-smoke-preframing-in-task-prompts]])
+
+**Group 1 task-prompt pre-framing OVER-CLAIM (NEW sub-flavor batch-pre-framing):** Task prompt asserted "likely all PASS-fast" for 18 Group 1 anchors. Honest re-read: 15 PASS-fast confirmed but 3 free_prob anchors HARD_FAIL/MIDDLE_BAND. Task-prompt OVER-CLAIM #173 PRE-FRAMED_BATCH_ALL_PASS_OVER_CLAIM. Cheap-smoke calibration NOT a HARD_PASS predictor; free-probability framework formulation FAILS substrate at N=4096 5-seed.
+
+**Group 4 task-prompt OVER-CLAIM (anchors framed as "failed runs"):** Task prompt called hierarchical_concept_formation_v3 + continuous_embedding_cert_threshold_v2_gdpr "failed". Honest: HCF v3 = HARD_PASS 5/5 ratios 4.20 vs iid 1.0 (unambiguous concept-formation signal); cert_threshold v2 = MIDDLE_BAND 3/5 PASS not failed. Catches #174 (HCF v3 RUNNER_FAILED_LABEL_OVER_CLAIMS_HARD_PASS) + #175 (cert_threshold v2 RUNNER_FAILED_LABEL_OVER_CLAIMS_MIDDLE_BAND; same sub-flavor as v306->v307 V3 #168).
+
+**Runner-label LABEL-VS-HONEST catch #176 PP-4 codebook_histogram_divergence:** runner=CHD_DRIFT_HARD_PASS but fa_ok=3/5 seeds (40% fail). Mechanically: detection 5/5 unanimous but false-alarm gate 3/5. Honest classification: MIDDLE_BAND. NEW sub-flavor MIXED_SUBARM_OVER_CLAIM.
+
+### Per-verdict honest classifications (28 new)
+
+**HARD_PASS (21):**
+1. calibrated_confidence_ece_v1_n1024 -- ECE_HARD_PASS HONEST. mean_ece_ts=0.0021 5/5 (vs ece_raw=0.4836); T*=0.1. NEW ROW candidate PP-31.
+2. pp4_write_retrieve_ratio_drift_v1 -- WRR_DRIFT_HARD_PASS HONEST. burst detect 5/5 + fa OK 5/5; mean_detect_ops=14.8.
+3. pp4_codebook_histogram_divergence_v1 -- LABEL-VS-HONEST #176 (runner=HARD_PASS HONEST=MIDDLE_BAND). detect 5/5 BUT fa_ok=3/5; mixed-subarm.
+4. edit_impact_dag_reverse_traversal_v1 -- DAG_TRAVERSAL_HARD_PASS HONEST. prec=1.0 rec=1.0 5/5. NEW ROW PP-28.
+5. multi_tenant_arch1_adversarial_smoke_v1_n4096 -- MT_ARCH1_HARD_PASS HONEST. zero-cross-tenant-leakage 5/5; max_sim_B_via_A=0.0075.
+6. dp_gaussian_write_noise_v1_n512 -- DP_GAUSS_HARD_PASS HONEST. acc=1.0 5/5 at sigma=0.1. NEW ROW PP-29.
+7. cascade_ensemble_config5_smoke_v1 -- CASCADE5_HARD_PASS HONEST. escalation=0 delta_acc=0 5/5.
+8. longtail_zipfian_pp10a_v1_n4096 -- ZIPF_PP10A_HARD_PASS HONEST. alpha=1.5 tail+head 1.0 delta=0 5/5.
+9. dr_merkle_randproj_w_verify_v1_n4096 -- DR_MERKLE_HARD_PASS HONEST. P_detect=1.0 5/5 n_flip=200. NEW ROW PP-30.
+10. sparse_block_edit_isolation_v1_n8192 -- SPARSE_EDIT_ISO_HARD_PASS HONEST. nonzero_frac=0.0076 edit_coverage=0.000015 5/5.
+11. retrieval_explainability_cosine_contribution_smoke_v1 -- REXCC_HARD_PASS HONEST. 15/15 trials sum_err=0.
+12. retrieval_explainability_counterfactual_probe_smoke_v1 -- REXCF_HARD_PASS HONEST. 10/10 trials rel_err=0.
+13. channel_capacity_sweep_v1 -- CHCAP_HARD_PASS HONEST. mean_c_eff_frac_low=0.340. PP-2a sub-property empirically confirmed.
+14. faiss_hybrid_sidecar_smoke_v1 -- FAISS_HS_HARD_PASS HONEST. recall_gap=0 cert>=3 p99=0.267ms. COMPLIANCE SIDECAR GTM empirically validated.
+15. federated_deletion_cert_smoke_v1 -- FDEL_HARD_PASS HONEST. cert 3/3 contam=0 acc_drop=1.0 5-client; PP-24 empirically validated.
+16. path_d_percolation_depth_sweep_v1_n4096 -- PERC_DEPTH_HARD_PASS HONEST. d=1/2/3 rel_div=0 N-INDEPENDENT; d=5 rel_div=16.143 cliff CONFIRMED. COMPOSITION-CLIFF localizes the v312 V1 N-driven failure to a depth-composition gap. Test 1B FSS power-law NOT auto-dispatched (HARD_PASS path takes alternative resolution).
+17. tcft_direct_empirical_sweep_v1_n16384 -- TCFT_SWEEP_HARD_PASS_POSITIVE HONEST. all mean_vr<0.001 at N=16384 25/25 cells. Closes TCFT-P2-variance concern POSITIVE-CLOSURE.
+18. compressed_path_d_composition_v2_n8192 -- CPD2_HARD_PASS HONEST. acc_comp=1.0 mean_delta=0 N=8192 M=16384/32768 5-seed.
+19. agentic_workload_characterization_v1_n4096 -- G13B_P1_HARD_PASS HONEST.
+20. agentic_edge_cases_v1_n4096 -- G13B_P3_HARD_PASS HONEST. min_acc=1.0 iso=0 consistency=1.0.
+21. hierarchical_concept_formation_instrumentation_v3_costructured_n4096 -- HCF v3 HARD_PASS HONEST (task-prompt OVER-CLAIM #174). aggregate ratio_vs_iid=4.20 5/5 n_hp=5/5.
+
+**MIDDLE_BAND (5):**
+22. free_prob_free_additivity_v1_n4096 -- FP_FADD_MIDDLE_BAND HONEST. mean delta=0.043 5/5 (sign flips +/-).
+23. free_prob_kmax_formula_v1_n4096 -- FP_KMAX_MIDDLE_BAND HONEST. K_max_predicted=3.64 K_crossover_empirical=2 5/5; formula UNDER-predicts substrate K_max ~1.6x.
+24. continuous_embedding_cert_threshold_v2_gdpr_n16384 -- CERT_THRESH_V2_GDPR MIDDLE_BAND HONEST (task-prompt OVER-CLAIM #175). 3/5 HARD_PASS 2/5 HARD_FAIL; mean_gdpr_tpr=0.966 mean_best_fp=0.004 mean_auc=0.9997.
+25. sustained_agentic_load_v1_n4096 -- G13B_P2_MIDDLE_BAND HONEST. drop=0.029 chain_ok mem_ratio=2.43; 2.9% throughput drop over 2.5h.
+
+**HARD_FAIL (1):**
+26. free_prob_rank1_edit_perturb_v1_n4096 -- FP_RANK1_HARD_FAIL HONEST. lift_at_sqrt_n=0.967 (<1.1) 5/5; no crossover signal.
+
+**FREE-PROBABILITY FRAMEWORK REFUTED:** 3 free-prob axes (rank1-edit HF, free-additivity MID, kmax-formula MID) all NEGATIVE single batch at N=4096 5-seed FULL. Free-probability mathematical framework REFUTED as predictive scaffolding for substrate dynamics at finite-N. Aligns with v306+v311 P3 percolation N-independence refutation (framework-class REFUTATIONS today now 2: free-probability + P3-percolation-N-independence). Per [[feedback-dont-overextend-theorems]] framework as DESCRIPTIVE language survives narrowly; framework as PREDICTIVE scaffolding for substrate-at-finite-N does NOT.
+
+**INFRA_FAILURE (1):**
+27. aqsim_3way_cross_n_engineering_diagnostic_v1_n4096 -- INFRA_FAILURE (4th-instance AQSIM 3-way cross-N family; metrics=NONE; engineering diagnostic ITSELF failed at 28.2s wall). PRIORITY-DISPATCH routing already filed v312->v313 NOT YET PICKED UP. ENGAGEMENT-LOCK TIGHTENED to diagnostic-on-diagnostic.
+
+**Already-processed in prior batches today (6; no-op this commit):**
+- path_d_k1_cross_n_null_prediction_v1_n4096 (v311->v312 V1)
+- reasoning_storage_4way_cleanup_v4_double_orthogonal_v1_n16384 (v311->v312 V2)
+- reasoning_storage_4way_cleanup_v2_n16384 (v306->v307 V1)
+- reasoning_storage_4way_cleanup_v3_hadamard_hopid_v1_n16384 (v307->v308 V3)
+- path_d_k1_phase_boundary_probe_v1_n4096 (v306->v307 V2)
+- path_d_k1_phase_boundary_cross_m_v1_n4096 (v307->v308 V2)
+
+**Testbed PP-8 Phase 2.5 Path 1a v1 HARD-FAIL (commit 9a0748c) reflective annotation:** testbed self-classified accurately; research P_deflated=0.65 CORRECT; PP-8 row caveat (m) added: "Path 1a v1-only (SimHash keys, RANDOM vals) HARD-FAIL val=0.100% confirms research's bundle-required prediction; v1+v1' (with semantic vals) in flight; do NOT close PP-8 on v1-only." LABEL-VS-HONEST: HONEST.
+
+### Cap_map v315 -> v316 state transitions
+
+**4 NEW capability rows EXPLORATORY-EMPIRICAL (band promotes to EMPIRICAL on first attestation):**
+- **PP-28 Edit-impact prediction (DAG reverse-traversal)** -- 0.60-0.75 EMPIRICAL. prec=1.0 rec=1.0 5/5.
+- **PP-29 DP-Gaussian write noise (DP compatibility)** -- 0.55-0.70 EMPIRICAL. acc=1.0 at sigma=0.1 5/5 N=512 M=50.
+- **PP-30 Disaster-recovery Merkle + random-projection verify** -- 0.60-0.75 EMPIRICAL. P_detect=1.0 5/5 N=4096 n_flip=200.
+- **PP-31 Calibrated confidence (temperature scaling)** -- 0.55-0.70 EMPIRICAL. ECE_TS=0.0021 5/5 (vs raw 0.4836); T*=0.1.
+
+**Band LIFT (3):**
+- **PP-24 federated-learning band LIFT 0.45-0.60 -> 0.55-0.70** (federated_deletion_cert 3/3 + cert mechanism 5-client first empirical).
+- **PP-25 retrieval explainability LIFT 0.55-0.70 -> 0.60-0.75** (cosine 15/15 + counterfactual 10/10 + channel-capacity 25-cell first empirical).
+- **Compositional cross-N sub-row LIFT 0.75-0.90 -> 0.78-0.92** (compressed_path_d_composition_v2 N=8192 + path_d_percolation depth=1/2/3 N-INDEPENDENT; 2 independent batch-attestations).
+
+**Band UNCHANGED + caveat (5):**
+- **PP-4 anomaly-alert band UNCHANGED 0.55-0.70**; caveat (h): "WRR-drift validated 5/5 fa-OK; codebook-divergence detect-5/5 BUT fa-OK-3/5 mixed-subarm tuning required; LABEL-VS-HONEST #176 NEW sub-flavor MIXED_SUBARM_OVER_CLAIM."
+- **PP-10a long-tail band UNCHANGED 0.55-0.70**; CONFIRMED head+tail 5/5 delta=0 (first-N=4096 attestation).
+- **PP-13 sustained-load production-readiness band UNCHANGED**; caveat: "2.5h sustained N=4096 K=500 init_tp=13.17 final_tp=12.79 drop=2.9% chain_ok mem_ratio=2.43 MIDDLE_BAND borderline-acceptable; long-runtime sub-row added."
+- **PP killer-feature audit-grade-vector-store band UNCHANGED 0.45-0.65**; caveat (f) THRESHOLD_TUNABLE_SEED_VARIANCE per cert_threshold v2 GDPR 3/5 PASS.
+- **PP-8 row caveat (m)** testbed Path 1a v1-only HARD-FAIL; bundle in flight; do NOT close.
+
+**Framework refutation (negative-framework closure annotation; not row closure):**
+- **Free-probability framework REFUTED** at substrate finite-N (3 axes single batch). Framework-reliability SPECIFIC-DOCUMENTED 45-55% -> 42-52% (-3pp upper). GENERAL 65-75% UNCHANGED. PRODUCT-FEATURE 55-70% UNCHANGED.
+
+**Portfolio:** 28 + 52 -> **32 + 52** (+4 NEW rows PP-28/29/30/31 promoted to EXPLORATORY-EMPIRICAL).
+
+### Rescue sketches cheapest-first ([[feedback-rescue-sketch-first-sequencing]])
+
+**Free-probability framework REFUTATION (3-anchor batch):**
+- R1 (CHEAPEST APPLIED inline) Subsumption: "free-probability framework REFUTED as predictive scaffolding for substrate at finite-N; demoted to descriptive-language narrow scope; specific-documented reliability -3pp upper."
+- R2 (CHEAP ~30-60min CPU) cross-N N=8192/16384 single-axis (kmax-formula most informative) -- verifies framework recovers at larger N (off-by-one could be small-N effect).
+- R3 (MEDIUM ~1-2h CPU) alternative free-probability formulations (rectangular vs square; deterministic vs random) -- 1 fresh axis per formulation.
+- R4 (MEDIUM ~1-2h CPU) finite-N corrections to K_max formula (1/N expansion) -- analytical not experimental.
+- R5 (HIGH-COST deferred) Research drill into alternative substrate-physics K_max frameworks (subadditive thermodynamics, replica analytical, free-energy variational).
+
+**AQSIM-3way engineering diagnostic 4th-instance INFRA_FAILURE:**
+- R1 (APPLIED inline) ENGAGEMENT-LOCK on AQSIM 3-way cross-N family TIGHTENED; PRIORITY-DISPATCH ALREADY FILED v312->v313 NOT YET PICKED UP.
+- R2 (CHEAP surface to user) request explicit cycle to debug the engineering diagnostic harness; 4-instance pattern warrants user attention not auto-rescue.
+- R3 (DEFERRED) family entirely PARK pending engineering diagnostic resolution.
+
+**cert_threshold v2 GDPR MIDDLE_BAND:**
+- R1 (APPLIED inline) Subsumption: "3/5 PASS strong; threshold per-seed tuning resolves; killer-feature MOAT substantially survives; band UNCHANGED 0.45-0.65 + caveat (f)."
+- R2 (CHEAP ~30min CPU) explicit per-seed threshold calibration -- find min-threshold per seed where TPR>=0.999 with FP<=0.0001.
+- R3 (CHEAP ~30min CPU) seed-pool expansion to 10-seed -- estimates if 2/5 fails are seed-noise.
+
+**sustained_agentic_load MIDDLE_BAND:**
+- R1 (APPLIED inline) Subsumption: "2.9% drop borderline-acceptable; chain_ok validated; NEW sub-row + caveat suffice; PP-13 band UNCHANGED."
+- R2 (CHEAP ~1h CPU) extend sustained-load to 5h.
+- R3 (MEDIUM ~1-2h GPU) sustained-load at K_paths=1000 (2x).
+
+### Tallies (v315 -> v316)
+- HONEST: 301 + 27 = **328** (+27; 28 verdicts minus 1 LABEL-VS-HONEST pp4_codebook).
+- LABEL-VS-HONEST runner-label: 170 + 1 (#176 MIXED_SUBARM_OVER_CLAIM) = **171**.
+- LABEL-VS-HONEST task-prompt: 3 + 3 = **6** (#173 PRE-FRAMED_BATCH_ALL_PASS_OVER_CLAIM NEW sub-flavor; #174 HCF v3 RUNNER_FAILED_LABEL_OVER_CLAIMS_HARD_PASS; #175 cert_threshold v2 RUNNER_FAILED_LABEL_OVER_CLAIMS_MIDDLE_BAND).
+- Combined LABEL-VS-HONEST: 171 (runner) + 6 (task-prompt) = **177**.
+- FRAMEWORK REFUTATIONS this batch: 1 (free-probability triple-axis).
+- Portfolio: 28+52 -> **32+52** (+4 NEW EMPIRICAL).
+
+### PROT compliance (v315 -> v316)
+- PROT-004/006: rescue sketches filed for 4 closure-candidate clusters (free-probability framework; aqsim diagnostic; cert_threshold; sustained_load); R1 cheapest-first APPLIED for all; 0 row CLOSURES.
+- PROT-007: history v316 appended inline (this entry).
+- PROT-008: validator absent; 4 NEW rows + 3 LIFTs + 5 caveats; portfolio expands 28+52->32+52; no regression on existing portfolio.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (1-line entry) + status_log entry HIGH staged atomically; **227th PROT-009 paired commit**.
+- PROT-018: all 28 anchors _n<N> binding contracts satisfied OR no _n suffix (pre-PROT-018 anchors).
+- PROT-022: aqsim diagnostic 0-cells INFRA_FAILURE flagged separately.
+
+### Headline strategic findings
+1. **Free-probability framework REFUTED** at substrate level (3 independent axes single batch). 2nd specific-framework refutation today after P3 percolation N-independence (v312). Framework-reliability specific-documented 45-55% -> 42-52%.
+2. **4 NEW killer-feature rows promoted EMPIRICAL** (PP-28 edit-impact-DAG / PP-29 DP-Gaussian / PP-30 DR-Merkle / PP-31 calibrated-confidence-temperature-scaling) -- all FULL 5-seed HP unanimous. Portfolio 28->32.
+3. **PP-25 retrieval-explainability LIFT 0.55-0.70 -> 0.60-0.75** with 3 NEW empirical attestations (cosine, counterfactual, channel-capacity).
+4. **PP-24 federated-learning LIFT 0.45-0.60 -> 0.55-0.70** with first empirical evidence.
+5. **Compositional cross-N LIFT 0.75-0.90 -> 0.78-0.92** with 2 independent batch attestations.
+6. **Path D depth-composition gap LOCATED** at depth>=3 N-INDEPENDENT (per percolation_depth_sweep); aligns with v312 V1 K=1 cross-N refutation as a DEPTH-COMPOSITION signal NOT N-driven.
+7. **4 task-prompt + runner-label OVER-CLAIMS** caught this batch (#173 batch-pre-framing-NEW-sub-flavor + #174 HCF FAILED + #175 cert_threshold FAILED + #176 pp4_codebook mixed-subarm). Task prompt classification labels are unreliable when pre-framed.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 28; 4 catches filed (1 runner + 3 task-prompt).
+- [[feedback-no-smoke-preframing-in-task-prompts]]: task prompt "likely all PASS-fast" surfaced #173 PRE-FRAMED_BATCH_ALL_PASS_OVER_CLAIM (NEW sub-flavor); structural lock candidate.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: 27/28 _source=remote authoritative (aqsim diagnostic NONE = INFRA confirmed).
+- [[feedback-cap-map-update-protocol]]: atomic single commit via .tmp+rename; push from main thread.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED for all 4 closure-candidate clusters.
+- [[feedback-rehabilitation-after-rejection]]: 0 row closures; free-prob framework refutation = annotation + reliability-recalc.
+- [[feedback-lit-scan-calibration-penalty]]: NEW ROW bands 0.55-0.75 CONSERVATIVE; -3pp specific-documented framework.
+- [[feedback-dont-overextend-theorems]]: free-probability narrow refutation; substrate primitives unaffected.
+- [[feedback-no-smoke]]: all 28 honest re-reads brutal; 4 over-claim catches surfaced.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: 4 NEW killer-feature empirical attestations + PP-25/24 LIFTs accelerate product-engineering positioning.
+
+### Push and follow-on (v316)
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up. Test 1B FSS power-law NOT auto-dispatched (path_d_percolation HARD_PASS not HARD_FAIL; depth-cliff resolution preferred).

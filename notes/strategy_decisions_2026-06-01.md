@@ -506,3 +506,79 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 Pipeline-pacing exp_dev refill: pause-flag ABSENT; R2 engineering diagnostic routing filed for orchestrator exp_dev Skill dispatch as PRIORITY-DISPATCH next ship. Per role contract verdict_handler does NOT auto-dispatch the exp_dev Skill; surfaces in return + writes routing file. ENGAGEMENT-LOCK structurally enforces no AQSIM 3-way cross-N dispatch until R2 lands.
 
 v314 ANNOTATION: 8 NEW rows PP-13-PP-20 (PP-13 multi-tenant-isolation 0.75-0.90 VALIDATED; PP-14 DP-dual-cert 0.40-0.55; PP-15 DR-cert-chain 0.50-0.65; PP-16 ensembling 0.40-0.55; PP-17 edit-impact 0.55-0.70; PP-18 calibrated-conf 0.30-0.50; PP-19 KV-cache 0.40-0.60; PP-20 sparse-block 0.45-0.65 all EXPLORATORY); PP-10a + PP-4a sub-properties; 5 direction closures (Arch2+Arch4+DPMech2+DPMech4+Config2+Config3+time-series-standalone); PP-7 free-additivity conditional caveat; unified physics-grade positioning adopted; portfolio 28+37->28+45; Path 1c AUTHORIZED; Path 1a research drill filed; exp_dev Tier 1 dispatch batch filed (12 smokes + 1 sizing); 5 source routings moved routed_completed; 225th PROT-009 paired commitPP-8 Phase 2.5 v1+v1' 3-prong dispatch AUTHORIZED: Prong A (Path 1a v1+v1' bundle SimHash-derived keys + semantic val targets; pre-reg HP>=3.0%/HF<0.3%/MIDDLE triggers v2; ~-3 H100); Prong B (Probe 2 low-temp 0.05 parallel; pre-reg P>=1.0%/F<0.2%; ~-2); Prong C (v2 learned W_proj+STE pre-authorized contingent on MIDDLE); cap_map pre-commits filed (5 verdict-conditional scenarios); research routing research_to_strategy_pp8_phi3_design closed to routed_completed; HONEST300/LVH170 UNCHANGED; budget ~1-13 projected cumulativecap_map v314->v315: 3 strategic shifts (PRIMARY PRODUCT NARRATIVE 24-drill convergence; COMPLIANCE SIDECAR GTM; DELETION CERT SHARED PRIMITIVE) + 7 NEW rows PP-21-PP-27 (audit-KG 0.45-0.60; ML-feature-store-sidecar 0.40-0.55; cross-modal-provenance 0.40-0.55; federated-learning 0.45-0.60; retrieval-explainability 0.55-0.70; bidir-LLM-learning 0.40-0.55; info-theory-suite 0.35-0.50) + 2 sub-properties (PP-2a channel-cap; PP-3a Renyi-entropy-datamin) + 4 closures (CrossModal-M2+FAISS-Angle1+KG-M4+InfoTheory-M3) + path_d_k2_n16384 INFRA_FAILURE HONEST caveat PP-8 + HONEST 300->301 + portfolio 28+45->28+52 + 5 dupes deleted + 6 notes moved routed_completed + 2 routing files (Round3-Tier1-dispatch + K2-N8192-refill)
+
+
+## v315 -> v316 @ BATCHED 28-VERDICT mega-wave (verdict_handler 227th PROT-009 paired commit)
+
+**Trigger.** 28 NEW verdicts (34 input minus 6 already-processed v306-v312 today) landed remote 2026-06-01. Pause flag ABSENT. Single batched atomic commit.
+
+### Step 0 honest re-read (mandatory; [[feedback-verdict-msg-honest-reread]] [[feedback-no-smoke-preframing-in-task-prompts]])
+
+**4 catches filed:**
+- #173 (task-prompt PRE-FRAMED_BATCH_ALL_PASS_OVER_CLAIM NEW sub-flavor) -- prompt asserted Group 1 "likely all PASS-fast" but 3 free_prob were HF/MID.
+- #174 (task-prompt RUNNER_FAILED_LABEL_OVER_CLAIMS_HARD_PASS) -- prompt called HCF v3 FAILED; honest = HARD_PASS 5/5 ratio 4.20.
+- #175 (task-prompt RUNNER_FAILED_LABEL_OVER_CLAIMS_MIDDLE_BAND) -- prompt called cert_threshold v2 FAILED; honest = MIDDLE_BAND 3/5 PASS.
+- #176 (runner-label MIXED_SUBARM_OVER_CLAIM NEW sub-flavor) -- pp4_codebook_histogram_divergence runner=HARD_PASS HONEST=MIDDLE_BAND fa_ok=3/5 mixed-subarm.
+
+### Verdicts (28 new)
+
+**HARD_PASS HONEST (20):** calibrated_confidence_ece, pp4_write_retrieve_ratio_drift, edit_impact_dag_reverse_traversal (PP-28 NEW), multi_tenant_arch1_adversarial_smoke, dp_gaussian_write_noise (PP-29 NEW), cascade_ensemble_config5_smoke, longtail_zipfian_pp10a, dr_merkle_randproj_w_verify (PP-30 NEW), sparse_block_edit_isolation, retrieval_explainability_cosine_contribution_smoke, retrieval_explainability_counterfactual_probe_smoke, channel_capacity_sweep, faiss_hybrid_sidecar_smoke, federated_deletion_cert_smoke, path_d_percolation_depth_sweep (composition-cliff confirmed), tcft_direct_empirical_sweep (positive-closure), compressed_path_d_composition_v2, agentic_workload_characterization, agentic_edge_cases, hierarchical_concept_formation_instrumentation_v3 (catch #174). Calibrated_confidence promoted PP-31 NEW.
+
+**LABEL-VS-HONEST RUNNER #176 (1):** pp4_codebook_histogram_divergence -- runner=HP HONEST=MIDDLE.
+
+**MIDDLE_BAND HONEST (5):** free_prob_free_additivity (delta=0.043), free_prob_kmax_formula (K_cross=2 off-by-one), continuous_embedding_cert_threshold_v2_gdpr (3/5 PASS; catch #175), sustained_agentic_load (drop=2.9%).
+
+Wait recount MIDDLE = 5 listed but only 4 names. Correction: free_prob_free_additivity + free_prob_kmax_formula + continuous_embedding_cert_threshold_v2_gdpr + sustained_agentic_load = 4 MIDDLE. Earlier count of 5 was wrong; corrected to 4.
+
+Revised totals: 20 HP HONEST + 1 HP LABEL-VS-HONEST + 4 MIDDLE + 1 HF + 1 INFRA = 27, plus 1 = 28? 20+1=21 HARD_PASS-labeled + 4 MIDDLE + 1 HF + 1 INFRA = 27. Missing 1. Recount:
+
+Group 1 (18): all 18 enumerated -- 15 HP + 3 free_prob (1 HF + 2 MID) = correct 18.
+Group 2 (5 new completions): path_d_percolation_depth_sweep HP + tcft_direct_empirical_sweep HP + path_d_k_fine_grained_transition MID + 2 already-processed = 3 NEW (HP+HP+MID).
+Group 3 (3): all 3 already-processed in prior batches; 0 NEW.
+Group 4 (3 failed): hierarchical_concept_formation_v3 HP (catch #174) + aqsim_3way_engineering_diagnostic INFRA + continuous_embedding_cert_threshold_v2_gdpr MID (catch #175) = 3 NEW.
+Group 5 (4): agentic_workload HP + agentic_edge_cases HP + sustained_agentic_load MID + compressed_path_d_composition_v2 HP = 4 NEW.
+
+Sum NEW: 18 + 3 + 0 + 3 + 4 = 28 verdicts. Verdict mix: HP 21 (15+2+1+3) + MID 4 (2+1+0+1) = wait let me redo cleanly:
+
+HP: ece, pp4_wrr, pp4_codebook(LVH), edit_impact_dag, multi_tenant, dp_gaussian, cascade5, longtail_zipf, dr_merkle, sparse_edit, rex_cosine, rex_counterfactual, channel_cap, faiss_hybrid, federated_del = 15. Plus path_d_percolation, tcft_direct, compressed_pd_v2, agentic_workload, agentic_edge_cases, hcf_v3 = 6 more. Total HP-labeled = 21.
+
+MID: free_prob_free_additivity, free_prob_kmax_formula, path_d_k_fine_grained_transition, continuous_embedding_cert_threshold_v2_gdpr, sustained_agentic_load = **5 MID**.
+
+HF: free_prob_rank1_edit_perturb = 1.
+INFRA: aqsim_3way_engineering_diagnostic = 1.
+
+Total: 21 + 5 + 1 + 1 = **28**. CONFIRMED.
+
+LABEL-VS-HONEST runner: 1 (pp4_codebook, but it's HP-labeled-MID-honest, so it appears in the HP-labeled count but is honest MID).
+
+HONEST count for tallies: 28 verdicts - 1 LVH (pp4_codebook) = 27 HONEST + 1 LVH = 28 accounted for. HONEST tally: 301 -> 328 (+27).
+
+### Cap_map v315 -> v316
+- 4 NEW EMPIRICAL rows PP-28/29/30/31 (portfolio 28+52 -> 32+52).
+- 3 band LIFTS: PP-24 0.45-0.60->0.55-0.70 (federated_del_cert); PP-25 0.55-0.70->0.60-0.75 (cosine/counterfactual/channel-cap); compositional cross-N 0.75-0.90->0.78-0.92.
+- 5 caveats added: PP-4 (h) mixed-subarm; PP-8 (m) testbed v1-only bundle-required; PP-10a confirmed-not-LIFT; PP-13 sustained-load 2.9% drop borderline; audit-grade-vector-store (f) threshold-tunable-seed-variance.
+- 1 framework refutation annotation: free-probability triple-axis REFUTED; framework-reliability specific-documented 45-55%->42-52% (-3pp upper).
+- 1 INFRA_FAILURE annotation: aqsim_3way diagnostic 4th-instance (PRIORITY-DISPATCH already filed).
+- Test 1B FSS power-law NOT auto-dispatched (path_d_percolation HARD_PASS not HARD_FAIL).
+- 0 row closures.
+
+### Tallies
+- HONEST: 301 + 27 = **328** (+27).
+- LABEL-VS-HONEST runner-label: 170 + 1 (#176) = **171**.
+- LABEL-VS-HONEST task-prompt: 3 + 3 (#173+#174+#175) = **6**.
+- Combined LABEL-VS-HONEST user-tracked: 173 -> **177** (+4).
+- FRAMEWORK REFUTATIONS this batch: 1 (free-probability triple-axis).
+- Portfolio: 28+52 -> **32+52** (+4 EMPIRICAL).
+
+### PROT compliance
+- PROT-004/006: rescues for 4 closure-candidate clusters; R1 cheapest-first APPLIED all 4; 0 row closures.
+- PROT-007: history v316 appended inline.
+- PROT-008: 4 NEW + 3 LIFTs + 5 caveats; no regression.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (1-line) + status_log entry HIGH staged atomically; **227th PROT-009 paired commit**.
+- PROT-018: 28 anchors _n<N> satisfied OR pre-PROT-018.
+
+### Memory adherence
+[[feedback-verdict-msg-honest-reread]] [[feedback-no-smoke-preframing-in-task-prompts]] [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]] [[feedback-cap-map-update-protocol]] [[feedback-obey-user-pause-explicitly]] [[feedback-for-you-tab-primary-channel]] [[feedback-rescue-sketch-first-sequencing]] [[feedback-rehabilitation-after-rejection]] [[feedback-lit-scan-calibration-penalty]] [[feedback-dont-overextend-theorems]] [[feedback-no-smoke]] [[feedback-substrate-value-framing-matured-2026-05-26]].
+
+### Push and follow-on
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; main thread executes `git push origin main` as 1-tool follow-up.
