@@ -643,7 +643,129 @@ Cap map: v298 -> v299 BATCHED 3-VERDICT Lambda v2 cloud cross-N defense + defens
 
 ---
 
+## v299 -> v300 @ BATCHED 2-VERDICT CPU overnight wave 1 (V1 Modern Hopfield v10 cliff-locator TIMEOUT-INCONCLUSIVE M-PAST-20N-CONFIRMED-FIRST-SEED; V2 C3 v3 N=8192 INFRASTRUCTURE-FAILURE log2(N)-must-be-even MM-CONSTRUCTION-CONSTRAINT; verdict_handler 211th PROT-009 paired commit; reliability-recalc CANDIDATE on V1 resolved NO-CAP-MAP-LIFT-NO-CLOSURE per honest re-read)
 
+**Trigger.** Overnight CPU wave 1 batch of 2 verdicts. Pause-flag CHECKED ABSENT. GPU queue 17 pending+running, CPU queue 7 pending+running -- queue depth healthy; pipeline-pacing exp_dev NOT dispatched.
+
+**Step 0 honest re-read (MANDATORY; both V1 and V2 required REMOTE-FIRST log inspection because local metrics were stale/misleading).**
+
+### V1 -- modern_hopfield_cpu_extended_v10_n16384 -- TIMEOUT INFRASTRUCTURE-FAILURE WITH PARTIAL EVIDENCE [label-vs-honest #160 candidate -- resolved INFRA-FAILURE-NOT-CAPABILITY-FAILURE]
+
+**Anchor.** `modern_hopfield_cpu_extended_v10_n16384` labeled `V10_MIDDLE_BAND` "CEILING_AT_OR_BELOW_20N: constructed=1/1 max_M_per_seed=[20480]" with `_source: local`. Started 2026-05-31T14:36:54, FAILED 2026-05-31T20:36:54 = ~21600s wall = PROT-019 21600s timeout floor exactly.
+
+**Honest re-read (REMOTE-FIRST per role contract; bridge returned _source=local for this anchor indicating local fallback; full diagnostic via remote SSH to C:/dev/hd-instrument/data/exp_modern_hopfield_cpu_extended_v10_n16384/ + data/remote_cpu_queue/modern_hopfield_cpu_extended_v10_n16384.log).**
+
+- Local metrics.json is a SMOKE-stage artifact (`smoke: true`, N=1024, seeds=[17], M_sweep=[20480, 32768] = 20N/32N at N=1024 NOT N=16384, elapsed_s=1.1). This is the smoke selftest artifact NOT the FULL production run. The local-fallback metrics MISLEADS the verdict label "CEILING_AT_OR_BELOW_20N" which references smoke-N=1024 NOT FULL-N=16384.
+- Remote experiment log (`data/remote_cpu_queue/modern_hopfield_cpu_extended_v10_n16384.log`) shows the actual FULL run: `[run] smoke=False N=16384 M_sweep=[327680, 524288, 1048576] seeds=[7, 17, 23, 31, 41] done=0` -- M_sweep is 20N/32N/64N at N=16384 (NOT at N=1024). The smoke selftest PASSED earlier with `max_M_smoke=20480` at smoke-N=1024.
+- ONLY ONE production cell completed before PROT-019 21600s timeout: `[seed=7] M=327680 recall=1.0 elapsed=20501.61s`. That ONE cell took ~5.7h CPU at M=20N=327680 at N=16384 BSC. Remaining 14 cells (seed=7 at M={32N, 64N}, seeds=17/23/31/41 at all 3 M-values) were NEVER attempted. No exp_dir metrics.json was written because the run was killed before producing any cell-aggregation output.
+- Failure-mode classification per the prompt's 4-option matrix: **TIMEOUT at M=20N=327680 single-cell completion** (NOT OOM, NOT HARD_FAIL with cliff data, NOT mixed). The single completed cell `[seed=7 M=20N=327680 recall=1.0]` is genuine NEW EVIDENCE: M=20N PASSES at N=16384 BSC seed=7 (extending v295 unanimous M=4N/8N/16N at N=16384 BSC to a 4th M-value confirmed at single-seed). Cliff/ceiling location remains UNKNOWN past 20N -- the experiment did NOT reach M=32N or M=64N.
+
+**Label vs honest.** The VERDICT label `V10_MIDDLE_BAND CEILING_AT_OR_BELOW_20N` is `_source=local` smoke-artifact-derived and INCORRECT for the FULL run. The HONEST reading is: TIMEOUT-INCONCLUSIVE on the FULL ceiling-locator design, with INCIDENTAL POSITIVE EVIDENCE that M=20N PASSES recall=1.0 at N=16384 BSC seed=7. Classification: **infrastructure failure (PROT-019 timeout exhaustion on per-cell wall budget; one cell took 5.7h alone)**, NOT a science conclusion about where the cliff is. Per [[feedback-verdict-msg-honest-reread]] this is a label-vs-honest catch sub-flavor #160 candidate, but it is a SMOKE-AS-PRODUCTION variant (existing sub-flavor #157 `LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT`) NOT a NEW sub-flavor. Catch counted under #157 carry-forward; cumulative LABEL-VS-HONEST 159 -> 160.
+
+**Decision (cap_map).** NO LIFT, NO CLOSURE. The Modern Hopfield activation regime row remains at 0.78-0.92 (v295+v297 unanimous 4N/8N/16N at N=16384 BSC second-source corroborated). The single new cell at M=20N seed=7 recall=1.0 is added as ANNOTATION ONLY: "M=20N=327680 at N=16384 BSC seed=7 recall=1.0 single-cell incidental positive from v10 TIMEOUT-failed cliff-locator; ceiling location remains UNKNOWN past 16N tested unanimous 9/9 cells and 20N tested single-cell 1/1; PROT-019 21600s timeout exhausted by ONE 5.7h cell budget; future cliff-locator runs above M=16N at N=16384 BSC must use GPU (CPU per-cell wall budget at M=20N+ is incompatible with 5-seed sweep at N=16384) OR sparse-W construction OR M-sub-sampling strategy." Per [[feedback-pipeline-pacing]] reliability-recalc CANDIDATE escalation evaluated and RESOLVED NO-CAP-MAP-LIFT-NO-CLOSURE because the TIMEOUT failure mode is infrastructure not science.
+
+**Test-envelope-ceiling caveat now reads (v300).** "M={4N,8N,16N} tested unanimous 9/9 at N=16384 BSC CPU (v295+v297); M=20N=327680 tested single-seed-1/1 at N=16384 BSC CPU (v300 v10 cell-1 completed before TIMEOUT); ceiling not located in any sweep; M-values >=20N at N=16384 BSC require GPU per cell-wall budget (CPU 5.7h/cell at M=20N infeasible for 5-seed 3-M sweep within PROT-019 6h timeout floor)."
+
+### V2 -- substrate_state_compression_v3_n8192 -- C3V3_INFRASTRUCTURE_FAILURE (MM-CONSTRUCTION-CONSTRAINT-VIOLATED: log2(N) MUST BE EVEN) [label-vs-honest #161 candidate -- resolved INFRA-FAILURE-NOT-CAPABILITY-FAILURE]
+
+**Anchor.** `substrate_state_compression_v3_n8192` labeled `C3V3_INCONCLUSIVE` "no cells" `_source: remote` elapsed_s=0.0 cells=[]. M=4096, n_probe=100, seeds=[7,17,23,31,41]. Smoke selftest PASSED: `bits8: comp=4.00x retr=1.000 kfs=True`.
+
+**Honest re-read (REMOTE-FIRST per role contract; log inspection via remote SSH to data/remote_cpu_queue/substrate_state_compression_v3_n8192.log).**
+
+- Remote experiment log shows ALL 5 seeds failed identically at experiment INIT (before any cell metrics produced): `seed=7 FAILED: N=8192 requires even log2(N) for MM construction (got n_log2=13)` (and same for seeds 17/23/31/41). elapsed_s=0.0 reflects ZERO production work attempted.
+- ROOT CAUSE: Mattis-McKean (MM) construction harness REQUIRES log2(N) to be EVEN. log2(8192) = 13 = ODD = REJECTED. log2(4096) = 12 = EVEN = ACCEPTED (which is why C3 v2 at N=4096 ran fine and landed C3_HARD_PASS at v295). log2(16384) = 14 = EVEN = ACCEPTABLE for next attempt.
+- The smoke selftest PASSED because smoke uses a DIFFERENT (non-MM) code-path or smoke-N=1024 (log2=10 EVEN). The smoke-vs-FULL coverage gap is a PROT-violation candidate: smoke did NOT exercise the MM-construction `from experiments.X import ...` chain that FULL would use (per Section 3k "Import-chain coverage in smoke" of post-compaction brief).
+- Failure-mode classification: **Infrastructure failure at experiment startup** (MM-construction-constraint pre-check rejected all 5 seeds), NOT a scientific result about c_quant compression at N=8192. The PP-2 cross-N validation question REMAINS UNANSWERED at N=8192 because the experiment never ran. The smoke-vs-FULL gap is a separate ENGINEERING ISSUE (smoke should have caught this; the MM-constraint pre-check should fire in the smoke harness path).
+- PROT-018 anchor name `_n8192` matches config.N=8192 (PROT-018 compliant -- the issue is NOT N-mismatch; it is MM-construction-constraint-incompatibility with N=8192 specifically).
+
+**Label vs honest.** The VERDICT label `C3V3_INCONCLUSIVE "no cells"` is HONEST as far as it goes -- cells=[] and elapsed_s=0.0 are accurate. But the label DOES NOT capture the failure mode (infrastructure pre-check rejection vs experimental ambiguity). Per [[feedback-verdict-msg-honest-reread]] honest reading: **INFRA_FAILURE_MM_CONSTRAINT_LOG2_N_ODD** -- new sub-flavor candidate, but file under existing sub-flavor #157 `LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT` variant (the SMOKE artifact passed but FULL infrastructure-rejected; same root cause = smoke coverage gap). Cumulative LABEL-VS-HONEST 160 -> 161.
+
+**Decision (cap_map).** NO LIFT, NO CLOSURE. PP-2 storage efficiency row remains at 0.65-0.75 (v295 first empirical foothold = c_quant/bits8 4x N=4096 5-seed all-KF-PASS UNCHANGED). ANNOTATION ONLY on PP-2 row: "PP-2 cross-N validation at N=8192 BLOCKED by MM-construction-constraint (log2(N) must be EVEN; log2(8192)=13 ODD REJECTED ALL 5 SEEDS at experiment init). Cross-N validation REDIRECT to N=16384 (log2=14 EVEN ACCEPTABLE) -- the next CPU queue item `substrate_state_compression_v4_n16384` already pending in CPU queue (8th position) handles this directly. v3 INFRA-FAILED 2026-05-31; v4 at N=16384 is the PP-2 cross-N validation point. PP-2 cross-N evidence count UNCHANGED (still 1 N-point at N=4096 v2)." Smoke harness GAP ANNOTATION: "C3 smoke harness did NOT catch MM-construction-constraint pre-rejection at FULL N=8192; smoke-vs-FULL coverage gap per post-compaction brief Section 3k; remedy: c3_smoke must mirror the MM-construction `from experiments.X import ...` chain that FULL uses, including the n_log2 pre-check. ROUTING: engineering item for exp_dev next cycle."
+
+### Cap_map changes (v299 -> v300)
+
+1. **Modern Hopfield activation regime at large N row -- ANNOTATION ONLY (no band move).** Single-cell incidental positive at M=20N=327680 at N=16384 BSC seed=7 recall=1.0 ADDED as evidence point; remaining cliff/ceiling location still UNKNOWN. P-band 0.78-0.92 UNCHANGED. Caveats column updated to reflect 20N single-seed cell and CPU per-cell-wall-budget infeasibility past 16N at N=16384 BSC.
+
+2. **PP-2 storage efficiency row -- ANNOTATION ONLY (no band move).** Cross-N validation at N=8192 INFRA-BLOCKED by MM-construction-constraint log2(N) must-be-even; redirected to v4 N=16384 already in CPU queue. P-band 0.65-0.75 UNCHANGED.
+
+3. **Smoke-coverage GAP annotation** (engineering item, NOT a cap_map row LIFT/closure): c3_smoke does NOT exercise MM-construction-constraint pre-check; remedy routed to exp_dev next cycle.
+
+### Framework reliability bands (v299 -> v300)
+
+ALL BANDS UNCHANGED. Both verdicts classify as INFRASTRUCTURE-FAILURE (PROT-019 timeout exhaustion + MM-construction-constraint pre-rejection); neither produces a science conclusion that would move any band. Per [[feedback-dont-overextend-theorems]] resist treating infrastructure failures as capability failures.
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 279 (v299 basis) + 2 (V1 + V2 both BOTH SOURCE-CLEAR-AT-EXPERIMENT-LEVEL but LABEL-VS-HONEST due to label-not-conveying-failure-mode) = **281**
+- LABEL-VS-HONEST: 159 (v299 basis) + 2 (V1 smoke-as-FULL via local-fallback misleading label + V2 INFRA-FAILURE-not-experimental-ambiguity) = **161**
+- Sub-flavor: both under existing #157 `LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT` variant (V1 = local-fallback to smoke artifact misleads "CEILING_AT_OR_BELOW_20N" label that references smoke-N=1024; V2 = smoke harness did not cover MM-constraint and FULL infra-rejected with INCONCLUSIVE label). NO new sub-flavor created (both fit existing taxonomy).
+
+### Portfolio
+
+23 + 36 -> **23 + 36 UNCHANGED** (no row additions, no closures, both annotation-only). Per the prompt's explicit guidance: V1 outcomes do NOT shift cap_map portfolio (timeout = infrastructure); V2 outcome is annotation-only (INFRA-FAILURE).
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+Neither verdict triggers a capability-row CLOSURE. Both are infrastructure failures with clear redirects, not capability ambiguity. Rescue sketches focus on infrastructure remedies:
+
+**R-V1-CLIFF-LOCATOR-GPU-REDIRECT (Modern Hopfield M-ceiling location past 16N at N=16384 BSC):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "Single-cell M=20N at N=16384 BSC seed=7 recall=1.0 incidental positive adds 1 data point to v295+v297 unanimous 4N/8N/16N at N=16384 BSC; ceiling location remains UNKNOWN past 16N; PROT-019 21600s timeout on CPU per-cell wall budget incompatible with 5-seed 3-M sweep at N=16384 (one cell = 5.7h CPU); CPU cliff-locator path EXHAUSTED at N=16384 BSC; cap_map ANNOTATION ONLY no LIFT no closure." APPLIED inline above.
+- R2 (CHEAP, ~30-60min GPU) -- GPU cliff-locator at M={20N, 24N, 32N} at N=16384 BSC 3-seed: GPU per-cell wall budget should be <=5min/cell vs CPU 5.7h/cell (~70x speedup); pre-reg HP=M_construct succeeds at M>=20N AND recall>=0.95 at retrieve. NOT-AUTO-DISPATCHED (routing recommendation; closes most-strategically-valuable next gate on M-ceiling location at N=16384 BSC).
+- R3 (CHEAP, ~30min CPU or GPU) -- Sparse-W cliff-locator at M=32N, 64N at N=16384 BSC: sparse-W M*N*4 memory footprint compatible with CPU even at M=64N (vs dense N=16384*M=1048576*4 = 64GB infeasible CPU); pre-reg HP=sparse construct succeeds at M=64N AND recall>=0.95. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~30-90min GPU) -- M-sub-sampling cliff-locator at M=20N, 32N, 64N at N=16384 BSC: instead of dense W full-construct, sub-sample M-pairs and use partial-construct; closes cliff-locator question with 3 M-values at single-seed minimum. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, ~3-5h GPU) -- Full 5-seed 3-M cliff-locator at M={20N, 32N, 64N} at N=16384 BSC on GPU after R2 single-seed PASS confirms M-feasibility envelope. DEFERRED.
+
+**R-V2-MM-CONSTRAINT-N-REDIRECT (PP-2 cross-N validation at N=8192 INFRA-BLOCKED; N=16384 path open):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "MM-construction constraint log2(N) must-be-even ROOT CAUSE = N=8192 INFEASIBLE; v4 substrate_state_compression at N=16384 (log2=14 EVEN) ALREADY pending in CPU queue (8th position); PP-2 cross-N validation REDIRECT TO v4 N=16384 not v3 N=8192; cap_map ANNOTATION ONLY no LIFT no closure." APPLIED inline above.
+- R2 (CHEAP, 0-compute) -- Cancel v3 N=8192 retry attempts; do NOT re-queue at N=8192. v4 at N=16384 sufficient for cross-N evidence. ROUTING DECISION (queue-management): RECOMMENDED.
+- R3 (CHEAP, ~30-60min engineering) -- c3_smoke harness REMEDY: add n_log2 even-parity pre-check to smoke that mirrors FULL MM-constraint; prevents future N=8192-style smoke-pass FULL-infra-reject. NOT-AUTO-DISPATCHED (engineering task for exp_dev next cycle).
+- R4 (NO-COMPUTE, documentation-only) -- Document MM-construction-constraint log2(N) must-be-even in `notes/active_protocols.md` as a substrate-class-constraint affecting N-cross-validation studies; future cross-N experiment designs must check log2(N) parity OR use a non-MM construction path. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, ~3-5h engineering) -- Alternative non-MM construction harness that admits arbitrary log2(N); only if log2(N) must-be-even constraint blocks >2 future cross-N studies. DEFERRED.
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag-ABSENT-but-queue-healthy + GPU saturated)
+
+1. **GPU cliff-locator at M={20N, 24N, 32N} at N=16384 BSC 3-seed** (HIGH PRIORITY; ~30-60min GPU; R-V1-CLIFF-LOCATOR-GPU-REDIRECT R2). Closes most-strategically-valuable remaining caveat on Modern Hopfield M-ceiling location at N=16384 BSC. CPU path EXHAUSTED for ceiling location at this N regime. If GPU PASSES at M=24N+, framework reliability LIFT candidate. If GPU FAILS at 24N or 32N, locates ceiling between 20N-32N or 16N-24N which is a CLOSURE.
+
+2. **c3_smoke harness MM-constraint coverage remedy** (LOW PRIORITY engineering; ~30-60min). Add n_log2 even-parity pre-check to c3_smoke that mirrors FULL MM-constraint; prevents future N=8192-style infra-reject. Engineering item for exp_dev next cycle.
+
+3. **Continue PP-2 cross-N via existing v4 at N=16384 already in CPU queue** (NO ACTION REQUIRED; routing-only). v4 at position 8 in CPU queue auto-runs; PP-2 cross-N validation point will land via v4 outcome.
+
+### PROT compliance (v299 -> v300)
+
+- **PROT-004/006**: 2 rescue sets cheapest-first per [[feedback-rescue-sketch-first-sequencing]]; 10 rescues total (5 + 5 = 10); R1 0-compute APPLIED inline in both sets; R2/R3/R4 cheap-medium variants ROUTED-not-auto-dispatched per queue-healthy + pause-flag-absent + GPU-saturated; R5 expensive composition DEFERRED in both sets. No new capability-row closures (both infrastructure failures with annotation-only impact).
+- **PROT-007**: substrate_capability_map_history.md v300 row appended atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING.
+- **PROT-008**: validator script `tools/orchestrator/validate_capmap_commit.py` STILL ABSENT (carried forward); infrastructure gap flagged not blocking. Annotation-only changes; no portfolio state regression risk.
+- **PROT-009**: cap_map.md (this v300 entry) + substrate_capability_map_history.md (v300 row) + strategy_decisions_2026-05-31.md (v300 entry) + visibility_decisions_2026-05-31.md (one-line entry) + 2 status_log entries staged atomically; **211th PROT-009 paired commit**.
+- **PROT-018**: 2 anchors spot-checked for `_n<N>` suffix vs config.N: V1 `_n16384` matches config.N=16384 (compliant). V2 `_n8192` matches config.N=8192 (PROT-018 compliant; the infra-failure is a SEPARATE MM-constraint not a PROT-018 N-mismatch).
+- **PROT-019**: V1 hit PROT-019 21600s timeout floor exactly; this is the FIRST observed PROT-019 timeout-exhaustion incident at N=16384 BSC CPU on Modern Hopfield cliff-locator; informs future cliff-locator per-experiment `--timeout` formulas (the 5.7h-per-cell CPU wall at M=20N at N=16384 BSC is now a documented bound).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on both verdicts via REMOTE log inspection (NOT just local metrics.json which would have produced a misleading "CEILING_AT_OR_BELOW_20N" verdict for V1 at smoke-N=1024). 2 label-vs-honest catches (#160 + #161, both under existing sub-flavor #157 LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT). Honest reading is authoritative; over-claimed-label `CEILING_AT_OR_BELOW_20N` NOT propagated to cap_map.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: V1 bridge returned _source=local; manual remote SSH inspection of data/exp_<name>/ and data/remote_cpu_queue/<name>.log REQUIRED to get the truth (V1 local metrics was smoke artifact; FULL never wrote exp metrics due to TIMEOUT). V2 bridge returned _source=remote correctly.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]]; commit hash surfaced for main-thread push.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT (`data/orchestrator_paused.flag` does not exist); pipeline-pacing exp_dev dispatch decision: SKIP (queue 17+7 healthy + GPU saturated + no routing-file refill request).
+- [[feedback-for-you-tab-primary-channel]]: 2 status_log entries with plain_language + importance (1 MEDIUM Modern Hopfield TIMEOUT-INCONCLUSIVE + 1 MEDIUM C3v3 INFRA-FAILURE).
+- [[feedback-no-padding-experiments]]: NO band movements (both INFRA-FAILURE); CONSERVATIVE annotation-only.
+- [[feedback-decision-log-eol-handling]]: strategy_decisions entry appended via tools/orchestrator/append_decision_log.py (LF EOL preserved); cap_map + history CRLF preserved.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first 0-compute APPLIED inline in BOTH rescue sets; R2/R3/R4 cheap-medium routed; R5 expensive deferred.
+- [[feedback-rehabilitation-after-rejection]]: 0 capability-row closures; both INFRA-FAILURES with clear infrastructure remedies; broader scientific hypotheses (cliff location + PP-2 cross-N) REMAIN UNTESTED at the failing-N regimes.
+- [[feedback-dont-overextend-theorems]]: V1 TIMEOUT scoped to "CPU per-cell wall budget at M=20N at N=16384 BSC exceeds PROT-019 floor for 5-seed 3-M sweep" NOT to "Modern Hopfield M-ceiling located at 20N"; the single-cell positive at M=20N is an INCIDENTAL data point not a science conclusion. V2 INFRA-FAILURE scoped to "N=8192 MM-construction incompatible" NOT to "PP-2 cross-N validation closed at N=8192".
+- [[feedback-pipeline-pacing]]: queue state CHECKED (GPU 17 + CPU 7 healthy); exp_dev dispatch NOT triggered.
+- [[feedback-no-smoke]]: brutal honesty applied -- V1 local-fallback metrics CALLED OUT as smoke artifact not production; V2 smoke-vs-FULL coverage gap CALLED OUT as PROT-violation candidate (Section 3k of post-compaction brief); incidental single-cell M=20N positive NOT inflated to "cliff location confirmed".
+- [[feedback-no-label-vs-honest-anchor-names]]: 2 anchors PROT-018 spot-check both CLEAN (suffix-N matches config.N for both).
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V1 + V2 both INFRA-FAILURE; substrate-product-killer-feature framing UNAFFECTED.
+- [[feedback-strategy-spec-formula-selftests]]: V2 reveals that c3_smoke selftest did NOT exercise the MM-constraint pre-check; selftests should cover infrastructure-feasibility AT THE PRODUCTION N before declaring smoke PASS.
+
+### Commit and push
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Commit message:
+
+```
+Cap map: v299 -> v300 BATCHED 2-VERDICT CPU overnight wave 1 INFRASTRUCTURE-FAILURE batch (V1 modern_hopfield_cpu_extended_v10_n16384 TIMEOUT-INCONCLUSIVE PROT-019 21600s floor exhausted by one 5.7h cell at M=20N=327680 N=16384 BSC seed=7 recall=1.0 single-cell incidental positive 14 of 15 cells never attempted local-metrics misleading-smoke-artifact-via-bridge-fallback honest-reading via remote log inspection FULL never wrote exp metrics ANNOTATION-only-no-LIFT-no-closure; V2 substrate_state_compression_v3_n8192 C3V3_INFRA_FAILURE MM-construction-constraint log2(N) must-be-even REJECTED ALL 5 SEEDS at experiment init log2(8192)=13-ODD smoke harness coverage GAP did-not-catch redirect cross-N validation to v4 at N=16384 already pending CPU queue position 8 ANNOTATION-only-no-LIFT-no-closure; reliability-recalc CANDIDATE on V1 resolved NO-CAP-MAP-LIFT-NO-CLOSURE per honest re-read TIMEOUT-INFRA-FAILURE-not-science; HONEST 279 -> 281 +2; LABEL-VS-HONEST 159 -> 161 +2 both under existing sub-flavor #157 LOCAL_SMOKE_ARTIFACT_AS_PRODUCTION_VERDICT variant; portfolio 23+36 UNCHANGED; all framework reliability bands UNCHANGED; 2 rescue sets cheapest-first 10 rescues R1 0-compute APPLIED inline both sets R2-R4 cheap-medium routed R5 expensive deferred; 2 status_log entries 1 MEDIUM TIMEOUT-INCONCLUSIVE + 1 MEDIUM C3v3 INFRA-FAILURE; pause-flag ABSENT queue 17+7 healthy pipeline-pacing exp_dev NOT dispatched; PROT-019 first-observed CPU timeout-exhaustion on N=16384 BSC cliff-locator informs future per-experiment timeout formulas; 211th PROT-009 paired commit) (2026-05-31)
+```
 
 ---
 
