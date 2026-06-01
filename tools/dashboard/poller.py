@@ -137,33 +137,56 @@ class Poller:
                     except OSError:
                         continue
                     fname = p.name
-                    # Parse from-session from filename heuristics
+                    # First pass: rtype from filename (reliable)
                     if fname.startswith("strategy_request_to_"):
-                        sender = "research" if "_research_" in fname else (
-                            "testbed" if "testbed" in fname else "any")
                         rtype = "request"
                     elif fname.startswith("strategy_response_to_"):
-                        sender = "orchestrator"
                         rtype = "response"
-                    elif fname.startswith("testbed_handoff_"):
-                        sender = "orchestrator"
-                        rtype = "handoff"
-                    elif fname.startswith("exp_dev_handoff_"):
-                        sender = "exp_dev"
-                        rtype = "handoff"
-                    elif fname.startswith("cloud_handoff_"):
-                        sender = "orchestrator"
+                    elif fname.endswith("_handoff_") or "_handoff_" in fname:
                         rtype = "handoff"
                     else:
-                        sender = "unknown"
                         rtype = "other"
-                    # First ~250 chars of body for summary preview
+
+                    # Read the file body (first ~800 chars) for:
+                    #   (1) authoritative sender attribution via the **From**:
+                    #       header (filename heuristics are unreliable -- e.g.,
+                    #       "strategy_request_to_research_*" filenames have
+                    #       "_research_" in the name but the SENDER is the
+                    #       orchestrator commissioning research, not research
+                    #       sending to itself).
+                    #   (2) summary preview (first non-meta paragraph).
                     try:
-                        body = p.read_text(encoding="utf-8", errors="replace")[:400]
+                        body = p.read_text(encoding="utf-8", errors="replace")[:800]
                     except OSError:
                         body = ""
-                    # Drop the top-level # heading + meta lines; take first
-                    # non-meta paragraph as summary.
+
+                    # Default sender: derived from filename type (correct for
+                    # handoff/response cases where orchestrator is always the
+                    # sender). request files default to "unknown" pending body
+                    # parse.
+                    if rtype == "response" or rtype == "handoff":
+                        sender = "orchestrator"
+                    elif rtype == "request":
+                        sender = "unknown"
+                    else:
+                        sender = "unknown"
+
+                    # Authoritative sender parse: scan body for "**From**: X session"
+                    # or "**From**: X" pattern at line start.
+                    for line in body.splitlines()[:20]:
+                        s = line.strip()
+                        if s.lower().startswith("**from**:"):
+                            # Extract after the colon, strip ** markers, take
+                            # first word that names a session.
+                            rest = s.split(":", 1)[1].strip().strip("*").strip()
+                            # First token; lowercase; trim possible " session"
+                            tok = rest.split()[0].lower() if rest.split() else ""
+                            if tok in ("orchestrator", "research", "testbed",
+                                       "cloud", "exp_dev", "user"):
+                                sender = tok
+                            break
+
+                    # Summary preview: first non-meta paragraph.
                     summary = ""
                     for line in body.splitlines():
                         s = line.strip()
