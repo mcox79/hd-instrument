@@ -776,3 +776,39 @@ This catches the arg-count mismatch that caused v1 INSTRUMENTATION_FAIL on:
 
 **Adherence marker**:
 PROT-013 compliance: _instrumentation_selftest() includes evaluate_bpc callable check (or script does not call evaluate_bpc).
+
+---
+
+## PROT-018 — Anchor-name N-suffix binding (exp_dev + queue_add.py enforcement)
+
+- **Status**: active (approved 2026-05-27; evidence: 60+ label-vs-honest mismatches in a single day where `_n4096` anchor names ran at N=512 in 2.6s — smoke config leaked into the queued full run)
+- **Applies to**: Experiment Dev (script authoring); queue_add.py (ship-time gate)
+- **Trigger**: every exp_dev cycle that produces an anchor whose name contains `_n<NUMBER>`
+- **Per-anchor, always-on**
+
+**Rule**: the anchor name `_n<NUMBER>` suffix is a BINDING CONTRACT, not a label.
+
+1. If anchor name contains `_n<NUMBER>` (e.g. `_n4096`, `_n8192`, `_n16384`):
+   - The script's PRODUCTION config (top-level `N = ...`, argparse default, etc.) MUST equal that number.
+   - Smoke runs at a smaller N are expected and allowed — smoke is a gate, not the final config.
+   - But the FULL queued configuration must set N = suffix-N.
+
+2. Pre-ship audit (exp_dev, MANDATORY):
+   ```bash
+   grep -E "(N\s*=|n\s*=)\s*<SUFFIX_N>" experiments/exp_<name>.py
+   ```
+   If no match → BLOCK ship. Fix the script or fix the anchor name before queueing.
+
+3. If anchor name lacks `_n<N>` suffix but script uses a non-obvious N: exp_dev MUST either add the suffix OR justify in the prereg under `## N-suffix` section.
+
+4. `_v<NUMBER>` version suffixes do NOT carry N-binding. Only `_n<NUMBER>` triggers this rule.
+
+5. **Structural enforcement: `tools/queue_add.py` exits with code 6 on N-suffix mismatch.**
+   The validator runs at gate time (before smoke), parses the anchor name for `_n<N>`, searches the script for a matching production-N assignment, and rejects if not found. exp_dev's pre-ship grep is defense-in-depth on top of this.
+
+**Why**: 60+ anchors shipped on 2026-05-27 where the production script had `N=512` (smoke config) but the anchor name declared `_n4096`. Verdicts logged the wrong scale, downstream analysis was misleading, and none of the standard smoke-pass gates caught it because smoke PASSED at N=512.
+
+**Adherence marker**:
+```
+PROT-018 compliance: anchor _n<N> suffix verified against script production N before ship; queue_add.py gate passed (exit 0).
+```

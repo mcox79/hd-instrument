@@ -45,4 +45,4 @@ All scripts updated with --self-test argparse gate (was missing, blocked queue_a
 REMOTE VERIFY: 8/8 PASS (queue_add.sh built-in SSH verify)
 PROT-018: all pass (N suffix binding confirmed pre-ship)
 PROT-019: all pass (timeouts >= tier minimums)
-2026-05-29: BE-1 precision sweep (6 _n8192 GPU anchors fp32/fp16/int8/int4/int2/int1) + phase region C/D (4 _n4096 GPU anchors kf1/kf2 x region_c/d beta=64) scripted, smoked, preregs filed; SSH offline so queue_add staged in exp_dev_to_queue note; TCFT/SS phase variants blocked Tier-2
+2026-05-29: BE-1 precision sweep (6 _n8192 GPU anchors fp32/fp16/int8/int4/int2/int1) + phase region C/D (4 _n4096 GPU anchors kf1/kf2 x region_c/d beta=64) scripted, smoked, preregs filed; SSH offline so queue_add staged in exp_dev_to_queue note; TCFT/SS phase variants blocked Tier-22026-05-29 Shipped kf3_cross_codebook_v1_n4096 to remote_cpu_queue (timeout=14400s; smoke=SMOKE_PARTIAL leakage=0.018 at 4x-smoke trending HP). Blocked KF-4 v4 (structural acc_drop=0 across 3 mechanisms; Kerdock error-correction absorbs drift) and BID v6 (BAND_MAX_INSIDE=0.55 not applicable to raw BSC pattern BID). Routing notes filed to Strategy.

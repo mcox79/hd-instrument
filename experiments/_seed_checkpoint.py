@@ -374,6 +374,81 @@ def clear_partials(out_dir: Path) -> int:
     return n
 
 
+def get_output_dir(anchor_name: str) -> Path:
+    """Return the canonical output directory for an experiment anchor.
+
+    Convention (enforced by queue_add.py + runner):
+        data/exp_<HDLAB_EXP_NAME>/
+
+    The runner sets HDLAB_EXP_NAME to the queued anchor name before launching
+    the script.  If the env var is absent (direct local runs / unit tests),
+    fall back to the provided anchor_name so the path is still well-formed.
+
+    ALL experiment scripts MUST call this function to obtain their out_dir
+    instead of constructing the path manually.  Manual construction using
+    "data/results/<name>/" or "data/<name>/" will NOT match the runner's
+    expected path and will cause a metrics-not-found failure (the root cause
+    of the Round 5 batch failure, 2026-06-01).
+
+    Self-test (called at module import):
+        get_output_dir("foo")  -> Path("...data/exp_foo")
+        get_output_dir("foo_smoke")  -> Path("...data/exp_foo_smoke")
+        HDLAB_EXP_NAME="bar_smoke" with anchor_name="foo" -> Path("...data/exp_bar_smoke")
+
+    Args:
+        anchor_name: fallback name to use when HDLAB_EXP_NAME is unset.
+                     Typically the script's ANCHOR_NAME constant.
+
+    Returns:
+        Path to the output directory (not yet created; caller must mkdir).
+    """
+    _REPO = Path(__file__).resolve().parent.parent
+    name = os.environ.get("HDLAB_EXP_NAME", anchor_name)
+    return _REPO / "data" / f"exp_{name}"
+
+
+def _selftest_get_output_dir() -> None:
+    """Verify get_output_dir produces correct data/exp_<name> paths."""
+    import os as _os
+
+    # Save the original env value so we can restore it after the test.
+    _orig = _os.environ.get("HDLAB_EXP_NAME")
+
+    try:
+        # Test 1: env var absent -> uses anchor_name
+        _os.environ.pop("HDLAB_EXP_NAME", None)
+        p = get_output_dir("myanchor_v1")
+        assert p.name == "exp_myanchor_v1", f"T1 FAIL: got {p.name}"
+        assert p.parent.name == "data", f"T1 parent FAIL: got {p.parent.name}"
+
+        # Test 2: env var set -> uses env var (runner path)
+        _os.environ["HDLAB_EXP_NAME"] = "myanchor_v1_smoke"
+        p2 = get_output_dir("myanchor_v1")
+        assert p2.name == "exp_myanchor_v1_smoke", f"T2 FAIL: got {p2.name}"
+
+        # Test 3: runner sets env to full anchor name (non-smoke FULL run)
+        _os.environ["HDLAB_EXP_NAME"] = "myanchor_v1"
+        p3 = get_output_dir("myanchor_v1")
+        assert p3.name == "exp_myanchor_v1", f"T3 FAIL: got {p3.name}"
+
+        # Test 4: path segment is always data/exp_<name>, never data/results/<name>
+        _os.environ.pop("HDLAB_EXP_NAME", None)
+        p4 = get_output_dir("ne1_mct_aging_signature_v1")
+        parts = p4.parts
+        assert "exp_ne1_mct_aging_signature_v1" in parts, f"T4 FAIL: parts={parts}"
+        assert "results" not in parts, f"T4 FAIL: 'results' found in path: {p4}"
+    finally:
+        # Restore original env state (set or absent) so subsequent imports
+        # and tests see the same env the caller had.
+        if _orig is None:
+            _os.environ.pop("HDLAB_EXP_NAME", None)
+        else:
+            _os.environ["HDLAB_EXP_NAME"] = _orig
+
+
+_selftest_get_output_dir()
+
+
 __all__ = [
     "list_completed_keys",
     "resumable_seeds",
@@ -383,6 +458,7 @@ __all__ = [
     "aggregate_partials",
     "clear_partials",
     "_check_run_config",
+    "get_output_dir",
 ]
 
 
