@@ -198,6 +198,14 @@ def _measure_integrated(
             rep_total = (t_total1 - t_total0) / 1e6
             total_samples.append(rep_total)
 
+            # Per-rep stdout line: matches generic_progress_wrapper default
+            # cell-regex (`^\s+...seed=\d+\s+(?:ok=|acc=|FAILED:)`) so cloud
+            # ProgressPoller can count cells = rep_count and stream live
+            # progress in the dashboard. Without this print the wrapper has
+            # nothing to match and progress.json stays at cell=0.
+            print(f"  seed={seed} rep={rep} ok=True total_ms={rep_total:.2f}",
+                  flush=True)
+
             # Failure-recovery: append per-rep result to JSONL immediately.
             if progress_jsonl_path is not None:
                 rep_record = {
