@@ -37,7 +37,14 @@ pyyaml>=6.0
 # bitsandbytes is the 4-bit NF4 quantization backend; accelerate is needed for
 # device_map="auto" + dispatch on multi-device or low-VRAM paths.
 # anthropic is the Tier 2b LLM comparison harness client (real API path).
+# Pillow>=10: transformers 5.x imports PIL.Image.Resampling (added in Pillow
+# 9.1). Lambda's system PIL is too old (Python 3.10 system Pillow); pip-installs
+# a newer Pillow in the --system-site-packages venv which shadows the system
+# version. Without this pin, `from transformers.models.phi3 import ...` raises
+# AttributeError on PIL.Image.Resampling, which kills the experiment at model
+# load. (Observed on H100 attempt 4 2026-06-01.)
 transformers>=4.40
 bitsandbytes>=0.43
 accelerate>=0.30
 anthropic>=0.50
+Pillow>=10.0
