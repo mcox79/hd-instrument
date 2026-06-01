@@ -231,3 +231,38 @@ This is substrate-distinctive but narrower than original framing. Competitive mo
 **Method note.** Main-thread audit FIRST (~25 min) surfaced design issues; 2 Sonnet drills parallel ~45 min wall each, ~90K tokens combined; main-thread synthesis ~25 min. Pattern reconfirmed: audit before drill dispatch when the input spec has hand-waved design choices; the audit informs which drills to dispatch (encoding + domain were the highest-leverage open questions; capacity math and baseline strength followed). Per [[feedback-2x-means-depth]] -- the drills did NOT re-verify "can substrate do next-token prediction" abstractly; they operationalized "WHICH config gives substrate fair shot" empirically.
 
 **Next-drill candidate.** None pending. Watch for orchestrator queueing the experiment. If LLM-1 PASSES (either band), LLM-2 (compositional generation through binding) becomes the natural follow-on; LLM-3 (substrate-only language modeling at narrow scale) is contingent on LLM-2 PASS. If LLM-1 HARD-FAILs across both bands, the substrate-as-LLM-replacement direction is closed empirically; memory-layer positioning is definitively right.
+
+
+## continuous_embedding_storage_2x_deep_synthesis_v1 -- 2026-05-31 (research:opus + 2 parallel Sonnet drills)
+
+**Drill.** User shared 5 experiments (R-1 through R-5) framing substrate as "continuous, relational, compositional knowledge store with audit + edit-iso + deletion-cert + real-time learning"; "do 2x deep research." Per [[feedback-2x-means-depth]] = operational deepening on prerequisites. Main-thread audit FIRST identified: (a) the fundamental representation gap (substrate is BIPOLAR, NOT continuous); (b) overlap matrix (4 of 5 substantially duplicate existing in-flight work); (c) the load-bearing new question (continuous-to-bipolar projection scheme + moat preservation under projection). 2 parallel Sonnet drills on the prerequisite questions.
+
+**Outcome.**
+
+- **Drill A (projection schemes + capacity)**: SimHash (random Gaussian + sign) at N=16384 recommended. Native bipolar output, no training overhead, moat-compatible structurally. Recall@10 expectations: 75-82% unaided / 85-90% with over-sampling vs FAISS 92-95%. Learned hashing closes the recall gap (85-92%) BUT BREAKS the moat (audit no longer meaningful; learned hash codes not mutually quasi-orthogonal). Storage: 1.5x more compact than FAISS fp32. Latency: 10-20x faster via XOR-popcount. **Strict-moat P_def 0.10 (near-impossible because projection is irreversible)**; operational-moat P_def 0.30 with mitigations.
+
+- **Drill B (per-property moat analysis under projection)**:
+  - **Real-time learning SURVIVES INTACT** (P_def 0.92) -- write mechanism unchanged
+  - **Algebraic audit DEGRADES** (P_def 0.70 with sha256 side-data mitigation) -- decomposes to projected codeword lineage, not original embedding; mitigation: store sha256(x) at write time, +32 bytes per entry
+  - **Edit isolation DEGRADES for semantic neighbors** (P_def 0.40 unmitigated, 0.55-0.70 mitigated) -- semantically similar embeddings → bit-close codes → collateral edit propagation; mitigations: higher N, learned binarization with orthogonalization, OR VQ-style discrete codebook
+  - **Deletion-cert DEGRADES/BREAKS for compliance** (P_def 0.35 unmitigated, 0.50-0.60 mitigated) -- collision ambiguity may erase wrong user's data; mitigation: sha256 + W_seed + timestamp in cert
+  
+  Joint full-moat-with-mitigations: **P_def 0.35-0.45**.
+
+**The honest product reframing** (replaces doc's "substrate is a continuous, relational, compositional knowledge store"):
+> "Substrate is an audit-grade vector store + reasoning sidecar. Native representation is bipolar codewords with algebraic moat. Continuous embeddings ingested via SimHash projection layer with documented moat-degradation characteristics. Real-time learning intact; algebraic audit + edit-iso + deletion-cert operate at projection layer with side-data mitigations for compliance."
+
+Competitive positioning that survives: trades ~10-15pp recall for algebraic moat + 10-20x retrieval speed + 1.5x storage compactness + real-time updates without rebuild. Honest narrower than doc's "fundamentally new kind of system" framing.
+
+**Overlap audit verdict (5 → 1)**: R-1 is the ONE genuinely-new experiment. R-2/R-3/R-5 are continuous-projection ANGLES on already-filed work (D1 compositional binding, reasoning storage Phase 1, T2 edit isolation validated). R-4 is essentially substrate-LLM Phase 1 Week 5 4-way comparison already locked.
+
+**Routing.** `notes/strategy_request_to_strategy_continuous_embedding_storage_2026-05-31.md` -- ONE consolidated experiment `continuous_embedding_storage_substrate_v1_n16384` with 4 arms (retrieval recall, audit preservation, edit isolation under projection, deletion cert under projection). HARD-PASS/HARD-FAIL/MIDDLE-BAND pre-reg for each arm. ~2 weeks + ~2-4h GPU. NO cloud spend. 4 of 5 proposed experiments REJECTED with explicit cross-refs to in-flight work.
+
+**Cap_map implications.**
+- NEW row proposed: "Substrate as audit-grade continuous-embedding store via SimHash projection" at 0.35-0.45 (full-moat) / 0.55-0.65 (retrieval-only) bands
+- UPDATE substrate-product-feature row with honest reframing: NOT "stores any continuous representation"; INSTEAD "audit-grade vector store with documented moat-degradation under projection"
+- D1, reasoning storage Phase 1, T2 edit isolation, Week 5 4-way comparison ALL STAY as is -- the continuous-projection question doesn't subsume them; it complements
+
+**Method note.** 2 Sonnet drills parallel ~45 min each, ~90K tokens combined. Main-thread audit + synthesis ~30 min. Pattern reconfirmed per [[feedback-2x-means-depth]]: the deepening was on the underlying ENGINEERING QUESTION (projection scheme + moat preservation), NOT re-running the 5 experiments as separate drills. Per [[feedback-no-padding-experiments]] not dispatching 5 drills when 2 deeper drills resolved the prerequisite. The doc's 5 experiments were product-positioning questions; the substantive empirical question that gated all 5 was the projection question.
+
+**Next-drill candidate.** None pending. If continuous-embedding storage experiment HARD-PASSes, substrate has a defensible "audit-grade vector store" product category. If HARD-FAILs, "continuous embeddings" direction closes and memory-layer / bipolar-atom / reasoning-storage positioning remains the strategic focus. The R-4 RAG-replacement question is already covered by substrate-LLM Phase 1 Week 5 verdict.
