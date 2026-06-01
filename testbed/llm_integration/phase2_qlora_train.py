@@ -127,6 +127,30 @@ def _last_position_hidden(out, attention_mask: torch.Tensor) -> torch.Tensor:
     return hidden[torch.arange(B, device=hidden.device), seq_lens, :]
 
 
+def _load_mock_model(device: torch.device):
+    """CPU mock: tiny GPT-2 at d_model=3072 + GPT-2-small tokenizer + NO LoRA.
+
+    For local-CPU smoke of the training+eval flow without bitsandbytes/CUDA.
+    Phi-3 + LoRA = production; this mock validates shapes + loss-decreases +
+    backward grad flow on bridge + readout only (model itself is frozen).
+    """
+    from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
+    cfg = GPT2Config(
+        vocab_size=50257, n_positions=512, n_embd=_D_MODEL, n_layer=2,
+        n_head=8, n_inner=4096,
+    )
+    model = GPT2LMHeadModel(cfg).to(device).to(dtype=torch.float32).eval()
+    # Freeze ALL model params (mock-LoRA: only bridge + readout train)
+    for p in model.parameters():
+        p.requires_grad = False
+    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    if not hasattr(model, "dtype"):
+        model.dtype = torch.float32
+    return model, tokenizer
+
+
 def _load_phi3_lora(device: torch.device, lora_r: int, lora_alpha: int):
     """Load Phi-3-mini-4bit + attach LoRA adapters (trainable)."""
     from transformers import (AutoModelForCausalLM, AutoTokenizer,
@@ -135,8 +159,7 @@ def _load_phi3_lora(device: torch.device, lora_r: int, lora_alpha: int):
 
     if device.type != "cuda":
         raise RuntimeError(
-            "Phi-3 + QLoRA requires CUDA. For CPU smoke use --device cpu "
-            "with the mock-model path (TODO).")
+            "Phi-3 + QLoRA requires CUDA. Use --mock-model for CPU smoke.")
 
     bnb_cfg = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -315,9 +338,17 @@ def main() -> int:
                              "Default is substrate-bypassed eval, matching "
                              "training-time path; this validates bridge "
                              "trainability but not substrate-in-loop quality.")
+    parser.add_argument("--mock-model", action="store_true",
+                        help="Use a CPU mock model (GPT-2 at d_model=3072) "
+                             "with model frozen and only readout+bridge "
+                             "trainable. For local-smoke validation of the "
+                             "training pipeline before H100 dispatch. "
+                             "Implies --device cpu.")
     args = parser.parse_args()
 
-    if args.device == "auto":
+    if args.mock_model:
+        device = torch.device("cpu")
+    elif args.device == "auto":
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     else:
         device = torch.device(args.device)
@@ -349,9 +380,17 @@ def main() -> int:
     substrate_tuple = build_shared(
         _N_SUBSTRATE, _M_SUBSTRATE, args.substrate_seed, device)
 
-    # Load Phi-3 + LoRA + bridge + readout
-    print(f"[qlora_train] loading Phi-3 + LoRA (r={args.lora_r}, alpha={args.lora_alpha})...")
-    model, tokenizer = _load_phi3_lora(device, args.lora_r, args.lora_alpha)
+    # Load model + bridge + readout
+    if args.mock_model:
+        print(f"[qlora_train] loading CPU MOCK (GPT-2 frozen at d_model={_D_MODEL})...")
+        model, tokenizer = _load_mock_model(device)
+        # The dataset's target_token_id field uses Phi-3 tokenizer IDs; for the
+        # mock we ignore that and just check loss-decrease on whatever the GPT-2
+        # tokenizer does with the query text. This validates the training loop
+        # mechanics, not the actual target-token-prediction quality.
+    else:
+        print(f"[qlora_train] loading Phi-3 + LoRA (r={args.lora_r}, alpha={args.lora_alpha})...")
+        model, tokenizer = _load_phi3_lora(device, args.lora_r, args.lora_alpha)
 
     torch.manual_seed(args.seed)
     readout = QueryReadoutHead().to(device).to(dtype=torch.float32)

@@ -64,6 +64,10 @@ def main() -> int:
                              "(used for ETA + percent-done display)")
     parser.add_argument("--initial-phase", default="starting",
                         help="Phase string before the first cell completes")
+    parser.add_argument("--script-args", default="",
+                        help="Single string of args passed through to the "
+                             "target script (split via shlex). e.g. "
+                             "--script-args '--dataset-dir data/foo --lr 1e-4'")
     args = parser.parse_args()
 
     script_path = Path(args.script)
@@ -91,8 +95,13 @@ def main() -> int:
           f"total_cells={args.total_cells} progress={progress_path}",
           flush=True)
 
+    import shlex
+    script_extra_args = shlex.split(args.script_args) if args.script_args else []
+    if script_extra_args:
+        print(f"[generic_progress_wrapper] script args: {script_extra_args}",
+              flush=True)
     proc = subprocess.Popen(
-        [sys.executable, "-u", str(script_path)],
+        [sys.executable, "-u", str(script_path), *script_extra_args],
         cwd=str(_REPO_ROOT),
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,

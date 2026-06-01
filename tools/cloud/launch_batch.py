@@ -364,7 +364,8 @@ class ProgressPoller(threading.Thread):
 
 def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
                     cell_regex, instance_id, experiment_timeout_min,
-                    result_paths: list[str] | None = None):
+                    result_paths: list[str] | None = None,
+                    script_args: str = ""):
     """Dispatch one anchor on the running instance; mirror of launch_experiment's [4/4].
 
     result_paths: optional list of remote glob patterns (relative to
@@ -377,12 +378,14 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
     """
     remote_anchor_dir = f"data/exp_{anchor}"
     regex_escaped = cell_regex.replace("'", "'\\''")
+    script_args_escaped = script_args.replace("'", "'\\''") if script_args else ""
     target_cmd = (
         f"$PY -u tools/cloud/generic_progress_wrapper.py "
         f"--anchor {anchor} "
         f"--script {script} "
         f"--total-cells {total_cells} "
         f"--cell-regex '{regex_escaped}'"
+        + (f" --script-args '{script_args_escaped}'" if script_args else "")
     )
     exp_cmd = (
         "set -e; cd ~/hd-instrument; git pull --ff-only > /dev/null 2>&1 || true; "
@@ -696,6 +699,7 @@ def main() -> int:
         print(f"\n=== [{i+1}/{len(batch)}] {b['anchor']} "
               f"({b['total_cells']} cells, {timeout:.0f}m timeout) ===")
         result_paths = b.get("result_paths") or []
+        script_args = b.get("script_args", "")
         rc, metrics_path = _run_one_anchor(
             ip=ip, ssh_key_path=args.ssh_key_path,
             anchor=b["anchor"], script=b["script"],
@@ -704,6 +708,7 @@ def main() -> int:
             instance_id=instance_id,
             experiment_timeout_min=timeout,
             result_paths=result_paths,
+            script_args=script_args,
         )
         rcs.append((b["anchor"], rc, metrics_path if metrics_path and metrics_path.is_file() else None))
 
