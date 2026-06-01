@@ -266,3 +266,43 @@ Competitive positioning that survives: trades ~10-15pp recall for algebraic moat
 **Method note.** 2 Sonnet drills parallel ~45 min each, ~90K tokens combined. Main-thread audit + synthesis ~30 min. Pattern reconfirmed per [[feedback-2x-means-depth]]: the deepening was on the underlying ENGINEERING QUESTION (projection scheme + moat preservation), NOT re-running the 5 experiments as separate drills. Per [[feedback-no-padding-experiments]] not dispatching 5 drills when 2 deeper drills resolved the prerequisite. The doc's 5 experiments were product-positioning questions; the substantive empirical question that gated all 5 was the projection question.
 
 **Next-drill candidate.** None pending. If continuous-embedding storage experiment HARD-PASSes, substrate has a defensible "audit-grade vector store" product category. If HARD-FAILs, "continuous embeddings" direction closes and memory-layer / bipolar-atom / reasoning-storage positioning remains the strategic focus. The R-4 RAG-replacement question is already covered by substrate-LLM Phase 1 Week 5 verdict.
+
+
+## hierarchical_substrate_2x_deep_synthesis_v1 -- 2026-05-31 (research:opus + 3 parallel Sonnet drills)
+
+**Drill.** User shared hierarchical substrate proposal ("galaxy of substrates" architecture; meta-substrate stores leaf shards as facts; 6 proposed experiments H-1 through H-6 over 3-4 months). "2x research where relevant" per [[feedback-2x-means-depth]] = operational depth on prerequisites. Main-thread audit FIRST identified 5 issues with doc's framing (capacity math hidden assumption; v282 closure not addressed; vs-single-big-N comparison missing; LLM-integration latency budget; loose brain analogy). 3 parallel Sonnet drills on highest-leverage questions: (A) meta-storage scheme; (B) hierarchical latency vs single-big-N; (C) cross-shard composition mechanism.
+
+**Outcome.** The hierarchical substrate architecture is architecturally interesting but NOT strategically superior to single-big-N within 12-month horizon. Doc's 6-experiment program substantially overscoped.
+
+- **Drill A (meta-storage)**: Scheme A pointer atom recommended; clean algebra + full moat preservation; 26-262x capacity advantage under CLEAN partition, 5-15x under messy real-domain partition. Scheme B not closed by v282 (first-order vs second-order distinction); K_leaf < ~4K limit. Scheme C complement not replacement. **P_def 0.40** for ≥5x effective capacity advantage at equivalent engineering effort. Critical honest finding: hierarchy's advantage MOST RELIABLE on operational isolation axis (independent audit/delete per shard), NOT raw capacity.
+
+- **Drill B (latency + single-big-N)**: HARD-PASS NOT MET at matched parameter count -- hierarchy wins 1.5 of 4 criteria. **Modern hardware kills "too big to fit" argument**: BF16 N=65K = 8.6GB fits H100 alongside Phi-3-mini. **P_def 0.18** for hierarchy strategically superior in 12-month horizon. Hierarchy worth Phase 2+ ONLY when (capacity >500K AND latency ≤20ms AND multi-tenancy) all hold; 24-36mo not 12mo. CHEAPER alternative surfaced: amortized prefetch (substrate query 2-5 tokens ahead) decouples latency from per-token budget; lower eng cost than full hierarchy.
+
+- **Drill C (cross-shard composition)**: v282 Op E second-order closure EXCLUDES Mechanisms 3+4 (algebraic cross-shard binding, aggregate query bundling). Mechanism 2 (sequential multi-hop with LLM bridge) is ONLY substrate-deployable option; structurally equivalent to substrate-LLM build's Rescue C extended across shard boundaries -- NOT a fundamentally new architecture. **P_def 0.35-0.42**. Subtle: v282 closure applies to Tr(W_i^T W_j) specifically; circular-convolution binding over ACTIVATION VECTORS may escape closure -- worth targeted falsification before retiring Mechanism 3.
+
+**The honest product reframing** (replaces doc's "galaxy of substrates with multiplicative capacity scaling"):
+> "Single-big-N substrate is the 12-month strategic path. Hierarchical extension is a Phase 2+ ambition contingent on capacity demand >500K + multi-tenancy requirements; deferred with explicit crossover criteria."
+
+The product moat that actually differentiates substrate (across ALL morning's research drills): real-time learning, algebraic audit via element-wise unbinding, edit isolation, cryptographic deletion certificates, 10-20x retrieval speed vs FAISS, 1.5x storage compactness. These DON'T require hierarchy.
+
+**Rescoped experimental program** (1-2 experiments + deferred items; not 6):
+- H-1-LITE (Scheme A pointer routing smoke at S=100): ~1 week, 1 GPU hour. HARD-PASS top-1 recall@1 ≥0.97.
+- ALT-experiment (BF16 single-N=32K/65K capacity probe): ~1 week, 2-4h GPU. Tests whether single-big-N matches hierarchy capacity within 12mo. Strategically higher value than H-1-LITE because it tests whether hierarchy is even necessary.
+- H-2 REJECTED: Mechanism 2 = Rescue C extended; same pattern as substrate-LLM build + reasoning storage Phase 1.
+- H-3 REJECTED: cheaper version = ALT-experiment BF16 single-N.
+- H-4 REJECTED: 3-level hierarchy = 4TB GPU footprint multi-machine; Phase 3+.
+- H-5 REJECTED: edit isolation already validated at bipolar atom level (T2 v290 45/45 cells); shard-level inherits via routing layer.
+- H-6 DEFERRED: multi-tenancy is the strongest unique-to-hierarchy advantage; pilot-deployment-driven scoping.
+
+**Explicit crossover criteria** for revisiting hierarchy: capacity demand >500K AND per-token latency ≤20ms AND multi-tenancy product requirement. Until 2 of 3 hold, single-big-N + amortized prefetch is the right path.
+
+**Routing.** `notes/strategy_request_to_strategy_hierarchical_substrate_2x_synthesis_2026-05-31.md` -- ONE cap_map row proposed at 0.30-0.45 P-band; rescoped to 2 experiments; 4 rejections with cross-refs; 1 deferral with crossover criteria.
+
+**Cap_map implications.**
+- NEW row proposed: "Hierarchical substrate via Scheme A pointer routing (multi-tenant operational isolation)" at 0.30-0.45
+- UPDATE substrate-product-feature row: explicit "single-big-N is 12-month strategic path; hierarchy deferred Phase 2+"
+- Document v282 Op E closure explicitly in the hierarchy row caveat list (Mechanisms 3+4 excluded; Mechanism 2 = Rescue C extended)
+
+**Method note.** 3 Sonnet drills parallel ~45 min each ~130K tokens combined. Main-thread audit + synthesis ~35 min. Per [[feedback-2x-means-depth]] -- drills did NOT re-verify the 6 proposed experiments separately; they OPERATIONALIZED the prerequisite engineering questions (meta-storage scheme + single-big-N comparison + cross-shard composition mechanism). Per [[feedback-no-padding-experiments]] -- not dispatching 6 drills when 3 deeper drills resolved the prerequisites. The doc's 6 experiments were product-positioning questions; the substantive empirical questions that gated all 6 were the 3 drilled.
+
+**Next-drill candidate.** None pending. Watch for orchestrator queueing H-1-LITE OR ALT-experiment. If ALT BF16 single-N at N=32K/65K HARD-PASSes (max_M ≥ 8N at N=65K), hierarchy direction can stay deferred indefinitely. If ALT HARD-FAILs (capacity scaling breaks at larger N), hierarchy becomes the necessary path and full H-1 + H-6 multi-tenant experiments get prioritized.
