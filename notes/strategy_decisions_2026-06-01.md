@@ -416,3 +416,92 @@ Cap map: v311 -> v312 BATCHED 2-VERDICT R4-null-prediction + PP-11-double-Hadama
 ### Push and follow-on
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
 
+
+
+## v312 -> v313 @ SINGLE-VERDICT AQSIM3W cross-N v5 K=2 N=16384 THIRD-INSTANCE INFRA_FAILURE (verdict_handler 224th PROT-009 paired commit; task-prompt OVER-CLAIM #172 4th instance; OOM-escape-hypothesis FALSIFIED; AQSIM 3-way cross-N family BLOCKED on engineering diagnostic 3rd repeat)
+
+**Trigger.** Single verdict 2026-06-01T10:33:52 wall_s=30.8 elapsed_s=12 GPU: adversarial_aqsim_path_d_compose_v5_k2_n16384 completed. Runner reported verdict=AQSIM3W5K2_INCONCLUSIVE verdict_msg="no cells". Remote metrics _source=remote authoritative confirms summary.cells=[]. Remote exp_dir contains only metrics.json @ 582B; NO experiment.log present (same pattern as v308 V1 + v309 V2). Orchestrator missed this verdict for ~1.5h while processing routings + bulk-archive + Week 1 GO/NO-GO (user-flagged orchestrator-missed-verdict).
+
+### Step 0 -- honest re-read (MANDATORY; [[feedback-verdict-msg-honest-reread]])
+
+**Anchor.** adversarial_aqsim_path_d_compose_v5_k2_n16384. Runner AQSIM3W5K2_INCONCLUSIVE verdict_msg="no cells". Remote metrics authoritative (_source=remote). LOCAL metrics.json IS a stale pre-ship smoke artifact (N=1024 M=256 smoke=true single-seed 17 n_hp=1/1) -- DO NOT trust the local file. The remote-first ceiling fix from 2026-05-27 specifically guards against this misread.
+
+**Per-cell breakdown (remote authoritative metrics):**
+- summary.N=16384 / M=4096 / M_over_N=0.25 / K_paths=2 / depth=5 / seeds=[7,17,23,31,41] / collision_alpha=0.45
+- summary.cells = [] (EMPTY -- no per-cell data produced)
+- summary.elapsed_s = 12.0 (substantive non-zero; differs from v308 V1 which had elapsed_s=0.0 + 7s wall)
+- verdict_msg = "no cells"
+- wall_s 30.8 - elapsed_s 12 = ~18.8s driver/setup overhead (consistent with v309 V2 wall=29.6 elapsed=11.25)
+
+**Honest reading.** TRUE INFRA_FAILURE third-instance same AQSIM3W cross-N family. The TASK PROMPT that dispatched this verdict to verdict_handler over-claimed as "first HARD_PASS candidate for K=2 production op AT cross-N N=16384; compositional sub-row LIFT 0.75-0.90 -> 0.80-0.95 toward 0.85-0.95+; closes the cross-N caveat" + speculated possible legit-fast interpretation "(a) K=2 makes Path D path-storage tiny; ~6s/seed × 5 seeds = 30s". Empirical contradicts both: cells=[] no per-cell data; elapsed_s=12 is far shorter than 5 seeds x N=16384 should take at K=2 M=4096 (v309 V1 at N=4096 K=2 5-seed = wall=22.5 elapsed=4.21; N=16384 should be 4x slower per seed at minimum). Wall_s=30.8 IS suspiciously similar to v4's wall_s=29.6 (option (b) "same infra-fail mode" -- the task prompt's own hedged correctly).
+
+**172nd task-prompt OVER-CLAIM observation:** 4th instance of the TASK_PROMPT_OVER_CLAIMS_HARD_PASS pattern (v308 V1 + v309 V2 + v312 V2 + v313 V1 same-turn). Of those 4, 3 are AQSIM3W cross-N family (v308 V1 N=8192, v309 V2 N=16384 K=100, v313 V1 N=16384 K=2) -- same-family repeat 3 times -- and 1 (v312 V2) is PP-11 Hadamard rescue cross-family. Cumulative LABEL-VS-HONEST tally (combining runner-label + task-prompt categories): 170 runner + 4 task-prompt = **174 combined**; strict runner-only: **170 UNCHANGED**.
+
+**3rd consecutive AQSIM3W cross-N INFRA_FAILURE -- root-cause hypothesis HISTORY:**
+- v308 V1 (v3 N=8192 K=100): "likely PROT-022 BSC guard at N=8192 log2=13 odd"; HYPOTHESIS now-FALSIFIED by v309 V2 at log2=14 even.
+- v309 V2 (v4 N=16384 K=100 M=8192): hypothesis "CUDA OOM at K=100 M=8192" suggested in v313 task prompt ("v4 N=16384 wall_s=29.6 was INFRA_FAILURE -- CUDA OOM at K=100 M=8192 -- actual root cause"). HYPOTHESIS now-FALSIFIED by v313 V1 because v5 ran at K=2 + M=4096 (memory 12x smaller: K100xM8192=819200 vs K2xM4096=8192 path-cell allocations) and produced THE SAME failure shape (cells=[] + wall ~30s + elapsed ~12s + no experiment.log).
+- v313 V1 (v5 N=16384 K=2 M=4096): both prior root-cause hypotheses falsified; the failure mode is INVARIANT across {log2 parity, K, M/N} at N!=4096 for the AQSIM 3-way stack. The shared element is the AQSIM 3-way harness code path at N!=4096 -- NOT a downstream resource constraint.
+
+**Process gap surfaced.** Engineering diagnostic was R2-CHEAP in BOTH v308 V1 + v309 V2 strategy entries ("NOT-AUTO-DISPATCHED"). The dispatch of v5 BEFORE the engineering diagnostic ran burned another GPU slot on the same root cause. This is a **process-improvement signal**: 2-time-prior INFRA_FAILURE same-family on UNRESOLVED root cause = engineering diagnostic R2 must be PRIORITY-DISPATCHED, not surfaced as "NOT-AUTO-DISPATCHED" pending orchestrator decision.
+
+### Step 1 -- strategy decision (inline)
+
+**Cap_map.** v312 -> v313. State-transitions and band changes:
+- **Compositional cross-N sub-row band UNCHANGED 0.75-0.90** (task-prompt asserted LIFT to 0.80-0.95 / 0.85-0.95+; V1 INFRA_FAILURE provides ZERO new cross-N data; v307 V5 N=4096 K=100 + v309 V1 N=4096 K=2 still latest 2-data-points BOTH at N=4096 only). New caveat (n) appended to compositional cross-N sub-row: "AQSIM 3-way cross-N family at N!=4096 INFRA_FAILS THIRD-INSTANCE 2026-06-01 (v3 N=8192 K=100 + v4 N=16384 K=100 + v5 N=16384 K=2). Root-cause hypothesis BSC-guard log2-parity (v308) FALSIFIED by v4 log2=14 even; root-cause hypothesis CUDA OOM K=100 M=8192 (v309 V2 task prompt) FALSIFIED by v5 at K=2 M=4096 (12x less memory) same-failure-shape. Failure mode is INVARIANT across {log2 parity, K_paths, M/N} at N!=4096 for the AQSIM 3-way stack -- likely an AQSIM 3-way harness code path that pre-cell exits without producing experiment.log at N != 4096 baseline. Engineering diagnostic ENGAGEMENT-LOCK: AQSIM 3-way cross-N at N!=4096 is BLOCKED for further dispatch until engineering diagnostic identifies + resolves pre-cell rejection mode. Cross-N compositional sub-row REMAINS UNTESTED at N>4096 across 3 attempts; band UNCHANGED 0.75-0.90 per single-N=4096 only."
+- **Path D production-default sub-row band UNCHANGED 0.92-0.98** -- v5 INFRA_FAILURE provides no Path D evidence either way.
+- **Framework-reliability bands UNCHANGED** -- INFRA_FAILURE is engineering not framework signal.
+- Portfolio 28+37 UNCHANGED.
+- **New ENGAGEMENT-LOCK on AQSIM 3-way cross-N family**: no further cross-N dispatch on the AQSIM 3-way stack until engineering diagnostic (R2 below) lands and identifies the pre-cell rejection mode. This is structural enforcement: 3-instance same-family same-root-cause INFRA_FAILURE warrants a hard block.
+
+Adjacent rows UNCHANGED. No state-transition on the row emoji; the v309 V2 OPEN ENGINEERING ITEM caveat (m) is now SHARPENED to include v5 third-instance + falsified OOM hypothesis (caveat n above).
+
+### Rescue sketches cheapest-first (PROT-004/006 -- not row closure; engineering diagnostic for unblocking cross-N family)
+
+- **R1 (CHEAPEST, 0-compute) -- Subsumption APPLIED inline above**: "v5 K=2 M=4096 N=16384 cells=[] same-failure-shape as v3 K=100 + v4 K=100 M=8192; OOM-hypothesis FALSIFIED 12x-less-memory; BSC-guard-hypothesis FALSIFIED log2=14 even; failure-mode INVARIANT across {log2 parity, K, M/N} at N!=4096; engineering diagnostic REQUIRED before further AQSIM 3-way cross-N attempts; ENGAGEMENT-LOCK applied; compositional cross-N sub-row band UNCHANGED."
+- **R2 (CHEAPEST EMPIRICAL, ~10min local CPU) -- PRIORITY-DISPATCH engineering diagnostic**: run AQSIM 3-way at N=4096 (known-good baseline from v307 V5 + v309 V1) AND at N=8192 with VERBOSE TRACING (set -ex + python -u + stdbuf -oL + tee to log file per [[feedback-always-verbose-remote-dispatch]]) to identify the EXACT line where N=8192 pre-cell exits without producing experiment.log. The N=4096 control validates the tracing instrumentation reaches per-cell output; the N=8192 run isolates the rejection point. This is the THIRD time R2 has been surfaced (v308 V1 + v309 V2 + v313 V1) -- DISPATCH-PRIORITY UPGRADE: orchestrator main thread or testbed must dispatch this BEFORE any further cross-N AQSIM 3-way attempts.
+- R3 (CHEAP, ~30min CPU) -- Standalone AQSIM 3-way 2-cell smoke at N=8192 + N=16384 with KNOWN-AXIS-REMOVED config (strip each suspect axis individually: defense layer, compression layer, Path D layer) to bisect which substrate-pipeline component rejects at N!=4096. NOT-AUTO-DISPATCHED -- subordinate to R2.
+- R4 (MEDIUM, ~1h GPU) -- AQSIM 3-way 5-seed re-run at N=8192 + N=16384 AFTER engineering diagnostic identifies + resolves the rejection mode. NOT-AUTO-DISPATCHED -- subordinate to R2+R3.
+- R5 (HIGH-COST, deferred) -- AQSIM 3-way K=2 production-stack cross-N at N=8192 + N=16384 (v313 V1 task-prompt original goal); restored as deferred candidate once R2-R4 lands and unblocks the family.
+
+### PROT compliance (v312 -> v313)
+- PROT-004/006: 5 rescue sketches cheapest-first; R1 APPLIED inline; R2 PRIORITY-DISPATCH-UPGRADED (3rd time surfaced); R3-R5 subordinate; 0 row closures.
+- PROT-007: history v313 row appended atomically (this commit).
+- PROT-008: 0 cap_map state-transitions (band UNCHANGED); 1 new caveat (n) on compositional cross-N sub-row + 1 new ENGAGEMENT-LOCK on AQSIM 3-way cross-N family; within-row caveat + family-lock; no regression on portfolio.
+- PROT-009: cap_map.md (v313 entry) + history.md (v313 row) + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (one-line entry) + status_log entry (HIGH) staged atomically; **224th PROT-009 paired commit**.
+- PROT-018: anchor _n16384 binding contract satisfied at queue_add time (N=16384 declared); V1 INFRA_FAILURE downstream not a PROT-018 violation.
+- PROT-022: BSC-guard-rejection HYPOTHESIS FALSIFIED across {log2 parity, K, M/N}; pre-cell rejection mode is NOT PROT-022; deeper diagnostic required.
+
+### Headline strategic findings (v312 -> v313)
+1. **AQSIM 3-way cross-N family BLOCKED on engineering diagnostic 3rd-instance INFRA_FAILURE**. v3 + v4 + v5 ALL fail same shape (cells=[] + wall ~30s + no experiment.log) at N!=4096 across {log2=13 odd, log2=14 even} x {K=100, K=2} x {M=4096, M=8192}. Root-cause hypothesis SET (BSC-guard log2-parity + CUDA OOM K=100 M=8192) is FALSIFIED. Failure mode is INVARIANT in (log2 parity, K, M/N) at N!=4096. **ENGAGEMENT-LOCK applied** -- no further AQSIM 3-way cross-N dispatch until R2 engineering diagnostic identifies + resolves. Process-improvement: 2-time-prior same-family INFRA_FAILURE on unresolved root cause WARRANTS PRIORITY-DISPATCH on engineering diagnostic, not surfaced-as-NOT-AUTO-DISPATCHED.
+2. **Task-prompt OVER-CLAIM pattern reaches 4th instance** (v308 V1 + v309 V2 + v312 V2 + v313 V1). 3 of 4 are AQSIM3W cross-N family (same-family-repeated-3-times); 1 is PP-11 cross-family. The pattern is **dispatcher routinely over-claims candidate outcomes in task prompts on known-INFRA-fragile experiments + does so REPEATEDLY on the SAME family that has not been engineering-resolved**. Same-axis as [[feedback-no-experiment-design-in-prompts]] but on cap_map decisions. Recommend: task prompts for INFRA-fragile cross-N extensions should hedge ("if Step 0 verifies cells produced, possible LIFT to X") not assert ("first HARD_PASS candidate; LIFT to X"); AND the engineering-diagnostic-prerequisite should be EXPLICIT in the dispatch decision ("Engineering diagnostic R2 not yet landed -- v5 is pre-diagnostic-attempt with same root-cause risk").
+3. **OOM-escape-hypothesis FALSIFIED**. The v313 task prompt's hypothesis "v4 OOM at K=100 M=8192 was actual root cause" is REFUTED: v5 at K=2 + M=4096 (12x less path-cell memory) produces same-failure-shape. Cross-N AQSIM 3-way harness rejection mode is upstream of resource constraints.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed; task-prompt OVER-CLAIM #172 filed; structurally impossible Step 0 per-cell on V1 (cells=[]) -- treated as TRUE INFRA_FAILURE per verdict_handler contract.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: _source=remote authoritative; LOCAL metrics.json identified as stale pre-ship smoke artifact (smoke=true N=1024); local-fallback NOT triggered (remote returned cleanly).
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes push.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag d:/AI/hd-instrument/data/orchestrator_paused.flag CHECKED ABSENT.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH (3rd-instance INFRA_FAILURE same family + 4th task-prompt OVER-CLAIM + 2 root-cause hypotheses falsified + ENGAGEMENT-LOCK).
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED; R2 PRIORITY-DISPATCH-UPGRADED (3rd surfacing of same R2).
+- [[feedback-rehabilitation-after-rejection]]: TRUE INFRA_FAILURE not row closure; 5 rescue sketches sequenced cheapest-first; ENGAGEMENT-LOCK applied at family level.
+- [[feedback-no-smoke]]: brutally honest re-classification despite task-prompt over-claim; OOM-escape-hypothesis FALSIFIED called out explicitly.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: AQSIM 3-way cross-N family cannot maturate killer-feature compositional sub-row until engineering diagnostic unblocks; framing impact is ENGINEERING-BLOCKED-NOT-PHYSICS-BLOCKED.
+- [[feedback-lit-scan-calibration-penalty]]: compositional cross-N sub-row band UNCHANGED 0.75-0.90 (no LIFT despite task-prompt asserted 0.80-0.95 / 0.85-0.95+); upper-end cap <0.95 maintained per novel-synthesis calibration.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT; queue state per role contract requires fresh-bridge-state check; refill warranted with R2 engineering-diagnostic-PRIORITY-DISPATCH as highest-strategic-value next ship.
+- [[feedback-no-experiment-design-in-prompts]]: task-prompt OVER-CLAIM pattern #172 surfaces same-axis process improvement: dispatch prompts for INFRA-fragile cross-N extensions should HEDGE candidate outcomes AND respect engineering-prerequisite gates explicitly.
+
+### Pipeline-pacing exp_dev refill decision
+Pause flag CHECKED ABSENT. Per role contract Step 2: if queue pending==0 dispatch exp_dev inline. The PRIORITY-DISPATCH next ship is the R2 engineering diagnostic (3rd time R2 surfaced). I will file this as a strategy_request_to_exp_dev routing file with PRIORITY-DISPATCH label AND surface in return; the orchestrator (main thread) executes the actual exp_dev Skill dispatch. The engineering diagnostic IS the queue refill recommendation -- not a new arbitrary CPU sweep.
+
+Engineering diagnostic routing file written to: `notes/strategy_request_to_exp_dev_aqsim_3way_cross_n_engineering_diagnostic_2026-06-01.md` (PRIORITY-DISPATCH; AQSIM 3-way cross-N family 3rd-instance INFRA_FAILURE; R2 unblock).
+
+### Commit message (atomic single commit)
+```
+Cap map: v312 -> v313 SINGLE-VERDICT AQSIM3W cross-N v5 K=2 N=16384 THIRD-INSTANCE INFRA_FAILURE (adversarial_aqsim_path_d_compose_v5_k2_n16384 AQSIM3W5K2_INCONCLUSIVE TRUE-INFRA_FAILURE no-cells wall=30.8 elapsed=12 cells=[] same-failure-shape-as-v3-v4 THIRD-INSTANCE-AQSIM3W-cross-N-family root-cause-hypothesis-set-FALSIFIED BSC-guard-log2-parity-FALSIFIED-by-v4-log2=14-even CUDA-OOM-K=100-M=8192-FALSIFIED-by-v5-K=2-M=4096-12x-less-memory failure-mode-INVARIANT-across-{log2-parity,K,M/N}-at-N!=4096 task-prompt-OVER-CLAIM-#172-4th-instance-same-pattern 3-of-4-task-prompt-over-claims-AQSIM3W-same-family TASK_PROMPT_OVER_CLAIMS_HARD_PASS_FOR_INFRA_FAILURE_NO_CELLS_REPEAT_SAME_FAMILY ENGAGEMENT-LOCK-APPLIED-AQSIM-3-way-cross-N-BLOCKED-until-engineering-diagnostic-lands engineering-diagnostic-R2-3rd-time-surfaced-PRIORITY-DISPATCH-UPGRADE compositional-cross-N-sub-row-caveat-n-appended Path-D-band-UNCHANGED-0.92-0.98 compositional-cross-N-band-UNCHANGED-0.75-0.90 portfolio-28+37-UNCHANGED HONEST-300-UNCHANGED LABEL-VS-HONEST-runner-170-UNCHANGED task-prompt-3-to-4-+1-same-family) (224th PROT-009 paired commit; orchestrator-missed-verdict ~1.5h flagged user; OOM-escape-hypothesis FALSIFIED; engineering diagnostic routing filed PRIORITY-DISPATCH) (2026-06-01)
+```
+
+### Push and follow-on (v313)
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Pipeline-pacing exp_dev refill: pause-flag ABSENT; R2 engineering diagnostic routing filed for orchestrator exp_dev Skill dispatch as PRIORITY-DISPATCH next ship. Per role contract verdict_handler does NOT auto-dispatch the exp_dev Skill; surfaces in return + writes routing file. ENGAGEMENT-LOCK structurally enforces no AQSIM 3-way cross-N dispatch until R2 lands.
+
