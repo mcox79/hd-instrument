@@ -99,3 +99,7 @@ This is a research delivery + recommendation. Orchestrator decides:
 - (d) Whether to bundle R2 + R4 into one shipped experiment (cost-saving; same harness; ~1.5h total CPU)
 
 No engineering work begins without orchestrator queueing.
+
+
+---
+Acted-on 2026-06-01: R2 + R4 anchors shipped; GHRR deferred (1-2 weeks engineering; sequence after Week 1 GO/NO-GO per testbed bandwidth).
