@@ -611,6 +611,14 @@ def main() -> int:
                              "Bundles with --path1a-v1 to form the v1+v1' "
                              "intervention (research P_deflated=0.42 vs "
                              "v1-only P_deflated=0.32).")
+    parser.add_argument("--path1a-frozen-random-keys", action="store_true",
+                        help="(Round 4 D1-1 control test) Replace v1's "
+                             "Phi-3-derived key codebook with frozen random "
+                             "bipolar vectors (seeded per key_idx). Discriminates "
+                             "M1-dominant (random suffices) vs M2-load-bearing "
+                             "(Phi-3 semantic geometry required) per research "
+                             "Round 4 mechanism analysis. Requires --path1a-v1 "
+                             "+ --path1a-v1prime for proper control comparison.")
     parser.add_argument("--mock-model", action="store_true",
                         help="Use a CPU mock model (GPT-2 at d_model=3072) "
                              "with model frozen and only readout+bridge "
@@ -748,7 +756,42 @@ def main() -> int:
     path1a_R: torch.Tensor | None = None
     path1a_gram: dict[str, Any] | None = None
     if args.path1a_v1:
-        if args.mock_model:
+        if args.path1a_frozen_random_keys:
+            # Round 4 D1-1: control test. Substitute Phi-3-derived keys with
+            # frozen random bipolar vectors. v1' val-side stays Phi-3-derived.
+            # Discriminates Mechanism 1 (random sufficient) vs Mechanism 2
+            # (Phi-3 semantic geometry load-bearing).
+            print(f"[d1_1_control] --path1a-frozen-random-keys: replacing v1 "
+                  f"Phi-3 hidden-state derivation with frozen random bipolar "
+                  f"vectors (seeded per key_idx; semantic geometry control)")
+            M = int(substrate_tuple[2].numel())
+            g = torch.Generator(device="cpu")
+            g.manual_seed(args.path1a_projection_seed + 1000)  # distinct seed
+            random_keys_cpu = torch.sign(torch.randn(
+                M, _N_SUBSTRATE, generator=g, dtype=torch.float32))
+            random_keys_cpu[random_keys_cpu == 0] = 1.0
+            derived_keys = random_keys_cpu.to(device)
+            # Still need path1a_R for the readout-side projection (the readout
+            # projects hidden -> soft_query; even with random keys, the
+            # projection is needed for the soft-attention sim computation).
+            R_g = torch.Generator(device="cpu")
+            R_g.manual_seed(args.path1a_projection_seed)
+            path1a_R = torch.randn(_N_SUBSTRATE, _D_MODEL, generator=R_g,
+                                   dtype=torch.float32).to(device)
+            # Diagnostic on the random keys (should show very different Gram
+            # from a Phi-3-derived codebook -- baseline for comparison)
+            path1a_gram = _gram_diagnostic(derived_keys)
+            print(f"[d1_1_control] Gram diagnostic (frozen random keys):")
+            for k, v in path1a_gram.items():
+                print(f"  {k}: {v}")
+            # Replace key codewords in substrate codebook with random keys
+            codebook_mut = substrate_tuple[0].clone()
+            codebook_mut[substrate_tuple[2]] = derived_keys.to(
+                dtype=codebook_mut.dtype)
+            substrate_tuple = (codebook_mut,) + substrate_tuple[1:]
+            print(f"[d1_1_control] substrate codebook updated: keys at "
+                  f"codebook[key_idx] replaced with frozen random bipolar")
+        elif args.mock_model:
             # Mock mode: skip Phi-3 derivation; use random R-projection only
             print(f"[path1a_v1] --mock-model + --path1a-v1: skipping Phi-3 "
                   f"hidden-state derivation (CUDA-only); using random R only")
