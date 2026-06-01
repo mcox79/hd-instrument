@@ -69,3 +69,6 @@ This row CLOSES the 12-day-overdue framework-class identification (since `[[proj
 ## CLOSING
 
 Move to `routed_completed/` when strategy authorizes Tier 1 dispatch + NEW cap_map row + 3 closures.
+
+
+**Acted-on 2026-06-01:** NE-1 through NE-5 AUTHORIZED via exp_dev dispatch; NEW PP-33 row ADOPTED at 0.40-0.55 EXPLORATORY in cap_map v319; 3 closures applied (DDBP-unified / S-U A4 / Crooks C4); cap_map intro framework-calibration paragraph updated with non-eq stat-mech context.

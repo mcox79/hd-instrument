@@ -168,3 +168,6 @@ Two consolidated strategy routings:
 - `notes/strategy_request_to_strategy_round5_killer_feature_followons_2026-06-01.md` — Drills 5+6+7 dispatch sequencing + sub-property additions + LIFTs
 
 Note path: this file (`notes/research_round5_7_drills_synthesis_2026-06-01.md`)
+
+
+**Acted-on 2026-06-01:** 7-drill synthesis adopted in cap_map v319; non-eq stat-mech framework class identified as substrate's empirical home; PP-33 + 3 sub-properties + PP-30 mandate all derived from this synthesis.

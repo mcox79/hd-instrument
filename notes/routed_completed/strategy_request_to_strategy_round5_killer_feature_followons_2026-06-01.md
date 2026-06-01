@@ -87,3 +87,6 @@
 ## CLOSING
 
 Move to `routed_completed/` when strategy authorizes Tier 1 dispatch + sub-property additions + PP-30 design mandates.
+
+
+**Acted-on 2026-06-01:** PP-31 Tier 1 (2-D + 2-A + 4-A) + PP-28 R1 mandatory gate AUTHORIZED via exp_dev dispatch; 3 sub-properties added (PP-31a / PP-28a / PP-30a); PP-30 seeded-codebook design mandate added; PP-30 A+D parallel engineering routed to testbed via testbed_handoff_pp30_replay_protocol_a_d_parallel_engineering_2026-06-01.
