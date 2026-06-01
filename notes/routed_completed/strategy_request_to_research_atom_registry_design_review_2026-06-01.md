@@ -54,3 +54,7 @@ Research dispatches IMMEDIATELY because PP-3 Phase 2 (~5-7 days engineering) is 
 ## Closing
 
 Research moves this routing to `routed_completed/` after deliverable filed. Move the testbed source routing too (`notes/strategy_request_to_strategy_atom_registry_design_review_2026-06-01.md`) since this routing supersedes.
+
+
+---
+**Closed 2026-06-01:** Research delivered as `notes/research_atom_registry_design_review_v1_2026-06-01.md`. Converged design: content-addressed atom_id + separate subject_atom_index (Q1); tombstone-in-place ~760 bytes with deletion_authority_sig Ed25519 (Q2 + Q5); DAG with daily Merkle epoch checkpoints submitted to Sigstore Rekor (Q3); hardening via encrypted snapshot for long-lived compositions (Q4); Sigstore Rekor as practical starting point (Q6). Total eng cost: 8-12 weeks greenfield / 6-9 weeks V2 refactor; ~3-4 weeks net novel synthesis (subject-rights-triggered Merkle DAG + composition-subgraph verifier-replay + hardened-snapshot Art 17 re-deletion). Testbed source routing already in routed_completed/.

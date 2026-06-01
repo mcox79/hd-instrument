@@ -102,3 +102,20 @@
 **Routing.** `notes/strategy_request_to_strategy_negative_results_followon_experiments_2026-06-01.md`. Proposes 2 cheap diagnostic tests dispatchable in parallel: **Test 1A** (K=1 depth-sweep ~18 CPU-min) discriminates per-hop vs multi-hop composition origin; **Test 2A** (Kronecker cleanup ~1 eng-week) discriminates cleanup-driven vs pre-cleanup-bias origin. Pre-specified contingent escalations 1B + 2B + 2C avoid post-FAIL strategic vacuum.
 
 **Method note.** Per [[feedback-2x-means-depth]]: drills went DEEP on existing findings, not verification re-runs. Per [[feedback-rehabilitation-after-rejection]]: 4-5 rescues per drill listed before any closure recommendation. Per [[feedback-rescue-sketch-first-sequencing]]: cheapest diagnostic tests sequenced first. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 applied. Token-efficient via 2 Sonnet drills + Opus synthesis.
+
+
+## atom_registry_design_review_v1 -- 2026-06-01 (research:opus + 1 Sonnet drill; main-thread)
+
+**Trigger.** Orchestrator-forwarded `strategy_request_to_research_atom_registry_design_review_2026-06-01.md` (HIGH severity; gating ~5-7 days PP-3 Phase 2 engineering). Testbed surfaced that PP-3 (audit-trail rotation for GDPR) and PP-12 (compositionality audit API) share the same fundamental object (atom-registry). 6 design questions.
+
+**Outcome.** Single Sonnet drill (~2.5 min; design questions tightly coupled so no parallel-drill payoff). Converged design satisfies BOTH requirements with ~8-12 weeks greenfield / 6-9 weeks V2 refactor:
+- Atom identity: content-addressed BLAKE3(data || salt || nonce); separate subject_atom_index
+- Audit-chain shape: DAG with daily Merkle epoch checkpoints; checkpoint roots → Sigstore Rekor
+- Deletion cascade: tombstone-in-place ~760 bytes with deletion_authority_sig Ed25519 (GDPR Art 17 erasure certificate); zk-SNARK fallback for deep composition trees
+- Long-lived compositions: hardening via encrypted snapshot at composition-creation (KMS-managed key)
+- Cross-system precedent: Sigstore Rekor most practical starting point (3-5 weeks); CT RFC 9162 / IPFS Merkle-DAG / S/MIME archival cover most primitives
+- Net novel synthesis: ~3-4 weeks (subject-rights-triggered Merkle DAG + composition-subgraph verifier-replay + hardened-snapshot Art 17 re-deletion)
+
+**Note path.** `notes/research_atom_registry_design_review_v1_2026-06-01.md`. 4 open decisions for orchestrator + testbed (phasing approval / Sigstore Rekor vs alternatives / vector commitments DEFER recommendation / cap_map LIFT timing).
+
+**Method note.** Per [[feedback-no-padding-experiments]]: 1 drill not parallel because questions tightly coupled. Per [[feedback-subagent-model-optimization]]: Sonnet appropriate for design-pattern + cross-system-precedent lit-scan. Per [[feedback-query-privacy-decomposition]]: generic compliance terms only. Routing moved to routed_completed/; testbed picks up converged design for PP-3 Phase 2 implementation.
