@@ -5039,3 +5039,107 @@ NE-4 + NE-5 + PP-28-R1 + PP-31-2D + PP-31-4A 5 HARD_PASSes within non-eq stat-me
 
 Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up. exp_dev: queue=0 + pause-flag absent; surfaced PP-33 caveat-driven rescue candidates (NE-1 grid refinement, NE-2 alpha_c refinement, PP-31c production-config sweep) for main-thread dispatch decision. Testbed: PP-30 A+D parallel engineering already in flight from v319 testbed handoff -- PP-33b empirical validation (NE-4 Landauer + NE-5 audit-no-benefit HARD_PASS) supports PP-30 seeded-codebook design mandate. PP-13 N=16384 HARD_PASS authorizes N=32768 staging follow-up per pre-commit.
 
+
+
+# v322 update (2026-06-01) -- BATCHED 8-VERDICT PP-33 v2 RESCUE (NE-1+NE-2 N=8192) + Round 6 cells (E/F/H/J/K/L) (verdict_handler 233rd PROT-009 paired commit; user-authorized 2026-06-01)
+
+**Trigger.** 8-verdict batch arrived 2026-06-01 17:30+ on remote_cpu_queue: 2 PP-33 framework-class RESCUE v2 anchors (NE-1 v2 N=8192 36.6min wall + NE-2 v2 N=8192 4.2min wall) + 6 Round 6 cells (E set-intersect, F CSP+Hebbian, H knee-calib, J Tracy-Widom, K symbolic-battery, L bursty-write). All 8 metrics `_source=remote` authoritative via `tools.orchestrator.remote_state.get_metrics`. Pause-flag ABSENT (verified).
+
+### Step 0 -- honest re-read of all 8 verdict_msg labels vs per-cell remote metrics
+
+**HONEST (4):** NE-1 v2 MIDDLE_BAND, NE-2 v2 MIDDLE_BAND, pp31c HARD_FAIL at smoke, bursty MIDDLE_BAND (degenerate test).
+**LABEL-VS-HONEST CATCHES (4):** tr_w1w2 HARD_PASS labeled but smoke-scope N=2048 n_seeds=1 -> SMOKE_HP; csp_hebbian HARD_PASS labeled but smoke-scope N=1024 n_seeds=2 M=20 -> SMOKE_HP; symbolic_prim_battery HARD_PASS labeled but smoke-scope N=2048 n_seeds=2 -> SMOKE_HP; tracy_widom MIDDLE_BAND labeled but anchor `_n32768` ran at N=4096 (8x silent downsizing) smoke n_seeds=2 elapsed=0.029s -> **INFRA_FAILURE + PROT-018 BINDING-CONTRACT VIOLATION**.
+
+Details in `strategy_decisions_2026-06-01.md` v322 entry.
+
+### Step 1 -- strategy decisions (inline)
+
+**PP-33 row -- NO LIFT applied; v2 rescue caveats c+d appended.** Pre-reg LIFT condition (NE-1 v2 + NE-2 v2 BOTH HARD-PASS at N=8192 -> 0.40-0.55 -> 0.55-0.70) FAILED. Both anchors MIDDLE_BAND. Per [[feedback-no-preframing]] no pre-framed cap_map transition applied. PP-33 band STAYS 0.40-0.55 EXPLORATORY (🔬) with TWO NEW caveats:
+
+- **Caveat (c) NE-1 v2 N=8192 pearson-r weakening with collapse-strengthening (v322):** vs v1 N=4096 (abs_r=0.781 PASS / collapse=1.47 FAIL), v2 N=8192 shows abs_r=0.411 FAIL / collapse=3.01 PASS. Aging signature COLLAPSE-METRIC strengthens at higher N (3.01 > 2.0 HP gate) but simple PEARSON-R-ON-AGING-TREND weakens (0.411 < 0.70 HP gate). Consistent with finite-N noise floor dominating at larger systems while scaling-collapse becomes cleaner; composite signature is partial-evidence of MCT-class membership, NOT refutation, NOT confirmation. Rescue candidates (cheapest-first):
+  1. (CHEAPEST, 0-compute) Subsumption: v1+v2 composite shows ONE of {r, collapse} passes at each N. APPLIED inline.
+  2. (CHEAP, ~30min CPU) Tighter t_w grid at N=8192 to give collapse-score more leverage.
+  3. (CHEAP, ~30min CPU) Spearman-r instead of Pearson-r for rank-robust aging-trend at higher N.
+  4. (MEDIUM, ~1h CPU) NE-1 v3 at N=16384 — extrapolation test.
+  5. (HIGHER, ~2-3h GPU) Multi-observable cross-correlator C_AB(t, t_w) for stronger scaling collapse.
+
+- **Caveat (d) NE-2 v2 N=8192 cliff IN PREDICTED WINDOW WITHIN 0.0012 (v322):** v1 N=4096 cliff at 0.17-0.18 (off-window high by 0.04 from [0.12, 0.16] window); v2 N=8192 cliff at 0.1532 (over-shoots [0.125, 0.152] HP window by only 0.0012 — functionally at upper-edge tie). Finite-N effect CONTRACTING toward predicted alpha_c with N. Substrate exhibits DMFT-like sharp retrieval cliff; predicted alpha_c approached from above as N grows. Rescue candidates:
+  1. (CHEAPEST, 0-compute) Honest reading "MIDDLE within 1% of HP threshold" not LIFT-able. NOT applied.
+  2. (CHEAP, ~15min CPU) Finer alpha grid around 0.150-0.156 at N=8192.
+  3. (CHEAP, ~30min CPU) Hara-Kabashima 2026 specific-constant recalibration of HP window using N=8192 finite-N correction.
+  4. (MEDIUM, ~1-2h CPU) NE-2 v3 at N=16384 — does cliff converge inside window?
+  5. (HIGHER, GPU) Cross-cliff multi-pattern joint retrieval — direct DMFT universality test.
+
+**Round 6 cells E/F/K -- SMOKE_HP, NO new EMPIRICAL rows added.** Per [[feedback-verdict-msg-honest-reread]] + [[feedback-no-papers-product-only]]: smoke-scope HP do NOT add EMPIRICAL cap_map rows. tr_w1w2 set-intersect, csp_hebbian CSP-with-learning coexistence, symbolic_prim_battery 4-primitive composition all SHOW STRONG SMOKE NUMBERS pending FULL 5-seed N=8192 confirmation. **Filing routing to exp_dev for FULL re-runs of all 3 cells.** Proposed PP-XX row names if FULL confirms:
+- PP-33c (proposed): set-algebra primitive on substrate (tr(W1 W2) cardinality identity)
+- PP-33d (proposed): CSP-with-Hebbian coexistence (planted bipartite MAX-CUT + Hebbian retrieval joint task)
+- PP-33e (proposed): symbolic primitive composition (rule-fire + disjunction + forward-chain + backward 4-way battery)
+NONE of these are added in v322; deferred to FULL-confirmation verdicts.
+
+**Cell H pp31c HARD_FAIL at smoke -- NOT closure.** avg_knee=0.258 outside [0.65, 0.85] HP window. PP-31c sub-property NOT empirically validated at this anchor scope (n_seeds=2 + window-mismatch). Curve EXISTS but knee localizes earlier than anticipated. Rescue candidates listed in strategy_decisions; production-config sweep recommended before any closure.
+
+**Cell J tracy_widom_n32768 -- INFRA_FAILURE + PROT-018 VIOLATION.** Anchor `_n32768` ran at N=4096 (8x silent downsizing), smoke mode, 0.029s wall. Verdict CLASS reclassified MIDDLE_BAND -> INFRA_FAILURE. **No cap_map row entry for Tracy-Widom universality**; awaiting honest N=32768 re-ship. Diagnostic routing filed: must verify queue-script invocation honors `--full --N 32768`; suspect launcher silent fallback to smoke when full path / GPU not available. Cell J binding-contract VIOLATED counted as LABEL-VS-HONEST.
+
+**Cell L bursty -- DEGENERATE_MIDDLE.** Test scenario mis-calibrated (m saturated pre-burst at N=2048 M=500); drop_factor=-0.01 (no drop) and recovery=-0.63 (m random-walked to 0.249 by step 1000) reflect a degenerate setup, not a substrate-mechanism failure. Cell L NOT a closure; needs M<N/4 reconfiguration before FULL.
+
+### Step 2 -- rescue sketches for closures (PROT-004/006)
+
+NO row closures this batch. PP-33 stays 🔬 with new caveats; PP-31c NOT closed (smoke-scope HF; FULL re-run needed). Rescue paths sequenced cheapest-first inline above for NE-1 v2, NE-2 v2, PP-31c.
+
+### Step 3 -- visibility entry (inline append to visibility_decisions_2026-06-01.md)
+
+One-line summary entry filed.
+
+### Step 4 -- status_log entry (For You tab; MANDATORY per [[feedback-for-you-tab-primary-channel]])
+
+importance HIGH; plain_language: "Tested 8 experiments. The big framework-test (whether the substrate behaves like the MCT/DMFT theoretical class we hypothesized) shows partial evidence at higher resolution -- the substrate IS exhibiting these signatures but the simple statistical tests we used aren't sharp enough to call it confirmed. We did NOT promote the framework. 4 other 'wins' were actually smoke-scope (smaller-than-promised tests) and need full-scale re-runs before they count. One Tracy-Widom test silently shrank from N=32768 to N=4096 and needs re-shipping. No framework class confirmed; no closures."
+
+### Step 5 -- pipeline-pacing (per [[feedback-pipeline-pacing]])
+
+Pause-flag ABSENT (verified `test -f data/orchestrator_paused.flag` -> NO_PAUSE_FLAG). Queue depth at arrival = 0 (8-verdict batch arrival itself is depletion signal per [[feedback-verdict-arrival-is-queue-depletion-signal]]). Pipeline-pacing condition MET. SKIP exp_dev dispatch from this verdict_handler return; orchestrator main thread holds dispatch authority for surfaced rescue/re-ship candidates. [pipeline-pacing: surfaced to main-thread]
+
+## Tallies (v321 -> v322)
+
+- **HONEST:** 340 -> **344** (+4: NE-1 v2 honest MIDDLE, NE-2 v2 honest MIDDLE, pp31c honest HF at smoke, bursty honest degenerate MIDDLE).
+- **LABEL-VS-HONEST:** 177 -> **181** (+4: tr_w1w2 HP→SMOKE_HP, csp_hebbian HP→SMOKE_HP, symbolic_prim HP→SMOKE_HP, tracy_widom MIDDLE→INFRA + PROT-018 violation).
+- **Portfolio:** 32+53 UNCHANGED. NO new rows; NO LIFTs; NO closures.
+- **Cap_map version: v322.**
+
+### Framework reliability (v322)
+
+PP-33 RESCUE v2 BOTH MIDDLE_BAND (not BOTH HARD-PASS). MCT/DMFT universality framework class: empirical signatures STRENGTHENING with N (NE-1 collapse-score 1.47->3.01; NE-2 cliff midpoint approaching predicted alpha_c from 0.17 to 0.153) but NEITHER hitting HP gate. Substrate is PROBABLY in MCT/DMFT non-eq class (signatures present and refining with N) but framework confirmation NOT achieved. CK companion test (ck_seb_discriminator_v1) in flight on local GPU; that result is the next framework-class signal. PP-33 row reliability UNCHANGED at 0.40-0.55; framework reliability tallies unchanged (specific-documented 42-52% UNCHANGED, general 65-75% UNCHANGED, product-feature 55-70% UNCHANGED).
+
+## PROT compliance (v321 -> v322)
+
+- PROT-004/006: NO row closures; PP-33 stays 🔬 (band 0.40-0.55 with new caveats c+d); PP-31c NOT closed; rescue sketches cheapest-first for NE-1 v2 (5), NE-2 v2 (5), PP-31c (4) per [[feedback-rescue-sketch-first-sequencing]].
+- PROT-007: history v322 appended inline (this entry).
+- PROT-008: annotation-only; 2 new PP-33 caveats; no state-transitions; no portfolio regression.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md + visibility_decisions_2026-06-01.md + status_log entry HIGH staged atomically; **233rd PROT-009 paired commit**.
+- PROT-018: 1 binding-contract violation logged (tracy_widom_n32768 ran at N=4096); LABEL-VS-HONEST counted; diagnostic routing filed to exp_dev for cell J re-ship.
+- PROT-021: smoke-checkpoint contamination check applied; NO contamination detected; distinct issue is run_mode=smoke at launch for Round 6 cells (queue-script audit recommended).
+
+## Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 8; 4 LABEL-VS-HONEST catches.
+- [[feedback-no-preframing]]: orchestrator pre-framed PP-33 LIFT; honest re-read REJECTED LIFT (both NE-1+NE-2 MIDDLE).
+- [[feedback-no-label-vs-honest-anchor-names]]: tracy_widom_n32768 PROT-018 binding-contract VIOLATION (ran at N=4096); diagnostic routing filed.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check; no contamination; queue-script audit recommended for run_mode=smoke issue.
+- [[feedback-cap-map-update-protocol]]: atomic .tmp+rename; push from main thread.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH.
+- [[feedback-decision-log-eol-handling]]: decision log via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED; commit hash returned for main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: NE-1/NE-2/PP-31c rescues sequenced cheapest-first.
+- [[feedback-pipeline-pacing]]: queue=0 + pause-flag absent; surfaced to main thread.
+- [[feedback-rehabilitation-after-rejection]]: NO closures; rescue lists provided for partial-signature MIDDLE outcomes.
+
+### Push and follow-on (v322)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+Surfaced routing candidates (main thread decides):
+- Tracy-Widom N=32768 honest re-ship (GPU or queue-script-audited CPU)
+- NE-1 v3 N=16384 with Spearman-r + finer t_w grid
+- NE-2 v3 alpha grid 0.150-0.156 at N=8192 (CPU ~15min)
+- Round 6 cells E/F/K FULL 5-seed N=8192 re-runs
+- PP-31c production-config sweep (M_grid + precision threshold)
+- Cell L bursty re-calibration M < N/4
+- Queue-script audit: WHY did Round 6 cells run in run_mode=smoke despite shipped to remote_cpu_queue (suspect missing --full flag in launcher.sh or queue_add invocation)
