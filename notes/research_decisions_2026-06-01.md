@@ -161,4 +161,27 @@
 - `notes/research_capabilities_expansion_round2_9_drills_2026-06-01.md` (full synthesis)
 - `notes/strategy_request_to_strategy_capabilities_expansion_round2_2026-06-01.md` (Tier 1/2/3 routing)
 
-**Method note.** Per [[feedback-aggressive-cross-domain-research]]: Round 2 covered remaining high-value capability gaps. Per [[feedback-no-padding-experiments]]: each drill on distinct axis. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50. Per [[feedback-query-privacy-decomposition]]: all 9 drill prompts generic terms only. **Research session recommendation: PAUSE new capability-direction expansion after this round; let Tier 1 verdicts return before opening more breadth.** 16 capability drills today across both rounds.
+**Method note.** Per [[feedback-aggressive-cross-domain-research]]: Round 2 covered remaining high-value capability gaps. Per [[feedback-no-padding-experiments]]: each drill on distinct axis. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50. Per [[feedback-query-privacy-decomposition]]: all 9 drill prompts generic terms only. **Research session recommendation: PAUSE new capability-direction expansion after this round; let Tier 1 verdicts return before opening more breadth.** 16 capability drills today across both rounds. **CORRECTION**: user explicitly retracted the pause recommendation — "we will not pause new capabilities - we need to map out the substrate" — saved as `[[feedback-dont-recommend-research-pause]]`.
+
+
+## capabilities_expansion_round3_8_drills -- 2026-06-01 (research:opus + 8 parallel Sonnet drills; main-thread)
+
+**Trigger.** User directive "we will not pause new capabilities - we need to map out the substrate. do not say this again I will decide when we focus exclusively on product" — explicit retraction of Round 2's close-recommendation that the session pause new capability mapping.
+
+**Outcome.** 8 parallel Sonnet drills (~95-170s each, ~155K tokens combined) on: cross-modal substrate / knowledge-graph substrate / feature store with audit / substrate-FAISS embedding-index hybrid / federated learning substrate / substrate-LLM bidirectional learning / retrieval explainability / information-theory readout.
+
+**THREE NEW CONVERGENCES (in addition to Round 2's "physics-grade not policy-grade")**:
+
+1. **SIDECAR / COMPLEMENT positioning** (4 drills): substrate sits ALONGSIDE existing infrastructure as audit-cert layer, NOT replacement. FAISS hybrid Angle 5, feature store sidecar, workflow engine audit-layer-FOR Temporal, knowledge graph alongside Neo4j. Strategic implication: GTM is plug-into-existing-stacks not replace-incumbent.
+
+2. **DELETION CERTIFICATE as universal primitive** (5 drills): single primitive powers federated unlearning (FL M4), feature-store erasure (M5), per-vector deletion (FAISS A2), counterfactual+erasure (explainability M3), time-series per-point cert. Promote to first-class substrate primitive.
+
+3. **Cross-domain W separability shared architecture** (4 drills): per-domain separate W + bridge atoms + separability proofs serves multi-tenant SaaS, cross-modal retrieval, federated learning, AND cross-tenant attribution. ONE production architecture powers 4 capability axes.
+
+**Cumulative state across Rounds 1+2+3 (24 capability drills today)**: 11 NEW cap_map rows proposed across both rounds + multiple sub-properties + 9 explicit closures. Unified narrative bundling proposed: "audit-grade memory with physics-grade guarantees" across 11 named killer-feature instances.
+
+**Note paths**:
+- `notes/research_capabilities_expansion_round3_8_drills_2026-06-01.md` (full synthesis)
+- `notes/strategy_request_to_strategy_capabilities_expansion_round3_2026-06-01.md` (Tier 1/2/3 routing + 3 strategic shifts proposed)
+
+**Method note.** Per [[feedback-dont-recommend-research-pause]]: continuing capability mapping per user direction; NO pause recommendation in this synthesis. Per [[feedback-subagent-model-optimization]]: 8 Sonnet drills parallel. Per [[feedback-query-privacy-decomposition]]: all 8 drill prompts generic VSA/ML/compliance terms; no project-identifying fingerprints. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 throughout.
