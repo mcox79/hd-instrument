@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+import subprocess
 import sys
 import time
 from datetime import datetime
@@ -109,6 +111,203 @@ def _runner_state_from_heartbeat(runner_id: str) -> dict:
     }
 
 
+def _classify_python_procs() -> list[dict]:
+    """Return a list of LOGICAL Python processes, grouping venv-shim+interpreter pairs.
+
+    On Windows each runner/emitter/experiment is actually TWO PIDs:
+      - the venv activation shim  (parent = cmd or schtasks)
+      - the python.exe interpreter (parent = shim PID)
+
+    We use WMIC to get (PID, ParentPID, CommandLine) for all python.exe procs,
+    then:
+      1. Build a pid->info map and parent->children map.
+      2. Group shim+interpreter pairs: if proc B's parent is proc A (both python.exe),
+         they form one logical process; B is the "real" interpreter.
+      3. Classify each logical proc by its commandline:
+         - "runner"           if cmdline contains "runner_v2_prod.py"
+         - "emitter"          if cmdline contains "remote_state_emitter.py"
+         - "experiment_child" if parent (logical) is a runner
+         - "unknown"          otherwise
+
+    Returns list of dicts:
+      {type, name, pid, shim_pid, parent_pid, cmdline_short, mem_kb}
+    """
+    try:
+        out = subprocess.check_output(
+            [
+                "wmic", "process", "where", "name='python.exe'",
+                "get", "ProcessId,ParentProcessId,CommandLine,WorkingSetSize",
+                "/format:csv",
+            ],
+            stderr=subprocess.DEVNULL,
+            timeout=10,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except Exception:
+        return []
+
+    # WMIC CSV: first non-empty line is header, rest are data rows.
+    # Header: Node,CommandLine,ParentProcessId,ProcessId,WorkingSetSize
+    rows = [ln.strip() for ln in out.splitlines() if ln.strip()]
+    if len(rows) < 2:
+        return []
+
+    header = [h.strip() for h in rows[0].split(",")]
+    # Find column indices (case-insensitive)
+    col = {h.lower(): i for i, h in enumerate(header)}
+    idx_pid  = col.get("processid")
+    idx_ppid = col.get("parentprocessid")
+    idx_cmd  = col.get("commandline")
+    idx_ws   = col.get("workingsetsize")
+    if idx_pid is None or idx_ppid is None:
+        return []
+
+    procs: dict[int, dict] = {}
+    for row in rows[1:]:
+        parts = row.split(",")
+        # Parts length check is done inside the loop after computing required.
+        # Need at least enough parts to read pid and ppid columns.
+        required = max(x for x in [idx_pid, idx_ppid, idx_cmd] if x is not None)
+        if len(parts) < required + 1:
+            continue
+        try:
+            pid  = int(parts[idx_pid])
+            ppid = int(parts[idx_ppid])
+        except (ValueError, IndexError):
+            continue
+        cmd = parts[idx_cmd].strip() if idx_cmd is not None and idx_cmd < len(parts) else ""
+        ws_bytes = 0
+        if idx_ws is not None and idx_ws < len(parts):
+            try:
+                ws_bytes = int(parts[idx_ws])
+            except ValueError:
+                pass
+        procs[pid] = {
+            "pid": pid,
+            "ppid": ppid,
+            "cmd": cmd,
+            "mem_kb": ws_bytes // 1024,
+        }
+
+    if not procs:
+        return []
+
+    python_pids = set(procs.keys())
+
+    # ---- Step 1: Identify venv-shim + interpreter pairs. ----
+    # A "shim" is a python.exe whose cmd contains the venv Scripts path (or is very short)
+    # AND has exactly one python.exe child. The child is the "real" interpreter.
+    #
+    # Key insight: the venv shim path is `.venv\Scripts\python.exe` while the real
+    # interpreter is a system Python path (e.g. AppData\Local\Programs\Python\...).
+    # We detect shims by looking for the venv Scripts marker in the cmdline.
+    #
+    # Parent->children map (python.exe only).
+    py_children: dict[int, list[int]] = {}
+    for pid, info in procs.items():
+        ppid = info["ppid"]
+        if ppid in python_pids:
+            py_children.setdefault(ppid, []).append(pid)
+
+    def _is_venv_shim(cmd: str) -> bool:
+        """True if the cmdline looks like a venv activation shim."""
+        c = cmd.lower()
+        return (
+            r".venv\scripts\python" in c
+            or "scripts\\python.exe" in c
+            or (len(cmd) < 80 and cmd.lower().endswith("python.exe"))
+        )
+
+    shim_to_interp: dict[int, int] = {}  # shim_pid -> real_interpreter_pid
+    for pid, info in procs.items():
+        kids = py_children.get(pid, [])
+        # A shim has exactly one python.exe child AND looks like a shim cmdline.
+        if len(kids) == 1 and _is_venv_shim(info["cmd"]):
+            shim_to_interp[pid] = kids[0]
+
+    # Interpreter pids: the real half of a shim+interp pair.
+    interp_pids = set(shim_to_interp.values())
+    # Build reverse map: real interpreter -> its shim
+    interp_to_shim: dict[int, int] = {v: k for k, v in shim_to_interp.items()}
+
+    # ---- Step 2: Collect runner interpreter PIDs (needed to classify children). ----
+    # A runner interpreter has "runner_v2_prod.py" in its cmd.
+    runner_interp_pids: set[int] = set()
+    for pid, info in procs.items():
+        if "runner_v2_prod.py" in info["cmd"]:
+            runner_interp_pids.add(pid)
+
+    # ---- Step 3: Build one logical entry per "root" process. ----
+    # Root = not an interpreter child of a known shim.
+    logical: list[dict] = []
+    for pid, info in sorted(procs.items()):
+        # Skip if this pid is the interpreter half of a shim+interp pair
+        if pid in interp_pids:
+            continue
+
+        # Is this a shim that pairs with an interpreter?
+        interp_pid = shim_to_interp.get(pid)
+        real_pid   = interp_pid if interp_pid else pid
+        real_info  = procs.get(real_pid, info)
+        cmd        = real_info["cmd"]
+        # Also check both the shim and interp cmds for the classifiers
+        cmd_combined = info["cmd"] + " " + (procs.get(real_pid, {}).get("cmd", ""))
+
+        # Classify by command line
+        if "runner_v2_prod.py" in cmd_combined:
+            proc_type = "runner"
+            m = re.search(r"--id\s+(gpu_runner_\w+|cpu_runner_\w+)", cmd_combined, re.IGNORECASE)
+            if not m:
+                m = re.search(r"(gpu_runner_\w+|cpu_runner_\w+)", cmd_combined, re.IGNORECASE)
+            name = m.group(1) if m else "runner"
+        elif "remote_state_emitter.py" in cmd_combined:
+            proc_type = "emitter"
+            name = "remote_state_emitter"
+        else:
+            # Check if this process's shim parent is a runner interpreter.
+            # Experiment shim: parent is runner interpreter pid.
+            # Experiment interpreter: parent is experiment shim pid.
+            parent_pid = info["ppid"]
+            parent_is_runner = parent_pid in runner_interp_pids
+            proc_type = "experiment_child" if parent_is_runner else "unknown"
+            # Extract experiment script name from combined cmd
+            m = re.search(r"(exp_wave\d+_[\w.]+\.py|exp_[\w]+\.py)", cmd_combined)
+            if m:
+                name = m.group(1).replace("\\", "/").split("/")[-1]
+            else:
+                name = _short_cmd(cmd)
+
+        cmd_short = _short_cmd(cmd)
+
+        logical.append({
+            "type": proc_type,
+            "name": name,
+            "pid": real_pid,
+            "shim_pid": pid if interp_pid else None,
+            "parent_pid": info["ppid"],
+            "cmdline_short": cmd_short,
+            "mem_kb": real_info["mem_kb"],
+        })
+
+    return logical
+
+
+def _short_cmd(cmd: str) -> str:
+    """Return the last path component of the first script argument in a cmdline."""
+    if not cmd:
+        return "(empty)"
+    # Strip leading python executable path
+    cmd = cmd.strip().strip('"')
+    # Find the last *.py token
+    m = re.search(r'(\S+\.py)', cmd)
+    if m:
+        p = m.group(1).replace("\\", "/")
+        return p.split("/")[-1]
+    return cmd[:60]
+
+
 def _recent_verdicts(n: int = 10) -> list[dict]:
     """Pull the most recent n verdicts from queue.json completed entries.
 
@@ -169,6 +368,7 @@ def build_snapshot() -> dict:
         },
         "recent_verdicts": _recent_verdicts(10),
         "recent_runner_log_tail": "",
+        "logical_processes": _classify_python_procs(),
     }
 
     return snapshot

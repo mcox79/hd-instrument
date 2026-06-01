@@ -63,6 +63,8 @@ Smoke test must:
 - Produce valid metrics.json with ALL claimed metric fields non-null and non-sentinel
 - Script includes the stdout reconfigure block at the top (see below)
 
+**Import-chain coverage (MANDATORY):** The smoke run MUST exercise the same `import` chain as the FULL run. If the script imports from another `experiments/` module (base class, shared evaluator, helper), that import MUST succeed during smoke — do NOT wrap shared imports in `if FULL_MODE:` guards. This is the only way to catch ImportError at gate time rather than 20 seconds into a FULL run. Check: after smoke, grep the script for all `from experiments.` and `import experiments.` lines and verify each target file exists.
+
 **Envelope-expansion prereg check:** when the routing note from Strategy is an envelope-expansion drill (testing an existing ✅ or 🟢 row at a broader envelope — more protocols, more N values, more cells, more codebooks), exp_dev verifies the prereg includes pre-registered hard-pass + hard-fail bands matching the BROADER claim, plus a middle-band outcome plan. If missing, return-to-Strategy via routing note (`notes/exp_dev_to_strategy_<topic>_<date>.md`) with body "envelope-expansion drill prereg incomplete; needs hard-pass + hard-fail bands + middle-band outcome plan." Per [[feedback-envelope-expansion-fail-bands]].
 
 ### Instrumentation self-test block (MANDATORY in every script)
@@ -101,6 +103,16 @@ After smoke, before filing the queue entry, inspect the smoke metrics.json. BLOC
 
 `INSTRUMENTATION_SUSPECT` treatment: do NOT ship to FULL queue. Write `notes/exp_dev_to_strategy_instrumentation_suspect_<topic>_<date>.md` describing the suspicious pattern and what assertion was missing. Fix the script and re-run smoke from scratch.
 
+### OOM pre-check (REQUIRED for matrix-op experiments)
+
+When the script allocates a matrix whose size is O(N²) or larger (outer-product stores, full SVD, covariance matrices, dense attention at N>4096):
+1. Estimate peak GPU memory: `bytes = dtype_bytes * N * N * n_copies`. For float32 on the runner's 8GB GPU the hard ceiling is ~8e9 bytes.
+2. If the estimate at FULL scale exceeds **6GB** (leaving 2GB headroom), BLOCK the ship and return to Strategy with a batching/chunking recommendation.
+3. Run multi-scale smoke (N_smoke AND N_smoke×4) to validate that OOM is not already triggered at intermediate scales.
+4. If multi-scale smoke OOMs at N_smoke×4: report the memory ceiling to Strategy instead of shipping.
+
+This is the structural fix for the SVD-cascade OOM pattern (3 repeated OOM failures on the same free-additive formula row, each wasting a GPU slot).
+
 ### Multi-scale smoke (REQUIRED when N or count is a load-bearing axis)
 
 When the experiment sweeps N, sequence length, or any other scale parameter as a primary independent variable:
@@ -119,6 +131,35 @@ When shipping a calibration probe with no prior empirical anchor (i.e., the pre-
 - Set HARD-FAIL band = > 3× or < 1/3 of theoretical prediction.
 - State explicitly in the prereg: "no prior empirical anchor; bands widened to ±50% per calibration-probe policy."
 - A 1.6× exceedance of a theoretical band that was set to ±10% is a calibration failure, not a substrate anomaly.
+
+### Per-experiment timeout estimation (REQUIRED — no silent default)
+
+`timeout_s` is a REQUIRED field in every queue entry. The 2-hour flat default is abolished. Estimate per anchor from the smoke result:
+
+```
+timeout_s = ceil(1.5 * smoke_wall_s * (FULL_N / smoke_N)**scaling_exp * (FULL_seeds / smoke_seeds))
+```
+
+**scaling_exp guidelines:**
+- `1.0` — linear sweep (most scalar-metric experiments, no matrix ops)
+- `1.5` — moderate super-linear (vector operations, per-cell sweeps with intermediate allocations)
+- `2.0` — matrix-multiply or SVD-dominant (outer-product stores, full spectral analysis)
+- When in doubt, use `1.5` and round up.
+
+**Procedure:**
+1. Record `smoke_wall_s` from the smoke run (printed in the gate log or metrics.json elapsed_s).
+2. Identify `FULL_N`, `smoke_N`, `FULL_seeds`, `smoke_seeds` from the script config.
+3. Apply the formula; always round UP to the nearest 300s (5 min).
+4. Write the estimate and the formula inputs into the prereg under a `## Timeout estimate` section.
+5. If the estimate exceeds **14400s (4 hours)**: STOP — do NOT ship. Write an upstream-push note (`notes/exp_dev_to_strategy_timeout_too_long_<name>_<date>.md`) explaining the estimate and asking Strategy to either reduce scope or explicitly approve the long run. Reason: runs >4h tie up the lone GPU runner for the majority of a working day.
+6. If the estimate exceeds **7200s (2 hours)**: add a comment in the prereg flagging the long run for user visibility. Ship is allowed but the flag should appear in the For You status_log entry.
+
+**Examples:**
+- smoke_wall_s=45, FULL_N/smoke_N=4 (1024→4096), FULL_seeds/smoke_seeds=5, scaling_exp=1.5 → `ceil(1.5 * 45 * 4**1.5 * 5) = ceil(2700)` → **timeout_s=2700**
+- smoke_wall_s=120, FULL_N/smoke_N=16 (1024→16384), FULL_seeds/smoke_seeds=5, scaling_exp=2.0 → `ceil(1.5 * 120 * 16**2.0 * 5) = ceil(230400)` → exceeds 14400 → BLOCK, return to Strategy
+- smoke_wall_s=300, FULL_N same, FULL_seeds/smoke_seeds=10, scaling_exp=1.0 → `ceil(1.5 * 300 * 1 * 10) = 4500` → **timeout_s=4500**
+
+If smoke_wall_s is not available (--skip-smoke path): use the most recent comparable experiment's elapsed_s from the bridge recent_verdicts as the anchor, and add 50% extra margin. State this assumption in the prereq.
 
 ## Script template top (every new script starts with this)
 
@@ -177,9 +218,11 @@ Include the `queue=` field as the first token on the entry line:
 queue=<queue_name> name=<exp_name> script=<rel_path> prereg=<rel_path> timeout=<seconds>
 ```
 
-Examples:
-- GPU experiment: `queue=overnight_queue name=wave14_betX_v1 script=experiments/exp_wave14_betX_v1.py prereg=preregs/2026-05-23_betX.md timeout=7200`
+Examples (timeout is PER-ANCHOR ESTIMATE, not a generic default):
+- GPU experiment with computed estimate: `queue=overnight_queue name=wave14_betX_v1 script=experiments/exp_wave14_betX_v1.py prereg=preregs/2026-05-23_betX.md timeout=3600`
 - Local CPU smoke / pure-numpy experiment: `queue=local_cpu_queue name=wave14_cpu_sweep_v1 script=experiments/exp_wave14_cpu_sweep_v1.py prereg=preregs/2026-05-23_cpu_sweep.md timeout=600`
+
+NOTE: timeout=3600 in the GPU example above is illustrative — the ACTUAL value for every real anchor must come from the smoke-based formula in "Per-experiment timeout estimation" above. Never copy 3600 or 7200 as a default.
 
 ## Routing-note schema (per [[feedback-multi-experiment-routing-notes]])
 
@@ -273,3 +316,25 @@ Write this entry BEFORE returning to the orchestrator. Chat surfacing is optiona
 - Do NOT modify cap_map or run experiments outside the queue.
 - Background all experiments per [[feedback-no-blocking-runs]] — user must stay reachable.
 - Return a one-line summary of what shipped.
+
+## HARD RULE — Anchor-name N-suffix binding (PROT-018)
+
+**60+ label-vs-honest mismatches (2026-05-27) where smoke configs ran at N=512 but the anchor name said `_n4096`.** The anchor name is the contract. The script must honor it.
+
+### When the anchor name contains `_n<NUMBER>` (e.g. `_n4096`, `_n8192`, `_n16384`):
+
+1. **PRODUCTION config MUST use exactly that N value.** The script's `N = ...` (or `n = ...`, argparse default, or equivalent top-level config) MUST match the suffix-N. The smoke run may use a smaller N (that is expected — smoke is a gate, not the final run), but the FULL queued configuration MUST be the suffix-N.
+
+2. **Pre-ship audit (MANDATORY):**
+   ```bash
+   grep -E "(N\s*=|n\s*=)\s*<SUFFIX_N>" experiments/exp_<name>.py
+   ```
+   If that grep returns nothing, the script's production N does not match the anchor name — **BLOCK the ship**. Fix the script (or fix the name) and re-verify before queuing.
+
+3. **If the anchor name lacks `_n<N>` suffix** but the script uses a non-obvious N (e.g. N=16384 embedded in a variable name like `DIM`), exp_dev MUST either:
+   - Add the `_n<N>` suffix to the anchor name, OR
+   - Explicitly state in the prereg `## N-suffix` section: "No _nN suffix; production N = <value>; rationale: <reason>"
+
+4. **`_v<N>` version suffixes do NOT carry N-binding.** `_v3` means version 3, not N=3. Only `_n<NUMBER>` triggers this rule.
+
+5. **`queue_add.py` enforces this at ship-time (exit code 6)** — the validator parses the anchor name, extracts the suffix-N, searches the script for a matching production N, and rejects mismatches before any smoke or self-test runs. A gate fail here means fix the name or fix the config — not skip the check.

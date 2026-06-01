@@ -94,4 +94,6 @@ This is a research-filed experiment proposal. Orchestrator decides:
 - (c) Engineering ownership (testbed Tier 2b LLM comparison harness extension is the natural home)
 
 No work begins without orchestrator queueing.
-Acted-on 2026-05-31: cap_map row added v297 -> v298; testbed handoff filed for the multi-week build.
+
+---
+BULK-ARCHIVED 2026-06-01: previously processed (cap_map v311+ reflects acted-on work); routing closed retroactively per dashboard inbox-clearance Path A.

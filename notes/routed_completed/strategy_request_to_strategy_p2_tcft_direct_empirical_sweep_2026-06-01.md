@@ -38,4 +38,4 @@ Whatever TCFT-equivalent metric strategy picks, the empirical question is: **doe
 Move to `routed_completed/` when strategy files the empirical-sweep routing OR formal P2 closure.
 
 ---
-Acted-on 2026-06-01: anchor tcft_direct_empirical_sweep_v1_n16384 shipped; bypass-source-mismatch approach accepted; verdict pending.
+BULK-ARCHIVED 2026-06-01: previously processed (cap_map v311+ reflects acted-on work); routing closed retroactively per dashboard inbox-clearance Path A.

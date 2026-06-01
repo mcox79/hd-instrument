@@ -11,7 +11,9 @@
 #   name        queue entry name (also HDLAB_EXP_NAME on the runner)
 #   script      script path relative to repo root (e.g. experiments/exp_X.py)
 #   prereg      prereg path relative to repo root (e.g. preregs/2026-05-23_X.md)
-#   timeout_s   per-run timeout in seconds (e.g. 3600)
+#   timeout_s   per-run timeout in seconds. REQUIRED; compute from smoke:
+#               ceil(1.5 * smoke_wall_s * (FULL_N/smoke_N)^scaling_exp * (FULL_seeds/smoke_seeds))
+#               scaling_exp=1.0 linear, 1.5 vector sweeps, 2.0 matrix ops. Cap at 14400 or justify.
 #
 # Optional extra flags (passed through verbatim to queue_add.py):
 #   --rerun-as <new_name>   Queue clone under new_name; original entry untouched.
