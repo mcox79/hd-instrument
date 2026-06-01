@@ -326,3 +326,93 @@ Cap map: v309 -> v310 SINGLE-VERDICT Week 1 GO/NO-GO H100 REVALIDATION DECISIVE-
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
 v310->v311 ANNOTATION-ONLY: PP-9 caveat (b) updated with depth-conditional quality budget (0.95^d compound over chain depth d; product depth ceiling explicit: d<=4 for <0.80 accuracy, d=1 for <=0.95); VALIDATED/EXPLORATORY/HOLDING/CLOSED strategic tag scheme adopted in cap_map intro/legend (orthogonal to empirical emoji; bulk 65-row application is TODO); 2 research routings closed (pp9_depth_conditional_caveat + stale_row_audit); portfolio 28+37 UNCHANGED; HONEST 298 UNCHANGED; LABEL-VS-HONEST 170 UNCHANGED; 222nd PROT-009 paired commit
+
+## v311 -> v312 @ BATCHED 2-VERDICT R4-null-prediction + PP-11-double-Hadamard wave (verdict_handler 223rd PROT-009 paired commit; FRAMEWORK-RELIABILITY-RECALC on P3 percolation N-independence prediction REFUTED + 2nd FALSIFICATION Hadamard-rescue family + 3rd task-prompt OVER-CLAIM same pattern)
+
+**Trigger.** 2 substantive verdicts landed 2026-06-01T10:51 + 10:55. Pause flag ABSENT. Both metrics _source=remote authoritative. Single batched commit.
+
+### Step 0 honest re-read (mandatory; [[feedback-verdict-msg-honest-reread]])
+
+**V1 path_d_k1_cross_n_null_prediction_v1_n4096** CPU wall_s=4159 -- NULL_PRED_HARD_FAIL HONEST. N=4096 5-seed K=1 path_b_top1 {0.02, 0.04, 0.03, 0.01, 0.01} mean=0.022 (matches v307 V2 baseline at M=16N exactly to 3 decimal places); N=16384 5-seed K=1 path_b_top1 {0.37, 0.41, 0.38, 0.42, 0.39} mean=0.394. max|delta|=0.372 (37.2pp) >> 3pp HF threshold. ~18x ratio. K=1 substrate-physics signal IS strongly N-driven. Pre-reg HF cleanly met. LABEL HONEST. No label-vs-honest catch. **P3 percolation framework's N-independence prediction REFUTED** -- this is a framework-reliability-recalc event on the v306 cap_map P3 framework acceptance.
+
+**V2 reasoning_storage_4way_cleanup_v4_double_orthogonal_v1_n16384** CPU wall_s=246 -- 4WC_HARD_FAIL HONEST. Per-seed arm_c_combined retrieval / baseline ratios: seed 7 = 0.960/0.930 = 1.032; seed 17 = 0.955/0.925 = 1.032; seed 23 = 0.960/0.955 = 1.005; seed 31 = 0.960/0.965 = 0.995; seed 41 = 0.925/0.980 = 0.944. Mean C_combined_ratio=0.952 (verdict_msg confirms baseline_ratio=0.951 A_4way_ratio=0.937 B_cleanup_ratio=0.946 C_combined_ratio=0.952). Strict <2pp gate (ratio>=0.98) NOT met; mean gap 4.8pp; seed 41 -3.5pp BELOW baseline. v4 mean WORSE than v3 (v3 at ~2.0pp boundary; v4 at 4.8pp mean). Cleanup verify_rate=1.000 unanimous + audit frac_above_hp=1.000 unanimous (substrate primitives clean; failure on structured-key Path D differential, same axis as v3). Structural orthogonality verified (hadamard_hop_max_off_diag=hadamard_ent_max_off_diag=hadamard_cross_max=0.0 unanimous). LABEL HONEST. No runner-label-vs-honest catch.
+
+**Hadamard-rescue family CLOSED at v312** -- 2nd falsification after v308 V3 single-delta which landed AT the 2pp boundary. **Task-prompt OVER-CLAIM #171** (3rd instance of TASK_PROMPT_OVER_CLAIMS_HARD_PASS pattern; 2nd family: PP-11 Hadamard rescue, after v308 V1 + v309 V2 AQSIM cross-N family). Task prompt asserted "If HARD_PASS: PP-11 LIFT 0.50-0.65 -> 0.60-0.80; PP-9 caveat updates 0.95^d -> 0.98^d"; empirical refutes -- no LIFT, no caveat update. Filed in task-prompt-category not runner-label-category per v309 convention.
+
+### Cap_map state-transition decisions (v311 -> v312)
+
+1. **Path D production-default sub-row band UNCHANGED at 0.92-0.98**; NEW caveat (o): "P3 percolation framework N-independence prediction REFUTED empirically by v312 V1; framework survives as descriptive language at fixed N+K=100, no longer offers predictive scaffolding for K=1 cross-N; K-safety-margin caveat (g from v306) STANDS (K>=2 saturates production-stack independent of N per v309 V1)."
+2. **PP-11 row band UNCHANGED at 0.40-0.55**; NEW caveat (l): "double-Hadamard rescue v4 FALSIFIED single/compound Hadamard-rescue family; mean C_combined_ratio=0.952 WORSE than v3's ~2.0pp; structured-key 5pp gap intrinsic to bipolar XOR + Path D + structured-key correlated-edge regime (consistent with v306 Goltsev-Dorogovtsev-Mendes 10-20% threshold-shift prediction; substrate at optimistic-end but not closable by Hadamard engineering); Hadamard-family CLOSED at v312; alternative rescue paths OPEN (R3 alternative-encoding + R2 multi-seed FULL + R5 strategic acceptance via PP-9 0.95^d depth-conditional caveat)."
+3. **Compositional cross-N + Substrate-product-feature + PP-9 depth-conditional 0.95^d** all UNCHANGED.
+
+**Portfolio.** 28+37 UNCHANGED.
+
+**Framework reliability bands**: General 65-75% UNCHANGED; **specific-documented 48-58% -> 45-55% MODESTLY DOWN** (-3pp upper bound; falsified prediction warrants modest recalc per [[feedback-lit-scan-calibration-penalty]]); product-feature 55-70% UNCHANGED.
+
+### Rescue sketches cheapest-first ([[feedback-rescue-sketch-first-sequencing]])
+
+**V1 (framework-reliability-recalc; not row closure):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption APPLIED inline: "P3 percolation N-independence prediction REFUTED at 18x ratio; framework-reliability specific-documented LOWERS modestly; K-safety-margin caveat STANDS; framing-as-descriptive-language survives, framing-as-predictive-scaffolding-for-K=1-cross-N does not."
+- R2 (CHEAP, ~30min CPU) -- K=1 N=8192 interpolation; tightens N-dependence curve.
+- R3 (CHEAP, ~30-60min CPU) -- K=1 N=32768 saturation-check.
+- R4 (MEDIUM, ~1-2h CPU) -- K=1 cross-M at N=16384 M-grid {2N..32N}; HIGHEST STRATEGIC VALUE.
+- R5 (HIGH-COST, deferred) -- Research drill into alternative substrate-physics-K=1 frameworks (dimension-driven discrimination + finite-size scaling + dense-vs-sparse-Hopfield phase transitions).
+
+**V2 (Hadamard-family closure; not PP-11 row closure):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption APPLIED inline: "double-Hadamard delta WORSE than single-delta; structured-key 5pp gap intrinsic; Hadamard-rescue family CLOSED; substrate primitives still viable; PP-11 band UNCHANGED."
+- R2 (CHEAP, ~60-120min CPU) -- PP-11 multi-seed FULL at N=16384 with 10 seeds; tightens per-seed variance estimate.
+- R3 (MEDIUM, ~1-2h CPU OR Lambda GPU) -- PP-11 alternative encoding schemes (FHRR/HRR/Fourier OR 4-way XOR + per-hop cleanup); HIGHEST STRATEGIC VALUE for PP-11.
+- R4 (MEDIUM, ~1-2h) -- PP-11 alternative rho-mitigation v2 formulations.
+- R5 (HIGH-COST, deferred) -- Strategic ACCEPTANCE of 5pp gap + PP-11 reframing as retrieval-primitive (PP-9 v311 depth-conditional caveat already encodes this).
+
+### Tallies
+- HONEST: 298 + 2 = **300** (V1 + V2 both label-honest).
+- LABEL-VS-HONEST runner-label: **170 UNCHANGED**.
+- LABEL-VS-HONEST task-prompt: 2 -> **3 +1** (V2 task-prompt OVER-CLAIM #171 3rd-instance cross-family).
+- Cumulative combined (runner+task-prompt as user-tracked): 170 -> **171 +1** task-prompt category.
+- FRAMEWORK-RELIABILITY-RECALC: 1 (P3 percolation N-independence prediction REFUTED).
+- RESCUE-FAMILY CLOSURE: 1 (Hadamard family on PP-11).
+
+### PROT compliance (v311 -> v312)
+- PROT-004/006: 5 rescue sets per verdict (10 total); R1 cheapest-first APPLIED inline for both; 0 capability-row closures.
+- PROT-007: history v312 narrative appended inline in cap_map.md (v60+ keeps history in-file).
+- PROT-008: validator absent carried forward; 0 state-transitions; 2 caveat additions only (o on Path D, l on PP-11); no portfolio regression.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (one-line entry) + status_log entry HIGH staged atomically; **223rd PROT-009 paired commit**.
+- PROT-018: both anchors `_n<N>` binding contracts satisfied (V1 N_grid=[4096, 16384] per pre-reg; V2 N=16384 single-N).
+- PROT-022: not applicable (both ran to completion with full per-cell data).
+
+### Headline strategic findings
+1. **P3 percolation N-independence prediction REFUTED** (V1). 18x ratio K=4096->K=16384 at K=1; framework demoted from predictive-scaffolding to descriptive-language scope. Specific-documented reliability -3pp upper. K-safety-margin caveat stands; production K>=2 stack unaffected.
+2. **Hadamard-rescue family CLOSED** (V2). Double-delta WORSE than single-delta (4.8pp vs 2.0pp); structured-key 5pp gap intrinsic; alternative-encoding/multi-seed/strategic-acceptance rescues remain.
+3. **Task-prompt OVER-CLAIM pattern 3rd-instance cross-family** (V2 task-prompt #171). v308 V1 + v309 V2 (AQSIM cross-N family) + v312 V2 (PP-11 Hadamard family) = 3 instances across 2 families. Process-improvement signal: task prompts should hedge candidate outcomes ("if HARD_PASS, candidate LIFT would be X subject to Step 0") not assert them as decisions; new sub-axis of [[feedback-no-experiment-design-in-prompts]] on cap_map decisions.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on both; V1 HONEST; V2 runner-label HONEST + task-prompt OVER-CLAIM #171 flagged separately.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: both _source=remote authoritative.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push from main thread.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED for both.
+- [[feedback-rehabilitation-after-rejection]]: V1 framework-reliability-recalc + V2 Hadamard-family closure = rescue-path closures NOT row closures; PP-11 row stays 🟡.
+- [[feedback-lit-scan-calibration-penalty]]: specific-documented -3pp upper; conservative; P3 percolation framework had a specific predictive scaffold and it failed.
+- [[feedback-no-smoke]]: V1 framework-reliability-recalc + V2 Hadamard-family closure + V2 task-prompt over-claim all called out brutally honestly.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: PP-11 retrieval-primitive framing with ~5pp per-hop structured-key gap matures with empirical lock-in.
+- [[feedback-pipeline-pacing]]: CPU 1-in-flight + GPU drained; refill warranted; 3 ships surfaced (V1 R4 + V2 R3 + V1 R2).
+- [[feedback-no-experiment-design-in-prompts]]: V2 task-prompt OVER-CLAIM #171 surfaces same-axis process improvement on cap_map decision pre-commits.
+- [[feedback-dont-overextend-theorems]]: P3 percolation framework scoped to "descriptive at fixed N+K=100" not "predictive for K=1 cross-N".
+
+### Pipeline-pacing exp_dev refill (surfaced not auto-dispatched)
+
+3 highest-strategic-value next ships:
+1. **V1 R4 (MEDIUM, ~1-2h CPU)** -- K=1 cross-M at N=16384 same M-grid as v308 V2; HIGHEST STRATEGIC VALUE for empirical (N, M, K) framework characterization.
+2. **V2 R3 (MEDIUM, ~1-2h CPU OR Lambda GPU)** -- PP-11 alternative encoding scheme (FHRR/HRR/Fourier OR 4-way XOR + per-hop cleanup) at N=16384 5-seed; if HARD_PASS PP-11 LIFT candidate 0.40-0.55 -> 0.55-0.70.
+3. **V1 R2 (CHEAP, ~30min CPU)** -- K=1 at N=8192 interpolation; tightens framework characterization.
+
+### Commit message (atomic single commit)
+```
+Cap map: v311 -> v312 BATCHED 2-VERDICT R4-null-prediction + PP-11-double-Hadamard wave (V1 path_d_k1_cross_n_null_prediction_v1_n4096 NULL_PRED_HARD_FAIL HONEST N=4096-mean=0.022 N=16384-mean=0.394 delta=37.2pp-18x-ratio P3-percolation-framework-N-independence-prediction-REFUTED FRAMEWORK-RELIABILITY-RECALC specific-documented-48-58%->45-55% K-safety-margin-caveat-STANDS Path-D-caveat-o-appended + V2 reasoning_storage_4way_cleanup_v4_double_orthogonal_v1_n16384 4WC_HARD_FAIL HONEST mean-C_combined_ratio=0.952 4.8pp-gap WORSE-than-v3-2.0pp seed41-3.5pp-below-baseline cleanup-verify=1.000-unanimous audit-frac=1.000-unanimous SECOND-FALSIFICATION-Hadamard-rescue-family Hadamard-rescue-family-CLOSED PP-11-caveat-l-appended task-prompt-OVER-CLAIM-#171-3rd-instance-2nd-family TASK_PROMPT_OVER_CLAIMS_HARD_PASS_ACROSS_FAMILIES) (Path-D-band-UNCHANGED-0.92-0.98 + PP-11-band-UNCHANGED-0.40-0.55 + compositional-cross-N-UNCHANGED-0.75-0.90 with 2 new caveats o+l; framework-reliability-specific-documented 48-58%->45-55% -3pp-upper; portfolio 28+37 UNCHANGED; HONEST 298 -> 300 +2; LABEL-VS-HONEST runner-label 170 UNCHANGED + task-prompt 2 -> 3 +1 cross-family; 223rd PROT-009 paired commit) (2026-06-01)
+```
+
+### Push and follow-on
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+

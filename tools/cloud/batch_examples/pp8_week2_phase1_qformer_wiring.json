@@ -1,0 +1,8 @@
+[
+  {
+    "anchor": "pp8_w2_p1_qformer_wiring_h100_v1_n4096",
+    "script": "testbed/llm_integration/phi3_qformer_wiring_smoke.py",
+    "total_cells": 60,
+    "experiment_timeout_min": 45
+  }
+]
