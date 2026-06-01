@@ -3588,3 +3588,132 @@ Commit message (atomic single commit):
 ```
 Cap map: v305 -> v306 ANNOTATION + 1 NEW ROW P3+P4 research delivery (Path D percolation-theory caveats + PP-11 correlated-edge-percolation caveat + NEW PP-12 compositionality-audit-API 0.60-0.75 design-drill-HARD-PASS-6/6-criteria; portfolio 27+37 -> 28+37 +1; HONEST 291 UNCHANGED; LABEL-VS-HONEST 166 UNCHANGED; 217th PROT-009 paired commit) (2026-06-01)
 ```
+
+---
+
+## v306 -> v307 @ BATCHED 5-VERDICT post-K=1 + post-collision-pressure wave (V1 PP-11 4WC v2 5-seed BORDERLINE-STRICT-HP-OVER-CLAIM + V2 K=1 phase boundary HONEST PARTIAL substrate-physics signal + V3 cert_threshold runner-FAILED label-OVER-CLAIMS HONEST MIDDLE-BAND + V4 PDAC2 5/5 HARD_PASS first true-exercise defense + V5 AQSIM3W2 5/5 HARD_PASS FIRST 3-way compositional HARD_PASS) (verdict_handler 218th PROT-009 paired commit; 2 LABEL-VS-HONEST catches; compositional cross-N sub-row LIFT 0.70-0.85 -> 0.75-0.90; Path D K-safety-margin EMPIRICAL CONFIRMATION)
+
+**Trigger.** 5 verdicts landed rapid succession 2026-06-01 08:28-08:40 (CPU + GPU mixed wave): V4 path_d_adversarial_composition_v2_n4096 PDAC2_HARD_PASS 5/5 @ 08:28:04 wall_s=11; V5 adversarial_aqsim_path_d_compose_v2_n4096 AQSIM3W2_HARD_PASS 5/5 @ 08:28:19 wall_s=10; V3 continuous_embedding_cert_threshold_v1_n16384 runner-labeled FAILED @ 08:33:33 wall_s=190; V1 reasoning_storage_4way_cleanup_v2_n16384 4WC_HARD_PASS @ 08:38:30 wall_s=297; V2 path_d_k1_phase_boundary_probe_v1_n4096 K1_PHASE_MIDDLE_BAND @ 08:40:54 wall_s=103. All 5 metrics _source=remote authoritative. Both queues drained. Pause flag ABSENT. Single batched commit.
+
+### Step 0 -- honest re-read per verdict (MANDATORY; [[feedback-verdict-msg-honest-reread]])
+
+**V1 reasoning_storage_4way_cleanup_v2_n16384 (PP-11 closure strengthening pass):**
+- Runner verdict_msg: `baseline_ratio=0.951 A_4way_ratio=0.975 B_cleanup_ratio=0.942 C_combined_ratio=0.982 C_verify=1.000 arm_C=HARD_PASS seeds=5 N=16384` (top-level verdict=4WC_HARD_PASS).
+- Per-seed Arm C combined retrieval: 0.975 / 0.975 / 0.990 / 0.990 / 0.980 (mean 0.982; verify_rate=1.0 unanimous; audit frac_above_hp=1.0 unanimous).
+- Per-seed Arm A 4-way retrieval: 0.985 / 0.960 / 0.985 / 0.985 / 0.960 (mean 0.975).
+- Per-seed baseline: 0.955 / 0.930 / 0.955 / 0.950 / 0.965 (mean 0.951).
+- **Structured-key gap (Arm A - baseline)**: 3.0 / 3.0 / 3.0 / 3.5 / -0.5 pp (mean 2.4pp). Seed 41 shows Arm A WORSE than baseline (-0.5pp gap; structured-key handling NOT improving over baseline for that seed).
+- HP pre-reg condition: "Arm C closes structured-key gap to <2% across ALL 5 seeds + audit completeness 100% + cleanup verification rate >0.95."
+- Honest reading: Arm C combined HP unanimous 5/5 verify_rate=1.0 audit 100% -- 2 of 3 HP criteria met cleanly. Structured-key strict <2% gap criterion FAILS: mean 2.4pp > 2.0pp gate; 4 of 5 seeds at 3-3.5pp; only seed 41 below 2% (and at -0.5pp which is below baseline, not above). Arm C combined retrieval 0.982 is HP-clean but the strict structured-key gap closure is NOT achieved. **Honest classification: ARM_C_HP_BUT_STRUCTURED_KEY_GAP_BORDERLINE -- mechanism PARTIALLY closes structured-key but not at the strict 2% strict bar required for unanimous HP closure.** LABEL-VS-HONEST catch **#167**. Sub-flavor: STRUCTURED_KEY_STRICT_GATE_OVER_CLAIM (overall HARD_PASS label over-claims when 1 of 3 strict HP arms misses at the strict bar).
+- **Strengthening status vs v304 PP-11 LIFT**: v304 PP-11 LIFT 0.45-0.60 -> 0.50-0.65 was driven by 3-seed v1 BORDERLINE-OVER-CLAIM #163. v2 5-seed N=16384 STRENGTHENS the Arm C combined HP evidence (verify_rate=1.0 unanimous; 5 seeds) but CONFIRMS the structured-key gap is borderline at 2-3pp range. The v304 LIFT to 0.50-0.65 stands; v307 does NOT further LIFT. New caveat (h) to PP-11: "v2 5-seed N=16384 confirms Arm C combined unanimous HP but structured-key gap (Arm A - baseline) at 2.4pp mean (1 seed even below baseline); strict <2pp strict gate not unanimously achieved."
+
+**V2 path_d_k1_phase_boundary_probe_v1_n4096 (THE percolation-theory critical test):**
+- Runner verdict_msg: `PATH_D_PARTIAL_SUBSTRATE_SIGNAL: k1_mean=0.0220 in (0.01,0.5). Partial substrate-physics; characterizable. k1(path_b_top1)=0.0220 k10=1.0000 k100=1.0000 n_seeds=5` verdict=K1_PHASE_MIDDLE_BAND.
+- Per-seed K=1 path_b_top1_acc: 0.02 / 0.04 / 0.03 / 0.01 / 0.01 (mean 0.022 = 6.7x random 0.0033).
+- Per-seed K=10 and K=100: 1.0 / 1.0 / 1.0 / 1.0 / 1.0 unanimous both.
+- HP threshold: K=1 in [0.50, 0.95]. HF threshold: K=1 at random-chance (~0.003). MIDDLE_BAND: [0.01, 0.50].
+- Honest reading: label MIDDLE_BAND HONEST per metrics; k1=0.022 sits firmly in (0.01, 0.50). HONEST tally +1.
+- **Reliability-recalc EVENT on Path D production-default sub-row**: K=1 substrate-physics power is 2.2% mean (6.7x random but absolute very low); K=10 closes ALL the gap to 100% unanimous. This EMPIRICALLY CORROBORATES the v306 (P3 research delivery) theoretical caveat "K=100 trivialization concern SHARPENED: p_eff = K/M = 3.8e-4 at M=64N is 100x above ER threshold 1/M; deep supercritical safety margin." The Path D production reliability is DEMONSTRABLY K-safety-margin-driven; K=1 substrate-physics-only mode is barely above random. Sub-row band 0.92-0.98 UNCHANGED (production uses K>=10 where unanimous 1.0); new EMPIRICAL caveat (i) added: "K=1 5-seed N=4096 M=64N depth=5 empirically yields path_b_top1_acc mean 0.022 (6.7x random 0.0033); K=10 closes gap to 1.0 unanimous; K=100 to 1.0 unanimous; production-default reliability is K-safety-margin-driven not substrate-physics-only; corroborates v306 theoretical SHARPENED-K=100-trivialization caveat empirically."
+
+**V3 continuous_embedding_cert_threshold_v1_n16384 (V7 Arm 4 fp_rate gap closure attempt):**
+- Runner reported `verdict=failed` from dashboard outcome. Remote metrics: `overall=MIDDLE_BAND arm_clean_threshold=MIDDLE_BAND arm_cert_quality=MIDDLE_BAND n_seeds_complete=3 mean_best_cert_at_fp_zero=0.9067 n_seeds_with_clean_threshold=2/3 total_elapsed_s=186.7`.
+- Honest reading: **the runner-labeled FAILED label OVER-CLAIMS substantively. Metrics show clean 3-seed completion with overall=MIDDLE_BAND.** 186s wall is full-execution (not fast-exit crash). Not INFRA_FAILURE. The cert mechanism reaches mean_best_cert=0.9067 at fp=0 which is below 0.95 HP gate but well above HF random; 2 of 3 seeds achieve clean threshold. **Honest classification: MIDDLE_BAND substantive.** LABEL-VS-HONEST catch **#168**. Sub-flavor: RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND (a new sub-flavor variant of #166's THRESHOLD_STRICT_SINGLE_ARM_FAIL: this time the runner-side FAILED label propagates from per-arm-MIDDLE-BAND verdicts at top level not a clean per-arm HARD_FAIL).
+- **PP audit-grade-vector-store row (NEW at v305 0.45-0.65)**: Arm4 cert_threshold gap PARTIALLY CLOSES with this experiment but NOT to strict HP bar. mean_best_cert_at_fp_zero=0.9067 mean is below 0.95 strict gate. **Band UNCHANGED 0.45-0.65**; new caveat (e) added: "cert_threshold v1 N=16384 3-seed targeted Arm4 fp_rate=1% closure (v305 origin gap); achieved overall=MIDDLE_BAND mean_best_cert_at_fp_zero=0.9067 with 2/3 seeds clean threshold; mechanism is parameter-tunable but does not unanimously close to fp=0 + cert>=0.95 at strict HP bar in a single sweep; suggests fp/cert tradeoff curve is steeper than originally assumed; second attempt with broader threshold sweep would be R2-CHEAP rescue."
+
+**V4 path_d_adversarial_composition_v2_n4096 (V6 v2 with collision-pressure subthreshold probes):**
+- Runner verdict_msg: `COMPOSITION_COHERENT_WITH_GENUINE_DEFENSE n_hp=5/5. mean_def_act=1.000 mean_acc_gated=1.000 mean_acc_base=1.000 mean_fp=0.000 mean_adv_max_sim=0.450 n_cells=5` verdict=PDAC2_HARD_PASS.
+- Per-seed: all 5 seeds defense_activation_rate=1.0 fp_rate=0.0 adv_mean_max_sim=0.45 leg_mean_max_sim=1.0 acc_path_d_baseline=1.0 acc_path_d_gated=1.0.
+- HP threshold: defense activates >=90% adv AND Path D >=0.95 legitimate. Achieved 100%/100% unanimous.
+- Honest reading: **label HONEST HARD_PASS.** First TRUE-EXERCISE of a_query_sim defense gate under collision-pressure subthreshold probes; defense activates (not bypassed); legitimate accuracy preserved at 1.0. This CLOSES the v304 DEFENSE_UNNECESSARY_AT_REGIME catch #164 for V6 v1 -- the v2 redesign moved to a regime where the defense ACTUALLY exercises (per smoke pre-validation). HONEST tally +1.
+
+**V5 adversarial_aqsim_path_d_compose_v2_n4096 (V9 v2 3-way composition: compression × Path D × defense):**
+- Runner verdict_msg: `3WAY_STACK_COHERENT n_hp=5/5. def_act=1.000 fp=0.000 acc_gated_comp=1.000 acc_gated_uncomp=1.000 comp_delta=0.0000 acc_base_comp=1.000 acc_base_uncomp=1.000 adv_max_sim=0.450 n_cells=5` verdict=AQSIM3W2_HARD_PASS.
+- Per-seed: all 5 seeds 3-way stack coherent; def_act=1.0 fp=0.0 acc_gated_comp=1.0 comp_delta=0.0 acc_base_uncomp=1.0.
+- HP threshold: defense >=90% adv AND Path D >=0.95 legit AND c_quant/bits8 within 5pp of baseline. Achieved 100%/100%/0.0pp delta unanimous.
+- Honest reading: **label HONEST HARD_PASS.** **FIRST end-to-end 3-way production-stack compositional HARD_PASS at substrate level: compression (c_quant bits8 baseline) × retrieval (Path D K=100) × defense (a_query_sim) × adversarial workload (collision-pressure subthreshold probes).** This CLOSES the v304 DEFENSE_UNNECESSARY_AT_REGIME catch #165 for V9 v1, and additionally demonstrates the FIRST clean 3-way SCORE-level composition validation with no cross-mechanism interference (comp_delta=0.0). HONEST tally +1. This is a new-capability event.
+
+### Step 1 -- strategy decision (inline)
+
+**Cap_map: v306 -> v307.**
+
+1. **PP-11 row band UNCHANGED 0.50-0.65** (v304 LIFT stands; v2 5-seed strengthens Arm C combined HP evidence but structured-key strict <2pp gate not unanimously achieved). New caveat (h) added per V1 honest reading. **LABEL-VS-HONEST catch #167.**
+
+2. **Path D production-default sub-row band UNCHANGED 0.92-0.98** (reliability-recalc EVENT but band already accommodates K-safety-margin regime). New EMPIRICAL caveat (i) added per V2 honest reading: K=1 substrate-physics power is 2.2% mean; K=10+ unanimous 1.0; production-reliability is K-safety-margin-driven (empirically corroborates v306 theoretical SHARPENED caveat). The reliability-recalc CANDIDATE evaluated: substrate-physics-only Path D reliability would be P_band 0.05-0.10 (k1=0.022 ~6.7x random); K=10+ regime is the production setting and that regime IS at 0.92-0.98. **No band move; the framework-reliability characterization is empirically refined: K=1 sub-row WOULD warrant 🔴 if it were the production setting, but the K-safety-margin scaling factor is now empirically validated as the production lever.**
+
+3. **PP audit-grade-vector-store row (v305 NEW) band UNCHANGED 0.45-0.65.** New caveat (e) added per V3 honest reading: cert_threshold v1 N=16384 3-seed targeted Arm4 fp_rate=1% gap; achieved mean_best_cert_at_fp_zero=0.9067 with 2/3 seeds clean threshold; mechanism is parameter-tunable but tradeoff curve steeper than assumed; broader threshold sweep R2-CHEAP rescue. **LABEL-VS-HONEST catch #168 RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND new sub-flavor.**
+
+4. **Compositional cross-N sub-row LIFT 0.70-0.85 -> 0.75-0.90** based on V4 PDAC2_HARD_PASS (FIRST true-exercise defense under collision-pressure subthreshold probes; closes DEFENSE_UNNECESSARY catch #164 with genuine defense activation evidence) + V5 AQSIM3W2_HARD_PASS (FIRST end-to-end 3-way SCORE-level production-stack compositional HP: compression × Path D × defense unanimous 5/5 comp_delta=0.0). This is the substantive new-capability event of the batch: 3-way composition HP is FIRST-OF-KIND evidence for the compositional moat.
+
+5. **Adjacent row updates:**
+   - Defense sub-row (a_query_sim composition row): label v1 DEFENSE_UNNECESSARY_AT_REGIME catches #164/#165 superseded by v2 TRUE-EXERCISE HP unanimous; sub-row caveat "DEFENSE_UNNECESSARY_AT_REGIME (v1 only)" added with v2 closure note.
+   - PP-12 compositionality-audit-API (v306 NEW 0.60-0.75) UNCHANGED (V5 3-way HP is empirical corroboration of compositional moat; PP-12 row is API-design not empirical-stack; UNCHANGED).
+   - Production-readiness narrative: 3-way SCORE composition now FIRST-OF-KIND empirically validated (was open question pre-v307).
+
+### Rescue sketches cheapest-first (PROT-004/006; no closures triggered)
+
+For V1 (PP-11 strict <2pp structured-key gate near-miss):
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "Arm C combined HARD_PASS achieves the substrate-grade closure (verify_rate=1.0 unanimous + audit 100% + retrieval 0.982); strict <2pp structured-key gap is a strict-bar diagnostic not a moat-failure; mean 2.4pp is within 1pp of strict bar; Arm C combined is the production composite." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- Per-seed structured-key correlation analysis: investigate why seed 41 shows Arm A < baseline (-0.5pp gap); single-seed diagnostic surfaces whether this is rare-seed artifact or systematic correlation pattern. NOT-AUTO-DISPATCHED.
+- R3 (CHEAP, ~30min CPU) -- Structured-key gap rescue: try larger n_chains / wider key-correlation structure to characterize the 2-3pp gap as either tightening with scale or fixed-overhead. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1h CPU) -- Cross-N at N=8192 same 3-arm harness; verifies whether Arm C combined HP and structured-key gap pattern are N-stable. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- N=32768 5-seed with full structured-key correlation-strength sweep; expensive but definitive. DEFERRED.
+
+For V2 (K=1 phase boundary substrate-physics characterization):
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "K=1 mean 0.022 = 6.7x random IS the substrate-physics signal magnitude; K-safety-margin is the production scaling lever; this is characterization complete." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- K=2/3/5 fine-grained probe between K=1 and K=10 to map the substrate-physics-to-production transition curve. NOT-AUTO-DISPATCHED (research-priority).
+- R3 (CHEAP, ~30min CPU) -- M-sensitivity at K=1: K=1 path_b at M=16N / 32N / 64N to characterize the substrate-physics signal envelope. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1h CPU) -- K=1 at N=8192 and N=16384 to test whether substrate-physics signal scales with N (theoretically should NOT; null prediction). NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Full K x M x N matrix probe (expensive, low marginal value beyond current K=1/10/100 grid). DEFERRED.
+
+For V3 (cert_threshold MIDDLE_BAND):
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "Mechanism is parameter-tunable; mean_best_cert_at_fp_zero=0.9067 is 4pp below strict 0.95 HP; not a moat failure but a strict-bar miss; threshold sweep is the natural rescue." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- Broader cert-threshold sweep with finer grid around the fp_rate=0 boundary; targets fp_rate=0 AND cert_rate >= 0.95 simultaneously. NOT-AUTO-DISPATCHED (queue-refill decision).
+- R3 (CHEAP, ~30min CPU) -- 5-seed upgrade of cert_threshold v1 at N=16384 (current is 3-seed); standard 5-seed FULL upgrade. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1h CPU) -- Cross-N at N=8192 same cert harness; checks whether tradeoff curve scales with N. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Production-distribution cert calibration with distributional-mismatch synthetic-vs-real test. DEFERRED.
+
+For V4 and V5 (HARD_PASS; no closure rescues; characterization extensions):
+- R1 (CHEAPEST, 0-compute) -- Subsumption applied: "First TRUE-EXERCISE 5/5 defense activation + FIRST 3-way SCORE composition HP unanimous." APPLIED inline (this is the headline result).
+- R2 (CHEAP, ~30min CPU) -- Cross-N at N=8192 for V5 3-way composition; verifies N-stability of the 3-way coherence. NOT-AUTO-DISPATCHED.
+- R3 (CHEAP, ~30min CPU) -- 4-way composition extension: compression × Path D × defense × audit; tests whether 3-way -> 4-way still coherent. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1-2h GPU) -- Production-stack composition under realistic mixed workload (legitimate + adversarial mixed at production ratios). NOT-AUTO-DISPATCHED.
+- R5 (DEFERRED) -- Full 5-axis composition with HANDOFF + PIPELINE classifications per [[feedback-composition-classification]]. DEFERRED.
+
+### Step 2 -- pipeline-pacing (GATED on pause flag)
+Pause flag d:/AI/hd-instrument/data/orchestrator_paused.flag CHECKED ABSENT. Both queues drained (pending=0 both CPU + GPU per task input). Per [[feedback-pipeline-pacing]] queue-refill warranted. Dispatching exp_dev inline via Skill is the orchestrator's pattern; this verdict_handler returns the headline outcome and the orchestrator main thread will dispatch exp_dev refill skill as the follow-on. Noted in return.
+
+### PROT compliance (v306 -> v307)
+- PROT-004/006: 5 rescue sketches per closure-candidate verdict; R1 cheapest-first APPLIED inline for all 5; R2-R5 routed/deferred; 0 capability-row closures (PP-11 strict-bar miss not a closure; cert_threshold not a closure; K=1 partial substrate signal characterization not closure; V4/V5 HARD_PASS LIFT not closure).
+- PROT-007: history v307 row appended atomically.
+- PROT-008: validator carried forward; compositional cross-N sub-row LIFT 0.70-0.85 -> 0.75-0.90 is single-row band-move with empirical justification (5-seed unanimous V4 + V5 + 3-way SCORE coherence first-of-kind); other rows annotation-only; no regression on existing portfolio rows; portfolio 28+37 UNCHANGED.
+- PROT-009: cap_map.md (v307) + history.md (v307 row) + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (one-line entry) + status_log entry staged atomically; **218th PROT-009 paired commit**.
+- PROT-018: all 5 anchors _n<N> binding contracts satisfied -- remote metrics confirm N=16384/4096/16384/4096/4096 respectively.
+
+### Honest / label-vs-honest tallies
+- HONEST: 291 + 3 (V2 K1_PHASE_MIDDLE_BAND honest + V4 PDAC2_HARD_PASS honest + V5 AQSIM3W2_HARD_PASS honest) = **294**.
+- LABEL-VS-HONEST: 166 + 2 (V1 STRUCTURED_KEY_STRICT_GATE_OVER_CLAIM #167 + V3 RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND #168 new sub-flavor) = **168**.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 5; LABEL-VS-HONEST catches #167 + #168 filed; honest reading authoritative for all downstream decisions.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: all 5 _source=remote authoritative; no local-fallback.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; commit hash surfaced for main-thread push.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT; pipeline-pacing exp_dev refill warranted; surfaced in return line.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry with plain_language + importance MANDATORY (HIGH per first-of-kind 3-way compositional HP + 2 LABEL-VS-HONEST catches).
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline for V1/V2/V3/V4/V5; R2-R5 routed/deferred per cost-ordering.
+- [[feedback-rehabilitation-after-rejection]]: 0 capability-row closures; structured-key-gap and cert-threshold-gap are tunable rescue items not closures.
+- [[feedback-lit-scan-calibration-penalty]]: compositional cross-N LIFT 0.70-0.85 -> 0.75-0.90 conservative 5pp move (not 10pp+) reflects single-N V4 + V5 (N=4096 only); upper-end <0.95 cap maintained per novel-synthesis calibration.
+- [[feedback-no-smoke]]: V1 4WC_HARD_PASS label honestly over-claims strict-bar; V3 runner FAILED label honestly over-claims; surfaced as #167 + #168.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V5 3-way SCORE composition HP is product-positioning evidence (compression + retrieval + defense + adversarial-workload coherence at substrate level) -- this is the compositional moat being empirically validated.
+- [[feedback-no-papers-product-only]]: framed as substrate-product moat validation; not publication.
+- [[feedback-pipeline-pacing]]: queue=0 BOTH; exp_dev refill warranted; surfaced in return for orchestrator main-thread Skill dispatch.
+
+### Commit message (atomic single commit)
+```
+Cap map: v306 -> v307 BATCHED 5-VERDICT post-K=1 + post-collision-pressure wave (V1 reasoning_storage_4way_cleanup_v2_n16384 4WC_HARD_PASS 5-seed Arm-C-combined-HP-unanimous-but-structured-key-strict-<2pp-gate-not-met-mean-2.4pp 167th-LABEL-VS-HONEST STRUCTURED_KEY_STRICT_GATE_OVER_CLAIM + V2 path_d_k1_phase_boundary_probe_v1_n4096 K1_PHASE_MIDDLE_BAND HONEST k1_mean=0.022-6.7x-random K-safety-margin-empirically-confirmed Path-D-EMPIRICAL-caveat-i + V3 continuous_embedding_cert_threshold_v1_n16384 runner-FAILED-label-OVER-CLAIMS overall=MIDDLE_BAND mean_best_cert_at_fp_zero=0.9067 168th-LABEL-VS-HONEST NEW-SUB-FLAVOR RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND + V4 path_d_adversarial_composition_v2_n4096 PDAC2_HARD_PASS-5/5 first-true-exercise-defense-activation closes-#164 + V5 adversarial_aqsim_path_d_compose_v2_n4096 AQSIM3W2_HARD_PASS-5/5 FIRST-end-to-end-3-way-SCORE-compositional-HP closes-#165) (compositional cross-N sub-row LIFT 0.70-0.85 -> 0.75-0.90; PP-11 + Path-D-production-default + PP-audit-grade-vector-store bands UNCHANGED with new caveats; portfolio 28+37 UNCHANGED; HONEST 291 -> 294 +3; LABEL-VS-HONEST 166 -> 168 +2; 218th PROT-009 paired commit) (2026-06-01)
+```
+
+### Push and follow-on
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-on.
+
+Pipeline-pacing exp_dev refill: pause-flag ABSENT, both queues=0; main thread should dispatch exp_dev skill for queue refill.
+

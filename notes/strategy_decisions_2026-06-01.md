@@ -64,3 +64,42 @@ Cap_map impact on adjacent rows: deletion-certificate killer-feature row (TCFT-g
 ### Commit message (atomic single commit)
 Cap map: v304 -> v305 SINGLE-VERDICT continuous_embedding_storage_substrate_v2_n16384 MOAT_SURVIVAL_MIDDLE_BAND 166th LABEL-VS-HONEST THRESHOLD_STRICT_SINGLE_ARM_FAIL OVERALL-HARD_FAIL-over-claims-3-of-4-arms-HARD_PASS (NEW ROW audit-grade-vector-store 0.45-0.65 FIRST EMPIRICAL DATA recall-FAISS-match sub_recall_2x_os=0.992 + audit-95% + edit-isolation-clean + deletion-cert-threshold-gap fp=1%; HONEST 291 UNCHANGED; LABEL-VS-HONEST 165 -> 166 +1; 216th PROT-009 paired commit) (2026-06-01)
 cap_map v305->v306 ANNOTATION + 1 NEW ROW: Path D percolation-theory 4 caveats (supercritical-percolation + mixing-floor + ceiling-at-100N-300N + K=100-SHARPENED); PP-11 structured-key correlated-edge-percolation caveat; NEW PP-12 compositionality-audit-API 0.60-0.75 design-drill P4 HARD-PASS 6/6; 2 routing files moved to routed_completed/; portfolio 27+37 -> 28+37; HONEST 291 UNCHANGED; LABEL-VS-HONEST 166 UNCHANGED
+
+## v306 -> v307 @ BATCHED 5-VERDICT post-K=1 + post-collision-pressure wave (verdict_handler 218th PROT-009 paired commit)
+
+**Trigger.** 5 verdicts landed rapid succession 2026-06-01 08:28-08:40 (CPU + GPU mixed wave). Pause flag ABSENT. Both queues drained. Single batched commit.
+
+### Verdicts processed (5)
+1. V1 reasoning_storage_4way_cleanup_v2_n16384 5-seed N=16384 CPU wall_s=297 -- runner label 4WC_HARD_PASS arm_C_HP; HONEST = LABEL-VS-HONEST catch #167 STRUCTURED_KEY_STRICT_GATE_OVER_CLAIM (Arm C combined HP unanimous 5/5 verify_rate=1.0 audit-100% BUT structured-key strict <2pp gate mean 2.4pp; seed 41 -0.5pp Arm A below baseline).
+2. V2 path_d_k1_phase_boundary_probe_v1_n4096 5-seed N=4096 CPU wall_s=103 -- runner label K1_PHASE_MIDDLE_BAND HONEST; k1_mean=0.022 = 6.7x random; K=10/K=100 unanimous 1.0; reliability-recalc EVENT on Path D row -- K-safety-margin empirically confirmed as production lever (v306 SHARPENED-K-trivialization caveat empirically corroborated).
+3. V3 continuous_embedding_cert_threshold_v1_n16384 3-seed N=16384 CPU wall_s=190 -- runner dashboard label FAILED label OVER-CLAIMS; remote metrics overall=MIDDLE_BAND mean_best_cert_at_fp_zero=0.9067 n_seeds_with_clean_threshold=2/3; HONEST = MIDDLE_BAND substantive (not infra); LABEL-VS-HONEST catch #168 NEW SUB-FLAVOR RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND.
+4. V4 path_d_adversarial_composition_v2_n4096 5-seed N=4096 GPU wall_s=11 -- runner label PDAC2_HARD_PASS HONEST; def_act=1.0 unanimous fp=0.0 acc_gated=1.0 acc_baseline=1.0; FIRST true-exercise of a_query_sim defense under collision-pressure subthreshold probes; CLOSES v304 DEFENSE_UNNECESSARY catch #164.
+5. V5 adversarial_aqsim_path_d_compose_v2_n4096 5-seed N=4096 GPU wall_s=10 -- runner label AQSIM3W2_HARD_PASS HONEST; 3-way SCORE-level coherence def_act=1.0 fp=0.0 comp_delta=0.0 acc_gated_comp=1.0; **FIRST end-to-end 3-way production-stack compositional HARD_PASS at substrate level** (compression x Path D x defense x adversarial workload); CLOSES v304 DEFENSE_UNNECESSARY catch #165 + NEW compositional moat evidence.
+
+### Cap_map v306 -> v307
+- PP-11 band UNCHANGED 0.50-0.65 (v304 LIFT stands; v2 5-seed Arm C HP unanimous but structured-key strict <2pp NOT achieved); caveat (h) added.
+- Path D production-default sub-row band UNCHANGED 0.92-0.98 (K-safety-margin empirically confirmed; substrate-physics-only K=1 = 0.05-0.10 reliability would warrant 🔴, but K>=10 production regime IS at 0.92-0.98; framework characterization refined empirically); EMPIRICAL caveat (i) added.
+- PP audit-grade-vector-store band UNCHANGED 0.45-0.65 (cert mechanism tunable but tradeoff curve steeper than assumed; broader threshold sweep R2-CHEAP rescue); caveat (e) added.
+- **Compositional cross-N sub-row LIFT 0.70-0.85 -> 0.75-0.90** (V4 first-true-exercise defense + V5 FIRST 3-way SCORE compositional HP unanimous 5/5 comp_delta=0.0).
+- Defense sub-row catches #164/#165 superseded by v2 v4/v5 closures.
+- Portfolio 28+37 UNCHANGED.
+
+### Tallies
+- HONEST: 291 + 3 = **294** (V2 + V4 + V5).
+- LABEL-VS-HONEST: 166 + 2 = **168** (V1 #167 STRUCTURED_KEY_STRICT_GATE_OVER_CLAIM; V3 #168 NEW SUB-FLAVOR RUNNER_FAILED_LABEL_OVER_CLAIMS_OVERALL_MIDDLE_BAND).
+
+### PROT compliance
+- PROT-004/006: 5 rescue sketches per closure-candidate; R1 cheapest-first APPLIED inline for all 5; 0 closures.
+- PROT-007: history v307 row appended atomically.
+- PROT-008: cap_map state-transition single LIFT (compositional cross-N) + 3 band-UNCHANGED + caveats; no regression; portfolio UNCHANGED.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md + status_log entry atomic single commit; **218th PROT-009 paired commit**.
+- PROT-018: all 5 anchors _n<N> binding contracts satisfied.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 5; #167 + #168 filed.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: all 5 _source=remote authoritative.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push from main thread.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT; refill warranted; surfaced.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY with plain_language + importance HIGH.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline for all 5.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V5 3-way SCORE composition HP = compositional moat empirically validated (FIRST-of-kind).
