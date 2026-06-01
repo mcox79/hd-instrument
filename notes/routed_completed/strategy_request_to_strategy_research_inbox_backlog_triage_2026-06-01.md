@@ -83,3 +83,6 @@ Strategy / orchestrator decides:
 ## Closing
 
 Move to `routed_completed/` when orchestrator either lands the bulk-triage OR declines all three paths with rationale.
+
+---
+Acted-on 2026-06-01: Path A blanket-archive executed; 31 files moved with single close-note. Cap_map v312 reflects the evidence of acted-on work for these drills.

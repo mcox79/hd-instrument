@@ -66,3 +66,6 @@ Strategy decides:
 ## Closing
 
 Move to `routed_completed/` when strategy routes to engineering OR confirms the existing manual-polling discipline is sufficient.
+
+---
+Acted-on 2026-06-01: 3-event session_inbox class ACCEPTED; consolidated into testbed_handoff_session_inbox_watchdog_events_2026-06-01.md (which itself consolidates with the earlier dashboard handoff). HIGH importance per research recommendation.
