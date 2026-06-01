@@ -96,6 +96,114 @@ class Poller:
         # brief "HEARTBEAT UNREADABLE" flash that would otherwise appear.
         self._last_good_heartbeat: dict[str, dict] = {}
 
+    def _build_inbox_routings(
+        self,
+        notes_dir: Path,
+        inbox_globs: dict,
+        now: datetime,
+    ) -> dict:
+        """Build detailed inbox view: per-session counts + 24h timeline + flow matrix.
+
+        Parses routing filenames to extract from-session, to-session, topic,
+        + reads the first ~250 chars of each file for a summary preview.
+        Returns a dict consumed by the new Inbox tab.
+        """
+        # Recognize all routing patterns; map prefix -> recipient session.
+        # Filename grammar (per session_architecture_v1):
+        #   strategy_request_to_<recipient>_<topic>_<date>.md  -- to orchestrator/research/exp_dev
+        #   testbed_handoff_<topic>_<date>.md                 -- orchestrator -> testbed
+        #   exp_dev_handoff_<topic>_<date>.md                 -- exp_dev -> orchestrator (or testbed)
+        #   cloud_handoff_<topic>_<date>.md                   -- orchestrator -> cloud
+        #   strategy_response_to_<sender>_<topic>_<date>.md   -- orchestrator -> sender
+        all_patterns = [
+            ("strategy_request_to_strategy_*.md", "orchestrator"),
+            ("strategy_request_to_exp_dev_*.md", "orchestrator"),
+            ("strategy_request_to_research_*.md", "research"),
+            ("strategy_response_to_testbed_*.md", "testbed"),
+            ("strategy_response_to_research_*.md", "research"),
+            ("testbed_handoff_*.md", "testbed"),
+            ("exp_dev_handoff_*.md", "orchestrator"),
+            ("cloud_handoff_*.md", "cloud"),
+        ]
+        routings: list[dict] = []
+        try:
+            for pattern, recipient in all_patterns:
+                for p in notes_dir.glob(pattern):
+                    if not p.is_file():
+                        continue
+                    try:
+                        mtime = p.stat().st_mtime
+                        age_s = max(0.0, time.time() - mtime)
+                    except OSError:
+                        continue
+                    fname = p.name
+                    # Parse from-session from filename heuristics
+                    if fname.startswith("strategy_request_to_"):
+                        sender = "research" if "_research_" in fname else (
+                            "testbed" if "testbed" in fname else "any")
+                        rtype = "request"
+                    elif fname.startswith("strategy_response_to_"):
+                        sender = "orchestrator"
+                        rtype = "response"
+                    elif fname.startswith("testbed_handoff_"):
+                        sender = "orchestrator"
+                        rtype = "handoff"
+                    elif fname.startswith("exp_dev_handoff_"):
+                        sender = "exp_dev"
+                        rtype = "handoff"
+                    elif fname.startswith("cloud_handoff_"):
+                        sender = "orchestrator"
+                        rtype = "handoff"
+                    else:
+                        sender = "unknown"
+                        rtype = "other"
+                    # First ~250 chars of body for summary preview
+                    try:
+                        body = p.read_text(encoding="utf-8", errors="replace")[:400]
+                    except OSError:
+                        body = ""
+                    # Drop the top-level # heading + meta lines; take first
+                    # non-meta paragraph as summary.
+                    summary = ""
+                    for line in body.splitlines():
+                        s = line.strip()
+                        if not s or s.startswith("#") or s.startswith("**") or s.startswith("---"):
+                            continue
+                        summary = s[:120]
+                        break
+                    routings.append({
+                        "filename": fname,
+                        "from": sender,
+                        "to": recipient,
+                        "type": rtype,
+                        "age_s": round(age_s, 1),
+                        "mtime": mtime,
+                        "summary": summary,
+                    })
+        except Exception:
+            pass
+        # Sort by mtime desc (newest first)
+        routings.sort(key=lambda r: r["mtime"], reverse=True)
+        # 24h recent timeline
+        cutoff_24h = 24 * 3600
+        recent = [r for r in routings if r["age_s"] <= cutoff_24h][:50]
+        # Per-recipient counts (open inbox depth)
+        per_recipient: dict[str, int] = {}
+        for r in routings:
+            per_recipient[r["to"]] = per_recipient.get(r["to"], 0) + 1
+        # Session-pair flow matrix (from -> to -> count)
+        flow: dict[str, dict[str, int]] = {}
+        for r in routings:
+            f, t = r["from"], r["to"]
+            flow.setdefault(f, {})
+            flow[f][t] = flow[f].get(t, 0) + 1
+        return {
+            "total_open": len(routings),
+            "per_recipient": per_recipient,
+            "flow": flow,
+            "recent_24h": recent,
+        }
+
     async def run_forever(self) -> None:
         while True:
             try:
@@ -648,6 +756,14 @@ class Poller:
                     "inbox_depth": depth,
                 }
 
+        # Inbox routings: detailed per-file view for the new Inbox tab.
+        # Walks notes/ for routing files matching session inbox patterns;
+        # builds per-session counts, a recent-24h timeline, and a
+        # session-pair flow matrix. Closes the "I have to ping sessions
+        # myself" user pain point (per testbed_handoff_dashboard_session_
+        # coordination_v1_2026-06-01.md Part A).
+        inbox_routings = self._build_inbox_routings(_NOTES_DIR, inbox_globs, now)
+
         # Tier summary: derived from the already-fetched capability map.
         tier_summary = parsers.extract_tier_summary(self._last_capability_md)
         # Structured per-row payload for the redesigned Capability tab UI.
@@ -848,6 +964,7 @@ class Poller:
             "sessions": sessions_map,
             "cloud_cost": cloud_cost,
             "lambda_progress": lambda_progress,
+            "inbox_routings": inbox_routings,
             "_debug": debug_info,
         }
 

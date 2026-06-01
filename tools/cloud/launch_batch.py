@@ -280,10 +280,16 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
         stop_event.set()
         poller.join(timeout=5)
 
+    # Print with errors='replace' so non-ASCII chars (e.g. transformers'
+    # tqdm progress-bar arrows) don't crash launch_batch on Windows cp1252
+    # stdout. The full untranslated output still gets written to the local
+    # log file (UTF-8) just below; only the stdout PREVIEW gets sanitized.
+    _safe_out = (out[-3000:] or "").encode("ascii", errors="replace").decode("ascii")
+    _safe_err = (err[-1000:] or "").encode("ascii", errors="replace").decode("ascii")
     print(f"---- {anchor} stdout tail ----")
-    print(out[-3000:])
+    print(_safe_out)
     if err:
-        print(f"---- {anchor} stderr ----\n{err[-1000:]}")
+        print(f"---- {anchor} stderr ----\n{_safe_err}")
     print(f"---- {anchor} exit: {rc} ----")
 
     log_path = _REPO_ROOT / "data" / f"lambda_batch_{anchor}_{instance_id}.log"

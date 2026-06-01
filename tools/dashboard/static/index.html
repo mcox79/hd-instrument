@@ -495,6 +495,99 @@
     flex-direction: column;
     gap: 4px;
   }
+  /* ===== Inbox tab styles (cross-session messaging) ===== */
+  .inbox-counts-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .inbox-count-card {
+    background: var(--pane2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .inbox-count-card.has-msgs { border-left: 3px solid var(--info); }
+  .inbox-count-card.empty { opacity: 0.55; }
+  .inbox-count-label {
+    text-transform: capitalize;
+    font-size: 11px;
+    color: var(--dim);
+    margin-bottom: 4px;
+  }
+  .inbox-count-value {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: var(--mono);
+  }
+  .inbox-flow-head {
+    font-size: 12px;
+    color: var(--dim);
+    margin-bottom: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .inbox-flow-table {
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: 11px;
+  }
+  .inbox-flow-table th, .inbox-flow-table td {
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    text-align: center;
+  }
+  .inbox-flow-table th { background: var(--pane2); color: var(--dim); }
+  .inbox-flow-table .inbox-flow-corner { color: var(--dim); font-weight: 400; }
+  .inbox-flow-table td.has { color: var(--fg); font-weight: 600; }
+  .inbox-flow-table td.empty { color: var(--dim); }
+  .inbox-recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .inbox-recent-row {
+    background: var(--pane2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dim);
+    border-radius: 4px;
+    padding: 8px 10px;
+  }
+  .inbox-recent-head {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .inbox-recent-arrow { font-family: var(--mono); font-weight: 600; }
+  .inbox-recent-type {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    color: var(--dim);
+  }
+  .inbox-recent-type.type-request { border-color: var(--info); color: var(--info); }
+  .inbox-recent-type.type-response { border-color: var(--ok); color: var(--ok); }
+  .inbox-recent-type.type-handoff { border-color: var(--warn); color: var(--warn); }
+  .inbox-recent-age { color: var(--dim); margin-left: auto; font-size: 11px; }
+  .inbox-recent-summary {
+    font-size: 12px;
+    color: var(--fg);
+    margin-bottom: 4px;
+  }
+  .inbox-recent-file {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .rn-card.ok { border-left-color: var(--ok); }
   .rn-card.info { border-left-color: var(--info); }
   .rn-card.warn { border-left-color: var(--warn); }
@@ -2222,6 +2315,7 @@
 <nav class="tabbar">
   <button class="tab active" data-tab="foryou">For You<span class="badge muted" id="tab-foryou-badge" style="display:none"></span></button>
   <button class="tab" data-tab="live">Live</button>
+  <button class="tab" data-tab="inbox">Inbox <span class="badge muted" id="tab-inbox-badge" style="display:none"></span></button>
   <button class="tab" data-tab="tests">Experiments <span id="tab-tests-count"></span></button>
   <button class="tab" data-tab="capability">Capability</button>
   <button class="tab" data-tab="research">Research</button>
@@ -2276,14 +2370,6 @@
     <div class="pane-body" id="rightnow-body"><div class="placeholder">loading...</div></div>
   </section>
 
-  <section class="pane" id="pane-working-on">
-    <div class="pane-head">
-      <div>Sub-agents working</div>
-      <div class="right" id="working-on-meta"></div>
-    </div>
-    <div class="pane-body" id="working-on-body"><div class="working-on-idle">loading...</div></div>
-  </section>
-
   <section class="pane" id="pane-orchestrator-health">
     <div class="pane-head">
       <div>Orchestrator Health</div>
@@ -2316,6 +2402,29 @@
     <div class="pane-body" id="events-body"><div class="events-empty">loading...</div></div>
   </section>
 </main>
+
+<!-- ========== Inbox tab ========== -->
+<section id="inbox-view" hidden>
+  <section class="pane" id="pane-inbox-overview">
+    <div class="pane-head">
+      <div>Cross-session inbox</div>
+      <div class="right" id="inbox-overview-meta"></div>
+    </div>
+    <div class="pane-body" id="inbox-overview-body">
+      <div class="placeholder">loading...</div>
+    </div>
+  </section>
+
+  <section class="pane" id="pane-inbox-recent">
+    <div class="pane-head">
+      <div>Recent inter-session messages (last 24h)</div>
+      <div class="right" id="inbox-recent-meta"></div>
+    </div>
+    <div class="pane-body" id="inbox-recent-body">
+      <div class="placeholder">loading...</div>
+    </div>
+  </section>
+</section>
 
 <!-- ========== Experiments tab ========== -->
 <section id="tests-view" hidden>
@@ -3408,6 +3517,119 @@ function ssToggleModel(chipId) {
   ssSaveFilters(ssFilterState);
 }
 
+// ===== Inbox tab (cross-session messaging visibility) =====
+// Consumes snapshot.inbox_routings = {total_open, per_recipient, flow, recent_24h}
+// emitted by poller._build_inbox_routings.
+
+const SESSION_ORDER = ["orchestrator", "research", "testbed", "cloud"];
+
+function fmtRelTime(ageS) {
+  if (!Number.isFinite(ageS)) return "?";
+  if (ageS < 60) return `${Math.round(ageS)}s ago`;
+  if (ageS < 3600) return `${Math.round(ageS/60)}m ago`;
+  if (ageS < 86400) return `${(ageS/3600).toFixed(1)}h ago`;
+  return `${(ageS/86400).toFixed(1)}d ago`;
+}
+
+function renderInbox(routings) {
+  // Header counts (also used to power the tab badge)
+  const overviewBody = document.getElementById("inbox-overview-body");
+  const overviewMeta = document.getElementById("inbox-overview-meta");
+  const recentBody = document.getElementById("inbox-recent-body");
+  const recentMeta = document.getElementById("inbox-recent-meta");
+  const tabBadge = document.getElementById("tab-inbox-badge");
+
+  if (!routings || typeof routings !== "object") {
+    overviewBody.replaceChildren(el("div", {class: "placeholder"}, "no routing data"));
+    recentBody.replaceChildren(el("div", {class: "placeholder"}, ""));
+    if (tabBadge) tabBadge.style.display = "none";
+    return;
+  }
+  const total = Number(routings.total_open || 0);
+  const perRecipient = routings.per_recipient || {};
+  const recent = Array.isArray(routings.recent_24h) ? routings.recent_24h : [];
+  const flow = routings.flow || {};
+
+  // Tab badge: show count of OPEN routings to testbed specifically (our session)
+  const testbedOpen = Number(perRecipient.testbed || 0);
+  if (tabBadge) {
+    if (testbedOpen > 0) {
+      tabBadge.textContent = String(testbedOpen);
+      tabBadge.style.display = "";
+    } else {
+      tabBadge.style.display = "none";
+    }
+  }
+
+  overviewMeta.textContent = `${total} open total`;
+  recentMeta.textContent = `${recent.length} in last 24h`;
+
+  // -- Overview pane: per-session inbox depth grid + flow matrix --
+  const ovWrap = el("div");
+
+  // Per-session counts as a row of cards
+  const countsRow = el("div", {class: "inbox-counts-row"});
+  for (const sess of SESSION_ORDER) {
+    const n = Number(perRecipient[sess] || 0);
+    const card = el("div", {class: `inbox-count-card ${n > 0 ? "has-msgs" : "empty"}`});
+    card.append(el("div", {class: "inbox-count-label"}, sess));
+    card.append(el("div", {class: "inbox-count-value"}, String(n)));
+    countsRow.append(card);
+  }
+  ovWrap.append(countsRow);
+
+  // Flow matrix: from -> to counts
+  if (Object.keys(flow).length > 0) {
+    const flowHead = el("div", {class: "inbox-flow-head"}, "Open routings (from → to)");
+    ovWrap.append(flowHead);
+    const flowTable = el("table", {class: "inbox-flow-table"});
+    const thead = el("thead");
+    const headRow = el("tr");
+    headRow.append(el("th", {class: "inbox-flow-corner"}, "from \\ to"));
+    for (const sess of SESSION_ORDER) {
+      headRow.append(el("th", null, sess));
+    }
+    thead.append(headRow);
+    flowTable.append(thead);
+    const tbody = el("tbody");
+    const senders = Object.keys(flow).sort();
+    for (const s of senders) {
+      const row = el("tr");
+      row.append(el("th", null, s));
+      for (const r of SESSION_ORDER) {
+        const n = Number((flow[s] || {})[r] || 0);
+        const td = el("td", {class: n > 0 ? "has" : "empty"}, n > 0 ? String(n) : "");
+        row.append(td);
+      }
+      tbody.append(row);
+    }
+    flowTable.append(tbody);
+    ovWrap.append(flowTable);
+  }
+  overviewBody.replaceChildren(ovWrap);
+
+  // -- Recent pane: chronological timeline last 24h --
+  if (!recent.length) {
+    recentBody.replaceChildren(el("div", {class: "placeholder"}, "no routings in last 24h"));
+    return;
+  }
+  const list = el("div", {class: "inbox-recent-list"});
+  for (const r of recent) {
+    const row = el("div", {class: "inbox-recent-row"});
+    const head = el("div", {class: "inbox-recent-head"});
+    head.append(el("span", {class: "inbox-recent-arrow"}, `${r.from} → ${r.to}`));
+    head.append(el("span", {class: `inbox-recent-type type-${r.type}`}, r.type));
+    head.append(el("span", {class: "inbox-recent-age"}, fmtRelTime(r.age_s)));
+    row.append(head);
+    if (r.summary) {
+      row.append(el("div", {class: "inbox-recent-summary"}, r.summary));
+    }
+    row.append(el("div", {class: "inbox-recent-file", title: r.filename}, r.filename));
+    list.append(row);
+  }
+  recentBody.replaceChildren(list);
+}
+
 let ssLastLog = [];
 
 function renderStatusStream(statusLog) {
@@ -3629,22 +3851,34 @@ function renderRightNow(runs, system) {
       head.append(el("span", {class: "rn-hb stale"}, "inactive"));
       card.append(head);
       const snap = window.__lastSnapshot || {};
-      // If a Lambda experiment is actively in progress, show the anchor name
-      // in the slot's "name" line; otherwise show the inactive placeholder.
       const progress = snap.lambda_progress;
-      const lambdaActive = progress && typeof progress === "object" &&
+      const cost = snap.cloud_cost;
+      // Three Lambda states, in priority order:
+      //   1. progress fresh (stale_s < 90):  show anchor + cell N/M ETA
+      //   2. cost shows active_instances > 0: show "in flight (no cells yet)"
+      //      -- instance is booting/bootstrapping or experiment hasn't
+      //         emitted its first cell. Avoid showing stale anchor.
+      //   3. neither:                         "cloud session not started"
+      const progressFresh = progress && typeof progress === "object" &&
         Number.isFinite(Number(progress.stale_s)) && Number(progress.stale_s) < 90;
-      if (lambdaActive) {
+      const hasActiveInstance = cost && Array.isArray(cost.active_instances) &&
+        cost.active_instances.length > 0;
+      if (progressFresh) {
         card.append(el("div", {class: "rn-name", title: progress.source_file || ""},
           progress.anchor || "in flight"));
+        appendLambdaProgressLine(card, progress);
+      } else if (hasActiveInstance) {
+        const inst = cost.active_instances[0] || {};
+        const itype = inst.instance_type || "instance";
+        card.append(el("div", {class: "rn-name", title: inst.instance_id || ""},
+          `in flight (${itype})`));
+        card.append(el("div", {class: "rn-tail progress"},
+          "booting / bootstrapping -- no cells yet"));
       } else {
         card.append(el("div", {class: "rn-name idle"}, "cloud session not started"));
       }
-      // Progress line (only when a fresh lambda_progress_*.json exists).
-      appendLambdaProgressLine(card, progress);
-      // Cost line: only render if the cost-tracker file is present (handled
-      // by appendCostLine; safe no-op when absent).
-      appendCostLine(card, snap.cloud_cost);
+      // Cost line: always render when cost data exists.
+      appendCostLine(card, cost);
       grid.append(card);
       continue;
     }
@@ -4722,6 +4956,7 @@ function setTab(name) {
   activeTab = name;
   document.getElementById("foryou-view").hidden = name !== "foryou";
   document.getElementById("live-view").hidden = name !== "live";
+  document.getElementById("inbox-view").hidden = name !== "inbox";
   document.getElementById("tests-view").hidden = name !== "tests";
   document.getElementById("capability-view").hidden = name !== "capability";
   document.getElementById("research-view").hidden = name !== "research";
@@ -4737,7 +4972,7 @@ function setTab(name) {
 const savedTab = (() => {
   try { return localStorage.getItem("active_tab"); } catch { return null; }
 })();
-if (savedTab && ["foryou","live","tests","capability","research"].includes(savedTab)) {
+if (savedTab && ["foryou","live","inbox","tests","capability","research"].includes(savedTab)) {
   // Apply on first paint.
   requestAnimationFrame(() => setTab(savedTab));
 }
@@ -4850,11 +5085,13 @@ async function refresh() {
     const safeCall = (label, fn) => { try { fn(); } catch (err) { console.error(`[live] ${label} failed:`, err); } };
     safeCall("sessions",     () => renderSessions(snap.sessions || {}));
     safeCall("rightNow",     () => renderRightNow(snap.runs || {}, snap.system || {}));
-    safeCall("workingOn",    () => renderWorkingOn(snap.in_flight || {dispatches: []}));
     safeCall("orchHealth",   () => renderOrchestratorHealth(snap.orchestrator_health || null));
     safeCall("upNext",       () => renderUpNext(snap.queue || {}));
     safeCall("system",       () => renderSystem(snap.system));
     safeCall("statusStream", () => renderStatusStream(snap.status_log || []));
+
+    // Inbox tab (cross-session messaging visibility)
+    safeCall("inbox",        () => renderInbox(snap.inbox_routings || null));
 
     // Experiments tab — fresh queue-doc-derived list.
     renderTests(snap.queue_experiments || []);
