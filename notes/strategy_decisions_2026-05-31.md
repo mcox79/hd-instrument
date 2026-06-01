@@ -742,3 +742,83 @@ V2 is a HARD_PASS HARD-EVIDENCE single-seed single-N validation. No row closures
 ### Commit and push
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+
+## v301 -> v302 BATCHED 3-VERDICT CPU evening wave (213th PROT-009 paired commit) -- 2026-05-31
+
+**Context.** 3 CPU verdicts landed 2026-05-31 21:23-21:32: V1 multi_hop_caching_baseline_v3_n4096 wall_s=2769, V2 state_compression_adversarial_codebook_v1_n4096 wall_s=88, V3 reasoning_storage_scheme_b_smoke_v1_n16384 wall_s=463. All 3 source=remote via bridge get_metrics. Pause-flag CHECKED ABSENT. Queue 6 GPU + 4 CPU pending+running. REMOTE-FIRST honest re-read.
+
+### Step 0 honest re-read summary -- 0 NEW LABEL-VS-HONEST catches; all 3 labels HONEST
+
+**V1 multi_hop_caching_baseline_v3_n4096 C2_HARD_PASS HONEST** -- 25-cells (5 alpha x 5 seed) unanimous hit-rate monotone in alpha {0.5: 0.831, 0.75: 0.869, 1.0: 0.906, 1.5: 0.958, 2.0: 0.982} all >= 0.50 HP threshold; audit_integrity=1.000 unanimous all 25 cells; hot<cold aggregate-true but ALPHA-DEPENDENT (clean at alpha=2.0 ~14% speedup; tied at alpha<1 within noise). Honest reading: HARD_PASS HONEST with alpha-dependence annotation (not catch); REVERSES v296 v2 confounded-design DEFER (CACHE_CAP=16 << K_PATHS=100 forces evictions vs v2 CACHE_CAP=256 > K_PATHS=100 cache-saturation artifact).
+
+**V2 state_compression_adversarial_codebook_v1_n4096 PP2ADV_HARD_PASS HONEST** -- 5 seeds unanimous kf1_adv100=1.000 (deletion-cert preserved unanimous), kf3_adv100 mean 0.950 (worst-cell 0.922 well above 0.70 HP threshold), kf2_drift_norm=1.0 unanimous (compression-layer stable). c_quant/bits8 4x compression PRESERVES audit-cert under codebook-collision adversary at adv_100% AND adv_50% at N=4096 M=2048. Honest reading: HARD_PASS HONEST verdict_msg numerics match per-cell aggregates exactly. PROT-018 _n4096 compliant.
+
+**V3 reasoning_storage_scheme_b_smoke_v1_n16384 RSB_MIDDLE_BAND HONEST** -- Arm A (audit decode of three-way bipolar binding k_step=r_type XOR k_premise1 XOR k_premise2): HARD_PASS UNANIMOUS all 3 seeds all 3 components recoverable confidence=1.000 (substrate PRIMITIVE viable). Arm B (structured-key Path D differential vs random-key baseline): per-seed ratios 0.958/0.939/0.951 mean 0.949 BORDERLINE just below 0.95 HARD_PASS (1 of 3 seeds passes pre-reg, 1 below); ~5% per-hop accuracy penalty for structured vs random keys. Arm C (rho-mitigation): mean 0.956 just clears HARD_PASS by 0.006; delta over Arm B +0.007 negligible within noise; mitigation provides essentially zero benefit at this scope. SVD spectra essentially identical structured vs random (sigma_1/sigma_2 ratio 1.004-1.011 across both arms; structural correlation NOT showing up in spectrum). Honest reading: MIDDLE_BAND label HONEST; STRATEGIC INSIGHT: substrate-as-reasoning-store framing SURVIVES the De Marzo-Iannelli (2023) + Amit-Gutfreund-Sompolinsky (1985) theoretical concern (5-25% capacity degradation under structural correlation); substrate lands at OPTIMISTIC END of that band (~5%); however the empirical evidence is BORDERLINE-MIDDLE_BAND not clean HARD_PASS -- "retrieval primitive with structured-key support" framing is more empirically anchored than "full reasoning primitive" framing at this regime.
+
+### Cap_map state-transition decisions (v301 -> v302)
+
+1. **NEW ROW PP-10** "Multi-hop production-paths caching at Zipfian-skewed query distributions" -- Validated single-N single-workload-shape P-band 0.70-0.85. Reverses v296 PP-caching-deferred conclusion via v3 cache-cap-redesign empirical resolution. Alpha-dependent latency benefit caveat explicit; single-N + Zipfian-only + cache_cap=16 production-sizing-untested caveats explicit.
+2. **NEW ROW PP-11** "Substrate-as-reasoning-store primitive (Scheme B three-way bipolar binding)" -- Inconclusive (MIDDLE_BAND at smoke N=16384 3-seed) P-band 0.40-0.55 lower-end of research-estimated 0.35-0.55. Arm A audit-decode perfect; Arm B structured-key Path D borderline-MIDDLE_BAND (~5% penalty); Arm C rho-mitigation negligible. Framing SURVIVES with caveats.
+3. **PP-2 storage efficiency row LIFT 0.65-0.75 -> 0.70-0.80** (+5%/+5% CONSERVATIVE). v302 V2 first adversarial extension; 2nd PP-2 corroboration after v295 first-empirical-foothold; single-N N=4096 caveat persists pending v4 cross-N at N=16384.
+4. **Adversarial-defense candidate sub-row** -- 0.55-0.75 UNCHANGED at band-position. ANNOTATION: c_quant/bits8 compression-layer-defense DIFFERENT axis from a_query_sim-query-layer-defense; compositional {compression + a_query_sim} hybrid defense plausible.
+5. **PP-9 reasoning-amortization-economics row** -- 0.55-0.70 UNCHANGED at band-position; caveat (b) UPDATED with PP-11 cross-ref + ~5% quality-degradation budget for amortization claim vs LLM-only baseline.
+6. **Substrate-product-feature row 89-98% UNCHANGED at band-position** -- PP-10 caching corroboration; PP-11 product-framing sharpens to "retrieval primitive with structured-key support".
+
+### Framework reliability bands (v301 -> v302)
+
+- **PP-2 storage efficiency row LIFT 0.65-0.75 -> 0.70-0.80** (+5%/+5% CONSERVATIVE).
+- **All other framework reliability bands UNCHANGED at band-position.**
+
+### Portfolio
+
+24 + 36 -> **26 + 36** (+2 NEW Production positioning rows: PP-10 Validated + PP-11 Inconclusive).
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 282 + 3 = **285** (V1 + V2 + V3 all label-honest).
+- LABEL-VS-HONEST: **161 UNCHANGED** (zero new catches).
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]]) -- 3 rescue/extension sets; 15 rescues; R1 0-compute APPLIED inline in ALL 3 sets
+
+**R-V1-PP-CACHING-EXTENSIONS:** R1 subsumption inline + R2 cross-N at N=8192/N=16384 + R3 production-LLM query distribution probe + R4 cache-size sweep + R5 hybrid LRU+W-similarity cache mechanism deferred.
+
+**R-V2-PP-2-ADVERSARIAL-EXTENSIONS:** R1 subsumption inline + R2 v4 cross-N at N=16384 routing-only (already in CPU queue position 8) + R3 c_quant/bits8 vs other adversarial attack-axes + R4 compositional defense {c_quant/bits8 + a_query_sim} HIGHEST-STRATEGIC-VALUE + R5 adaptive-adversary stress deferred.
+
+**R-V3-PP-11-REASONING-STORE-EXTENSIONS:** R1 subsumption inline + R2 multi-seed FULL at N=16384 10-seed + R3 alternative encoding schemes (FHRR HRR Fourier-circular-convolution OR 4-way XOR + per-hop cleanup) HIGHEST-STRATEGIC-VALUE + R4 alternative rho-mitigation formulations + R5 multi-N cross-scale deferred.
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-handshake + queue-state-decision)
+
+1. **PP-11 alternative encoding-scheme probe** (HIGH PRIORITY; ~1-2h CPU; R-V3 R3). Closes "Scheme B three-way XOR is the only encoding tested" caveat; if alternative encoding HARD_PASSes Arm B substrate-as-reasoning-store framing LIFTs PP-11 MIDDLE_BAND -> HARD_PASS; informs substrate-LLM Week 1 GO/NO-GO.
+2. **PP-10 cross-N at N=8192 + N=16384 cache-viability** (MEDIUM PRIORITY; ~30-60min CPU; R-V1 R2). Closes single-N caveat on PP-10 NEW row.
+3. **PP-2 compositional defense {c_quant/bits8 + a_query_sim} hybrid** (MEDIUM PRIORITY; ~1-2h CPU; R-V2 R4). Tests whether compression-layer + query-layer defense composes additively; potential adversarial-defense sub-row LIFT.
+
+### PROT compliance (v301 -> v302)
+
+- PROT-004/006: 3 rescue sets cheapest-first 15 rescues R1 0-compute APPLIED inline all 3 sets; R2-R4 cheap-medium routed; R5 high-cost deferred; 0 capability-row closures.
+- PROT-007: history v302 row appended atomically; v277+v278 backlog still carried forward.
+- PROT-008: validator ABSENT carried forward; PP-2 band-move + 2 row additions no regression risk on existing portfolio.
+- PROT-009: cap_map.md (v302) + history.md (v302 row) + this strategy_decisions entry + visibility_decisions one-line + 3 status_log entries staged atomically; 213th PROT-009 paired commit.
+- PROT-018: all 3 anchors PROT-018 spot-check CLEAN (V1 _n4096 V2 _n4096 V3 _n16384 all match config.N).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 on all 3; 3 label-honest; 0 new catches; V1 hot<cold alpha-dependence ANNOTATION recorded.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: all 3 source=remote bridge get_metrics; no SCP fallback needed.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit per dispatch `Single batched commit` requirement; sub-agent push BLOCKED.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT; queue healthy; pipeline-pacing exp_dev SKIP (queue healthy + no routing-file refill request + 3 substantive verdicts represent cycle work).
+- [[feedback-for-you-tab-primary-channel]]: 3 status_log entries with plain_language + importance.
+- [[feedback-no-padding-experiments]]: PP-2 LIFT +5%/+5% CONSERVATIVE; PP-10 P 0.70-0.85 (single-N caveats); PP-11 P 0.40-0.55 lower-end-of-research-estimate (Arm B borderline).
+- [[feedback-decision-log-eol-handling]]: this entry appended via append_decision_log.py.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline in all 3 rescue sets.
+- [[feedback-rehabilitation-after-rejection]]: PP-10 REVERSES v296 deferred conclusion via cache-cap-redesign empirical rescue; cleanly demonstrated; no new closures.
+- [[feedback-dont-overextend-theorems]]: PP-11 framing SURVIVES scoped to "Scheme B three-way XOR at smoke N=16384 3-seed structured-key penalty ~5%" NOT to full-reasoning-primitive-at-all-encoding-and-scales.
+- [[feedback-lit-scan-calibration-penalty]]: PP-11 P 0.40-0.55 LOWER end of research-estimated 0.35-0.55 because Arm B borderline-MIDDLE_BAND not clean HARD_PASS.
+- [[feedback-no-smoke]]: brutal honesty -- V1 alpha-dependence + V3 Arm B borderline + V3 mitigation negligible all CALLED OUT.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: PP-10 caching plumbing/SDK milestone; PP-11 framing-sharpening to retrieval-primitive is killer-feature-product-positioning honesty.
+
+### Commit and push
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Commit message: see cap_map v302 entry verbatim.
