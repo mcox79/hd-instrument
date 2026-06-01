@@ -68,3 +68,20 @@
 - GHRR defer 1-2 weeks behind PP-11 priority decision
 
 **Method note.** Single consolidated routing for 3 distinct experiments because they all trigger from the same cap_map state (v307); avoids 3 separate routing files for orchestrator to process. Per [[feedback-no-padding-experiments]]: R3 (K=1 M-sensitivity) deferred -- it's the third v307 rescue but adds marginal information beyond R2/R4; can be added later if R2/R4 surface new questions.
+
+
+## external_audit_followup_6_routings -- 2026-06-01 (research:opus; main-thread; commit e06874a)
+
+**Trigger.** External-feedback audit on the research state update found six load-bearing gaps; user greenlit dispatch.
+
+**Outcome.** 6 routings filed (5 strategy + 1 testbed):
+1. `strategy_request_to_strategy_cert_threshold_v2_gdpr_target_2026-06-01.md` -- proposes ≤0.01% FP pre-reg target for GDPR Art 17 compliance positioning (current row at 1% FP is compliance-rejectable)
+2. `strategy_request_to_strategy_p2_tcft_direct_empirical_sweep_2026-06-01.md` -- cheap ~1h CPU sweep that bypasses the BLOCKED external-doc source-mismatch
+3. `strategy_request_to_strategy_pp9_depth_conditional_caveat_2026-06-01.md` -- corrects PP-9 row caveat: per-hop INDEPENDENT means depth=10 chains see ~60% accumulated accuracy (substantial use-case-envelope implication)
+4. `testbed_handoff_aqsim_end_to_end_audit_chain_assertion_2026-06-01.md` -- test-rig fix: AQSIM compositional currently asserts audit chain per-component, not end-to-end across composition
+5. `strategy_request_to_strategy_stale_row_audit_2026-06-01.md` -- proposes VALIDATED/EXPLORATORY/HOLDING/CLOSED categorization for the 28+37 cap_map row structure
+6. `strategy_request_to_strategy_h100_no_go_branch_decision_spec_2026-06-01.md` -- pre-specifies the NO-GO sequel program (Pattern B deepening + PP-8 row formal closure) so an H100-FAIL doesn't create a multi-week strategic vacuum
+
+**Method note.** Per [[feedback-no-padding-experiments]]: each routing maps to a specific honest gap the audit surfaced; not padding. Pushed back on external feedback's 3 wrong items (overstated N=32K cost, wrong PP-9 "10-100x is broken" framing, premature continuous-embedding composition, hierarchical "1-2 weeks decisive" optimism, commercial-signal item outside scope per [[feedback-value-creation-not-competition]]). Per [[feedback-no-experiment-design-in-prompts]]: routings hand TASK + WHY + CONTRACT + AUTONOMY; sweep grids / thresholds / queue choice remain strategy + exp_dev's call.
+
+**Next-drill candidate.** GHRR side-by-side experiment (PP-11 ladder; 4WC family FALSIFIED) when testbed bandwidth allows; cross-domain probe overdue (free-probability or sparse-coding NTK candidates).
