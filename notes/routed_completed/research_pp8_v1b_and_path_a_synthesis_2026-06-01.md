@@ -159,3 +159,6 @@ D3-Path-A KV-cache row (proposed but not yet created per Round 3 drill):
 - Per [[feedback-drill-prompt-bodies-must-be-generic]] (saved earlier today): future drill prompts must use generic descriptions in prompt bodies; the drills run for this synthesis predated the lock-in
 - Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated 0.15-0.20 throughout; novel-synthesis cap 0.50 applied
 - Strong literature anchors: Izmailov 2018 SWA, DeepSeek-V3 WSD, arxiv 2601.09000 universal dynamics, arxiv 2603.16127 WSO, arxiv 2411.18704 EMA dynamics, Zhang 2019 Lookahead, Hara-Kabashima 2026 DMFT
+
+
+Acted-on 2026-06-01: synthesis adopted; 10-cell dispatch authorized for testbed; WSD+EMA mitigation strategy + Architecture 1 asymmetric-bridge pivot

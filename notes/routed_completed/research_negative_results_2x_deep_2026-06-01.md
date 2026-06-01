@@ -131,3 +131,6 @@ Single consolidated `strategy_request_to_strategy_negative_results_followon_expe
 ---
 
 Acted-on 2026-06-01: 2x-deep negative results adopted in cap_map v311 v312; P3 percolation N-independence refutation + free-probability framework refutation
+
+
+Acted-on 2026-06-01: 2x-deep negative results adopted in v311 v312; P3 percolation + free-prob framework refutations

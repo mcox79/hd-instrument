@@ -124,3 +124,6 @@ Acceptance criterion for iteration 2:
 ---
 
 Acted-on 2026-06-01: STE iteration MIDDLE identical to Phase 2 baseline; pattern recognized; superseded by Path 1a v1+v1 breakthrough
+
+
+Acted-on 2026-06-01: STE iteration MIDDLE; superseded by Path 1a v1+v1' breakthrough

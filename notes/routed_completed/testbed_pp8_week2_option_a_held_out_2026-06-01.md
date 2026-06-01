@@ -102,3 +102,6 @@ The layer-ablation hypothesis is "Phi-3 last-layer hidden state may not be the r
 - `data/lambda_batch_results/pp8_w2_option_a_held_out_h100_n4096_335bf875/train_progress.jsonl` (full step-by-step record)
 - `data/lambda_batch_results/.../checkpoint_step200.pt` (pre-peak weights; loadable for offline eval)
 - `data/lambda_batch_results/.../checkpoint_step300.pt` (post-collapse weights)
+
+
+Acted-on 2026-06-01: held-out HARD-FAIL-by-final-but-peak-57.5pct rolled into v1b+Path A synthesis + testbed dispatch

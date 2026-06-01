@@ -314,3 +314,6 @@ Substrate-side audit confirmed: codebook is Kerdock-4-coset (NOT random bipolar)
 ---
 
 Acted-on 2026-06-01: superseded by v1+v1 bundle authorization + Round 4 D1-1 frozen-random control results
+
+
+Acted-on 2026-06-01: superseded by Round 4 D1-1 frozen-random control proving M1-dominance

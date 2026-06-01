@@ -193,3 +193,6 @@ Open decisions for orchestrator + testbed:
 ---
 
 Acted-on 2026-06-01: atom registry design adopted; testbed handoff filed; PP-3/PP-12 converged design
+
+
+Acted-on 2026-06-01: atom registry design adopted; PP-3/PP-12 converged design

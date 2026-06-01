@@ -122,3 +122,6 @@ Phase 2 was also the first run using the `--script-args` plumbing (commit b76fc9
 ---
 
 Acted-on 2026-06-01: Phase 2 baseline MIDDLE val=0%; superseded by Phase 2.5 STE / soft / Path 1c series + Path 1a v1+v1 HARD-PASS in v317
+
+
+Acted-on 2026-06-01: superseded by Phase 2.5 STE/soft/Path 1c series + Path 1a v1+v1' HARD-PASS in v317

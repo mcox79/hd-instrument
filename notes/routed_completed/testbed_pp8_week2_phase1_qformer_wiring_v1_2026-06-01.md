@@ -123,3 +123,6 @@ Phase 1 was decisive PASS. Phase 2 prerequisites need ~6-10 hours engineering on
 ---
 
 Acted-on 2026-06-01: Phase 1 architectural integration PASSed; PP-8 row LIFT 0.30-0.45 -> 0.55-0.65 applied
+
+
+Acted-on 2026-06-01: Phase 1 architectural integration PASSed; PP-8 LIFT applied in v317

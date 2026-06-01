@@ -173,3 +173,6 @@ Single consolidated `strategy_request_to_strategy_capabilities_expansion_followo
 ---
 
 Acted-on 2026-06-01: Round 1 6-drill synthesis adopted in cap_map v316 via parallel routing; 4 NEW EMPIRICAL rows + 3 LIFTs
+
+
+Acted-on 2026-06-01: Round 1 6-drill synthesis adopted in cap_map v316; 4 NEW EMPIRICAL rows + 3 LIFTs

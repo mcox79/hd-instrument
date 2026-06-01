@@ -118,3 +118,6 @@ This positions substrate as **"audit-cert infrastructure for LLM memory and cach
 ## CLOSING
 
 Move to `routed_completed/` when strategy authorizes the 10-cell Lambda batch + cap_map LIFTs + closures + strategic narrative.
+
+
+Acted-on 2026-06-01: 10-cell Lambda batch AUTHORIZED via testbed routing pp8_v1b_lr_fix_plus_path_a_10cell

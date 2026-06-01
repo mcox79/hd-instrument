@@ -101,3 +101,6 @@ D1-1 control test (frozen-random keys) has stuck-boot fast-failed TWICE (~$0.72 
 - `notes/testbed_pp8_week2_phase25_v1_v1prime_2026-06-01.md` (v1+v1' bundle for comparison)
 - `notes/routed_completed/strategy_response_to_testbed_pp8_round4_d1_1_plus_a_authorized_2026-06-01.md` (original authorization + HARD-FAIL routing rule)
 - `data/lambda_batch_results/pp8_w2_option_a_held_out_h100_n4096_335bf875/checkpoint_step{200,300}.pt` (for offline Path 2 eval)
+
+
+Acted-on 2026-06-01: rolled up into research's v1b+Path A 2-drill synthesis; v1b WSD+EMA mitigation authorized via testbed routing pp8_v1b_lr_fix_plus_path_a_10cell

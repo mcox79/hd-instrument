@@ -254,3 +254,6 @@ After this synthesis: research-direction breadth is substantially closed (16 cap
 ---
 
 Acted-on 2026-06-01: Round 2 9-drill synthesis adopted in cap_map v315 v316 via parallel routings
+
+
+Acted-on 2026-06-01: Round 2 9-drill synthesis adopted in cap_map v315 v316

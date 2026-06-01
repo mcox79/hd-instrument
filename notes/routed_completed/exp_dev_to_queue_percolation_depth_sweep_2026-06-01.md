@@ -26,3 +26,6 @@ notes/routed_completed/strategy_request_to_strategy_negative_results_followon_ex
 ---
 
 Acted-on 2026-06-01: percolation depth-sweep HARD_PASS verdict processed in v316 batch; depth>=3 N-INDEPENDENT gap LOCATED
+
+
+Acted-on 2026-06-01: percolation depth-sweep HARD_PASS verdict processed in v316; depth>=3 N-INDEPENDENT gap LOCATED

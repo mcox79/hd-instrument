@@ -104,3 +104,6 @@ User flagged that I dispatched D1-1 + Option A as SEPARATE batch JSONs when laun
 - `notes/strategy_request_to_strategy_pp8_option_a_lr_bug_escalation_2026-06-01.md` (LR-bug escalation)
 - `notes/routed_completed/strategy_response_to_testbed_pp8_round4_d1_1_plus_a_authorized_2026-06-01.md` (Round 4 authorization)
 - `data/lambda_batch_results/pp8_w2_d1_1_frozen_random_h100_n4096_fd6e4e9d/` (SCP-back full results)
+
+
+Acted-on 2026-06-01: M1-dominant HARD-PASS rolled into v1b+Path A synthesis + testbed dispatch

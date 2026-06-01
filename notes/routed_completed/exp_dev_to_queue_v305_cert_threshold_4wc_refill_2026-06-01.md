@@ -21,3 +21,6 @@ queue=remote_cpu_queue name=reasoning_storage_4way_cleanup_v2_n16384 script=expe
 ---
 
 Acted-on 2026-06-01: cert_threshold + 4wc anchors all shipped + verdicts processed across v306-v316 batches
+
+
+Acted-on 2026-06-01: cert_threshold + 4wc anchors all shipped + verdicts processed across v306-v316 batches

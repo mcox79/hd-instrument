@@ -86,3 +86,6 @@ D3-Path-A smoke can ride the SAME Lambda batch as v1b LR-fix variants if compute
 ## CLOSURE
 
 This analysis closes my Round 4 D1-1 + Option A loop. Strategy/orchestrator picks up the v1b LR-fix dispatch decision from testbed's existing escalation routing; research-side mechanism analysis + calibration update is committed for the record.
+
+
+Acted-on 2026-06-01: M1-dominant + Option A honest-PASS-by-peak findings rolled into v1b+Path A synthesis + testbed dispatch
