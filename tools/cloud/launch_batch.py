@@ -28,10 +28,20 @@ batch.json format (list of anchor dicts):
     "script": "experiments/exp_anchor_name_v1_n4096.py",
     "total_cells": 15,
     "cell_regex": "(optional; defaults to substrate pattern)",
-    "experiment_timeout_min": 60
+    "experiment_timeout_min": 60,
+    "result_paths": [
+      "data/testbed_pp8_week2/phi3_qformer_wiring_cuda.json",
+      "data/testbed_pp8_week2/train_v1/*"
+    ]
   },
   ...
 ]
+
+result_paths (optional): list of remote glob patterns (relative to
+~/hd-instrument/) to SCP back AFTER the experiment completes. Files are
+mirrored under data/lambda_batch_results/<anchor>_<instance_id[:8]>/ on
+local. Closes the NO_METRICS gap where script outputs at custom paths
+were never preserved.
 
 All 3 safety layers from launch_experiment.py:
   1. terminate retry with backoff + leak flag (single terminate at end
@@ -187,6 +197,116 @@ def _scp_from(ip: str, key: str | None, remote: str, local: Path) -> bool:
         return False
 
 
+def _scp_recursive_from(ip: str, key: str | None, remote: str, local: Path,
+                        timeout_s: int = 300) -> tuple[bool, str]:
+    """Recursively SCP a remote path (file or directory) to a local path.
+
+    Returns (success, message). The local target's parent is created if needed.
+    Uses scp -r for directories; plain scp for files.
+    """
+    local.parent.mkdir(parents=True, exist_ok=True)
+    base = [
+        "scp", "-r",
+        "-o", "StrictHostKeyChecking=no",
+        "-o", "UserKnownHostsFile=/dev/null",
+        "-o", "ConnectTimeout=30",
+    ]
+    if key:
+        base.extend(["-i", key])
+    base.append(f"ubuntu@{ip}:{remote}")
+    base.append(str(local))
+    try:
+        proc = subprocess.run(
+            base, capture_output=True, text=True, timeout=timeout_s)
+        if proc.returncode == 0:
+            return True, "ok"
+        return False, (proc.stderr or proc.stdout or f"rc={proc.returncode}")[:200]
+    except subprocess.TimeoutExpired:
+        return False, f"timeout after {timeout_s}s"
+    except Exception as exc:
+        return False, str(exc)[:200]
+
+
+def _ssh_glob(ip: str, key: str | None, pattern: str) -> list[str]:
+    """List remote paths matching `pattern` (relative to ~/hd-instrument/).
+
+    Uses a shell-evaluated glob expansion on the remote so callers can pass
+    patterns like `data/testbed_pp8_week2/*.json`. Returns absolute paths.
+    """
+    cmd = (
+        f"cd ~/hd-instrument && "
+        f"for f in {pattern}; do "
+        f"  [ -e \"$f\" ] && echo \"$HOME/hd-instrument/$f\"; "
+        f"done"
+    )
+    base = [
+        "ssh",
+        "-o", "StrictHostKeyChecking=no",
+        "-o", "UserKnownHostsFile=/dev/null",
+        "-o", "ConnectTimeout=30",
+    ]
+    if key:
+        base.extend(["-i", key])
+    base.extend([f"ubuntu@{ip}", cmd])
+    try:
+        proc = subprocess.run(
+            base, capture_output=True, text=True, timeout=60)
+        if proc.returncode != 0:
+            return []
+        return [line.strip() for line in proc.stdout.splitlines() if line.strip()]
+    except Exception:
+        return []
+
+
+def _scp_back_result_paths(
+    ip: str, key: str | None, instance_id: str, anchor: str,
+    result_paths: list[str], local_base: Path,
+) -> list[dict[str, Any]]:
+    """SCP-back a list of result patterns from the remote to local.
+
+    `result_paths` is a list of patterns relative to ~/hd-instrument/ on the
+    remote (e.g. "data/testbed_pp8_week2/phi3_qformer_wiring_cuda.json" or
+    "data/testbed_pp8_week2/train_v1/*"). Glob expansion happens on the remote.
+
+    Returns a list of per-path dicts {"pattern", "matches", "results": [...]}.
+    Each result is {"remote": str, "local": str, "ok": bool, "msg": str}.
+    """
+    summary: list[dict[str, Any]] = []
+    if not result_paths:
+        return summary
+    print(f"  [scp-back] declared result_paths ({len(result_paths)}):")
+    for pattern in result_paths:
+        remote_matches = _ssh_glob(ip, key, pattern)
+        entry: dict[str, Any] = {
+            "pattern": pattern,
+            "matches": len(remote_matches),
+            "results": [],
+        }
+        if not remote_matches:
+            print(f"    {pattern}: no matches on remote")
+            summary.append(entry)
+            continue
+        for remote in remote_matches:
+            # Mirror the remote subpath under local_base, keyed by anchor +
+            # instance_id so multiple anchors don't collide.
+            # remote is absolute: /home/ubuntu/hd-instrument/data/...
+            try:
+                rel = remote.split("hd-instrument/", 1)[1]
+            except IndexError:
+                rel = Path(remote).name
+            local_dest = local_base / f"{anchor}_{instance_id[:8]}" / rel
+            ok, msg = _scp_recursive_from(ip, key, remote, local_dest)
+            entry["results"].append({
+                "remote": remote,
+                "local": str(local_dest),
+                "ok": ok,
+                "msg": msg if not ok else "ok",
+            })
+            print(f"    {remote} -> {local_dest}: {'OK' if ok else 'FAIL: ' + msg}")
+        summary.append(entry)
+    return summary
+
+
 class ProgressPoller(threading.Thread):
     """Same shape as launch_experiment's ProgressPoller; runs per anchor."""
 
@@ -243,8 +363,18 @@ class ProgressPoller(threading.Thread):
 
 
 def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
-                    cell_regex, instance_id, experiment_timeout_min):
-    """Dispatch one anchor on the running instance; mirror of launch_experiment's [4/4]."""
+                    cell_regex, instance_id, experiment_timeout_min,
+                    result_paths: list[str] | None = None):
+    """Dispatch one anchor on the running instance; mirror of launch_experiment's [4/4].
+
+    result_paths: optional list of remote glob patterns (relative to
+    ~/hd-instrument/) to SCP back AFTER the experiment completes. Examples:
+      "data/testbed_pp8_week2/phi3_qformer_wiring_cuda.json"
+      "data/testbed_pp8_week2/train_v1/*"
+      "data/testbed_pp8_week2/train_v1/checkpoint_*.pt"
+    Glob expansion happens on the remote (shell-evaluated). Files are mirrored
+    under data/lambda_batch_results/<anchor>_<instance_id[:8]>/<remote_subpath>.
+    """
     remote_anchor_dir = f"data/exp_{anchor}"
     regex_escaped = cell_regex.replace("'", "'\\''")
     target_cmd = (
@@ -308,6 +438,23 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
     _scp_from(ip, ssh_key_path,
               f"~/hd-instrument/{remote_anchor_dir}/progress.json",
               progress_local)
+
+    # Declared-result-paths SCP-back (closes Phase 1's NO_METRICS gap where
+    # the experiment's output JSON existed on the remote but was never pulled
+    # because the standard metrics.json scrape didn't match its path).
+    result_paths_summary: list[dict[str, Any]] = []
+    if result_paths:
+        local_base = _REPO_ROOT / "data" / "lambda_batch_results"
+        result_paths_summary = _scp_back_result_paths(
+            ip, ssh_key_path, instance_id, anchor, result_paths, local_base,
+        )
+        # Persist the summary so the batch report can reference what was pulled
+        summary_path = (local_base / f"{anchor}_{instance_id[:8]}"
+                        / "result_paths_summary.json")
+        summary_path.parent.mkdir(parents=True, exist_ok=True)
+        summary_path.write_text(
+            json.dumps(result_paths_summary, indent=2), encoding="utf-8")
+
     return rc, metrics_local
 
 
@@ -548,6 +695,7 @@ def main() -> int:
         cell_regex = b.get("cell_regex", _DEFAULT_CELL_REGEX)
         print(f"\n=== [{i+1}/{len(batch)}] {b['anchor']} "
               f"({b['total_cells']} cells, {timeout:.0f}m timeout) ===")
+        result_paths = b.get("result_paths") or []
         rc, metrics_path = _run_one_anchor(
             ip=ip, ssh_key_path=args.ssh_key_path,
             anchor=b["anchor"], script=b["script"],
@@ -555,6 +703,7 @@ def main() -> int:
             cell_regex=cell_regex,
             instance_id=instance_id,
             experiment_timeout_min=timeout,
+            result_paths=result_paths,
         )
         rcs.append((b["anchor"], rc, metrics_path if metrics_path and metrics_path.is_file() else None))
 
