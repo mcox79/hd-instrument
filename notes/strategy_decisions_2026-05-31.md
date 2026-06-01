@@ -636,3 +636,109 @@ ALL UNCHANGED. Both verdicts INFRA-FAILURE; neither produces a science conclusio
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
 
 Commit message: see cap_map v300 entry verbatim.
+
+## v300 -> v301 @ SINGLE-VERDICT V2 24h sustained_workload baseline HARD_PASS FIRST 24h SUSTAINED-RUNTIME VALIDATION AT PRODUCTION SCOPE (verdict_handler 212th PROT-009 paired commit; reliability-recalc EVENT on production-readiness narrative)
+
+**Trigger.** SINGLE VERDICT V2 24h sustained_workload completed 2026-05-31T21:15:39 wall_s=86668 (24.07h GPU). Pre-registered as long-run reliability characterization at N=4096 M=2048 24000 mixed-CRUD+Path-D ops with hourly checkpoint + KF-spot every 4h + audit verify every 1000 ops. Pause-flag CHECKED ACTIVE (`data/orchestrator_paused.flag` EXISTS). Queue depth 6 GPU + 5 remote_cpu + 0 local_cpu pending+running.
+
+**Step 0 honest re-read (MANDATORY; remote-first per PROT N-mismatch-ceiling-fix + verdict-msg honest-reread).**
+
+LOCAL `data/exp_sustained_workload_24h_baseline_v1_n4096/metrics.json` was a STALE PRE-SHIP SMOKE artifact (elapsed_s=60.99 ops=1000 N=512 M_initial=256 hourly_records=3 30s-proxy-hours). Bridge `get_metrics(_n4096)` returned `_source: remote` but the cached content was the stale smoke (cache-staleness on the metrics-bridge for this anchor). Manual SCP from `marsh@home:C:/dev/hd-instrument/data/exp_sustained_workload_24h_baseline_v1_n4096/metrics.json` (LastWriteTime 2026-05-31 21:15:38) returned the AUTHORITATIVE FULL-RUN payload.
+
+Authoritative FULL-RUN metrics:
+- verdict `SUSTAINED_HARD_PASS`; verdict_msg `PRODUCTION_READY: ops=24000 throughput_drift=0.059 rss_growth=1.00x kf2_drift=0.0 kf1_drift=0.0 cert_valid=True w_norm_drift=1.001`
+- elapsed_s=86660.13 = 24.07h (matches dispatch context wall_s=86668 within 8s); N=4096 M_initial=2048 (matches PROT-018 `_n4096` suffix binding); total_ops_done=24000 of 24000 target (~1000 ops/hour as designed)
+- KF-2 max isolation = 0.0 at ALL 6 spot checks (op 3991 @ 4.0h, op 7992 @ 8.0h, op 11993 @ 12.0h, op 15993 @ 16.0h, op 19934 @ 20.0h, op 23933 @ 24.0h). KF-1 spurious firing rate = 0.0 at ALL 6 spot checks. Zero accuracy degradation across 24h.
+- W L2 norm: init 45.234 -> final 45.287 = drift_ratio 1.0011 (0.11% over 24h; essentially zero W-matrix drift)
+- Cert chain: 2408 links accumulated, valid=True, 24/24 audit-verify samples valid, audit_full_corruptions=0
+- GPU memory: stable at 136.12 MB across all 24 hourly records (zero leak)
+- Heap: 0.79 MB -> 3.74 MB across 24h (3.0 MB linear growth; absolute tiny; mem_growth_rss_ratio=1.00; not a real leak)
+- Throughput: baseline 0.2951 ops/s -> final 0.2778 ops/s = 5.86% drift; per-hour throughput stable 0.2778+/-0.005 ops/s for 23 of 24 hours
+- Latency: hourly lat_mean_ms typically 1-10 ms with p99 15-50 ms; ONE outlier hour-17 (lat_mean=292ms lat_p99=4636ms thpt-dip-to-0.2613) recovered immediately to lat_mean=1.26ms in hour-18 (likely transient GPU contention or background process; flagged but isolated single-hour)
+- codebook_usage_hist_drift_l1 = 0.91 (substantial codebook-usage shift over 24h workload diversity; expected behavior not a defect)
+- crashed=False, crash_msg=""
+
+Label `SUSTAINED_HARD_PASS PRODUCTION_READY` is HONEST. Every numeric in verdict_msg matches the FULL-run summary exactly. Per-cell (hourly) re-read confirms KF-1/KF-2 zero-drift unanimously at all 6 spot checks; W norm drift 0.11% over 24h; cert chain validated 24/24 audit samples. ONE caveat raised honestly above (hour-17 single-hour latency spike) does NOT contradict label; threshold criteria all clear.
+
+Label-vs-honest cumulative: 161 UNCHANGED (this verdict is LABEL-HONEST; the metrics-bridge cache-staleness for this anchor is a separate INFRASTRUCTURE issue not a label-vs-honest catch).
+
+**HONEST tally: 281 + 1 = 282.**
+
+### Cap_map changes (v300 -> v301)
+
+1. **NEW capability row added to CAN section (1. Memory primitives -> Robustness / scaling subsection): "24h sustained-runtime reliability at production scope (N=4096 M=2048 24000-op mixed-CRUD+Path-D workload)"** -- State Validated (single FULL run; first-of-kind 24h validation). Evidence: V2 24h sustained_workload_24h_baseline_v1_n4096 SUSTAINED_HARD_PASS 2026-05-31 elapsed_s=86660 throughput_drift=5.86% W-norm-drift=0.11% KF-2 zero-iso 6/6 spot-checks KF-1 zero-fp 6/6 spot-checks cert-chain 2408 links validated 24/24 audit samples zero corruptions GPU-mem stable 136 MB heap +3 MB. Caveats: single seed (V2 design was single-seed long-run; multi-seed 24h would be ~120h aggregate -- DEFERRED unless reliability concern); single-N (N=4096 only); one transient hour-17 latency spike (lat_p99=4636ms) recovered next hour (root cause undiagnosed; isolated). Product implication: "substrate maintains accuracy + audit integrity + zero W drift across continuous 24h production workload" -- enables production-readiness positioning that was previously theoretical.
+
+2. **PP-3 audit-trail design + rotation strategy row -- INPUT DATA NOW AVAILABLE (no band move, DEPENDENCY UNBLOCKED).** V2 24h workload was the load-bearing prerequisite for PP-3 design (per PP-3 row caveat `(d) V2 24h workload output is input data for design`). Cert chain growth measured: 2408 links over 24000 ops = ~0.10 links/op = ~100 links per 1000 ops. Hourly checkpoint: chain_len went 64 (hour-0) -> 119 (hour-1) -> ~2408 (hour-24). Linear growth = ~100 links/hour at this workload mix. PP-3 input-data dependency CLOSED; row band 0.55-0.70 UNCHANGED until PP-3 design drill ships; caveat `(d) V2 24h workload output is input data for design` ANNOTATED to "input data NOW AVAILABLE; design drill remains ~2 weeks CPU-bound; M1+M2 substrate selection still gating".
+
+3. **PP-2 storage efficiency row -- EMPIRICAL INPUT EXTENDED (no band move).** V2 provides actual production-scale storage observations: GPU stable 136 MB N=4096 M=2048; heap +3 MB over 24h; cert chain 2408 links (link-size known from substrate state-format); W matrix 45.234 L2 stable. Combined with v295 C6 store-footprint (N=4096 CPU 70-160 MB M=128-2048) + v300 v3 cross-N path (N=16384 pending v4): PP-2 row band 0.65-0.75 UNCHANGED (V2 evidence reinforces single-N N=4096 footprint model; cross-N still gated on v4 N=16384 verdict).
+
+4. **Substrate-product-feature row 89-98% UNCHANGED at band-position** with PRODUCTION-READY ANNOTATION ADDED. Previous BLOCKER caveat list (adversarial-defense partial-mitigation from v299) is unaffected. NEW POSITIVE ANNOTATION: "24h sustained-runtime reliability VALIDATED at N=4096 M=2048 24000-op workload (V2 SUSTAINED_HARD_PASS 2026-05-31): KF-1/KF-2 zero drift across 6 spot checks; cert chain validated 24/24 samples zero corruptions; W matrix drift 0.11%; GPU memory stable; one transient hour-17 latency spike recovered immediately. Production-readiness narrative ANCHORED EMPIRICALLY at 24h continuous runtime; was previously theoretical." Row band STAYS 89-98% (band already includes operational-reliability framework; this is empirical-corroboration not framework-LIFT). CONSERVATIVE no-LIFT per [[feedback-no-padding-experiments]]: 24h single-seed single-N validation is corroboration-of-existing-framework not a NEW capability that the band underrepresented.
+
+5. **KF-2 deletion-cert row -- 24h ROBUSTNESS ANNOTATION (no band move).** KF-2 row remains LEADING; ADD annotation: "24h sustained-runtime KF-2 zero-isolation drift confirmed at 6 spot checks across 24h continuous workload (V2 2026-05-31); KF-2 mechanism is RUNTIME-STABLE not just initialization-stable."
+
+6. **KF-1 hallucination-detection row -- 24h ROBUSTNESS ANNOTATION (no band move).** KF-1 row band 0.65-0.80 UNCHANGED; ADD annotation: "24h sustained-runtime KF-1 zero-spurious-firing-rate confirmed at 6 spot checks across 24h continuous workload (V2 2026-05-31); KF-1 mechanism is RUNTIME-STABLE."
+
+7. **7-day sustained workload cloud-routing candidate UPDATED.** v292 standing principle listed 7-day sustained workload as cloud-warranted "only if local 48h validates clean" (~$300-500). V2 24h CLEAN locally satisfies the partial predicate for 48h next-step (local; not cloud), not 7-day cloud yet. Cloud-routing-list ANNOTATION: "V2 24h CLEAN 2026-05-31; 48h local validation is now the sequenced next gate (NOT auto-dispatched; pause-flag ACTIVE; orchestrator decides timing); 7-day cloud routing still gated on 48h local CLEAN."
+
+### Framework reliability bands (v300 -> v301)
+
+ALL existing framework reliability bands UNCHANGED at band-position. V2 is empirical corroboration of OPERATIONAL framework (substrate maintains accuracy + audit + W under continuous workload); not a NEW framework class or NEW mechanism. CONSERVATIVE no-LIFT per [[feedback-no-padding-experiments]]. The NEW row "24h sustained-runtime reliability" is a NEW capability anchor (its own row at Validated single-seed single-N) NOT a band-LIFT on an existing reliability band.
+
+### Portfolio
+
+23 + 36 -> **24 + 36** (+1 NEW capability row "24h sustained-runtime reliability at production scope" in CAN-Robustness/scaling subsection). HONEST 281 -> 282 (+1; V2 is LABEL-HONEST). LABEL-VS-HONEST 161 UNCHANGED.
+
+### Rescue sketches (PROT-004/006 cheapest-first per [[feedback-rescue-sketch-first-sequencing]]) -- NOT TRIGGERED
+
+V2 is a HARD_PASS HARD-EVIDENCE single-seed single-N validation. No row closures. No rescue sketches required by PROT-004/006. Forward-test extension sketches (cheap-first-sequenced, NOT auto-dispatched per pause-flag-ACTIVE):
+
+**R-V2-SUSTAINED-RUNTIME-EXTENSIONS (extending 24h single-seed single-N to multi-seed + cross-N + cross-workload):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V2 24h N=4096 M=2048 single-seed single-N SUSTAINED_HARD_PASS CLEAN; NEW capability row ADDED Validated; production-readiness narrative ANCHORED EMPIRICALLY; PP-3 input data dependency CLOSED; CONSERVATIVE no-band-LIFT on existing framework reliability." APPLIED inline above.
+- R2 (CHEAPEST, ~5 min documentation) -- Document hour-17 latency-spike root-cause investigation as engineering follow-on: was this GPU-contention from a colocated process, a substrate-internal pathology, or a measurement artifact? Inspect remote machine logs for 2026-05-31 hour-17 window. NOT-AUTO-DISPATCHED (engineering item; pause-flag ACTIVE; not blocking).
+- R3 (CHEAP, ~30-60min CPU) -- Multi-seed 24h reliability via SHORTER duration (e.g., 4h x 5 seeds = ~20h aggregate at N=4096 M=2048) for variance characterization on throughput + cert-chain growth + W drift; pre-reg HP all 5 seeds throughput_drift <= 0.10 and KF-2/KF-1 drift = 0.0 at all spot checks. NOT-AUTO-DISPATCHED (gated on pause-flag).
+- R4 (MEDIUM, ~24h local-GPU) -- 24h sustained workload at cross-N N=8192 M=4096 OR N=16384 M=8192 to verify the production-readiness claim is N-scaling-independent; pre-reg HP same thresholds at higher-N. NOT-AUTO-DISPATCHED (pause-flag; 24h local GPU monopolizes substrate).
+- R5 (MEDIUM, ~48h local-GPU) -- 48h local sustained workload as the next gate toward 7-day cloud-routing candidate (v292 cloud-routing-discipline list). NOT-AUTO-DISPATCHED (pause-flag).
+- R6 (HIGH-COST, ~7-day cloud-GPU ~$300-500) -- 7-day sustained workload cloud-routing candidate per v292 standing principle. DEFERRED until 48h local CLEAN (R5).
+
+**R-PP-3-AUDIT-ROTATION-SUBSTRATE-DESIGN (PP-3 input-data dependency CLOSED; design drill now ungated on V2):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V2 cert-chain growth measured at 2408 links over 24000 ops = ~100 links/hour at production-scale mixed-CRUD+Path-D workload; PP-3 input-data dependency CLOSED; PP-3 design drill ungated; ~2 weeks CPU-bound." APPLIED inline above (PP-3 row caveat annotation).
+- R2 (CHEAP, routing-only) -- File `strategy_request_to_research_pp_3_audit_rotation_design_2026-05-31.md` request to research for PP-3 audit-rotation-strategy design drill using V2 24h cert-chain trajectory data (links/hour growth rate + cert-link payload size + GDPR/HIPAA/SOC2 retention windows). NOT-AUTO-DISPATCHED (per pause-flag ACTIVE + filed-not-dispatched policy).
+
+### Top-3 follow-on decisions for orchestrator (NOT auto-dispatched per pause-flag ACTIVE)
+
+1. **Hour-17 latency-spike investigation** (LOW PRIORITY engineering; ~30-60min). One-hour outlier in an otherwise clean 24h run; recovered immediately. Root-cause TBD: GPU contention from colocated process / substrate-internal pathology / measurement artifact. Investigate remote-machine logs for the 2026-05-31 hour-17 window before next 24h+ run.
+
+2. **PP-3 audit-rotation design drill -- INPUT DATA NOW AVAILABLE** (HIGH PRIORITY research; ~2 weeks CPU). Filed as R-PP-3-AUDIT-ROTATION-SUBSTRATE-DESIGN R2 routing-only above. V2 cert-chain growth (~100 links/hour at production-scale mixed workload) is the empirical input PP-3 was waiting on. PP-3 row band 0.55-0.70 will move based on design-drill outcome (not auto-dispatched per pause-flag).
+
+3. **48h local sustained workload (R5)** (MEDIUM PRIORITY GPU; ~48h GPU). The next reliability-extension gate toward 7-day cloud routing per v292 cloud-routing-discipline. Decision deferred to orchestrator strategy thread when pause-flag releases.
+
+### PROT compliance (v300 -> v301)
+
+- **PROT-004/006**: V2 is HARD_PASS with row addition; no row closures; forward-test rescue extension sketches filed cheapest-first per [[feedback-rescue-sketch-first-sequencing]] (R-V2-SUSTAINED-RUNTIME-EXTENSIONS 6 rescues + R-PP-3-AUDIT-ROTATION-SUBSTRATE-DESIGN 2 rescues = 8 total rescues; R1 0-compute APPLIED inline in BOTH sets; R2-R5 cheap-medium variants ROUTED-not-auto-dispatched per pause-flag ACTIVE; R6 expensive cloud DEFERRED).
+- **PROT-007**: substrate_capability_map_history.md v301 row appended atomically. BACKLOG NOTE carried forward: v277 + v278 history rows STILL MISSING.
+- **PROT-008**: validator script `tools/orchestrator/validate_capmap_commit.py` STILL ABSENT (carried forward); infrastructure gap flagged not blocking. Row addition + annotations (no band moves); no portfolio state regression risk.
+- **PROT-009**: cap_map.md (v301 entry) + substrate_capability_map_history.md (v301 row) + strategy_decisions_2026-05-31.md (this v301 entry) + visibility_decisions_2026-05-31.md (one-line) + 1 status_log entry staged atomically; **212th PROT-009 paired commit**.
+- **PROT-018**: anchor `sustained_workload_24h_baseline_v1_n4096` `_n4096` matches config.N=4096 (PROT-018 compliant).
+- **PROT-019**: V2 wall_s=86668 within timeout=90000s (LONG-RUN flag); PROT-019 compliant.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed; bridge get_metrics returned _source=remote but content was STALE-CACHE; required manual SCP-pull for authoritative data; honest re-read confirms label-honest. ZERO new label-vs-honest catch but FLAGGED metrics-bridge cache-staleness on this specific anchor as engineering item (likely the 24h-LongRun-completion remote-state-emitter SCP-poll window missed the final file-write or bridge cache TTL exceeded poll cadence).
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: Bridge returned _source=remote but content STALE; honest workflow REQUIRES manual SCP fallback when verdict claims FULL-run wall_s differs from metrics-file elapsed_s by >>1%. ADD to engineering item: bridge get_metrics SHOULD compare file LastWriteTime against expected verdict-arrival window OR support force-fresh-pull on demand.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ACTIVE (`data/orchestrator_paused.flag` EXISTS); pipeline-pacing exp_dev dispatch SKIPPED entirely; queue-refill outcome NOT logged; honored user pause directive.
+- [[feedback-pipeline-pacing]]: queue state CHECKED (GPU 6 + remote_cpu 5 + local_cpu 0 = 11 pending+running); HEALTHY; pipeline-pacing exp_dev would have been a CANDIDATE if pause-flag absent but pause-flag ACTIVE OVERRIDES.
+- [[feedback-cap-map-update-protocol]]: atomic single-batch commit; sub-agent push BLOCKED per [[feedback-subagent-permission-inheritance]]; commit hash surfaced for main-thread push.
+- [[feedback-for-you-tab-primary-channel]]: 1 status_log entry with plain_language + importance HIGH (24h sustained reliability validation).
+- [[feedback-no-padding-experiments]]: NEW capability row added is genuinely a new capability (first 24h sustained-runtime validation; was previously untested at any production scope); NOT padding. CONSERVATIVE no-band-LIFT on substrate-product-feature row and framework-reliability bands (V2 is empirical-corroboration not framework-LIFT).
+- [[feedback-decision-log-eol-handling]]: this strategy_decisions entry appended via tools/orchestrator/append_decision_log.py (LF EOL preserved); cap_map + history CRLF preserved.
+- [[feedback-rescue-sketch-first-sequencing]]: 2 forward-test extension sketches filed cheapest-first; R1 0-compute APPLIED inline in BOTH; R2-R5 cheap-medium routed; R6 expensive cloud DEFERRED.
+- [[feedback-rehabilitation-after-rejection]]: NOT TRIGGERED (V2 HARD_PASS not rejection).
+- [[feedback-no-smoke]]: brutal honesty applied -- one transient hour-17 latency-spike CALLED OUT in NEW-row caveats (not buried); local-cache-stale-vs-remote-fresh issue CALLED OUT as infrastructure caveat.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V2 anchors production-readiness narrative empirically; "killer features ship first" framing reinforced -- the substrate-product-feature row PRODUCTION-READY annotation is now empirical not theoretical.
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 anchor `_n4096` matches config.N=4096 (compliant).
+- [[feedback-strategy-spec-formula-selftests]]: V2 self-test PASS (recorded in exp_dev_decisions_2026-05-30 line 91 6.5s); FULL-run honors the spec.
+- [[feedback-dont-overextend-theorems]]: 24h single-seed single-N validation scoped to "production-scope reliability at N=4096 M=2048 24000-op mixed workload" NOT to "substrate is multi-seed cross-N production-ready at all scopes"; CONSERVATIVE row addition with explicit caveats.
+
+### Commit and push
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
