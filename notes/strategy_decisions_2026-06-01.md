@@ -582,3 +582,4 @@ HONEST count for tallies: 28 verdicts - 1 LVH (pp4_codebook) = 27 HONEST + 1 LVH
 
 ### Push and follow-on
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; main thread executes `git push origin main` as 1-tool follow-up.
+v317: PP-8 LIFT 0.60-0.75 EXPLORATORY (v1+v1' HARD-PASS val=38.2% 391x-random 12.7x-over-threshold; pre-commit Scenario 1 fired); 3 caveats (n Probe2-HF + o Path-D-K2-N8192-closure + Round4-framework-calibration); PP-32 PENDING-row added (audit-grade-tool-call-cache 0.50-0.65); testbed D1-1+Option-A authorized; 12 routing files moved routed_completed; HONEST 329; portfolio 32+52 UNCHANGED; 228th PROT-009
