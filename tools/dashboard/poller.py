@@ -171,19 +171,34 @@ class Poller:
                     else:
                         sender = "unknown"
 
-                    # Authoritative sender parse: scan body for "**From**: X session"
-                    # or "**From**: X" pattern at line start.
-                    for line in body.splitlines()[:20]:
-                        s = line.strip()
-                        if s.lower().startswith("**from**:"):
-                            # Extract after the colon, strip ** markers, take
-                            # first word that names a session.
-                            rest = s.split(":", 1)[1].strip().strip("*").strip()
-                            # First token; lowercase; trim possible " session"
+                    # Authoritative sender parse: scan body for sender-header
+                    # patterns. Older files use **Sender**: instead of **From**:;
+                    # plain (non-bold) variants also appear. Take the first
+                    # matching line + extract the first session-name token.
+                    # First-token mapping handles "Strategy" -> "orchestrator"
+                    # since the Strategy ROLE lives inside the orchestrator
+                    # session per session_architecture_v1.
+                    _SENDER_TOKEN_MAP = {
+                        "orchestrator": "orchestrator",
+                        "strategy": "orchestrator",
+                        "exp_dev": "orchestrator",
+                        "research": "research",
+                        "testbed": "testbed",
+                        "cloud": "cloud",
+                        "user": "user",
+                    }
+                    for line in body.splitlines()[:25]:
+                        s_low = line.strip().lower()
+                        if (s_low.startswith("**from**:")
+                                or s_low.startswith("**sender**:")
+                                or s_low.startswith("from:")
+                                or s_low.startswith("sender:")
+                                or s_low.startswith("**author**:")
+                                or s_low.startswith("author:")):
+                            rest = line.split(":", 1)[1].strip().strip("*").strip()
                             tok = rest.split()[0].lower() if rest.split() else ""
-                            if tok in ("orchestrator", "research", "testbed",
-                                       "cloud", "exp_dev", "user"):
-                                sender = tok
+                            if tok in _SENDER_TOKEN_MAP:
+                                sender = _SENDER_TOKEN_MAP[tok]
                             break
 
                     # Summary preview: first non-meta paragraph.
