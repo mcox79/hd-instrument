@@ -583,3 +583,74 @@ HONEST count for tallies: 28 verdicts - 1 LVH (pp4_codebook) = 27 HONEST + 1 LVH
 ### Push and follow-on
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; main thread executes `git push origin main` as 1-tool follow-up.
 v317: PP-8 LIFT 0.60-0.75 EXPLORATORY (v1+v1' HARD-PASS val=38.2% 391x-random 12.7x-over-threshold; pre-commit Scenario 1 fired); 3 caveats (n Probe2-HF + o Path-D-K2-N8192-closure + Round4-framework-calibration); PP-32 PENDING-row added (audit-grade-tool-call-cache 0.50-0.65); testbed D1-1+Option-A authorized; 12 routing files moved routed_completed; HONEST 329; portfolio 32+52 UNCHANGED; 228th PROT-009v317->v318 annotation-only: PP-3 T2.5 V2-log rotational hypothesis CLOSED (codebook_usage_hist_drift_l1 rotation-invariant; 0.911 L1 fully explained by 5.3% literal-fact-survivor random-turnover; P(rotational)=0.05 deflated from 0.28; CF-prevention-via-PP-3-rotation CLOSED); AQSIM 3-way cross-N engagement-lock LIFTED (root cause = exp_ prefix convention bug in out_dir; DIAGNOSTIC_HARD_PASS 21.8s; NOT substrate-physics; label-vs-honest #169-#172 STAND independently); PP-13 N=16384 staging in-flight (multi_tenant_arch1_full_v1_n16384 remote_cpu_queue; staged N=4096->N=16384->N=32768; on HARD_PASS N=32768 authorized); Round 5 7-drill synthesis ACK-DEFERRED (pending user-decision); 3 routing files closed to routed_completed/; HONEST 329->330 +1; LABEL-VS-HONEST 177 UNCHANGED; portfolio 32+52 UNCHANGED; 229th PROT-009 paired commitv319 cap_map bump: PP-33 non-eq stat-mech framework class NEW row (0.40-0.55 EXPLORATORY); 3 sub-properties added (PP-31a refusal-audit-cert / PP-28a rank-1-Gaussian-cluster-impact / PP-30a streaming-auditor-protocol); PP-30 seeded-codebook design mandate added; 3 closures (DDBP-unified / S-U-A4 / Crooks-C4); Round-5 intro paragraph; 3 routing files moved routed_completed; testbed_handoff_pp30_replay_protocol_a_d filed; portfolio 32+52->32+532026-06-01 strategy_scribe: cap_map v319->v320 PP-3 V2-log rotational hypothesis 2x-review FULLY CLOSED (observable+theoretical layers); PP-3 Phase 1 cert-chain storage growth drill AUTHORIZED; 20 routing files moved routed_completed; 9 experiment scripts staged; testbed response filed strategy_response_to_testbed_pp3_drill_sequencing_confirmed_2026-06-01.md; portfolio 32+53 UNCHANGED HONEST 330 UNCHANGED LABEL-VS-HONEST 177 UNCHANGEDHygiene sweep: 26 routings moved to routed_completed/ (items 1-6 newly moved from notes/; items 7-26 acted-on stamps appended to existing routed_completed/ copies); no cap_map mutation; no new routing files written; no experiment dispatch
+## v320 -> v321 @ BATCHED 10-VERDICT Round 5 NE-1..NE-5 + PP-31 (2D/2A/4A) + PP-28-R1 + PP-13 N=16384 (verdict_handler 232nd PROT-009 paired commit)
+
+**Trigger.** 10 verdicts arrived 2026-06-01 on remote_cpu_queue: 9 Round 5 re-shipped CPU anchors (after exp_ prefix bug fix d3a7eee) + 1 multi-tenant N=16384 staging. All metrics _source=remote via bridge get_metrics(). Pause-flag ABSENT.
+
+### Step 0 honest re-read (all 10 HONEST; 0 over-claims)
+
+- NE-1 MIDDLE_BAND HONEST 245s: avg_|r|=0.781 PASSES >=0.70 (aging detected), collapse=1.47 BELOW 2.0; 1/5 seeds joint HP.
+- NE-2 MIDDLE_BAND HONEST 0.4s: 0/5 HP; cliff present (overlap 0.998 -> 0.467) but at alpha=0.17-0.18 (one cell beyond pre-reg [0.12, 0.16]).
+- NE-3 HARD_FAIL HONEST 215s: 0/5 HP; avg_sigma=0.19 (16x below 3.0); pre-reg HARD_FAIL band reached. Consistent v319 Crooks-C4 theoretical closure.
+- NE-4 HARD_PASS HONEST 0.02s: 5/5 avg_rel_err=0.0000 (Landauer log_2(M) bound exact within <0.01%).
+- NE-5 HARD_PASS HONEST 0.2s: 5/5 max_rel_change=0 all_W_unchanged=True (15 cells).
+- PP31-2D HARD_PASS HONEST 0.08s: 50/50 correct max_cert=0.004ms.
+- PP31-2A MIDDLE_BAND HONEST 1.5s: 2/5 HP (gate >=4/5); knee=0.740 detectable but threshold-sensitive.
+- PP31-4A HARD_PASS HONEST 21s: 5/5 max_rho=0.0000 (product-rule chain confidence justified).
+- PP28-R1 HARD_PASS HONEST 1.0s: 5/5 MAE=0.000977 (51x below 0.05); rank_acc=1.0000.
+- MT-N16384 MT_HARD_PASS HONEST 10.6s: 5/5 N=16384 M=256 mean_max_sim_B_via_A=0.0026.
+
+Distribution: 5 HARD_PASS + 1 HARD_FAIL + 3 MIDDLE_BAND + 1 MT_HARD_PASS = 10/10 HONEST. NO label-vs-honest catches.
+
+### Step 1 strategy decisions
+
+PP-33 row -- NO LIFT. Pre-reg condition NE-1+NE-2 BOTH HARD-PASS NOT MET (both MIDDLE_BAND). 2 caveats added (a=NE-1 partial aging, b=NE-2 window off). PP-33 band STAYS 0.40-0.55 EXPLORATORY.
+
+PP-33a sub-property -- CLOSED (NE-3 HARD_FAIL confirms v319 theoretical closure; PP-4 KL/codebook mechanisms outside Crooks-FT UNAFFECTED).
+
+PP-33b sub-property -- EMPIRICAL VALIDATED (NE-4 + NE-5 BOTH HARD_PASS unanimous; design constraint for PP-30 seeded-codebook + PP-12 audit primitive).
+
+PP-31a refusal audit cert sub-property -- EMPIRICAL VALIDATED (PP31-2D HARD_PASS 50/50).
+
+PP-31b per-hop independence sub-property NEW v321 -- EMPIRICAL VALIDATED (PP31-4A HARD_PASS 5/5 max_rho=0.0000; multi-hop confidence calculus cornerstone).
+
+PP-31c precision-coverage knee sub-property -- PENDING (PP31-2A MIDDLE_BAND production-config sweep needed).
+
+PP-28a rank-1 Gaussian cluster impact -- EMPIRICAL VALIDATED (PP28-R1 mandatory gate cleared; MAE 51x below + rank_acc=1.0).
+
+PP-13 N=16384 staging caveat -- HARD_PASS (5/5 leakage=0 confirms N-independent isolation algebra; N=32768 staging UNLOCKED).
+
+### Rescue sketches NE-3 closure cheapest-first (PROT-004/006)
+
+- R1 0-compute Subsumption: v319 already CLOSED Crooks-C4 theoretically; NE-3 confirms empirically. APPLIED inline.
+- R2 ~15min CPU threshold relax to 2-sigma. NOT-AUTO-DISPATCHED.
+- R3 ~30min CPU 10x trajectory count. NOT-AUTO-DISPATCHED.
+- R4 ~30min CPU 10x drift magnitude. NOT-AUTO-DISPATCHED.
+- R5 MEDIUM ~1-2h GPU alternative drift signature. DEFERRED to PP-4.
+
+NE-1/NE-2/PP31-2A MIDDLE_BAND are NOT closures; rescue candidates inline in caveats.
+
+### Tallies
+
+- HONEST: 330 -> **340** (+10 all HONEST against pre-reg).
+- LABEL-VS-HONEST: 177 UNCHANGED (0 over-claims this batch).
+- Portfolio: 32+53 UNCHANGED (sub-property LIFTs only, no new rows).
+- Cap_map version: **v321**.
+
+### PROT compliance
+
+- PROT-004/006: NE-3 closure 5 rescues R1 applied + R2-R4 routed + R5 deferred. NE-1/NE-2/PP31-2A NOT closures.
+- PROT-007: history v321 appended.
+- PROT-008: annotation-only; PP-13 + PP-33 + PP-31 + PP-28 row caveat additions; 4 sub-property LIFTs (PP-33b/PP-31a/PP-31b NEW/PP-28a); 1 sub-property closure (PP-33a); no portfolio regression.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md + visibility_decisions_2026-06-01.md + status_log atomic; **232nd PROT-009 paired commit**.
+- PROT-018: all 10 anchors _n<N>/_v<N> suffix-compliant; PP-13 _n16384 binding satisfied.
+- PROT-021: smoke-checkpoint contamination check applied to fast-wall verdicts; per-cell M/N verified; no contamination.
+
+### Honest / label-vs-honest tallies
+
+- HONEST: 330 + 10 = **340**.
+- LABEL-VS-HONEST: 177 + 0 = **177**.
+
+### Push and follow-on
+
+Push: BLOCKED from sub-agent context; main thread executes git push origin main. exp_dev: queue=0 + pause-flag absent; PP-33 rescue candidates (NE-1 grid refinement, NE-2 alpha_c refinement) + PP-31c production-config sweep surfaced to main-thread dispatch decision.
