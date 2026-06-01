@@ -112,3 +112,6 @@ This is a research delivery + recommendation. Orchestrator decides:
 - (d) Whether to update substrate-LLM build handoff with the caveat-list addition
 
 No engineering work begins without orchestrator queueing.
+
+---
+Acted-on 2026-05-31: reasoning_storage Phase 1 smoke already shipped as `reasoning_storage_scheme_b_smoke_v1_n16384` + `reasoning_storage_threshold_sweep_v1_n4096` in commit 35fa239; routing acknowledged + closed.
