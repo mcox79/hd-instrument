@@ -140,6 +140,12 @@ def main() -> int:
                         default=_TARGET_VOCAB_POOL_SIZE)
     parser.add_argument("--out-dir", required=True,
                         help="Output directory for train.jsonl/val.jsonl/manifest.json")
+    parser.add_argument("--no-holdout", action="store_true",
+                        help="Path 1c sanity-check mode: val SHARES keys with "
+                             "train (sampled with replacement from same pool). "
+                             "Tests whether the architecture can learn ANY val "
+                             "signal when held-out generalization isn't required. "
+                             "Default off: val keys are held out from training.")
     args = parser.parse_args()
 
     out_dir = Path(args.out_dir)
@@ -192,7 +198,17 @@ def main() -> int:
     indices = list(range(M))
     rng.shuffle(indices)
     n_total = args.n_train + args.n_val
-    if n_total > M:
+    if args.no_holdout:
+        # Path 1c sanity mode: val SHARES keys with train (sampled with
+        # replacement from the same pool). Tests architecture-can-learn-val
+        # without requiring held-out generalization. Each val example uses
+        # an arbitrary pair from the full M=4096 pool; same pair may also
+        # appear in train.
+        print(f"[dataset_gen] --no-holdout: val keys SHARE pool with train "
+              f"(architecture sanity check; val NOT held out)")
+        train_indices = [rng.choice(indices) for _ in range(args.n_train)]
+        val_indices = [rng.choice(indices) for _ in range(args.n_val)]
+    elif n_total > M:
         # We need more examples than we have unique pairs; sample with replacement
         # for train, hold out distinct keys for val.
         print(f"[dataset_gen] n_train + n_val = {n_total} > M = {M}; "
@@ -206,8 +222,9 @@ def main() -> int:
         val_indices = indices[:args.n_val]
         train_indices = indices[args.n_val:args.n_val + args.n_train]
 
+    split_desc = "val SHARES keys with train" if args.no_holdout else "val held-out keys"
     print(f"[dataset_gen] split: {len(train_indices)} train / "
-          f"{len(val_indices)} val (val held-out keys)")
+          f"{len(val_indices)} val ({split_desc})")
 
     # ----- Write train.jsonl + val.jsonl -----
     def _write_split(split: str, indices: list[int], path: Path):
