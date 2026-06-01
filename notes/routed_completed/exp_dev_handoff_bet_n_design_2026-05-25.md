@@ -244,3 +244,6 @@ Self-tests are non-negotiable per the v203 L1 lock (Alt 3 + Pred-4 both crashed 
 - Bet N has NO outstanding dependency gate AND has direct literature precedent
 
 When SSH-to-remote returns, ship Bet N FIRST among Tier-1 paths.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

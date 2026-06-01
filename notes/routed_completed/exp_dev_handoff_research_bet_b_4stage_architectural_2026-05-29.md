@@ -119,3 +119,6 @@ If A1 (TP-HDC) AND A2 (pool-retrieval generative replay) AND A3 (MoE-per-task) A
 If at least 1 of A1/A2/A3 HARD-PASSes: row promotes to 🟢 with Tier-1 demonstrated; killer-feature "true continual learning at production scale" gets concrete anchor.
 
 If all 3 land MIDDLE-BAND: ship A4 (GPM) + A5 (cascade-K=3) + A7 (A1+A2 combined) as second wave.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

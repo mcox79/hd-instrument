@@ -44,3 +44,6 @@ You decide all design parameters: task-pair set, cosine measurement, threshold b
 - per [[feedback-pipeline-pacing]] — fill CPU/GPU queue depth >= 1 at all times
 - per [[feedback-verify-implementations]] — match cosine measurement to literature anchor cited in pre-reg
 - per [[feedback-no-smoke]] — honest reread of label=msg=data after FULL; pre-reg the slope-threshold bands explicitly
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

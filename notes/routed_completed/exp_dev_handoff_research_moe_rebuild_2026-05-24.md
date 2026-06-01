@@ -394,3 +394,6 @@ exp_dev does NOT decide:
 - The HARD-PASS / HARD-FAIL / MIDDLE / INSTRUMENTATION-FAIL band thresholds — pre-registered above
 - The gating choice (LSH balanced-bin + top-2 retrieval) — chosen with explicit justification
 - The mode-collapse instrumentation (Gini, max/min, top-2 fraction) — pre-registered above
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

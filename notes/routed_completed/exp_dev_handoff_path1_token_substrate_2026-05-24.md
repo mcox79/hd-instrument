@@ -66,3 +66,6 @@ comparison in subsequent cycle(s).
 **Return format**: one-line summary at end of decision-log entry — anchor
 name(s), queue, cycle-1 vs cycle-2 split, ETA, pre-registered prediction in one
 line. Main thread relays to user via routine status_log update.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

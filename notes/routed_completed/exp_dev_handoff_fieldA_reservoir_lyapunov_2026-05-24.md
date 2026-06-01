@@ -54,3 +54,6 @@ You decide all design parameters: operating point(s), estimation method, exponen
 - per [[feedback-dont-dismiss-adjacent-methods]] — reservoir-computing is mathematically adjacent (echo-state + HD-readout); dispatch rather than pre-judge
 - per [[feedback-lit-scan-calibration-penalty]] — substrate is in uncharted regime for reservoir-computing; deflate P estimates by 0.15-0.25 in pre-reg
 - per [[feedback-no-smoke]] — honest reread of label=msg=data after FULL; pre-reg the threshold bands explicitly
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

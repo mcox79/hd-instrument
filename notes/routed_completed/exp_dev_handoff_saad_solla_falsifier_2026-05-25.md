@@ -109,3 +109,6 @@ exp_dev does NOT decide:
 - P(INSTRUMENTATION-FAIL): 0.05 — corpus construction may fail to produce 4 distinguishable classes; re-design needed.
 
 All P deflated per calibration penalty. Sum to 1.00.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

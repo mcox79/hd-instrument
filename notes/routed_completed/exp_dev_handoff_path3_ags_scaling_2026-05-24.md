@@ -59,3 +59,6 @@ the user-flagged cheapest answer to the GPT-quality question (Bet L territory).
 **Return format**: brief one-line summary at end of your decision-log entry —
 anchor name(s), queue, ETA, pre-registered prediction in one line. Main thread
 relays to user via routine status_log update.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

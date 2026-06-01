@@ -67,3 +67,6 @@ Routing notes already exist. Exp_dev reads `notes/exp_dev_handoff_5anchors_post_
 - Per [[feedback-structural-agent-usage-mandate]]: this filing routes to next exp_dev cycle (does NOT design experiments in main thread).
 - Per [[feedback-dispatch-wrappers-default]]: orchestrator main-thread role is routing + permission + quick mechanical; this hand-off is the routing mechanism.
 - Per [[feedback-pipeline-pacing]]: queue-refill reflex fires on GPU=0 + ACTIVE pause-flag state; both met.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

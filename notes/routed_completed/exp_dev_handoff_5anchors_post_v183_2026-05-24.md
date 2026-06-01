@@ -55,3 +55,6 @@ Separate from the 5 anchors above: the v183 V3 MS_1ST_ORDER_INCONCLUSIVE re-queu
 ## No blockers
 
 Routing note already exists at `notes/strategy_request_to_exp_dev_2026-05-24_post_v183.md` — exp_dev reads the falsifier specs from there.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

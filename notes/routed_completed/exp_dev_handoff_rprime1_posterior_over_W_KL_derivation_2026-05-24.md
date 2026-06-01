@@ -329,3 +329,6 @@ These bands are TIGHTER than v2's +/-20% / r >= 0.60 because (i) the v183 PAC-Ba
 ---
 
 **End of handoff. exp_dev: read this, run the 4 self-tests on a 1-second toy implementation BEFORE adding W-snapshot logic to the Bet B script, ship smoke, then FULL.**
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

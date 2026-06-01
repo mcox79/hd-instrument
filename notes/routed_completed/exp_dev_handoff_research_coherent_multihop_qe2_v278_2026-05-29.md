@@ -97,3 +97,6 @@ exp_dev applies its full envelope-fail-bands discipline, smoke-then-FULL pattern
 ## Status_log + commit
 
 Research sub-agent has logged `research_delivery` status_log entry referencing this hand-off path. Main thread should commit + push the research note and this hand-off as part of the standard post-research commit, then dispatch exp_dev via the `exp_dev` skill with this hand-off path as the routing input.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

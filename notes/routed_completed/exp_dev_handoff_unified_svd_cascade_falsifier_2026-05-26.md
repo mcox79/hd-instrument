@@ -76,3 +76,6 @@ Per [[feedback-verdict-msg-honest-reread]]: when reporting, compare the per-inst
 **End handoff.**
 
 Strategic posture: this is a CHEAP DECISIVE test. Post-hoc on existing data if W was saved; minimal re-ship (~1 hour CPU) if not. Either way, settles UNIFIED vs INDEPENDENT for the three theoretical-home findings.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

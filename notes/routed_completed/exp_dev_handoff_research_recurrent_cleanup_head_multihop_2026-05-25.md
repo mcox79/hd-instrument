@@ -97,3 +97,6 @@ This handoff specifies the TASK (what to test), the WHY (mechanistic motivation)
 ---
 
 **End hand-off.**
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

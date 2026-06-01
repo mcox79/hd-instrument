@@ -101,3 +101,6 @@ File `preregs/2026-05-26_wave14_moe_alpha_c_prestep_v3.md` with:
 ---
 
 **End handoff.**
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

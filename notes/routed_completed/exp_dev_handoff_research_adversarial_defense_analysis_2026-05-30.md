@@ -79,3 +79,6 @@ Per [[feedback-no-experiment-design-in-prompts]]:
 - exp_dev decides whether D7 + D2 follow D1 in the same G-batch or wait for D1 verdict.
 
 If exp_dev's smoke results call into question the research analysis (e.g. D1 fails smoke at HF threshold), exp_dev fires a verdict-handler return signal and orchestrator escalates to a 2x research drill on the failure mode per [[feedback-negative-results-2x-research]].
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

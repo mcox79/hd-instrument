@@ -55,3 +55,6 @@ Per [[feedback-ship-name-collision]]: anchor name should be `wave14f_hippo_init_
 - Mamba S6 selective-state-space adaptation (different axis; ~1-week effort; lower-priority per research note).
 - HiPPO measure alternatives (uniform vs PPMI-weighted vs frequency-weighted) — single-axis follow-up if v1 shows positive signal.
 - Multi-layer HiPPO-init stacking — wait for v1 result first.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

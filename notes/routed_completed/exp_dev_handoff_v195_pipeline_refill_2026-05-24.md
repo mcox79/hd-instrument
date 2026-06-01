@@ -100,3 +100,6 @@ exp_dev decides ALL of: anchor name, N, M, K, seed count, threshold bands (HARD-
 ## Filed by
 
 Orchestrator main thread (sub-agent inline cycle), 2026-05-24, post v195 6-verdict batch. Hand-off ready for `/exp_dev notes/exp_dev_handoff_v195_pipeline_refill_2026-05-24.md` dispatch.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.

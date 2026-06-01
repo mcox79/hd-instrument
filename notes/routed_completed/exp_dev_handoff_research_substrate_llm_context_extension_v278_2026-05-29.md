@@ -105,3 +105,6 @@ Per [[feedback-no-experiment-design-in-prompts]]: this hand-off provides ANCHOR 
 exp_dev has full autonomy on the 5 anchor candidates above; this hand-off does not dictate any specific experiment design or ship sequencing beyond the strategic recommendation that Anchor 1 (1-hour CPU sanity) precedes commitment of E2-E4 build budget. exp_dev may choose to ship anchors in different order, alter the dependency gating, defer anchors based on queue health, or surface alternative anchors that this drill missed.
 
 Pause flag honored: if data/orchestrator_paused.flag exists, no ship; this hand-off is read-only until resume.
+
+---
+BULK-ARCHIVED 2026-06-01: orchestrator-filed handoff to exp_dev; acted on (cap_map v312+ reflects evidence of completed work); bulk-archived per dashboard inbox-clearance Path A pattern.
