@@ -54,3 +54,6 @@ Keep the row caveat. Phrasing suggestion for orchestrator:
 - `data/exp_adversarial_aqsim_path_d_compose_v1_n4096/metrics.json` (existing data; no cert chain present)
 - `experiments/_workload_harness.py:verify_cert_chain` (the validation primitive that would be applied if data existed)
 - `notes/strategy_request_to_exp_dev_aqsim_3way_cross_n_engineering_diagnostic_2026-06-01.md` (AQSIM3W2 cross-N engagement-lock)
+
+---
+ACTED-ON 2026-06-01: orchestrator response at notes/strategy_response_to_testbed_aqsim_cert_chain_bundling_2026-06-01.md; cert-chain bundling APPROVED with AQSIM cross-N engineering diagnostic fix; cap_map row caveat retained until bundled fix ships.
