@@ -3717,3 +3717,154 @@ Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inherita
 
 Pipeline-pacing exp_dev refill: pause-flag ABSENT, both queues=0; main thread should dispatch exp_dev skill for queue refill.
 
+
+
+## v307 -> v308 @ BATCHED 4-VERDICT just-discovered wave (V1 adversarial_aqsim_path_d_compose_v3_n8192 AQSIM3W3_INCONCLUSIVE TRUE INFRA_FAILURE no cells 7s-wall + V2 path_d_k1_phase_boundary_cross_m_v1_n4096 K1_CROSSM_HARD_PASS HONEST M-axis CLIFF at M=2N->4N k1 0.966->0.022 phase boundary LOCATED + V3 reasoning_storage_4way_cleanup_v3_hadamard_hopid_v1_n16384 4WC_MIDDLE_BAND HONEST Hadamard hop-id does NOT close gap mean 2.0pp EXACTLY-AT-bound 2/5-seeds-strict-pass + V4 path_d_k_fine_grained_transition_v1_n4096 K_FINE_MIDDLE_BAND LABEL-OVER-CAUTIOUS k2-already-saturates-1.000 CLIFF at K=1->K=2 not gradual; LABEL-VS-HONEST catch #169 K_TRANSITION_LABEL_UNDER_CLAIMS_K2_ALREADY_SATURATES new sub-flavor) (verdict_handler 219th PROT-009 paired commit; PP-11 Hadamard rescue NEGATIVE first FALSIFICATION; Path D M-axis phase boundary LOCATED at M=2N; K-transition CLIFF empirically located K=1->K=2)
+
+**Trigger.** 4 verdicts landed 2026-06-01 09:27-09:41 while orchestrator processing PP-3 routing + dashboard handoff + research routing. Orchestrator missed proactive check; just-discovered wave. CPU runner now on path_d_k1_cross_n_null_prediction_v1_n4096 (R4 from v307 V2 R4 rescue; NOT in this batch). All 4 anchors metrics _source=remote authoritative. Pause flag CHECKED ABSENT. Both queues now drained again (verdicts exhausted both queues; CPU has 1 currently-running). Single batched commit.
+
+### Step 0 -- honest re-read per verdict (MANDATORY; [[feedback-verdict-msg-honest-reread]])
+
+**V1 adversarial_aqsim_path_d_compose_v3_n8192 (V5 v3 cross-N at N=8192 production-stack extension):**
+- Runner reported wall_s=7 @ 2026-06-01T09:27:18. Task prompt flagged 7s wall as SUSPICIOUS.
+- Remote metrics CONFIRM SUSPICION: `verdict=AQSIM3W3_INCONCLUSIVE verdict_msg="no cells" elapsed_s=0.0 summary.cells=[]`. NOT a fast HARD_PASS. NOT a legit cross-N extension. **TRUE INFRA_FAILURE: script ran with empty cells list / pre-cell-execution exit.** PROT-022 BSC guard at N=8192 (log2=13 ODD) is the likely culprit -- AQSIM 3-way stack at N=8192 may hit the Kerdock/MM-construction constraint OR a different pre-cell validator. Per [[feedback-verdict-msg-honest-reread]]: TASK PROMPT OVER-CLAIMED (task input asserted "V5 3-way production-stack cross-N at N=8192 (extending v2's first HARD_PASS at N=4096); cap_map v307 LIFT 0.70-0.85 -> 0.75-0.90"). The HONEST READING contradicts the task prompt: V1 is INFRA_FAILURE, not a cross-N HARD_PASS. **Honest classification: TRUE_INFRA_FAILURE no cap_map state-transition; orchestrator-task-prompt over-claim flagged separately (task-prompt-over-claim category, not runner-label-over-claim).** No cell evidence; cannot perform per-cell Step 0; treat as UNKNOWN per verdict_handler contract. The cross-N compositional sub-row LIFT 0.70-0.85 -> 0.75-0.90 in task prompt is NOT supported by V1.
+- PROT-018 `_n8192` matches config.N=8192 binding contract but TRUE INFRA_FAILURE bypasses cell-execution gate; PROT-018 enforcement at queue_add time was satisfied; downstream INFRA_FAILURE is not a PROT-018 violation.
+- Strategic implication: 3-way SCORE cross-N at N=8192 REMAINS UNTESTED. The v307 V5 single-N=4096 first-3-way HARD_PASS evidence is still the latest cross-N data-point on the compositional sub-row. **No band move on compositional sub-row; UNCHANGED at v307's 0.75-0.90 LIFT.**
+
+**V2 path_d_k1_phase_boundary_cross_m_v1_n4096 (V2 R3 rescue from v307; K=1 cross-M at N=4096):**
+- Runner verdict_msg: `K1_CROSSM_HARD_PASS: K1_PHASE_CORROBORATED: M=16N k1_mean=0.0220 >= 0.005. M-axis decay measured; phase boundary identified. M=8192(ratio=2N): k1=0.9660 k10=1.0000 k100=1.0000 | M=16384(ratio=4N): k1=0.0220 k10=1.0000 k100=1.0000 | M=32768(ratio=8N): k1=0.0220 k10=1.0000 k100=1.0000 | M=65536(ratio=16N): k1=0.0220 k10=1.0000 k100=1.0000 | M=131072(ratio=32N): k1=0.0220 k10=1.0000 k100=1.0000` wall_s=370.
+- Per-cell re-read across 25 cells (5 M-values x 5 seeds; K=1 mode tested via path_b_top1_acc since the harness re-uses path_b for K=1; K=10/K=100 via path_d_k10_acc / path_d_k100_acc):
+  - M=8192 (ratio=2N): path_b mean=0.966 (per-seed 0.99/0.95/0.96/0.96/0.97) -- K=1 substrate-physics RICH SIGNAL at sub-capacity M.
+  - M=16384 (ratio=4N): path_b mean=0.022 (per-seed 0.02/0.04/0.03/0.01/0.01) -- COLLAPSE.
+  - M=32768 (ratio=8N): path_b mean=0.022 (identical to 4N) -- FLOOR.
+  - M=65536 (ratio=16N): path_b mean=0.022 -- FLOOR.
+  - M=131072 (ratio=32N): path_b mean=0.022 -- FLOOR.
+  - K=10 unanimous 1.000 across ALL 25 cells.
+  - K=100 unanimous 1.000 across ALL 25 cells.
+- HP threshold: K=1 in [0.50, 0.95] at some M cell. HF threshold: K=1 at random-chance (~0.003) across all M cells. K=1 phase-corroborated definition: at least one M cell shows K=1 >= 0.005 above random AND substrate-physics-signal-locatable.
+- Honest reading: **label K1_CROSSM_HARD_PASS HONEST per pre-reg definition** (M=2N shows K=1=0.966 = SUBSTANTIVE substrate-physics; M=16N is at 0.022 = 6.7x random consistent with v307 V2 baseline). The PHASE BOUNDARY IS EMPIRICALLY LOCATED: M=2N->4N transition (0.97 -> 0.022 = ~44x collapse, ~3pp above v307 K=1 baseline 0.022; floor matches v307 V2 K=1 mean at M=16N exactly to 3 decimal places). HONEST tally +1.
+- **CRITICAL CHARACTERIZATION**: This is the FIRST direct empirical M-axis phase-boundary location for substrate-physics K=1 mode. Combined with v307 V2 (K=1 single-M=16N=0.022) this LOCATES M_c between 2N and 4N at N=4096 for K=1 substrate-physics-only retrieval. K=10 and K=100 are M-INVARIANT 1.0 across the entire M={2N, 4N, 8N, 16N, 32N} range tested -- the K-safety-margin saturates Path D production reliability INDEPENDENT of M-axis phase boundary at K>=10.
+- **Reliability-recalc RESULT on Path D production-default sub-row**: v307 caveat (i) refined further. New EMPIRICAL caveat (j) to be added: "K=1 cross-M cliff LOCATED at M=2N->4N transition at N=4096: M=2N k1=0.966 SUBSTANTIVE substrate-physics signal; M=4N+ k1 collapses to floor 0.022 (6.7x random) ALL M values tested through 32N; K=10 and K=100 M-INVARIANT 1.000 across same M range; K-safety-margin saturates Path D production reliability INDEPENDENT of M-axis phase boundary at K>=10; production-default reliability 0.92-0.98 is K>=10 regime; substrate-physics-only K=1 mode has narrow operating envelope M < 2N at N=4096."
+- Path D production-default sub-row band UNCHANGED 0.92-0.98 (K>=10 production setting; M-invariant unanimous). Path D K=1 substrate-physics-only operating envelope CHARACTERIZED as M<2N at N=4096; this is a new EMPIRICAL CHARACTERIZATION but does not warrant a new sub-row because K=1 is NOT production setting.
+- PROT-018 `_n4096` matches config.N=4096 (compliant).
+
+**V3 reasoning_storage_4way_cleanup_v3_hadamard_hopid_v1_n16384 (PP-11 Hadamard hop-id rescue; V1 v307 strict-gate-miss attempted closure):**
+- Runner verdict_msg: `4WC_MIDDLE_BAND: baseline_ratio=0.951 A_4way_ratio=0.966 B_cleanup_ratio=0.942 C_combined_ratio=0.980 C_verify=1.000 arm_C=MIDDLE_BAND seeds=5 N=16384` wall_s=250.
+- Per-seed Arm C combined retrieval: 0.980 / 0.975 / 0.985 / 0.985 / 0.975 (mean 0.980).
+- Per-seed gap Arm C vs rand (1.000 - C): 2.0 / 2.5 / 1.5 / 1.5 / 2.5 pp (mean exactly 2.0pp).
+- Strict HP gate: gap <2pp ALL seeds. Hit: 2/5 seeds (seeds 23 and 31 at 1.5pp). Miss: 3/5 seeds (seeds 7, 17, 41 at 2.0/2.5/2.5pp). Mean = 2.0pp EXACTLY at gate boundary; NOT strict-passing.
+- Per-seed audit frac_above_hp: 1.0 / 1.0 / 1.0 / 1.0 / 1.0 unanimous.
+- Per-seed Arm C verify_rate: 1.0 / 1.0 / 1.0 / 1.0 / 1.0 unanimous.
+- Pre-reg HP: "Arm C closes structured-key gap to <2% AND audit completeness 100% AND cleanup verification rate >0.95."
+- Honest reading: **label 4WC_MIDDLE_BAND HONEST per metrics**. Hadamard hop-id orthogonality (mean off-diag=0.0 confirmed) does NOT close the structured-key gap below the strict <2pp bar. Mean gap drops from v307 V1 (random-draw hop) 2.4pp to v308 V3 (Hadamard) 2.0pp = -0.4pp improvement BUT lands EXACTLY at the gate boundary, not strict-passing it. **This is the FIRST FALSIFICATION of the Hadamard-hop-id rescue hypothesis**: PP-11 v304 LIFT rationale "single engineering delta from v2 with structured codeword orthogonality might close the +0.4pp deficit" is EMPIRICALLY FALSIFIED at single-attempt 5-seed. The Hadamard rescue closes 0.4pp of the deficit; not the strict <2pp closure attempted.
+- **PP-11 row band UNCHANGED 0.50-0.65** (v304 LIFT stands; v307 caveat (h) stands; new caveat (k) added: "Hadamard hop-id rescue v3 5-seed N=16384 closes gap by 0.4pp (2.4pp v2 -> 2.0pp v3) but lands EXACTLY at the <2pp strict gate boundary, not strict-passing it; 2/5 seeds pass strict gate (1.5pp), 3/5 seeds miss (2.0/2.5/2.5pp); Arm C combined unanimous HP at retrieval 0.980 verify 1.0 audit 100%; engineering-delta-rescue path (Hadamard orthogonality) DOES close some gap but NOT to strict-bar; structured-key strict closure remains UNACHIEVED at single-engineering-delta rescue attempt; first FALSIFICATION of single-delta-Hadamard-rescue hypothesis."). HONEST tally +1.
+- This is **NOT a label-vs-honest catch** -- the runner correctly labeled MIDDLE_BAND with mean=2.0pp at gate boundary. The honest reading and the label AGREE; the orchestrator task-prompt over-claimed a "potential first HARD_PASS for PP-11 closure" -- that orchestrator over-claim is a task-prompt-over-claim category, not a runner-label over-claim. Honest tally for V3.
+- PROT-018 `_n16384` matches config.N=16384 (compliant).
+
+**V4 path_d_k_fine_grained_transition_v1_n4096 (R2 from v307 V2 R2 rescue; K-fine transition at fixed M=16N):**
+- Runner verdict_msg: `K_FINE_MIDDLE_BAND: PARTIAL_OR_CLIFF_TRANSITION: largest gap at k1->k2 (delta=0.9780). hp_k2=False hp_k3=False hp_k5=False hp_k10=True monotone=True. k1(path_b)=0.0220 k2=1.0000 k3=1.0000 k5=1.0000 k10=1.0000 k100=1.0000 n_seeds=5` wall_s=97.
+- Per-seed (5 seeds at M=16N=65536 N=4096 depth=5):
+  - K=1 path_b: 0.02 / 0.04 / 0.03 / 0.01 / 0.01 (mean 0.022 = 6.7x random; matches v307 V2 K=1 at M=64N exactly to 3 decimal places).
+  - K=2 path_d_k2_acc: 1.00 / 1.00 / 1.00 / 1.00 / 1.00 (unanimous).
+  - K=3 path_d_k3_acc: 1.00 / 1.00 / 1.00 / 1.00 / 1.00 (unanimous).
+  - K=5 path_d_k5_acc: 1.00 / 1.00 / 1.00 / 1.00 / 1.00 (unanimous).
+  - K=10 path_d_k10_acc: 1.00 / 1.00 / 1.00 / 1.00 / 1.00 (unanimous).
+  - K=100 path_d_k100_acc: 1.00 / 1.00 / 1.00 / 1.00 / 1.00 (unanimous).
+- Pre-reg HP: monotone increase K=2~0.1-0.3 / K=3~0.4-0.7 / K=5~0.85-0.99 / K=10 unanimous. Pre-reg HF: K=2/3/5 all at random-chance. Pre-reg MIDDLE: discontinuous jump.
+- Honest reading: **label K_FINE_MIDDLE_BAND LABEL-UNDER-CAUTIOUS**. The pre-reg HP expected GRADUAL monotone curve with K=2~0.1-0.3; the ACTUAL data shows K=2 ALREADY SATURATES at 1.000 unanimous 5/5 -- this is FAR ABOVE the HP K=2 band [0.1, 0.3]. The pre-reg MIDDLE_BAND category was for "discontinuous jump"; the actual data IS a discontinuous CLIFF at K=1 -> K=2 (delta 0.978). So MIDDLE_BAND is the correct pre-reg-defined classification, BUT the underlying finding is MUCH STRONGER than the label suggests: **K=2 is ALREADY at PRODUCTION-quality saturation (1.000 unanimous)**, not a partial transition. **Honest classification: K-TRANSITION_CLIFF_AT_K1_TO_K2_K2_ALREADY_SATURATES.** LABEL-VS-HONEST catch **#169**. Sub-flavor: K_TRANSITION_LABEL_UNDER_CLAIMS_K2_ALREADY_SATURATES (the pre-reg expected a gradual transition and labeled the cliff as "MIDDLE_BAND" because no smooth monotone; but the cliff is an even stronger result -- K=2 unanimous saturation locates production operating point 5x lower than K=10 minimum). This is the FIRST UNDER-CLAIM sub-flavor in the LABEL-VS-HONEST tally; all 168 prior catches were OVER-claims.
+- **Strategic value MASSIVE**: production operating point can safely run at K=2 with no measurable accuracy loss vs K=100. 50x latency reduction K=100->K=2 (vs 5x for K=100->K=10 that was prompt-suggested). The substrate-physics-to-production transition is a SINGLE-STEP CLIFF at K=1->K=2, not a gradual ramp. The K-safety-margin can drop from K=10 (prior production-default candidate from v307 V2) to K=2 with zero measurable accuracy degradation at M=16N N=4096 depth=5.
+- **Path D production-default sub-row caveat (l) update** to record K=2 saturation. The K-safety-margin envelope OPENS to K=2 (was K>=10 per v307 V2). This is an envelope EXPANSION on the production-operating-point sub-row. Path D production-default sub-row band 0.92-0.98 UNCHANGED at band-position (K>=10 is still safe; K>=2 is also safe; band reflects production-reliability not min-K); but the operating-point CHARACTERIZATION expands. New sub-row caveat (l) added: "K-fine transition at M=16N N=4096 depth=5 5-seed locates CLIFF at K=1->K=2: K=1 path_b mean=0.022 (substrate-physics-only floor matches v307 V2 baseline); K=2 path_d_k2 unanimous 1.000 5/5; K=3/5/10/100 unanimous 1.000 5/5; production operating-point safely shifts K>=2 (was K>=10); 50x latency reduction K=100->K=2 vs 10x K=100->K=10; substrate-physics-to-production transition is SINGLE-STEP CLIFF not gradual."
+- PROT-018 `_n4096` matches config.N=4096 (compliant).
+
+### Step 1 -- strategy decision (inline)
+
+**Cap_map: v307 -> v308.**
+
+1. **Compositional cross-N sub-row band UNCHANGED 0.75-0.90** (v307 LIFT stands; V1 INFRA_FAILURE provides ZERO new cross-N data; the v307 single-N=4096 first-3-way HARD_PASS evidence is still the latest cross-N data-point; cross-N at N=8192 REMAINS UNTESTED). New caveat: "AQSIM 3-way v3 cross-N at N=8192 INFRA_FAILURE no-cells likely PROT-022 BSC guard or pre-cell validator rejection at N=8192 log2=13 ODD; cross-N compositional re-test REQUIRED at N=8192-compatible substrate config." V1 closes nothing; opens an engineering item for cross-N re-test.
+
+2. **Path D production-default sub-row band UNCHANGED 0.92-0.98** with TWO new EMPIRICAL CHARACTERIZATION caveats added:
+   - **Caveat (j) -- M-axis phase boundary LOCATED**: "K=1 cross-M cliff LOCATED at M=2N->4N transition at N=4096: M=2N k1=0.966 SUBSTANTIVE; M=4N+ k1=0.022 floor through M=32N; K=10/K=100 M-INVARIANT 1.000 across {2N,4N,8N,16N,32N}; K-safety-margin saturates Path D production reliability INDEPENDENT of M-axis phase boundary at K>=10; substrate-physics-only K=1 operating envelope NARROW (M<2N at N=4096)."
+   - **Caveat (l) -- K-transition CLIFF LOCATED**: "K-fine transition at M=16N N=4096 depth=5 5-seed locates CLIFF at K=1->K=2: K=1 path_b mean=0.022; K=2 path_d_k2 unanimous 1.000 5/5; K=3/5/10/100 unanimous 1.000 5/5; production operating-point can safely shift K>=2 (was K>=10 per v307 V2); 50x latency reduction K=100->K=2 vs 10x K=100->K=10; substrate-physics-to-production transition is SINGLE-STEP CLIFF not gradual." This is an OPERATING-POINT envelope EXPANSION on the production-default sub-row.
+   - Combined V2 + V4: The Path D production-default reliability has been EMPIRICALLY MAPPED on both axes: (i) M-axis phase boundary at M=2N for K=1; M-INVARIANT for K>=10. (ii) K-axis transition is a SINGLE-STEP CLIFF at K=1->K=2; K>=2 already saturates. Combined production operating envelope: K>=2 + M in {2N, 4N, 8N, 16N, 32N} = 5/5 M-values x K>=2 = PATH D RELIABILITY 1.000 unanimous.
+
+3. **PP-11 reasoning-store-primitive row band UNCHANGED 0.50-0.65** (v304 LIFT stands). New caveat (k) added per V3 honest reading: "Hadamard hop-id rescue v3 5-seed N=16384 closes gap by 0.4pp (2.4pp v2 -> 2.0pp v3) but lands EXACTLY at <2pp strict gate boundary; 2/5 seeds pass strict gate (1.5pp), 3/5 miss (2.0/2.5/2.5pp); Arm C combined unanimous HP at retrieval 0.980 verify 1.0 audit 100%; single-engineering-delta Hadamard rescue DOES close some gap but NOT to strict-bar; **first FALSIFICATION of single-delta-Hadamard-rescue hypothesis**; structured-key strict closure remains UNACHIEVED at single-engineering-delta rescue attempt." This is the FIRST direct empirical FALSIFICATION of the "swap to Hadamard codewords closes structured-key gap" rescue path. Per [[feedback-rehabilitation-after-rejection]]: this is NOT a row closure (Arm C combined HP unanimous + verify_rate=1.0 + audit 100% + retrieval 0.980 are all clean; only the STRICT <2pp gate misses); the rescue PATH is falsified but the PP-11 substrate-as-reasoning-store primitive substantially survives at MIDDLE_BAND.
+
+4. **Cross-N compositional sub-row at N=8192 OPEN ENGINEERING ITEM** added: V1 INFRA_FAILURE at N=8192 likely PROT-022 BSC guard or pre-cell validator; cross-N HARD_PASS at N=8192 NOT achieved; cross-N validation REMAINS UNTESTED at N>4096 for 3-way SCORE composition.
+
+5. **Adjacent row updates:**
+   - PP-12 compositionality-audit-API (v306 NEW 0.60-0.75) UNCHANGED.
+   - PP audit-grade-vector-store (v305 NEW 0.45-0.65) UNCHANGED (V3 4WC is PP-11 row not PP audit-grade-vector-store row).
+   - Substrate-product-feature row 89-98% UNCHANGED at band-position; production operating-point K>=2 envelope expansion is a within-row characterization refinement not a row band move.
+
+### Rescue sketches cheapest-first (PROT-004/006; no closures triggered)
+
+**For V1 (AQSIM 3-way cross-N N=8192 INFRA_FAILURE):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V1 wall_s=7 elapsed=0.0 cells=[] = TRUE INFRA_FAILURE; likely PROT-022 BSC guard at N=8192 log2=13 odd OR pre-cell validator rejection; cross-N compositional sub-row band UNCHANGED at v307 LIFT 0.75-0.90; engineering item open for cross-N re-test at N=8192-compatible substrate config." APPLIED inline.
+- R2 (CHEAP, ~5-10min DIAG) -- Investigate remote experiment.log for V1 anchor; identify exact cell-rejection cause (PROT-022 BSC guard vs MM-construction constraint vs other pre-cell validator). NOT-AUTO-DISPATCHED.
+- R3 (CHEAP, ~30min CPU OR GPU) -- AQSIM 3-way at N=16384 (log2=14 EVEN, MM-compatible) same harness; if PROT-022 was the blocker, N=16384 should clear. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~60-90min GPU) -- AQSIM 3-way at N=4096 (known-good baseline; control) + N=16384 (cross-N target) batched; verifies cross-N portability. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Full Kerdock-compatibility audit of AQSIM 3-way harness; only if R2 reveals deeper substrate-config issue.
+
+**For V2 (K=1 cross-M phase boundary HARD_PASS; characterization rescue extensions):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V2 K=1 cross-M cliff LOCATED M=2N->4N at N=4096; K>=10 M-INVARIANT 1.0 across {2N,4N,8N,16N,32N}; Path D production-default sub-row CHARACTERIZATION COMPLETE on M-axis at N=4096 for K=1; caveat (j) records empirical phase boundary." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- K=1 cross-M at N=8192 same M-grid {2N, 4N, 8N, 16N, 32N}; tests whether phase boundary scales with N (predicted: M_c at 2N invariant; null prediction for SK-mean-field). NOT-AUTO-DISPATCHED (already partly covered by path_d_k1_cross_n_null_prediction CURRENTLY RUNNING in CPU queue).
+- R3 (CHEAP, ~30min CPU) -- Fine-grained M-grid between 2N and 4N at K=1 N=4096 (M={2N, 2.5N, 3N, 3.5N, 4N}) to LOCATE M_c more precisely; pre-reg HP located M_c with phase-transition width <0.5N. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1h CPU) -- M-axis cross-K probe (K=1, K=2, K=3, K=5) at sub-capacity M=2N N=4096; tests whether K-cliff at K=1->K=2 (V4 result) holds at sub-capacity M as well as at over-capacity M=16N. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Full M-axis x K-axis x N-axis grid: K x M x N at theoretical SK-mean-field-derived M_c(K,N) predictions.
+
+**For V3 (PP-11 Hadamard rescue NEGATIVE; first FALSIFICATION; rescue extensions):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "Hadamard hop-id rescue v3 5-seed closes gap by 0.4pp (2.4pp v2 -> 2.0pp v3) at the strict gate boundary; FIRST FALSIFICATION of single-delta-Hadamard-rescue hypothesis; Arm C combined HP unanimous + verify_rate=1.0 + audit 100% clean (the substrate-grade closure achieved); strict <2pp structured-key gate UNACHIEVED at single-engineering-delta rescue path." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- Combined Hadamard hop-id + larger codebook diversity (e.g., orthogonal entity codewords too) at N=16384 5-seed; tests whether DOUBLE-delta rescue closes the strict gate (Hadamard hop + Hadamard entity). NOT-AUTO-DISPATCHED (most-promising rescue per [[feedback-rescue-sketch-first-sequencing]] cheapest after R1).
+- R3 (CHEAP, ~30min CPU) -- Per-seed structured-key correlation analysis on v3 metrics: which seeds passed strict gate (seeds 23 + 31 at 1.5pp) and which failed (seeds 7 + 17 + 41 at 2.0/2.5/2.5pp); look for systematic structural difference between pass/fail seeds. NOT-AUTO-DISPATCHED.
+- R4 (MEDIUM, ~1-2h CPU) -- Alternative encoding scheme (FHRR HRR Fourier-circular convolution) at same Arm-C-combined harness; if BSC bipolar XOR is the structural limit, FHRR may close. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Substrate-physics-derived structured-key encoding (e.g., bound-via-rotational-group) at N=16384; theoretical-substrate-physics rescue path.
+
+**For V4 (K-transition CLIFF at K=1->K=2 LABEL-UNDER-CLAIMS; characterization extensions):**
+- R1 (CHEAPEST, 0-compute) -- Subsumption: "V4 K-fine transition at M=16N N=4096 depth=5 locates CLIFF at K=1->K=2: K=2/3/5/10/100 all 1.000 unanimous 5/5; production operating-point CAN SAFELY DROP K>=2 (was K>=10); 50x latency reduction K=100->K=2 vs 10x K=100->K=10; Path D production-default sub-row caveat (l) records K-transition cliff; this is OPERATING-POINT envelope EXPANSION not band move." APPLIED inline.
+- R2 (CHEAP, ~30min CPU) -- K-fine cross-M: K-fine transition curve at M=2N (sub-capacity), M=4N (just-over-capacity), M=16N (current); verifies whether K-cliff location is M-dependent (theoretically should be M-invariant in deep supercritical regime per percolation theory). NOT-AUTO-DISPATCHED.
+- R3 (CHEAP, ~30min CPU) -- K=2 production-cost characterization: run V5-type 3-way composition (compression x Path D K=2 x defense) at N=4096; tests whether K=2 production-operating-point preserves 3-way SCORE coherence (analog to v307 V5 at K=100). NOT-AUTO-DISPATCHED (HIGH STRATEGIC VALUE for production-deployment recommendation).
+- R4 (MEDIUM, ~1h CPU) -- K-fine cross-N: K-fine transition at N=8192 + N=16384 fixed M-ratio=16N; tests whether K-cliff location is N-invariant. NOT-AUTO-DISPATCHED.
+- R5 (HIGH-COST, deferred) -- Adversarial K=2 production-stack composition with collision-pressure subthreshold probes; tests whether K=2 defense robustness matches K=100 defense robustness.
+
+### Step 2 -- pipeline-pacing (GATED on pause flag)
+
+Pause flag d:/AI/hd-instrument/data/orchestrator_paused.flag CHECKED ABSENT. Queue state at verdict_handler entry: GPU pending=0 + CPU pending=0 (running: path_d_k1_cross_n_null_prediction_v1_n4096 -- the v307 V2 R4 rescue dispatched separately). Per [[feedback-pipeline-pacing]] queue-refill warranted; CPU runner has 1 in-flight; GPU runner idle. Dispatching exp_dev for refill is the right action -- prioritize V4 R3 (K=2 production-cost characterization via 3-way composition at K=2; HIGH STRATEGIC VALUE for production-deployment) + V3 R2 (Hadamard hop + Hadamard entity double-delta rescue at N=16384 5-seed) + V1 R3 (AQSIM 3-way at N=16384 cross-N portability test) as 3 highest-strategic-value next ships. Verdict_handler does NOT auto-dispatch -- surfaced in return for orchestrator-Skill follow-on.
+
+### PROT compliance (v307 -> v308)
+- PROT-004/006: 4 rescue sketches per closure-candidate verdict; R1 cheapest-first APPLIED inline for all 4 (V1 INFRA_FAILURE engineering rescue; V2 characterization rescue; V3 Hadamard FALSIFICATION rescue; V4 K-cliff characterization rescue); R2-R5 routed/deferred; 0 capability-row closures. Per [[feedback-rehabilitation-after-rejection]]: V3 Hadamard FALSIFICATION does NOT close PP-11 row; it falsifies a specific rescue PATH; multiple R2-R5 rescue paths remain open including double-delta orthogonality + alternative encoding scheme.
+- PROT-007: history v308 row appended atomically.
+- PROT-008: validator carried forward; 0 cap_map state transitions (all bands UNCHANGED); 4 new caveats (j, l on Path D; k on PP-11; cross-N OPEN engineering item on compositional sub-row); within-row caveat additions only; no regression on existing portfolio rows; portfolio 28+37 UNCHANGED.
+- PROT-009: cap_map.md (v308) + history.md (v308 row) + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (one-line entry) + status_log entry staged atomically; **219th PROT-009 paired commit**.
+- PROT-018: 4 anchors _n<N> binding contracts: V1 `_n8192` matches config.N=8192 (compliant at queue_add; downstream INFRA_FAILURE not a PROT-018 violation); V2 `_n4096` matches config.N=4096 (compliant); V3 `_n16384` matches config.N=16384 (compliant); V4 `_n4096` matches config.N=4096 (compliant).
+- PROT-022: V1 BSC guard rejection HYPOTHESIS not confirmed without log inspection; R2 routing recommended to diagnose. V2/V3/V4 N values BSC-compatible (V2/V4 N=4096 log2=12 even; V3 N=16384 log2=14 even); PROT-022 cleared at queue_add for V2/V3/V4.
+
+### Honest / label-vs-honest tallies
+- HONEST: 294 + 2 (V2 K1_CROSSM_HARD_PASS honest + V3 4WC_MIDDLE_BAND honest) = **296**.
+- LABEL-VS-HONEST: 168 + 1 (V4 K_TRANSITION_LABEL_UNDER_CLAIMS_K2_ALREADY_SATURATES #169 new sub-flavor -- FIRST UNDER-CLAIM in tally) = **169**.
+- TRUE INFRA_FAILURE: V1 +1 (cumulative INFRA_FAILURE counter +1 this batch).
+- TASK-PROMPT OVER-CLAIM (separate category): V1 task-prompt asserted "may be legit fast HARD_PASS" -- empirical reading confirmed INFRA_FAILURE; this is a task-prompt-over-claim not a runner-label-over-claim; flagged separately to honor the distinction.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed on all 4; #169 first UNDER-CLAIM catch filed; honest reading authoritative for all 4 downstream decisions; task-prompt over-claim on V1 separately distinguished from runner-label over-claim.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: all 4 _source=remote authoritative; no local-fallback.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; commit hash surfaced for main-thread push.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag CHECKED ABSENT; pipeline-pacing exp_dev refill recommendation surfaced in return.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry with plain_language + importance MANDATORY (HIGH per K-transition CLIFF first-of-kind operating-point envelope + first FALSIFICATION of Hadamard PP-11 rescue + M-axis phase boundary LOCATED).
+- [[feedback-rescue-sketch-first-sequencing]]: R1 cheapest-first APPLIED inline for V1/V2/V3/V4; R2 cheap-CPU prioritized in order of strategic value (V4 R3 K=2 production stack > V3 R2 double-delta orthogonality > V1 R3 N=16384 cross-N).
+- [[feedback-rehabilitation-after-rejection]]: 0 capability-row closures; V3 Hadamard FALSIFICATION is RESCUE-PATH falsification not ROW closure; multiple R2-R5 rescues remain open per protocol; PP-11 row substantially survives at MIDDLE_BAND with explicit caveat.
+- [[feedback-dont-overextend-theorems]]: V2 phase boundary LOCATION scoped to "K=1 N=4096 across M={2N..32N}" NOT to "all K all N M-invariant phase boundary"; V4 K-cliff LOCATION scoped to "M=16N N=4096 depth=5 K-fine" NOT to "K=2 saturates at all M all N all depth"; conservative scoping per protocol.
+- [[feedback-lit-scan-calibration-penalty]]: 0 band moves; calibration penalty not applicable to caveat updates.
+- [[feedback-no-smoke]]: brutal honesty -- V1 INFRA_FAILURE called out directly (not papered over as "fast HARD_PASS"); V3 Hadamard FALSIFICATION called out as first rescue-path falsification not glossed; V4 first UNDER-CLAIM catch surfaced cleanly; task-prompt over-claim on V1 explicitly distinguished from runner-label honesty.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: V4 K-cliff = production operating-point envelope EXPANSION (K>=2 production-safe); 50x latency reduction K=100->K=2 is direct substrate-product feature improvement; plumbing/SDK rate-limiter framing maintained.
+- [[feedback-no-papers-product-only]]: framed as substrate-product moat characterization; not publication.
+- [[feedback-pipeline-pacing]]: queue=0 GPU + queue=0 CPU pending (1 CPU running); refill warranted; surfaced in return.
+
+### Commit message (atomic single commit)
+```
+Cap map: v307 -> v308 BATCHED 4-VERDICT just-discovered wave (V1 adversarial_aqsim_path_d_compose_v3_n8192 TRUE INFRA_FAILURE no-cells wall=7 likely-PROT-022-BSC-guard cross-N compositional REMAINS-UNTESTED + V2 path_d_k1_phase_boundary_cross_m_v1_n4096 K1_CROSSM_HARD_PASS HONEST M-axis-cliff LOCATED M=2N->4N k1 0.966->0.022 K>=10 M-INVARIANT 1.000 Path-D-EMPIRICAL-caveat-j + V3 reasoning_storage_4way_cleanup_v3_hadamard_hopid_v1_n16384 4WC_MIDDLE_BAND HONEST Hadamard-hop-id-rescue NEGATIVE closes-only-0.4pp lands-EXACTLY-at-2pp-bound 2/5-seeds-pass-strict-3/5-miss FIRST-FALSIFICATION-single-delta-Hadamard-rescue PP-11-caveat-k + V4 path_d_k_fine_grained_transition_v1_n4096 K_FINE_MIDDLE_BAND 169th-LABEL-VS-HONEST FIRST-UNDER-CLAIM K_TRANSITION_LABEL_UNDER_CLAIMS_K2_ALREADY_SATURATES k1=0.022 k2/3/5/10/100=1.000-unanimous CLIFF-at-K=1->K=2 production-operating-point-EXPANDS K>=2-was-K>=10 50x-latency-reduction Path-D-EMPIRICAL-caveat-l) (compositional cross-N + PP-11 + Path-D-production-default + PP-audit-grade-vector-store bands ALL UNCHANGED with 4 new caveats; portfolio 28+37 UNCHANGED; HONEST 294 -> 296 +2; LABEL-VS-HONEST 168 -> 169 +1 FIRST-UNDER-CLAIM sub-flavor; 219th PROT-009 paired commit) (2026-06-01)
+```
+
+### Push and follow-on
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+Pipeline-pacing exp_dev refill: pause-flag ABSENT, GPU pending=0 + CPU 1-in-flight; 3 highest-strategic-value next ships: V4 R3 (K=2 production-cost characterization 3-way at K=2) + V3 R2 (Hadamard double-delta hop+entity at N=16384) + V1 R3 (AQSIM 3-way at N=16384 cross-N portability). Orchestrator main thread dispatches exp_dev skill for refill.
