@@ -30,3 +30,14 @@ httpx>=0.24
 cryptography>=41.0
 pytest>=7.0
 pyyaml>=6.0
+
+# LLM-integration testbed (Phi-3 latency probes, Anthropic harness, hard-neg gen).
+# Pin transformers floor at 4.40 (Phi-3 builtin support; trust_remote_code=False
+# path uses the builtin impl which handles current rope_scaling schema).
+# bitsandbytes is the 4-bit NF4 quantization backend; accelerate is needed for
+# device_map="auto" + dispatch on multi-device or low-VRAM paths.
+# anthropic is the Tier 2b LLM comparison harness client (real API path).
+transformers>=4.40
+bitsandbytes>=0.43
+accelerate>=0.30
+anthropic>=0.50
