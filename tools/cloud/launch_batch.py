@@ -540,16 +540,23 @@ def main() -> int:
         print(f"[ERROR] catalog: {exc}")
         return 1
     with_cap = [t for t in catalog if t.regions_available]
-    if not with_cap:
-        print("[ERROR] no capacity")
-        return 1
     with_cap.sort(key=lambda t: t.price_cents_per_hour)
     if args.instance_type:
-        target = next((t for t in with_cap if t.name == args.instance_type), None)
+        # Explicit type: look up in FULL catalog so we can fall through to the
+        # wait_for_capacity gate even when current capacity is zero. This is
+        # the whole point of having the gate -- capacity often becomes
+        # available within minutes; we should not error out instantly.
+        target = next((t for t in catalog if t.name == args.instance_type), None)
         if not target:
-            print(f"[ERROR] {args.instance_type} no capacity")
+            print(f"[ERROR] {args.instance_type} not in Lambda catalog at all")
             return 1
+        if not target.regions_available:
+            print(f"  {args.instance_type} has no current capacity; "
+                  f"will poll via wait_for_capacity gate")
     else:
+        if not with_cap:
+            print("[ERROR] no capacity for ANY instance type")
+            return 1
         target = with_cap[0]
     predicted = target.hourly_rate_usd * (args.expected_wall_min / 60.0)
 
