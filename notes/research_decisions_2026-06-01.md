@@ -206,3 +206,4 @@
 **Note path**: `notes/research_pp8_phi3_hidden_codeword_design_v1_2026-06-01.md`. Routing moved to `routed_completed/`. Testbed/exp_dev picks up for Path 1a v1 implementation.
 
 **Method note.** Per [[feedback-no-experiment-design-in-prompts]]: deliverable is design + pre-reg bands; specific sweep grids, batch sizes, exact N values for sub-experiments are exp_dev's call. Per [[feedback-strategy-spec-formula-selftests]]: pre-reg bands include concrete thresholds at multiple levels (Gram-matrix, val top-1, generalization gap) — testbed verifies pre-flight Gram BEFORE training. Per [[feedback-lit-scan-calibration-penalty]]: P deflated 0.10-0.20.
+- 2026-06-01 CSP-with-learning drill -> notes/research_csp_with_learning_2026-06-01.md ; HEADLINE: W=W_csp+W_data dual-use is genuinely novel; P_deflated=0.35; HARD-FAIL at <50% on both objectives; next-drill: free-probability Tracy-Widom on combined spectrum
