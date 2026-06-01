@@ -80,6 +80,52 @@ def _bipolar_from_soft(soft_query: torch.Tensor) -> torch.Tensor:
     return bipolar
 
 
+def _substrate_retrieve_ste(
+    codebook: torch.Tensor, key_idx: torch.Tensor, val_idx: torch.Tensor,
+    relation: dict, soft_query: torch.Tensor,
+) -> torch.Tensor:
+    """Phase 2.5 substrate-in-loop retrieval with straight-through estimator.
+
+    Performs true key->value lookup via the substrate's relation graph:
+      1. sign(soft_query) -> bipolar query (B, n_sub)
+      2. Find nearest KEY codeword: argmax_k(bipolar @ codebook[key_idx_k].T)
+      3. Look up value: relation[chosen_key_idx] -> val_idx
+      4. Retrieve value codeword: codebook[val_idx] (B, n_sub) discrete bipolar
+
+    STE: forward returns the discrete retrieved value codeword (bipolar);
+    backward passes gradient through soft_query (identity) so the readout
+    can learn to produce queries that retrieve task-relevant codewords.
+
+    NB: this fixes the architectural gap discovered during Phase 2.5 design:
+    the existing `path_d_run` returns a correctness INDICATOR (0/1), not a
+    codeword. The wiring smoke (Phase 1) was inadvertently using
+    `codebook[0..1]` as the "retrieved" codeword regardless of query.
+    True associative memory retrieval requires the key->relation->value
+    pipeline implemented here.
+    """
+    B, n_sub = soft_query.shape
+    with torch.no_grad():
+        bipolar = _bipolar_from_soft(soft_query)
+        # Restrict cleanup to the M codewords that ARE keys in the relation
+        # graph (avoids matching to value-only codewords; semantically the
+        # readout encodes a KEY, not an arbitrary codeword).
+        keys_codebook = codebook[key_idx]  # (M, n_sub)
+        sim = bipolar @ keys_codebook.T  # (B, M)
+        nearest_pos = sim.argmax(dim=-1)  # (B,) positions in key_idx tensor
+        # Map back to codebook indices, then look up value via relation graph
+        nearest_key_idx = key_idx[nearest_pos]  # (B,) codebook indices
+        retrieved_rows: list[torch.Tensor] = []
+        for b in range(B):
+            k = int(nearest_key_idx[b].item())
+            v = relation.get(k, k)  # default to identity if key not in graph
+            v = max(0, min(int(v), codebook.shape[0] - 1))
+            retrieved_rows.append(codebook[v].to(dtype=torch.float32))
+        retrieved = torch.stack(retrieved_rows, dim=0)  # (B, n_sub)
+    # STE: forward value = retrieved (discrete); backward gradient = identity
+    # to soft_query.
+    return soft_query + (retrieved - soft_query).detach()
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     rows = []
     with path.open("r", encoding="utf-8") as f:
@@ -194,8 +240,14 @@ def _load_phi3_lora(device: torch.device, lora_r: int, lora_alpha: int):
 
 def _train_step(
     model, readout, bridge, batch, tokenizer, device, optimizer, scheduler=None,
+    substrate_in_loop: bool = False, substrate_tuple=None,
 ) -> float:
-    """One training step. Returns scalar loss."""
+    """One training step. Returns scalar loss.
+
+    If substrate_in_loop, the readout's soft tanh goes through the substrate
+    key->value retrieval (with STE for gradient flow) before entering the
+    bridge. Otherwise (Phase 2 baseline), soft_tanh goes directly to bridge.
+    """
     input_ids, attention_mask, targets = _tokenize_batch(tokenizer, batch, device)
 
     # Phase 1 prefill (LoRA active)
@@ -206,9 +258,17 @@ def _train_step(
     past = out.past_key_values
     hidden = _last_position_hidden(out, attention_mask).to(dtype=torch.float32)
 
-    # readout (soft tanh) -> bridge -- substrate BYPASSED for differentiability
-    soft_query = readout(hidden)  # (B, n_sub)
-    prefix_tokens = bridge(soft_query)  # (B, n_queries, d_model)
+    soft_query = readout(hidden)  # (B, n_sub) tanh-bounded
+    if substrate_in_loop and substrate_tuple is not None:
+        # Phase 2.5: substrate-in-loop training with STE.
+        codebook, _W, key_idx, val_idx, relation = substrate_tuple
+        bridge_input = _substrate_retrieve_ste(
+            codebook, key_idx, val_idx, relation, soft_query,
+        )
+    else:
+        # Phase 2 baseline: substrate-bypassed training.
+        bridge_input = soft_query
+    prefix_tokens = bridge(bridge_input)  # (B, n_queries, d_model)
 
     # Phase 2 decode-1-token: inject prefix as 8 soft-prompt embeddings,
     # extend KV cache, and read logits at the first decode position.
@@ -263,36 +323,14 @@ def _eval(
 
         soft_query = readout(hidden)  # (B, n_sub)
         if use_substrate_in_loop:
-            # Per row: sign() -> Path D -> codeword; then stack.
-            cw_list = []
-            for b in range(soft_query.shape[0]):
-                bipolar = _bipolar_from_soft(soft_query[b:b+1]).squeeze(0)
-                # use this row's bipolar as the start codeword for Path D
-                # (we don't have a learned "start" here; smoke pattern uses
-                # the substrate's stored key_idx[0]; for the eval we want
-                # the readout's query to be the input to Path D, but Path D
-                # signature expects start indices not codewords --
-                # so for now use the same starts as smoke and treat the
-                # readout output as the *queried codeword*, not the start.)
-                result = path_d_run(
-                    codebook=codebook, W=W, starts=starts, relation=relation,
-                    depth=_DEPTH, K_paths=_K_PATHS, seed=int(targets[b].item()),
-                    N_use=_N_SUBSTRATE,
-                )
-                if isinstance(result, tuple):
-                    best_idx = result[0]
-                else:
-                    best_idx = result
-                if isinstance(best_idx, torch.Tensor):
-                    bi = best_idx.flatten()[0].item() if best_idx.numel() > 0 else 0
-                else:
-                    bi = int(best_idx) if not hasattr(best_idx, "__iter__") else 0
-                bi = int(bi) if not isinstance(bi, int) else bi
-                bi = max(0, min(bi, codebook.shape[0] - 1))
-                cw_list.append(codebook[bi].to(dtype=torch.float32))
-            codeword_batch = torch.stack(cw_list, dim=0)  # (B, n_sub)
+            # Phase 2.5: true key->value retrieval via relation graph (STE
+            # used in training; eval is no_grad so STE is a no-op here, but
+            # using the same function keeps train + eval paths consistent).
+            codeword_batch = _substrate_retrieve_ste(
+                codebook, key_idx, val_idx, relation, soft_query,
+            )
         else:
-            codeword_batch = soft_query  # train-time bypass path
+            codeword_batch = soft_query  # Phase 2 baseline path
 
         prefix_tokens = bridge(codeword_batch)  # (B, n_queries, d_model)
         decode_out = model(
@@ -331,13 +369,19 @@ def main() -> int:
     parser.add_argument("--eval-max-samples", type=int, default=200,
                         help="Cap val-eval to first N samples per step for speed")
     parser.add_argument("--substrate-in-loop-eval", action="store_true",
-                        help="(EXPERIMENTAL) eval through sign+Path D. BLOCKED: "
-                             "Path D takes start indices, not bipolar codeword "
-                             "vectors. A 'key resolver' (bipolar -> nearest "
-                             "codebook index) is needed first -- not yet built. "
-                             "Default is substrate-bypassed eval, matching "
-                             "training-time path; this validates bridge "
-                             "trainability but not substrate-in-loop quality.")
+                        help="Eval through key-cleanup + relation graph value "
+                             "lookup (Phase 2.5). Implies substrate-in-loop is "
+                             "the eval pipeline; auto-enabled when "
+                             "--substrate-in-loop-train is set.")
+    parser.add_argument("--substrate-in-loop-train", action="store_true",
+                        help="(Phase 2.5) Train with substrate IN THE LOOP "
+                             "(readout -> sign -> key cleanup -> relation graph "
+                             "value lookup -> bridge), with STE for gradient "
+                             "flow through the discrete retrieval. Required for "
+                             "the toy task's val accuracy to be meaningful "
+                             "(Phase 2 substrate-bypass training was empirically "
+                             "unable to learn the held-out val task; commit "
+                             "c54948b deliverable).")
     parser.add_argument("--mock-model", action="store_true",
                         help="Use a CPU mock model (GPT-2 at d_model=3072) "
                              "with model frozen and only readout+bridge "
@@ -352,6 +396,13 @@ def main() -> int:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     else:
         device = torch.device(args.device)
+
+    # Phase 2.5: substrate-in-loop training implies substrate-in-loop eval
+    # (train + eval pipelines must match or val metric is meaningless).
+    if args.substrate_in_loop_train and not args.substrate_in_loop_eval:
+        args.substrate_in_loop_eval = True
+        print("[qlora_train] --substrate-in-loop-train set; auto-enabling "
+              "--substrate-in-loop-eval for train/eval pipeline consistency")
 
     out_dir = Path(args.out_dir)
     if not out_dir.is_absolute():
@@ -471,6 +522,8 @@ def main() -> int:
                 loss_val = _train_step(
                     model, readout, bridge, batch, tokenizer, device,
                     optimizer, scheduler,
+                    substrate_in_loop=args.substrate_in_loop_train,
+                    substrate_tuple=substrate_tuple,
                 )
             except Exception as exc:
                 print(f"[ERROR] step {step}: {exc}", file=sys.stderr)
