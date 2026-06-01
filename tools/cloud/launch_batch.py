@@ -395,7 +395,6 @@ def main() -> int:
             return 1
     else:
         target = with_cap[0]
-    region = args.region or target.regions_available[0]
     predicted = target.hourly_rate_usd * (args.expected_wall_min / 60.0)
 
     print("=" * 70)
@@ -404,7 +403,7 @@ def main() -> int:
     for i, b in enumerate(batch):
         print(f"  [{i+1}/{len(batch)}] {b['anchor']} ({b['total_cells']} cells)")
     print(f"  Instance type:       {target.name}")
-    print(f"  Region:              {region}")
+    print(f"  Region preference:   {args.region or 'ANY (first available)'}")
     print(f"  Rate:                ${target.hourly_rate_usd:.2f}/hr")
     print(f"  Expected wall:       {args.expected_wall_min:.1f} min (entire batch)")
     print(f"  PREDICTED COST:      ${predicted:.2f}")
@@ -420,16 +419,17 @@ def main() -> int:
     except (AttributeError, ValueError):
         pass
 
-    # Pre-flight capacity gate: confirm the target type has regions_available
-    # in our target region BEFORE we make a billable launch call. Lambda has
-    # no spot/preemptible/reservation primitive; this is the only way to
-    # avoid paying for stuck-booting attempts against a known-empty queue.
-    print(f"\n[0/3] Verifying capacity for {target.name} in {region} "
-          f"(max wait {args.wait_for_capacity_max_s:.0f}s; zero billable cost)...")
+    # Pre-flight capacity gate: confirm target type has regions_available
+    # BEFORE we make a billable launch call. Returns the available regions
+    # at the moment capacity was seen; we use the FIRST one for launch so
+    # there's no stale-region-cache risk if capacity shifted during the wait.
+    print(f"\n[0/3] Verifying capacity for {target.name} "
+          f"(region preference={args.region or 'ANY'}; "
+          f"max wait {args.wait_for_capacity_max_s:.0f}s; zero billable cost)...")
     try:
-        client.wait_for_capacity(
+        available_regions = client.wait_for_capacity(
             instance_type_name=target.name,
-            regions=[region] if args.region else None,
+            regions=[args.region] if args.region else None,
             max_wait_s=args.wait_for_capacity_max_s,
             poll_interval_s=args.capacity_poll_interval_s,
             verbose=True,
@@ -437,6 +437,10 @@ def main() -> int:
     except LambdaClientError as exc:
         print(f"[ERROR] capacity gate: {exc}")
         return 1
+    # Use FRESH capacity result, not the cached target.regions_available
+    # from the initial catalog query (which may have gone stale during wait).
+    region = available_regions[0]
+    print(f"  Selected region for launch: {region}")
 
     print(f"\n[1/3] Launching {target.name} in {region}...")
     launch_ts = datetime.now(timezone.utc)
