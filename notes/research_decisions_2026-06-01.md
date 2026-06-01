@@ -139,3 +139,26 @@
 **Routing.** `notes/strategy_request_to_strategy_capabilities_expansion_followon_experiments_2026-06-01.md` + `notes/strategy_request_to_exp_dev_n32768_envelope_sizing_2026-06-01.md`. Consolidated routing proposes 4 strategic clusters (A: substrate-state-as-product-signal, B: free probability theoretical scaffold, C: substrate-as-KV-cache, D: sparse-block-code variant) with Tier 1 Tier 2 sequencing.
 
 **Method note.** Per [[feedback-subagent-model-optimization]]: 6 Sonnet drills (parallel) > 1 Opus drill on token efficiency; main-thread Opus reserved for synthesis. Per [[feedback-no-padding-experiments]]: each drill on distinct capability axis; no overlap with prior session work. Per [[feedback-aggressive-cross-domain-research]]: overdue free-probability cross-domain probe landed. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 applied throughout. Per [[feedback-query-privacy-decomposition]]: generic VSA/ML terms only in all 6 drill prompts; no project-identifying fingerprints in any web search.
+
+
+## capabilities_expansion_round2_9_drills -- 2026-06-01 (research:opus + 9 parallel Sonnet drills; main-thread)
+
+**Trigger.** User-greenlit Round 2 expansion ("sonnet is cheap for us - dispatch for all of them") after Round 1 6-drill synthesis surfaced remaining HIGH/MEDIUM-value capability gaps not yet covered.
+
+**Outcome.** 9 parallel Sonnet drills (~120-220s each, ~180K tokens combined) on: multi-tenant isolation (5 architectures) / substrate as workflow engine (5 sub-caps) / differential privacy (5 mechanisms) / disaster recovery (5 mechanisms) / long-tail Zipfian / continuous-edit catastrophic forgetting (5 candidates) / streaming inference SLA / time-series substrate (5 mechanisms) / substrate ensembles (5 configs).
+
+**CONVERGENT STRATEGIC FINDING**: three drills (multi-tenant, DP, DR) independently arrive at SAME moat — "physics-grade not policy-grade" guarantees from substrate's algebraic structure. Multi-tenant Arch 1 per-tenant W = mathematical zero-leak (kf3_multisub HARD_PASS max_leakage=0); DP Mechanism 1 = intrinsic write-time noise + dual-certificate (audit + privacy); DR cert-chain replay = cryptographic recovery verifiability. **Recommendation: bundle as ONE positioning narrative ("audit-grade memory with physics-grade guarantees"), not 3 separate features.**
+
+**Secondary findings**:
+- Workflow engine + time-series + KV cache all converge on "COMPLEMENT not replacement" positioning (sit alongside Temporal/TimescaleDB/Redis as audit layer)
+- K_crit ~ √N edit-budget formula appears in 3 drills (CF + DP + multi-tenant sub-space); ONE empirical test validates THREE rows
+- Streaming SLA fits SMB-Enterprise tier on reads; 6-8 weeks engineering for Enterprise; 6-12 months for regulated (active-active write architecture)
+- Substrate ensemble: only Configs 5 (cascading) + 1 (independent-seed) clear cost-justification
+
+**4 NEW cap_map rows proposed + 2 sub-properties (PP-10a, PP-4a) + 5 explicit CLOSURE recommendations** (Multi-tenant Arch 2/4, DP M2/M4, Ensemble Config 2/3, Time-series standalone).
+
+**Note paths**: 
+- `notes/research_capabilities_expansion_round2_9_drills_2026-06-01.md` (full synthesis)
+- `notes/strategy_request_to_strategy_capabilities_expansion_round2_2026-06-01.md` (Tier 1/2/3 routing)
+
+**Method note.** Per [[feedback-aggressive-cross-domain-research]]: Round 2 covered remaining high-value capability gaps. Per [[feedback-no-padding-experiments]]: each drill on distinct axis. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50. Per [[feedback-query-privacy-decomposition]]: all 9 drill prompts generic terms only. **Research session recommendation: PAUSE new capability-direction expansion after this round; let Tier 1 verdicts return before opening more breadth.** 16 capability drills today across both rounds.
