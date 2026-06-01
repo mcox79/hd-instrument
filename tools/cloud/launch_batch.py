@@ -327,6 +327,19 @@ def main() -> int:
                         default="https://github.com/mcox79/hd-instrument.git")
     parser.add_argument("--branch", default="main")
     parser.add_argument("--default-experiment-timeout-min", type=float, default=60.0)
+    parser.add_argument("--wait-for-capacity-max-s", type=float, default=3600.0,
+                        help="Max time to poll Lambda catalog for capacity "
+                             "BEFORE attempting launch_instance. Zero billable "
+                             "cost during this wait. Default 3600s (1 hour).")
+    parser.add_argument("--capacity-poll-interval-s", type=float, default=30.0,
+                        help="Catalog poll interval during capacity-wait.")
+    parser.add_argument("--stuck-booting-max-s", type=float, default=300.0,
+                        help="If instance status stays `booting` for this many "
+                             "seconds without progress, terminate fast-fail. "
+                             "Caps wasted boot billing at "
+                             "~rate * stuck_booting_max_s (e.g., $4.29/hr H100 "
+                             "* 300s = $0.36 vs $1.07 at 900s default). "
+                             "Default 300s (5 min).")
     args = parser.parse_args()
 
     batch_path = Path(args.batch)
@@ -407,6 +420,24 @@ def main() -> int:
     except (AttributeError, ValueError):
         pass
 
+    # Pre-flight capacity gate: confirm the target type has regions_available
+    # in our target region BEFORE we make a billable launch call. Lambda has
+    # no spot/preemptible/reservation primitive; this is the only way to
+    # avoid paying for stuck-booting attempts against a known-empty queue.
+    print(f"\n[0/3] Verifying capacity for {target.name} in {region} "
+          f"(max wait {args.wait_for_capacity_max_s:.0f}s; zero billable cost)...")
+    try:
+        client.wait_for_capacity(
+            instance_type_name=target.name,
+            regions=[region] if args.region else None,
+            max_wait_s=args.wait_for_capacity_max_s,
+            poll_interval_s=args.capacity_poll_interval_s,
+            verbose=True,
+        )
+    except LambdaClientError as exc:
+        print(f"[ERROR] capacity gate: {exc}")
+        return 1
+
     print(f"\n[1/3] Launching {target.name} in {region}...")
     launch_ts = datetime.now(timezone.utc)
 
@@ -454,9 +485,11 @@ def main() -> int:
     instance_id = new_ids[0] if new_ids else orphan_ids[0]
     print(f"  launched: {instance_id} (tracked: {len(all_ours)})")
 
-    print(f"[wait] Waiting for active...")
+    print(f"[wait] Waiting for active (stuck-booting fast-fail at "
+          f"{args.stuck_booting_max_s:.0f}s)...")
     try:
-        inst = client.wait_for_active(instance_id, timeout_s=900.0)
+        inst = client.wait_for_active(
+            instance_id, timeout_s=args.stuck_booting_max_s)
     except LambdaClientError as exc:
         print(f"[ERROR] {exc}")
         return 1

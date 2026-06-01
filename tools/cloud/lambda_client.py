@@ -329,6 +329,79 @@ class LambdaClient:
             f"instance {instance_id} not active after {timeout_s}s; last status {last_status}"
         )
 
+    def wait_for_capacity(
+        self,
+        instance_type_name: str,
+        regions: Optional[list[str]] = None,
+        max_wait_s: float = 3600.0,
+        poll_interval_s: float = 30.0,
+        verbose: bool = True,
+    ) -> list[str]:
+        """Poll the instance-type catalog until the requested type has capacity.
+
+        Lambda's API has no spot/preemptible/reservation primitive (verified
+        against docs 2026-06-01: on-demand + off-API reserved contract only;
+        no spot tier). This helper closes the obvious-zero-capacity case:
+        before we make a billable launch_instance() call, verify the catalog
+        reports regions_available non-empty for our type. If empty, poll
+        until populated OR max_wait_s elapses.
+
+        Net effect: zero billable cost during capacity-wait (no instance is
+        created until capacity exists). Does NOT fully eliminate the race
+        between "saw capacity" and "called launch" -- another customer can
+        grab the slot in the gap -- but it does eliminate launches against
+        a known-empty queue.
+
+        Args:
+            instance_type_name: e.g. "gpu_1x_h100_sxm5"
+            regions: if non-empty, accept ONLY when regions_available
+                contains at least one of these. Else accept any non-empty
+                regions_available. (Use this when you have a region
+                preference / data-locality requirement.)
+            max_wait_s: hard cap on total polling wait time.
+            poll_interval_s: between catalog refreshes. 30s default.
+            verbose: print one-line status per poll.
+
+        Returns: the regions_available list at the moment capacity was seen.
+        Raises LambdaClientError on max_wait_s timeout.
+        """
+        deadline = time.time() + max_wait_s
+        n_polls = 0
+        while time.time() < deadline:
+            n_polls += 1
+            try:
+                catalog = self.list_instance_types()
+            except LambdaClientError as exc:
+                if verbose:
+                    print(f"  [capacity-poll {n_polls}] catalog query failed: {exc}",
+                          flush=True)
+                time.sleep(poll_interval_s)
+                continue
+            match = next((t for t in catalog if t.name == instance_type_name),
+                         None)
+            if match is None:
+                raise LambdaClientError(
+                    f"instance type {instance_type_name} not in catalog")
+            available = list(match.regions_available)
+            if regions:
+                available = [r for r in available if r in regions]
+            if available:
+                if verbose:
+                    print(f"  [capacity-poll {n_polls}] {instance_type_name} "
+                          f"available in {available} (after {n_polls * poll_interval_s:.0f}s wait)",
+                          flush=True)
+                return available
+            if verbose:
+                req_str = f" requested-regions={regions}" if regions else ""
+                print(f"  [capacity-poll {n_polls}] {instance_type_name} "
+                      f"NO capacity{req_str}; sleeping {poll_interval_s:.0f}s",
+                      flush=True)
+            time.sleep(poll_interval_s)
+        raise LambdaClientError(
+            f"{instance_type_name} did not get capacity within {max_wait_s}s "
+            f"(polled {n_polls} times). No billable launch attempted."
+        )
+
     # ---- SSH key management ------------------------------------------------
 
     def list_ssh_keys(self) -> list[dict]:

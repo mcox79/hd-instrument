@@ -265,6 +265,14 @@ def main() -> int:
     parser.add_argument("--cell-regex", default=_DEFAULT_CELL_REGEX,
                         help="Regex matching one cell-completion stdout "
                              "line; default fits substrate experiments")
+    parser.add_argument("--wait-for-capacity-max-s", type=float, default=3600.0,
+                        help="Max time to poll catalog for capacity before "
+                             "launching (zero billable cost; default 3600s)")
+    parser.add_argument("--capacity-poll-interval-s", type=float, default=30.0)
+    parser.add_argument("--stuck-booting-max-s", type=float, default=300.0,
+                        help="Terminate fast-fail if instance status stays "
+                             "booting > this many seconds; caps wasted boot "
+                             "billing. Default 300s.")
     args = parser.parse_args()
 
     api_key = _load_key(args.key_file)
@@ -320,6 +328,22 @@ def main() -> int:
     except (AttributeError, ValueError):
         pass
 
+    # Pre-flight capacity gate: confirm regions_available is non-empty for
+    # our target type/region BEFORE billable launch. Zero spend during wait.
+    print(f"\n[0/4] Verifying capacity for {target.name} in {region} "
+          f"(max wait {args.wait_for_capacity_max_s:.0f}s; zero billable cost)...")
+    try:
+        client.wait_for_capacity(
+            instance_type_name=target.name,
+            regions=[region] if args.region else None,
+            max_wait_s=args.wait_for_capacity_max_s,
+            poll_interval_s=args.capacity_poll_interval_s,
+            verbose=True,
+        )
+    except LambdaClientError as exc:
+        print(f"[ERROR] capacity gate: {exc}")
+        return 1
+
     # Launch (layer 3 safety: snapshot + 5xx retry + reconcile)
     print(f"\n[1/4] Launching {target.name} in {region}...")
     launch_ts = datetime.now(timezone.utc)
@@ -370,10 +394,11 @@ def main() -> int:
     instance_id = new_ids[0] if new_ids else orphan_ids[0]
     print(f"  launched: {instance_id} (tracked: {len(all_ours)})")
 
-    # Wait active
-    print(f"[2/4] Waiting for active...")
+    # Wait active (with stuck-booting fast-fail per args.stuck_booting_max_s)
+    print(f"[2/4] Waiting for active (stuck-booting fast-fail at "
+          f"{args.stuck_booting_max_s:.0f}s)...")
     try:
-        inst = client.wait_for_active(instance_id, timeout_s=900.0)
+        inst = client.wait_for_active(instance_id, timeout_s=args.stuck_booting_max_s)
     except LambdaClientError as exc:
         print(f"[ERROR] {exc}")
         return 1
