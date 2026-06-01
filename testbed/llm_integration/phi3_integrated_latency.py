@@ -41,6 +41,7 @@ import json
 import statistics
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -73,11 +74,16 @@ def _measure_integrated(
     model, reverse_bridge: ReverseBridge, forward_bridge: ForwardBridge,
     substrate_tuple, seq_len: int, n_reps: int,
     device: torch.device, seed: int,
+    progress_jsonl_path: Path | None = None,
 ) -> dict[str, Any]:
     """Measure one integrated query end-to-end, plus per-component breakdown.
 
     Returns dict with `total_ms` (samples), `breakdown_ms` (samples per
     component), `prefill_ms` (one-time at prompt level not in budget).
+
+    If progress_jsonl_path is set, appends one JSON line per rep
+    IMMEDIATELY after each measurement -- failure-recovery: if the run
+    crashes at rep K/N, reps 1..K-1 are preserved on disk.
     """
     codebook, W, key_idx, val_idx, relation = substrate_tuple
     starts = key_idx[:1].to(device)
@@ -189,7 +195,34 @@ def _measure_integrated(
 
             torch.cuda.synchronize()
             t_total1 = time.perf_counter_ns()
-            total_samples.append((t_total1 - t_total0) / 1e6)
+            rep_total = (t_total1 - t_total0) / 1e6
+            total_samples.append(rep_total)
+
+            # Failure-recovery: append per-rep result to JSONL immediately.
+            if progress_jsonl_path is not None:
+                rep_record = {
+                    "seq_len": seq_len,
+                    "seed": seed,
+                    "rep": rep,
+                    "total_ms": round(rep_total, 4),
+                    "reverse_bridge_ms": round(
+                        component_samples["reverse_bridge"][-1], 4),
+                    "substrate_path_d_ms": round(
+                        component_samples["substrate_path_d"][-1], 4),
+                    "forward_bridge_ms": round(
+                        component_samples["forward_bridge"][-1], 4),
+                    "phi3_decode_1tok_ms": round(
+                        component_samples["phi3_decode_1tok"][-1], 4),
+                    "ts": datetime.now().astimezone().isoformat(timespec="seconds"),
+                }
+                try:
+                    with progress_jsonl_path.open("a", encoding="utf-8") as f:
+                        f.write(json.dumps(rep_record) + "\n")
+                        f.flush()
+                except Exception as exc:
+                    print(f"[WARN] per-rep JSONL write failed at "
+                          f"seq={seq_len} seed={seed} rep={rep}: {exc}",
+                          flush=True)
 
     return {
         "total_ms": total_samples,
@@ -218,8 +251,14 @@ def _summarize(samples: list[float]) -> dict[str, float]:
 
 def run(device: torch.device, seeds: tuple[int, ...] = (7, 13, 17, 23, 31),
         seq_lens: tuple[int, ...] = (128, 512),
-        n_reps_per_seed: int = 20) -> dict[str, Any]:
-    """Run all Missing 7 #4 measurements; return structured results."""
+        n_reps_per_seed: int = 20,
+        progress_jsonl_path: Path | None = None) -> dict[str, Any]:
+    """Run all Missing 7 #4 measurements; return structured results.
+
+    If progress_jsonl_path is set, each rep's measurement is appended to
+    that JSONL file IMMEDIATELY (failure-recovery; crashed runs preserve
+    completed reps).
+    """
     results: dict[str, Any] = {
         "device": str(device),
         "torch_version": torch.__version__,
@@ -232,6 +271,7 @@ def run(device: torch.device, seeds: tuple[int, ...] = (7, 13, 17, 23, 31),
         "seeds": list(seeds),
         "seq_lens": list(seq_lens),
         "n_reps_per_seed": n_reps_per_seed,
+        "progress_jsonl_path": str(progress_jsonl_path) if progress_jsonl_path else None,
         "measurements": {},
     }
 
@@ -267,6 +307,7 @@ def run(device: torch.device, seeds: tuple[int, ...] = (7, 13, 17, 23, 31),
                 meas = _measure_integrated(
                     model, reverse_bridge, forward_bridge, substrate_tuple,
                     seq_len, n_reps_per_seed, device, s,
+                    progress_jsonl_path=progress_jsonl_path,
                 )
                 per_seed_total.extend(meas["total_ms"])
                 for k, v in meas["component_ms"].items():
@@ -313,9 +354,14 @@ def main() -> int:
         description="Integrated forward-pass latency (Week 0 Missing 7 #4)")
     parser.add_argument("--device", default="auto")
     parser.add_argument("--seeds", default="7,13,17,23,31")
-    parser.add_argument("--seq-lens", default="128,512")
+    parser.add_argument("--seq-lens", default="128,512,2048")
     parser.add_argument("--n-reps-per-seed", type=int, default=20)
     parser.add_argument("--out-dir", default="data/testbed_missing7")
+    parser.add_argument("--progress-jsonl",
+                        default="data/testbed_missing7/phi3_integrated_progress_results.jsonl",
+                        help="Path to per-rep JSONL written immediately per "
+                             "rep (failure-recovery; preserves completed reps "
+                             "if run crashes mid-flight)")
     args = parser.parse_args()
 
     if args.device == "auto":
@@ -325,10 +371,20 @@ def main() -> int:
     seeds = tuple(int(s) for s in args.seeds.split(","))
     seq_lens = tuple(int(s) for s in args.seq_lens.split(","))
 
+    progress_jsonl_path: Path | None = None
+    if args.progress_jsonl:
+        progress_jsonl_path = Path(args.progress_jsonl)
+        if not progress_jsonl_path.is_absolute():
+            progress_jsonl_path = _REPO_ROOT / progress_jsonl_path
+        progress_jsonl_path.parent.mkdir(parents=True, exist_ok=True)
+        # Truncate at start so a re-run doesn't append to stale data.
+        progress_jsonl_path.write_text("", encoding="utf-8")
+
     print(f"[phi3_integrated_latency] device={device} torch={torch.__version__} "
           f"cuda={torch.cuda.is_available()}")
     print(f"[phi3_integrated_latency] seeds={seeds} seq_lens={seq_lens} "
           f"n_reps_per_seed={args.n_reps_per_seed}")
+    print(f"[phi3_integrated_latency] progress JSONL: {progress_jsonl_path}")
     print()
 
     results = run(
@@ -336,6 +392,7 @@ def main() -> int:
         seeds=seeds,
         seq_lens=seq_lens,
         n_reps_per_seed=args.n_reps_per_seed,
+        progress_jsonl_path=progress_jsonl_path,
     )
 
     out_dir = _REPO_ROOT / args.out_dir
