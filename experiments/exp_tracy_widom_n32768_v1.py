@@ -153,13 +153,26 @@ _instrumentation_selftest()
 # Main
 # ---------------------------------------------------------------------------
 
+def _prot018_startup_check(n_actual: int) -> None:
+    """PROT-018 runtime gate: anchor name binds to N=32768; fail fast if mismatch."""
+    N_BOUND = 32768
+    if n_actual != N_BOUND:
+        raise RuntimeError(
+            f"PROT-018 VIOLATION: anchor name 'tracy_widom_n32768_v1' binds to "
+            f"N={N_BOUND} but script is running at N={n_actual}. "
+            f"Check HDLAB_RUN_MODE env var (must be 'full' for production run)."
+        )
+
+
 def main():
     t0 = time.time()
     out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_mode = os.environ.get("HDLAB_RUN_MODE", "smoke")
+    run_mode = os.environ.get("HDLAB_RUN_MODE", "full")
     seeds = SEEDS_FULL if run_mode == "full" else SEEDS_SMOKE
     N = N_FULL if run_mode == "full" else N_SMOKE
+    if run_mode == "full":
+        _prot018_startup_check(N)
     print(f"[{ANCHOR_NAME}] run_mode={run_mode} seeds={seeds} N={N} "
           f"alpha_grid={ALPHA_GRID}", flush=True)
 
@@ -246,7 +259,11 @@ if __name__ == "__main__":
     import argparse as _ap
     _p = _ap.ArgumentParser()
     _p.add_argument("--self-test", action="store_true", dest="self_test")
+    _p.add_argument("--smoke", action="store_true",
+                    help="Run at smoke scope (N_SMOKE, SEEDS_SMOKE) for gate validation")
     _args = _p.parse_args()
     if _args.self_test:
         sys.exit(0)
+    if _args.smoke:
+        os.environ["HDLAB_RUN_MODE"] = "smoke"
     main()

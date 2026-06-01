@@ -340,7 +340,13 @@ def run_one(entry: dict) -> str:
     # default codepage. This eliminates the structural reason for the
     # ASCII-only-in-scripts rule (feedback_ascii_only_in_scripts) — scripts
     # may now use unicode freely in print() / verdict_msg.
-    child_env = {**os.environ, "HDLAB_EXP_NAME": name, "PYTHONIOENCODING": "utf-8"}
+    # HDLAB_RUN_MODE=full: production scripts default to full scope when runner
+    # picks them up. Scripts that use os.environ.get("HDLAB_RUN_MODE", ...) will
+    # now always see "full" regardless of their fallback default. Belt-and-suspenders
+    # for the class of bug where default="smoke" caused silent smoke-scope runs on
+    # the production runner (Round 6 batch 2026-06-01, anchors E/F/J/K).
+    child_env = {**os.environ, "HDLAB_EXP_NAME": name, "PYTHONIOENCODING": "utf-8",
+                 "HDLAB_RUN_MODE": "full"}
 
     # On Windows: spawn child at BELOW_NORMAL priority so the desktop stays
     # usable during long CPU-bound runs. This is DEFAULT-ON for all remote_cpu
