@@ -162,44 +162,70 @@ class Poller:
 
                     # Default sender: derived from filename type (correct for
                     # handoff/response cases where orchestrator is always the
-                    # sender). request files default to "unknown" pending body
-                    # parse.
+                    # sender). request files default to a filename-heuristic
+                    # default pending body parse (not "unknown" — strategy_request_*
+                    # files come from orchestrator-side sub-roles 95% of the time
+                    # so "orchestrator" is a less-misleading fallback than
+                    # "unknown").
                     if rtype == "response" or rtype == "handoff":
-                        sender = "orchestrator"
+                        # exp_dev_handoff files are filed by the exp_dev sub-role
+                        # of the orchestrator session; show as "exp_dev" so the
+                        # flow matrix reveals the sub-role rather than collapsing
+                        # to "orchestrator -> orchestrator" (technically true but
+                        # unhelpful for visualizing actual work attribution).
+                        if fname.startswith("exp_dev_handoff_"):
+                            sender = "exp_dev"
+                        else:
+                            sender = "orchestrator"
                     elif rtype == "request":
-                        sender = "unknown"
+                        # strategy_request_to_* files are filed by orchestrator
+                        # sub-roles (strategy, exp_dev, verdict_handler). Default
+                        # to "orchestrator" pending body header parse.
+                        sender = "orchestrator"
                     else:
                         sender = "unknown"
 
                     # Authoritative sender parse: scan body for sender-header
                     # patterns. Older files use **Sender**: instead of **From**:;
-                    # plain (non-bold) variants also appear. Take the first
-                    # matching line + extract the first session-name token.
-                    # First-token mapping handles "Strategy" -> "orchestrator"
-                    # since the Strategy ROLE lives inside the orchestrator
-                    # session per session_architecture_v1.
+                    # plain (non-bold) variants also appear. verdict_handler
+                    # files use **Filed**: 2026-06-01 by <session-name>.
+                    # Take the first matching line + extract the first session-
+                    # name token. First-token mapping handles "Strategy" ->
+                    # "orchestrator" since the Strategy ROLE lives inside the
+                    # orchestrator session per session_architecture_v1.
                     _SENDER_TOKEN_MAP = {
                         "orchestrator": "orchestrator",
                         "strategy": "orchestrator",
-                        "exp_dev": "orchestrator",
+                        "exp_dev": "exp_dev",  # surface sub-role distinctly
+                        "verdict_handler": "orchestrator",
                         "research": "research",
                         "testbed": "testbed",
                         "cloud": "cloud",
                         "user": "user",
                     }
+                    import re as _re
                     for line in body.splitlines()[:25]:
                         s_low = line.strip().lower()
-                        if (s_low.startswith("**from**:")
-                                or s_low.startswith("**sender**:")
-                                or s_low.startswith("from:")
-                                or s_low.startswith("sender:")
-                                or s_low.startswith("**author**:")
-                                or s_low.startswith("author:")):
-                            rest = line.split(":", 1)[1].strip().strip("*").strip()
-                            tok = rest.split()[0].lower() if rest.split() else ""
-                            if tok in _SENDER_TOKEN_MAP:
-                                sender = _SENDER_TOKEN_MAP[tok]
+                        matched_rest = None
+                        for hdr in ("**from**:", "**sender**:", "**filed**:",
+                                    "**author**:", "from:", "sender:",
+                                    "filed:", "author:"):
+                            if s_low.startswith(hdr):
+                                matched_rest = line.split(":", 1)[1].strip().strip("*").strip()
+                                break
+                        if matched_rest is None:
+                            continue
+                        tok = matched_rest.split()[0].lower() if matched_rest.split() else ""
+                        if tok in _SENDER_TOKEN_MAP:
+                            sender = _SENDER_TOKEN_MAP[tok]
                             break
+                        # **Filed**: 2026-06-01 by verdict_handler v313 ...
+                        # Look for "by <session-name>" anywhere in the line.
+                        m = _re.search(
+                            r"\bby\s+([a-z_][a-z0-9_-]*)", matched_rest.lower())
+                        if m and m.group(1) in _SENDER_TOKEN_MAP:
+                            sender = _SENDER_TOKEN_MAP[m.group(1)]
+                        break
 
                     # Summary preview: first non-meta paragraph.
                     summary = ""
