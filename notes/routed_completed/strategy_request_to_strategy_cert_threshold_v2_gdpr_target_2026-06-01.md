@@ -38,3 +38,6 @@ cert_threshold is **Tier 1 dispatchable** per the compaction-prep priority plan 
 ## Closing
 
 Move to `routed_completed/` when strategy files the v2 pre-reg + exp_dev routing.
+
+---
+BULK-ARCHIVED 2026-06-01 (post-action): cert_threshold v2 GDPR-aligned anchor shipped (commit 2548197); routing closed retroactively.

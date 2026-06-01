@@ -85,3 +85,5 @@ and requires only a new codebook generator. The spec revision needed:
 **exp_dev is NOT blocking on this** -- Anchor B can be re-dispatched once
 Strategy approves the corpus design revision. Anchor A (V7 fix) shipped
 independently as planned.
+
+Acted-on 2026-06-01: D6 v2 structured-key rescue (Option 1) attempted per recommendation. Smoke calibration HARD_FAIL: ratio_vs_null=1.0002 at both N=512 and N=2048 -- spectral structure approach with IID values does NOT produce sigma_1 elevation. Upstream push filed at notes/exp_dev_to_strategy_d6_v2_calibration_blocked_2026-06-01.md. Option A (co-structured keys+values) or Option C (retrieval-based test) recommended. D6 v2 NOT shipped to queue.

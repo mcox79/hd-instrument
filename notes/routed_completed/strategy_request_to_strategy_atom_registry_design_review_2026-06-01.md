@@ -72,3 +72,6 @@ Anticipated wall: 30-60 min research drill (mostly synthesis of existing prior a
 - `notes/substrate_capability_map.md` (PP-3 + PP-12 rows)
 - `experiments/_workload_harness.py:make_cert` (current V2 cert-chain shape)
 - `data/v2_sustained_metrics.json` (V2 24h workload reference)
+
+---
+ACTED-ON 2026-06-01: orchestrator forwarded to research as notes/strategy_request_to_research_atom_registry_design_review_2026-06-01.md.
