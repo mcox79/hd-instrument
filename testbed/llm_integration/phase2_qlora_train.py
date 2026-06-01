@@ -362,6 +362,24 @@ def main() -> int:
     if not dataset_dir.is_absolute():
         dataset_dir = _REPO_ROOT / dataset_dir
 
+    # Lazily regenerate dataset if missing (e.g. fresh cloud instance where
+    # only the repo + substrate_seed are deterministic; dataset is not in git).
+    if not (dataset_dir / "manifest.json").is_file():
+        print(f"[qlora_train] dataset_dir missing manifest.json; "
+              f"regenerating from substrate_seed={args.substrate_seed}...")
+        import subprocess
+        regen_cmd = [
+            sys.executable, "-u",
+            "-m", "testbed.llm_integration.phase2_toy_dataset_gen",
+            "--n-train", "4000", "--n-val", "1000",
+            "--substrate-seed", str(args.substrate_seed),
+            "--out-dir", str(dataset_dir),
+        ]
+        proc = subprocess.run(regen_cmd, cwd=str(_REPO_ROOT))
+        if proc.returncode != 0:
+            raise RuntimeError(
+                f"dataset regen failed (rc={proc.returncode}); check stderr")
+
     # Load dataset
     print(f"[qlora_train] loading dataset from {dataset_dir}...")
     manifest = json.loads((dataset_dir / "manifest.json").read_text(encoding="utf-8"))

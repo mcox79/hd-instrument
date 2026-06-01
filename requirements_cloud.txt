@@ -46,5 +46,8 @@ pyyaml>=6.0
 transformers>=4.40
 bitsandbytes>=0.43
 accelerate>=0.30
+# peft for QLoRA fine-tune (PP-8 Week 2 Phase 2): LoraConfig +
+# prepare_model_for_kbit_training + get_peft_model.
+peft>=0.11
 anthropic>=0.50
 Pillow>=10.0
