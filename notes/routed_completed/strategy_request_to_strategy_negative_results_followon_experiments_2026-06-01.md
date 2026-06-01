@@ -111,3 +111,8 @@ Strategy decides:
 ## Closing
 
 Move to `routed_completed/` when strategy decides 1A + 2A dispatch (or formally declines with rationale).
+
+
+---
+## Close note
+Acted-on 2026-06-01: Test 1A shipped to CPU queue (path_d_percolation_depth_sweep_v1_n4096, remote_cpu_queue, timeout=14400s); Test 2A routed to testbed as engineering handoff; contingent escalations 1B/2B/2C noted as pre-authorized pending verdicts.
