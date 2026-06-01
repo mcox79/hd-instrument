@@ -100,16 +100,24 @@ def _build_target_vocab_pool(tokenizer, pool_size: int, seed: int) -> list[int]:
 
 
 def _build_val_to_token_map(
-    M: int, pool: list[int], seed: int,
+    val_idx_values: list[int], pool: list[int], seed: int,
 ) -> dict[int, int]:
     """Deterministic map val_idx -> target_token_id, seeded.
 
-    Each val_idx in [0, M) gets ONE token_id from `pool` (with replacement,
+    val_idx values are indices into the codebook (range [0, codebook_size)),
+    NOT positions in [0, M). Build the map over the distinct val_idx values
+    actually used in the relation graph.
+
+    Each distinct val_idx gets ONE token_id from `pool` (with replacement,
     so multiple val_idxs may share a target token; that's expected -- the
     bridge learns to encode val-of-different-key + same-target as same prefix).
+
+    Iterating in sorted order makes the map deterministic across runs at
+    fixed substrate_seed + val_to_token_seed.
     """
     rng = random.Random(seed)
-    return {v: rng.choice(pool) for v in range(M)}
+    distinct = sorted(set(int(v) for v in val_idx_values))
+    return {v: rng.choice(pool) for v in distinct}
 
 
 def _make_query_text(key_idx: int) -> str:
@@ -170,7 +178,8 @@ def main() -> int:
           f"{[tokenizer.decode([t]).strip() for t in pool[:8]]}")
 
     print(f"[dataset_gen] mapping val_idx -> target_token (seed={args.val_to_token_seed})...")
-    val_to_token = _build_val_to_token_map(M, pool, args.val_to_token_seed)
+    val_to_token = _build_val_to_token_map(
+        val_idx_t.cpu().tolist(), pool, args.val_to_token_seed)
     # Stats: distribution of token assignments
     from collections import Counter
     tok_counts = Counter(val_to_token.values())
