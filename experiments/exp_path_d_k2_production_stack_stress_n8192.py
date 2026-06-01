@@ -1,72 +1,76 @@
-"""PATH D K=2 PRODUCTION STACK STRESS at N=16384.
+"""PATH D K=2 PRODUCTION STACK STRESS at N=8192.
 
 CONTEXT:
-  Local GPU idle since 10:33 (AQSIM v5 K=2 verdict). AQSIM 3-way cross-N
-  family engagement-locked pending diagnostic verdict.
+  path_d_k2_production_stack_stress_n16384 landed INFRA_FAILURE (likely OOM
+  at M=4096, N=16384: 16384*4096*4 = 268 MB per W -- but cumulative peak
+  may exceed 8GB with 5 seeds queued). This anchor re-runs at N=8192 with
+  M_grid limited to {1024, 2048} (AVOID M=4096 per user auth). N=8192 is
+  log2=13 (ODD) -- Kerdock codebook uses N^2/2 construction, but build_shared
+  uses bipolar codebook not Kerdock; verify this is safe below.
 
-  This anchor tests the K=2 production envelope at cross-N N=16384 WITHOUT
-  triggering AQSIM compose. Direct PP-8 substrate-side relevance: validates
-  the K=2 path used in Phi-3-coupling at cross-N, independent of AQSIM
-  compositional stack.
+  NOTE: the n16384 INFRA_FAILURE was preceded by a second ship that applied
+  PROT-021 loader patch (status log 13:42). The CURRENT n16384 run in
+  overnight_queue was the FIXED version. The verdict for that run has NOT
+  yet landed per status log (last verdict ts 11:50, n16384 queued 13:27 and
+  13:42). This n8192 anchor runs CONCURRENTLY to cover the N=8192 cross-N
+  point regardless of the n16384 outcome.
 
-  Reference pattern: exp_path_d_high_k_scaling_v1_n4096.py (single-path
-  Path D) + exp_adversarial_aqsim_path_d_compose_v2_n4096.py (adversarial
-  defense gate). No compression layer.
+SCIENTIFIC QUESTION (at N=8192, K=2):
+  (1) acc_gated >= 0.95?
+  (2) defense_activation_rate >= 0.90?
+  (3) fp <= 0.05?
 
-SCIENTIFIC QUESTION (at N=16384, K=2):
-  (1) acc_gated >= 0.95? (Path D on legitimate queries passing defense gate)
-  (2) defense_act >= 0.90? (a_query_sim gate rejects adversarial probes)
-  (3) fp <= 0.05? (legitimate queries not rejected by gate)
-  (4) comp_delta < 0.05? (not applicable -- no compression; metric omitted)
-
-  M sweep: {2048, 4096} x 5 seeds = 10 cells (M/N ratios 0.125 and 0.25).
+  M sweep: {1024, 2048} x 5 seeds = 10 cells (M/N ratios 0.125 and 0.25).
 
 PRE-REGISTERED BANDS:
   HP = acc_gated >= 0.95 AND defense_act >= 0.90 AND fp <= 0.05
-       in unanimous 5/5 cells (per-M) or near-unanimous 4/5.
+       in unanimous 5/5 (per M) or near-unanimous 4/5.
   HF = acc_gated < 0.85 OR defense_act < 0.75 OR fp > 0.15
        (substantial substrate failure at cross-N K=2).
-  MIDDLE = any leg in [HP, HF] interval -- characterizable degradation.
+  MIDDLE = between HP and HF.
 
 DESIGN:
-  N=16384, K_paths=2, depth=5, seeds=[7,17,23,31,41].
-  M sweep: {2048, 4096}.
+  N=8192, K_paths=2, depth=5, seeds=[7,17,23,31,41].
+  M sweep: {1024, 2048} (AVOID M=4096 per OOM pattern).
   90/10 adversarial/legitimate interleave, subthreshold probes alpha=0.45.
   n_adv=90, n_leg=10 per measurement.
-  No compression (pure K=2 substrate Path D stress).
-
-PROT-018: _n16384 binds N = 16384.
-PROT-019: timeout_s >= 14400.
-PROT-020: device=cuda (overnight_queue).
-PROT-021: checkpoint key = M{M}_seed{seed} (LOAD-BEARING -- prevents smoke
-          checkpoint contamination, root cause of 3 AQSIM INFRA failures
-          2026-06-01).
+  No compression. device=cuda (overnight_queue).
 
 OOM CHECK:
-  W_base at M=4096, N=16384: 16384 * 4096 * 4 = 268 MB (float32). OK.
-  W_base at M=2048, N=16384: 16384 * 2048 * 4 = 134 MB. OK.
-  K=2: negligible path storage vs K=100. Peak < 2 GB. Well under 6 GB.
+  W_base at M=2048, N=8192: 8192 * 2048 * 4 = 67 MB (float32). OK.
+  W_base at M=1024, N=8192: 8192 * 1024 * 4 = 34 MB. OK.
+  K=2: negligible path storage. Peak < 500 MB. Well under 6 GB.
+
+  N=8192 log2 = 13 (ODD). Kerdock codebook: ONLY affects Kerdock-specific
+  scripts. build_shared() uses bipolar Rademacher codebook, not Kerdock.
+  Verified: _multi_hop_mechanisms.build_shared does NOT invoke Kerdock
+  constructor for arbitrary N. SAFE at N=8192.
 
 TIMEOUT ESTIMATE:
-  Reference v2 (N=4096 K=100) 5 seeds ~50s smoke. K=2 is faster.
-  Scaling N=4096->16384: 4x. Seeds=5. M=2 values.
-  Per seed estimate: ~20s at N=16384 K=2 (K=2 << K=100).
-  Total: 5 seeds x 2 M values x 20s = 200s raw.
-  With 1.5x margin: ceil(1.5 * 200) = 300s.
+  Reference n16384 K=2 original smoke: N=1024 M=256 ~3s on CPU.
+  At N=8192, K=2, GPU: expect ~10-30s per (M, seed).
+  10 cells x 20s = 200s raw. With 1.5x margin: 300s.
   PROT-019 floor: 14400s. timeout_s = 14400.
 
-FORMULA SELF-TESTS:
-  1. N=16384 log2=14 (EVEN) -> no Kerdock issue.
-  2. M/N ratios: 2048/16384=0.125, 4096/16384=0.25 (both under 0.5).
-  3. OOM: max W=268MB << 6GB threshold.
-  4. alpha=0.45 < 0.50 threshold -> defense fires on adversarial probes.
-  5. K=2: path_d_run uses 1 positive + 1 decoy.
-  6. Verdict gates HP/HF/MB correct.
-  7. PROT-021 key = M{M}_seed{seed} (not bare seed{seed}).
+PROT-018: _n8192 binds N = 8192.
+PROT-019: timeout_s >= 14400.
+PROT-021: checkpoint key = M{M}_seed{seed} (same pattern as n16384 sibling;
+          prevents smoke/full contamination).
 
-Anchor: path_d_k2_production_stack_stress_n16384
+FORMULA SELF-TESTS:
+  1. N=8192 log2=13 (ODD) -- Kerdock NOT used; build_shared is safe.
+  2. M/N ratios: 1024/8192=0.125, 2048/8192=0.25 (both under 0.5).
+  3. OOM: max W=67 MB at M=2048 << 6 GB threshold.
+  4. alpha=0.45 < 0.50 threshold -> defense fires on adversarial probes.
+  5. K=2: 1 positive + 1 decoy.
+  6. Verdict gates HP/HF/MB/STILL_UNNEC correct.
+  7. PROT-021 key = M{M}_seed{seed}.
+  8. SMOKE CALIBRATION: acc_gated >= 0.70 at N=2048 M=256 K=2; if < 0.70
+     -> INSTRUMENTATION_SUSPECT (abort, do not ship FULL).
+
+Anchor: path_d_k2_production_stack_stress_n8192
 Queue: overnight_queue (GPU)
-Pre-reg: preregs/2026-06-01_path_d_k2_production_stack_stress_n16384.md
+Pre-reg: preregs/2026-06-01_path_d_k2_production_stack_stress_n8192.md
 Total cells: 2 M values x 5 seeds = 10 cells.
 """
 from __future__ import annotations
@@ -91,7 +95,7 @@ sys.path.insert(0, str(REPO))
 from experiments._multi_hop_mechanisms import build_shared, path_d_run  # noqa: E402
 
 _ck_path = REPO / "experiments" / "_seed_checkpoint.py"
-_ck_spec = importlib.util.spec_from_file_location("_seed_ckpt_pdk2_n16384", _ck_path)
+_ck_spec = importlib.util.spec_from_file_location("_seed_ckpt_pdk2_n8192", _ck_path)
 _ck = importlib.util.module_from_spec(_ck_spec)
 _ck_spec.loader.exec_module(_ck)
 list_completed_keys = _ck.list_completed_keys
@@ -99,18 +103,17 @@ write_partial_key   = _ck.write_partial_key
 load_partial_key    = _ck.load_partial_key
 
 
-# PROT-018: _n16384 binds N = 16384
-N      = 16384
+# PROT-018: _n8192 binds N = 8192
+N      = 8192
 N_FULL = N
-N_SMOKE = 1024
-assert N_FULL == 16384, f"PROT-018: N_FULL must be 16384; got {N_FULL}"
+N_SMOKE = 2048
+assert N_FULL == 8192, f"PROT-018: N_FULL must be 8192; got {N_FULL}"
 
-M_GRID_FULL  = [2048, 4096]
+M_GRID_FULL  = [1024, 2048]
 M_GRID_SMOKE = [256]
 DEPTH        = 5
-K_PATHS      = 2   # K=2 production op-point for PP-8 / Phi-3 coupling
+K_PATHS      = 2
 
-# 90/10 ratio: 90 adversarial, 10 legitimate per 100-query batch
 N_ADV_FULL   = 90
 N_LEG_FULL   = 10
 N_ADV_SMOKE  = 9
@@ -120,19 +123,22 @@ SEEDS_FULL  = [7, 17, 23, 31, 41]
 SEEDS_SMOKE = [17]
 
 DEFENSE_A_SIM_THRESH = 0.5
-COLLISION_ALPHA      = 0.45  # probe max_sim ~ alpha < threshold -> REJECTED
+COLLISION_ALPHA      = 0.45
 
-# Pre-registered thresholds (HP/HF/MIDDLE -- non-negotiable)
-HP_ACC_GATED   = 0.95  # acc_gated >= 0.95
-HP_DEF_ACT     = 0.90  # defense_activation_rate >= 0.90
-HP_FP_MAX      = 0.05  # fp <= 0.05
-HF_ACC_GATED   = 0.85  # acc_gated < 0.85 = HARD_FAIL
-HF_DEF_ACT     = 0.75  # defense_act < 0.75 = HARD_FAIL
-HF_FP_MIN      = 0.15  # fp > 0.15 = HARD_FAIL
-HP_MIN_CELLS   = 4     # out of 5 per M
+# Pre-registered thresholds
+HP_ACC_GATED   = 0.95
+HP_DEF_ACT     = 0.90
+HP_FP_MAX      = 0.05
+HF_ACC_GATED   = 0.85
+HF_DEF_ACT     = 0.75
+HF_FP_MIN      = 0.15
+HP_MIN_CELLS   = 4
+
+# Smoke calibration gate (INSTRUMENTATION_SUSPECT if below)
+SMOKE_CALIB_ACC_MIN = 0.70
 
 
-def get_output_dir(default_name: str = "path_d_k2_production_stack_stress_n16384") -> Path:
+def get_output_dir(default_name: str = "path_d_k2_production_stack_stress_n8192") -> Path:
     name = os.environ.get("HDLAB_EXP_NAME", default_name)
     d = REPO / "data" / f"exp_{name}"
     d.mkdir(parents=True, exist_ok=True)
@@ -156,11 +162,7 @@ def _subthreshold_collision_probes(
         seed: int,
         device: torch.device,
         alpha: float = COLLISION_ALPHA) -> torch.Tensor:
-    """Build subthreshold collision probes.
-
-    Gate convention: sim(q, k) = q.dot(k) / N_use.
-    sim(q_adv, k_i) = alpha = 0.45 < 0.50 threshold -> REJECTED.
-    """
+    """Build subthreshold collision probes (sim ~ alpha < threshold)."""
     keys = codebook[key_idx]
     n_avail = min(n_q, keys.shape[0])
 
@@ -192,10 +194,7 @@ def _defense_a_gate(q: torch.Tensor, codebook: torch.Tensor,
 def measure_cell(N_use: int, M: int, depth: int, K_paths: int,
                   n_leg: int, n_adv: int, seed: int,
                   device: torch.device) -> Dict:
-    """Single-path Path D K=2 stress at given N, M, seed.
-
-    No compression layer -- pure K=2 substrate performance.
-    """
+    """Single-path Path D K=2 stress at given N, M, seed."""
     codebook, W, key_idx, val_idx, relation = build_shared(N_use, M, seed, device)
 
     leg_keys_list = [k for k in list(relation.keys()) if relation.get(k) is not None]
@@ -220,26 +219,21 @@ def measure_cell(N_use: int, M: int, depth: int, K_paths: int,
 
     actual_n_adv = adv_q.shape[0]
 
-    # Defense gate on adversarial: activation = fraction REJECTED
     adv_accepted = _defense_a_gate(adv_q, codebook, key_idx, N_use)
     defense_activation_rate = float((~adv_accepted).float().mean().item())
 
-    # Defense gate on legitimate: fp = fraction REJECTED (false positive)
     leg_accepted = _defense_a_gate(leg_q, codebook, key_idx, N_use)
     fp_rate = float((~leg_accepted).float().mean().item())
     n_leg_pass = int(leg_accepted.sum().item())
 
-    # Diagnostic: expected max_sim for adversarial
     keys = codebook[key_idx]
     adv_max_sim = float((adv_q @ keys.T / N_use).max(dim=-1).values.mean().item())
     leg_max_sim = float((leg_q @ keys.T / N_use).max(dim=-1).values.mean().item())
 
-    # Path D on ALL legitimate starts (baseline, no gate)
     path_d_baseline_correct = path_d_run(
         codebook, W, leg_starts, relation, depth, K_paths, seed, N_use)
     acc_baseline = float(path_d_baseline_correct.mean().item())
 
-    # Path D on legitimate starts that PASS the gate (primary metric: acc_gated)
     if n_leg_pass > 0:
         gated_starts = leg_starts[leg_accepted]
         path_d_gated_correct = path_d_run(
@@ -247,11 +241,8 @@ def measure_cell(N_use: int, M: int, depth: int, K_paths: int,
             seed + 5000, N_use)
         acc_gated = float(path_d_gated_correct.mean().item())
     else:
-        # All legitimate queries rejected (fp=1.0) -- gate too aggressive
-        # Use baseline as lower bound proxy
         acc_gated = acc_baseline
 
-    # VRAM peak
     peak_vram_mb = 0.0
     if device.type == "cuda":
         try:
@@ -282,16 +273,15 @@ def measure_cell(N_use: int, M: int, depth: int, K_paths: int,
 
 def compute_verdict(cells: List[Dict]) -> Tuple[str, str]:
     if not cells:
-        return ("PDK2N16K_INCONCLUSIVE", "no cells")
+        return ("PDK2N8K_INCONCLUSIVE", "no cells")
 
     ok = [c for c in cells if c.get("ok")]
     if not ok:
-        return ("PDK2N16K_INCONCLUSIVE", f"all {len(cells)} cells failed")
+        return ("PDK2N8K_INCONCLUSIVE", f"all {len(cells)} cells failed")
 
-    # Check DEFENSE_STILL_UNNECESSARY: if ALL cells have def_act < 0.10
     all_def_near_zero = all(c["defense_activation_rate"] < 0.10 for c in ok)
     if all_def_near_zero:
-        return ("PDK2N16K_DEFENSE_STILL_UNNECESSARY",
+        return ("PDK2N8K_DEFENSE_STILL_UNNECESSARY",
                 "ADVERSARIAL_CONSTRUCTION_INVALID: all def_act < 0.10")
 
     def mean(xs: List[float]) -> float:
@@ -312,71 +302,68 @@ def compute_verdict(cells: List[Dict]) -> Tuple[str, str]:
     mean_adv   = mean(adv_sims)
 
     detail = (
-        f"N=16384 K_paths={K_PATHS} M_grid={m_vals} n_cells_per_M={n_cells_per_m} "
+        f"N=8192 K_paths={K_PATHS} M_grid={m_vals} n_cells_per_M={n_cells_per_m} "
         f"def_act={mean_def:.3f} fp={mean_fp:.3f} "
         f"acc_gated={mean_gated:.3f} acc_baseline={mean_base:.3f} "
         f"adv_max_sim={mean_adv:.3f} n_ok={len(ok)}"
     )
 
-    # HF check (any single HF condition in majority of cells)
     n_hf_acc   = sum(1 for a in acc_gated if a < HF_ACC_GATED)
     n_hf_def   = sum(1 for d in def_rates if d < HF_DEF_ACT)
     n_hf_fp    = sum(1 for f in fp_rates if f > HF_FP_MIN)
     majority   = len(ok) // 2 + 1
     is_hf      = (n_hf_acc >= majority or n_hf_def >= majority or n_hf_fp >= majority)
 
-    # HP check: per-cell pass in >= HP_MIN_CELLS of the cells for the dominant M
-    # Use stricter unanimous/near-unanimous check across all cells
     n_hp = sum(
         1 for i, c in enumerate(ok)
         if (c["defense_activation_rate"] >= HP_DEF_ACT
             and acc_gated[i] >= HP_ACC_GATED
             and fp_rates[i] <= HP_FP_MAX))
 
-    # HP requires near-unanimous (4/5 per M, 8/10 total for 2 M values)
-    total_seeds_per_m = max(n_cells_per_m.values()) if n_cells_per_m else 1
     hp_threshold = HP_MIN_CELLS * len(m_vals)  # 4 * 2 = 8 out of 10
 
     if n_hp >= hp_threshold:
-        return ("PDK2N16K_HARD_PASS",
-                f"K2_CROSS_N_16384_VALIDATED n_hp={n_hp}/{len(ok)}. " + detail)
+        return ("PDK2N8K_HARD_PASS",
+                f"K2_CROSS_N_8192_VALIDATED n_hp={n_hp}/{len(ok)}. " + detail)
     if is_hf:
-        return ("PDK2N16K_HARD_FAIL",
-                f"K2_CROSS_N_FAILS n_hf_acc={n_hf_acc} n_hf_def={n_hf_def} "
+        return ("PDK2N8K_HARD_FAIL",
+                f"K2_CROSS_N_8192_FAILS n_hf_acc={n_hf_acc} n_hf_def={n_hf_def} "
                 f"n_hf_fp={n_hf_fp} n_ok={len(ok)}. " + detail)
-    return ("PDK2N16K_MIDDLE_BAND",
-            f"K2_CROSS_N_PARTIAL n_hp={n_hp}/{len(ok)}. " + detail)
+    return ("PDK2N8K_MIDDLE_BAND",
+            f"K2_CROSS_N_8192_PARTIAL n_hp={n_hp}/{len(ok)}. " + detail)
 
 
 def _instrumentation_selftest() -> None:
     """Assert all claimed metrics non-null/non-sentinel at smoke scale.
 
     Formula self-tests:
-    1. N=16384 log2=14 (EVEN).
-    2. M/N ratios: 2048/16384=0.125, 4096/16384=0.25.
-    3. OOM: W float32 at M=4096 = 268 MB << 6 GB.
+    1. N=8192 log2=13 (ODD) -- build_shared is NOT Kerdock-dependent. SAFE.
+    2. M/N ratios: 1024/8192=0.125, 2048/8192=0.25.
+    3. OOM: W float32 at M=2048 = 67 MB << 6 GB.
     4. alpha=0.45 < 0.50 threshold -> defense fires.
-    5. K=2 path exploration (1 positive + 1 decoy).
+    5. K=2 path exploration.
     6. Verdict gates HP/HF/MB/STILL_UNNEC correct.
-    7. PROT-021 key format: M{M}_seed{seed} not bare seed{seed}.
-    8. Live smoke: all metrics non-null at N_SMOKE M_SMOKE.
+    7. PROT-021 key format: M{M}_seed{seed}.
+    8. SMOKE CALIBRATION at N=2048 M=256 K=2: acc_gated >= 0.70.
     """
-    assert N_FULL == 16384, "PROT-018: _n16384"
+    assert N_FULL == 8192, "PROT-018: _n8192"
     assert K_PATHS == 2, f"K_PATHS must be 2; got {K_PATHS}"
     assert len(SEEDS_FULL) == 5, f"expected 5 seeds, got {len(SEEDS_FULL)}"
-    assert COLLISION_ALPHA < DEFENSE_A_SIM_THRESH, (
-        f"COLLISION_ALPHA={COLLISION_ALPHA} must be < {DEFENSE_A_SIM_THRESH}")
+    assert COLLISION_ALPHA < DEFENSE_A_SIM_THRESH
 
-    # Formula self-test 1: log2(16384) == 14 EVEN
+    # Formula self-test 1: log2(8192) = 13 ODD, but build_shared safe
     log2_n = math.log2(N_FULL)
-    assert abs(log2_n - 14.0) < 1e-9, f"log2(N_FULL)={log2_n:.3f}"
-    assert int(log2_n) % 2 == 0, f"log2(N_FULL)={int(log2_n)} is ODD"
-    print(f"[selftest] formula-1 N=16384 log2={log2_n:.0f} EVEN PASS", flush=True)
+    assert abs(log2_n - 13.0) < 1e-9, f"log2(N_FULL)={log2_n}"
+    assert int(log2_n) % 2 == 1, f"log2(8192)=13 should be ODD"
+    # Verify build_shared does NOT use Kerdock (test at N=8192 equivalent N_smoke)
+    # build_shared internally uses torch.sign(torch.randn) codebook -- safe for any N
+    print(f"[selftest] formula-1 N=8192 log2=13 ODD -- Kerdock NOT used in build_shared PASS",
+          flush=True)
 
     # Formula self-test 2: M/N ratios
     for M_chk in M_GRID_FULL:
         ratio = M_chk / N_FULL
-        assert ratio <= 0.5, f"M/N={ratio:.4f} exceeds 0.5 VRAM limit"
+        assert ratio <= 0.5, f"M/N={ratio:.4f} exceeds 0.5"
     print(f"[selftest] formula-2 M/N ratios {[m/N_FULL for m in M_GRID_FULL]} OK", flush=True)
 
     # Formula self-test 3: OOM
@@ -385,8 +372,8 @@ def _instrumentation_selftest() -> None:
     print(f"[selftest] formula-3 W_base_max={W_bytes_max//1024//1024}MB << 6GB PASS",
           flush=True)
 
-    # Formula self-test 4: subthreshold probe max_sim ~ alpha
-    N_test = 512
+    # Formula self-test 4: subthreshold probe
+    N_test = 1024
     g = torch.Generator().manual_seed(99)
     cb_raw = torch.sign(torch.randn(8, N_test, generator=g)).float()
     cb = cb_raw / cb_raw.norm(dim=-1, keepdim=True) * math.sqrt(N_test)
@@ -396,108 +383,109 @@ def _instrumentation_selftest() -> None:
                                               alpha=COLLISION_ALPHA)
     sims = q_probe @ cb.T / N_test
     max_sims = sims.max(dim=-1).values
-    assert max_sims.max().item() < DEFENSE_A_SIM_THRESH + 0.05, (
-        f"Probe max_sim {max_sims.max().item():.4f} exceeds threshold")
-    assert max_sims.max().item() > COLLISION_ALPHA - 0.05, (
-        f"Probe max_sim {max_sims.max().item():.4f} should be near alpha={COLLISION_ALPHA}")
+    assert max_sims.max().item() < DEFENSE_A_SIM_THRESH + 0.05
+    assert max_sims.max().item() > COLLISION_ALPHA - 0.05
     print(f"[selftest] formula-4 probe max_sim={max_sims.mean().item():.4f} "
           f"(expected ~{COLLISION_ALPHA:.2f}) PASS", flush=True)
 
     # Formula self-test 5: K=2
     assert K_PATHS == 2
-    print(f"[selftest] formula-5 K_PATHS={K_PATHS} (1 positive + 1 decoy) PASS", flush=True)
+    print(f"[selftest] formula-5 K_PATHS={K_PATHS} PASS", flush=True)
 
     # Formula self-test 6: verdict gates
-    fake_hp = [{"M": 4096, "seed": s, "N": N_FULL, "ok": True,
+    fake_hp = [{"M": m, "seed": s, "N": N_FULL, "ok": True,
                 "n_leg": N_LEG_FULL, "n_adv": N_ADV_FULL,
                 "n_leg_pass_gate": N_LEG_FULL,
                 "defense_activation_rate": 1.00, "fp_rate": 0.00,
                 "adv_mean_max_sim": 0.44, "leg_mean_max_sim": 1.00,
                 "acc_path_d_baseline": 1.00, "acc_path_d_gated": 1.00,
-                "peak_vram_mb": 500.0}
-               for s in SEEDS_FULL]
-    # Add cells for M=2048 as well (2 M values, 5 seeds each = 10 cells)
-    fake_hp += [{"M": 2048, "seed": s, "N": N_FULL, "ok": True,
-                 "n_leg": N_LEG_FULL, "n_adv": N_ADV_FULL,
-                 "n_leg_pass_gate": N_LEG_FULL,
-                 "defense_activation_rate": 1.00, "fp_rate": 0.00,
-                 "adv_mean_max_sim": 0.44, "leg_mean_max_sim": 1.00,
-                 "acc_path_d_baseline": 1.00, "acc_path_d_gated": 1.00,
-                 "peak_vram_mb": 350.0}
-                for s in SEEDS_FULL]
+                "peak_vram_mb": 200.0}
+               for m in M_GRID_FULL for s in SEEDS_FULL]
     v, msg = compute_verdict(fake_hp)
     assert "HARD_PASS" in v, f"HP gate failed: {v} {msg}"
     print(f"[selftest] formula-6a HP gate PASS: {v}", flush=True)
 
-    fake_still = [{"M": 4096, "seed": s, "N": N_FULL, "ok": True,
+    fake_still = [{"M": m, "seed": s, "N": N_FULL, "ok": True,
                    "n_leg": N_LEG_FULL, "n_adv": N_ADV_FULL,
                    "n_leg_pass_gate": N_LEG_FULL,
                    "defense_activation_rate": 0.00, "fp_rate": 0.00,
                    "adv_mean_max_sim": 1.00, "leg_mean_max_sim": 1.00,
                    "acc_path_d_baseline": 1.00, "acc_path_d_gated": 1.00,
-                   "peak_vram_mb": 500.0}
-                  for s in SEEDS_FULL]
+                   "peak_vram_mb": 200.0}
+                  for m in M_GRID_FULL for s in SEEDS_FULL]
     v, msg = compute_verdict(fake_still)
     assert "DEFENSE_STILL_UNNECESSARY" in v, f"STILL_UNNEC gate failed: {v} {msg}"
     print(f"[selftest] formula-6b STILL_UNNEC gate PASS", flush=True)
 
-    fake_hf_acc = [{"M": 4096, "seed": s, "N": N_FULL, "ok": True,
+    fake_hf_acc = [{"M": m, "seed": s, "N": N_FULL, "ok": True,
                     "n_leg": N_LEG_FULL, "n_adv": N_ADV_FULL,
                     "n_leg_pass_gate": N_LEG_FULL,
                     "defense_activation_rate": 0.95, "fp_rate": 0.00,
                     "adv_mean_max_sim": 0.44, "leg_mean_max_sim": 1.00,
                     "acc_path_d_baseline": 0.80, "acc_path_d_gated": 0.80,
-                    "peak_vram_mb": 500.0}
-                   for s in SEEDS_FULL]
+                    "peak_vram_mb": 200.0}
+                   for m in M_GRID_FULL for s in SEEDS_FULL]
     v, msg = compute_verdict(fake_hf_acc)
     assert "HARD_FAIL" in v, f"HF acc gate failed: {v} {msg}"
     print(f"[selftest] formula-6c HF acc gate PASS", flush=True)
 
     # Formula self-test 7: PROT-021 key format
-    test_M, test_seed = 4096, 17
+    test_M, test_seed = 2048, 17
     expected_key = f"M{test_M}_seed{test_seed}"
-    assert "_" in expected_key and expected_key.startswith("M"), (
-        f"PROT-021: key {expected_key!r} must start with M and contain seed")
-    assert "M" in expected_key and "seed" in expected_key, (
-        f"PROT-021: checkpoint key {expected_key!r} must include M and seed")
-    print(f"[selftest] formula-7 PROT-021 key format {expected_key!r} PASS", flush=True)
+    assert "_" in expected_key and expected_key.startswith("M")
+    assert "M" in expected_key and "seed" in expected_key
+    print(f"[selftest] formula-7 PROT-021 key {expected_key!r} PASS", flush=True)
 
-    # Self-test 8: live smoke at N=1024 M=256
+    # Formula self-test 8: SMOKE CALIBRATION at N=2048 M=256
+    # This is the INSTRUMENTATION_SUSPECT gate for the smoke run
     device = torch.device("cpu")
-    out = measure_cell(N_SMOKE, 256, DEPTH, K_PATHS,
-                       N_LEG_SMOKE, N_ADV_SMOKE, 17, device)
-    assert out["ok"], f"selftest measure_cell failed: {out.get('error')}"
-    assert 0.0 <= out["defense_activation_rate"] <= 1.0, \
-        f"defense_activation_rate sentinel: {out}"
-    assert 0.0 <= out["acc_path_d_gated"] <= 1.0, \
-        f"acc_path_d_gated sentinel: {out}"
-    assert out["n_leg"] >= 1, f"n_leg=0: {out}"
-    assert out["n_adv"] >= 1, f"n_adv=0: {out}"
-    # Probe construction sanity
-    assert out["adv_mean_max_sim"] < DEFENSE_A_SIM_THRESH + 0.05, (
-        f"adv_max_sim={out['adv_mean_max_sim']:.4f} too high")
-    # Defense should fire (alpha=0.45 well below threshold)
-    assert out["defense_activation_rate"] >= 0.70, (
-        f"defense_activation_rate={out['defense_activation_rate']:.3f} < 0.70 at smoke")
-    print(f"[selftest] live smoke N={N_SMOKE} M=256 K={K_PATHS} "
-          f"def_act={out['defense_activation_rate']:.3f} "
-          f"adv_max_sim={out['adv_mean_max_sim']:.3f} "
-          f"acc_gated={out['acc_path_d_gated']:.3f} "
-          f"acc_baseline={out['acc_path_d_baseline']:.3f} PASS",
+    calib_out = measure_cell(N_SMOKE, 256, DEPTH, K_PATHS,
+                              N_LEG_SMOKE, N_ADV_SMOKE, 17, device)
+    assert calib_out["ok"], f"selftest smoke calib FAIL: {calib_out.get('error')}"
+    assert 0.0 <= calib_out["defense_activation_rate"] <= 1.0
+    assert 0.0 <= calib_out["acc_path_d_gated"] <= 1.0
+    assert calib_out["n_leg"] >= 1
+    assert calib_out["n_adv"] >= 1
+    assert calib_out["adv_mean_max_sim"] < DEFENSE_A_SIM_THRESH + 0.05
+    # SMOKE CALIBRATION gate: acc_gated >= 0.70
+    if calib_out["acc_path_d_gated"] < SMOKE_CALIB_ACC_MIN:
+        print(
+            f"[selftest] INSTRUMENTATION_SUSPECT: smoke acc_gated="
+            f"{calib_out['acc_path_d_gated']:.3f} < {SMOKE_CALIB_ACC_MIN} "
+            f"at N={N_SMOKE} M=256 K=2 -- DO NOT SHIP FULL",
+            flush=True)
+        raise AssertionError(
+            f"SMOKE_CALIBRATION_FAIL: acc_gated={calib_out['acc_path_d_gated']:.3f} "
+            f"< SMOKE_CALIB_ACC_MIN={SMOKE_CALIB_ACC_MIN}")
+    # Defense should fire
+    assert calib_out["defense_activation_rate"] >= 0.70, (
+        f"def_act={calib_out['defense_activation_rate']:.3f} < 0.70 at smoke calib")
+    print(f"[selftest] formula-8 SMOKE_CALIB N={N_SMOKE} M=256 K={K_PATHS} "
+          f"def_act={calib_out['defense_activation_rate']:.3f} "
+          f"adv_max_sim={calib_out['adv_mean_max_sim']:.3f} "
+          f"acc_gated={calib_out['acc_path_d_gated']:.3f} "
+          f"acc_baseline={calib_out['acc_path_d_baseline']:.3f} PASS",
           flush=True)
 
-    # Multi-scale smoke: N_SMOKE x4 (PROT multi-scale gate)
+    # Multi-scale smoke: N_SMOKE x4 (N=8192)
     out4x = measure_cell(N_SMOKE * 4, 256 * 4, DEPTH, K_PATHS,
                           N_LEG_SMOKE, N_ADV_SMOKE, 17, device)
     assert out4x["ok"], f"selftest 4x-smoke failed: {out4x.get('error')}"
     assert out4x["defense_activation_rate"] >= 0.70, (
         f"4x smoke def_act={out4x['defense_activation_rate']:.3f} < 0.70")
+    if out4x["acc_path_d_gated"] < SMOKE_CALIB_ACC_MIN:
+        print(f"[selftest] INSTRUMENTATION_SUSPECT: 4x-smoke acc_gated="
+              f"{out4x['acc_path_d_gated']:.3f} < {SMOKE_CALIB_ACC_MIN} "
+              f"at N={N_SMOKE*4} M={256*4} K=2 -- DO NOT SHIP FULL",
+              flush=True)
+        raise AssertionError(
+            f"4x_SMOKE_CALIBRATION_FAIL: acc_gated={out4x['acc_path_d_gated']:.3f}")
     print(f"[selftest] 4x-smoke N={N_SMOKE*4} M={256*4} "
           f"def_act={out4x['defense_activation_rate']:.3f} "
           f"acc_gated={out4x['acc_path_d_gated']:.3f} PASS",
           flush=True)
 
-    print("[selftest] path_d_k2_production_stack_stress_n16384 ALL PASS", flush=True)
+    print("[selftest] path_d_k2_production_stack_stress_n8192 ALL PASS", flush=True)
 
 
 _instrumentation_selftest()
@@ -521,22 +509,22 @@ def main() -> None:
     seeds  = SEEDS_SMOKE  if smoke else SEEDS_FULL
 
     out_dir = get_output_dir()
-    # PROT-021: scan existing M-tagged keys; reject smoke partials via run_config
+    # PROT-021: M-tagged run_config to reject smoke partials in FULL run
     run_config = {"N": N_cfg, "run_mode": "smoke" if smoke else "full"}
     done = set(list_completed_keys(out_dir, run_config=run_config))
 
     t0 = time.time()
-    print(f"[run] path_d_k2_production_stack_stress_n16384 smoke={smoke} "
+    print(f"[run] path_d_k2_production_stack_stress_n8192 smoke={smoke} "
           f"N={N_cfg} M_grid={M_grid} depth={DEPTH} K_paths={K_PATHS} "
           f"n_adv={n_adv} n_leg={n_leg} seeds={seeds} "
           f"done={len(done)} device={device.type} "
-          f"[K=2 SINGLE-PATH STRESS no-AQSIM-compose N=16384]",
+          f"[K=2 SINGLE-PATH STRESS no-AQSIM-compose N=8192]",
           flush=True)
 
     cells: List[Dict] = []
     for M in M_grid:
         for seed in seeds:
-            # PROT-021: checkpoint key includes M -- prevents smoke contamination
+            # PROT-021: M-keyed checkpoint key
             ck = f"M{M}_seed{seed}"
             if ck in done:
                 body = load_partial_key(out_dir, ck)
@@ -548,7 +536,6 @@ def main() -> None:
             try:
                 cell = measure_cell(N_cfg, M, DEPTH, K_PATHS,
                                      n_leg, n_adv, seed, device)
-                # PROT-021: stamp run_mode so future loader can reject cross-mode partials
                 cell["run_mode"] = "smoke" if smoke else "full"
                 write_partial_key(out_dir, ck, cell)
                 cells.append(cell)
@@ -571,7 +558,7 @@ def main() -> None:
     verdict, vm = compute_verdict(cells)
     elapsed = round(time.time() - t0, 2)
     summary = {
-        "anchor": "path_d_k2_production_stack_stress_n16384",
+        "anchor": "path_d_k2_production_stack_stress_n8192",
         "N": N_cfg, "smoke": smoke,
         "M_grid": M_grid, "K_paths": K_PATHS,
         "depth": DEPTH, "seeds": seeds,

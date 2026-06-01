@@ -25,6 +25,23 @@ Contract (script-side adoption):
     per_seed = aggregate_partials(out_dir, seeds)    # dict keyed by str(seed)
     # ... build summary / verdict / metrics.json from per_seed ...
 
+PROT-021 config-mismatch guard (smoke-checkpoint contamination fix):
+
+    When a FULL run resumes, it must NOT silently load smoke partials whose
+    stored N, M, or run_mode do not match the FULL config.  Pass run_config
+    to list_completed_keys / resumable_seeds / aggregate_partials:
+
+        run_config = {"N": N_FULL, "run_mode": "full"}  # optional M check too
+        done, remaining = resumable_seeds(seeds, out_dir, run_config=run_config)
+
+    Any partial whose body fields contradict run_config is REJECTED with a
+    warning printed to stdout.  The caller re-runs those seeds.
+
+    Supported run_config keys (all optional; only those present are checked):
+        "N"        -- int: rejects partials where body["N"] != N
+        "M"        -- int: rejects partials where body["M"] != M
+        "run_mode" -- str ("smoke"|"full"): rejects mode-mismatched partials
+
 Disk layout under out_dir = data/exp_<name>/ :
 
     partial_metrics_<seed>.json     -- one per completed seed
@@ -41,6 +58,11 @@ Design choices:
   - Schema check: a partial is accepted only if it loads, is a dict, and
     has a "seed" field matching the filename. Older / foreign files are
     rejected (seed re-runs).
+
+  - Config mismatch check (PROT-021): when run_config is supplied, a partial
+    is additionally rejected if its stored N, M, or run_mode contradicts the
+    caller's run_config. This prevents smoke checkpoints from being silently
+    consumed by FULL runs sharing the same out_dir.
 
   - Granularity: per-seed is the canonical level (matches the dominant
     pattern across saad_solla / tcft / bid / wave14 scripts). For
@@ -62,7 +84,7 @@ import os
 import re
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 # Filename schema: partial_metrics_<seed>.json
 _PARTIAL_RE = re.compile(r"^partial_metrics_(?P<key>[A-Za-z0-9_\-]+)\.json$")
@@ -74,7 +96,14 @@ def _partial_path(out_dir: Path, key: Any) -> Path:
 
 
 def _is_valid_partial(p: Path, expected_key: str) -> bool:
-    """Return True iff p loads as a dict with matching 'seed'/'key' field."""
+    """Return True iff p loads as a dict with matching key field.
+
+    Checks (in order):
+      1. "_ckpt_key" field (authoritative compound key, e.g. "M256_seed17")
+      2. "seed" / "key" field (legacy scalar, e.g. 17)
+    A match on either field is accepted.  This handles both the compound-key
+    PROT-021 pattern and the legacy bare-seed pattern.
+    """
     try:
         with open(p, "r", encoding="utf-8") as fh:
             body = json.load(fh)
@@ -82,17 +111,104 @@ def _is_valid_partial(p: Path, expected_key: str) -> bool:
         return False
     if not isinstance(body, dict):
         return False
+    # Prefer _ckpt_key (authoritative compound key stamped by write_partial_key)
+    ckpt_key = body.get("_ckpt_key")
+    if ckpt_key is not None:
+        return str(ckpt_key) == str(expected_key)
+    # Fall back to legacy "seed" / "key" field
     recorded = body.get("seed", body.get("key"))
     if recorded is None:
         return False
     return str(recorded) == str(expected_key)
 
 
-def list_completed_keys(out_dir: Path) -> List[str]:
+def _check_run_config(body: Dict[str, Any],
+                      run_config: Dict[str, Any],
+                      filename: str) -> bool:
+    """Return True iff body fields do not contradict run_config.
+
+    Supported run_config keys (all optional; only those present are checked):
+      "N"        -- int: rejects partials where body["N"] != N
+      "M"        -- int: rejects partials where body["M"] != M
+      "run_mode" -- str ("smoke"|"full"): rejects mode-mismatched partials
+
+    When a mismatch is found, a REJECTED warning is printed to stdout and
+    False is returned.  The caller must treat the partial as not-done and
+    re-run the corresponding seed.
+
+    This is the PROT-021 smoke-checkpoint contamination guard: smoke partials
+    (N=small, M=smoke-M) must NOT be silently consumed by FULL runs that share
+    the same out_dir but use different N/M/run_mode.
+    """
+    if not run_config:
+        return True
+
+    # Check N
+    if "N" in run_config:
+        stored_N = body.get("N")
+        if stored_N is not None and int(stored_N) != int(run_config["N"]):
+            print(
+                f"[ckpt] REJECTED {filename}: stored N={stored_N} != "
+                f"FULL N={run_config['N']}; ignoring smoke partial",
+                flush=True,
+            )
+            return False
+
+    # Check M
+    if "M" in run_config:
+        stored_M = body.get("M")
+        if stored_M is not None and int(stored_M) != int(run_config["M"]):
+            print(
+                f"[ckpt] REJECTED {filename}: stored M={stored_M} != "
+                f"FULL M={run_config['M']}; ignoring smoke partial",
+                flush=True,
+            )
+            return False
+
+    # Check run_mode (stored as bool "smoke" or string "run_mode")
+    if "run_mode" in run_config:
+        expected_mode = str(run_config["run_mode"]).lower()
+        # Partials may encode mode as boolean "smoke" field (True/False)
+        # or string "run_mode" field ("smoke"/"full").
+        stored_smoke_bool = body.get("smoke")  # True -> smoke, False -> full
+        stored_run_mode = body.get("run_mode")  # "smoke" or "full"
+        if stored_smoke_bool is not None:
+            actual_mode = "smoke" if stored_smoke_bool else "full"
+        elif stored_run_mode is not None:
+            actual_mode = str(stored_run_mode).lower()
+        else:
+            actual_mode = None
+        if actual_mode is not None and actual_mode != expected_mode:
+            print(
+                f"[ckpt] REJECTED {filename}: stored run_mode={actual_mode!r} != "
+                f"expected={expected_mode!r}; ignoring mismatched partial",
+                flush=True,
+            )
+            return False
+
+    return True
+
+
+def list_completed_keys(
+    out_dir: Path,
+    run_config: Optional[Dict[str, Any]] = None,
+) -> List[str]:
     """Scan out_dir for valid partial_metrics_<key>.json files.
 
-    Returns the list of keys (as strings) that have a well-formed partial.
-    Corrupted / truncated / schema-mismatched partials are skipped.
+    Returns the list of keys (as strings) that have a well-formed partial
+    AND (when run_config is supplied) whose stored N/M/run_mode fields are
+    consistent with run_config.
+
+    Partials that fail the schema check OR contradict run_config are silently
+    skipped (with a stdout warning for config mismatches per PROT-021).
+
+    Args:
+        out_dir:    Directory to scan.
+        run_config: Optional dict with keys "N", "M", "run_mode" (all
+                    optional).  When provided, partials whose stored values
+                    contradict these are REJECTED (PROT-021 contamination
+                    guard).  Pass None (default) to use legacy behaviour with
+                    no config check.
     """
     out_dir = Path(out_dir)
     if not out_dir.is_dir():
@@ -103,24 +219,42 @@ def list_completed_keys(out_dir: Path) -> List[str]:
         if m is None:
             continue
         key = m.group("key")
-        if _is_valid_partial(child, key):
-            done.append(key)
+        if not _is_valid_partial(child, key):
+            continue
+        # PROT-021: config-mismatch guard
+        if run_config:
+            try:
+                with open(child, "r", encoding="utf-8") as fh:
+                    body = json.load(fh)
+            except (OSError, ValueError, json.JSONDecodeError):
+                continue
+            if not _check_run_config(body, run_config, child.name):
+                continue
+        done.append(key)
     return done
 
 
 def resumable_seeds(
     seeds: Sequence[Any],
     out_dir: Path,
+    run_config: Optional[Dict[str, Any]] = None,
 ) -> Tuple[List[Any], List[Any]]:
     """Split seeds into (already_done, remaining) based on partials in out_dir.
 
     Preserves input order. Compares by str(seed) so int seeds and string keys
     interoperate.
 
+    Args:
+        seeds:      Full seed list for the current run.
+        out_dir:    Directory to scan for partials.
+        run_config: Optional dict passed to list_completed_keys for PROT-021
+                    config-mismatch filtering.  Keys: "N", "M", "run_mode".
+                    Partials contradicting run_config are treated as not-done.
+
     Returns:
         (done_seeds, remaining_seeds) -- both ordered subsequences of `seeds`.
     """
-    done_keys = set(list_completed_keys(out_dir))
+    done_keys = set(list_completed_keys(out_dir, run_config=run_config))
     done: List[Any] = []
     remaining: List[Any] = []
     for s in seeds:
@@ -152,6 +286,10 @@ def write_partial_key(
 
     body = dict(payload)
     body.setdefault("seed", str(key))
+    # Always stamp _ckpt_key with the compound key (overwrite if present).
+    # _is_valid_partial checks _ckpt_key first, enabling compound keys like
+    # "M256_seed17" to coexist with body["seed"]=17 (PROT-021).
+    body["_ckpt_key"] = str(key)
     body.setdefault("_partial_written_at", time.time())
 
     final = _partial_path(out_dir, key)
@@ -185,6 +323,7 @@ def load_partial_key(out_dir: Path, key: Any) -> Dict[str, Any] | None:
 def aggregate_partials(
     out_dir: Path,
     seeds: Sequence[Any] | None = None,
+    run_config: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Dict[str, Any]]:
     """Load all valid partials under out_dir into a {str(key): payload} dict.
 
@@ -194,12 +333,18 @@ def aggregate_partials(
     Missing seeds (when `seeds` is supplied) are silently omitted -- callers
     that need a presence check should compare against `resumable_seeds`
     output instead.
+
+    Args:
+        out_dir:    Directory to scan.
+        seeds:      Optional seed filter.
+        run_config: Optional PROT-021 config dict ("N", "M", "run_mode").
+                    Partials contradicting run_config are excluded.
     """
     out_dir = Path(out_dir)
     if seeds is None:
-        keys = list_completed_keys(out_dir)
+        keys = list_completed_keys(out_dir, run_config=run_config)
     else:
-        valid = set(list_completed_keys(out_dir))
+        valid = set(list_completed_keys(out_dir, run_config=run_config))
         keys = [str(s) for s in seeds if str(s) in valid]
     out: Dict[str, Dict[str, Any]] = {}
     for k in keys:
@@ -237,4 +382,94 @@ __all__ = [
     "load_partial_key",
     "aggregate_partials",
     "clear_partials",
+    "_check_run_config",
 ]
+
+
+if __name__ == "__main__":
+    # Self-test: write a fake smoke partial with mismatched N/M, run the loader,
+    # verify it gets REJECTED when run_config specifies FULL N/M.
+    import tempfile
+
+    print("[selftest] _seed_checkpoint.py PROT-021 config-mismatch guard")
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        td = Path(tmpdir)
+
+        # --- Test 1: smoke partial (N=1024, M=256) rejected by FULL run_config ---
+        smoke_payload = {
+            "seed": "M256_seed17",
+            "N": 1024,
+            "M": 256,
+            "run_mode": "smoke",
+            "ok": True,
+            "acc_gated": 1.0,
+            "_partial_written_at": time.time(),
+        }
+        write_partial_key(td, "M256_seed17", smoke_payload)
+        assert (td / "partial_metrics_M256_seed17.json").exists(), "write failed"
+
+        # Without run_config: should be accepted (legacy behaviour)
+        keys_no_cfg = list_completed_keys(td)
+        assert "M256_seed17" in keys_no_cfg, f"legacy accept failed: {keys_no_cfg}"
+        print("[selftest] T1a PASS: smoke partial accepted when no run_config")
+
+        # With FULL run_config (N=16384, M=2048): should be REJECTED
+        full_cfg = {"N": 16384, "M": 2048, "run_mode": "full"}
+        keys_full = list_completed_keys(td, run_config=full_cfg)
+        assert "M256_seed17" not in keys_full, (
+            f"FAIL: smoke partial was NOT rejected by FULL run_config: {keys_full}")
+        print("[selftest] T1b PASS: smoke partial REJECTED by FULL run_config N=16384 M=2048")
+
+        # --- Test 2: matching partial accepted ---
+        full_payload = {
+            "seed": "M2048_seed17",
+            "N": 16384,
+            "M": 2048,
+            "run_mode": "full",
+            "ok": True,
+            "acc_gated": 0.97,
+            "_partial_written_at": time.time(),
+        }
+        write_partial_key(td, "M2048_seed17", full_payload)
+        keys_full2 = list_completed_keys(td, run_config=full_cfg)
+        assert "M2048_seed17" in keys_full2, (
+            f"FAIL: matching FULL partial was incorrectly rejected: {keys_full2}")
+        assert "M256_seed17" not in keys_full2, "smoke still leaking after T2"
+        print("[selftest] T2 PASS: matching FULL partial M=2048 N=16384 accepted")
+
+        # --- Test 3: N-only run_config (no M key) ---
+        n_only_cfg = {"N": 16384}
+        keys_n_only = list_completed_keys(td, run_config=n_only_cfg)
+        # M256_seed17 has N=1024 -> rejected
+        assert "M256_seed17" not in keys_n_only, "N-only check failed to reject smoke"
+        # M2048_seed17 has N=16384 -> accepted
+        assert "M2048_seed17" in keys_n_only, "N-only check incorrectly rejected FULL"
+        print("[selftest] T3 PASS: N-only run_config filters correctly")
+
+        # --- Test 4: resumable_seeds with run_config ---
+        seeds_test = ["M2048_seed17", "M2048_seed23", "M256_seed17"]
+        done, remaining = resumable_seeds(seeds_test, td, run_config=full_cfg)
+        assert "M2048_seed17" in done, f"should be done: {done}"
+        assert "M256_seed17" not in done, f"smoke should NOT be done: {done}"
+        assert "M2048_seed23" in remaining, f"should be remaining: {remaining}"
+        assert "M256_seed17" in remaining, f"smoke should be remaining: {remaining}"
+        print(f"[selftest] T4 PASS: resumable_seeds done={done} remaining={remaining}")
+
+        # --- Test 5: run_mode "smoke" rejection by run_mode="full" ---
+        mode_cfg = {"run_mode": "full"}
+        keys_mode = list_completed_keys(td, run_config=mode_cfg)
+        # M256_seed17 has run_mode="smoke" -> rejected
+        assert "M256_seed17" not in keys_mode, "run_mode check failed to reject smoke"
+        # M2048_seed17 has run_mode="full" -> accepted
+        assert "M2048_seed17" in keys_mode, "run_mode check incorrectly rejected full"
+        print("[selftest] T5 PASS: run_mode filter correct")
+
+        # --- Test 6: aggregate_partials with run_config ---
+        agg = aggregate_partials(td, run_config=full_cfg)
+        assert "M2048_seed17" in agg, f"agg missing FULL key: {list(agg.keys())}"
+        assert "M256_seed17" not in agg, f"agg should not contain smoke key: {list(agg.keys())}"
+        assert agg["M2048_seed17"]["acc_gated"] == 0.97, "agg data mismatch"
+        print("[selftest] T6 PASS: aggregate_partials filters smoke with run_config")
+
+    print("[selftest] ALL 6 TESTS PASS -- PROT-021 loader guard operational")

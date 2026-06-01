@@ -24,3 +24,4 @@ PROT-018/019/021 enforced; all self-tests passed at gate; all remote-verified.
 
 (4) N=32768 sizing dry-run filed at notes/exp_dev_n32768_envelope_sizing_dry_run_2026-06-01.md.
 W dense float32 = 4 GiB; eigvalsh GPU-only at this scale; recommended path N=4096->N=16384->N=32768.
+exp_dev 2026-06-01 (session 2): shipped 5 Round-3 CPU smokes (T1.6-T1.10) all HARD_PASS local smoke + remote verify; path_d_k2_n8192 BLOCKED Kerdock odd-log2(N=8192=2^13); routing note filed to Strategy; 5/5 remote verify PASS; GPU anchor blocked not shippedexp_dev 2026-06-01 (v2 re-ship): shipped 2 anchors -- A: aqsim_3way_diagnostic_verbose_v2_n4096 (remote_cpu_queue, verbose sentinel + exp_ prefix fix, smoke DIAGNOSTIC_HARD_PASS 21.8s, REMOTE VERIFY PASS); B: multi_tenant_arch1_full_v1_n16384 (remote_cpu_queue, PP-13 N=16384 staged envelope extension, smoke MT_ARCH1_HARD_PASS N=1024+N=4096 both zero-contamination, REMOTE VERIFY PASS; timeout=21600s)
