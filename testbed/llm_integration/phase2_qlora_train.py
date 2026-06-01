@@ -80,6 +80,92 @@ def _bipolar_from_soft(soft_query: torch.Tensor) -> torch.Tensor:
     return bipolar
 
 
+def _build_derived_key_codebook(
+    model, tokenizer, key_idx: torch.Tensor, d_model: int, n_sub: int,
+    device: torch.device, projection_seed: int = 23,
+) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    """Path 1a v1: build derived key codewords from Phi-3 hidden states.
+
+    For each key_idx[i], forward "Key {key_idx[i]:04d}: " through Phi-3,
+    extract last-position hidden state h_i (d_model-dim), then compute
+    derived_key_i = sign(R @ h_i) where R is a fixed Gaussian projection
+    (n_sub x d_model) seeded at projection_seed.
+
+    Per research deliverable (notes/research_pp8_phi3_hidden_codeword_design_v1):
+    - R fixed, drawn once at init; no trainable parameters
+    - Gradient flows through h_i (LLM update direction); no STE at key-generation
+    - Codewords are deterministic function of h_i; LLM doesn't need to learn
+      the text->codeword mapping, only to produce hidden states whose
+      projection retrieves correctly
+
+    Returns:
+      derived_keys: (M, n_sub) bipolar {-1, +1}
+      R: (n_sub, d_model) fixed Gaussian projection matrix
+      h_stack: (M, d_model) raw hidden states (for diagnostics)
+    """
+    M = int(key_idx.numel())
+    print(f"[path1a_v1] computing derived key codewords from Phi-3 hidden states "
+          f"({M} keys; this is a one-time forward-pass loop)...")
+    h_stack = torch.zeros(M, d_model, device=device, dtype=torch.float32)
+    with torch.no_grad():
+        for i in range(M):
+            k = int(key_idx[i].item())
+            text = f"Key {k:04d}: "
+            enc = tokenizer(text, return_tensors="pt").to(device)
+            try:
+                out = model(input_ids=enc.input_ids, output_hidden_states=True)
+            except Exception as exc:
+                raise RuntimeError(
+                    f"path1a_v1: Phi-3 forward failed at key_idx={k} (i={i}): {exc}")
+            h = out.hidden_states[-1][0, -1, :].to(dtype=torch.float32)
+            h_stack[i] = h
+            if (i + 1) % 500 == 0:
+                print(f"  [path1a_v1] {i+1}/{M} key hidden states computed")
+    # Draw fixed Gaussian R, seeded
+    g = torch.Generator(device="cpu")
+    g.manual_seed(projection_seed)
+    R_cpu = torch.randn(n_sub, d_model, generator=g, dtype=torch.float32)
+    R = R_cpu.to(device)
+    # Project + sign
+    proj = h_stack @ R.T  # (M, n_sub)
+    derived = torch.sign(proj)
+    derived[derived == 0] = 1.0
+    print(f"[path1a_v1] derived codebook shape {tuple(derived.shape)}; "
+          f"sample derived[0,:8]: {derived[0,:8].cpu().tolist()}")
+    return derived, R, h_stack
+
+
+def _gram_diagnostic(derived_keys: torch.Tensor) -> dict[str, Any]:
+    """Pre-flight Gram-matrix diagnostic on derived key codebook.
+
+    Per research deliverable: if mean |off-diagonal K_ij| > 0.10, apply
+    median-threshold centering before training (FM-2 anisotropy rescue).
+    """
+    M, n_sub = derived_keys.shape
+    # Normalized inner products: K = (1/n_sub) k_i . k_j
+    K = (derived_keys @ derived_keys.T) / float(n_sub)  # (M, M)
+    # Off-diagonal mask
+    mask = ~torch.eye(M, dtype=torch.bool, device=K.device)
+    off_diag = K[mask]
+    mean_abs = off_diag.abs().mean().item()
+    pct_above_010 = (off_diag.abs() > 0.10).float().mean().item()
+    pct_above_005 = (off_diag.abs() > 0.05).float().mean().item()
+    pct_above_030 = (off_diag.abs() > 0.30).float().mean().item()
+    diag_mean = K[~mask].mean().item()
+    return {
+        "M": M,
+        "n_sub": n_sub,
+        "mean_abs_off_diag": round(mean_abs, 6),
+        "diag_mean": round(diag_mean, 6),  # should be 1.0 (bipolar self-correlation)
+        "pct_off_diag_above_005": round(pct_above_005, 6),
+        "pct_off_diag_above_010": round(pct_above_010, 6),
+        "pct_off_diag_above_030": round(pct_above_030, 6),
+        # Per research FM-1: collapse threshold; FM-2: anisotropy bias threshold
+        "fm1_collapse_warn": pct_above_010 > 0.50,
+        "fm2_anisotropy_warn": mean_abs > 0.10,
+    }
+
+
 def _substrate_retrieve_soft(
     codebook: torch.Tensor, key_idx: torch.Tensor, val_idx: torch.Tensor,
     soft_query: torch.Tensor, temperature: float = 1.0,
@@ -278,6 +364,7 @@ def _train_step(
     model, readout, bridge, batch, tokenizer, device, optimizer, scheduler=None,
     substrate_in_loop: bool = False, substrate_tuple=None,
     substrate_soft: bool = False, substrate_soft_temperature: float = 1.0,
+    path1a_R: torch.Tensor | None = None,
 ) -> float:
     """One training step. Returns scalar loss.
 
@@ -301,7 +388,13 @@ def _train_step(
     past = out.past_key_values
     hidden = _last_position_hidden(out, attention_mask).to(dtype=torch.float32)
 
-    soft_query = readout(hidden)  # (B, n_sub) tanh-bounded
+    # Soft-query computation: either via the trainable readout (Phase 2/2.5)
+    # or via the fixed Path 1a v1 R-projection (no trainable params per research
+    # deliverable; codewords are deterministic function of h_i).
+    if path1a_R is not None:
+        soft_query = hidden @ path1a_R.T  # (B, n_sub) continuous
+    else:
+        soft_query = readout(hidden)  # (B, n_sub) tanh-bounded
     if substrate_soft and substrate_tuple is not None:
         codebook, _W, key_idx, val_idx, _relation = substrate_tuple
         bridge_input = _substrate_retrieve_soft(
@@ -343,6 +436,7 @@ def _eval(
     use_substrate_in_loop: bool = True,
     substrate_soft: bool = False, substrate_soft_temperature: float = 1.0,
     target_pool_ids: list[int] | None = None,
+    path1a_R: torch.Tensor | None = None,
 ) -> dict[str, Any]:
     """Validation eval. Reports top-1 accuracy on val set.
 
@@ -370,7 +464,10 @@ def _eval(
         past = out.past_key_values
         hidden = _last_position_hidden(out, attention_mask).to(dtype=torch.float32)
 
-        soft_query = readout(hidden)  # (B, n_sub)
+        if path1a_R is not None:
+            soft_query = hidden @ path1a_R.T  # (B, n_sub) continuous
+        else:
+            soft_query = readout(hidden)  # (B, n_sub)
         if substrate_soft:
             codeword_batch = _substrate_retrieve_soft(
                 codebook, key_idx, val_idx, soft_query,
@@ -455,6 +552,17 @@ def main() -> int:
                         help="Temperature for soft-substrate softmax attention "
                              "(higher = smoother attention over keys; lower = "
                              "more peaked toward argmax). Default 1.0.")
+    parser.add_argument("--path1a-v1", action="store_true",
+                        help="(Phase 2.5 Path 1a v1) Use fixed Gaussian "
+                             "random projection + sign for substrate key "
+                             "codewords (derived from Phi-3 hidden states). "
+                             "Per research deliverable v1; no new trainable "
+                             "params (readout MLP excluded from optimizer). "
+                             "Requires --substrate-soft for the retrieval path. "
+                             "Implies substrate-in-loop eval.")
+    parser.add_argument("--path1a-projection-seed", type=int, default=23,
+                        help="Seed for the fixed Gaussian projection R matrix "
+                             "(reproducible across runs).")
     parser.add_argument("--mock-model", action="store_true",
                         help="Use a CPU mock model (GPT-2 at d_model=3072) "
                              "with model frozen and only readout+bridge "
@@ -480,6 +588,13 @@ def main() -> int:
         args.substrate_in_loop_eval = True
         print("[qlora_train] --substrate-soft set; auto-enabling "
               "--substrate-in-loop-eval for train/eval pipeline consistency")
+    if args.path1a_v1:
+        if not args.substrate_soft:
+            args.substrate_soft = True
+            print("[qlora_train] --path1a-v1 set; auto-enabling --substrate-soft "
+                  "(required for the soft-retrieval over derived codebook)")
+        if not args.substrate_in_loop_eval:
+            args.substrate_in_loop_eval = True
 
     out_dir = Path(args.out_dir)
     if not out_dir.is_absolute():
@@ -546,14 +661,59 @@ def main() -> int:
     readout = QueryReadoutHead().to(device).to(dtype=torch.float32)
     bridge = QFormerBridge().to(device).to(dtype=torch.float32)
 
+    # Path 1a v1: derived key codebook + fixed R projection (no trainable readout)
+    path1a_R: torch.Tensor | None = None
+    path1a_gram: dict[str, Any] | None = None
+    if args.path1a_v1:
+        if args.mock_model:
+            # Mock mode: skip Phi-3 derivation; use random R-projection only
+            print(f"[path1a_v1] --mock-model + --path1a-v1: skipping Phi-3 "
+                  f"hidden-state derivation (CUDA-only); using random R only")
+            g = torch.Generator(device="cpu")
+            g.manual_seed(args.path1a_projection_seed)
+            path1a_R = torch.randn(_N_SUBSTRATE, _D_MODEL, generator=g,
+                                   dtype=torch.float32).to(device)
+        else:
+            derived_keys, path1a_R, h_stack = _build_derived_key_codebook(
+                model, tokenizer, substrate_tuple[2], _D_MODEL, _N_SUBSTRATE,
+                device, projection_seed=args.path1a_projection_seed,
+            )
+            # Pre-flight Gram-matrix diagnostic
+            path1a_gram = _gram_diagnostic(derived_keys)
+            print(f"[path1a_v1] Gram diagnostic:")
+            for k, v in path1a_gram.items():
+                print(f"  {k}: {v}")
+            if path1a_gram["fm1_collapse_warn"]:
+                print(f"[WARN] FM-1 collapse risk: "
+                      f"{path1a_gram['pct_off_diag_above_010']:.1%} pairs >0.10. "
+                      f"Per research deliverable, consider mid-layer probe.")
+            if path1a_gram["fm2_anisotropy_warn"]:
+                print(f"[WARN] FM-2 anisotropy bias: "
+                      f"mean |off-diag|={path1a_gram['mean_abs_off_diag']:.4f} > 0.10. "
+                      f"Per research deliverable, consider median-threshold centering.")
+            # Replace key codewords in substrate codebook with derived ones
+            codebook_mut = substrate_tuple[0].clone()
+            codebook_mut[substrate_tuple[2]] = derived_keys.to(dtype=codebook_mut.dtype)
+            substrate_tuple = (codebook_mut,) + substrate_tuple[1:]
+            print(f"[path1a_v1] substrate codebook updated: keys at "
+                  f"codebook[key_idx] replaced with sign(R @ h_i)")
+
     # Build optimizer over ALL trainable params (LoRA + readout + bridge)
+    # When --path1a-v1, readout is EXCLUDED (becomes fixed R-projection per research).
     trainable_params = []
     n_readout = 0
     n_bridge = 0
     n_lora = 0
-    for p in readout.parameters():
-        trainable_params.append(p)
-        n_readout += p.numel()
+    if not args.path1a_v1:
+        for p in readout.parameters():
+            trainable_params.append(p)
+            n_readout += p.numel()
+    else:
+        # Freeze readout params (they're not used; we use path1a_R directly)
+        for p in readout.parameters():
+            p.requires_grad = False
+        print(f"[path1a_v1] readout MLP excluded from trainable params "
+              f"(replaced by fixed R-projection; ~25MB fixed weight)")
     for p in bridge.parameters():
         trainable_params.append(p)
         n_bridge += p.numel()
@@ -607,6 +767,7 @@ def main() -> int:
                     substrate_tuple=substrate_tuple,
                     substrate_soft=args.substrate_soft,
                     substrate_soft_temperature=args.substrate_soft_temperature,
+                    path1a_R=path1a_R,
                 )
             except Exception as exc:
                 print(f"[ERROR] step {step}: {exc}", file=sys.stderr)
@@ -669,6 +830,7 @@ def main() -> int:
                     substrate_soft=args.substrate_soft,
                     substrate_soft_temperature=args.substrate_soft_temperature,
                     target_pool_ids=target_pool_ids,
+                    path1a_R=path1a_R,
                 )
                 eval_wall = time.perf_counter() - eval_t0
                 lift_over_random = ev["acc_top1"] / max(1e-9, random_baseline)
@@ -721,6 +883,7 @@ def main() -> int:
         substrate_soft=args.substrate_soft,
         substrate_soft_temperature=args.substrate_soft_temperature,
         target_pool_ids=target_pool_ids,
+        path1a_R=path1a_R,
     )
     final_lift = final_eval["acc_top1"] / max(1e-9, random_baseline)
     total_wall = time.perf_counter() - t0
@@ -765,6 +928,7 @@ def main() -> int:
         "pass_no_nan_inf": pass_no_nan,
         "dataset_dir": str(dataset_dir),
         "args": vars(args),
+        "path1a_gram": path1a_gram,  # None unless --path1a-v1
     }
     summary_path = out_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
