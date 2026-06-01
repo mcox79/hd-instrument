@@ -70,3 +70,10 @@ The H100 revalidation is the next testbed-cloud spend. The existing handoff has 
 ## Closing
 
 Move to `routed_completed/` when strategy confirms (or amends) the NO-GO sequel spec, and orchestrator updates the H100 handoff with whichever branches are now fully pre-specified.
+
+
+---
+
+## Acted-on 2026-06-01 by verdict_handler v310
+
+GO branch landed (integrated p99 44.06ms PASS; both pre-registered GO conditions met simultaneously). NO-GO sequel spec informational/archived; not invoked.

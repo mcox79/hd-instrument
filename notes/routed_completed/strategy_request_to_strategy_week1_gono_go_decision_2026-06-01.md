@@ -149,3 +149,15 @@ integrated p99 number and recommended verdict").
   Phase 2 reframe approval earlier this turn)
 - Anthropic Phase 2 + hard-neg full 50K remain user-authorized but
   deferred per sequencing
+
+
+---
+
+## Acted-on 2026-06-01 by verdict_handler v310
+
+GO accepted. Cap_map v309 -> v310:
+- PP-8 LIFT 0.30-0.45 -> 0.50-0.65 state research -> inconclusive (Week 1 feasibility-smoke validation; Week 2-6 build COMMITTED).
+- PP-5 LIFT 0.55-0.70 -> 0.70-0.85 latency-budget sub-question CLOSED at H100 scope (substrate 8.45ms p99 = 17% of 50ms allocation; substrate is NOT the bottleneck).
+- Portfolio 28+37 UNCHANGED. HONEST 297 -> 298 +1. LABEL-VS-HONEST 170 UNCHANGED. 221st PROT-009 paired commit.
+
+PP-8 Week 2-6 build COMMITTED per  spec. Research P5 detailed Week 2-6 planning becomes dispatchable. Testbed engineering bandwidth allocates per PP-8 spec. Pattern B production-LLM continues in parallel as bandwidth permits.

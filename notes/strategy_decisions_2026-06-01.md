@@ -240,3 +240,88 @@ Cap map: v308 -> v309 BATCHED 2-VERDICT GPU-wave K=2-production-stack + cross-N 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
 
 Pipeline-pacing exp_dev refill: pause-flag ABSENT, GPU pending=0 fresh-drain; 3 highest-strategic-value next ships surfaced for orchestrator exp_dev Skill dispatch: V2 R2 (engineering diagnostic AQSIM 3-way pre-cell rejection mode) + V1 R4 (K=2-vs-K=100 latency benchmark) + V1 R2 (K=2 cross-M coverage). Per role contract verdict_handler does NOT auto-dispatch; surfaces in return.
+
+
+## v309 -> v310 @ SINGLE-VERDICT Week 1 GO/NO-GO H100 REVALIDATION DECISIVE-GO (verdict_handler 221st PROT-009 paired commit; FIRST HARD_PASS for production-scope integrated substrate-LLM stack; reliability-recalc EVENT on PP-8 + PP-5 rows; THE strategic decision of the session)
+
+**Trigger.** Testbed-dispatched cloud Lambda H100 SXM5 revalidation of Week 0 Missing 7 #4 (integrated substrate-LLM forward-pass) landed via routing file `notes/strategy_request_to_strategy_week1_gono_go_decision_2026-06-01.md` + deliverable `notes/testbed_missing7_h100_revalidation_v1_2026-06-01.md` + raw log `data/lambda_batch_phi3_integrated_latency_h100_revalidation_v1_n4096_remote_log_f6893c24dfe245db84f73a34553cdfb4.log` (SCPed back from gpu_1x_h100_sxm5 us-south-2 instance f6893c24dfe245db84f73a34553cdfb4). Pause-flag CHECKED ABSENT. Single batched commit.
+
+### Step 0 honest re-read
+
+Per-component p99 numbers VERIFIED against raw Lambda log lines 133, 238-242, 343-347:
+- reverse_bridge p99=0.2525ms (log line 239)
+- substrate_path_d depth=5 K=500 p99=8.4524ms (log line 240)
+- forward_bridge p99=0.1714ms (log line 241)
+- phi3_decode_1tok NF4 4-bit p99=38.6302ms (log line 242)
+- integrated TOTAL at seq=512 p99=44.063ms (log line 238)
+
+Cross-seq: seq=128 p99=57.923ms (MIDDLE-band PASS; KV-cache less effective at short context), seq=512 p99=44.063ms (PASS production reference), seq=2048 p99=44.824ms (PASS). 300 reps/seq_len (5 seeds {7,13,17,23,31} x 20 reps x 3 seq_lens). All deliverable + routing-file numbers match raw log to reported precision. **LABEL HONEST.**
+
+### GO/NO-GO determination -- DECISIVE GO
+
+Pre-registered criteria from `notes/testbed_handoff_week0_cloud_h100_revalidation_authorized_2026-06-01.md`:
+- GO: integrated p99 <= 80ms OR Phi-3 stage alone <= 50ms p99 on H100
+- NO-GO: integrated p99 > 150ms or substrate/bridge anomaly
+- MIDDLE: integrated p99 in [80, 150]ms
+
+**Met BOTH GO conditions simultaneously at seq=512:**
+- Integrated p99 44.06ms << 80ms threshold (45% under)
+- Phi-3 stage alone 38.63ms << 50ms secondary threshold (23% under)
+
+No substrate anomaly (8.45ms << 50ms allocation; 5.9x under). No bridge anomaly (0.42ms combined << 10ms allocation; 24x under).
+
+### Cap_map v309 -> v310
+
+1. **PP-8 LIFT 0.30-0.45 -> 0.50-0.65 + state 🔬 -> 🟡** (+20%/+20% CONSERVATIVE). FIRST PRODUCTION-SCOPE empirical foothold for substrate-LLM deep integration. Per [[feedback-lit-scan-calibration-penalty]] upper cap < 0.70 maintained per novel-synthesis penalty. Decision-gates (i) hardware-tier and (ii) Week 1 feasibility-smoke RESOLVED inline.
+2. **PP-5 LIFT 0.55-0.70 -> 0.70-0.85** (+15%/+15% CONSERVATIVE; row STAYS 🔬). LATENCY-BUDGET SUB-QUESTION CLOSED at H100 scope. Substrate-side 8.45ms p99 = 17% of 50ms allocation; substrate is NOT the bottleneck.
+3. Substrate-product-feature row 89-98% UNCHANGED at band; H100-class-hardware empirical-anchor annotation added.
+4. Path D no-ceiling + Adversarial-defense rows UNCHANGED (no new data this verdict).
+
+**Portfolio.** 28 + 37 -> 28 + 37 UNCHANGED (within-row LIFTs + state transition; no row additions; no closures).
+
+**HONEST 297 -> 298 +1** (V1 LABEL-HONEST). **LABEL-VS-HONEST 170 UNCHANGED.**
+
+### Headline strategic findings
+
+1. **DECISIVE GO for 7-8 week PP-8 Week 2-6 build commit.** Soft-prompt prefix-injection (Phase 1) validated. QLoRA Phase 2+3 binding-engineering-risk persists but feasibility-smoke gate PASSED. Testbed engineering bandwidth allocates per `notes/testbed_handoff_substrate_llm_deep_integration_2026-05-31.md` spec.
+2. **PP-5 latency-budget sub-question CLOSURE.** First production-scope empirical anchoring; substrate 8.45ms + LLM 38.63ms + bridges 0.42ms.
+3. **Yesterday's 4060 Ti 217.7ms FAIL = hardware-binding-constraint.** Phi-3 5.1x speedup fully closes FAIL; architectural conclusion: PP-8 architecture IS production-viable on H100.
+4. **Hardware-tier production-deployment recommendation matured empirically.** H100-class for production deployment; 4060 Ti 8GB sufficient for bridge MLP training.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed; per-component p99 VERIFIED against raw Lambda log; LABEL HONEST.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: raw log SCPed back; metrics.json local-SCP-back failed via cp1252 print bug (testbed flagged for next-turn fix); data integrity intact in raw_log.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push from main thread.
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT (user-authorized H100 revalidation pre-paused-flag-resume); refill warranted; surfaced.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY CRITICAL.
+- [[feedback-rescue-sketch-first-sequencing]]: not applicable for HARD_PASS GO outcome.
+- [[feedback-rehabilitation-after-rejection]]: not applicable; HARD_PASS not closure.
+- [[feedback-no-smoke]]: framed brutally honestly as Week 1 feasibility smoke PASS not full deep-integration validation; Week 2-6 build risks preserved.
+- [[feedback-substrate-value-framing-matured-2026-05-26]]: H100-class hardware = production-deployment-engineering not paper-grade.
+- [[feedback-lit-scan-calibration-penalty]]: PP-8 upper cap < 0.70 (novel-synthesis penalty); PP-5 upper cap < 0.90 (single-N single-seq-distribution untested cross-N and non-prefix-injection patterns).
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT; GPU refill warranted; verdict_handler surfaces NOT auto-dispatches per role-contract.
+- [[feedback-no-experiment-design-in-prompts]]: V1 anchor + GO-conditions from testbed handoff; verdict_handler does not redesign.
+
+### Pipeline-pacing exp_dev refill (surfaced not auto-dispatched)
+
+3 highest-strategic-value next ships:
+1. **PP-8 Week 2 feasibility smoke** (HIGH, ~$50-150 H100) -- synthetic-paired-data construction + bridge MLP first-training-loop.
+2. **PP-5 GPU-scale cross-N + multi-seq_len** (MEDIUM, ~1h GPU) -- extend v310 to N={4096,8192,16384} x seq_len={128,256,512,1024,2048,4096} grid.
+3. **PP-9 reasoning-amortization Tier 2b harness Phase 1** (MEDIUM, $50-100 Anthropic API) -- commercial-value benchmark.
+
+### Routing files closed
+
+- `strategy_request_to_strategy_week1_gono_go_decision_2026-06-01.md` -> `routed_completed/` (Acted-on appended)
+- `strategy_request_to_strategy_h100_no_go_branch_decision_spec_2026-06-01.md` -> `routed_completed/` (Acted-on: NO-GO branch not invoked)
+- `strategy_request_to_strategy_week0_missing7_FAIL_with_layer_redirect_2026-05-31.md` -- NOT FOUND in active notes/ nor routed_completed/; skipped.
+
+### Commit message
+
+```
+Cap map: v309 -> v310 SINGLE-VERDICT Week 1 GO/NO-GO H100 REVALIDATION DECISIVE-GO (phi3_integrated_latency_h100_revalidation_v1_n4096 HARD_PASS HONEST integrated-p99-44.06ms-at-seq=512 phi3-stage-alone-p99-38.63ms BOTH-GO-conditions-met substrate-Path-D-p99=8.45ms 4.9x-speedup-vs-4060-Ti FIRST-HARD_PASS-production-scope-integrated-substrate-LLM-stack PP-8-LIFT-0.30-0.45->0.50-0.65-state-research->inconclusive PP-5-LIFT-0.55-0.70->0.70-0.85-latency-budget-sub-question-CLOSED-H100-scope substrate-NOT-the-bottleneck Week-2-6-PP-8-build-COMMITTED portfolio-28+37-UNCHANGED HONEST-297->298 LABEL-VS-HONEST-170-UNCHANGED) (221st PROT-009 paired commit; THE strategic decision of the session) (2026-06-01)
+```
+
+### Push and follow-on
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
