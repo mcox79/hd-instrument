@@ -519,7 +519,7 @@ edit-then-query pipeline, multi-task transfer, ICL saturation curve.
 |---|---|---|---|---|---|
 | **PP-1** | **Substrate-augmented LLM absolute-quality benchmark vs LLM-only baseline** -- "GPT-quality with auditable memory" claim is currently relative-to-frozen-substrate (bpc 2.198 vs 2.745), NOT absolute vs LLM-only (which hits bpc < 1). Tests at small open-source LLM scale (1-3B) on Lambada/ARC/HellaSwag. | 🔬 Research only | **0.40-0.55** | (a) open-source LLM availability; (b) substrate's K-scaling behavior at LLM-relevant K (likely K>>16) not directly characterized; (c) 2-3 weeks engineering + 1-2 weeks research framing. | Load-bearing test for PP-8; depends on PP-7 latency-budget closure first. Source: research_focus_expansion routing 2026-05-31 Missing #1. |
 | **PP-2** | **Storage efficiency at production scale** -- substrate state + codebook + audit chain + multi-tenant overhead per fact vs FAISS/Pinecone/Weaviate; required for production cost-of-ownership modeling. | 🔬 Research only | **0.70-0.80** | (a) sparse-W 16x compression known + Modern Hopfield super-linear known; (b) codebook compression untested; (c) audit-chain growth-rate untested; (d) CPU-bound analysis + small GPU validation; ~1-2 weeks. **C6 store-footprint (2026-05-31):** store r2=1.000 M-linear confirmed at N=4096 CPU; peak_mem 70-160MB for M=128-2048 (consistent with O(M*N) theoretical storage complexity -- 128 * 4096 * 4B = 2MB theoretical vs 70MB measured reflects overhead + framework state); scalar confirmation of expected model. GPU-scale not yet available. **C3-adv (v302 2026-05-31):** c_quant/bits8 4x compression PRESERVES audit-cert under codebook-collision adversary at adv_100% and adv_50% at N=4096 M=2048 5-seed: kf1_adv100=1.000 unanimous (deletion-cert holds), kf3_adv100=0.950 mean (edit-cert holds well above 0.70 HP threshold), kf2_drift_norm=1.0 (compression stable). 2nd PP-2 corroboration after v295 first-empirical-foothold; LIFT 0.65-0.75 -> 0.70-0.80 +5%/+5% CONSERVATIVE. Single-N N=4096 only; cross-N at N=16384 pending v4 already in CPU queue. | Depends on PP-3 audit rotation strategy for chain-growth bounds. Source: research_focus_expansion routing 2026-05-31 Missing #2. |
-| **PP-3** | **Audit trail design + rotation strategy** -- deletion-cert killer feature is hollow without growth/compression/rotation; compliance customers need both completeness AND reasonable storage cost. M1+M2 log-structured rank-1 store (today's alt-edit-isolation drill) provides the substrate-deployable mechanism. | 🔬 Research only | **0.55-0.70** | (a) LSM compaction + transparent log certificate-rotation lit precedent strong; (b) novel-synthesis is substrate-specific replay semantics; (c) GDPR/HIPAA/SOC2 retention windows define acceptable rotation cadence; (d) V2 24h workload output is input data for design; ~2 weeks CPU-bound. **T2.5 V2-log rotational hypothesis CLOSED 2026-06-01 (v318 annotation):** codebook_usage_hist_drift_l1 is mathematically invariant under codebook-rotation, W-rotation, and audit-cert-rotation by construction; the observed 0.911 L1 drift is fully explained by random fact-turnover from delete-replenish workload (5.3% literal initial-fact survivors after ~6000 deletes); P(rotational)=0.05 deflated (was 0.28 SPECULATIVE per Round 2 Drill 6 C5); CF-prevention-via-PP-3-rotation unification path CLOSED at observable level. NO LIFT to PP-3 row; primary axis (audit-trail design + rotation strategy) UNCHANGED at 0.55-0.70. Future rotation-as-CF-prevention tests should use W spectral observables, not codebook_usage_hist_drift_l1. | Substrate for PP-2 storage modeling; complements V2 24h workload validation. M1+M2 from alt_edit_isolation routing 2026-05-31. Source: research_focus_expansion routing 2026-05-31 Missing #3. |
+| **PP-3** | **Audit trail design + rotation strategy** -- deletion-cert killer feature is hollow without growth/compression/rotation; compliance customers need both completeness AND reasonable storage cost. M1+M2 log-structured rank-1 store (today's alt-edit-isolation drill) provides the substrate-deployable mechanism. | 🔬 Research only | **0.55-0.70** | (a) LSM compaction + transparent log certificate-rotation lit precedent strong; (b) novel-synthesis is substrate-specific replay semantics; (c) GDPR/HIPAA/SOC2 retention windows define acceptable rotation cadence; (d) V2 24h workload output is input data for design; ~2 weeks CPU-bound. **T2.5 V2-log rotational hypothesis CLOSED 2026-06-01 (v318 annotation):** codebook_usage_hist_drift_l1 is mathematically invariant under codebook-rotation, W-rotation, and audit-cert-rotation by construction; the observed 0.911 L1 drift is fully explained by random fact-turnover from delete-replenish workload (5.3% literal initial-fact survivors after ~6000 deletes); P(rotational)=0.05 deflated (was 0.28 SPECULATIVE per Round 2 Drill 6 C5); CF-prevention-via-PP-3-rotation unification path CLOSED at observable level. NO LIFT to PP-3 row; primary axis (audit-trail design + rotation strategy) UNCHANGED at 0.55-0.70. Future rotation-as-CF-prevention tests should use W spectral observables, not codebook_usage_hist_drift_l1. **PP-3 V2-log rotational hypothesis 2x-review FULLY CLOSED 2026-06-01 (v320 annotation):** closure validated at both observable level (codebook_usage_hist_drift_l1 rotation-invariant by construction) AND theoretical level (W orthogonality matrix O = W_init^T W_final / Frobenius norms is the best alternative observable but P_rotation_masked=0.04 deflated per lit-calibration penalty + uncharted-regime deflation). CF-prevention-via-rotation unification path CLOSED at BOTH layers. Capacity redirect to Tier-1 framework work (PP-33 non-eq stat-mech). PP-3 cert-chain storage growth drill (Phase 1 scoping pass) AUTHORIZED via strategy_response_to_testbed_pp3_drill_sequencing_confirmed_2026-06-01.md. | Substrate for PP-2 storage modeling; complements V2 24h workload validation. M1+M2 from alt_edit_isolation routing 2026-05-31. Source: research_focus_expansion routing 2026-05-31 Missing #3. |
 | **PP-4** | **Concept drift detection mechanism** -- Tier-2 killer feature listed but no research filed; SAME/REPLAY/STAGE4/DIFF shift-class detection from continual-learning internal state. **Sub-property PP-4a K_crit~sqrt(N) edit-budget** (v314 annotation): edit cadence before spectral drift detectable is approximately K_crit~sqrt(N) per free-probability rank-1 perturbation theory (Cluster B C4 prediction); empirically pending; if Cluster B C4 HARD-PASSes, PP-4 row gains a concrete edit-cadence operational formula. | 🔬 Research only | **0.40-0.55** | (a) mechanism is speculative; substrate's continual-learning state COULD distinguish shift-classes but no direct empirical evidence yet; (b) requires known-drift scenarios on local GPU; ~2-3 weeks. **v314 Cluster A Tier 1 dispatched (2026-06-01):** PP-4 drift detection: Write-to-Retrieve Ratio (Mech 3; ~30 LOC; online; pre-reg: rho_t > mu+3sigma within 1000 ops of synthetic 5x write burst; <5% false-alarm) + Codebook Histogram Divergence (Mech 1; ~50 LOC; online; pre-reg: KL > bootstrap 95th-pct tau within 800 ops; <5% false-alarm). Results will move row from 🔬 to 🟡 if either HARD-PASSes. | Complements live drift detection killer feature (project_substrate_killer_features_2026-05-26). Source: research_focus_expansion routing 2026-05-31 Missing #6. v314 Cluster A dispatch: research_capabilities_expansion_6_drills_2026-06-01.md Cluster A Drill 1. |
 | **PP-5** | **Substrate-LLM token-throughput latency budget** -- if substrate ops > LLM token-gen time (typically 10-50ms), substrate is the bottleneck; practical-integration go/no-go. | 🔬 Research only (latency-budget sub-question CLOSED at H100 scope v310) | **0.70-0.85** | (a) current single-store at N=16384 ~530us is borderline at 10-50ms token windows; (b) batching gets you there asymptotically; (c) profiling-focused; ~1-2 weeks local GPU. **C6+C7 CPU characterization (2026-05-31):** Path D matmul-dominant M-invariant ~0.79s/5-hop K=100 paths N=4096 CPU (C7 20/20 cells 5-seed); store M-linear r2=1.000 peak_mem 70-160MB M=128-2048; retrieve/delete/multi_hop M-invariant N-bounded cost floor; multi_hop ~0.75s/op CPU ceiling; power-law cost model FAILS retrieve/delete/multi_hop (r2<0.50) -- step-function at N not power-law. CPU ceiling characterized; GPU token-throughput profiling still needed. **v310 H100-REVAL SUB-QUESTION CLOSURE (2026-06-01):** Week 1 Missing 7 #4 (integrated substrate-LLM forward-pass) on Lambda H100 SXM5 5-seed x 20-rep x 3-seq_len = 300 reps/seq_len: integrated p99 at seq_len=512 = **44.06ms** (substrate Path D depth=5 K=500 p99=8.45ms + reverse_bridge p99=0.25ms + forward_bridge p99=0.17ms + phi3_decode_1tok p99=38.63ms NF4 4-bit). Substrate-side latency budget 50ms budget HOLDS at H100 (8.45ms = 17% of budget; 19.1% of integrated total); LLM-side closes remaining 39ms. Cross-seq validation: seq=128 p99=57.9ms (MIDDLE-band; KV-cache less effective at short context), seq=512 p99=44.1ms (PASS), seq=2048 p99=44.8ms (PASS). 4.9x speedup vs 4060 Ti 217.7ms FAIL yesterday (dominant Phi-3 5.1x; substrate 3.2x; bridges 6.2-6.5x). Honest re-read: numbers verified against raw Lambda log SCPed back; both pre-registered GO conditions (integrated p99 <= 80ms OR Phi-3 alone <= 50ms) MET SIMULTANEOUSLY. Production-deployment recommendation: H100-class hardware required to hit 44ms p99 budget; substrate is NOT the bottleneck. LIFT +15%/+15% CONSERVATIVE 0.55-0.70 -> 0.70-0.85 reflects FIRST PRODUCTION-SCOPE empirical closure of latency-budget sub-question; row remains 🔬 because production-deployment + cross-N + multi-seq_len + non-prefix-injection patterns untested. | Cheapest, smallest scope; gates everything LLM-integration-flavored. Sequenced FIRST in research_focus_expansion recommendation. Source: research_focus_expansion routing 2026-05-31 Missing #7. **Closes PP-8 Week 1 GO/NO-GO gate (2026-06-01) -- PP-8 row LIFT triggered.** |
 | **PP-6** | **Per-store latency optimization for bursty-write workloads** -- G13 agentic batch covers sustained read-mostly; bursty-write (data import, bulk updates) is open; determines market reach (read-heavy vs general). | 🔬 Research only | **0.55-0.70** | (a) standard engineering; (b) batched-store + GPU acceleration target ~10x throughput at N=4096-8192; (c) local GPU store-op profiling; ~2-3 weeks. | Complements G13 agentic batch envelope. Source: research_focus_expansion routing 2026-05-31 Missing #5. |
@@ -4851,3 +4851,84 @@ Round 5 strategic context paragraph added to cap_map intro (after Round 4 framew
 ### Push and follow-on (v319)
 
 Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up. Testbed: dispatch testbed_handoff_pp30_replay_protocol_a_d_parallel_engineering_2026-06-01 (Track A + Track D parallel). exp_dev: NE-1 through NE-5 in dispatch pipeline.
+
+
+# v320 update (2026-06-01) -- PP-3 V2-log 2x-review FULLY CLOSED annotation + PP-3 Phase 1 drill authorized + 20 routing files moved to routed_completed + bulk experiment scripts staged (strategy_scribe 231st PROT-009 paired commit; user-authorized 2026-06-01)
+
+**Trigger.** User-authorized annotation + bulk hygiene batch 2026-06-01. Pause-flag ABSENT; all operations proceed normally. Sources: `notes/research_to_strategy_pp3_v2_log_2x_review_2026-06-01.md` (closure confirmed at both layers) + `notes/strategy_request_to_strategy_pp3_drill_sequencing_verification_2026-06-01.md` (5 Q&A answered).
+
+**Annotation-only bump.** Portfolio: 32+53 UNCHANGED (PP-3 caveat annotation; no new row). HONEST: 330 UNCHANGED. LABEL-VS-HONEST: 177 UNCHANGED.
+
+## Summary of changes (v319 -> v320)
+
+### PP-3 row: V2-log rotational hypothesis 2x-review FULLY CLOSED
+
+Added to PP-3 row caveat list: "PP-3 V2-log rotational hypothesis 2x-review FULLY CLOSED 2026-06-01 (v320 annotation): closure validated at both observable level (codebook_usage_hist_drift_l1 rotation-invariant by construction) AND theoretical level (W orthogonality matrix O = W_init^T W_final / Frobenius norms is the best alternative observable but P_rotation_masked=0.04 deflated per lit-calibration penalty + uncharted-regime deflation). CF-prevention-via-rotation unification path CLOSED at BOTH layers. Capacity redirect to Tier-1 framework work (PP-33 non-eq stat-mech)."
+
+PP-3 Phase 1 cert-chain storage growth drill AUTHORIZED. Testbed PP-3 response filed at `notes/strategy_response_to_testbed_pp3_drill_sequencing_confirmed_2026-06-01.md`.
+
+PP-3 row band UNCHANGED at 0.55-0.70 EXPLORATORY. State remains 🔬 Research only. No LIFT (caveat annotation + Phase 1 authorization only; LIFT recommendation deferred to Phase 1 deliverable).
+
+### Routing file closures (20 files moved to routed_completed/)
+
+Acted-on files moved with stamps. Files confirmed no longer actionable:
+- exp_dev_to_queue_aqsim_v5_k2_2026-06-01.md (anchor shipped + v5 K=2 INFRA verdict v313)
+- exp_dev_to_queue_path_d_k_transition_2026-06-01.md (anchor shipped + K_fine_transition MIDDLE_BAND v308)
+- exp_dev_to_queue_percolation_depth_sweep_2026-06-01.md (percolation depth-sweep HARD_PASS v316; depth>=3 N-INDEPENDENT gap LOCATED)
+- exp_dev_to_queue_v305_cert_threshold_4wc_refill_2026-06-01.md (cert_threshold + 4wc anchors shipped + verdicts v306-v316)
+- exp_dev_to_queue_adversarial_v2_2026-06-01.md (adversarial v2 anchor processed v308)
+- research_atom_registry_design_review_v1_2026-06-01.md (atom registry design adopted; PP-3/PP-12 converged)
+- research_capabilities_expansion_6_drills_2026-06-01.md (Round 1 6-drill synthesis cap_map v316 4 NEW rows + 3 LIFTs)
+- research_capabilities_expansion_round2_9_drills_2026-06-01.md (Round 2 9-drill synthesis cap_map v315 v316)
+- research_negative_results_2x_deep_2026-06-01.md (2x-deep adopted v311 v312; P3 percolation + free-prob refutations)
+- research_state_update_and_compaction_prep_2026-06-01.md (historical state update; superseded by ongoing session work)
+- research_pp8_phi3_hidden_codeword_design_2026-06-01.md (superseded by v1+v1' bundle authorization + Round 4 D1-1 results)
+- testbed_missing7_h100_revalidation_v1_2026-06-01.md (Week 0 Phi-3 H100 SXM5 PASSed; PP-8 LIFT v317)
+- testbed_pp3_audit_rotation_drill_v1_2026-06-01.md (PP-3 drill v1 deliverable acknowledged; v2 drill sequencing verified this turn)
+- testbed_pp8_week2_phase1_qformer_wiring_v1_2026-06-01.md (Phase 1 architectural integration PASSed; PP-8 LIFT 0.30-0.45 -> 0.55-0.65)
+- testbed_pp8_week2_phase2_qlora_v1_2026-06-01.md (Phase 2 baseline MIDDLE val=0%; superseded by Path 1a v1+v1' HARD-PASS v317)
+- testbed_pp8_week2_phase25_ste_v1_2026-06-01.md (STE MIDDLE identical to Phase 2; superseded by Path 1a v1+v1' breakthrough)
+- research_pp3_v2_log_2x_review_v1_2026-06-01.md (2x review FULLY-CLOSED both layers; PP-3 v320 annotation)
+- research_to_strategy_pp3_v2_log_2x_review_2026-06-01.md (closure confirmed; capacity redirect to Tier-1 framework)
+- strategy_request_to_exp_dev_research_round1_tier1_dispatch_2026-06-01.md (Round 1 Tier 1 4 anchors shipped + verdicts v316)
+- strategy_request_to_strategy_pp3_drill_sequencing_verification_2026-06-01.md (5 questions answered; testbed authorized Phase 1)
+
+### Bulk experiment scripts staged
+
+9 new experiment scripts committed (NE-1 through NE-5 + PP-28-R1 + PP-31 Tier 1 sub-drills):
+- experiments/exp_ne1_mct_aging_signature_v1.py
+- experiments/exp_ne2_dmft_retrieval_cliff_v1.py
+- experiments/exp_ne3_crooks_kl_drift_v1.py
+- experiments/exp_ne4_su_landauer_cert_v1.py
+- experiments/exp_ne5_su_audit_no_benefit_v1.py
+- experiments/exp_pp28_r1_edit_impact_scale_v1.py
+- experiments/exp_pp31_2a_precision_coverage_v1.py
+- experiments/exp_pp31_2d_refusal_cert_v1.py
+- experiments/exp_pp31_4a_per_hop_independence_v1.py
+
+## Tallies (v319 -> v320)
+
+- **HONEST:** 330 UNCHANGED.
+- **LABEL-VS-HONEST:** 177 UNCHANGED.
+- **Portfolio:** 32+53 UNCHANGED.
+- **Cap_map version: v320.**
+
+## PROT compliance (v319 -> v320)
+
+- PROT-004/006: no row closures; PP-3 stays 🔬; no rescue sketches required (caveat annotation only; row primary axis unaffected).
+- PROT-007: history v320 appended inline (this entry).
+- PROT-008: annotation-only; 1 inline caveat addition (PP-3 V2-log 2x-review closure + Phase 1 authorization); no state-transitions; no portfolio changes.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-01.md + visibility_decisions_2026-06-01.md + status_log entry MEDIUM staged atomically; **231st PROT-009 paired commit**.
+- PROT-018: no new anchors shipped this turn.
+
+## Memory adherence
+
+- [[feedback-no-smoke]]: PP-3 2x-review closure honest; no LIFT applied; Phase 1 drill authorized without pre-judging outcome.
+- [[feedback-cap-map-update-protocol]]: atomic single commit via .tmp+rename; push from main thread.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY MEDIUM (annotation-only).
+- [[feedback-decision-log-eol-handling]]: decision log via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED; commit hash returned for main thread.
+
+### Push and follow-on (v320)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up. Testbed: PP-3 Phase 1 authorized -- proceed with Phase 1 scoping pass per response file.
