@@ -80,6 +80,46 @@ def _bipolar_from_soft(soft_query: torch.Tensor) -> torch.Tensor:
     return bipolar
 
 
+def _build_v1prime_val_to_token(
+    model, tokenizer, val_idx_values: list[int], pool_ids: list[int],
+    device: torch.device,
+) -> dict[int, int]:
+    """Path 1a v1': Phi-3-derived val targets (semantic val-side alignment).
+
+    For each distinct val_idx V, forward "Val {V:04d}: " through Phi-3 and
+    take argmax over the alphabetic 1024-token target pool. This replaces
+    the random val_idx->target_token mapping with one that aligns with
+    Phi-3's actual output distribution -- so the training loss has a
+    gradient signal connected to a real LLM prediction direction (not a
+    random target the LLM has no semantic prior for).
+
+    Per strategy_response_to_testbed_pp8_v1_v1prime_authorized_2026-06-01.md
+    Prong A v1' (the val-side complement to v1 key SimHash projection).
+    Research notes bundling v1+v1' raises P_deflated from 0.32 -> 0.42;
+    v1 alone is predicted to HARD-FAIL P=0.65.
+    """
+    pool_t = torch.tensor(pool_ids, device=device, dtype=torch.long)
+    distinct = sorted(set(int(v) for v in val_idx_values))
+    print(f"[path1a_v1prime] computing Phi-3-derived val targets "
+          f"for {len(distinct)} distinct val_idx values (one-time)...")
+    v_to_t: dict[int, int] = {}
+    with torch.no_grad():
+        for i, v in enumerate(distinct):
+            text = f"Val {v:04d}: "
+            enc = tokenizer(text, return_tensors="pt").to(device)
+            out = model(input_ids=enc.input_ids)
+            logits = out.logits[0, -1, :].to(dtype=torch.float32)
+            # Mask non-pool logits to -inf
+            mask = torch.full_like(logits, float("-inf"))
+            mask[pool_t] = 0.0
+            logits_masked = logits + mask
+            pred = int(logits_masked.argmax().item())
+            v_to_t[v] = pred
+            if (i + 1) % 500 == 0:
+                print(f"  [path1a_v1prime] {i+1}/{len(distinct)} done")
+    return v_to_t
+
+
 def _build_derived_key_codebook(
     model, tokenizer, key_idx: torch.Tensor, d_model: int, n_sub: int,
     device: torch.device, projection_seed: int = 23,
@@ -563,6 +603,14 @@ def main() -> int:
     parser.add_argument("--path1a-projection-seed", type=int, default=23,
                         help="Seed for the fixed Gaussian projection R matrix "
                              "(reproducible across runs).")
+    parser.add_argument("--path1a-v1prime", action="store_true",
+                        help="(Phase 2.5 Path 1a v1') Val-side semantic "
+                             "alignment: replace random val_idx->target_token "
+                             "with Phi-3-most-likely next-token of "
+                             "'Val {V:04d}: ' restricted to alphabetic pool. "
+                             "Bundles with --path1a-v1 to form the v1+v1' "
+                             "intervention (research P_deflated=0.42 vs "
+                             "v1-only P_deflated=0.32).")
     parser.add_argument("--mock-model", action="store_true",
                         help="Use a CPU mock model (GPT-2 at d_model=3072) "
                              "with model frozen and only readout+bridge "
@@ -660,6 +708,41 @@ def main() -> int:
     torch.manual_seed(args.seed)
     readout = QueryReadoutHead().to(device).to(dtype=torch.float32)
     bridge = QFormerBridge().to(device).to(dtype=torch.float32)
+
+    # Path 1a v1': Phi-3-derived val targets (run BEFORE v1 to share the
+    # one-time Phi-3 forward overhead with v1 build below).
+    v1prime_summary: dict[str, Any] | None = None
+    if args.path1a_v1prime:
+        if args.mock_model:
+            print(f"[path1a_v1prime] --mock-model: skipping Phi-3 val-target "
+                  f"derivation (CUDA-only); val targets stay from dataset")
+        elif target_pool_ids is None:
+            print(f"[path1a_v1prime] WARN: dataset manifest has no "
+                  f"target_vocab_pool_ids; cannot run v1' val derivation")
+        else:
+            all_val_idx = [r["val_idx"] for r in train_rows + val_rows]
+            v_to_t_v1prime = _build_v1prime_val_to_token(
+                model, tokenizer, all_val_idx, target_pool_ids, device,
+            )
+            # Rewrite target_token_id field in train + val rows
+            for r in train_rows:
+                r["target_token_id"] = v_to_t_v1prime[r["val_idx"]]
+                r["target_token_str"] = tokenizer.decode(
+                    [r["target_token_id"]]).strip()
+            for r in val_rows:
+                r["target_token_id"] = v_to_t_v1prime[r["val_idx"]]
+                r["target_token_str"] = tokenizer.decode(
+                    [r["target_token_id"]]).strip()
+            # Summary stats
+            from collections import Counter
+            tok_counts = Counter(v_to_t_v1prime.values())
+            v1prime_summary = {
+                "n_distinct_val_idx": len(v_to_t_v1prime),
+                "n_distinct_target_tokens": len(tok_counts),
+                "max_token_multiplicity": max(tok_counts.values()),
+                "min_token_multiplicity": min(tok_counts.values()),
+            }
+            print(f"[path1a_v1prime] {v1prime_summary}")
 
     # Path 1a v1: derived key codebook + fixed R projection (no trainable readout)
     path1a_R: torch.Tensor | None = None
@@ -929,6 +1012,7 @@ def main() -> int:
         "dataset_dir": str(dataset_dir),
         "args": vars(args),
         "path1a_gram": path1a_gram,  # None unless --path1a-v1
+        "v1prime_summary": v1prime_summary,  # None unless --path1a-v1prime
     }
     summary_path = out_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
