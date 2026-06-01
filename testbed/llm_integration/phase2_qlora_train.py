@@ -342,6 +342,7 @@ def _eval(
     substrate_tuple, batch_size: int = 4, max_samples: int | None = None,
     use_substrate_in_loop: bool = True,
     substrate_soft: bool = False, substrate_soft_temperature: float = 1.0,
+    target_pool_ids: list[int] | None = None,
 ) -> dict[str, Any]:
     """Validation eval. Reports top-1 accuracy on val set.
 
@@ -389,6 +390,21 @@ def _eval(
             use_cache=False,
         )
         logits = decode_out.logits[:, -1, :]
+        # CRITICAL: restrict argmax to the target pool. Without this mask,
+        # argmax over the full ~32K Phi-3 vocab will preferentially pick
+        # common non-pool tokens ("the", "of", " ", etc.) regardless of how
+        # well the model has learned to skew probability toward the 1024-
+        # token target pool. The CE loss measures distribution-level skew
+        # (which trains fine; loss decreases 40-44% across runs); argmax
+        # accuracy on the full vocab does not reflect that skew. The task
+        # constrains the answer to one of 1024 target tokens, so the eval
+        # argmax should be similarly constrained.
+        if target_pool_ids is not None:
+            mask = torch.full_like(logits, float("-inf"))
+            pool_tensor = torch.tensor(target_pool_ids, device=logits.device,
+                                       dtype=torch.long)
+            mask[:, pool_tensor] = 0.0
+            logits = logits + mask
         pred = logits.argmax(dim=-1)
         correct += int((pred == targets).sum().item())
         total += int(targets.numel())
@@ -502,8 +518,12 @@ def main() -> int:
     train_rows = _load_jsonl(dataset_dir / "train.jsonl")
     val_rows = _load_jsonl(dataset_dir / "val.jsonl")
     random_baseline = manifest["random_baseline_top1"]
+    target_pool_ids = manifest.get("target_vocab_pool_ids", None)
     print(f"[qlora_train] {len(train_rows)} train / {len(val_rows)} val")
     print(f"[qlora_train] random-baseline top-1 = {random_baseline:.4%}")
+    if target_pool_ids is not None:
+        print(f"[qlora_train] eval argmax restricted to "
+              f"{len(target_pool_ids)}-token target pool")
 
     # Build substrate (same seed as dataset)
     print(f"[qlora_train] building substrate (seed={args.substrate_seed})...")
@@ -648,6 +668,7 @@ def main() -> int:
                     use_substrate_in_loop=args.substrate_in_loop_eval,
                     substrate_soft=args.substrate_soft,
                     substrate_soft_temperature=args.substrate_soft_temperature,
+                    target_pool_ids=target_pool_ids,
                 )
                 eval_wall = time.perf_counter() - eval_t0
                 lift_over_random = ev["acc_top1"] / max(1e-9, random_baseline)
@@ -699,6 +720,7 @@ def main() -> int:
         use_substrate_in_loop=args.substrate_in_loop_eval,
         substrate_soft=args.substrate_soft,
         substrate_soft_temperature=args.substrate_soft_temperature,
+        target_pool_ids=target_pool_ids,
     )
     final_lift = final_eval["acc_top1"] / max(1e-9, random_baseline)
     total_wall = time.perf_counter() - t0
