@@ -603,6 +603,24 @@ def main() -> int:
     parser.add_argument("--path1a-projection-seed", type=int, default=23,
                         help="Seed for the fixed Gaussian projection R matrix "
                              "(reproducible across runs).")
+    parser.add_argument("--lr-schedule", default="cosine",
+                        choices=["cosine", "wsd", "constant"],
+                        help="LR schedule: cosine (default; current baseline; "
+                             "warmup -> cosine decay); wsd (warmup-stable-decay; "
+                             "Round 4 v1b primary mitigation); constant (warmup "
+                             "then constant LR; no decay).")
+    parser.add_argument("--lr-warmup-frac", type=float, default=0.10,
+                        help="Fraction of max_steps for linear warmup. Default 0.10.")
+    parser.add_argument("--lr-stable-frac", type=float, default=0.60,
+                        help="(WSD only) fraction of max_steps for stable-at-peak "
+                             "phase between warmup and decay. Default 0.60.")
+    parser.add_argument("--lr-decay-floor-frac", type=float, default=0.0,
+                        help="LR floor as fraction of peak LR after decay. "
+                             "Default 0.0 (decay to zero; reproduces v1+v1' / "
+                             "Option A behavior). Try 0.3 for stable convergence.")
+    parser.add_argument("--ema-decay", type=float, default=0.0,
+                        help="EMA shadow-model decay coefficient. 0.0 disables. "
+                             "Round 4 v1b recommends 0.999.")
     parser.add_argument("--path1a-v1prime", action="store_true",
                         help="(Phase 2.5 Path 1a v1') Val-side semantic "
                              "alignment: replace random val_idx->target_token "
@@ -854,14 +872,63 @@ def main() -> int:
     optimizer = torch.optim.AdamW(
         trainable_params, lr=args.lr, weight_decay=0.01, betas=(0.9, 0.999),
     )
-    # Linear warmup over first 10% of steps; cosine decay after
-    warmup_steps = max(1, args.max_steps // 10)
-    def lr_lambda(step):
-        if step < warmup_steps:
-            return step / warmup_steps
-        progress = (step - warmup_steps) / max(1, args.max_steps - warmup_steps)
-        return 0.5 * (1.0 + math.cos(math.pi * progress))
+    # LR schedule: cosine (current default) / wsd (warmup-stable-decay; PRIMARY
+    # mitigation per research v1b grid) / constant (warmup-then-constant).
+    warmup_frac = args.lr_warmup_frac
+    warmup_steps = max(1, int(args.max_steps * warmup_frac))
+    stable_frac = args.lr_stable_frac  # WSD only: fraction at peak between warmup and decay
+    decay_floor_frac = args.lr_decay_floor_frac  # cosine/wsd: floor as frac of peak
+
+    if args.lr_schedule == "cosine":
+        def lr_lambda(step):
+            if step < warmup_steps:
+                return step / warmup_steps
+            progress = (step - warmup_steps) / max(1, args.max_steps - warmup_steps)
+            decay = 0.5 * (1.0 + math.cos(math.pi * progress))
+            return decay_floor_frac + (1.0 - decay_floor_frac) * decay
+    elif args.lr_schedule == "wsd":
+        stable_end = warmup_steps + int(stable_frac * args.max_steps)
+        def lr_lambda(step):
+            if step < warmup_steps:
+                return step / warmup_steps
+            if step < stable_end:
+                return 1.0
+            progress = (step - stable_end) / max(1, args.max_steps - stable_end)
+            decay = 0.5 * (1.0 + math.cos(math.pi * progress))
+            return decay_floor_frac + (1.0 - decay_floor_frac) * decay
+    elif args.lr_schedule == "constant":
+        def lr_lambda(step):
+            if step < warmup_steps:
+                return step / warmup_steps
+            return 1.0
+    else:
+        raise ValueError(f"unknown --lr-schedule: {args.lr_schedule}")
+    print(f"[qlora_train] LR schedule: {args.lr_schedule} "
+          f"(warmup_steps={warmup_steps}, stable_frac={stable_frac}, "
+          f"decay_floor_frac={decay_floor_frac})")
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+
+    # EMA shadow model (zero-cost dual-eval per research v1b spec): exponential
+    # moving average of the trainable params. eval can use shadow weights to
+    # measure "what the model would predict at a smoothed-trajectory point"
+    # instead of the live noisy weights.
+    ema_decay = args.ema_decay
+    ema_enabled = ema_decay > 0.0
+    if ema_enabled:
+        ema_shadow: dict[str, torch.Tensor] = {}
+        # Snapshot ALL trainable params (readout + bridge + LoRA) into shadow
+        for mname, mod in [("readout", readout), ("bridge", bridge)]:
+            for pname, p in mod.named_parameters():
+                if p.requires_grad:
+                    ema_shadow[f"{mname}.{pname}"] = p.detach().clone()
+        for pname, p in model.named_parameters():
+            if p.requires_grad:
+                ema_shadow[f"model.{pname}"] = p.detach().clone()
+        print(f"[qlora_train] EMA shadow enabled (decay={ema_decay}; "
+              f"tracking {len(ema_shadow)} param tensors)")
+    else:
+        ema_shadow = None
+        print(f"[qlora_train] EMA shadow disabled (--ema-decay=0)")
 
     # Training loop
     progress_path = out_dir / "train_progress.jsonl"
@@ -871,9 +938,50 @@ def main() -> int:
     readout.train()
     bridge.train()
 
+    def _swap_to_ema():
+        """Swap live weights for EMA shadow. Returns mapping of {key: live tensor} to restore."""
+        saved = {}
+        if not ema_enabled or ema_shadow is None:
+            return saved
+        with torch.no_grad():
+            for mname, mod in [("readout", readout), ("bridge", bridge)]:
+                for pname, p in mod.named_parameters():
+                    if not p.requires_grad:
+                        continue
+                    key = f"{mname}.{pname}"
+                    saved[key] = p.data.clone()
+                    p.data.copy_(ema_shadow[key])
+            for pname, p in model.named_parameters():
+                if not p.requires_grad:
+                    continue
+                key = f"model.{pname}"
+                if key in ema_shadow:
+                    saved[key] = p.data.clone()
+                    p.data.copy_(ema_shadow[key])
+        return saved
+
+    def _restore_from_ema(saved):
+        if not saved:
+            return
+        with torch.no_grad():
+            for mname, mod in [("readout", readout), ("bridge", bridge)]:
+                for pname, p in mod.named_parameters():
+                    if not p.requires_grad:
+                        continue
+                    key = f"{mname}.{pname}"
+                    if key in saved:
+                        p.data.copy_(saved[key])
+            for pname, p in model.named_parameters():
+                if not p.requires_grad:
+                    continue
+                key = f"model.{pname}"
+                if key in saved:
+                    p.data.copy_(saved[key])
+
     step = 0
     losses_window: list[float] = []  # rolling for smooth log
     early_baseline_loss: float | None = None
+    val_history: list[tuple[int, float, float]] = []  # (step, live_acc, ema_acc)
     t0 = time.perf_counter()
     print(f"[qlora_train] starting; max_steps={args.max_steps} "
           f"batch_size={args.batch_size} lr={args.lr} "
@@ -895,6 +1003,23 @@ def main() -> int:
                     substrate_soft_temperature=args.substrate_soft_temperature,
                     path1a_R=path1a_R,
                 )
+                # EMA shadow update (per-step; after optimizer step)
+                if ema_enabled and ema_shadow is not None:
+                    with torch.no_grad():
+                        for mname, mod in [("readout", readout), ("bridge", bridge)]:
+                            for pname, p in mod.named_parameters():
+                                if not p.requires_grad:
+                                    continue
+                                key = f"{mname}.{pname}"
+                                ema_shadow[key].mul_(ema_decay).add_(
+                                    p.detach(), alpha=1.0 - ema_decay)
+                        for pname, p in model.named_parameters():
+                            if not p.requires_grad:
+                                continue
+                            key = f"model.{pname}"
+                            if key in ema_shadow:
+                                ema_shadow[key].mul_(ema_decay).add_(
+                                    p.detach(), alpha=1.0 - ema_decay)
             except Exception as exc:
                 print(f"[ERROR] step {step}: {exc}", file=sys.stderr)
                 import traceback
@@ -958,13 +1083,41 @@ def main() -> int:
                     target_pool_ids=target_pool_ids,
                     path1a_R=path1a_R,
                 )
+                ev_ema = None
+                if ema_enabled:
+                    saved = _swap_to_ema()
+                    try:
+                        ev_ema = _eval(
+                            model, readout, bridge, val_rows, tokenizer, device,
+                            substrate_tuple, batch_size=args.batch_size,
+                            max_samples=args.eval_max_samples,
+                            use_substrate_in_loop=args.substrate_in_loop_eval,
+                            substrate_soft=args.substrate_soft,
+                            substrate_soft_temperature=args.substrate_soft_temperature,
+                            target_pool_ids=target_pool_ids,
+                            path1a_R=path1a_R,
+                        )
+                    finally:
+                        _restore_from_ema(saved)
+                # Track val history for peak / stability / retention metrics
+                val_history.append((
+                    step,
+                    ev["acc_top1"],
+                    ev_ema["acc_top1"] if ev_ema is not None else float("nan"),
+                ))
                 eval_wall = time.perf_counter() - eval_t0
                 lift_over_random = ev["acc_top1"] / max(1e-9, random_baseline)
+                ema_str = ""
+                if ev_ema is not None:
+                    ema_lift = ev_ema["acc_top1"] / max(1e-9, random_baseline)
+                    ema_str = (f"; EMA top1={ev_ema['acc_top1']:.4%} "
+                               f"({ev_ema['correct']}/{ev_ema['n']}; "
+                               f"{ema_lift:.1f}x)")
                 print(f"  [eval] step {step}: top1={ev['acc_top1']:.4%} "
-                      f"({ev['correct']}/{ev['n']}; {lift_over_random:.1f}x random); "
+                      f"({ev['correct']}/{ev['n']}; {lift_over_random:.1f}x random){ema_str}; "
                       f"wall={eval_wall:.1f}s")
                 with progress_path.open("a", encoding="utf-8") as f:
-                    f.write(json.dumps({
+                    rec = {
                         "step": step, "kind": "eval",
                         "acc_top1": ev["acc_top1"],
                         "n_eval": ev["n"],
@@ -972,7 +1125,11 @@ def main() -> int:
                         "lift_over_random": lift_over_random,
                         "eval_wall_s": round(eval_wall, 2),
                         "ts": datetime.now().astimezone().isoformat(timespec="seconds"),
-                    }) + "\n")
+                    }
+                    if ev_ema is not None:
+                        rec["acc_top1_ema"] = ev_ema["acc_top1"]
+                        rec["correct_ema"] = ev_ema["correct"]
+                    f.write(json.dumps(rec) + "\n")
 
             # Checkpoint
             if (args.checkpoint_every_k > 0
@@ -1012,6 +1169,56 @@ def main() -> int:
         path1a_R=path1a_R,
     )
     final_lift = final_eval["acc_top1"] / max(1e-9, random_baseline)
+    final_eval_ema = None
+    if ema_enabled:
+        saved = _swap_to_ema()
+        try:
+            final_eval_ema = _eval(
+                model, readout, bridge, val_rows, tokenizer, device,
+                substrate_tuple, batch_size=args.batch_size,
+                max_samples=None, use_substrate_in_loop=args.substrate_in_loop_eval,
+                substrate_soft=args.substrate_soft,
+                substrate_soft_temperature=args.substrate_soft_temperature,
+                target_pool_ids=target_pool_ids, path1a_R=path1a_R,
+            )
+        finally:
+            _restore_from_ema(saved)
+
+    # v1b metrics: peak / stability / retention (per strategy pre-reg).
+    # val_history is [(step, live_acc, ema_acc), ...]; use the BEST of live/ema
+    # per checkpoint since either may carry the signal.
+    def _v1b_metrics(track: str):
+        if track == "live":
+            vals = [(s, v) for s, v, _ in val_history]
+            final_v = final_eval["acc_top1"]
+        else:
+            vals = [(s, v) for s, _, v in val_history if not math.isnan(v)]
+            final_v = final_eval_ema["acc_top1"] if final_eval_ema else float("nan")
+        if not vals:
+            return None
+        peak_step, peak_val = max(vals, key=lambda sv: sv[1])
+        # Stability: mean val within [peak_step-25, peak_step+25]
+        window_vals = [v for s, v in vals if abs(s - peak_step) <= 25]
+        stability = sum(window_vals) / max(1, len(window_vals))
+        retention_ratio = (final_v / peak_val) if peak_val > 1e-9 else 0.0
+        return {
+            "peak_val": round(peak_val, 6),
+            "peak_step": peak_step,
+            "stability_window_mean": round(stability, 6),
+            "final_val": round(final_v, 6),
+            "retention_ratio": round(retention_ratio, 6),
+            "stability_frac_of_peak": round(
+                stability / peak_val if peak_val > 1e-9 else 0.0, 6),
+        }
+    v1b_live = _v1b_metrics("live")
+    v1b_ema = _v1b_metrics("ema") if ema_enabled else None
+    # v1b retention HARD-PASS at >= 0.80 for any track
+    v1b_retention_passes = []
+    if v1b_live and v1b_live["retention_ratio"] >= 0.80:
+        v1b_retention_passes.append("live")
+    if v1b_ema and v1b_ema["retention_ratio"] >= 0.80:
+        v1b_retention_passes.append("ema")
+
     total_wall = time.perf_counter() - t0
 
     final_loss_rolling = sum(losses_window) / max(1, len(losses_window))
@@ -1056,6 +1263,13 @@ def main() -> int:
         "args": vars(args),
         "path1a_gram": path1a_gram,  # None unless --path1a-v1
         "v1prime_summary": v1prime_summary,  # None unless --path1a-v1prime
+        "final_val_acc_top1_ema": (round(final_eval_ema["acc_top1"], 6)
+                                    if final_eval_ema else None),
+        "v1b_metrics_live": v1b_live,
+        "v1b_metrics_ema": v1b_ema,
+        "v1b_retention_pass_tracks": v1b_retention_passes,
+        "val_history": [{"step": s, "live": v, "ema": e}
+                        for s, v, e in val_history],
     }
     summary_path = out_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")

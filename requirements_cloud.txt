@@ -49,5 +49,8 @@ accelerate>=0.30
 # peft for QLoRA fine-tune (PP-8 Week 2 Phase 2): LoraConfig +
 # prepare_model_for_kbit_training + get_peft_model.
 peft>=0.11
+# datasets for MRPC/QQP paraphrase benchmark loading (PP-8 Round 4 Path A
+# paraphrase smoke; cell 10 of v1b grid).
+datasets>=2.14
 anthropic>=0.50
 Pillow>=10.0
