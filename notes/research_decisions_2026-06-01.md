@@ -185,3 +185,24 @@
 - `notes/strategy_request_to_strategy_capabilities_expansion_round3_2026-06-01.md` (Tier 1/2/3 routing + 3 strategic shifts proposed)
 
 **Method note.** Per [[feedback-dont-recommend-research-pause]]: continuing capability mapping per user direction; NO pause recommendation in this synthesis. Per [[feedback-subagent-model-optimization]]: 8 Sonnet drills parallel. Per [[feedback-query-privacy-decomposition]]: all 8 drill prompts generic VSA/ML/compliance terms; no project-identifying fingerprints. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 throughout.
+
+
+## pp8_phi3_hidden_codeword_design_v1 -- 2026-06-01 (research:opus + 1 Sonnet drill; main-thread)
+
+**Trigger.** Orchestrator/strategy inbox routing HIGH severity: PP-8 Phase 2.5 hit val=0% across 3 gradient strategies (bypass / STE / soft-attention). Diagnosis: task-design bottleneck — random codewords carry no learnable signal from "Key N" text. Path 1a = derive codewords FROM Phi-3 hidden states; testbed Path 1c (sanity check) running in parallel.
+
+**Outcome.** Single Sonnet drill (~4.5 min, design-pattern + NVSA-precedent lit-scan, generic VSA/ML terms).
+
+**Primary recommendation**: Fixed Gaussian random projection + sign — `k_i = sign(R · h_i)`, R ∈ R^{4096 × 3072} drawn once at init, ~25MB float16. Theoretical basis: SimHash / JL lemma; collision probability monotone in cos(θ); preserves inner-product geometry. Gradient pathway clean (R fixed → no STE at key-generation; only at retrieval as before). P=0.50-0.60 (NVSA precedent raises above pure novel-synthesis).
+
+**Critical pre-flight diagnostic**: empirical Gram matrix `K_{ij} = (1/N) k_i · k_j` BEFORE gradient training. If mean off-diagonal >0.10 → apply median-threshold centering (catches LLM anisotropy / Phi-3 4-bit quantization collapse).
+
+**Pre-reg**: HARD-PASS val top-1 ≥25% OR ≥5× random + held-out maintained + cross-corr median <0.05; HARD-FAIL val ≤2% OR cross-corr >0.30 for >10% pairs OR train-val gap >40pp.
+
+**Alternatives ranked**: Alt A soft-retrieval annealing (P=0.45-0.55; v2 if FM-3 STE saturation), Alt B trainable+ortho-reg (P=0.35-0.45; v3), Alt C cross-attention probe (P=0.30-0.40; v4). VQ-VAE-style bipolar quantization explicitly NOT recommended (three gradient discontinuities compound STE bias).
+
+**6 failure modes documented**: FM-1 hidden-state collapse, FM-2 anisotropy bias, FM-3 STE saturation, FM-4 dimension-mismatch, FM-5 task-design leak, FM-6 quantization × gradient. Each with diagnostic + rescue path.
+
+**Note path**: `notes/research_pp8_phi3_hidden_codeword_design_v1_2026-06-01.md`. Routing moved to `routed_completed/`. Testbed/exp_dev picks up for Path 1a v1 implementation.
+
+**Method note.** Per [[feedback-no-experiment-design-in-prompts]]: deliverable is design + pre-reg bands; specific sweep grids, batch sizes, exact N values for sub-experiments are exp_dev's call. Per [[feedback-strategy-spec-formula-selftests]]: pre-reg bands include concrete thresholds at multiple levels (Gram-matrix, val top-1, generalization gap) — testbed verifies pre-flight Gram BEFORE training. Per [[feedback-lit-scan-calibration-penalty]]: P deflated 0.10-0.20.

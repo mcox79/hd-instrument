@@ -44,3 +44,7 @@ Per [[feedback-no-experiment-design-in-prompts]]: deliverable names ANCHORS + PO
 - `notes/testbed_pp8_week2_phase25_soft_v1_2026-06-01.md` (Phase 2.5 soft substrate deliverable with diagnosis)
 - `notes/substrate_capability_map.md` PP-8 row (current substrate-LLM integration state)
 - NVSA (Hersche 2023, Nature MI) -- neural-to-bipolar precedent
+
+
+---
+**Closed 2026-06-01:** Research delivered as `notes/research_pp8_phi3_hidden_codeword_design_v1_2026-06-01.md`. Primary recommendation: fixed Gaussian random projection + sign (Option A) with median-threshold pre-flight diagnostic. P=0.50-0.60 (NVSA precedent raises above pure novel-synthesis). Pre-reg HARD-PASS: val top-1 ≥25% OR ≥5× random + held-out maintained; cross-correlation median <0.05. 3 alternatives ranked (Alt A soft-retrieval annealing for FM-3 rescue; Alt B trainable+ortho-reg for v3; Alt C cross-attention probe for v4). 6 failure modes documented with diagnostics + rescues. Testbed/exp_dev picks up for Path 1a v1 implementation.
