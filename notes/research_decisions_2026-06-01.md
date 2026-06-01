@@ -44,3 +44,27 @@
 - Acceptance of P4 NEW cap_map row + testbed engineering routing → audit API enters production engineering queue
 - P2 source clarification → P2 Phase 1 analysis becomes dispatchable
 - Phi-3 Missing 7 verdict → P1 + P5 become runnable
+
+
+## v307_followon_experiments_routing -- 2026-06-01 (research:opus; main-thread)
+
+**Trigger.** Cap_map v306->v307 bump 2026-06-01 (orchestrator commit e1c78c2): P3+P4 deliveries ACCEPTED into v305->v306 (commit 3fdb86e). K=1 phase-boundary probe DISPATCHED + ALREADY RAN. v307 has 5 verdicts including:
+- V2 path_d_k1_phase_boundary_probe: mean K=1 acc 0.022 = 6.7x random; K=10/100 unanimous 1.0; **EMPIRICALLY CORROBORATES P3 percolation drill's SHARPENED-K-trivialization caveat**
+- V1 PP-11 4WC v2 5-seed BORDERLINE: mean 2.4pp gap; strict <2pp gate NOT met; 167th LABEL-VS-HONEST; PP-11 stays MIDDLE_BAND
+- V5 AQSIM3W2 HARD_PASS: FIRST end-to-end 3-way SCORE compositional HARD_PASS (compression × Path D × a_query_sim × adversarial workload)
+- V4 PDAC2 HARD_PASS: first true-exercise defense activation
+- V3 cert_threshold runner-FAILED label OVER-CLAIMS
+
+**Outcome.** 3 follow-on experiment routings filed in ONE consolidated routing for orchestrator:
+
+1. **R2 K-fine-grained transition curve** (`path_d_k_fine_grained_transition_v1_n4096`): sweep K∈{1,2,3,5,10,100} at M=16N N=4096; ~30-45min CPU; HARD-PASS 0.75-0.85 (monotone transition almost certain); HARD-FAIL if K=2/3/5 still at random-chance.
+2. **R4 K=1 cross-N null-prediction test** (`path_d_k1_cross_n_null_prediction_v1`): K=1 fixed; sweep N∈{4096,8192,16384}; ~1h CPU; **tests percolation framework's falsifiable null prediction** (substrate-physics signal N-independent at fixed K). HARD-PASS 0.55-0.70.
+3. **GHRR side-by-side fallback** (`reasoning_storage_ghrr_side_by_side_v1_n16384`): MIDDLE-BAND clause triggered by V1 4WC v2 BORDERLINE (2.4pp gap > strict <2pp threshold). Per earlier alternative-encoding ladder routing, GHRR is the next escalation. ~1-2 weeks engineering. HARD-PASS 0.20-0.35 (audit-moat-preservation is load-bearing concern; FHRR drill A showed approximate unbinding gives 85-92% audit accuracy; GHRR likely similar).
+
+**Note path.** `notes/strategy_request_to_strategy_v307_followon_experiments_2026-06-01.md`.
+
+**Sequencing recommendation**:
+- R2 + R4 dispatch IMMEDIATELY (parallel, both ~1h CPU, no GPU contention; cheap; falsifiable either way)
+- GHRR defer 1-2 weeks behind PP-11 priority decision
+
+**Method note.** Single consolidated routing for 3 distinct experiments because they all trigger from the same cap_map state (v307); avoids 3 separate routing files for orchestrator to process. Per [[feedback-no-padding-experiments]]: R3 (K=1 M-sensitivity) deferred -- it's the third v307 rescue but adds marginal information beyond R2/R4; can be added later if R2/R4 surface new questions.
