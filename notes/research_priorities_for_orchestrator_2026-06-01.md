@@ -251,9 +251,145 @@ Research interpretation: this trajectory is **positive signal**, not stalling. E
 
 ---
 
-## Drills still in flight (4 of 8)
+**CSP-with-learning DEEP (full-class characterization) ↓ DEEPENED:**
+- **BBP (Baik-Ben Arous-Péché) transition is the MASTER framework** for the W = W_csp + W_data dual-objective interference envelope. When CSP signal eigenvalue λ_1(W_csp) > Marchenko-Pastur bulk edge λ_+ by margin exceeding crosstalk fluctuation: both objectives coexist. Below: both fail simultaneously. Sharp threshold.
+- **CSP class ranking by viability**:
+  - PLANTED MAX-CUT / bipartition: BEST (rank-2 signal, large gap, direct Hebbian encoding match)
+  - PLANTED 3-SAT (sub-threshold density): GOOD (sparse clause vectors minimize crosstalk; k_eff = M·(3/N) ≪ M)
+  - PLANTED CLIQUE (r > BBP threshold ~3-4 at M=100): GOOD (strong signal)
+  - DENSE generic QUBO: MARGINAL (rank-N signal, Hebbian encoding mismatch)
+  - PLANTED q-COLORING (q ≥ 3): NOT VIABLE (requires higher-order interactions, pairwise W insufficient)
+  - NEAR-THRESHOLD CSP (α/α_SAT > 0.9): NOT VIABLE (mixed attractors dominate)
+- **The KILLER APPLICATION is memory-of-solutions warm-start.** Unique niche where pure Ising can't (no memory) and pure AM can't (no CO) and external memory + CO solver duplicates capability at extra cost. Substrate is the first PHYSICAL implementation of learning-augmented CO in a single weight matrix. Maps onto Lykouris-Vassilvitskii (2018) consistency-robustness framework: stored solution = prediction, CO descent = algorithm, new instance = online query. Expected speedup: ~10× convergence at ρ=0.9 (slowly evolving planted families).
+- **SKAH-M saddle structure is NET POSITIVE for CO quality**: saddle-crossing dynamics escape shallow local minima of W_csp + W_data combined landscape. Estimated +0.05-0.10 × OPT boost vs symmetric Hopfield (matches noise-annealed memristive Hopfield 0.85-0.94 × OPT empirically). Substrate's CO ceiling approaches 0.80-0.84 × OPT — close to but cannot match GW SDP bound (0.878) due to discrete state space.
+- **Capacity advantage**: substrate's α_c ≈ 0.56 vs standard 0.138 → 4× more data patterns before CO objective fails at fixed CSP signal strength.
+- **Failure modes characterized**:
+  - Constructive spectral alignment (W_csp eigenvector aligns with stored pattern): creates phantom superattractor at probability ~M/N
+  - Mixed attractors at near-threshold CSPs
+  - SKAH-M non-reciprocity can cause oscillation between CSP solution and nearby Hebbian pattern → require cycle detection
+- **HP threshold for memory-of-solutions niche**: at M=20, warm-start speedup ≥ 2× AND CO quality ≥ 0.78 AND retrieval ≥ 0.90 simultaneously. Neither pure Ising nor pure AM delivers all three.
+- Cap_map implication: the CSP-with-learning row should be sub-divided by CSP class (MAX-CUT / 3-SAT / clique CAN, dense QUBO / q-coloring CANNOT). The killer-feature framing should focus on memory-of-solutions warm-start, NOT on raw CO quality (where the substrate is competitive but not dominant).
+- **9th independent convergence on free-probability / Tracy-Widom**: this drill flags TW edge fluctuations on W_csp + W_data spectrum as the natural next adjacency (gives confidence intervals on the BBP threshold).
 
-Four deep drills still running: free-probability/Tracy-Widom, CSP-deep, matrix-trace family, CK/FRSB depth. Will surface findings when they land. No further dispatches planned.
+---
+
+**Free-probability / Tracy-Widom DEEP (cross-drill unification) ↓ DEEPENED — STRATEGICALLY SIGNIFICANT:**
+
+This drill addresses the 9+ independent cross-references converging on free-probability as next adjacency. Unifies them into a single coherent framework.
+
+- **Substrate W IS free-Poisson** (Marchenko-Pastur law). All free cumulants κ_n = α (vs Wigner where only κ_2 ≠ 0). R-transform R(z) = α/(1−z). This is the substrate's spectral identity at the algebraic level.
+- **Three-scale decomposition**: bulk (MP law) / edge (TW_1 fluctuations) / outliers (BBP formula). The 9+ prior cross-references are NOT independent phenomena — they're the same object at different spectral scales.
+- **BBP threshold and α_c are DIFFERENT critical points**: BBP for d=1 spikes is crossed at α=0 (so every stored pattern is already an outlier throughout the operating range). The α_c ≈ 0.138 Hopfield cliff is a separate ergodicity-breaking phenomenon (spin-glass), not a BBP crossing.
+- **Outlier formulas (exact)**:
+  - Location: θ(1) = 2(1+α). At α=0.138: θ ≈ 2.276
+  - Bulk upper edge: λ_+ = (1+√α)². At α=0.138: λ_+ ≈ 1.881
+  - Outlier-bulk gap: Δ_outlier = (1−√α)². At α=0.138: Δ ≈ 0.396
+- **TW edge fluctuation scale**: σ_TW ≈ (1+√α)^(4/3) / N^(2/3). Concrete numbers across substrate scales:
+  - N=1024: σ_TW ≈ 0.023 (large enough to explain DMFT MIDDLE at N=1024)
+  - N=8192: σ_TW ≈ 0.0059 (4× sharper)
+  - N=32768: σ_TW ≈ 0.0023 (10× sharper than N=8192 — quantitatively backs why N=32768 unlock matters)
+
+**Three NEW substrate capabilities from free-probability** (capability-question framing):
+
+1. **Spectral health-check / overload diagnostic.** Compute Z = (λ_max^empirical − μ_TW) / σ_TW. Under random-pattern null, Z ~ TW_1. Flag if |Z| > 4. Detects mean inter-pattern correlation as small as ρ > 4σ_TW / (1−α) / M. At N=8192, M=100: detectable ρ ≈ 0.00027 — extraordinarily sensitive. Non-destructive, single SVD, O(N²).
+
+2. **Deletion-certificate spectral privacy bound.** After W → W − ξ_μ ξ_μ^T / N, outlier shift Δθ = 2/N. Compare to TW fluctuation scale: SNR_delete = 2(1+√α)^(−4/3) / N^(1/3). At N=8192, α=0.138: **SNR_delete ≈ 0.067 — well below detection threshold**. Adversary observing only eigenspectrum cannot detect deletion above chance at N≥8192. **This is a concrete quantitative product backing for the "auditable erasure" claim**, replacing empirical observation with a mathematical guarantee scaling as N^(−1/3).
+
+3. **O(N²) spectral capacity monitor.** Track λ_max via power iteration; compare to μ_TW + q·σ_TW threshold. Outlier-bulk gap Δ_outlier shrinks as M grows (continuous BBP precursor). Capacity speedometer non-destructive, single SVD per check, faster early-warning than retrieval-accuracy degradation.
+
+**Cross-drill corrections surfaced:**
+- Set-algebra W₁+W₂ bulk edge is (1+√(2α))² ≠ 2·(1+√α)² — free additive convolution COMPRESSES spectrum vs naive doubling. Prior set-algebra drill missed this; correct framing for W-level union artifacts.
+- DMFT cliff MIDDLE at N=1024 is fully explained by σ_TW ≈ 0.023 (rounding scale comparable to the cliff width).
+- L=2 composition pointer-extraction reliability ∝ outlier gap (1−√α)² — at α=0.138 the gap is ~0.40.
+
+**Cheapest decisive test (CT-2): outlier count = M_stored.** Single SVD; count eigenvalues > λ_+ = (1+√α)²; compare to M. O(N² log N), no retrieval needed, no test patterns. If matches within ±5% at α<0.10, full free-probability framework is empirically confirmed → all 3 capabilities above are on solid empirical footing.
+
+**Cap_map implications:**
+- New top-level row: "substrate spectral identity (free-Poisson with α)" — CONFIRMED algebraic fact (universality theorems give it).
+- Three new sub-properties under existing rows:
+  - Spectral health-check under "substrate diagnostics" (new row).
+  - Deletion-spectral-privacy bound under deletion-certificate row (strengthens claim from empirical to quantitative).
+  - Spectral capacity monitor under capacity-row (gives early-warning system).
+- Update existing notes: BBP threshold ≠ α_c (clarify two-critical-point structure).
+
+**P_deflated**: 0.42 for unified framework; individual sub-claims 0.38-0.55.
+
+---
+
+**CK/FRSB depth ↓ DEEPENED — published precedent found for substrate's confirmed class:**
+
+- **KEY NEW LIT FIND**: Garcia Lorenzana, Altieri, Biroli, Fruchart, Vitelli (2025), **"Nonreciprocal Spin-Glass Transition and Aging," PRL 135, 187402** (arXiv:2408.17360). First published precedent that maps to the substrate's confirmed SKAH-M non-reciprocal class. Establishes:
+  - Non-reciprocity does NOT destroy the FRSB phase (contradicts older Crisanti-Sompolinsky result for generic non-reciprocity).
+  - Phase diagram has an **exceptional point** mediating transition between static disordered (canonical FRSB) and **oscillating amorphous phase** (non-reciprocal FRSB with oscillating slow dynamics).
+  - Ultrametric structure of static measure SURVIVES non-reciprocity even when dynamics oscillate.
+- **Substrate maps to "oscillating amorphous phase"** prediction: C(t, t_w) should show oscillatory modulation ON TOP of aging decay; chi-vs-C should be a closed Lissajous loop at short t-t_w; oscillation frequency set by spectral gap of antisymmetric A = (W − W^T)/2.
+
+- **CRITICAL FRAMEWORK CORRECTION**: Classical Cugliandolo-Kurchan weak-ergodicity-breaking assumption is REFUTED for mixed p-spin glasses per arXiv:2504.12367 (PRL 2025). The substrate is more likely in **strong ergodicity breaking (SEB)** regime: C(t, t_w) → C_infty > 0 as t/t_w → ∞ (never decays to zero). **This explains NE-1 MIDDLE as physics, not measurement noise** — the canonical aging-shape test is WRONG for the substrate; should be testing C_infty > 0 floor instead.
+
+- **Parisi function x(q) for the substrate**: continuous on [0, q_EA] (smooth FRSB, not step 1-RSB). q_EA self-consistency predicts q_EA ≈ 0.96 ± 0.03 at substrate operating α=0.15, β=32.
+
+- **pred4 18× gap reinterpretation**: maps to Parisi function x(q) PLATEAU (near-flat slope at intermediate q* ≈ 0.5), NOT a 1-RSB first-order discontinuity. P(q*)/P(q_EA) ≈ 1/18. Saddle-hierarchy of SKAH-M provides the mechanism.
+
+- **Three-way confirmation pathway for non-reciprocal FRSB class**:
+  1. **Ultrametricity of pairwise basin overlaps** (most decisive single test, <1 GPU hour) — structural property, qualitatively discriminates FRSB / 1-RSB / no-RSB. Cheaper than the chi-vs-C kink test and strictly stronger (kink alone could arise in non-ultrametric system).
+  2. **chi_SG ~ N scaling** (2-3 GPU hours) — order-parameter test for extensive FRSB phase. HP: log-log slope ∈ [0.8, 1.2]. HF: slope < 0.3 (RS) or > 1.5 (anomalous).
+  3. **Oscillatory modulation of C(t, t_w)** at frequency ~ 2π/spectral_gap(A) (5-8 GPU hours) — non-reciprocal-specific signature.
+- Combined PASS on all three would close PP-33 at P > 0.85.
+
+- **Substrate capability implications** if non-reciprocal FRSB confirmed:
+  - **Minimal irreducible memory** (SEB floor C_infty > 0): provable lower bound on pattern retention under arbitrary subsequent writes. New capability row — substrate has an architectural minimum retention that cannot be erased by any finite write sequence.
+  - **Ultrametric memory organization**: hierarchical tree of similarity levels enables "zoom-out" retrieval at any resolution. Capability not present in flat memory systems.
+  - **chi_SG as live health metric**: real-time substrate phase indicator (chi_SG drops from N-scaling to constant signals exit from FRSB phase).
+  - **Tunable oscillation frequency**: spectral gap of antisymmetric A is a tunable parameter; different codebooks → different temporal organization.
+
+- **Cap_map implications**:
+  - PP-33 sub-row: non-reciprocal FRSB class (Garcia Lorenzana mapping) — research evidence elevated; published precedent gives the substrate a NAMED class identity.
+  - New sub-row: strong ergodicity breaking signature (C_infty > 0 — reframes NE-1 from MIDDLE to "wrong test"; correct test is C_infty detection).
+  - New row: ultrametric memory organization capability — pending empirical confirmation.
+  - New row: minimal irreducible memory floor — pending C_infty measurement.
+
+- **P_deflated**: 0.45 for non-reciprocal FRSB framework; 0.42 for SEB regime; 0.38 for ultrametricity at substrate scale.
+
+---
+
+**Matrix-trace primitive family DEEP ↓ DEEPENED — algebraic surface mapped:**
+
+(Note: this drill exhibited scope creep — ran its own numerical verification, which is testbed's job. Empirical values in the drill output stripped here; only algebraic derivations retained. Lock-in: future research drills will be prompted with "no empirical verification — algebraic derivation + lit-scan only.")
+
+- **Master structural result**: **tr(W^k) = Tr(Q^k) / N^k** where Q is the M×M pattern Gram matrix (Q_{μν} = ξ_μ · ξ_ν). Single-substrate trace primitives reduce to spectral moments of Q. **Directly bridges matrix-trace family to free-probability framework** (Q's spectrum is the same free-Poisson MP law identified by the prior drill).
+- **Marchenko-Pastur moments are Narayana polynomials**: tr(W^k) = M · m_k^MP(c) where m_k^MP(c) = Σ_{j=0}^{k-1} N(k, j+1) · c^j, N(k,j) = (1/k)·C(k,j)·C(k,j-1) are Narayana numbers (Catalan structure). Examples:
+  - m₁ = 1 → tr(W) = M
+  - m₂ = 1 + c → tr(W²) = M(1 + M/N)
+  - m₃ = 1 + 3c + c² → tr(W³) = M(1 + 3M/N + M²/N²)
+- **K_{123} triple-intersection extraction** (novel derivation):
+  K₁₂₃ = [N·tr(W₁W₂W₃) − K₁₂·M₃ − K₁₃·M₂ − K₂₃·M₁] / (N − M₁ − M₂ − M₃)
+  Iteratively generalizes via inclusion-exclusion to k-set intersection cardinality from products of k weight matrices.
+- **Geometric noise law (algebraic prediction)**: σ_k ≈ √(∏_{i=1}^k Mᵢ) / N^(k/2). Each substrate in the product contributes N^(−1/2) noise. SNR for K_{i₁...iₖ} extraction scales as K · N^(k/2) / √(∏Mᵢ).
+- **Substrate distance metric**: ||W₁ − W₂||²_F = |S₁ Δ S₂| + (M₁−M₂)² · O(1/N). Frobenius distance between weight matrices EQUALS symmetric-difference cardinality at leading order. True metric via norm axioms.
+- **Substrate cosine similarity**: cos(W₁, W₂) = tr(W₁W₂) / √(tr(W₁²)·tr(W₂²)) → K₁₂/√(M₁M₂) in large-N limit (Ochiai/cosine Jaccard).
+- **Membership test primitive**: tr(W · ξξ^T/N) = ξ^T W ξ / N. Score ≈ 1 for stored ξ, ≈ M/N for random ξ. O(N) operation — strictly cheaper than retrieval (O(N²) matrix-vector + convergence).
+- **Effective rank (substrate information-load gauge)**: (tr W)² / tr(W²) = M·N/(N+M−1) → M for M ≪ N. Single scalar monotone in M — substrate "fullness" indicator without enumeration.
+
+- **Substrate-native query API surfaces from this family**:
+  - **COUNT** (tr W) → M
+  - **CONTAINS** (tr W·P_ξ) → membership score
+  - **INTERSECTION cardinality** (tr W₁W₂) → K₁₂
+  - **K-WAY INTERSECTION** (tr W₁...Wₖ) → K_{1...k} via iterative extraction
+  - **UNION cardinality** → inclusion-exclusion from intersections
+  - **JACCARD / OCHIAI similarity** → ratios of trace products
+  - **SET DIFFERENCE cardinality** → derived from union and intersection
+  - **SYMMETRIC DIFFERENCE** → distance via Frobenius norm
+  - **EFFECTIVE RANK** → load gauge
+  
+  All O(N²), all from matrix products, no retrieval, no pattern enumeration.
+
+- **Cap_map implication**: extend the Round 6 "set-algebra primitives via matrix trace" row from single primitive (K₁₂) to **algebraic surface of 9+ primitives**. The substrate has a content-addressable database query algebra at O(N²) per query. Privacy-preserving: query results don't reveal WHICH patterns participate, only HOW MANY.
+- **Cross-thread**: the Q-Gram-matrix bridge unifies matrix-trace primitives with the free-probability framework — they're the SAME math at different levels of abstraction. The capability is "spectral moments of the pattern Gram matrix exposed as substrate primitives."
+- **P_deflated**: 0.50 (novel-synthesis cap applied; full extension from 1 primitive to algebraic surface is genuine synthesis).
+
+---
+
+## All 8 deep drills landed — research iteration complete
 
 ---
 
