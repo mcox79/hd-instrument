@@ -119,3 +119,23 @@
 **Note path.** `notes/research_atom_registry_design_review_v1_2026-06-01.md`. 4 open decisions for orchestrator + testbed (phasing approval / Sigstore Rekor vs alternatives / vector commitments DEFER recommendation / cap_map LIFT timing).
 
 **Method note.** Per [[feedback-no-padding-experiments]]: 1 drill not parallel because questions tightly coupled. Per [[feedback-subagent-model-optimization]]: Sonnet appropriate for design-pattern + cross-system-precedent lit-scan. Per [[feedback-query-privacy-decomposition]]: generic compliance terms only. Routing moved to routed_completed/; testbed picks up converged design for PP-3 Phase 2 implementation.
+
+
+## capabilities_expansion_6_drills -- 2026-06-01 (research:opus + 6 parallel Sonnet drills; main-thread)
+
+**Trigger.** User stock-taking surfaced "a ton of untested capabilities" + greenlit dispatch on 6 high-priority items (3 with updated research warranted, 2 first-research, 1 narrower-scope, 1 sizing-only).
+
+**Outcome.** 6 parallel Sonnet drills (~120-200s each; ~125K tokens combined) on: PP-4 drift detection / edit-with-impact-prediction / free probability for W structure (narrower than today's percolation drill) / substrate-as-LLM-KV-cache / calibrated confidence as product feature / sparse-block-code substrate variant.
+
+**Three highest-strategic-weight findings**:
+1. Free probability K_max(α) ≈ log(1/α)/(2√α) formula retroactively explains v308 K=2 cliff as spectral-gap effect; gives design rule for multi-hop depth vs capacity
+2. Sparse-block-code substrate as **specialized layer** (Option c, P=0.52, NOT replacement) — sparse and dense complementary; sparse unblocks 2 killer features (edit-with-impact-prediction + per-fact retention policy) via near-zero COW cost (W density 1/K²)
+3. PP-4 + edit-impact + calibrated confidence + KV-cache-with-audit form coherent killer-features cluster; all converge on intrinsic algebraic cert (not extrinsic logging) as the moat
+
+**Tier 1 dispatchable** (cheap diagnostics; high info gain): Calibrated confidence ECE gate <60s, Write-to-Retrieve Ratio drift detector zero-instrumentation, Codebook Histogram Divergence with bootstrap-null separator, DAG Reverse-Traversal edit-impact deterministic, Sparse Axis 7 edit-isolation smoke <60s.
+
+**Note path.** `notes/research_capabilities_expansion_6_drills_2026-06-01.md` (full 6-drill synthesis with cross-drill insights + cap_map implications).
+
+**Routing.** `notes/strategy_request_to_strategy_capabilities_expansion_followon_experiments_2026-06-01.md` + `notes/strategy_request_to_exp_dev_n32768_envelope_sizing_2026-06-01.md`. Consolidated routing proposes 4 strategic clusters (A: substrate-state-as-product-signal, B: free probability theoretical scaffold, C: substrate-as-KV-cache, D: sparse-block-code variant) with Tier 1 Tier 2 sequencing.
+
+**Method note.** Per [[feedback-subagent-model-optimization]]: 6 Sonnet drills (parallel) > 1 Opus drill on token efficiency; main-thread Opus reserved for synthesis. Per [[feedback-no-padding-experiments]]: each drill on distinct capability axis; no overlap with prior session work. Per [[feedback-aggressive-cross-domain-research]]: overdue free-probability cross-domain probe landed. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 applied throughout. Per [[feedback-query-privacy-decomposition]]: generic VSA/ML terms only in all 6 drill prompts; no project-identifying fingerprints in any web search.
