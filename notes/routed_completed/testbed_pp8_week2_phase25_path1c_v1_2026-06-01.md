@@ -96,3 +96,5 @@ Both runs preserved 6/6 result files. Local paths:
 - `notes/routed_completed/strategy_response_to_testbed_pp8_phase25_path_1c_authorized_2026-06-01.md` (orchestrator authorization)
 - `testbed/llm_integration/phase2_qlora_train.py` (commit f707662 = eval pool-mask fix)
 - `tools/cloud/batch_examples/pp8_week2_phase25_path1c_v2_poolmask.json` (v2 batch config)
+
+Acted-on 2026-06-01: eval-bug fix acknowledged; v1+v1' bundle + Probe 2 + v2 contingency authorized via strategy_response_to_testbed_pp8_v1_v1prime_authorized

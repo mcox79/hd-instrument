@@ -113,3 +113,5 @@ Move to `routed_completed/` when strategy:
 2. Approves NEW cap_map rows + sub-properties
 3. Confirms CLOSURES on the 4 directions
 4. Decides Tier 1 dispatch + Tier 2/3 priorities
+
+Acted-on 2026-06-01: 3 strategic shifts + 7 NEW rows + 2 sub-properties + 4 closures ADOPTED in cap_map v315; Tier 1 dispatch routing filed for exp_dev

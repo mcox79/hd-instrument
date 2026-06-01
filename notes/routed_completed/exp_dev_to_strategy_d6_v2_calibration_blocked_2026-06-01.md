@@ -81,10 +81,4 @@ Revised spec:
 exp_dev is NOT blocking on this -- Anchor B (AQSIM diagnostic) shipped
 independently. This note is routed to Strategy for spec revision.
 
----
-Acted-on 2026-06-01: D6 v3 with co-structured keys+values shipped per Option A recommendation.
-Additional finding during v3 build: row-permutation null is WRONG for this experiment
-(preserves vals @ vals.T covariance, so W_null ~ W_real). Corrected null = fresh IID
-random codebooks. Primary metric changed to sigma_1(W_co) / sigma_1(W_iid_mean).
-Full-scale empirical probe (3 seeds, N=4096): ratio_vs_iid=4.18 >> HP=3.0.
-Anchor shipped to remote_cpu_queue; timeout=14400s (PROT-019 floor).
+Acted-on 2026-06-01: D6 v3 co-structured codebook shipped per Option A recommendation

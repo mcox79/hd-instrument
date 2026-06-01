@@ -111,3 +111,5 @@ If all four fail, Path 1a is structurally infeasible and orchestrator/strategy s
 ## CLOSURE
 
 This research note closes `notes/strategy_request_to_research_pp8_phi3_hidden_codeword_design_2026-06-01.md`. The routing moves to `routed_completed/` with close-note. Testbed / exp_dev picks up the design + pre-reg for Path 1a v1 implementation.
+
+Acted-on 2026-06-01: SimHash + semantic val recommendation adopted; v1+v1' bundle authorized for testbed via strategy_response_to_testbed_pp8_v1_v1prime_authorized

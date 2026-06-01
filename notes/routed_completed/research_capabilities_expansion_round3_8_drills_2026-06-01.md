@@ -205,3 +205,5 @@ Wedge narrowed and sharpened: compliance-driven regulated industries; sidecar GT
 - Per [[feedback-query-privacy-decomposition]]: all drills generic terms; no project-identifying fingerprints
 - Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated throughout
 - Wall time: dispatch + 8 parallel drills (~95-170s each) + synthesis ≈ 30-40 min main-thread
+
+Acted-on 2026-06-01: Round 3 conclusions adopted in cap_map v315 via parallel routing
