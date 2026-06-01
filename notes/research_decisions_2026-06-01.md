@@ -85,3 +85,20 @@
 **Method note.** Per [[feedback-no-padding-experiments]]: each routing maps to a specific honest gap the audit surfaced; not padding. Pushed back on external feedback's 3 wrong items (overstated N=32K cost, wrong PP-9 "10-100x is broken" framing, premature continuous-embedding composition, hierarchical "1-2 weeks decisive" optimism, commercial-signal item outside scope per [[feedback-value-creation-not-competition]]). Per [[feedback-no-experiment-design-in-prompts]]: routings hand TASK + WHY + CONTRACT + AUTONOMY; sweep grids / thresholds / queue choice remain strategy + exp_dev's call.
 
 **Next-drill candidate.** GHRR side-by-side experiment (PP-11 ladder; 4WC family FALSIFIED) when testbed bandwidth allows; cross-domain probe overdue (free-probability or sparse-coding NTK candidates).
+
+
+## negative_results_2x_deep -- 2026-06-01 (research:opus + 2 parallel Sonnet drills; main-thread)
+
+**Trigger.** verdict_processed HIGH 2026-06-01 11:27 — TWO negative results: (1) percolation K=1 N-independence prediction FAILED 18x at N=16384; (2) PP-11 4WC v4 compound Hadamard WORSE than v3 → entire Hadamard-orthogonality family REJECTED.
+
+**Outcome.** 2 parallel Sonnet drills (~3 min each, generic VSA terms per [[feedback-query-privacy-decomposition]]); main-thread synthesis. Both negative results have RESCUE PATHS cheaper than the experiments that produced them.
+
+**Drill 1 (percolation falsification).** No framework predicts K=1 signal-collapse-worsening-with-N at fixed alpha. Most parsimonious explanation: depth-5 composition cliff at K=1 large-N, NOT per-hop substrate-physics failure. FSS framework (P=0.38 deflated) is the closest formal candidate if per-hop physics IS N-dependent; SNR-crosstalk (P=0.30) needs secondary mechanism; RMT (P=0.12) and BP cavity (P=0.18) predict WRONG DIRECTION.
+
+**Drill 2 (Hadamard family rejection).** Best guess root cause: second-order Hebbian cross-talk between structurally related binding products (Hypothesis A); cross-talk lives in weight matrix capacity statistics, not codebook angular separation. v4 worse than v3 is consistent — orthogonalizing both factor codebooks concentrates product spectrum. Top rescues: **R2.1 Kronecker rotation product cleanup (P=0.25, 1 eng-week, audit-moat-VERY-LOW-RISK)** is cheapest+diagnostic; **R2.2 sparse block codes DSBC/BCF (P=0.45, 2-3 eng-weeks, audit-moat-LOW-RISK)** is most principled root-cause attack; **R2.4 acceptance + re-positioning (executable, audit-moat-NONE)** is the final fallback.
+
+**Note path.** `notes/research_negative_results_2x_deep_2026-06-01.md` (full drill synthesis with all 4-5 rescue candidates per drill).
+
+**Routing.** `notes/strategy_request_to_strategy_negative_results_followon_experiments_2026-06-01.md`. Proposes 2 cheap diagnostic tests dispatchable in parallel: **Test 1A** (K=1 depth-sweep ~18 CPU-min) discriminates per-hop vs multi-hop composition origin; **Test 2A** (Kronecker cleanup ~1 eng-week) discriminates cleanup-driven vs pre-cleanup-bias origin. Pre-specified contingent escalations 1B + 2B + 2C avoid post-FAIL strategic vacuum.
+
+**Method note.** Per [[feedback-2x-means-depth]]: drills went DEEP on existing findings, not verification re-runs. Per [[feedback-rehabilitation-after-rejection]]: 4-5 rescues per drill listed before any closure recommendation. Per [[feedback-rescue-sketch-first-sequencing]]: cheapest diagnostic tests sequenced first. Per [[feedback-lit-scan-calibration-penalty]]: P estimates deflated; novel-synthesis cap at 0.50 applied. Token-efficient via 2 Sonnet drills + Opus synthesis.
