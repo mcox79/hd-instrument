@@ -325,3 +325,4 @@ Cap map: v309 -> v310 SINGLE-VERDICT Week 1 GO/NO-GO H100 REVALIDATION DECISIVE-
 ### Push and follow-on
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+v310->v311 ANNOTATION-ONLY: PP-9 caveat (b) updated with depth-conditional quality budget (0.95^d compound over chain depth d; product depth ceiling explicit: d<=4 for <0.80 accuracy, d=1 for <=0.95); VALIDATED/EXPLORATORY/HOLDING/CLOSED strategic tag scheme adopted in cap_map intro/legend (orthogonal to empirical emoji; bulk 65-row application is TODO); 2 research routings closed (pp9_depth_conditional_caveat + stale_row_audit); portfolio 28+37 UNCHANGED; HONEST 298 UNCHANGED; LABEL-VS-HONEST 170 UNCHANGED; 222nd PROT-009 paired commit
