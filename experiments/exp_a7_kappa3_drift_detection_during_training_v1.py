@@ -302,6 +302,7 @@ metrics = {
     "verdict": verdict, "verdict_msg": verdict_msg,
     "N": N, "M_WARM": M_WARM, "DETECT_WINDOW": DETECT_WINDOW, "P_BIAS": P_BIAS,
     "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "elapsed_s": elapsed_s,
+    "summary": verdict_msg[:200],
     "per_seed": [
         {"seed": r.get("seed"), "detected": r.get("detected"),
          "detect_latency_writes": r.get("detect_latency_writes"),
