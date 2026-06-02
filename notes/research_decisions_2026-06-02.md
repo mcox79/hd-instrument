@@ -12,3 +12,36 @@
 **Note path.** notes/research_negative_results_review_2026-06-02.md
 **Routing.** notes/research_to_strategy_negative_results_review_2026-06-02.md
 **Next-drill candidate.** Per field_advisor: free-probability F4 free cumulants (Voiculescu kappa_n) or semiconductor D1 Glauber dynamics -- both Tier 1 candidates.
+
+---
+
+## 2026-06-02 Research drill batch (post-v342 GPU refill, priority-3 0-compute)
+
+**Trigger.** User explicit priority-3 batch dispatch post-v342 GPU refill. 7 GPU anchors just shipped + completed; pending verdicts. All three drills 0-compute per [[feedback-research-drills-no-empirical-verification]].
+
+**Drill 1 -- I-12 R2 kappa_3 N=16384 config-delta audit.**
+- Note path: notes/research_i12_r2_kappa3_n16384_config_delta_audit_2026-06-02.md
+- TL;DR: N=16384 anchors measure Hopfield-vs-block-GOE separation; N=32768 cloud measured Hopfield-vs-Hopfield+delta (delta-alpha sensitivity). DIFFERENT OBSERVABLES; no contradiction. Block-GOE noise floor dominates at low alpha at N=16384, collapsing sigma_sep.
+- R3-A recommended: `kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1` -- re-spec N=16384 with delta-alpha sensitivity protocol (alpha_base=0.05, delta_alphas={0.001, 0.01, 0.04}, n_probes=5000). GPU, ~5 min, $0. P_deflated=0.55.
+- Closure: I-12 row NOT closed; observable-mismatch annotation pending.
+
+**Drill 2 -- I-14 R2 implicit-Gram overcomplete theory audit.**
+- Note path: notes/research_i14_r2_implicit_gram_overcomplete_theory_audit_2026-06-02.md
+- TL;DR: I-14 HF at alpha=2.0 is GATE-SPEC BUG, not substrate failure. Measured kappa3_resc=11.02 EXACTLY matches MP-moment m_3(alpha=2) = 1+3*alpha+alpha^2 = 11.0. HP gate "within 5% of 1.0" is mis-normalized; should be "within 5% of m_3(alpha)". Existing combo1_v3 internal self-test (line 175) also has wrong assert value (asserts ~1.0 at alpha=0.5; correct value is m_3(0.5)=2.75).
+- R3-A recommended: `combo1_p3_dam_implicit_gram_v4_corrected_gate_n8192_v1` -- gate normalization fix, re-run at alpha=2.0 N=8192. GPU, ~3 min, $0. P_deflated=0.70.
+- Lock-in per [[feedback-strategy-spec-formula-selftests]]: add m_3(alpha) = 1 + 3*alpha + alpha^2 formula to self-test registry.
+- Closure: I-14 closes as gate-spec bug if R3-A HP; alpha=1 (MP edge) avoided regardless.
+
+**Drill 3 -- Phase 0 0c R2 K-bump (PP-47 x PP-49 baseline_cos).**
+- Note path: notes/research_phase0_0c_r2_kbump_pp47xpp49_baseline_2026-06-02.md
+- TL;DR: v341 K-bump hypothesis FALSIFIED by closed-form derivation. baseline_cos at K=50 is dominated by neighbor-overlap structure (sigma=2.0, PLACE_FRAC=0.30), not K count. K-bump leaves baseline_cos UNCHANGED at 0.66-0.72. Correct fix is PLACE_FRAC reduction.
+- R3-A recommended: `pp47_pp49_counterfactual_abduction_v2_sparse_placefrac_n4096_v1` -- PLACE_FRAC 0.30 -> 0.10, K=50 unchanged, N=4096 unchanged. CPU, ~5 min, $0. P_deflated=0.55.
+- Closure: 0c row NOT closed; sparse-code R3-A pending; K-bump hypothesis annotated as refuted by derivation.
+
+**Lit-scan calibration penalty applied** per [[feedback-lit-scan-calibration-penalty]]: novel-synthesis P capped at 0.50 across all three. R3 P_deflated values: 0.55 / 0.70 / 0.55 (lit-precedent rigorous for I-14 m_3 formula and sparse-code Tsodyks-Sejnowski; deflated 0.15 each for substrate-specific composition).
+
+**Cross-drill insight:** TWO of three drills (I-14 and 0c) revealed that the failing experiment was correctly measuring the substrate behavior; the FAILURE was in the gate/hypothesis specification, not the substrate. This is a 2nd-order LVH-adjacent pattern (label-vs-honest at the cap_map/research-routing level rather than at the verdict-message level). Suggests routing-spec audit cadence: when smoke runs show measured values that closely match analytic predictions, re-audit the HP gate before accepting HF as evidence against substrate.
+
+**Routing.** All 3 routing files in notes/research_*_2026-06-02.md as specified. Commit batched (3 files + this decisions log append) deferred to main thread for push.
+
+**Next-drill candidate.** None auto-fired; user explicit batch complete. Next standing cadence: research_routing_v342_band_lifts_addendum probes A-E remain priorities.
