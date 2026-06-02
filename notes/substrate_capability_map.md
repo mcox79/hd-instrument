@@ -6860,3 +6860,104 @@ Main-thread routing candidates (highest -> lowest priority; v334 carryovers RETA
 24. **PP-9b cross-depth extension** (v328 EXTENDED).
 25. PP-43d ARC/LIRS low-alpha rescue (v328); PP-37 spectral N-sweep (v326); PP-31a alpha-sweep extension (v327); PP-40 N-sweep (v327); PP-41 edit-distance (v327); PP-42 M=1000+M=2000 extension (v327); PP-39 Anchor 1 mixed-mode query (v326); PP-38 N=8192 5-seed (v326); PP-34/PP-35/PP-36 v2 follow-ons (v325); per-script audit for 7 holdout scripts (v324); Q-F5 Preisach hysteresis hierarchy (v330); kappa3 anchor-name "smoke" suffix script-author audit (v332).
 26. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
+
+
+---
+
+# v336 update (2026-06-02) -- BATCH 4-VERDICT CPU Cycle 9 (2 GENUINE HARD_PASS + 1 MIDDLE_BAND + 1 LABEL-VS-HONEST PARTIAL); PP-12 BAND-LIFT 0.60-0.75 -> 0.65-0.80 (L=3 cross-layer depth 3-sub-property criterion MET); PP-47 N=8192 production-envelope extension; F4 M4 v2 MIDDLE I-9 PARTIAL-RESOLVED; kappa3 mixing v2 LABEL-VS-HONEST #202 I-10 PARTIAL-RESOLVED (verdict_handler 247th PROT-009 paired commit; Cycle 9)
+
+**Trigger.** Cycle 9 CPU batch 4 verdicts from Cycle 9 completions 2026-06-02. All 4 anchors fetched via `tools.orchestrator.remote_state.get_metrics` -- all `_source=remote` authoritative. Pause-flag ABSENT.
+
+### Per-anchor honest re-read (v336)
+
+| # | Anchor | Wall | N | seeds | Verdict label | Honest reading | Classification |
+|---|--------|------|---|-------|--------------|----------------|----------------|
+| 1 | kappa3_mixing_correction_v2_correlated_v1 | 2.1s CPU | 1024 | 5 | HARD_PASS | OVER-CLAIM: 6/8 rho cells HP (rho<=0.15 + rho=0.30/0.35); rho=0.20 err=0.036 + rho=0.25 err=0.038 FAIL HP<=0.03 gate | LABEL-VS-HONEST #202; honest: PARTIAL |
+| 2 | q_a3_l3_cross_layer_composition_v1_n4096 | 19.7s CPU | 4096 | 5 | HARD_PASS | HONEST: L1_fid=L2_fid=L3_fid=l3_acc=1.0000 unanimous 5-seed, all HP by definition; run_mode=full confirmed | GENUINE HARD_PASS |
+| 3 | f4_free_cumulants_m4_v2_full_correction_v1 | 129.6s CPU | 4096 | 5 | MIDDLE_BAND | HONEST: alpha=0.05 M4_err=0.037 PASS HP<=0.05; alpha=0.10/0.15/0.20 fail (0.058/0.069/0.078); 1/4 cells HP; mean=0.0604 > HP | GENUINE MIDDLE_BAND |
+| 4 | hippocampal_place_field_extended_n8192_v1 | 48.4s CPU | 8192 | 5 | HARD_PASS | HONEST: mean_cosine=0.9283 HP>=0.8; mean_spearman=0.6452 HP>=0.6 (mean-gate; seed 7=0.515 below per-seed but gate is mean); mean_acc=1.0000 HP>=0.75; run_mode=full N=8192 confirmed | GENUINE HARD_PASS |
+
+LABEL-VS-HONEST: **1 NEW CATCH #202** (kappa3_mixing_correction_v2 over-claims "all rho HP"; 6/8 cells honest; rho=0.20/0.25 fail). ALL_CELL_AGGREGATE_OVER_CLAIM sub-flavor.
+
+### v336 strategic highlights
+
+**(A) LABEL-VS-HONEST #202: kappa3_mixing_correction_v2_correlated_v1 ALL_CELL_AGGREGATE_OVER_CLAIM.** Label claims "HARD_PASS: v2 correction restores HP for all rho values." Per-cell (HP gate <= 0.03 = 3%): rho=0.00-0.15 PASS (err: 0.011, 0.014, 0.020, 0.029); rho=0.20: err=0.036 FAIL (+0.006); rho=0.25: err=0.038 FAIL (+0.008); rho=0.30-0.35: PASS (0.029, 0.000). Non-monotone pattern: error rises to peak at rho=0.20/0.25, then recovers. Honest verdict: PARTIAL -- significant improvement over v1 (v1 rho=0.20 err=0.049; v2 err=0.036 = 26% better; v1 rho=0.25 err=0.093; v2 err=0.038 = 59% better) but "all rho" aggregate is not supported. Issue I-10 PARTIAL-RESOLVED not CLOSED. PP-44b mixing-correction sub-property annotation: HP envelope confirmed rho<=0.15 + rho=0.30/0.35 (non-monotone); mid-rho rho=0.20/0.25 gap requires v3 rescue (R3: second-order quadratic correction; R2: fine rho-grid [0.15, 0.30]).
+
+**(B) PP-12 BAND-LIFT 0.60-0.75 -> 0.65-0.80 (+0.05 both bounds): Q-A3 L=3 cross-layer composition confirmed at production-N=4096.** q_a3_l3_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS at N=4096 5-seed. All 4 metrics unanimous EXACT-1.0 (L1_fid=1.0 HP>=0.9; L2_fid=1.0 HP>=0.9; L3_fid=1.0 HP>=0.9; l3_acc=1.0 HP>=0.8). Three independent PP-12 sub-properties now established: (1) L=2 at N=4096 (v333); (2) L=2 at N=8192 (v334, production-N scale); (3) L=3 at N=4096 (v336, depth-extension). 3-independent-sub-property convention TRIGGERED per cap_map protocol: v333 L=2 N=4096 + v334 L=2 N=8192 (N-scale variety) + v336 L=3 N=4096 (depth variety) = 3 sub-properties with mechanism-variety. BAND-LIFT from 0.60-0.75 to 0.65-0.80 (+0.05 both bounds). Product framing: substrate cross-layer composition algebraically preserves fidelity at L=3 polynomial DAM depth at production-N=4096; substrate audit primitives compose across 3-layer stack with no fidelity degradation, confirmed unanimously at 5 seeds. Cross-references: PP-45 5-method unified-API (L=3 sub-property confirms deeper Krylov-compatible composition); PP-48 Negative-Knowledge Tree (COMBO-2 L=3 fidelity is the founding anchor for PP-48; PP-12 L=3 is the standalone algebraic validation); PP-49 Hierarchical-Refusal-Cert (PP-49 grounds on L=3 composition depth; PP-12 L=3 sub-property is the algebraic evidence chain).
+
+**(C) F4 free-cumulants M4 v2 MIDDLE_BAND -- I-9 PARTIAL-RESOLVED: 1/4 cells HP at N=4096 vs 0/4 at v1 N=1024.** f4_free_cumulants_m4_v2_full_correction_v1 GENUINE MIDDLE_BAND at N=4096 5-seed. alpha=0.05: M4_err=0.037 PASS HP<=0.05 (1 cell). alpha=0.10/0.15/0.20: M4_err=0.058/0.069/0.078 all FAIL. Improvement confirmed: N-scale from v1 (N=1024, 0/4 HP) to v2 (N=4096, 1/4 HP) confirms 1/N correction hypothesis. I-9 status: PARTIAL-RESOLVED. v3 rescue: N=8192 5-seed to confirm N-scaling brings alpha=0.10 toward HP; N=16384 to project full-alpha HP boundary. PP-45 parent band 0.70-0.85 UNCHANGED (sub-property partial; M3+kappa_2 HP still confirmed; M4 at alpha=0.05 now confirmed at N=4096; full M4 HP requires N>=8192+). Rescue: R2 N=8192 ~10min CPU (next cheapest step; confirms N-scaling and projects alpha=0.10 HP boundary).
+
+**(D) PP-47 hippocampal place-field N=8192 production-envelope CONFIRMED.** hippocampal_place_field_extended_n8192_v1 GENUINE FULL HARD_PASS at N=8192 5-seed K=409. mean_cosine=0.9283 (HP>=0.8, margin 0.128); mean_spearman=0.6452 (HP>=0.6 mean-gate, seed 7=0.515 below per-seed but mean 0.6452 PASSES per pre-reg mean-gate spec); mean_acc=1.0000 (HP>=0.75, margin 0.250). PP-47 parent band 0.55-0.70 UNCHANGED (2 sub-properties: N=4096 founding v333 + N=8192 extension v336; 3rd sub-property needed for band-LIFT per convention; N-scale extension is corroborative not mechanism-variety). NEW sub-property: PP-47 N=8192 production-envelope (mean_cosine=0.9283, mean_spearman=0.6452, mean_acc=1.0). NOTE: this anchor is the place-field ENCODING only; separate from PP-47-adjacent deletion-cert composition probe (MIDDLE_BAND, maintained independently). Product framing: hippocampal-style place-field geometric encoding scales to production-N=8192; brain-inspired memory primitive confirmed at practical scale with strong margin on all 3 metrics. Cross-references: PP-47 founding (v333 N=4096); PP-38 hippocampal-phenomena-quantitative-match (PP-47 extends hippocampal modeling sub-feature); PP-3/PP-9 deletion-cert (PP-47 encoding primitive underpins place-field deletion-cert composition, pending rescue).
+
+### Tallies (v335 -> v336)
+
+- **HONEST:** 417 -> **421** (+4: 2 GENUINE HP + 1 GENUINE MIDDLE_BAND + 1 LABEL-VS-HONEST catch #202 reading; all 4 anchors have remote-authoritative _source=remote metrics).
+- **LABEL-VS-HONEST:** 201 -> **202** (+1 catch #202 kappa3_mixing_correction_v2 ALL_CELL_AGGREGATE_OVER_CLAIM rho-conditioning). Running total: 202 label-vs-honest catches since tracking began.
+- **Portfolio:** 32+72 UNCHANGED (no new top-level rows; 1 NEW SUB-PROPERTY PP-12 L=3 N=4096 + 1 SUB-PROPERTY EXTENSION PP-47 N=8192 + 1 BAND-LIFT PP-12 0.60-0.75 -> 0.65-0.80).
+- **Cap_map version: v336.**
+
+### Framework reliability (v336)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED (no framework-class LIFT this batch).
+- Product-feature: 74-88% -> **75-89%** (+1pp both bounds; PP-12 BAND-LIFT cross-layer composition row proven at L=3 depth at production-N -- substrate audit primitives compose across 3-layer stack with no degradation; product-moat deepens with L=3 algebraic-composition guarantee).
+
+### Known infrastructure issues (annotation block; UPDATED in v336)
+
+**Issue I-1 (v323, OPEN v336).** STILL OPEN for 7 holdout scripts; v336 batch did NOT touch them.
+**Issue I-5 (v330, OPEN v336).** STILL OPEN; not triggered this batch.
+**Issue I-6 (v331, OPEN v336).** STILL OPEN; not touched.
+**Issue I-7 (v332, OPEN v336).** STILL OPEN; not touched.
+**Issue I-8 (v333, OPEN v336).** STILL OPEN; COMBO-1 v3 redesign in research-cycle.
+**Issue I-9 (v334, PARTIAL-RESOLVED v336).** PARTIAL-RESOLVED: v2 N=4096 brings 1/4 alpha cells to HP (alpha=0.05 M4_err=0.037); N-scaling 1/N hypothesis confirmed. v3 rescue: N=8192 next (~10min CPU); I-9 REMAINS OPEN until all-alpha HP achieved.
+**Issue I-10 (v334, PARTIAL-RESOLVED v336).** PARTIAL-RESOLVED: v2 extends HP boundary from rho<=0.10 (v1) to rho<=0.15 + non-monotone recovery rho=0.30/0.35; mid-rho rho=0.20/0.25 remain open. LVH #202 catch confirms over-claim. v3 rescue: fine rho-grid R2 + second-order correction R3; I-10 REMAINS OPEN until all-rho HP achieved.
+**Issue I-11 (v335, OPEN v336).** STILL OPEN; analytic free-Poisson identity + Tracy-Widom sigma_TW refuted at finite-N; research-cycle routing FILED.
+
+### PROT compliance (v335 -> v336)
+
+- PROT-004/006: NO row closures. 1 BAND-LIFT (PP-12 0.60-0.75 -> 0.65-0.80); 1 NEW SUB-PROPERTY (PP-12 L=3 N=4096); 1 SUB-PROPERTY EXTENSION (PP-47 N=8192). 2 MIDDLE candidates (F4 M4 + kappa3 mixing v2) kept OPEN with R1-R5 rescue sketches cheapest-first; NEITHER closed. 1 LABEL-VS-HONEST catch filed with annotation.
+- PROT-007: history v336 appended (strategy_decisions_2026-06-02.md sibling entry inline).
+- PROT-008: 1 BAND-LIFT + 2 sub-property extensions; no portfolio regression; no closures.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **247th PROT-009 paired commit**.
+- PROT-018: all 4 anchors verified via remote authoritative metrics. Anchor-name suffix conventions: kappa3_..._v2_correlated_v1 (no _nN; N=1024 default); q_a3_..._n4096 (explicit _n4096 matches N=4096); f4_..._v1 (no _nN; N=4096 specified in metrics.json); hippocampal_..._n8192_v1 (explicit _n8192 matches N=8192). PROT-018 all 4 clear.
+- PROT-021: smoke-checkpoint contamination check applied; all 4 anchors verified via remote authoritative metrics _source=remote run_mode=full multi-seed (5-seed all 4); no contamination detected. kappa3 v2 fast 2.1s wall verified via run_mode=full + N=1024 5-seed small-N algebraic test -- not smoke artifact.
+- PROT-022: not applicable.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 4 anchors; **1 NEW LABEL-VS-HONEST catch #202** (kappa3 mixing v2 "all rho HP" over-claim; 6/8 cells honest; honest reading authoritative for cap_map). 3 anchors honest-as-labeled.
+- [[feedback-no-preframing]]: task input included "HP per redesign: restores predicted kappa_3 to within +/-3% under correlated patterns (incl rho>=0.2)" -- this IS a pre-frame. Step 0 honest re-read verified per-cell metrics INDEPENDENTLY and found rho=0.20/0.25 fail. Pre-framing noted; catch #202 filed per protocol.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 applied; all _source=remote run_mode=full 5-seed; kappa3 v2 fast wall verified not smoke.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH with plain_language and importance fields filed.
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py append_atomic.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED; commit hash surfaced for main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: kappa3 I-10 v3 R1-R5 cheapest-first (annotation 0-compute -> fine rho-grid 3min -> second-order correction 10min -> GP-kernel 20min -> N-scale 30min). F4 I-9 v3 R1-R5 cheapest-first (annotation 0-compute -> N=8192 10min -> N=16384 30min -> Hutchinson 20min -> cloud N=32768 $5).
+- [[feedback-rehabilitation-after-rejection]]: 2 MIDDLE candidates kept OPEN with R1-R5 rescue sketches; NEITHER closed.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT; overnight_queue pending=1 (not zero) -- pipeline-pacing exp_dev refill NOT triggered (queue >= 1 satisfies pipeline-pacing invariant).
+- [[feedback-brain-inspired]]: PP-47 hippocampal N=8192 production-envelope; brain-inspired framing durable.
+
+### Push and follow-on (v336)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v335 carryovers RETAINED + v336 additions):
+1. **F4 M4 I-9 v3: N=8192 5-seed** (v336 PARTIAL-RESOLVED; ~10min CPU; confirms N-scaling; new R2 cheapest next step).
+2. **kappa3 I-10 v3: fine rho-grid [0.15, 0.30]** (v336 PARTIAL-RESOLVED; ~3min CPU; maps mid-rho peak; R2 cheapest next step after R1 annotation applied).
+3. **PP-47 hippocampal cross-N {8192 confirmed, 16384 next} 5-seed** (v333 carry-over; v336 N=8192 CONFIRMED; N=16384 next band-LIFT-eligibility step).
+4. **PP-48 + PP-49 production-N cross-N {8192, 16384} 5-seed** (v334 carry-over).
+5. **I-11 research-cycle routing: Wishart/MP/free-Poisson analytic recalibration** (v335 NEW; highest-priority theory gap; gates PP-45/PP-50 analytic reference recalibration).
+6. **COMBO-1 v3 redesign** (v333 carry-over; gates Wave 5 cell-5).
+7. **I-7 orphan failures re-ship vs close** (v332 carry-over).
+8. **Q-F3 cophenetic correlation** (v330 carry-over).
+9. **Q-F1 5-seed N=2048 follow-up** (v331 carry-over).
+10. **Q-F4 saddle-overlap triplet test** (v330 carry-over).
+11. **graph_community R2 absolute-cos rescue** (v331 carry-over).
+12. **program_exec_audit_branching R2 sibling-list rescue** (v331 carry-over).
+13. **caching_capacity_aware cell-A workload variation rescue** (v331 carry-over).
+14. **PP-43b LRU small-M rescue** (v328 carry-over).
+15. **Q-F2 FDT ratio X(C) measurement** (v331 carry-over).
+16. **I-6 script-author audit for two_time_correlator_fdt scripts** (v331 carry-over).
+17. **COMBO-4 N-scale rescue R2** (v333 carry-over).
+18. **PP-44 cross-N sweep / PP-9b cross-depth / PP-43d ARC/LIRS low-alpha** (v328/v333 carry-overs).
+19. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).

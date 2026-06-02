@@ -56,3 +56,12 @@ hygiene sweep 2026-06-02: 11 routing files moved to routed_completed/; decisions
 ## 2026-06-02 v335 -- WAVE 5 CLOUD BUNDLE (5 anchors at N=32768)
 
 WAVE 5 cloud bundle bbelw34ap completed: 5 anchors at N=32768 5-seed M=1638 for $3.81 (82% under predicted). qd1_spectral_primitives MIDDLE_BAND; kappa46_fingerprint Part A HARD_FAIL (free-Poisson identity REFUTED at N=32768) + Part B HARD_PASS (sensitivity sweep sigma_sep 27-1727 across delta_alpha 0.001-0.1); deletion_cert_zratio HARD_PASS (Z_min=156); combo3_unified_api HARD_PASS (5-method Krylov-vs-closed-form within MC floor 30-3500x); q_b1_depth_extended HARD_PASS (depth-10 fid 0.9846 vs HP 0.90 = 8 sigma). 0 LABEL-VS-HONEST catches. v335: 3 production-N BAND-LIFTs (PP-45 + PP-46 + PP-49 all 0.65-0.80 -> 0.70-0.85) + 1 new top-level row (PP-50 sub-percent drift detection 0.70-0.85) + 1 new sub-property (PP-49a depth-10 production envelope) + 1 new Issue I-11 (analytic free-Poisson + Tracy-Widom RMT references empirically refuted for outer-product-Hebbian W; research-cycle routing FILED). Substrate-product moat strengthened with 4 production-N=32768 algebraic-property rows; theory-pre-reg gap is recoverable (substrate measurements faithful per Cell 4 Krylov cross-check; analytic comparator wrong). Push BLOCKED from sub-agent context.
+
+## v336 Cycle 9 batch (2026-06-02) -- 4 verdicts: Q-A3 L=3 HARD_PASS PP-12 BAND-LIFT + hippocampal N=8192 HARD_PASS + F4 M4 v2 MIDDLE + kappa3 v2 LABEL-VS-HONEST #202
+
+- kappa3_mixing_correction_v2_correlated_v1: LABEL-VS-HONEST #202 catch; honest reading PARTIAL (6/8 rho cells HP; rho=0.20/0.25 fail HP<=0.03 gate). I-10 PARTIAL-RESOLVED. PP-44b annotation updated.
+- q_a3_l3_cross_layer_composition_v1_n4096: GENUINE HARD_PASS L=3 depth at N=4096 5-seed unanimous EXACT-1.0. PP-12 3rd independent sub-property triggers BAND-LIFT 0.60-0.75 -> 0.65-0.80.
+- f4_free_cumulants_m4_v2_full_correction_v1: GENUINE MIDDLE_BAND 1/4 cells HP at alpha=0.05 N=4096. I-9 PARTIAL-RESOLVED (N-scaling 1/N confirmed). v3 rescue: N=8192 next.
+- hippocampal_place_field_extended_n8192_v1: GENUINE HARD_PASS PP-47 N=8192 production-envelope CONFIRMED. mean_cosine=0.9283 mean_spearman=0.6452 mean_acc=1.0. PP-47 band unchanged; 2nd sub-property filed.
+
+Cap_map v335 -> v336: HONEST +4 (417->421); LABEL-VS-HONEST +1 (201->202); PP-12 BAND-LIFT 0.60-0.75->0.65-0.80; product-feature 74-88%->75-89% (+1pp). 247th PROT-009 paired commit. Push deferred to main thread.

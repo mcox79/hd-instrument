@@ -265,3 +265,46 @@ hygiene sweep 2026-06-02: 11 routing files moved to notes/routed_completed/ (stu
 **Linked routing:** `notes/strategy_request_to_strategy_wave5_theory_prereg_gap_2026-06-02.md` (incorporated as Issue I-11 + PP-45 CAVEAT).
 
 **Push:** BLOCKED from sub-agent context; main thread executes `git push origin main` as 1-tool follow-up.
+
+## 2026-06-02 v335 -> v336 BATCH 4-VERDICT CPU Cycle 9 (2 GENUINE FULL HARD_PASS + 1 GENUINE FULL MIDDLE_BAND + 1 LABEL-VS-HONEST PARTIAL) -- kappa3 mixing v2 I-10 PARTIAL-RESOLVED (LABEL-VS-HONEST #202) + Q-A3 L=3 N=4096 HARD_PASS PP-12 BAND-LIFT + F4 M4 v2 MIDDLE_BAND I-9 PARTIAL-RESOLVED + hippocampal place-field N=8192 PP-47 production-envelope CONFIRMED (verdict_handler 247th PROT-009 paired commit; Cycle 9)
+
+**Trigger.** Cycle 9 batched 4-verdict CPU completions 2026-06-02. All 4 fetched via `tools.orchestrator.remote_state.get_metrics` (_source=remote authoritative). Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 3 HONEST (1 clean HP + 1 HP honest + 1 MIDDLE_BAND honest). 1 NEW LABEL-VS-HONEST OVER-CLAIM:
+
+- **#202 kappa3_mixing_correction_v2_correlated_v1 ALL_RHO_HP_LABEL_OVER_CLAIMS_AGGREGATE.** Label claims "HARD_PASS: v2 correction restores HP for all rho values." Per-cell metrics (8 rho cells, HP gate <= 0.03): rho=0.00: err=0.011 (PASS); rho=0.05: err=0.014 (PASS); rho=0.10: err=0.020 (PASS); rho=0.15: err=0.029 (PASS); rho=0.20: err=0.036 (FAIL > 0.03); rho=0.25: err=0.038 (FAIL > 0.03); rho=0.30: err=0.029 (PASS); rho=0.35: err=0.000 (PASS). 6/8 cells PASS HP gate; rho=0.20 and rho=0.25 fail by 0.006-0.008 above gate. Label "all rho values" NOT supported. Honest reading: PARTIAL/MIDDLE_BAND -- v2 is genuine improvement over v1 (v1 rho=0.20 err=0.049; v2 err=0.036 = 26% better) but "all rho HP" is over-claimed. NEW sub-flavor: ALL_CELL_AGGREGATE_OVER_CLAIM rho-conditioning (pattern cousin of #198 alpha, #199 M, #200 correlation; conditioning variable shifts rho but structure identical -- HP at some cells carried as aggregate conclusion). I-10 PARTIAL-RESOLVED: HP boundary extended from rho<=0.10 (v1) to rho<=0.15 + non-monotone recovery at rho=0.30/0.35; mid-rho peak rho=0.20/0.25 remains open.
+
+**Per-anchor honest re-read (v336).**
+
+| # | Anchor | Wall | N | seeds | Verdict label | Honest reading | Classification |
+|---|--------|------|---|-------|--------------|----------------|----------------|
+| 1 | kappa3_mixing_correction_v2_correlated_v1 | 2.1s CPU | 1024 | 5 | HARD_PASS | OVER-CLAIM: 6/8 rho cells HP; rho=0.20 err=0.036 + rho=0.25 err=0.038 FAIL HP<=0.03 gate | LABEL-VS-HONEST #202; honest: PARTIAL |
+| 2 | q_a3_l3_cross_layer_composition_v1_n4096 | 19.7s CPU | 4096 | 5 | HARD_PASS | HONEST (L1_fid=1.0 HP>=0.9; L2_fid=1.0 HP>=0.9; L3_fid=1.0 HP>=0.9; l3_acc=1.0 HP>=0.8; unanimous 5-seed EXACT-1.0; run_mode=full _source=remote) | GENUINE HARD_PASS |
+| 3 | f4_free_cumulants_m4_v2_full_correction_v1 | 129.6s CPU | 4096 | 5 | MIDDLE_BAND | HONEST (alpha=0.05: M4_err=0.037 PASS HP<=0.05; alpha=0.10: 0.058 FAIL; alpha=0.15: 0.069 FAIL; alpha=0.20: 0.078 FAIL; 1/4 cells HP; mean=0.0604 > HP) | GENUINE MIDDLE_BAND |
+| 4 | hippocampal_place_field_extended_n8192_v1 | 48.4s CPU | 8192 | 5 | HARD_PASS | HONEST (mean_cosine=0.9283 HP>=0.8; mean_spearman=0.6452 HP>=0.6 mean-gate; mean_acc=1.0 HP>=0.75; seed 7 spearman=0.515 below per-seed but gate is mean-based; run_mode=full N=8192 confirmed) | GENUINE HARD_PASS |
+
+**Strategic decisions.**
+
+1. **LABEL-VS-HONEST #202 filed.** kappa3_mixing_correction_v2_correlated_v1 label over-claims "all rho values HP"; honest: 6/8 cells HP; rho=0.20 (err=0.036) and rho=0.25 (err=0.038) marginally fail HP<=0.03 gate. I-10 PARTIAL-RESOLVED not RESOLVED. PP-44b mixing-correction sub-property ANNOTATION UPDATE: HP-boundary now characterised as rho<=0.15 CONFIRMED + non-monotone recovery at rho=0.30/0.35 (err=0.029/0.000); mid-rho rho=0.20/0.25 is the peak-error zone under v2 formula.
+
+   Rescue sketches for I-10 v3 targeting mid-rho gap (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+   - R1 (0-compute, applied) ANNOTATION-only: document non-monotone error pattern at mid-rho; v2 formula may over-correct at rho=0.20/0.25 while under-correcting at rho=0.30 then recovering at rho=0.35; first-order linear-rho correction shape cannot explain non-monotone; characterise as known mid-rho gap.
+   - R2 (~3min CPU) Fine rho-grid [0.15, 0.30] step=0.01 at N=1024 5-seed to map exact HP boundary and confirm non-monotone structure (is rho=0.20/0.25 a genuine peak or numerical artifact?).
+   - R3 (~10min CPU) Second-order mixing-correction term: quadratic-rho or rho^2/(1+rho) saturation term to flatten mid-rho peak where linear correction over-shoots.
+   - R4 (~20min CPU) Alternative GP-kernel mixing model beyond polynomial correction.
+   - R5 (~30min CPU) N-scale to N=4096 to test if mid-rho peak is finite-N artifact.
+
+2. **Q-A3 L=3 cross-layer composition HP: PP-12 BAND-LIFT 0.60-0.75 -> 0.65-0.80 (+0.05 both bounds).** q_a3_l3_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS at N=4096 5-seed. All metrics EXACT-1.0 unanimous (L1_fid=L2_fid=L3_fid=l3_acc=1.0000). v333 established L=2 at N=4096; v334 lifted L=2 to N=8192; v336 ADDS L=3 at N=4096 as 3rd independent sub-property (deeper composition hierarchy, not same-mechanism N-scale). **3-independent-sub-property convention MET: L=2 N=4096 (v333) + L=2 N=8192 (v334) + L=3 N=4096 (v336) = 3 sub-properties with increasing mechanism variety (N-scale lift + depth-lift).** BAND-LIFT TRIGGERED per convention. Product framing: substrate cross-layer composition algebraically preserves fidelity at L=3 depth and production-N -- substrate audit primitives compose across 3-layer polynomial DAM stack with no fidelity degradation. Cross-references: PP-45 5-method unified-API (PP-12 L=3 sub-property confirms deeper Krylov-compatible composition); PP-48 Negative-Knowledge Tree (L=3 depth is the combo2 composition foundation); PP-49 Hierarchical-Refusal-Cert (L=3 composition depth directly grounds PP-49 founding evidence chain).
+
+3. **F4 M4 v2 MIDDLE_BAND -- I-9 PARTIAL-RESOLVED (1/4 cells HP at N=4096 vs 0/4 at v1 N=1024).** f4_free_cumulants_m4_v2_full_correction_v1 GENUINE MIDDLE_BAND at N=4096 5-seed. alpha=0.05: M4_err=0.037 PASS HP<=0.05 (only cell; 1/4 HP). N-scale hypothesis CONFIRMED: v1 N=1024 had 0/4 HP; v2 N=4096 has 1/4 HP at smallest alpha; M4 correction improves with N as predicted by 1/N correction hypothesis. I-9 remains OPEN for v3 targeting N=8192+ to bring additional alpha cells into HP. Rescue sketches I-9 v3 (cheapest-first):
+   - R1 (0-compute, applied) ANNOTATION: 1/N scaling confirmed; alpha=0.05 HP at N=4096; project alpha=0.10 HP at N~8192-16384; full-alpha HP needs N>=32768 range.
+   - R2 (~10min CPU) N=8192 5-seed same alpha-grid -- confirms N-scaling; predicts if alpha=0.10 HP boundary crossed.
+   - R3 (~30min CPU) N=16384 5-seed to project where all-alpha HP boundary falls.
+   - R4 (~20min CPU) Hutchinson estimator alternative at N=4096 to test estimator variance contribution.
+   - R5 (~$5 cloud) N=32768 ground-truth M4 correction.
+
+4. **Hippocampal place-field N=8192 PP-47 production-envelope CONFIRMED.** hippocampal_place_field_extended_n8192_v1 GENUINE FULL HARD_PASS at N=8192 5-seed. mean_cosine=0.9283 (HP>=0.8), mean_spearman=0.6452 (HP>=0.6, mean-gate; seed 7 spearman=0.515 below per-seed level but gate applies to mean per pre-reg spec), mean_acc=1.0000 (HP>=0.75). PP-47 founded v333 at N=4096; v336 extends to N=8192 confirming production-envelope. PP-47 parent band 0.55-0.70 UNCHANGED (N-scale extension is corroborative; 2 sub-properties N=4096 + N=8192 = corroborative; 3rd sub-property needed for band-LIFT per convention). NOTE: this anchor is the place-field ENCODING itself; separate from PP-47-adjacent deletion-cert composition probe (MIDDLE_BAND earlier; maintained independently). Product framing: hippocampal-style place-field encoding scales to production-N=8192; brain-inspired geometric memory indexing confirmed at practical scale. Sub-property filed: PP-47 N=8192 5-seed production-envelope extension (mean_cosine=0.9283, mean_spearman=0.6452, mean_acc=1.0000).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. **247th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Tallies (v335 -> v336).** HONEST 417 -> 421 (+4: 2 GENUINE HP + 1 GENUINE MIDDLE + 1 HONEST catch #202 reading; all 4 have remote-authoritative metrics). LABEL-VS-HONEST 201 -> 202 (+1 catch #202 ALL_CELL_AGGREGATE_OVER_CLAIM rho-conditioning kappa3 mixing v2). Portfolio 32+72 UNCHANGED (no new top-level rows; 1 NEW sub-property PP-12 L=3 N=4096 + 1 sub-property extension PP-47 N=8192 + 1 BAND-LIFT PP-12 0.60-0.75 -> 0.65-0.80). Framework-reliability product-feature 74-88% -> 75-89% (+1pp; PP-12 BAND-LIFT cross-layer composition row proven at L=3 depth). I-9 PARTIAL-RESOLVED (1/4 cells HP at N=4096; N-scaling 1/N confirmed). I-10 PARTIAL-RESOLVED (non-monotone mid-rho gap characterised; HP boundary extended to rho<=0.15 + rho=0.30/0.35).
