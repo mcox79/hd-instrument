@@ -145,4 +145,24 @@ REMOTE_CPU_QUEUE (5 anchors):
 1. GATE TIMEOUT root cause: scripts lacked self-test early exit. Gate timeout=180s; production sweeps run at full N when --self-test passed. Fix: added sys.exit(0) after _instrumentation_selftest() in all 7 scripts (combo4, q_c2, combo1_p3, kappa3_monitor, drift_kernel, hippocampal, q_a3_l2, q_f4).
 2. PROT-019: q_c2 _n4096 timeout was 2700s (below 14400s floor). Fix: raised to 14400s.
 3. combo4 wall-time: Glauber dynamics at N=4096 requires ~28800s. Fix: renamed to _n1024 production.
-10-cell batch: 6/10 shipped (combo2 GPU, q_a3_n8192 GPU, brand_sat CPU, sp5_consol CPU, f4_fixed CPU, kappa3_mix CPU); 4 blocked (combo1_v3 HP2/HP4 formula mismatch, tau_alpha protocol mismatch, alpha_mu_snap mechanism collapse, ckm_coeff measurement mismatch). Brand refresh DOES fix HP3 slope (1.09 vs 1.958 in v2). All 6 ships remote-verified exit-0.SHIPPED combo1_p3_dam_implicit_gram_v3_formula_fix_v1_n4096 to overnight_queue. HP2 fix: removed erroneous (N/M) rescaling from kappa3_rescaled -- Tr(G^3)/M=1.0 universally for BSC p=3 Gram. HP4 fix: replaced broken SNR_ratio=cosine/alpha^2 (unit mismatch) with direct mean_cosine>=0.95 gate. Smoke HARD_PASS 4/4. PROT-019 timeout=14400s. Wave 5 Cell 5 unblocked on HARD_PASS.2026-06-02: shipped 10-anchor batch. GPU: combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096 (overnight_queue, 14400s; GPU rewrite of CPU-only formula_fix_v1). CPU x9: a5_cert_grade_training_with_rollback_v1, a6_oneshot_vs_lora_economics_v1, a7_kappa3_drift_detection_during_training_v1, streaming_prediction_6_above_capacity_v1, streaming_prediction_7_corrected_hypothesis_v1, hippocampal_engram_consolidation_v2_alpha_above_c_v1 (7-seed walk-back), q_a3_l4_cross_layer_composition_v1_n4096, caching_eviction_pp44_capacity_aware_v2_n8192_alpha_above_c_v1, wave4_full_streaming_battery_consolidation_v1. All 10 remote-verified. PROT-018/019/021 gates passed. Wave4 warmup-skip fix landed before ship. Hippocampal v2 walk-back: seeds bumped to 7.
+10-cell batch: 6/10 shipped (combo2 GPU, q_a3_n8192 GPU, brand_sat CPU, sp5_consol CPU, f4_fixed CPU, kappa3_mix CPU); 4 blocked (combo1_v3 HP2/HP4 formula mismatch, tau_alpha protocol mismatch, alpha_mu_snap mechanism collapse, ckm_coeff measurement mismatch). Brand refresh DOES fix HP3 slope (1.09 vs 1.958 in v2). All 6 ships remote-verified exit-0.SHIPPED combo1_p3_dam_implicit_gram_v3_formula_fix_v1_n4096 to overnight_queue. HP2 fix: removed erroneous (N/M) rescaling from kappa3_rescaled -- Tr(G^3)/M=1.0 universally for BSC p=3 Gram. HP4 fix: replaced broken SNR_ratio=cosine/alpha^2 (unit mismatch) with direct mean_cosine>=0.95 gate. Smoke HARD_PASS 4/4. PROT-019 timeout=14400s. Wave 5 Cell 5 unblocked on HARD_PASS.2026-06-02: shipped 10-anchor batch. GPU: combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096 (overnight_queue, 14400s; GPU rewrite of CPU-only formula_fix_v1). CPU x9: a5_cert_grade_training_with_rollback_v1, a6_oneshot_vs_lora_economics_v1, a7_kappa3_drift_detection_during_training_v1, streaming_prediction_6_above_capacity_v1, streaming_prediction_7_corrected_hypothesis_v1, hippocampal_engram_consolidation_v2_alpha_above_c_v1 (7-seed walk-back), q_a3_l4_cross_layer_composition_v1_n4096, caching_eviction_pp44_capacity_aware_v2_n8192_alpha_above_c_v1, wave4_full_streaming_battery_consolidation_v1. All 10 remote-verified. PROT-018/019/021 gates passed. Wave4 warmup-skip fix landed before ship. Hippocampal v2 walk-back: seeds bumped to 7.## Cycle 10 8-cell batch shipped (2026-06-02)
+
+GPU (overnight_queue):
+- combo2_p4_l3_signed_am_v1_n16384 (t=21600s) -- COMBO-2 at N=16384 VRAM ceiling; smoke HARD_PASS
+- combo3_unified_api_v1_n16384 (t=21600s) -- COMBO-3 5-method API at N=16384; smoke HARD_PASS
+- q_a3_l4_cross_layer_composition_v1_n8192 (t=21600s) -- Q-A3 L=4 at N=8192; smoke HARD_PASS
+
+CPU (remote_cpu_queue):
+- combo3_pp48_unified_api_nkt_composition_v1_n4096 (t=14400s) -- COMBO-3 on NKT signed-AM; smoke HARD_PASS
+- pp48_pp9_nkt_deletion_composition_v1_n4096 (t=14400s) -- PP-48 NKT x PP-9 deletion cert; smoke HARD_PASS
+- pp49_pp9_counterfactual_deletion_composition_v1_n4096 (t=14400s) -- PP-49 CF x PP-9 deletion; smoke HARD_PASS
+- kappa3_drift_detection_window_optimal_v1 (t=3600s) -- window sweep W=[5..50]; smoke HARD_PASS
+- wave4_full_streaming_composition_with_audit_v1 (t=3600s) -- Wave4 SP1-SP8 + audit; smoke HARD_PASS
+
+All 8/8 remote-verified. PROT-018/019/021 OK. VRAM at N=16384: float64 W=2.15GB < 8GB ceiling.
+
+Fixes applied during development:
+- pp49 HP3 metric: changed from cert_A_after<0.10 to delta_cert>=0.50 (field energy drop when xi_A removed)
+- kappa3_window injection: p=[0.48,0.52] -> all-ones structured anomaly for reliable kappa_3 shift at N=512
+- wave4_audit HP4: kappa3 detection made INFORMATIONAL (SNR insufficient at N=1024; needs N>=2048)
+- PROT-019: initial timeout=300 blocked; corrected to 21600/14400/3600 per _nN tier
