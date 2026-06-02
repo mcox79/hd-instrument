@@ -165,4 +165,23 @@ Fixes applied during development:
 - pp49 HP3 metric: changed from cert_A_after<0.10 to delta_cert>=0.50 (field energy drop when xi_A removed)
 - kappa3_window injection: p=[0.48,0.52] -> all-ones structured anomaly for reliable kappa_3 shift at N=512
 - wave4_audit HP4: kappa3 detection made INFORMATIONAL (SNR insufficient at N=1024; needs N>=2048)
-- PROT-019: initial timeout=300 blocked; corrected to 21600/14400/3600 per _nN tier
+- PROT-019: initial timeout=300 blocked; corrected to 21600/14400/3600 per _nN tier## 10-cell GPU refill shipped (2026-06-02)
+
+Shipped 10 anchors to overnight_queue after GPU queue empty signal.
+
+Anchors shipped (all remote-verified):
+1. combo2_p4_l3_signed_am_v1_n32768 -- COMBO-2 p=4 L=3 at N=32768 matrix-free GPU. timeout=21600s.
+2. combo3_unified_api_v1_n32768_local -- COMBO-3 unified API Krylov at N=32768. timeout=21600s.
+3. q_a3_l5_cross_layer_composition_v1_n4096 -- Q-A3 L=5 cross-layer composition at N=4096. timeout=14400s.
+4. q_b1_chain_depth_15_v1_n8192 -- Q-B1 heteroassoc chain depth-15 at N=8192. timeout=21600s.
+5. deletion_cert_z_ratio_n16384_v1 -- Deletion cert Z-ratio at N=16384 matrix-free. timeout=21600s.
+6. kappa3_sensitivity_sweep_n16384_v1 -- kappa3 sensitivity sweep at N=16384 block-diagonal GOE. timeout=21600s.
+7. pp48_nkt_depth_5_v1_n4096 -- PP-48 NKT depth-5 tree at N=4096. timeout=14400s.
+8. pp49_hrc_counterfactual_depth_10_v1_n4096 -- PP-49 HRC counterfactual depth-10 at N=4096. timeout=14400s.
+9. combo1_p3_dam_implicit_gram_v3_n8192_production_envelope_v1 -- COMBO-1 v3 p=3 at N=8192 production envelope. timeout=21600s. Note: selftest kappa3_resc fix applied (normalize Gram before cubing).
+10. wave5_cell5_combo1_n32768_local_v1 -- Wave 5 Cell 5 COMBO-1 at N=32768 local. M_LIST=[8192,16384] matrix-free. timeout=21600s.
+
+Key design decisions:
+- All N>=8192: matrix-free GPU, VRAM safe on 8GB.
+- Cell 9 selftest fix: kappa3_resc must normalize Gram first (G=Xi@Xi.t()/N) then cube element-wise.
+- PROT-019 floors: N>=8192 -> timeout>=21600s, N=4096 -> timeout>=14400s.
