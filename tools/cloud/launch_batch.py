@@ -200,9 +200,40 @@ def _scp_from(ip: str, key: str | None, remote: str, local: Path) -> bool:
 def _scp_to(ip: str, key: str | None, local: Path, remote: str) -> bool:
     """Upload a local file to ubuntu@ip:remote. Returns True on success.
 
-    Used by Phase 0.5 dispatch to seed .hf_token + bring-up script onto the
+    Used by Phase 0.5 dispatch to seed .hf_token + bring-up script + (when
+    re-using cached Wave 1 artifacts) probe_ckpt/codebook/metrics onto the
     instance before the first anchor runs.
+
+    Pre-mkdir's the remote parent directory via ssh so scp doesn't fail on
+    cached-artifact uploads to paths like data/exp_phase05_probe_training_v1/
+    which don't exist on a fresh-bootstrapped instance.
+
+    Auto-scales timeout for large files (1 GB at ~50 MB/s = 20s; budget 600s
+    for files > 100 MB).
     """
+    # mkdir -p remote parent (idempotent)
+    parent = remote.rsplit("/", 1)[0] if "/" in remote else None
+    if parent:
+        mkdir_cmd = [
+            "ssh",
+            "-o", "StrictHostKeyChecking=no",
+            "-o", "UserKnownHostsFile=/dev/null",
+            "-o", "ConnectTimeout=30",
+        ]
+        if key:
+            mkdir_cmd.extend(["-i", key])
+        mkdir_cmd.append(f"ubuntu@{ip}")
+        mkdir_cmd.append(f"mkdir -p {parent}")
+        try:
+            subprocess.run(mkdir_cmd, capture_output=True, text=True, timeout=30)
+        except Exception:
+            pass  # best-effort; scp will fail audibly if parent missing
+    # Estimate timeout from file size
+    try:
+        size_mb = local.stat().st_size / (1024 * 1024)
+    except Exception:
+        size_mb = 1.0
+    scp_timeout = 120 if size_mb < 100 else 600
     base = [
         "scp",
         "-o", "StrictHostKeyChecking=no",
@@ -214,7 +245,7 @@ def _scp_to(ip: str, key: str | None, local: Path, remote: str) -> bool:
     base.append(str(local))
     base.append(f"ubuntu@{ip}:{remote}")
     try:
-        proc = subprocess.run(base, capture_output=True, text=True, timeout=120)
+        proc = subprocess.run(base, capture_output=True, text=True, timeout=scp_timeout)
         if proc.returncode != 0:
             print(f"  [scp_to] FAILED rc={proc.returncode} stderr={proc.stderr[:300]}")
         return proc.returncode == 0
