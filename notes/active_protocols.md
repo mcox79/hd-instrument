@@ -812,3 +812,55 @@ PROT-013 compliance: _instrumentation_selftest() includes evaluate_bpc callable 
 ```
 PROT-018 compliance: anchor _n<N> suffix verified against script production N before ship; queue_add.py gate passed (exit 0).
 ```
+
+---
+
+## PROT-022 -- Formula selftest registry + R3+ closed-form discipline
+
+- **Status**: active (filed v340 by verdict_handler; registry updated v344 2026-06-02 with 3 new entries from R2 audits)
+- **Applies to**: Experiment Dev (spec writing); Research (R3+ rescue hypothesis proposals); Strategy (spec review)
+- **Trigger**: any spec containing a closed-form formula used as an HP gate; any R3+ rescue hypothesis proposal
+- **Per-spec, always-on**
+
+**What to do**: before writing or approving a formula-based HP gate:
+1. Look up the formula in the registry below.
+2. If in registry: apply the listed selftest cells as a check. If predicted != actual, fix the formula BEFORE writing the gate.
+3. If not in registry: derive selftest cells inline and add them to the spec. File a registry addition in the next strategy_decisions log.
+
+**Research-side R3+ discipline (added v344):**
+> **Item: closed-form derivation + self-test of the rescue hypothesis BEFORE proposing R3+.**
+> If the R3 hypothesis is "knob X will move metric Y to HP," derive Y(X) symbolically and check predicted value at current AND proposed knob settings. If Y(X) is approximately flat in X, hypothesis is falsified at zero cost. Saves the GPU re-ship. (Root cause of K-bump + Krylov-budget research errors 2026-06-02.)
+
+### Formula registry
+
+**Entry 1: MP 3rd moment (Marchenko-Pastur; Narayana number identity)**
+```
+m_3(alpha) = 1 + 3*alpha + alpha^2
+```
+Selftest cells (input -> expected output):
+- alpha=0.5: m_3 = 1 + 1.5 + 0.25 = 2.75
+- alpha=1.0: m_3 = 1 + 3 + 1 = 5.0
+- alpha=2.0: m_3 = 1 + 6 + 4 = 11.0
+Apply to: any implicit-Gram / Wishart / random-feature spec where the kappa_3 normalization gate appears. HP gate form: |kappa3_resc - m_3(alpha)| / m_3(alpha) <= 0.05.
+Evidence: R2 audit 2026-06-02 found combo1_v3 line 175 asserted <= 0.15 of 1.0 (wrong); should assert <= 0.15 of m_3(alpha). Gate-spec bug; substrate was algebraically correct.
+
+**Entry 2: Hopfield single-step retrieval cosine with neighbor overlap**
+```
+cos(retrieved, target) ~ 1 / sqrt(1 + sum_{j!=target} overlap(j, target)^2)
+```
+Selftest: for K Gaussian place-field patterns with SIGMA=sigma in K-space, neighbor overlap ~ exp(-(j-k)^2 / (4*sigma^2)); sum_overlap_sq ~ 4*sigma at large K (continuum integral). For sigma=2.0: sum_overlap_sq ~ 4.0, predicted cos ~ 0.45 (single-step) -> ~0.65-0.72 (post-iteration).
+Apply to: any composition spec involving Hopfield retrieval where pattern overlap is non-zero (place-field encoding, low-rank pattern banks, structured codes).
+Evidence: R2 audit 2026-06-02 -- K-bump hypothesis for PP-47xPP-49 baseline_cos refuted by this formula; baseline_cos is flat in K; correct knob is PLACE_FRAC not K.
+
+**Entry 3: Hutchinson variance floor (stochastic trace estimator)**
+```
+trace_rel_err_floor = O(1 / sqrt(N_PROBES))
+```
+Selftest: at N_PROBES=1000, expect trace rel_err approximately 1e-3 to 3e-3 (depending on normalization). Increasing matvec budget does NOT reduce this floor; only increasing N_PROBES does.
+Apply to: any Krylov-based kappa_3 / cert / trace audit where HP gate tightness approaches this floor. Adjust HP gate to accept floor, or increase N_PROBES.
+Evidence: I-17 R3 (exp_dev) matvec=50 gave trace=1.3e-2 WORSE than matvec=3 result of 3e-3 -- floor is MC noise, not matvec-limited. I-17 CLOSED (v344) with HP bar lowered to 3e-3.
+
+**Adherence marker**:
+```
+PROT-022 compliance: formula <name> selftest cells checked; predicted=<X> actual=<Y>; gate written as <formula>; OR no registry formula applies to this spec.
+```

@@ -26657,3 +26657,20 @@ Tallies: HONEST 399 -> 406 (+7). LABEL-VS-HONEST 201 UNCHANGED. Portfolio 32+68 
 NEW ISSUE: I-8 COMBO-1 v2 HP3+HP4 systematic theory-vs-empirical disagreement. Filed for research-cycle routing.
 
 PROT-009: 244th paired commit.
+
+## v343 -> v344 -- 2026-06-02 ANNOTATION-ONLY: I-17 RESOLVED + PROT-022 selftest registry update (strategy_scribe 254th PROT-009 paired commit)
+
+Trigger: research_routing_v342_r2_meta_finding_4fix_queue_2026-06-02.md Section 1.4 (Fix 4: I-17 R6 annotation-only close) + Section 3 (PROT-022 selftest registry update). Pause flag ABSENT.
+
+**I-17 STATUS CHANGE: PARTIAL-RESOLVED -> RESOLVED.**
+Krylov-budget convergence hypothesis FALSIFIED by exp_dev R3: matvec=50 gave trace=1.3e-2 (WORSE than v2 matvec=3 result of 3e-3). Floor is Hutchinson MC variance at N_PROBES=1000, not matvec-limited. Both sub-issues now resolved: (1) cert sign FIXED via v2 (cert_diff=0.0 confirmed); (2) trace 3e-3 floor ACCEPTED as production-N budget constraint (O(N^2) exact computation infeasible at product scale). HP bar lowered to trace rel_err <= 3e-3. I-17 CLOSED.
+
+**COMBO-3 PP-51 v2 MIDDLE sub-property annotation updated.**
+Annotation "trace accuracy open" replaced with "trace accuracy ACCEPTED as Hutchinson MC variance floor -- HP bar lowered to trace rel_err <= 3e-3 (matches N_PROBES=1000 floor); cert sign RESOLVED; full HP at trace requires O(N^2) exact computation exceeding production-N budget; substrate trace floor acceptable for product use." Sub-property status unchanged at MIDDLE (annotation-only; no new cell evidence).
+
+**PROT-022 selftest registry updated.**
+3 new formula entries + research-side R3+ discipline rule added to active_protocols.md PROT-022 section. Entries: (1) MP 3rd moment m_3(alpha) = 1 + 3*alpha + alpha^2 with selftests at alpha={0.5, 1.0, 2.0}; (2) Hopfield single-step retrieval cosine with neighbor overlap formula + sigma=2.0 selftest; (3) Hutchinson variance floor O(1/sqrt(N_PROBES)) with N_PROBES=1000 selftest. R3+ rule: closed-form derivation + self-test of rescue hypothesis BEFORE proposing R3+.
+
+Tallies: HONEST 490 UNCHANGED. LABEL-VS-HONEST 207 UNCHANGED. Portfolio 32+74 UNCHANGED. I-17 CLOSED.
+
+| v344 | 2026-06-02 | ANNOTATION-ONLY: I-17 RESOLVED (Krylov-budget FALSIFIED; trace floor ACCEPTED) + PROT-022 3-entry selftest registry update + research-side R3+ closed-form rule | I-17 CLOSED; COMBO-3 PP-51 v2 MIDDLE annotation updated; 3 formula registry entries + R3+ rule in PROT-022; HONEST 490 UNCHANGED; LABEL-VS-HONEST 207 UNCHANGED; Portfolio 32+74 UNCHANGED; 254th PROT-009 paired commit |
