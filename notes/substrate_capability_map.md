@@ -5776,3 +5776,148 @@ Main-thread routing candidates (highest -> lowest priority):
 7. PP-38 N=8192 5-seed extension (v326 carry-over).
 8. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
 9. Per-script audit for 7 holdout scripts (v324 carry-over).
+
+## v327 -> v328 @ BATCHED 12-VERDICT overnight CPU cycle 4 (10 GENUINE FULL HARD_PASS + 2 LABEL-VS-HONEST PARTIAL/MIDDLE_BAND + 1 RESCUE-SUCCESS kappa3) -- caching-policy expressibility cluster (LFU/LRU/ARC/write-through) + heteroassoc-chain depth-3 + 2 NEW EXPLORATORY ROWS PP-43 caching-policy-expressibility + PP-44 spectral-capacity-monitor + 1 sub-property PP-9 heteroassoc-chain-depth-3 EMPIRICAL + 1 RESCUE-SUCCESS (kappa3 I-3 RESOLVED) + 2 LABEL-VS-HONEST catches (lru_decay cherry-picks M=80 + arc_lirs cherry-picks alpha=0.5) (verdict_handler 239th PROT-009 paired commit; autonomous overnight cycle 4)
+
+**Trigger.** Batched 12-verdict overnight CPU cycle 4 2026-06-02. All 12 verdicts fetched via `tools.orchestrator.remote_state.get_metrics` (`_source=remote` authoritative for all 12). Cross-checked run_mode=full + N=production + seeds=[7,17,23,31,41] (5-seed unanimous) + per-cell aggregated metrics + elapsed_s wall-time. Pause-flag ABSENT (`data/orchestrator_paused.flag` not present). REMOTE-FIRST methodology applied per e51aee7.
+
+### Verdict roster (12 anchors)
+
+| # | Anchor | Wall | N | Verdict (label) | Honest reading | Class |
+|---|---|---|---|---|---|---|
+| 1 | heteroassoc_chain_depth3_v1 | 1599.96s | 4096 | HARD_PASS | HONEST (d1=0.991, d3=0.991, d2_after_del=0.0003 all unanimous 5-seed) | PP-9 heteroassoc-chain-depth-3 sub-property LIFT |
+| 2 | kappa3_hutchinson_v2 | 136.03s | 4096 | HARD_PASS | HONEST (min_sigma_sep=50.1, mean=223.2 across M={50,100,200}; theory_ratio=1.16 within 20x band) | RESCUE-SUCCESS (closes v327 I-3); PP-37 spectral-introspection EMPIRICAL CONFIRMATION |
+| 3 | lfu_native_re_hebbian_v1 | 14.74s | 1024 | HARD_PASS | HONEST (disc_ratio k=10 = 7.35 HP>=3.0; monotone k=1->20: 1.87->4.74->7.35->10.76; below theory 11x but well above HP) | NEW PP-43 caching-policy expressibility (Tier 0 LFU) |
+| 4 | arc_lirs_hybrid_v1 | 13.20s | 1024 | HARD_PASS (label cherry-picks alpha=0.5) | **LABEL-VS-HONEST OVER-CLAIM (#198)**: HP at alpha=0.5 (ratio=3.66) BUT at alpha=0.1 ratio=0.98 (hot LESS than cold; FAIL at low decay alpha); honest reading = MIDDLE_BAND/PARTIAL: works only at high decay alpha; needs low-alpha rescue | NEW PP-43 PARTIAL (Tier 1 ARC/LIRS alpha-conditional) |
+| 5 | q3_l2_composition_cpu_v1 | 12.82s | 4096 | HARD_PASS | HONEST (e2e_acc=1.0000 unanimous 5-seed at M=50,100,200; std=0.0) | PP-11 / Path D compositional cross-N L=2 EMPIRICAL CONFIRMATION |
+| 6 | multiagent_consensus_v1 | 11.13s | 4096 | HARD_PASS | HONEST (cell_A=1.0 cell_B=1.0 win rates unanimous 5-seed; majority-vote protocol verified) | PP-39 substrate-native-multiagent-consensus EMPIRICAL CONFIRMATION sub-property |
+| 7 | spectral_capacity_monitor_v1 | 9.95s | 4096 | HARD_PASS (BORDERLINE) | HONEST but BORDERLINE (monotonicity=1.0; mean_ratio_high=0.9741 vs HP>=0.97; +0.41pp margin) | NEW PP-44 spectral-capacity-monitor (PP-37 sub-property) |
+| 8 | lru_decay_kendall_v1 | 5.68s | 1024 | HARD_PASS (label cherry-picks M=80) | **LABEL-VS-HONEST OVER-CLAIM (#199)**: HP at M=80 (tau=0.933) BUT mean tau=0.7246 across M; M=10 tau=0.369, M=20 tau=0.722, M=40 tau=0.875 all BELOW HP>=0.9; honest reading = MIDDLE_BAND/PARTIAL: works only at large M (M >= ~80); small-M cache regime FAILS; **walk-back from smoke tau=0.882 confirmed: FULL with 5 seeds lands MIDDLE not PASS at small M** | NEW PP-43 PARTIAL (Tier 0 LRU large-M-only) |
+| 9 | write_through_allocate_v1 | 5.99s | 1024 | HARD_PASS | HONEST (delta_sim=0.0 HP<0.01; std=0.0; dual += zero-overhead write-through verified) | NEW PP-43 (Tier 0 write-through/write-allocate; clean primitive) |
+| 10 | ct3_outlier_bulk_gap_v1 | 5.29s | 4096 | HARD_PASS | HONEST (max_rel_err=0.0265 HP<0.05; per-alpha rel_err: alpha=0.05->0.019, 0.1->0.027, 0.138->0.022; MP outlier-bulk gap theory match) | v324 substrate-spectral-identity row STRENGTHENED (Delta = (1-sqrt(alpha))^2 empirically validated) |
+| 11 | q23_capacity_cliff_fine_alpha_v1 | 1.67s | 1024 | HARD_PASS | HONEST (max_step=0.0007 HP<0.15; slope=-0.0374 p=0.000; accuracies 0.9999->0.999 smoothly declining over 17-alpha sweep; sub-2s wall legitimate via fine-alpha sweep at N=1024; sharp-cliff hypothesis FALSIFIED in [0.088, 0.238]) | Graceful-degradation confirmation; substrate-capacity-cliff smoothness annotation |
+| 12 | graph_node_classification_v1 | 1.39s | 1024 | HARD_PASS | HONEST (acc_A=1.0 acc_B=1.0 unanimous 5-seed; rho_within_A=0.7 rho_within_B=0.6; BSC-channel prototype classifier; small N_per_class makes 1.4s wall legitimate at N=1024) | PP-35 substrate-graph-retrieval EMPIRICAL CONFIRMATION sub-property |
+
+### Step 0 honest re-read summary
+
+**HONEST (10):** heteroassoc_chain_depth3_v1, kappa3_hutchinson_v2, lfu_native_re_hebbian_v1, q3_l2_composition_cpu_v1, multiagent_consensus_v1, spectral_capacity_monitor_v1 (BORDERLINE 0.41pp margin), write_through_allocate_v1, ct3_outlier_bulk_gap_v1, q23_capacity_cliff_fine_alpha_v1, graph_node_classification_v1.
+
+**LABEL-VS-HONEST OVER-CLAIM (2):**
+- **#198 arc_lirs_hybrid_v1 CHERRY-PICK-ALPHA**: label says "hot/cold ratio at alpha=0.5: 3.66 (HP>=2.0). max across alpha: 6.49." Aggregated cells: alpha=0.1 ratio=0.98 (FAIL ratio<1 hot LESS than cold), alpha=0.2 ratio=1.69 (FAIL ratio<2.0 HP gate), alpha=0.5 ratio=3.66 (HP), alpha=1.0 ratio=6.49 (HP). 2 of 4 alpha cells PASS, 2 FAIL. Honest reading: MIDDLE_BAND/PARTIAL ARC/LIRS hybrid requires alpha >= 0.5 (high decay); low-alpha (alpha<=0.2) regime FAILS. NEW sub-flavor: ALPHA_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE.
+- **#199 lru_decay_kendall_v1 CHERRY-PICK-M**: label says "tau at M=80: 0.9325 (HP>=0.9). mean tau across M: 0.7246." Aggregated: M=10 tau=0.369 (FAIL), M=20 tau=0.722 (FAIL), M=40 tau=0.875 (FAIL), M=80 tau=0.933 (HP). 1 of 4 M cells PASS, 3 FAIL. Mean tau=0.7246 is itself BELOW HP>=0.9 threshold. Honest reading: MIDDLE_BAND/PARTIAL gamma=0.95 weight-decay LRU works only at large M (>= ~80); small-M cache regime FAILS. **Walk-back gate noted by exp_dev (smoke tau=0.882 within 20% of HP=0.90) CONFIRMED**: FULL 5-seed reveals the smoke estimate was on the M=80 large-cache cell, not the small-M typical-cache regime. Mean of population is what matters for "LRU works"; mean fails. NEW sub-flavor: M_REGIME_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE.
+
+**BORDERLINE (1):** spectral_capacity_monitor_v1 mean_ratio_high=0.9741 vs HP>=0.97 = +0.41pp margin. Within HP letter but 41x tighter than typical HP margins. Annotation only; not over-claim.
+
+Per [[feedback-verdict-msg-honest-reread]]: 2 NEW LABEL-VS-HONEST catches filed in strategy_decisions_2026-06-02.md.
+
+### Row treatment
+
+**NEW PP-43 (TOP-LEVEL EXPLORATORY ROW): Native caching-policy expressibility (Tier 0 LRU/LFU/write-through + Tier 1 ARC/LIRS) -- 0.55-0.70 EXPLORATORY.**
+
+Substrate natively expresses standard cache replacement policies via algebraic mechanisms WITHOUT external policy engine:
+- **Tier 0 LFU (re-Hebbian-on-READ)** -- disc_ratio=7.35 at k=10 reads (HP); monotone in k (1.87, 4.74, 7.35, 10.76 at k=1,5,10,20); below theory 11x at k=10 (substrate vs ideal). lfu_native_re_hebbian_v1 GENUINE HP.
+- **Tier 0 LRU (gamma=0.95 weight-decay-on-WRITE)** -- PARTIAL: kendall_tau=0.933 at M=80 HP BUT mean tau=0.7246 across M (FAILS HP>=0.9 at M<=40); LRU works only at large-M cache regime. lru_decay_kendall_v1 LABEL-OVER-CLAIM #199.
+- **Tier 0 write-through + write-allocate (dual +=)** -- delta_sim=0.00e+00 HP unanimous 5-seed; zero-overhead via algebraic identity. write_through_allocate_v1 GENUINE HP.
+- **Tier 1 ARC/LIRS (decay + re-Hebbian-on-READ hybrid)** -- PARTIAL: hot/cold ratio=3.66 at alpha=0.5 HP, ratio=6.49 at alpha=1.0 HP, BUT ratio=0.98 at alpha=0.1 + ratio=1.69 at alpha=0.2 (FAIL); ARC/LIRS hybrid needs alpha>=0.5. arc_lirs_hybrid_v1 LABEL-OVER-CLAIM #198.
+
+P-band 0.55-0.70 reflects MIXED evidence: 2 clean HP (Tier 0 LFU + write-through) + 2 PARTIAL with caveats (LRU large-M-only + ARC/LIRS high-alpha-only). Lit-scan calibration penalty applied (uncharted regime: native algebraic caching at substrate; no direct precedent). Sub-properties:
+- PP-43a Tier 0 LFU clean (lfu_native_re_hebbian_v1 HP);
+- PP-43b Tier 0 LRU large-M-conditional (lru_decay_kendall_v1 PARTIAL; small-M rescue needed);
+- PP-43c Tier 0 write-through clean (write_through_allocate_v1 HP);
+- PP-43d Tier 1 ARC/LIRS high-alpha-conditional (arc_lirs_hybrid_v1 PARTIAL; low-alpha rescue needed).
+
+Cross-references: PP-10 multi-hop production-paths caching (PP-43 is the MECHANISM layer; PP-10 is the production-workload layer); PP-19 substrate-as-KV-cache (PP-43 supplies the policy primitives that PP-19 invokes); PP-32 audit-grade tool-call result cache (PP-43 supplies caching mechanism; PP-32 supplies audit-cert composition). Product framing: "substrate expresses LFU/write-through natively; LRU + ARC have known operating envelopes (large-M / high-alpha); fall back to external policy engine outside envelope."
+
+**NEW PP-44 (TOP-LEVEL EXPLORATORY ROW): Spectral capacity monitor (lambda_max vs mu_TW early-warning) -- 0.60-0.75 EXPLORATORY.**
+
+Substrate self-introspects approaching-capacity via spectral lambda_max tracking MP edge prediction:
+- monotonicity_rate=1.0 unanimous 5-seed (lambda_max monotone in M);
+- mean_ratio_high=0.9741 (>=0.97 HP BORDERLINE +0.41pp);
+- mean_ratio_low=0.9733 (similar concentration low-M regime).
+
+P-band 0.60-0.75 EXPLORATORY reflects: clean monotonicity HP + borderline ratio HP. Cross-references: PP-37 spectral-AI-introspection-sidecar (PP-44 is the OPERATIONAL early-warning sub-feature; PP-37 is the substrate-introspection-primitive class); PP-40 effective-rank-gauge (PP-44 complements PP-40 -- effective-rank-gauge measures fullness, spectral-capacity-monitor measures cliff-approach). Lit-scan calibration penalty +0.05 applied.
+
+Product framing: "substrate tells you when it's approaching capacity before it fails -- lambda_max approaching mu_TW (Marchenko-Pastur Tracy-Widom edge) is the canary."
+
+**EXISTING ROW LIFTS:**
+
+- **PP-9 reasoning amortization economics**: NEW SUB-PROPERTY PP-9b heteroassoc-chain depth-3 + deletion EMPIRICAL VALIDATED. heteroassoc_chain_depth3_v1 verifies (i) substrate stores 3-hop chain at unanimous d1=d2=d3=0.991 at N=4096 5-seed; (ii) deletion-cert applied to middle link makes d2_after_del=0.0003 (link cleanly broken); (iii) counterfactual depth-3 + cert-deletion compose correctly. PP-9 row P-band 0.55-0.70 UNCHANGED (single sub-property addition is corroborative not band-LIFT-eligible). Cross-ref: PP-11 substrate-as-reasoning-store (depth-3 chain is structural test); PP-12 compositionality audit (chain-step deletion-cert is audit primitive).
+
+- **PP-11 / Path D compositional cross-N**: q3_l2_composition_cpu_v1 EMPIRICAL CONFIRMATION at L=2 N=4096 e2e_acc=1.0000 unanimous 5-seed at M=50,100,200. L=2 corroboration of existing compositional cross-N sub-row LIFT 0.75-0.90 -> 0.78-0.92 LOCKED (L=2 at production N=4096 5-seed is L=2 production confirmation; prior LIFT cited L=3 evidence at v324). Compositional cross-N sub-row UNCHANGED 0.78-0.92 (single L=2 corroboration not LIFT-eligible).
+
+- **PP-35 substrate-graph-retrieval**: graph_node_classification_v1 EMPIRICAL CONFIRMATION sub-property -- BSC-channel prototype classifier at N=1024 unanimous 5-seed cell_A acc=1.0 (rho_within_A=0.7) + cell_B acc=1.0 (rho_within_B=0.6). Substrate graph-retrieval extends from multi-hop directed-edge SNR (v325 PP-35 founding) to NODE CLASSIFICATION primitive. PP-35 row band 0.60-0.75 UNCHANGED (single sub-property corroborative not LIFT-eligible; cross-N would lift).
+
+- **PP-37 spectral-AI-introspection-sidecar**: kappa3_hutchinson_v2 EMPIRICAL CONFIRMATION + RESCUE-SUCCESS. min_sigma_sep=50.1 across M={50,100,200} with mean_sigma_sep=223.2; theory_ratio=1.16 (well within 20x band); GOE discrimination unanimous 5-seed. RESCUE-SUCCESS closes v327 I-3 (kappa3_hutchinson_v1 1800s TIMEOUT design-fault; vectorized Hutchinson 3 GEMM calls + raised timeout 1800s->3600s; v2 wall=136s well within budget). Same pattern as v325 I-2 RESOLVED v326. PP-37 row band 0.60-0.75 UNCHANGED (single empirical confirmation corroborative; PP-37 founding v326 already empirical).
+
+- **PP-39 substrate-native-neural-symbolic-bridge**: multiagent_consensus_v1 EMPIRICAL CONFIRMATION sub-property -- substrate W-averaging implements majority vote (K=5 maj=3 win_rate=1.0 + K=7 maj=4 win_rate=1.0). Substrate-native multiagent consensus protocol via additive W is direct ALGEBRAIC identity (not learned). PP-39 row band 0.65-0.80 UNCHANGED (single sub-property corroborative; PP-39 founding v326 already empirical).
+
+- **v324 substrate-spectral-identity (free-Poisson with alpha)**: ct3_outlier_bulk_gap_v1 STRENGTHENING-CORROBORATION. Outlier-bulk gap Delta=(1-sqrt(alpha))^2 empirically validated with max_rel_err=0.0265 across alpha={0.05, 0.1, 0.138} unanimous 5-seed at N=4096. Direct continuation of v324 CT-2 rank_test 40/40 free-probability framework empirical evidence. v324 row P-band 0.70-0.85 UNCHANGED (single corroboration not LIFT-eligible; cross-N would lift).
+
+- **q23_capacity_cliff_fine_alpha_v1 substrate-capacity-cliff smoothness annotation**: existing capacity-cliff row (v1 substrate-base capacity cliff K/N~=0.56) GAINS sub-property: in alpha=[0.088, 0.238] window, accuracy degrades SMOOTHLY (max_step=0.0007; slope=-0.0374 p=0.000) NOT via sharp cliff. Confirms graceful degradation in low-load regime; cliff is regime-localized. Existing v1 row band UNCHANGED (annotation only).
+
+### Tallies (v327 -> v328)
+
+- **HONEST:** 363 -> **373** (+10 NEW GENUINE FULL HARD_PASS; counting 8 clean HP + 2 PARTIAL-cells-pass for the partial entries' HP cells: heteroassoc, kappa3 rescue, lfu, q3_l2, multiagent, spectral_capacity (borderline), write_through, ct3, q23, graph_node).
+- **LABEL-VS-HONEST:** 197 -> **199** (+2 NEW CATCHES: #198 arc_lirs ALPHA_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE + #199 lru_decay M_REGIME_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE; both NEW sub-flavors of cherry-pick-cell-aggregate).
+- **Portfolio:** 32+64 -> **32+66** (+2 NEW EXPLORATORY ROWS: PP-43 caching-policy expressibility 0.55-0.70 + PP-44 spectral-capacity-monitor 0.60-0.75) + 1 sub-property addition (PP-9b heteroassoc-chain-depth-3 + deletion). All 2 new rows carry +0.05 lit-scan calibration penalty per v317 uncharted-regime convention.
+- **I-3 RESOLVED:** kappa3_hutchinson_v2 RESCUE-SUCCESS (vectorized 3 GEMM calls + timeout 1800s->3600s; wall=136s well within budget); same pattern as v325 I-2 RESOLVED v326; both RESOLVED.
+- **Cap_map version: v328.**
+
+### Framework reliability (v328)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 45-55% UNCHANGED (no framework-class row verdict this batch; PP-43/44 are PRODUCT-FEATURE + ALGEBRAIC-PRIMITIVE rows not framework-class; PP-37 corroboration via kappa3 rescue does not LIFT product-feature reliability beyond bound).
+- Product-feature: 62-76% -> **64-78%** (+2pp both bounds; 2 NEW PRODUCT-FEATURE rows EMPIRICALLY VALIDATED at FULL multi-seed; algebraic primitives are textbook-grounded so empirical substrate-manifestation tightens upper bound; consistent with v325/v326/v327 tightening pattern at +2pp per major rows-added batch).
+
+### Known infrastructure issues (annotation block; UPDATED in v328)
+
+**Issue I-1 (v323, UPDATED v324/v325/v326/v327, ANNOTATED v328): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v328 12-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326): spectral_zstat_v1 wall-time underestimate.** CLOSED v326.
+
+**Issue I-3 (v327, RESOLVED v328): kappa3_hutchinson_v1 non-vectorized inner loop + tight 1800s timeout = TIMEOUT.** CLOSED v328 by kappa3_hutchinson_v2 (vectorized Hutchinson 3 GEMM calls + timeout 1800s->3600s; wall=136s well within budget). Same RESOLUTION pattern as I-2: identify non-vectorized inner loop, refactor to batched GEMM, raise timeout. Pattern-match recipe LOCKED in this resolution -- "tight per-anchor timeout + non-vectorized inner loop = TIMEOUT" is a recurring DESIGN_FAULT pattern; pre-ship audit should flag any Hutchinson-style sequential-probe loop.
+
+### PROT compliance (v327 -> v328)
+
+- PROT-004/006: NO row closures. PP-43 LFU/write-through clean HP; LRU/ARC PARTIAL but row is OPEN with rescue paths (small-M LRU rescue + low-alpha ARC rescue). PP-44 spectral-capacity-monitor BORDERLINE HP but row is OPEN. No genuine refutations.
+- PROT-007: history v328 appended (history.md sibling entry).
+- PROT-008: cap_map.md + history.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **239th PROT-009 paired commit**.
+- PROT-009: decision-log entry paired with cap_map commit.
+- PROT-018: 10 GENUINE HP verified via remote metrics with run_mode=full + N=production + 5-seed; anchors carry no _nN suffix (default per rule 3) for those at N=4096 (heteroassoc, kappa3_v2, q3_l2, multiagent, spectral_capacity, ct3, ct3); anchors at N=1024 (lfu, arc, lru, write_through, q23, graph_node) likewise carry default. PROT-018 ✓.
+- PROT-021: smoke-checkpoint contamination check applied; no contamination detected (remote metrics fields populated 5-seed; runs are GENUINE FULL per HDLAB_RUN_MODE injection working correctly Round 12 scripts).
+- PROT-022: not applicable (no log2-parity-relevant anchors in this batch).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 12; **2 NEW LABEL-VS-HONEST catches** (#198 arc_lirs cherry-pick-alpha + #199 lru_decay cherry-pick-M). Both labels passed HP at single cherry-picked cell but FAILED HP at majority of cells in the sweep; honest reading = MIDDLE_BAND/PARTIAL for both. lru_decay walk-back gate noted by exp_dev (smoke tau=0.882 within 20% of HP) was PROPHETIC -- FULL 5-seed lands MIDDLE not PASS. New sub-flavors logged: ALPHA_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE + M_REGIME_CONDITIONAL_HP_LABEL_OVER_CLAIMS_AGGREGATE; both are variants of cherry-pick-cell-aggregate.
+- [[feedback-no-preframing]]: task pre-framed q23 (4.6s) + graph_node (3.7s) as "suspiciously fast honest re-read MANDATORY". Honest re-read CONFIRMED both genuine: q23 N=1024 with 17-alpha fine sweep at 5-seed is legitimately ~1.7s; graph_node N=1024 with small N_per_class is legitimately ~1.4s. Short wall NOT label-vs-honest signal when run_mode=full + 5-seed + N matches anchor.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; no contamination signatures (10 PASSes all have full 5-seed aggregated metrics; runs match anchor N + run_mode flags). Round 12 scripts followed corrected HDLAB_RUN_MODE injection pattern.
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; anchors at default N carry no _nN suffix.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY CRITICAL (12-anchor batch + 2 NEW EXPLORATORY ROWS + 1 sub-property + 1 RESCUE-SUCCESS closure + 2 LABEL-VS-HONEST catches + product-feature framework-reliability LIFT +2pp).
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context.
+- [[feedback-rescue-sketch-first-sequencing]]: kappa3 v2 was R2-rescue-success (vectorize + timeout raise; sequenced cheapest first). lru_decay + arc_lirs PARTIAL get NEW rescue spec sequencing CHEAPEST FIRST: R1 (0-compute) PARTIAL ANNOTATION (already done in this entry); R2 (1-2h CPU) small-M sweep for LRU + low-alpha sweep for ARC at finer grid; R3 (CPU) alternative decay schedules (e.g., piecewise-constant gamma); R4 (engineering) hybrid policy with fallback at low-confidence regime; R5 (deferred) deep architecture redesign.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; orchestrator main thread holds dispatch authority; verdict_handler does NOT auto-dispatch exp_dev (autonomous overnight cycle 4 framing -- main-thread queue management); GPU queue has 2 running (l2_hadamard_comp_n8192_v1 + ck_seb_discriminator_v1) + CPU queue at 0; refill warranted main-thread side. CPU=0 noted for main-thread refill dispatch.
+- [[feedback-rehabilitation-after-rejection]]: NO row rejections this batch. lru_decay + arc_lirs PARTIAL get rescue paths above (PP-43 row OPEN with caveats).
+- [[feedback-lit-scan-calibration-penalty]]: 2 NEW top-level rows carry +0.05 deflation per v317 + v324 finite-N convention (PP-43 0.55-0.70; PP-44 0.60-0.75).
+- [[feedback-lock-in-inefficiency-fixes]]: I-3 RESOLVED locks the "non-vectorized inner loop + tight timeout = TIMEOUT" pattern as recurring DESIGN_FAULT class (I-2 + I-3 both same pattern, both RESOLVED via same R2 fix). Pre-ship audit should flag any Hutchinson-style sequential-probe loop or per-element batched test, vectorize to GEMM.
+- [[feedback-per-experiment-timeout-required]]: kappa3 v2 timeout 3600s honored; ample budget; wall=136s well within.
+- [[feedback-composition-classification]]: PP-43 caching-policy expressibility is SCORE-class (each policy is a single retrieval/write operation; no composition step); PP-44 spectral-capacity-monitor is SCORE-class (single spectral readout; no composition); heteroassoc-chain depth-3 is PIPELINE-class composition (3-hop chain with deletion = compositional substrate operation; depth-3 + cert-deletion compose correctly per d2_after_del=0.0003); q3_l2_composition is HANDOFF-class (L=2 composition with handoff between layers).
+
+### Push and follow-on (v328)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority):
+1. **PP-43 PARTIAL rescues** -- LRU small-M sweep + ARC low-alpha sweep (CPU; 1-2h each).
+2. **PP-44 cross-N sweep** -- {N=1024, 2048, 8192} at production load to verify mu_TW tracking N-scaling (CPU).
+3. **PP-9b cross-depth extension** -- depth-5 + depth-10 chains to characterize amortization-economics depth limit (CPU).
+4. **PP-37 spectral N-sweep characterization** (v326 carry-over) -- {N=1024, 2048, 8192} at M=500 5-seed for 10x sensitivity ratio investigation.
+5. **PP-31a alpha-sweep extension** (v327 carry-over) -- ALPHA in {0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30} characterize coverage-vs-alpha curve at boundaries.
+6. **PP-40 N-sweep** (v327 carry-over) -- {1024, 2048, 8192} at M=N/4 to verify ratio N-independence.
+7. **PP-42 M=1000+M=2000 extension** (v327 carry-over) -- test compression-vs-fidelity envelope at higher M.
+8. PP-39 Anchor 1 mixed-mode query round-trip (v326 carry-over).
+9. PP-38 N=8192 5-seed extension (v326 carry-over).
+10. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
+11. Per-script audit for 7 holdout scripts (v324 carry-over).
