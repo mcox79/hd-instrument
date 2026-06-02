@@ -26674,3 +26674,49 @@ Annotation "trace accuracy open" replaced with "trace accuracy ACCEPTED as Hutch
 Tallies: HONEST 490 UNCHANGED. LABEL-VS-HONEST 207 UNCHANGED. Portfolio 32+74 UNCHANGED. I-17 CLOSED.
 
 | v344 | 2026-06-02 | ANNOTATION-ONLY: I-17 RESOLVED (Krylov-budget FALSIFIED; trace floor ACCEPTED) + PROT-022 3-entry selftest registry update + research-side R3+ closed-form rule | I-17 CLOSED; COMBO-3 PP-51 v2 MIDDLE annotation updated; 3 formula registry entries + R3+ rule in PROT-022; HONEST 490 UNCHANGED; LABEL-VS-HONEST 207 UNCHANGED; Portfolio 32+74 UNCHANGED; 254th PROT-009 paired commit |
+
+## v344 -> v345 (2026-06-02) Cycle 14 batch; 8 HARD_PASS; I-12 CLOSED; 2 BAND-LIFTS PP-50 + PP-48; HONEST 490->498; LVH 207 UNCHANGED; 255th PROT-009 paired commit
+
+**Trigger.** Cycle 14 batch 8 verdicts, all _source=remote authoritative, run_mode=full 5-seed. Pause-flag ABSENT.
+
+| # | anchor | wall | N | seeds | verdict | honest reading | cap_map impact |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1 | 2.8s | 16384 | 5 | HARD_PASS | sigma_sep: d=0.001->19.3(HP=3.0, 6.4x); d=0.01->186(HP=10, 18.6x); d=0.04->642(HP=100, 6.4x). All HP gates clear. | I-12 CLOSED; PP-50 N=16384 CAVEAT REMOVED; BAND-LIFT PP-50 0.70-0.85->0.75-0.90 |
+| 2 | pp48_nkt_cross_n_depth13_v1_n8192 | 6.5s | 8192 | 5 | HARD_PASS | pos=1.0(HP>=0.75 PASS); nkt=1.0(HP>=0.65 PASS); 5/5 EXACT-1.0 | PP-48 depth-13 cross-N sub-property at N=8192; cross-N criterion for PP-48 BAND-LIFT satisfied |
+| 3 | pp48_nkt_depth_15_v1_n4096 | 23.2s | 4096 | 5 | HARD_PASS | pos=1.0(HP>=0.75 PASS); nkt=1.0(HP>=0.65 PASS); 5/5 EXACT-1.0; tree=32767 nodes | PP-48 depth-15 sub-property; part of BAND-LIFT evidence |
+| 4 | pp48_nkt_depth_17_v1_n4096 | 89.0s | 4096 | 5 | HARD_PASS | pos=1.0(HP>=0.75 PASS); nkt=1.0(HP>=0.65 PASS); 5/5 EXACT-1.0; tree=131071 nodes | PP-48 depth-17 sub-property; BAND-LIFT PP-48 0.70-0.85->0.75-0.90 |
+| 5 | q_a3_l11_cross_layer_composition_v1_n4096 | 0.57s | 4096 | 5 | HARD_PASS | L1-L11 all=1.0000(HP>=0.9999 PASS); l11_acc=1.0000; 5/5 unanimous | Q-A3/PP-12 L=11 sub-property; band STAYS 0.75-0.90 |
+| 6 | q_a3_l12_cross_layer_composition_v1_n4096 | 0.59s | 4096 | 5 | HARD_PASS | L1-L12 all=1.0000(HP>=0.9999 PASS); l12_acc=1.0000; 5/5 unanimous | Q-A3/PP-12 L=12 sub-property; band STAYS 0.75-0.90; depth series L=2..L=12 |
+| 7 | q_b1_chain_depth_50_v1_n8192 | 35.7s | 8192 | 5 | HARD_PASS | d5=0.9964(HP=0.95 PASS); d10=0.9965(HP=0.88 PASS); d20=0.9964(HP=0.70 PASS); d30=0.9966(HP=0.55 PASS); d45=0.9969(HP=0.40 PASS); d50=0.9965(HP=0.35, 2.85x PASS) | Q-B1/PP-49a depth-50 sub-property; band STAYS |
+| 8 | q_b1_chain_depth_55_v1_n8192 | 38.8s | 8192 | 5 | HARD_PASS | d5=0.9952(HP=0.95 PASS); d10=0.9950(HP=0.88 PASS); d20=0.9951(HP=0.70 PASS); d30=0.9950(HP=0.55 PASS); d45=0.9952(HP=0.40 PASS); d55=0.9949(HP=0.25, 3.98x PASS); N=1024 d55=0.010 resolution artifact confirmed non-issue | Q-B1/PP-49a depth-55 sub-property; ceiling not reached; band STAYS |
+
+**Row updates (v344 -> v345).**
+
+**(A) Issue I-12 CLOSED.** kappa3_v1 (0.3219) and kappa3_v2 (0.3274) used Hopfield-vs-GOE observable; v335 Wave 5 Cell 2 Part B and kappa3_v3 use delta-alpha protocol. Observable mismatch was the root cause. v3 at N=16384 with correct protocol: HP at all 3 delta_alpha levels. PP-50 N=16384 sigma_sep collapse CAVEAT REMOVED. I-12 CLOSED.
+
+**(B) PP-50 BAND-LIFT 0.70-0.85 -> 0.75-0.90.** Cross-N criterion met: N=32768 founding (v335) + N=16384 confirmed (v3 delta-alpha protocol, sigma_sep=642 at d=0.04). I-12 caveat deflation removed. Net: +0.05 both bounds. Lit-scan calibration penalty retained in lifted band.
+
+**(C) PP-48 BAND-LIFT 0.70-0.85 -> 0.75-0.90.** Cross-N criterion met per v343 note: depth-13 now confirmed at N=4096 (v343) AND N=8192 (this batch). Additionally depth-15 (32767 nodes) and depth-17 (131071 nodes) add depth-extension sub-properties. +0.05 both bounds. Lit-scan penalty retained.
+
+**(D) Q-B1/PP-49a depth series extended to depth-55.** depth-50: d50=0.9965 >> HP=0.35; depth-55: d55=0.9949 >> HP=0.25. Fidelity remains within 0.5% of d5 at depth-55 (chain essentially lossless). Ceiling not reached. Band STAYS. Depth-60+ eligible.
+
+**(E) Q-A3/PP-12 depth series extended to L=12.** L=11 and L=12 both unanimous EXACT-1.0 at N=4096. Depth series L=2..L=12. Band STAYS at 0.75-0.90. L=13+ eligible.
+
+**Tallies (v344 -> v345).**
+- HONEST: 490 -> 498 (+8 HP).
+- LVH: 207 UNCHANGED.
+- Portfolio: 32+74 UNCHANGED.
+- BAND-LIFTS: 2 (PP-50: 0.70-0.85->0.75-0.90; PP-48: 0.70-0.85->0.75-0.90).
+- Sub-properties NEW (8): kappa3-N16384-v3 + pp48-depth13-N8192 + pp48-depth15-N4096 + pp48-depth17-N4096 + q-a3-L11-N4096 + q-a3-L12-N4096 + q-b1-depth50-N8192 + q-b1-depth55-N8192.
+- ISSUES CLOSED: I-12.
+- Framework reliability: Product-feature 80-94% -> 82-96%.
+
+**Issue I-12 (RESOLVED v345).** kappa3 sigma_sep N=16384 collapse was config-observable mismatch: v1/v2 used Hopfield-vs-GOE observable; Wave 5 Cell 2 Part B and v3 use delta-alpha protocol. v3 with correct protocol passes HP at all 3 delta_alpha levels (sigma_sep 19.3/186/642 vs HP 3.0/10/100). PP-50 N=16384 CAVEAT REMOVED. CLOSED.
+
+**PROT compliance (v344 -> v345).**
+- PROT-004/006: NO row closures. 2 BAND-LIFTS (PP-50 + PP-48). 8 NEW SUB-PROPERTIES. I-12 CLOSED. 0 NEW ISSUES. No rescue-sketch requirement (all 8 HARD_PASS; no rejections).
+- PROT-007: this history block appended to substrate_capability_map_history.md.
+- PROT-008: transitions validated against per-cell metrics and pre-registered bands.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 255th PROT-009 paired commit.
+- PROT-018: all 8 _n<N> suffix verified. PASS.
+- PROT-021: all 8 _source=remote run_mode=full. PASS.

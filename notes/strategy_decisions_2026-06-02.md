@@ -1006,3 +1006,65 @@ Q-B1 chain depth-35/45 HARD_PASS: d35=0.834, d45=0.596; ceiling not reached (d45
 HARD_FAIL: pp52_hebbian_lora_speedup_n8192_v1 -- acc_delta=0.96 total collapse; speedup=1847x is spurious (LVH #207 pattern; already labeled HF). 5 rescue sketches filed: R1 constrained-Hebbian acc-gate (cheapest), R2 warm-start-only, R3 mixed-precision, R4 subset-layers, R5 teacher-student.
 
 Product-feature reliability: 82-96% (was 80-94%). Framework atomic commit: v343. Sub-agent push blocked; hash surfaced to main thread.Cap map v343->v344 ANNOTATION-ONLY: I-17 RESOLVED (Krylov-budget convergence FALSIFIED by exp_dev R3; trace 3e-3 = Hutchinson MC floor at N_PROBES=1000 ACCEPTED; HP bar lowered to 3e-3; cert sign FIXED v342; I-17 CLOSED). COMBO-3 PP-51 v2 MIDDLE sub-property note updated to reflect floor acceptance. PROT-022 selftest registry updated: 3 formula entries (MP 3rd moment m_3(alpha)=1+3a+a^2, Hopfield single-step cosine, Hutchinson floor O(1/sqrt(N_PROBES))) + research-side R3+ closed-form derivation rule added. Routing file research_routing_v342_r2_meta_finding_4fix_queue_2026-06-02.md moved to routed_completed/. HONEST 490 UNCHANGED. LVH 207 UNCHANGED. Portfolio 32+74 UNCHANGED. PROT-004/006: annotation-only; no closures. 254th PROT-009 paired commit.
+
+## v344 -> v345 @ CYCLE 14 BATCH: 8 HARD_PASS + 0 HF + 0 MIDDLE + 0 LVH catches; I-12 CLOSED; 2 BAND-LIFTS (PP-50 + PP-48); 255th PROT-009 paired commit
+
+**Trigger.** Cycle 14 batch 8 verdicts. All 8 fetched via tools.orchestrator.remote_state.get_metrics (all _source=remote authoritative). Pause-flag ABSENT (ACTIVE). REMOTE-FIRST protocol per role contract.
+
+**Step 0 -- Honest re-read (MANDATORY).**
+
+| # | anchor | prereg HP bands | per-cell metrics | honest verdict |
+|---|--------|----------------|-----------------|----------------|
+| 1 | kappa3_sensitivity_sweep_n16384_v3_delta_alpha_protocol_v1 | sigma_sep>=100@d=0.04 AND >=10@d=0.01 AND >=3.0@d=0.001 | d=0.001:19.3 d=0.01:186.0 d=0.04:642.0 (5/5 seeds) | HARD_PASS CONFIRMED |
+| 2 | pp48_nkt_cross_n_depth13_v1_n8192 | pos_rate>=0.75 AND nkt_rep>=0.65 | pos=1.0000 nkt=1.0000 (5/5 seeds) | HARD_PASS CONFIRMED |
+| 3 | pp48_nkt_depth_15_v1_n4096 | pos_rate>=0.75 AND nkt_rep>=0.65 | pos=1.0000 nkt=1.0000 (5/5 seeds) | HARD_PASS CONFIRMED |
+| 4 | pp48_nkt_depth_17_v1_n4096 | pos_rate>=0.75 AND nkt_rep>=0.65 | pos=1.0000 nkt=1.0000 (5/5 seeds) | HARD_PASS CONFIRMED |
+| 5 | q_a3_l11_cross_layer_composition_v1_n4096 | all 11 fids>=0.9999 unanimous | L1-L11 all=1.0000 l11_acc=1.0000 (5/5) | HARD_PASS CONFIRMED |
+| 6 | q_a3_l12_cross_layer_composition_v1_n4096 | all 12 fids>=0.9999 unanimous | L1-L12 all=1.0000 l12_acc=1.0000 (5/5) | HARD_PASS CONFIRMED |
+| 7 | q_b1_chain_depth_50_v1_n8192 | d5>=0.95 d10>=0.88 d20>=0.70 d30>=0.55 d45>=0.40 d50>=0.35 | d5=0.9964 d10=0.9965 d20=0.9964 d30=0.9966 d45=0.9969 d50=0.9965 (5/5) | HARD_PASS CONFIRMED |
+| 8 | q_b1_chain_depth_55_v1_n8192 | d5>=0.95 d10>=0.88 d20>=0.70 d30>=0.55 d45>=0.40 d55>=0.25 | d5=0.9952 d10=0.9950 d20=0.9951 d30=0.9950 d45=0.9952 d55=0.9949 (5/5) | HARD_PASS CONFIRMED |
+
+0 LABEL-VS-HONEST catches. All 8 labels match per-cell metrics verbatim. No over-claims detected.
+
+PROT-018 check: kappa3 _n16384: N=16384 PASS. pp48_cross_n _n8192: N=8192 PASS. pp48_depth15 _n4096: N=4096 PASS. pp48_depth17 _n4096: N=4096 PASS. q_a3_l11 _n4096: N=4096 PASS. q_a3_l12 _n4096: N=4096 PASS. q_b1_d50 _n8192: N=8192 PASS. q_b1_d55 _n8192: N=8192 PASS. ALL CLEAR.
+
+PROT-021 check: all 8 anchors _source=remote, run_mode=full, n_seeds=5. No smoke checkpoint contamination.
+
+**State transitions (v344 -> v345).**
+
+**A. I-12 CLOSED -- kappa3 sigma_sep N=16384 observable mismatch RESOLVED.**
+kappa3_v3 uses the delta-alpha protocol (Hopfield-vs-Hopfield+delta) identical to Wave 5 Cell 2 Part B at N=32768. v1 and v2 used a DIFFERENT observable (Hopfield-vs-GOE block-diagonal), which is NOT comparable to the Wave 5 Cell 2 Part B protocol. v3 at N=16384 5-seed: sigma_sep = 642 at d=0.04 (6.4x margin above HP=100), 186 at d=0.01 (18.6x above HP=10), 19.3 at d=0.001 (6.4x above HP=3.0). ALL 3 HP conditions met. I-12 root cause: config-observable mismatch between v1/v2 and Wave 5 Cell 2 Part B. PP-50 N=16384 CAVEAT REMOVED. I-12 STATUS: CLOSED.
+
+**B. PP-50 kappa_3 drift-detection BAND-LIFT: 0.70-0.85 -> 0.75-0.90.**
+Cross-N criterion met: founding at N=32768 (v335 Wave 5 Cell 2 Part B, sigma_sep=1727 at d=0.04); now confirmed at N=16384 with same delta-alpha protocol (sigma_sep=642 at d=0.04). Two independent N-scale sub-properties with I-12 active-deflation caveat removed. BAND-LIFT +0.05 both bounds. Lit-scan calibration penalty maintained (-0.05 per v317 convention; penalty held in lifted band). Product story: "kappa_3 detects 0.1%-4% tampering at N=16384 with 6-19x sigma margin; confirmed at N=16384 and N=32768 with same delta-alpha protocol."
+
+**C. PP-48 NKT depth-ceiling BAND-LIFT: 0.70-0.85 -> 0.75-0.90.**
+Prior: depth-13 at N=4096 was latest confirmed (v343). Now: depth-13 cross-N at N=8192 HARD_PASS (pos=nkt=1.0 5/5 seeds); depth-15 at N=4096 HARD_PASS (pos=nkt=1.0 5/5 seeds); depth-17 at N=4096 HARD_PASS (pos=nkt=1.0 5/5 seeds). The cross-N confirmation at depth-13 (N=4096 v343 + N=8192 this batch) satisfies the cross-N criterion specified in v343 note "need cross-N for promotion." Additionally depth-15 and depth-17 extend the depth series (depth-17 = 131071 nodes, still EXACT-1.0). BAND-LIFT 0.70-0.85 -> 0.75-0.90 (+0.05 both bounds). Lit-scan calibration penalty maintained in lifted band. Product story: "substrate NKT stores forbidden-knowledge trees up to 131K nodes (depth-17) at production-N=4096 with EXACT repulsion; depth-13 confirmed at both N=4096 and N=8192."
+
+**D. Q-B1/PP-49a heteroassociative chain depth extension: depth-50 + depth-55.**
+depth-50: d50=0.9965 (HP=0.35, 2.85x margin). depth-55: d55=0.9949 (HP=0.25, 3.98x margin). Ceiling not reached at depth-55; d55 within 0.5% of d5 (0.9952), indicating near-perfect fidelity preservation to depth-55. N=1024 resolution artifact for d55=0.010 confirmed non-issue at N=8192. Adds 2 sub-properties. Band STAYS at current value (depth-extension only at same N; cross-N not added here). Row annotation updated: "chain depth ceiling not reached at depth-55 N=8192; d55=0.9949 >> HP=0.25; depth-60+ eligible."
+
+**E. Q-A3/PP-12 cross-layer composition depth extension: L=11 + L=12.**
+L=11 and L=12 both EXACT-1.0 unanimous 5-seed at N=4096. Prior confirmed ceiling: L=10 (v343). Extends depth series L=2..L=12 with NO fidelity degradation across 12 algebraic-layer compositions. Band STAYS at 0.75-0.90 (v342 BAND-LIFT; additional depth extensions at same N are corroborative; cross-N or mechanism variety needed for further LIFT). Row annotation updated: "composition ceiling not reached at L=12 N=4096; depth series L=2..L=12 all unanimous 1.0000; L=13+ eligible."
+
+**Framework reliability (v344 -> v345).**
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED. I-12 closure removes one open uncertainty; net absorbed by maintained lit-scan penalties.
+- Product-feature: 80-94% -> **82-96%** (+2pp both bounds: PP-50 BAND-LIFT removes I-12 deflation + PP-48 BAND-LIFT confirms cross-N envelope for NKT depth row).
+
+**Tallies (v344 -> v345).**
+- HONEST: 490 -> 498 (+8: 8 HARD_PASS).
+- LVH: 207 UNCHANGED (0 new catches).
+- Portfolio: 32+74 UNCHANGED (no new top-level rows). 2 BAND-LIFTS (PP-50 + PP-48).
+- Sub-properties NEW (8): kappa3-N16384-delta-alpha-protocol + pp48-depth13-N8192-cross-N + pp48-depth15-N4096 + pp48-depth17-N4096 + q-a3-L11-N4096 + q-a3-L12-N4096 + q-b1-depth50-N8192 + q-b1-depth55-N8192.
+- ISSUES CLOSED: I-12. ISSUES OPEN: I-16 (PP-49 HRC counterfactual HARD_FAIL, R1-R5 filed v340).
+
+**PROT compliance (v344 -> v345).**
+- PROT-004/006: NO row closures. 2 BAND-LIFTS (PP-50 + PP-48). 8 NEW SUB-PROPERTIES. I-12 CLOSED. 0 NEW ISSUES.
+- PROT-007: v345 history block appended to substrate_capability_map_history.md.
+- PROT-008: 2 band-lifts + 8 sub-properties + I-12 closure; no portfolio regression.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry staged atomically. 255th PROT-009 paired commit.
+- PROT-018: all 8 anchors _n<N> suffix matching metrics N. PASS.
+- PROT-021: all 8 _source=remote run_mode=full multi-seed authoritative. No smoke artifacts.
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
