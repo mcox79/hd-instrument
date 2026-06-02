@@ -72,4 +72,23 @@ in _seed_checkpoint.py, or add a per-experiment config_hash field.
 ---
 
 Generated: 2026-06-02
-exp_dev cycle 3: shipped 11 anchors (1 kappa3 fix + 10 new) to remote_cpu_queue. Root cause of kappa3_hutchinson_v1 timeout: Python for-loop over n_probes=5000 x 3 O(N^2) sequential ops at N=4096; fixed by vectorized batch DGEMM in v2 (100x speedup, 6.3s smoke vs 1800s timeout). Walk-back gate on lru_decay_kendall_v1 (tau=0.882 at smoke, within 20% of HP=0.90, FULL uses 5 seeds). All 11 remote-verified via queue_add.sh exit-0 + VERIFIED log lines.
+exp_dev cycle 3: shipped 11 anchors (1 kappa3 fix + 10 new) to remote_cpu_queue. Root cause of kappa3_hutchinson_v1 timeout: Python for-loop over n_probes=5000 x 3 O(N^2) sequential ops at N=4096; fixed by vectorized batch DGEMM in v2 (100x speedup, 6.3s smoke vs 1800s timeout). Walk-back gate on lru_decay_kendall_v1 (tau=0.882 at smoke, within 20% of HP=0.90, FULL uses 5 seeds). All 11 remote-verified via queue_add.sh exit-0 + VERIFIED log lines.## Cycle 4 overnight batch (2026-06-02)
+
+Shipped 8/10 anchors to remote_cpu_queue. Dropped 2 from original plan plus replaced q19 redesign needed:
+
+DROPPED:
+- graph_link_prediction_v1: AUC~0.5 at smoke -- fundamental mechanism failure. Asymmetric W cosine probe non-discriminative for link prediction when nodes have multi-outgoing edges (superposition destroys discrimination). AUROC formula was verified correct; the physics does not support this use case.
+- timeseries_xor_fullscale_v2: SUSPICIOUS_RESULT gate -- all-zero metrics (in_acc=0.000, contam=0.000) at smoke N=4096.
+- q19_aging_mu_high_res_v1: Smoke HARD_FAIL -- Phi(t_w) increases with t_w (mu=-0.40 negative). The plateau measurement at fixed T_MAX=200 captures time-lag artifact (states closer in time when t_w approaches T_MAX) not genuine aging signature. Redesign required (full-aging C(t,t_w) as function of t/t_w).
+
+SHIPPED (all 8 REMOTE VERIFIED in queue.json):
+- substrate_metric_norm_axioms_v1 (120s timeout) -- Frobenius axioms PP-41; smoke HARD_PASS
+- write_back_dirty_bits_v1 (120s) -- dirty-bit write-back; smoke HARD_PASS
+- write_around_routing_v1 (120s) -- cosine-probe routing; smoke HARD_PASS
+- per_key_ttl_external_required_v1 (120s) -- Tier2-NEGATIVE TTL constraint; smoke HARD_PASS
+- eviction_id_external_codebook_v1 (300s) -- Tier2-NEGATIVE eviction codebook; smoke HARD_PASS
+- q22_batched_deletion_correlated_v1 (3600s) -- ghost-attractor at c=0.3-0.5; walk-back seeds 5->10
+- multiagent_coord_competing_v1 (900s) -- write-count priority at 71% capacity; smoke HARD_PASS
+- program_exec_audit_chain_v1 (600s) -- 3-cell audit chain; smoke HARD_PASS
+
+Status at ship time: substrate_metric_norm_axioms_v1 and write_back_dirty_bits_v1 already completed (ran during shipping window).
