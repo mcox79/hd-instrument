@@ -215,4 +215,4 @@ Shipped 7 anchors to overnight_queue (REMOTE VERIFY 7/7, 5 completed immediately
 6. q_b1_chain_depth_35_v1_n8192 (t=21600s) -- Q-B1 depth-35; smoke HP d35=0.970
 7. q_b1_chain_depth_45_v1_n8192 (t=21600s) -- Q-B1 depth-45; smoke MIDDLE (scale artifact)
 
-BLOCKED: combo3_pp51_v3_krylov_budget_n4096 -- I-17 R3 falsified (trace 1.3e-2 with 50 matvecs vs 3e-3 with 3). Routed to Strategy.
+BLOCKED: combo3_pp51_v3_krylov_budget_n4096 -- I-17 R3 falsified (trace 1.3e-2 with 50 matvecs vs 3e-3 with 3). Routed to Strategy.cycle-14 exp_dev: shipped kappa3_v3_delta_alpha_n16384 to overnight_queue (1 anchor); blocked combo1_v4 (MMD all-pairs formula bug, kappa3 fix verified); blocked pp47_v2 (boundary-attractor at PLACE_FRAC=0.10, circular topology needed); 2 strategy routing notes filed
