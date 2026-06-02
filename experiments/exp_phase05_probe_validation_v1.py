@@ -69,24 +69,35 @@ ANALOGY_DATASET = "saturnMars/hyperprobe-dataset-analogy"
 
 
 def _parse_analogy(doc):
-    """'A:B=C:D' -> [(A,B),(C,D)] iff {A,B,C,D} are 4 distinct case-folded
-    tokens. Mirrors filter in exp_phase05_probe_training_v1 (hyperprobe
-    create_vsa_encodings shape-bug under overlap)."""
+    """Accept BOTH formats: train-format 'A : B = C : D' AND test-format
+    'A is to B as C is to D'. Returns [(A,B),(C,D)] iff 4 distinct case-folded
+    tokens (no overlap; hyperprobe shape bug avoidance)."""
+    import re
     s = (doc or "").strip()
-    if "=" not in s or ":" not in s:
-        return None
-    parts = s.split("=")
-    if len(parts) != 2:
-        return None
-    pairs = []
-    for part in parts:
-        sub = part.strip().split(":")
-        if len(sub) == 2:
-            a = sub[0].strip()
-            b = sub[1].strip()
-            if a and b:
-                pairs.append((a, b))
-    if len(pairs) < 2:
+    pairs = None
+    # Train format: colon/equals
+    if "=" in s and ":" in s:
+        parts = s.split("=")
+        if len(parts) == 2:
+            p = []
+            for part in parts:
+                sub = part.strip().split(":")
+                if len(sub) == 2:
+                    a = sub[0].strip()
+                    b = sub[1].strip()
+                    if a and b:
+                        p.append((a, b))
+            if len(p) == 2:
+                pairs = p
+    # Test format: natural language 'X is to Y as Z is to W'
+    if pairs is None:
+        m = re.match(r"^(.+?)\s+is to\s+(.+?)\s+as\s+(.+?)\s+is to\s+(.+?)$",
+                     s, flags=re.IGNORECASE)
+        if m:
+            a, b, c, d = [t.strip() for t in m.groups()]
+            if all([a, b, c, d]):
+                pairs = [(a, b), (c, d)]
+    if pairs is None:
         return None
     all_toks = set(t.lower() for t in pairs[0] + pairs[1])
     if len(all_toks) != 4:
@@ -196,20 +207,35 @@ def main():
     else:
         raise RuntimeError(f"No test/validation split in {ANALOGY_DATASET}; "
                            f"splits: {list(analogy_ds.keys())}")
-    # Build parsed-items list of n_val
+    # Build parsed-items list of n_val. Filter to docs whose 4 concepts are
+    # ALL present in the trained codebook (case-folded) -- otherwise hyperprobe
+    # silently drops missing concepts from the VSA encoding and the cos_sim
+    # measurement is degraded by coverage gaps rather than probe quality.
+    codebook_keys_lc = set(k.lower() for k in codebook.keys())
     held_out = []
+    n_seen = 0
+    n_parse_fail = 0
+    n_oov = 0
     for row in held_out_raw:
+        n_seen += 1
         concepts = _parse_analogy(row["doc"])
         if concepts is None:
+            n_parse_fail += 1
+            continue
+        toks = set(t.lower() for t in concepts[0] + concepts[1])
+        if toks - codebook_keys_lc:
+            n_oov += 1
             continue
         held_out.append({"doc": row["doc"], "concepts": concepts})
         if len(held_out) >= n_val:
             break
-    print(f"  validation prompts (parsed): {len(held_out)} / target {n_val}",
+    print(f"  validation prompts: scanned {n_seen}; parsed {n_seen - n_parse_fail}; "
+          f"OOV-skipped {n_oov}; usable {len(held_out)} / target {n_val}",
           flush=True)
     if len(held_out) < min(10, n_val):
         raise RuntimeError(
-            f"Too few parsed validation prompts ({len(held_out)})."
+            f"Too few parsed in-codebook validation prompts ({len(held_out)}); "
+            f"scanned {n_seen} test rows ({n_parse_fail} unparseable, {n_oov} OOV)."
         )
 
     cos_vals = []
