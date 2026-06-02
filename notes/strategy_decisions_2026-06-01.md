@@ -831,3 +831,135 @@ NO row closures. 8 candidates DEFERRED with rescue sequence:
 ### Push and follow-on
 
 Push BLOCKED from sub-agent context; main thread executes 1-tool push. exp_dev DEFERRED to main thread pending I-1 infra fix.
+
+
+## v323 -> v324 @ BATCHED 21-VERDICT RE-CLASSIFICATION TURN (verdict_handler 235th PROT-009 paired commit; user-authorized; opus-escalated for reclassif + framework-reliability-recalc)
+
+**Trigger.** User authorized (`c`) RE-CLASSIFICATION of 21 anchors against runner-level evidence to test the hypothesis that prior v323 SMOKE_LEAK catches were FALSE POSITIVES caused by a metrics-write script bug (LAST write overwrites with smoke metadata after a smoke sanity check while the actual computation ran FULL). 21 anchors across 4 groups: Group A (v323 9 SMOKE_LEAK candidates), Group B (Round 9 6 handoffs), Group C (Round 9 4 GPU completions), Group D (10 _full_v3 reships + 1 verify sentinel). All 21 metrics fetched via `tools.orchestrator.remote_state.get_metrics` (`_source=remote` authoritative). Pause-flag ABSENT (verified `test -f data/orchestrator_paused.flag` -> NO_PAUSE_FLAG). Queue depths GPU=2 CPU=7 non-empty (no exp_dev refill dispatch needed per [[feedback-pipeline-pacing]]).
+
+### Step 0 -- honest re-read of all 21 anchors vs runner-level evidence
+
+Methodology: for each anchor, fetched `_source=remote` metrics.json and cross-checked (a) run_mode field, (b) N_main / N field, (c) n_seeds_main / n_seeds field, (d) per-cell counts (rank_test pairs, n_hp seeds, alpha_grid length), (e) elapsed_s wall-time. Pattern that would CONFIRM script bug: run_mode=full + 5-seed + multi-second wall + then label says smoke. Pattern that CONFIRMS genuine smoke: run_mode=smoke + 2-seed + sub-second to few-second wall.
+
+**FINDING 1: Script-bug hypothesis MOSTLY FALSIFIED.**
+
+Of 9 v323 anchors only **c_infty_seb_detection_v1** shows the predicted FULL-but-mislabeled pattern: run_mode=full, n_seeds=5, N=2048, wall=23.8s. v323 cited it as "MIDDLE_BAND / SMOKE + ctrl_ok=False" -- the SMOKE reason was WRONG (it ran full). HOWEVER the HONEST verdict MIDDLE_BAND is UNCHANGED because the ctrl_ok=False reason stands at FULL scope (SG C_infty=0.4326 vs CTRL C_infty=0.4225 gap=0.0101 -- control floor not discriminated from spin-glass signature even at full 5-seed). **Net LABEL-VS-HONEST catch count revert: 0** (the catch is still valid; HARD_PASS label vs HONEST MIDDLE_BAND stands; only the citation reason needs correction).
+
+The OTHER 8 v323 anchors confirmed genuinely smoke per metrics:
+- ct2_outlier_count_v1: run_mode=smoke n=2 N=4096 22.4s (rank_test 8/8 smoke-positive but not decisive)
+- matrix_trace_primitives_v1: run_mode=smoke n=2 N=2048 4.1s
+- spectral_mp_primitives_v1: run_mode=smoke n=2 N=1024 3.1s
+- r_alpha_throughput_v1: run_mode=smoke n=2 N=512 0.06s
+- capacity_cliff_graceful_v1: run_mode=smoke n=2 N=512 0.10s
+- csp_memory_warm_start_v1: run_mode=smoke n=2 N=2048 0.65s
+- planted_csp_viability_v1: run_mode=smoke n=2 N=1024 0.095s (HARD_PASS label still OVER-CLAIMS at smoke trivial-alpha)
+- batched_deletion_reliability_v1: run_mode=full n=5 N=4096 113.8s (correctly classified GENUINE HARD_PASS in v323)
+
+So v323's 8 SMOKE_LEAK catches were correct on substance (7 SMOKE_LEAK + 1 SMOKE_HP_OVER_CLAIM); only the 1 c_infty entry needed reason-correction.
+
+**FINDING 2: Runner-fix WORKED on 3 specific scripts but NOT on 7 holdout scripts.**
+
+The sentinel ct2_outlier_count_runner_fix_verify ran run_mode=full n=5 N=4096 144.9s rank_test=40/40 -- proof that the runner infrastructure CAN execute --full. ct2_outlier_count_full_v3 (136.4s, rank_test=40/40 5-seed N=4096) matches the sentinel. matrix_trace_primitives_full_v3 ran run_mode=full N=2048 5-seed 20.8s 5/5 primitives. c_infty_seb_detection_full_v3 ran run_mode=full N=2048 5-seed 14.8s.
+
+The other 7 _full_v3 reships still ran smoke: spectral_mp_primitives_full_v3 (smoke 2-seed 2.9s), r_alpha_throughput_full_v3 (smoke 0.05s), capacity_cliff_graceful_full_v3 (smoke 0.07s), csp_memory_warm_start_full_v3 (smoke 0.76s), planted_csp_viability_full_v3 (smoke 0.10s HARD_PASS label OVER-CLAIMS again), deletion_cert_api_full_v3 (smoke 55.7s A+B HP labels OVER-CLAIM), multiagent_coord_full_v3 (smoke 26.4s A+B+C HP labels OVER-CLAIM).
+
+The pattern: 3-of-10 _full_v3 ran full. This suggests the runner-patch lives partly at the per-script level (some scripts have the patched default; others don't). I-1 DOWNSCOPED from 8/9 to 7/10.
+
+**FINDING 3: Group B (Round 9 6-handoff) all ran smoke; 4 OVER-CLAIM at smoke HP labels.**
+
+- deletion_cert_api_v1: smoke N=4096 A+B unanimous 2/2 HP label -> SMOKE_HP_OVER_CLAIM (+1 CATCH)
+- multiagent_coord_v1: smoke N=4096 A+B+C unanimous HP label -> SMOKE_HP_OVER_CLAIM (+1 CATCH)
+- hippocampal_basin_v1: smoke N=1024 A=HF B=HP MIXED -> MIDDLE_BAND label HONEST (no catch)
+- neural_symbolic_rule_v1: smoke N=4096 A+C unanimous HP label -> SMOKE_HP_OVER_CLAIM (+1 CATCH)
+- graph_deletion_multihop_v1: smoke N=4096 A=HP B=MID -> MIDDLE_BAND label HONEST (no catch)
+- timeseries_xor_range_v1: smoke N=1024 in_acc=1.0 HP label -> SMOKE_HP_OVER_CLAIM (+1 CATCH)
+
+**FINDING 4: Group C (4 GPU completions) 3 GENUINE FULL + 1 GENUINE FULL HARD_FAIL.**
+
+- l3_composition_v1: run_mode=full N=4096 5-seed mean_acc=1.000 -> **GENUINE HARD_PASS** (annotation to PP-11 / Path D compositional cross-N sub-row: L=3 EMPIRICAL FULL CONFIRMATION extends L=2 -> L=3 composition)
+- ultrametricity_basins_v1: run_mode=full N=2048 5-seed mean_ratio=0.583 n_hp=0/5 q_spread=0.190 -> **GENUINE FULL HARD_FAIL** (Garcia Lorenzana 2025 PRL ultrametricity precedent EMPIRICALLY REFUTED at substrate finite-N N=2048)
+- c_infty_seb_detection_v1: (counted in Group A)
+- signed_am_active_repulsion_v1: run_mode=full N=2048 5-seed frac_anti_b=1.000 5/5 b_is_max=5/5 -> **GENUINE HARD_PASS** (PP-9 sub-property Q16 DEEP: deletion+repulsion combined primitive validated at FULL)
+
+**FINDING 5: Group D summary already covered in Finding 2.**
+
+### Step 1 -- strategic decisions
+
+**CT-2 free-Poisson framework DECISIVELY CONFIRMED at FULL N=4096 5-seed.** Sentinel ct2_outlier_count_runner_fix_verify + ct2_outlier_count_full_v3 BOTH run_mode=full 5-seed N=4096 with rank_test=40/40 pairs, mean_edge_err=0.0115, max_edge_err=0.0256, convergence_direction=True, alpha_grid=[0.01, 0.02, 0.05, 0.1, 0.12]. v316 had REFUTED rank1-edit + free-additivity sub-claims of free-probability framework; this CONFIRMS the FREE-POISSON SPECTRAL IDENTITY sub-claim (substrate spectrum follows free-Poisson with alpha-dependent outlier count at finite-N N=4096). **NEW TOP-LEVEL ROW: substrate spectral identity (free-Poisson with alpha-dependent outlier count) 🟢 P 0.70-0.85 EXPLORATORY** with lit-scan calibration penalty applied (uncharted finite-N regime carries +0.05 deflation per v317; base 0.75-0.90 -> filed 0.70-0.85).
+
+**Matrix-trace primitives FULL CONFIRMED at N=2048 5-seed.** 5/5 primitives pass_frac=1.000 (count=1.00 contains=1.00 effrank=1.00 jaccard=1.00 frobenius=1.00). **NEW TOP-LEVEL ROW: substrate-native query API (matrix-trace primitives) 🟢 P 0.65-0.80 EXPLORATORY** with lit-scan calibration penalty applied.
+
+**PP-33 SEB DETECTION -- NO LIFT at FULL.** c_infty_seb_detection_v1 (full 5-seed v323) + c_infty_seb_detection_full_v3 (full 5-seed v324) BOTH have ctrl_ok=False. SG=0.4326 vs CTRL=0.4225 gap=0.0101. PP-33 caveat (e) added: SEB signature NOT discriminated from control AT FULL SCOPE 5-seed N=2048 (not just smoke as v323 incorrectly cited). PP-33 band UNCHANGED 0.40-0.55.
+
+**ULTRAMETRICITY HARD_FAIL at FULL.** ultrametricity_basins_v1 full 5-seed N=2048: mean_ratio=0.583, n_hp=0/5, q_spread=0.190. Substrate does NOT exhibit ultrametricity at finite-N N=2048. Garcia Lorenzana 2025 PRL CK/FRSB ultrametricity precedent REFUTED for substrate's regime. PP-33 caveat (f) added. PP-33 band UNCHANGED 0.40-0.55 (sub-hypothesis refutation tightens lower bound; row not closed; NE-1 through NE-5 candidate rescues remain).
+
+**L3 3-way composition FULL CONFIRMED.** Annotation to PP-11 / Path D compositional cross-N sub-row: L=2 -> L=3 composition empirical FULL extension.
+
+**Signed-AM active repulsion FULL CONFIRMED.** Annotation to PP-9 (Sagawa-Ueda deletion-cert family) sub-property: Q16 DEEP deletion+repulsion combined primitive validated.
+
+**No row closures.** All sub-hypothesis refutations stay within parent rows (PP-33 unchanged band; PP-9 sub-property addition).
+
+### Step 2 -- rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+For 7 holdout scripts (spectral_mp, r_alpha, capacity_cliff, csp_warm_start, planted_csp, deletion_cert_api, multiagent_coord):
+- R1 (0-compute, applied) Subsumption: 3 scripts (ct2/matrix_trace/c_infty) confirm runner infra works; problem is per-script.
+- R2 (5-15min each) Per-script audit: grep `--full` flag handling in each of 7 scripts; identify default-flip drop point.
+- R3 (per-script) Script-side patch + sentinel re-ship.
+- R4 (FULL 5-seed N production) After patch, re-ship each at FULL.
+- R5 (1-2h) Round 9 6-handoff FULL re-ships (deletion_cert_api, multiagent_coord, neural_symbolic_rule, timeseries_xor_range; hippocampal + graph_deletion follow-on diagnostic).
+
+For PP-33 SEB + ultrametricity (both FULL HARD_FAIL):
+- R1 (0-compute, applied) Subsumption: CK/FRSB sub-hypothesis directly refuted at FULL N=2048 5-seed.
+- R2 (research) Open question: finite-N suppression OR substrate non-CK/non-FRSB system entirely? Research drill on non-CK/non-FRSB candidate frameworks at finite-N.
+- R3 (engineering) Per v229 non-equilibrium-stat-mech class: NE-3 Crooks-FT + NE-4 Landauer + NE-5 audit-no-benefit FULL re-ships are higher-yield than further CK/FRSB probes.
+
+### Tallies (v323 -> v324)
+
+- HONEST: 345 -> **350** (+5: ct2_full_v3, ct2_verify, matrix_trace_full_v3, l3_composition, signed_am).
+- LABEL-VS-HONEST: 189 -> **197** (+8 new catches: deletion_cert_v1, multiagent_v1, neural_symbolic_v1, timeseries_xor_v1, c_infty_full_v3, planted_csp_full_v3, deletion_cert_full_v3, multiagent_full_v3).
+- RECLASSIFIED_FALSE_POSITIVE_REASON_ONLY sub-flavor: +1 (c_infty_seb_detection_v1 reason corrected from SMOKE_LEAK to CTRL_DISCRIMINATION_FAIL; net catch revert: 0).
+- Portfolio: 32+53 -> **32+55** (+2 NEW TOP-LEVEL EXPLORATORY ROWS).
+- Cap_map version: **v324**.
+
+### Framework reliability (v324)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 42-52% -> **45-55%** (+3pp both bounds; free-Poisson sub-claim CONFIRMED partially offsets v316 rank1-edit + free-additivity refutations).
+- Product-feature: 55-70% UNCHANGED.
+
+### PROT compliance (v323 -> v324)
+
+- PROT-004/006: NO closures; PP-33 caveats (e)+(f) added (sub-hypothesis refutations; row band UNCHANGED).
+- PROT-007: history v324 appended (history.md sibling entry).
+- PROT-008: cap_map.md + history.md + strategy_decisions_2026-06-01.md staged atomically; **235th PROT-009 paired commit**.
+- PROT-009: decision-log entry paired with cap_map commit.
+- PROT-018: 21 anchors re-verified via remote metrics; no PROT-018 violations introduced.
+- PROT-021: smoke-checkpoint contamination check applied; I-1 DOWNSCOPED to 7 scripts.
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 21; 8 NEW catches; 1 reason-correction (no net revert).
+- [[feedback-no-preframing]]: user pre-framed CT-2 as decisive framework test if HP; CT-2 IS GENUINE FULL HP -- LIFT JUSTIFIED on EMPIRICAL evidence (distinguishes honest LIFT-from-evidence from pre-framed LIFT-before-evidence).
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; I-1 downscoped via 3-script sentinel + 7-holdout audit.
+- [[feedback-no-label-vs-honest-anchor-names]]: 4 Round 9 handoffs + 3 _full_v3 ship-time HP at smoke = canonical SMOKE_HP_OVER_CLAIM violations.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context.
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH.
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context.
+- [[feedback-rescue-sketch-first-sequencing]]: rescues sequenced cheapest-first (R1 subsumption applied -> R2 per-script audit -> R3-R5).
+- [[feedback-pipeline-pacing]]: queue GPU=2 CPU=7 non-empty; no refill dispatch.
+- [[feedback-rehabilitation-after-rejection]]: PP-33 sub-hypothesis refutations (SEB + ultrametricity) get R1-R3 rescue list; PP-33 row band UNCHANGED (not closed).
+- [[feedback-lit-scan-calibration-penalty]]: both new top-level rows carry +0.05-0.10 deflation per v317 finite-N regime.
+- [[feedback-lock-in-inefficiency-fixes]]: I-1 partial-resolution annotation locks runner-patch downscope.
+
+### Push and follow-on (v324)
+
+Push: BLOCKED from sub-agent context; main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority):
+1. Per-script audit for 7 holdout scripts (HIGHEST).
+2. FULL re-ship of 7 anchors after patch.
+3. Round 9 6-handoff FULL re-ships (deletion_cert_api, multiagent_coord, neural_symbolic_rule, timeseries_xor_range; hippocampal + graph_deletion follow-on).
+4. PP-33 NE-3 Crooks-FT + NE-4 Landauer + NE-5 audit-no-benefit FULL re-ships.
+5. CT-2 v2 N=8192 5-seed (confirm spectral-identity-row at higher N).
+6. matrix_trace_primitives v2 N=4096 5-seed (confirm substrate-native-query-API at higher N).
