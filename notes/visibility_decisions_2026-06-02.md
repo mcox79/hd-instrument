@@ -67,3 +67,9 @@ WAVE 5 cloud bundle bbelw34ap completed: 5 anchors at N=32768 5-seed M=1638 for 
 Cap_map v335 -> v336: HONEST +4 (417->421); LABEL-VS-HONEST +1 (201->202); PP-12 BAND-LIFT 0.60-0.75->0.65-0.80; product-feature 74-88%->75-89% (+1pp). 247th PROT-009 paired commit. Push deferred to main thread.
 
 ## v337 (2026-06-02 Cycle 10 GPU batch) -- 4 GENUINE HARD_PASS at production-N=8192: COMBO-2 (PP-48+PP-49 N=8192 sub-property), COMBO-3 (PP-45 N-scaling sub-property), Q-A3 L=3 (PP-12 L=3 N=8192 sub-property), SWR v2 (PP-47 BAND-LIFT 0.55-0.70 -> 0.60-0.75 via mechanism-variety). HONEST 425 (+4). LVH 202 UNCHANGED (0 catches). Portfolio 32+72 UNCHANGED. Product-feature 75-89% -> 76-90%. Commit: [hash deferred to main thread].
+
+
+## v338 -- Cycle 10.5 5-verdict GPU batch (verdict_handler 249th PROT-009)
+
+- BATCH 5-VERDICT GPU Cycle 10.5: 4 GENUINE HARD_PASS + 1 GENUINE MIDDLE_BAND; 0 LABEL-VS-HONEST. PP-51 NEW TOP-LEVEL ROW founded (implicit-Gram audit-on-M-side architecture LOCK 0.70-0.85 EXPLORATORY). Wave 5 Cell 5 UNBLOCKED (COMBO-1 v3 GPU-fix 4/4-HP recovery at N=4096 5-seed; HP3 slope=0.713 vs v2 1.958; HP4 cosine=1.0 vs v2 0.25). PP-48 + PP-49 BAND-LIFT 0.65-0.80 -> 0.70-0.85 (combo2 N=16384 unanimous EXACT-1.0; 3-sub-property cross-N criterion {4096,8192,16384} MET). PP-45 N-scaling-complete sub-property (combo3 N=16384 fills curve to 4-point {4096,8192,16384,32768}). PP-12 L=4 N=8192 sub-property (cross-layer composition depth extends from L=3 to L=4 with NO fidelity degradation). PP-33 sub-property COMBO-4 v2 N=2048 3-seed MIDDLE: M_dyn=0.84 + collapse=1e-4 PASS / mu_aging=0.17 OUT-OF-BAND [0.5,1.0] (rescue R1-R5 filed; R5 theory-audit FIRST before retry GPU). Portfolio 32+72 -> 32+73 (+1 PP-51); framework-reliability product-feature 76-90% -> 78-92% (+2pp). Issue I-8 RESOLVED. 249th PROT-009 paired commit.
+

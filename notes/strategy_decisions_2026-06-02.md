@@ -395,3 +395,42 @@ Main-thread routing candidates (highest -> lowest priority; v336 carryovers RETA
 7. **I-7 orphan failures re-ship vs close** (v332 carry-over).
 8. **Q-F3 cophenetic correlation**, Q-F1, Q-F4, graph_community R2, program_exec R2, caching_capacity R1, PP-43b LRU, Q-F2, I-6, COMBO-4 N-scale R2, PP-44/PP-9b cross-N (v330-v336 carry-overs).
 9. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
+
+
+## v337 -> v338 @ BATCHED 5-VERDICT GPU Cycle 10.5 (4 GENUINE HARD_PASS + 1 GENUINE MIDDLE_BAND; 0 LABEL-VS-HONEST) -- PP-51 NEW TOP-LEVEL ROW implicit-Gram audit-on-M-side architecture LOCK + Wave 5 Cell 5 UNBLOCKED + PP-48 + PP-49 BAND-LIFTS at N=16384 + PP-45 N-scaling-complete sub-property + PP-12 L=4 sub-property + PP-33 COMBO-4 v2 sub-property with mu-aging caveat (verdict_handler 249th PROT-009 paired commit)
+
+**Trigger.** Batched 5-verdict GPU Cycle 10.5 2026-06-02. All 5 anchors fetched via `tools.orchestrator.remote_state.get_metrics` (_source=remote authoritative). Pause-flag ABSENT verified. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 5 HONEST (4 clean HP + 1 GENUINE MIDDLE_BAND COMBO-4 v2 with mu-aging-exponent FAIL caveat). **0 NEW LABEL-VS-HONEST OVER-CLAIMS.**
+
+- **combo1_p3_dam_implicit_gram_v3_gpu_fix_v1_n4096**: HONEST 4/4-HP. v3 GPU-vectorized recovery (HP3 slope=0.713 vs v2 1.958; HP4 cosine=1.0 vs v2 0.25). Wave 5 Cell 5 UNBLOCKED.
+- **combo4_dynamical_redesign_v2_n2048**: HONEST MIDDLE 2/3 metrics. M_dyn=0.84 + collapse=0.0001 PASS; mu_aging=0.1733 FAIL HP band [0.5,1.0]. PP-33 sub-property with caveat.
+- **combo2_p4_l3_signed_am_v1_n16384**: HONEST 3/3-HP unanimous EXACT-1.0 at N=16384 5-seed. PP-48+PP-49 BAND-LIFT.
+- **combo3_unified_api_v1_n16384**: HONEST 5/5-HP unanimous at N=16384 5-seed. PP-45 N-scaling-complete 4-point.
+- **q_a3_l4_cross_layer_composition_v1_n8192**: HONEST 5/5-HP all L=1..4 fidelity EXACT-1.0 at N=8192 5-seed. PP-12 L=4 sub-property.
+
+**Strategic decisions.**
+
+1. **PP-51 NEW TOP-LEVEL ROW founding: implicit-Gram audit-on-M-side architecture LOCK 0.70-0.85 EXPLORATORY.** COMBO-1 v3 GPU-fix 4/4-HP at N=4096 5-seed validates v333 research-cycle delivered spec; v3 spec is the FULL implicit-Gram-solve formulation. Wave 5 Cell 5 cloud-dispatch UNBLOCKED. Lit-scan calibration penalty +0.05 applied. Cross-references: PP-45 5-method unified-API (PP-51 is 6th primitive sibling); PP-42 implicit-Gram-compression founding (PP-51 EXTENDS architecture commitment); PP-12 (M-side audit primitive available to chain).
+
+2. **PP-48 + PP-49 BAND-LIFT 0.65-0.80 -> 0.70-0.85 (+0.05 both bounds).** combo2 N=16384 GENUINE FULL HP unanimous EXACT-1.0 at all 3 metrics. 3-sub-property cross-N criterion MET: N=4096 (v334 founding) + N=8192 (v337) + N=16384 (v338). Substrate Negative-Knowledge Tree + Hierarchical-Refusal-Cert architecture confirmed at production-N envelope {4096, 8192, 16384}.
+
+3. **PP-45 N-scaling-complete SUB-PROPERTY: 5-method unified-API curve filled at intermediate N=16384.** All 5 primitives zero-error at N=16384 5-seed; N-scaling now COMPLETE {4096, 8192, 16384, 32768} = 4-point monotone confirmation.
+
+4. **PP-12 L=4 N=8192 SUB-PROPERTY: cross-layer composition depth extends from L=3 to L=4 at production-N.** Geometric inner-decay scheme (M_inner=200 -> M_outer=25) holds with NO fidelity degradation across 4-layer composition at N=8192 5-seed.
+
+5. **PP-33 SUB-PROPERTY "COMBO-4 v2 M_dyn + scaling-collapse PASS / mu_aging OUT-OF-BAND at N=2048 3-seed" with annotation caveat.** Substrate aging-exponent at N=2048 disagrees with CK-class predicted [0.5, 1.0] band; PP-33 parent row 0.60-0.75 UNCHANGED; sub-property documents the mu-aging mismatch alongside the M_dyn + collapse PASS signals. Rescue R1-R5 filed (R5 theory-side spec audit BEFORE any further GPU spend, per PROT-022 formula-selftest discipline).
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+For **COMBO-4 v2 mu-aging-exponent FAIL** (NEW; PP-33 sub-property OPEN):
+- R1 (0-compute, applied) ANNOTATION-only PP-33 sub-property documents M_dyn+collapse PASS / mu-aging OUT-OF-BAND.
+- R5 (~1h theory, EARLIEST BEFORE GPU) Theory-side audit of mu formula in COMBO-4 redesign spec vs CK-class prediction; possible exponent-typo cousin of v327 F_4 typo. 0-compute check before any retry GPU spend.
+- R2 (~30min GPU) After R5 clean: re-run 5-seed (not 3) at N=2048 to confirm mu estimate is not seed-noise artifact.
+- R3 (~1h GPU) N=4096 5-seed for mu-aging N-scaling test.
+- R4 (~2h GPU) Alternative observable via two-time correlator C(t,t_w) integral (Q19 v330 RESCUE-style corrected observable).
+
+**Atomic commit.** cap_map.md + history.md (inline v338 entry) + this strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. **249th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Tallies (v337 -> v338).** HONEST 425 -> 430 (+5). LABEL-VS-HONEST 202 UNCHANGED. Portfolio 32+72 -> **32+73** (+1 NEW TOP-LEVEL ROW PP-51 audit-on-M-side architecture LOCK 0.70-0.85). 2 BAND-LIFTS (PP-48 + PP-49 both 0.65-0.80 -> 0.70-0.85). 4 NEW SUB-PROPERTIES + 1 PP-33 sub-property MIDDLE-with-caveat. Framework-reliability product-feature 76-90% -> **78-92%** (+2pp). Issue I-8 RESOLVED (COMBO-1 v3 redesign delivered).
+
