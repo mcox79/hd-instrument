@@ -204,3 +204,15 @@ GPU cells (PROT-018/019/021 all PASS, remote-verify 10/10):
 - pp48_pp46_negative_knowledge_with_deletion_cert_v1_n4096: SCORE composition, cert=-1.0 HP, 14400s
 
 Fix applied: 100MB VRAM selftest assertion changed to 1MB in 3 scripts (deletion_cert, pp48_pp46, combo3_alpha_grid). Remote GPU has 16-67MB allocated for smoke tensors; 100MB was wrong floor.
+## GPU Refill 2026-06-02 (cycle 12 refill)
+
+Shipped 7 anchors to overnight_queue (REMOTE VERIFY 7/7, 5 completed immediately):
+1. q_a3_l9_cross_layer_composition_v1_n4096 (t=14400s) -- Probe A L=9; smoke HP fids=1.0
+2. q_a3_l10_cross_layer_composition_v1_n4096 (t=14400s) -- Probe A L=10; smoke HP fids=1.0
+3. pp52_exact_rollback_n16384_v1 (t=21600s) -- Probe B rollback N=16384; smoke rel_err=0
+4. pp52_one_shot_addition_n16384_v1 (t=21600s) -- Probe B one-shot N=16384; smoke HP cos=1.0
+5. pp48_nkt_depth_13_v1_n4096 (t=14400s) -- PP-48 NKT depth-13; smoke HP pos=nkt=1.0
+6. q_b1_chain_depth_35_v1_n8192 (t=21600s) -- Q-B1 depth-35; smoke HP d35=0.970
+7. q_b1_chain_depth_45_v1_n8192 (t=21600s) -- Q-B1 depth-45; smoke MIDDLE (scale artifact)
+
+BLOCKED: combo3_pp51_v3_krylov_budget_n4096 -- I-17 R3 falsified (trace 1.3e-2 with 50 matvecs vs 3e-3 with 3). Routed to Strategy.
