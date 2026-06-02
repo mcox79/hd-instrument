@@ -50,7 +50,10 @@ from typing import Any, Optional
 # cloud.lambda.ai domain. Both have been live; the newer endpoint is what
 # the current dashboard hands users for `curl -u <key>:` examples.
 LAMBDA_API_BASE = "https://cloud.lambda.ai/api/v1"
-_DEFAULT_TIMEOUT_S = 30.0
+_DEFAULT_TIMEOUT_S = 60.0  # bumped from 30s; Cloudflare in front of Lambda
+                            # API can return slow under load. Per-request retry
+                            # gives 3 attempts; total worst case = 60s * 3 +
+                            # 2s + 4s = ~186s before LambdaClientError raises.
 
 
 @dataclass
@@ -150,30 +153,68 @@ class LambdaClient:
         if body is not None:
             data = json.dumps(body).encode("utf-8")
             headers["Content-Type"] = "application/json"
-        req = urllib.request.Request(url, data=data, headers=headers, method=method)
-        try:
-            with urllib.request.urlopen(req, timeout=self.timeout_s) as resp:
-                raw = resp.read()
-                if not raw:
-                    return {}
-                try:
-                    return json.loads(raw)
-                except json.JSONDecodeError as exc:
-                    raise LambdaClientError(
-                        f"non-JSON response from {method} {path}: {raw[:200]!r}"
-                    ) from exc
-        except urllib.error.HTTPError as exc:
+        # Retry policy: transient errors (timeout / URLError / 5xx / 429) get
+        # up to 3 attempts with exponential backoff (2s / 4s / 8s). Permanent
+        # errors (4xx auth / 404 not found) raise immediately.
+        # Rationale: wait_for_active polls every ~5s for up to 5 min; a single
+        # 30s timeout used to tank the entire multi-hour dispatch (Dispatch 11
+        # 2026-06-02). Per-call retry isolates transient network blips.
+        import time
+        max_attempts = 3
+        last_exc: Optional[Exception] = None
+        for attempt in range(1, max_attempts + 1):
+            req = urllib.request.Request(url, data=data, headers=headers, method=method)
             try:
-                err_body = exc.read().decode("utf-8", errors="replace")
-            except Exception:
-                err_body = ""
-            raise LambdaClientError(
-                f"HTTP {exc.code} from {method} {path}: {err_body[:400]}"
-            ) from exc
-        except urllib.error.URLError as exc:
-            raise LambdaClientError(
-                f"network error to {method} {path}: {exc.reason}"
-            ) from exc
+                with urllib.request.urlopen(req, timeout=self.timeout_s) as resp:
+                    raw = resp.read()
+                    if not raw:
+                        return {}
+                    try:
+                        return json.loads(raw)
+                    except json.JSONDecodeError as exc:
+                        raise LambdaClientError(
+                            f"non-JSON response from {method} {path}: {raw[:200]!r}"
+                        ) from exc
+            except urllib.error.HTTPError as exc:
+                try:
+                    err_body = exc.read().decode("utf-8", errors="replace")
+                except Exception:
+                    err_body = ""
+                # 5xx and 429 are transient; 4xx (except 429) are permanent
+                if exc.code >= 500 or exc.code == 429:
+                    last_exc = exc
+                    if attempt < max_attempts:
+                        time.sleep(2 ** attempt)
+                        continue
+                raise LambdaClientError(
+                    f"HTTP {exc.code} from {method} {path} "
+                    f"(attempt {attempt}/{max_attempts}): {err_body[:400]}"
+                ) from exc
+            except urllib.error.URLError as exc:
+                # Timeouts (socket.timeout wrapped in URLError), DNS, connection
+                # reset, etc. -- all transient.
+                last_exc = exc
+                if attempt < max_attempts:
+                    time.sleep(2 ** attempt)
+                    continue
+                raise LambdaClientError(
+                    f"network error to {method} {path} "
+                    f"after {max_attempts} attempts: {exc.reason}"
+                ) from exc
+            except TimeoutError as exc:
+                # Python 3.10+ raises a top-level TimeoutError directly in some
+                # scenarios (esp. ssl.read). Treat same as URLError.
+                last_exc = exc
+                if attempt < max_attempts:
+                    time.sleep(2 ** attempt)
+                    continue
+                raise LambdaClientError(
+                    f"timeout to {method} {path} after {max_attempts} attempts: {exc}"
+                ) from exc
+        # Unreachable; keeps mypy happy
+        raise LambdaClientError(
+            f"exhausted retries to {method} {path}: {last_exc!r}"
+        )
 
     # ---- Instance types (catalog) ------------------------------------------
 
