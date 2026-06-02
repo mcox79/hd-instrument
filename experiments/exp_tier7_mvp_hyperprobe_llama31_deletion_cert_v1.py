@@ -48,7 +48,7 @@ from experiments._seed_checkpoint import (  # noqa: E402
 from testbed.llm_integration.hyperprobe_encoder import encoder_from_env  # noqa: E402
 from testbed.llm_integration.substrate_audit import (  # noqa: E402
     build_W_from_patterns, deletion_cert, retrieval_cosine,
-    null_distribution_norm,
+    null_distribution_norm, probe_quality_tag,
 )
 
 ANCHOR_NAME = "tier7_mvp_hyperprobe_llama31_deletion_cert_v1"
@@ -171,7 +171,8 @@ def classify_verdict(seeds_results: list[dict]) -> tuple[str, str]:
         v = "MIDDLE_BAND"
     msg = (f"Phase 0.5 sub-test B (deletion cert): deleted-Z_max={del_z_max:.2f} "
            f"(HP < {HP_DEL_Z}; HF > {HF_DEL_Z}); retained-cosine_min={retain_min:.3f} "
-           f"(HP > {HP_RETAIN_COSINE}; HF < {HF_RETAIN_COSINE}). Verdict: {v}.")
+           f"(HP > {HP_RETAIN_COSINE}; HF < {HF_RETAIN_COSINE}). Verdict: {v}."
+           + probe_quality_tag())
     return v, msg
 
 

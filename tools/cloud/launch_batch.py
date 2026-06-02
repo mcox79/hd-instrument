@@ -718,6 +718,15 @@ def main() -> int:
             script_args=script_args,
         )
         rcs.append((b["anchor"], rc, metrics_path if metrics_path and metrics_path.is_file() else None))
+        # Per-anchor abort-on-failure gate (Phase 0.5 probe-validation use case):
+        # if a gating anchor declares abort_batch_on_failure=True and exited
+        # non-zero, stop the batch before running downstream anchors that depend
+        # on its artifacts.
+        if rc != 0 and bool(b.get("abort_batch_on_failure", False)):
+            print(f"\n[abort] {b['anchor']} exited rc={rc} and "
+                  f"abort_batch_on_failure=True; skipping remaining "
+                  f"{len(batch) - (i + 1)} anchor(s) and terminating instance.")
+            break
 
     print(f"\n[terminate]")
     _force_terminate()

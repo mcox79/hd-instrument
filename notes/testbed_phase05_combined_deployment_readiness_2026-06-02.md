@@ -159,3 +159,98 @@ Per research review by user-relayed research session (verbatim relay 2026-06-02)
 8. **No padding**: CONFIRMED. 4 anchors all map to pre-registered research routings.
 
 Research net assessment: **GREEN-LIGHT** on the run design with the above changes applied.
+
+---
+
+## Research green-light 2026-06-02 (Phase 0.5b cliff + path-a probe-training): full pipeline shipped
+
+Per user-relayed research confirmation 2026-06-02 ("PROCEED with path (a)"): probe-training path authorized; 2 mandatory additions baked in.
+
+### Addition 1 (MANDATORY): probe-quality validation pre-step
+
+Built `experiments/exp_phase05_probe_validation_v1.py`:
+- Loads trained probe checkpoint from `data/exp_phase05_probe_training_v1/probe_ckpt.ckpt`
+- Runs on held-out 500-prompt SQuAD test-split (not seen during training)
+- HP: cos_sim >= 0.85 AND binary_acc >= 0.90 (within 0.04 of paper's 0.89/0.94)
+- HF: cos_sim < 0.75 OR binary_acc < 0.80 -> exits 1 -> launcher aborts batch
+- MIDDLE: in between (proceed but downstream verdicts qualified)
+
+Launcher modified: `tools/cloud/launch_batch.py` now honors `abort_batch_on_failure: true` per-anchor flag. If validation HARD-FAILs, the 4 main anchors are skipped and the instance terminates.
+
+### Addition 2: probe-quality logged in every sub-test verdict
+
+Added `load_probe_quality()` + `probe_quality_tag()` helpers in `testbed/llm_integration/substrate_audit.py`. Every sub-test A/B/C/0.5b verdict_msg now reads:
+
+> "Sub-test X HARD_PASS: <metric>. Probe quality: cos_sim=Y binary_acc=Z (paper target 0.89/0.94; probe_validation=HARD_PASS)."
+
+If validation metrics file missing (smoke runs), the tag returns empty string -- no over-claim risk.
+
+### Engineering deliverables shipped this session
+
+**New scripts:**
+- `experiments/exp_phase05_probe_training_v1.py` -- clones Ipazia-AI/hyperprobe (CC BY-NC-SA 4.0), loads analogy + SQuAD datasets, ingests Llama-3.1-8B layer-22 activations, trains VSA encoder, saves checkpoint + codebook.
+- `experiments/exp_phase05_probe_validation_v1.py` -- held-out validation gate per research Addition 1.
+
+**Modified:**
+- `testbed/llm_integration/hyperprobe_encoder.py` -- `_encode_hyperprobe` now wired: lazy-loads Llama-3.1-8B + trained probe + emits {-1,+1}^4096 bipolar codes for downstream substrate audit primitives.
+- `testbed/llm_integration/substrate_audit.py` -- adds `load_probe_quality()` + `probe_quality_tag()`.
+- 4 sub-test anchor scripts -- `probe_quality_tag()` appended to verdict_msg.
+- `tools/cloud/launch_batch.py` -- per-anchor `abort_batch_on_failure` flag honored.
+- `tools/cloud/batch_examples/phase05_combined_llama31.json` -- now 6 entries: probe_training, probe_validation (with abort_batch_on_failure: true), sub-test A, B, C, Phase 0.5b.
+
+**New scaffolding:**
+- `tools/cloud/phase05_lambda_bringup.sh` -- idempotent bring-up script: venv + hd-instrument requirements + vLLM + transformers + Ipazia hyperprobe clone + HF login + Llama-3.1-8B snapshot pre-pull + GPU sanity check.
+
+### Updated wave plan (per research's 3-wave staging)
+
+```
+Bring-up (~$0.50, 10 min): tools/cloud/phase05_lambda_bringup.sh on Lambda
+  vLLM + transformers + hyperprobe clone + HF login + Llama-3.1-8B snapshot
+  GPU sanity check; verify CUDA available
+                                  |
+                                  v
+Wave 1 (~3h, $6 on A100 80GB): phase05_probe_training_v1
+  Activation collection + encoder training; outputs probe_ckpt.ckpt + codebook.json
+  verdict from training-side: HARD_PASS if val_loss converged < 0.5x initial
+                                  |
+                                  v
+Wave 2 (~30 min, $1): phase05_probe_validation_v1
+  Held-out 500-prompt SQuAD test-split cos_sim + binary_acc
+  HARD-PASS cos_sim>=0.85 AND binary_acc>=0.90 -> proceed
+  HARD-FAIL cos_sim<0.75 OR binary_acc<0.80 -> abort_batch_on_failure -> launcher skips Wave 3
+                                  |
+                                  v
+Wave 3 (~3-5h, $15-30): 4 main anchors run with trained probe
+  sub-test A (kappa_3 drift), B (deletion cert), C (PP-48 refusal cert + TAU sweep),
+  Phase 0.5b (KG distillation at M=500, alpha=0.061)
+  Each verdict_msg auto-includes probe quality footer
+                                  |
+                                  v
+Combined cost: $22-37 GPU + bring-up overhead
+Combined wall: 6-9h
+Combined utilization vs $140 ceiling: 16-26% (plenty of headroom)
+```
+
+### Pre-launch remaining gates
+
+- HF token: PROVIDED. Token validated 2026-06-02: whoami=mardukii, Llama-3.1-8B accessible, MMLU accessible.
+- Lambda API key: already in `.env.lambda` (used for Wave 5)
+- Lambda instance type: A100 80GB recommended per Wave 5 cost-perf baseline
+- All other 7 cloud-bring-up gates: handled by `tools/cloud/phase05_lambda_bringup.sh`
+
+### What still requires user explicit go
+
+Per [[feedback-obey-user-pause-explicitly]]: I will NOT dispatch the cloud bring-up + 6-anchor batch without your explicit go. The full pipeline is staged; awaiting "go".
+
+Once you say go, the command I'd run is:
+
+```
+python tools/cloud/launch_batch.py \
+  --batch tools/cloud/batch_examples/phase05_combined_llama31.json \
+  --gpu-type gpu_1x_a100_sxm4 \
+  --max-cost-usd 80 \
+  --expected-wall-min 360 \
+  --bringup-script tools/cloud/phase05_lambda_bringup.sh
+```
+
+(The `--bringup-script` flag may need to be added to launch_batch.py argparse; check before dispatch.)

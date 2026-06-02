@@ -1,5 +1,9 @@
 """Substrate audit primitives for Phase 0.5 LLM-coupled tests.
 
+Also exposes a small helper `load_probe_quality()` that reads the probe
+validation metrics filed by `exp_phase05_probe_validation_v1` so each sub-test
+verdict_msg can quote (cos_sim, binary_acc) per research-sanity-check Addition 2.
+
 Three load-bearing primitives:
 
     (1) Streaming Hebbian write:  W_t = (1 - decay) W_{t-1} + (1/N) xi_t xi_t^T
@@ -13,11 +17,52 @@ codewords from HyperprobeEncoder.
 """
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional, Tuple
 
 import numpy as np
+
+
+_PROBE_VALIDATION_METRICS_REL = "data/exp_phase05_probe_validation_v1/metrics.json"
+
+
+def load_probe_quality() -> dict:
+    """Return {'cos_sim': float, 'binary_acc': float, 'verdict': str, 'available': bool}.
+
+    Reads the validation metrics filed by exp_phase05_probe_validation_v1; returns
+    available=False if file not present (e.g., smoke runs that use synthetic encoder).
+    """
+    repo_root = Path(__file__).resolve().parents[2]
+    p = repo_root / _PROBE_VALIDATION_METRICS_REL
+    if not p.exists():
+        return {"available": False}
+    try:
+        m = json.loads(p.read_text(encoding="utf-8"))
+        return {
+            "available": True,
+            "cos_sim": float(m.get("cos_sim_mean", float("nan"))),
+            "binary_acc": float(m.get("binary_acc_mean", float("nan"))),
+            "verdict": m.get("verdict", "UNKNOWN"),
+            "paper_target_cos_sim": m.get("paper_target_cos_sim", 0.89),
+            "paper_target_binary_acc": m.get("paper_target_binary_acc", 0.94),
+        }
+    except Exception:
+        return {"available": False}
+
+
+def probe_quality_tag() -> str:
+    """One-liner for inclusion in verdict_msg. Empty string if no validation present."""
+    pq = load_probe_quality()
+    if not pq.get("available"):
+        return ""
+    return (f" Probe quality: cos_sim={pq['cos_sim']:.4f} "
+            f"binary_acc={pq['binary_acc']:.4f} "
+            f"(paper target {pq['paper_target_cos_sim']:.2f}/"
+            f"{pq['paper_target_binary_acc']:.2f}; "
+            f"probe_validation={pq['verdict']}).")
 
 
 def hebbian_write(W: np.ndarray, xi: np.ndarray, decay: float = 0.0) -> np.ndarray:

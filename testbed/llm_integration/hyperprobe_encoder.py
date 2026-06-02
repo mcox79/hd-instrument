@@ -113,24 +113,84 @@ class HyperprobeEncoder:
         return xi
 
     def _ensure_full_loaded(self) -> None:
+        """Lazy-load Llama-3.1-8B + trained hyperprobe encoder.
+
+        Reads checkpoint from cfg.hyperprobe_ckpt, OR falls back to the canonical
+        path written by exp_phase05_probe_training_v1.py:
+            <REPO>/data/exp_phase05_probe_training_v1/probe_ckpt.ckpt
+
+        Raises RuntimeError with a clear message if the checkpoint or any
+        upstream dep is missing.
+        """
         if self._llm is not None:
             return
+        import os
+        from pathlib import Path
         try:
-            from transformers import AutoTokenizer  # noqa: F401
-        except Exception as e:  # pragma: no cover - guarded import for smoke
+            import hyperprobe  # noqa: F401
+            from huggingface_hub import login as hf_login
+            import torch  # noqa: F401
+        except Exception as e:
             raise RuntimeError(
-                f"hyperprobe mode requires transformers + vllm + hyperprobe checkpoint; "
-                f"import failed: {e}. Build the cloud bring-up before requesting full mode."
+                f"hyperprobe full mode imports failed: {e}. "
+                f"Run on Lambda after bring-up (pip install -e {self.cfg.hyperprobe_repo})."
             )
-        raise NotImplementedError(
-            "Full hyperprobe mode requires cloud bring-up: clone "
-            f"{self.cfg.hyperprobe_repo}, load Llama-3.1-8B via vLLM, register the "
-            "hyperprobe encoder. Not implemented in smoke-staged build."
-        )
+
+        # HF token: env var preferred (Lambda bring-up sets it); .hf_token fallback.
+        tok = os.environ.get("HF_TOKEN", "").strip()
+        if not tok:
+            repo_root = Path(__file__).resolve().parents[2]
+            tok_path = repo_root / ".hf_token"
+            if tok_path.exists():
+                tok = tok_path.read_text(encoding="utf-8").strip()
+        if not tok:
+            raise RuntimeError(
+                "HF_TOKEN missing: required to load Llama-3.1-8B-Instruct (gated)."
+            )
+        hf_login(token=tok, add_to_git_credential=False)
+
+        # Checkpoint resolution
+        ckpt = self.cfg.hyperprobe_ckpt
+        if not ckpt:
+            repo_root = Path(__file__).resolve().parents[2]
+            ckpt = str(repo_root / "data" / "exp_phase05_probe_training_v1" / "probe_ckpt.ckpt")
+        if not Path(ckpt).exists():
+            raise RuntimeError(
+                f"Trained hyperprobe checkpoint not found at {ckpt}. "
+                f"Run exp_phase05_probe_training_v1.py (must complete with HARD_PASS) "
+                f"before any tier7 sub-test."
+            )
+
+        self._probe = hyperprobe.VSAEncoder.load_from_checkpoint(ckpt)
+        self._probe.eval()
+        self._llm = hyperprobe.load_llm(model_name=self.cfg.llm_model_id)
 
     def _encode_hyperprobe(self, prompts: List[str]) -> np.ndarray:
+        """Forward each prompt through Llama-3.1-8B + trained probe; sign() output.
+
+        Pipeline per arXiv:2509.25045:
+            doc -> Llama forward -> residual at layer ell (sum-pooled per paper)
+                -> probe encoder -> continuous VSA vector -> sign() -> {-1,+1}^D
+        """
+        import hyperprobe
+        import torch
         self._ensure_full_loaded()
-        raise AssertionError("unreachable; _ensure_full_loaded raised")
+        out = np.zeros((len(prompts), self.cfg.D), dtype=np.float32)
+        for i, doc in enumerate(prompts):
+            emb_dict, *_ = hyperprobe.ingest_embeddings(
+                docs=[doc],
+                model_name=self.cfg.llm_model_id,
+                k_clusters=1,
+                llm=self._llm,
+            )
+            emb = emb_dict[doc].sum(dim=0)
+            with torch.no_grad():
+                vsa_cont = self._probe(emb.unsqueeze(0)).squeeze(0).cpu().numpy()
+            # Sign() to bipolar (substrate-native algebra)
+            xi = np.sign(vsa_cont).astype(np.float32)
+            xi[xi == 0] = 1.0
+            out[i] = xi
+        return out
 
 
 def encoder_from_env(D: int = 4096, seed: int = 0) -> HyperprobeEncoder:

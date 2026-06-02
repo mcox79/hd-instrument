@@ -58,7 +58,7 @@ from experiments._seed_checkpoint import (  # noqa: E402
 )
 from testbed.llm_integration.hyperprobe_encoder import encoder_from_env  # noqa: E402
 from testbed.llm_integration.substrate_audit import (  # noqa: E402
-    build_W_from_patterns,
+    build_W_from_patterns, probe_quality_tag,
 )
 
 ANCHOR_NAME = "tier7_mvp_hyperprobe_llama31_refusal_cert_v1"
@@ -369,7 +369,8 @@ def classify_verdict(seeds_results: list[dict]) -> tuple[str, str]:
         v = "MIDDLE_BAND"
     msg = (f"Phase 0.5 sub-test C (refusal cert): precision_min={precision_min:.3f} "
            f"(HP=1.0 HF<{HF_PRECISION}); false_refusal_max={false_max:.3f} "
-           f"(HP<={HP_FALSE_REFUSAL}). Verdict: {v}.")
+           f"(HP<={HP_FALSE_REFUSAL}). Verdict: {v}."
+           + probe_quality_tag())
     return v, msg
 
 

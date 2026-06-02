@@ -1,5 +1,28 @@
 [
   {
+    "anchor": "phase05_probe_training_v1",
+    "script": "experiments/exp_phase05_probe_training_v1.py",
+    "total_cells": 1,
+    "cell_regex": "^\\s+training",
+    "experiment_timeout_min": 240,
+    "result_paths": [
+      "data/exp_phase05_probe_training_v1/metrics.json",
+      "data/exp_phase05_probe_training_v1/probe_ckpt.ckpt",
+      "data/exp_phase05_probe_training_v1/codebook.json"
+    ]
+  },
+  {
+    "anchor": "phase05_probe_validation_v1",
+    "script": "experiments/exp_phase05_probe_validation_v1.py",
+    "total_cells": 1,
+    "cell_regex": "^\\s+progress:",
+    "experiment_timeout_min": 60,
+    "abort_batch_on_failure": true,
+    "result_paths": [
+      "data/exp_phase05_probe_validation_v1/metrics.json"
+    ]
+  },
+  {
     "anchor": "tier7_mvp_hyperprobe_llama31_kappa3_drift_v1",
     "script": "experiments/exp_tier7_mvp_hyperprobe_llama31_kappa3_drift_v1.py",
     "total_cells": 5,

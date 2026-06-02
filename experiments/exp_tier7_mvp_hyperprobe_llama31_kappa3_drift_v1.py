@@ -62,7 +62,7 @@ from testbed.llm_integration.hyperprobe_encoder import (  # noqa: E402
 )
 from testbed.llm_integration.substrate_audit import (  # noqa: E402
     build_W_from_patterns, estimate_sigma_from_patterns,
-    whitened_W, kappa_3_hutchinson,
+    whitened_W, kappa_3_hutchinson, load_probe_quality, probe_quality_tag,
 )
 
 ANCHOR_NAME = "tier7_mvp_hyperprobe_llama31_kappa3_drift_v1"
@@ -175,7 +175,8 @@ def classify_verdict(seeds_results: list[dict]) -> tuple[str, str]:
         v = "MIDDLE_BAND"
     msg = (f"Phase 0.5 sub-test A (kappa_3 drift): sigma_sep min={sigma_min:.2f} "
            f"mean={sigma_mean:.2f} across {len(seeds_results)} seeds. "
-           f"HP gate >= {HP_SIGMA_SEP}; HF gate < {HF_SIGMA_SEP}. Verdict: {v}.")
+           f"HP gate >= {HP_SIGMA_SEP}; HF gate < {HF_SIGMA_SEP}. Verdict: {v}."
+           + probe_quality_tag())
     return v, msg
 
 

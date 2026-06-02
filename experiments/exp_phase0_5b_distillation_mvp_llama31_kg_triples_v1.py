@@ -79,7 +79,7 @@ from experiments._seed_checkpoint import (  # noqa: E402
 )
 from testbed.llm_integration.substrate_audit import (  # noqa: E402
     build_W_from_patterns, deletion_cert, retrieval_cosine,
-    null_distribution_norm, hebbian_write,
+    null_distribution_norm, hebbian_write, probe_quality_tag,
 )
 
 ANCHOR_NAME = "phase0_5b_distillation_mvp_llama31_kg_triples_v1"
@@ -395,7 +395,8 @@ def classify_verdict(seeds_results: list[dict]) -> tuple[str, str]:
            f"recall={one_rec_min:.3f} (HP>={HP_ONESHOT_RECALL}); "
            f"del_Z_max={del_z_max:.2f} (HP<{HP_DEL_Z}); "
            f"retain_cos_min={retain_min:.3f} (HP>{HP_RETAIN_COSINE}). "
-           f"Verdict: {v}.")
+           f"Verdict: {v}."
+           + probe_quality_tag())
     return v, msg
 
 
