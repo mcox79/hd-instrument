@@ -122,3 +122,26 @@ Cycle 5 Batch 10: shipped 10 anchors to remote_cpu_queue. Q19 rescue (CK scaling
 
 ### Remote verify: 5/5 pass (confirmed in data/remote_cpu_queue/queue.json pending list)
 exp_dev cycle 6: shipped 8/10 to remote_cpu_queue. q_f5 MIDDLE_BAND smoke (dft_snr=2.32, frac_osc=0.065); q_f6 shipped as calibration probe despite smoke BI noise; f4_free_cumulants COMPLETED HARD_FAIL N=1024 (m1~0 due to diagonal removal formula mismatch, redesign needed); caching_lru_lfu_hybrid COMPLETED MIDDLE_BAND (rho=0.732, recency-only signal, B=0/5); caching_admission_control shipped for N=1024 cliff; caching_eviction_cost_amortized HARD_PASS smoke (3/3, speedup=10.7x); hippocampal_place_field HARD_PASS smoke (3/3, cosine=0.879); dropped: substrate_spectral_health_check (Z-score formula mismatch), tau_mem_m_sweep (T_MAX<<tau_theory), multiagent_emergence (HARD_FAIL smoke 2/3, LAMBDA_SHARED redesign needed); self-test early-exit bug fixed across all 8 scriptsWave1+Wave2 batch: shipped 5/10 anchors (kappa3_hutchinson_n8192_smoke_v1[cpu], q_c5_cosine_gate_tau_recal_v1[cpu], combo3_unified_api_v1_n4096[gpu], q_b1_heteroassoc_chain_cert_v1_n4096[gpu], q_b1_heteroassoc_chain_cert_v1_n8192[gpu]); blocked 4 at smoke (q_f3_cophenetic genuine HF c=0.14, combo1_p3 HP2 kappa_3 Gram identity fails, q_c2_mp_hc empirical null needed, streaming_aging measurement design flaw); all 5 ships REMOTE VERIFIED; strategy upstream push filed at notes/exp_dev_to_strategy_smoke_fails_wave1_wave2_2026-06-02.md
+## Batch ship: 9-cell overnight queue refill (context resumed 2026-06-02)
+
+### Shipped anchors
+OVERNIGHT_QUEUE (GPU, 4 anchors):
+- combo4_dynamical_bundle_v1_n1024 (1200s): CK dynamical ultrametricity + aging collapse. SMOKE MIDDLE_BAND (M_dyn=1.19, mse=0.005). PROT-018 OK N=1024.
+- q_c2_mp_hc_v2_corrected_n4096 (14400s): Empirical Wishart null for finite-N MP edge. SMOKE HARD_PASS (Z=-0.78). PROT-019: 14400s floor.
+- combo1_p3_dam_implicit_gram_v2_identity_fix_v1 (14400s): p=3 Gram with CV-based HP2 stability check. SMOKE 3/4 HP. No _nN suffix; production N=4096.
+- q_a3_l2_cross_layer_composition_v1_n4096 (14400s): L=2 Hadamard binding composition. SMOKE HARD_PASS (all fidelities=1.0). PROT-018 OK N=4096.
+
+REMOTE_CPU_QUEUE (5 anchors):
+- streaming_brand_gram_refresh_v1 (120s): Incremental Gram refresh algebraic identity. SMOKE HARD_PASS (min_acc=1.0).
+- kappa3_monitor_detection_latency_v1 (600s): kappa_3 Hutchinson monitor detection. SMOKE HARD_PASS (W=1.8).
+- drift_kernel_kappa3_detection_v1 (600s): Gradual drift detection via kappa_3. SMOKE HARD_PASS (W=1.5).
+- hippocampal_place_field_full_v1_n4096 (14400s): Place-field FULL N=4096. SMOKE HARD_PASS.
+- q_f4_saddle_overlap_correlated_v1 (1200s): Saddle ultrametric with correlated patterns. SMOKE MIDDLE_BAND (ratio=0.736).
+
+### Blocked
+- caching_admission_control_v2: SMOKE HARD_FAIL. At N=512, alpha_eff proxy never reaches threshold; all patterns admitted. No capacity cliff visible. Routed to strategy.
+
+### Root causes fixed this cycle
+1. GATE TIMEOUT root cause: scripts lacked self-test early exit. Gate timeout=180s; production sweeps run at full N when --self-test passed. Fix: added sys.exit(0) after _instrumentation_selftest() in all 7 scripts (combo4, q_c2, combo1_p3, kappa3_monitor, drift_kernel, hippocampal, q_a3_l2, q_f4).
+2. PROT-019: q_c2 _n4096 timeout was 2700s (below 14400s floor). Fix: raised to 14400s.
+3. combo4 wall-time: Glauber dynamics at N=4096 requires ~28800s. Fix: renamed to _n1024 production.
