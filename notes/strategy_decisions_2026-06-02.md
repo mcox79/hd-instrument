@@ -140,3 +140,40 @@ NEW v329 follow-on candidate (NOT a rescue; production extension):
 
 **PROT compliance:** PROT-004/006/007/008/009/018/021 all clear; 242nd PROT-009 paired commit; push BLOCKED from sub-agent context; main thread executes push.
 Wave 5 cloud testbed handoff filed: notes/testbed_handoff_wave5_unified_n32768_2026-06-02.md -- 5-anchor unified_n32768_v1 bundle (Q-D1 spectral, kappa46 fingerprint, deletion-cert Z-ratio, COMBO-3 unified API, COMBO-1 Gram+kappa3) routed to testbed for engineering; Lambda dispatch deferred to Wave 5 trigger (post-Wave-4-PASS or user auth); no cap_map work this cycle (deferred)
+
+## v331 -> v332 @ BATCHED 6-VERDICT Wave 1 CPU + Wave 2 GPU completions (5 GENUINE FULL HARD_PASS + 1 GENUINE FULL HARD_FAIL framework-corroborating) -- WAVE 5 CLOUD GATE OPEN + 2 NEW TOP-LEVEL ROWS PP-45 5-method unified-API algebraic theorem + PP-46 GDPR-grade deletion-cert non-repudiation + 1 ROW LIFT PP-33 framework-class 0.50-0.65 -> 0.55-0.70 bidirectional lock + 1 SUB-PROPERTY LIFT PP-9b cross-N {4096, 8192} + 1 SUB-PROPERTY EXTENSION PP-44 production-N=8192 + 0 LABEL-VS-HONEST catches + 3 orphan failures deferred to main-thread routing-cycle (verdict_handler 243rd PROT-009 paired commit; Wave 1+2 completion + Wave 5 gating cycle)
+
+**Trigger.** User explicit directive 2026-06-02: "we also need those verdicts to gate the cloud work" -- Wave 5 cloud single batch ~$10-15 requires Waves 1+2 results. Batch composition: 3 Wave 1 CPU (q_c5_cosine_gate_tau_recal_v1 + kappa3_hutchinson_n8192_smoke_v1 + q_f6_pq_distribution_v1) + 3 Wave 2 GPU (combo3_unified_api_v1_n4096 + q_b1_heteroassoc_chain_cert_v1_n4096 + q_b1_heteroassoc_chain_cert_v1_n8192). All 6 fetched via `tools.orchestrator.remote_state.get_metrics` -- all `_source=remote` authoritative. Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 6 HONEST (5 HP + 1 HF); 0 LABEL-VS-HONEST catches.
+
+**Verdicts processed (6).** Roster in cap_map v332 anchor.
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+For **q_f6_pq_distribution_v1 HF** (NEW; PP-33 caveat -- substrate is in CK-DYNAMICAL class, NOT static-RSB class):
+- R1 (0-compute, applied) ANNOTATION-only: HF is a NEGATIVE-RESULT corroborating v330 wrong-probe annotation; P(q) bimodality is the static RSB signature; substrate's confirmed dynamical CK class is OUTSIDE that test's competence; HF strengthens framework-class identification (excludes static-RSB regime more cleanly).
+- R2 (deferred -- ~30min CPU) Cross-N P(q) at N={2048, 4096, 8192} 5-seed to verify bimodality is FINITE-N artifact not asymptotic.
+- R3 (deferred -- Q-F2 follow-on) FDT ratio X(C) at corrected dynamical observable already in v331 routing queue #8; HF here reinforces priority of dynamical probes.
+- R4-R5 NOT NEEDED (R1 closes the row at annotation; no genuine REFUTATION since wrong-probe).
+
+For **I-7 orphan failures (l2_hadamard + ck_seb GPU + q_f5 CPU)** (NEW; deferred to main-thread routing-cycle):
+- R1 (0-compute) Verify runner-death root-cause from logs (was it the runner or the script?).
+- R2 (CPU/GPU re-ship at original config) If R1 confirms runner-death (not script bug), re-ship.
+- R3 (protocol tweak) If R2 fails, examine script for FULL/smoke-mode handling.
+- R4 (N-scale) Cross-N if script-level bug suspected.
+- R5 (alternative composition) Pipeline restructuring.
+
+**WAVE 5 CLOUD GATE DECISION.**
+
+User directive: "we also need those verdicts to gate the cloud work". Three gating tests pre-registered:
+1. COMBO-3 unified API HP1-HP5 all PASS at N=4096 -- VALIDATED (HP1 d1d2d3_err=0 EXACT; HP2 k3_err=5.32e-5 < 1e-4; HP3 cndc_err=0 EXACT; HP4 cert_err=0 EXACT; HP5 matvec=3 <= 5). 5-method audit API algebraic-theorem uniformity CONFIRMED at smaller N. **GATE 1 OPEN.**
+2. kappa3 Hutchinson at N=8192 HP -- VALIDATED (sigma_separation 150-1112 across M cells; theory_ratio in band). **GATE 2 OPEN.**
+3. Q-C5 cosine-gate tau recalibration HP -- VALIDATED (tau in [0.78, 0.92] all cells FN=FP=0.000 unanimous 5-seed; GDPR-grade non-repudiation). **GATE 3 OPEN.**
+
+**WAVE 5 CLOUD GATE: OPEN.** Testbed authorized to dispatch unified_n32768_v1 bundle (~$10-15 single batch). HP thresholds carry forward from Wave 2; PP-45 + PP-46 conservative bands committed until N=32768 lift.
+
+**Cap_map deltas.** 2 NEW TOP-LEVEL ROWS (PP-45 + PP-46 each 0.65-0.80 EXPLORATORY); 1 ROW LIFT (PP-33 0.50-0.65 -> 0.55-0.70 framework-class bidirectional lock); 1 sub-property LIFT (PP-9b cross-N {4096, 8192}); 1 sub-property extension (PP-44 production-N=8192). Portfolio 32+66 -> 32+68. Framework-reliability specific-documented +3pp + product-feature +2pp.
+
+**Tallies (v331 -> v332).** HONEST 393 -> 399 (+6). LABEL-VS-HONEST 201 UNCHANGED.
+
