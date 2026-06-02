@@ -65,3 +65,5 @@ WAVE 5 cloud bundle bbelw34ap completed: 5 anchors at N=32768 5-seed M=1638 for 
 - hippocampal_place_field_extended_n8192_v1: GENUINE HARD_PASS PP-47 N=8192 production-envelope CONFIRMED. mean_cosine=0.9283 mean_spearman=0.6452 mean_acc=1.0. PP-47 band unchanged; 2nd sub-property filed.
 
 Cap_map v335 -> v336: HONEST +4 (417->421); LABEL-VS-HONEST +1 (201->202); PP-12 BAND-LIFT 0.60-0.75->0.65-0.80; product-feature 74-88%->75-89% (+1pp). 247th PROT-009 paired commit. Push deferred to main thread.
+
+## v337 (2026-06-02 Cycle 10 GPU batch) -- 4 GENUINE HARD_PASS at production-N=8192: COMBO-2 (PP-48+PP-49 N=8192 sub-property), COMBO-3 (PP-45 N-scaling sub-property), Q-A3 L=3 (PP-12 L=3 N=8192 sub-property), SWR v2 (PP-47 BAND-LIFT 0.55-0.70 -> 0.60-0.75 via mechanism-variety). HONEST 425 (+4). LVH 202 UNCHANGED (0 catches). Portfolio 32+72 UNCHANGED. Product-feature 75-89% -> 76-90%. Commit: [hash deferred to main thread].

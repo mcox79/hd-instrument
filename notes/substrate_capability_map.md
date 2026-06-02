@@ -6961,3 +6961,62 @@ Main-thread routing candidates (highest -> lowest priority; v335 carryovers RETA
 17. **COMBO-4 N-scale rescue R2** (v333 carry-over).
 18. **PP-44 cross-N sweep / PP-9b cross-depth / PP-43d ARC/LIRS low-alpha** (v328/v333 carry-overs).
 19. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
+
+---
+
+# v337 update (2026-06-02) -- BATCH 4-VERDICT GPU Cycle 10 (4 GENUINE HARD_PASS: COMBO-2 N=8192 production-envelope + COMBO-3 N=8192 N-scaling + Q-A3 L=3 N=8192 production-envelope + SWR v2 N=8192 production-envelope); 4 NEW SUB-PROPERTIES (PP-48 N=8192, PP-45 N=8192, PP-12 L=3 N=8192, PP-47 SWR v2 N=8192); 1 BAND-LIFT PP-47 0.55-0.70 -> 0.60-0.75 (3-sub-property mechanism-variety criterion: place-field N=4096 + place-field N=8192 + SWR v2 N=8192); 0 LABEL-VS-HONEST catches (verdict_handler 248th PROT-009 paired commit; Cycle 10)
+
+### Per-anchor honest re-read (v337)
+
+| # | Anchor | Wall | N | seeds | Verdict | Honest reading | Cap_map impact |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | combo2_p4_l3_signed_am_v1_n8192 | 0.82s GPU | 8192 | 5 | HARD_PASS | HONEST (l3_fidelity_A=1.0000 HP>=0.85; b_repulsion=1.0000 HP>=0.95; parity_contamination=0.0000 HP<=0.05; run_mode=full confirmed; fast wall verified closed-form algebraic primitive not smoke) | PP-48 + PP-49 NEW SUB-PROPERTY: N=8192 production-envelope confirmed |
+| 2 | combo3_unified_api_v1_n8192 | 12.9s GPU | 8192 | 5 | HARD_PASS | HONEST (prim_fails=0 HP==0; kappa3_err=0 HP<1e-5; cndc_err=0 HP<1e-8; cert_err=0 HP<1e-8; matvec=2.0 HP<=5; all 5 unanimous; fills N-scaling curve N=4096->N=8192->N=32768) | PP-45 NEW SUB-PROPERTY: N=8192 intermediate scaling confirmation |
+| 3 | q_a3_l3_cross_layer_composition_v1_n8192 | 123.3s GPU | 8192 | 5 | HARD_PASS | HONEST (L1_fid=1.0000 HP>=0.9; L2_fid=1.0000 HP>=0.9; L3_fid=1.0000 HP>=0.9; l3_acc=1.0000 HP>=0.8; all 4 unanimous; substantial wall consistent with N=8192 L=3 production scope) | PP-12 NEW SUB-PROPERTY: L=3 production-N=8192 |
+| 4 | hippocampal_sharp_wave_ripple_v2_n8192 | 552.3s GPU | 8192 | 5 | HARD_PASS | HONEST (fid_fast=1.0000 HP>=0.7; fid_random=0.082; fid_wrong=0.1091 HP<=0.2; frac_A=1.0; frac_B=1.0; frac_C=0.8 HP>=0.7; all primary HP gates met; substantial wall legit) | PP-47 NEW SUB-PROPERTY SWR v2 N=8192 + BAND-LIFT 0.55-0.70 -> 0.60-0.75 |
+
+LABEL-VS-HONEST: **0 NEW CATCHES** (all 4 honest-as-labeled per Step 0 against remote-authoritative metrics).
+
+### Cap_map state transitions (v337)
+
+**(A) PP-48 + PP-49 NEW SUB-PROPERTY: COMBO-2 production-N=8192 confirmed.** l3_fidelity=1.0 / b_repulsion=1.0 / parity_contamination=0.0 unanimous at N=8192 5-seed. v334 founded PP-48 + PP-49 at N=4096; v337 confirms at N=8192 (step 1 of 2 cross-N plan). PP-48 0.65-0.80 + PP-49 0.65-0.80 UNCHANGED (band-LIFT gates on N=16384 second step per v334 routing).
+
+**(B) PP-45 NEW SUB-PROPERTY: N=8192 intermediate N-scaling confirmation.** All 5 primitives zero-error at N=8192 5-seed; N-scaling curve N=4096->N=8192->N=32768 monotone confirmed. PP-45 parent band 0.70-0.85 UNCHANGED (Wave 5 lift already in v335).
+
+**(C) PP-12 NEW SUB-PROPERTY: L=3 production-N=8192.** All 4 fidelity metrics EXACT-1.0 at N=8192 5-seed. v336 BAND-LIFT (0.60-0.75 -> 0.65-0.80) already applied for L=3 at N=4096; this N=8192 extension is corroborative. PP-12 parent band 0.65-0.80 UNCHANGED.
+
+**(D) PP-47 BAND-LIFT 0.55-0.70 -> 0.60-0.75 + NEW SWR v2 N=8192 SUB-PROPERTY.** 3-sub-property mechanism-variety criterion MET: (1) place-field N=4096 founding v333; (2) place-field N=8192 extension v336 (N-scale variety); (3) SWR v2 N=8192 v337 (mechanism variety: SWR replay is distinct biological mechanism from place-field encoding). Substrate now confirms TWO distinct hippocampal circuit primitives at production-N=8192. Band-LIFT +0.05 both bounds applied. Lifted band 0.60-0.75 retains +0.05 lit-scan calibration penalty per v317 convention. Product framing: hippocampal dual-circuit signature -- place-coded storage + sharp-wave-ripple replay at production-N -- two brain-inspired memory primitives confirmed in substrate.
+
+### Tallies (v336 -> v337)
+
+- **HONEST:** 421 -> **425** (+4 NEW HONEST: 4 GENUINE HARD_PASS).
+- **LABEL-VS-HONEST:** 202 -> **202** UNCHANGED (0 new catches).
+- **Portfolio:** 32+72 UNCHANGED (no new top-level rows; 4 NEW SUB-PROPERTIES; 1 BAND-LIFT PP-47 0.55-0.70 -> 0.60-0.75).
+- **Cap_map version: v337.**
+
+### Framework reliability (v337)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+- Product-feature: 75-89% -> **76-90%** (+1pp both bounds; PP-47 BAND-LIFT hippocampal dual-circuit suite at production-N=8192 with mechanism variety; substrate brain-inspired memory primitive row strengthened).
+
+### Known infrastructure issues (annotation block; UPDATED in v337)
+
+**Issue I-1 through I-8** (v323-v333, OPEN v337). STILL OPEN; v337 batch did NOT touch them.
+**Issue I-9 (v334, PARTIAL-RESOLVED v336, OPEN v337).** STILL OPEN; v3 N=8192 next step.
+**Issue I-10 (v334, PARTIAL-RESOLVED v336, OPEN v337).** STILL OPEN; v3 fine rho-grid next step.
+**Issue I-11 (v335, OPEN v337).** STILL OPEN; research-cycle routing FILED.
+
+### PROT compliance (v336 -> v337)
+
+- PROT-004/006: NO row closures. 1 BAND-LIFT (PP-47). 4 NEW SUB-PROPERTIES. No MIDDLE candidates; no closures.
+- PROT-007: history v337 entry inline.
+- PROT-008: 4 new sub-properties + 1 BAND-LIFT; no portfolio regression; no closures.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **248th PROT-009 paired commit**.
+- PROT-018: all 4 anchors explicit _n8192 suffix matches metrics N=8192.
+- PROT-021: all 4 _source=remote run_mode=full 5-seed; combo2 0.82s fast wall verified not smoke.
+- PROT-022: not applicable.
+
+### Push and follow-on (v337)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
