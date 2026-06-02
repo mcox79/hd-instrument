@@ -56,15 +56,20 @@ pip install -q -e .
 # (sentence-transformers) + grep of all imports in src/hyperprobe/*.
 # tensorflow-datasets is omitted -- heavy install; bring-up smoke at step 5.6
 # will surface it if hyperprobe's __init__ chain actually needs it.
+# No version pins -- these are research-package transitive deps; pip resolves
+# whatever's compatible with installed torch/transformers. Pin torchhd>=5.7 was
+# wrong on Dispatch 4 (torchhd PyPI versions don't extend to 5.x). Strategy:
+# install bare names, let pip resolve, and let the import smoke at 5.6 catch
+# any version-incompatibility at import time.
 pip install -q \
-  "word2number>=1.1" \
-  "sentence-transformers>=2.7" \
-  "wn>=0.9" \
-  "spacy>=3.7" \
-  "SPARQLWrapper>=2.0" \
-  "requests-cache>=1.1" \
-  "python-dotenv>=1.0" \
-  "torchhd>=5.7"
+  word2number \
+  sentence-transformers \
+  wn \
+  spacy \
+  SPARQLWrapper \
+  requests-cache \
+  python-dotenv \
+  torchhd
 
 # 5.6. Post-install hyperprobe import smoke. If hyperprobe can't import,
 # stop here -- every downstream anchor will fail with the same error.
