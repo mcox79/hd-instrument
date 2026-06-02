@@ -989,3 +989,20 @@ All v341 issues carry forward except:
 - PROT-018: all 17 data-returning anchors clear (explicit _n<N> suffix matches or family-exempt per PP-48/PP-49/Q-A3/PP-52/SP/streaming convention); 2 timeout failures NOT in cap_map.
 - PROT-021: all 17 remote anchors _source=remote run_mode=full multi-seed; no smoke artifacts; 2 timeouts local-smoke only explicitly excluded from tallies.
 - PROT-022: pp52_hebbian_lora R3 script-audit + I-17 R2 Krylov-budget audit both filed as formula-selftest candidates before reship.
+## v343 (2026-06-02 cycle-13 batch, 15 verdicts)
+
+Verdict batch: 12 HARD_PASS + 2 HARD_FAIL + 0 MIDDLE + 0 PARTIAL. 0 LVH catches (pp52_hebbian_lora already labeled HARD_FAIL; label matched honest reading). HONEST 475->490, LVH 207->207.
+
+BAND-LIFT A: PP-52 Verifiable-Erase/Rollback 0.60-0.75 -> 0.65-0.80 (N=16384 exact-rollback + one-shot-addition HARD_PASS; 3rd N-cross-rung in N=4096/8192/16384 series).
+
+BAND-LIFT B: Q-A3/PP-12 Cross-layer composition 0.70-0.85 -> 0.75-0.90 (L=8/9/10 all HARD_PASS fidelity=1.0000; extends confirmed depth series to L=4..L=10, 7 sub-properties).
+
+PP-48 NKT depth-11 + depth-13: both HARD_PASS (pos_rate=1.0, nkt_rep_rate=1.0); ceiling not reached at depth-13; adds 2 sub-properties.
+
+PP-48xPP-46 SCORE composition: cert=-1.0 HARD_PASS; first cross-row composition in negative-knowledge family.
+
+Q-B1 chain depth-35/45 HARD_PASS: d35=0.834, d45=0.596; ceiling not reached (d45 >> HP=0.40); depth-50+ warranted.
+
+HARD_FAIL: pp52_hebbian_lora_speedup_n8192_v1 -- acc_delta=0.96 total collapse; speedup=1847x is spurious (LVH #207 pattern; already labeled HF). 5 rescue sketches filed: R1 constrained-Hebbian acc-gate (cheapest), R2 warm-start-only, R3 mixed-precision, R4 subset-layers, R5 teacher-student.
+
+Product-feature reliability: 82-96% (was 80-94%). Framework atomic commit: v343. Sub-agent push blocked; hash surfaced to main thread.

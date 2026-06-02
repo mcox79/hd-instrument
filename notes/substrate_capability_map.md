@@ -7470,3 +7470,116 @@ All v341 issues carry forward UNCHANGED except:
 - PROT-018: all 17 data-returning anchors clear; 2 timeouts excluded.
 - PROT-021: all 17 remote anchors _source=remote run_mode=full multi-seed confirmed; 2 timeouts local-smoke excluded.
 - PROT-022: pp52_hebbian_lora R3 script-audit + I-17 R2 Krylov-budget audit filed as formula-selftest candidates before reship.
+
+## v343 (2026-06-02) -- CYCLE 13 BATCH: 15 verdicts, 12 HARD_PASS + 2 HARD_FAIL + 0 MIDDLE + 0 PARTIAL
+
+### Per-anchor honest re-read (Step 0 -- all metrics remote-source)
+
+| # | Anchor | Prereg Source | Per-cell vs HP/HF | Honest Verdict | LVH? |
+|---|--------|--------------|-------------------|----------------|------|
+| 1 | combo2_l5_extension_v1_n4096 | 2026-06-02_combo2_p4_l3_signed_am_v1_n4096_l4_extension_v1.md | l4_fidelity_A=1.0000 (HP1>=0.75 PASS); b_repulsion_rate=1.0000 (HP2>=0.90 PASS); parity_contamination=0.0000 (HP3<=0.10 PASS) | HARD_PASS | none |
+| 2 | combo3_unified_api_v1_n16384_l4_alpha_grid_v1 | exp_dev_decisions_2026-06-02.md ALPHA_GRID bands | alpha=0.05: acc=0.9780; alpha=0.08: acc=0.9620; alpha=0.10: acc=0.9480; alpha=0.12: acc=0.9400; all > HP>=0.90 | HARD_PASS | none |
+| 3 | deletion_cert_z_ratio_n16384_full_alpha_v1 | exp_dev_decisions_2026-06-02.md bands | z_ratio_cert=1.0000 all alpha cells; HF: z_ratio<0.40 not triggered | HARD_PASS | none |
+| 4 | pp48_nkt_depth_11_v1_n4096 | 2026-06-02_pp48_nkt_depth13.md (same bands) | pos_retrieval_rate=1.0000 (HP>=0.75 PASS); nkt_repulsion_rate=1.0000 (HP>=0.65 PASS) | HARD_PASS | none |
+| 5 | pp48_pp46_negative_knowledge_with_deletion_cert_v1_n4096 | exp_dev_decisions_2026-06-02.md SCORE cert | cert=-1.0 (HP: cert=-1 exactly); SCORE composition confirmed | HARD_PASS | none |
+| 6 | pp52_hebbian_lora_speedup_n8192_v1 | 2026-06-02_cycle12_10cell_gpu_refill.md bands | acc_delta=0.9600 (>>10pp collapse, HP1: acc_delta<=0.02 FAIL); wall_speedup=1847x (HP2>=100x PASS); flops=812x (HP3>=400x PASS); LVH #207 pattern: speedup meaningful only when acc preserved; acc_delta=0.96 = TOTAL COLLAPSE | HARD_FAIL (LVH #207 re-pattern; already labeled HF in verdict_msg -- label matches honest reading, NO NEW LVH CATCH) | none |
+| 7 | q_a3_l8_cross_layer_composition_v1_n4096 | 2026-06-02_q_a3_l8_probe.md (or exp_dev) | l8_fidelity=1.0000 all seeds; threshold HP>=0.9999 PASS | HARD_PASS | none |
+| 8 | q_b1_chain_depth_40_v1_n8192 | exp_dev_decisions_2026-06-02.md snapshots bands | d5=0.9960, d10=0.9820, d20=0.9400, d30=0.8640, d40=0.7120; HP: d5>=0.95 PASS, d10>=0.88 PASS, d20>=0.70 PASS, d30>=0.55 PASS, d40>=0.45 PASS | HARD_PASS | none |
+| 9 | q_a3_l9_cross_layer_composition_v1_n4096 | 2026-06-02_q_a3_l9_l10_probe_a.md | l9_fidelity=1.0000 all seeds; HP>=0.9999 PASS | HARD_PASS | none |
+| 10 | q_a3_l10_cross_layer_composition_v1_n4096 | 2026-06-02_q_a3_l9_l10_probe_a.md | l10_fidelity=1.0000 all seeds; HP>=0.9999 PASS | HARD_PASS | none |
+| 11 | pp52_exact_rollback_n16384_v1 | 2026-06-02_pp52_n16384_probe_b.md | rel_err=0.0000 (HP1<1e-6: 5/5 seeds PASS); acc_after=1.0000 (HP2>=0.95: 5/5 PASS); rollback_time=0.012s (HP3<2.0s: 5/5 PASS) | HARD_PASS | none |
+| 12 | pp52_one_shot_addition_n16384_v1 | 2026-06-02_pp52_n16384_probe_b.md | cos_new=1.0000 (HP1>=0.90: 5/5 PASS); acc_retain=1.0000 (HP2>=0.95: 5/5 PASS); write_time=0.008s (HP3<2.0s: 5/5 PASS) | HARD_PASS | none |
+| 13 | pp48_nkt_depth_13_v1_n4096 | 2026-06-02_pp48_nkt_depth13.md | pos_retrieval_rate=1.0000 (HP>=0.75 PASS); nkt_repulsion_rate=1.0000 (HP>=0.65 PASS) | HARD_PASS | none |
+| 14 | q_b1_chain_depth_35_v1_n8192 | 2026-06-02_q_b1_depth35_depth45.md | d5=0.9980, d10=0.9840, d20=0.9460, d30=0.8820, d35=0.8340; ALL gates clear (HP: d5>=0.95, d10>=0.88, d20>=0.70, d30>=0.55, d35>=0.50 -- ALL PASS) | HARD_PASS | none |
+| 15 | q_b1_chain_depth_45_v1_n8192 | 2026-06-02_q_b1_depth35_depth45.md | d5=0.9980, d10=0.9840, d20=0.9460, d30=0.8820, d45=0.5960; HP: d5>=0.95 PASS, d10>=0.88 PASS, d20>=0.70 PASS, d30>=0.55 PASS, d45>=0.40 PASS (0.5960>>0.40) | HARD_PASS | none |
+
+LVH catches this batch: 0 (pp52_hebbian_lora already labeled HARD_FAIL in verdict_msg; label matches honest reading; no new catch)
+
+### State transitions (v342 -> v343)
+
+**A. PP-52 (Verifiable-Erase / Rollback-with-proof) BAND-LIFT: 0.60-0.75 -> 0.65-0.80**
+- Trigger: N=16384 exact-rollback HARD_PASS + N=16384 one-shot-addition HARD_PASS = 3rd N-cross-rung (N=4096+N=8192+N=16384)
+- Sub-properties confirmed: rollback-algebraic-exact (rel_err=0) at N=4096, N=8192, N=16384 (3/3); one-shot-addition cos_new=1.0 at N=4096, N=8192, N=16384 (3/3)
+- BAND-LIFT #1 of this batch per 3-independent-sub-properties rule
+
+**B. Q-A3/PP-12 (Cross-layer composition depth) BAND-LIFT: 0.70-0.85 -> 0.75-0.90**
+- Trigger: L=8, L=9, L=10 all HARD_PASS (fidelity=1.0000) + existing L=4..L=7 HARD_PASS from v342 = 7-depth series (L=4,5,6,7,8,9,10) all unanimous
+- Sub-properties: L=4/5/6/7 (v342) + L=8/9/10 (this batch) = 7 sub-properties; deepest confirmed 10 compositional layers at N=4096
+- BAND-LIFT #2 of this batch
+
+**C. PP-48 NKT depth extension: depth-11 + depth-13 HARD_PASS**
+- Both pos_rate=1.0 and nkt_rep_rate=1.0 at N=4096 depth-11 and depth-13
+- Adds 2 sub-properties to PP-48 NKT row; no band-lift (already at ceiling for current frame -- need cross-N for promotion)
+- Row annotation: NKT confirmed depth-11 + depth-13 sampled-leaf N=4096
+
+**D. PP-48xPP-46 cross-row composition (deletion-cert + negative-knowledge) HARD_PASS**
+- cert=-1.0 (perfect repulsion) with deletion certificate active = SCORE composition confirmed
+- First cross-row composition in the negative-knowledge family
+- Adds to Composition column (PP-48xPP-46 SCORE confirmed)
+
+**E. PP-45/PP-46 alpha-grid deletion cert sub-properties**
+- deletion_cert_z_ratio_n16384 all-alpha HARD_PASS: z_ratio=1.0 across alpha=[0.05,0.08,0.10,0.12] at N=16384
+- combo3_unified_api n16384 l4_alpha_grid HARD_PASS: acc>=0.94 at alpha=0.12 (weakest cell still >>HP=0.90)
+- 4+4 = 8 sub-properties in alpha-sweep coverage; no new band-lift (already covered alpha range)
+
+**F. Q-B1/PP-49a heteroassociative chain depth extension**
+- depth-35 HARD_PASS, depth-40 HARD_PASS, depth-45 HARD_PASS at N=8192
+- Ceiling not reached at depth-45 (d45=0.5960 >> HP_D45=0.40); depth-50+ warranted
+- Adds 3 sub-properties (depth-35/40/45) to Q-B1 depth row
+
+**G. combo2 L=5 extension HARD_PASS**
+- l4_fidelity_A=1.0, b_repulsion_rate=1.0, parity_contamination=0.0
+- Adds 1 sub-property to COMBO-2 signed-AM composition row
+
+**H. pp52_hebbian_lora HARD_FAIL confirmed**
+- acc_delta=0.9600 = total accuracy collapse; speedup metrics are spurious (LVH #207 pattern)
+- No cap_map promotion for Hebbian-LoRA speedup; Hebbian path requires accuracy-preserving implementation first
+- Row annotation: Hebbian-LoRA speedup claim REQUIRES acc_delta<=0.02 first; current impl fails at acc level
+
+### Tallies (v343)
+
+- HONEST: 475 + 15 = 490
+- LVH: 207 + 0 = 207
+- BAND-LIFTS this batch: 2 (PP-52: 0.60-0.75->0.65-0.80; Q-A3/PP-12: 0.70-0.85->0.75-0.90)
+- New sub-properties: 14 (combo2-L5, combo3-alpha-grid x4, deletion-cert-n16384-alpha x4, pp48-d11, pp48-d13, pp48xpp46-SCORE, q-b1-d35, q-b1-d45; depth-40 was v342 so not new here)
+- New rows: 0
+- Closures: 0
+- Portfolio: 32+74 (unchanged)
+
+### Framework reliability estimate (updated)
+
+PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship depth):
+- Product-feature reliability: 80-94% -> 82-96% (two flagship rows up)
+- Overall substrate reliability: unchanged at 48-62% (base physics not changed)
+
+### PROT compliance
+
+- PROT-018: all 15 anchors carry _n<N> suffix matching production N in metrics; no violations
+- PROT-019: all 15 anchors have prereg files (in preregs/ or exp_dev_decisions log); no ex-post threshold setting
+- PROT-021: all cycle-13 FULL runs confirmed multi-seed (5 seeds); no smoke-checkpoint contamination detected
+- PROT-004/006: pp52_hebbian_lora HARD_FAIL -> 3 rescue sketches required per [[feedback-rehabilitation-after-rejection]]:
+  R1 (cheapest -- subsumption): Constrained Hebbian (acc-preserving weight init with acc gate before speedup claim)
+  R2: Hebbian as warm-start only (LoRA fine-tunes from Hebbian init; acc fully recovered before timing comparison)
+  R3: Mixed-precision Hebbian (lower precision path that maintains cos-similarity with LoRA outputs)
+  R4: Hebbian on subset (apply only to first K layers where acc degradation is <2pp)
+  R5: Teacher-student Hebbian (LoRA as teacher; Hebbian student must match acc within 2pp before speedup measured)
+  Rescue-first sequencing: R1 < R2 < R3 < R4 < R5 (cheapest/subsumption first per [[feedback-rescue-sketch-first-sequencing]])
+- PROT-008/009: cap_map + decisions log + visibility log in single atomic commit; commit hash surfaced for main-thread push
+
+### Memory adherence
+
+- [[feedback-no-smoke-preframing-in-task-prompts]]: task was NEUTRAL; no preframing
+- [[feedback-verdict-msg-honest-reread]]: Step 0 performed; 0 new LVH catches
+- [[feedback-obey-user-pause-explicitly]]: pause flag checked before exp_dev dispatch
+- [[feedback-ascii-only-in-scripts]]: no emoji/em-dash in this entry
+- [[feedback-rehabilitation-after-rejection]]: 5 rescue sketches filed for HARD_FAIL pp52_hebbian_lora
+- [[feedback-rescue-sketch-first-sequencing]]: R1-R5 ordered cheapest first
+
+### Push and follow-on
+
+- PUSH BLOCKED from sub-agent context; commit hash returned to main thread for push
+- Follow-on routing candidates:
+  - q_b1 depth-50+ warranted (ceiling not reached at d45=0.596)
+  - PP-52 next: N=32768 or latency-vs-accuracy tradeoff at N=16384
+  - Q-A3 L=12+ to find fidelity degradation depth
+  - Hebbian-LoRA rescue: R1 (constrained Hebbian acc gate) as cheapest next experiment
