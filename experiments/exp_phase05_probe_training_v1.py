@@ -51,7 +51,7 @@ ANCHOR_NAME = "phase05_probe_training_v1"
 LLM_MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
 LAYER_FRAC = 0.7                  # research-confirmed: layer 22 of 32 = 69% depth
 VSA_DIMENSION = 4096              # Llama hidden = 4096; probe D = 4096
-N_EPOCHS_FULL = 60                # paper script uses 100; budget at 60 for cost
+N_EPOCHS_FULL = 100               # per research R1-aggressive (was 60; matches paper)
 N_EPOCHS_SMOKE = 2
 BATCH_SIZE_FULL = 32
 BATCH_SIZE_SMOKE = 8
@@ -194,9 +194,11 @@ def main():
             return None
         return pairs
 
-    # Cap full-mode inputs to keep wall under 1h. 5000 inputs * 60 epochs is
-    # still 300k gradient steps, more than enough for the encoder to converge.
-    MAX_INPUTS_FULL = 5000
+    # R1-aggressive per research 2026-06-02: 100k inputs x 100 epochs (was 5k
+    # x 60). Dispatch 10 probe landed val_sim=58%; research's analysis: 5k x 60
+    # = 300k samples seen is 132x less than paper's 39.5M. 100k x 100 = 10M
+    # samples expected to land probe quality 0.78-0.86 (vs paper 0.89).
+    MAX_INPUTS_FULL = 100000
     MAX_INPUTS_SMOKE = 200
     target_n = MAX_INPUTS_FULL if run_mode == "full" else MAX_INPUTS_SMOKE
 

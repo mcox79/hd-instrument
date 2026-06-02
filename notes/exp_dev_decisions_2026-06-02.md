@@ -185,3 +185,4 @@ Key design decisions:
 - All N>=8192: matrix-free GPU, VRAM safe on 8GB.
 - Cell 9 selftest fix: kappa3_resc must normalize Gram first (G=Xi@Xi.t()/N) then cube element-wise.
 - PROT-019 floors: N>=8192 -> timeout>=21600s, N=4096 -> timeout>=14400s.
+exp_dev: cycle 12 GPU refill 10/10 anchors to overnight_queue. Rescues: a4_audit_v2(timeout fix), combo1_n8192_vram_friendly(OOM fix M=N*2), pp49_depth8(depth-10 backoff). New: kappa3_n16384_v2(10 seeds), caching_v3_stress, pp52_A1/A2/A3_n4096, combo1_pp48_nkt_v2_depth5, q_b1_depth30_n8192. All PROT-018/019 pass. All 10 remote-verified.
