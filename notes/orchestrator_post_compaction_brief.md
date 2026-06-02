@@ -2,7 +2,66 @@
 
 **Purpose:** After context compaction / summarization, behavioral knowledge gets lost. This file is the dense restoration document. The orchestrator reads this FIRST on cold start AND right after any context summarization, before doing anything else.
 
-**Last updated:** 2026-05-27 incremental delta v234+v235 (compaction handoff v2). Section 7 updated: portfolio 14+18, framework reliability split revised, Bet B 4-stage smoke row added, spectral-graph demoted, large-deviations closed. 4 unprocessed verdicts pending next session. Previous: 2026-05-27 (comprehensive pre-compaction handoff). New Section 6 (bridge architecture canonical reference), Section 7 (cap_map state snapshot at v233 with substrate-class confirmations), Section 8 (today's structural-process additions consolidated index). Section 3 gains OOM pre-check gate + import-chain coverage in smoke as enforced hard rules. Section 4b watchdog event set carried forward at 13 events. Section 5 carries PROT-014 obsolete + 7 subagent_types registered. Section 5c carries PROT-018 + runner singleton + per-experiment timeout.
+**Last updated:** 2026-06-02 cycle 12 compaction handoff. Cap_map at v341. Portfolio 32+74 (32 top-level rows + 74 sub-properties). HONEST 459, LABEL-VS-HONEST 206. Substrate's product narrative now anchored across audit/composition/safety/streaming with multiple production-N empirical confirmations.
+
+## COMPACTION HANDOFF SNAPSHOT (2026-06-02 ~17:00)
+
+**Active queues** (commits pushed to origin/main through 0ecceac + post-v341 refill):
+- CPU: ~2 running (q_f5_v2_n8192, a6_oneshot_vs_lora_economics_v1) + ~5 pending (a7 kappa3_drift + a8 continual_writes + a9 cert_chain_replay + pp45 combo3 intermediate + wave4 full_pipeline_with_audit)
+- GPU: ~5 just completed in cycle 12 refill (pp52_one_shot_n8192 + pp52_rollback_n8192 + q_b1_d25 + combo2_l4_extension + pp48_d3_baseline) — NEEDS REFILL on next cycle
+
+**Recent KEY top-level rows** (post-2026-05-27):
+- PP-45 5-method unified-API algebraic theorem 0.70-0.85 (LIFTED v335 via cloud N=32768)
+- PP-46 GDPR-grade deletion-cert non-repudiation 0.70-0.85 (LIFTED v335)
+- PP-47 hippocampal place-field 0.60-0.75 (v337)
+- PP-48 Negative-Knowledge Tree 0.70-0.85 (v338 BAND-LIFT 0.65-0.80 → 0.70-0.85)
+- PP-49 Hierarchical Refusal Cert + Counterfactual Abduction 0.70-0.85 (v338)
+- PP-50 κ_3 sub-percent drift detection 0.70-0.85 (v335)
+- PP-51 implicit-Gram audit-on-M-side architecture LOCK 0.70-0.85 (v338)
+- PP-52 Hebbian-vs-LoRA-speedup empirical capstone 0.55-0.70 EXPLORATORY (FOUNDED v339 at N=1024; needs production-N for LIFT)
+
+**Open issues** (tracked I-1 through I-17 in cap_map):
+- I-12 OPEN: κ_3 sensitivity n16384 2× HF contradicts cloud n32768; needs research config-delta R2 audit
+- I-13 OPEN: caching eviction design under-stressed
+- I-14 UPDATED: combo1 vram-friendly HF = math issue not VRAM; theory-audit before Wave 5 Cell 5 retry
+- I-15 OPEN: pp49 depth-10 OS FAST_FAIL (architecture boundary at depth-10)
+- I-16 OPEN: HRC depth-5 structural design flaw (heteroassoc W asymmetric, ξ_B not fixed-point)
+- I-17 RESOLVED: COMBO-3 × PP-51 formula bug fixed in v2_cert_fix
+
+**Wave 5 cloud status** (testbed handoff):
+- Cells 1-4 + ADD-1 + ADD-2 PASSed cloud N=32768 at $3.81 (82% under budget) per v335
+- Cell 5 cloud authorization INTACT (LOCAL HF at v339 was different operating point)
+- Cell 5 redesign: combo1_v3 GPU fix HP'd v338 unblocked it; LOCAL N=32768 HF separately
+
+**Testbed has** (per testbed_phase05_combined_deployment_readiness_2026-06-02.md):
+- Phase 0.5 Tier-7 MVP STAGED (USER AUTHORIZED $50-100; needs hyperprobe clone + vLLM Llama-3.1-8B before launch)
+- Phase 0.5b Hebbian distillation MVP STAGED (user combined-auth per testbed note)
+- Tier-6 LLM-integration StepGame flagship (gated)
+
+**Pending design-fault rescues** (need research input; NOT exp_dev re-try):
+- PP-47×PP-48 NKT signed-AM categorical failure (anti_cos=-1.0; needs contrastive-Hebbian/RBM)
+- Q-F4 saddle-overlap stuck-kill (needs max_iter + convergence check)
+- Q-C2 v3 MP-HC stuck-kill (needs eigsolve timeout + bounds)
+- alpha_mu_snap smoke HF (needs new mechanism)
+- tau_alpha protocol smoke HF
+- ckm_coefficient smoke HF
+- F4 M4 v3 deeper correction (M3 PASS / M4 +33%)
+- κ_3 mixing v3 high-ρ (ρ≥0.2 fail HP≤0.03)
+- hippocampal_engram_consolidation v2 (α_total < α_c)
+- COMBO-4 dynamical v3 (μ_aging OOB)
+
+**Discipline locks** (recent feedback):
+- NEUTRAL prompts in verdict_handler (NO "if HP this validates X" pre-framing — caught 3 LVH catches #203-205 + #206 from my own pre-framing)
+- Sonnet for routine HP/HF classification; Opus only for novel cap_map row promotion or reliability-recalc
+- Pre-flight existence + uniqueness + timeout estimation always (added to exp_dev prompts)
+- GPU template MANDATORY for new GPU scripts (assert cuda + device=cuda + batched matmul + memory > 100MB check at smoke)
+- HDLAB_RUN_MODE default="full" pattern locked in all 25+ Round 7-9 scripts (commit b97e037) + runner_v2_prod.py injects HDLAB_RUN_MODE=full in child_env (commit 8a4ae70)
+- runner_v2_prod.py uses CREATE_NO_WINDOW (0x08000000) to suppress per-child console flash (commit 1d1bee2)
+- Cap_map version v341 commit 0ecceac on origin/main
+- Cycle wake interval: 1500s (25 min) when queues loaded; 600s (10 min) when draining
+
+**Previous updates:**
+- 2026-05-27 incremental delta v234+v235 (compaction handoff v2). Section 7 updated: portfolio 14+18.
 
 **Previous updates:**
 - 2026-05-27 (earlier) by memory_curator sub-agent — Section 4b updated to 13 watchdog event kinds (added `bridge_cache_stale`); Section 5 clarified that custom subagent_types DO register and PROT-014 is obsolete; new Section 5c documents PROT-018 anchor-name binding + runner singleton lock + per-experiment timeout policy as enforced (not advisory) rules.
