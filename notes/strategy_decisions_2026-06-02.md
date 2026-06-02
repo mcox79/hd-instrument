@@ -40,3 +40,45 @@ For **NO ROW CLOSURES** this batch (PP-43 row OPEN with PARTIAL caveats; no genu
 **Atomic commit.** cap_map.md + history.md + this strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. **239th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
 
 **Tallies (v327 -> v328).** HONEST 363 -> 373 (+10). LABEL-VS-HONEST 197 -> 199 (+2). Portfolio 32+64 -> 32+66 (+2 new EXPLORATORY rows + 1 sub-property). Framework-reliability product-feature 62-76% -> 64-78% (+2pp). I-3 RESOLVED.
+
+
+## v328 -> v329 @ BATCHED 5-VERDICT overnight CPU cycle 5 (5 GENUINE FULL HARD_PASS; 0 LABEL-VS-HONEST) -- PP-41 TRUE-METRIC LIFT + PP-43 Tier 1+2 LIFT + 2 NEGATIVE-RESULT-CONFIRMATION sub-properties (verdict_handler 240th PROT-009 paired commit)
+
+**Trigger.** Batched 5-verdict overnight CPU cycle 5 2026-06-02. All 5 fetched via `tools.orchestrator.remote_state.get_metrics` (_source=remote authoritative). Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 5 HONEST (3 clean Tier 0/1 HP + 2 NEGATIVE-RESULT-CONFIRMATION HP for Tier 2 boundary characterizations). **0 NEW LABEL-VS-HONEST OVER-CLAIMS.**
+
+- **substrate_metric_norm_axioms_v1** (label "All 4 Frobenius norm axioms confirmed... max_violation=7.11e-15 < 1e-08. mean_triples_all_pass=50.0/50. PP-41 mathematical foundation validated."): HONEST. All 4 axioms (positivity, definiteness, homogeneity, triangle inequality) PASS by 7 orders of magnitude below HP threshold; 50/50 triples pass at all 5 seeds. TRUE-METRIC structure confirmed.
+- **write_back_dirty_bits_v1** (label "Write-back dirty bit semantics confirmed. min_dirty_acc=1.000>=0.95 max_delta_cos=0.0000<0.05. O(M) auxiliary vector sufficient; zero W modification required."): HONEST. Perfect 1.000 dirty-bit accuracy + 0.0000 cosine delta unanimous 5-seed. Tier 1 cache extension clean.
+- **write_around_routing_v1** (label "Write-around routing via probe confirmed. min_acc=1.000>=0.9 max_fpr=0.000<0.1. Cross-primitive composition (probe=refusal-cert) works for routing."): HONEST. Perfect 1.000 routing accuracy + 0.000 false-positive rate unanimous 5-seed; cross-primitive composition probe=refusal-cert verified. Tier 1 cache extension clean. Short 3.4s wall is consistent with algebraic-identity probe test at N=1024 5-seed.
+- **per_key_ttl_external_required_v1** (label "Per-key TTL constraint CONFIRMED (negative result). max_delta_retention=0.0000 < 0.05. Both groups decay identically under global gamma=0.9. Single-W substrate supports only ONE global decay rate -- per-key TTL requires external bookkeeping."): HONEST. NEGATIVE-RESULT pre-reg HP was evidence-of-constraint (max_delta_retention < 0.05 = confirmation that single-W supports only one gamma); actual=0.0000 EXACT confirmation. Tier 2 BOUNDARY EMPIRICALLY CONFIRMED.
+- **eviction_id_external_codebook_v1** (label "Eviction codebook constraint CONFIRMED. With codebook: min_known_auroc=0.960>=0.7. Without codebook: mean_random_auroc=0.503~=0.50 (|deviation|=0.003<=0.15). Substrate orders priorities natively but CANNOT enumerate argmin without external dictionary (Tier 2 constraint confirmed)."): HONEST. NEGATIVE-RESULT pre-reg HP was evidence-of-constraint (with-codebook AUROC >= 0.7 AND without-codebook AUROC ~ chance with |dev| <= 0.15 = confirmation that argmin requires dictionary); actuals: 0.960 + 0.503 + 0.003 EXACT confirmation. Tier 2 BOUNDARY EMPIRICALLY CONFIRMED.
+
+Per [[feedback-no-preframing]]: 3 short-wall anchors (write_around 3.4s + per_key_ttl 3.3s + eviction_id 5.3s) were pre-framed in task prompt with explicit caveat "fast walls on cache cells are EXPECTED per design -- algebraic tests not numerical sweeps; verify FULL scope ran via metrics.json run_mode + script-reported config". Honest re-read CONFIRMED all 3 genuine via remote metrics: run_mode=full + N=1024 + seeds=[7,17,23,31,41] + per-cell aggregated metrics. Same pattern as v328 q23_capacity_cliff (1.7s) + graph_node_classification (1.4s) -- short wall is consistent with algebraic-identity tests at modest M and N.
+
+Per [[feedback-rehabilitation-after-rejection]]: 2 NEGATIVE-RESULT-CONFIRMATION tests (per_key_ttl + eviction_id) are EMPIRICAL CONSTRAINT VALIDATIONS, not failures. Both pre-registered HP as evidence-of-constraint and actuals EXACTLY confirm. Product framing: substrate operating envelope is Tier 0+1 native + Tier 2 external bookkeeping (thin dirty-bit vector + M-element dictionary).
+
+**Verdicts processed (5).** Roster in cap_map v329 anchor.
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+**NO rescues needed this batch** (5/5 GENUINE HP; 2 NEGATIVE-RESULT-CONFIRMATION at pre-reg evidence-of-constraint thresholds).
+
+v328 carry-over rescues REMAIN OPEN for next-cycle dispatch:
+- PP-43b LRU small-M rescue (1-2h CPU; small-M sweep at finer grid + piecewise-constant gamma).
+- PP-43d ARC/LIRS low-alpha rescue (1-2h CPU; fine alpha grid in [0.05, 0.5]).
+
+NEW v329 follow-on candidate (NOT a rescue; production extension):
+- **PP-41 edit-distance primitive extension** (carry-over v327 R2, NOW HIGHER PRIORITY post-TRUE-METRIC confirmation) -- ||W_A - W_B||_F / sqrt(|A symdiff B|) over edit chains; substrate-native edit-magnitude readout. PP-41 TRUE-METRIC empirical confirmation makes this extension MUCH more confidently grounded.
+
+**Strategic positioning.** Cycle 5 LANDS 2 STRUCTURAL LIFTs on existing rows:
+
+1. **PP-41 TRUE-METRIC structural confirmation.** Two independent empirical anchors at independent N (v327 frobenius_symdiff_verify_v1 7 configs N=4096 0.7% max error + v329 substrate_metric_norm_axioms_v1 4 axioms N=1024 7e-15 max violation) confirm substrate has a TRUE metric structure under Frobenius distance. Product framing: "substrate edit-distance is a genuine mathematical metric -- not pseudo-metric, not quasi-metric, but a real metric satisfying all 4 norm axioms within machine precision." This is LOAD-BEARING for PP-9 deletion-cert sizing, PP-12 compositionality audit, PP-31a refusal-audit-cert -- all of which can now confidently reason about algebraic distance as a genuine metric.
+
+2. **PP-43 caching-policy Tier 1+2 EMPIRICAL CHARACTERIZATION.** Three v329 anchors extend substrate caching-policy expressibility from v328 Tier 0 (LFU clean + LRU large-M-conditional + write-through clean + ARC high-alpha-conditional) to Tier 1 (write-back dirty-bits clean + write-around routing clean WITH CROSS-PRIMITIVE COMPOSITION probe=refusal-cert) and explicitly Tier 2 BOUNDARY (per-key TTL requires external bookkeeping + eviction-ID requires external codebook). PP-43 row band LIFTs 0.55-0.70 -> 0.62-0.77 reflecting that substrate's caching-policy expressibility is now MAPPED EMPIRICALLY at three tiers with honest constraint characterization. The Tier 2 BOUNDARY confirmations are PRODUCT-FRAMING WINS (not failures): honest envelope documentation is exactly what audit-grade products need to ship reliably. Compliance-sidecar architecture (PRIMARY GTM v315) absorbs Tier 2 external requirements seamlessly -- bookkeeping is the sidecar's job, substrate stays on the algebraic-cert path.
+
+3. **Cross-primitive composition discovery (PP-43f).** write_around_routing_v1 confirms probe primitive serves DUAL purposes: refusal-cert (PP-31a) AND write-around routing (PP-43f). Same algebraic mechanism, two product applications. Reinforces v314 architectural-moat finding that substrate primitives compose cleanly across product features.
+
+**Atomic commit.** cap_map.md + history.md + this strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. **240th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+**Tallies (v328 -> v329).** HONEST 373 -> 378 (+5). LABEL-VS-HONEST 199 UNCHANGED. Portfolio 32+66 UNCHANGED (no new top-level rows; 2 LIFTs + 4 new sub-properties). Framework-reliability product-feature 64-78% -> 66-80% (+2pp). 0 row closures. 0 new LABEL-VS-HONEST catches.

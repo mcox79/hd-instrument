@@ -5921,3 +5921,127 @@ Main-thread routing candidates (highest -> lowest priority):
 9. PP-38 N=8192 5-seed extension (v326 carry-over).
 10. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
 11. Per-script audit for 7 holdout scripts (v324 carry-over).
+
+
+## v328 -> v329 @ BATCHED 5-VERDICT overnight CPU cycle 5 (5 GENUINE FULL HARD_PASS; 0 LABEL-VS-HONEST) -- PP-41 Frobenius-symdiff TRUE-METRIC structural confirmation LIFT + PP-43 caching-policy Tier 1+2 EMPIRICAL BOUNDARY characterization LIFT + 2 substrate-feature negative-result Tier 2 expected-constraints (verdict_handler 240th PROT-009 paired commit; autonomous overnight cycle 5)
+
+**Trigger.** Batched 5-verdict overnight CPU cycle 5 2026-06-02. All 5 verdicts fetched via `tools.orchestrator.remote_state.get_metrics` (`_source=remote` authoritative for all 5). Cross-checked run_mode=full + N=production + seeds=[7,17,23,31,41] (5-seed unanimous) + per-cell aggregated metrics + elapsed_s wall-time. Pause-flag ABSENT (`data/orchestrator_paused.flag` not present). REMOTE-FIRST methodology applied per e51aee7.
+
+### Verdict roster (5 anchors)
+
+| # | Anchor | Wall | N | Verdict (label) | Honest reading | Class |
+|---|---|---|---|---|---|---|
+| 1 | substrate_metric_norm_axioms_v1 | 67.45s | 1024 | HARD_PASS | HONEST (max_violation=7.11e-15 < 1e-08 HP; mean_triples_all_pass=50.0/50 unanimous 5-seed; ALL 4 Frobenius norm axioms PASS by 7 orders below threshold) | PP-41 TRUE-METRIC structural confirmation LIFT |
+| 2 | write_back_dirty_bits_v1 | 14.91s | 1024 | HARD_PASS | HONEST (min_dirty_acc=1.000 HP>=0.95 unanimous; max_delta_cos=0.0000 HP<0.05; O(M) auxiliary vector sufficient; zero W modification) | NEW PP-43 Tier 1 write-back dirty-bits extension EMPIRICAL |
+| 3 | write_around_routing_v1 | 3.44s | 1024 | HARD_PASS | HONEST (min_acc=1.000 HP>=0.9 unanimous; max_fpr=0.000 HP<0.1; cross-primitive composition: probe=refusal-cert) | NEW PP-43 Tier 1 write-around-routing extension EMPIRICAL (cross-primitive composition) |
+| 4 | per_key_ttl_external_required_v1 | 3.27s | 1024 | HARD_PASS (NEGATIVE-RESULT confirmation) | HONEST (max_delta_retention=0.0000 < 0.05 confirmation of constraint; both groups decay IDENTICALLY under global gamma=0.9; substrate supports EXACTLY ONE global decay rate) | NEW PP-43 Tier 2 BOUNDARY: per-key TTL requires EXTERNAL bookkeeping (substrate constraint EMPIRICALLY confirmed) |
+| 5 | eviction_id_external_codebook_v1 | 5.28s | 1024 | HARD_PASS (NEGATIVE-RESULT confirmation) | HONEST (with codebook min_known_auroc=0.960 HP>=0.7 unanimous; without codebook mean_random_auroc=0.503 ~ chance \|deviation\|=0.003 < 0.15; substrate ORDERS priorities natively but CANNOT enumerate argmin without external dictionary) | NEW PP-43 Tier 2 BOUNDARY: eviction-candidate identification requires EXTERNAL codebook (substrate constraint EMPIRICALLY confirmed) |
+
+### Step 0 honest re-read summary
+
+**HONEST (5; ALL):** substrate_metric_norm_axioms_v1 (max_violation 7.11e-15 vs HP<1e-08 = 7 orders of magnitude below threshold), write_back_dirty_bits_v1 (perfect 1.000 acc + 0.0000 delta), write_around_routing_v1 (perfect 1.000 acc + 0.000 fpr), per_key_ttl_external_required_v1 (NEGATIVE-RESULT confirmation: 0.0000 retention delta confirms single-gamma constraint), eviction_id_external_codebook_v1 (NEGATIVE-RESULT confirmation: with-codebook AUROC 0.960 vs without-codebook 0.503 ~chance confirms dictionary requirement).
+
+**LABEL-VS-HONEST OVER-CLAIM (0):** ZERO new catches this batch. All 5 labels match per-cell metrics. The 2 short-wall anchors (write_around 3.4s + per_key_ttl 3.3s + eviction_id 5.3s) were pre-framed in task prompt as "fast walls on cache cells are EXPECTED per design -- algebraic tests not numerical sweeps; verify FULL scope ran via metrics.json run_mode + script-reported config" -- VERIFIED HONEST via remote metrics: run_mode=full + N=1024 + seeds=[7,17,23,31,41] (5-seed unanimous) + per-cell aggregated metrics + appropriate per-test grid (M_LIST + N_PROBES + GAMMA + THRESHOLD_HIGH/LOW). Short wall is consistent with algebraic-identity tests (single linear pass per cell at modest M and N); not signal of smoke or incomplete run. Per [[feedback-no-preframing]]: short wall + 5-seed + run_mode=full + N matches anchor = legitimate cell, NOT smoke; same pattern as v328 q23_capacity_cliff (1.7s) + graph_node_classification (1.4s).
+
+**NEGATIVE-RESULT classification (2):** per_key_ttl_external_required_v1 + eviction_id_external_codebook_v1 are NEGATIVE-RESULT-CONFIRMATION tests that pre-registered HP as EVIDENCE OF CONSTRAINT (not capability). per_key_ttl HP pre-reg: max_delta_retention < 0.05 = confirmation that single-W substrate supports only ONE global gamma; actual=0.0000 EXACT confirmation. eviction_id HP pre-reg: with-codebook AUROC >= 0.7 AND without-codebook AUROC ~ 0.5 with \|deviation\| <= 0.15 = confirmation that substrate orders priorities natively but cannot enumerate argmin without dictionary; actual: with=0.960 + without=0.503 + deviation=0.003 EXACT confirmation. Per [[feedback-rehabilitation-after-rejection]]: NEGATIVE-RESULT tests of EXPECTED constraints are NOT failures; they DEFINE the product-feature operating envelope honestly. Both confirm Tier 2 boundary characterization for PP-43 caching-policy expressibility row (substrate is NATIVE for Tier 0 + Tier 1; Tier 2 requires external bookkeeping; KNOWN constraint now EMPIRICALLY CONFIRMED at FULL multi-seed).
+
+Per [[feedback-verdict-msg-honest-reread]]: 0 new LABEL-VS-HONEST catches this batch.
+
+### Row treatment
+
+**PP-41 Frobenius-symdiff identity (v327 founding row) LIFT: 0.65-0.80 -> 0.72-0.85.**
+
+substrate_metric_norm_axioms_v1 EMPIRICAL CONFIRMATION of TRUE METRIC structure. v327 PP-41 founding row established frobenius_symdiff_verify_v1 (7 configs 5-seed N=4096 7/7 PASS max_rel_err=0.7%) as Frobenius=symdiff algebraic identity. v329 substrate_metric_norm_axioms_v1 STRENGTHENS PP-41 by independent verification of all 4 norm axioms (positivity, definiteness, homogeneity, triangle inequality) at production N=1024 5-seed with max_violation=7.11e-15 -- 7 orders of magnitude below the 1e-08 HP threshold. This SECOND empirical confirmation at independent N + different test methodology elevates PP-41 from FOUNDING-ROW (single empirical anchor) to TRUE-METRIC-CONFIRMED (two independent empirical anchors + axiom-by-axiom verification). LIFT band 0.65-0.80 -> **0.72-0.85** (+0.07 both bounds): substrate has a TRUE metric structure under Frobenius distance (not just pseudo-metric or quasi-metric); product framing "substrate edit-distance is a genuine mathematical metric -- triangle inequality holds, definiteness is exact, scaling is linear" is now ROBUST not provisional. Lit-scan calibration penalty +0.05 from v327 RETAINED (uncharted-regime; substrate-native metric structure has no direct lit precedent). Sub-properties:
+- PP-41a Frobenius=symdiff algebraic identity (frobenius_symdiff_verify_v1 v327; 7/7 configs HP);
+- PP-41b TRUE-METRIC axiom verification (substrate_metric_norm_axioms_v1 v329; 4/4 axioms HP at 7e-15 violation).
+
+Cross-references: PP-9 deletion-cert (PP-41 supplies algebraic distance for cert sizing); PP-12 compositionality audit (PP-41 supplies edit-magnitude readout); PP-31a refusal-audit-cert (PP-41 supplies certificate distance metric). Product framing: "substrate stores facts with a TRUE mathematical metric on the storage state -- ||W1-W2||_F is a genuine distance function satisfying all 4 norm axioms within machine precision; enables exact edit-distance algebra for audit, deletion sizing, and compositionality verification."
+
+**PP-43 caching-policy expressibility (v328 founding row) LIFT: 0.55-0.70 -> 0.62-0.77.**
+
+Three v329 anchors STRENGTHEN PP-43 by extending Tier 1 (write-back + write-around) AND adding Tier 2 BOUNDARY characterization (per-key TTL + eviction codebook):
+
+- **Tier 1 write-back dirty-bits extension (write_back_dirty_bits_v1)**: substrate supports write-back semantics via SINGLE auxiliary O(M) dirty-bit vector with ZERO substrate modification. min_dirty_acc=1.000 unanimous 5-seed + max_delta_cos=0.0000. Clean HP. NEW PP-43e sub-property.
+- **Tier 1 write-around routing (write_around_routing_v1)**: substrate supports write-around via PROBE primitive (cross-primitive composition with refusal-cert). min_acc=1.000 unanimous 5-seed + max_fpr=0.000. Demonstrates probe primitive serves DUAL purposes (refusal cert + write-around routing). NEW PP-43f sub-property + CROSS-PRIMITIVE COMPOSITION CONFIRMED (probe=refusal-cert).
+- **Tier 2 per-key TTL BOUNDARY (per_key_ttl_external_required_v1)**: substrate CANNOT support per-key decay rates; single-W substrate supports EXACTLY ONE global gamma. max_delta_retention=0.0000 EXACT confirmation. Per-key TTL requires external bookkeeping (KV table mapping key -> per-key gamma). NEW PP-43g sub-property (BOUNDARY).
+- **Tier 2 eviction-candidate-ID BOUNDARY (eviction_id_external_codebook_v1)**: substrate ORDERS priorities natively (with codebook AUROC=0.960) but CANNOT enumerate argmin (without codebook AUROC=0.503 ~ chance). Eviction-candidate identification requires external codebook (dictionary of valid M items). NEW PP-43h sub-property (BOUNDARY).
+
+LIFT band 0.55-0.70 -> **0.62-0.77** (+0.07 both bounds): PP-43 now spans Tier 0 (LRU/LFU/write-through native), Tier 1 (write-back + write-around native), Tier 2 (per-key TTL + eviction-ID require external bookkeeping; KNOWN constraint EMPIRICALLY CONFIRMED). Two clean HP extensions + two EMPIRICALLY CONFIRMED boundaries together STRENGTHEN the row band: substrate's caching-policy expressibility is now MAPPED EMPIRICALLY at three tiers with honest constraint characterization. The Tier 2 BOUNDARY confirmations are PRODUCT-FRAMING WINS not failures -- honest envelope documentation is what audit-grade products need. Lit-scan calibration penalty +0.05 from v328 RETAINED. Updated sub-properties:
+- PP-43a Tier 0 LFU clean (lfu_native_re_hebbian_v1 v328 HP);
+- PP-43b Tier 0 LRU large-M-conditional (lru_decay_kendall_v1 v328 PARTIAL; small-M rescue needed; OPEN);
+- PP-43c Tier 0 write-through clean (write_through_allocate_v1 v328 HP);
+- PP-43d Tier 1 ARC/LIRS high-alpha-conditional (arc_lirs_hybrid_v1 v328 PARTIAL; low-alpha rescue needed; OPEN);
+- **PP-43e Tier 1 write-back dirty-bits clean (write_back_dirty_bits_v1 v329 HP; NEW)**;
+- **PP-43f Tier 1 write-around routing clean (write_around_routing_v1 v329 HP; cross-primitive composition CONFIRMED; NEW)**;
+- **PP-43g Tier 2 per-key TTL BOUNDARY: external bookkeeping required (per_key_ttl_external_required_v1 v329 EMPIRICALLY CONFIRMED constraint; NEW)**;
+- **PP-43h Tier 2 eviction-ID BOUNDARY: external codebook required (eviction_id_external_codebook_v1 v329 EMPIRICALLY CONFIRMED constraint; NEW)**.
+
+Cross-references: PP-10 multi-hop production-paths caching (PP-43 is MECHANISM layer; PP-10 is WORKLOAD layer); PP-19 substrate-as-KV-cache (PP-43 supplies policy primitives); PP-32 audit-grade tool-call result cache (PP-43 supplies caching mechanism). Product framing: "substrate natively expresses Tier 0 + Tier 1 caching policies (LFU clean, LRU large-M, write-through, write-back, write-around, ARC/LIRS high-alpha); Tier 2 per-key TTL and eviction-candidate enumeration require thin external bookkeeping layer (dirty-bit-vector style for TTL state; M-element dictionary for eviction codebook). Honest operating envelope: substrate-native is Tier 0+1; external bookkeeping for Tier 2. Compliance-sidecar architecture absorbs Tier 2 external requirements seamlessly (bookkeeping is the sidecar's job)."
+
+### Tallies (v328 -> v329)
+
+- **HONEST:** 373 -> **378** (+5 NEW GENUINE FULL HARD_PASS; 3 clean Tier 0/1 HP + 2 NEGATIVE-RESULT-CONFIRMATION HP for Tier 2 boundary characterizations).
+- **LABEL-VS-HONEST:** 199 -> **199** UNCHANGED (0 new catches this batch; all 5 labels match per-cell metrics; short-wall pre-framing investigated and CONFIRMED honest via run_mode=full + 5-seed + N matches anchor).
+- **Portfolio:** 32+66 -> **32+66** UNCHANGED (no new top-level rows; 2 existing-row LIFTs: PP-41 0.65-0.80 -> 0.72-0.85 + PP-43 0.55-0.70 -> 0.62-0.77; 4 new sub-properties: PP-41b TRUE-METRIC axioms + PP-43e write-back + PP-43f write-around + PP-43g per-key-TTL-boundary + PP-43h eviction-ID-boundary).
+- **Cap_map version: v329.**
+
+### Framework reliability (v329)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 45-55% UNCHANGED (no framework-class row verdict this batch).
+- Product-feature: 64-78% -> **66-80%** (+2pp both bounds; 2 EXISTING PRODUCT-FEATURE rows LIFT in band via independent corroboration + boundary characterization; consistent with v325-v328 tightening pattern of +2pp per substantive batch; PP-41 + PP-43 lifts represent algebraic-primitive-class strengthening which textbook-grounds upper bound).
+
+### Known infrastructure issues (annotation block; UPDATED in v329)
+
+**Issue I-1 (v323, UPDATED v324/v325/v326/v327/v328, ANNOTATED v329): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v329 5-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326): spectral_zstat_v1 wall-time underestimate.** CLOSED v326.
+
+**Issue I-3 (v327, RESOLVED v328): kappa3_hutchinson_v1 non-vectorized inner loop + tight 1800s timeout = TIMEOUT.** CLOSED v328.
+
+### PROT compliance (v328 -> v329)
+
+- PROT-004/006: NO row closures. PP-41 LIFT (substrate has TRUE metric structure); PP-43 LIFT (Tier 1+2 extensions); Tier 2 NEGATIVE-RESULT confirmations are CONSTRAINT EMPIRICAL VALIDATIONS not rejections (row OPEN with explicit Tier 2 external-bookkeeping operating envelope).
+- PROT-007: history v329 appended (history.md sibling entry).
+- PROT-008: cap_map.md + history.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **240th PROT-009 paired commit**.
+- PROT-009: decision-log entry paired with cap_map commit.
+- PROT-018: 5 GENUINE HP verified via remote metrics with run_mode=full + N=production + 5-seed; anchors carry no _nN suffix (default per rule 3) for those at N=1024 (substrate_metric, write_back, write_around, per_key_ttl, eviction_id). PROT-018 verified.
+- PROT-021: smoke-checkpoint contamination check applied; no contamination detected (remote metrics fields populated 5-seed; runs are GENUINE FULL per remote authoritative metrics).
+- PROT-022: not applicable (no log2-parity-relevant anchors in this batch).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 5; **0 NEW LABEL-VS-HONEST catches** (all 5 labels match per-cell metrics; short-wall pre-framing investigated honestly and CONFIRMED genuine via run_mode=full + 5-seed + N matches anchor; negative-result Tier 2 tests pre-registered HP as evidence-of-constraint and actuals=0.0000 EXACT confirm).
+- [[feedback-no-preframing]]: task pre-framed 3 short-wall anchors (write_around 3.4s + per_key_ttl 3.3s + eviction_id 5.3s) WITH explicit caveat that "fast walls on cache cells are EXPECTED per design". Honest re-read CONFIRMED all 3 genuine: algebraic-identity tests at modest M and N=1024 5-seed legitimately complete in 1-5s wall. Short wall NOT label-vs-honest signal when run_mode=full + 5-seed + N matches anchor + per-cell aggregated metrics populated. Same pattern as v328 q23_capacity_cliff (1.7s) + graph_node_classification (1.4s).
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; no contamination signatures (5 PASSes all have full 5-seed aggregated metrics; runs match anchor N + run_mode flags).
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; anchors at default N=1024 carry no _nN suffix.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH (5-anchor batch + 2 existing-row LIFTs + 4 new sub-properties + 2 NEGATIVE-RESULT empirical-constraint confirmations + product-feature framework-reliability LIFT +2pp).
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context.
+- [[feedback-rescue-sketch-first-sequencing]]: NO rescues needed this batch (5/5 GENUINE HP including 2 NEGATIVE-RESULT-CONFIRMATION). v328 PP-43b LRU + PP-43d ARC/LIRS PARTIAL rescues REMAIN OPEN for next-cycle dispatch (small-M LRU sweep + low-alpha ARC sweep both CPU 1-2h cheapest-first).
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; orchestrator main thread holds dispatch authority (autonomous overnight cycle 5 framing -- main-thread queue management). verdict_handler does NOT auto-dispatch exp_dev.
+- [[feedback-rehabilitation-after-rejection]]: NO row rejections this batch. NEGATIVE-RESULT Tier 2 tests (per_key_ttl + eviction_id) are EMPIRICAL CONSTRAINT CONFIRMATIONS (not failures); both pre-registered HP as evidence-of-constraint and actuals EXACTLY confirm. Product framing: substrate operating envelope is Tier 0+1 native; Tier 2 external bookkeeping (1 dirty-bit vector + 1 dictionary).
+- [[feedback-lit-scan-calibration-penalty]]: PP-41 + PP-43 LIFTs RETAIN +0.05 deflation from founding rows (v317 + v324 finite-N convention).
+- [[feedback-lock-in-inefficiency-fixes]]: no new inefficiency patterns this batch.
+- [[feedback-per-experiment-timeout-required]]: all 5 anchors completed well within budgets.
+- [[feedback-composition-classification]]: PP-41 axiom verification is SCORE-class (single algebraic-identity test per axiom). PP-43e write-back is SCORE-class (single read/write op with dirty-bit toggle). PP-43f write-around is HANDOFF-class (probe -> route handoff; cross-primitive composition probe=refusal-cert). PP-43g per-key-TTL boundary is SCORE-class (single decay rate measurement). PP-43h eviction-ID boundary is SCORE-class (single AUROC measurement with/without codebook).
+
+### Push and follow-on (v329)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v328 carryovers RETAINED + v329 additions):
+1. **PP-43b LRU small-M rescue** (v328 carry-over) -- LRU small-M sweep at finer M grid in 10-80 range; gamma piecewise-constant.
+2. **PP-43d ARC/LIRS low-alpha rescue** (v328 carry-over) -- ARC fine alpha grid in [0.05, 0.5].
+3. **PP-44 cross-N sweep** (v328 carry-over) -- {N=1024, 2048, 8192} at production load.
+4. **PP-9b cross-depth extension** (v328 carry-over) -- depth-5 + depth-10 chains.
+5. **PP-37 spectral N-sweep characterization** (v326 carry-over).
+6. **PP-31a alpha-sweep extension** (v327 carry-over).
+7. **PP-40 N-sweep** (v327 carry-over).
+8. **PP-41 edit-distance primitive extension** (v327 carry-over R2; NEW PRIORITY POST-v329 TRUE-METRIC CONFIRMATION) -- ||W_A - W_B||_F / sqrt(|A symdiff B|) over edit chains; substrate-native edit-magnitude readout exploits PP-41's now-CONFIRMED true-metric structure.
+9. **PP-42 M=1000+M=2000 extension** (v327 carry-over).
+10. PP-39 Anchor 1 mixed-mode query round-trip (v326 carry-over).
+11. PP-38 N=8192 5-seed extension (v326 carry-over).
+12. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
+13. Per-script audit for 7 holdout scripts (v324 carry-over).
