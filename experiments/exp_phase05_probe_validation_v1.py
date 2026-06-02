@@ -193,10 +193,6 @@ def main():
     encoder.eval()
     print(f"  encoder loaded from {ckpt_path}", flush=True)
 
-    # Load LLM
-    llm = hyperprobe.load_llm(model_name=LLM_MODEL_ID)
-    print(f"  LLM loaded: {LLM_MODEL_ID}", flush=True)
-
     # Held-out validation set: analogy TEST split (114k rows, not seen during
     # training which uses TRAIN split). Same 'A : B = C : D' parser as training.
     analogy_ds = load_dataset(ANALOGY_DATASET, token=tok)
@@ -238,16 +234,25 @@ def main():
             f"scanned {n_seen} test rows ({n_parse_fail} unparseable, {n_oov} OOV)."
         )
 
+    # Batched LLM ingest: one Llama-3.1-8B load + forward over all 500 docs
+    # (vs the previous per-doc reload which was both buggy -- ingest_embeddings
+    # doesn't accept an `llm` kwarg -- and 500x wasteful). Mirrors hyperprobe's
+    # own paper script which uses a single ingest call.
+    import torch
+    all_docs = [item["doc"] for item in held_out]
+    print(f"  ingesting {len(all_docs)} LLM embeddings (batched) ...", flush=True)
+    emb_dict, *_ = hyperprobe.ingest_embeddings(
+        docs=all_docs, model_name=LLM_MODEL_ID, k_clusters=1,
+    )
+    print(f"  ingest done; scoring ...", flush=True)
+
     cos_vals = []
     bin_accs = []
-    import torch
     for i, item in enumerate(held_out):
         doc = item["doc"]
         concepts = item["concepts"]
-        # Get LLM embedding (sum-pooled per paper)
-        emb_dict, *_ = hyperprobe.ingest_embeddings(
-            docs=[doc], model_name=LLM_MODEL_ID, k_clusters=1, llm=llm,
-        )
+        if doc not in emb_dict:
+            continue
         emb = emb_dict[doc].sum(dim=0)
         # Encoder forward
         with torch.no_grad():
