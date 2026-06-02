@@ -93,3 +93,31 @@ SHIPPED (all 8 REMOTE VERIFIED in queue.json):
 
 Status at ship time: substrate_metric_norm_axioms_v1 and write_back_dirty_bits_v1 already completed (ran during shipping window).
 Cycle 5 Batch 10: shipped 10 anchors to remote_cpu_queue. Q19 rescue (CK scaling collapse, smoke HARD_PASS). Q9 rescue (state-vector SDE, 10-seed walk-back). Caching: write_allocate HARD_PASS, capacity_aware_eviction MIDDLE_BAND, multi_substrate_hierarchy HARD_PASS. SWR replay HARD_PASS. Multiagent adversary HARD_PASS. Graph community 10-seed walk-back. Branching audit 10-seed walk-back. Q21 R-envelope FULL 4 targets. Remote verify: all 10 exit-0 + VERIFIED.Q-F1 dynamical_um_ck_class_v1 SHIPPED remote_cpu_queue: smoke HARD_PASS M_dyn=0.9246 wall=371.8s timeout=4800s; Q-F2 two_time_correlator_fdt_v1 SHIPPED remote_cpu_queue: smoke HARD_PASS collapse_mse=0.0048 piecewise_r2=0.9826 wall=0.2s timeout=1800s; Q-F3 cophenetic_um_rescue_v1 BLOCKED smoke HARD_FAIL mean_cophenetic=0.4787 routed to Strategy (P=20 too small, alpha=0.019 noise-dominated); Q-F4 q_f4_saddle_um_v1 BLOCKED INSTRUMENTATION_SUSPECT minima_ratio=1.0095 outside [0,1] routed to Strategy (N=512 noise-dominated); 9 smoke-only parked anchors from v330 confirmed already in queue from 04:39 cycle
+## 2026-06-02 SHIP CYCLE: 8 Rescue Anchors (5 shipped, 2 genuine HF, 1 in-flight skip)
+
+### Shipped 5/8 to remote_cpu_queue
+
+**HARD_PASS smokes:**
+- timeseries_xor_prot021_fix_v1: in_acc=1.000 contam=0.000 elapsed=7.8s. Root fix: v2 bundle-for-in-window architecture reverted to v1 individual tau_t queries. PROT-021 run_config updated.
+- signed_am_b_pattern_m_sweep_v1: repulsion_rate=1.000 mean_cos_step1=-1.000 at ALL M_A=[1,5,20]. Root fix: KeyError mean_cos_final->mean_cos_step1; one-step dynamics confirmed. elapsed=4.3s.
+- chi_sg_replica_arch_v1: gamma=0.757 > HP=0.5. Block Glauber (stochastic half-spin updates) replaces old sequential (240s/seed) and fully-parallel (oscillates). elapsed=24.1s. PROT-021 updated with T_THERM/T_MEAS/R/Q.
+
+**MIDDLE_BAND smokes (justified ship):**
+- graph_link_prediction_per_edge_keying_v1: AUC=0.970 >> HP=0.75 at 2 seeds; HP needs 3. FULL expected HARD_PASS. elapsed=41s.
+- pp31c_knee_near_capacity_v1: delta_ratio=1.2 borderline < HP=2.0, tau_knee=0.39 below HP_TAU_LOW=0.50. Walk-back gate: doubled FULL N_QUERIES_PER_NOISE 50->100. Mixed-noise function added to create heterogeneous score distribution.
+
+### Genuine HARD_FAILs dropped (2):
+- q_f3_cophenetic_um_high_p_v1: cophenetic=0.143 << HF=0.55. Random BSC patterns have no hierarchical structure regardless of P. Feature requires correlated patterns.
+- q_f4_saddle_um_n_filter_v1: denom>0.10 filter removes ALL 500 triples. Saddle proxies have pairwise overlap ~0.022-0.05 < filter=0.10. Filter is too aggressive; lowering it reintroduces noise contamination. Feature needs different saddle detection approach.
+
+### Skipped (1):
+- q9_tau_mem_corrected_sde_v1: already in-flight from prior cycle.
+
+### Key bugs fixed this cycle:
+1. signed_am KeyError: result['mean_cos_final'] -> result['mean_cos_step1']
+2. pp31c: old compute_precision_coverage removed, replaced with compute_precision_coverage_mixed (heterogeneous noise fracs)
+3. pp31c: stale checkpoint (no run_config key) deleted manually
+4. chi_sg: sequential O(N^3) Glauber replaced with block Glauber O(N^2) per step
+5. chi_sg: PROT-021 run_config updated to include T_THERM, T_MEAS, R_DISORDER, Q_REPLICAS
+
+### Remote verify: 5/5 pass (confirmed in data/remote_cpu_queue/queue.json pending list)
