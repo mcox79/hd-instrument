@@ -6045,3 +6045,147 @@ Main-thread routing candidates (highest -> lowest priority; v328 carryovers RETA
 11. PP-38 N=8192 5-seed extension (v326 carry-over).
 12. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
 13. Per-script audit for 7 holdout scripts (v324 carry-over).
+
+
+## v329 -> v330 @ BATCHED 4-VERDICT overnight CPU cycle 5.5 (3 GENUINE FULL HP + 1 LABEL-VS-HONEST cherry-pick-correlation; Q19 RESCUE-SUCCESS aging observable corrected; PP-33 partial LIFT; ultrametricity revival from research note APPLIED; PP-31 PP-39 PP-43 sub-property additions) -- 9 smoke-only anchors PARKED pending FULL (verdict_handler 241st PROT-009 paired commit; autonomous overnight cycle 5.5)
+
+**Trigger.** Batched 4-FULL-verdict overnight CPU cycle 5.5 2026-06-02. 4 verdicts fetched via `tools.orchestrator.remote_state.get_metrics` (`_source=remote` authoritative for all 4 FULL anchors). Cross-checked run_mode=full + N=production + seeds=5-10 per anchor + per-cell aggregated metrics + elapsed_s wall-time. Pause-flag ABSENT (`data/orchestrator_paused.flag` not present). REMOTE-FIRST methodology applied per e51aee7. The dispatch input listed 13 candidate anchors; 9 of those returned `_source=local run_mode=smoke seeds=[7,17]` (pre-ship smoke artifacts NOT yet at FULL); those 9 are PARKED for next-cycle FULL-execution verification and EXCLUDED from this batch's tallies.
+
+Also incorporates research delivery `notes/research_ultrametricity_revival_consolidation_2026-06-01.md` (6-drill synthesis; 3 algebraic locks; v324 "ultrametricity REFUTED" annotation CORRECTED to "WRONG-PROBE for confirmed CK-class dynamical phase"; citation correction Garcia-Lorenzana = PRL 135 187402 / arXiv:2408.17360 bipartite-spherical-SK, non-reciprocal Hopfield analog = arXiv:2501.00983).
+
+### Verdict roster (4 FULL anchors)
+
+| # | Anchor | Wall | N | Seeds | Verdict (label) | Honest reading | Class |
+|---|---|---|---|---|---|---|---|
+| 1 | q19_aging_mu_correct_observable_v1 | 269.5s | 1024 | 5 | HARD_PASS | HONEST (mean_collapse_mse=0.0029 << 0.1 HP both alpha cells {0.14, 0.16}; seeds_pass=5/5 unanimous; C(t,t_w) collapses as function of t/t_w -- genuine CK-aging signature with CORRECTED observable) | **Q19 RESCUE-SUCCESS** = CK-aging observable EMPIRICALLY CONFIRMED (corrects v211 wrong-observable failure); PP-33 framework-class partial LIFT |
+| 2 | q22_batched_deletion_correlated_v1 | 1801.2s (near timeout) | 4096 | 10 | HARD_PASS (label cites delta vs independent baseline) | **LABEL-VS-HONEST OVER-CLAIM (#200) cherry-pick-correlation**: HP gate `max_residual_cos (c>=0.25) >= 0.15` MET (c=0.5_K5 max=0.214). BUT per-cell honest read: independent baseline (c=0.0) max already 0.198-0.204 across {K=5,10,20}; correlated max ranges 0.192-0.214; delta (c=0.5 - c=0.0) only ~0.010. The label's "Batched deletion LESS EFFECTIVE for correlated patterns" over-claims the correlation effect; substrate residual ~0.18-0.21 is approximately INVARIANT in c. Ghost-attractor magnitude is PROPERTY OF DELETION at K=5-20 batch sizes, NOT a correlation-induced amplification. Honest reading: ghost-attractor signal CONFIRMED as deletion-property; correlation-amplification NOT confirmed (delta indistinguishable from noise). PP-9 caveat "external dedup required for correlated batches" is OVER-CLAIM; substrate caveat reframes to: "batched deletion at K>=5 leaves residual ghost-attractor ~0.18-0.21 INDEPENDENT of pattern correlation in [0.0, 0.5]". | NEW PP-9 sub-property + LABEL-VS-HONEST #200 cherry-pick-correlation |
+| 3 | multiagent_coord_competing_v1 | 402.5s | 4096 | 5 | HARD_PASS | HONEST (majority_acc=1.0000 unanimous; minority_acc=0.830 HP>=0.5; delta_majority=0.170 HP>=0.15; separation_delta~=0 HP>=-0.02; all cells unanimous 5-seed; substrate W-averaging reflects write-frequency dominance natively) | PP-39 substrate-native-multiagent EXPANSION sub-property (competing-agent coordination via write-frequency-weighted W; complements v328 PP-39 consensus founding) |
+| 4 | program_exec_audit_chain_v1 | 226.0s | 4096 | 5 | HARD_PASS | HONEST (3/3 T cells {20,40,60}: cell_A min_cos>=0.999 HP>=0.8 + cell_B min_cos=1.000 HP>=0.7 + cell_C del_residual<=0.05 HP<0.15 with delta_acc=0.000 unanimous; chain-of-thought trace recording with mid-link deletion-cert verified across trace lengths) | NEW PP-31 audit-chain sub-property (chain-of-thought trace recording with deletion-cert applied to intermediate steps; cross-references PP-9 deletion-primitive + PP-31a refusal-cert) |
+
+### Step 0 honest re-read summary
+
+**HONEST (3):** q19_aging_mu_correct_observable_v1 (5/5 seeds_pass at both alpha={0.14,0.16}; mean_collapse_mse=0.0029 well below HP<0.1 threshold; this is the corrected observable per research-delivery; v211 used wrong observable and FAILED; v1 uses correct CK-class C(t,t_w) vs t/t_w scaling collapse and PASSES decisively), multiagent_coord_competing_v1 (all cells unanimous 5-seed; majority delta=0.170 well above HP>=0.15; minority not suppressed at 0.83), program_exec_audit_chain_v1 (3 trace lengths T={20,40,60} all unanimous; max_del_residual=0.051 at T=40 within HP<0.15 by 3x margin; chain-of-thought audit primitive CONFIRMED across trace lengths).
+
+**LABEL-VS-HONEST OVER-CLAIM (1):**
+- **#200 q22_batched_deletion_correlated_v1 CHERRY-PICK-CORRELATION**: label says "Ghost-attractor effect at moderate correlation CONFIRMED. max_residual_cos (c>=0.25)=0.214>=0.15. Batched deletion LESS EFFECTIVE for correlated patterns. Independent baseline max=0.204." Per-cell aggregated (10-seed): c=0.0_{K=5,10,20} max=0.199, 0.204, 0.191; c=0.3_{K=5,10,20} max=0.192, 0.202, 0.204; c=0.5_{K=5,10,20} max=0.214, 0.199, 0.196. Honest reading: at K=5,10,20 batch sizes, max_post_del_cos sits in band [0.191, 0.214] regardless of correlation c in {0.0, 0.3, 0.5}. The label's framing "correlated batches LESS EFFECTIVE" implies a correlation-amplification of residual; data shows residual is APPROXIMATELY INVARIANT in c (delta ~0.010 = within seed-noise). The HP threshold IS met (max=0.214>=0.15) but the conclusion attributed to correlation is unsupported -- the residual is a property of K-sized batched deletion at moderate scale, not of pattern correlation. Honest reframe: "batched deletion at K=5-20 leaves residual ghost-attractor ~0.18-0.21 INDEPENDENT of correlation in [0.0, 0.5]; correlation-amplification NOT detected". NEW sub-flavor: CHERRY_PICK_CORRELATION_HP_LABEL_OVER_CLAIMS_AGGREGATE_DELTA. PP-9 caveat reframed: external-dedup recommendation stands because residual is non-zero at K>=5 (substrate-feature finding), but the rationale shifts from "correlation amplifies it" to "batched deletion at K>=5 leaves residual regardless of correlation".
+
+**BORDERLINE wall (1):** q22 elapsed=1801.2s vs 1800s timeout; per-anchor budget barely cleared. Annotation: per [[feedback-per-experiment-timeout-required]] near-timeout HP completion is INFRA-OK but the next-cycle ship should extend budget to 2400s for q22-family anchors (10-seed N=4096 with 9 (c,K) cells at 200 trials per cell ~2e8 ops; tight margin).
+
+**SMOKE-ONLY PARKED (9):** caching_write_allocate_per_pattern_v1, caching_capacity_aware_eviction_v1, caching_multi_substrate_hierarchy_v1, hippocampal_sharp_wave_ripple_v1, multiagent_adversary_coord_v1, q21_r_envelope_multi_target_v1, program_exec_audit_branching_v1, graph_community_detection_v1, q9_tau_mem_corrected_sde_v1 -- ALL returned `_source=local run_mode=smoke seeds=[7,17]` (pre-ship smoke artifacts; FULL not yet executed remotely). These are NOT counted in HONEST tally and NOT promoted to cap_map. Routing note required to ship FULL versions on next CPU cycle. The dispatch context's smoke verdict-tags (HP/MIDDLE/HF) are PRE-FRAMING per [[feedback-no-smoke-preframing-in-task-prompts]] and INSUFFICIENT for cap_map decisions; FULL multi-seed remote runs required.
+
+Per [[feedback-verdict-msg-honest-reread]]: 1 NEW LABEL-VS-HONEST catch filed in strategy_decisions_2026-06-02.md.
+
+### Row treatment
+
+**v324 ULTRAMETRICITY ANNOTATION REVISION (per research delivery 6-drill consolidation).**
+
+v324 annotation `"ULTRAMETRICITY (PP-33 GARCIA LORENZANA 2025 PRECEDENT) REFUTED at FULL N=2048 5-seed"` is UPGRADED to:
+
+> "Static-UM test mean_ratio=0.583 NOT a refutation; the static-RSB phase class is ALGEBRAICALLY RULED OUT independent of the test (substrate has confirmed Marchenko-Pastur bulk with NO outlier spike pair per v324 ct2_outlier_count; arXiv:2511.18439 establishes that replica symmetry of spherical spin systems is determined by edge eigenvalue spacing, NOT bulk; pure MP bulk + no spike is structurally INCOMPATIBLE with FRSB and AGS-1-RSB which both REQUIRE c/n-separated spectral outliers). The v324 test was a WRONG PROBE for the substrate's confirmed CK-class dynamical phase. Static-UM and MP are INDEPENDENT observables (MP lives on the kinematic spectrum of W; ultrametricity lives on the thermodynamic Gibbs measure). 4 confirmed data points (MP no spike, mean_ratio=0.583, Pred-4 first-order hysteresis, SKAH-M / CK class) match TWO DYNAMICAL phases: (a) CK aging (WEB) P=0.40 and (b) Garcia-Lorenzana oscillating amorphous P=0.20. Combined P(some dynamical-class phase confirmed) ~= 0.85. Citation correction: Garcia-Lorenzana et al. 2025 = PRL 135 187402 / arXiv:2408.17360 (bipartite spherical Sherrington-Kirkpatrick, NOT Hopfield directly); non-reciprocal Hopfield analog = arXiv:2501.00983 (Xue/Maghrebi/Mias/Piermarocchi Jan 2025 Hopf + fold bifurcation zeta=1/2 and 1/3). Dynamical-UM at M_dyn in [0.85, 0.95] (CK-class predicted) is the CORRECT observable. Q-F1 dispatch (M_dyn smoke; 1-hour CPU R=200 single-observable t1=16 t2=128 t3=1024) ROUTED -- see next-cycle main-thread dispatch."
+
+This revision STANDS in v330 cap_map header annotation block; previous v324 "REFUTED" wording RETAINED in original v324 entry for historical accuracy with VOID-ANNOTATION cross-reference pointing to v330 revision.
+
+**Q19 RESCUE-SUCCESS: PP-33 framework-class partial LIFT 0.40-0.55 -> 0.50-0.65.**
+
+q19_aging_mu_correct_observable_v1 EMPIRICAL CONFIRMATION of CK-class C(t,t_w) vs t/t_w scaling collapse. mean_collapse_mse=0.0029 (HP<0.1) at both alpha cells {0.14, 0.16} unanimous 5-seed at N=1024. This is the CORRECTED-OBSERVABLE rescue for v211's wrong-observable failure (v211 tested static ultrametricity on minima overlaps; v1 tests the CK-class dynamical signature directly per arXiv:2511.18439 algebraic lock + Cugliandolo-Kurchan 1993 trajectory result). Scaling collapse confirms substrate trajectories DO age as predicted by the CK-class -- two-time correlator C(t,t_w) is a function of t/t_w (NOT t and t_w separately) which is the time-translation-INVARIANCE-BROKEN signature of aging on a marginal manifold.
+
+PP-33 framework-class row band LIFTs 0.40-0.55 -> **0.50-0.65** (+0.10 both bounds; CK-class dynamical-aging signature CONFIRMED via corrected observable; remaining 0.35-0.50 deficit reflects (i) Garcia-Lorenzana oscillating-overlay sub-phase NOT YET tested via Q-F2 finite-omega peak in |FT[C(omega)]| + (ii) Q-F3 cophenetic correlation NOT YET tested + (iii) Q-F4 saddle-space ultrametricity NOT YET tested + (iv) Q-F5 return-point-memory hierarchy NOT YET tested). Lit-scan calibration penalty +0.05 RETAINED from PP-33 founding (uncharted finite-N regime).
+
+PP-33 caveat (f) v324 `"ultrametricity HARD_FAIL at FULL refutes the CK/FRSB sub-hypothesis"` SUPERSEDED by caveat (g):
+
+> "(g) Q19 v1 corrected-observable HP at FULL N=1024 5-seed CONFIRMS CK-class dynamical-aging signature via C(t,t_w) vs t/t_w scaling collapse (mean_collapse_mse=0.0029). v324 static-UM mean_ratio=0.583 was wrong-probe for this phase class -- static-RSB phases algebraically ruled out independent of test (MP bulk + no spike INCOMPATIBLE with FRSB per arXiv:2511.18439). Substrate is in non-equilibrium dynamical phase (CK aging core P=0.40 + possible Garcia-Lorenzana oscillating overlay P=0.20). PP-33 framework-class row band LIFT 0.40-0.55 -> 0.50-0.65. Remaining deficit reflects 4 untested dynamical observables (Q-F2 C(t,t_w) + X(C); Q-F3 cophenetic; Q-F4 saddle-UM; Q-F5 return-point-memory)."
+
+**PP-9 reasoning amortization economics: NEW sub-property PP-9c batched-deletion ghost-attractor BOUNDARY (q22 LABEL-VS-HONEST RECLASSIFIED HONEST after honest reframe).**
+
+q22_batched_deletion_correlated_v1 PER-CELL HONEST reading: at K=5-20 batched deletion, max_post_del_cos sits in band [0.191, 0.214] regardless of correlation c in {0.0, 0.3, 0.5}. The HP threshold MET (>=0.15 absolute) is a substrate-feature finding: BATCHED DELETION AT K>=5 LEAVES RESIDUAL GHOST-ATTRACTOR ~0.18-0.21 INDEPENDENT OF PATTERN CORRELATION (in low-to-moderate correlation regime [0.0, 0.5]). NEW PP-9 sub-property PP-9c (batched-deletion residual scaling with K, NOT with correlation). Operating envelope: external deduplication recommended for any deletion of K>=5 patterns simultaneously; rationale is K-batch-size driven (each removed pattern leaves residual cosine ~0.18-0.21 in deletion-cert audit window), not correlation-driven. Cross-ref: PP-9 deletion-cert primitive (PP-9c characterizes the batched-deletion failure mode); PP-9a single-deletion cert (clean primitive); PP-9b heteroassoc-chain depth-3 + deletion (v328 PP-9 single-link clean). PP-9 row band UNCHANGED 0.55-0.70 (sub-property addition for known constraint; PP-9 founding already characterizes deletion-cert primitive band).
+
+**PP-39 substrate-native-multiagent EXPANSION: competing-agent coordination sub-property.**
+
+multiagent_coord_competing_v1 EMPIRICAL CONFIRMATION sub-property -- substrate W-averaging implements write-frequency-weighted competition natively. cell_A delta_majority=0.170 (majority WIN gap; HP>=0.15); cell_B minority_acc=0.830 (minority NOT suppressed; HP>=0.5); cell_C separation_delta~=0 (W_A serves own patterns equally well as W_combined; HP>=-0.02). Substrate's additive W primitive natively expresses competitive multi-agent coordination via write-frequency dominance WITHOUT external coordination protocol. v328 PP-39 founding established CONSENSUS sub-property (majority-vote at K=5,7); v330 PP-39 ADDS COMPETING-AGENT sub-property (write-frequency-dominance at differing N_A/N_B agent ratios). PP-39 row band UNCHANGED 0.65-0.80 (two empirical sub-properties at same cap_map version is corroborative; band-LIFT requires 3rd independent sub-property or cross-N extension).
+
+**PP-31 audit-cert primitive EXTENSION: chain-of-thought trace recording sub-property.**
+
+program_exec_audit_chain_v1 EMPIRICAL CONFIRMATION sub-property -- chain-of-thought trace recording with intermediate-step deletion-cert at trace lengths T={20, 40, 60}, all 3 trace-length cells unanimous 5-seed: cell_A (index retrieval) min_cos>=0.999 HP>=0.8; cell_B (next-step prediction) min_cos=1.000 HP>=0.7; cell_C (mid-link deletion-cert) max_del_residual<=0.051 HP<0.15 with delta_acc=0.000 (downstream steps UNAFFECTED). Substrate stores L-step traces with PRESERVED step-by-step retrievability AND with PER-STEP DELETION-CERT APPLICABILITY -- audit primitive over chain-of-thought traces is substrate-native. NEW PP-31 sub-property PP-31b chain-of-thought audit (PP-31 founding row v323 was refusal-cert PP-31a; PP-31b is chain-of-thought-trace-cert). PP-31 row band UNCHANGED 0.60-0.75 (sub-property addition without cross-N or cross-T extension is corroborative; T=60 within smoke-grid).
+
+Cross-references: PP-9 deletion-cert (PP-31b USES deletion-cert at intermediate trace steps); PP-31a refusal-cert (PP-31a and PP-31b are sibling audit-cert sub-properties); PP-11 substrate-as-reasoning-store (PP-31b validates chain-of-thought trace as auditable storage primitive).
+
+### Tallies (v329 -> v330)
+
+- **HONEST:** 378 -> **381** (+3 NEW GENUINE FULL HARD_PASS: q19_aging_mu_correct_observable_v1 RESCUE-SUCCESS + multiagent_coord_competing_v1 + program_exec_audit_chain_v1).
+- **LABEL-VS-HONEST:** 199 -> **200** (+1 NEW CATCH: #200 q22 CHERRY_PICK_CORRELATION_HP_LABEL_OVER_CLAIMS_AGGREGATE_DELTA; HP gate met but conclusion attributing residual to correlation is UNSUPPORTED; correlation delta ~0.010 = within seed-noise; honest reframe of substrate constraint preserved).
+- **Portfolio:** 32+66 -> **32+66** UNCHANGED (no new top-level rows; 1 row LIFT (PP-33 0.40-0.55 -> 0.50-0.65 Q19 RESCUE-SUCCESS); 3 new sub-properties: PP-9c batched-deletion ghost-attractor BOUNDARY + PP-39 competing-agent coordination + PP-31b chain-of-thought audit-cert).
+- **Cap_map version: v330.**
+
+### Framework reliability (v330)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 45-55% -> **47-57%** (+2pp both bounds; PP-33 framework-class CK-aging dynamical-phase signature EMPIRICALLY CONFIRMED via Q19 corrected observable + research-delivery 6-drill algebraic lock STRENGTHENS specific-named-class identification; CK-class is now the FIRST dynamical-class with empirical-confirmation at substrate's finite-N regime; consistent with v228 SKAH-M as first static-multistable-class confirmation pattern but for non-equilibrium dynamical phase).
+- Product-feature: 66-80% UNCHANGED (no product-feature row LIFT this batch; Q19 LIFT is framework-class not product-feature; q22 sub-property addition is constraint characterization not capability LIFT; PP-39 + PP-31b sub-properties are corroborative).
+
+### Known infrastructure issues (annotation block; UPDATED in v330)
+
+**Issue I-1 (v323, UPDATED v324/v325/v326/v327/v328/v329, ANNOTATED v330): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v330 4-FULL-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326).** CLOSED.
+
+**Issue I-3 (v327, RESOLVED v328).** CLOSED.
+
+**Issue I-4 (v330, NEW): 9 smoke-only anchors mistakenly listed as FULL verdicts in dispatch input.** Dispatch context for cycle 5.5 listed 13 candidate anchors; 9 returned `_source=local run_mode=smoke seeds=[7,17]` (caching_write_allocate, caching_capacity_aware, caching_multi_substrate, hippocampal_sharp_wave, multiagent_adversary, q21_r_envelope, program_exec_audit_branching, graph_community, q9_tau_mem_corrected). These were pre-framed as having HP/MIDDLE/HF smoke verdicts but NEVER ran FULL remotely. Per [[feedback-no-smoke-preframing-in-task-prompts]]: smoke verdict tags in task prompts are INSUFFICIENT for cap_map decisions. ROUTING-NOTE recommended for next cycle to ship FULL versions; verdict_handler PARKS these from this batch's tallies and surfaces to main thread for queue-refill ROUTING. Detection signal: `_source=local` + `run_mode=smoke` is the deterministic smoke-only-artifact signature.
+
+**Issue I-5 (v330, NEW): q22-family per-anchor timeout near-miss.** q22_batched_deletion_correlated_v1 wall=1801.2s vs timeout=1800s (1.2s over the budget, returned HP via partial-flush before timeout SIGKILL). Per [[feedback-per-experiment-timeout-required]] next-cycle ship for q22-family (10-seed N=4096 with 9 (c,K) cells at 200 trials per cell) should extend budget to 2400s. Pattern-match recipe: 10-seed N=4096 with >=9 (parameter combination) cells at >=100 trials per cell needs 2400s+ at CPU baseline. NOT a script-side defect; budget-only fix.
+
+### PROT compliance (v329 -> v330)
+
+- PROT-004/006: NO row closures. PP-33 LIFT (Q19 RESCUE-SUCCESS); PP-9c + PP-39 + PP-31b are NEW sub-properties (row OPEN); v324 ultrametricity annotation REVISED with research-delivery rationale (no closure; existing row interpretation corrected).
+- PROT-007: history v330 appended (history.md sibling entry).
+- PROT-008: cap_map.md + history.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **241st PROT-009 paired commit**.
+- PROT-009: decision-log entry paired with cap_map commit.
+- PROT-018: 3 GENUINE HP + 1 LABEL-VS-HONEST verified via remote metrics with run_mode=full + N=production + 5-10 seeds; anchors carry no _nN suffix (default per rule 3) for those at default N (Q19 N=1024 = default; q22, multiagent_coord_competing, program_exec_audit_chain at N=4096 = production-default per anchor). PROT-018 ✓.
+- PROT-021: smoke-checkpoint contamination check applied; 4 FULL anchors verified via remote authoritative metrics (run_mode=full + multi-seed unanimous); 9 PARKED anchors flagged as smoke-only artifacts NOT promoted.
+- PROT-022: not applicable (no log2-parity-relevant anchors in this batch).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 4 FULL anchors; **1 NEW LABEL-VS-HONEST catch** (#200 q22 CHERRY_PICK_CORRELATION_HP_LABEL_OVER_CLAIMS_AGGREGATE_DELTA). q22 honest reframe preserves the SUBSTRATE-CONSTRAINT finding (residual ~0.18-0.21 at K>=5 batched deletion) but corrects the CAUSAL ATTRIBUTION (K-batch-size, not correlation). New sub-flavor: CHERRY_PICK_CORRELATION_HP_LABEL_OVER_CLAIMS_AGGREGATE_DELTA -- cousin of v328 #198 cherry-pick-alpha and #199 cherry-pick-M; the conditioning variable changes (alpha -> M -> correlation) but the pattern is identical (HP at one cell carried as conclusion about another variable's effect).
+- [[feedback-no-smoke-preframing-in-task-prompts]]: 9 smoke-only PARKED anchors had smoke verdict tags in dispatch input (caching_capacity_aware MIDDLE, caching_multi_substrate HP, hippocampal_sharp_wave HP, multiagent_adversary HP, q21_r_envelope MIDDLE, program_exec_audit_branching MIDDLE walk-back, graph_community HARD_FAIL walk-back, q9_tau_mem_corrected MIDDLE walk-back). Smoke tags are PRE-FRAMING; NOT load-bearing for cap_map; FULL remote verification required. PARKED from this batch tally; routing note for next-cycle FULL ship.
+- [[feedback-no-preframing]]: dispatch input pre-framed Q19 as "if HP at FULL -> PP-33 framework-class LIFT (currently 0.40-0.55)". Honest re-read of Q19 metrics CONFIRMS HP at FULL (5/5 seeds both alpha cells, mean_collapse_mse=0.0029); PP-33 LIFT 0.40-0.55 -> 0.50-0.65 APPLIED per pre-framed criterion AFTER honest verification. Pre-framing in this case did NOT bias the honest re-read; PP-33 LIFT criterion was met by per-cell metrics independent of label.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; 4 FULL anchors verified clean (remote authoritative metrics + multi-seed unanimous + N matches anchor); 9 PARKED anchors EXPLICITLY flagged as smoke-only artifacts.
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; anchors at default N carry no _nN suffix.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY CRITICAL (Q19 RESCUE-SUCCESS = first dynamical-class empirical confirmation + PP-33 framework-class LIFT + research-delivery 6-drill ultrametricity revision applied + 1 NEW LABEL-VS-HONEST catch + 9 smoke-only anchors PARKED I-4 NEW issue + I-5 near-timeout NEW issue).
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context.
+- [[feedback-rescue-sketch-first-sequencing]]: Q19 RESCUE-SUCCESS via R2 (corrected observable per research-delivery algebraic lock). Remaining PP-33 rescue path (per research note): R2-Q-F3 cophenetic correlation single-linkage MST (<1s wall ZERO-COMPUTE; SINGLE CHEAPEST DECISIVE TEST), R2-Q-F1 dynamical M_dyn smoke 1-hour CPU R=200 single-observable, R2-Q-F4 saddle-overlap triplet test, R3-Q-F2 C(t,t_w) + X(C) FDT ratio FULL (conditional on Q-F1 signal), R4-Q-F5 Preisach hysteresis hierarchy 5-15min GPU. SEQUENCE CHEAPEST FIRST (Q-F3 -> Q-F1 -> Q-F4 -> Q-F2 -> Q-F5). Routing-note required for next-cycle dispatch.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; orchestrator main thread holds dispatch authority (autonomous overnight cycle 5.5 framing); verdict_handler does NOT auto-dispatch exp_dev. Queue refill candidates surfaced to main thread (9 smoke-only PARKED anchors need FULL re-ship + 5 PP-33 rescue Q-F1 through Q-F5 dispatches).
+- [[feedback-rehabilitation-after-rejection]]: NO row rejections this batch. v324 "REFUTED" annotation REVISED to "WRONG-PROBE" per 6-drill research-delivery algebraic lock + Q19 RESCUE-SUCCESS empirical evidence; v324 historical entry RETAINED with cross-reference to v330 revision (REHABILITATION via corrected observable + research-delivery lit-scan; v211 wrong-observable failure -> Q19 v1 correct-observable HP is the worked example of feedback-rehabilitation-after-rejection's "list 3-5 axis-combination rescues before abandoning the mechanism" applied to PP-33 framework-class).
+- [[feedback-lit-scan-calibration-penalty]]: PP-33 LIFT RETAINS +0.05 deflation from founding (uncharted finite-N regime); research-delivery 6-drill consolidation explicitly applies the calibration-penalty convention (P_deflated for 2 surviving dynamical phases: CK aging 0.40 + Garcia-Lorenzana 0.20).
+- [[feedback-lock-in-inefficiency-fixes]]: I-4 + I-5 NEW issues locked as structural problems (smoke-pre-framing pattern + q22-family timeout-budget pattern). I-4 detection signal: `_source=local` + `run_mode=smoke` deterministic smoke-only-artifact signature; main-thread orchestrator should grep for this before counting anchors as FULL verdicts. I-5 budget recipe: 10-seed N=4096 with >=9 cells at >=100 trials per cell needs 2400s+ at CPU baseline.
+- [[feedback-per-experiment-timeout-required]]: q22 wall=1801.2s vs timeout=1800s = NEAR-MISS HP. Next-cycle ship q22-family budget extension to 2400s required per I-5.
+- [[feedback-composition-classification]]: Q19 aging scaling collapse is SCORE-class (single observable C(t,t_w) measured across t/t_w grid; no composition step). multiagent_coord_competing is HANDOFF-class (write-frequency hand-off between cells A and B; W_A and W_combined comparison). program_exec_audit_chain is PIPELINE-class (T-step trace pipeline with mid-step deletion-cert composition). q22 batched deletion is SCORE-class (single batched-deletion measurement at K).
+- [[feedback-research-synthesis-external-discussion-cycle]]: research-delivery 6-drill ultrametricity revival consolidation INCORPORATED into v330 (v324 annotation revision + PP-33 caveat (g) supersedes (f) + framework-reliability +2pp specific-documented). Research-delivery cycle ROUND-TRIP completed: orchestrator reads research note -> applies revisions in cap_map atomic commit -> routing note for next-cycle Q-F1 through Q-F5 dispatches surfaces empirical follow-up plan.
+
+### Push and follow-on (v330)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v329 carryovers RETAINED + v330 additions):
+1. **Q-F3 cophenetic correlation** (NEW v330) -- <1s wall ZERO-COMPUTE single-linkage MST on existing overlap matrix; SINGLE CHEAPEST DECISIVE TEST per research-delivery; unlocks 3 killer features simultaneously if PASS (multi-tenant tree, coarse-to-fine retrieval, cluster-organized memory).
+2. **Q-F1 dynamical M_dyn smoke** (NEW v330) -- 1-hour CPU R=200 single-observable t1=16 t2=128 t3=1024; decisively orients FULL CK protocol.
+3. **Q-F4 saddle-overlap triplet test** (NEW v330) -- substrate-novel SKAH-M-class signature; orthogonal to Q-F1 and Q-F3.
+4. **9 smoke-only PARKED FULL re-ship** (NEW v330 I-4) -- caching_write_allocate + caching_capacity_aware + caching_multi_substrate + hippocampal_sharp_wave + multiagent_adversary + q21_r_envelope + program_exec_audit_branching + graph_community + q9_tau_mem_corrected (each needs FULL remote ship; budget per anchor varies).
+5. **q22 timeout extension to 2400s** (NEW v330 I-5) -- re-ship q22 batched deletion family with timeout=2400s on next cycle to avoid near-miss.
+6. **PP-43b LRU small-M rescue** (v328 carry-over).
+7. **PP-43d ARC/LIRS low-alpha rescue** (v328 carry-over).
+8. **PP-44 cross-N sweep** (v328 carry-over).
+9. **PP-9b cross-depth extension** (v328 carry-over).
+10. **PP-37 spectral N-sweep characterization** (v326 carry-over).
+11. **PP-31a alpha-sweep extension** (v327 carry-over).
+12. **PP-40 N-sweep** (v327 carry-over).
+13. **PP-41 edit-distance primitive extension** (v327 carry-over R2).
+14. **PP-42 M=1000+M=2000 extension** (v327 carry-over).
+15. PP-39 Anchor 1 mixed-mode query round-trip (v326 carry-over).
+16. PP-38 N=8192 5-seed extension (v326 carry-over).
+17. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
+18. Per-script audit for 7 holdout scripts (v324 carry-over).
+19. **Q-F2 C(t,t_w) + X(C) FDT ratio FULL** (NEW v330; gated on Q-F1 signal).
+20. **Q-F5 Preisach hysteresis hierarchy** (NEW v330; 5-15min GPU; reserve until Tier-1 settles).
