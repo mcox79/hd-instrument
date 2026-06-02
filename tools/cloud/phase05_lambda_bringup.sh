@@ -69,7 +69,7 @@ pip install -q \
   SPARQLWrapper \
   requests-cache \
   python-dotenv \
-  torchhd
+  torch-hd
 
 # 5.6. Post-install hyperprobe import smoke. If hyperprobe can't import,
 # stop here -- every downstream anchor will fail with the same error.
