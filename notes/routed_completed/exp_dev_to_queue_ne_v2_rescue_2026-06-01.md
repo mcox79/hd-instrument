@@ -46,3 +46,5 @@ Both: queue_add.sh exit=0; VERIFIED present in remote remote_cpu_queue/queue.jso
 -> Route to Strategy: NE-1 MIDDLE rescue options: (a) N=16384, (b) longer trajectory t_w_max=500,
    (c) different initial condition (deep quench). NE-2 MIDDLE rescue: (a) N=16384, (b) report
    observed cliff_midpoint as substrate-specific deviation from DMFT theory.
+
+Acted-on 2026-06-02: NE v2 anchors shipped cycle 5; processed in v330

@@ -71,3 +71,5 @@ apply R2 (N=4096). The research note says Q-F4 is orthogonal to Q-F1 and Q-F3 an
 tests a substrate-novel SKAH-M signature.
 
 Recommend: apply R1, re-smoke, re-route to exp_dev for shipping decision.
+
+Acted-on 2026-06-02: q_f4 redesign with correlated patterns shipped via Wave 3 dispatch

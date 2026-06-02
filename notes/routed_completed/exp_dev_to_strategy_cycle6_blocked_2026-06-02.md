@@ -52,3 +52,5 @@ than signal from the shared component at LAMBDA_SHARED=0.5. At 0.8, joint should
 **Fix**: experiment/exp_multiagent_emergence_v2.py with LAMBDA_SHARED=0.8, M_PER_AGENT=3.
 
 ---
+
+Acted-on 2026-06-02: cycle 6 blocked items rolled into Wave 1+2 redesigns

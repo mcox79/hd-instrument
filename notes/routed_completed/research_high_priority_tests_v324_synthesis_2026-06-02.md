@@ -197,3 +197,5 @@ Research recommends the following annotations (orchestrator owns commits; strate
 ---
 
 **END.** Orchestrator: fire Wave 1 NOW; gate subsequent waves per the abort/skip table. Strategy: design Wave 1 cells from the capability questions + HARD bands cited above. Cloud Wave 5: ONE single batch; pre-register every cell.
+
+Acted-on 2026-06-02: 5-wave plan adopted; Wave 1 + Wave 2 + Wave 3 dispatches landed; Wave 5 cloud GATE OPEN per v332 verdict_handler (COMBO-3 5HP + kappa3 + Q-C5 + Q-B1 all PASSED); Wave 5 testbed handoff filed earlier

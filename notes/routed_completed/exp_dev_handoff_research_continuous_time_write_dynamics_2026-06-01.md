@@ -65,3 +65,5 @@ exp_dev is NOT authorized to:
 ## Autonomy declaration
 
 Per [[feedback-no-experiment-design-in-prompts]]: all anchor specifications (N, M, K, seeds, thresholds, queue routing, anchor names, ETAs) are exp_dev's design decisions. This hand-off provides the WHAT and WHY; exp_dev provides the HOW.
+
+Acted-on 2026-06-02: continuous-time write dynamics absorbed into streaming-aging baseline + Q9 tau_mem corrected SDE work

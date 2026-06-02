@@ -62,3 +62,5 @@ before re-smoke.
 The HARD_FAIL on this protocol does NOT directly damage the killer features (F1,F2,F7).
 Those features depend on operational hierarchical retrieval, not strict mathematical
 dendrogram fidelity on random patterns.
+
+Acted-on 2026-06-02: Q-F3 genuine HF documented; research deeper-rescue routing acknowledged; deferred until research re-design

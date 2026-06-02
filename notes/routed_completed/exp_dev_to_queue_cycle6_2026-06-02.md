@@ -16,3 +16,5 @@ queue=remote_cpu_queue name=hippocampal_place_field_v1 script=experiments/exp_hi
 ## Instantly completed (fast N=1024 CPU)
 - f4_free_cumulants_v1: HARD_FAIL N=1024 (M4 mismatch confirms formula error; diagonal removal not in theory)
 - caching_lru_lfu_hybrid_v1: MIDDLE_BAND (rho=0.732, recency-only; frequency not encoded in eigenvalue score)
+
+Acted-on 2026-06-02: cycle 6 ship absorbed into v331 + v332 cap_map updates

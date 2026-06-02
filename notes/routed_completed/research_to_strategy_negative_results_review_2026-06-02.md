@@ -99,3 +99,5 @@ Per exp_dev_decisions_2026-06-02 recommendation: "add tau_min (and other config-
 - **Operating envelopes are product assets**: documenting "capability X works in regime R" is a compliance/audit product story, not a weakness.
 - **tau_mem formula validation**: if Q9 confirms, enables the per-fact retention policy killer feature (TTL as engineerable parameter).
 - **Signed-AM envelope**: once M_A_crit is empirically characterized, "negative-pattern anti-memory in sparse-A regime" becomes a defensible product claim for deletion-cert + active-repulsion narrative.
+
+Acted-on 2026-06-02: 6 reviewed 0 genuine refutations; 4 design + 2 instrumentation rescues all shipped; 3 HP smoke + 2 walk-back MIDDLE

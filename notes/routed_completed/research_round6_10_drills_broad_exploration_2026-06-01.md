@@ -319,3 +319,5 @@ Other distinct next-drill candidates (one per drill that didn't converge on free
 - Pre-registered HP/MID/HF bands accompany every smoke proposal; no batch-level expected-PASS framing.
 - This synthesis is exploratory across 10 distinct axes; no narrowing into the most-recent-empirical-result topic.
 - LABEL-VS-HONEST: synthesis explicitly distinguishes CAN vs CANNOT vs PARTIAL; numerical bounds are claimed only where derived; lit-scan deflations applied throughout.
+
+Acted-on 2026-06-02: Round 6 + 10 drills processed across v322-v325 cap_map bumps

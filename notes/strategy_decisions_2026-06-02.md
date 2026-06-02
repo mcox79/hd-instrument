@@ -177,3 +177,4 @@ User directive: "we also need those verdicts to gate the cloud work". Three gati
 
 **Tallies (v331 -> v332).** HONEST 393 -> 399 (+6). LABEL-VS-HONEST 201 UNCHANGED.
 
+Hygiene sweep 2026-06-02: 20 acted-on routing files moved to notes/routed_completed/ (items from 2026-06-02 and 2026-06-01); no cap_map version bump; no new routing files written; source files verified present before move

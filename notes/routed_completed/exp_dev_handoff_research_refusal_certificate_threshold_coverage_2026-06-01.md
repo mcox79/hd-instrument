@@ -74,3 +74,5 @@ exp_dev is NOT authorized to:
 ## Autonomy declaration
 
 exp_dev has full autonomy to determine: anchor names, N, M, seeds, threshold sweep points, pre-reg HP/MID/HF bands, queue assignment, wall_s estimate, and sequencing within the 4-anchor budget above. No further approval needed for any anchor in this list.
+
+Acted-on 2026-06-02: refusal cert PP-31 work covered v327+ pp31c near-capacity rescue partially worked

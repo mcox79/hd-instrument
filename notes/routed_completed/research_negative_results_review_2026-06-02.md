@@ -293,3 +293,5 @@ Lit-scan calibration penalty applied: 0.20 deflation throughout; novel-synthesis
 4. Q9 in flight -- no new dispatch needed for tau_mem
 5. pp31c redesign + signed-AM M_A=1 + timeseries_xor v3 fix are highest-priority NEW dispatches from this review
 6. chi_SG replica architecture is lowest priority (static-phase frameworks CLOSED; supplementary cross-check only)
+
+Acted-on 2026-06-02: source synthesis; rescues dispatched

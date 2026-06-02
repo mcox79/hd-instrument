@@ -180,3 +180,5 @@ Research recommends the following annotations to cap_map v324 (orchestrator owns
 ---
 
 **END OF CONSOLIDATION.** Orchestrator: route Q-F3 + Q-F1 smoke first; gate Tier-2 on results; commit cap_map annotations + citation corrections regardless.
+
+Acted-on 2026-06-02: 6-drill revival consolidation drove Q-F1 + Q-F2 + dynamical-UM cells; v330 LIFT applied; v324 'REFUTED' revised to 'WRONG-PROBE'; PP-33 framework-class LIFTED in v330 + v331 + v332

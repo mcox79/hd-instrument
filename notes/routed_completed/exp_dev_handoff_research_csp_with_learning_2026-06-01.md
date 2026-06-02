@@ -105,3 +105,5 @@ Exp Dev has full autonomy on implementation details. The only binding constraint
 - Cap_map: `d:/AI/hd-instrument/notes/substrate_capability_map.md` (no existing CO row as of 2026-06-01; this experiment would create one)
 - SO-model failure mode reference: arxiv 2307.16807 (Hebbian learning can erase constraint information if M dominates)
 - Capacity reference: alpha_c ~ 0.138 standard Hopfield (arxiv 2403.01907); substrate effective alpha ~ 0.56 (cap_map)
+
+Acted-on 2026-06-02: CSP-with-learning csp_warm_start_v1 + planted_csp_viability shipped; processed in v322

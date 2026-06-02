@@ -147,3 +147,5 @@ If budget loose, strategy adds: Query-DP ε=1 zero-cost validation (Round 6 dril
 - `notes/exp_dev_handoff_research_csp_with_learning_2026-06-01.md` — exp_dev handoff (auto-filed by drill).
 - `notes/exp_dev_handoff_research_refusal_certificate_threshold_coverage_2026-06-01.md` — refusal-cert exp_dev handoff (auto-filed by verdict-research drill).
 - Cap_map v321 + recent verdict summary (orchestrator-side reference).
+
+Acted-on 2026-06-02: 12-cell overnight batch processed across v322-v324; superseded by 5-wave plan in v325+

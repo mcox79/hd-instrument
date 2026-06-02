@@ -36,3 +36,5 @@ C. Drop the probe from this batch — caching_admission_control_v1 already compl
 ## Cap map row affected
 
 CAP-7 (caching / admission control) — not yet in cap_map as confirmed row.
+
+Acted-on 2026-06-02: caching_admission_control_v2 block noted; deferred to research redesign queue

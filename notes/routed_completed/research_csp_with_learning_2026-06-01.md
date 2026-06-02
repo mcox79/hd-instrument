@@ -237,3 +237,5 @@ Synthesis: The SKAH-M structure and higher capacity both favour the hybrid, but 
 ## Next-drill candidate
 
 Free-probability / Tracy-Widom (Tier-1, F2) on the spectrum of W_csp + W_data. The spectral structure of the combined matrix determines the interference envelope analytically. Marchenko-Pastur gives the W_data bulk spectrum; W_csp eigenvalues form a rank-K spike above the bulk. The gap between the spike and the bulk edge (Tracy-Widom edge fluctuation) directly quantifies how many M patterns W_data can absorb before the CO signal eigenvalue is swamped. This connects the CSP-with-learning result to the free-probability Tier-1 field (100% yield, 1 drill, directly adjacent).
+
+Acted-on 2026-06-02: CSP source absorbed into Round 6+ cap_map work

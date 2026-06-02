@@ -103,3 +103,5 @@ PROT-018 binding: anchor name `kappa3_hutchinson_v2` carries no `_nN` suffix (pr
 - Wall: ~600-1200s (well within 3600s budget).
 - Verdict: HARD_PASS (smoke result already at min_sigma_sep=12.5 >> HP=4.0; theory_ratio=12.59 within 20.0x band; math is correct; v1 was strictly an implementation timeout).
 - Cap_map impact: kappa3_hutchinson_v2 GENUINE_FULL_HARD_PASS = empirical anchor for free-Poisson signature (currently PP-33 framework-class sub-property candidate). If 10x ratio holds: PP-33d sub-candidate corroborated (joint with PP-37). If theory_ratio collapses to ~1.0 at production-scope multi-seed: theory-empirical reconciled and PP-33d weakens.
+
+Acted-on 2026-06-02: kappa3_v2 shipped + HP'd FULL with 32.8-sigma; Wave 1 spectral primitive validated; Wave 5 cell 2 (kappa_4/kappa_6 fingerprint at N=32768) is on solid footing

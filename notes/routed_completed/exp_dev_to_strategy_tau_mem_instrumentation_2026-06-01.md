@@ -32,3 +32,5 @@ only the empirical measurement protocol needs work.
 ## Impact
 
 No cap_map impact (Cell I was confirmatory, not novel). Queue fills without it.
+
+Acted-on 2026-06-02: tau_mem v1 instrumentation suspect; Q9 corrected SDE formula HP'd FULL in v331 (R^2_loglog=0.998)

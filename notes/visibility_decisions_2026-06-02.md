@@ -26,3 +26,4 @@ v331 BATCHED 13-FULL-VERDICT overnight CPU cycle 6: 10 GENUINE HP + 2 GENUINE HF
 - 3 orphan failures (l2_hadamard + ck_seb + q_f5) acknowledged; NOT new verdicts; deferred to main-thread routing-cycle per rescue-sketch protocol.
 - I-7 NEW infra issue: orphan dashboard failed entries from runner-death cleanup; routing-cycle decision required.
 - Cap_map version: v332. 243rd PROT-009 paired commit. Push BLOCKED from sub-agent context.
+Hygiene sweep: 20 routing files moved to routed_completed/ (no cap_map mutation)

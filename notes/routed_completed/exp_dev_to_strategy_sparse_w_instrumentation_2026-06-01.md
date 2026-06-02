@@ -26,3 +26,5 @@ Drop Cell G from this batch. Re-queue after Strategy clarifies:
 1. Whether the K^2 capacity advantage test should use structured sparse codebooks
    (e.g., LDPC-style) rather than random sparse W.
 2. Or whether the NTK scaffold prediction applies to a different sparsity definition.
+
+Acted-on 2026-06-02: sparse_w instrumentation suspect noted; deferred to research redesign

@@ -109,3 +109,5 @@ patterns are written -- not the fraction of ALL patterns retrievable. Fix the me
 | combo1_p3_dam_implicit_gram_kappa3 | HP2 design flaw | Rederive kappa_3 identity for p=3 Gram |
 | q_c2_mp_hc (N=4096 and N=8192) | Test design flaw | Use empirical null calibration |
 | streaming_write_aging_baseline | Measurement design flaw | Fix retention observable, redesign CK test |
+
+Acted-on 2026-06-02: 5 Wave 1+2 smoke fails diagnosed (q_f3 HF + combo1 HP2 fail + q_c2 sigma2 wrong x2 + streaming_aging measurement flaw); redesigns shipped via Wave 3+4 dispatch (combo1_v2_identity_fix + q_c2_v2_corrected)
