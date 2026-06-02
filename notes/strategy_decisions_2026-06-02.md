@@ -234,3 +234,4 @@ Research routing filed: notes/strategy_request_to_research_combo1_v3_redesign_20
 
 **245th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main`.
 
+hygiene sweep 2026-06-02: 11 routing files moved to notes/routed_completed/ (stuck_kills, ckm_coefficient, alpha_mu_snap, tau_alpha, combo1_v3 smoke-fail, combo1_v3_redesign, wave5_amendment_addressed, wave5_cloud_bundle_amendment, strategy_request_to_research_combo1_v3, testbed_handoff_wave5_unified_n32768, testbed_wave5_unified_n32768_results); no cap_map mutation; 2 active routings kept in notes/

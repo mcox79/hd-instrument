@@ -36,3 +36,5 @@ the forgetting dynamics are specified.
 
 The measurement framework is correct (exponential decay fit + comparison to theory),
 but the experiment design needs the forgetting update rule specified.
+
+Acted-on 2026-06-02: tau_alpha smoke fail diagnostic; redesign deferred to research

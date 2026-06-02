@@ -72,3 +72,5 @@ Per [[feedback-short-cloud-runs-preferred]], cost estimate $6-12 is BELOW Round 
 - `experiments/exp_q_b1_depth_extended_n32768.py` (Cell 6; NEW)
 - `experiments/exp_combo1_gram_kappa3_n32768_v1.py` (Cell 5; dropped from batch; kept in repo for future)
 - `tools/cloud/batch_examples/wave5_unified_n32768.json` (updated batch JSON)
+
+Acted-on 2026-06-02: wave5 amendment review absorbed; testbed received amendment + ran cloud bundle delivering 3+1+1 HP/MIDDLE/HF; Cell 2 Part A theory refutation surfaced as wave5_theory_prereg_gap routing

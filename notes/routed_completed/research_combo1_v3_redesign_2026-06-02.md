@@ -210,3 +210,5 @@ R5 closure path: file COMBO-1 as subsumed at p=2; α^(p-1) scaling becomes a NEW
 ---
 
 **END.** Orchestrator: strategy + exp_dev resolve cell design from the capability questions + HARD bands above. Smoke at M ∈ {4096, 8192} first to validate Brand-refresh slope; then full sweep on confirmed protocol.
+
+Acted-on 2026-06-02: research's v3 redesign spec adopted in combo1_v3_formula_fix script; smoke all 4 HP PASS

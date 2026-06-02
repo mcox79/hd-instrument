@@ -128,3 +128,5 @@ Testbed session is NOT authorized to:
 ## Autonomy declaration
 
 Testbed session has full autonomy over implementation, instance selection, and script structure. Testbed does NOT need to wait for orchestrator confirmation on engineering decisions within the bounds above. Testbed MUST confirm back to orchestrator before actual Lambda instance launch (cost commitment).
+
+Acted-on 2026-06-02: testbed completed Wave 5 unified_n32768 bundle; results filed at testbed_wave5_unified_n32768_results_2026-06-02.md; cost $3.81 actual

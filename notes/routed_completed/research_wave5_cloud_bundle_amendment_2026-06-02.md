@@ -217,3 +217,5 @@ unified_n32768_v1 (single instance, single bootstrap):
 ---
 
 **END OF AMENDMENT.** Orchestrator: fold ADD-1 + ADD-2 + ADD-3 into the Wave 5 cloud dispatch IF storage budget for ADD-3 resolves to single-instance fit. Strategy + exp_dev: resolve cell design from capability questions + HARD bands. Single cloud bootstrap, ~$11-18 total.
+
+Acted-on 2026-06-02: amendment ADD-1+ADD-2+ADD-3 routed to testbed via handoff update; testbed executed cloud bundle ($3.81 actual vs $11-18 estimate)

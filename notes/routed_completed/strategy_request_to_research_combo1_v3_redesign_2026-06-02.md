@@ -83,3 +83,5 @@ R4 (cloud N=32768 verification) is gated on (a)/(b)/(c) deciding the redesign di
 ## Routing
 
 Filed: 2026-06-02 (v333 cap_map cycle). Research drill cycle dispatches v3 redesign note; orchestrator main thread routes when delivered.
+
+Acted-on 2026-06-02: research delivered v3 redesign with Brand-incremental Gram refresh every k=16 writes; spec applied + shipped

@@ -39,3 +39,5 @@ Confirm the correct definition of C(k,m) and the measurement protocol:
 - The measurement needs the RAW update rule (before thresholding) for k iterations.
 - Alternatively, provide a direct experimental design that tests multi-step retrieval
   benefit vs single-step at varying alpha and k.
+
+Acted-on 2026-06-02: ckm_coefficient smoke fail diagnostic; redesign deferred to research

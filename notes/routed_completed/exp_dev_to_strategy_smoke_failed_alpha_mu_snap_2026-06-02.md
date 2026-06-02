@@ -41,3 +41,5 @@ Provide a concrete per-fact retention design that specifies:
 1. The weight rule that creates differential basins
 2. Whether SNAP is the right mechanism or whether direct weight attenuation suffices
 3. The expected differential signal at specific K values
+
+Acted-on 2026-06-02: alpha_mu_snap smoke fail diagnostic; redesign deferred to research

@@ -51,3 +51,4 @@ Cap_map v332 -> v333; Portfolio 32+68 -> 32+69 (+1 top-level + 3 sub-properties 
 - kappa3_mixing_correction_completion_v1 MIDDLE_BAND (rho<=0.1 HP; rho>=0.2 NOT HP; 2/4 cells): annotation only; I-10 NEW.
 
 Cap_map v333 -> v334; Portfolio 32+69 -> 32+71 (+2 top-level rows PP-48 + PP-49); HONEST 406 -> 412 (+6); LABEL-VS-HONEST 201 UNCHANGED (0 new catches; pre-framing flagged + cleanly verified). Product-feature framework reliability 69-83% -> 71-85% (+2pp). 245th PROT-009 paired commit. Push deferred to main thread.
+hygiene sweep 2026-06-02: 11 routing files moved to routed_completed/; decisions/visibility appended; no cap_map mutation; no new routing writes; log_event filed

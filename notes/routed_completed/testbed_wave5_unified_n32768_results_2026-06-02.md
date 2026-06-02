@@ -169,3 +169,5 @@ Next-session work (if any) waits on user direction or orchestrator routing.
   - `data/lambda_batch_results/q_b1_depth_extended_n32768_bd9c5a0f/data/exp_q_b1_depth_extended_n32768/metrics.json`
 - Batch report: `data/lambda_batch_report_bd9c5a0fce10451ba0449183ca9ff009.json`
 - Strategy routing on Cell 2 Part A finding: `notes/strategy_request_to_strategy_wave5_theory_prereg_gap_2026-06-02.md` (filed alongside this deliverable)
+
+Acted-on 2026-06-02: verdict_handler processed Wave 5 cloud 5 anchors in v335 cap_map bump (running in parallel); LIFTs applied to PP-45/PP-46/PP-49; NEW row PP-50 kappa_3 spectral-MAC sub-percent

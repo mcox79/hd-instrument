@@ -77,3 +77,5 @@ design-blocked and require explicit re-design (not just re-queue) before next sh
 
 cpu_runner_0 (PIDs 182380 / 196548) and gpu_runner_0 (PIDs 104624 / 164580) were NOT touched.
 Both are alive and idle after the stuck experiments exited. No runner restart needed.
+
+Acted-on 2026-06-02: q_f4 + q_c2 stuck-kill diagnostics filed; both anchors marked failed in queue.json; redesigns deferred to research

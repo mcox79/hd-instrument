@@ -54,3 +54,5 @@ kappa_3(G_p3) and finds it = 0.5 * M/N (not M/N). This is a real measurement.
 - Script: experiments/exp_combo1_p3_dam_implicit_gram_v3_brand_refresh_v1_n4096.py
   (Brand refresh implementation validated)
 - Smoke metrics: data/exp_combo1_p3_dam_implicit_gram_v3_brand_refresh_v1_n4096/metrics.json
+
+Acted-on 2026-06-02: combo1_v3 smoke fail diagnostic acted via formula-fix v3 ship (HP1+HP2+HP3+HP4 all PASS at smoke); FULL running on GPU
