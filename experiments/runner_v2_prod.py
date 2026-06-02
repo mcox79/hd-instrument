@@ -351,7 +351,12 @@ def run_one(entry: dict) -> str:
     # On Windows: spawn child at BELOW_NORMAL priority so the desktop stays
     # usable during long CPU-bound runs. This is DEFAULT-ON for all remote_cpu
     # experiments; no per-ship flag needed. On non-Windows the flag is 0 (no-op).
+    # CREATE_NO_WINDOW (0x08000000) suppresses the console flash that fires every
+    # time the runner spawns a new child experiment on Windows. Without this flag,
+    # every child experiment briefly opens a console window visible to the user.
     _below_normal_flag = getattr(subprocess, "BELOW_NORMAL_PRIORITY_CLASS", 0)
+    _no_window_flag = 0x08000000 if os.name == "nt" else 0
+    _spawn_flags = _below_normal_flag | _no_window_flag
 
     t0 = time.perf_counter()
     try:
@@ -363,7 +368,7 @@ def run_one(entry: dict) -> str:
                 stdout=logf,
                 stderr=subprocess.STDOUT,
                 timeout=entry.get("timeout_s", DEFAULT_TIMEOUT_S),
-                creationflags=_below_normal_flag,
+                creationflags=_spawn_flags,
             )
         dt = time.perf_counter() - t0
 
