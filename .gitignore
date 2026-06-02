@@ -81,6 +81,7 @@ testbed_data/
 .env.lambda
 .env.cloud
 .env.anthropic
+.hf_token
 data/cloud_cost_tracker.json
 data/lambda_canary_report.json
 data/session_heartbeat_*.json
