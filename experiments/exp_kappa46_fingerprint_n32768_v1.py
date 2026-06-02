@@ -1,32 +1,40 @@
 """
-kappa46_fingerprint_n32768_v1 -- Wave 5 Anchor 2: kappa_4 + kappa_6 fingerprint at N=32768.
+kappa46_fingerprint_n32768_v1 -- Wave 5 Anchor 2: kappa_4/6 fingerprint + delta-alpha sensitivity sweep at N=32768.
 
 SCIENTIFIC QUESTION:
-  Extend the 1D kappa_3 spectral fingerprint to 3D (kappa_3, kappa_4, kappa_6) at
-  production N=32768. Higher cumulants converge only at large N (N=8192 has
-  insufficient sample for reliable kappa_6 estimation); cloud-N is required.
+  (A) Extend the 1D kappa_3 spectral fingerprint to 3D (kappa_3, kappa_4, kappa_6)
+      at production N=32768. Higher cumulants converge only at large N (N=8192 has
+      insufficient sample for reliable kappa_6); cloud-N required.
+  (B) ADD-2 (amendment 2026-06-02): delta-alpha sensitivity sweep. Does kappa_3
+      discriminate substrate perturbations at delta-alpha = {0.0001, 0.001, 0.01,
+      0.04, 0.1} with sigma_sep above the 3-sigma detection threshold?
+      v324 kappa_3@N=8192 result was sigma_sep=150-1112 (37x-278x predicted
+      4-sigma margin); validating extrapolation to N=32768 is the strongest
+      sensitivity datum from this batch.
 
-  Theory (free-Poisson W = Xi^T Xi / N with M patterns at alpha = M/N):
-    kappa_n = alpha for ALL n >= 1 (free-Poisson identity).
-  Wigner/GOE: kappa_n = 0 for n >= 3 (binary discriminant).
-  Hutchinson estimator (vectorized): kappa_n = mean(diag(V^T W^n V)) / N
-  where V is N x n_probes Rademacher matrix.
+  Theory: kappa_n = alpha (free-Poisson identity for W = Xi^T Xi / N).
+  Hutchinson estimator (vectorized): kappa_n = mean((V0 * (W^n @ V0)).sum(0)) / N.
 
-PRE-REGISTERED BANDS (per Wave 5 handoff):
-  HARD-PASS: kappa_4 and kappa_6 each match alpha within 5% free-Poisson prediction.
-  MIDDLE: one of {kappa_4, kappa_6} within 10%; other within 20%.
-  HARD-FAIL: either cumulant deviates from alpha by >50% OR sign disagreement.
+PRE-REGISTERED BANDS:
+  (Part A: kappa_4/6 fingerprint)
+    HARD-PASS: kappa_4 and kappa_6 each within 5% of alpha.
+    MIDDLE: one of {kappa_4, kappa_6} within 10%; other within 20%.
+    HARD-FAIL: either >50% off OR sign disagreement.
 
-  Calibration probe -- no prior empirical anchor for kappa_4 / kappa_6 at N=32768.
-  Bands at +-50% per policy.
+  (Part B: delta-alpha sensitivity sweep)
+    HARD-PASS (all three must hold):
+      sigma_sep >= 100 at delta-alpha = 0.04
+      sigma_sep >= 10  at delta-alpha = 0.01
+      sigma_sep >= 3.0 at delta-alpha = 0.001
+    HARD-FAIL (any):
+      sigma_sep < 50  at delta-alpha = 0.04 (violates N^(-2/3) scaling)
+      sigma_sep < 3.0 at delta-alpha = 0.01
+    MIDDLE: sigma_sep at 0.001 in [1.5, 3.0] (detectable but marginal).
 
-FORMULA SELF-TESTS:
-  1. kappa_n_theory(alpha=0.05) = 0.05 for all n (free-Poisson identity).
-  2. For W = I (identity, M=N): kappa_n = 1.0 for all n (no scaling needed).
-  3. Hutchinson Rademacher trick: E[V^T A V] = Tr(A) for V iid Rademacher.
+OVERALL VERDICT: HARD-PASS if BOTH Part A and Part B HARD-PASS;
+  HARD-FAIL if either Part HARD-FAILs; MIDDLE otherwise.
 
 PROT-018: anchor has _n32768 -> N must = 32768.
-PROT-021: run_config includes N, M, run_mode.
 """
 from __future__ import annotations
 
@@ -59,11 +67,22 @@ N_SMOKE = 4096
 ALPHA_GRID = [0.05]  # single alpha at production N (cloud cost discipline)
 SEEDS_FULL = [7, 17, 23, 31, 41]
 SEEDS_SMOKE = [7, 17]
-N_PROBES = 1000  # Hutchinson probes (vectorized; ~30s per cell at N=32768)
+N_PROBES = 1000  # Hutchinson probes for Part A (kappa_4/6)
 
-HP_REL_BAND = 0.05      # within 5% of alpha
+# ADD-2 sensitivity sweep config
+DELTA_ALPHA_GRID = [0.0001, 0.001, 0.01, 0.04, 0.1]
+N_PROBES_SENS = 5000  # heavier probe budget for sensitivity (per amendment)
+
+HP_REL_BAND = 0.05      # Part A: within 5% of alpha
 MID_REL_BAND = 0.20     # within 20%
 HF_REL_BAND = 0.50      # >50% off = HARD_FAIL
+
+# Part B (sensitivity) thresholds
+HP_SIG_SEP_004 = 100.0  # >= 100 at delta-alpha = 0.04
+HP_SIG_SEP_001 = 10.0   # >= 10  at delta-alpha = 0.01
+HP_SIG_SEP_0001 = 3.0   # >= 3.0 at delta-alpha = 0.001
+HF_SIG_SEP_004 = 50.0   # < 50  at delta-alpha = 0.04 -> FAIL
+HF_SIG_SEP_001 = 3.0    # < 3.0 at delta-alpha = 0.01 -> FAIL
 
 
 def hutchinson_kappa_n(W: np.ndarray, n: int, n_probes: int, rng: np.random.Generator) -> float:
@@ -80,6 +99,71 @@ def hutchinson_kappa_n(W: np.ndarray, n: int, n_probes: int, rng: np.random.Gene
     # diag(V0^T @ Vk) = element-wise (V0 * Vk).sum(axis=0)
     diag = (V0 * Vk).sum(axis=0)
     return float(np.mean(diag)) / float(N)
+
+
+def kappa3_sensitivity_sweep(N: int, alpha_base: float, delta_alphas: List[float],
+                              n_probes: int, rng: np.random.Generator) -> Dict:
+    """ADD-2: Build baseline + perturbed substrates; measure kappa_3 sigma_sep.
+
+    For each delta_alpha:
+      - Build perturbed Pats at (alpha_base + delta_alpha)
+      - Estimate kappa_3 with the SHARED probe set V0 (reused across all delta_alpha
+        levels per amendment cost-discipline)
+      - per-probe kappa_3 = (1/N) * (V0 * (W^3 @ V0)).sum(axis=0) [length n_probes]
+      - kappa_3 mean = mean(per_probe)
+      - kappa_3 std_estimator = std(per_probe) / sqrt(n_probes) (standard error)
+      - sigma_sep = |kappa_3(perturbed) - kappa_3(base)| / kappa_3_std_estimator
+
+    Probe-set reuse keeps cost minimal (one Hutchinson buffer for all 5 levels).
+    """
+    # Shared probe set
+    V0 = rng.choice([-1.0, 1.0], size=(N, n_probes)).astype(np.float32)
+    # Build base substrate at alpha_base
+    M_base = max(1, int(alpha_base * N))
+    Pats_base = rng.choice([-1.0, 1.0], size=(M_base, N)).astype(np.float32)
+    def kappa3_per_probe(Pats):
+        # W @ V = (1/N) Pats^T (Pats @ V); apply 3x
+        V1 = (Pats.T @ (Pats @ V0)) / N
+        V2 = (Pats.T @ (Pats @ V1)) / N
+        V3 = (Pats.T @ (Pats @ V2)) / N
+        return (V0.astype(np.float64) * V3.astype(np.float64)).sum(axis=0) / N
+    k3_base_per = kappa3_per_probe(Pats_base)
+    k3_base_mean = float(np.mean(k3_base_per))
+    k3_base_se = float(np.std(k3_base_per, ddof=1)) / math.sqrt(n_probes)
+
+    results = {}
+    for da in delta_alphas:
+        alpha_pert = alpha_base + da
+        M_pert = max(1, int(alpha_pert * N))
+        # Add only the EXTRA patterns to keep the existing M_base patterns shared
+        # (the alpha-perturbation = adding M_pert - M_base patterns to the same
+        # substrate; closer to the audit-tamper detection use case).
+        n_extra = M_pert - M_base
+        if n_extra > 0:
+            Extras = rng.choice([-1.0, 1.0], size=(n_extra, N)).astype(np.float32)
+            Pats_pert = np.vstack([Pats_base, Extras])
+        else:
+            Pats_pert = Pats_base
+        k3_pert_per = kappa3_per_probe(Pats_pert)
+        k3_pert_mean = float(np.mean(k3_pert_per))
+        k3_pert_se = float(np.std(k3_pert_per, ddof=1)) / math.sqrt(n_probes)
+        # Use pooled SE (conservative)
+        pooled_se = math.sqrt(k3_base_se ** 2 + k3_pert_se ** 2)
+        delta = k3_pert_mean - k3_base_mean
+        sigma_sep = abs(delta) / max(pooled_se, 1e-30)
+        results[f"delta_alpha_{da}"] = {
+            "delta_alpha": da,
+            "k3_base": k3_base_mean,
+            "k3_pert": k3_pert_mean,
+            "delta": delta,
+            "pooled_se": pooled_se,
+            "sigma_sep": sigma_sep,
+        }
+    return {
+        "alpha_base": alpha_base,
+        "n_probes_sens": n_probes,
+        "per_delta_alpha": results,
+    }
 
 
 def _instrumentation_selftest():
@@ -165,9 +249,50 @@ def main():
     k4_hf = k4_mean_dev > HF_REL_BAND
     k6_hf = k6_mean_dev > HF_REL_BAND
 
+    # Part A verdict (kappa_4/6 fingerprint)
     if k4_hp and k6_hp:
-        verdict = "HARD_PASS"
+        part_a_verdict = "HARD_PASS"
     elif k4_hf or k6_hf:
+        part_a_verdict = "HARD_FAIL"
+    else:
+        part_a_verdict = "MIDDLE_BAND"
+
+    # ADD-2: Part B sensitivity sweep (single seed sufficient per amendment;
+    # reuse probe set across delta-alpha)
+    sens_rng = np.random.default_rng(seeds[0] + 9999)
+    print(f"  Part B: delta-alpha sensitivity sweep (alpha_base={ALPHA_GRID[0]}, "
+          f"delta_alphas={DELTA_ALPHA_GRID}, n_probes_sens={N_PROBES_SENS})...",
+          flush=True)
+    t_sens = time.time()
+    sens_results = kappa3_sensitivity_sweep(
+        N, ALPHA_GRID[0], DELTA_ALPHA_GRID, N_PROBES_SENS, sens_rng,
+    )
+    sens_elapsed = time.time() - t_sens
+    print(f"    sensitivity sweep wall: {sens_elapsed:.1f}s", flush=True)
+    for k, r in sens_results["per_delta_alpha"].items():
+        print(f"    delta_alpha={r['delta_alpha']:>7g}: delta_k3={r['delta']:.6e} "
+              f"se={r['pooled_se']:.3e} sigma_sep={r['sigma_sep']:.1f}", flush=True)
+
+    # Part B verdict
+    sd = sens_results["per_delta_alpha"]
+    sig_004 = sd["delta_alpha_0.04"]["sigma_sep"]
+    sig_001 = sd["delta_alpha_0.01"]["sigma_sep"]
+    sig_0001 = sd["delta_alpha_0.001"]["sigma_sep"]
+    part_b_hp = (sig_004 >= HP_SIG_SEP_004 and sig_001 >= HP_SIG_SEP_001
+                 and sig_0001 >= HP_SIG_SEP_0001)
+    part_b_hf = (sig_004 < HF_SIG_SEP_004 or sig_001 < HF_SIG_SEP_001)
+    if part_b_hp:
+        part_b_verdict = "HARD_PASS"
+    elif part_b_hf:
+        part_b_verdict = "HARD_FAIL"
+    else:
+        part_b_verdict = "MIDDLE_BAND"
+
+    # Overall verdict: both parts must HARD-PASS for HARD-PASS;
+    # any HARD-FAIL -> HARD-FAIL; else MIDDLE
+    if part_a_verdict == "HARD_PASS" and part_b_verdict == "HARD_PASS":
+        verdict = "HARD_PASS"
+    elif part_a_verdict == "HARD_FAIL" or part_b_verdict == "HARD_FAIL":
         verdict = "HARD_FAIL"
     else:
         verdict = "MIDDLE_BAND"
@@ -181,6 +306,10 @@ def main():
         "kappa_4_mean_rel_dev": k4_mean_dev,
         "kappa_6_mean_rel_dev": k6_mean_dev,
         "kappa_4_hp": k4_hp, "kappa_6_hp": k6_hp,
+        "part_a_verdict": part_a_verdict,
+        "sens_sweep": sens_results,
+        "sens_elapsed_s": sens_elapsed,
+        "part_b_verdict": part_b_verdict,
         "verdict": verdict,
         "elapsed_s": elapsed,
         "verdict_msg": (
