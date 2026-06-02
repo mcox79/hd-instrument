@@ -963,3 +963,4 @@ Main-thread routing candidates (highest -> lowest priority):
 4. PP-33 NE-3 Crooks-FT + NE-4 Landauer + NE-5 audit-no-benefit FULL re-ships.
 5. CT-2 v2 N=8192 5-seed (confirm spectral-identity-row at higher N).
 6. matrix_trace_primitives v2 N=4096 5-seed (confirm substrate-native-query-API at higher N).
+Hygiene sweep 2026-06-01: moved 25 acted-on routing files to notes/routed_completed/ (strategy_request_to_strategy x4, research_priorities x1, exp_dev_handoff x9, research_* x9, testbed x1, exp_dev_to_* x2); no cap_map mutation; pipeline hygiene only
