@@ -162,6 +162,17 @@ def _ssh_run(ip: str, key: str | None, cmd: str, timeout_s: float) -> tuple[int,
         "-o", "UserKnownHostsFile=/dev/null",
         "-o", "ConnectTimeout=15",
         "-o", "LogLevel=ERROR",
+        # PHASE 0.5 FIX (Dispatch 14 post-mortem): SSH session died with
+        # 'Connection reset by peer' 13 min into Wave 1's 60-90 min ingest.
+        # Some intermediate network layer was killing idle SSH sessions.
+        # Keepalive: send 60s probes; tolerate 60 missed responses (60 min
+        # gap before declaring connection dead). Anchor experiments can now
+        # run silently for up to 60 min without the launcher SSH dropping.
+        # TCPKeepAlive is OS-level (sends TCP keepalive packets in addition
+        # to SSH's own ServerAlive pings).
+        "-o", "ServerAliveInterval=60",
+        "-o", "ServerAliveCountMax=60",
+        "-o", "TCPKeepAlive=yes",
     ]
     if key:
         base.extend(["-i", key])
