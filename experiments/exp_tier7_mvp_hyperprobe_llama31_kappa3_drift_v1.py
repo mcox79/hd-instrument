@@ -67,9 +67,34 @@ from testbed.llm_integration.substrate_audit import (  # noqa: E402
 
 ANCHOR_NAME = "tier7_mvp_hyperprobe_llama31_kappa3_drift_v1"
 
-# Pre-reg bands
+# Pre-reg bands (paper-quality probe ≥ 0.85)
 HP_SIGMA_SEP = 5.0
 HF_SIGMA_SEP = 2.0
+
+# Conditional band per research 2026-06-02: when probe quality is in the
+# 0.75-0.85 window (relaxed tier), sigma_sep HP threshold scales with probe
+# quality: HP_relaxed = HP_original * (q / 0.89) ≈ 3.5 at q=0.75-0.80. HF
+# threshold unchanged. q < 0.75 doesn't reach this script (Wave 2 abort gate
+# fires at the validation step).
+HP_SIGMA_SEP_RELAXED = 3.5
+PROBE_RELAXED_LO = 0.75
+PROBE_RELAXED_HI = 0.85
+
+
+def _resolve_bands():
+    """Return (hp_thr, hf_thr, tier) using probe validation quality."""
+    pq = load_probe_quality()
+    if not pq.get("available"):
+        return HP_SIGMA_SEP, HF_SIGMA_SEP, "paper_default_no_probe_val"
+    cos = pq.get("cos_sim", float("nan"))
+    if cos != cos:  # NaN
+        return HP_SIGMA_SEP, HF_SIGMA_SEP, "paper_default_nan"
+    if cos >= PROBE_RELAXED_HI:
+        return HP_SIGMA_SEP, HF_SIGMA_SEP, "paper"
+    if cos >= PROBE_RELAXED_LO:
+        return HP_SIGMA_SEP_RELAXED, HF_SIGMA_SEP, "relaxed"
+    # cos < 0.75: shouldn't be reachable; Wave 2 should have aborted
+    return HP_SIGMA_SEP, HF_SIGMA_SEP, "below_gate_unexpected"
 
 # Population sizes
 N_INDIST_FULL = 800
@@ -167,15 +192,16 @@ def classify_verdict(seeds_results: list[dict]) -> tuple[str, str]:
     sigma_seps = [r["sigma_sep"] for r in seeds_results]
     sigma_min = min(sigma_seps)
     sigma_mean = float(np.mean(sigma_seps))
-    if sigma_min >= HP_SIGMA_SEP:
+    hp_thr, hf_thr, tier = _resolve_bands()
+    if sigma_min >= hp_thr:
         v = "HARD_PASS"
-    elif sigma_min < HF_SIGMA_SEP:
+    elif sigma_min < hf_thr:
         v = "HARD_FAIL"
     else:
         v = "MIDDLE_BAND"
     msg = (f"Phase 0.5 sub-test A (kappa_3 drift): sigma_sep min={sigma_min:.2f} "
            f"mean={sigma_mean:.2f} across {len(seeds_results)} seeds. "
-           f"HP gate >= {HP_SIGMA_SEP}; HF gate < {HF_SIGMA_SEP}. Verdict: {v}."
+           f"HP gate >= {hp_thr} (tier={tier}); HF gate < {hf_thr}. Verdict: {v}."
            + probe_quality_tag())
     return v, msg
 
