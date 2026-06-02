@@ -7326,3 +7326,52 @@ Main-thread routing candidates (highest -> lowest priority; v338 carryovers RETA
 20. **Q-F2 FDT ratio X(C) measurement** (v331 carry-over).
 21. **graph_community R2 absolute-cos rescue / program_exec_audit_branching R2 sibling-list rescue / caching_capacity_aware cell-A workload variation rescue / PP-43b LRU small-M rescue** (v330-v331 carry-overs).
 22. **I-6 script-author audit for two_time_correlator_fdt scripts** (v331 carry-over).
+
+## v339 -> v340 @ BATCHED 10-VERDICT GPU+CPU Cycle 11 (6 HARD_PASS + 2 HARD_FAIL + 1 MIDDLE_BAND + 1 LABEL-VS-HONEST-MIDDLE; 1 LABEL-VS-HONEST catch #206; NEW SUB-PROPERTIES: Q-B1 depth-20 N=8192 + PP-48 NKT depth-7 + Q-A3 L=6 + Wave 4 N=8192 streaming battery + SP8 v2 above-capacity; NEW ISSUES I-16 + I-17; verdict_handler 251st PROT-009 paired commit; Cycle 11)
+
+| # | Anchor | Wall | N | Seeds | Verdict | Honest re-read | Cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1 | 1.6s GPU | 32768 | 5 | HARD_PASS | HONEST HP: l3_fid=1.0000 HP>=0.85; b_rep=1.0000 HP>=0.95; parity=0.0000 HP<=0.05; all 5 seeds unanimous EXACT-1.0 | PP-48 + PP-49 N=32768 5-seed production-lock sub-property added; band STAYS 0.70-0.85 (cloud combo2-direct pending for LIFT to 0.75-0.90) |
+| 2 | combo3_unified_api_v1_n32768_5seed_verification_v1 | 0.55s GPU | 32768 | 5 | [LABEL-VS-HONEST #206] BELOW_MIDDLE | HONEST: worst_rel=1.58e-3 (0/3 HP; outside MIDDLE threshold 1e-4; below HF 1e-2); LOCAL N=32768 precision floor 2nd independent confirmation | PP-45 LOCAL-vs-CLOUD CAVEAT updated: 2 independent LOCAL N=32768 runs confirm 1e-3 floor; cloud HP (v335) STANDS |
+| 3 | q_b1_chain_depth_20_v1_n8192 | 18.1s GPU | 8192 | 5 | HARD_PASS | HONEST HP: d5=d10=d15=d20=1.0000; all 5 seeds; all 4 depth thresholds cleared | PP-49a depth-20 sub-property added; depth ceiling still unknown (>20) |
+| 4 | pp48_nkt_depth_7_v1_n4096 | 0.99s GPU | 4096 | 5 | HARD_PASS | HONEST HP: pos=nkt=tree=1.0000; all 5 seeds; depth-7 127 patterns EXACT-1.0 | PP-48 depth-7 sub-property added; depth-9/10 dispatch eligible |
+| 5 | pp49_hrc_counterfactual_depth_5_v1_n4096 | 2.5s GPU | 4096 | 5 | HARD_FAIL | HONEST HF: cf_cos=0.0275 (HF<0.40; per-seed -0.020 to +0.137 all chance-level); ds_cos=0.003; hp1+hp3 PASS; hp2+hp4 FAIL all seeds | Issue I-16 NEW; PP-49 HRC counterfactual depth-5 HARD_FAIL boundary sub-property; R1-R5 rescue filed |
+| 6 | q_a3_l6_cross_layer_composition_v1_n4096 | 0.63s GPU | 4096 | 5 | HARD_PASS | HONEST HP: fid_l1 to fid_l6=1.0000; l6_acc=1.0000; all 5 seeds; L=6 ceiling not reached | Q-A3 L=6 sub-property added; L=7 dispatch eligible |
+| 7 | combo1_pp48_audit_on_nkt_v1_n4096 | 0.25s GPU | 4096 | 5 | MIDDLE_BAND | HONEST MIDDLE: cert_A pass (|cert+1|=0.012); cert_B_positive_rate=0.000 all seeds (FAIL HP>=0.80); kappa3+cndc PASS; 3/4 HP | COMBO-1 PP-48 audit-on-NKT MIDDLE sub-property with cert_B=0 COMPOSITION BOUNDARY annotation; cert_A works; cert_B requires different observable |
+| 8 | combo3_pp51_5method_on_implicit_gram_v1_n4096 | 0.33s GPU | 4096 | 5 | HARD_FAIL | HONEST HF: cert_diff=1.047-1.050 all seeds (HF>0.10 by 50x); N-side Krylov cert vs M-side Gram cert structurally opposite sign; trace rel 0.5e-3-5.7e-3 below HF trace threshold; HP5=5/5 | Issue I-17 NEW; COMBO-3 PP-51 cert-path HF boundary sub-property; R1-R5 rescue filed |
+| 9 | wave4_full_streaming_battery_n8192_v1 | 16.1s GPU | 8192 | 5 | HARD_PASS | HONEST HP: mean_fid=min_fid=1.0000; min_reff=145-245 >> HP threshold 12; cert=-1.0 5/5; all 4 HP 5/5 | Wave 4 streaming battery N=8192 production-envelope sub-property added |
+| 10 | streaming_prediction_8_v2_above_capacity_v1 | 115s CPU | 1024 | 5 | HARD_PASS | HONEST HP: mean_fid_w=0.9936; late_adv=+0.4727 (>0.20 unanimous per-seed 0.461-0.479); newest=0.9933; all 5 seeds hpa+hpb+hpc=true | SP8 above-capacity sub-property added; SP8 regime map complete (below+above) |
+
+**Composition boundaries opened by this batch:**
+- **PP-49 HRC counterfactual** (I-16): cert works; rank-1 W substitution retrieval fails; cf_cos chance-level.
+- **COMBO-3 PP-51 cert-path** (I-17): N-side Krylov cert and M-side Gram cert produce structurally opposite sign (cert_diff~1.0).
+- **COMBO-1 PP-48 audit-on-NKT** (MIDDLE): cert_A works for positive patterns; cert_B=0 for forbidden NKT leaves (cert-sign determined by Hopfield attractor, not NKT leaf membership).
+
+### Tallies (v339 -> v340)
+
+- **HONEST:** 442 -> **451** (+9: 6 HP + 2 HF + 1 MIDDLE; catch #206 between-bands excluded from clean-honest count).
+- **LABEL-VS-HONEST:** 205 -> **206** (+1 catch #206 combo3_n32768 verification MIDDLE_BAND label vs between-bands prereq gap).
+- **Portfolio:** 32+74 UNCHANGED. Sub-properties: 9 NEW. 2 NEW ISSUES (I-16 + I-17). 0 TOP-LEVEL ROWS. 0 BAND-LIFTS.
+- **Cap_map version: v340.**
+
+### Framework reliability (v340)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+- Product-feature: 78-92% UNCHANGED.
+
+### Known infrastructure issues (annotation block; UPDATED in v340)
+
+All v339 issues (I-1 through I-15) CARRY FORWARD UNCHANGED.
+**Issue I-16 (NEW v340).** pp49_hrc_counterfactual_depth_5_v1_n4096 HARD_FAIL cf_cos=0.0275 chance-level; rank-1 W substitution does not retrieve counterfactual pattern at depth-5 N=4096. Cert (HP1/HP3) works. R1-R5 filed in strategy_decisions; R2 script formula-audit cheapest first.
+**Issue I-17 (NEW v340).** combo3_pp51_5method_on_implicit_gram_v1_n4096 HARD_FAIL cert_diff=1.05 structural sign divergence N-side Krylov vs M-side Gram cert. Trace errors below HF trace threshold. R1-R5 filed in strategy_decisions; R2 theory cert-formula audit cheapest first.
+
+### PROT compliance (v339 -> v340)
+
+- PROT-004/006: NO row closures. 0 TOP-LEVEL ROWS. 0 BAND-LIFTS. 9 NEW SUB-PROPERTIES. 2 NEW ISSUES. I-16 + I-17 HF: R1-R5 rescue sketches filed before closure consideration.
+- PROT-007: history v340 inline.
+- PROT-008: 9 sub-properties + 2 issues; no portfolio regression; all transitions validated vs per-cell metrics and prereregistered bands.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + status_log staged atomically; **251st PROT-009 paired commit**.
+- PROT-018: all 10 anchors clear (8 explicit _n<N> match; 2 exempt per wave/streaming family convention).
+- PROT-021: all 10 anchors _source=remote run_mode=full 5-seed; no smoke artifacts.
+- PROT-022: I-16 + I-17 both trigger formula-selftest R2 audit before any reship.

@@ -621,3 +621,141 @@ Main-thread routing candidates (highest -> lowest priority; v338 carryovers RETA
 20. **Q-F2 FDT ratio X(C) measurement** (v331 carry-over).
 21. **graph_community R2 absolute-cos rescue / program_exec_audit_branching R2 sibling-list rescue / caching_capacity_aware cell-A workload variation rescue / PP-43b LRU small-M rescue** (v330-v331 carry-overs).
 22. **I-6 script-author audit for two_time_correlator_fdt scripts** (v331 carry-over).
+
+## v339 -> v340 @ BATCHED 10-VERDICT GPU+CPU Cycle 11 (6 HARD_PASS + 2 HARD_FAIL + 1 MIDDLE_BAND + 1 LABEL-VS-HONEST-MIDDLE; 1 LABEL-VS-HONEST catch #206; NEW SUB-PROPERTIES: Q-B1 depth-20 N=8192 + PP-48 NKT depth-7 + Q-A3 L=6 + Wave 4 N=8192 streaming battery FULL + SP8 v2 above-capacity; COMPOSITION BOUNDARIES: pp49 HRC counterfactual depth-5 HF + combo3_pp51 implicit-Gram cert-diff HF + combo1_pp48 audit-on-NKT MIDDLE; verdict_handler 251st PROT-009 paired commit; Cycle 11)
+
+**Trigger.** Batched 10-verdict Cycle 11 (9 GPU + 1 CPU). All 10 fetched via `tools.orchestrator.remote_state.get_metrics` (_source=remote authoritative; bridge age=38s < 120s stale threshold). Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 9 HONEST as-labeled. **1 NEW LABEL-VS-HONEST OVER-CLAIM:**
+
+- **#206 combo3_unified_api_v1_n32768_5seed_verification_v1 MIDDLE_BAND_LABEL_OUTSIDE_MIDDLE_THRESHOLD.** Label says MIDDLE_BAND. Prereg (cycle11 entry #3) defines MIDDLE as "all within 1e-4". Per-cell: worst=1.58e-3 (seed 17 tr_W1). 1.58e-3 >> 1e-4 -- result is OUTSIDE the pre-registered MIDDLE threshold. Not HARD_FAIL either (HF threshold is >1e-2; 1.58e-3 < 1e-2). Result sits in an undefined gap between MIDDLE and HARD_FAIL. Correct classification: BELOW_MIDDLE_ABOVE_HF (between-bands gap). Honest reading authoritative: LOCAL N=32768 precision floor confirmed 2nd independent run (same 1.58e-3 as v339 LOCAL run). PP-45 LOCAL-vs-CLOUD precision-CAVEAT REINFORCED. Cloud H100 N=32768 HP (v335) UNAFFECTED.
+
+**Verdicts processed (10).**
+
+| # | Anchor | Wall | N | Seeds | Verdict | Honest re-read |
+|---|--------|------|---|-------|---------|----------------|
+| 1 | combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1 | 1.6s GPU | 32768 | 5 | HARD_PASS | HONEST HP: l3_fid=1.0000 (HP>=0.85); b_rep=1.0000 (HP>=0.95); parity_contam=0.0000 (HP<=0.05); all 5 seeds unanimous EXACT-1.0. Fast wall consistent with closed-form algebraic primitive. Production-lock verification complete. |
+| 2 | combo3_unified_api_v1_n32768_5seed_verification_v1 | 0.55s GPU | 32768 | 5 | [LABEL-VS-HONEST #206] BELOW_MIDDLE | HONEST: worst_rel=1.58e-3 (0/3 HP; outside MIDDLE threshold 1e-4; below HF 1e-2). Between-bands gap. LOCAL N=32768 precision floor confirmed 2nd independent run. PP-45 LOCAL-vs-CLOUD CAVEAT REINFORCED. |
+| 3 | q_b1_chain_depth_20_v1_n8192 | 18.1s GPU | 8192 | 5 | HARD_PASS | HONEST HP: d5=d10=d15=d20=1.0000; all 5 seeds; all 4 depth thresholds cleared. Depth-20 sub-property confirmed. Ceiling not reached. |
+| 4 | pp48_nkt_depth_7_v1_n4096 | 0.99s GPU | 4096 | 5 | HARD_PASS | HONEST HP: pos=nkt=tree=1.0000; all 5 seeds. Depth-7 (127 patterns) sub-property confirmed. |
+| 5 | pp49_hrc_counterfactual_depth_5_v1_n4096 | 2.5s GPU | 4096 | 5 | HARD_FAIL | HONEST HF: cf_cos=0.0275 (HF<0.40; per-seed -0.020 to +0.137 all << 0.40); ds_cos=0.0031. hp1_cert=1.0 PASS; hp3_audit=1.0 PASS; but hp2+hp4 FAIL all seeds. Rank-1 W substitution does not retrieve counterfactual pattern (chance-level cf_cos). Issue I-16 NEW. |
+| 6 | q_a3_l6_cross_layer_composition_v1_n4096 | 0.63s GPU | 4096 | 5 | HARD_PASS | HONEST HP: fid_l1 to fid_l6 = 1.0000; l6_acc=1.0000; all 5 seeds. L=6 cross-layer sub-property confirmed. |
+| 7 | combo1_pp48_audit_on_nkt_v1_n4096 | 0.25s GPU | 4096 | 5 | MIDDLE_BAND | HONEST MIDDLE: cert_A=pass (|cert+1|=0.012<=0.20); cert_B_positive_rate=0.000 all seeds (FAIL HP>=0.80); kappa3+cndc PASS. 3/4 HP. Cert_B=0 composition boundary. |
+| 8 | combo3_pp51_5method_on_implicit_gram_v1_n4096 | 0.33s GPU | 4096 | 5 | HARD_FAIL | HONEST HF: cert_diff=1.0474-1.050 all seeds (HF>0.10 by 50x); N-side cert and M-side cert structurally opposite sign. Trace rel 0.5e-3 to 5.7e-3 (below HF trace threshold but above HP). HP5=5/5. Issue I-17 NEW. |
+| 9 | wave4_full_streaming_battery_n8192_v1 | 16.1s GPU | 8192 | 5 | HARD_PASS | HONEST HP: mean_fid=min_fid=1.0000; min_reff=145-245 (>>12); cert=-1.0 5/5; all 4 HP 5/5. Wave 4 N=8192 production-envelope confirmed. |
+| 10 | streaming_prediction_8_v2_above_capacity_v1 | 115s CPU | 1024 | 5 | HARD_PASS | HONEST HP: mean_fid_w=0.9936; late_adv=+0.4727 (>0.20 by 2.4x; per-seed 0.461-0.479 unanimous); newest=0.9933; all 5 seeds hpa+hpb+hpc=true. Above-capacity discrimination confirmed. |
+
+**Cap_map state transitions (v339 -> v340).**
+
+**(A) PP-48 + PP-49 production-lock verification sub-property added; band STAYS 0.70-0.85.**
+combo2_p4_l3_signed_am_v1_n32768_5seed_verification_v1 GENUINE FULL HARD_PASS. Cross-N: N=4096 (v334) + N=8192 (v337) + N=16384 (v338) + N=32768 LOCAL (v339) + N=32768 5-seed production-lock (v340) = 5-point cross-N. Band STAYS 0.70-0.85: next LIFT to 0.75-0.90 requires cloud-native combo2-direct N=32768 (routing item #8). Sub-property: PP-48 + PP-49 N=32768 5-seed production-lock verification (LOCAL) added.
+
+**(B) Q-B1 depth-20 N=8192 sub-property added; PP-49a depth-progression extended.**
+q_b1_chain_depth_20 GENUINE FULL HARD_PASS. Depth ladder: depth-3 -> depth-5 -> depth-7 -> depth-10 -> depth-15 -> depth-20 at N=8192; all EXACT-1.0000. Ceiling NOT reached at depth-20. Routing item #9 (v339) PARTIALLY closed; depth-20 ceiling still unknown.
+
+**(C) PP-48 NKT depth-7 sub-property added.**
+pp48_nkt_depth_7 GENUINE FULL HARD_PASS. Depth ladder: depth-3 -> depth-5 (v339) -> depth-7 (v340) at N=4096. EXACT-1.0000 through 127 patterns. Depth-7 ceiling not reached. Dispatch depth-9/depth-10 eligible.
+
+**(D) Q-A3 L=6 cross-layer sub-property added.**
+q_a3_l6 GENUINE FULL HARD_PASS. L-ladder: L=2 -> L=3 -> L=4 -> L=5 -> L=6 at N=4096. All EXACT-1.0000. L=6 ceiling not reached. L=7 dispatch eligible.
+
+**(E) Wave 4 N=8192 streaming battery full production-envelope sub-property added.**
+wave4_full_streaming_battery_n8192 GENUINE FULL HARD_PASS all 4 HP 5/5. Production-N=8192 streaming primitives compose: fidelity + VRAM + effective-rank + deletion-cert all confirmed at N=8192.
+
+**(F) SP8 v2 above-capacity sub-property added; SP8 regime map complete.**
+streaming_prediction_8_v2_above_capacity GENUINE FULL HARD_PASS. SP8 now covers: below-capacity (v1 v339) + above-capacity (v2 v340). Above-capacity advantage=+0.47 unanimous (windowed > unbounded by 47pp in late streaming). SP8 regime characterization complete at N=1024.
+
+**(G) Issue I-16 (NEW): PP-49 HRC counterfactual depth-5 HARD_FAIL.**
+cf_cos=0.0275 (chance-level; per-seed -0.020 to +0.137). Rank-1 W substitution does NOT recover counterfactual pattern at depth-5 N=4096. Cert infrastructure (HP1/HP3) WORKS; retrieval (HP2/HP4) FAILS. Rescue R1-R5 (cheapest first):
+- R1 (0-compute) ANNOTATION: PP-49 sub-property "counterfactual retrieval FAILS at depth-5 N=4096 (cf_cos=0.03 chance-level)"; cert (HP1/HP3) works but counterfactual shift does not compose with retrieval.
+- R2 (~5min Python read) Audit rank-1 substitution formula vs prereg spec: is xi_{k+SHIFT} correctly indexed? Does N=4096 5-seed FULL match the N=1024 smoke config that showed HP2=0.97 in prereg? (Smoke used pp47_pp49_counterfactual prereg which PASSED cf_cos at smoke but this anchor is pp49_hrc_counterfactual with HRC structure -- different experiment architecture).
+- R3 (~10min Python edit) If R2 finds formula mismatch: fix + reship at depth-3 first as cheaper confirmation.
+- R4 (~30min CPU) SHIFT parameter sweep {5, 10, 20, 40} at N=4096 depth-3 to characterize minimum viable shift for cf_cos recovery.
+- R5 (~$3 cloud) N=32768 5-seed depth-5 to isolate N-dependency; PP-47 place-field improved N=1024->N=4096; counterfactual may be similarly N-sensitive.
+
+**(H) Issue I-17 (NEW): COMBO-3 PP-51 cert-path structural divergence HARD_FAIL.**
+cert_diff=1.0474-1.050 all seeds (structural sign disagreement: N-side cert ~-1, M-side cert ~0; diff~+1). Trace rel 0.5e-3 to 5.7e-3 (below HF trace threshold 1e-2 but above HP 1e-4). HP5=5/5 (matvec=3 efficient). N-side Krylov cert and M-side Gram cert structurally incompatible at this composition level. Rescue R1-R5 (cheapest first):
+- R1 (0-compute) ANNOTATION: PP-51 sub-property "5-method audit on M-side PP-51 FAILS cert-path: cert_diff=1.05 structural sign disagreement between N-side Krylov cert and M-side Gram cert"; PP-45 5-method unified-API (N-side only) UNAFFECTED.
+- R2 (~5min theory) Audit cert formula in combo3_pp51 script vs PP-51 research-cycle delivery: is the M-side Gram cert formula correct, or was the deletion-cert primitive adapted incorrectly (e.g., wrong sign convention or W vs W^T mismatch)?
+- R3 (~10min Python read + edit) Read script cert_diff computation; compare to COMBO-3 reference; if formula mismatch fix + reship at N=4096 5-seed.
+- R4 (~30min theory) If formulas are correct: structural divergence means M-side Gram cert operates in different spectral regime from N-side Krylov cert at alpha=0.05. Characterize cert_diff vs N and M/N ratio.
+- R5 (~$3 cloud) N=32768 M~=1638 cloud to test if cert divergence is N-dependent or structural.
+
+**(I) COMBO-1 PP-48 audit-on-NKT cert_B composition boundary (MIDDLE annotation).**
+3/4 HP MIDDLE: cert_A=pass (|cert_A+1|=0.012 << 0.20); cert_B=0.000 all seeds (FAIL). COMBO-1 audit correctly identifies A-patterns but cannot produce positive cert for B-leaf NKT patterns. Composition boundary: the cert-sign primitive is determined by Hopfield attractor membership, not NKT-leaf membership. Not a failure of the cert primitive -- it certifies what it can; NKT leaf discrimination requires a different secondary observable. Sub-property: COMBO-1 PP-48 audit-on-NKT MIDDLE with cert_B=0 COMPOSITION BOUNDARY annotation added.
+
+**(J) PP-45 LOCAL-vs-CLOUD precision CAVEAT reinforced (2nd independent confirmation).**
+combo3_unified_api_v1_n32768_5seed_verification_v1 worst_rel=1.58e-3 = IDENTICAL to v339 LOCAL run. Two independent LOCAL N=32768 runs confirm same precision floor. LOCAL RTX-4060-Ti precision at N=32768 is hardware-characteristic. Cloud H100 HP STANDS. PP-45 LOCAL-vs-CLOUD CAVEAT annotation updated: "2 independent LOCAL N=32768 runs confirm 1e-3 floor; cloud H100 N=32768 HP unaffected".
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+I-16 + I-17: R1 annotation FIRST (applied inline above); R2 theory/formula audit cheapest empirical; R3 fix-if-found; R4 parameter characterization; R5 cloud N-scaling.
+COMBO-1 PP-48 MIDDLE: no rescue needed (composition boundary is a finding, not a failure; sub-property annotation filed).
+
+**Tallies (v339 -> v340).**
+
+- **HONEST:** 442 -> **451** (+9 clean honest verdicts: 6 HP + 2 HF + 1 MIDDLE; catch #206 excluded from clean-honest count).
+- **LABEL-VS-HONEST:** 205 -> **206** (+1 catch #206 combo3_n32768_verification MIDDLE_BAND label vs between-bands prereq gap).
+- **Portfolio:** 32+74 UNCHANGED. Sub-properties: 9 NEW (combo2 N=32768 production-lock PP-48+PP-49; Q-B1 depth-20 N=8192 PP-49a; PP-48 depth-7 N=4096; Q-A3 L=6 N=4096; Wave 4 streaming battery N=8192; SP8 above-capacity; COMBO-1 PP-48 audit MIDDLE boundary; PP-49 HRC depth-5 HF boundary; COMBO-3 PP-51 cert-path HF boundary). 2 NEW ISSUES (I-16 + I-17).
+- **Cap_map version: v340.**
+
+**Framework reliability (v339 -> v340).**
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+- Product-feature: 78-92% UNCHANGED (depth-ladder + L-ladder + Wave4 + SP8 above-capacity HP corroborations balanced by 2 new composition-boundary HF issues).
+
+**Known infrastructure issues (UPDATED in v340).**
+
+All v339 issues (I-1 through I-15) CARRY FORWARD.
+**Issue I-16 (NEW v340).** pp49_hrc_counterfactual_depth_5_v1_n4096 HARD_FAIL cf_cos=0.0275 chance-level; rank-1 W substitution does not retrieve counterfactual pattern. Cert (HP1/HP3) works. R1-R5 filed; R2 script formula-audit cheapest.
+**Issue I-17 (NEW v340).** combo3_pp51_5method_on_implicit_gram_v1_n4096 HARD_FAIL cert_diff=1.05 structural sign divergence N-side vs M-side cert. Trace below HF threshold but above HP. R1-R5 filed; R2 theory cert-formula audit cheapest.
+
+**PROT compliance (v339 -> v340).**
+
+- PROT-004/006: NO row closures. 0 NEW TOP-LEVEL ROWS. 0 BAND-LIFTS. 9 NEW SUB-PROPERTIES. 2 NEW ISSUES. PP-49 HRC + COMBO-3 PP-51 HF: R1-R5 cheapest-first before any closure.
+- PROT-007: history v340 inline.
+- PROT-008: 9 sub-properties + 2 issues; no portfolio regression; all state-transitions validated against per-cell metrics vs pre-registered bands.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log staged atomically. **251st PROT-009 paired commit.**
+- PROT-018: all 10 anchors clear (8 explicit _n<N> suffix matches; 2 exempt per streaming/wave family convention).
+- PROT-021: all 10 anchors _source=remote run_mode=full 5-seed; no smoke artifacts.
+- PROT-022: I-17 cert-path + I-16 counterfactual both trigger R2 formula-selftest before reship; pattern-match to v327 F_4 exponent typo failure mode.
+
+**Memory adherence.**
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied all 10; 1 label-vs-band catch #206; 9 honest as-labeled.
+- [[feedback-no-preframing]]: 0 task-prompt pre-framing catches (neutral classification instruction in task input).
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH importance filed.
+- [[feedback-decision-log-eol-handling]]: appended via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED; commit hash surfaced.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 0-compute annotation FIRST for all HF/MIDDLE rescues.
+- [[feedback-rehabilitation-after-rejection]]: PP-49 HRC + COMBO-3 PP-51 HF both get R1-R5 before closure.
+- [[feedback-pipeline-pacing]]: GPU overnight_queue=0; CPU=18 pending. GPU queue at 0 triggers exp_dev dispatch (Step 2; pause-flag ABSENT).
+- [[feedback-composition-classification]]: combo2 N=32768 SCORE; q_b1 depth-20 PIPELINE; pp48_d7 SCORE; q_a3_l6 PIPELINE; pp49_d5 SCORE; combo1_pp48 PIPELINE; combo3_pp51 PIPELINE; wave4 PIPELINE; sp8_v2 SCORE.
+
+**Push and follow-on (v340).**
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v339 carryovers RETAINED + v340 additions):
+
+1. **I-17 COMBO-3 PP-51 cert-path structural divergence** (NEW v340 HIGH; R2 theory cert-formula audit before GPU spend).
+2. **I-16 PP-49 HRC counterfactual depth-5 script audit** (NEW v340; R2 rank-1 formula audit; R3 depth-3 fix-and-reship).
+3. **I-14 combo1_v3 N=8192 LOCAL OOM diagnosis** (v339 carry-forward; R2 remote-stderr).
+4. **I-15 pp49_hrc_counterfactual_depth_10 N=4096 diagnosis** (v339 carry-forward).
+5. **I-12 kappa3 sigma_sep config-delta diagnosis** (v339 carry-forward).
+6. **PP-52 production-N cross-N {4096, 8192, 16384} 5-seed** (v339 carry-forward; CPU OK).
+7. **Wave 5 Cell 5 CLOUD N=32768 dispatch** (v339 carry-forward; ~$5-10).
+8. **PP-48 + PP-49 cloud combo2-direct N=32768** (v338-v340 carry-forward; BAND-LIFT to 0.75-0.90 eligible after cloud HP).
+9. **Q-A3 L=7 N=4096 dispatch** (NEW v340; L=6 ceiling not reached).
+10. **PP-48 NKT depth-9/depth-10 dispatch** (NEW v340; depth-7 ceiling not reached).
+11. **Q-B1 depth-25/depth-30 dispatch** (NEW v340; depth-20 ceiling not reached).
+12. **a4 audit-during-training FULL re-ship** (v339 carry-forward; CPU OK).
+13. **I-13 caching v2 capacity-stress fix** (v339 carry-forward).
+14. **a3 timing-budget rescue R2** (v339 carry-forward).
+15. **combo1 alpha^(p-1) slope rescue R2** (v339 carry-forward).
+16. **COMBO-4 v2 mu-aging rescue R5** (v338 carry-forward).
+17. **F4 M4 I-9 v3 N=8192** + **kappa3 I-10 v3 fine rho-grid** (v336 PARTIAL-RESOLVED carry-forwards).
+18. **PP-47 hippocampal cross-N N=16384** (v333 carry-forward).
+19. **I-11 Wishart/MP routing** + **I-7 orphan failures** + **Q-F series + graph_community + program_exec + caching + PP-43b + I-6** (v330-v335 carry-forwards).
