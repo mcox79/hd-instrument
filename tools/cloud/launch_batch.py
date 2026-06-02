@@ -414,19 +414,33 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
         + (f" --script-args '{script_args_escaped}'" if script_args else "")
     )
     exp_cmd = (
-        "set -e; cd ~/hd-instrument; git pull --ff-only > /dev/null 2>&1 || true; "
+        # pipefail: propagate leftmost-failing exit code through `cmd | tee`.
+        # set -e: abort on any uncaught error (caught ones via `||` are fine).
+        "set -eo pipefail; cd ~/hd-instrument; "
+        "git pull --ff-only > /dev/null 2>&1 || true; "
         "PY=$(if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi); "
+        # Inject HF_TOKEN from the .hf_token file SCP'd at bring-up. Allows
+        # anchor scripts to authenticate to HF (gated Llama-3.1-8B + hyperprobe
+        # datasets) without baking the secret into the SSH command line.
+        "if [ -f .hf_token ]; then export HF_TOKEN=$(cat .hf_token); fi; "
+        # PHASE 0.5 FIX: anchors default HDLAB_RUN_MODE=smoke for local laptop
+        # safety. On Lambda dispatch we want full-scale execution.
+        "export HDLAB_RUN_MODE=full; "
         f"REMOTE_OUT={remote_anchor_dir}; "
         f"REMOTE_LOG=$REMOTE_OUT/exp_run.log; "
         f"mkdir -p $REMOTE_OUT; "
         "echo '--- env ---'; $PY --version; free -h | head -2; "
         "echo '--- dispatch ---'; set -x; "
-        f"(stdbuf -oL {target_cmd} 2>&1 | tee $REMOTE_LOG; "
-        f"  echo \"EXP_EXIT=${{PIPESTATUS[0]}}\") || echo 'EXP_DISPATCH_FAIL'; "
-        "set +x; echo '--- result ---'; "
+        # PHASE 0.5 FIX: capture inner exit code via _EXP_EXIT and propagate
+        # to SSH session via final `exit`, so abort_batch_on_failure actually
+        # fires. Previous `() || echo` wrapping masked failures as rc=0.
+        "_EXP_EXIT=0; "
+        f"(stdbuf -oL {target_cmd} 2>&1 | tee $REMOTE_LOG) || _EXP_EXIT=$?; "
+        "set +x; echo \"EXP_EXIT=$_EXP_EXIT\"; echo '--- result ---'; "
         f"if [ -f $REMOTE_OUT/metrics.json ]; then echo 'METRICS_OK'; "
         f"ls -la $REMOTE_OUT/metrics.json; else echo 'NO_METRICS'; "
-        f"tail -50 $REMOTE_LOG || true; fi"
+        f"tail -50 $REMOTE_LOG || true; fi; "
+        "exit $_EXP_EXIT"
     )
 
     stop_event = threading.Event()

@@ -50,6 +50,27 @@ cd "$HP"
 git pull --ff-only || true
 pip install -q -e .
 
+# 5.5. Belt-and-suspenders: explicitly install transitive deps that
+# hyperprobe's pyproject.toml declares incompletely. Observed missing on
+# 2026-06-02 first dispatch: word2number (used in src/hyperprobe at import).
+# Other commonly-missing-from-research-repo deps: scikit-learn (already in
+# requirements_cloud); pytorch_lightning (pulled by hyperprobe).
+pip install -q "word2number>=1.1"
+
+# 5.6. Post-install hyperprobe import smoke. If hyperprobe can't import,
+# stop here -- every downstream anchor will fail with the same error.
+python -c "
+import hyperprobe
+print(f'OK: hyperprobe imported (module path: {hyperprobe.__file__})')
+# Touch the high-level APIs used by Phase 0.5
+for fn in ['create_codebook', 'ingest_embeddings', 'create_vsa_encodings',
+           'inputDataset', 'llm2VSA_dataloader', 'train_hyperprobe',
+           'VSAEncoder', 'load_llm', 'probe_doc']:
+    assert hasattr(hyperprobe, fn), f'hyperprobe missing {fn}'
+print('OK: all required hyperprobe APIs present')
+"
+cd "$REPO"
+
 # 6. HuggingFace login (this enables both downloads + dataset auth)
 python -c "from huggingface_hub import login; import os; login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)"
 
