@@ -7417,3 +7417,56 @@ All v340 issues (I-1 through I-17) CARRY FORWARD UNCHANGED except:
 - PROT-018: all 8 anchors clear (6 explicit _n<N> suffix matches; a5/a4 exempt per Cluster A convention).
 - PROT-021: all 8 anchors _source=remote run_mode=full multi-seed; no smoke artifacts.
 - PROT-022: I-14 R2 theory-audit mandated before reship; no new formula-selftest issues opened.
+
+## v341 -> v342 @ BATCHED 19-VERDICT GPU+CPU Cycle 12 (10 HARD_PASS + 4 HARD_FAIL + 2 MIDDLE_BAND + 1 LABEL-VS-HONEST + 2 TIMEOUT-FAILURES; I-13 CLOSED; I-17 PARTIAL-RESOLVED; 2 BAND-LIFTS PP-52 + Q-A3; 253rd PROT-009 paired commit; Cycle 12)
+
+| # | Anchor | Wall | N | Seeds | Verdict | Honest re-read | Cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | pp48_nkt_depth_3_baseline_verification_v1_n4096 | 6.9s GPU | 4096 | 5 | HARD_PASS | HONEST HP: pos_rate=nkt_rep=tree=1.0 all 5 seeds EXACT-1.0; NKT_total=7 depth=3 | PP-48 depth-3 baseline sub-property added; depth series {1,3,5,7,9} complete |
+| 2 | combo2_p4_l3_signed_am_v1_n4096_l4_extension_v1 | 6.6s GPU | 4096 | 5 | HARD_FAIL | HONEST HF: b_rep=0.0000 (HF<0.4; 5/5 unanimous); l4_fid=1.0 PASS; parity_cont=0.0 PASS; hp2=0/5 unanimous | COMPOSITION BOUNDARY: PP-48/PP-49 b_rep collapses to 0.0 at L=4; sub-property L=4 boundary filed; R1-R5 rescue in strategy_decisions |
+| 3 | q_b1_chain_depth_25_v1_n8192 | 7.0s GPU | 8192 | 5 | HARD_PASS | HONEST HP: d5=d10=d20=d25=1.0000 all 5 seeds; depth-25 ceiling not reached | PP-49a depth-25 N=8192 sub-property added |
+| 4 | pp52_exact_rollback_n8192_v1 | 6.8s GPU | 8192 | 5 | HARD_PASS | HONEST HP: rel_err=0.0 (hp1=5/5); acc_drop=0.0 (hp2=5/5); rollback=0.131s (HP<1.0; hp3=5/5); EXACT at N=8192 | PP-52 exact-rollback N=8192 sub-property; a3 timing caveat SUPERSEDED at production-N |
+| 5 | pp52_one_shot_addition_n8192_v1 | 7.0s GPU | 8192 | 5 | HARD_PASS | HONEST HP: cos_new=0.9998 (hp1=5/5); acc_drop=0.0 (hp2=5/5); write=0.011s (hp3=5/5) | PP-52 one-shot-addition N=8192 sub-property confirmed |
+| 6 | q_b1_chain_depth_30_v1_n8192 | 39.1s CPU | 8192 | 5 | HARD_PASS | HONEST HP: d5=0.9997 d10=0.9997 d20=0.9996 d30=0.9997 all 5 seeds above all 4 thresholds | PP-49a depth-30 N=8192 sub-property added; depth ceiling now >30 at N=8192 |
+| 7 | combo1_pp48_audit_on_nkt_v2_depth_5_v1 | 7.0s GPU | 4096 | 5 | MIDDLE_BAND | HONEST MIDDLE: cert_A pass; cert_B=0.0 (hp2=0/5); kappa3+cndc PASS; 3/4 HP; boundary depth-independent at {1,5} | COMBO-1 PP-48 audit depth-5 MIDDLE sub-property; cert_B=0 DEPTH-INDEPENDENT confirmed |
+| 8 | pp48_nkt_depth_9_v1_n4096 | 7.8s GPU | 4096 | 5 | HARD_PASS | HONEST HP: pos_rate=nkt_rep=tree=1.0 all 5 seeds; NKT_total=511 depth-9; EXACT-1.0 | PP-48 depth-9 sub-property; depth series {1,3,5,7,9} all HP; depth-10/11 eligible |
+| 9 | q_a3_l7_cross_layer_composition_v1_n4096 | 8.5s GPU | 4096 | 5 | HARD_PASS | HONEST HP: L1-L7 fid all 1.0000 unanimous 5-seed; l7_acc=1.0000; L=7 ceiling not reached | Q-A3 L=7 N=4096 sub-property; series now includes L=7 EXACT-1.0 |
+| 10 | pp52_exact_rollback_n4096_v1 | 8.8s GPU | 4096 | 5 | HARD_PASS | HONEST HP: rel_err=0.0 (hp1=5/5); acc_drop=0.00 (hp2=5/5); rollback=0.063s (HP<0.5s; hp3=5/5) | PP-52 exact-rollback N=4096 sub-property confirmed |
+| 11 | pp52_one_shot_addition_n4096_v1 | 9.4s GPU | 4096 | 5 | HARD_PASS | HONEST HP: cos_new=0.9995 (hp1=5/5); acc_drop=0.00 (hp2=5/5); write=0.0039s (hp3=5/5) | PP-52 one-shot-addition N=4096 sub-property confirmed |
+| 12 | combo3_pp51_5method_on_implicit_gram_v2_cert_fix_n4096 | 6.7s GPU | 4096 | 5 | MIDDLE_BAND | HONEST MIDDLE: cert_diff=0.0 (hp4=5/5 PASS -- I-17 cert sign RESOLVED); matvec=3 (hp5=5/5); trace rel 3.3e-3 to 5.7e-3 (hp1/hp2/hp3=0/5 sub-HP); 2/5 HP | COMBO-3 PP-51 v2 MIDDLE sub-property; I-17 cert-path sign RESOLVED; trace accuracy open |
+| 13 | pp52_hebbian_lora_speedup_n4096_v1 | 20.2s CPU | 4096 | 5 | [LABEL-VS-HONEST #207] HARD_FAIL | [LVH #207] HONEST HF: acc_delta_pp=100.0 (accuracy collapse; hp1=0/5 PRIMARY FAILURE); wall_speedup=171M x (hp2=5/5 SPURIOUS -- artifact of collapsed accuracy); hp3=0/5; DECEPTIVE-EVIDENCE sub-flavor: hp2 metric meaningless under accuracy collapse | PP-52 CAVEAT: LoRA N=4096 M=400 incompatible with accuracy; rescue R1-R5 filed |
+| 14 | caching_v3_well_stressed_above_capacity_n4096 | 30.6s CPU | 4096 | 5 | HARD_FAIL | HONEST HF: I-13 design fix CONFIRMED (baseline fid=0.243 < 0.5 = well-stressed); but fid_evict=0.177 HF (< HF=0.5); cell_a=0/5 cell_b=0/5; retained_fid=0.9995 (cell_c=5/5); I-13 CLOSED as design issue; genuine eviction boundary found | I-13 CLOSED; PP-44 CAVEAT: eviction FAILS above alpha_c ~ 0.22; operating envelope update |
+| 15 | q_a3_l4_cross_layer_composition_v1_n4096 | 29.6s CPU | 4096 | 5 | HARD_PASS | HONEST HP: L1-L4 fid all 1.0000 (HP>=0.93); l4_acc=1.0000 (HP>=0.75); unanimous 5-seed | Q-A3 L=4 N=4096 sub-property; 5th sub-property in L-series |
+| 16 | streaming_prediction_7_corrected_hypothesis_v1 | 19.7s CPU | 1024 | 5 | HARD_PASS | HONEST HP: mean_CV=0.0008 (HP<0.5); reff_norm=0.953 (HP>=0.5); mean_min_reff=95.2 (HP>5); 3/3 hp 5/5 seeds | SP7 corrected-hypothesis sub-property confirmed |
+| 17 | streaming_prediction_6_above_capacity_v1 | 20.4s CPU | 1024 | 5 | HARD_PASS | HONEST HP: mean_diff=0.6947 (HP>=0.1); mean_fid_high=0.9967 (HP>=0.7); 2/2 hp 5/5 seeds | SP6 above-capacity sub-property confirmed |
+| 18 | a6_oneshot_vs_lora_economics_v1 | TIMEOUT 1200s | --- | --- | TIMEOUT | local smoke only; FULL did not complete; timeout too short for LoRA training | NOT COUNTED; rescue: extend timeout; R2 reduce K_LORA_STEPS |
+| 19 | hippocampal_engram_consolidation_v2_alpha_above_c_v1 | TIMEOUT 300s | --- | --- | TIMEOUT | local smoke only; FULL did not complete; 300s too short | NOT COUNTED; rescue: extend timeout to 1800s |
+
+### Tallies (v341 -> v342)
+
+- **HONEST:** 459 -> **475** (+16: 10 HP + 4 HF + 2 MIDDLE; 2 timeout failures NOT counted; LVH #207 included in HF count).
+- **LABEL-VS-HONEST:** 206 -> **207** (+1 catch #207 SPURIOUS_SPEEDUP_FROM_ACCURACY_COLLAPSE sub-flavor).
+- **Portfolio:** 32+74 UNCHANGED. Sub-properties: 15 NEW (PP-48 depth-3 + PP-48 depth-9 + combo2 L=4 boundary + Q-B1 depth-25 N=8192 + Q-B1 depth-30 N=8192 + PP-52 rollback N=4096 + PP-52 rollback N=8192 + PP-52 addition N=4096 + PP-52 addition N=8192 + SP6 + SP7 + Q-A3 L=4 N=4096 + Q-A3 L=7 N=4096 + COMBO-1 PP-48 depth-5 MIDDLE + COMBO-3 PP-51 v2 MIDDLE). 2 BAND-LIFTS (PP-52 + Q-A3/PP-12). 0 NEW ISSUES. I-13 CLOSED; I-17 PARTIAL-RESOLVED.
+- **Cap_map version: v342.**
+
+### Framework reliability (v342)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+- Product-feature: **80-94%** (+2pp from 78-92%; PP-52 BAND-LIFT + Q-A3/PP-12 BAND-LIFT).
+
+### Known infrastructure issues (annotation block; UPDATED in v342)
+
+All v341 issues carry forward UNCHANGED except:
+**Issue I-13 (CLOSED v342).** Design issue confirmed resolved; eviction boundary at alpha_stress >= 0.22 is genuine substrate operating-envelope finding. PP-44 CAVEAT updated. Rescue R1-R5 for alpha_c sweep + trace-based eviction gate in strategy_decisions_2026-06-02.md.
+**Issue I-17 (PARTIAL-RESOLVED v342).** cert_diff structural sign RESOLVED (v2 cert_diff=0.0 confirmed). Trace rel_err 3e-3 sub-HP OPEN. R2 Krylov-budget increase cheapest next step.
+
+### PROT compliance (v341 -> v342)
+
+- PROT-004/006: NO row closures. 0 NEW TOP-LEVEL ROWS. 2 BAND-LIFTS (PP-52 + Q-A3/PP-12). 15 NEW SUB-PROPERTIES. 0 NEW ISSUES (I-13 CLOSED; I-17 PARTIAL-RESOLVED). R1-R5 rescue sketches cheapest-first for all HF/MIDDLE candidates.
+- PROT-007: history v342 entry inline.
+- PROT-008: 2 band-lifts + 15 sub-properties + issue updates; no portfolio regression.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log staged atomically. **253rd PROT-009 paired commit.**
+- PROT-018: all 17 data-returning anchors clear; 2 timeouts excluded.
+- PROT-021: all 17 remote anchors _source=remote run_mode=full multi-seed confirmed; 2 timeouts local-smoke excluded.
+- PROT-022: pp52_hebbian_lora R3 script-audit + I-17 R2 Krylov-budget audit filed as formula-selftest candidates before reship.
