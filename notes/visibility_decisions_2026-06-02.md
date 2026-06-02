@@ -27,3 +27,15 @@ v331 BATCHED 13-FULL-VERDICT overnight CPU cycle 6: 10 GENUINE HP + 2 GENUINE HF
 - I-7 NEW infra issue: orphan dashboard failed entries from runner-death cleanup; routing-cycle decision required.
 - Cap_map version: v332. 243rd PROT-009 paired commit. Push BLOCKED from sub-agent context.
 Hygiene sweep: 20 routing files moved to routed_completed/ (no cap_map mutation)
+
+## 2026-06-02 09:15 verdict_handler v333 batch 7: 5 HP + 2 MIDDLE; Wave 5 cells 1-4 AUTHORIZED + cell 5 DEFERRED
+
+- combo1_p3_dam_implicit_gram_v2_identity_fix_v1 MIDDLE (HP1+HP2 PASS, HP3 slope=1.958 + HP4 SNR systematic FAIL; v2 IDENTITY FIX confirmed, full Wave 5 cell 5 gate DEFERRED; v3 redesign routing filed).
+- combo4_dynamical_bundle_v1_n1024 MIDDLE (M_dyn PASS, aging+DFT+shape composition FAIL at N=1024; PP-33 caveat (k) added; N-scale rescue R2 sequenced).
+- q_a3_l2_cross_layer_composition_v1_n4096 HARD_PASS (EXACT-1.0 outer + inner + l2 fidelity; PP-12 cross-layer L=2 sub-property LIFT at production-N).
+- streaming_brand_gram_refresh_v1 HARD_PASS (Brand-incremental streaming Gram refresh primitive validated; PP-44 streaming sub-property NEW).
+- kappa3_monitor_detection_latency_v1 HARD_PASS (mean detection W=1.5 << HP 50; PP-44b live kappa_3 monitor sub-property NEW).
+- drift_kernel_kappa3_detection_v1 HARD_PASS (controlled drift eps=1e-3 detectable W=2; PP-44c drift detection sub-property NEW).
+- hippocampal_place_field_full_v1_n4096 HARD_PASS (mean_cosine=0.879 + spearman=0.879 + acc=1.000; PP-47 hippocampal place-field NEW top-level row at 🟢 0.55-0.70).
+
+Cap_map v332 -> v333; Portfolio 32+68 -> 32+69 (+1 top-level + 3 sub-properties + 1 extension + 1 LIFT + 1 caveat); HONEST 399 -> 406; LABEL-VS-HONEST 201 UNCHANGED. 244th PROT-009 paired commit. Push deferred to main thread.

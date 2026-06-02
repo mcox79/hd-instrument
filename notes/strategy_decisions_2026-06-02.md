@@ -178,3 +178,23 @@ User directive: "we also need those verdicts to gate the cloud work". Three gati
 **Tallies (v331 -> v332).** HONEST 393 -> 399 (+6). LABEL-VS-HONEST 201 UNCHANGED.
 
 Hygiene sweep 2026-06-02: 20 acted-on routing files moved to notes/routed_completed/ (items from 2026-06-02 and 2026-06-01); no cap_map version bump; no new routing files written; source files verified present before move
+
+## v332 -> v333 @ BATCHED 7-VERDICT overnight cycle 7.5 Wave 3 + Wave 4 + Wave 5-prerequisite COMBO-1 v2 completions (5 GENUINE FULL HARD_PASS + 2 GENUINE FULL MIDDLE_BAND) -- WAVE 5 CELLS 1-4 STAY AUTHORIZED + WAVE 5 CELL 5 DEFERRED pending COMBO-1 v3 redesign + 1 NEW TOP-LEVEL ROW PP-47 hippocampal place-field encoding at production-N + 3 NEW SUB-PROPERTIES (PP-45a implicit-Gram identity + PP-44b streaming-monitor latency + PP-44c drift-kernel detection) + 1 SUB-PROPERTY EXTENSION (PP-44 Brand-incremental Gram refresh) + 1 SUB-PROPERTY LIFT (PP-12 cross-layer L=2 production-N) + 0 LABEL-VS-HONEST catches (task-prompt pre-framing SURFACED but did NOT bias re-read) + 2 MIDDLE surfaces with R1-R5 rescue sequences (verdict_handler 244th PROT-009 paired commit; autonomous overnight cycle 7.5)
+
+**Trigger.** Autonomous overnight cycle 7.5 batched 7 verdicts (combo1 v2 Wave 5 final-gate prerequisite + combo4 Wave 3 + q_a3 L=2 Wave 3 + streaming_brand + kappa3_monitor + drift_kernel Wave 4 + hippocampal_place_field Wave 4). All 7 fetched via `tools.orchestrator.remote_state.get_metrics` -- all `_source=remote` authoritative. Pause-flag ABSENT.
+
+**Step 0 honest re-read summary.** 7 HONEST (5 HP + 2 MIDDLE); 0 LABEL-VS-HONEST catches. Task input PRE-FRAMED combo1 v2 as potential ALL-4-HP Wave 5 final-gate authorization; honest re-read FOUND 2/4 MIDDLE (HP1+HP2 PASS; HP3 write-slope=1.958 FAIL >1.3 cap; HP4 SNR ratio 0.25/0.06/0.016 systematic 1/M degradation FAIL); per task spec MIDDLE path applied: surface to orchestrator main thread + file research routing for v3 redesign. Pre-framing handled correctly via Step 0.
+
+**Verdicts processed (7).** Roster in cap_map v333 anchor.
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).** combo1 v2 MIDDLE: R1 theory-side audit 0-compute (filed via research routing) -> R2 Krylov pre-condition ~10min CPU -> R3 Brand-refresh substitute ~30min CPU (using v333 validated PP-44 sub-property) -> R4 cloud N=32768 verify ~$5-8 -> R5 architectural pivot to COMBO-3 subsumption. combo4 MIDDLE: R1 PP-33 caveat (k) annotation 0-compute (applied this cycle) -> R2 N-scale to {2048, 4096, 8192} ~30min CPU -> R3 isolated per-observable measurements.
+
+**WAVE 5 GATING DECISION (per task spec MIDDLE path).** COMBO-1 v2 = 2/4 MIDDLE -> Wave 5 cell 5 (COMBO-1 implicit Gram-solve at N=32768) DEFERRED pending v3 redesign. Wave 5 cells 1-4 (COMBO-3 unified API + kappa_4/kappa_6 fingerprint + deletion-cert Z-ratio + Q-D1 spectral) REMAIN AUTHORIZED unchanged from v332 OPEN.
+
+**Cap_map deltas.** 1 NEW TOP-LEVEL ROW (PP-47 hippocampal place-field at production-N 0.55-0.70 EXPLORATORY); 3 NEW SUB-PROPERTIES (PP-45a + PP-44b + PP-44c); 1 SUB-PROPERTY EXTENSION (PP-44 Brand-incremental Gram); 1 SUB-PROPERTY LIFT (PP-12 cross-layer L=2 production-N); 1 ROW CAVEAT (PP-33 caveat (k)). Portfolio 32+68 -> 32+69. Framework-reliability product-feature +1pp both bounds.
+
+**Tallies (v332 -> v333).** HONEST 399 -> 406 (+7). LABEL-VS-HONEST 201 UNCHANGED.
+
+**PROT compliance.** PROT-004/006/007/008/009/018/021 all clear; 244th PROT-009 paired commit; push BLOCKED from sub-agent context; main thread executes push.
+
+Research routing filed: notes/strategy_request_to_research_combo1_v3_redesign_2026-06-02.md (COMBO-1 v3 redesign: R1 theory-side HP3+HP4 formula audit cheapest-first; gates Wave 5 cell-5 cloud dispatch).

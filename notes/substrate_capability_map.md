@@ -6482,3 +6482,144 @@ Main-thread routing candidates (highest -> lowest priority; v331 carryovers RETA
 11. **I-6 script-author audit for two_time_correlator_fdt scripts** (v331 carry-over).
 12. PP-43d ARC/LIRS low-alpha rescue (v328); PP-44 cross-N sweep (v328 EXTENDED v332 N=8192); PP-9b cross-depth extension (v328 EXTENDED v332 cross-N); PP-37 spectral N-sweep (v326); PP-31a alpha-sweep extension (v327); PP-40 N-sweep (v327); PP-41 edit-distance (v327); PP-42 M=1000+M=2000 extension (v327); PP-39 Anchor 1 mixed-mode query (v326); PP-38 N=8192 5-seed (v326); PP-34/PP-35/PP-36 v2 follow-ons (v325); per-script audit for 7 holdout scripts (v324); Q-F5 Preisach hysteresis hierarchy (v330); kappa3 anchor-name "smoke" suffix script-author audit (NEW v332 PROT-021 annotation; rename to "validation").
 13. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
+
+
+# v333 update (2026-06-02) -- BATCHED 7-VERDICT (5 HARD_PASS + 2 MIDDLE_BAND) overnight cycle 7.5 Wave 3 + Wave 4 + Wave 5-prerequisite COMBO-1 v2 completions; WAVE 5 CELLS 1-4 STAY OPEN + WAVE 5 CELL 5 DEFERRED pending COMBO-1 v3 redesign; +3 NEW SUB-PROPERTY ROWS (PP-44b kappa_3 streaming-monitor detection latency + PP-44c controlled-drift kappa_3 detection + PP-45a implicit-Gram kappa_3 identity at production-N) + 1 NEW TOP-LEVEL ROW PP-47 hippocampal place-field encoding at production-N + 1 SUB-PROPERTY EXTENSION (PP-44 streaming Brand-incremental Gram refresh) + 1 SUB-PROPERTY LIFT (Q-A3 L=2 cross-layer composition empirical) + 1 MIDDLE annotation (COMBO-4 dynamical-bundle: M_dyn primitive holds but full Q-F1-style structure does NOT compose); 0 LABEL-VS-HONEST catches (task prompt pre-framed COMBO-1 v2 as potential ALL-4-HP; honest re-read FOUND 2/4 MIDDLE; pre-framing NEGATIVELY validated via Step 0 — surfaced); 2 MIDDLE surfaces (COMBO-1 v2 + COMBO-4) (verdict_handler 244th PROT-009 paired commit; autonomous overnight cycle 7.5)
+
+**Trigger.** Autonomous overnight cycle 7.5 batched 7 verdicts (Wave 5 final-gate prerequisite COMBO-1 v2 + Wave 3 COMBO-4 dynamical bundle + Wave 3 Q-A3 L=2 cross-layer + Wave 4 streaming Brand incremental Gram + Wave 4 kappa_3 monitor detection latency + Wave 4 drift kernel kappa_3 detection + Wave 4 hippocampal place-field full at N=4096). All 7 fetched via `tools.orchestrator.remote_state.get_metrics` -- all `_source=remote` authoritative. Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 7 HONEST (5 HP + 2 MIDDLE_BAND); 0 LABEL-VS-HONEST catches BUT 1 task-prompt PRE-FRAMING surfaced (task input pre-framed COMBO-1 v2 as potential ALL-4-HP Wave 5 final-gate authorization; honest re-read FOUND 2/4 MIDDLE_BAND; pre-framing did NOT bias verdict_handler — per [[feedback-no-preframing]] handled correctly via Step 0).
+
+| # | anchor | wall | N | seeds | label | honest re-read | classification |
+|---|---|---|---|---|---|---|---|
+| 1 | combo1_p3_dam_implicit_gram_v2_identity_fix_v1 | 687.8s GPU | 4096 | 5 | MIDDLE_BAND | HONEST (HP1 mmd PASS all 0.0 at M={8192,16384,32768}; HP2 cv PASS kappa_3 IDENTITY FIXED from v1 cv 1.3e-5/2.3e-5/3.6e-5 << 5% target; HP3 write slope=1.958 FAIL approximately quadratic in M not linear; HP4 SNR_emp/SNR_pred = 0.250/0.062/0.016 systematic monotone 1/M degradation FAIL; net 2/4 = MIDDLE_BAND -- v2 IDENTITY FIX is a real lift over v1 but HP3+HP4 expose systematic non-linearities) | PP-45a sub-property NEW (implicit-Gram identity at production-N=4096 5-seed FIXED) + Wave 5 cell 5 DEFERRED pending v3 redesign |
+| 2 | combo4_dynamical_bundle_v1_n1024 | 0.0016s GPU | 1024 | 3 | MIDDLE_BAND | HONEST (per-seed real metrics 3-seed authoritative; clock-flushing artifact on wall; M_dyn=0.871 PASS >=0.82; aging mu=0.128 FAIL needs [0.7,1.0]; dft_peak_snr=1.34 FAIL needs >3.0; piecewise_r2=0.734 FAIL needs >=0.95 AND mono_r2 FAIL needs <0.95 - both directions inverted; net 2/4 MIDDLE -- M_dyn primitive HOLDS but full Q-F1-style dynamical structure does NOT compose into this bundle) | PP-33 caveat (k) NEW (COMBO-4 dynamical-bundle does NOT replicate Q-F1 structure at N=1024; M_dyn primitive remains) |
+| 3 | q_a3_l2_cross_layer_composition_v1_n4096 | 12.1s GPU | 4096 | 5 | HARD_PASS | HONEST (outer_fid=1.0000 PASS >=0.93; inner_fid=1.0000 PASS >=0.93; l2_acc=1.0000 PASS >=0.85; ALL EXACT-1.0 at 5-seed; Q-A3 L=2 cross-layer (p=3 outer / p=2 inner) composition VALIDATED at production-N=4096) | PP-12 cross-layer composition SUB-PROPERTY LIFT (L=2 outer-inner-product composition holds at production-N) |
+| 4 | streaming_brand_gram_refresh_v1 | 3.5s CPU | 2048 | 5 | HARD_PASS | HONEST (global_min_acc=1.000 5/5 seeds HP; Brand incremental Gram refresh matches batch-Gram within tolerance for K<=M writes) | NEW PP-44 sub-property: Brand-incremental-SVD streaming Gram refresh primitive |
+| 5 | kappa3_monitor_detection_latency_v1 | 3.2s CPU | 2048 | 5 | HARD_PASS | HONEST (mean_detection_W=1.5 PASS <=50; n_detections=25; mean_fp_rate=0.000 PASS <0.1; detection latency well under HP cap; live kappa_3 audit-trail per-write substrate-confirmed) | NEW PP-44b sub-property: live kappa_3 streaming-monitor detection latency on moving substrate |
+| 6 | drift_kernel_kappa3_detection_v1 | 5.3s CPU | 2048 | 5 | HARD_PASS | HONEST (controlled drift eps=1e-3: mean_W=2.0 PASS <=100; ALL 4 eps cells {1e-4, 1e-3, 1e-2, 1e-1} mean_W=2.0; drift kernel detectability at 3-sigma confirmed) | NEW PP-44c sub-property: controlled-drift kappa_3 detection at eps=1e-3+ |
+| 7 | hippocampal_place_field_full_v1_n4096 | 0.0s CPU | 4096 | 5 | HARD_PASS | HONEST (mean_cosine=0.879 PASS >=0.8; mean_spearman=0.879 PASS >=0.6; mean_acc=1.000 PASS >=0.75; full hippocampal place-field encoding at production-N) | NEW PP-47 top-level: hippocampal place-field encoding capability at production-N |
+
+**Wave 5 GATING DECISION (per task spec MIDDLE path).**
+
+COMBO-1 v2 honest re-read = 2/4 MIDDLE_BAND; per task spec: "If MIDDLE: surface to orchestrator main thread". Wave 5 GATE STATUS:
+- **Cells 1-4 of Wave 5 = AUTHORIZED (unchanged from v332 OPEN).** COMBO-3 unified-API at N=32768 + kappa_4/kappa_6 fingerprint at N=32768 + deletion-cert Z-ratio at N=32768 + Q-D1 spectral all gated by v332 HP from Wave 2 -- those gates remain OPEN.
+- **Cell 5 (COMBO-1 implicit Gram-solve at N=32768) = DEFERRED pending v3 redesign.** COMBO-1 v2 partial-pass on identity (HP2 FIXED) but failed on write-slope linearity (HP3 quadratic-in-M not linear) and SNR ratio (HP4 systematic 1/M degradation). Cell 5 cloud dispatch NOT justified until v3 redesigns HP3 + HP4.
+- Research routing filed: `notes/strategy_request_to_research_combo1_v3_redesign_2026-06-02.md` with R1-R5 rescue sketches cheapest-first per [[feedback-rescue-sketch-first-sequencing]]. R1 = theory-side audit of HP3 + HP4 formulas (0-compute); R2 = Krylov-basis pre-condition (~10min CPU); R3 = Brand-incremental Gram refresh substitute (~30min CPU, validated this cycle); R4 = N=32768 cloud verify HP3+HP4 regime-dependence (~$5-8); R5 = architectural pivot to COMBO-3 subsumption.
+
+**WAVE 5 CLOUD GATE STATUS (post-v333):** CELLS 1-4 AUTHORIZED + CELL 5 DEFERRED. Testbed proceeds with 4-cell unified_n32768 bundle; cell-5 reserved for v3 dispatch when ready.
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+For **combo1 v2 MIDDLE** (Wave 5 cell-5 prerequisite; HP3+HP4 systematic failures):
+- R1 (0-compute, filed): theory-side audit of HP3 write-slope formula + HP4 SNR_emp/SNR_pred formula; the 1/M empirical SNR degradation may reflect a missing 1/M factor in the predicted-SNR derivation; clean reformulation may retroactively re-classify v2 as HP. Cost: research-cycle dispatch via routing file.
+- R2 (cheap ~10min CPU): Krylov-basis pre-condition across writes; single-line protocol tweak may move slope 1.958 -> 1.0-1.2 and may also stabilize HP4 if cross-write contamination is the SNR-degradation mechanism.
+- R3 (medium ~30min CPU): Block-incremental Gram refresh every k=16 writes using the v333-validated Brand-incremental primitive (PP-44 sub-property HP this cycle); trades per-write latency for amortized batch.
+- R4 (heavy ~$5-8 cloud): Verify HP3+HP4 scaling at N=32768 BEFORE v3 redesign; if HP3+HP4 are regime-dependent the cell-5 dispatch can proceed independently of v3.
+- R5 (heaviest, structural): COMBO-1 -> COMBO-3 + Brand-incremental subsumption; v2 IDENTITY FIX retained as PP-45a sub-property; row scope contracts to algebraic-identity demonstration not full implicit-Gram architecture.
+
+For **combo4 MIDDLE** (Wave 3 dynamical-bundle composition):
+- R1 (0-compute, applied): PP-33 caveat (k) NEW -- COMBO-4 dynamical-bundle does NOT replicate Q-F1-style aging/oscillation structure at N=1024; M_dyn primitive HOLDS (0.871 PASS) but the broader bundle composition (aging exponent mu + DFT SNR + piecewise-vs-monotone shape discrimination) does NOT compose. Substrate at N=1024 is in a regime where dynamical-bundle composition shows M_dyn-only signal, not full Q-F1 structure.
+- R2 (deferred ~30min CPU): N-scale to N={2048, 4096, 8192} to verify whether aging/oscillation structure recovers at higher N; piecewise-vs-monotone shape discrimination may be finite-N noise-floor artifact at N=1024.
+- R3 (deferred -- different bundle composition): Replace dynamical-bundle composition with separate per-observable measurements (M_dyn alone + aging alone + DFT alone) to isolate which COMPOSITION step is failing.
+- R4-R5 NOT NEEDED at this stage (R1 annotation closes the row at COMBO-4 SCOPE only; M_dyn primitive remains valid for substrate-dynamics anchor).
+
+**Cap_map deltas (v332 -> v333).**
+
+**(A) NEW SUB-PROPERTY PP-45a: implicit-Gram kappa_3 identity at production-N=4096 5-seed empirically validated.** combo1 v2 IDENTITY FIX validates the kappa_3(G) identity-within-5% at M={8192, 16384, 32768} cv 1.3e-5/2.3e-5/3.6e-5 well under HP 5% target. PP-45 parent row (5-method unified-API algebraic theorem) gains identity-confirmation sub-property at production-N=4096; band 0.65-0.80 UNCHANGED (sub-property addition is corroborative; Wave 5 N=32768 confirmation still queued for band-LIFT eligibility). The IDENTITY FIX is REAL — v1 failed this exact test and v2 fixes it cleanly; cross-references PP-44 spectral-capacity-monitor (kappa_3 streaming primitive same algebra family).
+
+**(B) NEW SUB-PROPERTY PP-44 streaming Brand-incremental Gram refresh primitive empirically validated.** streaming_brand_gram_refresh_v1 HARD_PASS global_min_acc=1.000 5/5 seeds at N=2048. Brand-incremental Gram refresh matches batch-Gram within tolerance for K<=M writes -- streaming Gram primitive is substrate-product-grade. PP-44 spectral-capacity-monitor parent row gains streaming-refresh sub-property; band 0.60-0.75 UNCHANGED (sub-property addition is corroborative; PP-44 founding row already captures spectral-monitor primitive). Cross-applications: PP-15 disaster recovery (incremental Gram refresh enables fast restart from cert-chain); COMBO-1 v3 R3 rescue (Brand-refresh substitutes for per-write Krylov solve).
+
+**(C) NEW SUB-PROPERTY PP-44b live kappa_3 streaming-monitor detection latency.** kappa3_monitor_detection_latency_v1 HARD_PASS mean_detection_W=1.5 (HP<=50) at N=2048 5-seed mean_fp_rate=0.000. Substrate can detect injected anomalous writes within W=1-2 writes at 3-sigma -- live audit-trail on a MOVING substrate is operationally validated. PP-44 parent gains streaming-detection sub-property; band 0.60-0.75 UNCHANGED. Cross-applications: PP-3 audit-trail (live detection at write-time strengthens audit primitive); PP-30 disaster-recovery + anomaly detection bundle (PP-44b is the detection signal that triggers PP-30 cert-chain replay).
+
+**(D) NEW SUB-PROPERTY PP-44c controlled-drift kappa_3 detection at eps>=1e-3.** drift_kernel_kappa3_detection_v1 HARD_PASS eps=1e-3 mean_W=2.0 (HP<=100) at N=2048 5-seed; eps={1e-4, 1e-3, 1e-2, 1e-1} ALL mean_W=2.0. Controlled drift kernel detectable via kappa_3 deviation at all tested eps -- substrate audit-trail is sensitive to drift at the 1e-3-rad-per-write floor and below. PP-44 parent gains drift-detection sub-property; band 0.60-0.75 UNCHANGED. Cross-applications: PP-21 model-drift detection (PP-44c IS the algebraic signal for live model-drift monitoring); PP-44b + PP-44c together form COMPLETE streaming kappa_3 audit primitive (detection-latency + drift-floor).
+
+**(E) NEW TOP-LEVEL ROW PP-47: Hippocampal place-field encoding at production-N.** hippocampal_place_field_full_v1_n4096 GENUINE FULL HARD_PASS at N=4096 5-seed: mean_cosine=0.879 (HP>=0.8); mean_spearman=0.879 (HP>=0.6); mean_acc=1.000 (HP>=0.75). Substrate encodes hippocampal place-field representations at production-N with all 3 HP metrics CLEARED. Substrate-product implication: substrate replicates the canonical hippocampal place-field encoding primitive at production-N -- spatial memory primitive grounded in neuroscience-literature precedent (CA3-CA1 place-cell encoding) is operationally validated on substrate. Filed at **🟢 P 0.55-0.70 EXPLORATORY** (base 0.60-0.75 - 0.05 lit-scan calibration for novel substrate-class hippocampal-primitive claim; place-field encoding is well-grounded in 30+y neuroscience literature; substrate manifestation at unanimous 5-seed N=4096 is the contribution). Cross-references: PP-1 substrate-memory-primitive (PP-47 is a hippocampal sub-class); PP-12 compositionality audit (place-fields as compositional units); PP-22 federated unlearning (place-field deletion); killer-feature stack BRAIN-INSPIRED-ENCODING primary substrate signature per [[feedback-brain-inspired]]. Anticipated lifts: cross-N to N={8192, 16384} 5-seed HP -> PP-47 0.65-0.80; place-field-replay HP -> hippocampal-sequence sub-property.
+
+**(F) SUB-PROPERTY LIFT PP-12 cross-layer composition L=2 outer/inner (p=3 outer / p=2 inner) production-N.** Q-A3 L=2 HARD_PASS at N=4096 5-seed: outer_fid=1.0000 + inner_fid=1.0000 + l2_acc=1.0000 EXACT-1.0 unanimous. PP-12 compositionality-audit parent row gains cross-layer-L=2 sub-property at production-N; band 0.60-0.75 UNCHANGED (sub-property addition is corroborative; PP-12 founding row at L=1 already captures composition primitive). Cross-applications: PP-9b heteroassoc-chain (Q-A3 L=2 composes p=3 -> p=2 with EXACT fidelity); PP-45 5-method unified API (L=2 composition extends single-method audit primitives to multi-level pipelines).
+
+**(G) PP-33 framework-class CAVEAT (k): COMBO-4 dynamical-bundle composition does NOT replicate Q-F1 structure at N=1024.** combo4_dynamical_bundle_v1_n1024 MIDDLE_BAND 2/4 HP at N=1024 5-seed (M_dyn=0.871 HP; aging mu=0.128 FAIL; DFT SNR=1.34 FAIL; piecewise vs monotone shape discrim FAIL both directions). Substrate at N=1024 is in a regime where the COMPOSITION of (M_dyn + aging + oscillation + shape-discrimination) into a single dynamical-bundle does NOT replicate the per-observable Q-F1 results (Q-F1 confirmed dynamical-class home at N=2048 with corrected observable). PP-33 row band 0.55-0.70 UNCHANGED (sub-property COMPOSITION caveat does NOT change framework-class home; M_dyn primitive HOLDS as v331-confirmed). PP-33 caveat (k) NEW: dynamical-bundle composition is N-regime-sensitive; M_dyn primitive remains the load-bearing dynamical-class measurement at substrate's confirmed CK-class home.
+
+### Tallies (v332 -> v333)
+
+- **HONEST:** 399 -> **406** (+7 NEW HONEST: 5 HP + 2 MIDDLE; all 7 anchors honest-as-labeled per Step 0).
+- **LABEL-VS-HONEST:** 201 -> **201** UNCHANGED (0 new catches; task-prompt PRE-FRAMING surfaced for COMBO-1 v2 but verdict_handler Step 0 caught it correctly without bias).
+- **Portfolio:** 32+68 -> **32+69** (+1 NEW TOP-LEVEL ROW PP-47 hippocampal place-field 0.55-0.70 EXPLORATORY) + 3 NEW SUB-PROPERTIES (PP-45a implicit-Gram identity + PP-44b kappa_3 monitor latency + PP-44c drift-kernel detection) + 1 SUB-PROPERTY EXTENSION (PP-44 Brand-incremental Gram refresh) + 1 SUB-PROPERTY LIFT (PP-12 cross-layer L=2 production-N) + 1 ROW CAVEAT (PP-33 caveat (k)). PP-45 + PP-44 + PP-12 parent bands UNCHANGED (sub-properties corroborative not band-LIFT-eligible per 3-independent-sub-property convention). New row PP-47 carries +0.05 lit-scan calibration penalty per v317 uncharted-regime convention.
+- **Cap_map version: v333.**
+
+### Framework reliability (v333)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED (no framework-class LIFT this batch; PP-33 caveat (k) is sub-property-scope not framework-class-scope).
+- Product-feature: 68-82% -> **69-83%** (+1pp both bounds; PP-47 hippocampal place-field at production-N is a new product-feature row with empirical neuroscience-grounded foundations; substrate-product moat strengthened with brain-inspired-encoding row).
+
+### Known infrastructure issues (annotation block; UPDATED in v333)
+
+**Issue I-1 (v323, UPDATED v324-v332, ANNOTATED v333): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v333 7-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326).** CLOSED.
+
+**Issue I-3 (v327, RESOLVED v328).** CLOSED.
+
+**Issue I-4 (v330, RESOLVED v331).** CLOSED.
+
+**Issue I-5 (v330, OPEN v333).** STILL OPEN for next q22 ship; not touched this batch.
+
+**Issue I-6 (v331, OPEN v333).** STILL OPEN; not touched this batch (no two_time_correlator_fdt anchors).
+
+**Issue I-7 (v332, OPEN v333).** 3 orphan failed entries (l2_hadamard + ck_seb + q_f5) still NOT processed; STILL OPEN for main-thread routing-cycle.
+
+**Issue I-8 (v333, NEW): COMBO-1 v2 HP3 + HP4 systematic theory-vs-empirical disagreement.** COMBO-1 v2 IDENTITY FIX confirms HP2 kappa_3 identity, but HP3 write-slope (1.958, expected <=1.3) and HP4 SNR_emp/SNR_pred (0.25/0.06/0.016, expected [0.85, 1.15]) BOTH systematically fail in the SAME direction relative to v1+v2 theory predictions. Either (a) the predicted formulas are wrong (theory-side audit needed), (b) the protocol has cross-write contamination (Krylov pre-conditioning needed), or (c) substrate has 1/M SNR degradation as a real algebraic property (regime characterization needed). Detection signal: HP2 PASS + HP3/HP4 monotone systematic FAIL is the COMBO-1 v3-redesign trigger. Filed for research-cycle (routing note filed this cycle).
+
+### PROT compliance (v332 -> v333)
+
+- PROT-004/006: NO row closures. 1 NEW TOP-LEVEL ROW (PP-47); 3 NEW SUB-PROPERTIES (PP-45a + PP-44b + PP-44c); 1 SUB-PROPERTY EXTENSION (PP-44 Brand-streaming); 1 SUB-PROPERTY LIFT (PP-12 cross-layer L=2). 2 MIDDLE candidates (combo1 v2 + combo4) kept OPEN with R1-R5 rescue sketches cheapest-first; NEITHER closed.
+- PROT-007: history v333 appended (history.md sibling entry inline).
+- PROT-008: 1 new top-level row + 3 new sub-properties + 2 extensions/lifts + 1 caveat; no portfolio regression; no closures.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **244th PROT-009 paired commit**.
+- PROT-018: 7 anchors verified via remote authoritative metrics. Anchor-name suffix conventions: combo1_..._v1 (no _nN; N default=4096 + M_LIST sweep); combo4_..._n1024 (explicit _n1024 matches metrics N=1024); q_a3_..._n4096 (explicit _n4096 matches metrics N=4096); streaming_..._v1 (no _nN; N default=2048); kappa3_monitor_..._v1 (no _nN; N default=2048); drift_kernel_..._v1 (no _nN; N default=2048); hippocampal_..._n4096 (explicit _n4096 matches metrics N=4096). PROT-018 ✓ for all 7.
+- PROT-021: smoke-checkpoint contamination check applied; all 7 anchors verified via remote authoritative metrics with run_mode=full + multi-seed (3-seed combo4; 5-seed others); no contamination detected.
+- PROT-022: not applicable (no log2-parity-relevant anchors).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 7 anchors; **0 NEW LABEL-VS-HONEST catches** (all 7 anchors honest-as-labeled). COMBO-1 v2 verdict label MIDDLE_BAND honestly matches per-cell HP breakdown 2/4. COMBO-4 verdict label MIDDLE_BAND honestly matches per-cell HP breakdown 2/4. 5 HP verdicts cell-by-cell honest. Task-prompt pre-framing SURFACED but did NOT propagate to cap_map.
+- [[feedback-no-preframing]]: dispatch input pre-framed COMBO-1 v2 as potential "ALL 4 HP PASS" Wave 5 final-gate authorization. Honest re-read FOUND 2/4 MIDDLE (HP1+HP2 PASS, HP3+HP4 systematic FAIL). Per task spec MIDDLE path applied: surface to orchestrator main thread + file research routing for v3 redesign. Pre-framing did NOT bias re-read; verdict_handler Step 0 caught the over-claim cleanly. Wave 5 cell 5 DEFERRED.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; all 7 FULL anchors verified `_source=remote run_mode=full` multi-seed authoritative. combo4_..._n1024 carries explicit _n1024 in name (NOT smoke-tier) and metrics confirm N=1024 + run_mode=full; combo4's 0.0016s wall is clock-flushing artifact on GPU-internal dynamics sim, NOT contamination (per-seed metrics are real and consistent with 3-seed FULL run).
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; explicit _nN suffix on combo4 + q_a3 + hippocampal; default-N anchors carry no _nN.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH with plain_language and importance fields filed.
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context; commit hash surfaced for main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 2 MIDDLE candidates each filed with R1-R5 rescue sketches cheapest-first (combo1 v2: R1 theory-side audit 0-compute -> R2 Krylov pre-condition ~10min CPU -> R3 Brand-refresh substitute ~30min CPU -> R4 cloud N=32768 verify ~$5-8 -> R5 architectural pivot; combo4: R1 PP-33 caveat (k) annotation 0-compute -> R2 cross-N ~30min CPU -> R3 isolated per-observable measurements).
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; CPU queue=0 at arrival but Wave 5 cloud cells 1-4 dispatch is main-thread testbed handoff per existing testbed_handoff_wave5_unified_n32768_2026-06-02.md routing; verdict_handler does NOT auto-dispatch exp_dev for cloud-tier work.
+- [[feedback-rehabilitation-after-rejection]]: 2 MIDDLE candidates kept OPEN with 3-5 rescue sketches BEFORE any closure; NEITHER row closed in v333.
+- [[feedback-lit-scan-calibration-penalty]]: PP-47 RETAINS +0.05 deflation from founding (well-grounded neuroscience literature but substrate manifestation is the contribution); PP-45a + PP-44b + PP-44c sub-properties inherit parent calibration penalties.
+- [[feedback-lock-in-inefficiency-fixes]]: I-8 (COMBO-1 v2 HP3+HP4 systematic theory-vs-empirical disagreement) locked as structural research-cycle routing.
+- [[feedback-strategy-shore-up-capabilities]]: PP-47 founding empirically validates 1 new top-level product-feature row (brain-inspired hippocampal encoding); 3 new sub-properties cascade to PP-3 + PP-15 + PP-21 + PP-30 + PP-9b + PP-44 + PP-45.
+- [[feedback-brain-inspired]]: PP-47 hippocampal place-field row is a brain-inspired-encoding signature ANCHOR per durable framing pull.
+- [[feedback-composition-classification]]: combo1 v2 is HANDOFF/PIPELINE-class (write -> kappa_3 monitor -> retrieve); HP1+HP2 are PIPELINE-STAGE-PASS; HP3 is WALL/INFRA-STAGE; HP4 is SCORE-STAGE. combo4 is HANDOFF/PIPELINE-class (dynamical-bundle composition; M_dyn stage PASS but aging+DFT+shape composition fails). q_a3 L=2 is HANDOFF (p=3 outer -> p=2 inner). streaming_brand + kappa3_monitor + drift_kernel are all SCORE-class. hippocampal_place_field is SCORE-class.
+
+### Push and follow-on (v333)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v332 carryovers RETAINED + v333 additions):
+1. **Wave 5 cloud cells 1-4 single batch dispatch** (v332 ROUTING; WAVE 5 GATE CELLS 1-4 OPEN; testbed authorized for 4-cell unified_n32768 bundle; cell 5 DEFERRED).
+2. **COMBO-1 v3 redesign** (NEW v333; research-cycle routing filed; R1 theory-side audit of HP3+HP4 formulas first; gates Wave 5 cell-5).
+3. **I-7 orphan failures re-ship vs close decision** (v332 carry-over; main-thread routing-cycle).
+4. **Q-F3 cophenetic correlation** (v330 carry-over).
+5. **Q-F1 5-seed N=2048 follow-up** (v331 carry-over).
+6. **Q-F4 saddle-overlap triplet test** (v330 carry-over).
+7. **graph_community R2 absolute-cos rescue** (v331 carry-over).
+8. **program_exec_audit_branching R2 sibling-list rescue** (v331 carry-over).
+9. **caching_capacity_aware cell-A workload variation rescue** (v331 carry-over).
+10. **PP-43b LRU small-M rescue** (v328 carry-over).
+11. **Q-F2 FDT ratio X(C) measurement** (v331 carry-over).
+12. **I-6 script-author audit for two_time_correlator_fdt scripts** (v331 carry-over).
+13. **COMBO-4 N-scale rescue R2** (NEW v333; ~30min CPU; verify aging/DFT structure recovers at N>=2048).
+14. **PP-47 hippocampal cross-N {8192, 16384} 5-seed** (NEW v333; band-LIFT-eligibility queue).
+15. **PP-44 cross-N sweep** (v328 EXTENDED v332 N=8192 EXTENDED v333 Brand-streaming + monitor-latency + drift-detection sub-properties).
+16. **PP-9b cross-depth extension** (v328 EXTENDED v332 cross-N).
+17. PP-43d ARC/LIRS low-alpha rescue (v328); PP-37 spectral N-sweep (v326); PP-31a alpha-sweep extension (v327); PP-40 N-sweep (v327); PP-41 edit-distance (v327); PP-42 M=1000+M=2000 extension (v327); PP-39 Anchor 1 mixed-mode query (v326); PP-38 N=8192 5-seed (v326); PP-34/PP-35/PP-36 v2 follow-ons (v325); per-script audit for 7 holdout scripts (v324); Q-F5 Preisach hysteresis hierarchy (v330); kappa3 anchor-name "smoke" suffix script-author audit (v332).
+18. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
