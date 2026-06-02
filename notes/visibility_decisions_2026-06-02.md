@@ -39,3 +39,15 @@ Hygiene sweep: 20 routing files moved to routed_completed/ (no cap_map mutation)
 - hippocampal_place_field_full_v1_n4096 HARD_PASS (mean_cosine=0.879 + spearman=0.879 + acc=1.000; PP-47 hippocampal place-field NEW top-level row at 🟢 0.55-0.70).
 
 Cap_map v332 -> v333; Portfolio 32+68 -> 32+69 (+1 top-level + 3 sub-properties + 1 extension + 1 LIFT + 1 caveat); HONEST 399 -> 406; LABEL-VS-HONEST 201 UNCHANGED. 244th PROT-009 paired commit. Push deferred to main thread.
+
+
+## 2026-06-02 verdict_handler v334 batch 6: WAVE 4 COMBO-2 ARCHITECTURE DECIDER HARD_PASS + Q-A3 N=8192 production-envelope HP + 4 supporting (4 HP + 2 MIDDLE)
+
+- combo2_p4_l3_signed_am_v1_n4096 HARD_PASS (l3_fid=1.0 + b_rep=1.0 + parity=0.0 unanimous 5-seed at N=4096): **WAVE 4 COMBO-2 ARCHITECTURE PATH UNLOCKED → +2 NEW TOP-LEVEL ROWS PP-48 Negative-Knowledge Tree + PP-49 Hierarchical-Refusal-Cert+Counterfactual-Abduction over forbidden subtrees**.
+- q_a3_l2_cross_layer_composition_v1_n8192 HARD_PASS (outer/inner/l2 fidelity all EXACT 1.0 unanimous 5-seed at N=8192): PP-12 cross-layer L=2 sub-property LIFT to production-N=8192.
+- brand_saturation_stability_v1 HARD_PASS (all 4 alpha cells {0.1, 0.2, 0.4, 0.8} acc=1.0): PP-44 streaming Brand-saturation-stability alpha-envelope sub-property NEW.
+- streaming_prediction_5_consolidation_v1 HARD_PASS (best T=100 hot=1.0/cold=0.057/diff=0.943; all 4 T-rounds HP): Wave 4 Streaming SP5 replay-free consolidation sub-property NEW.
+- f4_free_cumulants_m4_fixed_v1 MIDDLE_BAND (M3 + kappa_2 HP; M4 rel_err=0.066 +33% over HP, HF NOT triggered): annotation only; I-9 NEW.
+- kappa3_mixing_correction_completion_v1 MIDDLE_BAND (rho<=0.1 HP; rho>=0.2 NOT HP; 2/4 cells): annotation only; I-10 NEW.
+
+Cap_map v333 -> v334; Portfolio 32+69 -> 32+71 (+2 top-level rows PP-48 + PP-49); HONEST 406 -> 412 (+6); LABEL-VS-HONEST 201 UNCHANGED (0 new catches; pre-framing flagged + cleanly verified). Product-feature framework reliability 69-83% -> 71-85% (+2pp). 245th PROT-009 paired commit. Push deferred to main thread.

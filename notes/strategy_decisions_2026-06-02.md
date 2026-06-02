@@ -198,3 +198,39 @@ Hygiene sweep 2026-06-02: 20 acted-on routing files moved to notes/routed_comple
 **PROT compliance.** PROT-004/006/007/008/009/018/021 all clear; 244th PROT-009 paired commit; push BLOCKED from sub-agent context; main thread executes push.
 
 Research routing filed: notes/strategy_request_to_research_combo1_v3_redesign_2026-06-02.md (COMBO-1 v3 redesign: R1 theory-side HP3+HP4 formula audit cheapest-first; gates Wave 5 cell-5 cloud dispatch).
+
+
+## 2026-06-02 verdict_handler v334 BATCH 6 (Cycle 8 verdict pass): Wave 4 COMBO-2 ARCHITECTURE DECIDER + Q-A3 production-envelope + 4 supporting verdicts
+
+**Anchors processed (6):**
+1. combo2_p4_l3_signed_am_v1_n4096 — HARD_PASS (1.8s GPU; N=4096; 5-seed; FULL): l3_fid=1.0 + b_rep=1.0 + parity=0.0 all unanimous HP. **WAVE 4 COMBO-2 ARCHITECTURE DECIDER**.
+2. q_a3_l2_cross_layer_composition_v1_n8192 — HARD_PASS (55.3s GPU; N=8192; 5-seed; FULL): outer_fid=1.0 + inner_fid=1.0 + l2_acc=1.0 all unanimous HP at production-N.
+3. brand_saturation_stability_v1 — HARD_PASS (332.1s CPU; N=2048; 5-seed; FULL): 4-alpha sweep {0.1, 0.2, 0.4, 0.8} all acc=1.0 unanimous HP.
+4. streaming_prediction_5_consolidation_v1 — HARD_PASS (17.8s CPU; N=1024; 5-seed; FULL): all 4 T-rounds HP at best-T=100 hot/cold/diff = 1.0/0.057/0.943.
+5. f4_free_cumulants_m4_fixed_v1 — MIDDLE_BAND (1.05s CPU; N=1024; 5-seed; FULL): v1 IDENTITY FIX holds (kappa_2 + M3 HP); M4 rel_err=0.066 (+33% over HP, HF NOT triggered).
+6. kappa3_mixing_correction_completion_v1 — MIDDLE_BAND (0.78s CPU; N=1024; M=204; 5-seed; FULL): rho<=0.1 HP (0.011, 0.021); rho>=0.2 NOT HP (0.049, 0.093); 2/4 cells.
+
+**Step 0 honest re-read result:** 0 LABEL-VS-HONEST catches. All 6 anchors honest-as-labeled. Pre-framing (4.0s suspicious wall + 3.1s walls) verified via run_mode=full + 5-seed agreement + per-cell metric consistency. Pre-framing did NOT bias re-read.
+
+**Cap_map v333 -> v334 commit (this batch):**
+- **+2 NEW TOP-LEVEL ROWS**: PP-48 Negative-Knowledge Tree (algebraic non-contamination + tree-scope refusal) 🟢 0.65-0.80 EXPLORATORY; PP-49 Hierarchical Refusal Cert + Counterfactual Abduction over forbidden subtrees 🟢 0.65-0.80 EXPLORATORY.
+- **+2 NEW SUB-PROPERTIES**: PP-44 Brand-saturation-stability alpha-envelope [0.1, 0.8]; Wave 4 Streaming SP5 replay-free consolidation via aging-on-marginal-manifold.
+- **+1 SUB-PROPERTY LIFT**: PP-12 cross-layer L=2 production-N=8192 (v333 N=4096 → v334 N=8192).
+- **+2 MIDDLE annotations**: F4 M4 (M3+kappa_2 HP; M4 +33% over) + kappa3 mixing rho>=0.2 (2/4 cells HP).
+
+**Tallies:** HONEST 406 -> 412 (+6); LABEL-VS-HONEST 201 UNCHANGED; Portfolio 32+69 -> 32+71 (+2 top-level rows).
+
+**Framework reliability:** Product-feature 69-83% -> 71-85% (+2pp; PP-48 + PP-49 both product-feature rows). Specific-documented + general UNCHANGED.
+
+**Issues:** I-9 NEW (F4 M4 finite-N correction); I-10 NEW (kappa3 mixing higher-order term at rho>=0.2). Both filed for research-cycle routing.
+
+**Rescue sketches cheapest-first:**
+- F4 M4: R1 theory-side audit (0-compute) -> R2 N-scale ~5min CPU -> R3 5-seed N=4096 ~30min CPU -> R4 Hutchinson estimator alternative ~20min CPU -> R5 cloud N=32768 ~$5.
+- kappa3 mixing rho>=0.2: R1 theory-side higher-order correction audit (0-compute) -> R2 fine-grid rho-sweep ~5min CPU -> R3 alternative GP-kernel mixing model ~20min CPU -> R4 N-scale ~30min CPU -> R5 cloud N=32768 ~$5.
+
+**Pause-flag state:** ABSENT (verified d:/AI/hd-instrument/data/orchestrator_paused.flag does not exist). Pipeline-pacing exp_dev refill SKIPPED per sub-agent context — main-thread testbed-handoff cycle for Wave 5 cloud + Wave 4/5 follow-ons is the existing dispatch route.
+
+**Main-thread routing priorities (top 3 v334-new):** (1) PP-48 + PP-49 production-N cross-N {8192, 16384} 5-seed; (2) PP-48 cross-application probe to PP-9/PP-46/PP-12 chain; (3) PP-49 counterfactual abduction stress test at production-N. Full priority list in cap_map v334 footer.
+
+**245th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main`.
+
