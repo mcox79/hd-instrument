@@ -50,12 +50,21 @@ cd "$HP"
 git pull --ff-only || true
 pip install -q -e .
 
-# 5.5. Belt-and-suspenders: explicitly install transitive deps that
-# hyperprobe's pyproject.toml declares incompletely. Observed missing on
-# 2026-06-02 first dispatch: word2number (used in src/hyperprobe at import).
-# Other commonly-missing-from-research-repo deps: scikit-learn (already in
-# requirements_cloud); pytorch_lightning (pulled by hyperprobe).
-pip install -q "word2number>=1.1"
+# 5.5. Belt-and-suspenders: install transitive deps that hyperprobe's
+# pyproject.toml + requirements.txt BOTH miss but src/hyperprobe/ imports at
+# load time. Discovered via Dispatch 2 (word2number) + Dispatch 3
+# (sentence-transformers) + grep of all imports in src/hyperprobe/*.
+# tensorflow-datasets is omitted -- heavy install; bring-up smoke at step 5.6
+# will surface it if hyperprobe's __init__ chain actually needs it.
+pip install -q \
+  "word2number>=1.1" \
+  "sentence-transformers>=2.7" \
+  "wn>=0.9" \
+  "spacy>=3.7" \
+  "SPARQLWrapper>=2.0" \
+  "requests-cache>=1.1" \
+  "python-dotenv>=1.0" \
+  "torchhd>=5.7"
 
 # 5.6. Post-install hyperprobe import smoke. If hyperprobe can't import,
 # stop here -- every downstream anchor will fail with the same error.
