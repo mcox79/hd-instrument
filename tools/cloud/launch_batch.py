@@ -197,6 +197,32 @@ def _scp_from(ip: str, key: str | None, remote: str, local: Path) -> bool:
         return False
 
 
+def _scp_to(ip: str, key: str | None, local: Path, remote: str) -> bool:
+    """Upload a local file to ubuntu@ip:remote. Returns True on success.
+
+    Used by Phase 0.5 dispatch to seed .hf_token + bring-up script onto the
+    instance before the first anchor runs.
+    """
+    base = [
+        "scp",
+        "-o", "StrictHostKeyChecking=no",
+        "-o", "UserKnownHostsFile=/dev/null",
+        "-o", "ConnectTimeout=30",
+    ]
+    if key:
+        base.extend(["-i", key])
+    base.append(str(local))
+    base.append(f"ubuntu@{ip}:{remote}")
+    try:
+        proc = subprocess.run(base, capture_output=True, text=True, timeout=120)
+        if proc.returncode != 0:
+            print(f"  [scp_to] FAILED rc={proc.returncode} stderr={proc.stderr[:300]}")
+        return proc.returncode == 0
+    except Exception as e:
+        print(f"  [scp_to] EXC {e}")
+        return False
+
+
 def _scp_recursive_from(ip: str, key: str | None, remote: str, local: Path,
                         timeout_s: int = 300) -> tuple[bool, str]:
     """Recursively SCP a remote path (file or directory) to a local path.
@@ -496,6 +522,15 @@ def main() -> int:
                              "~rate * stuck_booting_max_s (e.g., $4.29/hr H100 "
                              "* 300s = $0.36 vs $1.07 at 900s default). "
                              "Default 300s (5 min).")
+    parser.add_argument("--upload-file", action="append", default=[],
+                        help="Repeatable: 'local_path:remote_path'. SCP'd to the "
+                             "instance after bootstrap, before first anchor. "
+                             "Use for secrets / config files that should NOT be "
+                             "in the git repo (e.g., .hf_token).")
+    parser.add_argument("--post-bootstrap-script", default=None,
+                        help="Path to a local bash script SCP'd to the instance "
+                             "after bootstrap and executed once before anchors. "
+                             "Receives HF_TOKEN via env if .hf_token uploaded.")
     args = parser.parse_args()
 
     batch_path = Path(args.batch)
@@ -697,6 +732,61 @@ def main() -> int:
     if not boot_ok:
         print(f"\n[ERROR] bootstrap failed; aborting")
         return 1
+
+    # Optional post-bootstrap upload + script (Phase 0.5 HF token + bring-up).
+    if args.upload_file:
+        print(f"\n[2.5/3] Uploading {len(args.upload_file)} file(s) post-bootstrap...")
+        for spec in args.upload_file:
+            if ":" not in spec:
+                print(f"  [WARN] --upload-file '{spec}' missing ':'; skipping")
+                continue
+            local_path, remote_path = spec.split(":", 1)
+            local_p = Path(local_path)
+            if not local_p.is_absolute():
+                local_p = _REPO_ROOT / local_p
+            if not local_p.exists():
+                print(f"  [ERROR] local file not found: {local_p}")
+                return 1
+            print(f"  scp {local_p.name} -> ubuntu@{ip}:{remote_path}")
+            if not _scp_to(ip, args.ssh_key_path, local_p, remote_path):
+                print(f"  [ERROR] upload failed for {local_p}")
+                return 1
+
+    if args.post_bootstrap_script:
+        script_local = Path(args.post_bootstrap_script)
+        if not script_local.is_absolute():
+            script_local = _REPO_ROOT / script_local
+        if not script_local.exists():
+            print(f"[ERROR] post-bootstrap script not found: {script_local}")
+            return 1
+        remote_script = f"/home/ubuntu/{script_local.name}"
+        print(f"\n[2.75/3] Post-bootstrap script: {script_local.name}")
+        print(f"  scp {script_local.name} -> ubuntu@{ip}:{remote_script}")
+        if not _scp_to(ip, args.ssh_key_path, script_local, remote_script):
+            print(f"  [ERROR] post-bootstrap script upload failed")
+            return 1
+        # Source .hf_token to export HF_TOKEN before script runs (if uploaded).
+        post_cmd = (
+            f"chmod +x {remote_script}; "
+            f"if [ -f ~/hd-instrument/.hf_token ]; then "
+            f"  export HF_TOKEN=$(cat ~/hd-instrument/.hf_token); "
+            f"fi; "
+            f"bash {remote_script}"
+        )
+        try:
+            rc, out, err = _ssh_run(ip, args.ssh_key_path, post_cmd, timeout_s=1800)
+            _safe_out = (out[-3000:] or "").encode("ascii", errors="replace").decode("ascii")
+            _safe_err = (err[-1500:] or "").encode("ascii", errors="replace").decode("ascii")
+            print(_safe_out)
+            if err:
+                print(f"---- post-bootstrap stderr ----\n{_safe_err}")
+            print(f"---- post-bootstrap exit: {rc} ----")
+            if rc != 0:
+                print(f"\n[ERROR] post-bootstrap script exit rc={rc}; aborting")
+                return 1
+        except Exception as e:
+            print(f"[ERROR] post-bootstrap script failed: {e}")
+            return 1
 
     print(f"\n[3/3] Dispatching {len(batch)} experiments sequentially...")
     rcs: list[tuple[str, int, Path | None]] = []
