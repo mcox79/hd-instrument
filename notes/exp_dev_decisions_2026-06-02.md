@@ -72,3 +72,4 @@ in _seed_checkpoint.py, or add a per-experiment config_hash field.
 ---
 
 Generated: 2026-06-02
+exp_dev cycle 3: shipped 11 anchors (1 kappa3 fix + 10 new) to remote_cpu_queue. Root cause of kappa3_hutchinson_v1 timeout: Python for-loop over n_probes=5000 x 3 O(N^2) sequential ops at N=4096; fixed by vectorized batch DGEMM in v2 (100x speedup, 6.3s smoke vs 1800s timeout). Walk-back gate on lru_decay_kendall_v1 (tau=0.882 at smoke, within 20% of HP=0.90, FULL uses 5 seeds). All 11 remote-verified via queue_add.sh exit-0 + VERIFIED log lines.
