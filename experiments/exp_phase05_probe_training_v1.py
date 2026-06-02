@@ -155,40 +155,56 @@ def main():
         )
     hf_login(token=tok, add_to_git_credential=False)
 
-    # Step 3: load datasets
+    # Step 3: load analogy dataset (the parseable one). SQuAD's schema is
+    # title/doc/answers/question_features/answer_features -- different shape,
+    # doesn't fit hyperprobe's create_vsa_encodings(item, concepts=[(s,o),...])
+    # API without additional engineering. Analogy alone has 395k train /
+    # 114k test rows -- plenty for MVP encoder training.
     print(f"  loading {ANALOGY_DATASET} ...", flush=True)
     analogy_ds = load_dataset(ANALOGY_DATASET, token=tok)
-    print(f"  loading {SQUAD_DATASET} ...", flush=True)
-    squad_ds = load_dataset(SQUAD_DATASET, token=tok)
-    print(f"  analogy splits: {list(analogy_ds.keys())}; "
-          f"squad splits: {list(squad_ds.keys())}", flush=True)
+    print(f"  analogy splits: {list(analogy_ds.keys())} "
+          f"columns={analogy_ds['train'].column_names}", flush=True)
 
-    # Step 4: build training inputs (analogy + SQuAD train); paper used both
-    # corpora; we follow that. Inputs are dicts {'doc': str, 'concepts': [(s,o)]}.
-    # The exact field names depend on dataset schemas -- adapt below if upstream
-    # schema changes (paper's repo uses 'doc' + 'concepts' uniformly).
+    # Step 4: parse analogy "A : B = C : D" docs into concept pairs.
+    # Example row: doc=' 10 : 1 = 100 : 10' -> concepts=[('10','1'), ('100','10')]
+    def _parse_analogy(doc):
+        s = (doc or "").strip()
+        if "=" not in s or ":" not in s:
+            return None
+        parts = s.split("=")
+        if len(parts) != 2:
+            return None
+        pairs = []
+        for part in parts:
+            sub = part.strip().split(":")
+            if len(sub) == 2:
+                a = sub[0].strip()
+                b = sub[1].strip()
+                if a and b:
+                    pairs.append((a, b))
+        return pairs if len(pairs) >= 2 else None
+
+    # Cap full-mode inputs to keep wall under 1h. 5000 inputs * 60 epochs is
+    # still 300k gradient steps, more than enough for the encoder to converge.
+    MAX_INPUTS_FULL = 5000
+    MAX_INPUTS_SMOKE = 200
+    target_n = MAX_INPUTS_FULL if run_mode == "full" else MAX_INPUTS_SMOKE
+
     train_inputs = []
-    for split_name in ["train"]:
-        if split_name in analogy_ds:
-            for row in analogy_ds[split_name]:
-                # Tolerate either 'doc'/'concepts' or 'text'/'pairs' upstream naming
-                doc = row.get("doc") or row.get("text") or row.get("input")
-                concepts = row.get("concepts") or row.get("pairs") or row.get("key_value")
-                if doc and concepts:
-                    train_inputs.append({"doc": doc, "concepts": concepts})
-        if split_name in squad_ds:
-            for row in squad_ds[split_name]:
-                doc = row.get("doc") or row.get("question") or row.get("text")
-                concepts = row.get("concepts") or row.get("pairs") or row.get("key_value")
-                if doc and concepts:
-                    train_inputs.append({"doc": doc, "concepts": concepts})
-    if run_mode != "full":
-        train_inputs = train_inputs[:200]
-    print(f"  training inputs: {len(train_inputs)}", flush=True)
+    for row in analogy_ds["train"]:
+        concepts = _parse_analogy(row["doc"])
+        if concepts is None:
+            continue
+        train_inputs.append({"doc": row["doc"], "concepts": concepts})
+        if len(train_inputs) >= target_n:
+            break
+    print(f"  training inputs after parse: {len(train_inputs)} "
+          f"(target {target_n})", flush=True)
     if len(train_inputs) < 50:
         raise RuntimeError(
-            f"Too few training inputs ({len(train_inputs)}); dataset schema may have "
-            f"changed. Inspect analogy_ds / squad_ds row keys."
+            f"Too few training inputs ({len(train_inputs)}) parsed from analogy; "
+            f"check 'A : B = C : D' format -- first row doc: "
+            f"{analogy_ds['train'][0]['doc']!r}"
         )
 
     # Step 5: codebook from training-set concepts

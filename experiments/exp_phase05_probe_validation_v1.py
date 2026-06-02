@@ -65,7 +65,26 @@ VSA_DIMENSION = 4096
 # Training-anchor outputs we depend on
 PROBE_CKPT_REL = "data/exp_phase05_probe_training_v1/probe_ckpt.ckpt"
 CODEBOOK_REL = "data/exp_phase05_probe_training_v1/codebook.json"
-SQUAD_DATASET = "saturnMars/hyperprobe-dataset-squad"
+ANALOGY_DATASET = "saturnMars/hyperprobe-dataset-analogy"
+
+
+def _parse_analogy(doc):
+    """Parse 'A : B = C : D' style strings into [(A,B), (C,D)]."""
+    s = (doc or "").strip()
+    if "=" not in s or ":" not in s:
+        return None
+    parts = s.split("=")
+    if len(parts) != 2:
+        return None
+    pairs = []
+    for part in parts:
+        sub = part.strip().split(":")
+        if len(sub) == 2:
+            a = sub[0].strip()
+            b = sub[1].strip()
+            if a and b:
+                pairs.append((a, b))
+    return pairs if len(pairs) >= 2 else None
 
 
 def _load_hf_token() -> str:
@@ -160,27 +179,38 @@ def main():
     llm = hyperprobe.load_llm(model_name=LLM_MODEL_ID)
     print(f"  LLM loaded: {LLM_MODEL_ID}", flush=True)
 
-    # Held-out validation set: SQuAD test split (NOT seen during training)
-    squad_ds = load_dataset(SQUAD_DATASET, token=tok)
-    if "test" in squad_ds:
-        held_out = squad_ds["test"]
-    elif "validation" in squad_ds:
-        held_out = squad_ds["validation"]
+    # Held-out validation set: analogy TEST split (114k rows, not seen during
+    # training which uses TRAIN split). Same 'A : B = C : D' parser as training.
+    analogy_ds = load_dataset(ANALOGY_DATASET, token=tok)
+    if "test" in analogy_ds:
+        held_out_raw = analogy_ds["test"]
+    elif "validation" in analogy_ds:
+        held_out_raw = analogy_ds["validation"]
     else:
-        raise RuntimeError(f"No test/validation split found in {SQUAD_DATASET}; "
-                           f"splits: {list(squad_ds.keys())}")
-    held_out = held_out.select(range(min(n_val, len(held_out))))
-    print(f"  validation prompts: {len(held_out)}", flush=True)
+        raise RuntimeError(f"No test/validation split in {ANALOGY_DATASET}; "
+                           f"splits: {list(analogy_ds.keys())}")
+    # Build parsed-items list of n_val
+    held_out = []
+    for row in held_out_raw:
+        concepts = _parse_analogy(row["doc"])
+        if concepts is None:
+            continue
+        held_out.append({"doc": row["doc"], "concepts": concepts})
+        if len(held_out) >= n_val:
+            break
+    print(f"  validation prompts (parsed): {len(held_out)} / target {n_val}",
+          flush=True)
+    if len(held_out) < min(10, n_val):
+        raise RuntimeError(
+            f"Too few parsed validation prompts ({len(held_out)})."
+        )
 
-    # For each held-out item: encoder(LLM(doc)) vs create_vsa_encodings(concepts)
     cos_vals = []
     bin_accs = []
     import torch
-    for i, row in enumerate(held_out):
-        doc = row.get("doc") or row.get("question") or row.get("text")
-        concepts = row.get("concepts") or row.get("pairs") or row.get("key_value")
-        if not doc or not concepts:
-            continue
+    for i, item in enumerate(held_out):
+        doc = item["doc"]
+        concepts = item["concepts"]
         # Get LLM embedding (sum-pooled per paper)
         emb_dict, *_ = hyperprobe.ingest_embeddings(
             docs=[doc], model_name=LLM_MODEL_ID, k_clusters=1, llm=llm,
