@@ -759,3 +759,110 @@ Main-thread routing candidates (highest -> lowest priority; v339 carryovers RETA
 17. **F4 M4 I-9 v3 N=8192** + **kappa3 I-10 v3 fine rho-grid** (v336 PARTIAL-RESOLVED carry-forwards).
 18. **PP-47 hippocampal cross-N N=16384** (v333 carry-forward).
 19. **I-11 Wishart/MP routing** + **I-7 orphan failures** + **Q-F series + graph_community + program_exec + caching + PP-43b + I-6** (v330-v335 carry-forwards).
+
+## v340 -> v341 @ BATCHED 8-VERDICT CPU+GPU Cycle 12 (4 HARD_PASS + 3 HARD_FAIL + 1 MIDDLE_BAND; 0 LABEL-VS-HONEST catches; NEW SUB-PROPERTIES: PP-52 3-cap-integrated pipeline + PP-52 A4 audit-during-training FULL + PP-47xPP-9 deletion-cert composition HARD_PASS + PP-43 LFU+ARC Tier-0 N=8192 + PP-49 HRC depth-8 N=4096; I-12 v2 corroboration HF; I-14 math-failure-at-N8192 updated; verdict_handler 252nd PROT-009 paired commit; Cycle 12)
+
+| # | Anchor | Wall | N | Seeds | Verdict | Honest re-read | Cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | a5_cert_grade_training_with_rollback_v1 | 178.2s CPU | 1024 | 5 | HARD_PASS | HONEST HP: all 5 seeds hp1=hp2=hp3=true; rollback_err=0.0 (HP<1e-10); clean_acc=1.0 (HP>=0.95); latency=1 write; 5/5 unanimous | PP-52 NEW SUB-PROPERTY: 3-cap integrated pipeline (audit+rollback+retention) CONFIRMED N=1024 5-seed unanimous; PP-52 row STRENGTHENED (3rd sub-property; production-N cross-N still required for band-LIFT) |
+| 2 | pp47_pp49_counterfactual_abduction_composition_v1 | 103.6s CPU | 4096 | 7 | HARD_FAIL | HONEST HF: hp1=0/7 (baseline_cos 0.656-0.716 all below HP>=0.85); hp2=6/7 (cf_cos PASS); hp3=0/7 (consistency below HP>=0.85); only 1/3 HP met; HP1 baseline retrieval is primary blocker | Phase 0 composition PP-47xPP-49 counterfactual-abduction HARD_FAIL; R1-R5 rescue sketches filed; baseline_cos gap (-0.13 to -0.19 below HP=0.85) indicates PP-47 alpha=0.012 config insufficient for HP1 baseline |
+| 3 | pp47_pp9_deletion_cert_composition_v2_reduced_K_v1 | 18.4s CPU | 4096 | 7 | HARD_PASS | HONEST HP: all 5 conditions 7/7 seeds; cert_err=0.0; field_red=1.0; k3_rel<0.004; rho_delta<0.024; all HP bands cleared | Phase 0 composition PP-47xPP-9 deletion-cert v2 HARD_PASS confirmed; NEW SUB-PROPERTY added to composition row |
+| 4 | caching_lfu_lru_arc_tier0_unified_n8192_v1 | 3134.9s CPU | 8192 | 5 | MIDDLE_BAND | HONEST MIDDLE: rho_lfu=0.972 (5/5 HP>=0.60); rho_lru=0.573 (1/5 HP -- MIDDLE avg); rho_arc=0.825 (5/5 HP); 2/3 policies HP; LRU MIDDLE territory (not HF since avg>0.20) | PP-43 Tier-0 unified N=8192 NEW SUB-PROPERTY: LFU+ARC confirmed HP, LRU MIDDLE; I-13 eviction-stress issue REMAINS OPEN (separate anchor) |
+| 5 | kappa3_sensitivity_sweep_n16384_v2_seed_diversity_v1 | 3.2s GPU | 16384 | 10 | HARD_FAIL | HONEST HF: mean_min_sigma_sep=0.3274 (HF<2.0 = 6.1x below HF threshold); v2 seed-diversity did NOT resolve I-12; v1=0.3219 v2=0.3274 both catastrophically below HP=4.0 | I-12 UPDATED: 2nd HARD_FAIL corroboration; seed diversity NOT the cause; config-delta audit vs v335 Wave 5 Cell 2 Part B MANDATORY before further GPU spend; PP-50 CAVEAT updated |
+| 6 | pp49_hrc_counterfactual_depth_8_v1_n4096 | 2.7s GPU | 4096 | 5 | HARD_PASS | HONEST HP: all 4 HP at depth-8; hp1_cert_rate=1.0; cf_cos=1.0; hp3_audit_rate=1.0; ds_cos=1.0; all 5 seeds unanimous EXACT-1.0 | PP-49 HRC depth-8 N=4096 NEW SUB-PROPERTY confirmed; PARTIAL resolution of I-15 (depth-8 back-off works; depth-10 crash still undiagnosed); I-15 annotation updated |
+| 7 | combo1_p3_dam_implicit_gram_v3_n8192_vram_friendly_v1 | 5.4s GPU | 8192 | 5 | HARD_FAIL | HONEST HF: MMD=0.9501 (HF>=0.10 = 9.5x); kappa3_resc=11.017 (HP|k-1|<=0.05 = 200x off); slope=2.090 (HP<=1.3 = 1.6x off); cos=1.0000 (PASS); only 1/4 HP; VRAM-friendly fix did NOT resolve N=8192 failure | I-14 UPDATED: VRAM-friendly ALSO FAILS; math failure confirmed at N=8192 implicit-Gram overcomplete alpha=2.0 regime; PP-51 LOCAL-N ceiling at N=8192 confirmed; cloud dispatch NOT authorized until R2 theory-audit |
+| 8 | a4_audit_during_training_v2_longer_timeout_v1 | 341.2s CPU | 1024 | 5 | HARD_PASS | HONEST HP: hp1=5/5 (detected=true); hp2=5/5 (latency=1 write); hp3=4/5 (fpr=0.010 mean; seed17 fpr=0.05 boundary hp3=false); >=4/5 gate MET for all 3 HP | PP-52 NEW SUB-PROPERTY: A4 audit-during-training FULL confirmed N=1024 5-seed; ROUTING ITEM #12 RESOLVED |
+
+**Rescue sketches for HARD_FAIL anchors (PROT-004/006 -- 3-5 axis-combination rescues, cheapest first).**
+
+For **PP-47xPP-49 counterfactual abduction HARD_FAIL** (primary: baseline_cos 0.656-0.716 below HP=0.85):
+- R1 (0-compute, applied) ANNOTATION-only: HP1 baseline gap -0.13 to -0.19 below threshold; alpha=0.012 (K=50, N=4096) regime may be too sparse for reliable retrieval of PP-47 spatial place-field patterns.
+- R2 (~10min CPU) Increase K from 50 to 100-150 (alpha 0.024-0.037 at N=4096); retest baseline_cos with same 7-seed protocol; if HP1 recovers, alpha was the gap.
+- R3 (~10min CPU) Replace PP-47 spatial construction with uniform random patterns for HP1 baseline only; if HP1 passes, indicates PP-47 place-field overlap degrades baseline cosine not alpha.
+- R4 (~15min CPU) Test at N=8192 same K=50 (alpha=0.006 lower-loading); if HP1 passes, confirms loading-vs-N scaling issue.
+- R5 (parking) Carry-over; PP-47 baseline-cosine protocol separate from PP-49 counterfactual mechanism.
+
+For **I-12 kappa3 N=16384 v2 HARD_FAIL** (2nd confirmation; seed diversity NOT the cause):
+- R1 (0-compute, applied) ANNOTATION-only: v1+v2 both HARD_FAIL 0.32-0.33; independent of seed diversity; config is the gap.
+- R2 (~5min review) Side-by-side audit of exp_kappa3_sensitivity_sweep_n16384_v2 config vs v335 Wave 5 Cell 2 Part B EXACT (delta_alpha, M, alpha, sweep grid).
+- R3 (~10min GPU) Re-run at N=16384 with EXACT v335 Wave 5 Cell 2 config params; verify sigma_sep recovers.
+- R4 (~15min GPU) If R3 recovers, test N=8192 same params for N-scaling curve.
+- R5 (parking) PP-50 CAVEAT maintained; I-12 carries forward until R2/R3 resolve.
+
+For **I-14 combo1 v3 N=8192 vram-friendly HARD_FAIL** (math failure beyond VRAM):
+- R1 (0-compute, applied) ANNOTATION-only: MMD=0.95 and kappa3_resc=11 at N=8192 are NOT VRAM artifacts; implicit-Gram under overcomplete alpha=2.0 (M>>N) produces pathological Gram statistics.
+- R2 (~10min theory) Audit implicit-Gram formula scaling: at N=8192 M=16384, alpha=2.0; kappa3_resc=11 suggests Gram collapse under overcompleteness; verify whether Tr(G^3)/M diverges when M>N.
+- R3 (~10min GPU) Test at N=8192 M=N=8192 (alpha=1.0); if kappa3_resc returns ~1.0, confirms alpha>1 as failure mode.
+- R4 (~10min GPU) If R3 resolves, run N=8192 M=N*1.5 (alpha=1.5) to find HP alpha upper bound.
+- R5 (parking) PP-51 band 0.70-0.85 MAINTAINED; cloud spec should use alpha<=1.0 pending R2-R4.
+
+**Composition boundaries opened by this batch:**
+- **PP-47xPP-49 counterfactual abduction** (HP1 baseline failure): cert mechanism (I-16) still open; baseline retrieval gap is SEPARATE issue (alpha/N loading).
+- **PP-51 implicit-Gram N=8192** (I-14 UPDATED): not VRAM -- math failure under overcomplete regime; alpha tuning rescue path filed.
+
+### Tallies (v340 -> v341)
+
+- **HONEST:** 451 -> **459** (+8: 4 HP + 3 HF + 1 MIDDLE; 0 label-vs-honest catches).
+- **LABEL-VS-HONEST:** 206 UNCHANGED (0 catches this batch).
+- **Portfolio:** 32+74 UNCHANGED. Sub-properties: 5 NEW (PP-52 3-cap-integrated + PP-52 A4-full + PP-47xPP-9 deletion-cert composition + PP-43 LFU+ARC Tier-0 + PP-49 HRC depth-8). 0 NEW ISSUES (I-12 and I-14 UPDATED). 0 TOP-LEVEL ROWS. 0 BAND-LIFTS.
+- **Cap_map version: v341.**
+
+### Framework reliability (v341)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+- Product-feature: 78-92% UNCHANGED.
+
+### Known infrastructure issues (annotation block; UPDATED in v341)
+
+All v340 issues (I-1 through I-17) CARRY FORWARD UNCHANGED except:
+**Issue I-12 (UPDATED v341).** kappa3 sigma_sep N=16384 collapse CONFIRMED by 2 independent HARD_FAILs (v1: 0.3219; v2 seed-diversity: 0.3274). Seed diversity NOT the cause. R2 config-delta audit vs v335 Wave 5 Cell 2 Part B is MANDATORY before further kappa3 GPU spend.
+**Issue I-14 (UPDATED v341).** combo1_p3_dam_implicit_gram_v3 N=8192 VRAM-friendly rescue ALSO FAILS (MMD=0.9501, kappa3_resc=11.02). Math failure at N=8192 implicit-Gram under overcomplete alpha=2.0 regime. Cloud N=8192 dispatch NOT authorized until R2 theory-audit complete.
+
+### PROT compliance (v340 -> v341)
+
+- PROT-004/006: NO row closures. 0 NEW TOP-LEVEL ROWS. 0 BAND-LIFTS. 5 NEW SUB-PROPERTIES. 0 NEW ISSUES (2 UPDATED). HF/MIDDLE candidates kept OPEN with R1-R5 rescue sketches cheapest-first.
+- PROT-007: history v341 inline.
+- PROT-008: 5 sub-properties + 2 issue updates; no portfolio regression; all transitions validated vs per-cell metrics and pre-registered bands.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md (this entry) + status_log staged atomically. **252nd PROT-009 paired commit.**
+- PROT-018: all 8 anchors clear (6 explicit _n<N> suffix matches; a5/a4 exempt per Cluster A convention).
+- PROT-021: all 8 anchors _source=remote run_mode=full multi-seed; no smoke artifacts.
+- PROT-022: I-14 R2 theory-audit mandated before reship; no new formula-selftest issues opened.
+
+**Memory adherence.**
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied all 8; 0 label-vs-honest catches; all 8 labels honest as-labeled.
+- [[feedback-no-preframing]]: 0 task-prompt pre-framing catches.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry HIGH importance filed.
+- [[feedback-decision-log-eol-handling]]: appended via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED; commit hash surfaced.
+- [[feedback-rescue-sketch-first-sequencing]]: R1 0-compute annotation FIRST for all HF/MIDDLE rescues.
+- [[feedback-rehabilitation-after-rejection]]: PP-47xPP-49 HF + I-12 v2 HF + I-14 VRAM-fix HF all get R1-R5 before closure.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT; queue state checked; exp_dev dispatch evaluated (Step 2).
+
+**Push and follow-on (v341).**
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v340 carryovers RETAINED + v341 additions):
+
+1. **I-12 kappa3 config-delta R2 audit** (ELEVATED v341; v2 seed-diversity confirms not seed issue; side-by-side vs v335 Wave 5 Cell 2 Part B EXACT mandatory).
+2. **I-14 implicit-Gram N=8192 R2 theory-audit** (ELEVATED v341; VRAM-friendly ALSO fails; math failure at overcomplete alpha=2.0; theory-audit before GPU reship).
+3. **PP-47xPP-49 counterfactual abduction R2** (NEW v341; K-increase to 100-150 to raise baseline_cos; CPU quick probe).
+4. **I-17 COMBO-3 PP-51 cert-path structural divergence** (v340 carry-forward; R2 theory cert-formula audit).
+5. **I-16 PP-49 HRC counterfactual depth-5 script audit** (v340 carry-forward; depth-8 HP anchors the boundary map).
+6. **I-15 pp49_hrc_counterfactual_depth_10 N=4096 diagnosis** (v340 carry-forward; depth-8 HP provides lower bound; depth-10 crash undiagnosed).
+7. **PP-52 production-N cross-N {4096, 8192, 16384} 5-seed** (v340 carry-forward; band-LIFT eligibility; CPU OK).
+8. **Wave 5 Cell 5 CLOUD N=32768 dispatch** (v340 carry-forward; ~$5-10).
+9. **PP-48 + PP-49 cloud combo2-direct N=32768** (v338-v341 carry-forward; BAND-LIFT to 0.75-0.90 eligible after cloud HP).
+10. **Q-A3 L=7 N=4096 dispatch** (v340 carry-forward; L=6 ceiling not reached).
+11. **PP-48 NKT depth-9/depth-10 dispatch** (v340 carry-forward; depth-7 ceiling not reached).
+12. **Q-B1 depth-25/depth-30 dispatch** (v340 carry-forward; depth-20 ceiling not reached).
+13. **I-13 caching v2 capacity-stress fix** (v340 carry-forward; LFU+ARC Tier-0 HP does not resolve I-13 eviction design issue).
+14. **a3 timing-budget rescue R2** (v340 carry-forward).
+15. **combo1 alpha^(p-1) slope rescue R2** (v340 carry-forward).
+16. **COMBO-4 v2 mu-aging rescue R5** (v338 carry-forward).
+17. **F4 M4 I-9 v3 N=8192** + **kappa3 I-10 v3 fine rho-grid** (v336 PARTIAL-RESOLVED carry-forwards).
+18. **PP-47 hippocampal cross-N N=16384** (v333 carry-forward).
+19. **I-11 Wishart/MP routing** + **I-7 orphan failures** + **Q-F series + graph_community + program_exec + caching + PP-43b + I-6** (v330-v335 carry-forwards).
