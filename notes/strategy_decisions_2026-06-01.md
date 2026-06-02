@@ -967,3 +967,66 @@ Hygiene sweep 2026-06-01: moved 25 acted-on routing files to notes/routed_comple
 v324 -> v325 verdict_handler 236th PROT-009 paired commit: BATCHED 7-VERDICT (6 GENUINE FULL HARD_PASS + 1 TIMEOUT) overnight CPU cycle 1; 0 LABEL-VS-HONEST catches; 3 NEW EXPLORATORY ROWS (PP-34 governance-cert 0.65-0.80 + PP-35 substrate-graph-retrieval 0.60-0.75 + PP-36 auditable-program-exec 0.65-0.80); 2 sub-property LIFTs (PP-9 Q16-PRESSURE + PP-33 NR-REPLAY); 1 row-band LIFT (substrate-native-query-API 0.65-0.80 -> 0.70-0.85 via PP-33c matrix-trace EMPIRICAL VALIDATED); spectral_zstat_v1 TIMEOUT root cause = wall-time underestimate (M=500 vs smoke M=200; Z-stat math confirmed working from remote log seed=7 cell_a linear Z-progression k=0->k=200); I-2 annotated; rescue R1-R5 filed; framework-reliability product-feature 55-70% -> 58-72%; HONEST 350->356 (+6); LABEL-VS-HONEST 197 UNCHANGED; portfolio 32+55 -> 32+58 (+3); 0 row closures. Pause-flag ABSENT verified; verdict_handler does NOT auto-dispatch exp_dev (autonomous overnight cycle 1 framing; orchestrator main thread holds dispatch authority for spectral_zstat re-ship + 6 follow-on production-N anchors). Push BLOCKED from sub-agent context.
 
 - 2026-06-02 v326 verdict_handler 3-verdict overnight cycle 2 batch (1 RESCUE-SUCCESS + 2 GENUINE FULL HARD_PASS at production N): spectral_zstat_v2 (CPU 234.87s; v325 I-2 RESOLVED; Spearman=0.949 crossing=5/5; BUT median_k3=5 vs theory=48 = 10x empirical-vs-theory sensitivity multiplier surfaced -- EMPIRICAL ANOMALY + PP-33d sub-candidate DEFERRED) + hippocampal_basin_fullscale_v2_n4096 (GPU 1014s 10-seed ALPHA(10)xRHO(14)xABLATION(9) grid; mean_pearson_a=0.979 mean_pearson_ablation=0.903; Treves-Rolls basin-radius + engram-ablation BOTH quantitatively confirmed at substrate) + neural_sym_fullscale_v2_n8192 (GPU 6527s = 109min 5-seed F up to 2048 K_RULES=20 N=8192; acc@N/8=0.977 acc@N/4=0.973 del_P=0.027 HP1+HP3 BOTH confirmed at production scope). Step 0 honest re-read CONFIRMED 0 LABEL-VS-HONEST catches (all 3 labels match per-cell pre-reg HP thresholds; 10x spectral-sensitivity is FRAMEWORK NOTE not over-claim -- label honestly reports median_k3=5 vs theory=48.0). 3 NEW TOP-LEVEL EXPLORATORY ROWS: PP-37 spectral-AI-introspection-sidecar 0.60-0.75 (third-party algebraic auditor product; differentiators vs EigenTrack/SIGMA; 10x sensitivity finding is a strength for the product story but framework-note on free-prob/TW applicability); PP-38 hippocampal-phenomena-quantitative-match 0.65-0.80 (Treves-Rolls basin + ablation BOTH at substrate; 10-seed bootstrap; substrate-as-validated-artificial-hippocampus product angle); PP-39 substrate-native-neural-symbolic-bridge 0.65-0.80 (PIPELINE-class composition HP1+HP3 at N=8192; differentiator vs DeepProbLog/LTN/NSCL/LNN -- no other neural-symbolic system implements direct attractor removal at storage level). PP-33d candidate sub-property noted but DEFERRED (10x empirical-vs-theory spectral sensitivity = substrate spectral concentration is non-asymptotic-BBP; N-sweep characterization required first). HONEST 356->359 +3; LABEL-VS-HONEST 197 UNCHANGED; Portfolio 32+58 -> 32+61. spectral_zstat rescue confirms v325 R3 path (timeout 300s -> 1800s + vectorized dups.T@dups/N) worked end-to-end; I-2 CLOSED-RESOLVED. Cap_map version v325 -> v326; pause-flag ABSENT verified; pipeline-pacing exp_dev refill DEFERRED to main thread (autonomous overnight cycle 2 framing); 237th PROT-009 paired commit; HIGH importance.
+
+
+## v326 -> v327 @ BATCHED 5-VERDICT (4 GENUINE FULL HARD_PASS + 1 TIMEOUT DESIGN_FAULT) overnight autonomous CPU cycle 3 -- PP-31a SUB-PROPERTY LIFT + 3 NEW EXPLORATORY ROWS PP-40/41/42 + kappa3 R2 rescue spec filed (verdict_handler 238th PROT-009 paired commit; autonomous overnight cycle 3)
+
+**Trigger.** 5-verdict cycle-3 batch (5 CPU): conformal_reject_option_v1 (1.48s), effective_rank_sweep_v1 (8.74s), frobenius_symdiff_verify_v1 (13.87s), implicit_gram_solve_v1 (836s), kappa3_hutchinson_v1 (TIMEOUT 1800s exact).
+
+### Step 0 -- honest re-read (MANDATORY; [[feedback-verdict-msg-honest-reread]])
+
+All 5 anchors fetched via remote bridge. 4/5 returned `_source=remote` authoritative. kappa3_hutchinson_v1 returned `_source=local` (smoke fallback) which is EXPECTED for a TIMEOUT -- no remote artifact written, real timeout, not contamination.
+
+**conformal_reject_option_v1 HONEST CHECK (task input pre-framed 3.5s as "suspiciously fast; honest re-read MANDATORY"):** Remote elapsed_s=1.48s. Verdict_msg label "PP-31 distribution-free coverage confirmed; frac_pass=1.00 all 3 alphas; mean_gap=+0.013; tau OK". Per-cell: ALPHA=0.05 frac_pass=1.00 mean_cov=0.959; ALPHA=0.10 frac_pass=1.00 mean_cov=0.911; ALPHA=0.20 frac_pass=1.00 mean_cov=0.820; tau_cp in [0.78,0.79]. Prereg HP: frac_pass>=0.80 AND tau in [0.01,0.99] AND mean_gap in [-0.05,+0.20]. **Verified per-cell: all 3 alphas exceed frac_pass threshold, tau in valid range, mean_gap=+0.013 well within band.** Conformal prediction is split-quantile arithmetic on N_CALIB=200 per (alpha, seed) -- 15 such calibrations total -- legitimate sub-second compute. The pre-framing concern was a healthy guard rail but the per-cell read CONFIRMED honest. **0 LABEL-VS-HONEST catch.**
+
+**effective_rank_sweep_v1 HONEST CHECK:** Remote elapsed_s=8.74s. Per-cell: M=[10,20,50,100,200,500,1000] frac_monotone=1.00; below-cap mean_ratio=0.942. Prereg HP: frac_monotone>=0.80 AND mean_r_eff/M>=0.50. **Verified per-cell honest.** 0 LABEL-VS-HONEST catch.
+
+**frobenius_symdiff_verify_v1 HONEST CHECK:** Remote elapsed_s=13.87s. Per-cell: 7 configs (disjoint + partial-overlap + asymmetric) 7/7 passes_hp=true; mean_rel_err=0.001; max_rel_err=0.007. Prereg HP: rel_err<5% for >=4/5 configs. **Verified per-cell honest (exceeded 5-config prereg with 7-config full).** 0 LABEL-VS-HONEST catch.
+
+**implicit_gram_solve_v1 HONEST CHECK:** Remote elapsed_s=836.5s. Per-cell: M=[50,100,200,500] all min_delta=+0.000 mean_hop=0.999 mean_gram=1.000; mem_ratio=0.00015-0.0149. Prereg HP: min_delta>=-0.05 AND mem_ratio<0.10. **Verified per-cell honest.** 0 LABEL-VS-HONEST catch.
+
+**kappa3_hutchinson_v1 HONEST CHECK:** Remote bridge returned local-fallback (smoke artifact unchanged). Task input: wall=1800s EXACT = timeout hit. Honest verdict: **TIMEOUT (DESIGN_FAULT class, not label-vs-honest)**. Root cause identified from script source review: lines 110-128 non-vectorized inner loop -- per-probe sequential matvec sequences (Wv, WWv, WWWv) inside Python `for i in range(n_probes)`. Production scope = 5 seeds x M=[50,100,200,500] x N_PROBES=5000 x 2 (Hopfield+GOE) = 200,000 N=4096 N x N matvec sequences in Python loop. Identical pattern to v325 spectral_zstat_v1 I-2 (RESOLVED v326 via R3 rescue). Pattern-match R2 rescue spec filed.
+
+**HONEST tally update: 4 NEW HONEST PASSes (conformal, effective_rank, frobenius, implicit_gram); kappa3 is rescue-candidate not honest-PASS; 0 LABEL-VS-HONEST catches.**
+
+### Step 1 -- strategic decisions (inline)
+
+**Cap_map.** v326 -> v327. 1 SUB-PROPERTY LIFT (PP-31a refusal-audit-cert 🔬 -> 🟢 P 0.65-0.80) + 3 NEW TOP-LEVEL ROWS (PP-40 effective-rank-gauge 0.60-0.75; PP-41 Frobenius-symdiff-identity 0.65-0.80; PP-42 implicit-Gram-compression 0.65-0.80). See `notes/substrate_capability_map.md` v327 section for full row narratives. Portfolio 32+61 -> 32+64.
+
+**Substrate-product implications synthesis:**
+- **PP-31a (LIFT):** substrate refusal events carry a distribution-free conformal coverage certificate -- compliance differentiator vs logging-based refusal which carries no coverage guarantee. Q24 confirmed at substrate-native.
+- **PP-40 (NEW):** substrate fullness gauge r_eff = exp(H(sigma)) is a cheap algebraic primitive for live substrate-capacity readout; orthogonal to PP-37 spectral-Z-stat.
+- **PP-41 (NEW):** substrate Frobenius distance = algebraic readout of symmetric set-difference; foundational diff-and-merge primitive for PP-12/PP-9/PP-28.
+- **PP-42 (NEW):** Gram-solve retrieval is M^2/N^2 compression equivalent of full Hopfield W; direct enabler for CPU-edge / mobile substrate deployments without sacrificing the algebraic-certificate stack.
+
+**I-3 NEW (kappa3_hutchinson_v1 TIMEOUT design-fault):** non-vectorized inner loop + tight 1800s timeout. R2 rescue spec filed at `notes/strategy_request_to_exp_dev_kappa3_hutchinson_v2_rescue_2026-06-02.md` -- vectorize Hutchinson estimator (batched probes via 3 GEMM calls) + raise queue.json timeout 1800s -> 3600s. Pattern-match to v325 I-2 spectral_zstat_v1 (RESOLVED v326).
+
+### Rescue sketches cheapest-first (PROT-004/006 NOT triggered -- 0 closures this batch)
+
+See `notes/substrate_capability_map.md` v327 section for R1-R5 rescue lists per row. Cheapest-first sequencing applied per [[feedback-rescue-sketch-first-sequencing]].
+
+### PROT compliance (v326 -> v327)
+- PROT-004/006: NO closures (3 LIFTs + 1 sub-property LIFT + 1 rescue-candidate).
+- PROT-007: history v327 appended atomically.
+- PROT-008: validator ABSENT carried forward; 3 new rows + 1 sub-property LIFT no regression on existing portfolio rows.
+- PROT-009: cap_map.md (v327) + history.md (v327 row) + strategy_decisions_2026-06-01.md (this entry) + visibility_decisions_2026-06-01.md (one-line entry) + status_log entry + rescue routing file staged atomically; 238th PROT-009 paired commit.
+- PROT-018: 4 PASSes verified via remote metrics run_mode=full N=4096 5-seed; anchors carry no _nN suffix (default N=4096 per rule 3) ✓. kappa3_hutchinson_v1 TIMEOUT verified via bridge fallback (no remote artifact = real timeout).
+- PROT-021: smoke-checkpoint contamination check applied; no contamination signatures detected for 4 PASSes. kappa3 is TIMEOUT not contamination.
+
+### Honest / label-vs-honest tallies
+- HONEST: 359 + 4 = **363**.
+- LABEL-VS-HONEST: 197 + 0 = **197** UNCHANGED.
+
+### Memory adherence
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 5; 0 NEW catches.
+- [[feedback-no-preframing]]: conformal 1.48s short-wall pre-framing investigated honestly; per-cell verification CONFIRMED genuine.
+- [[feedback-verdict-handler-remote-metrics-fix-2026-05-27]]: 4 PASSes _source=remote authoritative; kappa3 _source=local fallback EXPECTED for TIMEOUT (no remote artifact = real timeout).
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 applied; no contamination detected for 4 PASSes.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]].
+- [[feedback-obey-user-pause-explicitly]]: pause-flag ABSENT verified; verdict_handler does NOT auto-dispatch exp_dev (main-thread queue management); rescue spec routed via filed file.
+- [[feedback-for-you-tab-primary-channel]]: status_log entry with plain_language + importance MANDATORY HIGH.
+- [[feedback-rescue-sketch-first-sequencing]]: kappa3 R1 (0-compute pattern-match) -> R2 (vectorize + timeout; RECOMMENDED) -> R3 (probe-reduce) -> R4/R5 (deferred).
+- [[feedback-rehabilitation-after-rejection]]: kappa3 is RESCUE-CANDIDATE not closure; R1-R5 spec filed.
+- [[feedback-lit-scan-calibration-penalty]]: PP-40 0.60-0.75; PP-41/PP-42/PP-31a 0.65-0.80 (all carry +0.05 deflation per v317 + v324 finite-N convention).
+- [[feedback-lock-in-inefficiency-fixes]]: I-3 LOCKED as 2nd-instance design-fault (non-vectorized loop + tight timeout); pattern-match recipe filed; structural improvement = make exp_dev + strategy default-vectorize Hutchinson-class estimators going forward.
+- [[feedback-per-experiment-timeout-required]]: kappa3 prereg said 3600s but queue.json had 1800s; mismatch exposed as INFRA GAP -- rescue raises queue.json to 3600s.

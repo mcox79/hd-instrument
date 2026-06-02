@@ -5640,3 +5640,139 @@ Main-thread routing candidates (highest -> lowest priority):
 8. PP-33 NR-REPLAY-2 N=4096 5-seed (v325 carry-over).
 9. matrix_trace_primitives v2 N=4096 5-seed (v324 carry-over).
 10. Per-script audit for 7 holdout scripts (v324 carry-over).
+
+
+# v327 update (2026-06-02) -- BATCHED 5-VERDICT (4 GENUINE FULL HARD_PASS + 1 TIMEOUT DESIGN_FAULT) overnight autonomous CPU cycle 3; PP-31a refusal-audit-cert FULL HP confirmation + 3 NEW matrix-algebra primitive rows + kappa3 timeout RESCUE filed (verdict_handler 238th PROT-009 paired commit; autonomous overnight cycle 3)
+
+**Trigger.** 5-verdict cycle-3 batch completed since v326 (5 CPU). All anchors fetched via `tools.orchestrator.remote_state.get_metrics(name)`. 4/5 returned `_source=remote` authoritative; kappa3_hutchinson_v1 returned `_source=local` (fallback) which is EXPECTED for a TIMEOUT (no remote artifact written). Pause-flag ABSENT (verified `test -f data/orchestrator_paused.flag` -> ACTIVE). Round 11 handoffs from Q24 conformal + matrix-trace algebra primitive battery.
+
+**Methodology applied.** For each anchor: fetched bridge metrics; cross-checked (a) `run_mode` field, (b) `N`, (c) `seeds` list length, (d) per-cell metric values vs pre-registered HP/HF thresholds. Where local-fallback fired (kappa3), confirmed via remote bridge logic that no FULL artifact exists -- TIMEOUT, not contamination. The 3.5s suspicion on conformal_reject_option_v1 was honestly investigated: per remote metrics elapsed_s=1.48s with 5-seed N=4096 FULL run -- conformal prediction is split-quantile arithmetic, no heavy compute; the short wall is consistent with the math (no over-claim signal).
+
+**FINDING 1: 4/4 completed anchors are GENUINE FULL HARD_PASS at production N=4096 + 5-seed. Zero LABEL-VS-HONEST catches.**
+
+| Anchor | Bridge metrics | Prereg HP threshold | Per-cell verification | HONEST verdict |
+|---|---|---|---|---|
+| conformal_reject_option_v1 | RM=**full** N=4096 **5-seed** ALPHA=[0.05,0.10,0.20] N_CALIB=200 N_TEST=200 frac_pass=1.00 all alphas; mean_cov 0.959/0.911/0.820; mean_gap=+0.013; tau_cp in [0.78,0.79] | frac_pass>=0.80 AND tau in [0.01,0.99] AND mean_gap in [-0.05,+0.20] | 1.00/1.00/1.00>=0.80 ✓ AND tau OK ✓ AND mean_gap=+0.013 ✓ | **GENUINE FULL HARD_PASS** (PP-31a refusal-audit-cert: distribution-free conformal coverage guarantee holds at substrate-native; Q24 confirmed); short wall 1.48s is honest (conformal arithmetic; no over-claim signal despite task pre-framing 3.5s suspicion) |
+| effective_rank_sweep_v1 | RM=**full** N=4096 **5-seed** M_SWEEP=[10,20,50,100,200,500,1000] frac_monotone=1.00 mean_r_eff/M=0.942 below cap | frac_monotone>=0.80 AND mean_r_eff/M>=0.50 | 1.00>=0.80 ✓ AND 0.942>=0.50 ✓ | **GENUINE FULL HARD_PASS** (substrate representational dim grows monotone in M; entropy-of-singular-values fullness gauge confirmed across full M-range; algebraic-primitive validation) |
+| frobenius_symdiff_verify_v1 | RM=**full** N=4096 **5-seed** 7 configs (disjoint + partial-overlap + asymmetric) **7/7 pass** mean_rel_err=0.001 max_rel_err=0.007 | rel_err<5% for >=4/5 configs | 7/7 (exceeded 5-config prereg) ✓ AND max=0.7%<<5% ✓ | **GENUINE FULL HARD_PASS** (\|\|W_A-W_B\|\|_F^2 = \|A symdiff B\| identity holds within 0.7%; substrate Frobenius distance encodes symmetric set difference -- foundational metric primitive for PP-12 compositionality-audit + PP-9 deletion-cert sizing) |
+| implicit_gram_solve_v1 | RM=**full** N=4096 **5-seed** M_LIST=[50,100,200,500] (1000 dropped) min_delta=+0.000 mean_hop=0.999 mean_gram=1.000 mem_ratio=0.00015-0.0149 | min_delta>=-0.05 AND mem_ratio<0.10 | +0.000>=-0.05 ✓ AND 0.0149<<0.10 ✓ | **GENUINE FULL HARD_PASS at 836s production wall** (Gram-solve Xi@solve(Xi@Xi^T/N+eps*I, Xi@q/N) algebraically equivalent to standard Hopfield sign(W@q); MEMORY MULTIPLIER M^2/N^2 from N x N matrix to M x M Gram = ~67x reduction at M=500, N=4096; foundational compression primitive) |
+
+**FINDING 2: kappa3_hutchinson_v1 TIMEOUT root cause IDENTIFIED -- non-vectorized Hutchinson inner loop + tight timeout (DESIGN_FAULT, same family as v325 spectral_zstat_v1 I-2).**
+
+Remote bridge confirms no remote artifact written = real TIMEOUT (1800s hit). Local metrics.json is stale smoke (elapsed_s=0.0018s with 2-seed M=[100,500] N_PROBES=500). Production scope from script: 5 seeds x M=[50,100,200,500] x N_PROBES=5000 x (Hopfield+GOE) = 200,000 N=4096 N x N matvec sequences inside Python loop (script lines 110-128: `for i in range(n_probes): v=...; Wv=W@v; WWv=W@Wv; WWWv=W@WWv; estimates[i]=v@WWWv/N`). At N=4096 dense float64 W (~128MB) with 200k probe sequences, sustained Python-loop GEMV overhead dominates. Estimated true wall budget exceeds 1800s queue.json timeout by 2-3x.
+
+**Pattern match to v325 spectral_zstat_v1 I-2 (RESOLVED v326 by R3 rescue):** identical class (non-vectorized inner-loop + tight timeout); same recipe applies.
+
+**FINDING 3: Honest re-read on conformal_reject_option_v1 (task input pre-framed 3.5s as "suspiciously fast; honest re-read MANDATORY").** Remote metrics elapsed_s=1.48s; verdict_msg matches per-cell numerics; ALPHA=[0.05,0.10,0.20] all frac_pass=1.00; mean_gap=+0.013 within [-0.05,+0.20]; tau_cp in [0.78,0.79] within [0.01,0.99]. **Conformal prediction is split-quantile arithmetic on a calibration set of N_CALIB=200 per (alpha, seed) -- 15 such calibrations total -- legitimate sub-second math.** No infrastructure shortcut; no smoke-checkpoint contamination signature. The pre-framing concern was a healthy guard rail but the read CONFIRMED honest. Per [[feedback-no-preframing]] surfaced explicitly: short wall is NOT signal in itself; per-cell verification IS signal. Zero LABEL-VS-HONEST catch.
+
+### Step 1 -- strategic decisions
+
+**1 SUB-PROPERTY LIFT + 3 NEW EMPIRICAL ROW PROMOTIONS across distinct substrate algebraic-primitive classes from Round 11 research handoffs.**
+
+**(A) SUB-PROPERTY LIFT PP-31a refusal-audit-cert: 🔬 -> 🟢 EMPIRICAL CONFIRMED.** conformal_reject_option_v1 GENUINE FULL HARD_PASS at N=4096 5-seed ALPHA=[0.05,0.10,0.20] frac_pass=1.00 all alphas. PP-31a was previously 🔬 (Round 5 killer-feature follow-on synthesis 2026-06-01) with no direct empirical anchor; this anchor IS the first empirical anchor. Distribution-free conformal coverage guarantee (1-alpha) for the Hopfield refusal threshold tau_cp is confirmed -- substrate refusal-audit-certificate primitive has a math-grade coverage guarantee independent of the underlying retrieval distribution. Substrate-product implication: **substrate refusal events carry a distribution-free coverage certificate** -- compliance differentiator vs logging-based refusal (which carries no coverage guarantee). Cross-references: PP-31 calibrated-confidence-temperature-scaling (parent row); PP-3 audit-trail; PP-12 compositionality-audit-API; killer-feature stack PP-9/PP-21. Filed at **🟢 P 0.65-0.80 EXPLORATORY** (base 0.70-0.85 - 0.05 lit-scan deflation per uncharted-finite-N regime + single-N single-script empirical anchor; band can lift further on N-sweep or alpha-extension).
+
+**(B) NEW TOP-LEVEL ROW PP-40: Substrate effective-rank algebraic gauge (entropy-of-singular-value-squares; representational fullness primitive).** effective_rank_sweep_v1 GENUINE FULL HARD_PASS at N=4096 5-seed M=[10,20,50,100,200,500,1000] frac_monotone=1.00. Substrate-product implication: **substrate fullness gauge r_eff = exp(H(sigma)) is a cheap algebraic primitive that grows monotone with stored pattern count** -- usable as a substrate capacity meter (live representational dimensionality readout). Differentiator vs logging-based stores: r_eff is computable directly from W spectrum without query-time probing; supports PP-2 storage-efficiency monitoring + PP-12 compositionality-audit (mode-fullness over composition steps). Cheap algebraic gauge complements PP-37 spectral-Z-stat (distributional signature) -- two orthogonal substrate self-introspection primitives. Filed at **🟢 P 0.60-0.75 EXPLORATORY** (base 0.65-0.80 - 0.05 lit-scan calibration per single-N + single-script empirical anchor; substrate fullness gauge has well-understood theory below capacity so band conservative but solid).
+
+**(C) NEW TOP-LEVEL ROW PP-41: Substrate Frobenius=symdiff identity (algebraic distance primitive).** frobenius_symdiff_verify_v1 GENUINE FULL HARD_PASS at N=4096 5-seed 7/7 configs (disjoint + partial-overlap + asymmetric). Identity \|\|W_A - W_B\|\|_F^2 = \|A symdiff B\| confirmed within max_rel_err=0.7%. Substrate-product implication: **substrate Frobenius distance is an algebraic readout of the symmetric set-difference between two pattern stores** -- substrate-native diff-and-merge primitive for PP-12 compositionality-audit (algebraic difference of memory states), PP-9 deletion-cert sizing (Frobenius gap = number of distinct removed patterns), PP-28 edit-impact-DAG (algebraic distance grading on edit chains), and audit-trail tracking. The 0.7% max error across 7 config classes is exceptionally tight (prereg threshold was 5% pass for >=4/5 configs). Algebraic-primitive class is well-grounded in linear algebra; substrate retains the textbook identity. Filed at **🟢 P 0.65-0.80 EXPLORATORY** (base 0.70-0.85 - 0.05 lit-scan calibration for novel-application bridging matrix-trace identity to substrate-product positioning; theory is rock-solid; substrate manifestation is the contribution).
+
+**(D) NEW TOP-LEVEL ROW PP-42: Substrate implicit-Gram compression primitive (memory-efficient retrieval equivalent to standard Hopfield).** implicit_gram_solve_v1 GENUINE FULL HARD_PASS at N=4096 5-seed M=[50,100,200,500]. Substrate-product implication: **Gram-solve retrieval Xi @ solve(Xi@Xi^T/N + eps*I, Xi@q/N) is algebraically equivalent to standard Hopfield sign(W@q) but uses M x M Gram matrix instead of N x N W matrix.** At M=500, N=4096, mem_ratio = 500^2/4096^2 = 0.0149 (67x compression). At M=1000, mem_ratio = 1e6/1.68e7 = 0.06 (16x compression). For large-N small-M deployments this is a MAJOR memory primitive: **substrate retrieval can be run on devices that cannot hold the full N x N W matrix** -- direct enabler for CPU-edge / mobile / IoT substrate deployments. Cross-references: PP-7 CPU-only-retrieval row (Gram-solve provides cheaper variant); PP-2 storage-efficiency (asymptotic M^2/N^2 compression below capacity). Differentiator vs FAISS/HNSW: Gram-solve preserves the substrate's algebraic-certificate stack while compressing storage -- compression mode does not break PP-9/PP-12/PP-25/etc moats. Filed at **🟢 P 0.65-0.80 EXPLORATORY** (base 0.70-0.85 - 0.05 lit-scan deflation for novel substrate-equivalence claim despite math-textbook equivalence; substrate-product positioning gains a deployment-flexibility primitive). 836s production wall is substantial investment confirming HP at FULL.
+
+**No row closures.** All 4 HARD_PASSes are EMPIRICAL LIFTS (1 sub-property + 3 NEW top-level rows); kappa3_hutchinson_v1 is RESCUE-CANDIDATE not closure.
+
+### Step 2 -- rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+For **kappa3_hutchinson_v1 TIMEOUT (DESIGN_FAULT class)** -- root cause: non-vectorized Hutchinson inner loop + tight 1800s timeout (same family as v325 spectral_zstat_v1 I-2 RESOLVED v326):
+- **R1 (CHEAPEST, 0-compute) Subsumption:** "v325 spectral_zstat_v1 had identical non-vectorized inner-loop + tight-timeout pattern; v325 R3 rescue (vectorize inner products + raise timeout 300s->1800s) RESOLVED I-2 in v326 with empirical wall 234.87s well within budget; same recipe is the obvious path for kappa3_hutchinson_v2." APPLIED inline above (PATTERN-MATCH SUFFICIENT to file rescue spec).
+- **R2 (CHEAP, exp_dev fix + re-ship; ~1-2h engineering + ~600-1200s wall) Vectorize Hutchinson estimator:** replace per-probe loop with batched (N, n_probes) Rademacher matrix V; compute W@V then W@(W@V) then W@(W@W@V) via 3 BLAS GEMM calls; estimates = (V * W3V).sum(axis=0) / N. Expected speedup 10-100x. Raise timeout 1800s -> 3600s for safety margin. Single fix closes TIMEOUT to GENUINE-PASS at production scope. **RECOMMENDED PRIMARY RESCUE.** Route to exp_dev via `notes/strategy_request_to_exp_dev_kappa3_hutchinson_v2_rescue_2026-06-02.md`.
+- **R3 (CHEAPER, mid-fidelity scope) Reduce N_PROBES from 5000 -> 1000:** Hutchinson std scales 1/sqrt(n_probes) so 5000 probes gives 2.24x lower noise than 1000 -- the prereg HP threshold is sigma_sep>=4.0 which is dominated by W-class separation not probe variance; 1000 probes likely sufficient at production scope. Reduces wall ~5x without vectorization. SECONDARY rescue if R2 vectorization proves harder than expected.
+- **R4 (HIGH-COST, deferred) Re-design kappa3 estimator as direct Tr(W^3)/N computation:** at M<=500 N=4096 this is feasible (~17 GB intermediate W^3); skips Hutchinson altogether. DEFERRED -- R2 vectorization is cheaper.
+- **R5 (synthesis, future) Cross-reference with spectral_zstat_v2 10x-sensitivity finding:** kappa_3 free-cumulant is the same algebra family as spectral Z-stat (both probe substrate spectral signature); v326 PP-37 noted 10x empirical-vs-theory anomaly; if kappa3_v2 also shows ~10x deviation from theory ratio M/N, that's a 2nd corroborating finite-N anomaly. Joint analysis in PP-33d follow-on. DEFERRED to post-R2.
+
+For **PP-31a refusal-audit-cert (LIFT 🔬 -> 🟢)**:
+- R1 (0-compute, applied) Subsumption: conformal coverage holds at all 3 alphas frac_pass=1.00; first empirical anchor for PP-31a.
+- R2 (production-next) Alpha-sweep extension: ALPHA in {0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30} to characterize coverage-vs-alpha curve at boundaries; tighter empirical evidence for the alpha-band the primitive supports.
+- R3 (architecture-extension) Conformal under distribution-shift (test queries drawn from shifted distribution): tests robustness of distribution-free guarantee under realistic mismatch; differentiator vs logging-based systems.
+- R4 (synthesis) PP-31a + PP-12 compositionality-audit = native compositional-refusal-cert chain (refuse cert composes algebraically across query graph).
+
+For **PP-40 effective-rank gauge (NEW row at 0.60-0.75)**:
+- R1 (0-compute, applied) Subsumption: monotone confirmed all M; below-cap mean_ratio=0.942.
+- R2 (production-next) N-sweep {1024, 2048, 8192} at M=N/4 to verify ratio scales N-independently as theory predicts.
+- R3 (architecture-extension) Live r_eff readout in PP-2 storage-efficiency dashboard tile -- substrate self-introspection primitive shipped to dashboard.
+- R4 (synthesis) PP-40 + PP-37 spectral-Z-stat = orthogonal substrate self-introspection primitives (fullness gauge + concentration signature).
+
+For **PP-41 Frobenius=symdiff identity (NEW row at 0.65-0.80)**:
+- R1 (0-compute, applied) Subsumption: 7/7 configs <0.7% max error.
+- R2 (production-next) Edit-distance primitive: extend to count-distance \|\|W_A - W_B\|\|_F / sqrt(\|A symdiff B\|) over edit chains; substrate-native edit-magnitude readout.
+- R3 (architecture-extension) PP-9 deletion-cert sizing via Frobenius gap: derive analytic deletion-cert size from algebraic distance.
+- R4 (synthesis) PP-41 + PP-12 + PP-9 = native substrate-diff-and-merge primitive stack (compositionality + deletion + Frobenius).
+
+For **PP-42 implicit-Gram compression (NEW row at 0.65-0.80)**:
+- R1 (0-compute, applied) Subsumption: min_delta=+0.000 at M=[50,100,200,500] HP unanimous; mem_ratio<<0.10 at all M.
+- R2 (production-next) M=1000 + M=2000 extension to test compression-vs-fidelity envelope above-capacity (mem_ratio approaches 0.06 at M=1000).
+- R3 (architecture-extension) PP-7 CPU-only-retrieval Gram-solve variant: ship Gram-solve as substrate-CPU-default; substrate-native compression mode for edge deployment.
+- R4 (synthesis) PP-42 + PP-9 deletion-cert + PP-12 compositionality-audit = native substrate-edge-compressed-with-full-algebraic-certificate-stack.
+
+### Tallies (v326 -> v327)
+
+- **HONEST:** 359 -> **363** (+4 NEW GENUINE FULL HARD_PASS: conformal_reject_option_v1, effective_rank_sweep_v1, frobenius_symdiff_verify_v1, implicit_gram_solve_v1).
+- **LABEL-VS-HONEST:** 197 -> **197** UNCHANGED (no new catches this batch; conformal short-wall pre-framing investigated honestly and CONFIRMED genuine; kappa3 TIMEOUT is design-fault not label-vs-honest).
+- **Portfolio:** 32+61 -> **32+64** (+3 NEW EXPLORATORY ROWS: PP-40 effective-rank-gauge 0.60-0.75; PP-41 Frobenius-symdiff-identity 0.65-0.80; PP-42 implicit-Gram-compression 0.65-0.80) + 1 sub-property LIFT (PP-31a refusal-audit-cert 🔬 -> 🟢 0.65-0.80). All 3 new rows + sub-property LIFT carry +0.05 lit-scan calibration penalty per v317 uncharted-regime + v324 finite-N convention.
+- **I-3 NEW:** kappa3_hutchinson_v1 TIMEOUT design-fault (non-vectorized inner loop + tight 1800s timeout); R2 rescue spec filed; pattern-match identical to v325 I-2 spectral_zstat_v1 (RESOLVED v326).
+- **Cap_map version: v327.**
+
+### Framework reliability (v327)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 45-55% UNCHANGED (no framework-class row verdict this batch; PP-40/41/42 are PRODUCT-FEATURE + ALGEBRAIC-PRIMITIVE rows not framework-class).
+- Product-feature: 60-74% -> **62-76%** (+2pp both bounds; 3 NEW PRODUCT-FEATURE algebraic-primitive rows EMPIRICALLY VALIDATED at FULL multi-seed + 1 sub-property LIFT; further tightens substrate's product-feature reliability band; algebraic primitives are textbook-grounded so adding empirical substrate-manifestation tightens upper bound more aggressively).
+
+### Known infrastructure issues (annotation block; UPDATED in v327)
+
+**Issue I-1 (v323, UPDATED v324/v325, ANNOTATED v326/v327): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v327 5-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326): spectral_zstat_v1 wall-time underestimate.** CLOSED v326.
+
+**Issue I-3 (v327, NEW): kappa3_hutchinson_v1 non-vectorized inner loop + tight 1800s timeout = TIMEOUT.** Same family as I-2 (DESIGN_FAULT class). R2 rescue spec filed at `notes/strategy_request_to_exp_dev_kappa3_hutchinson_v2_rescue_2026-06-02.md` -- vectorize Hutchinson estimator (batched probes via 3 GEMM calls instead of 5000 GEMV calls) + raise timeout 1800s -> 3600s.
+
+### PROT compliance (v326 -> v327)
+
+- PROT-004/006: NO row closures. kappa3_hutchinson_v1 is RESCUE-CANDIDATE not closure (PROT-006 reserves closures for genuine refutations; design-fault timeouts are rescue path). 3 new rows + 1 sub-property LIFT are EMPIRICAL LIFTS not closures.
+- PROT-007: history v327 appended (history.md sibling entry).
+- PROT-008: cap_map.md + history.md + strategy_decisions_2026-06-01.md + visibility_decisions_2026-06-01.md + status_log entry + rescue routing file staged atomically; **238th PROT-009 paired commit**.
+- PROT-009: decision-log entry paired with cap_map commit.
+- PROT-018: 4 PASSes verified via remote metrics with run_mode=full + N=4096 + 5-seed; anchors carry no _nN suffix (default N=4096 per rule 3) ✓. kappa3_hutchinson_v1 TIMEOUT verified via remote bridge fallback to local (no remote artifact = real timeout, not label-vs-honest).
+- PROT-021: smoke-checkpoint contamination check applied; no contamination detected for 4 PASSes (remote metrics fields populated 5-seed; partial_metrics_* per seed). kappa3 local-fallback is TIMEOUT not contamination (run never reached metrics.json write).
+- PROT-022: not applicable (no log2-parity-relevant anchors).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 5; 0 NEW LABEL-VS-HONEST catches. conformal_reject_option_v1 3.5s suspicion investigated explicitly; verdict_msg matches per-cell numerics; honest reading CONFIRMED. kappa3_hutchinson_v1 TIMEOUT honest (no remote artifact); not a label-vs-honest issue.
+- [[feedback-no-preframing]]: task pre-framed conformal as "suspiciously fast 3.5s honest re-read MANDATORY"; honest re-read CONFIRMED the short wall is consistent with the math (split-quantile arithmetic on 200-element calibration set). Short wall is NOT a label-vs-honest signal in itself.
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; no contamination signatures detected for the 4 PASSes (Round 11 scripts confirmed clean per Opus sanity + 2 prior cycles 0 LABEL-VS-HONEST per task input). kappa3 TIMEOUT is design-fault not contamination.
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; all 4 PASS anchors carry no _nN suffix (default N=4096 per rule 3); kappa3_hutchinson_v1 same convention.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log MANDATORY HIGH (5-anchor batch + 1 sub-property LIFT + 3 NEW TOP-LEVEL EXPLORATORY ROWS + 1 NEW INFRA ISSUE I-3 + product-feature framework-reliability lift +2pp).
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context.
+- [[feedback-rescue-sketch-first-sequencing]]: kappa3 rescues sequenced R1 (cheapest 0-compute pattern-match subsumption) -> R2 (vectorize + timeout raise; RECOMMENDED PRIMARY) -> R3 (reduce probes; SECONDARY) -> R4/R5 (deferred). PP-31a/PP-40/PP-41/PP-42 rescues all sequenced cheapest-first.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; orchestrator main thread holds dispatch authority; verdict_handler does NOT auto-dispatch exp_dev (autonomous overnight cycle 3 framing -- main-thread queue management); GPU queue has 2 running (l2_hadamard_comp_n8192_v1 + ck_seb_discriminator_v1) so refill warranted on CPU side; rescue spec routed for exp_dev pickup.
+- [[feedback-rehabilitation-after-rejection]]: NO row rejections. kappa3 is rescue-candidate (DESIGN_FAULT class, identical pattern to v325 I-2 RESOLVED v326). R1-R5 rescue spec filed for kappa3_hutchinson_v2.
+- [[feedback-lit-scan-calibration-penalty]]: 3 NEW top-level rows + 1 sub-property LIFT carry +0.05-0.10 deflation per v317 + v324 finite-N convention (PP-31a 0.65-0.80; PP-40 0.60-0.75; PP-41 0.65-0.80; PP-42 0.65-0.80).
+- [[feedback-lock-in-inefficiency-fixes]]: I-3 LOCKED as structural pattern -- "tight per-anchor timeout + non-vectorized inner loop = TIMEOUT" is the SECOND such design-fault (after I-2). Pattern-match recipe filed in rescue spec.
+- [[feedback-per-experiment-timeout-required]]: kappa3 timeout 1800s was insufficient -- prereg said 3600s but queue.json was 1800s. Mismatch between prereg budget and queue.json budget exposed as an INFRA GAP; rescue raises queue.json timeout to 3600s + vectorizes to ensure stay-within-budget.
+- [[feedback-composition-classification]]: PP-42 implicit-Gram-compression is SCORE-class (Gram-solve and Hopfield are point-equivalent retrievers at the same input; no composition step); PP-40 effective-rank-gauge is SCORE-class (substrate self-introspection readout; no composition step); PP-41 Frobenius=symdiff is SCORE-class (algebraic identity on two substrate states; no composition step in the test).
+
+### Push and follow-on (v327)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority):
+1. **kappa3_hutchinson_v2 rescue ship** -- vectorize + timeout 1800s -> 3600s; RECOMMENDED PRIMARY (routing file filed at `notes/strategy_request_to_exp_dev_kappa3_hutchinson_v2_rescue_2026-06-02.md`).
+2. **PP-31a alpha-sweep extension** -- ALPHA in {0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30} characterize coverage-vs-alpha curve at boundaries.
+3. **PP-40 N-sweep** -- {1024, 2048, 8192} at M=N/4 to verify ratio N-independence.
+4. **PP-42 M=1000+M=2000 extension** -- test compression-vs-fidelity envelope at higher M.
+5. **PP-37 N-sweep characterization** (v326 carry-over) -- {N=1024, 2048, 8192} at M=500 5-seed for 10x sensitivity ratio investigation.
+6. PP-39 Anchor 1 mixed-mode query round-trip (v326 carry-over).
+7. PP-38 N=8192 5-seed extension (v326 carry-over).
+8. PP-34/PP-35/PP-36 v2 follow-ons (v325 carry-over).
+9. Per-script audit for 7 holdout scripts (v324 carry-over).
