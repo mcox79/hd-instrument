@@ -92,3 +92,4 @@ SHIPPED (all 8 REMOTE VERIFIED in queue.json):
 - program_exec_audit_chain_v1 (600s) -- 3-cell audit chain; smoke HARD_PASS
 
 Status at ship time: substrate_metric_norm_axioms_v1 and write_back_dirty_bits_v1 already completed (ran during shipping window).
+Cycle 5 Batch 10: shipped 10 anchors to remote_cpu_queue. Q19 rescue (CK scaling collapse, smoke HARD_PASS). Q9 rescue (state-vector SDE, 10-seed walk-back). Caching: write_allocate HARD_PASS, capacity_aware_eviction MIDDLE_BAND, multi_substrate_hierarchy HARD_PASS. SWR replay HARD_PASS. Multiagent adversary HARD_PASS. Graph community 10-seed walk-back. Branching audit 10-seed walk-back. Q21 R-envelope FULL 4 targets. Remote verify: all 10 exit-0 + VERIFIED.
