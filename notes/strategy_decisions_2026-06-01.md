@@ -778,3 +778,56 @@ exp_dev / main-thread routing candidates surfaced:
 - Round 6 cells E/F/K FULL 5-seed N=8192 re-runs
 - PP-31c production-config sweep (M_grid + precision threshold)
 - Cell L bursty re-calibration with M < N/4
+
+## v322 -> v323 @ BATCHED 9-VERDICT Round 8 SMOKE_CONTAMINATION REPEAT (verdict_handler 234th PROT-009 paired commit; user-pre-framed)
+
+**Trigger.** 9-verdict Round 8 CPU batch (ct2_outlier_count_v1, c_infty_seb_detection_v1, matrix_trace_primitives_v1, spectral_mp_primitives_v1, r_alpha_throughput_v1, batched_deletion_extended_v1, batched_deletion_reliability_v1, capacity_cliff_graceful_v1, csp_memory_warm_start_v1, planted_csp_viability_v1). All metrics _source=remote authoritative. Pause-flag ABSENT.
+
+### Step 0 -- honest re-read
+
+HONEST (1): batched_deletion_reliability_v1 FULL N=4096 5-seed r_1=1.0 max_dev_small_k=0.0000 corr_c=0.4 r_corr=r_indep=1.0 elapsed_s=113.8 -> GENUINE HARD_PASS.
+
+LABEL-VS-HONEST CATCHES (8) -- ALL 8 OTHER ANCHORS RAN run_mode=smoke despite v322 queue-script-audit recommendation and supposed runner-patch + script default-flip:
+- ct2_outlier_count_v1: MIDDLE_BAND / SMOKE_NOT_DECISIVE (N=4096 2-seed 22.4s; rank_test 8/8 + edge_err 0.007 STRONG smoke positive but decisive framework test requires FULL multi-seed; cannot LIFT free-probability framework P from smoke).
+- c_infty_seb_detection_v1: MIDDLE_BAND / SMOKE + ctrl_ok=False (SG C_infty=0.51 vs CTRL=0.41; gap=0.096 with single-seed-level overlap; control HAS comparable floor; SEB signature NOT discriminated from control; CK/FRSB cannot LIFT PP-33).
+- matrix_trace_primitives_v1: MIDDLE_BAND / SMOKE_HP (N=2048 2-seed 4.1s; 5/5 primitives pass_frac=1.0; substrate-native query API row deferred).
+- spectral_mp_primitives_v1: MIDDLE_BAND / SMOKE + HC FAIL (N=1024 2-seed 3.1s; HC 0/2 HP -- Z_clean negative -2.10/-4.85 -- substrate spectrum doesn't match TW null even at smoke; DP 2/2 + CM 2/2 only).
+- r_alpha_throughput_v1: MIDDLE_BAND / SMOKE_TRIVIAL (N=512 2-seed 0.06s alpha=[0.01,0.05] cliff_found=False -- 60ms sanity, no R-alpha curve actually traced).
+- batched_deletion_extended_v1: MIDDLE_BAND / SMOKE_TRIVIAL (N=512 2-seed 1.2s r_1=1.0 -- trivially passes at smoke alpha).
+- capacity_cliff_graceful_v1: MIDDLE_BAND / SMOKE_TRIVIAL (N=512 2-seed 0.10s; 100ms, no actual cliff probed).
+- csp_memory_warm_start_v1: MIDDLE_BAND / SMOKE_HP (N=2048 2-seed 0.65s; mean_speedup=7.30 [HP>=2.0] on 5 instances M_data=10).
+- planted_csp_viability_v1: HARD_PASS / SMOKE_HARD_PASS_OVER_CLAIM (N=1024 2-seed 0.095s; alpha=0.02 ultra-low + 95ms wall; HARD_PASS label on 2-seed N=1024 trivial-alpha smoke is canonical [[feedback-no-preframing]] violation).
+
+**Runner-patch failure signature.** 2nd consecutive batch (v322 Round 6 3 of 6 smoke; v323 Round 8 8 of 9 smoke). HDLAB_RUN_MODE=full not honored. Patch + script default-flip empirically FAILED. INFRA blocker. NOT a substrate-mechanism issue.
+
+### Step 1 -- strategy decisions
+
+- **CT-2 decisive free-probability framework test: NOT DECIDED.** Smoke-scope insufficient to LIFT framework P; framework reliability tallies UNCHANGED. NO new substrate-spectral-identity top-level row.
+- **PP-33 SEB detection: NO LIFT.** c_infty ctrl_ok=False; SEB not discriminated. Band UNCHANGED 0.40-0.55. v322 caveats (c)+(d) stand.
+- **NO new top-level rows.** All 5 user-pre-framed candidates DEFERRED pending FULL re-confirmation.
+- **ONE EMPIRICAL UPDATE -- PP-9 sub-property (a) added:** batched-deletion reliability k<=20 characterized; r_1=1.0 at N=4096 5-seed; correlated-c=0.4 case identical to independent at smoke alpha (ghost-attractor prediction NOT actually tested). Annotation only; PP-9 band UNCHANGED.
+- **Known infrastructure issue I-1 added to cap_map** (runner-patch silent-smoke contamination; 2nd batch in a row).
+
+### Step 2 -- rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+NO row closures. 8 candidates DEFERRED with rescue sequence:
+1. R1 (0-compute) Subsumption: smoke direction supports HP; mechanism not refuted; FULL re-run needed. APPLIED inline.
+2. R2 (infra-fix) Queue-script audit + HDLAB_RUN_MODE=full propagation trace + fix + sentinel-ship verify. **HIGHEST priority.**
+3. R3 (5-15min each) After fix, re-ship 5 sub-second smoke anchors at FULL.
+4. R4 (30-60min each) After fix, re-ship matrix_trace + spectral_mp at FULL.
+5. R5 (1-2h each) After fix, re-ship CT-2 + c_infty SEB at FULL with proper alpha + 5-seed control.
+
+### Tallies
+
+- HONEST: 344 -> **345** (+1).
+- LABEL-VS-HONEST: 181 -> **189** (+8).
+- Portfolio 32+53 UNCHANGED.
+- Cap_map v322 -> v323.
+
+### Memory adherence
+
+[[feedback-verdict-msg-honest-reread]] [[feedback-no-preframing]] [[feedback-smoke-checkpoint-contamination]] [[feedback-no-label-vs-honest-anchor-names]] [[feedback-cap-map-update-protocol]] [[feedback-for-you-tab-primary-channel]] [[feedback-decision-log-eol-handling]] [[feedback-subagent-permission-inheritance]] [[feedback-rescue-sketch-first-sequencing]] [[feedback-pipeline-pacing]] [[feedback-rehabilitation-after-rejection]] [[feedback-lit-scan-calibration-penalty]] [[feedback-lock-in-inefficiency-fixes]].
+
+### Push and follow-on
+
+Push BLOCKED from sub-agent context; main thread executes 1-tool push. exp_dev DEFERRED to main thread pending I-1 infra fix.
