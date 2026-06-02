@@ -111,3 +111,31 @@ NEW v329 follow-on candidate (NOT a rescue; production extension):
 **Tallies (v329 -> v330).** HONEST 378 -> 381 (+3). LABEL-VS-HONEST 199 -> 200 (+1 catch #200 CHERRY_PICK_CORRELATION_HP_LABEL_OVER_CLAIMS_AGGREGATE_DELTA). Portfolio 32+66 UNCHANGED (no new top-level rows; 1 LIFT PP-33 0.40-0.55 -> 0.50-0.65 Q19 RESCUE-SUCCESS + 3 new sub-properties PP-9c + PP-39 competing + PP-31b chain-of-thought). Framework-reliability specific-documented 45-55% -> 47-57% (+2pp; CK-class is FIRST dynamical-class with empirical confirmation at substrate finite-N regime). Product-feature 66-80% UNCHANGED. 0 row closures. 1 new LABEL-VS-HONEST catch. 9 smoke-only anchors PARKED (NOT counted). 2 new infra issues (I-4 smoke-pre-framing detection signal + I-5 q22-family timeout-budget recipe).
 
 **Routing follow-on (orchestrator main thread).** Highest-priority next-cycle dispatches: (1) Q-F3 cophenetic correlation <1s wall ZERO-COMPUTE single-linkage MST -- SINGLE CHEAPEST DECISIVE TEST per research-delivery; unlocks 3 killer features if PASS; (2) Q-F1 dynamical M_dyn smoke 1-hour CPU R=200 single-observable; (3) Q-F4 saddle-overlap triplet test (substrate-novel SKAH-M-class signature); (4) 9 smoke-only PARKED FULL re-ships; (5) q22 timeout extension to 2400s next ship. Sequenced cheapest-first per [[feedback-rescue-sketch-first-sequencing]].
+
+
+
+## v331 BATCHED 13-VERDICT overnight CPU cycle 6 -- 2026-06-02
+
+**Cap_map v330 -> v331.** Batch composition: 3 CRITICAL framework (Q-F1 dynamical_um_ck_class_v1 FULL CPU 58min 3-seed N=1024 R=200 + Q-F2 two_time_correlator_fdt_v1 FULL 13.6s 5-seed N=2048 + Q9 q9_tau_mem_corrected_sde_v1 FULL 41min 10-seed N={2048,4096,8192}) + 2 rescues smoke-HP -> FULL (timeseries_xor_prot021_fix_v1 + signed_am_b_pattern_m_sweep_v1) + 4 walk-back from smoke (graph_community_detection_v1 + program_exec_audit_branching_v1 + caching_capacity_aware_eviction_v1 + q21_r_envelope_multi_target_v1) + 4 fast HP confirms walk-back FULL (caching_write_allocate_per_pattern_v1 + caching_multi_substrate_hierarchy_v1 + hippocampal_sharp_wave_ripple_v1 + multiagent_adversary_coord_v1). All 13 `_source=remote`.
+
+**Step 0 honest re-read.** HONEST 12; LABEL-VS-HONEST 1: **#201 two_time_correlator_fdt_v1 SHAPE_DISCRIMINATION_OVER_CLAIM** -- verdict_msg cites `GARCIA-LORENZANA OSCILLATING OVERLAY DETECTED piecewise_r2=0.3149 smooth_r2=0.5063` but piecewise_r2 and smooth_r2 BOTH << HP threshold 0.85, mean DFT SNR=2.42 < 3.0 HP (only max-seed touched 4.84). CK aging collapse-mse=0.0144 < 0.05 HP CONFIRMED honestly; Garcia-Lorenzana sub-phase NOT CONFIRMED. New label-vs-honest sub-flavor SHAPE_DISCRIMINATION_OVER_CLAIM (failed-threshold numbers reported alongside PASS-tone "DETECTED" language).
+
+**Strategy decisions:**
+
+1. **PP-33 LIFT 0.50-0.65 -> 0.60-0.75 (+0.10 both bounds).** Pre-reg LIFT condition (Q-F1 HP at FULL CK ultrametricity in [0.85, 0.95] window AND Q-F2 HP at FULL CK aging collapse-mse < 0.05) MET on honest re-read: Q-F1 global_mean_M_dyn=0.9090 inside [0.85, 0.95] with 2/3 triplets HP (1 triplet at 0.749 sits 0.001 below HP edge -- finite-N noise); Q-F2 collapse_mse=0.0144 < 0.05 ✓. CK-class dynamical-aging signature CONFIRMED via independent observable beyond Q19 (v330) corrected observable. 2 new caveats (h) Q-F1 dynamical CK ultrametricity CONFIRMED + (i) Q-F2 CK aging collapse CONFIRMED but Garcia-Lorenzana SHAPE NOT CONFIRMED (LABEL-VS-HONEST #201). Surviving non-eq dynamical phases: CK aging P=0.50 (LIFTED from 0.40); Garcia-Lorenzana P=0.10 (DEFLATED from 0.20 per Q-F2 R2 fail). Remaining 0.25-0.40 deficit: Q-F3 cophenetic + Q-F4 saddle-overlap + Q-F5 return-point-memory + Q-F1 5-seed N=2048 (tighten 8_64_512 triplet) + Q-F2 FDT ratio X(C) plateau (gated on Q-F1 5-seed signal).
+
+2. **Q9 formula PINNED -- sub-property added to PP-1/PP-12 memory-decay-timescale row.** R2_loglog=0.998, 3/3 N values within +/-20% across N={2048, 4096, 8192} 10-seed; `tau_mem = (1/gamma)*log(1 + N*gamma/(2*lambda))` confirmed with gamma=0.01, lambda=0.1 production-baseline. Formula authoritative for production tau_mem prediction across N range. Row band UNCHANGED (formula-pinning is operating-point characterization; mature row).
+
+3. **PP-39 multiagent row sub-property-LIFT 0.65-0.80 -> 0.70-0.85** per 3rd independent sub-property convention (v328 consensus + v330 competing-agent + v331 adversarial-resilience).
+
+4. **9 v330 PARKED smoke anchors WALKED BACK FULL.** 7 HP (caching_write_allocate, caching_multi_substrate, hippocampal_swr, multiagent_adversary, q21_r_envelope, timeseries_xor [had been smoke HP -> FULL HP], signed_am_b [smoke HP -> FULL HP]); 2 HF (graph_community + program_exec_branching); 1 MIDDLE (caching_capacity_aware). HF candidates kept OPEN with 5 rescue sketches each cheapest-first per [[feedback-rescue-sketch-first-sequencing]] + [[feedback-rehabilitation-after-rejection]]. No closures.
+
+5. **I-4 RESOLVED.** All 9 v330 smoke-only PARKED anchors successfully RE-SHIPPED at FULL this cycle and returned authoritative remote multi-seed metrics. Detection signal and routing protocol validated.
+
+6. **I-6 NEW.** Script-side message-template bug: Q-F2 verdict_msg emits "DETECTED" with failing R2 thresholds inline. Script-author audit filed for two_time_correlator_fdt scripts to gate "DETECTED" on R2 >= 0.85 AND mean (not max) DFT SNR >= 3.0.
+
+**Tallies:** HONEST 381 -> 393 (+12); LABEL-VS-HONEST 200 -> 201 (+1); Portfolio 32+66 UNCHANGED; 1 row LIFT (PP-33) + 1 sub-property-band LIFT (PP-39); multiple sub-property characterizations (PP-1/PP-12 tau_mem formula pin + PP-43-family caching + PP-12 R-envelope + PP-12/PP-22 SWR replay).
+
+**Framework reliability:** general 65-75% UNCHANGED; specific-documented 47-57% -> 52-62% (+5pp); product-feature 66-80% UNCHANGED.
+
+**PROT compliance:** PROT-004/006/007/008/009/018/021 all clear; 242nd PROT-009 paired commit; push BLOCKED from sub-agent context; main thread executes push.

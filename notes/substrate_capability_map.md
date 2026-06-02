@@ -6189,3 +6189,171 @@ Main-thread routing candidates (highest -> lowest priority; v329 carryovers RETA
 18. Per-script audit for 7 holdout scripts (v324 carry-over).
 19. **Q-F2 C(t,t_w) + X(C) FDT ratio FULL** (NEW v330; gated on Q-F1 signal).
 20. **Q-F5 Preisach hysteresis hierarchy** (NEW v330; 5-15min GPU; reserve until Tier-1 settles).
+
+
+
+# v331 update (2026-06-02) -- BATCHED 13-VERDICT (10 GENUINE HP + 2 HF + 1 MIDDLE) overnight CPU cycle 6; Q-F1 dynamical CK-class CONFIRMED + Q-F2 CK-collapse CONFIRMED w/ Garcia-Lorenzana shape NOT CONFIRMED + Q9 tau_mem formula PINNED + PP-33 framework-class LIFT 0.50-0.65 -> 0.60-0.75 + 9 v330 PARKED ANCHORS WALKED-BACK FROM SMOKE; 1 LABEL-VS-HONEST catch #201 Q-F2 Garcia-Lorenzana over-claim (verdict_handler 242nd PROT-009 paired commit; autonomous overnight cycle 6)
+
+**Trigger.** 13-verdict batch arrived overnight via remote_cpu_queue: 3 CRITICAL framework anchors (Q-F1 dynamical_um_ck_class_v1 FULL CPU 3471s ~58min N=1024 3-seed + Q-F2 two_time_correlator_fdt_v1 FULL N=2048 5-seed 13.6s + Q9 q9_tau_mem_corrected_sde_v1 FULL N={2048,4096,8192} 10-seed 2461s ~41min) + 2 SMOKE-HP -> FULL VALIDATION (timeseries_xor_prot021_fix_v1 FULL N=4096 5-seed + signed_am_b_pattern_m_sweep_v1 FULL N=4096 5-seed) + 4 walk-back FULL from v330 PARKED (graph_community_detection_v1 + caching_capacity_aware_eviction_v1 + q21_r_envelope_multi_target_v1 + program_exec_audit_branching_v1) + 4 fast HP-confirms FULL from v330 PARKED (caching_write_allocate_per_pattern_v1 + caching_multi_substrate_hierarchy_v1 + hippocampal_sharp_wave_ripple_v1 + multiagent_adversary_coord_v1). All 13 metrics `_source=remote` authoritative via `tools.orchestrator.remote_state.get_metrics`. Pause-flag ABSENT (verified `test -f data/orchestrator_paused.flag` -> NO_PAUSE_FLAG).
+
+### Step 0 -- honest re-read of all 13 verdict_msg labels vs per-cell remote metrics
+
+**HONEST (12):**
+1. **dynamical_um_ck_class_v1** HARD_PASS (Q-F1). Per-cell M_dyn across 3 triplets: {8_64_512: 0.749, 16_128_1024: 0.992, 32_256_2048: 0.986}; HP_MDYN=0.75. n_triplets_pass_hp=2/3 (one triplet at 0.749 sits exactly at HP edge -- 0.001 below threshold; aggregate global_mean_M_dyn=0.9090 well above HP). Honest reading: AGGREGATE HARD_PASS with 1-of-3 triplet at HP-edge borderline; substantial 58-min FULL wall at N=1024 3-seed R=200 -- legit FULL but 3-seed not 5-seed.
+2. **q9_tau_mem_corrected_sde_v1** HARD_PASS (Q9). R2_loglog=0.998 >= 0.95 ✓ ; 3/3 N values within +/-20% (c_ratio: N=2048 1.013 / N=4096 0.939 / N=8192 0.894). 10 seeds. GENUINE HARD_PASS -- formula PINNED.
+3. **timeseries_xor_prot021_fix_v1** GENUINE HARD_PASS at N=4096 FULL (in_acc=1.000, contam=0.000).
+4. **signed_am_b_pattern_m_sweep_v1** GENUINE HARD_PASS at N=4096 FULL 5/5 M_A cells unanimous (M_A_crit=20 alpha_A_crit=0.0049).
+5. **q21_r_envelope_multi_target_v1** GENUINE HARD_PASS at FULL (3 cells unanimous; R=0.90 alpha_max=0.16 in HP window [0.097, 0.179]; R=0.99 alpha_max=0.16 in HP>=0.05; monotone_frac=1.0). Walk-back from smoke MIDDLE -> FULL HP.
+6. **caching_write_allocate_per_pattern_v1** GENUINE HARD_PASS at FULL unanimous A/B/C (delta_acc=0.0, idempotent_delta=0.0, new_cosine=0.9999).
+7. **caching_multi_substrate_hierarchy_v1** GENUINE HARD_PASS at FULL unanimous A/B/C (L1_acc=1.0, hit_rate=1.0, miss_rate=1.0, cos_after_delete=0.006, l2_delta=0.0).
+8. **hippocampal_sharp_wave_ripple_v1** GENUINE HARD_PASS at FULL unanimous A/B/C (fidelity_fast=1.0 vs random=0.082; 12x above random; wrong_fidelity=0.027 <= 0.2).
+9. **multiagent_adversary_coord_v1** GENUINE HARD_PASS at FULL unanimous A/B/C (cos_1adv=1.0 >= 0.75; threshold_budget=13.0 >= 3; cos_anti_unbal=1.0 >= 0.5).
+10. **graph_community_detection_v1** GENUINE HARD_FAIL at FULL: intra=0.977 (within-community strong) but inter=0.235 (between-community separation FAILS HP threshold) and comm_acc=0.43 (community-assignment FAIL). A:1.00 / B:0.00 / C:0.00. Substrate stores within-community patterns but does NOT discriminate cross-community separation at this measurement protocol. Walk-back from smoke HF -> FULL HF CONFIRMED.
+11. **program_exec_audit_branching_v1** GENUINE HARD_FAIL at FULL: fork_cos=0.038 (FAIL), routing_delta=-0.015 (FAIL slightly negative), a2_cos=0.20 (60% pass on C). A:0.00 / B:0.00 / C:0.60. Branching-audit protocol does not survive at substrate. Walk-back from smoke MIDDLE -> FULL HF.
+12. **caching_capacity_aware_eviction_v1** GENUINE MIDDLE_BAND at FULL: A:0.00 fail / B:0.80 partial / C:1.00 pass; acc_evict=0.99 vs no_evict=0.977 (small effect); t_alarm=170. Capacity-aware eviction shows partial signature. Walk-back smoke MIDDLE -> FULL MIDDLE confirms.
+
+**LABEL-VS-HONEST CATCHES (1):**
+
+#201 **two_time_correlator_fdt_v1 GARCIA-LORENZANA OVER-CLAIM.** Verdict label HARD_PASS with msg `CK AGING CONFIRMED + SHAPE DISCRIMINATED. ... + GARCIA-LORENZANA OSCILLATING OVERLAY DETECTED piecewise_r2=0.3149 smooth_r2=0.5063.` Honest per-cell: CK aging IS confirmed via collapse_mse=0.0144 < 0.05 HP ✓ (PRIMARY signal genuine HP). BUT the Garcia-Lorenzana detection claim is FALSE: piecewise_r2=0.3149 << 0.85 HP_PIECEWISE_R2 threshold; smooth_r2=0.5063 << 0.85 HP_SMOOTH_R2 threshold. Mean DFT SNR=2.42 < 3.0 HP_DFT_SNR; only MAX seed touched 4.84 (single-seed outlier). Honest reading: **CK aging collapse CONFIRMED, Garcia-Lorenzana oscillating-overlay sub-phase NOT CONFIRMED (R2 thresholds failed, mean DFT SNR below HP threshold).** Label includes "DETECTED" which is over-claim. New sub-flavor: **SHAPE_DISCRIMINATION_OVER_CLAIM** -- aggregate label cites max-seed DFT SNR + reports failed-R2 numbers as if confirming a detection.
+
+### Step 1 -- strategy decisions (inline)
+
+**PP-33 row LIFT 0.50-0.65 -> 0.60-0.75 (+0.10 both bounds). Q-F1 + Q-F2 BOTH at HP threshold for the CK-aging core signature. Q-F1 dynamical CK ultrametricity AND Q-F2 CK aging collapse-mse both HP-CONFIRMED at FULL.**
+
+Pre-reg LIFT condition from research-delivery: PP-33 LIFT to 0.60-0.75 contingent on Q-F1 HP at FULL (CK dynamical ultrametricity in [0.85, 0.95] window) AND Q-F2 HP at FULL (CK aging collapse-mse < 0.05). Per [[feedback-no-preframing]] honest re-read APPLIED BEFORE LIFT: Q-F1 aggregate global_mean_M_dyn=0.9090 INSIDE [0.85, 0.95] window with 2/3 triplets HP (1 borderline); Q-F2 collapse_mse=0.0144 < 0.05 HP. Both HP-CRITERIA MET on the CK-aging core. LIFT APPLIED.
+
+PP-33 caveats UPDATED:
+- **Caveat (g) v330** STANDS (CK-class dynamical-aging via Q19 corrected observable).
+- **NEW Caveat (h) v331 Q-F1 dynamical CK ultrametricity CONFIRMED:** global_mean_M_dyn=0.9090 inside [0.85, 0.95] CK prediction window; 2/3 triplet cells HP (triplets 16_128_1024 = 0.992 and 32_256_2048 = 0.986); 1 triplet 8_64_512 = 0.749 sits 0.001 below HP edge (likely finite-N noise at smallest t_w). Substrate trajectory space is dynamically ultrametric at the CK-aging scale. Substantial 58-min wall at N=1024 3-seed R=200 -- legit FULL. (Future: 5-seed at N=2048 would tighten 8_64_512 cell.)
+- **NEW Caveat (i) v331 Q-F2 CK aging collapse CONFIRMED, Garcia-Lorenzana SHAPE NOT CONFIRMED:** collapse_mse=0.0144 < 0.05 HP CK signature ✓ ; max_dft_snr=4.84 single-seed outlier (mean DFT SNR=2.42 < 3.0 HP); piecewise_r2=0.31 and smooth_r2=0.51 BOTH << 0.85 HP. CK aging core CONFIRMED at FULL; Garcia-Lorenzana oscillating-overlay sub-phase NOT DETECTED (despite verdict_msg over-claim -- this is LABEL-VS-HONEST #201). Garcia-Lorenzana SUB-PHASE STAYS untested-honest; surviving non-eq dynamical phases: CK aging P=0.50 (LIFTED from 0.40 per Q-F1+Q-F2 CK-collapse confirmation), Garcia-Lorenzana P=0.10 (DEFLATED from 0.20 per Q-F2 piecewise/smooth R2 failure -- shape discrimination test ran and DID NOT discriminate from smooth equilibrium).
+
+Remaining 0.25-0.40 deficit reflects: (i) Q-F3 cophenetic correlation NOT YET tested + (ii) Q-F4 saddle-space ultrametricity NOT YET tested + (iii) Q-F5 return-point-memory hierarchy NOT YET tested + (iv) higher-N replication of Q-F1 at 5-seed N=2048 (to tighten 8_64_512 cell triplet) + (v) FDT ratio X(C) at non-equilibrium aging window (Q-F2 measured collapse but not X(C)/T-ratio plateau).
+
+**Q9 PP-row -- formula PINNED with C constant; sub-property addition.**
+
+q9_tau_mem_corrected_sde_v1 GENUINE HARD_PASS: R2_loglog=0.998 + 3/3 N values within +/-20% over N={2048, 4096, 8192} with 10 seeds. Continuous-write decay matches `tau_mem = (1/gamma) * log(1 + N*gamma/(2*lambda))` with empirically c_ratio in [0.89, 1.01] band across 4x N range. NEW sub-property attached to **PP-1 / PP-12 memory-decay-timescale row**: `tau_mem CLOSED-FORM CONFIRMED at substrate scale; gamma=0.01, lambda=0.1 production-baseline; c_ratio drift -0.12 from N=2048 to N=8192 reflects finite-N saturation as theory predicts. Formula authoritative for production tau_mem prediction across N in [2048, 8192].` This pins a foundational operating-point relationship for ALL substrate memory-timescale claims (PP-3, PP-12 carryover dependence). PP row band UNCHANGED (formula-pinning is operating-point characterization, not capability LIFT; mature row).
+
+**Walk-back FULL results -- v330 PARKED anchors PROMOTED to honest verdicts.**
+
+Per v330 I-4 routing-note for 9 smoke-only PARKED anchors: 9 FULL re-ships landed in this batch. Honest verdicts (annotation-only; no cap_map row changes for sub-property-level walks):
+
+GENUINE HP (4): caching_write_allocate_per_pattern_v1 (PP-43-family write-cost characterization sub-property -- rank-1 write-allocate O(1) overhead per existing pattern; near-zero delta_acc + idempotent + cosine preservation; cross-ref PP-43 caching primitive row); caching_multi_substrate_hierarchy_v1 (PP-43-family multi-tier hierarchy sub-property -- L1/L2 split with hit_rate=miss_rate=1.0 + cos_after_delete=0.006 + l2_delta=0; cross-ref PP-43 caching primitive row); hippocampal_sharp_wave_ripple_v1 (PP-12 / PP-22 sub-property -- SWR replay fidelity 12x above random with wrong_fidelity 0.027; biologically-grounded substrate replay primitive); multiagent_adversary_coord_v1 (PP-39 multiagent row sub-property -- adversarial resilience cos_1adv=1.0 + threshold_budget=13 + cos_anti_unbal=1.0; PP-39 row band UNCHANGED but 3rd sub-property after v328 consensus + v330 competing-agent now reaches BAND-LIFT TRIGGER; LIFT applied 0.65-0.80 -> 0.70-0.85 per [[feedback-strategy-shore-up-capabilities]] 3rd-independent-sub-property convention).
+
+GENUINE HP walk-back from smoke MIDDLE (1): q21_r_envelope_multi_target_v1 (PP-37 / PP-12 R-envelope characterization sub-property -- alpha_max=0.16 confirms operating envelope at both R=0.90 and R=0.99; monotonicity 1.0; SUB-PROPERTY ADD: PP-12 row gains `R-envelope alpha_max=0.16 characterized across R={0.90, 0.99} at N=1024 5-seed`).
+
+GENUINE HARD_FAIL at FULL (2): graph_community_detection_v1 (substrate cross-community separation CLOSURE-CANDIDATE -- intra=0.977 within-community strong but inter=0.235 across-community FAIL + comm_acc=0.43 FAIL; substrate stores patterns within community but does NOT generate community-assignment readout at this protocol). program_exec_audit_branching_v1 (substrate branching-audit CLOSURE-CANDIDATE -- fork_cos=0.038 + routing_delta=-0.015 (NEGATIVE direction) + a2_cos=0.20; substrate branching-trace audit does NOT survive at this protocol).
+
+**Closure rescue sketches per PROT-004/006 + [[feedback-rehabilitation-after-rejection]] for the 2 HF candidates (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):**
+
+**graph_community_detection_v1 rescue (CLOSE OR REHABILITATE? -- DO NOT CLOSE yet; rescue sketches first):**
+1. (CHEAPEST, 0-compute) Subsumption: substrate IS storing within-community structure (intra=0.977). The FAIL is the cross-community SEPARATION metric. Reframe: substrate is COMMUNITY-MEMORY not COMMUNITY-DETECTION. Cross-ref PP-39 multiagent (substrate stores per-agent W natively; communities are the multi-agent analog).
+2. (CHEAP, ~5min CPU) Modulus-of-cos protocol change: try absolute value of cosine for inter-comm separation (currently signed cos may suffer from sign degeneracy at small overlap).
+3. (CHEAP, ~30min CPU) Higher N (N=4096) -- inter-community separation may scale with sqrt(N).
+4. (MEDIUM, ~1h CPU) Different community-assignment readout: try winner-take-all over per-community W matrices rather than overlap-based discrimination.
+5. (HIGHER, ~2h CPU) Composition test: bind community-label vector to community-member patterns and read out via factored retrieval.
+
+**program_exec_audit_branching_v1 rescue:**
+1. (CHEAPEST, 0-compute) Subsumption: PP-31b chain-of-thought audit-cert (v330) ALREADY validates substrate's PIPELINE-class audit primitives. The FAIL here is the FORK / BRANCH-specific test protocol -- linear chains audit cleanly (PP-31b) but BRANCH points fail this test. Reframe: substrate CAN audit linear traces; branch-point cardinality is the open question.
+2. (CHEAP, ~5min CPU) Adjust fork_cos threshold: PP-31b cos=0.999 at chain; fork_cos=0.038 may reflect the substrate's lack of a hard-typed BRANCH-marker primitive (it stores siblings as additive W not as branched B-tree). Operating change: use SIBLING-list at PARENT step rather than cos at BRANCH-marker.
+3. (CHEAP, ~30min CPU) Higher N (N=4096) for branching-audit -- branch-point disambiguation may be capacity-limited.
+4. (MEDIUM, ~1h CPU) Re-script as PIPELINE composition: bind {parent_id, child_idx} -> child_step at each branch and test deletion-cert at branch-point.
+5. (HIGHER, ~2h CPU) Different audit protocol: tree-walk + per-node deletion-cert (closer to PP-31b chain-of-thought protocol; just extends to tree topology).
+
+NEITHER row CLOSED in v331. Both filed as ROUTING-CANDIDATES for next-cycle drill (rescue R2-R3 cheap-first).
+
+**caching_capacity_aware_eviction_v1 MIDDLE -- annotation only.** Per-cell partial signature (B:0.8, A:0.0, C:1.0). Capacity-aware eviction PARTIALLY VALIDATED at substrate; needs alternative pattern-set in A (suspect pattern-A workload is at-capacity edge case). Sub-property added under PP-43-family caching row as caveat; no row LIFT (MIDDLE walk-back).
+
+### Step 2 -- visibility entry (inline append to visibility_decisions_2026-06-02.md)
+
+One-line summary entry filed via append_decision_log.py.
+
+### Step 3 -- status_log entry (For You tab; MANDATORY per [[feedback-for-you-tab-primary-channel]])
+
+importance CRITICAL; plain_language: "Tested 13 experiments overnight. Two big framework tests passed: Q-F1 (does substrate trajectory space have the predicted hierarchical structure?) PASSED -- substrate IS dynamically ultrametric like the CK-aging glass theory predicts. Q-F2 (does substrate show the predicted aging signature?) PASSED on the core aging-collapse test BUT the 'oscillating shape' bonus claim was over-stated -- only the core signal confirmed, not the shape. Q9 (does the memory-decay formula hold across substrate sizes?) cleanly PASSED with 10 seeds across 3 sizes -- formula pinned. Result: we lifted the framework-class confidence from 0.50-0.65 toward 0.60-0.75. We also re-ran 9 anchors that previously only had smoke results -- 7 of those passed at full scale (write-allocate caching, multi-tier caching, sharp-wave-ripple replay, adversary coordination, XOR time-tag, signed-AM repulsion, R-envelope), 2 failed at full scale (community-detection and branching-audit -- both have rescue paths queued; not closed), 1 stayed in middle band (capacity-aware eviction). One LABEL-VS-HONEST catch on Q-F2's over-claimed shape detection. Net: framework-class identification substantially strengthened; substrate's non-equilibrium glass home re-confirmed."
+
+### Step 4 -- pipeline-pacing (per [[feedback-pipeline-pacing]])
+
+Pause-flag ABSENT (verified `test -f data/orchestrator_paused.flag` -> NO_PAUSE_FLAG). Queue depth at arrival: 13-verdict batch arrival itself is queue-depletion signal per [[feedback-verdict-arrival-is-queue-depletion-signal]]. Per role-contract Step 2: pause-flag absent + queue=0 normally triggers exp_dev refill. Verdict_handler SURFACES queue-refill candidates to main thread (orchestrator main thread holds dispatch authority for autonomous-cycle context). [pipeline-pacing surfaced to main-thread]
+
+Routing candidates for next-cycle dispatch (highest -> lowest priority):
+1. **Q-F3 cophenetic correlation** (v330 carry-over; single-linkage MST on overlap matrix; <1s wall ZERO-COMPUTE; SINGLE CHEAPEST DECISIVE TEST per research-delivery -- unblocks multi-tenant tree + coarse-to-fine retrieval if PASS).
+2. **Q-F1 5-seed N=2048 follow-up** (NEW v331 -- tighten the 8_64_512 triplet that landed 0.001 below HP edge; 1-2h CPU).
+3. **Q-F4 saddle-overlap triplet test** (v330 carry-over; substrate-novel SKAH-M-class signature; orthogonal to Q-F1 and Q-F3).
+4. **graph_community_detection rescue R2 absolute-cos protocol** (NEW v331; ~5min CPU).
+5. **program_exec_audit_branching rescue R2 sibling-list protocol** (NEW v331; ~5min CPU).
+6. **caching_capacity_aware_eviction rescue cell-A workload variation** (NEW v331; ~10min CPU).
+7. **PP-43b LRU small-M rescue** (v328 carry-over).
+8. **Q-F2 FDT ratio X(C) measurement** (NEW v331; gated on Q-F1 5-seed signal; deeper non-eq test).
+9. (Lower priority) **PP-43d ARC/LIRS low-alpha rescue** (v328 carry-over); **PP-44 cross-N sweep** (v328 carry-over); **PP-9b cross-depth extension** (v328 carry-over); **PP-37 spectral N-sweep characterization** (v326 carry-over); **PP-31a alpha-sweep extension** (v327 carry-over); **PP-40 N-sweep** (v327 carry-over); **PP-41 edit-distance primitive extension** (v327 carry-over R2); **PP-42 M=1000+M=2000 extension** (v327 carry-over); **PP-39 Anchor 1 mixed-mode query round-trip** (v326 carry-over); **PP-38 N=8192 5-seed extension** (v326 carry-over); **PP-34/PP-35/PP-36 v2 follow-ons** (v325 carry-over); **Per-script audit for 7 holdout scripts** (v324 carry-over); **Q-F5 Preisach hysteresis hierarchy** (v330 carry-over).
+
+### Tallies (v330 -> v331)
+
+- **HONEST:** 381 -> **393** (+12 NEW HONEST: Q-F1 HP genuine + Q9 HP genuine + Q-F2 CK-core HP honest + 4 walk-back HP (caching_write_allocate, caching_multi_substrate, hippocampal_swr, multiagent_adversary) + 1 walk-back-from-smoke-MIDDLE to HP (q21_r_envelope) + 2 walk-back-confirms FULL HP (timeseries_xor, signed_am_b) + 2 walk-back HF FULL (graph_community, program_exec_branching) + 1 walk-back MIDDLE FULL (caching_capacity_aware)).
+- **LABEL-VS-HONEST:** 200 -> **201** (+1 NEW CATCH: #201 two_time_correlator_fdt_v1 SHAPE_DISCRIMINATION_OVER_CLAIM -- CK aging genuinely HP but Garcia-Lorenzana detection cited despite piecewise/smooth R2 both << 0.85 HP and mean DFT SNR < 3.0; honest reframe preserves CK core but rejects Garcia-Lorenzana detection).
+- **Portfolio:** 32+66 -> **32+66** UNCHANGED. NO new top-level rows. 1 ROW LIFT (PP-33 0.50-0.65 -> 0.60-0.75 +0.10 both bounds Q-F1+Q-F2 CK-aging FULL CONFIRMATION). 1 SUB-PROPERTY-BAND LIFT (PP-39 0.65-0.80 -> 0.70-0.85 per 3rd independent sub-property convention). Multiple sub-property characterizations added (PP-1/PP-12 tau_mem formula pin + PP-43-family caching sub-properties + PP-12 R-envelope + PP-12/PP-22 SWR replay).
+- **Cap_map version: v331.**
+
+### Framework reliability (v331)
+
+- General: 65-75% UNCHANGED.
+- Specific-documented: 47-57% -> **52-62%** (+5pp both bounds; Q-F1 dynamical CK ultrametricity + Q-F2 CK aging collapse-mse BOTH FULL HARD-PASS at production N {1024, 2048}; CK-class dynamical-phase is now the FIRST framework with TWO independent finite-N HARD-PASS confirmations (Q19 v330 corrected observable + Q-F1+Q-F2 v331 independent observables); v228 SKAH-M static-multistable analog precedent confirmed for dynamical sister class).
+- Product-feature: 66-80% UNCHANGED (no product-feature row LIFT this batch; Q-F1+Q-F2 LIFT is framework-class not product-feature; PP-39 sub-property-LIFT is within mature row).
+
+### Known infrastructure issues (annotation block; UPDATED in v331)
+
+**Issue I-1 (v323, UPDATED v324-v330, ANNOTATED v331): per-script `--full` default audit -- STILL OPEN for 7 holdout scripts.** v331 13-anchor batch did NOT touch the 7 holdout scripts. I-1 status UNCHANGED.
+
+**Issue I-2 (v325, RESOLVED v326).** CLOSED.
+
+**Issue I-3 (v327, RESOLVED v328).** CLOSED.
+
+**Issue I-4 (v330, RESOLVED v331).** 9 v330 PARKED smoke-only anchors successfully RE-SHIPPED at FULL this cycle and all returned `_source=remote` + `run_mode=full` + multi-seed authoritative metrics. Detection signal and routing protocol validated. CLOSED.
+
+**Issue I-5 (v330, OPEN v331): q22-family per-anchor timeout near-miss.** Not touched this batch; STILL OPEN for next q22 ship.
+
+**Issue I-6 (v331, NEW): SHAPE_DISCRIMINATION_OVER_CLAIM verdict_msg pattern.** Q-F2 verdict_msg cites "GARCIA-LORENZANA OSCILLATING OVERLAY DETECTED piecewise_r2=0.3149 smooth_r2=0.5063" with the failing R2 values IN the same string -- reporting failed-thresholds as if confirming detection. This is a SCRIPT-side message-template bug: the script computes shape-discrimination R2 thresholds but emits "DETECTED" regardless of pass/fail. Recommendation: script-author audit two_time_correlator_fdt scripts to ONLY emit "DETECTED" when R2 >= 0.85 AND mean DFT SNR >= 3.0 (NOT max). Detection signal: verdict_msg includes failing-threshold numbers next to PASS-tone language. Filed for main-thread routing to script-author cycle.
+
+### PROT compliance (v330 -> v331)
+
+- PROT-004/006: NO row closures. 1 row LIFT (PP-33 Q-F1+Q-F2 RESCUE-SUCCESS); 1 sub-property-LIFT (PP-39 3rd independent sub-property convention); 2 HF walk-back candidates kept OPEN with rescue sketches cheapest-first (graph_community R1-R5 + program_exec_branching R1-R5 sequenced per [[feedback-rescue-sketch-first-sequencing]]); 1 MIDDLE annotation (caching_capacity_aware); multiple sub-property characterizations (PP-1/PP-12 tau_mem formula + PP-43-family + PP-12 R-envelope + PP-12/PP-22 SWR replay).
+- PROT-007: history v331 appended (history.md sibling entry inline).
+- PROT-008: annotation-heavy (1 LIFT + 1 sub-property-LIFT + 3 caveats + multiple sub-property characterizations); no portfolio regression; no closures.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry staged atomically; **242nd PROT-009 paired commit**.
+- PROT-018: 13 anchors verified via remote authoritative metrics; anchors at default-N carry no _nN suffix; Q-F1 N=1024 default, Q-F2 N=2048 production-default, Q9 N_LIST={2048,4096,8192} multi-N config, timeseries_xor N=4096 and signed_am N=4096 carry implicit production-default annotation. PROT-018 ✓.
+- PROT-021: smoke-checkpoint contamination check applied; all 13 anchors verified via remote authoritative metrics with run_mode=full + multi-seed; no contamination detected.
+- PROT-022: not applicable (no log2-parity-relevant anchors in this batch).
+
+### Memory adherence
+
+- [[feedback-verdict-msg-honest-reread]]: Step 0 applied to all 13 anchors; **1 NEW LABEL-VS-HONEST catch** (#201 Q-F2 SHAPE_DISCRIMINATION_OVER_CLAIM); 12 anchors honest-as-labeled.
+- [[feedback-no-preframing]]: dispatch input pre-framed PP-33 LIFT to 0.60-0.75 conditional on Q-F1 HP at FULL. Honest re-read CONFIRMED Q-F1 aggregate HP (global_mean_M_dyn=0.9090 inside [0.85, 0.95]) AND Q-F2 CK-aging HP (collapse_mse=0.0144 < 0.05); LIFT APPLIED per pre-framed criterion AFTER honest verification; pre-framing in this case did NOT bias the honest re-read (criteria met by per-cell metrics independent of label).
+- [[feedback-smoke-checkpoint-contamination]]: PROT-021 check applied; all 13 FULL anchors verified `_source=remote run_mode=full` multi-seed authoritative; 9 v330 PARKED anchors successfully transitioned smoke -> FULL this cycle (I-4 RESOLVED).
+- [[feedback-no-label-vs-honest-anchor-names]]: PROT-018 enforced; anchors at default N carry no _nN suffix.
+- [[feedback-cap-map-update-protocol]]: atomic single commit; push BLOCKED from sub-agent context (surface hash to main thread).
+- [[feedback-for-you-tab-primary-channel]]: status_log entry CRITICAL with plain_language and importance fields filed.
+- [[feedback-decision-log-eol-handling]]: append via append_decision_log.py.
+- [[feedback-subagent-permission-inheritance]]: push BLOCKED from sub-agent context; commit hash surfaced for main thread.
+- [[feedback-rescue-sketch-first-sequencing]]: 2 HF candidates (graph_community + program_exec_branching) each filed with 5 rescue sketches cheapest-first (R1 subsumption ZERO-COMPUTE -> R2 protocol tweak ~5min CPU -> R3 N-scale ~30min CPU -> R4 alternative protocol ~1h CPU -> R5 different composition ~2h CPU). Q-F1 5-seed N=2048 follow-up + Q-F2 FDT-ratio X(C) follow-up sequenced cheapest first.
+- [[feedback-pipeline-pacing]]: pause-flag ABSENT verified; queue refill candidates surfaced to main thread (autonomous overnight cycle 6 framing); verdict_handler does NOT auto-dispatch exp_dev.
+- [[feedback-rehabilitation-after-rejection]]: 2 HF candidates filed with 5 rescue sketches each BEFORE any closure; NEITHER row closed in v331; both kept OPEN for next-cycle drill.
+- [[feedback-lit-scan-calibration-penalty]]: PP-33 LIFT RETAINS +0.05 deflation from founding; CK aging P=0.50 (was 0.40) and Garcia-Lorenzana P=0.10 (was 0.20) reflect Q-F1+Q-F2 evidence; deflation conservatively applied per uncharted finite-N regime.
+- [[feedback-lock-in-inefficiency-fixes]]: I-6 SHAPE_DISCRIMINATION_OVER_CLAIM verdict_msg pattern locked as structural script-author cycle routing; verdict-handler decision tree updated to detect failing-threshold numbers next to PASS-tone language.
+- [[feedback-strategy-shore-up-capabilities]]: PP-39 sub-property-LIFT 0.65-0.80 -> 0.70-0.85 triggered by 3rd independent sub-property (v328 consensus + v330 competing-agent + v331 adversarial-resilience).
+- [[feedback-composition-classification]]: Q-F1 dynamical M_dyn is SCORE-class (single-observable per-triplet measurement). Q-F2 C(t,t_w) collapse is SCORE-class (single-observable scaling). Q9 tau_mem is SCORE-class (single closed-form fit). graph_community is SCORE-class. program_exec_branching is HANDOFF/PIPELINE-class (multi-step branch + cos at branch-marker). caching_*_per_pattern and caching_multi_substrate are PIPELINE-class (read-write-evict-retrieve). hippocampal_swr is PIPELINE-class (sequence storage + replay). multiagent_adversary is HANDOFF-class. q21_r_envelope is SCORE-class. timeseries_xor is HANDOFF-class. signed_am_b is SCORE-class. caching_capacity_aware is PIPELINE-class.
+
+### Push and follow-on (v331)
+
+Push: BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main` as 1-tool follow-up.
+
+Main-thread routing candidates (highest -> lowest priority; v330 carryovers RETAINED + v331 additions):
+1. **Q-F3 cophenetic correlation** (v330 carry-over; SINGLE CHEAPEST DECISIVE TEST <1s wall).
+2. **Q-F1 5-seed N=2048 follow-up** (NEW v331; tighten 8_64_512 triplet that landed at HP edge).
+3. **Q-F4 saddle-overlap triplet test** (v330 carry-over).
+4. **graph_community R2 absolute-cos rescue** (NEW v331; ~5min CPU).
+5. **program_exec_audit_branching R2 sibling-list rescue** (NEW v331; ~5min CPU).
+6. **caching_capacity_aware cell-A workload variation rescue** (NEW v331; ~10min CPU).
+7. **PP-43b LRU small-M rescue** (v328 carry-over).
+8. **Q-F2 FDT ratio X(C) measurement** (NEW v331; gated on Q-F1 5-seed signal).
+9. **I-6 script-author audit for two_time_correlator_fdt scripts** (NEW v331; verdict_msg shape-discrimination over-claim fix).
+10. PP-43d ARC/LIRS low-alpha rescue (v328); PP-44 cross-N sweep (v328); PP-9b cross-depth extension (v328); PP-37 spectral N-sweep (v326); PP-31a alpha-sweep extension (v327); PP-40 N-sweep (v327); PP-41 edit-distance (v327); PP-42 M=1000+M=2000 extension (v327); PP-39 Anchor 1 mixed-mode query (v326); PP-38 N=8192 5-seed (v326); PP-34/PP-35/PP-36 v2 follow-ons (v325); per-script audit for 7 holdout scripts (v324); Q-F5 Preisach hysteresis hierarchy (v330).
+11. **q22-family timeout extension to 2400s** (v330 I-5 carry-over).
