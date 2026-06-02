@@ -39,3 +39,12 @@ I-1 root cause: remote runner_v2_prod.py (5/28 build) lacked HDLAB_RUN_MODE=full
 - timeseries_xor_range_v1 (300s): KV time-tag range query accuracy + out-of-window rejection
 
 All 6 remote-VERIFIED. All preregs pre-registered before ship. Instrumentation selftests passed (56.9s, 36.8s, 6.9s, 31.1s, 26.9s, 2.3s). Key design decisions: 1-step Hopfield (not iterated) to avoid even/odd oscillation masking deletion; KV matrix (not symmetric Hebbian) for time-tag queries; noise-floor comparison for deletion cert (not absolute threshold).exp_dev 21:35: shipped 11 anchors to remote_cpu_queue (_runner_fix_verify + 10 x _full_v3 re-ships). HDLAB_RUN_MODE=full confirmed in experiments/runner_v2_prod.py child_env. All 14 original full_v2 runs confirmed run_mode=smoke (stale runner). Remote CPU runner dead -- main thread restart required. All 11 REMOTE VERIFY pass. Timeouts: 300s x10, 900s x1 (deletion_cert_api).
+## 9-anchor batch ship (late cycle)
+
+- Shipped 9 anchors from 9 handoffs delivered at 20:13-20:17.
+- CPU remote_cpu_queue: governance_cap_cert_v1 (120s), spectral_zstat_v1 (300s), hippocampal_nonrecip_replay_v1 (90s), graph_multihop_snr_v1 (180s), subgraph_cardinality_trace_v1 (120s), multiagent_write_pressure_v2 (180s), program_exec_audit_v1 (1800s).
+- GPU overnight_queue: neural_sym_fullscale_v2_n8192 (21600s), hippocampal_basin_fullscale_v2_n4096 (14400s).
+- DROPPED timeseries_xor_fullscale_v2: XOR bundled range query fails at N=4096 (in_acc=0.017, suspicious result gate triggered).
+- Fixed universal self-test gate timeout bug in all 8 new scripts (missing sys.exit(0) after --self-test flag).
+- Fixed hippocampal_basin rho_grid too narrow (ceiling artifact -> NaN R2); extended to 0.50, switched to Pearson correlation metric.
+- All 9 anchors remote-verified (PROT-018, PROT-019 all compliant).
