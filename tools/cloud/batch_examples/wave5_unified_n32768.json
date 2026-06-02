@@ -40,13 +40,13 @@
     ]
   },
   {
-    "anchor": "combo1_gram_kappa3_n32768_v1",
-    "script": "experiments/exp_combo1_gram_kappa3_n32768_v1.py",
+    "anchor": "q_b1_depth_extended_n32768",
+    "script": "experiments/exp_q_b1_depth_extended_n32768.py",
     "total_cells": 5,
-    "cell_regex": "^\\s+seed=\\d+",
-    "experiment_timeout_min": 120,
+    "cell_regex": "^\\s+d1=",
+    "experiment_timeout_min": 90,
     "result_paths": [
-      "data/exp_combo1_gram_kappa3_n32768_v1/metrics.json"
+      "data/exp_q_b1_depth_extended_n32768/metrics.json"
     ]
   }
 ]
