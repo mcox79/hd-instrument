@@ -145,3 +145,4 @@ REMOTE_CPU_QUEUE (5 anchors):
 1. GATE TIMEOUT root cause: scripts lacked self-test early exit. Gate timeout=180s; production sweeps run at full N when --self-test passed. Fix: added sys.exit(0) after _instrumentation_selftest() in all 7 scripts (combo4, q_c2, combo1_p3, kappa3_monitor, drift_kernel, hippocampal, q_a3_l2, q_f4).
 2. PROT-019: q_c2 _n4096 timeout was 2700s (below 14400s floor). Fix: raised to 14400s.
 3. combo4 wall-time: Glauber dynamics at N=4096 requires ~28800s. Fix: renamed to _n1024 production.
+10-cell batch: 6/10 shipped (combo2 GPU, q_a3_n8192 GPU, brand_sat CPU, sp5_consol CPU, f4_fixed CPU, kappa3_mix CPU); 4 blocked (combo1_v3 HP2/HP4 formula mismatch, tau_alpha protocol mismatch, alpha_mu_snap mechanism collapse, ckm_coeff measurement mismatch). Brand refresh DOES fix HP3 slope (1.09 vs 1.958 in v2). All 6 ships remote-verified exit-0.
