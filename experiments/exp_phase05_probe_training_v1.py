@@ -168,6 +168,10 @@ def main():
     # Step 4: parse analogy "A : B = C : D" docs into concept pairs.
     # Example row: doc=' 10 : 1 = 100 : 10' -> concepts=[('10','1'), ('100','10')]
     def _parse_analogy(doc):
+        """'A : B = C : D' -> [(A,B),(C,D)] iff {A,B,C,D} are 4 distinct
+        (case-folded) tokens. Hyperprobe's create_vsa_encodings has a
+        tensor-shape bug when pairs share tokens (e.g., math '10:1=100:10');
+        we filter those out at parse time. 389k of 395k analogy rows pass."""
         s = (doc or "").strip()
         if "=" not in s or ":" not in s:
             return None
@@ -182,7 +186,13 @@ def main():
                 b = sub[1].strip()
                 if a and b:
                     pairs.append((a, b))
-        return pairs if len(pairs) >= 2 else None
+        if len(pairs) < 2:
+            return None
+        # 4-distinct-tokens constraint (no overlap between pairs)
+        all_toks = set(t.lower() for t in pairs[0] + pairs[1])
+        if len(all_toks) != 4:
+            return None
+        return pairs
 
     # Cap full-mode inputs to keep wall under 1h. 5000 inputs * 60 epochs is
     # still 300k gradient steps, more than enough for the encoder to converge.

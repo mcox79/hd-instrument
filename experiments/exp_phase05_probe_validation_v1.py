@@ -69,7 +69,9 @@ ANALOGY_DATASET = "saturnMars/hyperprobe-dataset-analogy"
 
 
 def _parse_analogy(doc):
-    """Parse 'A : B = C : D' style strings into [(A,B), (C,D)]."""
+    """'A:B=C:D' -> [(A,B),(C,D)] iff {A,B,C,D} are 4 distinct case-folded
+    tokens. Mirrors filter in exp_phase05_probe_training_v1 (hyperprobe
+    create_vsa_encodings shape-bug under overlap)."""
     s = (doc or "").strip()
     if "=" not in s or ":" not in s:
         return None
@@ -84,7 +86,12 @@ def _parse_analogy(doc):
             b = sub[1].strip()
             if a and b:
                 pairs.append((a, b))
-    return pairs if len(pairs) >= 2 else None
+    if len(pairs) < 2:
+        return None
+    all_toks = set(t.lower() for t in pairs[0] + pairs[1])
+    if len(all_toks) != 4:
+        return None
+    return pairs
 
 
 def _load_hf_token() -> str:
