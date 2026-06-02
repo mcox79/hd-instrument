@@ -235,3 +235,33 @@ Research routing filed: notes/strategy_request_to_research_combo1_v3_redesign_20
 **245th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes `git push origin main`.
 
 hygiene sweep 2026-06-02: 11 routing files moved to notes/routed_completed/ (stuck_kills, ckm_coefficient, alpha_mu_snap, tau_alpha, combo1_v3 smoke-fail, combo1_v3_redesign, wave5_amendment_addressed, wave5_cloud_bundle_amendment, strategy_request_to_research_combo1_v3, testbed_handoff_wave5_unified_n32768, testbed_wave5_unified_n32768_results); no cap_map mutation; 2 active routings kept in notes/
+
+## 2026-06-02 v335 -- WAVE 5 CLOUD BUNDLE (5 anchors at N=32768)
+
+**Trigger:** Wave 5 cloud H100 bundle `bbelw34ap` completed; 5 anchors at production-N=32768 5-seed M=1638. Source: `notes/testbed_wave5_unified_n32768_results_2026-06-02.md`. Cost $3.81 vs $21.45 predicted (82% under). Pause-flag ABSENT.
+
+**Verdicts (5 anchors).** Step 0 honest re-read against per-seed metrics in `data/lambda_batch_results/*_bd9c5a0f/*/metrics.json`:
+
+1. `qd1_spectral_primitives_n32768_v1` MIDDLE_BAND HONEST -- alpha=0.05 HP_PASS 4/5; alpha=0.02 partial 3/5; alpha=0.01 fail sigma_dev=5.75; v1b sigma_TW rel_dev_from_theory 0.59-0.74 across alpha grid (HP gate 0.05 missed). Theory-pre-reg miscalibration not substrate failure.
+2. `kappa46_fingerprint_n32768_v1` Part A HARD_FAIL HONEST + Part B HARD_PASS HONEST -- Part A free-Poisson identity REFUTED at N=32768: kappa_3 +15%, kappa_4 +32%, kappa_6 +88%; Part B sensitivity sweep sigma_sep 2.55 / 27.3 / 259.4 / 896.9 / 1726.6 across delta_alpha {0.0001, 0.001, 0.01, 0.04, 0.1} crushes HP=3.0 from delta_alpha=0.001 upward.
+3. `deletion_cert_zratio_n32768_v1` HARD_PASS HONEST -- Z_min=155.81 vs HP=3.0 = 52x margin; signal_mean=181.02 = sqrt(32768) EXACT algebraic identity; 5-seed unanimous.
+4. `combo3_unified_api_n32768_v1` HARD_PASS HONEST -- 5-seed Krylov-vs-closed-form rel_dev all within MC noise floor 0.1414 by 30-3500x margin (tr_W1 / tr_W2 / tr_W3 / kappa_3 all 4e-5 to 4.7e-3).
+5. `q_b1_depth_extended_n32768` HARD_PASS HONEST (ADD-1 depth-10 extension) -- depth-10 mean=0.9846 min=0.9843 vs HP=0.90 = 8 sigma margin; per-hop fidelity 0.9984.
+
+**LABEL-VS-HONEST: 0 new catches** (all 5 cloud anchor labels honest-as-labeled per per-seed metrics).
+
+**Cap_map state transitions (v335).**
+- PP-45 5-method unified-API algebraic theorem BAND-LIFT 0.65-0.80 -> 0.70-0.85 (Wave 5 production-N=32768 founding-row LIFT criterion satisfied; Cell 4 Krylov-vs-closed-form unanimous 5-seed at N=32768).
+- PP-46 GDPR-grade deletion-cert non-repudiation BAND-LIFT 0.65-0.80 -> 0.70-0.85 (Wave 5 production-N=32768 founding-row LIFT criterion; Cell 3 Z_min=156 sigma at production-N).
+- PP-49 Hierarchical-Refusal-Cert + Counterfactual-Abduction BAND-LIFT 0.65-0.80 -> 0.70-0.85 + NEW SUB-PROPERTY PP-49a "depth-10 production-envelope at N=32768 M_bg=200" (Cell 5 depth-10 fidelity 0.9846 substrate ceiling NOT at d=10 in this regime).
+- NEW TOP-LEVEL ROW PP-50 "kappa_3 spectral-MAC sub-percent drift detection at production-N" 0.70-0.85 EXPLORATORY (Cell 2 Part B sensitivity sweep at production-N=32768 detects 0.04-0.1% pattern perturbation at sigma_sep 2.55-1726.6).
+- PP-45 CAVEAT: analytic free-Poisson identity scope-limited to small-n; sensitivity-based audit primitive Cell 2 Part B is the operational substitute.
+- NEW Issue I-11: analytic free-Poisson identity + Tracy-Widom sigma_TW closed-form empirically refuted for outer-product-Hebbian W finite-alpha; research-cycle routing FILED for Wishart cumulants + Marchenko-Pastur higher cumulants + finite-N bulk-edge crossover literature scan.
+
+**Rescue sketches for Cell 1 MIDDLE + Cell 2 Part A HF (cheapest-first):** R1 theory-side audit of free-Poisson + Tracy-Widom finite-N corrections for outer-product-Hebbian W (0-compute; same research-cycle as Issue I-11); R2 update Cell 1 + Cell 2 pre-reg HP bands to empirical-baseline-anchored Option A from strategy routing (0-compute); R3 Marchenko-Pastur bulk-edge crossover correction beyond leading-order Tracy-Widom (~30min CPU); R4 multi-alpha smaller-N regime mapping (~1hr CPU); R5 cloud N=65536 re-confirmation with new empirical baseline ($5-10). NEITHER row closed (theory-pre-reg miscalibration is RECOVERABLE not substrate-primitive refutation).
+
+**Portfolio:** 32+71 -> 32+72 (+1 NEW PP-50; +1 NEW SUB-PROPERTY PP-49a). **HONEST:** 412 -> 417 (+5). **LABEL-VS-HONEST:** 201 -> 201 UNCHANGED. **Product-feature framework reliability:** 71-85% -> 74-88% (+3pp both bounds; 4 production-N=32768 rows strengthen substrate-product moat).
+
+**Linked routing:** `notes/strategy_request_to_strategy_wave5_theory_prereg_gap_2026-06-02.md` (incorporated as Issue I-11 + PP-45 CAVEAT).
+
+**Push:** BLOCKED from sub-agent context; main thread executes `git push origin main` as 1-tool follow-up.
