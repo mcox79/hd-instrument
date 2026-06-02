@@ -139,3 +139,4 @@ NEW v329 follow-on candidate (NOT a rescue; production extension):
 **Framework reliability:** general 65-75% UNCHANGED; specific-documented 47-57% -> 52-62% (+5pp); product-feature 66-80% UNCHANGED.
 
 **PROT compliance:** PROT-004/006/007/008/009/018/021 all clear; 242nd PROT-009 paired commit; push BLOCKED from sub-agent context; main thread executes push.
+Wave 5 cloud testbed handoff filed: notes/testbed_handoff_wave5_unified_n32768_2026-06-02.md -- 5-anchor unified_n32768_v1 bundle (Q-D1 spectral, kappa46 fingerprint, deletion-cert Z-ratio, COMBO-3 unified API, COMBO-1 Gram+kappa3) routed to testbed for engineering; Lambda dispatch deferred to Wave 5 trigger (post-Wave-4-PASS or user auth); no cap_map work this cycle (deferred)
