@@ -84,10 +84,17 @@ from testbed.llm_integration.substrate_audit import (  # noqa: E402
 
 ANCHOR_NAME = "phase0_5b_distillation_mvp_llama31_kg_triples_v1"
 
-# Substrate sizes (per Drill 4 + capacity analysis)
+# Substrate sizes (per Drill 4 + capacity analysis).
+# CAPACITY-CLIFF NOTE (research sanity-check 2026-06-02): at p=2 dense W,
+# alpha_c=0.138 (classical Hopfield). M=1000 at N=8192 -> alpha=0.122 = 88% of
+# cliff; r_basin ~ sqrt(1 - alpha/alpha_c) ~ 0.34, degraded from alpha<<alpha_c.
+# A HARD-FAIL at M=1000 would conflate capacity-cliff failure with distillation-
+# pathway failure. Per research recommendation option (B): reduce to M=500
+# (alpha=0.061 = 44% of cliff; r_basin ~ 0.75) until p=4 implicit-storage path is
+# wired (waiting on COMBO-1 v3 redesign). All pre-reg bands unchanged.
 N_FULL = 8192
 N_SMOKE = 1024
-M_DISTILLED_FULL = 1000
+M_DISTILLED_FULL = 500
 M_DISTILLED_SMOKE = 200
 
 # Eval sizes
@@ -311,19 +318,37 @@ def run_one_seed(seed: int, N: int, M: int, n_non: int, n_mmlu: int,
         )
 
     triples, Xi_auto, Keys, Values, _ = _build_triple_patterns(M, N, seed=seed)
+    # Dual storage per research-sanity-check 2026-06-02: hetero W_kv carries the
+    # retrieval load (distilled recall, non-deg, mmlu-deg, oneshot); auto W_xx
+    # carries the audit primitives (deletion cert, kappa_3 -- both algebraic on
+    # the symmetric form). Diagnostic clarity required: log primitive -> matrix.
     W_kv = _build_W_hetero(Keys, Values)      # for retrieval (hetero)
     W_xx = build_W_from_patterns(Xi_auto)     # for audit primitives (auto-symmetric)
 
+    # Retrieval suite on W_kv
     distilled_recall, _ = _eval_distilled_recall(W_kv, Keys, Values, N)
     non_deg = _eval_nondistilled_degradation(W_kv, N, n_non, seed)
     mmlu_deg = _eval_mmlu_degradation(W_kv, N, n_mmlu, seed)
     oneshot_wall, oneshot_recall = _eval_oneshot_addition(W_kv, N, n_oneshot, seed)
+    # Audit suite on W_xx
     del_z_max, retain_cos_min = _eval_deletion_subset(W_xx, Xi_auto, N, n_del, seed)
 
     elapsed = time.time() - t0
+    # Capacity-cliff diagnostic: alpha = M / (N for p=2 dense). Surface so
+    # downstream verdict reading can distinguish capacity issue from pathway issue.
+    alpha = float(M) / float(N)
     return {
         "seed": seed,
         "N": N, "M": M,
+        "alpha": alpha,
+        "alpha_c_p2": 0.138,
+        "primitive_to_matrix": {
+            "distilled_recall": "W_kv",
+            "non_distilled_degradation": "W_kv",
+            "mmlu_degradation": "W_kv",
+            "oneshot_addition": "W_kv",
+            "deletion_cert": "W_xx",
+        },
         "distilled_recall": distilled_recall,
         "non_distilled_degradation": non_deg,
         "mmlu_degradation": mmlu_deg,

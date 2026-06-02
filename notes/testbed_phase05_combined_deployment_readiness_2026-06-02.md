@@ -33,7 +33,7 @@ What's NOT yet wired (cloud bring-up phase, must clear before dispatch):
 | 1 | `tier7_mvp_hyperprobe_llama31_kappa3_drift_v1` | A: kappa_3 drift detection | Whitened kappa_3 via Sigma^{-1/2} (per I-10) | sigma_sep >= 5 across 5 seeds | sigma_sep < 2 |
 | 2 | `tier7_mvp_hyperprobe_llama31_deletion_cert_v1` | B: deletion cert vs live LLM state | Rank-1 deletion + Z-ratio vs null + retained cosine | del-Z < 2-sigma AND retained > 0.85 across 5 seeds | del-Z > 5-sigma OR retained < 0.65 |
 | 3 | `tier7_mvp_hyperprobe_llama31_refusal_cert_v1` | C: refusal cert via PP-48 NKT | 3-level hierarchical NKT search; leaf-first cosine cert | precision = 1.0 AND false-refusal <= 0.10 across 5 seeds | precision < 0.9 |
-| 4 | `phase0_5b_distillation_mvp_llama31_kg_triples_v1` | 0.5b: 1000-fact KG distillation MVP | Hetero-assoc W_kv (retrieval) + auto-assoc W_xx (audit) | distilled recall >= 0.85 AND non-distilled deg <= 0.02 AND MMLU deg <= 0.02 AND 100-fact one-shot wall <= 60s + recall >= 0.85 AND deletion cert verifies on 100-subset | distilled < 0.65 OR catastrophic (>0.05 degradation) OR deletion cert fails |
+| 4 | `phase0_5b_distillation_mvp_llama31_kg_triples_v1` | 0.5b: 500-fact KG distillation MVP (alpha=0.061; 44% of cliff per research-sanity-check) | Hetero-assoc W_kv (retrieval) + auto-assoc W_xx (audit) | distilled recall >= 0.85 AND non-distilled deg <= 0.02 AND MMLU deg <= 0.02 AND 100-fact one-shot wall <= 60s + recall >= 0.85 AND deletion cert verifies on 100-subset | distilled < 0.65 OR catastrophic (>0.05 degradation) OR deletion cert fails |
 
 Each anchor: 5 seeds {7, 17, 23, 31, 41}. ASCII-only stdout per [[feedback-ascii-only-in-scripts]]. Self-test on import per [[feedback-strategy-spec-formula-selftests]]. Resumable per-seed checkpoints via `experiments._seed_checkpoint`.
 
@@ -136,8 +136,26 @@ Per project memory:
 
 ## Next testbed actions on user go-signal
 
-1. Build cloud bring-up scripts (vLLM + Llama-3.1-8B + hyperprobe; ~1-2 eng-days)
+1. Build cloud bring-up scripts (vLLM + Llama-3.1-8B + hyperprobe; ~1-2 eng-days). Requires HF token from user (Llama-3.1-8B-Instruct is gated).
 2. Generate forbidden-pattern corpus + KG fact corpus + MMLU subset (~1 eng-day)
 3. Smoke-dry-run on Lambda A100 ($1-5; 15 min)
 4. Dispatch combined 4-anchor batch on user explicit go
 5. Monitor + file deliverable on completion
+
+---
+
+## Research sanity-check 2026-06-02: changes applied
+
+Per research review by user-relayed research session (verbatim relay 2026-06-02):
+
+1. **TAU thresholds** (sub-test C): KEPT 0.30/0.40/0.50. Research recalibrated the noise-floor formula: max-of-42 cosines at D=4096 is sqrt(2*ln(42)/D) = 0.043 (not 1/sqrt(42) = 0.154 as I'd estimated). Original thresholds therefore have 7x/9x/12x margin, even better than my 2x estimate. Note updated in script comments.
+2. **TAU sensitivity sweep** (sub-test C): ADDED as free secondary observable. TAU_SWEEP = [0.20, 0.25, 0.30, 0.35, 0.40, 0.50] logged per seed. Pre-empts post-hoc retuning debate; gives rescue R1 data without re-running. Smoke confirms sweep table populated in metrics.json.
+3. **Layer ell**: KEPT single layer 22 (0-indexed 21; 0.7 * 32 = 22.4). Layer-sweep {19, 22, 25} reserved as rescue R1 IF sub-test A lands MIDDLE_BAND at full D=4096.
+4. **Sub-test C HARD-FAIL acceptance**: documented. If precision < 0.9 at full D=4096, accept honest HARD-FAIL; rescue R1 = TAU sweep at full D (data already in metrics). NO post-hoc TAU retuning (would be LABEL-VS-HONEST cherry-pick-threshold pattern, cousin to v330 #200).
+5. **Dual W_kv (hetero) + W_xx (auto)**: APPROVED with diagnostic clarity requirement. Each per-seed result now includes `primitive_to_matrix` mapping showing which audit primitive ran on which matrix.
+6. **Phase 0.5b capacity-cliff fix (MANDATORY)**: REDUCED M from 1000 to 500. At p=2 dense W, M=1000 / N=8192 -> alpha=0.122 = 88% of alpha_c=0.138; r_basin ~ 0.34 -- uncomfortably close to cliff. A HARD-FAIL at M=1000 would conflate capacity-cliff failure with distillation-pathway failure. M=500 -> alpha=0.061 = 44% of cliff; r_basin ~ 0.75. All pre-reg bands UNCHANGED.
+   - p=4 polynomial DAM via implicit storage (option A) deferred until COMBO-1 v3 redesign lands.
+7. **HF token**: NEEDED FROM USER. Llama-3.1-8B-Instruct is gated on HuggingFace. Token to be passed via Lambda env (NOT into repo or memory).
+8. **No padding**: CONFIRMED. 4 anchors all map to pre-registered research routings.
+
+Research net assessment: **GREEN-LIGHT** on the run design with the above changes applied.
