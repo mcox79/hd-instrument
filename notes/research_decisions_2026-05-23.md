@@ -27,3 +27,5 @@ P estimates (post-deflation per [[feedback-lit-scan-calibration-penalty]]): P(fu
 Next-cycle elective: GAP/Magma character-table computation of F_4(PSL(2, 2^12)) (cheap CPU, 4-8hr). Flagged but NOT auto-routed — Strategy decides whether to escalate.
 
 Citations verified: 6 (ZKGG 2017, Helsen-Wallman-Wehner 2018, Webb 2015, CRCP 2020, Klappenecker-Roetteler 2005, CCKS 1997).
+
+- 2026-06-01: hippocampal-phenomena-mapping -> notes/research_hippocampal_phenomena_mapping_2026-06-01.md ; GO signal met; P_deflated=0.38; next-drill: non-reciprocal-W replay directionality (spectral A=(W-W^T)/2 analysis)

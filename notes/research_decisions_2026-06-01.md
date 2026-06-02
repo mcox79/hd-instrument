@@ -1,5 +1,14 @@
 # Research decisions -- 2026-06-01
 
+## neural_symbolic_bridge -- 2026-06-01 (research:sonnet, 4 parallel WebSearch + 2 WebFetch lit-scans)
+
+**Trigger.** Orchestrator inline dispatch: speculative deep drill on substrate as neural-symbolic bridge. Algebraic + lit-scan, no empirical.
+
+**Outcome.** GO with qualification. Note: notes/research_neural_symbolic_bridge_2026-06-01.md. P_deflated=0.50 (capped). 5 differentiators vs published neural-symbolic systems identified. HF4 risk (reduces to known VSA) = 0.20. Next-drill candidates: SAT/Hopfield energy geometry, Soft TPR (NeurIPS 2024), expander bounds on attractor graph.
+
+---
+
+
 ## p3_p4_external_routing_delivery -- 2026-06-01 (research:opus + 2 parallel Sonnet drills + main-thread P2 source verification)
 
 **Trigger.** Orchestrator routing `strategy_request_to_research_external_distribution_2026-05-31.md` filed 2026-05-31 15:53 with 6 research priorities. This session processed research-owned priorities P3 + P4 + P2-source-verification.
@@ -207,3 +216,34 @@
 
 **Method note.** Per [[feedback-no-experiment-design-in-prompts]]: deliverable is design + pre-reg bands; specific sweep grids, batch sizes, exact N values for sub-experiments are exp_dev's call. Per [[feedback-strategy-spec-formula-selftests]]: pre-reg bands include concrete thresholds at multiple levels (Gram-matrix, val top-1, generalization gap) — testbed verifies pre-flight Gram BEFORE training. Per [[feedback-lit-scan-calibration-penalty]]: P deflated 0.10-0.20.
 - 2026-06-01 CSP-with-learning drill -> notes/research_csp_with_learning_2026-06-01.md ; HEADLINE: W=W_csp+W_data dual-use is genuinely novel; P_deflated=0.35; HARD-FAIL at <50% on both objectives; next-drill: free-probability Tracy-Widom on combined spectrum
+
+
+## SEB_write_proof_memory_floor_drill -- 2026-06-01 (research:sonnet; inline algebraic + 4-parallel lit-scan)
+
+**Trigger.** Orchestrator dispatch: speculative algebraic drill on whether SEB C_inf > 0 constitutes an algebraically enforced write-proof memory core -- new capability category.
+
+**Outcome.** notes/research_SEB_write_proof_floor_2026-06-01.md NOT written (inline return per discipline-locked constraint). HEADLINE: C_inf IS q_EA algebraically, NOT a user-controllable pinnable floor. GO/NO-GO = NO-GO. P_deflated = 0.18. Reframing: load-dependent retention floor (valuable weaker claim). See inline return in chat.
+
+**Next-drill candidate.** Free-probability Wigner edge / Tracy-Widom (F2) on W eigenvalues -- top ranked from field_advisor; or nonequilibrium-stat-mech frenesy three-part decomposition (per research_noneq_framework_consolidation_v276).
+
+- spectral-ai-introspection (2026-06-01): GO verdict for substrate as third-party AI activation auditor. P_deflated=0.38. Unique vs EigenTrack/SIGMA: cumulative history + third-party isolation. Deceptive-uniformity is the unaddressed case. Monitoring overhead 0.73% LLM inference. -> inline delivery.
+
+- matrix-trace-query-algebra (2026-06-01): inline delivery — trace primitives map to count/cardinality relational sub-algebra; CONDITIONAL GO on 4 axes (privacy-preserving count, k-way count complexity, audit reproducibility, CRDT concurrency); full SQL equivalence REJECTED; P_deflated 0.50 (novel framing); next-drill: PSI-CA formal privacy proof + capacity-cliff constraint quantification
+
+## program_execution_audit_substrate -- 2026-06-01 (research sub-agent, algebraic + lit-scan)
+
+**Trigger.** Speculative deep drill: substrate as program execution memory with time-travel debugging and audited rollback. Algebraic discipline only, no empirical verification.
+
+**Outcome.** GO (conditional). Algebraic deletion certificate is structurally superior to blockchain (deletion impossible), event sourcing (O(T) re-replay), and Codebat constant-size hash-chain evidence (O(T) re-anchoring). Compactness advantage eliminated by 0.138N capacity wall for realistic trace lengths. GDPR-deletion niche is real (2025/2026 industrial market confirmed by Codebat arXiv:2511.17118). Product position: substrate as query-layer + deletion-certificate generator over a conventional log, not standalone trace store.
+
+**P_deflated(commercially deployable 24mo) = 0.28.** Regulatory acceptance of weight-space deletion is the open gate (~0.25 P separately).
+
+**Note path:** notes/research_program_execution_memory_audit_substrate_2026-06-01.md
+**Handoff path:** notes/exp_dev_handoff_research_program_execution_audit_substrate_2026-06-01.md
+**Next-drill candidate:** compliance-cryptography x quantum-resistance x algebraic-deletion-cost
+2026-06-01 multiagent_coordination_substrate: notes/research_multiagent_coordination_substrate_2026-06-01.md -- GO on compliance sidecar (P_deflated=0.48 unique five-property bundle); NO-GO on hot-path coordination; next-drill: network-science/graph-theory
+- analog-hardware-deployment: notes/research_analog_hardware_deployment_2026-06-01.md -- GO: substrate deletion-cert is hardware-native on crossbars; ADC-free via comparator; MHN softmax bottleneck confirmed; P_deflated=0.52; 10 citations
+research_timeseries_infrastructure_2026-06-01: GO for compliance sidecar niche (P_deflated=0.60); TSDB backup gap confirmed; XOR range query cheap test pending (HP-1); HopCPT adjacency needs follow-up; -> notes/research_timeseries_infrastructure_2026-06-01.md
+- [substrate-graph-gnn] notes/research_substrate_graph_gnn_2026-06-01.md -- GO on audit/compliance graph niche; NO-GO on raw accuracy; P_deflated=0.45 (audit axis); 15 citations; exp_dev handoff written
+
+- research_governance_memorization_bound_2026-06-01: Algebraic Hebbian AM as governance-memorization-bound infrastructure -- deletion-certificate and capacity-bound map to GDPR/HIPAA/EU AI Act gaps; verification-fragility gap in competitors confirmed; P_deflated=0.32; next-drill: regulatory-text search for machine-verifiable deletion proof requirement. -> notes/research_governance_memorization_bound_2026-06-01.md
