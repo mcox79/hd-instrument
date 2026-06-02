@@ -185,4 +185,22 @@ Key design decisions:
 - All N>=8192: matrix-free GPU, VRAM safe on 8GB.
 - Cell 9 selftest fix: kappa3_resc must normalize Gram first (G=Xi@Xi.t()/N) then cube element-wise.
 - PROT-019 floors: N>=8192 -> timeout>=21600s, N=4096 -> timeout>=14400s.
-exp_dev: cycle 12 GPU refill 10/10 anchors to overnight_queue. Rescues: a4_audit_v2(timeout fix), combo1_n8192_vram_friendly(OOM fix M=N*2), pp49_depth8(depth-10 backoff). New: kappa3_n16384_v2(10 seeds), caching_v3_stress, pp52_A1/A2/A3_n4096, combo1_pp48_nkt_v2_depth5, q_b1_depth30_n8192. All PROT-018/019 pass. All 10 remote-verified.Cycle 12 refill: 9/9 shipped. GPU overnight_queue: pp52_one_shot_addition_n8192_v1 (t=21600), pp52_exact_rollback_n8192_v1 (t=21600), q_b1_chain_depth_25_v1_n8192 (t=21600), combo2_p4_l3_signed_am_v1_n4096_l4_extension_v1 (t=14400), pp48_nkt_depth_3_baseline_verification_v1_n4096 (t=14400). CPU remote_cpu_queue: a8_continual_writes_no_catastrophic_forgetting_v1 (t=600), a9_cert_chain_replay_validation_v1 (t=300), pp45_combo3_unified_api_at_intermediate_alpha_v1 (t=300), wave4_full_pipeline_with_audit_v1 (t=600). A7 collision (already pending cpu_q). PROT-018/019/021 enforced. REMOTE VERIFY 9/9.
+exp_dev: cycle 12 GPU refill 10/10 anchors to overnight_queue. Rescues: a4_audit_v2(timeout fix), combo1_n8192_vram_friendly(OOM fix M=N*2), pp49_depth8(depth-10 backoff). New: kappa3_n16384_v2(10 seeds), caching_v3_stress, pp52_A1/A2/A3_n4096, combo1_pp48_nkt_v2_depth5, q_b1_depth30_n8192. All PROT-018/019 pass. All 10 remote-verified.Cycle 12 refill: 9/9 shipped. GPU overnight_queue: pp52_one_shot_addition_n8192_v1 (t=21600), pp52_exact_rollback_n8192_v1 (t=21600), q_b1_chain_depth_25_v1_n8192 (t=21600), combo2_p4_l3_signed_am_v1_n4096_l4_extension_v1 (t=14400), pp48_nkt_depth_3_baseline_verification_v1_n4096 (t=14400). CPU remote_cpu_queue: a8_continual_writes_no_catastrophic_forgetting_v1 (t=600), a9_cert_chain_replay_validation_v1 (t=300), pp45_combo3_unified_api_at_intermediate_alpha_v1 (t=300), wave4_full_pipeline_with_audit_v1 (t=600). A7 collision (already pending cpu_q). PROT-018/019/021 enforced. REMOTE VERIFY 9/9.## 10-cell refill 2026-06-02T17:53
+
+Shipped 10 anchors. 2 CPU rescues to remote_cpu_queue; 8 GPU to overnight_queue.
+
+CPU rescues:
+- a6_oneshot_vs_lora_economics_v2_longer_timeout_v1: K=50, N_KV=5, timeout=3600s. Smoke: MIDDLE_BAND (wall_speedup=47x >> HP, flop_speedup=1.25x < HP 1.5x; deterministic).
+- hippocampal_engram_consolidation_v3_longer_timeout_v1: M_OLD=M_NEW=300, vectorized replay, timeout=1800s. Smoke: MIDDLE_BAND (gain=0.165, fid_replay=0.99; fid_no_replay=0.83 at smoke-N only).
+
+GPU cells (PROT-018/019/021 all PASS, remote-verify 10/10):
+- pp52_hebbian_lora_speedup_n8192_v1: N=8192, GD_MAX_ITER=3000, 21600s
+- q_b1_chain_depth_40_v1_n8192: CHAIN_DEPTH=40, snapshots=[5,10,20,30,40], 21600s
+- q_a3_l8_cross_layer_composition_v1_n4096: L=8, Hadamard decode chain, 14400s
+- pp48_nkt_depth_11_v1_n4096: K_FORBIDDEN=100 sampled leaves (alpha=0.027), 14400s
+- combo2_l5_extension_v1_n4096: L=5 nested NKT, 14400s
+- combo3_unified_api_v1_n16384_l4_alpha_grid_v1: ALPHA_GRID=[0.05,0.08,0.10,0.12], 21600s
+- deletion_cert_z_ratio_n16384_full_alpha_v1: full alpha sweep, matrix-free matmul, 21600s
+- pp48_pp46_negative_knowledge_with_deletion_cert_v1_n4096: SCORE composition, cert=-1.0 HP, 14400s
+
+Fix applied: 100MB VRAM selftest assertion changed to 1MB in 3 scripts (deletion_cert, pp48_pp46, combo3_alpha_grid). Remote GPU has 16-67MB allocated for smoke tensors; 100MB was wrong floor.
