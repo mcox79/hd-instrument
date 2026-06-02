@@ -457,6 +457,12 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
         # PHASE 0.5 FIX: anchors default HDLAB_RUN_MODE=smoke for local laptop
         # safety. On Lambda dispatch we want full-scale execution.
         "export HDLAB_RUN_MODE=full; "
+        # PHASE 0.5 FIX (Dispatch 13 post-mortem): hyperprobe's Lightning
+        # Trainer hardcodes deterministic=True, which requires
+        # CUBLAS_WORKSPACE_CONFIG to be set BEFORE the Python process starts
+        # (CUDA >= 10.2 with deterministic CuBLAS ops). Without this, encoder
+        # training raises RuntimeError immediately after fit() begins.
+        "export CUBLAS_WORKSPACE_CONFIG=:4096:8; "
         f"REMOTE_OUT={remote_anchor_dir}; "
         f"REMOTE_LOG=$REMOTE_OUT/exp_run.log; "
         f"mkdir -p $REMOTE_OUT; "
