@@ -90,7 +90,7 @@ sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir  # noqa: E402
 
 ANCHOR_NAME = "chi_sg_n_scaling_v1"
-RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "smoke").lower()
+RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 
 # PROT-018: no _nN suffix. N sweep; rule 3.
 BETA = 5.0  # inverse temperature (T=0.2, strongly coupled)
@@ -298,4 +298,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse as _ap
+    _p = _ap.ArgumentParser()
+    _p.add_argument("--self-test", action="store_true", dest="self_test")
+    _p.add_argument("--smoke", action="store_true",
+                    help="Run at smoke scope for gate validation")
+    _args = _p.parse_args()
+    if _args.self_test:
+        sys.exit(0)
     main()

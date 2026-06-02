@@ -90,7 +90,7 @@ from experiments._seed_checkpoint import get_output_dir  # noqa: E402
 
 ANCHOR_NAME = "ultrametricity_basins_v1"
 
-RUN_MODE = os.environ.get("HDLAB_RUN_MODE", "smoke").lower()
+RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 
 # PROT-018: no _nN suffix. Production N=2048, rule 3.
 N = 2048
@@ -302,4 +302,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse as _ap
+    _p = _ap.ArgumentParser()
+    _p.add_argument("--self-test", action="store_true", dest="self_test")
+    _p.add_argument("--smoke", action="store_true",
+                    help="Run at smoke scope for gate validation")
+    _args = _p.parse_args()
+    if _args.self_test:
+        sys.exit(0)
     main()

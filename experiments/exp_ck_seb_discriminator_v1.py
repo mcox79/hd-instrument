@@ -241,7 +241,7 @@ def main():
     t0 = time.time()
     out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_mode = os.environ.get("HDLAB_RUN_MODE", "smoke")
+    run_mode = os.environ.get("HDLAB_RUN_MODE", "full")
     seeds = SEEDS_FULL if run_mode == "full" else SEEDS_SMOKE
     print(f"[{ANCHOR_NAME}] run_mode={run_mode} seeds={seeds} N={N} "
           f"device={DEVICE}", flush=True)
@@ -321,7 +321,11 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--self-test", action="store_true", dest="self_test")
+    parser.add_argument("--smoke", action="store_true",
+                       help="Run at smoke scope for gate validation")
     args = parser.parse_args()
     if args.self_test:
         sys.exit(0)  # _instrumentation_selftest() already ran at module scope
+    if args.smoke:
+        os.environ["HDLAB_RUN_MODE"] = "smoke"
     main()
