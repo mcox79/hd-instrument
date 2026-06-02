@@ -7666,3 +7666,39 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 255th PROT-009 paired commit.
 - PROT-018: all 8 _n<N> suffix verified. PASS.
 - PROT-021: all 8 _source=remote run_mode=full. PASS.
+
+## v345 -> v346 (2026-06-02) Cycle 15 batch; 4 HARD_PASS; 0 BAND-LIFTS; 0 LVH; Q-B1 FLAT-PROFILE FINDING; HONEST 498->502; 256th PROT-009 paired commit
+
+**Trigger.** Cycle 15 batch 4 verdicts, all _source=remote authoritative, run_mode=full 5-seed. Pause-flag ABSENT. NEUTRAL classification per [[feedback-no-preframing]].
+
+| # | anchor | wall | N | seeds | verdict | honest reading | cap_map impact |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | pp48_nkt_cross_n_depth17_v1_n8192 | 46.1s | 8192 | 5 | HARD_PASS | pos=1.0(HP>=0.75); nkt=1.0(HP>=0.65); 5/5 EXACT-1.0; NKT_total=131071; K_sample=100 | PP-48 depth-17 cross-N sub-property at N=8192; cross-N series now {d13 N=8192 v345, d17 N=8192 v346} |
+| 2 | pp48_nkt_depth_19_v1_n4096 | 3.2s | 4096 | 5 | HARD_PASS | pos=1.0(HP>=0.75); nkt=1.0(HP>=0.65); 5/5 EXACT-1.0; NKT_total=524287; K_sample=100; fast wall expected (cost=O(K_sample) not O(tree_size)) | PP-48 depth-19 sub-property at N=4096; N=4096 depth series extends to depth-19 |
+| 3 | q_a3_l13_cross_layer_composition_v1_n4096 | 0.64s | 4096 | 5 | HARD_PASS | L1-L13 all=1.0000(HP>=0.9999 PASS); l13_acc=1.0000; 5/5 unanimous; 0.644s consistent with prior L=12 N=4096 pattern | Q-A3/PP-12 L=13 sub-property; band STAYS 0.75-0.90; depth series L=2..L=13 |
+| 4 | q_b1_chain_depth_60_v1_n8192 | 41.8s | 8192 | 5 | HARD_PASS | d5=0.9936 d10=0.9936 d20=0.9932 d30=0.9935 d45=0.9933 d60=0.9931 (all 5/5 HP); per-seed delta(d5-d60)=0.0001-0.0008 FLAT; prereg model predicted d60~0.195; actual 0.9931 = 5x over HP | Q-B1/PP-49a depth-60 FLAT-PROFILE sub-property; BAND-LIFT eligibility flagged; cross-N N=16384 dispatch highest priority |
+
+**Row updates (v345 -> v346).**
+
+**(A) PP-48 cross-N depth series extended to depth-17 at N=8192.** v345 established depth-13 at N=8192; v346 adds depth-17. Cross-N envelope: {d13 N=4096 v343, d13 N=8192 v345, d17 N=4096 v344/v345, d17 N=8192 v346}. Depth-19 at N=4096 adds depth series rung. Band 0.75-0.90 UNCHANGED. Depth-19 cross-N at N=8192 and N=16384 are next LIFT triggers.
+
+**(B) Q-A3/PP-12 L=13 added.** L-series now L=2..L=13 at N=4096 (and L=2,3,5 at N=8192). All unanimous EXACT-1.0. Composition ceiling not found at L=13. Band 0.75-0.90 UNCHANGED.
+
+**(C) Q-B1/PP-49a depth-60 FLAT-PROFILE FINDING.** d5-d60 all ~0.993 at N=8192 5-seed (per-hop fidelity ~0.99991; lambda_empirical~0.00009/hop vs prereg model 0.004/hop). Chain fidelity depth-independent across d5-d60. Ceiling NOT found. PP-49a sub-property filed. Band 0.70-0.85 UNCHANGED (cross-N N=16384 required for LIFT). BAND-LIFT ELIGIBILITY NOTE: if Q-B1 depth-60 cross-N at N=16384 is HARD_PASS, BAND-LIFT 0.70-0.85->0.75-0.90 authorized.
+
+**Tallies (v345 -> v346).**
+- HONEST: 498 -> 502 (+4 HP).
+- LVH: 207 UNCHANGED.
+- Portfolio: 32+74 UNCHANGED.
+- BAND-LIFTS: 0 (Q-B1 flat-profile awaits cross-N trigger).
+- Sub-properties NEW (4): pp48-depth17-cross-N-N8192 + pp48-depth19-N4096 + q-a3-L13-N4096 + q-b1-depth60-N8192-flat-profile.
+- ISSUES: I-12 already CLOSED v345; no new issues.
+- Framework reliability: 82-96% UNCHANGED.
+
+**PROT compliance (v345 -> v346).**
+- PROT-004/006: NO row closures. 0 BAND-LIFTS. 4 NEW SUB-PROPERTIES. No rescue sketches (all 4 HARD_PASS).
+- PROT-007: this history block appended to cap_map.md inline.
+- PROT-008: all transitions validated. No portfolio regression.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 256th PROT-009 paired commit.
+- PROT-018: all 4 _n<N> suffix verified. PASS.
+- PROT-021: all 4 _source=remote run_mode=full n_seeds=5. PASS.
