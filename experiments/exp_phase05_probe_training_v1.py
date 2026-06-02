@@ -230,18 +230,42 @@ def main():
                                            vsa_dimension=VSA_DIMENSION)
     print(f"  codebook: {len(all_concepts)} concepts @ D={VSA_DIMENSION}", flush=True)
 
-    # Step 6: LLM activation collection (Llama-3.1-8B + sum pooling)
-    import multiprocessing as mp
+    # Step 6: LLM activation collection (Llama-3.1-8B + sum pooling).
+    # Dispatch 12 lesson: the multiprocessing.Pool(1).apply(...) wrapper from
+    # hyperprobe's paper script hits torch's per-tensor mmap shared-memory
+    # limit at 100k scale (RuntimeError: unable to mmap 40960 bytes ... Cannot
+    # allocate memory). Drop the subprocess; call directly. Llama-3.1-8B
+    # forward + downstream encoder training fit comfortably in H100 80GB.
+    #
+    # Also: persist embeddings to disk after ingest so encoder-training
+    # failures don't waste the 53-min Llama forward pass.
+    import pickle
     docs = [item["doc"] for item in train_inputs]
-    print(f"  ingesting {len(docs)} LLM embeddings via {LLM_MODEL_ID} ...", flush=True)
-    ctx = mp.get_context("spawn")
-    with ctx.Pool(1) as pool:
-        llm_embeddings, *_ = pool.apply(
-            hyperprobe.ingest_embeddings,
-            args=(docs, LLM_MODEL_ID, K_CLUSTERS),
+    emb_cache_path = out_dir / "ingested_embeddings.pkl"
+    if emb_cache_path.exists():
+        print(f"  [resume] loading cached embeddings from {emb_cache_path} "
+              f"(skipping {len(docs)}-doc ingest)", flush=True)
+        with open(emb_cache_path, "rb") as f:
+            llm_embeddings = pickle.load(f)
+    else:
+        print(f"  ingesting {len(docs)} LLM embeddings via {LLM_MODEL_ID} "
+              f"(direct call, no subprocess) ...", flush=True)
+        llm_embeddings, *_ = hyperprobe.ingest_embeddings(
+            docs, LLM_MODEL_ID, K_CLUSTERS,
         )
-    # Sum-pool per paper script
-    llm_embeddings = {doc: emb.sum(dim=0) for doc, emb in llm_embeddings.items()}
+        # Sum-pool per paper script + move to CPU for cheap pickle + downstream
+        # encoder train loads them GPU-side on demand.
+        llm_embeddings = {
+            doc: emb.sum(dim=0).detach().cpu()
+            for doc, emb in llm_embeddings.items()
+        }
+        print(f"  persisting {len(llm_embeddings)} embeddings -> "
+              f"{emb_cache_path} (insurance for trainer.fit failures)",
+              flush=True)
+        tmp_path = emb_cache_path.with_suffix(".pkl.tmp")
+        with open(tmp_path, "wb") as f:
+            pickle.dump(llm_embeddings, f, protocol=pickle.HIGHEST_PROTOCOL)
+        tmp_path.replace(emb_cache_path)
     for item in train_inputs:
         item["embeddings"] = llm_embeddings.get(item["doc"])
     train_inputs = [it for it in train_inputs if it.get("embeddings") is not None]

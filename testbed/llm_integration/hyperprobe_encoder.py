@@ -113,16 +113,17 @@ class HyperprobeEncoder:
         return xi
 
     def _ensure_full_loaded(self) -> None:
-        """Lazy-load Llama-3.1-8B + trained hyperprobe encoder.
+        """Lazy-load trained hyperprobe encoder + auth to HF.
 
-        Reads checkpoint from cfg.hyperprobe_ckpt, OR falls back to the canonical
-        path written by exp_phase05_probe_training_v1.py:
-            <REPO>/data/exp_phase05_probe_training_v1/probe_ckpt.ckpt
+        Note: we do NOT pre-load Llama-3.1-8B here. hyperprobe.ingest_embeddings
+        does not accept a pre-loaded LLM kwarg; it loads internally per call.
+        Pre-loading was wasted RAM/VRAM in earlier versions. The Llama snapshot
+        is cached on disk (per the bring-up script) so per-call load is fast.
 
         Raises RuntimeError with a clear message if the checkpoint or any
         upstream dep is missing.
         """
-        if self._llm is not None:
+        if self._probe is not None:
             return
         import os
         from pathlib import Path
@@ -163,26 +164,35 @@ class HyperprobeEncoder:
 
         self._probe = hyperprobe.VSAEncoder.load_from_checkpoint(ckpt)
         self._probe.eval()
-        self._llm = hyperprobe.load_llm(model_name=self.cfg.llm_model_id)
 
     def _encode_hyperprobe(self, prompts: List[str]) -> np.ndarray:
-        """Forward each prompt through Llama-3.1-8B + trained probe; sign() output.
+        """Forward all prompts through Llama-3.1-8B + trained probe; sign() output.
 
         Pipeline per arXiv:2509.25045:
-            doc -> Llama forward -> residual at layer ell (sum-pooled per paper)
-                -> probe encoder -> continuous VSA vector -> sign() -> {-1,+1}^D
+            docs (batched) -> Llama forward -> residual at layer ell (sum-pooled
+            per paper) -> probe encoder -> continuous VSA -> sign() -> {-1,+1}^D
+
+        BATCHED: single ingest_embeddings call for ALL prompts. Dispatch 10
+        lesson: per-doc ingest was both buggy (invalid `llm=` kwarg passed to
+        a function that doesn't accept it) AND practically infeasible (each
+        call reloaded Llama from cache; at 1000 docs × 30s = 8+ hours per
+        sub-test seed). One batched call loads Llama once, forwards N docs
+        at ~30 docs/sec on H100.
         """
         import hyperprobe
         import torch
         self._ensure_full_loaded()
+        # Single batched ingest call (Dispatch 12 fix)
+        emb_dict, *_ = hyperprobe.ingest_embeddings(
+            list(prompts),
+            self.cfg.llm_model_id,
+            1,  # k_clusters=1 (Phase 0.5 doesn't need clustering at encode time)
+        )
         out = np.zeros((len(prompts), self.cfg.D), dtype=np.float32)
         for i, doc in enumerate(prompts):
-            emb_dict, *_ = hyperprobe.ingest_embeddings(
-                docs=[doc],
-                model_name=self.cfg.llm_model_id,
-                k_clusters=1,
-                llm=self._llm,
-            )
+            if doc not in emb_dict:
+                # Skipped doc -> leave zero row (cosine will be 0)
+                continue
             emb = emb_dict[doc].sum(dim=0)
             with torch.no_grad():
                 vsa_cont = self._probe(emb.unsqueeze(0)).squeeze(0).cpu().numpy()
