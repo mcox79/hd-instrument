@@ -39,4 +39,31 @@ CPU remote_cpu_queue:
 - pp58_isochoric_kappa3_finergrid_v2_n4096: PP-58 R3b finer sigma_g grid. v1 MIDDLE (audit_crit grid-limited at sigma_g=1.0). v2 step=0.1 (21 points 0.0..2.0). Bug fix: selftest kappa3 bounds (0.01,2.0). PROT-018 N=4096. timeout=14400s. REMOTE VERIFIED.
 All 3 PROT-018/019/021/022 compliant. Remote verify: 3/3 pass.
 Cycle v354 REFILL: shipped 5 anchors (q_a3_l25_n4096, q_a3_l26_n4096 GPU ceiling push; q_b1_chain_depth_400_n16384 GPU depth push; pp58_isochoric_kappa3_n16384_v5 CPU R5 N-scale; activation_barrier_r3b_n8192 CPU R3b N-scale). All queue_add.sh exit-0 + VERIFIED. GPU: overnight_queue 3 anchors. CPU: remote_cpu_queue 2 anchors.
-Cycle v355 REFILL (CYCLE 25, post-CYCLE-24-batch): 4 anchors targeted. Confirmed already-queued: q_a3_l25_cross_layer_composition_v1_n4096 (overnight_queue, timeout=14400s, REMOTE VERIFIED), q_a3_l26_cross_layer_composition_v1_n4096 (overnight_queue, timeout=14400s, REMOTE VERIFIED), activation_barrier_r3b_n8192_v3_n8192 (remote_cpu_queue, timeout=21600s, REMOTE VERIFIED). Newly shipped: pp58_isochoric_kappa3_alpha0p2_n8192_v5_n8192 (remote_cpu_queue, timeout=21600s, PROT-018 _n8192 N=8192, PROT-019 21600s floor, smoke PASS 0.55s cap_pred=2.0 exact, prereg preregs/2026-06-03_pp58_isochoric_kappa3_alpha0p2_n8192.md). remote_cpu_queue pending=2 post-ship (R3b + PP58-alpha02). All PROT-018/019/021/022 compliant.CYCLE 26 REFILL (5 anchors): GPU: q_b1_chain_depth_250_v1_n16384 (bisection d-200 HP vs d-300 HF; PROT-019 21600s), q_a3_l27 (L=27 ceiling push; 13th extension), q_a3_l28 (paired L=28). CPU: pp56_n32768 (4th rung cross-N; smoke=HP cert_ratio=0.000970), pp55_n32768 (4th rung; smoke=MIDDLE expected at 2-seed). All 5 REMOTE VERIFY PASS. PROT-018/019/021 PASS. PP-12 cross-N at N=16384 OOM-blocked (22 W matrices >> 6 GB GPU). Anchors: 3 overnight_queue + 2 remote_cpu_queue.
+Cycle v355 REFILL (CYCLE 25, post-CYCLE-24-batch): 4 anchors targeted. Confirmed already-queued: q_a3_l25_cross_layer_composition_v1_n4096 (overnight_queue, timeout=14400s, REMOTE VERIFIED), q_a3_l26_cross_layer_composition_v1_n4096 (overnight_queue, timeout=14400s, REMOTE VERIFIED), activation_barrier_r3b_n8192_v3_n8192 (remote_cpu_queue, timeout=21600s, REMOTE VERIFIED). Newly shipped: pp58_isochoric_kappa3_alpha0p2_n8192_v5_n8192 (remote_cpu_queue, timeout=21600s, PROT-018 _n8192 N=8192, PROT-019 21600s floor, smoke PASS 0.55s cap_pred=2.0 exact, prereg preregs/2026-06-03_pp58_isochoric_kappa3_alpha0p2_n8192.md). remote_cpu_queue pending=2 post-ship (R3b + PP58-alpha02). All PROT-018/019/021/022 compliant.CYCLE 26 REFILL (5 anchors): GPU: q_b1_chain_depth_250_v1_n16384 (bisection d-200 HP vs d-300 HF; PROT-019 21600s), q_a3_l27 (L=27 ceiling push; 13th extension), q_a3_l28 (paired L=28). CPU: pp56_n32768 (4th rung cross-N; smoke=HP cert_ratio=0.000970), pp55_n32768 (4th rung; smoke=MIDDLE expected at 2-seed). All 5 REMOTE VERIFY PASS. PROT-018/019/021 PASS. PP-12 cross-N at N=16384 OOM-blocked (22 W matrices >> 6 GB GPU). Anchors: 3 overnight_queue + 2 remote_cpu_queue.## Cycle-25 refill (v356) — 4 anchors shipped 2026-06-03
+
+Shipped 4 anchors (5 max authorized; 4 justified by open handoffs):
+
+1. q_a3_l29_cross_layer_composition_v1_n4096 -> overnight_queue, timeout=14400s
+   L=29 ceiling push. L=28 crashed (exit 3221226505 = Windows STATUS_STACK_BUFFER_OVERRUN).
+   L=29 tests transient vs reproducible crash hypothesis. HARD-PASS: all 29 fids >= 0.9999.
+
+2. q_a3_l23_cross_layer_composition_v1_n8192 -> overnight_queue, timeout=21600s
+   L=23 cross-N gap closure at N=8192. L=22 N=8192 HARD_PASS + L=23 N=4096 HARD_PASS confirm
+   N-independence; this fills the N-scale gap at L=23. HARD-PASS: all 23 fids >= 0.9999 unanimous.
+
+3. q_b1_bisect_d275_v1_n16384 -> overnight_queue, timeout=21600s
+   Binary bisection between d=250 (HARD_PASS, d5=0.932 flat) and d=300 (HARD_FAIL, d5=0.864
+   collapse d30-50). Code audit confirmed IDENTICAL loading conditions (N_CHAINS=15,
+   M_BACKGROUND=200) across all depth scripts; collapse is genuine capacity/interference effect.
+
+4. pp33_activation_barrier_r3c_lower_alpha_v1_n4096 -> remote_cpu_queue, timeout=14400s
+   R3c final rescue for PP-33 activation-barrier sub-property. Tests alpha={0.001,0.005,0.01,0.02}.
+   R3a/R3b exhausted at moderate alpha with nf_crit~0.5 N-independent. HARD-FAIL = sub-property
+   closure (not PP-33 row closure). HARD-PASS: nf_crit(alpha=0.001) >= 0.60 AND ratio >= 1.10.
+
+Excluded:
+- PP-58: theory-blocked (sqrt(1/alpha-1) over-predicts ~30-33% at alpha<0.2; formula recalibration required)
+- PP-56: N=32768 already HARD_PASS in v356 cycle batch; no further work needed
+
+PROT-019 fix during session: PP-33 R3c first attempt used timeout=600; queue_add.sh rejected
+(anchor name contains _n4096, floor=14400s). Corrected to timeout=14400 on second attempt.
