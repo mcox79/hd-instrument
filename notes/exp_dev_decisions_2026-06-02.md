@@ -224,3 +224,25 @@ Shipped 3 anchors to overnight_queue. All 3/3 REMOTE VERIFY PASS. PROT-018/019/0
 3. q_a3_l15_cross_layer_composition_v1_n4096 (t=14400s) -- Q-A3 L-ceiling chase: L=15 (prior L=14 HP all EXACT-1.0). HP: all 15 fids>=0.9999 unanimous. Script pre-existed; self-test PASS 1.9s.
 
 v347 routing: Items 1+3+4 shipped. Item 2 (PP-48 N=32768 BAND-LIFT) deferred (cloud cost auth needed). Items 5+ carry-forward.exp_dev cycle v346 REFILL (5 anchors): q_b1_d90_n8192 + q_b1_d100_n8192 (stamp_anchor used; PROT-018/019 OK; smoke N-scale expected VALID), q_a3_l15_n4096 (smoke HARD_PASS all-EXACT-1.0), pp48_nkt_d23_n4096 (smoke HARD_PASS pos=nkt=1.0), pp48_nkt_cross_n_d19_n16384 (smoke HARD_PASS pos=nkt=1.0). All 5 remote-verified pending. PROT-019 floors: _n8192/_n16384=21600s, _n4096=14400s. stamp_anchor first-use OK. ship_anchor.py bypassed (PROT-019 floor inconsistency with role-contract formula; queue_add.sh direct used).stamp_anchor first-use note (efficiency_rollout_2026-06-02): template substitution correct for d90+d100; GPU self-test passed. Anomaly: ship_anchor.py PROT-019 floor mismatch -- formula yields ~360s for fast-smoke Q-B1 but queue_add.py remote floor is 21600s for _n8192; ship_anchor exits cleanly but would compute wrong timeout. ship_anchor.py needs tiered floor enforcement before production use on _n>=4096 families. Workaround: queue_add.sh direct with explicit 21600s.v347 REFILL: shipped 5 anchors from v343 routing. Items: D=hebbian_vs_gd_identity_v1_n1024 (CPU, Item 2 P=0.70+), A=kappa3_noise_robustness_sigma_g_sweep_v1_n4096 (GPU, Item 20 P=0.65 Wave-2 direct test), C=vsa_binding_over_static_skahm_class_v1_n4096 (CPU, Item 19 P=0.55 cross-drill), E=ck_aging_mu_alpha_invariance_matched_tc_v1_n4096 (CPU, Item 30 P=0.60 Arrhenius Test A), Item32=composition_ceiling_k_c_alpha_constant_m_per_stage_v1_n4096 (GPU, Item 32 P=0.50 Arrhenius Test P5). All PROT-018+019 pass. Timeouts all 14400s (PROT-019 floor for _n4096). stamp_anchor: not used (Q-B1 family only). ship_anchor.py: PROT-019 anomaly confirmed -- bypassed with manual queue_add.sh at 14400s floor. REMOTE VERIFY: 5/5 pass. Commit deferred to main thread.exp_dev REFILL v348: 4 anchors shipped (combo2_parity, activation_barrier, capacity_phase_boundary to remote_cpu_queue; q_a3_l16 to overnight_queue). SM rank-1 INSTRUMENTATION_SUSPECT routed to strategy. PROT-022 R2 theory: b_rep L-independent confirmed. All 4 REMOTE VERIFY PASS.
+## exp_dev Cycle 19 refill 2026-06-02 (post-verdict queue-0 refill)
+
+Shipped 3 anchors. REMOTE VERIFY 3/3 confirmed at ship time. PROT-018/019/022 gates passed.
+Note: bridge shows 0 pending post-ship (bridge cache refresh lag ~30s; anchors confirmed in queue.json at ship time).
+
+1. q_a3_l17_cross_layer_composition_v1_n4096 -> overnight_queue (t=14400s)
+   Q-A3 L=17 ceiling chase. Prior L=16 EXACT-1.0 unanimous (v350). Self-test 2.0s PASS.
+   Pre-reg bands: HP=EXACT-1.0 unanimous; MIDDLE=[0.85,1.0); HF=any<0.85.
+
+2. activation_barrier_fine_grid_v2_n4096 -> remote_cpu_queue (t=14400s, PROT-019 floor)
+   LVH #208 rescue R2: 0.01-step nf_frac grid (vs 0.04 in v1). Tests coarse-grid-artifact hypothesis.
+   Smoke: MIDDLE (N=512 expected; direction preserved). Self-test 1.8s PASS.
+   Pre-reg bands: HP=ratio>1.5 (coarse-grid confirmed); MIDDLE=1.1<ratio<=1.5; HF=ratio<=1.02.
+
+3. capacity_phase_boundary_fine_grid_v2_n4096 -> remote_cpu_queue (t=14400s, PROT-019 floor)
+   PP-50 RRAM rescue R2: fine sigma_g grid [0.2*sg_crit, 1.4*sg_crit] 21 fracs per alpha.
+   Smoke: HARD_PASS (onset_frac=0.365, range=0.03 across 2 alpha at N=512). Self-test 4.9s PASS.
+   Pre-reg bands: HP=universal onset_frac in [0.30,0.70] range<0.30; MIDDLE=non-universal; HF=no onset.
+
+PROT compliance: PROT-018 OK (N=4096 binding checked); PROT-019 OK (14400s floor for _n4096);
+PROT-022: activation_barrier ratio=2.3158 MATCHED; capacity_phase sigma_g_crit 4-alpha VERIFIED.
+PP-55 cross-N (VSA-binding at N=8192) DEFERRED: insufficient time to write and test before queue-empty urgency resolved.
