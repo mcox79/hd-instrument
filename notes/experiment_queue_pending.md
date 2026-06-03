@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v361 exp_dev RESUME cycle (3 RESUME + 2 ADDITIONAL)
+**Updated:** 2026-06-03 v361 exp_dev PRIORITY REFILL cycle (5 GPU anchors shipped)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -9,18 +9,23 @@
 ## Currently active (in remote queues — not "pending" for orchestrator)
 
 GPU (overnight_queue):
-- q_a3_l24_cross_layer_composition_v1_n16384 (completed) — RESUME; L=24 N=16384 5th rung; ran immediately on ship
-- q_b1_bisect_d293_v1_n16384 (running) — ADDITIONAL A; Q-B1 bisection d=293 narrowing (287,300]; SHIPPED 2026-06-03
+- q_a3_l26_cross_layer_composition_v1_n16384 (pending) — v361 REFILL; L=26 N=16384 7th rung; SHIPPED 2026-06-03
+- q_a3_l27_cross_layer_composition_v1_n16384 (pending) — v361 REFILL; L=27 N=16384 8th rung; SHIPPED 2026-06-03
+- q_a3_l28_cross_layer_composition_v1_n16384 (pending) — v361 REFILL; L=28 N=16384 9th rung; SHIPPED 2026-06-03
+- q_b1_bisect_d278_v1_n16384 (pending) — v361 REFILL; Q-B1 bisection d=278; onset (275,281] -> this bisect (275+281)//2=278; d293 HF confirmed; SHIPPED 2026-06-03
+- pp50_kappa3_delta_alpha_n65536_v1_n65536 (pending) — v361 REFILL; PP-50 6th-rung cross-N N=65536; BAND-LIFT eligible if HP; SHIPPED 2026-06-03
+- q_a3_l24_cross_layer_composition_v1_n16384 (completed)
+- q_b1_bisect_d293_v1_n16384 (completed) — HARD_FAIL; confirms collapse window (275,281]; d5=0.880 collapse d40-70
 
 CPU (remote_cpu_queue):
-- pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 (running)
-- pp56_sherman_morrison_cert_drop_n65536_v5_n65536 (pending)
+- pp56_sherman_morrison_cert_drop_n65536_v5_n65536 (running) — cpu_runner_0 active
+- pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 (pending)
 - pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 (pending) — Wave-5 Decisive #3
 - pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384 (pending) — Wave-5 Decisive #1
 - pp55_vsa_binding_n131072_v6_n131072 (pending) — 6th rung cross-N
-- pp49_hrc_protocol_artifact_nscale_v1_n8192 (pending) — RESUME; PP-49 N-scale validation at N=8192; SHIPPED 2026-06-03
-- pp58_bbp_discrete_fallback_v1_n16384 (pending) — RESUME; PP-58 BBP discrete universality; SHIPPED 2026-06-03
-- pp33_mfpt_glauber_n32768_v2_n32768 (pending) — ADDITIONAL D; PP-33 MFPT 4th rung N=32768; SHIPPED 2026-06-03
+- pp49_hrc_protocol_artifact_nscale_v1_n8192 (pending) — SHIPPED 2026-06-03
+- pp58_bbp_discrete_fallback_v1_n16384 (pending) — SHIPPED 2026-06-03
+- pp33_mfpt_glauber_n32768_v2_n32768 (pending) — SHIPPED 2026-06-03
 
 ---
 
@@ -28,8 +33,8 @@ CPU (remote_cpu_queue):
 
 ### From cycle-26+ carryover (still unshipped)
 
-5. **PP-12 cross-N at N=16384 with reduced M (OOM workaround)** — GPU; original OOM'd at 22 GB
-6. **Q-A3 L=34 + L=35 verdict-driven extensions** — if HP through L=30+ series continues
+5. **Q-A3 L=29+ at N=16384** — continue N=16384 depth ladder past L=28 when results arrive
+6. **Q-B1 bisect d=281 or next point** — depends on d=278 outcome (HP -> bisect (278,281]; MID -> bisect (275,278])
 
 ---
 
