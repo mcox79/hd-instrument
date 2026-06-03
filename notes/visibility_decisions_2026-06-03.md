@@ -65,3 +65,15 @@ Anchors:
 ## CYCLE 32 BATCH (v362->v363) -- 2026-06-03
 
 CYCLE 32: 7 verdicts processed. 5 HP + 1 MIDDLE + 1 HF. LVH=0. HONEST 585->592. Q-A3 N=16384 series reaches 10 rungs (L=32 closes gap to N=4096 ceiling to 3). Q-B1 collapse onset (275,278] characterized. PP-50 sigma_g_ext HARD_FAIL (v1 sigma_g_crit~0.833 RETRACTED; rescue R1-R4 filed). PP-50 delta_alpha BAND-LIFT 0.65-0.80->0.70-0.85 (N=32768 v3 protocol; cloud auth for N=65536+ filed). Band-lift count this cycle: 1. 274th PROT-009 paired commit.
+
+## CYCLE 33 BATCH (v363->v364) -- 2026-06-03
+
+| # | anchor | verdict | visibility action |
+|---|--------|---------|------------------|
+| 1 | q_a3_l33_cross_layer_composition_v1_n16384 | HARD_PASS | N=16384 rung 11; L=33 N-independent composition confirmed; sub-property logged |
+| 2 | q_a3_l34_cross_layer_composition_v1_n16384 | HARD_PASS | N=16384 rung 12; L=34 N-independent composition confirmed; sub-property logged |
+| 3 | q_a3_l35_cross_layer_composition_v1_n16384 | HARD_PASS | N=16384 rung 13; L=35 N-independent composition confirmed; matches N=4096 highest-tested; sub-property logged |
+| 4 | q_a3_l36_cross_layer_composition_v1_n16384 | HARD_PASS | N=16384 rung 14; FIRST L=36 in project history; N=16384 surpasses N=4096 tested ceiling by 1 rung; band-lift deferred; sub-property logged |
+| 5 | pp50_kappa3_sigma_g_n8192_v1_n8192 | HARD_FAIL | sigma_g_ext regression N-independent confirmed (N=8192 ratio=1.152 = N=4096 ratio=1.150); sigma_g_crit~0.833 RETRACTED both N-scales; rescue R1-R4 unchanged; PP-50 delta_alpha UNAFFECTED |
+
+Cap_map v364: HONEST 592->597; LVH 211 UNCHANGED; 275th PROT-009 commit.
