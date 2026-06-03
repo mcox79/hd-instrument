@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v361 exp_dev PRIORITY REFILL cycle (5 GPU anchors shipped)
+**Updated:** 2026-06-03 v362 exp_dev PRIORITY REFILL cycle (5 GPU anchors shipped)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -14,6 +14,11 @@ GPU (overnight_queue):
 - q_a3_l28_cross_layer_composition_v1_n16384 (pending) — v361 REFILL; L=28 N=16384 9th rung; SHIPPED 2026-06-03
 - q_b1_bisect_d278_v1_n16384 (pending) — v361 REFILL; Q-B1 bisection d=278; onset (275,281] -> this bisect (275+281)//2=278; d293 HF confirmed; SHIPPED 2026-06-03
 - pp50_kappa3_delta_alpha_n65536_v1_n65536 (pending) — v361 REFILL; PP-50 6th-rung cross-N N=65536; BAND-LIFT eligible if HP; SHIPPED 2026-06-03
+- q_a3_l29_cross_layer_composition_v1_n16384 (pending) — v362 REFILL; L=29 N=16384 10th rung; SHIPPED 2026-06-03
+- q_a3_l30_cross_layer_composition_v1_n16384 (pending) — v362 REFILL; L=30 N=16384 11th rung; SHIPPED 2026-06-03
+- pp50_kappa3_sigma_g_ext_v2_n4096 (pending) — v362 REFILL; PP-50 I-19 rescue extended sigma_g sweep 0.01..1.20; SHIPPED 2026-06-03
+- q_a3_l20_cross_layer_composition_v1_n32768 (INFRA_FAIL) — v362 REFILL; N=32768 W=4GB OOM on display GPU; NEEDS CLOUD GPU (headless, >=8GB free VRAM); SHIPPED+FAILED 2026-06-03
+- q_a3_l21_cross_layer_composition_v1_n32768 (INFRA_FAIL) — v362 REFILL; same OOM; NEEDS CLOUD GPU; SHIPPED+FAILED 2026-06-03
 - q_a3_l24_cross_layer_composition_v1_n16384 (completed)
 - q_b1_bisect_d293_v1_n16384 (completed) — HARD_FAIL; confirms collapse window (275,281]; d5=0.880 collapse d40-70
 
@@ -33,8 +38,9 @@ CPU (remote_cpu_queue):
 
 ### From cycle-26+ carryover (still unshipped)
 
-5. **Q-A3 L=29+ at N=16384** — continue N=16384 depth ladder past L=28 when results arrive
+5. **Q-A3 L=31+ at N=16384** — continue N=16384 depth ladder past L=30 when results arrive (L=29/L=30 SHIPPED v362)
 6. **Q-B1 bisect d=281 or next point** — depends on d=278 outcome (HP -> bisect (278,281]; MID -> bisect (275,278])
+7. **Q-A3 L=22+ at N=32768** — continue N=32768 ladder after L=20/L=21 results arrive (SHIPPED v362)
 
 ---
 
