@@ -464,11 +464,12 @@ def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
     # runs and the poll loop reports DEAD_NO_RC. The trap fires unconditionally.
     body = (
         f"REMOTE_OUT={remote_anchor_dir}; "
-        # Trap MUST come before any command that might fail, so that even an
-        # early failure (e.g., git pull network blip, bad cd) still writes rc.
-        # Note: $? inside the trap is the exit code that triggered it.
-        "trap 'EXP_RC=$?; echo \"EXP_EXIT=$EXP_RC\" >> /dev/stdout 2>&1 || true; "
-        "echo $EXP_RC > $REMOTE_OUT/exp.rc' EXIT; "
+        # Trap writes exp.rc on ANY exit (success, error, signal, set -e abort).
+        # Dispatch 17 lesson: keep this trap MINIMAL -- just one command, no
+        # auxiliary echos. Earlier multi-command trap had an EXP_EXIT echo
+        # that succeeded but the file write somehow didn't. One command means
+        # one possible failure point.
+        "trap 'echo $? > $REMOTE_OUT/exp.rc' EXIT; "
         "cd ~/hd-instrument; "
         "git pull --ff-only > /dev/null 2>&1 || true; "
         "PY=$(if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi); "
@@ -505,9 +506,23 @@ def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
     # this very call (transient network blip; Wave 2 launched cleanly on the
     # same instance). 180s budget accommodates SSH handshake + multi-line
     # body parse + nohup spawn even under slow-network conditions.
-    rc, out, err = _ssh_run(ip, ssh_key_path, launch_cmd, timeout_s=180)
+    #
+    # Dispatch 17 confirmed pattern: Wave 1 launch on a fresh instance
+    # hits a SYSTEMATIC cold-start delay (~3-5min) on the first SSH after
+    # bring-up; subsequent SSHs work. Add retry with backoff -- the second
+    # attempt typically succeeds because Lambda's SSH listener warmed up.
+    last_err = ""
+    for attempt in range(1, 4):
+        rc, out, err = _ssh_run(ip, ssh_key_path, launch_cmd, timeout_s=180)
+        if rc == 0:
+            break
+        last_err = f"attempt {attempt}/3: rc={rc} stderr={err[:200]}"
+        print(f"  [launch] {anchor} ssh attempt {attempt}/3 failed: {last_err}; "
+              f"sleeping 20s then retrying", flush=True)
+        if attempt < 3:
+            time.sleep(20)
     if rc != 0:
-        return False, "", f"launch ssh rc={rc} stderr={err[:300]}"
+        return False, "", f"launch ssh failed 3x: {last_err}"
     pid = None
     for line in (out or "").splitlines():
         line = line.strip()
