@@ -8,3 +8,4 @@
 - 2026-06-03 [Hebbian-substrate-as-LLM-training deep drill]: -> notes/research_drill_substrate_as_full_llm_training_deep_dive_2026-06-03.md ; HEADLINE: outer-product Hebbian covers linear-attn + FFN; hard ceiling at softmax normalization; P_deflated(hybrid works within 20% BPC)=0.42; next-drill: DeltaNet algebraic isomorphism
 
 - [full_pipeline_substrate_native_training] notes/research_drill_full_pipeline_substrate_native_training_deep_dive_2026-06-03.md -- 12-primitive full-pipeline viability; P_deflated=0.38; HARD-FAIL if BPC>=6.0 or Tr(W^2) diverges; minimum-viable 4-primitive core identified; handoff: notes/exp_dev_handoff_research_full_pipeline_substrate_native_training_2026-06-03.md
+Wed Jun  3 10:14:55 EDT 2026: anti_hebbian_contrastive_lm_scale -> notes/research_drill_anti_hebbian_contrastive_transformer_scale_2026-06-03.md | HEADLINE: no LM precedent, 3 failure modes (shared alpha_c, bipartite correlation, grad-degeneration), P_deflated=0.22/0.38

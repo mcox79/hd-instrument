@@ -13,7 +13,8 @@
 
 | Anchor name | Resource | Cost | Wall | Eng | Authorization status |
 |---|---|---|---|---|---|
-| `phase_d_tier6_full_pipeline_4_core_char_lm_v1` | A100 cloud | $5-10 | ~2-4h | 3-4 days | AUTHORIZED |
+| **`phase_d_pre_ablation_antihebbian_failure_signatures_v1_n128`** (NEW pre-flight gate) | local CPU | $0 | <2h | 0.5 day | AUTHORIZED (pre-flight; gates Probe 11+ dispatch) |
+| `phase_d_tier6_full_pipeline_4_core_char_lm_v1` (DEFENSIVE UPDATE) | A100 cloud | $5-10 | ~2-4h | 3-4 days | AUTHORIZED (dispatch GATED on pre-ablation NOT triggering watchlist signatures) |
 | `substrate_curriculum_learning_small_lm_v1` | Pythia-160M cloud | $5-15 | ~6-12h | 2-3 days | AUTHORIZED |
 | `tier2_substrate_preloaded_icl_pythia410m_v1` | local GPU or cheap cloud | $5-10 | ~6h | 2 days | AUTHORIZED |
 
@@ -51,21 +52,43 @@ If Probe 11+ MIDDLE or HARD-FAIL:
 
 ## 2. INTEGRATION CHECKLIST (for testbed)
 
-### Probe 11+ (FULL-PIPELINE 4-CORE substrate-native LM)
+### Pre-Flight: anti-Hebbian failure-signature ablation (NEW per cascade drill)
+
+**Anchor:** `phase_d_pre_ablation_antihebbian_failure_signatures_v1_n128`
+**Resource:** local CPU
+**Wall:** <2h
+**Cost:** $0
+
+Per cascade drill: P=0.55 that anti-Hebbian primitive becomes load-bearing failure mode at LM-class scale. Cheap CPU ablation tests 3 watchlist signatures BEFORE A100 cloud spend on Probe 11+.
+
+- [ ] 2-layer minimal substrate-native loop at N=128 (small for CPU; tests dynamics not scale)
+- [ ] Apply 4 core primitives jointly: outer-product write + anti-Hebbian contrastive + hierarchical recurrent retrieval + stacked independent-W
+- [ ] Train on synthetic micro-corpus (~1000 chars; sparse-coding regime per Tsodyks-Sejnowski)
+- [ ] Monitor 3 failure signatures:
+  - (i) BPC plateau within 100-500 steps with positive-only control continuing to improve
+  - (ii) ||W||_2 exponential growth within 200 steps
+  - (iii) Retrieval accuracy on held-out probe drops toward chance
+- [ ] **Gate rule:** if ANY signature triggers → ABORT Probe 11+ cloud dispatch; pivot to defensive variant OR hybrid path
+- [ ] **Gate rule:** if NO signatures trigger → Probe 11+ dispatches to A100 cloud as planned
+
+### Probe 11+ (FULL-PIPELINE 4-CORE substrate-native LM) — DEFENSIVE UPDATE per cascade drill
 
 - [ ] 4-layer character-LM scaffolding
 - [ ] **Outer-product Hopfield write** per layer (standard Hebbian rule)
-- [ ] **Anti-Hebbian bipartite contrastive** wiring for negative-example handling (substrate-native contrastive replacing InfoNCE / triplet loss)
-- [ ] **Hierarchical recurrent retrieval** per layer (multi-step pattern lookup substituting for attention-as-routing)
-- [ ] **Stacked independent-W composition** (Error-Correction-Chain criterion; max_k(α_k) < α_c)
-- [ ] NO gradient descent at ANY layer (no backprop; no optimizer)
+- [ ] **Anti-Hebbian bipartite contrastive** wiring — **DEFENSIVE: use Tsodyks-Sejnowski sparse coding** (activity ~5% per pattern per cascade drill best-mitigation finding; gives 25× α_c lift over dense coding); **DEFENSIVE: binary activations only** (no continuous; per cascade drill gradient-degeneration risk for soft activations)
+- [ ] **Hierarchical recurrent retrieval** per layer (multi-step pattern lookup; binary activations throughout)
+- [ ] **Stacked independent-W composition** (Error-Correction-Chain criterion; max_k(α_k) < α_c with α_c lifted to ~3.45 via sparse coding)
+- [ ] **NEW: α budget accounting** — positive patterns P + anti-Hebbian patterns Q must satisfy (P+Q)/N < α_c_sparse (per cascade drill highest-severity failure mode)
+- [ ] NO gradient descent at ANY layer
 - [ ] Loss measurement via final-layer retrieval cosine
 - [ ] Baseline: identical 4-layer char-LM gradient-trained
 - [ ] Corpus: Wikitext-2 character-level (~10MB)
 - [ ] 5 seeds each
-- [ ] Pre-registered bands: HP BPC ≤ 2× baseline + wall ≤ 0.5× baseline + all 4 primitives operational throughout; HF BPC > 4× baseline OR primitive collapse
+- [ ] Pre-registered bands: HP BPC ≤ 2× baseline + wall ≤ 0.5× baseline + all 4 primitives operational throughout; HF BPC > 4× baseline OR primitive collapse OR ANY of the 3 cascade-drill watchlist signatures triggered
+- [ ] **NEW: auto-abort on watchlist signature trigger** (saves cloud spend mid-run if anti-Hebbian collapses)
 - [ ] Per-cell partial JSON output per `feedback_testbed_progress_logging_and_restart`
 - [ ] Cost tracker $5-10 ceiling
+- [ ] **GATE: Probe 11+ dispatches ONLY if pre-ablation NO-SIGNATURE pass**
 
 ### Probe 8 (substrate-curriculum-learning)
 
