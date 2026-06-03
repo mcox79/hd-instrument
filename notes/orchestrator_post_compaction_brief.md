@@ -4,6 +4,24 @@
 
 **Last updated:** 2026-06-02 cycle 16 (post efficiency-wins commit). Cap_map at v346. Portfolio 32+74. HONEST 502, LVH 207. Substrate product narrative anchored across audit/composition/safety/streaming with multiple production-N confirmations.
 
+## PENDING EXPERIMENT QUEUE — RUNNING LIST (2026-06-03)
+
+**Single source of truth for what's waiting to be queued.** Lives at:
+- `notes/experiment_queue_pending.md`
+
+Orchestrator updates this file on EVERY cycle that:
+- Ships items (cross off / remove)
+- Receives new research routing (add new items with handoff path)
+- Receives strategy_request (add new items)
+- Surfaces a blocked item (mark ROUTING-PARKED)
+
+User can read this file ANY TIME to see what's pending. If this file is stale (mtime > 2 hours), orchestrator's running-list discipline broke.
+
+Pre-watchdog-tick checklist (every 30-min wake):
+1. `notes/experiment_queue_pending.md` updated this cycle? If not, why? Update or note "all items completed".
+2. Any new `research_routing_*.md` or `strategy_request_*.md` since last cycle? Pull items into the list.
+3. Any new `exp_dev_handoff_*.md`? Mark routing-parked items.
+
 ## VERDICT_HANDLER DISCIPLINE LOCKS (2026-06-03)
 
 Every verdict_handler dispatch task prompt MUST include this clause (per [[feedback-verdicts-include-intuitive-explanation]]):
