@@ -22,3 +22,16 @@ CYCLE 23 BATCH v353->v354 (2026-06-03): 7 verdicts processed. 5 HP + 2 MIDDLE_BA
 ## CYCLE 25 BATCH -- v355->v356 (2026-06-03 verdict_handler)
 
 5 verdicts processed: 2 HP + 2 HARD_FAIL + 1 MIDDLE_BAND. 0 LVH. HONEST 552->557. Portfolio 32+77 UNCHANGED. 0 BAND-LIFTS. PP-12/Q-A3 L-series extends to L=26; 12th consecutive extension (longest streak L=15..L=26); L-series L=2..L=26 all EXACT-1.0 at N=4096; N-scale gap (L=23..L=26 at N=8192) is priority. Q-B1 depth_400 HARD_FAIL (2nd consecutive loading-condition HF; progressive d5 drop: 0.989->0.864->0.655; flat-regime band 0.87-0.97 earned at d80-200 UNCHANGED; R1 condition audit pending). PP-58 N=16384 MIDDLE (ratio improved 3.00->4.00 per N-doubling; N=32768 extrapolated ~5.0 HP boundary; positive trajectory; formula recalibration R2 still needed). PP-33 R3b N=8192 HARD_FAIL (nf_crit~0.5 structural boundary N-independent through N=4096+N=8192; R3c lower-alpha final rescue path; closure risk if R3c flat). 266th PROT-009 paired commit. Cap_map v356.
+## Cycle 26 batch -- v356->v357 (2026-06-03)
+
+**4 HARD_PASS; 2 BAND-LIFTS; 0 LVH; HONEST 557->561**
+
+- q_a3_l27: L=27 EXACT-1.0 (13th consecutive extension; ceiling not found; L-series L=2..L=27 complete at N=4096)
+- q_b1_d250: d5=0.932/d250=0.930 FLAT at heavier load (alpha=0.229); band-lift deferred; collapse boundary between d=250 and d=300 confirmed
+- pp55_n32768: VSA bind/unbind fidelity 0.99999 at N=32768; 4th-rung cross-N complete; BAND-LIFT 0.75-0.88->0.78-0.90
+- pp56_n32768: SM deletion cert_ratio=3.05e-05 (theory 0.1%); 4th-rung algebraic exact; BAND-LIFT 0.75-0.88->0.78-0.90
+
+**Plain language.** The substrate's two algebraic certificate properties (VSA binding algebra and Sherman-Morrison deletion certs) have now been confirmed at N=32768 -- both exactly match theoretical predictions. The deletion cert quality actually IMPROVES as N grows, which means larger deployments get stronger regulatory-grade certificates. Cross-layer composition continues to scale cleanly (27 layers at EXACT fidelity). The heteroassociative chain experiment at depth 250 shows the flat-profile holds even under heavier loading, though a condition audit is warranted before a formal band-lift.
+
+**Importance: HIGH** (2 BAND-LIFTS on product-grade certificate properties; algebraic N-scaling confirmed at N=32768)
+

@@ -227,3 +227,52 @@
 - PROT-022: Q-A3 fid=1.0000 consistent L=25/L=26 N=4096 (self-consistent with L=2..L=24 EXACT series); Q-B1 d400 d5=0.655 loading-condition gap documented (R1 audit pending); PP-58 ratio=cap_crit/audit_crit=3.000/0.750=4.00 VERIFIED; PP-33 R3b nf_crit=0.495-0.505 structural boundary N-independent (confirmed same pattern 2 N-scales).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 266th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 26 BATCH (4 verdicts; v356->v357)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l27_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 27 fids=1.0000 EXACT unanimous 5/5; l27_acc=1.0000; label accurate | NONE |
+| 2 | q_b1_chain_depth_250_v1_n16384 | HARD_PASS | HARD_PASS: d5=0.932; d250=0.930 (flat; 5/5 unanimous; all depth thresholds met by large margin); NOTE alpha=0.229 heavier than d200 alpha=0.183 (chain_depth contributes to total stored); flat-profile property holds at heavier load; label accurate but BAND-LIFT eligibility caveat warranted | NONE (label accurate; band-lift eligibility flagged as annotation-only) |
+| 3 | pp55_vsa_binding_n32768_v4_n32768 | HARD_PASS | HARD_PASS: mean_cos=0.99999; min_cos=0.99999; seeds_hp=5/5 >> HP=4/5; all thresholds met by 17.6% margin; 4th-rung cross-N; label accurate | NONE |
+| 4 | pp56_sherman_morrison_cert_drop_n32768_v4_n32768 | HARD_PASS | HARD_PASS: cert_ratio=3.049e-05 (theory=3.052e-05; 0.1% match); retained_delta=1.21e-04; 5/5 unanimous; 4th-rung algebraic; label accurate | NONE |
+
+**LVH delta: 0. All 4 labels HONEST. LVH count stays at 211.**
+
+NOTE on anchor 2: q_b1_chain_depth_250 verdict label says "BAND-LIFT eligible 0.87-0.97". Honest re-read: BAND-LIFT eligibility is nuanced. d250 d5=0.932 vs d200 d5=0.989 reflects heavier alpha loading (chain_depth contributes to total stored associations: d250 alpha=0.229 vs d200 alpha=0.183). Flat-profile property IS confirmed at d250 (d5=0.932 vs d250=0.930 negligible decay). But the band was established under d80-d200 loading (alpha=0.049-0.183). Strategy decision: annotate as sub-property; DEFER band-lift pending load-matched verification or explicit framing as alpha-load-dependent band.
+
+## Cap_map table (v356 -> v357)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l27_cross_layer_composition_v1_n4096 | 0.71s GPU | 4096 | 5 | HARD_PASS | All 27 fids EXACT-1.0000 unanimous 5/5; l27_acc=1.0000; 13th consecutive L-extension | PP-12/Q-A3 L=27 sub-property; longest streak now L=15..L=27; band 0.75-0.90 UNCHANGED |
+| 2 | q_b1_chain_depth_250_v1_n16384 | 621.5s GPU | 16384 | 5 | HARD_PASS | d5=0.932; d250=0.930 FLAT; all depth gates met; alpha=0.229 (heavier than d80-d200 regime); flat-profile confirmed at heavier load | Q-B1/PP-49a depth-250 sub-property; flat-profile extends to d=250 at heavier load (alpha=0.229); BAND-LIFT DEFERRED pending load-matched comparison; band 0.87-0.97 UNCHANGED |
+| 3 | pp55_vsa_binding_n32768_v4_n32768 | 442.5s CPU | 32768 | 5 | HARD_PASS | mean_cos=0.99999; 5/5 seeds; 4th-rung cross-N {N=4096+N=8192+N=16384+N=32768}; all cos>>HP=0.85 | PP-55 BAND-LIFT 0.75-0.88->0.78-0.90 (4th-rung cross-N gate met; N=32768 algebraically N-independent) |
+| 4 | pp56_sherman_morrison_cert_drop_n32768_v4_n32768 | 1133.9s CPU | 32768 | 5 | HARD_PASS | cert_ratio=3.049e-05 (theory=3.052e-05; 0.1%); retained_delta=1.21e-04; 5/5 unanimous; 4th-rung algebraic exact | PP-56 BAND-LIFT 0.75-0.88->0.78-0.90 (4th-rung cross-N algebraically exact; theory matches to 0.1% at N=32768) |
+
+**(A) PP-12/Q-A3 L=27 sub-property (13th consecutive L-extension).** All 27 fids=1.0000 EXACT unanimous 5-seed at N=4096 (wall=0.71s). L-series at N=4096 extends to L=2..L=27 all EXACT-1.0000. Longest streak now L=15..L=27 (13 consecutive). Ceiling NOT found at L=27. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=27 N=4096 EXACT-1.0 unanimous 5-seed; 13th consecutive L-extension (L=15..L=27); ceiling not reached; N=8192 cross-N at L=23+ is strategic gap; L=28 N=4096 secondary.'
+
+**(B) Q-B1/PP-49a depth-250 sub-property HARD_PASS; flat-profile at heavier load.** q_b1_chain_depth_250_v1_n16384 GENUINE FULL HARD_PASS. d5=0.932, d50=0.929, d100=0.930, d200=0.930, d250=0.930 -- negligible decay (FLAT). All 5 seeds unanimous. Load note: chain_depth=250 -> N_CHAINS=15 x 250 = 3750 total stored; alpha=0.229 (vs d200: alpha=0.183). Flat-profile property is confirmed under heavier loading regime. BAND-LIFT deferred: d250 represents a different alpha-load from the d80-d200 flat-regime band; band-lift would require either load-matched comparison at d250 or explicit reframing of band as alpha-load-dependent. Band 0.87-0.97 UNCHANGED. Sub-property annotation: 'depth-250 N=16384 HARD_PASS: d5=0.932/d250=0.930 FLAT at alpha=0.229 (heavier than d80-d200 flat-regime alpha=0.049-0.183); flat-profile property confirmed at heavier load; bisect confirms boundary is between d=250 and d=300; band-lift deferred pending load-matched comparison; next: condition audit to reconcile d5 drop from 0.989->0.932 and explicit alpha-load-dependent band reframing.'
+
+**(C) PP-55 BAND-LIFT 0.75-0.88->0.78-0.90 (4th-rung cross-N gate met).** pp55_vsa_binding_n32768_v4_n32768 GENUINE FULL HARD_PASS. mean_cos=0.99999 at N=32768, alpha=0.05, M=1638. 5/5 seeds all cos>=0.99999 >> HP=0.85. 4-rung cross-N series complete: {N=4096 (founding v349), N=8192 (v354), N=16384 (v355), N=32768 (v357)}. All 4 rungs mean_cos>=0.9999 -- algebraically N-independent. BAND-LIFT VALID: lower bound 0.75->0.78 (4-rung cross-N gate confirms N-independence of binding algebra). Product framing: VSA bind/unbind algebra over SKAH-M-class network is N-independent at alpha=0.05; fidelity > 0.99999 at all tested N scales.
+
+**(D) PP-56 BAND-LIFT 0.75-0.88->0.78-0.90 (4th-rung cross-N algebraically exact).** pp56_sherman_morrison_cert_drop_n32768_v4_n32768 GENUINE FULL HARD_PASS. cert_ratio=3.049e-05 (theory lam/(lam+N)=1/32769=3.052e-05; match 0.1%). retained_delta=1.21e-04 (<<HP=0.10). 5/5 seeds unanimous. 4-rung cross-N series: {N=4096 (v351), N=8192 (v352), N=16384 (v354), N=32768 (v357)}. All 4 rungs within 0.2% of theory. BAND-LIFT VALID: lower bound 0.75->0.78 (4-rung algebraic exact gate; theory match tightens with N -- lam/(lam+N)->0 as expected). Product framing: Sherman-Morrison deletion cert drops to 3.05e-05 at N=32768; algebraically exact deletion certificate is an N-scaling property (improves as N grows; cert_ratio approaches 0 asymptotically). Regulatory-grade cert drop confirmed algebraically exact at N={4K..32K}.
+
+**Tallies (v356 -> v357).**
+- HONEST: 557 -> 561 (+4: 4 HP; 0 LVH).
+- LVH: 211 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED (no new rows; 2 BAND-LIFTS PP-55+PP-56).
+- BAND-LIFTS: 2 (PP-55: 0.75-0.88->0.78-0.90; PP-56: 0.75-0.88->0.78-0.90).
+- Sub-properties NEW (4): PP-12/Q-A3 L=27 N=4096 (13th L-extension) + Q-B1 d250 N=16384 flat@alpha=0.229 + PP-55 4th-rung N=32768 + PP-56 4th-rung N=32768.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v356 -> v357).**
+- PROT-004/006: No closures. 0 new rows. 2 BAND-LIFTS (PP-55+PP-56 4th-rung cross-N). No rescue sketches required (no failures).
+- PROT-007/008: v357 block appended to cap_map. No portfolio regression.
+- PROT-009: 268th PROT-009 paired commit.
+- PROT-018: all 4 _n<N> suffix bindings confirmed (_n4096 x1, _n16384 x1, _n32768 x2).
+- PROT-021: all 4 _source=remote run_mode=full n_seeds=5 confirmed. No smoke artifacts.
+- PROT-022: Q-A3 L27 all fids=1.0000 exact; Q-B1 d250 flat-profile formula d5~=d250 confirmed; PP-55 Hadamard self-inverse + M_pairs=1638 PASS; PP-56 cert_ratio theory match 0.1% PASS.
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 268th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
