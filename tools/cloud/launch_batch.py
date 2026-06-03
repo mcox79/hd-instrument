@@ -430,21 +430,21 @@ class ProgressPoller(threading.Thread):
               f"({pct:.1f}%)  {phase}  {eta_str}", flush=True)
 
 
-def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
-                    cell_regex, instance_id, experiment_timeout_min,
-                    result_paths: list[str] | None = None,
-                    script_args: str = ""):
-    """Dispatch one anchor on the running instance; mirror of launch_experiment's [4/4].
+def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
+                      script: str, total_cells: int, cell_regex: str,
+                      script_args: str, remote_anchor_dir: str) -> tuple[bool, str, str]:
+    """Start the experiment as a nohup-detached process on the remote.
 
-    result_paths: optional list of remote glob patterns (relative to
-    ~/hd-instrument/) to SCP back AFTER the experiment completes. Examples:
-      "data/testbed_pp8_week2/phi3_qformer_wiring_cuda.json"
-      "data/testbed_pp8_week2/train_v1/*"
-      "data/testbed_pp8_week2/train_v1/checkpoint_*.pt"
-    Glob expansion happens on the remote (shell-evaluated). Files are mirrored
-    under data/lambda_batch_results/<anchor>_<instance_id[:8]>/<remote_subpath>.
+    Architecture (Dispatch 15 post-mortem; agent's "fire-and-poll" pattern):
+      - The experiment runs in `nohup bash -c '<body>' > log 2>&1 < /dev/null & disown`
+      - The body writes its exit code to <REMOTE_OUT>/exp.rc as its final action
+      - We capture the background PID and write it to <REMOTE_OUT>/exp.pid
+      - All subsequent monitoring is done via SHORT polling SSH calls
+        (no long-lived foreground connection that intermediate NATs can drop)
+
+    Returns (success, pid_str, error_msg). On success, the experiment is
+    running detached; SSH disconnect / network blip has NO effect on it.
     """
-    remote_anchor_dir = f"data/exp_{anchor}"
     regex_escaped = cell_regex.replace("'", "'\\''")
     script_args_escaped = script_args.replace("'", "'\\''") if script_args else ""
     target_cmd = (
@@ -455,67 +455,210 @@ def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
         f"--cell-regex '{regex_escaped}'"
         + (f" --script-args '{script_args_escaped}'" if script_args else "")
     )
-    exp_cmd = (
-        # pipefail: propagate leftmost-failing exit code through `cmd | tee`.
-        # set -e: abort on any uncaught error (caught ones via `||` are fine).
-        "set -eo pipefail; cd ~/hd-instrument; "
+    # The experiment body. Runs inside a nohup'd bash subshell so SIGHUP
+    # cannot kill it on SSH disconnect. Body writes to log via tee; PIPESTATUS
+    # preserves the experiment's exit code through the pipeline. Final action
+    # is writing the rc to exp.rc -- the sentinel file the poll loop watches.
+    body = (
+        "set -eo pipefail; "
+        "cd ~/hd-instrument; "
         "git pull --ff-only > /dev/null 2>&1 || true; "
         "PY=$(if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi); "
-        # Inject HF_TOKEN from the .hf_token file SCP'd at bring-up. Allows
-        # anchor scripts to authenticate to HF (gated Llama-3.1-8B + hyperprobe
-        # datasets) without baking the secret into the SSH command line.
         "if [ -f .hf_token ]; then export HF_TOKEN=$(cat .hf_token); fi; "
-        # PHASE 0.5 FIX: anchors default HDLAB_RUN_MODE=smoke for local laptop
-        # safety. On Lambda dispatch we want full-scale execution.
         "export HDLAB_RUN_MODE=full; "
-        # PHASE 0.5 FIX (Dispatch 13 post-mortem): hyperprobe's Lightning
-        # Trainer hardcodes deterministic=True, which requires
-        # CUBLAS_WORKSPACE_CONFIG to be set BEFORE the Python process starts
-        # (CUDA >= 10.2 with deterministic CuBLAS ops). Without this, encoder
-        # training raises RuntimeError immediately after fit() begins.
         "export CUBLAS_WORKSPACE_CONFIG=:4096:8; "
         f"REMOTE_OUT={remote_anchor_dir}; "
-        f"REMOTE_LOG=$REMOTE_OUT/exp_run.log; "
-        f"mkdir -p $REMOTE_OUT; "
-        "echo '--- env ---'; $PY --version; free -h | head -2; "
-        "echo '--- dispatch ---'; set -x; "
-        # PHASE 0.5 FIX: capture inner exit code via _EXP_EXIT and propagate
-        # to SSH session via final `exit`, so abort_batch_on_failure actually
-        # fires. Previous `() || echo` wrapping masked failures as rc=0.
-        "_EXP_EXIT=0; "
-        f"(stdbuf -oL {target_cmd} 2>&1 | tee $REMOTE_LOG) || _EXP_EXIT=$?; "
-        "set +x; echo \"EXP_EXIT=$_EXP_EXIT\"; echo '--- result ---'; "
-        f"if [ -f $REMOTE_OUT/metrics.json ]; then echo 'METRICS_OK'; "
-        f"ls -la $REMOTE_OUT/metrics.json; else echo 'NO_METRICS'; "
-        f"tail -50 $REMOTE_LOG || true; fi; "
-        "exit $_EXP_EXIT"
+        "echo \"--- env ---\"; "
+        "$PY --version; "
+        "free -h | head -2; "
+        "echo \"--- dispatch ---\"; "
+        f"(stdbuf -oL {target_cmd} 2>&1); "
+        "EXP_RC=$?; "
+        "echo \"EXP_EXIT=$EXP_RC\"; "
+        "echo \"--- result ---\"; "
+        f"if [ -f $REMOTE_OUT/metrics.json ]; then "
+        "  echo \"METRICS_OK\"; "
+        "  ls -la $REMOTE_OUT/metrics.json; "
+        "else "
+        "  echo \"NO_METRICS\"; "
+        "fi; "
+        f"echo $EXP_RC > $REMOTE_OUT/exp.rc"
     )
+    # Escape single quotes inside body for outer single-quote wrapping
+    body_escaped = body.replace("'", "'\\''")
+    launch_cmd = (
+        f"mkdir -p {remote_anchor_dir} && "
+        f"rm -f {remote_anchor_dir}/exp.rc {remote_anchor_dir}/exp.pid && "
+        f"nohup bash -c '{body_escaped}' > {remote_anchor_dir}/exp_run.log 2>&1 < /dev/null & "
+        f"disown; "
+        f"echo $! > {remote_anchor_dir}/exp.pid; "
+        f"echo PID=$!"
+    )
+    rc, out, err = _ssh_run(ip, ssh_key_path, launch_cmd, timeout_s=60)
+    if rc != 0:
+        return False, "", f"launch ssh rc={rc} stderr={err[:300]}"
+    pid = None
+    for line in (out or "").splitlines():
+        line = line.strip()
+        if line.startswith("PID="):
+            pid = line.split("=", 1)[1].strip()
+            break
+    if not pid or not pid.isdigit():
+        return False, "", f"could not parse PID from launch output: {out[:500]!r}"
+    return True, pid, ""
 
-    stop_event = threading.Event()
-    poller = ProgressPoller(ip, ssh_key_path, instance_id, anchor, stop_event)
-    poller.start()
-    try:
-        rc, out, err = _ssh_run(ip, ssh_key_path, exp_cmd,
-                                timeout_s=int(experiment_timeout_min * 60))
-    finally:
-        stop_event.set()
-        poller.join(timeout=5)
 
-    # Print with errors='replace' so non-ASCII chars (e.g. transformers'
-    # tqdm progress-bar arrows) don't crash launch_batch on Windows cp1252
-    # stdout. The full untranslated output still gets written to the local
-    # log file (UTF-8) just below; only the stdout PREVIEW gets sanitized.
-    _safe_out = (out[-3000:] or "").encode("ascii", errors="replace").decode("ascii")
-    _safe_err = (err[-1000:] or "").encode("ascii", errors="replace").decode("ascii")
-    print(f"---- {anchor} stdout tail ----")
-    print(_safe_out)
-    if err:
-        print(f"---- {anchor} stderr ----\n{_safe_err}")
+def _poll_for_completion(ip: str, ssh_key_path: str | None, anchor: str,
+                          remote_anchor_dir: str, pid: str,
+                          timeout_min: float,
+                          poll_interval_s: float = 30.0) -> tuple[int, str]:
+    """Poll the remote until experiment completes, dies, or timeout fires.
+
+    Returns (rc, reason).
+      rc >= 0: experiment finished with that exit code (read from exp.rc)
+      rc == -1: ssh polling failed repeatedly (>5 consecutive)
+      rc == -2: process died without writing exp.rc (crash without sentinel)
+      rc == -3: wall-clock timeout; remote process force-killed via SIGKILL
+
+    Streams log deltas to local stdout for visibility during the run.
+    """
+    deadline = time.time() + timeout_min * 60.0
+    last_log_size = 0
+    consecutive_ssh_failures = 0
+    last_progress_print_ts = 0.0
+    while time.time() < deadline:
+        # Probe: rc file present? process alive? current log size?
+        probe = (
+            f"if [ -f {remote_anchor_dir}/exp.rc ]; then "
+            f"  echo \"DONE=$(cat {remote_anchor_dir}/exp.rc)\"; "
+            f"elif kill -0 {pid} 2>/dev/null; then "
+            f"  echo \"ALIVE\"; "
+            f"  stat -c %s {remote_anchor_dir}/exp_run.log 2>/dev/null || echo 0; "
+            f"else "
+            f"  echo \"DEAD_NO_RC\"; "
+            f"fi"
+        )
+        rc, out, err = _ssh_run(ip, ssh_key_path, probe, timeout_s=30)
+        if rc != 0:
+            consecutive_ssh_failures += 1
+            print(f"  [poll] SSH probe failed (attempt {consecutive_ssh_failures}/5): "
+                  f"rc={rc} err={err[:120]!r}", flush=True)
+            if consecutive_ssh_failures >= 5:
+                return -1, f"ssh polling failed 5 consecutive times"
+            time.sleep(min(poll_interval_s, 10.0))
+            continue
+        consecutive_ssh_failures = 0
+        lines = (out or "").strip().splitlines()
+        if not lines:
+            time.sleep(poll_interval_s)
+            continue
+        first = lines[0].strip()
+        if first.startswith("DONE="):
+            rc_str = first.split("=", 1)[1].strip()
+            try:
+                exp_rc = int(rc_str)
+            except ValueError:
+                exp_rc = 99
+            # Flush final log delta to local stdout
+            _stream_log_delta(ip, ssh_key_path, remote_anchor_dir,
+                              last_log_size, anchor)
+            return exp_rc, "done"
+        if first == "DEAD_NO_RC":
+            _stream_log_delta(ip, ssh_key_path, remote_anchor_dir,
+                              last_log_size, anchor)
+            return -2, "remote process died without writing exp.rc"
+        if first == "ALIVE":
+            # Optionally stream log delta if grew
+            try:
+                cur_size = int(lines[1].strip()) if len(lines) > 1 else 0
+            except ValueError:
+                cur_size = 0
+            if cur_size > last_log_size:
+                _stream_log_delta(ip, ssh_key_path, remote_anchor_dir,
+                                  last_log_size, anchor, end_byte=cur_size)
+                last_log_size = cur_size
+            # Heartbeat every 5 minutes if no log progress
+            now = time.time()
+            if now - last_progress_print_ts > 300:
+                print(f"  [poll] {anchor} alive (pid {pid}, log size {cur_size}); "
+                      f"elapsed {int((now - (deadline - timeout_min*60))/60)}min", flush=True)
+                last_progress_print_ts = now
+            time.sleep(poll_interval_s)
+            continue
+        time.sleep(poll_interval_s)
+    # Wall-clock timeout: kill remote process
+    print(f"  [poll] {anchor} hit wall-clock timeout {timeout_min}min; killing pid {pid}",
+          flush=True)
+    _ssh_run(ip, ssh_key_path, f"kill -9 {pid} 2>/dev/null || true", timeout_s=30)
+    return -3, f"wall-clock timeout {timeout_min}min"
+
+
+def _stream_log_delta(ip: str, ssh_key_path: str | None,
+                       remote_anchor_dir: str, start_byte: int,
+                       anchor: str, end_byte: int | None = None) -> None:
+    """Print remote log bytes [start_byte:end_byte] to local stdout."""
+    if end_byte is not None and end_byte <= start_byte:
+        return
+    if end_byte is not None:
+        count = end_byte - start_byte
+        cmd = (f"dd if={remote_anchor_dir}/exp_run.log "
+               f"bs=1 skip={start_byte} count={count} 2>/dev/null")
+        timeout = max(120, count // 1_000_000 * 30)  # 30s per MB
+    else:
+        cmd = (f"if [ -f {remote_anchor_dir}/exp_run.log ]; then "
+               f"  dd if={remote_anchor_dir}/exp_run.log bs=1 skip={start_byte} 2>/dev/null; "
+               f"fi")
+        timeout = 300
+    rc, out, err = _ssh_run(ip, ssh_key_path, cmd, timeout_s=timeout)
+    if rc == 0 and out:
+        # cp1252 safety on Windows stdout
+        safe = out.encode("ascii", errors="replace").decode("ascii")
+        sys.stdout.write(safe)
+        sys.stdout.flush()
+
+
+def _run_one_anchor(ip, ssh_key_path, anchor, script, total_cells,
+                    cell_regex, instance_id, experiment_timeout_min,
+                    result_paths: list[str] | None = None,
+                    script_args: str = ""):
+    """Dispatch one anchor as a DETACHED remote process; poll for completion.
+
+    Detached architecture (Dispatch 15 post-mortem):
+      1. _launch_detached: SHORT SSH call launches the experiment under nohup;
+         body writes to exp_run.log and finishes by writing exit code to
+         exp.rc. Disown ensures SIGHUP from SSH disconnect cannot kill it.
+      2. _poll_for_completion: SHORT SSH calls every 30s check for exp.rc /
+         liveness / log delta. Streams new log bytes to local stdout. SSH
+         disconnect / network blip during polling triggers retry, not failure.
+      3. SCP back metrics.json, exp_run.log, progress.json, + declared
+         result_paths.
+
+    Returns (rc, metrics_local_path).
+    """
+    remote_anchor_dir = f"data/exp_{anchor}"
+
+    # Step 1: launch detached
+    print(f"  [launch] {anchor}: starting detached on remote ...", flush=True)
+    ok, pid, err = _launch_detached(
+        ip, ssh_key_path, anchor, script, total_cells, cell_regex,
+        script_args, remote_anchor_dir,
+    )
+    if not ok:
+        print(f"  [launch] FAILED: {err}", flush=True)
+        rc = -1
+    else:
+        print(f"  [launch] pid={pid}; polling for completion (timeout "
+              f"{experiment_timeout_min:.0f}min, 30s interval)", flush=True)
+        # Step 2: poll for completion
+        rc, reason = _poll_for_completion(
+            ip, ssh_key_path, anchor, remote_anchor_dir, pid,
+            timeout_min=experiment_timeout_min,
+        )
+        print(f"  [poll] {anchor} finished: rc={rc} ({reason})", flush=True)
+
+    out = ""  # backwards-compat with local-log-file code below
+    err = ""
     print(f"---- {anchor} exit: {rc} ----")
-
-    log_path = _REPO_ROOT / "data" / f"lambda_batch_{anchor}_{instance_id}.log"
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    log_path.write_text(out + "\n[stderr]\n" + err, encoding="utf-8")
     metrics_local = _REPO_ROOT / "data" / f"lambda_batch_{anchor}_metrics_{instance_id}.json"
     if _scp_from(ip, ssh_key_path,
                  f"~/hd-instrument/{remote_anchor_dir}/metrics.json",
