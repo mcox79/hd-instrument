@@ -8025,3 +8025,52 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-022: Q-A3 fidelity=1.0000 self-consistent (N=4096 L=22 + N=8192 L=19); Q-B1 d200 lambda~0.00015/hop; PP-56 theory lam/(lam+16384)=0.000061 matched 0.0000609 (0.2%); PP-55 mean_cos=0.99999 consistent with VSA exactness; PP-58 cap_crit=sqrt(1/alpha-1) exact both alphas.
 
 - **Cap_map version: v354.**
+
+# v355 update (2026-06-03) -- CYCLE 24 BATCH: 4 HP + 1 HARD_FAIL + 3 MIDDLE_BAND; 0 LVH; PP-12/Q-A3 L=22 N=8192 2-N cross-N; L=23+L=24 N=4096 10th consecutive extension; Q-B1 depth_300 HARD_FAIL (loading-condition boundary); PP-55 BAND-LIFT 0.70-0.85->0.75-0.88 (3-N cross-N); PP-58 N-scale+finergrid MIDDLE; activation_barrier R3a exhausted; HONEST 544->552; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 265th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l22_cross_layer_composition_v1_n8192 | 2.08s GPU | 8192 | 5 | HARD_PASS | All 22 fids EXACT-1.0000 at N=8192 5/5; 2nd N-scale confirm | PP-12/Q-A3 L=22 N=8192 sub-property; 2-N cross-N at L=22 {N=4096+N=8192}; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l23_cross_layer_composition_v1_n4096 | 1.65s GPU | 4096 | 5 | HARD_PASS | All 23 fids EXACT-1.0000 5/5; ceiling NOT found at L=23 | PP-12/Q-A3 L=23 sub-property; 9th consecutive L-extension; band UNCHANGED |
+| 3 | q_a3_l24_cross_layer_composition_v1_n4096 | 0.63s GPU | 4096 | 5 | HARD_PASS | All 24 fids EXACT-1.0000 5/5; ceiling NOT found at L=24 | PP-12/Q-A3 L=24 sub-property; 10th consecutive L-extension; L-series L=2..L=24 EXACT at N=4096 |
+| 4 | q_b1_chain_depth_300_v1_n16384 | 793.4s GPU | 16384 | 5 | HARD_FAIL | d5=0.8635 (vs prior~0.989); collapse d30-50; d50=0.008; loading-condition change flagged | Q-B1/PP-49a depth_300 HARD_FAIL; collapse onset d30-50; band 0.87-0.97 UNCHANGED; R1-R3 rescue pending condition audit |
+| 5 | pp55_vsa_binding_n16384_v3_n16384 | 114.0s CPU | 16384 | 5 | HARD_PASS | mean_cos=0.9999959; 5/5 seeds; 3-N cross-N {N=4096+N=8192+N=16384} | PP-55 BAND-LIFT 0.70-0.85->0.75-0.88 (3-N cross-N gate met) |
+| 6 | pp58_isochoric_kappa3_n8192_v4_n8192 | 460.9s CPU | 8192 | 5 | MIDDLE_BAND | ratio=3.00 N-stable; cap_crit=3.000 (pred=4.359 miss N-stable); HP not met | PP-58 R4 N-scale: ratio N-stable; cap_crit formula over-prediction N-stable; MIDDLE 0.55-0.70 UNCHANGED |
+| 7 | pp58_isochoric_kappa3_finergrid_v2_n4096 | 263.5s CPU | 4096 | 5 | MIDDLE_BAND | cap_crit=2.0 both alphas; formula exact alpha=0.2 only; ratio=20 artifact | PP-58 R3b finergrid: formula over-predicts alpha=0.1; recalibration needed; MIDDLE 0.55-0.70 UNCHANGED |
+| 8 | activation_barrier_r3_extended_grid_v2_n4096 | 135.1s CPU | 4096 | 5 | MIDDLE_BAND | nf_crit=0.495-0.505 at grid_max=0.90; R3a exhausted at N=4096 | PP-33 R3a EXHAUSTED; R3b N=8192 primary rescue; MIDDLE UNCHANGED |
+
+**(A) PP-12/Q-A3 L=22 N=8192 sub-property.** All 22 fids=1.0000000342 (EXACT-class) at N=8192 5-seed (wall=2.08s). Two-N cross-N at L=22: N=4096 (v354) + N=8192 (v355). Composition fidelity N-independent at L<=22. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=22 N=8192 EXACT-1.0 unanimous 5-seed; 2-N cross-N confirmed at L=22; composition N-independent through L=22; L=23 N=8192 or L=25 N=4096 eligible next.'
+
+**(B) PP-12/Q-A3 L=23 sub-property.** All 23 fids=1.0000 EXACT at N=4096 5-seed (wall=1.65s). 9th consecutive L-extension {L=15..L=23}. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=23 N=4096 EXACT-1.0 unanimous 5-seed; 9th consecutive extension; L=2..L=23 all EXACT at N=4096; ceiling not found.'
+
+**(C) PP-12/Q-A3 L=24 sub-property.** All 24 fids=1.0000 EXACT at N=4096 5-seed (wall=0.63s). 10th consecutive L-extension {L=15..L=24}. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=24 N=4096 EXACT-1.0 unanimous 5-seed; 10th consecutive extension; L-series L=2..L=24 EXACT at N=4096 -- longest streak to date; N=8192 L=22 confirmed (v355); L=25 or N=8192 L=23/L=24 eligible.'
+
+**(D) Q-B1/PP-49a depth_300 HARD_FAIL.** q_b1_chain_depth_300_v1_n16384 GENUINE FULL HARD_FAIL. d5=0.8635 (prior flat-regime d5~0.989); d20=0.6873; chain collapses sharply d30-50 (d50=0.0080 vs HP>=0.5); d100-d300 near-zero. d5 drop from ~0.989 to 0.864 signals different loading conditions in depth_300 experiment (likely higher M, different alpha, or chain construction vs depth_200 flat-regime). Band 0.87-0.97 UNCHANGED: earned at d=200 flat-profile regime; depth_300 HARD_FAIL is at different conditions. Rescue (cheapest first): R1 audit M/alpha conditions in depth_300 vs depth_200 (diagnostic, free); R2 depth_300 re-run at flat-regime loading (~13min GPU); R3 intermediate depth sweep d={225,250,275,300} at flat-regime loading. Annotation appended to Q-B1/PP-49a: 'depth_300 N=16384 HARD_FAIL (v355): d5=0.864 vs flat-regime d5~0.989 -- loading-condition change; collapse onset d30-50; flat-profile regime confirmed to d=200 under those conditions; condition audit R1 before R2-R3 dispatch.'
+
+**(E) PP-55 BAND-LIFT 0.70-0.85 -> 0.75-0.88.** pp55_vsa_binding_n16384_v3_n16384 GENUINE FULL HARD_PASS. mean_cos=0.9999959 min_cos=0.99999 5/5 seeds at N=16384 alpha=0.05 M=819 30-probe (wall=114.0s). seeds_hp=5/5 >> HP>=0.85. Three-N cross-N complete: {N=4096 founding v349, N=8192 v354, N=16384 v355}. 3-rung band-lift gate met per prereg pp55_vsa_n16384. Band: 0.70-0.85 -> 0.75-0.88 (+0.05 each bound). Lit-scan calibration penalty maintained. Product framing: VSA bind-unbind algebra exactly preserved over SKAH-M-class substrate across full production N range (N=4096 to N=16384); near-unit cosine fidelity N-independent at all N tested; substrate simultaneously serves as VSA algebraic compute layer and SKAH-M attractor memory at production scale.
+
+**(F) PP-58 R4 N-scale annotation.** pp58_isochoric_kappa3_n8192_v4_n8192 MIDDLE_BAND. ratio=3.00 at N=8192 alpha=0.05 (same as N=4096 finergrid alpha=0.1 ratio). cap_crit=3.000 (pred=4.359; ~30% mis-prediction; same miss as N=4096). Both ratio and cap_crit mis-prediction N-stable. HP ratio gate >=5.0 NOT met at either N. PP-58 band 0.55-0.70 UNCHANGED. Annotation: 'R4 N-scale N=8192 alpha=0.05: ratio=3.00 N-stable; cap_crit formula over-predicts 30% N-stable; finergrid v2 corroborates alpha=0.1 over-prediction (pred=3.0 actual=2.0); formula recalibration (R2) is primary blocker for HP before further N-scale work.'
+
+**(G) PP-58 R3b finergrid annotation.** pp58_isochoric_kappa3_finergrid_v2_n4096 MIDDLE_BAND. alpha=0.1: cap_crit=2.000 (pred=3.000; 33% miss; cap_tol=False). alpha=0.2: cap_crit=2.000 (pred=2.000; exact; cap_tol=True). audit_crit=sigma_g=0.1 both alphas (grid-min; ratio=20 artifact). cap_crit formula sqrt(1/alpha-1) EXACT at alpha=0.2, OVER-PREDICTS at alpha<=0.1. Combined with R4: systematic formula over-prediction at alpha<0.2 in isochoric regime. PP-58 band 0.55-0.70 UNCHANGED. Annotation: 'R3b finergrid v2 N=4096: cap_crit exact alpha=0.2; over-predicts alpha=0.1 33% and alpha=0.05 30%; ratio=20 audit_crit artifact; formula recalibration (R2 cheapest) required before HP possible at any alpha<0.2.'
+
+**(H) PP-33 R3a grid-extension EXHAUSTED.** activation_barrier_r3_extended_grid_v2_n4096 MIDDLE_BAND. Grid extended to 0.90 (91 points). nf_crit=0.495-0.505 at ALL seeds ALL alphas. b_fit~0.006 (flat). R3a exhausted: grid extension fails to move nf_crit at N=4096. N=4096 is structurally at nf_crit~0.5 boundary regardless of alpha or grid. R3b N=8192 is required. PP-33 band 0.40-0.55 UNCHANGED. Annotation: 'R3a extended-grid v2 N=4096 EXHAUSTED: nf_crit=0.495-0.505 at grid_max=0.90; grid extension fails; N=4096 structurally at nf_crit~0.5; R3b N=8192 primary rescue (larger N may shift nf_crit to non-trivial value); R3c lower alpha {0.01,0.02} secondary.'
+
+**Tallies (v354 -> v355).**
+- HONEST: 544 -> 552 (+8: 3 HP + 1 HARD_FAIL + 1 HP [PP-55] + 3 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED (no new rows; 1 BAND-LIFT).
+- Sub-properties NEW: PP-12/Q-A3 L=22 N=8192 (2-N cross-N) + PP-12/Q-A3 L=23 N=4096 + PP-12/Q-A3 L=24 N=4096 (10-extension streak, longest to date).
+- BAND-LIFTS: 1 (PP-55: 0.70-0.85->0.75-0.88; 3-N cross-N).
+- HARD_FAILs: 1 (Q-B1 depth_300; loading-condition boundary; band UNCHANGED).
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v354 -> v355).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-55). Q-B1 depth_300 HARD_FAIL rescue R1-R3 cheapest-first. PP-58 R2 theory recalibration (cheapest) before R4+/N-scale. PP-33 R3b N=8192 primary.
+- PROT-007/008: v355 block appended. No portfolio regression.
+- PROT-009: 265th PROT-009 paired commit.
+- PROT-018: all 8 _n<N> confirmed (n8192 x3, n4096 x3, n16384 x2).
+- PROT-021: all 8 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 fid=1.0000 self-consistent (L=22 N=8192 matches float 1.0000000342 = EXACT-class); Q-B1 d5=0.864 loading-gap documented; PP-55 mean_cos=0.99999 N-independent; PP-58 v4 ratio=3.00 N-stable; finergrid cap_crit=2.0 both alphas (formula exact alpha=0.2 only).
+
+- **Cap_map version: v355.**
