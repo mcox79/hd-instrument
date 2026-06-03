@@ -8276,3 +8276,47 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-022: Q-A3 L=20/L=21 N=16384 fids=1.0000 EXACT consistent with N=4096 same L; Q-B1 d281 d5=0.896 consistent monotone d5 decline; PP-55 cos=0.99999 N-independent algebraic; PP-58 ratio=2.86 = cap_crit(~2.0)/audit_crit(~0.7) consistent with v354 N=4096 finergrid.
 
 - **Cap_map version: v361.**
+- **Cap_map version: v361.**
+
+# v362 update (2026-06-03) -- CYCLE 31 BATCH: 4 HP + 1 HF + 1 MIDDLE_BAND; 0 LVH; PP-12/Q-A3 L=24+L=26+L=27+L=28 N=16384 (N=16384 series extended; 3-N cross-N complete at L=24); Q-B1 d293 HF (upper-bound confirm; onset (275,287) intact); PP-58 alpha=0.05 N-scale REVERSAL at N=32768 (NON-MONOTONE; pure N-scaling HP path eliminated); HONEST 579->585; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 273rd PROT-009 paired commit
+
+## v361 -> v362 (2026-06-03) Cycle 31 batch; 4 HP + 1 HF + 1 MIDDLE_BAND; 0 LVH; PP-12/Q-A3 N=16384 series extended {L=24,L=26,L=27,L=28} EXACT-1.0000; 3-N cross-N complete at L=24 {N=4096+N=8192+N=16384}; Q-B1 d293 HF (onset window (275,287) confirmed intact; d=281 bisect primary next step); PP-58 alpha=0.05 N=32768 REVERSAL (ratio 4.00->3.00; NON-MONOTONE series; pure N-scaling HP path eliminated; R2 formula recalibration primary); HONEST 579->585; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 273rd PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l24_cross_layer_composition_v1_n16384 | 8.58s GPU | 16384 | 5 | HARD_PASS | All 24 fids EXACT-1.0000 unanimous 5/5; 3-N cross-N {N=4096+N=8192+N=16384} complete | PP-12/Q-A3 L=24 N=16384 sub-property; 3-N cross-N complete; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l26_cross_layer_composition_v1_n16384 | 19.68s GPU | 16384 | 5 | HARD_PASS | All 26 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=26 | PP-12/Q-A3 L=26 N=16384 sub-property; 2-N cross-N {N=4096+N=16384}; band UNCHANGED |
+| 3 | q_a3_l27_cross_layer_composition_v1_n16384 | 9.18s GPU | 16384 | 5 | HARD_PASS | All 27 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=27 | PP-12/Q-A3 L=27 N=16384 sub-property; 2-N cross-N {N=4096+N=16384}; band UNCHANGED |
+| 4 | q_a3_l28_cross_layer_composition_v1_n16384 | 9.46s GPU | 16384 | 5 | HARD_PASS | All 28 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=28 | PP-12/Q-A3 L=28 N=16384 sub-property; 2-N cross-N {N=4096+N=16384}; band UNCHANGED |
+| 5 | q_b1_bisect_d293_v1_n16384 | 972.5s GPU | 16384 | 5 | HARD_FAIL | d5=0.8799/d50=0.1322/d293=noise-floor; chain collapses before d100; d293 confirms collapse above onset (275,287) | Q-B1/PP-49a d293 upper-bound confirm; onset (275,287) intact; d=281 primary next; band 0.87-0.97 UNCHANGED |
+| 6 | pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 | 5312.5s GPU | 32768 | 5 | MIDDLE_BAND | ratio=3.00 at N=32768; REVERSAL from N=16384 ratio=4.00; N-scale NON-MONOTONE {3,3,4,3} at N={4K,8K,16K,32K} | PP-58 alpha=0.05 N-scale REVERSAL; pure N-scaling HP path ELIMINATED; R2 formula recalibration primary; MIDDLE 0.55-0.70 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=24 N=16384 sub-property (3-N cross-N complete at L=24).** All 24 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=8.58s). 3-N cross-N at L=24: {N=4096 v355, N=8192 v359, N=16384 v362}. First 3-N cross-N at L>=24 at production N=16384 scale. Composition N-independent at L=24 across 8x N range. N=16384 series now {L=20, L=21, L=24, L=26, L=27, L=28}. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=24 N=16384 EXACT-1.0000 5-seed; 3-N cross-N {N=4096+N=8192+N=16384} complete at L=24; composition N-independent L=24 across 8x N range.'
+
+**(B) PP-12/Q-A3 L=26,L=27,L=28 N=16384 sub-properties (N=16384 series extended).** All three EXACT-1.0000 unanimous 5-seed at N=16384 (L=26 wall=19.68s, L=27 wall=9.18s, L=28 wall=9.46s). L=26 seed-7 latency outlier (12.6s vs ~1.7s others) is JIT warmup artifact; no ceiling effect. N=16384 sub-series now: {L=20, L=21, L=24, L=26, L=27, L=28} all EXACT-1.0000. Composition N-independent at N=16384 through L=28. Band 0.75-0.90 UNCHANGED. Sub-property annotations: 'L=26/L=27/L=28 N=16384 EXACT-1.0000 5-seed; N=16384 series {L=20,L=21,L=24,L=26,L=27,L=28}; ceiling not found through L=28 at N=16384; L=29..L=35 N=16384 pending; N-independent through L=28.'
+
+**(C) Q-B1/PP-49a d=293 bisect upper-bound confirmation.** q_b1_bisect_d293_v1_n16384 GENUINE FULL HARD_FAIL (wall=972.5s). d5=0.8799/d20=0.7988/d50=0.1322; chain collapses to noise floor by d100; d293 confirms collapsed state at this loading. d5 decline series: {d200:0.989, d250:0.932, d275:0.903, d287:0.884, d293:0.880} -- monotone, consistent progressive loading pattern. d=293 is above onset window (275,287); no new bisect boundary information added. Band 0.87-0.97 UNCHANGED (earned at flat-regime d=200). d=281 bisect primary rescue R1. Annotation: 'Q-B1 d293 N=16384 HF (v362): d5=0.880/d293=noise; confirms collapse above onset (275,287); d5 series monotone; d=281 bisect R1 pending; band UNCHANGED.'
+
+**(D) PP-58 alpha=0.05 N-scale REVERSAL at N=32768 (non-monotone; pure N-scaling HP path eliminated).** pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 MIDDLE_BAND (wall=5312.5s). ratio=3.00 at N=32768 alpha=0.05. N-scale series alpha=0.05: {N=4K ratio=3.00 (v353), N=8K ratio=3.00 (v355), N=16K ratio=4.00 (v356/v361 context), N=32K ratio=3.00 (v362)}. NON-MONOTONE: N=16K was local maximum, not a sustained trend. cap_crit=3.000 (pred=4.359; miss 27%; formula over-predicts at all N). HP gate (ratio>=5.0) not approached at any N across alpha=0.05 series. Strategic conclusion: pure N-scaling HP path ELIMINATED for alpha=0.05. PP-58 MIDDLE 0.55-0.70 UNCHANGED. R2 formula recalibration (~2h theory) is primary unblocking action. Annotation: 'alpha=0.05 N=32768 (v362): ratio=3.00; N-scale NON-MONOTONE {3,3,4,3} at N={4K,8K,16K,32K}; N=16K local peak not trend; HP>=5.0 via N-scaling ELIMINATED; R2 formula recalibration primary; MIDDLE 0.55-0.70 UNCHANGED.'
+
+**Tallies (v361 -> v362).**
+- HONEST: 579 -> 585 (+6: 4 HP + 1 HF + 1 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 6 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; no BAND-LIFTS; sub-property and annotation additions only).
+- Sub-properties NEW: PP-12/Q-A3 {L=24,L=26,L=27,L=28} at N=16384 (4 new N=16384 rungs); Q-B1 d293 upper-bound annotation; PP-58 N-scale REVERSAL annotation.
+- BAND-LIFTS: 0.
+- N=16384 series (PP-12/Q-A3): {L=20, L=21, L=24, L=26, L=27, L=28}.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v361 -> v362).**
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. Annotations only.
+- PROT-007/008: v362 block appended. No portfolio regression.
+- PROT-009: 273rd PROT-009 paired commit.
+- PROT-018: all 6 _n<N> suffix bindings confirmed: q_a3_l24_n16384, q_a3_l26_n16384, q_a3_l27_n16384, q_a3_l28_n16384 (N=16384 OK x4); q_b1_bisect_d293_n16384 (N=16384 OK); pp58_alpha0p05_n32768 (N=32768 OK). 0 violations.
+- PROT-021: all 6 _source=remote run_mode=full n_seeds=5. No smoke artifacts. Fast walls Q-A3 (8-20s at N=16384; L=26 seed-7 JIT outlier explained by warmup pattern; within bounds).
+- PROT-022: Q-A3 all-EXACT-1.0000 consistent (N=16384 fids match prior N=4096 and N=8192 pattern); Q-B1 d5 decline series {0.989,0.932,0.903,0.884,0.880} monotone verified; PP-58 ratio=3.00 per-seed sigma_g_cap_pred=4.359 uniform (formula over-prediction N-stable confirmed).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 273rd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+- **Cap_map version: v362.**

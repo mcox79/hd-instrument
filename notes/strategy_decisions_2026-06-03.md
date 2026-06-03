@@ -475,3 +475,53 @@ d5=0.8842 (HP>=0.9 NOT MET); d20=0.8394 (HP>=0.75 MET); d50=0.7219 (HP>=0.5 bord
 - PROT-022: Q-A3 L=20/L=21 N=16384 fids=1.0000 EXACT (consistent with L=20/L=21 N=4096 series); Q-B1 d281 d5=0.896 consistent with monotone d5 decline series (d250=0.932 -> d275=0.903 -> d281=0.896 -> d287=0.884); PP-55 cos=0.99999 N-independent algebraic exactness (Hadamard binding self-inverse property N-independent); PP-58 ratio=2.86 = cap_crit/audit_crit consistent with N=4096 finergrid finding (cap_crit=2.0; ratio degrades at alpha=0.1).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 272nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 31 BATCH (6 verdicts, v361->v362)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l24_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 24 levels EXACT-1.0000 unanimous 5/5 at N=16384; l24_acc=1.0000; 3-N cross-N at L=24 complete; label accurate | NONE |
+| 2 | q_a3_l26_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 26 levels EXACT-1.0000 unanimous 5/5 at N=16384; l26_acc=1.0000; first N=16384 rung at L=26; label accurate | NONE |
+| 3 | q_a3_l27_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 27 levels EXACT-1.0000 unanimous 5/5 at N=16384; l27_acc=1.0000; first N=16384 rung at L=27; label accurate | NONE |
+| 4 | q_a3_l28_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 28 levels EXACT-1.0000 unanimous 5/5 at N=16384; l28_acc=1.0000; first N=16384 rung at L=28; label accurate | NONE |
+| 5 | q_b1_bisect_d293_v1_n16384 | HARD_FAIL | HARD_FAIL: d5=0.8799 (MIDDLE at d5 gate; HP>=0.9 NOT MET); d50=0.1322 (HP>=0.5 NOT MET); d100-d293 noise floor; chain fully collapsed before d100; d293 loading continues d5-decline series (0.989->0.932->0.903->0.884->0.880); label accurate | NONE |
+| 6 | pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 | MIDDLE_BAND | MIDDLE_BAND: ratio=3.00 in [2.0,5.0); HP>=5.0 NOT MET; alpha=0.05 N-scale REVERSAL (N=16384 ratio=4.00 -> N=32768 ratio=3.00); N-scale series NON-MONOTONE {3.00,3.00,4.00,3.00} at N={4K,8K,16K,32K}; label accurate | NONE |
+
+**LVH delta: 0. All 6 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v361 -> v362)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l24_cross_layer_composition_v1_n16384 | 8.58s GPU | 16384 | 5 | HARD_PASS | All 24 fids EXACT-1.0000 unanimous 5/5; 3-N cross-N complete | PP-12/Q-A3 L=24 N=16384 sub-property; 3-N cross-N {N=4096+N=8192+N=16384} at L=24; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l26_cross_layer_composition_v1_n16384 | 19.68s GPU | 16384 | 5 | HARD_PASS | All 26 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=26 | PP-12/Q-A3 L=26 N=16384 sub-property; 2-N cross-N {N=4096+N=16384} at L=26; band 0.75-0.90 UNCHANGED |
+| 3 | q_a3_l27_cross_layer_composition_v1_n16384 | 9.18s GPU | 16384 | 5 | HARD_PASS | All 27 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=27 | PP-12/Q-A3 L=27 N=16384 sub-property; 2-N cross-N {N=4096+N=16384} at L=27; band 0.75-0.90 UNCHANGED |
+| 4 | q_a3_l28_cross_layer_composition_v1_n16384 | 9.46s GPU | 16384 | 5 | HARD_PASS | All 28 fids EXACT-1.0000 unanimous 5/5; first N=16384 rung at L=28 | PP-12/Q-A3 L=28 N=16384 sub-property; 2-N cross-N {N=4096+N=16384} at L=28; band 0.75-0.90 UNCHANGED |
+| 5 | q_b1_bisect_d293_v1_n16384 | 972.5s GPU | 16384 | 5 | HARD_FAIL | d5=0.8799/d50=0.1322/d293=noise-floor; chain collapsed before d50; d293 loading confirms collapse above onset window (275,287) | Q-B1/PP-49a d293 bisect upper-bound confirm: onset window (275,287) intact; band 0.87-0.97 UNCHANGED |
+| 6 | pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 | 5312.5s GPU | 32768 | 5 | MIDDLE_BAND | ratio=3.00 at N=32768; N-scale REVERSAL from N=16384 ratio=4.00; N-scale NON-MONOTONE; HP>=5.0 not approached | PP-58 alpha=0.05 N-scale REVERSAL annotation; pure N-scaling HP path ELIMINATED; formula recalibration (R2) primary; MIDDLE 0.55-0.70 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=24 N=16384 sub-property (3-N cross-N complete).** All 24 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=8.58s). 3-N cross-N at L=24: {N=4096 v355, N=8192 v359, N=16384 v362}. Composition N-independent at L=24 across 8x N range. N=16384 series now {L=20, L=21, L=24, L=26, L=27, L=28}. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=24 N=16384 EXACT-1.0000 unanimous 5-seed; 3-N cross-N {N=4096+N=8192+N=16384} complete at L=24; composition N-independent at L=24 across 8x N range.'
+
+**(B) PP-12/Q-A3 L=26,L=27,L=28 N=16384 sub-properties.** All three: EXACT-1.0000 unanimous 5-seed at N=16384. L=26 wall=19.68s (seed 7 outlier 12.6s vs ~1.7s others -- JIT warmup artifact; no ceiling effect). N=16384 series extended to {L=20, L=21, L=24, L=26, L=27, L=28}. Composition N-independent confirmed through L=28 at N=16384. Band 0.75-0.90 UNCHANGED. Sub-property annotations: 'L=26/L=27/L=28 N=16384 EXACT-1.0000 unanimous 5-seed; N=16384 sub-series {L=20,L=21,L=24,L=26,L=27,L=28}; ceiling not found through L=28 at N=16384; L=29..L=35 N=16384 pending.'
+
+**(C) Q-B1/PP-49a d=293 bisect upper-bound confirmation.** q_b1_bisect_d293_v1_n16384 HARD_FAIL (wall=972.5s). d5=0.8799 (vs flat-regime ~0.989); chain collapses to noise floor by d100. d5 decline series (depth vs d5): {d200:0.989, d250:0.932, d275:0.903, d287:0.884, d293:0.880} -- monotone decline, consistent progressive loading pattern. d293 loading produces full collapse -- consistent with onset window (275,287). d=293 is ABOVE the window; no new bisect information (onset already known to be in (275,287)). Band 0.87-0.97 UNCHANGED. d=281 bisect remains primary rescue R1. Annotation: 'Q-B1 d293 N=16384 HARD_FAIL (v362): confirms collapse at d=293 (above onset window (275,287)); d5 series monotone decline pattern confirmed; d=281 bisect primary next step (R1); onset window (275,287) unchanged.'
+
+**(D) PP-58 alpha=0.05 N-scale REVERSAL at N=32768.** pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 MIDDLE_BAND (wall=5312.5s). ratio=3.00 at N=32768. N-scale series alpha=0.05: {N=4K ratio=3.00 (v353), N=8K ratio=3.00 (v355), N=16K ratio=4.00 (from v356/v361), N=32K ratio=3.00 (v362)}. NON-MONOTONE: N=16K was local peak; N=32K regresses. cap_crit=3.000 (pred=4.359; miss 27%); formula over-predicts cap_crit at all N tested. HP gate (ratio>=5.0) not approached at any N. PP-58 MIDDLE 0.55-0.70 UNCHANGED. Strategic implication: pure N-scaling HP path ELIMINATED for alpha=0.05; formula recalibration (R2 ~2h theory) is primary unblocking action; PP-58 still EXPLORATORY but N-scale not the lever. Annotation: 'alpha=0.05 N=32768 (v362): ratio=3.00; N-scale NON-MONOTONE {3,3,4,3}; N=16K was local max not trend; pure N-scaling to HP>=5.0 ELIMINATED; R2 formula recalibration primary path; MIDDLE 0.55-0.70 UNCHANGED.'
+
+**Tallies (v361 -> v362).**
+- HONEST: 579 -> 585 (+6: 4 HP + 1 HF + 1 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 6 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; no BAND-LIFTS; sub-property annotations only).
+- Sub-properties NEW: PP-12/Q-A3 {L=24,L=26,L=27,L=28} at N=16384 (4 new N=16384 rungs); N=16384 series now {L=20,L=21,L=24,L=26,L=27,L=28}.
+- BAND-LIFTS: 0.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v361 -> v362).**
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. Sub-property and annotation additions only.
+- PROT-007/008: v362 block appended. No portfolio regression.
+- PROT-009: 273rd PROT-009 paired commit.
+- PROT-018: all 6 _n<N> suffix bindings confirmed (n16384 x5, n32768 x1).
+- PROT-021: all 6 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 all-EXACT-1.0000 self-consistent 4 N=16384 anchors; Q-B1 d5-progression monotone series {0.989,0.932,0.903,0.884,0.880} verified; PP-58 ratio=3.00 consistent across all 5 seeds (sigma_g_cap_pred=4.359 uniform).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 273rd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

@@ -58,3 +58,6 @@ Anchors:
 
 ## v360->v361 Cycle 30 batch (2026-06-03)
 7 verdicts processed. 5 HP + 2 MIDDLE_BAND. 0 LVH. HONEST 572->579. LVH 211 UNCHANGED. 1 BAND-LIFT: PP-55 0.78-0.90->0.80-0.92 (5th-rung N=65536). PP-12/Q-A3 L=34+L=35 N=4096 (21st consecutive; longest streak). L=20+L=21 confirmed N-independent at N=16384. Q-B1 d281 MIDDLE onset (275,281]. PP-58 alpha=0.1 N-scale negative. Portfolio 32+77 UNCHANGED. Cap_map v361. 272nd PROT-009 paired commit.
+
+## v361->v362 Cycle 31 batch (2026-06-03)
+6 verdicts processed. 4 HP + 1 HF + 1 MIDDLE_BAND. 0 LVH. HONEST 579->585. LVH 211 UNCHANGED. 0 BAND-LIFTS. PP-12/Q-A3 N=16384 series extended: {L=24,L=26,L=27,L=28} confirmed EXACT-1.0000; 3-N cross-N complete at L=24 {N=4096+N=8192+N=16384}. Q-B1 d293 HF confirms chain collapsed above onset window (275,287); d=281 bisect pending. PP-58 alpha=0.05 N-scale REVERSAL at N=32768 (ratio 4.00->3.00; NON-MONOTONE; pure N-scaling HP path eliminated; R2 formula recalibration primary). Portfolio 32+77 UNCHANGED. Cap_map v362. 273rd PROT-009 paired commit.
