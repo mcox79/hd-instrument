@@ -246,3 +246,4 @@ Note: bridge shows 0 pending post-ship (bridge cache refresh lag ~30s; anchors c
 PROT compliance: PROT-018 OK (N=4096 binding checked); PROT-019 OK (14400s floor for _n4096);
 PROT-022: activation_barrier ratio=2.3158 MATCHED; capacity_phase sigma_g_crit 4-alpha VERIFIED.
 PP-55 cross-N (VSA-binding at N=8192) DEFERRED: insufficient time to write and test before queue-empty urgency resolved.
+2026-06-02 v349 REFILL: shipped 4 anchors (q_a3_l18_cross_layer_composition_v1_n4096 -> overnight_queue; q_b1_chain_depth_100_v1_n16384 -> overnight_queue; pp49_hrc_cf_depth_band_sweep_v1_n4096 -> remote_cpu_queue; sherman_morrison_rank1_deletion_cert_drop_v2_n4096 -> remote_cpu_queue). Note: q_a3_l17 auto-ran and HARD_PASS (all 17 levels EXACT-1.0) during scripting. All 4 ships remote-verified (queue_add.sh exit 0). v343 items shipped: Q-A3 L=17+18 (A), Q-B1 cross-N d100 (E), PP-49 depth anomaly (B), SM v2 (C). PROT-018/019/021 compliant.
