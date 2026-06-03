@@ -7738,3 +7738,38 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 257th PROT-009 paired commit.
 - PROT-018: all 5 _n<N> suffix verified PASS.
 - PROT-021: all 5 _source=remote run_mode=full n_seeds=5 PASS.
+
+# v348 update (2026-06-02) -- CYCLE 17 BATCH: 4 GENUINE HARD_PASS + 0 LVH; Q-B1 BAND-LIFT 0.70-0.85->0.75-0.90 (N=16384 cross-N gate PASSED) + Q-B1 flat-profile d=90 N=8192 + Q-A3/PP-12 L=15 N=4096 + PP-48 depth-23 N=4096; 258th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_b1_chain_depth_80_v1_n16384 | 389.3s | 16384 | 5 | HARD_PASS | d5=0.9990 d80=0.9991 (5/5; FLAT delta<=0.0001; d80>d5 per noise); BAND-LIFT GATE PASSED | PP-49a/Q-B1 BAND-LIFT 0.70-0.85 -> 0.75-0.90; cross-N d80-flat N=16384 sub-property |
+| 2 | q_b1_chain_depth_90_v1_n8192 | 139.3s | 8192 | 5 | HARD_PASS | d5=0.9727 d90=0.9738 (5/5; FLAT d90>d5 mean); ceiling not reached at d=90 | PP-49a depth-90 N=8192 sub-property; flat-profile extends to d=90 |
+| 3 | q_a3_l15_cross_layer_composition_v1_n4096 | 0.463s | 4096 | 5 | HARD_PASS | L1-L15=1.0000 EXACT unanimous; l15_acc=1.0000; run_mode=full _source=remote confirmed | PP-12/Q-A3 L=15 N=4096 sub-property; L-ceiling not reached at L=15 |
+| 4 | pp48_nkt_depth_23_v1_n4096 | 1.008s | 4096 | 5 | HARD_PASS | pos=1.0000 nkt_rep=1.0000; NKT_total=8388607 (2^23-1 = 8.4M nodes); 5/5 unanimous | PP-48 depth-23 N=4096 sub-property; depth series {3..23}; 8.4M-node tree ceiling not reached |
+
+**Row updates (v347 -> v348).**
+
+**(A) PP-49a/Q-B1 BAND-LIFT 0.70-0.85 -> 0.75-0.90 TRIGGERED.** q_b1_chain_depth_80_v1_n16384 GENUINE FULL HARD_PASS. d80=0.9991 at N=16384 5-seed. FLAT-PROFILE AT N=16384 confirmed (d80=0.9991 vs d5=0.9990; max delta 0.0003). N=16384 cross-N gate was SINGLE REMAINING GATE from v347. Gate CRITERION MET. Cross-N criterion: N=8192 flat-profile d5-d80 (v346/v347) + N=16384 flat-profile d5-d80 (v348) = 2 independent N-scale confirmations with mechanism-variety. BAND-LIFT VALID. Lit-scan calibration penalty maintained in lifted band. Product framing: substrate heteroassociative chains maintain >0.999 fidelity at N=16384 across 80 sequential hops with zero depth-dependent decay.
+
+**(B) PP-49a depth-90 N=8192 sub-property.** Flat-profile extends from d80 (v347) to d90 at N=8192. d90=0.9738 mean; d90>d5 mean; lambda_empirical<=0. q_b1_chain_depth_100_v1_n8192 RUNNING in queue.
+
+**(C) PP-12/Q-A3 L=15 N=4096 sub-property.** L-series at N=4096 extends L=2..L=15 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED (v342/v345 BAND-LIFTS; L=15 corroborative). Row annotation: "L-ceiling not reached at L=15 N=4096; L=16+ eligible."
+
+**(D) PP-48 depth-23 N=4096 sub-property.** NKT_total=8388607 (8.4M-node tree). N=4096 depth series extends to depth-23: {3,5,7,9,11,13,15,17,19,21,23}. Band 0.75-0.90 UNCHANGED. Next gate: depth-23 cross-N N=8192 (queued: pp48_nkt_cross_n_depth19_v1_n16384 pending).
+
+**Tallies (v347 -> v348).**
+- HONEST: 507 -> 511 (+4 HP).
+- LVH: 207 UNCHANGED (0 new catches).
+- Portfolio: 32+74 UNCHANGED. 1 BAND-LIFT (PP-49a/Q-B1 0.70-0.85 -> 0.75-0.90).
+- Sub-properties NEW (4): q-b1-depth80-N16384-flat-BAND-LIFT + q-b1-depth90-N8192-flat + q-a3-L15-N4096 + pp48-depth23-N4096.
+- Framework reliability product-feature: 82-96% -> 83-97% (+1pp; PP-49a BAND-LIFT chain-depth production-envelope).
+
+**PROT compliance (v347 -> v348).**
+- PROT-004/006: NO row closures. 1 BAND-LIFT (PP-49a 0.70-0.85->0.75-0.90). 4 NEW SUB-PROPERTIES.
+- PROT-007: v348 history block appended inline.
+- PROT-008: 1 band-lift + 4 sub-properties; no portfolio regression.
+- PROT-009: cap_map.md + history.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log atomically committed. 258th PROT-009 paired commit.
+- PROT-018: all 4 _n<N> suffix matches confirmed (n16384, n8192, n4096 x2). ALL CLEAR.
+- PROT-021: all 4 _source=remote run_mode=full n_seeds=5 confirmed. No smoke artifacts.
+- PROT-022: no formula-selftest issues this batch.
