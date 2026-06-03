@@ -26720,3 +26720,19 @@ Tallies: HONEST 490 UNCHANGED. LABEL-VS-HONEST 207 UNCHANGED. Portfolio 32+74 UN
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 255th PROT-009 paired commit.
 - PROT-018: all 8 _n<N> suffix verified. PASS.
 - PROT-021: all 8 _source=remote run_mode=full. PASS.
+
+**v352 (2026-06-02/03) -- CYCLE 21 BATCH: 2 HP + 1 MIDDLE[LVH#210]; PP-56 BAND-LIFT 0.65-0.80->0.70-0.85; Q-A3/PP-12 L=19 sub-property; PP-33 caveat(r) N-scale FLAT; HONEST 529->532; LVH 209->210; Portfolio 32+76; 262nd PROT-009.**
+
+Anchors: q_a3_l19_cross_layer_composition_v1_n4096 HARD_PASS (L1-L19 EXACT-1.0 unanimous); sherman_morrison_rank1_deletion_cert_drop_v1_n8192 HARD_PASS (cert_ratio=0.000121 vs theory=0.000122, 0.8% match; 2-N cross-N gate); activation_barrier_n_scale_v1_n8192 MIDDLE_BAND [LVH #210] (ratio=1.0955 FLAT vs N=4096=1.0962; N-scaling sub-claim over-stated).
+
+State transitions: (1) PP-12/Q-A3 L=19 sub-property added (ceiling not found; band 0.75-0.90 UNCHANGED); (2) PP-56 BAND-LIFT 0.65-0.80->0.70-0.85 (2-N cross-N algebraically exact at N=4096+N=8192; production-N confirmation resolved); (3) PP-33 caveat(r) added (R4 N-scale exhausted; ratio FLAT; R3 theory proxy promoted to primary rescue).
+
+LVH #210: activation_barrier_n_scale_v1_n8192 'partial N-scaling' sub-claim contradicted by data (N=8192 ratio=1.0955 < N=4096 ratio=1.0962).
+
+**PROT compliance (v351 -> v352).**
+- PROT-004/006: NO row closures. 1 BAND-LIFT (PP-56). R1-R5 cheapest-first PP-33 (R4 executed, R3 primary, R5 deferred).
+- PROT-007: this history block appended to substrate_capability_map_history.md.
+- PROT-008: transitions validated against per-cell metrics and pre-registered bands.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 262nd PROT-009 paired commit.
+- PROT-018: all 3 N bindings confirmed. PASS.
+- PROT-021: all 3 _source=remote run_mode=full n_seeds=5. PASS.

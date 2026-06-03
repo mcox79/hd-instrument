@@ -1510,3 +1510,58 @@ cap_map v351 open handoffs: Q-A3 L=19 GPU ceiling, PP-56 N=8192 CPU band-lift, P
 overnight_queue pending: +1 (GPU)
 remote_cpu_queue pending: +2 (CPU)
 Deferred to strategy: PP-49 CF R2, Q-B1 d-120, PP-50 R3 N-sweep
+
+# v352 update (2026-06-02/03) -- CYCLE 21 BATCH: 3 verdicts: 2 HP + 1 MIDDLE_BAND[LVH#210]; Q-A3/PP-12 L=19 ceiling NOT found; PP-56 BAND-LIFT 0.65-0.80->0.70-0.85 (N=8192 cross-N gate PASSED); activation_barrier N-scale FLAT (N-scaling DID NOT IMPROVE ratio); HONEST 529->532; LVH 209->210; 262nd PROT-009 paired commit
+
+## Step 0: honest re-read
+
+**Anchor 1: q_a3_l19_cross_layer_composition_v1_n4096**
+Label HARD_PASS. Per-cell: all 5 seeds all 19 fidelities = 1.0000, l19_accuracy=1.0000. HP gate l19_acc>=0.5: CLEAR (1.0000). N=4096 matches _n4096. n_seeds=5 full. SOURCE=remote. HONEST. L-series L=2..L=19 all EXACT-1.0 unanimous. Ceiling NOT found at L=19. Sub-property: PP-12/Q-A3 L=19. Band 0.75-0.90 UNCHANGED (single-N corroboration; no cross-N trigger).
+
+**Anchor 2: sherman_morrison_rank1_deletion_cert_drop_v1_n8192**
+Label HARD_PASS. Per-cell cert_ratio per seed: {0.000121, 0.000121, 0.000121, 0.000121, 0.000121}. All HP<0.15 by >1000x. retained_delta per seed: {0.000536, 0.000477, 0.000397, 0.000419, 0.000398}. All HP<0.1 by >200x. N-monotone 5/5: all N=8192 cert_ratios below N=4096 cert_ratio=0.000241. Theory cert_ratio(N=8192)=1/8193=0.000122; empirical mean=0.000121 (match 0.8%). ALGEBRAICALLY EXACT at N=8192. HONEST. SOURCE=remote.
+STRATEGIC: PP-56 was founded at 0.65-0.80 EXPLORATORY with 'production-N N=8192 confirmation pending.' This N=8192 cross-N HARD_PASS is the confirmation trigger. PP-56 BAND-LIFT: 0.65-0.80 -> 0.70-0.85. APPLY.
+
+**Anchor 3: activation_barrier_n_scale_v1_n8192** [LVH #210]
+Label MIDDLE_BAND. ratio=1.0955 in (1.02,1.2]. Classification boundary CORRECT. But sub-claim 'partial N-scaling' is over-claimed.
+LVH #210: verdict_msg states 'partial N-scaling' but ratio at N=8192 (1.0955) is LOWER than ratio at N=4096 (1.0962, from v351 LVH #209). Difference = -0.0007 (slightly worse, not better). N-scaling DID NOT improve the ratio. 'N-monotone=5/5' in metrics refers to within-N nf_crit sweep monotonicity (nf_crit_05 > nf_crit_10 per seed), NOT cross-N ratio improvement. The 'partial N-scaling' sub-claim is CONTRADICTED by data. Honest reading: MIDDLE_BAND classification stands; sub-claim overrides to: 'N=8192 ratio FLAT vs N=4096 (1.0955 vs 1.0962); N-scaling did NOT resolve LVH #208/#209 magnitude gap; R3 theory proxy functional form is now the primary rescue path.' PP-33 band 0.40-0.55 UNCHANGED.
+
+## Cap map state transitions (v351 -> v352)
+
+**(A) Q-A3/PP-12 L=19 sub-property annotation**
+L-series at N=4096 now L=2..L=19 all EXACT-1.0000 unanimous 5-seed. L-ceiling NOT found at L=19. Band 0.75-0.90 UNCHANGED. Sub-property: 'L=19 N=4096 EXACT-1.0 unanimous 5-seed; ceiling not reached; L=20+ eligible (or N-scale test at L=19 to establish N-dependence).' No band-lift: single-N extension; cross-N criterion requires same depth at 2 different N values.
+
+**(B) PP-56 BAND-LIFT 0.65-0.80 -> 0.70-0.85 (APPLY)**
+Trigger: N=8192 cross-N HARD_PASS confirms founding N=4096 anchor. 2-N cross-N gate met ({N=4096, N=8192} both algebraically exact within 1% of theory lam/(lam+N)). Algebraic cert primitive confirmed at production-N. Per [[feedback-lit-scan-calibration-penalty]] 0.05 calibration penalty maintained at 0.70-0.85 (not 0.75-0.85). Band-lift: 0.65-0.80 -> 0.70-0.85. Tag: 🟢 Validated (algebraic, 2-N cross-N). 'Production-N N=8192 confirmation pending' annotation RESOLVED. New annotation: 'N=4096+N=8192 both algebraically exact (within 1% of theory); 2-N cross-N gate passed; next: N=16384 or API integration for product positioning.'
+
+**(C) PP-33 caveat(r): activation-barrier N-scale FLAT [LVH #210]**
+N-scale rescue R4 executed: ratio=1.0955 at N=8192 vs 1.0962 at N=4096 (FLAT; -0.0007 delta, marginally WORSE). N-scaling did NOT improve ratio; LVH #210 filed. Caveat(r): 'N-scale N=8192 executed (R4): ratio=1.0955 FLAT vs N=4096=1.0962; N-scaling does NOT resolve magnitude gap; R3 theory proxy functional form is now PRIMARY rescue path (derive nf_crit proxy analytically; verify whether proxy compresses true barrier ratio); R5 direct Lyapunov energy barrier deferred but escalates if R3 fails.' Band 0.40-0.55 UNCHANGED. R4 EXHAUSTED.
+
+## LVH entry
+LVH #210: anchor=activation_barrier_n_scale_v1_n8192. verdict_msg sub-claim 'partial N-scaling' over-stated. Per-data: N=8192 ratio=1.0955 < N=4096 ratio=1.0962 (-0.0007, negative direction). 'N-monotone' in metrics = within-run nf_crit sweep monotonicity, not cross-N improvement. Honest sub-claim: 'N-scale FLAT; ratio unchanged from N=4096 baseline; R3 theory proxy is next.' MIDDLE_BAND classification correct; over-claim in sub-clause only. LVH 209 -> 210.
+
+## Rescue-sketch sequencing PP-33 barrier (cheapest first, PROT-004/006)
+- R1 annotation (applied, prior commits)
+- R2 v2 fine-grid (executed; sub-MIDDLE)
+- R3 Theory: derive nf_crit proxy nonlinear functional form analytically (1-2h; next primary)
+- R4 N-scale N=8192 (EXECUTED this cycle; ratio FLAT; does not resolve)
+- R5 Direct Lyapunov energy barrier measurement (avoids proxy; deferred; escalation path if R3 fails)
+
+## Tallies (v351 -> v352)
+- HONEST: 529 -> 532 (+3)
+- LVH: 209 -> 210 (+1: LVH #210 activation_barrier_n_scale_v1_n8192 N-scaling sub-claim)
+- Portfolio: 32+76 UNCHANGED (no new rows; no closures)
+- BAND-LIFTS: 1 (PP-56: 0.65-0.80 -> 0.70-0.85; 2-N cross-N algebraic cert)
+- Sub-properties NEW: PP-12/Q-A3 L=19 annotation
+- Framework reliability product-feature: 84-98% UNCHANGED (PP-56 band-lift within existing 84-98% envelope; no row count change)
+
+## PROT compliance
+- PROT-004/006: No closures. 1 BAND-LIFT (PP-56). R1-R5 cheapest-first for PP-33 (R1 applied, R2 executed, R4 executed, R3 primary, R5 deferred). No row closures.
+- PROT-007/008: v352 block appended. No portfolio regression.
+- PROT-009: 262nd PROT-009 paired commit.
+- PROT-018: all 3 N bindings confirmed (_n4096 GPU n=5, _n8192 CPU n=5 x2). SOURCE=remote all 3.
+- PROT-021: all 3 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: SM theory lam/(lam+N=8192)=1/8193=0.000122 matched empirical=0.000121 (0.8%); Q-A3 L=19 fidelity=1.0000 self-consistent with L=2..L=18 pattern; activation_barrier HP gate ratio>1.20 NOT cleared by N=8192 (MIDDLE correct).
+
+## Atomic commit
+cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry. 262nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

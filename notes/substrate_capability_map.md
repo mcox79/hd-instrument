@@ -7871,7 +7871,7 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 
 **(C) Q-B1/PP-49a BAND-LIFT 0.75-0.90 -> 0.80-0.95.** q_b1_chain_depth_100_v1_n16384 GENUINE FULL HARD_PASS. d5-d100 all ~0.9981 at N=16384 5-seed. Trigger: N=8192 flat-profile d5-d100 (v349) + N=16384 flat-profile d5-d100 (v351) = 2-N cross-N at depth-100 with depth-variety (extends v348 d-80 cross-N to d-100). Per-hop fidelity: 0.9982^(1/100) ~ 0.99998/hop; lambda_empirical ~0.00002/hop. BAND-LIFT VALID per 2-N cross-N at depth-100. Product framing: substrate heteroassociative chains maintain >0.998 fidelity at N=16384 across 100 sequential hops with near-zero depth-dependent decay. N-independent flat-profile confirmed at {N=8192, N=16384} up to depth 100. Lit-scan calibration penalty maintained.
 
-**(D) PP-56 NEW TOP-LEVEL ROW FOUNDED: Sherman-Morrison rank-1 deletion algebraic cert primitive.** sherman_morrison_rank1_deletion_cert_drop_v2_n4096 GENUINE FULL HARD_PASS. cert_ratio=0.000241 (623x below HP<0.15 gate). Theory: lam/(lam+N)=1/4097=0.000244 -- empirical 0.000241 matches to 1.2% (near-algebraically exact). 5/5 seeds unanimous. PP-56: Sherman-Morrison rank-1 deletion algebraic cert primitive. Cert-drop algebraically exact and measurable via xi^T W xi/N. FOUNDS regulatory cert positioning for deletion with algebraic guarantee. Filed at **0.65-0.80 EXPLORATORY** (founding anchor N=4096; +0.05 lit-scan calibration; production-N N=8192+ confirmation pending). Portfolio: 32+75 -> **32+76**. Cross-ref: PP-9 (deletion-cert mechanism); PP-46 (GDPR deletion cert algebraic foundation); PP-13 (multi-tenant isolation).
+**(D) PP-56 NEW TOP-LEVEL ROW FOUNDED: Sherman-Morrison rank-1 deletion algebraic cert primitive.** sherman_morrison_rank1_deletion_cert_drop_v2_n4096 GENUINE FULL HARD_PASS. cert_ratio=0.000241 (623x below HP<0.15 gate). Theory: lam/(lam+N)=1/4097=0.000244 -- empirical 0.000241 matches to 1.2% (near-algebraically exact). 5/5 seeds unanimous. PP-56: Sherman-Morrison rank-1 deletion algebraic cert primitive. Cert-drop algebraically exact and measurable via xi^T W xi/N. FOUNDS regulatory cert positioning for deletion with algebraic guarantee. Filed at **0.70-0.85 VALIDATED (2-N cross-N algebraically exact; v352 BAND-LIFT from 0.65-0.80)** (N=4096+N=8192 both algebraically exact within 1% of theory lam/(lam+N); +0.05 lit-scan calibration penalty maintained; next: N=16384 or API integration). Portfolio: 32+75 -> **32+76**. Cross-ref: PP-9 (deletion-cert mechanism); PP-46 (GDPR deletion cert algebraic foundation); PP-13 (multi-tenant isolation).
 
 **(E) PP-49 CF depth-band HARD_FAIL characterization.** GENUINE FULL HARD_FAIL. d1_cf=-0.0057 at chance level across all 5 seeds. Counterfactual substitution via cf_cos fails at ALL depths {1,2,3,4,5} at N=4096. d4 partial signal (mean=0.189) non-robust (high per-seed variance). PP-49 main row band 0.80-0.95 UNCHANGED (main mechanism = Hierarchical-Refusal-Cert from combo2 L=3 HP, UNAFFECTED; CF substitution is one sub-component). PP-49 annotation: 'counterfactual substitution sub-mechanism: d1-d5 ALL HARD_FAIL at N=4096; architecture redesign needed; main HRC mechanism UNAFFECTED.' Rescue sketches (cheapest first): R1 annotation (applied); R2 CF vector construction redesign (1-2h CPU); R3 N-scale N=8192 current mechanism (1-2h CPU); R4 algebraic analysis (theory); R5 cross-architecture separation.
 
@@ -7899,3 +7899,45 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-022: SM theory lam/(lam+N)=0.000244 matched empirical (1.2%); capacity_phase sigma_g_crit 4-alpha VERIFIED; activation_barrier barrier_ratio formula self-test VERIFIED (empirical proxy did not reach MIDDLE).
 
 **Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. 261st PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main.
+
+# v352 update (2026-06-02/03) -- CYCLE 21 BATCH: 2 HP + 1 MIDDLE_BAND[LVH#210]; Q-A3/PP-12 L=19 ceiling NOT found; PP-56 BAND-LIFT 0.65-0.80->0.70-0.85 (N=8192 cross-N algebraic exact); activation_barrier N-scale FLAT[LVH#210]; HONEST 529->532; LVH 209->210; Portfolio 32+76 unchanged; 262nd PROT-009 paired commit
+
+| # | Anchor | Wall | N | Seeds | Verdict | Key metrics | Cap_map impact |
+|---|--------|------|---|-------|---------|-------------|----------------|
+| 1 | q_a3_l19_cross_layer_composition_v1_n4096 | 1.41s GPU | 4096 | 5 | HARD_PASS | L1-L19 all=1.0000 unanimous 5/5; l19_acc=1.0000; L-series L=2..L=19 all EXACT | PP-12/Q-A3 L=19 sub-property; ceiling not found; band 0.75-0.90 UNCHANGED |
+| 2 | sherman_morrison_rank1_deletion_cert_drop_v1_n8192 | 81.5s CPU | 8192 | 5 | HARD_PASS | cert_ratio=0.000121 (HP<0.15; 1000x+ below); retained_delta=0.000445 (HP<0.1); N-monotone 5/5; theory=0.000122 match 0.8% | PP-56 BAND-LIFT 0.65-0.80 -> 0.70-0.85 (2-N cross-N gate) |
+| 3 | activation_barrier_n_scale_v1_n8192 | 216s CPU | 8192 | 5 | MIDDLE_BAND [LVH #210] | ratio=1.0955 in (1.02,1.2]; FLAT vs N=4096=1.0962 (-0.0007); monotone 5/5 within-run | PP-33 caveat(r): N-scale FLAT; R3 theory proxy now primary; band 0.40-0.55 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=19 sub-property.** All 19 fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=1.41s). L-series at N=4096 now extends L=2..L=19, all EXACT-1.0000. L-ceiling NOT found at L=19. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=19 N=4096 EXACT-1.0 unanimous 5-seed; ceiling not reached; L=20+ eligible (or N-scale test at fixed L=19 to establish N-dependence of composition depth).'
+
+**(B) PP-56 BAND-LIFT 0.65-0.80 -> 0.70-0.85.** sherman_morrison_rank1_deletion_cert_drop_v1_n8192 GENUINE FULL HARD_PASS. cert_ratio=0.000121 per seed {0.000121 x5}; all HP<0.15 by >1000x. retained_delta per seed {0.000536, 0.000477, 0.000397, 0.000419, 0.000398}; all HP<0.1 by >200x. N-monotone 5/5: all N=8192 cert_ratios < founding N=4096 cert_ratio=0.000241. Theory: lam/(lam+N=8192) = 1/8193 = 0.000122; empirical mean = 0.000121 (match 0.8%). ALGEBRAICALLY EXACT at N=8192. BAND-LIFT TRIGGER: v351 filed PP-56 at 0.65-0.80 EXPLORATORY with 'production-N N=8192 confirmation pending'; that trigger is now satisfied. 2-N cross-N gate passed ({N=4096, N=8192} both algebraically exact within 1%). Lit-scan calibration penalty +0.05 maintained (no direct precedent for production-SM algebraic cert at scale). Band: **0.65-0.80 -> 0.70-0.85**. Tag: Validated (algebraic, 2-N cross-N). Next gate: N=16384 or product API integration.
+
+**(C) [LVH #210] PP-33 caveat(r): activation-barrier N-scale FLAT.** activation_barrier_n_scale_v1_n8192 MIDDLE_BAND classification correct (ratio=1.0955 in (1.02, 1.2]). But verdict_msg sub-claim 'partial N-scaling' is OVER-STATED. Per-data: ratio at N=8192 = 1.0955, ratio at N=4096 = 1.0962 (v351 LVH #209 anchor). Delta = -0.0007 (marginally WORSE, not better). 'N-monotone=5/5' in metrics refers to within-run nf_crit sweep monotonicity (nf_crit_05 > nf_crit_10 per seed), NOT cross-N improvement. Honest reading: N-scaling does NOT resolve the magnitude gap; ratio is FLAT. LVH #210 filed. Caveat(r) added to PP-33 row: 'N-scale N=8192 executed (R4 from PP-33 barrier rescue list): ratio=1.0955 FLAT vs N=4096=1.0962; N-scaling does not resolve LVH #208/#209 magnitude gap; R3 theory proxy functional form is now PRIMARY rescue path; R5 direct Lyapunov energy barrier deferred.' Band 0.40-0.55 UNCHANGED. R4 exhausted.
+
+**LVH #210 detail.** anchor=activation_barrier_n_scale_v1_n8192. verdict_msg: 'partial N-scaling' sub-claim. Per-data: N=8192 ratio=1.0955 < N=4096 ratio=1.0962 (-0.0007). 'N-monotone=5/5' = within-run sweep, not cross-N improvement. Honest sub-claim: N-scale FLAT. MIDDLE_BAND classification correct; over-claim limited to sub-clause. LVH 209 -> 210.
+
+**Rescue-sketch sequencing PP-33 barrier (cheapest first, PROT-004/006).**
+- R1 annotation (applied, prior commits)
+- R2 v2 fine-grid (executed; sub-MIDDLE at N=4096)
+- R3 Theory: derive nf_crit proxy nonlinear functional form analytically (next primary; ~1-2h theory work)
+- R4 N-scale N=8192 (EXECUTED this cycle; ratio FLAT; exhausted)
+- R5 Direct Lyapunov energy barrier measurement (avoids proxy entirely; deferred; escalation if R3 fails)
+
+**Tallies (v351 -> v352).**
+- HONEST: 529 -> 532 (+3).
+- LVH: 209 -> 210 (+1: LVH #210 activation_barrier_n_scale_v1_n8192 N-scaling sub-claim).
+- Portfolio: 32+76 UNCHANGED (no new rows; no closures).
+- BAND-LIFTS: 1 (PP-56: 0.65-0.80 -> 0.70-0.85; 2-N cross-N algebraic cert).
+- Sub-properties NEW: PP-12/Q-A3 L=19 annotation.
+- Framework reliability product-feature: 84-98% UNCHANGED (PP-56 band-lift within existing 84-98% envelope).
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance.**
+- PROT-004/006: No closures. 1 BAND-LIFT (PP-56 0.65-0.80->0.70-0.85). R1-R5 cheapest-first for PP-33 (R1 applied, R2 executed, R4 executed this cycle, R3 primary, R5 deferred).
+- PROT-007/008: v352 block appended. No portfolio regression.
+- PROT-009: 262nd PROT-009 paired commit.
+- PROT-018: all 3 N bindings confirmed (_n4096 GPU n=5 full; _n8192 CPU n=5 full x2). SOURCE=remote all 3.
+- PROT-021: all 3 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: SM theory lam/(lam+N=8192)=1/8193=0.000122 matched empirical=0.000121 (0.8%); Q-A3 L=19 fidelity=1.0000 self-consistent; activation_barrier HP gate ratio>1.20 NOT cleared (MIDDLE correct).
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry. 262nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
