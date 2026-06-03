@@ -1,19 +1,19 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v364 REFILL (5 GPU anchors shipped: Q-A3 L=43..L=46 N=16384 + Q-A3 L=26 N=8192)
+**Updated:** 2026-06-03 v367 REFILL (5 GPU anchors shipped: Q-A3 L=49/L=50/L=51 N=16384 + Q-B1 bisect d=276 N=16384 + Q-A3 L=29 N=8192)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
 ---
 
-## Currently active (in remote queues — not "pending" for orchestrator)
+## Currently active (in remote queues -- not "pending" for orchestrator)
 
-GPU (overnight_queue) — v364 REFILL 2026-06-03:
-- q_a3_l43_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=43 N=16384 24th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
-- q_a3_l44_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=44 N=16384 25th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
-- q_a3_l45_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=45 N=16384 26th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
-- q_a3_l46_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=46 N=16384 27th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
-- q_a3_l26_cross_layer_composition_v1_n8192 (pending) — v364 REFILL; L=26 N=8192 cross-N; SHIPPED+REMOTE_VERIFIED 2026-06-03
+GPU (overnight_queue) -- v367 REFILL 2026-06-03:
+- q_a3_l49_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=49 N=16384 30th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l50_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=50 N=16384 31st rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l51_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=51 N=16384 32nd rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_b1_bisect_d276_v1_n16384 (pending) -- v367 REFILL; Q-B1 final bisect d=276 N=16384; onset window (275,277]; HP -> (276,277]; MID -> (275,276]; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l29_cross_layer_composition_v1_n8192 (pending) -- v367 REFILL; L=29 N=8192 9th cross-N rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
 
 Previously shipped (all completed or in progress as of v363):
 - q_a3_l39..l42_cross_layer_composition_v1_n16384 (v363 batch; results pending)
