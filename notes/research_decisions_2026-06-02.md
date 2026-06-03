@@ -45,3 +45,8 @@
 **Routing.** All 3 routing files in notes/research_*_2026-06-02.md as specified. Commit batched (3 files + this decisions log append) deferred to main thread for push.
 
 **Next-drill candidate.** None auto-fired; user explicit batch complete. Next standing cadence: research_routing_v342_band_lifts_addendum probes A-E remain priorities.
+- [2026-06-02] memristor_rram_hardware: notes/research_drill_memristor_rram_2026-06-02.md | HEADLINE: P1+P5 analog-feasible (10x-100x energy); P3+P4 GPU-native; oscillator exponential-capacity track highest upside
+- [2026-06-02] federated_unlearning_regulatory: notes/research_drill_federated_unlearning_2026-06-02.md | HEADLINE: algebraic rank-1 cert occupies distinct niche vs DP-SGD/SISA/ZK-SNARK; pre-standardization regulatory window open; federated cert gap confirmed; P_deflated=0.38
+- reservoir-computing capability-family scope -> notes/research_drill_reservoir_computing_2026-06-02.md | HEADLINE: No RC/ESN system unifies audit primitives + compositional algebra + one-shot writes; triple gap confirmed; P_deflated=0.65
+- 2026-06-02: free-probability RRAM noise drill -> notes/research_drill_free_probability_rram_noise_2026-06-02.md; phase boundary sigma_g^2=1/alpha-1; P_deflated=0.55; exp_dev handoff written
+- [2026-06-02] oscillatory phase-noise scaling (Kuramoto/ReRAM): sigma_phi_crit=pi/(2*n_c)~0.314rad; freq mismatch binding; 2 fab gens to 1000-node => notes/research_drill_oscillatory_phase_noise_scaling_2026-06-02.md
