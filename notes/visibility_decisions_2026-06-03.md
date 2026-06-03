@@ -61,3 +61,7 @@ Anchors:
 
 ## v361->v362 Cycle 31 batch (2026-06-03)
 6 verdicts processed. 4 HP + 1 HF + 1 MIDDLE_BAND. 0 LVH. HONEST 579->585. LVH 211 UNCHANGED. 0 BAND-LIFTS. PP-12/Q-A3 N=16384 series extended: {L=24,L=26,L=27,L=28} confirmed EXACT-1.0000; 3-N cross-N complete at L=24 {N=4096+N=8192+N=16384}. Q-B1 d293 HF confirms chain collapsed above onset window (275,287); d=281 bisect pending. PP-58 alpha=0.05 N-scale REVERSAL at N=32768 (ratio 4.00->3.00; NON-MONOTONE; pure N-scaling HP path eliminated; R2 formula recalibration primary). Portfolio 32+77 UNCHANGED. Cap_map v362. 273rd PROT-009 paired commit.
+
+## CYCLE 32 BATCH (v362->v363) -- 2026-06-03
+
+CYCLE 32: 7 verdicts processed. 5 HP + 1 MIDDLE + 1 HF. LVH=0. HONEST 585->592. Q-A3 N=16384 series reaches 10 rungs (L=32 closes gap to N=4096 ceiling to 3). Q-B1 collapse onset (275,278] characterized. PP-50 sigma_g_ext HARD_FAIL (v1 sigma_g_crit~0.833 RETRACTED; rescue R1-R4 filed). PP-50 delta_alpha BAND-LIFT 0.65-0.80->0.70-0.85 (N=32768 v3 protocol; cloud auth for N=65536+ filed). Band-lift count this cycle: 1. 274th PROT-009 paired commit.
