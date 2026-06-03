@@ -456,25 +456,31 @@ def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
         + (f" --script-args '{script_args_escaped}'" if script_args else "")
     )
     # The experiment body. Runs inside a nohup'd bash subshell so SIGHUP
-    # cannot kill it on SSH disconnect. Body writes to log via tee; PIPESTATUS
-    # preserves the experiment's exit code through the pipeline. Final action
-    # is writing the rc to exp.rc -- the sentinel file the poll loop watches.
+    # cannot kill it on SSH disconnect.
+    #
+    # CRITICAL: use 'trap ... EXIT' to write exp.rc on ANY exit path (success,
+    # error, signal). Dispatch 16 lesson: 'set -e' aborts the body when the
+    # experiment exits non-zero, so the subsequent 'echo $? > exp.rc' never
+    # runs and the poll loop reports DEAD_NO_RC. The trap fires unconditionally.
     body = (
-        "set -eo pipefail; "
+        f"REMOTE_OUT={remote_anchor_dir}; "
+        # Trap MUST come before any command that might fail, so that even an
+        # early failure (e.g., git pull network blip, bad cd) still writes rc.
+        # Note: $? inside the trap is the exit code that triggered it.
+        "trap 'EXP_RC=$?; echo \"EXP_EXIT=$EXP_RC\" >> /dev/stdout 2>&1 || true; "
+        "echo $EXP_RC > $REMOTE_OUT/exp.rc' EXIT; "
         "cd ~/hd-instrument; "
         "git pull --ff-only > /dev/null 2>&1 || true; "
         "PY=$(if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi); "
         "if [ -f .hf_token ]; then export HF_TOKEN=$(cat .hf_token); fi; "
         "export HDLAB_RUN_MODE=full; "
         "export CUBLAS_WORKSPACE_CONFIG=:4096:8; "
-        f"REMOTE_OUT={remote_anchor_dir}; "
         "echo \"--- env ---\"; "
         "$PY --version; "
         "free -h | head -2; "
         "echo \"--- dispatch ---\"; "
-        f"(stdbuf -oL {target_cmd} 2>&1); "
+        f"stdbuf -oL {target_cmd} 2>&1; "
         "EXP_RC=$?; "
-        "echo \"EXP_EXIT=$EXP_RC\"; "
         "echo \"--- result ---\"; "
         f"if [ -f $REMOTE_OUT/metrics.json ]; then "
         "  echo \"METRICS_OK\"; "
@@ -482,7 +488,8 @@ def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
         "else "
         "  echo \"NO_METRICS\"; "
         "fi; "
-        f"echo $EXP_RC > $REMOTE_OUT/exp.rc"
+        # Explicit exit triggers the trap with the experiment's rc
+        "exit $EXP_RC"
     )
     # Escape single quotes inside body for outer single-quote wrapping
     body_escaped = body.replace("'", "'\\''")
@@ -494,7 +501,11 @@ def _launch_detached(ip: str, ssh_key_path: str | None, anchor: str,
         f"echo $! > {remote_anchor_dir}/exp.pid; "
         f"echo PID=$!"
     )
-    rc, out, err = _ssh_run(ip, ssh_key_path, launch_cmd, timeout_s=60)
+    # Bumped 60s -> 180s. Dispatch 16 Wave 1 launch SSH timed out at 60s on
+    # this very call (transient network blip; Wave 2 launched cleanly on the
+    # same instance). 180s budget accommodates SSH handshake + multi-line
+    # body parse + nohup spawn even under slow-network conditions.
+    rc, out, err = _ssh_run(ip, ssh_key_path, launch_cmd, timeout_s=180)
     if rc != 0:
         return False, "", f"launch ssh rc={rc} stderr={err[:300]}"
     pid = None
