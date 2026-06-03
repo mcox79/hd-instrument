@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v362 exp_dev PRIORITY REFILL cycle (8 GPU anchors shipped; 1 CPU queue reorder)
+**Updated:** 2026-06-03 v362 REFILL cycle 2 (5 GPU anchors shipped: Q-A3 L=33..L=36 N=16384 + PP-50 sigma_g N=8192)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -20,6 +20,11 @@ GPU (overnight_queue):
 - pp50_kappa3_delta_alpha_n32768_v3_n32768 (pending) — v362 PRIORITY RESCUE; N=65536 OOM -> N=32768 v3 protocol; VRAM 1.26GB; SHIPPED 2026-06-03
 - q_a3_l31_cross_layer_composition_v1_n16384 (pending) — v362 PRIORITY; L=31 N=16384 12th rung; smoke all EXACT-1.0; SHIPPED 2026-06-03
 - q_a3_l32_cross_layer_composition_v1_n16384 (pending) — v362 PRIORITY; L=32 N=16384 13th rung; smoke all EXACT-1.0; SHIPPED 2026-06-03
+- q_a3_l33_cross_layer_composition_v1_n16384 (pending) — v362 REFILL-2; L=33 N=16384 14th rung; PROT-018/019 OK; SHIPPED 2026-06-03
+- q_a3_l34_cross_layer_composition_v1_n16384 (pending) — v362 REFILL-2; L=34 N=16384 15th rung; PROT-018/019 OK; SHIPPED 2026-06-03
+- q_a3_l35_cross_layer_composition_v1_n16384 (pending) — v362 REFILL-2; L=35 N=16384 16th rung (matches N=4096 ceiling); PROT-018/019 OK; SHIPPED 2026-06-03
+- q_a3_l36_cross_layer_composition_v1_n16384 (pending) — v362 REFILL-2; L=36 N=16384 17th rung (BEYOND N=4096 ceiling); PROT-018/019 OK; SHIPPED 2026-06-03
+- pp50_kappa3_sigma_g_n8192_v1_n8192 (pending) — v362 REFILL-2; PP-50 sigma_g cross-N 2nd rung N=8192; PROT-018/019 OK; SHIPPED 2026-06-03
 - q_a3_l20_cross_layer_composition_v1_n32768 (INFRA_FAIL) — v362 REFILL; N=32768 W=4GB OOM on display GPU; NEEDS CLOUD GPU (headless, >=8GB free VRAM); SHIPPED+FAILED 2026-06-03
 - q_a3_l21_cross_layer_composition_v1_n32768 (INFRA_FAIL) — v362 REFILL; same OOM; NEEDS CLOUD GPU; SHIPPED+FAILED 2026-06-03
 - q_a3_l24_cross_layer_composition_v1_n16384 (completed)
@@ -40,8 +45,8 @@ CPU (remote_cpu_queue) — REORDERED 2026-06-03:
 
 ### From cycle-26+ carryover (still unshipped)
 
-5. **Q-A3 L=33+ at N=16384** — continue N=16384 depth ladder past L=32 when results arrive (L=31/L=32 SHIPPED v362 priority cycle)
-6. **Q-B1 bisect d=281 or next point** — depends on d=278 outcome (HP -> bisect (278,281]; MID -> bisect (275,278])
+5. **Q-A3 L=37+ at N=16384** — continue N=16384 depth ladder past L=36 when results arrive (L=33..L=36 SHIPPED v362 refill-2)
+6. **Q-B1 bisect d=276 or d=280** — depends on d=278 outcome (HP -> bisect (278,281] -> d=280; MID -> bisect (275,278] -> d=276); DEFERRED until d=278 result arrives
 7. **Q-A3 L=22+ at N=32768** — continue N=32768 ladder after L=20/L=21 results arrive (SHIPPED v362)
 
 ---

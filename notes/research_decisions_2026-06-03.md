@@ -9,3 +9,9 @@
 
 - [full_pipeline_substrate_native_training] notes/research_drill_full_pipeline_substrate_native_training_deep_dive_2026-06-03.md -- 12-primitive full-pipeline viability; P_deflated=0.38; HARD-FAIL if BPC>=6.0 or Tr(W^2) diverges; minimum-viable 4-primitive core identified; handoff: notes/exp_dev_handoff_research_full_pipeline_substrate_native_training_2026-06-03.md
 Wed Jun  3 10:14:55 EDT 2026: anti_hebbian_contrastive_lm_scale -> notes/research_drill_anti_hebbian_contrastive_transformer_scale_2026-06-03.md | HEADLINE: no LM precedent, 3 failure modes (shared alpha_c, bipartite correlation, grad-degeneration), P_deflated=0.22/0.38
+
+- [multi_channel_substrate_lm_training] 12-primitive neuromodulator-channel mapping + MVP 3-channel experiment -> notes/research_drill_multi_channel_substrate_lm_training_2026-06-03.md ; P_deflated(middle-band)=0.68
+- [2026-06-03] free-cumulant spectral fingerprint live training monitor -> notes/research_drill_spectral_fingerprint_live_training_monitor_2026-06-03.md | P_deflated=0.38 | HARD-PASS: kappa AUC>=0.80 leads plateau 150 steps; HARD-FAIL: AUC<0.55 all phases
+
+- 2026-06-03: counterfactual-AM-as-dopamine-RPE drill -> notes/research_drill_counterfactual_dopamine_rpe_training_channel_2026-06-03.md ; P_deflated=0.38 ; HARD-PASS rho>0.80 / HARD-FAIL rho<0.30 ; handoff: notes/exp_dev_handoff_research_counterfactual_rpe_training_2026-06-03.md
+- [2026-06-03] 8-channel orchestration architecture drill -> notes/research_drill_8_channel_orchestration_architecture_2026-06-03.md ; P_deflated=0.38; HEADLINE: Friston precision-weighting + LC phasic/tonic + BG gating = 3 bio principles map onto Cipolla+PCGrad+curriculum hybrid; 24 layer-zone x channel gain scalars; auto-curriculum via g_theta
