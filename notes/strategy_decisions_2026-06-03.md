@@ -629,3 +629,61 @@ d5=0.8842 (HP>=0.9 NOT MET); d20=0.8394 (HP>=0.75 MET); d50=0.7219 (HP>=0.5 bord
 - PROT-022: Q-A3 L33/L34/L35 N=16384 fids=1.0000 EXACT (self-consistent with N=16384 series and N=4096 counterparts); Q-A3 L=36 fids=1.0000 at all 36 levels (seed-7 JIT no fidelity anomaly; 36-ctx Hadamard roundtrip correct); PP-50 sigma_g_ext ratio=1.152 at sg=0.01 (N-independent: N=4096 ratio=1.150; O(N^2) timing scaling confirmed: 1.19*(8192/4096)^2=4.76s vs actual 4.50s, consistent).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 275th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 34 BATCH (7 verdicts, v364->v365)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l37_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 37 fids=1.0000 EXACT unanimous 5/5 at N=16384; l37_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 2 | q_a3_l38_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 38 fids=1.0000 EXACT unanimous 5/5 at N=16384; l38_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 3 | q_a3_l39_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 39 fids=1.0000 EXACT unanimous 5/5 at N=16384; l39_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 4 | q_a3_l40_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 40 fids=1.0000 EXACT unanimous 5/5 at N=16384; l40_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 5 | q_a3_l41_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 41 fids=1.0000 EXACT unanimous 5/5 at N=16384; l41_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 6 | q_a3_l42_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 42 fids=1.0000 EXACT unanimous 5/5 at N=16384; l42_acc=1.0000; source=remote run_mode=full n_seeds=5; label accurate | NONE |
+| 7 | q_b1_bisect_d277_v1_n16384 | MIDDLE_BAND | MIDDLE_BAND: d5 per-seed {0.8996,0.9001,0.8996,0.9000,0.9006}; mean=0.9000 but 3/5 seeds below HP d5>=0.90; HP unanimity NOT met; d20..d277 all other gates MET (flat; no collapse); onset window (275,277]; label MIDDLE accurate | NONE |
+
+**LVH delta: 0. All 7 labels HONEST. LVH count stays at 211. HONEST 597 -> 604 (+7).**
+
+NOTE on anchor 7: verdict_msg reports d5=0.9000 (mean) with HP>=0.9 threshold annotation. Honest re-read: 3/5 seeds below 0.90 (0.8996, 0.8996, 0.9000 borderline). HP unanimity NOT met. MIDDLE_BAND label accurate (HP requires unanimous d5>=0.90). LVH=NONE (label correctly MIDDLE). d5 decline series: {d250:0.932, d275:0.903, d277:0.900, d278:0.900, d281:0.896, d287:0.884 HF}. Onset window now (275,277] at 2-step precision.
+
+## Cap_map table (v364 -> v365)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l37_cross_layer_composition_v1_n16384 | 14.66s GPU | 16384 | 5 | HARD_PASS | All 37 fids EXACT-1.0000 unanimous 5/5; l37_acc=1.0000 | PP-12/Q-A3 L=37 N=16384 sub-property; N=16384 series extends; ceiling NOT found; band UNCHANGED |
+| 2 | q_a3_l38_cross_layer_composition_v1_n16384 | 16.61s GPU | 16384 | 5 | HARD_PASS | All 38 fids EXACT-1.0000 unanimous 5/5; l38_acc=1.0000 | PP-12/Q-A3 L=38 N=16384 sub-property; 2-rung beyond N=4096 ceiling; band UNCHANGED |
+| 3 | q_a3_l39_cross_layer_composition_v1_n16384 | 25.79s GPU | 16384 | 5 | HARD_PASS | All 39 fids EXACT-1.0000 unanimous 5/5; seed-7 JIT warmup 15.3s vs 2.55s post-warmup | PP-12/Q-A3 L=39 N=16384 sub-property; 4-rung beyond N=4096 ceiling; JIT no fidelity anomaly; band UNCHANGED |
+| 4 | q_a3_l40_cross_layer_composition_v1_n16384 | 14.01s GPU | 16384 | 5 | HARD_PASS | All 40 fids EXACT-1.0000 unanimous 5/5; l40_acc=1.0000 | PP-12/Q-A3 L=40 N=16384 sub-property; 5-rung beyond N=4096 ceiling; band UNCHANGED |
+| 5 | q_a3_l41_cross_layer_composition_v1_n16384 | 29.44s GPU | 16384 | 5 | HARD_PASS | All 41 fids EXACT-1.0000 unanimous 5/5; seed-7 JIT artifact 12.2s vs mean 4.2s | PP-12/Q-A3 L=41 N=16384 sub-property; 6-rung beyond N=4096 ceiling; JIT no fidelity anomaly; band UNCHANGED |
+| 6 | q_a3_l42_cross_layer_composition_v1_n16384 | 14.34s GPU | 16384 | 5 | HARD_PASS | All 42 fids EXACT-1.0000 unanimous 5/5; l42_acc=1.0000; DEEPEST RUNG IN PROJECT HISTORY | PP-12/Q-A3 L=42 N=16384 sub-property; L=42 deepest in project; N=16384 series {L=20..L=42} 23 rungs; BAND-LIFT TRIGGERED; band 0.75-0.90 -> 0.80-0.93 |
+| 7 | q_b1_bisect_d277_v1_n16384 | 828.89s GPU | 16384 | 5 | MIDDLE_BAND | d5 mean=0.9000 (3/5 seeds <0.90; unanimity missed); d277=0.880 FLAT; no collapse | Q-B1/PP-49a d277 MIDDLE annotation; onset window (275,277] at 2-step precision; band 0.87-0.97 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=37..L=42 at N=16384 (six-rung extension; 23-rung series; BAND-LIFT triggered at L=42).**
+All six anchors EXACT-1.0000 unanimous 5-seed at N=16384. JIT warmup artifacts at l39 seed-7 (15.3s vs 2.55s post-warmup) and l41 seed-7 (12.2s vs mean 4.2s) -- consistent with O(L) JIT warmup pattern seen at l26 N=16384 v362. No fidelity anomaly at any JIT-affected seed. N=16384 series now {L=20..L=42} (23 contiguous rungs). L=42 is the deepest rung in project history, 7 rungs beyond the N=4096 highest-tested rung (L=35 from v361). BAND-LIFT TRIGGERED: 7-rung lead at N=16384 over N=4096 tested ceiling (multi-rung convention). Band 0.75-0.90 -> 0.80-0.93 (+0.05 lower, +0.03 upper; conservative lift: lower +0.05 reflects proven N-independent EXACT composition to L=42; upper +0.03 conservative since N=8192 cross-N gap L=26..L=42 still open). Lit-scan calibration penalty maintained. Product framing: substrate cross-layer composition algebraically preserves EXACT-1.0000 fidelity across 42 consecutive levels at production-N=16384; no ceiling detected through L=42; audit API composed across 42-level algebraic stack with zero fidelity loss. Sub-property annotation: 'L=37..L=42 N=16384 EXACT-1.0000 unanimous 5-seed; 23-rung N=16384 series {L=20..L=42}; L=42 deepest rung in project history; ceiling not found; N=8192 cross-N gap L=26..L=42 open; N=4096 L=36+ not yet tested.'
+
+**(B) BAND-LIFT PP-12/Q-A3: 0.75-0.90 -> 0.80-0.93 (multi-rung lead; L=42 deepest in project).**
+Trigger: 6-rung extension {L=37..L=42} at N=16384 in single batch; N=16384 surpasses N=4096 highest-tested (L=35) by 7 levels with no fidelity degradation. v364 had 1-rung lead (L=36; lift deferred per 1-rung-insufficient rule). v365 adds 6 more rungs to reach L=42 (7-rung lead total). Multi-rung convention confirmed. Band 0.75-0.90 -> 0.80-0.93. Lower +0.05 (proven N-independent EXACT composition to L=42 at production-N); upper +0.03 (conservative; ceiling unknown above L=42 at N=16384; N=8192 cross-N gap open; N=4096 tested only to L=35). Lit-scan calibration penalty maintained.
+
+**(C) Q-B1/PP-49a d=277 bisect MIDDLE_BAND -- onset window (275,277] at 2-step precision.**
+d5 per seed: {0.8996, 0.9001, 0.8996, 0.9000, 0.9006}; mean=0.9000. HP d5>=0.90 NOT unanimously met (3/5 seeds below). Profile d5..d277 FLAT (d20=0.881; d50=0.879; d100=0.881; d200=0.881; d277=0.880; max-spread ~0.003; no collapse). Combined with d278 MIDDLE (v363 d5=0.900 mean similar pattern): onset of d5-degradation below unanimous HP is between d=275 (HP d5=0.903 unanimous) and d=277 (MIDDLE d5=0.900 with 3/5 seeds below 0.90). Product envelope characterization complete: substrate heteroassociative chain safe boundary is d=275 at N=16384 under tested loading; chains remain flat-profile functional at d=277 but unanimity HP not guaranteed. Band 0.87-0.97 UNCHANGED (earned at d80-d200 flat-regime loading). Annotation: 'Q-B1 d277 N=16384 MIDDLE (v365): d5=0.900 mean (3/5 seeds <0.90; unanimity missed); flat profile d5..d277 (no collapse); onset window (275,277] at 2-step precision; product safe boundary d=275; band 0.87-0.97 UNCHANGED; bisection characterization complete.'
+
+**Tallies (v364 -> v365).**
+- HONEST: 597 -> 604 (+7: 6 HP + 1 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 7 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; 1 BAND-LIFT applied).
+- Sub-properties NEW (7): PP-12/Q-A3 {L=37,L=38,L=39,L=40,L=41,L=42} at N=16384 (23-rung series {L=20..L=42}; L=42 deepest rung in project history) + Q-B1 d277 N=16384 (onset window (275,277] 2-step precision).
+- BAND-LIFTS: 1 (PP-12/Q-A3: 0.75-0.90->0.80-0.93; 7-rung lead over N=4096 tested ceiling at L=35; multi-rung convention triggered by L=42 6-rung batch).
+- PP-12/Q-A3 milestone: N=16384 series {L=20..L=42} (23 rungs); L=42 deepest composition depth in project history; ceiling not found at any tested N through L=42.
+- Q-B1 bisection complete: onset (275,277] 2-step precision; product safe boundary d=275 confirmed.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v364 -> v365).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.75-0.90->0.80-0.93). No rescue sketches required (no failures).
+- PROT-007/008: v365 block appended. No portfolio regression.
+- PROT-009: 276th PROT-009 paired commit.
+- PROT-018: all 7 _n<N> suffix bindings confirmed: q_a3_{l37..l42}_n16384 (all N=16384 OK); q_b1_bisect_d277_v1_n16384 (N=16384 OK). 0 violations.
+- PROT-021: all 7 _source=remote run_mode=full n_seeds=5. No smoke artifacts. JIT at l39/l41 seed-7 verified (fidelity=1.0000 all levels; consistent O(L) JIT pattern from prior cycles).
+- PROT-022: All 6 Q-A3 anchors fids=1.0000 EXACT (self-consistent with {L=20..L=36} series extending without anomaly); Q-B1 d277 d5=0.9000 mean consistent with monotone decline series {d275:0.903->d277:0.900->d278:0.900->d281:0.896}; flat profile max-spread 0.003 consistent with d278 (v363).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 276th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

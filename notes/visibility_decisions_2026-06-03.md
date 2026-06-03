@@ -77,3 +77,6 @@ CYCLE 32: 7 verdicts processed. 5 HP + 1 MIDDLE + 1 HF. LVH=0. HONEST 585->592. 
 | 5 | pp50_kappa3_sigma_g_n8192_v1_n8192 | HARD_FAIL | sigma_g_ext regression N-independent confirmed (N=8192 ratio=1.152 = N=4096 ratio=1.150); sigma_g_crit~0.833 RETRACTED both N-scales; rescue R1-R4 unchanged; PP-50 delta_alpha UNAFFECTED |
 
 Cap_map v364: HONEST 592->597; LVH 211 UNCHANGED; 275th PROT-009 commit.
+
+## CYCLE 34 visibility entry (v364->v365, 2026-06-03)
+- 6 HP (q_a3_l37..l42 N=16384 all EXACT-1.0000) + 1 MIDDLE (q_b1_bisect_d277 onset (275,277]): BAND-LIFT PP-12/Q-A3 0.75-0.90->0.80-0.93 (L=42 deepest in project; 7-rung lead); Q-B1 d277 onset characterization complete; HONEST 597->604; LVH 211 UNCHANGED; 276th PROT-009 paired commit.
