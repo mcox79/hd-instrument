@@ -2,7 +2,80 @@
 
 **Purpose:** After context compaction / summarization, behavioral knowledge gets lost. This file is the dense restoration document. The orchestrator reads this FIRST on cold start AND right after any context summarization, before doing anything else.
 
-**Last updated:** 2026-06-02 cycle 12 compaction handoff. Cap_map at v341. Portfolio 32+74 (32 top-level rows + 74 sub-properties). HONEST 459, LABEL-VS-HONEST 206. Substrate's product narrative now anchored across audit/composition/safety/streaming with multiple production-N empirical confirmations.
+**Last updated:** 2026-06-02 cycle 16 (post efficiency-wins commit). Cap_map at v346. Portfolio 32+74. HONEST 502, LVH 207. Substrate product narrative anchored across audit/composition/safety/streaming with multiple production-N confirmations.
+
+## STARTUP / REBOOT PROCEDURE (read on cold start)
+
+**Trigger phrase: "get everything started" / "start everything"** means: do the 3 actions below in order, then report back state.
+
+**1. Restart local services** (do NOT survive Windows reboot; no schtask for either):
+```powershell
+# Heartbeat watchdog (SCPs remote_state_cache.json every 30s; feeds dashboard)
+Start-Process -FilePath "D:\AI\hd-instrument\.venv\Scripts\pythonw.exe" `
+    -ArgumentList "D:\AI\hd-instrument\tools\orchestrator\heartbeat_watchdog.py" `
+    -WorkingDirectory "D:\AI\hd-instrument" -WindowStyle Hidden
+
+# Dashboard server (uvicorn on port 8765; reads remote_state_cache.json)
+Start-Process -FilePath "D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\python.exe" `
+    -ArgumentList "-m","uvicorn","server:app","--app-dir","D:\AI\hd-instrument\tools\dashboard",`
+                  "--host","0.0.0.0","--port","8765","--log-level","info" `
+    -WorkingDirectory "D:\AI\hd-instrument" -WindowStyle Hidden
+```
+After ~30-40s the local cache file `d:/AI/hd-instrument/data/remote_state_cache.json` should refresh (verify mtime). Dashboard reachable at http://127.0.0.1:8765/.
+
+**Caution on duplicates:** when you query python processes you'll see PARENT (`.venv/Scripts/pythonw.exe`) + CHILD (`AppData/Local/Programs/Python/Python312/pythonw.exe`) for each. That's normal Windows venv shim behavior, NOT duplicates. Only count by ParentProcessId to detect actual duplicates. Don't kill the children.
+
+**2. Pull queue state** to see what verdicts are pending:
+```bash
+ssh marsh@home 'powershell -Command "(Get-Content C:/dev/hd-instrument/data/overnight_queue/queue.json | ConvertFrom-Json).experiments | Where-Object { $_.status -in @(\"pending\",\"running\") } | Select-Object name, status | Format-Table -AutoSize"'
+```
+If queue empty: count completed entries since last verdict commit to identify unprocessed verdicts.
+
+**3. Resume cycle loop**:
+- If ≥3 unprocessed verdicts: dispatch verdict_handler (NEUTRAL) + exp_dev (5-anchor refill) in parallel
+- If queue draining (≤2): refill via /exp_dev (5 anchor max per user constraint)
+- If GPU idle + queue empty: ship next batch from current strategy_request or research routings
+
+## CYCLE 16 SNAPSHOT (state at last conversation pause)
+
+**Unprocessed verdicts (5 anchors all completed on remote, awaiting verdict_handler):**
+- q_b1_chain_depth_70_v1_n8192 (prereg `preregs/2026-06-02_q_b1_chain_depth_70.md`)
+- q_b1_chain_depth_80_v1_n8192 (prereg `preregs/2026-06-02_q_b1_chain_depth_80.md`)
+- q_a3_l14_cross_layer_composition_v1_n4096 (prereg `preregs/2026-06-02_q_a3_l14_cross_layer_composition.md`)
+- pp48_nkt_depth_21_v1_n4096 (prereg `preregs/2026-06-02_pp48_nkt_depth_21.md`)
+- pp48_nkt_cross_n_depth19_v1_n8192 (prereg `preregs/2026-06-02_pp48_nkt_cross_n_depth19_n8192.md`)
+
+If d70+d80 both HP: Q-B1 BAND-LIFT candidate (chain ceiling unbroken to d-80).
+If d-21 in-N + d-19 cross-N both HP: PP-48 BAND-LIFT candidate.
+
+**Active user constraints (carry forward):**
+- 5 anchors max per exp_dev dispatch
+- No cloud GPU (per [[feedback-batch-cloud-experiments]])
+- 2 BLOCKED items (combo1_v5 MMD per-pattern, pp47_v3 circular K-space) — see `data/blocked_items.json`
+
+## EFFICIENCY WINS LANDED 2026-06-02 (commit f255c2f)
+
+**Available tools** (use these in new dispatches; saves substantial subagent tokens):
+- `data/blocked_items.json` — global skip list; exp_dev should read this once and auto-skip matching anchor patterns instead of being told to skip per-prompt
+- `preregs/_template.md` — jinja-style template for new preregs; cuts prereg write time ~50%
+- `notes/pre_context_pruning_recipe_2026-06-02.md` — main-thread extracts 5 priority items + bands INLINE in dispatch prompts; subagent doesn't re-read routing files (~40% input token savings)
+- `tools/ship_anchor.py` — one-call wrapper: smoke + PROT-019 timeout compute + queue_add + REMOTE VERIFY + status_log
+- `tools/stamp_anchor.py` — parameter-stamps anchor scripts from family templates (Q-B1 ONLY currently; PP-48/Q-A3/PP-52 TODO)
+- `experiments/_templates/q_b1_chain_depth.py.template` — Q-B1 family template
+- `tools/cap_map_append.py` — targeted cap_map sub-property bumps without full read (MEDIUM-risk; shadow-mode required first 3 runs)
+- `tools/orchestrator/agents/cycle_processor.md` — combined verdict+refill agent definition (MEDIUM-risk; first 3 runs compare against parallel verdict_handler+exp_dev)
+- `tools/orchestrator/agents/smoke_runner.md` — rote smoke+ship offload (MEDIUM-risk; first 2 runs require exp_dev dual-smoke audit)
+
+**FIRST-USE VERIFICATION REQUIRED** (per `notes/efficiency_rollout_2026-06-02.md` outstanding TODOs 3-7):
+- ship_anchor.py: run on ONE anchor first; verify SHIPPED line + REMOTE VERIFY hit
+- stamp_anchor.py Q-B1: stamp d100, run --self-test, ship, await verdict
+- cap_map_append.py: dual-write (full cap_map verdict_handler path + cap_map_append shadow path); diff for 3 cycles
+- cycle_processor: dispatch BOTH paths (combined + parallel) for next HP-dominant batch; diff outputs × 3 cycles
+- smoke_runner: have exp_dev dual-smoke alongside smoke_runner for first 2 cycles; diff smoke results + timeout + queue entries
+
+Until verification PASSes the required N runs, the new path is the SHADOW; verdict_handler / exp_dev remain authoritative.
+
+
 
 ## COMPACTION HANDOFF SNAPSHOT (2026-06-02 ~17:00)
 
