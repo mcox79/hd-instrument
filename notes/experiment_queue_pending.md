@@ -60,6 +60,36 @@ These go via /strategy_scribe (annotation-only). Defer to cap_map v361 strategy_
 
 ---
 
+## TESTBED-OWNED (NOT exp_dev queueable; testbed engineering required first)
+
+### Wave 1 AUTHORIZED probes (per `notes/research_routing_v359_wave1_authorized_dispatch_2026-06-03.md`)
+
+User authorized 2026-06-03; total $15-35 cloud + ~2-4 days engineering. **TESTBED session picks up integration checklist** (§2 of routing). exp_dev cannot queue_add these — they require substrate-LM integration scaffolding (anti-Hebbian + HRC wiring + multi-layer composition) BEFORE shipping.
+
+1. **`phase_d_tier6_full_pipeline_4_core_char_lm_v1`** — A100 cloud, $5-10, ~2-4h wall, **3-4 days engineering** (Probe 11+)
+   - 4-layer character-LM with NO gradient descent at any layer
+   - Tests substrate's 4-primitive joint operation as a training+inference loop
+   - HP: BPC ≤ 2× baseline + wall ≤ 0.5× baseline + 4 primitives operational
+   - Founds candidate PP-59 row if HP (substrate-native LM training viability)
+
+2. **`substrate_curriculum_learning_small_lm_v1`** — Pythia-160M cloud, $5-15, ~6-12h wall, **2-3 days engineering** (Probe 8)
+   - 4 curriculum policies wired (random / difficulty-graded / loss-based active / substrate-curriculum)
+   - HP: substrate reaches ≤ best baseline BPC in ≤ 50% of steps
+   - Could LIFT PP-52 band if HP
+
+3. **`tier2_substrate_preloaded_icl_pythia410m_v1`** — local GPU or cheap cloud, $5-10, ~6h wall, **2 days engineering** (Probe 2)
+   - Pythia-410M; 3 conditions (standard ICL / substrate-loaded ICL / zero-shot)
+   - HP: substrate-loaded within ±5pp of standard ICL AND substrate input tokens < 10% AND wall-time per "learning instance" ≥ 50× faster
+   - Strengthens Phase 0.5b sub-cell H if HP
+
+**Orchestrator's role**: queue management. When testbed dispatches and verdicts land, dispatch verdict_handler per usual. **No exp_dev queue_add for Wave 1 probes.**
+
+**Decision gates post-Wave 1**: Probe 11+ HP → Phase E candidate ($25-50 Pythia-160M FULL 12-primitive surface; user GO required).
+
+**Optional cascade drill** (not dispatched; awaiting separate user nod): anti-Hebbian contrastive at transformer scale Tier-1 lit-scan ($0 sonnet, ~30 min) for theoretical de-risking before Probe 11+ empirical results land.
+
+---
+
 ## Blocked (waiting on research)
 
 Per `data/blocked_items.json`:
