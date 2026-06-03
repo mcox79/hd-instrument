@@ -175,3 +175,55 @@
 - PROT-022: Q-A3 fid=1.0000 consistent L=22 N=8192 + L=23/L=24 N=4096; Q-B1 d5=0.864 loading-condition gap documented; PP-55 mean_cos=0.99999 N-independent algebraic exactness; PP-58 v4 ratio=3.00 N-stable (consistent with finergrid alpha=0.1); PP-58 finergrid cap_crit=2.0 both alphas (formula exact alpha=0.2 only).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 265th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 25 BATCH (5 verdicts, v355->v356)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l25_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 25 fids=1.0000 EXACT unanimous 5/5 at N=4096; l25_acc=1.0000; label accurate | NONE |
+| 2 | q_a3_l26_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 26 fids=1.0000 EXACT unanimous 5/5 at N=4096; l26_acc=1.0000; label accurate | NONE |
+| 3 | q_b1_chain_depth_400_v1_n16384 | HARD_FAIL | HARD_FAIL: d5=0.6553 (HF gate d5<0.80 met; prior flat-regime d5~0.989); d20=0.0351 (HF gate d20<0.50 met); chain collapses d20-30; 2nd consecutive loading-condition HF; label accurate | NONE |
+| 4 | pp58_isochoric_kappa3_n16384_v5_n16384 | MIDDLE_BAND | MIDDLE_BAND: ratio=4.00 in [2.0,5.0); audit_crit=0.750 (N=8192 was ~1.0; N-scale improving); cap_crit=3.000 (pred=4.359; 31% miss N-stable); HP>=5.0 not yet met; label accurate | NONE |
+| 5 | activation_barrier_r3b_n8192_v3_n8192 | HARD_FAIL | HARD_FAIL: ratio=0.9881<=1.02 (flat; HF gate met); nf_crit=0.495-0.505 at ALL seeds ALL alphas at N=8192 (same as N=4096 R3a); structural boundary N-independent; R3b rescue exhausted; label accurate | NONE |
+
+**LVH delta: 0. All 5 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v355 -> v356)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l25_cross_layer_composition_v1_n4096 | 1.79s GPU | 4096 | 5 | HARD_PASS | All 25 fids EXACT-1.0000 5/5; ceiling NOT found at L=25 | PP-12/Q-A3 L=25 sub-property; 11th consecutive L-extension {L=15..L=25}; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l26_cross_layer_composition_v1_n4096 | 1.85s GPU | 4096 | 5 | HARD_PASS | All 26 fids EXACT-1.0000 5/5; ceiling NOT found at L=26 | PP-12/Q-A3 L=26 sub-property; 12th consecutive L-extension {L=15..L=26}; band 0.75-0.90 UNCHANGED; L=27 or N-scale eligible |
+| 3 | q_b1_chain_depth_400_v1_n16384 | 962.3s GPU | 16384 | 5 | HARD_FAIL | d5=0.6553 (HF d5<0.80); d20=0.035 (HF d20<0.50); chain collapses d20-30; 2nd consecutive loading-condition HF | Q-B1/PP-49a depth_400 HARD_FAIL; band 0.87-0.97 UNCHANGED (earned at d=200 flat-regime); R1-R3 rescue updated |
+| 4 | pp58_isochoric_kappa3_n16384_v5_n16384 | 1616.1s CPU | 16384 | 5 | MIDDLE_BAND | ratio=4.00 N=16384 (up from 3.00 N=8192; +1.00 N-scale improvement); audit_crit=0.750; cap_crit=3.000 (pred=4.359 N-stable); HP>=5.0 not yet met | PP-58 R4 N-scale N=16384 annotation: ratio N-scales positively (3.00->4.00); audit_crit improving; MIDDLE 0.55-0.70 UNCHANGED |
+| 5 | activation_barrier_r3b_n8192_v3_n8192 | 642.8s CPU | 8192 | 5 | HARD_FAIL | nf_crit=0.495-0.505 N-independent (N=4096 and N=8192); ratio=0.9881 (flat; HF); R3b exhausted | PP-33/activation-barrier R3b FAILED; nf_crit~0.5 structural N-independent; R3c lower-alpha final rescue; band 0.40-0.55 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=25 sub-property.** All 25 fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=1.79s). 11th consecutive L-extension {L=15..L=25}. Ceiling NOT found at L=25. L-series at N=4096 now extends L=2..L=25 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=25 N=4096 EXACT-1.0 unanimous 5-seed; 11th consecutive L-extension; ceiling not reached; L=26 eligible or N=8192 cross-N at L=25 preferred (N-scale gap: L=22 confirmed at N=8192 v355; L=23..L=26 N=8192 not yet tested).'
+
+**(B) PP-12/Q-A3 L=26 sub-property.** All 26 fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=1.85s). 12th consecutive L-extension {L=15..L=26}. Ceiling NOT found at L=26. L-series at N=4096 now extends L=2..L=26 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=26 N=4096 EXACT-1.0 unanimous 5-seed; 12th consecutive L-extension (longest streak L=15..L=26); L-series L=2..L=26 all EXACT at N=4096; L=27 N=4096 or N=8192 cross-N at L=23/L=24/L=25 eligible; N-scale gap (L=22 N=8192 confirmed v355; L=23..L=26 N=8192 pending) is strategic priority.'
+
+**(C) Q-B1/PP-49a depth_400 HARD_FAIL -- 2nd consecutive loading-condition HARD_FAIL.** q_b1_chain_depth_400_v1_n16384 GENUINE FULL HARD_FAIL. d5=0.6553 (HF gate d5<0.80; prior flat-regime d5~0.989; delta=-0.334); d20=0.035 (HF gate d20<0.50); chain near-zero by d50. Progressive degradation at higher depth targets: depth_300 d5=0.864 (delta=-0.125); depth_400 d5=0.655 (delta=-0.334). Chain construction parameters (M or alpha) accumulating with depth target increase. Band 0.87-0.97 UNCHANGED: earned at flat-regime conditions {d80,d100,d150,d200} with d5~0.989. Rescue sketches (cheapest first per PROT-004/006 [[feedback-rescue-sketch-first-sequencing]]): R1 condition audit comparing depth_200 vs depth_300 vs depth_400 experiment scripts (M counts, alpha values; free diagnostic ~5min); R2 depth_300/depth_400 re-runs matching flat-regime loading conditions (CPU ~13min each); R3 intermediate depth sweep d={225,250,275,300,350,400} at flat-regime loading to identify collapse onset. Annotation appended to Q-B1/PP-49a: 'depth_400 N=16384 HARD_FAIL (v356): d5=0.655 (2nd consecutive loading-condition drop from flat-regime d5~0.989; depth_300 d5=0.864; depth_400 d5=0.655; progressive degradation); chain collapse d20-30; flat-profile band 0.87-0.97 earned at {d80..d200} loading conditions UNCHANGED; R1 condition audit + R2 flat-loading re-run + R3 depth sweep pending.'
+
+**(D) PP-58 R4 N-scale N=16384 POSITIVE SIGNAL.** pp58_isochoric_kappa3_n16384_v5_n16384 MIDDLE_BAND. ratio=4.00 at N=16384 alpha=0.05 (vs ratio=3.00 at N=8192; +1.00 N-scale improvement). audit_crit=0.750 at N=16384 (vs ~1.0 at N=8192; finite-N correction improving). cap_crit=3.000 (pred=4.359; 31% miss at both N-scales -- formula systematic over-prediction N-stable). HP gate ratio>=5.0 NOT yet met. MIDDLE band 0.55-0.70 UNCHANGED. N-scale trajectory: ratio=3.00 at N=8192, ratio=4.00 at N=16384 (+1.00 per N-doubling). N=32768 extrapolated ratio~5.0 (HP boundary territory). Annotation: 'R4 N-scale N=16384 alpha=0.05: ratio=4.00 (+1.00 vs N=8192); audit_crit=0.750 (improved from ~1.0); cap_crit=3.000 (pred=4.359 31% miss N-stable); N-scale trajectory ratio+1 per N-doubling; N=32768 extrapolated ratio~5.0 (HP boundary); formula recalibration (R2) still required before HP possible at tested N; R4 N=32768 is compelling next test if formula recalibrated; MIDDLE 0.55-0.70 UNCHANGED but N-scale trajectory positive.'
+
+**(E) PP-33/activation-barrier R3b FAILED -- structural boundary N-independent.** activation_barrier_r3b_n8192_v3_n8192 GENUINE FULL HARD_FAIL. nf_crit=0.495-0.505 at ALL 5 seeds ALL 5 alpha values at N=8192 (identical pattern to R3a N=4096). ratio=0.9881 (HF gate ratio<=1.02 met). b_fit=0.002 near-zero. R3b rescue exhausted: N-scale 4096->8192 does NOT shift nf_crit. Structural implication: nf_crit~0.5 is a fundamental boundary of substrate recall threshold at moderate alpha (0.02..0.12). Final rescue path R3c: lower alpha values alpha={0.001,0.005,0.01} where substrate is more robust, nf_crit expected to shift below 0.4. Rescue sketches (cheapest first): R3c lower-alpha N=4096 alpha={0.001,0.005,0.01,0.02} (~2h CPU; PRIMARY); R3d N=16384 alpha=0.10 extended grid (~12h CPU; SECONDARY; only if R3c positive). Annotation: 'R3b N=8192 extended-grid FAILED: nf_crit=0.495-0.505 N-independent (same as R3a N=4096; 2 N-scales tested); R3b rescue exhausted; structural boundary nf_crit~0.5 at moderate alpha [0.02,0.12]; R3c lower-alpha {0.001..0.02} is primary final rescue; R3d N=16384 secondary; closure risk if R3c returns flat nf_crit~0.5 at lower alpha.' Band 0.40-0.55 UNCHANGED.
+
+**Tallies (v355 -> v356).**
+- HONEST: 552 -> 557 (+5: 2 HP + 2 HF + 1 MIDDLE; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 5 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; no BAND-LIFTS; 2 sub-property additions PP-12/Q-A3 L=25+L=26).
+- Sub-properties NEW: PP-12/Q-A3 L=25 N=4096 (11th L-extension) + PP-12/Q-A3 L=26 N=4096 (12th consecutive L-extension; longest streak L=15..L=26).
+- HARD_FAILs: 2 (Q-B1 depth_400 loading-condition 2nd consecutive; PP-33 R3b structural N-independent).
+- PP-58 positive N-scale trajectory: ratio 3.00->4.00 per N-doubling; N=32768 extrapolated ~5.0 HP boundary.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v355 -> v356).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. 2 HARD_FAILs with rescue sketches cheapest-first (Q-B1: R1 condition audit [free] -> R2 flat-loading re-run -> R3 depth sweep; PP-33: R3c lower-alpha [~2h CPU] -> R3d N=16384 [secondary]).
+- PROT-007/008: v356 block appended. No portfolio regression.
+- PROT-009: 266th PROT-009 paired commit.
+- PROT-018: all 5 _n<N> suffix bindings confirmed (n4096 x2, n16384 x2, n8192 x1). Verified: q_a3_l25 N=4096 OK; q_a3_l26 N=4096 OK; q_b1_d400 N=16384 OK; pp58_n16384 N=16384 OK; activation_barrier_r3b N=8192 OK.
+- PROT-021: all 5 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 fid=1.0000 consistent L=25/L=26 N=4096 (self-consistent with L=2..L=24 EXACT series); Q-B1 d400 d5=0.655 loading-condition gap documented (R1 audit pending); PP-58 ratio=cap_crit/audit_crit=3.000/0.750=4.00 VERIFIED; PP-33 R3b nf_crit=0.495-0.505 structural boundary N-independent (confirmed same pattern 2 N-scales).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 266th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

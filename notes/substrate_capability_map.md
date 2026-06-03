@@ -8074,3 +8074,43 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-022: Q-A3 fid=1.0000 self-consistent (L=22 N=8192 matches float 1.0000000342 = EXACT-class); Q-B1 d5=0.864 loading-gap documented; PP-55 mean_cos=0.99999 N-independent; PP-58 v4 ratio=3.00 N-stable; finergrid cap_crit=2.0 both alphas (formula exact alpha=0.2 only).
 
 - **Cap_map version: v355.**
+
+# v356 update (2026-06-03) -- CYCLE 25 BATCH: 2 HP + 2 HARD_FAIL + 1 MIDDLE; 0 LVH; PP-12/Q-A3 L=25+L=26 N=4096 (11th+12th consecutive extensions, longest streak L=15..L=26); Q-B1 depth_400 HARD_FAIL (2nd consecutive loading-condition HF); PP-58 N=16384 MIDDLE (ratio 3->4 N-scale positive trajectory); PP-33 R3b HARD_FAIL structural N-independent; HONEST 552->557; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 266th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l25_cross_layer_composition_v1_n4096 | 1.79s GPU | 4096 | 5 | HARD_PASS | All 25 fids EXACT-1.0000 5/5; ceiling NOT found | PP-12/Q-A3 L=25 sub-property; 11th L-extension; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l26_cross_layer_composition_v1_n4096 | 1.85s GPU | 4096 | 5 | HARD_PASS | All 26 fids EXACT-1.0000 5/5; ceiling NOT found | PP-12/Q-A3 L=26 sub-property; 12th L-extension (longest streak L=15..L=26); band 0.75-0.90 UNCHANGED |
+| 3 | q_b1_chain_depth_400_v1_n16384 | 962.3s GPU | 16384 | 5 | HARD_FAIL | d5=0.6553 (HF d5<0.80); d20=0.035 (HF d20<0.50); 2nd consecutive loading-condition HF | Q-B1/PP-49a depth_400 HARD_FAIL; band 0.87-0.97 UNCHANGED; R1-R3 rescue |
+| 4 | pp58_isochoric_kappa3_n16384_v5_n16384 | 1616.1s CPU | 16384 | 5 | MIDDLE_BAND | ratio=4.00 (up from 3.00 N=8192); audit_crit=0.750; cap_crit=3.000 (pred=4.359 N-stable miss) | PP-58 R4 N=16384 annotation: ratio N-scales +1 per doubling; MIDDLE 0.55-0.70 UNCHANGED |
+| 5 | activation_barrier_r3b_n8192_v3_n8192 | 642.8s CPU | 8192 | 5 | HARD_FAIL | nf_crit=0.495-0.505 N-independent; ratio=0.9881 (flat HF); R3b exhausted | PP-33 R3b FAILED; structural N-independent boundary; R3c lower-alpha final rescue; band 0.40-0.55 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=25 sub-property (11th consecutive L-extension).** All 25 fids=1.0000 EXACT unanimous 5-seed at N=4096 (wall=1.79s). L-series at N=4096 now L=2..L=25 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=25 N=4096 EXACT-1.0 unanimous 5-seed; 11th consecutive L-extension; ceiling not reached; N=8192 L=23/L=24/L=25 cross-N is strategic gap (L=22 N=8192 confirmed v355; L=23+ N=8192 pending).'
+
+**(B) PP-12/Q-A3 L=26 sub-property (12th consecutive L-extension, longest streak L=15..L=26).** All 26 fids=1.0000 EXACT unanimous 5-seed at N=4096 (wall=1.85s). L-series at N=4096 now L=2..L=26 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=26 N=4096 EXACT-1.0 unanimous 5-seed; 12th consecutive L-extension (longest streak L=15..L=26); L-series L=2..L=26 EXACT at N=4096; N=8192 cross-N at L=23/L=24/L=25 is priority gap; L=27 N=4096 secondary.'
+
+**(C) Q-B1/PP-49a depth_400 HARD_FAIL -- 2nd consecutive loading-condition HARD_FAIL.** GENUINE FULL HARD_FAIL. d5=0.6553 (HF gate d5<0.80 met; flat-regime d5~0.989 delta=-0.334); d20=0.0351 (HF gate d20<0.50 met); chain near-zero by d50. Progressive degradation: depth_300 d5=0.864 (v355); depth_400 d5=0.655 (v356). Band 0.87-0.97 UNCHANGED (earned at flat-regime {d80..d200}). Rescue (cheapest first per PROT-004/006): R1 condition audit depth_200 vs depth_300 vs depth_400 scripts (M counts, alpha; free ~5min diagnostic); R2 depth_300/depth_400 re-runs at flat-regime loading (~13min GPU each); R3 intermediate depth sweep d={225..400} at flat-regime loading to locate collapse onset. Annotation: 'depth_400 N=16384 HARD_FAIL (v356): d5=0.655 (2nd consecutive loading-condition drop from d5~0.989; depth_300 d5=0.864; depth_400 d5=0.655; progressive degradation at higher depth targets); band 0.87-0.97 UNCHANGED; R1 condition audit pending before R2-R3 dispatch.'
+
+**(D) PP-58 R4 N-scale N=16384 POSITIVE TRAJECTORY.** MIDDLE_BAND. ratio=4.00 at N=16384 (vs ratio=3.00 N=8192; +1.00 improvement). audit_crit=0.750 N=16384 (vs ~1.0 N=8192; finite-N correction improving). cap_crit=3.000 (pred=4.359; 31% over-prediction N-stable). HP gate ratio>=5.0 NOT yet met. N-scale trajectory: ratio+1 per N-doubling. N=32768 extrapolated ratio~5.0 (HP boundary territory). MIDDLE 0.55-0.70 UNCHANGED. Annotation: 'R4 N-scale N=16384 alpha=0.05: ratio=4.00 (+1.00 vs N=8192 3.00); audit_crit=0.750 (improved); cap_crit 31% over-prediction N-stable; N-scale trajectory ratio+1 per doubling; N=32768 extrapolated ratio~5.0 HP boundary; formula recalibration (R2 theory work ~1-2h) before R4 N=32768 dispatch; MIDDLE 0.55-0.70 UNCHANGED but N-scale trajectory is positive.'
+
+**(E) PP-33/activation-barrier R3b N=8192 STRUCTURAL BOUNDARY CONFIRMED N-INDEPENDENT.** GENUINE FULL HARD_FAIL. nf_crit=0.495-0.505 at ALL 5 seeds ALL 5 alphas at N=8192 (identical to R3a N=4096). ratio=0.9881 (HF gate ratio<=1.02 met). b_fit=0.002 near-zero. R3b exhausted. Structural conclusion: nf_crit~0.5 is N-independent fundamental boundary at moderate alpha [0.02,0.12]. Final rescue: R3c lower alpha {0.001,0.005,0.01,0.02} at N=4096 (~2h CPU; PRIMARY); R3d N=16384 alpha=0.10 (~12h CPU; SECONDARY). Band 0.40-0.55 UNCHANGED. Annotation: 'R3b N=8192 extended-grid FAILED: nf_crit=0.495-0.505 N-independent (same as R3a N=4096; 2 N-scales tested; structural boundary); activation-barrier proxy not computable at alpha=[0.02,0.12]; R3c lower-alpha {0.001..0.02} N=4096 is primary final rescue; R3d N=16384 secondary; closure risk if R3c also returns flat nf_crit~0.5.'
+
+**Tallies (v355 -> v356).**
+- HONEST: 552 -> 557 (+5: 2 HP + 2 HF + 1 MIDDLE; 0 LVH).
+- LVH: 211 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED (no new rows; no BAND-LIFTS; 2 sub-property additions PP-12 L=25+L=26).
+- Sub-properties NEW: PP-12/Q-A3 L=25 N=4096 (11th L-extension) + PP-12/Q-A3 L=26 N=4096 (12th; longest streak L=15..L=26).
+- HARD_FAILs: 2 (Q-B1 depth_400 loading-condition 2nd consecutive; PP-33 R3b structural N-independent).
+- PP-58 positive N-scale: ratio 3.00->4.00 per N-doubling; N=32768 extrapolated ~5.0 HP boundary.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v355 -> v356).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. 2 HARD_FAILs rescue sketches cheapest-first (Q-B1: R1 audit [free] -> R2 re-run -> R3 sweep; PP-33: R3c lower-alpha [~2h] -> R3d N=16384 [~12h]).
+- PROT-007/008: v356 block appended. No portfolio regression.
+- PROT-009: 266th PROT-009 paired commit.
+- PROT-018: all 5 _n<N> suffix bindings confirmed (n4096 x2, n16384 x2, n8192 x1).
+- PROT-021: all 5 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 fid=1.0000 L=25/L=26 consistent with L=2..L=24 series; Q-B1 d5=0.655 loading-gap progressive pattern documented; PP-58 ratio=3.000/0.750=4.00 VERIFIED; PP-33 nf_crit=0.495-0.505 structural boundary N-independent (2 N-scales confirmed).
+
+- **Cap_map version: v356.**

@@ -17,3 +17,8 @@ CYCLE 23 BATCH v353->v354 (2026-06-03): 7 verdicts processed. 5 HP + 2 MIDDLE_BA
 ## CYCLE 24 BATCH -- v354->v355 (2026-06-03 verdict_handler)
 
 8 verdicts processed: 4 HP + 1 HARD_FAIL + 3 MIDDLE_BAND. 0 LVH. HONEST 544->552. Portfolio 32+77 UNCHANGED. 1 BAND-LIFT (PP-55 0.70-0.85->0.75-0.88). Q-B1 depth_300 HARD_FAIL (loading-condition boundary; flat-regime band intact). PP-12/Q-A3 L-series extends to L=24; 10-extension streak; L=22 N=8192 2-N cross-N confirmed. PP-58 cap_crit formula over-prediction confirmed N-stable; recalibration needed. Activation-barrier R3a exhausted at N=4096; R3b N=8192 next. 265th PROT-009 paired commit.
+
+
+## CYCLE 25 BATCH -- v355->v356 (2026-06-03 verdict_handler)
+
+5 verdicts processed: 2 HP + 2 HARD_FAIL + 1 MIDDLE_BAND. 0 LVH. HONEST 552->557. Portfolio 32+77 UNCHANGED. 0 BAND-LIFTS. PP-12/Q-A3 L-series extends to L=26; 12th consecutive extension (longest streak L=15..L=26); L-series L=2..L=26 all EXACT-1.0 at N=4096; N-scale gap (L=23..L=26 at N=8192) is priority. Q-B1 depth_400 HARD_FAIL (2nd consecutive loading-condition HF; progressive d5 drop: 0.989->0.864->0.655; flat-regime band 0.87-0.97 earned at d80-200 UNCHANGED; R1 condition audit pending). PP-58 N=16384 MIDDLE (ratio improved 3.00->4.00 per N-doubling; N=32768 extrapolated ~5.0 HP boundary; positive trajectory; formula recalibration R2 still needed). PP-33 R3b N=8192 HARD_FAIL (nf_crit~0.5 structural boundary N-independent through N=4096+N=8192; R3c lower-alpha final rescue path; closure risk if R3c flat). 266th PROT-009 paired commit. Cap_map v356.
