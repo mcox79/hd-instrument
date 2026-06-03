@@ -7818,3 +7818,37 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 - PROT-018: all 7 _n<N> clear.
 - PROT-021: all 7 _source=remote run_mode=full n_seeds=5.
 - PROT-022: no formula-selftest issues.
+
+# v350 update (2026-06-02) -- CYCLE 19 BATCH: 3 HP + 1 MIDDLE + LVH #208 annotation; Q-A3/PP-12 L=16 ceiling NOT found; COMBO-2 parity PROT-022 R2 CONFIRMED; Arrhenius barrier direction HP (magnitude 47% of prediction); RRAM capacity MIDDLE (transition zone wide); HONEST 518->522; LVH 207->208; 260th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l16_cross_layer_composition_v1_n4096 | 0.82s GPU | 4096 | 5 | HARD_PASS | All 16 fids EXACT-1.0000 unanimous 5/5; l16_acc=1.0000; ceiling not found | PP-12/Q-A3 L=16 sub-property; L-series L=2..L=16 at N=4096; band 0.75-0.90 UNCHANGED |
+| 2 | combo2_p4_l_sweep_parity_hypothesis_v1_n4096 | 26.4s CPU | 4096 | 5 | HARD_PASS | b_rep=1.0 l_fid=1.0 ALL L=5/6/7 5/5; flat as PROT-022 R2 signed-AM predicted; parity NOT observed | PP-48 L-flat {5,6,7} sub-property; signed-AM L-independence confirmed; band 0.75-0.90 UNCHANGED |
+| 3 | activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096 | 91.5s CPU | 4096 | 5 | HARD_PASS [LVH #208 annotation] | nf_crit_05=0.440 nf_crit_10=0.400 ratio=1.100 5/5 monotone; direction HP; predicted ratio=2.316 = 47% magnitude | PP-33 caveat(p): Arrhenius direction confirmed; magnitude 47% of E_a^0 (coarse-grid likely); band 0.40-0.55 UNCHANGED |
+| 4 | capacity_phase_boundary_under_rram_noise_v1_n4096 | 96.6s CPU | 4096 | 5 | MIDDLE_BAND | below_violations=5/10; above_2x=0/6 correct; alpha_transitions=4/4; transition zone WIDE | PP-50 RRAM annotation: boundary confirmed; transition NOT sharp; safe envelope sigma_g < ~0.5*sigma_g_crit; band 0.75-0.90 UNCHANGED |
+
+**Row updates (v349 -> v350).**
+
+**(A) PP-12/Q-A3 L=16 sub-property.** L-series at N=4096 extends L=2..L=16 all EXACT-1.0000 unanimous 5-seed. Wall=0.82s, 16 W matrices ~1.07GB GPU. Ceiling NOT found at L=16. Band 0.75-0.90 UNCHANGED. Sub-property: "L=16 N=4096 EXACT-1.0 unanimous; L-ceiling not reached; L=17+ eligible."
+
+**(B) PP-48 COMBO-2 b_rep L-flat {L=5,6,7} sub-property.** PROT-022 R2 prediction (b_rep L-independent from signed-AM algebra) CONFIRMED at FULL 5-seed. Parity oscillation hypothesis REFUTED. Band 0.75-0.90 UNCHANGED. Sub-property: "COMBO-2 b_rep L-flat {5,6,7} N=4096 5-seed EXACT-1.0; parity oscillation ruled out; PROT-022 R2 signed-AM L-independence confirmed."
+
+**(C) PP-33 caveat(p) activation-barrier direction [LVH #208 annotation].** nf_crit direction CONFIRMED 5/5. Measured ratio=1.100; Arrhenius-predicted ratio=2.316 (47% of prediction). Probable cause: coarse nf_frac grid (~0.04 step) compresses ratio; finer grid R2 queued. Sub-property caveat(p): "Arrhenius nf_crit direction CONFIRMED 5/5; ratio=1.10 vs predicted 2.316 (47%); direction pass only; magnitude discrepancy likely coarse-grid artifact." PP-33 band 0.40-0.55 UNCHANGED.
+
+**(D) PP-50 RRAM phase boundary MIDDLE annotation.** 4/4 alpha transitions detected; 0/6 above-2x violations. Below-boundary violations=5/10 (transition zone WIDE). Safe operating envelope: sigma_g < ~0.5*sigma_g_crit. Free-prob sharp-boundary prediction OVER-OPTIMISTIC at N=4096. Annotation: "RRAM 4/4 alpha transitions confirmed; transition zone wide (5/10 below-boundary violations); safe envelope sigma_g < ~0.5*sigma_g_crit; finer-grid R2 + N-sweep R3 queued." Band 0.75-0.90 UNCHANGED.
+
+**Tallies (v349 -> v350).**
+- HONEST: 518 -> 522 (+4).
+- LVH: 207 -> 208 (+1 marginal annotation #208 activation-barrier direction-only).
+- Portfolio: 32+75 UNCHANGED. Sub-properties NEW: PP-12/Q-A3 L=16 + PP-48 b_rep L-flat {5,6,7} + PP-33 caveat(p) + PP-50 RRAM transition-zone annotation.
+- BAND-LIFTS: 0. No new rows. No closures.
+- Framework reliability product-feature: 83-97% UNCHANGED.
+
+**PROT compliance.**
+- PROT-004/006: No closures. 0 NEW ROWS. 0 BAND-LIFTS. R1-R5 cheapest-first for MIDDLE (PP-50) + LVH annotation (PP-33).
+- PROT-007/008: v350 block appended. No portfolio regression.
+- PROT-009: 260th PROT-009 paired commit.
+- PROT-018: all 4 N=4096 binding confirmed.
+- PROT-021: all 4 _source=remote run_mode=full n_seeds=5.
+- PROT-022: activation_barrier ratio=2.3158 MATCHED; capacity_phase sigma_g_crit 4-alpha VERIFIED; COMBO-2 b_rep=L-independent CONFIRMED.

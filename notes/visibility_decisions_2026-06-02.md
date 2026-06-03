@@ -96,3 +96,13 @@ Cycle 16 closes 5 sub-property confirmations. Q-B1 chain fidelity confirmed dept
 ## v347->v348 Cycle 17 batch 4 verdicts (2026-06-02): 4 HP (q_b1_depth80_N16384 BAND-LIFT-GATE + q_b1_depth90_N8192 + q_a3_L15_N4096 + pp48_depth23_N4096) + 0 HF + 0 MIDDLE + 0 LVH; 1 BAND-LIFT PP-49a/Q-B1 0.70-0.85->0.75-0.90; HONEST 507->511; LVH 207 UNCHANGED; cap_map v348; 258th PROT-009 paired commit.
 
 ## v348->v349 Cycle 18 batch 7 verdicts (2026-06-02): 3 HP (q_b1_d100_N8192 + pp48_d19_N16384 + vsa_binding_PP55_NEW_ROW) + 1 HF (composition_ceiling_constant_M_Arrhenius_REFUTED) + 3 MIDDLE (kappa3_noise_Wave2_overconsv + hebbian_gd_identity_PP52_corr + ck_aging_mu_partial) + 0 LVH; NEW PP-55 VSA-bind-over-SKAH-M 0.65-0.80 EXPLORATORY; HONEST 511->518; LVH 207 UNCHANGED; cap_map v349; 259th PROT-009 paired commit.
+## v350 Cycle 19 batch (4-verdict) -- 2026-06-02
+
+| anchor | verdict | one-line |
+|--------|---------|----------|
+| q_a3_l16_cross_layer_composition_v1_n4096 | HARD_PASS | L=16 EXACT-1.0 all 5 seeds; L-series L=2..L=16 complete at N=4096; ceiling not found |
+| combo2_p4_l_sweep_parity_hypothesis_v1_n4096 | HARD_PASS | b_rep L-flat {5,6,7} EXACT-1.0; PROT-022 R2 signed-AM prediction confirmed; parity oscillation ruled out |
+| activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096 | HARD_PASS [LVH #208] | direction HP 5/5; ratio=1.10 measured vs 2.316 predicted (47%); direction-only pass; magnitude discrepancy annotated |
+| capacity_phase_boundary_under_rram_noise_v1_n4096 | MIDDLE_BAND | 4/4 alpha transitions detected; above-2x correct; transition zone wide (5/10 below violations); safe envelope ~0.5*sigma_g_crit |
+
+Cap_map: v349->v350. HONEST 518->522. LVH 207->208. 260th PROT-009. No closures, no new rows, no band-lifts.
