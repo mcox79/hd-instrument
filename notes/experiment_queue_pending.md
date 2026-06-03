@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 cycle 29 watchdog tick (07:15)
+**Updated:** 2026-06-03 v360 exp_dev ship cycle (Wave-5 + supplementary)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -12,33 +12,27 @@ GPU (overnight_queue):
 - q_b1_bisect_d281_v1_n16384 (running) — final Q-B1 bisection narrowing
 - q_a3_l20_cross_layer_composition_v1_n16384 (pending) — Q-A3 cross-N N=16384 first rung
 - q_a3_l21_cross_layer_composition_v1_n16384 (pending) — Q-A3 cross-N N=16384 second rung
+- pp58_bbp_spectral_gap_calibration_v1_n16384 (pending) — Wave-5 Decisive #2; BBP calibration; SHIPPED 2026-06-03
+- q_a3_l22_cross_layer_composition_v1_n16384 (pending) — supplementary C; L=22 N=16384 depth ladder; SHIPPED 2026-06-03
+- q_a3_l23_cross_layer_composition_v1_n16384 (pending) — supplementary C; L=23 N=16384 depth ladder; SHIPPED 2026-06-03
 
 CPU (remote_cpu_queue):
 - pp58_isochoric_kappa3_alpha0p1_n16384_v6_n16384 (running)
 - pp55_vsa_binding_n65536_v5_n65536 (pending)
 - pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 (pending)
 - pp56_sherman_morrison_cert_drop_n65536_v5_n65536 (pending)
+- pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 (pending) — Wave-5 Decisive #3; parity discriminator; SHIPPED 2026-06-03
+- pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384 (pending) — Wave-5 Decisive #1; MFPT N-scaling; SHIPPED 2026-06-03
 
 ---
 
 ## Waiting to ship — TIER 1 (next-cycle priority)
 
-### From research routing v359 drill battery synthesis (FRESH — landed 07:12)
+### From research routing v359 drill battery synthesis (SHIPPED 2026-06-03)
 
-1. **`pp58_bbp_spectral_gap_calibration_v1_n16384`** — GPU ~30 min — DECISIVE Wave-5 #2
-   - BBP eigenspectrum calibration; if HP, PP-58 row FOUNDED at 0.65-0.80
-   - Pre-reg HP: ratio ∈ [3.5, 4.5] AND σ_g_audit_crit ∈ [0.65, 0.80] AND cap_crit ∈ [2.5, 3.5]
-   - Handoff: `notes/exp_dev_handoff_research_pp58_isochoric_ratio_reframing_2026-06-03.md`
-
-2. **`pp49_hrc_depth_parity_discriminator_sweep_v1_n4096`** — CPU ~5 min — DECISIVE Wave-5 #3
-   - PP-49 mechanism discriminator (parity-class vs protocol-artifact)
-   - Pre-reg: discriminate via cf_cos(d) pattern under dual protocols
-   - Handoff: `notes/exp_dev_handoff_research_pp49_depth_nonmonotone_2026-06-03.md`
-
-3. **`pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384`** — CPU ~2 hr — DECISIVE Wave-5 #1
-   - PP-33 1-RSB N^(1/3) discriminator vs AGS RS N^1
-   - Pre-reg HP for 1-RSB: ln(τ) ∝ N^(1/3) with R² > 0.95
-   - Handoff: `notes/exp_dev_handoff_research_pp33_barrier_mfpt_probe_2026-06-03.md`
+1. ~~**`pp58_bbp_spectral_gap_calibration_v1_n16384`**~~ **ACTIVE** (overnight_queue) — DECISIVE Wave-5 #2
+2. ~~**`pp49_hrc_depth_parity_discriminator_sweep_v1_n4096`**~~ **ACTIVE** (remote_cpu_queue) — DECISIVE Wave-5 #3
+3. ~~**`pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384`**~~ **ACTIVE** (remote_cpu_queue) — DECISIVE Wave-5 #1
 
 ### From cycle-26+ carryover
 
