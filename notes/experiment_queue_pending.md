@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v360 exp_dev ship cycle (Wave-5 + supplementary)
+**Updated:** 2026-06-03 v361 exp_dev RESUME cycle (3 RESUME + 2 ADDITIONAL)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -9,36 +9,27 @@
 ## Currently active (in remote queues — not "pending" for orchestrator)
 
 GPU (overnight_queue):
-- q_b1_bisect_d281_v1_n16384 (running) — final Q-B1 bisection narrowing
-- q_a3_l20_cross_layer_composition_v1_n16384 (pending) — Q-A3 cross-N N=16384 first rung
-- q_a3_l21_cross_layer_composition_v1_n16384 (pending) — Q-A3 cross-N N=16384 second rung
-- pp58_bbp_spectral_gap_calibration_v1_n16384 (pending) — Wave-5 Decisive #2; BBP calibration; SHIPPED 2026-06-03
-- q_a3_l22_cross_layer_composition_v1_n16384 (pending) — supplementary C; L=22 N=16384 depth ladder; SHIPPED 2026-06-03
-- q_a3_l23_cross_layer_composition_v1_n16384 (pending) — supplementary C; L=23 N=16384 depth ladder; SHIPPED 2026-06-03
+- q_a3_l24_cross_layer_composition_v1_n16384 (completed) — RESUME; L=24 N=16384 5th rung; ran immediately on ship
+- q_b1_bisect_d293_v1_n16384 (running) — ADDITIONAL A; Q-B1 bisection d=293 narrowing (287,300]; SHIPPED 2026-06-03
 
 CPU (remote_cpu_queue):
-- pp58_isochoric_kappa3_alpha0p1_n16384_v6_n16384 (running)
-- pp55_vsa_binding_n65536_v5_n65536 (pending)
-- pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 (pending)
+- pp58_isochoric_kappa3_alpha0p05_n32768_v8_n32768 (running)
 - pp56_sherman_morrison_cert_drop_n65536_v5_n65536 (pending)
-- pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 (pending) — Wave-5 Decisive #3; parity discriminator; SHIPPED 2026-06-03
-- pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384 (pending) — Wave-5 Decisive #1; MFPT N-scaling; SHIPPED 2026-06-03
+- pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 (pending) — Wave-5 Decisive #3
+- pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384 (pending) — Wave-5 Decisive #1
+- pp55_vsa_binding_n131072_v6_n131072 (pending) — 6th rung cross-N
+- pp49_hrc_protocol_artifact_nscale_v1_n8192 (pending) — RESUME; PP-49 N-scale validation at N=8192; SHIPPED 2026-06-03
+- pp58_bbp_discrete_fallback_v1_n16384 (pending) — RESUME; PP-58 BBP discrete universality; SHIPPED 2026-06-03
+- pp33_mfpt_glauber_n32768_v2_n32768 (pending) — ADDITIONAL D; PP-33 MFPT 4th rung N=32768; SHIPPED 2026-06-03
 
 ---
 
 ## Waiting to ship — TIER 1 (next-cycle priority)
 
-### From research routing v359 drill battery synthesis (SHIPPED 2026-06-03)
+### From cycle-26+ carryover (still unshipped)
 
-1. ~~**`pp58_bbp_spectral_gap_calibration_v1_n16384`**~~ **ACTIVE** (overnight_queue) — DECISIVE Wave-5 #2
-2. ~~**`pp49_hrc_depth_parity_discriminator_sweep_v1_n4096`**~~ **ACTIVE** (remote_cpu_queue) — DECISIVE Wave-5 #3
-3. ~~**`pp33_mfpt_glauber_n_scaling_v1_n4096_8192_16384`**~~ **ACTIVE** (remote_cpu_queue) — DECISIVE Wave-5 #1
-
-### From cycle-26+ carryover
-
-4. **Q-B1 d-293 N=16384** — final bisection of d-275/d-300 window (depending on d-281 verdict)
 5. **PP-12 cross-N at N=16384 with reduced M (OOM workaround)** — GPU; original OOM'd at 22 GB
-6. **Q-A3 L=34 + L=35 verdict-driven extensions** — already shipped this cycle but include cells L=36+ if HP
+6. **Q-A3 L=34 + L=35 verdict-driven extensions** — if HP through L=30+ series continues
 
 ---
 
