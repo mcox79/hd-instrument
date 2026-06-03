@@ -72,3 +72,4 @@ PROT-019 fix during session: PP-33 R3c first attempt used timeout=600; queue_add
 (2) q_a3_l30_cross_layer_composition_v1_n4096 (overnight_queue; N=4096; L=30 16th-extension ceiling; PROT-018/019 OK; timeout=14400s; remote verify OK).
 Deferred: Q-B1 d=287 bisect (pending R1 condition audit); PP-58 R2 theory recalibration (pure theory, not exp_dev).
 PROT-018 compliance: both _n<N> suffix bindings verified. PROT-019 compliance: both timeout >= tier floor (_n8192>=21600, _n4096>=14400).
+2026-06-03 v358 REFILL cycle 28: 5 anchors shipped -- q_a3_l32/l33 N=4096 GPU ceiling chase (PROT-018/019 OK, self-test 4.3s/5.1s), pp55_n65536 chunked-Hopfield 5th-rung CPU (smoke MIDDLE mean_cos=0.9999), pp56_n65536 SM cert-drop 5th-rung CPU (smoke HP cert_ratio=0.00097), pp58_alpha0p05_n32768 projected-HP-boundary CPU (smoke MIDDLE ratio=4.00 +1/doubling trend; walk-back noted). Remote verify: 5/5 PASS (all queue_add.sh exit 0 + VERIFIED in remote queue.json).

@@ -4,6 +4,20 @@
 
 **Last updated:** 2026-06-02 cycle 16 (post efficiency-wins commit). Cap_map at v346. Portfolio 32+74. HONEST 502, LVH 207. Substrate product narrative anchored across audit/composition/safety/streaming with multiple production-N confirmations.
 
+## VERDICT_HANDLER DISCIPLINE LOCKS (2026-06-03)
+
+Every verdict_handler dispatch task prompt MUST include this clause (per [[feedback-verdicts-include-intuitive-explanation]]):
+
+> Return ONE line: classified N (HP/MID/HF) + cap_map delta + commit hash deferred + LVH catches + headline.
+>
+> THEN: include a second-block table with one row per HP/MID/HF anchor:
+> `<anchor_name>: <intuitive_explanation_1-2_sentences> | implication: <which_substrate_capability_this_supports_limits_or_refutes>`
+
+Plus standing locks per cycle 22-onward:
+- NEUTRAL classification only (per [[feedback-no-smoke-preframing-in-task-prompts]])
+- NO outcome-anticipation language ("X HP -> Y consequence") — LVH #211 lock
+- Honest re-read mandatory; prereg bands verbatim before classifying
+
 ## STARTUP / REBOOT PROCEDURE (read on cold start)
 
 **Trigger phrase: "get everything started" / "start everything"** means: do the 3 actions below in order, then report back state.
