@@ -55,3 +55,6 @@ Anchors:
 - q_b1_bisect_d287_v1_n16384: HARD_FAIL. d5=0.8842 (HP>=0.9 not met); d287=0.0009 (HF<0.001 triggered). Onset window narrows to (275,287). Next bisect d=281. Band 0.87-0.97 UNCHANGED. R1 d=281 bisect scheduled.
 - LVH delta: 0. HONEST: 568->572. LVH: 211 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 - Atomic commit v359->v360. 271st PROT-009 paired commit.
+
+## v360->v361 Cycle 30 batch (2026-06-03)
+7 verdicts processed. 5 HP + 2 MIDDLE_BAND. 0 LVH. HONEST 572->579. LVH 211 UNCHANGED. 1 BAND-LIFT: PP-55 0.78-0.90->0.80-0.92 (5th-rung N=65536). PP-12/Q-A3 L=34+L=35 N=4096 (21st consecutive; longest streak). L=20+L=21 confirmed N-independent at N=16384. Q-B1 d281 MIDDLE onset (275,281]. PP-58 alpha=0.1 N-scale negative. Portfolio 32+77 UNCHANGED. Cap_map v361. 272nd PROT-009 paired commit.

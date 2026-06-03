@@ -415,3 +415,63 @@ d5=0.8842 (HP>=0.9 NOT MET); d20=0.8394 (HP>=0.75 MET); d50=0.7219 (HP>=0.5 bord
 - PROT-022: Q-A3 L32/L33 fids=1.0000 (31-ctx/32-ctx Hadamard roundtrip VERIFIED); Q-A3 L25 N=8192 fid=1.0000000342 (consistent EXACT-class pattern); Q-B1 d287 bisect midpoint (275+287)//2=281 NEXT; d5 monotone decline documented.
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 271st PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 30 BATCH (7 verdicts, v360->v361)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l20_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 20 fids=1.0000 EXACT unanimous 5/5 at N=16384; l20_acc=1.0000; N-scale confirm at L=20; label accurate | NONE |
+| 2 | q_a3_l21_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 21 fids=1.0000 EXACT unanimous 5/5 at N=16384; l21_acc=1.0000; N-scale confirm at L=21; label accurate | NONE |
+| 3 | q_b1_bisect_d281_v1_n16384 | MIDDLE_BAND | MIDDLE_BAND: d5 mean=0.8961 in [0.80,0.90) -- HP d5>=0.9 NOT MET; d20..d281 all other depth gates MET; onset window (275,281]; label accurate | NONE |
+| 4 | q_a3_l34_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 34 fids=1.0000 EXACT unanimous 5/5 at N=4096; l34_acc=1.0000; 20th consecutive L-extension (L=15..L=34); label accurate | NONE |
+| 5 | q_a3_l35_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 35 fids=1.0000 EXACT unanimous 5/5 at N=4096; l35_acc=1.0000; 21st consecutive L-extension (L=15..L=35); label accurate | NONE |
+| 6 | pp55_vsa_binding_n65536_v5_n65536 | HARD_PASS | HARD_PASS: mean_cos=0.99999 min_cos=0.99999 seeds_hp=5/5>>HP=0.85; 5th-rung cross-N at N=65536; label accurate | NONE |
+| 7 | pp58_isochoric_kappa3_alpha0p1_n16384_v6_n16384 | MIDDLE_BAND | MIDDLE_BAND: ratio=2.86 in [2.0,5.0); HP>=5.0 NOT MET; cap_pred=3.0 cap_within_tol=False; N-scale slight degradation at alpha=0.1 (N=4096 ratio=3.00 > N=16384 ratio=2.86); label accurate | NONE |
+
+**LVH delta: 0. All 7 labels HONEST. LVH count stays at 211. HONEST 572 -> 579 (+7).**
+
+## Cap_map table (v360 -> v361)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l20_cross_layer_composition_v1_n16384 | 7.34s GPU | 16384 | 5 | HARD_PASS | All 20 fids EXACT-1.0000 unanimous 5/5 at N=16384; N-scale confirm at L=20 | PP-12/Q-A3 L=20 N=16384 sub-property; 2-N cross-N at L=20 {N=4096 v353 + N=16384 v361}; composition N-independent at L=20 across 4x N range; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l21_cross_layer_composition_v1_n16384 | 7.06s GPU | 16384 | 5 | HARD_PASS | All 21 fids EXACT-1.0000 unanimous 5/5 at N=16384; N-scale confirm at L=21 | PP-12/Q-A3 L=21 N=16384 sub-property; 2-N cross-N at L=21 {N=4096 v353 + N=16384 v361}; composition N-independent at L=21; band 0.75-0.90 UNCHANGED |
+| 3 | q_b1_bisect_d281_v1_n16384 | 688.9s GPU | 16384 | 5 | MIDDLE_BAND | d5=0.8961 (HP>=0.9 NOT MET; margin miss=0.004); d20..d281 all other gates MET; profile FLAT d20-d281 no collapse; onset window (275,281] | Q-B1/PP-49a d281 MIDDLE annotation; onset window (275,281]; flat profile confirms no full collapse at d=281; BAND 0.87-0.97 UNCHANGED |
+| 4 | q_a3_l34_cross_layer_composition_v1_n4096 | 0.87s GPU | 4096 | 5 | HARD_PASS | All 34 fids EXACT-1.0000 unanimous 5/5; l34_acc=1.0000; 20th consecutive L-extension | PP-12/Q-A3 L=34 sub-property; ceiling NOT found; L-series L=2..L=34 EXACT at N=4096; band 0.75-0.90 UNCHANGED |
+| 5 | q_a3_l35_cross_layer_composition_v1_n4096 | 0.92s GPU | 4096 | 5 | HARD_PASS | All 35 fids EXACT-1.0000 unanimous 5/5; l35_acc=1.0000; 21st consecutive L-extension | PP-12/Q-A3 L=35 sub-property; ceiling NOT found; L-series L=2..L=35 EXACT at N=4096; band 0.75-0.90 UNCHANGED |
+| 6 | pp55_vsa_binding_n65536_v5_n65536 | 177.8s CPU | 65536 | 5 | HARD_PASS | mean_cos=0.99999; 5/5 seeds; 5th-rung {N=4096,N=8192,N=16384,N=32768,N=65536} all cos>>HP | PP-55 BAND-LIFT 0.78-0.90->0.80-0.92 (5th-rung cross-N gate met; N=65536 algebraically N-independent) |
+| 7 | pp58_isochoric_kappa3_alpha0p1_n16384_v6_n16384 | 2217.4s CPU | 16384 | 5 | MIDDLE_BAND | ratio=2.86 N=16384 alpha=0.1 (vs N=4096 ratio=3.00; N-scale slight degradation); cap_crit=2.0 pred=3.0 (33% miss N-stable) | PP-58 alpha=0.1 N-scale annotation: ratio N-scale NEGATIVE at alpha=0.1 (3.00->2.86); contrasts alpha=0.05 POSITIVE (3.00->4.00); regime-dependent N-scale; MIDDLE 0.55-0.70 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=20 N=16384 sub-property.** All 20 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=7.34s). L=20 confirmed EXACT at both N=4096 (v353) and N=16384 (v361): composition N-independent at L=20 across 4x N range. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=20 N=16384 EXACT-1.0 unanimous 5-seed; 2-N cross-N {N=4096+N=16384} at L=20; N-independent through L=20 at N=16384 scale; N=8192 L=20 not required (direct 4x N jump confirmation).'
+
+**(B) PP-12/Q-A3 L=21 N=16384 sub-property.** All 21 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=7.06s). L=21 confirmed EXACT at N=4096 (v353) and N=16384 (v361): composition N-independent at L=21 across 4x N range. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=21 N=16384 EXACT-1.0 unanimous 5-seed; 2-N cross-N {N=4096+N=16384} at L=21; N-independent at L=21 confirmed N=4K->16K.'
+
+**(C) Q-B1/PP-49a d281 bisect MIDDLE_BAND (onset window narrows to (275,281]).** d5=0.8961 mean (seeds: 0.8954,0.8953,0.8964,0.8967,0.8966; all in [0.895,0.897]; HP>=0.9 missed by 0.004). Profile d20-d281 FLAT (~0.862-0.869 range) with no collapse. d5 progression: d250=0.932 -> d275=0.903 -> d281=0.896 -> [d287=0.884 HF, d300=0.864 HF]. Onset window narrows to (275,281]. Note: d281 is MIDDLE (d5 marginal miss, no collapse in body of chain) not HARD_FAIL (which requires collapse or d5<0.80). Band 0.87-0.97 UNCHANGED. Bisect result: collapse onset between d=275 (HP d5=0.903) and d=281 (MIDDLE d5=0.896). Final onset window (275,281] with 6-step resolution. Sufficient precision for product envelope characterization.
+
+**(D) PP-12/Q-A3 L=34 sub-property (20th consecutive L-extension).** All 34 fids EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.87s). L=2..L=34 all EXACT at N=4096. Streak L=15..L=34 (20 consecutive). Ceiling NOT found at L=34. Band 0.75-0.90 UNCHANGED.
+
+**(E) PP-12/Q-A3 L=35 sub-property (21st consecutive L-extension; L=2..L=35 all EXACT at N=4096 -- longest streak in project history).** All 35 fids EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.92s). L=2..L=35 all EXACT at N=4096. Streak L=15..L=35 (21 consecutive without ceiling detection). New project milestone. Ceiling NOT found at L=35. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=35 N=4096 EXACT-1.0 unanimous 5-seed; 21st consecutive L-extension (L=15..L=35); L-series L=2..L=35 ALL EXACT at N=4096; longest streak in project history; ceiling not found through L=35; N=16384 cross-N at L=20+L=21 confirmed (v361); N=8192 cross-N gap L=26..L=35 pending.'
+
+**(F) PP-55 BAND-LIFT 0.78-0.90->0.80-0.92 (5th-rung cross-N gate met).** pp55_vsa_binding_n65536_v5_n65536 GENUINE FULL HARD_PASS. mean_cos=0.9999894 min_cos=0.99998779 all seeds >=0.99998 >> HP=0.85. 5-rung cross-N series: {N=4096 (v349), N=8192 (v354), N=16384 (v355), N=32768 (v357), N=65536 (v361)}. All 5 rungs mean_cos>=0.9999. BAND-LIFT VALID: lower 0.78->0.80, upper 0.90->0.92 (per-rung +0.02 pattern). Lit-scan calibration penalty maintained. Product framing: VSA bind-unbind algebra over SKAH-M-class network is N-independent across 16x N range (4K to 64K); cos fidelity > 0.9999 at every production scale; substrate simultaneously serves as algebraic VSA layer and SKAH-M attractor memory from embedded-class to LLM-adjacent N.
+
+**(G) PP-58 alpha=0.1 N-scale NEGATIVE annotation.** pp58_isochoric_kappa3_alpha0p1_n16384_v6_n16384 MIDDLE_BAND (wall=2217.4s). ratio=2.86 at N=16384 alpha=0.1. vs N=4096 alpha=0.1 (v354 multialpha): ratio=3.00. Slight N-scale DEGRADATION: -0.14 per 4x N step. Contrasts with alpha=0.05 POSITIVE N-scale (+1.00 per 2x N step: 3.00->4.00 at N=8192->16384 in v356). cap_crit=2.0 (pred=3.0; 33% miss) N-stable at alpha=0.1. Regime-dependent N-scale behavior: alpha=0.05 improving toward HP boundary; alpha=0.1 degrading. HP gate ratio>=5.0 not achievable at alpha=0.1. PP-58 MIDDLE 0.55-0.70 UNCHANGED. Annotation: 'alpha=0.1 N=16384 (v361): ratio=2.86 (N-scale degradation: N=4096 ratio=3.00; -0.14 per 4x N); cap_crit=2.0 (pred=3.0 33% miss N-stable); alpha=0.1 regime not approaching HP; alpha=0.05 N-scale positive (3.00->4.00 per 2x N) remains primary path to HP; formula recalibration (R2) still primary blocker.'
+
+**Tallies (v360 -> v361).**
+- HONEST: 572 -> 579 (+7: 5 HP + 2 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 7 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; 1 BAND-LIFT PP-55).
+- Sub-properties NEW (7): PP-12/Q-A3 L=20 N=16384 (2-N cross-N at L=20) + PP-12/Q-A3 L=21 N=16384 (2-N cross-N at L=21) + Q-B1 d281 MIDDLE (onset window (275,281]) + PP-12/Q-A3 L=34 N=4096 (20th L-extension) + PP-12/Q-A3 L=35 N=4096 (21st consecutive; longest streak L=15..L=35; L=2..L=35 all EXACT) + PP-55 5th-rung N=65536 + PP-58 alpha=0.1 N=16384 N-scale degradation.
+- BAND-LIFTS: 1 (PP-55: 0.78-0.90->0.80-0.92; 5th-rung cross-N N=65536).
+- PP-58 regime-dependent N-scale: alpha=0.05 positive; alpha=0.1 negative.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v360 -> v361).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-55 5th-rung). Q-B1 d281 MIDDLE: onset window (275,281] resolved to 6-step precision; no forced rescue (MIDDLE; bisection adequate).
+- PROT-007/008: v361 block appended. No portfolio regression.
+- PROT-009: 272nd PROT-009 paired commit.
+- PROT-018: all 7 _n<N> suffix bindings confirmed: q_a3_l20_n16384 (N=16384 OK); q_a3_l21_n16384 (N=16384 OK); q_b1_bisect_d281_n16384 (N=16384 OK); q_a3_l34_n4096 (N=4096 OK); q_a3_l35_n4096 (N=4096 OK); pp55_n65536 (N=65536 OK); pp58_n16384 (N=16384 OK). 0 violations.
+- PROT-021: all 7 _source=remote run_mode=full n_seeds=5. No smoke artifacts. Fast walls q_a3_l34/l35 (0.87s/0.92s) verified: closed-form Hadamard roundtrip at N=4096 genuinely sub-second; consistent with L=30..L=33 pattern (0.74s..0.82s in v359/v360).
+- PROT-022: Q-A3 L=20/L=21 N=16384 fids=1.0000 EXACT (consistent with L=20/L=21 N=4096 series); Q-B1 d281 d5=0.896 consistent with monotone d5 decline series (d250=0.932 -> d275=0.903 -> d281=0.896 -> d287=0.884); PP-55 cos=0.99999 N-independent algebraic exactness (Hadamard binding self-inverse property N-independent); PP-58 ratio=2.86 = cap_crit/audit_crit consistent with N=4096 finergrid finding (cap_crit=2.0; ratio degrades at alpha=0.1).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 272nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
