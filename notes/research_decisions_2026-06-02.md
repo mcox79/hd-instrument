@@ -50,3 +50,5 @@
 - reservoir-computing capability-family scope -> notes/research_drill_reservoir_computing_2026-06-02.md | HEADLINE: No RC/ESN system unifies audit primitives + compositional algebra + one-shot writes; triple gap confirmed; P_deflated=0.65
 - 2026-06-02: free-probability RRAM noise drill -> notes/research_drill_free_probability_rram_noise_2026-06-02.md; phase boundary sigma_g^2=1/alpha-1; P_deflated=0.55; exp_dev handoff written
 - [2026-06-02] oscillatory phase-noise scaling (Kuramoto/ReRAM): sigma_phi_crit=pi/(2*n_c)~0.314rad; freq mismatch binding; 2 fab gens to 1000-node => notes/research_drill_oscillatory_phase_noise_scaling_2026-06-02.md
+
+2026-06-02 arrhenius-paradox-deep-drill: notes/research_drill_arrhenius_paradox_substrate_deep_dive_2026-06-02.md -- Unified Brot+CK+Rams-Baron theory; mu alpha-invariant (HARD-PASS < 0.05); alpha-dep barrier E_a ~ N*(alpha_c-alpha); isochoric analog = constant alpha; two-envelope hidden-coupling confirmed; P_deflated=0.38

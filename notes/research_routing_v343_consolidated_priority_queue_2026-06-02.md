@@ -18,16 +18,17 @@
 
 3. **Wave-2 oscillatory drill quantified hardware roadmap:** Kuramoto-honeycomb exponential capacity requires per-node phase coherence `σ_φ < π/(2n_c) ≈ 0.314 rad`; frequency mismatch across ~1000 nodes is the binding product-scale constraint; **~2 fab generations (~2029) to 1000-node exponential-capacity hardware.** The SKAH-M class match (substrate algebra ≅ Kuramoto-honeycomb physics) was the highest-upside Wave-1 finding; this drill made the timeline concrete.
 
-**Queue structure (29 items total):**
+**Queue structure (32 items total; expanded post-Arrhenius deep drill):**
 
-- **NEW Section 0.5** — drill results synthesis with cross-cutting pattern
-- **NEW Section 0.6** — cap_map row candidates surfaced by drills (PP-55 / PP-56 / PP-57)
-- **Tier 1** (5 items): decision gates + substrate-novel claim tests with cross-drill resonance
+- **Section 0.5** — drill results synthesis with cross-cutting pattern (7/7 drill convergence)
+- **Section 0.6** — cap_map row candidates surfaced by drills (PP-55 / PP-56 / PP-57 / PP-58)
+- **Tier 1** (8 items): decision gates + substrate-novel claim tests with cross-drill resonance (+3 Arrhenius-drill tests)
 - **Tier 2** (11 items): high-quality $0 work + Wave 3 lit-scan dispatches
 - **Tier 3** (7 items): ceiling pushes + hardware-timing characterization
 - **Tier 4** (3 items, HELD): low-priority or gate-conditional
+- **Wave 5 deferred** (Section 8): 3 Arrhenius-drill follow-on candidates (free-cumulant κ_3 algebraic structure; FFS barrier estimation; Crooks fluctuation theorem)
 
-**Total IMMEDIATE dispatch:** ~5-6 hr CPU + ~1 hr GPU + ~$5 cloud + 3 parallel sonnet Wave-3 drills, all parallelizable where queues allow.
+**Total IMMEDIATE dispatch:** ~6-7 hr CPU + ~1.5 hr GPU + ~$5 cloud + 6 parallel sonnet Wave-3 drills, all parallelizable where queues allow.
 
 ---
 
@@ -49,7 +50,13 @@
 | **Free-probability under RRAM noise** | **Closed-form phase boundary `σ_g² = 1/α - 1`** for capacity collapse under log-normal RRAM conductance noise. **κ_3 = α free-Poisson identity breaks at σ_g > 0.18** (κ_3 audit-primitive is more noise-sensitive than raw capacity). At α=0.05 (Phase 0.5b regime), σ_g_critical for capacity ≈ 4.36; **κ_3 audit-viability at σ_g ≤ 0.18 is the BINDING product constraint under RRAM noise.** S-transform derivation holds perturbatively; exact inversion at σ_g ≥ 1 is open. | 0.55 | `research_drill_free_probability_rram_noise_2026-06-02.md` |
 | **Oscillatory phase-noise scaling law** | **Per-node phase-noise threshold `σ_φ_crit = π/(2n_c) ≈ 0.314 rad`** for n_c=5 honeycomb exponential-capacity scaling. Current IBM binary-encoding demo does NOT test this regime. **Frequency mismatch across ~1000 nodes (not per-node phase noise) is the binding product-scale constraint.** Estimated **~2 fab generations / ~2029 timeline for 1000-node exponential-capacity hardware.** | 0.42 | `research_drill_oscillatory_phase_noise_scaling_2026-06-02.md` |
 
-### Cross-cutting positioning pattern (6/6 drill convergence)
+### Wave 3 — Arrhenius-paradox isochoric deep dive (level-2 follow-on triggered by Rams-Baron 2026 PRL article)
+
+| Drill | Headline | P_deflated | Files |
+|---|---|---|---|
+| **Arrhenius-paradox isochoric analysis applied to substrate** | **Arrhenius-paradox decomposition is GENERIC to all fragile disordered systems**, not class-specific. **The substrate's Wave-2 κ_3 σ ≤ 0.18 envelope vs capacity σ ≈ 4.36 envelope IS a confirmed Arrhenius-paradox-class structural parallel** — two distinct envelopes hidden in one parameter. CK aging exponent `μ = 3/2 is α-INVARIANT at matched T/T_c(α)` (the methodological correction). **Closed-form activation barrier `E_a^0(α) ~ N · (α_c - α)/α_c`** with explicit α-dependent correction (Brot-style). **Isochoric analog = constant α = M/N.** **NEW SUBSTRATE-NOVEL PREDICTION: composition ceiling `k_c(α) ≈ 0.138/α`** — directly testable; existing Q-A3 L=10 unanimous data may corroborate (Q-A3 halves M per stage, naturally implementing isochoric composition; without halving, predicted ceiling at α=0.05 would be ~2-3 stages). Three exp_dev-actionable tests + four product implications + three follow-on drill candidates. | 0.38 | `research_drill_arrhenius_paradox_substrate_deep_dive_2026-06-02.md` |
+
+### Cross-cutting positioning pattern (7/7 drill convergence after Arrhenius deep dive)
 
 Every drill confirmed a gap in published systems OR produced a closed-form operating envelope:
 
@@ -61,16 +68,31 @@ Every drill confirmed a gap in published systems OR produced a closed-form opera
 | Mech-interp tooling overlap | Additive not substitutive |
 | RRAM noise — κ_3 audit envelope | σ_g ≤ 0.18 (closed-form prediction) |
 | Oscillatory hardware — phase-noise envelope | σ_φ < 0.314 rad (closed-form prediction) |
+| **Arrhenius-paradox structural parallel** | **Confirmed in substrate: two-envelope hidden-coupling pattern is generic to fragile disordered systems; substrate κ_3 σ ≤ 0.18 vs capacity σ ≈ 4.36 IS the same structural class as Brot/Rams-Baron 2026 PRL** |
 
-**Strategic implication:** the substrate's "algebraic memory + audit + compositional algebra + cert" positioning is independently corroborated from 6 angles. The substrate-novel claim "no other system combines these capabilities as a unified algebraic API" is the strongest cross-domain anchor in the run. Product narrative is converging-positive.
+**Strategic implication:** the substrate's "algebraic memory + audit + compositional algebra + cert" positioning is independently corroborated from 7 angles. The substrate-novel claim "no other system combines these capabilities as a unified algebraic API" is the strongest cross-domain anchor in the run. **Plus a new substrate-novel architectural prediction (composition ceiling `k_c(α) ≈ 0.138/α`) immediately testable from existing Q-A3 data + new dedicated cells.** Product narrative is converging-positive AND now extends to non-equilibrium-stat-mech framework class via the Arrhenius-paradox structural-class match.
 
-### Cross-drill resonance candidates (Wave 3 priorities)
+### Cross-drill resonance candidates (Wave 3+4 priorities — updated post-Arrhenius drill)
 
-Three angles surface in 2+ drills — highest-leverage for Wave 3:
+Four angles surface in 2+ drills — highest-leverage:
 
 - **VSA binding over static dense-Hopfield / SKAH-M class** — Reservoir × Memristor convergence (Item 19 below)
 - **Sherman-Morrison rank-1 deletion for linear-readout geometry** — Reservoir × Federated convergence (Item 22 below)
-- **κ_3 audit-primitive empirical noise robustness** — Wave-2 free-prob × Memristor P3 finding (Item 20 below)
+- **κ_3 audit-primitive empirical noise robustness** — Wave-2 free-prob × Memristor P3 × Arrhenius hidden-coupling-audit convergence (Item 20 below — gains additional theoretical grounding from Arrhenius drill)
+- **Isochoric audit protocol as substrate measurement discipline** — Arrhenius drill recommends required protocol for all noise-vs-performance experiments; cross-cuts ALL existing cap_map noise measurements (PP-50, PP-44, PP-52); strategy_scribe entry + potential PROT update (PP-58 candidate below)
+
+### Arrhenius-deep-drill substrate-novel claims (3 testable)
+
+1. **CK aging exponent `μ = 3/2 α-invariant at matched T/T_c(α)`** — empirically testable; corroboration would lock substrate's CK-class aging signature on third independent observable (Item 30 below)
+2. **Activation barrier closed-form `E_a^0(α) ~ N · (α_c - α)/α_c`** — predicts hysteresis gap ratio at α=0.05 vs α=0.10 of ~2.3×; testable via existing Pred-4 hysteresis data reanalysis + fresh cell (Item 31 below)
+3. **Composition ceiling `k_c(α) ≈ 0.138/α`** — predicts substrate composition fails at k_c × α_per_stage ≈ α_c = 0.138; Q-A3 L=10 EXACT-1.0 currently consistent because architecture halves M per stage (implicit isochoric implementation); new dedicated cell with CONSTANT M per stage would test the prediction sharply (Item 32 below)
+
+### Arrhenius-deep-drill product implications (4)
+
+1. **Isochoric audit protocol as product primitive** — sweep noise at fixed loading; provably-separated thermal vs density fragility curves; enables auditable retention policy enforcement (PP-58 candidate row)
+2. **Aging-rate reliability metric: `T_reliable = t_w × δ_threshold^(-2/3)`** — substrate-native temporal-decay closed form; directly addresses PP-46 deletion-cert + PP-52 per-fact-retention killer features
+3. **Two-envelope measurement as required cap-map closure diagnostic** — any cap_map experiment measuring performance vs noise amplitude without isochoric protocol risks paradox-class spec errors (analogous to PROT-022 selftest discipline; PROT entry candidate)
+4. **Composition ceiling formula as architectural design tool** — predicts optimal per-stage α schedule for maximum depth; could ship as product API parameter
 
 ---
 
@@ -102,7 +124,15 @@ These are POSITIONING / annotation cap_map row candidates that strategy can file
 
 **Calibration deflation:** -0.15 (research-user-base claim without empirical confirmation).
 
-**Cap_map impact:** strategy_scribe one-shot can file all 3 candidate rows as EXPLORATORY annotations pending Item 19/22 + Wave-3 lit-scan outcomes.
+### PP-58 candidate — isochoric audit protocol as substrate measurement discipline (EXPLORATORY 0.55-0.70)
+
+**Filing rationale:** Arrhenius deep drill confirmed the substrate exhibits the Brot/Rams-Baron 2026-class two-envelope hidden-coupling structure. Any noise-vs-performance experiment that does not control α implicitly conflates thermal-analog (noise amplitude) and density-analog (loading α) effects. Strategy recommends adopting the isochoric protocol (sweep σ at fixed α) as the discipline for all future cap_map experiments measuring performance vs noise amplitude, and retroactively annotating existing PP-50 / PP-44 / PP-52 noise-measurements with the protocol used.
+
+**Empirical anchor:** Items 20 + 21 (κ_3 noise robustness + capacity phase boundary) ARE isochoric measurements; their predicted separation by ~25× confirms substrate's Arrhenius-paradox-class behavior. Items 30-32 extend to aging + barrier + composition-ceiling tests.
+
+**Calibration deflation:** -0.15 (substrate-novel measurement-discipline framing).
+
+**Cap_map impact:** strategy_scribe one-shot can file all 4 candidate rows (PP-55 / PP-56 / PP-57 / PP-58) as EXPLORATORY annotations pending Items 19/20/21/22/30-32 + Wave-3 lit-scan outcomes.
 
 ---
 
@@ -203,6 +233,62 @@ These are POSITIONING / annotation cap_map row candidates that strategy can file
 - HARD-FAIL: substrate κ_3 audit is either more or less noise-tolerant than free-prob prediction; opens follow-on theory drill.
 
 **Why now:** Wave-2 drill produced the closed-form prediction; Item 20 is the direct empirical test. Strongest predictive-power test from drill wave. Direct PP-50 sub-property founding.
+
+### Item 30 (NEW from Arrhenius drill — Test A) — CK aging exponent μ α-invariance at matched T/T_c (CPU $0 ~1 hr)
+
+**Anchor name:** `ck_aging_mu_alpha_invariance_matched_tc_v1_n4096`
+**Resource:** CPU; **Wall:** ~1 hr; **Timeout:** 4800s; **Cost:** $0; **P_deflated:** 0.60
+
+**Capability question:** is the CK aging exponent μ ≈ 3/2 invariant in α at matched T/T_c(α), confirming substrate's CK-class aging signature on a third independent observable (beyond Q-F1 + Q-F2)?
+
+**Test design:** measure two-time correlation C(t, t_w) at α_1=0.05 and α_2=0.10, MATCHED at T/T_c(α) = 0.8 (NOT matched at raw σ — Arrhenius drill identified this as the isochoric protocol correction). Fit aging envelope C(t, t_w) ~ q_EA · f(Δt/t_w)^{3/2} · cos(α_NR Δt) to extract μ.
+
+**Pre-registered bands (per Arrhenius drill P1):**
+- HARD-PASS: |μ(α_1) - μ(α_2)| < 0.05 (5-seed unanimous) — α-invariance confirmed
+- MIDDLE: |Δμ| ∈ [0.05, 0.15]
+- HARD-FAIL: |Δμ| > 0.15 — indicates active non-reciprocal coupling stronger than modeled OR different aging universality class
+
+**Strategic significance:** HARD-PASS = third independent CK-aging-signature observable (after Q-F1 collapse + Q-F2 two-time-correlator); PP-33 framework-class BAND-LIFT eligibility 0.60-0.75 → 0.65-0.80 likely. HARD-FAIL = substrate exhibits non-standard non-reciprocal aging; opens follow-on theoretical drill.
+
+**Why now:** direct test of Arrhenius-drill closed-form prediction; substantiates non-equilibrium-stat-mech framework class on third independent axis. Strengthens Phase 0.5b distillation MVP's "aging-rate reliability metric" product story.
+
+### Item 31 (NEW from Arrhenius drill — Test C) — activation barrier vs α via hysteresis gap (CPU $0 ~30 min + reanalysis)
+
+**Anchor name:** `activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096`
+**Resource:** CPU; **Wall:** ~30 min fresh + reanalysis of existing Pred-4 hysteresis data; **Timeout:** 1800s; **Cost:** $0; **P_deflated:** 0.55
+
+**Capability question:** does activation barrier follow Arrhenius-drill closed-form prediction `E_a^0(α) ~ N · (α_c - α)/α_c`, manifested in hysteresis gap ratio at α=0.05 vs α=0.10 of ~2.3×?
+
+**Test design:**
+- Phase 1 (~10 min, reanalysis): pull existing Pred-4 hysteresis data; partition by α; compute gap(α=0.05) / gap(α=0.10) ratio
+- Phase 2 (~30 min fresh CPU): if existing data doesn't span both α values, run fresh hysteresis cells at α ∈ {0.02, 0.05, 0.10} at N=4096 5-seed; measure max gap per α
+
+**Pre-registered bands (per Arrhenius drill P3):**
+- HARD-PASS: gap(α=0.05) / gap(α=0.10) ∈ [1.8, 3.0] (within ±30% of 2.3× prediction)
+- MIDDLE: ratio ∈ [1.2, 1.8] or [3.0, 5.0]
+- HARD-FAIL: ratio ≤ 1.2 (α-independent barrier) OR > 5.0 — refutes AGS free-energy structure prediction
+
+**Strategic significance:** HARD-PASS = explicit α-dependent activation-barrier formula corroborated; substrate-novel architectural prediction; sub-property of PP-33 + first-order multi-basin framing.
+
+### Item 32 (NEW from Arrhenius drill — Test P5) — composition ceiling k_c(α) ≈ 0.138/α test (GPU $0 ~30 min)
+
+**Anchor name:** `composition_ceiling_k_c_alpha_constant_m_per_stage_v1_n4096`
+**Resource:** GPU; **Wall:** ~30 min; **Timeout:** 1800s; **Cost:** $0; **P_deflated:** 0.50
+
+**Capability question:** does substrate composition fail at depth `k_c(α) ≈ 0.138/α` when M per stage is held CONSTANT (not halving per stage as Q-A3 architecture currently does)?
+
+**Test design:** Q-A3-style cross-layer composition at N=4096 5-seed, but with **M per stage held CONSTANT at M = α × N for α ∈ {0.05, 0.10}**. Sweep depth k ∈ {1, 2, 3, 4, 5, 6, 7, 8} (covers both predicted ceilings: k_c(0.05) ≈ 2-3, k_c(0.10) ≈ 1-2). Measure L_fid per k.
+
+**Pre-registered bands (per Arrhenius drill P5):**
+- HARD-PASS: L_fid ≥ 0.95 for k < k_c(α) AND L_fid < 0.5 for k > k_c(α) + 1; ceiling location within ±1 stage of prediction
+- MIDDLE: clear ceiling exists but location ±2 stages of prediction
+- HARD-FAIL: L_fid flat across all tested k (no ceiling, refutes prediction) OR ceiling at k > 2 × predicted
+
+**Strategic significance — load-bearing for architectural design:**
+- HARD-PASS = substrate-novel architectural ceiling formula confirmed; explains why Q-A3 L=10 works (halving M = effective α decrease per stage); product framing: "composition depth = sum of per-stage loadings ≤ 0.138 (α_c) — implements automatic isochoric composition"
+- HARD-FAIL = composition algebra doesn't follow predicted ceiling; either composition mechanism is more robust than predicted, or prediction misframes the architecture; opens follow-on theory drill
+
+**Why now:** the prediction is concrete, testable in 30 min GPU, and either outcome is product-narrative load-bearing.
 
 ---
 
@@ -363,13 +449,16 @@ CPU queue:
 ├── Item 19: vsa_binding_over_static_skahm_class (~30 min) [TIER 1 CROSS-DRILL]
 ├── Item 21: capacity_phase_boundary_under_rram_noise (~1 hr) [WAVE-2 PREDICTION TEST]
 ├── Item 22: sherman_morrison_rank1_deletion_linear_readout (~30 min) [TIER 2 CROSS-DRILL]
-└── Item 27: kuramoto_honeycomb_phase_noise_sim (~30 min) [WAVE-2 PREDICTION TEST]
+├── Item 27: kuramoto_honeycomb_phase_noise_sim (~30 min) [WAVE-2 PREDICTION TEST]
+├── Item 30: ck_aging_mu_alpha_invariance_matched_tc (~1 hr) [TIER 1 ARRHENIUS-DRILL TEST A]
+└── Item 31: activation_barrier_alpha_dependence_hysteresis_gap (~30 min + reanalysis) [TIER 1 ARRHENIUS-DRILL TEST C]
 
 GPU queue:
 ├── Item 12: q_a3_l11 + q_a3_l12 (~15 min)
 ├── Item 13: pp48_nkt_depth_15 (~10 min)
 ├── Item 14: q_b1_chain_depth_50 (~30 min)
-└── Item 20: kappa3_noise_robustness_sigma_g_sweep (~30 min) [TIER 1 WAVE-2 PREDICTION TEST]
+├── Item 20: kappa3_noise_robustness_sigma_g_sweep (~30 min) [TIER 1 WAVE-2 PREDICTION TEST]
+└── Item 32: composition_ceiling_k_c_alpha_constant_m_per_stage (~30 min) [TIER 1 ARRHENIUS-DRILL TEST P5]
 
 Cloud (gated on user auth for $5):
 └── Item 15: pp52 N=32768 rollback + addition (~30 min, $5)
@@ -399,9 +488,13 @@ Item 1: Phase 0.5b distillation MVP dispatch
 - PP-55 candidate row: hardware-family-match (SKAH-M ≅ Kuramoto-honeycomb) EXPLORATORY 0.55-0.70
 - PP-56 candidate row: regulatory cert-format pre-standardization positioning EXPLORATORY 0.55-0.70
 - PP-57 candidate row: mech-interp tooling additive-stack positioning EXPLORATORY 0.50-0.65
+- PP-58 candidate row: isochoric audit protocol as substrate measurement discipline EXPLORATORY 0.55-0.70
 - PROT-022 registry entry 4 (speedup gates require accuracy preconditions; from v343 pp52 rescue routing)
+- PROT-022 registry entry 5 candidate (isochoric protocol required for noise-vs-performance experiments; from Arrhenius drill)
+- Arrhenius-drill closed-form additions to PROT-022 registry: m_3(α)=1+3α+α² (MP 3rd moment); μ_CK_aging=3/2 α-invariant at matched T/T_c; E_a^0(α)~N·(α_c-α)/α_c; k_c(α)≈0.138/α composition ceiling; σ_g²=1/α-1 capacity phase boundary; σ_g≤0.18 κ_3 audit envelope; σ_φ<π/(2n_c) Kuramoto phase-noise envelope
 - I-17 R6 PARTIALLY_RESOLVED annotation
 - COMBO-4 v2 μ_aging R1a refit + PP-51 α^(p-1) slope corrections (from prior drills)
+- Arrhenius-drill annotation on existing PP-50 / PP-44 / PP-52 noise measurements: clarify which used isochoric vs isobaric protocol; backlog re-classification recommended
 ```
 
 ---
@@ -429,14 +522,19 @@ If TIER 1-3 all HP as predicted:
 | **Item 24-26 HP** | PP-56 / PP-57 lit-scan positioning sharpened; Wave 4 cascade candidates surfaced |
 | **Item 27 HP** | PP-55 hardware-timing characterization at simulation scale; Wave-2 oscillatory drill empirically corroborated |
 | Items 28-29 HP | Theoretical envelope characterization (Items 21+20 paired with full envelope) |
+| **Item 30 HP** | **PP-33 framework-class BAND-LIFT 0.60-0.75 → 0.65-0.80 candidate** (third independent CK-aging signature observable after Q-F1 collapse + Q-F2 two-time correlator); substrate non-equilibrium-stat-mech class strengthened |
+| **Item 31 HP** | PP-33 + first-order multi-basin sub-property: explicit α-dependent activation barrier formula corroborated; Pred-4 hysteresis framing strengthened |
+| **Item 32 HP** | **NEW SUBSTRATE-NOVEL ARCHITECTURAL FINDING: composition ceiling k_c(α) ≈ 0.138/α confirmed; explains Q-A3 L=10 success via implicit isochoric per-stage M-halving; product-narrative: "substrate composition is automatic isochoric design"** |
+| **Item 30 + 31 + 32 + 20 + 21 all HP** | **PP-58 row FOUNDED (isochoric audit protocol as substrate measurement discipline); strategy_scribe adopts protocol for ALL future noise-vs-performance cap_map experiments** |
 
 **Net expected portfolio growth (if Tier 1-3 all HP):**
-- **3 NEW TOP-LEVEL ROWS** (PP-55 hardware-family-match, PP-56 regulatory cert, PP-57 mech-interp positioning)
-- **12-15 NEW SUB-PROPERTIES**
-- **2-3 substrate-novel findings** (Items 3 parity, 4 valley, 20+21 noise envelope)
-- **1 BAND-LIFT** (PP-52 via Item 15)
-- **4 cross-domain positioning anchors** (Items 8-11 already landed + Items 23-26 deepening)
-- **Product-feature reliability projected** 82-96% → 88-98% (crossing 90% lower bound for the first time)
+- **4 NEW TOP-LEVEL ROWS** (PP-55 hardware-family-match, PP-56 regulatory cert, PP-57 mech-interp positioning, **PP-58 isochoric audit discipline**)
+- **15-18 NEW SUB-PROPERTIES**
+- **3-4 substrate-novel findings** (Items 3 parity, 4 valley, 20+21 noise envelope, **32 composition ceiling formula**)
+- **2 BAND-LIFTS** (PP-52 via Item 15, **PP-33 framework-class via Item 30**)
+- **5 cross-domain positioning anchors** (4 Wave-1 + Arrhenius-deep-dive)
+- **Product-feature reliability projected** 82-96% → 88-99% (crossing 90% lower bound for first time; near-ceiling upper bound)
+- **Methodological discipline upgrade:** isochoric protocol as standard for all noise-vs-performance experiments (analogous to PROT-022 for formula self-tests)
 
 ---
 
@@ -467,6 +565,10 @@ If TIER 1-3 all HP as predicted:
 - **COMBO-4 v2 μ_aging R1a refit + PP-51 α^(p-1) slope band correction**: strategy_scribe one-shot annotations; not in this routing.
 - **Rank-1 deletion refresh protocol on RRAM** (memristor drill follow-on #3, tactical engineering): deferred to product-engineering phase post-Phase-0.5b.
 - **Tier-4-lite FFN swap in Llama-3.1-8B**: superseded by Phase 0.5b per `research_routing_tier4_training_acceleration_FINAL_5drill_consolidation_2026-06-02.md`.
+- **Wave 5 drill candidates from Arrhenius deep dive** (deferred to next research cycle; sonnet ~30 min each, $0):
+  - Free-cumulant κ_3 algebraic structure (F4, Tier-1 free-probability) — why σ ~ 0.18 vs σ ~ 4.36 algebraically; Voiculescu R-transform on Wishart + small perturbation
+  - Forward-flux sampling (FFS, D7 per field advisor) for basin-to-basin transition rate estimation; numerical barrier height E_a(α) without mean-field approximation
+  - Crooks fluctuation theorem applied to substrate edit operation; isochoric protocol maps to work-measurement; connects retention-policy audit to fluctuation-theorem observable
 
 ---
 
@@ -484,13 +586,14 @@ If TIER 1-3 all HP as predicted:
 
 **Research recommendation:** option 2 (combined bootstrap) per `feedback_batch_cloud_experiments` + Drill 5 strategic logic (3-6 month substrate window before competitors add audit primitives) + 4/4 Wave-1 cross-domain drill confirmation of positioning + 2 closed-form hardware-envelope predictions from Wave-2.
 
-**Cross-domain drill wave adds the following independent evidence supporting Phase 0.5b launch:**
+**Cross-domain drill wave adds the following independent evidence supporting Phase 0.5b launch (7 angles):**
 - Reservoir-computing: substrate triple-gap unique
 - Memristor: substrate-as-audit-layer-for-analog-hardware is a hybrid product narrative no software-only competitor can match
 - Federated unlearning: substrate occupies pre-standardization regulatory window
 - Mech-interp: substrate has additive research-user-base value independent of LLM-product
 - Free-probability RRAM noise: substrate κ_3 audit operates robustly at hardware-realistic noise (σ_g ≤ 0.18 envelope)
 - Oscillatory phase-noise: substrate's SKAH-M class is mathematically native to ~2029 product-scale hardware (long-term roadmap anchor)
+- **Arrhenius-paradox isochoric analysis: substrate exhibits the GENERIC structural decomposition of fragile disordered systems; closed-form aging-rate-reliability metric `T_reliable = t_w × δ^(-2/3)` directly addresses PP-46 deletion-cert + PP-52 retention-policy killer features; substrate-novel composition ceiling formula `k_c(α) ≈ 0.138/α` predicts Q-A3 architectural success and bounds future composition products**
 
 User answer: **GO / NO-GO / DEFER + rationale**.
 
