@@ -740,3 +740,57 @@ d5 per seed: {0.8996, 0.9001, 0.8996, 0.9000, 0.9006}; mean=0.9000. HP d5>=0.90 
 **Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 277th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
 
 **Cap_map version: v366.**
+
+## v366 -> v367 (2026-06-03) Wave-5 Decisive #3 verdict: pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 MIDDLE_BAND MIXED; PP-49 HRC counterfactual mechanism UNRESOLVED; HONEST 609->610; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 278th PROT-009 paired commit
+
+## Step 0: Honest re-read (MANDATORY) -- Wave-5 Decisive #3
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 | MIDDLE_BAND | MIDDLE_BAND HONEST: parity_confirmed=False (no alternating +/- pattern; no even-d EXACT; no odd-d chance structure in either protocol); proto_confirmed=False (pred_start NOT monotone <=0.50; root_start NOT smooth >=0.95 except trivial d1=1.000 at root-start). Only signal: root_start d1=1.000 EXACT all 5 seeds (trivial: depth-1 under root-start is structurally guaranteed). All other 79 cells at chance level. MIXED label accurate; parity and protocol-artifact predictions both REFUTED at N=4096. | NONE |
+
+**LVH delta: 0. Label HONEST. LVH count stays at 211.**
+
+## Cap_map table (v366 -> v367)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 | 19.1s CPU | 4096 | 5 | MIDDLE_BAND | Both mechanism predictions REFUTED: parity-class (no +/- alternation; no even-d EXACT pattern) + protocol-artifact (pred_start not monotone; root_start not smooth >=0.95 except trivial d1=1.000) both fail; all non-trivial cells at chance level across d=1..8 | PP-49 HRC counterfactual-mechanism sub-property annotation: mechanism discriminator UNRESOLVED at N=4096 d=1..8; both competing predictions refuted; trivial d1 root-start signal (guaranteed by construction) confirmed; non-trivial counterfactual recovery absent; band 0.70-0.85 UNCHANGED; R1-R5 rescue sketches filed |
+
+**(A) PP-49 HRC counterfactual mechanism UNRESOLVED -- Wave-5 Decisive #3 result.**
+pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 GENUINE FULL MIDDLE_BAND (wall=19.1s, n_seeds=5, N=4096, run_mode=full, source=remote).
+
+Discrimination result: BOTH predictions REFUTED.
+- Parity-class: predicted cf_cos alternates +/- with even-d EXACT and odd-d near-chance. Actual: no alternating structure; d2=-0.034 (chance), d4=-0.021 (chance), d6=+0.133 (weak, non-zero), d8=-0.114 (negative). No even-d EXACT signal. Parity-class REFUTED.
+- Protocol-artifact: predicted pred_start cf_cos <=0.50 monotone; root_start >=0.95 smooth. Actual: pred_start non-monotone (d8=0.211 is largest value, not monotone decline); root_start only d1=1.000 EXACT (trivially guaranteed: depth-1 under root-start). All root_start d2-d8 at chance. Protocol-artifact REFUTED.
+
+Key finding: root-start d1=1.000 is structurally trivial (every seed, guaranteed by construction). Non-trivial counterfactual recovery at depth>1 is absent at N=4096 under both protocols.
+
+Mechanism status: genuinely UNRESOLVED. Both proposed mechanisms falsified. d8=0.211 pred_start outlier (per-seed: 0.378/0.056/0.321/0.470/-0.169) is high-variance non-significant noise.
+
+Product-API design implication: PP-49 HRC counterfactual abduction via cf_cos at depth>1 is NOT confirmed at N=4096 d=1..8. Prior HARD_PASS sub-property (pp49_hrc_counterfactual_depth_8_v1_n4096 HP at d=8, v341) likely used different HRC architecture or cf measurement. Band 0.70-0.85 UNCHANGED; prior HARD_PASS sub-properties stand independently.
+
+Rescue sketches (cheapest-first per PROT-004/006):
+- R1 (0-compute, APPLIED) Annotation: mechanism-discriminator UNRESOLVED at N=4096 d=1..8; both predictions refuted; trivial d1 root-start only signal.
+- R2 (10min diagnostic) Cross-ref v341 pp49_hrc_counterfactual_depth_8_v1_n4096 script vs present: identify HRC architecture delta or cf measurement formula delta producing HP in v341 vs chance here. Free audit.
+- R3 (2-4h CPU) N-scale probe N=8192 same sweep d=1..8 both protocols: larger N may sharpen parity signal if mechanism exists. Prerequisite: R2 reconciliation first.
+- R4 (4-8h CPU) Alternative cf measurement: HRC_B1-style heteroassociative cf (subtraction of stored binding vs query binding) instead of rank-1 W substitution cf_cos. More direct substrate-level counterfactual measure.
+- R5 (parking) If R2 audit shows v341 HP was cert/ds_cos not cf_cos, close mechanism-discriminator sub-property; PP-49 main row intact.
+
+**Tallies (v366 -> v367).**
+- HONEST: 609 -> 610 (+1: 1 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED.
+- Sub-properties NEW: PP-49 HRC depth-parity mechanism discriminator UNRESOLVED annotation.
+- PP-49 band 0.70-0.85 UNCHANGED.
+- Framework reliability product-feature: UNCHANGED.
+
+**PROT compliance (v366 -> v367).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. Rescue sketches R1-R5 cheapest first (R1 applied inline; R2 free diagnostic; R3 N-scale CPU; R4 alternative cf; R5 parking).
+- PROT-007/008: v367 block appended. No portfolio regression.
+- PROT-009: 278th PROT-009 paired commit.
+- PROT-018: _n4096 suffix binding confirmed (N=4096 OK). No violations.
+- PROT-021: source=remote run_mode=full n_seeds=5. No smoke artifact.
+- PROT-022: root_start d1=1.000 structurally guaranteed (self-consistent: depth-1 root-start MUST=1.000 for deterministic substrate confirmed). All other cells near-zero consistent with chance (N=4096 noise scale ~0.016). No formula contradiction.
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 278th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

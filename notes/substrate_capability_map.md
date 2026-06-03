@@ -8430,3 +8430,15 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 **Tallies (v365 -> v366).** HONEST 604->609 (+5: 5 HP; 0 LVH). LVH 211 UNCHANGED. Portfolio 32+77 UNCHANGED. BAND-LIFTS: 1 (PP-12/Q-A3 0.80-0.93->0.82-0.95). N=16384 series PP-12/Q-A3: {L=20..L=46} 27 rungs; L=46 deepest in project. Sub-properties NEW (5): PP-12/Q-A3 L=43/44/45/46 N=16384 + L=26 N=8192. PROT-004/006: 0 closures; 1 BAND-LIFT; 0 new rows. PROT-009: 277th paired commit. PROT-018: all 5 bindings OK. PROT-021: all 5 source=remote full 5-seed. Push BLOCKED from sub-agent context.
 
 **Cap_map version: v366.**
+
+## v366 -> v367 (2026-06-03) Wave-5 Decisive #3: pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 MIDDLE_BAND MIXED; PP-49 HRC counterfactual mechanism UNRESOLVED (both parity-class + protocol-artifact predictions REFUTED); HONEST 609->610; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 278th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | pp49_hrc_depth_parity_discriminator_sweep_v1_n4096 | 19.1s CPU | 4096 | 5 | MIDDLE_BAND | Both mechanism predictions REFUTED: parity-class (no +/- alternation; no even-d EXACT) + protocol-artifact (pred_start non-monotone; root_start only trivial d1=1.000); all non-trivial cells at chance level d=1..8 | PP-49 HRC counterfactual mechanism-discriminator annotation: UNRESOLVED at N=4096 d=1..8; both predictions falsified; trivial d1 root-start confirmed (structural guarantee); non-trivial cf_cos absent; band 0.70-0.85 UNCHANGED; R1-R5 rescue filed cheapest-first |
+
+**PP-49 HRC mechanism UNRESOLVED -- Wave-5 Decisive #3.** Both parity-class and protocol-artifact predictions refuted. Only signal: root_start d1=1.000 (structural guarantee). Non-trivial counterfactual recovery absent at N=4096 d=1..8. API design implication: cf_cos at depth>1 NOT confirmed in this architecture. Prior HP sub-properties (pp49_hrc_counterfactual_depth_8_v1_n4096 v341) stand independently; likely different HRC architecture. R2 script audit is cheapest next diagnostic.
+
+**Tallies (v366 -> v367).** HONEST 609->610 (+1: 1 MIDDLE_BAND; 0 LVH). LVH 211 UNCHANGED. Portfolio 32+77 UNCHANGED. PROT-004/006: 0 closures; 0 new rows; 0 BAND-LIFTS; R1-R5 rescue sketches cheapest-first. PROT-009: 278th paired commit. PROT-018: _n4096 binding OK. PROT-021: source=remote run_mode=full n_seeds=5. Push BLOCKED from sub-agent context.
+
+**Cap_map version: v367.**
