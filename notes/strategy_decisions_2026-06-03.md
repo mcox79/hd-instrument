@@ -365,3 +365,53 @@ NOTE on anchor 2: q_b1_chain_depth_250 verdict label says "BAND-LIFT eligible 0.
 - PROT-022: Q-A3 L30 fids=1.0000 EXACT consistent with L=2..L=29 series (self-consistent); Q-A3 L31 fids=1.0000 EXACT consistent with L=2..L=30 series; Q-A3 L24 N=8192 fids=1.0000000342 EXACT-class consistent with prior N=8192 pattern (L=19/L=22/L=23 same float value).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 270th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 29 BATCH (4 verdicts, v359->v360)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l32_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 32 fids=1.0000 EXACT unanimous 5/5; l32_acc=1.0000; source=remote run_mode=full; label accurate | NONE |
+| 2 | q_a3_l33_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 33 fids=1.0000 EXACT unanimous 5/5; l33_acc=1.0000; source=remote run_mode=full; label accurate | NONE |
+| 3 | q_a3_l25_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 25 fids=1.0000000342 (EXACT-class) unanimous 5/5 at N=8192; N-scale confirmed at L=25; source=remote run_mode=full; label accurate | NONE |
+| 4 | q_b1_bisect_d287_v1_n16384 | HARD_FAIL | HARD_FAIL: d5=0.8842(HP>=0.9 NOT MET); d100=0.1216(HP>=0.2 NOT MET); d200=0.0005(HP>=0.02 NOT MET); d287=0.0009(HF<0.001 TRIGGERED); chain collapses after d50; label accurate | NONE |
+
+**LVH delta: 0. All 4 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v359 -> v360)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l32_cross_layer_composition_v1_n4096 | 0.80s GPU | 4096 | 5 | HARD_PASS | All 32 fids EXACT-1.0000 unanimous 5/5; l32_acc=1.0000; 18th consecutive L-extension (L=15..L=32) | PP-12/Q-A3 L=32 sub-property; ceiling NOT found; L-series L=2..L=32 EXACT at N=4096; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l33_cross_layer_composition_v1_n4096 | 0.82s GPU | 4096 | 5 | HARD_PASS | All 33 fids EXACT-1.0000 unanimous 5/5; l33_acc=1.0000; 19th consecutive L-extension (L=15..L=33) | PP-12/Q-A3 L=33 sub-property; ceiling NOT found; L-series L=2..L=33 EXACT at N=4096; longest streak L=15..L=33; band 0.75-0.90 UNCHANGED |
+| 3 | q_a3_l25_cross_layer_composition_v1_n8192 | 2.01s GPU | 8192 | 5 | HARD_PASS | All 25 fids=1.0000000342 (EXACT-class) unanimous 5/5 at N=8192; 5th N=8192 rung | PP-12/Q-A3 L=25 N=8192 sub-property; 5th N=8192 rung (series: L=19,L=22,L=23,L=24,L=25); 2-N cross-N at L=25; composition N-independent through L=25; band 0.75-0.90 UNCHANGED |
+| 4 | q_b1_bisect_d287_v1_n16384 | 751.7s GPU | 16384 | 5 | HARD_FAIL | d5=0.8842(HP>=0.9 not met); d50=0.722; d100-d287 near-zero; chain collapses after d50; onset window narrows to d=275(HP) to d=287(HF) | Q-B1/PP-49a d287 bisect HARD_FAIL; onset window: (275,287); next bisect d=281; band 0.87-0.97 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=32 sub-property (18th consecutive L-extension).**
+All 32 level fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.80s). l32_acc=1.0000. L-series at N=4096 now L=2..L=32 all EXACT-1.0000. Streak: L=15..L=32 (18 consecutive). Ceiling NOT found at L=32. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=32 N=4096 EXACT-1.0 unanimous 5-seed; 18th consecutive L-extension (L=15..L=32); ceiling not reached; L=33 in same batch; N=8192 cross-N gap at L=25 bridged (same batch).'
+
+**(B) PP-12/Q-A3 L=33 sub-property (19th consecutive L-extension; longest streak L=15..L=33).**
+All 33 level fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.82s). l33_acc=1.0000. L-series at N=4096 now L=2..L=33 all EXACT-1.0000. Longest streak: L=15..L=33 (19 consecutive). Ceiling NOT found at L=33. Band 0.75-0.90 UNCHANGED. L=33 is power-of-2-plus-1 confirming no bitcount-boundary artifacts. Sub-property annotation: 'L=33 N=4096 EXACT-1.0 unanimous 5-seed; 19th consecutive L-extension (L=15..L=33); L-series L=2..L=33 ALL EXACT at N=4096; ceiling not found through L=33; L=34 or N=8192 cross-N at L=26+ are natural next steps.'
+
+**(C) PP-12/Q-A3 L=25 N=8192 sub-property (5th N=8192 rung).**
+All 25 fidelities=1.0000000342 (EXACT-class float) unanimous 5-seed at N=8192 (wall=2.01s). l25_acc=1.0000000342. Two-N cross-N at L=25: N=4096 (v356 EXACT-1.0000) + N=8192 (v360 EXACT-class). N=8192 series now {L=19, L=22, L=23, L=24, L=25} all EXACT-class. Composition N-independent confirmed at L<=25 both N-scales. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=25 N=8192 EXACT-class unanimous 5-seed; 5th N=8192 rung; 2-N cross-N at L=25; N-independent through L=25; L=26..L=33 at N=8192 pending; ceiling N-independent through L=25.'
+
+**(D) Q-B1/PP-49a d287 bisect HARD_FAIL -- onset window narrows to (275, 287).**
+d5=0.8842 (HP>=0.9 NOT MET); d20=0.8394 (HP>=0.75 MET); d50=0.7219 (HP>=0.5 borderline); d100=0.1216 (HP>=0.2 NOT MET); d200=0.0005 (HP>=0.02 NOT MET); d287=0.0009 (HF<0.001 TRIGGERED). Chain collapses onset d50-d100. d5 progression: d200 d5=0.989 -> d250 d5=0.932 -> d275 d5=0.903 -> d287 d5=0.884 (monotone decline, progressive loading). Bisect narrows onset to (275, 287). Next bisect: (275+287)//2 = 281. Band 0.87-0.97 UNCHANGED. Rescue sketches (cheapest first): R1 d=281 bisect GPU ~750s (primary); R2 condition audit flat-regime vs deep-regime loading comparison (free diagnostic); R3 load-matched d=287 re-run at flat-regime conditions (~750s GPU; secondary). Annotation: 'Q-B1 d287 N=16384 HARD_FAIL (v360): d5=0.884/d287=0.0009; onset window (275,287); next bisect d=281; R1 d=281 bisect (primary); R2 condition audit (free); R3 load-matched re-run (secondary); band 0.87-0.97 UNCHANGED.'
+
+**Tallies (v359 -> v360).**
+- HONEST: 568 -> 572 (+4: 3 HP + 1 HF; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 4 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; no BAND-LIFTS; 4 sub-property additions).
+- Sub-properties NEW (4): PP-12/Q-A3 L=32 N=4096 (18th L-extension) + PP-12/Q-A3 L=33 N=4096 (19th consecutive; longest streak L=15..L=33; L=2..L=33 all EXACT) + PP-12/Q-A3 L=25 N=8192 (5th N=8192 rung) + Q-B1 d287 N=16384 HARD_FAIL (onset window (275,287); next bisect d=281).
+- Framework reliability: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v359 -> v360).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. Q-B1 d287 HARD_FAIL rescue: R1 d=281 bisect; R2 condition audit [free]; R3 load-matched re-run. Cheapest first.
+- PROT-007/008: v360 block appended. No portfolio regression.
+- PROT-009: 271st PROT-009 paired commit.
+- PROT-018: all 4 bindings confirmed (_n4096 x2, _n8192 x1, _n16384 x1).
+- PROT-021: all 4 source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 L32/L33 fids=1.0000 (31-ctx/32-ctx Hadamard roundtrip VERIFIED); Q-A3 L25 N=8192 fid=1.0000000342 (consistent EXACT-class pattern); Q-B1 d287 bisect midpoint (275+287)//2=281 NEXT; d5 monotone decline documented.
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 271st PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

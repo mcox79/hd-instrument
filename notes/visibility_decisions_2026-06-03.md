@@ -46,3 +46,12 @@ Anchors:
 - q_a3_l30_cross_layer_composition_v1_n4096: HARD_PASS (0.74s GPU, all 30 fids=1.0, 5-seed)
 - q_a3_l31_cross_layer_composition_v1_n4096: HARD_PASS (0.76s GPU, all 31 fids=1.0, 5-seed)
 - q_a3_l24_cross_layer_composition_v1_n8192: HARD_PASS (198.1s GPU, all 24 fids EXACT-class, 5-seed)
+
+## CYCLE 29 BATCH (v359->v360, 2026-06-03)
+
+- q_a3_l32_cross_layer_composition_v1_n4096: HARD_PASS. All 32 fids=1.0000 EXACT unanimous 5/5 at N=4096. 18th consecutive L-extension (L=15..L=32). PP-12 L=32 sub-property added. Band 0.75-0.90 UNCHANGED.
+- q_a3_l33_cross_layer_composition_v1_n4096: HARD_PASS. All 33 fids=1.0000 EXACT unanimous 5/5 at N=4096. 19th consecutive L-extension; longest streak L=15..L=33; L=2..L=33 all EXACT. PP-12 L=33 sub-property added. Band 0.75-0.90 UNCHANGED.
+- q_a3_l25_cross_layer_composition_v1_n8192: HARD_PASS. All 25 fids=1.0000000342 (EXACT-class) unanimous 5/5 at N=8192. 5th N=8192 rung. N-independent through L=25 confirmed. PP-12 L=25 N=8192 sub-property added. Band 0.75-0.90 UNCHANGED.
+- q_b1_bisect_d287_v1_n16384: HARD_FAIL. d5=0.8842 (HP>=0.9 not met); d287=0.0009 (HF<0.001 triggered). Onset window narrows to (275,287). Next bisect d=281. Band 0.87-0.97 UNCHANGED. R1 d=281 bisect scheduled.
+- LVH delta: 0. HONEST: 568->572. LVH: 211 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+- Atomic commit v359->v360. 271st PROT-009 paired commit.
