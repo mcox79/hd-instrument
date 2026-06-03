@@ -323,3 +323,45 @@ NOTE on anchor 2: q_b1_chain_depth_250 verdict label says "BAND-LIFT eligible 0.
 - PROT-022: Q-A3 L29 fids=1.0000 EXACT consistent with L=2..L=28 series; Q-A3 L23 N=8192 fid=1.0000000342 consistent with prior N=8192 EXACT-class pattern; Q-B1 d275 flat-profile max_spread=0.016 (negligible); PP-33 R3c nf_crit monotone with alpha (direction correct; magnitude insufficient for rescue confirmed).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 269th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 28 BATCH (3 verdicts, v358->v359)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l30_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 30 fids=1.0000 EXACT unanimous 5/5; l30_acc=1.0000; source=remote run_mode=full; label accurate | NONE |
+| 2 | q_a3_l31_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 31 fids=1.0000 EXACT unanimous 5/5; l31_acc=1.0000; source=remote run_mode=full; label accurate | NONE |
+| 3 | q_a3_l24_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 24 fids=1.0000000342 (EXACT-class float) unanimous 5/5 at N=8192; l24_acc=1.0000000342; source=remote run_mode=full; label accurate | NONE |
+
+**LVH delta: 0. All 3 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v358 -> v359)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l30_cross_layer_composition_v1_n4096 | 0.74s GPU | 4096 | 5 | HARD_PASS | All 30 fids EXACT-1.0000 unanimous 5/5; l30_acc=1.0000; 16th consecutive L-extension (L=15..L=30) | PP-12/Q-A3 L=30 sub-property; ceiling NOT found; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l31_cross_layer_composition_v1_n4096 | 0.76s GPU | 4096 | 5 | HARD_PASS | All 31 fids EXACT-1.0000 unanimous 5/5; l31_acc=1.0000; 17th consecutive L-extension (L=15..L=31) | PP-12/Q-A3 L=31 sub-property; ceiling NOT found; L-series now L=2..L=31 EXACT at N=4096; band 0.75-0.90 UNCHANGED |
+| 3 | q_a3_l24_cross_layer_composition_v1_n8192 | 198.1s GPU | 8192 | 5 | HARD_PASS | All 24 fids=1.0000000342 (EXACT-class) unanimous 5/5 at N=8192; 4th N=8192 rung; N=8192 series {L=19,L=22,L=23,L=24} | PP-12/Q-A3 L=24 N=8192 sub-property; N-scale gap extended at L=24; band 0.75-0.90 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=30 sub-property (16th consecutive L-extension; longest streak now L=15..L=30).** q_a3_l30_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS. All 30 level fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.74s). l30_acc=1.0000. L-series at N=4096 now L=2..L=30 all EXACT-1.0000. Longest streak: L=15..L=30 (16 consecutive). Ceiling NOT found at L=30. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=30 N=4096 EXACT-1.0 unanimous 5-seed; 16th consecutive L-extension (L=15..L=30); ceiling not reached; L=31 N=4096 and N=8192 cross-N at L=24..L=30 remain open.'
+
+**(B) PP-12/Q-A3 L=31 sub-property (17th consecutive L-extension; L-series L=2..L=31 EXACT at N=4096).** q_a3_l31_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS. All 31 level fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=0.76s). l31_acc=1.0000. L-series at N=4096 now L=2..L=31 all EXACT-1.0000. Longest streak: L=15..L=31 (17 consecutive extensions without ceiling). Ceiling NOT found at L=31. Band 0.75-0.90 UNCHANGED. The entire L=2..L=31 series at N=4096 is EXACT-1.0000 with zero fidelity deviation; this constitutes the most comprehensive depth sweep in the project history for cross-layer composition. Sub-property annotation: 'L=31 N=4096 EXACT-1.0 unanimous 5-seed; 17th consecutive L-extension (L=15..L=31); L-series L=2..L=31 ALL EXACT at N=4096; ceiling not reached through L=31; N-scale gap L=24..L=31 at N=8192 remains open; L=32 N=4096 or N=8192 cross-N at L=24/L=25 recommended.'
+
+**(C) PP-12/Q-A3 L=24 N=8192 sub-property (4th N=8192 rung; N-scale gap extended at L=24).** q_a3_l24_cross_layer_composition_v1_n8192 GENUINE FULL HARD_PASS. All 24 fidelities=1.0000000342 (EXACT-class float, same pattern as prior N=8192 runs) unanimous 5-seed at N=8192 (wall=198.1s). l24_acc=1.0000000342. Two-N cross-N at L=24: N=4096 (v355 EXACT-1.0000) + N=8192 (v359 EXACT-class). N=8192 series now {L=19, L=22, L=23, L=24} all EXACT-class. Composition N-independent confirmed at L<=24 both N-scales. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=24 N=8192 EXACT-class unanimous 5-seed; 4th N=8192 rung (series: L=19,L=22,L=23,L=24); 2-N cross-N at L=24 {N=4096+N=8192}; composition N-independent through L=24; N-scale gap L=25..L=31 at N=8192 pending; ceiling N-independent through L=24.'
+
+**Tallies (v358 -> v359).**
+- HONEST: 565 -> 568 (+3: 3 HP; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 3 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; no BAND-LIFTS; 3 sub-property additions).
+- Sub-properties NEW (3): PP-12/Q-A3 L=30 N=4096 (16th L-extension; longest streak L=15..L=30) + PP-12/Q-A3 L=31 N=4096 (17th L-extension; L=2..L=31 all EXACT) + PP-12/Q-A3 L=24 N=8192 (4th N=8192 rung; N-scale gap extended to L=24).
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v358 -> v359).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. No rescue sketches required (no failures).
+- PROT-007/008: v359 block appended. No portfolio regression.
+- PROT-009: 270th PROT-009 paired commit.
+- PROT-018: all 3 _n<N> suffix bindings confirmed (_n4096 x2: n4096 matches N=4096; _n8192 x1: n8192 matches N=8192). No violations.
+- PROT-021: all 3 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 L30 fids=1.0000 EXACT consistent with L=2..L=29 series (self-consistent); Q-A3 L31 fids=1.0000 EXACT consistent with L=2..L=30 series; Q-A3 L24 N=8192 fids=1.0000000342 EXACT-class consistent with prior N=8192 pattern (L=19/L=22/L=23 same float value).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 270th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

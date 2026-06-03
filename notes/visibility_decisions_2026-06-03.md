@@ -37,3 +37,12 @@ CYCLE 23 BATCH v353->v354 (2026-06-03): 7 verdicts processed. 5 HP + 2 MIDDLE_BA
 
 
 [v358 CYCLE 27 | 2026-06-03] 3 HP + 1 HF (0 LVH): Q-A3 L=29 N=4096 EXACT-1.0 15th-streak; Q-A3 L=23 N=8192 EXACT-class N-scale gap bridged; Q-B1 d275 N=16384 FLAT bisect onset d275-300; PP-33 activation-barrier sub-property CLOSED (R3a+R3b+R3c exhausted; PP-33 row 0.40-0.55 UNCHANGED); HONEST 561->565; LVH 211; Portfolio 32+77 UNCHANGED; 269th PROT-009.
+
+## Cycle 28 (v358 -> v359) -- 2026-06-03
+
+3 HARD_PASS; 0 LVH; PP-12/Q-A3 depth series: L=30+L=31 N=4096 (17th consecutive; L=2..L=31 all EXACT) + L=24 N=8192 (4th N=8192 rung). No BAND-LIFTS. HONEST 565->568. LVH 211 UNCHANGED. Portfolio 32+77 UNCHANGED. 270th PROT-009 paired commit.
+
+Anchors:
+- q_a3_l30_cross_layer_composition_v1_n4096: HARD_PASS (0.74s GPU, all 30 fids=1.0, 5-seed)
+- q_a3_l31_cross_layer_composition_v1_n4096: HARD_PASS (0.76s GPU, all 31 fids=1.0, 5-seed)
+- q_a3_l24_cross_layer_composition_v1_n8192: HARD_PASS (198.1s GPU, all 24 fids EXACT-class, 5-seed)

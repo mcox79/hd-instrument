@@ -8195,3 +8195,17 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 
 - **Cap_map version: v358.**
 
+
+## v358 -> v359 (2026-06-03) Cycle 28 batch; 3 HP; 0 LVH; PP-12/Q-A3 L=30+L=31 N=4096 (16th+17th consecutive extensions; L=2..L=31 all EXACT); PP-12/Q-A3 L=24 N=8192 (4th N=8192 rung; N-scale gap extended to L=24); HONEST 565->568; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 270th PROT-009 paired commit
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l30_cross_layer_composition_v1_n4096 | 0.74s GPU | 4096 | 5 | HARD_PASS | All 30 fids EXACT-1.0000 unanimous 5/5; l30_acc=1.0000; 16th consecutive L-extension (L=15..L=30) | PP-12/Q-A3 L=30 sub-property; ceiling NOT found; band 0.75-0.90 UNCHANGED |
+| 2 | q_a3_l31_cross_layer_composition_v1_n4096 | 0.76s GPU | 4096 | 5 | HARD_PASS | All 31 fids EXACT-1.0000 unanimous 5/5; l31_acc=1.0000; 17th consecutive L-extension (L=15..L=31) | PP-12/Q-A3 L=31 sub-property; L-series L=2..L=31 EXACT at N=4096; ceiling NOT found; band 0.75-0.90 UNCHANGED |
+| 3 | q_a3_l24_cross_layer_composition_v1_n8192 | 198.1s GPU | 8192 | 5 | HARD_PASS | All 24 fids=1.0000000342 (EXACT-class) unanimous 5/5 at N=8192; 4th N=8192 rung | PP-12/Q-A3 L=24 N=8192 sub-property; N=8192 series {L=19,L=22,L=23,L=24}; N-scale gap extended to L=24; band 0.75-0.90 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=30 added (16th consecutive L-extension; longest streak L=15..L=30).** q_a3_l30_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS. All 30 level fidelities EXACT-1.0000 unanimous 5-seed (wall=0.74s, elapsed=0.742s remote). l30_acc=1.0000. L-series L=2..L=30 all EXACT-1.0000. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=30 N=4096 EXACT-1.0 unanimous 5-seed; 16th consecutive (L=15..L=30); ceiling not found; L=31 and N=8192 cross-N eligible.'
+
+**(B) PP-12/Q-A3 L=31 added (17th consecutive; L-series L=2..L=31 EXACT at N=4096).** q_a3_l31_cross_layer_composition_v1_n4096 GENUINE FULL HARD_PASS. All 31 level fidelities EXACT-1.0000 unanimous 5-seed (wall=0.76s). l31_acc=1.0000. L-series at N=4096 now L=2..L=31 all EXACT-1.0000 -- 17 consecutive extensions without ceiling. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=31 N=4096 EXACT-1.0 unanimous 5-seed; 17th consecutive (L=15..L=31); L=2..L=31 all EXACT at N=4096; ceiling not reached through L=31; N=8192 cross-N at L=24..L=31 open.'
+
+**(C) PP-12/Q-A3 L=24 N=8192 (4th N=8192 rung; N-scale gap extended to L=24).** q_a3_l24_cross_layer_composition_v1_n8192 GENUINE FULL HARD_PASS. All 24 fids=1.0000000342 (EXACT-class float) unanimous 5-seed at N=8192 (wall=198.1s). l24_acc=1.0000000342. N=8192 series now {L=19, L=22, L=23, L=24} all EXACT-class. Two-N cross-N at L=24: N=4096+N=8192. Composition N-independent through L=24. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=24 N=8192 EXACT-class 5-seed; 4th N=8192 rung (L=19,L=22,L=23,L=24); 2-N cross-N at L=24 confirmed; N-independent ceiling through L=24; L=25..L=31 N=8192 pending.'
