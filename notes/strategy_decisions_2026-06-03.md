@@ -52,3 +52,62 @@
 - PROT-022: Q-A3 L-fidelity EXACT-1.0000 self-consistent both runs; Q-B1 d150 per-hop lambda formula confirmed lambda~0; PP-58 ratio=cap_crit/audit_crit=4.000/0.500=8.00 VERIFIED; capacity N=8192 sigma_g_crit 4-alpha confirmed.
 
 **Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 263rd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 23 BATCH (7 verdicts, v353->v354)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l22_cross_layer_composition_v1_n4096 | HARD_PASS | HARD_PASS: all 22 fids=1.0000 EXACT unanimous 5/5; l22_acc=1.0000; label accurate | NONE |
+| 2 | q_a3_l19_n_scale_v1_n8192 | HARD_PASS | HARD_PASS: all 19 fids~1.0000 (float: 1.0000000342) unanimous 5/5 at N=8192; N-scale confirmed; label accurate | NONE |
+| 3 | q_b1_chain_depth_200_v1_n16384 | HARD_PASS | HARD_PASS: d5..d200 all ~0.969-0.971 FLAT; d200=0.969>>HP=0.02 (48x); per-hop lambda~0; label accurate | NONE |
+| 4 | vsa_binding_n8192_v2_n8192 | HARD_PASS | HARD_PASS: mean_cos=0.99999 5/5 seeds all cos>0.999; seeds_hp=5/5>>HP=4/5; PP-55 BAND-LIFT gate met; label accurate | NONE |
+| 5 | pp56_sherman_morrison_cert_drop_n16384_v3_n16384 | HARD_PASS | HARD_PASS: cert_ratio=6.09e-05 (theory=6.10e-05; 0.2% match); retained_delta=2.10e-04; 5/5 unanimous; PP-56 3-N gate met; label accurate | NONE |
+| 6 | activation_barrier_r3_theory_proxy_v1_n4096 | MIDDLE_BAND | MIDDLE_BAND: ratio=None (nf_crit(alpha=0.10) at grid boundary ~0.50; b_fit mean=0.006 near-zero); HP (b<0.70 AND ratio>1.30) NOT met; MIDDLE correct | NONE |
+| 7 | pp58_isochoric_kappa3_multialpha_v1_n4096 | MIDDLE_BAND | MIDDLE_BAND: a0.1 ratio=3.00 (HP boundary exactly); a0.2 ratio=2.00 (below HP>=3.0); worst_ratio=2.00 in [1.5,3.0); cap_crit exact match pred both alphas; MIDDLE correct | NONE |
+
+**LVH delta: 0. All 7 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v353 -> v354)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l22_cross_layer_composition_v1_n4096 | 1.59s GPU | 4096 | 5 | HARD_PASS | All 22 fids EXACT-1.0000 unanimous 5/5; ceiling NOT found | PP-12/Q-A3 L=22 sub-property; band 0.75-0.90 UNCHANGED; L=23+ eligible |
+| 2 | q_a3_l19_n_scale_v1_n8192 | 1.57s GPU | 8192 | 5 | HARD_PASS | All 19 fids ~1.0000 unanimous 5/5 at N=8192; N-scale confirmed | PP-12/Q-A3 N-scale sub-property: L=19 EXACT-1.0 at N=8192; N-independent composition; band 0.75-0.90 UNCHANGED |
+| 3 | q_b1_chain_depth_200_v1_n16384 | 470.8s GPU | 16384 | 5 | HARD_PASS | d5..d200 FLAT ~0.969; d200=0.969>>HP=0.02 (48x margin) | Q-B1/PP-49a BAND-LIFT 0.85-0.95->0.87-0.97 (4th consecutive N=16384 flat-profile: d80/d100/d150/d200) |
+| 4 | vsa_binding_n8192_v2_n8192 | 25.2s CPU | 8192 | 5 | HARD_PASS | mean_cos=0.99999; 5/5 seeds; seeds_hp=5/5 >> HP=4/5 | PP-55 BAND-LIFT 0.65-0.80->0.70-0.85 (2-N cross-N gate N=4096+N=8192 met) |
+| 5 | pp56_sherman_morrison_cert_drop_n16384_v3_n16384 | 259.1s CPU | 16384 | 5 | HARD_PASS | cert_ratio=6.09e-05 (theory 6.10e-05; 0.2%); retained_delta=2.10e-04; 5/5 unanimous | PP-56 BAND-LIFT 0.70-0.85->0.75-0.88 (3-N cross-N: N=4096+N=8192+N=16384 all algebraically exact) |
+| 6 | activation_barrier_r3_theory_proxy_v1_n4096 | 134.4s CPU | 4096 | 5 | MIDDLE_BAND | ratio=None (grid-edge); b_fit~0.006 near-zero; HP gates NOT met | PP-33 R3 grid-edge annotation: extended grid or larger N required; sub-MIDDLE (near-zero b); band 0.40-0.55 UNCHANGED |
+| 7 | pp58_isochoric_kappa3_multialpha_v1_n4096 | ~106s CPU | 4096 | 5 | MIDDLE_BAND | a0.1 ratio=3.00 (HP boundary); a0.2 ratio=2.00 (MIDDLE); cap_crit exact pred both alphas | PP-58 R3 multi-alpha PARTIAL: cap_crit scaling confirmed; ratio alpha-dependent; MIDDLE band 0.55-0.70 UNCHANGED |
+
+**(A) PP-12/Q-A3 L=22 sub-property.** All 22 fidelities EXACT-1.0000 unanimous 5-seed at N=4096 (wall=1.59s). 8th consecutive L-extension (L=15..L=22). Ceiling NOT found at L=22. Band 0.75-0.90 UNCHANGED. Sub-property annotation: 'L=22 N=4096 EXACT-1.0 unanimous 5-seed; ceiling not reached; L=23+ eligible; cross-N at L=22 N=8192 preferred given L=19 N=8192 HARD_PASS confirms N-independence.'
+
+**(B) PP-12/Q-A3 N-scale sub-property: L=19 at N=8192.** First N-scale confirmation for PP-12 Q-A3 cross-layer composition. All 19 fidelities ~1.0000 (float: 1.0000000342; EXACT-class) at N=8192 5-seed. L=19 EXACT-1.0 at BOTH N=4096 (v352) and N=8192 (v354) = composition fidelity N-independent up to N=8192. Band 0.75-0.90 UNCHANGED. Annotation: 'L=19 EXACT-1.0 at N=8192 5-seed; composition N-independent at L=19; ceiling is N-independent.'
+
+**(C) Q-B1/PP-49a BAND-LIFT 0.85-0.95 -> 0.87-0.97.** GENUINE FULL HARD_PASS. d5=0.969 d200=0.970 FLAT profile at N=16384 5-seed (wall=470.8s). Four consecutive N=16384 flat-profile confirmations: {d80:v348, d100:v351, d150:v353, d200:v354}. Per-hop fidelity: 0.970^(1/200)~0.99985/hop; lambda_empirical~0.00015/hop (within noise floor). d200 vs HP=0.02: actual 0.969 = 48.5x margin. BAND-LIFT VALID: lower 0.85->0.87, upper 0.95->0.97, reflecting 4 consecutive N=16384 confirmations to d=200. Product framing: substrate heteroassociative chains maintain >0.969 fidelity at N=16384 across 200 sequential hops with near-zero depth-dependent decay; 200-hop chain is maximum tested to date at production N.
+
+**(D) PP-55 BAND-LIFT 0.65-0.80 -> 0.70-0.85.** GENUINE FULL HARD_PASS. mean_cos=0.99999 5/5 seeds (N=8192 alpha=0.05 M=409). Seeds_hp=5/5 >> HP=4/5. Two-N cross-N gate: N=4096 founding HP (v349) + N=8192 (v354). Per prereg: 2-rung cross-N = BAND-LIFT trigger. Lit-scan calibration penalty maintained. Band: 0.65-0.80 -> 0.70-0.85 VALIDATED (algebraic side, 2-N cross-N). Product framing: VSA bind-unbind algebra exactly preserved over SKAH-M-class substrate at production N=8192; substrate is simultaneously VSA compute layer and SKAH-M attractor memory.
+
+**(E) PP-56 BAND-LIFT 0.70-0.85 -> 0.75-0.88.** GENUINE FULL HARD_PASS. cert_ratio=6.09e-05 (theory=6.10e-05; 0.2% match). retained_delta=2.10e-04 (HP<0.10). All 5 seeds unanimous. Theory lam/(lam+N=16384)=1/16385=0.000061 matched to 0.2%. ALGEBRAICALLY EXACT at N=16384. 3-rung cross-N gate passed: {N=4096 v351, N=8192 v352, N=16384 v354}. Per prereg: 3-rung = 0.70-0.85 -> 0.75-0.88. Lit-scan calibration penalty maintained. Product framing: deletion algebraic cert drops to 0.006% of original at N=16384; substrate provides algebraically exact deletion certificates scalable to production N; regulatory cert positioning STRONG at 3-N.
+
+**(F) PP-33 R3 rescue GRID-EDGE: activation_barrier_r3_theory_proxy_v1_n4096.** MIDDLE_BAND. ratio=None: nf_crit(alpha=0.10) at boundary of 0.00..0.60 grid (all values 0.495-0.505); b_fit mean=0.006 (near-zero; nf_crit near-constant across alphas at N=4096). HP gate (b<0.70 AND ratio>1.30) NOT met. PP-33 band 0.40-0.55 UNCHANGED. Annotation appended to PP-33: 'R3 activation_barrier theory proxy: grid-edge result at N=4096; nf_crit(alpha=0.10) sits at grid boundary 0.50 (cannot compute ratio); b_fit~0 (flat curve); sublinear compression NOT confirmed, NOT refuted; extended grid 0.00..0.90 required. Rescue candidates (cheapest first): R3a extended grid same N=4096 (0.00..0.90 step 0.01; ~3h CPU); R3b N=8192 same grid (~6h CPU); R3c lower alpha values to push nf_crit below 0.60 boundary.'
+
+**(G) PP-58 R3 multi-alpha PARTIAL: pp58_isochoric_kappa3_multialpha_v1_n4096.** MIDDLE_BAND. a0.1: cap_crit=3.000 (exact pred 3.000), audit_crit=1.000 (grid-limited at sigma_g=1.0 first above-baseline crossing), ratio=3.00 (HP boundary). a0.2: cap_crit=2.000 (exact pred 2.000), audit_crit=1.000 (grid-limited), ratio=2.00. cap_crit scaling law confirmed exact at both alphas (sigma_g_cap_crit=sqrt(1/alpha - 1) holds to 0%). audit_crit grid limited (sigma_g grid coarse at high values; 0.5 and 1.0 are adjacent grid points; true audit_crit between these). Key finding: cap_crit scaling exact; ratio degrades with alpha (3.0 at alpha=0.1 vs 2.0 at alpha=0.2); separation confirmed but narrowing. PP-58 MIDDLE band 0.55-0.70 UNCHANGED. Annotation: 'R3 multi-alpha: cap_crit exact (both alphas per sqrt(1/alpha-1)); ratio alpha-dependent: 3x at alpha=0.1 (HP boundary), 2x at alpha=0.2 (MIDDLE); audit_crit grid-limited at sigma_g=1.0; R3b finer sigma_g grid (0.0..2.0 step 0.1) needed to locate audit_crit vs alpha; R4 N-scale secondary.'
+
+**Tallies (v353 -> v354).**
+- HONEST: 537 -> 544 (+7: 5 HP + 2 MIDDLE_BAND; 0 LVH).
+- LVH: 211 UNCHANGED (0 new catches; all 7 labels honest).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; 3 BAND-LIFTS applied).
+- Sub-properties NEW: PP-12/Q-A3 L=22 N=4096 + PP-12/Q-A3 L=19 N=8192 (N-scale first) + Q-B1 d=200 N=16384 flat-profile.
+- BAND-LIFTS: 3 (PP-55: 0.65-0.80->0.70-0.85; PP-56: 0.70-0.85->0.75-0.88; Q-B1/PP-49a: 0.85-0.95->0.87-0.97).
+- Framework reliability product-feature: 85-98% -> 86-98% (+1pp lower bound; Q-B1 4th consecutive N=16384 BAND-LIFT).
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v353 -> v354).**
+- PROT-004/006: No closures. 0 new rows. 3 BAND-LIFTS (PP-55/PP-56/Q-B1). Rescue sketches PP-33 R3a/R3b/R3c (cheapest first); PP-58 R3b finer grid + R4 N-scale.
+- PROT-007/008: v354 block appended. No portfolio regression.
+- PROT-009: 264th PROT-009 paired commit.
+- PROT-018: all 7 _n<N> suffix bindings confirmed (n4096 x3, n8192 x2, n16384 x2).
+- PROT-021: all 7 _source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 L-fidelity EXACT-1.0000 self-consistent (N=4096 L=22 + N=8192 L=19); Q-B1 d200 lambda formula lambda~0.00015/hop (noise floor); PP-56 theory lam/(lam+16384)=0.000061 matched empirical 0.0000609 (0.2%); PP-55 mean_cos=0.99999 consistent with VSA algebraic exactness; PP-58 cap_crit=sqrt(1/alpha-1): a0.1 pred=3.000 actual=3.000, a0.2 pred=2.000 actual=2.000 (exact).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 264th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
