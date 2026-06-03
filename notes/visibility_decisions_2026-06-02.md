@@ -106,3 +106,4 @@ Cycle 16 closes 5 sub-property confirmations. Q-B1 chain fidelity confirmed dept
 | capacity_phase_boundary_under_rram_noise_v1_n4096 | MIDDLE_BAND | 4/4 alpha transitions detected; above-2x correct; transition zone wide (5/10 below violations); safe envelope ~0.5*sigma_g_crit |
 
 Cap_map: v349->v350. HONEST 518->522. LVH 207->208. 260th PROT-009. No closures, no new rows, no band-lifts.
+v351 @ 2026-06-02 Cycle 20 batch 7-verdict: 4 HP (L17/L18 ceiling-push, Q-B1 d-100 N=16384, SM v2) + 1 HF (PP-49 CF) + 1 HP-borderline (capacity_phase) + 1 BELOW_MIDDLE LVH#209 (activation_barrier). Q-B1 BAND-LIFT 0.75-0.90->0.80-0.95 + PP-56 NEW ROW (deletion cert algebraic). HONEST 522->529; LVH 208->209; Portfolio 32+76.
