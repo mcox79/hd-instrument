@@ -687,3 +687,56 @@ d5 per seed: {0.8996, 0.9001, 0.8996, 0.9000, 0.9006}; mean=0.9000. HP d5>=0.90 
 - PROT-022: All 6 Q-A3 anchors fids=1.0000 EXACT (self-consistent with {L=20..L=36} series extending without anomaly); Q-B1 d277 d5=0.9000 mean consistent with monotone decline series {d275:0.903->d277:0.900->d278:0.900->d281:0.896}; flat profile max-spread 0.003 consistent with d278 (v363).
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 276th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v365 -> v366 (2026-06-03) Cycle 35 batch; 5 HP; 0 LVH; PP-12/Q-A3 L=43+L=44+L=45+L=46 N=16384 (rungs 24-27; N=16384 series {L=20..L=46} 27 rungs) + PP-12/Q-A3 L=26 N=8192 (6th N=8192 rung; first at L=26 N=8192); BAND-LIFT PP-12/Q-A3 0.80-0.93->0.82-0.95 (27-rung series; 4-rung extension; 11 rungs beyond N=4096 ceiling); HONEST 604->609; LVH 211 UNCHANGED; Portfolio 32+77 UNCHANGED; 277th PROT-009 paired commit
+
+## Step 0: Honest re-read (MANDATORY)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l43_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 43 fids=1.0000 EXACT unanimous 5/5; l43_acc=1.0000; n_seeds=5 run_mode=full source=remote; label accurate | NONE |
+| 2 | q_a3_l44_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 44 fids=1.0000 EXACT unanimous 5/5; l44_acc=1.0000; n_seeds=5 run_mode=full source=remote; label accurate | NONE |
+| 3 | q_a3_l45_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 45 fids=1.0000 EXACT unanimous 5/5; l45_acc=1.0000; n_seeds=5 run_mode=full source=remote; label accurate | NONE |
+| 4 | q_a3_l46_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 46 fids=1.0000 EXACT unanimous 5/5; l46_acc=1.0000; n_seeds=5 run_mode=full source=remote; label accurate | NONE |
+| 5 | q_a3_l26_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 26 fids=1.0000000342 EXACT-class unanimous 5/5; l26_acc=1.0000; n_seeds=5 run_mode=full source=remote; float artifact 1.0000000342 is EXACT-class per project convention; label accurate | NONE |
+
+**LVH delta: 0. All 5 labels HONEST. LVH count stays at 211.**
+
+## Cap_map table (v365 -> v366)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l43_cross_layer_composition_v1_n16384 | 23.6s GPU | 16384 | 5 | HARD_PASS | All 43 fids EXACT-1.0000 unanimous 5/5; l43_acc=1.0000 | PP-12/Q-A3 L=43 N=16384 sub-property; rung 24; ceiling NOT found |
+| 2 | q_a3_l44_cross_layer_composition_v1_n16384 | 14.7s GPU | 16384 | 5 | HARD_PASS | All 44 fids EXACT-1.0000 unanimous 5/5; l44_acc=1.0000 | PP-12/Q-A3 L=44 N=16384 sub-property; rung 25; ceiling NOT found |
+| 3 | q_a3_l45_cross_layer_composition_v1_n16384 | 15.1s GPU | 16384 | 5 | HARD_PASS | All 45 fids EXACT-1.0000 unanimous 5/5; l45_acc=1.0000 | PP-12/Q-A3 L=45 N=16384 sub-property; rung 26; ceiling NOT found |
+| 4 | q_a3_l46_cross_layer_composition_v1_n16384 | 21.3s GPU | 16384 | 5 | HARD_PASS | All 46 fids EXACT-1.0000 unanimous 5/5; l46_acc=1.0000; NEW DEEPEST in project history | PP-12/Q-A3 L=46 N=16384 sub-property; rung 27; NEW DEEPEST; N=16384 series {L=20..L=46} 27 rungs; BAND-LIFT triggered |
+| 5 | q_a3_l26_cross_layer_composition_v1_n8192 | 2.84s GPU | 8192 | 5 | HARD_PASS | All 26 fids=1.0000000342 EXACT-class unanimous 5/5; l26_acc=1.0000 | PP-12/Q-A3 L=26 N=8192 sub-property; 6th N=8192 rung; 2-N cross-N at L=26 confirmed |
+
+**(A) PP-12/Q-A3 L=43 N=16384 sub-property.** All 43 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=23.6s). Rung 24 in N=16384 series. Ceiling NOT found.
+
+**(B) PP-12/Q-A3 L=44 N=16384 sub-property.** All 44 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=14.7s). Rung 25. Ceiling NOT found.
+
+**(C) PP-12/Q-A3 L=45 N=16384 sub-property.** All 45 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=15.1s). Rung 26. Ceiling NOT found.
+
+**(D) PP-12/Q-A3 L=46 N=16384 sub-property -- BAND-LIFT TRIGGERED.** All 46 fidelities EXACT-1.0000 unanimous 5-seed at N=16384 (wall=21.3s). L=46 is NEW DEEPEST RUNG IN PROJECT HISTORY (prior record L=42 v365). N=16384 series now {L=20..L=46} = 27 contiguous rungs. 11 rungs beyond N=4096 tested ceiling (L=35). Multi-rung convention: 4 new rungs beyond prior record (L=42->L=46) in single batch. BAND-LIFT: 0.80-0.93 -> 0.82-0.95 (+0.02 lower; +0.02 upper; lit-scan calibration penalty maintained). Product framing: substrate cross-layer composition algebraically preserves EXACT-1.0000 fidelity through 46 levels at N=16384; audit API composition moat structurally unbounded through L=46.
+
+**(E) PP-12/Q-A3 L=26 N=8192 sub-property.** All 26 fidelities=1.0000000342 (EXACT-class, float precision artifact) unanimous 5-seed at N=8192 (wall=2.84s). 6th N=8192 rung; first at L=26. N=8192 series now extends through L=26. 2-N cross-N at L=26 {N=4096 v356 + N=8192 v366} confirmed. N-independent composition through L=26. Sub-property annotation: 'L=26 N=8192 EXACT-1.0 unanimous 5-seed; 2-N cross-N {N=4096+N=8192} at L=26 confirmed; N-independence extends through L=26; L=27 N=8192 or L=47 N=16384 eligible next.'
+
+**Tallies (v365 -> v366).**
+- HONEST: 604 -> 609 (+5: 5 HP; 0 LVH).
+- LVH: 211 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED.
+- Sub-properties NEW (5): PP-12/Q-A3 L=43 N=16384 (rung 24) + L=44 N=16384 (rung 25) + L=45 N=16384 (rung 26) + L=46 N=16384 (rung 27; deepest ever) + L=26 N=8192 (6th N=8192 rung; 2-N cross-N at L=26).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.80-0.93 -> 0.82-0.95; 27-rung N=16384 series; 4-rung extension; 11 rungs beyond N=4096 ceiling).
+- Framework reliability product-feature: UNCHANGED.
+
+**PROT compliance (v365 -> v366).**
+- PROT-004/006: NO closures. 1 BAND-LIFT. 5 NEW SUB-PROPERTIES. 0 new rows.
+- PROT-007/008: v366 block appended. No portfolio regression.
+- PROT-009: 277th PROT-009 paired commit.
+- PROT-018: all 5 _n<N> suffix bindings confirmed (n16384 x4, n8192 x1).
+- PROT-021: all 5 source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: All Q-A3 N=16384 fids=1.0000 EXACT self-consistent with prior rungs; Q-A3 L=26 N=8192 fids=1.0000000342 matches N=4096 L=26 EXACT pattern; band lift +0.02/+0.02 consistent with 4-rung multi-rung convention.
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 277th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v366.**

@@ -80,3 +80,4 @@ Cap_map v364: HONEST 592->597; LVH 211 UNCHANGED; 275th PROT-009 commit.
 
 ## CYCLE 34 visibility entry (v364->v365, 2026-06-03)
 - 6 HP (q_a3_l37..l42 N=16384 all EXACT-1.0000) + 1 MIDDLE (q_b1_bisect_d277 onset (275,277]): BAND-LIFT PP-12/Q-A3 0.75-0.90->0.80-0.93 (L=42 deepest in project; 7-rung lead); Q-B1 d277 onset characterization complete; HONEST 597->604; LVH 211 UNCHANGED; 276th PROT-009 paired commit.
+v366 (2026-06-03 Cycle 35): 5 HP Q-A3 (L=43/44/45/46 N=16384 + L=26 N=8192); BAND-LIFT PP-12/Q-A3 0.80-0.93->0.82-0.95; N=16384 series {L=20..L=46} 27 rungs; L=46 new record; 0 LVH; HONEST 604->609.
