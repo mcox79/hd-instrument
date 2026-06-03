@@ -8457,3 +8457,34 @@ PP-52 BAND-LIFT to 0.65-0.80 (flagship) + Q-A3 BAND-LIFT to 0.75-0.90 (flagship 
 **Tallies (v367 -> v368).** HONEST 610->614 (+4: 4 HP; 0 LVH). LVH 211 UNCHANGED. Portfolio 32+77 UNCHANGED. BAND-LIFTS: 1 (PP-12/Q-A3 0.82-0.95->0.83-0.96). N=16384 series PP-12/Q-A3: {L=20..L=48} 29 rungs; L=48 deepest in project. N=8192 series: {L=19, L=22..L=28} 8 rungs. Framework reliability UNCHANGED. PROT-004/006: 0 closures; 1 BAND-LIFT; 0 new rows. PROT-009: 279th paired commit. PROT-018: all 4 bindings OK (n16384 x2; n8192 x2). PROT-021: all 4 source=remote run_mode=full n_seeds=5. Push BLOCKED from sub-agent context.
 
 **Cap_map version: v368.**
+
+## v368 -> v369 (2026-06-03) Cycle 37 batch; 4 HP [Q-A3 L=49+L=50+L=51 N=16384 + L=29 N=8192] + 1 [LVH] MIDDLE Q-B1 d276; BAND-LIFT PP-12/Q-A3 0.83-0.96->0.84-0.97 (L=51 NEW DEEPEST; 32-rung N=16384 series); Q-B1 bisection COMPLETE (onset (275,276] final; safe ceiling=275); LVH 211->212; HONEST 614->619; Portfolio 32+77 UNCHANGED; 280th PROT-009
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l49_cross_layer_composition_v1_n16384 | 17.5s GPU | 16384 | 5 | HARD_PASS | All 49 fids EXACT-1.0000 unanimous 5/5; l49_acc=1.0000; source=remote run_mode=full | PP-12/Q-A3 L=49 N=16384 sub-property; rung 30; N=16384 series {L=20..L=49}; ceiling NOT found; band UNCHANGED pending batch close |
+| 2 | q_a3_l50_cross_layer_composition_v1_n16384 | 17.9s GPU | 16384 | 5 | HARD_PASS | All 50 fids EXACT-1.0000 unanimous 5/5; l50_acc=1.0000; source=remote run_mode=full | PP-12/Q-A3 L=50 N=16384 sub-property; rung 31; ceiling NOT found |
+| 3 | q_a3_l51_cross_layer_composition_v1_n16384 | 25.3s GPU | 16384 | 5 | HARD_PASS | All 51 fids EXACT-1.0000 unanimous 5/5; l51_acc=1.0000; JIT seed-31 8.8s; NEW DEEPEST | PP-12/Q-A3 L=51 N=16384 sub-property; rung 32; NEW DEEPEST; BAND-LIFT 0.83-0.96->0.84-0.97 |
+| 4 | q_b1_bisect_d276_v1_n16384 | 710.0s GPU | 16384 | 5 | [LVH] MIDDLE_BAND | Mean d5=0.9018; seed-31 d5=0.8986 (1/5 <0.90); flat d5..d276; non-unanimity per d277/d278 criterion | Q-B1 bisection FINAL: onset (275,276]; bisection COMPLETE; safe ceiling=275; band 0.87-0.97 UNCHANGED |
+| 5 | q_a3_l29_cross_layer_composition_v1_n8192 | 3.0s GPU | 8192 | 5 | HARD_PASS | All 29 fids=1.0000000342 EXACT-class unanimous 5/5; l29_acc=1.0000; source=remote run_mode=full | PP-12/Q-A3 L=29 N=8192 sub-property; 9th N=8192 rung; 2-N cross-N at L=29 {N=4096+N=8192} confirmed |
+
+**(A) PP-12/Q-A3 L=49,L=50,L=51 at N=16384 (three-rung batch; N=16384 series reaches 32 rungs).** All three EXACT-1.0000 unanimous 5-seed at N=16384 (walls 17.5s/17.9s/25.3s; source=remote; run_mode=full; n_seeds=5). JIT anomaly at L=51 seed-31 (8.8s vs 3.5-5.4s post-warmup; consistent with known JIT warmup pattern at odd seeds; no fidelity anomaly). N=16384 series now {L=20..L=51} = 32 contiguous rungs. L=51 is NEW DEEPEST rung in project history (prior L=48 v368; 16 rungs beyond N=4096 tested ceiling L=35). Band 0.83-0.96 -> 0.84-0.97 (+0.01 both bounds). Sub-property annotations: 'L=49/L=50/L=51 N=16384 EXACT-1.0000 5-seed (rungs 30/31/32); N=16384 series {L=20..L=51} 32 rungs; L=51 NEW DEEPEST; JIT warmup seed-31 at L=51 (8.8s; no fidelity effect); BAND-LIFT 0.83-0.96->0.84-0.97; ceiling not found through L=51.'
+
+**(B) [LVH #212] Q-B1 bisection d=276 HONEST MIDDLE_BAND (label over-claimed HARD_PASS) -- BISECTION SERIES COMPLETE.** verdict_msg claimed HARD_PASS with mean d5=0.9018. Honest re-read: seed-31 d5=0.8986 (1/5 seeds below 0.90; delta=0.0014). Per-seed unanimity NOT met; same criterion as d277/d278. Scientific conclusion IDENTICAL: flat-profile through d=276 confirmed (no collapse; all depths ~0.88). Onset window (275,276] = FINAL at integer resolution. Safe depth ceiling = 275 confirmed. Product boundary: heteroassociative chains <= 275 hops reliable at N=16384 under tested loading. The bisection series {d275 HP, d276 MID, d277 MID, d278 MID, d281 HF} is complete. Band 0.87-0.97 UNCHANGED. Annotation: 'Q-B1 d276 N=16384 HONEST-MIDDLE (v369 LVH#212): mean d5=0.9018 but seed-31=0.8986 (1/5 <0.90); flat d5..d276 no collapse; onset (275,276] FINAL; bisection COMPLETE; safe ceiling=275; band 0.87-0.97 UNCHANGED.'
+
+**(C) PP-12/Q-A3 L=29 N=8192 sub-property (9th N=8192 rung; 2-N cross-N at L=29).** All 29 fids=1.0000000342 (EXACT-class) unanimous 5-seed (wall=3.0s, source=remote, run_mode=full). N=8192 series extends to {L=19, L=22..L=29} = 9 rungs. 2-N cross-N at L=29: {N=4096 v358 + N=8192 v369}. Composition N-independent at L=29 confirmed. Sub-property annotation: 'L=29 N=8192 EXACT-class unanimous 5-seed; 9th N=8192 rung; N=8192 series {L=19, L=22..L=29}; 2-N cross-N at L=29 {N=4096+N=8192} confirmed; N-independent at L=29.'
+
+**Tallies (v368 -> v369).**
+- HONEST: 614 -> 619 (+5: 4 HP + 1 MID; 1 LVH).
+- LVH: 211 -> 212 (+1: q_b1_bisect_d276 HARD_PASS over-claimed; honest = MIDDLE_BAND; d5 non-unanimous 1/5 seeds; same criterion as d277/d278).
+- Portfolio: 32+77 UNCHANGED.
+- Sub-properties NEW (5): PP-12/Q-A3 {L=49,L=50,L=51} N=16384 (rungs 30-32; {L=20..L=51}; L=51 NEW DEEPEST; BAND-LIFT) + PP-12/Q-A3 L=29 N=8192 (9th rung; 2-N cross-N L=29) + Q-B1 d276 HONEST-MIDDLE (bisection COMPLETE; onset (275,276] final; safe ceiling 275).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.83-0.96->0.84-0.97).
+- Q-B1/PP-49a bisection: COMPLETE. Onset window (275,276] final. Safe depth ceiling = 275 at N=16384.
+- N=16384 series PP-12/Q-A3: {L=20..L=51} 32 rungs; L=51 deepest in project.
+- N=8192 series PP-12/Q-A3: {L=19, L=22..L=29} 9 rungs.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+
+**Cap_map version: v369.**

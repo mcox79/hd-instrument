@@ -841,3 +841,53 @@ Rescue sketches (cheapest-first per PROT-004/006):
 - PROT-022: Q-A3 all-EXACT-1.0000 consistent across all 4 anchors; capacity checks alpha<<0.138 at all N; JIT warmup timing consistent with prior L=39/L=41/L=46 seed-7 pattern.
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 279th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 37 BATCH (5 verdicts, v368->v369)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l49_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 49 fids EXACT-1.0000 unanimous 5/5 at N=16384; l49_acc=1.0000; source=remote; run_mode=full; label accurate | NONE |
+| 2 | q_a3_l50_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 50 fids EXACT-1.0000 unanimous 5/5 at N=16384; l50_acc=1.0000; source=remote; run_mode=full; label accurate | NONE |
+| 3 | q_a3_l51_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 51 fids EXACT-1.0000 unanimous 5/5 at N=16384; l51_acc=1.0000; source=remote; run_mode=full; label accurate | NONE |
+| 4 | q_b1_bisect_d276_v1_n16384 | HARD_PASS | LVH: verdict_msg claims HARD_PASS but seed-31 d5=0.8986 < 0.90 (1/5 seeds fails per-seed threshold); mean d5=0.9018; same non-unanimity criterion that classified d277 (3/5 seeds) and d278 (2/5 seeds) as MIDDLE_BAND applies here; honest verdict = MIDDLE_BAND; scientific conclusion (onset window (275,276]; bisection complete at integer resolution) UNCHANGED | LVH +1 |
+| 5 | q_a3_l29_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 29 fids=1.0000000342 EXACT-class unanimous 5/5 at N=8192; l29_acc=1.0000; source=remote; run_mode=full; label accurate | NONE |
+
+**LVH delta: +1. Anchor 4 (q_b1_bisect_d276) HARD_PASS label overridden to MIDDLE_BAND honest. LVH count: 211->212.**
+
+## Cap_map table (v368 -> v369)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l49_cross_layer_composition_v1_n16384 | 17.5s GPU | 16384 | 5 | HARD_PASS | All 49 fids EXACT-1.0000 unanimous 5/5; l49_acc=1.0000; rung 30 in N=16384 series | PP-12/Q-A3 L=49 N=16384 sub-property; rung 30; N=16384 series {L=20..L=49}; ceiling NOT found; band UNCHANGED pending batch close |
+| 2 | q_a3_l50_cross_layer_composition_v1_n16384 | 17.9s GPU | 16384 | 5 | HARD_PASS | All 50 fids EXACT-1.0000 unanimous 5/5; l50_acc=1.0000; rung 31 in N=16384 series | PP-12/Q-A3 L=50 N=16384 sub-property; rung 31; N=16384 series {L=20..L=50}; ceiling NOT found |
+| 3 | q_a3_l51_cross_layer_composition_v1_n16384 | 25.3s GPU | 16384 | 5 | HARD_PASS | All 51 fids EXACT-1.0000 unanimous 5/5; l51_acc=1.0000; JIT anomaly seed-31 8.8s vs 3.5s; NEW DEEPEST rung in project history | PP-12/Q-A3 L=51 N=16384 sub-property; rung 32; NEW DEEPEST; N=16384 series {L=20..L=51}; BAND-LIFT 0.83-0.96->0.84-0.97 |
+| 4 | q_b1_bisect_d276_v1_n16384 | 710.0s GPU | 16384 | 5 | [LVH] MIDDLE_BAND (label: HARD_PASS) | Mean d5=0.9018 but seed-31 d5=0.8986 (1/5 seeds <0.90); d276=0.883 flat; same non-unanimity criterion as d277/d278 -> MIDDLE_BAND honest | Q-B1/PP-49a bisection FINAL: d276 MIDDLE -> onset window (275,276]; integer resolution reached; safe depth ceiling = 275 confirmed; bisection COMPLETE; band 0.87-0.97 UNCHANGED |
+| 5 | q_a3_l29_cross_layer_composition_v1_n8192 | 3.0s GPU | 8192 | 5 | HARD_PASS | All 29 fids=1.0000000342 EXACT-class unanimous 5/5; l29_acc=1.0000; 9th N=8192 rung | PP-12/Q-A3 L=29 N=8192 sub-property; 9th N=8192 rung; 2-N cross-N at L=29 {N=4096 v358+N=8192 v369} CONFIRMED |
+
+**(A) PP-12/Q-A3 L=49, L=50, L=51 at N=16384 (three-rung batch; N=16384 series reaches 32 rungs) + BAND-LIFT.** All three EXACT-1.0000 unanimous 5-seed at N=16384 (walls 17.5s/17.9s/25.3s; source=remote; run_mode=full; n_seeds=5). JIT anomaly at L=51 seed-31 (8.8s vs 3.5s post-warmup; consistent with known JIT warmup pattern; no fidelity anomaly). N=16384 series now {L=20..L=51} = 32 contiguous rungs. L=51 is NEW DEEPEST rung in project history (prior L=48 v368; 16 rungs beyond N=4096 tested ceiling L=35). BAND-LIFT TRIGGERED: 3 new N=16384 rungs {L=49..L=51} + 1 new N=8192 cross-N rung {L=29} = 4 new rungs across N-scales in single batch. Band 0.83-0.96 -> 0.84-0.97 (+0.01 both bounds; lit-scan calibration penalty maintained). Sub-property annotations: 'L=49 N=16384 EXACT-1.0000 5-seed; rung 30.' 'L=50 N=16384 EXACT-1.0000 5-seed; rung 31.' 'L=51 N=16384 EXACT-1.0000 5-seed; rung 32; NEW DEEPEST; JIT warmup seed-31 (8.8s; no fidelity effect); BAND-LIFT 0.83-0.96->0.84-0.97; N=16384 series {L=20..L=51} 32 rungs; ceiling not found.'
+
+**(B) [LVH #212] Q-B1 bisection d=276 HONEST MIDDLE_BAND (label over-claimed HARD_PASS).** verdict_msg claims HARD_PASS with d5=0.9018 mean. Honest re-read: seed-31 d5=0.8986 (1/5 seeds below HP d5>=0.90; delta=0.0014). Per-seed unanimity NOT met. Same criterion applied to d277 (3/5 seeds below -> MIDDLE) and d278 (2/5 seeds below -> MIDDLE): d276 is MIDDLE_BAND honest. Scientific conclusion UNCHANGED: flat-profile continues through d=276 (all depths ~0.88, no collapse), onset window resolves to (275,276]. FINAL bisection at integer resolution. Safe depth ceiling = 275 confirmed. Band 0.87-0.97 UNCHANGED. Annotation: 'Q-B1 d276 N=16384 HONEST-MIDDLE (v369): mean d5=0.9018 but seed-31=0.8986 (1/5 <0.90; non-unanimity per d277/d278 criterion); flat profile d5..d276 no collapse; onset window (275,276] FINAL; bisection COMPLETE; safe depth ceiling=275; band 0.87-0.97 UNCHANGED.'
+
+**(C) PP-12/Q-A3 L=29 N=8192 sub-property (9th N=8192 rung).** All 29 fids=1.0000000342 (EXACT-class) unanimous 5-seed (wall=3.0s, source=remote, run_mode=full). N=8192 series extends to {L=19, L=22..L=29} = 9 rungs. 2-N cross-N at L=29: N=4096 v358 + N=8192 v369. Composition N-independent at L=29 across 2x N range confirmed. Sub-property annotation: 'L=29 N=8192 EXACT-class unanimous 5-seed; 9th N=8192 rung; N=8192 series {L=19, L=22..L=29}; 2-N cross-N at L=29 confirmed.'
+
+**Tallies (v368 -> v369).**
+- HONEST: 614 -> 619 (+5: 4 HP + 1 MID; 1 LVH catch).
+- LVH: 211 -> 212 (+1: q_b1_bisect_d276 HARD_PASS over-claimed; honest = MIDDLE_BAND).
+- Portfolio: 32+77 UNCHANGED.
+- Sub-properties NEW (5): PP-12/Q-A3 {L=49,L=50,L=51} N=16384 (rungs 30-32; {L=20..L=51}; L=51 NEW DEEPEST) + PP-12/Q-A3 L=29 N=8192 (9th N=8192 rung; 2-N cross-N L=29) + Q-B1 d276 HONEST-MIDDLE (bisection COMPLETE; onset (275,276]; safe ceiling 275).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.83-0.96->0.84-0.97; 3 N=16384 rungs + 1 N=8192 cross-N; L=51 new deepest).
+- Q-B1 bisection: COMPLETE at integer resolution. Onset window (275,276] final. Safe depth ceiling = 275 at N=16384.
+- N=16384 series PP-12/Q-A3: {L=20..L=51} 32 rungs; L=51 deepest in project.
+- N=8192 series PP-12/Q-A3: {L=19, L=22..L=29} 9 rungs.
+- Framework reliability product-feature: UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v368 -> v369).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.83-0.96->0.84-0.97). No failures requiring rescue.
+- PROT-007/008: v369 block appended. No portfolio regression.
+- PROT-009: 280th PROT-009 paired commit.
+- PROT-018: all 5 _n<N> suffix bindings confirmed (n16384 x4; n8192 x1). 0 violations.
+- PROT-021: all 5 source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 all-EXACT-1.0000 consistent with {L=20..L=48} series extending to L=51; JIT warmup seed-31 at L=51 consistent with prior pattern at odd seeds; Q-B1 d276 flat-profile consistent with d275/d277/d278 series (monotone d5 decline series verified); L=29 N=8192 EXACT-class consistent with N=8192 series pattern.
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 280th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
