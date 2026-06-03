@@ -78,3 +78,4 @@ PROT-018 compliance: both _n<N> suffix bindings verified. PROT-019 compliance: b
 L=37/38 found already completed from prior cycle; L=39-42 + QB1-d277 are the 5 new anchors.
 PROT-018/019/021 compliant. Timeout=21600s (PROT-019 floor for _n16384).
 QB1 d=277 FINAL bisection of (275,278] window: d=278 MIDDLE_BAND (d5=0.900 borderline).
+v364 REFILL: shipped 5 GPU anchors (Q-A3 L=43..L=46 N=16384 + Q-A3 L=26 N=8192). PP-50 sigma_g v3 BLOCKED pre-reg design issue (v2 FULL shows ratio>1 at all sigma_g including 0.01; routed to Strategy).

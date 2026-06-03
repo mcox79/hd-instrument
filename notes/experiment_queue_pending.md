@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v363 REFILL (5 GPU anchors shipped: Q-A3 L=39..L=42 N=16384 + QB1 bisect d=277 N=16384)
+**Updated:** 2026-06-03 v364 REFILL (5 GPU anchors shipped: Q-A3 L=43..L=46 N=16384 + Q-A3 L=26 N=8192)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -8,12 +8,17 @@
 
 ## Currently active (in remote queues — not "pending" for orchestrator)
 
-GPU (overnight_queue) — v363 REFILL 2026-06-03:
-- q_a3_l39_cross_layer_composition_v1_n16384 (completed) — v363 REFILL; L=39 N=16384 20th rung; SHIPPED+COMPLETED 2026-06-03
-- q_a3_l40_cross_layer_composition_v1_n16384 (completed) — v363 REFILL; L=40 N=16384 21st rung; SHIPPED+COMPLETED 2026-06-03
-- q_b1_bisect_d277_v1_n16384 (running) — v363 REFILL; QB1 FINAL bisection d=277; d=278 MID (d5=0.900), window (275,278]; SHIPPED 2026-06-03
-- q_a3_l41_cross_layer_composition_v1_n16384 (pending) — v363 REFILL; L=41 N=16384 22nd rung; SHIPPED 2026-06-03
-- q_a3_l42_cross_layer_composition_v1_n16384 (pending) — v363 REFILL; L=42 N=16384 23rd rung; SHIPPED 2026-06-03
+GPU (overnight_queue) — v364 REFILL 2026-06-03:
+- q_a3_l43_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=43 N=16384 24th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
+- q_a3_l44_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=44 N=16384 25th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
+- q_a3_l45_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=45 N=16384 26th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
+- q_a3_l46_cross_layer_composition_v1_n16384 (pending) — v364 REFILL; L=46 N=16384 27th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03
+- q_a3_l26_cross_layer_composition_v1_n8192 (pending) — v364 REFILL; L=26 N=8192 cross-N; SHIPPED+REMOTE_VERIFIED 2026-06-03
+
+Previously shipped (all completed or in progress as of v363):
+- q_a3_l39..l42_cross_layer_composition_v1_n16384 (v363 batch; results pending)
+- q_b1_bisect_d277_v1_n16384 (running per v363 refill)
+- q_a3_l20..l38_cross_layer_composition_v1_n16384 (all completed)
 
 Previously shipped (all completed as of v363):
 - q_a3_l20..l38_cross_layer_composition_v1_n16384 (all completed) — L=20..L=38 N=16384 confirmed HARD_PASS
