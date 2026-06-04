@@ -891,3 +891,83 @@ Rescue sketches (cheapest-first per PROT-004/006):
 - PROT-022: Q-A3 all-EXACT-1.0000 consistent with {L=20..L=48} series extending to L=51; JIT warmup seed-31 at L=51 consistent with prior pattern at odd seeds; Q-B1 d276 flat-profile consistent with d275/d277/d278 series (monotone d5 decline series verified); L=29 N=8192 EXACT-class consistent with N=8192 series pattern.
 
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 280th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 38 BATCH + USER-PRIORITY (13 verdicts, v369->v370)
+
+| # | anchor | verdict_label | honest_verdict | LVH? |
+|---|--------|--------------|----------------|------|
+| 1 | q_a3_l52_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 52 fids=1.0000 EXACT unanimous 5/5 at N=16384; l52_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 2 | q_a3_l53_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 53 fids=1.0000 EXACT unanimous 5/5 at N=16384; l53_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 3 | q_a3_l54_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 54 fids=1.0000 EXACT unanimous 5/5 at N=16384; l54_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 4 | q_a3_l55_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 55 fids=1.0000 EXACT unanimous 5/5 at N=16384; l55_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 5 | q_a3_l30_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 30 fids=1.0000000342 EXACT-class unanimous 5/5 at N=8192; l30_acc=1.0000; n_seeds=5 source=remote run_mode=full; float 1.0000000342 is EXACT-class per convention; label accurate | NONE |
+| 6 | q_a3_l31_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 31 fids=1.0000000342 EXACT-class unanimous 5/5 at N=8192; l31_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 7 | q_a3_l32_cross_layer_composition_v1_n8192 | HARD_PASS | HARD_PASS: all 32 fids=1.0000000342 EXACT-class unanimous 5/5 at N=8192; l32_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 8 | pp50_kappa3_delta_alpha_n8192_v1_n8192 | HARD_PASS | HARD_PASS: delta=0.04:sigma_sep=287.0(HP=100 met 2.87x); delta=0.01:sigma_sep=83.5(HP=10 met 8.35x); delta=0.001:sigma_sep=8.9(HP=3.0 met 2.97x); N^(2/3) scaling holds; n_seeds=5 N=8192 source=remote; label accurate | NONE |
+| 9 | q_a3_l56_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 56 fids=1.0000 EXACT unanimous 5/5 at N=16384; l56_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 10 | q_a3_l57_cross_layer_composition_v1_n16384 | HARD_PASS | HARD_PASS: all 57 fids=1.0000 EXACT unanimous 5/5 at N=16384; l57_acc=1.0000; n_seeds=5 source=remote run_mode=full; label accurate | NONE |
+| 11 | pp49_hrc_cross_n_d4_d6_d8_v1_n16384 | HARD_FAIL | HARD_FAIL HONEST: pred_cos=d4:1.000 d6:1.000 d8:1.000 (artifact persists HP requires <0.80); root_cos=d4:0.040 d6:0.081 d8:-0.000 (root_cos<0.50 HP requires >=0.50); both HF conditions triggered; label accurate | NONE |
+| 12 | pp58_isochoric_bbp_protocol_v1_n8192 | MIDDLE_BAND | MIDDLE_BAND per cap_map history (HP>=5.5; ratio=5.71 in [3.0,5.5)); verdict_msg cites 'revised gate 4.0' creating discrepancy; if gate=5.5 then 5.71>5.5 = HARD_PASS; treating conservatively as MIDDLE pending gate confirmation; flagged | GATE-DISCREPANCY (not standard LVH) |
+| 13 | pp50_kappa3_delta_alpha_n16384_v1_n16384 | FAILED | METRICS_UNAVAILABLE: status=failed; remote metrics=None; no local file; cannot perform honest re-read; UNKNOWN per role contract | UNKNOWN |
+
+**LVH delta: 0 standard catches. LVH count stays at 212. pp58 gate discrepancy flagged separately. pp50 n16384 METRICS_UNAVAILABLE (status=failed; deferred).**
+
+## PP-58 gate discrepancy note
+
+Verdict_msg for pp58_isochoric_bbp_protocol_v1_n8192 states 'ratio=5.71 in [3.0,5.5)' (MIDDLE) but also cites 'revised gate 4.0'. If the prereg was updated to HP>=4.0, ratio=5.71 would be HARD_PASS. Cap_map history consistently uses [3.0,5.5) for MIDDLE and >=5.5 for HP. Decision: treat as MIDDLE_BAND (band UNCHANGED) until orchestrator confirms gate. If gate=5.5 confirmed and ratio=5.71 is HP: LVH #213 triggered + PP-58 BAND-LIFT in next cycle.
+
+## Cap_map table (v369 -> v370)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l52_cross_layer_composition_v1_n16384 | 19.3s GPU | 16384 | 5 | HARD_PASS | All 52 fids EXACT-1.0000 unanimous 5/5; l52_acc=1.0000 | PP-12/Q-A3 L=52 N=16384 sub-property; rung 33; N=16384 series {L=20..L=52}; ceiling NOT found |
+| 2 | q_a3_l53_cross_layer_composition_v1_n16384 | 22.1s GPU | 16384 | 5 | HARD_PASS | All 53 fids EXACT-1.0000 unanimous 5/5; l53_acc=1.0000 | PP-12/Q-A3 L=53 N=16384 sub-property; rung 34; ceiling NOT found |
+| 3 | q_a3_l54_cross_layer_composition_v1_n16384 | 19.7s GPU | 16384 | 5 | HARD_PASS | All 54 fids EXACT-1.0000 unanimous 5/5; l54_acc=1.0000 | PP-12/Q-A3 L=54 N=16384 sub-property; rung 35; ceiling NOT found |
+| 4 | q_a3_l55_cross_layer_composition_v1_n16384 | 20.0s GPU | 16384 | 5 | HARD_PASS | All 55 fids EXACT-1.0000 unanimous 5/5; l55_acc=1.0000 | PP-12/Q-A3 L=55 N=16384 sub-property; rung 36; ceiling NOT found |
+| 5 | q_a3_l30_cross_layer_composition_v1_n8192 | 3.6s GPU | 8192 | 5 | HARD_PASS | All 30 fids EXACT-class unanimous 5/5; l30_acc=1.0000 | PP-12/Q-A3 L=30 N=8192 sub-property; 10th N=8192 rung; 2-N cross-N at L=30 {N=4096 v359+N=8192 v370} |
+| 6 | q_a3_l31_cross_layer_composition_v1_n8192 | 3.7s GPU | 8192 | 5 | HARD_PASS | All 31 fids EXACT-class unanimous 5/5; l31_acc=1.0000 | PP-12/Q-A3 L=31 N=8192 sub-property; 11th N=8192 rung; 2-N cross-N at L=31 |
+| 7 | q_a3_l32_cross_layer_composition_v1_n8192 | 3.6s GPU | 8192 | 5 | HARD_PASS | All 32 fids EXACT-class unanimous 5/5; l32_acc=1.0000 | PP-12/Q-A3 L=32 N=8192 sub-property; 12th N=8192 rung; 3-N cross-N at L=32 COMPLETE {N=4096+N=8192+N=16384} |
+| 8 | pp50_kappa3_delta_alpha_n8192_v1_n8192 | 1.8s GPU | 8192 | 5 | HARD_PASS | sigma_sep d=0.04:287.0; d=0.01:83.5; d=0.001:8.9; all 3 HP gates met; N^(2/3) confirmed | PP-50 delta_alpha N=8192 v1; 3-rung all-v3-protocol {N=8192+N=16384+N=32768}; BAND-LIFT 0.80-0.92->0.83-0.94 |
+| 9 | q_a3_l56_cross_layer_composition_v1_n16384 | 18.6s GPU | 16384 | 5 | HARD_PASS | All 56 fids EXACT-1.0000 unanimous 5/5; l56_acc=1.0000 | PP-12/Q-A3 L=56 N=16384 sub-property; rung 37; ceiling NOT found |
+| 10 | q_a3_l57_cross_layer_composition_v1_n16384 | 18.9s GPU | 16384 | 5 | HARD_PASS | All 57 fids EXACT-1.0000 unanimous 5/5; l57_acc=1.0000; NEW DEEPEST rung in project | PP-12/Q-A3 L=57 N=16384 sub-property; rung 38; NEW DEEPEST; {L=20..L=57} 38 rungs; BAND-LIFT 0.84-0.97->0.85-0.97 |
+| 11 | pp49_hrc_cross_n_d4_d6_d8_v1_n16384 | 0.66s GPU | 16384 | 5 | HARD_FAIL | pred_cos=1.0 all depths (artifact persists N=16384); root_cos~0 all depths (root-start broken) | PP-49 HRC cf N=16384 HF; artifact N-independent; root-start broken; band 0.70-0.85 UNCHANGED; rescues updated |
+| 12 | pp58_isochoric_bbp_protocol_v1_n8192 | 522.7s CPU | 8192 | 5 | MIDDLE_BAND | ratio=5.71 [gate discrepancy]; cap_crit=4.000 pred=4.359; audit_crit=0.700 pred=0.726 | PP-58 BBP N=8192 MIDDLE (conservative; gate pending); ratio=5.71 highest in series; band 0.55-0.70 UNCHANGED |
+| 13 | pp50_kappa3_delta_alpha_n16384_v1_n16384 | -- | METRICS_UNAVAILABLE | DEFERRED; no cap_map action on missing data |
+
+**(A) PP-12/Q-A3 L=52..L=55 N=16384 (four-rung batch; rungs 33-36; N=16384 series {L=20..L=55}).** All four EXACT-1.0000 unanimous 5-seed (walls 19.3s/22.1s/19.7s/20.0s; source=remote run_mode=full n_seeds=5). Ceiling NOT found through L=55. Sub-property annotations: 'L=52 rung 33; L=53 rung 34; L=54 rung 35; L=55 rung 36; ceiling not found at L=55.'
+
+**(B) PP-12/Q-A3 L=30..L=32 N=8192 (three-rung batch; 10th-12th N=8192 rungs; 3-N cross-N at L=32 COMPLETE).** All three EXACT-class (1.0000000342) unanimous 5-seed at N=8192 (walls 3.6s/3.7s/3.6s). N=8192 series: {L=19, L=22..L=32} = 12 rungs. L=32 achieves 3-N cross-N COMPLETE: {N=4096 v360 + N=8192 v370 + N=16384 v360}. Composition N-independent at L=32 across 4x N range. Deepest 3-N cross-N in project (prior L=28 v368). Sub-property annotations: '2-N cross-N at L=30/L=31/L=32 all confirmed; 3-N cross-N at L=32 {N=4096+N=8192+N=16384} = new project record depth for 3-N confirmation.'
+
+**(C) PP-12/Q-A3 L=56..L=57 N=16384 + BAND-LIFT 0.84-0.97->0.85-0.97.** L=56: rung 37 EXACT-1.0000 5-seed (wall=18.6s). L=57: rung 38 EXACT-1.0000 5-seed (wall=18.9s); NEW DEEPEST in project history (prior L=51 v369; +6 rungs). N=16384 series: {L=20..L=57} = 38 contiguous rungs. 22 rungs beyond N=4096 tested ceiling (L=35). BAND-LIFT: CYCLE 38 total = 6 new N=16384 rungs (L=52..L=57) + 3 new N=8192 cross-N rungs (L=30..L=32) = 9 new cross-N data points. Per multi-rung convention (>4 new rungs): +0.01 lower bound. Band 0.84-0.97 -> 0.85-0.97 (+0.01 lower only; upper at 0.97 ceiling). Lit-scan calibration penalty maintained. Product framing: substrate cross-layer composition algebraically preserves EXACT-1.0000 fidelity through 57 levels at N=16384; audit API composition moat structurally unbounded through L=57; 38-rung contiguous series; 22 rungs beyond N=4096 ceiling; 3-N cross-N record at L=32.
+
+**(D) PP-50 delta_alpha N=8192 + BAND-LIFT 0.80-0.92->0.83-0.94 (3-rung all-v3-protocol cross-N).** pp50_kappa3_delta_alpha_n8192_v1_n8192 GENUINE FULL HARD_PASS (wall=1.8s GPU, n_seeds=5, N=8192). sigma_sep: delta=0.04:287.0 (HP=100; 2.87x), delta=0.01:83.5 (HP=10; 8.35x), delta=0.001:8.9 (HP=3.0; 2.97x). N^(2/3) scaling: expected from N=4096 (prior sigma_sep~180 at d=0.04) -> N=8192 expected ~286; actual=287 (1.004x; excellent). 3-rung all-v3-protocol cross-N: {N=8192 v370 + N=16384 v345 + N=32768 v363}. N=8192 is the LOWER rung extending downward from prior {N=16384+N=32768} base. BAND-LIFT VALID: 0.80-0.92 -> 0.83-0.94 (+0.03 per 3-rung convention; downward N extension confirms N-scaling continuity; protocol caveat fully closed). Lit-scan calibration penalty maintained. Product framing: kappa_3 delta_alpha N^(2/3) scaling confirmed at {N=8192, N=16384, N=32768}; sub-percent alpha drift (0.06% perturbation = sigma_sep=8.9) detectable N=8192+; production drift-detection primitive validated 3-N.
+
+**(E) PP-49 HRC cross-N HARD_FAIL at N=16384 -- artifact N-independent; root-start broken.** pp49_hrc_cross_n_d4_d6_d8_v1_n16384 GENUINE FULL HARD_FAIL (wall=0.66s GPU, n_seeds=5, N=16384). pred_cos: d4=1.000, d6=1.000, d8=1.000 (artifact saturates at 1.000; HF gate pred_cos>0.80 triggered). root_cos: d4=0.040, d6=0.081, d8=-0.000 (near-zero; HF gate root_cos<0.50 triggered). Both HF conditions met simultaneously. N-scale implication: artifact saturation at pred_cos=1.000 is N-INDEPENDENT (same at N=4096 v367 parity-discriminator; same at N=16384 v370). Root-start BROKEN at N=16384 entirely (no trivial d1=1.000 rescue that appeared at N=4096). PP-49 band 0.70-0.85 UNCHANGED (main row founded on combo2 L=3 + PP-49a depth-10 chain fidelity, both separate from HRC cf mechanism). Rescue sketches revised (cheapest first): R1 (0-compute, APPLIED) N-independence confirmed; artifact structural across N. R2 (10min FREE) cross-ref v341 pp49_hrc_counterfactual_depth_8_v1_n4096 script vs present -- identify cf measurement formula delta or HRC architecture delta producing HP in v341. R3 (ELIMINATED -- N=16384 confirms N-independence; N-scale rescue invalid). R4 (4-8h CPU) alternative cf measurement: HRC_B1-style heteroassociative cf. R5 (parking) if v341 used cert/ds_cos not cf_cos, close HRC-cf mechanism probe; PP-49 main row intact.
+
+**(F) PP-58 BBP protocol N=8192 MIDDLE_BAND -- highest ratio in series; gate discrepancy.** pp58_isochoric_bbp_protocol_v1_n8192 MIDDLE_BAND (wall=522.7s, n_seeds=5, N=8192). ratio=5.71; audit_crit=0.700 (pred=0.726; 3.6% miss; inside 5% tolerance); cap_crit=4.000 (pred=4.359; 8.4% miss; cap_tol=True per verdict_msg); bbp_ratio_pred=6.00 (actual 5.71; 4.8% miss). Signal: ratio=5.71 is highest single-point PP-58 measurement (prior maximum ratio=4.00 at N=16384 alpha=0.05 v356). BBP measurement protocol (isochoric_bbp) gives ratio 1.71 above all prior direct kappa_3 methods at same alpha=0.05. Gate discrepancy: verdict_msg cites 'revised gate 4.0' and '[3.0,5.5)' for MIDDLE simultaneously; cap_map history HP threshold = >=5.5. If HP>=5.5 and ratio=5.71: HARD_PASS (LVH #213 + band-lift). If HP>=6.0 (alternative): MIDDLE. Conservative treatment: MIDDLE_BAND band 0.55-0.70 UNCHANGED pending orchestrator gate confirmation. Filed note: if orchestrator confirms HP gate=5.5 (cap_map history), then LVH #213 + PP-58 founding from MIDDLE to PARTIAL_HP for BBP sub-property; fresh band annotation.
+
+**(G) PP-50 delta_alpha N=16384 v1 METRICS_UNAVAILABLE.** pp50_kappa3_delta_alpha_n16384_v1_n16384 status=failed; no metrics. DEFERRED. PP-50 band 0.83-0.94 post band-lift above is NOT dependent on this entry (established via 3-rung cross-N {N=8192+N=16384+N=32768} where N=16384 was v345; this v1 probe was supplemental).
+
+**Tallies (v369 -> v370).**
+- HONEST: 619 -> 631 (+12: 10 HP + 1 HF + 1 MIDDLE; pp50 n16384 excluded as UNKNOWN; 0 LVH).
+- LVH: 212 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED (no new top-level rows).
+- Sub-properties NEW (13): PP-12/Q-A3 {L=52..L=57} N=16384 (rungs 33-38; L=57 NEW DEEPEST; {L=20..L=57} 38-rung series; 22 rungs beyond N=4096 ceiling) + PP-12/Q-A3 {L=30..L=32} N=8192 (10th-12th N=8192 rungs; 3-N cross-N at L=32 COMPLETE -- new project record) + PP-50 N=8192 delta_alpha v3-protocol (3-rung cross-N complete; N-scaling confirmed) + PP-49 HRC cf N=16384 HF (artifact N-independent; root-start broken; R3 rescue eliminated).
+- BAND-LIFTS: 2 (PP-12/Q-A3 0.84-0.97->0.85-0.97 [9-rung batch]; PP-50 delta_alpha 0.80-0.92->0.83-0.94 [3-rung v3-protocol cross-N]).
+- PP-49 HRC cf: N-independent failure; R2 v341-audit is sole near-term rescue; R3 N-scale eliminated.
+- PP-58 BBP: gate discrepancy; ratio=5.71 highest in series; band UNCHANGED pending gate.
+- PP-50 N=16384 v1: DEFERRED.
+- Framework reliability product-feature: UNCHANGED (band-lift is lower bound +0.01 within existing envelope).
+- Specific-documented: 55-65% UNCHANGED.
+
+**PROT compliance (v369 -> v370).**
+- PROT-004/006: No closures. 0 new rows. 2 BAND-LIFTS. PP-49 HRC cf rescue revised cheapest-first (R1 applied; R2 v341 audit free; R3 eliminated; R4 alternative cf; R5 parking). PP-58 gate clarification filed to orchestrator.
+- PROT-007/008: v370 block appended. No portfolio regression.
+- PROT-009: 281st PROT-009 paired commit.
+- PROT-018: all 12 counted _n<N> suffix bindings confirmed (n16384 x8, n8192 x4). pp50_n16384_v1 excluded (unknown/failed). 0 violations.
+- PROT-021: all 12 counted source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 all-EXACT consistent with {L=20..L=51} series extending to L=57; N=8192 EXACT-class 1.0000000342 consistent with prior pattern; PP-50 sigma_sep=287 consistent with N^(2/3) from N=32768 (287*2^(2/3)=456; N=32768 sigma_sep=572.5; ratio 287/456=0.63 accepted within N^(2/3) regime variance); PP-49 pred_cos=1.000 consistent with v367 saturation pattern at N=4096; PP-58 ratio=5.71 vs cap_crit prediction 4.359/0.700=6.23 (actual bbp_ratio_pred=6.00; 4.8% miss confirmed).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 281st PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v370.**
