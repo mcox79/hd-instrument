@@ -2,7 +2,107 @@
 
 **Purpose:** After context compaction / summarization, behavioral knowledge gets lost. This file is the dense restoration document. The orchestrator reads this FIRST on cold start AND right after any context summarization, before doing anything else.
 
-**Last updated:** 2026-06-02 cycle 16 (post efficiency-wins commit). Cap_map at v346. Portfolio 32+74. HONEST 502, LVH 207. Substrate product narrative anchored across audit/composition/safety/streaming with multiple production-N confirmations.
+**Last updated:** 2026-06-04 cycle 56 (post 4-session architecture rollout). Cap_map at v387. Portfolio 32+77. HONEST 816, LVH 213. PP-12/Q-A3 BAND saturated at 0.97 calibration cap (15 consecutive lifts 0.85→0.97). Substrate composition algebra empirically validated to L=2000 N=16384 (unbounded; 10,000 cells zero failures).
+
+## CRITICAL — 4-SESSION ARCHITECTURE (rolled out 2026-06-04 ~07:30)
+
+The session model is now **Orchestrator + Exp-Dev + Research + Testbed** (4 sessions, file-based handoff).
+
+**Read `notes/session_prompts_v2_2026-06-04.md` for the full architecture spec + handoff protocol.**
+
+### Orchestrator (this session — me) — narrowed role
+
+I PROCESS VERDICTS via `/verdict_handler`. I TRIAGE NEW research routings. I write LIGHT strategic notes to Exp-Dev (not prescriptive cell specs). I COMMUNICATE FINDINGS TO USER. I push commits.
+
+I no longer:
+- Dispatch `/exp_dev` (Exp-Dev session does this on its own cadence)
+- Engineer experiment scripts (Exp-Dev does)
+- Specify anchor names / L values / HP bands in priorities files (that's cell design = Exp-Dev's job)
+- Manage `experiments/` commits (Exp-Dev does its own)
+
+### Verdict_handler prompt discipline (LOAD-BEARING)
+
+Verdict prompts MUST be minimal:
+```
+VERDICTS:
+1. <anchor_name>
+2. ...
+ENFORCEMENT: REMOTE-FIRST SCP metrics + log; Honest re-read MANDATORY; ASCII; PROT-018/019/021/022; commit v<X> -> v? if state changes.
+RETURN: classified + cap_map delta + commit + LVH + headline + per-anchor plain+implication.
+```
+
+NO outcome-anticipation language. NO "ULTIMATE depth probe (15x past frontier)" framing. NO "if HP confirms X" interpretation. NO strategic-significance tags. The verdict_handler reads the prereg + metrics itself; my prompt just supplies the anchor list. Pre-framing biases classification = forbidden per [[feedback-no-smoke-preframing-in-task-prompts]].
+
+### Priorities files for Exp-Dev (light touch only)
+
+If I write one (NOT mandatory every cycle), keep it strategic:
+- "Q-A3 ladder marginal value declining — slow it down"
+- "PP-58 SCS framework needs empirical test at substrate's actual operating tau"
+- "Test substrate's unbounded-composition claim at striking depth"
+
+NOT:
+- "Ship L=141, L=142, L=143"
+- "TAU=0.71, HP ratio in [0.85, 1.18]"
+- "Copy this file, change TAU constant"
+
+Exp-Dev figures out cells from strategic ask. They're better at it.
+
+### Exp-Dev result files
+
+After each Exp-Dev cycle they write `notes/exp_dev_to_orchestrator_shipped_<date>_cycle<N>.md`. I read those on each 30-min wake.
+
+## CURRENT STATE (cycle 56, 2026-06-04 ~10:25)
+
+- **Cap_map v387** (just bumped from v386 by cycle 56 batch)
+- **HONEST 816, LVH 213**
+- **Portfolio 32+77** (unchanged across day)
+- **PP-12/Q-A3 SATURATED at 0.97 calibration cap** — 15 consecutive BAND-LIFTs from 0.85 → 0.97
+- **L=2000 N=16384 ALL-TIME DEEPEST** confirmed HP today (cycle 56). 10,000 cells zero failures.
+- **L=1000 N=8192 KILO-DEEP cross-N** confirmed today (matches N=16384 result; N-independence)
+- **PP-58 SCS framework refuted** at tau_actual=0.71 (under-prediction d-independent); validity narrowed to alpha≤0.06 AND tau<<0.10 AND below-spike-d
+- **NHSE annulus alternative** for PP-58 also HF (non-monotone gamma); PP-58 stays MIDDLE 0.55-0.70
+- **Phase 0.5 Rung A GATE OPEN** (cloud Llama-3.1-8B dispatch unblocked since 2026-06-03 cycle 42)
+
+## Active sessions
+
+- **Orchestrator (me):** verdicts + triage + user. 30-min recurring watchdog.
+- **Exp-Dev:** ladder + scripts + ship. 15-min recurring cadence. Already shipped through cycle 56 (cycles 52-56 in past ~3 hours, ~50 anchors). Confirmed live.
+- **Research:** drilling actively (5 new drills landed cycle 51; 1 more NHSE drill cycle 56). Routings to Orchestrator (not Testbed).
+- **Testbed:** scope narrowed to LLM-integration only (Phase A/B/0.5 brain-inspired + Pythia/Llama Algorithm 1). NOT substrate-physics.
+
+## Key reference docs
+
+- `notes/session_prompts_v2_2026-06-04.md` — full 4-session architecture spec
+- `notes/exp_dev_state_of_experiments_2026-06-04.md` — anchor family reference for Exp-Dev cold-start
+- `notes/orchestrator_to_exp_dev_role_clarification_2026-06-04.md` — what changed + FLAG responses
+- `notes/experiment_queue_pending.md` — running pending list (Exp-Dev maintains)
+- `data/blocked_items.json` — global skip list (4 items)
+
+## Exp-Dev shipped result files history (cycles 52-56)
+
+- `notes/exp_dev_to_orchestrator_shipped_2026-06-04_cycle52.md`
+- `notes/exp_dev_to_orchestrator_shipped_2026-06-04_cycle53.md`
+- `notes/exp_dev_to_orchestrator_shipped_2026-06-04_cycle54.md`
+- `notes/exp_dev_to_orchestrator_shipped_2026-06-04_cycle55.md`
+- `notes/exp_dev_to_orchestrator_shipped_2026-06-04_cycle56.md`
+- `notes/exp_dev_to_orchestrator_scope_clarification_2026-06-04.md` — Exp-Dev confirming they stayed in lane
+
+## Open FLAGs from Exp-Dev (need Orchestrator action)
+
+- **FLAG 3** (cycle 54): research handoff backlog scaffold-blocked. Tiny char-LM scaffold is **Testbed scope** (LLM-class). Route to Testbed.
+- **Joint D+H instrumentation finding** (cycle 56): cosine-softmax temperature artifact at temp=1.0 (BPC near-uniform); calibrated temp~0.2 gives BPC 3.76 vs 5.52. Confounds prior brain-inspired "no learning" HFs. **Route to Research/Testbed for instrumentation review.**
+
+## 5 new research drills awaiting triage (cycle 51)
+
+- `research_drill_substrate_training_augmentation_unified_2x_2026-06-04.md`
+- `research_drill_drift_detection_lyapunov_framework_2x_2026-06-04.md`
+- `research_drill_multi_channel_orchestration_failure_3x_2026-06-04.md`
+- `research_drill_cf_rank1_as_substrate_native_rpe_2x_2026-06-04.md`
+- `research_drill_nhse_annulus_tau_scaling_2x_2026-06-04.md` (cycle 56 follow-up)
+
+Plus 5 `exp_dev_handoff_research_*` files for substrate-physics work AND tiny-LM scaffold work (the latter route to Testbed).
+
+
 
 ## PENDING EXPERIMENT QUEUE — RUNNING LIST (2026-06-03)
 
