@@ -26736,3 +26736,17 @@ LVH #210: activation_barrier_n_scale_v1_n8192 'partial N-scaling' sub-claim cont
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 262nd PROT-009 paired commit.
 - PROT-018: all 3 N bindings confirmed. PASS.
 - PROT-021: all 3 _source=remote run_mode=full n_seeds=5. PASS.
+
+**v376 (2026-06-04) -- CYCLE 44 LARGE BATCH: 15 HP + 2 MID + 1 HF; 0 LVH; BAND-LIFT PP-12/Q-A3 0.90-0.97->0.91-0.97; Q-A3 L=94 N=16384 NEW DEEPEST (75-rung series); Q-A3 L=58 N=8192 NEW DEEPEST (38-rung series); PP-58 SCS 2x MID; spectral_monitor_overfitting HF scale-gate; HONEST 685->703; LVH 213; Portfolio 32+77; 287th PROT-009 paired commit.**
+
+Anchors: q_a3_l88..l94_cross_layer_composition_v1_n16384 (7x HARD_PASS; EXACT-1.0000 5/5; L=94 NEW DEEPEST); q_a3_l51..l58_cross_layer_composition_v1_n8192 (8x HARD_PASS; EXACT-1.0 5/5; L=58 NEW N=8192 DEEPEST); pp58_scs_extended_d_sweep_v1_n8192 MIDDLE_BAND (3/6 in-range; SCS valid alpha<=0.06); pp58_scs_d_sweep_v1_n8192 MIDDLE_BAND (d monotone confirmed; spike over-calibrated alpha>=0.07); substrate_spectral_monitor_overfitting_v1_n4096 HARD_FAIL (val_overfit None 0/3; sub_overfit_step=200 3/3; scale gate).
+
+State transitions: (1) PP-12/Q-A3 BAND-LIFT 0.90-0.97->0.91-0.97 (15-rung batch; 75-rung N=16384 series; 38-rung N=8192 series; 6th consecutive lift since v371); (2) PP-58 SCS sub-property annotation: valid alpha<=0.06; over-calibrated alpha>=0.07; d monotone confirmed; band 0.55-0.70 UNCHANGED; (3) spectral_monitor_overfitting HF annotation; rescue R1 increase training scale.
+
+**PROT compliance (v375 -> v376).**
+- PROT-004/006: No closures. 1 BAND-LIFT. PP-58 2x MID annotations. HF rescue R1-R3.
+- PROT-007: this history block appended to substrate_capability_map_history.md.
+- PROT-008: transitions validated against per-cell metrics and pre-registered bands.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 287th PROT-009 paired commit.
+- PROT-018: all 18 _n<N> suffix verified. PASS.
+- PROT-021: all 18 _source=remote run_mode=full. PASS.
