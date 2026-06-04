@@ -870,3 +870,58 @@ HONEST: 828 -> 829 (+1).
 LABEL-VS-HONEST: 213 -> 216 (+3 catches: stdp_asym count [minor], two_region HP->MID, bottleneck_adaptor HP->MID).
 
 Cap_map: v393 -> v394 CYCLE 64 (1 HARD_PASS batch: cfrpe HP + drosophila_sparse HP [honest]; two_region MIDDLE_BAND [honest]; bottleneck_adaptor MIDDLE_BAND [honest]; stdp_asym MIDDLE_BAND [honest]; friston_fep HARD_FAIL; PP-8 arch-ablation sub-property annotation; HONEST 828->829; LVH 213->216; Portfolio 32+77; 305th PROT-009 paired commit) (2026-06-04)
+
+## CYCLE 65 BATCH -- v394 -> v395 (2026-06-04)
+
+### Step 0 Honest Re-Read
+
+2 verdicts. Source=remote authoritative for both.
+
+**Anchor 1: substrate_spectral_edge_n_extension_decisive_v1_8192_32768_gpu**
+Label: HARD_PASS; BBP-critical (beta~1/3); deletion-cert sigma 5x recalibration; beta_local=0.331; 95%CI=[-0.087,0.705]; n_seeds=20; std(l1) N8192:0.0232 N16384:0.0158 N32768:0.0147.
+Per-cell check: std(l1) IS monotone-decreasing N8192->N16384->N32768 (genuine positive N-scaling signal). HOWEVER: 95%CI=[-0.087,0.705] is consistent with beta=0 (no N-scaling) at the 95% level. CI width=0.792; includes zero; does not resolve BBP-critical exponent ~1/3 vs 0 vs 0.7. 'Decisive' characterization and 'BBP-critical' label over-claim the statistical confidence. Honest reading: MIDDLE_BAND -- partial N-scaling structure confirmed (std(l1) monotone); parameter estimate inconclusive.
+[label-vs-honest CATCH #217]: HARD_PASS label over-claims; honest verdict = MIDDLE_BAND. CI includes zero; 'decisive' not supported at 95% level.
+
+**Anchor 2: substrate_drosophila_mb_sparsity_sweep_v1_512_2048_gpu**
+Label: MIDDLE_BAND; best sparse improvement in [0.1,0.3]; best f*=0.01@N512 gap=+0.150 (2 seeds).
+Per-cell check: Dense N512 mean gap_vs_uniform=3.623; f0.01 N512 mean=3.773; difference=+0.150 confirms label. 2/3 seeds at N512 positive for f0.01 (seed17 miss=-0.031 nats). N2048 best improvement f0.02 gap=+0.055 (3/3 seeds but small). MIDDLE_BAND label honest.
+No LVH catch.
+
+HONEST: 829 -> 831 (+2). LVH: 216 -> 217 (+1 catch: spectral_edge HARD_PASS->MIDDLE_BAND over-claim).
+
+### Cap_map Decisions
+
+**(A) substrate_spectral_edge_n_extension_decisive_v1_8192_32768_gpu [label-vs-honest] -- PP-50 N-scaling annotation (MIDDLE_BAND honest)**
+GENUINE FULL result at N={8192,16384,32768} 20 seeds. std(l1) monotone-dec: N8192=0.0232, N16384=0.0158, N32768=0.0147. beta_local=0.331 95%CI=[-0.087,0.705]. Honest verdict: MIDDLE_BAND (partial N-scaling confirmed; point estimate beta~1/3 consistent with BBP-critical expectation but CI too wide to claim decisive confirmation -- CI includes zero).
+PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (no HP confirmation of decisive N-scaling).
+Sub-property annotation: 'spectral_edge_n_extension v1: std(l1) monotone-dec N8192->N32768 (0.0232->0.0147); beta_local=0.331 95%CI=[-0.087,0.705]; N-scaling signal present but CI includes zero; honest MIDDLE_BAND; deletion-cert sigma recalibration implication pending decisive beta confirmation; 20-seed 3-N sweep correctly structured but underpowered for BBP-critical confirmation at 95%.'
+Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): std(l1) monotone signal IS real and consistent with power-law N-scaling; annotate as supporting evidence for beta~1/3 hypothesis but not conclusive; existing PP-50 delta_alpha protocol unaffected.
+- R2 (1-2h CPU) Increase n_seeds from 20 to 100 at same N grid; std(l1) CI should tighten from +/-0.4 to +/-0.09; would exclude zero if true beta~0.33.
+- R3 (2h GPU) Add N=65536 data point; wider N range improves power geometrically.
+- R4 (2h GPU) N={8192, 32768, 131072} 3-point regression; larger N-spread provides better beta_local stability.
+- R5 (synthesis) Sigma recalibration implication: if R2/R3 confirms beta~1/3, deletion-cert sigma scale factor becomes derivable; file as PP-50 sub-property when CI excludes zero.
+
+**(B) substrate_drosophila_mb_sparsity_sweep_v1_512_2048_gpu MIDDLE_BAND -- PP-8 drosophila-sparsity N-scaling characterization**
+Drosophila mushroom-body sparse coding: N512 optimal f*=0.01-0.05 (+0.15 nats vs dense, 2/3 seeds). N2048 best f0.02 +0.055 nats (3/3 seeds). Sparsity benefit shrinks N512->N2048 (0.150->0.055 nats; 63% reduction). Biological sparsity f~0.10: N512 mean +0.126 (2/3 seeds), N2048 mean -0.017 (1/3 seeds) -- biological parameter fails at N2048. N-dependent sparsity tuning required.
+Context re v394 arch-ablation: drosophila_sparse arch HP (+0.673 nats bigram N=512) used global architecture; this sweep tests f-parameter variation at two N. They are complementary: architecture improvement (v394) is robust; f-tuning shows the sparsity benefit is N-dependent and requires tuning.
+PP-8 band UNCHANGED (rung-2 exploration, not HP confirmation; sparsity benefit present but diminishing with N).
+Sub-property annotation extending PP-8-ARCH-ABLATION-BIGRAM: 'MB-sparsity-sweep_v1: f*=0.01-0.05 optimal at N512 (gap~+0.15 nats 2/3 seeds); f*=0.02 optimal at N2048 (gap~+0.055 nats 3/3 seeds); sparsity benefit 63% smaller at N2048 vs N512; biological f~0.10 near-zero at N2048; N-dependent sparsity tuning required for production; MIDDLE_BAND.'
+Rescue cheapest-first:
+- R1 (free, subsumption): drosophila_sparse arch-ablation HP (v394) uses global architecture; f-sweep is independent parameter axis; no contradiction; annotate complementary.
+- R2 (1h CPU) f-tuning at N=2048 with finer grid near f=0.02-0.05; does tighter f grid recover N512 lift at N2048?
+- R3 (1h CPU) Cross N={512,1024,2048,4096} at fixed f=0.01 to map sparsity-benefit N-decay curve; locate where benefit falls below threshold.
+- R4 (2h GPU) Joint drosophila_sparse arch + optimal f sweep at N=4096-8192; do arch-level improvements persist with f-tuning at production N?
+- R5 (synthesis) Biological context: MB uses ~10% sparsity AND ~2000 Kenyon cells; substrate at biological params (N~2048, f~0.10) near-zero improvement; MB sparsity may be optimized for a neuron-count regime the substrate does not match at N=2048.
+
+### PROT compliance (v394 -> v395)
+- PROT-004/006: No closures. 0 new top-level rows. 2 sub-property annotations (PP-50 + PP-8 drosophila-sparsity extension). 1 LVH catch filed. Rescues R1-R5 cheapest-first filed for both anchors.
+- PROT-007/008: v395 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 306th PROT-009 paired commit.
+- PROT-018: spectral_edge _8192_32768 encodes range start/end (N_grid=[8192,16384,32768]); drosophila _512_2048 encodes range start/end (N_grid=[512,2048]). Range encoding; 0 strict PROT-018 violations.
+- PROT-021: both source=remote run_mode=full confirmed. No smoke contamination.
+- PROT-022: spectral_edge std(l1) 0.0232->0.0158->0.0147 monotone (20-seed cross-N); beta_local=0.331 CI width 0.792 internally consistent with 3-point N regression at n=20; drosophila N512 best gap 0.150 vs N2048 best gap 0.055 internally consistent; seed17 N512/f0.01 miss=-0.031 consistent with marginal threshold.
+
+HONEST: 829 -> 831 (+2). LVH: 216 -> 217 (+1). Portfolio: 32+77 UNCHANGED.
+Cap_map: v394 -> v395.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

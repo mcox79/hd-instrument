@@ -9322,3 +9322,38 @@ NEW SUB-PROPERTY PP-8-ARCH-ABLATION-BIGRAM: 'substrate_arch_ablation_matrix_bigr
 - **PROT-009 paired commit:** cap_map + history + decisions log committed atomically.
 
 Cap_map: v393 -> v394 CYCLE 64 (2 HP + 3 MIDDLE_BAND + 1 HF [honest] from 6-variant arch ablation; label over-claimed HP for two_region + bottleneck_adaptor + stdp_asym count; cfrpe + drosophila_sparse HONEST HP; friston_fep HF; PP-8 arch-ablation bigram sub-property annotation; HONEST 828->829; LVH 213->216; Portfolio 32+77; 305th PROT-009 paired commit) (2026-06-04)
+
+# v395 update (2026-06-04) -- CYCLE 65: [label-vs-honest] spectral_edge HARD_PASS->MIDDLE_BAND (CI includes zero); drosophila_mb_sparsity MIDDLE_BAND (honest); PP-50 + PP-8 sub-property annotations; HONEST 829->831; LVH 216->217 (+1); Portfolio 32+77; 306th PROT-009 paired commit
+
+**Trigger.** 2 completed experiments: substrate_spectral_edge_n_extension_decisive_v1_8192_32768_gpu (HARD_PASS remote label) + substrate_drosophila_mb_sparsity_sweep_v1_512_2048_gpu (MIDDLE_BAND remote). Cap_map mtime checked; not previously verdicted. Pause-flag ABSENT.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | substrate_spectral_edge_n_extension_decisive_v1_8192_32768_gpu | 2.27s GPU | {8192,16384,32768} | 20 | MIDDLE_BAND [LVH #217: label HARD_PASS over-claims] | std(l1) monotone-dec N8192:0.0232->N16384:0.0158->N32768:0.0147 (genuine signal); beta_local=0.331 95%CI=[-0.087,0.705] includes zero (not decisive); MIDDLE_BAND honest |
+| 2 | substrate_drosophila_mb_sparsity_sweep_v1_512_2048_gpu | 47.4s GPU | {512,2048} | 3 | MIDDLE_BAND | best f*=0.01@N512 gap=+0.150 (2/3 seeds); N2048 best gap=+0.055 (3/3); MIDDLE_BAND label honest |
+
+**(A) substrate_spectral_edge_n_extension_decisive_v1_8192_32768_gpu [label-vs-honest #217] -- PP-50 N-scaling annotation (honest MIDDLE_BAND)**
+20-seed 3-N sweep at N={8192,16384,32768}. std(l1) monotone-dec: 0.0232->0.0158->0.0147 (real spectral-concentration N-scaling signal). beta_local=0.331 95%CI=[-0.087,0.705] -- CI width 0.792 includes zero. 'Decisive' and 'BBP-critical (beta~1/3)' label is an over-claim: the CI is statistically consistent with beta=0 (no N-scaling) through beta=0.7. Honest verdict: MIDDLE_BAND.
+Plain-language: The experiment measured how quickly the spectral noise shrinks as the substrate dimension grows, hoping to pin down the precise decay exponent (beta~1/3, the 'BBP-critical' value predicted by random matrix theory). The noise does decrease monotonically across N=8192, 16384, 32768 -- that's a real positive signal. But with only 20 seeds and 3 N values, the statistical uncertainty on the exponent (CI -0.09 to +0.71) is so wide that we cannot rule out no decay or fast decay. The experiment is correctly designed but not yet large enough to be 'decisive'.
+Capability implication for PP-50: The N-scaling concentration signal is present, consistent with the BBP hypothesis, but underpowered. Deletion-cert sigma recalibration (the ~5x claim) requires first confirming beta decisively; that gate is not yet open.
+PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED.
+New sub-property annotation: 'spectral_edge_n_extension v1 20-seed 3-N: std(l1) monotone-dec (0.0232->0.0147 N8192->N32768); beta_local=0.331 95%CI=[-0.087,0.705]; CI includes zero; honest MIDDLE_BAND; deletion-cert sigma recalibration pending decisive beta confirmation; rescues R1-R5 filed.'
+Rescues R1-R5 cheapest-first filed in strategy_decisions_2026-06-04.md.
+
+**(B) substrate_drosophila_mb_sparsity_sweep_v1_512_2048_gpu MIDDLE_BAND -- PP-8 drosophila-sparsity N-scaling characterization**
+3-seed sweep across 8 f values x {N512, N2048}. N512 best improvement: f*=0.01-0.05, gap~+0.15 nats (2/3 seeds at f0.01). N2048 best improvement: f*=0.02, gap~+0.055 nats (3/3 seeds). Sparsity benefit shrinks 63% from N512 to N2048. Biological f~0.10 is near-zero at N2048. N-dependent sparsity tuning required.
+Plain-language: This experiment asked whether adding Drosophila-style sparse coding (only a fraction of neurons activate) helps the substrate learn bigram patterns better. At N=512 it helps: using ~1-5% active neurons gains ~0.15 nats (~5% improvement) over dense coding. But at N=2048, that benefit shrinks to only 0.055 nats. The biologically 'correct' sparsity level (~10%) barely helps at N=512 and fails at N=2048 -- suggesting the substrate at N=2048 doesn't naturally match the Drosophila architecture's operating point.
+Capability implication for PP-8: Drosophila-sparse architecture (v394, +0.68 nats bigram) is about global architecture choice; this sweep probes one hyperparameter (f) within that architecture. The finding that sparsity benefit shrinks with N is a nuance for production-scale tuning, not a reversal of the architecture HP.
+PP-8 band UNCHANGED (rung-2 exploration; no HP gate cleared for N-scaling of sparsity benefit).
+New sub-property annotation extending PP-8-ARCH-ABLATION-BIGRAM: 'MB-sparsity-sweep_v1 N512+N2048: f*=0.01-0.05 at N512 (gap~+0.15 nats); f*=0.02 at N2048 (gap~+0.055 nats); sparsity benefit 63% smaller at N2048; biological f~0.10 near-zero at N2048; N-dependent f-tuning required; MIDDLE_BAND.'
+Rescues R1-R5 cheapest-first filed in strategy_decisions_2026-06-04.md.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 829 -> **831** (+2).
+- **LABEL-VS-HONEST:** 216 -> **217** (+1 catch: spectral_edge HARD_PASS->MIDDLE_BAND; CI includes zero).
+- **Product-feature:** PP-50 N-scaling sub-property corroborated but underpowered; PP-8 drosophila-sparsity N-dependence characterized; no product-feature claim change.
+
+- **PROT-009 paired commit:** cap_map + history + decisions log committed atomically.
+
+Cap_map: v394 -> v395 CYCLE 65 ([LVH #217] spectral_edge HARD_PASS->MIDDLE_BAND honest (CI includes zero); drosophila_mb_sparsity MIDDLE_BAND honest; PP-50 + PP-8 sub-property annotations; HONEST 829->831; LVH 216->217; Portfolio 32+77; 306th PROT-009 paired commit) (2026-06-04)
