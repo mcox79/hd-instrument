@@ -230,18 +230,31 @@ if _ARGS.max_docs is not None:
 # ---------------------------------------------------------------------------
 
 def _load_hf_token() -> str:
-    """Read HF token from env HF_TOKEN, fallback to .hf_token at repo root."""
-    tok = os.environ.get("HF_TOKEN", "").strip()
-    if tok:
-        return tok
+    """Read HF token. PREFERS repo-local .hf_token file over HF_TOKEN env var.
+
+    Precedence rationale (per Exp-Dev 2026-06-04 v5 diagnosis):
+    The repo-local .hf_token is explicit + per-repo + version-control-aware
+    (gitignored, deliberately placed). HF_TOKEN env vars can leak in from
+    shell profiles, login scripts, system env, parent processes, or stale
+    huggingface-cli login state -- and on shared runners we've seen an
+    unlicensed env token mask a correctly-placed file token (v5 401 GATED-REPO
+    failure on Llama-3.2-1B despite valid file token in place).
+
+    File-first precedence prevents that footgun and makes the per-repo file
+    the canonical source of auth for a given anchor's runtime.
+    """
     tok_path = REPO / ".hf_token"
     if tok_path.exists():
-        return tok_path.read_text(encoding="utf-8").strip()
+        file_tok = tok_path.read_text(encoding="utf-8").strip()
+        if file_tok:
+            return file_tok
+    env_tok = os.environ.get("HF_TOKEN", "").strip()
+    if env_tok:
+        return env_tok
     raise RuntimeError(
-        "HF token not found: set HF_TOKEN env var or place token at "
-        "<repo>/.hf_token. Llama-3.2-1B is HF-gated and requires a token "
-        "with license access accepted at "
-        "https://huggingface.co/meta-llama/Llama-3.2-1B"
+        "HF token not found: place token at <repo>/.hf_token or set HF_TOKEN "
+        "env var. Llama-3.2-1B is HF-gated and requires a token with license "
+        "access accepted at https://huggingface.co/meta-llama/Llama-3.2-1B"
     )
 
 
@@ -687,12 +700,36 @@ def main() -> int:
     do_real_load = (RUN_MODE == "full") or (RUN_MODE == "smoke" and SMOKE_LOAD_MODEL)
 
     # ---- Step 1: Token + auth ----
+    # Log token source + prefix BEFORE any HF auth call so we can verify on the
+    # runner exactly which token wins. Per Exp-Dev 2026-06-04 v5 diagnosis:
+    # a stale HF_TOKEN env on the runner was masking the licensed .hf_token file.
+    _file_tok_path = REPO / ".hf_token"
+    _file_present = _file_tok_path.exists()
+    _file_prefix = "<absent>"
+    if _file_present:
+        try:
+            _ft = _file_tok_path.read_text(encoding="utf-8").strip()
+            _file_prefix = (_ft[:5] + "...") if _ft else "<empty>"
+        except Exception:
+            _file_prefix = "<read-error>"
+    _env_prefix = "<unset>"
+    _env_raw = os.environ.get("HF_TOKEN", "").strip()
+    if _env_raw:
+        _env_prefix = _env_raw[:5] + "..."
+    _log_stage(
+        f"step1: token sources: file={_file_tok_path} present={_file_present} "
+        f"prefix={_file_prefix}; env HF_TOKEN prefix={_env_prefix}; "
+        f"file-first precedence (per v5 fix)",
+        _startup_log_path)
     hf_token = None
     try:
         hf_token = _load_hf_token()
         os.environ["HF_TOKEN"] = hf_token
         os.environ["HUGGINGFACE_HUB_TOKEN"] = hf_token
-        print(f"  HF token loaded (len={len(hf_token)})", flush=True)
+        _log_stage(
+            f"step1: token RESOLVED len={len(hf_token)} prefix={hf_token[:5]}... "
+            f"(source: {'file' if _file_present and hf_token == (_file_tok_path.read_text(encoding='utf-8').strip()) else 'env'})",
+            _startup_log_path)
     except Exception as e:
         if do_real_load:
             print(f"[FATAL] HF token required for real model load: {e}",
