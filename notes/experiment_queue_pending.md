@@ -1,8 +1,34 @@
 # Pending experiment queue -- running list
 
-**Updated:** 2026-06-04 CYCLE 47 ALL-NIGHT BURST SHIPPED (10 anchors: 9 GPU overnight_queue + 1 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 48 ALL-NIGHT BURST SHIPPED (10 anchors: 8 GPU overnight_queue + 2 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there is a state change. User can read this anytime to see what is pending.
+
+---
+
+## Active in overnight_queue + remote_cpu_queue (cycle 48 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- CYCLE 48 NEW:
+- q_a3_l118_cross_layer_composition_v1_n16384 (pending) -- A: L=118 N=16384 rung 99; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l119_cross_layer_composition_v1_n16384 (pending) -- A: L=119 N=16384 rung 100; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l120_cross_layer_composition_v1_n16384 (pending) -- A: L=120 N=16384 rung 101; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l121_cross_layer_composition_v1_n16384 (pending) -- A: L=121 N=16384 rung 102; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l122_cross_layer_composition_v1_n16384 (pending) -- A: L=122 N=16384 rung 103; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l78_cross_layer_composition_v1_n8192 (pending) -- B: L=78 N=8192 rung 59; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l79_cross_layer_composition_v1_n8192 (pending) -- B: L=79 N=8192 rung 60; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l80_cross_layer_composition_v1_n8192 (pending) -- B: L=80 N=8192 rung 61; PROT-018/019/022 OK; REMOTE_VERIFIED
+
+CPU (remote_cpu_queue) -- CYCLE 48 NEW:
+- pp58_scs_tau_sweep_d8_tau020_v1_n8192 (pending) -- C: PP-58 SCS tau_target=0.20 d=8; PROT-018/019/022 OK; REMOTE_VERIFIED
+- pp58_scs_tau_sweep_d8_tau030_v1_n8192 (pending) -- C: PP-58 SCS tau_target=0.30 d=8; PROT-018/019/022 OK; REMOTE_VERIFIED
+
+Also pending from prior cycles (cycle 48 confirmed in queue):
+- q_a3_l117_cross_layer_composition_v1_n16384 (pending/running) -- L=117 N=16384; pre-existing
+- q_a3_l73-l77 N=8192 (pending) -- L=73-77 N=8192; pre-existing from cycle 47 burst
+- pp58_scs_low_tau_sweep_d8_v1_n8192 (running) -- remote_cpu; pre-existing
+
+NOTE: N=16384 frontier now at L=122 (rung 103); N=8192 frontier at L=80 (rung 61).
+Priority items L113-L117 N=16384 confirmed ALREADY IN QUEUE/COMPLETED from prior session.
 
 ---
 
