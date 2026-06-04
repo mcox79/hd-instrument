@@ -1,12 +1,33 @@
 # Pending experiment queue -- running list
 
-**Updated:** 2026-06-04 CYCLE 46 ALL-NIGHT BURST SHIPPED (10 anchors: 9 GPU overnight_queue + 1 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 47 ALL-NIGHT BURST SHIPPED (10 anchors: 9 GPU overnight_queue + 1 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there is a state change. User can read this anytime to see what is pending.
 
 ---
 
-## Active in overnight_queue + remote_cpu_queue (cycle 46 ALL-NIGHT BURST 2026-06-04)
+## Active in overnight_queue + remote_cpu_queue (cycle 47 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- CYCLE 47:
+- q_a3_l106_cross_layer_composition_v1_n16384 (pending) -- A: L=106 N=16384 rung 87; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l107_cross_layer_composition_v1_n16384 (pending) -- A: L=107 N=16384 rung 88; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l108_cross_layer_composition_v1_n16384 (pending) -- A: L=108 N=16384 rung 89; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l109_cross_layer_composition_v1_n16384 (pending) -- A: L=109 N=16384 rung 90; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l110_cross_layer_composition_v1_n16384 (pending) -- A: L=110 N=16384 rung 91; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l67_cross_layer_composition_v1_n8192 (pending) -- B: L=67 N=8192 rung 48; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l68_cross_layer_composition_v1_n8192 (pending) -- B: L=68 N=8192 rung 49; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l69_cross_layer_composition_v1_n8192 (pending) -- B: L=69 N=8192 rung 50; PROT-018/019/022 OK; REMOTE_VERIFIED
+- q_a3_l70_cross_layer_composition_v1_n8192 (pending) -- B: L=70 N=8192 rung 51 MILESTONE; PROT-018/019/022 OK; REMOTE_VERIFIED
+
+CPU (remote_cpu_queue) -- CYCLE 47:
+- pp58_scs_tau_sweep_d8_tau015_v1_n8192 (pending) -- C: PP-58 SCS tau_target=0.15 d=8 controlled-asymmetry W; PROT-018/019/022 OK; REMOTE_VERIFIED
+
+DEFERRED (10-anchor cap): PP-58 SCS tau={0.20, 0.30} at d=8. Awaiting tau=0.15 verdict.
+NOTE: N=16384 frontier now at L=110 (rung 91); N=8192 frontier at L=70 (rung 51 MILESTONE).
+
+---
+
+## Previously active -- cycle 46 ALL-NIGHT BURST 2026-06-04
 
 GPU (overnight_queue) -- CYCLE 46 (post-CENTURY):
 - q_a3_l101_cross_layer_composition_v1_n16384 (COMPLETED) -- A: L=101 N=16384 rung 82; PROT-018/019 OK; REMOTE_VERIFIED
