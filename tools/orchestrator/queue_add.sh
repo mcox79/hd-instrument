@@ -115,6 +115,25 @@ elif [[ "${QUEUE}" == "overnight_queue" || "${QUEUE}" == "remote_cpu_queue" ]]; 
     exit 3
   fi
 
+  # ── ROUTING-SANITY GATE (anti-mis-route; added 2026-06-04 after q_f5 + mini_lm incidents) ──
+  # (a) numpy/no-torch script on the GPU runner idles the GPU + blocks real GPU jobs (q_f5 incident) -> REJECT.
+  # (b) numpy + large-N (>=16384) on CPU risks intractable per-element Python-loop runs (mini_lm v1) -> WARN.
+  if grep -qE '^[[:space:]]*(import torch|from torch)' "${SCRIPT_LOCAL}"; then HAS_TORCH=1; else HAS_TORCH=0; fi
+  # large-N only when the literal is INSIDE a grid list bracket (N_GRID = [...16384...]) or a bare N_DIM
+  # assignment -- excludes docstring prose AND trailing comments like "# 16384 dropped" after the bracket.
+  if grep -qE '(N_GRID|N_grid)[[:space:]]*=[[:space:]]*\[[^]]*(16384|32768|65536|131072)|(N_DIM|N_dim)[[:space:]]*=[[:space:]]*(16384|32768|65536|131072)' "${SCRIPT_LOCAL}"; then HAS_LARGE_N=1; else HAS_LARGE_N=0; fi
+  if [[ "${QUEUE}" == "overnight_queue" && "${HAS_TORCH}" == "0" ]]; then
+    echo "[gate] ROUTING-REJECT: overnight_queue (GPU runner) but script has no 'import torch' -- a numpy/CPU" >&2
+    echo "       script on the GPU runner idles the GPU and blocks real GPU jobs (q_f5 incident, 2026-06-04)." >&2
+    echo "       Fix: route to remote_cpu_queue, OR make it torch+cuda. Refusing to queue." >&2
+    exit 7
+  fi
+  if [[ "${QUEUE}" == "remote_cpu_queue" && "${HAS_TORCH}" == "0" && "${HAS_LARGE_N}" == "1" ]]; then
+    echo "[gate] ROUTING-WARN: remote_cpu_queue + numpy (no torch) + large-N literal (>=16384) -- risk of an" >&2
+    echo "       intractable per-element Python-loop run (mini_lm v1 incident: killed after ~2h, nothing saved)." >&2
+    echo "       VERIFY: realistic wall estimate + PER-CELL checkpointing before relying on this. Proceeding." >&2
+  fi
+
   SCRIPT_REMOTE_DIR="${REPO_REMOTE}/$(dirname "${SCRIPT_REL}")"
   PREREG_REMOTE_DIR="${REPO_REMOTE}/$(dirname "${PREREG_REL}")"
 

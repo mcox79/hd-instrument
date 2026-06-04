@@ -925,3 +925,36 @@ Rescue cheapest-first:
 HONEST: 829 -> 831 (+2). LVH: 216 -> 217 (+1). Portfolio: 32+77 UNCHANGED.
 Cap_map: v394 -> v395.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 66 BATCH -- v395 -> v396 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 3 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 831 -> 834 (+3).
+
+Label checks:
+- substrate_capacity_alpha_sweep_v1_512_16384_gpu MIDDLE_BAND: cfrpe/heb alpha_c delta=0.002 at N=16384 (noise-level); max delta=0.034 at N=2048; 'within 0.02' characterization imprecise but central claim 'no clear capacity gain' honest. No LVH.
+- kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise MIDDLE_BAND: n_pos=7/7 (direction correct); non-monotone sg=0.80 (peak at sg=0.75 then drops); mag_match=0/7 (rel_err 100-1000x). Honest.
+- kappa3_nlo_formula_validation_sigma_g_v1_n4096 MIDDLE_BAND: n_match=6/7 magnitude (sg=0.1 fails); sign systematically NEG vs formula + prediction (all 5 seeds). Honest.
+
+### Cap_map Decisions
+
+**(A) substrate_capacity_alpha_sweep_v1_512_16384_gpu MIDDLE_BAND -- CF-RPE no capacity advantage at production-N**
+Hebbian alpha_c: 0.274 (N512) -> 0.298 (N16384). CF-RPE alpha_c: 0.307 (N512) -> 0.300 (N16384). Classical_ref=0.138. Delta at N=16384: 0.002 (noise-level). Max delta at N=2048: 0.034. CF-RPE capacity advantage vanishes at production-N. No PP row closure; capacity-rule characterization annotation filed. Rescue R1 (free): N=2048 cfrpe advantage may be small-N artifact; R2 (1h CPU) retrieval-quality metric comparison within same alpha_c band; R3 (2h GPU) N=32768 confirmation.
+
+**(B) kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise MIDDLE_BAND -- NLO sign qualitatively correct; normalization 100-1000x off**
+Per-pattern lognormal noise N=4096 alpha=0.05 5-seed. Direction correct 7/7 sigma_g. Non-monotone at sg=0.80 (boundary regime). mag_match=0/7. PP-50 band 0.83-0.94 UNCHANGED (delta_alpha protocol uses empirical thresholds not NLO absolute formula). Sub-property annotation filed. Rescue R1 (free): boundary annotation for sg=0.80; R2 (1h CPU) NLO theory audit for multiplicative factor; R3 (2h CPU) N=8192 normalization test.
+
+**(C) kappa3_nlo_formula_validation_sigma_g_v1_n4096 MIDDLE_BAND -- NLO magnitude 6/7 partial validation; sign convention inversion**
+N=4096 alpha=0.05 5-seed. n_match=6/7 (sg=0.3..0.8 pass; sg=0.1 fails). Sign: all measured NEG vs formula + prediction 5/5 seeds. Systematic sign inversion in NLO derivation. PP-50 band 0.83-0.94 UNCHANGED. Sub-property annotation filed. Rescue R1 (free): audit sign convention in NLO derivation; R2 (1h CPU) negate formula and recheck; R3 (2h CPU) N=8192 with sign-corrected formula.
+
+### PROT compliance (v395 -> v396)
+- PROT-004/006: No closures. 0 new rows. 3 sub-property annotations. Rescues R1-R3 cheapest-first filed for each anchor.
+- PROT-007/008: v396 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 307th PROT-009 paired commit.
+- PROT-018: capacity_alpha _512_16384 range-encoding; kappa3_nlo_v2 no N suffix (N=4096 in metrics); kappa3_sigma_g_v1_n4096 _n4096 confirmed. 0 violations.
+- PROT-021: all 3 source=remote run_mode=full. No smoke contamination.
+- PROT-022: capacity N=16384 delta=0.002 consistent 3 seeds; kappa3_nlo_v2 non-monotone sg=0.80 consistent 5 seeds; kappa3_sigma_g n_match=6/7 consistent (sg=0.1 all fail; sg=0.3+ all pass).
+
+HONEST: 831 -> 834 (+3). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v395 -> v396.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

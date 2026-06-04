@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v393
+# hd-instrument substrate — capability map v396
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9357,3 +9357,81 @@ Rescues R1-R5 cheapest-first filed in strategy_decisions_2026-06-04.md.
 - **PROT-009 paired commit:** cap_map + history + decisions log committed atomically.
 
 Cap_map: v394 -> v395 CYCLE 65 ([LVH #217] spectral_edge HARD_PASS->MIDDLE_BAND honest (CI includes zero); drosophila_mb_sparsity MIDDLE_BAND honest; PP-50 + PP-8 sub-property annotations; HONEST 829->831; LVH 216->217; Portfolio 32+77; 306th PROT-009 paired commit) (2026-06-04)
+
+# v396 update (2026-06-04) -- CYCLE 66: 3x MIDDLE_BAND (capacity_alpha_sweep + kappa3_nlo_v2 + kappa3_nlo_sigma_g); 0 LVH; PP-50 NLO sub-property annotations; HONEST 831->834; LVH 217 UNCHANGED; 307th PROT-009 paired commit
+
+## CYCLE 66 BATCH -- v395 -> v396 (2026-06-04)
+
+### Step 0 Honest Re-Read
+
+3 verdicts. Source=remote authoritative for all 3 (bridge stale; SSH fallback confirmed remote).
+
+**Anchor 1: substrate_capacity_alpha_sweep_v1_512_16384_gpu**
+Label: MIDDLE_BAND; "cf-RPE within 0.02 of hebbian (no clear capacity gain)".
+Per-cell check: hebbian_alpha_c range 0.274-0.298; cfrpe_alpha_c range 0.300-0.321. Max delta at N=2048: cfrpe=0.321 vs hebbian=0.287, diff=0.034. The "within 0.02" characterization is imprecise (max 0.034 at N=2048); however, classical_ref=0.138 provides scale context -- both rules are at ~2x classical; cfrpe advantage is ~0.003-0.034 over hebbian, small relative to classical gap. Central claim "no clear capacity gain" is honest: cfrpe does NOT consistently outperform hebbian by a margin justifying a capability claim. MIDDLE_BAND label honest; minor characterization imprecision not an over-claim.
+No LVH catch.
+
+**Anchor 2: kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise**
+Label: MIDDLE_BAND; "positive but non-monotone sign signal. n_pos=7/7 monotone_pos=False".
+Per-cell check: signed_dev = 0.194, 4.596, 38.842, 329.148, 2398.426, 14230.907, 3700.072 for sigma_g=0.1..0.8. Non-monotone confirmed (0.80 drops from 0.75 peak). mag_match=0/7 vs formula confirmed (rel_err 158x-1335x in seed 7). MIDDLE_BAND label honest.
+No LVH catch.
+
+**Anchor 3: kappa3_nlo_formula_validation_sigma_g_v1_n4096**
+Label: MIDDLE_BAND; "partial NLO validation. match(mag)=...n_match=6/7 measured_sign=NEG(formula predicts +)".
+Per-cell check: sigma_g=0.1 match=False (seed7 identity_dev=0.0011; sigma_g=0.3 rel_err=0.202 passes match; sigma_g=0.5 rel_err=0.099 passes match). 6/7 sigma_g magnitude matches confirmed; sign systematically NEG vs formula's + prediction. MIDDLE_BAND label honest.
+No LVH catch.
+
+HONEST: 831 -> 834 (+3). LVH: 217 UNCHANGED (0 new catches). Portfolio: 32+77 UNCHANGED.
+
+### Cap_map Decisions
+
+**(A) substrate_capacity_alpha_sweep_v1_512_16384_gpu MIDDLE_BAND -- CF-RPE capacity characterization**
+Full sweep N={512,1024,2048,4096,8192,16384} 3 seeds 8 alpha values (alpha=0.05..1.0). Hebbian alpha_c: 0.274 (N512) -> 0.298 (N16384), classical_ref=0.138 (2.1x classical). CF-RPE alpha_c: 0.307 (N512) -> 0.300 (N16384, converges). Max separation: N2048 (cfrpe=0.321 vs heb=0.287; delta=0.034). At maxN: hebbian=0.298, cfrpe=0.300; difference=0.002. CF-RPE offers NO significant alpha_c improvement over hebbian at large N; separation shrinks to noise-level at N=16384.
+This is a substrate-characterization result (capacity rule comparison), not a cap_map row movement trigger. No existing PP row for this experiment. No closure triggered. Filing as capacity-rule MIDDLE_BAND annotation for general capacity section.
+New annotation: 'capacity_alpha_sweep v1 N=512..16384: Hebbian alpha_c converges to 0.298 at N=16384 (2.16x classical_ref=0.138); CF-RPE alpha_c converges to 0.300 at N=16384 (2.17x classical); delta=0.002 at maxN (noise-level); CF-RPE provides no meaningful capacity advantage over Hebbian at production-N; classical_ref=0.138 baseline confirms both rules provide same 2x capacity benefit over classical; 3-seed 8-alpha full sweep N=512..16384.'
+Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): At small N (N=2048), cfrpe reaches 0.321 vs hebbian 0.287; investigate whether cfrpe advantage is a small-N artifact (capacity compression?).
+- R2 (1h CPU) Alternative metrics beyond alpha_c -- does cfrpe offer retrieval quality advantage within the same alpha_c band?
+- R3 (2h GPU) Higher N (N=32768, N=65536) to confirm delta->0 trend continues; if delta stays ~0.002 at N=32768, capacity equivalence is confirmed at production-N.
+
+**(B) kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise MIDDLE_BAND -- NLO sign confirmed, magnitude normalization pending**
+7/7 sigma_g positive sign (all seeds); non-monotone at sigma_g=0.80 (3700 vs 0.75 peak=14230); mag_match=0/7 (rel_err 158x-1335x). The NLO per-pattern lognormal formula predicts the correct qualitative trend (larger sigma_g = larger kappa_3 deviation) but exact normalization is off by 2-3 orders of magnitude. Non-monotone at sg=0.80 may be boundary effect. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (NLO sign is qualitatively correct; magnitude normalization failure does not invalidate delta_alpha detection protocol which is based on empirically-calibrated thresholds not NLO formula absolute values).
+Plain-language: We tested a formula predicting how much random per-pattern noise distorts kappa_3. The formula gets the direction right (more noise = bigger distortion) for all 7 sigma_g values tested, but the predicted SIZE is wrong by 100-1000x. Non-monotone behavior near sigma_g=0.8 suggests boundary effects. The drift-detection capability itself is unaffected because it relies on measured thresholds, not the formula.
+Capability implication for PP-50: NLO formula qualitatively valid (sign) but normalization requires recalibration. Does not threaten the empirical delta_alpha protocol (sigma_sep gates are empirically set). Suggests per-pattern lognormal noise adds a multiplicative factor not captured in current NLO formula.
+New sub-property annotation: 'kappa3_nlo_formula_v2 per-pattern lognormal noise N=4096 alpha=0.05 5-seed: sign positive 7/7 sigma_g (qualitative trend confirmed); non-monotone at sg=0.80 (boundary regime); mag_match=0/7 (rel_err 100-1000x); NLO normalization incomplete; exact formula pending NLO drill; MIDDLE_BAND.'
+Rescue cheapest-first:
+- R1 (free, subsumption): Non-monotone at sg=0.80 may be boundary/overflow effect; annotate as regime boundary, not formula failure.
+- R2 (1h CPU) NLO theory audit -- what multiplicative factor does per-pattern lognormal inject? Is it sigma_g^2 or higher-order correction?
+- R3 (2h CPU) Higher N (N=8192) at same sigma_g grid to test whether normalization error is N-dependent.
+
+**(C) kappa3_nlo_formula_validation_sigma_g_v1_n4096 MIDDLE_BAND -- NLO magnitude partial validation; sign systematic error**
+n_match=6/7 magnitude (sigma_g=0.3..0.8 all match; sigma_g=0.1 fails). Sign: systematically NEG measured vs formula's + prediction (identity_dev 0.003-0.129). delta_alpha protocol sign uses MAGNITUDE not direction -- the sign discrepancy does not invalidate the drift-detection use case. However, systematic sign error across all 5 seeds and all sigma_g suggests the formula's sign convention or a fundamental assumption (e.g., noise direction) is inverted.
+PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (6/7 magnitude match is a positive validation; sign convention mismatch is a theory-level issue not a capability issue).
+Plain-language: We validated the NLO formula against measured kappa_3 values at N=4096 across 7 noise levels. The formula predicts the right SIZES for 6 out of 7 noise levels (a success), but the SIGN is consistently opposite to what the formula says (kappa_3 is negative when the formula says positive). This sign flip doesn't matter for detecting anomalies in practice (we detect magnitude changes), but it means the formula's derivation has a sign error somewhere.
+Capability implication for PP-50: Magnitude partial validation (6/7) strengthens confidence that the NLO expansion captures the sigma_g-dependence structure. Sign inversion is a theoretical refinement issue; does not affect production drift-detection protocol which gates on |sigma_sep| thresholds.
+New sub-property annotation: 'kappa3_nlo_formula_v1 sigma_g sweep N=4096 alpha=0.05 5-seed: magnitude match 6/7 (sigma_g=0.3..0.8; rel_err 0.048-0.261); sigma_g=0.1 FAIL (rel_err 0.265-0.510); sign systematically NEG vs formula + (all 5 seeds all sigma_g); sign convention inversion in NLO derivation; delta_alpha protocol unaffected (gates on |sigma_sep|); MIDDLE_BAND.'
+Rescue cheapest-first:
+- R1 (free, subsumption): Sign inversion likely a convention difference (kappa_3 definition sign); audit NLO derivation for sign convention of ratio_meas vs formula.
+- R2 (1h CPU) Negate formula and recheck -- if negated formula also matches magnitude AND now matches sign, confirms simple sign convention error.
+- R3 (2h CPU) N=8192 validation with sign-corrected formula to confirm full NLO validity at higher N.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | substrate_capacity_alpha_sweep_v1_512_16384_gpu | 2234.6s GPU | {512..16384} | 3 | MIDDLE_BAND | hebbian/cfrpe alpha_c converge to 0.298/0.300 at N=16384; delta=0.002 noise-level; no capacity gain claim; label honest |
+| 2 | kappa3_nlo_formula_validation_v2_per_pattern_lognormal_noise | 28.5s | 4096 | 5 | MIDDLE_BAND | n_pos=7/7 sign correct; non-monotone sg=0.80; mag_match=0/7; normalization off 100-1000x; label honest |
+| 3 | kappa3_nlo_formula_validation_sigma_g_v1_n4096 | 40.4s | 4096 | 5 | MIDDLE_BAND | n_match=6/7 magnitude; sign systematic NEG (formula predicts +); 6/7 magnitude match confirms NLO structure; label honest |
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 831 -> **834** (+3).
+- **LABEL-VS-HONEST:** 217 UNCHANGED (0 new catches; all 3 labels honest).
+- **Product-feature:** PP-50 NLO formula partially validated (magnitude 6/7; sign convention error identified); capacity rule CF-RPE offers no meaningful advantage over Hebbian at production-N; no product-feature claim change.
+
+- **PROT-004/006:** No closures. 0 new rows. 3 sub-property annotations (capacity_alpha + kappa3_nlo_v2 + kappa3_nlo_sigma_g). Rescues R1-R3 cheapest-first filed for each.
+- **PROT-007/008:** v396 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 307th PROT-009 paired commit.
+- **PROT-018:** substrate_capacity_alpha_sweep _512_16384 encodes N-range start/end; kappa3_nlo_formula_validation_v2 _per_pattern_lognormal_noise -- no N suffix (N=4096 in top-level field); kappa3_nlo_formula_validation_sigma_g_v1_n4096 -- _n4096 suffix matches N=4096. 0 PROT-018 violations.
+- **PROT-021:** all 3 source=remote run_mode=full confirmed. No smoke contamination.
+- **PROT-022:** capacity_alpha cfrpe/heb at N=16384 delta=0.002 consistent across 3 seeds (seed7: heb=0.298,cfrpe=0.300; seed17: heb=0.296,cfrpe=0.300; seed31: heb=0.298,cfrpe=0.300); kappa3_nlo_v2 signed_dev peak at sg=0.75 then drops at sg=0.80 consistent 5 seeds (non-monotone confirmed); kappa3_nlo_sigma_g n_match=6/7 consistent across seeds (sigma_g=0.1 rel_err 0.265-0.510 consistently fails; sigma_g=0.3 rel_err 0.202-0.261 consistently passes).
+
+Cap_map: v395 -> v396 CYCLE 66 (3x MIDDLE_BAND honest; 0 LVH; PP-50 NLO magnitude 6/7 + sign inversion identified; capacity CF-RPE vs Hebbian delta=0.002 at N=16384; HONEST 831->834; LVH 217 unchanged; Portfolio 32+77; 307th PROT-009 paired commit) (2026-06-04)
