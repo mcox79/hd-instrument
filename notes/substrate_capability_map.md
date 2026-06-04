@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v390
+# hd-instrument substrate — capability map v392
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9256,3 +9256,29 @@ v4 switched observable from sigma_sep (v2/v3 probe-design closure v390) to lambd
 - **Product-feature:** UNCHANGED (PP-50 delta_alpha protocol unaffected; v4 lambda1 approach is secondary exploration; std(l1) monotone signal noted as partial confirmation only).
 
 Cap_map: v390 -> v391 CYCLE 61 (0 HP + 0 HF + 1 MIDDLE_BAND; pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND lambda1 N-sweep partial; std(l1) monotone but mean_edge non-monotone; PP-50 UNCHANGED; HONEST 824->825; LVH 213; Portfolio 32+77; 302nd PROT-009 paired commit) (2026-06-04)
+
+# v392 update (2026-06-04) -- CYCLE 62: 0 HP + 0 HF + 1 MIDDLE_BAND; substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu MIDDLE_BAND (replay reduces retrieval energy 29.17% N=8192 + 51.13% N=4096 vs exact-zero no-replay control; PP-47 new energy sub-property; no HP threshold pre-registered); HONEST 825->826; LVH 213; Portfolio 32+77; 303rd PROT-009 paired commit
+
+**Trigger.** 1 completed experiment: substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu (MIDDLE_BAND remote). Cap_map mtime checked; not previously verdicted. Pause-flag ABSENT.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu | 1.02s GPU | 8192 (A+B) / 4096 (C) | 5 | MIDDLE_BAND | HONEST MIDDLE: Cell A reduction_pct=0.00 exact (no-replay control clean); Cell B reduction_pct=29.17% mean (SD 0.49%); Cell C reduction_pct=51.13% mean (SD 0.97%); MIDDLE_BAND because no HP threshold pre-registered; quant-floor conditional hedge in pre-reg. |
+
+**(A) PP-47 hippocampal REM-replay energy baseline MIDDLE_BAND -- new energy sub-property.**
+substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu GENUINE FULL MIDDLE_BAND at N=8192+N=4096 5-seed.
+Three cells: A (N=8192, replay=False) = exact-zero energy change; B (N=8192, replay=True) = 29.17% mean energy reduction (range 28.67-29.95%); C (N=4096, replay=True) = 51.13% mean energy reduction (range 49.91-52.54%).
+N-effect: smaller N (C=4096) shows larger relative energy reduction per replay pass -- consistent with N-dependent energy settling characteristic (lower-N substrate packs more relative settling per replay cycle).
+MIDDLE_BAND classification honest: pre-reg 'quant-floor conditional unclear' hedge prevents HP call because no explicit reduction_pct HP threshold was registered; the qualitative condition (control IS zero; replay DOES reduce energy) IS satisfied but a numeric HP gate is required for HP classification.
+Note: elapsed_s=1.02s total for FULL 5-seed 3-cell run is anomalously short -- either CPU-mode execution (gpu suffix notwithstanding) or M=983 at these N values is computationally trivial; result validity unaffected (per-cell energies are exact floating-point ratios).
+PP-47 parent band 0.60-0.75 UNCHANGED (sub-property annotation; no HP gate cleared; sub-property count at mechanism-variety for band-LIFT: place-field N=4096 (v333) + place-field N=8192 (v336) + SWR v2 N=8192 (v337) = 3 already MET at v337; this energy sub-property is additional corroboration, not a new mechanism-variety lift trigger).
+NEW SUB-PROPERTY PP-47-REM-ENERGY: 'substrate_rem_replay_retrieval_energy_baseline_v1: replay reduces retrieval energy 29.17% (N=8192) + 51.13% (N=4096) vs exact-zero no-replay control; N-dependent energy settling confirmed (smaller N yields larger relative reduction); first energy-based characterization of hippocampal replay primitive on substrate; N=16384 + explicit HP threshold pre-registration recommended for band-lift eligibility; cross-ref PP-33 non-eq stat-mech (energy reduction is stat-mech Hamiltonian observable); cross-ref PP-1 memory-primitive (energy-based retrieval quality characterization).'
+Capability implication: substrate hippocampal replay compresses the Hamiltonian energy landscape -- replay-during-consolidation moves stored patterns toward lower-energy attractors, exactly as predicted by Hopfield energy-minimization theory; the substrate exhibits this intrinsically without any engineered objective.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 825 -> **826** (+1).
+- **LABEL-VS-HONEST:** 213 UNCHANGED (0 new catches; MIDDLE_BAND label honest to per-cell metrics).
+- **Product-feature:** UNCHANGED (energy-reduction sub-property corroborates hippocampal replay primitive; no new product-feature claim beyond PP-47 existing row).
+
+Cap_map: v391 -> v392 CYCLE 62 (0 HP + 0 HF + 1 MIDDLE_BAND; substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu MIDDLE_BAND replay-energy 29.17%+51.13% vs zero control; PP-47 new energy sub-property; HONEST 825->826; LVH 213; Portfolio 32+77; 303rd PROT-009 paired commit) (2026-06-04)

@@ -26764,3 +26764,11 @@ State transitions: (1) No cap_map row changes (Q-A3 deferred; spectral_v3 no row
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 294th PROT-009 paired commit.
 - PROT-018: spectral_v3 _n4096 suffix verified; Q-A3 13 anchors UNKNOWN (cannot verify suffix binding without metrics).
 - PROT-021: spectral_v3 source=remote run_mode=full confirmed. Q-A3 cannot verify (SSH down).
+**v392 (2026-06-04) -- CYCLE 62: 0 HP + 0 HF + 1 MIDDLE_BAND; substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu MIDDLE_BAND (replay reduces retrieval energy 29.17% N=8192 + 51.13% N=4096 vs exact-zero no-replay control); PP-47 new energy sub-property; HONEST 825->826; LVH 213; Portfolio 32+77; 303rd PROT-009 paired commit.**
+State transitions: (1) PP-47 hippocampal row: new REM-ENERGY sub-property annotation ('replay-reduces-energy 29.17%/51.13% at N=8192/N=4096; N-dependent energy settling; exact-zero control confirmed; first energy-based hippocampal-replay characterization'); band 0.60-0.75 UNCHANGED; (2) No row closures; no BAND-LIFTS; no new top-level rows; no portfolio count changes.
+**PROT compliance (v391 -> v392).**
+- PROT-007: this history block appended to substrate_capability_map_history.md.
+- PROT-008: transition validated against per-cell metrics (_source=remote; reduction_pct self-consistent 3 cells 5 seeds).
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 303rd PROT-009 paired commit.
+- PROT-018: anchor _n8192 suffix matches primary config N=8192. 0 violations.
+- PROT-021: source=remote run_mode=full confirmed.

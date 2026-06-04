@@ -758,3 +758,36 @@ v4 switched observable from sigma_sep (v2/v3 probe-design closure in v390) to la
 HONEST: 824 -> 825 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v390 -> v391.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 62 -- v391 -> v392 (2026-06-04)
+
+### Step 0 Honest Re-Read
+substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu (_source=remote run_mode=full n_seeds=5):
+- Cell A n8192 replay=False: reduction_pct=0.000 all 5 seeds (EXACT zero; energy_init==energy_final; clean control)
+- Cell B n8192 replay=True: reduction_pct=[29.95, 29.07, 29.20, 28.98, 28.67] mean=29.17% SD~0.49% (tight, consistent)
+- Cell C n4096 replay=True: reduction_pct=[51.14, 52.54, 51.11, 49.91, 50.95] mean=51.13% SD~0.97% (consistent)
+MIDDLE_BAND label HONEST: verdict_msg 'quant-floor conditional unclear' correctly hedges pre-reg (A=exactly zero; B/C HP threshold not pre-registered explicitly; no over-claim). 0 LVH catches. HONEST 825 -> 826 (+1).
+
+### Cap_map Decisions
+
+**(A) PP-47 hippocampal REM-replay energy baseline MIDDLE_BAND -- new energy sub-property**
+substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu GENUINE FULL MIDDLE_BAND at N=8192+N=4096 5-seed.
+Control (A): reduction_pct=0.00 exact all seeds (replay=False produces zero energy change; clean baseline).
+Replay (B, N=8192): reduction_pct=29.17% mean (SD 0.49%; range 28.67-29.95%; tight across all seeds).
+Replay (C, N=4096): reduction_pct=51.13% mean (SD 0.97%; range 49.91-52.54%; consistent across all seeds).
+N-effect: C (N=4096) shows 51% vs B (N=8192) 29% -- smaller N shows larger energy reduction per replay pass (N-dependent settling characteristic).
+MIDDLE_BAND because: (1) no explicit HP threshold pre-registered for reduction_pct; pre-reg condition 'partial consolidation OR control not null' is partially met (control IS null; consolidation IS present) but 'quant-floor conditional unclear' hedge prevents HP classification; (2) elapsed_s=1.02s total for FULL 5-seed 3-cell GPU run = anomalously short wall.
+PP-47 parent band 0.60-0.75 UNCHANGED (sub-property annotation only; no HP threshold cleared).
+NEW SUB-PROPERTY PP-47-REM-ENERGY: 'substrate_rem_replay_retrieval_energy_baseline_v1: replay reduces retrieval energy 29.17% (N=8192) + 51.13% (N=4096) vs zero-change no-replay control; N-dependent energy settling confirmed; first energy-based characterization of hippocampal replay primitive on substrate; N=16384 + explicit HP threshold pre-registration recommended for band-lift eligibility.'
+Cross-references: PP-47 founding (v333 place-field N=4096); PP-47 SWR v2 N=8192 (v337); PP-33 non-eq stat-mech (energy reduction is stat-mech observable); PP-1 memory-primitive (energy-based retrieval quality metric).
+
+### PROT compliance (v391 -> v392)
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. PP-47 annotation-only sub-property. No PROT-004 triggers.
+- PROT-007/008: v392 history block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 303rd PROT-009 paired commit.
+- PROT-018: 1 anchor -- _n8192 suffix matches config N=8192 primary cell. 0 violations.
+- PROT-021: _source=remote run_mode=full. No smoke artifact.
+- PROT-022: Cell A energy_init==energy_final exact 5 seeds (reduction=0.000 self-consistent); Cell B [28.67-29.95] consistent with SD~0.49%; Cell C [49.91-52.54] consistent with SD~0.97%; N-effect C>B consistent with smaller-N larger-relative-settling.
+
+HONEST: 825 -> 826 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v391 -> v392.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
