@@ -9284,3 +9284,41 @@ Capability implication: substrate hippocampal replay compresses the Hamiltonian 
 Cap_map: v391 -> v392 CYCLE 62 (0 HP + 0 HF + 1 MIDDLE_BAND; substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu MIDDLE_BAND replay-energy 29.17%+51.13% vs zero control; PP-47 new energy sub-property; HONEST 825->826; LVH 213; Portfolio 32+77; 303rd PROT-009 paired commit) (2026-06-04)
 
 Cap_map: v392 -> v393 CYCLE 63 (0 HP + 1 HF + 1 MIDDLE_BAND; substrate_modern_hopfield_p_nthreshold_sweep_512_8192_v1_gpu MIDDLE_BAND p4>p2 magnitude confirmed but N_threshold invariant to p-order; substrate_training_n_threshold_sweep_512_8192_v1_gpu HARD_FAIL(HF2) N-axis flat training-gap N not relevant axis; HONEST 826->828; LVH 213; Portfolio 32+77; 304th PROT-009 paired commit) (2026-06-04)
+# v394 update (2026-06-04) -- CYCLE 64: 2 HP + 3 MIDDLE_BAND + 1 HF [honest]; substrate_arch_ablation_matrix_bigram_v1_n512_gpu; PP-8 arch-ablation sub-property; HONEST 828->829; LVH 213->216 (+3); Portfolio 32+77; 305th PROT-009 paired commit
+
+**Trigger.** 1 completed experiment: substrate_arch_ablation_matrix_bigram_v1_n512_gpu (HARD_PASS remote; source=remote authoritative). Cap_map mtime checked; not previously verdicted. Pause-flag ABSENT.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | substrate_arch_ablation_matrix_bigram_v1_n512_gpu | 105.7s GPU | 512 | 5 | HARD_PASS [label] / mixed honest | [label-vs-honest] cfrpe HONEST HP 5/5 gap+0.683; drosophila_sparse HONEST HP 5/5 gap+0.673; two_region HONEST MIDDLE_BAND 4/5 gap+0.564 (seed17 gap=0.296<0.3 -- HP over-claimed in label); bottleneck_adaptor HONEST MIDDLE_BAND 4/5 gap+0.614 (seed41 gap=0.174<0.3 -- HP over-claimed); stdp_asym HONEST MIDDLE_BAND 1/5 gap+0.102 (label 4/5 count over-claimed, minor); friston_fep HONEST HF 0/5 gap-0.789 |
+
+**(A) substrate_arch_ablation_matrix_bigram_v1_n512_gpu [label-vs-honest] -- PP-8 arch-ablation sub-property annotation.**
+GENUINE FULL result at N=512 V=512 Zipf bigram, 5 seeds, 7 variants vs hebbian_k1 baseline (3.154 nats).
+Honest per-variant breakdown:
+- cfrpe: HARD_PASS (5/5 seeds > 0.3 nats improvement; mean gap +0.683 nats; 21.7% reduction over baseline)
+- drosophila_sparse: HARD_PASS (5/5 seeds; mean gap +0.673 nats; 21.3% reduction; sparse coding architecture validated)
+- two_region: MIDDLE_BAND (4/5 seeds; seed17 gap=0.296 nats just misses 0.3 threshold; mean gap +0.564 nats)
+- bottleneck_adaptor: MIDDLE_BAND (4/5 seeds; seed41 gap=0.174 nats; mean gap +0.614 nats; seed variance high)
+- stdp_asym: MIDDLE_BAND (1/5 seeds beat threshold; mean gap +0.102 nats; essentially noise vs baseline for most seeds)
+- friston_fep: HARD_FAIL (0/5 seeds; mean gap -0.789 nats; FEP-inspired predictive-coding architecture actively HURTS bigram prediction)
+
+Plain-language interpretation: Four out of six tested brain-inspired architectures beat the simple K=1 Hebbian baseline on bigram language modeling at this small scale. The two strongest winners (cfrpe, drosophila_sparse) gain ~0.68 nats (~21%) over baseline with perfect 5/5 seed consistency -- these represent robust architecture improvements. Two others (two_region, bottleneck_adaptor) show strong mean gains but one seed each fell short of the hard threshold, putting them in the 'promising but not locked' category. The FEP-inspired architecture actively degrades performance, confirming that predictive-coding-style lateral suppression is counterproductive for simple bigram sequence memory at this scale.
+
+Capability implication: Substrate architecture design space is not flat -- cfrpe and drosophila_sparse provide a reliable ~0.68 nat lift over plain Hebbian K=1, which operationalizes PP-8 (substrate-LLM deep integration) sub-claim that brain-inspired substrate architectures outperform naive Hebbian on language-pattern sequences. This is rung-1 (N=512 CPU/GPU) validation; rung-2 confirmation at N=2048-8192 needed before architecture preference drives production design decisions.
+
+LVH catches (+3): two_region HP->MIDDLE_BAND (seed17 gap 0.296<0.3); bottleneck_adaptor HP->MIDDLE_BAND (seed41 gap 0.174<0.3); stdp_asym beat-count over-claimed (4/5 in label, honest 1/5).
+
+NEW SUB-PROPERTY PP-8-ARCH-ABLATION-BIGRAM: 'substrate_arch_ablation_matrix_bigram_v1_n512: cfrpe HP(+0.683,5/5); drosophila_sparse HP(+0.673,5/5); two_region MID(+0.564,4/5); bottleneck_adaptor MID(+0.614,4/5); stdp_asym MID(+0.102,1/5); friston_fep HF(-0.789,0/5); baseline hebbian_k1=3.154 nats; N=512 bigram; rung-1 validation; rung-2 N>=2048 recommended for architecture preference lock-in; FEP architecture eliminated at this scale.'
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 828 -> **829** (+1).
+- **LABEL-VS-HONEST:** 213 -> **216** (+3 catches).
+- **Product-feature:** PP-8 sub-property annotation added. cfrpe + drosophila_sparse are candidate preferred architectures for rung-2 scale-up. friston_fep eliminated. No change to PP-8 band itself (rung-1 only; full P-band update requires rung-2 HARD_PASS confirmation).
+
+- **PROT-018:** anchor suffix _n512 binding confirmed (N=512).
+- **PROT-021:** source=remote, run_mode=full confirmed. No smoke contamination.
+- **PROT-022:** per-seed cell values cross-checked vs reported summary statistics; 3 LVH catches filed.
+- **PROT-009 paired commit:** cap_map + history + decisions log committed atomically.
+
+Cap_map: v393 -> v394 CYCLE 64 (2 HP + 3 MIDDLE_BAND + 1 HF [honest] from 6-variant arch ablation; label over-claimed HP for two_region + bottleneck_adaptor + stdp_asym count; cfrpe + drosophila_sparse HONEST HP; friston_fep HF; PP-8 arch-ablation bigram sub-property annotation; HONEST 828->829; LVH 213->216; Portfolio 32+77; 305th PROT-009 paired commit) (2026-06-04)

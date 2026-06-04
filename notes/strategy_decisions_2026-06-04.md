@@ -829,3 +829,44 @@ No new row. No band changes.
 HONEST: 826 -> 828 (+2). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v392 -> v393.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 64 verdict: substrate_arch_ablation_matrix_bigram_v1_n512_gpu HARD_PASS (with LVH catches)
+
+**Anchor:** substrate_arch_ablation_matrix_bigram_v1_n512_gpu
+**Verdict tag:** HARD_PASS (honest: mixed HP/MIDDLE_BAND/HF per variant)
+**Source:** remote (authoritative)
+**N=512, 5 seeds, 7 variants, run_mode=full, elapsed=105.7s**
+
+### Step 0 -- label-vs-honest re-read
+
+Verdict_msg claims:
+- cfrpe: HP(gap+0.683,5/5) -- HONEST: mean=0.683, 5/5 beats >0.3nats threshold. CORRECT.
+- drosophila_sparse: HP(gap+0.673,5/5) -- HONEST: mean=0.673, 5/5 beats threshold. CORRECT.
+- stdp_asym: MID(gap+0.101,4/5) -- OVER-CLAIM: only 1/5 seeds beat >0.3 threshold (seed23: gap=0.301; seeds 7/17/31/41 all <0.3). Count should be 1/5 not 4/5. Label MID is correct but beat-count inflated. MINOR LVH CATCH.
+- friston_fep: HF(gap-0.789,0/5) -- HONEST: mean=-0.789, 0/5. CORRECT.
+- two_region: HP(gap+0.564,5/5) -- OVER-CLAIM: seed17 gap=0.2956 < 0.3 threshold. Only 4/5 seeds beat threshold. HP label is not supported; honest read = MIDDLE_BAND (4/5). LVH CATCH.
+- bottleneck_adaptor: HP(gap+0.614,5/5) -- OVER-CLAIM: seed41 gap=0.1743 < 0.3 threshold. Only 4/5 seeds beat threshold. HP label is not supported; honest read = MIDDLE_BAND (4/5). LVH CATCH.
+
+Honest per-variant classification:
+- cfrpe: HARD_PASS (5/5, mean gap +0.683 nats)
+- drosophila_sparse: HARD_PASS (5/5, mean gap +0.673 nats)
+- stdp_asym: MIDDLE_BAND (1/5, mean gap +0.102 nats) [verdict_msg beat-count 4/5 over-claimed, minor]
+- friston_fep: HARD_FAIL (0/5, mean gap -0.789 nats)
+- two_region: MIDDLE_BAND (4/5, mean gap +0.564 nats) [verdict_msg HP label over-claimed]
+- bottleneck_adaptor: MIDDLE_BAND (4/5, mean gap +0.614 nats) [verdict_msg HP label over-claimed]
+
+LVH count: +3 (stdp_asym count over-claim [minor]; two_region HP->MIDDLE; bottleneck_adaptor HP->MIDDLE)
+HONEST: 828 -> 829 (+1 for this anchor's honest read)
+
+### Cap_map decision
+
+Experiment probes substrate architecture variants on bigram LM (N=512, V=512 Zipf).
+No existing PP row covers bigram-LM architecture search directly.
+New sub-property annotation on PP-8 (substrate-LLM deep integration): brain-inspired architecture ablation results at rung-1 scale.
+
+NEW SUB-PROPERTY PP-8-ARCH-ABLATION-BIGRAM: 'substrate_arch_ablation_matrix_bigram_v1_n512: cfrpe HARD_PASS (+0.683 nats, 5/5 seeds); drosophila_sparse HARD_PASS (+0.673 nats, 5/5); two_region MIDDLE_BAND (+0.564 nats, 4/5); bottleneck_adaptor MIDDLE_BAND (+0.614 nats, 4/5); stdp_asym MIDDLE_BAND (+0.102 nats, 1/5); friston_fep HARD_FAIL (-0.789 nats, 0/5); baseline hebbian_k1=3.154 nats; N=512 V=512 Zipf bigram; 5 seeds full run. FRPE + biologically-sparse coding architectures most discriminative over plain K=1 Hebbian at this scale; FEP-inspired architecture actively hurts.'
+
+Portfolio: 32+77 UNCHANGED (annotation only; no new row warranted; PP-8 existing row absorbs).
+HONEST: 828 -> 829 (+1).
+LABEL-VS-HONEST: 213 -> 216 (+3 catches: stdp_asym count [minor], two_region HP->MID, bottleneck_adaptor HP->MID).
+
+Cap_map: v393 -> v394 CYCLE 64 (1 HARD_PASS batch: cfrpe HP + drosophila_sparse HP [honest]; two_region MIDDLE_BAND [honest]; bottleneck_adaptor MIDDLE_BAND [honest]; stdp_asym MIDDLE_BAND [honest]; friston_fep HARD_FAIL; PP-8 arch-ablation sub-property annotation; HONEST 828->829; LVH 213->216; Portfolio 32+77; 305th PROT-009 paired commit) (2026-06-04)
