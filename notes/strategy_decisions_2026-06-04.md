@@ -314,3 +314,42 @@ All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 62-69. N=8192 series: {L
 HONEST: 758 -> 771 (+13). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v380 -> v381.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 50 BATCH -- v381 -> v382 (2026-06-04)
+
+### Step 0 Honest Re-Read
+Remote metrics fetched via SSH for all 14 anchors. L=94/L=95 N=8192 returned NONE (no remote directory found). 12 anchors confirmed honest labels (all source=remote). 2 anchors UNKNOWN (l94/l95 N=8192 metrics unavailable). HONEST 771 -> 783 (+12, not +14). LVH: 213 UNCHANGED (no over-claims; UNKNOWN labels not over-claims).
+
+Label checks:
+- Q-A3 L=128..132 N=16384 (5x HP): lacc=1.0000 all levels 5/5 seeds unanimous. Honest.
+- Q-A3 L=89..93 N=8192 (5x HP): lacc=1.0000000342 (EXACT-class) 5/5 seeds. Honest.
+- Q-A3 L=94 N=8192: UNKNOWN -- no remote directory. [metrics-unavailable]
+- Q-A3 L=95 N=8192: UNKNOWN -- no remote directory. [metrics-unavailable]
+- Q-A3 L=96 N=8192: lacc=1.0000000342 5/5 seeds. Honest. Wall=14.4s (seed scheduling variance 1.59-4.66s).
+- pp58_scs_tau_sweep_d8_tau050_v1_n8192 MIDDLE_BAND: ratio=1.416 (IN [0.5,2.0] first time in tau sweep); match_30%=0/5 (rel_error 0.399-0.433 > 0.30 all seeds); tau_ok=False (tau_actual=0.7083 vs tau_target=0.5; 41.7% overshoot). Label MIDDLE_BAND honest.
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=128..132 N=16384 (5x HARD_PASS)**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 109-113. N=16384 series: {L=20..L=132} = 113 contiguous rungs. L=132 NEW DEEPEST project history (prior L=127 v381; +5 rungs). Walls 42.5-43.6s GPU (linear scaling; ceiling NOT found).
+
+**(B) Q-A3 L=89..93 N=8192 (5x HARD_PASS, confirmed) + L=96 N=8192 (HARD_PASS, confirmed) + L=94-95 N=8192 (UNKNOWN)**
+Confirmed rungs: L=89-93 (rungs 70-74), L=96 (rung 77). L=94/L=95 N=8192 no remote exp directory; cannot confirm from metrics. Cap_map update based on confirmed data only. [metrics-unavailable: l94 l95 N=8192 -- manual reconciliation needed]. Walls L=89-93: 7.7-7.9s; L=96: 14.4s (scheduling variance).
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.96-0.97 -> 0.97 (BAND COLLAPSE TO POINT ESTIMATE -- 12th consecutive lift)**
+11 confirmed HP rungs (5 N=16384 + 6 N=8192 [l89-l93 + l96]) exceeds 4-rung threshold. Lower bound +0.01: 0.96 -> 0.97 = upper calibration cap. Band COLLAPSES to single-point P=0.97. 12th consecutive +0.01 lift (v371->v382 = 0.85->0.97). Lit-scan calibration penalty maintained at 0.97 ceiling. Product framing: EXACT-1.0000 composition moat confirmed through 132 levels at N=16384; 113-rung unbroken series; algebraic audit API moat structurally unbounded through L=132; no ceiling found at any L tested. P=0.97 is calibration-capped single-point estimate.
+NOTE: PP-12 body annotation discrepancy repaired -- body had v380 band (0.95-0.97); body now updated to reflect v381 intermediate state then v382 final state (0.97 point).
+
+**(D) pp58_scs_tau_sweep_d8_tau050_v1_n8192 MIDDLE_BAND -- first ratio in [0.5,2.0]; match_30% still fails**
+ratio=1.416 (5-seed mean; range 1.399-1.433). gamma_emp=2.759, gamma_scs=3.905. tau_actual=0.7083 (tau_target=0.5; 41.7% overshoot). match_30%=0/5 (rel_error 0.399-0.433; need <0.30). d=6.563 (d_ok=True). FIRST ratio in [0.5,2.0] in entire tau sweep. Monotone pattern: tau=0.01(23.0x) -> 0.09(15.5x) -> 0.10(14.7x) -> 0.15(11.4x) -> 0.20(8.9x) -> 0.30(5.2x) -> 0.50(1.4x). PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid). Rescue cheapest-first: R1 (free BEST-RESCUE) re-evaluate SCS match at tau_actual=0.7083 (ratio=1.416 at tau_actual may imply formula is valid near tau=0.70); R2 (2h CPU) tau_target=0.60-0.70 sweep to find match_30% passing threshold; R3 (free) tau_actual overshoot model; R4 (2h CPU) cross-alpha tau=0.50 test (alpha=0.03-0.05); R5 (prior v380) tau=0.5-1.0 extrapolation already filed.
+
+### PROT compliance (v381 -> v382)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT to point (PP-12/Q-A3 0.96-0.97->0.97). PP-58 tau=0.50 MIDDLE_BAND rescue R1-R5 cheapest-first filed. No PROT-004 closure triggers.
+- PROT-007/008: v382 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 293rd PROT-009 paired commit.
+- PROT-018: 12 confirmed anchors (_n16384 x5, _n8192 x7 [l89-l93+l96+pp58]); L=94/L=95 N=8192 UNKNOWN. 0 PROT-018 violations on confirmed anchors.
+- PROT-021: 12 confirmed source=remote run_mode=full. L=94/L=95 N=8192 cannot verify.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=132} N=16384 (113 rungs); N=8192 confirmed lacc=1.0000000342 consistent; pp58 ratio=1.416 consistent with monotone convergence (tau=0.30->0.50: 5.2->1.4; log-linear).
+
+HONEST: 771 -> 783 (+12 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v381 -> v382.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
