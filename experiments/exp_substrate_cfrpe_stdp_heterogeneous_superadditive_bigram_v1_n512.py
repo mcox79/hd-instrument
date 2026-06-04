@@ -42,7 +42,7 @@ if not torch.cuda.is_available():
 DEVICE = torch.device('cuda')
 print(f"[GPU] {torch.cuda.get_device_name(0)}", flush=True)
 import numpy as np
-from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
+from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512"
 _N_SUFFIX = 512
@@ -182,5 +182,5 @@ peak = torch.cuda.max_memory_allocated(0) / 1e9; print(f"[GPU] peak {peak:.3f} G
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": verdict_msg, "N": N_DIM,
            "V": VOCAB, "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "arms": ARMS,
            "per_seed": [{"seed": r.get("seed"), "uniform_nats": r.get("uniform_nats"), "arms": r.get("arms"), "elapsed_s": r.get("elapsed_s")} for r in all_results]}
-(out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+write_metrics(out_dir, metrics, all_results)
 print("[metrics] written", flush=True)

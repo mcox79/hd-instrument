@@ -54,7 +54,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
-from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
+from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "phase05_v1_substrate_audit_core_v1"
 HIDDEN = 2048          # Llama-3.2-1B hidden (artifact (n_docs, 9, 2048))
@@ -265,5 +265,5 @@ metrics = {
     "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "n_docs": N_DOCS, "hidden": HID,
     "per_seed": [{k: v for k, v in r.items()} for r in all_results],
 }
-(out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+write_metrics(out_dir, metrics, all_results)
 print(f"[metrics] written to {out_dir / 'metrics.json'}", flush=True)

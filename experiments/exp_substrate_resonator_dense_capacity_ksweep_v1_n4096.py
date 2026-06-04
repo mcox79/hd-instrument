@@ -47,7 +47,7 @@ if not torch.cuda.is_available():
 DEVICE = torch.device('cuda')
 print(f"[GPU] {torch.cuda.get_device_name(0)}", flush=True)
 import numpy as np
-from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
+from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "substrate_resonator_dense_capacity_ksweep_v1_n4096"
 _N_SUFFIX = 4096
@@ -155,5 +155,5 @@ peak = torch.cuda.max_memory_allocated(0) / 1e9; print(f"[GPU] peak {peak:.3f} G
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": verdict_msg, "N": N_DIM,
            "V": V, "K_grid": K_GRID, "run_mode": RUN_MODE, "n_seeds": len(SEEDS),
            "per_seed": [{"seed": r.get("seed"), "cells": r.get("cells"), "peak_gpu_gb": r.get("peak_gpu_gb"), "elapsed_s": r.get("elapsed_s")} for r in all_results]}
-(out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+write_metrics(out_dir, metrics, all_results)
 print("[metrics] written", flush=True)

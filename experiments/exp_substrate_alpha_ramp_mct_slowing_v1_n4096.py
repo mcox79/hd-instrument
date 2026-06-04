@@ -46,7 +46,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
-from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
+from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "substrate_alpha_ramp_mct_slowing_v1_n4096"
 _N_SUFFIX = 4096
@@ -152,5 +152,5 @@ print(f"\n[VERDICT] {verdict}: {verdict_msg}", flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": verdict_msg, "N": N_DIM,
            "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "alpha_grid": ALPHA_GRID,
            "per_seed": [{"seed": r.get("seed"), "cells": r.get("cells"), "elapsed_s": r.get("elapsed_s")} for r in all_results]}
-(out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+write_metrics(out_dir, metrics, all_results)
 print("[metrics] written", flush=True)

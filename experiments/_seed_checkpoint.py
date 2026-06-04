@@ -407,6 +407,34 @@ def get_output_dir(anchor_name: str) -> Path:
     return _REPO / "data" / f"exp_{name}"
 
 
+def write_metrics(out_dir: Path, metrics: Dict[str, Any],
+                  results: Optional[Sequence[Dict[str, Any]]] = None) -> Dict[str, Any]:
+    """Write metrics.json guaranteeing the runner's REQUIRED_FIELDS.
+
+    The runner (queue_add.py validate_metrics) rejects a run as
+    metrics_invalid unless metrics.json has top-level: verdict, verdict_msg,
+    elapsed_s, summary. Scripts often put elapsed_s only inside per_seed and
+    omit summary; this helper injects the missing top-level fields so a clean
+    science result is not failed on schema. Pass `results` (the per-seed list)
+    to derive a total elapsed_s when not already present.
+
+    Root cause of the 2026-06-04 3-anchor metrics_invalid batch.
+    """
+    if metrics.get("elapsed_s") is None:
+        tot = 0.0
+        for r in (results or []):
+            try:
+                tot += float(r.get("elapsed_s") or 0.0)
+            except (TypeError, ValueError, AttributeError):
+                pass
+        metrics["elapsed_s"] = tot
+    if not metrics.get("summary"):
+        metrics["summary"] = metrics.get("verdict_msg") or metrics.get("verdict") or ""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    return metrics
+
+
 def _selftest_get_output_dir() -> None:
     """Verify get_output_dir produces correct data/exp_<name> paths."""
     import os as _os

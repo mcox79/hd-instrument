@@ -54,7 +54,7 @@ if not torch.cuda.is_available():
 DEVICE = torch.device('cuda')
 print(f"[GPU] {torch.cuda.get_device_name(0)}", flush=True)
 import numpy as np
-from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials
+from experiments._seed_checkpoint import get_output_dir, resumable_seeds, write_partial, aggregate_partials, write_metrics
 
 ANCHOR_NAME = "substrate_hierarchical_5corpus_meta_v1_n2048_gpu"
 _N_SUFFIX = 2048
@@ -228,5 +228,5 @@ print(f"[GPU] peak {peak:.3f} GB", flush=True); assert peak > 0.001
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": verdict, "verdict_msg": verdict_msg, "N": N_DIM,
            "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "domains": N_DOMAINS,
            "per_seed": [{k: v for k, v in r.items()} for r in all_results]}
-(out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+write_metrics(out_dir, metrics, all_results)
 print(f"[metrics] written", flush=True)
