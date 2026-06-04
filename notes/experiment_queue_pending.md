@@ -1,8 +1,26 @@
 # Pending experiment queue -- running list
 
-**Updated:** 2026-06-04 CYCLE 49 ALL-NIGHT BURST SHIPPED (10 anchors: all GPU overnight_queue; REMOTE VERIFY PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 50 ALL-NIGHT BURST SHIPPED (10 anchors: all GPU overnight_queue; REMOTE VERIFY PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there is a state change. User can read this anytime to see what is pending.
+
+---
+
+## Active in overnight_queue (cycle 50 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- CYCLE 50 NEW:
+- q_a3_l128_cross_layer_composition_v1_n16384 (pending) -- A: L=128 N=16384 rung 109; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l129_cross_layer_composition_v1_n16384 (pending) -- A: L=129 N=16384 rung 110; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l130_cross_layer_composition_v1_n16384 (pending) -- A: L=130 N=16384 rung 111; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l131_cross_layer_composition_v1_n16384 (pending) -- A: L=131 N=16384 rung 112; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l132_cross_layer_composition_v1_n16384 (pending) -- A: L=132 N=16384 rung 113; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l89_cross_layer_composition_v1_n8192 (pending) -- B: L=89 N=8192 rung 70; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l90_cross_layer_composition_v1_n8192 (pending) -- B: L=90 N=8192 rung 71 MILESTONE; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l91_cross_layer_composition_v1_n8192 (pending) -- B: L=91 N=8192 rung 72; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l92_cross_layer_composition_v1_n8192 (pending) -- B: L=92 N=8192 rung 73; PROT-018/019/021 OK; REMOTE_VERIFIED
+- q_a3_l93_cross_layer_composition_v1_n8192 (pending) -- B: L=93 N=8192 rung 74; PROT-018/019/021 OK; REMOTE_VERIFIED
+
+NOTE: N=16384 frontier now at L=132 (rung 113); N=8192 frontier at L=93 (rung 74) including L=90 milestone.
 
 ---
 
