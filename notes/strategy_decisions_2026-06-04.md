@@ -207,3 +207,38 @@ ratio=14.668 (5-seed mean; range 14.57-14.76); all outside [0.5,2.0]. gamma_scs=
 HONEST: 713 -> 723 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v377 -> v378.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 47 BATCH -- v378 -> v379 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 14 labels honest to per-cell metrics (all 13 q_a3 source=remote FULL, pp58_scs_tau015 source=remote bridge FULL). 0 LVH catches. HONEST 722 -> 736 (+14).
+
+Label checks:
+- Q-A3 L=106..112 N=16384 (7x HP): lacc=[1.0,1.0,1.0,1.0,1.0] all levels 5/5 seeds unanimous. Honest.
+- Q-A3 L=67..72 N=8192 (6x HP): lacc=[1.0000000342...] x5 (EXACT-class) all levels 5/5 seeds. Honest.
+- pp58_scs_tau_sweep_d8_tau015 HARD_FAIL: ratio=11.422 (range 11.35-11.50); gamma_scs=15.498 vs gamma_emp=1.357; match_30%=0/5. Label says ">2x" (actual ~11.4x off -- label under-states severity but does not over-claim). Honest.
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=106..112 N=16384 (7x HARD_PASS)**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 87-93. N=16384 series: {L=20..L=112} = 93 contiguous rungs. L=112 NEW DEEPEST project history (prior L=105 v378; +7 rungs). Ceiling NOT found. Walls 35.3-45.1s GPU (linear scaling; L=112 at 45.1s). GPU memory 2.210 GB (flat through series).
+
+**(B) Q-A3 L=67..72 N=8192 (6x HARD_PASS)**
+All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 48-53. N=8192 series: {L=19,L=22..L=72} = 52 rungs. L=72 NEW N=8192 DEEPEST (prior L=66 v378; +6 rungs). L=70 MILESTONE: N=8192 reaches L=70 (first time). Walls 6.2-8.0s GPU. 2-N cross-N confirmed at L=67..L=72 {N=8192+N=16384}.
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.93-0.97 -> 0.94-0.97**
+13-rung batch (7 N=16384 + 6 N=8192) exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 9 consecutive +0.01 lifts (v371->v379 = 0.85->0.94). Product framing: EXACT-1.0000 composition moat confirmed through 112 levels at N=16384; 93-rung unbroken series; NEW DEEPEST 93-rung series; algebraic audit API moat structurally unbounded through L=112; N=8192 deepest L=72 (52 rungs); L=70 milestone; 2-N cross-N confirmed L=67..L=72; no ceiling found at any L tested.
+
+**(D) pp58_scs_tau_sweep_d8_tau015_v1_n8192 HARD_FAIL -- SCS R3 tau=0.15 outer boundary failure**
+ratio=11.422 (5-seed mean; range 11.35-11.50); all outside [0.5,2.0]. gamma_scs=15.498 vs gamma_emp=1.357 (~11.4x off). tau_actual=0.1744 vs tau_target=0.15 (16% overshoot). match_30%=0/5. Third tau regime tested (tau=0.05 sub-spike, tau=0.10 ratio=14.7x, tau=0.15 ratio=11.4x). Pattern: SCS systematically overestimates gamma_emp by ~10-15x at tau>0.05 in d=8 regime; magnitude consistent across tau=0.10/0.15 (ratio 11-15x). tau_actual consistently ~16-17% above tau_target (substrate geometry deterministic at d=8). PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid; SCS validity envelope narrowing not a row-closure trigger). Rescue cheapest-first per PROT-004/006: R1 (free) tau_actual drift audit -- tau_target=0.15 yields tau_actual=0.1744; is tau formula systematically off by 16% at d=8? check substrate d-geometry; R2 (2h CPU) tau sweep tau=0.01..0.20 at d=8 to map where gamma_scs/gamma_emp ratio drops below 2.0 (if it ever does); R3 (2h CPU) SCS at tau=0.15 but different d values to test d-dependence of ratio at fixed tau; R4 (free) cross-reference with SCS R2 alpha-sweep finding (SCS valid alpha<=0.06) -- combined validity envelope may be very narrow (alpha<=0.06 AND tau<0.05 AND below-spike-d).
+
+### PROT compliance (v378 -> v379)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.93-0.97->0.94-0.97). PP-58 tau=0.15 HF rescue R1-R4 cheapest-first filed.
+- PROT-007/008: v379 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 290th PROT-009 paired commit.
+- PROT-018: 14 anchors -- _n16384 x7 (L=106..112); _n8192 x7 (L=67..72 + pp58_scs_tau015). All suffix bindings confirmed. 0 PROT-018 violations.
+- PROT-021: all 14 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=112} N=16384 (93 rungs) and {L=19,L=22..L=72} N=8192 (52 rungs); per-seed lacc uniformly 1.0000 (N=16384) and 1.0000000342 (N=8192); GPU memory 2.210 GB flat (N=16384); pp58 gamma_scs=15.498 vs gamma_emp=1.357 consistent 5 seeds (range 1.350-1.369 gamma_emp; range 15.38-15.56 gamma_scs; systematic overestimate confirmed).
+
+HONEST: 722 -> 736 (+14). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v378 -> v379.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
