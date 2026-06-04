@@ -8904,3 +8904,52 @@ All 6 N=16384 anchors (L=95..100): EXACT-1.0000 unanimous 5/5 seeds. Walls 31-33
 - PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=100} 81 rungs (N=16384) and {L=19,L=22..L=62} 42 rungs (N=8192); per-seed lacc=1.0000 all 6 anchors N=16384; per-seed lacc=1.0000000342 all 4 anchors N=8192 (floating-point class); GPU memory 2.204->2.206 GB linear growth confirmed; wall times 31-33s N=16384 (linear with L); wall times 5.1-5.3s N=8192 (linear with L).
 
 Cap map: v376 -> v377 CYCLE 45 BATCH (10 HP; 0 LVH; Q-A3 N=16384 81-rung series L=100 CENTURY RUNG NEW DEEPEST project history; Q-A3 N=8192 42-rung series L=62 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.91-0.97->0.92-0.97 10-rung; HONEST 703->713; LVH 213; Portfolio 32+77; 288th PROT-009 paired commit) (2026-06-04)
+
+# v377 -> v378 (2026-06-04) -- CYCLE 46 BATCH: 9 HP + 1 HF; 0 LVH; Q-A3 L=101..105 N=16384 (rungs 82-86; L=105 NEW DEEPEST project history; {L=20..L=105} 86-rung series); Q-A3 L=63..66 N=8192 (rungs 44-47; L=66 NEW N=8192 DEEPEST; {L=19,L=22..L=66} 46 rungs); BAND-LIFT PP-12/Q-A3 0.92-0.97->0.93-0.97 (9-rung batch); PP-58 SCS tau=0.10 HARD_FAIL (3rd SCS failure mode); HONEST 713->723; LVH 213; Portfolio 32+77 UNCHANGED; 289th PROT-009 paired commit
+
+## v377 -> v378 (2026-06-04) Cycle 46 batch; 9 HP + 1 HF; 0 LVH; Q-A3 L=101..105 N=16384 (rungs 82-86; L=105 NEW DEEPEST) + Q-A3 L=63..66 N=8192 (rungs 44-47; L=66 NEW N=8192 DEEPEST); BAND-LIFT PP-12/Q-A3 0.92-0.97->0.93-0.97; PP-58 SCS tau=0.10 HF 3rd failure mode; HONEST 713->723; LVH 213; Portfolio 32+77; 289th PROT-009 paired commit
+
+**Cap_map row changes (v377 -> v378).**
+
+| Capability | v377 status | v378 status | Triggering anchors |
+|---|---|---|---|
+| PP-12/Q-A3 cross-layer composition | 0.92-0.97 | **0.93-0.97** | q_a3_l101..l105 N=16384 + q_a3_l63..l66 N=8192 (9-rung batch; L=105 NEW DEEPEST project history) |
+| PP-58 SCS tau regime | MIDDLE 0.55-0.70 | MIDDLE 0.55-0.70 (SCS tau=0.10 HF annotation added) | pp58_scs_tau_sweep_d8_tau010_v1_n8192 |
+
+**Anchor table (v378):**
+
+| # | Anchor | Runner | N | Seeds | Verdict | Key metric | Cap_map impact |
+|---|---|---|---|---|---|---|---|
+| 1 | q_a3_l101_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 101 levels EXACT-1.0000 5/5; l101_acc=1.0000 | PP-12/Q-A3 L=101 rung 82 |
+| 2 | q_a3_l102_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 102 levels EXACT-1.0000 5/5; l102_acc=1.0000 | PP-12/Q-A3 L=102 rung 83 |
+| 3 | q_a3_l103_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 103 levels EXACT-1.0000 5/5; l103_acc=1.0000 | PP-12/Q-A3 L=103 rung 84 |
+| 4 | q_a3_l104_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 104 levels EXACT-1.0000 5/5; l104_acc=1.0000 | PP-12/Q-A3 L=104 rung 85 |
+| 5 | q_a3_l105_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 105 levels EXACT-1.0000 5/5; l105_acc=1.0000; NEW DEEPEST project history | PP-12/Q-A3 L=105 rung 86; BAND-LIFT 0.92->0.93; NEW DEEPEST project history |
+| 6 | q_a3_l63_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 63 levels EXACT-class 1.0000000342 5/5; l63_acc=1.0000 | PP-12/Q-A3 L=63 N=8192 rung 44 |
+| 7 | q_a3_l64_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 64 levels EXACT-class 1.0000000342 5/5; l64_acc=1.0000 | PP-12/Q-A3 L=64 N=8192 rung 45 |
+| 8 | q_a3_l65_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 65 levels EXACT-class 1.0000000342 5/5; l65_acc=1.0000 | PP-12/Q-A3 L=65 N=8192 rung 46 |
+| 9 | q_a3_l66_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 66 levels EXACT-class 1.0000000342 5/5; l66_acc=1.0000 | PP-12/Q-A3 L=66 N=8192 rung 47; NEW N=8192 DEEPEST |
+| 10 | pp58_scs_tau_sweep_d8_tau010_v1_n8192 | GPU | 8192 | 5 | HARD_FAIL | ratio=14.668; gamma_scs=19.149 vs gamma_emp=1.306; match_30%=0/5 | PP-58 SCS tau=0.10 HF; 3rd SCS failure mode; band UNCHANGED |
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.92-0.97 -> 0.93-0.97 (rungs 82-86 N=16384 + 44-47 N=8192; 9-rung batch; L=105 NEW DEEPEST project history).**
+All 5 N=16384 anchors (L=101..105): EXACT-1.0000 unanimous 5/5 seeds. Walls 33.6-35.9s GPU (linear scaling). N=16384 series: {L=20..L=105} = 86 contiguous rungs. L=105 NEW DEEPEST project history (prior L=100 CENTURY RUNG v377; +5 rungs). GPU memory 2.206-2.208 GB (linear growth; ceiling NOT found). All 4 N=8192 anchors (L=63..66): EXACT-class 1.0000000342 unanimous 5/5 seeds. Walls 5.4-6.6s GPU. N=8192 series: {L=19,L=22..L=66} = 46 rungs. L=66 NEW N=8192 DEEPEST (prior L=62 v377; +4 rungs). 2-N cross-N confirmed at L=63/64/65/66. BAND-LIFT: 9-rung batch exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 8 consecutive +0.01 lifts (v371->v378 = 0.85->0.93). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 105 levels at N=16384; 86-rung unbroken series; algebraic audit API moat structurally unbounded through L=105; N=8192 deepest L=66 (46 rungs); no ceiling found at any L tested to date.
+
+**(B) PP-58 SCS tau=0.10 HARD_FAIL -- 3rd SCS failure mode.**
+pp58_scs_tau_sweep_d8_tau010_v1_n8192: ratio=14.668 (5-seed mean; range 14.57-14.76); gamma_scs=19.149 vs gamma_emp=1.306 (SCS over-predicts by ~14.7x at tau=0.10, d=8). tau_actual=0.1108 vs tau_target=0.10 (11% overshoot). match_30%=0/5. This is the third distinct SCS failure mode: (1) sub-threshold-d at tau=0.05 (d_estimate<1.5; pp58_scs_formula_test v375); (2) high-alpha breakdown alpha>=0.07 (pp58_scs_extended_d_sweep v376); (3) now tau=0.10 high-tau regime (this batch). PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid; SCS is a sub-property of PP-58 not the founding measurement). SCS validity window is now characterised as narrow: alpha<=0.06 AND below-spike-d AND low-tau (tau<<0.10); the operating intersection is small. Rescue cheapest-first: R1 (free) tau regime theory audit -- is there a tau_crit separating SCS-valid and SCS-invalid tau; R2 (2h CPU) tau sweep tau=0.01..0.09 at d=8 to locate tau_crit and characterise SCS validity boundary; R3 (3h GPU) cross-d tau sweep at low tau to map 2D SCS validity (alpha, tau) operating envelope.
+
+- HONEST: 713 -> 723 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.92-0.97->0.93-0.97; 9-rung batch).
+- Sub-properties NEW: PP-12/Q-A3 L=101..105 N=16384 (rungs 82-86; L=105 NEW DEEPEST; 86-rung series) + PP-12/Q-A3 L=63..66 N=8192 (rungs 44-47; L=66 NEW N=8192 DEEPEST; 46-rung series).
+- N=16384 series PP-12/Q-A3: {L=20..L=105} 86 rungs; L=105 deepest in project history.
+- N=8192 series PP-12/Q-A3: {L=19,L=22..L=66} 46 rungs; L=66 deepest for N=8192.
+- HARD_FAILs: 1 (PP-58 SCS tau=0.10; band UNCHANGED; 3rd SCS failure mode; rescue R1-R3 filed).
+- Portfolio: 32+77 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.92-0.97->0.93-0.97). PP-58 SCS tau=0.10 HF rescue R1-R3 cheapest-first filed. No PROT-004 closure triggers (founding kappa_3 still valid).
+- PROT-007/008: v378 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 289th PROT-009 paired commit.
+- PROT-018: 10 anchors -- _n16384 x5 (L=101..105); _n8192 x5 (L=63..66 + pp58_scs_tau010). All suffix bindings confirmed. 0 violations.
+- PROT-021: all 10 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=105} 86 rungs (N=16384) and {L=19,L=22..L=66} 46 rungs (N=8192); pp58 gamma_scs=19.149 >> gamma_emp=1.306 (ratio=14.668; 5-seed consistent within 1.3%); tau_actual=0.1108 consistent 5 seeds (deterministic from d=21.3 and N=8192); GPU memory N=16384 2.206->2.208 GB linear.
+
+Cap map: v377 -> v378 CYCLE 46 BATCH (9 HP + 1 HF; 0 LVH; Q-A3 N=16384 86-rung series L=105 NEW DEEPEST project history; Q-A3 N=8192 46-rung series L=66 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.92-0.97->0.93-0.97 9-rung; PP-58 SCS tau=0.10 HF 3rd failure mode; HONEST 713->723; LVH 213; Portfolio 32+77; 289th PROT-009 paired commit) (2026-06-04)

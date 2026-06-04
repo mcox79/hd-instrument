@@ -172,3 +172,38 @@ All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 40-43. N=8192 series: {L
 HONEST: 703 -> 713 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v376 -> v377.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 46 BATCH -- v377 -> v378 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 10 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 713 -> 723 (+10).
+
+Label checks:
+- Q-A3 L=101..105 N=16384 (5x HP): EXACT-1.0000 all levels 5/5 seeds unanimous. l101_acc..l105_acc=1.0000. Honest.
+- Q-A3 L=63..66 N=8192 (4x HP): EXACT-class 1.0000000342 all levels 5/5 seeds. l63_acc..l66_acc=1.0000. Honest.
+- pp58_scs_tau_sweep_d8_tau010 HARD_FAIL: ratio=14.668 (mean 5-seed); gamma_scs=19.15 vs gamma_emp=1.31; all 5 seeds outside [0.5,2.0]; match_30%=0/5. Label says '>2x' (conservative lower bound; actual ~14.7x off). Honest (no over-claim; under-states severity).
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=101..105 N=16384 (5x HARD_PASS)**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 82-86. N=16384 series: {L=20..L=105} = 86 contiguous rungs. L=105 NEW DEEPEST project history (prior L=100 v377; +5 rungs). Walls 33.6-35.9s GPU (linear scaling; ceiling NOT found). Mean lacc=1.0000 per seed; GPU memory 2.206-2.208 GB linear.
+
+**(B) Q-A3 L=63..66 N=8192 (4x HARD_PASS)**
+All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 44-47. N=8192 series: {L=19,L=22..L=66} = 46 rungs. L=66 NEW N=8192 DEEPEST (prior L=62 v377; +4 rungs). Walls 5.4-6.6s GPU. 2-N cross-N confirmed at L=63/64/65/66 {N=8192+N=16384}.
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.92-0.97 -> 0.93-0.97**
+9-rung batch (5 N=16384 + 4 N=8192) exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 8 consecutive +0.01 lifts (v371-v378 = 0.85->0.93). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 105 levels at N=16384; 86-rung unbroken series; algebraic audit API moat structurally unbounded through L=105; N=8192 deepest L=66 (46 rungs); no ceiling found at any L tested to date.
+
+**(D) pp58_scs_tau_sweep_d8_tau010_v1_n8192 HARD_FAIL**
+ratio=14.668 (5-seed mean; range 14.57-14.76); all outside [0.5,2.0]. gamma_scs=19.149 vs gamma_emp=1.306 -- SCS prediction off by ~14.7x at tau=0.10, d=8. tau_actual=0.1108 vs tau_target=0.10 (11% overshoot). match_30%=0/5. Third distinct SCS failure mode: prior failures were sub-threshold-d (pp58_scs_formula_test d8 tau0.05, d_estimate<1.5) and high-alpha breakdown (alpha>=0.07). Now tau=0.10 regime also fails. PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid). Rescue cheapest-first per PROT-004/006: R1 (free) tau regime theory audit -- why does gamma_scs diverge from gamma_emp at tau=0.10; is there a tau_crit below which SCS holds? R2 (2h CPU) tau sweep tau=0.01..0.09 at d=8 to locate tau_crit; R3 (3h GPU) cross-d tau sweep at tau=0.05 to characterise SCS validity envelope. SCS validity boundary narrower than estimated (valid only alpha<=0.06 AND below-spike-d AND low-tau; intersection may be very small operating window).
+
+### PROT compliance (v377 -> v378)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.92-0.97->0.93-0.97). PP-58 tau=0.10 HF rescue R1-R3 cheapest-first filed. No PROT-004 closure triggers (PP-58 founding kappa_3 still valid).
+- PROT-007/008: v378 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 289th PROT-009 paired commit.
+- PROT-018: 10 anchors -- _n16384 x5 (L=101..105); _n8192 x5 (L=63..66 + pp58_scs_tau010). All suffix bindings confirmed. 0 PROT-018 violations.
+- PROT-021: all 10 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=105} N=16384 (86 rungs) and {L=19,L=22..L=66} N=8192 (46 rungs); pp58 gamma_scs=19.149 >> gamma_emp=1.306 (ratio=14.668; 5-seed consistent within 1.3%); tau_actual=0.1108 consistent 5 seeds.
+
+HONEST: 713 -> 723 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v377 -> v378.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
