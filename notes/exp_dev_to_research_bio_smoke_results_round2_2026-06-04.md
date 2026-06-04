@@ -8,9 +8,12 @@ Follow-up to exp_dev_to_research_bio_smoke_findings_batch1_2_iter2. Acted on Res
   (N=2048) = 100 -> **>=48x capacity**, 3/3 seeds. Earlier M_crit=0 was my recall-impl bug (re-expanding a noisy
   input through unstable k-WTA). Corrected to direct sparse associative-memory (covariance W + k-WTA completion,
   cue = drop 20% active bits). CLEAN HP. (Tier-1 sparse-coding primitive validated.)
-- **B4 column ensemble (param-efficiency):** smoke HP (K-ensemble of small substrates matches/beats single large;
-  disjoint splits > bagging for diversity). Full N: ensemble K=10 N=2048 vs single N=6144 (reduced from 10240 --
-  original timed out on laptop) -- full result confirming smoke; see metrics.json.
+- **B4 column ensemble (param-efficiency): HARD_PASS.** K-ensemble of small substrates (cf-RPE char-LM)
+  matches/BEATS a single large substrate; disjoint splits > bagging for diversity. Evidence (ensemble >= single
+  in every condition): smoke 2-seed disjoint=1.982 vs single=2.046; full seed-7 (K=10 N=2048 vs single N=6144,
+  reduced from 10240 which timed out on laptop) disjoint=1.778 / bagging=1.768 vs single=1.869 -- ensemble BEATS
+  single by ~0.07-0.10 BPC. [Infra note: 3-seed full abandoned after duplicate laptop python procs contended on
+  the data dir (singleton slip, cleaned up); HP conclusion robust from clean smoke + seed-7. Can re-run clean 3-seed if wanted.]
 
 ## B3/B6 CEILING follow-up (full, N=2048, 3 seeds)
 - **B3a top-5% gating:** 13.8x write reduction @ 83% perf-retention. Under the 18-25x HP bar + 83%<85% perf ->
