@@ -1,33 +1,31 @@
 # Pending experiment queue -- running list
 
-**Updated:** 2026-06-04 CYCLE 48 ALL-NIGHT BURST SHIPPED (10 anchors: 8 GPU overnight_queue + 2 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 49 ALL-NIGHT BURST SHIPPED (10 anchors: all GPU overnight_queue; REMOTE VERIFY PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there is a state change. User can read this anytime to see what is pending.
 
 ---
 
-## Active in overnight_queue + remote_cpu_queue (cycle 48 ALL-NIGHT BURST 2026-06-04)
+## Active in overnight_queue (cycle 49 ALL-NIGHT BURST 2026-06-04)
 
-GPU (overnight_queue) -- CYCLE 48 NEW:
-- q_a3_l118_cross_layer_composition_v1_n16384 (pending) -- A: L=118 N=16384 rung 99; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l119_cross_layer_composition_v1_n16384 (pending) -- A: L=119 N=16384 rung 100; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l120_cross_layer_composition_v1_n16384 (pending) -- A: L=120 N=16384 rung 101; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l121_cross_layer_composition_v1_n16384 (pending) -- A: L=121 N=16384 rung 102; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l122_cross_layer_composition_v1_n16384 (pending) -- A: L=122 N=16384 rung 103; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l78_cross_layer_composition_v1_n8192 (pending) -- B: L=78 N=8192 rung 59; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l79_cross_layer_composition_v1_n8192 (pending) -- B: L=79 N=8192 rung 60; PROT-018/019/022 OK; REMOTE_VERIFIED
-- q_a3_l80_cross_layer_composition_v1_n8192 (pending) -- B: L=80 N=8192 rung 61; PROT-018/019/022 OK; REMOTE_VERIFIED
+GPU (overnight_queue) -- CYCLE 49 NEW:
+- q_a3_l123_cross_layer_composition_v1_n16384 (pending) -- A: L=123 N=16384 rung 104; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l124_cross_layer_composition_v1_n16384 (pending) -- A: L=124 N=16384 rung 105; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l125_cross_layer_composition_v1_n16384 (pending) -- A: L=125 N=16384 rung 106; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l126_cross_layer_composition_v1_n16384 (pending) -- A: L=126 N=16384 rung 107; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l127_cross_layer_composition_v1_n16384 (pending) -- A: L=127 N=16384 rung 108; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l81_cross_layer_composition_v1_n8192 (pending) -- B: L=81 N=8192 rung 62; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l82_cross_layer_composition_v1_n8192 (pending) -- B: L=82 N=8192 rung 63; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l83_cross_layer_composition_v1_n8192 (pending) -- B: L=83 N=8192 rung 64; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l84_cross_layer_composition_v1_n8192 (pending) -- B: L=84 N=8192 rung 65; PROT-018/019/021/022 OK; REMOTE_VERIFIED
+- q_a3_l85_cross_layer_composition_v1_n8192 (pending) -- B: L=85 N=8192 rung 66; PROT-018/019/021/022 OK; REMOTE_VERIFIED
 
-CPU (remote_cpu_queue) -- CYCLE 48 NEW:
-- pp58_scs_tau_sweep_d8_tau020_v1_n8192 (pending) -- C: PP-58 SCS tau_target=0.20 d=8; PROT-018/019/022 OK; REMOTE_VERIFIED
-- pp58_scs_tau_sweep_d8_tau030_v1_n8192 (pending) -- C: PP-58 SCS tau_target=0.30 d=8; PROT-018/019/022 OK; REMOTE_VERIFIED
+Also pending/running from prior cycles (unverified current state -- runner may have consumed some):
+- cycle 48 anchors L=118-122 N=16384 + L=78-80 N=8192 (may be running/completed)
+- pp58_scs_tau020/030 d=8 (remote_cpu; cycle 48)
+- pp58_scs_low_tau_sweep_d8_v1_n8192 (remote_cpu; cycle 47)
 
-Also pending from prior cycles (cycle 48 confirmed in queue):
-- q_a3_l117_cross_layer_composition_v1_n16384 (pending/running) -- L=117 N=16384; pre-existing
-- q_a3_l73-l77 N=8192 (pending) -- L=73-77 N=8192; pre-existing from cycle 47 burst
-- pp58_scs_low_tau_sweep_d8_v1_n8192 (running) -- remote_cpu; pre-existing
-
-NOTE: N=16384 frontier now at L=122 (rung 103); N=8192 frontier at L=80 (rung 61).
+NOTE: N=16384 frontier now at L=127 (rung 108); N=8192 frontier at L=85 (rung 66).
 Priority items L113-L117 N=16384 confirmed ALREADY IN QUEUE/COMPLETED from prior session.
 
 ---
