@@ -78,9 +78,10 @@ else:
     N_DIM = N; SEEDS = [7, 17, 23, 31, 41]
 
 
-def resonator_recovery(n, K, sigma0, gen) -> float:
-    codebooks = [(torch.randint(0, 2, (V, n), generator=gen, device=DEVICE).float() * 2 - 1) for _ in range(K)]
-    true_idx = [torch.randint(0, V, (B_TRIALS,), generator=gen, device=DEVICE) for _ in range(K)]
+def resonator_recovery(n, K, sigma0, gen, v=None) -> float:
+    v = v if v is not None else V
+    codebooks = [(torch.randint(0, 2, (v, n), generator=gen, device=DEVICE).float() * 2 - 1) for _ in range(K)]
+    true_idx = [torch.randint(0, v, (B_TRIALS,), generator=gen, device=DEVICE) for _ in range(K)]
     chosen = [codebooks[k][true_idx[k]] for k in range(K)]
     c = chosen[0].clone()
     for k in range(1, K):
@@ -114,7 +115,7 @@ def _selftest():
     f1 = (torch.randint(0, 2, (256,), generator=gen, device=DEVICE).float() * 2 - 1)
     f2 = (torch.randint(0, 2, (256,), generator=gen, device=DEVICE).float() * 2 - 1)
     assert torch.allclose((f1 * f2) * f1, f2), "bind not self-inverse"
-    acc2 = resonator_recovery(256, 2, 0.0, gen); assert acc2 > 0.3, f"K=2 baseline acc {acc2}"  # mechanism check (chance ~1/V^2); not capacity
+    acc2 = resonator_recovery(256, 2, 0.0, gen, v=24); assert acc2 > 0.5, f"K=2 baseline acc {acc2}"  # mechanism check (V=24 easy load; chance ~1/V^2); V-independent of run mode
     cb = (torch.randint(0, 2, (10, 256), generator=gen, device=DEVICE).float() * 2 - 1)
     assert int((cb @ cb[3]).argmax()) == 3, "cleanup wrong"
     s_end = SIGMA0 * (1.0 - (T_ITERS - 1) / max(1, T_ITERS - 1)); assert abs(s_end) < 1e-9, "anneal not ->0"
