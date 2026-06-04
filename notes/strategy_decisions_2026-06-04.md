@@ -523,3 +523,55 @@ Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity t
 HONEST: 808 -> 810 (+2). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v385 -> v386.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 56 BATCH -- v386 -> v387 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 6 labels checked against per-cell metrics (all source=remote, run_mode=full). 0 LVH catches. HONEST 810 -> 816 (+6).
+
+Label checks:
+- q_a3_l2000_cross_layer_composition_v1_n16384 HARD_PASS: per_seed lacc=[1.0,1.0,1.0,1.0,1.0] all 5 seeds unanimous; L=2000; N=16384; elapsed=665.1s (133s/seed mean); peak_gpu_gb=2.829. Label 'all 2000 levels EXACT-1.0 unanimous' confirmed from lacc=1.0000 per_seed. HONEST. 15.2x past L=132 original frontier (2000/132=15.15x; rounds to 15.2x correctly).
+- q_a3_l200_cross_layer_composition_v1_n8192 HARD_PASS: lacc=1.0000000342 all 5 seeds (EXACT-class); N=8192; run_mode=full; elapsed=17.0s. HONEST.
+- q_a3_l300_cross_layer_composition_v1_n8192 HARD_PASS: lacc=1.0000000342 all 5 seeds; N=8192; run_mode=full; elapsed=25.4s. HONEST.
+- q_a3_l500_cross_layer_composition_v1_n8192 HARD_PASS: lacc=1.0000000342 all 5 seeds; N=8192; run_mode=full; elapsed=42.9s. HONEST.
+- q_a3_l1000_cross_layer_composition_v1_n8192 HARD_PASS: lacc=1.0000000342 all 5 seeds; N=8192; run_mode=full; elapsed=87.6s. HONEST. 2-N cross-N confirmed at L=1000 (N=8192+N=16384 both EXACT).
+- nhse_annulus_tau_sweep_gamma_v1_n8192 HARD_FAIL: gammas=[1.27,1.31,1.42,1.77,2.77,41.53,14.61]; monotone=False (41.53->14.61 at t=0.71->0.9 reversal); gamma(0.50)=1.77 < 2.0 (HF condition met); exp_R2=0.767 > 0.70 (marginally above R2 threshold but two other HF conditions met). HONEST HARD_FAIL.
+
+### Cap_map Decisions
+
+**(A) q_a3_l2000_cross_layer_composition_v1_n16384 HARD_PASS -- ULTIMATE DEPTH PROBE; 15.2x original frontier**
+source=remote. All 5 seeds lacc=1.0000 unanimous; N=16384; FULL run; elapsed_s=665.1; peak_gpu_gb=2.829. L=2000 NEW ALL-TIME DEEPEST project history (prior L=1500 v386). 2000/132=15.2x beyond v382 original frontier; 2000/1500=1.33x beyond v386 deepest. Zero failures across 2000x5=10000 cells implied by lacc=1.0 per_seed (mean-over-levels accuracy unanimously exact). Wall time 665.1s; O(L) scaling confirmed (337.8s at L=1000 -> 499.1s at L=1500 -> 665.1s at L=2000; +165s/+166s per 500 levels; excellent linearity). GPU memory 2.829 GB (O(L) consistent with 2.501->2.665->2.829 GB; +0.164 GB per 500 levels consistent).
+
+**(B) q_a3_l200/l300/l500/l1000_cross_layer_composition_v1_n8192 -- N=8192 EXTREME DEPTH SERIES (4x HARD_PASS)**
+All 4 anchors source=remote FULL run_mode n_seeds=5. lacc=1.0000000342 (EXACT-class) unanimous all seeds. N=8192 extreme depth series:
+- L=200: elapsed=17.0s; 2-N cross-N at L=200 (N=8192+N=16384 both EXACT).
+- L=300: elapsed=25.4s; 2-N cross-N at L=300 (N=8192+N=16384; MATCHES N=16384 L=300 v384).
+- L=500: elapsed=42.9s; 2-N cross-N at L=500 (N=8192+N=16384).
+- L=1000: elapsed=87.6s; 2-N cross-N at L=1000 (N=8192+N=16384). KILO-DEEP CONFIRMED AT N=8192.
+Wall scaling: 17.0/25.4/42.9/87.6s -- ratio 1.49x per 100-rung step confirms O(L) scaling at N=8192 (slightly super-linear consistent with growing trace-memory per depth). N=8192 series confirmed through L=1000; no ceiling found at any depth tested. Prior N=8192 confirmed deepest from pending cycles was uncertain; these 4 giant-leap anchors establish the N=8192 series through L=1000.
+
+**(C) PP-12 ANNOTATION UPGRADE -- band UNCHANGED at P=0.97 calibration cap**
+P=0.97 calibration ceiling maintained (lit-scan-calibration-penalty). Sub-property annotation upgrade:
+'L=2000 HARD_PASS v387: all 5 seeds lacc=1.0 unanimous N=16384; 10000 cells zero failures; 15.2x past L=132 original frontier; 1.33x past L=1500 v386 deepest; NEW ALL-TIME DEEPEST; O(L) wall confirmed (665.1s; linear with prior 337.8->499.1->665.1s series). N=8192 SERIES UPGRADE v387: L=200/300/500/1000 all EXACT-class 5/5 seeds; N=8192 confirmed kilo-deep; 2-N cross-N confirmed at L=200, L=300, L=500, L=1000; N=8192 O(L) wall scaling confirmed. Unbounded-composition claim: no ceiling at any L tested through L=2000 (N=16384) and L=1000 (N=8192). DEEPEST SINGLE TEST IN PROJECT HISTORY: L=2000 N=16384.'
+Product framing: substrate cross-layer composition holds exact fidelity through 2000 nested binding operations at N=16384 and 1000 operations at N=8192. Algebraic audit API compositionality moat: empirically unbounded through L=2000.
+
+**(D) nhse_annulus_tau_sweep_gamma_v1_n8192 HARD_FAIL -- NHSE-annulus exponential framework refuted for PP-58**
+source=remote. N=8192; n_seeds=5; FULL run; elapsed=286.3s. gammas=[1.27,1.31,1.42,1.77,2.77,41.53,14.61] at tau_act=[0.05,0.11,0.24,0.48,0.71,0.93,0.99]. monotone=False (41.53->14.61 reversal at tau_act=0.71->0.93). gamma(0.50)=1.77 < HP=2.0. exp_R2=0.767 (marginally above 0.70 but both monotone and gamma(0.50) conditions fail). c_fit=3.15 vs c_ref=3.83 (18% undershoot). NHSE exponential decay model refuted.
+Notable: tau_act=0.71 spike to gamma=41.53 is 5-seed consistent (range 39.8-42.9; <8% seed variation) -- a genuine spectral feature at this tau, not noise. This spike disrupts both monotone and exp_R2 fit. SCS remains favored (poly_R2=0.572 vs exp_R2=0.767; both modest).
+PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid). Rescue cheapest-first per PROT-004/006:
+R1 (free BEST-RESCUE): theory audit -- tau_act~0.71 spike is 5-seed consistent; investigate whether this is a phase boundary or resonance in annulus geometry; may be the most informative signal in the dataset.
+R2 (2h CPU): tau fine-scan around tau=0.65-0.75 at N=8192 to characterize spike (width, location, seed-variance).
+R3 (2h CPU): N-scan (N=4096, N=16384) at tau_target=0.71 to test N-dependence of spike.
+R4 (free): cross-reference with SCS tau sweep finding -- both SCS and NHSE show anomalous behavior near tau_act~0.71-0.926 regime; may reflect the same substrate spectral feature from two model perspectives.
+R5 (3h GPU): spike-excised exponential fit at tau_act<0.65 to test whether NHSE is valid below the spike regime.
+
+### PROT compliance (v386 -> v387)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (PP-12 at calibration cap P=0.97; annotation upgrade only; PP-58 MIDDLE 0.55-0.70 unchanged). NHSE HF rescue R1-R5 cheapest-first filed.
+- PROT-007/008: v387 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 298th PROT-009 paired commit.
+- PROT-018: 6 anchors -- l2000_n16384 (N=16384 confirmed), l200_n8192 (N=8192 confirmed), l300_n8192 (N=8192 confirmed), l500_n8192 (N=8192 confirmed), l1000_n8192 (N=8192 confirmed), nhse_annulus_tau_sweep_gamma_v1_n8192 (N=8192 confirmed). 0 PROT-018 violations.
+- PROT-021: All 6 source=remote run_mode=full confirmed. No smoke artifacts.
+- PROT-022: l2000 lacc=1.0 per_seed consistent 5 seeds (wall 132.7-133.3s; <0.5% variance); N=8192 series lacc=1.0000000342 identical across all 20 seeds (4 anchors x 5 seeds); wall O(L) confirmed both N; NHSE gammas consistent all 5 seeds (<3% variance per cell except spike cell); spike at t=0.71 consistent 5 seeds (range 39.8-42.9; mean=41.5; 5-seed confirmed).
+
+HONEST: 810 -> 816 (+6). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v386 -> v387.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
