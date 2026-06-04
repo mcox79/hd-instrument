@@ -1,12 +1,31 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 CYCLE 42 ALL-NIGHT BURST SHIPPED (10 GPU anchors queued to overnight_queue; remote verify PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 43 ALL-NIGHT BURST SHIPPED (10 GPU anchors queued to overnight_queue; remote verify PASS 10/10; runner executing immediately)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
 ---
 
-## Active in overnight_queue (pending -- cycle 42 ALL-NIGHT BURST 2026-06-03)
+## Active in overnight_queue (pending/running -- cycle 43 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- v372+ CYCLE 43 ALL-NIGHT BURST 2026-06-04:
+- q_a3_l78_cross_layer_composition_v1_n16384 (RUNNING or COMPLETED) -- A: L=78 N=16384 rung 59; self-test=2.4s; REMOTE_VERIFIED
+- q_a3_l79_cross_layer_composition_v1_n16384 (RUNNING or PENDING) -- A: L=79 N=16384 rung 60; self-test=2.4s; REMOTE_VERIFIED
+- q_a3_l80_cross_layer_composition_v1_n16384 (pending) -- A: L=80 N=16384 rung 61; self-test=2.3s; REMOTE_VERIFIED
+- q_a3_l81_cross_layer_composition_v1_n16384 (pending) -- A: L=81 N=16384 rung 62; self-test=2.0s; REMOTE_VERIFIED
+- q_a3_l82_cross_layer_composition_v1_n16384 (running at ship time) -- B: L=82 N=16384 rung 63; self-test=2.0s; REMOTE_VERIFIED
+- q_a3_l83_cross_layer_composition_v1_n16384 (pending) -- B: L=83 N=16384 rung 64; self-test=2.3s; REMOTE_VERIFIED
+- q_a3_l46_cross_layer_composition_v1_n8192 (pending) -- C: L=46 N=8192 cross-N rung 27; self-test=2.9s; REMOTE_VERIFIED
+- q_a3_l47_cross_layer_composition_v1_n8192 (pending) -- C: L=47 N=8192 cross-N rung 28; self-test=2.2s; REMOTE_VERIFIED
+- pp58_bbp_dense_xn_n8192_v1_n8192 (pending) -- D: PP-58 BBP dense sigma_g N=8192 cross-N; self-test=2.3s; REMOTE_VERIFIED
+- pp50_kappa3_ultra_fine_sigma_g_v4_n16384 (pending) -- E: PP-50 v4 ultra-fine sg=[0.83..2.0] onset shape; self-test=2.4s; REMOTE_VERIFIED
+
+NOTE: Priority items A/B/C from user task (L=72-77 N=16384, L=43-45 N=8192) were ALREADY COMPLETED in prior session. Shipped actual frontiers L=78-83 and L=46-47.
+Item F (pp12_capacity_ondemand_w_v1_n16384) script+prereg written; deferred to cycle 44 (10-anchor cap).
+
+---
+
+## Previously active -- cycle 42 ALL-NIGHT BURST 2026-06-03 (all completed)
 
 GPU (overnight_queue) -- v372 CYCLE 42 ALL-NIGHT BURST 2026-06-03:
 - q_a3_l66_cross_layer_composition_v1_n16384 (COMPLETED) -- A: L=66 N=16384 rung 47; verdicts pending
