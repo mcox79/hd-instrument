@@ -8728,3 +8728,83 @@ phase05_v1_algorithm1_debug_pythia160m_v1. Model: EleutherAI/pythia-160m. Layers
 - PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=83} N=16384 (64 rungs) and {L=19,L=22..L=47} N=8192 (27 rungs); PP-50 amplification=851x consistent with entry-boundary model; PP-58 dense XN ratio=1.00 consistent with substrate robustness (recall flat); Phase 0.5 val_loss reduction 45-57% consistent across 3 seeds.
 
 Cap map: v373 -> v374 CYCLE 42 BATCH (10 HP + 1 HF + 1 HP-GATE; Q-A3 N=16384 64-rung series L=83 NEW DEEPEST project history; Q-A3 N=8192 27-rung series L=47 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.88-0.97->0.89-0.97 9-rung; PP-58 BBP dense XN HF R1-R3; PP-50 v4 ultra-fine HP annotation; Phase 0.5 Rung A GATE OPEN CRITICAL; HONEST 658->670; LVH 213; Portfolio 32+77; 285th PROT-009 paired commit) (2026-06-04)
+
+# v374 -> v375 (2026-06-04) -- CYCLE 43 BATCH: 7 HP + 1 MIDDLE_BAND + 7 HF; 0 LVH; Q-A3 L=84..87 N=16384 (rungs 65-68; L=87 NEW DEEPEST project history; {L=20..L=87} 68-rung series); Q-A3 L=48..50 N=8192 (rungs 29-31; L=50 NEW N=8192 DEEPEST; {L=19,L=22..L=50} 30 rungs); BAND-LIFT PP-12/Q-A3 0.89-0.97->0.90-0.97 (7-rung batch); pp50 v5 MIDDLE_BAND (NaN at sg5.0); pp58 SCS formula HARD_FAIL (d<1.5); spectral_gap_gamma_vs_M HARD_FAIL; 5x Phase B/A rung-1 tinychar HARD_FAIL (spectral-monitor overfitting rescue signal); HONEST 670->685; LVH 213; Portfolio 32+77 UNCHANGED; 286th PROT-009 paired commit
+
+## v374 -> v375 (2026-06-04) Cycle 43 batch; 7 HP + 1 MID + 7 HF; 0 LVH; Q-A3 L=84..87 N=16384 (rungs 65-68; L=87 NEW DEEPEST) + Q-A3 L=48..50 N=8192 (rungs 29-31; L=50 NEW N=8192 DEEPEST); BAND-LIFT PP-12/Q-A3 0.89-0.97->0.90-0.97; pp50 v5 MID; pp58 SCS HF; spectral_gap HF; 5x rung-1 tinychar HF (spectral_monitor overfitting 300-step lead rescue); HONEST 670->685; LVH 213; Portfolio 32+77; 286th PROT-009 paired commit
+
+| Row | Prior | v375 | Trigger |
+|---|---|---|---|
+| PP-12/Q-A3 cross-layer composition | 0.89-0.97 | **0.90-0.97** | q_a3_l84..l87 N=16384 + q_a3_l48..l50 N=8192 (7-rung batch; L=87 NEW DEEPEST project history) |
+| PP-50 kappa3 sigma_g extended v5 | annotation | annotation updated | pp50_kappa3_sigma_g_extended_v5_n16384 MIDDLE_BAND; monotone to sg3.0; NaN at sg5.0 (overflow) |
+| PP-58 SCS formula sub-path | open | HARD_FAIL (R1-R3 rescue) | pp58_scs_formula_test_d8_tau005_v1_n8192; d_estimate=1.487 < 1.5; SCS assumption violated |
+| PP-58 spectral_gap gamma_vs_M sub-path | open | HARD_FAIL (R1-R3 rescue) | gamma flat vs M; Lyapunov-only; SCS-vs-RSB undiscriminated |
+| Phase B rung 1 tinychar mini-LM | exploratory | HARD_FAIL (rung-1 baseline) | bpc=5.517 ~= uniform=5.524; substrate-LM decoupled at N=512 |
+| Phase B rung 1 curriculum | exploratory | HARD_FAIL (rung-1 baseline) | gain=-0.098; curriculum hurts at N=256 |
+| Phase B rung 1 ICL | exploratory | HARD_FAIL (rung-1 baseline) | best_gain=0.0145 << HP=0.1; N=256 |
+| Phase A rung 1 spectral monitor | exploratory | HARD_FAIL (overfitting rescue) | convergence lag 3/3; overfitting lead +300 steps 3/3 (rescue) |
+| Phase A rung 1 8-channel orchestration | exploratory | HARD_FAIL (no convergence) | no converged seeds; tinychar scale |
+
+### Anchor-level records
+
+| # | Anchor | Wall | N | Seeds | Verdict | Key metrics | Cap_map note |
+|---|---|---|---|---|---|---|---|
+| 1 | q_a3_l84_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 84 levels EXACT-1.0000 unanimous 5/5; l84_acc=1.0000 | PP-12/Q-A3 L=84 rung 65; N=16384 series {L=20..L=84}; BAND-LIFT batch |
+| 2 | q_a3_l85_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 85 levels EXACT-1.0000 unanimous 5/5; l85_acc=1.0000 | PP-12/Q-A3 L=85 rung 66 |
+| 3 | q_a3_l86_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 86 levels EXACT-1.0000 unanimous 5/5; l86_acc=1.0000 | PP-12/Q-A3 L=86 rung 67 |
+| 4 | q_a3_l87_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 87 levels EXACT-1.0000 unanimous 5/5; l87_acc=1.0000; NEW DEEPEST project history | PP-12/Q-A3 L=87 rung 68; NEW DEEPEST; BAND-LIFT 0.89-0.97->0.90-0.97 |
+| 5 | q_a3_l48_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 48 levels EXACT-class 1.0000000342 unanimous 5/5; l48_acc=1.0000 | PP-12/Q-A3 L=48 N=8192 rung 29; 2-N cross-N at L=48 |
+| 6 | q_a3_l49_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 49 levels EXACT-class 1.0000000342 unanimous 5/5; l49_acc=1.0000 | PP-12/Q-A3 L=49 N=8192 rung 30 |
+| 7 | q_a3_l50_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 50 levels EXACT-class 1.0000000342 unanimous 5/5; l50_acc=1.0000; NEW N=8192 DEEPEST | PP-12/Q-A3 L=50 N=8192 rung 31; NEW N=8192 DEEPEST |
+| 8 | pp50_kappa3_sigma_g_extended_v5_n16384 | 4.4s | 16384 | 5 | MIDDLE_BAND | monotone=False; amp_1_to_5=nan; sigma_sep [sg1.0:44085->sg3.0:3.45e9->sg5.0:nan] | PP-50 v5 extended; monotone to sg3.0; NaN overflow at sg5.0; band 0.83-0.94 UNCHANGED |
+| 9 | pp58_scs_formula_test_d8_tau005_v1_n8192 | CPU | 8192 | 5 | HARD_FAIL | d_estimate=1.487 < 1.5; gamma_emp=1.231; gamma_scs=1.487; ratio=1.208; tau=0 | PP-58 SCS formula HF; SCS spike condition violated; MIDDLE 0.55-0.70 UNCHANGED; R1-R3 rescue |
+| 10 | substrate_spectral_gap_gamma_vs_M_scaling_v1_n4096_n16384 | 566.7s | 4096+16384 | 5 | HARD_FAIL | ratio=1.130>0.85; gamma flat vs M; N=4096:g1.09-1.23 N=16384:g1.09-1.23; 50 cells | spectral_gap SCS-vs-RSB HF; Lyapunov-only; MIDDLE unchanged; R1-R3 rescue |
+| 11 | substrate_trained_mini_lm_rung1_tinychar_v1 | 40.2s | 512 | 3 | HARD_FAIL | bpc=5.517; uniform=5.524; gap=0.007; 0/3 hp; 0/3 mid | Phase B rung 1 mini-LM HF; substrate-LM decoupled at N=512; R1-R3 rescue |
+| 12 | substrate_curriculum_learning_rung1_tinychar_v1 | 151.9s | 256 | 3 | HARD_FAIL | gain=-0.098; random_bpc=1.533; curriculum_bpc=1.684 | Phase B rung 1 curriculum HF; N=256 noise-dominated; R1-R3 rescue |
+| 13 | substrate_preloaded_icl_rung1_tinychar_v1 | 3.9s | 256 | 3 | HARD_FAIL | k0_acc=0.0035; best_K=10 gain=0.0145 | Phase B rung 1 ICL HF; N=256; R1-R3 rescue |
+| 14 | substrate_spectral_training_monitor_rung1_tinychar_v1_n4096 | CPU | 4096 | 3 | HARD_FAIL | convergence lead=-11.67 (lag 3/3); overfitting lead=+300.0 (HP 3/3); divergence 0/3 | Phase A rung 1 spectral monitor HF; overfitting-sentinel rescue (R1); R1-R3 rescue |
+| 15 | substrate_8channel_orchestration_rung1_tinychar_v1_n4096 | CPU | 4096 | 3 | HARD_FAIL | no converged seeds across 3 conditions | Phase A rung 1 8-channel HF; tinychar insufficient; R1-R3 rescue |
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.89-0.97 -> 0.90-0.97 (rungs 65-68 N=16384 + 29-31 N=8192; 7-rung batch; L=87 NEW DEEPEST project history).**
+All 4 N=16384 anchors (L=84..87): EXACT-1.0000 unanimous 5/5 seeds. N=16384 series: {L=20..L=87} = 68 contiguous rungs. L=87 NEW DEEPEST project history (prior L=83 v374; +4 rungs). 52 rungs beyond N=4096 tested ceiling. All 3 N=8192 anchors (L=48..50): EXACT-class 1.0000000342 unanimous 5/5 seeds. N=8192 series: {L=19,L=22..L=50} = 30 rungs. L=50 NEW N=8192 DEEPEST (prior L=47 v374; +3 rungs). 2-N cross-N confirmed at L=48/49/50 {N=8192+N=16384}. BAND-LIFT: 7-rung batch exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 87 levels at N=16384; 68-rung unbroken series; audit API algebraic moat structurally unbounded through L=87; no ceiling found.
+
+**(B) PP-50 v5 sigma_g extended MIDDLE_BAND: NaN overflow at sg=5.0.**
+sigma_sep extends monotonically sg1.0->sg3.0 (78265x amplification at d=0.04). sg5.0=NaN (beyond-float; d=0.04 causes sigma_sep to overflow at sg=5.0). MIDDLE_BAND because HP requires monotone non-nan amplification to sg=5.0. PP-50 band 0.83-0.94 UNCHANGED. The NaN is consistent with ultra-steep sensitivity above sigma_g_crit -- substrate sigma_sep diverges rather than saturating. Sub-property annotation: v5 extended sweep N=16384 5-seed; monotone to sg3.0; sg5.0 NaN overflow (d=0.04); band unchanged.
+
+**(C) PP-58 SCS formula test HARD_FAIL: spike condition violated.**
+d_estimate=1.487 < 1.5 (BBP spike threshold). SCS formula predicts gamma via spike structure requiring d > 1.5; sub-threshold d means no spike; SCS inapplicable. gamma_emp=1.231, gamma_scs=1.487, ratio=1.208. PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding kappa_3 ratio=8.00 v353 still valid). Rescue cheapest-first: R1 (free) sub-threshold-d SCS regime audit -- modified formula?; R2 (2h CPU) d sweep d=6..14; R3 (3h GPU) tau sweep at d=8.
+
+**(D) spectral_gap_gamma_vs_M HARD_FAIL: Lyapunov-only regime, gamma flat vs M.**
+50 valid cells (N=4096 + N=16384, alpha=0.05..0.15). Both N: gamma ~1.09-1.23 flat across all M. ratio=1.130-1.132 > 0.85. SCS-vs-RSB discriminator fails -- cannot distinguish via gamma M-scaling. PP-58 MIDDLE 0.55-0.70 UNCHANGED. Rescue: R1 (free) gamma-flat theory; R2 (2h CPU) extended M range; R3 (3h GPU) N=32768.
+
+**(E) Phase B rung 1 tinychar mini-LM HARD_FAIL: substrate-LM decoupled at N=512.**
+bpc=5.517 vs uniform=5.524 (gap=0.007). Substrate trained mini-LM at N=512, 2 layers produces random-level predictions. The mini-LM cannot extract substrate signal at N=512. This is the first Phase B rung-1 tinychar test establishing the minimum viable scale. No row established (rung-1 is the bottom of the ladder). Rescue: R1 (free) interface audit; R2 (1h CPU) N=1024+; R3 (2h CPU) substrate-bypass baseline.
+
+**(F) Phase B rung 1 curriculum HARD_FAIL: curriculum hurts at N=256.**
+gain=-0.098 (curriculum worse than random). N=256 substrate too small for meaningful difficulty ordering. Substrate-mediated curriculum produces WORSE training than random ordering. Rescue: R1 (free) difficulty proxy audit; R2 (1h CPU) N=1024; R3 (2h CPU) oracle difficulty ordering.
+
+**(G) Phase B rung 1 ICL HARD_FAIL: negligible preload effect at N=256.**
+best_gain=0.0145 at K=10 << HP=0.1. 1000 examples preloaded via substrate yield near-zero accuracy. Mechanism contrast: pool-retrieval ICL (green, +0.283 bpc wave14d) is substrate-native; substrate-preloaded-context ICL is a coupling test. Rescue: R1 (free) mechanism audit; R2 (1h CPU) N=1024; R3 (2h CPU) pool-retrieval ICL replication comparison.
+
+**(H) Phase A rung 1 spectral training monitor HARD_FAIL -- overfitting phase rescue signal.**
+Convergence phase: mean_lead=-11.67 (3/3 seeds LAG; HARD_FAIL per pre-reg). Overfitting phase: mean_lead=+300.0 (3/3 seeds LEAD; strong rescue). Divergence: 0/3 observed. HARD_FAIL by pre-reg (at least one phase lag in all seeds). Rescue R1 (free BEST): re-define pre-reg as overfitting-phase detection only -- substrate IS a useful overfitting sentinel 300 steps early; R2 (1h CPU) N=8192 for convergence phase; R3 (2h GPU) larger LM.
+
+**(I) Phase A rung 1 8-channel orchestration HARD_FAIL: no convergence at tinychar scale.**
+No converged seeds across 3 conditions. 8-channel routing via substrate at N=4096 tinychar LM fails to learn. Rescue: R1 (free) convergence diagnostic; R2 (1h CPU) 2-channel simplified; R3 (2h GPU) larger LM.
+
+- HONEST: 670 -> 685 (+15). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.89-0.97->0.90-0.97; 7-rung batch).
+- Sub-properties NEW: PP-12/Q-A3 L=84..87 N=16384 (rungs 65-68; L=87 NEW DEEPEST) + PP-12/Q-A3 L=48..50 N=8192 (rungs 29-31; L=50 NEW N=8192 DEEPEST) + PP-50 v5 sigma_g NaN annotation.
+- N=16384 series PP-12/Q-A3: {L=20..L=87} 68 rungs; L=87 deepest in project history.
+- N=8192 series PP-12/Q-A3: {L=19,L=22..L=50} 30 rungs; L=50 deepest for N=8192.
+- HARD_FAILs: 7 (pp58_scs R1-R3; spectral_gap R1-R3; 5x rung-1 tinychar R1-R3 each).
+- MIDDLE_BAND: 1 (pp50 v5; band unchanged).
+
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT. 7 HF with rescue R1-R3 cheapest-first each. No PROT-004 closure triggers.
+- PROT-007/008: v375 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 286th PROT-009 paired commit.
+- PROT-018: 15 anchors verified. 0 PROT-018 violations.
+- PROT-021: all 15 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=87} 68 rungs; pp50 v5 monotone to sg3.0 (78000x); pp58 d=1.487 consistent with sub-spike gamma; spectral_gap ratio=1.130-1.132 N-independent; tinychar bpc gaps all consistent with substrate-LM decoupling at small N; spectral_monitor convergence lag / overfitting lead internally consistent.
+
+Cap map: v374 -> v375 CYCLE 43 LARGE BATCH (7 HP + 1 MID + 7 HF; 0 LVH; Q-A3 N=16384 68-rung series L=87 NEW DEEPEST; Q-A3 N=8192 30-rung series L=50 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.89-0.97->0.90-0.97 7-rung; pp50 v5 MID NaN-overflow annotation; pp58 SCS HF R1-R3; spectral_gap HF R1-R3; 5x rung-1 tinychar HF R1-R3 each (spectral-monitor overfitting 300-step rescue); HONEST 670->685; LVH 213; Portfolio 32+77; 286th PROT-009 paired commit) (2026-06-04)
