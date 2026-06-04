@@ -9038,3 +9038,28 @@ Cap map: v380 -> v381 CYCLE 49 BATCH (13 HP; 0 LVH; Q-A3 N=16384 108-rung series
 - HONEST: 771 -> 783 (+12 confirmed). LVH: 213 UNCHANGED.
 
 Cap map: v381 -> v382 CYCLE 50 BATCH (12 HP confirmed + 2 UNKNOWN (l94/l95 N=8192 metrics-unavailable) + 1 MIDDLE_BAND (pp58_tau050); 0 LVH; Q-A3 N=16384 113-rung series L=132 NEW DEEPEST; N=8192 L=89-93+L=96 confirmed; BAND-LIFT PP-12/Q-A3 0.96-0.97->0.97 POINT 12th-consecutive-lift; PP-58 tau=0.50 first-ratio-in-range MIDDLE_BAND; HONEST 771->783; LVH 213; Portfolio 32+77; 293rd PROT-009 paired commit) (2026-06-04)
+
+## v382 -> v383 CYCLE 51+52 BATCH (2026-06-04)
+
+### Changes
+- Q-A3 L=133..140 N=16384 (rungs 114-121): DEFERRED -- bridge stale (SSH down); metrics-unavailable x8; manual reconciliation needed when SSH available
+- Q-A3 L=97..101 N=8192 (rungs 78-82 est.): DEFERRED -- bridge stale (SSH down); metrics-unavailable x5; L=100 N=8192 SECOND CENTURY RUNG milestone pending confirmation
+- substrate_spectral_monitor_overfitting_v3_n4096: MIDDLE_BAND confirmed (remote source); seeds_hp=2/3 (up from v2 2/3 UNCHANGED); val_overfit_detected=3/3 (up from v2 2/3 IMPROVED); mean_lead=1526.7 (up from v2 1252.5); fast-onset regime identified (seed7 val=step800 < sub=step900); rescue R1 N_STEPS=10000-12000 filed
+
+### Summary
+- HARD_PASSes confirmed: 0 (Q-A3 13 anchors deferred; metrics-unavailable)
+- HARD_PASSes deferred: 13 (bridge stale; SSH down; pending reconciliation)
+- MIDDLE_BAND confirmed: 1 (spectral_monitor_v3; seeds_hp 2/3; val_overfit_detected 3/3)
+- Portfolio: 32+77 UNCHANGED
+- BAND-LIFTS: 0 (Q-A3 deferred; confirmed data insufficient for lift trigger)
+
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (deferred). Spectral v3 rescue R1-R4 cheapest-first filed.
+- PROT-007/008: v383 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 294th PROT-009 paired commit.
+- PROT-018: 1 confirmed (_n4096 spectral_v3); 13 UNKNOWN (pending SSH). 0 violations on confirmed.
+- PROT-021: spectral_v3 source=remote run_mode=full. Q-A3 13 cannot verify.
+- PROT-022: spectral_v3 val_overfit_detected=3/3 consistent with 0/3->2/3->3/3 progression; per_seed leads consistent; fast-onset regime (seed7) vs slow-onset (seeds17+23) two-regime hypothesis internally consistent.
+
+HONEST: 783 -> 784 (+1 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v382 -> v383.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

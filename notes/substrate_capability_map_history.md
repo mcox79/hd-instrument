@@ -26750,3 +26750,17 @@ State transitions: (1) PP-12/Q-A3 BAND-LIFT 0.90-0.97->0.91-0.97 (15-rung batch;
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 287th PROT-009 paired commit.
 - PROT-018: all 18 _n<N> suffix verified. PASS.
 - PROT-021: all 18 _source=remote run_mode=full. PASS.
+
+**v383 (2026-06-04) -- CYCLE 51+52 BATCH: 0 HP confirmed + 13 DEFERRED [metrics-unavailable bridge-stale SSH-down] + 1 MID; 0 LVH; PP-12/Q-A3 deferred (SSH down; Q-A3 L=133..140 N=16384 rungs 114-121 + L=97..101 N=8192 rungs 78-82 est. pending reconciliation); spectral_monitor_v3 MID (2/3 HP; val_overfit 3/3; fast-onset seed identified); HONEST 783->784 (+1 confirmed); LVH 213; Portfolio 32+77; 294th PROT-009 paired commit.**
+
+Anchors: q_a3_l133..l140_cross_layer_composition_v1_n16384 (8x UNKNOWN; bridge stale; SSH down; pending reconciliation); q_a3_l97..l101_cross_layer_composition_v1_n8192 (5x UNKNOWN; L=100 N=8192 SECOND CENTURY RUNG milestone; pending reconciliation); substrate_spectral_monitor_overfitting_v3_n4096 MIDDLE_BAND (seeds_hp=2/3; val_overfit_detected=3/3 [improved from v2 2/3]; mean_lead=1526.7 [up from v2 1252.5]; fast-onset regime: seed7 val=step800 < sub=step900).
+
+State transitions: (1) No cap_map row changes (Q-A3 deferred; spectral_v3 no row movement). (2) Spectral monitor v3 annotation: two-regime hypothesis (fast-onset seed7 vs slow-onset seeds17+23); val_overfit_detected 3/3 first time at 400000 chars; rescue R1 N_STEPS=10000-12000 for seed7. (3) NOTE: SSH/bridge reconciliation needed for 13 Q-A3 anchors before v383 BAND-LIFT can be evaluated.
+
+**PROT compliance (v382 -> v383).**
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (deferred). Spectral v3 rescue R1-R4 cheapest-first.
+- PROT-007: this history block appended to substrate_capability_map_history.md.
+- PROT-008: transitions validated against per-cell metrics (spectral_v3 remote-confirmed; Q-A3 pending).
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 294th PROT-009 paired commit.
+- PROT-018: spectral_v3 _n4096 suffix verified; Q-A3 13 anchors UNKNOWN (cannot verify suffix binding without metrics).
+- PROT-021: spectral_v3 source=remote run_mode=full confirmed. Q-A3 cannot verify (SSH down).

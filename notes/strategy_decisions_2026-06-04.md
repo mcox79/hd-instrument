@@ -353,3 +353,40 @@ ratio=1.416 (5-seed mean; range 1.399-1.433). gamma_emp=2.759, gamma_scs=3.905. 
 HONEST: 771 -> 783 (+12 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v381 -> v382.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 51+52 BATCH -- v382 -> v383 (2026-06-04)
+
+### Step 0 Honest Re-Read
+Remote bridge stale (snapshot 2026-06-03T22:36:16; age ~37000s). SSH not reachable from sub-agent context. 13 Q-A3 anchors: get_metrics() -> NONE (bridge stale + SSH down). 1 anchor confirmed from bridge cache before staleness: substrate_spectral_monitor_overfitting_v3_n4096 source=remote.
+
+Label checks:
+- q_a3_l133..l140_n16384 (8 anchors): UNKNOWN -- bridge stale, SSH down. [metrics-unavailable x8]
+- q_a3_l97..l101_n8192 (5 anchors): UNKNOWN -- bridge stale, SSH down. [metrics-unavailable x5]
+- substrate_spectral_monitor_overfitting_v3_n4096 MIDDLE_BAND: confirmed remote. per_seed leads=[-100, 3765, 915], mean_lead=1526.7, seeds_hp=2/3, seeds_lag=1/3, val_overfit_detected=3/3. HP requires 3/3; only 2/3 met. MIDDLE_BAND label HONEST.
+
+HONEST: 783 + 1 (spectral_v3 confirmed) = 784. Q-A3 13 anchors [metrics-unavailable] not counted until SSH restored. LVH: 213 UNCHANGED (0 over-claims; UNKNOWN != OVER-CLAIM).
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=133..140 N=16384 (8 anchors, rungs 114-121) -- [metrics-unavailable]**
+Bridge stale; SSH down; all 8 return NONE from get_metrics(). Cannot confirm HARD_PASS labels per Step 0 protocol. Prior pattern: 113 consecutive EXACT-1.0000 unanimous 5/5-seed HARD_PASSes through L=132 (rungs 1-113) with zero failures across all N tested. Conceptual ceiling argument: ECC criterion holds alpha_k << alpha_c at all tested depths. Per role contract: treat as UNKNOWN pending SSH reconciliation. Cap_map update DEFERRED for these 8 anchors; manual reconciliation needed when SSH available. No cap_map row change for L=133..140 N=16384. [metrics-unavailable: q_a3_l133..l140_n16384 -- manual reconciliation needed; rungs 114-121]
+
+**(B) Q-A3 L=97..L=101 N=8192 (5 anchors, rungs 78-82 est.) -- [metrics-unavailable]**
+Bridge stale; SSH down; all 5 return NONE from get_metrics(). Cannot confirm HARD_PASS labels per Step 0 protocol. Prior pattern: N=8192 confirmed through L=93 (rung 74) + L=96 (rung 77); L=94/L=95 remain UNKNOWN from v382. L=97-101 continue past L=96. L=100 is SECOND CENTURY RUNG milestone for N=8192. Cap_map update DEFERRED; manual reconciliation needed when SSH available. [metrics-unavailable: q_a3_l97..l101_n8192 -- manual reconciliation needed; rungs 78-82 est.; L=100 N=8192 SECOND CENTURY milestone pending confirmation]
+
+**(C) substrate_spectral_monitor_overfitting_v3_n4096 MIDDLE_BAND -- scale rescue R1 progressing**
+Confirmed remote. TRAIN_CHARS=400000, N_STEPS=9000. per_seed: seed7 lead=-100 (sub fires 900, val fires 800; LAG); seed17 lead=+3765 (HP); seed23 lead=+915 (HP). seeds_hp=2/3; seeds_lag=1/3; val_overfit_detected=3/3 (improvement from v2 2/3; full data adequacy at 400000 chars). mean_lead=1526.7 (up from v2 1252.5). HP gate requires seeds_hp=3/3; only 2/3 met. MIDDLE_BAND HONEST.
+Progress vs prior: v1 (30000 chars): seeds_hp=0/3, val_overfit_detected=0/3; v2 (150000 chars): seeds_hp=2/3, val_overfit_detected=2/3; v3 (400000 chars): seeds_hp=2/3, val_overfit_detected=3/3. Val overfit now reliably detected at 400000 chars. Lag seed (seed7) fires sub at step 900 vs val at step 800 -- val overfits very early (step 800 is only 9% through 9000 steps). Sub detects at 900 but val is already at 800 = sub fires 100 steps LATE. Mechanism: at very short scale (val overfit at step 800), substrate spectral monitor hasn't accumulated enough signal -- early val overfitting outpaces spectral signature buildup. Two distinct regimes emerging: slow-onset overfitting (seeds 17+23 with leads 3765/915) vs fast-onset overfitting (seed 7, val at step 800).
+Rescue R1 (BEST; CHEAP): TRAIN_CHARS=400000 + N_STEPS=10000-12000 to allow seed7 more training time so val overfit occurs later (less likely to outpace substrate). R2 (CHEAP): reduce LM_HIDDEN to accelerate overfit onset for seed7-class fast-onset seeds. R3: N_OBS=8192 (orthogonal N-scale test). R4 (v380 prior R1): already upgraded TRAIN_CHARS; v3 accomplished this. Next cheapest is extending N_STEPS further for seed7-class regime.
+No cap_map row movement. Annotation appended to spectral_monitor sub-property of relevant PP row: "v3 MIDDLE_BAND (400000 chars, 9000 steps): seeds_hp 0/3->0/3->2/3 progression; val_overfit_detected 0/3->2/3->3/3 progression; mean_lead -111->1252->1527; fast-onset regime identified (seed7 val=800 < sub=900; lag); v4 R1: N_STEPS=10000-12000."
+
+### PROT compliance (v382 -> v383)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (cap_map update deferred for Q-A3 pending SSH reconciliation; spectral v3 no row movement; band-lift threshold not met on confirmed-only data). Spectral monitor v3 MIDDLE_BAND rescue R1-R4 cheapest-first filed.
+- PROT-007/008: v383 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 294th PROT-009 paired commit.
+- PROT-018: 1 confirmed anchor (_n4096 x1 spectral_v3); 13 UNKNOWN (q_a3 _n16384 x8, _n8192 x5). Confirmed suffix binding: spectral_monitor_overfitting_v3_n4096 -> N_OBS=4096 remote-confirmed. 0 violations on confirmed anchors.
+- PROT-021: spectral_v3 source=remote run_mode=full confirmed. Q-A3 13 cannot verify (SSH down).
+- PROT-022: spectral_v3 val_overfit_detected=3/3 consistent with v2 improvement trajectory (0/3->2/3->3/3); per_seed leads consistent with two-regime hypothesis (fast-onset seed7 vs slow-onset seeds 17+23); mean_lead monotone increase across versions.
+
+HONEST: 783 -> 784 (+1 spectral_v3 confirmed; +13 deferred pending SSH). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v382 -> v383 (spectral_v3 annotation only; Q-A3 deferred pending reconciliation).
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
