@@ -567,6 +567,49 @@ def _make_synthetic_residual(doc_idx: int, rng: np.random.Generator) -> np.ndarr
 # Main extraction pipeline
 # ---------------------------------------------------------------------------
 
+class _TeeStream:
+    """Write every print + write to multiple streams so the runner's stdout
+    capture AND our on-disk startup.log both see every line. Defensive: any
+    individual stream write failure is silently swallowed (we never want
+    logging to crash the run)."""
+
+    def __init__(self, *streams):
+        self._streams = streams
+
+    def write(self, data):
+        for s in self._streams:
+            try:
+                s.write(data)
+                s.flush()
+            except Exception:
+                pass
+        return len(data) if isinstance(data, str) else 0
+
+    def flush(self):
+        for s in self._streams:
+            try:
+                s.flush()
+            except Exception:
+                pass
+
+
+def _log_stage(label: str, log_path: Path) -> None:
+    """Timestamped stage marker. Writes to startup.log + stdout (which is now
+    teed to startup.log via _TeeStream). Always-flush; never-raise."""
+    ts = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    line = f"[{ts}] STAGE: {label}"
+    try:
+        print(line, flush=True)
+    except Exception:
+        pass
+    # Belt-and-suspenders: direct write in case stdout tee broke for any reason.
+    try:
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except Exception:
+        pass
+
+
 def main() -> int:
     if _ARGS.self_test:
         print("[selftest] PROT-022 selftests already ran at module import. Done.",
@@ -589,6 +632,24 @@ def main() -> int:
             )
     except Exception as _slog_err:
         sys.stderr.write(f"[startup] could not write startup.log: {_slog_err}\n")
+
+    # Tee stdout+stderr to startup.log so the runner gets EVERY line (and we
+    # also get them in startup.log on C:\ that watchdog SCPs back). Per
+    # Exp-Dev 2026-06-04 second-failure diagnosis: "no further log lines"
+    # after main() entry means the runner's stdout capture stopped working
+    # for this entry. Direct file logging works around that.
+    _startup_log_path = default_out_dir / "startup.log"
+    try:
+        _log_fh = open(_startup_log_path, "a", encoding="utf-8")
+        sys.stdout = _TeeStream(sys.__stdout__, _log_fh)
+        sys.stderr = _TeeStream(sys.__stderr__, _log_fh)
+    except Exception as _tee_err:
+        sys.stderr.write(f"[startup] tee setup failed: {_tee_err}\n")
+        _log_fh = None
+
+    _log_stage("post-tee-setup", _startup_log_path)
+    _log_stage(f"py={sys.version.split()[0]} platform={sys.platform} "
+               f"cwd={os.getcwd()}", _startup_log_path)
 
     out_dir = default_out_dir
     # F:\ output redirection: try to create + use F:\hd_data\<anchor>; if it
@@ -643,22 +704,24 @@ def main() -> int:
                   f"doesn't need it)", flush=True)
 
     # ---- Step 2: Load analogy dataset ----
-    print(f"  loading {ANALOGY_DATASET} ...", flush=True)
+    _log_stage(f"step2: importing datasets.load_dataset", _startup_log_path)
     try:
         from datasets import load_dataset
     except Exception as e:
         return _emit_metrics(out_dir, t_total, "HARD_FAIL",
-                              f"datasets import failed: {e}", n_docs=0)
+                              f"datasets import failed: {e}", n_docs=0,
+                              default_out_dir=default_out_dir)
 
+    _log_stage(f"step2: load_dataset({ANALOGY_DATASET}) START", _startup_log_path)
     try:
         analogy_ds = load_dataset(ANALOGY_DATASET, token=hf_token)
         train_rows = analogy_ds["train"]
-        print(f"  analogy splits={list(analogy_ds.keys())} "
-              f"columns={train_rows.column_names} n_train={len(train_rows)}",
-              flush=True)
+        _log_stage(f"step2: load_dataset OK n_train={len(train_rows)} "
+                   f"cols={train_rows.column_names}", _startup_log_path)
     except Exception as e:
         return _emit_metrics(out_dir, t_total, "HARD_FAIL",
-                              f"analogy dataset load failed: {e}", n_docs=0)
+                              f"analogy dataset load failed: {e}", n_docs=0,
+                              default_out_dir=default_out_dir)
 
     # ---- Step 3: Parse + filter analogies ----
     parsed: List[Dict[str, Any]] = []
@@ -719,34 +782,49 @@ def main() -> int:
     tokenizer = None
     device = "cpu"
     if do_real_load:
+        _log_stage("step5: importing torch + transformers", _startup_log_path)
         try:
             import torch
             from transformers import AutoTokenizer, AutoModelForCausalLM
         except Exception as e:
             return _emit_metrics(out_dir, t_total, "HARD_FAIL",
                                   f"torch/transformers import failed: {e}",
-                                  n_docs=0)
+                                  n_docs=0, default_out_dir=default_out_dir)
+        _log_stage(f"step5: torch={torch.__version__} "
+                   f"cuda_available={torch.cuda.is_available()} "
+                   f"hf_cache_env=HF_HOME={os.environ.get('HF_HOME','<unset>')} "
+                   f"HUGGINGFACE_HUB_CACHE={os.environ.get('HUGGINGFACE_HUB_CACHE','<unset>')}",
+                   _startup_log_path)
         if RUN_MODE == "full" and not torch.cuda.is_available():
             return _emit_metrics(out_dir, t_total, "HARD_FAIL",
                                   "FULL mode requires CUDA; got cuda_available=False",
-                                  n_docs=0)
+                                  n_docs=0, default_out_dir=default_out_dir)
         device = "cuda" if torch.cuda.is_available() else "cpu"
         dtype = torch.bfloat16
-        print(f"  loading {LLM_MODEL_ID} (dtype={dtype}, device={device}) ...",
-              flush=True)
+        _log_stage(f"step5: tokenizer.from_pretrained({LLM_MODEL_ID}) START",
+                   _startup_log_path)
         t_load = time.time()
         try:
             tokenizer = AutoTokenizer.from_pretrained(LLM_MODEL_ID, token=hf_token)
             if tokenizer.pad_token is None:
                 tokenizer.pad_token = tokenizer.eos_token
+            _log_stage(f"step5: tokenizer OK in {time.time()-t_load:.1f}s; "
+                       f"model.from_pretrained START "
+                       f"(dtype={dtype}, device={device}, ~2.5GB if download)",
+                       _startup_log_path)
+            t_model = time.time()
             model = AutoModelForCausalLM.from_pretrained(
                 LLM_MODEL_ID,
                 torch_dtype=dtype,
                 token=hf_token,
                 low_cpu_mem_usage=True,
             )
+            _log_stage(f"step5: model weights loaded in {time.time()-t_model:.1f}s; "
+                       f"moving to {device}", _startup_log_path)
             model.to(device)
             model.eval()
+            _log_stage(f"step5: model on {device}; ready for forward passes",
+                       _startup_log_path)
         except Exception as e:
             msg = str(e)
             if "401" in msg or "403" in msg or "gated" in msg.lower() or "access" in msg.lower():
@@ -1056,8 +1134,15 @@ def main() -> int:
 
 
 def _emit_metrics(out_dir: Path, t_start: float, verdict: str, msg: str,
-                  n_docs: int) -> int:
-    """Write a minimal metrics.json on early-exit (HARD_FAIL paths)."""
+                  n_docs: int,
+                  default_out_dir: Optional[Path] = None) -> int:
+    """Write a minimal metrics.json on early-exit (HARD_FAIL paths).
+
+    Per Exp-Dev 2026-06-04 diagnosis: if F:\\ goes down mid-run, the primary
+    out_dir (possibly on F:\\) is unreachable for metrics.json. Always also
+    write a copy to default_out_dir (C:\\ default) so we ALWAYS get a
+    diagnostic landing on a stable filesystem.
+    """
     elapsed = time.time() - t_start
     payload = {
         "anchor": ANCHOR_NAME,
@@ -1067,11 +1152,26 @@ def _emit_metrics(out_dir: Path, t_start: float, verdict: str, msg: str,
         "n_docs_extracted": int(n_docs),
         "elapsed_s": float(elapsed),
     }
-    try:
-        (out_dir / "metrics.json").write_text(json.dumps(payload, indent=2),
-                                                encoding="utf-8")
-    except Exception as e:
-        print(f"  [warn] could not write metrics.json: {e}", flush=True)
+    body = json.dumps(payload, indent=2)
+    paths_written = []
+    paths_failed = []
+    candidates = [out_dir]
+    if default_out_dir is not None and default_out_dir != out_dir:
+        candidates.append(default_out_dir)
+    for p in candidates:
+        try:
+            p.mkdir(parents=True, exist_ok=True)
+            (p / "metrics.json").write_text(body, encoding="utf-8")
+            paths_written.append(str(p / "metrics.json"))
+        except Exception as e:
+            paths_failed.append(f"{p}: {type(e).__name__}: {e}")
+    if not paths_written:
+        sys.stderr.write(
+            f"[FATAL] could not write metrics.json anywhere: {paths_failed}\n"
+        )
+    elif paths_failed:
+        print(f"  [warn] some metrics.json writes failed: {paths_failed}; "
+              f"wrote to: {paths_written}", flush=True)
     print(f"[{ANCHOR_NAME}] verdict={verdict} elapsed={elapsed:.1f}s",
           flush=True)
     print(f"[{ANCHOR_NAME}] {msg}", flush=True)
@@ -1091,12 +1191,33 @@ if __name__ == "__main__":
     try:
         sys.exit(main())
     except Exception as e:
-        traceback.print_exc()
-        out_dir = get_output_dir(ANCHOR_NAME)
-        # Mirror main()'s F:\ redirection for the exception-path metrics write
-        if os.name == "nt" and os.path.isdir(_F_DRIVE_DATA_ROOT):
-            out_dir = Path(_F_DRIVE_DATA_ROOT) / ANCHOR_NAME
-        out_dir.mkdir(parents=True, exist_ok=True)
-        _emit_metrics(out_dir, time.time(), "HARD_FAIL",
-                       f"unhandled exception: {e}", n_docs=0)
+        # Capture full traceback to BOTH stdout AND startup.log so the
+        # exception is visible whether we have stdout capture or not. Per
+        # Exp-Dev 2026-06-04 diagnosis ("no further log lines after main()").
+        tb = traceback.format_exc()
+        sys.stderr.write(tb)
+        default_out_dir = get_output_dir(ANCHOR_NAME)
+        try:
+            default_out_dir.mkdir(parents=True, exist_ok=True)
+            with open(default_out_dir / "startup.log", "a", encoding="utf-8") as _slf:
+                _slf.write(
+                    f"\n[{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}] "
+                    f"UNHANDLED EXCEPTION at top level:\n{tb}\n"
+                )
+        except Exception:
+            pass
+        # Mirror main()'s F:\ redirection for the exception-path metrics write,
+        # but always also attempt to write to the C:\ default (in case F:\
+        # is what crashed).
+        f_dir = None
+        if _F_DRIVE_ACTIVE:
+            try:
+                f_dir = Path(_F_DRIVE_DATA_ROOT) / ANCHOR_NAME
+                f_dir.mkdir(parents=True, exist_ok=True)
+            except Exception:
+                f_dir = None
+        out_dir_for_metrics = f_dir if f_dir is not None else default_out_dir
+        _emit_metrics(out_dir_for_metrics, time.time(), "HARD_FAIL",
+                       f"unhandled exception: {e}", n_docs=0,
+                       default_out_dir=default_out_dir)
         sys.exit(1)
