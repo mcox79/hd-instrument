@@ -680,14 +680,14 @@ print(f"[metrics] written to {{metrics_path}}", flush=True)
 
 
 if __name__ == "__main__":
-    # Cycle 55: EXTREME-DEPTH sweep (L=200/L=300 N=16384 both HARD_PASS -> push the frontier hard).
-    for L in [400, 500, 700, 1000, 1500, 2000]:
+    # Single authorized deep marketing/demo anchor (per capacity-stress redirect): ONE L=10000.
+    for L in [10000]:
         content = gen_q_a3_n16384(L)
         path = REPO / f"experiments/exp_q_a3_l{L}_cross_layer_composition_v1_n16384.py"
         path.write_text(content, encoding='utf-8')
         print(f"Written: {path.name}")
 
-    for L in [200, 300, 500, 1000]:
+    for L in []:
         content = gen_q_a3_n8192(L)
         path = REPO / f"experiments/exp_q_a3_l{L}_cross_layer_composition_v1_n8192.py"
         path.write_text(content, encoding='utf-8')
