@@ -283,3 +283,34 @@ v2 (TRAIN_CHARS=150000/N_STEPS=5000) vs v1 (30000/2000): seeds_hp 0/3 -> 2/3; va
 HONEST: 736 -> 758 (+22). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v379 -> v380.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 49 BATCH -- v380 -> v381 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 13 labels honest to per-cell metrics (all source=remote SSH FULL). 0 LVH catches. HONEST 758 -> 771 (+13).
+
+Label checks:
+- Q-A3 L=123..127 N=16384 (5x HP): lacc=1.0000 all levels 5/5 seeds unanimous. N=16384 per_seed all lacc=1.0000. Honest.
+- Q-A3 L=81..88 N=8192 (8x HP): lacc=1.0000000342285429 (EXACT-class) all levels 5/5 seeds unanimous. Honest.
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=123..127 N=16384 (5x HARD_PASS)**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 104-108. N=16384 series: {L=20..L=127} = 108 contiguous rungs. L=127 NEW DEEPEST project history (prior L=122 v380; +5 rungs). Walls 40.6-53.8s GPU (linear scaling; ceiling NOT found). GPU memory flat (N=16384 throughout).
+
+**(B) Q-A3 L=81..88 N=8192 (8x HARD_PASS)**
+All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 62-69. N=8192 series: {L=19,L=22..L=88} = 68 rungs. L=88 NEW N=8192 DEEPEST (prior L=80 v380; +8 rungs). Walls 7.0-7.5s GPU. 2-N cross-N confirmed at L=81..88 {N=8192+N=16384}.
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.95-0.97 -> 0.96-0.97**
+13-rung batch (5 N=16384 + 8 N=8192) exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 11th consecutive +0.01 lift (v371->v381 = 0.85->0.96). Product framing: EXACT-1.0000 composition moat confirmed through 127 levels at N=16384; 108-rung unbroken series; algebraic audit API moat structurally unbounded through L=127; N=8192 deepest L=88 (68 rungs); 2-N cross-N confirmed L=81..88; no ceiling found at any L tested.
+
+### PROT compliance (v380 -> v381)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.95-0.97->0.96-0.97). No closure triggers.
+- PROT-007/008: v381 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 292nd PROT-009 paired commit.
+- PROT-018: 13 anchors -- _n16384 x5 (L=123..127); _n8192 x8 (L=81..88). All suffix bindings confirmed. 0 PROT-018 violations.
+- PROT-021: all 13 source=remote SSH FULL. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=127} N=16384 (108 rungs) and {L=19,L=22..L=88} N=8192 (68 rungs); per-seed lacc uniformly 1.0000 (N=16384) and 1.0000000342 (N=8192 EXACT-class); wall times linear-scaling range with per-run GPU scheduling variance.
+
+HONEST: 758 -> 771 (+13). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v380 -> v381.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

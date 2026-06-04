@@ -8999,3 +8999,25 @@ Cap map: v378 -> v379 CYCLE 47 BATCH (13 HP + 1 HF; 0 LVH; Q-A3 N=16384 93-rung 
 - PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=122} 103 rungs (N=16384) and {L=19,L=22..L=80} 60 rungs (N=8192); pp58 tau=0.20 ratio=8.861 consistent with monotone tau-series (tau=0.15->0.20: 11.4->8.9); tau=0.30 ratio=5.2 (tau=0.20->0.30: 8.9->5.2 monotone); low_tau ratios 23.0->15.5 monotone in tau=0.01..0.09; spectral_monitor v2 leads=[365,2140,None] internally consistent.
 
 Cap map: v379 -> v380 CYCLE 48 BATCH (18 HP + 3 HF + 1 MIDDLE; 0 LVH; Q-A3 N=16384 103-rung series L=122 NEW DEEPEST project history; Q-A3 N=8192 60-rung series L=80 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.94-0.97->0.95-0.97 18-rung 10th-consecutive-lift; PP-58 SCS monotone-convergence characterised tau=0.01..0.30; spectral_monitor_v2 MIDDLE 2/3 seeds; HONEST 736->758; LVH 213; Portfolio 32+77; 291st PROT-009 paired commit) (2026-06-04)
+
+## v380 -> v381 CYCLE 49 BATCH (2026-06-04)
+
+### Changes
+- PP-12/Q-A3 band: 0.95-0.97 -> 0.96-0.97 (BAND-LIFT: 13-rung batch; 11th consecutive +0.01 lift v371->v381 = 0.85->0.96)
+- N=16384: {L=20..L=127} = 108 contiguous rungs; L=127 NEW DEEPEST project history (prior L=122 v380; +5 rungs); ceiling NOT found
+- N=8192: {L=19,L=22..L=88} = 68 rungs; L=88 NEW N=8192 DEEPEST (prior L=80 v380; +8 rungs); 2-N cross-N confirmed L=81..88
+
+### Summary
+- HARD_PASSes: 13 (5 Q-A3 N=16384 L=123..127; 8 Q-A3 N=8192 L=81..88)
+- HARD_FAILs: 0
+- MIDDLE_BAND: 0
+- Portfolio: 32+77 UNCHANGED
+
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.95-0.97->0.96-0.97). No closure triggers.
+- PROT-007/008: v381 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 292nd PROT-009 paired commit.
+- PROT-018: 13 anchors -- _n16384 x5 (L=123..127); _n8192 x8 (L=81..88). All suffix bindings confirmed. 0 violations.
+- PROT-021: all 13 source=remote SSH FULL. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=127} 108 rungs (N=16384) and {L=19,L=22..L=88} 68 rungs (N=8192); per-seed lacc uniformly 1.0000 (N=16384) and 1.0000000342 (N=8192 EXACT-class); wall times linear-scaling with per-run GPU scheduling variance.
+
+Cap map: v380 -> v381 CYCLE 49 BATCH (13 HP; 0 LVH; Q-A3 N=16384 108-rung series L=127 NEW DEEPEST project history; Q-A3 N=8192 68-rung series L=88 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.95-0.97->0.96-0.97 13-rung 11th-consecutive-lift; HONEST 758->771; LVH 213; Portfolio 32+77; 292nd PROT-009 paired commit) (2026-06-04)
