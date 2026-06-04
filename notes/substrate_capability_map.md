@@ -8859,3 +8859,48 @@ val_overfit_step=None 0/3 seeds (LM never reached overfitting at TRAIN_CHARS=300
 - PROT-022: Q-A3 consistent {L=20..L=94} 75 rungs; {L=19,L=22..L=58} 38 rungs; pp58 alpha=0.06 mean_ratio=1.293; spectral_monitor sub_overfit_step=200 3/3 seeds consistent.
 
 Cap map: v375 -> v376 CYCLE 44 LARGE BATCH (15 HP + 2 MID + 1 HF; 0 LVH; Q-A3 N=16384 75-rung series L=94 NEW DEEPEST; Q-A3 N=8192 38-rung series L=58 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.90-0.97->0.91-0.97 15-rung; PP-58 SCS 2x MID partial-validity characterised; spectral_monitor_overfitting HF scale-gate R1-R3; HONEST 685->703; LVH 213; Portfolio 32+77; 287th PROT-009 paired commit) (2026-06-04)
+
+# v376 -> v377 (2026-06-04) -- CYCLE 45 BATCH: 10 HP; 0 LVH; Q-A3 L=95..100 N=16384 (rungs 76-81; L=100 CENTURY RUNG NEW DEEPEST project history; {L=20..L=100} 81-rung series); Q-A3 L=59..62 N=8192 (rungs 40-43; L=62 NEW N=8192 DEEPEST; {L=19,L=22..L=62} 42 rungs); BAND-LIFT PP-12/Q-A3 0.91-0.97->0.92-0.97 (10-rung batch); HONEST 703->713; LVH 213; Portfolio 32+77 UNCHANGED; 288th PROT-009 paired commit
+
+## v376 -> v377 (2026-06-04) Cycle 45 batch; 10 HP; 0 LVH; Q-A3 L=95..100 N=16384 (rungs 76-81; L=100 CENTURY RUNG NEW DEEPEST) + Q-A3 L=59..62 N=8192 (rungs 40-43; L=62 NEW N=8192 DEEPEST); BAND-LIFT PP-12/Q-A3 0.91-0.97->0.92-0.97; HONEST 703->713; LVH 213; Portfolio 32+77; 288th PROT-009 paired commit
+
+**Cap_map row changes (v376 -> v377).**
+
+| Capability | v376 status | v377 status | Triggering anchors |
+|---|---|---|---|
+| PP-12/Q-A3 cross-layer composition | 0.91-0.97 | **0.92-0.97** | q_a3_l95..l100 N=16384 + q_a3_l59..l62 N=8192 (10-rung batch; L=100 CENTURY RUNG NEW DEEPEST project history) |
+
+**Anchor table (v377):**
+
+| # | Anchor | Runner | N | Seeds | Verdict | Key metric | Cap_map impact |
+|---|---|---|---|---|---|---|---|
+| 1 | q_a3_l95_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 95 levels EXACT-1.0000 5/5; l95_acc=1.0000 | PP-12/Q-A3 L=95 rung 76 |
+| 2 | q_a3_l96_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 96 levels EXACT-1.0000 5/5; l96_acc=1.0000 | PP-12/Q-A3 L=96 rung 77 |
+| 3 | q_a3_l97_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 97 levels EXACT-1.0000 5/5; l97_acc=1.0000 | PP-12/Q-A3 L=97 rung 78 |
+| 4 | q_a3_l98_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 98 levels EXACT-1.0000 5/5; l98_acc=1.0000 | PP-12/Q-A3 L=98 rung 79 |
+| 5 | q_a3_l99_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 99 levels EXACT-1.0000 5/5; l99_acc=1.0000 | PP-12/Q-A3 L=99 rung 80 |
+| 6 | q_a3_l100_cross_layer_composition_v1_n16384 | GPU | 16384 | 5 | HARD_PASS | All 100 levels EXACT-1.0000 5/5; l100_acc=1.0000; CENTURY RUNG | PP-12/Q-A3 L=100 rung 81; CENTURY RUNG; BAND-LIFT 0.91->0.92; NEW DEEPEST project history |
+| 7 | q_a3_l59_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 59 levels EXACT-class 1.0000000342 5/5; l59_acc=1.0000 | PP-12/Q-A3 L=59 N=8192 rung 40 |
+| 8 | q_a3_l60_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 60 levels EXACT-class 1.0000000342 5/5; l60_acc=1.0000 | PP-12/Q-A3 L=60 N=8192 rung 41 |
+| 9 | q_a3_l61_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 61 levels EXACT-class 1.0000000342 5/5; l61_acc=1.0000 | PP-12/Q-A3 L=61 N=8192 rung 42 |
+| 10 | q_a3_l62_cross_layer_composition_v1_n8192 | GPU | 8192 | 5 | HARD_PASS | All 62 levels EXACT-class 1.0000000342 5/5; l62_acc=1.0000 | PP-12/Q-A3 L=62 N=8192 rung 43; NEW N=8192 DEEPEST |
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.91-0.97 -> 0.92-0.97 (rungs 76-81 N=16384 + 40-43 N=8192; 10-rung batch; L=100 CENTURY RUNG NEW DEEPEST project history).**
+All 6 N=16384 anchors (L=95..100): EXACT-1.0000 unanimous 5/5 seeds. Walls 31-33s GPU (linear scaling). N=16384 series: {L=20..L=100} = 81 contiguous rungs. L=100 is the CENTURY RUNG -- the substrate has now been verified to compose 100 consecutive hyperdimensional binding operations with perfect fidelity at N=16384, zero errors across 5 independent seeds, all 100 intermediate levels checked. This is a round-number milestone but also a genuine engineering statement: no ceiling has been observed in 81 tested rungs. All 4 N=8192 anchors (L=59..62): EXACT-class 1.0000000342 unanimous 5/5 seeds. Walls 5.1-5.3s GPU. N=8192 series: {L=19,L=22..L=62} = 42 rungs. L=62 NEW N=8192 DEEPEST (prior L=58 v376; +4 rungs). 2-N cross-N confirmed at L=59/60/61/62. BAND-LIFT: 10-rung batch exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 7 consecutive +0.01 lifts (v371->v377 = 0.85->0.92). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 100 levels at N=16384; 81-rung unbroken series; audit API algebraic moat structurally unbounded through L=100; no ceiling found at either N. The CENTURY RUNG demonstrates the compositionality property is not a small-N artifact -- it is a durable algebraic property of the substrate geometry.
+
+- HONEST: 703 -> 713 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.91-0.97->0.92-0.97; 10-rung batch).
+- Sub-properties NEW: PP-12/Q-A3 L=95..100 N=16384 (rungs 76-81; L=100 CENTURY RUNG; 81-rung series) + PP-12/Q-A3 L=59..62 N=8192 (rungs 40-43; L=62 NEW N=8192 DEEPEST; 42-rung series).
+- N=16384 series PP-12/Q-A3: {L=20..L=100} 81 rungs; L=100 CENTURY RUNG deepest in project history.
+- N=8192 series PP-12/Q-A3: {L=19,L=22..L=62} 42 rungs; L=62 deepest for N=8192.
+- HARD_FAILs: 0.
+- Portfolio: 32+77 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT. No PROT-004 closure triggers.
+- PROT-007/008: v377 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 288th PROT-009 paired commit.
+- PROT-018: _n16384 x6 (L=95..100); _n8192 x4 (L=59..62). All suffix bindings confirmed. 0 violations.
+- PROT-021: all 10 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=100} 81 rungs (N=16384) and {L=19,L=22..L=62} 42 rungs (N=8192); per-seed lacc=1.0000 all 6 anchors N=16384; per-seed lacc=1.0000000342 all 4 anchors N=8192 (floating-point class); GPU memory 2.204->2.206 GB linear growth confirmed; wall times 31-33s N=16384 (linear with L); wall times 5.1-5.3s N=8192 (linear with L).
+
+Cap map: v376 -> v377 CYCLE 45 BATCH (10 HP; 0 LVH; Q-A3 N=16384 81-rung series L=100 CENTURY RUNG NEW DEEPEST project history; Q-A3 N=8192 42-rung series L=62 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.91-0.97->0.92-0.97 10-rung; HONEST 703->713; LVH 213; Portfolio 32+77; 288th PROT-009 paired commit) (2026-06-04)

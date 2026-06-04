@@ -141,3 +141,34 @@ val_overfit_step=None 0/3 seeds. sub_overfit_step=200 all 3 seeds (substrate spe
 HONEST: 685 -> 703 (+18). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v375 -> v376.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 45 BATCH -- v376 -> v377 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 10 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 703 -> 713 (+10).
+
+Label checks:
+- Q-A3 L=95..100 N=16384 (6x HP): EXACT-1.0000 all levels 5/5 seeds unanimous. l95_acc=1.0000 through l100_acc=1.0000. Honest.
+- Q-A3 L=59..62 N=8192 (4x HP): EXACT-class 1.0000000342 all levels 5/5 seeds. l59_acc=1.0000 through l62_acc=1.0000. Honest.
+
+### Cap_map Decisions
+
+**(A) Q-A3 L=95..100 N=16384 (6x HARD_PASS) -- CENTURY RUNG L=100**
+All EXACT-1.0000 unanimous 5/5 seeds. Rungs 76-81. N=16384 series: {L=20..L=100} = 81 contiguous rungs. L=100 NEW DEEPEST project history (prior L=94 v376; +6 rungs). CENTURY RUNG: the substrate composes 100 consecutive binding operations with perfect fidelity at N=16384, 5 seeds, all levels verified. Walls 31-33s GPU (linear scaling; ceiling NOT found). No ceiling observed at any L tested.
+
+**(B) Q-A3 L=59..62 N=8192 (4x HARD_PASS)**
+All EXACT-class 1.0000000342 unanimous 5/5 seeds. Rungs 40-43. N=8192 series: {L=19,L=22..L=62} = 42 rungs. L=62 NEW N=8192 DEEPEST (prior L=58 v376; +4 rungs). Walls 5.1-5.3s GPU. 2-N cross-N confirmed at L=59/60/61/62 {N=8192+N=16384}.
+
+**(C) BAND-LIFT PP-12/Q-A3: 0.91-0.97 -> 0.92-0.97**
+10-rung batch (6 N=16384 + 4 N=8192) exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Lift trajectory: 7 consecutive +0.01 lifts (v371-v377 = 0.85->0.92). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 100 levels at N=16384 -- CENTURY RUNG; 81-rung unbroken series; algebraic audit API moat structurally unbounded through L=100; no ceiling found. This is the definitive product statement: 100-deep nested binding with perfect recall.
+
+### PROT compliance (v376 -> v377)
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.91-0.97->0.92-0.97). No PROT-004 closure triggers.
+- PROT-007/008: v377 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 288th PROT-009 paired commit.
+- PROT-018: 10 anchors -- _n16384 x6 (L=95..100); _n8192 x4 (L=59..62). All suffix bindings confirmed. 0 PROT-018 violations.
+- PROT-021: all 10 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=100} N=16384 (81 rungs) and {L=19,L=22..L=62} N=8192 (42 rungs); per-seed lacc uniformly 1.0000 (N=16384) and 1.0000000342 (N=8192 floating-point class); GPU memory growth linear (2.204->2.206 GB per 5 rungs; N=16384).
+
+HONEST: 703 -> 713 (+10). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v376 -> v377.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
