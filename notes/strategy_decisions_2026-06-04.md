@@ -575,3 +575,79 @@ R5 (3h GPU): spike-excised exponential fit at tau_act<0.65 to test whether NHSE 
 HONEST: 810 -> 816 (+6). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v386 -> v387.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 57 -- v387 -> v387 (2026-06-04)
+
+### Step 0 Honest Re-Read
+1 anchor: substrate_trained_mini_lm_rung1_readout_fix_v2 source=remote authoritative. HONEST 816 -> 817 (+1). LVH: 213 UNCHANGED.
+
+Label check:
+- substrate_trained_mini_lm_rung1_readout_fix_v2 HARD_FAIL: bpc_mean=5.5046 vs uniform_bpc=5.5236 (gap=0.019); HP_BPC_MAX=4.5; 0/5 seeds pass MID (<=5.2); all 5 seeds BPC_NEAR_CHANCE. HONEST. No over-claim.
+
+### Cap_map Decision (v387 -> v387 -- no row change)
+
+**(A) substrate_trained_mini_lm_rung1_readout_fix_v2 HARD_FAIL -- readout fix does not bridge Phase B coupling gap**
+bpc_mean=5.5046 vs uniform_bpc_mean=5.5236 (gap=0.019; effectively zero signal). 5/5 seeds HARD_FAIL. Prior v1 bpc=5.5168; v2 bpc=5.5046; improvement ~0.012 BPC (noise-level). Substrate-LM coupling absent at N=512 even after readout fix. No row established for Phase B tinychar mini-LM rung (exploratory probe). No cap_map row movement. No closure trigger (no row exists to close). Rescue cheapest-first per PROT-004/006:
+R1 (BEST; free) interface audit -- v2 readout fix applied; bpc gap 0.019 suggests problem is signal level not interface; N=512 may be fundamentally too small for LM-readable substrate features.
+R2 (1h CPU) N=1024/2048 substrate with same readout fix to test N-dependence.
+R3 (2h CPU) direct-signal LM baseline (substrate bypassed) as upper-bound calibration.
+R4 (free) seed 17 best_temp=0.15 gives bpc=5.464 (most promising seed); temperature-search appears active across seeds but bpc band 5.46-5.53 remains far from HP=4.5.
+
+### PROT compliance (v387 unchanged)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. 4 rescue sketches cheapest-first filed.
+- PROT-007/008: v387 block unchanged (no row/portfolio change). Portfolio 32+77 UNCHANGED.
+- PROT-009: No commit (no cap_map state change; no row movement).
+- PROT-018: _v2 suffix (version, not N-binding). 0 violations.
+- PROT-021: source=remote run_mode=full confirmed. No smoke artifact.
+- PROT-022: bpc_mean=5.5046 consistent per-seed [5.464, 5.528]; uniform_bpc=5.5236 fixed reference consistent all seeds.
+
+HONEST: 816 -> 817 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v387 UNCHANGED (no row movement). No commit required.
+## CYCLE 58 -- v387 -> v388 (substrate_capacity_stress_composition_v1_n16384)
+
+### Step 0 Honest Re-Read
+source=remote (SSH direct fetch). HONEST 817 -> 818 (+1). LVH: 213 UNCHANGED.
+
+Label check:
+- substrate_capacity_stress_composition_v1_n16384 HARD_PASS: verdict_msg 'EXACT at M/N<=0.12, degrades at M/N>=0.15'.
+  Per-cell mean_fidelity cross-seed: M/N=0.03 all 5 seeds 1.0000 exact; M/N=0.06 seeds 7/17/23/31=1.0, seed41=0.9999987 (4-decimal rounds to 1.0000); M/N=0.09 range 0.9999862-0.9999975 (rounds to 1.0000); M/N=0.12 range 0.9999626-0.9999838 (rounds to 1.0000); M/N=0.15 range 0.9998904-0.9999340 (rounds to 0.9999); M/N=0.18 range 0.9997770-0.9998393 (rounds to 0.9998); M/N=0.21 range 0.9995677-0.9996935 (rounds to 0.9996).
+  Label uses 4-decimal rounding convention consistent with Q-A3 series EXACT-class. No over-claim. HONEST HARD_PASS.
+  PROT-018: _n16384 suffix -- N=16384 confirmed in metrics. Valid binding.
+  PROT-021: source=remote run_mode=full n_seeds=5. No smoke artifact.
+
+### Cap_map Decision
+
+**(A) substrate_capacity_stress_composition_v1_n16384 HARD_PASS -- CAPACITY-STRESS COMPOSITION PROBE**
+N=16384; L=50; run_mode=full; n_seeds=5; elapsed=124.9s. MN_grid=[0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21].
+Key finding: L=50 composition under simultaneous memory load M/N=0.03..0.21.
+- Mean fidelity M/N<=0.12: all seeds >= 0.9999626 (EXACT-class at 4-decimal).
+- Mean fidelity M/N=0.15: 0.9998904-0.9999340 (onset degradation, above usable threshold).
+- Mean fidelity M/N=0.21: 0.9995677-0.9996935 (graceful degradation near alpha_c).
+- Boundary: M/N=0.12-0.15 is transition zone; alpha_c=0.138 claim supported by monotone onset.
+
+This probe answers a different question from Q-A3 depth series (L=1..2000 at essentially empty substrate).
+Q-A3 established unbounded depth at near-zero load. THIS anchor establishes that L=50 composition remains
+EXACT-class under SIMULTANEOUS STORAGE LOAD through M/N=0.12 (alpha<alpha_c). Operating regime
+characterization: real deployments have both stored facts AND ongoing composition queries.
+M/N<=0.12 is the safe operating envelope for exact-fidelity composition under load at N=16384.
+
+**(B) PP-12 ANNOTATION UPGRADE (band unchanged P=0.97 calibration cap)**
+New sub-property annotation appended: 'CAPACITY-STRESS COMPOSITION v388: L=50 composition under
+simultaneous M/N load N=16384 5-seed FULL; EXACT-class through M/N=0.12 (alpha<alpha_c=0.138);
+graceful degradation M/N=0.15-0.21 (mean_fidelity 0.9999-0.9996); operating envelope: M/N<=0.12
+for EXACT-class composition under stored-fact co-load. Complements Q-A3 depth series (low-load
+unbounded depth); this probe characterizes loaded-substrate composition operating window.'
+No new row. No band change (PP-12 P=0.97 calibration cap).
+
+### PROT compliance (v387 -> v388)
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS (annotation only). No closure triggers.
+- PROT-007/008: v388 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 299th PROT-009 paired commit.
+- PROT-018: 1 anchor -- _n16384 confirmed (N=16384 in metrics). 0 violations.
+- PROT-021: source=remote run_mode=full n_seeds=5. No smoke artifact.
+- PROT-022: Per-seed M/N=0.21 range 0.9995677-0.9996935 (5-seed spread <0.013%; consistent);
+  M/N=0.03 all seeds 1.0000 exact; wall 24.5-26.3s per seed (GPU scheduling; within normal);
+  peak_gpu_gb=2.510176256 identical all 5 seeds (deterministic allocation).
+
+HONEST: 817 -> 818 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v387 -> v388 (PP-12 capacity-stress annotation only).
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
