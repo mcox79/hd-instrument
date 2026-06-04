@@ -8663,3 +8663,68 @@ Cap map: v371 -> v372 CYCLE 40 LARGE BATCH (Q-A3 L=60..L=63+L=35..L=38 8xHP; PP-
 - PP-58 BBP-spectral-gap-calibration: ratio=1.0000 vs HP=[3.5,4.5] at N=16384; BBP theory does not predict substrate spectral separation; sub-path CLOSED; PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding isochoric kappa_3 ratio=8.00 v353 still valid; R2 alt spectral formula primary next step)
 
 Cap map: v372 -> v373 CYCLE 41 BATCH (10 HP + 1 LVH#213 HARD_FAIL + 1 HARD_FAIL; Q-A3 N=8192 22-rung series L=42 NEW N=8192 DEEPEST; Q-A3 N=16384 52-rung series L=71 NEW DEEPEST project history; BAND-LIFT PP-12/Q-A3 0.87-0.97->0.88-0.97; PP-49 HRC-cf deeper-d closure trigger; PP-58 BBP sub-path closed; HONEST 646->658; LVH 213; Portfolio 32+77; 284th PROT-009 paired commit) (2026-06-03)
+
+# v373 -> v374 (2026-06-04) -- CYCLE 42 BATCH: 10 HP + 1 HF + 1 HP-GATE; 0 LVH; Q-A3 L=78..83 N=16384 (rungs 59-64; L=83 NEW DEEPEST project history; {L=20..L=83} 64-rung series); Q-A3 L=45..47 N=8192 (rungs 23-25; L=47 NEW N=8192 DEEPEST; {L=19,L=22..L=47} 27 rungs); BAND-LIFT PP-12/Q-A3 0.88-0.97->0.89-0.97 (9-rung batch); PP-58 BBP dense XN HARD_FAIL (ratio=1.00; N-scaling prediction fails; sub-path R1-R3 rescue); PP-50 v4 ultra-fine sigma_g HP (amplification=851x; entry-boundary confirmed; band unchanged); Phase 0.5 Rung A GATE HP (Algorithm1 debug Pythia-160m; 3/3 converged; CRITICAL); HONEST 658->670; LVH 213 UNCHANGED; Portfolio 32+77 UNCHANGED; 285th PROT-009 paired commit
+
+## v373 -> v374 (2026-06-04) Cycle 42 batch; 10 HP + 1 HF + 1 HP-GATE; 0 LVH; Q-A3 L=78..83 N=16384 (rungs 59-64; L=83 NEW DEEPEST); Q-A3 L=45..47 N=8192 (rungs 23-25; L=47 NEW N=8192 DEEPEST); BAND-LIFT PP-12/Q-A3 0.88-0.97->0.89-0.97; PP-58 BBP dense XN HF; PP-50 v4 HP; Phase 0.5 Rung A GATE HP (CRITICAL); HONEST 658->670; LVH 213; Portfolio 32+77; 285th PROT-009 paired commit
+
+**Cap_map row changes (v373 -> v374).**
+
+| Capability | v373 status | v374 status | Triggering anchors |
+|-----------|-------------|-------------|-------------------|
+| PP-12/Q-A3 cross-layer composition | 0.88-0.97 | **0.89-0.97** | q_a3_l78..l83 N=16384 + q_a3_l45..l47 N=8192 (9-rung batch; L=83 NEW DEEPEST project history) |
+| PP-58 BBP dense XN sub-path | new (exploratory) | HARD_FAIL (R1-R3 rescue filed) | pp58_bbp_dense_xn_n8192_v1_n8192 ratio=1.00 outside [2.0,5.0]; N-scaling prediction fails |
+| PP-50 kappa3 ultra-fine sigma_g | annotation | annotation updated | pp50_kappa3_ultra_fine_sigma_g_v4_n16384 HP; amplification=851x; entry-boundary confirmed |
+| PP-8 Phase 0.5 Rung A | pending | **GATE OPEN** | phase05_v1_algorithm1_debug_pythia160m_v1 HP; 3/3 converge; Algorithm1 pipeline debug pass |
+
+**HONEST count: 658 -> 670 (+12). LVH: 213 UNCHANGED.**
+
+**Anchor table (v374):**
+
+| # | Anchor | Wall | N | Seeds | Verdict | Per-cell summary | Cap_map action |
+|---|--------|------|---|-------|---------|-----------------|----------------|
+| 1 | q_a3_l78_cross_layer_composition_v1_n16384 | 26.3s GPU | 16384 | 5 | HARD_PASS | All 78 fids EXACT-1.0000 unanimous 5/5; l78_acc=1.0000; source=remote run_mode=full | PP-12/Q-A3 L=78 N=16384 rung 59; N=16384 series {L=20..L=78}; BAND-LIFT batch |
+| 2 | q_a3_l79_cross_layer_composition_v1_n16384 | 26.6s GPU | 16384 | 5 | HARD_PASS | All 79 fids EXACT-1.0000 unanimous 5/5; l79_acc=1.0000 | PP-12/Q-A3 L=79 rung 60 |
+| 3 | q_a3_l80_cross_layer_composition_v1_n16384 | 27.1s GPU | 16384 | 5 | HARD_PASS | All 80 fids EXACT-1.0000 unanimous 5/5; l80_acc=1.0000 | PP-12/Q-A3 L=80 rung 61 |
+| 4 | q_a3_l81_cross_layer_composition_v1_n16384 | 27.3s GPU | 16384 | 5 | HARD_PASS | All 81 fids EXACT-1.0000 unanimous 5/5; l81_acc=1.0000 | PP-12/Q-A3 L=81 rung 62 |
+| 5 | q_a3_l82_cross_layer_composition_v1_n16384 | 27.6s GPU | 16384 | 5 | HARD_PASS | All 82 fids EXACT-1.0000 unanimous 5/5; l82_acc=1.0000 | PP-12/Q-A3 L=82 rung 63 |
+| 6 | q_a3_l83_cross_layer_composition_v1_n16384 | 27.8s GPU | 16384 | 5 | HARD_PASS | All 83 fids EXACT-1.0000 unanimous 5/5; l83_acc=1.0000; NEW DEEPEST project history | PP-12/Q-A3 L=83 rung 64; NEW DEEPEST; BAND-LIFT 0.88-0.97->0.89-0.97 |
+| 7 | q_a3_l45_cross_layer_composition_v1_n8192 | 4.1s GPU | 8192 | 5 | HARD_PASS | All 45 fids=1.0000000342 (EXACT-class) unanimous 5/5; l45_acc=1.0000000342 | PP-12/Q-A3 L=45 N=8192 rung 23; 2-N cross-N at L=45 {N=8192+N=16384} |
+| 8 | q_a3_l46_cross_layer_composition_v1_n8192 | 4.1s GPU | 8192 | 5 | HARD_PASS | All 46 fids=1.0000000342 unanimous 5/5 | PP-12/Q-A3 L=46 N=8192 rung 24 |
+| 9 | q_a3_l47_cross_layer_composition_v1_n8192 | 4.2s GPU | 8192 | 5 | HARD_PASS | All 47 fids=1.0000000342 unanimous 5/5; NEW N=8192 DEEPEST | PP-12/Q-A3 L=47 N=8192 rung 25; NEW N=8192 DEEPEST |
+| 10 | pp58_bbp_dense_xn_n8192_v1_n8192 | 436.7s GPU | 8192 | 5 | HARD_FAIL | ratio=1.00 outside [2.0,5.0]; recall flat ~1.0000 across sigma_g=0..8; BBP N-scaling prediction fails; cap_crit=8.000 | PP-58 BBP dense XN sub-path HF; MIDDLE 0.55-0.70 UNCHANGED; R1-R3 rescue |
+| 11 | pp50_kappa3_ultra_fine_sigma_g_v4_n16384 | 6.2s GPU | 16384 | 5 | HARD_PASS | sep(sg=0.83)=15539 (15.5x HP=1000); amplification=851.1x (170x HP=5x); monotone=True | PP-50 ultra-fine sigma_g bracket annotation; entry-boundary confirmed; band 0.83-0.94 UNCHANGED |
+| 12 | phase05_v1_algorithm1_debug_pythia160m_v1 | 4.9s CPU | N/A | 3 | HARD_PASS | n_converged=3/3; balance=0.0066 (HP<=0.7); diversity=0.6497 (HP>=0.1); pipeline_clean; diverse_enough | Phase 0.5 Rung A GATE OPEN; Algorithm1 debug Pythia-160m PASS; PP-8 Phase 0.5 annotation |
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.88-0.97 -> 0.89-0.97 (rungs 59-64 N=16384 + 23-25 N=8192; 9-rung batch; L=83 NEW DEEPEST project history).**
+All 6 N=16384 anchors (L=78..L=83): EXACT-1.0000 unanimous 5/5 seeds. Walls 26.3-27.8s GPU (linear scaling; ceiling NOT found). N=16384 series: {L=20..L=83} = 64 contiguous rungs. L=83 is NEW DEEPEST project history (prior L=71 v373; +12 rungs). 45 rungs beyond N=4096 tested ceiling. All 3 N=8192 anchors (L=45..L=47): EXACT-class 1.0000000342 unanimous 5/5 seeds. Walls 4.1-4.2s GPU. N=8192 series: {L=19,L=22..L=47} = 27 rungs. L=47 NEW N=8192 DEEPEST (prior L=42 v373; +5 rungs). 2-N cross-N confirmed at L=45/46/47 {N=8192+N=16384}. BAND-LIFT VALID: 9-rung batch exceeds 4-rung threshold. +0.01 lower bound. Upper 0.97 ceiling unchanged. Lit-scan calibration penalty maintained. Product framing: substrate cross-layer composition preserves EXACT-1.0000 fidelity through 83 levels at N=16384; 64-rung unbroken series; algebraic audit API moat structurally unbounded through L=83; no ceiling found after 64 rungs.
+
+**(B) PP-58 BBP dense XN HARD_FAIL: substrate robust in dense XN regime; BBP N-scaling prediction fails.**
+pp58_bbp_dense_xn_n8192_v1_n8192. ratio=1.00 (cap_crit=8.000; audit_crit=0.726; actual recall stays ~1.0000 across ALL sigma_g=0..8). BBP theory predicts separation (ratio>>1) in dense XN regime but substrate shows no separation -- retrieval robust even at sigma_g=8.0. Interpretation: substrate robustness in dense XN may be a POSITIVE product property (recall holds regardless of noise level), but BBP theory fails to predict this. Distinct from: (1) isochoric kappa_3 founding ratio=8.00 at alpha=0.05 (still valid; different protocol); (2) BBP-spectral-gap-calibration sub-path (CLOSED v373). PP-58 MIDDLE 0.55-0.70 UNCHANGED. Rescue cheapest-first: R1 dense-XN theory audit (~2h; free); R2 alt alpha=0.1 dense XN (~2h CPU); R3 N=16384 dense XN N-scale (~3h GPU).
+
+**(C) PP-50 v4 ultra-fine sigma_g HARD_PASS: entry-boundary regime confirmed; monotone steep rise through sg>0.83.**
+pp50_kappa3_ultra_fine_sigma_g_v4_n16384. 5-seed unanimous FULL. Ultra-fine bracket {sg0.83:15539, sg0.85:17618, sg0.87:19958, sg0.90:24025, sg1.00:44085, sg1.50:797452, sg2.00:13224401}. sep(sg=0.83)=15539 (15.5x HP=1000); amplification sg2.00/sg0.83 = 851x; monotone=True. Entry-boundary interpretation (v372 v3 HF) confirmed: sigma_g_crit=0.833 marks onset of steep sensitivity rise. PP-50 band 0.83-0.94 UNCHANGED (v4 refinement within counted regime). Sub-property annotation: v4 ultra-fine N=16384 monotone steep rise sg=0.83..2.00; amplification 851x; entry-boundary confirmed.
+
+**(D) Phase 0.5 Rung A GATE HARD_PASS -- CRITICAL MILESTONE.**
+phase05_v1_algorithm1_debug_pythia160m_v1. Model: EleutherAI/pythia-160m. Layers 6-12. K_CLUSTERS=5. n_valid_seeds=3, n_converged=3/3. Metrics: balance_mean=0.0066 (HP_MAX=0.7; 106x below threshold); diversity_mean=0.6497 (HP_MIN=0.1; 6.5x above threshold); nan_frac_max=0.0; pipeline_clean=True; diverse_enough=True. Per-seed: {s7: balance=0.0041, diversity=0.653, converged=T, val_loss 0.487->0.253}; {s17: balance=0.0071, diversity=0.740, converged=T, val_loss 0.481->0.251}; {s23: balance=0.0086, diversity=0.556, converged=T, val_loss 0.530->0.228}. All 3 seeds show 45-57% val_loss reduction. Phase 0.5 Rung A gate OPEN. First Algorithm1 KG-distillation/hyperprobe pipeline end-to-end debug pass on a real transformer. PP-8 Phase 0.5 sub-property annotation: Phase 0.5 Rung A GATE HARD_PASS v374; Algorithm1 debug Pythia-160m 3/3 converge; balance=0.0066; diversity=0.6497; pipeline_clean; Rung A OPEN; Rung B (Llama-3.1-8B) is next gate.
+
+**Summary (v374):**
+- HONEST: 658 -> 670 (+12: 10 HP + 1 HF + 1 HP-GATE; 0 LVH).
+- LVH: 213 UNCHANGED.
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.88-0.97->0.89-0.97; 9-rung batch).
+- Sub-properties NEW: PP-12/Q-A3 L=78..83 N=16384 (rungs 59-64; L=83 NEW DEEPEST project history; 64-rung series) + PP-12/Q-A3 L=45..47 N=8192 (rungs 23-25; L=47 NEW N=8192 DEEPEST; 27-rung series) + PP-50 v4 ultra-fine sigma_g bracket annotation + Phase 0.5 Rung A GATE annotation.
+- HARD_FAILs: 1 (PP-58 BBP dense XN; R1-R3 rescue filed cheapest-first).
+- N=16384 series PP-12/Q-A3: {L=20..L=83} 64 rungs; L=83 deepest in project history.
+- N=8192 series PP-12/Q-A3: {L=19,L=22..L=47} 27 rungs; L=47 deepest for N=8192.
+- Portfolio: 32+77 UNCHANGED.
+- Phase 0.5 Rung A: OPEN (Rung B Llama-3.1-8B next gate).
+
+**PROT compliance (v373 -> v374).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT. PP-58 dense XN rescue R1 (theory; free) -> R2 (alt alpha; ~2h CPU) -> R3 (N=16384; ~3h GPU) cheapest-first. Phase 0.5 Rung A annotation only.
+- PROT-007/008: v374 block appended. No portfolio regression.
+- PROT-009: 285th PROT-009 paired commit.
+- PROT-018: _n16384 x7, _n8192 x4, phase05 N/A (LLM pipeline). 0 violations.
+- PROT-021: all 12 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: Q-A3 EXACT-1.0000 consistent {L=20..L=83} N=16384 (64 rungs) and {L=19,L=22..L=47} N=8192 (27 rungs); PP-50 amplification=851x consistent with entry-boundary model; PP-58 dense XN ratio=1.00 consistent with substrate robustness (recall flat); Phase 0.5 val_loss reduction 45-57% consistent across 3 seeds.
+
+Cap map: v373 -> v374 CYCLE 42 BATCH (10 HP + 1 HF + 1 HP-GATE; Q-A3 N=16384 64-rung series L=83 NEW DEEPEST project history; Q-A3 N=8192 27-rung series L=47 NEW N=8192 DEEPEST; BAND-LIFT PP-12/Q-A3 0.88-0.97->0.89-0.97 9-rung; PP-58 BBP dense XN HF R1-R3; PP-50 v4 ultra-fine HP annotation; Phase 0.5 Rung A GATE OPEN CRITICAL; HONEST 658->670; LVH 213; Portfolio 32+77; 285th PROT-009 paired commit) (2026-06-04)

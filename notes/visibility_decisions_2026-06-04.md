@@ -1,0 +1,3 @@
+# Visibility Decisions 2026-06-04
+## CYCLE 42 BATCH VISIBILITY (v373 -> v374; 2026-06-04)
+12 verdicts processed. 10 HP + 1 HF + 1 HP-GATE. 0 LVH. HONEST 658->670. BAND-LIFT PP-12/Q-A3 0.88-0.97->0.89-0.97. Phase 0.5 Rung A GATE HARD_PASS (CRITICAL). PP-58 BBP dense XN HF (distinct sub-path; founding ratio unchanged). PP-50 v4 ultra-fine HP (refinement; band unchanged). Commit hash deferred; orchestrator pushes.
