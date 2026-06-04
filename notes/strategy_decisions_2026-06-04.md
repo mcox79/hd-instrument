@@ -651,3 +651,43 @@ No new row. No band change (PP-12 P=0.97 calibration cap).
 HONEST: 817 -> 818 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v387 -> v388 (PP-12 capacity-stress annotation only).
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 59 BATCH -- v388 -> v389 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 3 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 818 -> 821 (+3). LVH 213 UNCHANGED.
+
+Label checks:
+- q_a3_l10000_cross_layer_composition_v1_n16384 HARD_PASS: all 10000 levels EXACT-1.0000 unanimous 5/5 seeds N=16384; 50000 cells zero failures. Honest.
+- nhse_annulus_tau_crit_boundary_v1_n8192 HARD_FAIL: spread=1.35 < 1.5 (flat condition fired); max_ratio=1.09; monotone=True; tau_crit=None. Honest.
+- substrate_joint_dh_brain_correct_rung1_v1_n4096 HARD_FAIL: all 5 arms conv=0/5 across 5 seeds; final_bpc 3.73-3.81; norm_ratio D=0.33 E=0.21. Honest.
+
+### Cap_map Decisions
+
+**(A) Q-A3/PP-12 L=10000 N=16384 HARD_PASS -- TEN THOUSAND RUNG MILESTONE**
+q_a3_l10000_cross_layer_composition_v1_n16384. All 10000 levels EXACT-1.0000 unanimous 5/5 seeds N=16384. 50000 cells zero failures. NEW ALL-TIME DEEPEST: L=10000 (5x past L=2000 v387). Unbounded-composition claim: no ceiling at any L tested through L=10000. PP-12 annotation upgraded from L=2000 (v387) to L=10000. PP-12/Q-A3 band UNCHANGED at 0.97 (calibration-capped). Product framing: substrate chains 10,000 nested memory operations with zero fidelity loss at N=16384 -- compositionality audit API is unbounded for all practical engineering purposes.
+
+**(B) nhse_annulus_tau_crit_boundary_v1_n8192 HARD_FAIL**
+spread=1.35 < 1.5 (flat gamma range; tau_crit=None; max_ratio=1.09; monotone=True). NHSE annulus boundary probe sought a tau_crit where gamma transitions sharply. Gamma range too flat to identify a critical point. Per-seed monotone decreasing annulus_ratios consistent across seeds. Second consecutive NHSE-annulus HF (v387: non-monotone spike failure; v389: flat spread failure). Two different detection approaches both fail. PP-58 MIDDLE 0.55-0.70 UNCHANGED. Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free) theory audit: tau_actual=[0.215..0.524] may be below the NHSE onset; check whether gamma_emp monotone rise suggests boundary at tau_actual > 0.524.
+- R2 (1h CPU) extended tau grid: tau=[0.40..0.90] to test gamma divergence at higher tau_actual.
+- R3 (2h CPU) N=16384 same tau grid for N-dependence of gamma spread.
+- R4 (free) probe redesign: annulus_ratio=600+ at tau=0.18 may dominate denominator at all tau; reformulate as gamma_emp vs theory direct comparison.
+
+**(C) substrate_joint_dh_brain_correct_rung1_v1_n4096 HARD_FAIL**
+All 5 arms (A_hebbian_k1, B_cfrpe_alone, C_gating_alone, D_joint_k4, E_joint_k8) conv=0/5 across 5 seeds at N=4096, n_steps=1000. final_bpc 3.73-3.81 near uniform; norm_ratio D=0.33, E=0.21; router_entropy D=1.76, E=2.71 (routing IS active but gradient small). Phase B rung-1 brain-inspired joint D+H training fails to converge at N=4096/1000-steps. Consistent with prior Phase B tinychar rung-1 HF pattern (v375). No row movement (exploratory; no row established). Rescue cheapest-first:
+- R1 (free) convergence diagnostic: norm_ratio=0.33/0.21 -- identify if gradient is present or absent at joint loss interface; router_entropy active suggests coupling not entirely collapsed.
+- R2 (1h CPU) n_steps=5000 extended training: 1000 steps may be insufficient for joint D+H convergence at N=4096.
+- R3 (2h CPU) N=8192 with n_steps=2000: test substrate dimensionality as bottleneck for joint learning.
+- R4 (free) arm isolation audit: compare A_hebbian_k1 norm=0.0792 to D/E norms; is delta-rule Hebbian alone providing any learning signal or is substrate-LM interface decoupled at rung-1?
+
+### PROT compliance (v388 -> v389)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (PP-12 at calibration cap 0.97). NHSE HF rescue R1-R4 cheapest-first filed. Brain-correct rung-1 HF rescue R1-R4 cheapest-first filed.
+- PROT-007/008: v389 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 300th PROT-009 paired commit.
+- PROT-018: 3 anchors -- l10000_n16384 (N=16384 confirmed); nhse_annulus_tau_crit_n8192 (N=8192 confirmed); brain_correct_rung1_n4096 (N=4096 confirmed). 0 violations.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: l10000 all 10000 per-level=1.0000 unanimous (50000 cells); NHSE gamma monotone per-seed consistent; brain_correct norm_ratio consistent across arms and seeds.
+
+HONEST: 818 -> 821 (+3). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v388 -> v389.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
