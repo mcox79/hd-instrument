@@ -9458,3 +9458,30 @@ Sub-property annotations:
 - PP-50: kappa3_sign_convention LOCKED (noise_on_patterns=positive; noise_on_W=negligible; synergy with cycle-66 sign inversion)
 
 Cap_map: v396 -> v397 CYCLE 67 (2x HP: task_complexity + kappa3_sign; 2x HF: friston_fep + polynomial_p4; 1x MID: cfrpe_sparse; PP-8+PP-50 sub-properties; HONEST 834->839; LVH 217; Portfolio 32+77; 308th PROT-009 paired commit) (2026-06-04)
+
+# v398 update (2026-06-04) -- CYCLE 68: 2x HARD_FAIL (topological_beta0_mapper + drosophila_mb_sparse_single); 0 LVH; beta_0 insensitive to 20% drift at N=1024; drosophila K=1 sparse modulator 11x below HP threshold; oscillation stability secondary signal; HONEST 839->841; LVH 217 UNCHANGED; 309th PROT-009 paired commit
+
+## CYCLE 68 BATCH -- v397 -> v398 (2026-06-04)
+
+2 verdicts. All source=remote. 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest |
+|---|--------|---|-------|---------|--------|
+| 1 | substrate_topological_beta0_mapper_baseline_v1_n1024 | 1024 | 3 | HARD_FAIL | ks_p=1.0 all seeds; beta_0 curves nearly identical clean vs drift; Mapper not collapsed (mapper_nodes~666/1268); label honest |
+| 2 | substrate_drosophila_mb_sparse_single_modulator_v1_n4096 | 4096 | 3 | HARD_FAIL | gap_mean=0.009 vs HP=0.1 (11x below); B_better=2/3; B_max_osc=0.09 oscillation stability secondary signal; label honest |
+
+Sub-property annotations (negative results):
+- Topological: beta_0/Mapper insensitive to 20% drift at N=1024; ks_p=1.0000 all seeds; Mapper structure genuine but topology unchanged; rescues R1-R5 (beta_1/Wasserstein, higher N, smaller drift, kappa_3 comparison)
+- PP-8 drosophila: K=1 sparse modulator does not provide HP-level advantage over dense bipolar K=8; gap 11x below threshold; oscillation stability (B_max_osc=0.09 vs A=0.27) is positive secondary; rescues R1-R5 (K>1, gating re-enabled, longer training)
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 839 -> **841** (+2).
+- **LABEL-VS-HONEST:** 217 UNCHANGED (0 new catches).
+- **Product-feature:** No claim changes. PP-50 kappa_3 remains primary drift primitive. PP-8 drosophila K=1 path does not add capability; K>1 + gating rescue paths filed.
+
+- **PROT-009:** 309th PROT-009 paired commit.
+- **PROT-018:** _n1024 matches N=1024; _n4096 matches N=4096. 0 violations.
+- **PROT-021:** both source=remote run_mode=full. No smoke artifacts.
+- **PROT-022:** ks_p=1.0000 consistent 3/3 seeds; drosophila gap 3-seed spread [-0.009, +0.028, +0.007] all well below HP=0.1; B norm_oscillation 0.091/0.090/0.093 consistent <3% spread.
+
+Cap_map: v397 -> v398 CYCLE 68 (2x HARD_FAIL honest; 0 LVH; beta_0/Mapper drift-detection closed at N=1024; drosophila K=1 sparse modulator closed; oscillation stability secondary signal; HONEST 839->841; LVH 217 unchanged; Portfolio 32+77; 309th PROT-009 paired commit) (2026-06-04)

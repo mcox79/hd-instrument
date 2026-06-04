@@ -1020,3 +1020,74 @@ PP-50 band 0.83-0.94 UNCHANGED. Synergy: cycle-66 kappa3_nlo_formula_validation_
 HONEST: 834 -> 839 (+5). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v396 -> v397.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 68 BATCH -- v397 -> v398 (2026-06-04)
+
+### Step 0 Honest Re-Read
+
+2 verdicts. Source=remote authoritative for both.
+
+**Anchor 1: substrate_topological_beta0_mapper_baseline_v1_n1024**
+Label: HARD_FAIL; 'beta_0 insensitive to drift (ks_p>=0.05) OR Mapper collapsed. ks_p=1.0000 delta_kappa2=0.0015 mapper_nodes(A)=666.3'
+Per-cell check: 3 seeds x 3 cells (A_M500_clean, B_M1000_clean, C_M500_drift). beta0 curves for A(clean) vs C(drift) are nearly identical across all seeds: A=[1,1,1,~30,~430,~491,499,500,...] vs C=[1,1,1,~31,~430,~492,499,500,...]. ks_p=1.0000 (maximum p-value; zero statistical distinguishability). delta_kappa2 per seed: +0.0017, -0.0002, -0.0013; all sign-inconsistent and noise-level. mapper_nodes(A) mean: (662+657+680)/3=666.3. Confirmed insensitivity. HARD_FAIL label honest.
+No LVH catch.
+
+**Anchor 2: substrate_drosophila_mb_sparse_single_modulator_v1_n4096**
+Label: HARD_FAIL; 'sparse+single does not help (gap<0.1). gap_mean=0.009 nats B_better=2/3 B_max_osc=0.09 meanA=2.537 meanB=2.529 nats'
+Per-cell check: 3 seeds x 2 cells (A_dense_bipolar_k8 vs B_sparse_single_cfrpe). best_nats: A={2.5162,2.5616,2.5342} B={2.5248,2.5340,2.5271}. gap = A-B per seed: -0.0086, +0.0276, +0.0071; mean=+0.0087. B_better=2/3. B norm_oscillation: 0.091,0.090,0.093 -> max~0.09. meanA=2.537, meanB=2.529. All figures match label. gap<<0.1 threshold. HARD_FAIL label honest.
+No LVH catch.
+
+HONEST: 839 -> 841 (+2). LVH: 217 UNCHANGED (0 new catches). Portfolio: 32+77 UNCHANGED.
+
+### Cap_map Decisions
+
+**(A) substrate_topological_beta0_mapper_baseline_v1_n1024 HARD_FAIL -- beta_0 insensitive to drift**
+N=1024, 3 seeds, 3 cells (M=500 clean/drift + M=1000 clean). Mapper topology probe: does the 0th Betti number (beta_0 = number of connected components in the Mapper graph) detect pattern drift (20% replacement) in the substrate weight matrix W? Result: ks_p=1.0000 across all seeds -- the beta0 distribution under drift is statistically indistinguishable from clean. delta_kappa2 is noise-level and sign-inconsistent. Mapper itself is not collapsed (mapper_nodes~666 at M=500, 1268 at M=1000 -- genuine graph structure exists), but the TOPOLOGY DOES NOT CHANGE under drift.
+
+Plain-language: We tested whether measuring the 'connectedness structure' (number of disconnected clusters) of the substrate's internal graph would detect when stored patterns have been corrupted. The substrate's graph structure looks the same before and after 20% of patterns were replaced -- the topological probe cannot tell the difference. This is a fundamental failure mode: beta_0 is not sensitive to the drift at this N=1024 scale.
+
+Capability implication: Topological drift-detection via beta_0/Mapper is NOT a viable substrate-native drift primitive at N=1024. The substrate's W matrix geometry does not produce beta_0-level topological changes under 20% pattern drift. This contrasts with kappa_3 (PP-50), which detects sub-percent drift at N=32768. No PP row exists for this probe; annotation-only.
+
+Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): beta_0 is the coarsest topological invariant; beta_1 (cycles) or Wasserstein distance on persistence diagrams may be more sensitive to drift. Audit whether the Mapper filtration captures W spectral structure or just coordinate geometry.
+- R2 (1h CPU) N=4096 re-run: at N=1024 the substrate matrix is small; at N=4096 the spectral structure is richer; test whether topological drift signal emerges at higher dimension.
+- R3 (2h CPU) Smaller drift_frac (5-10% vs 20%): the current 20% drift is large; test whether beta_0 responds at all to ANY drift level, even massive (50-80%) replacement.
+- R4 (2h CPU) Persistence diagram + Wasserstein distance instead of Mapper: richer TDA signal than beta_0 alone; may detect subtle geometry changes invisible to component-count.
+- R5 (4h GPU) kappa_3 + TDA joint probe at N=4096: compare beta_0, Wasserstein distance, and kappa_3 sigma_sep on same drift grid to characterize which TDA invariant best tracks W-geometry change.
+
+New sub-property annotation (negative result): 'topological_beta0_mapper baseline v1 N=1024 3-seed: beta_0 Mapper insensitive to 20% drift (ks_p=1.0000 all seeds; delta_kappa2 noise-level and sign-inconsistent); Mapper nodes genuine (666/1268 at M=500/M=1000) but topology unchanged under drift; beta_0 NOT viable drift-detection primitive at N=1024; rescues R1-R5 filed (richer TDA + higher N + kappa_3 comparison).'
+
+**(B) substrate_drosophila_mb_sparse_single_modulator_v1_n4096 HARD_FAIL -- sparse + single modulator does not help**
+N=4096, 3 seeds, 2 cells (A_dense_bipolar_k8 vs B_sparse_single_cfrpe), 1000 steps, sparse_f=0.05. Drosophila mushroom-body inspired design: sparse coding (5% active) + single modulator (K=1 neuromodulator signal) vs baseline dense bipolar K=8. Result: gap_mean=0.009 nats (HP threshold 0.1 nats); B_better=2/3 (not consistent advantage). B norm_oscillation=0.09 (lower than A=0.27, suggesting sparse coding is more stable in update norm). meanA_best=2.537 nats, meanB_best=2.529 nats -- sparse+single is marginally better in 2/3 seeds but the gap is 11x below HP threshold.
+
+Plain-language: We tested whether a brain-inspired sparse coding design (only 5% of neurons active, single modulator signal) helps the substrate learn more efficiently than a standard dense design. The sparse+single approach is slightly better in 2 out of 3 runs, but the advantage is tiny -- about 11 times smaller than what would count as a real improvement. The sparse design also shows more stable training dynamics (less oscillation), which is an interesting secondary signal even though the primary learning-quality gate wasn't met.
+
+Capability implication for PP-8 (drosophila-sparsity): The K=1 single modulator case specifically does not provide a meaningful advantage over dense bipolar K=8 at N=4096 with 1000 steps. The oscillation stability signal (B_max_osc=0.09 vs A=0.27) is a positive secondary observation worth pursuing. This is consistent with prior drosophila-sparsity MIDDLE_BAND results (cycle-65); sparse coding may need K>1 modulators or longer training (more steps) to exhibit the drosophila-MB multi-modulator benefit.
+
+Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): Single modulator (K=1) is the minimal case; K=2..4 modulators may be the operative regime where drosophila-MB multi-pathway benefit emerges. Oscillation stability sub-signal (B_max_osc=0.09 vs A=0.27) is worth annotating as a positive secondary signal.
+- R2 (2h CPU) K=2..4 sparse modulator sweep at N=4096 3000 steps: test whether multi-modulator sparse design exceeds HP threshold (gap>0.1 nats); oscillation stability as secondary gate.
+- R3 (2h CPU) Longer training (3000-5000 steps) for K=1: the training curves show nats still declining at step 1000 for B; longer runs may allow sparse learning dynamics to converge.
+- R4 (3h GPU) N=8192 K=1 + K=4 comparison: higher N where drosophila MB connectivity ratios are more naturalistic.
+- R5 (4h GPU) Gating re-enabled for sparse branch (sparse+gating vs sparse-no-gating): cell B had gating=False; enabling gating for sparse coding may be the critical combination (gating is the dopamine-signal analog in the drosophila MB model).
+
+New sub-property annotation (negative result): 'drosophila_mb_sparse_single_modulator v1 N=4096 3-seed 1000-step sparse_f=0.05 K=1: gap_mean=0.009 nats (HP=0.1; 11x below); B_better=2/3 (not consistent); B_max_osc=0.09 vs A_max_osc=0.27 (oscillation stability positive secondary); sparse+single NOT sufficient for HP at N=4096; K>1 or gating rescue paths filed R1-R5; HARD_FAIL.'
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | substrate_topological_beta0_mapper_baseline_v1_n1024 | 1.9s | 1024 | 3 | HARD_FAIL | ks_p=1.0 all seeds; beta_0 insensitive to 20% drift; Mapper not collapsed; label honest |
+| 2 | substrate_drosophila_mb_sparse_single_modulator_v1_n4096 | 755.6s | 4096 | 3 | HARD_FAIL | gap_mean=0.009 vs HP=0.1; B_better=2/3; oscillation secondary signal; label honest |
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 839 -> **841** (+2).
+- **LABEL-VS-HONEST:** 217 UNCHANGED (0 new catches; both labels honest).
+- **Product-feature:** No product-feature claim changes. Topological drift-detection via beta_0/Mapper closed at N=1024 (kappa_3 PP-50 remains primary drift primitive). PP-8 drosophila-sparsity K=1 single modulator does not provide HP-level advantage; oscillation stability sub-signal identified; K>1 rescue paths filed.
+
+- **PROT-004/006:** No closures. 0 new rows. 2 negative sub-property annotations (topological_beta0_mapper + drosophila_mb_sparse_single). Rescues R1-R5 cheapest-first filed for each.
+- **PROT-007/008:** v398 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 309th PROT-009 paired commit.
+- **PROT-018:** substrate_topological_beta0_mapper_baseline_v1_n1024 -- _n1024 suffix; N=1024 in metrics.json confirmed. substrate_drosophila_mb_sparse_single_modulator_v1_n4096 -- _n4096 suffix; N=4096 in metrics.json confirmed. 0 PROT-018 violations.
+- **PROT-021:** both source=remote run_mode=full confirmed. No smoke contamination.
+- **PROT-022:** topological ks_p=1.0000 consistent across all 3 seeds (seed7/17/23 all return ks_p=1.0000); drosophila gap_mean=0.009 consistent: per-seed gaps -0.009/+0.028/+0.007 all well below 0.1 HP threshold; B norm_oscillation 0.091/0.090/0.093 consistent (3-seed spread < 3%).
+
+Cap_map: v397 -> v398 CYCLE 68 (2x HARD_FAIL: topological_beta0_mapper + drosophila_mb_sparse_single; 0 LVH; beta_0 insensitive to 20% drift at N=1024; drosophila K=1 sparse modulator 11x below HP threshold; oscillation stability secondary signal; rescues R1-R5 filed both; HONEST 839->841; LVH 217 unchanged; Portfolio 32+77; 309th PROT-009 paired commit) (2026-06-04)
