@@ -26772,3 +26772,5 @@ State transitions: (1) PP-47 hippocampal row: new REM-ENERGY sub-property annota
 - PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 303rd PROT-009 paired commit.
 - PROT-018: anchor _n8192 suffix matches primary config N=8192. 0 violations.
 - PROT-021: source=remote run_mode=full confirmed.
+
+v400 | 2026-06-04 | CYCLE 70 6-verdict batch | 1 HP alpha_ramp_mct_slowing MCT-14x-early-warning FIRST; 4 HF mini_lm_v2/ecr_vs_lru-floor/k3_zipf-load-bearing/training_speed_stage_a; 1 MID phase05_audit_core 2/3 | 0 LVH | HONEST 843->849 | Portfolio 32+77 | 0 BAND-LIFTS | 0 row state changes | annotation-only | 311th PROT-009

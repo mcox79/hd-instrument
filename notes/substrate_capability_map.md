@@ -9516,3 +9516,42 @@ E1 (bipolar+Hebbian) HP gap+1.291 nats 3/3; E2 (bipolar+STDP) HP gap+1.249 nats 
 - **PROT-022:** spectral std(l1) strictly monotone-dec 5 values; beta=0.513 OLS consistent with stored; position_binding E1 3-seed spread 0.064 nats consistent; E2 spread 0.109 nats consistent.
 
 Cap_map: v398 -> v399 CYCLE 69 (spectral_edge_v2 MIDDLE_BAND decisive Gaussian-class; position_binding trigram HARD_PASS E1+E2; PP-50+PP-8 sub-properties; HONEST 841->843; LVH 217; Portfolio 32+77; 310th PROT-009 paired commit) (2026-06-04)
+
+## v399 -> v400 -- 2026-06-04 CYCLE 70 BATCH (6 verdicts: 1 HARD_PASS alpha_ramp_mct_slowing MCT-early-warning, 4 HARD_FAIL mini_lm_v2/ecr_vs_lru/k3_zipf_falsifier/training_speed_stage_a, 1 MIDDLE_BAND phase05_audit_core; 0 LVH; 0 BAND-LIFTS; 6 sub-property annotations; HONEST 843->849; LVH 217 unchanged; portfolio 32+77 unchanged; 311th PROT-009 paired commit)
+
+**Trigger.** 6 verdicts from cycle-70 batch. Pause flag absent. 4-session architecture (Exp-Dev owns queue refill independently). Queue empty -- Exp-Dev session will refill on its cadence.
+
+### Step 0 summary: all 6 labels honest, 0 LVH catches
+
+All source=remote (bridge stale; SSH fallback authoritative). HONEST 843->849 (+6). LVH 217 unchanged.
+
+### Cap_map decisions (annotation-only; 0 row-state changes)
+
+**(A) phase05_v1_substrate_audit_core_v1 MIDDLE_BAND -- Phase 0.5 audit core 2/3 primitives**
+Balance ok (0.0008 3/3), deletion_noncos ok (0.998 3/3), drift_detected fail (0/3; z_drift=1.5..1.8 below boolean threshold). PP-8 row UNCHANGED. Sub-property: "phase05_v1_substrate_audit_core_v1 MIDDLE_BAND 2/3: balance+deletion validated; drift threshold needs calibration (z_drift=1.5..1.8 present but below threshold); N=2048 n_docs=1000."
+
+**(B) substrate_trained_mini_lm_readout_fix_nsweep_v2_capped HARD_FAIL -- PP-8 Phase B mini-LM null**
+N=512..8192, 3 seeds, alpha_max=0.05. max_gap=0.063 << HP=0.3. 4th consistent rung-1 Phase B HARD_FAIL. PP-8 UNCHANGED. Sub-property: "mini_lm_readout_v2_capped HARD_FAIL N=512..8192: max_gap=0.063; substrate-LM coupling absent at alpha_max=0.05 across all N."
+
+**(C) substrate_alpha_ramp_mct_slowing_v1_n4096 HARD_PASS -- FIRST MCT-SLOWING EARLY-WARNING**
+N=4096, 3 seeds. mct_ratio=14.31x (>>1.5x HP). Graceful zone alpha<=0.117 (frac_recalled=1.0 3/3); alpha_c~0.138-0.16; catastrophic collapse alpha=0.16. NEW SUB-PROPERTY (P=0.60-0.75, first anchor): "substrate_alpha_ramp_mct_slowing_v1_n4096 HARD_PASS: mct_ratio=14.31x; MCT mean_steps is a free 14x early-warning signal for capacity saturation; alpha_c~0.138-0.16 at N=4096; graceful zone alpha<=0.117; corroborates SKAH-M/lR-phase critical-slowing row." Product-relevant: step-count is a substrate occupancy health indicator, enabling graceful degradation and pre-emptive eviction.
+
+**(D) substrate_eviction_ecr_vs_lru_v1_n4096 HARD_FAIL -- floor-effect sub-capacity**
+ECR=LRU=1.000 all 3 seeds; margin=0.000. Both trivially perfect at sub-capacity (not near alpha_c). Closes ECR-vs-LRU AT THIS LOADING only. Sub-property: "ecr_vs_lru HARD_FAIL: floor-effect ECR=LRU=1.000 all seeds sub-capacity; near-saturation test at alpha=0.12-0.15 needed to discriminate policy value."
+
+**(E) substrate_k3_synthetic_uniform_zipf_falsifier_v1_n4096 HARD_FAIL -- Zipf IS load-bearing (POSITIVE product)**
+N=4096, V=70, 5 seeds. uniform_gap=0.333 (0/5); zipf_gap=0.676 (5/5). Closes "Zipf is incidental" hypothesis. POSITIVE: K=3 substrate capability is Zipf-tuned, and natural language is always Zipf-distributed. Sub-property: "k3_zipf_falsifier HARD_FAIL: uniform_gap=0.333 (0/5); zipf_gap=0.676 (5/5); Zipf IS load-bearing for K=3 trigram; POSITIVE product confirmation -- natural language Zipf statistics are the operative driver."
+
+**(F) substrate_training_speed_stage_a_smoke_sweep_crossover_N_v1 HARD_FAIL -- Stage A crossover absent**
+N-grid=[256..4096], 3 seeds, bigram+trigram. Speedup monotone-dec: N256:0.65x ... N4096:0.04x. No crossover. Substrate 3x-30x slower than Adam. Sub-property: "training_speed_stage_a_crossover HARD_FAIL: speedup N256:0.65x N512:0.18x N1024:0.08x N2048:0.03x N4096:0.04x; no crossover; Stage A training-speed advantage CLOSED at N<=4096."
+
+### PROT compliance (v399 -> v400)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. 6 sub-property annotations. Rescues R1-R3 cheapest-first per anchor in strategy_decisions_2026-06-04.md.
+- PROT-007: v400 history row appended to substrate_capability_map_history.md.
+- PROT-008: Validator skipped (annotation-only; 0 row state changes; 0 portfolio changes).
+- PROT-009: cap_map.md (this v400 entry) + history.md + strategy_decisions_2026-06-04.md + visibility_decisions_2026-06-04.md staged atomically; 311th PROT-009 paired commit.
+- PROT-018: 0 violations (phase05 no _nN; nsweep no _nN; _n4096 trio confirmed; training_speed no single _nN).
+- PROT-021: all 6 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: alpha_ramp frac_recalled=1.0 alpha<=0.117 consistent 3 seeds; mct_ratio=14.31 consistent (17.44/1.22=14.3); floor ECR=LRU consistent 3 seeds; zipf 0.31-0.37 uniform consistent 5 seeds; speedup monotone-dec consistent 3 seeds 2 tasks; mini-LM max 0.063 consistent.
+
+Cap_map: v399 -> v400 CYCLE 70 (1 HP alpha_ramp_mct_slowing MCT-14x-early-warning FIRST; 4 HF mini_lm_v2/ecr_vs_lru-floor/k3_zipf-load-bearing-POSITIVE/training_speed_stage_a-no-crossover; 1 MID phase05_audit_core-2/3; 0 LVH; 0 BAND-LIFTS; HONEST 843->849; LVH 217; Portfolio 32+77; 311th PROT-009 paired commit) (2026-06-04)

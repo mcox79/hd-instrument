@@ -1138,3 +1138,65 @@ Rescue cheapest-first:
 HONEST: 841 -> 843 (+2). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v398 -> v399.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 70 BATCH -- v399 -> v400 (2026-06-04)
+
+### Step 0 Honest Re-Read
+6 verdicts. All source=remote (bridge stale; SSH succeeded). HONEST 843 -> 849 (+6). LVH: 217 UNCHANGED (0 catches; all 6 labels honest).
+
+Label checks:
+- phase05_v1_substrate_audit_core_v1 MIDDLE_BAND: balance ok 3/3 (0.0008 max << HP 0.7); drift_detected fail 0/3 (z_drift=1.76/1.72/1.51 computed but boolean drift_detected=False all seeds); deletion_noncos ok 3/3 (0.998). 2/3 primitives pass. Honest.
+- substrate_trained_mini_lm_readout_fix_nsweep_v2_capped HARD_FAIL: max cell gap=0.063 (seed17 N=512) << HP=0.3; N-sweep N=512..8192 all near-zero or negative. Honest.
+- substrate_alpha_ramp_mct_slowing_v1_n4096 HARD_PASS: frac_recalled=1.0 at alpha<=0.117 (3/3 seeds); 0.93 at 0.138; 0.17 at 0.16; 0.00 at 0.2. mct_ratio=14.31 >> 1.5x HP. Consistent 3/3 seeds. Honest.
+- substrate_eviction_ecr_vs_lru_v1_n4096 HARD_FAIL: ECR=LRU=1.000 all 3 seeds; margin=0.000; floor effect at sub-capacity. Honest at predicate level.
+- substrate_k3_synthetic_uniform_zipf_falsifier_v1_n4096 HARD_FAIL: uniform_gap=0.333 (0/5 seeds >= 0.5); zipf_gap=0.676 (5/5 seeds >= 0.5). Zipf IS load-bearing. Honest.
+- substrate_training_speed_stage_a_smoke_sweep_crossover_N_v1 HARD_FAIL: speedup N256:0.45-0.85x N512:0.13-0.23x N1024:0.05-0.10x N2048:0.02-0.04x N4096:0.03-0.06x; no cell reaches 1.0x crossover. Honest.
+
+### Cap_map Decisions
+
+**(A) phase05_v1_substrate_audit_core_v1 MIDDLE_BAND -- Phase 0.5 audit core rung-1 annotation**
+N=2048, 3 seeds, n_docs=1000. 2/3 primitives pass: alg1_balance and deletion_noncos. Drift-detection fails 0/3 (z_drift=1.5..1.8 below boolean threshold). PP-8 row UNCHANGED. New sub-property: "phase05_v1_substrate_audit_core_v1 MIDDLE_BAND 2/3: balance ok (0.0008 3/3), deletion_noncos ok (0.998 3/3), drift_detected fail (0/3; z_drift=1.5..1.8; threshold not crossed). N=2048, n_docs=1000; drift threshold needs calibration."
+Plain-language: The three health-checks for Phase 0.5 show balance and deletion pass cleanly; drift detection fails because the substrate computes a signal (z_drift~1.6) but never crosses the detection threshold. This is a calibration problem for the drift gate, not a fundamental failure.
+Capability implication: 2/3 Phase 0.5 audit primitives validated; drift threshold needs tuning.
+Rescue cheapest-first: R1 (free) threshold-calibration annotation -- z_drift IS present (1.5..1.8); R2 (1h CPU) z_drift threshold sweep [1.0..2.0]; R3 (1h CPU) n_docs=5000 to boost SNR.
+
+**(B) substrate_trained_mini_lm_readout_fix_nsweep_v2_capped HARD_FAIL -- PP-8 Phase B mini-LM null result**
+N-sweep N=512..8192, 3 seeds, alpha_max=0.05. Max gap=0.063 << HP=0.3. Consistent with prior cycle-43 rung-1 HARD_FAILs. PP-8 row UNCHANGED. Sub-property: "mini_lm_readout_v2_capped HARD_FAIL N=512..8192 5N 3-seed: max_gap=0.063 << HP=0.3; alpha_max=0.05 cap; wall=11586s; no learning at any N; substrate-LM coupling absent."
+Plain-language: Across five vector sizes, the substrate with its learning rate capped at 5% produces essentially no improvement over random-guess language prediction. The substrate-LM information channel is not established in this regime at any tested size.
+Capability implication: Alpha-capped readout is NOT viable Phase B coupling at any N. Fundamental redesign needed.
+Rescue cheapest-first: R1 (free) verify embedding dropout not silently active; R2 (1h CPU) uncapped alpha_max=0.5..1.0 at N=512; R3 (2h CPU) direct-signal baseline (substrate bypassed) as upper bound.
+
+**(C) substrate_alpha_ramp_mct_slowing_v1_n4096 HARD_PASS -- FIRST MCT-SLOWING EARLY-WARNING CONFIRMED**
+N=4096, 3 seeds. mct_ratio=14.31 (steps_low=1.22, steps_hi=17.44). frac_recalled=1.0 at alpha<=0.117; catastrophic collapse at alpha=0.16 (0.17); alpha_c~0.138-0.16. Consistent 3/3 seeds. NEW CAPABILITY: MCT convergence step count is a viable free early-warning signal for capacity saturation. 14x slowdown before collapse. Corroborates SKAH-M/lR-phase critical-slowing row (v280). New sub-property annotation on cap_map capacity characterization: "substrate_alpha_ramp_mct_slowing_v1_n4096 HARD_PASS: graceful zone alpha<=0.117 (frac_recalled=1.0 3/3); alpha_c~0.138-0.16; mct_ratio=14.31x (>1.5x HP); MCT mean_steps is a 14x free early-warning signal for capacity saturation; N=4096 3-seed." New sub-property candidate P=0.60-0.75 (first anchor, N=4096 3-seed; conservative).
+Plain-language: We measured how the substrate's recall collapses as we push more memories in. Below 12% of capacity, recall is perfect. Above 14% it starts to fail, and above 16% it collapses completely. Critically, the substrate takes 14 times as many steps to retrieve memories near the limit -- this slowdown is a free, built-in warning signal that the substrate is nearly full.
+Capability implication: MCT step-count is a viable substrate occupancy indicator for product. Enables graceful degradation and pre-emptive eviction. Consistent with SKAH-M critical-slowing framework.
+Rescue cheapest-first: R1 (free) subsumption with SKAH-M critical-slowing corroborator; R2 (1h CPU) N=8192 alpha_ramp; R3 (2h CPU) mct_ratio(N) scaling.
+
+**(D) substrate_eviction_ecr_vs_lru_v1_n4096 HARD_FAIL -- ECR-vs-LRU floor effect (sub-capacity)**
+N=4096, 3 seeds. ECR=LRU=1.000; margin=0.000. Floor effect: both trivially perfect at sub-capacity. Closes ECR-vs-LRU comparison AT THIS LOADING only. Does NOT close ECR near saturation. Annotation: "ecr_vs_lru HARD_FAIL: floor effect ECR=LRU=1.000 all seeds; sub-capacity; near-saturation test at alpha~0.12-0.15 is the productive comparison."
+Plain-language: Both memory-management strategies are perfect under low load, so they look identical. The comparison needs to be run when the substrate is nearly full (12-15% capacity) to see if one handles overflow better.
+Capability implication: ECR near-saturation test is the needed follow-on.
+Rescue cheapest-first: R1 (free) annotate as floor-effect; R2 (2h CPU) near-saturation ECR-vs-LRU at alpha=[0.10,0.12,0.13,0.14,0.15,0.16].
+
+**(E) substrate_k3_synthetic_uniform_zipf_falsifier_v1_n4096 HARD_FAIL -- Zipf IS load-bearing (POSITIVE product confirmation)**
+N=4096, V=70, 5 seeds. uniform_gap=0.333 (0/5); zipf_gap=0.676 (5/5). Closes "Zipf is incidental" hypothesis. POSITIVE product implication: K=3 substrate benefit is Zipf-contingent, and natural language IS always Zipf-distributed. Annotation on PP-8 K=3 trigram: "k3_zipf_falsifier HARD_FAIL: uniform_gap=0.333 (0/5); zipf_gap=0.676 (5/5); Zipf IS load-bearing for K=3 trigram; POSITIVE product confirmation -- natural language is always Zipf-distributed."
+Plain-language: We confirmed that the substrate's language-prediction advantage specifically requires natural language's skewed word-frequency distribution (Zipf's law). With equal word frequencies, the advantage is much smaller. This is good news: natural language is always Zipf-distributed, so the advantage is real in the actual deployment target.
+Capability implication: K=3 trigram capability is specifically tuned to natural language statistics. Product claim is more specific and stronger.
+Rescue cheapest-first: R1 (free) close "Zipf incidental" and annotate as positive product confirmation; R2 (1h CPU) partial-Zipf skewness sweep.
+
+**(F) substrate_training_speed_stage_a_smoke_sweep_crossover_N_v1 HARD_FAIL -- Stage A training-speed crossover NOT found at N=256..4096**
+N-grid=[256,512,1024,2048,4096], 3 seeds, tasks=[bigram,trigram]. Speedup monotone-decreasing with N: N=256 best cell=0.85x (seed17 trigram); N=4096 worst=0.03-0.06x. No crossover. Adam 3x-30x faster in wall-time. Closes Stage A training-speed crossover hypothesis at N<=4096. Annotation: "training_speed_stage_a_crossover HARD_FAIL: speedup N256:0.65x N512:0.18x N1024:0.08x N2048:0.03x N4096:0.04x; no crossover; substrate 3x-30x slower than Adam; Stage A training-speed advantage CLOSED at N<=4096."
+Plain-language: We looked for a vector size where substrate initialization makes training faster than Adam. At all sizes from 256 to 4096, Adam is faster and the gap worsens with size. There is no crossover in the tested range.
+Capability implication: Phase 0.5 training-speed claim requires a fundamentally different mechanism. No speed advantage in Stage A at N<=4096.
+Rescue cheapest-first: R1 (free) close Stage A crossover at N<=4096; R2 (2h CPU) Stage B quality-per-time test; R3 (3h GPU) N>4096 crossover test.
+
+### PROT compliance (v399 -> v400)
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. 6 sub-property annotations. Rescues R1-R3 cheapest-first filed for each.
+- PROT-007/008: v400 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 311th PROT-009 paired commit.
+- PROT-018: phase05 no _nN suffix (N=2048 is LLM hidden dim); nsweep_v2 no _nN suffix (sweep); alpha_ramp _n4096 confirmed; ecr_vs_lru _n4096 confirmed; k3_zipf_falsifier _n4096 confirmed; training_speed no single _nN (sweep). 0 violations.
+- PROT-021: all 6 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: alpha_ramp frac_recalled consistent 3 seeds; mct_ratio=14.31 consistent (17.44/1.22=14.3); ECR=LRU=1.000 floor consistent 3 seeds; K3 uniform_gap 0.31-0.37 all<0.5 consistent 5 seeds; speedup monotone-dec consistent 3 seeds 2 tasks; mini-LM max gap 0.063 <<0.3 consistent.
+
+HONEST: 843 -> 849 (+6). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v399 -> v400.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
