@@ -1,12 +1,26 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 USER-PRIORITY second 5 batch SHIPPED (5 GPU anchors queued to overnight_queue; remote verify PASS 5/5)
+**Updated:** 2026-06-03 CYCLE 42 ALL-NIGHT BURST SHIPPED (10 GPU anchors queued to overnight_queue; remote verify PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
 ---
 
-## Active in overnight_queue (pending -- second batch USER-PRIORITY 2026-06-03)
+## Active in overnight_queue (pending -- cycle 42 ALL-NIGHT BURST 2026-06-03)
+
+GPU (overnight_queue) -- v372 CYCLE 42 ALL-NIGHT BURST 2026-06-03:
+- q_a3_l66_cross_layer_composition_v1_n16384 (COMPLETED) -- A: L=66 N=16384 rung 47; verdicts pending
+- q_a3_l67_cross_layer_composition_v1_n16384 (COMPLETED) -- A: L=67 N=16384 rung 48; verdicts pending
+- q_a3_l68_cross_layer_composition_v1_n16384 (COMPLETED) -- B: L=68 N=16384 rung 49; verdicts pending
+- q_a3_l69_cross_layer_composition_v1_n16384 (COMPLETED) -- B: L=69 N=16384 rung 50; verdicts pending
+- q_a3_l70_cross_layer_composition_v1_n16384 (COMPLETED) -- C: L=70 N=16384 rung 51; verdicts pending
+- q_a3_l71_cross_layer_composition_v1_n16384 (COMPLETED) -- C: L=71 N=16384 rung 52; verdicts pending
+- q_a3_l41_cross_layer_composition_v1_n8192 (COMPLETED) -- D: L=41 N=8192 cross-N rung 22; verdicts pending
+- q_a3_l42_cross_layer_composition_v1_n8192 (COMPLETED) -- D: L=42 N=8192 cross-N rung 23; verdicts pending
+- pp49_hrc_deeper_d_d10_d12_d14_v1_n8192 (COMPLETED) -- E: PP-49 d=10/12/14 N=8192 cross-N companion; verdict pending
+- pp58_bbp_spectral_gap_calibration_v1_n16384 (RUNNING run_index=2) -- F: PP-58 BBP N=16384 FULL rerun; in progress
+
+## Previously active -- cycle 41 (second batch, now in completed/running state)
 
 GPU (overnight_queue) -- v371 SECOND BATCH 2026-06-03:
 - q_a3_l62_cross_layer_composition_v1_n16384 (pending) -- C: L=62 N=16384 43rd rung; SHIPPED+REMOTE_VERIFIED; timeout=21600s

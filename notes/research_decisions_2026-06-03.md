@@ -15,3 +15,7 @@ Wed Jun  3 10:14:55 EDT 2026: anti_hebbian_contrastive_lm_scale -> notes/researc
 
 - 2026-06-03: counterfactual-AM-as-dopamine-RPE drill -> notes/research_drill_counterfactual_dopamine_rpe_training_channel_2026-06-03.md ; P_deflated=0.38 ; HARD-PASS rho>0.80 / HARD-FAIL rho<0.30 ; handoff: notes/exp_dev_handoff_research_counterfactual_rpe_training_2026-06-03.md
 - [2026-06-03] 8-channel orchestration architecture drill -> notes/research_drill_8_channel_orchestration_architecture_2026-06-03.md ; P_deflated=0.38; HEADLINE: Friston precision-weighting + LC phasic/tonic + BG gating = 3 bio principles map onto Cipolla+PCGrad+curriculum hybrid; 24 layer-zone x channel gain scalars; auto-curriculum via g_theta
+
+- 2026-06-03 hyperprobe-reproduction-setup -> notes/research_drill_hyperprobe_reproduction_setup_2026-06-03.md: 3-stage pipeline gap (k-means layers 16-32 sum-pool + 421 epochs + LR-finder 3e-5) explains 0.60 vs 0.89 val_sim; fixable at $20-50 cloud
+- 2026-06-03: 2x drill chained retrieval counterfactual saturation -> notes/research_drill_chained_retrieval_cf_saturation_2x_2026-06-03.md ; HEADLINE: cos=1 saturation = fixed-point absorbing (leaf-start protocol artifact); P_deflated=0.60; next-drill: heteroassociative paired-pattern dual counterfactual
+- 2026-06-03: rank-r counterfactual attribution ceiling 2x drill -> notes/research_drill_data_attribution_accuracy_ceiling_2x_2026-06-03.md ; HEADLINE: rho=0.69 parity = ground-truth noise floor + high-d rank-1 ceiling; rank-2 Woodbury predicted gain 0.04-0.08; P_deflated=0.55 noise-floor explanation
