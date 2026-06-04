@@ -443,3 +443,50 @@ source=remote. 0/6 d-cells match at tau_actual~0.926. gamma_emp >> gamma_scs at 
 HONEST: 783 -> 785 (+2 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v383 -> v384.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 55 BATCH -- v384 -> v385 (2026-06-04)
+
+### Step 0 Honest Re-Read
+Remote bridge stale (is_stale=True). All 5 anchors returned source=remote from get_metrics() -- remote read succeeded despite stale bridge flag (likely cached).
+
+Label checks (all HONEST, LVH: 213 UNCHANGED):
+- q_a3_l400_cross_layer_composition_v1_n16384 HARD_PASS: ALL 400 levels 1.0000 exact; l400_acc=1.0000; 5/5 seeds unanimous. 400/132=3.03x past L=132 v382 frontier (label '3x' understates; HONEST).
+- q_a3_l500_cross_layer_composition_v1_n16384 HARD_PASS: ALL 500 levels 1.0000 exact; l500_acc=1.0000; 5/5 seeds unanimous. 500/132=3.79x (label '3.5x' slight understatement; HONEST).
+- q_a3_l700_cross_layer_composition_v1_n16384 HARD_PASS: ALL 700 levels 1.0000 exact; l700_acc=1.0000; 5/5 seeds unanimous. 700/132=5.30x (label '5x' slight understatement; HONEST). Note: seed23 elapsed_s=127.6 vs mean ~47-55s -- GPU load spike but correct result; no data integrity issue.
+- pp58_scs_d_sweep_tau_actual_v1_n8192 HARD_FAIL: 0/6 d-cells match; tau_actual~0.926 (tau_target=0.71 -> 30.4% overshoot); ratios 0.006-0.352 all outside [0.5,2.0]; consistent with v384 D8 finding. HONEST.
+- pp58_scs_d_sweep_tau050_calibrated_v1_n8192 MIDDLE_BAND: 2/6 d-cells match at tau_actual~0.708 (tau_target=0.50); a0.01 ratio~0.811 (5/5 seeds match); a0.02 ratio~1.065 (5/5 seeds match); a0.04+ diverges monotone (ratio 1.33-1.59); HONEST.
+
+HONEST: 785 -> 790 (+5 confirmed). LVH: 213 UNCHANGED (+0 over-claims).
+
+### Cap_map Decisions
+
+**(A) q_a3_l400_cross_layer_composition_v1_n16384 HARD_PASS -- 3x FRONTIER PROBE**
+All 400 levels EXACT-1.0000 unanimous 5/5 seeds; l400_acc=1.0000; N=16384; FULL run; elapsed_s=136.5. Prior confirmed maximum L=300 (v384). L=400 extends 33% beyond L=300 with zero exceptions across 400x5=2000 cells.
+No PP-12 band change (already at calibration cap P=0.97). Annotation upgrade: deepest confirmed N=16384 moves toward L=700 (see C).
+
+**(B) q_a3_l500_cross_layer_composition_v1_n16384 HARD_PASS -- 3.5x FRONTIER PROBE**
+All 500 levels EXACT-1.0000 unanimous 5/5 seeds; l500_acc=1.0000; N=16384; FULL; elapsed_s=168.9. L=500 adds 67% depth beyond L=300. Zero failures across 500x5=2500 cells.
+No PP-12 band change. Superseded by L=700 as deepest in this batch.
+
+**(C) q_a3_l700_cross_layer_composition_v1_n16384 HARD_PASS -- 5x FRONTIER PROBE (NEW DEEPEST)**
+All 700 levels EXACT-1.0000 unanimous 5/5 seeds; l700_acc=1.0000; N=16384; FULL; elapsed_s=374.4. L=700 NEW ALL-TIME DEEPEST. 700/132=5.3x beyond original frontier; 700/300=2.3x beyond v384 frontier. Note seed23 elapsed_s=127.7s vs seed7 27.4s -- GPU contention spike; result unaffected (lacc=1.0000 all seeds). Zero failures across 700x5=3500 cells.
+Three consecutive giant-leap probes (L=400/500/700) ALL HARD_PASS with EXACT-1.0000. No composition ceiling below L=700 at N=16384. PP-12 sub-property annotation updated: 'L=700 v385: all 700 levels 1.0000 5/5 seeds; N=16384; 5.3x past L=132 frontier; L=400+L=500+L=700 three consecutive EXACT-1.0000 probes; zero failures across 6600 cells combined. Unbounded-composition claim: no ceiling through L=700.'
+
+**(D) PP-12 ANNOTATION (cap v384 -> v385)**
+Band: P=0.97 UNCHANGED (calibration cap). Deepest confirmed rung: L=700 N=16384 (was L=300 in v384). Status: VALIDATED. Product statement: substrate cross-layer composition EXACT-1.0000 at every depth tested through L=700; algebraic audit API moat structurally unbounded through L=700. N=8192 frontier: L=200/300/500/1000 FULL runs shipped Cycle 55, results pending.
+
+**(E) pp58_scs_d_sweep_tau_actual_v1_n8192 HARD_FAIL -- D-SWEEP UNDER-PREDICTION REPLICATED**
+0/6 d-cells match at tau_actual~0.926 across ALL alpha (0.01..0.10) and ALL d (3.02..5.83). Best: alpha=0.10 ratio=0.352. Replicates v384 d8 finding: SCS under-predicts by 3-21x at tau_actual=0.926 d-independently. PP-58 MIDDLE 0.55-0.70 UNCHANGED. Rescue R1-R4 from v384 still apply.
+
+**(F) pp58_scs_d_sweep_tau050_calibrated_v1_n8192 MIDDLE_BAND -- SCS NARROW VALIDITY WINDOW**
+2/6 d-cells match at tau_target=0.50 (tau_actual~0.708). Match cells: a=0.01 (ratio~0.811) and a=0.02 (ratio~1.065); consistent all 5 seeds. Non-match: a=0.04-0.10 (ratio 1.33-1.59 monotone). SCS validity envelope: alpha<=0.02 AND tau_actual<~0.71. New Rescue R5 (cheapest/subsumption): verify narrow-window validity generalizes to N=16384 by shipping tau050 low-alpha N=16384 sweep (~2h GPU). PP-58 MIDDLE 0.55-0.70 UNCHANGED.
+
+### PROT compliance (v384 -> v385)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. PP-58 rescue R5 filed (cheapest-first: low-alpha N-sweep). R1-R4 from v384 still open.
+- PROT-007/008: v385 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 296th PROT-009 paired commit.
+- PROT-018: 5 confirmed anchors (l400_n16384, l500_n16384, l700_n16384, pp58_tau_actual_sweep_n8192, pp58_tau050_calibrated_n8192). All suffix bindings correct. 0 violations.
+- PROT-021: All 5 source=remote run_mode=full confirmed.
+- PROT-022: L=400/500/700 all 1.0000 per-level internally consistent; pp58 tau_actual d-sweep gamma ratios consistent 5 seeds (<10% variation); pp58 tau050 match cells consistent all 5 seeds; seed23 L=700 elapsed spike documented.
+
+HONEST: 785 -> 790 (+5 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v384 -> v385. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
