@@ -9232,3 +9232,27 @@ q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 GENUINE FULL MIDDLE_BAND at N
 - **Product-feature:** UNCHANGED (probe-design failure on PP-50 TW approach; established PP-50 delta_alpha protocol UNAFFECTED; Q-B1 MIDDLE_BAND confirms operating-regime safety below alpha_c).
 
 Cap_map: v389 -> v390 CYCLE 60 BATCH (0 HP + 2 HF + 1 MIDDLE_BAND; PP-50 TW-vs-Hadamard N-sweep v2+v3 probe-design closure; Q-B1 chain-loading alpha_c=0.15 MIDDLE_BAND theory-consistent annotation; HONEST 821->824; LVH 213; Portfolio 32+77; 301st PROT-009 paired commit) (2026-06-04)
+
+# v391 update (2026-06-04) -- CYCLE 61: 0 HP + 0 HF + 1 MIDDLE_BAND; pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND (lambda1 N-sweep std(l1) monotone but mean_edge non-monotone; beta_std=0.355; PP-50 delta_alpha protocol UNAFFECTED); HONEST 824->825; LVH 213; Portfolio 32+77; 302nd PROT-009 paired commit
+
+**Trigger.** 1 completed experiment: pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu (MIDDLE_BAND remote). Cap_map mtime checked; not previously verdicted. Pause-flag ABSENT.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu | 0.88s GPU | N-sweep {1024..16384} | 12 | MIDDLE_BAND | HONEST MIDDLE: beta_std=0.355 in [0.15,0.5]; std(l1) monotone-dec N1024:0.0518->N16384:0.0173; mean_edge non-monotone (N4096:0.9398 > N2048:0.9172). Partial N-scaling structure but edge-correction confounds. |
+
+**(A) pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND -- lambda1 N-sweep partially structured; PP-50 UNCHANGED.**
+v4 switched observable from sigma_sep (v2/v3 probe-design closure v390) to lambda1 (top eigenvalue). MIDDLE_BAND: beta_std=0.355 refutes both clean classes. std(l1) IS monotone-decreasing across N (real spectral-concentration signal); mean_edge non-monotone (N4096 reversal) confounds clean HP. Different failure mode from v2/v3 (fully non-monotone sigma_sep): v4 has partial N-scaling structure in std(l1) but edge-correction adds noise. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED. Rescue R1-R5 cheapest-first:
+- R1 (free) std(l1) monotone signal real -- annotation only; lambda1 top-eigenvalue variance decreases with N as expected; MIDDLE_BAND reflects full-probe (mean_edge included) not std(l1) alone.
+- R2 (0-compute, subsumption) delta_alpha protocol already establishes clean PP-50 N-scaling; lambda1 approach marginal; subsume to annotation.
+- R3 (1h CPU) std(l1)-only probe: strip mean_edge; test if std(l1) alone gives monotone HP across N; if beta_std<0.15 PP-50 gains secondary N-scaling confirmation.
+- R4 (1h CPU) edge-correction formula audit: N4096 non-monotone jump in mean_edge may be formula boundary artifact; verify normalization per-N.
+- R5 (free) Re-route lambda1 TW-vs-Hadamard physics to PP-58 transition-zone row if independently interesting.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 824 -> **825** (+1).
+- **LABEL-VS-HONEST:** 213 UNCHANGED (0 new catches; MIDDLE_BAND label honest to per-cell metrics).
+- **Product-feature:** UNCHANGED (PP-50 delta_alpha protocol unaffected; v4 lambda1 approach is secondary exploration; std(l1) monotone signal noted as partial confirmation only).
+
+Cap_map: v390 -> v391 CYCLE 61 (0 HP + 0 HF + 1 MIDDLE_BAND; pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND lambda1 N-sweep partial; std(l1) monotone but mean_edge non-monotone; PP-50 UNCHANGED; HONEST 824->825; LVH 213; Portfolio 32+77; 302nd PROT-009 paired commit) (2026-06-04)

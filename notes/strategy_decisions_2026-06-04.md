@@ -728,3 +728,33 @@ q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 GENUINE FULL MIDDLE_BAND at N
 HONEST: 821 -> 824 (+3). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v389 -> v390.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 61 -- v390 -> v391 (2026-06-04): 0 HP + 0 HF + 1 MIDDLE_BAND; pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND (lambda1 N-sweep partially structured; std(l1) monotone-decrease but mean_edge non-monotone; PP-50 UNCHANGED); HONEST 824->825; LVH 213; Portfolio 32+77 UNCHANGED; 302nd PROT-009 paired commit
+
+### Step 0 Honest Re-Read
+MIDDLE_BAND label honest: beta_std=0.355 genuinely in [0.15,0.5]. std(l1) monotone-decreasing across N (0.0518->0.0173 N1024->N16384); mean_edge non-monotone (0.9316->0.9172->0.9398->0.9250->0.9126; N4096 jump). No OVER-CLAIM. HONEST 824->825 (+1). LVH 213 UNCHANGED (0 new catches).
+
+Label check:
+- pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND: beta_std=0.355 in [0.15,0.5] confirmed; std(l1) N1024:0.0518 N2048:0.0333 N4096:0.0312 N8192:0.0256 N16384:0.0173 monotone confirmed; mean_edge N1024:0.9316 N2048:0.9172 N4096:0.9398 N8192:0.9250 N16384:0.9126 non-monotone confirmed. Honest.
+
+### Cap_map Decisions
+
+**(A) pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu MIDDLE_BAND -- lambda1 N-sweep partially structured; PP-50 UNCHANGED.**
+v4 switched observable from sigma_sep (v2/v3 probe-design closure in v390) to lambda1 (top eigenvalue) as the N-sweep probe. MIDDLE_BAND result: beta_std=0.355 refutes both clean classes. Key finding: std(l1) IS monotone-decreasing across N (consistent spectral concentration as N grows; this is a real physical signal), but mean_edge is non-monotone (N4096 reversal), preventing a clean HP. This is a different failure mode from v2/v3 (which were fully non-monotone): v4 has a partial N-scaling structure in std(l1) but the edge-correction observable adds noise that confounds the comparison. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (PP-50 delta_alpha protocol N-sweep results unaffected; v4 lambda1 approach is a secondary exploration). Rescue sketches (cheapest-first per PROT-004/006 + [[feedback-rescue-sketch-first-sequencing]]):
+- R1 (free, annotation) std(l1) monotone signal is real: lambda1 top-eigenvalue variance does decrease with N as expected from spectral concentration. The MIDDLE_BAND verdict reflects that the full probe (including mean_edge) is not clean, not that lambda1 N-scaling is uninformative.
+- R2 (0-compute, subsumption) delta_alpha protocol (N=16384 v345, N=32768 v335) already establishes the clean PP-50 N-scaling observable. lambda1 approach adds marginal new information; subsume under PP-50 annotation only.
+- R3 (1h CPU) std(l1)-only probe: strip out mean_edge; test whether std(l1) alone gives monotone HP signal across N. If std(l1) is monotone and beta_std<0.15, PP-50 gains an additional N-scaling confirmation. Cheapest meaningful follow-up.
+- R4 (1h CPU) edge-correction formula audit: check whether the edge_correction term is correctly normalized for each N; N4096 non-monotone jump in mean_edge may indicate a formula boundary effect.
+- R5 (free, re-route) If lambda1 N-sweep at transition zone is independently interesting (noise-physics), re-file under PP-58 transition-zone physics row as a secondary probe.
+
+### PROT compliance (v390 -> v391)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. MIDDLE_BAND rescue R1-R5 cheapest-first filed. PP-50 probe-design exploration continues; PP-50 delta_alpha protocol results unaffected.
+- PROT-007/008: v391 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 302nd PROT-009 paired commit.
+- PROT-018: pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu carries no explicit _nN suffix (N-sweep experiment; N grid {1024..16384} explicit in metrics). 0 violations.
+- PROT-021: source=remote run_mode=full n_seeds=12. No smoke artifact.
+- PROT-022: std(l1) per-seed consistent across 12 seeds (monotone pattern stable); mean_edge per-seed consistent (non-monotone pattern stable across all 12 seeds -- this is not a seed-noise artifact); beta_std=0.355 aggregate consistent with per-N std(l1) spread.
+
+HONEST: 824 -> 825 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v390 -> v391.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
