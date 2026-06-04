@@ -8638,3 +8638,28 @@ All 5 anchors: labels honest. 0 LVH. PP-50 v2 N=16384 closes cycle 38 UNKNOWN (v
 - PROT-022: Q-A3 fid=1.0000 EXACT consistent {L=20..L=63} N=16384 (44 rungs) and {L=19,L=22..L=38} N=8192 (18 rungs); PP-49 pred_cos=1.000 (prediction correct) + root_cos incoherent (binding-depth structural failure at d=10..14); PP-50 v3 sigma_sep(sg=0.5)=1594.9 > sigma_sep(sg=0.3)=871.7 (monotonic rise; no plateau; entry-boundary interpretation consistent with v2 HP safe-regime reading).
 
 Cap map: v371 -> v372 CYCLE 40 LARGE BATCH (Q-A3 L=60..L=63+L=35..L=38 8xHP; PP-49 deeper-d HF; PP-50 v3 sigma_g HF; BAND-LIFT PP-12/Q-A3 0.86-0.97->0.87-0.97 8-rung; L=63 NEW DEEPEST project; L=38 NEW N=8192 DEEPEST; HONEST 636->646; LVH 212; Portfolio 32+77; 283rd PROT-009 paired commit) (2026-06-03)
+
+
+
+# v372 -> v373 (2026-06-03) CYCLE 41 BATCH -- 10 HP + 1 [LVH#213] HARD_FAIL (pp49 N=8192) + 1 HARD_FAIL (pp58 BBP Wave-5 Decisive #2); Q-A3 L=39..42 N=8192 (22-rung series; L=42 NEW N=8192 DEEPEST); Q-A3 L=66..71 N=16384 (52-rung series; L=71 NEW DEEPEST project history); BAND-LIFT PP-12/Q-A3 0.87-0.97->0.88-0.97; PP-49 HRC-cf deeper-d CLOSURE TRIGGER (N-independent failure); PP-58 BBP sub-path CLOSED; HONEST 646->658; LVH 212->213; Portfolio 32+77 UNCHANGED; 284th PROT-009 paired commit
+
+**Cap_map row changes (v372 -> v373).**
+
+| Capability | v372 status | v373 status | Triggering anchors |
+|-----------|-------------|-------------|-------------------|
+| PP-12/Q-A3 cross-layer composition | 0.87-0.97 | **0.88-0.97** | q_a3_l39..l42 N=8192 + q_a3_l66..l71 N=16384 (10-rung batch; L=71 NEW DEEPEST) |
+| PP-49 HRC-cf deeper-d sub-property | open (MIDDLE/unresolved) | CLOSURE TRIGGER (R2 audit pending) | pp49_hrc_deeper_d_v1_n8192 LVH#213 HARD_FAIL; N-independent {N=8192+N=16384} |
+| PP-58 BBP-spectral-gap-calibration sub-property | open (MIDDLE/exploratory) | CLOSED (BBP theory structural miss) | pp58_bbp_spectral_gap_calibration_v1_n16384 HARD_FAIL; ratio=1.0 vs HP=[3.5,4.5] |
+
+**HONEST count: 646 -> 658 (+12). LVH: 212 -> 213 (+1 LVH#213 pp49 N=8192).**
+
+**Sub-properties NEW (v373):**
+- PP-12/Q-A3 L=39/L=40/L=41/L=42 at N=8192 (rungs 19-22; N=8192 series {L=19,L=22..L=42} 22 rungs; L=42 NEW N=8192 DEEPEST; 2-N cross-N {N=8192+N=16384} confirmed at L=39..L=42)
+- PP-12/Q-A3 L=66/L=67/L=68/L=69/L=70/L=71 at N=16384 (rungs 47-52; N=16384 series {L=20..L=71} 52 contiguous rungs; L=71 NEW DEEPEST PROJECT HISTORY; walls 21.99-23.62s linear scaling; ceiling not found)
+- BAND-LIFT: PP-12/Q-A3 0.87-0.97 -> 0.88-0.97 (+0.01 lower; 10-rung batch; lit-scan calibration penalty maintained)
+
+**Sub-properties CLOSED (v373):**
+- PP-49 HRC-cf deeper-d: N-independent root_cos incoherence at d=10..14 confirmed {N=8192 v373 + N=16384 v372}; rescue R2 (architectural audit, v341 script comparison) is sole near-term path; closure likely after R2; PP-49 main row 0.70-0.85 UNCHANGED
+- PP-58 BBP-spectral-gap-calibration: ratio=1.0000 vs HP=[3.5,4.5] at N=16384; BBP theory does not predict substrate spectral separation; sub-path CLOSED; PP-58 MIDDLE 0.55-0.70 UNCHANGED (founding isochoric kappa_3 ratio=8.00 v353 still valid; R2 alt spectral formula primary next step)
+
+Cap map: v372 -> v373 CYCLE 41 BATCH (10 HP + 1 LVH#213 HARD_FAIL + 1 HARD_FAIL; Q-A3 N=8192 22-rung series L=42 NEW N=8192 DEEPEST; Q-A3 N=16384 52-rung series L=71 NEW DEEPEST project history; BAND-LIFT PP-12/Q-A3 0.87-0.97->0.88-0.97; PP-49 HRC-cf deeper-d closure trigger; PP-58 BBP sub-path closed; HONEST 646->658; LVH 213; Portfolio 32+77; 284th PROT-009 paired commit) (2026-06-03)

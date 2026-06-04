@@ -1070,3 +1070,87 @@ LVH catches this batch: 0 new. All 10 unique labels honest. PP-50 v2 is a duplic
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 283rd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
 
 **Cap_map version: v372.**
+
+## v372 -> v373 (2026-06-03) CYCLE 41 BATCH -- 10 HARD_PASS + 1 [LVH] HARD_FAIL (pp49 N=8192 over-claimed MIDDLE) + 1 HARD_FAIL (pp58 spectral gap decisive Wave-5 #2); Q-A3 L=39..42 N=8192 (4 new N=8192 rungs; series {L=19,L=22..L=42} 22 rungs) + Q-A3 L=66..71 N=16384 (6 new N=16384 rungs; series {L=20..L=71} 52 rungs; L=71 NEW DEEPEST project history); BAND-LIFT PP-12/Q-A3 0.87-0.97->0.88-0.97 (10-rung batch; lower +0.01); PP-49 deeper-d N=8192 LVH#213 HARD_FAIL honest (N-independent root_cos incoherence CONFIRMED; closure trigger for HRC-cf deeper-d sub-property); PP-58 Wave-5-Decisive-#2 HARD_FAIL (ratio=1.0 vs HP=[3.5,4.5]; BBP spectral gap calibration structurally fails; PP-58 BBP sub-path CLOSED); HONEST 646->658; LVH 212->213; Portfolio 32+77 UNCHANGED; 284th PROT-009 paired commit
+
+### Step 0: Honest re-read -- CYCLE 41 (MANDATORY)
+
+| anchor | label | per-cell check | honest verdict | LVH? |
+|--------|-------|----------------|----------------|------|
+| q_a3_l39_cross_layer_composition_v1_n8192 | HARD_PASS | all 39 fids=1.0000000342 EXACT-class unanimous 5/5; l39_acc=1.0000000342; N=8192 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l40_cross_layer_composition_v1_n8192 | HARD_PASS | all 40 fids=1.0000000342 EXACT-class unanimous 5/5; l40_acc=1.0000000342; N=8192 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l66_cross_layer_composition_v1_n16384 | HARD_PASS | all 66 fids=1.0000 EXACT unanimous 5/5; l66_acc=1.0000; N=16384 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l67_cross_layer_composition_v1_n16384 | HARD_PASS | all 67 fids=1.0000 EXACT unanimous 5/5; l67_acc=1.0000; N=16384 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l68_cross_layer_composition_v1_n16384 | HARD_PASS | all 68 fids=1.0000 EXACT unanimous 5/5; l68_acc=1.0000; N=16384 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l69_cross_layer_composition_v1_n16384 | HARD_PASS | all 69 fids=1.0000 EXACT unanimous 5/5; l69_acc=1.0000; N=16384 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l70_cross_layer_composition_v1_n16384 | HARD_PASS | all 70 fids=1.0000 EXACT unanimous 5/5; l70_acc=1.0000; N=16384 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l71_cross_layer_composition_v1_n16384 | HARD_PASS | all 71 fids=1.0000 EXACT unanimous 5/5; l71_acc=1.0000; N=16384 source=remote run_mode=full; NEW DEEPEST project history | HONEST | NONE |
+| q_a3_l41_cross_layer_composition_v1_n8192 | HARD_PASS | all 41 fids=1.0000000342 EXACT-class unanimous 5/5; l41_acc=1.0000000342; N=8192 source=remote run_mode=full | HONEST | NONE |
+| q_a3_l42_cross_layer_composition_v1_n8192 | HARD_PASS | all 42 fids=1.0000000342 EXACT-class unanimous 5/5; l42_acc=1.0000000342; N=8192 source=remote run_mode=full | HONEST | NONE |
+| pp49_hrc_deeper_d_d10_d12_d14_v1_n8192 | MIDDLE_BAND | pred_cos all=1.000 EXACT-class (protocol saturation, not capability); root_cos d10=0.013 d12=0.200 d14=-0.067; per-seed: {seed7: d10=1.000/d12=-0.333; seed17: d10=-0.333/d12=0.333; seed23: d10=0.200/d12=0.600/d14=-0.200; seed31: d10=-0.600/d12=-0.200/d14=0.200; seed41: d10=-0.200/d12=0.600/d14=-0.200}; root_cos high-variance sign-alternating incoherence; aggregate near-zero; identical structural failure to N=16384 HARD_FAIL (v372); OVER-CLAIM: 'partial confirmation' is not supported | LVH #213 HARD_FAIL honest |
+| pp58_bbp_spectral_gap_calibration_v1_n16384 | HARD_FAIL | ratio=1.0000 (HP=[3.5,4.5]; 3.5-4.5x below target); audit_crit=2.0000 (HP=[0.65,0.8]); cap_crit=2.0000 (HP=[2.5,3.5]); n_seeds=2 ran (timing limit); effect structurally absent; label accurate | HONEST | NONE |
+
+**LVH #213 detail.** anchor=pp49_hrc_deeper_d_d10_d12_d14_v1_n8192. Verdict label MIDDLE_BAND 'partial confirmation at d=10/12/14'. Per-seed root_cos: seed7 only 2 depths returned (d10=1.000/d12=-0.333); seed17 only 2 depths (d10=-0.333/d12=0.333); remaining 3 seeds show d10, d12, d14 with alternating signs. Aggregate d10=0.013, d12=0.200, d14=-0.067. The aggregate d12=0.200 mean is the average of {-0.333, 0.333, 0.600, -0.200, 0.600} = 0.200, driven by 2 positive-outlier seeds; not a consistent signal. This is IDENTICAL to the N=16384 HARD_FAIL pattern (v372: root_cos=-0.440..+0.120 incoherent). N-INDEPENDENCE OF FAILURE CONFIRMED. MIDDLE_BAND over-claims. Honest verdict = HARD_FAIL. Per [[feedback-verdict-msg-honest-reread]]. LVH 212->213.
+
+**PP-58 n_seeds note.** run_mode=full n_seeds=5 declared but only 2 seeds ran (686.1s total = 2 x ~343s). The HARD_FAIL signal is robust: each seed independently yields ratio=1.0000 vs HP=[3.5,4.5], a structural miss not attributable to seed count.
+
+### PROT-022 cross-checks
+
+- Q-A3 L=39..42 N=8192: all 1.0000000342 EXACT-class consistent with {L=19,L=22..L=38} N=8192 series; walls 3.5-3.8s consistent with prior N=8192 short-wall pattern; 2-N cross-N at L=39..L=42 {N=8192 v373 + N=16384 v365} confirmed.
+- Q-A3 L=66..71 N=16384: all 1.0000 EXACT consistent with {L=20..L=63} series extending to L=71; walls 21.99-23.62s scale linearly with L as expected (O(L) wall pattern verified); no ceiling anomaly.
+- PP-49 N=8192: pred_cos=1.0000000342 (EXACT-class; prediction layer saturation same pattern as N=16384); root_cos aggregate {d10:0.013, d12:0.200, d14:-0.067} all < HP=0.50 AND per-seed variance confirms incoherence; N-independence confirmed.
+- PP-58: ratio=cap_crit/audit_crit = 2.0000/2.0000 = 1.0000 VERIFIED; BBP_pred=0.7264 formula predicts audit_crit=0.7264 vs actual=2.0000 (2.7x miss); HP ratio band [3.5,4.5] vs actual 1.0 (3.5x miss); complete structural failure.
+
+### Cap_map decisions -- CYCLE 41
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l39_cross_layer_composition_v1_n8192 | 3.51s GPU | 8192 | 5 | HARD_PASS | All 39 fids EXACT-class unanimous 5/5; 19th N=8192 rung | PP-12/Q-A3 L=39 N=8192 sub-property; 2-N cross-N {N=8192 v373 + N=16384 v365}; band UNCHANGED |
+| 2 | q_a3_l40_cross_layer_composition_v1_n8192 | 3.66s GPU | 8192 | 5 | HARD_PASS | All 40 fids EXACT-class unanimous 5/5; 20th N=8192 rung | PP-12/Q-A3 L=40 N=8192 sub-property; 2-N cross-N at L=40; band UNCHANGED |
+| 3 | q_a3_l66_cross_layer_composition_v1_n16384 | 21.99s GPU | 16384 | 5 | HARD_PASS | All 66 fids EXACT-1.0000 unanimous 5/5; rung 47 | PP-12/Q-A3 L=66 N=16384 sub-property; ceiling NOT found; band UNCHANGED |
+| 4 | q_a3_l67_cross_layer_composition_v1_n16384 | 22.30s GPU | 16384 | 5 | HARD_PASS | All 67 fids EXACT-1.0000 unanimous 5/5; rung 48 | PP-12/Q-A3 L=67 N=16384 sub-property; ceiling NOT found; band UNCHANGED |
+| 5 | q_a3_l68_cross_layer_composition_v1_n16384 | 22.63s GPU | 16384 | 5 | HARD_PASS | All 68 fids EXACT-1.0000 unanimous 5/5; rung 49 | PP-12/Q-A3 L=68 N=16384 sub-property; ceiling NOT found; band UNCHANGED |
+| 6 | q_a3_l69_cross_layer_composition_v1_n16384 | 22.99s GPU | 16384 | 5 | HARD_PASS | All 69 fids EXACT-1.0000 unanimous 5/5; rung 50 | PP-12/Q-A3 L=69 N=16384 sub-property; ceiling NOT found; band UNCHANGED |
+| 7 | q_a3_l70_cross_layer_composition_v1_n16384 | 23.27s GPU | 16384 | 5 | HARD_PASS | All 70 fids EXACT-1.0000 unanimous 5/5; rung 51 | PP-12/Q-A3 L=70 N=16384 sub-property; ceiling NOT found; band UNCHANGED |
+| 8 | q_a3_l71_cross_layer_composition_v1_n16384 | 23.62s GPU | 16384 | 5 | HARD_PASS | All 71 fids EXACT-1.0000 unanimous 5/5; rung 52; NEW DEEPEST project history | PP-12/Q-A3 L=71 N=16384 sub-property; NEW DEEPEST; {L=20..L=71} 52 rungs; BAND-LIFT 0.87-0.97->0.88-0.97 |
+| 9 | q_a3_l41_cross_layer_composition_v1_n8192 | 3.69s GPU | 8192 | 5 | HARD_PASS | All 41 fids EXACT-class unanimous 5/5; 21st N=8192 rung | PP-12/Q-A3 L=41 N=8192 sub-property; 2-N cross-N at L=41 {N=8192 v373 + N=16384 v365}; band UNCHANGED |
+| 10 | q_a3_l42_cross_layer_composition_v1_n8192 | 3.81s GPU | 8192 | 5 | HARD_PASS | All 42 fids EXACT-class unanimous 5/5; 22nd N=8192 rung; NEW N=8192 DEEPEST | PP-12/Q-A3 L=42 N=8192 sub-property; NEW N=8192 DEEPEST; N=8192 series {L=19,L=22..L=42} 22 rungs; band UNCHANGED |
+| 11 | pp49_hrc_deeper_d_d10_d12_d14_v1_n8192 | 0.197s GPU | 8192 | 5 | [LVH#213] HARD_FAIL honest | root_cos incoherent all d (per-seed sign-alternating); N-independence of HRC-cf deeper-d failure CONFIRMED | PP-49 HRC-cf deeper-d sub-property closure trigger; N-independent failure both {N=8192+N=16384}; R1 applied + R2 architectural audit pending; PP-49 main row 0.70-0.85 UNCHANGED |
+| 12 | pp58_bbp_spectral_gap_calibration_v1_n16384 | 686.1s GPU | 16384 | 2 | HARD_FAIL | ratio=1.0000 (HP=[3.5,4.5]); audit_crit=2.0000 (HP=[0.65,0.8]); cap_crit=2.0000 (HP=[2.5,3.5]); all 3 bands missed by large margin; BBP theory does not predict substrate spectral separation | PP-58 BBP-spectral-gap-calibration sub-property CLOSED; PP-58 row MIDDLE 0.55-0.70 UNCHANGED; R2 alt spectral formula needed |
+
+**(A) PP-12/Q-A3 L=39..42 N=8192 (4 new N=8192 rungs; series extends to 22 rungs; L=42 NEW N=8192 DEEPEST).**
+All four EXACT-class (1.0000000342) unanimous 5-seed at N=8192 (walls 3.51/3.66/3.69/3.81s; source=remote run_mode=full n_seeds=5). N=8192 series now {L=19, L=22..L=42} = 22 contiguous rungs. L=42 is NEW N=8192 DEEPEST (prior L=38 v372). 2-N cross-N at L=39..L=42: N=8192 v373 + N=16384 v365 (all EXACT at N=16384 already confirmed). Composition N-independent through L=42 across 2x N range (N=8192 to N=16384). Sub-property annotations: 'L=39/L=40/L=41/L=42 N=8192 EXACT-class unanimous 5-seed; 4-rung extension (rungs 19-22); N=8192 series {L=19,L=22..L=42} 22 rungs; L=42 NEW N=8192 DEEPEST; 2-N cross-N {N=8192+N=16384} at L=39..L=42 confirmed.'
+
+**(B) PP-12/Q-A3 L=66..71 N=16384 (6 new N=16384 rungs; series {L=20..L=71} 52 rungs; L=71 NEW DEEPEST project history) + BAND-LIFT.**
+All six EXACT-1.0000 unanimous 5-seed at N=16384 (walls 21.99/22.30/22.63/22.99/23.27/23.62s; source=remote run_mode=full n_seeds=5). Wall times scale linearly ~0.3s per L-increment (consistent with O(L) composition; no JIT anomaly). N=16384 series now {L=20..L=71} = 52 contiguous rungs. L=71 is NEW DEEPEST RUNG IN PROJECT HISTORY (prior L=63 v372; +8 levels). 36 rungs beyond N=4096 tested ceiling (L=35). Ceiling NOT found at L=71. BAND-LIFT TRIGGERED: cycle batch total = 4 N=8192 + 6 N=16384 = 10 new cross-N rungs (exceeds 4-rung threshold). Band 0.87-0.97 -> 0.88-0.97 (+0.01 lower; upper at 0.97 ceiling; lit-scan penalty maintained). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 71 levels at N=16384; audit API composition moat structurally unbounded through L=71; 52-rung contiguous series; 36 rungs beyond N=4096 ceiling; N=8192 cross-N confirms N-independence through L=42.
+
+**(C) [LVH #213] PP-49 HRC deeper-d N=8192 HARD_FAIL honest -- N-independent root_cos incoherence CONFIRMED.**
+pp49_hrc_deeper_d_d10_d12_d14_v1_n8192 GENUINE FULL HARD_FAIL (wall=0.197s, n_seeds=5, N=8192, source=remote run_mode=full). Verdict label MIDDLE_BAND over-claimed. Honest: root_cos incoherent at all depths. N-INDEPENDENCE CONFIRMED: both N=8192 (v373) and N=16384 (v372) return structurally incoherent root_cos at d=10..14. PP-49 HRC-cf deeper-d sub-property: CLOSURE TRIGGER per PROT-004/006. Rescue sketches cheapest-first: R1 (APPLIED) N-independence annotation; R2 (10min free) cross-ref v341 pp49_hrc_counterfactual_depth_8 script for architectural delta (cf measurement formula difference); R3 (ELIMINATED) N-scale rescue (both N=8192 and N=16384 exhausted); R4 (1-2h CPU) reduced-kappa sweep d={2,4,6,8,10} to find coherence onset; R5 (parking) if v341 used ds_cos not cf_cos, close sub-property as probe-design artifact. PP-49 main row band 0.70-0.85 UNCHANGED. Annotation: 'deeper-d N=8192 HARD_FAIL [LVH#213 v373]: root_cos incoherent {d10:0.013 d12:0.200 d14:-0.067} per-seed sign-alternating high-variance; N-INDEPENDENT failure {N=8192+N=16384}; HRC-cf deeper-d mechanism NOT confirmed; R2 architectural audit -> R4 kappa sweep; R3 N-scale ELIMINATED; closure likely after R2 confirms probe artifact; PP-49 main row UNCHANGED.'
+
+**(D) PP-58 BBP spectral gap calibration N=16384 HARD_FAIL (Wave-5 Decisive #2) -- BBP sub-path CLOSED.**
+pp58_bbp_spectral_gap_calibration_v1_n16384 GENUINE FULL HARD_FAIL (wall=686.1s, n_seeds=2 completed, N=16384, source=remote). ratio=1.0000 (HP=[3.5,4.5]; 3.5-4.5x below target); audit_crit=2.0000 (HP=[0.65,0.8]; 2.5x above HP band); cap_crit=2.0000 (HP=[2.5,3.5]; below HP band). BBP spectral gap theory does NOT predict the empirical substrate separation. The predicted audit_crit=0.7264 (from BBP_pred) is 2.7x below actual=2.0000. Wave-5 Decisive #2 verdict: HARD_FAIL. PP-58 BBP-spectral-gap-calibration sub-property CLOSED per PROT-004/006 rescue exhaustion path. Rescue sketches cheapest-first: R1 (APPLIED) annotation BBP over-predicts; R2 (1-2h theory) alternative spectral gap formula -- does Marchenko-Pastur shift or empirical sigma_g calibration predict separation better? R3 (2-4h CPU) N=8192 matched-protocol re-run to confirm n_seeds=2 is timing not selection; R4 (deferred) N-scale characterization of empirical ratio vs N to fit alternative formula. PP-58 row MIDDLE 0.55-0.70 UNCHANGED (founded on isochoric kappa_3 separation ratio=8.00 at v353; BBP theory is a separate sub-property that is now closed). Annotation: 'BBP-spectral-gap-calibration N=16384 HARD_FAIL (v373): ratio=1.0 (HP=[3.5,4.5]); BBP theory does not calibrate to substrate spectral gap; sub-property CLOSED; PP-58 MIDDLE 0.55-0.70 UNCHANGED (founded on isochoric separation); R2 alt spectral formula primary next step.'
+
+### Tallies (v372 -> v373).
+- HONEST: 646 -> 658 (+12: 10 HP + 1 HARD_FAIL honest [LVH#213] + 1 HARD_FAIL [PP-58]).
+- LVH: 212 -> 213 (+1: pp49_hrc_deeper_d_v1_n8192 MIDDLE_BAND over-claimed; honest = HARD_FAIL).
+- Portfolio: 32+77 UNCHANGED (no new top-level rows; 1 BAND-LIFT applied).
+- Sub-properties NEW: Q-A3 L=39/L=40/L=41/L=42 N=8192 (22-rung series; L=42 NEW N=8192 DEEPEST) + Q-A3 L=66/L=67/L=68/L=69/L=70/L=71 N=16384 (52-rung series; L=71 NEW DEEPEST project history).
+- Sub-properties CLOSED: PP-49 HRC-cf deeper-d (N-independent failure; R2 only remaining near-term rescue); PP-58 BBP-spectral-gap-calibration (ratio=1.0 vs HP=[3.5,4.5]; structural theory miss).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.87-0.97->0.88-0.97; 10-rung batch {4xN=8192 + 6xN=16384}).
+- HARD_FAILs: 2 (PP-49 N=8192 [LVH#213]; PP-58 BBP N=16384).
+- PP-12/Q-A3 milestones: L=71 NEW DEEPEST project history; 52-rung N=16384 contiguous series; N=8192 22-rung series; composition N-independent confirmed L=42 both N-scales; ceiling NOT found.
+- PP-58 note: isochoric kappa_3 founding (ratio=8.00) valid; BBP theory cannot predict it; R2 alt spectral formula is primary unblock.
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+### PROT compliance (v372 -> v373).
+- PROT-004/006: No top-level row closures. 1 BAND-LIFT. 2 sub-property closures (PP-49 HRC-cf deeper-d; PP-58 BBP-spectral-gap). Rescue sketches cheapest-first (PP-49: R1 applied+R2 [10min free]+R3 eliminated+R4 [1-2h CPU]+R5 parking; PP-58: R1 applied+R2 [1-2h theory]+R3 [2-4h CPU]+R4 deferred).
+- PROT-007/008: v373 block appended. No portfolio regression.
+- PROT-009: 284th PROT-009 paired commit.
+- PROT-018: all 12 _nN suffix bindings confirmed: q_a3_{l39..l42}_n8192 (N=8192 OK x4); q_a3_{l66..l71}_n16384 (N=16384 OK x6); pp49_hrc_deeper_d_v1_n8192 (N=8192 OK); pp58_bbp_spectral_gap_calibration_v1_n16384 (N=16384 OK). 0 violations.
+- PROT-021: all 12 source=remote run_mode=full n_seeds=5. No smoke artifacts. PP-58 n_seeds=2 ran documented (timing; HARD_FAIL robust regardless).
+- PROT-022: Q-A3 all fids EXACT per convention self-consistent ({L=22..L=42} N=8192 and {L=20..L=71} N=16384 contiguous series); PP-49 pred_cos=1.0000000342 (same saturation pattern N=8192+N=16384 confirmed); root_cos aggregate consistent with zero-mean incoherent noise (per-seed sign-alternation documented); PP-58 ratio=cap_crit/audit_crit=2.0/2.0=1.000 verified; BBP_pred=0.7264 vs actual_audit_crit=2.000 (2.7x miss self-consistent with structural theory failure).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 284th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v373.**
