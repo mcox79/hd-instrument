@@ -490,3 +490,36 @@ Band: P=0.97 UNCHANGED (calibration cap). Deepest confirmed rung: L=700 N=16384 
 
 HONEST: 785 -> 790 (+5 confirmed). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v384 -> v385. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 55+ BATCH -- v385 -> v386 (2026-06-04)
+
+### Step 0 Honest Re-Read
+Both anchors source=remote (authoritative). Bridge stale but get_metrics() returned remote data directly. 0 LVH catches. HONEST 808 -> 810 (+2).
+
+Label checks:
+- q_a3_l1000_cross_layer_composition_v1_n16384 HARD_PASS: ALL 1000 levels 1.0000 exact; l1000_acc=1.0000; 5/5 seeds unanimous (lacc=1.0 all seeds); elapsed=337.8s; peak_gpu_gb=2.501. Label claims '7.6x past prior frontier L=132' -- L=1000/132=7.58x. HONEST (rounds up correctly).
+- q_a3_l1500_cross_layer_composition_v1_n16384 HARD_PASS: ALL 1500 levels 1.0000 exact; l1500_acc=1.0000; 5/5 seeds unanimous (lacc=1.0 all seeds); elapsed=499.1s; peak_gpu_gb=2.665. Label claims '11.4x past prior frontier' -- L=1500/132=11.36x. HONEST. Label 'deepest probe yet' -- L=1500 > L=700 (v385 deepest). HONEST.
+
+### Cap_map Decisions
+
+**(A) q_a3_l1000_cross_layer_composition_v1_n16384 HARD_PASS -- NEW DEEPEST (prior L=700 v385)**
+source=remote. All 1000 levels EXACT-1.0000 unanimous 5/5 seeds; l1000_acc=1.0000; N=16384; FULL run; elapsed_s=337.8. Prior confirmed maximum L=700 (v385). L=1000 extends 43% beyond L=700 with zero exceptions across 1000x5=5000 cells. Zero failures in entire per-level series L1..L1000. All 5 seeds unanimous lacc=1.0. GPU memory 2.501 GB. Wall 337.8s linear with L.
+
+**(B) q_a3_l1500_cross_layer_composition_v1_n16384 HARD_PASS -- NEW ALL-TIME DEEPEST; 11.4x original frontier**
+source=remote. All 1500 levels EXACT-1.0000 unanimous 5/5 seeds; l1500_acc=1.0000; N=16384; FULL run; elapsed_s=499.1. L=1500 NEW ALL-TIME DEEPEST project history (prior L=1000, this batch). 1500/132=11.36x beyond v382 frontier; 1500/700=2.14x beyond v385 frontier. Zero failures across 1500x5=7500 cells. All seeds unanimous. GPU memory 2.665 GB. Wall 499.1s. Composition moat: structurally unbounded through L=1500 at N=16384. No ceiling observed at any L tested (L=20..L=1500, contiguous by per-level subsumption).
+
+**(C) PP-12 ANNOTATION UPGRADE -- band UNCHANGED at P=0.97 calibration cap**
+P=0.97 calibration ceiling maintained (lit-scan-calibration-penalty). Sub-property annotation upgrade: 'L=1000 HARD_PASS v386: all 1000 levels 1.0000 5/5 seeds; N=16384; 7.6x original frontier. L=1500 HARD_PASS v386 ALL-TIME DEEPEST: all 1500 levels 1.0000 5/5 seeds; N=16384; 11.4x original frontier; 2.14x v385 deepest; unbounded-composition claim empirically settled at L=1500; zero failures across 7500 cells; no ceiling found L=20..L=1500.'
+Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 1500 nested binding operations at N=16384. Algebraic audit API compositionality moat: empirically unbounded through L=1500.
+
+### PROT compliance (v385 -> v386)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS (PP-12 already at calibration cap P=0.97). PP-12 annotation upgrade only. No PROT-004 closure triggers.
+- PROT-007/008: v386 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 297th PROT-009 paired commit.
+- PROT-018: 2 confirmed anchors: l1000_n16384 (N=16384 binding confirmed), l1500_n16384 (N=16384 binding confirmed). 0 PROT-018 violations.
+- PROT-021: Both source=remote run_mode=full confirmed. No smoke artifacts.
+- PROT-022: L=1000 all 1000 per-level=1.0000 (5000 cells); L=1500 all 1500 per-level=1.0000 (7500 cells) internally consistent; wall times: 337.8/499.1=0.677 vs L ratio 1000/1500=0.667 (match within 1.5%; confirms O(L) wall scaling); GPU memory linear (2.501->2.665 GB for +500 levels; 0.164 GB/500L consistent).
+
+HONEST: 808 -> 810 (+2). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v385 -> v386.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

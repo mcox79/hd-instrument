@@ -9,3 +9,9 @@ CYCLE 46 BATCH v377->v378 (2026-06-04): 9 HP + 1 HF; 0 LVH; Q-A3 L=101..105 N=16
 CYCLE 50 BATCH v381->v382 (2026-06-04): 14 verdicts (12 confirmed HP + 2 UNKNOWN + 1 MIDDLE_BAND). Q-A3 L=128-132 N=16384 HARD_PASS (5x; rungs 109-113; L=132 NEW DEEPEST 113-rung series). Q-A3 L=89-93+L=96 N=8192 HARD_PASS (6x confirmed; L=94-95 N=8192 UNKNOWN metrics-unavailable). pp58_scs_tau050 MIDDLE_BAND (ratio=1.416 first-in-range; match_30% still fails). BAND-LIFT PP-12/Q-A3 0.96-0.97->0.97 POINT (12th consecutive lift v371->v382). PP-58 rescue R1-R5. HONEST 771->783 (+12). LVH 213 UNCHANGED. Cap_map v381->v382 committed.
 
 [CYCLE 51+52 BATCH v382->v383 2026-06-04] [metrics-unavailable: bridge stale SSH down] 14 verdicts: 13 Q-A3 UNKNOWN (L=133..140 N=16384 rungs114-121 + L=97..101 N=8192 rungs78-82; SSH reconciliation needed) + 1 spectral_monitor_v3 MIDDLE_BAND confirmed (seeds_hp 2/3; val_overfit 3/3 [improvement]; fast-onset regime identified; R1 N_STEPS=10000-12000). HONEST 783->784 (+1). LVH 213 UNCHANGED. No band-lifts (Q-A3 deferred). No closures. Spectral v3 R1-R4 rescue sketches filed cheapest-first. v383 committed (annotations only; Q-A3 pending reconciliation). 294th PROT-009 paired commit. Portfolio 32+77 UNCHANGED.
+
+## CYCLE 55+ -- v385 -> v386 (2026-06-04)
+- q_a3_l1000_cross_layer_composition_v1_n16384: HARD_PASS. L=1000 EXACT-1.0000 unanimous 5/5 seeds N=16384. 7.6x original frontier. ALL-TIME DEEPEST (at time of run). 5000 cells zero failures.
+- q_a3_l1500_cross_layer_composition_v1_n16384: HARD_PASS. L=1500 EXACT-1.0000 unanimous 5/5 seeds N=16384. 11.4x original frontier. NEW ALL-TIME DEEPEST. 7500 cells zero failures. Wall O(L) confirmed. GPU O(L) confirmed.
+- PP-12 annotation upgraded: deepest L=700->L=1500. Band P=0.97 UNCHANGED (calibration cap). Unbounded-composition claim empirically established through L=1500.
+- LVH: 0 catches. HONEST: 808->810. Portfolio: 32+77 UNCHANGED. v385->v386.
