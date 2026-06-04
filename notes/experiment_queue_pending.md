@@ -1,6 +1,6 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v367 REFILL (5 GPU anchors shipped: Q-A3 L=49/L=50/L=51 N=16384 + Q-B1 bisect d=276 N=16384 + Q-A3 L=29 N=8192)
+**Updated:** 2026-06-03 v368 REFILL (5 GPU anchors shipped: Q-A3 L=54+L=55 N=16384 + Q-A3 L=31+L=32 N=8192 + PP-50 delta_alpha N=8192)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
@@ -8,12 +8,20 @@
 
 ## Currently active (in remote queues -- not "pending" for orchestrator)
 
-GPU (overnight_queue) -- v367 REFILL 2026-06-03:
-- q_a3_l49_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=49 N=16384 30th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l50_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=50 N=16384 31st rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l51_cross_layer_composition_v1_n16384 (pending) -- v367 REFILL; L=51 N=16384 32nd rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_b1_bisect_d276_v1_n16384 (pending) -- v367 REFILL; Q-B1 final bisect d=276 N=16384; onset window (275,277]; HP -> (276,277]; MID -> (275,276]; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l29_cross_layer_composition_v1_n8192 (pending) -- v367 REFILL; L=29 N=8192 9th cross-N rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+GPU (overnight_queue) -- v368 REFILL 2026-06-03:
+- q_a3_l54_cross_layer_composition_v1_n16384 (pending) -- v368 REFILL; L=54 N=16384 35th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l55_cross_layer_composition_v1_n16384 (pending) -- v368 REFILL; L=55 N=16384 36th rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l31_cross_layer_composition_v1_n8192 (pending) -- v368 REFILL; L=31 N=8192 11th cross-N rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- q_a3_l32_cross_layer_composition_v1_n8192 (pending) -- v368 REFILL; L=32 N=8192 12th cross-N rung; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+- pp50_kappa3_delta_alpha_n8192_v1_n8192 (pending) -- v368 REFILL; PP-50 first N=8192 rung; kappa_3 drift-detection sensitivity; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+
+Note: L=52/L=53 N=16384 and L=30 N=8192 were discovered already completed in remote queue (outside cap_map v368 window); verdicts pending processing by verdict_handler.
+
+Previously active v367 REFILL (all completed):
+- q_a3_l49..l51_cross_layer_composition_v1_n16384 (completed)
+- q_b1_bisect_d276_v1_n16384 (completed)
+- q_a3_l29_cross_layer_composition_v1_n8192 (completed)
+Also completed outside v368 window: q_a3_l52+l53 N=16384, q_a3_l30 N=8192
 
 Previously shipped (all completed or in progress as of v363):
 - q_a3_l39..l42_cross_layer_composition_v1_n16384 (v363 batch; results pending)
