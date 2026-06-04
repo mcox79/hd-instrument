@@ -1,12 +1,36 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-04 CYCLE 43 ALL-NIGHT BURST SHIPPED (10 GPU anchors queued to overnight_queue; remote verify PASS 10/10; runner executing immediately)
+**Updated:** 2026-06-04 CYCLE 44 ALL-NIGHT BURST SHIPPED (10 anchors: 8 GPU overnight_queue + 2 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
 ---
 
-## Active in overnight_queue (pending/running -- cycle 43 ALL-NIGHT BURST 2026-06-04)
+## Active in overnight_queue (pending/running -- cycle 44 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- CYCLE 44:
+- q_a3_l91_cross_layer_composition_v1_n16384 (pending) -- B: L=91 N=16384 rung 72; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l92_cross_layer_composition_v1_n16384 (pending) -- B: L=92 N=16384 rung 73; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l94_cross_layer_composition_v1_n16384 (pending) -- C: L=94 N=16384 rung 75; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l54_cross_layer_composition_v1_n8192 (pending) -- D: L=54 N=8192 rung 35; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l55_cross_layer_composition_v1_n8192 (pending) -- D: L=55 N=8192 rung 36; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l56_cross_layer_composition_v1_n8192 (pending) -- D: L=56 N=8192 rung 37; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l57_cross_layer_composition_v1_n8192 (pending) -- D: L=57 N=8192 rung 38; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l58_cross_layer_composition_v1_n8192 (pending) -- D: L=58 N=8192 rung 39; PROT-018/019 OK; REMOTE_VERIFIED
+
+CPU (remote_cpu_queue) -- CYCLE 44:
+- pp58_scs_extended_d_sweep_v1_n8192 (pending) -- F: PP-58 SCS formula multi-alpha sweep d-range probe; self-test PASS; REMOTE_VERIFIED
+- substrate_multi_layer_observer_rung1_tinychar_v1_n4096 (pending) -- A NEW: multi-layer substrate observers; 3-arm ablation; self-test PASS; REMOTE_VERIFIED
+
+NOTE: Priority B items L=88/89 and C items L=90 and D items L=51/52/53 already completed in prior session.
+L=93 N=16384 already in queue from prior session.
+PP-50 v6 extreme-tail BLOCKED: sigma_g>5 causes W^3 f32 overflow; routed to Strategy.
+
+---
+
+## Previously active -- cycle 43 ALL-NIGHT BURST 2026-06-04 (all completed)
+
+GPU (overnight_queue) -- v372+ CYCLE 43 ALL-NIGHT BURST 2026-06-04:
 
 GPU (overnight_queue) -- v372+ CYCLE 43 ALL-NIGHT BURST 2026-06-04:
 - q_a3_l78_cross_layer_composition_v1_n16384 (RUNNING or COMPLETED) -- A: L=78 N=16384 rung 59; self-test=2.4s; REMOTE_VERIFIED
