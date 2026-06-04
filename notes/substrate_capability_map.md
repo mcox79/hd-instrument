@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v392
+# hd-instrument substrate — capability map v393
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9282,3 +9282,5 @@ Capability implication: substrate hippocampal replay compresses the Hamiltonian 
 - **Product-feature:** UNCHANGED (energy-reduction sub-property corroborates hippocampal replay primitive; no new product-feature claim beyond PP-47 existing row).
 
 Cap_map: v391 -> v392 CYCLE 62 (0 HP + 0 HF + 1 MIDDLE_BAND; substrate_rem_replay_retrieval_energy_baseline_v1_n8192_gpu MIDDLE_BAND replay-energy 29.17%+51.13% vs zero control; PP-47 new energy sub-property; HONEST 825->826; LVH 213; Portfolio 32+77; 303rd PROT-009 paired commit) (2026-06-04)
+
+Cap_map: v392 -> v393 CYCLE 63 (0 HP + 1 HF + 1 MIDDLE_BAND; substrate_modern_hopfield_p_nthreshold_sweep_512_8192_v1_gpu MIDDLE_BAND p4>p2 magnitude confirmed but N_threshold invariant to p-order; substrate_training_n_threshold_sweep_512_8192_v1_gpu HARD_FAIL(HF2) N-axis flat training-gap N not relevant axis; HONEST 826->828; LVH 213; Portfolio 32+77; 304th PROT-009 paired commit) (2026-06-04)

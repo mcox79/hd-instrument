@@ -791,3 +791,41 @@ Cross-references: PP-47 founding (v333 place-field N=4096); PP-47 SWR v2 N=8192 
 HONEST: 825 -> 826 (+1). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v391 -> v392.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 63 BATCH -- v392 -> v393 (2026-06-04)
+
+### Step 0 Honest Re-Read
+Both metrics source=remote (authoritative). Bridge stale but get_metrics() returned remote data directly. 0 LVH catches. HONEST 826 -> 828 (+2). LVH 213 UNCHANGED.
+
+Label checks:
+- substrate_modern_hopfield_p_nthreshold_sweep_512_8192_v1_gpu MIDDLE_BAND: verdict_msg claims 'p4>=p2 at matched N but N_thresh(p2)=N_thresh(p4)=512'. Per-cell check (3 seeds x 6 N): p4>p2 at ALL 6 N cells (diff: +0.074, +0.002, +0.054, +0.001, +0.024, +0.031 nats). N_threshold condition: both p2 and p4 show positive gap at N=512 (the lowest N tested); N_thresh(p2)=N_thresh(p4)=512 is HONEST given the grid. Label correctly characterizes that p4 does not yield a STRICTLY LOWER N_threshold -- both encoding orders are already discriminative at the grid minimum N=512. MIDDLE_BAND HONEST.
+- substrate_training_n_threshold_sweep_512_8192_v1_gpu HARD_FAIL: verdict_msg claims HF2 'gap@1024 within 2x gap@8192'. Per-cell check (3 seeds each): bipolar gap@1024=1.1996 vs gap@8192=1.2413 ratio=0.966; continuous gap@1024=1.2265 vs gap@8192=1.2508 ratio=0.981. Both within 2x (ratios 0.96-0.98). N axis is flat: gaps at N=512-8192 span ~0.12 nats for bipolar, ~0.10 nats for continuous; no systematic monotone rise. HF2 condition fires correctly. HARD_FAIL HONEST.
+
+HONEST: 826 -> 828 (+2). LVH: 213 UNCHANGED.
+
+### Cap_map Decisions
+
+**(A) substrate_modern_hopfield_p_nthreshold_sweep_512_8192_v1_gpu MIDDLE_BAND -- p4 consistently above p2 but no N_threshold separation**
+N_grid=[512..8192]; p_grid=[2,4]; M_bank=3000; run_mode=full; n_seeds=3; elapsed=1.60s.
+Mean gaps (3-seed): p4 > p2 at ALL 6 N cells (verified). N_threshold(p2)=N_threshold(p4)=512 (both encoding orders discriminative at grid minimum). The p_order axis (p=2 vs p=4) affects GAP MAGNITUDE (+0.001 to +0.074 nats p4 advantage) but NOT the onset N. Key finding: higher polynomial order (p=4) gives modestly better storage-gap at matched N, but the gap structure does not shift N_threshold downward -- both orders have the same N floor for reliable discrimination at M_bank=3000. This probes whether p-order could be used to access small-N (compute-cheap) regimes. Answer: NO -- N_threshold invariant to p-order at this M_bank; engineering implication is that p-order is a gain lever not a scaling lever. MIDDLE_BAND is correct: p4>=p2 confirmed across N, but the specific claim of N_threshold reduction fails. No new row. No cap_map band changes. Sub-property annotation for modern Hopfield activation row: 'p_nthreshold_sweep v1: p4 > p2 gap at all N={512..8192} (consistent 3-seed); N_threshold(p=2)=N_threshold(p=4)=512 at M_bank=3000; p-order is a gap-magnitude lever (~0.001-0.074 nat advantage at p=4) not an N_threshold lever; no operating-regime N_floor reduction from increasing p.'
+
+**(B) substrate_training_n_threshold_sweep_512_8192_v1_gpu HARD_FAIL(HF2) -- N not the relevant axis for training gap**
+N_grid=[512..8192]; codings=[bipolar, continuous]; n_steps=1000; run_mode=full; n_seeds=3; elapsed=97.3s.
+HF2 confirmed: gap@N=1024 / gap@N=8192 = 0.966 (bipolar) and 0.981 (continuous). Both within 2x. Both gaps flat across N (bipolar 1.18-1.27 range; continuous 1.14-1.29 range; no monotone trend). Interpretation: training procedure gap is determined primarily by training dynamics (n_steps=1000) rather than N. N is not the relevant axis for training improvement at this training scale; the gap saturates around 1.18-1.27 nats regardless of N. Distinct from the N-scaling story for STORAGE (where larger N helps); for TRAINING the bottleneck is learning dynamics not dimensionality. Rescue cheapest-first per PROT-004/006:
+- R1 (free BEST) n_steps sweep: does training gap grow with more steps? If gap=f(n_steps), N-independence is consistent (bottleneck is convergence not capacity). ~0.5h CPU.
+- R2 (1h CPU) M_bank sweep at fixed N=4096: does M_bank (pattern library size) affect gap? If yes, encoding richness not dimensionality is the lever.
+- R3 (1h CPU) N=16384+N=32768: test whether larger N eventually breaks the flat pattern; 8x extrapolation may reveal N-dependence not visible in 512-8192 range.
+- R4 (free) theory audit: bipolar vs continuous gap profiles nearly identical (~0.001-0.009 nat difference); near-identity suggests training objective is coding-type-agnostic at these scales.
+No new row. No band changes.
+
+### PROT compliance (v392 -> v393)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. MHP MIDDLE_BAND: informative characterization of p-order as magnitude lever; no rescue needed. Training-N HARD_FAIL: R1-R4 cheapest-first filed.
+- PROT-007/008: v393 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 304th PROT-009 paired commit.
+- PROT-018: 2 N-sweep anchors (N grid {512..8192} explicit in metrics; multi-N exemption; no single _nN suffix required). 0 violations.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: MHP p4>p2 at all 6 N cells confirmed 3 seeds; Training-N bipolar [1.138,1.291] and continuous [1.145,1.288] flat pattern confirmed 3-seed; HF2 ratios 0.966/0.981 self-consistent within-seed.
+
+HONEST: 826 -> 828 (+2). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v392 -> v393.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
