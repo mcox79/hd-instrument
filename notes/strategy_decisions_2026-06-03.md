@@ -1010,3 +1010,63 @@ LVH catches this batch: 0. HONEST 631->636 (+5). LVH 212 UNCHANGED.
 **Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 282nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
 
 **Cap_map version: v371.**
+
+## v371 -> v372 (2026-06-03) CYCLE 40 LARGE BATCH -- 8 HARD_PASS + 1 HARD_FAIL (PP-49) + 1 HARD_FAIL (PP-50 v3) + 1 DUPLICATE (PP-50 v2 already v371); Q-A3 L=60..L=63 N=16384 (rungs 41-44; NEW DEEPEST L=63); Q-A3 L=35..L=38 N=8192 (rungs 15-18; NEW N=8192 DEEPEST L=38); PP-49 deeper-d HARD_FAIL (root_cos incoherent all d); PP-50 v3 fine-sigma_g HARD_FAIL (sigma_sep rising at sg=0.9; sigma_g boundary not an exit boundary); PP-50 v2 DUPLICATE (already v371); BAND-LIFT PP-12/Q-A3 0.86-0.97->0.87-0.97 (8-rung batch); HONEST 636->646 (+10); LVH 212 UNCHANGED; 283rd PROT-009 paired commit.
+
+### Step 0: Honest re-read -- CYCLE 40 (MANDATORY)
+
+| anchor | label | per-cell check | honest verdict |
+|--------|-------|----------------|----------------|
+| q_a3_l60_cross_layer_composition_v1_n16384 | HARD_PASS | all 60 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l61_cross_layer_composition_v1_n16384 | HARD_PASS | all 61 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l62_cross_layer_composition_v1_n16384 | HARD_PASS | all 62 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l63_cross_layer_composition_v1_n16384 | HARD_PASS | all 63 fids=1.0000 unanimous 5/5 N=16384 source=remote run_mode=full | HONEST |
+| q_a3_l35_cross_layer_composition_v1_n8192 | HARD_PASS | all 35 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| q_a3_l36_cross_layer_composition_v1_n8192 | HARD_PASS | all 36 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| q_a3_l37_cross_layer_composition_v1_n8192 | HARD_PASS | all 37 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| q_a3_l38_cross_layer_composition_v1_n8192 | HARD_PASS | all 38 fids=1.0000000342 (EXACT-class) unanimous 5/5 N=8192 source=remote run_mode=full | HONEST |
+| pp49_hrc_deeper_d_d10_d12_d14_v1_n16384 | HARD_FAIL | root_cos=d10:-0.440 d12:0.120 d14:-0.360; all < 0.2 threshold; pred_cos=1.000 all d (prediction correct but output incoherent); source=remote run_mode=full | HONEST |
+| pp50_kappa3_delta_alpha_n16384_v3_fine_sigma_g_n16384 | HARD_FAIL | sigma_sep monotonically rising sg=0.1:983.5->sg=0.9:24025.0 >> sigma_g_crit=0.833 theory; sigma_g boundary not an exit boundary in sigma_sep; source=remote run_mode=full | HONEST |
+| pp50_kappa3_delta_alpha_n16384_v2_n16384 | HARD_PASS | DUPLICATE -- already processed at v371 (282nd PROT-009 commit); metrics identical; no new cap_map action | DUPLICATE |
+
+LVH catches this batch: 0 new. All 10 unique labels honest. PP-50 v2 is a duplicate arrival already committed at v371. HONEST 636->646 (+10).
+
+### PROT-022 cross-checks
+
+- Q-A3 L=60..L=63 N=16384: all 1.0000 EXACT consistent with {L=20..L=59} series (44 contiguous rungs); no ceiling signal at L=63.
+- Q-A3 L=35..L=38 N=8192: all 1.0000000342 EXACT-class consistent with all prior N=8192 anchors; 2-N cross-N at L=35..L=38 {N=4096 prior + N=8192 v372}.
+- PP-49 deeper_d: pred_cos=1.000 (prediction layer correct all d); root_cos oscillates -0.440..+0.120 (structural incoherence in retrieved root vector, not prediction chain failure); deeper-d property is distinct from PP-49a chain depth.
+- PP-50 v3: sigma_sep(sg=0.5)=1594.9 > prior HP reading at d=0.04 (407.2 from v2); monotonic rise confirmed; v2 HP (safe sigma_g regime) UNAFFECTED; v3 shows sigma_g_crit is entry boundary, not exit boundary.
+- PP-50 v2 duplicate: metrics identical to v371 reading (d=0.001:11.8, d=0.01:117.8, d=0.04:407.2); confirmed duplicate.
+
+### Cap_map decisions -- CYCLE 40
+
+**(A) PP-12/Q-A3 BAND-LIFT: 0.86-0.97 -> 0.87-0.97.** Eight-rung batch {L=60,L=61,L=62,L=63 N=16384 + L=35,L=36,L=37,L=38 N=8192} exceeds 4-rung multi-rung threshold. +0.01 lower bound per convention. Upper bound 0.97 ceiling unchanged. N=16384 series: {L=20..L=63} = 44 contiguous rungs. L=63 is NEW DEEPEST project history (prior L=59 v371). N=8192 series: {L=19,L=22..L=38} = 18 rungs. L=38 is NEW N=8192 DEEPEST (prior L=34 v371). Ceiling NOT found at either N. Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 63 levels at N=16384; 44-rung contiguous series; audit API composition moat structurally unbounded through L=63.
+
+**(B) PP-49 deeper-d HARD_FAIL: root_cos incoherent all d.** pp49_hrc_deeper_d_d10_d12_d14_v1_n16384 GENUINE FULL HARD_FAIL. pred_cos=1.000 all d (prediction layer correct); root_cos: d10=-0.440, d12=+0.120, d14=-0.360 (all < 0.2 HF threshold). Retrieved root vector is incoherent at deep hierarchical nesting depths 10-14. This sub-test is DISTINCT from PP-49a heteroassociative chain depth (d=80..200 flat-profile); it tests hierarchical recall coherence through deep nesting. PP-49a band 0.87-0.97 UNCHANGED (earned at flat-profile conditions). Rescue sketches cheapest first (PROT-004/006): R1 theory audit -- does deeper binding accumulate geometric error in root vector encoding? (~1h free diagnostic); R2 reduced kappa/binding strength sweep at d={2,4,6,8,10} to identify coherence loss onset (~30min CPU); R3 alternative binding direction (unbind chain vs bind chain at each level) (~1h CPU). Annotation to PP-49: 'deeper-d v1 N=16384 HARD_FAIL: pred_cos=1.000 (prediction correct); root_cos=-0.440..+0.120 (all incoherent at d=10..14); structural coherence loss in retrieved root vector at deep hierarchy; PP-49a chain-depth band UNAFFECTED; R1 binding error theory -> R2 reduced-kappa sweep -> R3 alt-binding sequenced.'
+
+**(C) PP-50 v3 fine sigma_g HARD_FAIL: sigma_g boundary is entry not exit.** pp50_kappa3_delta_alpha_n16384_v3_fine_sigma_g_n16384 GENUINE FULL HARD_FAIL. sigma_sep monotonically rising across sigma_g={0.1,0.3,0.5,0.7,0.9} (983.5->871.7->1594.9->6679.9->24025.0; sigma_g_crit theory=0.833). No plateau or drop observed. Theory sigma_g_crit=0.833 marks WHERE sensitivity begins rising (entry boundary), NOT where sigma_sep plateaus or drops (exit boundary never observed). PP-50 v2 HP band 0.83-0.94 UNCHANGED (v2 tests delta_alpha sensitivity in safe sigma_g < 0.1 regime; v3 confirms that regime is safe by contrast, while showing sigma_g > 0.5 is unsafe -- consistent). Annotation to PP-50: 'v3 fine sigma_g N=16384 HARD_FAIL: sigma_sep monotonically rising sg=0.1..0.9; sigma_g_crit=0.833 is entry boundary (onset of rising sensitivity), NOT exit boundary (no plateau/drop found); safe operating regime confirmed sigma_g < 0.5 empirically; v2 HP (delta_alpha at safe sigma_g) UNAFFECTED; NLO model needs refinement for behavior above sigma_g_crit.' Rescue sketches cheapest first: R1 theory audit -- does NLO predict monotonic sigma_sep rise or a peak above sigma_g_crit? (~2h theory); R2 sigma_g sweep at lower delta values (d=0.001,0.01) to test if crit boundary shifts (~2h CPU); R3 N-scale sigma_g sweep to check if boundary sharpens at larger N (~3h GPU).
+
+**(D) PP-50 v2 DUPLICATE -- no new action.** pp50_kappa3_delta_alpha_n16384_v2_n16384 already processed at v371 (282nd PROT-009 commit). No cap_map change.
+
+### Tallies (v371 -> v372).
+- HONEST: 636 -> 646 (+10: 8 HP + 2 HF; 0 LVH; PP-50 v2 duplicate excluded).
+- LVH: 212 UNCHANGED (0 new catches).
+- Portfolio: 32+77 UNCHANGED (0 new top-level rows; 1 BAND-LIFT).
+- Sub-properties NEW: Q-A3 L=60/L=61/L=62/L=63 N=16384 (rungs 41-44; L=63 NEW DEEPEST project history) + Q-A3 L=35/L=36/L=37/L=38 N=8192 (rungs 15-18; L=38 NEW N=8192 DEEPEST).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.86-0.97->0.87-0.97; 8-rung batch).
+- HARD_FAILs: 2 (PP-49 deeper-d root_cos incoherent; PP-50 v3 sigma_g boundary entry-not-exit refinement).
+- Framework reliability product-feature: 86-98% UNCHANGED.
+- Specific-documented: 55-65% UNCHANGED.
+
+### PROT compliance (v371 -> v372).
+- PROT-004/006: No closures. 0 new top-level rows. 1 BAND-LIFT. 2 HARD_FAILs with rescue sketches cheapest-first (PP-49: R1 theory [free] -> R2 kappa sweep [30min CPU] -> R3 alt-binding [1h CPU]; PP-50 v3: R1 theory [2h] -> R2 lower-d sweep [2h CPU] -> R3 N-scale [3h GPU]).
+- PROT-007/008: v372 block appended. No portfolio regression.
+- PROT-009: 283rd PROT-009 paired commit.
+- PROT-018: all 10 unique _nN suffix bindings verified (_n16384 x6, _n8192 x4). 0 violations.
+- PROT-021: all 10 unique anchors source=remote run_mode=full n_seeds=5. No smoke artifacts.
+- PROT-022: Q-A3 fid=1.0000 EXACT consistent {L=20..L=63} N=16384 (44 rungs) and {L=19,L=22..L=38} N=8192 (18 rungs); PP-49 pred_cos=1.000 (prediction correct) + root_cos incoherent (structural binding failure at deep hierarchy documented); PP-50 v3 sigma_sep monotonic rise confirmed (entry-boundary interpretation documented); PP-50 v2 duplicate confirmed identical metrics.
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 283rd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v372.**

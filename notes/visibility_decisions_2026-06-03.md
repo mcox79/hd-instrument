@@ -97,3 +97,4 @@ Verdicts: 4 HP (Q-A3 L=49/50/51 N=16384; Q-A3 L=29 N=8192) + 1 [LVH] MIDDLE (Q-B
 - PP-50 band: 0.83-0.94 UNCHANGED (v370 already applied; v2 is closure annotation).
 - HONEST: 631->636 (+5). LVH: 212 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 - Commit: cap_map v371 + strategy_decisions + visibility_decisions + status_log. 282nd PROT-009. Push deferred to main thread.
+CYCLE 40 LARGE BATCH v372 (2026-06-03 22:14-22:29): 11 verdicts (8 HP + 2 HF + 1 dup). Q-A3 L=60..L=63 N=16384 rungs 41-44 all EXACT-1.0000 5-seed. L=63 NEW DEEPEST project history. Q-A3 L=35..L=38 N=8192 rungs 15-18 all EXACT-class. L=38 NEW N=8192 DEEPEST. PP-12/Q-A3 BAND-LIFT 0.86-0.97->0.87-0.97 (8-rung). PP-49 deeper-d HARD_FAIL (root_cos incoherent; PP-49a band unchanged). PP-50 v3 sigma_g HARD_FAIL (sigma_sep rising; entry-boundary model; PP-50 v2 HP band unchanged). PP-50 v2 DUPLICATE (already v371). HONEST 636->646. LVH 212. Portfolio 32+77. 283rd PROT-009 paired commit.
