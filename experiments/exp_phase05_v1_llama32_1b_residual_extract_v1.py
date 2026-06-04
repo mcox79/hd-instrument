@@ -87,20 +87,42 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 # --- F:\ redirection (user 2026-06-04): on the remote 4060 Ti desktop, F:\ is
-# a 700GB hybrid-HDD with plenty of headroom; HDD speed doesn't matter for this
-# workload (~1.5 MB/s sustained write; one-time 2.5 GB model read at startup).
-# When F:\ exists we point HuggingFace cache + this anchor's output directory
-# at F:\ so neither the model weights nor the ~5 GB residuals npz consume C:\
-# space on the runner. MUST run BEFORE any transformers / huggingface_hub
-# imports for HF_HOME to take effect.
+# a 700GB hybrid-HDD; redirect HF cache + output dir there to keep ~7.5 GB off
+# C:\. MUST run BEFORE any transformers / huggingface_hub imports for HF_HOME
+# to take effect.
+#
+# DEFENSIVE WRAPPING (2026-06-04, after runner crash-loop diagnosis): wrap in
+# try/except so import-time crashes (PermissionError, drive-not-writable, odd
+# filesystem semantics) fall through to default paths rather than killing the
+# whole module load. This way the script can still start + log + emit a
+# metrics.json with the real error even if F:\ is unusable for any reason.
+#
+# Also: do NOT eagerly makedirs at module-load time -- that's a common
+# permission-failure point on Windows runners. Defer makedirs to first actual
+# use inside main()'s safe-zone.
 _F_DRIVE_HF_CACHE = r"F:\hf_cache"
 _F_DRIVE_DATA_ROOT = r"F:\hd_data"
-if os.name == "nt" and os.path.isdir("F:\\"):
-    os.environ.setdefault("HF_HOME", _F_DRIVE_HF_CACHE)
-    os.environ.setdefault("HUGGINGFACE_HUB_CACHE", _F_DRIVE_HF_CACHE)
-    os.environ.setdefault("TRANSFORMERS_CACHE", _F_DRIVE_HF_CACHE)
-    os.makedirs(_F_DRIVE_HF_CACHE, exist_ok=True)
-    os.makedirs(_F_DRIVE_DATA_ROOT, exist_ok=True)
+_F_DRIVE_ACTIVE = False
+_F_DRIVE_SKIP_REASON = "F:\\ not detected on this OS"
+if os.name == "nt":
+    try:
+        if os.path.isdir("F:\\"):
+            # Only set env vars + advertise active state; defer makedirs so a
+            # PermissionError doesn't kill module import.
+            os.environ.setdefault("HF_HOME", _F_DRIVE_HF_CACHE)
+            os.environ.setdefault("HUGGINGFACE_HUB_CACHE", _F_DRIVE_HF_CACHE)
+            os.environ.setdefault("TRANSFORMERS_CACHE", _F_DRIVE_HF_CACHE)
+            _F_DRIVE_ACTIVE = True
+            _F_DRIVE_SKIP_REASON = ""
+        else:
+            _F_DRIVE_SKIP_REASON = "F:\\ does not exist on this Windows host"
+    except Exception as _f_drive_err:
+        _F_DRIVE_SKIP_REASON = (
+            f"F:\\ detected but env-setup failed: "
+            f"{type(_f_drive_err).__name__}: {_f_drive_err}"
+        )
+        sys.stderr.write(f"[F-drive] WARN: {_F_DRIVE_SKIP_REASON}; "
+                         f"falling back to default paths\n")
 
 import numpy as np
 
@@ -552,16 +574,44 @@ def main() -> int:
         return 0
 
     t_total = time.time()
-    out_dir = get_output_dir(ANCHOR_NAME)
-    # F:\ redirection on Windows desktop: point this anchor's outputs at
-    # F:\hd_data\<anchor> instead of C:\dev\hd-instrument\data\<anchor>. The
-    # npz + sidecars together are ~5 GB; F:\ has 700 GB headroom. Keeps the
-    # runner repo drive (C:\) clean.
-    if os.name == "nt" and os.path.isdir(_F_DRIVE_DATA_ROOT):
-        f_dir = Path(_F_DRIVE_DATA_ROOT) / ANCHOR_NAME
-        f_dir.mkdir(parents=True, exist_ok=True)
-        out_dir = f_dir
-        print(f"  [F-drive] redirecting output to {out_dir}", flush=True)
+    # Immediately write a startup log to the C:\ default output dir BEFORE any
+    # other work so we always have a breadcrumb even if F:\ self-config fails
+    # silently inside the runner (which captures no stderr). Per Exp-Dev
+    # 2026-06-04 crash-loop diagnosis.
+    default_out_dir = get_output_dir(ANCHOR_NAME)
+    try:
+        default_out_dir.mkdir(parents=True, exist_ok=True)
+        with open(default_out_dir / "startup.log", "a", encoding="utf-8") as _slf:
+            _slf.write(
+                f"[{time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}] "
+                f"main() entered; RUN_MODE={RUN_MODE} f_drive_active={_F_DRIVE_ACTIVE} "
+                f"f_drive_reason={_F_DRIVE_SKIP_REASON!r}\n"
+            )
+    except Exception as _slog_err:
+        sys.stderr.write(f"[startup] could not write startup.log: {_slog_err}\n")
+
+    out_dir = default_out_dir
+    # F:\ output redirection: try to create + use F:\hd_data\<anchor>; if it
+    # fails for any reason, fall back to default (C:\dev\hd-instrument\data\<anchor>).
+    if _F_DRIVE_ACTIVE:
+        try:
+            os.makedirs(_F_DRIVE_HF_CACHE, exist_ok=True)
+            f_dir = Path(_F_DRIVE_DATA_ROOT) / ANCHOR_NAME
+            f_dir.mkdir(parents=True, exist_ok=True)
+            out_dir = f_dir
+            print(f"  [F-drive] redirecting output to {out_dir}", flush=True)
+            with open(default_out_dir / "startup.log", "a", encoding="utf-8") as _slf:
+                _slf.write(f"  F-drive output redirected to {out_dir}\n")
+        except Exception as _fd_err:
+            sys.stderr.write(
+                f"[F-drive] WARN: output redirect failed "
+                f"({type(_fd_err).__name__}: {_fd_err}); using {default_out_dir}\n"
+            )
+            print(f"  [F-drive] WARN: redirect failed; using default {default_out_dir}",
+                  flush=True)
+            with open(default_out_dir / "startup.log", "a", encoding="utf-8") as _slf:
+                _slf.write(f"  F-drive output redirect FAILED: {_fd_err!r}\n")
+            out_dir = default_out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"[{ANCHOR_NAME}] RUN_MODE={RUN_MODE} model={LLM_MODEL_ID} "
