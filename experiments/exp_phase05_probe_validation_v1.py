@@ -61,6 +61,12 @@ N_VAL_PROMPTS_SMOKE = 50
 LLM_MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
 LAYER_FRAC = 0.7
 VSA_DIMENSION = 4096
+# Match training: paper Algorithm 1 (Appendix B) k-means k=5; encoder was
+# trained on sum-pooled (5, D) centroids from layers [L/2..L]. Eval embeddings
+# MUST mirror this distribution -- the 2026-06-03 run used k_clusters=1 in
+# this file while training used k=5, producing a silent train/eval distribution
+# mismatch that contributed to the val_sim=0.60 regression.
+K_CLUSTERS = 5
 
 # Training-anchor outputs we depend on
 PROBE_CKPT_REL = "data/exp_phase05_probe_training_v1/probe_ckpt.ckpt"
@@ -123,8 +129,15 @@ def _selftest_structural():
     layer = int(round(LAYER_FRAC * L)) - 1
     assert HP_COS_SIM > HF_COS_SIM > 0, "band ordering inverted"
     assert HP_BINARY_ACC > HF_BINARY_ACC > 0, "binary acc band ordering inverted"
+    # Pipeline-alignment guard: validation k_clusters MUST match training.
+    # Pre-2026-06-04 this file silently used k=1 while training used k=5 ->
+    # train/eval distribution mismatch silently degraded val_sim by ~25 pts.
+    assert K_CLUSTERS == 5, (
+        f"validation K_CLUSTERS must equal training K_CLUSTERS=5 "
+        f"(paper Algorithm 1); got {K_CLUSTERS}")
     print(f"[selftest] PASS: bands HP cos>=0.85+acc>=0.90; HF cos<0.75 or acc<0.80; "
-          f"target layer = {layer} (0-indexed)", flush=True)
+          f"target layer = {layer} (0-indexed); alg1 k_clusters={K_CLUSTERS} "
+          f"(matches training)", flush=True)
 
 
 _selftest_structural()
@@ -173,9 +186,10 @@ def main():
         import hyperprobe
         from datasets import load_dataset
         from huggingface_hub import login as hf_login
+        import torch  # moved earlier: encoder load uses torch.float32 at line ~222
     except Exception as e:
         raise RuntimeError(
-            f"hyperprobe/datasets import failed: {e}. Run on Lambda after bring-up."
+            f"hyperprobe/datasets/torch import failed: {e}. Run on Lambda after bring-up."
         )
     hf_login(token=tok, add_to_git_credential=False)
 
@@ -188,10 +202,31 @@ def main():
     codebook = {c: np.array(v, dtype=np.float32) for c, v in cb_raw.items()}
     print(f"  codebook loaded: {len(codebook)} concepts @ D={VSA_DIMENSION}", flush=True)
 
-    # Load probe encoder from checkpoint
-    encoder = hyperprobe.VSAEncoder.load_from_checkpoint(str(ckpt_path))
+    # Load probe encoder from checkpoint.
+    #
+    # BUGFIX (2026-06-03 H100 run crashed here): without explicit map_location,
+    # Lightning's load_from_checkpoint can leave weights on the device they were
+    # trained on (cuda:0), while the embeddings from ingest_embeddings below may
+    # arrive on a different device (or CPU), producing:
+    #   RuntimeError: Expected all tensors to be on the same device, but found
+    #   at least two devices, cuda:0 and cpu! (mat1 in wrapper_CUDA_addmm)
+    #
+    # Plus: hyperprobe trains with precision='bf16-mixed', so the saved weights
+    # are BFloat16. The embeddings from ingest_embeddings may be float32. Cast
+    # the encoder to float32 explicitly to align dtypes.
+    #
+    # The encoder is small (one linear layer wrapping VSA projection); CPU
+    # forward is fast enough and avoids any device-coordination uncertainty.
+    encoder = hyperprobe.VSAEncoder.load_from_checkpoint(
+        str(ckpt_path), map_location='cpu'
+    )
+    encoder = encoder.to(torch.float32)
+    encoder = encoder.cpu()
     encoder.eval()
-    print(f"  encoder loaded from {ckpt_path}", flush=True)
+    encoder_device = next(encoder.parameters()).device
+    encoder_dtype = next(encoder.parameters()).dtype
+    print(f"  encoder loaded from {ckpt_path} (device={encoder_device}, "
+          f"dtype={encoder_dtype})", flush=True)
 
     # Held-out validation set: analogy TEST split (114k rows, not seen during
     # training which uses TRAIN split). Same 'A : B = C : D' parser as training.
@@ -238,11 +273,14 @@ def main():
     # (vs the previous per-doc reload which was both buggy -- ingest_embeddings
     # doesn't accept an `llm` kwarg -- and 500x wasteful). Mirrors hyperprobe's
     # own paper script which uses a single ingest call.
-    import torch
+    # (torch was imported up front to support the encoder.to(torch.float32) cast.)
     all_docs = [item["doc"] for item in held_out]
     print(f"  ingesting {len(all_docs)} LLM embeddings (batched) ...", flush=True)
+    # Paper Algorithm 1 k=5 -- must match training pipeline. See K_CLUSTERS
+    # comment at top of file. Each doc -> (5, D) centroids; downstream
+    # sum-pool below collapses to (D,) matching the encoder's training input.
     emb_dict, *_ = hyperprobe.ingest_embeddings(
-        docs=all_docs, model_name=LLM_MODEL_ID, k_clusters=1,
+        docs=all_docs, model_name=LLM_MODEL_ID, k_clusters=K_CLUSTERS,
     )
     print(f"  ingest done; scoring ...", flush=True)
 
@@ -253,7 +291,9 @@ def main():
         concepts = item["concepts"]
         if doc not in emb_dict:
             continue
-        emb = emb_dict[doc].sum(dim=0)
+        # Move embedding to encoder's device + dtype (CPU + float32 after the
+        # 2026-06-03 bugfix); avoids any cuda/cpu mismatch with the encoder.
+        emb = emb_dict[doc].sum(dim=0).to(encoder_device).to(encoder_dtype)
         # Encoder forward
         with torch.no_grad():
             vsa_pred = encoder(emb.unsqueeze(0)).squeeze(0).cpu().numpy()
