@@ -7,4 +7,4 @@ CYCLE 49 REFILL (v380 after CYCLE 48 batch; 2026-06-04): Queue was 0 pending/0 r
 Shipped 15 anchors: 13 overnight_queue (GPU) + 2 remote_cpu_queue (CPU).
 GPU: q_a3_l128..l132 N=16384 (rungs 109-113; skip-smoke; already queued from prior cycle); q_a3_l89..l96 N=8192 (rungs 70-77; new scripts; all REMOTE VERIFIED).
 CPU: pp58_scs_tau050 R5 rescue (tau=0.50; monotone extrapolation test); spectral_monitor_v3 (TRAIN_CHARS=400000 scale-gate rescue).
-All PROT-018/019/021 gates passed. 0 smoke skips flagged as suspicious.
+All PROT-018/019/021 gates passed. 0 smoke skips flagged as suspicious.exp_dev 2026-06-04: shipped 10 Q-A3 anchors to overnight_queue. Group A: L=133..137 N=16384 (past L=132 HARD_PASS). Group B: L=97..100 N=8192 (past L=96 HARD_PASS; L=100=CENTURY RUNG). Group C: L=101 N=8192 (past century). All 10 remote-VERIFIED PROT-018/019/021 gates passed.
