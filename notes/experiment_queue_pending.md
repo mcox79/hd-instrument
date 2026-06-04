@@ -1,19 +1,42 @@
 # Pending experiment queue — running list
 
-**Updated:** 2026-06-03 v370 REFILL cycle 39 (5 GPU anchors shipped: Q-A3 L=58+L=59 N=16384 + Q-A3 L=33+L=34 N=8192 + PP-50 kappa3 delta_alpha N=16384 v2 crash-fix)
+**Updated:** 2026-06-03 USER-PRIORITY second 5 batch SHIPPED (5 GPU anchors queued to overnight_queue; remote verify PASS 5/5)
 
 **Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
 
 ---
 
-## Currently active (in remote queues -- not "pending" for orchestrator)
+## Active in overnight_queue (pending -- second batch USER-PRIORITY 2026-06-03)
 
-GPU (overnight_queue) -- v370 REFILL 2026-06-03 cycle 39:
-- q_a3_l58_cross_layer_composition_v1_n16384 (pending) -- v370 REFILL; L=58 N=16384 39th rung; smoke=PASS; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l59_cross_layer_composition_v1_n16384 (pending) -- v370 REFILL; L=59 N=16384 40th rung; smoke=PASS; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l33_cross_layer_composition_v1_n8192 (pending) -- v370 REFILL; L=33 N=8192 13th cross-N rung; smoke=PASS; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- q_a3_l34_cross_layer_composition_v1_n8192 (pending) -- v370 REFILL; L=34 N=8192 14th cross-N rung; smoke=PASS; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
-- pp50_kappa3_delta_alpha_n16384_v2_n16384 (pending) -- v370 REFILL; PP-50 kappa_3 drift-detect N=16384 v2 (v1 crash=Windows CUDA AV; fix=sync before alloc); smoke=PASS; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s
+GPU (overnight_queue) -- v371 SECOND BATCH 2026-06-03:
+- q_a3_l62_cross_layer_composition_v1_n16384 (pending) -- C: L=62 N=16384 43rd rung; SHIPPED+REMOTE_VERIFIED; timeout=21600s
+- q_a3_l63_cross_layer_composition_v1_n16384 (pending) -- C: L=63 N=16384 44th rung; SHIPPED+REMOTE_VERIFIED; timeout=21600s
+- q_a3_l37_cross_layer_composition_v1_n8192 (pending) -- D: L=37 N=8192 17th cross-N rung; SHIPPED+REMOTE_VERIFIED; timeout=21600s
+- q_a3_l38_cross_layer_composition_v1_n8192 (pending) -- D: L=38 N=8192 18th cross-N rung; SHIPPED+REMOTE_VERIFIED; timeout=21600s
+- pp50_kappa3_delta_alpha_n16384_v3_fine_sigma_g_n16384 (pending) -- B: PP-50 fine sigma_g={0.1,0.3,0.5,0.7,0.9} envelope shape; SHIPPED+REMOTE_VERIFIED; timeout=21600s
+
+## Deferred from second batch (not shipped this cycle)
+
+- A: pp58_bbp_dense_n16384 -- PP-58 BBP-dense N=16384 (6th anchor; deferred to next batch; priority when queue empties)
+- G: pp58_isochoric_bbp_gate45_n8192 -- PP-58 isochoric BBP gate=4.5 N=8192 v2 (RESOLVE LVH #213; deferred to next batch)
+
+---
+
+## Currently active (in remote queues -- status=completed awaiting verdict)
+
+GPU (overnight_queue) -- USER-PRIORITY first 5 batch 2026-06-03:
+- q_a3_l60_cross_layer_composition_v1_n16384 (COMPLETED) -- USER-PRIO; L=60 N=16384 41st rung; self-test=2.2s; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s; already ran
+- q_a3_l61_cross_layer_composition_v1_n16384 (COMPLETED) -- USER-PRIO; L=61 N=16384 42nd rung; self-test=2.3s; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s; already ran
+- q_a3_l35_cross_layer_composition_v1_n8192 (COMPLETED) -- USER-PRIO; L=35 N=8192 15th cross-N rung; self-test=2.0s; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s; already ran
+- q_a3_l36_cross_layer_composition_v1_n8192 (COMPLETED) -- USER-PRIO; L=36 N=8192 16th cross-N rung; self-test=2.2s; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s; already ran
+- pp49_hrc_deeper_d_d10_d12_d14_v1_n16384 (COMPLETED) -- USER-PRIO; PP-49 d=10/12/14 isolation probe; self-test=2.0s; SHIPPED+REMOTE_VERIFIED 2026-06-03; timeout=21600s; already ran
+
+GPU (overnight_queue) -- v370 REFILL 2026-06-03 cycle 39 (all completed):
+- q_a3_l58_cross_layer_composition_v1_n16384 (COMPLETED)
+- q_a3_l59_cross_layer_composition_v1_n16384 (COMPLETED)
+- q_a3_l33_cross_layer_composition_v1_n8192 (COMPLETED)
+- q_a3_l34_cross_layer_composition_v1_n8192 (COMPLETED)
+- pp50_kappa3_delta_alpha_n16384_v2_n16384 (COMPLETED)
 
 GPU (overnight_queue) -- v369 REFILL 2026-06-03 (completed cycle):
 - pp50_kappa3_delta_alpha_n16384_v1_n16384 (FAILED -- exit 3221226505 Windows CUDA AV; re-shipped as v2 above)
