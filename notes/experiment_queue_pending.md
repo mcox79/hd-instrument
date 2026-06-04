@@ -1,12 +1,36 @@
-# Pending experiment queue — running list
+# Pending experiment queue -- running list
 
-**Updated:** 2026-06-04 CYCLE 44 ALL-NIGHT BURST SHIPPED (10 anchors: 8 GPU overnight_queue + 2 CPU remote_cpu_queue; REMOTE VERIFY PASS 10/10)
+**Updated:** 2026-06-04 CYCLE 45 ALL-NIGHT BURST SHIPPED (10 anchors: 10 GPU overnight_queue; REMOTE VERIFY PASS 10/10)
 
-**Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there's a state change. User can read this anytime to see what's pending.
+**Purpose:** Single source of truth for experiments waiting to be queued by orchestrator. Re-generated each cycle when there is a state change. User can read this anytime to see what is pending.
 
 ---
 
-## Active in overnight_queue (pending/running -- cycle 44 ALL-NIGHT BURST 2026-06-04)
+## Active in overnight_queue (pending/running -- cycle 45 ALL-NIGHT BURST 2026-06-04)
+
+GPU (overnight_queue) -- CYCLE 45:
+- q_a3_l95_cross_layer_composition_v1_n16384 (pending) -- A: L=95 N=16384 rung 76; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l96_cross_layer_composition_v1_n16384 (pending) -- A: L=96 N=16384 rung 77; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l97_cross_layer_composition_v1_n16384 (pending) -- A: L=97 N=16384 rung 78; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l98_cross_layer_composition_v1_n16384 (pending) -- B: L=98 N=16384 rung 79; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l99_cross_layer_composition_v1_n16384 (pending) -- B: L=99 N=16384 rung 80; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l100_cross_layer_composition_v1_n16384 (pending) -- C CENTURY RUNG: L=100 N=16384 rung 81; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l59_cross_layer_composition_v1_n8192 (pending) -- D: L=59 N=8192 rung 40; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l60_cross_layer_composition_v1_n8192 (pending) -- D: L=60 N=8192 rung 41; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l61_cross_layer_composition_v1_n8192 (pending) -- D: L=61 N=8192 rung 42; PROT-018/019 OK; REMOTE_VERIFIED
+- q_a3_l62_cross_layer_composition_v1_n8192 (pending) -- D: L=62 N=8192 rung 43; PROT-018/019 OK; REMOTE_VERIFIED
+
+NOTE: Priority A (L=95-97), B (L=98-99), C (L=100 CENTURY RUNG) all shipped.
+D (L=59-62 N=8192): all 4 shipped. N=16384 frontier now at L=100; N=8192 frontier now at L=62.
+E (PP-58 SCS tau sweep d=8 tau={0.05,0.1,0.15,0.2,0.3}): DEFERRED -- 10-anchor cap reached.
+
+Also still in queue from cycle 44 (may be pending or running):
+- q_a3_l91/92/94 N=16384, q_a3_l54-58 N=8192 (cycle 44 GPU)
+- pp58_scs_extended_d_sweep_v1_n8192, substrate_multi_layer_observer_rung1_tinychar_v1_n4096 (cycle 44 CPU)
+
+---
+
+## Previously active -- cycle 44 ALL-NIGHT BURST 2026-06-04 (may be running)
 
 GPU (overnight_queue) -- CYCLE 44:
 - q_a3_l91_cross_layer_composition_v1_n16384 (pending) -- B: L=91 N=16384 rung 72; PROT-018/019 OK; REMOTE_VERIFIED
