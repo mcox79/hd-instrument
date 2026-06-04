@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v397
+# hd-instrument substrate — capability map v399
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9485,3 +9485,34 @@ Sub-property annotations (negative results):
 - **PROT-022:** ks_p=1.0000 consistent 3/3 seeds; drosophila gap 3-seed spread [-0.009, +0.028, +0.007] all well below HP=0.1; B norm_oscillation 0.091/0.090/0.093 consistent <3% spread.
 
 Cap_map: v397 -> v398 CYCLE 68 (2x HARD_FAIL honest; 0 LVH; beta_0/Mapper drift-detection closed at N=1024; drosophila K=1 sparse modulator closed; oscillation stability secondary signal; HONEST 839->841; LVH 217 unchanged; Portfolio 32+77; 309th PROT-009 paired commit) (2026-06-04)
+
+# v399 update (2026-06-04) -- CYCLE 69: spectral_edge_v2 MIDDLE_BAND (decisive beta=0.513 Gaussian-class); position_binding_trigram HARD_PASS (E1+E2 HP; E3+E4 MID); PP-50 + PP-8 sub-property annotations; 0 LVH; HONEST 841->843; LVH 217 UNCHANGED; Portfolio 32+77; 310th PROT-009 paired commit
+
+## CYCLE 69 BATCH -- v398 -> v399 (2026-06-04)
+
+2 verdicts. Source=remote authoritative for both. 0 LVH catches.
+
+| # | Anchor | Wall | N | Seeds | Verdict | Honest |
+|---|--------|------|---|-------|---------|--------|
+| 1 | substrate_spectral_edge_n_extension_finer_v2_4096_65536_gpu | 14.3s GPU | {4096..65536} | 50 | MIDDLE_BAND | std(l1) monotone-dec 5 N-values; beta=0.513 CI=[0.435,0.599] DECISIVE; CI excludes zero and BBP-critical(0.333); CI includes Gaussian(0.5); label honest |
+| 2 | substrate_position_binding_combined_arch_trigram_v1_n4096 | 81.6s GPU | 4096 | 3 | HARD_PASS | E1+E2 bipolar HP(gap 1.291+1.249 nats,3/3 seeds); E3+E4 sparse MID(gap~1.0 nats,2/3 seeds); combined-arch pathway valid; label honest |
+
+**(A) substrate_spectral_edge_n_extension_finer_v2_4096_65536_gpu MIDDLE_BAND -- PP-50 decisive beta annotation**
+v2 50-seed 5-N extends v1 (20-seed 3-N CI-includes-zero). beta=0.513 95%CI=[0.435,0.599] DECISIVE. Gaussian-class (beta~0.5 within CI; BBP-critical 0.333 outside CI). PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED. New sub-property: 'v2 50-seed 5-N {4096..65536}: std(l1) monotone-dec 0.0264->0.0064; beta=0.513 CI=[0.435,0.599] DECISIVE; Gaussian-class (BBP-critical excluded); deletion-cert sigma Gaussian N^{-0.5} working model; R1-R3 filed.'
+
+**(B) substrate_position_binding_combined_arch_trigram_v1_n4096 HARD_PASS -- PP-8 position-binding trigram sub-property**
+E1 (bipolar+Hebbian) HP gap+1.291 nats 3/3; E2 (bipolar+STDP) HP gap+1.249 nats 3/3; E3 (sparse+Hebbian) MID gap+1.007 nats 2/3; E4 (sparse+STDP) MID gap+1.001 nats 2/3. K=3 trigram at N=4096. Combined-arch pathway validates positional binding. STDP competitive with Hebbian (delta 0.042 nats). Sparse underperforms bipolar ~0.28 nats. PP-8 band UNCHANGED (rung-1; rung-2 N>=8192 recommended). New sub-property: 'position_binding_combined_arch_trigram v1 N=4096 K=3 3-seed: E1_hebbian HP(+1.291,3/3); E2_stdp HP(+1.249,3/3); E3_sparse MID(+1.007,2/3); E4_sparse_stdp MID(+1.001,2/3); uniform=3.829 nats; bipolar preferred over sparse; STDP vs Hebbian not decisive; rung-2 recommended.'
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 841 -> **843** (+2).
+- **LABEL-VS-HONEST:** 217 UNCHANGED.
+- **Product-feature:** PP-50 spectral N-scaling confirmed decisive (Gaussian-class); PP-8 positional binding trigram validated at N=4096.
+
+- **PROT-004/006:** No closures. 0 new rows. 0 BAND-LIFTS. 2 sub-property annotations. R1-R3 cheapest-first filed each.
+- **PROT-007/008:** v399 block appended. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 310th PROT-009 paired commit.
+- **PROT-018:** spectral_edge N-range in name; position_binding _n4096 matches N=4096. 0 violations.
+- **PROT-021:** both source=remote run_mode=full. No smoke.
+- **PROT-022:** spectral std(l1) strictly monotone-dec 5 values; beta=0.513 OLS consistent with stored; position_binding E1 3-seed spread 0.064 nats consistent; E2 spread 0.109 nats consistent.
+
+Cap_map: v398 -> v399 CYCLE 69 (spectral_edge_v2 MIDDLE_BAND decisive Gaussian-class; position_binding trigram HARD_PASS E1+E2; PP-50+PP-8 sub-properties; HONEST 841->843; LVH 217; Portfolio 32+77; 310th PROT-009 paired commit) (2026-06-04)

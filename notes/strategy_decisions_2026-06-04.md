@@ -1091,3 +1091,50 @@ New sub-property annotation (negative result): 'drosophila_mb_sparse_single_modu
 - **PROT-022:** topological ks_p=1.0000 consistent across all 3 seeds (seed7/17/23 all return ks_p=1.0000); drosophila gap_mean=0.009 consistent: per-seed gaps -0.009/+0.028/+0.007 all well below 0.1 HP threshold; B norm_oscillation 0.091/0.090/0.093 consistent (3-seed spread < 3%).
 
 Cap_map: v397 -> v398 CYCLE 68 (2x HARD_FAIL: topological_beta0_mapper + drosophila_mb_sparse_single; 0 LVH; beta_0 insensitive to 20% drift at N=1024; drosophila K=1 sparse modulator 11x below HP threshold; oscillation stability secondary signal; rescues R1-R5 filed both; HONEST 839->841; LVH 217 unchanged; Portfolio 32+77; 309th PROT-009 paired commit) (2026-06-04)
+## CYCLE 69 BATCH -- v398 -> v399 (2026-06-04)
+
+### Step 0 Honest Re-Read
+2 verdicts. Source=remote authoritative for both. HONEST 841 -> 843 (+2). LVH: 217 UNCHANGED.
+
+**Anchor 1: substrate_spectral_edge_n_extension_finer_v2_4096_65536_gpu**
+Label: MIDDLE_BAND; 'mixed regime (beta in [0.4,0.55])'.
+Per-cell check: std(l1) monotone decreasing N4096:0.0264->N8192:0.0228->N16384:0.0147->N32768:0.0112->N65536:0.0064 (genuine N-scaling signal, 5 N-values). OLS beta=0.513, 95%CI=[0.435,0.599]. CI does NOT include zero (decisive vs v1 which included zero). CI does NOT include BBP-critical (1/3=0.333). CI DOES include Gaussian (1/2=0.5). MIDDLE_BAND label honest. No LVH catch.
+
+**Anchor 2: substrate_position_binding_combined_arch_trigram_v1_n4096**
+Label: HARD_PASS; 'E1_posbind_hebbian:HP(gap+1.291,3/3) E2_posbind_stdp:HP(gap+1.249,3/3) E3_posbind_sparse:MID(gap+1.007,2/3) E4_posbind_sparse_stdp:MID(gap+1.001,2/3)'.
+Per-cell check: E1 seeds=[1.301,1.318,1.254] mean=1.291 3/3 HP honest. E2 seeds=[1.315,1.227,1.206] mean=1.249 3/3 HP honest. E3 seed23=0.973<1.0 MID honest. E4 seed23=0.961<1.0 MID honest. Overall HARD_PASS (E1+E2 both HP; combined-arch pathway valid) label honest. No LVH catch.
+
+### Cap_map Decisions
+
+**(A) substrate_spectral_edge_n_extension_finer_v2_4096_65536_gpu MIDDLE_BAND -- PP-50 beta decisive annotation**
+v2 50-seed 5-N sweep resolves v1 underpowered ambiguity. CI=[0.435,0.599] DECISIVE (excludes zero; excludes BBP-critical 0.333; includes Gaussian 0.5). Beta=0.513 places substrate in Gaussian/mixed universality class for spectral-edge N-scaling. Deletion-cert sigma can use Gaussian N^{-0.5} as working model. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED.
+Plain-language: Spectral noise shrinks predictably as N grows (50 seeds, 5 N-values, 4096-65536). Decay rate beta=0.513 is consistent with standard Gaussian random matrix theory, not the sharper BBP-critical rate. Gaussian-class scaling gives predictable cert sizing.
+Capability implication for PP-50: N-scaling confirmed decisive (no longer ambiguous); Gaussian-class candidate (not BBP-critical). Deletion-cert sigma calibrated via Gaussian N^{-0.5} model.
+New sub-property: 'spectral_edge_n_extension v2 50-seed 5-N {4096..65536}: std(l1) monotone-dec 0.0264->0.0064; beta=0.513 95%CI=[0.435,0.599] DECISIVE; CI excludes zero and BBP-critical(0.333); CI includes Gaussian(0.5); Gaussian/mixed regime; deletion-cert sigma Gaussian N^{-0.5} model; band 0.83-0.94 UNCHANGED; rescues R1-R3 filed.'
+Rescue cheapest-first:
+- R1 (subsumption, free): BBP-critical definitively excluded; Gaussian N^{-0.5} is working model; adopt in PP-50 cert-sizing framing.
+- R2 (2h CPU) Cross-alpha at alpha=0.1 same N-grid; if beta stable, universality class is load-independent.
+- R3 (3h GPU) N=131072 single N-step to extend range; confirms Gaussian-class prediction.
+
+**(B) substrate_position_binding_combined_arch_trigram_v1_n4096 HARD_PASS -- PP-8 position-binding combined-arch trigram sub-property**
+First validated position-binding combined-architecture experiment (K=3 trigram). E1 bipolar+Hebbian and E2 bipolar+STDP both HARD_PASS at gaps ~1.25-1.30 nats above uniform (3.829 nats). E3/E4 sparse variants reach MIDDLE_BAND (gap~1.0 nats; seed23 misses threshold). Combined-arch pathway validates positional binding in substrate; STDP variant competitive with Hebbian (gap delta ~0.042 nats; not decisive). Sparse underperforms bipolar by ~0.28 nats.
+Plain-language: The substrate can learn that word-at-position-2 predicts word-at-position-3. Both plain Hebbian and biologically-inspired spike-timing (STDP) rules work -- each reduces prediction error by ~1.25-1.30 nats below random-guess baseline. This validates a key brain-inspired capability (sequential position binding) not previously demonstrated in this combined-architecture form.
+Capability implication for PP-8: Positional binding is substrate-native at K=3 with bipolar coding. STDP adds temporal asymmetry with no meaningful quality penalty. Sparse coding underperforms at this N/K; rung-2 needed to check if sparse recovers at larger N.
+New sub-property on PP-8: 'position_binding_combined_arch_trigram_v1_n4096: E1_hebbian HP(gap+1.291,3/3); E2_stdp HP(gap+1.249,3/3); E3_sparse MID(gap+1.007,2/3); E4_sparse_stdp MID(gap+1.001,2/3); K=3 trigram; N=4096; 3 seeds; uniform=3.829 nats; combined-arch validated; bipolar outperforms sparse ~0.28 nats; STDP vs Hebbian delta 0.042 nats (not decisive); rung-2 N>=8192 recommended.'
+No new top-level row (rung-1 N=4096; existing PP-8 absorbs). No PP-8 P-band change.
+Rescue cheapest-first:
+- R1 (subsumption, free): E1 bipolar+Hebbian is clear winner; adopt as preferred arch for rung-2 scale-up.
+- R2 (1h CPU) K-sweep: K=2 and K=4 at N=4096 to understand K-sensitivity of positional binding.
+- R3 (2h GPU) N=8192 E1+E2 to determine if STDP advantage grows with N.
+
+### PROT compliance (v398 -> v399)
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. 2 sub-property annotations. Rescues R1-R3 cheapest-first filed.
+- PROT-007/008: v399 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 310th PROT-009 paired commit.
+- PROT-018: spectral_edge_n_extension_finer_v2_4096_65536_gpu N-range in name; position_binding_combined_arch_trigram_v1_n4096 _n4096 matches N=4096. 0 violations.
+- PROT-021: both source=remote run_mode=full confirmed. No smoke artifacts.
+- PROT-022: spectral std(l1) strictly monotone-dec 5 values (0.0264>0.0228>0.0147>0.0112>0.0064); beta=0.513 OLS consistent with stored beta_local; position_binding E1 3-seed gaps consistent (spread 0.064 nats; 5.0% CV); E2 3-seed spread 0.109 nats consistent.
+
+HONEST: 841 -> 843 (+2). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v398 -> v399.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
