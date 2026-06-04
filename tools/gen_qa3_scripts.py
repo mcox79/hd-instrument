@@ -680,14 +680,14 @@ print(f"[metrics] written to {{metrics_path}}", flush=True)
 
 
 if __name__ == "__main__":
-    # Cycle 53: fresh frontier ladder (L=144 was cycle-52 frontier) + L=200 giant-leap.
-    for L in [145, 146, 147, 148, 149, 150, 200]:
+    # Cycle 54: fresh frontier ladder (L=150 was cycle-53 frontier) + L=300 extreme-depth probe.
+    for L in [151, 152, 153, 154, 155, 156, 300]:
         content = gen_q_a3_n16384(L)
         path = REPO / f"experiments/exp_q_a3_l{L}_cross_layer_composition_v1_n16384.py"
         path.write_text(content, encoding='utf-8')
         print(f"Written: {path.name}")
 
-    for L in [104, 105]:
+    for L in [106, 107]:
         content = gen_q_a3_n8192(L)
         path = REPO / f"experiments/exp_q_a3_l{L}_cross_layer_composition_v1_n8192.py"
         path.write_text(content, encoding='utf-8')
