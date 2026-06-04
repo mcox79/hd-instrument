@@ -95,20 +95,19 @@ WAIT for both to return.
 
 **After strategy returns:** if a commit hash is present in strategy's deliverable, surface it in your own return so the orchestrator (main thread) executes `git push origin main` as a 1-tool mechanical action. Do NOT attempt the push from this wrapper sub-agent context — it will be blocked. See [[feedback-subagent-permission-inheritance]].
 
-### Step 2: pipeline-pacing check (per [[feedback-pipeline-pacing]]) — GATED ON PAUSE FLAG
+### Step 2: pipeline-pacing — REMOVED under 4-session architecture (2026-06-04)
 
-**Before any pipeline-pacing exp_dev dispatch, check `data/orchestrator_paused.flag`** (read via Bash: `test -f d:/AI/hd-instrument/data/orchestrator_paused.flag && echo PAUSED || echo ACTIVE`). Also check the event context for `pause_state: PAUSED` line that the orchestrator may have included.
+**HARD CONSTRAINT:** do NOT dispatch `/exp_dev` under any circumstance. Queue refill is OUT OF SCOPE for verdict_handler under the 4-session architecture.
 
-If the flag exists OR `pause_state: PAUSED` is in the context:
-- SKIP the exp_dev dispatch entirely. Queue=0 is the user-intended state per [[feedback-obey-user-pause-explicitly]].
-- Note in your return: `[pipeline-pacing skipped: PAUSED]`
-- Do NOT log a queue_refill outcome.
+Under the 4-session architecture (Orchestrator + Exp-Dev + Research + Testbed), the Exp-Dev session owns the queue independently on its own 15-min cadence. The Orchestrator (which dispatches you) does not refill the queue and neither do you.
 
-Otherwise (flag absent AND pause_state ACTIVE), if `queue_state_at_arrival.pending == 0`, ALSO dispatch:
+If `queue_state_at_arrival.pending == 0` (or the bridge reports empty):
+- Note in your return: `[queue: empty — Exp-Dev session will refill on its cadence]`
+- DO NOT dispatch exp_dev
+- DO NOT spawn any Agent with subagent_type "exp_dev"
+- DO NOT invoke any /exp_dev skill
 
-- **exp_dev sub-agent (Sonnet)**: load `tools/orchestrator/agents/exp_dev.md` body; append event context + "queue at 0; ship next exploratory CPU sweep per pipeline-pacing." Exp Dev decides next CPU vs GPU work and files a queue note.
-
-This dispatch runs in parallel with Step 3.
+This step exists only to confirm the queue state for the return line. No dispatch occurs.
 
 ### Step 3: status log entry — For You tab is the primary update channel
 
@@ -146,13 +145,13 @@ log_event(
 The orchestrator pastes your return verbatim to chat. Format:
 
 ```
-<name> <verdict_tag>: <verdict_msg>. <strategy_outcome_1line>. <visibility 1line>. [Queue refill: <exp_dev outcome>] [Cap_map: v<N> <change>]
+<name> <verdict_tag>: <verdict_msg>. <strategy_outcome_1line>. <visibility 1line>. [Queue: <empty | non-empty>] [Cap_map: v<N> <change>]
 ```
 
 Examples:
 
-- `CROOKS_NOISE_CORRECTED_PASS FULL — Sagawa-Ueda re-axiomatization PASSES at all 3 noise cells. Strategy: v158 committed; Cap 1 SLA widens. Visibility: logged at 12:28.`
-- `BETA_M_INIT_OOM_INCONCLUSIVE FULL. Strategy: v155 committed; Sweep B over-capacity expected. Visibility: logged. Queue refill: cpu_sweep_v1 shipped to local_cpu_queue (pending was 0).`
+- `CROOKS_NOISE_CORRECTED_PASS FULL — Sagawa-Ueda re-axiomatization PASSES at all 3 noise cells. Strategy: v158 committed; Cap 1 SLA widens. Visibility: logged at 12:28. [Queue: non-empty]`
+- `BETA_M_INIT_OOM_INCONCLUSIVE FULL. Strategy: v155 committed; Sweep B over-capacity expected. Visibility: logged. [Queue: empty — Exp-Dev session will refill on its cadence]`
 
 Keep it ≤300 chars when possible.
 
@@ -160,7 +159,7 @@ Keep it ≤300 chars when possible.
 
 - Do NOT do strategy's job (cap_map writes) — dispatch the strategy sub-agent.
 - Do NOT do visibility's job (decisions log) — dispatch the visibility sub-agent.
-- Do NOT skip the pipeline-pacing check; queue-depth-0 is the loudest signal we have.
+- **NEVER dispatch /exp_dev under any circumstance** (4-session architecture lockout; Exp-Dev session owns the queue).
 - If strategy sub-agent reports a closure (❌), surface that in your return prominently — closures are the user's headline interest.
 - If strategy + visibility disagree on the verdict severity, the orchestrator wants to know; surface the discrepancy in your return.
 - Atomic state writes — strategy and visibility handle their own files atomically; you only call them and integrate returns.
