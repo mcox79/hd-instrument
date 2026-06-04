@@ -37,9 +37,11 @@ NO padding (ship a short queue + surface if no real work).
 2. **kappa3 3-convention sign map** (for cap_map sub-property, Orchestrator/Research synthesize):
    v1=additive-on-W->NEG; v2-lognormal=per-pattern->POS coeff~6; v2-additive-on-patterns->POS coeff~3 (formula);
    sign-distinguisher = back-to-back A(additive-W) vs B(additive-patterns).
-3. **PP-50 N-sweep (TW vs Hadamard)**: v2(1000 probes)+v3(20000) both HARD_FAIL non-monotone -- sigma_sep
-   metric numerically unstable (near-zero k3_base denom). FLAGGED to Research
-   (notes/exp_dev_to_research_pp50_sigma_sep_metric_unstable) for a stable observable spec. HOLD until specced.
+3. **PP-50 N-sweep (TW vs Hadamard)**: RESOLVED. v2/v3 sigma_sep was unstable (near-zero k3_base denom).
+   Research replied (notes/research_pp50_metric_reformulation_lambda1_power_iteration) with a stable
+   observable = largest eigenvalue lambda_1 via power iteration; PRIMARY=std(lambda_1) across seeds.
+   Built+shipped **pp50_lambda1_nsweep_tw_vs_hadamard_v4_gpu** (overnight_queue). Remote GPU smoke:
+   std(l1) monotone, beta_std=0.700 = Tracy-Widom HARD_PASS, numerically STABLE. Awaiting full-grid verdict.
 4. **Polynomial-p=4 modern-Hopfield (Q3 GREEN)**: factorial SHIPPED
    (substrate_polynomial_p4_bcm_factorial_rung1_v1_n512: p2/p4 x cumulative/episodic E=200). If it
    HARD_PASSes, the FULL primitive engineering remains (extend SubstrateCharLM: polynomial-p retrieval
