@@ -27,16 +27,17 @@ EVERY ship (caught real bugs at smoke all session).
   substrate_eviction_ecr_vs_lru_v1_n4096.
 - GPU: FREE (Llama held -- see blocker). Autonomous wakeup armed ~16:10 to feed GPU from backlog.
 
-## *** LLAMA BLOCKER -- DO NOT RE-QUEUE until Testbed confirms ***
-phase05 Llama-3.2-1B residual extraction (Testbed's script) fails at tokenizer.from_pretrained with 401
-gated-repo. ROOT CAUSE (fully diagnosed, cycle 66): the runner's HF_TOKEN env var = hf_ulw... (WRONG,
-unlicensed) OVERRIDES the correct .hf_token file = hf_KHX... (licensed). The script's _load_hf_token() reads
-env FIRST. Testbed's verify_runner_llama_access.py PASSES (reads the file), masking it. Surfaced in
-notes/exp_dev_to_testbed_phase05_llama_v5_ENV_TOKEN_OVERRIDES_FILE_2026-06-04.md (fix: align env / unset env /
-make script prefer file). User instruction: on issues, note Testbed + tell user + WAIT. So: HOLD Llama; when
-Testbed sends a new testbed_to_exp_dev_*ready_to_queue* / *resolved* note, re-verify access then queue v6.
-Three prior blockers already cleared: import-crash (v3 patch), datasets-missing (I pip-installed datasets
-4.8.5 cycle65), v3 stage-logging in place. Only the env-token precedence remains.
+## *** LLAMA: NOW RUNNING (v6) -- all blockers cleared 2026-06-04 ~15:50 ***
+phase05_v1_llama32_1b_residual_extract_v6_file_precedence is RUNNING on the GPU (status=running): startup.log
+showed model.safetensors downloading at 95% (2.47GB) -- PAST the 401 token gate, past datasets, into model
+load. All four blockers cleared in sequence: (1) import-crash -> Testbed v3 patch; (2) datasets-missing ->
+I pip-installed datasets 4.8.5 (cycle65); (3) gated-401 token mismatch -> diagnosed runner HF_TOKEN env
+hf_ulw overriding .hf_token file hf_KHX; (4) Testbed v6 inverted _load_hf_token to FILE-FIRST precedence ->
+file token wins -> 401 gone. The ~2-3h extraction now runs; npz lands at
+F:\hd_data\exp_phase05_v1_llama32_1b_residual_extract_v6_file_precedence\ (+ SCP'd to data/exp_<anchor>/).
+NEXT: when the npz lands, run the Exp-Dev substrate-side core on REAL residuals (see below). If v6 fails at a
+LATER stage (model.to(cuda) OOM / extraction), read its v3-logged startup.log + surface to Testbed; do NOT
+re-queue Llama yourself beyond what Testbed authorizes.
 
 ## When Llama DOES produce the npz
 Run the Exp-Dev substrate-side core on REAL residuals: re-queue phase05_v1_substrate_audit_core_v1 with env
