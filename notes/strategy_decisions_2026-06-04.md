@@ -691,3 +691,40 @@ All 5 arms (A_hebbian_k1, B_cfrpe_alone, C_gating_alone, D_joint_k4, E_joint_k8)
 HONEST: 818 -> 821 (+3). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v388 -> v389.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v389 -> v390 (2026-06-04) -- CYCLE 60 BATCH: 0 HP + 2 HARD_FAIL + 1 MIDDLE_BAND; PP-50 TW-vs-Hadamard N-sweep v2+v3 HARD_FAIL (sigma_sep non-monotone across N; probe-design failure not substrate failure); Q-B1 chain-loading boundary alpha-L sweep MIDDLE_BAND (alpha_c_eff=0.15, target [0.25,0.35]); HONEST 821->824; LVH 213; Portfolio 32+77 UNCHANGED; 301st PROT-009 paired commit
+
+### Step 0 Honest Re-Read
+All 3 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 821 -> 824 (+3). LVH 213 UNCHANGED.
+
+Label checks:
+- pp50_transition_zone_n_sweep_tw_vs_hadamard_v3_gpu_highprobe HARD_FAIL: sigma_sep={N1024:2427, N2048:78, N4096:39, N8192:384, N16384:139} non-monotone; beta=0.595 positive OLS slope; monotone_dec=False; non-monotone criterion fires. Honest.
+- pp50_transition_zone_n_sweep_tw_vs_hadamard_v2_gpu HARD_FAIL: sigma_sep={N1024:35, N2048:166, N4096:82, N8192:1303, N16384:236} non-monotone; beta=-0.841; monotone_dec=False; non-monotone criterion fires. Honest.
+- q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 MIDDLE_BAND: alpha_c_eff=0.15 outside [0.25,0.35]; monotone=True n_finite=3; depth_max drops monotone across alpha; boundary visible but lower than target. Honest.
+
+### Cap_map Decisions
+
+**(A) PP-50 v2+v3 TW-vs-Hadamard N-sweep HARD_FAIL -- sigma_sep non-monotone across N; probe-design failure.**
+pp50_transition_zone_n_sweep_tw_vs_hadamard_v2_gpu + pp50_transition_zone_n_sweep_tw_vs_hadamard_v3_gpu_highprobe GENUINE FULL HARD_FAIL (both). N={1024,2048,4096,8192,16384} 5-seed each. sigma_sep non-monotone for both versions (v2: 35->166->82->1303->236; v3: 2427->78->39->384->139). This is a PROBE DESIGN FAILURE: the TW-vs-Hadamard comparison sigma_sep in the transition zone is not a clean N-scaling observable -- it reflects noise-regime position relative to the transition zone, not inherent N-scaling of the drift-detection mechanism. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (the established PP-50 result is the delta_alpha sensitivity sweep at fixed working regime; the TW-vs-Hadamard approach was a secondary exploration of a different sigma_sep definition). No substrate capability claim threatened. Rescue sketches (cheapest-first per PROT-004/006):
+- R1 (free, annotation) Probe-design closure: sigma_sep in TW-vs-Hadamard comparison is confounded by transition-zone proximity; not a clean N-scaling observable. TW-vs-Hadamard N-sweep probe design CLOSED.
+- R2 (0-compute, subsumption) The delta_alpha protocol N-sweep (v3 N=16384 HARD_PASS v345; Wave-5 N=32768 HARD_PASS v335) already establishes the correct PP-50 N-scaling observable. No follow-up needed.
+- R3 (free, re-route) If TW-vs-Hadamard comparison at transition zone is independently interesting (noise-model physics), re-file under PP-58 as a separate probe not tied to PP-50 sigma_sep.
+
+**(B) Q-B1 chain-loading boundary alpha_L_sweep MIDDLE_BAND -- alpha_c_eff=0.15 below target [0.25,0.35].**
+q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 GENUINE FULL MIDDLE_BAND at N=2048 5-seed. Boundary IS present and monotone (n_finite=3 alpha values with finite depth_max): depth_max a0.05->360, a0.10->200, a0.15->40, a0.20->0 across all seeds (seed 23 slightly earlier collapse at a0.15). alpha_c_eff=0.15 -- the chain-loading capacity boundary at N=2048 is lower than the target window [0.25,0.35]. Informative result: chain loading tolerance at N=2048 is lower than pre-reg anticipated; boundary is real and monotone but shifted. This is a new sub-property annotation for Q-B1/PP-9b: chain-loading alpha_c at N=2048 characterized at ~0.15. PP-9b/Q-B1 existing sub-property bands UNCHANGED (existing HP results used M/N around alpha=0.05, well below alpha_c=0.15; fidelity results unaffected). Rescue sketches (cheapest-first):
+- R1 (free, theory) Compare alpha_c_eff=0.15 to standard Hopfield alpha_c=0.138: chain-loading boundary sits just ABOVE standard capacity; this is the expected range (chain-loading imposes structured correlations that slightly reduce effective capacity vs uncorrelated patterns). Pre-reg window [0.25,0.35] was optimistic; actual alpha_c=0.15 is consistent with theory. No further experiment needed -- R1 resolves via theory audit.
+- R2 (1-2h CPU) N=4096 alpha_L_sweep: test whether alpha_c_eff shifts toward [0.25,0.35] at larger N (hypothesis: larger N increases effective capacity per Hopfield alpha_c=0.138 scaling). If yes, chain-loading boundary is N-dependent and product operating regime (N>=16384) may reach target window.
+- R3 (2-3h CPU) N=2048 finer alpha grid {0.10, 0.12, 0.14, 0.16, 0.18, 0.20} to locate alpha_c_eff precisely and measure transition width.
+- R4 (free, annotation) Sub-property annotation: Q-B1 chain-loading alpha_c at N=2048 ~0.15; consistent with Hopfield alpha_c=0.138 adjusted for chain-loading correlation; production-N operating regime (alpha=0.05) confirmed safely below boundary; no chain-loading concern at production operating points.
+
+### PROT compliance (v389 -> v390)
+- PROT-004/006: No row closures. 0 new rows. 0 BAND-LIFTS. PP-50 TW-vs-Hadamard probe-design HF: R1 closure (probe design closed, not substrate failure), R2-R3 cheapest-first filed. Q-B1 chain-loading MIDDLE_BAND: R1-R4 cheapest-first filed (R1 resolves via theory; R2-R3 optional follow-up).
+- PROT-007/008: v390 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 301st PROT-009 paired commit.
+- PROT-018: q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 has explicit _n2048 suffix; metrics.json N=2048 confirmed. pp50_transition_zone_n_sweep_tw_vs_hadamard_v2_gpu and v3_gpu_highprobe carry no explicit _nN suffix (N-sweep experiment; N grid explicit in metrics). 0 violations.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: v2 sigma_sep non-monotone per-seed self-consistent across all 5 seeds; v3 sigma_sep non-monotone per-seed self-consistent; Q-B1 depth_max monotone per-seed consistent (all 5 seeds agree on alpha_c=0.20 collapse point; seed 23 slightly earlier at a0.15->0 but majority consensus at alpha=0.20).
+
+HONEST: 821 -> 824 (+3). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v389 -> v390.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

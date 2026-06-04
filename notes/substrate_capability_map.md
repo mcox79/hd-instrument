@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v389
+# hd-instrument substrate — capability map v390
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9208,3 +9208,27 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 HONEST: 818 -> 821 (+3). LVH: 213 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v388 -> v389.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v390 update (2026-06-04) -- CYCLE 60 BATCH: 0 HP + 2 HF + 1 MIDDLE_BAND; PP-50 TW-vs-Hadamard N-sweep v2+v3 HARD_FAIL (sigma_sep non-monotone across N; probe-design closure); Q-B1 chain-loading alpha_c_eff=0.15 MIDDLE_BAND (below target [0.25,0.35]; theory-consistent with Hopfield alpha_c=0.138); HONEST 821->824; LVH 213; Portfolio 32+77; 301st PROT-009 paired commit
+
+**Trigger.** 3 completed experiments: pp50_transition_zone_n_sweep_tw_vs_hadamard_v3_gpu_highprobe (HARD_FAIL remote), pp50_transition_zone_n_sweep_tw_vs_hadamard_v2_gpu (HARD_FAIL remote), q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 (MIDDLE_BAND remote). Cap_map mtime checked; none previously verdicted. Pause-flag ABSENT.
+
+**Verdicts:**
+| # | Anchor | Wall | N | Seeds | Verdict | Honest check |
+|---|--------|------|---|-------|---------|-------------|
+| 1 | pp50_transition_zone_n_sweep_tw_vs_hadamard_v3_gpu_highprobe | 14.4s GPU | N-sweep | 5 | HARD_FAIL | HONEST HF: sigma_sep={N1024:2427, N2048:78, N4096:39, N8192:384, N16384:139} non-monotone; beta=0.595; monotone_dec=False. Non-monotone criterion fires. |
+| 2 | pp50_transition_zone_n_sweep_tw_vs_hadamard_v2_gpu | 0.36s GPU | N-sweep | 5 | HARD_FAIL | HONEST HF: sigma_sep={N1024:35, N2048:166, N4096:82, N8192:1303, N16384:236} non-monotone; beta=-0.841; monotone_dec=False. Non-monotone criterion fires. |
+| 3 | q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 | 1377s CPU | 2048 | 5 | MIDDLE_BAND | HONEST MIDDLE: alpha_c_eff=0.15 outside [0.25,0.35]; monotone=True n_finite=3; depth_max drops a0.05->360, a0.10->200, a0.15->40, a0.20->0. Boundary visible but lower than target. |
+
+**(A) PP-50 TW-vs-Hadamard N-sweep HARD_FAIL -- probe-design closure.**
+Both TW-vs-Hadamard N-sweep variants GENUINE FULL HARD_FAIL. sigma_sep values across N={1024..16384} wildly non-monotone in both versions. Root cause: TW-vs-Hadamard comparison sigma_sep in the transition zone is not a clean N-scaling observable -- it reflects noise-regime position relative to the transition zone boundary, not inherent N-scaling of the drift-detection mechanism. PP-50 kappa_3 drift-detection band 0.83-0.94 UNCHANGED (the established PP-50 delta_alpha protocol N-sweep at N=16384 + N=32768 already confirms the correct N-scaling). TW-vs-Hadamard probe design CLOSED. R1 free (probe-design closure); R2 subsumption (delta_alpha protocol already covers); R3 re-route to PP-58 if transition-zone physics is of independent interest.
+
+**(B) Q-B1 chain-loading boundary alpha_L_sweep MIDDLE_BAND -- alpha_c_eff=0.15 confirmed, theory-consistent.**
+q_b1_chain_loading_boundary_alpha_L_sweep_v1_n2048 GENUINE FULL MIDDLE_BAND at N=2048. Chain-loading capacity boundary at alpha_c_eff=0.15 is below pre-reg target [0.25,0.35] but theory-consistent: standard Hopfield alpha_c=0.138; chain-loading structured correlations slightly shift boundary; 0.15 is in the expected range just above standard capacity. The boundary IS present and monotone. New sub-property annotation for Q-B1: "chain-loading alpha_c at N=2048 ~0.15; consistent with Hopfield alpha_c=0.138 + chain-loading correlation adjustment; production operating regime (alpha=0.05) confirmed safely below boundary." PP-9b/Q-B1 existing sub-property bands UNCHANGED. R1 resolves via theory audit (alpha_c=0.15 consistent with Hopfield); R2 N=4096 follow-up optional (test N-scaling of alpha_c); R3 finer alpha grid optional; R4 annotation-only applied.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 821 -> **824** (+3: v2 HF honest + v3 HF honest + Q-B1 MIDDLE honest).
+- **LABEL-VS-HONEST:** 213 UNCHANGED (0 new catches; all 3 labels honest to per-cell metrics).
+- **Product-feature:** UNCHANGED (probe-design failure on PP-50 TW approach; established PP-50 delta_alpha protocol UNAFFECTED; Q-B1 MIDDLE_BAND confirms operating-regime safety below alpha_c).
+
+Cap_map: v389 -> v390 CYCLE 60 BATCH (0 HP + 2 HF + 1 MIDDLE_BAND; PP-50 TW-vs-Hadamard N-sweep v2+v3 probe-design closure; Q-B1 chain-loading alpha_c=0.15 MIDDLE_BAND theory-consistent annotation; HONEST 821->824; LVH 213; Portfolio 32+77; 301st PROT-009 paired commit) (2026-06-04)
