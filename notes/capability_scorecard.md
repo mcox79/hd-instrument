@@ -36,6 +36,9 @@
 | **B36-MIXED-stream SUPERADDITIVE** | **VALIDATED (HP; input-regime-specificity confirmed)** | 50% redundant + 50% novel; gains gate=+0.01, evict=-0.06, both=+0.19 >> sum | B3b filters redundant; B6 evicts novel; complementary on MIXED streams |
 | Heterogeneous-axis SUPERADDITIVE (3/5) | VALIDATED (partial) | cf-RPE x STDP (task + temporal) | Different axes can compose; 3/5 seeds |
 | **Efficiency SUB-MULTIPLICATIVE (partial)** | **VALIDATED (partial)** | B3a x B3b = 16x reduction; > best-single (13.8x) but < full product (gates overlap on high-error examples) | Efficiency composition is partial; gates not fully independent |
+| **REASONING MULTIPLICATIVE (FLAGSHIP)** | **VALIDATED** | SQ2 x Hierarchical = 24-hop at 2x alpha_c via ensemble (single substrate collapses to depth 0) | Reasoning scales multiplicatively with hierarchical aggregation |
+| **AUDIT-PRESERVING REASONING (FLAGSHIP)** | **VALIDATED** | B6 x SQ2 HP: K=12 holds AND deletion-cert preserved at capacity (eviction active) | Substrate's flagship audit + flagship reasoning compose cleanly |
+| **SPARSITY-MODALITY SPECIFICITY (NEW)** | **VALIDATED** | B2 x B4 PATTERN/auto-assoc = 100x MULT; B2 x Position-binding SEQUENCE = 1.0x (no gain) | Sparsity benefits AUTO-ASSOC capacity but NOT SEQUENCE/position-binding capacity |
 
 ---
 

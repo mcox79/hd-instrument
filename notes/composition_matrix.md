@@ -22,7 +22,7 @@ Per shared-axis taxonomy (today's drills):
 
 |  | B2 sparse | B3a gating | B3b surprise | B4 ensemble | B6 D-ECR | B8 logit-residual | cf-RPE | DG f=0.05 | Hierarchical | Position-binding | STDP-asym | SQ2 iter-retr |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| **B2 sparse** | self | UNTESTED | UNTESTED | **MULT (100x)** | **SUB** | UNTESTED | UNTESTED | UNTESTED | **MULT (125k)** | UNTESTED | UNTESTED | UNTESTED |
+| **B2 sparse** | self | UNTESTED | UNTESTED | **MULT (100x)** | **SUB** | UNTESTED | UNTESTED | UNTESTED | **MULT (125k)** | **HF (1.0x; sparse no help for sequence)** | UNTESTED | UNTESTED |
 | **B3a gating** | UNTESTED | self | **SUB-MULT (16x; MIDDLE)** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED |
 | **B3b surprise** | UNTESTED | **SUB-MULT (16x; MIDDLE)** | self | UNTESTED | **SUB (single-stream); SUPER (mixed-stream HP)** | UNTESTED | INVERTS (drill) | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED |
 | **B4 ensemble** | **MULT (100x)** | UNTESTED | UNTESTED | self | UNTESTED | UNTESTED | UNTESTED | UNTESTED | **MULT** | UNTESTED | UNTESTED | UNTESTED |
@@ -31,9 +31,9 @@ Per shared-axis taxonomy (today's drills):
 | **cf-RPE** | UNTESTED | UNTESTED | INVERTS | UNTESTED | UNTESTED | UNTESTED | self | **ADD (Bundle A)** | UNTESTED | UNTESTED | **SUPER (3/5 seeds)** | UNTESTED |
 | **DG f=0.05** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | **ADD (Bundle A)** | self | UNTESTED | UNTESTED | UNTESTED | UNTESTED |
 | **Hierarchical** | **MULT (125k)** | UNTESTED | UNTESTED | **MULT** | **MULT** | UNTESTED | UNTESTED | UNTESTED | self | UNTESTED | UNTESTED | UNTESTED |
-| **Position-binding** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | self | **HP at trigram (Bundle E E1/E2)** | UNTESTED |
+| **Position-binding** | **HF (1.0x; sparse-modality-specific)** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | self | **HP at trigram (Bundle E E1/E2)** | UNTESTED |
 | **STDP-asym** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | **SUPER (3/5)** | UNTESTED | UNTESTED | **HP (E1/E2)** | self | UNTESTED |
-| **SQ2 iter-retr** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | UNTESTED | self |
+| **SQ2 iter-retr** | UNTESTED | UNTESTED | UNTESTED | UNTESTED | **HP (audit-preserving reasoning; K=12 + del-cert at capacity)** | UNTESTED | **HP (preserved K=12)** | UNTESTED | **HP MULT (24-hop at 2x alpha_c)** | UNTESTED | UNTESTED | self |
 
 ---
 
