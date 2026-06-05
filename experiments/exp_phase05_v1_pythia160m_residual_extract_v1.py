@@ -107,6 +107,14 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else
 USE_SYNTHETIC = (RUN_MODE == "smoke")
 N_DOCS_TARGET = N_DOCS_SMOKE if RUN_MODE == "smoke" else N_DOCS_FULL
 
+# Per-token extraction mode (2026-06-05 Research request: gates EX-CONCEPT-1
+# REAL). Default is per-doc final-token (preserves prior HARD_PASS). When
+# `--per-token` is passed (or HDLAB_PER_TOKEN=1), extract ALL token positions
+# within each doc and emit `residuals_per_token.npz` with shape
+# (sum_T_clipped, 768) + doc_indices (sum_T,) + doc_boundaries (n_docs+1,).
+PER_TOKEN_MODE = ("--per-token" in sys.argv or
+                  os.environ.get("HDLAB_PER_TOKEN", "0") in {"1", "true", "True"})
+
 
 def _load_hf_token() -> str:
     """File-first HF token precedence (Rung A v5/v6 lesson).
@@ -265,10 +273,62 @@ def _extract_residual_one_doc(model, tokenizer, doc: str, device: str) -> np.nda
     return last.astype(np.float32)
 
 
+def _extract_residual_per_token_one_doc(model, tokenizer, doc: str, device: str) -> np.ndarray:
+    """Forward Pythia on doc; return (T, 768) float32 last-layer per-token residuals.
+
+    Per-token variant for EX-CONCEPT-1 REAL (2026-06-05 Research request).
+    T = actual token count after tokenization (<= MAX_TOK_LEN). Trailing
+    padding (if any) is NOT included; we use attention_mask to truncate to
+    the actual token positions.
+    """
+    import torch
+    enc = tokenizer(doc, return_tensors="pt", truncation=True, max_length=MAX_TOK_LEN)
+    input_ids = enc["input_ids"].to(device)
+    attn = enc.get("attention_mask")
+    if attn is not None:
+        attn = attn.to(device)
+    with torch.no_grad():
+        out = model(
+            input_ids=input_ids,
+            attention_mask=attn,
+            output_hidden_states=True,
+            use_cache=False,
+        )
+    hs = out.hidden_states
+    if len(hs) != N_LAYERS + 1:
+        raise RuntimeError(
+            f"hidden_states len={len(hs)} != expected {N_LAYERS + 1}")
+    # Determine the real (un-padded) token count from attention_mask. If absent,
+    # fall back to input_ids length (no padding expected for single-doc forwards).
+    if attn is not None:
+        t_real = int(attn[0].sum().item())
+    else:
+        t_real = int(input_ids.shape[1])
+    if t_real <= 0:
+        raise RuntimeError(f"per-token: zero real tokens after tokenization (doc={doc[:60]!r})")
+    # Last layer, all real-token positions; (T, 768) float32
+    arr = hs[LAYER_IDX_TARGET][0, :t_real, :].float().detach().cpu().numpy()
+    if arr.shape != (t_real, HIDDEN_DIM):
+        raise RuntimeError(
+            f"per-token residual shape wrong: {arr.shape}; expected ({t_real}, {HIDDEN_DIM})")
+    return arr.astype(np.float32)
+
+
 def _synthetic_residual(idx: int, rng: np.random.Generator) -> np.ndarray:
     """Smoke fallback: synthetic (768,) float32 residual."""
     sub = np.random.default_rng(rng.integers(0, 2**31 - 1) + idx)
     return sub.standard_normal(HIDDEN_DIM).astype(np.float32)
+
+
+def _synthetic_residual_per_token(idx: int, rng: np.random.Generator) -> np.ndarray:
+    """Smoke fallback per-token: synthetic (T, 768) float32 residual sequence.
+
+    Token count T is randomly between 4 and 16 (representative analogy
+    doc length) and seeded by doc idx for determinism.
+    """
+    sub = np.random.default_rng(rng.integers(0, 2**31 - 1) + idx)
+    t_real = int(sub.integers(4, 17))   # T in [4, 16]
+    return sub.standard_normal((t_real, HIDDEN_DIM)).astype(np.float32)
 
 
 # ---------------- main ----------------
@@ -350,14 +410,19 @@ def main() -> int:
         f"PROGRESS_EVERY={PROGRESS_EVERY}")
 
     # ---- Step 4: resume from partials ----
+    # Per-token partials use a different prefix so they don't collide with
+    # per-doc partials in the same output dir.
+    mode_tag = "pertoken" if PER_TOKEN_MODE else "perdoc"
     ckpt_prefix = (
         f"{MODEL_ID.replace('/', '_').replace('-', '_').replace('.', '_')}"
-        f"_d{HIDDEN_DIM}_layer{LAYER_IDX_TARGET}_{RUN_MODE}_doc"
+        f"_d{HIDDEN_DIM}_layer{LAYER_IDX_TARGET}_{RUN_MODE}_{mode_tag}_doc"
     )
     done_keys = set(list_completed_keys(out_dir))
     done_idx = {int(k.split("_doc")[-1]) for k in done_keys
                 if k.startswith(ckpt_prefix) and "_doc" in k}
-    log(f"resume: {len(done_idx)} docs already cached")
+    log(f"resume: {len(done_idx)} docs already cached (mode={mode_tag})")
+    log(f"extraction mode: {mode_tag} "
+        f"({'all token positions per doc' if PER_TOKEN_MODE else 'final-token only per doc'})")
 
     # ---- Step 5: per-doc extraction loop ----
     rng = np.random.default_rng(303)
@@ -368,21 +433,51 @@ def main() -> int:
         if doc_idx in done_idx:
             continue
         try:
-            if USE_SYNTHETIC or model is None:
-                res = _synthetic_residual(doc_idx, rng)
+            if PER_TOKEN_MODE:
+                if USE_SYNTHETIC or model is None:
+                    res = _synthetic_residual_per_token(doc_idx, rng)
+                else:
+                    res = _extract_residual_per_token_one_doc(
+                        model, tokenizer, item["doc"], device)
+                # res shape: (T, 768) variable T
+                if res.ndim != 2 or res.shape[1] != HIDDEN_DIM:
+                    raise RuntimeError(
+                        f"per-token residual shape wrong: {res.shape}; "
+                        f"expected (T, {HIDDEN_DIM})")
+                if not np.isfinite(res).all():
+                    raise RuntimeError(f"non-finite per-token residual at doc_idx={doc_idx}")
+                payload = {
+                    "doc_idx": int(doc_idx),
+                    "doc_str": item["doc"][:200],
+                    "residual": res.tolist(),   # list of T lists of 768 floats
+                    "n_tokens": int(res.shape[0]),
+                    "model_id": MODEL_ID,
+                    "hidden_dim": int(HIDDEN_DIM),
+                    "layer_idx": int(LAYER_IDX_TARGET),
+                    "run_mode": RUN_MODE,
+                    "mode": "per_token",
+                }
             else:
-                res = _extract_residual_one_doc(model, tokenizer, item["doc"], device)
-            if not np.isfinite(res).all():
-                raise RuntimeError(f"non-finite residual at doc_idx={doc_idx}")
-            payload = {
-                "doc_idx": int(doc_idx),
-                "doc_str": item["doc"][:200],
-                "residual": res.tolist(),
-                "model_id": MODEL_ID,
-                "hidden_dim": int(HIDDEN_DIM),
-                "layer_idx": int(LAYER_IDX_TARGET),
-                "run_mode": RUN_MODE,
-            }
+                if USE_SYNTHETIC or model is None:
+                    res = _synthetic_residual(doc_idx, rng)
+                else:
+                    res = _extract_residual_one_doc(model, tokenizer, item["doc"], device)
+                if res.shape != (HIDDEN_DIM,):
+                    raise RuntimeError(
+                        f"per-doc residual shape wrong: {res.shape}; "
+                        f"expected ({HIDDEN_DIM},)")
+                if not np.isfinite(res).all():
+                    raise RuntimeError(f"non-finite residual at doc_idx={doc_idx}")
+                payload = {
+                    "doc_idx": int(doc_idx),
+                    "doc_str": item["doc"][:200],
+                    "residual": res.tolist(),
+                    "model_id": MODEL_ID,
+                    "hidden_dim": int(HIDDEN_DIM),
+                    "layer_idx": int(LAYER_IDX_TARGET),
+                    "run_mode": RUN_MODE,
+                    "mode": "per_doc",
+                }
             write_partial_key(out_dir, f"{ckpt_prefix}{doc_idx}", payload)
             n_extracted += 1
         except Exception as e:
@@ -428,46 +523,103 @@ def main() -> int:
             pass
 
     # ---- Step 7: assemble npz ----
-    log("assembling npz from per-doc partials")
+    log(f"assembling npz from per-doc partials (mode={mode_tag})")
     final_keys = sorted(
         [k for k in set(list_completed_keys(out_dir))
          if k.startswith(ckpt_prefix) and "_doc" in k],
         key=lambda k: int(k.split("_doc")[-1]),
     )
-    residuals = np.zeros((len(final_keys), HIDDEN_DIM), dtype=np.float32)
-    doc_indices = np.zeros(len(final_keys), dtype=np.int64)
+
     bad = 0
-    for i, k in enumerate(final_keys):
-        try:
-            p = out_dir / f"partial_metrics_{k}.json"
-            body = json.loads(p.read_text(encoding="utf-8"))
-            r = np.asarray(body["residual"], dtype=np.float32)
-            if r.shape != (HIDDEN_DIM,) or not np.isfinite(r).all():
+    n_docs_assembled = 0
+    n_tokens_total = 0
+
+    if PER_TOKEN_MODE:
+        # Concatenate variable-length (T_i, 768) per doc.
+        # Build: residuals (sum_T, 768), doc_indices (sum_T,), doc_boundaries (n_docs+1,).
+        rows_per_doc: list = []
+        doc_idx_per_doc: list = []
+        for k in final_keys:
+            try:
+                p = out_dir / f"partial_metrics_{k}.json"
+                body = json.loads(p.read_text(encoding="utf-8"))
+                r = np.asarray(body["residual"], dtype=np.float32)
+                if r.ndim != 2 or r.shape[1] != HIDDEN_DIM:
+                    bad += 1
+                    continue
+                if r.shape[0] <= 0:
+                    bad += 1
+                    continue
+                if not np.isfinite(r).all():
+                    bad += 1
+                    continue
+                rows_per_doc.append(r)
+                doc_idx_per_doc.append(int(body["doc_idx"]))
+                n_tokens_total += int(r.shape[0])
+            except Exception:
                 bad += 1
                 continue
-            residuals[i] = r
-            doc_indices[i] = int(body["doc_idx"])
-        except Exception:
-            bad += 1
-            continue
+        n_docs_assembled = len(rows_per_doc)
+        if n_docs_assembled > 0:
+            residuals = np.concatenate(rows_per_doc, axis=0)
+            doc_boundaries = np.zeros(n_docs_assembled + 1, dtype=np.int64)
+            for i, r in enumerate(rows_per_doc):
+                doc_boundaries[i + 1] = doc_boundaries[i] + r.shape[0]
+            doc_indices = np.zeros(int(doc_boundaries[-1]), dtype=np.int64)
+            for i, doc_id in enumerate(doc_idx_per_doc):
+                start = int(doc_boundaries[i])
+                end = int(doc_boundaries[i + 1])
+                doc_indices[start:end] = doc_id
+        else:
+            residuals = np.zeros((0, HIDDEN_DIM), dtype=np.float32)
+            doc_boundaries = np.zeros(1, dtype=np.int64)
+            doc_indices = np.zeros(0, dtype=np.int64)
 
-    if bad > 0:
-        log(f"npz assembly: {bad} bad partials skipped")
-        # Filter out empty rows where bad partials were
-        good_mask = np.array([
-            np.isfinite(residuals[i]).all() and residuals[i].any()
-            for i in range(len(final_keys))
-        ])
-        residuals = residuals[good_mask]
-        doc_indices = doc_indices[good_mask]
+        log(f"residuals shape {residuals.shape} (sum_T={n_tokens_total} across "
+            f"{n_docs_assembled} docs); all_finite={np.isfinite(residuals).all()}")
+        npz_path = out_dir / "residuals_per_token.npz"
+        np.savez_compressed(
+            npz_path,
+            residuals=residuals,
+            doc_indices=doc_indices,
+            doc_boundaries=doc_boundaries,
+        )
+        log(f"npz written -> {npz_path}")
+        n_residuals = n_docs_assembled   # "residuals" = "docs covered" in gate semantics
 
-    n_residuals = residuals.shape[0]
-    log(f"residuals shape {residuals.shape} all_finite={np.isfinite(residuals).all()}")
+    else:
+        # Per-doc: fixed (1, 768) per doc.
+        residuals = np.zeros((len(final_keys), HIDDEN_DIM), dtype=np.float32)
+        doc_indices = np.zeros(len(final_keys), dtype=np.int64)
+        for i, k in enumerate(final_keys):
+            try:
+                p = out_dir / f"partial_metrics_{k}.json"
+                body = json.loads(p.read_text(encoding="utf-8"))
+                r = np.asarray(body["residual"], dtype=np.float32)
+                if r.shape != (HIDDEN_DIM,) or not np.isfinite(r).all():
+                    bad += 1
+                    continue
+                residuals[i] = r
+                doc_indices[i] = int(body["doc_idx"])
+            except Exception:
+                bad += 1
+                continue
 
-    npz_path = out_dir / "residuals.npz"
-    np.savez_compressed(npz_path,
-                        residuals=residuals, doc_indices=doc_indices)
-    log(f"npz written -> {npz_path}")
+        if bad > 0:
+            log(f"npz assembly: {bad} bad partials skipped")
+            good_mask = np.array([
+                np.isfinite(residuals[i]).all() and residuals[i].any()
+                for i in range(len(final_keys))
+            ])
+            residuals = residuals[good_mask]
+            doc_indices = doc_indices[good_mask]
+
+        n_residuals = residuals.shape[0]
+        n_docs_assembled = n_residuals
+        log(f"residuals shape {residuals.shape} all_finite={np.isfinite(residuals).all()}")
+        npz_path = out_dir / "residuals.npz"
+        np.savez_compressed(npz_path, residuals=residuals, doc_indices=doc_indices)
+        log(f"npz written -> {npz_path}")
 
     # Sidecar metadata
     sidecar = {
@@ -476,7 +628,10 @@ def main() -> int:
         "hidden_dim": HIDDEN_DIM,
         "layer_idx_target": LAYER_IDX_TARGET,
         "n_layers": N_LAYERS,
-        "n_residuals": int(n_residuals),
+        "extraction_mode": mode_tag,
+        "n_residuals": int(n_residuals),     # for per-token, this is n_docs_assembled (gate semantic)
+        "n_docs_assembled": int(n_docs_assembled),
+        "n_tokens_total": int(n_tokens_total) if PER_TOKEN_MODE else int(n_docs_assembled),
         "n_docs_target": int(N_DOCS_TARGET),
         "n_extracted": int(n_extracted),
         "n_failed": int(n_failed),
@@ -487,29 +642,41 @@ def main() -> int:
         "wall_extract_s": float(extract_wall),
         "wall_total_s": float(time.time() - t0),
     }
-    (out_dir / "residuals_meta.json").write_text(
+    sidecar_name = ("residuals_per_token_meta.json" if PER_TOKEN_MODE
+                    else "residuals_meta.json")
+    (out_dir / sidecar_name).write_text(
         json.dumps(sidecar, indent=2), encoding="utf-8")
 
     # ---- Step 8: verdict ----
+    # Gate is on docs-covered for both modes (per-token also reports n_tokens).
     if not npz_path.exists():
         verdict = "HARD_FAIL"
         msg = "npz not written"
-    elif n_residuals < MIN_DOCS_HP // 2:
+    elif n_docs_assembled < MIN_DOCS_HP // 2:
         verdict = "HARD_FAIL"
-        msg = (f"too few residuals: {n_residuals} < "
+        msg = (f"too few docs covered: {n_docs_assembled} < "
                f"{MIN_DOCS_HP // 2} (HARD_FAIL floor)")
-    elif n_residuals < MIN_DOCS_HP:
+    elif n_docs_assembled < MIN_DOCS_HP:
         verdict = "MIDDLE_BAND"
-        msg = (f"partial extraction: {n_residuals} residuals "
+        msg = (f"partial extraction: {n_docs_assembled} docs covered "
                f"(< HP threshold {MIN_DOCS_HP})")
     else:
         verdict = "HARD_PASS"
-        msg = (f"Pythia-160M residual extraction at layer {LAYER_IDX_TARGET} "
-               f"complete; {n_residuals} residuals at shape (n, {HIDDEN_DIM}) "
-               f"saved to {npz_path.name}. Ready for downstream EX-CONCEPT-1 "
-               f"VQ + substrate-audit-core C2 + C3 on real Pythia residuals "
-               f"(Tier-1 product anchor at small-LLM scale per research's "
-               f"hybrid C+D recovery plan).")
+        if PER_TOKEN_MODE:
+            msg = (f"Pythia-160M PER-TOKEN residual extraction at layer "
+                   f"{LAYER_IDX_TARGET} complete; {n_docs_assembled} docs "
+                   f"({n_tokens_total} tokens) at shape (sum_T={n_tokens_total}, "
+                   f"{HIDDEN_DIM}) saved to {npz_path.name}. Ready for "
+                   f"downstream EX-CONCEPT-1 REAL: VQ -> concept-ID "
+                   f"sequences -> substrate Hebbian writes -> SQ2 multi-hop "
+                   f"reasoning at concept-ID level.")
+        else:
+            msg = (f"Pythia-160M residual extraction at layer {LAYER_IDX_TARGET} "
+                   f"complete; {n_docs_assembled} residuals at shape "
+                   f"(n, {HIDDEN_DIM}) saved to {npz_path.name}. Ready for "
+                   f"downstream substrate-audit-core C2 + C3 on real Pythia "
+                   f"residuals (Tier-1 product anchor at small-LLM scale per "
+                   f"Research's hybrid C+D recovery plan).")
 
     log(f"verdict={verdict}: {msg}")
     write_metrics(out_dir, {
