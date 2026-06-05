@@ -10278,3 +10278,36 @@ PP-21 minor annotation (updated): 'ccc1_fb15k237_kg_multihop_HARD_PASS v421: ret
 
 Portfolio: 32+77 UNCHANGED. 2 band-lifts (PP-35 +0.10; PP-21 +0.05). 0 new rows. 0 closures.
 Cap map: v420 -> v421 CYCLE 92 BATCH (1 HF: ex_concept_1_strong_baselines all-variants-below-trigram; 1 HP: introspection_toolkit show-your-work 5th-cognitive_core; 1 HP: ccc1_fb15k237 REAL-KG-MULTIHOP; 0 LVH; PP-35 BAND-LIFT +0.10; PP-21 minor-lift +0.05; PP-8+PP-3 sub-prop annotations; HONEST 905->908; LVH 221; Portfolio 32+77; 333rd PROT-009 paired commit) (2026-06-05)
+
+# v422 update (2026-06-05) -- CYCLE 93 BATCH: 2 HF (cognitive_core_multihop_hotpotqa NL-encoding-bottleneck + ex_concept_1_variants_v2 THIRD-V_C256-HF); 0 MID; 0 HP; 0 LVH; PP-8 sub-property annotations x2; HONEST 908->910; LVH 221; Portfolio 32+77; 334th PROT-009 paired commit
+
+## CYCLE 93 BATCH -- v421 -> v422 (2026-06-05)
+
+| # | Anchor | N | Seeds | Verdict | Honest |
+|---|--------|---|-------|---------|--------|
+| 1 | substrate_cognitive_core_multihop_hotpotqa_v1 | 4096 (Pythia-160m) | 3 | HARD_FAIL | twohop=0.237 onehop=0.253 ratio=0.934x ALL seeds; aug_em=0.000; NL-encoding-bottleneck not substrate-multihop-closure; honest |
+| 2 | ex_concept_1_improvement_variants_v2 | (V_C=256 n_docs=6000) | 3 | HARD_FAIL | best=K5:0.551 < trigram=0.592 ALL seeds; K-scaling plateau; THIRD V_C=256 confirmation; honest |
+
+**(A) substrate_cognitive_core_multihop_hotpotqa_v1 HARD_FAIL -- PP-8 real-QA multihop NL-text encoding bottleneck**
+Pythia-160m, HotpotQA, n=900 (300/seed x 3 seeds). twohop_recall=0.237 vs onehop=0.253; ratio=0.934x ALL seeds. aug_em=0.000 (substrate augmentation zero end-to-end benefit). Root cause: NL tokenized entity strings -> HDC binding produces near-random vectors (no orthogonality guarantee); superposition noise overwhelms 2-hop chain signal at N=4096. DISTINCT from PP-35 FB15k-237 HP (numeric IDs, structured triples). Plain-language: We tested whether the substrate could help a small language model answer 2-hop questions from Wikipedia (like "who is the spouse of the person born in X?"). The substrate's fact retrieval actually made things slightly WORSE than single-hop lookup. The problem is how we fed the facts in -- using raw word tokens instead of compact numeric IDs creates noisy encodings that interfere with each other. This is an encoding problem, not a proof the substrate can't do multi-hop reasoning (it already passed on a structured knowledge graph benchmark). Rescue: switch to dense embeddings or integer-ID protocol before HDC binding.
+
+PP-8 sub-property annotation: 'cognitive_core_multihop_hotpotqa_HF v422: Pythia-160m HotpotQA n=900 3-seed; twohop=0.237 onehop=0.253 ratio=0.934x; aug_em=0.000; NL-text->HDC encoding bottleneck (near-random token vectors); DISTINCT from PP-35 FB15k-237 HP (structured IDs); R1 reframe: encoding-path failure; R2-R4 entity-encoding rescues.'
+
+**(B) ex_concept_1_improvement_variants_v2 HARD_FAIL -- PP-8 concept-LM: K-extension variants still below trigram; V_C=256 bottleneck THIRD CONFIRMATION**
+n_docs=6000, K={2,5,10}, 3 seeds. best=K5:0.551 < trigram=0.592 ALL seeds. +0.039 K2->K5; plateau K5->K10 (-0.002). THIRD independent confirmation (CYCLE90 MID v419; CYCLE92 HF v421; CYCLE93 HF v422). V_C=256 too coarse to break trigram ceiling. Rescues R2 V_C-sweep + R3 SQ-2 composition active from v421. Plain-language: We tried 3 variants of the substrate concept-based language predictor (looking at 2, 5, or 10 prior contexts). All three still fall short of a simple trigram baseline. The substrate is stuck because 256 concept categories aren't fine-grained enough to capture the patterns needed. This is now confirmed three separate times; the fix (using 512+ categories or a different architecture) is already queued as a rescue path.
+
+PP-8 sub-property annotation: 'ex_concept_1_improvement_variants_v2_HF v422: n_docs=6000 K={2,5,10} 3-seed; best=K5:0.551 < trigram=0.592; plateau K5->K10; THIRD V_C=256 confirmation; rescues R2+R3 active.'
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 908 -> **910** (+2).
+- **LABEL-VS-HONEST:** 221 UNCHANGED (0 new catches).
+- **Product-feature:** PP-8 NL-text multihop scoped as encoding-path (not substrate closure); concept-LM V_C=256 bottleneck confirmed x3; rescues active.
+
+- **PROT-004/006:** No closures. 0 new rows. 0 BAND-LIFTS. 2 sub-property annotations. R1-R5 cheapest-first filed anchor A; anchor B rescues from v421.
+- **PROT-007/008:** v422 block appended. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 334th PROT-009 paired commit.
+- **PROT-018:** No _nN violations.
+- **PROT-021:** both source=remote run_mode=full. No smoke artifacts.
+- **PROT-022:** all per-cell values self-consistent and cross-experiment consistent.
+
+Cap_map: v421 -> v422 CYCLE 93 BATCH (2 HF: cognitive_core_multihop_hotpotqa NL-encoding-bottleneck + ex_concept_1_variants_v2 THIRD-V_C256-HF; 0 MID; 0 HP; 0 LVH; PP-8 sub-property annotations x2; HONEST 908->910; LVH 221; Portfolio 32+77; 334th PROT-009 paired commit) (2026-06-05)

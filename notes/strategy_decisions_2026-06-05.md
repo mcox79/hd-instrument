@@ -766,3 +766,52 @@ PP-35 band: 0.60-0.75 -> 0.70-0.85 (+0.10 LIFT). PP-21 band: 0.45-0.60 -> 0.50-0
 HONEST: 905 -> 908 (+3). LVH: 221 UNCHANGED.
 Cap_map: v420 -> v421.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 93 BATCH -- v421 -> v422 (2026-06-05)
+
+### Step 0 Honest Re-Read -- 0 LVH catches
+
+| # | Anchor | Verdict | Honest Check |
+|---|--------|---------|-------------|
+| 1 | substrate_cognitive_core_multihop_hotpotqa_v1 | HARD_FAIL | twohop=0.237 onehop=0.253 ratio=0.934x ALL 3 seeds (ratio<1.0 unanimous); sub_aug_em=0.000 ALL seeds; label 'no better than single-hop' confirmed per-cell; honest |
+| 2 | ex_concept_1_improvement_variants_v2 | HARD_FAIL | best_sub=K5:0.551 < trigram=0.592 ALL 3 seeds; K2=0.540 K5=0.551 K10=0.549 all below trigram; consistent CYCLE90+CYCLE92 HF pattern; label honest |
+
+LVH assessment: 0 catches. Both labels honest. HONEST 908 -> 910 (+2). LVH 221 UNCHANGED.
+
+### Cap_map Decisions (v421 -> v422)
+
+**(A) substrate_cognitive_core_multihop_hotpotqa_v1 HARD_FAIL -- PP-8 real-QA multihop: substrate 2-hop retrieval NO ADVANTAGE over single-hop on HotpotQA (ratio=0.93x < 1.0)**
+Pythia-160m, n=900 (300/seed x 3 seeds), run_mode=full, source=remote, elapsed=97.7s.
+Mean twohop_recall=0.237 vs onehop_recall=0.253; ratio=0.934x (ALL seeds: 0.960/0.936/0.907). substrate_aug_em=0.000 ALL seeds (substrate augmentation adds zero end-to-end correctness vs Pythia raw=0.083). The 2-hop HDC fact-base retrieval actually degrades recall vs single-hop; HDC superposition noise on real LLM tokenized facts (N=4096 KG-encoding with tokenized entity strings) does not produce useful 2-hop chains for real natural-language multi-hop QA.
+
+Context: DISTINCT from PP-35/ccc1 FB15k-237 HARD_PASS (v421, structured-triple KG with numeric IDs). Failure localization: real NL text -> HDC entity encoding bottleneck, not algebraic chain-following capability.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_multihop_hotpotqa_HF v422: Pythia-160m HotpotQA n=900 3-seed full; twohop=0.237 onehop=0.253 ratio=0.934x; aug_em=0.000; 2-hop HDC fact-retrieval NO BENEFIT on real NL text; DISTINCT from PP-35 FB15k-237 HP (structured KG IDs); failure: NL text->HDC encoding bottleneck; rescue R1-R5 filed.'
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute BEST-RESCUE): Reframe scope -- substrate real-KG multihop CONFIRMED for structured numeric IDs (FB15k-237 HP v421); NL-text bottleneck is an encoder problem not a substrate capability closure; sub-property on PP-35 scoping: 'structured-ID protocol required for multihop HP; NL-tokenized-string protocol fails at N=4096.'
+R2 (1h CPU): Entity pre-encoding -- replace tokenized strings with dense learned embeddings (sentence-transformer CLS or Pythia-160m layer-12 mean-pool) before HDC binding; avoids raw-token superposition noise.
+R3 (1h CPU): Integer-ID protocol -- map HotpotQA entities to integer IDs matching FB15k-237 protocol; verify whether structured-ID recovers FB15k-237-style HARD_PASS.
+R4 (2h GPU): N scaling at N=16384 or N=32768 to reduce HDC superposition noise in high-V NL-text encoding; characterize N threshold for useful 2-hop NL chains.
+R5 (free): Theory audit -- NL tokenized entity vectors are near-random (no alignment guarantee); HDC fact-base superposition requires quasi-orthogonal entity vectors; NL tokenization does NOT guarantee this; closed-form N requirement derivable from V (vocabulary of entities) and N.
+
+**(B) ex_concept_1_improvement_variants_v2 HARD_FAIL -- PP-8 concept-LM: extended-context K variants still below trigram; V_C=256 bottleneck THIRD CONFIRMATION**
+n_docs=6000, K={2,5,10}, 3 seeds, run_mode=full, source=remote, elapsed=1347.5s.
+best=K5:0.551 < trigram=0.592 < neural_1L=0.649 ALL seeds. K-scaling plateau: +0.039 K2->K5; -0.002 K5->K10. THIRD independent confirmation of V_C=256 bottleneck (CYCLE90 v419 MID bigram-parity; CYCLE92 v421 HF strong_baselines; CYCLE93 v422 variants_v2). Rescues R1-R5 already filed at v421; no new rescue filing required.
+
+PP-8 sub-property annotation (updated):
+'ex_concept_1_improvement_variants_v2_HF v422: n_docs=6000 K={2,5,10} 3-seed full; best=K5:0.551 < trigram=0.592 < neural=0.649; K-scaling plateau K5->K10 (-0.002); THIRD CONFIRMATION V_C=256 bottleneck; rescues R2 V_C-sweep + R3 SQ-2 composition active from v421.'
+
+### PROT Compliance (v421 -> v422)
+- PROT-004/006: No closures (NL-text multihop failure is encoding-path per R1 reframe; concept_1_v2 reconfirms v421 scope; rescues active). 0 new rows. 0 BAND-LIFTS. 2 sub-property annotations. R1-R5 cheapest-first filed for anchor A. Anchor B rescues already filed v421.
+- PROT-007/008: v422 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 334th PROT-009 paired commit.
+- PROT-018: cognitive_core_multihop no _nN suffix (variant naming; no PROT-018 violation); ex_concept_1_variants_v2 no _nN suffix (concept-LM domain naming). 0 violations.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: anchor A twohop/onehop per-seed {0.238/0.248, 0.243/0.260, 0.228/0.252} SD~0.007 consistent; aug_em=0.000 deterministic; anchor B K5 per-seed {0.540, 0.555, 0.558} SD=0.009 consistent; K10 plateau {0.540, 0.552, 0.556} close to K5 confirmed.
+
+- Portfolio: 32+77 UNCHANGED. 2 sub-property annotations. 0 new rows. 0 closures. 0 band-lifts.
+- HONEST: 908 -> 910 (+2).
+- LABEL-VS-HONEST: 221 UNCHANGED (0 new catches).
+
+Cap_map: v421 -> v422 CYCLE 93 BATCH (2 HF: cognitive_core_multihop_hotpotqa NL-encoding-bottleneck + ex_concept_1_variants_v2 THIRD-V_C256-HF; 0 MID; 0 HP; 0 LVH; PP-8 sub-property annotations x2; HONEST 908->910; LVH 221; Portfolio 32+77; 334th PROT-009 paired commit) (2026-06-05)
