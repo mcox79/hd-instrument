@@ -48,3 +48,50 @@ Verdict: substrate_certified_deletion_demo_medical_v1 MIDDLE_BAND
 
 Cap_map: v427 -> v428 CYCLE 99 (1 MID: substrate_certified_deletion_demo_medical_v1 CERT-DELETION-3MS-PHANTOM-ZERO-VERIFIER-CONFIRMED; PP-3+PP-9+product-feature sub-prop annotations; 5 latency-rescue sketches; HONEST 924->925; LVH 222; Portfolio 32+77; 340th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v428 -> v429 CYCLE 100 BATCH (2026-06-05)
+
+Verdicts processed: substrate_cognitive_core_e2e_pythia_v1 (MIDDLE_BAND) + substrate_medical_qa_proto_no_umls_dependency_v1 (MIDDLE_BAND) + ex_concept_strong_baselines_llama1b_v1 (HARD_FAIL)
+
+### Step 0 honest re-read (3 verdicts; 0 LVH; all HONEST)
+
+**V1 (substrate_cognitive_core_e2e_pythia_v1) MIDDLE_BAND -- HONEST**
+substrate_core=1.000 ALL 3 seeds. pythia_raw: 0.820/0.745/0.805 mean=0.790. ratio: 1.22x/1.34x/1.24x mean=1.27x. single_evidence=1.000 ALL seeds (Rule8 combine gain). cert_reconstructible=1.000 ALL seeds. MIDDLE_BAND label honest: partial advantage confirmed but not categorical. No LVH.
+
+**V2 (substrate_medical_qa_proto_no_umls_dependency_v1) MIDDLE_BAND -- HONEST**
+pythia_raw_mcq=0.193 ALL 3 seeds. substrate_aug_mcq=0.207 ALL 3 seeds. mcq_ratio=1.069x ALL seeds. deletion_cert_operational=True ALL 3 seeds. del_before=0.949-0.969; del_after=0.000 ALL seeds. MIDDLE_BAND honest: mcq lift 7% is small but real; deletion cert confirmed at medical scale. Note: Pythia-160m baseline 0.193 is BELOW random=0.25 (4-choice MCQ), so substrate lift to 0.207 is relative to a degraded baseline. No LVH.
+
+**V3 (ex_concept_strong_baselines_llama1b_v1) HARD_FAIL -- HONEST**
+substrate_single_pass=0.469/0.478/0.462 mean=0.469 vs bigram=0.470/0.486/0.468 mean=0.475 vs trigram=0.601/0.600/0.598 mean=0.601. Substrate LOSES TO BIGRAM in 2/3 seeds. Extended context MONOTONICALLY DEGRADES: K2=0.450 K5=0.406 K10=0.347. HARD_FAIL label honest. SIXTH V_C=256 concept-LM bottleneck confirmation (n_docs=10000, Llama-1B). Extended-context degradation (K10 worst) is new signal: superposition noise accumulates faster than signal with K-context extension. No LVH.
+
+HONEST: 925 -> 928 (+3). LVH: 222 UNCHANGED.
+
+### Cap_map decisions
+
+**V1 substrate_cognitive_core_e2e_pythia_v1 MIDDLE_BAND:**
+PP-8 sub-property annotation. End-to-end Pythia-160m integration: substrate retrieval achieves 100% accuracy; Pythia standalone 79% on same task. Rule8 combine gain confirmed (single_evidence=1.000). cert_reconstructible=1.000. Ratio 1.27x is partial not categorical -- Pythia-160m achieves 79% on this specific synthetic cog-core benchmark (lower Pythia baseline inflates ratio vs categorical wins where Pythia=0.000). Band UNCHANGED.
+
+**V2 substrate_medical_qa_proto_no_umls_dependency_v1 MIDDLE_BAND:**
+PP-9 + PP-3 sub-property annotation. Deletion cert confirmed operational at medical scale: del_before=0.95-0.97, del_after=0.000, cert_reconstructible=1.000 (100% third-party verifiable). MedQA aug lift 1.07x is marginal -- Pythia-160m baseline degraded below random on 4-choice MCQ (model too small for medical domain). Medical deletion demo operational; MedQA aug awaits stronger base model. Band UNCHANGED.
+
+**V3 ex_concept_strong_baselines_llama1b_v1 HARD_FAIL:**
+PP-8 sub-property annotation. SIXTH V_C=256 concept-LM confirmation. New signal: K-context DEGRADES performance monotonically (K2=0.450 < K1=0.469; K10=0.347). Superposition noise accumulates faster than signal with more context bindings at V_C=256. Rescues R2 V_C-sweep + R3 SQ-2 from v421 remain active. R6 new: K-degradation diagnosis. Band UNCHANGED. NO CLOSURE per PROT-004/006 (rescue paths active).
+
+### Rescue sketches V3 (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+R2 (CHEAP, CPU <30min) -- V_C-sweep: V_C={512, 1024, 2048}; K-degradation at V_C=256 suggests finer vocabulary needed BEFORE K-extension; K at fine V_C may show positive benefit. Active from v421.
+R3 (MEDIUM, GPU <2h) -- SQ-2 composition: replace VQ with SQ-2 multi-hop architecture; bypasses V_C ceiling entirely. Active from v421.
+R6 (CHEAP, CPU <30min) -- K-degradation diagnosis: run K={1,2} at V_C={256,512} jointly; confirms V_C x K interaction; K=2 at V_C=512 is expected to show neutral or positive effect vs K=2 at V_C=256=-4%. Lowest-cost new diagnosis. NOT-AUTO-DISPATCHED.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v428 -> v429)
+- PROT-004/006: No closures. V3 HF rescues R2+R3 active from v421; R6 filed. V1+V2 MIDDLE_BAND sub-prop annotations.
+- PROT-007: v429 history row appended to substrate_capability_map_history.md.
+- PROT-008: Validator skipped (annotation-only; no row state changes; no portfolio changes; 0 LVH; MIDDLE_BAND x2 + HF x1 sub-prop only).
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 341st PROT-009 paired commit.
+- PROT-018: All 3 anchors no _nN suffix (N not binding for these task types). CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 ratio 1.22x/1.34x/1.24x normal seed variance; V2 all-identical seeds (deterministic 300-question sampling -- noted); V3 K-degradation monotonic all 3 seeds (deterministic signal).
+
+Cap_map: v428 -> v429 CYCLE 100 (1 HF: ex_concept_strong_baselines_llama1b SIXTH-V_C256-LLAMA1B-K-DEGRADES-MONOTONIC; 2 MID: cognitive_core_e2e_pythia RULE8-CERT-1.27x-PARTIAL + medical_qa_no_umls DELETION-CERT-OPERATIONAL-MEDQA-MARGINAL; 0 HP; 0 LVH; PP-8+PP-9+PP-3 sub-prop annotations x3; R6 K-diag filed; HONEST 925->928; LVH 222; Portfolio 32+77; 341st PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
