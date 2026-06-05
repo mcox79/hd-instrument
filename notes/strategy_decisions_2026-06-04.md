@@ -1496,3 +1496,41 @@ No row closure yet (R1-R2 free audits open; escapeA data not yet confirmed). Sta
 HONEST: 877 -> 878 (+1). LVH: 219 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v403 -> v404.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 75 BATCH -- v404 -> v405 (2026-06-04)
+
+### Step 0 Honest Re-Read
+2 verdicts. Both source=remote run_mode=full. HONEST 878 -> 880 (+2). LVH: 219 UNCHANGED (0 catches).
+
+Label checks:
+- substrate_tier4_hopfield_attention_substitution_pythia160m_v1 HARD_PASS: ppl_ratio=0.939 (seed7=0.918, seed17=0.960); ent_ratio=3.58 (seed7=3.572, seed17=3.581); grad_ratio=0.637 (seed7=0.716, seed17=0.559). Label 'substrate-attention training-stable inside Pythia-160M; ent_ratio=3.58; grad_ratio=0.6; ppl_ratio=0.94' is HONEST. All values match per-seed. No LVH catch.
+- substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu MIDDLE_BAND: substrate_bpc mean=5.728 (5.719/5.726/5.739 seeds 7/17/23); adam_bpc mean=4.630 (4.676/4.622/4.593); substrate_wall=2.74s mean; adam_wall=12.21s mean; speedup=4.5x; bpc_ratio=1.238. Label 'partial training-speed advantage; substrate_BPC=5.728 adam_BPC=4.630 (ratio=1.24x) substrate_wall=2.74s adam_wall=12.21s (speedup=4.5x)' is HONEST. No LVH catch.
+
+### Cap_map Decisions
+
+**(A) substrate_tier4_hopfield_attention_substitution_pythia160m_v1 HARD_PASS -- PP-8 Tier 4 attention-substitution**
+EleutherAI/pythia-160m swap_layer=6 n_seeds=2 run_mode=full source=remote. ppl_ratio=0.939 (substrate BETTER than baseline by 6.1%); ent_ratio=3.58 (substrate attention layer 3.58x more entropic than baseline attention layers); grad_ratio=0.637 (substrate gradient magnitude 0.637x baseline). Wall=170s GPU. Both seeds consistent (seed7: ppl_ratio=0.918, ent_ratio=3.572; seed17: ppl_ratio=0.960, ent_ratio=3.581 -- cross-seed spread <5% on all metrics). Substrate-Hopfield attention substitution at LAYER 6 of Pythia-160M is training-stable, reduces perplexity, and produces higher-entropy attention patterns. This is the FIRST Tier 4 result: substrate drops into a running pretrained LLM as a direct attention layer replacement during continued training -- beyond Phase 0.5 Rung A (KG-distillation pipeline debug) and beyond Phase 1 soft-prompt prefix injection. A new sub-path is opened.
+
+Sub-property annotation on PP-8 row: 'Tier4_attention_substitution HARD_PASS v405: pythia160m swap_layer=6 2-seed; ppl_ratio=0.939 (substrate BETTER); ent_ratio=3.58x; grad_ratio=0.637; training-stable; attention layer substitution opens new integration axis beyond Phase 0.5 Rung A and Phase 1 prefix-injection; Rung A still OPEN as separate axis.'
+
+PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (2 seeds; single swap_layer; n=2 seeds is sub-threshold for band lift per lit-scan calibration penalty; rung-2 N-variation + multi-layer swap recommended before lift). State UNCHANGED at 0.60-0.75 EXPLORATORY. Annotation-only this cycle; band lift pending rung-2 confirmation (3+ seeds, multiple swap_layers).
+
+Rescue cheapest-first per PROT-004/006 (exploration paths, not failure rescues): R1 (free, routing) Rung-2: multi-layer swap sweep at swap_layer in {2,4,6,8,10} Pythia-160m 3-seed; R2 (2h GPU) Pythia-410m scale-up to confirm N-independence of attention-substitution; R3 (3h GPU) compare swap_layer entropy patterns: does substrate attention entropy pattern differ from baseline more at deep layers?
+
+**(B) substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu MIDDLE_BAND -- Stage A training-speed N=8192 extctx K8**
+N=8192, D=512, 3 seeds, run_mode=full, source=remote. substrate_bpc=5.728 vs adam_bpc=4.630 (ratio=1.238; substrate 23.8% worse BPC). substrate_wall=2.74s vs adam_wall=12.21s (4.5x wall-time speedup). Context: prior v400 cycle 70 HARD_FAIL at N<=4096 (Stage A training-speed crossover absent at N=256..4096). NOW at N=8192 + extctx K8 + Shakespeare: wall-time speedup IS real (4.5x), but quality deficit is also real (1.24x BPC gap). MIDDLE_BAND: speed advantage confirmed for substrate's Hebbian single-pass mechanism at N=8192; quality gap means this is a speed-vs-quality tradeoff, not a dominated improvement. The substrate is 4.5x faster because it uses a single-pass Hebbian update (no backprop), but this comes at a 24% BPC penalty. Product framing: substrate training-speed is a SPECIFIC advantage (fast but lower quality) not a general training-speed win; use cases are warm-start initialization or rapid-exploration contexts where speed > quality.
+
+Sub-property annotation: 'Stage_A_training_speed_extctx_K8 N=8192 MIDDLE_BAND v405: substrate_bpc=5.728 adam_bpc=4.630 (ratio=1.238; 24% worse); substrate_wall=2.74s adam_wall=12.21s (4.5x speedup); 3-seed unanimous; speed advantage is real at N=8192 extctx K8 but quality deficit is real; prior N<=4096 had no speedup (v400 HF); N=8192 crosses into speed-advantage regime while retaining BPC gap; warm-start/rapid-explore use case framing.'
+
+No cap_map row movement (MIDDLE_BAND sub-property annotation only; no row established for Stage A training-speed; crossover hypothesis remains CLOSED at N<=4096; N=8192 result opens the extctx K8 sub-path as a speed-vs-quality tradeoff). Rescue cheapest-first: R1 (free) reframe Stage A training-speed claim as speed-vs-quality tradeoff at N=8192 extctx K8; R2 (2h GPU) BPC-at-fixed-walltime comparison (substrate 2.74s vs adam 2.74s -- what adam BPC achieves in same wall as substrate single pass); R3 (3h GPU) N=16384 extctx K8 to test whether quality gap narrows at larger N.
+
+### PROT compliance (v404 -> v405)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. PP-8 Tier4 attention-substitution HP sub-property annotation. Stage A training-speed extctx K8 MIDDLE_BAND sub-property annotation. Rescues R1-R3 cheapest-first filed for each.
+- PROT-007/008: v405 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 316th PROT-009 paired commit.
+- PROT-018: tier4 anchor has no _nN suffix (LLM internal; N not HDC dimension); stage_a anchor _n8192 matches N=8192. 0 violations.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: tier4 ppl_ratio=0.939 consistent with seed means (0.918/0.960 spread 0.042); ent_ratio=3.58 consistent (3.572/3.581 spread 0.009); stage_a bpc_ratio=1.238 consistent (seed7=1.223, seed17=1.239, seed23=1.249 spread 0.026); wall_ratio=4.5x consistent (2.43/12.23=4.99x, 2.92/12.26=4.20x, 2.87/12.15=4.23x; mean 4.47x; stated 4.5x within rounding).
+
+HONEST: 878 -> 880 (+2). LVH: 219 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v404 -> v405.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

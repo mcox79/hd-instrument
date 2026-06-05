@@ -9748,3 +9748,49 @@ Sub-property annotation appended to Stage A bio B5 row: 'B5 escapeB HARD_FAIL v4
 - PROT-022: none=0.811 consistent 3 seeds; ordered/none<1.0 all seeds (0.977, 0.974, 0.990); internally consistent.
 
 Cap_map: v403 -> v404 CYCLE 74 (1 HF: b5_escapeB_cfrpe_weighted_replay; 0 HP; 0 MID; 0 LVH; B5 sub-property annotation; HONEST 877->878; LVH 219; Portfolio 32+77; 315th PROT-009 paired commit) (2026-06-04)
+
+# v405 update (2026-06-04) -- CYCLE 75: 1x HARD_PASS (substrate_tier4_hopfield_attention_substitution_pythia160m_v1) + 1x MIDDLE_BAND (substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu); 0 LVH; PP-8 Tier4 attention-substitution sub-property annotation; Stage-A extctx K8 speed sub-property annotation; HONEST 878->880; LVH 219 UNCHANGED; Portfolio 32+77; 316th PROT-009 paired commit
+
+## CYCLE 75 BATCH -- v404 -> v405 (2026-06-04)
+
+2 verdicts. Both source=remote run_mode=full. 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest check |
+|---|--------|---|-------|---------|-------------|
+| 1 | substrate_tier4_hopfield_attention_substitution_pythia160m_v1 | LLM (swap_layer=6) | 2 | HARD_PASS | ppl_ratio=0.939 (seed7=0.918 seed17=0.960); ent_ratio=3.58; grad_ratio=0.637; honest |
+| 2 | substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu | 8192 | 3 | MIDDLE_BAND | substrate_bpc=5.728 adam_bpc=4.630 (ratio=1.238); substrate_wall=2.74s adam_wall=12.21s (speedup=4.5x); honest |
+
+**(A) substrate_tier4_hopfield_attention_substitution_pythia160m_v1 HARD_PASS -- PP-8 Tier 4 attention-substitution first result**
+EleutherAI/pythia-160m, swap_layer=6, 2 seeds, source=remote. ppl_ratio=0.939 (substrate 6.1% BETTER perplexity than baseline); ent_ratio=3.58 (substrate layer 3.58x more entropic than other layers); grad_ratio=0.637 (substrate gradient 0.637x baseline magnitude). Cross-seed consistent: seed7 ppl_ratio=0.918/ent_ratio=3.572; seed17 ppl_ratio=0.960/ent_ratio=3.581 (spread <5%). This is the FIRST Tier 4 result: substrate replaces an actual Hopfield-based attention layer inside a running pretrained LLM and the model trains stably while improving perplexity. Opens a new integration axis beyond Phase 0.5 Rung A (KG-distillation debug) and beyond Phase 1 (soft-prompt prefix injection).
+
+Plain-language: We replaced one of Pythia-160M's attention layers with the substrate's Hopfield-style memory layer and let the model keep training. The model trained stably and actually got BETTER at predicting text (6% lower perplexity). The substrate attention layer also produces more diverse, higher-entropy attention patterns than the baseline layers -- a sign it is capturing different, potentially richer information.
+
+Capability implication: Substrate can act as a drop-in attention replacement inside a real LLM during training, not just at inference time. This is a qualitatively new integration axis: Tier 4 architectural substitution opens the pathway to substrate-native attention mechanisms in production LLMs.
+
+Sub-property annotation on PP-8 row: 'Tier4_attention_substitution HARD_PASS v405: pythia160m swap_layer=6 2-seed run_mode=full; ppl_ratio=0.939 (substrate BETTER by 6.1%); ent_ratio=3.58x; grad_ratio=0.637; training-stable; first attention-layer substitution result; opens Tier 4 integration axis; rung-2 (3+ seeds multi-layer) recommended for band lift.'
+
+PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (n=2 seeds single swap_layer; sub-threshold for band lift per lit-scan calibration penalty). Rescue-exploration paths cheapest-first: R1 (free, routing) multi-layer sweep swap_layer in {2,4,6,8,10} Pythia-160m 3-seed; R2 (2h GPU) Pythia-410m scale-up; R3 (3h GPU) entropy pattern comparison across all layers.
+
+**(B) substrate_stage_a_training_speed_full_shakespeare_extctx_K8_v1_n8192_gpu MIDDLE_BAND -- Stage A training-speed N=8192 extctx K8**
+N=8192, D=512, 3 seeds, source=remote. substrate_bpc=5.728 vs adam_bpc=4.630 (ratio=1.238; substrate 23.8% worse BPC); substrate_wall=2.74s vs adam_wall=12.21s (4.5x wall-time speedup). Context: v400 cycle 70 Stage A crossover HARD_FAIL at N<=4096 (speedup absent). At N=8192 extctx K8 + Shakespeare: wall-time speedup IS real (4.5x from single-pass no-backprop), but quality deficit is also real (24% BPC gap). MIDDLE_BAND correct: speed advantage confirmed, quality deficit persists. Product framing: Stage A substrate training is a speed-vs-quality tradeoff at N=8192 extctx K8, not a dominated win.
+
+Plain-language: We compared substrate single-pass training (no backprop, Hebbian update) to Adam optimizer training at N=8192 on Shakespeare text with K=8 context. The substrate is 4.5x faster but produces text predictions that are 24% worse. This is a genuine speed-quality tradeoff: substrate can initialize or explore faster, but Adam achieves better final quality.
+
+Capability implication: Substrate has a real training-speed advantage at N=8192 extctx K8 in the specific warm-start or rapid-exploration context where speed matters more than per-step quality. The crossover into speed-advantage territory is confirmed at N=8192 (vs N<=4096 where substrate was universally slower). Quality gap must be closed by follow-on architecture work before speed claim becomes unconditional.
+
+Sub-property annotation: 'Stage_A_training_speed_extctx_K8 N=8192 MIDDLE_BAND v405: substrate_bpc=5.728 adam_bpc=4.630 (ratio=1.238 worse); substrate_wall=2.74s adam_wall=12.21s (4.5x speedup); 3-seed unanimous; speed-advantage regime at N=8192 extctx K8 confirmed; prior N<=4096 HF (v400) still valid; speed-vs-quality tradeoff; warm-start/rapid-explore use case; R1: BPC-at-fixed-walltime comparison; R2: N=16384 extctx K8 gap-narrowing test.'
+
+No row movement (MIDDLE_BAND annotation only; Stage A training-speed sub-path opened at N=8192 extctx K8; no band trigger).
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 878 -> **880** (+2).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches).
+
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. PP-8 Tier4 HP sub-property annotation. Stage-A extctx K8 MID sub-property annotation. Rescues R1-R3 cheapest-first filed each. No PROT-004 closure triggers.
+- PROT-007/008: v405 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 316th PROT-009 paired commit.
+- PROT-018: tier4 anchor no _nN suffix (LLM internal; HDC-N not applicable); stage_a anchor _n8192 confirmed N=8192. 0 violations.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: tier4 ppl_ratio=0.939 consistent (seed7=0.918, seed17=0.960; spread=0.042); ent_ratio=3.58 (seed7=3.572, seed17=3.581; spread=0.009); stage_a bpc_ratio mean=1.238 (seed7=1.223, seed17=1.239, seed23=1.249; spread=0.026); wall speedup mean=4.47x (seed7=5.03x, seed17=4.20x, seed23=4.23x; stated 4.5x within rounding tolerance).
+
+Cap_map: v404 -> v405 CYCLE 75 (1 HP: tier4_hopfield_attention_substitution; 1 MID: stage_a_extctx_K8; 0 HF; 0 LVH; PP-8 Tier4 attention-substitution sub-property + Stage-A extctx K8 sub-property; HONEST 878->880; LVH 219; Portfolio 32+77; 316th PROT-009 paired commit) (2026-06-04)
