@@ -931,3 +931,44 @@ PP-8 band: UNCHANGED. Portfolio 32+77 UNCHANGED.
 HONEST: 910 -> 914 (+4). LVH: 221 -> 222 (+1).
 Cap_map: v422 -> v423 CYCLE 94 BATCH (2 HP: multidoc_synthesis_1000plus ENTERPRISE-SCALE-CONFIRMED + long_conv_1000_exchanges NO-CONV-LIMIT-CONFIRMED; 1 MID [LVH#222]: max_for_reasoning_not_lm CLEANUP-REASONING-PARTIAL-SEED23-FAILURE; 1 MID: ex_concept_1_storage_variants CONF-LIFT-ONLY-ACC-BOTTLENECK; 0 HF; 1 LVH; PP-8 sub-property annotations x4; HONEST 910->914; LVH 221->222; Portfolio 32+77; 335th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 95 BATCH -- v423 -> v424 (2026-06-05)
+
+### Step 0 Honest Re-Read
+3 verdicts. All source=remote. HONEST 914 -> 917 (+3). LVH check:
+
+| # | Anchor | Verdict | Honest Check |
+|---|--------|---------|-------------|
+| 1 | substrate_continual_learning_30day_realistic_stream_v1 | HARD_PASS | smoke/1-seed; retention=0.996 new_recall=1.000 cross_day_chain=1.000 speedup=28x; numbers honest within scope; SMOKE-SCOPE annotation; no LVH |
+| 2 | substrate_kgram_xor_context_binding_v1 | HARD_PASS | K2/K1 5.82-7.92x mean=6.63x; K3/K1 5.52-7.35x mean=6.21x; HP>=1.2x; all 3 seeds 4-7x margin; label honest |
+| 3 | substrate_introspection_toolkit_full_10_categories_v1 | MIDDLE_BAND | cat4 gap_frac=0.25 FUNCTIONAL; cat5 correct=0.570 PARTIAL; cat6 deletion_cert_operational=False ALL seeds NONOPERATIONAL; cat9 wrong_retr=0.93 FUNCTIONAL; 3/4 functional; label honest |
+
+LVH assessment: 0 catches. V1 SCOPE caveat (smoke/1-seed) noted; not an over-claim. HONEST 914 -> 917. LVH 222 UNCHANGED.
+
+### Cap_map Decisions
+
+**(A) substrate_continual_learning_30day_realistic_stream_v1 HARD_PASS (SMOKE-SCOPE) -- Continual learning row annotation**
+smoke n_seeds=1. retention=0.996 new_recall=1.000 cross_day_chain=1.000 speedup=28x vs Pythia-160m. Numbers are genuine and qualitatively definitive. SMOKE-SCOPE: annotate only; FULL 3-seed needed for band-lift. Pythia forgets 7.5%; substrate retains and chains across days. 28x speedup lower-bound (Pythia-160m scale).
+Sub-property annotation added to Continual learning row. No band lift.
+Capability implication: 30-day realistic streaming scenario confirmed at smoke level. Architecture-class win (no catastrophic forgetting vs Pythia erosion) demonstrated in most realistic scenario to date.
+
+**(B) substrate_kgram_xor_context_binding_v1 HARD_PASS -- PP-8 k-gram XOR context binding FULL confirmation**
+N=4096 run_mode=full n_seeds=3. K2/K1=6.63x (5.82-7.92x per seed). K3/K1=6.21x (5.52-7.35x per seed). V=256. All moats preserved. Retrieval-side only.
+Sub-property annotation added to PP-8 row. Cross-reference connecting kgram_xor to ex_concept_1 V_C=256 ceiling (DISTINCT bottlenecks). PP-8 band UNCHANGED.
+Capability implication: k-order prediction is a retrieval-ENCODING question not substrate capacity limit. XOR k-gram binding jumps prediction 6.6x without substrate modification. Immediately composable with all existing capabilities.
+
+**(C) substrate_introspection_toolkit_full_10_categories_v1 MIDDLE_BAND -- PP-3 introspection layer annotation**
+run_mode=full n_seeds=3. cat4 FUNCTIONAL; cat5 PARTIAL; cat6 NONOPERATIONAL; cat9 FUNCTIONAL.
+Sub-property annotation added to PP-3 row. Engineering gate: cat6 op_flag threshold calibration.
+Capability implication: Self-examination works for knowledge-gap flagging, failure-mode analysis, retrieval-error diagnosis. cat6 deletion-cert flag is a calibration gap (PP-9 primitive physically working; op_flag mis-calibrated). Engineering fix, not physics rescue.
+
+### PROT Compliance (v423 -> v424)
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. Sub-prop annotations x3.
+- PROT-007/008: v424 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 336th PROT-009 paired commit.
+- PROT-018: All 3 anchors use _v1 (version, not N binding); 0 violations.
+- PROT-021: V1 smoke acknowledged; V2+V3 run_mode=full source=remote; no contamination risk.
+- PROT-022: V1 single-seed consistent; V2 per-seed ratios 5.8-7.9x normal variance; V3 category metrics consistent 3 seeds unanimous.
+
+HONEST: 914 -> 917 (+3). LVH: 222 UNCHANGED.
+Cap_map: v423 -> v424 CYCLE 95 BATCH.

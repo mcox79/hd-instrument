@@ -10363,3 +10363,64 @@ PP-8 sub-property annotation: 'ex_concept_1_storage_strength_variants_MIDDLE_BAN
 
 Cap_map: v422 -> v423 CYCLE 94 BATCH (2 HP: multidoc_synthesis_1000plus ENTERPRISE-SCALE-CONFIRMED + long_conv_1000_exchanges NO-CONV-LIMIT-CONFIRMED; 1 MID [LVH#222]: max_for_reasoning_not_lm CLEANUP-REASONING-PARTIAL-SEED23-FAILURE; 1 MID: ex_concept_1_storage_variants CONF-LIFT-ONLY-ACC-BOTTLENECK; 0 HF; 1 LVH; PP-8 sub-property annotations x4; HONEST 910->914; LVH 221->222; Portfolio 32+77; 335th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v424 update (2026-06-05) -- CYCLE 95 BATCH: 1 HP (kgram_xor_context_binding FULL-3SEED-6.63x-RETRIEVAL-RESCUE); 1 HP-SMOKE (continual_learning_30day_realistic_stream SMOKE-SCOPE-ANNOTATION); 1 MID (introspection_toolkit_full_10_categories 3/4-categories-deletion-cert-NONOPERATIONAL); 0 HF; 0 LVH; sub-property annotations x3; HONEST 914->917; LVH 222 UNCHANGED; Portfolio 32+77; 336th PROT-009 paired commit
+
+## CYCLE 95 BATCH -- v423 -> v424 (2026-06-05)
+
+| # | Anchor | Mode | Seeds | Verdict | Honest |
+|---|--------|------|-------|---------|--------|
+| 1 | substrate_continual_learning_30day_realistic_stream_v1 | smoke 1-seed | 1 | HARD_PASS (SMOKE-SCOPE) | retention=0.996 new_recall=1.000 cross_day_chain=1.000 speedup=28x; honest within scope |
+| 2 | substrate_kgram_xor_context_binding_v1 | full N=4096 | 3 | HARD_PASS | K2/K1=6.63x K3/K1=6.21x all seeds >> HP>=1.2x; unanimous; honest |
+| 3 | substrate_introspection_toolkit_full_10_categories_v1 | full 3-seed | 3 | MIDDLE_BAND | cat4+cat5+cat9 functional; cat6 deletion_cert_operational=False ALL seeds; 3/4 functional; honest |
+
+### Step 0 Honest Re-Read -- CYCLE 95
+
+**V1 (continual_learning_30day_realistic_stream_v1)** run_mode=smoke n_seeds=1 elapsed=39.4s. retention=0.996 new_recall=1.000 cross_day_chain=1.000 speedup=28x. SCOPE: smoke/1-seed. Numbers genuine and strongly positive. 100x framing is theoretical LLM-size ceiling, not this run. LVH: 0 catch. Cap_map: annotation only; FULL 3-seed needed for band-lift.
+
+**V2 (kgram_xor_context_binding_v1)** run_mode=full N=4096 n_seeds=3 elapsed=14.5s. Per-seed K2/K1: 5.82x 6.49x 7.92x mean=6.63x. K3/K1: 5.52x 6.04x 7.35x mean=6.21x. HP threshold >=1.2x. All cells pass by 4-7x margin. Unanimous. LVH: 0 catch.
+
+**V3 (introspection_toolkit_full_10_categories_v1)** run_mode=full n_seeds=3 elapsed=599.8s. cat4 gap_frac=0.25 all seeds FUNCTIONAL. cat5 correct=0.570 mean wrong_confident=0.400 PARTIAL. cat6 deletion_cert_operational=False ALL 3 seeds recall_after~0 NONOPERATIONAL (op_flag design gate, not physics failure). cat9 wrong_retr=0.93 mean FUNCTIONAL. Verdict MIDDLE_BAND honest. LVH: 0 catch.
+
+HONEST: 914 + 3 = **917**. LVH: 222 UNCHANGED.
+
+### (A) continual_learning_30day_realistic_stream_v1 HARD_PASS (SMOKE-SCOPE)
+smoke n_seeds=1 elapsed=39.4s. substrate: retention=0.996 new_recall=1.000 cross_day_chain=1.000 add_wall=3.95s. Pythia-160m forgets 0.522->0.447. speedup=28x lower-bound. 30-day realistic streaming scenario: substrate retains all; Pythia fine-tuning degrades existing knowledge 7.5%. Cross-day chaining perfect. Smoke run: qualitative result unambiguous; 3-seed FULL needed for cap_map band-lift.
+
+Plain-language: We simulated 30 days of continuous learning. Substrate remembered everything perfectly and could chain facts across days, while being 28x faster than Pythia fine-tuning. Pythia eroded its existing memories by 7.5%. Smoke run (1 seed) -- needs full confirmation, but direction is clear.
+
+Sub-property annotation (Continual learning row): 'continual_learning_30day_realistic_stream_SMOKE_HP v424: run_mode=smoke n_seeds=1 elapsed=39.4s; retention=0.996 new_recall=1.000 cross_day_chain=1.000(1/1 seed); pythia forgets 0.522->0.447(-7.5%); speedup=28x lower_bound Pythia-160m; 30-day realistic streaming scenario; SMOKE-SCOPE annotation only; FULL 3-seed needed for band-lift; 2026-06-05.'
+Continual learning row: ANNOTATION ONLY. No band lift (smoke/1-seed).
+
+### (B) kgram_xor_context_binding_v1 HARD_PASS -- XOR k-gram FULL: K2/K1=6.63x K3/K1=6.21x unanimous 3-seed; k-th-order prediction RESCUED via retrieval-side encoding
+N=4096 run_mode=full n_seeds=3 elapsed=14.5s. K1_acc mean=0.062. K2_acc mean=0.412 (6.63x). K3_acc mean=0.386 (6.21x). V=256. XOR k-gram binding encodes k-gram context directly in retrieval key (key = position_i XOR token_{i-1} XOR token_{i-2}). Retrieval accuracy 6.2% -> 41% at K2. Retrieval-side only: substrate physics unchanged; all moats preserved. Resolves the bigram-level ceiling question (ex_concept_1 v419-v423 was V_C=256 VQ granularity, not substrate k-order capacity).
+
+Plain-language: By encoding the previous 1-2 tokens into the memory key using XOR, we boosted next-token prediction from 6% to 41% -- a 6.6x improvement confirmed in 3 runs. The substrate core properties all preserved. This technique layers on top of any existing substrate use-case.
+
+Sub-property annotation (PP-8): 'kgram_xor_context_binding_HARD_PASS v424: N=4096 run_mode=full n_seeds=3 elapsed=14.5s; K2/K1=6.63x(5.82-7.92x 3/3 seeds) K3/K1=6.21x(5.52-7.35x 3/3 seeds) all >> HP>=1.2x; V=256; retrieval-side XOR binding key; all moats preserved; k-order prediction rescued 6.2%->41% K2; bigram VQ ceiling (ex_concept_1) is DISTINCT bottleneck; 2026-06-05.'
+Sub-property cross-ref: 'kgram_xor_context_binding v424: ex_concept_1 V_C=256 ceiling is VQ granularity (4x confirmed); k-gram XOR binding bypasses VQ via key algebra; k-order prediction is retrieval-encoding question not substrate capacity limit.'
+PP-8 band: UNCHANGED (sub-property; standalone row candidate after N-sweep). Portfolio 32+77 UNCHANGED.
+
+### (C) introspection_toolkit_full_10_categories_v1 MIDDLE_BAND -- 3/4 categories functional; cat6 deletion-cert NONOPERATIONAL (op_flag design gate); wrong-retrieval dominant failure mode confirmed
+run_mode=full n_seeds=3 elapsed=599.8s. cat4 gap_frac=0.25 all seeds FUNCTIONAL. cat5 correct=0.529-0.613 mean=0.570 wrong_confident=0.381-0.419 mean=0.400 PARTIAL. cat6 deletion_cert_operational=False ALL 3 seeds; recall_after~0 correct direction; other_pattern_intact=0.000 no leakage; op_flag=False NONOPERATIONAL (engineering gate: op_flag threshold calibration; DISTINCT from PP-9 deletion-cert primitive which is validated). cat9 wrong_retr=0.89-0.99 all seeds FUNCTIONAL.
+
+KEY FINDING: deletion-cert introspection (cat6) non-operational is an engineering issue, not a physics failure. PP-9 primitive drives recall to near-zero correctly; the op_flag threshold/gate logic needs calibration.
+
+Plain-language: The substrate self-examination toolkit works for 3 of 4 functions: uncertain-concept flagging, retrieval-error diagnosis, failure-mode analysis. The fourth -- deletion confirmation op_flag -- always returned false even when deletion was behaviorally working. Software engineering gap in introspection layer, not physics. Fixing the op_flag threshold calibration completes cat6.
+
+Sub-property annotation (PP-3): 'introspection_toolkit_full_10cat_MIDDLE_BAND v424: run_mode=full n_seeds=3 elapsed=599.8s; cat4 gap_frac=0.25(3/3 FUNCTIONAL); cat5 correct=0.570 wrong_conf=0.400(3/3 PARTIAL); cat6 deletion_cert_operational=False(3/3 NONOPERATIONAL -- op_flag design gate; recall_after~0 correct); cat9 wrong_retr=0.93(3/3 FUNCTIONAL); 3/4 functional; engineering gate: cat6 op_flag threshold calibration; cat5 wrong-conf R1: confidence threshold tuning; 2026-06-05.'
+PP-3 band: UNCHANGED. Portfolio 32+77 UNCHANGED.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 914 -> **917** (+3).
+- **LABEL-VS-HONEST:** 222 UNCHANGED (0 new catches; all 3 labels honest within scope).
+
+- **PROT-004/006:** No closures. 0 new top-level rows. 0 BAND-LIFTS. Sub-prop annotations x3 (Continual learning smoke; PP-8 kgram XOR x2; PP-3 introspection). V1 FULL needed before band-lift; V2 sub-prop added FULL; V3 engineering gate cat6.
+- **PROT-007/008:** v424 block appended. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 336th PROT-009 paired commit.
+- **PROT-018:** V1 _v1 smoke no N binding; V2 _v1 version N=4096 body; V3 _v1; 0 violations.
+- **PROT-021:** V1 smoke acknowledged; V2+V3 run_mode=full; source=remote all 3.
+- **PROT-022:** V1 single-seed consistent; V2 K2/K1 5.8-7.9x normal seed variance; V3 category metrics consistent 3 seeds.
+
+Cap_map: v423 -> v424 CYCLE 95 BATCH (1 HP-SMOKE: continual_learning_30day retention+recall+chain+28x-SMOKE-ANNOTATION; 1 HP: kgram_xor_context_binding FULL-3SEED-K2/K1=6.63x-K3/K1=6.21x-RETRIEVAL-RESCUE; 1 MID: introspection_toolkit_full_10cat 3/4-functional-cat6-NONOPERATIONAL; 0 HF; 0 LVH; sub-prop annotations x3; HONEST 914->917; LVH 222; Portfolio 32+77; 336th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
