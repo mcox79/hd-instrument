@@ -84,9 +84,9 @@ def run_seed(seed) -> Dict:
     g = np.random.default_rng(seed); n = N_SUB
     facts = [(i, int(g.integers(0, len(VAL))), int(g.integers(0, N_THREADS))) for i in range(E)]  # (ent, val, thread)
     lines = ["[thread%d] %s is %s" % (th, ent_name(e), VAL[v]) for (e, v, th) in facts]
-    EK = ub(E, n, g); EV = ub(len(VAL), n, g); W = np.zeros((n, n), dtype=np.float32)
-    for (e, v, th) in facts:
-        cfrpe(W, EK[e], EV[v], n)
+    EK = ub(E, n, g); EV = ub(len(VAL), n, g)
+    ents = np.array([e for (e, v, th) in facts]); vlist = np.array([v for (e, v, th) in facts])
+    W = (EV[vlist].T @ EK[ents]).astype(np.float32)        # batched Hebbian (sequential cf-RPE too slow at E=10k)
     full_ctx = "\n".join(lines)
     sub_by_depth = {}; py_by_depth = {}
     for d in DEPTHS:
