@@ -15,3 +15,5 @@
 After cleanup the CPU lane will drain the 16 pending (working_memory is now shrunk to ~2-3min so a re-pull is cheap).
 GPU lane is healthy (draining + I topped it up). I cannot kill PIDs (blocked -- your lane).
 **END.**
+
+## UPDATE 18:15 (3rd escalation): CPU STILL frozen -- completed=541 unchanged across 3 ticks (~75min), working_memory_loop_v1 still running, runners=4. GPU also went idle once (I refilled). The stale AppData runner pair + orphan MUST be killed for CPU to drain. URGENT.
