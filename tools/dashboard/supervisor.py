@@ -52,7 +52,13 @@ def main() -> int:
     p.add_argument("--cooldown-multiplier", type=float, default=5.0)
     args = p.parse_args()
 
-    venv_python = HERE / ".venv" / "Scripts" / "python.exe"
+    # Use pythonw.exe (windowless variant) to spawn uvicorn — python.exe is a
+    # wrapper that re-execs the real interpreter and silently drops the parent's
+    # DETACHED_PROCESS flag, so a console gets created anyway. pythonw.exe never
+    # creates a console under any circumstance.
+    venv_python = HERE / ".venv" / "Scripts" / "pythonw.exe"
+    if not venv_python.is_file():
+        venv_python = HERE / ".venv" / "Scripts" / "python.exe"
     if not venv_python.is_file():
         log(f"ERROR: venv python not found at {venv_python}")
         return 1
@@ -76,12 +82,18 @@ def main() -> int:
         ]
         log(f"launching child: {' '.join(cmd)}")
         child_start = time.time()
+        # DETACHED_PROCESS: child gets NO console. Survives parent console close
+        # (CTRL_CLOSE_EVENT) which is suspected to be killing uvicorn after the
+        # spawning PowerShell session ends. CREATE_NEW_PROCESS_GROUP is NOT enough
+        # — the process still inherits the parent's console handle.
+        DETACHED_PROCESS = 0x00000008
+        flags = DETACHED_PROCESS | getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
         try:
             with open(out_log, "ab") as out_f, open(err_log, "ab") as err_f:
                 proc = subprocess.Popen(
                     cmd, cwd=str(HERE),
-                    stdout=out_f, stderr=err_f,
-                    creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0),
+                    stdout=out_f, stderr=err_f, stdin=subprocess.DEVNULL,
+                    creationflags=flags,
                 )
             rc = proc.wait()
             uptime_s = time.time() - child_start
