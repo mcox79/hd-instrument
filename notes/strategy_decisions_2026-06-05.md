@@ -311,3 +311,47 @@ PP-9 + product-feature row sub-property annotation. 10K facts N=10000: all corre
 
 Cap_map: v433 -> v434 CYCLE 105 [label-vs-honest] (1 LVH: substrate_capacity_scaling_sweep_v1 HARD_PASS->MIDDLE_BAND alpha-stable-over-claim 33%-regime-shift-at-N4096 identical-5-seeds; 1 HP: hp12_v1_demo_scale_10k_facts CORRECTNESS-CEILING-10K-WRITE-LATENCY-NOTE; 1 MID: hp12_v2_crypto_2048_gmpy2 DELETE-2.2MS-V2-USABLE; HONEST 941->944; LVH 222->223; Portfolio 32+77; 346th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v434 -> v435 CYCLE 106 BATCH: 3 DUPLICATE re-runs (no new action) + 1 NEW MIDDLE_BAND (e2e_pythia_v2xl); 0 LVH; 0 HP; 0 HF; annotation-only; HONEST 944->945; LVH 223 UNCHANGED
+
+### Step 0 honest re-read (4 anchors)
+
+Anchors 1-3 are confirmed DUPLICATES of prior cycle verdicts:
+- substrate_cognitive_core_analogical_v1: metrics identical to v420/cycle-91 (sub=1.000(3/3) py~0.001(3/3) ratio=900x). Already committed. NO ACTION.
+- substrate_cognitive_core_counterfactual_v1: metrics identical to v419/cycle-90 (sub=1.000(3/3) retention=0.995-1.000(3/3) py=0.000(3/3) ratio=1e6x). Already committed. NO ACTION.
+- substrate_cognitive_core_architectural_advantage_v1: metrics identical to v419/cycle-90 (LONGCONV/CROSS-SESSION/MULTIDOC@50 all 1.00(3/3)). Already committed. NO ACTION.
+
+Anchor 4 substrate_cognitive_core_e2e_pythia_v2xl: NEW anchor. Label MIDDLE_BAND. Per-cell: sub=1.000(5/5) py_raw mean=0.769(range 0.738-0.796)(5/5) ratio mean=1.30x(range 1.257-1.356x)(5/5) single_evidence=1.000(5/5) cert_reconstructible=1.000(5/5). HONEST -- label correctly describes partial advantage. No LVH.
+
+HONEST: 944 -> 945 (+1 new anchor only). LVH: 223 UNCHANGED.
+
+### substrate_cognitive_core_e2e_pythia_v2xl MIDDLE_BAND (NEW)
+pythia-160m, n_q=3000/seed, run_mode=full, 5 seeds, source=remote, elapsed=2205.9s.
+substrate_core=1.000 ALL 5 seeds. pythia_raw: 0.796/0.751/0.792/0.738/0.770 mean=0.769.
+ratio: 1.257/1.332/1.263/1.356/1.298x (mean=1.30x, range 1.26-1.36x). ALL 5 seeds MIDDLE_BAND.
+single_evidence=1.000 ALL 5 seeds (Rule-8 combine gain confirmed). cert_reconstructible=1.000 ALL 5 seeds.
+
+Comparison vs v429 e2e_v1 (cycle 100): v1 was 3-seed n_q~1000/seed mean_ratio=1.27x. v2xl is 5-seed n_q=3000/seed mean_ratio=1.30x. Near-identical partial advantage at 2.2x higher statistical power. Partial advantage is STABLE and REAL, not a statistical artifact. Pythia non-zero baseline (75-80%) means categorical separation requires harder benchmarks, larger context windows, or domain-specific tasks.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_e2e_pythia_v2xl_MIDDLE_BAND v435: pythia-160m 5-seed n_q=3000 full elapsed=2206s; substrate_core=1.000(5/5); pythia_raw mean=0.769(range 0.738-0.796)(5/5); ratio mean=1.30x(range 1.257-1.356x)(5/5); single_evidence=1.000(5/5 Rule8-combine); cert_reconstructible=1.000(5/5); STABLE MIDDLE_BAND confirmed at 2.2x higher power vs v429 v1 (3-seed n_q~1000); partial advantage real; R1-R3 rescues active from v429; harder benchmarks needed for categorical separation.'
+
+### Cap_map decisions
+- e2e_pythia_v2xl: MIDDLE_BAND annotation only. PP-8 sub-property added. Band UNCHANGED (partial advantage stable at 1.30x; not new discovery; v429 R1-R3 rescues active).
+- No band lifts.
+- No new portfolio rows. No closures.
+
+### PROT compliance (v434 -> v435)
+- PROT-004/006: No closures. No new HF. v429 rescue sketches R1-R3 remain active for e2e partial-advantage gap (no new rescues needed for MIDDLE_BAND stable re-confirmation).
+- PROT-007: v435 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes; 0 LVH. Validator skipped.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 347th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: 5-seed variance normal (pythia_raw 0.738-0.796 expected LLM stochasticity; not HP-fragile).
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 944 -> 945 (+1). LVH: 223 UNCHANGED.
+
+Cap_map: v434 -> v435 CYCLE 106 (3 DUPLICATE re-runs no action; 1 MID: cognitive_core_e2e_pythia_v2xl STABLE-1.30x-5SEED-N_Q3000-PARTIAL-ADVANTAGE-CONFIRMED; 0 HP; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 944->945; LVH 223; Portfolio 32+77; 347th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

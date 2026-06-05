@@ -10814,3 +10814,25 @@ Product-feature row (HP-12 V1 demo) annotation:
 
 Cap_map: v433 -> v434 CYCLE 105 [label-vs-honest] (1 LVH: substrate_capacity_scaling_sweep_v1 HARD_PASS->MIDDLE_BAND alpha-stable-over-claim 33%-regime-shift-at-N4096 identical-5-seeds; 1 HP: hp12_v1_demo_scale_10k_facts CORRECTNESS-CEILING-10K-WRITE-LATENCY-NOTE; 1 MID: hp12_v2_crypto_2048_gmpy2 DELETE-2.2MS-V2-USABLE; HONEST 941->944; LVH 222->223; Portfolio 32+77; 346th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v435 update (2026-06-05) -- CYCLE 106 BATCH: 3 DUPLICATE re-runs (no new action) + 1 NEW MIDDLE_BAND (e2e_pythia_v2xl STABLE-1.30x-5SEED); annotation-only; 0 LVH; HONEST 944->945; LVH 223; Portfolio 32+77; 347th PROT-009 paired commit
+
+## CYCLE 106 BATCH -- v434 -> v435 (2026-06-05)
+
+### Duplicate handling
+substrate_cognitive_core_analogical_v1, substrate_cognitive_core_counterfactual_v1, substrate_cognitive_core_architectural_advantage_v1: all re-runs with metrics identical to prior v419-v420 (cycles 90-91) verdicts. No new cap_map action.
+
+### substrate_cognitive_core_e2e_pythia_v2xl MIDDLE_BAND (NEW)
+pythia-160m, n_q=3000/seed, run_mode=full, 5 seeds, source=remote, elapsed=2205.9s.
+substrate_core=1.000 ALL 5 seeds. pythia_raw mean=0.769 (range 0.738-0.796, 5/5 seeds MIDDLE_BAND).
+ratio mean=1.30x (range 1.257-1.356x). single_evidence=1.000 (5/5, Rule-8 combine gain). cert_reconstructible=1.000 (5/5).
+Stable MIDDLE_BAND confirmed at 2.2x higher statistical power vs v429 e2e_v1 (3-seed n_q~1000, ratio 1.27x). Partial advantage is real and reproducible. Pythia non-zero baseline (75-80%) implies categorical separation requires harder benchmarks or larger N_Q.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_e2e_pythia_v2xl_MIDDLE_BAND v435: pythia-160m 5-seed n_q=3000 full elapsed=2206s; substrate_core=1.000(5/5); pythia_raw mean=0.769(range 0.738-0.796)(5/5); ratio mean=1.30x(range 1.257-1.356x)(5/5); single_evidence=1.000(5/5 Rule8-combine); cert_reconstructible=1.000(5/5); STABLE MIDDLE_BAND confirmed at 2.2x higher power vs v429 v1; partial advantage real; R1-R3 rescues active from v429; harder benchmarks needed for categorical separation.'
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 944 -> 945 (+1). LVH: 223 UNCHANGED.
+
+Cap_map: v434 -> v435 CYCLE 106 (3 DUPLICATE re-runs no action; 1 MID: cognitive_core_e2e_pythia_v2xl STABLE-1.30x-5SEED-N_Q3000-PARTIAL-ADVANTAGE-CONFIRMED; 0 HP; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 944->945; LVH 223; Portfolio 32+77; 347th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
