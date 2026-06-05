@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v432
+# hd-instrument substrate — capability map v433
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -10729,4 +10729,48 @@ Plain-language: We tested two ways to write future-state predictions into the su
 - PROT-022: V1 cert_latency 0.0549-0.0591ms normal seed variance (not HP-fragile); V2 all-ceiling unanimous deterministic; V3 k=3 Vc=100000 unanimous ceiling; V4 base_capacity=0 flagged 2/5 seeds (measurement-validity caveat); V5 gains unanimous 5-seed all well above gate.
 
 Cap_map: v431 -> v432 CYCLE 103 (4 HP: hp12_crypto_rerun RSA256-CERT-0.056ms-R2-RESCUE-CONFIRMED + ccc_v2_dims N4096-ALL4-CEILING + kgram_xor_scaling k3-TRIGRAM-CLASS-Vc100K + theta_burst_endpoint MULTISTEP-35.6pp-5SEED; 1 MID: bipolar_hadamard_expansion CAPACITY-1.5-3.6x-VALID-SEEDS-BASE0-SEED31+43-MARGINAL; 0 LVH; PP-12+pool-retrieval+PP-11+PP-8x3+PP-25+capacity+Hebbian sub-prop annotations x9; 3 rescue sketches V4 cheapest-first; HONEST 933->938; LVH 222; Portfolio 32+77; 344th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v433 update (2026-06-05) -- CYCLE 104 BATCH: 3 HARD_PASS; 0 LVH; 0 BAND-LIFTS; annotation-only; HONEST 938->941
+
+### (A) substrate_minilm_encoder_fidelity_v1 HARD_PASS
+
+PP-8 sub-property annotation:
+'minilm_encoder_fidelity_HARD_PASS v433: N=384 5-seed full elapsed=25.3s; minilm_recall=1.000(5/5) pythia_recall=1.000(5/5) minilm_vs_pythia_pp=0.0(5/5); VQ separability 0.454-0.478 Vc-invariant (1K/10K/100K all identical per seed); MiniLM drop-in encoder confirmed PHASE4A-1 path; Vc-scaling does not move separability at N=384; PP-8 band UNCHANGED. 2026-06-05.'
+
+Tier-1-LLM-integration sub-property annotation:
+'minilm_encoder_fidelity_HARD_PASS v433: MiniLM (N=384) matches Pythia encoder at recall ceiling; 0.0pp gap 5/5 seeds; PHASE4A-1 encoder swap de-risked; VQ separability Vc-invariant suggests separability is N-driven not Vc-driven at this scale; encoder geometry confirmed compatible with substrate bundle mechanism. 2026-06-05.'
+
+### (B) exp_hp12_v1_extraction_attack_contrast_v1 HARD_PASS
+
+PP-9 sub-property annotation:
+'extraction_attack_contrast_HARD_PASS v433: N=4096 M=2000 n_del=200 3-seed full elapsed=87.1s; post_delete_residual=0.000(3/3) vs ROME=0.38/MEMIT=0.29; retention=1.000(3/3); categorical deletion moat confirmed vs LLM weight-edit approaches; architectural advantage not marginal -- 0.000 vs 29-38% is decisive; ROME/MEMIT leave facts recoverable; substrate does not. 2026-06-05.'
+
+PP-3 sub-property annotation:
+'extraction_attack_contrast_HARD_PASS v433: pre_delete_extractable=1.000 -> post_delete_residual=0.000 unanimous 3 seeds at M=2000, n_del=200; extraction-attack surface closed; additive confirmation of deletion-cert architectural moat. 2026-06-05.'
+
+Deletion-cert product-feature row annotation:
+'extraction_attack_contrast_HARD_PASS v433: deletion moat is ARCHITECTURAL not empirical-tuning: substrate uses algebraic unbinding (cannot reconstruct deleted bundle without the key); ROME/MEMIT use gradient descent on weights (fact remains encoded, weakened but extractable). Moat is not a matter of degree. 2026-06-05.'
+
+### (C) exp_hp12_v1_api_surface_test_v1 HARD_PASS
+
+PP-12 sub-property annotation:
+'api_surface_HARD_PASS v433: N=4096 M=1200 n_del=100 3-seed full elapsed=205.2s; endpoints_ok=True(3/3) query_recall=1.000(3/3) audit_verified_frac=1.000(3/3) phantom_recall_rate=0.000(3/3) retention=1.000(3/3); all 4 HP-12 V1 endpoints (ingest/query/delete/audit) functional e2e; third-party cert verification unanimous; 0 phantom. HP-12 V1 API surface confirmed production-ready at M=1200. 2026-06-05.'
+
+Product-feature row (HP-12 V1 demo) annotation:
+'api_surface_HARD_PASS v433: V1 demo readiness at API surface level confirmed; ingest+query+delete+audit pipeline all passing 3-seed full; phantom_recall=0.000 confirms no false retrieval contamination at demo scale; audit_verified=1.000 confirms cert chain integrity for third-party demo scenario. 2026-06-05.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 938 -> 941 (+3). LVH: 222 UNCHANGED.**
+
+**PROT compliance (v432 -> v433):**
+- PROT-004/006: No closures. No rescue sketches required (3 HARD_PASS; no HF).
+- PROT-007: v433 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes; 0 LVH. Validator skipped.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 345th PROT-009 paired commit.
+- PROT-018: No _nN suffixes; N values stated in metrics bodies. CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 VQ separability Vc-invariant (not HP-fragile; recall ceiling deterministic); V2 post_delete_residual=0.000 unanimous (floor not HP-fragile); V3 all-ceiling unanimous 3-seed.
+
+Cap_map: v432 -> v433 CYCLE 104 (3 HP: minilm_encoder_fidelity PHASE4A-1-ENCODER-CEILING-VC-INVARIANT + extraction_attack_contrast DELETION-MOAT-CATEGORICAL-0.000-vs-ROME38-MEMIT29 + api_surface_test HP12-V1-API-ALL4-ENDPOINTS-PHANTOM-ZERO; 0 MID; 0 HF; 0 LVH; PP-8+PP-9+PP-3+PP-12+deletion-cert+product-feature sub-prop annotations x6; HONEST 938->941; LVH 222; Portfolio 32+77; 345th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

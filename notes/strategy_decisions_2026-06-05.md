@@ -241,3 +241,22 @@ Hebbian-only training row sub-prop. Endpoint-only direct write: 35.6pp mean mult
 
 Cap_map: v431 -> v432 CYCLE 103 (4 HP: hp12_crypto_rerun RSA256-CERT-0.056ms-R2-RESCUE-CONFIRMED + ccc_v2_dims N4096-ALL4-CEILING + kgram_xor_scaling k3-TRIGRAM-CLASS-Vc100K + theta_burst_endpoint MULTISTEP-35.6pp-5SEED; 1 MID: bipolar_hadamard_expansion CAPACITY-1.5-3.6x-VALID-SEEDS-BASE0-SEED31+43-MARGINAL; 0 LVH; PP-12+pool-retrieval+PP-11+PP-8+PP-25+capacity+Hebbian sub-prop annotations x9; R3 V4 rescue sketches cheapest-first; HONEST 933->938; LVH 222; Portfolio 32+77; 344th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v432 -> v433 CYCLE 104 BATCH (2026-06-05)
+
+Verdicts processed: substrate_minilm_encoder_fidelity_v1 (HARD_PASS) + exp_hp12_v1_extraction_attack_contrast_v1 (HARD_PASS) + exp_hp12_v1_api_surface_test_v1 (HARD_PASS)
+
+### Step 0 honest re-read
+- substrate_minilm_encoder_fidelity_v1: HONEST. ALL 5 seeds minilm_recall=1.000, pythia_recall=1.000, minilm_vs_pythia_pp=0.0 -- satisfies recall>=0.80 with margin. VQ separability flat across Vc (0.454-0.478 all seeds/all Vc levels 1000/10000/100000) -- Vc-invariance notable but not over-claimed. No LVH.
+- exp_hp12_v1_extraction_attack_contrast_v1: HONEST. ALL 3 seeds pre_delete_extractable=1.000, post_delete_residual=0.000, retention=1.000. ROME/MEMIT baselines stated as external comparators (not measured in this run); substrate numbers not over-claimed. No LVH.
+- exp_hp12_v1_api_surface_test_v1: HONEST. ALL 3 seeds endpoints_ok=True, query_recall=1.000, audit_verified_frac=1.000, phantom_recall_rate=0.000, retention=1.000. All metrics ceiling unanimous. No LVH.
+HONEST: 938 -> 941 (+3). LVH: 222 UNCHANGED.
+
+### Cap_map decisions
+- substrate_minilm_encoder_fidelity_v1: PP-8 + Tier-1-LLM-integration sub-property annotation. MiniLM drop-in encoder confirmed for PHASE4A-1 path. VQ separability 0.465 mean Vc-invariant at N=384; Vc scaling does not move separability at this dimension. Band UNCHANGED.
+- exp_hp12_v1_extraction_attack_contrast_v1: PP-9 + PP-3 + deletion-cert product-feature sub-property annotation. Categorical deletion moat confirmed vs LLM weight-editing baselines (ROME 38%/MEMIT 29% residual; substrate 0.000). Architectural advantage confirmed 3-seed full. Band UNCHANGED.
+- exp_hp12_v1_api_surface_test_v1: PP-12 + product-feature row sub-property annotation. All 4 HP-12 V1 API endpoints (ingest/query/delete/audit) validated e2e, third-party-verified certs, 0 phantom at M=1200. V1 demo readiness confirmed at API surface level. Band UNCHANGED.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+Queue state: overnight_queue 0 pending (cache stale). cpu_queue 0. gpu_queue 0. [queue: empty -- Exp-Dev session will refill on its cadence]

@@ -1,3 +1,5 @@
 # visibility_decisions_2026-06-05
 
 2026-06-05 CYCLE 98 v426->v427: kgram_xor_real_llama1b MIDDLE_BAND (real Llama-1B XOR lift 1.17x vs synthetic 6.63x; V_C=256 ceiling persists; PP-8 sub-prop annotation) + kfact_combination_anchors MIDDLE_BAND (2/4: beta*+Rule8 confirm; transition-K mismatch+zero-resonator-disagree open; physics sub-prop annotation); 0 LVH; HONEST 922->924; LVH 222; Portfolio 32+77; band UNCHANGED both rows.
+CYCLE 101 v430 2026-06-05T15:39: 2 HARD_PASS (multimodal_binding_text_kg + continual_learning_distshift). PP-23 BAND-LIFT 🔬->🟢 0.40-0.55->0.55-0.70. HONEST 928->930. LVH 222. Commit 048239c. [queue: empty -- Exp-Dev session will refill on its cadence]
+CYCLE 104 (v432->v433): 3 HP -- minilm_encoder_fidelity (PHASE4A-1 encoder confirmed; Vc-invariant VQ separability), extraction_attack_contrast (deletion moat categorical: 0.000 vs ROME/MEMIT 29-38%), api_surface_test (all 4 HP-12 V1 endpoints ceiling; phantom=0; demo-ready). 0 LVH. HONEST 938->941. LVH 222. Portfolio 32+77. annotation-only. 345th PROT-009 commit. [2026-06-05]
