@@ -68,6 +68,16 @@ Exp-Dev's lane (substrate-side; built model-agnostic against this npz).
 """
 from __future__ import annotations
 
+import os
+# v8 fail-fast diagnostic fix: TOKENIZERS_PARALLELISM=false MUST be set BEFORE
+# the `transformers` / `tokenizers` import, otherwise huggingface/tokenizers
+# spawns its rayon thread pool BEFORE we can quiet it, and a subsequent
+# fork() (e.g. via HF datasets workers or our own multiprocessing) can
+# deadlock against the locked thread pool. v6 and v7 both hung silently on
+# Llama-3.2-1B with no traceback; this fork-after-parallelism deadlock is a
+# common silent-stall culprit. Set unconditionally and explicitly.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 import sys
 
 try:
@@ -186,8 +196,19 @@ SPLIT_TEST = 0.10
 # defensive in case a row is malformed long).
 MAX_TOK_LEN = 64
 
-# Progress reporting cadence
-PROGRESS_EVERY = 100
+# Progress reporting cadence (v8: 25 instead of 100 for 4x more frequent flush)
+PROGRESS_EVERY = 25
+
+# v8 fail-fast watchdog: if no doc completes within this many seconds, exit via
+# os._exit so the runner can re-queue from partial state instead of holding the
+# GPU forever. v6 hung at doc 70300; v7 hung at doc 0 -- both single-process
+# silent freezes. The script writes per-doc partials (write_partial_key) so a
+# watchdog-triggered exit loses only in-flight work, not completed docs.
+WATCHDOG_PER_DOC_TIMEOUT_S = 120
+
+# v8 shared progress timestamp (single-element list to allow watchdog thread
+# read + main thread write without `global` declaration noise).
+_LAST_DOC_COMPLETE_TS: list = [None]
 
 # ---------------------------------------------------------------------------
 # Run-mode + CLI
@@ -917,6 +938,52 @@ def main() -> int:
     print(f"  resume: {len(done_idx)} docs already cached; "
           f"will process {len(parsed) - len(done_idx)} remaining", flush=True)
 
+    # v8 fail-fast watchdog: spawn a daemon thread that monitors per-doc
+    # progress and exits via os._exit if no doc completes for
+    # WATCHDOG_PER_DOC_TIMEOUT_S. The runner can resume from the per-doc
+    # partials on next dispatch. v6 hung at doc 70300 for 20+ min silently;
+    # v7 hung at doc 0 for 30+ min silently. Both wasted GPU + blocked other
+    # work. This watchdog converts silent freezes into fast-fail exits.
+    import threading
+    _LAST_DOC_COMPLETE_TS[0] = time.monotonic()
+
+    def _watchdog():
+        # Periodic heartbeat-monitor; runs in daemon thread.
+        while True:
+            time.sleep(15)
+            last = _LAST_DOC_COMPLETE_TS[0]
+            if last is None:
+                continue
+            idle_s = time.monotonic() - last
+            if idle_s > WATCHDOG_PER_DOC_TIMEOUT_S:
+                msg = (f"\n[WATCHDOG] no doc completed in {idle_s:.1f}s "
+                       f"(threshold {WATCHDOG_PER_DOC_TIMEOUT_S}s); "
+                       f"presumed deadlock; exiting via os._exit(99). "
+                       f"Resume on next dispatch from per-doc partials.")
+                try:
+                    print(msg, flush=True)
+                except Exception:
+                    pass
+                try:
+                    (out_dir / "watchdog_exit.json").write_text(
+                        json.dumps({
+                            "idle_seconds": idle_s,
+                            "watchdog_timeout_s": WATCHDOG_PER_DOC_TIMEOUT_S,
+                            "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ",
+                                                            time.gmtime()),
+                        }, indent=2),
+                        encoding="utf-8",
+                    )
+                except Exception:
+                    pass
+                os._exit(99)
+
+    _watchdog_thread = threading.Thread(target=_watchdog, daemon=True)
+    _watchdog_thread.start()
+    print(f"  watchdog armed: will exit if no doc completes in "
+          f"{WATCHDOG_PER_DOC_TIMEOUT_S}s; PROGRESS_EVERY={PROGRESS_EVERY}",
+          flush=True)
+
     rng = np.random.default_rng(101)
     n_extracted = 0
     n_failed = 0
@@ -985,12 +1052,29 @@ def main() -> int:
                       f"({n_failed}/{doc_idx+1}); aborting", flush=True)
                 break
 
+        # v8 watchdog heartbeat: bump on every doc loop iteration (success OR
+        # failure path; both indicate the main loop is alive). Watchdog thread
+        # exits process if this timestamp goes stale beyond
+        # WATCHDOG_PER_DOC_TIMEOUT_S.
+        _LAST_DOC_COMPLETE_TS[0] = time.monotonic()
+
         if (doc_idx + 1) % PROGRESS_EVERY == 0 or doc_idx + 1 == len(parsed):
             wall = time.time() - t_extract
             mem_mb = _approx_mem_mb()
+            # v8 also log GPU memory (helps localize CUDA leaks / OOM-near-edge).
+            gpu_mem_str = ""
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    alloc_gb = torch.cuda.memory_allocated() / (1024 ** 3)
+                    reserved_gb = torch.cuda.memory_reserved() / (1024 ** 3)
+                    gpu_mem_str = (f" gpu_alloc_gb={alloc_gb:.2f} "
+                                   f"gpu_reserved_gb={reserved_gb:.2f}")
+            except Exception:
+                pass
             print(f"  progress: doc {doc_idx+1}/{len(parsed)} "
                   f"extracted={n_extracted} failed={n_failed} "
-                  f"wall_so_far={wall:.1f}s mem_mb={mem_mb:.1f}",
+                  f"wall_so_far={wall:.1f}s mem_mb={mem_mb:.1f}{gpu_mem_str}",
                   flush=True)
 
     extract_wall = time.time() - t_extract
