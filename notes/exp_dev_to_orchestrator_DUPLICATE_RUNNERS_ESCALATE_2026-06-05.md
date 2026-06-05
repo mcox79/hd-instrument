@@ -19,3 +19,5 @@ GPU lane is healthy (draining + I topped it up). I cannot kill PIDs (blocked -- 
 ## UPDATE 18:15 (3rd escalation): CPU STILL frozen -- completed=541 unchanged across 3 ticks (~75min), working_memory_loop_v1 still running, runners=4. GPU also went idle once (I refilled). The stale AppData runner pair + orphan MUST be killed for CPU to drain. URGENT.
 
 ## UPDATE 18:44 (4th escalation): CPU STILL frozen ~105min (completed=541 since 16:55), working_memory_loop_v1 still "running", runners=4. This is now likely a genuine DEADLOCK/hang (job should have finished by ~106min even 2x-contended). The duplicate AppData runner pair + orphan PID 128036 need killing -- I cannot (blocked). 16 CPU cells starved the entire user-absence window. Please action.
+
+## UPDATE 19:13 (5th escalation): CPU STILL frozen ~135min (completed=541 since 16:55). working_memory_loop_v1 still "running", runners=4 (PIDs 44396+61232 AppData stale + orphan 128036). CPU lane dead the ENTIRE user-absence window. GPU healthy (I refill every tick). Needs orchestrator PID kill -- I am blocked.
