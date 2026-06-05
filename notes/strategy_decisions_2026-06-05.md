@@ -1053,3 +1053,44 @@ PP-8 / adversarial row: UNCHANGED (sub-property annotation). Mode D failure note
 HONEST: 917 -> 920 (+3). LVH: 222 UNCHANGED.
 Cap_map: v423 -> v424 -> v425 CYCLE 96 BATCH (2 HP: long_conversation_10k CATEGORICAL-10x-scale + continual_learning_30day FULL-3SEED-UPGRADE-from-smoke; 1 MID: adversarial_failure_modes 3/4-predictable-Mode-D-unmitigated; 0 HF; 0 LVH; sub-prop annotations x3; HONEST 917->920; LVH 222; Portfolio 32+77; 337th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v426 update (2026-06-05) -- CYCLE 97 BATCH: 1 HP (audit_core_C2_C3_whitened_llama1b LLAMA1B-GENERALIZATION); 1 MID (ex_concept_1_real_llama1b V_C256-LLAMA1B-REPLICATION); 0 HF; 0 LVH; PP-9+PP-3+PP-8 sub-prop annotations x3; HONEST 920->922; LVH 222 UNCHANGED; Portfolio 32+77; 338th PROT-009 paired commit
+
+## CYCLE 97 BATCH -- v425 -> v426 (2026-06-05)
+
+### Step 0 Honest Re-Read
+2 verdicts. Anchor 1 source=remote (SSH direct; bridge stale). Anchor 2 source=remote. HONEST 920 -> 922 (+2). LVH check:
+
+| # | Anchor | Verdict | Honest Check |
+|---|--------|---------|-------------|
+| 1 | substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096 | HARD_PASS | C2={1.0,1.0,1.0} all seeds, C3_sep={15.51,15.49,15.60}x all >>10x HP; SCOPE NOTE: summary string says 'Pythia residuals' -- copy-paste text artifact; experiment is Llama-1B (anchor name authoritative); numbers honest; 0 LVH |
+| 2 | ex_concept_1_real_llama1b_concept_lm_v1 | MIDDLE_BAND | sub_top1={0.464,0.477,0.461} mean=0.467; bigram_top1={0.470,0.486,0.468} mean=0.475; below bigram ALL seeds by ~0.007; ratio_vs_unigram=11.45x; V_C=256 bottleneck; consistent Pythia ex_concept_1 series; label honest; 0 LVH |
+
+LVH assessment: 0 catches. Anchor 1 summary text 'Pythia residuals' is copy-paste artifact (not over-claim; numbers honest for HP). HONEST 920 -> 922 (+2). LVH 222 UNCHANGED.
+
+### Cap_map Decisions
+
+**(A) substrate_audit_core_C2_C3_whitened_llama1b_v1_n4096 HARD_PASS -- PP-9/PP-3 LLAMA-1B GENERALIZATION: audit-core C2+C3 both HP on Llama-1B with PCA-whitening at N=4096**
+N=4096, M=2000, 3 seeds, real_data=True, PCA-whitened, LLM=Llama-1B. C2_deletion_cert=1.000 all seeds. C3_sep=15.5x mean all seeds (>>10x HP). Unanimous. SECOND LLM-family confirmation: v408 Pythia-160m (C2=0.984 C3=11.0x); now Llama-1B (C2=1.000 C3=15.5x). Different architecture family, similar N/M regime, same PCA-whitening preprocessing. Establishes whitening+audit-core as cross-architecture pattern. Phase 0.5 audit-core path confirmed beyond single-model artifact. SCOPE NOTE: summary string in metrics.json says 'Pythia residuals' -- copy-paste from script template; anchor name and data path are authoritative (Llama-1B).
+Sub-property annotation on PP-9: 'audit_core_C2_C3_whitened_llama1b_HARD_PASS v426: N=4096 M=2000 3-seed real_data=True PCA-whitened LLM=Llama-1B; C2_cert=1.000(3/3 HP); C3_sep=15.5x mean(3/3 >>10x HP); SECOND LLM-family generalization (Pythia-160m v408 C2=0.984 C3=11.0x + Llama-1B v426 C2=1.000 C3=15.5x); whitening+audit-core cross-architecture confirmed; text artifact in summary (says Pythia; anchor authoritative Llama-1B); 2026-06-05.'
+Sub-property annotation on PP-3: 'audit_core_whitening_cross_architecture v426: Llama-1B replication confirms PCA-whitening required for C2 deletion-cert across LLM families; C3 separation 15.5x (Llama-1B) vs 11.0x (Pythia-160m v408); both >>10x HP; whitening+audit-core is architecture-agnostic prerequisite for Phase 0.5 deployment.'
+PP-9 band UNCHANGED (sub-property annotation only; cross-N and multi-M deferred).
+Portfolio 32+77 UNCHANGED.
+
+**(B) ex_concept_1_real_llama1b_concept_lm_v1 MIDDLE_BAND -- PP-8 CONCEPT-LM LLAMA1B: substrate below bigram by 0.007 at V_C=256; ratio_vs_unigram=11.45x; V_C=256 bottleneck LLAMA-1B REPLICATION**
+Llama-1B, n_docs=10000 (larger than Pythia runs at 6000), 3 seeds, V_C=256. sub_top1=0.467 < bigram_top1=0.475 ALL seeds (margin 0.007). ratio_vs_unigram=11.45x mean (9.6x-13.6x range). Real conceptual structure confirmed (>>1x vs unigram). V_C=256 bottleneck 5th+ confirmation across Pythia and Llama-1B. Distinct from substrate capacity (kgram_xor_context_binding v424 confirmed k-order is retrieval-encoding question). Rescues R2 V_C-sweep and R3 SQ-2 multi-hop remain active.
+Sub-property annotation (PP-8): 'ex_concept_1_real_llama1b_MIDDLE_BAND v426: n_docs=10000 V_C=256 3-seed full elapsed=890s; sub_top1=0.467(3/3); bigram=0.475(3/3); ratio_vs_unigram=11.45x(9.6x-13.6x 3/3); below bigram 0.007 ALL seeds; V_C=256 ceiling LLAMA-1B REPLICATION (5th+ cross Pythia+Llama1B); rescues R2 V_C-sweep R3 SQ-2 active; NOT closure; architecture-agnostic bottleneck confirmed; 2026-06-05.'
+PP-8 band UNCHANGED. Portfolio 32+77 UNCHANGED.
+
+### PROT checks
+- PROT-018: anchor_1 _n4096 suffix matches N=4096 run; anchor_2 no _n suffix (full run confirmed from metrics).
+- PROT-021: no cross-mode checkpoint loading in either anchor.
+- PROT-022: HONEST re-read complete; 0 LVH catches.
+
+### Summary
+- HONEST: 920 -> 922 (+2). LVH: 222 UNCHANGED.
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. Sub-prop annotations: PP-9 x1, PP-3 x1, PP-8 x1.
+- PROT-007/008: v426 block appended. Portfolio 32+77 UNCHANGED.
+- Key finding: audit-core (C2+C3 whitened) confirmed cross-architecture (Pythia-160m v408 + Llama-1B v426); V_C=256 concept-LM ceiling also confirmed cross-architecture.
+Cap_map: v425 -> v426 CYCLE 97 BATCH (1 HP: audit_core_C2_C3_whitened_llama1b LLAMA1B-CROSS-ARCH-GENERALIZATION; 1 MID: ex_concept_1_real_llama1b V_C256-LLAMA1B-5th-REPLICATION; 0 HF; 0 LVH; PP-9+PP-3+PP-8 sub-prop annotations x3; HONEST 920->922; LVH 222; Portfolio 32+77; 338th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

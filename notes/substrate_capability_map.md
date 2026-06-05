@@ -10444,3 +10444,17 @@ Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
 HONEST: 917 -> 920 (+3). LVH: 222 UNCHANGED.
 Cap_map: v424 -> v425 CYCLE 96 BATCH (2 HP: long_conversation_10k CATEGORICAL-10x-scale + continual_learning_30day FULL-3SEED-UPGRADE-from-smoke; 1 MID: adversarial_failure_modes 3/4-predictable-Mode-D-unmitigated; 0 HF; 0 LVH; sub-prop annotations x3; HONEST 917->920; LVH 222; Portfolio 32+77; 337th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v426 update (2026-06-05) -- CYCLE 97 BATCH: 1 HP (audit_core_C2_C3_whitened_llama1b LLAMA1B-CROSS-ARCH-GENERALIZATION); 1 MID (ex_concept_1_real_llama1b V_C256-LLAMA1B-5th-REPLICATION); 0 HF; 0 LVH; PP-9+PP-3+PP-8 sub-prop annotations x3; HONEST 920->922; LVH 222 UNCHANGED; Portfolio 32+77; 338th PROT-009 paired commit
+
+## CYCLE 97 BATCH -- v425 -> v426 (2026-06-05)
+
+Sub-property annotations:
+- PP-9: 'audit_core_C2_C3_whitened_llama1b_HARD_PASS v426: N=4096 M=2000 3-seed real_data=True PCA-whitened LLM=Llama-1B; C2_cert=1.000(3/3 HP); C3_sep=15.5x mean(3/3 >>10x HP); SECOND LLM-family generalization (Pythia-160m v408 + Llama-1B v426); whitening+audit-core cross-architecture confirmed; text artifact in summary (says Pythia; anchor authoritative Llama-1B); 2026-06-05.'
+- PP-3: 'audit_core_whitening_cross_architecture v426: Llama-1B replication confirms PCA-whitening required for C2 deletion-cert across LLM families; C3 sep 15.5x (Llama-1B) vs 11.0x (Pythia-160m v408); both >>10x HP; whitening+audit-core is architecture-agnostic prerequisite Phase 0.5 deployment; 2026-06-05.'
+- PP-8: 'ex_concept_1_real_llama1b_MIDDLE_BAND v426: n_docs=10000 V_C=256 3-seed full elapsed=890s; sub_top1=0.467(3/3); bigram=0.475(3/3); ratio_vs_unigram=11.45x(9.6x-13.6x 3/3); below bigram 0.007 ALL seeds; V_C=256 ceiling LLAMA-1B REPLICATION (5th+ cross Pythia+Llama1B); rescues R2 V_C-sweep R3 SQ-2 active; NOT closure; architecture-agnostic bottleneck confirmed; 2026-06-05.'
+
+Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 920 -> 922 (+2). LVH: 222 UNCHANGED.
+Cap_map: v425 -> v426 CYCLE 97 BATCH (1 HP: audit_core_C2_C3_whitened_llama1b LLAMA1B-CROSS-ARCH-GENERALIZATION; 1 MID: ex_concept_1_real_llama1b V_C256-LLAMA1B-5th-REPLICATION; 0 HF; 0 LVH; PP-9+PP-3+PP-8 sub-prop annotations x3; HONEST 920->922; LVH 222; Portfolio 32+77; 338th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
