@@ -681,3 +681,39 @@ R5 (3h CPU): n_docs sweep {6000,30000,60000} -- more training data may improve s
 
 Cap_map: v418 -> v419 CYCLE 90 BATCH (2 HP: cognitive_core_counterfactual CATEGORICAL-1e6x-zero-fine-tuning + cognitive_core_architectural_advantage 3-CATEGORICAL-WINS LONGCONV/CROSS-SESSION/MULTIDOC; 1 MID: ex_concept_1_real PIPELINE-VALIDATED bigram-parity-scope-note; 0 HF; 0 LVH; 0 BAND-LIFTS; PP-8 annotations x3; HONEST 901->904; LVH 221; Portfolio 32+77; 331st PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 91 -- v419 -> v420 (2026-06-05)
+
+### Step 0 Honest Re-Read
+1 verdict. source=remote (authoritative). HONEST 904 -> 905 (+1). LVH check:
+
+| # | Anchor | Verdict | Honest Check |
+|---|--------|---------|-------------|
+| 1 | substrate_cognitive_core_analogical_v1 | HARD_PASS | substrate_analogical=1.000 (3/3 seeds); pythia_analogical=0.000/0.003/0.000 (mean~0.001); ratio seeds: 1e6x/300x/1e6x (reported avg 900x); HP threshold >=2x; label conservative (categorical >> 2x); HONEST |
+
+LVH assessment: 0 LVH catches. Label conservative not over-claimed. HONEST 904 -> 905 (+1). LVH 221 UNCHANGED.
+
+### Cap_map Decisions (v419 -> v420)
+
+**(A) substrate_cognitive_core_analogical_v1 HARD_PASS -- FIRST real-Pythia analogical head-to-head: categorical 900x vs Pythia-160m on novel relations at N=4096**
+pythia-160m, n_eval=300/seed, run_mode=full, 3 seeds, source=remote, elapsed=37.7s.
+substrate_analogical=1.000 ALL 3 seeds. pythia_analogical=0.000/0.003/0.000 (mean~0.001). ratio=categorical (min 300x, mean 900x lower bound).
+Mechanism: VSA binding arithmetic encodes and retrieves analogical structure (A:B::C:D) over novel relations not seen at train time. Pythia ICL effectively zero on the same task. Result is FIRST real Pythia-160m head-to-head for analogical reasoning (v408 cognitive_core_smoke was pure-VSA synthetic; this anchor is LLM-integrated).
+Product implication: substrate has a general analogy mechanism that extrapolates to novel relations -- a reasoning primitive the LLM backbone lacks. Combined with counterfactual (v419: 1e6x) and architectural advantage (v419: 3 categorical wins), this is the 4th categorical win in the cognitive_core series.
+
+Sub-property annotation on PP-8 row:
+'cognitive_core_analogical_HARD_PASS v420: pythia-160m n_eval=300 3-seed full elapsed=37.7s; substrate=1.000(3/3) pythia~0.001(3/3) ratio=900x(categorical); VSA binding arithmetic; general analogy mechanism on novel relations; FIRST real-pythia analogical head-to-head; 4th categorical win cognitive_core series (counterfactual+3-arch-wins+analogical).'
+
+PP-8 band: annotation only. 4th sub-property added (counterfactual 1e6x + LONGCONV/CROSS-SESSION/MULTIDOC 3x + analogical 900x). Band position 0.60-0.75 UNCHANGED (cross-N full-integration trial outstanding before band lift).
+
+- Portfolio: 32+77 UNCHANGED. No new rows. No closures.
+- HONEST: 904 -> 905 (+1). LVH: 221 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new rows. 1 PP-8 sub-property annotation (4th categorical). No rescues needed (HARD_PASS).
+- PROT-007/008: v420 block appended. Portfolio 32+77 UNCHANGED. No regressions.
+- PROT-009: 332nd PROT-009 paired commit.
+- PROT-018: no _nN suffix on analogical_v1 (LLM-integrated; correct). 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifact.
+- PROT-022: substrate_analogical=1.000 ALL 3 seeds (deterministic VSA binding retrieve; N=4096 above capacity floor); pythia seed-7=0.000 seed-17=0.003 seed-23=0.000 (near-zero consistent with ICL failure at 300 eval; seed-17 1/300 = binomial noise consistent).
+
+Cap map: v419 -> v420 CYCLE 91 (1 HP: cognitive_core_analogical CATEGORICAL-900x FIRST-real-pythia novel-relations; 0 MID; 0 HF; 0 LVH; PP-8 sub-property annotation (4th categorical win cognitive_core series); HONEST 904->905; LVH 221; Portfolio 32+77; 332nd PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

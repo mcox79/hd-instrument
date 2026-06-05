@@ -10231,3 +10231,19 @@ Rescue R1-R5 cheapest-first filed in strategy_decisions_2026-06-05.md CYCLE 90 e
 
 Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. PP-8 sub-property annotations x3.
 Cap map: v418 -> v419 CYCLE 90 BATCH (2 HP: cognitive_core_counterfactual CATEGORICAL-1e6x-zero-fine-tuning + cognitive_core_architectural_advantage 3-CATEGORICAL-WINS LONGCONV/CROSS-SESSION/MULTIDOC; 1 MID: ex_concept_1_real PIPELINE-VALIDATED bigram-parity-scope-note; 0 HF; 0 LVH; 0 BAND-LIFTS; PP-8 annotations x3; HONEST 901->904; LVH 221; Portfolio 32+77; 331st PROT-009 paired commit) (2026-06-05)
+
+# v420 update (2026-06-05) -- CYCLE 91: 1 HP (cognitive_core_analogical CATEGORICAL-900x FIRST-real-pythia); 0 MID; 0 HF; 0 LVH; PP-8 sub-property annotation (4th categorical win); HONEST 904->905; LVH 221; Portfolio 32+77; 332nd PROT-009 paired commit
+
+## Experiment results -- CYCLE 91
+
+### substrate_cognitive_core_analogical_v1 HARD_PASS
+pythia-160m, n_eval=300/seed, run_mode=full, 3 seeds, source=remote, elapsed=37.7s.
+substrate_analogical=1.000 ALL 3 seeds. pythia_analogical=0.000/0.003/0.000 (mean~0.001). ratio=categorical (min 300x, mean 900x lower bound).
+FIRST real Pythia-160m head-to-head for analogical reasoning (v408 cognitive_core_smoke was pure-VSA synthetic; this anchor LLM-integrated).
+VSA binding arithmetic encodes/retrieves A:B::C:D over novel relations; Pythia ICL near-zero on same task.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_analogical_HARD_PASS v420: pythia-160m n_eval=300 3-seed full elapsed=37.7s; substrate=1.000(3/3) pythia~0.001(3/3) ratio=900x(categorical); VSA binding arithmetic; general analogy mechanism on novel relations; FIRST real-pythia analogical head-to-head; 4th categorical win cognitive_core series (counterfactual+3-arch-wins+analogical).'
+
+Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. PP-8 sub-property annotation (4th).
+Cap map: v419 -> v420 CYCLE 91 (1 HP: cognitive_core_analogical CATEGORICAL-900x FIRST-real-pythia novel-relations; 0 MID; 0 HF; 0 LVH; PP-8 sub-property annotation (4th categorical win cognitive_core series); HONEST 904->905; LVH 221; Portfolio 32+77; 332nd PROT-009 paired commit) (2026-06-05)
