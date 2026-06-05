@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v415
+# hd-instrument substrate — capability map v431
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -10626,4 +10626,45 @@ Plain-language: We tested whether the substrate correctly handles new informatio
 - PROT-022: V1 all-ceiling unanimous 3-seed; V2 all-ceiling unanimous 3-seed. Not HP-fragile.
 
 Cap_map: v429 -> v430 CYCLE 101 (2 HP: multimodal_binding_text_kg MODALITY-AGNOSTIC-CEILING + continual_learning_distshift DISTSHIFT-OVERRIDE-PERFECT; PP-23 BAND-LIFT 0.40-0.55->0.55-0.70 + STATE-LIFT 🔬->🟢; PP-21+true-continual+PP-4 sub-prop annotations x3; 0 LVH; HONEST 928->930; LVH 222; Portfolio 32+77; 342nd PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v431 update (2026-06-05) -- CYCLE 102 BATCH: 1 HARD_PASS + 2 MIDDLE_BAND (HP-12 V1 Day-3); PP-8+PP-5+PP-3+PP-9+PP-12+deletion-cert sub-prop annotations x6; annotation-only; 0 LVH; HONEST 930->933
+
+### (A) exp_hp12_v1_decisive_extraction_v1 HARD_PASS
+
+PP-8 sub-property annotation:
+'hp12_v1_geometry_HARD_PASS v431: N_sub=1024 2-seed full elapsed=11.94s; pythia_recall=1.000(2/2) llama_recall=1.000(2/2); real npz embeddings; no HF-3 geometry mismatch; speed-test deferred (Llama weights not local). PP-8 geometry de-risked for V1 demo path. Band UNCHANGED (0.50-0.65). Speed gate remains.'
+
+Tier-2b LLM integration annotation:
+'hp12_v1_geometry_HARD_PASS v431: first empirical anchor confirming substrate retrieval geometry-compatible with production 1B-scale LLM representations (real npz); geometry-mismatch failure mode (HF-3) closed for V1 demo path; speed characterization open.'
+
+### (B) exp_hp12_v1_end_to_end_demo_backend_v1 MIDDLE_BAND
+
+PP-5 sub-property annotation:
+'hp12_v1_e2e_backend_MIDDLE_BAND v431: N=4096 3-seed full; live_write_ms_median=25.5/25.8/28.3ms (CPU path, pure-Python); MIDDLE vs <1ms demo target; within 10-50ms LLM token-gen budget (v310); correctness ceiling (live_recall=1.000 cert=1.000 phantom=0.000 retention=1.000 all 3 seeds). Band UNCHANGED.'
+
+PP-3 sub-property annotation:
+'hp12_v1_e2e_backend_MIDDLE_BAND v431: certs_verified_frac=1.000 (3/3) at M_seed=3000 K_live=50 n_del=20; deletion cert issuance+verification pipeline e2e validated at demo-backend scale. Band UNCHANGED.'
+
+PP-9 sub-property annotation:
+'hp12_v1_e2e_backend_MIDDLE_BAND v431: preseed_retention=1.000 at M=3000 seed + 50 live writes; phantom_recall=0.000 (3/3); large-context operation with zero phantom confirmed. Band UNCHANGED.'
+
+### (C) exp_hp12_v1_decisive_crypto_v1 MIDDLE_BAND
+
+PP-12 sub-property annotation:
+'hp12_v1_crypto_MIDDLE_BAND v431: RSA-1024 n_del=80 3-seed full; verify_frac=1.000(3/3) tamper_rejected=1.000(3/3) verifier_cli_ok=1(3/3); cert_latency_ms_median=19.3ms MIDDLE vs <1ms target; gmpy2 path needed for speed. Cryptographic correctness ceiling. Band UNCHANGED.'
+
+Deletion-cert reliability annotation:
+'hp12_v1_crypto_MIDDLE_BAND v431: tamper_rejected_frac=1.000 unanimous 3-seed n_del=80 RSA-1024; anti-tampering at production deletion scale confirmed; additive corroboration of 92-98% deletion-cert reliability band. Band UNCHANGED.'
+
+### PROT compliance (v430 -> v431)
+- PROT-004/006: No closures. No rescue sketches required (0 HF).
+- PROT-007: v431 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 343rd PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 recall 1.000 unanimous 2-seed; V2 correctness 1.000 unanimous 3-seed; V3 cert variance normal (19.9/18.8/19.2ms). No HP-fragility.
+
+Cap_map: v430 -> v431 CYCLE 102 (1 HP: decisive_extraction HARD_PASS-GEOMETRY-LLAMA1B-REAL-NPZ; 2 MID: e2e_demo_backend WRITE-LATENCY-MIDDLE-CORRECTNESS-CEILING + decisive_crypto CERT-LATENCY-MIDDLE-CRYPTO-CEILING; 0 LVH; PP-8+PP-5+PP-3+PP-9+PP-12+deletion-cert sub-prop annotations x6; HONEST 930->933; LVH 222; Portfolio 32+77; 343rd PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

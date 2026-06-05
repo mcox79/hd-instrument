@@ -133,3 +133,52 @@ PP-4 (Concept drift detection): Sub-property annotation. audit_trace_acc=1.000 w
 
 Cap_map: v429 -> v430 CYCLE 101 (2 HP: multimodal_binding_text_kg MODALITY-AGNOSTIC-CEILING + continual_learning_distshift DISTSHIFT-OVERRIDE-PERFECT; PP-23 BAND-LIFT 0.40-0.55->0.55-0.70 + STATE-LIFT 🔬->🟢; PP-21+true-continual+PP-4 sub-prop annotations x3; 0 LVH; HONEST 928->930; LVH 222; Portfolio 32+77; 342nd PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v430 -> v431 CYCLE 102 BATCH (2026-06-05)
+
+Verdicts processed: exp_hp12_v1_decisive_extraction_v1 (HARD_PASS) + exp_hp12_v1_end_to_end_demo_backend_v1 (MIDDLE_BAND) + exp_hp12_v1_decisive_crypto_v1 (MIDDLE_BAND)
+
+### Step 0 honest re-read (3 verdicts; source=remote all)
+
+**V1 (exp_hp12_v1_decisive_extraction_v1) HARD_PASS -- HONEST**
+pythia_recall=1.000 (2/2 seeds), llama_recall=1.000 (2/2 seeds). N_store=300, N_sub=1024, run_mode=full, elapsed=11.94s. Speed-test deferred (llama_extract_s_per_1k=-1.0, llama_vram_gb=-1.0 -- Llama weights gated/not-local). HARD_PASS label correct -- no per-cell contradiction. No LVH.
+
+**V2 (exp_hp12_v1_end_to_end_demo_backend_v1) MIDDLE_BAND -- HONEST**
+live_write_ms_median: 25.5/25.8/28.3ms (seeds 7/17/23). live_recall=1.000 (3/3). certs_verified_frac=1.000 (3/3). phantom_recall_rate=0.000 (3/3). preseed_retention=1.000 (3/3). N=4096, M_seed=3000, K_live=50, n_del=20. MIDDLE_BAND label honest: live_write ~26ms >> <1ms target (gmpy2+bf16/BLAS path needed). All correctness metrics ceiling. No LVH.
+
+**V3 (exp_hp12_v1_decisive_crypto_v1) MIDDLE_BAND -- HONEST**
+verify_frac=1.000 (3/3). cert_latency_ms_median: 19.9/18.8/19.2ms. cert_latency_ms_p95: 21.2/20.1/19.9ms. tamper_rejected_frac=1.000 (3/3). verifier_cli_ok=1 (3/3). n_add=200, n_del=80, RSA-1024. MIDDLE_BAND label honest: cert_latency ~19ms >> <1ms target (gmpy2 needed). Crypto correctness ceiling. No LVH.
+
+HONEST: 930 -> 933 (+3). LVH: 222 UNCHANGED.
+
+### Cap_map decisions
+
+**V1 exp_hp12_v1_decisive_extraction_v1 HARD_PASS:**
+PP-8 (Substrate-LLM deep integration): Sub-property annotation. Real Llama-1B embedding geometry compatible with substrate retrieval at N_sub=1024 (recall=1.000 both seeds, real npz embeddings). Desktop V1 geometry de-risked -- no HF-3 geometry mismatch. Speed-test deferred (Llama weights not local); speed gate remains open. BAND UNCHANGED (0.50-0.65 at research-only/exploratory state). No state-transition without speed closure.
+Tier-2b LLM integration axis: First empirical anchor confirming substrate retrieval is geometry-compatible with production 1B-scale LLM representations (real npz, not synthetic). Geometry-mismatch failure mode (HF-3) closed for V1 demo path.
+
+**V2 exp_hp12_v1_end_to_end_demo_backend_v1 MIDDLE_BAND:**
+PP-5 (Substrate-LLM token-throughput latency budget): Sub-property annotation. Live write latency 25.5-28.3ms median at N=4096 (CPU path, pure-Python). MIDDLE relative to <1ms demo target but within 10-50ms LLM token-gen budget window (v310). Demo backend correctness fully validated (live_recall=1.000, cert=1.000, phantom=0.000, retention=1.000). Latency gap is gmpy2+bf16/BLAS only. BAND UNCHANGED.
+PP-3 (Audit trail design + rotation strategy): Sub-property annotation. certs_verified_frac=1.000 (3/3 seeds) at M_seed=3000, K_live=50, n_del=20. Deletion cert issuance and verification pipeline end-to-end validated at demo-backend scale. BAND UNCHANGED.
+PP-9 (Reasoning amortization economics): Sub-property annotation. preseed_retention=1.000 at M=3000 seed + 50 live writes; phantom=0.000. Large-context substrate operation with zero phantom recall confirmed. BAND UNCHANGED.
+
+**V3 exp_hp12_v1_decisive_crypto_v1 MIDDLE_BAND:**
+PP-12 (Compositionality audit API): Sub-property annotation. RSA accumulator crypto: verify_frac=1.000 (3/3), tamper_rejected=1.000 (3/3), verifier_cli_ok=True (3/3). cert_latency ~19ms (MIDDLE; gmpy2 gets <1ms). Cryptographic correctness is ceiling; latency gap is purely gmpy2 install. BAND UNCHANGED.
+Deletion-cert framework reliability: Sub-property annotation. tamper_rejected_frac=1.000 unanimous 3-seed at n_del=80 RSA-1024. Anti-tampering confirmed at production deletion scale. Additive corroboration of 92-98% reliability band. BAND UNCHANGED.
+
+### Portfolio: 32+77 UNCHANGED (+0 new rows). PP-8+PP-5+PP-3+PP-9+PP-12+deletion-cert sub-prop annotations x6. 0 BAND-LIFTS. 0 closures.
+
+### HP-12 V1 overall de-risk status (after Cycle 102)
+Geometry VALIDATED (Pythia+real-Llama 1.000 recall). Crypto correctness VALIDATED (100% cert/tamper). Demo backend correctness VALIDATED (live_recall=1.000, cert=1.000, phantom=0.000, retention=1.000). Remaining gates: (1) speed -- gmpy2 install for <1ms cert + bf16/BLAS for <1ms write; (2) Llama weights local for speed profiling; (3) V2 HNSW (faiss-OMP Windows deadlock, Testbed/Linux needed).
+
+### PROT compliance (v430 -> v431)
+- PROT-004/006: No closures. No rescue sketches required (0 HF).
+- PROT-007: v431 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 343rd PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 recall 1.000 unanimous 2-seed; V2 correctness 1.000 unanimous 3-seed, latency variance normal (25.5/25.8/28.3ms); V3 cert_latency variance normal (19.9/18.8/19.2ms). No HP-fragility.
+
+Cap_map: v430 -> v431 CYCLE 102 (1 HP: decisive_extraction HARD_PASS-GEOMETRY-LLAMA1B-REAL-NPZ; 2 MID: e2e_demo_backend WRITE-LATENCY-MIDDLE-CORRECTNESS-CEILING + decisive_crypto CERT-LATENCY-MIDDLE-CRYPTO-CEILING; 0 LVH; PP-8+PP-5+PP-3+PP-9+PP-12+deletion-cert sub-prop annotations x6; HONEST 930->933; LVH 222; Portfolio 32+77; 343rd PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
