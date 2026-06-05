@@ -10018,3 +10018,30 @@ Sub-property annotation on PP-12 row: 'depth_capacity_production_curve_HARD_PASS
 - PROT-022: All 3 seeds identical (K_CAP ceiling behavior deterministic); lf2.0 plain=2 matches v409; self-consistent.
 
 Cap_map: v410 -> v411 CYCLE 82 (1 HP: depth_capacity_production_curve PRODUCTION-CURVE-COMPLETE cleanup-load-robust-to-3x; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 893->894; LVH 220; Portfolio 32+77; 323rd PROT-009 paired commit) (2026-06-05)
+
+# v412 update (2026-06-05) -- CYCLE 83: 1x HARD_PASS (substrate_sparse_resonator_blocklocal_K26_v1_n5000); 0 LVH; resonator row sub-property annotation V-CONSTRAINT-BYPASSED; HONEST 894->895; LVH 220 UNCHANGED; Portfolio 32+77; 324th PROT-009 paired commit
+
+## CYCLE 83 BATCH -- v411 -> v412 (2026-06-05)
+
+1 verdict. source=SSH-remote (bridge stale; SSH fallback; authoritative) run_mode=full. 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest check |
+|---|--------|---|-------|---------|--------------|
+| 1 | substrate_sparse_resonator_blocklocal_K26_v1_n5000 | 5000 | 3 | HARD_PASS | K4=K8=K16=K26=1.000 all seeds; unanimous; label honest |
+
+**(A) substrate_sparse_resonator_blocklocal_K26_v1_n5000 HARD_PASS -- RESONATOR V-CONSTRAINT RESCUE: block-local sparse resonator recovers K=26 at acc=1.000; V-constraint bypassed**
+N=5000, K_sweep={4,8,16,26}, 3 seeds, source=SSH-remote, run_mode=full. K4=K8=K16=K26=1.000 unanimous all seeds. This is the R2 rescue path for the resonator V-constraint failure (v401 cycle 71: resonator_noise HF + resonator_dense HF both acc=0.000 due to V>>N/K breakdown). Block-local architecture bypasses the V-constraint by restricting resonator search to local spatial blocks. Product implication: V-constraint failure is a parameterization failure, NOT a fundamental resonator capability closure. Block-local sparse resonator is fully operational at K=26. Combined with v409 resonator_augmented_iterated_retrieval (cleanup depth rescue at overload), resonator sub-system has two independent confirmed positive results.
+
+Sub-property annotation on Resonator row: 'blocklocal_sparse_resonator_HARD_PASS v412: N=5000 K={4,8,16,26} 3-seed full; K4=K8=K16=K26=1.000 unanimous; V-constraint BYPASSED via block-local architecture; dense V=100/V=512 HF (v401) does NOT close resonator capability; block-local variant fully operational; K-ceiling unknown (K>26 deferred R2); product: block-local resonator viable for sparse-code substrates.'
+
+Rescue (cheapest-first): R1 (free, APPLIED): V-constraint-is-parameterization-failure annotation on resonator row; block-local is the working regime; 0 compute. R2 (1h CPU): K-ceiling sweep K={26,52,104,208} N=5000. R3 (1h CPU): cross-N N=8192 block-local K=26. R4 (free): theory -- block-local reduces to local Hopfield per block; K_max derivable from block_size/N. R5 (1h CPU): block-local resonator + SQ-2 cleanup-augmented chain composition test.
+
+HONEST: 894 -> 895 (+1). LVH: 220 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+PROT-004/006: No closures. 0 new top-level rows. R1 APPLIED inline; R2-R5 cheapest-first filed.
+PROT-007/008: v412 block appended. Portfolio 32+77 UNCHANGED.
+PROT-009: 324th PROT-009 paired commit.
+PROT-018: _n5000 suffix; N=5000 metrics. Compliant.
+PROT-021: SSH-remote (bridge stale; SSH fallback; authoritative), run_mode=full. No smoke artifacts.
+PROT-022: All 3 seeds 1.000 all K cells; algebraically deterministic; self-consistent.
+
+Cap_map: v411 -> v412 CYCLE 83 (1 HP: blocklocal_sparse_resonator_K26 V-CONSTRAINT-BYPASSED resonator-working-regime-confirmed; 0 MID; 0 HF; 0 LVH; resonator row sub-property annotation; HONEST 894->895; LVH 220; Portfolio 32+77; 324th PROT-009 paired commit) (2026-06-05)
