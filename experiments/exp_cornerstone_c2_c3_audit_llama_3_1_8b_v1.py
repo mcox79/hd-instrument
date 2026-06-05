@@ -376,11 +376,27 @@ def _residuals_to_bipolar(residuals_4096: np.ndarray, W_proj: np.ndarray) -> np.
 
 
 def _extract_residuals_via_hyperprobe(docs: list[str], model, tokenizer) -> np.ndarray:
-    """Algorithm 1: hyperprobe.ingest_embeddings(docs, model, k_clusters=5); sum-pool to (n, 4096).
+    """Algorithm 1: hyperprobe.ingest_embeddings with model_name=LLM_MODEL_ID; sum-pool to (n, 4096).
+
+    Per Research's Q1 answer (research_to_testbed_cornerstone_response_4_questions_2026-06-04)
+    and probe_validation_v1.py:282-284 canonical pattern: hyperprobe.ingest_embeddings
+    expects `docs=` + `model_name=<str>` (a HuggingFace model id), NOT a loaded
+    PyTorch model object. The library instantiates the model internally with its
+    own VSAEncoder-compatible structure. Passing AutoModelForCausalLM instance
+    crashes with "Incorrect path_or_model_id" - root cause of cornerstone HF
+    (2026-06-04 ~01:22 UTC).
+
+    Returns dict keyed by doc text -> (5, 4096) centroid tensor, with possibly
+    additional trailing return values; we sum-pool the centroids per doc to a
+    flat (4096,) embedding and stack to (n_docs, 4096).
+
+    The `model` + `tokenizer` arguments are kept on the signature for API
+    compatibility with the caller (and so synthetic-vs-real branching works),
+    but ignored by the hyperprobe call.
 
     Defensive: wraps in torch.no_grad() to prevent hyperprobe from accidentally
-    building an autograd graph across 1000 Llama-3.1-8B bf16 forwards (would
-    spike host/GPU memory severely; per audit finding 5).
+    building an autograd graph across 1000 Llama-3.1-8B bf16 forwards (per
+    audit finding 5).
     """
     try:
         import hyperprobe
@@ -389,26 +405,68 @@ def _extract_residuals_via_hyperprobe(docs: list[str], model, tokenizer) -> np.n
         raise RuntimeError(f"hyperprobe / torch import failed: {e}")
     with torch.no_grad():
         try:
-            result = hyperprobe.ingest_embeddings(docs, model, k_clusters=K_CLUSTERS)
-        except TypeError:
-            try:
-                result = hyperprobe.ingest_embeddings(docs, model, tokenizer=tokenizer, k_clusters=K_CLUSTERS)
-            except Exception as e:
-                raise RuntimeError(f"hyperprobe.ingest_embeddings API surface unexpected: {e}")
+            # Canonical API per probe_validation_v1.py:282-284:
+            #   emb_dict, *_ = hyperprobe.ingest_embeddings(
+            #       docs=all_docs, model_name=LLM_MODEL_ID, k_clusters=K_CLUSTERS,
+            #   )
+            ingest_result = hyperprobe.ingest_embeddings(
+                docs=list(docs),
+                model_name=LLM_MODEL_ID,
+                k_clusters=K_CLUSTERS,
+            )
         except Exception as e:
-            raise RuntimeError(f"hyperprobe.ingest_embeddings failed: {e}")
-    arr = _coerce_to_numpy(result)
-    if arr.ndim == 3 and arr.shape[1] == K_CLUSTERS and arr.shape[2] == LLM_HIDDEN:
-        summed = arr.sum(axis=1)
-    elif arr.ndim == 2 and arr.shape[1] == LLM_HIDDEN:
-        summed = arr
+            raise RuntimeError(
+                f"hyperprobe.ingest_embeddings(model_name=str) failed: {e}; "
+                f"check hyperprobe API has not changed from probe_validation_v1 pattern"
+            )
+    # ingest_result is (emb_dict, *trailing) per probe_validation_v1's unpacking
+    # `emb_dict, *_ = hyperprobe.ingest_embeddings(...)`.
+    if isinstance(ingest_result, tuple) and len(ingest_result) >= 1:
+        emb_dict = ingest_result[0]
     else:
+        emb_dict = ingest_result
+    if not isinstance(emb_dict, dict):
         raise RuntimeError(
-            f"hyperprobe output shape unexpected: {arr.shape}; expected (n,5,4096) or (n,4096)"
+            f"hyperprobe.ingest_embeddings first return is not a dict; got "
+            f"{type(emb_dict)}"
         )
-    if summed.shape[0] != len(docs) or summed.shape[1] != LLM_HIDDEN:
-        raise RuntimeError(f"sum-pooled residuals shape {summed.shape} != ({len(docs)},{LLM_HIDDEN})")
-    return summed.astype(np.float32)
+    # Map docs -> (5, 4096) centroids -> sum-pool -> (4096,); stack to (n, 4096).
+    # Per probe_validation_v1.py:296: `emb = emb_dict[doc].sum(dim=0)`.
+    sum_pooled: list = []
+    missing: list = []
+    for d in docs:
+        if d not in emb_dict:
+            missing.append(d)
+            continue
+        cent = emb_dict[d]
+        # cent is a torch tensor of shape (k_clusters, hidden); sum across clusters.
+        if hasattr(cent, "sum"):
+            try:
+                pooled = cent.sum(dim=0).detach().cpu().float().numpy()
+            except (AttributeError, TypeError):
+                pooled = _coerce_to_numpy(cent).sum(axis=0)
+        else:
+            pooled = _coerce_to_numpy(cent).sum(axis=0)
+        sum_pooled.append(pooled.astype(np.float32))
+    if missing:
+        raise RuntimeError(
+            f"hyperprobe.ingest_embeddings missing {len(missing)}/{len(docs)} docs; "
+            f"first missing: {missing[0][:80]!r}"
+        )
+    if not sum_pooled:
+        raise RuntimeError("hyperprobe.ingest_embeddings produced 0 sum-pooled embeddings")
+    arr = np.stack(sum_pooled, axis=0).astype(np.float32)
+    if arr.shape[0] != len(docs):
+        raise RuntimeError(
+            f"sum-pooled count {arr.shape[0]} != input doc count {len(docs)}"
+        )
+    if arr.shape[1] != LLM_HIDDEN:
+        raise RuntimeError(
+            f"sum-pooled hidden width {arr.shape[1]} != expected {LLM_HIDDEN}"
+        )
+    if not np.isfinite(arr).all():
+        raise RuntimeError("hyperprobe sum-pooled residuals contain non-finite values")
+    return arr
 
 
 def _coerce_to_numpy(obj) -> np.ndarray:
@@ -674,24 +732,36 @@ def run_cell_c3(model, tokenizer, out_dir: Path, log_path: Path) -> dict:
     }
 
 
+_HFAccessOK = object()  # sentinel returned by _load_llama after refactor
+
+
 def _load_llama() -> tuple[object, object]:
-    """Load Llama-3.1-8B-Instruct on cuda bf16 with device_map auto, use_cache=False."""
-    import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    """Verify HF access to Llama-3.1-8B-Instruct via HfApi (no weights load).
+
+    NOTE (cornerstone HARD_FAIL recovery 2026-06-04): previously this loaded
+    the model via AutoModelForCausalLM, then passed the model object to
+    hyperprobe.ingest_embeddings. That was wrong: hyperprobe expects
+    `model_name=<str>` (a HuggingFace model id) and instantiates the model
+    internally with its own VSAEncoder-compatible structure. Passing an
+    AutoModel instance crashed with "Incorrect path_or_model_id".
+
+    Refactored to use HfApi.model_info: cheap (~1s), validates that the HF
+    token has access to the gated repo, and returns sentinel objects so the
+    downstream model-is-None FAILED_SETUP guards still trigger correctly
+    when HF access fails.
+
+    The actual Llama weights are loaded by hyperprobe.ingest_embeddings on
+    each cell's first call (per probe_validation_v1.py canonical pattern).
+    """
+    from huggingface_hub import HfApi
     token = _load_hf_token()
-    tokenizer = AutoTokenizer.from_pretrained(LLM_MODEL_ID, token=token)
-    model = AutoModelForCausalLM.from_pretrained(
-        LLM_MODEL_ID,
-        token=token,
-        torch_dtype=torch.bfloat16,
-        device_map="auto",
-        use_cache=False,
-    )
-    model.eval()
-    hidden = int(getattr(model.config, "hidden_size", 0))
-    if hidden != LLM_HIDDEN:
-        raise RuntimeError(f"model hidden_size {hidden} != expected {LLM_HIDDEN}; model swap?")
-    return model, tokenizer
+    info = HfApi().model_info(LLM_MODEL_ID, token=token)
+    if not getattr(info, "id", None):
+        raise RuntimeError(f"HfApi.model_info returned no id for {LLM_MODEL_ID}")
+    # Return sentinel objects so callers' `model is None` checks still work.
+    # _extract_residuals_via_hyperprobe ignores model/tokenizer args anyway
+    # (uses model_name=LLM_MODEL_ID internally) per the post-recovery refactor.
+    return _HFAccessOK, _HFAccessOK
 
 
 def main() -> None:
