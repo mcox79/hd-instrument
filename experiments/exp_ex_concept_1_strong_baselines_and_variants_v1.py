@@ -32,14 +32,14 @@ except ImportError:
 import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
-ANCHOR_NAME = "ex_concept_1_strong_baselines_and_variants_v1"
+ANCHOR_NAME = "ex_concept_1_strong_baselines_and_variants_v2"
 NPZ_PATH = REPO / "data" / "exp_phase05_v1_pythia160m_residual_extract_pertoken_v1" / "residuals_per_token.npz"
 N_DIM = 1024; LR = 0.5
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 
 if RUN_MODE == "smoke":
-    SEEDS = [1]; V_C = 64; MAX_DOCS = 300; CTX_K = [2, 5]; NEURAL_EPOCHS = 3
+    SEEDS = [1]; V_C = 64; MAX_DOCS = 300; CTX_K = [2, 5]; NEURAL_EPOCHS = 10
 else:
     SEEDS = [7, 17, 23]; V_C = 256; MAX_DOCS = 100000; CTX_K = [2, 5, 10]; NEURAL_EPOCHS = 8
 
@@ -144,7 +144,7 @@ def neural_acc(train, test, seed):
             b = tr[i:i + 256]; mx = max(len(c) for c, _ in b)
             X = torch.zeros(len(b), mx, dtype=torch.long, device=DEVICE); Y = torch.zeros(len(b), dtype=torch.long, device=DEVICE)
             for j, (c, y) in enumerate(b):
-                X[j, :len(c)] = torch.tensor(c, device=DEVICE); Y[j] = y
+                X[j, mx - len(c):] = torch.tensor(c, device=DEVICE); Y[j] = y   # LEFT-pad: real last token at pos -1
             opt.zero_grad(); out = model(X)[:, -1]; loss = nn.functional.cross_entropy(out, Y); loss.backward(); opt.step()
     model.eval(); te = batches(test); ok = 0
     with torch.no_grad():
@@ -152,7 +152,7 @@ def neural_acc(train, test, seed):
             b = te[i:i + 512]; mx = max(len(c) for c, _ in b)
             X = torch.zeros(len(b), mx, dtype=torch.long, device=DEVICE)
             for j, (c, _) in enumerate(b):
-                X[j, :len(c)] = torch.tensor(c, device=DEVICE)
+                X[j, mx - len(c):] = torch.tensor(c, device=DEVICE)   # LEFT-pad: real last token at pos -1
             pr = model(X)[:, -1].argmax(-1).cpu().numpy()
             ok += sum(pr[j] == b[j][1] for j in range(len(b)))
     return ok / max(len(te), 1)
