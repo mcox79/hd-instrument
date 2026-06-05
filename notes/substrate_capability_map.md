@@ -9968,3 +9968,28 @@ R5 (1h CPU): Mechanism comparison -- cleanup vs CFRPE+cleanup vs ensemble+cleanu
 - PROT-022: ratios {20.0, 13.3, 20.0} mean=17.1 self-consistent; cleanup=40 unanimous (K_CAP ceiling deterministic, not stochastic); plain={2,3,2} mean=2.3 consistent with v403 load_sweep; elapsed_s=220.5s consistent with 3-seed full run.
 
 Cap_map: v408 -> v409 CYCLE 80 (1 HP: resonator_augmented_iterated_retrieval SECOND-SQ2-OVERLOAD-RESCUE cleanup-vs-ensemble-orthogonal; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 891->892; LVH 220; Portfolio 32+77; 321st PROT-009 paired commit) (2026-06-05)
+# v410 update (2026-06-05) -- CYCLE 81: 1x HARD_PASS (substrate_hierarchical_D_saturation_v1_n2048); 0 LVH; PP-7 + PP-12 hierarchical-D-scaling sub-property annotations; HONEST 892->893; LVH 220 UNCHANGED; Portfolio 32+77; 322nd PROT-009 paired commit
+
+## CYCLE 81 BATCH -- v409 -> v410 (2026-06-05)
+
+| # | Anchor | N | Seeds | Verdict | Notes |
+|---|--------|---|-------|---------|-------|
+| 1 | substrate_hierarchical_D_saturation_v1_n2048 | 2048 | 3 | HARD_PASS | indep=1.000 eff_cap=D*200 EXACT all 12 cells; linear to D=40 |
+
+**Step 0: Honest Re-Read.** Metrics source=remote. HARD_PASS label: 'capacity scales linearly to D>=20 (independence held).' Per-cell: ALL 3 seeds x ALL 4 D levels (D5/D10/D20/D40): indep=1.000 unanimous, eff_cap={1000,2000,4000,8000}={5,10,20,40}x200 exact. D40 also passes (label says 'D>=20' -- conservative undersell; D40 confirmed). 0 LVH catches. PROT-018/021/022 compliant.
+HONEST: 892 -> 893 (+1). LVH: 220 UNCHANGED.
+
+**(A) substrate_hierarchical_D_saturation_v1_n2048 HARD_PASS -- PP-7/PP-12 HIERARCHICAL D-SCALING: additive capacity linear through D=40 at N=2048**
+N=2048, N_dg=8192, M0=200, D_sweep={5,10,20,40}, 3 seeds. indep=1.000 unanimous 12/12 cells. eff_cap=D*M0 exact. No cross-level interference accumulated through D=40 (eff_cap=8000=4xN at D=40). Test ceiling at D=40; no failure ceiling detected within envelope. Enterprise implication: independent substrate layers compose with exactly additive capacity; PP-7 multi-domain hierarchy receives first empirical D-scaling support. Complements PP-12 unbounded-L depth confirmation (two orthogonal hierarchical/compositional confirmations).
+
+Sub-property annotation on PP-7 row: 'hierarchical_D_saturation_HARD_PASS v410: N=2048 D={5,10,20,40} M0=200 3-seed full; eff_cap=D*M0 EXACT all 12 cells; indep=1.000 unanimous; linear D-scaling no cross-level interference through D=40; additive hierarchical capacity confirmed at N=2048; cross-N R2 at N=4096 deferred.'
+Sub-property annotation on PP-12 row: 'hierarchical_D_saturation_HARD_PASS v410: D-level independence confirms compositionality moat from orthogonal angle (D-independent-level capacity vs L-unbounded-depth; same algebraic-guarantee theme).'
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. PP-7 + PP-12 sub-property annotations. R1-R5 cheapest-first filed (R1 free best-rescue; R2 cross-N N=4096; R3 D-stress D=80/160; R4 theory; R5 shared-atoms).
+- PROT-007/008: v410 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 322nd PROT-009 paired commit.
+- PROT-018: _n2048 N=2048 confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: indep=1.000 deterministic all seeds; eff_cap values identical across seeds; self-consistent.
+
+Cap_map: v409 -> v410 CYCLE 81 (1 HP: hierarchical_D_saturation D-linear-scaling EXACT through D=40; 0 MID; 0 HF; 0 LVH; PP-7 + PP-12 sub-property annotations; HONEST 892->893; LVH 220; Portfolio 32+77; 322nd PROT-009 paired commit) (2026-06-05)

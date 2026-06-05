@@ -136,3 +136,53 @@ R5 (1h CPU): Mechanism comparison -- cleanup vs CFRPE+cleanup vs ensemble+cleanu
 - PROT-022: ratios {20.0, 13.3, 20.0} mean=17.1 self-consistent; cleanup=40 unanimous (K_CAP ceiling deterministic); plain={2,3,2} mean=2.3 consistent with v403 load_sweep.
 
 Cap_map: v408 -> v409 CYCLE 80 (1 HP: resonator_augmented_iterated_retrieval SECOND-SQ2-OVERLOAD-RESCUE; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 891->892; LVH 220; Portfolio 32+77; 321st PROT-009 paired commit) (2026-06-05)
+## CYCLE 81 -- substrate_hierarchical_D_saturation_v1_n2048 HARD_PASS (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_hierarchical_D_saturation_v1_n2048
+Verdict label: HARD_PASS
+Metrics source: REMOTE (authoritative)
+run_mode: full | n_seeds: 3 | N: 2048
+Per-seed: all 3 seeds {7, 17, 23} x all 4 D levels {D5, D10, D20, D40}: indep=1.000 unanimous; eff_cap = D x M0 = D x 200 exactly (D5=1000, D10=2000, D20=4000, D40=8000)
+
+Honest check:
+- Linear-to-D claim: eff_cap = {1000, 2000, 4000, 8000} = {5, 10, 20, 40} x 200. EXACT in every cell. Linear scaling confirmed through D=40.
+- Independence claim: indep=1.000 ALL 3 seeds ALL 4 D levels = 12/12 cells unanimous. No cross-level interference detected.
+- Label says 'linear-to-D=40' -- D40 tested and PASSES. Label conservative ('D>=20' but D40 also passes). Not an over-claim.
+- PROT-018: _n2048 suffix; N=2048 in config. Compliant.
+- PROT-021: run_mode=full, source=remote. No smoke artifacts.
+- PROT-022: All 3 seeds identical (indep=1.000, eff_cap values identical). Algebraic independence is deterministic; seed-to-seed identicalness expected. Self-consistent.
+
+LVH assessment: 0 catches. Label is honest. D40 passes -- label slightly undersells ('D>=20' when D=40 also confirmed).
+HONEST: 892 -> 893 (+1). LVH: 220 UNCHANGED.
+
+### Cap_map Decision (v409 -> v410)
+
+**(A) substrate_hierarchical_D_saturation_v1_n2048 HARD_PASS -- PP-7/PP-12 HIERARCHICAL D-SCALING: capacity scales EXACTLY linearly with hierarchy depth D through D=40 at N=2048**
+N=2048, N_dg=8192, M0=200, D_sweep={5,10,20,40}, 3 seeds. indep=1.000 unanimous across all 12 cells (3 seeds x 4 D levels). eff_cap = D x M0 exactly at every D tested. Hierarchical memory capacity is ADDITIVE -- each additional level contributes exactly M0 independently. No cross-level interference accumulated through D=40 levels (eff_cap=8000 = 4x N at D=40). D=40 is the test ceiling (not a failure ceiling -- indep=1.000 at D=40 confirms no saturation within tested envelope).
+
+Product implication: substrate hierarchical memory architecture (PP-7) empirically validated at N=2048: adding more hierarchy levels adds capacity linearly with no saturation through D=40. Enterprise multi-domain/multi-tenant architectures can stack independent substrate layers with additive capacity. Combined with PP-12 compositionality unbounded-depth (L=10000 confirmed), substrate has two independent hierarchical/compositional capacity confirmations: (1) unbounded algebraic composition depth (PP-12), (2) linear D-scaling with no interference (this result).
+
+Sub-property annotation on PP-7 row: 'hierarchical_D_saturation_HARD_PASS v410: N=2048 D={5,10,20,40} M0=200 3-seed full; eff_cap=D*M0 EXACT all 12 cells; indep=1.000 unanimous; no cross-level interference to D=40; linear D-scaling confirmed at N=2048; additive hierarchical capacity validated for multi-domain enterprise architecture.'
+Sub-property annotation on PP-12 row: 'hierarchical_D_saturation_HARD_PASS v410: N=2048 D-sweep; independent D-levels compose additively (eff_cap=D*M0); orthogonal confirmation of compositionality moat (L-depth unbounded vs D-independent-level capacity -- different algebra, same algebraic-guarantee theme).'
+
+PP-7 band: UNCHANGED (single N=2048; cross-N at N=4096 needed before band lift; PP-7 re-anchoring caveat maintained).
+PP-12 band: UNCHANGED (annotation only; PP-12 primary band from L-depth series; D-level independence is corroborative).
+Portfolio: 32+77 UNCHANGED.
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute BEST-RESCUE): Annotate PP-7 row with D-scaling evidence; brand 'additive hierarchical capacity' as enterprise multi-domain feature; 0 new compute required.
+R2 (1h CPU): Cross-N at N=4096 same D_sweep -- confirm linear D-scaling holds at production N; potential band-lift candidate if unanimous.
+R3 (1h CPU): D-stress test D={40, 80, 160} at N=4096 -- find where interference or saturation first appears; locate true D ceiling.
+R4 (free): Theory confirmation -- linear D-scaling is algebraically exact for independent-level superposition; confirm no coupling terms in energy function at multi-level.
+R5 (2h CPU): Non-independent levels test (shared atoms across D levels) at N=4096 -- characterize robustness to partial cross-level sharing (real-world enterprise hierarchy).
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS (single N=2048; cross-N R2 deferred). PP-7 + PP-12 sub-property annotations. R1-R5 cheapest-first filed.
+- PROT-007/008: v410 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 322nd PROT-009 paired commit.
+- PROT-018: _n2048 suffix binding N=2048 confirmed in config. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: indep=1.000 all seeds deterministic; eff_cap values identical across seeds; algebraically consistent.
+
+Cap_map: v409 -> v410 CYCLE 81 (1 HP: hierarchical_D_saturation D-linear-scaling EXACT through D=40; 0 MID; 0 HF; 0 LVH; PP-7 + PP-12 sub-property annotations; HONEST 892->893; LVH 220; Portfolio 32+77; 322nd PROT-009 paired commit) (2026-06-05)
