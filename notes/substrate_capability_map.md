@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v399
+# hd-instrument substrate — capability map v404
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -9716,3 +9716,35 @@ Superadditivity increases with bio-ratio. B36 most valuable precisely when most 
 - **PROT-022:** sq2_hierarchical: single=0 exact floor all seeds; ensemble=24 unanimous (G_chains=24 deterministic). sq2_cfrpe: hebbian=cfrpe=12 exact equality; cfrpe_acc12=1.000 exact all seeds. sq5: M_crit=140000 ratio=10.144 identical all 3 seeds (grid ceiling = deterministic). sq2_load: per-load-cell depths 100% unanimous all seeds (0 within-cell variance across 4 load cells x 3 seeds = 12 cells, all unanimous). b36_ratio: r0.7 both=[0.440,0.4025,0.425] SD<0.02 consistent; sum=[−0.330,−0.335,−0.325] consistently negative; superadditivity unambiguous.
 
 Cap_map: v402 -> v403 CYCLE 73 (4 HP: sq2_x_hierarchical_K10+sq2_x_cfrpe_composition+sq5_matrixfree_n100k+b36_ratio_sweep; 1 MID: sq2_multihop_load_sweep; 0 HF; 0 LVH; 5 sub-property annotations; HONEST 872->877; LVH 219; Portfolio 32+77; 314th PROT-009 paired commit) (2026-06-04)
+
+# v404 update (2026-06-04) -- CYCLE 74: 1x HARD_FAIL (substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048); 0 LVH; B5 sub-property annotation; HONEST 877->878; LVH 219 UNCHANGED; Portfolio 32+77; 315th PROT-009 paired commit
+
+## CYCLE 74 BATCH -- v403 -> v404 (2026-06-04)
+
+1 verdict. source=remote run_mode=full. 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest check |
+|---|--------|---|-------|---------|-------------|
+| 1 | substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048 | 2048 | 3 | HARD_FAIL | none=0.811 random=0.788 ordered=0.794 ordered50=0.809; ordered/none=0.98x; all replay variants at or below none baseline; honest |
+
+**(A) substrate_b5_escapeB_cfrpe_weighted_replay_v1_n2048 HARD_FAIL -- B5 escapeB closed**
+CFRPE-based weighted replay provides zero benefit in B5 bounded-weights regime. All replay types (random/ordered/ordered50) perform at or below no-replay baseline (none=0.811). The palimpsest weight-bounding suppresses replay benefit regardless of encoding or ordering strategy. Mechanism failure is in weight-bounding regime itself, not cfrpe encoding.
+
+Plain-language: We tested whether using smarter, brain-inspired replay ordering (cfrpe-weighted) could help the substrate remember old information when weights are bounded. It did not -- all replay strategies performed the same as or worse than no replay at all, meaning the problem is the weight ceiling itself, not how we pick which memories to replay.
+
+Capability implication: B5 weight-bounding is a fundamental palimpsest regime where replay recovery is architecturally prevented. Replay mechanisms (r7, replay_mechanism_sweep: +0.66-0.73 BWT) apply ONLY in unbounded-weight regimes. B5 and replay-BWT rows are now confirmed orthogonal operating regimes.
+
+Sub-property annotation appended to Stage A bio B5 row: 'B5 escapeB HARD_FAIL v404: cfrpe_weighted_replay N=2048; none=0.811 random=0.788 ordered=0.794 ordered50=0.809; no replay type rescues bounded-weights palimpsest regime; mechanism failure fundamental to weight-bounding, not encoding. Rescues: R1 (free) reframe B5 as intentional forgetting mechanism; R2 (free) escapeA audit; R3 (1h CPU) unbounded vs bounded comparison; R4 (1h CPU) soft-ceiling variant; R5 (free) B5+B36 composition.'
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 877 -> **878** (+1).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches; HARD_FAIL label honest to per-cell metrics).
+
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. B5 escapeB HF rescue R1-R5 cheapest-first filed (R1+R2 free first). No PROT-004 closure trigger.
+- PROT-007/008: v404 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 315th PROT-009 paired commit.
+- PROT-018: _n2048 suffix binding confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: none=0.811 consistent 3 seeds; ordered/none<1.0 all seeds (0.977, 0.974, 0.990); internally consistent.
+
+Cap_map: v403 -> v404 CYCLE 74 (1 HF: b5_escapeB_cfrpe_weighted_replay; 0 HP; 0 MID; 0 LVH; B5 sub-property annotation; HONEST 877->878; LVH 219; Portfolio 32+77; 315th PROT-009 paired commit) (2026-06-04)
