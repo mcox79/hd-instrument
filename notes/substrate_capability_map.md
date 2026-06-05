@@ -10181,3 +10181,19 @@ R3 (free): Theory note on O(param_count) speedup scaling.
 R4 (2h CPU): Concept-count sweep (1,10,100) -- forgetting trajectory.
 
 Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. Annotation only.
+
+# v418 update (2026-06-05) -- CYCLE 89: 1 HP (phase05_v1_pythia160m_residual_extract_pertoken Phase0.5-pertoken-infrastructure-gate); 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 per-token sub-property; HONEST 900->901; LVH 221; Portfolio 32+77; 330th PROT-009 paired commit
+
+## Experiment result -- phase05_v1_pythia160m_residual_extract_pertoken_v1 HARD_PASS
+
+Phase 0.5 per-token residual extraction complete. EleutherAI/pythia-160m layer=12.
+n_docs=6000, n_tokens_total=49634, shape=(49634,768). run_mode=full source=remote.
+npz_path=data/exp_phase05_v1_pythia160m_residual_extract_pertoken_v1/residuals_per_token.npz confirmed.
+wall_extract_s=122.6s, wall_total_s=208.4s (model-load-dominant).
+HARD_PASS: infrastructure gate for EX-CONCEPT-1 REAL sequential concept-ID workflow.
+
+PP-8 Phase 0.5 per-token sub-property annotation (added):
+'Phase05_residual_extract_PERTOKEN_HARD_PASS v418: pythia-160m layer=12 n_docs=6000 n_tokens=49634 shape=(49634,768); npz_path confirmed; run_mode=full source=remote; per-token variant of v407 doc-level extract; unblocks EX-CONCEPT-1 REAL sequential concept-ID workflow (VQ->sequence->substrate Hebbian->SQ2 multi-hop); wall_total=208.4s model-load-dominant.'
+
+Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. Infrastructure annotation only.
+Cap map: v417 -> v418 CYCLE 89 (1 HP: phase05_v1_pythia160m_residual_extract_pertoken Phase0.5-pertoken-infrastructure-gate; 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 per-token sub-property; HONEST 900->901; LVH 221; Portfolio 32+77; 330th PROT-009 paired commit) (2026-06-05)

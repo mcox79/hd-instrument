@@ -571,3 +571,51 @@ R4 (2h CPU): Concept-count sweep (1,10,100 concepts) -- measure LLM forgetting r
 HONEST: 899 -> 900 (+1). LVH: 221 UNCHANGED.
 Cap_map: v416 -> v417 CYCLE 88 (0 HP; 1 MID: continual_learning_empirical_LLM_comparison FIRST-HEAD-TO-HEAD 27x-lower-bound zero-forgetting; 0 HF; 0 LVH; Continual learning sub-property annotation; HONEST 899->900; LVH 221; Portfolio 32+77; 329th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 89 -- phase05_v1_pythia160m_residual_extract_pertoken_v1 HARD_PASS (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: phase05_v1_pythia160m_residual_extract_pertoken_v1
+Verdict label: HARD_PASS
+Metrics source: REMOTE (authoritative; bridge stale; SSH fallback)
+run_mode: full | extraction_mode: pertoken
+n_residuals=6000 | n_docs_assembled=6000 | n_extracted=6000 | n_failed=0 | n_bad_partials=0
+n_tokens_total=49634 | shape=(49634, 768) | layer_idx=12 | model=EleutherAI/pythia-160m
+wall_extract_s=122.6s | wall_total_s=208.4s | npz_path confirmed present
+
+Honest check:
+- HARD_PASS label scoped to 'infrastructure step complete'; no capability lift claim made.
+- n_extracted=6000 == n_residuals=6000 == n_docs_assembled=6000: all three counts agree. n_failed=0 n_bad_partials=0.
+- extraction_mode=pertoken confirmed; shape=(49634,768) = sum of per-doc token counts at max_tok_len=64.
+- wall_extract_s=122.6s (real per-token extraction; contrast with prior doc-level 0.001s batched) -- consistent with per-token iterative gather.
+- npz_path=data/exp_phase05_v1_pythia160m_residual_extract_pertoken_v1/residuals_per_token.npz confirmed.
+- PROT-018: no _nN suffix (LLM pipeline; HDC-N not anchor-binding). Compliant per v407 precedent.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: all three extraction counts agree (deterministic; n_failed=0). Self-consistent.
+
+LVH assessment: 0 catches. Label honest. Infrastructure HARD_PASS correctly scoped.
+HONEST: 900 -> 901 (+1). LVH: 221 UNCHANGED.
+
+### Cap_map Decision (v417 -> v418)
+
+**(A) phase05_v1_pythia160m_residual_extract_pertoken_v1 HARD_PASS -- Phase 0.5 PER-TOKEN extraction complete; 49634-token tensor ready for concept-ID sequence learning**
+EleutherAI/pythia-160m layer=12 pertoken n_docs=6000 n_tokens=49634 shape=(49634,768) run_mode=full source=remote. npz_path confirmed.
+
+Per-token variant of v407 doc-level extract. Enables EX-CONCEPT-1 REAL sequential pipeline: VQ on per-token representations -> concept-ID sequences per doc -> substrate Hebbian writes -> SQ2 multi-hop at concept-ID level. Doc-level residuals (v407) support VQ + audit-core C2/C3; per-token residuals (this) unblock the sequential/temporal concept-ID workflow.
+
+Sub-property annotation on PP-8 row: 'Phase05_residual_extract_PERTOKEN_HARD_PASS v418: pythia-160m layer=12 n_docs=6000 n_tokens=49634 shape=(49634,768); npz_path confirmed; run_mode=full source=remote; per-token variant of v407; unblocks EX-CONCEPT-1 REAL sequential concept-ID workflow (VQ->sequence->substrate Hebbian->SQ2 multi-hop); wall_total=208.4s model-load-dominant.'
+
+- Portfolio: 32+77 UNCHANGED (infrastructure annotation; no new top-level row).
+- HONEST: 900 -> 901 (+1).
+- LABEL-VS-HONEST: 221 UNCHANGED (0 new catches).
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. PP-8 Phase 0.5 per-token sub-property annotation.
+- PROT-007/008: v418 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 330th PROT-009 paired commit.
+- PROT-018: no _nN suffix; LLM pipeline convention per v407. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: n_extracted=n_docs=n_residuals=6000 all agree; shape self-consistent; wall_total consistent.
+
+Cap_map: v417 -> v418 CYCLE 89 (1 HP: phase05_v1_pythia160m_residual_extract_pertoken Phase0.5-pertoken-infrastructure-gate; 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 per-token sub-property; HONEST 900->901; LVH 221; Portfolio 32+77; 330th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
