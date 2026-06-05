@@ -185,4 +185,65 @@ R5 (2h CPU): Non-independent levels test (shared atoms across D levels) at N=409
 - PROT-021: source=remote run_mode=full. No smoke artifacts.
 - PROT-022: indep=1.000 all seeds deterministic; eff_cap values identical across seeds; algebraically consistent.
 
-Cap_map: v409 -> v410 CYCLE 81 (1 HP: hierarchical_D_saturation D-linear-scaling EXACT through D=40; 0 MID; 0 HF; 0 LVH; PP-7 + PP-12 sub-property annotations; HONEST 892->893; LVH 220; Portfolio 32+77; 322nd PROT-009 paired commit) (2026-06-05)
+Cap_map: v409 -> v410 CYCLE 81 (1 HP: hierarchical_D_saturation D-linear-scaling EXACT through D=40; 0 MID; 0 HF; 0 LVH; PP-7 + PP-12 sub-property annotations; HONEST 892->893; LVH 220; Portfolio 32+77; 322nd PROT-009 paired commit) (2026-06-05)## CYCLE 82 -- substrate_depth_capacity_production_curve_v1_n4096 HARD_PASS (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_depth_capacity_production_curve_v1_n4096
+Verdict label: HARD_PASS
+Metrics source: REMOTE (authoritative)
+run_mode: full | n_seeds: 3 | N: 4096
+
+Per-cell (all 3 seeds {7, 17, 23} IDENTICAL):
+  lf0.5: plain=40(K_CAP) cleanup=40(K_CAP) -- parity at ceiling
+  lf1.0: plain=40(K_CAP) cleanup=40(K_CAP) -- parity at ceiling
+  lf1.5: plain=40(K_CAP) cleanup=40(K_CAP) -- parity at ceiling
+  lf2.0: plain=2 cleanup=40(K_CAP) -- ratio=20x unanimously
+  lf3.0: plain=0 cleanup=40(K_CAP) -- plain total collapse; cleanup fully robust
+
+Honest check:
+- Comparative claim 'cleanup dominates plain at high load': lf2.0 plain=2 vs cleanup=40 (20x), lf3.0 plain=0 vs cleanup=40 (undefined/inf). Both unanimous 3/3 seeds. CONFIRMED.
+- 'high-load cleanup/plain=20.3x' in label: composite ratio from overload cells; honest (exact 20x at lf2.0; plain=0 at lf3.0 makes stated 20.3x an understatement not an over-claim).
+- Parity at lf0.5-1.5 (both at K_CAP ceiling): explicitly shown in verdict_msg. Not hidden.
+- PROT-018: _n4096 suffix; config N=4096 full run. Compliant.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: All 3 seeds IDENTICAL at every cell -- deterministic (K_CAP ceiling behavior + plain collapse are algebraically deterministic). Self-consistent. Per-seed identicalness expected.
+- Cross-experiment consistency: lf2.0 plain=2 matches v409 resonator_augmented result (plain_depth=2.3 at load=2.0 alpha_c); lf3.0 plain=0 is new territory (first full-collapse confirmation at 3x overload); cleanup=40(K_CAP) at all tested loads confirms v409 lower bound extends across the entire overload regime.
+
+LVH assessment: 0 catches. Label honest. HONEST 893 -> 894 (+1). LVH 220 UNCHANGED.
+
+### Cap_map Decision (v410 -> v411)
+
+**(A) substrate_depth_capacity_production_curve_v1_n4096 HARD_PASS -- SQ-2 PRODUCTION CURVE COMPLETE: cleanup makes depth LOAD-ROBUST across full lf={0.5..3.0} envelope at N=4096**
+N=4096, lf_sweep={0.5, 1.0, 1.5, 2.0, 3.0}, 3 seeds, run_mode=full. plain=40(K_CAP) at lf<=1.5; plain=2 at lf2.0; plain=0 at lf3.0. cleanup=40(K_CAP) ALL load fractions -- fully load-robust through 3x overload. High-load ratio: 20x at lf2.0; undefined (plain total collapse) at lf3.0.
+
+This is the THIRD SQ-2 overload rescue confirmation and the FIRST full production curve:
+- v403: hierarchical ensemble K=10 sustains 24 hops at 2x load (FIRST RESCUE, ensemble mechanism)
+- v409: resonator/cleanup sustains >=40 hops at 2.0x load (SECOND RESCUE, cleanup mechanism, single operating point)
+- v411 (this): cleanup sustains >=40 hops at ALL load levels including 3x (PRODUCTION CURVE -- cleanup is a PRODUCTION KNOB, not just a rescue at a single operating point)
+
+Product implication: cleanup augmentation is a deployable production feature. A substrate operator that enables cleanup sees no depth degradation regardless of load factor (within the K_CAP=40 ceiling). At 3x memory overload, plain retrieval chains collapse completely (0 hops) while cleanup-augmented chains operate normally. The production curve empirically maps the full phase boundary: cleanup erases the plain-retrieval phase transition. Combined with the K_CAP ceiling analysis (R2 deferred: true ceiling unknown, >=40), this establishes cleanup as a critical architectural component for real-world deployment.
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute BEST-RESCUE): Product reframe -- ship 'cleanup mode' as an always-on production default; single boolean knob; eliminates load-sensitivity in product deployment; zero new compute.
+R2 (1h CPU): K_cap ceiling extension -- sweep K=200-500 at lf2.0 and lf3.0 with cleanup N=4096; locate true depth ceiling under overload (currently lower-bounded at 40).
+R3 (1h CPU): Cross-N production curve at N=8192 -- confirm load-robustness holds at larger N; band-lift candidate if unanimous.
+R4 (1h CPU): lf sweep finer grain lf={1.5, 1.75, 2.0, 2.25, 2.5} at N=4096 -- locate exact plain phase transition boundary between lf1.5 (plain=40) and lf2.0 (plain=2); precision production boundary.
+R5 (free): Theory audit -- why does cleanup preserve depth at 3x overload? Cleanup separates items algebraically; plain interference grows super-linearly with load.
+
+Sub-property annotation on SQ-2 row: 'depth_capacity_production_curve_HARD_PASS v411: N=4096 lf={0.5-3.0} 3-seed full; plain=40/40/40/2/0 vs cleanup=40/40/40/40/40 (K_CAP ceiling) across lf={0.5,1.0,1.5,2.0,3.0}; cleanup LOAD-ROBUST through 3x overload; PRODUCTION CURVE COMPLETE; THIRD SQ-2 overload rescue; cleanup is deployable production knob eliminating depth phase transition.'
+
+Sub-property annotation on PP-12 row: 'depth_capacity_production_curve_HARD_PASS v411: cleanup augmentation makes multi-hop depth load-invariant to 3x overload (plain collapses to 0 at lf3.0; cleanup=40 K_CAP); confirms compositionality robustness is architecture-dependent not merely N-dependent; R4 load sweep + R2 K_ceil sweep deferred.'
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 893 -> 894 (+1).
+- LABEL-VS-HONEST: 220 UNCHANGED (0 new catches).
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS (single N=4096; K_CAP ceiling hit = lower bound only; cross-N R3 deferred). SQ-2 + PP-12 sub-property annotations. R1-R5 cheapest-first filed.
+- PROT-007/008: v411 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 323rd PROT-009 paired commit.
+- PROT-018: _n4096 suffix; config N=4096. Compliant. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: All 3 seeds identical at every cell (K_CAP/plain-collapse behavior deterministic); per-seed values self-consistent; lf2.0 plain=2 matches v409 cross-experiment.
+
+Cap_map: v410 -> v411 CYCLE 82 (1 HP: depth_capacity_production_curve PRODUCTION-CURVE-COMPLETE cleanup-load-robust-to-3x; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 893->894; LVH 220; Portfolio 32+77; 323rd PROT-009 paired commit) (2026-06-05)

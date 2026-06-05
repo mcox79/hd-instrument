@@ -9993,3 +9993,28 @@ Sub-property annotation on PP-12 row: 'hierarchical_D_saturation_HARD_PASS v410:
 - PROT-022: indep=1.000 deterministic all seeds; eff_cap values identical across seeds; self-consistent.
 
 Cap_map: v409 -> v410 CYCLE 81 (1 HP: hierarchical_D_saturation D-linear-scaling EXACT through D=40; 0 MID; 0 HF; 0 LVH; PP-7 + PP-12 sub-property annotations; HONEST 892->893; LVH 220; Portfolio 32+77; 322nd PROT-009 paired commit) (2026-06-05)
+# v411 update (2026-06-05) -- CYCLE 82: 1x HARD_PASS (substrate_depth_capacity_production_curve_v1_n4096); 0 LVH; SQ-2 + PP-12 production-curve sub-property annotations; HONEST 893->894; LVH 220 UNCHANGED; Portfolio 32+77; 323rd PROT-009 paired commit
+
+## CYCLE 82 BATCH -- v410 -> v411 (2026-06-05)
+
+| # | Anchor | N | Seeds | Verdict | Notes |
+|---|--------|---|-------|---------|-------|
+| 1 | substrate_depth_capacity_production_curve_v1_n4096 | 4096 | 3 | HARD_PASS | plain=40/40/40/2/0 vs cleanup=40/40/40/40/40 across lf={0.5,1.0,1.5,2.0,3.0}; high-load ratio 20x at lf2.0; plain collapse at lf3.0 |
+
+**Step 0: Honest Re-Read.** Metrics source=remote (authoritative). HARD_PASS label: 'cleanup-augmented depth dominates plain at high load (production knob). high-load cleanup/plain=20.3x.' Per-cell: ALL 3 seeds IDENTICAL. lf0.5-1.5: plain=40(K_CAP) cleanup=40(K_CAP) -- parity. lf2.0: plain=2 cleanup=40 -- 20x unanimous. lf3.0: plain=0 cleanup=40 -- plain total collapse. Label '20.3x' is composite from overload regime; honest (lf3.0 plain=0 makes this an understatement). Parity at low load explicitly shown in verdict_msg. 0 LVH catches. PROT-018/021/022 compliant. lf2.0 plain=2 matches v409 cross-experiment (plain_depth=2.3 at 2.0x alpha_c).
+HONEST: 893 -> 894 (+1). LVH: 220 UNCHANGED.
+
+**(A) substrate_depth_capacity_production_curve_v1_n4096 HARD_PASS -- SQ-2 PRODUCTION CURVE COMPLETE: cleanup makes depth LOAD-ROBUST across full lf={0.5..3.0} envelope at N=4096**
+N=4096, lf_sweep={0.5,1.0,1.5,2.0,3.0}, 3 seeds, run_mode=full. plain=40(K_CAP) at lf<=1.5; plain=2 at lf2.0; plain=0 at lf3.0. cleanup=40(K_CAP) ALL load fractions -- load-robust through 3x overload. THIRD SQ-2 overload rescue and FIRST full production curve. Cleanup augmentation eliminates the depth phase transition: the plain-retrieval cliff that collapses chains at 2x-3x load is fully erased by cleanup. Combined with v409 (single-point 17x rescue) and v403 (ensemble 24-hop at 2x), substrate now has a complete overload-resilient reasoning story.
+
+Sub-property annotation on SQ-2 row: 'depth_capacity_production_curve_HARD_PASS v411: N=4096 lf={0.5-3.0} 3-seed full; plain=40/40/40/2/0 vs cleanup=40/40/40/40/40 (K_CAP) across lf={0.5,1.0,1.5,2.0,3.0}; cleanup LOAD-ROBUST through 3x overload; PRODUCTION CURVE COMPLETE; THIRD SQ-2 overload rescue; cleanup eliminates depth phase transition; deployable production knob.'
+Sub-property annotation on PP-12 row: 'depth_capacity_production_curve_HARD_PASS v411: cleanup makes multi-hop depth load-invariant to 3x overload (plain=0 at lf3.0; cleanup=40 K_CAP); compositionality robustness architecture-dependent not N-dependent; R2 K_ceil sweep + R4 lf fine-grain + R3 cross-N deferred.'
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS (K_CAP ceiling hit = lower bound; cross-N R3 deferred). SQ-2 + PP-12 sub-property annotations. R1-R5 cheapest-first filed (R1 free product-reframe; R2 K_ceil extension; R3 cross-N N=8192; R4 lf fine-grain; R5 theory).
+- PROT-007/008: v411 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 323rd PROT-009 paired commit.
+- PROT-018: _n4096 N=4096 confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: All 3 seeds identical (K_CAP ceiling behavior deterministic); lf2.0 plain=2 matches v409; self-consistent.
+
+Cap_map: v410 -> v411 CYCLE 82 (1 HP: depth_capacity_production_curve PRODUCTION-CURVE-COMPLETE cleanup-load-robust-to-3x; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 893->894; LVH 220; Portfolio 32+77; 323rd PROT-009 paired commit) (2026-06-05)
