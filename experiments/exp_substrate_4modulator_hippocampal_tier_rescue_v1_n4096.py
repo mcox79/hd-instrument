@@ -64,16 +64,16 @@ def run_single(keys, vals, n):
 
 
 def run_4mod(keys, vals, n, m_cap):
-    W = np.zeros((n, n), dtype=np.float32); run_mean = None; stored = 0
+    # 4-modulator LR-MODULATION (always write; no hard-gate-to-zero). DA cf-RPE base.
+    W = np.zeros((n, n), dtype=np.float32); run_mean = None
     for i in range(len(keys)):
         err = float(np.linalg.norm(vals[i] - W @ keys[i]))             # DA: prediction error
-        run_mean = err if run_mean is None else 0.9 * run_mean + 0.1 * err   # NA: running arousal
-        sat = min(1.0, stored / max(m_cap, 1))                          # 5HT: satiety 0..1
-        ach_thresh = run_mean * (1.0 + sat)                            # 5HT raises ACh threshold near capacity
-        if err > ach_thresh:                                           # ACh: focus on surprising
-            na_gain = min(2.0, err / (run_mean + 1e-6))               # NA: arousal-scaled LR
-            W += (LR * na_gain / n) * np.outer(vals[i] - W @ keys[i], keys[i])  # DA cf-RPE write
-            stored += 1
+        run_mean = err if run_mean is None else 0.9 * run_mean + 0.1 * err   # running baseline
+        ach = min(2.0, 0.5 + err / (run_mean + 1e-6))                  # ACh focus: boost LR for surprising
+        na = min(1.5, 0.75 + 0.5 * (run_mean / (1.0 + run_mean)))      # NA arousal: global gain
+        fivehial = max(0.3, 1.0 - 0.5 * min(1.0, i / max(2 * m_cap, 1)))  # 5HT satiety: taper LR as stream fills (protect)
+        lr_eff = LR * ach * na * fivehial
+        W += (lr_eff / n) * np.outer(vals[i] - W @ keys[i], keys[i])   # DA cf-RPE write, modulated LR
     return recall(W, keys, vals, n)
 
 
@@ -91,7 +91,7 @@ if _ARGS.self_test:
 
 
 def run_seed(seed: int) -> Dict:
-    g = np.random.default_rng(seed); n = N_DIM; m_cap = max(8, int(round(ALPHA_C * n))); M = 2 * m_cap
+    g = np.random.default_rng(seed); n = N_DIM; m_cap = max(8, int(round(ALPHA_C * n))); M = 4 * m_cap
     keys = unit_bipolar(M, n, g); vals = unit_bipolar(M, n, g)
     s = run_single(keys, vals, n); f = run_4mod(keys, vals, n, m_cap)
     return {"seed": seed, "N": n, "M": M, "m_cap": m_cap, "single_recall": s, "fourmod_recall": f, "ratio": float(f / max(s, 1e-6))}
