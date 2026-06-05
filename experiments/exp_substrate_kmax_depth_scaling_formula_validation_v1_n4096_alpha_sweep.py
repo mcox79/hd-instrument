@@ -37,10 +37,10 @@ _N_SUFFIX = 4096; N = 4096; assert N == _N_SUFFIX
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 
-ALPHA_C = 0.138; K_CAP = 50
+ALPHA_C = 0.138; K_CAP = 50; N_PROBES = 5
 LOAD_FRACS = [0.1, 0.2, 0.3, 0.5, 0.7, 0.9, 1.0]
 if RUN_MODE == "smoke":
-    SEEDS = [1]; N_DIM = 1024; LOAD_FRACS = [0.3, 0.5, 0.9]; K_CAP = 24
+    SEEDS = [1]; N_DIM = 1024; LOAD_FRACS = [0.3, 0.5, 0.9]; K_CAP = 24; N_PROBES = 3
 else:
     SEEDS = [7, 17, 23]; N_DIM = N
 
@@ -54,25 +54,28 @@ def predicted_kmax(load_frac):
 
 
 def empirical_kmax(n, load_frac, g):
-    n_trans = max(1, int(round(load_frac * ALPHA_C * n))); L = min(K_CAP, max(2, n_trans))
-    G = max(1, n_trans // L); chains = [bipolar((L + 1, n), g) for _ in range(G)]
+    # separate background LOAD (M random transitions) from probe-chain DEPTH (one long chain)
+    M_bg = max(0, int(round(load_frac * ALPHA_C * n)))                        # background load = M/N
     W = np.zeros((n, n), dtype=np.float32)
-    for ch in chains:
-        for i in range(L):
+    if M_bg:                                                                  # M random independent a->b transitions
+        A = bipolar((M_bg, n), g); B = bipolar((M_bg, n), g); W += B.T @ A
+    probes = [bipolar((K_CAP + 1, n), g) for _ in range(N_PROBES)]            # probe chains
+    for ch in probes:
+        for i in range(K_CAP):
             W += np.outer(ch[i + 1], ch[i])
     best = 0
-    for K in range(1, L + 1):
+    for K in range(1, K_CAP + 1):
         hits = 0
-        for ch in chains:
+        for ch in probes:
             q = ch[0].copy()
             for _ in range(K):
                 q = np.sign(W @ q); q[q == 0] = 1.0
             hits += (float((q * ch[K]).sum() / n) > 0.90)
-        if hits / len(chains) >= 0.80:
+        if hits / len(probes) >= 0.80:
             best = K
         else:
             break
-    return best, L
+    return best, K_CAP
 
 
 def _selftest():
