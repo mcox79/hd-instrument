@@ -92,11 +92,11 @@ MAX_TOK_LEN = 64               # short prompts; analogy docs are short
 PROGRESS_EVERY = 50
 
 # v8-lesson watchdog: exit fast if no doc completes within this window.
-WATCHDOG_PER_DOC_TIMEOUT_S = 120
+WATCHDOG_PER_DOC_TIMEOUT_S = 3000   # raised: savez_compressed of full per-token array (~300MB) exceeded 120s -> watchdog killed finalization -> truncated npz
 _LAST_DOC_COMPLETE_TS: list = [None]
 
 # Extraction targets (per research: 5-10k sufficient for VQ + audit-core)
-N_DOCS_FULL = 10000
+N_DOCS_FULL = 6000   # reduced: smaller per-token array -> faster compress; still > MIN_DOCS_HP=5000
 N_DOCS_SMOKE = 50
 MIN_DOCS_HP = 5000             # HARD_PASS gate floor
 
