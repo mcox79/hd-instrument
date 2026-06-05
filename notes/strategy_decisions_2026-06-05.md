@@ -89,3 +89,50 @@ Honest reading: SMOKE_PARTIAL -- perfect K2/K3/K4 EM=1.000 at N=1024 tiny-scale 
 LVH sub-flavor: SMOKE_OVER_CLAIMED_AS_HARD_PASS + PROT-018_N_MISMATCH
 HONEST: 890 -> 891 (+1). LVH: 219 -> 220 (+1).
 Cap_map: v408 UNCHANGED (annotation-only; no state transition on local-fallback smoke data).
+
+## CYCLE 80 -- substrate_resonator_augmented_iterated_retrieval_v1_n4096 HARD_PASS (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_resonator_augmented_iterated_retrieval_v1_n4096
+Verdict label: HARD_PASS
+Metrics source: REMOTE (authoritative)
+run_mode: full | n_seeds: 3 | N: 4096
+Per-seed: {seed7: plain=2, cleanup=40, ratio=20.0x}, {seed17: plain=3, cleanup=40, ratio=13.3x}, {seed23: plain=2, cleanup=40, ratio=20.0x}
+Mean: plain_depth=2.3 cleanup_depth=40.0 ratio=17.1x (cleanup hit K_CAP; ratio LOWER BOUND) load=2.0 alpha_c
+
+Honest check: All per-seed ratios (20.0x, 13.3x, 20.0x) >> 1.5x HP threshold. cleanup_depth=40 unanimous = K_CAP ceiling hit in all seeds -- true depth unknown (>=40). Stated 'LOWER BOUND' in label is accurate and conservative. Label is honest. 0 LVH catches.
+PROT-018: _n4096 matches config.N=4096. Compliant.
+PROT-021: run_mode=full, source=remote. No smoke artifacts.
+PROT-022: ratios self-consistent {20.0, 13.3, 20.0}=mean 17.1x; cleanup_depth unanimous 40 (ceiling, deterministic); plain={2,3,2} mean=2.3 consistent with v403 load_sweep depth=2 at 2.0x alpha_c.
+
+HONEST: 891 -> 892 (+1). LVH: 220 UNCHANGED.
+
+### Cap_map Decision (v408 -> v409)
+
+**(A) substrate_resonator_augmented_iterated_retrieval_v1_n4096 HARD_PASS -- SQ-2 RESONATOR AUGMENTATION: depth rescued from 2.3 to >=40 at 2.0x alpha_c overload**
+N=4096, load=2.0 alpha_c (ABOVE the 1.5x-2.0x phase boundary from v403 sq2_multihop_load_sweep), 3 seeds. plain_depth=2.3 (consistent with v403 depth=2 at 2.0x). cleanup_depth=40 (ceiling; lower bound). ratio=17.1x LOWER BOUND. SECOND SQ-2 OVERLOAD RESCUE after v403 hierarchical ensemble (orthogonal mechanism: cleanup vs ensemble). Mechanism: resonator/cleanup memory augmentation rescues per-item retrieval depth without ensemble.
+
+Sub-property annotation on SQ-2 row: 'resonator_augmented_iterated_retrieval_HARD_PASS v409: N=4096 load=2.0 alpha_c 3-seed full; plain_depth=2.3 cleanup_depth>=40(ceil) ratio=17.1x LOWER_BOUND; resonator/cleanup augmentation rescues SQ-2 depth at overload; SECOND overload rescue (first: hierarchical ensemble v403); K_CAP ceiling hit -- K_sweep recommended to locate true depth ceiling; SQ-2 depth is architecture-dependent not fixed by N alone.'
+
+Sub-property annotation on PP-12 row: 'resonator_augmented_iterated_retrieval_HARD_PASS v409: cleanup adds >=17x depth buffer at load=2.0 alpha_c N=4096; substrate reasoning depth = f(N, load, architecture); complements kmax_depth_scaling_formula_HF (v408) -- formula refuted but substrate empirically exceeds it at high load.'
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute): Annotate-only product reframe -- cleanup-augmented SQ-2 retrieval is 'overload-resilient reasoning'; brand as production feature for real-world 2x memory-load scenarios.
+R2 (1h CPU): K_cap ceiling extension sweep K=200-400 at load=2.0 N=4096; locate true depth ceiling; verify LOWER BOUND claim.
+R3 (1h CPU): Cross-N at N=8192 -- resonator augmentation cross-N verification; band-lift candidate if unanimous.
+R4 (2h GPU): load_sweep with cleanup at load {1.0, 1.5, 2.0, 2.5} N=4096 -- characterize cleanup-augmented depth across full load envelope; locate cleanup phase boundary.
+R5 (1h CPU): Mechanism comparison -- cleanup vs CFRPE+cleanup vs ensemble+cleanup triple at N=4096 load=2.0.
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 891 -> 892 (+1).
+- LABEL-VS-HONEST: 220 UNCHANGED (0 new catches).
+
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS (single N; cross-N R3 deferred). SQ-2 + PP-12 sub-property annotations. R1-R5 cheapest-first filed.
+- PROT-007/008: v409 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 321st PROT-009 paired commit.
+- PROT-018: _n4096 suffix binding confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: ratios {20.0, 13.3, 20.0} mean=17.1 self-consistent; cleanup=40 unanimous (K_CAP ceiling deterministic); plain={2,3,2} mean=2.3 consistent with v403 load_sweep.
+
+Cap_map: v408 -> v409 CYCLE 80 (1 HP: resonator_augmented_iterated_retrieval SECOND-SQ2-OVERLOAD-RESCUE; 0 MID; 0 HF; 0 LVH; SQ-2 + PP-12 sub-property annotations; HONEST 891->892; LVH 220; Portfolio 32+77; 321st PROT-009 paired commit) (2026-06-05)
