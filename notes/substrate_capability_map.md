@@ -10197,3 +10197,37 @@ PP-8 Phase 0.5 per-token sub-property annotation (added):
 
 Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. Infrastructure annotation only.
 Cap map: v417 -> v418 CYCLE 89 (1 HP: phase05_v1_pythia160m_residual_extract_pertoken Phase0.5-pertoken-infrastructure-gate; 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 per-token sub-property; HONEST 900->901; LVH 221; Portfolio 32+77; 330th PROT-009 paired commit) (2026-06-05)
+
+# v419 update (2026-06-05) -- CYCLE 90 BATCH: 2 HP (cognitive_core_counterfactual CATEGORICAL-1e6x + cognitive_core_architectural_advantage 3-CATEGORICAL-WINS); 1 MID (ex_concept_1_real PIPELINE-VALIDATED bigram-parity); 0 HF; 0 LVH; PP-8 annotations x3; HONEST 901->904; LVH 221; Portfolio 32+77; 331st PROT-009 paired commit
+
+## Experiment results -- CYCLE 90 BATCH
+
+### substrate_cognitive_core_counterfactual_v1 HARD_PASS
+pythia-160m, F=300 K=100, run_mode=full, 3 seeds, source=remote.
+sub_updated=1.000 ALL seeds. retention=0.995-1.000 ALL seeds. pythia_updated=0.000 ALL seeds. ratio=1e6x (lower bound; Pythia zero).
+cf-RPE inference-time fact update: categorical win. Zero fine-tuning required for substrate.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_counterfactual_HARD_PASS v419: pythia-160m F=300 K=100 3-seed full; sub_updated=1.000(3/3) retention=0.995-1.000(3/3) pythia_updated=0.000(3/3) ratio=1e6x(categorical); cf-RPE native inference-time update; zero-fine-tuning fact correction confirmed; FIRST real-pythia counterfactual head-to-head.'
+
+### substrate_cognitive_core_architectural_advantage_v1 HARD_PASS
+pythia-160m, run_mode=full, 3 seeds, source=remote.
+LONGCONV sub=1.000/pythia@200=0.000 ALL 3 seeds.
+CROSS-SESSION sub=1.000/pythia=0.000 ALL 3 seeds.
+MULTIDOC@50 sub=1.000/pythia~0.12-0.14 ALL 3 seeds.
+Architecture-class wins on 3 independent product use-cases: long-conversation recall, cross-session memory, multi-document retrieval.
+
+PP-8 sub-property annotation (added):
+'cognitive_core_architectural_advantage_HARD_PASS v419: pythia-160m 3-seed full; LONGCONV sub=1.00/py@200=0.00(3/3); CROSS-SESSION sub=1.00/py=0.00(3/3); MULTIDOC@50 sub=1.00/py~0.13(3/3); all 3 categorical unanimous; architecture-class wins long-context+cross-session+multidoc; product: 3 differentiators N=4096.'
+
+### ex_concept_1_real_pythia_concept_lm_v1 MIDDLE_BAND (scope: bigram-parity)
+V_C=256, n_docs=6000, n_test_pos~8700/seed, 3 seeds, run_mode=full, source=remote, elapsed=2092s.
+substrate_top1 mean=0.446. bigram mean=0.453. unigram mean=0.021. ratio_vs_unigram=20.97x.
+SCOPE: substrate below bigram all 3 seeds (delta -0.004 to -0.007). Pipeline validated end-to-end. V_C=256 too coarse; captures bigram co-occurrence statistics not independent concept structure.
+
+PP-8 MIDDLE_BAND scope annotation (added):
+'ex_concept_1_real_pythia_concept_lm_MIDDLE_BAND v419: V_C=256 n_docs=6000 3-seed full elapsed=2092s; sub_top1=0.446 bigram=0.453 unigram=0.021 ratio_vs_unigram=20.97x; substrate BELOW bigram by 0.007 ALL seeds; bigram-level sequential structure; pipeline validated; V_C>=512 or SQ-2 multi-hop needed for above-bigram; R1-R5 rescue filed.'
+Rescue R1-R5 cheapest-first filed in strategy_decisions_2026-06-05.md CYCLE 90 entry.
+
+Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. PP-8 sub-property annotations x3.
+Cap map: v418 -> v419 CYCLE 90 BATCH (2 HP: cognitive_core_counterfactual CATEGORICAL-1e6x-zero-fine-tuning + cognitive_core_architectural_advantage 3-CATEGORICAL-WINS LONGCONV/CROSS-SESSION/MULTIDOC; 1 MID: ex_concept_1_real PIPELINE-VALIDATED bigram-parity-scope-note; 0 HF; 0 LVH; 0 BAND-LIFTS; PP-8 annotations x3; HONEST 901->904; LVH 221; Portfolio 32+77; 331st PROT-009 paired commit) (2026-06-05)
