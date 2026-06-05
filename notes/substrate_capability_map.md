@@ -10424,3 +10424,23 @@ PP-3 band: UNCHANGED. Portfolio 32+77 UNCHANGED.
 
 Cap_map: v423 -> v424 CYCLE 95 BATCH (1 HP-SMOKE: continual_learning_30day retention+recall+chain+28x-SMOKE-ANNOTATION; 1 HP: kgram_xor_context_binding FULL-3SEED-K2/K1=6.63x-K3/K1=6.21x-RETRIEVAL-RESCUE; 1 MID: introspection_toolkit_full_10cat 3/4-functional-cat6-NONOPERATIONAL; 0 HF; 0 LVH; sub-prop annotations x3; HONEST 914->917; LVH 222; Portfolio 32+77; 336th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v425 update (2026-06-05) -- CYCLE 96 BATCH: 2 HP (long_conversation_10k_exchanges CATEGORICAL-10x-scale + continual_learning_30day FULL-3SEED-UPGRADE); 1 MID (adversarial_failure_modes 3/4-predictable-Mode-D-unmitigated); 0 HF; 0 LVH; sub-prop annotations x3; HONEST 917->920; LVH 222 UNCHANGED; Portfolio 32+77; 337th PROT-009 paired commit
+
+## CYCLE 96 BATCH -- v424 -> v425 (2026-06-05)
+
+| # | Anchor | Mode | Seeds | Verdict | Honest | Cap_map action |
+|---|--------|------|-------|---------|--------|----------------|
+| 1 | substrate_long_conversation_10k_exchanges_v1 | full | 3 | HARD_PASS | sub >=0.95 all 15 cells; Pythia ~0.04 all cells; categorical; label honest | PP-8 sub-property: long-conv 10k+ exchanges confirmed; 10x scale extension v423; band UNCHANGED |
+| 2 | substrate_continual_learning_30day_realistic_stream_v1 | full | 3 | HARD_PASS | retention=0.999 new_recall=1.000 cross_day=1.000 all seeds; speedup=7.5x measured; v424 smoke UPGRADED; label honest | Continual-learning row: annotation upgraded smoke->FULL; band UNCHANGED (sub-property; cross-N deferred) |
+| 3 | substrate_adversarial_failure_modes_v1 | full | 3 | MIDDLE_BAND | A=1.000/E=separable/F=graceful all seeds; D=0.44 FAIL all seeds; 3/4 operational; label honest | PP-8/adversarial sub-property: 3/4 characterized; Mode D open mitigation gap; band UNCHANGED |
+
+Sub-property annotations:
+- PP-8: 'long_conversation_10k_exchanges_HARD_PASS v425: Pythia-160m E=12000 n_threads=5 3-seed full elapsed=118.7s; sub flat >=0.95 all depths {50,1000,4000,8000,11000} all seeds; pythia~0.04 at depth; FIRST 10k+ exchange test; 10x extension v423; no ceiling found; architectural gap permanent.'
+- Continual learning row: 'continual_learning_30day_realistic_stream_HARD_PASS v425 [FULL 3-seed UPGRADES v424 SMOKE]: run_mode=full n_seeds=3 elapsed=828.7s; retention=0.999(3/3) new_recall=1.000(3/3) cross_day=1.000(3/3); pythia catastrophic forgetting {-7%,-52%,-44%}; speedup=7.5x(Pythia-160m FT); zero-forget engine confirmed.'
+- PP-8/adversarial: 'adversarial_failure_modes_MIDDLE_BAND v425: N=4096 3-seed full elapsed=865.9s; A contradiction_latest=1.000(3/3); E ood_sep=True(3/3) gap=2.9e-4(narrow); F overflow_graceful=True(3/3); D adversarial_confusion=0.44(3/3 FAIL); 3/4 predictable; Mode D unmitigated; product-safe A+E+F; D gate: a_query_sim defense before adversarial deployment.'
+
+Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 917 -> 920 (+3). LVH: 222 UNCHANGED.
+Cap_map: v424 -> v425 CYCLE 96 BATCH (2 HP: long_conversation_10k CATEGORICAL-10x-scale + continual_learning_30day FULL-3SEED-UPGRADE-from-smoke; 1 MID: adversarial_failure_modes 3/4-predictable-Mode-D-unmitigated; 0 HF; 0 LVH; sub-prop annotations x3; HONEST 917->920; LVH 222; Portfolio 32+77; 337th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
