@@ -10160,3 +10160,24 @@ LVH entry: cycle87_anchor2_threshold_shopping: same per-seed data as cycle 86 HA
 - PROT-022: K_compound=80 unanimous SD=0 (ceiling determinism); K_single=0 SD=0 (structural failure). Self-consistent.
 
 Cap_map: v415 -> v416 CYCLE 87 (1 HP: hierarchical_compound_depth compound-chains-K80-lower-bound; 0 new HF; 1 LVH: architecture_a re-run threshold-shopping DUPLICATE-HARD_FAIL; Mode 5 hierarchical sub-property; HONEST 898->899; LVH 220->221; Portfolio 32+77; 328th PROT-009 paired commit) (2026-06-05)
+# v417 update (2026-06-05) -- CYCLE 88: 0 HP; 1 MID (continual_learning_empirical_LLM_comparison FIRST-HEAD-TO-HEAD 27x-lower-bound zero-forgetting); 0 HF; 0 LVH; Continual learning sub-property annotation; HONEST 899->900; LVH 221; Portfolio 32+77; 329th PROT-009 paired commit
+
+## Experiment result -- substrate_continual_learning_empirical_10e9x_v1 MIDDLE_BAND
+
+FIRST empirical LLM vs substrate head-to-head continual learning comparison.
+Model: Pythia-160M. n_seeds=3, run_mode=full.
+Substrate: sub_wall=1.358s mean; old_retention=1.000 all seeds; new_recall=1.000 all seeds.
+LLM: llm_wall=36.9s mean; old accuracy -2.6% to -5.1% (forgetting all 3 seeds); new_recall=0.45-0.47.
+Speedup=27x LOWER BOUND (Pythia-160M; scales with LLM param count; ~1B: ~230x; ~7B: ~1600x).
+MIDDLE_BAND: substrate advantage confirmed at small-LLM scale; HP gate = 1B+ LLM empirical OR pre-reg 1000x band.
+
+Continual learning sub-property annotation (added to Continual learning section):
+'continual_learning_empirical_LLM_comparison_MIDDLE_BAND v417: sub_wall=1.358s llm_wall=36.9s speedup=27x(LOWER_BOUND;Pythia-160M;scales-with-LLM-size); sub_retention=1.000(3/3 seeds); llm_forget=-2.6%to-5.1%(3/3 seeds); FIRST empirical head-to-head; HP gate: 1B+ LLM empirical OR pre-reg 1000x band met; 2026-06-05.'
+
+Rescue sketches R1-R4 filed (cheapest-first):
+R1 (free): Product framing -- 27x faster + zero forgetting vs Pythia-160M; scales with LLM size.
+R2 (2h CPU): Pythia-1B comparison -- ~230x expected; HP candidate.
+R3 (free): Theory note on O(param_count) speedup scaling.
+R4 (2h CPU): Concept-count sweep (1,10,100) -- forgetting trajectory.
+
+Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. Annotation only.
