@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v404
+# hd-instrument substrate — capability map v414
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -10069,3 +10069,29 @@ Rescue (cheapest-first): R1 (free APPLIED): Partition annotation -- COMPOSITION 
 - PROT-022: kmax_b2res=8 unanimous SD=0; res_alone=26 unanimous; b2_res monotone degradation all seeds.
 
 Cap_map: v412 -> v413 CYCLE 84 (0 HP; 0 MID; 1 HF: R6_b2_x_sparse_resonator COMPOSITION-FAILS partitioning-required; 0 LVH; Composition/PP-8 sub-property annotation; HONEST 895->896; LVH 220; Portfolio 32+77; 325th PROT-009 paired commit) (2026-06-05)
+
+# v414 update (2026-06-05) -- CYCLE 85: 1 HP (substrate_R5_b2_storage_b8_readout_serial_v1_n4096); 0 LVH; PP-8/composition sub-property annotation B2+B8-serial-intact; HONEST 896->897; LVH 220 UNCHANGED; Portfolio 32+77; 326th PROT-009 paired commit
+
+| # | Anchor | N | Seeds | Verdict | Summary |
+|---|--------|---|-------|---------|---------|
+| 1 | substrate_R5_b2_storage_b8_readout_serial_v1_n4096 | 4096 | 3 | HARD_PASS | B2_M_crit=18000 ratio=90x; b8_r=0.404>>0.158; serial stack intact; label honest |
+
+**(A) substrate_R5_b2_storage_b8_readout_serial_v1_n4096 HARD_PASS -- B2+B8 SERIAL STACK INTACT: B2 storage does NOT corrupt B8 readout at N=4096**
+N=4096, run_mode=full, 3 seeds unanimous. B2_M_crit=18000 vs dense_M_crit=200 (ratio=90x, all 3 seeds identical). b8_r=0.402-0.405 (mean 0.404) vs sqrt(K/V)=0.158; 2.56x margin all 3 seeds. Serial pipeline test confirms B2 storage stage does not degrade B8 readout signal. Both stages are independent and composable.
+
+Sub-property annotation on PP-8 / storage-readout composition row: 'R5_b2_storage_b8_readout_serial_HP v414: N=4096 3-seed full; B2_M_crit=18000 ratio=90x; b8_r=0.404>sqrt(KV)=0.158; serial stack INTACT; B2 does NOT corrupt B8 readout; B8-compatible with B2 (contrast: resonator HF v413); product: B2+B8 serial pipeline viable without partitioning.'
+
+Rescue extensions (cheapest-first): R1 (free APPLIED): Annotate B2+B8 as confirmed viable serial composition path. R2 (1h CPU): Cross-N N=8192 B2+B8 serial stack -- band-lift candidate if unanimous. R3 (1h CPU): M_stored sweep to characterize b8_r vs B2 load. R4 (1h CPU): End-to-end retrieval accuracy at production M. R5 (2h CPU): Full B2->B8->B2 roundtrip retrieval chain test.
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 896 -> 897.
+- LABEL-VS-HONEST: 220 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new top-level rows. PP-8/composition sub-property annotation. R1-R5 cheapest-first filed.
+- PROT-007/008: v414 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 326th PROT-009 paired commit.
+- PROT-018: _n4096 suffix; N=4096 confirmed. 0 violations.
+- PROT-021: source=SSH-remote run_mode=full. No smoke artifacts.
+- PROT-022: B2_M_crit=18000 unanimous SD=0; b8_r [0.402-0.405] tight; sqrt_KV=0.1581 constant.
+
+Cap_map: v413 -> v414 CYCLE 85 (1 HP: R5_b2_storage_b8_readout_serial BOTH-STAGES-INTACT B2+B8-serial-viable; 0 MID; 0 HF; 0 LVH; PP-8/composition sub-property annotation; HONEST 896->897; LVH 220; Portfolio 32+77; 326th PROT-009 paired commit) (2026-06-05)

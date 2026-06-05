@@ -359,3 +359,62 @@ R5 (free): Theory -- B2 stores M unitary vectors; resonator query = iterative pr
 - PROT-022: kmax_b2res=8 unanimous (SD=0); res_alone=26 unanimous; per-seed b2_res curves consistent (same monotone degradation shape across seeds).
 
 Cap_map: v412 -> v413 CYCLE 84 (0 HP; 0 MID; 1 HF: R6_b2_x_sparse_resonator COMPOSITION-FAILS partitioning-required; 0 LVH; Composition/PP-8 sub-property annotation; HONEST 895->896; LVH 220; Portfolio 32+77; 325th PROT-009 paired commit) (2026-06-05)
+
+## CYCLE 85 -- substrate_R5_b2_storage_b8_readout_serial_v1_n4096 HARD_PASS (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_R5_b2_storage_b8_readout_serial_v1_n4096
+Verdict label: HARD_PASS
+Metrics source: REMOTE (authoritative; bridge stale, SSH fallback)
+run_mode: full | n_seeds: 3 | N: 4096 | elapsed_s: 308s
+
+Per-seed:
+  seed 7:  B2_M_crit=18000 dense_M_crit=200 ratio=90.0x  b8_r=0.4054 sqrt_KV=0.1581
+  seed 17: B2_M_crit=18000 dense_M_crit=200 ratio=90.0x  b8_r=0.4034 sqrt_KV=0.1581
+  seed 23: B2_M_crit=18000 dense_M_crit=200 ratio=90.0x  b8_r=0.4022 sqrt_KV=0.1581
+
+Honest check:
+- HARD_PASS label accurate: B2 storage capacity confirmed (90x over dense baseline) unanimous all 3 seeds.
+- B8 readout confirmed: b8_r mean=0.404 >> sqrt(K/V)=0.158 (2.56x margin) unanimous all 3 seeds.
+- Serial stacking verified: B2 stage does NOT corrupt B8 readout -- both stages intact at N=4096.
+- PROT-018: _n4096 suffix; N=4096 confirmed. Compliant.
+- PROT-021: source=SSH-remote, run_mode=full. No smoke artifacts.
+- PROT-022: B2_M_crit and ratio identical across all 3 seeds (algebraically deterministic); b8_r tight spread [0.402-0.405] consistent.
+
+LVH assessment: 0 catches. Label HARD_PASS is honest and supported by all per-cell data.
+HONEST: 896 -> 897 (+1). LVH: 220 UNCHANGED.
+
+### Cap_map Decision (v413 -> v414)
+
+**(A) substrate_R5_b2_storage_b8_readout_serial_v1_n4096 HARD_PASS -- B2 STORAGE x B8 READOUT SERIAL STACK: both stages intact; B2 does NOT corrupt B8; B2_M_crit=18000 (90x over dense); b8_r=0.404 >> sqrt(K/V)=0.158**
+N=4096, run_mode=full, 3 seeds unanimous.
+
+B2 stage: M_crit=18000 vs dense 200; 90x capacity ratio confirmed at N=4096 full 3-seed. This is a strong absolute capacity advantage.
+B8 stage: r=0.404 vs sqrt(K/V)=0.158; B8 readout signal well above the expected random baseline by 2.56x margin; unanimous 3 seeds.
+Serial interaction test: Running both stages sequentially confirms B2 storage does not interfere with B8 readout signal. This is the key new finding -- the two mechanisms compose cleanly in series at N=4096.
+
+Product implication: B2 storage and B8 readout can be deployed together in a serial pipeline without cross-stage interference. This is architecturally significant: a substrate can store at high capacity (B2, 90x dense) AND retain algebraically meaningful readout (B8) without partitioning or isolation. Contrast with v413 B2+resonator (destructive interference requiring partition) -- the B8 readout modality is B2-compatible where the resonator is not.
+
+Sub-property annotation on PP-8 / storage-readout composition row:
+'R5_b2_storage_b8_readout_serial_HP v414: N=4096 3-seed full; B2_M_crit=18000 ratio=90x; b8_r=0.404>sqrt(KV)=0.158; serial stack INTACT; B2 does NOT corrupt B8 readout; B8-compatible with B2 (contrast: resonator HF v413); product: B2+B8 serial pipeline viable without partitioning.'
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute BEST-RESCUE APPLIED INLINE): Annotate serial compatibility -- B2+B8 is the confirmed viable composition path; product design can rely on this pipeline without partitioning.
+R2 (1h CPU): Cross-N verification -- N=8192 same B2+B8 serial stack; confirm capacity ratio and b8_r margin scale with N; band-lift candidate if unanimous.
+R3 (1h CPU): M-sweep at B2+B8 -- vary M_stored={1000,5000,10000,18000} with B8 readout; characterize b8_r as function of B2 load; find M_crit(B8) jointly.
+R4 (1h CPU): B2+B8 readout accuracy on real retrieval task -- above shows r-statistic clean; verify full end-to-end accuracy at production M.
+R5 (2h CPU): Composition chain B2 -> B8 -> B2 retrieval roundtrip -- store via B2, readout via B8-guided query, verify full retrieval cycle at capacity margin.
+
+- Portfolio: 32+77 UNCHANGED (sub-property annotation on existing PP-8/composition row; cross-N R2 needed before new top-level row).
+- HONEST: 896 -> 897 (+1).
+- LABEL-VS-HONEST: 220 UNCHANGED (0 new catches).
+
+- PROT-004/006: No closures. 0 new top-level rows. PP-8/composition sub-property annotation. R1-R5 cheapest-first filed.
+- PROT-007/008: v414 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 326th PROT-009 paired commit.
+- PROT-018: _n4096 suffix; N=4096 confirmed. 0 violations.
+- PROT-021: source=SSH-remote run_mode=full. No smoke artifacts.
+- PROT-022: B2_M_crit=18000 unanimous (SD=0); b8_r spread [0.402-0.405] tight; sqrt_KV=0.1581 constant. Self-consistent.
+
+Cap_map: v413 -> v414 CYCLE 85 (1 HP: R5_b2_storage_b8_readout_serial BOTH-STAGES-INTACT B2+B8-serial-viable; 0 MID; 0 HF; 0 LVH; PP-8/composition sub-property annotation; HONEST 896->897; LVH 220; Portfolio 32+77; 326th PROT-009 paired commit) (2026-06-05)
