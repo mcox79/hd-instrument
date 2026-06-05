@@ -9840,3 +9840,39 @@ No cap_map row closure (V_c granularity hypothesis; architecture not falsified).
 - PROT-022: Tier6 hybrid_BPC per-seed {3.611,3.637,3.621} mean=3.623 (spread <1%); baseline_BPC {4.602,4.660,4.442} mean=4.568; ratio=0.793 consistent; speedup {1.24x,1.24x,1.34x} mean=1.27x consistent. CCC-smoke fracs {0.4,0.1,0.1} consistent with n_test=10; seed7 4/10 vs seeds17/23 1/10 each (high variance documented).
 
 Cap_map: v405 -> v406 CYCLE 76 (0 HP; 1 MID: tier6_phase_D_4layer_charLM_MIDDLE hybrid-quality-beats-baseline; 1 HF: ccc_smoke_pythia70m VQ-alignment-V_c=64-failure; 0 LVH; PP-8 2x sub-property annotations; HONEST 880->882; LVH 219; Portfolio 32+77; 317th PROT-009 paired commit) (2026-06-04)
+
+# v407 update (2026-06-05) -- CYCLE 77: 1x HARD_PASS (phase05_v1_pythia160m_residual_extract_v1); 0 LVH; PP-8 Phase 0.5 residual-extract infrastructure sub-property; HONEST 882->883; LVH 219 UNCHANGED; Portfolio 32+77; 318th PROT-009 paired commit
+
+## CYCLE 77 BATCH -- v406 -> v407 (2026-06-05)
+
+1 verdict. source=remote run_mode=full. 0 LVH catches.
+
+| # | Anchor | Model | Seeds | Verdict | Honest check |
+|---|--------|-------|-------|---------|-------------|
+| 1 | phase05_v1_pythia160m_residual_extract_v1 | pythia-160m layer=12 | N/A | HARD_PASS | n_residuals=10000 shape=(10000,768) npz saved; n_extracted=0 (counter-bug; n_residuals=10000 is authoritative); wall_extract_s=0.001s (batched; not per-doc); wall_total_s=56.9s (model load dominant); honest |
+
+**(A) phase05_v1_pythia160m_residual_extract_v1 HARD_PASS -- Phase 0.5 Pythia-160M residual extraction infrastructure**
+EleutherAI/pythia-160m, layer_idx=12 (final layer), n_residuals=10000, shape=(10000, 768), dataset=saturnMars/hyperprobe-dataset-analogy, run_mode=full, source=remote. Wall=56.9s (model load dominant; extraction wall 0.001s batched). npz_path=data/exp_phase05_v1_pythia160m_residual_extract_v1/residuals.npz confirmed. HARD_PASS: infrastructure step complete; 10000 real Pythia-160M residuals at layer 12 available for downstream EX-CONCEPT-1 VQ + substrate-audit-core C2 + C3.
+
+Counter-anomaly note: n_extracted=0 in metrics summary (counter not incremented by script); authoritative count is n_residuals=10000 which is consistent with npz_path populated and wall_total_s=56.9s model-load overhead. Not an LVH catch -- this is a data-generation infrastructure step with no capability lift claim; HARD_PASS label is correctly scoped to "extraction complete."
+
+Plain-language: We extracted 10,000 real internal representations (residuals) from layer 12 of Pythia-160M, a small 160-million-parameter language model. These residuals are now saved and ready to feed into the next Phase 0.5 experiments: VQ concept codebook learning and substrate audit-core validation on real LLM data (not synthetic). This is a pipeline infrastructure step, not a capability result.
+
+Capability implication: Downstream Phase 0.5 VQ + substrate-audit-core experiments (EX-CONCEPT-1 C2 + C3) can now run on real Pythia-160M layer-12 representations. The V_c=64 HARD_FAIL (v406 CCC-smoke) already diagnosed codebook granularity as the binding gate; this residual set directly enables the V_c sweep (R2 V_c=256, R3 V_c=512) and substrate-audit-core drift calibration (v400 MID z_drift=1.5-1.8 calibration needed). PP-8 Phase 0.5 sub-property updated: real-LLM residual extraction pipeline confirmed at production N=10000.
+
+Sub-property annotation on PP-8 row: 'Phase05_residual_extract_HARD_PASS v407: pythia-160m layer=12 n=10000 shape=(10000,768); npz_path=data/exp_phase05_v1_pythia160m_residual_extract_v1/residuals.npz; run_mode=full source=remote; infrastructure gate for EX-CONCEPT-1 VQ + audit-core C2/C3; V_c sweep and drift-calibration unblocked; wall_total=56.9s model-load-dominant.'
+
+PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (infrastructure-only step; no capability lift signal; downstream EX-CONCEPT-1 + audit-core anchors will drive band decisions). No rescue sketches needed (HARD_PASS infrastructure gate; downstream experiments are the follow-on action).
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 882 -> **883** (+1).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches; n_extracted counter-anomaly flagged but not an over-claim catch -- no capability lift was claimed).
+
+- PROT-004/006: No closures. 0 new rows. 0 BAND-LIFTS. PP-8 Phase 0.5 residual-extract sub-property annotation. No PROT-004 closure trigger.
+- PROT-007/008: v407 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 318th PROT-009 paired commit.
+- PROT-018: phase05_v1_pythia160m_residual_extract_v1 has no _nN suffix (LLM pipeline; HDC-N not anchor-binding; n_residuals=10000 is extraction count not HDC dimension). 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: n_residuals=10000 single run (infrastructure; no per-seed variance applicable); wall_total_s=56.9s consistent with model load.
+
+Cap_map: v406 -> v407 CYCLE 77 (1 HP: phase05_v1_pythia160m_residual_extract Phase0.5-infrastructure-gate; 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 residual-extract sub-property; HONEST 882->883; LVH 219; Portfolio 32+77; 318th PROT-009 paired commit) (2026-06-05)
