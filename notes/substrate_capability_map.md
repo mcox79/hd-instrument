@@ -9876,3 +9876,54 @@ PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (infrastructure-only step; no capab
 - PROT-022: n_residuals=10000 single run (infrastructure; no per-seed variance applicable); wall_total_s=56.9s consistent with model load.
 
 Cap_map: v406 -> v407 CYCLE 77 (1 HP: phase05_v1_pythia160m_residual_extract Phase0.5-infrastructure-gate; 0 MID; 0 HF; 0 LVH; PP-8 Phase0.5 residual-extract sub-property; HONEST 882->883; LVH 219; Portfolio 32+77; 318th PROT-009 paired commit) (2026-06-05)
+
+## v407 -> v408 -- 2026-06-05 CYCLE 78 BATCH (2 HARD_PASS + 3 HARD_FAIL + 1 MIDDLE_BAND + 1 HARD_PASS[scope-caveat]; 0 LVH; 0 BAND-LIFTS; PP-9/PP-3/PP-8/PP-12 sub-property annotations; FIRST compositional generalization; audit-core RESCUED on real LLM residuals via PCA-whitening; HONEST 883->890; LVH 219; Portfolio 32+77; 319th PROT-009 paired commit)
+
+**Trigger.** 7 verdicts from cycle-78 batch. Pause flag absent. 4-session architecture (Exp-Dev owns queue independently). Queue state: overnight_queue=0 pending, remote_cpu_queue=0 pending (cache stale but runners reported idle).
+
+### Step 0: 0 LVH catches (1 scope caveat: cognitive_core name misleads; pure-VSA synthetic)
+
+All source=remote (bridge stale; SSH fallback authoritative). HONEST 883->890 (+7). LVH 219 unchanged.
+
+| # | Anchor | N | Seeds | Verdict |
+|---|--------|---|-------|---------|
+| 1 | substrate_audit_core_C2_C3_whitened_pythia160m_v2_n4096 | 4096 | 3 | HARD_PASS |
+| 2 | substrate_audit_core_C2_C3_pythia160m_residuals_v1_n4096 | 4096 | 3 | MIDDLE_BAND |
+| 3 | substrate_kmax_depth_scaling_formula_validation_v1_n4096_alpha_sweep | 4096 | 3 | HARD_FAIL |
+| 4 | substrate_stdp_x_b2_sparse_sequence_storage_v1_n8192 | 8192 | 3 | HARD_FAIL |
+| 5 | substrate_compositional_generalization_K10_to_K20_v1_n4096 | 4096 | 3 | HARD_PASS |
+| 6 | substrate_cognitive_core_smoke_pythia70m_AGGRESSIVE_v1 | 4096 | 3 | HARD_PASS[VSA-synth] |
+| 7 | substrate_posbind_x_b2_sparse_sequence_capacity_v1_n8192 | 8192 | 3 | HARD_FAIL[grid-ceiling] |
+
+### Headline outcomes
+
+**(A) AUDIT-CORE RESCUE -- PP-9/PP-3 both primitives operational on real Pythia-160m residuals after PCA-whitening**
+v2 whitened: C2_cert=0.984 (HP); C3_sep=11.0x (HP). v1 unwhitened: C2=0.500 (random-level), C3=84.1x (exceptional). Diagnosis: LLM residuals are highly correlated (strong inter-residual correlation from training); deletion-cert requires decorrelation; drift-detection robust without it. PCA-whitening is the single preprocessing step that enables audit primitives on real LLM data. Phase 0.5 audit-core path now unblocked. PP-9 sub-property: 'whitened_v2 HARD_PASS v408: C2=0.984 C3=11.0x; whitening restores deletion-cert on real Pythia-160m layer-12 residuals; production requires decorrelation preprocessing.' PP-3 sub-property: 'whitening_required_for_C2 v408: implementation gate identified.' PP-9 band UNCHANGED.
+
+**(B) KMAX FORMULA REFUTED -- formula miscalibrated 1526% in both directions; substrate MORE capable than formula predicts**
+K_max formula predicts 0-194 across lf range; empirical K_max >=50 at ALL load fractions. Grid ceiling K=50 means true K_max unknown (>=50). POSITIVE: substrate maintains depth-50 retrieval even at lf=0.9 (near full capacity). Formula must be re-derived. PP-12 sub-property filed. Rescues R1-R4 cheapest-first.
+
+**(C) STDP x B2 SPARSE SEQUENCE STORAGE HARD_FAIL -- sparse not beneficial at N=8192**
+mean ratio=0.83x (seed7=0.5x sparse worse). Sparse coding does not help sequence storage under STDP at N=8192. PP-8 sub-property filed. Rescues R1-R4 cheapest-first (theory audit first; N=16384 scale; STDP-removed B2 comparison).
+
+**(D) FIRST COMPOSITIONAL GENERALIZATION -- substrate composes novel chains K=10..20 unanimously**
+K10=K15=K20=1.000 all 3 seeds, G=8 novel chains, N=4096. First confirmation of compositional generalization capability (not memorization; novel chain composition). New row candidate: compositional_generalization_novel_chain. Annotated on PP-12; promotion deferred pending N=8192.
+
+**(E) COGNITIVE CORE VSA SANITY HARD_PASS (scope: pure-VSA synthetic)**
+recall=1.0 analogical=1.0 counterfactual=0.969 cross_domain=1.0. Validates VSA algebra reasoning primitives. SCOPE NOTE: no actual LLM call (pure numpy, 0.6s wall); 'pythia70m' in name is misleading. LLM-integrated path gated on V_c sweep. PP-8 annotation.
+
+**(F) POSBIND x B2 SPARSE CAPACITY HARD_FAIL -- grid ceiling at S=256; informationally limited**
+Both arms hit ceiling; true S_crit unknown (>=256). Sparse not shown inferior (unlike STDP-B2). Extend grid to S=512 may reveal advantage. PP-8 annotation. Rescues R1-R3.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 883 -> **890** (+7).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches).
+
+- **PROT-004/006:** No closures. 0 net new rows. 1 new row CANDIDATE (compositional_generalization filed on PP-12; cross-N before promotion). 7 sub-property annotations. R1-R4 cheapest-first filed anchors C,D,G. No PROT-004 closure triggers (rescues filed for all HF).
+- **PROT-007/008:** v408 block appended. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 319th PROT-009 paired commit.
+- **PROT-018:** whitened_v2 _n4096 confirmed; residuals_v1 _n4096 confirmed; kmax _n4096 confirmed; stdp_x_b2 _n8192 confirmed; compositional_gen _n4096 confirmed; cognitive_core no _nN (scaffold prereg); posbind_x_b2 _n8192 confirmed. 0 violations.
+- **PROT-021:** all 7 source=remote run_mode=full. No smoke artifacts.
+- **PROT-022:** whitened C2 per-seed {0.984,0.980,0.990} consistent; unwhitened C2 {0.500,0.500,0.500} at binomial noise floor; kmax formula errors seed-independent (N-only formula); compositional 1.000 all seeds 3x8=24 tests unanimous; cognitive_core counterfactual spread consistent with 32-sample; posbind ceiling deterministic all seeds.
+
+Cap_map: v407 -> v408 CYCLE 78 (2 HP: audit_core_whitened+compositional_gen_K10K20-FIRST; 1 MID: audit_core_unwhitened-C3-only; 3 HF: kmax_formula+stdp_sparse_seq+posbind_sparse_cap[grid-ceil]; 1 HP[scope-caveat]: cognitive_core_VSA-synth; 0 LVH; 0 BAND-LIFTS; audit-core RESCUE on real LLM residuals via PCA-whitening; FIRST compositional generalization; HONEST 883->890; LVH 219; Portfolio 32+77; 319th PROT-009 paired commit) (2026-06-05)
