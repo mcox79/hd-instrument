@@ -482,3 +482,34 @@ Sub-property annotation on Mode 5 row: 'mode5_architecture_a_isolated_dual_subst
 - PROT-022: M100/M300 unanimous zero (deterministic collapse near capacity); M10/M30 per-seed values consistent with means. Self-consistent.
 
 Cap_map: v414 -> v415 CYCLE 86 (0 HP; 0 MID; 1 HF: mode5_architecture_a_isolated_dual_substrate_controller N-SCALE-FAILURE not-architecture-refutation isolation-directional-at-M30; 0 LVH; Mode 5 sub-property annotation; HONEST 897->898; LVH 220; Portfolio 32+77; 327th PROT-009 paired commit) (2026-06-05)
+
+## CYCLE 87 BATCH -- v415 -> v416 (2026-06-05)
+
+### Step 0 Honest Re-Read
+
+2 verdicts (1 new, 1 re-run). source=remote (SSH fallback; bridge stale). HONEST 898 -> 899 (+1 new; anchor 2 duplicate). LVH 220 -> 221 (+1 LVH catch on anchor 2 re-run).
+
+| # | Anchor | Verdict (label) | Honest Check |
+|---|--------|-----------------|-------------|
+| 1 | substrate_mode5_hierarchical_compound_depth_v1_n512xD | HARD_PASS | K_compound=80 unanimous 3-seed; K_single=0 (single completely fails); ratio=80x is ceiling/floor arithmetic (K_single=0 -> ratio undefined, clamped to L=80); HP threshold K_compound>=50 met; LOWER BOUND note correct; no over-claim; label honest with LOWER-BOUND caveat |
+| 2 | substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 | HARD_PASS (re-run) | DUPLICATE/RECONCILIATION: metrics identical to cycle 86 (M10 iso=0.70/sh=0.64; M30 iso=0.23/sh=0.14; M100 both=0.00 all seeds). Cycle 86 pre-reg threshold was M=100 gate -> HARD_FAIL. Cycle 87 applies M=30 ratio>=1.5x -> HARD_PASS. SAME DATA, DIFFERENT THRESHOLD = threshold shopping. LVH CATCH: HARD_PASS label over-claims vs cycle 86 pre-reg; honest reading = DUPLICATE of cycle 86 HARD_FAIL; cap_map entry unchanged. |
+
+LVH assessment: 1 LVH catch (anchor 2 re-run threshold shopping). HONEST 898 -> 899 (+1 new). LVH 220 -> 221 (+1).
+
+### Cap_map Decisions
+
+**(A) substrate_mode5_hierarchical_compound_depth_v1_n512xD HARD_PASS -- NEW: Mode5+Hierarchical compound depth confirmed; single-mode fails entirely at N_s=512,D=4**
+N_s=512, D=4, L=80 (chain length ceiling), run_mode=full, 3 seeds.
+K_compound=80 unanimous all seeds (lower bound; hit chain length ceiling L=80).
+K_single=0 unanimous all seeds (single-mode completely fails at this parameter).
+Ratio=80x is ceiling arithmetic (trivial when K_single=0); honest reading: compound mode enables deep reasoning chains (>=50 hops), single mode fails entirely.
+HARD_PASS threshold K_compound>=50 met unanimously. Label honest with LOWER-BOUND caveat.
+New sub-property annotation on Mode 5 hierarchical compound depth row.
+Rescue not needed (HARD_PASS). Cross-N at N_s=1024 recommended to lift LOWER BOUND.
+
+**(B) substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 RE-RUN -- DUPLICATE of cycle 86 HARD_FAIL; threshold shopping detected; cap_map UNCHANGED**
+Cycle 87 metrics identical to cycle 86: M10 iso=0.70/sh=0.64; M30 iso=0.23/sh=0.14; M100 both=0.00 (all seeds).
+Cycle 86 applied pre-reg M=100 gate -> HARD_FAIL (correct per pre-reg).
+Cycle 87 applies M=30 ratio>=1.5x gate -> HARD_PASS (threshold not pre-registered; post-hoc threshold selection).
+LVH CATCH: same data cannot flip HARD_FAIL -> HARD_PASS without new pre-reg. Honest verdict: DUPLICATE/RECONCILIATION = HARD_FAIL stands per cycle 86 cap_map v415 annotation.
+Cap_map v415 annotation stands unchanged. No new cap_map write for anchor 2.

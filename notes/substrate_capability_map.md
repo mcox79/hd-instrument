@@ -10125,3 +10125,38 @@ Sub-property annotation on Mode 5 row: 'mode5_architecture_a_isolated_dual_subst
 - PROT-022: M100/M300 unanimous zero (algebraic determinism: near-capacity collapse); M10/M30 per-seed consistent with stated means. Self-consistent.
 
 Cap_map: v414 -> v415 CYCLE 86 (0 HP; 0 MID; 1 HF: mode5_architecture_a_isolated_dual_substrate_controller N-SCALE-FAILURE not-architecture-refutation isolation-directional-at-M30; 0 LVH; Mode 5 sub-property annotation; HONEST 897->898; LVH 220; Portfolio 32+77; 327th PROT-009 paired commit) (2026-06-05)
+
+
+# v416 update (2026-06-05) -- CYCLE 87: 1 HP (substrate_mode5_hierarchical_compound_depth_v1_n512xD compound-depth LOWER-BOUND); 0 MID; 0 HF (new); 1 LVH (anchor 2 re-run threshold-shopping = DUPLICATE HARD_FAIL); Mode 5 hierarchical sub-property annotation; HONEST 898->899; LVH 220->221; Portfolio 32+77; 328th PROT-009 paired commit
+
+| # | Anchor | N_s | Seeds | Verdict | Summary |
+|---|--------|-----|-------|---------|---------|
+| 1 | substrate_mode5_hierarchical_compound_depth_v1_n512xD | 512 | 3 | HARD_PASS | K_compound=80 unanimous (LOWER BOUND; hit chain ceiling L=80); K_single=0 (single fails entirely); ratio=80x ceiling arithmetic; HP K_compound>=50 met |
+| 2 | substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 | 1024 | 5 | LVH/DUPLICATE | Same metrics as cycle 86 HARD_FAIL; HARD_PASS label uses post-hoc M=30 gate vs pre-reg M=100 gate; cycle 86 HARD_FAIL stands |
+
+**(A) substrate_mode5_hierarchical_compound_depth_v1_n512xD HARD_PASS -- NEW MODE 5 HIERARCHICAL: compound depth reaches K>=50 at N_s=512,D=4; single-mode fails entirely**
+N_s=512, D=4, L=80 chain ceiling, run_mode=full, 3 seeds.
+K_compound=80 unanimous (lower bound; hit chain length ceiling L=80; true K_max unknown >=80).
+K_single=0 unanimous (single-mode completely fails to traverse chains at this N_s/D).
+Ratio=80x is ceiling/floor arithmetic (K_single=0 denominator); honest reading: hierarchical compound enables deep multi-hop chains where single mode is structurally incapable.
+HARD_PASS (K_compound>=50) met unanimously.
+Product implication: substrate can support multi-hop reasoning chains (>=50 hops) via hierarchical composition; single-substrate mode cannot.
+
+Sub-property annotation on Mode 5 hierarchical compound row: mode5_hierarchical_compound_depth_v1_n512xD HARD_PASS v416: N_s=512 D=4 L=80 3-seed; K_compound=80(LOWER BOUND; ceiling hit); K_single=0(single fails entirely); HP K>=50 met; compound mode enables deep chains; single mode structurally fails; cross-N at N_s=1024 lifts lower bound; product: multi-hop reasoning chains >=50 hops viable via hierarchical Mode 5.
+
+**(B) substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 -- LVH/DUPLICATE**
+Cycle 87 metrics identical to cycle 86. HARD_PASS label uses post-hoc M=30 threshold (not pre-registered). Cycle 86 HARD_FAIL per pre-reg M=100 gate stands unchanged.
+LVH entry: cycle87_anchor2_threshold_shopping: same per-seed data as cycle 86 HARD_FAIL; post-hoc M=30 gate applied -> HARD_PASS label; LVH catch 221; HARD_FAIL authoritative.
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 898 -> 899.
+- LABEL-VS-HONEST: 220 -> 221 (+1 anchor 2 threshold shopping).
+
+- PROT-004/006: No closures. 0 new top-level rows. Mode 5 hierarchical sub-property annotation.
+- PROT-007/008: v416 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 328th PROT-009 paired commit.
+- PROT-018: _n512xD suffix binding confirmed (N_s=512 in metrics). Anchor 2 duplicate not reprocessed.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: K_compound=80 unanimous SD=0 (ceiling determinism); K_single=0 SD=0 (structural failure). Self-consistent.
+
+Cap_map: v415 -> v416 CYCLE 87 (1 HP: hierarchical_compound_depth compound-chains-K80-lower-bound; 0 new HF; 1 LVH: architecture_a re-run threshold-shopping DUPLICATE-HARD_FAIL; Mode 5 hierarchical sub-property; HONEST 898->899; LVH 220->221; Portfolio 32+77; 328th PROT-009 paired commit) (2026-06-05)
