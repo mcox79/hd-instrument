@@ -164,6 +164,10 @@ def _run_selftests():
 
 _run_selftests()
 
+if "--self-test" in sys.argv:                # queue_add gate: selftests ran at import; exit before model load
+    print("[selftest] PASS (import-time PROT-022); exiting before extraction.", flush=True)
+    sys.exit(0)
+
 
 # ---------------- helpers ----------------
 
