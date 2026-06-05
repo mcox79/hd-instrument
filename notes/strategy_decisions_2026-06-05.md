@@ -95,3 +95,41 @@ R6 (CHEAP, CPU <30min) -- K-degradation diagnosis: run K={1,2} at V_C={256,512} 
 
 Cap_map: v428 -> v429 CYCLE 100 (1 HF: ex_concept_strong_baselines_llama1b SIXTH-V_C256-LLAMA1B-K-DEGRADES-MONOTONIC; 2 MID: cognitive_core_e2e_pythia RULE8-CERT-1.27x-PARTIAL + medical_qa_no_umls DELETION-CERT-OPERATIONAL-MEDQA-MARGINAL; 0 HP; 0 LVH; PP-8+PP-9+PP-3 sub-prop annotations x3; R6 K-diag filed; HONEST 925->928; LVH 222; Portfolio 32+77; 341st PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v429 -> v430 CYCLE 101 BATCH (2026-06-05)
+
+Verdicts processed: substrate_multimodal_binding_text_kg_v1 (HARD_PASS) + substrate_continual_learning_distshift_v1 (HARD_PASS)
+
+### Step 0 honest re-read (2 verdicts)
+
+**V1 (substrate_multimodal_binding_text_kg_v1) HARD_PASS -- HONEST**
+text_to_kg=1.000 (3/3 seeds), kg_to_text=1.000 (3/3 seeds), single_modality=1.000 (3/3 seeds), cross_modal_combine=1.000 (3/3 seeds). All 4 metrics at ceiling across all 3 seeds (N=4096, M=2000, run_mode=full, elapsed=9.56s). HARD_PASS label correct -- no per-cell contradiction. No LVH.
+
+**V2 (substrate_continual_learning_distshift_v1) HARD_PASS -- HONEST**
+current_state_acc=1.000 (3/3), updated_returns_B=1.000 (3/3), silent_contradiction_rate=0.000 (3/3), old_valid_acc=1.000 (3/3), audit_trace_acc=1.000 (3/3). All 5 metrics perfect across 3 seeds (N=16384, run_mode=full, elapsed=2957.9s ~49min). HARD_PASS label correct. No LVH.
+
+HONEST: 928 -> 930 (+2). LVH: 222 UNCHANGED.
+
+### Cap_map decisions
+
+**V1 substrate_multimodal_binding_text_kg_v1 HARD_PASS:**
+PP-23 (Cross-modal substrate provenance): BAND LIFT 0.40-0.55 -> 0.55-0.70 + STATE LIFT (🔬 Research only -> 🟢 Validated, want stronger). First direct empirical validation: text<->KG cross-modal binding is modality-agnostic at N=4096, M=2000, full-accuracy ceiling (1.000 all cells). Cross-modal combine (1.000) confirms bundle-level algebraic composition works across modalities. Note: text+KG is a structured case (KG nodes as dense vectors); image-embedding extension (projection head) remains untested but the algebraic binding mechanism is now empirically validated.
+PP-21 (Audit-grade KG): Sub-property annotation. Modality-agnostic binding at N=4096 M=2000 confirms text<->KG triple encoding works without representation collapse. text_to_kg=1.000 and kg_to_text=1.000 unanimous: bidirectional recovery exact. BAND UNCHANGED.
+
+**V2 substrate_continual_learning_distshift_v1 HARD_PASS:**
+True continual learning (distribution shift sub-axis): Sub-property annotation. Distribution shift override confirmed: newer writes override older at 100% (updated_returns_B=1.000 all seeds), old facts remain accessible (old_valid_acc=1.000 all seeds), zero silent contradictions (0.000 all seeds), full audit trail (audit_trace_acc=1.000 all seeds). DIFFERENT axis from 4-stage retention (ret_A=0.745 gap) -- tests single-shift override correctness not multi-stage long-term retention. 4-stage PARTIAL band UNCHANGED.
+PP-4 (Concept drift detection): Sub-property annotation. audit_trace_acc=1.000 with zero silent contradictions confirms substrate distinguishes 'current belief' from 'overridden belief' -- foundational override-detection primitive. Band UNCHANGED.
+
+### Portfolio: 32+77 UNCHANGED (+0 new rows). PP-23 BAND-LIFT 0.40-0.55 -> 0.55-0.70 + STATE-LIFT. PP-21+true-continual+PP-4 sub-prop annotations.
+
+### PROT compliance (v429 -> v430)
+- PROT-004/006: No closures. No rescue sketches required (both HARD_PASS).
+- PROT-007: v430 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: PP-23 state change + band-lift -- VALIDATOR APPLIES. Cross-modal binding mechanism is modality-agnostic (text+KG proven); image-embedding extension untested (projection head); band-lift conservative (+0.15 mid-band). PROT-009 atomic commit covers all.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 342nd PROT-009 paired commit.
+- PROT-018: No _nN suffixes. N=4096 and N=16384 stated in metrics. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 all-ceiling unanimous 3-seed (not fragile); V2 all-ceiling unanimous 3-seed. No HP-fragility caveats.
+
+Cap_map: v429 -> v430 CYCLE 101 (2 HP: multimodal_binding_text_kg MODALITY-AGNOSTIC-CEILING + continual_learning_distshift DISTSHIFT-OVERRIDE-PERFECT; PP-23 BAND-LIFT 0.40-0.55->0.55-0.70 + STATE-LIFT 🔬->🟢; PP-21+true-continual+PP-4 sub-prop annotations x3; 0 LVH; HONEST 928->930; LVH 222; Portfolio 32+77; 342nd PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
