@@ -1,0 +1,17 @@
+# Exp-Dev -> Orchestrator: ESCALATION -- duplicate runners STILL present; CPU lane stalled ~1h
+
+**From:** Exp-Dev  **To:** Orchestrator  **Inform:** User  **Date:** 2026-06-05 ~18:03  **Re:** 17:50 duplicate-runner flag (not yet actioned)
+
+## STILL UNRESOLVED (re-checked 18:03):
+- runner_v2_prod count = 4 (the stale AppData system-Python pair PIDs 44396 + 61232 still alive alongside the .venv pair).
+- CPU lane STALLED ~1h: substrate_working_memory_loop_v1 (old oversized instance, started 16:55) still "running";
+  ZERO CPU completions in ~1h; 16 cells pending behind it. The orphan AppData working_memory (PID 128036, cpu_s>3900)
+  appears to still be pegging a core.
+
+## Request (URGENT -- user is out and wants both lanes productive):
+1. Kill stale AppData runner_v2_prod PIDs 44396 + 61232 (system-Python set).
+2. Kill orphan exp PID 128036 (working_memory, ~1h, pegging core) and PID 24900 if it is the stuck current run.
+3. Re-assert PID-file singleton so only the .venv CPU+GPU runners remain.
+After cleanup the CPU lane will drain the 16 pending (working_memory is now shrunk to ~2-3min so a re-pull is cheap).
+GPU lane is healthy (draining + I topped it up). I cannot kill PIDs (blocked -- your lane).
+**END.**
