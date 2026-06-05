@@ -9555,3 +9555,54 @@ N-grid=[256..4096], 3 seeds, bigram+trigram. Speedup monotone-dec: N256:0.65x ..
 - PROT-022: alpha_ramp frac_recalled=1.0 alpha<=0.117 consistent 3 seeds; mct_ratio=14.31 consistent (17.44/1.22=14.3); floor ECR=LRU consistent 3 seeds; zipf 0.31-0.37 uniform consistent 5 seeds; speedup monotone-dec consistent 3 seeds 2 tasks; mini-LM max 0.063 consistent.
 
 Cap_map: v399 -> v400 CYCLE 70 (1 HP alpha_ramp_mct_slowing MCT-14x-early-warning FIRST; 4 HF mini_lm_v2/ecr_vs_lru-floor/k3_zipf-load-bearing-POSITIVE/training_speed_stage_a-no-crossover; 1 MID phase05_audit_core-2/3; 0 LVH; 0 BAND-LIFTS; HONEST 843->849; LVH 217; Portfolio 32+77; 311th PROT-009 paired commit) (2026-06-04)
+
+## v399 -> v401 -- 2026-06-04 CYCLE 71 BATCH (9 verdicts: 3 HARD_PASS + 4 HARD_FAIL + 2 MIDDLE_BAND; 2 LVH; 0 BAND-LIFTS)
+
+| # | anchor | N | seeds | verdict | honest_check |
+|---|--------|---|-------|---------|--------------|
+| 1 | substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048 | 2048 | 3 | HARD_PASS | H1=2.40-2.53 H2=6.09-6.21 H3=2.41-2.74 H4=0.996-1.007; 3/3 seeds 3/3 domains; honest |
+| 2 | substrate_resonator_noise_injection_ksweep_v1_n4096_gpu | 4096 | 5 | HARD_FAIL | baseline=0.000 AND noise=0.000 all K all seeds; floor effect; honest |
+| 3 | substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512 | 512 | 5 | HARD_PASS (gap 5/5) | [label-vs-honest] super_seeds label=5/5 honest=3/5 (seed31/41 subsumed by A2_cfrpe); gap>0.7 criterion 5/5 honest; LVH-001 |
+| 4 | substrate_resonator_dense_capacity_ksweep_v1_n4096 | 4096 | 3 | HARD_FAIL | acc=0.000 all K(5..11) all seeds; honest |
+| 5 | substrate_hierarchical_5corpus_meta_v1_n2048_gpu | 2048 | 3 | HARD_PASS | H3<H2 all seeds; H3>=0.8*H1; H4=0.991-1.008; hp_seeds=3/3; honest |
+| 6 | substrate_sq6_graph_adjacency_v1 | ~2048 | 3 | HARD_FAIL | acc=0.81-0.83 at E0.25N declining to 0.63-0.65 at E2.0N; E_max=0.0N; honest |
+| 7 | substrate_sq2_multihop_reasoning_v1 | ~2048 | 3 | HARD_PASS | acc=1.000 all K(1,2,4,8,12) all seeds; G=11 chains depth=12; unanimous; honest |
+| 8 | substrate_stage_a_bio_b8_logit_sparse_residual_v1 | ~512 | 3 | HARD_FAIL (honest) | [label-vs-honest] MIDDLE_BAND label over-claims: r=0.263<0.30; gain=0.0x<4x; residual_useful=True sub-threshold; LVH-002 |
+| 9 | substrate_stage_a_bio_b26_composition_v1 | T=849 | 3 | MIDDLE_BAND | combined=1.0=max(single)=1.0; subsumed; dense_noevict=0.0 confirmed; honest |
+
+**(A) PP-7 sub-property: hierarchical_aggregator_scale_ext_D5_10_20 HARD_PASS N=2048 3-seed.**
+H1=2.40-2.53, H2=6.09-6.21, H3=2.41-2.74, H4=0.996-1.007. All 3 domain-counts D5/D10/D20. Clean segregation (H2>>H1), aggregation lift (H3>H1 at D20), retention near-perfect. New sub-property: 'aggregator_scale_ext_D5_10_20 HARD_PASS N=2048 3-seed: H1/H2/H3/H4 all HP-qualified; D5->D10->D20 consistent; retention 0.996-1.007.'
+Capability implication: PP-7 multi-substrate composition validated at D=20.
+
+**(B) Resonator noise-injection HARD_FAIL + infra baseline concern. Sub-property annotation: resonator.**
+Both V=512 noise and baseline arms recovery=0.000 all K all seeds. Resonator V=512 not functional at N=4096 K=5..50. Closes noise-injection rescue path. Infra: V>>N/K breakdown hypothesis. Rescue R1-R3 filed: V-constraint annotation; V=32 sanity; V-sweep.
+
+**(C) PP-8 sub-property: cfrpe_stdp_heterogeneous_bigram_v1_n512 HARD_PASS(gap 5/5) [label-vs-honest: super_seeds 5->3].**
+Heterogeneous pairing (cfrpe+stdp) achieves C1_gap=3.575-3.866 (5/5 > 0.7). Strict superadditivity 3/5 (seeds 31/41 subsumed by A2_cfrpe). Stronger than homogeneous pairing (cfrpe_sparse MID cycle 67 super_seeds=0/5). New sub-property PP-8: 'cfrpe_stdp_heterogeneous HARD_PASS(gap 5/5) NOT-SUPERADDITIVE(3/5): C1_gap=3.575-3.866; heterogeneous > homogeneous. LVH: super_seeds 5->3.'
+Rescue: R1 adopt heterogeneous as preferred cfrpe arch; R2 N=1024 rerun; R3 triple combination.
+
+**(D) Resonator dense capacity HARD_FAIL. Sub-property annotation: resonator dense V=100.**
+acc=0.000 all K(5..11) N=4096 3-seed. Sub-property: 'resonator_dense_capacity HARD_FAIL: V=100 K<=11 N=4096 acc=0.000; V-constraint active (both V=100 and V=512 fail); rescue: K=1 sanity + working-regime probe.'
+
+**(E) PP-7 sub-property: hierarchical_5corpus_meta HARD_PASS N=2048 3-seed.**
+H3<H2, H3>=0.8*H1, H4=0.991-1.008 all seeds. Second independent HARD_PASS confirming multi-domain aggregation (with anchor A). Sub-property: 'hierarchical_5corpus_meta HARD_PASS N=2048 3-seed: H1=2.531-2.617 H2=6.191-6.202 H3=2.509-2.658 H4=0.991-1.008; 5 corpora; hp_seeds=3/3.'
+Capability implication: PP-7 confirmed twice in same cycle from independent designs.
+
+**(F) New SQ-6 probe sub-property: sq6_graph_adjacency HARD_FAIL.**
+First SQ-6 probe. Best acc=0.82 at E0.25N; declines to 0.64 at E2.0N; E_max=0.0N. Sub-property: 'sq6_graph_adjacency HARD_FAIL: E_max=0.0N; best_acc=0.82(E0.25N) below HP threshold; monotone-dec; N~2048 3-seed; partial-adjacency sub-capability at 82%.'
+Rescue R1-R3: partial sub-capability annotation; K=1 baseline; N=4096 scale check.
+
+**(G) New SQ-2 sub-property: sq2_multihop_reasoning HARD_PASS N~2048 3-seed. FIRST SQ-2 confirmation.**
+acc=1.000 all K={1,2,4,8,12} unanimous all 3 seeds. G_chains=11, depth=12. Distinct from PP-35 (graph-SNR): iterated symbol chaining. Sub-property candidate (new row at next strategy cycle): 'sq2_multihop_reasoning HARD_PASS N~2048 3-seed: acc=1.000 all K unanimous; depth=12; iterated retrieval chains; new row candidate.'
+Capability implication: Multi-hop reasoning via iterated retrieval is a FIRST confirmed strong sub-capability.
+
+**(H) Bio Stage A B8 HARD_FAIL [label-vs-honest: MIDDLE_BAND->HARD_FAIL].**
+r=0.263 mean < 0.30; M_crit_gain=0.0x < 4x; neither MIDDLE_BAND criterion met. Sub-threshold secondary: residual_useful=True (recon +0.18). Sub-property (B8): 'b8_logit_sparse_residual HARD_FAIL: r=0.263<0.30; gain=0.0x<4x; residual_useful sub-threshold; LVH: MID->HF.'
+Rescue R1-R5: residual sub-capability annotation; N=1024 scale; gated residual; threshold calibration; N=2048 M_crit.
+
+**(I) Bio Stage A B26 MIDDLE_BAND -- B2+B6 subsumed.**
+combined=1.0=max(single); dense_noevict=0.0 confirmed failure mode. Sub-property (B26): 'b26_composition MID: B2+B6 subsumed; combined=max(single); dense_noevict=0.0 (3/3); need near-saturation test.'
+Rescue R1-R3: sub-capability annotation; near-saturation (m_cap/T>0.5); cross-mechanism B2+B3 or B6+B8.
+
+HONEST: 849 -> 858 (+9). LVH: 217 -> 219 (+2: cfrpe_stdp super_seeds 5->3; b8 MID->HF). Portfolio: 32+77 UNCHANGED.
+Cap_map: v400 -> v401 CYCLE 71 (3 HP: hierarchical_agg_scale+5corpus_meta+sq2_multihop; 4 HF: resonator_noise+dense+sq6_graph+b8_logit[LVH]; 2 MID: cfrpe_stdp_heterogeneous[LVH]+b26_comp; 2 LVH; 0 BAND-LIFTS; HONEST 849->858; LVH 217->219; Portfolio 32+77; 312th PROT-009 paired commit) (2026-06-04)

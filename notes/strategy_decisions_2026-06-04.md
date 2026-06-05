@@ -1200,3 +1200,108 @@ Rescue cheapest-first: R1 (free) close Stage A crossover at N<=4096; R2 (2h CPU)
 HONEST: 843 -> 849 (+6). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
 Cap_map: v399 -> v400.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 71 BATCH -- v400 -> v401 (2026-06-04)
+
+### Step 0 Honest Re-Read
+9 verdicts. All source=remote (bridge stale; SSH succeeded for metrics). HONEST 849 -> 858 (+9). LVH: 217 -> 219 (+2 catches).
+
+**Anchor 1: substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048**
+Label: HARD_PASS. Per-cell: H1_own=2.40-2.53; H2_cross=6.09-6.21 (>> H1 all cells); H3_agg=2.41-2.74; H4_retention=0.996-1.007. HP criteria satisfied all 3 seeds all 3 domain-counts. Label HONEST. No LVH catch.
+
+**Anchor 2: substrate_resonator_noise_injection_ksweep_v1_n4096_gpu**
+Label: HARD_FAIL. Per-cell: baseline recovery=0.000 AND noise recovery=0.000, ALL K values (5,10,20,30,50), ALL 5 seeds. Both arms floored. Resonator itself not recovering at V=512, N=4096 config. Baseline floor is an infra-concern signal. Label HONEST. No LVH catch.
+
+**Anchor 3: substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512**
+Label: HARD_PASS SUPERADDITIVE (gap>0.7, 5/5). LVH CATCH: super_seeds label=5/5, honest=3/5. seed31: C1_gap=3.575 < A2_gap=3.628 (NOT superadditive). seed41: C1_gap=3.866 < A2_gap=4.089 (NOT superadditive). Seeds 7,17,23 ARE superadditive. However gap>0.7 criterion: all 5/5 seeds C1_gap >= 3.575 >> 0.7 -- that sub-criterion is honest. Honest verdict: HARD_PASS on gap (5/5) but NOT strictly superadditive (3/5). LVH-001 (cycle 71): super_seeds label 5/5, honest 3/5.
+
+**Anchor 4: substrate_resonator_dense_capacity_ksweep_v1_n4096**
+Label: HARD_FAIL K_max=0. Per-cell: acc=0.000 all K (5..11) all 3 seeds. Dense resonator V=100 completely fails. Consistent with anchor 2 baseline floor. Label HONEST. No LVH catch.
+
+**Anchor 5: substrate_hierarchical_5corpus_meta_v1_n2048_gpu**
+Label: HARD_PASS aggregates 5 domains. Per-cell: H3<H2 (2.51-2.66 vs 6.19-6.20 all seeds); H3>=0.8*H1 (2.509>=2.027 min case); H4=0.991-1.008 clean. hp_seeds=3/3. Label HONEST. No LVH catch.
+
+**Anchor 6: substrate_sq6_graph_adjacency_v1**
+Label: HARD_FAIL E_max=0.0N. Per-cell: acc E0.25N=0.81-0.83; E0.5N=0.74-0.77; E1.0N=0.68-0.69; E2.0N=0.63-0.65. All 3 seeds monotone decreasing with edge density. E_max=0.0N: no edge density reaches HP threshold. 82% best-case insufficient. Label HONEST. No LVH catch.
+
+**Anchor 7: substrate_sq2_multihop_reasoning_v1**
+Label: HARD_PASS >=8 hops. Per-cell: acc=1.000 ALL K values (1,2,4,8,12) ALL 3 seeds. G_chains=11, depth=12. Perfect traversal unanimous. Label HONEST. No LVH catch.
+
+**Anchor 8: substrate_stage_a_bio_b8_logit_sparse_residual_v1**
+Label: MIDDLE_BAND (r in [0.30,0.55] or gain 4-10x). LVH CATCH: r values = 0.258/0.264/0.267 (all 3 seeds BELOW 0.30 lower bound). M_crit_gain=0.0x (sparse M_crit=0 for all seeds; BELOW 4x lower bound). NEITHER MIDDLE_BAND criterion met. residual_useful=True (recon 0.625->0.805, +0.18 lift) is sub-threshold secondary signal not in named MIDDLE_BAND predicate. Honest verdict: HARD_FAIL. LVH-002 (cycle 71): MIDDLE_BAND label, honest HARD_FAIL (r=0.263<0.30, gain=0.0x<4x).
+
+**Anchor 9: substrate_stage_a_bio_b26_composition_v1**
+Label: MIDDLE_BAND B2+B6 subsumed. Per-cell: dense_noevict=0.0 (3/3 seeds); dense_evict=1.0 (3/3); sparse_noevict=1.0 (3/3); sparse_evict=1.0 (3/3). Combined (both)=1.0 = max(single sparse=1.0, evict=1.0)=1.0. Subsumed, not superadditive. Label HONEST. No LVH catch.
+
+### LVH Entries (cycle 71)
+- **LVH-001 (cfrpe_stdp_heterogeneous):** super_seeds label 5/5 over-claims. Honest 3/5 (seeds 7,17,23 superadditive; seeds 31,41: C1 < A2_single). Gap>0.7 criterion is 5/5 honest. Honest: HARD_PASS on gap but NOT strict superadditivity.
+- **LVH-002 (b8_logit_sparse_residual):** MIDDLE_BAND label over-claims. r=0.263 mean (all seeds) < 0.30 lower bound. M_crit_gain=0.0x < 4x lower bound. Honest verdict: HARD_FAIL. residual_useful=True sub-threshold secondary signal preserved.
+
+### Cap_map Decisions
+
+**(A) substrate_hierarchical_aggregator_scale_ext_domains5_10_20_v1_n2048 HARD_PASS -- PP-7 hierarchical multi-domain aggregation scale extension**
+N=2048, 3 seeds, D={5,10,20}. All HP criteria satisfied all cells. H1<H2 confirmed segregation (H2~6.1x vs H1~2.5x). H3 aggregation above specialist baseline. H4=0.996-1.007 retention clean. Together with anchor E (hierarchical_5corpus_meta same N), two HARD_PASS anchors confirm multi-domain aggregation is robust. New sub-property on PP-7: 'hierarchical_aggregator_scale_ext_D5_10_20 HARD_PASS N=2048 3-seed: H1=2.40-2.53 H2=6.09-6.21 H3=2.41-2.74 H4=0.996-1.007 all 3 domain-counts; scales D5->D10->D20; retention clean.'
+Plain-language: The substrate successfully aggregates knowledge from 5, 10, and 20 separate domains simultaneously while keeping each domain's signal distinct. Retention is perfect (>99.5%) across all configurations. Validates PP-7 at multi-domain scale-extension level.
+Capability implication: PP-7 multi-substrate composition holds to D=20 at N=2048.
+Rescue: N/A (HARD_PASS). Follow-on: R1 (free) D=50 as natural next rung.
+
+**(B) substrate_resonator_noise_injection_ksweep_v1_n4096_gpu HARD_FAIL -- Resonator noise-injection HF; infra baseline-floor concern**
+N=4096, V=512, K=5..50, 5 seeds. Both baseline and noise arms recovery=0.000 uniformly. Resonator not functioning at this V/K config. Closes noise-injection as resonator rescue path at this config. Infra: baseline floor at 0.000 with V=512 may indicate V>>N/K regime breaking resonator. Consistent with anchor D (dense V=100 also 0.000).
+Plain-language: Neither noise-injection nor baseline resonator retrieves anything -- both are completely stuck at zero accuracy. The resonator circuit appears broken at the tested configuration, likely because vocabulary is too large for the memory size.
+Capability implication: Resonator noise-injection NOT viable. Resonator V-constraint needs characterization.
+Rescue cheapest-first (PROT-006): R1 (free) annotate V>>N/K as breakdown regime. R2 (1h CPU) V=32 K=5 baseline sanity at N=4096. R3 (2h CPU) V-sweep V={32,64,128,256,512} to find V_max.
+
+**(C) substrate_cfrpe_stdp_heterogeneous_superadditive_bigram_v1_n512 HARD_PASS (gap, 5/5) [label-vs-honest: super_seeds 5->3] -- PP-8 cfrpe+stdp heterogeneous combination**
+N=512, 5 seeds. Gap criterion (C1>0.7 nats 5/5) HONEST HARD_PASS. Strict superadditivity (C1>max_single) honest 3/5. Heterogeneous pairing (cfrpe+stdp) achieves high absolute gap (3.575-3.866) but does not consistently beat best single. Stronger than homogeneous pairing (cfrpe_sparse MID cycle 67 super_seeds=0/5).
+Plain-language: Combining cf-RPE and STDP learning rules together gives strong language modeling (3.6-3.9 nats below random for all 5 seeds). In 3 of 5 seeds this beats either rule alone; in 2 seeds cf-RPE alone wins narrowly. This is better than combining two similar rules, which failed entirely in cycle 67.
+Capability implication: Heterogeneous bio-inspired combination is viable HARD_PASS architecture on gap criterion. Marginal superadditivity 3/5.
+New sub-property PP-8: 'cfrpe_stdp_heterogeneous_bigram_v1_n512: HARD_PASS(gap 5/5) NOT-SUPERADDITIVE(3/5); C1_gap=3.575-3.866; strict_super seeds 31/41 subsumed by A2_cfrpe; heterogeneous > homogeneous. LVH: super_seeds 5->3.'
+Rescue cheapest-first: R1 (free) adopt heterogeneous as preferred over homogeneous cfrpe arch. R2 (1h CPU) cfrpe+stdp at N=1024 check if 3/5->5/5. R3 (2h CPU) triple combination cfrpe+stdp+sparse at N=512.
+
+**(D) substrate_resonator_dense_capacity_ksweep_v1_n4096 HARD_FAIL -- Dense resonator V=100 capacity zero**
+N=4096, V=100, K=5..11, 3 seeds. acc=0.000 all cells. Consistent with anchor B resonator baseline floor. Sub-property annotation on resonator row: 'resonator_dense_capacity HARD_FAIL: V=100 K=5..11 N=4096 acc=0.000 all cells; resonator V-constraint active; both V=100 and V=512 fail at N=4096 K>=5.'
+Plain-language: Dense resonator (100 items, 4096-dimensional vectors, up to 11 simultaneous) retrieves nothing. Combined with noise-injection zero-baseline, resonator is non-functional in both tested configurations.
+Capability implication: Resonator capacity gated by V-constraint not yet characterized.
+Rescue cheapest-first: R1 (free) V-constraint annotation. R2 (1h CPU) K=1 at V=100 N=4096 sanity check. R3 (1h CPU) N=1024 V=10 K=1..5 to find working regime.
+
+**(E) substrate_hierarchical_5corpus_meta_v1_n2048_gpu HARD_PASS -- PP-7 5-domain meta-aggregation confirmed**
+N=2048, 3 seeds, 5 corpora. H3<H2, H3>=0.8*H1, H4=0.99-1.01 all 3 seeds. Second independent HARD_PASS confirming multi-domain aggregation is robust (anchor A: D-scale-ext; anchor E: 5-corpus meta). Sub-property on PP-7: 'hierarchical_5corpus_meta HARD_PASS N=2048 3-seed: H1=2.531-2.617 H2=6.191-6.202 H3=2.509-2.658 H4=0.991-1.008; hp_seeds=3/3; deletion-clean.'
+Plain-language: The substrate cleanly aggregates 5 distinct text corpora with no cross-domain confusion. Each corpus retained >99% fidelity after meta-aggregation. Second independent confirmation of the same result this cycle.
+Capability implication: PP-7 multi-domain aggregation confirmed twice in same cycle. Consistent strong result.
+
+**(F) substrate_sq6_graph_adjacency_v1 HARD_FAIL -- SQ-6 graph adjacency capacity below threshold**
+New probe (first SQ-6 entry). N~2048, 3 seeds, E={0.25N,0.5N,1.0N,2.0N}. Best acc=0.82 at E0.25N; declines to 0.64 at E2.0N. E_max=0.0N: no density reaches HP threshold. New sub-property (first probe): 'sq6_graph_adjacency HARD_FAIL: E_max=0.0N; best_acc=0.82 at E0.25N; monotone-dec E0.25->E2.0N; N~2048 3-seed; HP threshold not reached.'
+Plain-language: When storing a directed graph and retrieving edge connectivity, accuracy starts at 82% (sparse graph) and falls to 64% (dense graph). Neither meets the hard-pass threshold for reliable graph storage. Partial graph retrieval is possible but not reliable.
+Capability implication: Reliable graph adjacency storage not demonstrated. 82% partial accuracy is a sub-capability worth preserving.
+Rescue cheapest-first (PROT-006): R1 (free) note 82% partial adjacency as sub-capability. R2 (1h CPU) K=1 edge retrieval at E0.25N baseline sanity. R3 (2h CPU) N=4096 E0.25N to check N-scaling.
+
+**(G) substrate_sq2_multihop_reasoning_v1 HARD_PASS -- SQ-2 multi-hop reasoning FIRST confirmed**
+New probe (first SQ-2 multihop_reasoning entry). N~2048, 3 seeds, K={1,2,4,8,12}. acc=1.000 ALL cells unanimous. G_chains=11, depth=12. Perfect multi-hop sequential reasoning. Complements PP-35 (graph-multihop SNR) but distinct capability: iterated symbol chaining (reasoning steps) vs graph edge SNR.
+Plain-language: The substrate can follow a chain of logical steps -- up to 12 steps -- with perfect accuracy. Every seed, every chain length from 1 to 12. Strong new capability: reliable multi-step reasoning via iterated retrieval.
+Capability implication: SQ-2 multi-hop reasoning at K=12 depth confirmed at N~2048. New sub-property (strong signal; new row candidate for next strategy cycle).
+New sub-property (SQ-2 candidate): 'sq2_multihop_reasoning HARD_PASS N~2048 3-seed: acc=1.000 all K={1,2,4,8,12} unanimous; G_chains=11; depth=12; iterated retrieval chains; distinct from PP-35 graph-SNR.'
+Rescue: N/A (HARD_PASS). Follow-on: R1 (free) K={16,24,32} longer chains. R2 (1h CPU) noisy chain (corrupted intermediate steps).
+
+**(H) substrate_stage_a_bio_b8_logit_sparse_residual_v1 HARD_FAIL [label-vs-honest: MIDDLE_BAND->HARD_FAIL] -- Bio B8 logit sparse residual below both thresholds**
+N~512, 3 seeds. r=0.258/0.264/0.267 (all BELOW 0.30 MIDDLE_BAND lower bound). M_crit_gain=0.0x (BELOW 4x lower bound). NEITHER named criterion met. residual_useful=True (recon 0.625->0.805, +0.18 lift) is sub-threshold secondary signal. Honest: HARD_FAIL. Sub-property annotation (B8): 'b8_logit_sparse_residual HARD_FAIL: r=0.263 mean < 0.30; M_crit_gain=0.0x < 4x; residual_useful=True (recon +0.18) sub-threshold secondary; B8 closed at this config. LVH: MID->HF.'
+Plain-language: The logit-sparse residual mechanism falls short on both required measures. There is a secondary positive signal: residual correction improves reconstruction by 18 percentage points. But neither primary target is reached, so this is a genuine failure under the pre-registered criteria.
+Capability implication: B8 logit-sparse-residual below threshold. Residual correction is a partial positive sub-capability.
+Rescue cheapest-first (PROT-006): R1 (free) preserve residual_useful as sub-capability annotation. R2 (1h CPU) N=1024 repeat to check if r and gain improve with scale. R3 (2h CPU) alternative residual architectures (gated residual, iterative). R4 (2h CPU) threshold calibration -- what r is achievable at N=512? R5 (3h GPU) N=2048 with higher M_crit targets.
+
+**(I) substrate_stage_a_bio_b26_composition_v1 MIDDLE_BAND -- Bio B26 B2+B6 composition subsumed**
+T=849, m_cap=283, 3 seeds. dense_noevict=0.0 (3/3); dense_evict=1.0 (3/3); sparse_noevict=1.0 (3/3); sparse_evict=1.0 (3/3). Combined both=1.0 = max(single)=1.0 -- subsumed. B2+B6 composition no superadditivity. Sub-property annotation (B26): 'b26_composition MIDDLE_BAND: B2+B6 subsumed; combined=1.0=max(single)=1.0; dense_noevict=0.0 confirmed failure; sparse or evict alone sufficient; T=849 m_cap=283.'
+Plain-language: Combining sparse coding and eviction together is no better than using the best mechanism alone -- they are redundant at this load level. Key finding: no-eviction with dense coding fails completely, confirming at least one mechanism is necessary.
+Capability implication: B2+B6 subsumed at T=849. Eviction benefit expected near saturation; test needed.
+Rescue cheapest-first: R1 (free) annotate sparse alone OR evict alone sufficient; combination redundant at T=849 m_cap=283. R2 (1h CPU) near-saturation (m_cap/T>0.5) test. R3 (2h CPU) B2+B3 or B6+B8 cross-mechanism.
+
+### PROT compliance (v400 -> v401)
+- **PROT-004/006:** No closures. 0 new top-level rows. 1 new SQ-2 sub-property (strong; new row candidate). Rescues R1-R5 cheapest-first filed for each negative result.
+- **PROT-007/008:** v401 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 312th PROT-009 paired commit.
+- **PROT-018:** hierarchical_aggregator _n2048 confirmed. resonator_noise_injection _n4096 confirmed. cfrpe_stdp _n512 confirmed. resonator_dense_capacity _n4096 confirmed. hierarchical_5corpus_meta _n2048 confirmed. sq6_graph_adjacency_v1 and sq2_multihop_reasoning_v1 lack _nN suffix (N~2048 inferred; Exp-Dev flag for suffix on rerun). stage_a anchors lack _nN (probe-level; flag). 0 hard violations.
+- **PROT-021:** all 9 source=remote run_mode=full confirmed. No smoke contamination.
+- **PROT-022:** H4 spread 0.996-1.007 consistent 3-seed; resonator 0.000 unanimous 5-seed; cfrpe_stdp C1_gap spread 3.575-3.866 consistent (8.2% CV); H3 spread 2.509-2.658 consistent 3-seed; sq2_multihop acc=1.000 exact unanimous; sq6 monotone-dec consistent 3-seed; b8 r=0.258-0.267 consistent 3-seed (3.4% CV); b26 dense_noevict=0.0 unanimous.
+
+HONEST: 849 -> 858 (+9). LVH: 217 -> 219 (+2). Portfolio: 32+77 UNCHANGED.
+Cap_map: v400 -> v401.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
