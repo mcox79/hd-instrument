@@ -69,3 +69,23 @@ PP-8 UNCHANGED.
 HONEST: 883 -> 890 (+7). LVH: 219 UNCHANGED.
 Cap_map: v407 -> v408.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## CYCLE 79 -- v408 -> v408 ANNOTATION-ONLY (2026-06-05)
+
+### Step 0 Honest Re-Read -- LVH CATCH #220
+
+Anchor: substrate_ccc2_substrate_only_structured_qa_v1_n4096
+Verdict label: HARD_PASS
+Metrics source: LOCAL FALLBACK (bridge stale; remote SSH returned None)
+run_mode: smoke | n_seeds: 1 | N: 1024 | elapsed_s: 0.93s
+Per-cell: K2_EM=1.00, K3_EM=1.00, K4_EM=1.00 (V=60 R=5)
+
+OVER-CLAIM: label HARD_PASS on a single-seed smoke at N=1024 with anchor suffix _n4096.
+- PROT-018 violation: _n4096 binds N=4096; run used N=1024.
+- Single-seed smoke with elapsed=0.93s cannot support HARD_PASS under envelope rules.
+- Metrics source=local (may be stale smoke artifact; not authoritative).
+
+Honest reading: SMOKE_PARTIAL -- perfect K2/K3/K4 EM=1.000 at N=1024 tiny-scale is promising positive signal; not HARD_PASS. Requires full run at N=4096 multi-seed (>=3 seeds) before HARD_PASS can be claimed.
+
+LVH sub-flavor: SMOKE_OVER_CLAIMED_AS_HARD_PASS + PROT-018_N_MISMATCH
+HONEST: 890 -> 891 (+1). LVH: 219 -> 220 (+1).
+Cap_map: v408 UNCHANGED (annotation-only; no state transition on local-fallback smoke data).
