@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v433
+# hd-instrument substrate — capability map v434
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -10773,4 +10773,44 @@ Product-feature row (HP-12 V1 demo) annotation:
 - PROT-022: V1 VQ separability Vc-invariant (not HP-fragile; recall ceiling deterministic); V2 post_delete_residual=0.000 unanimous (floor not HP-fragile); V3 all-ceiling unanimous 3-seed.
 
 Cap_map: v432 -> v433 CYCLE 104 (3 HP: minilm_encoder_fidelity PHASE4A-1-ENCODER-CEILING-VC-INVARIANT + extraction_attack_contrast DELETION-MOAT-CATEGORICAL-0.000-vs-ROME38-MEMIT29 + api_surface_test HP12-V1-API-ALL4-ENDPOINTS-PHANTOM-ZERO; 0 MID; 0 HF; 0 LVH; PP-8+PP-9+PP-3+PP-12+deletion-cert+product-feature sub-prop annotations x6; HONEST 938->941; LVH 222; Portfolio 32+77; 345th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v434 update (2026-06-05) -- CYCLE 105 BATCH: 1 LVH + 1 HARD_PASS + 1 MIDDLE_BAND (HP-12 V2 crypto + capacity scaling + HP-12 V1 10K demo); HONEST 941->944; LVH 222->223
+
+[label-vs-honest] substrate_capacity_scaling_sweep_v1: label HARD_PASS downgraded to honest MIDDLE_BAND. Alpha two-regime (0.0596 at N<=2048 vs 0.0399 at N>=4096). Identical 5-seed measurements = single effective measurement. Phase-3 extrapolation premature. Rescue R1-R3 filed.
+
+### (A) hp12_v2_crypto_2048_gmpy2_latency_v1 MIDDLE_BAND [source=remote n_seeds=5 run_mode=full elapsed=4.6s]
+
+PP-12 sub-property:
+'hp12_v2_crypto_2048_gmpy2_MIDDLE_BAND v434: RSA-2048 gmpy2=True 5-seed full; delete_p50_mean=2.216ms (2.124-2.331ms) add_p50=0.128ms verify_p50=0.119ms certs_verified=1.000(5/5); delete 2.2ms in 1-5ms V2-production range; add+verify near-HP (<0.15ms); RSA-2048 gmpy2 path V2-usable for batch-deletion; headline demo path RSA-512 <1ms. 2026-06-05.'
+
+HP-12 V2 crypto gate annotation:
+'hp12_v2_crypto_2048_gmpy2_MIDDLE_BAND v434: batch-deletion workflows unblocked at RSA-2048+gmpy2 (2.2ms/cert); real-time single-cert use cases prefer RSA-256/512 for sub-ms; correctness ceiling confirmed. Band UNCHANGED.'
+
+### (B) substrate_capacity_scaling_sweep_v1 [LVH: HARD_PASS->MIDDLE_BAND] [source=remote n_seeds=5 run_mode=full elapsed=103s]
+
+Capacity scaling sub-axis annotation (honest MIDDLE_BAND applied):
+'capacity_scaling_sweep_HONEST_MIDDLE_BAND v434: [LVH] HARD_PASS->MIDDLE_BAND; linearity M~alpha*N CONFIRMED N=1024-8192; alpha regime shift: 0.0596 (N=1024/2048) -> 0.0399 (N=4096/8192) = 33% drop at N=4096 boundary; alpha_CoV=0.198 measured across N-values (not seeds); all 5 seeds identical (deterministic probe; effective sample size=1); Phase-3 N=65536 blueprint premature from N<=8192 with unresolved regime shift; mean_alpha=0.050 actionable as planning lower bound (~3277 facts at N=65536). Rescue: R1 re-frame as lower bound; R2 N-extension to 16384/32768; R3 stochastic probe. Band UNCHANGED. 2026-06-05.'
+
+### (C) hp12_v1_demo_scale_10k_facts_v1 HARD_PASS [source=remote n_seeds=3 run_mode=full elapsed=422s]
+
+PP-9 sub-property:
+'hp12_v1_demo_scale_10k_facts_HARD_PASS v434: N=10000 M_seed=10000 K_live=50 n_del=30 3-seed full; live_recall=1.000(3/3) audit_verified_frac=1.000(3/3) phantom_recall_rate=0.000(3/3) preseed_retention=0.997-1.000(3/3); HP-12 V1 correctness confirmed at TRUE 10K-fact demo scale; write latency 137ms (super-linear vs 25ms at N=4096; 5.3x for 2.44x N increase) signals bf16/BLAS required before Phase-3. HARD_PASS for correctness domain. 2026-06-05.'
+
+Product-feature row (HP-12 V1 demo) annotation:
+'hp12_v1_demo_10k_HARD_PASS v434: V1 correctness at 10K facts full-scale confirmed; write latency 137ms is engineering gap (bf16/BLAS path); no correctness failure; demo scenario (read-heavy, rare writes) unaffected by write latency. 2026-06-05.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 941 -> 944 (+3). LVH: 222 -> 223 (+1, V2 alpha-stable over-claim).**
+
+**PROT compliance (v433 -> v434):**
+- PROT-004/006: No closures. V2 LVH MIDDLE_BAND 3 rescue sketches filed cheapest-first. V1+V3 annotation-only.
+- PROT-007: v434 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only after LVH downgrade (no row-state change). Validator skipped.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 346th PROT-009 paired commit.
+- PROT-018: No _nN suffixes; N stated in metrics bodies. CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V2 identical 5-seed values flagged (deterministic; CoV across N not seeds); V1 5-seed normal variance; V3 3-seed deterministic ceiling.
+
+Cap_map: v433 -> v434 CYCLE 105 [label-vs-honest] (1 LVH: substrate_capacity_scaling_sweep_v1 HARD_PASS->MIDDLE_BAND alpha-stable-over-claim 33%-regime-shift-at-N4096 identical-5-seeds; 1 HP: hp12_v1_demo_scale_10k_facts CORRECTNESS-CEILING-10K-WRITE-LATENCY-NOTE; 1 MID: hp12_v2_crypto_2048_gmpy2 DELETE-2.2MS-V2-USABLE; HONEST 941->944; LVH 222->223; Portfolio 32+77; 346th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

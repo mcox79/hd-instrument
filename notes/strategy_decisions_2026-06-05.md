@@ -260,3 +260,54 @@ HONEST: 938 -> 941 (+3). LVH: 222 UNCHANGED.
 ### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
 
 Queue state: overnight_queue 0 pending (cache stale). cpu_queue 0. gpu_queue 0. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+## v433 -> v434 CYCLE 105 BATCH (2026-06-05)
+
+Verdicts processed: hp12_v2_crypto_2048_gmpy2_latency_v1 (MIDDLE_BAND) + substrate_capacity_scaling_sweep_v1 (HARD_PASS per label / HONEST MIDDLE_BAND) + hp12_v1_demo_scale_10k_facts_v1 (HARD_PASS)
+
+### Step 0 honest re-read (3 verdicts; source=remote all)
+
+**V1 (hp12_v2_crypto_2048_gmpy2_latency_v1) MIDDLE_BAND -- HONEST**
+delete_p50 mean=2.216ms (range 2.124-2.331ms 5 seeds), add_p50=0.128ms, verify_p50=0.119ms. certs_verified=1.000 (5/5). gmpy2=True, RSA-2048. delete at 2.2ms in 1-5ms MIDDLE_BAND window. Label V2-usable honest. No LVH. HONEST: 941 -> 942 (+1).
+
+**V2 (substrate_capacity_scaling_sweep_v1) HARD_PASS -- LVH FLAGGED**
+All 5 seeds return IDENTICAL values (deterministic; no seed-driven stochasticity). Effective sample size = 1. alpha_by_N: 0.0596 at N=1024/2048 -> 0.0399 at N=4096/8192 (33% regime drop). alpha_CoV=0.198 measured across 4 N-values (not across seeds). Verdict_msg claims 'stable alpha' but alpha shows two-regime behaviour. HARD_PASS over-claims: honest reading is M scales with N (linearity confirmed) but alpha regime-shifts 33% at N=4096 boundary; 'stable alpha -- Phase-3 N=65536 blueprint supported' premature from N<=8192 with visible regime shift. Honest verdict: MIDDLE_BAND. LVH FLAGGED: label=HARD_PASS honest=MIDDLE_BAND. LVH: 222 -> 223 (+1). HONEST: 942 -> 943 (+1).
+
+**V3 (hp12_v1_demo_scale_10k_facts_v1) HARD_PASS -- HONEST WITH NOTE**
+live_recall=1.000 (3/3), audit_verified_frac=1.000 (3/3), phantom_recall_rate=0.000 (3/3), preseed_retention=0.997-1.000 (3/3). Correctness ceiling. HARD_PASS for correctness domain honest. NOTE: live_write_ms_median=137ms at N=10000 vs 25ms at N=4096 in v431 (5.3x super-linear). Verdict_msg omits write-latency signal; not over-claim (correctness HARD_PASS accurate) but planning implication significant: N=65536 CPU write path untenable without bf16/BLAS. No LVH. HONEST: 943 -> 944 (+1).
+
+HONEST: 941 -> 944 (+3). LVH: 222 -> 223 (+1).
+
+### labeled-vs-honest entry
+- Anchor: substrate_capacity_scaling_sweep_v1
+- Label: HARD_PASS 'stable alpha -- Phase-3 N=65536 blueprint supported'
+- Honest reading: MIDDLE_BAND -- linearity (M~N) confirmed; alpha two-regime (0.0596 at N<=2048 vs 0.0399 at N>=4096, 33% drop); identical 5-seed values = single effective measurement; Phase-3 extrapolation premature.
+- Cells contradicting: alpha_by_N regime shift 0.0596->0.0399 at N=4096; alpha_CoV=0.198 across N not seeds.
+
+### Cap_map decisions
+
+**V1 hp12_v2_crypto_2048_gmpy2_latency_v1 MIDDLE_BAND:**
+PP-12 sub-property annotation. RSA-2048 + gmpy2=True: delete 2.2ms V2-production range (1-5ms). add/verify sub-0.15ms. certs_verified=1.000 5-seed. RSA-2048 gmpy2 path V2-usable; headline demo path still RSA-512 for <1ms. HP-12 V2 crypto gate: batch-deletion workflows unblocked at 2.2ms. Band UNCHANGED.
+
+**V2 substrate_capacity_scaling_sweep_v1 [LVH: HARD_PASS -> MIDDLE_BAND]:**
+Capacity scaling sub-axis annotation. Honest reading applied. Linearity M~N CONFIRMED at N=1024-8192. Alpha regime shift at N=4096: 0.0596 (N<=2048) vs 0.0399 (N>=4096). Mean_alpha=0.050 across both regimes. Phase-3 blueprint needs cross-regime characterization. MIDDLE_BAND annotation applied. Band UNCHANGED. Rescue sketches (cheapest-first):
+R1 (CHEAP, 0-compute) -- Re-frame as planning lower bound: N=65536 capacity ~3277 facts at mean_alpha=0.050 is actionable despite non-stationarity.
+R2 (CHEAP, CPU <60min) -- N-extension sweep: add N=16384 and N=32768; confirm alpha stabilises at 0.0399 or continues to drop.
+R3 (CHEAP, CPU <30min) -- Stochastic capacity probe: break determinism to get real seed-level replication; confirms effective sample size.
+
+**V3 hp12_v1_demo_scale_10k_facts_v1 HARD_PASS:**
+PP-9 + product-feature row sub-property annotation. 10K facts N=10000: all correctness ceiling. HP-12 V1 demo correctness confirmed at TRUE demo scale. Write latency 137ms (super-linear vs 25ms at N=4096) flagged as engineering task (bf16/BLAS needed). Band UNCHANGED.
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v433 -> v434)
+- PROT-004/006: No closures. V2 LVH MIDDLE_BAND 3 rescue sketches filed cheapest-first. V1+V3 annotation-only.
+- PROT-007: v434 history row to be appended.
+- PROT-008: Annotation-only after LVH downgrade (MIDDLE_BAND sub-prop; no row-state change). Validator skipped.
+- PROT-009: cap_map.md + history + decisions log staged atomically; 346th PROT-009 paired commit.
+- PROT-018: No _nN suffixes; N stated in metrics bodies. CLEAN.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V2 identical 5-seed values flagged (deterministic; CoV across N not seeds); V1 5-seed normal variance; V3 3-seed deterministic ceiling.
+
+Cap_map: v433 -> v434 CYCLE 105 [label-vs-honest] (1 LVH: substrate_capacity_scaling_sweep_v1 HARD_PASS->MIDDLE_BAND alpha-stable-over-claim 33%-regime-shift-at-N4096 identical-5-seeds; 1 HP: hp12_v1_demo_scale_10k_facts CORRECTNESS-CEILING-10K-WRITE-LATENCY-NOTE; 1 MID: hp12_v2_crypto_2048_gmpy2 DELETE-2.2MS-V2-USABLE; HONEST 941->944; LVH 222->223; Portfolio 32+77; 346th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
