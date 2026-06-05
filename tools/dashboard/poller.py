@@ -352,11 +352,21 @@ class Poller:
         with self._lock:
             self.last_poll_attempted_iso = datetime.now(timezone.utc).isoformat()
         t0 = time.perf_counter()
+        # Preventive periodic transport reset every 100 polls (~5 min at 3s interval).
+        # paramiko leaks half-open channels on each MaxSessions retry; over hours this
+        # accumulates until the OS terminates the process silently. Reset before that
+        # threshold every 100 polls regardless of visible error rate.
+        if self.poll_count > 0 and self.poll_count % 100 == 0:
+            try:
+                self._ssh.reset()
+            except Exception:
+                pass
         keyed = self._build_cmds()
         results = self._ssh.run_parallel([c for _, c in keyed], tolerate_errors=True)
-        # If most commands failed, the SSH transport is likely in a bad state
-        # (e.g. channels exhausted). Force-reconnect so the next poll is clean.
-        if results and sum(1 for r in results if r is None) > len(results) // 2:
+        # If ANY commands failed, reset eagerly. Channel-open-FAILED retries inside
+        # paramiko leak channels; lowering the trigger from majority to "any failure"
+        # caps the leak per poll.
+        if results and any(r is None for r in results):
             try:
                 self._ssh.reset()
             except Exception:

@@ -148,10 +148,14 @@ class ReadOnlySSH:
                     except Exception:
                         pass
 
-        # Cap concurrency to stay well under OpenSSH's default MaxSessions=10. With
-        # ~11-12 commands per poll, going full-parallel caused trailing commands to be
-        # rejected (Secsh channel open FAILED). 5 workers is comfortable headroom.
-        with ThreadPoolExecutor(max_workers=min(5, max(2, len(cmds)))) as pool:
+        # Cap concurrency tightly. paramiko's Transport thread internally retries
+        # failed channel opens (Secsh channel open FAILED messages in stderr); each
+        # retry can leak a half-open channel + FD. With max_workers=5 and ~15 commands
+        # per poll, channel pressure compounded until the OS terminated the process
+        # silently after ~30-60 minutes (no Python traceback). max_workers=2 keeps
+        # the in-flight channel count bounded and the SSH server's MaxSessions=10 has
+        # plenty of headroom.
+        with ThreadPoolExecutor(max_workers=min(2, max(1, len(cmds)))) as pool:
             return list(pool.map(_one, cmds))
 
     def reset(self) -> None:
