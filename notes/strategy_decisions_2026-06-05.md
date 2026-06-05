@@ -302,3 +302,60 @@ R5 (1h CPU): Composition test -- block-local resonator + SQ-2 cleanup-augmented 
 - PROT-022: All 3 seeds identical at 1.000 for all K cells -- algebraically deterministic (perfect recovery below K_max is deterministic); self-consistent.
 
 Cap_map: v411 -> v412 CYCLE 83 (1 HP: blocklocal_sparse_resonator_K26 V-CONSTRAINT-BYPASSED resonator-working-regime-confirmed; 0 MID; 0 HF; 0 LVH; resonator row sub-property annotation; HONEST 894->895; LVH 220; Portfolio 32+77; 324th PROT-009 paired commit) (2026-06-05)
+
+## CYCLE 84 -- substrate_R6_b2_x_sparse_resonator_v1_n5000 HARD_FAIL (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_R6_b2_x_sparse_resonator_v1_n5000
+Verdict label: HARD_FAIL
+Metrics source: REMOTE (authoritative)
+run_mode: full | n_seeds: 3 | N: 5000 | M_stored: 300
+
+Per-seed (all 3 seeds {7, 17, 23}):
+  res_alone: K4=K8=K16=K26=1.000 ALL seeds (resonator alone fully operational at K=26)
+  b2_res:    K4~0.987-1.000, K8~0.888-0.944, K16~0.512-0.559, K26~0.281-0.333 ALL seeds
+  kmax_res=26 all seeds | kmax_b2res=8 all seeds
+
+Honest check:
+- HARD_FAIL label is accurate: B2+resonator kmax drops from 26 to 8 (69% capacity reduction) unanimously across all 3 seeds.
+- Degradation is progressive with K: B2 barely hurts at K=4 (acc~0.99) but becomes destructive by K=16 (acc~0.53) and K=26 (acc~0.30).
+- Resonator-alone at 1.000 on ALL cells confirms infra is clean; degradation is attributable purely to B2 co-storage interference.
+- PROT-018: _n5000 suffix; N=5000 config confirmed. Compliant.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: kmax_b2res=8 unanimous 3/3 seeds (high consistency); res_alone=26 unanimous (deterministic K-sweep). Self-consistent.
+
+LVH assessment: 0 catches. Label HARD_FAIL is honest and supported by all per-cell data.
+HONEST: 895 -> 896 (+1). LVH: 220 UNCHANGED.
+
+### Cap_map Decision (v412 -> v413)
+
+**(A) substrate_R6_b2_x_sparse_resonator_v1_n5000 HARD_FAIL -- B2 x RESONATOR COMPOSITION FAILS: B2 co-storage degrades resonator kmax from 26 to 8 (69% drop) at N=5000**
+N=5000, M_stored=300, 3 seeds, run_mode=full.
+res_alone: K4=K8=K16=K26=1.000 unanimous (resonator alone fully operational).
+b2_res: K4~0.99 (minor), K8~0.91 (moderate), K16~0.54 (severe), K26~0.30 (catastrophic). kmax_b2res=8 all seeds.
+Degradation mechanism: B2 vectorial superposition adds noise to the resonator's associative search; cross-talk between M=300 stored B2 patterns and the resonator's binding vectors progressively corrupts retrieval at higher K.
+
+Product implication: B2 storage and resonator cannot share the same substrate region without severe capacity penalty. Partition required for production deployment. Block-local resonator (v412 HARD_PASS) confirms resonator is fully operational in isolation -- the failure is specifically the COMPOSITION, not the resonator or B2 capability alone.
+
+Sub-property annotation on Composition/PP-8 row: 'R6_b2_x_sparse_resonator_HF v413: N=5000 M=300 3-seed full; kmax_res=26 kmax_b2res=8 (69% drop unanimous); B2+resonator co-storage destructive; partition B2/resonator sub-regions for production; resonator standalone unaffected (v412 blocklocal HP confirms).'
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, 0-compute BEST-RESCUE APPLIED INLINE): Partition annotation -- label as COMPOSITION failure, not resonator or B2 failure. Both work independently. Product design: sub-region partitioning avoids interference. Zero compute.
+R2 (1h CPU): Sub-region partition test -- split N=5000 evenly (resonator region / B2 region); verify kmax_resonator recovers proportionally; confirms partitioning as working architectural rescue.
+R3 (1h CPU): M_stored sweep -- M_stored={50,100,200,300} with B2+resonator; find M threshold where kmax_b2res is acceptable (>=20); characterize interference as f(M_stored).
+R4 (1h CPU): N scaling -- N=8192 same M=300; does interference ratio improve (capacity scales faster than interference)?
+R5 (free): Theory -- B2 stores M unitary vectors; resonator query = iterative projection in same holographic field; analytically estimate SNR degradation as f(M, N, K).
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 895 -> 896 (+1).
+- LABEL-VS-HONEST: 220 UNCHANGED (0 new catches; label was honest).
+
+- PROT-004/006: No closures. 0 new top-level rows. Composition/PP-8 sub-property annotation. R1-R5 cheapest-first filed.
+- PROT-007/008: v413 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 325th PROT-009 paired commit.
+- PROT-018: _n5000 suffix binding confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: kmax_b2res=8 unanimous (SD=0); res_alone=26 unanimous; per-seed b2_res curves consistent (same monotone degradation shape across seeds).
+
+Cap_map: v412 -> v413 CYCLE 84 (0 HP; 0 MID; 1 HF: R6_b2_x_sparse_resonator COMPOSITION-FAILS partitioning-required; 0 LVH; Composition/PP-8 sub-property annotation; HONEST 895->896; LVH 220; Portfolio 32+77; 325th PROT-009 paired commit) (2026-06-05)

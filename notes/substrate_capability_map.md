@@ -10045,3 +10045,27 @@ PROT-021: SSH-remote (bridge stale; SSH fallback; authoritative), run_mode=full.
 PROT-022: All 3 seeds 1.000 all K cells; algebraically deterministic; self-consistent.
 
 Cap_map: v411 -> v412 CYCLE 83 (1 HP: blocklocal_sparse_resonator_K26 V-CONSTRAINT-BYPASSED resonator-working-regime-confirmed; 0 MID; 0 HF; 0 LVH; resonator row sub-property annotation; HONEST 894->895; LVH 220; Portfolio 32+77; 324th PROT-009 paired commit) (2026-06-05)
+
+# v413 update (2026-06-05) -- CYCLE 84: 0 HP; 1 HF (substrate_R6_b2_x_sparse_resonator_v1_n5000); 0 LVH; Composition/PP-8 sub-property annotation B2-x-resonator destructive; HONEST 895->896; LVH 220 UNCHANGED; Portfolio 32+77; 325th PROT-009 paired commit
+
+| # | Anchor | N | Seeds | Verdict | Summary |
+|---|--------|---|-------|---------|---------|
+| 1 | substrate_R6_b2_x_sparse_resonator_v1_n5000 | 5000 | 3 | HARD_FAIL | kmax_res=26 kmax_b2res=8 (69% drop); unanimous; label honest |
+
+**(A) substrate_R6_b2_x_sparse_resonator_v1_n5000 HARD_FAIL -- B2 x RESONATOR COMPOSITION: B2 co-storage degrades resonator kmax from 26 to 8 (69% drop unanimous) at N=5000**
+N=5000, M_stored=300, 3 seeds, run_mode=full. res_alone K4=K8=K16=K26=1.000 unanimous. b2_res K4~0.99/K8~0.91/K16~0.54/K26~0.30 monotone degradation all seeds. kmax_b2res=8 unanimous. Mechanism: B2 superposition noise corrupts resonator associative search progressively with K.
+Sub-property annotation on Composition/PP-8 row: 'R6_b2_x_sparse_resonator_HF v413: N=5000 M=300 3-seed full; kmax_res=26 kmax_b2res=8 (69% drop unanimous); B2+resonator co-storage destructive; partition B2/resonator sub-regions for production; resonator standalone unaffected (v412 blocklocal HP confirms).'
+Rescue (cheapest-first): R1 (free APPLIED): Partition annotation -- COMPOSITION failure not resonator/B2 failure; sub-region partitioning is the product fix. R2 (1h CPU): Sub-region partition test at N=5000 split. R3 (1h CPU): M_stored sweep to find acceptable interference threshold. R4 (1h CPU): N=8192 same M=300 (interference ratio vs N). R5 (free): SNR degradation theory f(M, N, K).
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 895 -> 896.
+- LABEL-VS-HONEST: 220 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new rows. Composition/PP-8 sub-property annotation. R1-R5 cheapest-first filed.
+- PROT-007/008: v413 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 325th PROT-009 paired commit.
+- PROT-018: _n5000 confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: kmax_b2res=8 unanimous SD=0; res_alone=26 unanimous; b2_res monotone degradation all seeds.
+
+Cap_map: v412 -> v413 CYCLE 84 (0 HP; 0 MID; 1 HF: R6_b2_x_sparse_resonator COMPOSITION-FAILS partitioning-required; 0 LVH; Composition/PP-8 sub-property annotation; HONEST 895->896; LVH 220; Portfolio 32+77; 325th PROT-009 paired commit) (2026-06-05)
