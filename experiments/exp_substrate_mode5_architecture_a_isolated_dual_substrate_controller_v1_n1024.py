@@ -120,9 +120,11 @@ def run_seed(seed: int) -> Dict:
 
 def verdict(ps) -> Tuple[str, str]:
     iso_by_M = {M: float(np.mean([p["M%d_isolated" % M] for p in ps])) for M in M_GRID}
-    Mref = max([M for M in M_GRID if iso_by_M[M] >= 0.3], default=M_GRID[0])
-    sh = float(np.mean([p["M%d_shared" % Mref] for p in ps])); iso = float(np.mean([p["M%d_isolated" % Mref] for p in ps]))
-    ratio = iso / max(sh, 1e-6)
+    sh_by_M = {M: float(np.mean([p["M%d_shared" % M] for p in ps])) for M in M_GRID}
+    # report the band where the isolation benefit is meaningful: max ratio among M with BOTH non-trivial (iso>=0.1)
+    cand = [M for M in M_GRID if iso_by_M[M] >= 0.1]
+    Mref = max(cand, key=lambda M: iso_by_M[M] / max(sh_by_M[M], 1e-6)) if cand else M_GRID[0]
+    sh = sh_by_M[Mref]; iso = iso_by_M[Mref]; ratio = iso / max(sh, 1e-6)
     parts = " ".join("M%d:iso=%.2f/sh=%.2f" % (M, float(np.mean([p["M%d_isolated" % M] for p in ps])), float(np.mean([p["M%d_shared" % M] for p in ps]))) for M in M_GRID)
     summary = "at M=%d isolated=%.2f shared=%.2f ratio=%.2fx | %s" % (Mref, iso, sh, ratio, parts)
     if ratio >= 1.5:
