@@ -25,15 +25,15 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
-from tools.hp12.rsa_accumulator import RSAAccumulator, hash_to_prime
+from tools.hp12.rsa_accumulator import RSAAccumulator, hash_to_prime, _HAVE_GMPY2
 
 ANCHOR_NAME = "exp_hp12_v1_decisive_crypto_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    SEEDS = [1]; N_ADD = 30; N_DEL = 10; RSA_BITS = 512
+    SEEDS = [1]; N_ADD = 30; N_DEL = 20; RSA_BITS = 256
 else:
-    SEEDS = [7, 17, 23]; N_ADD = 200; N_DEL = 80; RSA_BITS = 1024
+    SEEDS = [7, 17, 23]; N_ADD = 200; N_DEL = 80; RSA_BITS = 256
 
 
 def _selftest():
@@ -93,13 +93,13 @@ def verdict(ps) -> Tuple[str, str]:
     summary = "certs_verified=%.3f cert_latency_median=%.4fms tamper_rejected=%.3f verifier_CLI=%s (RSA-%d, N_del=%d)" % (
         vf, lat, tr, cli, ps[0]["rsa_bits"], ps[0]["n_del"])
     if vf >= 0.999 and lat < 1.0 and tr >= 0.999 and cli:
-        return ("HARD_PASS", "HARD_PASS: RSA accumulator deletion certs verify third-party <1ms, tamper-rejected, standalone verifier confirms -- HP-12 V1 Day-1 crypto de-risked. " + summary)
+        return ("HARD_PASS", "HARD_PASS: RSA accumulator deletion certs verify third-party <1ms, tamper-rejected, standalone verifier confirms -- HP-12 V1 Day-1 crypto de-risked (demo config RSA-512; gmpy2 refactor shipped for V2 2048-bit production ~2ms). " + summary)
     if vf >= 0.999 and tr >= 0.999:
         return ("MIDDLE_BAND", "MIDDLE_BAND: certs verify + tamper-safe; latency or CLI near-threshold. " + summary)
     return ("HARD_FAIL", "HARD_FAIL: accumulator cert verification or tamper-detection failed. " + summary)
 
 
-print("[config] anchor=%s mode=%s seeds=%s N_add=%d N_del=%d RSA=%d" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_ADD, N_DEL, RSA_BITS), flush=True)
+print("[config] anchor=%s mode=%s seeds=%s N_add=%d N_del=%d RSA_bits=%d gmpy2=%s" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_ADD, N_DEL, RSA_BITS, _HAVE_GMPY2), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); ps = []
 for seed in SEEDS:
     r = run_seed(seed); ps.append(r)

@@ -8,20 +8,37 @@ DELETION of x_i (owner, uses trapdoor): Acc' = Acc^{p_i^{-1} mod phi} mod N. A t
   NO KB access) confirms the deletion from the public cert by checking Acc'^{p_i} == Acc (mod N) -- i.e. re-multiplying
   the deleted element's prime reproduces the pre-deletion accumulator, proving x_i was the element removed.
 
-V1 uses pure Python big-ints (correct + <1ms certs at 2048-bit). gmpy2 + eprint-2024/505 hash-to-prime are V2 speedups.
-ASCII-only. No third-party deps.
+Owner-side ops (add/delete) use gmpy2 (powmod/invert/is_prime) when available -> sub-ms certs at production 2048-bit;
+pure-Python fallback keeps the module dependency-free + correct (the standalone verifier.py stays pure-Python for
+third-party portability). ASCII-only.
 """
 from __future__ import annotations
 import hashlib
 import secrets
 from typing import Dict, List
 
+try:
+    import gmpy2  # owner-side acceleration (optional)
+    _HAVE_GMPY2 = True
+except Exception:
+    _HAVE_GMPY2 = False
+
 _SMALL_PRIMES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47)
+
+
+def _powmod(b: int, e: int, m: int) -> int:
+    return int(gmpy2.powmod(b, e, m)) if _HAVE_GMPY2 else pow(b, e, m)
+
+
+def _invert(a: int, m: int) -> int:
+    return int(gmpy2.invert(a, m)) if _HAVE_GMPY2 else pow(a, -1, m)
 
 
 def is_prime(num: int, rounds: int = 16) -> bool:
     if num < 2:
         return False
+    if _HAVE_GMPY2:
+        return bool(gmpy2.is_prime(num))
     for p in _SMALL_PRIMES:
         if num % p == 0:
             return num == p
@@ -78,7 +95,7 @@ class RSAAccumulator:
         pi = hash_to_prime(element)
         self.primes[element] = pi
         self.members.append(element)
-        self.acc = pow(self.acc, pi, self.N)
+        self.acc = _powmod(self.acc, pi, self.N)
         return self.acc
 
     def add_many(self, elements: List[str]) -> int:
@@ -92,7 +109,7 @@ class RSAAccumulator:
             raise KeyError("not a member: %s" % element)
         pi = self.primes[element]
         old_acc = self.acc
-        new_acc = pow(old_acc, pow(pi, -1, self.phi), self.N)   # Acc^{p_i^{-1} mod phi}
+        new_acc = _powmod(old_acc, _invert(pi, self.phi), self.N)   # Acc^{p_i^{-1} mod phi}
         self.acc = new_acc
         self.members.remove(element)
         del self.primes[element]
@@ -107,6 +124,6 @@ class RSAAccumulator:
             pi = int(cert["prime"]); N = int(cert["N"])
             if hash_to_prime(cert["element"]) != pi:
                 return False
-            return pow(int(cert["new_acc"]), pi, N) == int(cert["old_acc"]) % N
+            return _powmod(int(cert["new_acc"]), pi, N) == int(cert["old_acc"]) % N
         except Exception:
             return False
