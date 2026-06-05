@@ -41,7 +41,7 @@ assert N == _N_SUFFIX
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 
-V_NODES = 128
+V_NODES = 256
 E_FRACS = [0.5, 1.0, 2.0, 4.0]
 _P = [2654435761, 40503, 2246822519, 3266489917, 668265263, 374761393]
 if RUN_MODE == "smoke":
@@ -56,6 +56,7 @@ def hashes(u, v, k, n):
 
 
 def _edge_set(V, E, g):
+    E = min(E, V * (V - 1) // 2)   # cap at max distinct edges (no infinite loop)
     seen = set()
     while len(seen) < E:
         u, v = int(g.integers(0, V)), int(g.integers(0, V))
