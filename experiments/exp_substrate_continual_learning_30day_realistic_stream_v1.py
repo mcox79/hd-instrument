@@ -31,13 +31,13 @@ import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "substrate_continual_learning_30day_realistic_stream_v1"
-MODEL_ID = "EleutherAI/pythia-160m"; N_SUB = 8192; LR = 0.5
+MODEL_ID = "EleutherAI/pythia-160m"; N_SUB = 16384; LR = 0.5
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    SEEDS = [1]; BASELINE = 1000; DAYS = 30; PER_DAY = 100; N_CHAIN = 50; PY_DAYS = 3
+    SEEDS = [1]; BASELINE = 3000; DAYS = 30; PER_DAY = 100; N_CHAIN = 50; PY_DAYS = 3
 else:
-    SEEDS = [7, 17, 23]; BASELINE = 10000; DAYS = 30; PER_DAY = 300; N_CHAIN = 200; PY_DAYS = 5
+    SEEDS = [7, 17, 23]; BASELINE = 5000; DAYS = 30; PER_DAY = 100; N_CHAIN = 200; PY_DAYS = 5
 
 
 def ub(M, n, g):
@@ -51,7 +51,7 @@ def _selftest():
     W += E[2:3].T @ E[1:2]   # B->C (later "day")
     b = int(np.argmax(E @ (W @ E[0]))); c = int(np.argmax(E @ (W @ E[b])))
     assert b == 1 and c == 2, "cross-day 2-hop chain + no-forget"
-    assert N_SUB == 8192; print("[selftest] PASS: chain no-forget", flush=True)
+    assert N_SUB == 16384; print("[selftest] PASS: chain no-forget", flush=True)
 
 
 _selftest()
