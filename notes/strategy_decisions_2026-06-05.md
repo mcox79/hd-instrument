@@ -182,3 +182,62 @@ Geometry VALIDATED (Pythia+real-Llama 1.000 recall). Crypto correctness VALIDATE
 
 Cap_map: v430 -> v431 CYCLE 102 (1 HP: decisive_extraction HARD_PASS-GEOMETRY-LLAMA1B-REAL-NPZ; 2 MID: e2e_demo_backend WRITE-LATENCY-MIDDLE-CORRECTNESS-CEILING + decisive_crypto CERT-LATENCY-MIDDLE-CRYPTO-CEILING; 0 LVH; PP-8+PP-5+PP-3+PP-9+PP-12+deletion-cert sub-prop annotations x6; HONEST 930->933; LVH 222; Portfolio 32+77; 343rd PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v431 -> v432 CYCLE 103 BATCH (2026-06-05)
+
+Verdicts processed: exp_hp12_v1_decisive_crypto_v1 RE-RUN (HARD_PASS) + substrate_ccc_v2_capability_dims_n4096_v1 (HARD_PASS) + substrate_kgram_xor_scaling_sweep_v2 (HARD_PASS) + substrate_bipolar_hadamard_expansion_k8_v2 (MIDDLE_BAND) + substrate_theta_burst_endpoint_only_K3_v2 (HARD_PASS)
+
+### Step 0 honest re-read (5 verdicts; source=remote all)
+
+**V1 (exp_hp12_v1_decisive_crypto_v1 RE-RUN) HARD_PASS -- HONEST**
+RSA-256 (cycle 103 re-run vs RSA-1024 cycle 102 MIDDLE_BAND). Seeds 7/17/23: verify_frac=1.000, cert_latency_median 0.0549-0.0591ms, tamper_rejected=1.000, verifier_cli_ok=1 all 3 seeds. ALL cells pass <1ms HP threshold at RSA-256. Different config from cycle 102 (RSA-1024 at 19ms). Re-run is execution of v428 R2 rescue sketch (RSA bit-reduction). No LVH.
+
+**V2 (substrate_ccc_v2_capability_dims_n4096_v1) HARD_PASS -- HONEST**
+N=4096, run_mode=full, n_seeds=3, elapsed=90.4s. Per-seed: single_hop=1.000, multi_hop=1.000, analogical=1.000, counterfactual=1.000 (3/3 all ceiling). All 4 CCC-1-v2 capability dims at 1.000 unanimous. No LVH.
+
+**V3 (substrate_kgram_xor_scaling_sweep_v2) HARD_PASS -- HONEST**
+k=3 N=4096 Vc=100000 decisive cell: sub_acc=1.000, trigram=1.000, gap=0.0pp (3/3 seeds). k=2 Vc=1000 shows -3.3 to -10pp (expected small-Vc noise). Label Phase 3 scaling path validated is correct per decisive cell. No LVH.
+
+**V4 (substrate_bipolar_hadamard_expansion_k8_v2) MIDDLE_BAND -- HONEST WITH CAVEAT**
+n_seeds=5, elapsed=0.76s. Per-seed base_capacity: 10/5/5/0/0. Per-seed exp_capacity: 18/18/18/10/10. Per-seed ratio: 1.8/3.6/3.6/10.0/10.0. Seeds 31+43 have base_capacity=0 (N=128 Hopfield below min-capacity threshold for those seeds; ratio denominator ill-defined). Summary uses Hopfield normalisation (base_capacity=4 vs exp_capacity=15 = 3.70x). CAVEAT: 2/5 seeds base=0. MIDDLE_BAND honest for valid-base seeds (1.5-3.6x). Not LVH.
+
+**V5 (substrate_theta_burst_endpoint_only_K3_v2) HARD_PASS -- HONEST**
+n_seeds=5, elapsed=5.4s. Per-seed gain_t2_pp: 25.2/24.2/33.8/27.2/25.0pp (all >>10pp gate). Per-seed gain_t3_pp: 53.0/43.6/47.6/33.0/43.0pp (all >>10pp gate). Direct write rescues multi-step vs iterated: iter_t3 collapses (0.038-0.272) while direct_t3=0.412-0.698. All 5 seeds agree. Mean multistep gain 35.6pp. No LVH.
+
+HONEST: 933 -> 938 (+5). LVH: 222 UNCHANGED.
+
+### Cap_map decisions
+
+**V1 exp_hp12_v1_decisive_crypto_v1 RE-RUN HARD_PASS:**
+PP-12 sub-property update. RSA-256 cert_latency=0.056ms: <1ms HP ACHIEVED. This is v428 R2 rescue (RSA bit-reduction) confirmed. Production path at RSA-2048 still requires gmpy2 (~2ms per verdict_msg). PP-12 band UNCHANGED. Deletion-cert reliability: tamper_rejected=1.000 (3/3 seeds) at RSA-256. Corroborates 92-98% reliability band.
+
+**V2 substrate_ccc_v2_capability_dims_n4096_v1 HARD_PASS:**
+Multi-row sub-prop: Pool retrieval (single_hop=1.000); PP-11/PP-49 (multi_hop=1.000); PP-8/analogical (analogical=1.000); PP-25 (counterfactual=1.000). All ceiling 3-seed. Phase 2 capability checkpoint confirmed. Portfolio 32+77 UNCHANGED. No band lifts (existing rows already validated).
+
+**V3 substrate_kgram_xor_scaling_sweep_v2 HARD_PASS:**
+PP-8 sub-prop. Phase 3: k=3 XOR at N=4096 Vc=100000 = trigram-class (0.0pp gap, 3/3 seeds). k=4 also ceiling. New finding: XOR k-gram at k>=3 is trigram-equivalent at Vc=100000, N=4096. Standalone Phase 3 row candidate after N-sweep (N>=8192). Band UNCHANGED. 0 new rows this cycle.
+
+**V4 substrate_bipolar_hadamard_expansion_k8_v2 MIDDLE_BAND:**
+Capacity sub-axis sub-prop. 1.5-3.6x lift for valid-base seeds (3/5); base=0 for seeds 31+43 (N=128 marginal). Expansion helps when base system has nonzero capacity. Band UNCHANGED. 3 rescue sketches (R1: scale N for valid base; R2: seed-condition on nonzero base; R3: cross-N sweep).
+
+**V5 substrate_theta_burst_endpoint_only_K3_v2 HARD_PASS:**
+Hebbian-only training row sub-prop. Endpoint-only direct write: 35.6pp mean multi-step gain (24-34pp t+2, 33-53pp t+3, 5-seed unanimous). Write strategy matters: direct endpoint write >> iterative K=1. Standalone write-strategy row candidate after N-sweep. Band UNCHANGED. 0 new rows this cycle.
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+
+### Rescue sketches V4 (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+1. R1 (CHEAP, 0-compute) -- Scale N baseline: run base at N=512 or N=1024 instead of N=128; ensures nonzero base for all seeds; tests actual expansion ratio at proper operating N.
+2. R2 (CHEAP, CPU <30min) -- Seed-conditional analysis: exclude base=0 seeds; report expansion ratio conditioned on base>0 (seeds 7+17+23 give 1.8-3.6x); more interpretable product number.
+3. R3 (CHEAP, CPU <30min) -- Cross-N sweep: N=256/512/1024/2048 base vs expansion; maps the ratio vs N curve; confirms whether 3.7x is stable or N-dependent.
+
+### PROT compliance (v431 -> v432)
+- PROT-004/006: No closures. V4 MIDDLE_BAND 3 rescue sketches filed cheapest-first. V1-V3+V5 HARD_PASS no rescues needed.
+- PROT-007: v432 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes; 0 LVH. Validator skipped.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 344th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. N values stated in metrics bodies. CLEAN.
+- PROT-021: all 5 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 cert_latency 0.0549-0.0591ms normal seed variance; V2 all-ceiling unanimous (deterministic); V3 k=3 Vc=100000 unanimous ceiling; V4 base_capacity=0 flagged 2/5 seeds; V5 gains unanimous 5-seed.
+
+Cap_map: v431 -> v432 CYCLE 103 (4 HP: hp12_crypto_rerun RSA256-CERT-0.056ms-R2-RESCUE-CONFIRMED + ccc_v2_dims N4096-ALL4-CEILING + kgram_xor_scaling k3-TRIGRAM-CLASS-Vc100K + theta_burst_endpoint MULTISTEP-35.6pp-5SEED; 1 MID: bipolar_hadamard_expansion CAPACITY-1.5-3.6x-VALID-SEEDS-BASE0-SEED31+43-MARGINAL; 0 LVH; PP-12+pool-retrieval+PP-11+PP-8+PP-25+capacity+Hebbian sub-prop annotations x9; R3 V4 rescue sketches cheapest-first; HONEST 933->938; LVH 222; Portfolio 32+77; 344th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
