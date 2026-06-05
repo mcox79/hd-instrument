@@ -10458,3 +10458,41 @@ Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
 HONEST: 920 -> 922 (+2). LVH: 222 UNCHANGED.
 Cap_map: v425 -> v426 CYCLE 97 BATCH (1 HP: audit_core_C2_C3_whitened_llama1b LLAMA1B-CROSS-ARCH-GENERALIZATION; 1 MID: ex_concept_1_real_llama1b V_C256-LLAMA1B-5th-REPLICATION; 0 HF; 0 LVH; PP-9+PP-3+PP-8 sub-prop annotations x3; HONEST 920->922; LVH 222; Portfolio 32+77; 338th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+# v427 update (2026-06-05) -- CYCLE 98 BATCH: 0 HP; 2 MID (kgram_xor_real_llama1b REAL-LLAMA1B-XOR-MODEST-1.17x + kfact_combination_anchors 2/4-PHYSICS-ANCHORS-CONFIRM); 0 HF; 0 LVH; PP-8+physics sub-prop annotations x2; HONEST 922->924; LVH 222 UNCHANGED; Portfolio 32+77; 339th PROT-009 paired commit
+
+## CYCLE 98 BATCH -- v426 -> v427 (2026-06-05)
+
+| # | Anchor | Mode | Seeds | Verdict | Honest | Cap_map action |
+|---|--------|------|-------|---------|--------|----------------|
+| 1 | substrate_kgram_xor_real_llama1b_v1 | full | 3 | MIDDLE_BAND | K2/K1=1.17x (1.155-1.181x 3/3 seeds); modest positive lift on real Llama-1B; label honest | PP-8 sub-property: real-data XOR k-gram modest 1.17x vs synthetic 6.63x; V_C=256 ceiling persists in real-data regime; band UNCHANGED |
+| 2 | substrate_kfact_combination_anchors_v1 | full | 3 | MIDDLE_BAND | 2/4: A1 beta*=1.000(ok 3/3) + A3 Rule8-Rule1=+29.3pp(ok 3/3); A2 K_trans=25 vs sqrt(N)/2=16(no 3/3) + A4 resonator_disagree=0.0%(no 3/3); label honest | Physics sub-property annotation: beta* recovery + Rule-8 gain confirmed; transition-K mismatch + zero resonator disagreement are open physics questions; no band lift |
+
+### Step 0 honest re-read (2 verdicts; 0 LVH; both HONEST)
+
+**(A) substrate_kgram_xor_real_llama1b_v1 MIDDLE_BAND -- HONEST**
+Label says "XOR rescue modest on real 1B. K2/K1=1.17x". Per-cell check: K2/K1 ratios are 1.176x/1.154x/1.181x across 3 seeds -- all consistently ~1.17x. Bigram=0.477, trigram=0.602. This is a real Llama-1B test (V=256 VQ granularity). Compare to synthetic kgram_xor_context_binding_v1 (v424) K2/K1=6.63x: the gap is large. Real-data distributional structure compresses the XOR lift from 6.63x to 1.17x. MIDDLE_BAND label is accurate -- lift exists and is consistent, but it is modest not strong. LVH: 0 catch.
+
+**(B) substrate_kfact_combination_anchors_v1 MIDDLE_BAND -- HONEST**
+Label says "2/4 anchors confirm". Per-cell check: A1 beta*=0.99996-1.00000 (all 3 seeds, passes ok); A2 K_trans=25.0 (all 3 seeds identical; threshold is sqrt(N)/2=16, so K=25>>16 fails -- transition is sharper/slower than mean-field); A3 Rule8=0.960, Rule1=0.667, gain=+29.3pp (all 3 seeds, strong consistent gain, passes ok); A4 resonator_disagree=0.0% (all 3 seeds perfectly zero -- no disagreement, fails the expected-nonzero predicate). 2/4 is honest: A1+A3 confirm, A2+A4 fail. LVH: 0 catch.
+
+Sub-property annotations:
+
+- PP-8 (k-gram LM): 'kgram_xor_real_llama1b_MIDDLE_BAND v427: N=4096 V=256 3-seed full elapsed=3955s real Llama-1B; K1_acc=0.468 K2_acc=0.548 K3_acc=0.542; K2/K1=1.17x(1.155-1.181x 3/3); bigram=0.477 trigram=0.602; real-data XOR lift 1.17x vs synthetic 6.63x (v424); V_C=256 VQ granularity ceiling persists in real-data regime; consistent with R2 V_C-sweep + R3 SQ-2 active rescues; 2026-06-05.'
+
+- Physics combination anchors: 'kfact_combination_anchors_MIDDLE_BAND v427: N=1024 3-seed full elapsed=7.5s; A1 beta*_recovery=1.000(3/3 ok); A2 transition_K=25.0(3/3; sqrt(N)/2=16 threshold fails -- mean-field transition prediction off by 1.56x); A3 Rule8-Rule1=+29.3pp(3/3 ok -- structured retrieval rule gain robust); A4 resonator_disagree=0.0%(3/3 fails -- perfectly consistent resonator, no divergence); 2/4 pass; beta* capacity recovery + Rule-8 gain confirmed; transition-K mismatch suggests finite-N correction needed; zero resonator disagreement is unexplained open question; 2026-06-05.'
+
+Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 922 -> 924 (+2). LVH: 222 UNCHANGED.
+
+### PROT compliance (v426 -> v427)
+
+- **PROT-004/006:** No closures. 0 new top-level rows. 0 BAND-LIFTS. Sub-property annotations x2.
+- **PROT-007:** v427 history row to be appended to substrate_capability_map_history.md.
+- **PROT-008:** Validator skipped (annotation-only; no row state changes; no portfolio changes; 0 LVH; MIDDLE_BAND x2 sub-property only).
+- **PROT-009:** cap_map.md (this v427 entry) + substrate_capability_map_history.md + decisions log staged atomically; 339th PROT-009 paired commit.
+- **PROT-018:** kgram_xor_real_llama1b_v1 no _nN suffix (N=4096 default); kfact_combination_anchors_v1 no _nN suffix (N=1024 stated in metrics). Both CLEAN.
+
+Cap_map: v426 -> v427 CYCLE 98 BATCH (0 HP; 2 MID: kgram_xor_real_llama1b REAL-LLAMA1B-XOR-MODEST-1.17x-vs-6.63x-synthetic + kfact_combination_anchors 2/4-PHYSICS-A1-beta*+A3-Rule8-confirm-A2-transition-K-mismatch+A4-resonator-zero-disagree; 0 HF; 0 LVH; PP-8+physics sub-prop annotations x2; HONEST 922->924; LVH 222; Portfolio 32+77; 339th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
