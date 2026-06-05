@@ -1,0 +1,136 @@
+# Llama-3.2-1B per-token residual extraction on Lambda H100.
+#
+# User-authorized 2026-06-05: destination C:\dev\hd-instrument\data\ on
+# marsh@home (Option A); H100 cloud (high-confidence + saving-as-it-goes).
+#
+# Defenses against every prior cloud bug we hit during cornerstone session:
+#   - Bug 1-4 (capacity/region): accelerators: H100:1 (broad search), no region pin,
+#     cluster name HHMMSS suffix to avoid stale-metadata reuse
+#   - Bug 5-6 (driver/torch): torch==2.4.1+cu121 pin (minor-compat with CUDA driver
+#     12.0+) + transformers>=4.45,<4.50 cap (compatible with torch 2.4)
+#   - Bug 9 (fork deadlock): TOKENIZERS_PARALLELISM=false env in run + in script
+#   - Bug 10 (silent hangs): per-doc watchdog os._exit(99) at 120s idle (in script)
+#   - Bug 11 (HF gated access): HF_TOKEN env from --env; setup verifies access
+#     BEFORE snapshot_download
+#   - Bug 12 (model load): snapshot_download in setup phase (not counted toward
+#     idle timer; cannot trigger premature autostop)
+#   - Bug 13 (autostop reliability): --down -i 30 AND explicit sky down in launcher
+#   - Bug 14 (rsync race): launcher pulls residuals npz via SCP BEFORE issuing
+#     sky down (not relying on the watcher's last cycle)
+#   - Script has --self-test gate: PROT-022 selftests run at import; gate exits
+#     cleanly before model load if smoke validation fails
+#
+# Launch:
+#   bash /mnt/d/AI/hd-instrument/skypilot/build_llama_1b_ship.sh
+#   bash /mnt/d/AI/hd-instrument/skypilot/launch_llama_1b.sh
+
+name: llama1b
+
+resources:
+  cloud: lambda
+  # Per feedback_cloud_location_doesnt_matter: do NOT pin region. Use accelerators
+  # (not instance_type) so SkyPilot picks ANY H100 SKU (SXM5 or PCIe) in ANY
+  # Lambda region. --retry-until-up cycles regions on capacity miss. PCIe was
+  # sold out fleet-wide during cornerstone session; SkyPilot will fall through
+  # to SXM5 in whichever region has capacity.
+  accelerators: H100:1
+  use_spot: false
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  # Bug 9 defense: TOKENIZERS_PARALLELISM=false set BEFORE any transformers/HF
+  # call. Setup-phase shell also exports it so downstream verify commands inherit.
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty -- did you pass --env HF_TOKEN=...?"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+
+  echo "=== [setup 3/7] pip core + defensive torch pin (lessons from cornerstone us-south-2) ==="
+  pip install --quiet --upgrade pip
+  # Bug 5-6 defense: torch 2.4.1+cu121.
+  #   - Minor-version-compatible with CUDA driver 12.0+ (us-south-2 image ships
+  #     CUDA driver 12.0.80; default torch 2.7+ requires 12.6+ -> mismatch).
+  #   - 2.4 floor required by transformers 4.45+ (peft.py imports break on 2.3).
+  # On newer-image regions this is a small downgrade that costs nothing.
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()}')"
+  # Bug 6 defense: cap transformers at <4.50 (within torch-2.4-compatible range);
+  # accelerate for device_map=cuda dispatch; datasets for the analogy corpus.
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "datasets>=2.19" \
+    "huggingface_hub>=0.25" "accelerate>=0.30"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.2-1B-Instruct access (gated repo) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.2-1B', token=os.environ['HF_TOKEN'])
+  print(f'OK: Llama-3.2-1B-Instruct accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.2-1B snapshot (NOT counted as idle) ==="
+  # Bug 12 defense: model download in setup phase (not idle-counted). ~2 GB BF16.
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.2-1B',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.2-1B-Instruct snapshot ready')
+  "
+
+  echo "=== [setup 7/7] script --self-test gate (PROT-022 import-time selftests) ==="
+  # If the script crashes at import or its self-tests fail, this exits non-zero
+  # and the run phase never executes -- fast-fail before any extraction attempt.
+  cd ~/sky_workdir
+  python -u experiments/exp_phase05_v1_llama32_1b_per_token_residual_extract_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  # Bug 9 defense (env): TOKENIZERS_PARALLELISM=false set at run-shell level too.
+  # Bug 10 defense: PYTHONUNBUFFERED=1 so any silent hang is visible immediately.
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=phase05_v1_llama32_1b_per_token_residual_extract_v1
+  cd ~/sky_workdir
+
+  echo "=== Llama-3.2-1B per-token extraction START ==="
+  # --per-token is the script's DEFAULT (PER_TOKEN_MODE = not PER_DOC_OVERRIDE),
+  # but passing the flag explicitly is the load-bearing signal in the log.
+  python -u experiments/exp_phase05_v1_llama32_1b_per_token_residual_extract_v1.py --per-token
+
+  echo "=== extraction complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_phase05_v1_llama32_1b_per_token_residual_extract_v1/ 2>&1 | head -25

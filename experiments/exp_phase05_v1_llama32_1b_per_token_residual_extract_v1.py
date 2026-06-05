@@ -1,45 +1,50 @@
-"""phase05_v1_pythia160m_residual_extract_v1 -- Phase 0.5 rung-0 residual extraction.
+"""phase05_v1_llama32_1b_per_token_residual_extract_v1 -- Phase 2 Llama-1B per-token extraction.
 
 SCIENTIFIC QUESTION:
-  Produce a clean Pythia-160M last-layer residual npz for downstream EX-CONCEPT-1
-  VQ + substrate-audit-core C2 + C3 cells. Pythia-160M is small, public, fast,
-  and known to load on the runner (algorithm1_debug_pythia160m_v1 ran clean).
+  Produce a clean Llama-3.2-1B last-layer per-token residual npz for downstream
+  EX-CONCEPT-1 REAL + substrate-audit-core C2 + C3 at the 1B scale tier. Forked
+  from the Pythia-160M per-token script (HARD_PASS'd 2026-06-05); same audit
+  fixes carry over identically.
 
 ROUTING:
-  - User-authorized (2026-06-04 ~22:00) pivot from Llama-3.2-1B v6/v7 hung
-    extractions to Pythia-160M as the immediate substrate-LLM-coupling residual
-    source.
-  - Per research_to_testbed_pythia_extraction_priority_2026-06-04 +
-    exp_dev_to_testbed_user_authorized_v7_kill_pythia_extract_2026-06-04.
-  - Unblocks Exp-Dev's EX-CONCEPT-1 REAL + Tier-4 Hopfield-attention
-    substitution + EX-OPTION-C-W_proj.
+  - User-authorized (2026-06-05): destination C:\\dev\\hd-instrument\\data\\ on
+    marsh@home (Option A); compute path = H100 cloud (per user's high-confidence
+    + saving-as-it-goes criteria).
+  - Per research_to_testbed_probe_storage_layout_destination_2026-06-05 +
+    research_to_exp_dev_llama_1b_extraction_authorized_phase2_start_2026-06-05.
+  - Unblocks: substrate-audit-core C2 + C3 at 1B scale (Tier-1 anchor; closed-
+    form algebra; valid scale-tier per Research's hybrid C+D plan); EX-CONCEPT-
+    REAL at 1B scale (richer concept-LM than Pythia-160M).
 
 PIPELINE:
-  1. Set TOKENIZERS_PARALLELISM=false BEFORE transformers import (prevents the
-     fork-after-parallelism deadlock that hung Llama v6 + v7).
-  2. Load Pythia-160M (EleutherAI/pythia-160m, ~320 MB BF16) on cuda.
-  3. Iterate over the analogy dataset (saturnMars/hyperprobe-dataset-analogy)
-     -- already cached on the runner from prior Llama work.
-  4. For each doc: forward pass + extract hidden_states[12] (= last layer, 0-indexed
-     L; Pythia-160M has 12 layers + 1 embedding = 13 entries; final = idx 12) at
-     the final-token position. Shape: (768,) float32.
-  5. Stack all residuals to (n_docs, 768) float32 npz at out_dir/residuals.npz.
-  6. Sidecar metadata JSON: model_id, hidden_dim, n_docs, layer_idx, dataset, ...
-  7. Per-doc watchdog: os._exit(99) if no doc completes in 120s (same fix as
-     Rung A v8 from `testbed_to_exp_dev_phase05_llama_v8_diagnostic_watchdog_kill_v7`).
+  1. Set TOKENIZERS_PARALLELISM=false BEFORE transformers import (defensive
+     against the fork-after-parallelism deadlock that hung Llama v6/v7 on
+     marsh@home before the v8 fix).
+  2. Load Llama-3.2-1B (base, NOT Instruct -- mirrors Rung A v6/v7 target for
+     substrate-audit-core continuity; meta-llama/Llama-3.2-1B, ~2 GB BF16) on
+     cuda. Requires HF token (gated repo); file-first precedence preserved.
+  3. Iterate over the analogy dataset (saturnMars/hyperprobe-dataset-analogy);
+     setup phase pre-warms HF cache via snapshot_download.
+  4. For each doc: forward + extract hidden_states[16] (= last layer of 16
+     transformer blocks; hidden_states[0]=embedding so final layer = idx 16)
+     at all real-token positions. Shape: (T_real, 2048) float32.
+  5. Concatenate per-token to (sum_T, 2048) npz at out_dir/residuals_per_token.npz
+     with CSR-like doc_indices + doc_boundaries for per-doc slicing.
+  6. Sidecar metadata JSON; per-token mode is DEFAULT (covers both substrate-
+     audit-core via last-token slice + EX-CONCEPT-REAL via full sequence).
+  7. Per-doc watchdog: os._exit(99) if no doc completes in 120s.
   8. PROT-021 per-doc partials via _seed_checkpoint.write_partial_key so a
      watchdog-triggered exit loses only in-flight work, not completed docs.
 
 PRE-REGISTERED BANDS:
-  HARD-PASS: extraction completes with >= MIN_DOCS_HP residuals, all finite, no
-             NaN, shape (n_docs, 768), npz file exists at expected path.
-             ~5-10k residuals per research's "sufficient for VQ codebook training".
+  HARD-PASS: extraction completes with >= MIN_DOCS_HP docs covered, all finite,
+             no NaN, shape (sum_T, 2048), npz file exists at expected path.
   MIDDLE:    pipeline runs but partial (e.g. < MIN_DOCS_HP); some residuals
              extracted but watchdog fired or dataset ran out.
-  HARD-FAIL: < MIN_DOCS_HP/2 residuals OR npz contains NaN OR script crashed at
-             setup before any extraction.
+  HARD-FAIL: < MIN_DOCS_HP/2 docs covered OR npz contains NaN OR script crashed
+             at setup before any extraction.
 
-PROT-018: no _nN suffix (Pythia hidden_dim=768 is fixed by model, not swept).
+PROT-018: no _nN suffix (Llama-3.2-1B hidden_dim=2048 is fixed by model, not swept).
 PROT-021: per-doc partials with model_id + run_mode + idx-of-N keys.
 PROT-022: import-time self-tests for residual shape / sign / npz round-trip.
 
@@ -80,22 +85,22 @@ from experiments._seed_checkpoint import (  # noqa: E402
     get_output_dir, write_partial_key, list_completed_keys, write_metrics,
 )
 
-ANCHOR_NAME = "phase05_v1_pythia160m_residual_extract_v1"
+ANCHOR_NAME = "phase05_v1_llama32_1b_per_token_residual_extract_v1"
 
-MODEL_ID = "EleutherAI/pythia-160m"
-HIDDEN_DIM = 768
-N_LAYERS = 12                  # Pythia-160M: 12 transformer blocks
-LAYER_IDX_TARGET = 12          # last layer's output = hidden_states[12]
-                               # (Pythia returns L+1=13 hidden_states; idx 0 = embedding)
+MODEL_ID = "meta-llama/Llama-3.2-1B"
+HIDDEN_DIM = 2048
+N_LAYERS = 16                  # Llama-3.2-1B: 16 transformer blocks
+LAYER_IDX_TARGET = 16          # last layer's output = hidden_states[16]
+                               # (HF returns L+1=17 hidden_states; idx 0 = embedding)
 
-MAX_TOK_LEN = 64               # short prompts; analogy docs are short
+MAX_TOK_LEN = 64               # analogy docs are short; consistent with Pythia
 PROGRESS_EVERY = 50
 
 # v8-lesson watchdog: exit fast if no doc completes within this window.
 WATCHDOG_PER_DOC_TIMEOUT_S = 120
 _LAST_DOC_COMPLETE_TS: list = [None]
 
-# Extraction targets (per research: 5-10k sufficient for VQ + audit-core)
+# Extraction targets
 N_DOCS_FULL = 10000
 N_DOCS_SMOKE = 50
 MIN_DOCS_HP = 5000             # HARD_PASS gate floor
@@ -107,28 +112,35 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else
 USE_SYNTHETIC = (RUN_MODE == "smoke")
 N_DOCS_TARGET = N_DOCS_SMOKE if RUN_MODE == "smoke" else N_DOCS_FULL
 
-# Per-token extraction mode (2026-06-05 Research request: gates EX-CONCEPT-1
-# REAL). Default is per-doc final-token (preserves prior HARD_PASS). When
-# `--per-token` is passed (or HDLAB_PER_TOKEN=1), extract ALL token positions
-# within each doc and emit `residuals_per_token.npz` with shape
-# (sum_T_clipped, 768) + doc_indices (sum_T,) + doc_boundaries (n_docs+1,).
-PER_TOKEN_MODE = ("--per-token" in sys.argv or
-                  os.environ.get("HDLAB_PER_TOKEN", "0") in {"1", "true", "True"})
+# Per-token mode is DEFAULT for this Llama-1B script (user-directed; covers
+# both substrate-audit-core via last-token slice + EX-CONCEPT-REAL via full
+# sequence). Pass --per-doc (or HDLAB_PER_DOC=1) to override and write only
+# residuals.npz (n_docs, 2048).
+PER_DOC_OVERRIDE = ("--per-doc" in sys.argv or
+                    os.environ.get("HDLAB_PER_DOC", "0") in {"1", "true", "True"})
+PER_TOKEN_MODE = not PER_DOC_OVERRIDE
 
 
 def _load_hf_token() -> str:
     """File-first HF token precedence (Rung A v5/v6 lesson).
 
-    Pythia is a PUBLIC model so a token is not strictly required, but loading
-    via huggingface_hub still benefits from any cached auth. Return empty
-    string if neither source is set (HF allows anonymous access to Pythia).
+    Llama-3.2-1B-Instruct is a GATED model; HF token IS required.
+    File-first precedence: repo-local .hf_token wins over HF_TOKEN env (so a
+    stale shell-profile HF_TOKEN env cannot override the licensed file token).
+    Raises if neither source has a non-empty value.
     """
     tok_path = REPO / ".hf_token"
     if tok_path.exists():
         v = tok_path.read_text(encoding="utf-8").strip()
         if v:
             return v
-    return os.environ.get("HF_TOKEN", "").strip()
+    env_tok = os.environ.get("HF_TOKEN", "").strip()
+    if env_tok:
+        return env_tok
+    raise RuntimeError(
+        "HF token not found: place token at <repo>/.hf_token OR set HF_TOKEN env. "
+        "Llama-3.2-1B-Instruct is a gated repo and requires accepted-license token."
+    )
 
 
 # ---------------- PROT-022 import-time self-tests ----------------
@@ -216,11 +228,15 @@ def _watchdog_start(out_dir: Path) -> threading.Thread:
     return t
 
 
-def _load_pythia(device: str):
-    """Load Pythia-160M on device with bf16. Returns (model, tokenizer)."""
+def _load_llama(device: str):
+    """Load Llama-3.2-1B-Instruct on device with bf16 + use_cache=False.
+
+    Llama is gated; token required (file-first per _load_hf_token).
+    use_cache=False for residual extraction (no KV cache needed; saves VRAM).
+    """
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
-    token = _load_hf_token() or None  # empty -> anonymous
+    token = _load_hf_token()
     print(f"  loading {MODEL_ID} -> device={device} dtype=bf16 ...", flush=True)
     t0 = time.time()
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, token=token)
@@ -229,6 +245,7 @@ def _load_pythia(device: str):
         token=token,
         torch_dtype=torch.bfloat16,
         device_map=device,
+        use_cache=False,
     )
     model.eval()
     cfg = model.config
@@ -237,17 +254,17 @@ def _load_pythia(device: str):
           flush=True)
     if cfg.hidden_size != HIDDEN_DIM:
         raise RuntimeError(
-            f"Pythia hidden_size {cfg.hidden_size} != expected {HIDDEN_DIM}; "
+            f"Llama hidden_size {cfg.hidden_size} != expected {HIDDEN_DIM}; "
             f"model swap?")
     if cfg.num_hidden_layers != N_LAYERS:
         raise RuntimeError(
-            f"Pythia num_hidden_layers {cfg.num_hidden_layers} != "
+            f"Llama num_hidden_layers {cfg.num_hidden_layers} != "
             f"expected {N_LAYERS}; model swap?")
     return model, tokenizer
 
 
 def _extract_residual_one_doc(model, tokenizer, doc: str, device: str) -> np.ndarray:
-    """Forward Pythia on doc; return (768,) float32 last-layer final-token residual."""
+    """Forward Llama-3.2-1B on doc; return (2048,) float32 last-layer final-token residual."""
     import torch
     enc = tokenizer(doc, return_tensors="pt", truncation=True, max_length=MAX_TOK_LEN)
     input_ids = enc["input_ids"].to(device)
@@ -274,7 +291,7 @@ def _extract_residual_one_doc(model, tokenizer, doc: str, device: str) -> np.nda
 
 
 def _extract_residual_per_token_one_doc(model, tokenizer, doc: str, device: str) -> np.ndarray:
-    """Forward Pythia on doc; return (T, 768) float32 last-layer per-token residuals.
+    """Forward Llama-3.2-1B on doc; return (T, 2048) float32 last-layer per-token residuals.
 
     Per-token variant for EX-CONCEPT-1 REAL (2026-06-05 Research request).
     T = actual token count after tokenization (<= MAX_TOK_LEN). Trailing
@@ -390,14 +407,14 @@ def main() -> int:
     tokenizer = None
     if not USE_SYNTHETIC:
         try:
-            model, tokenizer = _load_pythia(device)
-            log("Pythia load OK")
+            model, tokenizer = _load_llama(device)
+            log("Llama-3.2-1B load OK")
         except Exception as e:
-            log(f"FAILED_SETUP: Pythia load failed: {e}")
+            log(f"FAILED_SETUP: Llama load failed: {e}")
             write_metrics(out_dir, {
                 "anchor": ANCHOR_NAME,
                 "verdict": "FAILED_SETUP",
-                "verdict_msg": f"Pythia model load failed: {e}",
+                "verdict_msg": f"Llama-3.2-1B model load failed: {e}",
                 "elapsed_s": time.time() - t0,
                 "summary": "model_load_failure",
                 "exception": traceback.format_exc(),
@@ -513,13 +530,14 @@ def main() -> int:
     log(f"extraction done in {extract_wall:.1f}s: "
         f"extracted={n_extracted} failed={n_failed}")
 
-    # BUG FIX (2026-06-05 from Llama-1B cluster llama1b-110332): watchdog
-    # would kill the process mid-np.savez_compressed during npz assembly
+    # BUG FIX (2026-06-05 cluster run llama1b-110332): watchdog killed the
+    # process mid-np.savez_compressed during the npz assembly phase below
     # because _LAST_DOC_COMPLETE_TS stops updating after the extraction loop
-    # exits. Pythia's 768-dim is fast enough that savez finishes <120s, but
-    # the same fix applies defensively. Pause the watchdog by setting the
-    # timestamp to None; the watchdog's `if last is None: continue` then
-    # makes it skip the check forever (no further heartbeat updates).
+    # exits, and savez of a ~4 GB compressed npz took >120s on Lambda H100.
+    # Result: corrupted partial npz on cluster; rebuilt locally from per-doc
+    # partials (which DID write atomically per doc). Permanent fix: signal
+    # the watchdog to STOP CHECKING by setting the timestamp to None; the
+    # watchdog's `if last is None: continue` path then effectively pauses it.
     _LAST_DOC_COMPLETE_TS[0] = None
     log("watchdog paused (extraction done; npz assembly + write_metrics phase starts)")
 
@@ -673,19 +691,19 @@ def main() -> int:
     else:
         verdict = "HARD_PASS"
         if PER_TOKEN_MODE:
-            msg = (f"Pythia-160M PER-TOKEN residual extraction at layer "
+            msg = (f"Llama-3.2-1B PER-TOKEN residual extraction at layer "
                    f"{LAYER_IDX_TARGET} complete; {n_docs_assembled} docs "
                    f"({n_tokens_total} tokens) at shape (sum_T={n_tokens_total}, "
                    f"{HIDDEN_DIM}) saved to {npz_path.name}. Ready for "
-                   f"downstream EX-CONCEPT-1 REAL: VQ -> concept-ID "
-                   f"sequences -> substrate Hebbian writes -> SQ2 multi-hop "
-                   f"reasoning at concept-ID level.")
+                   f"downstream EX-CONCEPT-1 REAL at 1B scale + substrate-audit-"
+                   f"core C2 + C3 via last-token-of-each-doc slice (Tier-1 "
+                   f"product anchor at 1B-LLM scale per Research's hybrid C+D plan).")
         else:
-            msg = (f"Pythia-160M residual extraction at layer {LAYER_IDX_TARGET} "
+            msg = (f"Llama-3.2-1B residual extraction at layer {LAYER_IDX_TARGET} "
                    f"complete; {n_docs_assembled} residuals at shape "
                    f"(n, {HIDDEN_DIM}) saved to {npz_path.name}. Ready for "
-                   f"downstream substrate-audit-core C2 + C3 on real Pythia "
-                   f"residuals (Tier-1 product anchor at small-LLM scale per "
+                   f"downstream substrate-audit-core C2 + C3 on real Llama-1B "
+                   f"residuals (Tier-1 product anchor at 1B-LLM scale per "
                    f"Research's hybrid C+D recovery plan).")
 
     log(f"verdict={verdict}: {msg}")
