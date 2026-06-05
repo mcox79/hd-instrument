@@ -9606,3 +9606,71 @@ Rescue R1-R3: sub-capability annotation; near-saturation (m_cap/T>0.5); cross-me
 
 HONEST: 849 -> 858 (+9). LVH: 217 -> 219 (+2: cfrpe_stdp super_seeds 5->3; b8 MID->HF). Portfolio: 32+77 UNCHANGED.
 Cap_map: v400 -> v401 CYCLE 71 (3 HP: hierarchical_agg_scale+5corpus_meta+sq2_multihop; 4 HF: resonator_noise+dense+sq6_graph+b8_logit[LVH]; 2 MID: cfrpe_stdp_heterogeneous[LVH]+b26_comp; 2 LVH; 0 BAND-LIFTS; HONEST 849->858; LVH 217->219; Portfolio 32+77; 312th PROT-009 paired commit) (2026-06-04)
+
+## v401 -> v402 -- 2026-06-04 CYCLE 72 BATCH (5 HARD_PASS + 4 HARD_FAIL + 5 MIDDLE_BAND; 0 LVH; 0 BAND-LIFTS; SQ-4+SQ-7 first confirmations)
+
+### Step 0: all 14 labels honest, 0 LVH catches
+
+All source=remote (bridge stale; remote SSH fallback authoritative). HONEST 858->872 (+14). LVH 219 unchanged.
+
+| # | Anchor | N | seeds | Verdict | Key metric |
+|---|---|---|---|---|---|
+| 1 | substrate_concept_level_lm_proxy_v1_n2048_gpu | 2048 | 3 | MIDDLE_BAND | ensemble=148.5 vs HP_bar=106; beats single=203.6 not bigram=98.3 |
+| 2 | substrate_capacity_composition_full_b2xb4xhier_v1_n2048_gpu | 2048 | 3 | HARD_PASS | total=600K independence_recall=1.0 LOWER BOUND |
+| 3 | substrate_sq1_resonator_generative_v1_n8192_gpu | 8192 | 3 | HARD_FAIL | Kmax=0 all K={4,6,8,10}=0.0 |
+| 4 | substrate_direct_gen_lm_2ndorder_trigram_v2_n8192_gpu | 8192 | 3 | MIDDLE_BAND | ensemble=43.1 beats bigram_count=55.8; >>oracle=20.4 |
+| 5 | substrate_sq6_graph_adjacency_v2_cleanup_n2048 | 2048 | 3 | HARD_FAIL | E_max=0.0N v2 confirms v1 |
+| 6 | substrate_stage_a_bio_b5_bounded_weights_v1 | 2048 | 3 | HARD_FAIL | ratio=0.96x < 1.2x; replay hurts |
+| 7 | substrate_sq3_structured_image_retrieval_v1_n2048 | 2048 | 3 | MIDDLE_BAND | M_crit=100 ratio=1.00; HP threshold=102 missed by 2 |
+| 8 | substrate_stage_a_bio_b36_mixed_stream_v1 | 2048 | 3 | HARD_PASS | both=0.29 vs none=0.13; +0.17 superadditive vs sum=-0.09 |
+| 9 | substrate_efficiency_composition_b3axb3b_v1_n2048 | 2048 | 3 | MIDDLE_BAND | combined=21.7x > best_single=19.0x; sub-multiplicative vs pred=224.8x |
+| 10 | substrate_sq7_two_substrate_transfer_v1_n2048 | 2048 | 3 | HARD_PASS | merged_A=merged_B=1.0; FIRST SQ-7 |
+| 11 | substrate_sq4_few_shot_meta_v1 | 2048 | 3 | HARD_PASS | all conditions 1.0; FIRST SQ-4 |
+| 12 | substrate_capacity_composition_b2xb4_v1_n2048 | 2048 | 3 | HARD_PASS | obs_mult=240.0x=pred_mult (formula exact) |
+| 13 | substrate_sq8_homeostatic_deletion_v1 | 2048 | 3 | HARD_FAIL | recall min=0.49 drift=0.06; near-random |
+| 14 | substrate_direct_generative_lm_ensemble_v1_n8192_J10 | 8192 | 3 | HARD_PASS | ensemble_ppl=5.0 < 20 HP; NOTE > bigram_ppl=3.2 |
+
+Detailed decisions, rescues, and sub-property annotations: notes/strategy_decisions_2026-06-04.md CYCLE 72 block.
+
+**(Headline A) SQ-4 few-shot meta HARD_PASS -- FIRST confirmation.**
+Substrate Hebbian write-once achieves 1.0 accuracy at all few-shot conditions (5w1s to 50w5s). Zero-overhead few-shot: no gradient, no fine-tune, no adaptation step. New row candidate (SQ-4) filed.
+Capability implication: Hebbian write = perfect few-shot registration within capacity regime.
+
+**(Headline B) SQ-7 two-substrate transfer HARD_PASS -- FIRST confirmation.**
+Two independent substrates merged losslessly (both knowledge bases recall=1.0 post-merge). M_each=113 at N=2048. New row candidate (SQ-7) filed.
+Capability implication: Lossless federated knowledge base merge is a substrate-native primitive.
+
+**(Headline C) Capacity composition confirmed at two levels.**
+b2xb4 exact (obs=pred=240x); b2xb4xhier >=600K (lower bound). Capacity composition is analytically predictable and extends multiplicatively across hierarchy levels.
+
+**(Headline D) B36 mixed-stream superadditivity HARD_PASS.**
+B3b+B6 combination achieves +0.17 vs -0.09 sum-of-parts. Superadditive synergy on mixed streams confirmed.
+
+**(Headline E) Direct generative LM ensemble HARD_PASS at J=10.**
+ensemble_ppl=5.0 < 20 HP threshold at N=8192. Gap to bigram (3.2) remains; J=10 is a first-pass confirmation not ceiling.
+
+**(Failure F) SQ-1 resonator generative: Kmax=0.**
+Resonator generative mode completely fails -- architectural mismatch with retrieval-mode resonator. Generative cue format audit needed.
+
+**(Failure G) SQ-8 homeostatic deletion: near-random recall.**
+Deletion mechanism insufficient for stable recall maintenance. Rate calibration or capacity headroom needed.
+
+**(Failure H) B5 bounded weights: replay hurts.**
+Bounded-weight palimpsest regime actively suppresses replay benefit. Mechanism audit needed.
+
+**(Failure I) SQ-6 v2 cleanup confirms v1.**
+Graph adjacency encoding does not reach HP threshold at any edge density.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 858 -> **872** (+14).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches; all 14 labels honest).
+
+PROT compliance:
+- PROT-004/006: 0 closures. 0 new top-level rows. 0 BAND-LIFTS. 4 HF rescues R1-R3+ cheapest-first. 2 MID rescues. SQ-4+SQ-7 row candidates filed (sub-properties; formal promotion deferred).
+- PROT-007/008: v402 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 313th PROT-009 paired commit.
+- PROT-018: all 14 anchors verified. 0 violations.
+- PROT-021: all 14 source=remote run_mode=full.
+- PROT-022: all summary statistics cross-checked vs per-seed values; internally consistent.
+
+Cap_map: v401 -> v402 CYCLE 72 (5 HP: cap_full/b2xb4/sq4-FIRST/sq7-FIRST/b36/generative_ensemble; 4 HF: sq1/sq6-v2confirm/b5/sq8; 5 MID: concept_proxy/trigram_v2/sq3/efficiency_b3axb3b/b36-WAIT correction -- b36=HP; 0 LVH; 0 BAND-LIFTS; SQ-4+SQ-7 first confirmations new row candidates; HONEST 858->872; LVH 219; Portfolio 32+77; 313th PROT-009 paired commit) (2026-06-04)

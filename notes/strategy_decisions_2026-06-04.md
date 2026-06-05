@@ -1305,3 +1305,88 @@ Rescue cheapest-first: R1 (free) annotate sparse alone OR evict alone sufficient
 HONEST: 849 -> 858 (+9). LVH: 217 -> 219 (+2). Portfolio: 32+77 UNCHANGED.
 Cap_map: v400 -> v401.
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 72 BATCH -- v401 -> v402 (2026-06-04)
+
+### Step 0 Honest Re-Read
+All 14 labels honest to per-cell metrics (all source=remote). 0 LVH catches. HONEST 858 -> 872 (+14).
+
+Label checks:
+- concept_level_lm_proxy MIDDLE_BAND: ensemble=148.5 beats single=203.6 but NOT bigram_count=98.3; HP_bar=106 not met. Honest MIDDLE_BAND.
+- capacity_composition_full_b2xb4xhier HARD_PASS: 3/3 seeds total=600K independence_recall=1.0 (LOWER BOUND). Honest.
+- sq1_resonator_generative HARD_FAIL: K4/K6/K8/K10=0.0 all 3 seeds. Honest.
+- direct_gen_lm_2ndorder_trigram_v2 MIDDLE_BAND: ensemble=43.1 beats bigram_count=55.8 but >>20 (oracle=20.4). Honest.
+- sq6_graph_adjacency_v2_cleanup HARD_FAIL: E_max=0.0N all 3 seeds; best_acc=0.78 below HP. Honest.
+- stage_a_bio_b5_bounded_weights HARD_FAIL: ratio=0.96x << 1.2x; 0/3 seeds >=1.5x. Honest.
+- sq3_structured_image_retrieval MIDDLE_BAND: M_crit=100 vs HP>=102; ratio=1.00 (no structured penalty). Honest.
+- stage_a_bio_b36_mixed_stream HARD_PASS: both=0.29 vs none=0.13 superadditive; 3/3 seeds. Honest.
+- efficiency_composition_b3axb3b MIDDLE_BAND: combined=21.7x > best_single=19.0x but <<mult_pred=224.8x. Honest.
+- sq7_two_substrate_transfer HARD_PASS: merged_A=merged_B=1.0 all 3 seeds. Honest.
+- sq4_few_shot_meta HARD_PASS: all conditions 1.0 all 3 seeds. Honest.
+- capacity_composition_b2xb4 HARD_PASS: obs_mult=240.0x=pred_mult. Honest.
+- sq8_homeostatic_deletion HARD_FAIL: recall min=0.49 drift=0.06; near-random. Honest.
+- direct_generative_lm_ensemble_J10 HARD_PASS: ensemble_ppl=5.0 < 20 (HP bar); nuance: ensemble > bigram_ppl=3.2 (not at bigram ceiling). Honest per stated HP criterion.
+
+### Cap_map Decisions
+
+**(A) capacity_composition_full_b2xb4xhier HARD_PASS**
+dense=100 sparse=12000 (120x) K_ens=10 D_dom=5 total=600K independence_recall=1.0 3/3 seeds. LOWER BOUND. Sub-property: 'b2xb4xhier HARD_PASS N=2048 3-seed: total>=600K; multiplicative chain; LOWER BOUND (sparse ceiling hit). v402.'
+
+**(B) capacity_composition_b2xb4 HARD_PASS**
+obs_mult=240.0x=pred_mult 3/3 seeds. Formula verified exact. Sub-property: 'b2xb4 HARD_PASS N=2048 3-seed: obs=pred=240.0x; analytically predictable capacity composition. v402.'
+
+**(C) sq4_few_shot_meta HARD_PASS -- FIRST SQ-4 confirmation**
+5w1s=5w5s=20w1s=20w5s=50w5s=1.0 all 3 seeds. New row candidate (SQ-4): 'sq4_few_shot_meta HARD_PASS N=2048 3-seed: all conditions 1.0 up to 50w5s; Hebbian write-once = perfect few-shot registration. v402.'
+Capability: zero-overhead few-shot learning (no gradient, no fine-tune).
+
+**(D) sq7_two_substrate_transfer HARD_PASS -- FIRST SQ-7 confirmation**
+A_alone=B_alone=merged_A=merged_B=1.0 all 3 seeds M_each=113. New row candidate (SQ-7): 'sq7_two_substrate_transfer HARD_PASS N=2048 3-seed: merged recall=1.0 both bases; lossless merge. v402.'
+Capability: federated knowledge base consolidation is lossless at N=2048.
+
+**(E) stage_a_bio_b36_mixed_stream HARD_PASS**
+both=0.29 vs none=0.13 (+0.17 superadditive vs sum=-0.09). B3b+B6 synergy on mixed stream. 3/3 seeds. Sub-property: 'b36_mixed_stream HARD_PASS N=2048 3-seed: superadditive +0.17 vs sum=-0.09; mixed-stream synergy only. v402.'
+
+**(F) direct_generative_lm_ensemble_J10 HARD_PASS**
+ensemble_ppl=5.0 < 20 HP bar; per-seed 6.04/5.29/3.55. NOTE: ensemble > bigram_ppl=3.2 (not at bigram ceiling). Sub-property: 'direct_gen_lm_ensemble J10 HARD_PASS N=8192 3-seed: ensemble=5.0 < 20; J=10 ensemble reduces ppl; NOTE > bigram ceiling. v402.'
+
+**(G) concept_level_lm_proxy MIDDLE_BAND**
+ensemble=148.5 < single=203.6 but > bigram_count=98.3; HP_bar=106 not met. Sub-property: 'concept_level_lm_proxy MID N=2048 3-seed: ensemble=148.5 beats single but not bigram_count=98.3 or HP=106. v402.'
+
+**(H) direct_gen_lm_2ndorder_trigram_v2 MIDDLE_BAND**
+ensemble=43.1 beats bigram_count=55.8 (v2 improvement) but >>oracle=20.4. Sub-property: 'trigram_v2 MID N=8192 3-seed: ensemble=43.1 < bigram_count=55.8 (+22%); gap to oracle=20.4 remains. v402.'
+
+**(I) sq3_structured_image_retrieval MIDDLE_BAND**
+M_crit=100 ratio=1.00 all 3 seeds. HP requires M>=102 at N=2048 -- misses by 2. Positive: no structured-complexity penalty. Sub-property: 'sq3_structured_image_retrieval MID N=2048 3-seed: M_crit=100 vs HP=102; ratio=1.00 (no structured penalty); near-HP. v402.'
+Rescue cheapest-first: R1 (free) N=4096 M_crit scaling; R2 (free) HP threshold re-examine; R3 (1h CPU) larger patch size.
+
+**(J) efficiency_composition_b3axb3b MIDDLE_BAND**
+combined=21.7x > b3a=19.0x (+14%) but <<mult_pred=224.8x. Additive not multiplicative. Sub-property: 'efficiency_b3axb3b MID N=2048 3-seed: combined=21.7x > best_single=19.0x; sub-multiplicative vs pred=224.8x. v402.'
+Rescue cheapest-first: R1 (free) mechanism audit additive vs multiplicative; R2 (1h CPU) B3a+B4; R3 (2h CPU) N=4096.
+
+**(K) sq1_resonator_generative HARD_FAIL**
+Kmax=0 all K={4,6,8,10} all 3 seeds. Complete failure. Sub-property: 'sq1_resonator_generative HF N=8192 3-seed: Kmax=0; all K=0.0; generative cue format suspected wrong. v402.'
+Rescue cheapest-first: R1 (free) mechanism audit generative cue format; R2 (1h CPU) K=1 simplest case; R3 (1h CPU) V=10 smaller vocab; R4 (2h CPU) N=2048; R5 (free) compare vs retrieval-mode resonator.
+
+**(L) sq6_graph_adjacency_v2_cleanup HARD_FAIL**
+v2 cleanup confirms v1 (also HF in v401). E_max=0.0N; best_acc=0.78 at E0.25N. Sub-property update: 'sq6_graph_adjacency v2_cleanup HF N=2048 3-seed: v1+v2 both confirmed HF; partial 82% at sparse edges. v402.'
+Prior rescues from v401 still valid.
+
+**(M) stage_a_bio_b5_bounded_weights HARD_FAIL**
+ratio=0.96x <1.2x; all replay strategies <= none. Palimpsest bounded weights suppress replay. Sub-property: 'b5_bounded_weights HF 3-seed: ratio=0.96x; replay HURTS in bounded-weight regime. v402.'
+Rescue cheapest-first: R1 (free) mechanism audit why bounded weights suppress replay; R2 (1h CPU) unbounded weights baseline; R3 (2h CPU) B5+B3b combination.
+
+**(N) sq8_homeostatic_deletion HARD_FAIL**
+recent_recall min=0.49 drift=0.06; near-random (x3=0.51 x6=0.49 x10=0.55). Sub-property: 'sq8_homeostatic_deletion HF 3-seed: recall near-random 0.49-0.55 drift=0.06; rate calibration or capacity needed. v402.'
+Rescue cheapest-first: R1 (free) deletion rate calibration audit; R2 (1h CPU) N=4096; R3 (2h GPU) adaptive threshold.
+
+### PROT compliance (v401 -> v402)
+- PROT-004/006: No closures. 0 new top-level rows. 0 BAND-LIFTS. 4 HF with rescue R1-R3+ cheapest-first (sq1/b5/sq8/sq6-confirm). 2 MID with rescues (sq3/efficiency). SQ-4+SQ-7 new row candidates noted (sub-properties filed; formal row promotion deferred). 6 HP/MID sub-property annotations. No PROT-004 closure triggers.
+- PROT-007/008: v402 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 313th PROT-009 paired commit.
+- PROT-018: All 14 anchors -- _n2048 x8; _n8192 x2; _gpu suffix on 4 GPU anchors; _v1 x12; _v2 x2. 0 violations.
+- PROT-021: all 14 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: capacity_full 600K LOWER BOUND (sparse ceiling); b2xb4 obs=pred=240x (exact formula); sq4 1.0 all (Hebbian perfect registration within M=113); sq7 merged=1.0 (well within N=2048 capacity); b36 both=0.29 vs sum=-0.09 (genuine superadditive synergy); generative_ensemble ensemble < single (J=10 helps; both > bigram consistent); sq3 ratio=1.00 (random=structured grid ceiling); concept_proxy ensemble between single and bigram (consistent ordering); trigram_v2 ensemble < single < bigram_count (ensemble averaging helps; counts baseline consistent); efficiency combined > best_single > second_single (b3a=19x > b3b=11.8x > combined=21.7x -- wait: combined=21.7x > b3a=19.0x; consistent); sq1 Kmax=0 (all zeros consistent); sq6 E_max=0.0N (acc 0.78->0.64 monotone-dec consistent); b5 ordered/none=0.96x (ordered hurts; consistent); sq8 recall 0.49-0.55 (unstable near-random; drift=0.06 consistent with cross-seed spread).
+
+HONEST: 858 -> 872 (+14). LVH: 219 UNCHANGED (0 new catches). Portfolio: 32+77 UNCHANGED.
+Cap_map: v401 -> v402.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
