@@ -211,8 +211,8 @@ _ap = argparse.ArgumentParser()
 _ap.add_argument("--smoke", action="store_true")
 _ap.add_argument("--self-test", action="store_true",
                   help="Run PROT-022 selftests and exit (no extraction).")
-_ap.add_argument("--max-docs", type=int, default=None,
-                  help="Override the doc cap (for ad-hoc test dispatches).")
+_ap.add_argument("--max-docs", type=int, default=50000,
+                  help="Doc cap. Default 50000 (Testbed-authorized v7 cap: avoids the 70k-100k stall zone where v6 hung).")
 _ARGS, _ = _ap.parse_known_args()
 
 if RUN_MODE == "smoke":
