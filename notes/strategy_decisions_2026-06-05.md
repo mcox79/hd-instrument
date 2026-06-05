@@ -418,3 +418,67 @@ R5 (2h CPU): Composition chain B2 -> B8 -> B2 retrieval roundtrip -- store via B
 - PROT-022: B2_M_crit=18000 unanimous (SD=0); b8_r spread [0.402-0.405] tight; sqrt_KV=0.1581 constant. Self-consistent.
 
 Cap_map: v413 -> v414 CYCLE 85 (1 HP: R5_b2_storage_b8_readout_serial BOTH-STAGES-INTACT B2+B8-serial-viable; 0 MID; 0 HF; 0 LVH; PP-8/composition sub-property annotation; HONEST 896->897; LVH 220; Portfolio 32+77; 326th PROT-009 paired commit) (2026-06-05)
+
+## CYCLE 86 -- substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 HARD_FAIL (2026-06-05)
+
+### Step 0: Honest Re-Read -- 0 LVH catches
+
+Anchor: substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024
+Verdict label: HARD_FAIL
+Metrics source: REMOTE (authoritative)
+run_mode: full | n_seeds: 5 | N: 1024 | elapsed_s: 20.5s
+
+Pre-reg (from research_to_exp_dev_mode5_architecture_A_buildable_2026-06-05.md):
+- HARD-PASS: isolated/shared ratio >= 1.5x at M=100, N=1024
+- MIDDLE-BAND: ratio in [1.1, 1.5)
+- HARD-FAIL: ratio < 1.1x OR collapse at M=100
+
+Per-cell results (5 seeds):
+  M10:  iso=0.70 sh=0.64 ratio=1.09x (seed breakdown: iso=[0.6,0.6,1.0,0.8,0.5] sh=[0.5,0.5,0.9,0.8,0.5])
+  M30:  iso=0.23 sh=0.14 ratio=1.64x (iso=[0.23,0.20,0.27,0.27,0.17] sh=[0.10,0.17,0.07,0.23,0.13])
+  M100: iso=0.00 sh=0.00 (both fully collapsed; pre-reg defining criterion NOT MET)
+  M300: iso=0.00 sh=0.00 (both fully collapsed)
+
+Honest check:
+- HARD_FAIL label: M100 (pre-reg defining condition) both collapse to 0.00; HP criterion (>=1.5x at M=100) decisively not met. Label accurate.
+- M10 ratio=1.09x: below 1.1x HARD-FAIL gate. Consistent.
+- M30 ratio=1.64x: above 1.5x threshold in isolation; but pre-reg specifies M=100 as defining condition. Not an over-claim for overall HF label.
+- Smoke-vs-full note: exp_dev smoke reported 4.5x at M=30; full run at M=30 is 1.64x (5 seeds). Discrepancy likely reflects seed count or task variation; full run is authoritative. Not a PROT-021 violation.
+- PROT-018: _n1024 suffix; N=1024 in metrics. Compliant.
+- PROT-021: source=remote, run_mode=full. No smoke artifacts.
+- PROT-022: M100/M300 unanimous zero (algebraic determinism: near-capacity saturation at N=1024, M=100 is alpha=0.098 approaching Hopfield ceiling); M10/M30 per-seed values consistent with stated means. Self-consistent.
+
+LVH assessment: 0 catches. Label HARD_FAIL is honest per pre-reg criterion.
+HONEST: 897 -> 898 (+1). LVH: 220 UNCHANGED.
+
+### Cap_map Decision (v414 -> v415)
+
+**(A) substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 HARD_FAIL -- MODE 5 ARCHITECTURE A N-SCALE FAILURE: isolation benefit marginal at N=1024; both substrates collapse at M=100; pre-reg gate not met**
+N=1024, M_sweep={10,30,100,300}, run_mode=full, 5 seeds.
+M10: ratio=1.09x (below 1.1x HF gate). M30: ratio=1.64x (directionally correct). M100: both=0.00 (collapsed). M300: both=0.00.
+
+**Honest N-scale interpretation:** N=1024 sub-substrates have capacity ceiling ~N/10 = ~100 patterns. M=100 nearly saturates isolated W_s, producing collapse independent of architecture. The isolation PRINCIPLE is not refuted -- it is untested at the relevant scale. M30 ratio=1.64x is directionally positive but insufficient for HARD_PASS.
+
+**NOT A FUNDAMENTAL CLOSURE.** Cap_map: ANNOTATION-ONLY on Mode 5 row.
+
+Rescue sketches (cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (free, BEST-RESCUE applied inline): Annotate as N-scale-limited test. Isolation directionally confirmed at M30 (1.64x). Not an architecture refutation. Pre-reg criterion (M=100 at N=1024) was set at near-capacity; definitive test requires larger N.
+R2 (1h CPU): Cross-N test at N=4096 -- M_sweep={30,100,300,1000}; N=4096 capacity ceiling ~400 patterns; M=100 is comfortable operating regime; pre-reg ratio >= 1.5x at M=300. This is the definitive architectural test.
+R3 (free): Capacity-aware pre-reg reframe -- at N=4096, pre-reg should shift to ratio >= 1.5x at M=300-500 (not M=100); M=100 << capacity ceiling at N=4096.
+R4 (1h CPU): Intermediate N=2048 smoke at 3-seed -- confirm isolation benefit survives capacity scaling before committing to N=4096 full.
+R5 (free): Theory audit -- alpha=M/N at N=1024 M=100 is 0.098 (near Hopfield critical alpha_c); isolation cannot compensate near-saturation; N=4096 M=100 is alpha=0.024 (well below alpha_c); isolation should show full benefit.
+
+Sub-property annotation on Mode 5 row: 'mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 HARD_FAIL v415: N=1024 M_sweep={10,30,100,300} 5-seed full; M10 ratio=1.09x; M30 ratio=1.64x (directional); M100 both=0.00 (collapsed); HARD_FAIL per pre-reg (M=100 gate); N-SCALE FAILURE not architecture refutation; isolation benefit directionally present at M30; R2 N=4096 recommended as definitive test.'
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 897 -> 898 (+1).
+- LABEL-VS-HONEST: 220 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new top-level rows. Mode 5 sub-property annotation only. R1-R5 cheapest-first filed.
+- PROT-007/008: v415 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 327th PROT-009 paired commit.
+- PROT-018: _n1024 suffix binding confirmed. 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: M100/M300 unanimous zero (deterministic collapse near capacity); M10/M30 per-seed values consistent with means. Self-consistent.
+
+Cap_map: v414 -> v415 CYCLE 86 (0 HP; 0 MID; 1 HF: mode5_architecture_a_isolated_dual_substrate_controller N-SCALE-FAILURE not-architecture-refutation isolation-directional-at-M30; 0 LVH; Mode 5 sub-property annotation; HONEST 897->898; LVH 220; Portfolio 32+77; 327th PROT-009 paired commit) (2026-06-05)

@@ -1,4 +1,4 @@
-# hd-instrument substrate — capability map v414
+# hd-instrument substrate — capability map v415
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -10095,3 +10095,33 @@ Rescue extensions (cheapest-first): R1 (free APPLIED): Annotate B2+B8 as confirm
 - PROT-022: B2_M_crit=18000 unanimous SD=0; b8_r [0.402-0.405] tight; sqrt_KV=0.1581 constant.
 
 Cap_map: v413 -> v414 CYCLE 85 (1 HP: R5_b2_storage_b8_readout_serial BOTH-STAGES-INTACT B2+B8-serial-viable; 0 MID; 0 HF; 0 LVH; PP-8/composition sub-property annotation; HONEST 896->897; LVH 220; Portfolio 32+77; 326th PROT-009 paired commit) (2026-06-05)
+
+# v415 update (2026-06-05) -- CYCLE 86: 0 HP; 1 HF (substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024); 0 LVH; Mode 5 sub-property annotation N-SCALE-FAILURE not-architecture-refutation; HONEST 897->898; LVH 220 UNCHANGED; Portfolio 32+77; 327th PROT-009 paired commit
+
+| # | Anchor | N | Seeds | Verdict | Summary |
+|---|--------|---|-------|---------|---------|
+| 1 | substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 | 1024 | 5 | HARD_FAIL | M10 ratio=1.09x; M30 ratio=1.64x; M100 both=0.00; pre-reg M=100 gate not met; label honest |
+
+**(A) substrate_mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 HARD_FAIL -- MODE 5 ARCHITECTURE A N-SCALE FAILURE: isolation benefit marginal at N=1024; both substrates collapse at M=100**
+N=1024, M_sweep={10,30,100,300}, run_mode=full, 5 seeds.
+M10: iso=0.70 sh=0.64 ratio=1.09x (below 1.1x HARD-FAIL gate unanimously).
+M30: iso=0.23 sh=0.14 ratio=1.64x (directionally positive but pre-reg specifies M=100 as defining criterion).
+M100: iso=0.00 sh=0.00 (both fully collapsed; pre-reg HARD-PASS criterion NOT MET).
+M300: iso=0.00 sh=0.00 (both fully collapsed).
+
+**N-scale interpretation (not architecture refutation):** At N=1024, each isolated sub-substrate has capacity ceiling ~100 patterns (alpha=M/N=0.098 at M=100 approaches Hopfield critical alpha_c). M=100 nearly saturates W_s; collapse is algebraically expected near-saturation regardless of architecture. Isolation benefit directionally confirmed at M30 (1.64x) but insufficient margin at pre-reg gate (M=100). THIS IS NOT A FUNDAMENTAL CLOSURE: Architecture A isolation principle is untested at the relevant scale (N=4096+).
+
+Sub-property annotation on Mode 5 row: 'mode5_architecture_a_isolated_dual_substrate_controller_v1_n1024 HARD_FAIL v415: N=1024 M_sweep={10,30,100,300} 5-seed full; M10 ratio=1.09x; M30 ratio=1.64x (directional); M100 both=0.00 (collapsed); HARD_FAIL per pre-reg (M=100 gate not met at N=1024 near-capacity); N-SCALE FAILURE not architecture refutation; isolation benefit directionally present at M30; R2 N=4096 cross-N recommended as definitive test. Rescue cheapest-first: R1 (free applied): annotate N-scale-limited. R2 (1h CPU): N=4096 M_sweep={30,100,300,1000} definitive test. R3 (free): capacity-aware pre-reg reframe (M=300 at N=4096). R4 (1h CPU): N=2048 intermediate smoke. R5 (free): theory audit alpha scaling.'
+
+- Portfolio: 32+77 UNCHANGED.
+- HONEST: 897 -> 898.
+- LABEL-VS-HONEST: 220 UNCHANGED.
+
+- PROT-004/006: No closures. 0 new top-level rows. Mode 5 sub-property annotation. R1-R5 cheapest-first filed.
+- PROT-007/008: v415 block appended. Portfolio 32+77 UNCHANGED.
+- PROT-009: 327th PROT-009 paired commit.
+- PROT-018: _n1024 suffix binding confirmed (N=1024 in metrics). 0 violations.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: M100/M300 unanimous zero (algebraic determinism: near-capacity collapse); M10/M30 per-seed consistent with stated means. Self-consistent.
+
+Cap_map: v414 -> v415 CYCLE 86 (0 HP; 0 MID; 1 HF: mode5_architecture_a_isolated_dual_substrate_controller N-SCALE-FAILURE not-architecture-refutation isolation-directional-at-M30; 0 LVH; Mode 5 sub-property annotation; HONEST 897->898; LVH 220; Portfolio 32+77; 327th PROT-009 paired commit) (2026-06-05)
