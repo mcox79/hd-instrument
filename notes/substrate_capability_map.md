@@ -9674,3 +9674,45 @@ PROT compliance:
 - PROT-022: all summary statistics cross-checked vs per-seed values; internally consistent.
 
 Cap_map: v401 -> v402 CYCLE 72 (5 HP: cap_full/b2xb4/sq4-FIRST/sq7-FIRST/b36/generative_ensemble; 4 HF: sq1/sq6-v2confirm/b5/sq8; 5 MID: concept_proxy/trigram_v2/sq3/efficiency_b3axb3b/b36-WAIT correction -- b36=HP; 0 LVH; 0 BAND-LIFTS; SQ-4+SQ-7 first confirmations new row candidates; HONEST 858->872; LVH 219; Portfolio 32+77; 313th PROT-009 paired commit) (2026-06-04)
+
+# v403 update (2026-06-04) -- CYCLE 73: 3x HARD_PASS (sq2_x_hierarchical_K10 + sq2_x_cfrpe_composition + sq5_matrixfree_biological_scale + b36_ratio_sweep) + 1x MIDDLE_BAND (sq2_multihop_load_sweep); 0 LVH; 5 sub-property annotations; HONEST 872->877; LVH 219 UNCHANGED; Portfolio 32+77; 314th PROT-009 paired commit
+
+## CYCLE 73 BATCH -- v402 -> v403 (2026-06-04)
+
+5 verdicts. All source=remote (authoritative). 0 LVH catches.
+
+| # | Anchor | N | Seeds | Verdict | Honest |
+|---|--------|---|-------|---------|--------|
+| 1 | substrate_sq2_x_hierarchical_reasoning_v1_n2048_K10 | 2048 | 3 | HARD_PASS | single_depth=0 ensemble_depth=24 at 2x alpha_c; K=10 ensemble; unanimous; honest |
+| 2 | substrate_sq2_x_cfrpe_composition_v1_n4096 | 4096 | 3 | HARD_PASS | cfrpe_depth=hebbian_depth=12; cfrpe_acc@12=1.00 unanimous; reasoning-preserving confirmed; honest |
+| 3 | substrate_sq5_matrixfree_biological_scale_v1_n100k | 100000 | 3 | HARD_PASS | M_crit=140000 ratio=10.14x dense (LOWER BOUND; grid ceiling); k_active=1000; honest |
+| 4 | substrate_sq2_multihop_load_sweep_v1 | 2048 | 3 | MIDDLE_BAND | depth=12 at 0.5x-1.5x alpha_c unanimous; depth=2 at 2.0x (cliff); honest (label conservative) |
+| 5 | substrate_stage_a_bio_b36_ratio_sweep_v1 | 2048 | 3 | HARD_PASS | superadditive 3/3 ratios r0.3/0.5/0.7; +0.22/+0.30/+0.42 vs sum +0.00/-0.06/-0.33; honest |
+
+**(Headline A) SQ-2 ensemble reasoning at overload -- K=10 sustains 24-hop where single collapses at 2x load.**
+Establishes overload rescue pattern for multi-hop reasoning. Pairs with anchor D (load envelope characterization).
+
+**(Headline B) SQ-2 CF-RPE composition -- bio encoding preserves multi-hop depth exactly.**
+CF-RPE is reasoning-safe. Unlocks combined bio-inspired encoding + multi-hop architecture.
+
+**(Headline C) SQ-5 biological-scale sparse capacity -- 10x dense lower bound at N=100k.**
+Matrix-free sparse coding at neuromorphic scale. Grid ceiling means true ratio is higher.
+
+**(Headline D) SQ-2 multihop load envelope -- phase boundary at 1.5x-2.0x alpha_c.**
+Single memory safe to 1.5x; ensemble rescue at 2x. Together A+D complete the load-envelope picture.
+
+**(Headline E) B36 ratio sweep -- gate+eviction superadditivity robust across full bio-ratio range.**
+Superadditivity increases with bio-ratio. B36 most valuable precisely when most needed.
+
+- **Portfolio:** 32+77 UNCHANGED.
+- **HONEST:** 872 -> **877** (+5).
+- **LABEL-VS-HONEST:** 219 UNCHANGED (0 new catches; all 5 labels honest; anchor D is conservatively under-stated, not over-claimed).
+
+- **PROT-004/006:** No closures. 0 new top-level rows. 0 BAND-LIFTS. 5 sub-property annotations (SQ-2 x3, SQ-5 x1, Stage A bio x1). Rescues N/A for HP anchors. No rescue needed (MIDDLE_BAND: ensemble rescue already identified as paired anchor A).
+- **PROT-007/008:** v403 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- **PROT-009:** 314th PROT-009 paired commit.
+- **PROT-018:** _n2048 (sq2_hierarchical confirmed), _n4096 (sq2_cfrpe confirmed), _n100k (sq5_matrixfree confirmed). sq2_multihop_load_sweep_v1 + stage_a_bio_b36_ratio_sweep_v1 lack _nN suffix (N=2048 confirmed from per_seed; flag for Exp-Dev naming compliance on rerun). 0 hard violations.
+- **PROT-021:** all 5 source=remote run_mode=full. No smoke contamination.
+- **PROT-022:** sq2_hierarchical: single=0 exact floor all seeds; ensemble=24 unanimous (G_chains=24 deterministic). sq2_cfrpe: hebbian=cfrpe=12 exact equality; cfrpe_acc12=1.000 exact all seeds. sq5: M_crit=140000 ratio=10.144 identical all 3 seeds (grid ceiling = deterministic). sq2_load: per-load-cell depths 100% unanimous all seeds (0 within-cell variance across 4 load cells x 3 seeds = 12 cells, all unanimous). b36_ratio: r0.7 both=[0.440,0.4025,0.425] SD<0.02 consistent; sum=[−0.330,−0.335,−0.325] consistently negative; superadditivity unambiguous.
+
+Cap_map: v402 -> v403 CYCLE 73 (4 HP: sq2_x_hierarchical_K10+sq2_x_cfrpe_composition+sq5_matrixfree_n100k+b36_ratio_sweep; 1 MID: sq2_multihop_load_sweep; 0 HF; 0 LVH; 5 sub-property annotations; HONEST 872->877; LVH 219; Portfolio 32+77; 314th PROT-009 paired commit) (2026-06-04)
