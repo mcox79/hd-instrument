@@ -10247,3 +10247,34 @@ PP-8 sub-property annotation (added):
 
 Portfolio: 32+77 UNCHANGED. No new rows. No band lifts. No closures. PP-8 sub-property annotation (4th).
 Cap map: v419 -> v420 CYCLE 91 (1 HP: cognitive_core_analogical CATEGORICAL-900x FIRST-real-pythia novel-relations; 0 MID; 0 HF; 0 LVH; PP-8 sub-property annotation (4th categorical win cognitive_core series); HONEST 904->905; LVH 221; Portfolio 32+77; 332nd PROT-009 paired commit) (2026-06-05)
+# v421 update (2026-06-05) -- CYCLE 92 BATCH: 1 HF (ex_concept_1_strong_baselines all-variants-below-trigram) + 1 HP (introspection_toolkit show-your-work) + 1 HP (ccc1_fb15k237 REAL-KG-MULTIHOP); 0 LVH; PP-35 BAND-LIFT 0.60-0.75 -> 0.70-0.85 + PP-21 +0.05 minor-lift; HONEST 905->908; LVH 221; Portfolio 32+77; 333rd PROT-009 paired commit
+
+## CYCLE 92 results
+
+### ex_concept_1_strong_baselines_and_variants_v1 HARD_FAIL
+n_docs=6000, K={1,2,5,10}, 3 seeds, source=remote, run_mode=full.
+best_substrate=K5:0.551 < trigram=0.592 < neural_1L=0.640 ALL seeds. Extended-context (+0.039 K1->K5) insufficient to close trigram gap. V_C=256 coarse-grained; bigram-to-trigram performance band confirmed. Consistent with CYCLE 90 ex_concept_1_real MIDDLE_BAND (bigram-parity). Rescue R1-R5 filed cheapest-first (R1 free: reframe as scoping result; R2: V_C sweep; R3: SQ-2 composition).
+
+PP-8 sub-property annotation (added):
+'ex_concept_1_strong_baselines_variants_HF v421: n_docs=6000 K={1,2,5,10} 3-seed full; best=K5:0.551 < trigram=0.592 < neural=0.640; +0.039 extended-ctx insufficient; V_C=256 coarse; consistent CYCLE90 MID; rescue R2 V_C-sweep R3 SQ2-composition.'
+
+### substrate_cognitive_core_introspection_toolkit_v1 HARD_PASS
+V_C=256, n_docs=6000, n_concepts=256, n_transitions=43634, 3 seeds, source=remote, run_mode=full.
+density: sparse_frac mean=0.065; mean_conf=0.042. crosstalk: max_offdiag_sim mean=0.132; near_collisions=0 ALL seeds; conflation=low. audit_functional=True ALL seeds. SCOPE NOTE: audit_trail examples array repeats single query per seed (loop artifact suspected; single-query functional confirmed, diversity not demonstrated). Product 'show your work' primitive: density map + crosstalk gauge + audit trail with provenance.
+
+PP-8 sub-property annotation (added):
+'introspection_toolkit_HARD_PASS v421: V_C=256 n_docs=6000 3-seed full; density sparse_frac=0.065 mean_conf=0.042(3/3); crosstalk max_sim=0.132 near_coll=0(3/3); audit_functional=True(3/3); SCOPE: 1-query diversity/seed; show-your-work primitive; 5th cognitive_core series annotation.'
+PP-3 sub-property annotation (added):
+'introspection_toolkit_HARD_PASS v421: audit+density+crosstalk functional on V_C=256 transition store; provenance_doc_count surfaced per prediction; PROT-003 audit-trail class operational; diversity sweep R2.'
+
+### ccc1_extra_fb15k237_kg_multihop_v1 HARD_PASS
+Real FB15k-237, n_triples=5000, n_ent~5445, n_rel={226-233}, 3 seeds, source=remote, run_mode=full.
+hop1=0.946 vs relbase=0.200 (4.7x); hop2=0.709; hop3=0.643. Self-consistent all seeds. FIRST real-KG (standard benchmark) multi-hop confirmation. Prior PP-35 evidence: synthetic SNR (v325) + BSC node-classification (v327).
+PP-35 BAND-LIFT: 0.60-0.75 -> 0.70-0.85 EXPLORATORY. 3 independent evidence sources confirmed; lit-scan penalty maintained; N-sweep or n_triples=50K for further lift.
+PP-21 minor lift: 0.45-0.60 -> 0.50-0.65 (retrieval layer confirmed; audit-cert separate axis).
+
+PP-35 band annotation (updated): 'ccc1_fb15k237_kg_multihop_HARD_PASS v421: real FB15k-237 n_triples=5000 3-seed full; hop1=0.946(4.7x relbase); hop2=0.709; hop3=0.643; real-KG beyond synthetic; PP-35 band LIFT 0.60-0.75 -> 0.70-0.85; next: N-sweep or n_triples=50K for further lift.'
+PP-21 minor annotation (updated): 'ccc1_fb15k237_kg_multihop_HARD_PASS v421: retrieval layer confirmed FB15k-237; audit-cert PP-9/PP-3 composition separate; PP-21 minor lift 0.45-0.60 -> 0.50-0.65 on retrieval evidence.'
+
+Portfolio: 32+77 UNCHANGED. 2 band-lifts (PP-35 +0.10; PP-21 +0.05). 0 new rows. 0 closures.
+Cap map: v420 -> v421 CYCLE 92 BATCH (1 HF: ex_concept_1_strong_baselines all-variants-below-trigram; 1 HP: introspection_toolkit show-your-work 5th-cognitive_core; 1 HP: ccc1_fb15k237 REAL-KG-MULTIHOP; 0 LVH; PP-35 BAND-LIFT +0.10; PP-21 minor-lift +0.05; PP-8+PP-3 sub-prop annotations; HONEST 905->908; LVH 221; Portfolio 32+77; 333rd PROT-009 paired commit) (2026-06-05)

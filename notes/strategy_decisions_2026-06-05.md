@@ -717,3 +717,52 @@ PP-8 band: annotation only. 4th sub-property added (counterfactual 1e6x + LONGCO
 
 Cap map: v419 -> v420 CYCLE 91 (1 HP: cognitive_core_analogical CATEGORICAL-900x FIRST-real-pythia novel-relations; 0 MID; 0 HF; 0 LVH; PP-8 sub-property annotation (4th categorical win cognitive_core series); HONEST 904->905; LVH 221; Portfolio 32+77; 332nd PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+# v421 update (2026-06-05) -- CYCLE 92 BATCH: 1 HP (ccc1_extra_fb15k237 REAL-KG-MULTIHOP-HARD_PASS) + 1 HP (cognitive_core_introspection_toolkit SHOW-YOUR-WORK-HARD_PASS) + 1 HF (ex_concept_1_strong_baselines HARD_FAIL all-variants-below-trigram); 0 LVH; PP-35 BAND-LIFT + PP-21 minor-lift + PP-8 + PP-3 annotations; HONEST 905->908; LVH 221; Portfolio 32+77; 333rd PROT-009 paired commit
+
+## Experiment results -- CYCLE 92 BATCH
+
+### Step 0 Honest Re-Read
+
+All 3 anchors source=remote (authoritative). HONEST 905 -> 908 (+3). LVH check:
+
+| # | Anchor | Verdict | Honest Check |
+|---|--------|---------|--------------|
+| 1 | ex_concept_1_strong_baselines_and_variants_v1 | HARD_FAIL | best_substrate=K5:0.551 < trigram=0.592 ALL 3 seeds (K5: 0.540<0.590; 0.555<0.587; 0.558<0.600); K2/K10 also < trigram; neural=0.640 > all substrate; label honest |
+| 2 | substrate_cognitive_core_introspection_toolkit_v1 | HARD_PASS | density {sparse_frac=0.07, mean_conf=0.042} consistent 3 seeds; crosstalk {max_offdiag_sim=0.133 all <0.3; near_collisions=0/0/0}; audit_functional=True 3/3 seeds; SCOPE NOTE: audit_trail examples repeat same query 20x per seed (apparent loop artifact; single-query functional confirmed; diversity not demonstrated); label honest for functional claim |
+| 3 | ccc1_extra_fb15k237_kg_multihop_v1 | HARD_PASS | hop1={0.956, 0.934, 0.948} mean=0.946 vs relbase=0.200 (4.7x); hop2={0.712, 0.700, 0.716} mean=0.709; hop3={0.602, 0.642, 0.685} mean=0.643; n_triples=5000 n_ent~5445 real FB15k-237; self-consistent across seeds; label honest |
+
+LVH assessment: 0 full LVH catches. Anchor 2 SCOPE CAVEAT (audit_trail repeats single query per seed -- diversity not proven; toolkit functional confirmed). HONEST 905 -> 908 (+3). LVH 221 UNCHANGED.
+
+### Cap_map Decisions (v420 -> v421)
+
+**(A) ex_concept_1_strong_baselines_and_variants_v1 HARD_FAIL -- PP-8 extended-context variants also below trigram; ex_concept_1 line confirms trigram-band limitation at V_C=256**
+n_docs=6000, K={1,2,5,10}, 3 seeds. K5=0.551 (best) < trigram=0.592 < neural=0.640. Extended context helps (+0.039 K1->K5) but cannot reach trigram. Consistent with CYCLE 90 MIDDLE_BAND (bigram-parity). Conclusion: substrate at V_C=256 sits between bigram and trigram for sequence LM task.
+Rescue cheapest-first: R1 (free BEST-RESCUE) reframe as scoping result -- product case is retrieval not generation; R2 (1h CPU) V_C sweep {256,512,1024,2048} at K=5; R3 (1h CPU) SQ-2 multi-hop + concept-LM composition; R4 (free) mechanism audit; R5 (2h CPU) neural-1L+substrate pipeline.
+Sub-property on PP-8: 'ex_concept_1_strong_baselines_variants_HF v421: n_docs=6000 K={1,2,5,10} 3-seed full; best=K5:0.551 < trigram=0.592 < neural=0.640; extended-ctx +0.039 insufficient; V_C=256 coarse; consistent CYCLE90 MID; V_C>=512 rescue R2.'
+PP-8 band: UNCHANGED.
+
+**(B) substrate_cognitive_core_introspection_toolkit_v1 HARD_PASS -- PP-8/PP-3 INTROSPECTION TOOLKIT: density + crosstalk + audit-trail functional ('show your work')**
+V_C=256, n_docs=6000, n_concepts=256, n_transitions=43634/seed, 3 seeds. density: sparse_frac mean=0.065; mean_conf=0.042. crosstalk: max_sim mean=0.132; near_collisions=0 ALL seeds; conflation=low. audit: audit_functional=True ALL seeds; provenance_doc_count per prediction. SCOPE NOTE: examples array repeats single query per seed (loop artifact suspect; diversity not demonstrated). Product: substrate answers 'why?' with density map + crosstalk gauge + audit trail -- no direct LLM analogue.
+Sub-property on PP-8: 'introspection_toolkit_HARD_PASS v421: V_C=256 n_docs=6000 3-seed full; density sparse_frac=0.065 mean_conf=0.042(3/3); crosstalk max_sim=0.132 near_coll=0(3/3); audit_functional=True(3/3); SCOPE: 1-query diversity per seed; show-your-work primitive; 5th cognitive_core annotation.'
+Sub-property on PP-3: 'introspection_toolkit_HARD_PASS v421: audit_trail+density+crosstalk functional on V_C=256 transition store; provenance_doc_count surfaced; PROT-003 audit-trail class operational at substrate level; diversity sweep R2 recommended.'
+PP-8 band: UNCHANGED. PP-3 band: UNCHANGED.
+
+**(C) ccc1_extra_fb15k237_kg_multihop_v1 HARD_PASS -- PP-35 BAND-LIFT 0.60-0.75 -> 0.70-0.85: real FB15k-237 KG multi-hop confirmed 1/2/3-hop**
+Real FB15k-237, n_triples=5000, n_ent~5445, 3 seeds, run_mode=full. hop1=0.946 vs relbase=0.200 (4.7x); hop2=0.709; hop3=0.643. Self-consistent all seeds. First REAL KG (standard benchmark) multi-hop confirmation; prior PP-35 evidence was synthetic SNR (v325) + BSC node-classification (v327).
+PP-35 BAND-LIFT: 3 independent evidence sources (synthetic SNR v325 + node-class v327 + real-KG this anchor); 0.10 lift to 0.70-0.85 EXPLORATORY; lit-scan penalty maintained; N-sweep or full FB15k-237 (310K triples) needed for further lift.
+PP-21 minor lift: retrieval layer confirmed; audit primitives separate axis; +0.05 minor lift 0.45-0.60 -> 0.50-0.65.
+Sub-property on PP-35: 'ccc1_fb15k237_kg_multihop_HARD_PASS v421: real FB15k-237 n_triples=5000 3-seed full; hop1=0.946(4.7x relbase); hop2=0.709; hop3=0.643; real-KG beyond synthetic; PP-35 band LIFT 0.60-0.75 -> 0.70-0.85; next: N-sweep or n_triples=50K.'
+Sub-property on PP-21: 'ccc1_fb15k237_kg_multihop_HARD_PASS v421: retrieval layer on real FB15k-237 confirmed; audit-cert is PP-9/PP-3 composition (separate); PP-21 band minor lift 0.45-0.60 -> 0.50-0.65.'
+PP-35 band: 0.60-0.75 -> 0.70-0.85 (+0.10 LIFT). PP-21 band: 0.45-0.60 -> 0.50-0.65 (+0.05 minor lift). Portfolio: 32+77 UNCHANGED.
+
+### PROT Compliance (v420 -> v421)
+- PROT-004/006: No closures. 0 new rows. 2 band-lifts (PP-35 +0.10; PP-21 +0.05). R1-R5 cheapest-first rescue filed for anchor A. 3 sub-property annotations (PP-8 x2, PP-3 x1) + PP-35 + PP-21 band-lift annotations.
+- PROT-007/008: v421 block appended. Portfolio 32+77 UNCHANGED. 2 band-lifts.
+- PROT-009: 333rd PROT-009 paired commit.
+- PROT-018: no _nN suffix on any of 3 anchors; dataset/context bindings used instead; 0 violations.
+- PROT-021: all 3 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: anchor1 K5 {0.540,0.555,0.558} SD=0.009 consistent; anchor2 crosstalk max {0.135,0.125,0.137} SD=0.006 consistent; anchor3 hop1 {0.956,0.934,0.948} SD=0.011 consistent.
+
+HONEST: 905 -> 908 (+3). LVH: 221 UNCHANGED.
+Cap_map: v420 -> v421.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
