@@ -115,8 +115,14 @@ def random_projection_matrix(input_dim, output_dim, seed):
 
 
 def last_token_pool(hs, am):
+    """Pool the LAST non-pad token. CROSS-DEVICE SAFE: hs may be on cuda:1 under
+    device_map='auto' sharding while am is on cuda:0 -- move indices to hs.device."""
     am_int = am.long()
     last_idx = (am_int.sum(dim=1) - 1).clamp_min(0)
+    # CRITICAL FIX (pressure-test 2026-06-06): under device_map='auto' the model
+    # shards across GPUs and hidden_states for a given layer may live on cuda:1
+    # while attention_mask lives on cuda:0. Cross-device indexing errors here.
+    last_idx = last_idx.to(hs.device)
     batch_idx = torch.arange(hs.size(0), device=hs.device)
     return hs[batch_idx, last_idx]
 
@@ -246,9 +252,15 @@ def extract_lasttoken_hidden_states_multi_layer(model, tokenizer, texts, layer_i
 
 def run_70b(model_id: str, mode: str, passages, questions, gold_indices, hf_token: str) -> Dict:
     """Load 70B at fp16 OR NF4; extract last-token at 5 layers; compute retrieval per layer.
-    mode in {'fp16', 'nf4'}. fp16 needs device_map='auto' + multi-GPU OR offload.
-    """
+    mode in {'fp16', 'nf4'}. fp16 needs device_map='auto' + multi-GPU OR offload."""
+    import gc
     from transformers import AutoModelForCausalLM, AutoTokenizer
+    # CRITICAL (pressure-test fix): reset peak memory stats BEFORE this run so the
+    # reported peak isn't carried over from a prior model in the same process.
+    for d in range(torch.cuda.device_count()):
+        torch.cuda.reset_peak_memory_stats(d)
+    gc.collect()
+    torch.cuda.empty_cache()
     t0 = time.time()
     print(f"[load] {model_id} mode={mode} probing layers={LAYERS_70B}", flush=True)
     if mode == "nf4":
@@ -261,10 +273,19 @@ def run_70b(model_id: str, mode: str, passages, questions, gold_indices, hf_toke
             device_map="auto", torch_dtype=torch.bfloat16,
         )
     elif mode == "fp16":
-        # device_map='auto' will shard across GPUs; will offload to CPU if no fit
+        # CRITICAL (pressure-test fix): explicit max_memory caps so device_map doesn't
+        # try to pack all 140 GB on cuda:0 and OOM. Reserve ~5 GB per GPU for activations.
+        n_gpus = torch.cuda.device_count()
+        if n_gpus >= 2:
+            max_memory = {i: "75GiB" for i in range(n_gpus)}
+            max_memory["cpu"] = "100GiB"
+        else:
+            # Single GPU + CPU offload path (e.g. GH200 96GB + 432GB host)
+            max_memory = {0: "85GiB", "cpu": "200GiB"}
+        print(f"  [fp16] device_map='auto' max_memory={max_memory}", flush=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_id, token=hf_token, torch_dtype=torch.float16,
-            device_map="auto",
+            device_map="auto", max_memory=max_memory,
         )
     else:
         raise ValueError(f"unknown mode: {mode}")
@@ -277,8 +298,10 @@ def run_70b(model_id: str, mode: str, passages, questions, gold_indices, hf_toke
            sum(torch.cuda.max_memory_allocated(i) for i in range(torch.cuda.device_count())) / 1e9
     print(f"  [load] {t_load:.1f}s; combined GPU peak {peak:.2f} GB", flush=True)
 
-    # Smaller batch for fp16 70B (more memory pressure than NF4)
-    bs = 2 if mode == "fp16" else 4
+    # Conservative batch sizes (pressure-test fix): fp16 70B at bs=1 to avoid
+    # OOM on edge-case input lengths; NF4 70B at bs=2 (CLOUD-1b used bs=4 NF4
+    # successfully on GH200 96 GB, but we're now on H100 80 GB GPUs so reduce).
+    bs = 1 if mode == "fp16" else 2
 
     t0 = time.time()
     pas_by_L = extract_lasttoken_hidden_states_multi_layer(model, tokenizer, passages, LAYERS_70B, batch_size=bs)
@@ -315,8 +338,16 @@ def run_70b(model_id: str, mode: str, passages, questions, gold_indices, hf_toke
             best_acck_rp = acck_rp; best_L = L
 
     print(f"  [{model_id} {mode} BEST] layer={best_L} top-5-RP={per_layer[str(best_L)]['acc_topk_rp']:.3f}", flush=True)
+    # CRITICAL (pressure-test fix): aggressive cleanup so subsequent model load
+    # gets a clean VRAM slate. del + gc.collect + empty_cache on all devices.
     del model, tokenizer
-    torch.cuda.empty_cache()
+    gc.collect()
+    for d in range(torch.cuda.device_count()):
+        with torch.cuda.device(d):
+            torch.cuda.empty_cache()
+    print(f"  [cleanup] post-del GPU mem: " +
+          ", ".join(f"cuda:{d}={torch.cuda.memory_allocated(d)/1e9:.1f}GB" for d in range(torch.cuda.device_count())),
+          flush=True)
     best = per_layer[str(best_L)]
     return {
         "model_id": model_id, "mode": mode,
