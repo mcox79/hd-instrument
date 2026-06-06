@@ -158,9 +158,29 @@ Per user directive 2026-06-06:
 ### Slot 9 (NEW; Phase 4a infrastructure adoption): `substrate_etf_hadamard_phase4a_infra_eval_v1`
 - **Wall:** ~30 min CPU
 - **Source:** Slot 2 ETF Hadamard HP + Phase 4a infrastructure plan
-- **Why new:** Phase 4a infrastructure needs codebook init choice locked in. ETF Hadamard gives 8x; should be the default. Test against current MiniLM-based substrate setups (used by overnight HPs: KF-1 hallucination, real-encoder, continual KV).
+- **Why new:** Phase 4a infrastructure needs codebook init choice locked in. ETF Hadamard gives 10x at N=4096; should be the default. Test against current MiniLM-based substrate setups (used by overnight HPs: KF-1 hallucination, real-encoder, continual KV).
 - **Capability advanced:** Phase 4a infrastructure quality
 - **HP threshold:** ETF Hadamard codebook on MiniLM substrate >= 4x capacity vs random init at matched conditions
+
+### Slot 10 (NEW; CRITICAL Phase 3 confirmation gate): `substrate_etf_hadamard_n_sweep_capacity_v1`
+- **Wall:** ~60 min CPU (4 N-points x 3 seeds)
+- **Source:** Orchestrator cycle 117 -- ETF Hadamard 10.04x at N=4096 confirmed; need N-sweep to verify scaling
+- **Why CRITICAL:** Phase 3 production blueprint capacity revision depends on whether 10x lift persists from N=4096 to N=65536. If it does, Phase 3 linear capacity goes from ~2,621 facts to ~26,000 facts per substrate (D=8 = ~208k facts).
+- **Architecture:** ETF Hadamard codebook init; sweep N in {4096, 16384, 32768, 65536}
+- **Capability advanced:** Phase 3 capacity production claim
+- **HP threshold:** ~10x ratio (Hadamard / random) holds across all N-points; or at minimum doesn't drop below 5x at N=65536
+- **MID:** 5-10x at N=65536 (partial scaling)
+- **HF:** <5x at N=65536 (10x lift was N=4096 artifact; Phase 3 capacity claim doesn't recover)
+- **Metric:** auto-assoc Hopfield + FLIP=0.05 + unique patterns + 0.95 accuracy (per ETF Hadamard methodology)
+- **Strategic value:** EITHER outcome dramatically clarifies Phase 3 trajectory. If HP: linear-mode Phase 3 is viable for Wikipedia subset; cubic-tensor still needed for full Wikipedia. If HF: cubic-tensor (Slot 1 BUILD) becomes the only Phase 3 capacity path.
+
+### Slot 11 (NEW; architectural insight from Orchestrator): `substrate_u2_codebook_query_layer_stacked_defense_v1`
+- **Wall:** ~45 min CPU
+- **Source:** Orchestrator cycle 117 cross-thread synthesis
+- **Why new:** Hadamard init provides codebook-layer hardening (codebook-collision defense at init-time); G8 a_query_sim provides query-layer defense at retrieval-time. Stacked-defense hypothesis: COMBINED defense is multiplicatively stronger.
+- **Architecture:** test substrate with (a) no defense, (b) Hadamard only, (c) a_query_sim only, (d) both
+- **Capability advanced:** U2 adversarial codebook-collision robustness
+- **HP threshold:** stacked defense (Hadamard + a_query_sim) > additive sum of individual defenses
 
 ---
 
@@ -279,6 +299,7 @@ Already done earlier:
 - 2026-06-06 08:30 -- v3: PARED DOWN per user audit (Tier-1 9->5; Cloud 10->2 + roadmap).
 - 2026-06-06 08:40 -- v4: Exp-Dev reconciliation. Crossed off Matthiessen HP (24th flagship; codebook-collision dominant), K-hop reasoning HP (25th flagship; perfect to K=5), Hadamard N=256 MIDDLE 3.0x. ADDED Slot 2 ETF Hadamard (promoted from Tier-2 because Matthiessen pointed to codebook-collision). ADDED Slot 7 K-hop at N=16384 K=10 (follow-on from Slot 5 HP). Added operational protocol + research standing responsibilities. 2 varied-seed re-runs flagged for Exp-Dev to build (capacity_xl seeds=10, hp12_v2_crypto seeds=10).
 - 2026-06-06 08:55 -- v5: Slot 2 ETF Hadamard HP (26th flagship; 8.02x capacity at N=1024). ADDED Slot 8 ETF + sparse compound test (does ~80x compound hold?) + Slot 9 Phase 4a infrastructure ETF adoption eval. Matthiessen -> ETF chain is the day's biggest architectural win: 8x capacity for free via codebook init. Phase 4a infrastructure should adopt ETF Hadamard by default.
+- 2026-06-06 09:20 -- v6: Orchestrator cycle 117 ETF Hadamard FULL RUN confirmed 10.04x at N=4096 (vs smoke 8.02x at N=1024). cap_map v438 -> v439. ADDED Slot 10: CRITICAL Phase 3 confirmation gate -- Hadamard N-sweep across {4096, 16384, 32768, 65536} to verify 10x lift persists. ADDED Slot 11: U2 codebook+query stacked-defense hypothesis (architectural insight from orchestrator). If Slot 10 HPs at N=65536, Phase 3 linear capacity goes from 2,621 facts to ~26,000 per substrate; D=8 production = ~208k facts.
 
 ---
 
