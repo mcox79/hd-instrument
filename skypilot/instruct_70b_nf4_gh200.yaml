@@ -1,0 +1,120 @@
+# 70B-Instruct NF4 follow-up on Lambda GH200:1 SXM6 (96 GB VRAM single GPU).
+#
+# AUTHORIZED 2026-06-06 per research_to_testbed_CLOUD1b_HP_ack_fp16_70B_followup +
+#   research_POST_COMPACTION_BRIEF (70B-Instruct NF4 follow-up; standing for
+#   Testbed dispatch; cost cap ~$0.65).
+#
+# Why GH200 for NF4 70B:
+#   - 70B at NF4 4-bit = ~40 GB. Fits easily on GH200's 96 GB GPU VRAM (no offload needed).
+#   - GH200 at $2.29/h is the cheapest single-GPU option that fits.
+#   - Single GPU avoids device_map sharding complexity.
+#   - aarch64 + cu128 path proven via CLOUD-1b GH200 dispatch (HARD_PASS).
+#
+# Bug defenses (all from today's 2026-06-06 catches):
+#   - Bug A: setup + run blocks both reference exp_substrate_extraction_quality_70B_instruct_nf4_v1.py
+#   - cu128 install for Blackwell-class GPU support (GH200 = aarch64; cu121 wheels are x86 only)
+#   - File-first HF token + access verify in setup 5/7
+#   - PROT-022 self-test gate in setup 7/7
+#   - --down -i 30 autostop in launcher; explicit sky down post-run
+#   - SkyPilot API server cache: handled by launcher (sky api stop after CSV patch)
+#
+# Launch via smart_launch_instruct.sh (preflight gate + PID lock + TRAP + dual-SKU).
+
+name: instruct70b
+
+resources:
+  cloud: lambda
+  accelerators: GH200:1
+  use_spot: false
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps + GPU info ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+  echo "=== [setup 3/7] install torch for aarch64+CUDA on GH200 (cu128 wheel) ==="
+  pip install --quiet --upgrade pip
+  # GH200 is aarch64; PyTorch cu121 wheels are x86-only. cu128 has aarch64 builds.
+  pip install --quiet --upgrade \
+    "torch>=2.5" "torchvision>=0.20" \
+    --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade \
+      "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')
+  if torch.cuda.is_available():
+      props = torch.cuda.get_device_properties(0)
+      print(f'device 0: {props.name} compute_capability={props.major}.{props.minor} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.1-70B-Instruct access (gated repo) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.1-70B-Instruct', token=os.environ['HF_TOKEN'])
+  print(f'OK: meta-llama/Llama-3.1-70B-Instruct accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.1-70B-Instruct snapshot (~140 GB at fp16) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-70B-Instruct',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-70B-Instruct snapshot ready')
+  "
+
+  echo "=== [setup 7/7] script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_extraction_quality_70B_instruct_nf4_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_70B_instruct_nf4_v1
+  cd ~/sky_workdir
+
+  echo "=== 70B-Instruct NF4 follow-up (GH200) START ==="
+  python -u experiments/exp_substrate_extraction_quality_70B_instruct_nf4_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_70B_instruct_nf4_v1/ 2>&1 | head -25

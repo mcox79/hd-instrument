@@ -1,0 +1,111 @@
+# 70B-Instruct NF4 follow-up on Lambda H100:1 SXM5 or PCIe (80 GB VRAM single GPU).
+#
+# x86 fallback YAML; used by smart_launch_instruct.sh when H100:1 SXM5/PCIe wins
+# the dual-SKU race vs GH200.
+#
+# NF4 70B = ~40 GB fits comfortably on H100 80 GB (~50% headroom).
+#
+# Bug defenses (carry forward from CELL-1 H100 path):
+#   - cu121 wheel for x86 H100 (NOT cu128 which is for B200/GH200)
+#   - All other defenses identical to instruct_70b_nf4_gh200.yaml
+
+name: instruct70bh100
+
+resources:
+  cloud: lambda
+  accelerators: H100:1
+  use_spot: false
+  any_of:
+    - {instance_type: gpu_1x_h100_sxm5, region: us-east-1}
+    - {instance_type: gpu_1x_h100_sxm5, region: us-east-3}
+    - {instance_type: gpu_1x_h100_sxm5, region: us-south-2}
+    - {instance_type: gpu_1x_h100_sxm5, region: us-west-1}
+    - {instance_type: gpu_1x_h100_sxm5, region: us-west-3}
+    - {instance_type: gpu_1x_h100_pcie, region: us-east-1}
+    - {instance_type: gpu_1x_h100_pcie, region: us-east-3}
+    - {instance_type: gpu_1x_h100_pcie, region: us-south-2}
+    - {instance_type: gpu_1x_h100_pcie, region: us-west-1}
+    - {instance_type: gpu_1x_h100_pcie, region: us-west-3}
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps + GPU info ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+  echo "=== [setup 3/7] pip core + torch 2.4.1+cu121 (x86 H100) ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')"
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.1-70B-Instruct access (gated repo) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.1-70B-Instruct', token=os.environ['HF_TOKEN'])
+  print(f'OK: meta-llama/Llama-3.1-70B-Instruct accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.1-70B-Instruct snapshot (~140 GB at fp16) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-70B-Instruct',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-70B-Instruct snapshot ready')
+  "
+
+  echo "=== [setup 7/7] script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_extraction_quality_70B_instruct_nf4_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_70B_instruct_nf4_v1
+  cd ~/sky_workdir
+
+  echo "=== 70B-Instruct NF4 follow-up (H100 1x) START ==="
+  python -u experiments/exp_substrate_extraction_quality_70B_instruct_nf4_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_70B_instruct_nf4_v1/ 2>&1 | head -25
