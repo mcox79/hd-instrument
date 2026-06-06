@@ -298,6 +298,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **Follow-ons added below:** Slot G10 (n-gram-augmented hallucination detection) + Slot G11 (KF-1 on order-sensitive encoder)
 
 ### Slot G3 (NEW; real-encoder capacity at production-class N): `substrate_real_encoder_capacity_n16384_dim_expanded_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE, capacity grid-lower-bound); full queued GPU
 - **Wall:** ~75 min GPU
 - **Source:** Slot 14 dim-expansion + capacity scaling story
 - **Why:** combines dim-expansion result with substrate capacity narrative; tests whether dim-expanded MiniLM at N=16384 gives meaningful production capacity
@@ -317,6 +318,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** retention < 0.85 (continual KV doesn't scale)
 
 ### Slot G5 (NEW; harder hallucination benchmark): `substrate_kf1_truthfulqa_style_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL: negation AUC=0.034, MiniLM negation-insensitive); full queued GPU
 - **Wall:** ~60 min GPU
 - **Source:** KF-1 flagship + Exp-Dev's note on harder benchmarks
 - **Why:** KF-1's AUC=0.999 was on substrate-internal generated distractors; harder benchmark needed for production credibility
@@ -347,6 +349,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** < 8x on both (rule is encoder-specific)
 
 ### Slot G9 (NEW; lower-N dim sweep per orchestrator Phase 4B gate): `substrate_etf_minilm_n_sub_lower_sweep_v1`
+- **Status:** PARKED by exp_dev 2026-06-06 -- cross-N lift metric censors (real-encoder capacity too high to find discriminating load); needs metric spec from Research (see note)
 - **Wall:** ~45 min GPU
 - **Source:** Orchestrator cycle 119 -- "N-sweep across MiniLM N_sub in {384, 768, 1536, 3072}"
 - **Why:** Slot G3 tests N=16384 production scale; orchestrator wants intermediate sweep to see whether 2.75x holds or GROWS as N_sub increases
