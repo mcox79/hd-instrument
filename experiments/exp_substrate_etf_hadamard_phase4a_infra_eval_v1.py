@@ -45,8 +45,13 @@ else:
 
 
 def whiten(K):
-    mu = K.mean(0); X = K - mu; U, S, Vt = np.linalg.svd(X, full_matrices=False)
-    W = (X @ (Vt.T / (S + 1e-6))); return (W / (np.linalg.norm(W, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
+    # ZCA whitening: preserves full D dims (rank-limited SVD form returned M-dim when M<D -> bug)
+    mu = K.mean(0); X = (K - mu).astype(np.float32); n = X.shape[0]
+    cov = (X.T @ X) / max(n, 1)
+    U, S, _ = np.linalg.svd(cov)
+    Wm = (U / np.sqrt(S + 1e-3)) @ U.T
+    Wd = X @ Wm.astype(np.float32)
+    return (Wd / (np.linalg.norm(Wd, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
 
 
 def norml(K):
