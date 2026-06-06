@@ -212,3 +212,57 @@ R5 (MEDIUM, CPU <2h): Cross-encoder sweep of compound at identified activation M
 
 Cap_map: v445 -> v446 CYCLE 124 (1 HF: dim_expansion_plus_sparse_pattern_compound-SMOKE-C-NULL-M50-STACKING-DEFERRED; 0 HP; 0 MID; 0 LVH; PP-8 stacking sub-axis deferred-null-c; HONEST 970->971; LVH 226 UNCHANGED; Portfolio 32+77; 358th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v446 -> v447 CYCLE 125 BATCH (2026-06-06)
+
+Verdicts processed: substrate_sparse_pattern_M_activation_sweep_v1 (HARD_FAIL) + substrate_real_vs_synthetic_capacity_N_sweep_disambiguation_v1 (HARD_FAIL [LVH #227])
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_sparse_pattern_M_activation_sweep_v1 HARD_FAIL -- LABEL HONEST**
+Smoke n=1. source=remote. M sweep {50,200,800,2000}: all delta_pp=0.0 (M800 delta=-0.125pp, slightly worse). sparse-value lever uniformly null across all tested M. HARD_FAIL label accurate: no activation threshold found. Context: this IS the cycle-124 R2 rescue (M-sweep to find activation M for sparse-pattern arm). R2 definitively answered: no activation M exists in {50..2000}. R1 subsumption (stacking deferred pending sparse-pattern non-null M) must be revised: sparse-pattern is permanently null, not deferred. Stacking rescue path CLOSED. NOTE: smoke n=1 but mechanistic null is robust (all 4 M-cells zero lift; consistent with v446 compound c-null finding).
+HONEST. +1 HONEST (971->972). No LVH.
+
+**(2) substrate_real_vs_synthetic_capacity_N_sweep_disambiguation_v1 HARD_FAIL -- LVH #227**
+Smoke n=1. source=remote. N={512,1024}: real_recall=1.0 synth_recall=1.0 ratio=1.0 both N-cells. slope/log2N=0.000.
+LABEL OVER-CLAIMS. verdict_msg 'real tracks synthetic; no attenuation in this range' implies the disambiguation question (cycles 119/122: is cross-N attenuation structural or artifact?) was answered negatively. But BOTH real and synthetic recall are at ceiling (1.0) at N={512,1024} -- well below M_c. Ratio=1.0 is a ceiling artifact, not evidence of true equivalence. The smoke does NOT test N near M_c where the original attenuation was observed. The question is UNANSWERED at this N range.
+LVH #227: (a) label: HARD_FAIL with msg 'real tracks synthetic'; (b) honest: INCONCLUSIVE -- both at recall ceiling at sub-capacity N; ratio=1.0 is ceiling artifact not disambiguation evidence; (c) contradicting cells: N512 real=1.0 synth=1.0, N1024 real=1.0 synth=1.0 -- indistinguishable when denominator is trivially 1.0.
+Honest verdict for downstream: UNKNOWN/INCONCLUSIVE. Needs N sweep through M_c to be informative.
+LVH #227. +1 HONEST (972->973). LVH 226->227 (+1).
+
+HONEST: 971 -> 973 (+2). LVH: 226 -> 227 (+1).
+
+### Cap_map decisions
+
+**(1) substrate_sparse_pattern_M_activation_sweep_v1 HARD_FAIL**
+PP-8 sparse-pattern coding sub-axis annotation (extension of v446 compound HARD_FAIL).
+Key finding: sparse-VALUE lever null at ALL M in {50,200,800,2000}. This CLOSES the cycle-124 R2 rescue path (find activation M): no activation M exists. The compound stacking question (cycle-124 R1/R3) collapses entirely -- sparse-VALUE encoding as a capacity-extension lever CLOSED at this probe level. DOES NOT close sparse-KEY encoding (cycle-123 sparse_vs_dense_alpha_sweep HARD_PASS at 5x+ capacity was sparse-KEY not sparse-VALUE). Annotation distinguishes sparse-KEY (alpha sweep, HARD_PASS, active) vs sparse-VALUE (this anchor, HARD_FAIL, closed). PP-8 band UNCHANGED. Portfolio 32+77 UNCHANGED.
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, SUBSUMPTION): cycle-124 compound stacking (R1/R3) path closes by dependency. sparse-KEY (alpha=0.20) 5x+ capacity finding (cycle 123) UNAFFECTED and remains active sparse-coding direction.
+R2 (0-compute, ANNOTATION): Clarify sparse-KEY vs sparse-VALUE distinction in PP-8 annotation to prevent re-exploration of sparse-VALUE under different guises.
+R3 (CHEAP, CPU <30min): Alpha-sweep on sparse-VALUE encoding to verify null is not alpha-specific. Only if theoretical motivation surfaces -- 4-cell consistent null + compound corroboration is sufficient for probe-level closure.
+
+**(2) substrate_real_vs_synthetic_capacity_N_sweep_disambiguation_v1 [LVH #227 honest: INCONCLUSIVE]**
+Cross-N attenuation disambiguation sub-axis (PP-8 / KF-1 encoder attenuation context).
+Honest verdict: INCONCLUSIVE at sub-capacity N. Disambiguation question from cycles 119/122 remains OPEN. N={512,1024} far below M_c; ceiling recall on both real and synthetic makes ratio=1.0 uninformative. Genuine test requires N sweep from sub-capacity through M_c.
+Cap_map annotation: real_vs_synthetic_N_sweep disambiguation probe INCONCLUSIVE (ceiling artifact at sub-capacity N). Original cycle-119/122 attenuation observation stands as prior. Cross-N attenuation status: OPEN. PP-8 / KF-1 encoder attenuation UNCHANGED.
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, SUBSUMPTION): Reframe as UNKNOWN not closed; cycle-119/122 attenuation finding is the load-bearing observation; this smoke neither confirms nor refutes it.
+R2 (CHEAP, CPU <30min): N-sweep at M near M_c (N={4096,8192,16384} at M=M_c-adjacent) comparing real-encoder vs synthetic-baseline recall -- only capacity-relevant N disambiguates.
+R3 (CHEAP, CPU <30min): Decouple -- first confirm M_c for real encoder alone, then compare cross-N ratio at M=M_c.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures (sparse-VALUE sub-probe closed at probe level; no cap_map row closure; real_vs_synthetic disambiguation OPEN).
+
+### PROT compliance (v446 -> v447)
+- PROT-004/006: No row closures. sparse-VALUE: 3 rescue sketches cheapest-first. real_vs_synthetic: LVH #227 filed; 3 rescue sketches cheapest-first; status INCONCLUSIVE not closed.
+- PROT-007: v447 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 359th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on either anchor. CLEAN.
+- PROT-021: both source=remote run_mode=smoke n=1. sparse-VALUE: mechanistic null robust (4-cell consistent + compound corroboration). real_vs_synthetic: ceiling artifact flagged as INCONCLUSIVE; LVH #227 filed.
+- PROT-022: Smoke n=1 both; no HP-fragility assessment possible. Null result (sparse-VALUE) deterministic; ceiling result (real_vs_synthetic) vacuous.
+
+Cap_map: v446 -> v447 CYCLE 125 (1 HF: sparse_pattern_M_activation-SMOKE-LEVER-NULL-ALL-M-SPARSE-VALUE-CLOSED-sparse-KEY-UNAFFECTED; 1 HF-LVH #227: real_vs_synthetic_N_sweep-SMOKE-INCONCLUSIVE-CEILING-ARTIFACT-NOT-DISAMBIGUATION; 0 HP; 0 MID; LVH 226->227; PP-8 sparse-VALUE sub-probe closed; cross-N disambiguation OPEN; HONEST 971->973; Portfolio 32+77; 359th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
