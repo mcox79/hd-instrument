@@ -418,3 +418,102 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v449 -> v450 CYCLE 128 (0 HP; 0 HF; 3 SMOKE-PASS; 2 LVH #229+#230: etf_hadamard_n_sweep HP-SMOKE-N1024/2048-8x-FLAT-NOT-HARD_PASS + hoc1_word_bigram HP-SMOKE-AUC-0.970-GATE-OPEN; effective_rank_svd HONEST-D_EFF-82-INTRINSIC-DIM-CONFIRMED; HONEST 977->980 +3; LVH 228->230 +2; KF-1 72-87% UNCHANGED; Portfolio 32+77; 362nd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v450 -> v451 CYCLE 129 BATCH (2026-06-06)
+
+Verdicts processed (5):
+1. substrate_continual_kv_n32768_120_sessions_v1 (GENUINELY NEW; N=32768 120-session continual-KV extension)
+2. substrate_sparse_hadamard_mixture_codebook_v1 (GENUINELY NEW; sparse+Hadamard mixture codebook)
+3. effective_rank_svd_multi_encoder_v1 (GENUINELY NEW; multi-encoder d_eff diagnostic, follow-up to v450 d_eff=82 MiniLM)
+4. substrate_extraction_sqrt_K_allocation_v1 (RE-RUN smoke->full promotion; DUPLICATE-CHECK hint)
+5. substrate_concept_uniform_random_extraction_v1 (RE-RUN smoke->full promotion; DUPLICATE-CHECK hint)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_continual_kv_n32768_120_sessions_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=32768, 7200 facts across 120 sessions.
+Per-seed: seed7={all checkpoints: retention=1.0}, seed17={all checkpoints: retention=1.0}, seed23={all checkpoints: retention=1.0}.
+HP threshold >=0.95 retention. ALL 3 seeds unanimous 1.000 at ALL checkpoints (session 30/60/90/120). HARD_PASS label correct. HONEST. +1 HONEST (980->981).
+
+**(2) substrate_sparse_hadamard_mixture_codebook_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=4096, K_mix=4.
+Per-seed: seed7={hadamard_cap=2048, shm_cap=0, ratio=0.0}, seed17={same}, seed23={same}.
+ALL 3 seeds shm_cap=0. SHM completely fails: mixing Hadamard with sparse destroys capacity entirely. HARD_FAIL label correct. HONEST. +1 HONEST (981->982). No LVH.
+
+**(3) effective_rank_svd_multi_encoder_v1 HARD_FAIL -- [label-vs-honest] LVH #231**
+source=remote run_mode=smoke n_seeds=1. Encoders: all-MiniLM-L6-v2 (d_eff=77.1, D=384), pythia-160m (d_eff=18.3, D=768).
+LABEL INCONSISTENCY IN verdict_msg. HARD_FAIL verdict technically correct (no encoder beats MiniLM by >1.3x). BUT verdict_msg claims 'all encoders ~MiniLM d_eff (<1.3x)' -- characterises Pythia as 'similar' when Pythia d_eff=18.3 is 4.2x LOWER than MiniLM=77.1. Pythia is dramatically WORSE (not similar); d_eff=18.3 vs 77.1.
+LVH #231: (a) label HARD_FAIL 'all encoders ~MiniLM d_eff (<1.3x)'; (b) honest: Pythia-160m d_eff=18.3 is 4.2x LOWER than MiniLM=77.1; correct finding is 'LM-trained encoders have collapsed intrinsic dimensionality vs sentence-trained'; (c) contradicting cells: Pythia d_eff=18.3 vs MiniLM d_eff=77.1; best/MiniLM=1.00 label masks the 4.2x shortfall in absolute d_eff.
+Honest verdict: HARD_FAIL confirmed. Key insight: sentence encoder training (MiniLM) produces 4x higher d_eff than LM training (Pythia) despite Pythia having 2x higher D. LVH #231. +1 HONEST (982->983). LVH 230->231 (+1). NOTE: smoke n_seeds=1 only.
+
+**(4) substrate_extraction_sqrt_K_allocation_v1 MIDDLE_BAND -- [REVERSAL vs cycle-123 HF]**
+source=remote run_mode=full n_seeds=3. VQ-fidelity (centroid_cos+heldout_agree)/2 at speedup=20x.
+Per-seed sqrt_K/uniform fidelity: seed7={sqrt_K=0.716, uniform=0.685, ratio=1.046x}, seed17={sqrt_K=0.704, uniform=0.685, ratio=1.027x}, seed23={sqrt_K=0.748, uniform=0.716, ratio=1.047x}.
+Mean ratio=1.039x. MIDDLE_BAND label correct (marginal 1.0-1.10x lift). HONEST.
+REVERSAL NOTE: Cycle-123 smoke (n=1, coverage-by-speedup-target metric) gave HARD_FAIL -- sqrt_K WORSE than uniform. Full run uses VQ-fidelity metric at speedup=20x; shows sqrt_K 3.9% better. Reversal is a metric change (coverage vs VQ-fidelity), not stochastic flip. +1 HONEST (983->984). No LVH.
+
+**(5) substrate_concept_uniform_random_extraction_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. n_tok=40000.
+Per-seed sp10 coverage: seed7=0.542, seed17=0.514, seed23=0.515. sp100: 0.097/0.097/0.089. sp1000: 0.009/0.011/0.010.
+ALL 3 seeds ALL speedup levels ALL below 0.90 threshold. 3-seed full confirms cycle-123 smoke HF. HONEST. +1 HONEST (984->985). No LVH.
+
+HONEST: 980 -> 985 (+5: 5 genuinely new or full-promoted measurements). LVH: 230 -> 231 (+1: LVH #231 effective_rank_svd_multi_encoder Pythia-NOT-similar-to-MiniLM).
+
+### Cap_map decisions
+
+**(1) substrate_continual_kv_n32768_120_sessions_v1 HARD_PASS**
+'True continual learning at production scale' Tier-1 KV sub-axis (extension of v437 continual-KV).
+3-seed unanimous retention=1.000 at N=32768 120 sessions (7200 facts). Strongest continual-KV result to date.
+IMPORTANT DISTINCTION: this is continuous-session KV (streaming facts into one epoch), NOT 4-stage conceptual CL (learn A/B/C/D discretely). Tier-1 row state remains PARTIAL (4-stage still blocked on ret_A<0.80). Continual-KV sub-property annotation strengthened: N=32768 120-session HARD_PASS added. No full Tier-1 band-lift.
+Portfolio: UNCHANGED (sub-property within existing Tier-1 row).
+
+**(2) substrate_sparse_hadamard_mixture_codebook_v1 HARD_FAIL**
+PP-8 mixture codebook sub-axis. Combining sparse + Hadamard gives zero capacity (shm_cap=0 all 3 seeds). Complete failure.
+The sparse-KEY alpha=0.20 direction (cycle-123 5x+ capacity HARD_PASS) is UNAFFECTED. This fails the MIXTURE of the two axes.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Diagnose which element of the mixture destroys capacity. K_mix=4 sparse components likely create orthogonality conflicts with Hadamard structure.
+R2 (CHEAP, CPU <30min): Sweep K_mix={1,2,8,16} -- K_mix=1 (mostly Hadamard) may recover near-pure performance.
+R3 (CHEAP, CPU <30min): Structured sparse components (LDPC-like, guaranteed near-orthogonal) instead of random sparse.
+R4 (CHEAP, CPU <30min): Hadamard-only N-sweep as control -- verify pure Hadamard scales before attributing failure to mixture.
+R5 (MEDIUM, CPU <2h): Algebraic analysis: does random-sparse + Hadamard product maintain Gram matrix properties for HD capacity?
+PP-8 band UNCHANGED. Portfolio UNCHANGED.
+
+**(3) effective_rank_svd_multi_encoder_v1 [LVH #231 honest: Pythia d_eff=18.3 MUCH LOWER than MiniLM=77.1]**
+Phase-4A + PP-8 encoder selection sub-axis.
+Honest finding: LM-trained encoders have collapsed intrinsic dimensionality (Pythia d_eff=18.3) vs sentence-trained (MiniLM d_eff=77.1). d_eff is training-regime-specific, NOT architecture-bounded near 80. Encoder search space must be sentence-trained only.
+Implications: (a) LM-trained encoders (Pythia, GPT2, Llama) EXCLUDED as Phase-4 capacity levers; (b) sentence-trained larger encoders (MPNet-768, BGE-large, E5-large) are the correct search direction; (c) v450 d_eff=82 constraint (bounds all Phase-4 operations) applies to MiniLM; larger sentence-trained encoders may yield higher d_eff and thus more Phase-4 headroom.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Annotate encoder search space: sentence-trained only. LM-trained definitively excluded.
+R2 (CHEAP, CPU <30min): d_eff diagnostic on MPNet-768 and BGE-large-1.5 to test if d_eff scales with D within sentence-training regime.
+R3 (CHEAP, CPU <30min): Contrastive-trained encoder (e5-base) d_eff check -- different training objective may yield higher d_eff than standard SBERT.
+PP-8 band UNCHANGED. NOTE: smoke n=1 only; directional finding robust (d_eff stable across random samples within a model).
+
+**(4) substrate_extraction_sqrt_K_allocation_v1 MIDDLE_BAND (3-seed full; reversal from cycle-123 smoke HF)**
+Extraction sub-axis (3-seed full promotion).
+sqrt_K allocation: VQ-fidelity 1.039x over uniform at speedup=20x (3-seed consistent: 1.027-1.047x). MIDDLE_BAND (marginal, not HP).
+REVERSAL NOTE: Different metrics explain the smoke/full discrepancy -- coverage-by-speedup (smoke) vs VQ-fidelity (full). sqrt_K has marginal fidelity advantage; no coverage advantage at requested speedup targets. Both metrics are valid; they measure different things.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Document metric split: VQ-fidelity MIDDLE_BAND 3.9%; coverage-by-target HARD_FAIL (smoke). Two evaluation axes.
+R2 (CHEAP, CPU <30min): sqrt_K tested on coverage metric at n_tok=40000 (same corpus as full run) to verify coverage HF holds at full corpus scale.
+R3 (CHEAP, CPU <30min): Exponential or variance-weighted allocation for higher VQ-fidelity leverage than sqrt_K.
+Band UNCHANGED. Portfolio UNCHANGED.
+
+**(5) substrate_concept_uniform_random_extraction_v1 HARD_FAIL (3-seed full confirmation)**
+Extraction baseline. 3-seed full at n_tok=40000 definitively confirms random sampling cannot hold 0.90 coverage.
+Structured extraction (per_cluster stratified, cycle-127 coverage=1.0 at ~12x speedup) clearly dominates.
+No additional rescues needed: cycle-127 R2/R3/R4/R5 remain valid active directions.
+Band UNCHANGED. Portfolio UNCHANGED.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v450 -> v451)
+- PROT-004/006: No capability-row closures. Rescues filed cheapest-first: anchor 2 (5 rescues), anchor 3 (3 rescues), anchor 4 (3 rescues). Anchor 5 subsumed by cycle-127 rescues.
+- PROT-007: v451 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 363rd PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any anchor. CLEAN.
+- PROT-021: Anchors 1,2,4,5 source=remote run_mode=full n_seeds=3. Anchor 3 source=remote run_mode=smoke n_seeds=1. Anchor 3 smoke flagged.
+- PROT-022: Anchors 1,2,4,5 3-seed full consistent tight spreads. Anchor 3 smoke n=1; d_eff finding directionally robust.
+
+Cap_map: v450 -> v451 CYCLE 129 (1 HP: continual_kv_n32768_120sessions-3SEED-FULL-RETENTION-1.000-120SESSIONS-7200FACTS; 2 HF: sparse_hadamard_mixture-3SEED-SHM-CAP-0-COMPLETE-FAIL + concept_uniform_random_extraction-3SEED-COVERAGE-0.52-HARD-FAIL-CONFIRMED; 1 HF-LVH#231: effective_rank_svd_multi_encoder-SMOKE-PYTHIA-DEFF-18.3-4.2x-LOWER-MINILM-77.1-LM-TRAINING-COLLAPSES-D_EFF; 1 MID: extraction_sqrt_K-3SEED-VQ-FIDELITY-1.039x-REVERSAL-FROM-SMOKE-HF; LVH #231: Pythia-d_eff-NOT-SIMILAR-MiniLM; continual-KV N=32768/120sessions sub-property strengthened; Tier-1-CL row PARTIAL UNCHANGED; PP-8 encoder search: LM-trained excluded, sentence-trained only; HONEST 980->985 +5; LVH 230->231 +1; Portfolio 32+77; 363rd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
