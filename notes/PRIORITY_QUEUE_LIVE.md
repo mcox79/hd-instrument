@@ -153,6 +153,46 @@ Per user directive 2026-06-06:
 - **HP threshold:** >=90% coverage at 10-100x speedup
 - **Strategic value:** floor case; cheap to validate as fallback
 
+### Slot PSE1 (NEW; from drill C; sqrt-K allocation production architecture): `substrate_extraction_sqrt_K_allocation_v1`
+- **Wall:** ~30 min CPU
+- **Source:** 2x drill C (per-cluster stratified operational depth) at 11:50
+- **Architecture:** sqrt-K allocation K_c = M * sqrt(n_c) / sum(sqrt(n_c)) vs uniform-K baseline at production-scale settings (V_c=1M; M=10M)
+- **Why:** Neyman-optimal proxy without needing per-cluster sigma_c. Avoids uniform-K over-sampling of small clusters and prop-K zeroing out rare clusters.
+- **Capability advanced:** PP-22 production extraction architecture
+- **HP threshold:** sqrt-K coverage >=99% AND quality matches uniform-K at half the budget
+- **MID:** quality matches at 70-100% budget
+- **HF:** sqrt-K fails to match uniform-K at full budget (mechanism doesn't work)
+
+### Slot PSE2 (NEW; from drill C; online streaming stratification): `substrate_online_stratified_extraction_streaming_v1`
+- **Wall:** ~45 min CPU
+- **Source:** Drill C Sub-question (2) -- online vs offline architecture
+- **Architecture:** Vitter stratified reservoir + IVF online VQ assignment (~50000x cheaper than naive) + sliding window for drift
+- **Why:** production needs streaming; can't pre-compute full VQ assignment over corpus
+- **Capability advanced:** PP-22 production streaming readiness
+- **HP threshold:** online quality matches offline within 5% at 100x throughput speedup
+- **MID:** within 10%
+- **HF:** > 10% degradation (offline-only path needed)
+
+### Slot PSE3 (NEW; CRITICAL from drill C; codebook collapse detection): `substrate_codebook_collapse_monitoring_recovery_v1`
+- **Wall:** ~60 min CPU
+- **Source:** Drill C Sub-question (6) -- DOMINANT FAILURE MODE
+- **Architecture:** 6 monitoring metrics (M1-M6); detection trigger: n_c=0 for 3+ epochs; 3 recovery mechanisms (R1 EMA reinit, R2 OT regularization, R3 perturbation)
+- **Why CRITICAL:** dominant production risk per drill C is dead VQ codes, NOT coverage loss. Without monitoring+recovery, extraction silently degrades.
+- **Capability advanced:** PP-22 production reliability
+- **HP threshold:** detection catches 95% of collapse events within 5 epochs; recovery restores cluster within 10 epochs
+- **MID:** detection 70-95% OR recovery 10-20 epochs
+- **HF:** detection < 70% OR recovery > 20 epochs
+- **Strategic value:** production-deployment gate
+
+### Slot PSE4 (NEW; from drill C; adaptive K_c quality feedback): `substrate_adaptive_stratification_quality_feedback_v1`
+- **Wall:** ~45 min CPU
+- **Source:** Drill C Sub-question (4)
+- **Architecture:** K_c(t+1) = K_c(t) * (1 + beta*(e_c - e_mean)/e_std), beta=0.1, normalized daily
+- **Why:** rare-concept workloads benefit; <1% overhead
+- **Capability advanced:** PP-22 adaptive production extraction
+- **HP threshold:** quality on rare-concept queries >=10% better than static stratification
+- **Strategic value:** production polish; runs after PSE1/PSE2/PSE3 establish baseline
+
 ### Slot 7 (UPDATED -- K-hop ceiling now K>=6 not K=3 per cycle 118): `substrate_native_reasoning_K10_K20_n16384_v1`
 - **Wall:** ~60 min CPU
 - **Source:** Cycle 118 K-hop FULL run -- lossless to K=6 (test grid ceiling); actual ceiling unknown
@@ -547,6 +587,7 @@ Already done earlier:
 - 2026-06-06 11:05 -- v12 (cycle 120 -- 1 HP + 1 LVH catch): KF-1 hard-negative BAND-LIFT confirmed (AUC 0.968-0.975; KF-1 band 0.70-0.85 -> 0.72-0.87; 27th flagship). Slot 14 dim-expansion MIDDLE_BAND with LVH CATCH #225 (>=3x mean-only claim; honest floor 1.29x at D=4096; lift PLATEAUS not scales linearly). Real-encoder compound revised DOWN: 2.75x x 1.29x x 12x = ~42x (not earlier 100x projection). Phase 3 linear-mode: ~110k/substrate; D=8 = ~880k. ADDED Slot G12 KF-1 a_query_sim defense.
 - 2026-06-06 11:30 -- v13: 2x drill B (hallucination order-sensitivity close-gap) landed. KEY INSIGHT: size scaling alone DOESN'T close the gap (BERT-class models are 75-90% word-order invariant even at large scale; Pythia 160m -> 1b only gives 0.702 -> ~0.72 AUC). Word-LEVEL bigram TF-IDF IS the algebraic fix (98% of bigrams destroyed by uniform word-shuffle of n=50; predicted AUC 0.85-0.92; zero GPU; zero training). ADDED Slot HOC1 MiniLM+word-bigram (<2 min CPU; cheapest); HOC2 hybrid Pythia+bigram (~30 min CPU; CLOSES gap if HP via uncorrelated error modes rho 0.2-0.4); HOC3 Pythia fine-tune (GPU; ceiling); HOC4 adversarial diversity sweep (production gate; paraphrase is separate capability row). Drill A + Drill C still in flight.
 - 2026-06-06 11:45 -- v14 (cycle 121 -- 1 HF + 1 MID confirmed): cap_map v442 -> v443; HONEST 956 -> 958. G11 n-gram HARDFAIL (R1 rescue axis CLOSED per orchestrator); G10 Pythia MIDDLE confirmed (orchestrator's 0.746 vs Exp-Dev's 0.702; both 0.70-0.85). Orchestrator surfaces R3/R4/R5 paths. **TENSION FLAGGED:** drill B's lit-scan predicts R3/R4 (Pythia size scaling) will NOT close the gap (BERT-class word-order invariance at any scale); HOC1+HOC2 (word bigrams + hybrid late fusion) are algebraically more efficient. Added Slot HOC5 as size-scaling falsification backup (lower priority than HOC1/2/3). KF-1 band 0.72-0.87 unchanged.
+- 2026-06-06 11:50 -- v15: 2x drill C (per-cluster stratified extraction operational depth) landed. KEY FINDING: dominant production risk is CODEBOOK COLLAPSE (dead VQ codes), NOT coverage loss. Coverage guaranteed by construction. Recommended production architecture: sqrt-K allocation (Neyman-optimal proxy without expensive sigma_c) + online Vitter reservoir + IVF VQ (~50000x cheaper) + sliding window + collapse monitoring (6 metrics) + recovery (EMA / OT / perturbation). ADDED Slot PSE1 sqrt-K allocation; PSE2 online streaming; PSE3 codebook collapse monitoring (CRITICAL production-deployment gate); PSE4 adaptive K_c feedback. Drill A real-encoder cross-N attenuation still in flight.
 
 ---
 
