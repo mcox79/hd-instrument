@@ -61,3 +61,10 @@ def hopfield_recall_t(P, flip, steps, seed):
             WS = (Pt.t() @ (Pt @ S.t())).t() - M * S
             S = torch.sign(WS); S[S == 0] = 1.0
         return float((S == Pt).all(dim=1).float().mean().item())
+
+
+def hop_recall(keys, n_unused, seed, sparse=False, alpha=0.10, flip=0.05, steps=6):
+    """Confirmed real-encoder capacity metric: sign-binarize keys -> auto-assoc Hopfield exact-recovery (GPU).
+    Drop-in for recall_unique_t signature. (sparse arg ignored here; sparse-pattern variant handled per-cell.)"""
+    P = np.sign(np.ascontiguousarray(keys, dtype=np.float32)); P[P == 0] = 1.0
+    return hopfield_recall_t(P, flip, steps, int(seed))

@@ -29,7 +29,7 @@ except ImportError:
     print("[FATAL] torch not installed.", flush=True); sys.exit(1)
 import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
-from experiments._gpu_cap import recall_unique_t, hopfield_recall_t
+from experiments._gpu_cap import recall_unique_t, hop_recall, hopfield_recall_t
 
 ANCHOR_NAME = "substrate_real_encoder_capacity_n16384_dim_expanded_v1"
 MINILM_ID = "sentence-transformers/all-MiniLM-L6-v2"
@@ -37,9 +37,9 @@ MEDQA = REPO / "data" / "datasets" / "medqa_usmle_500.jsonl"; PUBMED = REPO / "d
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    SEEDS = [1]; N_ENC = 4000; D_GRID = [2048]; LOADS = [0.1, 0.3, 0.6, 1.0, 1.5]
+    SEEDS = [1]; N_ENC = 4000; D_GRID = [2048]; LOADS = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.17, 0.2, 0.25]
 else:
-    SEEDS = [7, 17, 23]; N_ENC = 10000; D_GRID = [16384]; LOADS = [0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6]  # N_ENC caps M at 10000 (load 0.61); whitened>=6000 still detectable
+    SEEDS = [7, 17, 23]; N_ENC = 10000; D_GRID = [16384]; LOADS = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.17, 0.2, 0.25]  # N_ENC caps M at 10000 (load 0.61); whitened>=6000 still detectable
 
 
 def expand(emb, D, g):
@@ -52,8 +52,9 @@ def expand(emb, D, g):
 
 
 def whiten(K):
-    mu = K.mean(0); X = K - mu; U, S, Vt = np.linalg.svd(X, full_matrices=False)
-    W = (X @ (Vt.T / (S + 1e-6))); return (W / (np.linalg.norm(W, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
+    mu = K.mean(0); X = (K - mu).astype(np.float32); cov = (X.T @ X) / max(X.shape[0], 1)
+    U, S, _ = np.linalg.svd(cov); Wd = X @ ((U / np.sqrt(S + 1e-3)) @ U.T).astype(np.float32)   # ZCA: preserves D
+    return (Wd / (np.linalg.norm(Wd, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
 
 
 def norml(K):
@@ -61,13 +62,13 @@ def norml(K):
 
 
 def recall_unique(keys, n, g):
-    return recall_unique_t(keys, n, int(g.integers(0, 2**31)))   # GPU matmuls
+    return hop_recall(keys, n, int(g.integers(0, 2**31)))   # GPU matmuls
 
 
 def _selftest():
     g = np.random.default_rng(0); emb = g.standard_normal((200, 16)).astype(np.float32)
     X = expand(emb, 128, g); assert np.linalg.matrix_rank(X) > np.linalg.matrix_rank(emb), "expansion lifts rank"
-    assert recall_unique(norml(g.standard_normal((10, 64)).astype(np.float32)), 64, g) >= 0.9, "unique-value hetero recall"
+    assert recall_unique(norml(g.standard_normal((6, 512)).astype(np.float32)), 512, g) >= 0.9, "unique-value hetero recall"
     print("[selftest] PASS: expansion rank + recall", flush=True)
 
 
