@@ -184,6 +184,44 @@ Per user directive 2026-06-06:
 - **HF:** detection < 70% OR recovery > 20 epochs
 - **Strategic value:** production-deployment gate
 
+### Slot DAMB1 (NEW; HIGHEST PRIORITY -- gating cell from drill A): `substrate_real_vs_synthetic_capacity_N_sweep_disambiguation_v1`
+- **Wall:** ~30 min CPU
+- **Source:** 2x drill A (real-encoder cross-N attenuation disambiguation) at 12:00
+- **Architecture:** sweep Q_real(N) vs Q_synthetic(N) at fixed alpha, Hadamard codebook; measure curve shape
+- **Why CRITICAL:** Algebraic analysis shows H1 (N-dependent noise) predicts SUB-LINEAR decay; H2 (Hadamard N-saturation) predicts LINEAR decay. Different observed shapes pick between hypotheses. **All other real-encoder rescue investments depend on this answer.**
+- **Capability advanced:** Phase 4B real-encoder noise-mechanism identification
+- **HP threshold for H1:** Q_real / Q_synthetic decays SUB-linearly with N
+- **HP threshold for H2:** Q_real / Q_synthetic decays LINEARLY with N
+- **Strategic value:** routes ALL subsequent investments (LC2/LC3 vs SRHT vs other)
+
+### Slot DAMB2 (NEW; extends LC1 with N-sweep -- attacks both hypotheses): `substrate_sparse_hadamard_mixture_N_sweep_v1`
+- **Wall:** ~30 min CPU (extension to LC1)
+- **Source:** Drill A Cell 2 -- SHM attacks BOTH H1 (anisotropy decorrelation) AND H2 (subspace saturation delay)
+- **Architecture:** LC1 SHM at N in {384, 1024, 2048} to characterize Q(N) shape vs Hadamard
+- **Why:** if Q(N) is FLAT under SHM, SHM ships as single highest-leverage training-free intervention for ALL downstream experiments. Combined H1+H2 attack.
+- **Capability advanced:** Phase 4B + Phase 4a infra (training-free codebook)
+- **HP threshold:** SHM Q(N) flat across N range AND >= 1.5x Hadamard at N=2048
+- **Note:** can be merged with LC1 if Exp-Dev prefers (architecture compatible)
+
+### Slot DAMB3 (NEW; conditional H2 rescue from drill A): `substrate_srht_codebook_N2048_v1`
+- **Wall:** ~25 min CPU
+- **Source:** Drill A Cell 3 -- SRHT (Subsampled Randomized Hadamard Transform) cheapest H2 rescue
+- **Architecture:** SRHT codebook (random sign-flip diagonal + Hadamard); compare vs fixed Hadamard at N=2048 on real and synthetic keys
+- **Why:** SRHT converts systematic M^2/N interference to random interference; one-line codebook construction change; zero retrieval changes
+- **Capability advanced:** Phase 4B H2-saturation rescue
+- **Condition:** Run if DAMB1 shows H2-dominant or mixed
+- **HP threshold:** SRHT >= 1.5x Hadamard at N=2048 on REAL keys
+- **Strategic value:** trivially ships; no training
+
+### Slot DAMB4 (NEW; PARALLEL with DAMB1; attacks both hypotheses): `substrate_pca_prewhitening_codebook_v1`
+- **Wall:** ~25 min CPU
+- **Source:** Drill A Cell 4 -- PCA pre-whitening attacks BOTH H1 (anisotropy) AND H2 (isotropic-ization makes Hadamard near-optimal)
+- **Architecture:** apply PCA whitening to encoder output BEFORE sign-projection; measure capacity vs unwhitened Hadamard at N=384 on real encoder keys
+- **Why:** independent of DAMB1 result; cheapest encoder-architecture-aware intervention; one offline PCA + one O(d^2) multiply per query
+- **Capability advanced:** Phase 4B + Phase 4a -- universal real-encoder rescue
+- **HP threshold:** PCA-whitened Hadamard >= 2x unwhitened Hadamard at N=384
+- **Strategic value:** if HP, ships as one-line preprocessing change to substrate VQ layer; multiplicative improvement across ALL downstream experiments
+
 ### Slot PSE4 (NEW; from drill C; adaptive K_c quality feedback): `substrate_adaptive_stratification_quality_feedback_v1`
 - **Wall:** ~45 min CPU
 - **Source:** Drill C Sub-question (4)
@@ -591,6 +629,7 @@ Already done earlier:
 - 2026-06-06 11:30 -- v13: 2x drill B (hallucination order-sensitivity close-gap) landed. KEY INSIGHT: size scaling alone DOESN'T close the gap (BERT-class models are 75-90% word-order invariant even at large scale; Pythia 160m -> 1b only gives 0.702 -> ~0.72 AUC). Word-LEVEL bigram TF-IDF IS the algebraic fix (98% of bigrams destroyed by uniform word-shuffle of n=50; predicted AUC 0.85-0.92; zero GPU; zero training). ADDED Slot HOC1 MiniLM+word-bigram (<2 min CPU; cheapest); HOC2 hybrid Pythia+bigram (~30 min CPU; CLOSES gap if HP via uncorrelated error modes rho 0.2-0.4); HOC3 Pythia fine-tune (GPU; ceiling); HOC4 adversarial diversity sweep (production gate; paraphrase is separate capability row). Drill A + Drill C still in flight.
 - 2026-06-06 11:45 -- v14 (cycle 121 -- 1 HF + 1 MID confirmed): cap_map v442 -> v443; HONEST 956 -> 958. G11 n-gram HARDFAIL (R1 rescue axis CLOSED per orchestrator); G10 Pythia MIDDLE confirmed (orchestrator's 0.746 vs Exp-Dev's 0.702; both 0.70-0.85). Orchestrator surfaces R3/R4/R5 paths. **TENSION FLAGGED:** drill B's lit-scan predicts R3/R4 (Pythia size scaling) will NOT close the gap (BERT-class word-order invariance at any scale); HOC1+HOC2 (word bigrams + hybrid late fusion) are algebraically more efficient. Added Slot HOC5 as size-scaling falsification backup (lower priority than HOC1/2/3). KF-1 band 0.72-0.87 unchanged.
 - 2026-06-06 11:50 -- v15: 2x drill C (per-cluster stratified extraction operational depth) landed. KEY FINDING: dominant production risk is CODEBOOK COLLAPSE (dead VQ codes), NOT coverage loss. Coverage guaranteed by construction. Recommended production architecture: sqrt-K allocation (Neyman-optimal proxy without expensive sigma_c) + online Vitter reservoir + IVF VQ (~50000x cheaper) + sliding window + collapse monitoring (6 metrics) + recovery (EMA / OT / perturbation). ADDED Slot PSE1 sqrt-K allocation; PSE2 online streaming; PSE3 codebook collapse monitoring (CRITICAL production-deployment gate); PSE4 adaptive K_c feedback. Drill A real-encoder cross-N attenuation still in flight.
+- 2026-06-06 12:00 -- v16: 2x drill A (real-encoder cross-N attenuation disambiguation) landed. KEY INSIGHT: H1 (N-dependent noise) and H2 (Hadamard N-saturation) predict DIFFERENT Q(N) curve shapes -- SUB-LINEAR vs LINEAR decay. ADDED Slot DAMB1 disambiguation N-sweep (HIGHEST PRIORITY ~30 min CPU; routes ALL subsequent rescue investments); Slot DAMB2 LC1 N-sweep extension (SHM attacks BOTH hypotheses); Slot DAMB3 SRHT codebook (conditional H2 rescue); Slot DAMB4 PCA pre-whitening (parallel with DAMB1; attacks BOTH hypotheses). ALL 3 of today's parallel 2x drills now landed (A+B+C). Today's drill output: 13 new cells (HOC1-5 + PSE1-4 + DAMB1-4) targeting all non-positive results with explicit algebraic rescue paths.
 
 ---
 
