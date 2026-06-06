@@ -41,8 +41,13 @@ if [ -z "$API_KEY" ]; then
 fi
 echo "api key parsed (len=${#API_KEY})" | tee -a "$LOG"
 
-# Returns "SKU REGION" on stdout if any H100 capacity available.
-# Prefers PCIe (cheaper); falls back to SXM5. First region in the list wins.
+# Returns "SKU REGION" on stdout if any compatible GPU has capacity.
+# Priority order (cost-first AND fit-first for CLOUD-1's 70B 4-bit ~38GB need):
+#   gpu_1x_gh200       $2.29/h  96GB    aarch64 (uses cloud_1_gh200.yaml)
+#   gpu_1x_a100_sxm4   $1.99/h  40GB    Ampere (uses cloud_1_smart.yaml; may OOM)
+#   gpu_1x_h100_pcie   $3.29/h  80GB    Hopper x86 (uses cloud_1_smart.yaml)
+#   gpu_1x_h100_sxm5   $4.29/h  80GB    Hopper x86 (uses cloud_1_smart.yaml)
+# A10 (24GB) is skipped: too small for 70B 4-bit.
 query_first_available() {
   local api_json
   api_json=$(curl -s -u "${API_KEY}:" https://cloud.lambdalabs.com/api/v1/instance-types 2>/dev/null)
@@ -53,13 +58,42 @@ try:
 except Exception:
     sys.exit(1)
 data = d.get('data', {})
-for sku in ['gpu_1x_h100_pcie', 'gpu_1x_h100_sxm5']:
+# Priority order: GH200 (cheap + big VRAM) -> A100 SXM4 (cheap + tight)
+#               -> H100 PCIe -> H100 SXM5
+for sku in ['gpu_1x_gh200', 'gpu_1x_a100_sxm4', 'gpu_1x_h100_pcie', 'gpu_1x_h100_sxm5']:
     regs = [r['name'] for r in data.get(sku, {}).get('regions_with_capacity_available', [])]
     if regs:
         print(f"{sku} {regs[0]}")
         sys.exit(0)
 sys.exit(1)
 EOF
+}
+
+# Return the YAML to use for a given SKU.
+yaml_for_sku() {
+  case "$1" in
+    gpu_1x_gh200)
+      echo "skypilot/cloud_1_gh200.yaml"  # aarch64 path; skip torch reinstall
+      ;;
+    *)
+      echo "skypilot/cloud_1_smart.yaml"  # x86 path
+      ;;
+  esac
+}
+
+# Return the SkyPilot --gpus accelerator name for a given SKU.
+gpus_for_sku() {
+  case "$1" in
+    gpu_1x_gh200)
+      echo "GH200:1"
+      ;;
+    gpu_1x_a100_sxm4)
+      echo "A100:1"
+      ;;
+    *)
+      echo "H100:1"
+      ;;
+  esac
 }
 
 POLL_INTERVAL=15
@@ -81,9 +115,11 @@ while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
   SKU=$(echo "$AVAIL" | awk '{print $1}')
   REGION=$(echo "$AVAIL" | awk '{print $2}')
   CLUSTER_NAME="cloud1quality-$(date +%H%M%S)"
+  YAML_FILE=$(yaml_for_sku "$SKU")
+  GPUS_SPEC=$(gpus_for_sku "$SKU")
 
-  echo "[${ts}] attempt=${attempt} CAPACITY DETECTED: sku=${SKU} region=${REGION}" | tee -a "$LOG"
-  echo "[${ts}] launching cluster=${CLUSTER_NAME} with --region ${REGION} --instance-type ${SKU}" | tee -a "$LOG"
+  echo "[${ts}] attempt=${attempt} CAPACITY DETECTED: sku=${SKU} region=${REGION} gpus=${GPUS_SPEC} yaml=${YAML_FILE}" | tee -a "$LOG"
+  echo "[${ts}] launching cluster=${CLUSTER_NAME}" | tee -a "$LOG"
 
   cd /root/cloud-1-ship
   # NO --retry-until-up: single-shot, fail fast on race loss.
@@ -93,11 +129,11 @@ while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
       -y \
       --region "$REGION" \
       --instance-type "$SKU" \
-      --gpus H100:1 \
+      --gpus "$GPUS_SPEC" \
       --down \
       -i 30 \
       --env HF_TOKEN="${HF_TOKEN_VAL}" \
-      skypilot/cloud_1_smart.yaml 2>&1 | tee -a "$LOG"
+      "$YAML_FILE" 2>&1 | tee -a "$LOG"
 
   LAUNCH_RC=${PIPESTATUS[0]}
   echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] sky launch exit code: ${LAUNCH_RC}" | tee -a "$LOG"

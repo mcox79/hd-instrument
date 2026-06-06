@@ -20,6 +20,7 @@ echo "=== [3/4] copying root files + YAML ==="
 cp "${SRC}/requirements_cloud.txt" "${DST}/requirements_cloud.txt"
 cp "${SRC}/skypilot/cloud_1_quality_binding.yaml" "${DST}/skypilot/cloud_1_quality_binding.yaml"
 cp "${SRC}/skypilot/cloud_1_smart.yaml" "${DST}/skypilot/cloud_1_smart.yaml"
+cp "${SRC}/skypilot/cloud_1_gh200.yaml" "${DST}/skypilot/cloud_1_gh200.yaml"
 
 echo "=== [4/4] verifying bundle ==="
 find "${DST}" -type f -printf '%P  %s bytes\n' | sort
