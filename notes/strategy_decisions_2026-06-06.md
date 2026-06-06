@@ -1148,3 +1148,17 @@ R5 (MEDIUM, GPU <2h): Full sweep: n_enc x N x expansion_method 3-way grid to map
 
 Cap_map: v458 -> v459 CYCLE 138 [label-vs-honest LVH #241] (1 HP: last_token_vs_mean_pool-COMPLEMENTARY-3.05x-WHITENING-MANDATORY-LAST-TOKEN-RECIPE; 1 LVH #241: dim_expansion_subsumes_whitening-HARD_PASS->MIDDLE_BAND-expand_only=0-NO_STACKING-WHITENING_SUBSUMES_EXPANSION-7e9x-DIV-ZERO-ARTIFACT; 0 HF; 1 LVH; PP-8/ETF-whitening encoder-recipe annotations; HONEST 1013->1015 +2; LVH 240->241; Portfolio 32+79 UNCHANGED; 371st PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v459 -> v460 CYCLE 139 (2026-06-06)
+
+Verdict: substrate_llama_layer_sweep_capacity_battery_gpu_v1 MIDDLE_BAND
+
+### Step 0 honest re-read
+MIDDLE_BAND label HONEST. source=remote n_seeds=1 smoke. L8=L12=L15=cap=122; best/ref=1.00x. Band correct (1.00x in [0.9,1.2]). NUANCE: verdict_msg 'L=15 ~ optimal' is a soft framing over-claim -- all layers identical, not L=15 winning a ranking. Honest reading: layer-invariant capacity at d_eff ceiling. 'Keep L=15 recipe' actionability claim from flat smoke data is soft nuance, not full LVH. No LVH triggered.
+HONEST: 1015 -> 1016 (+1). LVH: 241 UNCHANGED.
+
+### Cap_map decision
+PP-8 sub-prop annotation: Llama-3.1-8B layer sweep capacity battery smoke. Cap=122 all layers (L8/L12/L15 flat). Layer depth does not differentiate substrate capacity. Consistent with d_eff=91.6 ceiling. Full 3-seed multi-layer sweep (L=8/12/15/20/24, larger N) recommended to test per-layer d_eff variability hypothesis. Portfolio 32+79 UNCHANGED. No closures, no BAND-LIFTS.
+
+Cap_map: v459 -> v460 CYCLE 139 (0 HP; 1 MID-SMOKE llama_layer_sweep LAYER-INVARIANT-CAP-122; 0 HF; 0 LVH; HONEST 1015->1016; LVH 241; Portfolio 32+79; 372nd PROT-009 paired commit) (2026-06-06)

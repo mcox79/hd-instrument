@@ -11748,3 +11748,37 @@ R5 (MEDIUM, GPU <2h): Full sweep: n_enc x N x expansion_method 3-way grid to map
 
 Cap_map: v458 -> v459 CYCLE 138 [label-vs-honest LVH #241] (1 HP: last_token_vs_mean_pool-COMPLEMENTARY-3.05x-WHITENING-MANDATORY-LAST-TOKEN-RECIPE; 1 LVH #241: dim_expansion_subsumes_whitening-HARD_PASS->MIDDLE_BAND-expand_only=0-NO_STACKING-WHITENING_SUBSUMES_EXPANSION-7e9x-DIV-ZERO-ARTIFACT; 0 HF; 1 LVH; PP-8/ETF-whitening encoder-recipe annotations; HONEST 1013->1015 +2; LVH 240->241; Portfolio 32+79 UNCHANGED; 371st PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v459 update (2026-06-06) -- CYCLE 139: 1 MID-SMOKE-FLAT (substrate_llama_layer_sweep_capacity_battery_gpu_v1 LAYER-INVARIANT-CAP-122-ALL-LAYERS); 0 HP; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 1015->1016; LVH 241 UNCHANGED; Portfolio 32+79 UNCHANGED; 372nd PROT-009 paired commit
+
+## v459 -> v460 -- CYCLE 139 (2026-06-06)
+
+Verdicts processed: substrate_llama_layer_sweep_capacity_battery_gpu_v1 (MIDDLE_BAND)
+
+### Step 0 -- Honest re-read
+
+**substrate_llama_layer_sweep_capacity_battery_gpu_v1 MIDDLE_BAND -- LABEL HONEST (with nuance)**
+source=remote n_seeds=1 run_mode=smoke. Per-cell: L8=122, L12=122, L15=122. All three layers return identical capacity. best/ref=L8/L15=1.00x. MIDDLE_BAND (1.00x within 0.9-1.2x band) is CORRECT. NUANCE: verdict_msg 'L=15 ~ optimal' is a soft framing over-claim -- all layers are equivalent, not L=15 ranking above others. The honest finding is layer-invariant capacity at cap=122, consistent with d_eff~91.6 ceiling at this N. Flat profile at smoke n=1 cannot distinguish 'L=15 optimal' from 'all layers equivalent at this N'. MIDDLE_BAND label honest; actionability claim 'keep L=15 recipe' from flat smoke data is a nuance (not full LVH). No LVH triggered. NOTE: smoke n_seeds=1; layer-variability conclusion requires full 3-seed run.
+HONEST: 1015 -> 1016 (+1). LVH: 241 UNCHANGED.
+
+### Cap_map decision (v459 -> v460)
+
+**substrate_llama_layer_sweep_capacity_battery_gpu_v1 MIDDLE_BAND**
+PP-8 sub-property annotation (Llama-layer sweep / LM-trained encoder capacity).
+Key finding: Capacity at L8, L12, L15 of Llama-3.1-8B is identical (cap=122 all layers, smoke n=1). Layer depth does NOT differentiate substrate capacity in this sweep. Result consistent with d_eff=91.6 ceiling: at N sufficient for d_eff, capacity is encoder-intrinsic-dim-bounded not layer-dependent. Context: cycle 131 v453 excluded LM-trained encoders based on d_eff on Pythia-160m; this anchor revisits at Llama scale. Finding: Llama layers produce uniform capacity at smoke scale -- per-layer d_eff variability not observed in this initial probe. Full 3-seed run at L=8/12/15/20/24 + larger N needed to test per-layer d_eff variability hypothesis.
+Cap_map annotation on PP-8 / LM-trained encoder sub-property:
+'llama_layer_sweep_capacity_battery MIDDLE_BAND v460: Llama-3.1-8B L=8/12/15 smoke n=1; cap=122 all layers (flat/identical); best/ref=1.00x; layer-invariant capacity at this N -- consistent with d_eff ceiling; no per-layer d_eff variability observed at smoke scale; full 3-seed multi-layer sweep recommended to test variability hypothesis; 2026-06-06.'
+Portfolio 32+79 UNCHANGED. No new rows. No BAND-LIFTS. No closures.
+
+### PROT compliance (v459 -> v460)
+- PROT-004/006: No closures; no rescue sketches needed (MIDDLE_BAND annotation-only).
+- PROT-007: v460 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 372nd PROT-009 paired commit.
+- PROT-018: No _nN suffix on anchor (N not config-bound in this probe). CLEAN.
+- PROT-019: No LVH; nuance noted but MIDDLE_BAND label is not an over-claim of the verdict tag.
+- PROT-021: source=remote run_mode=smoke n_seeds=1. SMOKE flagged; layer-variability conclusion requires full run.
+- PROT-022: Single seed; no multi-seed variance assessment possible. Not applicable at smoke stage.
+
+Cap_map: v459 -> v460 CYCLE 139 (0 HP; 1 MID-SMOKE: llama_layer_sweep LAYER-INVARIANT-CAP-122-ALL-L8-L12-L15-D_EFF-CEILING; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 1015->1016; LVH 241 UNCHANGED; Portfolio 32+79 UNCHANGED; 372nd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
