@@ -355,3 +355,149 @@ HONEST: 944 -> 945 (+1). LVH: 223 UNCHANGED.
 
 Cap_map: v434 -> v435 CYCLE 106 (3 DUPLICATE re-runs no action; 1 MID: cognitive_core_e2e_pythia_v2xl STABLE-1.30x-5SEED-N_Q3000-PARTIAL-ADVANTAGE-CONFIRMED; 0 HP; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 944->945; LVH 223; Portfolio 32+77; 347th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v435 CYCLE 107 -- substrate_cognitive_core_e2e_pythia_v1 DUPLICATE (2026-06-05)
+
+### Step 0 honest re-read
+Verdict at 18:13 ended_at: bridge cache stale 43h (snapshot_ts 2026-06-03T22:36:16; age_s=157361s). get_metrics() returned _source=remote but serving stale cache data.
+Per-cell metrics: substrate_core=1.000(3/3), pythia_raw=0.790, ratio=1.27x(3/3), n_seeds=3, run_mode=full.
+IDENTICAL to cycle 100 metrics committed at v429 (ended_at 14:48). No local event_outcome file found. No new remote measurement.
+
+VERDICT: DUPLICATE of cycle 100 v429. 18:13 timestamp is a re-appearance of the same completed run in the queue tracker, NOT a new measurement.
+
+HONEST: 945 UNCHANGED (no new anchor). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. substrate_cognitive_core_e2e_pythia_v1 already annotated at v429 (MIDDLE_BAND PP-8): sub=1.000(3/3), pythia_raw=0.790, ratio=1.27x(3/3), Rule8+cert=1.000(3/3). No new information.
+
+### PROT compliance (v435 CYCLE 107 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no cap_map state change; no new anchor data).
+- PROT-021: Bridge cache stale 43h. Same production run already validated at v429.
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 945 UNCHANGED. LVH: 223 UNCHANGED. Cap_map: v435 UNCHANGED.
+
+Queue state: bridge stale; last known 0 pending both queues. [queue: empty -- Exp-Dev session will refill on its cadence]## v435 CYCLE 108 -- 3 DUPLICATES: analogical_v1 + counterfactual_v1 + architectural_advantage_v1 (2026-06-05)
+
+### Step 0 honest re-read (3 anchors; source=remote; bridge stale but remote metrics fetched)
+
+All 3 anchors (ended_at 18:57-19:00) are confirmed DUPLICATES of prior cycle committed verdicts:
+- substrate_cognitive_core_analogical_v1: current metrics IDENTICAL to v420/cycle-91 + v435/cycle-106 (sub=1.000(3/3) py~0.001(3/3) ratio=900x). Already committed. NO ACTION.
+- substrate_cognitive_core_counterfactual_v1: current metrics IDENTICAL to v419/cycle-90 + v435/cycle-106 (sub=1.000(3/3) retention=0.995-1.000(3/3) py=0.000(3/3) ratio=1e6x). Already committed. NO ACTION.
+- substrate_cognitive_core_architectural_advantage_v1: current metrics IDENTICAL to v419/cycle-90 + v435/cycle-106 (LONGCONV=1.000(3/3) CROSS-SESSION=1.000(3/3) MULTIDOC@50=1.000(3/3)). Already committed. NO ACTION.
+
+No over-claim: all 3 are queue-tracker re-appearances of same completed runs, not new measurements. No new anchors. No LVH.
+
+HONEST: 945 UNCHANGED (no new anchors). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. All 3 already annotated: analogical at v420; counterfactual+architectural at v419. v435 marks third sequential duplicate cycle for these same 3 anchors. Queue-tracker de-duplication recommended (same completed run IDs surfacing repeatedly).
+
+### PROT compliance (v435 CYCLE 108 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no cap_map state change; no new anchor data).
+- PROT-021: source=remote run_mode=full; production runs already validated.
+- PROT-018: No _nN suffixes. CLEAN.
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 945 UNCHANGED. LVH: 223 UNCHANGED. Cap_map: v435 UNCHANGED.
+
+Queue state: last known empty (bridge stale). [queue: empty -- Exp-Dev session will refill on its cadence]
+## v435 CYCLE 109 -- substrate_long_conversation_scale_1000_exchanges_v1 DUPLICATE (2026-06-05 20:22)
+
+### Step 0 honest re-read
+Bridge cache stale 46h (snapshot_ts 2026-06-03T22:36:16). get_metrics() returned _source=remote (stale cache serving prior data).
+Per-cell metrics (20:22): sub_at_1000=1.000(3/3), substrate_by_depth d50/d200/d500/d800/d1000=1.000 ALL 3 seeds, pythia_at_deep=0.000 ALL seeds, E=1200, n_threads=5, run_mode=full, seeds 7/17/23, elapsed=700.2s.
+IDENTICAL to cycle 94 metrics committed at v423 (ended_at ~10:47; sub_at_1000=1.000(3/3), sub flat d50->d1000=1.000 ALL seeds, pythia d500+=0.000 ALL seeds, E=1200, n_threads=5, 3-seed full, elapsed=792s).
+Elapsed difference (700.2 vs 792s) is within timing cache variance; all substantive cells identical; same seeds 7/17/23.
+
+VERDICT: DUPLICATE of cycle 94 v423. 20:22 timestamp is a queue-tracker re-publication of the same completed run, NOT a new measurement. Pattern consistent with cycles 107/108 duplicate sequences.
+
+HONEST: 945 UNCHANGED (no new anchor). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. substrate_long_conversation_scale_1000_exchanges_v1 already committed at v423 (HARD_PASS PP-8): sub_at_1000=1.000(3/3), sub flat to 1000 exchanges, pythia collapses at depth, 5x extension of v419 LONGCONV. No new information.
+
+### PROT compliance (v435 CYCLE 109 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no cap_map state change; no new anchor data).
+- PROT-021: Bridge stale 46h. Same production run already validated at v423.
+- PROT-018: No _nN suffixes. CLEAN.
+- Note: third duplicate-stream in cycle sequence (107=e2e_pythia, 108=analogical/counterfactual/architectural triple, 109=long_conversation). Queue-tracker de-duplication issue broadening.
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 945 UNCHANGED. LVH: 223 UNCHANGED. Cap_map: v435 UNCHANGED.
+
+Queue state: bridge stale 46h; last known 0 pending both queues. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+## v435 CYCLE 111 BATCH -- 2 CONFIRMED DUPLICATES (no new action) (2026-06-05)
+
+### Step 0 honest re-read (2 anchors; both confirmed duplicate republishes)
+
+**V1 substrate_multidoc_synthesis_1000plus_docs_v1 -- CONFIRMED DUPLICATE of CYCLE 94 (v423)**
+Remote metrics: needle=1.000(3/3), pythia_RAG=0.000(3/3), synth_relerr=0.000(3/3), n_seeds=3, n_docs=1000, elapsed=632.82s, verdict=HARD_PASS. IDENTICAL to cycle 94 committed metrics. Queue-tracker republishing pattern confirmed. NO NEW MEASUREMENT.
+
+**V2 substrate_introspection_toolkit_full_10_categories_v1 -- CONFIRMED DUPLICATE of CYCLE 95 (v424)**
+Remote metrics: gap_frac=0.25(3/3), cat5 correct mean~0.570, cat6 deletion_cert_operational=False(3/3), recall_after~0, n_seeds=3, elapsed=442.69s, verdict=MIDDLE_BAND. IDENTICAL to cycle 95 committed metrics. Queue-tracker republishing pattern confirmed. NO NEW MEASUREMENT.
+
+HONEST: 945 UNCHANGED (no new anchors). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. Both anchors already committed: multidoc_synthesis at v423 (HARD_PASS) + introspection_toolkit_full_10_categories at v424 (MIDDLE_BAND). No new information to annotate.
+
+### PROT compliance (v435 CYCLE 111 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no cap_map state change; no new anchor data).
+- PROT-021: source=remote for both; metrics match prior committed runs exactly.
+- Note: substrate_cognitive_core_analogical_v1 also confirmed-duplicate on verified-skiplist; skipped without dispatch (no action).
+
+Queue state: overnight_queue 0 pending, cpu_queue 0 pending (bridge stale ~43h+). [queue: empty -- Exp-Dev session will refill on its cadence]
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+## v435 CYCLE 112 -- 3 DUPLICATES: certified_deletion_demo_medical_v1 + kfact_combination_anchors_v1 + adversarial_failure_modes_v1 (2026-06-05 21:15-21:16)
+
+### Step 0 honest re-read (3 anchors; source=remote; bridge stale ~47h)
+
+All 3 anchors are confirmed DUPLICATES of prior cycle committed verdicts:
+- substrate_certified_deletion_demo_medical_v1 (ended_at 21:16): metrics IDENTICAL to v428/cycle-99 (MIDDLE_BAND, cert_latency_median=3.133ms, phantom_recall=0.000, verifier_confirmed=1.000, M=1200, RSA-512, n_seeds=3, run_mode=full). Already committed. NO ACTION.
+- substrate_kfact_combination_anchors_v1 (ended_at 21:15): metrics IDENTICAL to v427/cycle-98 (MIDDLE_BAND, 2/4, A1=1.000, A2=K25.0, A3=+29.3pp, A4=0.0%, n_seeds=3, run_mode=full). Already committed. NO ACTION.
+- substrate_adversarial_failure_modes_v1 (ended_at 21:15): metrics IDENTICAL to v425/cycle-96 (MIDDLE_BAND, A=1.000, E=separable, F=graceful, D=0.44 FAIL, n_seeds=3, run_mode=full, elapsed ~774s vs 865s timing variance only). Already committed. NO ACTION.
+
+SKIP-WITHOUT-DISPATCH CONFIRMED: substrate_cognitive_core_architectural_advantage_v1 (21:38) + substrate_long_conversation_scale_1000_exchanges_v1 (21:31) were already on verified-duplicate skiplist per cycles 108+109.
+
+No over-claim on any anchor (all confirmed duplicates; no new measurements). No LVH.
+
+HONEST: 945 UNCHANGED (no new anchors). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. All 3 already annotated: certified_deletion at v428; kfact_combination at v427; adversarial_failure_modes at v425. Queue-tracker de-duplication issue: sixth sequential duplicate-stream cycle (107=e2e_pythia, 108=analogical/counterfactual/architectural triple, 109=long_conversation, 110-111=skiplist, 112=certified_deletion+kfact+adversarial).
+
+### PROT compliance (v435 CYCLE 112 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no cap_map state change; no new anchor data).
+- PROT-021: source=remote run_mode=full; production runs already validated.
+- PROT-018: No _nN suffixes on any anchor. CLEAN.
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+HONEST: 945 UNCHANGED. LVH: 223 UNCHANGED. Cap_map: v435 UNCHANGED.
+
+Queue state: bridge stale ~47h; last known 0 pending both queues. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+## v436 CYCLE 113 -- 2 NEW HP + 9 DUPLICATES (2026-06-05 CYCLE 113)
+
+### Step 0 honest re-read
+
+(A) substrate_hallucination_detection_minilm_v1: HARD_PASS label vs per-cell: AUC 0.9996/0.9989/0.9994 all >> 0.90 threshold. Mean recall 0.988 matches label. LABEL HONEST. No LVH.
+
+(B) substrate_real_encoder_capabilities_v1: HARD_PASS label vs per-cell: 18/18 cells = 1.000. Unanimous ceiling. LABEL HONEST. No LVH.
+
+Anchors 3-11: All confirmed duplicates of v431-v433 committed verdicts. Metrics identical. NO ACTION.
+
+HONEST: 945 -> 947 (+2). LVH: 223 UNCHANGED.
+
+### Cap_map decisions (v435 -> v436)
+
+1. KF-1 hallucination-detection BAND-LIFT 65-80% -> 70-85%: AUC=0.999 with real MiniLM encoder confirms encoder-agnostic mechanism. +5% cap per lit-scan penalty (single-N N=384, 3-seed). Caveats: N-scaling from 384 to 4096+ not confirmed with MiniLM; adaptive adversary not tested.
+
+2. PP-8 substrate-LLM deep-integration BAND-LIFT 0.50-0.65 -> 0.55-0.70: v433 minilm_encoder_fidelity + v436 real_encoder_capabilities both at ceiling = two-anchor encoder-agnostic confirmation. +5% cap per lit-scan penalty (synthetic test scenarios; no LLM generation in loop yet).
+
+3. 9 duplicate anchors: no cap_map action.
+
+Queue state: bridge stale; last known 0 pending both queues. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 2 BAND-LIFTS. 0 closures.
+HONEST: 945 -> 947. LVH: 223. Cap_map: v435 -> v436.
