@@ -138,6 +138,7 @@ Per user directive 2026-06-06:
 - **2x rescue drill landed 2026-06-06 09:50:** norm-gate algebraically broken; **per-cluster stratified keep is the rescue** (100% coverage guaranteed, 100-1000x speedup; P_deflated=0.65); entropy-gate also biased (60-75%); random sampling adequate (>90% at large M; P_deflated=0.55)
 
 ### Slot 12 (NEW; from extraction gate rescue drill): `substrate_per_cluster_stratified_extraction_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE: 100% coverage, speedup~N/clusters); queued CPU
 - **Wall:** ~30 min CPU
 - **Source:** norm-gate HARDFAIL rescue drill (09:50)
 - **Why:** RECOMMENDED rescue. Pre-compute VQ assignment (cheap); within each VQ cluster keep top-K tokens; guarantees 100% coverage by construction; 100-1000x speedup
@@ -146,6 +147,7 @@ Per user directive 2026-06-06:
 - **Strategic value:** the "$333k -> $31" cost-reduction story now has a verified gating mechanism
 
 ### Slot 13 (NEW; secondary rescue): `substrate_concept_uniform_random_extraction_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL: random sampling loses coverage 0.60@10x; stratified is the rescue); queued CPU
 - **Wall:** ~20 min CPU
 - **Source:** norm-gate HARDFAIL rescue drill (09:50)
 - **Why:** simplest rescue path; concept-uniform random sampling guarantees coverage by construction
@@ -277,6 +279,7 @@ Per user directive 2026-06-06:
 - **Rescue identified:** dim-expansion via random-feature lift -> Slot 14 below
 
 ### Slot 10 (NEW; CRITICAL Phase 3 confirmation gate): `substrate_etf_hadamard_n_sweep_capacity_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HP: lift persists 8.0x to N=2048; full sweeps to 65536); queued CPU
 - **Wall:** ~60 min CPU (4 N-points x 3 seeds)
 - **Source:** Orchestrator cycle 117 -- ETF Hadamard 10.04x at N=4096 confirmed; need N-sweep to verify scaling
 - **Why CRITICAL:** Phase 3 production blueprint capacity revision depends on whether 10x lift persists from N=4096 to N=65536. If it does, Phase 3 linear capacity goes from ~2,621 facts to ~26,000 facts per substrate (D=8 = ~208k facts).
