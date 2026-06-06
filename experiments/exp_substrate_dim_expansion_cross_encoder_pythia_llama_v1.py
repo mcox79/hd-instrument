@@ -29,7 +29,7 @@ except ImportError:
     print("[FATAL] torch not installed.", flush=True); sys.exit(1)
 import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
-from experiments._gpu_cap import recall_unique_t, hop_recall, hopfield_recall_t
+from experiments._gpu_cap import recall_unique_t, hop_recall, hopfield_recall_t, whiten_gpu, expand_gpu
 
 ANCHOR_NAME = "substrate_dim_expansion_cross_encoder_pythia_llama_v1"
 PYTHIA_ID = "EleutherAI/pythia-160m"
@@ -43,18 +43,11 @@ else:
 
 
 def expand(emb, D, g):
-    if D == emb.shape[1]:
-        X = emb.copy()
-    else:
-        R = g.standard_normal((emb.shape[1], D)).astype(np.float32) / np.sqrt(emb.shape[1])
-        X = np.sign(emb @ R).astype(np.float32)                      # nonlinear random-feature lift -> rank toward D
-    return X
+    return expand_gpu(emb, D, int(g.integers(0, 2**31)))
 
 
 def whiten(K):
-    mu = K.mean(0); X = (K - mu).astype(np.float32); cov = (X.T @ X) / max(X.shape[0], 1)
-    U, S, _ = np.linalg.svd(cov); Wd = X @ ((U / np.sqrt(S + 1e-3)) @ U.T).astype(np.float32)   # ZCA: preserves D
-    return (Wd / (np.linalg.norm(Wd, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
+    return whiten_gpu(K)
 
 
 def norml(K):

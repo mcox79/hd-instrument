@@ -44,10 +44,10 @@ def support_recovery_rate(M, n, H, seed):
     for h in range(H):
         signs = (torch.randint(0, 2, (M, k), generator=g, device=_DEV, dtype=torch.float32) * 2 - 1)
         P = torch.zeros(M, n, device=_DEV); P.scatter_(1, supp, signs)
-        W = (P.t() @ P); W.fill_diagonal_(0.0)
+        diag = (P * P).sum(0)                                          # W-free: avoid N x N per head (OOM at large N)
         cue = P.clone(); flip = (torch.rand(M, k, generator=g, device=_DEV) < FLIP).float() * -2 + 1
         cue.scatter_(1, supp, signs * flip)
-        score += (cue @ W).abs()
+        score += ((cue @ P.t()) @ P - cue * diag).abs()
     topk = score.topk(k, dim=1).indices; rec = torch.zeros(M, n, device=_DEV); rec.scatter_(1, topk, 1.0)
     return float(((rec * onehot).sum(1) == k).float().mean().item())
 

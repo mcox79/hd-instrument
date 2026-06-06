@@ -72,10 +72,10 @@ def make(arm, M, n, g):
 
 
 def recall(P, g):
-    M, n = P.shape; W = (P.t() @ P); W.fill_diagonal_(0.0); s = P.clone()
+    M, n = P.shape; diag = (P * P).sum(0); s = P.clone()              # W-free: avoid N x N matrix (OOM at large N)
     for i in range(M):
         nz = (P[i] != 0).nonzero(as_tuple=True)[0]; fl = nz[torch.rand(len(nz), generator=g, device=_DEV) < FLIP]; s[i, fl] *= -1
-    r = torch.sign(s @ W.t()); ok = 0
+    r = torch.sign((s @ P.t()) @ P - s * diag); ok = 0
     for i in range(M):
         nz = (P[i] != 0); ok += int((r[i][nz] == P[i][nz]).all().item())
     return ok / M
