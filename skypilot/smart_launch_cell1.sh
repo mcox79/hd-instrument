@@ -69,6 +69,10 @@ echo "api key parsed (len=${#API_KEY})" | tee -a "$LOG"
 
 # Returns "SKU REGION" if any of our target SKUs have capacity.
 # Priority order: B200 first (cheaper $6.99/h + single-GPU simplicity), then H100:2.
+#
+# REGION FILTER: Lambda API may report capacity in regions SkyPilot's catalog
+# doesn't know about (e.g. us-southeast-1 spotted 2026-06-06). Filter to a
+# safe known-set so sky launch doesn't error on "Invalid region".
 query_first_available() {
   local api_json
   api_json=$(curl -s -u "${API_KEY}:" https://cloud.lambdalabs.com/api/v1/instance-types 2>/dev/null)
@@ -78,12 +82,23 @@ try:
     d = json.loads('''$api_json''')
 except Exception:
     sys.exit(1)
+SKYPILOT_KNOWN_LAMBDA_REGIONS = {
+    'us-east-1', 'us-east-3',
+    'us-south-1', 'us-south-2', 'us-south-3',
+    'us-west-1', 'us-west-2', 'us-west-3',
+    'asia-northeast-1', 'europe-central-1', 'australia-east-1',
+}
 data = d.get('data', {})
 for sku in ['gpu_1x_b200_sxm6', 'gpu_2x_h100_sxm5']:
-    regs = [r['name'] for r in data.get(sku, {}).get('regions_with_capacity_available', [])]
+    regs_all = [r['name'] for r in data.get(sku, {}).get('regions_with_capacity_available', [])]
+    # Filter to SkyPilot-known
+    regs = [r for r in regs_all if r in SKYPILOT_KNOWN_LAMBDA_REGIONS]
     if regs:
         print(f"{sku} {regs[0]}")
         sys.exit(0)
+    elif regs_all:
+        # Capacity exists but only in SkyPilot-unknown regions; log to stderr
+        print(f"SKU {sku} has capacity in unknown-to-SkyPilot regions {regs_all}; skipping", file=sys.stderr)
 sys.exit(1)
 EOF
 }
