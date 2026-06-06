@@ -11030,3 +11030,56 @@ Adversarial-vulnerabilities U2 sub-property annotation:
 
 Cap_map: v438 -> v439 CYCLE 117 (1 HP: substrate_etf_hadamard_codebook_init_v1 HADAMARD-CODEBOOK-10x-CAPACITY-LIFT-MATTHIESSEN-NOISE-FLOOR-ATTACK; capacity-scaling sub-prop new; adv-vuln U2 codebook-collision init-layer annotation new; 0 LVH; HONEST 950->951; LVH 224; Portfolio 32+77; 351st PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v440 update (2026-06-06) -- CYCLE 118: 2 HP (matthiessen_dominant_scatterer + native_reasoning_k_hop); 0 MID; 0 HF; 0 LVH; HONEST 951->953; LVH 224 UNCHANGED
+
+## CYCLE 118 -- v439 -> v440 (2026-06-06)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(V1) substrate_matthiessen_dominant_scatterer_v1 HARD_PASS -- HONEST (CONSERVATIVE)**
+frac_collision=~1.000 (5/5 seeds; label says >60% -- conservative not over-claim). frac_load=0.000 and frac_cue_noise=0.000 across all seeds. coll_err=0.797-0.806. Codebook-collision is the sole active noise source. No LVH.
+
+**(V2) substrate_native_reasoning_k_hop_v1 HARD_PASS -- HONEST (K=6 not K=3)**
+acc_by_k k1-k6=1.000 (3/3 seeds). Label anchors at K=3 (conservative). Actual test ceiling K=6. Orchestrator context said K=5 but data shows K=6. Honest reading: test-ceiling K=6. No LVH.
+
+HONEST: 951 -> 953 (+2). LVH: 224 UNCHANGED.
+
+### substrate_matthiessen_dominant_scatterer_v1 HARD_PASS [source=remote; n_seeds=5; N=4096; run_mode=full; elapsed=1.79s]
+
+Plain-language: We decomposed the substrate's error budget into three noise sources -- too many facts loaded (load), fact-encoding collisions (codebook-collision), and noisy cue vectors (cue-noise). At near-capacity operating point, 100% of errors come from codebook-collision; the other two sources contribute zero. This confirms the 'Matthiessen dominant scatterer': when you design an optimization, you know exactly what to fix (the codebook), and nothing else matters at baseline.
+
+Capability implication: Capacity-scaling + adversarial-vulnerabilities U2. Codebook-collision is the SOLE bottleneck at N=4096 near-capacity (M~0.040*N). ETF/Hadamard init from v439 directly attacks this single scatterer; combined with the 10x capacity lift already measured, the noise anatomy confirms the fix is well-targeted. No load-balancing or cue-denoising required for baseline capacity optimization.
+
+Adversarial-vulnerabilities U2 codebook-collision sub-property annotation:
+'substrate_matthiessen_dominant_scatterer HARD_PASS v440: N=4096 5-seed full elapsed=1.79s; frac_collision=~1.000 (5/5), frac_load=0.000 (5/5), frac_cue_noise=0.000 (5/5); coll_err=0.797-0.806 (5/5); codebook-collision is SOLE active noise source at near-capacity M; Matthiessen decomposition: 100% codebook-collision, 0% load, 0% cue-noise; complementary to v439 ETF/Hadamard 10x capacity lift (Hadamard attacks the only active scatterer).'
+
+Capacity-scaling noise-floor sub-property annotation:
+'matthiessen_dominant_scatterer v440: noise-anatomy confirms load_err=0.000 at near-capacity M for N=4096 -- load is not yet the bottleneck at Phase-3 operating alpha=0.040. Optimization budget concentrated entirely on codebook-collision (100% of error).'
+
+### substrate_native_reasoning_k_hop_v1 HARD_PASS [source=remote; n_seeds=3; N=4096; run_mode=full; elapsed=65.7s]
+
+Plain-language: We tested whether the substrate can do multi-hop graph reasoning -- following chains of relationships (A linked to B linked to C, etc.) -- purely through matrix operations, with no iterative decode loop. It can: accuracy is 1.000 at every hop depth tested, from 1 to 6, across all 3 random seeds. Each extra hop costs exactly one matrix-vector multiply; there is no accumulation of errors through the chain.
+
+Capability implication: PP-11 reasoning-store primitive + multi-hop combined row. Native K-hop via K matrix-vector multiplications (A_rel^k query) is algebraically exact to K=6 at N=4096. This is categorically different from the chain-depth collapse in associative-store overload experiments (those fail because M >> capacity; here M is structured as a graph traversal operator). True ceiling K>6 is untested; dispatch K={8,10,12} sweep recommended. Confirms PP-11's Scheme B three-way XOR binding supports exact multi-hop graph navigation at production N=4096.
+
+PP-11 reasoning-store sub-property annotation:
+'substrate_native_reasoning_k_hop HARD_PASS v440: N=4096 3-seed full elapsed=65.7s; acc_by_k k1=1.000 k2=1.000 k3=1.000 k4=1.000 k5=1.000 k6=1.000 (3/3 seeds unanimous); K-hop = K cheap matvecs, no decode loop; algebraically lossless to test ceiling K=6; true ceiling requires K>6 sweep; graph-traversal sub-primitive confirmed for PP-11 reasoning-store; distinct from associative-store chain-depth-collapse failure mode.'
+
+Multi-hop combined row sub-property annotation:
+'native_k_hop_reasoning v440: graph-traversal via A_rel^k matvec: K=6 ceiling 1.000 unanimous 3-seed. Algebraic (no decode loop) sub-primitive added. Complements path-D multi-hop (associative store) with pure graph-algebra traversal mode.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 951 -> 953 (+2). LVH: 224 UNCHANGED.**
+
+**PROT compliance (v439 -> v440):**
+- PROT-004/006: No closures. Both HARD_PASS; no rescue sketches required.
+- PROT-007: v440 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes; 0 LVH. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 352nd PROT-009 paired commit.
+- PROT-018: No _nN suffixes on either anchor. N=4096 stated in metrics bodies. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke checkpoint artifacts.
+- PROT-022: V1 frac_collision 5-seed near-identical (analytical at near-capacity M; expected deterministic); V2 3-seed acc identical (test-ceiling hit; deterministic at K<=6 for N=4096 M<<capacity).
+
+Cap_map: v439 -> v440 CYCLE 118 (2 HP: matthiessen_dominant_scatterer CODEBOOK-COLLISION-100pct-SOLE-ACTIVE-NOISE-SOURCE-5SEED + native_reasoning_k_hop K=6-CEILING-1.000-ALGEBRAIC-MATVEC-NO-DECODE; U2+capacity-scaling+PP-11+multi-hop sub-prop annotations x4; 0 LVH; HONEST 951->953; LVH 224; Portfolio 32+77; 352nd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

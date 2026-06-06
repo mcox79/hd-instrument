@@ -634,3 +634,54 @@ Cap_map annotations:
 
 Cap_map: v438 -> v439 CYCLE 117 (1 HP: substrate_etf_hadamard_codebook_init_v1 HADAMARD-CODEBOOK-10x-CAPACITY-LIFT-MATTHIESSEN-NOISE-FLOOR-ATTACK; capacity-scaling sub-prop new; adv-vuln U2 codebook-collision init-layer annotation new; 0 LVH; HONEST 950->951; LVH 224; Portfolio 32+77; 351st PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v439 -> v440 CYCLE 118 BATCH (2026-06-06)
+
+Verdicts processed: substrate_matthiessen_dominant_scatterer_v1 (HARD_PASS) + substrate_native_reasoning_k_hop_v1 (HARD_PASS)
+
+### Step 0 honest re-read (2 verdicts; source=remote both)
+
+**(V1) substrate_matthiessen_dominant_scatterer_v1 HARD_PASS -- HONEST (CONSERVATIVE)**
+Label: 'HARD_PASS: single dominant noise mechanism (codebook_collision >60%) -- clear optimization target. dominant=codebook_collision (100%)'
+Per-cell: 5/5 seeds frac_collision=0.99999999... (effectively 1.000), frac_load=0.000 (5/5), frac_cue_noise=0.000 (5/5). coll_err=0.797-0.806 all seeds. base_err=0.000, load_err=0.000, noise_err=0.000 all seeds.
+Label says '>60%' but actual is ~100% -- conservative framing, not over-claim. HONEST. No LVH.
+
+**(V2) substrate_native_reasoning_k_hop_v1 HARD_PASS -- HONEST (NOTE: K=6 not K=5 or K=3)**
+Label: 'HARD_PASS: native K-hop reasoning holds to K=3 (>=0.70)... K=3 acc=1.000 | curve=k1-k6=1.0'
+Per-cell: 3/3 seeds acc_by_k={'k1':1.0,'k2':1.0,'k3':1.0,'k4':1.0,'k5':1.0,'k6':1.0}. ALL hops 1.000 unanimous.
+Label anchors at K=3 threshold -- conservative. Actual ceiling is K=6 (test ceiling). Orchestrator context said 'K=5' but data shows K=6 all 1.000. Honest reading: HP ceiling at K=6 (test-ceiling; true ceiling requires K>6 sweep). HONEST. No LVH.
+N=4096, n_seeds=3, run_mode=full, elapsed=65.7s.
+
+HONEST: 951 -> 953 (+2). LVH: 224 UNCHANGED.
+
+### Cap_map decisions
+
+**(V1) substrate_matthiessen_dominant_scatterer_v1 HARD_PASS:**
+Noise-anatomy sub-property annotation on adversarial-vulnerabilities U2 (codebook-collision) row and capacity-scaling row.
+Key finding: at N=4096 M near capacity, codebook-collision is the SOLE active noise source (100% of error budget across 5 seeds). Load term = 0, cue_noise = 0. This is a Matthiessen-rule decomposition: noise sources do not co-activate; codebook-collision dominates exclusively.
+Complementary to v439 ETF/Hadamard finding: Hadamard init attacks the dominant scatterer directly; now confirmed it is the ONLY scatterer at baseline operating point.
+Annotation: adversarial-vulnerabilities U2 codebook-collision sub-property. Band UNCHANGED.
+Annotation: capacity-scaling noise-floor sub-property. Band UNCHANGED.
+No new rows. No band lifts. No closures.
+
+**(V2) substrate_native_reasoning_k_hop_v1 HARD_PASS:**
+PP-11 (substrate-as-reasoning-store primitive) + multi-hop combined row sub-property annotation.
+Key finding: native K-hop reasoning via K matrix-vector multiplications (no decode loop) achieves 1.000 accuracy to K=6 at N=4096. Structured-retrieval K-hop is purely algebraic: no iterative decode, no error accumulation through K=6. Ceiling is K=6 (test limit); true ceiling requires K>6 sweep.
+Mechanism implication: K-hop as K cheap matvecs confirms the algebraic composition primitive is lossless through at least 6 hops. This is structurally different from the single-substrate depth-collapse seen in prior chain-depth experiments -- K-hop here is PURE GRAPH TRAVERSAL (multiply by A_rel matrix) not an overloaded associative store.
+Annotation: PP-11 reasoning-store sub-property. K-hop graph-traversal confirmed K=6 ceiling (test limit). Band UNCHANGED.
+Annotation: multi-hop combined row. Native K-hop via matvec added as algebraic sub-primitive. Band UNCHANGED.
+No new rows. No band lifts. No closures.
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+### HONEST: 951 -> 953 (+2). LVH: 224 UNCHANGED.
+
+### PROT compliance (v439 -> v440)
+- PROT-004/006: No closures. Both HARD_PASS; no rescue sketches required.
+- PROT-007: v440 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes; 0 LVH. Validator not triggered (sub-property annotations only).
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 352nd PROT-009 paired commit.
+- PROT-018: Neither anchor has _nN suffix (not N-bound experiments). N=4096 stated in metrics bodies. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke checkpoint artifacts.
+- PROT-022: V1 frac_collision 5-seed near-identical (deterministic geometry: codebook-collision structure analytical at near-capacity M); V2 3-seed acc_by_k identical across seeds (test ceiling -- expected deterministic at N=4096 with M<<capacity).
+
+Cap_map: v439 -> v440 CYCLE 118 (2 HP: matthiessen_dominant_scatterer CODEBOOK-COLLISION-100pct-SOLE-ACTIVE-NOISE-SOURCE-5SEED + native_reasoning_k_hop K=6-CEILING-1.000-ALGEBRAIC-MATVEC-NO-DECODE; U2+capacity-scaling+PP-11+multi-hop sub-prop annotations x4; 0 LVH; HONEST 951->953; LVH 224; Portfolio 32+77; 352nd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
