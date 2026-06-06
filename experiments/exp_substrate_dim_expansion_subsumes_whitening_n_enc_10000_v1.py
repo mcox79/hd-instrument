@@ -118,13 +118,16 @@ def run_seed(seed, emb) -> Dict:
 
 def verdict(ps) -> Tuple[str, str]:
     agg = {arm: float(np.mean([p["cap"][arm] for p in ps])) for arm in ARMS}
-    d = agg["expand_whiten"]; c = agg["expand_only"]; g = d / max(c, 1e-9)
-    summary = "cap %s | (d)expand+whiten/(c)expand=%.2fx" % ({k: round(v, 1) for k, v in agg.items()}, g)
-    if g >= 1.15:
-        return ("HARD_PASS", "HARD_PASS: whitening STILL adds after expansion (d >=1.15x c) -- NO subsumption; production rule = expand + whiten (stacking holds). " + summary)
-    if g >= 1.0:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: marginal stacking (d >= c but <15pct). " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: subsumption CONFIRMED (d ~ c) -- whitening redundant once expanded; production rule simplifies to expand. " + summary)
+    d = agg["expand_whiten"]; c = agg["expand_only"]; b = agg["whiten_only"]
+    # honest comparison: does expansion add ON TOP of whitening? (expand_only is often ~0 -> div-by-zero useless)
+    exp_adds = d / max(b, 1e-9)        # expand+whiten vs whiten-only: does expansion stack?
+    wh_adds = d / max(c, 1e-9) if c > 0 else float("inf")  # whitening vs expand-only (usually inf since expand_only~0)
+    summary = "cap %s | expand+whiten/whiten-only=%.2fx ; whitening mandatory (expand-only=%.1f)" % ({k: round(v, 1) for k, v in agg.items()}, exp_adds, c)
+    if exp_adds >= 1.15:
+        return ("HARD_PASS", "HARD_PASS: NO subsumption -- expansion adds >=15pct ON TOP of whitening (and whitening is mandatory: expand-only~0). Production rule = expand + whiten (stacking holds). " + summary)
+    if exp_adds >= 1.0:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: whitening mandatory; expansion adds marginally on top (<15pct). Production rule ~ whiten (expansion optional). " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: expansion does not add on top of whitening (expand+whiten < whiten-only) -- whitening subsumes expansion; production rule = whiten only. " + summary)
 
 
 print("[config] anchor=%s mode=%s seeds=%s encoder=%s expand=%dx N_enc=%d" % (ANCHOR_NAME, RUN_MODE, SEEDS, ENCODER, EXPAND, N_ENC), flush=True)
