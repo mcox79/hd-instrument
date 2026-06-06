@@ -376,7 +376,7 @@ Per user directive 2026-06-06:
 - **Metric:** auto-associative Hopfield + flip-corrupted cue (FLIP=0.05) + unique patterns + 0.95 accuracy
 
 ### Slot DIMSPARSE (NEW; HIGHEST PRIORITY -- THE critical compound test from cycle 123): `substrate_dim_expansion_plus_sparse_pattern_compound_v1`
-- **Status:** PARKED by exp_dev 2026-06-06 -- compound construction ambiguous (sparse-VALUES give 0 gain; capacity is key-collision-limited; sparse-on-real-encoder undefined) + b/d censored; needs exact construction from Research (see note)
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (un-parked; Option iii + whitening; smoke HARD_FAIL gain_c=1.0 sparse-values no help, key-collision-limited; full queued GPU)
 - **Wall:** ~45 min CPU
 - **Source:** Cycle 123 cycle confirms 3 INDEPENDENT axes (Hadamard, dim-expansion, sparsity). Critical OPEN: do dim-expansion + sparsity stack?
 - **Architecture:** 4 arms at N=4096 / N=16384: (a) baseline, (b) dim-expansion alone, (c) sparse pattern alone (alpha=0.20), (d) dim-expansion + sparse pattern combined
