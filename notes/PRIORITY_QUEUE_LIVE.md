@@ -173,7 +173,7 @@ Per user directive 2026-06-06:
 - **Strategic value:** floor case; cheap to validate as fallback
 
 ### Slot PSE1 (NEW; from drill C; sqrt-K allocation production architecture): `substrate_extraction_sqrt_K_allocation_v1`
-- **Status:** PARKED by exp_dev 2026-06-06 -- coverage metric makes uniform trivially win; Neyman/sqrt-K benefit needs a within-cluster-variance/reconstruction QUALITY metric (see note)
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (un-parked; rebuilt with VQ-codebook-fidelity metric per Research spec; smoke MIDDLE sqrt_K 1.05x uniform); queued CPU
 - **Wall:** ~30 min CPU
 - **Source:** 2x drill C (per-cluster stratified operational depth) at 11:50
 - **Architecture:** sqrt-K allocation K_c = M * sqrt(n_c) / sum(sqrt(n_c)) vs uniform-K baseline at production-scale settings (V_c=1M; M=10M)

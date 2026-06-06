@@ -29,13 +29,12 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "substrate_extraction_sqrt_K_allocation_v1"
 NPZ = REPO / "data" / "exp_phase05_v1_llama32_1b_per_token_residual_extract_v1" / "residuals_per_token.npz"
-SPEEDUPS = [10, 100, 1000]
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    SEEDS = [1]; N_TOK = 5000; VC_GRID = [64, 256]
+    SEEDS = [1]; N_TOK = 6000; VC_GRID = [64]; SPEEDUPS = [10]
 else:
-    SEEDS = [7, 17, 23]; N_TOK = 40000; VC_GRID = [256, 1024, 4096]
+    SEEDS = [7, 17, 23]; N_TOK = 40000; VC_GRID = [512]; SPEEDUPS = [20]
 
 
 def coverage(codes, keep_mask, vc):
@@ -63,51 +62,59 @@ except Exception as e:
     print("[FATAL] sklearn missing: %s" % e, flush=True); sys.exit(1)
 
 
+def _kmeans(X, k, seed):
+    km = MiniBatchKMeans(n_clusters=k, random_state=seed, n_init=3, batch_size=512).fit(X)
+    C = km.cluster_centers_; return km.labels_, (C / (np.linalg.norm(C, axis=1, keepdims=True) + 1e-8)).astype(np.float32)
+
+
+def fidelity(tr, norms_tr, codes, nc, Cf, ho, full_ho, k, budget, Kc, seed):
+    keep = np.zeros(tr.shape[0], bool)
+    for c in range(k):
+        kc = int(round(Kc[c])); ci = np.where(codes == c)[0]
+        if len(ci) and kc > 0:
+            keep[ci[np.argsort(-norms_tr[ci])[:kc]]] = True
+    if keep.sum() < k:
+        return {"centroid_cos": 0.0, "heldout_agree": 0.0, "fidelity": 0.0, "kept": int(keep.sum())}
+    _, Cs = _kmeans(tr[keep], k, seed)                                 # sub-codebook on kept tokens
+    a = float(np.mean(np.max(Cf @ Cs.T, axis=1)))                      # (a) each full centroid's best sub match
+    sub2full = np.argmax(Cs @ Cf.T, axis=1)                            # map sub clusters -> nearest full
+    sub_ho = np.argmax(ho @ Cs.T, axis=1)
+    b = float(np.mean(sub2full[sub_ho] == full_ho))                    # (b) held-out assignment agreement
+    return {"centroid_cos": a, "heldout_agree": b, "fidelity": 0.5 * (a + b), "kept": int(keep.sum())}
+
+
 def run_seed(seed) -> Dict:
     g = np.random.default_rng(seed)
     d = np.load(NPZ); R = d["residuals"]
     idx = g.choice(R.shape[0], size=min(N_TOK, R.shape[0]), replace=False)
-    X = R[idx].astype(np.float32); norms = np.linalg.norm(X, axis=1)
-    Xn = X / (norms[:, None] + 1e-8)
-    vc = max(VC_GRID); k = min(vc, X.shape[0] // 4)
-    codes = MiniBatchKMeans(n_clusters=k, random_state=seed, n_init=3, batch_size=512).fit(Xn).labels_
-    nc = np.array([np.sum(codes == c) for c in range(k)], dtype=np.float64)
-    res = {"seed": seed, "n_tok": len(idx), "by_policy": {}}
-    for sp in SPEEDUPS:
-        budget = max(k, len(idx) // sp)
-        allocs = {"uniform": np.full(k, budget / k),
-                  "prop": budget * nc / max(nc.sum(), 1),
-                  "sqrt_K": budget * np.sqrt(nc) / max(np.sqrt(nc).sum(), 1)}
-        pol = {}
-        for name, Kc in allocs.items():
-            keep = np.zeros(len(idx), bool)
-            for c in range(k):
-                kc = int(round(Kc[c])); ci = np.where(codes == c)[0]
-                if len(ci) and kc > 0:
-                    top = ci[np.argsort(-norms[ci])[:kc]]; keep[top] = True
-            pol[name] = coverage(codes, keep, vc)
-        res["by_policy"]["sp%d" % sp] = pol
-    res["min_coverage"] = 0.0
-    return res
+    X = R[idx].astype(np.float32); norms = np.linalg.norm(X, axis=1); Xn = X / (norms[:, None] + 1e-8)
+    nho = max(1, len(idx) // 10); ho = Xn[:nho]; tr = Xn[nho:]; norms_tr = norms[nho:]
+    vc = max(VC_GRID); k = min(vc, tr.shape[0] // 4)
+    codes, Cf = _kmeans(tr, k, seed); nc = np.array([np.sum(codes == c) for c in range(k)], dtype=np.float64)
+    full_ho = np.argmax(ho @ Cf.T, axis=1)
+    sp = max(2, min(max(SPEEDUPS), tr.shape[0] // (3 * k))); budget = tr.shape[0] // sp
+    allocs = {"uniform": np.full(k, budget / k), "prop": budget * nc / max(nc.sum(), 1),
+              "sqrt_K": budget * np.sqrt(nc) / max(np.sqrt(nc).sum(), 1)}
+    fid = {name: fidelity(tr, norms_tr, codes, nc, Cf, ho, full_ho, k, budget, Kc, seed) for name, Kc in allocs.items()}
+    return {"seed": seed, "speedup": sp, "fidelity_by_policy": fid}
 
 
 def verdict(ps) -> Tuple[str, str]:
-    sps = list(ps[0]["by_policy"].keys())
-    agg = {sp: {pol: float(np.mean([p["by_policy"][sp][pol] for p in ps])) for pol in ps[0]["by_policy"][sp]} for sp in sps}
-    hi = sps[-1]; wins = sum(1 for sp in sps if agg[sp]["sqrt_K"] >= agg[sp]["uniform"] - 0.02 and agg[sp]["sqrt_K"] >= agg[sp]["prop"] - 0.02)
-    summary = "coverage by speedup/policy: %s" % {sp: {pol: round(v, 3) for pol, v in d.items()} for sp, d in agg.items()}
-    if wins == len(sps) and agg[hi]["sqrt_K"] >= 0.90:
-        return ("HARD_PASS", "HARD_PASS: sqrt-K allocation matches/beats uniform AND prop at all speedups, >=0.90 coverage at max speedup -- Neyman-proxy is the production extraction allocation. " + summary)
-    if agg[hi]["sqrt_K"] >= max(agg[hi]["uniform"], agg[hi]["prop"]) - 0.02:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: sqrt-K competitive but not strictly dominant. " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: sqrt-K allocation does not beat uniform/prop baselines. " + summary)
+    pol = {name: float(np.mean([p["fidelity_by_policy"][name]["fidelity"] for p in ps])) for name in ps[0]["fidelity_by_policy"]}
+    ratio = pol["sqrt_K"] / max(pol["uniform"], 1e-9)
+    summary = "VQ-fidelity (centroid_cos+heldout_agree)/2 at %dx: %s | sqrt_K/uniform=%.3f" % (ps[0]["speedup"], {k: round(v, 4) for k, v in pol.items()}, ratio)
+    if ratio >= 1.10:
+        return ("HARD_PASS", "HARD_PASS: sqrt-K allocation gives >=1.10x VQ-codebook fidelity vs uniform-K -- Neyman-proxy is the production extraction allocation. " + summary)
+    if ratio >= 1.00:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: sqrt-K marginally beats uniform (1.00-1.10x fidelity). " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: sqrt-K does not beat uniform-K on fidelity -- uniform-K + collapse monitoring suffices (drill C refuted). " + summary)
 
 
 print("[config] anchor=%s mode=%s seeds=%s N_tok=%d vc=%s" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_TOK, VC_GRID), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); ps = []
 for seed in SEEDS:
     r = run_seed(seed); ps.append(r)
-    print("  [seed=%d] %s" % (seed, {sp: {pol: round(v, 3) for pol, v in d.items()} for sp, d in r["by_policy"].items()}), flush=True)
+    print("  [seed=%d] %s" % (seed, {pol: round(d["fidelity"], 4) for pol, d in r["fidelity_by_policy"].items()}), flush=True)
 v, vmsg = verdict(ps); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "per_seed": ps, "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, ps); print("[metrics] written", flush=True)
