@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 import numpy as np
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 import torch
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
@@ -71,6 +72,10 @@ if _ARGS.self_test:
 if not torch.cuda.is_available():
     print("[FATAL] CUDA not available.", flush=True); sys.exit(1)
 print("[GPU] %s" % torch.cuda.get_device_name(0), flush=True)
+_vram_gb = torch.cuda.get_device_properties(0).total_memory / 1024**3   # vram-cap
+if _vram_gb < 12.0:
+    N_GRID = [n for n in N_GRID if n <= 16384]
+    print("[vram] %.1fGB card -> N_GRID capped to %s (avoid N>=32768 OOM)" % (_vram_gb, N_GRID), flush=True)
 
 
 def verdict(rows) -> Tuple[str, str]:
@@ -92,6 +97,7 @@ def verdict(rows) -> Tuple[str, str]:
 print("[config] anchor=%s mode=%s seeds=%s N=%s H=%s flips=%s" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_GRID, HEADS, FLIPS), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); rows = []
 for n in N_GRID:
+    torch.cuda.empty_cache()  # empty_cache() between N points (release fragments)
     for H in HEADS:
         for flip in FLIPS:
             for seed in SEEDS:
