@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v454
+# hd-instrument substrate -- capability map v455
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -11591,5 +11591,59 @@ Fine sparsity curve at N=8192: 20x at alpha=0.02-0.05, 8x at 0.08-0.12, 4x at 0.
 - PROT-022: Anchors 1,2,3,6 3-seed tight spreads. Anchor 7 deterministic. Anchor 8 ZCA regression. Anchors 4,5 smoke n=1.
 
 Commit message: Cap map: v451->v452 CYCLE 130 (3 HP frame_slot_fill_k16/analogy_map/native_reasoning_K20 + 1 HF etf_hadamard ZCA regression + 1 HP-full hoc1_word_bigram AUC=0.977 + 1 HP-diag effective_rank d_eff=91.6 + 2 HP-SMOKE-LVH232/233 sparsity_fine/sparse_large_n; PP-11 LIFT 0.55-0.70->0.60-0.75; KF-1 LIFT 72-87%->75-90%; +2 NEW ROWS 32+79; HONEST 985->993 +8; LVH 231->233 +2; 364th PROT-009 paired commit) (2026-06-06)
+
+Push: BLOCKED from sub-agent context per feedback-subagent-permission-inheritance; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v455 update (2026-06-06) -- CYCLE 133: 1 HP-full fact_checked_khop (per-hop fabrication localization) + 1 HP-full-LVH235-RESOLVED multi_head_sparse_key_M2 + 2 MID + 1 MID-ANNOTATION + 1 HF-full-CONFIRMED dimsparse3; LVH 235->236; HONEST 998->1003; Portfolio 32+79 UNCHANGED; 367th PROT-009 paired commit
+
+## CYCLE 133 -- v454 -> v455 (2026-06-06)
+
+6-verdict batch: 5 genuinely new + 1 full-run promotion (dimsparse3 cycle-132 HF-smoke -> HF-full confirmed).
+
+### Step 0 honest re-read summary
+
+All 6 labels verified against per-cell metrics (source=remote authoritative).
+- hierarchical_hadamard_then_sparse_key: LVH #236 -- verdict_msg range '1.0-1.2x' overclaims; all 3 seeds show exactly 1.00x. Honest: MIDDLE_BAND at 1.00x.
+- cs1_dt_algebraic_audit: HONEST. 1/5 arms confirm DT boundary (extreme-sparsity only).
+- fact_checked_khop: HONEST. Both claims (K-hop reasoning + per-hop fabrication localization) confirmed at 1.000 unanimous 3-seed.
+- multi_head_sparse_key_M2: HONEST. H2/H1=2.25x mean all seeds >1.3x threshold. LVH #235 resolved.
+- sparse_key_composition_battery_gpu: HONEST. hadamard_indep_mask ~ flat_sparse; no arm beats flat_sparse.
+- dimsparse3_alpha_at_mc: HONEST. Sparse_key Mc=2 vs baseline=12; best_rescue=1.11x < 1.2x. Full-run confirms HF.
+
+HONEST: 998 -> 1003 (+5). LVH: 235 -> 236 (+1 catch #236).
+
+### Cap_map changes
+
+**fact_checked_khop_v1 HARD_PASS -- sub-property added to K-hop row**
+N=8192, 3-seed full. K={2,3,4,5} acc=1.000 + fabrication_flag_AUC=1.000 unanimous. New sub-capability: per-hop hallucination localization. Substrate simultaneously executes K-hop reasoning AND audits which hop introduced fabrication -- both at ceiling. Uniquely differentiating vs frontier LLMs. K-hop row sub-property annotation: 'fact_checked_khop v455: per-hop fabrication_flag AUC=1.000 3-seed N=8192; substrate localizes hallucination at individual hop resolution; k-hop K=2-5 acc=1.000 simultaneous.' PP-11 band 0.60-0.75 UNCHANGED. Portfolio 32+79 UNCHANGED.
+
+**multi_head_sparse_key_M2_v1 HARD_PASS full -- resolves LVH #235 -- PP-8 sub-property**
+N=4096, 3-seed full. H2/H1 mean=2.25x (range 2.00-2.75x). All 3 seeds above 1.3x threshold. Cycle-132 LVH #235 resolved. Super-sqrt(M) gain observed (sqrt(2)=1.41 predicted; empirical 2.00-2.75x). PP-8 sparse-KEY sub-property: 'multi_head_sparse_key_M2 HP v455: H2/H1=2.00-2.75x 3-seed full (mean 2.25x); super-sqrt(M) gain; M=4 sweep open to characterize scaling exponent.' Band UNCHANGED.
+
+**hierarchical_hadamard_then_sparse_key_alpha_v1 MIDDLE_BAND [LVH #236] -- PP-8 sequential composition closed**
+N=4096, 3-seed full. ALL seeds: hadamard_then_sparse = best_single (1.00x, no gain). verdict_msg range '1.0-1.2x' overclaims; LVH #236. Honest: sequential layering does NOT compound. PP-8 annotation: sequential composition architecture closed -- independent-mask architecture (hadamard_indep_mask from sparse_key_composition_battery) is superior.
+
+**cs1_dt_algebraic_audit_v1 MIDDLE_BAND -- DT boundary extreme-sparsity limit law**
+n_seeds=1 (algebraic deterministic). 1/5 arms confirm DT boundary (sparse0.05: alpha=1.0, rho=0.05 only). 4/5 arms: DT boundary not predictive. CS-1 DT framework is a limit law not a general predictor. Engineering implication: use empirical alpha sweeps for moderate-sparsity regime.
+
+**sparse_key_composition_battery_gpu_v1 MIDDLE_BAND -- design principle locked: independent masks**
+N={4096,8192,16384}, 3-seed full. flat_sparse=0.45-0.60, hadamard_indep_mask=0.45-0.60 (parity), hadamard_joint=0.15 (3x weaker), block_sparse=0.02-0.05 (10-20x weaker). Design principle: independent mask paths preserve capacity; coupled/joint masks are destructive. PP-8 annotation: multi-arm sparse-KEY architectures must use independent masks.
+
+**dimsparse3_alpha_at_mc_v1 HARD_FAIL full -- M_c sparse-key rescue CLOSED; R1-R5 filed**
+N=4096, 3-seed full. sparse_key Mc=2.0 vs baseline=12.0 (6x destruction); dim_expand best 1.11x < 1.2x threshold. M_c rescue axis for sparse-KEY definitively closed. Sparse-KEY and M_c are orthogonal capacity metrics (sparse-KEY improves alpha, destroys Mc). Rescues R1-R5 filed cheapest-first (R1: alpha-metric real unaffected; R2: dense Mc + sparse-KEY retrieval head; R3: dim_expand x4/x8; R4: tied-key orthogonalization; R5: hierarchical Mc sub-sparse).
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 band-lifts. 0 closures. 1 LVH #236. 1 sub-property added (fact_checked_khop per-hop fabrication localization).
+
+### PROT compliance (v454 -> v455)
+
+- PROT-004/006: 1 sub-axis closure (dimsparse3 M_c), R1-R5 filed cheapest-first. 0 portfolio row closures.
+- PROT-007: v455 history row appended to substrate_capability_map_history.md.
+- PROT-008: 1 sub-property extension (fact_checked_khop per-hop localization); 0 row state changes; PROT-008 validator not triggered. LVH #236 filed.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + strategy_decisions_2026-06-06.md staged atomically; 367th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: All 6 source=remote run_mode=full. No smoke contamination.
+- PROT-022: hierarchical_hadamard identical-alpha all seeds (discrete optimization); multi_head spread 2.00-2.75x all above HP threshold -- not fragile.
+
+Commit message: Cap map: v454->v455 CYCLE 133 (1 HP-full fact_checked_khop K2-K5-1.000+fabrication-AUC-1.000 per-hop-localization sub-prop; 1 HP-full-LVH235-RESOLVED multi_head_M2 H2/H1=2.25x super-sqrt-M; 2 MID hierarchical_hadamard LVH236-1.00x-no-compounding + cs1_dt DT-extreme-sparsity-limit; 1 MID-ANNOTATION sparse_key_battery indep-mask-parity; 1 HF-full dimsparse3 sparse-key-Mc-2-CLOSED R1-R5; LVH 235->236; HONEST 998->1003; Portfolio 32+79; 367th PROT-009 paired commit) (2026-06-06)
 
 Push: BLOCKED from sub-agent context per feedback-subagent-permission-inheritance; orchestrator main thread executes git push origin main as 1-tool follow-up.

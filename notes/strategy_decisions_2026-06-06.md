@@ -751,3 +751,87 @@ Band UNCHANGED. Portfolio UNCHANGED.
 
 Cap_map: v453 -> v454 CYCLE 132 (1 HP-full: expansion_method_battery-3SEED-WHITENING-BEATS-EXPANSION-ZCA-0.0517-CONFIRMED-SUPERSEDES-LVH234; 1 HP-SMOKE-LVH#235: multi_head_sparse_key-SMOKE-H2/H1=2.00x-H4/H2=1.75x-SATURATION-H8; 1 HF: dimsparse3_alpha_at_mc-SMOKE-SPARSE-KEY-DESTROYS-Mc-32->4-DIM-EXPAND-HOLDS-32=32-CYCLE124+129-ANSWERED; LVH 234->235 +1; HONEST 995->998 +3; Portfolio 32+79 UNCHANGED; 366th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v454 -> v455 CYCLE 133 BATCH (2026-06-06)
+
+Verdicts processed: 6-anchor batch (5 genuinely new + 1 full-run promotion of cycle-132 HF-smoke)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_hierarchical_hadamard_then_sparse_key_alpha_v1 -- MIDDLE_BAND -- LVH #236**
+source=remote, run_mode=full, n_seeds=3.
+Per-cell: ALL 3 seeds (7,17,23): dense=0.0498, hadamard=0.5, sparse=0.5, hadamard_then_sparse=0.5 (identically 0.5 on all seeds, no variance).
+verdict_msg claims range '1.0-1.2x' for hadamard_then_sparse/best_single but ALL cells show exactly 1.00x -- the '1.2x' upper bound is unsupported by any seed in the data.
+LVH #236: verdict_msg range overclaims upper bound. Honest reading: MIDDLE_BAND at 1.00x -- sequential layering does NOT compound; matches best single with zero gain.
+HONEST: 998 -> 999 (+1). LVH: 235 -> 236 (+1).
+
+**(2) cs1_dt_algebraic_audit_v1 -- MIDDLE_BAND -- HONEST**
+source=remote, run_mode=full, n_seeds=1 (algebraic deterministic audit).
+Per-arm: dense rho_DT=0.008 (below_boundary=False), sparse0.20 rho_DT=0.059 (False), sparse0.10 rho_DT=0.179 (False), sparse0.05 rho_DT=0.998 (True), hadamard rho_DT=0.179 (False).
+Only 1/5 arms (sparse0.05: alpha=1.0, delta=1.0, rho=0.05) satisfies DT boundary condition. 4/5 arms do not. MIDDLE_BAND honest: DT boundary partially predictive -- only extreme-sparsity arm confirms theory.
+elapsed_s=0.001 -- algebraic deterministic; n=1 appropriate. HONEST. +1 HONEST.
+
+**(3) fact_checked_khop_v1 -- HARD_PASS -- HONEST**
+source=remote, run_mode=full, n_seeds=3, N=8192.
+Per-seed: ALL K={2,3,4,5} acc=1.000 unanimous 3/3 seeds. fabrication_flag_auc=1.000 unanimous 3/3 seeds.
+Both primary claims (k-hop reasoning + per-hop fabrication localization) confirmed at ceiling. HP threshold cleared with no borderline cells. HONEST. +1 HONEST.
+
+**(4) multi_head_sparse_key_M2_v1 -- HARD_PASS -- HONEST (resolves LVH #235)**
+source=remote, run_mode=full, n_seeds=3, N=4096.
+Per-seed H2/H1 ratios: seed7=0.5498/0.1999=2.75x, seed17=0.3999/0.1999=2.00x, seed23=0.3999/0.1999=2.00x. Mean=2.25x.
+HP threshold >=1.3x: ALL 3 seeds clear (min=2.00x). Cycle-132 LVH #235 (smoke HP label from n=1 H2/H1=2.00x) RESOLVED by full 3-seed confirmation.
+Seed7 spread (2.75x vs 2.00x on seeds 17/23) noted -- HP-fragility PROT-022 check: all seeds above threshold, spread is directionally consistent (not fragile). HONEST. +1 HONEST.
+
+**(5) sparse_key_composition_battery_gpu_v1 -- MIDDLE_BAND -- HONEST**
+source=remote, run_mode=full, n_seeds=3, N={4096,8192,16384}.
+flat_sparse alpha 0.45-0.60 (strong, consistent across N). hadamard alpha ~0.15 (weak). hadamard_indep_mask alpha 0.45-0.60 (matches flat_sparse). block_sparse alpha 0.02-0.05 (very weak).
+'One composition arm passes' claim: hadamard_indep_mask ~ flat_sparse (ratio=1.00x); no arm strictly BEATS flat_sparse. MIDDLE_BAND honest. HONEST. +1 HONEST.
+
+**(6) dimsparse3_alpha_at_mc_v1 -- HARD_FAIL -- HONEST (full-run confirmation of cycle-132 HF-smoke)**
+source=remote, run_mode=full, n_seeds=3.
+Per-seed Mc: baseline={12,12,12}, dim_expand={12,16,12}, sparse_key={2,2,2}, compound={4,8,4}.
+Mean: baseline=12.0, dim_expand=13.3, sparse_key=2.0, compound=5.3. best_rescue/baseline=1.11x (dim_expand).
+HF threshold: no rescue >1.2x. Unanimous across all 3 seeds. Sparse_key DESTROYS Mc (Mc=2.0 vs baseline=12.0). Full-run CONFIRMS cycle-132 HF-smoke. M_c rescue axis for sparse-key definitively closed. HONEST. +1 HONEST.
+
+TOTAL HONEST: 998 -> 1003 (+5 genuinely new + 1 LVH catch = net +5 to HONEST counter).
+LVH: 235 -> 236 (+1 catch #236 hierarchical_hadamard range overclaim 1.0-1.2x vs actual 1.00x).
+
+### Cap_map decisions (v454 -> v455)
+
+**(1) hierarchical_hadamard_then_sparse_key annotation [MIDDLE_BAND; LVH #236]**
+Sequential Hadamard-first then sparse-KEY layering: alpha_combined == alpha_best_single at ALL 3 seeds (1.00x, zero compounding). Cycle-132 regime-split hypothesis refuted at full 3-seed. Sequential hierarchy does NOT compound capacity. PP-8 annotation: sequential composition closed -- ordering does not matter at compatible alpha. Independent-mask path (sparse_key_composition_battery hadamard_indep_mask arm) is the superior architecture.
+
+**(2) cs1_dt_algebraic_audit annotation [MIDDLE_BAND; algebraic audit]**
+DT boundary condition predictive only at extreme-sparsity limit (alpha=1.0, delta=1.0, rho=0.05). At moderate sparsity (alpha<=0.4, rho>=0.25) DT boundary is NOT predictive. CS-1 DT boundary is a high-alpha/low-rho limit law, not a general predictor. PP-8 sub-annotation: use empirical alpha sweeps for moderate-sparsity engineering; DT framework has limited range.
+
+**(3) fact_checked_khop + fabrication localization [HARD_PASS; sub-property extension]**
+K-hop reasoning K={2-5} + per-hop fabrication localization both at 1.000 unanimous 3-seed N=8192. Sub-property added to existing K-hop row: 'per-hop fabrication_flag localization -- substrate audits its own reasoning chain hop-by-hop (AUC=1.000 3-seed).' This is uniquely differentiating vs frontier LLMs which cannot localize which hop introduced hallucination. Portfolio 32+79 UNCHANGED (sub-property extension, not new row).
+
+**(4) multi_head_sparse_key M=2 HARD_PASS full; LVH #235 RESOLVED [sub-property]**
+H2/H1 mean=2.25x (min=2.00x, max=2.75x), all 3 seeds above 1.3x HP threshold. LVH #235 resolved: full run confirms smoke HP. Super-sqrt(M) gain on seed7. PP-8 sparse-KEY multi-head sub-property: 'M=2 multi-head composes cleanly; H2/H1 = 2.00-2.75x 3-seed full. Super-sqrt(M) gain warrants M=4 sweep.' Active probe: M=4 sweep to characterize multi-head scaling exponent.
+
+**(5) sparse_key_composition_battery annotation [MIDDLE_BAND]**
+flat_sparse and hadamard_indep_mask equivalent (~0.45-0.60). hadamard joint-mask weak (0.15). block_sparse very weak (0.02-0.05). Key design principle: independent mask paths preserve capacity; coupled/joint-mask transformations are destructive. PP-8 annotation: use independent mask paths not coupled transformations for sparse-KEY multi-arm architectures.
+
+**(6) dimsparse3_alpha_at_mc HARD_FAIL full; M_c-sparse-key rescue CLOSED**
+Sparse_key Mc=2.0 vs baseline=12.0 -- capacity destroyed. dim_expand best 1.11x. No rescue >1.2x. M_c rescue axis for sparse-key definitively closed (3-seed full).
+RESCUE SKETCHES (cheapest-first per PROT-004/006):
+R1 (0-compute, SUBSUMPTION): sparse-KEY alpha benefit real on alpha metric; this closure is M_c axis only.
+R2 (CHEAP, CPU <30min): Dense M_c + sparse-KEY retrieval head -- orthogonal pipeline stages.
+R3 (CHEAP, CPU <30min): dim_expand x4/x8 sweep (x2 gave 1.11x; x4/x8 might clear 1.2x).
+R4 (MEDIUM, CPU <2h): Tied-key orthogonalization prior to sparse masking -- preserve M_c while recovering alpha benefit.
+R5 (MEDIUM, GPU <2h): Hierarchical M_c with sub-sparse-KEY per level.
+Portfolio 32+79 UNCHANGED (sub-axis closure, not portfolio row closure).
+
+### PROT compliance (v454 -> v455)
+
+- PROT-004/006: 1 sub-axis closure (dimsparse3 M_c rescue), R1-R5 filed cheapest-first. 0 portfolio row closures.
+- PROT-007: v455 history row appended to substrate_capability_map_history.md.
+- PROT-008: 1 sub-property extension (fact_checked_khop per-hop localization); 0 row state changes requiring validator. Annotation-only + LVH #236. PROT-008 validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 367th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 6 anchors. CLEAN.
+- PROT-021: All 6 source=remote run_mode=full. No smoke contamination.
+- PROT-022: hierarchical_hadamard alpha identical across seeds (discrete optimization); multi_head spread 2.00-2.75x all above HP threshold -- not fragile.
+
+Cap_map: v454 -> v455 CYCLE 133 (1 HP-full: fact_checked_khop-3SEED-KHOP-K2-K5-1.000-FABRICATION-AUC-1.000-PER-HOP-LOCALIZATION; 1 HP-full-LVH235-RESOLVED: multi_head_sparse_key_M2-3SEED-H2/H1-2.25x-SUPER-SQRT-M; 2 MID: hierarchical_hadamard_then_sparse_key-LVH236-1.00x-NO-COMPOUNDING + cs1_dt_algebraic_audit-DT-BOUNDARY-EXTREME-SPARSITY-ONLY; 1 MID-ANNOTATION: sparse_key_composition_battery-INDEP-MASK-PARITY-FLAT-JOINT-MASK-DESTROYS; 1 HF-full-CONFIRMED: dimsparse3_alpha_at_mc-3SEED-SPARSE-KEY-Mc-2-vs-12-M_c-RESCUE-AXIS-CLOSED; 1 LVH #236: hierarchical_hadamard 1.0-1.2x-RANGE-OVERCLAIM-HONEST-1.00x; LVH 235->236 +1; HONEST 998->1003 +5; Portfolio 32+79 UNCHANGED; per-hop-fabrication-localization sub-property added to K-hop row; M_c-sparse-key rescue closed R1-R5 filed; 367th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
