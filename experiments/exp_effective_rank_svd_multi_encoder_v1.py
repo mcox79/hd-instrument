@@ -28,13 +28,13 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 ANCHOR_NAME = "effective_rank_svd_multi_encoder_v1"
 MEDQA = REPO / "data" / "datasets" / "medqa_usmle_500.jsonl"; PUBMED = REPO / "data" / "datasets" / "pubmed_abstracts_10k.jsonl"
 # encoders: (id, type) -- sentence-transformer (mean-pool) or causal-LM (mean-pool hidden). MiniLM=reference.
-ENCODERS = [("sentence-transformers/all-MiniLM-L6-v2", "st"), ("EleutherAI/pythia-160m", "lm"),
-            ("sentence-transformers/all-mpnet-base-v2", "st")]
+ENCODERS = [("sentence-transformers/all-MiniLM-L6-v2", "st"), ("sentence-transformers/all-mpnet-base-v2", "st"),
+            ("BAAI/bge-large-en-v1.5", "st")]
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 N_ENC = 1500 if RUN_MODE == "smoke" else 6000
 if RUN_MODE == "smoke":
-    ENCODERS = ENCODERS[:2]   # MiniLM + Pythia (cached); skip mpnet download in smoke
+    ENCODERS = ENCODERS[:2]   # MiniLM + mpnet (skip BGE-large download in smoke)
 
 
 def participation_ratio(s):
@@ -96,11 +96,12 @@ def verdict(res) -> Tuple[str, str]:
     best = max((v["d_eff"] for v in res.values()), default=0.0)
     ratio = best / max(ref, 1e-6)
     summary = "d_eff by encoder: %s | best/MiniLM=%.2fx" % ({k: round(v["d_eff"], 1) for k, v in res.items()}, ratio)
-    if ratio >= 2.0:
-        return ("HARD_PASS", "HARD_PASS: a higher-d_eff encoder exists (>=2x MiniLM) -- higher production substrate capacity available. " + summary)
-    if ratio >= 1.3:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: best encoder 1.3-2x MiniLM d_eff. " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: all encoders ~MiniLM d_eff (<1.3x) -- d_eff is architecture-bounded near 80. " + summary)
+    best_abs = max((v["d_eff"] for v in res.values()), default=0.0)
+    if best_abs >= 200:
+        return ("HARD_PASS", "HARD_PASS: a sentence-transformer reaches d_eff>=200 (~2.5x MiniLM) -- higher-capacity Phase-4a production encoder found. " + summary)
+    if best_abs >= 150:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: best encoder d_eff 150-200. " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: no encoder reaches d_eff>=150 -- d_eff architecture-bounded; encoder choice limited. " + summary)
 
 
 print("[config] anchor=%s mode=%s N_enc=%d encoders=%s" % (ANCHOR_NAME, RUN_MODE, N_ENC, [e[0].split('/')[-1] for e in ENCODERS]), flush=True)
