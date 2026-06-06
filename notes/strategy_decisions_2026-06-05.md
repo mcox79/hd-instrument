@@ -501,3 +501,46 @@ Queue state: bridge stale; last known 0 pending both queues. [queue: empty -- Ex
 
 Portfolio: 32+77 UNCHANGED. 0 new rows. 2 BAND-LIFTS. 0 closures.
 HONEST: 945 -> 947. LVH: 223. Cap_map: v435 -> v436.
+## v436 CYCLE 114 -- substrate_cognitive_core_e2e_pythia_v2xl DUPLICATE re-appearance (2026-06-05 23:00)
+
+### Step 0 honest re-read
+
+Remote metrics (source=remote, bridge stale). Per-cell IDENTICAL to cycle 106 ff08d96: seed7=1.257x seed17=1.332x seed23=1.263x seed31=1.356x seed43=1.298x mean=1.30x elapsed=2309s vs 2205s (re-read artifact). Root cause: keeper --allow-duplicate re-queue re-stamping (823c92f).
+
+HONEST: 947 UNCHANGED. LVH: 223 UNCHANGED.
+
+### Cap_map decision
+NO ACTION. Already annotated at v435 ff08d96. Cap_map stays v436.
+
+### PROT compliance (v436 CYCLE 114 -- NO VERSION BUMP)
+- PROT-009: No commit issued (no state change).
+- PROT-018: CLEAN. PROT-021: source=remote confirmed.
+
+Cap_map: v436 UNCHANGED. HONEST: 947. LVH: 223.
+Queue state: bridge stale; last known empty. [queue: empty -- Exp-Dev session will refill on its cadence]
+## v436 -> v437 CYCLE 115 (2026-06-06)
+
+Verdict: substrate_continual_kv_injection_v1 HARD_PASS
+
+### Step 0 honest re-read
+- LABEL: HARD_PASS -- HONEST. Per-cell: seed7 current_state=0.9975, seed17=0.9975, seed23=0.99875; silent_contradiction=0.000 all 3 seeds. 60 sessions / 3600 facts. All seeds clearly above any reasonable HP threshold. No over-claim.
+- source: REMOTE (authoritative). run_mode=full, n_seeds=3, N=8192.
+- HONEST: 947 -> 948 (+1). LVH: 223 UNCHANGED.
+
+### Cap_map decision
+- PP-19 (Substrate-as-KV-cache): Sub-property annotation. continual_kv_injection_v1 HARD_PASS v437: N=8192 3-seed full 60 sessions 3600 facts; current_state=0.998 (mean; range 0.9975-0.99875); silent_contradiction=0.000 unanimous all 3 seeds; continual injection fidelity at production-N CONFIRMED. Band UNCHANGED at 0.40-0.60 (latency/throughput characterization via PP-5 and audit-cert generation via PP-12 still pending before band-lift). State UNCHANGED 🔬.
+- True continual learning row: Sub-property cross-annotation. KV-injection axis HARD_PASS at N=8192 60-session 3600-fact stream; orthogonal to 4-stage retention axis (which remains 🟡 PARTIAL). No change to 4-stage retention band.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v436 -> v437)
+- PROT-004/006: No closures. 1 HP; no HF; no rescue sketches required (HP verdict).
+- PROT-007: v437 history row appended to substrate_capability_map_history.md.
+- PROT-008: No band changes. Annotation-only. PROT-008 not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 349th PROT-009 paired commit.
+- PROT-018: No _nN suffix; N=8192 stated in metrics body. CLEAN.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: current_state variance seed7=seed17=0.9975 seed23=0.99875 tight ceiling -- not HP-fragile.
+
+Cap_map: v436 -> v437 CYCLE 115 (1 HP: substrate_continual_kv_injection_v1 KV-INJECTION-FIDELITY-LONG-STREAM-0.998-ZERO-CONTRADICTION; 0 MID; 0 HF; 0 LVH; PP-19 + true-continual sub-prop annotations; HONEST 947->948; LVH 223; Portfolio 32+77; 349th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

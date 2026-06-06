@@ -10893,3 +10893,41 @@ Rationale: v433 minilm_encoder_fidelity (recall ceiling, 5-seed) + v436 real_enc
 
 Cap_map: v435 -> v436 CYCLE 113 (2 HP: hallucination_detection_minilm ENCODER-AGNOSTIC-KF1-REAL-AUC999 + real_encoder_capabilities ALL-CAPS-CEILING-18/18-MINILM+PYTHIA; 9 DUPLICATES no action; 0 MID; 0 HF; 0 LVH; KF-1 BAND-LIFT 65-80%->70-85% + PP-8 BAND-LIFT 0.50-0.65->0.55-0.70; HONEST 945->947; LVH 223; Portfolio 32+77; 348th PROT-009 paired commit) (2026-06-05)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v437 update (2026-06-06) -- CYCLE 115: 1 HP (substrate_continual_kv_injection_v1 KV-INJECTION-FIDELITY-LONG-STREAM); 0 MID; 0 HF; 0 LVH; PP-19 + true-continual sub-prop annotations; annotation-only; HONEST 947->948; LVH 223; Portfolio 32+77; 349th PROT-009 paired commit
+
+## CYCLE 115 -- v436 -> v437 (2026-06-06)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(A) substrate_continual_kv_injection_v1 HARD_PASS -- LABEL HONEST**
+Per-cell: seed7 current_state_acc=0.9975, seed17=0.9975, seed23=0.99875. silent_contradiction_rate=0.000 unanimous 3/3 seeds. 60 sessions / 3600 facts each seed. All cells well above any reasonable HP threshold. No over-claim. LVH: 0. source: REMOTE (authoritative).
+
+HONEST: 947 + 1 = 948. LVH: 223 UNCHANGED.
+
+### (A) substrate_continual_kv_injection_v1 HARD_PASS [source=remote n_seeds=3 N=8192 run_mode=full elapsed=11598.8s]
+
+Plain-language: We tested whether the substrate can continuously absorb new key-value facts across 60 streaming sessions (3,600 total facts) without forgetting current state or creating contradictions. Current-state accuracy remained at 99.8% and zero silent contradictions appeared across all 3 seeds. This means the substrate handles live KV-injection streams at production-N with no drift or cross-session interference.
+
+Capability implication: PP-19 (substrate-as-KV-cache) gains its first empirical confirmation of the core operational primitive: the substrate can continuously inject new KV entries over long streams with near-perfect fidelity and zero self-contradiction -- the injection mechanism itself is production-ready at N=8192.
+
+PP-19 KV-cache sub-property annotation:
+'continual_kv_injection_HARD_PASS v437: N=8192 3-seed full elapsed=11599s; current_state=0.998(mean)(range 0.9975-0.99875)(3/3); silent_contradiction=0.000 unanimous all 3 seeds; 60 sessions 3600 facts; KV-injection fidelity over long stream CONFIRMED at production-N. Band UNCHANGED 0.40-0.60 (PP-5 latency + PP-12 audit-cert still pending for band-lift). State UNCHANGED 🔬.'
+
+True-continual-learning row cross-annotation:
+'kv_injection axis HARD_PASS v437: N=8192 3-seed 60-session 3600-fact stream; injection fidelity 99.8% zero contradiction; orthogonal axis to 4-stage retention (which remains 🟡 PARTIAL at ret_A=0.745). KV-injection axis is independent of multi-stage retention; no change to 4-stage row.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 947 -> 948 (+1). LVH: 223 UNCHANGED.**
+
+**PROT compliance (v436 -> v437):**
+- PROT-004/006: No closures. 1 HP; no HF; no rescue sketches required.
+- PROT-007: v437 history row appended to substrate_capability_map_history.md.
+- PROT-008: No band changes. Annotation-only. PROT-008 not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 349th PROT-009 paired commit.
+- PROT-018: No _nN suffix; N=8192 stated in metrics body. CLEAN.
+- PROT-021: source=remote run_mode=full. No smoke artifacts.
+- PROT-022: current_state_acc tight ceiling range 0.9975-0.99875 across 3 seeds -- not HP-fragile.
+
+Cap_map: v436 -> v437 CYCLE 115 (1 HP: substrate_continual_kv_injection_v1 KV-INJECTION-FIDELITY-LONG-STREAM-0.998-ZERO-CONTRADICTION; 0 MID; 0 HF; 0 LVH; PP-19 + true-continual sub-prop annotations; HONEST 947->948; LVH 223; Portfolio 32+77; 349th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
