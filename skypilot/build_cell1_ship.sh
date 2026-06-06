@@ -19,6 +19,7 @@ cp "${SRC}/experiments/_seed_checkpoint.py" "${DST}/experiments/_seed_checkpoint
 echo "=== [3/4] copying root files + YAML ==="
 cp "${SRC}/requirements_cloud.txt" "${DST}/requirements_cloud.txt"
 cp "${SRC}/skypilot/cell1_70b_fp16.yaml" "${DST}/skypilot/cell1_70b_fp16.yaml"
+cp "${SRC}/skypilot/cell1_70b_b200x1.yaml" "${DST}/skypilot/cell1_70b_b200x1.yaml"
 
 echo "=== [4/4] verifying bundle ==="
 find "${DST}" -type f -printf '%P  %s bytes\n' | sort

@@ -274,15 +274,30 @@ def run_70b(model_id: str, mode: str, passages, questions, gold_indices, hf_toke
         )
     elif mode == "fp16":
         # CRITICAL (pressure-test fix): explicit max_memory caps so device_map doesn't
-        # try to pack all 140 GB on cuda:0 and OOM. Reserve ~5 GB per GPU for activations.
+        # OOM. Detect per-GPU VRAM at runtime so the script runs on ANY of:
+        #   - H100:2 SXM5 (2x 80 GB):  multi-GPU sharding, no offload needed (160 GB > 140 GB)
+        #   - B200:1 SXM6 (1x 180 GB): single-GPU native fit, no offload needed
+        #   - GH200:1 (1x 96 GB):      single-GPU + CPU offload (~44 GB to host)
+        #   - 4xA100 40GB (4x 40 GB):  multi-GPU sharding
+        #   - any future 1x or Nx GPU SKU with >=140 GB total fp16-fits
         n_gpus = torch.cuda.device_count()
+        per_gpu_vram_gb = torch.cuda.get_device_properties(0).total_memory / 1e9
+        # Leave 6-7pct headroom on each device for activations, CUDA context, KV cache.
+        per_gpu_cap = max(20, int(per_gpu_vram_gb * 0.93))
         if n_gpus >= 2:
-            max_memory = {i: "75GiB" for i in range(n_gpus)}
+            # Multi-GPU shard across all GPUs; CPU as last-resort spill
+            max_memory = {i: f"{per_gpu_cap}GiB" for i in range(n_gpus)}
             max_memory["cpu"] = "100GiB"
+            scenario = f"multi-GPU shard (n={n_gpus}, per_gpu_vram={per_gpu_vram_gb:.0f}GB)"
+        elif per_gpu_vram_gb >= 140:
+            # Single-GPU native fit (B200 180GB; future H200 141GB; etc.)
+            max_memory = {0: f"{per_gpu_cap}GiB"}  # no offload
+            scenario = f"single-GPU native fit (per_gpu_vram={per_gpu_vram_gb:.0f}GB)"
         else:
-            # Single GPU + CPU offload path (e.g. GH200 96GB + 432GB host)
-            max_memory = {0: "85GiB", "cpu": "200GiB"}
-        print(f"  [fp16] device_map='auto' max_memory={max_memory}", flush=True)
+            # Single-GPU + CPU offload (GH200 96GB; A100 40GB; H100 80GB)
+            max_memory = {0: f"{per_gpu_cap}GiB", "cpu": "200GiB"}
+            scenario = f"single-GPU + CPU offload (per_gpu_vram={per_gpu_vram_gb:.0f}GB)"
+        print(f"  [fp16] {scenario}; max_memory={max_memory}", flush=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_id, token=hf_token, torch_dtype=torch.float16,
             device_map="auto", max_memory=max_memory,
