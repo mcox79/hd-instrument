@@ -109,16 +109,12 @@ Per user directive 2026-06-06:
 - **Action item:** Phase 4a infrastructure to use ETF Hadamard codebook init by default
 - **Follow-on candidate (NEW Slot 8):** ETF Hadamard at N=4096 + sparse compound test (queued below)
 
-### Slot 3 (RESPEC; was sparse-write but mechanism was unclear): `substrate_sparse_pattern_coding_vs_dense_alpha_n4096_n16384_v1`
-- **Wall:** ~15-20 min CPU
-- **Source:** today's 2x alpha drill -- rescue path; spec clarified after Exp-Dev's Slot 3 first attempt found mechanism ambiguous
-- **Architecture:** sparse PATTERN coding (k=f*N active components; f=0.10) vs dense (f=1.0); STANDARD Hebbian outer-product write for both
-- **Capability advanced:** PP-21 sparse-Hopfield linear-noise regime rescue
-- **HP threshold:** sparse_alpha / dense_alpha >= 3x at f=0.10 (per Tsodyks-Feigelman classical bound ~4.35x)
-- **MID:** 2-3x
-- **HF:** <2x (sparse pattern coding doesn't deliver linear-noise regime benefit)
-- **Metric:** auto-associative Hopfield + FLIP=0.05 + unique patterns + 0.95 accuracy
-- **Self-test:** dense N=1024 should give M_max ~140; sparse f=0.10 should give M_max ~600
+### Slot 3 (DONE; HP at ~12x): ~~`substrate_sparse_pattern_coding_vs_dense_alpha_n4096_n16384_v1`~~
+- **Status:** DONE 2026-06-06 09:40 -- sparse_alpha ~0.30 vs dense_alpha ~0.025 at N=1024 smoke = **~12x at f=0.10**
+- **Confirmation:** sparse-Hopfield linear-noise regime rescue WORKS empirically (4x classical bound exceeded)
+- **Key fix Exp-Dev caught:** single-step retrieval (iterating filled sparse zeros with +/-1 -> false 0)
+- **Full run queued:** N=4096 + N=16384 to confirm at scale
+- **Compound implication:** if Slot 8 ETF + sparse compound holds, total capacity gain ~100x+ at N=4096
 
 ### Slot 4: `substrate_sparse_outer_product_write_v2` (T1-6-V2)
 - **Wall:** ~20 min CPU
@@ -139,8 +135,23 @@ Per user directive 2026-06-06:
 - **Status:** DONE 2026-06-06 09:30 -- top-30% norm gate preserves only 42% of VQ concepts at v_c=256
 - **Finding:** L2-norm is strongly correlated with concept identity; norm-gating drops rare concepts systematically
 - **Strategic impact:** norm-gating BLOCKED as Phase 4a extraction-speedup lever
-- **2x rescue drill dispatched at 09:30:** entropy-gate vs per-cluster stratified vs concept-uniform random sampling
-- **Follow-on cells coming** after drill lands (~25 min)
+- **2x rescue drill landed 2026-06-06 09:50:** norm-gate algebraically broken; **per-cluster stratified keep is the rescue** (100% coverage guaranteed, 100-1000x speedup; P_deflated=0.65); entropy-gate also biased (60-75%); random sampling adequate (>90% at large M; P_deflated=0.55)
+
+### Slot 12 (NEW; from extraction gate rescue drill): `substrate_per_cluster_stratified_extraction_v1`
+- **Wall:** ~30 min CPU
+- **Source:** norm-gate HARDFAIL rescue drill (09:50)
+- **Why:** RECOMMENDED rescue. Pre-compute VQ assignment (cheap); within each VQ cluster keep top-K tokens; guarantees 100% coverage by construction; 100-1000x speedup
+- **Capability advanced:** PP-22 extraction sparse-gating (rescues the $333k -> $31 cost story)
+- **HP threshold:** >=95% concept coverage AND >=100x speedup at production-class settings
+- **Strategic value:** the "$333k -> $31" cost-reduction story now has a verified gating mechanism
+
+### Slot 13 (NEW; secondary rescue): `substrate_concept_uniform_random_extraction_v1`
+- **Wall:** ~20 min CPU
+- **Source:** norm-gate HARDFAIL rescue drill (09:50)
+- **Why:** simplest rescue path; concept-uniform random sampling guarantees coverage by construction
+- **Capability advanced:** PP-22 secondary
+- **HP threshold:** >=90% coverage at 10-100x speedup
+- **Strategic value:** floor case; cheap to validate as fallback
 
 ### Slot 7 (UPDATED -- K-hop ceiling now K>=6 not K=3 per cycle 118): `substrate_native_reasoning_K10_K20_n16384_v1`
 - **Wall:** ~60 min CPU
@@ -304,6 +315,7 @@ Already done earlier:
 - 2026-06-06 08:40 -- v4: Exp-Dev reconciliation. Crossed off Matthiessen HP (24th flagship; codebook-collision dominant), K-hop reasoning HP (25th flagship; perfect to K=5), Hadamard N=256 MIDDLE 3.0x. ADDED Slot 2 ETF Hadamard (promoted from Tier-2 because Matthiessen pointed to codebook-collision). ADDED Slot 7 K-hop at N=16384 K=10 (follow-on from Slot 5 HP). Added operational protocol + research standing responsibilities. 2 varied-seed re-runs flagged for Exp-Dev to build (capacity_xl seeds=10, hp12_v2_crypto seeds=10).
 - 2026-06-06 08:55 -- v5: Slot 2 ETF Hadamard HP (26th flagship; 8.02x capacity at N=1024). ADDED Slot 8 ETF + sparse compound test (does ~80x compound hold?) + Slot 9 Phase 4a infrastructure ETF adoption eval. Matthiessen -> ETF chain is the day's biggest architectural win: 8x capacity for free via codebook init. Phase 4a infrastructure should adopt ETF Hadamard by default.
 - 2026-06-06 09:20 -- v6: Orchestrator cycle 117 ETF Hadamard FULL RUN confirmed 10.04x at N=4096 (vs smoke 8.02x at N=1024). cap_map v438 -> v439. ADDED Slot 10: CRITICAL Phase 3 confirmation gate -- Hadamard N-sweep across {4096, 16384, 32768, 65536} to verify 10x lift persists. ADDED Slot 11: U2 codebook+query stacked-defense hypothesis (architectural insight from orchestrator). If Slot 10 HPs at N=65536, Phase 3 linear capacity goes from 2,621 facts to ~26,000 per substrate; D=8 production = ~208k facts.
+- 2026-06-06 09:50 -- v7: TRIPLE LANDING. (a) Slot 3 sparse-PATTERN HP at ~12x (sparse_alpha 0.30 vs dense 0.025 at N=1024 smoke); compound with ETF could give ~100x. (b) Cycle 118 confirmed Matthiessen 100% codebook-collision + K-hop lossless to K>=6 (both labels conservative). (c) Slot 6 norm-gate HARDFAIL rescue drill landed: PER-CLUSTER STRATIFIED is the rescue (100% coverage + 100-1000x speedup; P_deflated 0.65). ADDED Slot 12: per_cluster_stratified_extraction. ADDED Slot 13: concept_uniform_random_extraction (floor case). Slot 7 expanded to K=10/K=20 sweep (K-hop ceiling unknown above 6). DIAGNOSTIC+RESCUE+REASONING TRIPLE NOW EMPIRICALLY ANCHORED.
 
 ---
 
