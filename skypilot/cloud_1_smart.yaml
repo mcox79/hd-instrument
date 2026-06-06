@@ -1,31 +1,12 @@
-# CLOUD-1 substrate-extraction-quality 8B vs 70B binding test on Lambda H100:1.
+# CLOUD-1 smart-launch YAML: minimal resources block; smart_launch_cloud_1.sh
+# polls Lambda API + injects --region + --instance-type via sky launch CLI to
+# pin the spec at acquisition time. No any_of needed here -- the smart launcher
+# handles capacity targeting externally.
 #
-# USER-AUTHORIZED 2026-06-06 per research_to_testbed_cloud_experiments_list_when_authorized
-#   (CLOUD-1; TOP PRIORITY; ~$0.50-1.00; ~15-20 min wall; binds extraction-infra
-#   decisions for $31 CPU fleet vs $1 Mac fleet vs continued cloud baseline).
+# All other defenses (Bug 5-16) identical to cloud_1_quality_binding.yaml.
 #
-# DEFENSES against every prior cloud bug (cornerstone + Llama-1B + Tier-4-Llama):
-#   Bug 1-4 (capacity)     : accelerators: H100:1, no region pin, retry-until-up
-#   Bug 5-6 (driver/torch) : torch==2.4.1+cu121, transformers>=4.45,<4.50
-#   Bug 7 (ghost cluster)  : HHMMSS cluster name + explicit sky down + verify
-#   Bug 8 (autostop bugs)  : --down -i 30 + explicit sky down in launcher
-#   Bug 9 (fork deadlock)  : TOKENIZERS_PARALLELISM=false in env + script
-#   Bug 10 (silent hangs)  : PYTHONUNBUFFERED=1 + python -u; verbose setup
-#   Bug 11 (HF gated)      : file-first HF token + HfApi access verify in setup
-#   Bug 12 (model load idle): snapshot_download in SETUP (not counted as idle)
-#   Bug 13 (4bit quant)    : bitsandbytes installed in setup for 70B NF4 path
-#   Bug 14 (rsync race)    : final rsync in launcher BEFORE sky down
-#   Bug 15 (bundle imports): script uses stdlib + numpy + torch + transformers
-#                             + bitsandbytes + datasets + _seed_checkpoint only
-#   Bug 16 (watchdog mid-write): N/A -- this script writes only metrics.json
-#                                  (no np.savez assembly phase)
-#
-# 70B fits on a single H100 80GB at NF4 (~38GB weights + KV cache headroom);
-# 8B fp16 fits comfortably (~16GB). Sequential load -> no co-resident pressure.
-#
-# Launch:
-#   bash /mnt/d/AI/hd-instrument/skypilot/build_cloud_1_ship.sh
-#   bash /mnt/d/AI/hd-instrument/skypilot/launch_cloud_1.sh
+# Launch via:
+#   bash /mnt/d/AI/hd-instrument/skypilot/smart_launch_cloud_1.sh
 
 name: cloud1quality
 
@@ -33,26 +14,7 @@ resources:
   cloud: lambda
   accelerators: H100:1
   use_spot: false
-  # Per [[feedback-cloud-location-doesnt-matter]] (2026-06-04 cornerstone catch)
-  # AMPLIFIED 2026-06-06: the original fix listed regions only. But observed
-  # behavior on 2026-06-06: with `accelerators: H100:1`, SkyPilot's optimizer
-  # picked the CHEAPEST SKU (gpu_1x_h100_pcie at $3.29/h) and locked the cluster
-  # spec to that SKU. On capacity-miss it cycled the 5 regions but never tried
-  # the SXM5 SKU even when SXM5 was available in us-south-2. So we now any_of
-  # BOTH (instance_type, region) combinations -- 5 regions x 2 SKUs = 10 candidates.
-  # Optimizer still ranks by cost (PCIe cheaper) but capacity-miss falls back to
-  # SXM5 instead of giving up the H100 family.
-  any_of:
-    - {instance_type: gpu_1x_h100_pcie, region: us-east-1}
-    - {instance_type: gpu_1x_h100_pcie, region: us-east-3}
-    - {instance_type: gpu_1x_h100_pcie, region: us-south-2}
-    - {instance_type: gpu_1x_h100_pcie, region: us-west-1}
-    - {instance_type: gpu_1x_h100_pcie, region: us-west-3}
-    - {instance_type: gpu_1x_h100_sxm5, region: us-east-1}
-    - {instance_type: gpu_1x_h100_sxm5, region: us-east-3}
-    - {instance_type: gpu_1x_h100_sxm5, region: us-south-2}
-    - {instance_type: gpu_1x_h100_sxm5, region: us-west-1}
-    - {instance_type: gpu_1x_h100_sxm5, region: us-west-3}
+  # smart_launch_cloud_1.sh pins --region + --instance-type at CLI
 
 workdir: .
 
@@ -74,7 +36,7 @@ setup: |
   sudo apt-get update -qq 2>&1 | tail -2
   sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
 
-  echo "=== [setup 3/8] pip core + defensive torch pin (Llama-1B + Tier-4 lessons) ==="
+  echo "=== [setup 3/8] pip core + defensive torch pin ==="
   pip install --quiet --upgrade pip
   pip install --quiet --upgrade --force-reinstall \
     "torch==2.4.1" "torchvision==0.19.1" \
@@ -118,7 +80,7 @@ setup: |
   print('OK: Llama-3.1-8B snapshot ready')
   "
 
-  echo "=== [setup 7/8] pre-pull Llama-3.1-70B snapshot (big: ~140GB at fp16 weights) ==="
+  echo "=== [setup 7/8] pre-pull Llama-3.1-70B snapshot (big: ~140GB at fp16) ==="
   python -c "
   import os
   os.environ['TOKENIZERS_PARALLELISM'] = 'false'
