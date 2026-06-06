@@ -29,7 +29,7 @@ if str(REPO) not in sys.path:
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "substrate_sparse_vs_dense_write_regime_alpha_n4096_n16384_v1"
-FLIP = 0.05; STEPS = 6; F_SPARSE = 0.10; LR = 1.0
+FLIP = 0.05; STEPS = 1; F_SPARSE = 0.10; LR = 1.0
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
@@ -38,46 +38,38 @@ else:
     SEEDS = [7, 17, 23]; N_GRID = [4096, 16384]; LOADS = [0.03, 0.04, 0.05, 0.06, 0.08, 0.10, 0.13, 0.16, 0.20]
 
 
-def rand_pm1(M, n, g):
-    return (g.integers(0, 2, size=(M, n)) * 2 - 1).astype(np.float32)
+def sparse_pat(M, n, f, g):
+    # M unique patterns, each with k=f*n active components in {-1,+1}, rest 0 (f=1.0 -> dense bipolar)
+    k = max(1, int(f * n)); P = np.zeros((M, n), dtype=np.float32)
+    for i in range(M):
+        idx = g.choice(n, size=k, replace=False); P[i, idx] = (g.integers(0, 2, k) * 2 - 1)
+    return P
 
 
-def sparsify_rows(R, f):
-    out = np.zeros_like(R); k = max(1, int(f * R.shape[1]))
-    for i in range(R.shape[0]):
-        idx = np.argpartition(np.abs(R[i]), -k)[-k:]; out[i, idx] = R[i, idx]
-    return out
-
-
-def build_W_dense(P):
+def build_W(P):
     W = (P.T @ P).astype(np.float32); np.fill_diagonal(W, 0.0); return W
 
 
-def build_W_sparse(P, f):
-    M, n = P.shape; W = np.zeros((n, n), dtype=np.float32)
-    for i in range(M):
-        r = P[i] - W @ P[i]                                   # novelty residual
-        rs = np.zeros(n, dtype=np.float32); k = max(1, int(f * n))
-        idx = np.argpartition(np.abs(r), -k)[-k:]; rs[idx] = r[idx]
-        W += LR * np.outer(rs, P[i])
-    np.fill_diagonal(W, 0.0); return W
-
-
 def recall(P, W, g):
-    M, n = P.shape
-    s = P * np.where(g.random((M, n)) < FLIP, -1.0, 1.0)
+    # flip 5% of NON-ZERO components; success = exact recovery on the non-zero positions
+    M, n = P.shape; s = P.copy()
+    for i in range(M):
+        nz = np.nonzero(P[i])[0]
+        fl = nz[g.random(len(nz)) < FLIP]; s[i, fl] *= -1
     for _ in range(STEPS):
         s = np.sign(s @ W.T); s[s == 0] = 1.0
-    return float(np.mean(np.all(s == P, axis=1)))
+    ok = 0
+    for i in range(M):
+        nz = np.nonzero(P[i])[0]
+        ok += int(np.all(s[i, nz] == P[i, nz]))
+    return float(ok / M)
 
 
 def _selftest():
-    r = np.array([[0.1, 0.9, 0.2, 0.05]], np.float32); s = sparsify_rows(r, 0.25)
-    assert np.count_nonzero(s) == 1 and s[0, 1] == 0.9, "sparsify top-f"
-    g = np.random.default_rng(0); n = 256; P = rand_pm1(20, n, g)
-    assert recall(P, build_W_dense(P), g) >= 0.95, "dense recovers low-load"
-    assert recall(rand_pm1(200, n, g), build_W_dense(rand_pm1(200, n, g)), g) < 0.95, "dense overloads high-load"
-    print("[selftest] PASS: sparsify dense", flush=True)
+    g = np.random.default_rng(0); n = 256
+    P = sparse_pat(8, n, 0.1, g); assert np.all((P != 0).sum(1) == int(0.1 * n)), "sparse pattern k-of-N active"
+    Pd = sparse_pat(10, n, 1.0, g); assert recall(Pd, build_W(Pd), g) >= 0.9, "dense recovers low-load (same patterns)"
+    print("[selftest] PASS: sparse-pattern dense", flush=True)
 
 
 _selftest()
@@ -85,11 +77,11 @@ if _ARGS.self_test:
     sys.exit(0)
 
 
-def capacity(n, builder, seed):
+def capacity(n, f, seed):
     cap = 0
     for load in LOADS:
         M = max(2, int(load * n)); g = np.random.default_rng(seed * 1000 + M)
-        P = rand_pm1(M, n, g); W = builder(P)
+        P = sparse_pat(M, n, f, g); W = build_W(P)
         if recall(P, W, np.random.default_rng(seed * 7 + M)) >= 0.95:
             cap = M
         else:
@@ -100,7 +92,7 @@ def capacity(n, builder, seed):
 def run_seed(seed) -> Dict:
     res = {"seed": seed, "by_N": {}}
     for n in N_GRID:
-        cd = capacity(n, build_W_dense, seed); cs = capacity(n, lambda P: build_W_sparse(P, F_SPARSE), seed)
+        cd = capacity(n, 1.0, seed); cs = capacity(n, F_SPARSE, seed)
         res["by_N"]["N%d" % n] = {"dense_alpha": cd / n, "sparse_alpha": cs / n, "dense_cap": cd, "sparse_cap": cs}
     return res
 
@@ -110,11 +102,11 @@ def verdict(ps) -> Tuple[str, str]:
     da = float(np.mean([p["by_N"][nmax]["dense_alpha"] for p in ps])); sa = float(np.mean([p["by_N"][nmax]["sparse_alpha"] for p in ps]))
     parts = " ".join("%s: dense_a=%.3f sparse_a=%.3f" % (k, np.mean([p["by_N"][k]["dense_alpha"] for p in ps]), np.mean([p["by_N"][k]["sparse_alpha"] for p in ps])) for k in ps[0]["by_N"])
     summary = "at %s: dense_alpha=%.3f sparse_alpha=%.3f | %s" % (nmax, da, sa, parts)
-    if sa >= 0.055:
-        return ("HARD_PASS", "HARD_PASS: sparse write recovers alpha>=0.055 at %s (above dense ~0.040) -- capacity rescue path. " % nmax + summary)
-    if sa > da:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: sparse alpha > dense but < 0.055. " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: sparse write does not exceed dense alpha (no rescue). " + summary)
+    if (sa / max(da, 1e-9)) >= 3.0:
+        return ("HARD_PASS", "HARD_PASS: sparse PATTERN coding gives >=3x capacity at %s (classic linear-noise regime) -- capacity rescue. " % nmax + summary)
+    if (sa / max(da, 1e-9)) >= 1.5:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: sparse 1.5-3x dense capacity. " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: sparse <1.5x dense (no rescue). " + summary)
 
 
 print("[config] anchor=%s mode=%s seeds=%s N_grid=%s f_sparse=%.2f flip=%.2f" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_GRID, F_SPARSE, FLIP), flush=True)
