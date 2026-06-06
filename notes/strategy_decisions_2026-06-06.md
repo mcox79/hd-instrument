@@ -517,3 +517,106 @@ Band UNCHANGED. Portfolio UNCHANGED.
 
 Cap_map: v450 -> v451 CYCLE 129 (1 HP: continual_kv_n32768_120sessions-3SEED-FULL-RETENTION-1.000-120SESSIONS-7200FACTS; 2 HF: sparse_hadamard_mixture-3SEED-SHM-CAP-0-COMPLETE-FAIL + concept_uniform_random_extraction-3SEED-COVERAGE-0.52-HARD-FAIL-CONFIRMED; 1 HF-LVH#231: effective_rank_svd_multi_encoder-SMOKE-PYTHIA-DEFF-18.3-4.2x-LOWER-MINILM-77.1-LM-TRAINING-COLLAPSES-D_EFF; 1 MID: extraction_sqrt_K-3SEED-VQ-FIDELITY-1.039x-REVERSAL-FROM-SMOKE-HF; LVH #231: Pythia-d_eff-NOT-SIMILAR-MiniLM; continual-KV N=32768/120sessions sub-property strengthened; Tier-1-CL row PARTIAL UNCHANGED; PP-8 encoder search: LM-trained excluded, sentence-trained only; HONEST 980->985 +5; LVH 230->231 +1; Portfolio 32+77; 363rd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v451 -> v452 CYCLE 130 8-VERDICT BATCH (2026-06-06)
+
+Verdicts processed: 8 verdicts (5 genuinely new + 3 re-runs/promotions).
+
+GENUINELY NEW: frame_slot_fill_k16_v1 + analogy_map_v1 + substrate_native_reasoning_K10_K20_n16384_v1 + substrate_sparsity_fine_battery_gpu_v1 + substrate_sparse_vs_dense_large_n_gpu_v1
+RE-RUNS: hoc1_word_bigram_v1 (cycle-128 LVH #230 HP-SMOKE -> full promotion) + effective_rank_svd_v1 (cycle-128 d_eff diagnostic -> full) + substrate_etf_hadamard_phase4a_infra_eval_v1 (cycle-126 LVH #228 MIDDLE_BAND re-run)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) frame_slot_fill_k16_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=8192, k=16. Per-seed: all={retrieval_accuracy=1.0}. HP>=0.95. ALL 3 seeds unanimous 1.000. HONEST. +1 HONEST (985->986).
+
+**(2) analogy_map_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=8192, 300-way. Per-seed: all={analogy_accuracy=1.0}. HP>=0.70. ALL 3 seeds unanimous 1.000. HONEST. +1 HONEST (986->987).
+
+**(3) substrate_native_reasoning_K10_K20_n16384_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. K-hop curve k={1,3,5,8,10,15,20} ALL=1.000 ALL 3 seeds. HP>=0.70 at K=3: CLEARED. Extension: K=20 no ceiling found (v445 stopped at K=10). HONEST. +1 HONEST (987->988).
+
+**(4) substrate_sparsity_fine_battery_gpu_v1 HARD_PASS -- [label-vs-honest] LVH #232**
+source=remote run_mode=smoke n_seeds=1. N=8192 ratios: sparse0.02=20.03x, sparse0.05=20.03x, sparse0.08=8.01x, sparse0.12=8.01x, sparse0.20=4.0x, sparse0.35=2.0x, sparse0.50=1.0x. HP>=3x: cleared at alpha<=0.20.
+LABEL OVER-CLAIMS. smoke n=1 -- HARD_PASS requires multi-seed full per PROT-021.
+LVH #232: (a) label HARD_PASS; (b) honest: HP-SMOKE -- fine battery genuine but single-seed; 3-seed full needed before HARD_PASS; (c) cells: run_mode=smoke n_seeds=1 (PROT-021 multi-seed not met).
+Honest: HP-SMOKE. Fine sparsity curve: 20x at alpha=0.02-0.05, 8x at 0.08-0.12, 4x at 0.20, floor at 0.50. +1 HONEST (988->989). LVH 231->232 (+1).
+
+**(5) substrate_sparse_vs_dense_large_n_gpu_v1 HARD_PASS -- [label-vs-honest] LVH #233**
+source=remote run_mode=smoke n_seeds=1. N=4096: ratio=8.03x, N=8192: ratio=8.01x (alpha=0.08).
+LABEL OVER-CLAIMS. smoke n=1. HARD_PASS 'production-scale capacity lever' from single smoke seed on new N configuration.
+Context: v445 cycle-123 3-seed full alpha=0.20 N={4096,16384} (5.0-6.7x). Current alpha=0.08 gives 8x (higher ratio). Directionally consistent but single-seed new configuration.
+LVH #233: (a) label HARD_PASS; (b) honest: HP-SMOKE -- large-N extension corroborated but single-seed; (c) cells: run_mode=smoke n_seeds=1 (PROT-021 not met).
+Honest: HP-SMOKE. +1 HONEST (989->990). LVH 232->233 (+1).
+
+**(6) hoc1_word_bigram_v1 HARD_PASS -- LABEL HONEST (cycle-128 LVH #230 full promotion)**
+source=remote run_mode=full n_seeds=3. Per-seed: seed7=0.9783, seed17=0.9788, seed23=0.9743. Mean=0.977. HP>=0.90: ALL 3 seeds clear. Tight spread (0.005pp) = mechanistically stable. Gate CLOSES: word-bigram HD discriminator rescues KF-1 word-shuffle at AUC=0.977 (char-ngram 0.19, MiniLM-only 0.22). HONEST. +1 HONEST (990->991).
+
+**(7) effective_rank_svd_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. d_eff=91.6, rank90=175, rank99=296, D=384, n_enc=8000. HP d_eff<=120: CLEARED. Updates cycle-128 d_eff=82 (fewer samples); 91.6 with n_enc=8000 is authoritative. Phase-4A ceiling: real-encoder ops bounded by d_eff=91.6 (+12% headroom vs 82). HONEST. +1 HONEST (991->992).
+
+**(8) substrate_etf_hadamard_phase4a_infra_eval_v1 HARD_FAIL -- LABEL HONEST (critical regression)**
+source=remote run_mode=full n_seeds=3. Per-seed: all={raw=0, wht=0, ratio=0.0}. HARD_FAIL correct.
+CRITICAL REGRESSION from cycle-126 v448 (seeds17+23 wht=38; seed7=0; LVH #228 MIDDLE_BAND). Current run: ALL seeds wht=0. ZCA whitening completely failed. Prior v448 2/3-seeds partial pass superseded by all-zeros. Diagnosis: script version change or ZCA rank-floor patch regression. HONEST. +1 HONEST (992->993).
+
+HONEST: 985 -> 993 (+8). LVH: 231 -> 233 (+2: LVH #232 sparsity_fine_battery HP-SMOKE + LVH #233 sparse_vs_dense_large_n HP-SMOKE).
+
+### Cap_map decisions
+
+**(1) frame_slot_fill_k16_v1 HARD_PASS**
+NEW ROW: KG multi-attribute frame binding. k=16 attributes/entity, N=8192, 3-seed unanimous retrieval=1.000. Substrate stores 16-slot entity frames at perfect retrieval. Product: KG entity binding validated at k=16.
+Portfolio: +1 (NEW ROW; P-band 0.75-0.90 EXPLORATORY; single-N single-k; deeper k and multi-entity interference untested).
+
+**(2) analogy_map_v1 HARD_PASS**
+NEW ROW: Native relational reasoning. 300-way analogy_accuracy=1.000, N=8192, 3-seed unanimous via bundle arithmetic (A-B+C=D). Substrate executes relational queries as pure vector arithmetic -- no LLM decode loop.
+Portfolio: +1 (NEW ROW; P-band 0.70-0.85 EXPLORATORY; single-N; larger vocabulary and noisy analogies untested).
+[Total after both additions: 32+79]
+
+**(3) substrate_native_reasoning_K10_K20_n16384_v1 HARD_PASS**
+PP-11 BAND-LIFT: 0.55-0.70 -> 0.60-0.75 (+5%/+5% CONSERVATIVE).
+K=20 N=16384 unanimous 1.000, 3-seed full. Two consecutive monotone K-extensions at N=16384: v445 K=10 HP + this K=20 HP. PROT-008 validator PASS. Ceiling K>20 untested. Annotation: K=20 no-ceiling; K={25,30} recommended next.
+
+**(4) substrate_sparsity_fine_battery_gpu_v1 [LVH #232 honest: HP-SMOKE]**
+PP-8 sparsity fine-battery annotation. HP-SMOKE (smoke n=1). Fine curve at N=8192 characterised: 20x at alpha=0.02-0.05, 8x at 0.08-0.12, 4x at 0.20, 1x at 0.50. Refines v445 alpha=0.20->5x. No band-lift.
+Rescue (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): HP-SMOKE consistent with v445 alpha=0.20->5x; 20x at alpha=0.02 is steeper extension.
+R2 (CHEAP, GPU <30min): 3-seed full fine battery at N=8192 to convert HP-SMOKE to HARD_PASS.
+R3 (CHEAP, GPU <30min): N-sweep at alpha=0.02 across N={4096,8192,16384} to characterize N-scaling of peak sparsity capacity.
+PP-8 band UNCHANGED.
+
+**(5) substrate_sparse_vs_dense_large_n_gpu_v1 [LVH #233 honest: HP-SMOKE]**
+PP-8 large-N sparsity annotation. HP-SMOKE (smoke n=1). alpha=0.08, N=8192: ratio=8.01x. Cross-anchor corroboration with anchor 4 (both measure alpha=0.08 at N=8192 independently -- exact match 8.01x).
+Rescue (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Cross-anchor consistency confirmed; independent corroboration of alpha=0.08->8x.
+R2 (CHEAP, GPU <30min): 3-seed full at N=8192 alpha=0.08 to convert HP-SMOKE to HARD_PASS.
+PP-8 band UNCHANGED.
+
+**(6) hoc1_word_bigram_v1 HARD_PASS (cycle-128 LVH #230 full promotion)**
+KF-1 BAND-LIFT: 72-87% -> 75-90% (+3%/+3% CONSERVATIVE). Gate closes: word-shuffle axis AUC=0.977 3-seed full (>> 0.90). Best KF-1 adversarial rescue to date (4.4x lift vs MiniLM-only baseline 0.22). PROT-008 validator PASS (cycle-128 smoke 0.970 + full 0.977 consistent). Negation sub-axis still architecturally open (mean=0.018-0.083); band-lift scoped to word-shuffle closure only.
+
+**(7) effective_rank_svd_v1 HARD_PASS**
+PP-8 + Phase-4A annotation update. d_eff=82->91.6 (participation_ratio, n_enc=8000 authoritative). All real-encoder substrate operations bounded by d_eff=91.6 not 82. +12% headroom. Sentence-trained larger encoder search (MPNet/BGE/E5) unchanged -- expected higher d_eff.
+Band UNCHANGED (annotation update only).
+
+**(8) substrate_etf_hadamard_phase4a_infra_eval_v1 HARD_FAIL (critical ZCA regression)**
+PP-8 Phase-4A annotation downgraded: MIDDLE_BAND-2/3-seeds -> HARD_FAIL-all-zeros-ZCA-regression. ALL seeds wht=0 vs v448 seeds17+23 wht=38. Phase-4B blocked pending ZCA diagnosis.
+Rescue (PROT-004/006; cheapest-first):
+R1 (0-compute, DIAGNOSIS): Git diff on Phase-4A script between v448 and current; identify ZCA rank-floor patch regression.
+R2 (CHEAP, CPU <30min): Verify ZCA at seeds 17+23 with v448 code version to isolate regression point.
+R3 (CHEAP, CPU <30min): PCA or random-projection whitening at N_sub=384 (v448 R4 recommendation; bypasses ZCA numerics).
+R4 (MEDIUM, GPU <2h): If ZCA repaired: N_sub sweep {384,512,1024} to characterize Phase-4A capacity curve.
+PP-8 Phase-4A sub-axis: HARD_FAIL-ZCA-regression (Phase-4B blocked; diagnosis R1 first).
+
+### Portfolio: 32+77 -> 32+79 (+2 NEW ROWS: KG-multi-attribute-frame-binding + native-relational-reasoning). 2 BAND-LIFTS (PP-11 0.55-0.70->0.60-0.75 + KF-1 72-87%->75-90%). 0 closures.
+
+### PROT compliance (v451 -> v452)
+- PROT-004/006: No closures. Rescues filed cheapest-first: anchors 4 (3 rescues), 5 (2 rescues), 8 (4 rescues).
+- PROT-007: v452 history row appended to substrate_capability_map_history.md.
+- PROT-008: PP-11 LIFT: v445 K=10 + this K=20 monotone at N=16384. Validator PASS. KF-1 LIFT: smoke 0.970 + full 0.977 consistent. Validator PASS. NEW ROWs: 3-seed 1.000 both; no regression.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 364th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of 8 anchors. CLEAN.
+- PROT-021: Anchors 1,2,3,6,7,8 source=remote run_mode=full. Anchors 4,5 source=remote run_mode=smoke n_seeds=1. LVH #232+#233 filed.
+- PROT-022: Anchors 1,2,3,6 3-seed tight spreads. Anchor 7 n=1 deterministic. Anchor 8 ZCA regression (not HP-fragility). Anchors 4,5 smoke n=1.
+
+Cap_map: v451 -> v452 CYCLE 130 (3 HP: frame_slot_fill_k16-3SEED-KG-ATTR-1.000 + analogy_map-3SEED-RELATIONAL-1.000-300WAY + native_reasoning_K20-3SEED-K20-NO-CEILING; 1 HP-diag: effective_rank-DEFF-91.6-UPDATED; 1 HF: etf_hadamard_phase4a-ALL-SEEDS-ZCA-0-REGRESSION; 1 HP-full: hoc1_word_bigram-AUC-0.977-3SEED-KF1-GATE-CLOSED; 2 HP-SMOKE-LVH #232+#233: sparsity_fine_battery + sparse_vs_dense_large_n; PP-11 LIFT 0.55-0.70->0.60-0.75; KF-1 LIFT 72-87%->75-90%; +2 NEW ROWS 32+79; HONEST 985->993 +8; LVH 231->233 +2; 364th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
