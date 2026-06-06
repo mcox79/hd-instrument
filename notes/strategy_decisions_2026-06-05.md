@@ -685,3 +685,39 @@ No new rows. No band lifts. No closures.
 
 Cap_map: v439 -> v440 CYCLE 118 (2 HP: matthiessen_dominant_scatterer CODEBOOK-COLLISION-100pct-SOLE-ACTIVE-NOISE-SOURCE-5SEED + native_reasoning_k_hop K=6-CEILING-1.000-ALGEBRAIC-MATVEC-NO-DECODE; U2+capacity-scaling+PP-11+multi-hop sub-prop annotations x4; 0 LVH; HONEST 951->953; LVH 224; Portfolio 32+77; 352nd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 119 -- v440 -> v441 (2026-06-06)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(V1) substrate_etf_hadamard_phase4a_infra_eval_v1 MIDDLE_BAND -- LABEL HONEST**
+Label: 'MIDDLE_BAND: orthogonalization 2-4x on real encoder. raw_MiniLM_capacity=307 whitened_capacity=844 ratio=2.75x (N_sub=384)'
+Per-cell: seed7=2.7492x; seed17=2.7492x; seed23=2.7492x (all 3 identical -- deterministic geometry; PCA whitening of fixed encoder weights is seed-independent). Label claims '2-4x'; actual=2.749x rounds to 2.75x; inside [2,4] band. MIDDLE_BAND correct (does not reach HP threshold; does not reach HF threshold). No over-claim. NO LVH.
+
+HONEST: 953 -> 954 (+1). LVH: 224 UNCHANGED.
+
+### substrate_etf_hadamard_phase4a_infra_eval_v1 MIDDLE_BAND [source=remote; n_seeds=3; N_sub=384; run_mode=full; elapsed=9.5s]
+
+Plain-language: We tested whether the orthogonalization/whitening trick that gave 10x capacity lift on the synthetic BSC substrate (v439) also lifts capacity when the codebook comes from a real pre-trained encoder (MiniLM, 384-dim). It does, but more modestly: 2.75x (307 -> 844 facts). The lift is deterministic across seeds (PCA whitening of fixed encoder geometry is seed-independent). MIDDLE_BAND: real confirming lift but below the HP threshold needed for production claim; more limited than synthetic because MiniLM was already partially structured (not fully random), so whitening does less incremental work.
+
+Capability implication (PP-8 / substrate-LLM deep integration): Whitening of real encoder outputs improves substrate capacity 2.75x at N_sub=384. This validates the Phase 4A orthogonalization hypothesis on a real encoder. The gap from synthetic (10x at N=4096) to real (2.75x at N=384) is partially explained by (a) N_sub=384 vs N=4096 (smaller space = less room for orthogonalization to help) and (b) MiniLM already trained for semantic alignment (partially structured, not fully random). Phase 4B cross-N sweep at N={1024,2048,4096} with whitened real encoder would disambiguate N-dependence from encoder-structure effect. MIDDLE_BAND is a GENUINE result confirming the mechanism transfers to real encoders.
+
+Cap_map decision: PP-8 annotation only (Phase 4A infra eval sub-property). Band UNCHANGED. No new rows. No closures.
+
+Sub-property annotation on PP-8 row:
+'substrate_etf_hadamard_phase4a_infra_eval MIDDLE_BAND v441: MiniLM N_sub=384 3-seed full elapsed=9.5s; raw_capacity=307 whitened_capacity=844 ratio=2.75x (3/3 seeds identical -- deterministic PCA whitening); orthogonalization lifts real-encoder capacity 2.75x; MIDDLE_BAND (below HP threshold vs 10x synthetic at N=4096); mechanism confirmed on real encoder; Phase 4B N-sweep {1024,2048,4096} recommended to disambiguate N-effect from encoder-structure effect.'
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.
+### HONEST: 953 -> 954 (+1). LVH: 224 UNCHANGED.
+
+### PROT compliance (v440 -> v441)
+- PROT-004/006: No closures. MIDDLE_BAND; no rescue sketches required (mechanism confirmed, not rejected).
+- PROT-007: v441 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes; 0 LVH. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 353rd PROT-009 paired commit.
+- PROT-018: No _nN suffix on anchor (N_sub=384 is encoder intrinsic dim, not config.N contract). CLEAN.
+- PROT-021: source=remote run_mode=full. No smoke checkpoint artifacts.
+- PROT-022: 3-seed all-identical (deterministic -- PCA whitening of fixed encoder geometry is seed-independent by design). Expected.
+
+Cap_map: v440 -> v441 CYCLE 119 (1 MIDDLE_BAND: substrate_etf_hadamard_phase4a_infra_eval_v1 WHITENING-2.75x-REAL-ENCODER-PHASE4A; PP-8 sub-prop annotation; 0 LVH; HONEST 953->954; LVH 224; Portfolio 32+77; 353rd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
