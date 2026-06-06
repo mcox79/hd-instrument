@@ -1556,3 +1556,85 @@ Band UNCHANGED (sub-row annotation).
 
 Cap_map: v463 -> v464 CYCLE 143 (3 HP-full: f6_bge_large_pinv_mmax_reaudit-BGE-REVERSAL-pinv_alpha_c=0.550-RETROACTIVE-AUDIT-PASS + f8_pinv_padfix_compound-PRODUCTION-RECIPE-whiten+pinv-alpha_c=0.400 + pseudoinverse_real_encoder_keys-TRANSFER-CONFIRMED-MiniLM-0.400; 2 HF: substrate_codebook_collapse_recovery-MEAN=0.688-BELOW-0.70-HIGH-VARIANCE-SEED23-87.5-CONFIRMED + f7_pinv_sparse_multihead-SPARSE-KEY-DISQUALIFIES-ALL-COMPOUND; 0 new LVH; HONEST 1035->1040 +5; LVH 243 UNCHANGED; Portfolio 32+79; BGE-LARGE-REVERSAL-HF->HP; SPARSE-KEY-DISQUALIFIED; PRODUCTION-RECIPE-LOCKED; 376th PROT-009) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v464 -> v465 CYCLE 144 G-BATCH (2026-06-06)
+
+Verdicts processed: 5-verdict G-batch production-readiness audits.
+g1_encoder_geometric_alignment_audit_v1 (HARD_PASS) + g2_pinv_write_throughput_v1 (HARD_PASS) + g3_fp16_overflow_n65536_v1 (HARD_PASS -- LVH #244) + g5_entity_substitution_kf1_v1 (HARD_PASS) + g6_semantic_similar_fabrication_khop_v1 (HARD_PASS)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) g1_encoder_geometric_alignment_audit_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. 5 encoders tested. Pass criteria: PR>40 AND rho_eff<0.35.
+Passing: MiniLM (PR=61.0, rho=0.255), mpnet (PR=49.9, rho=0.333), Llama-3.2-1B (PR=91.0, rho=0.207). 3 pass.
+Failing: bge-large (PR=70.0, rho_eff=0.605 -- anisotropic despite high PR), e5-large (PR=74.6, rho_eff=0.823 -- severely anisotropic).
+HP criteria: >=2 pass -- satisfied with 3. HONEST. Key diagnostic: bge-large geometric anisotropy (rho_eff=0.605) explains why d_eff=114.8 predicted cap=150 incorrectly; anisotropy concentrates capacity on dominant eigendirections.
++1 HONEST (1040->1041). No LVH.
+
+**(2) g2_pinv_write_throughput_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1 cuda. Threshold >200 writes/sec at N=16384.
+Actual N16384: 11,335 writes/sec. 11335 >> 200; passes by 56.7x margin. N2048=192,793; N4096=94,754; N8192=35,003; N16384=11,335. Extrapolation to N=65536: ~708 writes/sec (quadratic degradation, still >> 200 threshold). HONEST.
++1 HONEST (1041->1042). No LVH.
+
+**(3) g3_fp16_overflow_n65536_v1 HARD_PASS -- LVH #244 [anchor-name-N-mismatch; N=65536 gate NOT tested]**
+source=remote run_mode=smoke n_seeds=1. Anchor name binds N=65536 as production gate. MAX N TESTED: 16384.
+LABEL OVER-CLAIMS. verdict_msg 'fp16 production config safe' implies N=65536 validated. It was NOT. Only N={4096,16384} were tested in smoke.
+Critical: fp16 absmax at N=16384=50272 (fp16 max=65504; headroom=23.4%). HD accumulation absmax scales ~sqrt(N). Extrapolating to N=65536 (4x N): ~50272 * sqrt(4) = ~100544, EXCEEDS fp16 max 65504. Genuine overflow risk at N=65536 not tested.
+LVH #244: (a) label: HARD_PASS 'fp16 production config safe'; (b) honest: SMOKE-INCONCLUSIVE at N=65536 -- N=16384 only; (c) contradicting: run_mode=smoke, max_N=16384, anchor name binds N=65536; fp16 absmax headroom=23.4% at N=16384, overflow projected at N=65536.
+Honest verdict: INCONCLUSIVE. N=65536 production gate NOT passed.
++1 HONEST (1042->1043). LVH 243->244 (+1).
+
+**(4) g5_entity_substitution_kf1_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full N=8192 n_seeds=3. clean_AUC=1.000, entity_swap_AUC=1.000, drop=0.000 all 3 seeds (7,17,23). Unanimous. HP threshold: drop <=0.05 -- satisfied (drop=0.000). HONEST.
++1 HONEST (1043->1044). No LVH.
+
+**(5) g6_semantic_similar_fabrication_khop_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full N=8192 n_seeds=3. K={3,5} middle-hop localization=1.000 all 3 seeds. Cosine>0.87 adversarial semantic fabrications resisted unanimously. HP threshold met. HONEST.
++1 HONEST (1044->1045). No LVH.
+
+HONEST: 1040 -> 1045 (+5). LVH: 243 -> 244 (+1: g3 anchor-name N-mismatch; N=65536 gate not passed; fp16 overflow risk at N=65536 projected from sqrt(N) extrapolation).
+
+### Cap_map decisions (v464 -> v465)
+
+**(1) g1_encoder_geometric_alignment_audit_v1 HARD_PASS**
+PP-8 encoder-selection sub-axis. Geometric screening protocol confirmed: PR>40 AND rho_eff<0.35.
+Approved encoders: MiniLM (rho=0.255), mpnet (rho=0.333), Llama-3.2-1B (rho=0.207).
+Disqualified: bge-large (rho=0.605), e5-large (rho=0.823). bge-large anisotropy now formally explains cycle-141 d_eff=114.8 cap prediction failure (whitening mandatory for anisotropic encoders before capacity measurement is valid).
+Encoder selection rule: geometric screening (PR, rho_eff) is a necessary precondition before cap measurement. Production checklist: screen encoder geometry before capacity test.
+Band UNCHANGED. Annotation on PP-8 encoder sub-axis.
+
+**(2) g2_pinv_write_throughput_v1 HARD_PASS**
+PP-8 write-rule operational envelope. pinv throughput at N=16384: 11,335 writes/sec (GPU). Clears 200 writes/sec deployment latency gate by 56x margin. Cycle-141 11x capacity advantage confirmed deployment-viable at this throughput. Production write-rule: pinv confirmed both capacity (11x lever) and throughput (>10K writes/sec at N=16384). N=65536 extrapolated: ~708 writes/sec (still viable).
+Band UNCHANGED. Annotation on PP-8 production envelope.
+
+**(3) g3_fp16_overflow_n65536_v1 [LVH #244 honest: INCONCLUSIVE -- N=65536 NOT tested; overflow risk]**
+PP-8 fp16 production deployment gate. Honest verdict: INCONCLUSIVE. N=16384 safe (absmax=50272 < 65504). N=65536 NOT TESTED. sqrt(N) extrapolation projects overflow at N=65536. fp16 production gate OPEN at N=65536.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, SUBSUMPTION): Run g3 full at N=65536 directly -- original gate intent. Cheapest resolution.
+R2 (CHEAP, GPU <30min): N-sweep {16384, 32768, 65536} for absmax; detect exact N where fp16 saturates.
+R3 (CHEAP, GPU <30min): fp32 accumulator with fp16 storage (mixed precision) at N=65536 as mitigation.
+R4 (CHEAP, GPU <30min): fp32 baseline at N=65536 for comparison.
+Band UNCHANGED. fp16 production gate at N=65536: OPEN (requires explicit test).
+
+**(4) g5_entity_substitution_kf1_v1 HARD_PASS**
+KF-1 adversarial robustness envelope. Entity substitution resistance confirmed: drop=0.000 at N=8192 3-seed unanimous. KF-1 maintains full discrimination under entity swaps (common LLM hallucination pattern). Production deployment: KF-1 is entity-swap robust at N=8192.
+KF-1 band 72-87% UNCHANGED. Annotation: entity-swap robustness confirmed.
+
+**(5) g6_semantic_similar_fabrication_khop_v1 HARD_PASS**
+KF-1 K-hop reasoning adversarial envelope. Semantic-similar fabrication resistance at cosine>0.87 confirmed: middle-hop loc=1.000 K={3,5} 3-seed unanimous. Hardest adversarial K-hop variant tested to date. K-hop fact-checking survives high-cosine fabrication attacks.
+KF-1 band 72-87% UNCHANGED. Annotation: K-hop robust under cosine>0.87 semantic fabrication, K={3,5}, N=8192.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v464 -> v465)
+- PROT-004/006: g3 LVH #244: R1-R4 filed cheapest-first. g1/g2/g5/g6: HP annotations, no closures.
+- PROT-007: v465 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 377th PROT-009 paired commit.
+- PROT-018: No _nN binding suffix on any anchor (v1 version suffix only). CLEAN.
+- PROT-019: LVH #244 filed (g3 N-mismatch; N=65536 gate not passed; overflow risk at N=65536).
+- PROT-021: g1 source=remote run_mode=full. g2 source=remote run_mode=full. g3 source=remote run_mode=SMOKE -- gate anchor is smoke only; LVH #244 filed. g5 source=remote run_mode=full n_seeds=3. g6 source=remote run_mode=full n_seeds=3.
+- PROT-022: g1 single-seed diagnostic (throughput deterministic). g2 single-seed (deterministic). g3 smoke -- gate inconclusive. g5 3-seed unanimous. g6 3-seed unanimous. No HP-fragility.
+
+Cap_map: v464 -> v465 CYCLE 144 G-BATCH [label-vs-honest LVH #244] (4 HP: g1_encoder_geometric_alignment-3-ENCODERS-APPROVED-BGE-E5-DISQUALIFIED + g2_pinv_throughput-11335-W-SEC-N16384-56x-MARGIN + g5_entity_substitution_kf1-DROP-0.000-3SEED + g6_semantic_fabrication_khop-LOC-1.000-COSINE087-3SEED; 1 INCONCLUSIVE-LVH#244: g3_fp16_overflow_n65536-SMOKE-N16384-ONLY-OVERFLOW-PROJECTED-N65536; LVH 243->244 +1; HONEST 1040->1045 +5; fp16 N=65536 gate OPEN; KF-1 adversarial envelope extended entity-swap+khop-cosine087; PP-8 encoder-selection protocol confirmed; Portfolio 32+79 UNCHANGED; 377th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

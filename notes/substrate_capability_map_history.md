@@ -26803,3 +26803,8 @@ v400 | 2026-06-04 | CYCLE 70 6-verdict batch | 1 HP alpha_ramp_mct_slowing MCT-1
 3 HP-full: f6_bge_large_pinv_mmax_reaudit BGE-REVERSAL pinv_alpha_c=0.550 (retroactive HF->HP); f8_pinv_padfix_compound PRODUCTION-RECIPE-LOCKED whiten+pinv alpha_c=0.400; pseudoinverse_real_encoder_keys TRANSFER-CONFIRMED MiniLM 0.400.
 2 HF: substrate_codebook_collapse_recovery MEAN=0.688 BELOW-0.70 HIGH-VARIANCE confirmed; f7_pinv_sparse_multihead SPARSE-KEY-DISQUALIFIES-ALL-COMPOUND.
 HONEST 1035->1040 (+5). LVH 243 UNCHANGED. Portfolio 32+79. 376th PROT-009.
+
+## v465 (2026-06-06) -- CYCLE 144 G-BATCH [label-vs-honest LVH #244]
+4 HP: g1_encoder_geometric_alignment 3-ENCODERS-APPROVED (MiniLM/mpnet/Llama-3.2-1B) BGE-E5-DISQUALIFIED-ANISOTROPY; g2_pinv_throughput 11335-WRITES-SEC-N16384 56x-MARGIN; g5_entity_substitution_kf1 DROP=0.000 3SEED; g6_semantic_fabrication_khop LOC=1.000 COSINE>0.87 3SEED.
+1 INCONCLUSIVE-LVH#244: g3_fp16_overflow_n65536 SMOKE-N16384-ONLY N=65536-NOT-TESTED OVERFLOW-PROJECTED fp16-gate-OPEN.
+HONEST 1040->1045 (+5). LVH 243->244 (+1). Portfolio 32+79 UNCHANGED. 377th PROT-009.

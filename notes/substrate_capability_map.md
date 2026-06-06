@@ -11947,3 +11947,52 @@ Band UNCHANGED.
 
 Cap_map: v463 -> v464 CYCLE 143 (3 HP-full: f6_bge_large_pinv_mmax_reaudit-BGE-REVERSAL-pinv_alpha_c=0.550-RETROACTIVE-AUDIT-PASS + f8_pinv_padfix_compound-PRODUCTION-RECIPE-whiten+pinv-alpha_c=0.400 + pseudoinverse_real_encoder_keys-TRANSFER-CONFIRMED-MiniLM-0.400; 2 HF: substrate_codebook_collapse_recovery-MEAN=0.688-BELOW-0.70-HIGH-VARIANCE-SEED23-87.5-CONFIRMED + f7_pinv_sparse_multihead-SPARSE-KEY-DISQUALIFIES-ALL-COMPOUND; 0 new LVH; HONEST 1035->1040 +5; LVH 243 UNCHANGED; Portfolio 32+79; BGE-LARGE-REVERSAL-HF->HP; SPARSE-KEY-DISQUALIFIED; PRODUCTION-RECIPE-LOCKED; 376th PROT-009) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v464 -> v465 CYCLE 144 G-BATCH (2026-06-06)
+
+Verdicts: g1_encoder_geometric_alignment_audit_v1 (HARD_PASS) + g2_pinv_write_throughput_v1 (HARD_PASS) + g3_fp16_overflow_n65536_v1 (HARD_PASS -- LVH #244 INCONCLUSIVE) + g5_entity_substitution_kf1_v1 (HARD_PASS) + g6_semantic_similar_fabrication_khop_v1 (HARD_PASS)
+
+**(1) g1_encoder_geometric_alignment_audit HARD_PASS (encoder-selection protocol confirmed)**
+PP-8 encoder-selection sub-axis. Geometric screening: PR>40 AND rho_eff<0.35.
+Approved: MiniLM (rho=0.255), mpnet (rho=0.333), Llama-3.2-1B (rho=0.207).
+Disqualified: bge-large (rho=0.605), e5-large (rho=0.823).
+bge-large anisotropy formally explains cycle-141 d_eff=114.8 cap prediction failure. Production checklist: geometric screening before cap measurement is mandatory.
+Cap_map annotation: g1_encoder_geometric_alignment HARD_PASS v465: 3 approved (MiniLM/mpnet/Llama-3.2-1B); 2 disqualified (bge-large rho=0.605; e5-large rho=0.823); geometric screen is precondition for valid cap measurement.
+Band UNCHANGED.
+
+**(2) g2_pinv_write_throughput HARD_PASS (deployment latency gate clears)**
+PP-8 write-rule operational envelope. pinv throughput at N=16384: 11,335 writes/sec (GPU). Clears 200 writes/sec gate by 56x. N-sweep: N2048=192K, N4096=95K, N8192=35K, N16384=11K. N=65536 extrapolated ~708 writes/sec (quadratic, still viable). Cycle-141 11x capacity lever is deployment-viable.
+Cap_map annotation: g2_pinv_write_throughput HARD_PASS v465: N16384=11335 writes/sec (56x margin); whiten+pinv production recipe viable across N=2048-65536 at GPU throughput; N=65536 extrapolated 708 writes/sec.
+Band UNCHANGED.
+
+**(3) g3_fp16_overflow_n65536 [LVH #244 honest: INCONCLUSIVE -- N=65536 NOT tested; overflow risk]**
+PP-8 fp16 deployment gate. N=16384 safe (absmax=50272; headroom=23.4%). N=65536 NOT TESTED (smoke only). sqrt(N) extrapolation: projected absmax ~100544 at N=65536, exceeds fp16 max 65504. fp16 production gate OPEN at N=65536.
+R1-R4 rescues cheapest-first: R1=run g3 full at N=65536; R2=N-sweep {16384,32768,65536} absmax; R3=fp32 accumulator fp16 storage; R4=fp32 baseline comparison.
+Cap_map annotation: g3_fp16_overflow_n65536 LVH#244-INCONCLUSIVE v465: smoke N=16384 only; N=65536 NOT TESTED; absmax headroom 23.4% at N=16384; overflow risk projected at N=65536; production fp16 gate at N=65536 OPEN.
+Band UNCHANGED.
+
+**(4) g5_entity_substitution_kf1 HARD_PASS (KF-1 entity-swap robust)**
+KF-1 adversarial envelope. Entity substitution resistance: drop=0.000 at N=8192 3-seed unanimous. KF-1 maintains full AUC under entity swaps (clean=1.000, swapped=1.000). Common LLM hallucination pattern: entity swaps. KF-1 deployable under entity-swap adversarial conditions.
+Cap_map annotation: g5_entity_substitution_kf1 HARD_PASS v465: drop=0.000 N=8192 3-seed; entity-swap adversarial robustness confirmed; production deployment envelope extended.
+KF-1 band 72-87% UNCHANGED.
+
+**(5) g6_semantic_similar_fabrication_khop HARD_PASS (K-hop hardest adversarial variant)**
+KF-1 K-hop reasoning adversarial envelope. Semantic-similar fabrication (cosine>0.87) resisted: middle-hop loc=1.000 K={3,5} 3-seed unanimous. Hardest adversarial K-hop variant tested. K-hop fact-checking robust under high-cosine semantic fabrication attacks.
+Cap_map annotation: g6_semantic_fabrication_khop HARD_PASS v465: loc=1.000 K={3,5} cosine>0.87 N=8192 3-seed; semantic-similar fabrication resistant; K-hop adversarial envelope confirmed at hardest tested adversarial variant.
+KF-1 band 72-87% UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v464 -> v465)
+- PROT-004/006: g3 LVH #244: R1-R4 filed cheapest-first. No closures.
+- PROT-007: v465 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 377th PROT-009 paired commit.
+- PROT-018: No _nN binding suffix on any anchor (v1 version suffix only). CLEAN.
+- PROT-019: LVH #244 filed (g3 N-mismatch; N=65536 gate not passed; overflow risk at N=65536).
+- PROT-021: g1 source=remote run_mode=full. g2 source=remote run_mode=full. g3 source=remote run_mode=SMOKE -- gate inconclusive; LVH #244. g5 source=remote run_mode=full n_seeds=3. g6 source=remote run_mode=full n_seeds=3.
+- PROT-022: g1/g2 single-seed deterministic. g3 smoke inconclusive. g5/g6 3-seed unanimous drop=0.000/loc=1.000. No HP-fragility.
+
+Cap_map: v464 -> v465 CYCLE 144 G-BATCH [label-vs-honest LVH #244] (4 HP: g1_encoder_geometric_alignment-3-ENCODERS-APPROVED-BGE-E5-DISQUALIFIED + g2_pinv_throughput-11335-W-SEC-N16384-56x-MARGIN + g5_entity_substitution_kf1-DROP-0.000-3SEED + g6_semantic_fabrication_khop-LOC-1.000-COSINE087-3SEED; 1 INCONCLUSIVE-LVH#244: g3_fp16_overflow_n65536-SMOKE-N16384-ONLY-OVERFLOW-PROJECTED-N65536-GATE-OPEN; LVH 243->244 +1; HONEST 1040->1045 +5; fp16 N=65536 gate OPEN; KF-1 adversarial envelope extended; PP-8 encoder-selection protocol confirmed; Portfolio 32+79 UNCHANGED; 377th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
