@@ -135,13 +135,12 @@ Per user directive 2026-06-06:
 - **Capability advanced:** PP-21 sparse-write rescue (compound)
 - **HP threshold:** 30x M_max at N=4096
 
-### Slot 6: `substrate_embedding_norm_gate_discriminability_v1` (T1-4)
-- **Wall:** ~30 min CPU
-- **Source:** sparse activation extraction drill
-- **Gates:** 20-47x extraction speedup
-- **Capability advanced:** PP-22 extraction sparse-gating
-- **HP threshold:** g=0.30 gate preserves >97% VQ coverage at 10K tokens
-- **Data:** uses existing Llama-1B npz residuals
+### Slot 6: ~~`substrate_embedding_norm_gate_discriminability_v1`~~ HARDFAIL (genuine; norm correlated with concept)
+- **Status:** DONE 2026-06-06 09:30 -- top-30% norm gate preserves only 42% of VQ concepts at v_c=256
+- **Finding:** L2-norm is strongly correlated with concept identity; norm-gating drops rare concepts systematically
+- **Strategic impact:** norm-gating BLOCKED as Phase 4a extraction-speedup lever
+- **2x rescue drill dispatched at 09:30:** entropy-gate vs per-cluster stratified vs concept-uniform random sampling
+- **Follow-on cells coming** after drill lands (~25 min)
 
 ### Slot 7 (NEW; follow-on from K-hop HP): `substrate_native_reasoning_K10_n16384_v1`
 - **Wall:** ~45 min CPU
