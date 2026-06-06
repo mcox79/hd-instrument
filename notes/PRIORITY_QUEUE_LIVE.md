@@ -300,6 +300,17 @@ Per user directive 2026-06-06:
 - **MID:** (c) approximately = max (equivalent mechanisms; pick whichever is cheaper)
 - **HF:** (c) < max (interfering mechanisms)
 
+### Slot G16 (NEW; from G7 HF subsumption -- explicit subsumption test at scale): `substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1`
+- **Wall:** ~60 min GPU (full N_enc=10000; uncensored)
+- **Source:** G7 HF smoke -- expansion saturates 4000 grid; whitening adds nothing; subsumption at small scale. Need full to confirm at scale.
+- **Architecture:** 4 arms at N_enc=10000: (a) base raw, (b) whiten only, (c) expand only, (d) expand + whiten
+- **Why CRITICAL:** if subsumption holds at scale, Phase 4 production rule simplifies to "expand". If full shows stacking, ~97x compound holds.
+- **Capability advanced:** Phase 4 production architecture finalization
+- **HP threshold:** (d) > (c) by >=15% (NO subsumption; ETF whitening still adds value)
+- **MID:** (d) >= (c) but <15% better (marginal stacking)
+- **HF:** (d) approximately = (c) (subsumption CONFIRMED at scale; whitening redundant once expanded)
+- **Strategic value:** simplification vs complexity for Phase 4 production code
+
 ### Slot PP8R2 (NEW; from cycle 122 PP-8 cleanup): `substrate_pp8_cosine_variance_gate_v1`
 - **Wall:** ~30 min CPU
 - **Source:** Orchestrator cycle 122 -- PP-8 norm-gate closed; R2 cosine-variance is next rescue
@@ -765,6 +776,7 @@ Already done earlier:
 - 2026-06-06 13:40 -- v19 (CLOUD-1 mean-pool bug + CLOUD-1b authorized): Testbed dispatched CLOUD-1 + diagnosed mean-pool bug on Pythia local in 3 min / $0. Mean-pool over causal LM destroys retrieval signal (Pythia: mean-pool top-5=0.000; last-token=0.130). CLOUD-1 killed at $0.50; CLOUD-1b authorized at ~$1.15 with 5 design fixes: last-token pool + MiniLM baseline + per-query rank + shuffled gold + Llama-1B added (1B/8B/70B trio). Total binding test cost $1.65 to definitive answer. **STANDING RULE codified:** causal LM = last-token pool; bidirectional encoder = mean-pool/CLS. Affects all future substrate-LLM extraction cell specs. Infrastructure proven: GH200 + aarch64 + cu124 path works (Phase 4a future asset).
 - 2026-06-06 13:55 -- v20 (G13 HF + G8 HP = MAJOR STRATEGIC SHIFT for causal-LM substrate): **G13 contradiction HF** (Pythia AUC 0.111; embedding-grounding cannot catch negation regardless of encoder order-sensitivity); ADDED Slot G14 NLI-head BART-MNLI rescue. **G8 cross-encoder dim-expansion HP** at 6.68x for Pythia LM family with whitening NON-OPTIONAL (raw Pythia cap=0 cone-collapsed; mean-pooled causal LM is unusable raw). **MAJOR STRATEGIC INSIGHT: causal-LM substrate compound = 1.21x whitening x 6.68x expansion x 12x sparse = ~97x (vs MiniLM ~1.87x); causal LMs have MORE anisotropy to attack -> more headroom.** Phase 3 linear-mode revised UP: ~254k facts/substrate at N=65536; D=8 = ~2M facts (Wikipedia subset viable in linear mode!). G8 + CLOUD-1 are same finding from different angles (mean-pool causal LM broken; last-token AND whitening BOTH fix). ADDED Slot G15 last-token vs whitening vs combined comparison.
 - 2026-06-06 14:00 -- v21: G5 negation 2x drill landed (4th + final 2x drill from today's audit-gap closure). REFINED Slot G14 with concrete spec: drop-in MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli (91.2% MNLI / 70.2% ANLI; CPU-eligible; no training). ADDED Slot NEG2 polarity adapter (diagonal re-weighting on MiniLM dims; antonym coverage; +14.52% per arXiv:2504.00584); Slot NEG3 negation cue features (explicit-token baseline); Slot NEG4 hybrid NLI+bigram+Pythia fusion (production-grade Phase 4 v3 scorer; conditional on G14 NLI signal). **ALL 4 TODAY'S 2X DRILLS NOW LANDED** (A real-encoder + B order-sensitivity + C stratified extraction + D negation). Today's drills produced ~20 cells across all non-positive results with explicit algebraic rescue paths.
+- 2026-06-06 14:15 -- v22 (G1 MID + G7 HF SIMPLIFICATION): G1 mpnet-768 dim-expansion MIDDLE (2.5x at D=768; rule transfers across encoder families; combined with G8's 6.68x on Pythia LM = UNIVERSAL dim-expansion rule). G7 Hadamard+whitening combined HARDFAIL but INFORMATIVE: expansion alone saturates 4000 grid; whitening adds nothing on top -> **EXPANSION SUBSUMES WHITENING** at data-limited scale. PRACTICAL: Phase 4 rule simplifies "expand AND whiten" -> "expand". Cleaner production architecture. CAVEAT: expand arms N_enc-censored at 4000; full N_enc=10000 needed. ADDED Slot G16 explicit subsumption test at scale. Compound math: if subsumption holds, causal-LM 80x (down from 97x); if stacking does occur at scale, 97x stable; either way Wikipedia subset viable in linear mode.
 
 ---
 
