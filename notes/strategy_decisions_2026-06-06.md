@@ -676,3 +676,78 @@ R2 (CHEAP, CPU <30min): Apply ZCA whitening to bge-large baseline (R2 above subs
 
 Cap_map: v452 -> v453 CYCLE 131 (1 HF: effective_rank_svd_multi_encoder ENCODER-BOUNDED-bge_large=114.8-BEST-BELOW-150; 1 LVH#234: expansion_method_battery HARD_PASS-SMOKE-ZERO_DIV-ARTIFACT-HONEST=SMOKE-PARTIAL; 0 HP; HONEST 993->995 +2; LVH 233->234 +1; Portfolio 32+79 UNCHANGED; R1-R4 encoder rescues filed; R1-R2 expansion rescues filed; annotation-only; 365th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v453 -> v454 CYCLE 132 BATCH (2026-06-06)
+
+Verdicts processed: substrate_expansion_method_battery_gpu_v1 (RE-RUN full 3-seed; cycle 131 LVH #234 proper re-run) + multi_head_sparse_key_battery_gpu_v1 (GENUINELY NEW orphan-recovered; multi-head sparse-KEY battery) + dimsparse3_alpha_at_mc_v1 (GENUINELY NEW orphan-recovered; dim-expansion + sparse-KEY AT M_c regime)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_expansion_method_battery_gpu_v1 HARD_PASS -- LABEL HONEST (RE-RUN CLEAN)**
+source=remote run_mode=full n_seeds=3. DUPLICATE-CHECK: cycle 131 LVH#234 was smoke n=1 with zero-division artifact alpha ratio. THIS is the proper 3-seed full re-run with actual per-cell alpha data. NOT a duplicate.
+Per-cell (representative): native/rp_x2/rp_x4 alpha=0.0 at r=32,64; equal and near-zero at r=128,256,512. ZCA whitening: r=32->0.0195, r=64->0.0298, r=128->0.0498, r=256->0.0796, r=512->0.0796. All 3 seeds unanimous on every cell (deterministic).
+Verdict_msg means verified: native=0.0065, rp_x4=0.0065, zca_whiten=0.0517. rp_x4 == native cell-by-cell (verified). ZCA strictly > native at all r (verified).
+Label claim 'd_eff framework confirmed at synthetic scale': FRAMEWORK-VALIDATION verdict, not numerical-threshold claim. HONEST. No LVH.
+HONEST +1 (995->996).
+
+**(2) multi_head_sparse_key_battery_gpu_v1 HARD_PASS -- LVH #235**
+source=remote run_mode=SMOKE n_seeds=1. elapsed=0.87s (very fast -- single tiny run).
+Per-cell: H1=0.1997, H2=0.3999, H4=0.6997, H8=0.6997. H2/H1=2.00x, H4/H2=1.75x.
+LABEL OVER-CLAIMS. HARD_PASS on smoke n=1 violates PROT-021 multi-seed requirement. Additionally: H8=H4 (alpha saturates at 0.700 beyond H=4) -- saturation not disclosed in verdict_msg.
+LVH #235: (a) label HARD_PASS; (b) honest: HP-SMOKE -- H2/H1=2.00x and H4/H2=1.75x genuine monotone scaling signals but single-seed; HARD_PASS requires 3-seed full; also H8=H4 plateau; (c) contradicting cells: run_mode=smoke n_seeds=1 (PROT-021 not met); H8 alpha=H4 alpha (saturation at H=4 not disclosed in verdict_msg).
+Honest verdict: HP-SMOKE. Multi-head sparse-KEY composition lever confirmed directionally; saturation at H>=8 noted.
+HONEST +1 (996->997). LVH 234->235 (+1).
+
+**(3) dimsparse3_alpha_at_mc_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=SMOKE n_seeds=1.
+Per-cell: M_c={baseline:32, dim_expand_x2:32, sparse_key:4, compound:4}. best_rescue/baseline=1.00x.
+Label claim 'no rescue >1.2x' -- verified: dim_expand=32=baseline (1.00x), sparse_key=4 (0.125x, WORSE), compound=4 (0.125x, WORSE). HARD_FAIL label correct.
+NUANCE: sparse_key AT M_c regime is anti-helpful (M_c drops from 32 to 4, 8x degradation). Directly answers cycle-124 deferred question and cycle-129 ordering question with proper M-regime data. dim-expansion holds M_c stable; sparse-KEY collapses it. NOT contradictory with cycle-123 sub-capacity alpha result (different operating regimes).
+HONEST. No LVH. HONEST +1 (997->998).
+
+HONEST: 995 -> 998 (+3: 1 genuine re-run + 2 genuinely new). LVH: 234 -> 235 (+1: multi_head_sparse_key HP-SMOKE-SINGLE-SEED-SATURATION).
+
+### Cap_map decisions
+
+**(1) substrate_expansion_method_battery_gpu_v1 HARD_PASS (3-seed full; supersedes LVH#234 smoke)**
+PP-8 / effective-dimensionality sub-property annotation (FINAL proper reading).
+Supersedes cycle-131 LVH#234 SMOKE-PARTIAL. Full 3-seed confirms: expansion (rp_x2, rp_x4) does NOT improve alpha over native. ZCA whitening strictly > native at all r, 3 seeds unanimous. d_eff framework: whitening increases effective rank through decorrelation; random projection expands dimension but does NOT increase effective rank. Closes rp_x2/rp_x4 as capacity levers. ZCA whitening confirmed as the single mechanism lifting alpha.
+Annotation: HARD_PASS (full); SMOKE-PARTIAL annotation from v453 superseded.
+
+**(2) multi_head_sparse_key_battery_gpu_v1 [LVH #235 honest: HP-SMOKE; H2/H1=2.00x H4/H2=1.75x; saturation H>=8]**
+PP-8 / sparse-KEY multi-head sub-axis. HP-SMOKE annotation only.
+Genuine signal: multi-head sparse-KEY shows clean monotone scaling H1->H4 at N=2048. Saturation at H>=8. Extends cycle-123 sparse-KEY single-head result. Multi-head is a composition lever up to H=4.
+Rescues (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): H1->H4 monotone scaling documented; saturation H>=8 documented.
+R2 (CHEAP, GPU <30min): 3-seed full at H={1,2,4,8} N=2048 to convert HP-SMOKE to HARD_PASS.
+R3 (CHEAP, GPU <30min): N-sweep at H=4 across N={4096,8192,16384} to check scaling at larger N.
+R4 (MEDIUM, GPU <2h): Multi-head sparse-KEY + dim-expansion compound at H=4 to test stacking of orthogonal mechanisms.
+Band UNCHANGED.
+
+**(3) dimsparse3_alpha_at_mc_v1 HARD_FAIL (smoke; cycle-124+129 open questions ANSWERED)**
+PP-8 M_c-regime stacking sub-axis. HARD_FAIL smoke n=1.
+Key finding: AT M_c, sparse-KEY DESTROYS capacity (M_c collapses 32->4, 8x degradation). dim-expand HOLDS M_c stable (32=32). Compound collapses to sparse_key (M_c=4). Decisive negative at the most critical operating regime.
+Answers cycle-124 deferred question: stacking at M_c is anti-synergistic when sparse-KEY is one lever.
+Answers cycle-129 ordering question: dim-expansion survives at M_c; sparse-KEY does not.
+Does NOT contradict cycle-123 sparse-KEY sub-capacity HARD_PASS (different regime: M_c vs alpha).
+Rescues (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Clarify regime split -- sparse-KEY improves sub-capacity alpha (cycle-123) but collapses M_c (this result). Not contradictory; different operating points.
+R2 (0-compute, SUBSUMPTION): dim-expansion-alone at M_c is clean lever (M_c=32=baseline); compound designs must exclude sparse-KEY at M_c regime.
+R3 (CHEAP, GPU <30min): M_c probe for sparse-KEY at lower alpha values (alpha=0.05, 0.10) to test if M_c collapse is alpha-specific.
+R4 (CHEAP, GPU <30min): Multi-head sparse-KEY (H=4) at M_c to test if multi-head structure avoids collision-induced M_c collapse.
+R5 (MEDIUM, GPU <2h): Full 3-seed M_c sweep with compound dim_expand_x2 + structured keys (Hadamard) as M_c baseline robustness control.
+Band UNCHANGED. Portfolio UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v453 -> v454)
+- PROT-004/006: No closures. Anchor 2 LVH#235: 4 rescues cheapest-first. Anchor 3 HF: 5 rescues cheapest-first.
+- PROT-007: v454 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes. Anchor 1 supersedes SMOKE-PARTIAL (quality upgrade within HARD_PASS). Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 366th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: Anchor 1 source=remote run_mode=full n_seeds=3 CLEAN. Anchors 2+3 source=remote run_mode=smoke n_seeds=1. LVH#235 filed for anchor 2. Anchor 3 smoke HF mechanistically robust.
+- PROT-022: Anchor 1 all-seeds identical (deterministic alpha). Anchors 2+3 n=1 smoke; HP-fragility not evaluable.
+
+Cap_map: v453 -> v454 CYCLE 132 (1 HP-full: expansion_method_battery-3SEED-WHITENING-BEATS-EXPANSION-ZCA-0.0517-CONFIRMED-SUPERSEDES-LVH234; 1 HP-SMOKE-LVH#235: multi_head_sparse_key-SMOKE-H2/H1=2.00x-H4/H2=1.75x-SATURATION-H8; 1 HF: dimsparse3_alpha_at_mc-SMOKE-SPARSE-KEY-DESTROYS-Mc-32->4-DIM-EXPAND-HOLDS-32=32-CYCLE124+129-ANSWERED; LVH 234->235 +1; HONEST 995->998 +3; Portfolio 32+79 UNCHANGED; 366th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
