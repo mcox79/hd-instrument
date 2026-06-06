@@ -170,12 +170,11 @@ Per user directive 2026-06-06:
 - **HP threshold:** combined M_max ratio >= 40x vs random + dense baseline at N=4096
 - **Metric:** auto-associative Hopfield + flip-corrupted cue (FLIP=0.05) + unique patterns + 0.95 accuracy
 
-### Slot 9 (NEW; Phase 4a infrastructure adoption): `substrate_etf_hadamard_phase4a_infra_eval_v1`
-- **Wall:** ~30 min CPU
-- **Source:** Slot 2 ETF Hadamard HP + Phase 4a infrastructure plan
-- **Why new:** Phase 4a infrastructure needs codebook init choice locked in. ETF Hadamard gives 10x at N=4096; should be the default. Test against current MiniLM-based substrate setups (used by overnight HPs: KF-1 hallucination, real-encoder, continual KV).
-- **Capability advanced:** Phase 4a infrastructure quality
-- **HP threshold:** ETF Hadamard codebook on MiniLM substrate >= 4x capacity vs random init at matched conditions
+### Slot 9 (DONE; MIDDLE 2.75x; real-encoder dim ceiling): ~~`substrate_etf_hadamard_phase4a_infra_eval_v1`~~
+- **Status:** DONE 2026-06-06 ~10:15 -- raw_cap=307 vs whitened_cap=844 on MiniLM 384-dim = 2.75x
+- **Root cause:** real-encoder dim ceiling -- MiniLM at 384-dim has limited orthogonalization headroom vs synthetic Hadamard at unrestricted N
+- **Strategic NUANCE:** real-encoder compound is 2.75x x 12x = ~33x (NOT synthetic-keys 100x). Phase 3 linear-mode still meaningful but bounded
+- **Rescue identified:** dim-expansion via random-feature lift -> Slot 14 below
 
 ### Slot 10 (NEW; CRITICAL Phase 3 confirmation gate): `substrate_etf_hadamard_n_sweep_capacity_v1`
 - **Wall:** ~60 min CPU (4 N-points x 3 seeds)
@@ -196,6 +195,74 @@ Per user directive 2026-06-06:
 - **Architecture:** test substrate with (a) no defense, (b) Hadamard only, (c) a_query_sim only, (d) both
 - **Capability advanced:** U2 adversarial codebook-collision robustness
 - **HP threshold:** stacked defense (Hadamard + a_query_sim) > additive sum of individual defenses
+
+---
+
+## GPU LANE PRIORITIES (genuine GPU-appropriate cells; populated 2026-06-06 10:25 per Exp-Dev's request)
+
+GPU lane must always have prioritized depth so it never idles. Pull from this section when GPU runner slot opens.
+
+### Slot 14 (IN FLIGHT; Exp-Dev's autonomous build approved): `substrate_etf_minilm_dim_expansion_v1`
+- **Wall:** ~60 min GPU (D=4096 full)
+- **Source:** Slot 9 MIDDLE root cause -- real-encoder dim ceiling
+- **Architecture:** random-feature lift phi(x)=sign(Rx) at D in {384, 1024, 4096}, then ETF orthogonalize, then standard Hebbian + auto-assoc Hopfield + FLIP=0.05
+- **Smoke confirmed:** D384=576 -> D1024=1536 (LINEAR scaling; 2.67x cap for 2.67x dim)
+- **HP threshold:** D=4096 whitened_cap >= 12x raw_cap
+- **Capability advanced:** Phase 4a real-encoder capacity rescue
+- **Strategic value:** if HP, Phase 4a infra adopts `expand THEN orthogonalize` -> recovers ~10x synthetic gains for real encoders
+
+### Slot G1 (NEW; transferability test): `substrate_etf_dim_expansion_mpnet_768_v1`
+- **Wall:** ~60 min GPU
+- **Source:** Slot 14 dim-expansion result + Exp-Dev's recommendation
+- **Why:** does dim-expansion rescue generalize across encoders? mpnet-768 has higher base dim than MiniLM; if expansion still helps, the rule is universal
+- **Architecture:** load all-mpnet-base-v2; same random-feature lift + ETF; D in {768, 1536, 4096}
+- **Capability advanced:** Phase 4a real-encoder rule generalization
+- **HP threshold:** D=4096 whitened_cap >= 8x raw_cap (lower bar; mpnet starts higher dim)
+
+### Slot G2 (NEW; KF-1 robustness sweep): `substrate_kf1_hallucination_robustness_sweep_v1`
+- **Wall:** ~75 min GPU
+- **Source:** KF-1 HP'd at AUC=0.999 with MiniLM; need robustness under attack
+- **Why:** KF-1 is a flagship feature for the audit moat; production needs adversarial robustness validated
+- **Architecture:** KF-1 setup + 3 perturbations: (a) paraphrase attacks (LLM-rewritten queries), (b) harder confabulations (more plausible distractors), (c) multi-KB scales (3-5 KBs combined)
+- **Capability advanced:** PP-3 hallucination detection robustness; production readiness for KF-1
+- **HP threshold:** AUC >= 0.95 under all 3 perturbations (vs 0.999 clean baseline)
+- **MID:** AUC >= 0.85 under attack
+- **HF:** AUC drops below 0.80 (production gap)
+
+### Slot G3 (NEW; real-encoder capacity at production-class N): `substrate_real_encoder_capacity_n16384_dim_expanded_v1`
+- **Wall:** ~75 min GPU
+- **Source:** Slot 14 dim-expansion + capacity scaling story
+- **Why:** combines dim-expansion result with substrate capacity narrative; tests whether dim-expanded MiniLM at N=16384 gives meaningful production capacity
+- **Architecture:** dim-expanded MiniLM substrate (D_eff=4096); N=16384; sweep M; auto-assoc Hopfield + FLIP=0.05
+- **Capability advanced:** Phase 4a production capacity claim
+- **HP threshold:** whitened_cap at N=16384 >= 6,000 facts (10x raw MiniLM baseline)
+- **Strategic value:** ties dim-expansion to production substrate sizing
+
+### Slot G4 (NEW; continual KV scaling): `substrate_continual_kv_n32768_120_sessions_v1`
+- **Wall:** ~90 min GPU
+- **Source:** Continual KV HP at N=8192 with 60 sessions (99.8% retention); scale test
+- **Why:** production needs larger N + more sessions; current HP is mid-scale
+- **Architecture:** Continual KV setup at N=32768; 120 sessions / 7,200 facts; same write rule as HP baseline
+- **Capability advanced:** PP-19 continual learning scale
+- **HP threshold:** retention >= 0.95 at session 120; zero contradictions
+- **MID:** retention 0.85-0.95
+- **HF:** retention < 0.85 (continual KV doesn't scale)
+
+### Slot G5 (NEW; harder hallucination benchmark): `substrate_kf1_truthfulqa_style_v1`
+- **Wall:** ~60 min GPU
+- **Source:** KF-1 flagship + Exp-Dev's note on harder benchmarks
+- **Why:** KF-1's AUC=0.999 was on substrate-internal generated distractors; harder benchmark needed for production credibility
+- **Architecture:** KF-1 setup applied to TruthfulQA-style adversarial questions (or curated subset); compare to LLM baselines (GPT-3.5 / Claude 3 / Llama-3-70B if available via API)
+- **Capability advanced:** PP-3 hallucination detection generalization
+- **HP threshold:** substrate KF-1 AUC >= 0.85 on adversarial benchmark
+- **MID:** AUC 0.70-0.85
+- **HF:** AUC < 0.70 (clean substrate signal didn't generalize)
+
+### Slot G6 (DEFERRED; Pythia end-to-end): `substrate_pythia_end_to_end_capability_v1`
+- **Wall:** ~120 min GPU
+- **Source:** Exp-Dev's note + Phase 4 capability validation
+- **Status:** DEFERRED until Pythia weights confirmed available locally (similar to HotpotQA-1B gating)
+- **Why valuable:** validates substrate-LLM coupling at non-MiniLM/non-Llama-1B encoder
 
 ---
 
@@ -316,6 +383,7 @@ Already done earlier:
 - 2026-06-06 08:55 -- v5: Slot 2 ETF Hadamard HP (26th flagship; 8.02x capacity at N=1024). ADDED Slot 8 ETF + sparse compound test (does ~80x compound hold?) + Slot 9 Phase 4a infrastructure ETF adoption eval. Matthiessen -> ETF chain is the day's biggest architectural win: 8x capacity for free via codebook init. Phase 4a infrastructure should adopt ETF Hadamard by default.
 - 2026-06-06 09:20 -- v6: Orchestrator cycle 117 ETF Hadamard FULL RUN confirmed 10.04x at N=4096 (vs smoke 8.02x at N=1024). cap_map v438 -> v439. ADDED Slot 10: CRITICAL Phase 3 confirmation gate -- Hadamard N-sweep across {4096, 16384, 32768, 65536} to verify 10x lift persists. ADDED Slot 11: U2 codebook+query stacked-defense hypothesis (architectural insight from orchestrator). If Slot 10 HPs at N=65536, Phase 3 linear capacity goes from 2,621 facts to ~26,000 per substrate; D=8 production = ~208k facts.
 - 2026-06-06 09:50 -- v7: TRIPLE LANDING. (a) Slot 3 sparse-PATTERN HP at ~12x (sparse_alpha 0.30 vs dense 0.025 at N=1024 smoke); compound with ETF could give ~100x. (b) Cycle 118 confirmed Matthiessen 100% codebook-collision + K-hop lossless to K>=6 (both labels conservative). (c) Slot 6 norm-gate HARDFAIL rescue drill landed: PER-CLUSTER STRATIFIED is the rescue (100% coverage + 100-1000x speedup; P_deflated 0.65). ADDED Slot 12: per_cluster_stratified_extraction. ADDED Slot 13: concept_uniform_random_extraction (floor case). Slot 7 expanded to K=10/K=20 sweep (K-hop ceiling unknown above 6). DIAGNOSTIC+RESCUE+REASONING TRIPLE NOW EMPIRICALLY ANCHORED.
+- 2026-06-06 10:25 -- v8 (POST-COMPACTION + GPU LANE POPULATED): Slot 9 MIDDLE 2.75x on real MiniLM (real-encoder dim ceiling); compound revised to ~33x for real encoders. ADDED Slot 14 dim-expansion rescue (Exp-Dev's autonomous build; smoke linear scaling; full D=4096 in flight). ADDED GPU LANE PRIORITIES section with 6 cells (G1-G6): mpnet transferability, KF-1 robustness sweep, real-encoder capacity at N=16384 with expansion, continual KV at N=32768, KF-1 on TruthfulQA-style benchmark, Pythia end-to-end (deferred). Per Exp-Dev's note: GPU lane was thin; user flagged GPU-idle multiple times. Now GPU lane has prioritized depth.
 
 ---
 
