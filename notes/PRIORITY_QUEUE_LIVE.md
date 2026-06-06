@@ -235,14 +235,12 @@ Per user directive 2026-06-06:
 
 GPU lane must always have prioritized depth so it never idles. Pull from this section when GPU runner slot opens.
 
-### Slot 14 (IN FLIGHT; Exp-Dev's autonomous build approved): `substrate_etf_minilm_dim_expansion_v1`
-- **Wall:** ~60 min GPU (D=4096 full)
-- **Source:** Slot 9 MIDDLE root cause -- real-encoder dim ceiling
-- **Architecture:** random-feature lift phi(x)=sign(Rx) at D in {384, 1024, 4096}, then ETF orthogonalize, then standard Hebbian + auto-assoc Hopfield + FLIP=0.05
-- **Smoke confirmed:** D384=576 -> D1024=1536 (LINEAR scaling; 2.67x cap for 2.67x dim)
-- **HP threshold:** D=4096 whitened_cap >= 12x raw_cap
-- **Capability advanced:** Phase 4a real-encoder capacity rescue
-- **Strategic value:** if HP, Phase 4a infra adopts `expand THEN orthogonalize` -> recovers ~10x synthetic gains for real encoders
+### Slot 14 (DONE; MIDDLE -- LVH catch #225): ~~`substrate_etf_minilm_dim_expansion_v1`~~
+- **Status:** DONE 2026-06-06 ~11:00 -- D=384 2.75x; D=1024 1.29x; D=4096 1.29x. LVH catch #225 on >=3x mean-only claim.
+- **Finding:** dim-expansion lift PLATEAUS (does not scale linearly with D as smoke suggested). At D=4096 the gain is only 1.29x.
+- **Strategic impact:** real-encoder compound revised DOWN: ETF (2.75x) x dim-expansion (1.29x) x sparse (12x if real-encoder) = ~42x (not the optimistic 100x+ I projected from smoke)
+- **Cross-N finding:** lift SHRINKS with N -- opposite of codebook-collision-as-sole-noise prediction. Either (a) real encoders have N-dependent additional noise, or (b) Hadamard gain is N-saturating because partial pre-structure dominates at large N. **Slot G9 N_sub sweep now CRITICAL to disambiguate.**
+- **Honest-re-read discipline:** I over-extrapolated from smoke D=1024 result. LVH #225 caught it. Discipline working.
 
 ### Slot G1 (NEW; transferability test): `substrate_etf_dim_expansion_mpnet_768_v1`
 - **Wall:** ~60 min GPU
@@ -319,6 +317,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** ratio plateaus at 2.75x or declines
 
 ### Slot G10 (NEW; order-sensitive encoder for KF-1): `substrate_kf1_hallucination_order_sensitive_encoder_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE adv=0.702, rescues 0.217->0.702); full queued GPU
 - **Wall:** ~75 min GPU
 - **Source:** Slot G2 capability boundary finding -- MiniLM bag-of-words limits adversarial detection
 - **Why:** if hallucination detection needs to be word-order-sensitive (e.g., catching "John gave Mary the book" vs "Mary gave John the book" as different facts), need an encoder that captures order
@@ -329,6 +328,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** AUC < 0.70 (even order-sensitive encoders fail; need explicit n-gram features)
 
 ### Slot G11 (NEW; n-gram-augmented hallucination detection): `substrate_kf1_ngram_augmented_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL adv=0.192; char n-grams survive word-shuffle); full queued GPU
 - **Wall:** ~60 min GPU
 - **Source:** Slot G2 capability boundary -- alternative path to order-sensitivity
 - **Why:** if order-sensitive encoder is too expensive, augment MiniLM with explicit n-gram features
@@ -336,6 +336,17 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **Capability advanced:** PP-3 lightweight order-sensitivity
 - **HP threshold:** word-shuffled adversarial AUC >= 0.80 (vs 0.217 baseline)
 - **Strategic value:** if HP, MiniLM-class encoder gains order-sensitivity at minor cost
+
+### Slot G12 (NEW; adversarial KF-1 a_query_sim defense): `substrate_kf1_a_query_sim_defense_v1`
+- **Wall:** ~60 min GPU
+- **Source:** Orchestrator cycle 120 -- KF-1 adversarial shuffled-KB AUC=0.206 remains open; orchestrator flagged `a_query_sim` defense path
+- **Why:** the shuffled-KB attack remains the open KF-1 vulnerability after the hard-negative HP. a_query_sim is the query-layer defense (cosine similarity vs query distribution) that should detect this
+- **Architecture:** KF-1 + a_query_sim query-layer defense (compute similarity of incoming query to KB query distribution; reject if too anomalous)
+- **Capability advanced:** PP-3 hallucination detection adversarial robustness
+- **HP threshold:** shuffled-KB adversarial AUC >= 0.80 (vs 0.206 baseline)
+- **MID:** AUC 0.60-0.80
+- **HF:** AUC < 0.60 (a_query_sim doesn't catch shuffled attacks)
+- **Strategic value:** closes the last KF-1 adversarial vulnerability surfaced today
 
 ### Slot G6 (DEFERRED; Pythia end-to-end): `substrate_pythia_end_to_end_capability_v1`
 - **Wall:** ~120 min GPU
