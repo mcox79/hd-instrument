@@ -28,7 +28,7 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "kf1_paraphrase_robustness_marianmt_v1"
 ENCODER = "sentence-transformers/all-MiniLM-L6-v2"
-MT_FWD = "Helsinki-NLP/opus-mt-en-de"; MT_BACK = "Helsinki-NLP/opus-mt-de-en"
+MT_MODEL = "facebook/nllb-200-distilled-600M"   # safetensors (no torch<2.6 CVE block); en<->de via lang codes
 MEDQA = REPO / "data" / "datasets" / "medqa_usmle_500.jsonl"; PUBMED = REPO / "data" / "datasets" / "pubmed_abstracts_10k.jsonl"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
@@ -56,7 +56,7 @@ if _ARGS.self_test:
     sys.exit(0)
 try:
     import torch
-    from transformers import AutoTokenizer, AutoModel, MarianMTModel, MarianTokenizer
+    from transformers import AutoTokenizer, AutoModel, AutoModelForSeq2SeqLM
 except Exception as e:
     print("[FATAL] deps: %s" % e, flush=True); sys.exit(1)
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -88,17 +88,22 @@ def embed(texts):
     e = np.concatenate(out, 0).astype(np.float32); return e / (np.linalg.norm(e, axis=1, keepdims=True) + 1e-8)
 
 
-def translate(texts, model_id):
-    tok = MarianTokenizer.from_pretrained(model_id); m = MarianMTModel.from_pretrained(model_id).to(DEV).eval(); out = []
-    for i in range(0, len(texts), 16):
-        t = tok(texts[i:i + 16], return_tensors="pt", padding=True, truncation=True, max_length=96).to(DEV)
-        with torch.no_grad():
-            g = m.generate(**t, max_length=96)
-        out.extend(tok.batch_decode(g, skip_special_tokens=True))
+def roundtrip(texts):
+    # en -> de -> en via NLLB-200 (one model, two passes; safetensors)
+    tok = AutoTokenizer.from_pretrained(MT_MODEL); m = AutoModelForSeq2SeqLM.from_pretrained(MT_MODEL, use_safetensors=True).to(DEV).eval()
+    def _xlate(src_texts, src_lang, tgt_lang):
+        tok.src_lang = src_lang; bos = tok.convert_tokens_to_ids(tgt_lang); out = []
+        for i in range(0, len(src_texts), 16):
+            t = tok(src_texts[i:i + 16], return_tensors="pt", padding=True, truncation=True, max_length=96).to(DEV)
+            with torch.no_grad():
+                g = m.generate(**t, forced_bos_token_id=bos, max_length=96)
+            out.extend(tok.batch_decode(g, skip_special_tokens=True))
+        return out
+    de = _xlate(texts, "eng_Latn", "deu_Latn"); en = _xlate(de, "deu_Latn", "eng_Latn")
     del m
     if DEV.type == "cuda":
         torch.cuda.empty_cache()
-    return out
+    return en
 
 
 def grounding(claims_emb, kb_emb):
@@ -114,7 +119,7 @@ def run_seed(seed) -> Dict:
     real_e = embed(real_claims); fab_e = embed(fab_claims)
     clean_auc = auc(grounding(real_e, kb_emb), grounding(fab_e, kb_emb))
     # attack: paraphrase real claims via en->de->en round-trip, re-ground
-    para = translate(translate(real_claims, MT_FWD), MT_BACK); para_e = embed(para)
+    para = roundtrip(real_claims); para_e = embed(para)
     para_auc = auc(grounding(para_e, kb_emb), grounding(fab_e, kb_emb))
     print("  [seed=%d] clean_AUC=%.3f paraphrase_AUC=%.3f drop=%.3f" % (seed, clean_auc, para_auc, clean_auc - para_auc), flush=True)
     return {"seed": seed, "clean_auc": clean_auc, "paraphrase_auc": para_auc, "drop": clean_auc - para_auc}
@@ -130,7 +135,7 @@ def verdict(ps) -> Tuple[str, str]:
     return ("HARD_FAIL", "HARD_FAIL: KF-1 grounding COLLAPSES under paraphrase (AUC<0.65) -- KF-1 alone insufficient; need hybrid (substrate+bigrams+NLI+paraphrase-aware). " + summary)
 
 
-print("[config] anchor=%s mode=%s seeds=%s N_kb=%d N_claim=%d MT=en-de-en" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_KB, N_CLAIM), flush=True)
+print("[config] anchor=%s mode=%s seeds=%s N_kb=%d N_claim=%d MT=NLLB-en-de-en" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_KB, N_CLAIM), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); ps = [run_seed(s) for s in SEEDS]
 v, vmsg = verdict(ps); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "per_seed": ps, "elapsed_s": time.time() - t0}
