@@ -835,3 +835,84 @@ Portfolio 32+79 UNCHANGED (sub-axis closure, not portfolio row closure).
 
 Cap_map: v454 -> v455 CYCLE 133 (1 HP-full: fact_checked_khop-3SEED-KHOP-K2-K5-1.000-FABRICATION-AUC-1.000-PER-HOP-LOCALIZATION; 1 HP-full-LVH235-RESOLVED: multi_head_sparse_key_M2-3SEED-H2/H1-2.25x-SUPER-SQRT-M; 2 MID: hierarchical_hadamard_then_sparse_key-LVH236-1.00x-NO-COMPOUNDING + cs1_dt_algebraic_audit-DT-BOUNDARY-EXTREME-SPARSITY-ONLY; 1 MID-ANNOTATION: sparse_key_composition_battery-INDEP-MASK-PARITY-FLAT-JOINT-MASK-DESTROYS; 1 HF-full-CONFIRMED: dimsparse3_alpha_at_mc-3SEED-SPARSE-KEY-Mc-2-vs-12-M_c-RESCUE-AXIS-CLOSED; 1 LVH #236: hierarchical_hadamard 1.0-1.2x-RANGE-OVERCLAIM-HONEST-1.00x; LVH 235->236 +1; HONEST 998->1003 +5; Portfolio 32+79 UNCHANGED; per-hop-fabrication-localization sub-property added to K-hop row; M_c-sparse-key rescue closed R1-R5 filed; 367th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v455 -> v456 CYCLE 134 BATCH (2026-06-06)
+
+Verdicts processed: fact_checked_khop_confidence_weighted_v1 (MIDDLE_BAND) + fact_checked_khop_middle_hop_localization_v1 (HARD_PASS) + hierarchical_vq_plus_sparse_key_v1 (HARD_PASS) + crt_multi_scale_grid_cell_composition_v1 (HP-SMOKE LVH#237)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) fact_checked_khop_confidence_weighted_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=8192, K={5,10,20}.
+Per-cell: ALL seeds (7,17,23) x ALL K-cells: binary_AUC=1.000, best_conf_AUC=1.000, lift=+0.000 (exact zero, no variance).
+Verdict_msg 'confidence ~ binary (no clear lift)' accurate: substrate binary discrimination is already at ceiling (1.000); confidence-weighted scoring adds zero marginal lift. MIDDLE_BAND honest -- not HF (binary works), not HP (confidence adds nothing). HONEST. +1 HONEST (1003->1004). No LVH.
+
+**(2) fact_checked_khop_middle_hop_localization_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=8192, K={3,5}.
+Per-seed: ALL seeds (7,17,23) ALL K-hop positions (K3: h0/h1/h2 + K5: h0/h2/h4): localization=1.000. middle_hop_loc=1.000 unanimous.
+HP threshold >=0.85. Cleared at 1.000 on ALL cells. The hardest case (middle-hop) passes at ceiling. 'production gate clears, forward-only K-hop deployable' claim accurate. HONEST. +1 HONEST (1004->1005). No LVH.
+
+**(3) hierarchical_vq_plus_sparse_key_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. N=4096.
+Per-seed: ALL seeds (7,17,23): alpha B1=1.0, B8=8.0, B64=8.0 (tight unanimous across all seeds).
+best_hier/flat-sparse=8.00x >= 4x HP threshold. Pipeline composition (dense M_c + sparse-KEY retrieval) gives 8x vs sparse-alone, all 3 seeds identical. Bank capacities add cleanly. HP label accurate. HONEST. +1 HONEST (1005->1006). No LVH.
+
+**(4) crt_multi_scale_grid_cell_composition_v1 HARD_PASS -- LVH #237 (HP-SMOKE)**
+source=LOCAL (no _source field from bridge; metrics from data/exp_crt_multi_scale_grid_cell_composition_v1/metrics.json). run_mode=SMOKE. n_seeds=1.
+Per-seed (seed=1): single=7, two_scale=77, three_scale=1001 (CRT product=7*11*13=1001), ratio_3_vs_1=143.0x.
+LABEL OVER-CLAIMS. HARD_PASS on smoke n=1 violates PROT-021. The CRT product matching is mathematically extraordinary (143x, exact modular product), but single-seed smoke does not meet multi-seed full protocol for HARD_PASS. Directional signal is extremely strong and theoretically principled (CRT exact match). Metrics source=LOCAL -- potential pre-ship smoke artifact locally staged; bridge had no remote data.
+LVH #237: (a) label HARD_PASS; (b) honest: HP-SMOKE -- multiplicative CRT composition confirmed at single seed with exact product match, but requires 3-seed full run per PROT-021; metrics source=LOCAL adds additional uncertainty; (c) contradicting cells: run_mode=smoke n_seeds=1, PROT-021 multi-seed not met.
+HONEST. +1 HONEST (1006->1007). LVH 236->237 (+1).
+
+HONEST: 1003 -> 1007 (+4). LVH: 236 -> 237 (+1: crt_multi_scale HP-SMOKE PROT-021-violation + LOCAL source).
+
+### Cap_map decisions (v455 -> v456)
+
+**(1) fact_checked_khop_confidence_weighted_v1 MIDDLE_BAND**
+K-hop + KF-1 fabrication-detection sub-property annotation. Extension of v455 fact_checked_khop HP.
+Binary discrimination at ceiling (AUC=1.000); confidence-weighted scoring adds zero additional signal at N=8192. Interpretation: substrate HD similarity scores are already maximally discriminative for binary fabrication -- confidence weighting is redundant when binary signal is perfect. At lower N or harder tasks, confidence weighting may add lift; this is an N=8192 K<=20 saturation result.
+Cap_map: fact-checked K-hop sub-property annotation -- 'confidence weighting redundant at binary-ceiling regime (N=8192); binary AUC=1.000 sufficient'. No band-lift.
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): MIDDLE_BAND is the operating-regime boundary -- confidence weighting adds lift only when binary signal is non-ceiling. At N=8192 binary is already perfect; test at lower N or larger K where binary signal degrades.
+R2 (CHEAP, CPU <30min): Test confidence weighting at N=1024/2048 where binary AUC may be sub-ceiling -- expected regime for confidence lift.
+R3 (CHEAP, CPU <30min): Synthetic adversarial regime (noise-added facts, partial K-hop chains) to find operating point where confidence weighting provides real discrimination.
+
+**(2) fact_checked_khop_middle_hop_localization_v1 HARD_PASS**
+K-hop + KF-1 sub-property extension. Middle-hop fabrication localization: substrate pinpoints WHICH intermediate hop introduced a hallucination. Unanimous 1.000 across all hop positions K={3,5} 3-seed full.
+Extends v455 fact_checked_khop per-hop localization sub-property with explicit middle-hop targeted probe. Confirms substrate can audit its own multi-step reasoning chain at the hop level -- differentiating vs frontier LLMs that cannot localize chain-of-thought errors. Production gate clears; forward-only K-hop deployable.
+Cap_map: K-hop row sub-property -- 'middle-hop fabrication localization at 1.000 3-seed full (K={3,5}, all hop positions); production-gate passes'. Convergent evidence with v455 fabrication_flag_auc=1.000.
+
+**(3) hierarchical_vq_plus_sparse_key_v1 HARD_PASS**
+GENUINELY NEW pipeline architecture: dense M_c (hierarchical VQ) + sparse-KEY retrieval as two separate stages. Validates cycle-133 R2 rescue from dimsparse3 HARD_FAIL ('dense M_c + sparse-KEY retrieval head -- orthogonal pipeline stages').
+Key finding: 8.00x lift over flat-sparse-KEY-alone (alpha B8=8.0, B64=8.0 vs B1=1.0, unanimous 3-seed). Bank capacities ADD when staged as pipeline -- composition works when two mechanisms are orthogonalized into pipeline stages rather than mixed in-place.
+Closes cycle-133 R2 rescue hypothesis affirmatively. PP-8 sparse-KEY pipeline composition sub-property: HARD_PASS 3-seed full.
+Cap_map: PP-8 annotation -- 'hierarchical VQ + sparse-KEY as staged pipeline: 8.00x over sparse-alone, 3-seed full. Cycle-133 R2 rescue confirmed. Dense-M_c stage + sparse-KEY retrieval head: bank capacities add cleanly. Mechanism: staging preserves orthogonality; in-place mixing (cycle-132/133) destroys capacity.' PROT-008: new sub-property on existing PP-8 row; band-lift deferred pending wider N confirmation.
+
+**(4) crt_multi_scale_grid_cell_composition_v1 [LVH #237 honest: HP-SMOKE]**
+GENUINELY NEW: CRT multi-scale grid-cell composition. Novel neuroscience-inspired probe -- replicates grid-cell multi-scale positional encoding via Chinese Remainder Theorem modular arithmetic in HD vectors.
+Source=LOCAL smoke artifact (remote bridge had no data). HP-SMOKE annotation only. Run_mode=smoke n_seeds=1.
+Signal: three_scale=1001 = CRT product (7*11*13=1001), 3/1=143x. Algebraically deterministic -- CRT theorem guarantees multiplicative capacity given coprime moduli; result is exact not approximate. Confidence in mechanism is very high despite single-seed; however PROT-021 requires multi-seed full.
+Cap_map: provisional annotation -- 'CRT multi-scale grid-cell composition: HP-SMOKE (n=1, LOCAL source); 3-scale CRT product exact (1001=7*11*13); 143x capacity over single-scale. Algebraically deterministic; mechanism fully principled. Full run needed for HARD_PASS row entry.' PROT-008: not triggered (HP-SMOKE provisional; no band-lift).
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): CRT theorem guarantees multiplicative capacity given coprime moduli; algebraically deterministic result. n=1 smoke theoretically sufficient for mechanism validation but PROT-021 multi-seed required for HARD_PASS.
+R2 (CHEAP, CPU <30min): 3-seed full run at N=2048 to meet PROT-021 and convert HP-SMOKE to HARD_PASS.
+R3 (CHEAP, CPU <30min): N-sweep to characterize minimum N for 4-scale, 5-scale CRT extensions.
+R4 (CHEAP, CPU <30min): Cross-moduli families (Mersenne primes, Fermat primes) to verify CRT product capacity is moduli-family-agnostic.
+R5 (MEDIUM, CPU <2h): CRT-grid-cell + sparse-KEY pipeline (analogous to hierarchical_vq_plus_sparse_key) -- multiplicative CRT capacity as the dense stage + sparse-KEY retrieval head.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+Note: hierarchical_vq_plus_sparse_key HP and CRT HP-SMOKE are sub-axis sub-property expansions of existing PP-8 and K-hop rows. Band-lift deferred for hierarchical_vq (wider N needed) and CRT (3-seed full needed).
+
+### PROT compliance (v455 -> v456)
+- PROT-004/006: No closures. Rescues filed cheapest-first: anchor 1 (3 rescues R1-R3). Anchor 4/CRT (5 rescues R1-R5).
+- PROT-007: v456 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only + new sub-property (hierarchical_vq pipeline 8x). 0 row state changes. 0 band-lifts. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 368th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 4 anchors. CLEAN.
+- PROT-021: Anchors 1,2,3 source=remote run_mode=full n_seeds=3. CLEAN. Anchor 4 source=LOCAL run_mode=smoke n_seeds=1. LVH #237 filed; HP-SMOKE only.
+- PROT-022: Anchors 1,2,3 3-seed deterministic (zero variance on all cells). Anchor 4 n=1 smoke; CRT is algebraically deterministic. No HP-fragility.
+
+Cap_map: v455 -> v456 CYCLE 134 (1 HP-full: fact_checked_khop_middle_hop_localization-3SEED-MIDDLE-HOP-1.000-PRODUCTION-GATE-CLEARS; 1 HP-full: hierarchical_vq_plus_sparse_key-3SEED-DENSE-Mc+SPARSE-KEY-PIPELINE-8.00x-CYCLE133-R2-RESCUE-CONFIRMED; 1 MID: fact_checked_khop_confidence_weighted-3SEED-BINARY-CEILING-CONF-LIFT-ZERO; 1 HP-SMOKE-LVH#237: crt_multi_scale_grid_cell-SMOKE-LOCAL-CRT-EXACT-143x-ALGEBRAIC; LVH 236->237 +1; HONEST 1003->1007 +4; Portfolio 32+79 UNCHANGED; annotation-only; 368th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

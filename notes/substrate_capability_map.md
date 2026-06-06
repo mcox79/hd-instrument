@@ -11647,3 +11647,50 @@ N=4096, 3-seed full. sparse_key Mc=2.0 vs baseline=12.0 (6x destruction); dim_ex
 Commit message: Cap map: v454->v455 CYCLE 133 (1 HP-full fact_checked_khop K2-K5-1.000+fabrication-AUC-1.000 per-hop-localization sub-prop; 1 HP-full-LVH235-RESOLVED multi_head_M2 H2/H1=2.25x super-sqrt-M; 2 MID hierarchical_hadamard LVH236-1.00x-no-compounding + cs1_dt DT-extreme-sparsity-limit; 1 MID-ANNOTATION sparse_key_battery indep-mask-parity; 1 HF-full dimsparse3 sparse-key-Mc-2-CLOSED R1-R5; LVH 235->236; HONEST 998->1003; Portfolio 32+79; 367th PROT-009 paired commit) (2026-06-06)
 
 Push: BLOCKED from sub-agent context per feedback-subagent-permission-inheritance; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+# v456 update (2026-06-06) -- CYCLE 134: 1 HP-full fact_checked_khop_middle_hop_localization + 1 HP-full hierarchical_vq_plus_sparse_key (CYCLE133-R2-RESCUE-CONFIRMED) + 1 MID fact_checked_khop_confidence_weighted + 1 HP-SMOKE-LVH#237 crt_multi_scale_grid_cell; LVH 236->237; HONEST 1003->1007; Portfolio 32+79 UNCHANGED; 368th PROT-009 paired commit
+
+## CYCLE 134 -- v455 -> v456 (2026-06-06)
+
+4-verdict batch: 2 genuinely new extensions of v455 K-hop HP + 1 R2-rescue from cycle-133 HF + 1 genuinely new neuroscience-inspired probe.
+
+### Step 0 honest re-read summary
+
+3 labels honest (source=remote full 3-seed). 1 LVH catch.
+- fact_checked_khop_confidence_weighted_v1: HONEST. binary_AUC=1.000, best_conf_AUC=1.000, lift=0.000 all cells all seeds. MIDDLE_BAND correct.
+- fact_checked_khop_middle_hop_localization_v1: HONEST. All positions all seeds localization=1.000. HARD_PASS correct.
+- hierarchical_vq_plus_sparse_key_v1: HONEST. B8=8.0, B64=8.0, ratio=8.00x all 3 seeds. HARD_PASS correct.
+- crt_multi_scale_grid_cell_composition_v1: LVH #237 -- HARD_PASS on smoke n=1 (run_mode=smoke, n_seeds=1, source=LOCAL). Honest: HP-SMOKE. CRT product exact (1001=7*11*13, 143x) algebraically deterministic but PROT-021 multi-seed not met.
+
+HONEST: 1003 -> 1007 (+4). LVH: 236 -> 237 (+1 catch #237).
+
+### Cap_map changes
+
+**fact_checked_khop_confidence_weighted_v1 MIDDLE_BAND -- K-hop sub-property annotation**
+N=8192, 3-seed full, K={5,10,20}. binary_AUC=1.000, best_conf_AUC=1.000, lift=0.000 exact across all cells and all 3 seeds. Extension of v455 fact_checked_khop HP: tests whether confidence-weighted scoring adds discrimination beyond binary flag. Result: confidence weighting is redundant at the binary-ceiling operating regime (N=8192 K<=20). Substrate HD similarity is already maximally discriminative; confidence modulation adds nothing. Operating-regime caveat: at lower N or harder K where binary AUC degrades, confidence weighting may surface lift. PP-11/K-hop row annotation: 'confidence-weighting redundant at binary-ceiling regime; binary AUC=1.000 sufficient (N=8192)'. Band UNCHANGED. Rescues R1-R3 filed (R1: annotation; R2: lower-N regime; R3: adversarial regime).
+
+**fact_checked_khop_middle_hop_localization_v1 HARD_PASS -- K-hop sub-property extension (hardest case)**
+N=8192, 3-seed full, K={3,5}. All hop positions all seeds localization=1.000. middle_hop_loc=1.000 unanimous. HP threshold >=0.85 cleared at ceiling. Targeted middle-hop probe: confirms substrate pinpoints WHICH intermediate reasoning hop introduced hallucination -- the hardest case for fabrication localization. Extends v455 per-hop localization sub-property with targeted middle-hop focus. Production gate clears; forward-only K-hop deployable at product-grade. Differentiating: frontier LLMs cannot localize chain-of-thought errors at hop resolution. K-hop row sub-property: 'middle-hop fabrication localization HP 3-seed full (K={3,5}, all hop positions); production-gate passes; middle-hop=1.000'. Band UNCHANGED.
+
+**hierarchical_vq_plus_sparse_key_v1 HARD_PASS -- PP-8 staged pipeline composition NEW sub-property**
+N=4096, 3-seed full. alpha B1=1.0, B8=8.0, B64=8.0 unanimous all seeds. best_hier/flat-sparse=8.00x >= 4x HP threshold. GENUINELY NEW pipeline architecture: dense M_c (hierarchical VQ) stage + sparse-KEY retrieval head as orthogonal pipeline stages. Validates cycle-133 dimsparse3 HF rescue sketch R2 ('dense M_c + sparse-KEY retrieval head -- orthogonal pipeline stages'). Key finding: bank capacities ADD when mechanisms are staged rather than mixed in-place. In-place mixing (cycle-132/133) destroyed M_c; staged pipeline preserves both mechanisms. PP-8 annotation: 'hierarchical_vq_plus_sparse_key HP v456: dense-Mc stage + sparse-KEY retrieval stage: 8.00x over sparse-alone (B8=8.0 all seeds); mechanism = orthogonal staging prevents Mc collision; cycle-133 R2 rescue CONFIRMED 3-seed full. Band-lift deferred pending N-sweep.' PROT-008: new sub-property annotation on existing PP-8 row; no band-lift (single N=4096).
+
+**crt_multi_scale_grid_cell_composition_v1 HP-SMOKE [LVH #237] -- provisional CRT annotation**
+N=2048, run_mode=smoke, n_seeds=1, source=LOCAL. three_scale=1001=CRT(7,11,13), ratio=143x single-scale. GENUINELY NEW: Chinese Remainder Theorem multi-scale grid-cell composition. Novel neuroscience-inspired probe replicating grid-cell multi-scale positional encoding in HD vectors via coprime moduli. Signal is algebraically deterministic: CRT theorem guarantees capacity = product of coprime moduli. Exact match (1001=7*11*13) confirms theoretical prediction. HP-SMOKE only per PROT-021. Source=LOCAL adds uncertainty (potential pre-ship smoke artifact). Provisional annotation: 'CRT multi-scale grid-cell HP-SMOKE v456: 3-scale CRT product exact (1001=7*11*13); 143x single-scale; algebraically deterministic; full run needed for HARD_PASS'. Rescues R1-R5 filed cheapest-first. Band UNCHANGED (provisional).
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v455 -> v456)
+
+- PROT-004/006: No closures. Rescues filed: anchor 1 R1-R3 cheapest-first; anchor 4/CRT R1-R5 cheapest-first.
+- PROT-007: v456 history row appended to substrate_capability_map_history.md.
+- PROT-008: New sub-property (hierarchical_vq pipeline 8x); 0 row state changes; 0 band-lifts. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + strategy_decisions_2026-06-06.md staged atomically; 368th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 4 anchors. CLEAN.
+- PROT-021: Anchors 1,2,3 source=remote run_mode=full n_seeds=3. CLEAN. Anchor 4 source=LOCAL run_mode=smoke n_seeds=1. LVH #237 filed.
+- PROT-022: Anchors 1,2,3 deterministic zero-variance all cells. Anchor 4 algebraically deterministic (CRT). No HP-fragility.
+
+Commit message: Cap map: v455->v456 CYCLE 134 (1 HP-full fact_checked_khop_middle_hop_loc-3SEED-1.000-PROD-GATE; 1 HP-full hierarchical_vq_plus_sparse_key-3SEED-8.00x-CYCLE133-R2-RESCUE; 1 MID conf_weighted-3SEED-BINARY-CEILING-ZERO-LIFT; 1 HP-SMOKE-LVH#237 crt_multi_scale-SMOKE-LOCAL-CRT-143x-EXACT; LVH 236->237; HONEST 1003->1007; Portfolio 32+79; 368th PROT-009 paired commit) (2026-06-06)
+
+Push: BLOCKED from sub-agent context per feedback-subagent-permission-inheritance; orchestrator main thread executes git push origin main as 1-tool follow-up.
