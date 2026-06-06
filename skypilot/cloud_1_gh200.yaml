@@ -122,8 +122,8 @@ run: |
   export HDLAB_EXP_NAME=substrate_extraction_quality_7B_vs_70B_v1
   cd ~/sky_workdir
 
-  echo "=== CLOUD-1 8B vs 70B substrate-extraction-quality binding test (GH200) START ==="
-  python -u experiments/exp_substrate_extraction_quality_7B_vs_70B_v1.py
+  echo "=== CLOUD-1b 1B/8B/70B/MiniLM substrate-extraction-quality binding test v2 (GH200) START ==="
+  python -u experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py
 
   echo "=== run complete; artifacts: ==="
-  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_7B_vs_70B_v1/ 2>&1 | head -25
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_1B_8B_70B_v2/ 2>&1 | head -25

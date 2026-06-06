@@ -21,6 +21,46 @@ set -uo pipefail
 
 source /root/skyvenv/bin/activate
 
+# ============================================================================
+# HARDENING (2026-06-06 zombie-process incident)
+# ============================================================================
+# PID-file lock so duplicate smart_launch invocations REFUSE to start.
+LOCKFILE=/tmp/smart_launch_cloud_1.pid
+if [ -f "$LOCKFILE" ]; then
+  OLD_PID=$(cat "$LOCKFILE" 2>/dev/null || echo "")
+  if [ -n "$OLD_PID" ] && kill -0 "$OLD_PID" 2>/dev/null; then
+    echo "ERROR: another smart_launch_cloud_1.sh is already running (PID=$OLD_PID)."
+    echo "       Kill it first: kill -9 $OLD_PID"
+    exit 1
+  fi
+fi
+echo $$ > "$LOCKFILE"
+# Remove lock file + kill our sky subprocess on exit (TRAP)
+cleanup_on_exit() {
+  rm -f "$LOCKFILE"
+  # Kill any sky launch child processes we spawned (best effort)
+  pkill -P $$ 2>/dev/null || true
+}
+trap cleanup_on_exit EXIT INT TERM
+
+# Pre-flight gate (catches Bug A YAML mismatch + Bug B orphan processes/instances).
+EXPECTED_SCRIPT="${EXPECTED_SCRIPT:-exp_substrate_extraction_quality_1B_8B_70B_v2.py}"
+BUNDLE_PATH="${BUNDLE_PATH:-/root/cloud-1-ship}"
+YAML_FOR_PREFLIGHT="${BUNDLE_PATH}/skypilot/cloud_1_gh200.yaml"
+echo "[smart_launch] running pre-flight gate..."
+if ! bash /mnt/d/AI/hd-instrument/skypilot/preflight_cloud_dispatch.sh \
+      "$YAML_FOR_PREFLIGHT" "$EXPECTED_SCRIPT" "$BUNDLE_PATH"; then
+  echo "ERROR: preflight FAILED; dispatch refused."
+  exit 1
+fi
+# Also check the x86 (cloud_1_smart.yaml) for consistency since smart-launcher
+# may pick A100/H100 path on capacity scarcity.
+if ! bash /mnt/d/AI/hd-instrument/skypilot/preflight_cloud_dispatch.sh \
+      "${BUNDLE_PATH}/skypilot/cloud_1_smart.yaml" "$EXPECTED_SCRIPT" "$BUNDLE_PATH"; then
+  echo "ERROR: preflight FAILED on x86 YAML; dispatch refused."
+  exit 1
+fi
+
 HF_TOKEN_VAL="$(cat /mnt/d/AI/hd-instrument/.hf_token)"
 if [ -z "${HF_TOKEN_VAL}" ]; then
   echo "ERROR: HF token at /mnt/d/AI/hd-instrument/.hf_token is empty"
@@ -32,6 +72,7 @@ mkdir -p "$(dirname "$LOG")"
 
 echo "===== smart launch start $(date -u '+%Y-%m-%dT%H:%M:%SZ') =====" | tee -a "$LOG"
 echo "HF_TOKEN length: ${#HF_TOKEN_VAL} chars; prefix: ${HF_TOKEN_VAL:0:5}..." | tee -a "$LOG"
+echo "lock file: $LOCKFILE (PID $$)" | tee -a "$LOG"
 
 # Parse API key once
 API_KEY=$(grep -oP 'api_key\s*=\s*\K\S+' /root/.lambda_cloud/lambda_keys 2>/dev/null | head -1)

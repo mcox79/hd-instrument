@@ -14,6 +14,8 @@ mkdir -p "${DST}/experiments" "${DST}/skypilot"
 echo "=== [2/4] copying script + helper ==="
 cp "${SRC}/experiments/exp_substrate_extraction_quality_7B_vs_70B_v1.py" \
    "${DST}/experiments/exp_substrate_extraction_quality_7B_vs_70B_v1.py"
+cp "${SRC}/experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py" \
+   "${DST}/experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py"
 cp "${SRC}/experiments/_seed_checkpoint.py" "${DST}/experiments/_seed_checkpoint.py"
 
 echo "=== [3/4] copying root files + YAML ==="
