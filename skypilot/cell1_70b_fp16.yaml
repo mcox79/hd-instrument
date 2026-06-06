@@ -1,0 +1,115 @@
+# CELL-1 70B fp16 disambiguation on Lambda H100:2 SXM5 (160 GB VRAM).
+#
+# USER-AUTHORIZED 2026-06-06 per
+# research_to_testbed_CLOUD1b_HP_ack_fp16_70B_followup_authorized: ~$3-5
+# to disambiguate whether CLOUD-1b's 70B late-layer crash (NF4 4-bit)
+# was quantization noise or architectural.
+#
+# Resources: H100:2 SXM5 (2x 80 GB = 160 GB combined VRAM). fp16 70B fits
+# via device_map='auto'. NF4 70B uses ~40 GB (single GPU OK; second sits idle).
+#
+# All 16 cloud-bug defenses + Bug A (YAML script-ref consistency) + Bug B
+# (zombie processes) carry forward from CLOUD-1b. Pre-flight gate is mandatory.
+#
+# Launch via smart_launch_cell1.sh (which calls preflight_cloud_dispatch.sh first).
+
+name: cell170b
+
+resources:
+  cloud: lambda
+  accelerators: H100:2
+  use_spot: false
+  # H100:2 only Lambda SKU is gpu_2x_h100_sxm5. Multi-region candidates:
+  any_of:
+    - {instance_type: gpu_2x_h100_sxm5, region: us-east-1}
+    - {instance_type: gpu_2x_h100_sxm5, region: us-east-3}
+    - {instance_type: gpu_2x_h100_sxm5, region: us-south-2}
+    - {instance_type: gpu_2x_h100_sxm5, region: us-west-1}
+    - {instance_type: gpu_2x_h100_sxm5, region: us-west-3}
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+
+  echo "=== [setup 3/7] pip core + torch 2.4.1+cu121 (x86 H100; cu121 wheel index has these) ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')"
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.1-70B + (optional) 70B-Instruct access (gated repos) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  api = HfApi()
+  for repo in ['meta-llama/Llama-3.1-70B', 'meta-llama/Llama-3.1-70B-Instruct']:
+      try:
+          info = api.model_info(repo, token=os.environ['HF_TOKEN'])
+          print(f'OK: {repo} accessible (last_modified={info.last_modified})')
+      except Exception as e:
+          print(f'WARN: {repo} not accessible -- {type(e).__name__}: {str(e)[:120]}')
+  "
+
+  echo "=== [setup 6/7] pre-pull Llama-3.1-70B snapshot (~140 GB at fp16) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-70B',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-70B snapshot ready')
+  "
+
+  echo "=== [setup 7/7] CELL-1 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_extraction_quality_70B_fp16_disambiguation_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-1 70B fp16 disambiguation START ==="
+  python -u experiments/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_extraction_quality_70B_fp16_disambiguation_v1/ 2>&1 | head -25
