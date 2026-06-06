@@ -173,6 +173,7 @@ Per user directive 2026-06-06:
 - **Strategic value:** floor case; cheap to validate as fallback
 
 ### Slot PSE1 (NEW; from drill C; sqrt-K allocation production architecture): `substrate_extraction_sqrt_K_allocation_v1`
+- **Status:** PARKED by exp_dev 2026-06-06 -- coverage metric makes uniform trivially win; Neyman/sqrt-K benefit needs a within-cluster-variance/reconstruction QUALITY metric (see note)
 - **Wall:** ~30 min CPU
 - **Source:** 2x drill C (per-cluster stratified operational depth) at 11:50
 - **Architecture:** sqrt-K allocation K_c = M * sqrt(n_c) / sum(sqrt(n_c)) vs uniform-K baseline at production-scale settings (V_c=1M; M=10M)
@@ -401,6 +402,7 @@ Per user directive 2026-06-06:
 - **HP threshold:** stacked defense (Hadamard + a_query_sim) > additive sum of individual defenses
 
 ### Slot LC1 (NEW; learned-codebook drill Anchor 1; HIGHEST PRIORITY cheap test): `substrate_sparse_hadamard_mixture_codebook_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL: SHM cap 0 vs Hadamard 409, mixing destroys orthogonality -> informs LC2 learned); queued CPU
 - **Wall:** ~30 min CPU
 - **Source:** Learned-codebook research drill landed 2026-06-06 ~10:55
 - **Architecture:** sparse Hadamard mixture codebook (k random Hadamard rows summed + sign); zero training cost
@@ -473,6 +475,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **Strategic value:** ties dim-expansion to production substrate sizing
 
 ### Slot G4 (NEW; continual KV scaling): `substrate_continual_kv_n32768_120_sessions_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_PASS 100% retention; W-free; full N=32768/120 sessions); queued CPU
 - **Wall:** ~90 min GPU
 - **Source:** Continual KV HP at N=8192 with 60 sessions (99.8% retention); scale test
 - **Why:** production needs larger N + more sessions; current HP is mid-scale
