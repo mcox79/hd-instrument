@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v458
+# hd-instrument substrate -- capability map v459
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -11694,3 +11694,57 @@ N=2048, run_mode=smoke, n_seeds=1, source=LOCAL. three_scale=1001=CRT(7,11,13), 
 Commit message: Cap map: v455->v456 CYCLE 134 (1 HP-full fact_checked_khop_middle_hop_loc-3SEED-1.000-PROD-GATE; 1 HP-full hierarchical_vq_plus_sparse_key-3SEED-8.00x-CYCLE133-R2-RESCUE; 1 MID conf_weighted-3SEED-BINARY-CEILING-ZERO-LIFT; 1 HP-SMOKE-LVH#237 crt_multi_scale-SMOKE-LOCAL-CRT-143x-EXACT; LVH 236->237; HONEST 1003->1007; Portfolio 32+79; 368th PROT-009 paired commit) (2026-06-06)
 
 Push: BLOCKED from sub-agent context per feedback-subagent-permission-inheritance; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+---
+
+## v458 -> v459 -- CYCLE 138 (2 verdicts: HARD_PASS + LVH #241 HARD_PASS->MIDDLE_BAND; HONEST 1013->1015; LVH 240->241)
+
+### Step 0 -- Honest re-reads
+
+**(1) substrate_last_token_vs_whitening_mean_pool_v1 HARD_PASS -- LABEL HONEST**
+source=remote n_seeds=3. Per-cell: seed7=seed17=seed23 identical (deterministic PCA whitening). cap: last_token_raw=0, mean_pool_whiten=40, last_token_whiten=122. combined/best_single=122/40=3.05x >> 1.2x HP threshold. Label 'COMPLEMENTARY (combined >=1.2x best single)' honest. Key nuance: last_token_raw=0 (whitening mandatory; last-token pooling adds nothing without whitening). last_token_whiten IS the combined recipe (last-token + whitening = 122). No over-claim. NO LVH.
+HONEST. +1 HONEST (1013->1014).
+
+**(2) substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1 LVH #241 HARD_PASS -> MIDDLE_BAND**
+source=remote n_seeds=3. Per-cell: seed7=seed17=seed23 identical. cap: base_raw=3, whiten_only=7, expand_only=0, expand_whiten=7. CRITICAL: expand_only=0 (dim-expansion ALONE collapses to ZERO capacity at n_enc=10000). expand_whiten=7 = whiten_only=7 (expand adds ZERO marginal capacity on top of whitening). Reported ratio 7e9x is division-by-zero artifact (7/0), not an empirical measurement. LVH #241: HARD_PASS label 'stacking holds / production rule = expand + whiten' is FALSE -- no stacking benefit exists (expand+whiten = whiten_only). Honest finding: whitening subsumes dim-expansion at n_enc=10000, not vice versa. Phase-4A PCA/whitening work is confirmed MANDATORY (not redundant). Dim-expansion is a NULL lever at n_enc=10000 when whitening is present. The pre-registered subsumption question is answered in the REVERSE direction: whitening subsumes dim-expansion.
+LVH #241 filed. Honest reading: MIDDLE_BAND (whitening confirmed mandatory+sufficient; dim-expansion null at this scale). +1 HONEST (1014->1015). LVH 240->241.
+
+HONEST: 1013 -> 1015 (+2). LVH: 240 -> 241 (+1 LVH #241).
+
+### Cap_map decisions (v458 -> v459)
+
+**(1) substrate_last_token_vs_whitening_mean_pool_v1 HARD_PASS**
+Encoder recipe sub-property annotation on PP-8 / ETF-whitening design axis.
+Key finding: Last-token pooling + whitening ('last_token_whiten=122') is 3.05x better than mean-pool + whitening alone (40). Raw last-token without whitening gives zero capacity. Production encoder recipe confirmed: last-token pooling + PCA whitening is the dominant design point. Whitening is a prerequisite (not optional). 3-seed unanimous (deterministic).
+Cap_map annotation on PP-8 / ETF-whitening sub-property:
+'last_token_vs_mean_pool HP v459: last_token_whiten=122 vs mean_pool_whiten=40 (3.05x); last_token_raw=0 (whitening mandatory); production encoder recipe = last-token + PCA whitening; 3-seed unanimous deterministic; 2026-06-06.'
+Portfolio 32+79 UNCHANGED (sub-property annotation; no new row).
+
+**(2) substrate_dim_expansion_subsumes_whitening_n_enc_10000_v1 [LVH #241 -- honest: MIDDLE_BAND]**
+Encoder recipe + ETF/whitening design axis sub-property annotation.
+Key finding: At n_enc=10000, dim-expansion alone gives ZERO capacity. Whitening alone gives 7. Expand+whiten gives 7. Dim-expansion adds ZERO marginal benefit on top of whitening. The 7e9x ratio in the verdict_msg is a division-by-zero artifact (7/0), not a measurement. Honest reading: whitening SUBSUMES dim-expansion at this scale (not the reverse). Phase-4A PCA work is the load-bearing axis. Stacking does NOT hold at n_enc=10000.
+LVH #241 entry: label 'stacking holds; production rule = expand + whiten' over-claims; honest = MIDDLE_BAND; expand_only=0 is the critical finding; 7e9x ratio is computational artifact not signal.
+Cap_map annotation on ETF/whitening / dim-expansion sub-property:
+'dim_expansion_subsumes_whitening [LVH #241] MIDDLE_BAND v459: n_enc=10000; expand_only=0 (ZERO capacity); whiten_only=7; expand_whiten=7 (no stacking); whitening SUBSUMES dim-expansion at n_enc=10000; Phase-4A PCA is load-bearing; dim-expansion is NULL lever when whitening present; 7e9x ratio is div/zero artifact; HARD_PASS label over-claims stacking; 2026-06-06.'
+
+Rescue sketches for dim-expansion null finding (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (0-compute, SUBSUMPTION): Phase-4A PCA/whitening work is confirmed as dominant and load-bearing. No design change needed. Dim-expansion null finding actually SIMPLIFIES the production recipe (whitening only; skip expansion).
+R2 (CHEAP, CPU <30min): Test dim-expansion at smaller n_enc (n_enc=1000, 500) to find the scale where expand_only transitions from zero to non-zero. This characterizes the n_enc threshold for expansion utility.
+R3 (CHEAP, CPU <30min): Test expand_only at larger N (N=8192, N=16384) to check if dim-expansion recovers at higher vector dimensionality. Zero at N_sub=default may be N-dependent.
+R4 (CHEAP, CPU <30min): Test a different expansion strategy (e.g., random projection expansion vs learned PCA expansion) to determine if the zero is algorithm-specific or universal to dim-expansion at n_enc=10000.
+R5 (MEDIUM, GPU <2h): Full sweep: n_enc x N x expansion_method 3-way grid to map the operating envelope where dim-expansion contributes marginal capacity beyond whitening alone.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v458 -> v459)
+- PROT-004/006: No row closures. Anchor 2 LVH #241: 5 rescues cheapest-first. R1 subsumption applied.
+- PROT-007: v459 history row appended to substrate_capability_map_history.md.
+- PROT-008: Both anchors annotation-only sub-property updates. No row state regression.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 371st PROT-009 paired commit.
+- PROT-018: No _nN suffixes on either anchor. CLEAN.
+- PROT-019: LVH #241 (dim_expansion_subsumes_whitening HARD_PASS -> MIDDLE_BAND) filed. Over-claimed label NOT applied to cap_map. Honest reading authoritative.
+- PROT-021: Both anchors n_seeds=3 full runs; all 3 seeds identical (deterministic PCA whitening of fixed encoder geometry). CLEAN.
+- PROT-022: Both anchors 3-seed consensus on identical cells -- deterministic; not stochastic noise. CLEAN.
+
+Cap_map: v458 -> v459 CYCLE 138 [label-vs-honest LVH #241] (1 HP: last_token_vs_mean_pool-COMPLEMENTARY-3.05x-WHITENING-MANDATORY-LAST-TOKEN-RECIPE; 1 LVH #241: dim_expansion_subsumes_whitening-HARD_PASS->MIDDLE_BAND-expand_only=0-NO_STACKING-WHITENING_SUBSUMES_EXPANSION-7e9x-DIV-ZERO-ARTIFACT; 0 HF; 1 LVH; PP-8/ETF-whitening encoder-recipe annotations; HONEST 1013->1015 +2; LVH 240->241; Portfolio 32+79 UNCHANGED; 371st PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
