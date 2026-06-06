@@ -436,6 +436,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **Honest-re-read discipline:** I over-extrapolated from smoke D=1024 result. LVH #225 caught it. Discipline working.
 
 ### Slot G1 (NEW; transferability test): `substrate_etf_dim_expansion_mpnet_768_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE 2.5x: expansion transfers to mpnet-768); queued GPU
 - **Wall:** ~60 min GPU
 - **Source:** Slot 14 dim-expansion result + Exp-Dev's recommendation
 - **Why:** does dim-expansion rescue generalize across encoders? mpnet-768 has higher base dim than MiniLM; if expansion still helps, the rule is universal
@@ -482,6 +483,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** AUC < 0.70 (clean substrate signal didn't generalize)
 
 ### Slot G7 (NEW; combined defense): `substrate_hadamard_plus_whitening_combined_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL: expansion subsumes whitening, no stacking; data-censored); queued GPU
 - **Wall:** ~45 min GPU
 - **Source:** Orchestrator cycle 119 -- Phase 4B gates; currently Hadamard init and whitening are independent rescue mechanisms
 - **Why:** Hadamard codebook init = orthogonal codebook by construction; whitening = transforms input space to isotropic. Different operations; could combine multiplicatively. Tests whether real-encoder headroom recovery scales further.
