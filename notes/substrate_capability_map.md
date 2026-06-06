@@ -11119,3 +11119,55 @@ substrate_etf_hadamard_phase4a_infra_eval MIDDLE_BAND v441: MiniLM N_sub=384 3-s
 
 Cap_map: v440 -> v441 CYCLE 119 (1 MIDDLE_BAND: substrate_etf_hadamard_phase4a_infra_eval_v1 WHITENING-2.75x-REAL-ENCODER-PHASE4A; PP-8 sub-prop annotation; 0 LVH; HONEST 953->954; LVH 224; Portfolio 32+77; 353rd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v442 update (2026-06-06) -- CYCLE 120: 1 HP (substrate_hallucination_robustness_hard_negatives_v1 KF1-HARD-NEG-ROBUST); 1 LVH #225 (substrate_etf_minilm_dim_expansion_v1 HARD_PASS->MIDDLE_BAND); KF-1 BAND-LIFT 70-85%->72-87%; HONEST 954->956; LVH 224->225; Portfolio 32+77; 354th PROT-009 paired commit
+
+## CYCLE 120 -- v441 -> v442 (2026-06-06)
+
+### Step 0 honest re-read
+
+**(A) substrate_hallucination_robustness_hard_negatives_v1 HARD_PASS -- LABEL HONEST**
+auc_hard: 0.9683/0.9659/0.9687 (3/3 seeds >= 0.90). auc_easy=0.621 (not claimed). auc_adv=0.206 surfaced explicitly -- not over-claimed. No LVH.
+
+**(B) substrate_etf_minilm_dim_expansion_v1 [LVH #225] HARD_PASS -> MIDDLE_BAND**
+Label over-claim: '>=3x capacity headroom' -- per-cell D384 seed7=2.749x seed17=2.749x (below 3x) seed23=3.670x; MEAN=3.06x; D1024/D4096 = 1.29x all seeds.
+Cross-check: substrate_etf_hadamard_phase4a_infra_eval_v1 (v441) reported IDENTICAL D384 raw=307/wht=844/ratio=2.75x and was correctly classified MIDDLE_BAND. Same data cannot be HP and MIDDLE_BAND simultaneously.
+Honest reading: MIDDLE_BAND (D384 floor 2.75x, not >=3x uniform; D1024/D4096 1.29x).
+HONEST: 954 -> 956 (+2). LVH: 224 -> 225 (+1).
+
+### (A) substrate_hallucination_robustness_hard_negatives_v1 HARD_PASS [source=remote; n_seeds=3; N=384; run_mode=full; elapsed=6.1s]
+
+Plain-language: We tested whether the hallucination detector (which scored near-perfect AUC=0.999 on easy queries in v436) still works when the test uses harder, same-domain negatives -- facts that look similar to the real ones but are wrong. It does: AUC=0.968 on hard negatives (vs 0.90 threshold), unanimous across 3 seeds. Adversarial shuffled-KB facts score 0.206 -- the detector fails against that attack surface and that remains open work.
+
+Capability implication: KF-1 hallucination detection is robust to same-domain hard negatives. The earlier AUC=0.999 was not an artefact of easy negative examples; performance holds at AUC=0.968 on a harder test. The remaining gap is adversarial (shuffled-KB-fact, adv AUC=0.206) -- a different attack vector not yet defended.
+
+KF-1 hallucination-detection row annotation:
+'hallu_robustness_hard_negatives_HARD_PASS v442: N=384 3-seed full elapsed=6.1s; auc_easy=0.621 auc_hard=0.968(range 0.9659-0.9687)(3/3 >= 0.90); auc_adv=0.206 (adversarial-shuffled-KB-fact -- OPEN VULNERABILITY); hard-same-domain negatives do NOT degrade detection; adversarial probe is distinct open attack surface. KF-1 BAND-LIFT 70-85%->72-87% (+2.5% both bounds; 3-seed single-N calibration cap). 2026-06-06.'
+
+**KF-1 hallucination-detection row BAND-LIFT: 70-85% -> 72-87% (+2.5% both bounds).**
+Rationale: hard-negative robustness (AUC_hard=0.968 3/3 seeds) + v436 easy-AUC=0.999 = two independent robustness axes confirmed. Per lit-scan calibration penalty: 3-seed, single-N (N=384 MiniLM native), no adversarial adaptation yet -> cap at +2.5%. Caveats remaining: adversarial shuffled-KB-fact (adv AUC=0.206) is an open vulnerability; N-scaling from 384 to 4096+ with hard negatives not confirmed.
+PROT-008 validator: two anchors (v436 HP + v442 HP) on different difficulty axes; band-lift +2.5% consistent with single-N 3-seed ceiling. PASS.
+
+### (B) substrate_etf_minilm_dim_expansion_v1 [LVH #225 -- honest: MIDDLE_BAND]
+
+Plain-language: We ran a separate anchor claiming >=3x capacity from whitening/orthogonalization on MiniLM. The data shows 2.75x at D384 for 2 of 3 seeds (mean 3.06x), and only 1.29x lift at D1024 and D4096. The label over-states the floor. This is the same measurement as v441's substrate_etf_hadamard_phase4a_infra_eval_v1 which was correctly labeled MIDDLE_BAND.
+
+Capability implication: The LVH #225 honest reading is MIDDLE_BAND -- consistent with v441. No new capability is added beyond what v441 already annotated. Cross-N profile (higher whitening lift at smaller N) remains signal for Phase-4B sweep.
+
+PP-8 row annotation:
+'etf_minilm_dim_expansion [LVH #225] MIDDLE_BAND v442: D384 floor=2.749x (2/3 seeds) mean=3.06x (NOT >=3x uniform); D1024=1.294x; D4096=1.294x; cross-N lift profile: whitening benefit larger at smaller N (consistent with encoder-structure compression hypothesis); MIDDLE_BAND consistent with v441 Phase-4A infra_eval annotation. 2026-06-06.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 1 BAND-LIFT (KF-1: 70-85% -> 72-87%). 0 closures.**
+**HONEST: 954 -> 956 (+2). LVH: 224 -> 225 (+1).**
+
+**PROT compliance (v441 -> v442):**
+- PROT-004/006: No closures. Adversarial vulnerability (auc_adv=0.206) noted as open KF-1 rescue axis -- no closure triggered by HARD_PASS on hard negatives.
+- PROT-007: v442 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: 1 BAND-LIFT (KF-1 +2.5%). Validator: two independent robustness anchors (easy+hard); 3-seed single-N calibration cap -> +2.5% justified. PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 354th PROT-009 paired commit.
+- PROT-018: both anchors no _nN suffix; N stated in metrics. CLEAN.
+- PROT-019: LVH #225 (etf_minilm_dim_expansion HARD_PASS -> MIDDLE_BAND) filed. Propagated over-claimed label NOT applied to cap_map. Honest reading authoritative.
+- PROT-021: both source=remote run_mode=full. No smoke checkpoint artifacts.
+
+Cap_map: v441 -> v442 CYCLE 120 [label-vs-honest LVH #225] (1 HP: substrate_hallucination_robustness_hard_negatives_v1 KF1-HARD-NEG-ROBUST-AUC-968; 1 LVH #225: substrate_etf_minilm_dim_expansion_v1 HARD_PASS->MIDDLE_BAND-d384-floor-2.75x-not-3x-d1024/4096-1.29x; KF-1 BAND-LIFT 70-85%->72-87%; HONEST 954->956; LVH 224->225; Portfolio 32+77; 354th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

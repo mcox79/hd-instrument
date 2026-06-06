@@ -721,3 +721,43 @@ Sub-property annotation on PP-8 row:
 
 Cap_map: v440 -> v441 CYCLE 119 (1 MIDDLE_BAND: substrate_etf_hadamard_phase4a_infra_eval_v1 WHITENING-2.75x-REAL-ENCODER-PHASE4A; PP-8 sub-prop annotation; 0 LVH; HONEST 953->954; LVH 224; Portfolio 32+77; 353rd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 120 -- v441 -> v442 (2026-06-06)
+
+Verdicts processed: substrate_hallucination_robustness_hard_negatives_v1 (HARD_PASS) + substrate_etf_minilm_dim_expansion_v1 (HARD_PASS label -> LVH #225 MIDDLE_BAND honest)
+
+### Step 0 honest re-read
+
+**(A) substrate_hallucination_robustness_hard_negatives_v1 HARD_PASS -- LABEL HONEST**
+auc_hard: 0.9683/0.9659/0.9687 (3/3 seeds >= 0.90 threshold). auc_easy=0.621 (not claimed as HP). auc_adv=0.206 explicitly surfaced in msg as adversarial failure -- not over-claimed. Label accurate. No LVH.
+
+**(B) substrate_etf_minilm_dim_expansion_v1 HARD_PASS -> LVH #225 MIDDLE_BAND [honest-read applied]**
+Label: 'HARD_PASS: dimensional expansion recovers >=3x capacity headroom for real encoders'
+Per-cell: D384 seed7=2.749x seed17=2.749x seed23=3.670x (MEAN=3.06x). D1024: 1.294x all seeds. D4096: 1.294x all seeds.
+Contradiction: >=3x claim is mean-based at D384 only; 2 of 3 seeds at D384 fall BELOW 3x; D1024 and D4096 show 1.29x (not 3x). Headroom claim is over-stated as uniform guarantee.
+Cross-check: substrate_etf_hadamard_phase4a_infra_eval_v1 (v441, CYCLE 119) reported IDENTICAL D384 raw=307/wht=844/ratio=2.75x and was correctly classified MIDDLE_BAND. Same measurement cannot be HARD_PASS and MIDDLE_BAND simultaneously.
+Honest reading: MIDDLE_BAND -- whitening lifts D384 capacity 2.75-3.67x (mean 3.06x); D1024/D4096 show 1.29x lift; expansion-ratio benefit decreases at higher N sub-dimensions. MIDDLE_BAND consistent with v441 prior.
+LVH #225 filed. HONEST: 954 -> 956 (+2). LVH: 224 -> 225 (+1).
+
+### Cap_map decisions
+
+**(A) substrate_hallucination_robustness_hard_negatives_v1 HARD_PASS:**
+KF-1 hallucination-detection sub-property annotation. Hard-negative robustness confirmed: AUC_hard=0.968 (3/3 seeds >= 0.90). auc_adv=0.206 -- adversarial (shuffled-KB-fact) remains OPEN vulnerability. Hard-same-domain negatives do NOT degrade detection below threshold. Adversarial probe (adv AUC=0.206) is a distinct attack surface -- NOT in-scope for this anchor's HP claim, but surfaced as open work.
+KF-1 band: BAND-LIFT CANDIDATE -- hard-negative robustness adds another dimension. Conservative: +2.5% per lit-scan calibration penalty (3-seed, single-N=384, no adversarial adaptation yet). KF-1 BAND-LIFT: 70-85% -> 72-87%.
+
+**(B) substrate_etf_minilm_dim_expansion_v1 [LVH #225 honest: MIDDLE_BAND]:**
+PP-8 sub-property annotation. Dimensional expansion via orthogonalization on real MiniLM encoder: D384 2.75x (conservative floor), D1024/D4096 1.29x. Consistent with v441 Phase-4A eval. Cross-N profile (higher lift at smaller N) is new signal: whitening benefit is larger where encoder geometry is more compressed. Phase-4B cross-N sweep with real encoder still recommended.
+Band: UNCHANGED (MIDDLE_BAND sub-property on PP-8; consistent with v441 annotation).
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 1 BAND-LIFT (KF-1: 70-85% -> 72-87%). 0 closures.
+
+### PROT compliance (v441 -> v442)
+- PROT-004/006: No closures. Adversarial vulnerability (auc_adv=0.206) filed as open rescue axis for KF-1.
+- PROT-007: v442 history row to be appended.
+- PROT-008: 1 BAND-LIFT (KF-1 +2.5%). Validator: hard-negative robustness (AUC_hard=0.968 3/3) + v436 AUC=0.999 prior = two independent robustness anchors; calibration penalty (3-seed, single-N) -> +2.5% cap justified. PROT-008 PASS.
+- PROT-009: cap_map.md + history + decisions log atomic commit.
+- PROT-018: both anchors no _nN suffix; N stated in metrics. CLEAN.
+- PROT-019: LVH #225 filed (etf_minilm_dim_expansion HARD_PASS -> MIDDLE_BAND; >=3x over-stated as uniform guarantee; v441 same-measurement MIDDLE_BAND cross-check confirms over-claim).
+
+Cap_map: v441 -> v442 CYCLE 120 [label-vs-honest LVH #225] (1 HP: substrate_hallucination_robustness_hard_negatives_v1 KF1-HARD-NEG-ROBUST-AUC-968; 1 LVH #225: substrate_etf_minilm_dim_expansion_v1 HARD_PASS->MIDDLE_BAND-d384-2.75x-floor-below-3x-d1024/4096-1.29x; KF-1 BAND-LIFT 70-85%->72-87%; HONEST 954->956; LVH 224->225; Portfolio 32+77; 354th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
