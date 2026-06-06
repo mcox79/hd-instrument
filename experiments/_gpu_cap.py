@@ -68,3 +68,27 @@ def hop_recall(keys, n_unused, seed, sparse=False, alpha=0.10, flip=0.05, steps=
     Drop-in for recall_unique_t signature. (sparse arg ignored here; sparse-pattern variant handled per-cell.)"""
     P = np.sign(np.ascontiguousarray(keys, dtype=np.float32)); P[P == 0] = 1.0
     return hopfield_recall_t(P, flip, steps, int(seed))
+
+
+def whiten_gpu(K):
+    """ZCA whitening on GPU (torch SVD) -- eliminates the CPU SVD bottleneck at large D. numpy in/out."""
+    with torch.no_grad():
+        X = torch.from_numpy(np.ascontiguousarray(K, dtype=np.float32)).to(_DEV)
+        X = X - X.mean(0)
+        cov = (X.t() @ X) / max(X.shape[0], 1)
+        U, S, _ = torch.linalg.svd(cov)
+        Wd = X @ ((U / torch.sqrt(S + 1e-3)) @ U.t())
+        Wd = Wd / (Wd.norm(dim=1, keepdim=True) + 1e-8)
+        return Wd.cpu().numpy().astype(np.float32)
+
+
+def expand_gpu(emb, D, seed):
+    """Nonlinear random-feature lift phi(x)=sign(Rx) on GPU. numpy in/out."""
+    d0 = emb.shape[1]
+    if D == d0:
+        return np.ascontiguousarray(emb, dtype=np.float32)
+    with torch.no_grad():
+        g = torch.Generator(device=_DEV).manual_seed(int(seed))
+        R = torch.randn(d0, D, generator=g, device=_DEV, dtype=torch.float32) / (d0 ** 0.5)
+        E = torch.from_numpy(np.ascontiguousarray(emb, dtype=np.float32)).to(_DEV)
+        return torch.sign(E @ R).cpu().numpy().astype(np.float32)

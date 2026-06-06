@@ -103,14 +103,15 @@ def encode(texts):
     del m; torch.cuda.empty_cache(); return np.concatenate(out, 0).astype(np.float32)
 
 
-def capacity(emb, transform, seed):
-    cap = 0; M_all = emb.shape[0]
+def capacity(Tfull, seed):
+    # Tfull = transform applied to the FULL emb (fit-on-full -> full-rank whitening); index subsets for the M-sweep.
+    cap = 0; M_all = Tfull.shape[0]
     for load in LOADS:
         M = max(2, int(load * N_SUB))
         if M > M_all:
             break
         g = np.random.default_rng(seed * 1000 + M); idx = g.choice(M_all, size=M, replace=False)
-        P = np.sign(transform(emb[idx])).astype(np.float32); P[P == 0] = 1.0   # sign-binarize real keys
+        P = np.sign(Tfull[idx]).astype(np.float32); P[P == 0] = 1.0            # sign-binarize (already full-rank whitened)
         if hopfield_recall_t(P, FLIP, STEPS, seed * 7 + M) >= 0.95:            # auto-assoc Hopfield exact-recovery
             cap = M
         else:
@@ -119,8 +120,8 @@ def capacity(emb, transform, seed):
 
 
 def run_seed(seed) -> Dict:
-    emb = encode(load_texts(N_ENC))
-    cr = capacity(emb, norml, seed); cw = capacity(emb, whiten, seed)
+    emb = encode(load_texts(N_ENC))                                   # native MiniLM dim (no expansion -- rank-limited red herring)
+    cr = capacity(norml(emb), seed); cw = capacity(whiten(emb), seed) # whiten FIT ON FULL emb (N_ENC>=384 -> full rank)
     return {"seed": seed, "raw_capacity": cr, "whitened_capacity": cw, "ratio": float(cw / max(cr, 1))}
 
 
