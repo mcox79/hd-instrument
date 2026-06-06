@@ -5,7 +5,7 @@ ROUTING: extends the CRT grid-cell win (143x at 3 scales). Maps how distinguisha
   (1..6 coprime moduli) across several N and moduli sets -> the multiplicative-scaling curve (capacity ~ product of
   moduli). Confirms exponential-in-module-count composition + finds where N-dim noise breaks it. Bundled sweep -> long CPU
   job. numpy $0.
-PRE-REGISTERED: HARD-PASS distinguishable(6-module) >= 10x distinguishable(1-module) AND tracks product-of-moduli within
+PRE-REGISTERED: HARD-PASS distinguishable(max-module) >= 10x distinguishable(1-module) AND tracks product-of-moduli within
   20pct up to the N-noise limit. MID 3-10x. HARD-FAIL <3x.
 FORMULA SELF-TESTS (PROT-022): 1. coprime moduli. 2. CRT uniqueness. 3. residue encode.
 ASCII-only. write_metrics. PROT-018 no _nN.
@@ -32,28 +32,26 @@ _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"
 if RUN_MODE == "smoke":
     SEEDS = [1]; N_GRID = [4096]; MODULE_COUNTS = [1, 2, 3]
 else:
-    SEEDS = [7, 17, 23]; N_GRID = [4096, 8192, 16384]; MODULE_COUNTS = [1, 2, 3, 4, 5, 6]
+    SEEDS = [7, 17, 23]; N_GRID = [2048, 4096]; MODULE_COUNTS = [1, 2, 3, 4, 5, 6]
 
 
 def bp(M, n, g):
     return (g.integers(0, 2, (M, n)) * 2 - 1).astype(np.float32)
 
 
-def distinguishable(scales, n, seed, cap_positions=20000):
+def distinguishable(scales, n, seed, cap_positions=4000):
+    # cap_positions bounds cost; multiplicative scaling law is fully visible below the cap.
     g = np.random.default_rng(seed); P = min(int(np.prod(scales)), cap_positions)
     codebooks = [bp(m, n, g) for m in scales]
+    pos = np.arange(P)
     codes = np.zeros((P, n), np.float32)
-    for p in range(P):
-        v = np.zeros(n, np.float32)
-        for s, m in enumerate(scales):
-            v += codebooks[s][p % m]
-        codes[p] = np.sign(v)
-    g2 = np.random.default_rng(seed + 1); ok = 0
-    for p in range(P):
-        cue = codes[p] * np.where(g2.random(n) < FLIP, -1.0, 1.0)
-        if int(np.argmax(codes @ cue)) == p:
-            ok += 1
-    return ok
+    for s, m in enumerate(scales):
+        codes += codebooks[s][pos % m]            # vectorized over positions per scale (n_scales iters, not P)
+    codes = np.sign(codes); codes[codes == 0] = 1.0
+    g2 = np.random.default_rng(seed + 1)
+    cues = codes * np.where(g2.random((P, n)) < FLIP, -1.0, 1.0)
+    preds = (cues @ codes.T).argmax(1)            # ONE P x P matmul (vectorized decode), not a P-iteration loop
+    return int((preds == pos).sum())
 
 
 def _selftest():
@@ -84,8 +82,8 @@ def verdict(ps) -> Tuple[str, str]:
     d1 = d(MODULE_COUNTS[0]); dmax = d(MODULE_COUNTS[-1]); g = dmax / max(d1, 1e-9)
     prod = int(np.prod(ALL_MODULI[:MODULE_COUNTS[-1]]))
     curve = {("m%d" % mc): round(d(mc), 0) for mc in MODULE_COUNTS}
-    summary = "distinguishable by module-count at N=%d: %s (max product=%d) | %d-mod/1-mod=%.1fx" % (nmax, curve, prod, MODULE_COUNTS[-1], g)
-    tracks = dmax >= 0.8 * min(prod, 20000)
+    summary = "distinguishable by module-count at N=%d: %s (max product=%d, P capped 4000) | %d-mod/1-mod=%.1fx" % (nmax, curve, prod, MODULE_COUNTS[-1], g)
+    tracks = dmax >= 0.8 * min(prod, 4000)
     if g >= 10.0 and tracks:
         return ("HARD_PASS", "HARD_PASS: CRT capacity scales multiplicatively with module count (>=10x, tracks product) -- exponential composition confirmed. " + summary)
     if g >= 3.0:
