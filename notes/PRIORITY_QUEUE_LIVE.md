@@ -103,12 +103,11 @@ Per user directive 2026-06-06:
 - **HP threshold:** C_3 prefactor > 0; M_max scales as N^2
 - **Status:** needs engineering build; not yet started
 
-### Slot 2: `substrate_etf_hadamard_codebook_init_v1` (NEW; promoted from Tier-2)
-- **Wall:** ~20 min CPU
-- **Source:** bio/materials drill + Slot 4 Matthiessen HP (codebook-collision dominant)
-- **Why promoted to Tier-1:** Matthiessen diagnosis (just HP'd) showed codebook-collision is the dominant substrate noise mechanism. ETF Hadamard codebook init directly attacks this dominant mechanism.
-- **Capability advanced:** KF-2 retrieval activation barrier reduction
-- **HP threshold:** 1.5x retrieval speedup OR 2x capacity at matched accuracy
+### Slot 2: ~~`substrate_etf_hadamard_codebook_init_v1`~~ HP -- 8.02x capacity (26th flagship)
+- **Status:** DONE 2026-06-06 08:55 -- random_cap=51 vs hadamard_cap=409 at N=1024 (8.02x)
+- **Confirms:** Matthiessen diagnosis -> codebook-collision was binding constraint; orthogonalization removes it
+- **Action item:** Phase 4a infrastructure to use ETF Hadamard codebook init by default
+- **Follow-on candidate (NEW Slot 8):** ETF Hadamard at N=4096 + sparse compound test (queued below)
 
 ### Slot 3: `sparse_vs_dense_write_regime_alpha_n4096_n16384_v1`
 - **Wall:** ~15 min CPU
@@ -147,6 +146,21 @@ Per user directive 2026-06-06:
 - **Why new:** K-hop reasoning HP'd to K=5; the next question is whether it scales to K=10 at N=16384 (Phase 3 production-scale validation of Idea 1 from 20-ambitious-ideas TOP 5)
 - **Capability advanced:** Idea 1 substrate-native reasoning at scale
 - **HP threshold:** K=10 accuracy >= 0.50 at N=16384
+
+### Slot 8 (NEW; follow-on from ETF Hadamard HP): `substrate_etf_hadamard_plus_sparse_compound_v1`
+- **Wall:** ~25 min CPU
+- **Source:** Slot 2 ETF Hadamard HP (8.02x) + Slot 4 T1-6-V2 sparse-write
+- **Why new:** ETF Hadamard codebook init gave 8x. Sparse-write predicted 10x. **Test the multiplicative compound: does ETF + sparse give ~80x?**
+- **Capability advanced:** combined capacity rescue (multi-axis architectural improvement)
+- **HP threshold:** combined M_max ratio >= 40x vs random + dense baseline at N=4096
+- **Metric:** auto-associative Hopfield + flip-corrupted cue (FLIP=0.05) + unique patterns + 0.95 accuracy
+
+### Slot 9 (NEW; Phase 4a infrastructure adoption): `substrate_etf_hadamard_phase4a_infra_eval_v1`
+- **Wall:** ~30 min CPU
+- **Source:** Slot 2 ETF Hadamard HP + Phase 4a infrastructure plan
+- **Why new:** Phase 4a infrastructure needs codebook init choice locked in. ETF Hadamard gives 8x; should be the default. Test against current MiniLM-based substrate setups (used by overnight HPs: KF-1 hallucination, real-encoder, continual KV).
+- **Capability advanced:** Phase 4a infrastructure quality
+- **HP threshold:** ETF Hadamard codebook on MiniLM substrate >= 4x capacity vs random init at matched conditions
 
 ---
 
@@ -264,6 +278,7 @@ Already done earlier:
 - 2026-06-06 08:15 -- v2: added TIER-CLOUD (10 cells).
 - 2026-06-06 08:30 -- v3: PARED DOWN per user audit (Tier-1 9->5; Cloud 10->2 + roadmap).
 - 2026-06-06 08:40 -- v4: Exp-Dev reconciliation. Crossed off Matthiessen HP (24th flagship; codebook-collision dominant), K-hop reasoning HP (25th flagship; perfect to K=5), Hadamard N=256 MIDDLE 3.0x. ADDED Slot 2 ETF Hadamard (promoted from Tier-2 because Matthiessen pointed to codebook-collision). ADDED Slot 7 K-hop at N=16384 K=10 (follow-on from Slot 5 HP). Added operational protocol + research standing responsibilities. 2 varied-seed re-runs flagged for Exp-Dev to build (capacity_xl seeds=10, hp12_v2_crypto seeds=10).
+- 2026-06-06 08:55 -- v5: Slot 2 ETF Hadamard HP (26th flagship; 8.02x capacity at N=1024). ADDED Slot 8 ETF + sparse compound test (does ~80x compound hold?) + Slot 9 Phase 4a infrastructure ETF adoption eval. Matthiessen -> ETF chain is the day's biggest architectural win: 8x capacity for free via codebook init. Phase 4a infrastructure should adopt ETF Hadamard by default.
 
 ---
 
