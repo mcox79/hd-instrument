@@ -57,7 +57,7 @@ setup: |
   print(f'device: {torch.cuda.get_device_name(0)}')
   "
   pip install --quiet -r requirements_cloud.txt
-  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45"
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20" "bitsandbytes>=0.45" "sentence-transformers>=2.7"
 
   echo "=== [setup 4/8] HF login ==="
   python -c "
@@ -68,29 +68,30 @@ setup: |
   print('OK: HF login')
   "
 
-  echo "=== [setup 5/8] verify Llama-3.1-8B + Llama-3.1-70B access (gated repos) ==="
+  echo "=== [setup 5/8] verify Llama-3.2-1B + 3.1-8B + 3.1-70B access (gated repos) ==="
   python -c "
   import os
   os.environ['TOKENIZERS_PARALLELISM'] = 'false'
   from huggingface_hub import HfApi
   api = HfApi()
-  for repo in ['meta-llama/Llama-3.1-8B', 'meta-llama/Llama-3.1-70B']:
+  for repo in ['meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.1-8B', 'meta-llama/Llama-3.1-70B']:
       info = api.model_info(repo, token=os.environ['HF_TOKEN'])
       print(f'OK: {repo} accessible (last_modified={info.last_modified})')
   "
 
-  echo "=== [setup 6/8] pre-pull Llama-3.1-8B snapshot ==="
+  echo "=== [setup 6/8] pre-pull Llama-3.2-1B + 3.1-8B + MiniLM-L6-v2 snapshots ==="
   python -c "
   import os
   os.environ['TOKENIZERS_PARALLELISM'] = 'false'
   from huggingface_hub import snapshot_download
-  snapshot_download(
-      repo_id='meta-llama/Llama-3.1-8B',
-      token=os.environ['HF_TOKEN'],
-      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
-      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
-  )
-  print('OK: Llama-3.1-8B snapshot ready')
+  for repo in ['meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.1-8B', 'sentence-transformers/all-MiniLM-L6-v2']:
+      snapshot_download(
+          repo_id=repo,
+          token=os.environ['HF_TOKEN'],
+          cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+          allow_patterns=['*.safetensors', '*.bin', '*.json', 'tokenizer*', '*.model', '*.txt'],
+      )
+      print(f'OK: {repo} snapshot ready')
   "
 
   echo "=== [setup 7/8] pre-pull Llama-3.1-70B snapshot (big: ~140GB at fp16) ==="
@@ -107,9 +108,9 @@ setup: |
   print('OK: Llama-3.1-70B snapshot ready')
   "
 
-  echo "=== [setup 8/8] script --self-test gate (PROT-022) ==="
+  echo "=== [setup 8/8] CLOUD-1b script --self-test gate (PROT-022) ==="
   cd ~/sky_workdir
-  python -u experiments/exp_substrate_extraction_quality_7B_vs_70B_v1.py --self-test
+  python -u experiments/exp_substrate_extraction_quality_1B_8B_70B_v2.py --self-test
 
   echo "=== setup complete; environment ready ==="
 
