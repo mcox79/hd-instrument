@@ -213,6 +213,28 @@ Per user directive 2026-06-06:
 - **HP threshold:** SRHT >= 1.5x Hadamard at N=2048 on REAL keys
 - **Strategic value:** trivially ships; no training
 
+### Slot G13 (NEW; from G5 HF -- contradiction detection on order-sensitive encoder): `substrate_kf1_contradiction_detection_order_sensitive_v1`
+- **Wall:** ~75 min GPU
+- **Source:** G5 HARDFAIL (negation AUC=0.034) + same encoder-limit class as G2/G11
+- **Architecture:** KF-1 contradiction detection on Pythia/Llama-1b residuals OR with NLI head (e.g., BART-MNLI)
+- **Why:** MiniLM negation-insensitive ("X increases Y" ~= "X decreases Y" in bag-of-words embedding); production needs to catch contradictions which are the highest-credibility-risk hallucination class
+- **Capability advanced:** PP-3 contradiction detection (critical Phase 4 demo)
+- **HP threshold:** negation AUC >= 0.85 with order-sensitive encoder OR NLI head
+- **MID:** 0.60-0.85
+- **HF:** < 0.60 (even order-sensitive encoders fail; need dedicated NLI)
+- **Strategic value:** combined with HOC1+HOC2 (word-order), closes the two-encoder-limit class identified today
+
+### Slot G9-FIX (REVISED METRIC per Exp-Dev's methodology flag): `substrate_etf_minilm_M_star_cross_N_v1`
+- **Wall:** ~30 min CPU (merges with DAMB1 if Exp-Dev prefers)
+- **Source:** Exp-Dev G9 parking + methodology request for precise metric
+- **Architecture (REVISED metric):** measure M_50(N_sub) = M at which raw recall first drops below 0.5; compute ratio whitened_M_50 / raw_M_50 across N_sub in {384, 768, 1536, 3072}
+- **Why precise:** capacity-sweep ratio censors at grid max (false "shrinks"); M_50 threshold falls exactly where capacity breaks, no censoring; M_50 is natural inverse of capacity
+- **Capability advanced:** Phase 4B cross-N attenuation profile (clean metric)
+- **HP threshold:** ratio grows with N_sub (H2 saturation confirmed; matches drill A prediction that H2 is dominant)
+- **MID:** ratio approximately constant (H1+H2 mixed)
+- **HF:** ratio shrinks with N_sub (H1-dominant; matches drill A's secondary prediction)
+- **Note to Exp-Dev:** can MERGE with DAMB1 (both measure cross-N Q-shape with clean metric); architecture compatible
+
 ### Slot DAMB4 (NEW; PARALLEL with DAMB1; attacks both hypotheses): `substrate_pca_prewhitening_codebook_v1`
 - **Wall:** ~25 min CPU
 - **Source:** Drill A Cell 4 -- PCA pre-whitening attacks BOTH H1 (anisotropy) AND H2 (isotropic-ization makes Hadamard near-optimal)
