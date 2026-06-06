@@ -316,7 +316,14 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **MID:** plateau at 2.75-5x
 - **HF:** ratio plateaus at 2.75x or declines
 
-### Slot G10 (NEW; order-sensitive encoder for KF-1): `substrate_kf1_hallucination_order_sensitive_encoder_v1`
+### Slot G10 (DONE; MIDDLE 0.702): ~~`substrate_kf1_hallucination_order_sensitive_encoder_v1`~~
+- **Status:** DONE 2026-06-06 ~11:10 -- adv(word-shuffle) AUC easy=0.937 hard=0.893 ADV=0.702
+- **Finding:** Pythia rescues word-order detection substantially (0.217 MiniLM -> 0.702) but short of 0.85 HP gate. Order-sensitive causal encoder IS the right architectural direction.
+- **Full queued:** 3 seeds, N_KB=4000 GPU
+- **2x rescue drill DISPATCHED 11:15:** how to close 0.702 -> 0.85+ gap (architecture choices, model size scale, fine-tune for hallucination)
+- **Sibling HF Slot G11** below (char n-grams) shares root-cause topic; drill combines both
+
+### Slot G10-orig (NEW; order-sensitive encoder for KF-1): `substrate_kf1_hallucination_order_sensitive_encoder_v1`
 - **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE adv=0.702, rescues 0.217->0.702); full queued GPU
 - **Wall:** ~75 min GPU
 - **Source:** Slot G2 capability boundary finding -- MiniLM bag-of-words limits adversarial detection
@@ -327,7 +334,14 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **MID:** AUC 0.70-0.85
 - **HF:** AUC < 0.70 (even order-sensitive encoders fail; need explicit n-gram features)
 
-### Slot G11 (NEW; n-gram-augmented hallucination detection): `substrate_kf1_ngram_augmented_v1`
+### Slot G11 (DONE; HARDFAIL 0.192 -- char n-grams cannot capture word order): ~~`substrate_kf1_ngram_augmented_v1`~~
+- **Status:** DONE 2026-06-06 ~11:10 -- ADV=0.192 (worse than MiniLM-only 0.217)
+- **ROOT CAUSE:** char n-grams live mostly WITHIN words; word-shuffle preserves them; ngram features barely change. CHAR n-grams cannot capture WORD order.
+- **Strategic impact:** lightweight char-n-gram path BLOCKED. Word-LEVEL n-grams or order-sensitive encoder (G10) are the viable paths.
+- **2x rescue drill DISPATCHED 11:15 (combined with G10):** word-level n-grams + positional embeddings + other lightweight order-sensitivity options
+- **Follow-on hypothesis:** Slot G13 word-level n-gram MiniLM as lightweight alternative
+
+### Slot G11-orig (NEW; n-gram-augmented hallucination detection): `substrate_kf1_ngram_augmented_v1`
 - **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL adv=0.192; char n-grams survive word-shuffle); full queued GPU
 - **Wall:** ~60 min GPU
 - **Source:** Slot G2 capability boundary -- alternative path to order-sensitivity
