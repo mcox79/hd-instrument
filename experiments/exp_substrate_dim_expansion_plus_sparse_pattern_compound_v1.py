@@ -30,6 +30,7 @@ except ImportError:
     print("[FATAL] torch not installed.", flush=True); sys.exit(1)
 import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
+from experiments._gpu_cap import recall_unique_t, hopfield_recall_t
 
 ANCHOR_NAME = "substrate_dim_expansion_plus_sparse_pattern_compound_v1"
 PYTHIA_ID = "EleutherAI/pythia-160m"
@@ -71,12 +72,7 @@ def make_values(M, nv, sparse, g):
 
 
 def kc_recall(K, sparse, g):
-    # key-collision-aware: W = Vs^T K (unique value per fact); query with FLIP-corrupted KEY; retrieved value == stored?
-    M, nk = K.shape; V = make_values(M, nk, sparse, g)
-    Kq = K.copy(); mask = g.random((M, nk)) < FLIP; Kq[mask] *= -1.0
-    R = V.T @ (K @ Kq.T)                                  # (nk? no: nv=nk) (nv, M): col i = W @ Kq[i]
-    pred = np.argmax(V @ R, axis=0)
-    return float(np.mean(pred == np.arange(M)))
+    return recall_unique_t(K, K.shape[1], int(g.integers(0, 2**31)), sparse=sparse, alpha=ALPHA, flip=FLIP)   # GPU
 
 
 def m_50(emb, D, expand_on, sparse, seed):

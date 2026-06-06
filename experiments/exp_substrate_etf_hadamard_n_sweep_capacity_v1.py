@@ -24,6 +24,7 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
+from experiments._gpu_cap import recall_unique_t, hopfield_recall_t
 
 ANCHOR_NAME = "substrate_etf_hadamard_n_sweep_capacity_v1"
 FLIP = 0.05; STEPS = 6
@@ -54,13 +55,7 @@ def pats_hadamard(M, n, g):
 
 
 def recall_wfree(P, g):
-    # W-free auto-assoc Hopfield: W@s = P^T(P@s) - M*s (zero-diagonal), never materialize NxN
-    M, n = P.shape; S = P * np.where(g.random((M, n)) < FLIP, -1.0, 1.0)
-    for _ in range(STEPS):
-        A = P @ S.T                                     # (M,M)
-        WS = (P.T @ A).T - M * S                        # (M,n) = S @ (P^T P) - M S, zero-diag
-        S = np.sign(WS); S[S == 0] = 1.0
-    return float(np.mean(np.all(S == P, axis=1)))
+    return hopfield_recall_t(P, FLIP, STEPS, int(g.integers(0, 2**31)))   # GPU W-free Hopfield
 
 
 def _selftest():

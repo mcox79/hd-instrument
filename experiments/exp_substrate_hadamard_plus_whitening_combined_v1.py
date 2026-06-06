@@ -26,6 +26,7 @@ except ImportError:
     print("[FATAL] torch not installed.", flush=True); sys.exit(1)
 import numpy as np
 from experiments._seed_checkpoint import get_output_dir, write_metrics
+from experiments._gpu_cap import recall_unique_t, hopfield_recall_t
 
 ANCHOR_NAME = "substrate_hadamard_plus_whitening_combined_v1"
 MINILM_ID = "sentence-transformers/all-MiniLM-L6-v2"
@@ -55,10 +56,7 @@ def norml(K):
 
 
 def recall_unique(keys, n, g):
-    M = keys.shape[0]; V = (g.integers(0, 2, (M, n)) * 2 - 1).astype(np.float32); V /= np.linalg.norm(V, axis=1, keepdims=True) + 1e-8
-    W = (V.T @ keys).astype(np.float32)
-    pred = np.argmax((keys @ W.T) @ V.T, axis=1)
-    return float(np.mean(pred == np.arange(M)))
+    return recall_unique_t(keys, n, int(g.integers(0, 2**31)))   # GPU matmuls
 
 
 def _selftest():
