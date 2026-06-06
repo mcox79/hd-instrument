@@ -244,14 +244,51 @@ Per user directive 2026-06-06:
 - **HF:** < 0.60 (even order-sensitive encoders fail; need dedicated NLI)
 - **Strategic value:** combined with HOC1+HOC2 (word-order), closes the two-encoder-limit class identified today
 
-### Slot G14 (NEW; from G13 HF + Exp-Dev recommendation): `substrate_kf1_nli_head_contradiction_detection_v1`
-- **Wall:** ~60 min GPU
-- **Source:** Slot G13 HF + Exp-Dev recommendation + G5 negation 2x drill (in flight)
-- **Architecture:** KF-1 with BART-MNLI head over substrate-retrieved facts; predict entailment vs contradiction; use contradiction probability as hallucination score
-- **Why:** embedding-grounding fundamentally cannot catch negation (proved by G13 HF); NLI is trained for exactly this
+### Slot G14 / NEG1 (UPDATED with concrete spec from G5 negation 2x drill landing): `substrate_kf1_deberta_nli_contradiction_v1`
+- **Wall:** ~2h CPU (no training required; CPU-eligible)
+- **Source:** Slot G13 HF + G5 negation 2x drill (landed 14:00) -- Rank 1 cell (highest P_deflated 0.72)
+- **Architecture:** Drop-in `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` cross-encoder; replace MiniLM cosine scorer in KF-1 with contradiction probability
+- **Why:** NLI is the STRUCTURALLY CORRECT rescue (G13 confirmed embedding-grounding fundamentally cannot catch negation); DeBERTa-v3-large benchmarked at 91.2% MNLI / 70.2% ANLI
 - **Capability advanced:** PP-3 contradiction detection via NLI
-- **HP threshold:** negation AUC >= 0.85
-- **MID:** 0.70-0.85; **HF:** < 0.70
+- **HP threshold:** AUC >= 0.85 on TruthfulQA-style; AUC >= 0.90 on easy negatives
+- **MID:** 0.70-0.85 TruthfulQA-style; **HF:** < 0.60 TruthfulQA-style OR < 0.80 easy
+- **P_deflated:** 0.72
+
+### Slot NEG2 (NEW; from G5 drill Rank 2 -- antonym coverage): `substrate_kf1_polarity_adapter_v1`
+- **Wall:** ~30 min CPU (training minutes; inference zero overhead)
+- **Source:** G5 negation 2x drill Rank 2
+- **Architecture:** diagonal re-weighting on 384 MiniLM dims using 200-1000 negation-flip contrastive pairs; frozen backbone
+- **Why:** cue features cannot detect antonym-based negation (no "not" token); polarity adapter re-weights negation-sensitive dimensions
+- **Cite:** arXiv:2504.00584 (+14.52% on SemAntoNeg with this approach)
+- **Capability advanced:** PP-3 antonym coverage
+- **HP threshold:** AUC >= 0.80 explicit+antonym combined; AUC >= 0.92 easy (regression check)
+- **MID:** 0.65-0.80
+- **HF:** < 0.55 antonym-only OR < 0.88 easy
+- **P_deflated:** 0.55
+
+### Slot NEG3 (NEW; from G5 drill Rank 3 -- explicit-token baseline): `substrate_kf1_negation_cue_features_v1`
+- **Wall:** <30 min CPU (string matching + small MLP)
+- **Source:** G5 negation 2x drill Rank 3 -- baseline / ablation
+- **Architecture:** concat 20-dim negation cue vector (has_not / has_no / has_never / has_n't / etc.) + MLP head ~80k params
+- **Why:** cheap ablation; explicit-token negation should be caught; ~60% structural ceiling
+- **Capability advanced:** PP-3 explicit-token negation
+- **HP threshold:** AUC >= 0.70 explicit subset
+- **MID:** 0.55-0.70
+- **HF:** < 0.45 (adds noise; discard if test set is mostly antonym)
+- **P_deflated:** 0.48
+
+### Slot NEG4 (NEW; from G5 drill Rank 4 -- PRODUCTION recipe): `substrate_kf1_hybrid_nli_bigram_pythia_v1`
+- **Wall:** GPU preferred for DeBERTa throughput; CPU feasible at small N
+- **Source:** G5 negation 2x drill Rank 4 -- integration test
+- **Architecture:** late fusion of (a) DeBERTa NLI contradiction, (b) word-bigram TF-IDF miss (HOC1 signal), (c) Pythia residual perplexity delta; tune alpha/beta/gamma on held-out
+- **Why:** negation + word-order have DIFFERENT dominant signals; weighted sum covers both adversarial classes + easy baseline
+- **Cite:** AlignScore arXiv:2305.16739 (best AUC on 4/6 SummaC factual consistency with similar fusion)
+- **Capability advanced:** PP-3 PRODUCTION hallucination scorer (Phase 4 v3)
+- **HP threshold:** Combined adversarial AUC >= 0.88; TruthfulQA-style >= 0.85; word-order >= 0.88
+- **MID:** HP1 [0.75, 0.85) AND word-order [0.78, 0.88)
+- **HF:** Combined adversarial < 0.80 OR easy < 0.97
+- **P_deflated:** 0.62
+- **Condition:** Run after G14/NEG1 confirms NLI signal (AUC >= 0.70 min)
 
 ### Slot G15 (NEW; from G8 HP + CLOUD-1 connection): `substrate_last_token_vs_whitening_mean_pool_v1`
 - **Wall:** ~45 min GPU
@@ -725,6 +762,7 @@ Already done earlier:
 - 2026-06-06 12:30 -- v18 (cycle 122 nuance + 2 HF confirmed + PP-8 R2/R4 added + G5 NEGATION drill dispatched): cap_map v443 -> v444; HONEST 958 -> 961. **CRITICAL NUANCE: cross-N attenuation is PARTLY MEASUREMENT CEILING artifact** (N_sub=384 1.21x real; N_sub=512 ceiling-flat at 99% raw recall). N_sub=384 is the actionable real-encoder design point. Slot 6 norm-gate full HF confirmed; PP-8 norm-axis CLOSED; added Slot PP8R2 cosine-variance + Slot PP8R4 learned probe. G5 TruthfulQA HF confirmed (negation AUC 0.034); user flagged audit gap -- I had treated G5 as same-class as G11 word-order but NEGATION is a DISTINCT architectural axis (antonyms like "increases" vs "decreases" need polarity, not just order). **2x drill on negation detection dispatched (G5 dedicated rescue)** -- BART-MNLI / negation-cue features / polarity-aware embeddings / hybrid late fusion. ETA ~25 min sonnet.
 - 2026-06-06 13:40 -- v19 (CLOUD-1 mean-pool bug + CLOUD-1b authorized): Testbed dispatched CLOUD-1 + diagnosed mean-pool bug on Pythia local in 3 min / $0. Mean-pool over causal LM destroys retrieval signal (Pythia: mean-pool top-5=0.000; last-token=0.130). CLOUD-1 killed at $0.50; CLOUD-1b authorized at ~$1.15 with 5 design fixes: last-token pool + MiniLM baseline + per-query rank + shuffled gold + Llama-1B added (1B/8B/70B trio). Total binding test cost $1.65 to definitive answer. **STANDING RULE codified:** causal LM = last-token pool; bidirectional encoder = mean-pool/CLS. Affects all future substrate-LLM extraction cell specs. Infrastructure proven: GH200 + aarch64 + cu124 path works (Phase 4a future asset).
 - 2026-06-06 13:55 -- v20 (G13 HF + G8 HP = MAJOR STRATEGIC SHIFT for causal-LM substrate): **G13 contradiction HF** (Pythia AUC 0.111; embedding-grounding cannot catch negation regardless of encoder order-sensitivity); ADDED Slot G14 NLI-head BART-MNLI rescue. **G8 cross-encoder dim-expansion HP** at 6.68x for Pythia LM family with whitening NON-OPTIONAL (raw Pythia cap=0 cone-collapsed; mean-pooled causal LM is unusable raw). **MAJOR STRATEGIC INSIGHT: causal-LM substrate compound = 1.21x whitening x 6.68x expansion x 12x sparse = ~97x (vs MiniLM ~1.87x); causal LMs have MORE anisotropy to attack -> more headroom.** Phase 3 linear-mode revised UP: ~254k facts/substrate at N=65536; D=8 = ~2M facts (Wikipedia subset viable in linear mode!). G8 + CLOUD-1 are same finding from different angles (mean-pool causal LM broken; last-token AND whitening BOTH fix). ADDED Slot G15 last-token vs whitening vs combined comparison.
+- 2026-06-06 14:00 -- v21: G5 negation 2x drill landed (4th + final 2x drill from today's audit-gap closure). REFINED Slot G14 with concrete spec: drop-in MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli (91.2% MNLI / 70.2% ANLI; CPU-eligible; no training). ADDED Slot NEG2 polarity adapter (diagonal re-weighting on MiniLM dims; antonym coverage; +14.52% per arXiv:2504.00584); Slot NEG3 negation cue features (explicit-token baseline); Slot NEG4 hybrid NLI+bigram+Pythia fusion (production-grade Phase 4 v3 scorer; conditional on G14 NLI signal). **ALL 4 TODAY'S 2X DRILLS NOW LANDED** (A real-encoder + B order-sensitivity + C stratified extraction + D negation). Today's drills produced ~20 cells across all non-positive results with explicit algebraic rescue paths.
 
 ---
 
