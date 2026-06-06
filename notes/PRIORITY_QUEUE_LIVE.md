@@ -196,6 +196,39 @@ Per user directive 2026-06-06:
 - **Capability advanced:** U2 adversarial codebook-collision robustness
 - **HP threshold:** stacked defense (Hadamard + a_query_sim) > additive sum of individual defenses
 
+### Slot LC1 (NEW; learned-codebook drill Anchor 1; HIGHEST PRIORITY cheap test): `substrate_sparse_hadamard_mixture_codebook_v1`
+- **Wall:** ~30 min CPU
+- **Source:** Learned-codebook research drill landed 2026-06-06 ~10:55
+- **Architecture:** sparse Hadamard mixture codebook (k random Hadamard rows summed + sign); zero training cost
+- **Why prioritize:** cheapest decisive test for encoder-anisotropy hypothesis. If HP, ships immediately in next infra update. If HF, informs whether LC2 (learned) is worth training cost.
+- **Capability advanced:** Phase 4B real-encoder codebook-collision attack (encoder-decorrelation axis)
+- **HP threshold:** SHM capacity >= 1.5x Hadamard at matched conditions
+- **MID:** 1.1x-1.5x
+- **HF:** <= 1.1x Hadamard
+- **Cite:** Hu et al. 2024 (arXiv:2410.23126; spherical codes = optimal Hopfield memory)
+
+### Slot LC2 (NEW; learned-codebook drill Anchor 2): `substrate_kmeans_learned_codebook_minilm_v1`
+- **Wall:** ~90 min total CPU (~30 min k-means training + ~60 min substrate bench)
+- **Source:** Learned-codebook research drill Anchor 2
+- **Architecture:** k-means codebook initialization on real MiniLM embeddings; distribution-alignment hypothesis
+- **Why:** larger potential gain than LC1 (targets distribution precisely) but requires training cost
+- **Capability advanced:** Phase 4B real-encoder learned-codebook rescue
+- **HP threshold:** learned capacity >= 2.0x Hadamard
+- **MID:** 1.2x-2.0x
+- **HF:** <= 1.2x Hadamard
+- **Cite:** Achilli et al. 2025 (arXiv:2503.09518; manifold-aligned codebooks INCREASE capacity); Bielmeier-Friedland 2025 (arXiv:2508.01395; feature correlations reduce capacity prefactor)
+
+### Slot LC3 (NEW; learned-codebook drill Anchor 3): `substrate_basis_pursuit_overcomplete_codebook_v1`
+- **Wall:** ~45 min CPU
+- **Source:** Learned-codebook research drill Anchor 3
+- **Architecture:** 4x overcomplete dictionary with k=8 sparse codes; OMP retrieval
+- **Why:** highest complexity, highest upside; tests whether Hopfield dynamics are compatible with sparse-support retrieval
+- **Capability advanced:** Phase 4B sparse-support concept-address architecture
+- **HP threshold:** sparse-code capacity >= 3.0x Hadamard
+- **MID:** 1.5x-3.0x
+- **HF:** <= 1.5x Hadamard
+- **Cite:** Ganguli et al. (arXiv:1611.09621; expander decoding); informs V2 substrate architecture decision
+
 ---
 
 ## GPU LANE PRIORITIES (genuine GPU-appropriate cells; populated 2026-06-06 10:25 per Exp-Dev's request)
@@ -432,6 +465,7 @@ Already done earlier:
 - 2026-06-06 10:25 -- v8 (POST-COMPACTION + GPU LANE POPULATED): Slot 9 MIDDLE 2.75x on real MiniLM (real-encoder dim ceiling); compound revised to ~33x for real encoders. ADDED Slot 14 dim-expansion rescue (Exp-Dev's autonomous build; smoke linear scaling; full D=4096 in flight). ADDED GPU LANE PRIORITIES section with 6 cells (G1-G6): mpnet transferability, KF-1 robustness sweep, real-encoder capacity at N=16384 with expansion, continual KV at N=32768, KF-1 on TruthfulQA-style benchmark, Pythia end-to-end (deferred). Per Exp-Dev's note: GPU lane was thin; user flagged GPU-idle multiple times. Now GPU lane has prioritized depth.
 - 2026-06-06 10:35 -- v9 (Phase 4B gates from orchestrator cycle 119): Orchestrator framed "remaining 73% real-encoder headroom is recoverable via deeper codebook-collision attacks." ADDED Slot G7 Hadamard+whitening combined defense (cheap architectural test); Slot G8 cross-encoder Pythia-160m + Llama-1b dim-expansion (encoder-family-agnostic confirmation); Slot G9 N_sub lower sweep {384, 768, 1536, 3072} on MiniLM. Plus research drill dispatched on learned codebooks / basis pursuit / sparse Hadamard mixtures (deeper rescue paths for the 73% headroom).
 - 2026-06-06 10:45 -- v10: Slot G2 KF-1 robustness HP. AUC hard same-domain = 0.975 (27th flagship anchor). Honest side-finding: word-shuffled adversarial AUC=0.217 traced to MiniLM bag-of-words (capability boundary, NOT substrate failure). ADDED Slot G10 KF-1 on order-sensitive encoder (Pythia/Llama) + Slot G11 KF-1 n-gram-augmented MiniLM (lightweight rescue). Phase 4 order-sensitive hallucination detection now has 2 architectural paths.
+- 2026-06-06 10:55 -- v11: Learned-codebook research drill landed. ADDED Slot LC1 sparse-Hadamard-mixture (CHEAPEST decisive ~30 min CPU; HP >=1.5x; zero training; ships in next infra update if HP); Slot LC2 k-means learned codebook on MiniLM (~90 min CPU; HP >=2x); Slot LC3 basis pursuit 4x overcomplete sparse codes (~45 min CPU; HP >=3x; highest upside). All 3 target the 73% real-encoder headroom orchestrator surfaced in cycle 119. If LC1 HPs, real-encoder Phase 4a substrate gains 1.5x on top of current 2.75x = ~4x effective; if LC2/3 HP, larger gains.
 
 ---
 
