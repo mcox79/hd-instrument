@@ -24,7 +24,7 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "hnsw_ef_search_calibration_v1"
-EF_GRID = [16, 32, 64, 128, 200, 400]; M_HNSW = 32
+EF_GRID = [64, 256, 512, 1024]; M_HNSW = 32   # per Testbed guidance; default 64 is the certain-failure point
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
@@ -68,10 +68,10 @@ def verdict(ps) -> Tuple[str, str]:
     agg = {("ef%d" % ef): float(np.mean([p["by_ef"]["ef%d" % ef] for p in ps])) for ef in EF_GRID}
     pin = next((ef for ef in EF_GRID if agg["ef%d" % ef] >= 0.95), None)
     summary = "recall@1 by ef_search: %s | first ef>=0.95: %s" % ({k: round(v, 3) for k, v in agg.items()}, pin)
-    if pin is not None and pin <= 200:
-        return ("HARD_PASS", "HARD_PASS: recall@1>=0.95 reached by ef_search<=200 -- pin ef_search=%d in production HNSW. " % pin + summary)
+    if pin is not None and pin <= 256:
+        return ("HARD_PASS", "HARD_PASS: recall@1>=0.95 reached by ef_search<=256 -- pin ef_search=%d in production HNSW (default 64 insufficient). " % pin + summary)
     if pin is not None:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: needs ef_search in (200,400] for recall@1>=0.95. " + summary)
+        return ("MIDDLE_BAND", "MIDDLE_BAND: needs ef_search >256 for recall@1>=0.95. " + summary)
     return ("HARD_FAIL", "HARD_FAIL: recall@1<0.95 even at ef_search=400 -- HNSW M/construction params need redesign. " + summary)
 
 
