@@ -429,7 +429,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** < 8x on both (rule is encoder-specific)
 
 ### Slot G9 (NEW; lower-N dim sweep per orchestrator Phase 4B gate): `substrate_etf_minilm_n_sub_lower_sweep_v1`
-- **Status:** PARKED by exp_dev 2026-06-06 -- cross-N lift metric censors (real-encoder capacity too high to find discriminating load); needs metric spec from Research (see note)
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (un-parked; rebuilt with M_50-ratio metric per Research spec); queued GPU
 - **Wall:** ~45 min GPU
 - **Source:** Orchestrator cycle 119 -- "N-sweep across MiniLM N_sub in {384, 768, 1536, 3072}"
 - **Why:** Slot G3 tests N=16384 production scale; orchestrator wants intermediate sweep to see whether 2.75x holds or GROWS as N_sub increases

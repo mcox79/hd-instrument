@@ -118,34 +118,44 @@ def capacity(emb, D, transform, seed):
     return cap
 
 
+def m_50(emb, D, transform, seed):
+    # M at which recall first drops below 0.5 (less censoring than 0.95-exact)
+    prev = 2
+    for load in [0.2, 0.4, 0.6, 0.8, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0]:
+        M = min(int(load * D), emb.shape[0])
+        g = np.random.default_rng(seed * 1000 + D + M); idx = g.choice(emb.shape[0], size=M, replace=False)
+        K = transform(expand(emb[idx], D, np.random.default_rng(seed * 31 + D)))
+        if recall_unique(K, D, np.random.default_rng(seed * 7 + M)) < 0.5:
+            return prev
+        prev = M
+    return prev
+
+
 def run_seed(seed) -> Dict:
     emb = encode(load_texts(N_ENC)); by_D = {}
     for D in D_GRID:
-        M = min(int(1.5 * D), emb.shape[0]); g = np.random.default_rng(seed * 1000 + D)
-        idx = g.choice(emb.shape[0], size=M, replace=False); E = expand(emb[idx], D, np.random.default_rng(seed * 31 + D))
-        rr = recall_unique(norml(E), D, np.random.default_rng(seed * 7 + D))
-        wr = recall_unique(whiten(E), D, np.random.default_rng(seed * 7 + D))
-        by_D["D%d" % D] = {"M": M, "raw_recall": rr, "whitened_recall": wr, "lift": float(wr / max(rr, 1e-3))}
+        rm = m_50(emb, D, norml, seed); wm = m_50(emb, D, whiten, seed)
+        by_D["D%d" % D] = {"raw_M50": rm, "whitened_M50": wm, "ratio": float(wm / max(rm, 1))}
     return {"seed": seed, "by_D": by_D}
 
 
 def verdict(ps) -> Tuple[str, str]:
     klo = "D%d" % D_GRID[0]; khi = "D%d" % D_GRID[-1]
-    llo = float(np.mean([p["by_D"][klo]["lift"] for p in ps])); lhi = float(np.mean([p["by_D"][khi]["lift"] for p in ps]))
-    parts = " ".join("N_sub=%s: lift=%.2fx (raw_rec=%.2f wht_rec=%.2f @M=1.5N)" % (k[1:], np.mean([p["by_D"][k]["lift"] for p in ps]), np.mean([p["by_D"][k]["raw_recall"] for p in ps]), np.mean([p["by_D"][k]["whitened_recall"] for p in ps])) for k in ps[0]["by_D"])
-    summary = "orthogonalization recall-lift @ M=1.5*N_sub: %s" % parts
-    if lhi >= llo + 0.3:
-        return ("HARD_PASS", "HARD_PASS: orthogonalization lift GROWS with N_sub (%.2fx->%.2fx) -- wider encoders recover more; Phase-4 use wide encoders. " % (llo, lhi) + summary)
-    if lhi >= llo - 0.3:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: lift roughly flat across N_sub (%.2fx->%.2fx). " % (llo, lhi) + summary)
-    return ("HARD_FAIL", "HARD_FAIL: lift SHRINKS with N_sub (%.2fx->%.2fx) -- Hadamard gain N-saturating. " % (llo, lhi) + summary)
+    rlo = float(np.mean([p["by_D"][klo]["ratio"] for p in ps])); rhi = float(np.mean([p["by_D"][khi]["ratio"] for p in ps]))
+    parts = " ".join("N_sub=%s: M50_ratio=%.2fx (raw=%.0f wht=%.0f)" % (k[1:], np.mean([p["by_D"][k]["ratio"] for p in ps]), np.mean([p["by_D"][k]["raw_M50"] for p in ps]), np.mean([p["by_D"][k]["whitened_M50"] for p in ps])) for k in ps[0]["by_D"])
+    summary = "orthogonalization M_50 ratio by N_sub: %s" % parts
+    if rhi >= rlo + 0.5:
+        return ("HARD_PASS", "HARD_PASS: orthogonalization lift GROWS with N_sub (M50 ratio %.2fx->%.2fx) -- wider encoders recover more; Phase-4 use wide encoders. " % (rlo, rhi) + summary)
+    if rhi >= rlo - 0.5:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: lift roughly flat across N_sub (%.2fx->%.2fx). " % (rlo, rhi) + summary)
+    return ("HARD_FAIL", "HARD_FAIL: lift SHRINKS with N_sub (%.2fx->%.2fx) -- Hadamard gain N-saturating. " % (rlo, rhi) + summary)
 
 
 print("[config] anchor=%s mode=%s seeds=%s N_enc=%d D_grid=%s" % (ANCHOR_NAME, RUN_MODE, SEEDS, N_ENC, D_GRID), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); ps = []
 for seed in SEEDS:
     r = run_seed(seed); ps.append(r)
-    print("  [seed=%d] %s" % (seed, {k: round(v["lift"], 2) for k, v in r["by_D"].items()}), flush=True)
+    print("  [seed=%d] %s" % (seed, {k: round(v["ratio"], 2) for k, v in r["by_D"].items()}), flush=True)
 v, vmsg = verdict(ps); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": len(SEEDS), "per_seed": ps, "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, ps); print("[metrics] written", flush=True)
