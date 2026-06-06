@@ -358,6 +358,7 @@ Per user directive 2026-06-06:
 - **Strategic value:** production polish; runs after PSE1/PSE2/PSE3 establish baseline
 
 ### Slot 7 (UPDATED -- K-hop ceiling now K>=6 not K=3 per cycle 118): `substrate_native_reasoning_K10_K20_n16384_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HP; full tests K up to 20 at N=16384); queued CPU
 - **Wall:** ~60 min CPU
 - **Source:** Cycle 118 K-hop FULL run -- lossless to K=6 (test grid ceiling); actual ceiling unknown
 - **Why now:** K-hop HP'd lossless at K=1..6 in cycle 118. Next questions: (1) does losslessness hold to K=10 at the same N? (2) does it scale to N=16384 production-class? (3) where is the actual K ceiling?
@@ -375,6 +376,7 @@ Per user directive 2026-06-06:
 - **Metric:** auto-associative Hopfield + flip-corrupted cue (FLIP=0.05) + unique patterns + 0.95 accuracy
 
 ### Slot DIMSPARSE (NEW; HIGHEST PRIORITY -- THE critical compound test from cycle 123): `substrate_dim_expansion_plus_sparse_pattern_compound_v1`
+- **Status:** PARKED by exp_dev 2026-06-06 -- compound construction ambiguous (sparse-VALUES give 0 gain; capacity is key-collision-limited; sparse-on-real-encoder undefined) + b/d censored; needs exact construction from Research (see note)
 - **Wall:** ~45 min CPU
 - **Source:** Cycle 123 cycle confirms 3 INDEPENDENT axes (Hadamard, dim-expansion, sparsity). Critical OPEN: do dim-expansion + sparsity stack?
 - **Architecture:** 4 arms at N=4096 / N=16384: (a) baseline, (b) dim-expansion alone, (c) sparse pattern alone (alpha=0.20), (d) dim-expansion + sparse pattern combined
