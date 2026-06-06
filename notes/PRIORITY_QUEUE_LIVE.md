@@ -243,6 +243,22 @@ Per user directive 2026-06-06:
 - **HF:** < 0.60 (even order-sensitive encoders fail; need dedicated NLI)
 - **Strategic value:** combined with HOC1+HOC2 (word-order), closes the two-encoder-limit class identified today
 
+### Slot PP8R2 (NEW; from cycle 122 PP-8 cleanup): `substrate_pp8_cosine_variance_gate_v1`
+- **Wall:** ~30 min CPU
+- **Source:** Orchestrator cycle 122 -- PP-8 norm-gate closed; R2 cosine-variance is next rescue
+- **Architecture:** gate token retention by variance of cosine similarity to VQ cluster centroid (high-variance = high-discriminability)
+- **Capability advanced:** PP-8 cell-level discrimination
+- **HP threshold:** cosine-variance gate preserves >=90% concept coverage at 10x speedup
+- **MID:** 70-90% / **HF:** <70%
+
+### Slot PP8R4 (NEW; from cycle 122 PP-8 cleanup): `substrate_pp8_learned_discriminability_probe_v1`
+- **Wall:** ~60 min GPU
+- **Source:** Orchestrator cycle 122 -- PP-8 R4 learned probe rescue
+- **Architecture:** train small linear probe to predict which tokens contribute to retrieval quality
+- **Capability advanced:** PP-8 learned routing
+- **HP threshold:** >=95% concept coverage at 10-50x speedup
+- **MID:** 80-95% / **HF:** <80%
+
 ### Slot G9-FIX (REVISED METRIC per Exp-Dev's methodology flag): `substrate_etf_minilm_M_star_cross_N_v1`
 - **Wall:** ~30 min CPU (merges with DAMB1 if Exp-Dev prefers)
 - **Source:** Exp-Dev G9 parking + methodology request for precise metric
@@ -673,6 +689,7 @@ Already done earlier:
 - 2026-06-06 11:50 -- v15: 2x drill C (per-cluster stratified extraction operational depth) landed. KEY FINDING: dominant production risk is CODEBOOK COLLAPSE (dead VQ codes), NOT coverage loss. Coverage guaranteed by construction. Recommended production architecture: sqrt-K allocation (Neyman-optimal proxy without expensive sigma_c) + online Vitter reservoir + IVF VQ (~50000x cheaper) + sliding window + collapse monitoring (6 metrics) + recovery (EMA / OT / perturbation). ADDED Slot PSE1 sqrt-K allocation; PSE2 online streaming; PSE3 codebook collapse monitoring (CRITICAL production-deployment gate); PSE4 adaptive K_c feedback. Drill A real-encoder cross-N attenuation still in flight.
 - 2026-06-06 12:00 -- v16: 2x drill A (real-encoder cross-N attenuation disambiguation) landed. KEY INSIGHT: H1 (N-dependent noise) and H2 (Hadamard N-saturation) predict DIFFERENT Q(N) curve shapes -- SUB-LINEAR vs LINEAR decay. ADDED Slot DAMB1 disambiguation N-sweep (HIGHEST PRIORITY ~30 min CPU; routes ALL subsequent rescue investments); Slot DAMB2 LC1 N-sweep extension (SHM attacks BOTH hypotheses); Slot DAMB3 SRHT codebook (conditional H2 rescue); Slot DAMB4 PCA pre-whitening (parallel with DAMB1; attacks BOTH hypotheses). ALL 3 of today's parallel 2x drills now landed (A+B+C). Today's drill output: 13 new cells (HOC1-5 + PSE1-4 + DAMB1-4) targeting all non-positive results with explicit algebraic rescue paths.
 - 2026-06-06 12:15 -- v17: TRIPLE VERDICT batch. (a) Slot 10 SMOKE HP -- synthetic Hadamard lift FLAT 8x across N (CONTRASTS with Slot 14 real-encoder plateau; confirms drill A's H2 hypothesis is real-encoder-specific). Full sweep {4096-65536} queued. If holds, Phase 3 linear capacity ~10x lift -> 26k facts/substrate. (b) Slot 12 SMOKE MIDDLE -- per-cluster stratified WORKING; 100% coverage by construction; speedup ~21x smoke -> production 100-1000x. (c) Slot 13 SMOKE HARDFAIL -- random sampling 16% coverage at 100x. EXTRACTION RESCUE TREE RESOLVED: stratified is the only adequate path. G9 rebuilding with M_50 ratio spec; G5 full queued.
+- 2026-06-06 12:30 -- v18 (cycle 122 nuance + 2 HF confirmed + PP-8 R2/R4 added + G5 NEGATION drill dispatched): cap_map v443 -> v444; HONEST 958 -> 961. **CRITICAL NUANCE: cross-N attenuation is PARTLY MEASUREMENT CEILING artifact** (N_sub=384 1.21x real; N_sub=512 ceiling-flat at 99% raw recall). N_sub=384 is the actionable real-encoder design point. Slot 6 norm-gate full HF confirmed; PP-8 norm-axis CLOSED; added Slot PP8R2 cosine-variance + Slot PP8R4 learned probe. G5 TruthfulQA HF confirmed (negation AUC 0.034); user flagged audit gap -- I had treated G5 as same-class as G11 word-order but NEGATION is a DISTINCT architectural axis (antonyms like "increases" vs "decreases" need polarity, not just order). **2x drill on negation detection dispatched (G5 dedicated rescue)** -- BART-MNLI / negation-cue features / polarity-aware embeddings / hybrid late fusion. ETA ~25 min sonnet.
 
 ---
 
