@@ -384,6 +384,16 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **Condition:** Run only if HOC1+HOC2 stay in MID-BAND
 - **P_deflated:** 0.38
 
+### Slot HOC5 (NEW; orchestrator R3/R4 backup; size-scaling): `substrate_kf1_pythia_410m_1b_size_scaling_v1`
+- **Wall:** ~60 min GPU (both 410M + 1B)
+- **Source:** Orchestrator cycle 121 R3/R4 hypotheses
+- **Why backup:** Drill B lit-scan predicts size-scaling alone gives only 0.702 -> ~0.72 (BERT-class 75-90% word-order invariant even at large scale per arXiv:2012.15180). KEEP in queue as falsification test of drill prediction.
+- **Capability advanced:** PP-3 size-scaling falsification
+- **HP threshold:** AUC >= 0.85 at Pythia-1B (would refute drill prediction; size DOES close gap)
+- **MID:** 0.72-0.85 (drill prediction confirmed)
+- **HF:** < 0.72 (size scaling actively unhelpful)
+- **Strategic note:** lower priority than HOC1/HOC2/HOC3 per drill B; runs only if those cells fail or if user wants explicit falsification of size-scaling
+
 ### Slot HOC4 (NEW; PRIORITY 4 from 2x drill B; diagnostic): `substrate_kf1_adversarial_diversity_sweep_v1`
 - **Wall:** Tier 2-3 (generates attack variants; small inference budget)
 - **Source:** Drill B Sub-question (4)
@@ -536,6 +546,7 @@ Already done earlier:
 - 2026-06-06 10:55 -- v11: Learned-codebook research drill landed. ADDED Slot LC1 sparse-Hadamard-mixture (CHEAPEST decisive ~30 min CPU; HP >=1.5x; zero training; ships in next infra update if HP); Slot LC2 k-means learned codebook on MiniLM (~90 min CPU; HP >=2x); Slot LC3 basis pursuit 4x overcomplete sparse codes (~45 min CPU; HP >=3x; highest upside). All 3 target the 73% real-encoder headroom orchestrator surfaced in cycle 119. If LC1 HPs, real-encoder Phase 4a substrate gains 1.5x on top of current 2.75x = ~4x effective; if LC2/3 HP, larger gains.
 - 2026-06-06 11:05 -- v12 (cycle 120 -- 1 HP + 1 LVH catch): KF-1 hard-negative BAND-LIFT confirmed (AUC 0.968-0.975; KF-1 band 0.70-0.85 -> 0.72-0.87; 27th flagship). Slot 14 dim-expansion MIDDLE_BAND with LVH CATCH #225 (>=3x mean-only claim; honest floor 1.29x at D=4096; lift PLATEAUS not scales linearly). Real-encoder compound revised DOWN: 2.75x x 1.29x x 12x = ~42x (not earlier 100x projection). Phase 3 linear-mode: ~110k/substrate; D=8 = ~880k. ADDED Slot G12 KF-1 a_query_sim defense.
 - 2026-06-06 11:30 -- v13: 2x drill B (hallucination order-sensitivity close-gap) landed. KEY INSIGHT: size scaling alone DOESN'T close the gap (BERT-class models are 75-90% word-order invariant even at large scale; Pythia 160m -> 1b only gives 0.702 -> ~0.72 AUC). Word-LEVEL bigram TF-IDF IS the algebraic fix (98% of bigrams destroyed by uniform word-shuffle of n=50; predicted AUC 0.85-0.92; zero GPU; zero training). ADDED Slot HOC1 MiniLM+word-bigram (<2 min CPU; cheapest); HOC2 hybrid Pythia+bigram (~30 min CPU; CLOSES gap if HP via uncorrelated error modes rho 0.2-0.4); HOC3 Pythia fine-tune (GPU; ceiling); HOC4 adversarial diversity sweep (production gate; paraphrase is separate capability row). Drill A + Drill C still in flight.
+- 2026-06-06 11:45 -- v14 (cycle 121 -- 1 HF + 1 MID confirmed): cap_map v442 -> v443; HONEST 956 -> 958. G11 n-gram HARDFAIL (R1 rescue axis CLOSED per orchestrator); G10 Pythia MIDDLE confirmed (orchestrator's 0.746 vs Exp-Dev's 0.702; both 0.70-0.85). Orchestrator surfaces R3/R4/R5 paths. **TENSION FLAGGED:** drill B's lit-scan predicts R3/R4 (Pythia size scaling) will NOT close the gap (BERT-class word-order invariance at any scale); HOC1+HOC2 (word bigrams + hybrid late fusion) are algebraically more efficient. Added Slot HOC5 as size-scaling falsification backup (lower priority than HOC1/2/3). KF-1 band 0.72-0.87 unchanged.
 
 ---
 
