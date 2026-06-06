@@ -83,10 +83,14 @@ try:
 except Exception:
     sys.exit(1)
 SKYPILOT_KNOWN_LAMBDA_REGIONS = {
-    'us-east-1', 'us-east-3',
-    'us-south-1', 'us-south-2', 'us-south-3',
+    # Derived from /root/.sky/catalogs/v8/lambda/vms.csv after the
+    # us-southeast-1 catalog patch (commit 365342c successor).
+    'us-east-1', 'us-east-2', 'us-east-3',
     'us-west-1', 'us-west-2', 'us-west-3',
-    'asia-northeast-1', 'europe-central-1', 'australia-east-1',
+    'us-south-1', 'us-south-2', 'us-south-3',
+    'us-midwest-1', 'us-southeast-1',
+    'asia-northeast-1', 'asia-northeast-2', 'asia-south-1',
+    'australia-east-1', 'europe-central-1', 'europe-south-1', 'me-west-1',
 }
 data = d.get('data', {})
 for sku in ['gpu_1x_b200_sxm6', 'gpu_2x_h100_sxm5']:
