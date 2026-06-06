@@ -20,6 +20,7 @@ import argparse, os, time
 from pathlib import Path
 from typing import Dict, List, Tuple
 import numpy as np
+import torch  # capacity matmuls run on GPU via _gpu_cap.hopfield_recall_t
 REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
