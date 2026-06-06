@@ -79,3 +79,98 @@ R3 (MEDIUM, CPU <2h): M-sweep at D384 to characterize lift vs M/N_sub ratio.
 
 Cap_map: v443 -> v444 CYCLE 122 (2 HF: embedding_norm_gate_COVERAGE-0.43-AT-0.90-THRESHOLD + kf1_truthfulqa_NEGATION-AUC-0.034-ENCODER-LIMIT; 1 MID: etf_minilm_n_sub_lower-D384-LIFT-1.21x-D512-CEILING-SATURATED; 0 HP; 0 LVH; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; HONEST 958->961; LVH 225; Portfolio 32+77; 356th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v444 -> v445 CYCLE 123 BATCH (2026-06-06)
+
+Verdicts processed: 10-verdict batch (3 QUEUE-CONFIRMED + 7 ORPHANS)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_native_reasoning_k_hop_n16384_K10_v1 HARD_PASS -- LABEL HONEST**
+3-seed full N=16384. ALL K={1,2,3,5,7,10}=1.000 unanimous 3/3 seeds. HP threshold >=0.70 at K=3: CLEARED by ALL cells (1.000). Test ceiling K=10 (prior v440 was K=6 at N=4096). Ceiling NOT found at K=10 N=16384. HONEST. +1 HONEST.
+
+**(2) substrate_sparse_vs_dense_alpha_sweep_v1 HARD_PASS -- LABEL HONEST**
+3-seed full. N4096: sparse_cap/dense_cap=819/163=5.02x (3/3 seeds). N16384: 3276/491=6.67x (seeds 7,17), 3276/655=5.00x (seed 23). Minimum ratio 5.0x >3x threshold. HONEST. +1 HONEST.
+
+**(3) substrate_kgram_xor_k4_sweep_v1 MIDDLE_BAND -- LABEL HONEST**
+3-seed full. 9 cells: k={3,4} x N=16384 x vc={1000,100000}. sub_acc=1.000 all cells; trigram=1.000 vc=100000 all cells; fourgram=1.000 all cells; k=4 vc=1000 bigram=0.90-0.97 (seed-variant, Vc-dependent). Verdict_msg: decisive k3/N4096 cell absent from grid. Grid covers N=16384 only. MIDDLE_BAND honest. HONEST. +1 HONEST.
+
+**(4) substrate_extraction_sqrt_K_allocation_v1 HARD_FAIL -- LABEL HONEST**
+Smoke n=1. sp10: sqrt_K=1.0 == uniform (TIE). sp100: sqrt_K=0.889 < uniform=1.0 (WORSE). sp1000: sqrt_K=0.556. sqrt-K does not beat uniform at any level. HONEST. NOTE: smoke n=1. +1 HONEST.
+
+**(5) substrate_etf_dim_expansion_mpnet_768_v1 MIDDLE_BAND -- LABEL HONEST**
+Smoke n=1. D768: raw=460 wht=1152 ratio=2.50x. D1536: raw=2304 wht=2304 ratio=1.00x (raw at ceiling). 2.50x < 3x HP threshold. MIDDLE_BAND honest. NOTE: smoke n=1. +1 HONEST.
+
+**(6) substrate_hadamard_plus_whitening_combined_v1 HARD_FAIL -- LABEL HONEST**
+Smoke n=1. expand_only=4000, expand_plus_whiten=4000, combined/best_single=1.00x. No additive benefit from combining. HONEST. NOTE: smoke n=1. +1 HONEST.
+
+**(7) substrate_dim_expansion_cross_encoder_pythia_llama_v1 HARD_PASS -- LABEL HONEST (smoke flag)**
+Smoke n=1. D384 wht=230, D1024 wht=1536, expansion ratio=6.68x >=3x threshold. raw_cap=0 expected for LM embeddings (correlated prior to whitening). Whitened expansion is the claim and it holds. HONEST. NOTE: smoke n=1; 3-seed full confirmation pending. +1 HONEST.
+
+**(8) substrate_kf1_contradiction_detection_order_sensitive_v1 HARD_FAIL -- LABEL HONEST**
+Smoke n=1. auc_easy=0.937, auc_hard=0.893, NEGATION=0.111 (near-chance). Primary metric fails <0.70. Order-sensitive encoder lifts NEGATION only 0.034->0.111 (+7.7pp, still near-chance). Mechanistic: negation detection requires more than order-sensitivity -- needs explicit negation awareness. HONEST. NOTE: smoke n=1. +1 HONEST.
+
+**(9) substrate_concept_uniform_random_extraction_v1 HARD_FAIL -- LABEL HONEST**
+Smoke n=1. sp10=0.597, sp100=0.156, sp1000=0.021 coverage; all <0.90 threshold. HONEST. NOTE: smoke n=1. +1 HONEST.
+
+**(10) substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND -- LVH #226**
+Smoke n=1. verdict_msg: 'MIDDLE_BAND: >=0.95 coverage at 10-100x speedup'. Per-cell: sp10 actual_speedup=20.6x, sp100 actual_speedup=20.6x, sp1000 actual_speedup=20.6x. ACTUAL SPEEDUP SATURATES AT ~20x for ALL three requested levels. sp100=100x and sp1000=1000x targets NOT achieved. Coverage=1.0 is real at achieved speedup of ~20x. Label over-claims by implying 100x speedup achieved -- only 20x achieved.
+LVH #226: MIDDLE_BAND-speedup-saturates-at-20x-not-100x. Label: (a) 'coverage at 10-100x speedup'; (b) honest: coverage at ~20x speedup only; (c) cells contradicting: sp100/sp1000 actual_speedup=20.6x not 100x/1000x.
+Honest reading for downstream: MIDDLE_BAND retained (coverage genuine); speedup range corrected to ~20x.
+
+HONEST: 961 -> 970 (+9). LVH: 225 -> 226 (+1: per_cluster_stratified_extraction speedup saturation).
+
+### Cap_map decisions
+
+**(1) substrate_native_reasoning_k_hop_n16384_K10_v1 HARD_PASS**
+PP-11 reasoning-store + multi-hop combined row. BAND-LIFT: v440 K=6 N=4096 HARD_PASS + this K=10 N=16384 HARD_PASS = two consecutive K-hop extensions, monotone K and N scale-up. PP-11 0.40-0.55 -> 0.55-0.70 +15%/+15% CONSERVATIVE. PROT-008 validator: two independent K-hop HPs at increasing K and N; monotone confirmed. PASS. Annotation: K=10 N=16384 no-ceiling confirmed; ceiling K>10 untested; K={12,15} sweep recommended as next step.
+
+**(2) substrate_sparse_vs_dense_alpha_sweep_v1 HARD_PASS**
+Capacity/scaling sub-property annotation. sparse pattern coding (alpha=0.20) gives 5.0-6.7x capacity vs dense at N={4096,16384} 3-seed full. Corroborates sparse coding direction. Annotation on capacity row: sparse PATTERN alpha=0.20 gives 5x+ capacity; PP-8 / ETF dim-expansion context -- sparsity-coding is a complementary rescue path to whitening+expansion. Band UNCHANGED (annotation only).
+
+**(3) substrate_kgram_xor_k4_sweep_v1 MIDDLE_BAND**
+PP-8 k-gram LM sub-axis sub-property annotation. k=4 N=16384 vc=100000: sub_acc=1.000 trigram-class confirmed (extends v432 k=3 N=4096 to k=4 N=16384). Missing decisive cell: k=3 N=4096 prevents HP. Band UNCHANGED. Annotation: k=4 ceiling at N=16384 confirmed; N=4096 cell required for band-lift.
+
+**(4) substrate_extraction_sqrt_K_allocation_v1 HARD_FAIL**
+Extraction sub-axis annotation. sqrt-K WORSE than uniform at sp100. Rescue (cheapest-first, PROT-004/006):
+R1 (0-compute, SUBSUMPTION): Per-cluster stratified (anchor 10) beats uniform; sqrt-K failure subsumed by positive structured-extraction result.
+R2 (CHEAP, CPU <30min): Proportional-to-cluster-size allocation (linear K not sqrt-K).
+R3 (CHEAP, CPU <30min): Top-K density-weighted budget allocation.
+
+**(5) substrate_etf_dim_expansion_mpnet_768_v1 MIDDLE_BAND**
+PP-8 ETF dim-expansion sub-axis. MPNet-768: D768 wht=2.50x. Cross-encoder pattern holds (MiniLM, Pythia, MPNet all benefit from dim-expansion). 2.50x below 3x HP. Rescue R1: full 3-seed at D768. R2: D-sweep below 768. Band UNCHANGED.
+
+**(6) substrate_hadamard_plus_whitening_combined_v1 HARD_FAIL**
+PP-8 Phase 4B combination gate. combined=expand_only (no additive benefit). Closes combination rescue path. Rescue (cheapest-first):
+R1 (0-compute, SUBSUMPTION): dim-expansion alone (4000) is the correct path; engineering effort concentrates on confirming expand-only 3-seed.
+R2 (CHEAP, CPU <30min): Hadamard-first then expand (ordering swap -- may break symmetry).
+R3 (CHEAP, CPU <30min): Hadamard-only at N=16384 to isolate Hadamard signal without expansion masking.
+
+**(7) substrate_dim_expansion_cross_encoder_pythia_llama_v1 HARD_PASS (smoke)**
+PP-8 encoder-generalization sub-property annotation. expand-then-orthogonalize rule encoder-family-agnostic: MiniLM + Pythia confirmed. 6.68x at D1024/D384. Smoke n=1; 3-seed full confirmation needed before band-lift. Annotation only.
+
+**(8) substrate_kf1_contradiction_detection_order_sensitive_v1 HARD_FAIL**
+KF-1 adversarial negation sub-axis annotation. Order-sensitive encoder: NEGATION 0.034->0.111 (+7.7pp, still near-chance). Negation detection is deeper than order-sensitivity. v443 R3/R4/R5 (Pythia scale-up + positional embed + adversarial training) remain active -- this result adds that negation specifically may require adversarial training (R5) or negation-aware fine-tuning beyond scale. KF-1 band 72-87% UNCHANGED.
+
+**(9) substrate_concept_uniform_random_extraction_v1 HARD_FAIL**
+Extraction baseline annotation. Random sampling rejects 0.90 coverage at all speedup levels. Confirms per-cluster structured extraction (anchor 10) is necessary. Combined with anchor 10, pair validates extraction design direction. Band UNCHANGED.
+
+**(10) substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND [LVH #226 honest: speedup=20x not 100x]**
+Extraction sub-axis annotation. coverage=1.0 real at actual_speedup=~20x. Speedup ceiling at ~20x is a structural limit of the cluster count/size in the test (n_tok=5000). MIDDLE_BAND honest at actual_speedup=20x. Rescue (cheapest-first):
+R1 (0-compute, SUBSUMPTION): Verify what limits speedup to 20x -- if cluster count is fixed, increasing n_tok or reducing cluster granularity may push speedup higher.
+R2 (CHEAP, CPU <30min): Sweep cluster_count to characterize speedup vs coverage tradeoff.
+R3 (CHEAP, CPU <30min): Larger n_tok (50K, 100K) to see if speedup ceiling rises with corpus size.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 1 BAND-LIFT (PP-11 0.40-0.55->0.55-0.70). 0 closures.
+
+### PROT compliance (v444 -> v445)
+- PROT-004/006: No closures. Rescues filed cheapest-first for anchors 4, 6, 10.
+- PROT-007: v445 history row appended to substrate_capability_map_history.md.
+- PROT-008: PP-11 band-lift: v440 K=6 N=4096 HP + this K=10 N=16384 HP = two consecutive monotone extensions. Validator PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 357th PROT-009 paired commit.
+- PROT-018: All 10 anchors lack _nN binding suffix. CLEAN.
+- PROT-021: Anchors 1-3 source=remote run_mode=full multi-seed. Anchors 4-10 source=remote run_mode=smoke n=1. Smoke mechanistic HFs (4,6,8,9) robust; smoke HP (7) flagged for 3-seed confirmation.
+- PROT-022: Anchors 1-3 3-seed full consistent. Smoke anchors n=1 -- no HP-fragility assessment possible.
+
+Cap_map: v444 -> v445 CYCLE 123 (3 HP: k_hop_n16384_K10-CEILING-NOT-FOUND-K10-N16384-3SEED + sparse_vs_dense_alpha-5.0-6.7x-CAPACITY-3SEED + dim_expansion_pythia-6.68x-ENCODER-AGNOSTIC-SMOKE; 4 HF: sqrt_K_allocation-SMOKE-WORSE-UNIFORM + hadamard_whitening_combined-NO-ADDITIVE-1.00x-SMOKE + kf1_contradiction_order_sensitive-NEGATION-0.111-NEAR-CHANCE-SMOKE + uniform_random_extraction-COVERAGE-0.60-SMOKE; 3 MID: kgram_xor_k4-N16384-CEILING-N4096-MISSING + etf_dim_mpnet768-2.50x-BELOW-HP-SMOKE + per_cluster_stratified-COVERAGE-1.00-SPEEDUP-20x-LVH226; 1 LVH #226: per_cluster_stratified speedup-saturates-20x-not-100x; PP-11 BAND-LIFT 0.40-0.55->0.55-0.70 K-hop-K10-N16384-monotone-extension; HONEST 961->970; LVH 225->226; Portfolio 32+77; 357th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
