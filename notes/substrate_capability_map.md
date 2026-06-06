@@ -11171,3 +11171,66 @@ PP-8 row annotation:
 
 Cap_map: v441 -> v442 CYCLE 120 [label-vs-honest LVH #225] (1 HP: substrate_hallucination_robustness_hard_negatives_v1 KF1-HARD-NEG-ROBUST-AUC-968; 1 LVH #225: substrate_etf_minilm_dim_expansion_v1 HARD_PASS->MIDDLE_BAND-d384-floor-2.75x-not-3x-d1024/4096-1.29x; KF-1 BAND-LIFT 70-85%->72-87%; HONEST 954->956; LVH 224->225; Portfolio 32+77; 354th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v443 update (2026-06-06) -- CYCLE 121: 1 HF (substrate_kf1_ngram_augmented_v1 NGRAM-DEGRADES-ADV); 1 MID (substrate_kf1_hallucination_order_sensitive_encoder_v1 PYTHIA-ADV-0.746-MIDDLE); 0 HP; 0 LVH; KF-1 band 72-87% UNCHANGED; HONEST 956->958; LVH 225; Portfolio 32+77; 355th PROT-009 paired commit
+
+## CYCLE 121 -- v442 -> v443 (2026-06-06)
+
+### Step 0 honest re-read
+
+**(A) substrate_kf1_ngram_augmented_v1 HARD_FAIL -- LABEL HONEST**
+ADV(shuffled): seed7=0.1706, seed17=0.1767, seed23=0.1972; mean=0.181. All 3 seeds below 0.65 threshold.
+n-gram augmentation DEGRADED adversarial AUC vs MiniLM-only baseline (0.181 vs 0.217).
+auc_easy=0.832, auc_hard=0.992 (non-adversarial metrics unaffected). No LVH.
+
+**(B) substrate_kf1_hallucination_order_sensitive_encoder_v1 MIDDLE_BAND -- LABEL HONEST**
+ADV(shuffled): seed7=0.736, seed17=0.733, seed23=0.768; mean=0.746. All 3 seeds within [0.70, 0.85] MIDDLE_BAND window.
+auc_easy=0.804 (vs MiniLM 0.832; -2.8pp encoder trade-off), auc_hard=0.895. No LVH.
+
+HONEST: 956 -> 958 (+2). LVH: 225 UNCHANGED.
+
+### (A) substrate_kf1_ngram_augmented_v1 HARD_FAIL [source=remote; n_seeds=3; N=384; run_mode=full; elapsed=31.2s]
+
+Plain-language: We added n-gram (character/word overlap) features to the hallucination detector to help it notice when facts have been shuffled into a wrong order. It did not work -- the detector's adversarial robustness actually got slightly WORSE (0.181 AUC vs 0.217 without n-grams). N-gram features do not encode word order in a way the substrate can use. Easy and hard detection (non-adversarial) were unaffected.
+
+Capability implication (KF-1 adversarial vulnerability): N-gram augmentation is a CLOSED rescue axis for adversarial order-sensitivity. The vulnerability (ADV AUC ~0.18-0.22) requires a fundamentally order-sensitive representation -- n-grams do not provide this. Rescue R3/R4/R5 (order-sensitive encoder, positional embedding, adversarial training) remain open. Pythia encoder (V2 below) is now the strongest active rescue path.
+
+KF-1 row annotation:
+'kf1_ngram_augmented HARD_FAIL v443: N=384 3-seed full elapsed=31.2s; auc_adv=0.181 (mean; range 0.171-0.197) -- WORSE than MiniLM-only baseline 0.217; n-gram augmentation degrades adversarial robustness; rescue axis R1 (n-gram order features) CLOSED; auc_easy=0.832 auc_hard=0.992 unaffected; order-sensitive encoder (Pythia) remains open rescue path.'
+
+### (B) substrate_kf1_hallucination_order_sensitive_encoder_v1 MIDDLE_BAND [source=remote; n_seeds=3; N=384; run_mode=full; elapsed=12.6s]
+
+Plain-language: We swapped the encoder from MiniLM (which has no positional awareness) to Pythia-160m (which processes tokens left-to-right and therefore is sensitive to word order). The adversarial robustness jumped from 0.217 to 0.746 -- a 3.4x improvement. It does not yet reach the hard-pass threshold of 0.85, but it is a major rescue. Easy detection dropped slightly (0.832 to 0.804), which is an acceptable trade-off.
+
+Capability implication (KF-1 + PP-8 substrate-LLM integration): Swapping to an order-sensitive encoder (Pythia-160m) provides the largest ADV rescue seen to date (+52.9pp lift). MIDDLE_BAND result -- adversarial detection is now genuinely functional at 0.746 but not yet production-grade (>=0.85). The Pythia encoder path is validated as the correct direction; scaling (410m/1B) or adversarial training may close the remaining gap.
+
+KF-1 row annotation:
+'kf1_order_sensitive_encoder MIDDLE_BAND v443: N=384 3-seed full elapsed=12.6s; auc_adv=0.746 (mean; range 0.733-0.768; ALL 3 seeds in 0.70-0.85 MIDDLE_BAND); auc_easy=0.804 auc_hard=0.895; ADV lift vs MiniLM-baseline 0.217->0.746 (+52.9pp); order-sensitive encoder (Pythia-160m) PARTIALLY rescues adversarial vulnerability; HP threshold >=0.85 not yet reached; R3 Pythia-scale-up + R4 positional-embed + R5 adversarial-training remain active rescue paths.'
+
+PP-8 (substrate-LLM deep integration) annotation:
+'etf/order_sensitive_encoder MIDDLE_BAND v443: Pythia-160m as order-sensitive encoder lifts KF-1 adversarial robustness 3.4x (0.217->0.746) at N_sub=384; easy AUC -2.8pp trade-off acceptably small; order-sensitive encoder validated as correct direction for KF-1 adversarial rescue; further gains expected from larger Pythia or adversarial training.'
+
+**KF-1 hallucination-detection band: 72-87% UNCHANGED.**
+Rationale: V2 MIDDLE_BAND (ADV 0.746) corroborates band but does not lift. HP requires ADV >= 0.85 across seeds; 0.746 does not reach this. Adversarial vulnerability remains the open gap (same as v442 annotation). Band-lift requires ADV >= 0.85 on 3-seed full run. Active rescue paths: R3 Pythia-scale-up, R4 positional-embed augmentation, R5 adversarial training.
+
+### Rescue sketches V1 HARD_FAIL (PROT-004/006; n-gram closed; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+R1-CLOSED: n-gram augmentation HARD_FAIL. ADV=0.181 < baseline 0.217. Rescue axis definitively closed.
+R2 (0-compute, SUBSUMPTION): V2 Pythia MIDDLE_BAND (ADV=0.746) already covers a stronger rescue path. V2 is the preferred active axis. No new experiment needed for this rung.
+R3 (CHEAP, CPU <30min): Pythia scale-up to 410m or 1B; larger autoregressive model expected to push ADV toward >=0.85. Cheapest active new experiment given Pythia-160m validated direction.
+R4 (CHEAP, CPU <30min): Explicit positional embedding augmentation (sinusoidal/rotary) on top of MiniLM; may capture order at lower inference cost than full Pythia forward pass.
+R5 (MEDIUM, GPU <2h): Adversarial training on shuffled-fact pairs; substrate trained on adversarial examples may reach HP threshold at current Pythia-160m encoder without scaling.
+
+**Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 956 -> 958 (+2). LVH: 225 UNCHANGED.**
+
+**PROT compliance (v442 -> v443):**
+- PROT-004/006: No closures. V1 HARD_FAIL: R1 closed (n-gram degraded); V2 MIDDLE_BAND active; R3/R4/R5 filed (cheapest-first). No new top-level rows.
+- PROT-007: v443 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes; 0 LVH. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 355th PROT-009 paired commit.
+- PROT-018: Both anchors no _nN suffix; N=384 (MiniLM/Pythia native dim) stated in metrics. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke checkpoint artifacts.
+- PROT-022: V1 ADV seeds 0.1706/0.1767/0.1972 -- tight spread (deterministic n-gram features, expected); V2 ADV seeds 0.736/0.733/0.768 -- normal 3-seed variance. No HP-fragility concern.
+
+Cap_map: v442 -> v443 CYCLE 121 (1 HF: kf1_ngram_augmented NGRAM-DEGRADES-ADV-0.181-WORSE-THAN-BASELINE; 1 MID: kf1_order_sensitive_encoder PYTHIA-ADV-0.746-MIDDLE-BAND-PARTIAL-RESCUE; 0 HP; 0 LVH; KF-1 band 72-87% UNCHANGED; R1 closed, R3/R4/R5 filed; HONEST 956->958; LVH 225; Portfolio 32+77; 355th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
