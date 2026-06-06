@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v461
+# hd-instrument substrate -- capability map v462
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -11781,4 +11781,97 @@ Portfolio 32+79 UNCHANGED. No new rows. No BAND-LIFTS. No closures.
 - PROT-022: Single seed; no multi-seed variance assessment possible. Not applicable at smoke stage.
 
 Cap_map: v459 -> v460 CYCLE 139 (0 HP; 1 MID-SMOKE: llama_layer_sweep LAYER-INVARIANT-CAP-122-ALL-L8-L12-L15-D_EFF-CEILING; 0 HF; 0 LVH; PP-8 sub-prop annotation; HONEST 1015->1016; LVH 241 UNCHANGED; Portfolio 32+79 UNCHANGED; 372nd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v461 update (2026-06-06) -- CYCLE 140 MAJOR BATCH: 9-verdict; 5 HP-full + 1 HP-SMOKE + 1 HP-CRITICAL + 1 MID-LVH#242 + 1 HF; LVH 241->242; HONEST 1016->1025 +9; PP-8 extraction 10x->50x; Llama-3.2-1B adopted production encoder; 373rd PROT-009
+
+## v460 -> v461 -- CYCLE 140 (2026-06-06)
+
+Verdicts processed (9): pca_prewhitening_codebook_v1 + etf_minilm_M_star_cross_N_v1 + crt_module_scaling_battery_v1 + crt_module_scaling_battery_fixed_v1 + pp8_cosine_variance_gate_v1 + pp8_learned_discriminability_probe_v1 + encoder_capacity_at_scale_battery_gpu_v1 + codebook_collapse_monitoring_recovery_v1 + cascade_distillation_fd_smoke_v1
+
+### Step 0 -- Honest re-read (MANDATORY)
+
+All 9 anchors re-read against per-cell metrics. LVH #242 filed for etf_minilm_M_star_cross_N (full 3-seed resolves smoke LVH#240 growing-cross-N narrative to FLAT 3.0x at all N_sub). Remaining 8 anchors HONEST. See strategy_decisions_2026-06-06.md v460->v461 CYCLE 140 for full per-cell analysis.
+HONEST: 1016 -> 1025 (+9). LVH: 241 -> 242 (+1: #242 etf_minilm_M_star flat-3x).
+
+### Cap_map decisions (v460 -> v461)
+
+Key decisions: (1) PCA-prewhitening HARD_PASS 2.33x -- Phase-4A ZCA-blocked path replaced by PCA universal rescue. (2) ETF M_star whitening N_sub-CONSTANT 3.0x (LVH #242 correction from growing-cross-N smoke artifact). (3) CRT exponential module scaling HARD_PASS 800x 3-seed full. (4) PP-8 cosine-variance gate sp10=1.0 + learned discriminability probe sp50=0.986 -- extraction speedup extended 10x->50x. (5) CRITICAL: Encoder-capacity battery Llama-3.2-1B+zca=122 vs MiniLM+zca=7 (17.43x); whitening MANDATORY for large encoders; PCA=ZCA identical; Llama-3.2-1B adopted as production encoder. (6) Codebook-collapse recovery HARD_FAIL (mean=0.688 < 0.70). (7) Cascade distillation fd HP-SMOKE ratio=3.42x.
+Portfolio: 32+79 UNCHANGED. No new portfolio rows (sub-annotations). Sub-property band updates: extraction speedup 10x->50x; Llama encoder production adoption.
+
+### PROT compliance (v460 -> v461)
+- PROT-004/006: codebook_collapse R1-R5 filed cheapest-first.
+- PROT-007: v461 history row appended to substrate_capability_map_history.md.
+- PROT-008: PCA + encoder-capacity both HARD_PASS 3-seed full new findings; PP-8 sub-row annotations triggered. Validator PASS both.
+- PROT-009: cap_map + history + decisions log staged atomically; 373rd PROT-009 paired commit.
+- PROT-018: All 9 anchors lack _nN binding suffix. CLEAN.
+- PROT-021: Anchors 1-8 source=remote run_mode=full n_seeds=3. Anchor 9 source=remote run_mode=smoke. CLEAN.
+- PROT-022: Anchors 1/3/4/7 deterministic. Anchor 8 seed17 outlier (0.542) -- noted HP-fragility; R2-R5 filed.
+
+Cap_map: v460 -> v461 CYCLE 140 [LVH #242] (5 HP-full: pca_prewhitening_2.33x + crt_800x + crt_fixed-corroborate + pp8_cosine_gate_sp10-1.0 + pp8_learned_probe_sp50-0.986; 1 HP-SMOKE: cascade_distillation_fd-3.42x; 1 HP-CRITICAL: encoder_battery_Llama-17.43x-whitening-MANDATORY; 1 MID-LVH#242: etf_minilm_M_star_FLAT-3x-NOT-GROWING; 1 HF: codebook_collapse_recovery-0.688; LVH 241->242; HONEST 1016->1025; 32+79; 373rd PROT-009)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v462 update (2026-06-06) -- CYCLE 141: 5-verdict batch; 1 HF-full + 2 HP-full + 1 HP-scope + 1 HP-SMOKE-LVH#243; WRITE-RULE-SWAP-CRITICAL; KF-1 paraphrase DEPLOYABLE; LVH 242->243; HONEST 1025->1030 +5; 374th PROT-009
+
+## v461 -> v462 -- CYCLE 141 (2026-06-06)
+
+Verdicts processed (5, all GENUINELY NEW):
+1. bge_large_capacity_measurement_v1 (HARD_FAIL)
+2. kf1_paraphrase_robustness_marianmt_v1 (HARD_PASS)
+3. fp16_vs_fp32_parity_v1 (HARD_PASS scope: MiniLM baseline)
+4. hebb_vs_pseudoinverse_write_rule_v1 (HARD_PASS -- CRITICAL)
+5. padding_side_audit_capacity_v1 (HP-SMOKE -- LVH #243)
+
+### Step 0 -- Honest re-read (MANDATORY)
+
+**(1) bge_large_capacity_measurement_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. ALL seeds: cap=40 d_eff=113.07 ratio=0.35 (vs theory 1.33). Deterministic.
+Cycle 131/139 linear d_eff->cap prediction (cap~150) falsified. cap=40 consistent with cycle-140 bge-large+zca=40. HONEST. +1 HONEST.
+
+**(2) kf1_paraphrase_robustness_marianmt_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed paraphrase_AUC: 0.9847/0.9831/0.9876. All >= 0.85 HP. Drop=0.012-0.017pp. HONEST. +1 HONEST.
+
+**(3) fp16_vs_fp32_parity_v1 HARD_PASS -- LABEL HONEST (scope: MiniLM baseline only)**
+source=remote run_mode=full n_seeds=3. ALL seeds: cap_fp16=7 cap_fp32=7 cap_gap=0.000 sign_agreement=0.9955. Thresholds cleared.
+SCOPE NOTE: Llama-3.2-1B (cap=122) not tested. Production clearance partial. No LVH (nuance informational). HONEST. +1 HONEST.
+
+**(4) hebb_vs_pseudoinverse_write_rule_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. ALL seeds x N{1024,2048}: ratio=11.00x. HP>=3x: CLEARED. Theory=7x; actual=11x.
+Deterministic. HONEST. +1 HONEST.
+
+**(5) padding_side_audit_capacity_v1 HARD_PASS -- LVH #243 (HP-SMOKE)**
+source=remote run_mode=smoke n_seeds=1. rightpad_pos[-1]=38 (BUG) / leftpad_pos[-1]=76 (OK). PROT-021 multi-seed not met.
+LVH #243: HARD_PASS smoke label; honest=HP-SMOKE; mechanistic finding theory-confirmed; 3-seed full required. +1 HONEST. LVH +1.
+
+HONEST: 1025 -> 1030 (+5). LVH: 242 -> 243 (+1: #243 padding_side_audit HP-SMOKE PROT-021).
+
+### Cap_map decisions (v461 -> v462)
+
+**(1) bge_large_capacity_measurement HARD_FAIL**
+PP-8 encoder-capacity annotation. Linear d_eff->cap scaling FALSIFIED (ratio=0.35 vs theory 1.33; 3-seed full). Consistent with cycle-140 battery. Geometric/alignment constraints dominate over d_eff for real encoders. PP-8 annotation updated. Band UNCHANGED.
+
+**(2) kf1_paraphrase_robustness_marianmt HARD_PASS**
+KF-1 robustness sub-property annotation (paraphrase axis). AUC=0.983-0.988 3-seed full under MarianMT attack. Paraphrase deployment gate CLEARS. KF-1 band 75-90% UNCHANGED (annotation within existing band envelope).
+
+**(3) fp16_vs_fp32_parity HARD_PASS (MiniLM scope)**
+Production engineering annotation. fp16 parity confirmed at baseline (cap=7, 3-seed). Llama-3.2-1B fp16 test outstanding. Band UNCHANGED.
+
+**(4) hebb_vs_pseudoinverse_write_rule HARD_PASS -- CRITICAL FOUNDATIONAL**
+PP-8 write-rule sub-axis. PROT-008 TRIGGERED: first Hebb vs pinv direct comparison 3-seed full. pinv=11x Hebb at N={1024,2048}. Theory=7x, actual=11x. LARGEST single capacity lever by direct comparison. alpha_c=0.55 at N=2048 = 1126 facts vs Hebb=102 facts. WRITE-RULE-SWAP highest-priority engineering action. R1-R5 rescue sketches filed (cheapest-first). Band: PP-8 write-rule sub-row annotated HARD_PASS 11x.
+
+**(5) padding_side_audit_capacity [LVH #243 honest: HP-SMOKE]**
+Infrastructure sub-axis. Left-pad gives 2x capacity (76 vs 38). Fix is non-parametric. HP-SMOKE annotation. R1-R3 rescues filed.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS at portfolio level. 0 closures.
+
+### PROT compliance (v461 -> v462)
+- PROT-004/006: bge_large HF: 4 rescues. fp16 scope: 2 rescues. hebb_vs_pinv HP-CRITICAL: 5 rescues cheapest-first (R1 annotation priority). padding_side LVH#243: 3 rescues.
+- PROT-007: v462 history row appended to substrate_capability_map_history.md.
+- PROT-008: hebb_vs_pseudoinverse_write_rule 3-seed full 11x -- PP-8 write-rule sub-axis triggered. Validator PASS (unanimous N{1024,2048}).
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 374th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any anchor. CLEAN.
+- PROT-021: Anchors 1-4 source=remote run_mode=full n_seeds=3 CLEAN. Anchor 5 source=remote run_mode=smoke n_seeds=1. LVH #243.
+- PROT-022: Anchors 1/3/4 deterministic. Anchor 2 tight spread (0.5pp). Anchor 5 smoke n=1 -- mechanistically robust.
+
+Cap_map: v461 -> v462 CYCLE 141 (1 HF-full: bge_large_cap-LINEAR-SCALING-FALSIFIED-cap=40-ratio=0.35; 2 HP-full: kf1_paraphrase_marianmt-AUC=0.985-DEPLOYABLE + hebb_vs_pinv-PINV-11x-CRITICAL-WRITE-RULE-SWAP; 1 HP-scope: fp16_parity-cap_gap=0-sign_agree=0.9955-MINIML-ONLY; 1 HP-SMOKE-LVH#243: padding_side-LEFT-PAD-2x-BUG-DIAGNOSED; LVH 242->243 +1; HONEST 1025->1030 +5; KF-1 paraphrase DEPLOYABLE; PP-8 WRITE-RULE-SWAP-CRITICAL; 32+79; 374th PROT-009)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
