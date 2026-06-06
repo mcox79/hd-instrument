@@ -142,12 +142,14 @@ Per user directive 2026-06-06:
 - **2x rescue drill dispatched at 09:30:** entropy-gate vs per-cluster stratified vs concept-uniform random sampling
 - **Follow-on cells coming** after drill lands (~25 min)
 
-### Slot 7 (NEW; follow-on from K-hop HP): `substrate_native_reasoning_K10_n16384_v1`
-- **Wall:** ~45 min CPU
-- **Source:** Slot 5 K-hop HP (just landed; perfect to K=5)
-- **Why new:** K-hop reasoning HP'd to K=5; the next question is whether it scales to K=10 at N=16384 (Phase 3 production-scale validation of Idea 1 from 20-ambitious-ideas TOP 5)
-- **Capability advanced:** Idea 1 substrate-native reasoning at scale
-- **HP threshold:** K=10 accuracy >= 0.50 at N=16384
+### Slot 7 (UPDATED -- K-hop ceiling now K>=6 not K=3 per cycle 118): `substrate_native_reasoning_K10_K20_n16384_v1`
+- **Wall:** ~60 min CPU
+- **Source:** Cycle 118 K-hop FULL run -- lossless to K=6 (test grid ceiling); actual ceiling unknown
+- **Why now:** K-hop HP'd lossless at K=1..6 in cycle 118. Next questions: (1) does losslessness hold to K=10 at the same N? (2) does it scale to N=16384 production-class? (3) where is the actual K ceiling?
+- **Architecture:** test K in {6, 8, 10, 15, 20} at N=4096 (find true ceiling) AND K in {3, 5, 10} at N=16384 (scale validation)
+- **Capability advanced:** Idea 1 substrate-native reasoning -- ACTUAL ceiling identification + production-scale validation
+- **HP threshold:** lossless (>= 0.95 accuracy) at K=10, N=4096 (extending the K=6 ceiling) OR lossless at K=5, N=16384 (scale validation)
+- **Strategic value:** if K-hop is lossless to K=20+ at N=16384, substrate-native reasoning categorically dominates LLM-mediated multi-hop QA (100x-20000x speedup claim from yesterday's drill is empirically anchored)
 
 ### Slot 8 (NEW; follow-on from ETF Hadamard HP): `substrate_etf_hadamard_plus_sparse_compound_v1`
 - **Wall:** ~25 min CPU
