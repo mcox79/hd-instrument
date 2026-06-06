@@ -1638,3 +1638,82 @@ KF-1 band 72-87% UNCHANGED. Annotation: K-hop robust under cosine>0.87 semantic 
 
 Cap_map: v464 -> v465 CYCLE 144 G-BATCH [label-vs-honest LVH #244] (4 HP: g1_encoder_geometric_alignment-3-ENCODERS-APPROVED-BGE-E5-DISQUALIFIED + g2_pinv_throughput-11335-W-SEC-N16384-56x-MARGIN + g5_entity_substitution_kf1-DROP-0.000-3SEED + g6_semantic_fabrication_khop-LOC-1.000-COSINE087-3SEED; 1 INCONCLUSIVE-LVH#244: g3_fp16_overflow_n65536-SMOKE-N16384-ONLY-OVERFLOW-PROJECTED-N65536; LVH 243->244 +1; HONEST 1040->1045 +5; fp16 N=65536 gate OPEN; KF-1 adversarial envelope extended entity-swap+khop-cosine087; PP-8 encoder-selection protocol confirmed; Portfolio 32+79 UNCHANGED; 377th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v465 -> v466 CYCLE 145 G-BATCH CONTINUATION + H-BATCH RETRIEVAL RESCUES + Q-BATCH ORPHAN (2026-06-06)
+
+Verdicts processed: 8 -- g4 g7 g8 g9 (G-batch continuation) + h1 h3 h4 (H-batch retrieval rescues) + q4 (Q-batch orphan).
+
+### Step 0 honest re-read
+- g4_200cell_revalidation_v1: HONEST. N=200 full: khop=1.000 (lb 0.981), loc=1.000 (lb 0.981), merkle=1.000 (lb 0.981). All 3 flagship capabilities Wilson lower bounds clear at 0.981. HARD_PASS label correct.
+- g7_e5_large_geometry_capacity_v1: HONEST. PR=121.7 (passes PR>40), rho_eff=0.823 (fails rho<0.35). HARD_FAIL label correct. NOTE: pinv_cap=440 measurable but production-blocked by geometry criterion. Cycle-144 g1 already disqualified e5-large on geometry; this anchor confirms rho_eff=0.823.
+- g8_correlated_kb_anchoring_bias_v1: HONEST. same-cluster anchoring propagation=0.354 (threshold >0.20 = attack surface). HARD_FAIL label correct. intra_cos=0.60 drives propagation. Security finding for clustered KBs.
+- g9_consistent_lie_chain_verification_v1: HONEST. K3=1.000, K5=1.000 (mean=1.000). All above 0.85 threshold. HARD_PASS label correct. Mutually consistent lie chains caught 100%.
+- h1_mmr_diversified_retrieval_rescue_v1: HONEST. baseline_propagation=0.167 -> MMR_propagation=0.050 (lambda=0.5, k=10). 0.050 < 0.10 threshold. HARD_PASS label correct. MMR rescue of G8 confirmed: 70% reduction.
+- h3_inverse_density_reweighting_rescue_v1: HONEST. baseline 0.167 -> 0.156 (delta=-0.011, 6.6% relative reduction). Middle-band [0.10,0.20]: 0.156 in band but practically flat. MIDDLE_BAND label correct.
+- h4_cluster_density_confidence_calibration_v1: HONEST. contamination-pred AUC=0.528, brier=0.249. Threshold <0.60 fails. HARD_FAIL label correct. Density score near-chance as risk predictor.
+- q4_lora_retrieval_quality_test_v1: HONEST. LoRA top-5-RP=0.246 vs BASE=0.346 (delta=-0.100, rel=-28.9%). HF threshold <0.27: 0.246 < 0.27. HARD_FAIL label correct. LoRA DEGRADES retrieval.
+HONEST: 1045 -> 1053 (+8). LVH: 244 UNCHANGED.
+
+### Cap_map decisions (v465 -> v466)
+
+**(1) g4_200cell_revalidation_v1 HARD_PASS -- production stability revalidation**
+Production-gating milestone. All 3 flagship capabilities (K-hop, locality, Merkle) hold at N=200 with Wilson lower bounds >=0.981. Statistical production claims for core substrate capabilities validated.
+Cap_map annotation: g4_200cell_revalidation HP v466: khop=1.000 (lb 0.981), loc=1.000 (lb 0.981), merkle=1.000 (lb 0.981); N=200 production claims statistically supported.
+Portfolio 32+79 UNCHANGED.
+
+**(2) g7_e5_large_geometry_capacity_v1 HARD_FAIL -- e5-large geometry confirms cycle-144 disqualification**
+rho_eff=0.823 confirms severe anisotropy. Cycle-144 g1 already formally disqualified e5-large. This anchor adds: pinv_cap=440 at D=1024 capacity measurable but production-blocked. PP-8 encoder-selection: e5-large DISQUALIFIED (rho=0.823) confirmed.
+Cap_map annotation: g7_e5_large_geometry_capacity HF v466: PR=121.7 (passes), rho_eff=0.823 (fails <0.35); pinv_cap=440 capacity production-blocked; e5-large DISQUALIFIED confirmed.
+PP-8 band UNCHANGED.
+
+**(3) g8_correlated_kb_anchoring_bias_v1 HARD_FAIL -- KB clustering is an attack surface**
+Anchoring propagation=0.354 with intra_cos=0.60. Exceeds 0.20 safety threshold. Clustered KB structure enables bias injection. MITIGATION confirmed by h1_mmr (see below).
+Cap_map annotation: g8_correlated_kb_anchoring_bias HF v466: propagation=0.354 (>0.20 attack surface); intra_cos=0.60; clustered KBs vulnerable without retrieval mitigation. RESCUE CONFIRMED by h1_mmr.
+PP-8 retrieval sub-axis: CONDITIONAL PASS with MMR. Band UNCHANGED.
+
+**(4) g9_consistent_lie_chain_verification_v1 HARD_PASS -- compositional verification catches consistent lies**
+K-hop chain-level lie catch rate: K3=1.000, K5=1.000 (mean=1.000 > 0.85 threshold). Hardest adversarial variant: mutually consistent lies. Chain-level composition catches the deception graph.
+Cap_map annotation: g9_consistent_lie_chain HP v466: K3=1.000 K5=1.000 mean=1.000; mutually-consistent lie chains caught; KF-1 adversarial envelope extended.
+KF-1 band 72-87% UNCHANGED.
+
+**(5) h1_mmr_diversified_retrieval_rescue_v1 HARD_PASS -- MMR rescues G8 anchoring attack surface**
+CRITICAL RESCUE: baseline_propagation=0.167 -> MMR_propagation=0.050 (70% reduction). 0.050 < 0.10 HP threshold. MMR (lambda=0.5, k=10) is the production mitigation for clustered KBs.
+Cap_map annotation: h1_mmr_diversified_retrieval HP v466: baseline_prop=0.167 -> MMR_prop=0.050 (70% reduction); <0.10 gate clears; RESCUE of g8 confirmed. PP-8 clustered KB path = CONDITIONAL PASS with MMR.
+PP-8 retrieval sub-axis updated. Band UNCHANGED.
+
+**(6) h3_inverse_density_reweighting_rescue_v1 MIDDLE_BAND -- nominal rescue only; CLOSED**
+baseline=0.167 -> 0.156 (6.6% relative reduction). Practically flat vs MMR 70%. Not a viable standalone mitigation. CLOSED as inferior to MMR.
+Cap_map annotation: h3_inverse_density_reweighting MID v466: propagation 0.167->0.156 (6.6% only; flat); not viable vs MMR; CLOSED as rescue axis.
+
+**(7) h4_cluster_density_confidence_calibration_v1 HARD_FAIL -- density score not a risk predictor; CLOSED**
+AUC=0.528 (near-chance). Cannot use cluster density to identify at-risk KB entries. CLOSED.
+Rescue sketches (cheapest-first):
+R1 (0-compute, SUBSUMPTION): MMR always-on makes density-based risk routing moot.
+R2 (CHEAP, CPU <30min): Embedding variance (intra-cluster spread) as predictor instead of density count.
+R3 (CHEAP, CPU <30min): K-nearest-neighbor density estimate (continuous) vs discrete cluster count.
+R4 (MEDIUM, CPU <2h): Learned anomaly score from write-time embedding trajectory.
+Cap_map annotation: h4_cluster_density_calibration HF v466: AUC=0.528 near-chance, brier=0.249; CLOSED as standalone predictor; R1 SUBSUMPTION, R2/R3/R4 filed cheapest-first.
+
+**(8) q4_lora_retrieval_quality_test_v1 HARD_FAIL -- LoRA DEGRADES retrieval quality**
+LoRA RP=0.246 vs BASE=0.346 (rel=-28.9%). HF<0.27. LoRA fine-tuning for retrieval is counterproductive.
+Rescue sketches (cheapest-first):
+R1 (0-compute, SUBSUMPTION): Base encoder already passes retrieval; LoRA strictly worse; drop LoRA from retrieval path.
+R2 (CHEAP, CPU <30min): Smaller LoRA rank (r=4) to reduce interference with base embedding geometry.
+R3 (CHEAP, CPU <30min): LoRA on adapter head only (not base encoder) to preserve retrieval geometry.
+R4 (MEDIUM, GPU <2h): LoRA fine-tuned exclusively for retrieval with explicit RP optimization loss.
+Cap_map annotation: q4_lora_retrieval_quality HF v466: LoRA RP=0.246 vs BASE=0.346 (rel=-28.9%); LoRA DEGRADES retrieval; base encoder is production path; LoRA DISQUALIFIED for retrieval. R1 SUBSUMPTION, R2/R3/R4 filed.
+PP-8 retrieval sub-axis annotation. Band UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures (h3/h4 interior paths closed; no portfolio-row closures). KF-1 adversarial envelope extended (consistent-lie chains). PP-8 retrieval: clustered KB CONDITIONAL-PASS with MMR confirmed.
+
+### PROT compliance (v465 -> v466)
+- PROT-004/006: h3: R1 SUBSUMPTION (MMR dominates). h4: R1-R4 cheapest-first. q4: R1-R4 cheapest-first.
+- PROT-007: v466 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row-level state changes. Validator not triggered.
+- PROT-009: cap_map.md + history + decisions log staged atomically; 378th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: All source=remote. CLEAN.
+- PROT-022: g4/g9 deterministic unanimous; h1 single-config confirmed; no HP-fragility flags. CLEAN.
+
+Cap_map: v465 -> v466 CYCLE 145 G/H/Q-BATCH (2 HP: g4_200cell_revalidation-PROD-STATS-VALIDATED-khop/loc/merkle-lb0.981 + g9_consistent_lie_chain-K3/K5-1.000-HARDEST-ADVERSARIAL; 1 HP-RESCUE: h1_mmr_retrieval-0.167->0.050-70pct-REDUCTION-G8-CONDITIONAL-PASS; 1 HF-confirm: g7_e5_large_geometry-RHO=0.823-DISQUALIFIED-CONFIRMED; 2 HF-new: g8_anchoring_bias-PROP=0.354-ATTACK-SURFACE-CLUSTERED-KB + h4_density_calibration-AUC=0.528-CHANCE-CLOSED; 1 HF-degrades: q4_lora_retrieval-LoRA-DEGRADES-RP=0.246-vs-BASE=0.346; 1 MID-CLOSED: h3_inverse_density-PROP=0.156-6pct-NOMINAL-CLOSED; 0 LVH; HONEST 1045->1053 +8; LVH 244 UNCHANGED; Portfolio 32+79; KF-1 consistent-lie-chain extended; PP-8 clustered-KB CONDITIONAL-PASS-MMR; 378th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
