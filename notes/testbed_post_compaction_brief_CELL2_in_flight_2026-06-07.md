@@ -9,28 +9,30 @@
 
 | Item | Value |
 |---|---|
-| **Cluster name** | `cell2wiki-154355` |
+| **Cluster name** | `cell2wiki-162723` |
 | **SKU** | gpu_1x_gh200 ($2.29/h) |
 | **Region** | us-east-3 (Lambda) |
 | **Lambda instance ID** | `5a3e2d80967b491c94ac23df1562871d` |
 | **IP** | 192.222.51.240 |
-| **Acquired at** | 2026-06-06 19:43:54 UTC |
-| **Expected wall** | 2-3.5 hours total → VERDICT around **2026-06-06 22:00-23:00 UTC** |
-| **Expected cost** | $5-9 (well under Research's $31-50 envelope) |
+| **Acquired at** | v1 19:43 (killed); **v2 acquired 2026-06-06 20:27 UTC** |
+| **Expected wall** | v2 with DataLoader(workers=8, prefetch=4): **~1.5-3h** (was 9h on v1 single-stream) |
+| **Expected cost** | **$3-7** (well under Research's $31-50 envelope) |
+| **v1 killed because** | single-stream IO bottleneck: 192/s on GH200; GPU at 2.6% utilization. Redesigned with parallel DataLoader. |
+| **v1 partial preserved** | `data/cell2_results_v1_partial_41shards/` (different shard scheme; reference only) |
 | **HARD cost cap** | ~$30 (12-hour autostop is launcher safety; if anything bigger, kill manually) |
 
 ### Process state on `marsh@home`/WSL
 
 | PID | What |
 |---|---|
-| `11824` (Windows) | wsl wrapper for the launcher Start-Process |
-| `103533` (WSL) | `bash /mnt/d/AI/hd-instrument/skypilot/smart_launch_cell2.sh` |
-| `104017` (WSL) | `sky launch -c cell2wiki-154355 ...` subprocess |
-| Lock file | `/tmp/smart_launch_cell2.pid` (holds `103533`) |
+| `29488` (Windows) | wsl wrapper for the v2 launcher Start-Process |
+| `105392` (WSL) | `bash /mnt/d/AI/hd-instrument/skypilot/smart_launch_cell2.sh` (v2) |
+| `[child]` (WSL) | `sky launch -c cell2wiki-162723 ...` subprocess |
+| Lock file | `/tmp/smart_launch_cell2.pid` (holds `105392`) |
 
 ### Monitor (auto-armed)
 
-- Task ID: `bxtvospv2`
+- Task ID: `bavl5upnn` (v2; bxtvospv2 was v1, now stopped)
 - Pattern matches: CAPACITY DETECTED, ACQUIRED, sky launch exit code, launch failed, setup N/7, run complete, VERDICT, traceback, error, OOM, shard NNNN0000, COMPLETE/PARTIAL/FAILED, module-not-found
 - ANSI codes stripped via `sed`
 - Will surface key events automatically
@@ -39,7 +41,7 @@
 
 The launcher's post-acquisition code (already running as part of PID 103533) will:
 1. SCP rsync `~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/` → `/mnt/d/AI/hd-instrument/data/cell2_results/` (~26 GB shard transfer; uses `--partial --progress`)
-2. Issue explicit `sky down -y cell2wiki-154355`
+2. Issue explicit `sky down -y cell2wiki-162723`
 3. Run `verify_no_lambda_instances.sh`
 4. Release the lock file via TRAP cleanup
 
@@ -81,7 +83,7 @@ tail -30 /d/AI/hd-instrument/data/cell2_smart_launch.log
 | Lambda has 1 instance + sky cluster gone | Launcher just terminated cluster; rsync may be in flight | Wait for launcher to finish; check `cell2_smart_launch.log` for "CELL-2 ACQUIRED + RAN" and "SCPing CELL-2 metrics" lines |
 | Lambda 0 instances + `data/cell2_results/metrics.json` exists | Run COMPLETED CLEANLY | Read metrics; file delivery note to Research |
 | Lambda 0 instances + no metrics.json | FAILED somewhere | Diagnose via launcher log; check for sky launch exit code != 0 |
-| Lambda has 1 instance + no launcher process alive | Orphan instance (zombie scenario from earlier today) | Manual `sky down -y cell2wiki-154355` + Lambda API direct terminate via tmp_nuke_all.py pattern |
+| Lambda has 1 instance + no launcher process alive | Orphan instance (zombie scenario from earlier today) | Manual `sky down -y cell2wiki-162723` + Lambda API direct terminate via tmp_nuke_all.py pattern |
 
 ### Step 3: If COMPLETE — what to do
 
@@ -153,7 +155,7 @@ ac76340 testbed: dual-SKU smart launcher (CELL-1 hardening pattern)
 1. **Verify only ONE smart_launch process running** — duplicate launchers can spawn orphan clusters
 2. **Watch Lambda API directly** — sky status can be stale; trust direct probe
 3. **Never `sky api stop` while CELL-2's sky launch is in flight** — would orphan the subprocess
-4. **Cluster name `cell2wiki-154355` is unique** — if you see different cluster names (different HHMMSS), that's a NEW launch
+4. **Cluster name `cell2wiki-162723` is unique** — if you see different cluster names (different HHMMSS), that's a NEW launch
 5. **No dual-SKU** — launcher is GH200-only per user explicit request; don't fall through to H100 unless user re-authorizes
 6. **rsync ~26 GB takes minutes** — be patient between sky launch exit code 0 and full metrics availability
 7. **All 25 known bug defenses are in place** — see CELL-2 dispatch checklist in commit history
