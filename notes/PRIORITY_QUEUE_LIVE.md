@@ -122,13 +122,91 @@ Per yesterday's OVERNIGHT_QUEUE note + bio/materials drill + disparate fields dr
 
 ## TIER-3 (gated on infrastructure or larger investment; queue when unblocked)
 
-- T1-1 7B vs 70B extraction quality (needs cloud auth)
-- T1-3 STREAM-V1 vLLM Hook smoke (needs vLLM install)
-- HotpotQA at Llama-1B (needs Llama-1B weights)
-- HNSW empirical (gates HP-12 V2; needs FAISS env fix)
-- IVF + RaBitQ smoke (needs FAISS env)
-- Hierarchical VQ k-sweep (needs FAISS env)
-- SPARSE-CASCADE-SMOKE FD ratio (~$2 + 4h GPU)
+Local-runner cells blocked on environment fixes:
+- T1-3 STREAM-V1 vLLM Hook smoke (needs vLLM install; Testbed lane)
+- HNSW empirical (gates HP-12 V2; needs FAISS env fix; Testbed lane)
+- IVF + RaBitQ smoke (needs FAISS env; Testbed lane)
+- Hierarchical VQ k-sweep (needs FAISS env; Testbed lane)
+- HotpotQA at Llama-1B (needs Llama-1B weights local download; Testbed lane)
+
+---
+
+## TIER-CLOUD (cloud-dispatch when user authorizes; Testbed lane primary)
+
+These need cloud GPU/CPU resources. Listed in rank order; user authorization required per-cell or per-batch.
+
+### CLOUD-1: 7B vs 70B extraction quality binding test (T1-1)
+- **Anchor:** `substrate_extraction_quality_7B_vs_70B_v1`
+- **Cost:** ~$0.50-1.00 cloud H100 (prefill-only mode)
+- **Wall:** ~15-20 min
+- **Gates:** ALL extraction infrastructure decisions ($31 CPU fleet vs $1 Mac fleet)
+- **HP threshold:** 7B substrate retrieval >= 80% of 70B baseline
+- **Why first:** cheapest cloud test; answers binding architectural question
+
+### CLOUD-2: PHASE4A-2 distilled 22-26M student training
+- **Anchor:** `substrate_distilled_22m_student_training_v1`
+- **Cost:** ~$15 cloud H100
+- **Wall:** ~2-4 hours
+- **Gates:** V_c=1M production scale + 20-40x extraction speedup
+- **Source:** encoder bottleneck drill (Phase 4a infrastructure)
+- **Status:** awaits Exp-Dev handoff training script
+
+### CLOUD-3: SPARSE-CASCADE-SMOKE FD ratio
+- **Anchor:** `substrate_cascade_distillation_fd_ratio_smoke_v1`
+- **Cost:** ~$2 cloud API + 4h GPU
+- **Wall:** ~4 hours
+- **Gates:** cascade distillation viability (405B -> 70B -> 8B -> 1B -> 50M)
+- **HP threshold:** FD ratio < 0.40 (>60% gap closed)
+
+### CLOUD-4: Llama-3.1-8B Tier-4 substrate-attn replication (optional)
+- **Anchor:** `substrate_tier4_hopfield_attention_substitution_llama_3_1_8b_v1`
+- **Cost:** ~$2-4 cloud H100
+- **Wall:** ~30-45 min
+- **Gates:** cross-scale (50x param jump from 1B to 8B); strengthens architectural-primitive claim
+- **Status:** USER PREVIOUSLY DEPRIORITIZED -- only run if user re-authorizes
+
+### CLOUD-5: PHASE4A-6 Wikipedia layer-10 cache extraction
+- **Anchor:** `substrate_wikipedia_layer10_cache_extraction_v1`
+- **Cost:** ~$200-400 cloud H100 (per chunked-extraction drill could drop to ~$30 with prefill+sparse)
+- **Wall:** ~8-10 hours (overnight)
+- **Gates:** one-time investment; eliminates extraction step for all future Wikipedia experiments
+- **Status:** Day 6-7 of Phase 4a infrastructure plan
+
+### CLOUD-6: HP-12 V2 build at 100K facts
+- **Anchor:** `substrate_certified_deletion_demo_medical_100k_facts_v2`
+- **Cost:** ~$10-30 cloud (depends on extraction strategy)
+- **Wall:** ~2-3 days
+- **Gates:** FAISS env fix + Tier-1 cubic-tensor cell (Slot 2)
+- **Why:** HP-12 V1 SHIPPED at 10K + 50; V2 scales to 100K for production credibility
+
+### CLOUD-7: Gemma-2-2B per-token extraction (for Phase 3 production)
+- **Anchor:** `substrate_gemma_2b_per_token_extraction_v1`
+- **Cost:** ~$5-8 cloud H100 for 10K abstracts; ~$30-50 for 1M
+- **Wall:** ~1-2 hours for 10K; ~10-15 hours for 1M
+- **Gates:** Phase 3 production launch (Gemma-2-2B is the production LLM partner per Phase 3 blueprint)
+- **Why:** Phase 2 validation uses Llama-1B; Phase 3 production switches to Gemma-2-2B
+
+### CLOUD-8: HP-12 V3 build at 1M facts with Gemma-2-2B
+- **Anchor:** `substrate_certified_deletion_demo_medical_1m_v3_gemma`
+- **Cost:** ~$50-100 cloud (depends on extraction strategy)
+- **Wall:** ~5-10 days
+- **Gates:** CLOUD-7 (Gemma extraction) + cubic-tensor (Slot 2)
+- **Why:** Phase 3 production launch demo
+
+### CLOUD-9 (BIG): 100 idle M4 Max volunteer fleet POC
+- **Anchor:** `substrate_m4_max_fleet_chunked_extraction_poc_v1`
+- **Cost:** ~$1 electricity ($0 hardware if volunteer; coordination overhead)
+- **Wall:** depends on fleet coordination
+- **Gates:** validates 333,000x cost reduction claim for 405B Wikipedia
+- **Why:** if T1-1 (7B vs 70B quality) shows 7B adequate, this validates the $1 path
+- **Status:** requires fleet coordination infrastructure first
+
+### CLOUD-10 (BIG): Full Wikipedia 7B extraction via 100 CPU cloud workers
+- **Anchor:** `substrate_wikipedia_7b_full_extraction_chunked_v1`
+- **Cost:** ~$31 cloud (per chunked-extraction drill)
+- **Wall:** ~7.7 hours
+- **Gates:** T1-1 confirms 7B quality + chunking infrastructure
+- **Why:** delivers full Wikipedia substrate at $31; unlocks audacious vision empirically
 
 ---
 
@@ -159,6 +237,7 @@ Re-runs at fixed seeds produce ZERO new information. Adding to skiplist.
 ## CHANGELOG
 
 - 2026-06-06 08:05 -- v1 created. 9 Tier-1 cells, 2 varied-seed re-runs, 15 Tier-2, 7 Tier-3, 7 Tier-4 phase features.
+- 2026-06-06 08:15 -- v2: added TIER-CLOUD section with 10 ranked cloud experiments (Testbed lane primary). Per user: include cloud experiments for scheduling reference.
 
 ---
 
