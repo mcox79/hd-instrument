@@ -109,13 +109,16 @@ Per user directive 2026-06-06:
 - **Action item:** Phase 4a infrastructure to use ETF Hadamard codebook init by default
 - **Follow-on candidate (NEW Slot 8):** ETF Hadamard at N=4096 + sparse compound test (queued below)
 
-### Slot 3: `sparse_vs_dense_write_regime_alpha_n4096_n16384_v1`
-- **Wall:** ~15 min CPU
-- **Source:** today's 2x alpha drill -- rescue path
-- **Gates:** whether sparse write rule recovers alpha > 0.040 at large N
-- **Capability advanced:** PP-21 sparse-write rescue
-- **HP threshold:** sparse alpha >= 0.055 at large N
-- **Metric:** use auto-associative Hopfield spec from T1_6_metric_spec_unparked
+### Slot 3 (RESPEC; was sparse-write but mechanism was unclear): `substrate_sparse_pattern_coding_vs_dense_alpha_n4096_n16384_v1`
+- **Wall:** ~15-20 min CPU
+- **Source:** today's 2x alpha drill -- rescue path; spec clarified after Exp-Dev's Slot 3 first attempt found mechanism ambiguous
+- **Architecture:** sparse PATTERN coding (k=f*N active components; f=0.10) vs dense (f=1.0); STANDARD Hebbian outer-product write for both
+- **Capability advanced:** PP-21 sparse-Hopfield linear-noise regime rescue
+- **HP threshold:** sparse_alpha / dense_alpha >= 3x at f=0.10 (per Tsodyks-Feigelman classical bound ~4.35x)
+- **MID:** 2-3x
+- **HF:** <2x (sparse pattern coding doesn't deliver linear-noise regime benefit)
+- **Metric:** auto-associative Hopfield + FLIP=0.05 + unique patterns + 0.95 accuracy
+- **Self-test:** dense N=1024 should give M_max ~140; sparse f=0.10 should give M_max ~600
 
 ### Slot 4: `substrate_sparse_outer_product_write_v2` (T1-6-V2)
 - **Wall:** ~20 min CPU
