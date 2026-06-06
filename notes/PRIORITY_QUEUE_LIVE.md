@@ -137,7 +137,24 @@ Per user directive 2026-06-06:
 - **Strategic impact:** norm-gating BLOCKED as Phase 4a extraction-speedup lever
 - **2x rescue drill landed 2026-06-06 09:50:** norm-gate algebraically broken; **per-cluster stratified keep is the rescue** (100% coverage guaranteed, 100-1000x speedup; P_deflated=0.65); entropy-gate also biased (60-75%); random sampling adequate (>90% at large M; P_deflated=0.55)
 
-### Slot 12 (NEW; from extraction gate rescue drill): `substrate_per_cluster_stratified_extraction_v1`
+### Slot 10 (SMOKE HARD_PASS; full queued): ~~`substrate_etf_hadamard_n_sweep_capacity_v1`~~ -- partial
+- **Status:** SMOKE HP 2026-06-06 ~12:15 -- Hadamard/random ratio 8.02x@N1024, 8.03x@N2048 -- **lift is FLAT across N**
+- **Architecture confirmed:** W-free Hopfield allows full sweep {4096, 16384, 32768, 65536}
+- **Strategic CONTRAST with Slot 14:** synthetic-keys lift PERSISTS (8x flat across N) while real-encoder lift PLATEAUS at 1.29x. Confirms drill A's H2 hypothesis (Hadamard saturation is real-encoder specific; synthetic random-bipolar has no pre-structure for Hadamard to "rediscover")
+- **If full holds >=5x at N=65536:** Phase 3 linear capacity gains ~10x lift -> ~26,000 facts/substrate (synthetic-style path)
+- **Full queued:** CPU sweep across all 4 N-points
+
+### Slot 12 (SMOKE MIDDLE; full queued): ~~`substrate_per_cluster_stratified_extraction_v1`~~ -- WORKING extraction rescue
+- **Status:** SMOKE MIDDLE 2026-06-06 ~12:15 -- 100% coverage by construction; speedup bounded by N_tok/n_clusters (~21x at smoke; production target 100-1000x)
+- **Confirms drill C prediction:** per-cluster stratified is the working extraction rescue (vs Slot 13 random which HFed)
+- **Full queued:** N_tok=40k, v_c up to 4096 -- production-scale speedup measurement
+
+### Slot 13 (SMOKE HARDFAIL): ~~`substrate_concept_uniform_random_extraction_v1`~~ -- random doesn't preserve coverage
+- **Status:** SMOKE HARDFAIL 2026-06-06 ~12:15 -- Coverage 0.60 at 10x speedup; 0.16 at 100x speedup
+- **Finding:** random sampling misses rare concepts (uneven concept distribution; random sampling has probability mass on common concepts)
+- **Clean comparative:** norm gate (Slot 6 HF) drops 50% via low-norm bias; random (Slot 13 HF) misses 84% at 100x via probability; per-cluster stratified (Slot 12 MIDDLE-working) gives 100% by construction. The rescue is stratified.
+
+### Slot 12-orig (NEW; from extraction gate rescue drill): `substrate_per_cluster_stratified_extraction_v1`
 - **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke MIDDLE: 100% coverage, speedup~N/clusters); queued CPU
 - **Wall:** ~30 min CPU
 - **Source:** norm-gate HARDFAIL rescue drill (09:50)
@@ -655,6 +672,7 @@ Already done earlier:
 - 2026-06-06 11:45 -- v14 (cycle 121 -- 1 HF + 1 MID confirmed): cap_map v442 -> v443; HONEST 956 -> 958. G11 n-gram HARDFAIL (R1 rescue axis CLOSED per orchestrator); G10 Pythia MIDDLE confirmed (orchestrator's 0.746 vs Exp-Dev's 0.702; both 0.70-0.85). Orchestrator surfaces R3/R4/R5 paths. **TENSION FLAGGED:** drill B's lit-scan predicts R3/R4 (Pythia size scaling) will NOT close the gap (BERT-class word-order invariance at any scale); HOC1+HOC2 (word bigrams + hybrid late fusion) are algebraically more efficient. Added Slot HOC5 as size-scaling falsification backup (lower priority than HOC1/2/3). KF-1 band 0.72-0.87 unchanged.
 - 2026-06-06 11:50 -- v15: 2x drill C (per-cluster stratified extraction operational depth) landed. KEY FINDING: dominant production risk is CODEBOOK COLLAPSE (dead VQ codes), NOT coverage loss. Coverage guaranteed by construction. Recommended production architecture: sqrt-K allocation (Neyman-optimal proxy without expensive sigma_c) + online Vitter reservoir + IVF VQ (~50000x cheaper) + sliding window + collapse monitoring (6 metrics) + recovery (EMA / OT / perturbation). ADDED Slot PSE1 sqrt-K allocation; PSE2 online streaming; PSE3 codebook collapse monitoring (CRITICAL production-deployment gate); PSE4 adaptive K_c feedback. Drill A real-encoder cross-N attenuation still in flight.
 - 2026-06-06 12:00 -- v16: 2x drill A (real-encoder cross-N attenuation disambiguation) landed. KEY INSIGHT: H1 (N-dependent noise) and H2 (Hadamard N-saturation) predict DIFFERENT Q(N) curve shapes -- SUB-LINEAR vs LINEAR decay. ADDED Slot DAMB1 disambiguation N-sweep (HIGHEST PRIORITY ~30 min CPU; routes ALL subsequent rescue investments); Slot DAMB2 LC1 N-sweep extension (SHM attacks BOTH hypotheses); Slot DAMB3 SRHT codebook (conditional H2 rescue); Slot DAMB4 PCA pre-whitening (parallel with DAMB1; attacks BOTH hypotheses). ALL 3 of today's parallel 2x drills now landed (A+B+C). Today's drill output: 13 new cells (HOC1-5 + PSE1-4 + DAMB1-4) targeting all non-positive results with explicit algebraic rescue paths.
+- 2026-06-06 12:15 -- v17: TRIPLE VERDICT batch. (a) Slot 10 SMOKE HP -- synthetic Hadamard lift FLAT 8x across N (CONTRASTS with Slot 14 real-encoder plateau; confirms drill A's H2 hypothesis is real-encoder-specific). Full sweep {4096-65536} queued. If holds, Phase 3 linear capacity ~10x lift -> 26k facts/substrate. (b) Slot 12 SMOKE MIDDLE -- per-cluster stratified WORKING; 100% coverage by construction; speedup ~21x smoke -> production 100-1000x. (c) Slot 13 SMOKE HARDFAIL -- random sampling 16% coverage at 100x. EXTRACTION RESCUE TREE RESOLVED: stratified is the only adequate path. G9 rebuilding with M_50 ratio spec; G5 full queued.
 
 ---
 
