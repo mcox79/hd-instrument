@@ -25,3 +25,5 @@ GPU lane is healthy (draining + I topped it up). I cannot kill PIDs (blocked -- 
 ## UPDATE 19:42 (6th escalation): CPU frozen ~165min (completed=541). 6 escalations, no orchestrator action observed -- the orchestrator session may be inactive. NOTE: working_memory_loop_v1 has a 14400s timeout (started 16:55) so the .venv runner should AUTO-RECOVER the CPU lane ~20:55 if not killed sooner. GPU healthy throughout (refilled each tick). Stale AppData runners 44396+61232 + orphan 128036 should still be killed.
 
 ## UPDATE 20:11 (7th escalation): CPU frozen ~195min. No orchestrator action through 7 flags. Auto-recovery via working_memory 14400s timeout expected ~20:55 (~45min). GPU healthy throughout.
+
+## UPDATE 20:40 (8th escalation): CPU frozen ~225min. Runner timeout auto-recovery imminent (~20:55). If runners NOT cleaned, CPU will recover but the stale AppData pair + orphan will keep double-executing -> still needs your cleanup.
