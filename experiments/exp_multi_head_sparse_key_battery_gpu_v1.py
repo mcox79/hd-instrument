@@ -32,7 +32,7 @@ _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"
 if RUN_MODE == "smoke":
     SEEDS = [1]; N_GRID = [2048]; LOADS = [0.05, 0.1, 0.2, 0.4, 0.7]
 else:
-    SEEDS = [7, 17, 23]; N_GRID = [4096, 8192, 16384]; LOADS = [0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.45, 0.6, 0.8, 1.0]
+    SEEDS = [7, 17, 23, 29, 37, 41]; N_GRID = [4096, 8192, 16384, 32768]; LOADS = [0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.45, 0.6, 0.8, 1.0]
 
 
 def support_recovery_rate(M, n, H, seed):

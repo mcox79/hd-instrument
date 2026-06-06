@@ -34,7 +34,7 @@ _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"
 if RUN_MODE == "smoke":
     SEEDS = [1]; N_GRID = [4096, 8192]; LOADS = [0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1.0]
 else:
-    SEEDS = [7, 17, 23]; N_GRID = [8192, 16384, 32768]; LOADS = [0.02, 0.04, 0.06, 0.08, 0.1, 0.13, 0.16, 0.2, 0.25, 0.3, 0.4, 0.6, 0.8, 1.0]
+    SEEDS = [7, 17, 23, 29, 37]; N_GRID = [8192, 16384, 32768]; LOADS = [0.02, 0.04, 0.06, 0.08, 0.1, 0.13, 0.16, 0.2, 0.25, 0.3, 0.4, 0.6, 0.8, 1.0]
 
 
 def _hadamard_t(n):
