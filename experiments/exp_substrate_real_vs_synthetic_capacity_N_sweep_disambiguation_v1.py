@@ -64,16 +64,10 @@ def syn_hadamard(M, n, g):
     return (P / np.sqrt(n)).astype(np.float32)
 
 
-def m50(keyfn, maxM, n, seed):
-    prev = 2
-    for load in LOADS:
-        M = min(int(load * n), maxM)
-        if M < 2:
-            continue
-        if recall_unique_t(keyfn(M), n, seed * 7 + M, flip=FLIP) < 0.5:
-            return prev
-        prev = M
-    return prev
+def fixed_load_recall(keyfn, maxM, n, seed):
+    # Option (b): RAW recall at fixed load M = 2*N (no M-search -> never censors to 1.0=1.0)
+    M = min(6 * n, maxM)
+    return recall_unique_t(keyfn(M), n, seed * 7 + M, flip=FLIP)
 
 
 def _selftest():
@@ -118,9 +112,9 @@ def run_seed(seed) -> Dict:
     for n in N_GRID:
         real_fn = lambda M, n=n: whiten(expand(emb[np.random.default_rng(seed * 1000 + M).choice(emb.shape[0], M, replace=False)], n, np.random.default_rng(seed * 31 + n)))
         syn_fn = lambda M, n=n: syn_hadamard(M, n, np.random.default_rng(seed * 17 + M))
-        qr = m50(real_fn, emb.shape[0], n, seed); qs = m50(syn_fn, 10 * n, n, seed)
-        by_N["N%d" % n] = {"Q_real": qr, "Q_synth": qs, "ratio": float(qr / max(qs, 1))}
-        print("    [seed=%d N=%d] Q_real=%d Q_synth=%d ratio=%.3f" % (seed, n, qr, qs, qr / max(qs, 1)), flush=True)
+        qr = fixed_load_recall(real_fn, emb.shape[0], n, seed); qs = fixed_load_recall(syn_fn, 10 * n, n, seed)
+        by_N["N%d" % n] = {"real_recall": qr, "synth_recall": qs, "ratio": float(qr / max(qs, 1e-6))}
+        print("    [seed=%d N=%d M=6N] real_recall=%.3f synth_recall=%.3f ratio=%.3f" % (seed, n, qr, qs, qr / max(qs, 1e-6)), flush=True)
     return {"seed": seed, "by_N": by_N}
 
 
