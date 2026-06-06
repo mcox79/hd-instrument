@@ -244,6 +244,25 @@ Per user directive 2026-06-06:
 - **HF:** < 0.60 (even order-sensitive encoders fail; need dedicated NLI)
 - **Strategic value:** combined with HOC1+HOC2 (word-order), closes the two-encoder-limit class identified today
 
+### Slot G14 (NEW; from G13 HF + Exp-Dev recommendation): `substrate_kf1_nli_head_contradiction_detection_v1`
+- **Wall:** ~60 min GPU
+- **Source:** Slot G13 HF + Exp-Dev recommendation + G5 negation 2x drill (in flight)
+- **Architecture:** KF-1 with BART-MNLI head over substrate-retrieved facts; predict entailment vs contradiction; use contradiction probability as hallucination score
+- **Why:** embedding-grounding fundamentally cannot catch negation (proved by G13 HF); NLI is trained for exactly this
+- **Capability advanced:** PP-3 contradiction detection via NLI
+- **HP threshold:** negation AUC >= 0.85
+- **MID:** 0.70-0.85; **HF:** < 0.70
+
+### Slot G15 (NEW; from G8 HP + CLOUD-1 connection): `substrate_last_token_vs_whitening_mean_pool_v1`
+- **Wall:** ~45 min GPU
+- **Source:** G8 + CLOUD-1 are SAME finding from different angles -- mean-pool causal LM is broken
+- **Architecture:** compare 3 paths to usable causal-LM substrate: (a) last-token pool no whitening, (b) mean-pool with ETF whitening, (c) last-token + whitening (combined)
+- **Why:** are last-token and whitening EQUIVALENT in effect (both fix anisotropy) or COMPLEMENTARY (combined gives more)?
+- **Capability advanced:** Phase 4 production architecture clarity (causal-LM substrate recipe)
+- **HP threshold:** (c) combined > max((a), (b)) by >=20% capacity (complementary mechanisms)
+- **MID:** (c) approximately = max (equivalent mechanisms; pick whichever is cheaper)
+- **HF:** (c) < max (interfering mechanisms)
+
 ### Slot PP8R2 (NEW; from cycle 122 PP-8 cleanup): `substrate_pp8_cosine_variance_gate_v1`
 - **Wall:** ~30 min CPU
 - **Source:** Orchestrator cycle 122 -- PP-8 norm-gate closed; R2 cosine-variance is next rescue
@@ -705,6 +724,7 @@ Already done earlier:
 - 2026-06-06 12:15 -- v17: TRIPLE VERDICT batch. (a) Slot 10 SMOKE HP -- synthetic Hadamard lift FLAT 8x across N (CONTRASTS with Slot 14 real-encoder plateau; confirms drill A's H2 hypothesis is real-encoder-specific). Full sweep {4096-65536} queued. If holds, Phase 3 linear capacity ~10x lift -> 26k facts/substrate. (b) Slot 12 SMOKE MIDDLE -- per-cluster stratified WORKING; 100% coverage by construction; speedup ~21x smoke -> production 100-1000x. (c) Slot 13 SMOKE HARDFAIL -- random sampling 16% coverage at 100x. EXTRACTION RESCUE TREE RESOLVED: stratified is the only adequate path. G9 rebuilding with M_50 ratio spec; G5 full queued.
 - 2026-06-06 12:30 -- v18 (cycle 122 nuance + 2 HF confirmed + PP-8 R2/R4 added + G5 NEGATION drill dispatched): cap_map v443 -> v444; HONEST 958 -> 961. **CRITICAL NUANCE: cross-N attenuation is PARTLY MEASUREMENT CEILING artifact** (N_sub=384 1.21x real; N_sub=512 ceiling-flat at 99% raw recall). N_sub=384 is the actionable real-encoder design point. Slot 6 norm-gate full HF confirmed; PP-8 norm-axis CLOSED; added Slot PP8R2 cosine-variance + Slot PP8R4 learned probe. G5 TruthfulQA HF confirmed (negation AUC 0.034); user flagged audit gap -- I had treated G5 as same-class as G11 word-order but NEGATION is a DISTINCT architectural axis (antonyms like "increases" vs "decreases" need polarity, not just order). **2x drill on negation detection dispatched (G5 dedicated rescue)** -- BART-MNLI / negation-cue features / polarity-aware embeddings / hybrid late fusion. ETA ~25 min sonnet.
 - 2026-06-06 13:40 -- v19 (CLOUD-1 mean-pool bug + CLOUD-1b authorized): Testbed dispatched CLOUD-1 + diagnosed mean-pool bug on Pythia local in 3 min / $0. Mean-pool over causal LM destroys retrieval signal (Pythia: mean-pool top-5=0.000; last-token=0.130). CLOUD-1 killed at $0.50; CLOUD-1b authorized at ~$1.15 with 5 design fixes: last-token pool + MiniLM baseline + per-query rank + shuffled gold + Llama-1B added (1B/8B/70B trio). Total binding test cost $1.65 to definitive answer. **STANDING RULE codified:** causal LM = last-token pool; bidirectional encoder = mean-pool/CLS. Affects all future substrate-LLM extraction cell specs. Infrastructure proven: GH200 + aarch64 + cu124 path works (Phase 4a future asset).
+- 2026-06-06 13:55 -- v20 (G13 HF + G8 HP = MAJOR STRATEGIC SHIFT for causal-LM substrate): **G13 contradiction HF** (Pythia AUC 0.111; embedding-grounding cannot catch negation regardless of encoder order-sensitivity); ADDED Slot G14 NLI-head BART-MNLI rescue. **G8 cross-encoder dim-expansion HP** at 6.68x for Pythia LM family with whitening NON-OPTIONAL (raw Pythia cap=0 cone-collapsed; mean-pooled causal LM is unusable raw). **MAJOR STRATEGIC INSIGHT: causal-LM substrate compound = 1.21x whitening x 6.68x expansion x 12x sparse = ~97x (vs MiniLM ~1.87x); causal LMs have MORE anisotropy to attack -> more headroom.** Phase 3 linear-mode revised UP: ~254k facts/substrate at N=65536; D=8 = ~2M facts (Wikipedia subset viable in linear mode!). G8 + CLOUD-1 are same finding from different angles (mean-pool causal LM broken; last-token AND whitening BOTH fix). ADDED Slot G15 last-token vs whitening vs combined comparison.
 
 ---
 
