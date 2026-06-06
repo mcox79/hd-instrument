@@ -258,6 +258,36 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **MID:** AUC 0.70-0.85
 - **HF:** AUC < 0.70 (clean substrate signal didn't generalize)
 
+### Slot G7 (NEW; combined defense): `substrate_hadamard_plus_whitening_combined_v1`
+- **Wall:** ~45 min GPU
+- **Source:** Orchestrator cycle 119 -- Phase 4B gates; currently Hadamard init and whitening are independent rescue mechanisms
+- **Why:** Hadamard codebook init = orthogonal codebook by construction; whitening = transforms input space to isotropic. Different operations; could combine multiplicatively. Tests whether real-encoder headroom recovery scales further.
+- **Architecture:** test substrate with (a) baseline random codebook, (b) Hadamard codebook init only, (c) whitening only, (d) Hadamard codebook + whitening (combined)
+- **Capability advanced:** Phase 4B combined real-encoder rescue mechanism
+- **HP threshold:** combined H+W > additive sum of individual mechanisms (multiplicative compound)
+- **MID:** combined > max(individual) but < additive
+- **HF:** combined approx max(individual) (mechanisms are redundant)
+
+### Slot G8 (NEW; cross-encoder Pythia/Llama-1b dim-expansion): `substrate_dim_expansion_cross_encoder_pythia_llama_v1`
+- **Wall:** ~90 min GPU (2 encoders)
+- **Source:** Orchestrator cycle 119 -- Phase 4B cross-encoder test
+- **Why:** Slot G1 tests mpnet (sentence-transformer family); orchestrator wants encoder-family-agnostic confirmation via Pythia-160m + Llama-1b (LM family). If dim-expansion works across encoder families, the rule is universal.
+- **Architecture:** dim-expansion on Pythia-160m residuals (existing npz) AND Llama-1b residuals; ETF orthogonalize at D in {dim_native, 2*dim_native, 4096}
+- **Capability advanced:** Phase 4B dim-expansion rule universality
+- **HP threshold:** D=4096 whitened_cap >= 8x raw_cap on BOTH Pythia and Llama-1b
+- **MID:** >= 8x on one but not both
+- **HF:** < 8x on both (rule is encoder-specific)
+
+### Slot G9 (NEW; lower-N dim sweep per orchestrator Phase 4B gate): `substrate_etf_minilm_n_sub_lower_sweep_v1`
+- **Wall:** ~45 min GPU
+- **Source:** Orchestrator cycle 119 -- "N-sweep across MiniLM N_sub in {384, 768, 1536, 3072}"
+- **Why:** Slot G3 tests N=16384 production scale; orchestrator wants intermediate sweep to see whether 2.75x holds or GROWS as N_sub increases
+- **Architecture:** ETF Hadamard whitening on MiniLM; sweep N_sub in {384, 768, 1536, 3072}; measure cap ratio vs raw
+- **Capability advanced:** Phase 4B encoder-scale dependency curve
+- **HP threshold:** ratio at N_sub=3072 >= 5x (growth from 2.75x at N=384)
+- **MID:** plateau at 2.75-5x
+- **HF:** ratio plateaus at 2.75x or declines
+
 ### Slot G6 (DEFERRED; Pythia end-to-end): `substrate_pythia_end_to_end_capability_v1`
 - **Wall:** ~120 min GPU
 - **Source:** Exp-Dev's note + Phase 4 capability validation
@@ -384,6 +414,7 @@ Already done earlier:
 - 2026-06-06 09:20 -- v6: Orchestrator cycle 117 ETF Hadamard FULL RUN confirmed 10.04x at N=4096 (vs smoke 8.02x at N=1024). cap_map v438 -> v439. ADDED Slot 10: CRITICAL Phase 3 confirmation gate -- Hadamard N-sweep across {4096, 16384, 32768, 65536} to verify 10x lift persists. ADDED Slot 11: U2 codebook+query stacked-defense hypothesis (architectural insight from orchestrator). If Slot 10 HPs at N=65536, Phase 3 linear capacity goes from 2,621 facts to ~26,000 per substrate; D=8 production = ~208k facts.
 - 2026-06-06 09:50 -- v7: TRIPLE LANDING. (a) Slot 3 sparse-PATTERN HP at ~12x (sparse_alpha 0.30 vs dense 0.025 at N=1024 smoke); compound with ETF could give ~100x. (b) Cycle 118 confirmed Matthiessen 100% codebook-collision + K-hop lossless to K>=6 (both labels conservative). (c) Slot 6 norm-gate HARDFAIL rescue drill landed: PER-CLUSTER STRATIFIED is the rescue (100% coverage + 100-1000x speedup; P_deflated 0.65). ADDED Slot 12: per_cluster_stratified_extraction. ADDED Slot 13: concept_uniform_random_extraction (floor case). Slot 7 expanded to K=10/K=20 sweep (K-hop ceiling unknown above 6). DIAGNOSTIC+RESCUE+REASONING TRIPLE NOW EMPIRICALLY ANCHORED.
 - 2026-06-06 10:25 -- v8 (POST-COMPACTION + GPU LANE POPULATED): Slot 9 MIDDLE 2.75x on real MiniLM (real-encoder dim ceiling); compound revised to ~33x for real encoders. ADDED Slot 14 dim-expansion rescue (Exp-Dev's autonomous build; smoke linear scaling; full D=4096 in flight). ADDED GPU LANE PRIORITIES section with 6 cells (G1-G6): mpnet transferability, KF-1 robustness sweep, real-encoder capacity at N=16384 with expansion, continual KV at N=32768, KF-1 on TruthfulQA-style benchmark, Pythia end-to-end (deferred). Per Exp-Dev's note: GPU lane was thin; user flagged GPU-idle multiple times. Now GPU lane has prioritized depth.
+- 2026-06-06 10:35 -- v9 (Phase 4B gates from orchestrator cycle 119): Orchestrator framed "remaining 73% real-encoder headroom is recoverable via deeper codebook-collision attacks." ADDED Slot G7 Hadamard+whitening combined defense (cheap architectural test); Slot G8 cross-encoder Pythia-160m + Llama-1b dim-expansion (encoder-family-agnostic confirmation); Slot G9 N_sub lower sweep {384, 768, 1536, 3072} on MiniLM. Plus research drill dispatched on learned codebooks / basis pursuit / sparse Hadamard mixtures (deeper rescue paths for the 73% headroom).
 
 ---
 
