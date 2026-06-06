@@ -374,6 +374,17 @@ Per user directive 2026-06-06:
 - **HP threshold:** combined M_max ratio >= 40x vs random + dense baseline at N=4096
 - **Metric:** auto-associative Hopfield + flip-corrupted cue (FLIP=0.05) + unique patterns + 0.95 accuracy
 
+### Slot DIMSPARSE (NEW; HIGHEST PRIORITY -- THE critical compound test from cycle 123): `substrate_dim_expansion_plus_sparse_pattern_compound_v1`
+- **Wall:** ~45 min CPU
+- **Source:** Cycle 123 cycle confirms 3 INDEPENDENT axes (Hadamard, dim-expansion, sparsity). Critical OPEN: do dim-expansion + sparsity stack?
+- **Architecture:** 4 arms at N=4096 / N=16384: (a) baseline, (b) dim-expansion alone, (c) sparse pattern alone (alpha=0.20), (d) dim-expansion + sparse pattern combined
+- **Why CRITICAL:** if (d) > (b) * (c) multiplicatively, causal-LM substrate compound = 6.68x x 6.7x = ~45x at N=16384. If they don't stack, each is independent ~7x ceiling.
+- **Capability advanced:** Phase 3 capacity compound (THE remaining open question on capacity story)
+- **HP threshold:** (d) combined >= 0.80 * (b)*(c) (multiplicative compound holds within 20%)
+- **MID:** (d) > max((b),(c)) but < 0.80 * (b)*(c) (partial stack)
+- **HF:** (d) approximately = max((b),(c)) (no stacking; pick one)
+- **Strategic value:** SINGLE highest-value capacity test today. Gates Phase 3 compound math (~45x if HP; ~7x ceiling if HF).
+
 ### Slot 9 (DONE; MIDDLE 2.75x; real-encoder dim ceiling): ~~`substrate_etf_hadamard_phase4a_infra_eval_v1`~~
 - **Status:** DONE 2026-06-06 ~10:15 -- raw_cap=307 vs whitened_cap=844 on MiniLM 384-dim = 2.75x
 - **Root cause:** real-encoder dim ceiling -- MiniLM at 384-dim has limited orthogonalization headroom vs synthetic Hadamard at unrestricted N
@@ -780,6 +791,7 @@ Already done earlier:
 - 2026-06-06 13:55 -- v20 (G13 HF + G8 HP = MAJOR STRATEGIC SHIFT for causal-LM substrate): **G13 contradiction HF** (Pythia AUC 0.111; embedding-grounding cannot catch negation regardless of encoder order-sensitivity); ADDED Slot G14 NLI-head BART-MNLI rescue. **G8 cross-encoder dim-expansion HP** at 6.68x for Pythia LM family with whitening NON-OPTIONAL (raw Pythia cap=0 cone-collapsed; mean-pooled causal LM is unusable raw). **MAJOR STRATEGIC INSIGHT: causal-LM substrate compound = 1.21x whitening x 6.68x expansion x 12x sparse = ~97x (vs MiniLM ~1.87x); causal LMs have MORE anisotropy to attack -> more headroom.** Phase 3 linear-mode revised UP: ~254k facts/substrate at N=65536; D=8 = ~2M facts (Wikipedia subset viable in linear mode!). G8 + CLOUD-1 are same finding from different angles (mean-pool causal LM broken; last-token AND whitening BOTH fix). ADDED Slot G15 last-token vs whitening vs combined comparison.
 - 2026-06-06 14:00 -- v21: G5 negation 2x drill landed (4th + final 2x drill from today's audit-gap closure). REFINED Slot G14 with concrete spec: drop-in MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli (91.2% MNLI / 70.2% ANLI; CPU-eligible; no training). ADDED Slot NEG2 polarity adapter (diagonal re-weighting on MiniLM dims; antonym coverage; +14.52% per arXiv:2504.00584); Slot NEG3 negation cue features (explicit-token baseline); Slot NEG4 hybrid NLI+bigram+Pythia fusion (production-grade Phase 4 v3 scorer; conditional on G14 NLI signal). **ALL 4 TODAY'S 2X DRILLS NOW LANDED** (A real-encoder + B order-sensitivity + C stratified extraction + D negation). Today's drills produced ~20 cells across all non-positive results with explicit algebraic rescue paths.
 - 2026-06-06 14:15 -- v22 (G1 MID + G7 HF SIMPLIFICATION): G1 mpnet-768 dim-expansion MIDDLE (2.5x at D=768; rule transfers across encoder families; combined with G8's 6.68x on Pythia LM = UNIVERSAL dim-expansion rule). G7 Hadamard+whitening combined HARDFAIL but INFORMATIVE: expansion alone saturates 4000 grid; whitening adds nothing on top -> **EXPANSION SUBSUMES WHITENING** at data-limited scale. PRACTICAL: Phase 4 rule simplifies "expand AND whiten" -> "expand". Cleaner production architecture. CAVEAT: expand arms N_enc-censored at 4000; full N_enc=10000 needed. ADDED Slot G16 explicit subsumption test at scale. Compound math: if subsumption holds, causal-LM 80x (down from 97x); if stacking does occur at scale, 97x stable; either way Wikipedia subset viable in linear mode.
+- 2026-06-06 15:00 -- v23 (cycle 123 -- 10-anchor batch + PP-11 BAND-LIFT + 3 INDEPENDENT capacity axes confirmed + LVH #226): cap_map v444 -> v445; HONEST 961 -> 970. 3 HP + 3 MID + 4 HF. **K-hop K=10 N=16384 100% accuracy = 29th flagship anchor**; PP-11 BAND-LIFT 0.40-0.55 -> 0.55-0.70. **3 INDEPENDENT capacity rescue axes confirmed**: Hadamard, dim-expansion, sparsity (Slot 3 full at 5.0-6.7x N=4096 + N=16384). Combined Hadamard+whitening doesn't stack (G7 HF; Phase 4B G7 axis CLOSED). **CRITICAL OPEN: do dim-expansion + sparsity stack?** ADDED Slot DIMSPARSE (HIGHEST PRIORITY; ~45 min CPU) -- THE single highest-value capacity test today. PSE1 LVH #226: speedup saturates at ~20x not 100x (3rd LVH over-claim by me today; discipline lesson: be more conservative on scaling extrapolations). KF-1 negation crisis convergent across 4 cycles; NLI head (NEG1/G14) is the structural fix.
 
 ---
 
