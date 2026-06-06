@@ -620,3 +620,59 @@ PP-8 Phase-4A sub-axis: HARD_FAIL-ZCA-regression (Phase-4B blocked; diagnosis R1
 
 Cap_map: v451 -> v452 CYCLE 130 (3 HP: frame_slot_fill_k16-3SEED-KG-ATTR-1.000 + analogy_map-3SEED-RELATIONAL-1.000-300WAY + native_reasoning_K20-3SEED-K20-NO-CEILING; 1 HP-diag: effective_rank-DEFF-91.6-UPDATED; 1 HF: etf_hadamard_phase4a-ALL-SEEDS-ZCA-0-REGRESSION; 1 HP-full: hoc1_word_bigram-AUC-0.977-3SEED-KF1-GATE-CLOSED; 2 HP-SMOKE-LVH #232+#233: sparsity_fine_battery + sparse_vs_dense_large_n; PP-11 LIFT 0.55-0.70->0.60-0.75; KF-1 LIFT 72-87%->75-90%; +2 NEW ROWS 32+79; HONEST 985->993 +8; LVH 231->233 +2; 364th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v452 -> v453 CYCLE 131 BATCH (2026-06-06)
+
+Verdicts processed: effective_rank_svd_multi_encoder_v1 (HARD_FAIL RE-RUN) + substrate_expansion_method_battery_gpu_v1 (HARD_PASS SMOKE LVH#234)
+
+### Step 0 honest re-read
+
+**(1) effective_rank_svd_multi_encoder_v1 HARD_FAIL -- LABEL HONEST**
+3-encoder full run (n_seeds=1). MiniLM d_eff=91.1, mpnet d_eff=87.0, bge-large d_eff=114.8. All below 150 threshold. HARD_FAIL label correct.
+DUPLICATE CHECK: cycle 129 LVH#231 had MiniLM=77.1; this run shows MiniLM=91.1 (+14pp) AND adds mpnet+bge-large two new encoders. NOT a duplicate -- expanded encoder coverage. Standard verdict applies.
+Note: bge-large=114.8 is highest d_eff observed to date across all encoder probes; still 24% below 150 threshold.
+HONEST +1.
+
+**(2) substrate_expansion_method_battery_gpu_v1 HARD_PASS SMOKE -- LVH #234**
+run_mode=SMOKE n_seeds=1 elapsed=11.8s. Per-cell metrics are alpha values only: native/rp_x2/rp_x4 alpha=0.0; zca_whiten r=64 alpha=0.01953125; zca_whiten r=256 alpha=0.0498046875.
+verdict_msg claims rp_x4/native(avg)=0.00 | zca/native(low-r)=19531250.00.
+LVH #234: ratio 19531250.00 is a zero-division artifact (native alpha=0.0 makes any ratio degenerate and numerically meaningless). A smoke n=1 run with a degenerate comparison metric CANNOT support HARD_PASS. Directional signal is real (whitening produces nonzero alpha; expansion methods stay at zero), but no actual d_eff or capacity measurement is present in per-cell data.
+Honest reading: SMOKE-PARTIAL -- directional whitening-beats-expansion signal confirmed at synthetic scale; HARD_PASS requires full run with actual capacity/d_eff numbers.
+LVH entry: (a) label=HARD_PASS; (b) honest=SMOKE-PARTIAL directional-signal-only; (c) cells contradicting: all per-cell alpha=0.0 for native/rp; ratio=19531250 is 0.0/0.0 artifact not empirical measurement.
+HONEST +1. LVH 233 -> 234 (+1).
+
+HONEST: 993 -> 995 (+2). LVH: 233 -> 234 (+1).
+
+### Cap_map decisions
+
+**(1) effective_rank_svd_multi_encoder_v1 HARD_FAIL**
+PP-8 / effective-dimensionality sub-property annotation. Re-run of LVH#231 (cycle 129 MiniLM=77.1 only) with expanded encoder coverage. New findings:
+- MiniLM: d_eff=91.1 (consistent with v452 update to 91.6; re-measurement corroborates)
+- mpnet: d_eff=87.0 (lower than MiniLM despite 2x wider D=768 -- encoder architecture not raw dimension determines d_eff)
+- bge-large: d_eff=114.8 (highest d_eff of all tested encoders; D=1024; still 24% below 150 threshold)
+Conclusion: d_eff is architecture-bounded at current encoder class; best off-the-shelf encoder reaches 114.8 -- 23.5% below 150 threshold. Encoder choice matters (+28pp bge vs mpnet) but all three are below threshold. LM-trained encoders (Pythia d_eff=18.3, v451) excluded; that conclusion stands.
+Cap_map annotation: update effective_rank sub-property with bge-large=114.8 as new best; mpnet=87.0 added; encoder ordering by d_eff: bge-large > MiniLM > mpnet. Rescue axes (cheapest-first per PROT-004/006):
+R1 (0-compute, SUBSUMPTION): Use bge-large as Phase-4 default encoder (highest d_eff; already tested); no additional run needed.
+R2 (CHEAP, CPU <30min): ZCA whitening applied to bge-large embeddings -- if whitening 2.75x lift (v441 result on MiniLM) applies similarly to bge-large: 114.8*2.75=315.7 >> 150 threshold. High-value next step.
+R3 (CHEAP, CPU <30min): PCA dim-reduction to decorrelate bge-large embeddings before d_eff measurement -- may increase effective rank by removing correlated directions.
+R4 (MEDIUM, CPU <2h): Instruction-tuned encoder sweep (e5-large, GTE-large) -- instruction-tuning may preserve more semantic axes and increase d_eff.
+Band UNCHANGED.
+
+**(2) substrate_expansion_method_battery_gpu_v1 HARD_PASS -> SMOKE-PARTIAL (LVH#234)**
+Honest reading SMOKE-PARTIAL. Directional signal: whitening produces nonzero alpha at both r={64,256}; native/rp methods stay at alpha=0.0. Expansion methods (rp_x2, rp_x4) do NOT improve over native on this alpha metric. Framework qualitative direction confirmed: whitening > expansion. No cap_map state change from LVH#234 anchor -- per-cell data is alpha values not capacity/d_eff; HARD_PASS cannot be committed. Routing note: needs full run with d_eff or capacity as primary metric before cap_map update.
+R1 (CHEAP, GPU <1h): Full run (n_seeds=3) with d_eff as primary output metric replacing alpha; compare native/rp_x2/rp_x4/zca_whiten at r={64,256} directly on d_eff scale.
+R2 (CHEAP, CPU <30min): Apply ZCA whitening to bge-large baseline (R2 above subsumes encoder-axis test).
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v452 -> v453)
+- PROT-004/006: Anchor 1 HARD_FAIL: R1-R4 cheapest-first filed. Anchor 2 LVH: R1-R2 filed.
+- PROT-007: v453 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes. Validator not triggered.
+- PROT-009: cap_map.md + history.md + decisions log atomically staged; 365th PROT-009 paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-021: Anchor 1 source=remote run_mode=full CLEAN. Anchor 2 source=remote run_mode=SMOKE -- LVH#234 filed; smoke artifact not propagated to cap_map.
+- PROT-022: Both n_seeds=1. HP-fragility not evaluable. LVH#234 covers smoke-as-HARD_PASS risk.
+
+Cap_map: v452 -> v453 CYCLE 131 (1 HF: effective_rank_svd_multi_encoder ENCODER-BOUNDED-bge_large=114.8-BEST-BELOW-150; 1 LVH#234: expansion_method_battery HARD_PASS-SMOKE-ZERO_DIV-ARTIFACT-HONEST=SMOKE-PARTIAL; 0 HP; HONEST 993->995 +2; LVH 233->234 +1; Portfolio 32+79 UNCHANGED; R1-R4 encoder rescues filed; R1-R2 expansion rescues filed; annotation-only; 365th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
