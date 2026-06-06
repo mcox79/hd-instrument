@@ -11875,3 +11875,75 @@ Infrastructure sub-axis. Left-pad gives 2x capacity (76 vs 38). Fix is non-param
 
 Cap_map: v461 -> v462 CYCLE 141 (1 HF-full: bge_large_cap-LINEAR-SCALING-FALSIFIED-cap=40-ratio=0.35; 2 HP-full: kf1_paraphrase_marianmt-AUC=0.985-DEPLOYABLE + hebb_vs_pinv-PINV-11x-CRITICAL-WRITE-RULE-SWAP; 1 HP-scope: fp16_parity-cap_gap=0-sign_agree=0.9955-MINIML-ONLY; 1 HP-SMOKE-LVH#243: padding_side-LEFT-PAD-2x-BUG-DIAGNOSED; LVH 242->243 +1; HONEST 1025->1030 +5; KF-1 paraphrase DEPLOYABLE; PP-8 WRITE-RULE-SWAP-CRITICAL; 32+79; 374th PROT-009)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v464 update (2026-06-06) -- CYCLE 143: 5-verdict batch (retroactive audits + compound stacking); 3 HP-full + 2 HF; BGE-LARGE-REVERSAL (HF->HP); SPARSE-KEY-DISQUALIFIED; PRODUCTION-RECIPE-LOCKED; LVH 243 UNCHANGED; HONEST 1035->1040 +5; 376th PROT-009
+
+## v463 -> v464 -- CYCLE 143 (2026-06-06)
+
+Verdicts processed (5: 2 retroactive audits + 2 compound stacking + 1 genuinely new):
+1. f6_bge_large_pinv_mmax_reaudit_v1 (HARD_PASS -- RETROACTIVE REVERSAL of cycle-141 HF)
+2. substrate_codebook_collapse_monitoring_recovery_v1_Freaudit_rerun_2026-06-06 (HARD_FAIL -- retroactive re-run confirmed)
+3. f7_pinv_sparse_multihead_compound_v1 (HARD_FAIL -- sparse-KEY disqualified)
+4. f8_pinv_padfix_alpha_compound_v1 (HARD_PASS -- production recipe confirmed)
+5. pseudoinverse_real_encoder_keys_v1 (HARD_PASS -- CRITICAL transfer confirmed)
+
+### Step 0 -- Honest re-read (MANDATORY)
+
+**(1) f6_bge_large_pinv_mmax_reaudit_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All 3 seeds: hebb_alpha_c=0.000, pinv_alpha_c=0.550, ratio=550M. Deterministic. BGE-large retroactive audit: M_max=50 censoring was culprit for cycle-141 HF. With pinv+uncensored, BGE-large alpha_c=0.550 (HIGHER than MiniLM 0.400). HONEST. +1 HONEST (1035->1036).
+
+**(2) substrate_codebook_collapse_monitoring_recovery HARD_FAIL -- LABEL HONEST (high variance)**
+source=remote run_mode=full n_seeds=3. Per-seed: seed7=0.647, seed17=0.542, seed23=0.875. Mean=0.688 < 0.70 threshold. HARD_FAIL confirmed at mean level. High variance: 0.542-0.875 spread. seed23 passes individually (87.5%). Mechanism is config-sensitive, not fundamentally impossible. HONEST. +1 HONEST (1036->1037).
+
+**(3) f7_pinv_sparse_multihead_compound_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All 3 seeds: pinv_dense_h1=0.500, ALL sparse variants=0.000. Sparse-KEY kills capacity regardless of write rule or head count. Compound with sparse collapses universally. HONEST. +1 HONEST (1037->1038).
+
+**(4) f8_pinv_padfix_alpha_compound_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All 3 seeds: old_recipe=0.000, new_recipe=0.400. Deterministic. Production recipe whiten+pinv confirmed. HONEST. +1 HONEST (1038->1039).
+
+**(5) pseudoinverse_real_encoder_keys_v1 HARD_PASS -- LABEL HONEST; TRANSFER CONFIRMED**
+source=remote run_mode=full n_seeds=3. All 3 seeds: hebb_alpha_c=0.000, pinv_alpha_c=0.400, ratio=400M. MiniLM real keys. Deterministic. Real-key transfer from synthetic confirmed. HONEST. +1 HONEST (1039->1040).
+
+HONEST: 1035 -> 1040 (+5). LVH: 243 UNCHANGED.
+
+### Cap_map decisions (v463 -> v464)
+
+**(1) f6_bge_large_pinv_mmax_reaudit HARD_PASS (RETROACTIVE REVERSAL)**
+PP-8 encoder-capacity sub-axis. BGE-large sub-annotation UPDATED: was HARD_FAIL (cap=40 Hebb, M_max=50 censoring), now HARD_PASS (pinv_alpha_c=0.550, 3-seed unanimous). Cycle-141 HF was double artifact: (a) M_max=50 censoring + (b) Hebb write rule (10x suboptimal). With correct measurement + pinv: BGE-large surpasses MiniLM (0.550 > 0.400). PROT-008 triggered: retroactive state-transition from HF->HP.
+R1-R3 rescues (cheapest-first): R1=annotation BGE-large production-viable; R2=encoder scaling law (BGE 0.550 vs MiniLM 0.400 under matched conditions); R3=BGE N-sweep for stability.
+Band: LIFTED.
+
+**(2) substrate_codebook_collapse_monitoring_recovery HARD_FAIL (confirmed; high variance noted)**
+PP-8 codebook-collapse sub-axis. HF CONFIRMED: mean reduction=0.688 < 0.70. High seed variance (0.542/0.647/0.875) -- mechanism config-sensitive. Closure NOT triggered.
+R1-R4 rescues (cheapest-first): R1=aggressive restart params; R2=targeted collapse-only restart; R3=pinv+recovery compound (pinv may prevent collapse); R4=detection threshold sweep.
+Band UNCHANGED.
+
+**(3) f7_pinv_sparse_multihead_compound HARD_FAIL (sparse-KEY disqualified)**
+PP-8 compound sub-axis. Sparse-KEY incompatible with all other levers (alpha_c=0.0 universally). Dense+pinv h1 remains strong (0.50). Multi-head degrades beyond h1.
+R1-R4 rescues (cheapest-first): R1=lever table annotation (sparse-KEY mutually exclusive); R2=sparse-VALUE+pinv; R3=soft-sparse+pinv; R4=h2 degradation root cause.
+Band UNCHANGED.
+
+**(4) f8_pinv_padfix_alpha_compound HARD_PASS (production recipe confirmed)**
+PP-8 compound sub-axis. whiten+pinv production default confirmed: alpha_c=0.400 real keys, 3-seed deterministic. Old raw+hebb=0.000. Engineering deployment spec locked.
+Cap_map annotation: f8_pinv_padfix_alpha_compound HARD_PASS 3-seed full v464: old_recipe=0.000, new_recipe=0.400; whiten+pinv production default; old Hebb+raw fails real keys.
+Band UNCHANGED.
+
+**(5) pseudoinverse_real_encoder_keys HARD_PASS (transfer confirmed)**
+PP-8 write-rule sub-axis. Synthetic->real transfer confirmed for MiniLM: pinv_alpha_c=0.400, hebb=0.000. Encoder affects absolute cap (BGE=0.550 > MiniLM=0.400) but pinv universally dominates.
+Cap_map annotation: pseudoinverse_real_encoder_keys HARD_PASS 3-seed full v464: MiniLM real pinv_alpha_c=0.400 hebb=0.000; transfer confirmed; BGE>MiniLM (0.550 vs 0.400); pinv universal.
+Band UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 closures.
+
+### PROT compliance (v463 -> v464)
+- PROT-004/006: anchor 1 reversal: R1-R3. anchor 2 HF: R1-R4. anchor 3 HF: R1-R4. All cheapest-first.
+- PROT-007: v464 history row appended.
+- PROT-008: anchor 1 BGE-large retroactive HF->HP reversal; PROT-008 validator PASS (unanimous 3-seed full).
+- PROT-009: atomic commit cap_map.md + history + decisions log; 376th PROT-009.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-019: LVH 243 UNCHANGED. No new LVH.
+- PROT-021: All 5 source=remote run_mode=full n_seeds=3. CLEAN.
+- PROT-022: All 5 deterministic. No HP-fragility.
+
+Cap_map: v463 -> v464 CYCLE 143 (3 HP-full: f6_bge_large_pinv_mmax_reaudit-BGE-REVERSAL-pinv_alpha_c=0.550-RETROACTIVE-AUDIT-PASS + f8_pinv_padfix_compound-PRODUCTION-RECIPE-whiten+pinv-alpha_c=0.400 + pseudoinverse_real_encoder_keys-TRANSFER-CONFIRMED-MiniLM-0.400; 2 HF: substrate_codebook_collapse_recovery-MEAN=0.688-BELOW-0.70-HIGH-VARIANCE-SEED23-87.5-CONFIRMED + f7_pinv_sparse_multihead-SPARSE-KEY-DISQUALIFIES-ALL-COMPOUND; 0 new LVH; HONEST 1035->1040 +5; LVH 243 UNCHANGED; Portfolio 32+79; BGE-LARGE-REVERSAL-HF->HP; SPARSE-KEY-DISQUALIFIED; PRODUCTION-RECIPE-LOCKED; 376th PROT-009) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
