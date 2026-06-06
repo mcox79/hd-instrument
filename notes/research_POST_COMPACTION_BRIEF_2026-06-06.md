@@ -1,14 +1,14 @@
 # Research POST-COMPACTION BRIEF -- read this FIRST on resume
 
-**Compiled:** 2026-06-06 ~10:00 (pre-compaction)
+**Compiled:** 2026-06-06 ~20:45 (end-of-day update; supersedes morning version)
 **Read these first on resume:**
 1. This file (current state + standing responsibilities)
-2. `notes/PRIORITY_QUEUE_LIVE.md` (queue priorities; I OWN this)
-3. `notes/capability_scorecard.md` (capability matrix; check against queue every cycle)
+2. `notes/capability_scorecard.md` (capability matrix; tail entries for recent verdicts)
+3. `notes/PRIORITY_QUEUE_LIVE.md` (queue priorities; I OWN this)
 
 ---
 
-## MY ROLE + STANDING RESPONSIBILITIES (do not deviate from these)
+## MY ROLE + STANDING RESPONSIBILITIES (do not deviate)
 
 I am the Research session for hd-instrument substrate cognitive-core. Per user directive 2026-06-06:
 
@@ -23,162 +23,193 @@ I am the Research session for hd-instrument substrate cognitive-core. Per user d
 
 ---
 
-## MONITOR + WAKEUP (active background tasks)
+## STANDING RULES ADDED TODAY (locked in for resume)
 
-- **Monitor task `b3hggokoz`** (persistent): watches `notes/exp_dev_*.md`, `notes/testbed_*.md`, `notes/orchestrator_to_research*.md`; emits NEW_NOTE event per new file (30s poll)
-- **Older Monitor task `bz0v8tcmj`** is also running (overlapping coverage; can be killed with TaskStop if want to deduplicate)
-- **ScheduleWakeup at 22:20 (LAST set) -- NEED TO RESET** post-compaction: schedule 1800s (30 min) as fallback heartbeat
+From 6+ methodology saves + 7 LVH catches + multiple compound revisions today:
 
----
-
-## CURRENT STATE -- 26 FLAGSHIP ANCHORS + DIAGNOSTIC+RESCUE+REASONING TRIPLE EMPIRICALLY ANCHORED
-
-### Today's wins (rapid-fire morning of 2026-06-06)
-
-**Diagnostic+Rescue+Reasoning triple complete:**
-- Matthiessen at N=4096 FULL: codebook-collision = **100% of substrate noise** (label conservative >=60%; actual 100%); 24th flagship strengthened
-- ETF Hadamard codebook init: **10.04x at N=4096 FULL** (random_cap=204 vs hadamard_cap=2048; orchestrator cycle 117; 26th flagship; advantage GROWS with N from 8.02x at N=1024 to 10.04x at N=4096)
-- K-hop native reasoning: **lossless to K>=6** (label conservative K=3; actual K>=6 at test grid; ceiling unknown; 25th flagship strengthened)
-- Sparse-PATTERN coding: **~12x at f=0.10** (sparse_alpha 0.30 vs dense_alpha 0.025 at N=1024 smoke; exceeds Tsodyks-Feigelman 4x classical bound; Slot 3 HP)
-- Norm-gate HARDFAIL: rescue identified -- per-cluster stratified keep gives 100% coverage + 100-1000x speedup (rescue drill output)
-
-**Phase 3 capacity story dramatically improved:**
-- Yesterday's revision: 2,621 facts at N=65536 (alpha=0.040)
-- If ETF + sparse compound holds: potentially **200k-300k facts per substrate at N=65536**
-- D=8 production = **1.6-2.4M facts in LINEAR mode** (Wikipedia subset viable without cubic-tensor)
-- Critical confirmation: Slot 10 ETF Hadamard N-sweep across {4096, 16384, 32768, 65536}
-
-**Overnight wins (yesterday 22:30 - this morning 02:05):**
-- KF-1 hallucination detection at MiniLM AUC=0.999 (21st flagship)
-- Real-encoder capability transfer 1.000 with MiniLM AND Pythia (22nd flagship; encoder-invariant)
-- Continual KV injection 60 sessions / 3,600 facts / 99.8% (23rd flagship; PP-19 data point)
-- Capacity scaling XL: two-regime alpha LVH catch (alpha=0.040 large N; spawned today's chain)
-- HP-12 V2 crypto 2.234ms reproducible
-
-### HP-12 V1 SHIPPED (yesterday 16:50; 5-min manual screen recording pending User)
+1. **Pressure-test capacity metrics** before specifying. Ask "where does this metric fail empirically, and is that within substrate's operating range?" If not, metric is too lenient. (I missed this twice today on M_50 + fixed-load recall; Exp-Dev caught both.)
+2. **Disambiguation tests at M near M_c** for capacity. Not at M << M_c where both arms ceiling at 1.0.
+3. **Disambiguate "sparse coding"** between sparse-KEY (alpha coding; works) and sparse-VALUE (pattern coding; CLOSED).
+4. **Conservative empirical floors, not algebraic ceilings**, when projecting compound math. Today's 4+ compound revisions all traced to this rule.
+5. **Every architectural negative gets its own 2x drill** (not just a follow-on cell). I missed this on G5 + DIMSPARSE; user reminded both times.
+6. **Match metric across arms** for apples-to-apples comparison.
+7. **Verify literature claims before strategic synthesis** (verify-implementations rule applies to my own claims). User caught me overreaching on distillation mechanism today.
+8. **Anchor empirical claims on trustworthy metrics**: auto-assoc Hopfield exact-recovery on sign-binarized keys (not unique-value hetero metric that doesn't discriminate).
+9. **Cloud dispatch preflight gate**: include `sky launch --dryrun` validation (per Testbed's catalog cache catch).
+10. **Causal LM extraction = last-token pool**; bidirectional encoder = mean-pool/CLS.
 
 ---
 
-## WHAT'S IN FLIGHT NOW
+## MONITOR + WAKEUP
 
-### Exp-Dev pulling from PRIORITY_QUEUE_LIVE
-- **Slot 7** K-hop K=10 at N=16384 (in flight; ~60 min CPU)
-- Slot 3 full N=4096 + N=16384 (queued post-smoke)
-- T2-9 k=4 XOR at N=16384 (queued)
+- **Monitor task `b3hggokoz`** (persistent): watches notes/ for new exp_dev/testbed/orchestrator notes
+- **Monitor task `bz0v8tcmj`**: overlapping coverage; can be killed if dedup desired
 
-### Slots queued (in priority order; Exp-Dev pulls next)
-- Slot 1 cubic-tensor n=3 BUILD (multi-day eng project; NOT started)
-- Slot 7 K-hop K=10/K=20 sweep
-- Slot 8 ETF + sparse compound test (potentially ~100x; high strategic value)
-- Slot 9 Phase 4a infrastructure ETF eval (does the 10x persist on MiniLM?)
-- Slot 10 ETF Hadamard N-sweep {4096, 16384, 32768, 65536} (CRITICAL Phase 3 gate)
-- Slot 11 U2 stacked defense (codebook + query layer)
-- Slot 12 per-cluster stratified extraction (cost-story rescue)
-- Slot 13 concept-uniform random extraction (floor case)
-- 2 varied-seed re-runs (capacity_xl seeds=10; hp12_v2_crypto seeds=10)
-- 12 Tier-2 backlog cells
+---
 
-### Pending USER decisions
-- **CLOUD-1 7B vs 70B** ($0.50-1; binding extraction-infrastructure test) -- NOT YET AUTHORIZED
-- **CLOUD-2 distilled student** ($15; 20-40x permanent speedup) -- NOT YET AUTHORIZED
-- HP-12 V1 5-min screen recording (manual)
+## TODAY'S MAJOR EMPIRICAL FINDINGS (irrefutable; trustworthy metrics)
 
-### Pending ORCHESTRATOR
-- Acknowledged my retraction (runners healthy in venv launcher->child pattern; no kills needed)
-- No active asks
+### 32 FLAGSHIP ANCHORS (NEW today: 27-32)
 
-### Pending TESTBED
-- Watchdog fix permanent commit confirmation
-- FAISS env Windows OpenMP fix (gates HP-12 V2; Tier-3 cells)
-- Llama-1B weights local download (optional; gates HotpotQA-1B Tier-3 cell)
+- 21st-26th from overnight + morning: KF-1 / real-encoder / continual KV / ETF Hadamard
+- 27th: G2 KF-1 robustness AUC 0.975 hard same-domain
+- 28th: G4 continual KV at N=8192 / 60 sessions / 99.8%
+- **29th: K-hop K=10 at N=16384 100% accuracy + PP-11 BAND-LIFT (Drill X validated)**
+- **30th: analogy_map 100% (new capability class; Batch A)**
+- **31st: frame_slot_fill k=16 100% (new capability class; Batch A)**
+- **32nd: continual KV at N=32768/120 sessions/100% retention (cycle 129; production scale!)**
+
+### CYCLE 126 LVH #228 -- Slot 9 ETF Hadamard re-measured
+
+- Was 2.75x metric artifact
+- **NOW 38x SINGLE-AXIS at 2/3 seeds (1/3 ZCA collapse; R2 patch needed)**
+- Validates Drill W algebraic ceiling territory
+
+### CYCLE 128 EFFECTIVE-RANK SVD VALIDATION
+
+- **d_eff(participation) = 82.1 in nominal D=384 MiniLM**
+- VALIDATES intrinsic-dim framework (Drill W predicted ~50-80)
+- Explains ALL today's encoder-side ceilings as intrinsic-rank limits
+- 3-way framework convergence: cycle 124 + Drill Z CS-1 + Drill W d_eff
+
+### CYCLE 129 LVH #231 -- LM-ENCODERS DEFINITIVELY OUT
+
+- Pythia-160m d_eff = 18.3 vs MiniLM d_eff = 77.1 (4.2x LOWER despite 2x larger nominal)
+- **LM-trained encoders OUT of Phase 4 candidate set**
+- **Phase 4 production encoder = sentence-transformer family** (MiniLM baseline; MPNet/BGE upgrade targets in Batch B)
+
+### CELL-1 ARCHITECTURAL_CONFIRMED -- 70B late-layer crash is REAL
+
+- L=74 fp16 = NF4 = 0.056 EXACT (no quant rescue)
+- Drill X prediction validated: H2 (late-layer specialization) PRIMARY, H1 (quant) SECONDARY
+- Revised cheap-fleet: 1B (0.282) > 8B (0.248) ~ 70B fp16 (0.244); MiniLM 0.890 still dominates
+- **Layer convention finalized: 1B L=15, 8B L=29, 70B L=50 (mid-depth, opposite of 1B/8B)**
+
+### Batch A all 4 HP at smoke
+
+- **HOC1 word bigram AUC 0.970** -- KF-1 word-order gate CLOSES with lightweight feature
+- EFFECTIVE-RANK d_eff=82 (framework validation)
+- analogy_map + frame_slot_fill (30th + 31st flagships)
+
+### Cycle 127 + 129 PSE1 sqrt-K trajectory
+
+- Coverage = 1.0 (structured extraction confirmed)
+- Speedup ceiling = 12x at production corpus (not 100x; partition-geometry-determined)
+- VQ-fidelity: sqrt-K beats uniform by 3.9% (marginal)
+
+---
+
+## TODAY'S ACTIONS PENDING USER (end-of-day status)
+
+| Item | Status |
+|---|---|
+| CELL-1 fp16 70B | DONE; ARCHITECTURAL_CONFIRMED at $1.95 |
+| 70B-Instruct NF4 follow-up | AUTHORIZED at $0.65; standing for Testbed dispatch |
+| CELL-2 Wikipedia extraction at 1B L=15 | Pending user auth ($31-50) |
+| CELL-3 distilled 22M student | Gated on CELL-2 ($15) |
+| CELL-4 HP-12 V2 at 100K | Gated on CELL-2 + FAISS env ($10-20) |
+| CELL-5 cascade distillation FD smoke | Pending user Together API key ($4-9) |
+| Standard Batch A (4 cells) | ALL HP at smoke; full multi-seed pending |
+| Standard Batch B (8 cells; $0) | Routed to Exp-Dev; ~3.5h sequential / ~1.5h parallel |
+| Re-pointed real-encoder family | Continuing (whitened-sign Hopfield) |
+| FAISS env Windows OpenMP fix | Recommended idle-time Testbed priority |
 
 ---
 
 ## CRITICAL STRATEGIC CONTEXT FOR RESUME
 
-### The "audacious vision" status
+### Phase 4 production architecture FINALIZED (empirically grounded)
 
-Goal: Wikipedia substrate cognitive core (memory + reasoning + audit moat) paired with LLM partner, deployable at consumer-hardware cost.
+| Component | Decision | Source |
+|---|---|---|
+| Encoder family | **Sentence-transformer** (MiniLM baseline; MPNet/BGE upgrade target post-Batch-B) | Cycle 129 LM-encoders OUT |
+| Causal-LM (if used) | **Llama-3.2-1B at L=15** | CELL-1 + CLOUD-1b |
+| 70B caveat | L=50 mandatory; L>60 unusable | CELL-1 architectural |
+| Substrate codebook | Hadamard / ETF whitening | Slots 2/10/9 |
+| Sparse mechanism | **sparse-KEY α coding only** (sparse-VALUE definitively closed cycle 125) | Slot 3 + cycle 125 |
+| Compound | **Hierarchical sequential** (test in Batch B) | Cycle 129 naive mixture HF |
+| Hallucination stack | substrate grounding + HOC1 bigrams + NEG1 NLI | Batch A + drill outputs |
+| Audit | HP-12 V1 RSA accumulator | Shipped 17-20th flagships |
+| Streaming memory | Continual KV W-free | 32nd flagship cycle 129 |
+| Reasoning | K-hop K=10 + analogy + frame_slot_fill | 29th-31st flagships |
+| Extraction | Per-cluster stratified (12x speedup ceiling) | Cycle 127 |
+| Wikipedia layer | **1B L=15** (saves $150-370 vs original layer-10 plan) | CELL-1 |
 
-Today's compounding wins:
-- Capacity: ETF + sparse compound could give ~100x linear-mode capacity rescue
-- Reasoning: K-hop lossless to K>=6 (substrate-native; LLM-free)
-- Cost: per-cluster stratified rescues "$333k -> $31" extraction story
-- Audit: HP-12 V1 SHIPPED (cert <1ms; 0 phantom; frontier-LLM contrast 0% vs ROME 38%/MEMIT 29%)
+### The intrinsic-dim framework is the unifying explanation
 
-If Slot 8 (ETF+sparse compound) HPs AND Slot 10 (N-sweep) confirms at N=65536, **Phase 3 linear-mode could reach 1.6-2.4M facts at D=8 -- Wikipedia subset viable without cubic-tensor**.
+All today's encoder-side ceilings = intrinsic-rank limits (d_eff). Not substrate limits. Substrate can absorb arbitrarily more capacity. The primary lever is **higher-d_eff encoder**.
 
-Cubic-tensor (Slot 1 BUILD) is still needed for full Wikipedia (35-70M facts) but no longer the only path to Wikipedia-subset.
+3-way convergence:
+- **Cycle 124 empirical:** axes are activation-regime-dependent
+- **Drill Z CS-1 theory:** Donoho-Tanner phase boundary in (delta, rho) space
+- **Drill W mechanism:** intrinsic-dim-limited via d_eff plateau
+- **Cycle 128 empirical anchor:** d_eff = 82 on MiniLM
 
-### Process changes today (don't forget)
+CS-1 algebraic audit (Batch B; ~1h CPU) will calibrate the phase-boundary math with the empirical d_eff anchor.
 
-1. **PRIORITY_QUEUE_LIVE.md is the SSOT** -- user explicitly asked for this; do not regress to scattered routing notes
-2. **Direct notes to recipients** -- if Testbed has cloud action, ship Testbed note; if Orchestrator has runner action, ship Orchestrator note; if Exp-Dev has cell spec change, ship Exp-Dev note
-3. **No re-run padding ever** -- byte-identical metrics = zero info; brief idle gaps acceptable
-4. **Varied-seed re-runs only for MIDDLE-band cells where CI/variance gates a decision** (Exp-Dev needs to add seed-randomization flag)
-5. **Metric hygiene:** auto-assoc Hopfield + FLIP=0.05 + unique patterns + 0.95 accuracy (NOT lenient hetero-saturating); applies to ALL future capacity-comparison drills
+### Audacious vision NOW = 2-week eng project + $50-75 cloud
 
-### Drill prompt checklist (updated today)
-
-When dispatching capacity-comparison drills, specify EXACTLY:
-- Auto-assoc not hetero (unless hetero IS the target)
-- Unique patterns (M = distinct memories)
-- Flip-corrupted cue (NON-trivial retrieval; FLIP=0.05 is the clean regime)
-- Strict >=0.95 accuracy threshold
-- Single-step retrieval (iterating can fill sparse zeros and destroy signal)
-- For sparse: option-(a) sparse PATTERN coding (k-of-N active components), NOT write pruning or sparse connectivity
-
-### Today's negatives + rescue paths
-
-- **Norm-gate HARDFAIL** -> rescue: per-cluster stratified (Slot 12) or concept-uniform random (Slot 13)
-- **Capacity two-regime alpha MIDDLE** (cycle 116) -> rescue: ETF Hadamard 10x (cycle 117 HP)
+(Cheaper than Drill Y morning estimate of $100-200 because CLOUD-1b revealed 1B is sufficient at correct layer.)
 
 ---
 
-## RECENT NOTES + COMMITS (last 12 commits; all 2026-06-06)
+## RECENT COMMITS (last ~15; all 2026-06-06)
 
 ```
-64673e0 exp_dev: queue way more genuine cells (4 batch) -- Slot 3/6/7 + T2-9
-f525157 research: triple landing -- Slot 3 sparse HP + cycle 118 + extraction rescue
-88cd098 exp_dev: queue more genuine cells -- Slot 7 K-hop N=16384 + T2-9 k4-XOR
-9744356 research: cycle 118 -- Matthiessen 100% + K-hop K>=6
-53e0ee9 exp_dev: Slot 3 sparse-PATTERN HARD_PASS ~12x
-3d411eb orchestrator: results summary cycle 118 (v440)
-c2ce9e5 Cap map: v439->v440 CYCLE 118 2HP
-468a9f3 research: Slot 6 norm-gate HARDFAIL + 2x rescue drill dispatched
-3f0368f research: RETRACT prior kill request -- runners healthy
-2295cb6 research: ETF Hadamard FULL RUN 10.04x at N=4096 + Slot 10/11
-9157937 research: Slot 3 sparse-write spec clarified -- sparse PATTERN coding
-2a416d2 research: ETF Hadamard HP -- 8.02x capacity at zero cost (26th flagship)
+f0b5fb9 research: 70B-Instruct NF4 follow-up AUTHORIZED at ~$0.65
+bbce16a research: Testbed idle-time priority routing -- FAISS env fix
+64b2c10 research: CELL-1 ARCHITECTURAL_CONFIRMED -- 70B late-layer crash is REAL not quantization
+b06d07c research: Batch B ADDENDUM -- swap LM-encoders for sentence-transformer family + add hierarchical
+934b0a2 research: cycle 129 -- 32nd flagship + LM-encoders DEFINITIVELY OUT + naive mixture HF
+29d482e research: Batch B AUTHORIZED -- 7 cells; EFFECTIVE-RANK multi-encoder is NEW HIGHEST PRIORITY
+851a0ac research: Batch A ALL 4 HP at smoke -- 30th + 31st flagships + EFFECTIVE-RANK validates framework
+c855d6b research: cycle 128 -- d_eff=82 is the day's unifying insight
+851b46f research: CLOUD-1b HARD_PASS -- cheap fleet vindicated; PHASE4A-6 layer-10 needs urgent revision
+ff1700a research: cycle 126 -- Slot 9 ETF re-measured at 38x (LVH #228; metric artifact) + KF-1 negation LOCKED
+eeb336b research: distillation claim VERIFIED + mechanism CORRECTED
+... [see git log for full]
 ```
 
 ---
 
 ## IMMEDIATE NEXT ACTIONS ON RESUME
 
-1. **Reset ScheduleWakeup** -- 1800s (30 min) heartbeat (the prior one from yesterday is stale)
-2. **Verify Monitor `b3hggokoz` still active** -- if not, restart with same command
-3. **Check for any new notes** since this brief (`ls -lat notes/exp_dev_*.md notes/testbed_*.md notes/orchestrator_to_research*.md | head -3`)
-4. **Synthesize any landed verdicts** per standing rule (cross off LIVE queue + add follow-ons + commit)
-5. **Standing items to follow up on:**
-   - User cloud auth decisions (CLOUD-1 / CLOUD-2)
-   - Slot 7 K-hop K=10 verdict (most likely next landing)
-   - Slot 8 ETF+sparse compound (key strategic test)
-   - Slot 10 Hadamard N-sweep (Phase 3 critical gate)
+1. **Check for Batch B verdicts** (8 cells in flight; Exp-Dev landing over next hours)
+   - Especially: EFFECTIVE-RANK on MPNet/BGE (production encoder choice)
+   - DIMSPARSE3-α at M near M_c (compound math definitive)
+   - CS-1 algebraic audit (framework calibration)
+   - Hierarchical Hadamard → sparse-KEY α (sequential stacking)
+
+2. **Check 70B-Instruct Testbed verdict** ($0.65; ~15 min compute)
+
+3. **Check Slot 10 full multi-seed at N=16384** (LVH #229 confirmation gate)
+
+4. **Check HOC1 full multi-seed + negation generalization** (LVH #230 confirmation)
+
+5. **Check re-pointed family verdicts** (Slot 9 with whitening; Slot 14; G8 with auto-assoc Hopfield + sign-binarized real keys)
+
+6. **Check G4 full** (continual KV at 120 sessions / 6h timeout; already landed = 32nd flagship)
+
+7. **User decisions still pending:**
+   - CELL-2 Wikipedia extraction at 1B L=15 ($31-50; saves $150-370 vs layer-10)
+   - CELL-5 Together API key ($4-9)
+   - CELL-3/4 conditional on CELL-2
 
 ---
 
 ## STRATEGIC PRIORITIES (in priority order)
 
-1. **Confirm ETF + sparse compound** (Slot 8) -- if ~100x holds, Phase 3 linear mode hits Wikipedia subset
-2. **Confirm ETF persistence at N=65536** (Slot 10) -- gates the entire Phase 3 commitment
-3. **K-hop ceiling identification** (Slot 7) -- empirically anchor substrate-native reasoning depth
-4. **Per-cluster stratified extraction** (Slot 12) -- rescues cost-reduction story
-5. **Cubic-tensor BUILD** (Slot 1) -- still needed for full Wikipedia 35-70M scale; multi-day eng
-6. **Cloud experiments** (CLOUD-1/CLOUD-2) -- user-auth-gated; informs extraction infrastructure choice
+1. **Resolve compound stacking definitively** (DIMSPARSE3-α + hierarchical Hadamard→sparse cells in Batch B)
+2. **Identify highest-d_eff sentence-transformer encoder** (EFFECTIVE-RANK on MPNet/BGE) → Phase 4 production encoder upgrade
+3. **Validate CS-1 phase-boundary framework** (algebraic audit with empirical d_eff anchor) → paradigm-shift unification
+4. **Demonstrate composition: per-hop hallucination localization** (fact_checked_khop + auditable_khop_kf1) → KILLER vs frontier LLMs
+5. **Production deployment cells** (CELL-2 extraction + CELL-3 distillation + CELL-4 HP-12 V2 + FAISS env)
+6. **Cubic-tensor n=3 BUILD** (Slot 1; still gated by capacity story but less urgent given encoder-d_eff is the primary lever)
 
 ---
 
 ## END OF BRIEF
 
-Compaction may now happen. On resume: read PRIORITY_QUEUE_LIVE.md + capability_scorecard.md + this brief first. Standing responsibilities continue as documented above.
+Compaction may now happen. On resume: read this BRIEF + tail of `capability_scorecard.md` + `PRIORITY_QUEUE_LIVE.md` first. Standing responsibilities continue as documented above.
+
+**Today's discipline pattern (LVH catches + methodology saves + drill predictions empirically validated) was the highest-leverage system. Maintain.**
