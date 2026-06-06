@@ -1,0 +1,2 @@
+# visibility_decisions_2026-06-06
+CYCLE 124 (2026-06-06 v445->v446): substrate_dim_expansion_plus_sparse_pattern_compound_v1 HARD_FAIL. Stacking test inconclusive: sparse-pattern arm (c) null at M=50 (gain_c=1.00x); compound = max(b,c) = dim-expansion alone. Stacking question DEFERRED; M-activation sweep for sparse-pattern needed first. R1-R5 filed cheapest-first. PP-8 stacking sub-axis annotated deferred. HONEST 970->971. LVH 226 UNCHANGED.

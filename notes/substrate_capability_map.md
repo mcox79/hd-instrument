@@ -11299,3 +11299,41 @@ Rationale: A and C are sub-property probes within PP-8; neither produces evidenc
 
 Cap_map: v443 -> v444 CYCLE 122 (2 HF: embedding_norm_gate_COVERAGE-0.43-AT-0.90-THRESHOLD + kf1_truthfulqa_NEGATION-AUC-0.034-ENCODER-LIMIT; 1 MID: etf_minilm_n_sub_lower-D384-LIFT-1.21x-D512-CEILING-SATURATED; 0 HP; 0 LVH; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; HONEST 958->961; LVH 225; Portfolio 32+77; 356th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v445 -> v446 CYCLE 124 (2026-06-06)
+
+Verdict processed: substrate_dim_expansion_plus_sparse_pattern_compound_v1 (HARD_FAIL)
+
+### Step 0 honest re-read (MANDATORY)
+
+- substrate_dim_expansion_plus_sparse_pattern_compound_v1: HONEST. Smoke n=1. arms={'a_baseline':2304, 'b_expand_keys':3072, 'c_sparse_values':2304, 'd_compound':3072}. gain_b=1.33x gain_c=1.00x gain_d=1.33x expected_stacking(b*c)=1.33x d/expected=1.00. Compound arm d equals max(b,c) not b*c. sparse_values arm (c) gave zero gain at M=50 -- c is a null lever at this M. Compound collapses to single-lever ceiling (dim-expansion only). HARD_FAIL label correct. No LVH.
+HONEST: 970 -> 971 (+1). LVH: 226 UNCHANGED.
+
+### Cap_map decisions
+
+**substrate_dim_expansion_plus_sparse_pattern_compound_v1 HARD_FAIL**
+PP-8 ETF dim-expansion + sparse-pattern stacking sub-axis. HARD_FAIL smoke n=1.
+Key finding: sparse-pattern codes (c arm) produce ZERO gain at M=50 (gain_c=1.00x = baseline). This means the compound HARD_FAIL is a null-c artifact: stacking dim-expansion + a null lever cannot beat dim-expansion alone. This is NOT a stacking impossibility result -- it is a sparse-pattern-at-M=50 null result. The rescue axis question from cycle 123 (can these two levers stack?) is UNANSWERED because one lever failed to activate.
+Annotation on PP-8 stacking sub-axis: stacking HF at M=50 due to sparse-pattern null (c=1.00x). Stacking question deferred pending sparse-pattern-at-higher-M confirmation.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+R1 (0-compute, SUBSUMPTION): Stacking question trivially reduces to: first confirm sparse-pattern arm is non-null. If c>1.00x exists at higher M, retest compound there. Config change only.
+R2 (CHEAP, CPU <30min): M sweep for sparse-pattern arm alone (M={100,200,500,1000}) to find activation threshold where gain_c>1.00x.
+R3 (CHEAP, CPU <30min): Compound test at M=200+ once sparse-pattern non-null M is identified. Direct stacking answer.
+R4 (CHEAP, CPU <30min): Alpha-sweep on sparse-pattern coding (try denser/sparser codes) to see if M=50 null is alpha-specific.
+R5 (MEDIUM, CPU <2h): Cross-encoder sweep of compound at identified activation M across MiniLM, MPNet, Pythia to characterize encoder-dependence of stacking.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v445 -> v446)
+- PROT-004/006: No closures. R1-R5 filed cheapest-first.
+- PROT-007: v446 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 358th PROT-009 paired commit.
+- PROT-018: No _nN suffix on anchor. CLEAN.
+- PROT-021: source=remote run_mode=smoke n=1. Smoke HF with mechanistic interpretation (c null at M=50); stacking question deferred not closed.
+- PROT-022: Smoke n=1; no HP-fragility assessment. Single-lever ceiling is deterministic (arms measured directly).
+
+Cap_map: v445 -> v446 CYCLE 124 (1 HF: dim_expansion_plus_sparse_pattern_compound-SMOKE-C-NULL-M50-STACKING-DEFERRED; 0 HP; 0 MID; 0 LVH; PP-8 stacking sub-axis deferred-null-c; HONEST 970->971; LVH 226 UNCHANGED; Portfolio 32+77; 358th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
