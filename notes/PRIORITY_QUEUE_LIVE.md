@@ -233,6 +233,7 @@ Per user directive 2026-06-06:
 - **Strategic value:** trivially ships; no training
 
 ### Slot G13 (NEW; from G5 HF -- contradiction detection on order-sensitive encoder): `substrate_kf1_contradiction_detection_order_sensitive_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_FAIL: Pythia negation AUC 0.111, even order-sensitive grounding fails -> needs NLI head); queued GPU
 - **Wall:** ~75 min GPU
 - **Source:** G5 HARDFAIL (negation AUC=0.034) + same encoder-limit class as G2/G11
 - **Architecture:** KF-1 contradiction detection on Pythia/Llama-1b residuals OR with NLI head (e.g., BART-MNLI)
@@ -435,6 +436,7 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HF:** combined approx max(individual) (mechanisms are redundant)
 
 ### Slot G8 (NEW; cross-encoder Pythia/Llama-1b dim-expansion): `substrate_dim_expansion_cross_encoder_pythia_llama_v1`
+- **Status:** LAUNCHED by exp_dev 2026-06-06 (smoke HARD_PASS: expansion scales 6.68x on Pythia; side-finding raw Pythia cap=0 -> LM embeddings need whitening); queued GPU
 - **Wall:** ~90 min GPU (2 encoders)
 - **Source:** Orchestrator cycle 119 -- Phase 4B cross-encoder test
 - **Why:** Slot G1 tests mpnet (sentence-transformer family); orchestrator wants encoder-family-agnostic confirmation via Pythia-160m + Llama-1b (LM family). If dim-expansion works across encoder families, the rule is universal.
