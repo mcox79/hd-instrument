@@ -10931,3 +10931,61 @@ True-continual-learning row cross-annotation:
 
 Cap_map: v436 -> v437 CYCLE 115 (1 HP: substrate_continual_kv_injection_v1 KV-INJECTION-FIDELITY-LONG-STREAM-0.998-ZERO-CONTRADICTION; 0 MID; 0 HF; 0 LVH; PP-19 + true-continual sub-prop annotations; HONEST 947->948; LVH 223; Portfolio 32+77; 349th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v438 update (2026-06-06) -- CYCLE 116: 1 LVH #224 (substrate_capacity_scaling_sweep_xl HARD_PASS->MIDDLE_BAND alpha-not-globally-stable); 0 HP; 1 MID genuine corroboration (exp_hp12_v2_crypto_2048_gmpy2); 0 HF; HONEST 948->950; LVH 223->224; Portfolio 32+77; 350th PROT-009 paired commit
+
+## CYCLE 116 -- v437 -> v438 (2026-06-06)
+
+### Step 0 honest re-read (MANDATORY)
+
+**Reship check (V1): exp_hp12_v2_crypto_2048_gmpy2_latency_v1 vs cycle 105 hp12_v2_crypto_2048_gmpy2_latency_v1**
+exp_ prefix version anchor_name=exp_hp12_v2_crypto_2048_gmpy2_latency_v1 confirmed by remote metrics. Per-seed delete_p50 values differ from cycle 105 no-prefix run (seed7: 2.181ms vs 2.125ms; seed17: 2.150 vs 2.139; seed31: 2.280 vs 2.331ms). Different timing variance across seeds = distinct runs. NOT a re-ship duplicate. Genuine new independent measurement confirmed.
+
+**(V1) exp_hp12_v2_crypto_2048_gmpy2_latency_v1 MIDDLE_BAND -- LABEL HONEST**
+delete_p50 5-seed: 2.181/2.150/2.472/2.280/2.088ms (mean=2.234ms). add_p50 mean=0.125ms. verify_p50 mean=0.136ms. certs_verified_frac=1.000 all 5 seeds. gmpy2=True, RSA-2048. delete 2.234ms in 1-5ms MIDDLE_BAND window. V2-usable label accurate. No over-claim. No LVH.
+
+**(V2) substrate_capacity_scaling_sweep_xl_v1 HARD_PASS -- LVH #224 FLAGGED**
+Label: HARD_PASS 'stable alpha -- Phase-3 N=65536 blueprint supported. mean_alpha(M*/N)=0.048'.
+Per-cell alpha_by_N (9/10 seeds identical): N=1024: 0.0596, N=2048: 0.0596, N=4096: 0.0399, N=8192: 0.0399, N=16384: 0.0400.
+- Two-regime structure CONFIRMED: N<=2048 alpha=0.0596, N>=4096 alpha=0.040 (33% regime drop at N=4096 boundary).
+- N>=4096 regime IS stable: 0.0399/0.0399/0.0400 at N=4096/8192/16384 (3 consecutive N-doublings at 0.040). NEW vs v1 LVH #223 (had only 2 data points in N>=4096 regime).
+- Seed determinism: 9/10 seeds identical; seeds 71+101 are minor outliers only. Effective independent measurements ~2-3.
+- mean_alpha=0.048 = cross-regime average (both regimes). N=65536 Phase-3 extrapolation at settled-regime alpha=0.040 gives ~2621 facts; verdict_msg mean_alpha=0.048 gives ~3145 facts (20% over-estimate).
+- Over-claim: (a) alpha is NOT globally stable -- two-regime structure; (b) mean_alpha=0.048 over-states settled Phase-3 capacity by 20%.
+- Honest verdict: MIDDLE_BAND UPGRADED vs v1 -- M~N linearity confirmed 5 N-points; N>=4096 alpha=0.040 stable (3 data points); Phase-3 extrapolation better-supported; determinism limit + two-regime alpha over-claim persist.
+LVH #224: label=HARD_PASS honest=MIDDLE_BAND.
+
+HONEST: 948 + 2 = 950. LVH: 223 + 1 = 224.
+
+### (V1) exp_hp12_v2_crypto_2048_gmpy2_latency_v1 MIDDLE_BAND [source=remote n_seeds=5 RSA-2048 gmpy2=True run_mode=full elapsed=4.72s]
+
+Plain-language: We ran a second independent measurement of RSA-2048 deletion certificate latency with gmpy2 acceleration. The result (2.234ms delete median) is essentially identical to the first run (2.216ms from cycle 105). This confirms that RSA-2048 gmpy2 deletion latency is reliably ~2.2ms -- not a one-off measurement. The V2 demo will use RSA-512 for the headline sub-millisecond figure, but full-strength RSA-2048 is available for workflows where 2ms per deletion is acceptable.
+
+Capability implication: PP-12 deletion-cert crypto path gains a second empirical anchor. RSA-2048 gmpy2 delete latency band now anchored at 2.2ms +/- 0.15ms across 10 total seeds (2 independent runs). V2 crypto path de-risked.
+
+PP-12 sub-property corroboration annotation:
+'exp_hp12_v2_crypto_2048_gmpy2_latency MIDDLE_BAND v438: RSA-2048 gmpy2=True 5-seed full; delete_p50 mean=2.234ms (range 2.088-2.472ms); add_p50=0.125ms; verify_p50=0.136ms; certs_verified=1.000(5/5). Second independent run corroborates cycle 105 (2.216ms). RSA-2048 gmpy2 delete band: 2.2ms +/-0.15ms across 10 seeds total (2 independent runs). V2 demo RSA-512 for <1ms headline; RSA-2048 batch-deletion V2-usable at 2.2ms/cert. Band UNCHANGED.'
+
+### (V2) substrate_capacity_scaling_sweep_xl_v1 [LVH #224: HARD_PASS -> MIDDLE_BAND; source=remote n_seeds=10 N=1024-16384 run_mode=full elapsed=887.9s]
+
+Plain-language: We tested how much the substrate can store (capacity) as we increase its vector dimension N from 1024 up to 16384 -- a 16x range. The storage scales linearly with N (doubling N roughly doubles capacity). However, the rate of scaling (alpha) is not constant: it is higher at small N (0.060) and drops by a third at N=4096 and above to 0.040, where it then stays flat through N=16384. The experiment's label claimed a single stable alpha supporting the Phase-3 blueprint, but the data shows two distinct regimes. The good news: the low-alpha regime IS stable across the last three N-doublings, so Phase-3 at N=65536 would yield roughly 2600 facts (using the settled 0.040 rate), not the 3100 suggested by the label's averaged figure.
+
+Capability implication: Capacity scaling axis confirms M~N linearity holds but with a Phase-3 planning correction: use alpha=0.040 (not 0.048) for N=65536 capacity projections. This is a 20% downward revision from the label's figure. The stability of alpha at 0.040 across N=4096/8192/16384 reduces extrapolation risk vs the prior v1 LVH #223, but one additional stochastic sweep (v434 R3) is still needed to confirm the deterministic result holds under genuine seed variation.
+
+Capacity scaling sub-property annotation (UPGRADED vs v1 at v434):
+'substrate_capacity_scaling_sweep_xl MIDDLE_BAND v438 [LVH #224 honest-read applied]: M~N linearity CONFIRMED 5 N-points (1024-16384) 10 seeds; N>=4096 regime alpha=0.040 STABLE (3 N-doublings: 4096/8192/16384 all at 0.040) -- UPGRADED vs v1 (2 data points); two-regime alpha (0.060 N<=2048 vs 0.040 N>=4096) CONFIRMED; mean_alpha=0.048 cross-regime average; Phase-3 planning: use alpha=0.040 for N=65536 projection (~2621 facts) not 0.048 (~3145, 20% over-estimate); seed determinism (9/10 identical) limits effective replication; stochastic probe (v434 R3) still open. v434 R2 rescue PARTIALLY CONFIRMED (N=16384 added; alpha stable in N>=4096 regime). Band UNCHANGED.'
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS. 0 closures.**
+**HONEST: 948 -> 950 (+2). LVH: 223 -> 224 (+1).**
+
+**PROT compliance (v437 -> v438):**
+- PROT-004/006: No closures. V2 LVH MIDDLE_BAND: v434 R1-R3 rescues remain active; R2 partially confirmed (N=16384 stable); R3 stochastic probe still open. V1 MIDDLE_BAND corroboration: no rescue needed.
+- PROT-007: v438 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; no row state changes; no portfolio changes; 1 LVH downgrade. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 350th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on either anchor. N values stated in metrics bodies. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 delete latency variance normal (2.088-2.472ms; timing-bound variance expected); V2 9/10 identical seeds flagged (deterministic geometry; seeds 71+101 minor outliers; effective n~2-3).
+
+Cap_map: v437 -> v438 CYCLE 116 [label-vs-honest] (1 LVH #224: substrate_capacity_scaling_sweep_xl HARD_PASS->MIDDLE_BAND alpha-not-globally-stable mean_alpha-0.048-over-states-Phase3-by-20pct 3-N-points-in-N>=4096-regime-NEW; V1 exp_hp12_v2_crypto MIDDLE_BAND-CORROBORATION-2.234ms-GENUINE-NEW-RUN; HONEST 948->950; LVH 223->224; Portfolio 32+77; 350th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
