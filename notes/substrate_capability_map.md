@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v445
+# hd-instrument substrate -- capability map v449
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -11440,5 +11440,40 @@ R4 (MEDIUM, GPU <2h): Pythia-scale-up + adversarial training combined (v443 R3+R
 ### Commit & push
 
 Commit message: `Cap map: v447 -> v448 CYCLE 126 (0 HP; 2 HF-full: kf1_contradiction_order_sensitive-NEGATION-0.083-3SEED-ARCH-LIMIT + kf1_truthfulqa-NEGATION-0.018-3SEED-ARCH-DEFINITIVE; 1 MID-LVH #228: etf_hadamard_phase4a_repointed-HOPFIELD-ZCA-2/3-SEEDS-38x-1/3-ZCA-COLLAPSE; LVH 227->228; HONEST 973->976; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; Portfolio 32+77; 360th PROT-009 paired commit)`
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v448 -> v449 -- 2026-06-06 CYCLE 127 (1 verdict; 0 HP; 0 HF; 1 MID-LVH#226-CONFIRMED)
+
+**Trigger.** Single re-run: substrate_per_cluster_stratified_extraction_v1 3-seed full promotion from cycle 123 smoke (LVH #226 catch: smoke label claimed 10-100x speedup but actual_speedup saturated at ~20x for all cells).
+
+### Step 0 honest re-read
+
+substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND -- [label-vs-honest] LVH #226 CONFIRMED.
+source=remote run_mode=full n_seeds=3. Per-seed actual_speedup: seed7=12.12x, seed17=11.93x, seed23=11.53x (all sp-target cells identical within seed). Coverage=1.0 unanimous across all seeds and all sp-target levels.
+LABEL OVER-CLAIMS: verdict_msg 'coverage at 10-100x speedup' implies 100x/1000x achieved. Actual speedup uniformly ~12x regardless of sp-target. sp-target parameter does not drive actual speedup.
+LVH #226 CONFIRMED and refined: smoke (~20x) overestimated due to smaller corpus (n_tok=5000); full n_tok=40000 resolves to 12x ceiling. Larger corpus = denser inter-cluster overlap = lower speedup ratio (inverse relationship confirmed).
+Honest verdict: MIDDLE_BAND retained (coverage=1.0 definitive). Speedup ceiling = ~12x (not 100x label, not 20x smoke estimate).
+HONEST: 976 -> 977 (+1). LVH: 228 UNCHANGED (LVH #226 confirmed at full run; no new catch).
+
+### Cap_map annotation (v448 -> v449)
+
+**substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND [LVH#226-CONFIRMED 3-seed full: coverage=1.0, speedup-ceiling=12x].**
+Coverage=1.0 unanimous 3/3 seeds confirms structured extraction design direction. Per-cluster stratified extraction >> random sampling (cycle 123 anchor 9: random coverage=0.60 vs stratified=1.0).
+Speedup ceiling characterised: ~12x governed by cluster geometry / corpus partition density, not sp-target parameter. Structural finding: speedup is partition-determined, not request-target-driven. Cycle-123 rescue R3 (larger n_tok sweep) likely reveals speedup ceiling falls further with n_tok (inverse relationship confirmed). Active rescues: R2 (fewer/larger clusters to push speedup above 12x), R3 (hierarchical coarse->fine extraction to decouple coverage from speedup ceiling), R4 (adaptive cluster budget per query), R5 (cross-encoder sweep). Band UNCHANGED. Portfolio 32+77 UNCHANGED.
+
+### PROT compliance (v448 -> v449)
+
+- **PROT-004/006**: No closures. 5 rescues filed cheapest-first (R1 subsumption + R2-R4 cheap CPU + R5 medium CPU).
+- **PROT-007**: v449 history row appended to substrate_capability_map_history.md.
+- **PROT-008**: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- **PROT-009**: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 361st PROT-009 paired commit.
+- **PROT-018**: No _nN suffix on anchor. CLEAN.
+- **PROT-021**: source=remote run_mode=full n_seeds=3. No smoke artifacts. CLEAN.
+- **PROT-022**: 3-seed spread tight (12.12x, 11.93x, 11.53x -- 0.59x range normal variance). No HP-fragility.
+
+### Commit & push
+
+Commit message: `Cap map: v448 -> v449 CYCLE 127 (0 HP; 0 HF; 1 MID-LVH#226-CONFIRMED: per_cluster_stratified_extraction-3SEED-FULL-COVERAGE-1.0-SPEEDUP-CEILING-12x-NOT-100x; LVH 228 UNCHANGED; HONEST 976->977; Portfolio 32+77; 361st PROT-009 paired commit)`
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.

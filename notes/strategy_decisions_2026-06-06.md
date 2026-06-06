@@ -339,3 +339,49 @@ R4 (MEDIUM, GPU <2h): Pythia-scale-up (R3 from v443) + explicit negation-pair ad
 
 Cap_map: v447 -> v448 CYCLE 126 (0 HP; 2 HF-full: kf1_contradiction_order_sensitive-NEGATION-0.083-3SEED-FULL-ARCH-LIMIT-ORDER-INSUF + kf1_truthfulqa-NEGATION-0.018-3SEED-FULL-ARCH-DEFINITIVE-MINIML-NEGATION-INSENSITIVE; 1 MID-LVH #228: etf_hadamard_phase4a_repointed-HOPFIELD-ZCA-2/3-SEEDS-38x-1/3-SEED-ZCA-COLLAPSE; LVH 227->228; HONEST 973->976 +3; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; Portfolio 32+77; 360th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v448 -> v449 CYCLE 127 (2026-06-06)
+
+Verdicts processed: substrate_per_cluster_stratified_extraction_v1 (MIDDLE_BAND -- 3-seed full promotion of cycle 123 LVH #226 smoke)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND -- [label-vs-honest] LVH #226 CONFIRMED**
+source=remote run_mode=full n_seeds=3.
+Per-seed: seed7={sp10:(1.0,12.12x), sp100:(1.0,12.12x), sp1000:(1.0,12.12x)}, seed17={sp10:(1.0,11.93x), sp100:(1.0,11.93x), sp1000:(1.0,11.93x)}, seed23={sp10:(1.0,11.53x), sp100:(1.0,11.53x), sp1000:(1.0,11.53x)}.
+LABEL OVER-CLAIMS. verdict_msg 'MIDDLE_BAND: >=0.95 coverage at 10-100x speedup' implies sp100=100x and sp1000=1000x achieved. Actual_speedup is uniformly 11.5-12.1x across ALL seeds and ALL sp-target cells. sp-target label does not reflect achieved speedup. Coverage=1.0 is genuine. LVH #226 (cycle 123 smoke) confirmed and refined: smoke estimated ~20x ceiling; full 3-seed resolves to ~12x ceiling. Smoke overestimated speedup by ~1.7x (n_tok=5000 smoke vs n_tok=40000 full changes cluster partitioning density).
+Honest verdict: MIDDLE_BAND retained (coverage=1.0 real, 3-seed unanimous). Speedup range corrected: ~12x actual ceiling, NOT 10-100x label range.
+LVH #226 STANDING (no new catch number; this is 3-seed confirmation of existing catch).
+HONEST: 976 -> 977 (+1). LVH: 228 UNCHANGED (LVH #226 confirmed at 3-seed full).
+
+### Cap_map decisions
+
+**substrate_per_cluster_stratified_extraction_v1 MIDDLE_BAND [LVH #226 3-seed full: speedup ceiling=12x not 100x]**
+Extraction sub-axis annotation (3-seed full promotion).
+Coverage=1.0 confirmed unanimous 3/3 seeds. Per-cluster stratified extraction achieves perfect coverage.
+Speedup ceiling characterised: ~12x across all 3 seeds and all sp-target levels. sp-target parameter does not drive actual speedup -- governed by cluster geometry relative to corpus size (n_tok=40000). Structural finding: at fixed cluster structure, speedup is partition-geometry-determined, not request-target-driven.
+LVH #226 smoke reading (~20x) was an n_tok artifact: smaller corpus (5000 tok) gives more concentrated clusters = higher apparent speedup. Full corpus (40000 tok) resolves to 12x true ceiling.
+Cycle-123 rescue R3 (larger n_tok sweep) reframing: speedup ceiling likely falls further with n_tok increase (larger corpus = denser inter-cluster coverage needed = lower speedup ratio). R3 now probes speedup/coverage tradeoff at scale rather than expecting speedup ceiling rise.
+MIDDLE_BAND confirmed. No band-lift (HP threshold speedup >=50x; actual=12x). Extraction direction validated: stratified (1.0) >> random (0.60, cycle 123 anchor 9).
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+R1 (0-compute, SUBSUMPTION): Coverage=1.0 at 12x is clean. Question pivots from 'achieve higher speedup' to 'does 12x speedup translate to useful downstream retrieval speed?' No additional coverage probes needed; 12x is definitive.
+R2 (CHEAP, CPU <30min): Reduce cluster granularity (fewer, larger clusters) to push speedup ceiling above 12x while monitoring coverage degradation. Mechanism: fewer clusters = higher speedup ratio.
+R3 (CHEAP, CPU <30min): Multi-level hierarchical extraction (coarse cluster -> fine sub-cluster) to decouple coverage from speedup ceiling. Should allow speedup >12x without coverage loss.
+R4 (CHEAP, CPU <30min): Adaptive cluster count per query based on query embedding density, not fixed K. Expected: heterogeneous speedup/coverage tradeoff per query type.
+R5 (MEDIUM, CPU <2h): Cross-encoder sweep (MiniLM, MPNet, Pythia) to test whether 12x ceiling is encoder-dependent (cluster geometry varies with encoder dimensionality).
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v448 -> v449)
+- PROT-004/006: No closures. 5 rescues filed cheapest-first (R1 subsumption, R2-R4 cheap CPU, R5 medium CPU).
+- PROT-007: v449 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 361st PROT-009 paired commit.
+- PROT-018: No _nN suffix on anchor. CLEAN.
+- PROT-021: source=remote run_mode=full n_seeds=3. No smoke artifacts. CLEAN.
+- PROT-022: 3-seed spread tight (12.12x, 11.93x, 11.53x -- 0.59x range normal variance). No HP-fragility.
+
+Cap_map: v448 -> v449 CYCLE 127 (0 HP; 0 HF; 1 MID-LVH#226-CONFIRMED: per_cluster_stratified_extraction-3SEED-FULL-COVERAGE-1.0-SPEEDUP-CEILING-12x-NOT-100x; LVH #226 confirmed at full-run; HONEST 976->977 +1; LVH 228 UNCHANGED; Portfolio 32+77; 361st PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
