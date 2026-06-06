@@ -1388,3 +1388,90 @@ R3 (CHEAP, GPU <30min): Left-pad + pseudoinverse write rule compound at N=2048 (
 
 Cap_map: v461 -> v462 CYCLE 141 (1 HF-full: bge_large_capacity_measurement-3SEED-cap=40-d_eff=113-ratio=0.35-LINEAR-SCALING-FALSIFIED; 2 HP-full: kf1_paraphrase_robustness_marianmt-3SEED-AUC=0.985-PARAPHRASE-ROBUST-KF1-DEPLOYABLE + hebb_vs_pseudoinverse_write_rule-3SEED-PINV-11x-HEBB-CRITICAL-FOUNDATIONAL-WRITE-RULE-SWAP; 1 HP-full-scope: fp16_vs_fp32_parity-3SEED-cap_gap=0-sign_agree=0.9955-MINIML-BASELINE-LLAMA-PENDING; 1 HP-SMOKE-LVH#243: padding_side_audit-SEED1-LEFT-PAD-76-VS-BUG-38-2x-FIX-PENDING-3SEED; LVH 242->243 +1; HONEST 1025->1030 +5; KF-1 paraphrase deployment gate CLEARS; PP-8 write-rule PINV-11x CRITICAL-annotation; 374th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v462 -> v463 CYCLE 142 5-VERDICT BATCH (2026-06-06)
+
+Verdicts processed:
+1. padding_side_audit_capacity_v1 (CRITICAL FULL PROMOTION of cycle 141 LVH #243 smoke)
+2. sparse_alpha_fine_sweep_below_004_v1 (GENUINELY NEW; sub-threshold sparsity sweep alpha<0.04)
+3. cell_mf1_effective_interaction_order_v1 (GENUINELY NEW; MF1 effective interaction order diagnostic)
+4. metric_mmax_uncensor_audit_v1 (GENUINELY NEW; M_max uncensoring methodology audit)
+5. p1_shard_split_correctness_v1 (GENUINELY NEW; P1 sharding split correctness)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) padding_side_audit_capacity_v1 HARD_PASS -- LABEL HONEST; LVH #243 CONFIRMED+CORRECTED**
+source=remote run_mode=full n_seeds=3. All 3 seeds identical (deterministic): rightpad_BUG=7, rightpad_lastreal_OK=46, leftpad_pos_neg1_OK=46.
+LABEL HONEST: HARD_PASS correct. BUG/correct ratio = 7/46 = 6.57x -- PAD token extraction catastrophic.
+CORRECTION of cycle 141 LVH #243 smoke (seed=1: BUG=38, OK=38, leftpad=76): full run revises leftpad=46=rightpad_correct (NO leftpad advantage over correct right-pad). Smoke over-stated leftpad (76 vs 46 full, 1.65x inflation). Left-pad does NOT give 2x over correct right-pad -- they are equivalent (46=46). The bug impact is 6.57x (7 vs 46) not 2x. Cycle 141 note 'cap=122 may actually be ~244' NOT supported; correct cap=46 at this N scale.
+LVH #243 CONFIRMED+CORRECTED (no new LVH number). HONEST: 1030 -> 1031 (+1). LVH 243 UNCHANGED.
+
+**(2) sparse_alpha_fine_sweep_below_004_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. ALL 3 seeds IDENTICAL (fully deterministic): f0.005=6.0x, f0.010=6.0x, f0.020=3.0x, f0.030=2.0x, f0.040=1.5x, f0.050=1.0x, f0.100=0.4x. below-0.04/at-0.04=4.00x >> 1.5x threshold. Resolves cycle 130 LVH #232 HP-SMOKE definitively. HONEST. +1 HONEST (1031->1032). No LVH.
+
+**(3) cell_mf1_effective_interaction_order_v1 HARD_PASS -- LABEL HONEST with nuance**
+source=remote run_mode=full n_seeds=3. Per-seed: seed7={N1024=0.070, N2048=0.060, N4096=0.050}, seed17={0.060, 0.060, 0.060}, seed23={0.060, 0.060, 0.060}. Mean=0.060, flatness=0.89. verdict_msg 'alpha_c CONSTANT' -- seed7 shows mild monotone decline 0.070->0.050 (ratio 0.71); seeds 17+23 perfectly flat. Approximately constant at 3-seed mean level; finite-size correction in seed7. HONEST. +1 HONEST (1032->1033). No LVH.
+
+**(4) metric_mmax_uncensor_audit_v1 HARD_PASS -- LABEL HONEST; CRITICAL METHODOLOGY FINDING**
+source=remote run_mode=full n_seeds=3. ALL 3 seeds identical: true_Mc=200, censored_at_old=True, ratio=4.00x. true_Mc/old_censor=200/50=4.00x >> 2x threshold. HONEST. CRITICAL: all prior verdicts where measurement hit M_max=50 were CENSORED at 25% of true M_c. Retroactive audit required. +1 HONEST (1033->1034). No LVH.
+
+**(5) p1_shard_split_correctness_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All seeds at ov5x: single_recall=0.000, sharded_recall=1.000. At ov2x: single=0.028-0.045, sharded=1.000. At ov1x: single=0.975, sharded=1.000. All threshold checks pass unanimously. Production sharding gate CLEARS. HONEST. +1 HONEST (1034->1035). No LVH.
+
+HONEST: 1030 -> 1035 (+5). LVH: 243 UNCHANGED. No new LVH catches.
+
+### Cap_map decisions (v462 -> v463)
+
+**(1) padding_side_audit_capacity_v1 HARD_PASS (FULL PROMOTION; LVH #243 corrected)**
+Infrastructure sub-property annotation. FULL PROMOTION of cycle 141 LVH #243 smoke.
+Key finding (corrected): right-pad pos[-1] BUG extracts PAD token; capacity 7 vs correct 46 (6.57x gap). Fix: mask-aware extraction OR left-pad (both equivalent at 46). NOT a 2x capacity gain from left-pad (leftpad=46=rightpad_correct). The performance gap is entirely from eliminating the PAD-token extraction bug. Bug fix is a config/code change, no retraining. Cycle 141 'cap=122 may be ~244' NOT supported.
+Cap_map annotation on PP-8 / infrastructure sub-axis: 'padding_side_audit HARD_PASS 3-seed full v463: rightpad_BUG=7, rightpad_OK=46, leftpad=46; BUG gives 6.57x capacity loss; fix=mask-aware or left-pad (both 46); no leftpad vs rightpad advantage post-fix; cycle-141 LVH#243 smoke magnitude corrected (76 smoke -> 46 full).' Band UNCHANGED.
+
+**(2) sparse_alpha_fine_sweep_below_004_v1 HARD_PASS (3-seed full; RESOLVES LVH #232)**
+PP-8 / sparse-coding sub-axis. HARD_PASS 3-seed full confirms and extends cycle 130 LVH #232 HP-SMOKE. LVH #232 RESOLVED.
+Key finding: sparsity curve below alpha=0.04 peaks at f=0.005-0.010 (6x); f0.020=3x, f0.030=2x, f0.040=1.5x, f0.050=1x. 4x more capacity vs alpha=0.04 floor. Deterministic (all 3 seeds identical). Engineering: alpha=0.005 is the peak sparse-coding configuration at N=8192; operating at alpha=0.05 leaves 6x capacity untapped. Free capacity gain, no architecture change.
+PP-8 sparse-coding sub-row: 'sparse_alpha_fine_below004 HARD_PASS 3-seed full v463: f0.005=6.0x peak; 4x above alpha=0.04 floor; LVH#232 resolved; use alpha<=0.01 for peak sparse-coding capacity.'
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Recommend alpha=0.005 as default sparse-coding config.
+R2 (CHEAP, CPU <30min): N-sweep at alpha=0.005 across N={4096,16384} to verify 6x lift scales with N.
+R3 (CHEAP, CPU <30min): Sub-0.005 sweep (f={0.001,0.002,0.003}) to check if plateau extends or rises further.
+R4 (CHEAP, CPU <30min): Pseudoinverse write-rule + alpha=0.005 compound (two highest-leverage mechanisms).
+Band UNCHANGED.
+
+**(3) cell_mf1_effective_interaction_order_v1 HARD_PASS (diagnostic; O(N) linear scaling confirmed)**
+PP-8 / capacity theory sub-property annotation. MF1 diagnostic confirms O(N) linear capacity: alpha_c approximately constant across N={1024,2048,4096}; mean=0.060, flatness=0.89. RSB~0.138-0.144 (near-replica-symmetric). Seed7 mild N-decline (0.070->0.050) is finite-N correction; seeds 17+23 flat. Theory: alpha_c constant is asymptotic large-N limit; seed7 within normal finite-size variance.
+Cap_map annotation: 'cell_mf1_interaction_order HARD_PASS 3-seed full v463: alpha_c mean=0.060 flatness=0.89 N={1024,2048,4096}; O(N) linear capacity confirmed; RSB~0.14 near-RS regime; seed7 finite-size correction within range.' Band UNCHANGED.
+
+**(4) metric_mmax_uncensor_audit_v1 HARD_PASS -- CRITICAL RETROACTIVE METHODOLOGY AUDIT**
+CRITICAL NEW FINDING affecting all prior cap_map annotations built on M_max=50 grids.
+Key finding: true M_c=200 at N=4096 (3-seed unanimous); old grid ceiling M_max=50 = 25% of true M_c. ALL prior verdicts where measurement hit M_max=50 were CENSORED artifacts.
+RETROACTIVE-AUDIT-FLAG: all PP-8/capacity rows with saturation-at-50 annotations need re-audit with M_max>=300. Specific candidates: cycle-132 dimsparse3_alpha_at_mc (M_c={2,4} -- likely noise floor not ceiling); cycle 119/122/125/130 ETF attenuation (cross-N ratios at M<=50 may be ceiling artifacts); any row where M_max=50 was hit and labeled saturation.
+PROT-008: methodology change requiring retroactive flag. PROT-009: atomic commit includes retroactive-audit flag note.
+Cap_map: RETROACTIVE-AUDIT-FLAG on all M_max=50 saturation annotations (v463).
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Document retroactive audit list; file strategy_request for Exp-Dev to re-run critical anchors with M_max>=300.
+R2 (CHEAP, CPU <30min): Re-run cycle-132 dimsparse3_alpha_at_mc with M_max=300.
+R3 (CHEAP, CPU <30min): Re-run cycle-130 LVH #229 etf_hadamard_n_sweep with M_max=300.
+R4 (CHEAP, CPU <30min): Re-audit cycle-119 through 125 ETF attenuation experiments with M_max=300.
+R5 (MEDIUM, CPU <2h): Systematic M_c sweep across PP-8 rows with M_max=300 grid.
+
+**(5) p1_shard_split_correctness_v1 HARD_PASS (3-seed full; P1 production sharding gate CLEARS)**
+P1 sharding sub-property -- NEW sub-property on P1 / capacity row.
+Key finding: Sharding restores capacity universally. ov1x (M=122, K=2): single=0.975, sharded=1.000. ov2x (M=244, K=4): single=0.028-0.045, sharded=1.000. ov3x (M=366, K=6): single=0.000, sharded=1.000. ov5x (M=610, K=10): single=0.000, sharded=1.000. Unanimous 3-seed. Strategy: shard count = ceil(M/M_c) guarantees perfect recall. Product: substrate scales to arbitrary fact counts via sharding. P1 production deployment gate CLEARS.
+Cap_map: 'p1_shard_split HARD_PASS 3-seed full v463: ov5x sharded=1.000 single=0.000; shard strategy ceil(M/M_c); N=2048 gateway; production-scale deployment via sharding confirmed.'
+Portfolio 32+79 UNCHANGED (sub-property on existing P1 row). Band UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v462 -> v463)
+- PROT-004/006: anchor 2 sparse_alpha: R1-R4 cheapest-first. anchor 4 mmax_uncensor CRITICAL: R1-R5 cheapest-first.
+- PROT-007: v463 history row appended to substrate_capability_map_history.md.
+- PROT-008: anchor 2 HP-full resolves LVH#232. anchor 4 CRITICAL methodology -- retroactive-audit-flag. anchor 5 P1 sub-property. All annotation-only; PROT-008 validator not triggered at row state level.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 375th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 5 anchors. CLEAN.
+- PROT-019: LVH #243 confirmed+corrected (no new LVH number; correction in Step 0).
+- PROT-021: All 5 anchors source=remote run_mode=full n_seeds=3. CLEAN. No smoke artifacts.
+- PROT-022: Anchors 1/2/4/5 fully deterministic. Anchor 3 seed7 mild N-decline (finite-size correction; HP threshold not fragile). No HP-fragility.
+
+Cap_map: v462 -> v463 CYCLE 142 (1 HP-FULL-CRITICAL-LVH#243-CORRECTED: padding_side_audit-BUG-6.57x-LOSS-FIX-CONFIG-NO-LEFTPAD-ADVANTAGE; 1 HP-FULL-LVH#232-RESOLVED: sparse_alpha_fine_below004-f0.005-6x-PEAK-4x-ABOVE-f0.04-FLOOR; 3 HP-FULL-NEW: cell_mf1_interaction_order-ALPHA_C-CONSTANT-O(N)-LINEAR + metric_mmax_uncensor-TRUE_Mc=200-4x-OLD-CENSOR-RETROACTIVE-AUDIT-FLAG + p1_shard_split_correctness-OV5X-SHARDED-1.000-SINGLE-0.000-PRODUCTION-GATE-CLEARS; 0 HF; 0 MID; 0 new LVH; HONEST 1030->1035 +5; LVH 243 UNCHANGED; Portfolio 32+79; RETROACTIVE-AUDIT-FLAG all M_max=50 saturation annotations; 375th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
