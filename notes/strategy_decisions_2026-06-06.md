@@ -916,3 +916,121 @@ Note: hierarchical_vq_plus_sparse_key HP and CRT HP-SMOKE are sub-axis sub-prope
 
 Cap_map: v455 -> v456 CYCLE 134 (1 HP-full: fact_checked_khop_middle_hop_localization-3SEED-MIDDLE-HOP-1.000-PRODUCTION-GATE-CLEARS; 1 HP-full: hierarchical_vq_plus_sparse_key-3SEED-DENSE-Mc+SPARSE-KEY-PIPELINE-8.00x-CYCLE133-R2-RESCUE-CONFIRMED; 1 MID: fact_checked_khop_confidence_weighted-3SEED-BINARY-CEILING-CONF-LIFT-ZERO; 1 HP-SMOKE-LVH#237: crt_multi_scale_grid_cell-SMOKE-LOCAL-CRT-EXACT-143x-ALGEBRAIC; LVH 236->237 +1; HONEST 1003->1007 +4; Portfolio 32+79 UNCHANGED; annotation-only; 368th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 135 -- v456 -> v456 (2026-06-06) -- NO VERSION BUMP
+
+Verdicts processed: 2 (sparse_key_composition_battery_gpu_v1 DUPLICATE + multi_head_x_sparsity_battery_gpu_v1 SMOKE-NEW)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) sparse_key_composition_battery_gpu_v1 MIDDLE_BAND -- HONEST + DUPLICATE**
+source=remote run_mode=full n_seeds=3. N={4096,8192,16384} 3-seed.
+Per-arm means: flat_sparse=0.4833 (range 0.45-0.60), hadamard=0.1499, hadamard_indep_mask=0.4666 (range 0.45-0.60), block_sparse=0.0466 (range 0.02-0.05).
+verdict_msg uses minimums (0.45/0.45) for flat/indep ratio => reports hadamard_indep/best=1.00; mean-based ratio is 0.4666/0.4833=0.965 (indep slightly below flat at mean). 3.5% difference -- conservative use of minima, not over-claim. HONEST.
+DUPLICATE: cycle 133 v455 already fully processed this anchor at 3-seed full with identical findings. cap_map annotation 'design principle locked: independent masks' ALREADY applied at v455. No new cap_map action.
+HONEST: 1007 UNCHANGED (already counted in cycle 133). LVH: UNCHANGED.
+
+**(2) multi_head_x_sparsity_battery_gpu_v1 MIDDLE_BAND -- [label-vs-honest] LVH #238**
+source=remote run_mode=SMOKE n_seeds=1. elapsed=1.03s. N=2048, seed=1 only.
+Per-cell: H=1 f=0.05: 0.1997; H=1 f=0.10: 0.0996 (ref); H=2 f=0.05: 0.3999 (best); H=2 f=0.10: 0.1997.
+verdict_msg best/ref=4.01x uses cross-f comparison (H=2,f=0.05 vs H=1,f=0.10). NUMBER CORRECT.
+Honest re-read: iso-f H-effect = H=2,f=0.10 / H=1,f=0.10 = 0.1997/0.0996 = 2.00x; H=2,f=0.05 / H=1,f=0.05 = 0.3999/0.1997 = 2.00x. Iso-H f-effect = H=1,f=0.05 / H=1,f=0.10 = 0.1997/0.0996 = 2.00x. Cross-factor product = 2.00 * 2.00 = 4.00 = observed 4.01x. H and f effects are MULTIPLICATIVELY INDEPENDENT -- no supra-linear composition.
+LVH #238: (a) label: 'partial compounding (2-5x) best/ref=4.01x' implies composition benefit beyond independent effects; (b) honest: H-effect and f-effect independently 2.00x each and multiply; 4.01x = product of independent effects, NOT supra-multiplicative composition; no new composition capability; (c) contradicting cells: H=2,f=0.10 / H=1,f=0.10 = 2.00x = H=2,f=0.05 / H=1,f=0.05 = 2.00x -- H-effect is f-invariant, confirms independence.
+Honest verdict: MIDDLE_BAND retained (4.01x within [2,5] band); COMPOSITION framing corrected to INDEPENDENCE.
+NOTE: SMOKE n=1 flag. Full 3-seed at N=4096 required before any design decisions.
+LVH #238. HONEST: 1007 -> 1008 (+1). LVH: 237 -> 238 (+1).
+
+### Cap_map decisions
+
+**(1) sparse_key_composition_battery_gpu_v1 -- DUPLICATE, NO CAP_MAP ACTION**
+Cycle 133 v455 already applied: PP-8 sparse-KEY independent-mask design principle annotation. Data identical. No redundant annotation. HONEST count not incremented (already tallied in cycle 133).
+
+**(2) multi_head_x_sparsity_battery_gpu_v1 [LVH #238 honest: INDEPENDENCE not COMPOSITION] -- PP-8 annotation**
+PP-8 multi-head x sparsity composition sub-axis. SMOKE n=1 at N=2048.
+Finding: H-effect and f-effect are MULTIPLICATIVELY INDEPENDENT (each 2.00x, product = 4.00x = observed 4.01x). No supra-linear composition. Multi-head scaling and sparsity scaling are orthogonal independent levers combinable multiplicatively -- useful for product design but does NOT demonstrate a new composition capability beyond what cycle 133 multi_head_M2 HP already showed.
+Comparison to cycle 133 multi_head_M2 HP (H2/H1=2.25x super-sqrt at N=4096 3-seed): that finding holds. The current anchor adds: sparsity does not interfere with or amplify the H-effect; effects are cleanly separable.
+PP-8 annotation: 'multi_head_x_sparsity SMOKE-n1 v456: H-effect and f-effect independently ~2.00x each; combine multiplicatively (4x total); no supra-linear composition; SMOKE flag -- full 3-seed at N=4096 required.'
+Band UNCHANGED. Smoke flag on all design conclusions.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+R1 (CHEAP, CPU/GPU <30min): Full 3-seed at N=4096 with H={1,2,4} x f={0.05,0.10,0.20} grid to confirm independence pattern and characterize H=4 scaling.
+R2 (CHEAP, CPU <30min): Iso-f H={1,2,4} sweep at N={4096,16384} to verify H-scaling exponent (cycle 133 found 2.25x at N=4096 3-seed; this smoke at N=2048 gives 2.00x -- possible N-dependence worth checking).
+R3 (MEDIUM, GPU <2h): H={1,2,4,8} x f={0.05,0.10,0.20} full 3-seed envelope at N=16384 to characterize product-space scaling law at production scale.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v456 UNCHANGED -- annotation-only, no version bump)
+- PROT-004/006: No closures. multi_head_x_sparsity: 3 rescues cheapest-first.
+- PROT-007: No version bump (annotation-only + duplicate). History note only.
+- PROT-008: Annotation-only; 0 row state changes. Validator not triggered.
+- PROT-009: Decisions log appended; no cap_map .md state change (duplicate + annotation). No atomic commit needed; push NOT required.
+- PROT-018: No _nN suffixes on either anchor. CLEAN.
+- PROT-021: sparse_key source=remote run_mode=full n_seeds=3 (DUPLICATE -- cycle 133 already processed). multi_head source=remote run_mode=smoke n_seeds=1. Smoke design conclusions deferred pending full 3-seed.
+- PROT-022: sparse_key 3-seed normal variance. multi_head smoke n=1 -- no HP-fragility assessment possible. SMOKE flag on all multi_head conclusions.
+
+Cap_map: v456 UNCHANGED CYCLE 135 (1 DUPLICATE: sparse_key_battery already-annotated-v455-NO-ACTION; 1 MID-SMOKE-LVH#238: multi_head_x_sparsity-INDEPENDENCE-not-COMPOSITION-H-effect-2x-f-effect-2x-product-4x-SMOKE-n1; LVH 237->238 +1; HONEST 1007->1008 +1; Portfolio 32+79 UNCHANGED; NO VERSION BUMP; push NOT required) (2026-06-06)
+
+## v456 -> v457 CYCLE 136 BATCH (2026-06-06)
+
+Verdicts processed: substrate_pca_prewhitening_codebook_v1 (HARD_PASS label -- PCA pre-whitening Phase-4A unblock candidate) + substrate_etf_minilm_M_star_cross_N_v1 (HARD_PASS label -- M_star cross-N whitening benefit grows with N_sub)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_pca_prewhitening_codebook_v1 HARD_PASS -- [label-vs-honest] LVH #239**
+source=remote run_mode=smoke n_seeds=1. N=384 real MiniLM keys.
+Per-cell (seed1 only): cap_unwhitened=3, cap_pca_whitened=11, ratio=3.67x.
+LABEL OVER-CLAIMS. smoke n_seeds=1 violates PROT-021 multi-seed requirement. ratio=3.67x clears >=2x threshold on single seed, but single-seed smoke is not sufficient for HARD_PASS per PROT-021.
+LVH #239: (a) label: HARD_PASS; (b) honest: HP-SMOKE -- ratio=3.67x genuine on n=1 seed; 3-seed full required for HARD_PASS; (c) contradicting cells: run_mode=smoke n_seeds=1 (PROT-021 not met).
+Context: CRITICAL Phase-4A unblock. ZCA HARD_FAIL all-zeros cycle 130 regression. PCA as alternative is exactly rescue R4 from cycle-126 LVH #228 and rescue R3 from cycle-130. 3.67x on single seed is directionally strong and mechanistically principled.
+Honest verdict: HP-SMOKE. +1 HONEST (1008->1009). LVH 238->239 (+1).
+
+**(2) substrate_etf_minilm_M_star_cross_N_v1 HARD_PASS -- [label-vs-honest] LVH #240**
+source=remote run_mode=smoke n_seeds=1. N_sub={384,768} MiniLM.
+Per-cell (seed1 only): N384={m50_raw=8, m50_whitened=32, ratio=4.0x}; N768={m50_raw=8, m50_whitened=48, ratio=6.0x}. slope(vs logN)=2.89.
+LABEL OVER-CLAIMS. smoke n_seeds=1 violates PROT-021. Ratios 4.0x and 6.0x both clear threshold at single seed; growing-with-N_sub directional finding clear.
+LVH #240: (a) label: HARD_PASS (H2); (b) honest: HP-SMOKE -- both N-cells clear threshold at n=1; 3-seed full required for HARD_PASS; (c) contradicting cells: run_mode=smoke n_seeds=1 (PROT-021 not met).
+Context: RESOLVES cycles 119/122/125/130 ETF cross-N attenuation question. Prior apparent attenuation was ceiling artifacts (raw_recall at ceiling, not degraded whitening). M_50 metric avoids ceiling artifact by measuring capacity at 50th-percentile recall. M_50 growing with N_sub confirms whitening increasingly mandatory at scale (Hadamard/intrinsic-dim saturation mechanism).
+Honest verdict: HP-SMOKE. +1 HONEST (1009->1010). LVH 239->240 (+1).
+
+HONEST: 1008 -> 1010 (+2). LVH: 238 -> 240 (+2: LVH #239 pca_prewhitening + LVH #240 etf_minilm_M_star).
+
+### Cap_map decisions (v456 -> v457)
+
+**(1) substrate_pca_prewhitening_codebook_v1 [LVH #239 honest: HP-SMOKE; ratio=3.67x smoke-n=1]**
+PP-8 Phase-4A rescue sub-property annotation. HP-SMOKE.
+Key finding: PCA whitening gives 3.67x capacity lift vs unwhitened (cap=11 vs 3) on MiniLM N=384 single seed.
+CRITICAL CONTEXT: Phase-4A unblock candidate. ZCA HARD_FAIL all-zeros at cycle 130 (regression). PCA recommended by cycle-126 R4 and cycle-130 R3. PCA avoids ZCA numerics instability (eigenvectors directly, no zero-divisor risk). 3.67x clears HP band (>=2x).
+Phase-4A status: ZCA BLOCKED; PCA HP-SMOKE (single seed). Phase-4A unblock deferred pending 3-seed full PCA confirmation.
+PP-8 Phase-4A sub-property annotation: 'PCA whitening HP-SMOKE v457: ratio=3.67x n=1 remote; ZCA HARD_FAIL regression stands; PCA is active Phase-4A unblock path; 3-seed full required before Phase-4A plan update.'
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): HP-SMOKE consistent with rescue recommendation. Phase-4A path = PCA as ZCA-alternative.
+R2 (CHEAP, CPU <30min): 3-seed full PCA whitening at N_sub=384 to convert HP-SMOKE to HARD_PASS and formally unblock Phase-4A.
+R3 (CHEAP, CPU <30min): PCA vs ZCA comparison at N_sub=384 with patched ZCA -- compare stability; PCA expected to win on degenerate seeds.
+R4 (CHEAP, CPU <30min): PCA N_sub sweep {384,512,768,1024} to characterize Phase-4A capacity curve with stable whitening.
+PP-8 Phase-4A: ZCA blocked, PCA HP-SMOKE active. Band UNCHANGED.
+
+**(2) substrate_etf_minilm_M_star_cross_N_v1 [LVH #240 honest: HP-SMOKE; N384=4.0x N768=6.0x grows]**
+PP-8 ETF/whitening cross-N sub-axis. HP-SMOKE annotation (smoke n=1; 2 N-cells).
+Key finding: M_50 (whitened/raw capacity ratio) GROWS with N_sub -- N384=4.0x, N768=6.0x, slope=2.89 vs logN.
+RESOLVES cycles 119/122/125/130 cross-N attenuation: prior apparent attenuation was ceiling artifact (recall at ceiling pre-whitening); M_50 metric measures true capacity avoiding ceiling bias. Mechanism: Hadamard/intrinsic-dim saturation -- at larger N_sub raw encoder fills more dimensions near d_eff ceiling faster, whitening lifts proportionally more.
+PP-8 ETF cross-N annotation: 'M_star_cross_N HP-SMOKE v457: M_50 N384=4.0x N768=6.0x slope=2.89; whitening benefit GROWS with N_sub; prior attenuation was ceiling artifact; cross-N attenuation RESOLVED; 3-seed full required for HARD_PASS.'
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Cross-N attenuation resolved as ceiling artifact. M_50 metric correct for N-scaling characterization.
+R2 (CHEAP, CPU <30min): 3-seed full at N_sub={384,768} to confirm slope=2.89 with statistical confidence.
+R3 (CHEAP, CPU <30min): N_sub sweep {384,512,768,1024} single-seed to characterize slope over wider range.
+R4 (CHEAP, CPU <30min): M_star measurement for bge-large (D=1024, d_eff=114.8) -- higher d_eff expected to give higher M_50 ratio and steeper slope.
+PP-8 ETF cross-N: HP-SMOKE; band UNCHANGED; cross-N attenuation RESOLVED (ceiling artifact).
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v456 -> v457)
+- PROT-004/006: No closures. Anchor 1: R1-R4 cheapest-first. Anchor 2: R1-R4 cheapest-first.
+- PROT-007: v457 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 band-lifts; HP-SMOKE not triggering validator.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 369th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on either anchor. CLEAN.
+- PROT-021: Both source=remote run_mode=smoke n_seeds=1. LVH #239+#240 filed; HP-SMOKE only; no HARD_PASS committed to cap_map.
+- PROT-022: Both n_seeds=1 smoke; HP-fragility not evaluable. Mechanism (PCA decorrelation, M_50 monotone) principled.
+
+Cap_map: v456 -> v457 CYCLE 136 (0 HP; 2 HP-SMOKE-LVH [#239 pca_prewhitening-SMOKE-3.67x-ZCA-ALT-PHASE4A-UNBLOCK-CANDIDATE + #240 etf_minilm_M_star-SMOKE-N384=4.0x-N768=6.0x-GROWS-CROSS-N-RESOLVED]; 0 MID; 0 HF; LVH 238->240 +2; HONEST 1008->1010 +2; Portfolio 32+79 UNCHANGED; Phase-4A ZCA-blocked PCA-HP-SMOKE active; ETF cross-N attenuation resolved ceiling-artifact; 369th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

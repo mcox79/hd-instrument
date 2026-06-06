@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v455
+# hd-instrument substrate -- capability map v457
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
