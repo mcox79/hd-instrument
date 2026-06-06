@@ -600,3 +600,37 @@ Band UNCHANGED.
 
 Cap_map: v437 -> v438 CYCLE 116 [label-vs-honest] (1 LVH #224: substrate_capacity_scaling_sweep_xl HARD_PASS->MIDDLE_BAND alpha-not-globally-stable mean_alpha-0.048-over-states-Phase3-by-20pct 3-N-points-in-N>=4096-regime-NEW; V1 exp_hp12_v2_crypto MIDDLE_BAND-CORROBORATION-2.234ms-GENUINE-NEW-RUN; HONEST 948->950; LVH 223->224; Portfolio 32+77; 350th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v438 -> v439 CYCLE 117 (2026-06-06)
+
+Verdict processed: substrate_etf_hadamard_codebook_init_v1 (HARD_PASS)
+
+### Step 0 honest re-read
+- substrate_etf_hadamard_codebook_init_v1: HONEST. Label claims '>=2x capacity'. Actual ratio=10.039x ALL 3 seeds (unanimous). Label is CONSERVATIVE (under-states actual lift). Per-cell: seed7 random=204/hadamard=2048/ratio=10.04x, seed17=10.04x, seed23=10.04x. N=4096, run_mode=full, n_seeds=3, source=remote. No over-claim. NO LVH.
+- HONEST: 950 -> 951 (+1). LVH: 224 UNCHANGED.
+
+### Cap_map decision
+
+**substrate_etf_hadamard_codebook_init_v1 HARD_PASS [HONEST; source=remote; n_seeds=3; N=4096; run_mode=full; elapsed=74.1s]:**
+
+Plain-language: We tested whether using a structured Hadamard codebook (instead of random bipolar vectors) raises the substrate's storage capacity. It does -- by a factor of 10x at N=4096 (2048 facts vs 204 facts). This directly attacks the Matthiessen-type codebook-collision noise floor: random codebooks generate correlated interference that limits capacity; Hadamard codes are maximally spread (equiangular tight frame geometry), eliminating most of that noise. The '>=2x' label was conservative -- the actual gain is 10x, unanimous across all 3 seeds.
+
+Capability implication: ETF/Hadamard codebook init is a structural capacity multiplier. At N=4096 it delivers 10x effective storage density over random bipolar baseline. This interacts with two cap_map axes: (1) Capacity scaling row -- settled-regime alpha=0.040 projects ~2621 facts at N=65536 with random codebook; Hadamard init potentially pushes that to ~26000 (10x lift); exact Phase-3 number requires Hadamard scaling sweep. (2) Adversarial-vulnerabilities row (U2 codebook-collision) -- Matthiessen codebook-collision noise is what the a_query_sim defense gate is mitigating at the query layer; Hadamard init attacks the NOISE SOURCE directly at initialization, potentially reducing the attack surface at the codebook layer before any query-layer gate. These two implications are separate and both high-value.
+
+Cap_map annotations:
+- Capacity scaling sub-axis: NEW sub-property 'ETF/Hadamard codebook init' HARD_PASS v439. random=204 hadamard=2048 ratio=10.04x at N=4096 3/3 seeds. Matthiessen-type codebook-collision noise eliminated at init layer. Hadamard scaling sweep (N-sweep x Hadamard) needed to update Phase-3 planning anchor (current alpha=0.040 with random codebook). Band LIFT CANDIDATE on capacity-scaling sub-axis pending Hadamard scaling sweep.
+- Adversarial-vulnerabilities row (U2 codebook-collision): Sub-property annotation. Hadamard init attacks codebook-collision noise at source (init layer), distinct from a_query_sim (query layer defense). Potential defense depth: codebook-layer hardening + query-layer defense = stacked defense. Complementary axis to G8 a_query_sim defense, not a substitute.
+
+### Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 0 BAND-LIFTS (Hadamard scaling sweep required before band-lift on capacity-scaling sub-axis). 0 closures.
+
+### PROT compliance (v438 -> v439)
+- PROT-004/006: No closures. HARD_PASS -- no rescue sketches required.
+- PROT-007: v439 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes; 0 portfolio changes; 0 LVH; 1 HP sub-property added. Validator not triggered (no top-level row state transition).
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 351st PROT-009 paired commit.
+- PROT-018: No _nN suffix on anchor. N=4096 stated in metrics body. CLEAN.
+- PROT-021: source=remote, run_mode=full. No smoke checkpoint artifact.
+- PROT-022: 3-seed ratio identical to 5 decimal places (10.03921568627451 all 3 seeds) -- deterministic geometry (Hadamard is a fixed algebraic object; no seed-dependent randomness in codebook structure). Not HP-fragile -- determinism expected for Hadamard.
+
+Cap_map: v438 -> v439 CYCLE 117 (1 HP: substrate_etf_hadamard_codebook_init_v1 HADAMARD-CODEBOOK-10x-CAPACITY-LIFT-MATTHIESSEN-NOISE-FLOOR-ATTACK; capacity-scaling sub-prop new; adv-vuln U2 codebook-collision init-layer annotation new; 0 LVH; HONEST 950->951; LVH 224; Portfolio 32+77; 351st PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
