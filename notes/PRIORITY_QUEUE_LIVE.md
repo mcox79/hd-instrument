@@ -596,11 +596,23 @@ Pull from this list ONLY when Tier-1 is empty.
 
 ## TIER-CLOUD (2 cells; user authorization required)
 
-### CLOUD-1: 7B vs 70B extraction quality binding test
-- **Anchor:** `substrate_extraction_quality_7B_vs_70B_v1`
-- **Cost:** ~$0.50-1.00 cloud H100 (prefill-only)
-- **Wall:** ~15-20 min
+### CLOUD-1 (KILLED 2026-06-06 13:40 -- mean-pool bug): ~~`substrate_extraction_quality_7B_vs_70B_v1`~~
+- **Status:** KILLED after $0.50 cost; Testbed Pythia diagnostic found mean-pool over causal LM destroys retrieval signal
+- **Infrastructure result:** GH200 + aarch64 + cu124 path PROVEN (valuable for Phase 4a work)
+- **Replaced by CLOUD-1b** below
+
+### CLOUD-1b (AUTHORIZED 2026-06-06 13:40): `substrate_extraction_quality_1B_8B_70B_last_token_pool_v1`
+- **Cost:** ~$1.15 cloud GH200 (~30 min)
+- **Architecture fixes from Testbed:**
+  - Last-token pool (causal LM appropriate)
+  - MiniLM-L6-v2 upper-bound baseline (60-80% top-5 sanity check)
+  - Per-query gold-passage rank diagnostics (median, p25, p75, p95)
+  - Shuffle gold_indices across full 1000 passages (removes 41-context concentration confound)
+  - Llama-3.2-1B added as third model (1B / 8B / 70B size-scaling curve)
 - **Gates:** ALL extraction infrastructure decisions
+- **HP threshold:** 8B / 70B retrieval >= 0.80 (cheap CPU fleet path)
+- **Plus secondary:** does 1B already give meaningful substrate (cheaper deployment)
+- **Total binding test budget:** $0.50 sunk + $1.15 = $1.65 to definitive answer
 
 ### CLOUD-2: PHASE4A-2 distilled 22-26M student training
 - **Anchor:** `substrate_distilled_22m_student_training_v1`
@@ -690,6 +702,7 @@ Already done earlier:
 - 2026-06-06 12:00 -- v16: 2x drill A (real-encoder cross-N attenuation disambiguation) landed. KEY INSIGHT: H1 (N-dependent noise) and H2 (Hadamard N-saturation) predict DIFFERENT Q(N) curve shapes -- SUB-LINEAR vs LINEAR decay. ADDED Slot DAMB1 disambiguation N-sweep (HIGHEST PRIORITY ~30 min CPU; routes ALL subsequent rescue investments); Slot DAMB2 LC1 N-sweep extension (SHM attacks BOTH hypotheses); Slot DAMB3 SRHT codebook (conditional H2 rescue); Slot DAMB4 PCA pre-whitening (parallel with DAMB1; attacks BOTH hypotheses). ALL 3 of today's parallel 2x drills now landed (A+B+C). Today's drill output: 13 new cells (HOC1-5 + PSE1-4 + DAMB1-4) targeting all non-positive results with explicit algebraic rescue paths.
 - 2026-06-06 12:15 -- v17: TRIPLE VERDICT batch. (a) Slot 10 SMOKE HP -- synthetic Hadamard lift FLAT 8x across N (CONTRASTS with Slot 14 real-encoder plateau; confirms drill A's H2 hypothesis is real-encoder-specific). Full sweep {4096-65536} queued. If holds, Phase 3 linear capacity ~10x lift -> 26k facts/substrate. (b) Slot 12 SMOKE MIDDLE -- per-cluster stratified WORKING; 100% coverage by construction; speedup ~21x smoke -> production 100-1000x. (c) Slot 13 SMOKE HARDFAIL -- random sampling 16% coverage at 100x. EXTRACTION RESCUE TREE RESOLVED: stratified is the only adequate path. G9 rebuilding with M_50 ratio spec; G5 full queued.
 - 2026-06-06 12:30 -- v18 (cycle 122 nuance + 2 HF confirmed + PP-8 R2/R4 added + G5 NEGATION drill dispatched): cap_map v443 -> v444; HONEST 958 -> 961. **CRITICAL NUANCE: cross-N attenuation is PARTLY MEASUREMENT CEILING artifact** (N_sub=384 1.21x real; N_sub=512 ceiling-flat at 99% raw recall). N_sub=384 is the actionable real-encoder design point. Slot 6 norm-gate full HF confirmed; PP-8 norm-axis CLOSED; added Slot PP8R2 cosine-variance + Slot PP8R4 learned probe. G5 TruthfulQA HF confirmed (negation AUC 0.034); user flagged audit gap -- I had treated G5 as same-class as G11 word-order but NEGATION is a DISTINCT architectural axis (antonyms like "increases" vs "decreases" need polarity, not just order). **2x drill on negation detection dispatched (G5 dedicated rescue)** -- BART-MNLI / negation-cue features / polarity-aware embeddings / hybrid late fusion. ETA ~25 min sonnet.
+- 2026-06-06 13:40 -- v19 (CLOUD-1 mean-pool bug + CLOUD-1b authorized): Testbed dispatched CLOUD-1 + diagnosed mean-pool bug on Pythia local in 3 min / $0. Mean-pool over causal LM destroys retrieval signal (Pythia: mean-pool top-5=0.000; last-token=0.130). CLOUD-1 killed at $0.50; CLOUD-1b authorized at ~$1.15 with 5 design fixes: last-token pool + MiniLM baseline + per-query rank + shuffled gold + Llama-1B added (1B/8B/70B trio). Total binding test cost $1.65 to definitive answer. **STANDING RULE codified:** causal LM = last-token pool; bidirectional encoder = mean-pool/CLS. Affects all future substrate-LLM extraction cell specs. Infrastructure proven: GH200 + aarch64 + cu124 path works (Phase 4a future asset).
 
 ---
 
