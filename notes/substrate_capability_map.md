@@ -11387,3 +11387,58 @@ R3 (CHEAP, CPU <30min): Decouple -- confirm M_c for real encoder alone, then com
 Commit message: `Cap map: v446 -> v447 CYCLE 125 (1 HF-HONEST: sparse_pattern_M_activation-SMOKE-SPARSE-VALUE-NULL-ALL-M-SPARSE-KEY-UNAFFECTED-cycle124-stacking-closes-by-dependency; 1 HF-LVH #227: real_vs_synthetic_N_sweep-SMOKE-INCONCLUSIVE-CEILING-ARTIFACT-N512-1024-BOTH-RECALL-1.0-DISAMBIGUATION-QUESTION-OPEN-NOT-ANSWERED; 0 HP; 0 MID; HONEST 971->973 +2; LVH 226->227 +1; PP-8 sparse-VALUE sub-probe closed annotation; cross-N attenuation disambiguation OPEN; 0 row state changes; Portfolio 32+77; 359th PROT-009 paired commit)`
 
 Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v447 -> v448 -- 2026-06-06 CYCLE 126 BATCH (3 verdicts; 0 HP; 2 HF-full; 1 MID-LVH #228)
+
+**Trigger.** Three re-runs completing smoke->full promotions: (1) substrate_etf_hadamard_phase4a_infra_eval_v1 re-pointed to Hopfield exact-recovery metric (fixes metric artifact + ZCA dim-reduction bug from cycles 119/120); (2) substrate_kf1_contradiction_detection_order_sensitive_v1 3-seed full from cycle 123 smoke; (3) substrate_kf1_truthfulqa_style_v1 3-seed full from cycle 122 smoke.
+
+### Step 0 honest re-read (3 verdicts; 2 HONEST; 1 LVH #228)
+
+**(1) substrate_etf_hadamard_phase4a_infra_eval_v1 HARD_PASS -- LVH #228 MIDDLE_BAND honest**
+3-seed full source=remote. Re-pointed to Hopfield exact-recovery on ZCA-whitened sign-binarized real keys (commit b2da096). Per-cell: seed7={raw=0,wht=0,ratio=0.0}, seed17={raw=0,wht=38,ratio=38.0}, seed23={raw=0,wht=38,ratio=38.0}.
+LVH #228: verdict_msg 'ratio=25.33x' is mean (0+38+38)/3 but seed7 wht=0 (zero Hopfield capacity -- ZCA collapse on this seed). 2/3 seeds clear HP (38x >> 2x threshold). 1/3 seed zero. HARD_PASS requires unanimous per-cell evidence; 1/3 fail = MIDDLE_BAND honest. Context: prior 2.75x reading (cycle 119) was metric artifact; 38x on seeds 17+23 is the genuine whitening signal. Seed7 is a ZCA numerics degenerate init.
+
+**(2) substrate_kf1_contradiction_detection_order_sensitive_v1 HARD_FAIL -- HONEST CONFIRMED**
+3-seed full source=remote. NEGATION per-seed: {0.0785, 0.0799, 0.0905} mean=0.083. HP threshold >=0.70; gap=0.617. Tight 3-seed variance (0.012pp) confirms architectural limit not noise. Smoke cycle 123 NEGATION=0.111 was single-seed over-estimate; 3-seed full is authoritative at 0.083. Order-sensitive encoder: NEGATION 0.034->0.083 (+4.9pp), definitively insufficient.
+
+**(3) substrate_kf1_truthfulqa_style_v1 HARD_FAIL -- HONEST CONFIRMED**
+3-seed full source=remote. NEGATION per-seed: {0.0194, 0.0152, 0.0190} mean=0.018. auc_hard mean=0.968 (excellent non-adversarial). HP threshold >=0.70; gap=0.652. Tight 3-seed spread (0.004pp). Smoke cycle 122 NEGATION=0.034 was single-seed; 3-seed full authoritative at 0.018. MiniLM negation-insensitivity architecturally definitive at 3-seed.
+
+### Cap_map annotation (v447 -> v448)
+
+**PP-8 ETF Phase 4A re-pointed (LVH #228 MIDDLE_BAND).** The correct Hopfield exact-recovery metric on sign-binarized real keys shows: raw=0 (unusable without whitening), whitened=38 (~0.10N at N_sub=384) on 2/3 seeds. Whitening is MANDATORY for real encoders. Signal is genuine and much stronger than the 2.75x artifact (cycle 119). Seed7 ZCA collapse (wht=0) prevents unanimous HP. MIDDLE_BAND annotation. Recommended next step: ZCA stability patch (rank-check + regularization floor) then re-run seed7. PP-8 band UNCHANGED.
+
+**KF-1 negation sub-axis 3-seed confirmation (both anchors).** Order-sensitive encoding fails negation detection definitively: NEGATION=0.083 (contradiction) and 0.018 (truthfulqa-style). Convergent 3-seed evidence confirms MiniLM architectural negation-blindness. auc_hard=0.895 (contradiction) and 0.968 (truthfulqa non-adversarial) -- substrate detection works; gap is encoder-only. Active rescues R3/R4/R5 (v443) stand; R5 (adversarial training) has highest priority given order-sensitivity insufficient finding. KF-1 band 72-87% UNCHANGED.
+
+**All rows UNCHANGED.** 0 row state changes. 0 band-lifts. 0 closures. Portfolio 32+77 UNCHANGED.
+
+### Rescue sketches (PROT-004/006; cheapest-first)
+
+**etf_hadamard_phase4a LVH #228 MIDDLE_BAND (4 rescues):**
+R1 (0-compute, ANNOTATION): Document seed7 ZCA collapse; clarify 38x is genuine signal on non-degenerate seeds.
+R2 (CHEAP, CPU <30min): Patch ZCA whitening for low-rank edge cases; re-run seed7 to confirm unanimous 38x.
+R3 (CHEAP, CPU <30min): N_sub sweep {512,1024,2048} with patched ZCA; characterize whitened Hopfield capacity scaling.
+R4 (CHEAP, CPU <30min): ZCA vs PCA vs random-projection whitening comparison at N_sub=384; identify most stable strategy.
+
+**KF-1 negation HARD_FAIL combined (4 rescues):**
+R1 (0-compute, SUBSUMPTION): v443 R5 (adversarial training) already covers primary rescue. Priority weight shifts to R5.
+R2 (CHEAP, CPU <30min): Negation-contrast fine-tuning on MiniLM with negation-pair-only examples.
+R3 (CHEAP, CPU <30min): NLI-trained sentence encoder as drop-in for negation axis.
+R4 (MEDIUM, GPU <2h): Pythia-scale-up + adversarial training combined (v443 R3+R5 stack).
+
+### PROT compliance (v447 -> v448)
+
+- **PROT-004/006**: No closures. etf_hadamard LVH #228: 4 rescues cheapest-first. KF-1 negation: 4 combined rescues; R1 subsumption.
+- **PROT-007**: v448 history row appended to substrate_capability_map_history.md.
+- **PROT-008**: Annotation-only; 0 row state changes; 0 portfolio changes. Validator not triggered.
+- **PROT-009**: cap_map.md + substrate_capability_map_history.md + strategy_decisions_2026-06-06.md staged atomically; 360th PROT-009 paired commit.
+- **PROT-018**: No _nN suffixes on any of the 3 anchors. CLEAN.
+- **PROT-021**: all source=remote run_mode=full n_seeds=3. No smoke artifacts. CLEAN.
+- **PROT-022**: etf_hadamard seeds 17+23 identical (38x deterministic); seed7 zero (ZCA degenerate init, not HP-fragility). KF-1 anchors tight 3-seed spread. No HP-fragility.
+
+### Commit & push
+
+Commit message: `Cap map: v447 -> v448 CYCLE 126 (0 HP; 2 HF-full: kf1_contradiction_order_sensitive-NEGATION-0.083-3SEED-ARCH-LIMIT + kf1_truthfulqa-NEGATION-0.018-3SEED-ARCH-DEFINITIVE; 1 MID-LVH #228: etf_hadamard_phase4a_repointed-HOPFIELD-ZCA-2/3-SEEDS-38x-1/3-ZCA-COLLAPSE; LVH 227->228; HONEST 973->976; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; Portfolio 32+77; 360th PROT-009 paired commit)`
+
+Push: BLOCKED from sub-agent context per [[feedback-subagent-permission-inheritance]]; orchestrator main thread executes git push origin main as 1-tool follow-up.

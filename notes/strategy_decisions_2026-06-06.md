@@ -266,3 +266,76 @@ R3 (CHEAP, CPU <30min): Decouple -- first confirm M_c for real encoder alone, th
 
 Cap_map: v446 -> v447 CYCLE 125 (1 HF: sparse_pattern_M_activation-SMOKE-LEVER-NULL-ALL-M-SPARSE-VALUE-CLOSED-sparse-KEY-UNAFFECTED; 1 HF-LVH #227: real_vs_synthetic_N_sweep-SMOKE-INCONCLUSIVE-CEILING-ARTIFACT-NOT-DISAMBIGUATION; 0 HP; 0 MID; LVH 226->227; PP-8 sparse-VALUE sub-probe closed; cross-N disambiguation OPEN; HONEST 971->973; Portfolio 32+77; 359th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v447 -> v448 CYCLE 126 BATCH (2026-06-06)
+
+Verdicts processed (re-runs / smoke->full promotions):
+1. substrate_etf_hadamard_phase4a_infra_eval_v1 (HARD_PASS label -- re-pointed Hopfield metric, 3-seed full)
+2. substrate_kf1_contradiction_detection_order_sensitive_v1 (HARD_FAIL -- 3-seed full promotion from cycle 123 smoke)
+3. substrate_kf1_truthfulqa_style_v1 (HARD_FAIL -- 3-seed full promotion from cycle 122 smoke)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) substrate_etf_hadamard_phase4a_infra_eval_v1 HARD_PASS -- [label-vs-honest] LVH #228**
+source=remote run_mode=full n_seeds=3. Re-pointed to Hopfield exact-recovery on ZCA-whitened sign-binarized real keys (b2da096; fixes dim-reduction bug in prior whiten() + fixes unique-value artifact metric). Pre-reg HP band: whitened/raw >=2x.
+Per-cell: seed7={raw=0, wht=0, ratio=0.0}, seed17={raw=0, wht=38, ratio=38.0}, seed23={raw=0, wht=38, ratio=38.0}.
+LABEL OVER-CLAIMS. verdict_msg 'ratio=25.33x' is mean (0+38+38)/3=25.33 -- but seed7 achieves wht=0 (zero Hopfield capacity on this seed). 2/3 seeds clear HP threshold (38x >> 2x). 1/3 seed (seed7) fails completely: whitening produced ZERO recoverable patterns. This is not a ratio=low issue -- seed7 has no capacity, raw or whitened. HARD_PASS requires per-cell evidence across all 3 seeds; 1/3 seed=0 means this is at best MIDDLE_BAND (2/3 seeds HP, 1/3 HF).
+LVH #228: (a) label: HARD_PASS 'ratio=25.33x'; (b) honest: MIDDLE_BAND -- 2/3 seeds whitened=38 (~0.10N, genuine lift >=2x HP); 1/3 seed (seed7) wht=0 (zero capacity, HP fail); seed7 likely a ZCA whitening collapse at this initialization; (c) contradicting cells: seed7 raw=0 wht=0 ratio=0.0 fails HP threshold entirely.
+Honest verdict: MIDDLE_BAND (2/3 seeds pass HP at 38x; 1/3 seed fails at 0x; mechanism confirmed 2/3 but not unanimous).
+Context: Prior cycle 119 2.75x was metric artifact (unique-value hetero metric); current Hopfield metric is correct. Current 38x on seeds 17+23 is the genuine whitening signal -- much stronger than 2.75x artifact. Seed7 collapse is likely a ZCA numerics issue at this seed's encoder sample.
+LVH #228. +1 HONEST (973->974). LVH 227->228 (+1).
+
+**(2) substrate_kf1_contradiction_detection_order_sensitive_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. 3-seed full promotion from cycle 123 smoke (n_seeds=1 NEGATION=0.111).
+Per-seed: {seed7: easy=0.8017, hard=0.8925, neg=0.0785}, {seed17: easy=0.8023, hard=0.8873, neg=0.0799}, {seed23: easy=0.8081, hard=0.9056, neg=0.0905}.
+Mean NEGATION=0.083 (range 0.078-0.090). HP threshold >=0.70. NEGATION=0.083 is well below threshold (gap: 0.617). HARD_FAIL label correct. NOTE: smoke n=1 had NEGATION=0.111; 3-seed full gives 0.083 (smoke over-estimated by 2.8pp -- within normal variance, not a pre-reg contradiction). NOT a byte-identical duplicate. New finding: NEGATION variance across seeds is tight (0.012pp spread) -- mechanistic consistency confirms architectural limit, not noise.
+HONEST. +1 HONEST (974->975). No LVH.
+
+**(3) substrate_kf1_truthfulqa_style_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. 3-seed full promotion from cycle 122 smoke (n_seeds=1 NEGATION=0.034).
+Per-seed: {seed7: hard=0.9683, neg=0.0194}, {seed17: hard=0.9659, neg=0.0152}, {seed23: hard=0.9687, neg=0.0190}.
+Mean NEGATION=0.018 (range 0.015-0.019). auc_hard mean=0.968 (3/3 seeds >= 0.90, excellent). HP threshold for NEGATION axis >=0.70; actual=0.018 (gap: 0.652). HARD_FAIL label correct. NOTE: smoke n=1 had NEGATION=0.034; 3-seed full gives 0.018 -- slightly lower, tight variance (0.004pp spread). Mechanistic: MiniLM has no negation/word-order sensitivity; 3-seed confirmation makes this architecturally definitive. NOT a byte-identical duplicate.
+HONEST. +1 HONEST (975->976). No LVH.
+
+HONEST: 973 -> 976 (+3). LVH: 227 -> 228 (+1: etf_hadamard_phase4a seed7-wht=0 fails HP).
+
+### Cap_map decisions
+
+**(1) substrate_etf_hadamard_phase4a_infra_eval_v1 [LVH #228 honest: MIDDLE_BAND]**
+PP-8 sub-property annotation (Phase 4A re-pointed Hopfield metric).
+Honest verdict: MIDDLE_BAND. 2/3 seeds: whitened Hopfield capacity=38 (~0.10N at N_sub=384) vs raw=0. Whitening is MANDATORY for real encoders (raw=0 is unusable without whitening). Genuine whitening signal confirmed on 2/3 seeds at 38x lift. 1/3 seed (seed7) ZCA collapse: wht=0 -- likely ZCA numerics failure at this seed PCA initialization. Not a stochastic noise issue (seeds 17+23 are identical at 38); seed7 is a degenerate initialization.
+Context: Supersedes the prior 2.75x metric-artifact reading (cycle 119). The correct metric (Hopfield exact-recovery) shows a much stronger signal (38x on good seeds) but reveals seed-stability issue in ZCA whitening. Band UNCHANGED (MIDDLE_BAND; not unanimous HP). Phase 4B recommendation: ZCA-stability patch + 3-seed recheck.
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Document seed7 ZCA collapse pattern; clarify whitening=38x is the genuine mechanism signal on non-degenerate seeds; capacity confirmed at ~0.10N.
+R2 (CHEAP, CPU <30min): Patch ZCA whitening to handle low-rank edge cases (add rank-check + regularization floor); re-run seed7 to confirm 38x is achievable unanimously.
+R3 (CHEAP, CPU <30min): N_sub sweep at {512, 1024, 2048} with patched ZCA to characterize how whitened Hopfield capacity scales with N_sub.
+R4 (CHEAP, CPU <30min): Compare ZCA vs PCA vs random-projection whitening at N_sub=384 to identify most stable whitening strategy.
+
+**(2) substrate_kf1_contradiction_detection_order_sensitive_v1 HARD_FAIL (3-seed full confirmation)**
+KF-1 adversarial negation sub-axis annotation (3-seed full confirms cycle 123 smoke HF).
+NEGATION mean=0.083 (range 0.078-0.090). Tight variance confirms mechanistic architectural limit, not noise. Order-sensitive encoding moves NEGATION from MiniLM-baseline 0.034 to 0.083 (+4.9pp) -- marginal improvement, far below 0.70 threshold. Gap is 0.617. Definitively closes the 'order-sensitivity as negation rescue' hypothesis for MiniLM. Active rescues v443 R3/R4/R5 (Pythia scale-up, positional embed, adversarial training) remain valid; this result specifically motivates R5 (adversarial training -- order alone insufficient). KF-1 band 72-87% UNCHANGED.
+
+**(3) substrate_kf1_truthfulqa_style_v1 HARD_FAIL (3-seed full confirmation)**
+KF-1 negation sub-axis annotation (3-seed full confirms cycle 122 smoke HF + cycle 123 annotation).
+NEGATION mean=0.018 (3-seed tight spread 0.015-0.019). Architecturally definitive: MiniLM negation-insensitivity is not a single-seed artifact. auc_hard=0.968 (excellent non-adversarial detection) confirms the substrate detection mechanism works -- the gap is entirely in the encoder's negation representation. Convergent evidence with v443+v445: negation requires explicit negation-aware training/architecture, not order-sensitivity. KF-1 band 72-87% UNCHANGED.
+
+Rescue sketches for KF-1 negation HARD_FAIL (both anchors combined, cheapest-first):
+R1 (0-compute, SUBSUMPTION): v443 R5 (adversarial training on shuffled-fact pairs) already covers primary path. 3-seed confirmation shifts priority weight to R5 over R3/R4. No new rescue needed.
+R2 (CHEAP, CPU <30min): Negation-contrast fine-tuning on MiniLM using only negation-pair examples (targeted minimal fine-tune, not full retraining).
+R3 (CHEAP, CPU <30min): Instruction-tuned or NLI-trained sentence encoder as drop-in for MiniLM on negation axis specifically.
+R4 (MEDIUM, GPU <2h): Pythia-scale-up (R3 from v443) + explicit negation-pair adversarial training (R5 from v443) combined -- most direct path to closing negation gap.
+
+### Portfolio: 32+77 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v447 -> v448)
+- PROT-004/006: No closures. etf_hadamard LVH #228: 4 rescues cheapest-first. KF-1 negation: 4 rescues combined cheapest-first; R1 subsumption applies.
+- PROT-007: v448 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 360th PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 3 anchors. CLEAN.
+- PROT-021: all source=remote run_mode=full n_seeds=3. No smoke artifacts. CLEAN.
+- PROT-022: etf_hadamard seeds 17+23 identical (38x); seed7 zero collapse -- ZCA numerics degenerate init (not HP-fragility in classical sense; rescue R2 addresses). KF-1 anchors tight 3-seed spread (normal variance). No HP-fragility.
+
+Cap_map: v447 -> v448 CYCLE 126 (0 HP; 2 HF-full: kf1_contradiction_order_sensitive-NEGATION-0.083-3SEED-FULL-ARCH-LIMIT-ORDER-INSUF + kf1_truthfulqa-NEGATION-0.018-3SEED-FULL-ARCH-DEFINITIVE-MINIML-NEGATION-INSENSITIVE; 1 MID-LVH #228: etf_hadamard_phase4a_repointed-HOPFIELD-ZCA-2/3-SEEDS-38x-1/3-SEED-ZCA-COLLAPSE; LVH 227->228; HONEST 973->976 +3; KF-1 72-87% UNCHANGED; PP-8 UNCHANGED; Portfolio 32+77; 360th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
