@@ -351,6 +351,49 @@ GPU lane must always have prioritized depth so it never idles. Pull from this se
 - **HP threshold:** word-shuffled adversarial AUC >= 0.80 (vs 0.217 baseline)
 - **Strategic value:** if HP, MiniLM-class encoder gains order-sensitivity at minor cost
 
+### Slot HOC1 (NEW; PRIORITY 1 from 2x drill B; CHEAPEST decisive): `substrate_kf1_minilm_word_bigram_concat_v1`
+- **Wall:** <2 min CPU smoke
+- **Source:** Drill B (11:30) Sub-question (2) cell
+- **Architecture:** MiniLM embedding concat word-level bigram bag-of-features
+- **Why first:** algebraically grounded; ~98% of word bigrams are destroyed by uniform word-shuffle, so detection is guaranteed in principle; zero training, no GPU
+- **Capability advanced:** PP-3 hallucination detection lightweight order-sensitivity (G11 root-cause fix)
+- **HP threshold:** word-shuffled adversarial AUC >= 0.65 (drill prediction)
+- **MID:** AUC 0.50-0.65
+- **HF:** AUC < 0.50 (redirects to positional embedding approach)
+- **P_deflated:** 0.50
+
+### Slot HOC2 (NEW; PRIORITY 2 from 2x drill B; algebraic AUC 0.88-0.92): `substrate_kf1_hybrid_pythia_bigram_fusion_v1`
+- **Wall:** ~30 min CPU (logistic regression alpha sweep; no GPU fine-tune)
+- **Source:** Drill B Sub-question (3) cell
+- **Architecture:** Pythia frozen residuals (current 0.702) late-fused with word bigram features
+- **Why:** error modes are NOT correlated (rho 0.2-0.4); algebraic prediction AUC in [0.88, 0.92] -- this is the path that CLOSES the 0.85+ gap
+- **Capability advanced:** PP-3 production order-sensitive detection
+- **HP threshold:** word-shuffled AUC >= 0.85 (closes the gap)
+- **MID:** 0.75-0.85
+- **HF:** < 0.75
+- **Condition:** Run after HOC1 passes (smoke confirms bigram signal exists)
+- **P_deflated:** 0.42
+
+### Slot HOC3 (NEW; PRIORITY 3 from 2x drill B; ceiling option): `substrate_kf1_pythia_fine_tune_order_sensitive_v1`
+- **Wall:** ~30 min GPU fine-tune; 5k-10k training pairs
+- **Source:** Drill B Sub-question (1) Option C
+- **Architecture:** Contrastive fine-tune Pythia-160m with word-shuffle as hard negative
+- **Why:** highest-ceiling option; expected AUC [0.80, 0.88] alone; [0.90+] combined with bigram
+- **Capability advanced:** PP-3 principled architecture for full adversarial robustness
+- **HP threshold:** AUC >= 0.85 standalone OR >= 0.90 when combined with HOC1 bigrams
+- **Condition:** Run only if HOC1+HOC2 stay in MID-BAND
+- **P_deflated:** 0.38
+
+### Slot HOC4 (NEW; PRIORITY 4 from 2x drill B; diagnostic): `substrate_kf1_adversarial_diversity_sweep_v1`
+- **Wall:** Tier 2-3 (generates attack variants; small inference budget)
+- **Source:** Drill B Sub-question (4)
+- **Architecture:** Run detectors across 4 attack types: word shuffle, phrase shuffle, token reverse, paraphrase
+- **Why:** required before production deployment to confirm no false-positive explosion on valid paraphrases
+- **Capability advanced:** PP-3 production-readiness gate
+- **HP threshold:** detector maintains AUC >= 0.85 across all 4 attack types; paraphrase AUC <= 0.30 (so it ISN'T flagging valid paraphrases as hallucinations)
+- **Condition:** Run IN PARALLEL with HOC2+HOC3 to inform fine-tune training-negative selection
+- **P_deflated:** 0.30
+
 ### Slot G12 (NEW; adversarial KF-1 a_query_sim defense): `substrate_kf1_a_query_sim_defense_v1`
 - **Wall:** ~60 min GPU
 - **Source:** Orchestrator cycle 120 -- KF-1 adversarial shuffled-KB AUC=0.206 remains open; orchestrator flagged `a_query_sim` defense path
