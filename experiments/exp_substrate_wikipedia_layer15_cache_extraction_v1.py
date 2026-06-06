@@ -237,12 +237,16 @@ class WikiStreamDataset(torch.utils.data.IterableDataset):
         ds = load_dataset(WIKI_DATASET, WIKI_CONFIG, split="train",
                           streaming=True, trust_remote_code=False)
 
+        # HF Datasets >=2.18 AUTO-shards streaming dataset across DataLoader
+        # workers based on the dataset's file shards. v1 bug: I additionally
+        # filtered by `idx % num_workers == worker_id` ON TOP of the auto-shard,
+        # giving 1/64 sampling instead of 1/8. Resulting in only 12.5% of
+        # articles extracted. Removed; auto-sharding is sufficient.
+
         # Per-worker target: split TARGET_ARTICLES across workers
         per_worker_target = max(1, self.max_articles // num_workers)
         emitted = 0
         for idx, ex in enumerate(ds):
-            if (idx % num_workers) != worker_id:
-                continue
             if emitted >= per_worker_target:
                 return
             text = ex.get("text", "")
