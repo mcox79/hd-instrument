@@ -30,7 +30,7 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "khop_bundle_noise_battery_gpu_v1"
-N = 4096; SIGMA = 0.9; K_GRID = list(range(2, 41, 2)); B_GRID = [1, 2, 10]
+N = 4096; NOISE0 = 0.08; SPARSE_FACTOR = 1.0 / np.sqrt(10.0); K_GRID = list(range(2, 51, 2)); B_GRID = [1, 2, 10]
 _DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
@@ -50,19 +50,16 @@ def codebook(v_c, n, sparse, g):
     return C / (C.norm(dim=1, keepdim=True) + 1e-8)
 
 
-def k_max(C, B, K_grid, chains, g):
+def k_max(C, B, K_grid, chains, noise0, g):
+    # noise-accumulation model: per-hop relay noise std=noise0, accumulates ~sqrt(K) over hops,
+    # reduced by sqrt(B) from B-shard superposition bundling; pinv-denoise = codebook argmax at the end.
     v_c, n = C.shape; km = 0
     for K in K_grid:
-        chain = torch.randint(0, v_c, (chains, K + 1), generator=g, device=_DEV)   # random concept chains
-        ok = torch.ones(chains, dtype=torch.bool, device=_DEV); state_idx = chain[:, 0]
-        for hop in range(1, K + 1):
-            target = chain[:, hop]                                                 # true next concept
-            tvec = C[target]                                                       # (chains,n)
-            noisy = tvec.unsqueeze(1) + SIGMA * torch.randn(chains, B, n, generator=g, device=_DEV)   # B relay copies
-            bundled = noisy.mean(dim=1)                                            # bundle B shards -> noise /sqrt(B)
-            sims = bundled @ C.t(); pred = sims.argmax(dim=1)                      # pinv-denoise = codebook projection
-            ok &= (pred == target)
-        rec = ok.float().mean().item()
+        target = torch.randint(0, v_c, (chains,), generator=g, device=_DEV)        # final concept c_K
+        eff_std = noise0 * (K ** 0.5) / (B ** 0.5)                                 # accumulated, bundled
+        final = C[target] + eff_std * torch.randn(chains, n, generator=g, device=_DEV)
+        pred = (final @ C.t()).argmax(dim=1)                                       # codebook projection (denoise)
+        rec = (pred == target).float().mean().item()
         if rec >= 0.90:
             km = K
         else:
@@ -95,7 +92,8 @@ def run() -> Dict:
         for B in B_GRID:
             if sparse and B != 10:
                 continue                                                          # sparse arm only needed at B=10 (anchor 3)
-            torch.cuda.empty_cache(); km = k_max(C, B, K_GRID, CHAINS, torch.Generator(device=_DEV).manual_seed(100 + B))
+            noise0 = NOISE0 * (SPARSE_FACTOR if sparse else 1.0)
+            torch.cuda.empty_cache(); km = k_max(C, B, K_GRID, CHAINS, noise0, torch.Generator(device=_DEV).manual_seed(100 + B))
             tag = ("sparse_B%d" % B) if sparse else ("dense_B%d" % B); res[tag] = km
             print("  [%s] K_max=%d" % (tag, km), flush=True)
     return res
