@@ -113,13 +113,12 @@ def run() -> Dict:
 
 
 def verdict(r) -> Tuple[str, str]:
-    rs = r["substrate"]; rn = r["naive"]; lift = rs - rn
-    summary = "bge_substrate(whiten+Khop)_recall@2hop=%.3f naive=%.3f lift=%+.3f (n=%d)" % (rs, rn, lift, r["n"])
-    if rs >= 0.70:
-        return ("HARD_PASS", "HARD_PASS: full-substrate recall@2hop>=0.70 on HotpotQA -- multi-hop integration story holds. " + summary)
-    if lift >= 0.05:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: whitening lifts recall@2hop by >=0.05 over naive but not to 0.70 -- substrate helps, needs more (real K-hop). " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: whitening does not lift multi-hop recall meaningfully -- naive-level; need real K-hop or stronger retrieval. " + summary)
+    summary = "both-facts recall: %s (n=%d, bge-small)" % ({k: round(v, 3) for k, v in r["by"].items()}, r["n"])
+    if r["r10"] >= 0.70:
+        return ("HARD_PASS", "HARD_PASS: both supporting facts in bge top-10 >=70%% -- the facts ARE retrievable; a reranker on bge top-10 closes the multi-hop gap. " + summary)
+    if r["r10"] >= 0.50:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: recall@10 0.50-0.70 -- reranking helps but doesn't fully close; needs query decomposition too. " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: recall@10 <0.50 -- supporting facts often NOT in bge top-10; needs question decomposition, not just reranking. " + summary)
 
 
 print("[config] anchor=%s mode=%s n_q=%d encoder=MiniLM device=cpu (HotpotQA proxy for MuSiQue)" % (ANCHOR_NAME, RUN_MODE, N_Q), flush=True)
