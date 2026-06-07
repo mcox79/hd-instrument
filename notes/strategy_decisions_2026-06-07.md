@@ -483,3 +483,74 @@ R4 (MEDIUM, GPU <2h): Combined PCA-truncation + DP noise on real harness (stacke
 
 Cap_map: v477 -> v478 CYCLE 157 (2 HP: hotpot_bge_recall_at_k-R10=0.733-BOTH_FACTS-N300 + pca_bottleneck_keyjob-F1_1.0_AT_D30-F1_0.925_AT_D10; 1 MID_DIAGNOSTIC: manifold_dim-PR31.9-TwoNN32.8-ID~32-ENERGY95=514; 1 MIDDLE_BAND: encoder_ladder-e5large_R10=0.78-BEST; 4 HF: hotpot_substrate_bge-LIFT=-0.027-WHITENING_WORSE + hotpot_bge_rerank-LIFT=-0.015-RERANK_WORSE + hotpot_bge_iterative_khop-LIFT=-0.033-KHOP_WORSE + entity_bridge_decomp-LIFT=+0.010-TRIVIAL_BEST_OF_BATCH; CROSS-ANCHOR: manifold_ID=32 + PCA_d30=1.0 converge -- 30-dim truncation algebraically motivated privacy mitigation; text-level-2hop CLOSED without NER/LLM bridge; entity-bridge is correct direction; HONEST 1158->1166 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 390th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v478 -> v479 CYCLE 158 HOTPOT FOLLOW-UP + PATTERN B + STORAGE (2026-06-07)
+
+Verdicts processed (8 anchors): hotpot_bge_large_rerank_v1 + llm_decomp_hotpot_v1 + llm_decomp_sequential_hotpot_v1 + substrate_vs_bare_llm_hotpot_v1 + pattern_b_unbind_substitute_v1 + pattern_b_khop_compose_v1 + pattern_b_analogy_v1 + storage_huffman_entropy_v1
+
+### Step 0 honest re-read
+
+All 8 metrics fetched source=remote (bridge stale; direct remote fetch via get_metrics).
+
+- hotpot_bge_large_rerank_v1: HONEST=HARD_FAIL (correct). reranked recall@2hop=0.315 bge-only=0.320 lift=-0.005 (n=200, bge top-10 + cross-encoder). Reranker DEGRADES recall vs bge-large baseline. HF threshold <0.50 verified (0.315 < 0.50). Label 'ranking alone does not close the gap; needs question decomposition' is honest. No LVH. +1 HONEST.
+- llm_decomp_hotpot_v1: HONEST=HARD_FAIL (correct). LLM-decomp recall@2hop=0.167 union@5=0.600 naive=0.367 lift=-0.200 (n=30, Qwen2.5-1.5B + bge-small). At 1.5B scale decomposition makes recall WORSE by 0.200. HF threshold <0.50 verified. Label 'decomposition alone does not close gap at 1.5B scale; needs larger LLM or different mechanism' is honest. No LVH. +1 HONEST.
+- llm_decomp_sequential_hotpot_v1: HONEST=HARD_FAIL (correct). sequential-decomp recall@2hop=0.333 naive=0.367 lift=-0.033 (n=30, Qwen2.5-1.5B retrieve-extract-substitute + bge-small). HF threshold <0.50 verified. NOTABLE: sequential agentic decomp underperforms naive by 0.033; even retrieve-extract-substitute loop cannot overcome 1.5B NER quality gap. Label honest. No LVH. +1 HONEST.
+- substrate_vs_bare_llm_hotpot_v1: HONEST=HARD_PASS (correct). substrate-augmented F1=0.586 bare-LLM F1=0.234 lift=+0.352 (n=30, Qwen2.5-1.5B + bge-small top-10). HP threshold >=0.15 answer F1 lift VERIFIED: lift=+0.352 >> 0.15. North-star thesis result confirmed. No LVH. +1 HONEST.
+- pattern_b_unbind_substitute_v1: HONEST=HARD_PASS (correct). substitution-retrieval acc: k2=1.0, k4=1.0, k6=1.0, k8=1.0 (N=1024). HP threshold >=0.95 at k=4 VERIFIED at all binding counts. VSA filler substitution algebraically reliable. No LVH. +1 HONEST.
+- pattern_b_khop_compose_v1: HONEST=HARD_PASS (correct). substitution-retrieval acc: k2=1.0, k4=1.0, k6=1.0, k8=1.0 (N=1024). HP threshold >=0.95 at k=4 VERIFIED. 2-hop chained unbinding algebraically exact. No LVH. +1 HONEST.
+- pattern_b_analogy_v1: HONEST=HARD_FAIL (correct). substitution-retrieval acc: k2=0.14, k4=0.041, k6=0.023, k8=0.018 (N=1024). HF threshold acc <0.85 at k=4 VERIFIED (0.041 << 0.85). Bundle interference catastrophically corrupts analogy mode. CONTRAST: same N=1024 but unbind+substitute and khop both achieve 1.0 -- analogy is structurally different. No LVH. +1 HONEST.
+- storage_huffman_entropy_v1: HONEST=MIDDLE_BAND (correct). H=3.294 bits (of 4); entropy-coding gain=1.21x. MIDDLE_BAND threshold 3.0-3.5 bits verified. No LVH. +1 HONEST.
+
+HONEST: 1166 -> 1174 (+8). LVH: 257 UNCHANGED.
+
+### Cap_map decisions (v478 -> v479)
+
+**(A) BGE-large reranker (HF -- reranker degrades bge-large baseline; cross-encoder approach closed):**
+hotpot_bge_large_rerank_v1 HF (n=200): reranked=0.315 < bge-only=0.320 (lift=-0.005). CROSS-ANCHOR: cycle-157 hotpot_bge_rerank_v1 also HF lift=-0.015 (bge-small + cross-encoder). Both cycles confirm cross-encoder reranking HURTS recall on HotpotQA 2-hop. Cap_map annotation (HotpotQA multi-hop mechanisms row): bge-large + cross-encoder reranker HF: lift=-0.005; combined with cycle-157 bge-small reranker lift=-0.015; cross-encoder reranking CONSISTENTLY HARMFUL on 2-hop retrieval across both encoder sizes; approach CLOSED; entity-bridge + larger encoder is the correct direction. Cycle 158.
+
+**(B) LLM decomposition at 1.5B scale (dual HF -- both parallel and sequential fail; 1.5B decomp axis closed):**
+llm_decomp_hotpot_v1 HF (n=30): recall=0.167 vs naive=0.367, lift=-0.200. llm_decomp_sequential_hotpot_v1 HF (n=30): recall=0.333 vs naive=0.367, lift=-0.033. Both Qwen2.5-1.5B decomposition approaches below naive. Cap_map annotation (HotpotQA LLM-decomp row): Qwen2.5-1.5B LLM decomp: parallel lift=-0.200 + sequential lift=-0.033; both below naive; 1.5B-decomp axis CLOSED; rescue: spaCy NER entity-bridge or >=7B LLM. NOTABLE: cycle-157 entity-bridge (regex-NER, lift=+0.010) remains sole positive-lift approach. Rescue sketches R1-R4 below. Cycle 158.
+
+**(C) Substrate vs bare LLM -- NORTH-STAR HP (F1 lift=+0.352; smoke confirmation of primary thesis):**
+substrate_vs_bare_llm_hotpot_v1 HARD_PASS (n=30): substrate-augmented F1=0.586 bare-LLM F1=0.234 lift=+0.352. HP threshold >=0.15 met by 0.202 margin. CRITICAL: North-star thesis -- substrate-augmented small LLM beats bare small LLM on answer quality -- is EMPIRICALLY CONFIRMED at smoke scope. Cap_map annotation (substrate-vs-LLM integration / north-star thesis row): NORTH-STAR HP: substrate+Qwen2.5-1.5B F1=0.586 vs bare F1=0.234; lift=+0.352 >> 0.15; substrate provides 2.5x answer-F1 improvement; primary product story confirmed at n=30; FULL n=200+ needed for Tier-1 promotion; EXPLORATORY HP founding. Rescue sketch R1-R2 below. Cycle 158.
+
+**(D) Pattern B unbind+substitute + K-hop compose (dual HARD_PASS -- VSA algebraic binding exact at N=1024):**
+pattern_b_unbind_substitute_v1 HP + pattern_b_khop_compose_v1 HP: both acc=1.0 at k2-k8 at N=1024. Cap_map annotation (Pattern B / VSA binding row): Pattern B algebraic binding: filler substitution AND 2-hop chained composition BOTH acc=1.0 at all k2-k8 at N=1024; substrate-native algebraic multi-hop composition is EXACT; LLM-free K-hop composition works; complements north-star HP -- substrate provides both storage retrieval lift AND algebraic multi-hop reasoning. Cycle 158.
+
+**(E) Pattern B analogy (HARD_FAIL -- bundle interference kills analogy mode; N-scaling rescue):**
+pattern_b_analogy_v1 HF: acc k2=0.14, k4=0.041, k6=0.023, k8=0.018 (N=1024). Contrast: same N=1024, unbind+substitute and khop both 1.0. Cap_map annotation (Pattern B analogy row): Pattern B analogy: acc collapses to 0.041 at k=4; bundle superposition interference dominates analogy-role mixing; structurally distinct from substitution (which is clean); N=1024 insufficient for analogy; N-scaling or structural subspace separation needed. Rescue sketches R1-R4 below. Cycle 158.
+
+**(F) Storage Huffman entropy (MIDDLE_BAND -- 1.21x gain; diagnostic value, not product story):**
+storage_huffman_entropy_v1 MIDDLE_BAND: H=3.294 bits (of 4); entropy-coding gain=1.21x. Cap_map annotation (storage entropy / compression row): Huffman entropy: H=3.294 bits (of 4-bit HD tokens); 21% coding headroom; modest, not compelling for standalone product story; implies HD tokens have detectable structure (H < 4) -- useful diagnostic; pursue further only if compression is an explicit product requirement. Cycle 158.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**LLM decomposition at 1.5B scale (dual HF; 1.5B axis closed):**
+R1 (0-compute, ANNOTATION): Qwen2.5-1.5B both modes fail; NER quality bottleneck confirmed.
+R2 (CHEAP, CPU <30min): spaCy NER entity-bridge -- confirmed best direction from cycle-157 (regex lift=+0.010).
+R3 (CHEAP, CPU <30min): Qwen2.5-7B parallel decomp to test if 7B scale clears the quality bar.
+R4 (MEDIUM, GPU <2h): Qwen2.5-7B sequential + e5-large encoder (full-quality stack test).
+
+**North-star HP smoke scope (HP at n=30; FULL needed before Tier-1):**
+R1 (0-compute, ANNOTATION): n=30 smoke confirms HP thesis; FULL n=200+ needed for Tier-1 promotion.
+R2 (CHEAP, CPU <1h): FULL n=200 substrate_vs_bare_llm at bge-large encoder to confirm lift holds at larger n + better encoder.
+
+**Pattern B analogy (HF -- N=1024 bundle interference):**
+R1 (0-compute, ANNOTATION): Substitution+khop both 1.0 at N=1024; analogy is structurally distinct (role superposition).
+R2 (CHEAP, CPU <30min): N-scaling sweep (N=2048, 4096, 8192) to find interference-free analogy threshold.
+R3 (CHEAP, CPU <30min): Structural subspace separation -- encode analogy roles into orthogonal subspaces before bundling.
+R4 (MEDIUM, CPU <2h): Block-sparse analogy binding to reduce superposition interference by confining role-filler binding.
+
+### PROT compliance (v478 -> v479)
+
+- PROT-004/006: No row closures. 3 new HF axes (bge-large reranker, LLM-decomp 1.5B, Pattern-B analogy) with rescue sketches R1-R4 cheapest-first. North-star HP at n=30 smoke -- FULL pending. Pattern B substitution+khop HP at N=1024.
+- PROT-007: v479 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: substrate_vs_bare_llm HP: lift=+0.352 >> 0.15 threshold (n=30, single smoke point; founding relies on large threshold gap). Pattern B x2: acc=1.0 all k-values (perfect monotone, non-fragile). PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 391st PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 8 anchors. CLEAN.
+- PROT-019: LVH 257 UNCHANGED. No new LVH catches.
+- PROT-021: All 8 source=remote. No smoke contamination. CLEAN.
+- PROT-022: HP anchors: substrate_vs_bare_llm n=30 single smoke (threshold gap 0.352>>0.15 non-fragile); pattern_b_unbind+khop acc=1.0 all k-values (perfect, non-fragile). No HP-fragility concern.
+
+Cap_map: v478 -> v479 CYCLE 158 (3 HP: substrate_vs_bare_llm-NORTH_STAR_F1=0.586_BARE=0.234_LIFT=+0.352 + pattern_b_unbind_substitute-ACC_1.0_K2-K8_N1024 + pattern_b_khop_compose-ACC_1.0_K2-K8_N1024; 1 MIDDLE_BAND: storage_huffman_entropy-H3.294bits-GAIN1.21x; 4 HF: hotpot_bge_large_rerank-LIFT=-0.005-RERANKER_CONSISTENTLY_HARMFUL + llm_decomp_hotpot-LIFT=-0.200-1.5B_DECOMP_FAILS + llm_decomp_sequential_hotpot-LIFT=-0.033-SEQUENTIAL_ALSO_FAILS + pattern_b_analogy-ACC0.041_K4-BUNDLE_INTERFERENCE; NORTH-STAR THESIS CONFIRMED at n=30 smoke (FULL n=200+ needed); Pattern-B algebraic binding robust for substitution+khop at N=1024 but NOT analogy; reranker approach closed across 2 cycles; 1.5B LLM decomp axis closed; HONEST 1166->1174 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 391st PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
