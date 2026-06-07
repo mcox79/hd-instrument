@@ -12221,3 +12221,48 @@ Cap_map annotation: causal_counterfactual_replay_v1 HP v474: NEW PP-82 causal co
 
 Cap_map: v473 -> v474 CYCLE 153 (3 HP: causal_correlational_disambig-PREC1.0-RECALL0.973-CAUSE_VS_CORR-N4096-3SEED + causal_intervention_isolation-DEG0.000-NON_TARGET_RECALL1.000-ZERO_CROSSTALK + causal_counterfactual_replay-ACC1.0-3.876ms-DO_OPERATOR-EU_AIACT_ART12; 0 LVH; HONEST 1111->1114 +3; LVH 250 UNCHANGED; 2 NEW PP ROWS: PP-81 causal-disambiguation 0.60-0.75 EXPLORATORY + PP-82 counterfactual-replay 0.60-0.75 EXPLORATORY; 1 NEW SUB-PROPERTY PP-81a zero-crosstalk isolation; Portfolio 32+80 -> 32+82; 386th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v475 update (2026-06-07) -- CYCLE 154 MASSIVE MORNING DRILL: 4 HP + 2 HP-ANNOT + 1 HP-DIAG + 3 MID + 1 HF + 4 LVH #251-254 (ZKL ATTACK_MISMATCH BATCH); LVH 250->254; HONEST 1114->1129 (+15); GDPR EDPB-POS3 CONFIRMED; Chain3 v1 cross-shard K-hop HP; ZKL SRHT-Auth3-CANCELLED CONFIRMED; 387th PROT-009
+
+Cap_map annotation: khop_ceiling_redesign_nscaling_gpu_v1 MID v475: LVH#249 rescue partial -- K_max=[8,5,8,8] at N=[2048,4096,8192,16384] (ceiling=119); non-monotone N-signal (N4096=5<N2048=8); sub-ceiling confirmed; genuine N-scaling NOT confirmed; n=1; 3-seed full at all N needed. PP-11 annotation: 'N-scaling non-monotone MIDDLE_BAND n=1; ceiling redesign confirmed sub-ceiling; monotone trend unresolved.'
+
+Cap_map annotation: khop_confidence_threshold_rescue_gpu_v1 HP v475: confidence filter viable at coherent distractors c_d=0.48; T-sweep: T0.0=22, T0.3=20, T0.5=22, T0.7=20, T0.9=4; best K_max=22>>K=12 target; T=0.5 optimal operational setting; T=0.9 over-aggressive (collapses to 4); n=1 seed; 3-seed recommended. PP-11 annotation: 'confidence filter v1 HP at c_d=0.48; T=0.5 optimal; cheap K-hop coherent-distractor fix VIABLE.'
+
+Cap_map annotation: khop_cellA_distractor_coherence_v1 MID v475 (diagnostic): real MiniLM c_d_empirical=0.389 at B=10, 3k-KB; partial coherence band 0.20-0.40; easier than confidence-rescue test c_d=0.48; production B=10 MiniLM deployment is in safer-than-tested regime; n=1 full. PP-11 annotation: 'real c_d=0.389<0.48 confidence-rescue threshold; confidence filter v1 viable for real-encoder production.'
+
+Cap_map sub-property annotation: chain3_v1_khop_3shard_gpu_v1 HP v475: NEW Chain3 cross-shard K-hop sub-property; v1 3-shard binary relay achieves K=12 recovery=0.987 (>>0.90 threshold); K_max=18; curve K2=1.0...K24=0.757 monotone; N=4096 n=1 full; 3-seed recommended. PP-12 or Chain3 architecture: 'cross-shard K-hop: K=12 recovery=0.987; K_max=18; multi-shard architecture viable; founded 0.60-0.75 EXPLORATORY n=1.'
+
+Cap_map annotation: chain3_lsh_fanout_v1 MID v475: B_eff=39.54 (3-seed: 39.57/39.49/39.57); LSH fan-out does NOT contain B_eff < 20 for safe K-hop; at B_eff~40 K_max will be pressured (cycle-151 noise model); routing redesign required to reduce B_eff. PP-11/PP-12 annotation: 'LSH fan-out B_eff=40 at S=100 -- too high for production K-hop; redesign needed; confirmed 3-seed.'
+
+Cap_map annotation: srht_realkey_zkl_fix_v1 LVH#251 v475: HARD_PASS RESCINDED to ATTACK_MISMATCH-MIDDLE_BAND; baseline zkl_real_plain=0.053 != cycle-151 baseline 0.40 (8x mismatch); attack harness does NOT reproduce cycle-151 gap; 'gap fixed' claim UNSUPPORTED. ZKL row: 'v1 attack-mismatch LVH#251; cycle-151 gap NOT reproduced.'
+
+Cap_map annotation: srht_realkey_zkl_fix_v2 HF v475: HARD_FAIL honest; MiniLM+noise proxy insufficient to reproduce cycle-151 real-key-worse; Llama+MarianMT harness required for faithful cycle-151 reproduction. ZKL row: 'v2 HF; MiniLM proxy insufficient; Llama+MarianMT required.'
+
+Cap_map annotation: srht_realkey_zkl_fix_v3 LVH#252 v475: MIDDLE_BAND with INTERNAL_CONTRADICTION; verdict_msg says 'not to <=0.10 target' but real+SRHT=0.0200 which IS below 0.10; furthermore baseline real=0.037 already below HIPAA 0.10 without SRHT (attack-mismatch); attack harness too weak to test cycle-151 gap. ZKL row: 'v3 LVH#252; internal contradiction + attack-mismatch; baseline already HIPAA-compliant.'
+
+Cap_map annotation: srht_iterated_passes_zkl_v1 LVH#253 v475: HARD_PASS RESCINDED to ATTACK_MISMATCH; baseline P0=0.037 already below HIPAA 0.10 without SRHT; HP claim trivially true when baseline compliant; provides zero evidence cycle-151 0.40 gap is fixed. ZKL row: 'iterated-passes LVH#253; trivially-true HP (baseline already below HIPAA); cycle-151 gap NOT validated.'
+
+Cap_map annotation: srht_llama_l15_zkl_v1 LVH#254 v475: HARD_PASS RESCINDED to HARD_FAIL-ATTACK_MISMATCH; baseline P0=0.047 already below HIPAA (attack too weak); SRHT HURTS: P1=0.073>P0=0.047, P3=0.073>P0; SRHT increases ZKL even on weak-attack harness; combined with exp_dev URGENT smoke (Llama 0.22->0.58 monotone worse on stronger attack); 'HIPAA claim restorable' is FALSE on own data AND on stronger attack. ZKL-product-line: 'SRHT Auth-3 engineering CANCELLED confirmed by two independent findings; ZKL HIPAA absolute claim unrestorable via SRHT; non-SRHT path or qualified claim required.'
+
+Cap_map sub-property annotation: erasure_record_append_v1 HP v475: append-only ErasureRecord design correct; append_only=True content_gone=True live_replay=True; 2000 facts 286 erasures; prior records immutable; stronger GDPR Art.17 audit posture than in-place downdate; n=1 deterministic full. GDPR erasure row: 'append-only log HP confirmed; immutable audit trail + content erasure + live-state replay all True.'
+
+Cap_map sub-property annotation: erasure_hmac_keystore_v1 HP v475: HMAC key-deletion closes hash-re-linkage GDPR gap (EDPB Position 3); pre_ok=True post_unverifiable=True relink_impossible=True live_ok=True; 400 deletions; deleted facts unverifiable and non-recomputable from content; n=1 deterministic full. CRITICAL legal milestone: GDPR erasure EDPB Position 3 CONFIRMED. GDPR erasure row: 'HMAC keystore HP; EDPB Position 3 compliant; hash-re-linkage gap CLOSED.'
+
+Cap_map annotation: sql_hd_aggregation_bound_gpu_v1 HP v475: native HD COUNT aggregation rel-error=0.0087 at N=16384 (3-seed: 0.0074/0.0098/0.0089, all<0.05); DuckDB round-trip avoidable for COUNT/SUM queries; n=3 seeds full. New sub-property (SQL/HD): 'COUNT aggregation rel-error 0.009 at N16384 3-seed; native HD aggregate queries viable.'
+
+Cap_map annotation: online_sparse_concept_extension_v1 HP v475: sparse-KEY concept extension; 3-seed unanimous base=0.000 ext=1.000 delta=+1.000 (>>0.20 threshold); jargon queries: 0% -> 100% precision; no encoder change; N=4096; cheapest domain adaptation path confirmed. New annotation: 'online sparse-KEY domain adaptation: delta=+1.0 jargon 3-seed N=4096; zero-shot vocabulary injection without retraining.'
+
+Cap_map annotation: r3_encoder_anisotropy_diagnostic_v1 HP v475 (diagnostic): MiniLM D=384 anisotropic -- PR/D=0.225 (<0.50), mean|corr|=0.073, top10pct_energy=0.512 (>0.50); anisotropy = real-key ZKL root cause for MiniLM CONFIRMED; implication 'SRHT Auth-3 justified' SUPERSEDED by LVH#254 + exp_dev URGENT (SRHT hurts Llama); Llama-D=2048 eigenspectrum diagnostic recommended separately; DP noise or non-SRHT decorrelation as next ZKL path. R3 encoder row: 'MiniLM anisotropy confirmed; ZKL root cause identified; SRHT cancelled; Llama eigenspectrum pending.'
+
+### PROT compliance (v474 -> v475)
+- PROT-004/006: No closures. 4 LVH catches (#251-254) with R1-R5 cheapest-first rescues each. 2 new GDPR sub-properties HP. 1 Chain3 cross-shard HP sub-property founding. 2 HP-ANNOT (SQL/HD + online-adapt). K-hop rescues R1-R3 cheapest-first.
+- PROT-007: v475 history row appended to substrate_capability_map_history.md.
+- PROT-008: chain3_v1_3shard HP K=12 recovery=0.987 founding PASS. khop_confidence_threshold HP c_d=0.48 K_max=22 founding PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 387th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 15 anchors. CLEAN.
+- PROT-019: LVH 250->254 (+4: #251 srht_realkey_v1 + #252 srht_v3 + #253 srht_iterated + #254 srht_llama).
+- PROT-021: All 15 source=remote run_mode=full. 3-seed: chain3_lsh, sql_hd, online_sparse. 1-seed: remainder. CLEAN.
+- PROT-022: HP verdicts deterministic or multi-seed. LVH anchors n=1 flagged. SRHT-hurts finding consistent across smoke and full runs.
+
+Cap_map: v474 -> v475 CYCLE 154 MASSIVE MORNING DRILL (4 HP: khop_confidence_threshold-T0.5-K_MAX22-C_D0.48 + chain3_v1_3shard-K12-RECOVERY0.987-K_MAX18 + erasure_append-APPEND_ONLY-GDPR + erasure_hmac-EDPB_POS3-HMAC-400DELETIONS; 2 HP-ANNOT: sql_hd_aggregation-REL_ERR0.0087-N16384-3SEED + online_sparse-DELTA1.0-JARGON-3SEED; 1 HP-DIAG: r3_anisotropy-PR_D0.225-MINIML-SRHT_AUTH3_SUPERSEDED; 3 MID: khop_ceiling_redesign-NON_MONOTONE + khop_cellA_coh-C_D0.389 + chain3_lsh-B_EFF40; 1 HF: srht_realkey_v2-PROXY_INSUFFICIENT; 4 LVH: #251 srht_realkey_v1-ATTACK_MISMATCH + #252 srht_v3-INTERNAL_CONTRADICTION + #253 srht_iterated-BASELINE_BELOW_HIPAA + #254 srht_llama-SRHT_HURTS_P1>P0_HARD_PASS_FALSE; ZKL-SRHT-AUTH3-CANCELLED-CONFIRMED-2-INDEPENDENT; GDPR-EDPB-POS3-CONFIRMED; HONEST 1114->1129 +15; LVH 250->254 +4; Portfolio 32+82 UNCHANGED; 387th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
