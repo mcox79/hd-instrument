@@ -64,15 +64,12 @@ def load_hotpot(n):
     for l in open(HOTPOT, encoding="utf-8"):
         r = json.loads(l)
         ctx = r.get("context") or []; sf = r.get("supporting_facts") or []
-        sents = []; gold = set()
+        flat = []
         for item in ctx:
-            title = item[0]; sents = item[1] if len(item) > 1 else []
-            for si, s in enumerate(sents):
-                sents_idx = len(sents_list) if False else None
-                sents.append((title, si, s))
-        # gold supporting (title, sent_idx)
+            title = item[0]; slist = item[1] if len(item) > 1 else []
+            for si, s in enumerate(slist):
+                flat.append((title, si, s))
         goldset = set((t, i) for t, i in sf)
-        flat = [(t, i, s) for (t, i, s) in sents]
         if len(flat) < 4 or len(goldset) < 2:
             continue
         out.append({"q": r.get("question", ""), "sents": flat, "gold": goldset})
