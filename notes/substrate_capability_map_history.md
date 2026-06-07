@@ -26849,3 +26849,11 @@ LVH 245->246 (+1). HONEST 1072->1079 (+7). Portfolio 32+79->32+80. 382nd PROT-00
 1 LVH #247: smw_whitening_disabled range-overclaims-floor (1.46x N1024 outside stated 3-6x). LVH#244 RESOLVED: i1_bf16 closes g3 fp16-gate.
 2x PROT-008 PASS: (a) lambda03 HP + v467 h2_mmr_envelope HP: lambda=0.3 subset confirmed. (b) kf1_3hop HP + v467 pb_multilang HP: monotone hop extension.
 HONEST 1079->1098 (+19). LVH 246->247 (+1). Portfolio 32+80 UNCHANGED. 383rd PROT-009.
+
+v472 | 2026-06-06 | CYCLE 151 K-HOP NOISE BATTERY + LVH#245 TOPOLOGY + ZKL REAL-KEYS
+2 HP: khop_noise_model_AB_compare DIAGNOSTIC-averaging-benign-distractor-adversarial; lvh245_mmr_topology_spectral_gap 3SEED-HUB0.9-PROPAGATION-0.013-TOPOLOGY-AGNOSTIC-LVH245-RESOLVED.
+1 HF: khop_bundle_noise_battery dense-B2-K_MAX-12-VULNERABILITY-WINDOW dense-B10-RECOVERS-50.
+1 MID-LVH#248: khop_sparse_bsweep HONEST=MIDDLE_BAND sparse-B1-ONLY-10x-advantage dense-RECOVERS-B10-ceiling; verdict_msg '>=2.5x across B-sweep' overclaims.
+1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys k50=0.4 11x-WORSE-THAN-SYNTHETIC ZKL50=0.035; HIPAA claim DEGRADES.
+LVH 247->248 (+1: khop_sparse_bsweep B>=10 ceiling-tie masks B=1 advantage). PROT-008 MMR topology PASS.
+ZKL real-key calibration gap added. LVH245 RESOLVED. HONEST 1098->1103 (+5). Portfolio 32+80 UNCHANGED. 384th PROT-009.

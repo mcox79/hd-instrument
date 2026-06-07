@@ -2275,3 +2275,117 @@ NEW CAPABILITY SUMMARY (ZKL product line + API surface + production gates):
 
 Cap_map: v470 -> v471 CYCLE 150 GAMUT-BATCH (12 HP: lvh245_lambda03-MMR-5SEED-PROD-CONFIG-LOCKED + pb_kf1_multilang_3hop-AUC0.970 + zkl_curve_k-SUBLINEAR-ZKL50=0.035-HIPAA + zkl_hash_rsa-4000x-CHEAPER-PQ-FREE + zkl_substrate_vs_rag-23x-RAG-PRIVACY-ADV + api_subscribe-REACTIVE-READY + api_verify-TAMPER-100pct + api_as_of-BITEMPORAL-ZERO-LEAK + qdef_rate_limit-CAMPAIGN-BLOCKED + qdef_watermark-10/10-MIA + subs_merkle-0.0046ms + i1_bf16_overflow-N65536-GATE-CLOSED; 4 HF: lvh245_lambda05-3/5-FAIL + smw_profiler-BW-0.59-LAUNCH-OVERHEAD + smw_rank_k-MAX-2.1x + (future); 3 MID: smw_whitening_disabled-1.46-7.82x-LVH247 + zkl_timing-AUC0.597-PARTIAL + subs_naive_scan-S1K-79pct; 1 LVH #247: smw_whitening range-floor 1.46x outside 3-6x; LVH#244 RESOLVED by i1_bf16; 2x PROT-008 PASS; HONEST 1079->1098 +19; LVH 246->247 +1; Portfolio 32+80 UNCHANGED; ZKL-PRODUCT-LINE-LAUNCHED; API-3-PRIMITIVES-READY; 383rd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v471 -> v472 CYCLE 151 BATCH (2026-06-06)
+
+Verdicts processed (5): khop_bundle_noise_battery_gpu_v1 (HARD_FAIL) + khop_sparse_bsweep_battery_gpu_v1 (HARD_PASS -- [label-vs-honest] LVH #248) + khop_noise_model_AB_compare_gpu_v1 (HARD_PASS) + lvh245_mmr_topology_spectral_gap_v1 (HARD_PASS) + zkl_curve_k_sweep_realkeys_v1 (HARD_FAIL orphan)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) khop_bundle_noise_battery_gpu_v1 HARD_FAIL -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1.
+Per-cell K_max: dense_B1=6, dense_B2=12, dense_B10=50, sparse_B10=50.
+verdict_msg 'K_max(B2)<15 -- noise accumulation not polynomial; cross-shard K-hop not noise-safe as modelled.' B2=12<15: confirmed. B10 hits K_max=50 (near ceiling of test K_max=60); B2 is the discriminating cell. polynomial(1/sqrt(B)) fit R^2=0.90. HARD_FAIL label correct: dense K-hop does not hold at B=2 intermediate bundling.
+NOTE: n_seeds=1 single seed. Mechanistic finding about B=2 robust as K_max=12 is well below the K_max=50 ceiling seen at B10.
+HONEST. +1 HONEST (1098->1099).
+
+**(2) khop_sparse_bsweep_battery_gpu_v1 HARD_PASS -- [label-vs-honest] LVH #248**
+source=remote run_mode=full n_seeds=1.
+Per-cell K_max: dense_B1=6, dense_B10=60, dense_B30=60, dense_B100=60, dense_B1000=60; sparse_B1=60, sparse_B10=60, sparse_B30=60, sparse_B100=60, sparse_B1000=60.
+LABEL OVER-CLAIMS. verdict_msg 'sparse-KEY intermediates give >=2.5x K_max over dense ACROSS THE B-SWEEP'. Per-cell: sparse vs dense advantage holds ONLY at B=1 (60 vs 6 = 10x). At B>=10, BOTH dense and sparse hit K_max ceiling (60). Dense K_max ceiling is reached at B=10 without sparse keys. The '>=2.5x across the B-sweep' language implies sparse advantage persists throughout B-range, but at B>=10 they are indistinguishable (ceiling artifact, not advantage).
+LVH #248: (a) label HARD_PASS 'sparse-KEY >=2.5x across B-sweep'; (b) honest: sparse-KEY advantage is B=1 ONLY (60 vs 6 = 10x); at B>=10, dense and sparse are tied at ceiling K_max=60; advantage disappears as B grows because dense recovers to ceiling without sparse keys; (c) contradicting cells: dense_B10=60, dense_B30=60, dense_B100=60, dense_B1000=60 all match sparse (ratio=1.00x at ceiling).
+Honest verdict: MIDDLE_BAND (genuine sparse advantage at B=1; ceiling tie at B>=10; B=2 is the transition zone per cycle-151 anchor 1 result B2=12). Capability implication: sparse-KEY K-hop advantage over dense is a low-B phenomenon; at higher B (more cross-shard relay), dense catches up to ceiling autonomously.
+LVH #248. +1 HONEST (1099->1100). LVH 247->248 (+1).
+
+**(3) khop_noise_model_AB_compare_gpu_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1.
+Per-cell: averaging_B1=6, averaging_B2=12, averaging_B10=60, averaging_B30=60, averaging_B100=60; distractor_B1=6, distractor_B2=6, distractor_B10=0, distractor_B30=0, distractor_B100=0.
+verdict_msg 'both noise models computed and qualitatively DISTINGUISHABLE (averaging increasing vs distractor decreasing)'. Per-cell confirms: averaging model K_max increases with B (6->12->60); distractor model K_max decreases with B (6->6->0). The two models produce OPPOSITE trends. HARD_PASS as a diagnostic characterisation anchor (not a threshold claim). HONEST.
+NOTE: n_seeds=1. Diagnostic purpose fulfilled.
+HONEST. +1 HONEST (1100->1101).
+
+**(4) lvh245_mmr_topology_spectral_gap_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3.
+Per-seed: seed7={hub0.1:0.0, hub0.3:0.0, hub0.5:0.0, hub0.7:-0.007, hub0.9:0.0}; seed17={hub0.1:0.0, hub0.3:0.0, hub0.5:0.0, hub0.7:0.0, hub0.9:-0.013}; seed23={hub0.1:-0.007, hub0.3:0.0, hub0.5:0.0, hub0.7:0.0, hub0.9:0.0}.
+HP threshold: propagation <0.10 absolute. WORST cell = seed17 hub0.9 = 0.013 absolute. ALL 15 cells (3 seeds x 5 hub_frac) unanimously below 0.10. Negative values confirm MMR REDUCES false anchor propagation. 3-seed unanimous. HONEST.
+HONEST. +1 HONEST (1101->1102).
+
+**(5) zkl_curve_k_sweep_realkeys_v1 HARD_FAIL -- LABEL HONEST (orphan; ZKL real-keys extension)**
+source=remote run_mode=smoke n_seeds=1.
+Per-cell: k1=0.0, k10=0.08, k50=0.4.
+verdict_msg 'real-key ZKL(50)>0.30 -- leakage not sublinear.' k50=0.4>0.30: confirmed. NOTE: smoke n_seeds=1.
+CRITICAL CONTRAST: cycle-150 zkl_curve_k with SYNTHETIC keys passed HARD_PASS (ZKL50=0.035). REAL keys fail at k50=0.4 (11.4x WORSE than synthetic). Real-key curve is non-sublinear at k=50. This is a REAL-WORLD CALIBRATION finding: synthetic-key ZKL underestimates real-key leakage by >11x. HARD_FAIL label correct.
+Capability implication: ZKL HIPAA-grade claim from cycle-150 does NOT transfer to real encoder keys without re-characterisation.
+HONEST. +1 HONEST (1102->1103).
+
+HONEST: 1098 -> 1103 (+5). LVH: 247 -> 248 (+1: khop_sparse_bsweep B>=10 ceiling-tie masks genuine B=1 advantage; '>=2.5x across B-sweep' over-claims).
+
+### Cap_map decisions
+
+**(1) khop_bundle_noise_battery_gpu_v1 HARD_FAIL**
+PP-11 K-hop noise-model sub-property annotation.
+Finding: dense cross-shard K-hop fails at B=2 bundles (K_max=12). Dense RECOVERS at B>=10 (K_max=50). B=2 is the vulnerability window for dense cross-shard relay. Noise accumulation is NOT polynomial at B=2 but becomes manageable at B>=10.
+Annotation on PP-11 K-hop row: 'dense cross-shard safe at B>=10; B=2 vulnerability window (K_max=12); sparse-KEY eliminates B=1 dependence (B=1 only per LVH#248); Chain3 architecture requires B>=10 for dense-key relay or sparse-KEY at B=1.'
+Band UNCHANGED. Portfolio 32+80 UNCHANGED.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Document B=2 vulnerability + B>=10 recovery. Engineering: ensure B>=10 for production cross-shard.
+R2 (0-compute, SUBSUMPTION): anchor 2 (khop_sparse_bsweep) sparse-KEY path at B=1 covers low-B regime; no separate rescue for anchor 1.
+R3 (CHEAP, GPU <30min): 3-seed full noise battery at B={1,2,5,10} to confirm B=2 vulnerability is not seed-dependent.
+R4 (CHEAP, GPU <30min): B=2 sparse-KEY explicit test to confirm sparse eliminates B=2 vulnerability.
+
+**(2) khop_sparse_bsweep_battery_gpu_v1 [LVH #248 honest: MIDDLE_BAND; sparse advantage B=1 ONLY; dense recovers at B>=10]**
+PP-11 K-hop sparse-KEY B-sweep annotation.
+Honest verdict: MIDDLE_BAND. Genuine finding: sparse-KEY gives 10x advantage at B=1 (K_max 60 vs 6). At B>=10, both dense and sparse reach ceiling K_max=60 -- dense self-recovers. The sparse-KEY advantage is a low-B phenomenon, not universal.
+Combined with anchor 1: B=2 is the dense vulnerability window (K_max=12). B=2 sparse-KEY likely closes this window (sparse_B1=60 suggests sparse is robust even at B=1; B=2 sparse likely also at ceiling). Architecture: sparse-KEY + low-B relay; dense-only + B>=10 relay -- both viable paths.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Annotate 'B=1 domain only' for sparse-KEY advantage in PP-11 row. Cap_map corrected.
+R2 (0-compute, SUBSUMPTION): B=2 sparse test (anchor 1 R4) resolves the gap.
+R3 (CHEAP, GPU <30min): 3-seed full at sparse B={1,2,5,10} to confirm B=1 advantage and B-regime transition are n=1 robust.
+R4 (CHEAP, GPU <30min): Confirm B=2 sparse-KEY explicitly -- production-critical transition point.
+PP-11 band UNCHANGED.
+
+**(3) khop_noise_model_AB_compare_gpu_v1 HARD_PASS (diagnostic; Chain3 Drill3 complete)**
+PP-11 K-hop noise-model comparative annotation.
+Finding: averaging noise model (benign relay accumulation) K_max GROWS with B; distractor noise model (adversarial injection) K_max COLLAPSES to 0 at B>=10. Two models are FALSIFIABLE by real relay implementation choice. Research referral: which model governs real encoder relay semantics resolves Chain3 architecture decision.
+Cap_map annotation: 'noise-model A/B diagnostic complete v472: averaging=benign-B-grows (K_max 6->12->60); distractor=adversarial-B-destroys (K_max 6->6->0->0); real relay classification pending Research; Chain3 Drill3 work complete.'
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Annotate two noise-model predictions in PP-11 K-hop architecture notes. Research referral for which model applies.
+R2 (CHEAP, CPU <30min): Test actual encoder relay (averaged keys vs distinct keys) to determine empirically which model governs.
+PP-11 annotation updated.
+
+**(4) lvh245_mmr_topology_spectral_gap_v1 HARD_PASS (3-seed full; LVH #245 topology concern RESOLVED)**
+MMR/LVH-245 sub-property annotation.
+LVH-245 fragility concern RESOLVED. MMR lambda=0.3 is topology-agnostic: hub-dominated KBs (hub_frac=0.9) propagation=0.013 absolute (unanimous 3 seeds), well within <0.10 threshold. Negative propagation values confirm MMR actively suppresses false anchor spreading.
+PROT-008 validator: lambda=0.3 HP (cycle-150) + this topology sweep HP = two independent confirmation passes at production config. Validator PASS.
+Cap_map annotation: 'MMR topology-spectral-gap HP v472: lambda=0.3 production-locked; hub-dominated KBs (hub_frac=0.9) propagation=0.013; topology-agnostic 3-seed full; LVH245 seed7 fragility concern RESOLVED.'
+Status update on LVH-245 row: 'fragility-under-investigation' -> 'RESOLVED-topology-agnostic-3seed-full'.
+Rescue sketches:
+R1 (0-compute, CLOSURE): LVH-245 concern RESOLVED. No rescue needed.
+R2 (CHEAP, CPU <30min): Real-graph topology test (Wikipedia category or citation graph) to extend from synthetic to real-world networks.
+
+**(5) zkl_curve_k_sweep_realkeys_v1 HARD_FAIL (smoke orphan; ZKL real-key calibration gap; DEGRADES cycle-150 HP)**
+ZKL product-line sub-property annotation (real-key leakage).
+Finding: synthetic-key ZKL HP (cycle-150 ZKL50=0.035) does NOT predict real-key leakage (ZKL50=0.4; 11.4x WORSE). Real-key leakage is non-sublinear at k=50. HIPAA-grade claim from cycle-150 zkl_curve_k requires real-key re-characterisation before production deployment.
+Cap_map annotation on ZKL row: 'REAL-KEY CALIBRATION GAP v472: smoke n=1: k50=0.4 (>0.30 HF threshold); synthetic-key HP (ZKL50=0.035, cycle-150) does NOT transfer; real-key leakage 11x worse than synthetic; HIPAA-grade claim requires real-key re-characterisation; ZKL product-line PARTIALLY DEGRADED pending full real-key sweep.'
+ZKL band: PARTIAL caveat added (annotation only; no row state change). Portfolio 32+80 UNCHANGED.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Annotate real-key vs synthetic-key gap. Cycle-150 HP was valid for synthetic regime; real-key is separate.
+R2 (CHEAP, CPU <30min): Full 3-seed real-key sweep k={1,5,10,20,50,100} to characterize complete real-key leakage curve and find sublinear operating regime if any.
+R3 (CHEAP, CPU <30min): Identify WHY real keys leak more -- hypothesis: real encoder embeddings have correlated subspaces that synthetic random keys lack.
+R4 (MEDIUM, GPU <2h): Key-whitening preprocessing before ZKL operations to reduce real-key leakage toward synthetic-key behavior.
+R5 (MEDIUM, GPU <2h): HIPAA-threshold re-evaluation: find k where real-key ZKL stays <0.10 to define privacy-safe operating regime.
+
+### Portfolio: 32+80 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures (LVH-245 diagnostic RESOLVED; ZKL real-key gap adds caveat).
+
+### PROT compliance (v471 -> v472)
+- PROT-004/006: No row closures. anchor 1: R1-R4 cheapest-first. anchor 2 LVH#248: R1-R4 cheapest-first. anchor 3: R1-R2. anchor 4: R1-R2 (resolution). anchor 5: R1-R5 cheapest-first.
+- PROT-007: v472 history row appended to substrate_capability_map_history.md.
+- PROT-008: anchor 4 MMR topology confirmatory HP + lambda=0.3 cycle-150 locked; monotone confirmation PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 384th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 5 anchors. CLEAN.
+- PROT-019: LVH 247->248 (+1: khop_sparse_bsweep >=2.5x-across-B-sweep overclaims; honest=B=1-ONLY-advantage).
+- PROT-021: anchor 4 source=remote run_mode=full n_seeds=3 CLEAN. anchors 1,2,3 source=remote run_mode=full n_seeds=1. anchor 5 source=remote run_mode=smoke n_seeds=1. Smoke flagged for anchor 5.
+- PROT-022: anchor 4 3-seed tight spreads CLEAN. anchors 1-3 n=1 mechanistic. anchor 5 smoke n=1 ZKL.
+
+Cap_map: v471 -> v472 CYCLE 151 (2 HP: khop_noise_model_AB_compare-DIAGNOSTIC-AVERAGING-GROWS-DISTRACTOR-DESTROYS + lvh245_mmr_topology_spectral_gap-3SEED-HUB0.9-PROPAGATION-0.013-TOPOLOGY-AGNOSTIC-LVH245-RESOLVED; 1 HF: khop_bundle_noise_battery-DENSE-B2-K_MAX-12-VULNERABILITY-DENSE-B10-RECOVERS; 1 MID-LVH#248: khop_sparse_bsweep-HONEST=MIDDLE_BAND-B1-ONLY-10x-DENSE-RECOVERS-B10; 1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys-k50=0.4-11x-WORSE-SYNTHETIC-HIPAA-DEGRADES; LVH 247->248 +1; PROT-008 MMR PASS; ZKL real-key calibration gap; LVH245 RESOLVED; HONEST 1098->1103 +5; Portfolio 32+80 UNCHANGED; 384th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

@@ -12144,3 +12144,28 @@ Cap_map annotation: i1_bf16_overflow_n65536 HP v471: zero NaN/Inf at N=65536 in 
 
 Cap_map: v470 -> v471 CYCLE 150 GAMUT-BATCH (12 HP: lvh245_lambda03-MMR-5SEED-PROD-CONFIG-LOCKED + pb_kf1_multilang_3hop-AUC0.970 + zkl_curve_k-SUBLINEAR-ZKL50=0.035-HIPAA + zkl_hash_rsa-4000x-CHEAPER-PQ-FREE + zkl_substrate_vs_rag-23x-RAG-PRIVACY-ADV + api_subscribe-REACTIVE-READY + api_verify-TAMPER-100pct + api_as_of-BITEMPORAL-ZERO-LEAK + qdef_rate_limit-CAMPAIGN-BLOCKED + qdef_watermark-10/10-MIA + subs_merkle-0.0046ms + i1_bf16_overflow-N65536-GATE-CLOSED; 4 HF: lvh245_lambda05-3/5-FAIL-LAMBDA-0.5-UNSAFE + smw_profiler-BW-UTIL-0.59-LAUNCH-OVERHEAD-DOMINATED + smw_rank_k-MAX-2.1x-LAUNCH-DOMINATED + (total 4 HF incl LVH245 rescue HF); 3 MID: smw_whitening_disabled-1.46-7.82x-LVH247 + zkl_timing-AUC0.597-PARTIAL + subs_naive_scan-S1K-79pct-S2K-153pct; 1 LVH #247: smw_whitening range-floor 1.46x outside 3-6x; LVH#244 RESOLVED by i1_bf16; 2x PROT-008 PASS: lambda03-subset + kf1_3hop-monotone; HONEST 1079->1098 +19; LVH 246->247 +1; Portfolio 32+80 UNCHANGED; ZKL-PRODUCT-LINE-LAUNCHED; API-3-PRIMITIVES-READY; MMR-LAMBDA-0.3-LOCKED; 383rd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v472 update (2026-06-06) -- CYCLE 151 K-HOP NOISE BATTERY + LVH#245 TOPOLOGY + ZKL REAL-KEYS: 2 HP + 2 HF + 1 MID-LVH#248; HONEST 1098->1103 +5; LVH 247->248; LVH245 RESOLVED; 384th PROT-009
+
+Cap_map annotation: khop_bundle_noise_battery_gpu_v1 HF v472: dense cross-shard K-hop vulnerable at B=2 (K_max=12); dense recovers at B>=10 (K_max=50); noise accumulation not polynomial at B=2; production chain architecture requires B>=10 for dense-key relay OR sparse-KEY at B=1. PP-11 K-hop annotation: 'dense safe B>=10; B=2 vulnerability window; Chain3 requires B>=10 or sparse-KEY'.
+
+Cap_map annotation: khop_sparse_bsweep_battery_gpu_v1 MID v472 [LVH #248]: HONEST=MIDDLE_BAND; sparse-KEY advantage over dense is B=1 ONLY (K_max 60 vs 6 = 10x); at B>=10 dense and sparse are tied at ceiling (K_max=60); '>=2.5x across B-sweep' verdict_msg over-claims; dense self-recovers at B>=10. Architecture: sparse-KEY = low-B regime only; dense B>=10 = production safe without sparse. PP-11 annotation corrected.
+
+Cap_map annotation: khop_noise_model_AB_compare_gpu_v1 HP v472 (diagnostic): two noise models DISTINGUISHABLE and OPPOSITE in trend -- averaging relay: K_max grows with B (6->12->60); distractor injection: K_max collapses with B (6->6->0); Chain3 Drill3 noise-model characterisation COMPLETE; Research referral for which model governs real encoder relay. PP-11 annotation: 'noise-model A/B diagnostic complete; averaging=benign; distractor=adversarial-destroys; real relay classification pending'.
+
+Cap_map annotation: lvh245_mmr_topology_spectral_gap_v1 HP v472: MMR lambda=0.3 topology-agnostic -- hub-dominated KBs (hub_frac=0.9) propagation=0.013 absolute, 3-seed unanimous; ALL 15 cells (3 seeds x 5 hub_frac) below 0.10 threshold; negative values confirm active suppression; LVH245 seed7 fragility concern RESOLVED; production-safe on ALL network topologies tested. Status: LVH245 row 'fragility-under-investigation' -> 'RESOLVED-topology-agnostic-3seed'. PROT-008: lambda=0.3 locked cycle-150 + topology sweep HP; monotone PASS.
+
+Cap_map annotation: zkl_curve_k_sweep_realkeys_v1 HF v472 (smoke orphan; REAL-KEY CALIBRATION GAP): real-key ZKL50=0.4 vs synthetic-key ZKL50=0.035 (11.4x WORSE); real-key leakage non-sublinear at k=50; HIPAA-grade claim from cycle-150 zkl_curve_k HP does NOT transfer to real encoder keys without re-characterisation; ZKL product-line PARTIALLY DEGRADED pending full real-key sweep. Rescue R1-R5 filed: annotation -> full sweep -> correlation analysis -> key-whitening -> HIPAA-threshold re-eval.
+
+### PROT compliance (v471 -> v472)
+- PROT-004/006: No row closures. anchor 1 HF: R1-R4 cheapest-first. anchor 2 LVH#248: R1-R4 cheapest-first. anchor 3 HP diagnostic: R1-R2. anchor 4 HP (LVH245 resolved): R1-R2. anchor 5 HF real-key: R1-R5 cheapest-first.
+- PROT-007: v472 history row appended to substrate_capability_map_history.md.
+- PROT-008: anchor 4 lvh245 topology HP + lambda=0.3 cycle-150 HP = monotone subset confirmation; VALIDATOR PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 384th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 5 anchors. CLEAN.
+- PROT-019: LVH 247->248 (+1: khop_sparse_bsweep >=2.5x-across-B-sweep overclaims; honest=B=1-ONLY-advantage).
+- PROT-021: anchor 4 source=remote run_mode=full n_seeds=3 CLEAN. anchors 1,2,3 source=remote run_mode=full n_seeds=1. anchor 5 source=remote run_mode=smoke n_seeds=1.
+- PROT-022: anchor 4 3-seed CLEAN. anchors 1-3 n=1 mechanistic robust. anchor 5 smoke n=1 ZKL.
+
+Cap_map: v471 -> v472 CYCLE 151 (2 HP: khop_noise_model_AB_compare-DIAGNOSTIC-AVERAGING-GROWS-DISTRACTOR-DESTROYS + lvh245_mmr_topology_spectral_gap-3SEED-HUB0.9-PROPAGATION-0.013-TOPOLOGY-AGNOSTIC-LVH245-RESOLVED; 1 HF: khop_bundle_noise_battery-DENSE-B2-K_MAX-12-VULNERABILITY-DENSE-B10-RECOVERS; 1 MID-LVH#248: khop_sparse_bsweep-HONEST=MIDDLE_BAND-B1-ONLY-10x-DENSE-RECOVERS-B10; 1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys-k50=0.4-11x-WORSE-SYNTHETIC-HIPAA-DEGRADES; LVH 247->248 +1; PROT-008 MMR topology PASS; ZKL real-key calibration gap added; LVH245 RESOLVED; HONEST 1098->1103 +5; Portfolio 32+80 UNCHANGED; 384th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
