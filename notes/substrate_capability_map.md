@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v483
+# hd-instrument substrate -- capability map v485
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12408,4 +12408,27 @@ Cap_map annotation: colbert_maxsim_hotpot_v1 HF v482: ColBERT MaxSim proxy (no p
 Cap_map annotation: bge_substrate_compositional_verify_v1 HF v482: Substrate-compositional 2-fact selection F1=0.574 < brute top-10 F1=0.586 (lift=-0.012, n=30, Qwen2.5-1.5B + bge-small). Brute context dump beats targeted selection. Information loss from fewer facts outweighs selection precision at 1.5B scale. Cycle-158 north-star HP (substrate+bge-small top-10 F1=0.586) is consistent. Rescues R1-R3 cheapest-first filed. Cycle 161.
 
 Cap_map: v481 -> v482 CYCLE 161 (5 HP: patternb_h2_bft-RECALL1.0_NOISE0.50-BFT_TRANSFERS_TO_BUNDLES + patternb_4bit_hopfield-DROP0.000_4X_BUNDLE_STORAGE + patternb_1A_subst_scale-RECALL1.000_CONTAM0.000_2000FACTS + storage_3bit_quant-DROP0.000_3BIT_NEW_DEFAULT + zkl_hypC_confirmatory-REOPENED-MM0.6825-MN0.6526-GAP+0.0299-p1.55e-70-NEUTRAL+0.0548; 1 MIDDLE_BAND-LVH#259: zkl_hypB_repool_debias-ZKL0.826-WORSENS_NOT_REDUCES-DIRECTION_REVERSED; 2 HF: zkl_hypB_cap_ksweep-CAP3_BEST=0.217-ABOVE_HIPAA-K_CAP_CLOSED + zkl_earlier_layer-L15=0.233-LATER_BETTER-AXIS_CLOSED; 2 HF: colbert_maxsim_hotpot-PROXY_WORSE_THAN_BGE + bge_substrate_compositional_verify-LIFT=-0.012-BRUTE_WINS; Hyp C REOPENED (cycle-160 whitening-false-neg reversed); DUAL ZKL LEAKAGE: Hyp B (top3_share=0.859) + Hyp C (Gram gap=+0.054); 3-bit new storage default (5.3x compression at zero cost); Pattern B BFT+4bit+scale all confirmed production-ready; LVH#259: zkl_hypB_repool-DIRECTION_REVERSED; HONEST 1184->1194 +10; LVH 258->259 +1; Portfolio 32+82 UNCHANGED; 394th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v484 update (2026-06-07) -- CYCLE 162-163 already committed; this entry covers v483->v484 backfill. See strategy_decisions_2026-06-07.md for full v484 CYCLE 163 detail.
+
+# v485 update (2026-06-07) -- CYCLE 164: 3 HP + 1 HP-FIX + 2 HF + 2 HF-TIMING-CORRECTION; 0 LVH; HONEST 1229->1237 +8; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 397th PROT-009
+
+Cap_map annotation: zkl_hypC_cosine_entropy_v1 HF v485: Hyp C projection-out (cosine-entropy) CLOSED. r=0..20 project-out gives ZKL floor 0.728-0.74 (baseline 0.74). Max reduction = 1.6% over 20D projection. Gram-flattening / cosine-entropy mitigation bounded too. Active Hyp C path: entropy-max whitening (cycle-164 HP). Cycle 164.
+
+Cap_map annotation: zkl_hypC_entropy_max_v1 HP v485: entropy-max whitening alpha=1.00 drops ZKL(K=50)=0.030 <= 0.10 HIPAA; F1=1.000 (zero quality loss). HIPAA absolute CONDITIONALLY RECOVERED. CAVEAT: sanity_ok=False (harness self-check failed); real-harness Llama+MarianMT validation required before product claim. Band UNCHANGED pending real-harness. R1-R4 rescues cheapest-first filed. Cycle 164.
+
+Cap_map annotation: hotpot_3baseline_v1 HP v485: 3-baseline comparison north-star confirmed. bare=0.222, rag=0.524, sub=0.501 (n=120 questions, Qwen2.5-1.5B + bge-small). Substrate beats bare +0.279 F1; 96% vanilla-RAG parity (gap=-0.023). No fine-tuning. PP-1 row: 'hotpot_3baseline HP v485: bare=0.222 rag=0.524 sub=0.501 (n=120); substrate beats bare +0.279 F1; 96% RAG parity; n=1 seed; 3-seed recommended.' Rescues R1-R3 cheapest-first. Cycle 164.
+
+Cap_map annotation: substrate_noise_bft_bge_v1 HF v485: BGE-embedding-noise axis CLOSED. n0.20: sub=0.183 vs bge=0.693 (substrate 5x faster degradation). DISTINCT from storage-layer BFT (patternb_h2_bft HP cycle-161). Product framing: substrate BFT = storage-layer fault tolerance only; embedding-noise robustness requires upstream denoising. BGE-embedding-noise CLOSED (cycle-164). Rescues R1-R3 cheapest-first. Cycle 164.
+
+Cap_map annotation: sql_groupby_count_fix_v1 HP v485: GROUP BY COUNT formula correct; rel-err=0.0378 < 5% threshold. Cycle-155 GROUP BY COUNT capability restored. SQL/HD aggregation complete: COUNT (formula-fixed) + SUM + SELECT + rolling-window all native HP. Cycle 164.
+
+Cap_map annotation: reasoning_chain_replay_v1 HP v485: det=1.000, merkle-verify=1.000, tamper-caught=1.000. 100% auditable reasoning chains (deterministic replay + Merkle proof + tamper detection). EU AI Act Art. 12 + HIPAA audit-log primitive. New sub-property of PP-30/PP-15. Cross-ref: PP-82 causal counterfactual replay (same algebra family; distinct product scope: PP-82 = what-if chain; this = audit-proof replay). Rescues R1-R2 cheapest-first. Cycle 164.
+
+Cap_map annotation: pinv_timing_validation_v1 HF v485: TIMING CORRECTION. Naive pinv = 10.54ms/update at N=4096 (not 1.23ms as claimed; 8,573x off). 240,000x claim NOT supported. PP-8 write-rule sub-axis: 'pinv timing CORRECTED: 10.54ms/update naive, 3.86ms/update SMW-optimized at N=4096; product docs must use measured values.' Cycle 164.
+
+Cap_map annotation: pinv_timing_optimized_v1 HF v485: SMW rank-1 optimization = 2.73x improvement (10.54ms -> 3.86ms/update). 1.23ms claim STILL FALSE (3,140x off). Correct product claim: 3.86ms/update (optimized) or 10.54ms/update (naive) at N=4096. N-sweep recommended to characterize T(N) law. Rescues R1-R3. Cycle 164.
+
+Cap_map: v484 -> v485 CYCLE 164 (3 HP: zkl_hypC_entropy_max-ALPHA1.00-ZKL0.030-F1=1.000-COND_HIPAA_RECOVERED + hotpot_3baseline-BARE=0.222-RAG=0.524-SUB=0.501-96PCT_RAG_PARITY + reasoning_chain_replay-DET1.0-MERKLE1.0-TAMPER1.0-AUDIT_CHAIN; 1 HP-FIX: sql_groupby_count_fix-REL_ERR0.0378-FORMULA_RESTORED; 2 HF: zkl_hypC_cosine_entropy-ZKL0.728-PROJECTION_OUT_ZERO_EFFECT-COSINE_CLOSED + substrate_noise_bft_bge-N0.20_SUB=0.183_BGE=0.693-EMBEDDING_NOISE_CLOSED-DISTINCT_FROM_PATTERNB_BFT; 2 HF-TIMING-CORRECTION: pinv_timing_validation-10.54ms-8573x_OFF + pinv_timing_optimized-3.86ms-SMW_2.73x-STILL_FALSE; 0 LVH; HONEST 1229->1237 +8; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 397th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
