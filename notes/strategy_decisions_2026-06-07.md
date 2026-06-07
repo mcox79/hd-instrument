@@ -654,3 +654,114 @@ R4 (MEDIUM, GPU <2h): Position-mean-subtraction implementation on Llama+MarianMT
 
 Cap_map: v480 -> v481 CYCLE 160 ZKL PRIVACY CONTINUATION (1 HP: zkl_hypB_position-TOP3_SHARE=0.859-ENTROPY_RATIO=0.432-POSITION_CONCENTRATION_CONFIRMED; 1 HF: zkl_hypC_gram-GAP=-0.0020-WRONG_DIR-GRAM_ELIMINATED; 1 UNKNOWN: pca_marian-ZKL=0.920-SANITY_FAIL-HARNESS_RECALIB_NEEDED; Hyp C CLOSED (gram mechanism eliminated); Hyp B HP (position-concentration mechanism confirmed; top3-only criterion; 3-seed recommended); ZKL mitigation path: position-mean-subtraction / mean-pooling / earlier-layer; ZKL_HARNESS_RECALIB_NEEDED (2 consecutive UNKNOWN T5+MarianMT); HONEST 1181->1184 +3; LVH 258 UNCHANGED; Portfolio 32+82 UNCHANGED; 393rd PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v481 -> v482 CYCLE 161 ZKL MITIGATIONS + ZKL HYP C CONFIRMATORY + PATTERN B SUBSTRATE + STORAGE 3-BIT + HOTPOT EXTENSIONS (2026-06-07)
+
+Verdicts processed (10 anchors): zkl_hypB_repool_debias_v1 + zkl_hypB_cap_ksweep_v1 + zkl_earlier_layer_mitigation_v1 + zkl_hypC_confirmatory_v1 + patternb_h2_bft_v1 + patternb_4bit_hopfield_v1 + patternb_1A_subst_scale_v1 + storage_3bit_quant_v1 + colbert_maxsim_hotpot_v1 + bge_substrate_compositional_verify_v1
+
+### Step 0 honest re-read
+
+All 10 metrics fetched source=remote (bridge stale; direct remote fetch via get_metrics).
+
+**ZKL HYP B MITIGATIONS:**
+
+- zkl_hypB_repool_debias_v1: [LVH #259] MIDDLE_BAND label correct but verdict_msg direction WRONG. debiased-meanpool ZKL(50)=0.826 vs baseline ZKL~0.22 (n_stored=500). Verdict_msg says 'reduces ZKL' -- actual direction is ZKL INCREASES from 0.22 to 0.826 (3.75x worse). F1=1.000 preserved (storage quality unaffected). LVH#259: direction reversed in verdict_msg (MIDDLE_BAND tag correct; msg 'reduces ZKL' FALSE when 0.826 >> 0.22). +1 HONEST, +1 LVH.
+
+- zkl_hypB_cap_ksweep_v1: HONEST=HARD_FAIL (correct). per-cap ZKL: orig=0.433, cap3=0.217, cap5=0.400, cap8=0.250, cap12=0.283 (n=60); best capped ZKL=0.217 (cap3). All above HIPAA 0.10. HF label 'even aggressive capping stays >0.15' correct (0.217 > 0.15). HONEST. +1 HONEST.
+
+- zkl_earlier_layer_mitigation_v1: HONEST=HARD_FAIL (correct). per-layer ZKL: L8=0.35, L10=0.25, L15=0.233 (n_stored=60; L15=production baseline). No layer achieves <=0.10. NOTE: L15=0.233 (later layer) BETTER than L8=0.35 (earlier) -- counterintuitive; later layers have lower ZKL at this n_stored. HF label correct. HONEST. +1 HONEST.
+
+**ZKL HYP C CONFIRMATORY:**
+
+- zkl_hypC_confirmatory_v1: HONEST=HARD_PASS (correct). raw: MM=0.6825, MN=0.6526, gap=+0.0299, p=1.55e-70; neutral-basis gap=+0.0548, p=5.79e-136 (n=100). CRITICAL REVERSAL: cycle-160 zkl_hypC_gram_v1 HF (gap=-0.0020, wrong direction) was caused by stored-cohort whitening masking the signal. Unwhitened/neutral-basis confirms MM>MN strongly. Hyp C REOPENED. HP label HONEST. No LVH (genuine mechanism reversal). +1 HONEST.
+
+**PATTERN B SUBSTRATE:**
+
+- patternb_h2_bft_v1: HONEST=HARD_PASS (correct). recall@1 by noise: n0.05=1.0, n0.20=1.0, n0.50=1.0. All unanimous. HP threshold >=0.95 at noise 0.50 VERIFIED. HONEST. +1 HONEST.
+
+- patternb_4bit_hopfield_v1: HONEST=HARD_PASS (correct). bf16=1.000, 4-bit=1.000, drop=0.000. HP threshold <3% drop verified (0.000 < 0.03). HONEST. +1 HONEST.
+
+- patternb_1A_subst_scale_v1: HONEST=HARD_PASS (correct). at 2000 facts: recall=1.000, contamination=0.0000. HP recall>=0.95 + contamination<=1% VERIFIED. HONEST. +1 HONEST.
+
+**STORAGE:**
+
+- storage_3bit_quant_v1: HONEST=HARD_PASS (correct). 4-bit=1.000, 3-bit=1.000, drop=0.000. HP threshold <2% drop verified (0.000 < 0.02). Extends cycle-155 4-bit HP. HONEST. +1 HONEST.
+
+**HOTPOT EXTENSIONS:**
+
+- colbert_maxsim_hotpot_v1: HONEST=HARD_FAIL (correct). ColBERT-MaxSim recall@2hop=0.150, recall@10=0.625 (n=40); bge-small baseline @2=0.42, @10=0.74. ColBERT proxy WORSE than bge-small at recall@10 (0.625 vs 0.74). HF threshold <0.50 at @2hop verified (0.150). HONEST. +1 HONEST.
+
+- bge_substrate_compositional_verify_v1: HONEST=HARD_FAIL (correct). substrate-compositional F1=0.574, bge-top10 F1=0.586, lift=-0.012 (n=30, Qwen2.5-1.5B + bge-small). HF: brute context dump beats substrate selection. HONEST. +1 HONEST.
+
+**SUMMARY Step 0:**
+HONEST: 1184 -> 1194 (+10). LVH: 258 -> 259 (+1: #259 zkl_hypB_repool-DIRECTION_REVERSED_ZKL_0.826_NOT_REDUCES).
+zkl_hypC_confirmatory HP REOPENS Hyp C (cycle-160 HF was whitening-masking false negative; no LVH -- genuine mechanism reversal).
+
+### Cap_map decisions (v481 -> v482)
+
+**(A) [LVH#259] zkl_hypB_repool_debias_v1 -- MIDDLE_BAND (ZKL INCREASED 0.22->0.826; debias WORSENS ZKL):**
+Honest verdict: debiased meanpool DRAMATICALLY worsens ZKL from ~0.22 baseline to 0.826 (3.75x worse). F1=1.000 preserved (storage quality). ZKL annotation: 'LVH#259: debiased-meanpool ZKL=0.826 vs baseline ~0.22 -- INCREASES not reduces; direction reversed in verdict_msg; debias is NET HARMFUL for privacy; pooling decorrelation does not fix position-concentration (Hyp B); attention-reweighting rescues remain active.' Cycle 161.
+
+**(B) zkl_hypB_cap_ksweep_v1 -- HARD_FAIL (K-cap bounded; best cap3=0.217 >> HIPAA 0.10; attention-reweighting K-cap axis CLOSED):**
+Aggressive capping gives best ZKL=0.217 (cap3) -- 2x above HIPAA 0.10. Non-monotone: cap5=0.40, cap8=0.25, cap12=0.283. Strategic direction: QUALIFIED-privacy posture (ZKL~0.22 quantified bound); absolute HIPAA requires position-mean-subtraction or mean-pooling (per cycle-160 Hyp B mitigation plan). ZKL annotation: 'K-cap HF: cap3 best=0.217 (>0.10); non-monotone in cap count; K-cap axis CLOSED; mean-pooling / position-mean-subtraction remain active.' Cycle 161.
+
+**(C) zkl_earlier_layer_mitigation_v1 -- HARD_FAIL (L8=0.35, L10=0.25, L15=0.233; later layers better; earlier-layer axis CLOSED):**
+Earlier-layer extraction: counterintuitive L15=0.233 beats L8=0.35 (n_stored=60). Earlier-layer axis CLOSED as ZKL mitigation for this architecture. ZKL annotation: 'Earlier-layer HF: L8=0.35 > L10=0.25 > L15=0.233 (later layers better at n_stored=60); no layer achieves <=0.10; earlier-layer extraction CLOSED; mean-pooling / position-mean-subtraction remain.' Cycle 161.
+
+**(D) zkl_hypC_confirmatory_v1 -- HARD_PASS (Hyp C REOPENED; unwhitened Gram confirms MM>MN; cycle-160 HF was whitening false-negative):**
+CRITICAL REVERSAL: cycle-160 zkl_hypC_gram_v1 CLOSED Hyp C (gap=-0.0020). cycle-161 REOPENS it: raw gap=+0.0299 (p=1.55e-70), neutral-basis gap=+0.0548 (p=5.79e-136). Mechanism: stored-cohort whitening in cycle-160 decorrelated Gram matrix and masked signal. ZKL annotation: 'Hyp C REOPENED: unwhitened Gram MM=0.6825 > MN=0.6526 (gap=+0.0299, p=1.55e-70); neutral-basis gap=+0.0548 (larger); cycle-160 HF was whitening-induced false negative; DUAL LEAKAGE ACTIVE: Hyp B (top3_share=0.859) + Hyp C (Gram gap=+0.054); rank-randomization mitigations queued.' Cap_map: Hyp C RESTORED from CLOSED to EXPLORATORY. Cycle 161.
+
+**(E) patternb_h2_bft_v1 -- HARD_PASS (H=2 BFT transfers to Pattern B bundles; recall@1=1.0 at all noise levels including 0.50):**
+All noise cells unanimous 1.0. Pattern B annotation: 'H=2 BFT on Pattern B bundles: recall@1=1.0 at n0.05/0.20/0.50; matches CELL-4; fault-tolerant bundle retrieval confirmed; Pattern B bundles inherit BFT properties -- substrate fault-tolerant at compositional record layer.' Cycle 161.
+
+**(F) patternb_4bit_hopfield_v1 -- HARD_PASS (4-bit Pattern B bundle store: drop=0.000, 4x storage reduction):**
+Extends cycle-155 w_4bit_quantization_gpu_v1 (weight quantization) to Pattern B bundle layer. Pattern B storage annotation: '4-bit on Pattern B bundles: drop=0.000 (bf16=4-bit=1.000); 4x storage reduction; extends cycle-155 4-bit W HP to bundle layer; Pattern B storage at 4-bit is production-ready.' Cycle 161.
+
+**(G) patternb_1A_subst_scale_v1 -- HARD_PASS (Pattern B substitution recall=1.0, contamination=0.0 at 2000 facts):**
+Extends cycle-158 pattern_b_unbind_substitute_v1 HP to 2000-fact scale. Pattern B annotation: '1A substitution scale: recall=1.000, contamination=0.0000 at 2000 facts (N=1024); compositional editing clean at scale; no crosstalk at large fact count; extends cycle-158 unbind+substitute HP.' Cycle 161.
+
+**(H) storage_3bit_quant_v1 -- HARD_PASS (3-bit W quantization: drop=0.000 vs 4-bit; 3-bit is new storage default):**
+3-bit drops recall 0.000 vs 4-bit (both 1.000). PRODUCT IMPLICATION: substrate storage compresses ~5.3x from fp32 at zero accuracy cost. Storage/compression annotation: '3-bit W quantization: drop=0.000 vs 4-bit; 25% additional saving over 4-bit; 3-bit recommended as new default over 4-bit; extends cycle-155 4-bit HP chain to 3-bit.' Cycle 161.
+
+**(I) colbert_maxsim_hotpot_v1 -- HARD_FAIL (ColBERT MaxSim proxy @2hop=0.150 < bge-small @2=0.42; late-interaction proxy CLOSED):**
+ColBERT proxy (no proj-head/index) worse than bge-small at all recall levels. HotpotQA annotation: 'ColBERT MaxSim proxy HF: @2hop=0.150 < bge-small @2=0.42; @10=0.625 < bge-small @10=0.74; proxy approach CLOSED (lower bound -- proj-head/index version may differ); entity-bridge + bge-large remains open direction.' Cycle 161.
+
+**(J) bge_substrate_compositional_verify_v1 -- HARD_FAIL (compositional 2-fact selection lift=-0.012 vs brute top-10; brute wins):**
+Substrate compositional selection (2 facts) F1=0.574 < brute top-10 F1=0.586 (lift=-0.012, n=30). HotpotQA annotation: 'compositional selection HF: 2-fact F1=0.574 < brute-10 F1=0.586 (lift=-0.012); information loss from fewer facts outweighs selection precision at 1.5B scale; larger LLM or more facts needed; cycle-158 north-star (substrate+bge-small top-10=0.586) is consistent.' Cycle 161.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**ZKL Hyp B mitigations (3 approaches assessed; mean-pooling + position-mean-subtraction remain):**
+R1 (0-compute, ANNOTATION): K-cap bounded (0.217) + debias worsens (0.826) + earlier-layer inverted. Three mitigation axes assessed. Mean-pooling + position-mean-subtraction remain untested on real harness.
+R2 (CHEAP, CPU <30min): Mean-pooling vs last-token pooling ZKL comparison (uniform weight vs concentrated top3).
+R3 (MEDIUM, GPU <2h): Position-mean-subtraction on Llama+MarianMT exact harness (cycle-160 Hyp B mitigation plan R4).
+R4 (MEDIUM, GPU <2h): Rank-randomization mitigation (addresses Hyp C Gram leakage; per zkl_hypC_confirmatory recommendation).
+
+**ZKL Hyp C REOPENED (Gram leakage confirmed; rank-randomization next):**
+R1 (0-compute, ANNOTATION): Hyp C REOPENED; dual leakage (Hyp B + Hyp C) active.
+R2 (CHEAP, CPU <30min): Rank-randomization on stored-cohort Gram matrix to destroy MM-vs-MN gap.
+R3 (CHEAP, CPU <30min): Combined rank-randomization + mean-pooling addressing both Hyp B + Hyp C.
+
+**ColBERT MaxSim proxy (HF -- lower bound; full ColBERT still viable):**
+R1 (0-compute, ANNOTATION): Proxy without proj-head/index is lower bound; full ColBERT not yet tested at full capability.
+R2 (CHEAP, CPU <1h): ColBERT with indexed proj-head at n=100 to establish proper ColBERT baseline.
+R3 (MEDIUM, GPU <2h): entity-bridge + e5-large (cycle-157/158 best approach) as comparison benchmark.
+
+**Compositional selection (HF -- 2-fact selection loses to brute top-10):**
+R1 (0-compute, ANNOTATION): 2-fact selection vs 10-fact brute; information loss outweighs precision at 1.5B scale.
+R2 (CHEAP, CPU <30min): 5-fact substrate selection vs brute-top-10 to find crossover point.
+R3 (CHEAP, CPU <30min): Qwen2.5-7B with 2-fact substrate selection to test LLM quality effect.
+
+### PROT compliance (v481 -> v482)
+
+- PROT-004/006: No row closures. 1 LVH #259 (zkl_hypB_repool direction reversal) with rescue sketches R1-R4 cheapest-first. Hyp C REOPENED (not closure). ColBERT + compositional-verify HF with rescue sketches R1-R3 cheapest-first throughout. Annotation-first sequencing observed.
+- PROT-007: v482 history row appended to substrate_capability_map_history.md.
+- PROT-008: 5 HP anchors: patternb_h2_bft (all-noise=1.0), patternb_4bit_hopfield (drop=0.0), patternb_1A_subst_scale (recall=1.0 contam=0.0 at 2000 facts), storage_3bit_quant (drop=0.0), zkl_hypC_confirmatory (n=100 p=1.55e-70). All non-fragile (unanimous cells + strong statistics). PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 394th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 10 anchors. CLEAN.
+- PROT-019: LVH 258->259 (+1: #259 zkl_hypB_repool-DIRECTION_REVERSED).
+- PROT-021: All 10 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: HP anchors all non-fragile: zkl_hypC_confirmatory p=1.55e-70 (strong); Pattern B x3 unanimous 1.0; storage_3bit drop=0.0. No HP-fragility concerns.
+
+Cap_map: v481 -> v482 CYCLE 161 (5 HP: patternb_h2_bft-RECALL1.0_NOISE0.50 + patternb_4bit_hopfield-DROP0.000_4X + patternb_1A_subst_scale-RECALL1.000_CONTAM0.000_2000FACTS + storage_3bit_quant-DROP0.000_3BIT_NEW_DEFAULT + zkl_hypC_confirmatory-REOPENED-MM0.6825-MN0.6526-GAP+0.0299-p1.55e-70; 1 MIDDLE_BAND-LVH#259: zkl_hypB_repool_debias-ZKL0.826-WORSENS_NOT_REDUCES; 2 HF: zkl_hypB_cap_ksweep-BEST_CAP3=0.217-BOUNDED + zkl_earlier_layer-L15_BETTER_THAN_L8-CLOSED; 2 HF: colbert_maxsim_hotpot-PROXY_WORSE_THAN_BGE + bge_substrate_compositional_verify-LIFT=-0.012-BRUTE_WINS; Hyp C REOPENED (whitening-masking false-neg in cycle-160); DUAL ZKL LEAKAGE: Hyp B (top3=0.859) + Hyp C (Gram gap=+0.054); 3-bit new storage default; Pattern B BFT+4bit+scale confirmed production-ready; HONEST 1184->1194 +10; LVH 258->259 +1; Portfolio 32+82 UNCHANGED; 394th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
