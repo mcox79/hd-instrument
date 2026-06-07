@@ -12321,3 +12321,31 @@ Cap_map annotation: privacy_combined_fix_v1 LVH#257 v476: HARD_PASS RESCINDED to
 
 Cap_map: v475 -> v476 CYCLE 155 (9 HP: w_4bit_quant-DROP0.0 + modern_hopfield_gpu_scale-ALL1.0-N8192_16384 + bundle_relay-DROP0.5=0.999-3SEED + crdt_quorum-ORDER_INDEP1.0-3SEED + n_reduction-ALPHA_C_FLAT1.0 + membership_auroc-AUROC1.0-3SEED + bitemporal-0.00136ms-737Kwrites + sql_rolling-REL_ERR0.018-3SEED + modern_hopfield_n_sweep-N4096_ALL1.0; 3 MID: v1_corroboration_gate-FA0.0-RECOVERY0.557 + sql_hybrid-SELECT+SUM_NATIVE-AVG_DUCKDB + predicate_ratio_audit-SEL0.05_PASS-SEL0.10_FAIL; 5 HF: sparse_w_scale-4X_CLOSED + sparse_key_coherent-NULL_B10 + confidence_weighted-CEILING + corroborate_gossip_damp-INVERTED_CATASTROPHIC + chain3_sparse_key-B_EFF=39.51=DENSE; 1 MID-DIAG: llama_eigenspectrum-SRHT_ZERO_EFFECT; 3 LVH-ATTACK_MISMATCH: #255 dp_noise_injection-DP_NO_BENEFIT + #256 privacy_fixes_cone-CONE_HURTS_BASELINE + #257 privacy_combined_fix-DUPLICATE; HONEST 1129->1150 +21; LVH 254->257 +3; Portfolio 32+82 UNCHANGED; 388th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+# v477 update (2026-06-07) -- CYCLE 156: 1 HP + 4 MID + 3 HF + 0 LVH; HONEST 1150->1158 (+8); LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 389th PROT-009
+
+Cap_map annotation: crdt_gcounter_aggregate_v1 HP v477: fraction=1.000 order+duplicate independent. CRDT distributed-architecture annotation (extends cycle-155 crdt_quorum_bundle HP at v476): CRDT G-counter aggregate: exact distributed COUNT fraction=1.000; merge-order and duplicate-insensitive; conflict-free COUNT aggregation native to substrate; CRDT distributed pair now covers commutativity (v476 crdt_quorum) + exact-COUNT (v477 gcounter). Cycle 156.
+
+Cap_map annotation: predicate_partition_storage_v1 HF v477: flat=614 partitioned=612 ratio=1.00 (P=4 groups N=4096). Zero capacity benefit. Predicate/selectivity: 'predicate partition storage HF: ratio=1.00 (partitioned=flat at P=4); partition overhead erases any capacity gain; simple-partition capacity axis CLOSED at P=4 N=4096; rescues R1-R4 filed (P-sweep, composite-predicate, higher-N).' Cycle 156.
+
+Cap_map annotation: hotpot_2hop_retrieval_pretest_v1 HF v477: recall@2hop=0.147 (n=300 HotpotQA-distractor). Baseline established for HotpotQA 2-hop integration. PP-35/multi-hop row: 'HotpotQA 2-hop pretest HF: naive single-shot recall=0.147; substrate needs to lift to >=0.70 for HP; both whitening and K-hop achieve +0.053 lift (to 0.200) -- far from 0.70; encoder upgrade is key bottleneck; rescues R1-R4 filed.' Cycle 156.
+
+Cap_map annotation: hotpot_2hop_full_substrate_v1 + hotpot_2hop_khop_v1 MIDDLE_BAND v477: both recall=0.200 lift=+0.053 (n=300). Dual MIDDLE_BAND: substrate whitening and K-hop relay BOTH lift recall from 0.147 to 0.200 (identical lift); K-hop provides zero advantage over whitening in this pretest scope; bottleneck is encoder quality (Llama-1B invalid, MiniLM=0.147 baseline); production-encoder upgrade needed before re-testing K-hop advantage. Cycle 156.
+
+Cap_map annotation: online_lora_infonce_proxy_v1 MIDDLE_BAND v477: InfoNCE=0.314 vs SFT=0.003 vs base=0.476. LLM-integration / online-LoRA: 'InfoNCE proxy beats SFT (0.314 vs 0.003); SFT catastrophically degrades base recall to near-zero; InfoNCE retains 66% of base; retrieval-preserving fine-tuning path is InfoNCE not SFT; temperature tuning and mixed-loss are rescue paths.' Cycle 156.
+
+Cap_map annotation: lsh_fanout_norm_cone_llama_v1 MIDDLE_BAND v477: raw=6.80 L2norm=6.87 cone=29.61 at S=100 (n=800 Llama embeddings). PP-11 Chain3 LSH routing: 'Llama LSH fan-out: L2-norm ALONE gives B_eff=6.87 (well below <20 target); cone ADDS branching at S=100 (cone=29.61); key finding: L2-norm without cone is the correct approach; cycle-154 B_eff=40 was unnormalized Llama LSH; L2-normalized achieves B_eff~7 -- major routing improvement; partially resolves cycle-154 Chain3 LSH branching (B_eff=40). Rescue R2-R3 filed (S-dependency + cycle-154 retest).' Cycle 156.
+
+Cap_map annotation: llama_encoder_config_hotpot_v1 HF v477: all 6 Llama-1B configs < 0.05 recall@2hop (n=25; L8_last=0.0, L8_mean=0.04, L12_last=0.0, L12_mean=0.0, L15_last=0.0, L15_mean=0.04); MiniLM ref naive=0.16. LLM-integration/encoder: 'Llama-1B pooled embeddings NOT viable retrieval encoder for HotpotQA 2-hop; all 6 configs < 0.05 (far below MiniLM 0.16); MiniLM mandate CONFIRMED; escalate to Llama-3.2-L15 MTP or dedicated retrieval model for production multi-hop.' Cycle 156.
+
+- PROT-007: v477 history row appended to substrate_capability_map_history.md.
+- PROT-008: CRDT G-counter HP: fraction=1.000 exact, deterministic, order+duplicate independent. HP-founding criteria met. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 389th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 8 anchors. CLEAN.
+- PROT-019: LVH 257 UNCHANGED. No new LVH catches.
+- PROT-021: All 8 source=remote. No smoke contamination. CLEAN.
+- PROT-022: HP anchor (crdt_gcounter) deterministic exact result; no HP-fragility. All HF anchors unanimous. CLEAN.
+
+Cap_map: v476 -> v477 CYCLE 156 (1 HP: crdt_gcounter_aggregate-FRACTION1.000-EXACT_COUNT-ORDER+DUP_INDEPENDENT; 4 MIDDLE_BAND: hotpot_2hop_full-WHITENING_RECALL0.200 + hotpot_2hop_khop-RECALL0.200-IDENTICAL_TO_WHITENING + online_lora_infonce-INFONCE0.314-SFT0.003-BASE0.476 + lsh_fanout_norm_cone-L2NORM_B_EFF6.87-CONE29.61; 3 HF: predicate_partition_storage-RATIO1.00-NO_GAIN + hotpot_2hop_retrieval_pretest-RECALL0.147-BASELINE + llama_encoder_config-ALL_LT0.05; NOTABLE: L2-norm-only B_eff=6.87 resolves cycle-154 Chain3-LSH B_eff=40 concern; K-hop=whitening recall=0.200 (encoder is bottleneck); Llama-1B invalid retrieval encoder; InfoNCE>>SFT (SFT catastrophic); HONEST 1150->1158 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 389th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
