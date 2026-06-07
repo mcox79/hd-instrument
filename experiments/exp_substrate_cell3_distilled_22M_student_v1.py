@@ -78,14 +78,26 @@ _ap.add_argument("--max-articles", type=int, default=None,
                   help="Cap on training articles (default: use all available)")
 _ap.add_argument("--val-frac", type=float, default=0.05)
 _ap.add_argument("--epochs", type=int, default=1)
-_ap.add_argument("--batch", type=int, default=64)
-_ap.add_argument("--lr", type=float, default=3e-4)
-_ap.add_argument("--max-tok", type=int, default=512)
+_ap.add_argument("--batch", type=int, default=256,
+                  help="Default raised from 64 -> 256 (H100 80GB easily holds 22M @ batch=256)")
+_ap.add_argument("--lr", type=float, default=6e-4,
+                  help="LR raised from 3e-4 -> 6e-4 (~sqrt(batch_scale) rule for 64 -> 256)")
+_ap.add_argument("--max-tok", type=int, default=256,
+                  help="Reduced 512 -> 256 (Wikipedia first-paragraph captures meaning <256)")
 _ap.add_argument("--hidden", type=int, default=384)
 _ap.add_argument("--n-layers", type=int, default=6)
 _ap.add_argument("--n-heads", type=int, default=12)
 _ap.add_argument("--ffn-dim", type=int, default=1536)
-_ap.add_argument("--save-checkpoint-every", type=int, default=1000)
+_ap.add_argument("--num-workers", type=int, default=16)
+_ap.add_argument("--prefetch-factor", type=int, default=4)
+_ap.add_argument("--compile", action="store_true",
+                  help="Enable torch.compile() on the student (~1.5-2x on H100)")
+_ap.add_argument("--no-compile", action="store_true",
+                  help="Disable torch.compile() (for debugging)")
+_ap.add_argument("--min-text-chars", type=int, default=100,
+                  help="Filter Wikipedia stubs below this char count (skip ~30 pct stubs)")
+_ap.add_argument("--pretokenize-num-proc", type=int, default=8,
+                  help="Parallel tokenization workers in setup phase")
 _ARGS, _ = _ap.parse_known_args()
 
 MAX_TOK = _ARGS.max_tok
@@ -305,28 +317,89 @@ def build_id_to_text_map(article_ids: List[str], hf_token: Optional[str]) -> Dic
     return id_to_text
 
 
-class DistillDataset(torch.utils.data.Dataset):
-    """(text, target_vector) pairs."""
+class PretokenizedDistillDataset(torch.utils.data.Dataset):
+    """Lightweight dataset over PRE-TOKENIZED arrays.
 
-    def __init__(self, texts: List[str], targets: np.ndarray, tokenizer, max_tok: int):
-        self.texts = texts
+    Pre-tokenization is done ONCE in setup (parallel via multiprocessing),
+    eliminating per-batch tokenizer overhead (was ~15-30 min/epoch baseline).
+    Stores token ids as a single big int32 array + offsets to avoid Python list overhead.
+    """
+
+    def __init__(self, all_input_ids_packed: np.ndarray, offsets: np.ndarray,
+                 targets: np.ndarray):
+        # all_input_ids_packed: 1D int32 array of all tokens concatenated
+        # offsets: 1D int64 array of length N+1; tokens for sample i are
+        #          all_input_ids_packed[offsets[i]:offsets[i+1]]
+        # targets: (N, target_dim) fp16
+        self.tokens = all_input_ids_packed
+        self.offsets = offsets
         self.targets = targets
-        self.tokenizer = tokenizer
-        self.max_tok = max_tok
 
     def __len__(self):
-        return len(self.texts)
+        return len(self.offsets) - 1
 
     def __getitem__(self, idx):
-        text = self.texts[idx]
-        target = self.targets[idx]
-        enc = self.tokenizer(text, truncation=True, max_length=self.max_tok,
-                              return_tensors="pt")
+        start = int(self.offsets[idx])
+        end = int(self.offsets[idx + 1])
+        input_ids = torch.from_numpy(self.tokens[start:end].astype(np.int64))
+        attention_mask = torch.ones(input_ids.size(0), dtype=torch.long)
+        target = torch.from_numpy(self.targets[idx].astype(np.float32))
         return {
-            "input_ids": enc["input_ids"].squeeze(0),
-            "attention_mask": enc["attention_mask"].squeeze(0),
-            "target": torch.from_numpy(target.astype(np.float32)),
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "target": target,
         }
+
+
+def pretokenize_in_parallel(texts: List[str], tokenizer, max_tok: int,
+                              num_proc: int = 8) -> Tuple[np.ndarray, np.ndarray]:
+    """Pre-tokenize all texts in parallel via HF datasets.map.
+
+    Returns (all_tokens_packed int32, offsets int64) where sample i's tokens
+    are at all_tokens_packed[offsets[i]:offsets[i+1]].
+
+    Using fast tokenizer + batched=True + num_proc gives ~num_proc x speedup over
+    per-sample tokenization. 5.84M texts at 256 max_tok with num_proc=8 takes
+    ~10-15 min vs ~5h serial.
+    """
+    from datasets import Dataset
+    import os as _os
+    # Enable tokenizer parallelism during the upfront pre-tokenize step
+    _os.environ["TOKENIZERS_PARALLELISM"] = "true"
+
+    print(f"[pretok] tokenizing {len(texts):,} texts (max_tok={max_tok}; "
+          f"num_proc={num_proc}) -- one-time upfront cost", flush=True)
+    t0 = time.time()
+    ds = Dataset.from_dict({"text": texts})
+
+    def tok_fn(batch):
+        enc = tokenizer(batch["text"], truncation=True, max_length=max_tok,
+                         add_special_tokens=True)
+        return {"input_ids": enc["input_ids"]}
+
+    ds = ds.map(tok_fn, batched=True, batch_size=1024, num_proc=num_proc,
+                  remove_columns=["text"], desc="tokenizing")
+    elapsed = time.time() - t0
+    print(f"[pretok] wall {elapsed:.1f}s ({len(texts)/max(elapsed,1e-9):.0f} samples/sec)",
+          flush=True)
+
+    # Pack into a single int32 array + offsets
+    print(f"[pretok] packing into contiguous arrays...", flush=True)
+    lengths = np.fromiter((len(x) for x in ds["input_ids"]), dtype=np.int64,
+                            count=len(ds))
+    total_toks = int(lengths.sum())
+    all_tokens = np.empty(total_toks, dtype=np.int32)
+    offsets = np.zeros(len(ds) + 1, dtype=np.int64)
+    offsets[1:] = lengths.cumsum()
+    for i, ids in enumerate(ds["input_ids"]):
+        all_tokens[offsets[i]:offsets[i + 1]] = ids
+    print(f"[pretok] packed: {total_toks/1e6:.1f}M tokens ({all_tokens.nbytes/1e9:.2f} GB)",
+          flush=True)
+
+    # Reset env for downstream DataLoader workers (avoid fork deadlock)
+    _os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+    return all_tokens, offsets
 
 
 class LeftPadCollator:
@@ -385,12 +458,24 @@ def main():
     ids, targets = load_cell2_targets(shards_dir, max_articles=_ARGS.max_articles)
     id_to_text = build_id_to_text_map(ids, hf_token)
 
-    # Filter to (id, target, text) tuples in CELL-2 order
-    keep_idx = [i for i, art_id in enumerate(ids) if art_id in id_to_text]
+    # Filter to (id, target, text) tuples + drop stubs (Wikipedia stubs add noise)
+    min_chars = _ARGS.min_text_chars
+    keep_idx = []
+    for i, art_id in enumerate(ids):
+        if art_id not in id_to_text:
+            continue
+        if len(id_to_text[art_id]) < min_chars:
+            continue
+        keep_idx.append(i)
+    n_pre_filter = len(ids)
     ids = [ids[i] for i in keep_idx]
     targets = targets[keep_idx]
     texts = [id_to_text[art_id] for art_id in ids]
-    print(f"[data] final dataset: {len(ids)} (id, text, target) triples", flush=True)
+    # Free the id_to_text dict (saves ~5-15 GB on full scale)
+    del id_to_text
+    gc.collect()
+    print(f"[data] final dataset: {len(ids):,} (id, text, target) triples "
+          f"(stubs <{min_chars}c filtered: -{n_pre_filter - len(ids):,})", flush=True)
 
     # Train / val split
     n_val = max(1, int(_ARGS.val_frac * len(ids)))
@@ -418,41 +503,80 @@ def main():
     pc = student.param_count() / 1e6
     print(f"[student] {pc:.1f}M params (target ~22M)", flush=True)
 
-    train_ds = DistillDataset([texts[i] for i in train_idx],
-                                np.stack([targets[i] for i in train_idx]),
-                                tokenizer, MAX_TOK)
-    val_ds = DistillDataset([texts[i] for i in val_idx],
-                             np.stack([targets[i] for i in val_idx]),
-                             tokenizer, MAX_TOK)
+    # Pre-tokenize ALL texts ONCE (parallel; ~10-15 min for 5.84M @ num_proc=8).
+    # This eliminates per-batch tokenizer overhead (was ~30-50 pct of training wall).
+    train_texts = [texts[i] for i in train_idx]
+    val_texts = [texts[i] for i in val_idx]
+    train_targets_arr = targets[train_idx]
+    val_targets_arr = targets[val_idx]
+    # Free the texts list now that we have train_texts + val_texts views
+    del texts
+    gc.collect()
+
+    print(f"\n=== Pre-tokenize train set ===", flush=True)
+    train_tokens, train_offsets = pretokenize_in_parallel(
+        train_texts, tokenizer, MAX_TOK, num_proc=_ARGS.pretokenize_num_proc
+    )
+    del train_texts
+    gc.collect()
+
+    print(f"\n=== Pre-tokenize val set ===", flush=True)
+    val_tokens, val_offsets = pretokenize_in_parallel(
+        val_texts, tokenizer, MAX_TOK, num_proc=_ARGS.pretokenize_num_proc
+    )
+    del val_texts
+    gc.collect()
+
+    train_ds = PretokenizedDistillDataset(train_tokens, train_offsets, train_targets_arr)
+    val_ds = PretokenizedDistillDataset(val_tokens, val_offsets, val_targets_arr)
     collator = LeftPadCollator(tokenizer.pad_token_id)
 
     train_loader = torch.utils.data.DataLoader(
         train_ds, batch_size=BATCH, shuffle=True, collate_fn=collator,
-        num_workers=4, pin_memory=True,
+        num_workers=_ARGS.num_workers, pin_memory=True,
+        prefetch_factor=_ARGS.prefetch_factor, persistent_workers=True,
     )
     val_loader = torch.utils.data.DataLoader(
         val_ds, batch_size=BATCH, shuffle=False, collate_fn=collator,
-        num_workers=2, pin_memory=True,
+        num_workers=max(2, _ARGS.num_workers // 4), pin_memory=True,
+        prefetch_factor=_ARGS.prefetch_factor, persistent_workers=True,
     )
 
     optimizer = torch.optim.AdamW(student.parameters(), lr=LEARNING_RATE, weight_decay=0.0)
-    # bf16 has same dynamic range as fp32 -- no gradient scaling needed.
-    # (Previously had a dead-code GradScaler instantiation; removed.)
 
-    # LR warmup (linear warmup over first WARMUP_STEPS, then constant)
-    WARMUP_STEPS = 200
+    # LR linear warmup (then constant). 200 steps default; scaled to ~ 1% of training.
+    total_steps_est = max(1, EPOCHS * (len(train_ds) // BATCH))
+    WARMUP_STEPS = min(200, max(50, total_steps_est // 100))
     def lr_lambda(step):
         if step < WARMUP_STEPS:
             return step / WARMUP_STEPS
         return 1.0
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
-    GRAD_CLIP_MAX_NORM = 1.0   # protects against exploding grads at warmup
+    GRAD_CLIP_MAX_NORM = 1.0
 
-    print(f"\n=== Step 3: training student for {EPOCHS} epoch(s); warmup={WARMUP_STEPS} steps; "
-          f"grad_clip={GRAD_CLIP_MAX_NORM} ===", flush=True)
+    # torch.compile() the student: ~1.5-2x on H100 for static shapes.
+    # Default off (--compile to enable) because first compile takes ~30-60s and
+    # var-len batches may trigger recompilations.
+    use_compile = _ARGS.compile and not _ARGS.no_compile
+    if use_compile:
+        print(f"[compile] torch.compile() the student (mode='reduce-overhead')...", flush=True)
+        try:
+            student = torch.compile(student, mode="reduce-overhead")
+        except Exception as e:
+            print(f"[compile] failed: {type(e).__name__}: {e}; continuing eager", flush=True)
+            use_compile = False
+
+    print(f"\n=== Step 3: training student for {EPOCHS} epoch(s); "
+          f"steps_est~{total_steps_est:,}; warmup={WARMUP_STEPS}; "
+          f"grad_clip={GRAD_CLIP_MAX_NORM}; batch={BATCH}; lr={LEARNING_RATE}; "
+          f"compile={use_compile} ===", flush=True)
     out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Best-only checkpoint tracking (was saving every N steps = 78+ files at 5.84M scale)
+    best_val_cos = -float("inf")
+    best_ckpt_path = out_dir / "student_best.pt"
 
     t0 = time.time()
     step = 0
@@ -482,18 +606,25 @@ def main():
             step += 1
             if step % 50 == 0:
                 recent = sum(losses[-50:]) / max(len(losses[-50:]), 1)
-                print(f"  [train step {step}] loss={recent:.4f}", flush=True)
-            if step % _ARGS.save_checkpoint_every == 0:
-                ckpt_path = out_dir / f"student_step{step}.pt"
-                torch.save(student.state_dict(), ckpt_path)
-                print(f"  [ckpt] saved {ckpt_path}", flush=True)
+                cur_lr = optimizer.param_groups[0]["lr"]
+                print(f"  [train step {step}] loss={recent:.4f} lr={cur_lr:.2e}", flush=True)
         if nan_aborted:
             break
         # End-of-epoch validation
         val_metrics = evaluate(student, val_loader)
         val_history.append({"epoch": epoch + 1, **val_metrics})
         print(f"  [epoch {epoch+1}] val_mse={val_metrics['mse']:.4f} "
-              f"val_cos={val_metrics['cos']:.4f}", flush=True)
+              f"val_cos={val_metrics['cos']:.4f} "
+              f"(n_eval={val_metrics.get('n_evaluated','?')}, "
+              f"nan_batches={val_metrics.get('n_nan_batches','?')})", flush=True)
+        # Save best checkpoint by val_cos (NaN-safe)
+        cur_cos = val_metrics.get("cos", float("nan"))
+        if isinstance(cur_cos, float) and cur_cos == cur_cos and cur_cos > best_val_cos:
+            best_val_cos = cur_cos
+            sd = student._orig_mod.state_dict() if use_compile and hasattr(student, "_orig_mod") else student.state_dict()
+            torch.save(sd, best_ckpt_path)
+            print(f"  [ckpt] new best val_cos={cur_cos:.4f}; saved -> {best_ckpt_path.name}",
+                  flush=True)
 
     if nan_aborted:
         raise RuntimeError("CELL-3 training aborted on non-finite loss")
@@ -515,9 +646,10 @@ def main():
                f"per-metric: mse={mse_verdict} cos={cos_verdict}")
     print(f"\n[VERDICT] {summary}", flush=True)
 
-    # Save final student
+    # Save final student (compile-aware: unwrap _orig_mod if needed for portability)
     final_ckpt = out_dir / "student_final.pt"
-    torch.save(student.state_dict(), final_ckpt)
+    sd_final = student._orig_mod.state_dict() if use_compile and hasattr(student, "_orig_mod") else student.state_dict()
+    torch.save(sd_final, final_ckpt)
     print(f"[ckpt] saved final student to {final_ckpt}", flush=True)
 
     metrics = {
