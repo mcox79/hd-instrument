@@ -126,13 +126,20 @@ def run() -> Dict:
     brute = 0.0; comp = 0.0
     for d in data:
         sents = d["sents"]; en = unit(bi_encode(sents, btok, bm)); qn = unit(bi_encode([Q_INSTR + d["q"]], btok, bm))[0]
-        top = np.argsort(en @ qn)[::-1][:TOPK]; context = "\n".join(sents[i] for i in top)
-        bare += f1_score(answer(ltok, lm, d["q"], None), d["ans"])
-        aug += f1_score(answer(ltok, lm, d["q"], context), d["ans"])
+        order = np.argsort(en @ qn)[::-1]; top = order[:TOPK]; context10 = "\n".join(sents[i] for i in top)
+        sub = en[top]; mu = sub.mean(0); Wc = sub - mu; cov = (Wc.T @ Wc) / max(len(Wc), 1)
+        U, S, _ = np.linalg.svd(cov + 1e-3 * np.eye(cov.shape[0])); Wd = (U @ np.diag(1.0 / np.sqrt(S + 1e-3)) @ U.T).astype(np.float32)
+        ew = en[top] @ Wd; qw = (qn - mu) @ Wd
+        ew = ew / (np.linalg.norm(ew, axis=1, keepdims=True) + 1e-8); qw = qw / (np.linalg.norm(qw) + 1e-8)
+        h1 = int(np.argmax(ew @ qw)); qb = (qw + ew[h1]); qb = qb / (np.linalg.norm(qb) + 1e-8)
+        s2 = ew @ qb; s2[h1] = -1e9; h2 = int(np.argmax(s2))
+        sel = "\n".join([sents[top[h1]], sents[top[h2]]])
+        brute += f1_score(answer(ltok, lm, d["q"], context10), d["ans"])
+        comp += f1_score(answer(ltok, lm, d["q"], sel), d["ans"])
     del lm, bm; torch.cuda.empty_cache()
-    n = len(data); fb = bare / n; fa = aug / n
-    print("  n=%d bare_LLM_F1=%.3f substrate_augmented_F1=%.3f lift=%+.3f" % (n, fb, fa, fa - fb), flush=True)
-    return {"n": n, "bare": fb, "aug": fa}
+    n = len(data); fb = brute / n; fc = comp / n
+    print("  n=%d bge_top10_F1=%.3f substrate_compositional_F1=%.3f lift=%+.3f" % (n, fb, fc, fc - fb), flush=True)
+    return {"n": n, "brute": fb, "comp": fc}
 
 
 def verdict(r) -> Tuple[str, str]:
