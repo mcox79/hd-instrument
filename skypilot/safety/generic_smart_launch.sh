@@ -214,12 +214,15 @@ PYEOF2
         echo "[${ts}] extra env args: ${EXTRA_ENV_ARGS}" | tee -a "$LAUNCHER_LOG"
     fi
 
+    # NOTE 2026-06-07: do NOT pass --gpus when --instance-type is set; SkyPilot
+    # rejects this combo as inconsistent ("Accelerators for gpu_1x_gh200: {GH200},
+    # Accelerators requested: {H100}"). The --instance-type already specifies
+    # the GPU type implicitly. GPU_SPEC in config is now informational only.
     sky launch \
         -c "$CLUSTER_NAME" \
         -y \
         --region "$REGION" \
         --instance-type "$SKU" \
-        --gpus "$GPU_SPEC" \
         --down \
         -i "$AUTOSTOP_MIN" \
         --env HF_TOKEN="${HF_TOKEN_VAL}" \

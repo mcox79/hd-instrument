@@ -34,7 +34,11 @@ echo "  orchestrator log: $DATA/cell3_smoke_orchestrator.log"
 echo "  launcher log: $DATA/cell3_smoke_smart_launch.log"
 echo "  watchdog log: $DATA/cell3_smoke_watchdog.log"
 
-sleep 3
+# Stagger 60 sec so CELL-3 SMOKE acquires its SKU and Lambda updates capacity
+# before CELL-4 polls. Without this both race for the same GH200 in us-east-3.
+echo ""
+echo "=== sleeping 60 sec to stagger CELL-4 launch (avoid GH200 race) ==="
+sleep 60
 
 echo ""
 echo "=== STEP B: launch CELL-4 (cell4hp-XXXXXX) ==="
