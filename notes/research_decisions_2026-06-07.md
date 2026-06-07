@@ -74,3 +74,4 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - research_drill_storage_unconventional_mechanisms_2x_2026-06-07.md: 2x storage drill; 3 recommended paths (modern Hopfield N-reduction, delta/template, encoder distillation); P_deflated 500B/fact=0.25; 4 foreclosed
 
 - [privacy failure mechanism 3x drill] notes/research_drill_privacy_failure_mechanism_3x_2026-06-07.md -- SRHT hurt Llama due to cone-signal overlap; DP failed due to rank preservation; top paths: F (cone-aware cosine P=0.42), B (rank randomization P=0.32), A (privacy whitening P=0.38); exp_dev handoff: notes/exp_dev_handoff_research_privacy_failure_3x_2026-06-07.md
+2026-06-07 research: synthetic-vs-real prediction gap 2x -> notes/research_drill_synthetic_vs_real_prediction_gap_2x_2026-06-07.md ; Type1=wrong distribution, Type2=wrong encoder, Type3=wrong scale; split P_theoretical*P_empirical; pre-test protocol before engineering
