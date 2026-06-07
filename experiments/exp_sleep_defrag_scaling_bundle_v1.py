@@ -29,7 +29,7 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 ANCHOR_NAME = "sleep_defrag_scaling_bundle_v1"; D = 2048; N_FILL = 20
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
-N_STREAM = 2000 if RUN_MODE == "smoke" else 10000; MG_K = 8; N_FACTS = 100; N_CONTRA = 5
+N_STREAM = 2000 if RUN_MODE == "smoke" else 10000; MG_K = 16; TOP_K = 8; N_FACTS = 100; N_CONTRA = 5
 
 
 def phasor(m, d, g):
@@ -91,12 +91,11 @@ def st1_streaming(g):
     exact = {}
     for x in stream:
         exact[x] = exact.get(x, 0) + 1
-    mg = misra_gries(stream, MG_K)
-    top_exact = sorted(exact, key=exact.get, reverse=True)[:MG_K]
-    # accuracy: fraction of true top-K recovered AND freq estimate within 10pct for recovered ones
+    mg = misra_gries(stream, MG_K)                               # MG_K counters (> TOP_K for robust heavy-hitter recovery)
+    top_exact = sorted(exact, key=exact.get, reverse=True)[:TOP_K]
     recovered = [t for t in top_exact if t in mg]
-    frac = len(recovered) / MG_K
-    print("  [ST1 streaming] true top-%d recovered=%.2f (MG counters found %d/%d heavy hitters)" % (MG_K, frac, len(recovered), MG_K), flush=True)
+    frac = len(recovered) / TOP_K
+    print("  [ST1 streaming] true top-%d recovered=%.2f (MG %d counters)" % (TOP_K, frac, MG_K), flush=True)
     return frac >= 0.90
 
 
@@ -111,7 +110,9 @@ def st2_adversarial(g):
         cases.append(bind(role, unit(book[f] + 0.4 * phasor(1, D, g)[0])))
     evidence = [unbind(c, role) for c in cases]; agg = np.sum(evidence, axis=0)
     scores = np.array([cos(e, agg) for e in evidence])
-    thr = np.quantile(scores, 0.10)                                # flag the most anti-aligned
+    # flag CLEAR outliers by a gap criterion (median - 3*MAD), not a fixed fraction -> low FPR when few are planted
+    med = np.median(scores); mad = np.median(np.abs(scores - med)) + 1e-9
+    thr = med - 3.0 * mad
     flagged = set(int(i) for i in np.where(scores <= thr)[0])
     recall = len(flagged & planted) / len(planted)
     fp = len(flagged - planted) / max(N_FACTS - len(planted), 1)

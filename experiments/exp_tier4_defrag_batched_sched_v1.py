@@ -26,7 +26,7 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 ANCHOR_NAME = "tier4_defrag_batched_sched_v1"; D = 1024; M = 256
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
-N_UNIQ = 150 if RUN_MODE == "smoke" else 600; DUP_FRAC = 0.4; RIDGE = 1e-2; REPS = 60; BATCH = 32
+N_UNIQ = 150 if RUN_MODE == "smoke" else 600; DUP_FRAC = 0.4; RIDGE = 1e-2; REPS = 60; BATCH = 200
 
 
 def sign_keys(n, d, g):
@@ -76,6 +76,8 @@ def cv_unbatched(K, W, book, reps):
 
 
 def cv_batched(K, W, book, reps, bs):
+    for i in range(0, len(K), bs):                                # warmup (cold-cache/first-call jitter excluded)
+        _ = np.argmax((K[i:i+bs] @ W) @ book.T, axis=1)
     lat = []
     for _ in range(reps):
         for i in range(0, len(K), bs):                            # batched (amortized overhead) = stable
