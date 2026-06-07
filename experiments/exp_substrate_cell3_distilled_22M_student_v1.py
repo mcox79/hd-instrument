@@ -82,8 +82,11 @@ _ap.add_argument("--batch", type=int, default=256,
                   help="Default raised from 64 -> 256 (H100 80GB easily holds 22M @ batch=256)")
 _ap.add_argument("--lr", type=float, default=6e-4,
                   help="LR raised from 3e-4 -> 6e-4 (~sqrt(batch_scale) rule for 64 -> 256)")
-_ap.add_argument("--max-tok", type=int, default=256,
-                  help="Reduced 512 -> 256 (Wikipedia first-paragraph captures meaning <256)")
+_ap.add_argument("--max-tok", type=int, default=512,
+                  help="Match CELL-2 v3 cache extraction (MAX_TOK=512) for distillation "
+                       "parity. Student learns to predict the L=15 feature that the teacher "
+                       "extracted from up to the same 512 tokens. Reducing this creates a "
+                       "training-time semantic mismatch.")
 _ap.add_argument("--hidden", type=int, default=384)
 _ap.add_argument("--n-layers", type=int, default=6)
 _ap.add_argument("--n-heads", type=int, default=12)
@@ -357,63 +360,96 @@ class PretokenizedDistillDataset(torch.utils.data.Dataset):
 
 def pretokenize_in_parallel(texts: List[str], tokenizer, max_tok: int,
                               num_proc: int = 8,
-                              chunk_size: int = 200000) -> Tuple[np.ndarray, np.ndarray]:
-    """Pre-tokenize all texts via fast tokenizer batched call (NOT HF Dataset.map).
+                              chunk_size: int = 50000) -> Tuple[np.ndarray, np.ndarray]:
+    """Pre-tokenize all texts via fast tokenizer batched call.
 
-    SAFER than HF Dataset.map for huge datasets: HF would write the input texts
-    to a temp Arrow file (~6 GB for 5.84M texts) AND fork num_proc subprocesses
-    that each open their slice -- in worst-case memory patterns (no mmap), 8 procs
-    can amplify to 8x the data size. We instead use the fast tokenizer's built-in
-    parallelism (Rust rayon) over chunked batches in the main process. Throughput
-    matches num_proc=8 HF map without the temp-file footprint.
+    MEMORY-SAFE at 5.84M scale: packs each chunk into a numpy int32 buffer
+    IMMEDIATELY and discards the Python list-of-list. Holding the entire
+    Python int graph for 5.84M x 512 tokens would cost ~80 GB (Python int =
+    28 bytes each); packing into numpy int32 costs ~6 GB.
 
-    Returns (all_tokens_packed int32, offsets int64) where sample i's tokens
-    are at all_tokens_packed[offsets[i]:offsets[i+1]].
+    Robustness: pathological text (NUL bytes, malformed unicode, etc.) is
+    handled per-chunk -- if the whole batched call fails, retry per-text and
+    skip any that crash. Per-text fallback uses a single empty-token placeholder
+    so the resulting dataset stays aligned with the input order (so targets
+    don't get misaligned with input).
     """
     import os as _os
-    # Enable the fast-tokenizer Rust-level parallelism for THIS call
     _os.environ["TOKENIZERS_PARALLELISM"] = "true"
-    # Verify we have a fast tokenizer (HF Rust-backed; needed for the parallelism)
     if not getattr(tokenizer, "is_fast", False):
         print(f"[pretok] WARNING: tokenizer is_fast=False -- pre-tokenization will be slow", flush=True)
 
     n = len(texts)
-    print(f"[pretok] tokenizing {n:,} texts (max_tok={max_tok}; chunk={chunk_size}) "
-          f"-- fast-tokenizer Rust parallelism (effective workers={num_proc})", flush=True)
+    # Worst-case peak buffer: chunk_size * max_tok int32 = 50000 * 512 * 4 = 100 MB
+    print(f"[pretok] tokenizing {n:,} texts (max_tok={max_tok}; chunk={chunk_size:,}); "
+          f"peak-chunk-buf~{chunk_size * max_tok * 4 / 1e6:.0f} MB", flush=True)
     t0 = time.time()
 
-    # Process in chunks to keep peak memory bounded
-    all_lengths: List[int] = []
-    all_ids_chunks: List[List[List[int]]] = []
+    # Per-chunk: tokenize -> append to packed buffer; keep ONLY the packed buffer
+    # We grow `all_tokens` and `offsets` lazily; numpy concatenation is the cost.
+    packed_chunks: List[np.ndarray] = []   # list of int32 arrays per chunk
+    offsets_chunks: List[np.ndarray] = []  # list of int64 cumsum-relative
+    grand_offsets_to_date = 0
+
     for start in range(0, n, chunk_size):
         end = min(start + chunk_size, n)
         chunk = texts[start:end]
-        enc = tokenizer(chunk, truncation=True, max_length=max_tok,
-                         add_special_tokens=True, padding=False)
-        ids_chunk = enc["input_ids"]
-        all_ids_chunks.append(ids_chunk)
-        all_lengths.extend(len(x) for x in ids_chunk)
-        elapsed = time.time() - t0
-        print(f"  [pretok] {end:,}/{n:,} ({100*end/n:.1f}%) | "
-              f"rate={end/max(elapsed,1e-9):.0f}/sec | wall={elapsed:.1f}s", flush=True)
+        try:
+            enc = tokenizer(chunk, truncation=True, max_length=max_tok,
+                             add_special_tokens=True, padding=False)
+            ids_list = enc["input_ids"]
+        except Exception as e:
+            # Chunk-level failure -> fall back to per-text. Skip pathological
+            # texts (place empty 1-token row so the array stays aligned with target)
+            print(f"  [pretok] chunk {start:,}-{end:,} FAILED ({type(e).__name__}: {e}); "
+                  f"per-text fallback", flush=True)
+            ids_list = []
+            for txt in chunk:
+                try:
+                    enc_one = tokenizer(txt, truncation=True, max_length=max_tok,
+                                          add_special_tokens=True)
+                    ids_list.append(enc_one["input_ids"])
+                except Exception:
+                    # Pathological text -- emit just BOS to keep alignment
+                    bos = tokenizer.bos_token_id if tokenizer.bos_token_id is not None else 0
+                    ids_list.append([bos])
 
-    # Pack into a single int32 array + offsets
-    print(f"[pretok] packing into contiguous arrays...", flush=True)
-    lengths = np.array(all_lengths, dtype=np.int64)
-    total_toks = int(lengths.sum())
-    all_tokens = np.empty(total_toks, dtype=np.int32)
+        # Pack ids_list -> int32 buffer + per-sample length array
+        chunk_lengths = np.fromiter((len(x) for x in ids_list), dtype=np.int64,
+                                       count=len(ids_list))
+        total_in_chunk = int(chunk_lengths.sum())
+        chunk_buf = np.empty(total_in_chunk, dtype=np.int32)
+        # Per-sample write
+        chunk_cumstart = 0
+        for ids in ids_list:
+            ids_len = len(ids)
+            chunk_buf[chunk_cumstart:chunk_cumstart + ids_len] = ids
+            chunk_cumstart += ids_len
+        packed_chunks.append(chunk_buf)
+        offsets_chunks.append(chunk_lengths)
+        # Free the Python lists explicitly
+        del ids_list, chunk_lengths
+
+        elapsed = time.time() - t0
+        eta = (n - end) / max((end / elapsed), 1e-9)
+        print(f"  [pretok] {end:,}/{n:,} ({100*end/n:.1f}%) | "
+              f"rate={end/max(elapsed,1e-9):.0f}/sec | wall={elapsed:.1f}s | "
+              f"eta={eta/60:.1f} min", flush=True)
+
+    # Final pack: stitch chunk buffers together
+    print(f"[pretok] stitching {len(packed_chunks)} chunks into final arrays...", flush=True)
+    all_tokens = np.concatenate(packed_chunks) if packed_chunks else np.empty(0, dtype=np.int32)
+    all_lengths = np.concatenate(offsets_chunks) if offsets_chunks else np.empty(0, dtype=np.int64)
     offsets = np.zeros(n + 1, dtype=np.int64)
-    offsets[1:] = lengths.cumsum()
-    i = 0
-    for chunk_ids in all_ids_chunks:
-        for ids in chunk_ids:
-            all_tokens[offsets[i]:offsets[i + 1]] = ids
-            i += 1
+    offsets[1:] = all_lengths.cumsum()
+    total_toks = int(offsets[-1])
     elapsed = time.time() - t0
-    print(f"[pretok] DONE: {total_toks/1e6:.1f}M tokens packed ({all_tokens.nbytes/1e9:.2f} GB); "
+    print(f"[pretok] DONE: {total_toks/1e6:.1f}M tokens ({all_tokens.nbytes/1e9:.2f} GB); "
           f"total wall {elapsed:.1f}s", flush=True)
 
-    # Reset env for downstream DataLoader workers (avoid fork deadlock at fork-time)
+    # Free intermediates explicitly
+    del packed_chunks, offsets_chunks, all_lengths
+    gc.collect()
     _os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
     return all_tokens, offsets
