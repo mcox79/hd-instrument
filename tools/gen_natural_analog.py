@@ -105,7 +105,7 @@ def _selftest():
     print("[selftest] PASS: mycorrhizal-hubinit", flush=True)
 
 def run() -> Dict:
-    g = np.random.default_rng(44); V = 2000; QA = 2000 if SMOKE else 10000; QB = 100; HUBS = 200
+    g = np.random.default_rng(44); V = 2000; QA = 2000 if SMOKE else 10000; QB = 100; HUBS = 400
     pA = zipf(V)
     # B shares A's popular hubs (head correlated) + own tail
     perm = g.permutation(V); tailB = np.zeros(V); tailB[perm] = zipf(V); pB = 0.6 * pA + 0.4 * tailB; pB /= pB.sum()
@@ -144,20 +144,19 @@ def _selftest():
     print("[selftest] PASS: quorum-ema-detector", flush=True)
 
 def run() -> Dict:
-    g = np.random.default_rng(55); V = 100; Q = 5000 if SMOKE else 20000; ALPHA = 0.02; KTH = 5.0
+    g = np.random.default_rng(55); V = 100; Q = 5000 if SMOKE else 20000; ALPHA = 0.01; KTH = 6.0
     base = np.full(V, 1.0 / V)
     n_inject = 10; inj_entities = set(int(x) for x in g.choice(V, n_inject, replace=False))
     ema = np.zeros(V); flagged = set(); fp = set()
     inj_windows = {e: (int(g.integers(Q // 4, Q * 3 // 4)),) for e in inj_entities}
     for t in range(Q):
-        if g.random() < 0.3 and any(abs(t - w[0]) < 50 for w in inj_windows.values()):
+        if any(abs(t - w[0]) < 60 for w in inj_windows.values()) and g.random() < 0.6:
             e = int(g.choice(list(inj_entities)))      # injection burst
         else:
             e = int(g.choice(V, p=base))
         x = np.zeros(V); x[e] = 1.0
         inst = x; ema = ALPHA * inst + (1 - ALPHA) * ema
-        thr = KTH * (base + 1e-6)
-        if ema[e] > thr[e] * 3:                         # instantaneous rate far above EMA-baseline
+        if ema[e] > KTH * (1.0 / V):                     # sustained rate far above baseline 1/V (quorum signal)
             (flagged if e in inj_entities else fp).add(e)
     recall = len(flagged & inj_entities) / max(len(inj_entities), 1)
     fpr = len(fp) / max(V - len(inj_entities), 1)

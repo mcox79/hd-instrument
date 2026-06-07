@@ -38,7 +38,7 @@ def _selftest():
     print("[selftest] PASS: mycorrhizal-hubinit", flush=True)
 
 def run() -> Dict:
-    g = np.random.default_rng(44); V = 2000; QA = 2000 if SMOKE else 10000; QB = 100; HUBS = 200
+    g = np.random.default_rng(44); V = 2000; QA = 2000 if SMOKE else 10000; QB = 100; HUBS = 400
     pA = zipf(V)
     # B shares A's popular hubs (head correlated) + own tail
     perm = g.permutation(V); tailB = np.zeros(V); tailB[perm] = zipf(V); pB = 0.6 * pA + 0.4 * tailB; pB /= pB.sum()
