@@ -131,12 +131,49 @@ while [ "$attempt" -lt "$MAX_ATTEMPTS" ]; do
   LAUNCH_RC=${PIPESTATUS[0]}
   echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] sky launch exit code: ${LAUNCH_RC}" | tee -a "$LOG"
 
+  # HARDENING (2026-06-07): sky launch streams logs over SSH. If SSH drops mid-run,
+  # sky launch exits non-zero even though the workload keeps running. NEVER teardown
+  # the cluster on a non-zero exit -- first verify if the cluster is still UP and
+  # the job still progressing. Reattach with sky logs --follow as many times as
+  # needed until the job truly finishes.
+  if [ "${LAUNCH_RC}" -ne 0 ]; then
+    echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] sky launch exit non-zero; checking cluster + job status before any teardown" | tee -a "$LOG"
+
+    REATTACH_RETRIES=0
+    while [ "$REATTACH_RETRIES" -lt 200 ]; do  # ~200 SSH retries; covers many hours
+      if sky status "$CLUSTER_NAME" 2>/dev/null | grep -qE "UP|INIT"; then
+        echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] cluster ${CLUSTER_NAME} still UP -- reattaching via sky logs --follow (retry ${REATTACH_RETRIES})" | tee -a "$LOG"
+        # Reattach to the latest job's log stream; blocks until job ends
+        sky logs "$CLUSTER_NAME" 2>&1 | tee -a "$LOG"
+        REATTACH_RC=${PIPESTATUS[0]}
+        echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] sky logs exit: ${REATTACH_RC}" | tee -a "$LOG"
+
+        # Verify job actually finished (queue is empty of RUNNING jobs)
+        if sky queue "$CLUSTER_NAME" --skip-finished 2>/dev/null | grep -qE "RUNNING|PENDING"; then
+          echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] job still running after sky logs returned -- SSH dropped again; retrying" | tee -a "$LOG"
+          REATTACH_RETRIES=$((REATTACH_RETRIES + 1))
+          sleep 15
+          continue
+        fi
+        # Job is truly done; treat as success path
+        LAUNCH_RC=0
+        echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] job complete on ${CLUSTER_NAME} after ${REATTACH_RETRIES} reattach(es)" | tee -a "$LOG"
+        break
+      else
+        echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] cluster ${CLUSTER_NAME} no longer UP -- genuine cluster failure; will retry from scratch" | tee -a "$LOG"
+        break
+      fi
+    done
+  fi
+
   if [ "${LAUNCH_RC}" -eq 0 ]; then
     echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] CELL-2 ACQUIRED + RAN on ${SKU} in ${REGION}" | tee -a "$LOG"
     break
   fi
 
-  echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] launch failed; cleanup + retry" | tee -a "$LOG"
+  # Genuine cluster-level failure (cluster down + can't reattach). Only path that
+  # tears down the cluster.
+  echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] launch genuinely failed (cluster dead); cleanup + retry from scratch" | tee -a "$LOG"
   sky down -y "$CLUSTER_NAME" 2>&1 | tee -a "$LOG" || true
   CLUSTER_NAME=""
   sleep "$POLL_INTERVAL"
