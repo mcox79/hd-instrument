@@ -83,9 +83,9 @@ LAYER_LLAMA = 15   # per CLOUD-1b: 92pct depth of 16-layer Llama-3.2-1B
 LAYER_PYTHIA = 11  # 92pct depth of 12-layer Pythia-160m (sanity check)
 
 MAX_TOK = 512
-BATCH_SIZE = 64        # GH200 96GB easily fits 1B fp16 at batch=64
-NUM_WORKERS = 8        # parallel network fetch + tokenization (IO bottleneck, not GPU compute)
-PREFETCH_FACTOR = 4    # each worker prefetches 4 batches ahead
+BATCH_SIZE = 128       # v3: bumped from 64 to 128 (GH200 96GB; 1B at batch=128 ~5GB peak)
+NUM_WORKERS = 16       # v3: bumped from 8 to 16 (data is local-disk now; tokenization can parallelize harder)
+PREFETCH_FACTOR = 8    # v3: bumped from 4 to 8 (deeper pipeline; GPU never starved)
 
 if RUN_MODE == "smoke":
     SHARD_SIZE = 200
@@ -95,7 +95,7 @@ elif LOCAL_PYTHIA:
     TARGET_ARTICLES = 500
 else:
     SHARD_SIZE = 10000        # ~40 MB per shard at hidden_dim=2048 fp16
-    TARGET_ARTICLES = 6500000 # full English Wikipedia is ~6.4M; cap at 6.5M
+    TARGET_ARTICLES = 6500000 # v3 re-extract: FULL Wikipedia with left-pad + pre-download + bigger batch
 
 if _ARGS.max_articles is not None:
     TARGET_ARTICLES = _ARGS.max_articles
@@ -114,42 +114,72 @@ def _load_hf_token() -> str:
     raise RuntimeError("HF token not found at <repo>/.hf_token or $HF_TOKEN.")
 
 
-def last_token_pool(hs, am):
-    """Cross-device safe last-non-pad-token pool."""
+def last_token_pool(hs, am, padding_side: str = "left"):
+    """Cross-device safe last-non-pad-token pool.
+
+    For LEFT-padding (cycle 142 fix): non-pad tokens occupy positions [pad_count,
+    seq_len), so the last real token is ALWAYS at position seq_len - 1 regardless
+    of attention mask. Using am.sum(dim=1) - 1 here would extract the WRONG
+    position (mid-sequence rather than the last position).
+
+    For RIGHT-padding: non-pad tokens occupy positions [0, sum(am)), so the last
+    real token is at position sum(am) - 1.
+    """
     am_int = am.long()
-    last_idx = (am_int.sum(dim=1) - 1).clamp_min(0)
+    if padding_side == "left":
+        seq_len = am.size(1)
+        last_idx = torch.full((am.size(0),), seq_len - 1, dtype=torch.long, device=am.device)
+    else:  # right
+        last_idx = (am_int.sum(dim=1) - 1).clamp_min(0)
     last_idx = last_idx.to(hs.device)
     batch_idx = torch.arange(hs.size(0), device=hs.device)
     return hs[batch_idx, last_idx]
 
 
 def _selftest():
-    """PROT-022."""
+    """PROT-022: test BOTH padding sides + collate."""
     import torch
     hs = torch.tensor([[[1.0], [2.0], [3.0], [4.0]]])
-    am = torch.tensor([[1, 1, 1, 0]])
-    lt = last_token_pool(hs, am)
-    assert lt.shape == (1, 1) and abs(float(lt[0, 0]) - 3.0) < 1e-5, f"last_token_pool got {lt}"
+
+    # Right-padding case: am = [1,1,1,0] -> last real at position 2 -> expect 3.0
+    am_right = torch.tensor([[1, 1, 1, 0]])
+    lt_right = last_token_pool(hs, am_right, padding_side="right")
+    assert abs(float(lt_right[0, 0]) - 3.0) < 1e-5, f"right-pad last_token got {lt_right}"
+
+    # Left-padding case: am = [0,1,1,1] -> last real at position 3 -> expect 4.0
+    am_left = torch.tensor([[0, 1, 1, 1]])
+    lt_left = last_token_pool(hs, am_left, padding_side="left")
+    assert abs(float(lt_left[0, 0]) - 4.0) < 1e-5, f"left-pad last_token got {lt_left}"
 
     # Check torch + numpy interop
     arr = np.array([1, 2, 3], dtype=np.float32)
     t = torch.from_numpy(arr)
     assert float(t.sum()) == 6.0
 
-    print("[selftest] PASS: last_token_pool + numpy interop", flush=True)
+    print("[selftest] PASS: last_token_pool (left+right) + numpy interop", flush=True)
+
+
+def _selftest_collate():
+    """Separate from _selftest() because collate_pad is defined later in the file.
+    Called after collate_pad definition."""
+    import torch
+    batch = [
+        {"input_ids": torch.tensor([7, 8, 9]), "attention_mask": torch.tensor([1, 1, 1]),
+         "id": "0", "title": "t0", "token_count": 3},
+        {"input_ids": torch.tensor([5]), "attention_mask": torch.tensor([1]),
+         "id": "1", "title": "t1", "token_count": 1},
+    ]
+    out = collate_pad(batch)
+    # Expected after LEFT-pad to max_len=3:
+    #   row 0: [7, 8, 9]  am=[1, 1, 1]
+    #   row 1: [0, 0, 5]  am=[0, 0, 1]  <- pads at LEFT (not at the right!)
+    assert out["input_ids"].tolist() == [[7, 8, 9], [0, 0, 5]], f"collate input_ids: {out['input_ids']}"
+    assert out["attention_mask"].tolist() == [[1, 1, 1], [0, 0, 1]], f"collate am: {out['attention_mask']}"
+    print("[selftest] PASS: LEFT-pad collate_pad", flush=True)
 
 
 _selftest()
-if _ARGS.self_test:
-    print("[--self-test] PROT-022 PASS; exiting before model load.", flush=True)
-    sys.exit(0)
-
-
-if not torch.cuda.is_available():
-    print("[FATAL] CUDA not available; this script is GPU-only.", flush=True)
-    sys.exit(1)
-DEVICE = torch.device("cuda")
-print(f"[GPU] {torch.cuda.get_device_name(0)} ({torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB)", flush=True)
+# _selftest_collate() + CUDA check deferred until after collate_pad is defined
 
 
 def stream_wikipedia(model_for_pythia_sanity: bool = False):
@@ -267,12 +297,23 @@ class WikiStreamDataset(torch.utils.data.IterableDataset):
 
 
 def collate_pad(batch):
-    """Pad batch to max length within batch (right-padding; Llama-friendly)."""
-    from torch.nn.utils.rnn import pad_sequence
-    input_ids = pad_sequence([b["input_ids"] for b in batch], batch_first=True,
-                              padding_value=0)
-    attention_mask = pad_sequence([b["attention_mask"] for b in batch], batch_first=True,
-                                    padding_value=0)
+    """Pad batch to max length within batch (LEFT-padding per cycle 142).
+
+    Right-padding causes ~22.6 pct retrieval-quality loss via PAD-token extraction
+    (Q4 + cycle 142 empirical validation 2026-06-07). torch.nn.utils.rnn.pad_sequence
+    only RIGHT-pads, so we implement LEFT-padding manually here.
+    """
+    max_len = max(b["input_ids"].size(0) for b in batch)
+    pad_id = 0
+    input_ids = torch.zeros(len(batch), max_len, dtype=torch.long)
+    attention_mask = torch.zeros(len(batch), max_len, dtype=torch.long)
+    for i, b in enumerate(batch):
+        n = b["input_ids"].size(0)
+        # Pad on LEFT: real tokens go at the END of the row
+        input_ids[i, max_len - n:] = b["input_ids"]
+        attention_mask[i, max_len - n:] = b["attention_mask"]
+        if pad_id != 0:
+            input_ids[i, :max_len - n] = pad_id
     return {
         "input_ids": input_ids,
         "attention_mask": attention_mask,
@@ -280,6 +321,20 @@ def collate_pad(batch):
         "titles": [b["title"] for b in batch],
         "token_counts": [b["token_count"] for b in batch],
     }
+
+
+# Run collate test now that collate_pad is defined; THEN check --self-test exit
+_selftest_collate()
+if _ARGS.self_test:
+    print("[--self-test] PROT-022 PASS; exiting before model load.", flush=True)
+    sys.exit(0)
+
+# CUDA check happens AFTER --self-test exit so self-test works without GPU
+if not torch.cuda.is_available():
+    print("[FATAL] CUDA not available; this script is GPU-only.", flush=True)
+    sys.exit(1)
+DEVICE = torch.device("cuda")
+print(f"[GPU] {torch.cuda.get_device_name(0)} ({torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB)", flush=True)
 
 
 def run_extraction(model_id: str, layer_idx: int, hf_token: Optional[str],
@@ -314,11 +369,11 @@ def run_extraction(model_id: str, layer_idx: int, hf_token: Optional[str],
     tokenizer = AutoTokenizer.from_pretrained(model_id, **tokenizer_kwargs)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
-    tokenizer.padding_side = "right"  # CRITICAL: Llama defaults to left
+    tokenizer.padding_side = "left"  # v3: cycle 142 fix (Q4 empirical +22.6 pct retrieval lift)
     t_load = time.time() - t0
     peak = torch.cuda.max_memory_allocated(0) / 1e9
     print(f"  [load] {t_load:.1f}s; GPU peak {peak:.2f} GB", flush=True)
-    print(f"  [tokenizer] padding_side forced to 'right'", flush=True)
+    print(f"  [tokenizer] padding_side forced to '{tokenizer.padding_side}' (v3 cycle 142 left-pad fix)", flush=True)
 
     out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -375,7 +430,7 @@ def run_extraction(model_id: str, layer_idx: int, hf_token: Optional[str],
                           use_cache=False)
             hs = out.hidden_states[layer_idx]
             am = attention_mask.long()
-            p = last_token_pool(hs.float(), am).cpu().numpy()
+            p = last_token_pool(hs.float(), am, padding_side="left").cpu().numpy()
 
             pooled_buf.append(p)
             ids_buf.extend(batch["ids"])

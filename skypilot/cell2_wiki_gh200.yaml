@@ -1,0 +1,147 @@
+# CELL-2 Wikipedia layer-15 cache extraction on Lambda GH200:1 SXM6 (96 GB; aarch64).
+#
+# AUTHORIZED 2026-06-06 by user; target GH200 1x ($2.29/h; ~2-4h wall;
+# estimated $5-15 actual; well under Research's $31-50 budget).
+#
+# Pipeline:
+#   - Stream wikimedia/wikipedia 20231101.en (~6.4M articles)
+#   - For each article: tokenize (MAX_TOK=512), forward through Llama-3.2-1B Base,
+#     pool last-non-pad-token at layer 15 (per CLOUD-1b 92pct-depth finding)
+#   - Save per-shard npz (10K articles/shard; ~40 MB/shard at hidden_dim=2048 fp16)
+#   - Total output: ~640 shards = ~26 GB rsync'd back
+#
+# Bug defenses (carry-forward from CELL-1 + 70B-Instruct):
+#   - aarch64 + cu128 torch install (GH200 is Grace ARM; cu121 wheels are x86 only)
+#   - bitsandbytes>=0.45 (NF4 path; not used here but available)
+#   - sentence-transformers>=2.7 (NOT used; CELL-2 is causal-LM only)
+#   - File-first HF token (Llama is gated)
+#   - PROT-022 self-test gate
+#   - last-token pool with cross-device safety (already in script)
+#   - tokenizer.padding_side='right' forced (already in script)
+#   - AutoModel (no LM head; saves VRAM)
+#   - streaming Wikipedia (no full 20GB download)
+#   - Resumable shards (atomic .tmp + os.replace)
+#   - --down -i 30 autostop in launcher
+
+name: cell2wiki
+
+resources:
+  cloud: lambda
+  accelerators: GH200:1
+  use_spot: false
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] apt deps + GPU info ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+
+  echo "=== [setup 3/7] install torch for aarch64+CUDA on GH200 (cu128 wheel) ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet --upgrade \
+    "torch>=2.5" "torchvision>=0.20" \
+    --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade \
+      "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()} n_gpus={torch.cuda.device_count()}')
+  if torch.cuda.is_available():
+      props = torch.cuda.get_device_properties(0)
+      print(f'device 0: {props.name} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "transformers>=4.45,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" "datasets>=2.20"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] verify Llama-3.2-1B Base access (gated repo; DIFFERENT from Instruct) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.2-1B', token=os.environ['HF_TOKEN'])
+  print(f'OK: meta-llama/Llama-3.2-1B accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 6/8] pre-pull Llama-3.2-1B snapshot (~2.5 GB) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.2-1B',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.bin', '*.json', 'tokenizer*', '*.model', '*.txt'],
+  )
+  print('OK: Llama-3.2-1B snapshot ready')
+  "
+
+  echo "=== [setup 7/8] pre-download Wikipedia parquet shards (~22 GB; v3 efficiency: avoid mid-run network IO) ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  path = snapshot_download(
+      repo_id='wikimedia/wikipedia',
+      repo_type='dataset',
+      token=os.environ['HF_TOKEN'],
+      allow_patterns=['20231101.en/*.parquet'],
+  )
+  print(f'OK: Wikipedia 20231101.en parquet shards downloaded to {path}')
+  import os as _os
+  total = 0
+  for root, dirs, files in _os.walk(path):
+      for f in files:
+          if f.endswith('.parquet'):
+              total += _os.path.getsize(_os.path.join(root, f))
+  print(f'OK: total parquet bytes = {total/1e9:.1f} GB')
+  "
+
+  echo "=== [setup 8/8] CELL-2 script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_substrate_wikipedia_layer15_cache_extraction_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+  export HDLAB_EXP_NAME=substrate_wikipedia_layer15_cache_extraction_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-2 Wikipedia layer-15 cache extraction (GH200) START ==="
+  python -u experiments/exp_substrate_wikipedia_layer15_cache_extraction_v1.py
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/ 2>&1 | head -25
+  echo "shard count:"
+  ls -1 ~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/shard_*.npz 2>/dev/null | wc -l
+  echo "total bytes:"
+  du -sh ~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/ 2>/dev/null
