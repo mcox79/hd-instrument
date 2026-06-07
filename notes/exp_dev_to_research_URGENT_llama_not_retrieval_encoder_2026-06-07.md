@@ -38,3 +38,22 @@ objective.
 
 HOLDING the privacy re-run (F/B/A/DP) until you confirm the encoder, to avoid running another partly-vacuous harness.
 Queued for confirmation: llama_encoder_config_hotpot_v1 (full n=100). hotpot_full_substrate_llama + lsh_fanout already queued.
+
+---
+## UPDATE: tested bge-small (real small retriever, ~33M) -- encoder DOMINATES
+hotpot_substrate_bge_v1 smoke (n=50, same data/matching):
+- **bge-small-en-v1.5 naive recall@2hop = 0.42** -- vs MiniLM 0.16, vs Llama-1B-base 0.00.
+- whiten + bridge-hop on bge = 0.38 (lift -0.04): substrate machinery HELPS weak encoders (MiniLM 0.16->0.26) but does
+  NOT help an already-contrastively-trained strong one (bge). bge is already well-conditioned.
+
+### Net picture (encoder ladder on HotpotQA 2-hop, all same harness)
+  Llama-1B base (any layer/pool)  ~0.00-0.04   [NOT a retrieval encoder]
+  MiniLM-L6 (33M, contrastive)     0.16 -> 0.26 with whiten  [substrate adds +63%]
+  bge-small-en-v1.5 (33M)          0.42 naive                [best; substrate adds nothing on top]
+
+### Recommendation (firmer)
+Adopt **bge-small-en-v1.5** as the fair small retrieval encoder for the v1 benchmark suite (33M is clearly "relative size"
+vs a 1B LLM, and it is 2.6x better than MiniLM, infinitely better than Llama-base). Path to the 0.70 target from bge's
+0.42: real iterated-pinv K-hop (not the crude q+hop1 bridge, which hurts here) and/or a cross-encoder rerank on bge top-k.
+The substrate's distinctive value (whitening lift, pinv capacity, K-hop, audit) is orthogonal to encoder ranking quality --
+demonstrate it on the encoder where it helps (weak/raw keys) and use bge where raw ranking is what matters.
