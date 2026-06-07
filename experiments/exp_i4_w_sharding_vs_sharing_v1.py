@@ -53,7 +53,7 @@ def recall_with(P, W, seed):
 
 
 def corrupt(W, g):
-    return W + 2.0 * g.standard_normal(W.shape).astype(np.float32) * (np.abs(W).mean() + 1e-6)
+    return (g.standard_normal(W.shape).astype(np.float32) * (np.abs(W).std() + 1e-3))   # Byzantine: replace shard with garbage
 
 
 def _selftest():
