@@ -211,6 +211,14 @@ if _ARGS.self_test:
     sys.exit(0)
 
 
+# Determinism: seed BOTH numpy and torch (training was non-deterministic across runs)
+SEED = 1729
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
+
+
 if not torch.cuda.is_available():
     print("[FATAL] CUDA not available; this script is GPU-only.", flush=True)
     sys.exit(1)
@@ -341,23 +349,29 @@ class LeftPadCollator:
 
 
 def evaluate(student, loader) -> Dict:
-    """Mean MSE + mean cosine on val set."""
+    """Mean MSE + mean cosine on val set; NaN-guarded."""
     student.eval()
     mse_sum = 0.0
     cos_sum = 0.0
     n = 0
+    n_nan_batches = 0
     with torch.no_grad():
         for batch in loader:
             input_ids = batch["input_ids"].to(DEVICE)
             attention_mask = batch["attention_mask"].to(DEVICE)
-            target = batch["target"].to(DEVICE)
+            target = batch["target"].to(DEVICE).float()
             pred = student(input_ids, attention_mask)
             mse = F.mse_loss(pred, target, reduction="mean")
             cos = F.cosine_similarity(pred, target, dim=1).mean()
+            if not (torch.isfinite(mse) and torch.isfinite(cos)):
+                n_nan_batches += 1
+                continue
             mse_sum += float(mse.item()) * pred.size(0)
             cos_sum += float(cos.item()) * pred.size(0)
             n += pred.size(0)
-    return {"mse": mse_sum / n, "cos": cos_sum / n}
+    if n == 0:
+        return {"mse": float("nan"), "cos": float("nan"), "n_evaluated": 0, "n_nan_batches": n_nan_batches}
+    return {"mse": mse_sum / n, "cos": cos_sum / n, "n_evaluated": n, "n_nan_batches": n_nan_batches}
 
 
 def main():
@@ -422,9 +436,21 @@ def main():
     )
 
     optimizer = torch.optim.AdamW(student.parameters(), lr=LEARNING_RATE, weight_decay=0.0)
-    scaler = torch.amp.GradScaler() if torch.cuda.is_bf16_supported() else None
+    # bf16 has same dynamic range as fp32 -- no gradient scaling needed.
+    # (Previously had a dead-code GradScaler instantiation; removed.)
 
-    print(f"\n=== Step 3: training student for {EPOCHS} epoch(s) ===", flush=True)
+    # LR warmup (linear warmup over first WARMUP_STEPS, then constant)
+    WARMUP_STEPS = 200
+    def lr_lambda(step):
+        if step < WARMUP_STEPS:
+            return step / WARMUP_STEPS
+        return 1.0
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+
+    GRAD_CLIP_MAX_NORM = 1.0   # protects against exploding grads at warmup
+
+    print(f"\n=== Step 3: training student for {EPOCHS} epoch(s); warmup={WARMUP_STEPS} steps; "
+          f"grad_clip={GRAD_CLIP_MAX_NORM} ===", flush=True)
     out_dir = get_output_dir(ANCHOR_NAME)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -438,7 +464,8 @@ def main():
         for batch in train_loader:
             input_ids = batch["input_ids"].to(DEVICE, non_blocking=True)
             attention_mask = batch["attention_mask"].to(DEVICE, non_blocking=True)
-            target = batch["target"].to(DEVICE, non_blocking=True)
+            # Target was kept fp16 (memory budget); upcast to fp32 at boundary
+            target = batch["target"].to(DEVICE, non_blocking=True).float()
             with torch.amp.autocast(device_type="cuda", dtype=torch.bfloat16):
                 pred = student(input_ids, attention_mask)
                 loss = F.mse_loss(pred, target)
@@ -448,7 +475,9 @@ def main():
                 break
             optimizer.zero_grad()
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(student.parameters(), max_norm=GRAD_CLIP_MAX_NORM)
             optimizer.step()
+            scheduler.step()
             losses.append(float(loss.item()))
             step += 1
             if step % 50 == 0:

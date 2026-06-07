@@ -177,6 +177,16 @@ def pca_whiten_apply(X: np.ndarray, mean: np.ndarray, whitener: np.ndarray) -> n
     return (X - mean) @ whitener
 
 
+def random_orthogonal(d: int, rng: np.random.Generator) -> np.ndarray:
+    """Random orthogonal (d, d) matrix via QR decomposition of a Gaussian.
+
+    Used to build H independent rotations for multi-head substrate (Research F4 spec).
+    """
+    M = rng.standard_normal((d, d)).astype(np.float32)
+    Q, _ = np.linalg.qr(M)
+    return Q.astype(np.float32)
+
+
 def _selftest():
     """PROT-022: verify pseudoinverse + PCA + consistent hash + capacity cap."""
     rng = np.random.default_rng(0)
@@ -202,6 +212,36 @@ def _selftest():
     assert PER_FRAGMENT_CAP == int(ALPHA_C * N_PER_FRAGMENT), \
         f"PER_FRAGMENT_CAP={PER_FRAGMENT_CAP} != {int(ALPHA_C * N_PER_FRAGMENT)}"
 
+    # Multi-head pipeline: random orthogonal + per-head pseudoinverse round-trip
+    d = 32; m = 10; H = 2
+    K = rng.standard_normal((m, d)).astype(np.float32)
+    V = K.copy()  # auto-associative
+    R_heads = [random_orthogonal(d, np.random.default_rng(h + 100)) for h in range(H)]
+    # Build per-head W
+    W_heads = []
+    for R_h in R_heads:
+        K_rot = K @ R_h.T
+        W_h = pseudoinverse_write(K_rot, V)
+        W_heads.append(W_h)
+    # Read a stored key via multi-head averaging; should recover V[j] exactly
+    j = 3
+    q = K[j]
+    cleaned_avg = np.zeros(d, dtype=np.float32)
+    for W_h, R_h in zip(W_heads, R_heads):
+        # Training used K_rot = K @ R_h.T, so each row is K[i] @ R_h.T = R_h @ K[i].
+        # At read for q ~= K[j]: q_rot = K_rot[j] = R_h @ q.
+        q_rot = R_h @ q
+        cleaned_avg += W_h @ q_rot
+    cleaned_avg /= H
+    sims = K @ cleaned_avg
+    mh_top1 = int(sims.argmax())
+    assert mh_top1 == j, f"multi-head H={H} round-trip failed: top1={mh_top1} expected {j}"
+
+    # Random orthogonal really is orthogonal
+    R = random_orthogonal(8, np.random.default_rng(0))
+    eye_diff = R @ R.T - np.eye(8)
+    assert np.abs(eye_diff).max() < 1e-5, f"R @ R.T should be I; max diff {np.abs(eye_diff).max()}"
+
     # Consistent hash: same key -> same fragment; different keys -> different distribution
     keys = [f"key_{i}" for i in range(1000)]
     fragments = [consistent_hash_fragment(k, 128) for k in keys]
@@ -215,7 +255,8 @@ def _selftest():
 
     print(f"[selftest] PASS: pseudoinverse round-trip top-1={top1:.3f}, "
           f"PCA whiten var [{var.min():.2f},{var.max():.2f}], "
-          f"hash z<5 OK", flush=True)
+          f"hash z<5 OK, multi-head H=2 round-trip OK, "
+          f"orthogonal R @ R.T == I OK", flush=True)
 
 
 _selftest()
@@ -263,16 +304,6 @@ def load_cell2_passages(shards_dir: Path, n_target: int) -> Tuple[List[str], Lis
     embs_kept = embs_all[keep]
     print(f"[data] {len(ids_kept)} unique entries kept (after dedup)", flush=True)
     return ids_kept, titles_kept, embs_kept
-
-
-def random_orthogonal(d: int, rng: np.random.Generator) -> np.ndarray:
-    """Random orthogonal (d, d) matrix via QR decomposition of a Gaussian.
-
-    Used to build H independent rotations for multi-head substrate.
-    """
-    M = rng.standard_normal((d, d)).astype(np.float32)
-    Q, _ = np.linalg.qr(M)
-    return Q.astype(np.float32)
 
 
 def build_substrate(keys_whitened: np.ndarray, values: np.ndarray,
@@ -349,42 +380,57 @@ def build_substrate(keys_whitened: np.ndarray, values: np.ndarray,
 
 def evaluate_retrieval(fragments, query_keys_whitened, query_ids, n_fragments,
                         noise_std: float, rng):
-    """For each query, add noise, route to hash fragment, CLEANUP via W, find closest stored key.
+    """Multi-head substrate retrieval evaluation.
 
-    This is the actual capacity test: with NOISY query, does W's pseudoinverse cleanup
-    map back to the correct stored key? Clean-query test would be trivial (queries =
-    stored keys; recall would be ~100 pct without testing the substrate cleanup at all).
+    For each query:
+      1. Add Gaussian noise (tests cleanup capacity)
+      2. Hash-route to fragment (oracle routing in this test)
+      3. For each head h: q_rotated_h = R_h.T @ noisy_q; cleaned_h = W_h @ q_rotated_h
+      4. Average cleaned vectors across H heads (BFT-style consensus)
+      5. Find top-1 in fragment via K @ cleaned_avg
+      6. Compare to true id
     """
     n = len(query_ids)
     hits = 0
+    n_heads_actual = None
     for i, (qk_clean, qid) in enumerate(zip(query_keys_whitened, query_ids)):
-        # 1. Add noise to query (tests substrate CLEANUP capacity)
         noise = rng.standard_normal(qk_clean.shape).astype(np.float32) * noise_std
         noisy_qk = qk_clean + noise
 
-        # 2. Route to fragment via consistent hash on the CLEAN id (in production,
-        #    routing uses index/metadata; for this test we assume oracle routing)
         fid = consistent_hash_fragment(qid, n_fragments)
         frag = fragments[fid]
-        W = frag.get("W")
+        W_heads = frag.get("W_heads")
+        R_heads = frag.get("R_heads")
         K = frag.get("K")
         ids_frag = frag["ids"]
-        if W is None or K is None or len(ids_frag) == 0:
+        if W_heads is None or K is None or len(ids_frag) == 0:
             continue
 
-        # 3. CLEANUP: cleaned = W @ noisy_qk (this is the substrate's read operation)
-        cleaned = W @ noisy_qk
+        n_heads_actual = len(W_heads)
 
-        # 4. Find closest stored key in this fragment by inner product with cleaned vector
-        sims = K @ cleaned
+        # Multi-head BFT consensus: average cleanups across H heads.
+        # Training used K_rot = K @ R_h.T, so K_rot[i] = R_h @ K[i].
+        # At read with noisy q ~ K[j]: rotated query = R_h @ noisy_q.
+        cleaned_avg = None
+        for W_h, R_h in zip(W_heads, R_heads):
+            q_rotated = R_h @ noisy_qk
+            cleaned_h = W_h @ q_rotated
+            if cleaned_avg is None:
+                cleaned_avg = cleaned_h.copy()
+            else:
+                cleaned_avg += cleaned_h
+        cleaned_avg /= len(W_heads)
+
+        # Find top-1 in this fragment by inner product with the H-averaged cleaned vector
+        sims = K @ cleaned_avg
         top1_local = int(sims.argmax())
 
         if ids_frag[top1_local] == qid:
             hits += 1
 
         if (i + 1) % 100 == 0:
-            print(f"  [eval] {i+1}/{n}  running recall={hits/(i+1):.3f} (noise_std={noise_std})",
-                  flush=True)
+            print(f"  [eval] {i+1}/{n}  running recall={hits/(i+1):.3f} "
+                  f"(noise_std={noise_std}, H={n_heads_actual})", flush=True)
     return hits / max(n, 1)
 
 
@@ -423,9 +469,10 @@ def main():
     values = embs_w  # auto-associative
 
     # Step 2: shard + pseudoinverse-write (cap at alpha_c * dimension, not dimension itself)
-    print(f"\n=== Step 2: shard 100K facts -> {N_FRAGMENTS} fragments + pseudoinverse-W "
-          f"(per-fragment cap={PER_FRAGMENT_CAP}) ===", flush=True)
-    fragments, n_dropped = build_substrate(keys, values, ids, N_FRAGMENTS, PER_FRAGMENT_CAP)
+    print(f"\n=== Step 2: shard 100K facts -> {N_FRAGMENTS} fragments x H={N_HEADS} heads "
+          f"+ pseudoinverse-W (per-fragment cap={PER_FRAGMENT_CAP}) ===", flush=True)
+    fragments, n_dropped = build_substrate(keys, values, ids, N_FRAGMENTS, PER_FRAGMENT_CAP,
+                                             n_heads=N_HEADS)
     print(f"  shard + write wall {time.time()-t0:.1f}s", flush=True)
 
     # Step 3: evaluate retrieval on random N_QUERIES (optionally sweep noise_std)
@@ -476,6 +523,7 @@ def main():
         "n_facts_dropped_over_cap": n_dropped,
         "n_queries": len(query_ids),
         "n_fragments": N_FRAGMENTS,
+        "n_heads": N_HEADS,
         "n_per_fragment_dim": N_PER_FRAGMENT,
         "per_fragment_capacity": PER_FRAGMENT_CAP,
         "alpha_c": ALPHA_C,
