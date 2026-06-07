@@ -99,19 +99,17 @@ def run() -> Dict:
     if not data:
         print("[FATAL] no hotpot records parsed", flush=True); return {"recall_2hop": 0.0, "n": 0, "naive": 0.0, "substrate": 0.0}
     tok = AutoTokenizer.from_pretrained(ENCODER); m = AutoModel.from_pretrained(ENCODER).to(DEV).eval()
-    naive_hits = 0; sub_hits = 0
+    KS = [2, 5, 10, 20]; hits = {k: 0 for k in KS}
     for d in data:
         sents = d["sents"]; texts = [s for (_, _, s) in sents]; raw = encode(texts, tok, m); qraw = encode([Q_INSTR + d["q"]], tok, m)
         en = unit(raw); qn = unit(qraw)[0]; on = np.argsort(en @ qn)[::-1]
-        naive_hits += int(len(set((sents[i][0], sents[i][1]) for i in on[:2]) & d["gold"]) >= 2)
-        Wc, mu, Wd = whiten(raw); ew = unit(Wc); qw = unit((qraw - mu) @ Wd)[0]
-        h1 = int(np.argmax(ew @ qw)); qbridge = unit((qw + ew[h1])[None, :])[0]
-        s2 = ew @ qbridge; s2[h1] = -1e9; h2 = int(np.argmax(s2))
-        sub_hits += int(len(set([(sents[h1][0], sents[h1][1]), (sents[h2][0], sents[h2][1])]) & d["gold"]) >= 2)
+        for k in KS:
+            topk = set((sents[i][0], sents[i][1]) for i in on[:k]); hits[k] += int(len(topk & d["gold"]) >= 2)
     del m
-    n = len(data); rn = naive_hits / n; rs = sub_hits / n
-    print("  n=%d naive_recall@2hop=%.3f substrate(whiten)_recall@2hop=%.3f lift=%+.3f" % (n, rn, rs, rs - rn), flush=True)
-    return {"n": n, "naive": rn, "substrate": rs, "recall_2hop": rs}
+    n = len(data); by = {("r@%d" % k): hits[k] / n for k in KS}
+    for k in KS:
+        print("  both-supporting-facts in top-%d = %.3f" % (k, by["r@%d" % k]), flush=True)
+    return {"n": n, "by": by, "r2": by["r@2"], "r10": by["r@10"], "recall_2hop": by["r@2"]}
 
 
 def verdict(r) -> Tuple[str, str]:
