@@ -118,7 +118,7 @@ def verdict(res) -> Tuple[str, str]:
     return ("HARD_FAIL", "HARD_FAIL: K_max(B2)<15 -- noise accumulation not polynomial; cross-shard K-hop not noise-safe as modelled. " + summary)
 
 
-print("[config] anchor=%s mode=%s N=%d V_c=%d chains=%d sigma=%.2f B=%s" % (ANCHOR_NAME, RUN_MODE, N, V_C, CHAINS, SIGMA, B_GRID), flush=True)
+print("[config] anchor=%s mode=%s N=%d V_c=%d chains=%d noise0=%.3f B=%s" % (ANCHOR_NAME, RUN_MODE, N, V_C, CHAINS, NOISE0, B_GRID), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); res = run()
 v, vmsg = verdict(res); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [res], "elapsed_s": time.time() - t0}
