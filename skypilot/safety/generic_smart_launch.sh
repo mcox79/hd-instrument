@@ -197,6 +197,16 @@ PYEOF2
         echo "$EXISTING" | xargs -r sky down -y 2>&1 | tail -5 | tee -a "$LAUNCHER_LOG"
     fi
 
+    # Build EXTRA env args from optional config-supplied EXTRA_SKY_ENVS_STR
+    # Format: space-separated "NAME=VALUE" pairs (e.g., "CELL3_MAX_ARTICLES=1000000 FOO=bar")
+    EXTRA_ENV_ARGS=""
+    if [ -n "${EXTRA_SKY_ENVS_STR:-}" ]; then
+        for kv in ${EXTRA_SKY_ENVS_STR}; do
+            EXTRA_ENV_ARGS="${EXTRA_ENV_ARGS} --env ${kv}"
+        done
+        echo "[${ts}] extra env args: ${EXTRA_ENV_ARGS}" | tee -a "$LAUNCHER_LOG"
+    fi
+
     sky launch \
         -c "$CLUSTER_NAME" \
         -y \
@@ -206,6 +216,7 @@ PYEOF2
         --down \
         -i "$AUTOSTOP_MIN" \
         --env HF_TOKEN="${HF_TOKEN_VAL}" \
+        ${EXTRA_ENV_ARGS} \
         "$YAML_PATH" 2>&1 | tee -a "$LAUNCHER_LOG"
 
     LAUNCH_RC=${PIPESTATUS[0]}

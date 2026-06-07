@@ -23,6 +23,7 @@ workdir: .
 
 envs:
   HF_TOKEN: ""
+  CELL3_MAX_ARTICLES: ""
 
 setup: |
   set -e

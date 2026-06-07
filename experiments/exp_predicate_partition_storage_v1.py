@@ -34,7 +34,8 @@ def cap_flat(n, seed):
     g = np.random.default_rng(seed); c = 0
     for load in LOADS:
         M = max(2, int(load * n))
-        if rec(pat(M, n, g), Wp(pat(M, n, g)), seed * 3 + M) >= 0.95: c = M
+        P = pat(M, n, g)
+        if rec(P, Wp(P), seed * 3 + M) >= 0.95: c = M
         else: break
     return c
 def cap_part(n, seed):
@@ -42,7 +43,8 @@ def cap_part(n, seed):
     for load in LOADS:
         Mtot = max(2, int(load * n)); per = max(1, Mtot // P_GROUPS); ok = True
         for gi in range(P_GROUPS):
-            if rec(pat(per, n, g), Wp(pat(per, n, g)), seed * 5 + gi * 100 + per) < 0.95: ok = False; break
+            Pg = pat(per, n, g)
+            if rec(Pg, Wp(Pg), seed * 5 + gi * 100 + per) < 0.95: ok = False; break
         if ok: c = per * P_GROUPS
         else: break
     return c
