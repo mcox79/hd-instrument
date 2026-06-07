@@ -12462,3 +12462,11 @@ Cap_map annotation: federated_dp_utility_v1 HP v490 (PP-24 DP histogram sub-prop
 
 Cap_map: v489 -> v490 CYCLE 170 (2 HP sub-properties: PP-4b_misragries_drift-RATIO=6.59-MARGIN_2.2X-STREAMING_ONLINE + PP-24_dp_histogram-MAE=0.0058-8.6X_MARGIN-EPS1.0_STRONG_DP; 1 HP_METHODOLOGY: query_redundancy_methodology-ERR=0.000-MONOTONE-ZIPFIAN_VALIDATED; 0 LVH; HONEST 1265->1268 +3; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 403rd PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+# v491 update (2026-06-07) -- CYCLE 171: 2 HP sub-property/annotation; 0 LVH; HONEST 1268->1270 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 404th PROT-009
+
+Cap_map annotation: federated_crossdomain_corr_v1 HP v491 (PP-24 cross-domain routing structure sub-property founding): Mean pairwise cosine=0.569 across 20 domains (shared_frac=0.50). HP threshold cosine>=0.50 met (14% margin). Structural justification for federated model over local-only routing. Complements cycle-170 DP histogram sub-property (MAE=0.0058 eps=1.0) -- structure exists AND can be shared privately. n=1 seed founding; 3-seed + domain-count sweep for band-LIFT. PP-24 band UNCHANGED at 0.55-0.70. Cycle 171.
+
+Cap_map annotation: substrate_1M_recall_validation_v1 HP v491 (production-scale gate CLEARED): Sign-key autoassociative recall@1=1.0000 at N=1,000,000 (noise_flip=0.15, n_q=500 unanimous). CELL-4 production-scale promotion gate met. Largest-N validation in project. n=1 seed; 3-seed + noise_flip sweep for band-LIFT. Storage/retrieval production-scale sub-property annotation. Cycle 171.
+
+Cap_map: v490 -> v491 CYCLE 171 (2 HP sub-property/annotation: federated_crossdomain_corr-COS=0.569-20DOMAINS-CROSS_DOMAIN_STRUCTURE_JUSTIFIED + substrate_1M_recall-RECALL@1=1.000-N=1M-NOISE0.15-CELL4_GATE_CLEARED; 0 LVH; HONEST 1268->1270 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 404th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
