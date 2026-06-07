@@ -88,3 +88,4 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 2026-06-07 predicate_routing_scaling_2x: bundle interference primary (SNR~sqrt(N/K_pred)), engineering-class not algebra-class; 3 rescue paths; adaptive routing P_deflated=0.65 top; -> notes/research_drill_predicate_routing_scaling_limit_2x_2026-06-07.md
 
 - aggregation_extension_2x: notes/research_drill_substrate_aggregation_extension_2x_2026-06-07.md -- AVG bug (formula /N error); corrected COUNT ~1-3%; Pattern B exact AVG; DuckDB VSS architecture implication; P_deflated=0.42 GROUP BY COUNT, P_deflated=0.72 SA-class AVG
+- parametric-knowledge-synthesis-2x: notes/research_drill_parametric_knowledge_synthesis_2x_2026-06-07.md -- Wikipedia-substrate covers 70-85% encyclopedic queries; LLM parametric advantage is narrow; v1 demo benchmark gate is NQ/TriviaQA pre-test on CELL-2 v3 cache
