@@ -67,3 +67,20 @@ problem at 1B-relative size is a RE-RANKING problem, not a retrieval-coverage pr
 **bge-small top-10 retrieval -> cross-encoder rerank (or substrate K-hop / question-decomposition) -> recall@2hop ~0.70.**
 This is a concrete, fair-size (33M encoder), demonstrable north-star path. Next cell I'll build: a reranker on bge top-10
 to confirm the lift 0.42 -> ~0.74. The substrate's audit/K-hop/storage layers sit on top of this retrieval stack.
+
+---
+## UPDATE 3: single-hop rerank HURTS (0.42->0.34) -- the gap is genuine multi-hop, not ranking
+hotpot_bge_rerank_v1 smoke (n=50): bge top-10 -> cross-encoder/ms-marco-MiniLM rerank -> recall@2hop:
+  bge-only = 0.42   reranked = 0.34   (lift -0.08)
+A standard single-hop passage reranker makes it WORSE: it ranks the directly-question-relevant fact high but pushes the
+BRIDGING fact (relevant to the answer chain, NOT directly to the question) down. This is the defining signature of true
+2-hop: supporting fact #2 is reachable only via an entity bridge from fact #1, not by question-similarity.
+
+### Corrected north-star conclusion (clean + actionable)
+  - Encoder choice dominates: bge-small 0.42 >> MiniLM 0.16 >> Llama-base 0.00 (Llama-base is not a retriever).
+  - Coverage is fine: bge recall@10 = 0.74 (both facts in the pool).
+  - Ranking alone CANNOT close it: single-hop rerank hurts. The residual gap is GENUINE MULTI-HOP REASONING.
+  - => This is exactly where the substrate's iterative K-hop relay (and the LLM's decomposition) earns its keep:
+    retrieve hop-1, extract the bridge entity, re-query for hop-2. The crude "q+hop1" vector bridge also hurt; a proper
+    entity-bridge decomposition is the next cell. This is a concrete, fair-size, demonstrable substrate value-add story.
+Next genuine cell: entity-bridge K-hop decomposition on bge top-10 (does hop1->bridge->hop2 lift recall@2hop toward 0.74).
