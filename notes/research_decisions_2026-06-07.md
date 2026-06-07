@@ -116,3 +116,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - qwen7b_promotion_2x: P_deflated=0.30; context utilization failure (2603.11513) is gating risk; LLM-decomp closure may reverse at 7B; PT1/PT2/PT3 gate v1 demo -- notes/research_drill_qwen7b_promotion_risks_2x_2026-06-07.md
 2026-06-07 substrate_1M_scale_2x: -> notes/research_drill_substrate_1M_scale_risks_2x_2026-06-07.md | HEADLINE: SMW resolves 4TB Gram ceiling; 3 pre-tests gate v1.1; power-law entity collision highest Wikipedia-specific risk | P_deflated=0.35 | exp_dev handoff written
 - composition_cascade_closure_3x: notes/research_drill_composition_cascade_closure_3x_2026-06-07.md -- 3-stage parallel architecture; P_deflated=0.38 (theoretical); 12 crazy options; decisive test protocol; exp_dev handoff written
+
+- [2026-06-07] hippocampal-cortical sleep consolidation 5x drill -> notes/research_drill_natural_analog_hippocampal_5x_2026-06-07.md ; HEADLINE: substrate IS a CLS implementation; TMR priority gating + micro-defrag + reverse-replay counterfactual are sub-3-day wins; P_deflated=0.75/0.65/0.55
