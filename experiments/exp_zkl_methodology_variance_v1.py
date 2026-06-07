@@ -137,7 +137,7 @@ def zkl_at(keys, var_pos, var_neg, agg="max"):
     return tpr_at_fpr(red(pp), red(nn))
 
 
-N_SEEDS = 3 if RUN_MODE == "smoke" else 10; N_TEMP_SEEDS = 2 if RUN_MODE == "smoke" else 5
+N_SEEDS = 3 if RUN_MODE == "smoke" else 3; N_TEMP_SEEDS = 0   # light: 3 seeds, skip temp sweep (zkl v1 burned 4.5hr at 20 runs)
 
 
 def run() -> Dict:
@@ -171,7 +171,7 @@ def run() -> Dict:
         print("  [PT-A seed %d T=1.3] ZKL_max=%.3f ZKL_mean=%.3f" % (s, zx, zm), flush=True)
     # PT-C temperature sweep (max-agg)
     temp_std = {"1.3": float(np.std(zmax_13))}
-    for temp in [0.5, 1.0]:
+    for temp in []:
         zs = []
         for s in range(N_TEMP_SEEDS):
             zx, _ = measure(20270000 + int(temp * 10) * 100 + s, temp); zs.append(zx)
