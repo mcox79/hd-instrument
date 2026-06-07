@@ -72,7 +72,8 @@ echo "===== [${CELL_NAME}] smart launch start $(date -u '+%Y-%m-%dT%H:%M:%SZ') =
 # Preflight gate
 PREFLIGHT_SCRIPT="/mnt/d/AI/hd-instrument/skypilot/preflight_cloud_dispatch.sh"
 echo "[${CELL_NAME}] running preflight gate..." | tee -a "$LAUNCHER_LOG"
-if ! bash "$PREFLIGHT_SCRIPT" "${BUNDLE_PATH}/$(basename "$YAML_PATH")" "$EXPECTED_SCRIPT" "$BUNDLE_PATH" >> "$LAUNCHER_LOG" 2>&1; then
+# YAML_PATH is already the full bundled path (e.g., /root/cell3-ship/skypilot/cell3_distillation_h100.yaml)
+if ! bash "$PREFLIGHT_SCRIPT" "$YAML_PATH" "$EXPECTED_SCRIPT" "$BUNDLE_PATH" >> "$LAUNCHER_LOG" 2>&1; then
     echo "ERROR: preflight FAILED for ${CELL_NAME}; aborting dispatch" | tee -a "$LAUNCHER_LOG"
     exit 1
 fi
