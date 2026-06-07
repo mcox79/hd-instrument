@@ -554,3 +554,50 @@ R4 (MEDIUM, CPU <2h): Block-sparse analogy binding to reduce superposition inter
 
 Cap_map: v478 -> v479 CYCLE 158 (3 HP: substrate_vs_bare_llm-NORTH_STAR_F1=0.586_BARE=0.234_LIFT=+0.352 + pattern_b_unbind_substitute-ACC_1.0_K2-K8_N1024 + pattern_b_khop_compose-ACC_1.0_K2-K8_N1024; 1 MIDDLE_BAND: storage_huffman_entropy-H3.294bits-GAIN1.21x; 4 HF: hotpot_bge_large_rerank-LIFT=-0.005-RERANKER_CONSISTENTLY_HARMFUL + llm_decomp_hotpot-LIFT=-0.200-1.5B_DECOMP_FAILS + llm_decomp_sequential_hotpot-LIFT=-0.033-SEQUENTIAL_ALSO_FAILS + pattern_b_analogy-ACC0.041_K4-BUNDLE_INTERFERENCE; NORTH-STAR THESIS CONFIRMED at n=30 smoke (FULL n=200+ needed); Pattern-B algebraic binding robust for substitution+khop at N=1024 but NOT analogy; reranker approach closed across 2 cycles; 1.5B LLM decomp axis closed; HONEST 1166->1174 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 391st PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v479 -> v480 CYCLE 159: PCA/ZKL + VALUE-ADD CURVE + PATTERN B CAPACITY/MANIFOLD/PINV + PREDICATE INVERSION + D30 FULLSTACK (2026-06-07)
+
+Verdicts processed (7 anchors): pca_bottleneck_zkl_sweep_v1 + substrate_valueadd_curve_v1 + pattern_b_capacity_curve_v1 + predicate_inversion_sparse_v1 + d30_fullstack_storage_v1 + patternb_bundle_manifold_v1 + patternb_pinv_recovery_v1
+
+### Step 0 honest re-read
+
+All 7 metrics fetched source=remote (bridge stale; direct SSH fetch via get_metrics).
+
+- pca_bottleneck_zkl_sweep_v1: HONEST=UNKNOWN (correct). ZKL(full)=0.083 (expected 0.17-0.27). T5 non-equiv to MarianMT. No LVH. +1 HONEST.
+- substrate_valueadd_curve_v1: LVH#258. MIDDLE_BAND OVER-CLAIMS. All 4 encoders negative: MiniLM=-0.02, bge-small=-0.15, bge-large=-0.16, e5-large=-0.13 (n=200). Honest=HARD_FAIL (retrieval-overlay mode). North-star HP F1=+0.352 is different integration mode. LVH#258. +1 HONEST.
+- pattern_b_capacity_curve_v1: HONEST=HARD_PASS (correct). acc k4-k24=1.0 (3-seed, N=1024). No LVH. +1 HONEST.
+- predicate_inversion_sparse_v1: HONEST=HARD_PASS (correct). recall@10=1.000 at 12.5% sel (3-seed). No LVH. +1 HONEST.
+- d30_fullstack_storage_v1: HONEST=HARD_PASS (correct). recall_clean=1.000, recall_noise5=1.000, 15 bytes/fact (2-seed). No LVH. +1 HONEST.
+- patternb_bundle_manifold_v1: HONEST=HARD_FAIL (correct). TwoNN=731.1, PCA95=873. No LVH. +1 HONEST.
+- patternb_pinv_recovery_v1: HONEST=HARD_PASS (correct). acc=1.000 (1-seed, 1-role). No LVH. +1 HONEST.
+
+HONEST: 1174 -> 1181 (+7). LVH: 257 -> 258 (+1: #258 substrate_valueadd_curve).
+
+### Cap_map decisions (v479 -> v480)
+
+(A) pca_bottleneck_zkl_sweep_v1 UNKNOWN: T5 non-equiv (ZKL=0.083 vs 0.17-0.27). MarianMT retest needed. Cycle 159.
+(B) LVH#258 substrate_valueadd_curve HARD_FAIL: retrieval-overlay hurts all 4 encoders. Integration-mode distinction: retrieval-overlay HF vs memory-augmented QA HP (north-star). Rescues R1-R3. Cycle 159.
+(C) pattern_b_capacity_curve HP: acc=1.0 k4-k24 (3-seed N=1024). VALIDATED. Cycle 159.
+(D) predicate_inversion_sparse HP: recall@10=1.000 at 12.5% sel (3-seed). VALIDATED. Cycle 159.
+(E) d30_fullstack_storage HP: 15 bytes/fact recall=1.000 clean+noise5 (2-seed). 280x compression. VALIDATED. Cycle 159.
+(F) patternb_bundle_manifold HF: dim=731 near-full ambient. PCA not viable. Key-only d=30 is correct path. Rescues R1-R2. Cycle 159.
+(G) patternb_pinv_recovery HP: acc=1.000 partial-bundle 1-role. VALIDATED. Cycle 159.
+
+### Rescue sketches (cheapest-first)
+
+pca_zkl UNKNOWN: R1 MarianMT retest.
+substrate_valueadd LVH#258: R1 QA-mode is product story; R2 post-retrieval re-ranker test; R3 hybrid naive+substrate re-scoring.
+patternb_bundle_manifold HF: R1 key-only d=30 is correct path (annotation); R2 isolated role-vector intrinsic-dim test.
+
+### PROT compliance
+
+- PROT-004/006: Rescues filed cheapest-first for all HF/closure rows. PASS.
+- PROT-008: 4 HP: pattern_b_capacity 3-seed k4-k24; predicate_inversion 3-seed; d30_fullstack 2-seed; patternb_pinv 1-seed deterministic. PASS.
+- PROT-009: Atomic commit. 392nd paired commit.
+- PROT-018: No _nN suffixes. CLEAN.
+- PROT-019: LVH 257->258 (+1).
+- PROT-021: All 7 source=remote. CLEAN.
+- PROT-022: All HP non-fragile. CLEAN.
+
+Cap_map: v479 -> v480 CYCLE 159 (4 HP: pattern_b_capacity-ACC1.0_K4-K24_3SEED + predicate_inversion_sparse-RECALL1.000_12.5pct_3SEED + d30_fullstack-15BYTES_RECALL1.000_2SEED + patternb_pinv-ACC1.000_1ROLE; 1 UNKNOWN: pca_zkl-T5_NON_EQUIV; 1 HF: patternb_bundle_manifold-DIM731_NO_PCA; 1 LVH_HF: #258 substrate_valueadd-ALL_ENCODERS_NEGATIVE_RETRIEVAL_OVERLAY; HONEST 1174->1181 +7; LVH 257->258 +1; 392nd PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

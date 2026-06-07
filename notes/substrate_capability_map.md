@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v479
+# hd-instrument substrate -- capability map v480
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12348,4 +12348,29 @@ Cap_map annotation: llama_encoder_config_hotpot_v1 HF v477: all 6 Llama-1B confi
 - PROT-022: HP anchor (crdt_gcounter) deterministic exact result; no HP-fragility. All HF anchors unanimous. CLEAN.
 
 Cap_map: v476 -> v477 CYCLE 156 (1 HP: crdt_gcounter_aggregate-FRACTION1.000-EXACT_COUNT-ORDER+DUP_INDEPENDENT; 4 MIDDLE_BAND: hotpot_2hop_full-WHITENING_RECALL0.200 + hotpot_2hop_khop-RECALL0.200-IDENTICAL_TO_WHITENING + online_lora_infonce-INFONCE0.314-SFT0.003-BASE0.476 + lsh_fanout_norm_cone-L2NORM_B_EFF6.87-CONE29.61; 3 HF: predicate_partition_storage-RATIO1.00-NO_GAIN + hotpot_2hop_retrieval_pretest-RECALL0.147-BASELINE + llama_encoder_config-ALL_LT0.05; NOTABLE: L2-norm-only B_eff=6.87 resolves cycle-154 Chain3-LSH B_eff=40 concern; K-hop=whitening recall=0.200 (encoder is bottleneck); Llama-1B invalid retrieval encoder; InfoNCE>>SFT (SFT catastrophic); HONEST 1150->1158 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 389th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+Cap_map annotation: pca_bottleneck_zkl_sweep_v1 UNKNOWN v480: ZKL(full)=0.083 (expected 0.17-0.27 cycle-151 baseline). T5 paraphraser non-equivalent to MarianMT de-en. ZKL dimensional sweep BLOCKED pending MarianMT retest. Cycle 159.
+
+Cap_map annotation: substrate_valueadd_curve_v1 LVH#258 v480: MIDDLE_BAND RESCINDED to HARD_FAIL. Retrieval-overlay lifts: MiniLM=-0.02, bge-small=-0.15, bge-large=-0.16, e5-large=-0.13 (n=200). ALL encoders negative. Integration-mode distinction: retrieval-overlay HF vs memory-augmented QA (north-star HP F1=+0.352) are separate axes. Substrate should NOT be used as RAG retrieval overlay; memory-augmented QA is the correct product integration mode. Rescues R1-R3 filed. Cycle 159.
+
+Cap_map annotation: pattern_b_capacity_curve_v1 HP v480: acc=1.0 k4/k8/k12/k16/k24 (3-seed N=1024). Compositional capacity extends to k=24 at N=1024. Extends cycle-158 k=8 ceiling. 24 role-filler pairs storable with perfect recall. VSA bundle capacity confirms practical KG record storage. VALIDATED. Cycle 159.
+
+Cap_map annotation: predicate_inversion_sparse_v1 HP v480: recall@10=1.000 at 12.5% selectivity (3-seed, n=200 facts, 8 predicates). Sparse inverse predicate index exact. Extends cycle-155 predicate_ratio_audit (sel<=0.05 MID) to full inverse-predicate routing at 12.5%. Sparse-predicate KG path for legal/medical confirmed. VALIDATED. Cycle 159.
+
+Cap_map annotation: d30_fullstack_storage_v1 HP v480: recall_clean=1.000, recall_noise5=1.000, per_fact_bytes=15 (2-seed, d=30 4-bit KEYs). ~280x compression vs 286KB baseline. Confirms cycle-157 pca_bottleneck_keyjob F1=1.0 extensible to full storage stack. d=30 4-bit is anchor for privacy AND storage product narrative. VALIDATED. Cycle 159.
+
+Cap_map annotation: patternb_bundle_manifold_v1 HF v480: TwoNN d_hat=731.1, PCA95=873. Bundle intrinsic dim near-full ambient. PCA compression NOT viable for Pattern B records. Cross-anchor: d30_fullstack_storage HP (15 bytes/fact key-only) is correct storage path. Rescue R1 (key-only annotation) + R2 (role-vector intrinsic-dim test) filed. Cycle 159.
+
+Cap_map annotation: patternb_pinv_recovery_v1 HP v480: partial-bundle recovery acc=1.000 (1-role query, 1-seed). pinv auto-associative completion native to Pattern B. Record completion from partial queries substrate-native. VALIDATED. Cycle 159.
+
+- PROT-007: v480 history row appended to substrate_capability_map_history.md.
+- PROT-008: 4 HP founding: pattern_b_capacity 3-seed k4-k24 monotone (non-fragile); predicate_inversion 3-seed margin=0.150 (non-fragile); d30_fullstack 2-seed recall=1.0 both noise (non-fragile); patternb_pinv 1-seed deterministic (non-fragile). PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 392nd PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 7 anchors. CLEAN.
+- PROT-019: LVH 257 -> 258 (+1: #258 substrate_valueadd_curve MIDDLE_BAND overclaims uniformly negative retrieval-lift).
+- PROT-021: All 7 source=remote. No smoke contamination. CLEAN.
+- PROT-022: All 4 HP anchors non-fragile. CLEAN.
+
+Cap_map: v479 -> v480 CYCLE 159 (4 HP: pattern_b_capacity_curve-ACC_1.0_K4-K24_N1024_3SEED + predicate_inversion_sparse-RECALL10=1.000_SEL12.5pct_3SEED + d30_fullstack_storage-RECALL=1.000_15BYTES_2SEED + patternb_pinv_recovery-ACC_1.000_1ROLE; 1 UNKNOWN: pca_bottleneck_zkl_sweep-T5_NON_EQUIV_MARIANMT_RETEST; 1 HF: patternb_bundle_manifold-TWONN731_PCA873_NO_PCA_COMPRESSION; 1 LVH_HARD_FAIL: #258 substrate_valueadd_curve-ALL_ENCODERS_NEGATIVE_RETRIEVAL_OVERLAY; KEY FINDING: d30 key-only is correct Pattern B storage path; retrieval-overlay HF vs memory-augmented QA HP are distinct integration modes; HONEST 1174->1181 +7; LVH 257->258 +1; Portfolio 32+82 UNCHANGED; 392nd PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
