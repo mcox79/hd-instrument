@@ -411,7 +411,8 @@ def main():
         experiment_root = Path(_ARGS.colbert_experiment_root)
         if not experiment_root.is_absolute():
             experiment_root = Path(os.environ.get("HOME", "/root")) / "sky_workdir" / experiment_root
-        top_k_per_query = colbert_index_and_search(passages, query_pairs, _ARGS.top_k, experiment_root)
+        top_k_per_query = colbert_index_and_search(passages, query_pairs, _ARGS.top_k,
+                                                      experiment_root, out_dir_for_progress)
 
         if len(top_k_per_query) != len(questions):
             print(f"[WARN] retrieved {len(top_k_per_query)} sets but expected {len(questions)} "
