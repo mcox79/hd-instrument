@@ -1885,3 +1885,83 @@ E4 i4 sharding: E4a annotation (architecture LOCKED); E4b H=4,8 heads isolation 
 
 Cap_map: v467 -> v468 CYCLE 147 GPU-OOM-UNBLOCKED+RETRO-AUDIT (4 HP: sparsity_fine_battery-ALPHA-ENVELOPE-LOCKED-25x-AT-ALPHA0.02-N16384-3SEED + capacity_battery-HADAMARD-10x-WRITE-RULE-ORDERING-LOCKED-5SEED + i3_f4_pinv_corruption_reaudit-F4-HF-EXONERATED-HEBB-SPECIFIC-PINV-HOLDS-20pct-FLIP-3SEED + i4_w_sharding-BFT-ROBUST-0.936-0.976-SHARING-COLLAPSES-ARCH-LOCKED-3SEED; 0 HF; 0 MID; 0 LVH; HONEST 1060->1064 +4; LVH 244 UNCHANGED; Portfolio 32+79; 2x PROT-008 PASS: sparsity-fine-battery-monotone + capacity-battery-hadamard; 1 RETROACTIVE-EXONERATION: F4-HF-cycle137-Hebb-specific; 380th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v468 -> v469 CYCLE 148 BATCH (2026-06-06)
+
+Verdicts processed: 8 anchors (PB-batch pinv scaling + SRHT + combined pipeline)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) hebb_vs_pseudoinverse_long_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=12. All 3 N cells (1024/2048/4096), ratio=11.00x UNANIMOUS 12/12 seeds. HP threshold >=3x. 11x >> 3x; theory predicted ~7x. HONEST. No LVH.
+
+**(2) pb_pinv_capacity_n_scaling_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. alpha_c: N512=0.40, N1024=0.55, N2048=0.55, N4096=0.55. Flatness=0.73; dip at N512 then plateau N1024+. MIDDLE_BAND label correct (plateau, not monotone growth). No LVH.
+
+**(3) pb_pinv_capacity_ceiling_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. alpha_c=0.50 at N={2048,4096,8192}, flatness=1.00. Within MIDDLE_BAND 0.4-0.8 band. No ceiling degradation. HONEST. No LVH.
+
+**(4) pb_pinv_true_rank1_smw_v1 MIDDLE_BAND -- LABEL HONEST WITH NOTE**
+source=remote run_mode=full n_seeds=1. N1024: speedup=10.12x (exceeds 10x); N2048: speedup=5.10x; N4096: speedup=6.11x. Verdict_msg states at N=4096: 6.1x. Framing '<10x speedup' inconsistent with N1024=10.12x but production N (2048+) all below 10x. MIDDLE_BAND honest for production. max_dev=1.08e-13 confirms exact equivalence. NOT an LVH (production-sizing qualifier saves it).
+
+**(5) pb_pinv_llama_l15_keys_v1 HARD_PASS -- LABEL HONEST (smoke)**
+source=remote run_mode=smoke n_seeds=1. hebb_cap=122 pinv_cap=409 ratio=3.35x >= 3x threshold. HONEST. NOTE: smoke n=1; 3-seed full confirmation recommended.
+
+**(6) pb_srht_vs_hadamard_codebook_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. per-cell: random=0.05, hadamard=0.50, srht=0.50. srht/hadamard=1.00 (>=0.9x); srht/random=10.00 (>=2x). UNANIMOUS 3/3 seeds. HONEST. No LVH.
+
+**(7) pb_mmr_pinv_combined_pipeline_v1 HARD_PASS -- LVH #245**
+source=remote run_mode=full n_seeds=3. pinv_recall=1.0 unanimous 3/3. prop_mmr: seed7=0.143, seed17=0.050, seed23=0.068. LABEL OVER-CLAIMS. Threshold is propagation<0.10. seed7=0.143 > 0.10 fails. 2/3 seeds pass; 1/3 seed fails. Honest verdict: MIDDLE_BAND. Composition real; propagation suppression not unanimous.
+LVH #245: (a) label HARD_PASS propagation<0.10; (b) honest MIDDLE_BAND -- pinv recall=1.0 HP unanimous; prop_mmr seed7=0.143 fails <0.10; (c) contradicting cell: seed7 prop_mmr=0.143 > 0.10.
+
+**(8) pb_neg_whiten_pinv_recipe_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. raw_auc=1.0 whitened_auc=1.0 delta=0.000 all seeds. Neutral: ceiling saturation pre-whitening. HONEST. No LVH.
+
+HONEST: 1064 -> 1072 (+8). LVH: 244 -> 245 (+1: mmr_pinv_combined seed7 prop_mmr=0.143 fails <0.10).
+
+### Cap_map decisions
+
+**(1) hebb_vs_pseudoinverse_long_v1 HARD_PASS**
+PP-8 capacity write-rule sub-property annotation. 12-seed 3-N unanimous confirms 11x lift. Theory (7x) EXCEEDED. Production write rule: pinv is correct default. PRODUCTION-GRADE confirmed.
+
+**(2) pb_pinv_capacity_n_scaling_v1 MIDDLE_BAND**
+PP-8 N-scaling annotation. alpha_c plateau: N512=0.40, N1024+ plateau at 0.55. No degradation with N increase. Product-positive: capacity stable at production N. No further scaling probe needed unless N>>4096 required.
+
+**(3) pb_pinv_capacity_ceiling_v1 MIDDLE_BAND**
+PP-8 capacity ceiling annotation. alpha_c=0.50 flat at N={2048,4096,8192}. Expected theoretical bound for FHRR pinv. No engineering failure; plateau is physics-expected.
+
+**(4) pb_pinv_true_rank1_smw_v1 MIDDLE_BAND**
+PP-8 online-update annotation. Rank-1 SMW exact (max_dev=1e-13). Speedup 5-10x range N-dependent. Single-seed.
+R1 (0-compute, ANNOTATION): N1024=10.12x above threshold; pivot point identified for streaming use cases.
+R2 (CHEAP, CPU <30min): 3-seed confirmation at N=1024 to verify 10.12x robust.
+R3 (CHEAP, CPU <30min): Profile BLAS overhead for N>=2048 speedup dropoff.
+
+**(5) pb_pinv_llama_l15_keys_v1 HARD_PASS (smoke)**
+Encoder-generalization annotation. Llama-3.1-8B layer-15 keys: pinv 3.35x over Hebb. Causal-LM confirmed. PP-8: pinv NOT encoder-class-restricted. Smoke n=1; 3-seed full before band-lift.
+
+**(6) pb_srht_vs_hadamard_codebook_v1 HARD_PASS**
+PP-8 codebook sub-property annotation. SRHT matches Hadamard (1.00x) while randomizing structure (10x vs random), 3-seed unanimous. Ships as drop-in Hadamard replacement. Structural finding: random fast transforms preserve HD capacity exactly.
+
+**(7) pb_mmr_pinv_combined_pipeline_v1 [LVH #245 honest: MIDDLE_BAND]**
+PP-8 combined-pipeline annotation. Honest: MIDDLE_BAND. Pinv recall=1.0 intact (no write-rule penalty). Propagation suppression 2/3 seeds pass <0.10; seed7 fails (0.143). Composition mechanistically confirmed; seed7 is topology outlier.
+R1 (0-compute, ANNOTATION): Pipeline composes -- structural finding solid; seed7 marginal.
+R2 (CHEAP, CPU <30min): 5-seed rerun to characterize seed7 as outlier or structural.
+R3 (CHEAP, CPU <30min): Threshold relaxation probe at <0.15 (all 3 seeds would pass; pre-reg required).
+R4 (CHEAP, CPU <30min): MMR diversity_factor sweep to push seed7 0.143 -> <0.10.
+
+**(8) pb_neg_whiten_pinv_recipe_v1 MIDDLE_BAND**
+Negative-evidence annotation. raw_auc=1.0 at ceiling pre-whitening; whitening adds no signal. Production implication: whitening NOT required in contradiction-detection recipe. Simplifies production pipeline.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v468 -> v469)
+- PROT-004/006: No closures. LVH #245 rescue R1-R4 cheapest-first. rank1_smw R1-R3 cheapest-first.
+- PROT-007: v469 history row appended to substrate_capability_map_history.md.
+- PROT-008: Annotation-only; 0 row state changes. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 381st PROT-009 paired commit.
+- PROT-018: No _nN suffixes on any of the 8 anchors. CLEAN.
+- PROT-021: anchors 1,2,3,6,7,8 source=remote run_mode=full multi-seed. Anchor 4 source=remote run_mode=full n_seeds=1 (single seed flagged). Anchor 5 source=remote run_mode=smoke n_seeds=1 (smoke flagged).
+- PROT-022: hebb_long 12-seed unanimous (no fragility). n_scaling/ceiling_3-seed plateau consistent. rank1_smw single-seed. Llama smoke n=1. SRHT 3-seed unanimous. mmr_pinv seed7 outlier LVH #245 (rescue R2 addresses). neg_whiten deterministic ceiling.
+
+Cap_map: v468 -> v469 CYCLE 148 (3 HP: hebb_vs_pinv_long-11x-12SEED-PRODUCTION-GRADE + pinv_llama_l15-3.35x-CAUSAL-LM-SMOKE + srht_vs_hadamard-CAPACITY-EQUIVALENT-DROP-IN; 5 MID: pinv_n_scaling-PLATEAU-N1024+-0.55 + pinv_capacity_ceiling-FLAT-0.50-THEORETICAL-BOUND + pinv_rank1_smw-5-10x-N-DEPENDENT-SINGLE-SEED + mmr_pinv_combined-LVH245-RECALL-INTACT-PROPAGATION-2/3SEEDS + neg_whiten_recipe-NEUTRAL-CEILING-SATURATED; 0 HF; 1 LVH #245: mmr_pinv_combined prop_mmr seed7=0.143 fails <0.10; HONEST 1064->1072 +8; LVH 244->245 +1; Portfolio 32+79 UNCHANGED; 381st PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

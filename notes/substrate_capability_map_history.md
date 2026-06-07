@@ -26827,3 +26827,8 @@ HONEST 1053->1060 (+7). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 379th PROT
 ## v468 (2026-06-06) -- CYCLE 147 GPU-OOM-UNBLOCKED+RETRO-AUDIT
 4 HP: sparsity_fine_battery ALPHA-ENVELOPE-LOCKED N=16384 alpha<=0.05=25x alpha=0.08=15x alpha=0.10=10x MONOTONE 3-seed; capacity_battery HADAMARD-10x WRITE-RULE-ORDERING-LOCKED 5-seed N=16384; i3_f4_pinv_corruption_reaudit F4-HF-EXONERATED-Hebb-specific pinv-alpha_c=0.55/0.40/0.30/0.14-at-flip-0.05/0.10/0.20/0.30 production-pinv-robust-20pct-flip 3-seed; i4_w_sharding BFT-ROBUST sharding_recall=0.936-0.976 sharing_recall=0.000 ARCHITECTURE-LOCKED W-sharded+pinv-production-stack 3-seed.
 0 HF. 0 MID. 0 LVH. 2x PROT-008 PASS: (a) sparsity-fine-battery cycle123+this monotone; (b) capacity-battery cycle123+this (hadamard). 1 RETROACTIVE-EXONERATION: F4 HF cycle137 Hebb-specific, substrate exonerated. HONEST 1060->1064 (+4). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 380th PROT-009.
+
+## v469 (2026-06-06) -- CYCLE 148 PB-BATCH PINV-SCALING+SRHT+PIPELINE
+3 HP: hebb_vs_pinv_long 11x-12SEED-3N-UNANIMOUS-PRODUCTION-GRADE (theory 7x exceeded); pinv_llama_l15 3.35x-CAUSAL-LM-ENCODER-AGNOSTIC-SMOKE; srht_vs_hadamard CAPACITY-EQUIVALENT-DROP-IN srht/hadamard=1.00 srht/random=10.00 3-seed.
+5 MID: pinv_n_scaling PLATEAU-N1024+-0.55-N512-DIP-0.40; pinv_capacity_ceiling FLAT-0.50-THEORETICAL-BOUND-N2048-8192; pinv_rank1_smw N1024-10.12x-N2048-5.10x-N4096-6.11x-SINGLE-SEED; mmr_pinv_combined LVH245-RECALL-INTACT-PROPAGATION-2/3SEEDS; neg_whiten_recipe NEUTRAL-CEILING-SATURATED.
+0 HF. 1 LVH #245: mmr_pinv_combined prop_mmr seed7=0.143 fails <0.10 threshold. HONEST 1064->1072 (+8). LVH 244->245 (+1). Portfolio 32+79 UNCHANGED. 381st PROT-009.
