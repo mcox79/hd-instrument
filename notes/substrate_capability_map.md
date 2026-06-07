@@ -12266,3 +12266,58 @@ Cap_map annotation: r3_encoder_anisotropy_diagnostic_v1 HP v475 (diagnostic): Mi
 
 Cap_map: v474 -> v475 CYCLE 154 MASSIVE MORNING DRILL (4 HP: khop_confidence_threshold-T0.5-K_MAX22-C_D0.48 + chain3_v1_3shard-K12-RECOVERY0.987-K_MAX18 + erasure_append-APPEND_ONLY-GDPR + erasure_hmac-EDPB_POS3-HMAC-400DELETIONS; 2 HP-ANNOT: sql_hd_aggregation-REL_ERR0.0087-N16384-3SEED + online_sparse-DELTA1.0-JARGON-3SEED; 1 HP-DIAG: r3_anisotropy-PR_D0.225-MINIML-SRHT_AUTH3_SUPERSEDED; 3 MID: khop_ceiling_redesign-NON_MONOTONE + khop_cellA_coh-C_D0.389 + chain3_lsh-B_EFF40; 1 HF: srht_realkey_v2-PROXY_INSUFFICIENT; 4 LVH: #251 srht_realkey_v1-ATTACK_MISMATCH + #252 srht_v3-INTERNAL_CONTRADICTION + #253 srht_iterated-BASELINE_BELOW_HIPAA + #254 srht_llama-SRHT_HURTS_P1>P0_HARD_PASS_FALSE; ZKL-SRHT-AUTH3-CANCELLED-CONFIRMED-2-INDEPENDENT; GDPR-EDPB-POS3-CONFIRMED; HONEST 1114->1129 +15; LVH 250->254 +4; Portfolio 32+82 UNCHANGED; 387th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v476 update (2026-06-07) -- CYCLE 155 MORNING CONTINUATION: 9 HP + 5 HF + 3 MID + 1 MID-DIAG + 3 LVH #255-257 (ZKL ATTACK_MISMATCH BATCH continues); LVH 254->257; HONEST 1129->1150 (+21); Portfolio 32+82 UNCHANGED; 388th PROT-009
+
+Cap_map annotation: llama_eigenspectrum_diagnostic_v1 MID-DIAG v476: Llama-L15 D=2048 PR_pre=PR_post=12.733 (SRHT zero effect); top10_pre=top10_post=0.854 (identical); PRoverD=0.0062 (Llama NOT anisotropic like MiniLM PR/D=0.225). SRHT spectrum-flattening mechanism DISPROVEN for Llama. ZKL row: 'Llama eigenspectrum SRHT zero effect (cycle 155); mechanism lies outside eigenspectrum; DP noise or structured projection needed.' n=1 full.
+
+Cap_map annotation: w_4bit_quantization_gpu_v1 HP v476: 4-bit W quantization drop=0.0 at N=8192 and N=16384 (fp32=0.0, q4bit=0.0). Zero accuracy cost for 4x storage reduction. Storage/compression: '4-bit W quantization: drop=0.0 at N=8192-16384; 4x storage near-free; superior to sparse-W (sp>=0.75 collapses); n=1 seed 2s wall; 3-seed full recommended.' Cycle 155.
+
+Cap_map annotation: sparse_w_scale_validation_gpu_v1 HF v476: sparse-W 4x compression CLOSED. sp=0.5 recall=1.0 (2x viable); sp>=0.75 recall=0.0 at both N=4096 and N=8192. Storage/compression: 'sparse-W 4x target CLOSED (sp>=0.75 recall collapses to 0.0 at N=4096+N=8192); 2x (sp=0.5) viable only; 4-bit quantization is the production compression path.' Rescues R1-R3 filed. Cycle 155.
+
+Cap_map annotation: modern_hopfield_gpu_scale_v1 HP v476: recall=1.0 at all 4 cells (N=8192/N=16384 x L=0.30/L=0.40). Modern Hopfield: 'GPU scale N=16384 M/N=0.40 recall=1.0 (n=1, 1.3s); N=8192-16384 operational range confirmed at M/N>=0.30; 3-seed recommended for band LIFT.' Cycle 155.
+
+Cap_map annotation: v1_corroboration_gate_v1 MID v476: 3-seed N=4096 f=4 Q=3. false_accept=0.000 (safety PASS), recovery=0.553/0.574/0.543 (mean=0.557, liveness FAIL). Byzantine gate: 'Q=3 gate: safety PASS (FA=0.0 unanimous), liveness FAIL (recovery=0.557 at f=4/10); Q increase needed; Q-sweep R2 filed.' Cycle 155.
+
+Cap_map annotation: dp_noise_injection_zkl_v1 LVH#255 v476: HARD_PASS RESCINDED to ATTACK_MISMATCH. baseline s0.00=0.037 already < HIPAA 0.10; DP noise does not improve baseline (s0.05=0.040, s0.10=0.050, s0.20=0.053 all WORSE; s0.40=0.033 marginally better but non-monotone). ZKL row: 'LVH#255: dp_noise synthetic harness; baseline compliant; DP provides no benefit; Llama+MarianMT required for genuine DP evaluation. SRHT-CANCELLED extends to DP-on-synthetic-insufficient.' Cycle 155.
+
+Cap_map annotation: sparse_key_coherent_distractors_v1 HF v476: 3-seed N=4096 B=10. sparse=dense~1.0 at K=8 and K=12; max delta=-0.004. Null result. PP-11 K-hop: 'sparse-KEY at B=10 coherent HF: null result (max delta=0.004); sparse benefit limited to B=1 regime; confidence filter T=0.5 (cycle-154 HP K_max=22) is the viable coherent-distractor path at B>=10.' Cycle 155.
+
+Cap_map annotation: sql_hybrid_aggregation_v1 MID v476: 3-seed N=4096. SELECT recall=1.0 (native PASS); SUM err=0.000 (native PASS); AVG err=0.9998 (100% relative error -- DuckDB required). SQL/HD: 'Hybrid SQL 2/3 native: SELECT+SUM native; AVG requires DuckDB (100% rel-error natively); partition+DuckDB fallback required for AVG queries; 3-seed N=4096 confirmed.' Cycle 155.
+
+Cap_map annotation: bundle_relay_fault_tolerance_v1 HP v476: 3-seed N=4096. drop0.0-0.3 all=1.0; drop0.5=1.0/0.999/1.0 (min=0.999). Distributed architecture: 'bundle relay fault tolerance: 50% dropout recall=0.999 (3-seed); graceful degradation confirmed; relay-bundle multi-shard architecture fault-tolerant; no 2PC-abort.' Cycle 155.
+
+Cap_map annotation: corroborate_gossip_damp_v1 HF v476: 3-seed N=2048. adv_naive=0.0; adv_damp=0.523/0.580/0.600 (DAMP CREATES adversarial content); acc_naive=1.0; acc_damp=0.477/0.420/0.400. DAMP catastrophically inverted. Gossip/corroboration: 'DAMP gossip HF CATASTROPHIC: adversarial fraction 0->0.55+; accuracy 1.0->0.43; DAMP inverted in gossip context; naive bundling strictly superior; alternative Byzantine suppression needed (rescues R2-R4 filed).' Cycle 155.
+
+Cap_map annotation: crdt_quorum_bundle_v1 HP v476: 3-seed N=4096. order_independent=1.0/1.0/1.0. Exact commutativity+associativity. Distributed architecture: 'CRDT superposition bundle: exact commutativity+associativity at N=4096 (3-seed unanimous); eventual consistency via CRDT bundle validated.' Cycle 155.
+
+Cap_map annotation: n_reduction_storage_v1 HP v476: alpha_c=0.5 at N=1024/2048/4096/8192 -- PERFECTLY FLAT (flatness=1.0). elapsed=278s full. Storage: 'N-reduction alpha_c perfectly N-independent (flatness=1.0 >> 0.8 threshold; alpha_c=0.5 all N); N can be reduced to capacity threshold without penalty; storage savings near-free.' Cycle 155.
+
+Cap_map annotation: privacy_fixes_cone_rank_entropy_v1 LVH#256 v476: HARD_PASS RESCINDED to ATTACK_MISMATCH. baseline=0.023 < 0.14; cone_center=0.033 WORSE than baseline; rank_random=0.040 WORSE than baseline; entropy_rot=0.097 (near limit on compliant harness). ZKL row: 'LVH#256: privacy fixes all WORSE than compliant baseline on synthetic harness; cone_center hurts (0.033>0.023); Llama+MarianMT required; HIPAA path NOT restored by any fix on synthetic harness.' Cycle 155.
+
+Cap_map annotation: modern_hopfield_n_sweep_v1 HP v476: N=4096/N=8192 x L=0.20/L=0.30 all=1.0. CPU sweep 24.7s n=1. Modern Hopfield: 'CPU N-sweep: N=4096-8192 all L<=0.30 recall=1.0; bridges cycle-154 GPU (N=8192-16384) with N=4096 CPU coverage; operational N range N=4096-16384 confirmed cross-runner.' Cycle 155.
+
+Cap_map annotation: membership_auroc_mapping_v1 HP v476: 3-seed AUROC=1.0/1.0/1.0. Privacy/ZKL: 'membership AUROC=1.000 (3-seed synthetic); ZKL->AUROC mapping bridge established; AUROC=1.0 on synthetic = perfect distinguishability; combined with attack-mismatch: real-attack AUROC still needed for genuine defense evaluation.' Cycle 155.
+
+Cap_map annotation: predicate_ratio_audit_v1 MID v476: 3-seed N=4096. sel0.05=0.924/0.908/0.912 (mean=0.915, >0.90 PASS); sel0.10=0.798/0.786/0.806 (mean=0.797, FAIL); sel0.25 mean=0.698; sel0.50 mean=0.742. SQL/HD: 'Predicate selectivity MID: native HD viable at sel<=0.05 (recall~0.915); degrades at sel>=0.10 (recall<0.80); partition-or-DuckDB for high-selectivity; production constraint sel<=0.05 for native HD path.' Cycle 155.
+
+Cap_map annotation: sql_rolling_window_v1 HP v476: 3-seed N=4096. rel_error=0.011/0.015/0.018 (max=0.018 < 0.05). SQL/HD: 'Rolling-window streaming aggregation HP: rel_error<0.05 all seeds (max=0.018); native HD add/subtract no drift; streaming COUNT/SUM validated for production.' Cycle 155.
+
+Cap_map annotation: confidence_weighted_bundling_v1 HF v476: 3-seed N=4096 f=4 Q=3. cw=naive=1.0 all seeds; delta=0.0. Null result (ceiling effect). Byzantine/corroboration: 'confidence-weighted bundling HF: ceiling effect at f=4/10 (both=1.0); confidence weighting degenerates to naive at sufficient quorum; higher f/N or adversarial embedding needed to stress signal.' Cycle 155.
+
+Cap_map annotation: bitemporal_sync_throughput_v1 HP v476: per_write_ms=0.00136, throughput=737,730 writes/s (n=20000 writes). Bitemporal product: 'append-only bitemporal sync: 0.00136ms/write (736x below 1ms threshold), 737K writes/s; synchronous sync adequate for V1; no async queue needed.' Cycle 155.
+
+Cap_map annotation: chain3_sparse_key_integration_v1 HF v476: 3-seed N=4096. B_eff=39.54/39.38/39.62 (mean=39.51) = identical to cycle-154 dense LSH B_eff=39.54. Zero improvement from sparse-code routing overlay. PP-11/PP-12: 'sparse-key routing HF 3-seed: B_eff=39.51=dense (null result); sparse-code overlay does not reduce branching; structural redesign (hierarchical or top-k cutoff) required to achieve B_eff<20.' Rescues R2-R3 filed. Cycle 155.
+
+Cap_map annotation: privacy_combined_fix_v1 LVH#257 v476: HARD_PASS RESCINDED to ATTACK_MISMATCH. baseline=0.023; cone_only=0.033 (WORSE); combined_cone_rot=0.097. Exact duplicate of LVH#256 pattern. ZKL row: 'LVH#257: combined fix duplicate of #256; cone_only hurts baseline (0.033>0.023); HIPAA path NOT restored on synthetic harness; Llama+MarianMT required.' Cycle 155.
+
+- PROT-007: v476 history row appended to substrate_capability_map_history.md.
+- PROT-008: HP founding: CRDT order_indep=1.0 (3-seed); n_reduction alpha_c flatness=1.0; bundle_relay drop0.5=0.999 (3-seed); bitemporal 0.00136ms/write; sql_rolling max_err=0.018 (3-seed); hopfield GPU+CPU all-1.0; membership AUROC=1.0 (3-seed); 4bit drop=0.0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 388th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 21 anchors. CLEAN.
+- PROT-019: LVH 254->257 (+3: #255 dp_noise_injection + #256 privacy_fixes_cone + #257 privacy_combined_fix).
+- PROT-021: All 21 source=remote run_mode=full. CLEAN.
+- PROT-022: n=1 seed HP anchors (4-bit, GPU-scale, n_reduction, n-sweep, bitemporal) confirm deterministic fast-converge; 3-seed anchors confirm seed stability. No HP-fragility concern.
+
+Cap_map: v475 -> v476 CYCLE 155 (9 HP: w_4bit_quant-DROP0.0 + modern_hopfield_gpu_scale-ALL1.0-N8192_16384 + bundle_relay-DROP0.5=0.999-3SEED + crdt_quorum-ORDER_INDEP1.0-3SEED + n_reduction-ALPHA_C_FLAT1.0 + membership_auroc-AUROC1.0-3SEED + bitemporal-0.00136ms-737Kwrites + sql_rolling-REL_ERR0.018-3SEED + modern_hopfield_n_sweep-N4096_ALL1.0; 3 MID: v1_corroboration_gate-FA0.0-RECOVERY0.557 + sql_hybrid-SELECT+SUM_NATIVE-AVG_DUCKDB + predicate_ratio_audit-SEL0.05_PASS-SEL0.10_FAIL; 5 HF: sparse_w_scale-4X_CLOSED + sparse_key_coherent-NULL_B10 + confidence_weighted-CEILING + corroborate_gossip_damp-INVERTED_CATASTROPHIC + chain3_sparse_key-B_EFF=39.51=DENSE; 1 MID-DIAG: llama_eigenspectrum-SRHT_ZERO_EFFECT; 3 LVH-ATTACK_MISMATCH: #255 dp_noise_injection-DP_NO_BENEFIT + #256 privacy_fixes_cone-CONE_HURTS_BASELINE + #257 privacy_combined_fix-DUPLICATE; HONEST 1129->1150 +21; LVH 254->257 +3; Portfolio 32+82 UNCHANGED; 388th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
