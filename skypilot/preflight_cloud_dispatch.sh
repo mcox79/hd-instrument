@@ -148,17 +148,33 @@ This is the 2026-06-06 zombie-cluster bug class."
 fi
 
 # ============================================================================
-# CHECK 5: sky status shows ZERO INIT/UP clusters
+# CHECK 5: sky status shows ZERO INIT/UP clusters WITH OUR PREFIX
 # ============================================================================
+# 2026-06-07: previously failed on ANY INIT/UP cluster. But when launching
+# CELL-4 in parallel with CELL-3 SMOKE, CELL-4's preflight saw cell3sm-XXXXXX
+# as INIT and falsely flagged it as an orphan. Now: filter by our own
+# CLUSTER_PREFIX (env var) so only OUR cell's stale clusters block dispatch.
 echo "[check 5/6] sky status"
-SKY_CLUSTERS=$(sky status 2>/dev/null | grep -E 'cloud1quality|^[a-z0-9-]+\s+Lambda' | grep -E 'INIT|UP' || true)
-if [ -n "$SKY_CLUSTERS" ]; then
-  echo "  sky-tracked clusters in INIT/UP state:"
-  echo "$SKY_CLUSTERS" | sed 's/^/    /'
-  fail "sky has clusters in INIT/UP state.
-Run: sky status 2>/dev/null | grep -oE 'cloud1quality-[0-9]+' | sort -u | xargs -r sky down -y"
+CHECK_PREFIX="${CLUSTER_PREFIX:-}"
+if [ -n "$CHECK_PREFIX" ]; then
+  # Only flag clusters whose name starts with $CHECK_PREFIX-
+  SKY_CLUSTERS=$(sky status 2>/dev/null | grep -E "^${CHECK_PREFIX}-[0-9]+" | grep -E 'INIT|UP' || true)
+  OTHER_CLUSTERS=$(sky status 2>/dev/null | grep -E '^[a-z0-9-]+\s+Lambda' | grep -E 'INIT|UP' | grep -vE "^${CHECK_PREFIX}-" || true)
+  if [ -n "$OTHER_CLUSTERS" ]; then
+    echo "  other-cell clusters in INIT/UP (allowed, not ours):"
+    echo "$OTHER_CLUSTERS" | sed 's/^/    /'
+  fi
+else
+  # Fallback: no prefix supplied -> conservative; flag ANY INIT/UP
+  SKY_CLUSTERS=$(sky status 2>/dev/null | grep -E '^[a-z0-9-]+\s+Lambda' | grep -E 'INIT|UP' || true)
 fi
-ok "sky status clean (no INIT/UP clusters)"
+if [ -n "$SKY_CLUSTERS" ]; then
+  echo "  OUR sky-tracked clusters in INIT/UP state (orphan?):"
+  echo "$SKY_CLUSTERS" | sed 's/^/    /'
+  fail "sky has clusters in INIT/UP state with our prefix '$CHECK_PREFIX'.
+Run: sky status 2>/dev/null | grep -oE '${CHECK_PREFIX}-[0-9]+' | sort -u | xargs -r sky down -y"
+fi
+ok "sky status clean (no INIT/UP clusters with prefix '${CHECK_PREFIX:-<any>}')"
 
 # ============================================================================
 # CHECK 6: HF token file present
