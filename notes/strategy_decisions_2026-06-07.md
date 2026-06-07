@@ -1417,3 +1417,41 @@ R3 (CHEAP, CPU <30min): Structured adversarial (coordinate-flip corruptions) for
 
 Cap_map: v488 -> v489 CYCLE 168 (1 HP: self_improving_coldstart-C50k=0.947-X10k=0.859-BRIDGE_ACCUM_VALIDATED-SELF_IMPROVING_ROUTING_UNLOCKED; 2 MIDDLE_BAND: encoder_noise_v2-SIGMA0.5-A1=0.342-A2/A3_CEILING + encoder_noise_v3-SIGMA1.5-A1=0.248-A2/A3_NEAR_CEILING-CONF_CORR_DEGRADES; 2 HF: direct_answer-FRAC=0.007-21x_BELOW-SENTENCES_NOT_SPANS + extractive_span_head-F1=0.032-12.5x_BELOW-TINY_MLP_INSUFFICIENT; LLM_BYPASS_JOINT_CLOSED; SIGMA_SWEEP_v1-v2-v3_ALL_MIDDLE_BAND; 0 LVH; HONEST 1259->1264 +5; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 401st PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 169 -- v489 UNCHANGED (1 verdict: self_improving_hotpot_router_v1 HARD_FAIL; 0 LVH; HONEST 1264->1265 +1; LVH 261 UNCHANGED)
+
+### Step 0 honest re-read
+
+[metrics-source: local-fallback -- bridge stale 321576s; smoke run elapsed_s=0.034 credible]
+
+self_improving_hotpot_router_v1 (HARD_FAIL -- smoke, n=200): X(50)=0.000 X(100)=0.000 X(200)=0.000. All flat at zero. uniq@50=100 uniq@100=200 uniq@200=400 confirms every question is distinct (no bridge key reuse). HARD_FAIL label HONEST -- real HotpotQA test set has near-zero title-pair bridge reuse; router cannot accumulate fast-path entries. Root cause correctly identified in verdict_msg. No LVH. +1 HONEST.
+
+HONEST: 1264 -> 1265 (+1). LVH: 261 UNCHANGED.
+
+### Cap_map decision (v489 UNCHANGED)
+
+No cap_map state change. self_improving_coldstart_sim_v1 HP (cycle 168) validated the bridge accumulation MODEL on synthetic Zipfian data. self_improving_hotpot_router_v1 HF (cycle 169 smoke) reveals the MODEL is correct but HotpotQA is the WRONG DISTRIBUTION for it -- distinct-question benchmarks have near-zero bridge reuse; self-improving routing is a feature for repetitive enterprise workloads (same entities queried repeatedly), not benchmark evaluation suites.
+
+Cap_map annotation: self_improving_hotpot_router_v1 HF v489: X=0.000 at all checkpoints (n=200 smoke). Real HotpotQA title-pair bridge keys never repeat across distinct questions. Self-improving routing scope: ENTERPRISE REPETITIVE WORKLOADS only (not benchmark evaluation). Cycle 168 coldstart HP on synthetic Zipfian data is UNCHANGED -- the mechanism is correct; distribution scope is narrowed. Self-improving routing row: 'validated on Zipfian; INAPPLICABLE to distinct-question benchmarks; enterprise repetitive workload is correct product scope.' Cycle 169.
+
+### Rescue sketches (PROT-004/006; cheapest-first -- distribution scope narrowing, not mechanism closure)
+
+self_improving_hotpot_router_v1 HF (wrong distribution for mechanism, not mechanism failure):
+R1 (0-compute, ANNOTATION): Cycle-168 Zipfian HP UNCHANGED. Distribution scope narrowed: self-improving routing requires entity reuse. Benchmark eval is wrong test bed.
+R2 (CHEAP, CPU <30min): Entity-level bridge keys (not title-pair) on HotpotQA to test whether entity-granularity reuse creates fast-path accumulation.
+R3 (CHEAP, CPU <30min): Synthetic enterprise workload (fixed entity set, Zipfian query distribution, N=5000 questions) to confirm accumulation on a realistic enterprise traffic pattern.
+R4 (CHEAP, CPU <30min): Real wiki-QA corpus filtered to repetitive-entity questions (same entity mentioned >=3 times) to bridge synthetic and benchmark settings.
+R5 (MEDIUM, CPU <2h): Enterprise demo harness -- simulate 30-day query log from 3 entities with Zipfian reuse, show self-improving curve against static baseline.
+
+### PROT compliance (v489 UNCHANGED)
+
+- PROT-004/006: HF with 5 cheapest-first rescues (R1 annotation, R2-R4 cheap CPU, R5 medium CPU). No closure (mechanism validated; distribution scope narrowed). Annotation-first sequencing CLEAN.
+- PROT-008: No HP this cycle. N/A.
+- PROT-009: No cap_map state change; decisions log only; ANNOTATION COMMIT (no paired bump). 402nd commit.
+- PROT-018: No _nN suffix on anchor. CLEAN.
+- PROT-019: LVH 261 UNCHANGED. HONEST 1264->1265 +1.
+- PROT-021: run_mode=smoke (expected; designated first run for this anchor). No FULL contamination concern.
+- PROT-022: HARD_FAIL (no HP-fragility concern).
+
+Cap_map: v489 UNCHANGED CYCLE 169 (1 HF: self_improving_hotpot_router_v1-X=0.000-ZIPFIAN_ONLY-ENTERPRISE_SCOPE_NARROWED; 0 LVH; HONEST 1264->1265 +1; LVH 261 UNCHANGED; 402nd commit; cycle-168 self_improving_coldstart HP UNCHANGED)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
