@@ -104,3 +104,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - ZKL methodology stability 2x: notes/research_drill_zkl_methodology_stability_2x_2026-06-07.md -- max-over-K T=1.3 is extreme-value statistic; 3-4x run-to-run variance; mean-over-K is the fix; 3 pre-tests (A/B/C) dispatched via exp_dev handoff
 - [substrate encoder-layer noise robustness 2x] notes/research_drill_substrate_encoder_noise_robustness_2x_2026-06-07.md -- sign binarization root cause confirmed; 8 mechanisms; storage-layer-only v1.1 correct; ternary/ensembling v2.0 path; 3 CPU pre-tests in exp_dev handoff
 - [multihop_precision_ceiling_3x] notes/research_drill_multihop_precision_ceiling_3x_2026-06-07.md -- 6 hard-fails confirm structural ceiling at fair size; P_deflated=0.18; v1 benchmark pivot to NQ-open confirmed; ColBERT+GNN-Ret as v1.1 pre-tests
+
+- [substrate_iterative_multihop_3x] Pattern B compositional retriever as multi-hop revival path; P_deflated=0.28; pre-test anchor substrate_iterative_multihop_pretest_v1 queued via exp_dev handoff; note: notes/research_drill_substrate_iterative_multihop_3x_2026-06-07.md
