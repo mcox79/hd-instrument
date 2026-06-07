@@ -63,13 +63,14 @@ def load_hotpot(n):
         return out
     for l in open(HOTPOT, encoding="utf-8"):
         r = json.loads(l)
-        ctx = r.get("context") or []; sf = r.get("supporting_facts") or []
+        ctx = r.get("context") or {}; sf = r.get("supporting_facts") or {}
+        titles = ctx.get("title") or []; sent_lists = ctx.get("sentences") or []
         flat = []
-        for item in ctx:
-            title = item[0]; slist = item[1] if len(item) > 1 else []
+        for ti, title in enumerate(titles):
+            slist = sent_lists[ti] if ti < len(sent_lists) else []
             for si, s in enumerate(slist):
                 flat.append((title, si, s))
-        goldset = set((x[0], x[1]) for x in sf if isinstance(x, (list, tuple)) and len(x) >= 2)
+        goldset = set(zip(sf.get("title") or [], sf.get("sent_id") or []))   # columnar parallel arrays
         if len(flat) < 4 or len(goldset) < 2:
             continue
         out.append({"q": r.get("question", ""), "sents": flat, "gold": goldset})
