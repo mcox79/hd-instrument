@@ -164,6 +164,8 @@ def run() -> Dict:
     sanity_ok = 0.17 <= by["full"] <= 0.27
     if sanity_ok or RUN_MODE == "smoke":   # smoke always shows the sweep (k<50 may undershoot the 0.22 gate)
         for d in DIMS:
+            if d >= D:   # not enough PCA components (n_stored too small in smoke); skip
+                continue
             kp, vp, vn = proj(d); by["d%d" % d] = zkl_at(kp, vp, vn)
             print("  ZKL(%d)[d=%d] = %.3f" % (K_PARA, d, by["d%d" % d]), flush=True)
     return {"by": by, "n": len(stored), "sanity_ok": sanity_ok, "k": K_PARA}
