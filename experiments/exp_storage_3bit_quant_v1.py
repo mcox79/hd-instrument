@@ -22,7 +22,7 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 def phasor(n, k, g): return np.exp(1j * g.uniform(-np.pi, np.pi, (k, n))).astype(np.complex64)
 def unit(x): return x / (np.linalg.norm(x, axis=-1, keepdims=True) + 1e-8)
-N = 1024; M = int(0.5 * N); SEEDS = [1] if RUN_MODE == "smoke" else [7, 17, 23]
+N = 1024; M = int(0.12 * N); SEEDS = [1] if RUN_MODE == "smoke" else [7, 17, 23]
 def quant(W, bits):
     L = 2 ** bits - 1; lo, hi = np.quantile(W, 0.001), np.quantile(W, 0.999); Wc = np.clip(W, lo, hi)
     q = np.round((Wc - lo) / (hi - lo + 1e-12) * L); return (q / L * (hi - lo) + lo).astype(np.float32)
@@ -35,7 +35,8 @@ _selftest()
 if _ARGS.self_test: sys.exit(0)
 def recall_at1(W, K, g, flip=0.05):
     s = K * np.where(g.random(K.shape) < flip, -1.0, 1.0)
-    rec = np.sign(s @ W.T); rec[rec == 0] = 1.0
+    for _ in range(8):                                  # iterate to convergence (1-step undercounts pinv capacity)
+        rec = np.sign(s @ W.T); rec[rec == 0] = 1.0; s = rec
     return float(np.mean(np.all(rec == K, axis=1)))
 def run_seed(seed):
     g = np.random.default_rng(seed); K = np.sign(g.standard_normal((M, N))).astype(np.float32)
@@ -49,6 +50,7 @@ def run() -> Dict:
     return {"r4": r4, "r3": r3, "drop": drop}
 def verdict(r) -> Tuple[str, str]:
     d = r["drop"]; s = "4-bit=%.3f 3-bit=%.3f drop=%.3f" % (r["r4"], r["r3"], d)
+    if r["r4"] < 0.5: return ("HARD_FAIL", "HARD_FAIL: 4-bit baseline recall@1 too low (%.3f) -- test inconclusive (W overloaded). " % r["r4"] + s)
     if d < 0.02: return ("HARD_PASS", "HARD_PASS: 3-bit W drops recall@1 <2% vs 4-bit -- ship 3-bit as default (25% more storage saving). " + s)
     if d < 0.04: return ("MIDDLE_BAND", "MIDDLE_BAND: 3-bit drop 2-4%. " + s)
     return ("HARD_FAIL", "HARD_FAIL: 3-bit drop >=4% -- keep 4-bit. " + s)
