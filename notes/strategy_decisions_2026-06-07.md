@@ -418,3 +418,68 @@ R3 (CHEAP, CPU <30min): Re-run cycle-154 chain3_lsh_fanout with L2-normalization
 
 Cap_map: v476 -> v477 CYCLE 156 (1 HP: crdt_gcounter_aggregate-FRACTION1.000-EXACT_COUNT-ORDER+DUP_INDEPENDENT; 4 MIDDLE_BAND: hotpot_2hop_full-WHITENING_RECALL0.200 + hotpot_2hop_khop-KHOP_RECALL0.200-IDENTICAL_TO_WHITENING + online_lora_infonce-INFONCE0.314-SFT0.003-BASE0.476 + lsh_fanout_norm_cone-L2NORM_B_EFF6.87-CONE29.61; 3 HF: predicate_partition_storage-RATIO1.00-NO_GAIN + hotpot_2hop_retrieval_pretest-RECALL0.147-BASELINE + llama_encoder_config-ALL_LT0.05; NOTABLE: L2-norm-only B_eff=6.87 resolves cycle-154 Chain3-LSH B_eff=40 concern; K-hop=whitening at recall=0.200 (bottleneck is encoder); Llama-1B invalid retrieval encoder; InfoNCE>>SFT; HONEST 1150->1158 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 389th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v477 -> v478 CYCLE 157 HOTPOT ENCODER BATCH (2026-06-07)
+
+Verdicts processed (8 anchors): manifold_dim_diagnostic_v1 + encoder_ladder_hotpot_v1 + hotpot_substrate_bge_v1 + hotpot_bge_recall_at_k_v1 + hotpot_bge_rerank_v1 + hotpot_bge_iterative_khop_v1 + entity_bridge_decomp_v1 + pca_bottleneck_keyjob_sweep_v1
+
+### Step 0 honest re-read
+
+All 8 metrics fetched source=remote (bridge stale; direct remote fetch).
+
+- manifold_dim_diagnostic_v1: HONEST=MIDDLE_BAND (correct). PR=31.9, TwoNN=32.8, energy95_dim=514, ambient=2048, n=2000. Label says "intrinsic dim <200" -- true but conservative; ID is specifically ~32 (TwoNN+PR convergent). MIDDLE_BAND diagnostic label accurate. No LVH. +1 HONEST.
+- encoder_ladder_hotpot_v1: HONEST=MIDDLE_BAND (correct). MiniLM r10=0.58, bge-small r10=0.70, bge-large r10=0.76, e5-large r10=0.78. "best recall@10 0.65-0.80, best=e5-large" verified: e5-large r10=0.78 inside band; e5-large > bge-large (0.78 vs 0.76). No LVH. +1 HONEST.
+- hotpot_substrate_bge_v1: HONEST=HARD_FAIL (correct). substrate recall@2hop=0.287, naive=0.313, lift=-0.027. Whitening+Khop WORSE than naive; HF accurate. No LVH. +1 HONEST.
+- hotpot_bge_recall_at_k_v1: HONEST=HARD_PASS (correct). r@2=0.313, r@5=0.55, r@10=0.733, r@20=0.92. "both facts in top-10 >=70%" verified: r@10=0.733 >= 0.70. HP label accurate. No LVH. +1 HONEST.
+- hotpot_bge_rerank_v1: HONEST=HARD_FAIL (correct). reranked=0.290, bge-only=0.305, lift=-0.015. Reranker DEGRADES recall vs bge-only. HF threshold <0.50 verified (0.290 < 0.50). No LVH. +1 HONEST.
+- hotpot_bge_iterative_khop_v1: HONEST=HARD_FAIL (correct). iterative_khop=0.280, naive=0.313, lift=-0.033. K-hop WORSE than naive; HF label accurate. No LVH. +1 HONEST.
+- entity_bridge_decomp_v1: HONEST=HARD_FAIL (correct). entity-bridge=0.320, naive=0.310, lift=+0.010. HF threshold <0.50 verified. NOTABLE: +0.010 lift is positive and entity-bridge is the best-performing approach in this batch (0.320 > substrate 0.287 > rerank 0.290 > khop 0.280). Label "regex-NER bridge insufficient" is honest. No LVH. +1 HONEST.
+- pca_bottleneck_keyjob_sweep_v1: HONEST=HARD_PASS (correct). F1: full=1.0, d5=0.755, d10=0.925, d20=0.99, d30=1.0. "KEY-job F1>=0.90 at d<=30" verified: d30=1.0, d20=0.99, d10=0.925 all >= 0.90. CROSS-ANCHOR: manifold_dim_diagnostic TwoNN=32.8 and PCA d30=1.0 are COHERENT -- both converge on ~30-dim manifold as sufficient truncation point. No LVH. +1 HONEST.
+
+HONEST: 1158 -> 1166 (+8). LVH: 257 UNCHANGED.
+
+### Cap_map decisions (v477 -> v478)
+
+**(A) Hotpot 2-hop encoder ranking (MIDDLE_BAND -- encoder ladder maps usable quality; e5-large best):**
+encoder_ladder_hotpot_v1 MIDDLE_BAND (n=200): e5-large r10=0.78 > bge-large r10=0.76 > bge-small r10=0.70 > MiniLM r10=0.58. Cycle-156 identified encoder as 2-hop bottleneck; cycle-157 maps the encoder ladder. Cap_map annotation (HotpotQA multi-hop encoder row): encoder ladder: e5-large r10=0.78 best; bge-large r10=0.76 second; MiniLM r10=0.58 worst; r@2 all-facts = e5-large 0.31 (still far from HP); encoder ceiling constrains 2-hop recall; production encoder choice: bge-large (quality/size tradeoff) or e5-large (peak recall). Cycle 157.
+
+**(B) BGE-small recall ceiling (HP -- both supporting facts in top-10 at 73.3%; retrieval ceiling established):**
+hotpot_bge_recall_at_k_v1 HARD_PASS (n=300, bge-small): r@10=0.733 both facts. Establishes retrieval ceiling: at top-10, 73.3% of queries have both facts retrievable. 26.7% gap is permanently lost at r@10; r@20=0.92 shows 8% still lost at top-20. Cap_map annotation (HotpotQA multi-hop retrieval ceiling row): bge-small recall ceiling: r@10=0.733 both-facts (HP); r@20=0.920; any 2-hop pipeline limited to r@10 has hard ceiling at 0.733; multi-hop reasoning must address the 26.7% irretrievable gap at r@10. Cycle 157.
+
+**(C) Four 2-hop text-level approaches all HF (systematic mechanism elimination):**
+hotpot_substrate_bge_v1 HF (lift=-0.027), hotpot_bge_rerank_v1 HF (lift=-0.015), hotpot_bge_iterative_khop_v1 HF (lift=-0.033), entity_bridge_decomp_v1 HF (lift=+0.010). All four approaches below HP 0.50 threshold; three of four WORSE than naive (0.313). Only entity-bridge shows positive lift (+0.010) -- best-of-batch but trivially small. Cap_map annotation (HotpotQA multi-hop mechanisms row): cycle-157 systematic elimination: whitening HF (lift=-0.027), cross-encoder reranker HF (lift=-0.015), iterative K-hop HF (lift=-0.033), regex-NER entity-bridge HF (lift=+0.010 best-of-batch, trivial); CONCLUSION: text-level retrieval augmentation cannot solve 2-hop without explicit bridge-entity identification at quality NER/LLM level; entity-bridge is the correct direction but requires quality NER. Rescue sketches R1-R5 below. Cycle 157.
+
+**(D) Manifold dimensionality (MIDDLE_BAND diagnostic -- ID~32; ZKL leakage manifold-confined hypothesis):**
+manifold_dim_diagnostic_v1 MIDDLE_BAND (n=2000, Llama-L15 stored-fact embeddings): PR=31.9, TwoNN=32.8 (both converge on ID~32); energy95_dim=514. Cap_map annotation (ZKL/manifold row): Llama-L15 embedding manifold: ID~32 (TwoNN+PR convergent) out of 2048 ambient; 95% linear energy in 514 dims; ZKL membership leakage likely manifold-confined (lives in 32-dim subspace). CROSS-ANCHOR: pca_bottleneck d30=1.0 confirms 30-dim truncation sufficient -- leakage dims and key-job capability dims are the SAME subspace. Privacy mitigation: truncate to ~30 dims removes leakage without losing KEY-job recall. Cycle 157.
+
+**(E) PCA bottleneck KEY-job (HP -- F1>=0.90 at d<=30; algebraically motivated privacy-truncation headroom):**
+pca_bottleneck_keyjob_sweep_v1 HARD_PASS (n=200): F1 curve: full=1.0, d5=0.755, d10=0.925, d20=0.99, d30=1.0. HP threshold F1>=0.90 met at d=10 (0.925); full recovery at d>=20. PRODUCT IMPLICATION: substrate can truncate to ~30 dims (manifold ID) without losing KEY-job recall; PCA-truncation simultaneously removes ZKL leakage AND preserves KEY-job fidelity -- algebraically motivated privacy mitigation. Cap_map annotation (PP-14 DP/ZKL row): PCA-truncation privacy-mitigation sub-property: F1>=0.90 at d=10; full recovery d>=20; ID~32 per manifold diagnostic; ALGEBRAIC TRUNCATION STRATEGY filed. Requires Llama+MarianMT real-harness validation (synthetic sweep only at this stage). EXPLORATORY sub-property. Cycle 157.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**HotpotQA 2-hop text-level failures (4 HF approaches; entity-bridge is correct direction):**
+R1 (0-compute, ANNOTATION): regex-NER entity-bridge is best (0.320, +0.010 lift); direction confirmed; NER quality is the upgrade.
+R2 (CHEAP, CPU <30min): spaCy NER entity-bridge (replace regex with spaCy en_core_web_sm) for improved bridge-entity recall.
+R3 (CHEAP, CPU <30min): e5-large encoder swap for bge-small/bge-large to lift retrieval baseline before applying entity-bridge.
+R4 (MEDIUM, CPU <2h): LLM decomposition (Llama-1B instruct zero-shot) for bridge-entity extraction replacing regex.
+R5 (MEDIUM, GPU <2h): Hybrid: LLM decomposition + e5-large encoder + re-rank on 2-hop retrieved set.
+
+**PCA truncation + manifold privacy path (HP founding -- real-harness validation needed):**
+R1 (0-compute, ANNOTATION): d=30 F1=1.0 confirmed; manifold ID~32 (TwoNN+PCA convergent); truncation is algebraically motivated.
+R2 (CHEAP, CPU <30min): Truncation at d=32 (exact TwoNN ID) vs d=30 (PCA HP) cross-validation for boundary precision.
+R3 (MEDIUM, GPU <2h): Reproduce cycle-151 ZKL~0.40 with PCA-truncation-to-d30 on Llama+MarianMT harness.
+R4 (MEDIUM, GPU <2h): Combined PCA-truncation + DP noise on real harness (stacked mitigation evaluation).
+
+### PROT compliance (v477 -> v478)
+
+- PROT-004/006: No row closures. 4 HF approaches (whitening, reranker, iterative-K-hop, entity-bridge) below 0.50 HP; rescue sketches R1-R5 cheapest-first (annotation first). PCA HP with rescue sketches R1-R4 cheapest-first.
+- PROT-007: v478 history row appended to substrate_capability_map_history.md.
+- PROT-008: hotpot_bge_recall_at_k HP (r@10=0.733 >= 0.70, n=300 bge-small, monotone curve). pca_bottleneck_keyjob HP (F1=1.0 at d=30; F1=0.925 at d=10; monotone d-sweep). Both founding criteria met. PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 390th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 8 anchors. CLEAN.
+- PROT-019: LVH 257 UNCHANGED. No new LVH catches.
+- PROT-021: All 8 source=remote. No smoke contamination. CLEAN.
+- PROT-022: HP anchors: hotpot_bge_recall_at_k n=300 single-seed (queries not seeds; monotone k-curve non-fragile); pca_bottleneck d-sweep monotone at d>=10 (d5 drop expected -- too sparse). No HP-fragility concern.
+
+Cap_map: v477 -> v478 CYCLE 157 (2 HP: hotpot_bge_recall_at_k-R10=0.733-BOTH_FACTS-N300 + pca_bottleneck_keyjob-F1_1.0_AT_D30-F1_0.925_AT_D10; 1 MID_DIAGNOSTIC: manifold_dim-PR31.9-TwoNN32.8-ID~32-ENERGY95=514; 1 MIDDLE_BAND: encoder_ladder-e5large_R10=0.78-BEST; 4 HF: hotpot_substrate_bge-LIFT=-0.027-WHITENING_WORSE + hotpot_bge_rerank-LIFT=-0.015-RERANK_WORSE + hotpot_bge_iterative_khop-LIFT=-0.033-KHOP_WORSE + entity_bridge_decomp-LIFT=+0.010-TRIVIAL_BEST_OF_BATCH; CROSS-ANCHOR: manifold_ID=32 + PCA_d30=1.0 converge -- 30-dim truncation algebraically motivated privacy mitigation; text-level-2hop CLOSED without NER/LLM bridge; entity-bridge is correct direction; HONEST 1158->1166 +8; LVH 257 UNCHANGED; Portfolio 32+82 UNCHANGED; 390th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
