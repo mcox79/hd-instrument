@@ -31,7 +31,7 @@ ALPHA = 0.25; FLIP = 0.05; STEPS = 6; SPARS = [0.0, 0.5, 0.75, 0.875, 0.9375]
 _DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
-N_GRID = [4096, 8192] if RUN_MODE == "smoke" else [8192, 16384]   # 8GB-safe; >16384 OOMs dense N x N W
+N_GRID = [2048, 4096] if RUN_MODE == "smoke" else [4096, 8192]   # 8GB-safe with pinv W + argsort; 16384 OOMs
 
 
 def hebb_W(P):   # pinv write rule (capacity ~1.0; handles M/N=0.25 where Hebb's 0.14 fails)
