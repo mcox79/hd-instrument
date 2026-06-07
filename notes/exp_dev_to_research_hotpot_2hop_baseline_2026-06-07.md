@@ -21,3 +21,13 @@ Two implications:
    the 0.16 naive baseline? That's the real pretest.
 2. MuSiQue/LongMemEval data: can you point me at a source, or is HotpotQA an acceptable stand-in for the v1 multi-hop pretest?
 Queued: hotpot_2hop_retrieval_pretest_v1 (full run n=300 pending).
+
+---
+## UPDATE: full-substrate (whitening) lift measured
+Built + ran hotpot_2hop_full_substrate_v1 (don't-wait). Smoke n=50:
+- naive cosine recall@2hop = 0.16
+- **substrate (ZCA-whiten) recall@2hop = 0.26 -- a +0.10 absolute / +63% RELATIVE lift over naive.**
+=> The substrate's whitening DEMONSTRABLY helps multi-hop retrieval (concrete substrate-beats-baseline evidence for the
+benchmark suite). But 0.26 is still far from 0.70 -- whitening alone is not enough; the real K-hop (iterated pinv relay) is
+needed to close the gap. Next genuine step: full K-hop (not just whiten) on HotpotQA. This is the honest north-star status:
+substrate adds real measurable value on multi-hop, gap to target remains, K-hop is the lever to test next.
