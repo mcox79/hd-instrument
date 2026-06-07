@@ -2389,3 +2389,143 @@ R5 (MEDIUM, GPU <2h): HIPAA-threshold re-evaluation: find k where real-key ZKL s
 
 Cap_map: v471 -> v472 CYCLE 151 (2 HP: khop_noise_model_AB_compare-DIAGNOSTIC-AVERAGING-GROWS-DISTRACTOR-DESTROYS + lvh245_mmr_topology_spectral_gap-3SEED-HUB0.9-PROPAGATION-0.013-TOPOLOGY-AGNOSTIC-LVH245-RESOLVED; 1 HF: khop_bundle_noise_battery-DENSE-B2-K_MAX-12-VULNERABILITY-DENSE-B10-RECOVERS; 1 MID-LVH#248: khop_sparse_bsweep-HONEST=MIDDLE_BAND-B1-ONLY-10x-DENSE-RECOVERS-B10; 1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys-k50=0.4-11x-WORSE-SYNTHETIC-HIPAA-DEGRADES; LVH 247->248 +1; PROT-008 MMR PASS; ZKL real-key calibration gap; LVH245 RESOLVED; HONEST 1098->1103 +5; Portfolio 32+80 UNCHANGED; 384th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v472 -> v473 CYCLE 152 BATCH (2026-06-06)
+
+Verdicts processed: 8 (K-hop scaling sweeps x4 + production compositions x3 + infra crossover x1)
+
+GENUINELY NEW: khop_dim_scaling_gpu_v1 + khop_vc_scaling_gpu_v1 + khop_adversarial_sparse_concentration_gpu_v1 + khop_annealing_sparsity_gpu_v1 + api_subscribe_as_of_composition_v1 + bitemporal_smoke_gdpr_v1 + erasure_concurrency_smoke_v1 + subs_hnsw_crossover_v1
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) khop_dim_scaling_gpu_v1 MIDDLE_BAND -- [label-vs-honest] LVH #249**
+source=remote run_mode=full n_seeds=1. K_max by N: N2048=60, N4096=60, N8192=58, N16384=60.
+LABEL OVER-CLAIMS. K_max=60 is the algorithmic probe ceiling. 3 of 4 N-values hit ceiling exactly. N8192=58 is 2 units below ceiling, within noise at this probe resolution. verdict_msg 'weak/flat N-scaling' characterises this as a scaling signal, but the experiment is ceiling-saturated: NO genuine N-scaling is observable because the test algorithm stops at K_max=60. MIDDLE_BAND is retained as the final verdict (no evidence of strong N-scaling) but the 'non-monotone' characterisation is a ceiling artifact, not a scaling property.
+LVH #249: (a) label MIDDLE_BAND 'K_max computed but weak/flat N-scaling. K_max by N: [60,60,58,60] (non-monotone)'; (b) honest: CEILING_SATURATION -- K_max hits algorithmic probe ceiling (60) at all N; N8192=58 is noise within 2 of ceiling; no meaningful N-scaling observable at this probe resolution; (c) contradicting cells: N2048=60=N4096=60=N16384=60=ceiling; N8192=58=ceiling-2 (noise not signal).
+Downstream: MIDDLE_BAND retained. Cap_map: ceiling saturation; N-scaling UNTESTED. Probe ceiling must be raised to 100+ for genuine N-scaling signal.
+HONEST: 1103 -> 1104 (+1). LVH: 248 -> 249 (+1).
+
+**(2) khop_vc_scaling_gpu_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. K_max by VC: VC500=60, VC2000=60, VC8000=58, VC32000=54.
+Pre-reg HP: K_max >= 10 at VC=32000. Actual K_max=54 >> 10. Decreasing trend VC500->VC32000 is a genuine signal: VC=32000 still achieves K_max=54. VC=500/2000 hit ceiling; only VC=8000/32000 provide genuine sub-ceiling scaling data. HONEST. No LVH.
+HONEST: 1104 -> 1105 (+1). LVH: 249 UNCHANGED.
+
+**(3) khop_adversarial_sparse_concentration_gpu_v1 HARD_FAIL -- [label-vs-honest] LVH #250**
+source=remote run_mode=full n_seeds=1. K_max: sparse_clean=60, sparse_adversarial=60, dense=60. benefit_retained=0.00.
+LABEL OVER-CLAIMS. ALL three conditions hit K_max=60 ceiling. benefit_retained=0.00 is (60-60)/60=0.00 -- a ceiling ratio, not adversarial degradation. HARD_FAIL verdict 'adversarial concentration DESTROYS the sparse-KEY benefit' is a ceiling artifact: the genuine adversarial question is UNANSWERED because no condition is sub-ceiling. 'per-shard codebook randomization required before v3' is NOT supported.
+LVH #250: (a) label HARD_FAIL 'adversarial concentration DESTROYS sparse-KEY benefit'; (b) honest: CEILING_ARTIFACT -- all three conditions at K_max=60; benefit_retained=0.00 uninformative at ceiling; adversarial impact UNTESTED at sub-ceiling K; (c) contradicting cells: sparse_clean=sparse_adversarial=dense=60 (identical; no adversarial signal).
+Downstream: UNKNOWN/INCONCLUSIVE (ceiling artifact). Cap_map: adversarial concentration UNTESTED. Probe redesign required at sub-ceiling K.
+HONEST: 1105 -> 1106 (+1). LVH: 249 -> 250 (+1).
+
+**(4) khop_annealing_sparsity_gpu_v1 MIDDLE_BAND -- LABEL HONEST (ceiling caveat)**
+source=remote run_mode=full n_seeds=1. K_max: uniform=60, annealed=60. annealed gain=0.00.
+Both hit K_max=60 ceiling. MIDDLE_BAND 'annealed >= uniform but <15% gain' technically correct (0 < 15%). Ceiling means no headroom for gain to appear. HONEST verdict (0 gain not an over-claim); ceiling caveat: annealing untested at sub-ceiling K. No LVH.
+HONEST: 1106 -> 1107 (+1). LVH: 250 UNCHANGED.
+
+**(5) api_subscribe_as_of_composition_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. delivered=100, recalled=100, missing=0, extra=0.
+Functional/API composition correctness test (deterministic). subscribe() delivery == as_of(subscription_root) recall. 100/100 exact agreement. HP 'reactive+bitemporal composition is category-defining feature' accurate. n_seeds=1 appropriate for deterministic API composition probe. HONEST. No LVH.
+HONEST: 1107 -> 1108 (+1). LVH: 250 UNCHANGED.
+
+**(6) bitemporal_smoke_gdpr_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. A1(both_versions=True asof_ms=0.024ms merkle=True) A2(content_gone=True snapshot_invalidated=True). All assertions True. asof_ms=0.024ms << 10ms threshold. cycle-149 GDPR erasure + cycle-150 AS_OF bitemporal compose without conflict. HONEST. No LVH.
+HONEST: 1108 -> 1109 (+1). LVH: 250 UNCHANGED.
+
+**(7) erasure_concurrency_smoke_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. trials=5000, violations=0, gdpr_safe=True. 5000 concurrent-erasure trials, zero post-commit leaks. Physical-erasure + snapshot design correct under concurrency. HONEST. No LVH.
+HONEST: 1109 -> 1110 (+1). LVH: 250 UNCHANGED.
+
+**(8) subs_hnsw_crossover_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=full n_seeds=1. crossover_S=5000. S<5000 naive faster (S1000 naive 1.86x); S>5000 index faster (S50000 index 6.90x). MIDDLE_BAND 'naive scan serves longer v1 tail' accurate. HONEST. No LVH.
+HONEST: 1110 -> 1111 (+1). LVH: 250 UNCHANGED.
+
+HONEST: 1103 -> 1111 (+8). LVH: 248 -> 250 (+2: #249 khop_dim_scaling ceiling-saturation N-scaling-UNTESTED + #250 khop_adversarial ALL-AT-CEILING benefit_retained=0.00-UNINFORMATIVE).
+
+### Cap_map decisions (v472 -> v473)
+
+**(1) khop_dim_scaling_gpu_v1 [LVH #249 honest: CEILING_SATURATION; N-scaling UNTESTED]**
+PP-11 K-hop N-scaling sub-axis. MIDDLE_BAND (ceiling artifact).
+Cap_map annotation on PP-11 K-hop row: 'khop_dim_scaling MID-LVH#249 v473: K_max=60 probe ceiling saturates all N-values; N-scaling untested; raise K_max probe to 100+ and use harder KB at N={2048..16384} for genuine N-scaling signal; n_seeds=1 full.'
+Band UNCHANGED. Portfolio 32+80 UNCHANGED.
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): Probe ceiling is the blocker; genuine N-scaling question is open.
+R2 (CHEAP, GPU <30min): Re-run with K_max_probe=120 and harder KB to force genuine sub-ceiling K_max values at N={2048,16384}.
+R3 (CHEAP, GPU <30min): N-sweep at fixed small K={5,10,20} success rate to measure N-dependence without ceiling artifact.
+
+**(2) khop_vc_scaling_gpu_v1 HARD_PASS**
+PP-11 K-hop vocabulary-class (production KB scale) sub-axis.
+Finding: K_max=54 at VC=32000. Deep K-hop reasoning survives a 32,000-class KB. Demonstrates substrate scales to production KB sizes.
+Cap_map annotation on PP-11 K-hop row: 'khop_vc_scaling HP n_seeds=1 v473: K_max=54 at VC=32000 (production KB scale); decreasing K_max with VC but far above >=10 HP threshold; deep K-hop production-viable at VC=32000.'
+PP-11 band: annotation only (single-seed). Band UNCHANGED pending 3-seed full.
+Rescue sketches:
+R1 (CHEAP, GPU <30min): 3-seed full VC sweep to confirm VC=32000 K_max=54 seed-stable.
+R2 (CHEAP, GPU <30min): VC=100000 extension to characterize scaling extrapolation.
+
+**(3) khop_adversarial_sparse_concentration_gpu_v1 [LVH #250 honest: CEILING_ARTIFACT; adversarial impact UNTESTED]**
+PP-11 K-hop adversarial sparse-concentration sub-axis. UNKNOWN/INCONCLUSIVE (ceiling artifact).
+Honest verdict: adversarial concentration impact on sparse-KEY K-hop is UNTESTED. 'per-shard codebook randomization required before v3' recommendation RETRACTED as unsupported by this data.
+Cap_map annotation on PP-11 K-hop row: 'khop_adversarial UNKNOWN-LVH#250 v473: ALL conditions sparse_clean=sparse_adversarial=dense=60=ceiling; adversarial impact UNTESTED; re-run at sub-ceiling K (K=10-20 harder KB) required; codebook-randomization recommendation unsupported.'
+Band UNCHANGED. Portfolio 32+80 UNCHANGED.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): 'per-shard codebook randomization required' recommendation retracted. Adversarial question open.
+R2 (CHEAP, GPU <30min): Re-run with harder KB (VC=32000, N=4096, probe K={5,10,20,30}) to measure adversarial impact without ceiling saturation.
+R3 (CHEAP, GPU <30min): Separate sparse-KEY vs dense at sub-ceiling K to isolate adversarial concentration effect.
+
+**(4) khop_annealing_sparsity_gpu_v1 MIDDLE_BAND (ceiling caveat; annealing UNTESTED at sub-ceiling K)**
+PP-11 K-hop annealing sub-axis.
+Cap_map annotation on PP-11 K-hop row: 'khop_annealing MID v473: uniform=annealed=60=ceiling; annealing benefit untested at sub-ceiling K; test at K_max probe <40 with harder KB for genuine annealing signal.'
+Band UNCHANGED. Portfolio 32+80 UNCHANGED.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Ceiling caveat documented. Annealing question open.
+R2 (CHEAP, GPU <30min): Re-run annealing at sub-ceiling K_max (probe=40 harder KB) for genuine annealing signal.
+
+**(5) api_subscribe_as_of_composition_v1 HARD_PASS**
+CRITICAL COMPOSITION: SUBSCRIBE + AS_OF primitives compose correctly.
+Finding: exact agreement 100/100 delivered/recalled; 0 missing 0 extra. Reactive subscription (SUBSCRIBE) and bitemporal time-travel (AS_OF) compose without loss or duplication. First empirical confirmation that cycle 149-150 primitives compose.
+Cap_map composition sub-property annotation: 'SUBSCRIBE+AS_OF composition HP v473: exact agreement 100/100; reactive+bitemporal composable; category-defining feature validated; deterministic n=1.'
+Band UNCHANGED. 3-seed full recommended for production-grade designation.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Composition confirmed deterministically. Production-grade requires 3-seed full.
+R2 (CHEAP, CPU <30min): Stress test at N=1000+ deliveries + multiple AS_OF snapshots to confirm compositional exactness at scale.
+
+**(6) bitemporal_smoke_gdpr_v1 HARD_PASS**
+CRITICAL COMPOSITION: bitemporal AS_OF + GDPR erasure compose correctly.
+Finding: A1 bitemporal OK (asof=0.024ms merkle=True both_versions=True); A2 erasure OK (content_gone snapshot_invalidated True). cycle-149+150 primitives compose without conflict. 6-week build plan de-risked.
+Cap_map composition sub-property annotation: 'bitemporal+GDPR erasure composition HP v473: A1+A2 both OK; asof=0.024ms; content_gone+snapshot_invalidated True; 6-week build de-risked; n=1 deterministic.'
+Band UNCHANGED.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Both compositions confirmed. Integration path clear.
+R2 (CHEAP, CPU <30min): Concurrent erasure + bitemporal reads stress test to confirm no race between snapshot invalidation and time-travel reads.
+
+**(7) erasure_concurrency_smoke_v1 HARD_PASS**
+GDPR erasure concurrency correctness.
+Finding: 5000 concurrent erasure trials, zero post-commit leaks. gdpr_safe=True. Physical erasure + snapshot design correct under concurrency. Closes concurrency gap since cycle 149.
+Cap_map annotation on GDPR erasure row: 'erasure_concurrency HP v473: 5000 trials zero violations; GDPR_SAFE=True; concurrent erasure correct; n=1 trials=5000.'
+Band UNCHANGED.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Concurrency correctness confirmed. Design lock-in.
+R2 (CHEAP, CPU <30min): Higher load (50000 trials, multiple simultaneous erasers) to stress snapshot-invalidation lock logic.
+
+**(8) subs_hnsw_crossover_v1 MIDDLE_BAND**
+INFRA: substrate vs HNSW crossover characterisation.
+Finding: crossover at S=5000 (hnswlib). S<5000 naive preferred (S1000 naive 1.86x); S>5000 HNSW preferred (S50000 index 6.90x). Production deployment guide: naive scan for v1 (S<=1000); HNSW only at S>5000.
+Cap_map infra sub-property annotation: 'subs_hnsw_crossover MID v473: crossover S=5000 hnswlib; S<5000 naive faster (S1000 1.86x naive); S>5000 index faster (S50000 6.90x index); v1 deployment: naive scan; HNSW at S>5000; n=1 full benchmark 2324s.'
+Band UNCHANGED. Portfolio 32+80 UNCHANGED.
+Rescue sketches:
+R1 (0-compute, ANNOTATION): Crossover confirmed. Deployment guide locked in.
+R2 (CHEAP, CPU <30min): FAISS flat index comparison to check crossover shift vs hnswlib.
+
+### Portfolio: 32+80 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 row closures. 2 LVH catches (#249, #250). 3 composition sub-properties added (SUBSCRIBE+AS_OF + bitemporal+GDPR + erasure concurrency).
+
+### PROT compliance (v472 -> v473)
+- PROT-004/006: No row closures. K-hop ceiling anchors 1,3,4: rescue sketches cheapest-first filed. Product anchors 5,6,7: minimal rescues. Infra anchor 8: deployment guidance locked.
+- PROT-007: v473 history row appended to substrate_capability_map_history.md.
+- PROT-008: No row state changes. Composition sub-properties added to existing rows. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 385th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 8 anchors. CLEAN.
+- PROT-019: LVH 248->250 (+2: #249 khop_dim_scaling ceiling-saturation N-scaling-UNTESTED + #250 khop_adversarial ALL-AT-CEILING benefit_retained-0.00-UNINFORMATIVE).
+- PROT-021: All 8 source=remote run_mode=full. Product/API anchors (5,6,7) n_seeds=1 deterministic composition tests (appropriate). K-hop anchors n_seeds=1 flagged for 3-seed confirmation. HNSW anchor n_seeds=1 deterministic benchmark. No smoke contamination.
+- PROT-022: Product anchors deterministic (API correctness; ceiling irrelevant). K-hop n_seeds=1 ceiling-saturated (ceiling is deterministic not stochastic). HNSW deterministic.
+
+Cap_map: v472 -> v473 CYCLE 152 (2 HP: khop_vc_scaling-K_MAX54-VC32000-PRODUCTION-KB-HP + api_subscribe_as_of_composition-EXACT-100/100-REACTIVE+BITEMPORAL-COMPOSABLE; 2 HP-COMPOSITION: bitemporal_smoke_gdpr-A1+A2-BOTH-OK-0.024ms-CONTENT_GONE + erasure_concurrency-5000-TRIALS-0-VIOLATIONS-GDPR_SAFE; 1 MID-LVH#249: khop_dim_scaling-CEILING-SATURATION-K60-ALL-N-N-SCALING-UNTESTED; 1 UNKNOWN-LVH#250: khop_adversarial-ALL-AT-CEILING-ADVERSARIAL-UNTESTED; 1 MID-CEILING: khop_annealing-UNIFORM=ANNEALED=60=CEILING-UNTESTED; 1 MID: subs_hnsw_crossover-CROSSOVER-S5000-NAIVE-S1000-1.86x-HNSW-S50000-6.90x; LVH 248->250 +2; HONEST 1103->1111 +8; 3 composition sub-properties added; Portfolio 32+80 UNCHANGED; 385th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

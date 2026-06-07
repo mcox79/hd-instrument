@@ -26857,3 +26857,12 @@ v472 | 2026-06-06 | CYCLE 151 K-HOP NOISE BATTERY + LVH#245 TOPOLOGY + ZKL REAL-
 1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys k50=0.4 11x-WORSE-THAN-SYNTHETIC ZKL50=0.035; HIPAA claim DEGRADES.
 LVH 247->248 (+1: khop_sparse_bsweep B>=10 ceiling-tie masks B=1 advantage). PROT-008 MMR topology PASS.
 ZKL real-key calibration gap added. LVH245 RESOLVED. HONEST 1098->1103 (+5). Portfolio 32+80 UNCHANGED. 384th PROT-009.
+
+v473 | 2026-06-06 | CYCLE 152: K-HOP CEILING SWEEPS (4) + PRODUCTION COMPOSITIONS (3) + HNSW CROSSOVER (1)
+2 HP: khop_vc_scaling K_MAX54-VC32000-PRODUCTION-KB + api_subscribe_as_of_composition EXACT-100/100-REACTIVE+BITEMPORAL-COMPOSABLE.
+2 HP-COMPOSITION: bitemporal_smoke_gdpr A1+A2-BOTH-OK-asof-0.024ms-CONTENT_GONE + erasure_concurrency 5000-TRIALS-0-VIOLATIONS-GDPR_SAFE.
+1 MID-LVH#249: khop_dim_scaling CEILING-SATURATION-K60-ALL-N-N-SCALING-UNTESTED.
+1 UNKNOWN-LVH#250: khop_adversarial ALL-AT-CEILING-ADVERSARIAL-UNTESTED per-shard-recommendation-RETRACTED.
+1 MID-CEILING: khop_annealing UNIFORM=ANNEALED=60=CEILING-UNTESTED.
+1 MID: subs_hnsw_crossover CROSSOVER-S5000-NAIVE-S1000-1.86x-HNSW-S50000-6.90x deployment-guide-locked.
+LVH 248->250 (+2: #249 N-scaling-ceiling-artifact + #250 adversarial-ceiling-artifact). HONEST 1103->1111 (+8). Portfolio 32+80 UNCHANGED. 385th PROT-009.

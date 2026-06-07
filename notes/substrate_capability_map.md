@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v462
+# hd-instrument substrate -- capability map v473
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12168,4 +12168,35 @@ Cap_map annotation: zkl_curve_k_sweep_realkeys_v1 HF v472 (smoke orphan; REAL-KE
 - PROT-022: anchor 4 3-seed CLEAN. anchors 1-3 n=1 mechanistic robust. anchor 5 smoke n=1 ZKL.
 
 Cap_map: v471 -> v472 CYCLE 151 (2 HP: khop_noise_model_AB_compare-DIAGNOSTIC-AVERAGING-GROWS-DISTRACTOR-DESTROYS + lvh245_mmr_topology_spectral_gap-3SEED-HUB0.9-PROPAGATION-0.013-TOPOLOGY-AGNOSTIC-LVH245-RESOLVED; 1 HF: khop_bundle_noise_battery-DENSE-B2-K_MAX-12-VULNERABILITY-DENSE-B10-RECOVERS; 1 MID-LVH#248: khop_sparse_bsweep-HONEST=MIDDLE_BAND-B1-ONLY-10x-DENSE-RECOVERS-B10; 1 HF-REAL-KEY-SMOKE: zkl_curve_k_realkeys-k50=0.4-11x-WORSE-SYNTHETIC-HIPAA-DEGRADES; LVH 247->248 +1; PROT-008 MMR topology PASS; ZKL real-key calibration gap added; LVH245 RESOLVED; HONEST 1098->1103 +5; Portfolio 32+80 UNCHANGED; 384th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v473 update (2026-06-06) -- CYCLE 152: 8 verdicts K-HOP CEILING SWEEPS (4) + PRODUCTION COMPOSITIONS (3) + HNSW CROSSOVER (1); 2 HP + 2 HP-COMPOSITION + 4 MID-or-UNKNOWN; LVH 248->250 (+2); HONEST 1103->1111 (+8); Portfolio 32+80 UNCHANGED; 385th PROT-009 paired commit
+
+Cap_map annotation: khop_dim_scaling_gpu_v1 MID-LVH#249 v473: K_max=60 probe ceiling saturates all N-values; N-scaling UNTESTED; N8192=58 is noise within 2 of ceiling; genuine N-scaling requires K_max_probe >= 100 with harder KB; n_seeds=1 full; ceiling artifact documented; R1-R3 rescues filed cheapest-first.
+
+Cap_map annotation: khop_vc_scaling_gpu_v1 HP v473: K_max=54 at VC=32000 production-scale KB >> 10 HP threshold; deep K-hop reasoning survives 32k-class knowledge base; decreasing K_max with VC is genuine sub-ceiling scaling signal at VC=8000/32000; n_seeds=1 full; 3-seed confirmation recommended; R1-R2 filed.
+
+Cap_map annotation: khop_adversarial_sparse_concentration_gpu_v1 UNKNOWN-LVH#250 v473: ALL conditions sparse_clean=sparse_adversarial=dense=60=probe ceiling; benefit_retained=0.00 is ceiling ratio not adversarial degradation; adversarial concentration impact on sparse-KEY K-hop is UNTESTED at sub-ceiling K; 'per-shard codebook randomization required' recommendation retracted as unsupported; redesign at sub-ceiling K required; R1-R3 rescues filed cheapest-first.
+
+Cap_map annotation: khop_annealing_sparsity_gpu_v1 MID v473: uniform=annealed=60=probe ceiling; 0% gain is MIDDLE_BAND (correct but ceiling-saturated); annealing benefit untested at sub-ceiling K; test at K_max_probe <= 40 with harder KB for genuine annealing signal; n_seeds=1 full; R1-R2 filed.
+
+Cap_map composition sub-property annotation: api_subscribe_as_of_composition_v1 HP v473: SUBSCRIBE + AS_OF primitives compose exactly (delivered=recalled=100; missing=0 extra=0); reactive subscription + bitemporal time-travel compose without loss or duplication; first empirical confirmation of cycle-149+150 API primitive composition; deterministic n=1 full; 3-seed full recommended for production-grade designation; R1-R2 filed.
+
+Cap_map composition sub-property annotation: bitemporal_smoke_gdpr_v1 HP v473: cycle-149 GDPR erasure + cycle-150 AS_OF bitemporal compose without conflict; A1(both_versions=True asof_ms=0.024ms merkle=True) A2(content_gone=True snapshot_invalidated=True); 6-week build de-risked; n=1 deterministic full; R1-R2 filed.
+
+Cap_map annotation on GDPR erasure row: erasure_concurrency_smoke_v1 HP v473: 5000 concurrent-erasure trials zero post-commit leaks; GDPR_SAFE=True; physical-erasure + snapshot design correct under concurrency; closes concurrency gap since cycle-149; n=1 full trials=5000; R1-R2 filed.
+
+Cap_map infra sub-property annotation: subs_hnsw_crossover_v1 MID v473: crossover S=5000 hnswlib; S<5000 naive faster (S1000 naive 1.86x vs index); S>5000 index faster (S50000 index 6.90x vs naive); v1 deployment: naive scan for S<=1000; HNSW only at S>5000; n=1 full benchmark 2324s; R1-R2 filed.
+
+### PROT compliance (v472 -> v473)
+- PROT-004/006: No row closures. K-hop ceiling anchors R1-R3 each cheapest-first. Product anchors minimal rescues. Infra operational guidance.
+- PROT-007: v473 history row appended to substrate_capability_map_history.md.
+- PROT-008: No row state changes. Composition sub-properties added to existing rows. Validator not triggered.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 385th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 8 anchors. CLEAN.
+- PROT-019: LVH 248->250 (+2: #249 khop_dim_scaling ceiling-saturation N-scaling-UNTESTED + #250 khop_adversarial ALL-AT-CEILING benefit_retained-0.00-UNINFORMATIVE).
+- PROT-021: All 8 source=remote run_mode=full. Product/API anchors n_seeds=1 deterministic composition tests (appropriate). K-hop anchors n_seeds=1 flagged for 3-seed confirmation. HNSW deterministic benchmark. No smoke contamination.
+- PROT-022: Product anchors deterministic. K-hop ceiling-saturated (ceiling is deterministic not stochastic). HNSW deterministic.
+
+Cap_map: v472 -> v473 CYCLE 152 (2 HP: khop_vc_scaling-K_MAX54-VC32000-PRODUCTION-KB-HP + api_subscribe_as_of_composition-EXACT-100/100-REACTIVE+BITEMPORAL-COMPOSABLE; 2 HP-COMPOSITION: bitemporal_smoke_gdpr-A1+A2-BOTH-OK-0.024ms-CONTENT_GONE + erasure_concurrency-5000-TRIALS-0-VIOLATIONS-GDPR_SAFE; 1 MID-LVH#249: khop_dim_scaling-CEILING-SATURATION-K60-ALL-N-N-SCALING-UNTESTED; 1 UNKNOWN-LVH#250: khop_adversarial-ALL-AT-CEILING-ADVERSARIAL-UNTESTED; 1 MID-CEILING: khop_annealing-UNIFORM=ANNEALED=60=CEILING-UNTESTED; 1 MID: subs_hnsw_crossover-CROSSOVER-S5000-NAIVE-S1000-1.86x-HNSW-S50000-6.90x; LVH 248->250 +2; HONEST 1103->1111 +8; 3 composition sub-properties added; Portfolio 32+80 UNCHANGED; 385th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
