@@ -1,0 +1,64 @@
+
+## v346 -> v347 @ CYCLE 16 BATCH: 5 GENUINE HARD_PASS + 0 LVH catches; Q-B1 FLAT-PROFILE EXTENDS TO d=80 (d70+d80 both N=8192 HARD_PASS) + Q-A3/PP-12 L=14 N=4096 + PP-48 depth-21 N=4096 + PP-48 depth-19 cross-N N=8192; Q-B1 BAND-LIFT ELIGIBILITY RE-FLAGGED (N=16384 is only remaining gate); 257th PROT-009 paired commit
+
+**Trigger.** Cycle 16 batch 5 neutral-classified verdicts 2026-06-02. All 5 fetched via tools.orchestrator.remote_state.get_metrics (all _source=remote authoritative). Pause-flag ABSENT (ACTIVE). REMOTE-FIRST per e51aee7. NEUTRAL classification per [[feedback-no-preframing]].
+
+**Step 0 -- Honest re-read (MANDATORY).**
+
+| # | anchor | prereg HP bands | per-cell metrics | honest verdict |
+|---|--------|----------------|-----------------|----------------|
+| 1 | q_b1_chain_depth_70_v1_n8192 | d5>=0.95 d10>=0.88 d20>=0.70 d30>=0.55 d45>=0.40 d70>=0.15; HF d5<0.80 OR d10<0.65 OR d20<0.40 OR d70<0.06 | d5=0.9883(HP margin 3.8%) d10=0.9880 d20=0.9884 d30=0.9883 d45=0.9885 d70=0.9880(6.6x HP); all HF gates clear 5/5 seeds; FLAT delta(d5-d70)<=0.0007 per seed | HARD_PASS CONFIRMED; FLAT-PROFILE to d=70 |
+| 2 | q_b1_chain_depth_80_v1_n8192 | d5>=0.95 d10>=0.88 d20>=0.70 d30>=0.55 d45>=0.40 d80>=0.10; HF d5<0.80 OR d10<0.65 OR d20<0.40 OR d80<0.04 | d5=0.9814 d10=0.9823 d20=0.9826 d30=0.9820 d45=0.9818 d80=0.9820(9.8x HP); all HF gates clear 5/5 seeds; FLAT d80(0.9820)~=d5(0.9814) within 0.001; d80>d5 in 3/5 seeds | HARD_PASS CONFIRMED; FLAT-PROFILE to d=80 |
+| 3 | q_a3_l14_cross_layer_composition_v1_n4096 | all 14 fids>=0.9999 unanimous 5/5 AND l14_acc>=0.5 | L1-L14 all=1.0000 EXACT unanimous; l14_acc=1.0000; wall=1.086s consistent with L=13 prior 0.644s scaling | HARD_PASS CONFIRMED; EXACT-1.0 at all 14 levels |
+| 4 | pp48_nkt_depth_21_v1_n4096 | pos_rate>=0.75 AND nkt_rep>=0.65; HF pos<0.40 OR nkt_rep<0.30 | pos=1.0000 nkt_rep=1.0000; 5/5 seeds unanimous; NKT_total=2097151 (2^21-1); K_sample=100; wall=3.4s consistent with O(K_sample) sampled-leaf design | HARD_PASS CONFIRMED |
+| 5 | pp48_nkt_cross_n_depth19_v1_n8192 | pos_rate>=0.75 AND nkt_rep>=0.65; HF pos<0.40 OR nkt_rep<0.30 | pos=1.0000 nkt_rep=1.0000; 5/5 seeds unanimous; NKT_total=524287 (2^19-1); N=8192 alpha=0.0134 sub-capacity; wall=3.0s | HARD_PASS CONFIRMED; cross-N depth-19 N=8192 validated |
+
+0 LABEL-VS-HONEST catches. All 5 labels honest relative to per-cell metrics. No over-claims. PROT-018 clear (all _n-suffix match N). PROT-021 clear (all _source=remote run_mode=full n_seeds=5).
+
+**State transitions (v346 -> v347).**
+
+**(A) Q-B1/PP-49a FLAT-PROFILE EXTENDS TO d=80.**
+Two new sub-properties at N=8192: q-b1-depth70-N8192 (d70=0.9880 flat) + q-b1-depth80-N8192 (d80=0.9820 flat). Combined with v345 d50/d55 and v346 d60, flat-profile depth series now spans d50-d55-d60-d70-d80 at N=8192 (5 sub-properties). NOTABLE: mean d80=0.9820 vs mean d5=0.9814 -- d80 actually slightly ABOVE d5 (noise floor dominant; depth-dependent decay is effectively zero). Lambda_empirical <= 0.000026/hop (d5-d80 spread). Band 0.70-0.85 UNCHANGED. BAND-LIFT ELIGIBILITY: N=16384 cross-N dispatch is SINGLE REMAINING GATE for BAND-LIFT 0.70-0.85->0.75-0.90. UPGRADED to HIGHEST PRIORITY routing item for next cycle.
+
+**(B) Q-A3/PP-12 L=14 at N=4096 CONFIRMED.**
+L-series at N=4096 now L=2..L=14 (and L=2..L=5 at N=8192 from v334/v337). All EXACT-1.0000 unanimous 5-seed. Composition ceiling not found at L=14 N=4096. Band 0.75-0.90 UNCHANGED. Row annotation extended: "depth series L=2..L=14 all EXACT-1.0000 unanimous at N=4096; L=15+ eligible; ceiling not found."
+
+**(C) PP-48 depth-21 N=4096 sub-property CONFIRMED.**
+NKT_total=2097151 (2.1M-node tree). N=4096 depth series extends to depth-21: {3,5,7,9,11,13,15,17,19,21}. Band 0.75-0.90 UNCHANGED. Row annotation: "depth ceiling not reached at depth-21 N=4096; 2.1M-node tree (2^21-1) confirmed with 100 sampled leaves."
+
+**(D) PP-48 depth-19 cross-N N=8192 CONFIRMED.**
+Cross-N product envelope at depth-19 now COMPLETE: N=4096 (v346) AND N=8192 (v347) both HARD_PASS. Cross-N depth series at N=8192: {d13 v345, d17 v346, d19 v347}. Band 0.75-0.90 UNCHANGED. Second BAND-LIFT (0.80-0.95) requires N=32768; flagged as high-priority cloud candidate.
+
+**Rescue-sketch sequencing (CHEAPEST FIRST per [[feedback-rescue-sketch-first-sequencing]]).**
+
+No HARD_FAILs or MIDDLE_BAND results this batch. No rescue sketches needed this cycle.
+
+Carry-forward open rescues from v346 unchanged: I-16 (PP-49 HRC counterfactual), I-17 partial-resolved (trace accuracy), I-14 (implicit-Gram N=8192 math failure), PP-47xPP-49 HP1 baseline rescue, combo1 alpha slope, COMBO-4 mu-aging, F4 M4 I-9, kappa3 I-10 v3, PP-52 cross-N N=16384, Wave 5 Cell 5 cloud, PP-48+PP-49 cloud combo2-direct, PP-47 hippocampal N=16384.
+
+**Strategic positioning.** Cycle 16 confirms 5 clean sub-property extensions. The headline finding is Q-B1: with both d70 and d80 exhibiting the flat-profile (d80 mean 0.9820 vs d5 mean 0.9814; d80>d5 in 3/5 seeds), substrate heteroassociative chain fidelity is depth-independent from d=5 to d=80 at N=8192. The exponential-decay model is empirically refuted; lambda_empirical is effectively zero. Product framing: substrate sequential-memory chains maintain >0.98 fidelity across 80 hops at production-N -- the ceiling is N-scaling-dependent not depth-dependent. Q-A3/PP-12 extends compositional audit depth to 14 algebraic layers with zero degradation (14-layer composition = 14 successive Hadamard bindings with EXACT 1.0 roundtrip fidelity). PP-48 extends to 2.1M-node negative-knowledge trees (depth-21) and confirms cross-N depth-19 envelope (N=4096 + N=8192 both HARD_PASS).
+
+**Routing follow-on (highest priority).**
+1. **Q-B1 cross-N N=16384 depth-80** -- SINGLE REMAINING GATE for PP-49a BAND-LIFT; v347 HIGHEST PRIORITY; CPU feasible.
+2. **PP-48 cross-N N=32768** -- second BAND-LIFT 0.75-0.90->0.80-0.95; cloud candidate; PP-48+PP-49 combo2-direct carry-over.
+3. **Q-A3 L=15 N=4096** -- continue L-ceiling chase; cheap CPU algebraic test.
+4. **PP-48 depth-23 N=4096** -- next depth rung; cheap CPU; 8.4M-node tree.
+5. Carry-forward: Wave 5 Cell 5 cloud + I-14 + I-16 + PP-52.
+
+**Atomic commit.** cap_map.md + history.md + strategy_decisions_2026-06-02.md (this entry) + visibility_decisions_2026-06-02.md + status_log entry staged atomically. 257th PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Tallies (v346 -> v347).**
+- HONEST: 502 -> 507 (+5: 5 GENUINE HARD_PASS).
+- LVH: 207 UNCHANGED (0 new catches).
+- Portfolio: 32+74 UNCHANGED (no new top-level rows; sub-property additions only).
+- BAND-LIFTS: 0 (Q-B1 flat-profile awaits N=16384; PP-48 awaits N=32768).
+- Sub-properties NEW (5): q-b1-depth70-N8192-flat + q-b1-depth80-N8192-flat + q-a3-L14-N4096 + pp48-depth21-N4096 + pp48-depth19-cross-N-N8192.
+- ISSUES: no new issues; carry-forward open rescues unchanged.
+- Framework reliability: 82-96% UNCHANGED.
+
+**PROT compliance (v346 -> v347).**
+- PROT-004/006: NO row closures. 0 BAND-LIFTS. 5 NEW SUB-PROPERTIES. No rescue sketches (all 5 HARD_PASS).
+- PROT-007: this history block appended to cap_map.md inline.
+- PROT-008: all transitions validated. No portfolio regression.
+- PROT-009: cap_map.md + history.md + strategy_decisions + visibility_decisions + status_log atomically committed. 257th PROT-009 paired commit.
+- PROT-018: q_b1 _n8192 x2 PASS; q_a3 _n4096 PASS; pp48 _n4096 PASS; pp48 _n8192 PASS.
+- PROT-021: all 5 _source=remote run_mode=full n_seeds=5 PASS.

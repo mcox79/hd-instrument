@@ -85,3 +85,5 @@ testbed_data/
 data/cloud_cost_tracker.json
 data/lambda_canary_report.json
 data/session_heartbeat_*.json
+
+.together_token

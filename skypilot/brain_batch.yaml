@@ -1,0 +1,106 @@
+# Brain-inspired multi-channel substrate probe batch on Lambda GPU.
+# Pre-flight (single-pass channel-read sanity) + Experiment B (spectral
+# training monitor, GPT-2-small) + Experiment C (8-channel orchestration
+# ablation, GPT-2-small).
+#
+# Experiment A (CPE data attribution) is CPU-local; ran on laptop separately.
+#
+# Bundle is built by skypilot/build_brain_ship.sh into /root/brain-ship/
+# (WSL-native ext4 to bypass /mnt/d 9P stall, same pattern as hd-ship).
+#
+# Launch (from inside WSL Ubuntu, skyvenv activated):
+#   source /root/skyvenv/bin/activate
+#   bash /mnt/d/AI/hd-instrument/skypilot/build_brain_ship.sh
+#   cd /root/brain-ship
+#   sky launch -c hd-brain -y --async --retry-until-up -i 30 --down \
+#       skypilot/brain_batch.yaml
+#
+# Monitor:
+#   sky logs hd-brain
+#   sky status
+#
+# Cost: ~$5-15 total (A100 PCIe ~$1.10/hr; B ~1-2h + C ~4-8h + setup ~15min)
+
+name: hd-brain
+
+resources:
+  cloud: lambda
+  # GPT-2-small (~117M) fits trivially on any GPU; pick the cheapest A100
+  # variant. SkyPilot's catalog has A100 PCIe and A100 SXM4 on Lambda.
+  accelerators: A100:1
+  use_spot: false
+
+workdir: .
+
+setup: |
+  set -e
+  echo "=== [setup 1/4] apt + pip core ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  pip install --quiet --upgrade pip
+
+  echo "=== [setup 2/4] pip torch + transformers + scipy + datasets ==="
+  # Pythia/GPT-2 from transformers; scipy for spearmanr (already used by A);
+  # numpy + scipy bound dataclass attributes; tqdm for progress bars.
+  pip install --quiet \
+    "numpy>=1.26" \
+    "scipy>=1.11" \
+    "torch>=2.3,<2.6" \
+    "transformers>=4.45" \
+    "datasets>=2.19" \
+    "accelerate>=0.30" \
+    "huggingface_hub>=0.25" \
+    "tqdm>=4.66"
+
+  echo "=== [setup 3/4] verify torch + GPU ==="
+  python -c "
+  import torch
+  print(f'torch={torch.__version__}; cuda_available={torch.cuda.is_available()}')
+  if torch.cuda.is_available():
+      print(f'  device={torch.cuda.get_device_name(0)}; vram={torch.cuda.get_device_properties(0).total_memory/1e9:.1f}GB')
+  "
+
+  echo "=== [setup 4/4] verify imports of substrate + testbed modules ==="
+  cd ~/sky_workdir
+  python -c "
+  import sys; sys.path.insert(0, '.')
+  from testbed.llm_integration.substrate_audit import (
+      hebbian_write, build_W_from_patterns, retrieval_cosine,
+      kappa_3_hutchinson,
+  )
+  from testbed.training_monitor.substrate_observer import SubstrateObserver
+  from testbed.orchestration.channels import compute_write_signal
+  from testbed.orchestration.cipolla import CipollaPrecisionVector
+  from testbed.orchestration.pcgrad import PCGradProjector
+  from testbed.orchestration.gating import PhasicGatingNetwork
+  from testbed.orchestration.orchestrator import OrchestrationLoop
+  from testbed.substrate_lm.primitives import anti_hebbian_contrastive_update
+  print('OK: all substrate/testbed imports clean')
+  "
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  # set -e: any sub-experiment HARD_FAIL exits the script and triggers --down.
+  # Pre-flight FAIL would block main spend; we gate the dispatch on it.
+  set -e
+  cd ~/sky_workdir
+  export HDLAB_RUN_MODE=full
+  # Reproducibility for any cublas-deterministic paths we hit
+  export CUBLAS_WORKSPACE_CONFIG=:4096:8
+
+  echo "=== [1/3] Pre-flight: substrate 8-channel single-pass economy ==="
+  # Already PASSed locally on CPU (ratio 1.059). Re-run on the actual cloud GPU
+  # to confirm economy holds on the deployment hardware before spending on
+  # Experiment C's full ablation. Exits 1 if pre-flight FAILs.
+  python -u experiments/exp_substrate_8channel_single_pass_preflight_v1.py
+
+  echo "=== [2/3] Experiment B: spectral training monitor (GPT-2-small) ==="
+  python -u experiments/exp_substrate_spectral_training_monitor_predictive_v1_gpt2small.py
+
+  echo "=== [3/3] Experiment C: 8-channel orchestration ablation (GPT-2-small) ==="
+  python -u experiments/exp_substrate_8channel_orchestration_ablation_gpt2small_v1.py
+
+  echo "=== brain-batch complete ==="
+  echo "=== artifacts at ~/sky_workdir/data/ (rsync over SSH to fetch) ==="
+  ls -la ~/sky_workdir/data/exp_substrate_*/ 2>/dev/null | head -40

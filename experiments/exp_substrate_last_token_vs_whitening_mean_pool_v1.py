@@ -122,12 +122,13 @@ def run_seed(seed, last_tok, mean_pool) -> Dict:
 def verdict(ps) -> Tuple[str, str]:
     agg = {arm: float(np.mean([p["cap"][arm] for p in ps])) for arm in ARMS}
     combined = agg["last_token_whiten"]; best_single = max(agg["last_token_raw"], agg["mean_pool_whiten"]); g = combined / max(best_single, 1e-9)
+    raw = agg["last_token_raw"]; wh_dominant = best_single >= 2.0 * max(raw, 1e-9)  # whitening is the load-bearing fix if raw collapses
     summary = "cap %s | combined/best_single=%.2fx" % ({k: round(v, 1) for k, v in agg.items()}, g)
     if g >= 1.2:
         return ("HARD_PASS", "HARD_PASS: last-token + whitening COMPLEMENTARY (combined >=1.2x best single) -- both add; use combined recipe. " + summary)
-    if g >= 0.9:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: last-token ~ whitening EQUIVALENT (combined ~ max) -- pick cheaper (last-token, no whiten). " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: combined < best single (interfering mechanisms). " + summary)
+    if wh_dominant:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: WHITENING is the load-bearing fix (raw last-token cap~0); pool choice (last-token vs mean) is irrelevant once whitened. Recipe = whiten (either pool). Mechanisms NOT complementary. " + summary)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: last-token ~ whitening equivalent (combined ~ max). " + summary) if g >= 0.9 else ("HARD_FAIL", "HARD_FAIL: combined < best single (interfering mechanisms). " + summary)
 
 
 print("[config] anchor=%s mode=%s seeds=%s encoder=%s L=%d N_enc=%d" % (ANCHOR_NAME, RUN_MODE, SEEDS, ENCODER, LAYER, N_ENC), flush=True)

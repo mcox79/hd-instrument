@@ -1,0 +1,57 @@
+
+
+# v436 update (2026-06-05) -- CYCLE 113 BATCH: 2 NEW HP (hallucination_detection_minilm + real_encoder_capabilities); 9 DUPLICATES no action; 0 LVH; KF-1 BAND-LIFT 65-80%->70-85%; PP-8 BAND-LIFT 0.50-0.65->0.55-0.70; HONEST 945->947; LVH 223; Portfolio 32+77; 348th PROT-009 paired commit
+
+## CYCLE 113 BATCH -- v435 -> v436 (2026-06-05)
+
+### Step 0 honest re-read (MANDATORY; 2 new anchors + 9 suspected duplicates)
+
+**(A) substrate_hallucination_detection_minilm_v1 HARD_PASS -- LABEL HONEST**
+Per-cell: seed7 AUC=0.9996 recall=0.993; seed17 AUC=0.9989 recall=0.983; seed23 AUC=0.9994 recall=0.988. Mean AUC=0.999 >> 0.90 threshold. Mean recall=0.988 matches label exactly. grounded_conf=0.204 vs hall_conf=0.107 clean separation all 3 seeds. No over-claim. LVH: 0.
+
+**(B) substrate_real_encoder_capabilities_v1 HARD_PASS -- LABEL HONEST**
+Per-cell: ALL 18 cells = 1.000 (seed7/17/23 x minilm/pythia x single_hop/multi_hop/counterfactual). Perfect ceiling unanimous. No over-claim. LVH: 0.
+
+**DUPLICATE ANCHORS (confirmed no action):**
+substrate_minilm_encoder_fidelity_v1 committed v433. exp_hp12_v1_extraction_attack_contrast_v1 committed v433. exp_hp12_v1_api_surface_test_v1 committed v433. substrate_ccc_v2_capability_dims_n4096_v1 committed v432. substrate_kgram_xor_scaling_sweep_v2 committed v432. substrate_bipolar_hadamard_expansion_k8_v2 committed v432. substrate_theta_burst_endpoint_only_K3_v2 committed v432. exp_hp12_v1_end_to_end_demo_backend_v1 committed v431. substrate_medical_qa_proto_no_umls_dependency_v1 committed v429. ALL NO ACTION.
+
+HONEST: 945 + 2 = 947. LVH: 223 UNCHANGED.
+
+### (A) substrate_hallucination_detection_minilm_v1 HARD_PASS [source=remote n_seeds=3 run_mode=full elapsed=6.3s]
+
+Plain-language: We tested whether the substrate can detect hallucinated vs grounded LLM responses using MiniLM sentence embeddings. AUC=0.999 and 98.8% correct flagging across 3 seeds. The mechanism works because stored facts produce high similarity scores when queried faithfully; fabricated content does not match any stored bundle. First confirmation the KF-1 hallucination detector works with a real production-grade sentence encoder.
+
+Capability implication: KF-1 hallucination-detection is ENCODER-AGNOSTIC -- AUC=0.999 with MiniLM removes the key doubt about whether BSC/synthetic-codebook probes (v271/v274) would transfer to real deployment with standard embedding models.
+
+KF-1 hallucination-detection row annotation:
+'hallu_detection_minilm_HARD_PASS v436: MiniLM N=384 3-seed full elapsed=6.3s; AUC=0.999(range 0.9989-0.9996)(3/3); grounded_conf=0.204 hall_conf=0.107 margin=0.097 all seeds; grounded_recall_at_thr=0.988(mean)(3/3); hallucination_flag_rate=0.988(mean)(3/3); ENCODER-AGNOSTIC: real MiniLM encoder path matches BSC codebook path at AUC ceiling; KF-1 real-deployment ready. KF-1 BAND-LIFT 65-80%->70-85%. 2026-06-05.'
+
+**KF-1 hallucination-detection row BAND-LIFT: 65-80% -> 70-85% (+5% both bounds).**
+Rationale: AUC=0.999 near-perfect 3/3 seeds with real MiniLM encoder confirms encoder-agnostic mechanism. Per lit-scan calibration penalty: single-N (N=384 MiniLM native), 3-seed = cap at +5%. Caveats remaining: N-scaling from 384 to 4096+ with MiniLM not confirmed; adaptive adversary not tested.
+
+### (B) substrate_real_encoder_capabilities_v1 HARD_PASS [source=remote n_seeds=3 run_mode=full elapsed=12.7s]
+
+Plain-language: We tested whether the substrate's three core operations (single-hop recall, multi-hop chaining, counterfactual reasoning) work with real encoder embeddings from MiniLM and Pythia-160m. All six capability dimensions scored 1.000 across 3 seeds. The substrate's cognitive capabilities generalize to real LM embedding spaces -- prerequisite for production LLM integration.
+
+Capability implication: Substrate capability ceiling (single-hop/multi-hop/counterfactual) is encoder-agnostic -- confirmed 1.00 across two real encoders (MiniLM + Pythia-160m) x 3 seeds. Directly de-risks PP-8 deep-integration: real encoder geometry is substrate-compatible without custom codebook tuning.
+
+PP-8 encoder-fidelity sub-property annotation:
+'real_encoder_capabilities_HARD_PASS v436: MiniLM+Pythia 3-seed full elapsed=12.7s; minilm: single_hop=1.000 multi_hop=1.000 counterfactual=1.000 (3/3); pythia: single_hop=1.000 multi_hop=1.000 counterfactual=1.000 (3/3); ALL 18 cells ceiling unanimous; ENCODER-AGNOSTIC capability confirmation. PP-8 BAND-LIFT 0.50-0.65->0.55-0.70. 2026-06-05.'
+
+**PP-8 substrate-LLM deep-integration row BAND-LIFT: 0.50-0.65 -> 0.55-0.70 (+5% both bounds).**
+Rationale: v433 minilm_encoder_fidelity (recall ceiling, 5-seed) + v436 real_encoder_capabilities (all 3 capability dims ceiling, MiniLM+Pythia, 3-seed) = two independent anchors confirming encoder-agnostic capability at ceiling. Per lit-scan calibration penalty: 3-seed, synthetic test scenarios (no actual LLM generation in loop yet), cap at +5%. Caveats remaining: no actual LLM generation in loop; N above MiniLM native not confirmed; full end-to-end LLM-substrate integration pending.
+
+**Portfolio: 32+77 UNCHANGED. 0 new top-level rows. 2 BAND-LIFTS (KF-1 + PP-8). 0 closures.**
+**HONEST: 945 -> 947 (+2). LVH: 223 UNCHANGED.**
+
+**PROT compliance (v435 -> v436):**
+- PROT-004/006: No closures. 2 HP; no HF; no rescue sketches required.
+- PROT-007: v436 history row appended to substrate_capability_map_history.md.
+- PROT-008: 2 BAND-LIFTS. Validator: KF-1 +5% consistent (AUC=0.999 3/3 >> 0.90; single-N 3-seed caps at +5%). PP-8 +5% consistent (18/18 cells = 1.000; two-encoder; synthetic-scenario caps at +5%). PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 348th PROT-009 paired commit.
+- PROT-018: No _nN suffixes; N=384 stated in metrics body. CLEAN.
+- PROT-021: both source=remote run_mode=full. No smoke artifacts.
+- PROT-022: V1 AUC 0.9989-0.9996 normal variance (ceiling deterministic; not HP-fragile); V2 all-ceiling unanimous 18/18 (floor; not HP-fragile).
+
+Cap_map: v435 -> v436 CYCLE 113 (2 HP: hallucination_detection_minilm ENCODER-AGNOSTIC-KF1-REAL-AUC999 + real_encoder_capabilities ALL-CAPS-CEILING-18/18-MINILM+PYTHIA; 9 DUPLICATES no action; 0 MID; 0 HF; 0 LVH; KF-1 BAND-LIFT 65-80%->70-85% + PP-8 BAND-LIFT 0.50-0.65->0.55-0.70; HONEST 945->947; LVH 223; Portfolio 32+77; 348th PROT-009 paired commit) (2026-06-05)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

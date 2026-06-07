@@ -24,3 +24,8 @@
 
 Sat Jun  6 20:21:05 EDT 2026: federated_privacy_substrate_2x -> notes/research_drill_federated_privacy_substrate_2x_2026-06-07.md ; P_deflated=0.38 ; HEADLINE: additive secret sharing composes algebraically with pseudoinverse write; DP hard-fail at N=1024 confirmed analytically; N>=4096 required
 2026-06-07 | research_drill_agentic_memory_layer_2x -- notes/research_drill_agentic_memory_layer_2x_2026-06-07.md -- EU AI Act compliance pull + 5 patterns + CRDT synthesis + 5 cells. P_deflated=0.52.
+substrate-eval-methodology 5x-chain drill-1 -> notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill1_2026-06-07.md ; GOLD: ZKP soundness unmeasured axis; next-drill: ZKP + membership inference deep dive
+
+- [production scaling 5x chain drill 1] -> notes/research_drill_substrate_production_scaling_5x_chain3_drill1_2026-06-07.md | HEADLINE: Cross-shard K-hop is secretly hard at production scale; DRAM bandwidth wall at N=65536+; discontinuous capacity phase transition. GOLD: K-hop capability gap invisible at small N, dominant at 10^4+ shards. Next drill: distributed graph routing for K-hop (network-science-graph-theory).
+
+- [Chain1/Drill2] ZKP soundness + membership inference: GOLD 2.0 = audit trail detects adaptive ZKL attack as product feature; SZA protocol deployable; RSA->hash migration for post-quantum; -> notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill2_2026-06-07.md

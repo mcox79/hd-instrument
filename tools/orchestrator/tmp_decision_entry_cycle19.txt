@@ -1,0 +1,63 @@
+
+## v349 -> v350 @ CYCLE 19 BATCH: 4 verdicts (3 HP + 1 MIDDLE + LVH #208 annotation); Q-A3/PP-12 L=16 ceiling NOT found; COMBO-2 parity PROT-022 R2 theory CONFIRMED; Arrhenius barrier direction HP (magnitude 47% of prediction = LVH #208 annotation); Wave-2 RRAM capacity MIDDLE (transition zone wide); HONEST 518->522 (+4); LVH 207->208 (+1 marginal annotation); 260th PROT-009 paired commit
+
+**Trigger.** Cycle 19 batch 4-verdict 2026-06-02. All 4 fetched via tools.orchestrator.remote_state.get_metrics (_source=remote authoritative). Pause-flag ABSENT. REMOTE-FIRST per e51aee7.
+
+**Step 0 honest re-read summary.** 3 HONEST (Q-A3 L=16 HP + COMBO-2 parity HP + capacity_phase MIDDLE). **1 MARGINAL LVH ANNOTATION (#208)** on activation_barrier_alpha_dependence: HARD_PASS gate met (5/5 monotone, ratio=1.10 > 1.02 prereg threshold) BUT verdict_msg claims "Activation barrier alpha-dependence confirmed" while measured ratio=1.10 is only 47% of Arrhenius-predicted ratio=2.316. Direction confirmed; magnitude significantly under-predicts AGS free-energy formula by 2.1x. Not a verdict override (prereg gate honestly met) but a direction-only-pass claiming full confirmation. Filed as LVH #208 marginal sub-flavor.
+
+**Verdicts processed (4).**
+
+| # | anchor | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l16_cross_layer_composition_v1_n4096 | 4096 | 5 | HARD_PASS | All 16 fids EXACT-1.0000 unanimous 5/5 seeds; l16_acc=1.0000; gate HP>=0.5 met with 2x margin | PP-12/Q-A3 L=16 sub-property added; L-ceiling NOT found at L=16; band 0.75-0.90 UNCHANGED; L=17+ eligible |
+| 2 | combo2_p4_l_sweep_parity_hypothesis_v1_n4096 | 4096 | 5 | HARD_PASS | b_rep=1.0000 and l_fid=1.0000 ALL L=5/6/7 5/5 seeds; flat as PROT-022 R2 signed-AM algebra predicted; parity oscillation NOT observed | PP-48 L=5/6/7 flat sub-property confirmed; theory-predicted flat b_rep CORROBORATED; band 0.75-0.90 UNCHANGED |
+| 3 | activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096 | 4096 | 5 | HARD_PASS [LVH #208 annotation] | nf_crit_05=0.440 nf_crit_10=0.400 ratio=1.100 monotone 5/5; direction HP; predicted ratio=2.316 measured=1.100 = 47% of theory | PP-33 caveat(p) added: Arrhenius nf_crit direction CONFIRMED; magnitude 47% of E_a^0 prediction; band 0.40-0.55 UNCHANGED |
+| 4 | capacity_phase_boundary_under_rram_noise_v1_n4096 | 4096 | 5 | MIDDLE_BAND | below_boundary_violations=5/10; above_2x=0/6 correct; alpha_transition_detected=4/4; transition zone WIDE | PP-50 caveat annotation: RRAM boundary exists; transition zone wider than free-prob sharp-boundary predicts; safe envelope sigma_g < ~0.5*sigma_g_crit; band 0.75-0.90 UNCHANGED |
+
+**Row updates (v349 -> v350).**
+
+**(A) PP-12/Q-A3 L=16 sub-property.** All 16 fidelities EXACT-1.0000 unanimous 5-seed at N=4096. L-series at N=4096 extends L=2..L=16 all EXACT-1.0000. L=16 wall=0.82s (16 W matrices ~1.07GB GPU). Ceiling NOT found at L=16. Band 0.75-0.90 UNCHANGED. Sub-property annotation: "L=16 N=4096 EXACT-1.0 unanimous 5-seed; L-ceiling not reached at L=16; L=17+ eligible; BAND-LIFT tracker: requires L-ceiling detection OR L=20+ series OR N-scale sub-property."
+
+**(B) PP-48 COMBO-2 parity L=5/6/7 sub-property.** b_rep=1.0000 and l_fid=1.0000 unanimous 5-seed for all 3 L values. PROT-022 R2 signed-AM algebra prediction (flat b_rep, L-independent) CONFIRMED at FULL. Parity oscillation hypothesis REFUTED. Flat-profile: b_rep is L-independent as predicted. Band 0.75-0.90 UNCHANGED. Sub-property: "COMBO-2 b_rep L-flat {L=5,6,7} at N=4096 5-seed EXACT-1.0; signed-AM algebra L-independence PROT-022 R2 confirmed; parity oscillation ruled out."
+
+**(C) PP-33 caveat(p) activation-barrier direction [LVH #208].** nf_crit ordering CONFIRMED (direction): nf_crit(alpha=0.05)=0.440 > nf_crit(alpha=0.10)=0.400 for 5/5 seeds. However E_a^0(alpha) ~ N*(alpha_c-alpha)/alpha_c predicts ratio=2.316; measured ratio=1.100 = 47% of theory. Magnitude discrepancy 2.1x. Possible causes: (i) coarse nf_frac grid (0.04 step resolution compresses ratio toward 1.0); (ii) nf_crit proxy vs direct E_a non-linear mapping; (iii) finite-N correction. Sub-property: "Arrhenius barrier direction nf_crit(0.05)>nf_crit(0.10) CONFIRMED 5/5; ratio=1.10 measured vs 2.316 Arrhenius-predicted (47% magnitude; direction pass; magnitude discrepancy likely coarse-grid artifact; finer grid R2 queued)." PP-33 band 0.40-0.55 UNCHANGED.
+
+**(D) PP-50 RRAM capacity phase boundary MIDDLE annotation.** Phase boundary EXISTS (4/4 alpha transitions detected; above-2x=0/6 all correctly fail). Transition zone WIDE: below-boundary violations=5/10 (recall degrades before sigma_g_crit). Example: alpha=0.05 sg=2.0 recall=0.64 vs sigma_g_crit=4.36; alpha=0.10 sg=2.0 recall=0.51 vs sigma_g_crit=3.0. Free-probability sharp-boundary prediction PARTIALLY supported: boundary location correct but transition not sharp. Safe operating envelope: sigma_g < ~0.5*sigma_g_crit. Annotation: "RRAM capacity: 4/4 alpha transitions confirmed; above-2x correct; transition zone WIDE (5/10 below-boundary violations); safe envelope sigma_g < ~0.5*sigma_g_crit; free-prob sharp-boundary over-optimistic at N=4096." Band 0.75-0.90 UNCHANGED.
+
+**LVH #208 detail.** activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096. Prereg gate: monotone direction for >=4/5 seeds + mean_ratio > 1.02. GATE MET (5/5, ratio=1.10). Over-extension: verdict_msg "Activation barrier alpha-dependence confirmed" implies full Arrhenius confirmation; actual confirmation is direction-only. Magnitude under-predicts by 2.1x. Filed marginal annotation; HARD_PASS tag retained; LVH 207 -> 208.
+
+**PROT-022 validation.** COMBO-2 parity: PROT-022 R2 b_rep=L-independent prediction EMPIRICALLY CONFIRMED 5-seed. Activation barrier: formula self-test ratio=2.3158 MATCHED prereg (formula correct; empirical proxy under-delivers). Capacity phase: sigma_g_crit formula all 4 alpha verified (boundary location correct; sharpness does not match).
+
+**Rescue-sketch sequencing (cheapest first per [[feedback-rescue-sketch-first-sequencing]]).**
+
+For **PP-50 capacity_phase_boundary MIDDLE** (not a closure):
+- R1 (annotation-only, applied) sigma_g_safe < ~0.5*sigma_g_crit operating envelope documented.
+- R2 (1-2h CPU) Fine sigma_g grid in [0.5*sigma_g_crit, sigma_g_crit] per alpha to characterize transition zone width.
+- R3 (CPU) N-sweep {2048, 4096, 8192}: test whether transition sharpens with N (free-prob large-N limit).
+- R4 (theory) Re-examine free-prob prediction with I-11 finite-N correction (sigma_g_crit formula may have finite-N terms).
+- R5 (deferred) Separate transition-zone width as alpha-dependent scaling effect (larger alpha -> smaller absolute sigma_g_crit -> coarser resolution).
+
+For **PP-33 activation-barrier magnitude discrepancy LVH #208** (not a closure):
+- R1 (annotation-only, applied) Coarse-grid artifact hypothesis documented.
+- R2 (CPU) Finer nf_frac grid (0.01 step vs current ~0.04) to resolve true ratio closer to theory.
+- R3 (theory) Derive proxy functional form: E_a ~ nf_crit may be non-linear (ratio compression expected).
+- R4 (CPU) Alpha sweep with alpha=0.08, 0.12 to test monotone scaling of ratio across more cells.
+- R5 (deferred) Direct barrier measurement via Lyapunov energy landscape (avoids nf_crit proxy entirely).
+
+**Tallies (v349 -> v350).**
+- HONEST: 518 -> 522 (+4).
+- LVH: 207 -> 208 (+1 marginal annotation #208).
+- Portfolio: 32+75 UNCHANGED.
+- Sub-properties NEW: PP-12/Q-A3 L=16 + PP-48 b_rep L-flat {5,6,7} + PP-33 caveat(p) barrier-direction + PP-50 RRAM transition-zone annotation.
+- BAND-LIFTS: 0.
+- Framework reliability product-feature: 83-97% UNCHANGED.
+
+**PROT compliance.**
+- PROT-004/006: No closures. 0 NEW ROWS. 0 BAND-LIFTS. R1-R5 rescue sketches cheapest-first for MIDDLE (PP-50) + LVH annotation (PP-33). No rescue for HP (Q-A3 + COMBO-2 honest).
+- PROT-007/008: v350 block appended. No portfolio regression.
+- PROT-009: 260th PROT-009 paired commit.
+- PROT-018: all 4 N=4096 binding confirmed (_n4096 suffix or script-level assertion).
+- PROT-021: all 4 _source=remote run_mode=full n_seeds=5.
+- PROT-022: activation_barrier formula ratio=2.3158 MATCHED; capacity_phase sigma_g_crit VERIFIED 4-alpha; COMBO-2 signed-AM b_rep=L-independent CONFIRMED.
+
+**Atomic commit.** cap_map.md + history.md + this strategy_decisions_2026-06-02.md + visibility_decisions_2026-06-02.md + status_log entry. **260th PROT-009 paired commit.** Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

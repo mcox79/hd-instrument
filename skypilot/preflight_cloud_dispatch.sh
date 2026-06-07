@@ -80,10 +80,27 @@ ok "$EXPECTED_SCRIPT present in bundle ($SIZE bytes)"
 # ============================================================================
 # CHECK 3: Zero orphan launcher / watcher / monitor processes (Bug B)
 # ============================================================================
+# The smart launcher INVOKES this preflight, so preflight's own ancestor chain
+# (PPID, PPPID, ...) MAY contain a legitimately-running launcher we should not
+# flag. Walk the ancestor chain and collect those PIDs to ignore.
 echo "[check 3/6] orphan launcher / watcher / monitor processes"
-ORPHANS=$(ps auxf 2>/dev/null | grep -iE 'watch_cloud_|launch_cloud_|smart_launch_cloud_|monitor_cloud_' | grep -v grep || true)
+ALLOWED_PIDS="$$ $PPID"
+P=$PPID
+while [ -n "$P" ] && [ "$P" != "1" ] && [ "$P" != "0" ]; do
+  P=$(ps -o ppid= -p "$P" 2>/dev/null | tr -d ' ' || echo "")
+  if [ -n "$P" ] && [ "$P" != "0" ] && [ "$P" != "1" ]; then
+    ALLOWED_PIDS="$ALLOWED_PIDS $P"
+  fi
+done
+# Build awk-ready skip list: PIDs in column 2 of ps output to ignore
+ALLOWED_REGEX=$(echo "$ALLOWED_PIDS" | tr ' ' '|')
+ORPHANS=$(ps auxf 2>/dev/null \
+  | grep -iE 'watch_cloud_|launch_cloud_|smart_launch_cloud_|monitor_cloud_' \
+  | grep -v grep \
+  | awk -v sk="^($ALLOWED_REGEX)$" '$2 !~ sk' \
+  || true)
 if [ -n "$ORPHANS" ]; then
-  echo "  orphan processes found:"
+  echo "  orphan processes found (excluding current ancestor chain: $ALLOWED_PIDS):"
   echo "$ORPHANS" | sed 's/^/    /'
   fail "orphan launcher / watcher / monitor processes are running.
 Kill them first:
@@ -92,7 +109,7 @@ Kill them first:
   pkill -9 -f smart_launch_cloud_
   pkill -9 -f monitor_cloud_"
 fi
-ok "no orphan watcher / launcher / monitor processes"
+ok "no orphan watcher / launcher / monitor processes (excl. current chain: $ALLOWED_PIDS)"
 
 # ============================================================================
 # CHECK 4: Lambda API direct probe -- ZERO running instances

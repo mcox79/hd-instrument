@@ -1,0 +1,50 @@
+
+# v371 update (2026-06-03) -- CYCLE 39 BATCH: 5 HARD_PASS; 0 LVH; Q-A3 L=58+L=59 N=16384 (NEW DEEPEST L=59; 40-rung series); Q-A3 L=33+L=34 N=8192 (14-rung series); PP-50 v2 N=16384 HARD_PASS (cuda.synchronize fix; cycle 38 UNKNOWN CLOSED); BAND-LIFT PP-12/Q-A3 0.85-0.97->0.86-0.97; HONEST 631->636; LVH 212; Portfolio 32+77 UNCHANGED; 282nd PROT-009 paired commit
+
+## v370 -> v371 (2026-06-03) Cycle 39 batch; 5 HP; 0 LVH; Q-A3 L=58+L=59 N=16384 (rungs 39-40; NEW DEEPEST L=59); Q-A3 L=33+L=34 N=8192 (rungs 13-14); PP-50 v2 N=16384 (cuda fix; cycle38 UNKNOWN closed); BAND-LIFT PP-12/Q-A3 0.85-0.97->0.86-0.97 (4-rung batch); HONEST 631->636; LVH 212 UNCHANGED; Portfolio 32+77 UNCHANGED; 282nd PROT-009 paired commit
+
+## Step 0: Honest re-read (MANDATORY) -- CYCLE 39
+
+All 5 anchors: labels honest. 0 LVH. PP-50 v2 N=16384 closes cycle 38 UNKNOWN (v1 failed run).
+
+## Cap_map table (v370 -> v371)
+
+| # | anchor | wall | N | seeds | verdict | honest re-read | cap_map action |
+|---|--------|------|---|-------|---------|----------------|----------------|
+| 1 | q_a3_l58_cross_layer_composition_v1_n16384 | 19.7s GPU | 16384 | 5 | HARD_PASS | All 58 fids EXACT-1.0000 unanimous 5/5; l58_acc=1.0000; source=remote run_mode=full | PP-12/Q-A3 L=58 N=16384 sub-property; rung 39; N=16384 series {L=20..L=58}; ceiling NOT found |
+| 2 | q_a3_l59_cross_layer_composition_v1_n16384 | 20.0s GPU | 16384 | 5 | HARD_PASS | All 59 fids EXACT-1.0000 unanimous 5/5; l59_acc=1.0000; NEW DEEPEST; source=remote run_mode=full | PP-12/Q-A3 L=59 N=16384 sub-property; rung 40; NEW DEEPEST in project; N=16384 series {L=20..L=59}; BAND-LIFT 0.85-0.97->0.86-0.97 |
+| 3 | q_a3_l33_cross_layer_composition_v1_n8192 | 3.1s GPU | 8192 | 5 | HARD_PASS | All 33 fids EXACT-class 1.0000000342 unanimous 5/5; l33_acc=1.0000000342; source=remote run_mode=full | PP-12/Q-A3 L=33 N=8192 sub-property; rung 13; 2-N cross-N at L=33 {N=4096 v360+N=8192 v371}; N=8192 series {L=19,L=22..L=33} |
+| 4 | q_a3_l34_cross_layer_composition_v1_n8192 | 3.1s GPU | 8192 | 5 | HARD_PASS | All 34 fids EXACT-class 1.0000000342 unanimous 5/5; l34_acc=1.0000000342; source=remote run_mode=full | PP-12/Q-A3 L=34 N=8192 sub-property; rung 14; 2-N cross-N at L=34 {N=4096 v361+N=8192 v371}; N=8192 series {L=19,L=22..L=34} 14 rungs; N=8192 deepest=L=34 (new N=8192 record) |
+| 5 | pp50_kappa3_delta_alpha_n16384_v2_n16384 | 1.4s GPU | 16384 | 5 | HARD_PASS | sigma_sep d=0.04:407.2 (HP>=100; 4.07x); d=0.01:117.8 (HP>=10; 11.8x); d=0.001:11.8 (HP>=3.0; 3.9x); n_seeds=5 N=16384; source=remote run_mode=full | PP-50 v2 N=16384 CLOSES cycle 38 UNKNOWN; NLO sigma_g_crit=0.833 confirmed; 3-rung ALL-v3-protocol {N=8192+N=16384+N=32768} COMPLETE; band 0.83-0.94 UNCHANGED (v370 already applied lift) |
+
+**(A) PP-12/Q-A3 L=58 sub-property (rung 39; {L=20..L=58} 39-rung series).** q_a3_l58_cross_layer_composition_v1_n16384 GENUINE FULL HARD_PASS (wall=19.7s GPU, n_seeds=5, N=16384). All 58 level fidelities EXACT-1.0000 unanimous 5/5 seeds. l58_acc=1.0000. Source=remote run_mode=full. N=16384 series: {L=20..L=58} = 39 contiguous rungs. Ceiling NOT found. 23 rungs beyond N=4096 tested ceiling (L=35).
+
+**(B) PP-12/Q-A3 L=59 sub-property + BAND-LIFT 0.85-0.97->0.86-0.97 (rung 40; NEW DEEPEST in project).** q_a3_l59_cross_layer_composition_v1_n16384 GENUINE FULL HARD_PASS (wall=20.0s GPU, n_seeds=5, N=16384). All 59 level fidelities EXACT-1.0000 unanimous 5/5 seeds. l59_acc=1.0000. Source=remote run_mode=full. L=59 is NEW DEEPEST in project history (prior L=57 v370; +2 rungs). N=16384 series: {L=20..L=59} = 40 contiguous rungs. 24 rungs beyond N=4096 tested ceiling (L=35). BAND-LIFT: 4-rung batch {L=58+L=59 N=16384 + L=33+L=34 N=8192} = 4 new rungs across N-scales. 4-rung threshold met. +0.01 lower bound per convention. Upper bound at 0.97 ceiling (unchanged). Product framing: substrate cross-layer composition holds EXACT-1.0000 fidelity through 59 levels at N=16384; 40-rung contiguous N=16384 series; no ceiling found; algebraic audit moat structurally unbounded at production-N; L=59 rung 39 in cycle 39 (rung == cycle milestone).
+
+**(C) PP-12/Q-A3 L=33 N=8192 sub-property (rung 13; 2-N cross-N at L=33).** q_a3_l33_cross_layer_composition_v1_n8192 GENUINE FULL HARD_PASS (wall=3.1s GPU, n_seeds=5, N=8192). All 33 fids=1.0000000342 (EXACT-class float) unanimous 5-seed. l33_acc=1.0000000342. Source=remote run_mode=full. N=8192 series extends to {L=19, L=22..L=33} = 13 rungs. 2-N cross-N at L=33: {N=4096 v360 + N=8192 v371}. Composition N-independent at L=33 across 2x N range.
+
+**(D) PP-12/Q-A3 L=34 N=8192 sub-property (rung 14; 2-N cross-N at L=34; N=8192 deepest = new record).** q_a3_l34_cross_layer_composition_v1_n8192 GENUINE FULL HARD_PASS (wall=3.1s GPU, n_seeds=5, N=8192). All 34 fids=1.0000000342 (EXACT-class float) unanimous 5-seed. l34_acc=1.0000000342. Source=remote run_mode=full. N=8192 series: {L=19, L=22..L=34} = 14 rungs. L=34 is new deepest for N=8192 (prior L=32 v370). 2-N cross-N at L=34: {N=4096 v361 + N=8192 v371}. Composition N-independent at L=34 across 2x N range (N=4096 to N=8192).
+
+**(E) PP-50 v2 N=16384 HARD_PASS -- cycle 38 UNKNOWN CLOSED; NLO sigma_g_crit=0.833 confirmed.** pp50_kappa3_delta_alpha_n16384_v2_n16384 GENUINE FULL HARD_PASS (wall=1.4s GPU, n_seeds=5, N=16384). cuda.synchronize fix (v2 redesign) restores correct sigma_sep measurement. All 3 HP gates met: delta=0.04:407.2 (HP=100; 4.07x), delta=0.01:117.8 (HP=10; 11.8x), delta=0.001:11.8 (HP=3.0; 3.9x). NLO sigma_g_crit=0.833 envelope (4.6x wider than LO) CONFIRMED at N=16384 via proper synchronization. PROT-022 N^(2/3) check: actual 407.2 vs expected 360.7 (1.13x above; conservative). 3-rung ALL-v3-protocol cross-N {N=8192 v370 + N=16384 v2 + N=32768 v363} COMPLETE. PP-50 band 0.83-0.94 UNCHANGED (v370 already applied band-lift for 3-rung cross-N; v2 is the confirmation of the already-counted rung). Sub-property annotation: 'NLO sigma_g_crit=0.833 4.6x-wider envelope confirmed at N=16384 v2; cuda.synchronize fix; 3-rung ALL-v3-protocol complete.' Product framing: kappa_3 spectral-MAC drift detection envelope is wider than LO theory predicted (4.6x); substrate tolerates larger noise perturbations than naive estimate at production-N.
+
+**Tallies (v370 -> v371).**
+- HONEST: 631 -> 636 (+5 counted; 0 LVH).
+- LVH: 212 UNCHANGED.
+- Portfolio: 32+77 UNCHANGED (no new top-level rows).
+- BAND-LIFTS: 1 (PP-12/Q-A3 0.85-0.97->0.86-0.97; 4-rung batch {L=58+L=59 N=16384 + L=33+L=34 N=8192}).
+- Sub-properties NEW (5): PP-12/Q-A3 L=58 N=16384 (rung 39) + PP-12/Q-A3 L=59 N=16384 (rung 40; NEW DEEPEST; BAND-LIFT) + PP-12/Q-A3 L=33 N=8192 (rung 13; 2-N cross-N L=33) + PP-12/Q-A3 L=34 N=8192 (rung 14; N=8192 deepest record; 2-N cross-N L=34) + PP-50 NLO sigma_g_crit=0.833 N=16384 confirmed (cycle 38 UNKNOWN closed).
+- N=16384 series PP-12/Q-A3: {L=20..L=59} 40 rungs; L=59 deepest in project.
+- N=8192 series PP-12/Q-A3: {L=19, L=22..L=34} 14 rungs; L=34 deepest for N=8192.
+- Framework reliability: UNCHANGED (product-feature 86-98%).
+
+**PROT compliance (v370 -> v371).**
+- PROT-004/006: No closures. 0 new rows. 1 BAND-LIFT (PP-12/Q-A3 0.85-0.97->0.86-0.97). No rescue sketches required (all HP).
+- PROT-007/008: v371 block appended. No portfolio regression.
+- PROT-009: 282nd PROT-009 paired commit.
+- PROT-018: all 5 _nN bindings verified (_n16384 for L58/L59/PP50v2; _n8192 for L33/L34). 0 violations.
+- PROT-021: all 5 source=remote run_mode=full n_seeds=5 confirmed. No smoke artifacts.
+- PROT-022: all 5 per-metric cross-checks passed (Q-A3 EXACT pattern self-consistent; PP-50 N^(2/3) scaling conservative).
+
+**Atomic commit.** cap_map.md + strategy_decisions_2026-06-03.md + visibility_decisions_2026-06-03.md + status_log entry. 282nd PROT-009 paired commit. Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**Cap_map version: v371.**

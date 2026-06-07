@@ -22,13 +22,16 @@ name: cornerstone
 
 resources:
   cloud: lambda
-  # SXM5: 3 TB/s HBM3; ~30% faster wall on bandwidth-bound LLM forwards.
-  # Single-H100 SXM5 SKU was historically billed at ~$4.29/hr (Phase 0.5 v1
-  # session confirms). External pricing references suggest SXM may only be
-  # sold as 8-GPU node ($32/hr) in some regions; --retry-until-up cycles
-  # regions and the autostop + explicit teardown protect against runaway
-  # spend either way. If launch picks an 8-GPU node, the launcher's
-  # post-run `sky down` ensures we do not pay past ~2h.
+  # Per feedback_cloud_location_doesnt_matter: any Lambda region OK. But
+  # SkyPilot's failover defaults to us-east-1 first and does NOT auto-switch
+  # regions on capacity miss; the LAUNCHER passes --region explicitly (queried
+  # from Lambda API for live SXM5 capacity at launch time). Pinned to SXM5
+  # only here because PCIe was sold out fleet-wide at 2026-06-04 17:15 UTC
+  # while SXM5 had capacity in us-south-2 + us-southeast-1.
+  # Use instance_type (not accelerators) because SkyPilot's catalog accelerator
+  # names do not differentiate SXM5 vs PCIe ("H100" matches both). With PCIe
+  # sold out fleet-wide (2026-06-04), pin to SXM5 SKU + let launcher pick the
+  # region via Lambda API.
   instance_type: gpu_1x_h100_sxm5
   use_spot: false
 
@@ -50,10 +53,21 @@ setup: |
   sudo apt-get update -qq 2>&1 | tail -2
   sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
 
-  echo "=== [setup 3/9] pip core ==="
+  echo "=== [setup 3/9] pip core + defensive torch pin for older Lambda images ==="
   pip install --quiet --upgrade pip
+  # Defensive torch pin: some Lambda images (e.g. us-south-2 as of 2026-06-04)
+  # ship CUDA driver 12.0.80, which is too old for the default torch 2.7.x
+  # (built for CUDA 12.6+). Pin torch 2.4.1+cu121:
+  #   - Minor-version-compatible with CUDA driver 12.0+
+  #   - >= 2.4 required by transformers 4.45 (peft.py imports break on 2.3)
+  # On newer-image regions (us-east-1) this is a small downgrade that costs nothing.
+  pip install --quiet --upgrade --force-reinstall \
+    "torch==2.4.1" "torchvision==0.19.1" \
+    --index-url https://download.pytorch.org/whl/cu121 || \
+    pip install --quiet "torch==2.4.1" "torchvision==0.19.1"
+  python -c "import torch; print(f'torch {torch.__version__} cuda {torch.version.cuda} driver_ok={torch.cuda.is_available()}')"
   pip install --quiet -r requirements_cloud.txt
-  pip install --quiet "transformers>=4.45" "datasets>=2.19" "huggingface_hub>=0.25" "accelerate>=0.30"
+  pip install --quiet "transformers>=4.45,<4.50" "datasets>=2.19" "huggingface_hub>=0.25" "accelerate>=0.30"
 
   echo "=== [setup 4/9] clone + install hyperprobe ==="
   if [ ! -d /tmp/hyperprobe ]; then

@@ -1,0 +1,62 @@
+## CYCLE 67 BATCH -- v396 -> v397 (2026-06-04)
+
+### Step 0 Honest Re-Read
+
+5 verdicts. All source=remote authoritative. Bridge stale but remote SSH fallback successful for all 5. 0 LVH catches. HONEST 834 -> 839 (+5).
+
+Label checks:
+- substrate_friston_fep_trigram_cell_v1_n4096 HARD_FAIL: fep_nats=3.587 > baseline_nats=2.568 (FEP worse than baseline) 3/3 seeds; improvement=-1.019 nats; 0/3 seeds>0.5. Honest.
+- substrate_cfrpe_sparse_superadditive_bigram_v1_n512_gpu MIDDLE_BAND: combined=2.453 ~= min_single=2.471; super_seeds=0/5; combined not strictly superadditive per pre-reg. Honest.
+- substrate_task_complexity_sweep_v1_512_8192_gpu HARD_PASS: all 3 tasks gap>1.0 at N=8192 confirmed across 3 seeds (lowest: wiki_trigram cfrpe seed7=1.545). Honest.
+- substrate_polynomial_p4_bcm_factorial_rung1_v1_n512 HARD_FAIL: p4 gaps all negative (best p4_cumulative=-3.403; 0/3 seeds gap>0.3). p2 also negative; N=512 rung-1 fails for polynomial regime. Honest.
+- kappa3_noise_convention_sign_distinguisher_v1_n4096 HARD_PASS: B_pos=3/3 sigma_g cells all 5 seeds; B_matches_formula=2/3 cells (sg=0.1 + sg=0.2); |A|<|B|=True all 5 seeds; sg=0.05 cell direction correct but below formula precision. Honest.
+
+### Cap_map Decisions
+
+**(A) substrate_friston_fep_trigram_cell_v1_n4096 HARD_FAIL -- FEP implicit-subsumption at trigram level**
+fep_nats (mean 3.587) > baseline_k1 (mean 2.568); delta=-1.019 nats; 0/3 seeds beat baseline. FEP is not additive to the substrate baseline at trigram order. Implicit-subsumption: baseline captures FEP-level information at this order; FEP overhead adds no benefit. No row closure (rung-1 exploratory probe on LLM-integration dimension). Sub-property annotation on PP-8/LLM-integration: 'friston_fep_trigram rung1 N=4096 HARD_FAIL: FEP -1.019 nats vs baseline 3/3 seeds; FEP subsumption at trigram order confirmed.'
+Rescue cheapest-first per [[feedback-rescue-sketch-first-sequencing]]:
+- R1 (free, subsumption): higher-order context tasks (extctx-4/8) where FEP prediction horizon may provide non-redundant signal.
+- R2 (1h CPU) FEP at extctx-8 task (wiki_v70_extctx8); does longer context produce FEP advantage?
+- R3 (1h CPU) FEP + NLO correction applied (kappa_3 noise-aware FEP update rule) at trigram.
+- R4 (2h CPU) FEP at N=8192 to separate N-scaling from task-order effects.
+- R5 (synthesis) FEP at extctx-8 N=8192 is most-likely success region; schedule after R2.
+
+**(B) substrate_cfrpe_sparse_superadditive_bigram_v1_n512_gpu MIDDLE_BAND -- combination additive-only; heterogeneous pairing needed**
+5-seed N=512 bigram: combined (sparse+cfrpe) mean=2.453 nats; best single (cfrpe A2) mean=2.471; combined marginally better on mean but super_seeds=0/5. Shared coding basis (bipolar vs sparse variants of same family) makes linear combination near-tautological. Sub-property annotation on PP-8/composition: 'cfrpe+sparse_hebbian N=512 bigram: super_seeds=0/5; combined approx best-single; shared-basis combination insufficient for superadditive lift.'
+Rescue cheapest-first:
+- R1 (free): subsumption -- sparse_cfrpe and cfrpe share coding subspace; heterogeneous pairing is the correct rescue axis.
+- R2 (1h CPU) heterogeneous pairing: cfrpe + STDP; test superadditivity with genuinely orthogonal mechanisms.
+- R3 (1h CPU) sparse_hebbian + temporal-context arm if available; different recency-weighting combination.
+- R4 (2h GPU) combination at N=2048/4096 where arm quality differences sharpen.
+- R5 (synthesis) Composition classification: this arm pair is SCORE-level (same feature space); need HANDOFF-level for genuine superadditivity.
+
+**(C) substrate_task_complexity_sweep_v1_512_8192_gpu HARD_PASS -- task-complexity scaling confirmed through extctx-8 at N=8192**
+3 seeds x 2 archs (cfrpe + drosophila_sparse) x 3 tasks x 3 N. All 3 tasks gap>1.0 at N=8192 both archs: zipf_bigram mean_gap~3.78 nats, wiki_trigram mean_gap~1.58, wiki_extctx8 mean_gap~1.70. N-scaling flat (bigram/trigram/extctx-8 gaps stable across N512->N8192). KEY RESULT: substrate handles 8th-order context with gap>1.0 nats above uniform at N=8192.
+PP-8 sub-property annotation: 'task_complexity_sweep_v1 N512->N8192: 3/3 tasks gap>1.0 at N=8192 confirmed 3-seed 2-arch; extctx-8 gap~1.70 nats; flat N-scaling; substrate task-complexity-capable at production N=8192.'
+No band-lift on PP-8 (standalone LM capability, not LLM-integration composition). Capability: substrate usable as 8th-order context memory at N=8192.
+
+**(D) substrate_polynomial_p4_bcm_factorial_rung1_v1_n512 HARD_FAIL -- BCM factorial p4 N=512 scale gate; both degrees fail**
+p4 cumulative gaps: -3.403/-3.548/-3.880 (3 seeds). p2 cumulative also negative (-3.988/-3.943/-4.200). N=512 BCM factorial sub-threshold for any polynomial order. Episodic mode worse (-7.6 to -8.0). Failure is not polynomial-degree-specific; it is N-scale and BCM-convergence specific. No row closure. Sub-property annotation on polynomial: 'polynomial_p4_bcm_factorial rung1 N=512 HARD_FAIL: p4+p2 both negative; BCM N=512 scale gate.'
+Rescue cheapest-first:
+- R1 (free): BCM factorial convergence requires N>512; p4_cumulative best mode (3.4 vs 7.8 nats off in episodic).
+- R2 (1h CPU) p4 cumulative N=2048; test N-scaling recovery.
+- R3 (2h CPU) p4 vs p2 N=4096 cumulative; test polynomial order advantage at production N.
+- R4 (free): M=58865 cumulative samples still fails; BCM factorial needs larger N not more samples at N=512.
+
+**(E) kappa3_noise_convention_sign_distinguisher_v1_n4096 HARD_PASS -- sign convention resolved: additive-on-patterns = POSITIVE kappa_3**
+5 seeds N=4096 alpha=0.05. deltaB>0 all 3 sigma_g cells all 5 seeds. Formula 3*sg^2*alpha: passes sg=0.1+sg=0.2 (2/3 cells 5-seed unanimous); sg=0.05 direction correct but relB=0.35-0.59 (sub-resolution). |A|<|B| all cells all seeds. Convention LOCKED: additive noise on patterns = POSITIVE kappa_3 perturbation; additive noise on W = negligible.
+PP-50 sub-property annotation: 'kappa3_sign_convention_v1 N=4096 HP: noise_on_patterns->positive_kappa3 (B_pos 3/3 cells 5 seeds); formula match sg=0.1+0.2; |A|<|B| 5/5 seeds; sign convention LOCKED.'
+PP-50 band 0.83-0.94 UNCHANGED. Synergy: cycle-66 kappa3_nlo_formula_validation_sigma_g_v1 sign inversion (5/5 seeds NEG) now explained -- additive-on-W convention produces negative; the sign distinguisher confirms convention B (on-patterns) is positive. Cross-reference annotation filed.
+
+### PROT compliance (v396 -> v397)
+- PROT-004/006: No closures. 0 new top-level rows. 3 sub-property annotations (PP-8 friston_fep, PP-8 task-complexity, PP-50 sign-convention). Rescues R1-R5 cheapest-first filed for anchors A and B; R1-R4 for D. No PROT-004 closure triggers.
+- PROT-007/008: v397 block appended. No portfolio regression. Portfolio 32+77 UNCHANGED.
+- PROT-009: 308th PROT-009 paired commit.
+- PROT-018: friston_fep _n4096 confirmed; cfrpe_sparse _n512 confirmed; task_complexity _512_8192 range-encoding; polynomial_p4 _n512 confirmed; kappa3_sign _n4096 confirmed. 0 PROT-018 violations.
+- PROT-021: all 5 source=remote run_mode=full. No smoke artifacts.
+- PROT-022: friston_fep fep_nats=3.587 > baseline=2.568 consistent 3 seeds (delta -0.99 to -1.04); cfrpe_sparse combined=2.453 vs min_single=2.471 consistent 5 seeds; task_complexity gap>1.0 at N=8192 all 18 cells (lowest=1.545); polynomial_p4 p4_cumulative -3.403/-3.548/-3.880 consistent; kappa3_sign deltaB positive all 15 cells (3 sg x 5 seeds).
+
+HONEST: 834 -> 839 (+5). LVH: 217 UNCHANGED. Portfolio: 32+77 UNCHANGED.
+Cap_map: v396 -> v397.
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

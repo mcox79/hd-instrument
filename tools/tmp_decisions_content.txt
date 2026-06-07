@@ -1,0 +1,26 @@
+
+
+## v436 CYCLE 113 -- 2 NEW HP + 9 DUPLICATES (2026-06-05 CYCLE 113)
+
+### Step 0 honest re-read
+
+(A) substrate_hallucination_detection_minilm_v1: HARD_PASS label vs per-cell: AUC 0.9996/0.9989/0.9994 all >> 0.90 threshold. Mean recall 0.988 matches label. LABEL HONEST. No LVH.
+
+(B) substrate_real_encoder_capabilities_v1: HARD_PASS label vs per-cell: 18/18 cells = 1.000. Unanimous ceiling. LABEL HONEST. No LVH.
+
+Anchors 3-11: All confirmed duplicates of v431-v433 committed verdicts. Metrics identical. NO ACTION.
+
+HONEST: 945 -> 947 (+2). LVH: 223 UNCHANGED.
+
+### Cap_map decisions (v435 -> v436)
+
+1. KF-1 hallucination-detection BAND-LIFT 65-80% -> 70-85%: AUC=0.999 with real MiniLM encoder confirms encoder-agnostic mechanism. +5% cap per lit-scan penalty (single-N N=384, 3-seed). Caveats: N-scaling from 384 to 4096+ not confirmed with MiniLM; adaptive adversary not tested.
+
+2. PP-8 substrate-LLM deep-integration BAND-LIFT 0.50-0.65 -> 0.55-0.70: v433 minilm_encoder_fidelity + v436 real_encoder_capabilities both at ceiling = two-anchor encoder-agnostic confirmation. +5% cap per lit-scan penalty (synthetic test scenarios; no LLM generation in loop yet).
+
+3. 9 duplicate anchors: no cap_map action.
+
+Queue state: bridge stale; last known 0 pending both queues. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+Portfolio: 32+77 UNCHANGED. 0 new rows. 2 BAND-LIFTS. 0 closures.
+HONEST: 945 -> 947. LVH: 223. Cap_map: v435 -> v436.

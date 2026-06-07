@@ -1,0 +1,177 @@
+# Phase 0.5 + 0.5b full pipeline on Lambda H100 via SkyPilot.
+# Replaces the homegrown launch_batch.py orchestrator that bled through
+# Dispatches 12-18 ($26+ session cost on iteration).
+#
+# This YAML is shipped from a WSL-native bundle at ~/hd-ship/ to bypass the
+# WSL2 /mnt/d 9P stat-walk stall (4.4 GB walked, 23+ min wait, rsync stuck
+# before any transfer). Bundle is rebuilt by skypilot/build_hd_ship.sh.
+#
+# Launch (from inside WSL Ubuntu, skyvenv activated):
+#   source /root/skyvenv/bin/activate
+#   bash /mnt/d/AI/hd-instrument/skypilot/build_hd_ship.sh   # rebuild bundle
+#   cd /root/hd-ship
+#   sky launch -c hd-phase05 -y --async --retry-until-up -i 10 \
+#       --env HF_TOKEN="$(cat /mnt/d/AI/hd-instrument/.hf_token)" \
+#       skypilot/phase05.yaml
+#
+# Monitor:
+#   sky logs hd-phase05            # follows live (Ctrl+C detaches; job continues)
+#   sky status                     # cluster + cost
+#
+# After completion, fetch artifacts back:
+#   sky rsync-down hd-phase05 ~/sky_workdir/data ./data/skypilot_results/
+#   sky down -y hd-phase05         # terminate (don't forget; $4.29/hr)
+#
+# Autostop already set via -i 10 above (10 min idle -> down). Override with:
+#   sky autostop hd-phase05 -i 30  # extend idle window
+
+name: hd-phase05
+
+resources:
+  cloud: lambda
+  # Pin SXM5: 3 TB/s HBM3 vs PCIe's 2 TB/s; ~30% faster wall on bandwidth-
+  # bound LLM forward passes. For a 4x longer training run (421 epochs vs
+  # 100) the wall savings outweigh the ~$1/hr premium. --retry-until-up
+  # will cycle Lambda regions for SXM5 capacity; if SXM5 is universally
+  # dry, the launch retries indefinitely (no cost while waiting).
+  instance_type: gpu_1x_h100_sxm5
+  use_spot: false   # Lambda has no spot API
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""   # filled at launch: --env HF_TOKEN=$(cat .hf_token)
+
+setup: |
+  set -e
+  echo "=== [setup 1/9] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env var is empty -- did you pass --env HF_TOKEN=...?"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/9] apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+
+  echo "=== [setup 3/9] pip core ==="
+  pip install --quiet --upgrade pip
+  pip install --quiet -r requirements_cloud.txt
+  pip install --quiet "vllm>=0.6,<0.7"
+  pip install --quiet "transformers>=4.45" "datasets>=2.19" "huggingface_hub>=0.25" "accelerate>=0.30"
+
+  echo "=== [setup 4/9] clone + install hyperprobe ==="
+  if [ ! -d /tmp/hyperprobe ]; then
+    git clone https://github.com/Ipazia-AI/hyperprobe.git /tmp/hyperprobe
+  fi
+  cd /tmp/hyperprobe
+  git pull --ff-only || true
+  pip install --quiet -e .
+  cd ~/sky_workdir
+
+  echo "=== [setup 5/9] transitive deps that hyperprobe declares incompletely ==="
+  # Per Dispatch 2-5 discoveries: hyperprobe's pyproject.toml + requirements.txt
+  # miss these. Bare names so pip resolves whatever is compatible.
+  # scikit-learn added 2026-06-04: required by the
+  # _selftest_algorithm1_embedding_pipeline self-check (Algorithm 1 k-means
+  # surrogate). hyperprobe.kmeans_cuda handles the real run, but the selftest
+  # uses sklearn.cluster.KMeans for a CPU-only structural verification.
+  pip install --quiet \
+    word2number \
+    sentence-transformers \
+    wn \
+    spacy \
+    SPARQLWrapper \
+    requests-cache \
+    python-dotenv \
+    torch-hd \
+    scikit-learn
+
+  echo "=== [setup 6/9] HF login ==="
+  python -c "from huggingface_hub import login; import os; login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)"
+
+  echo "=== [setup 7/9] verify Llama-3.1-8B-Instruct access ==="
+  python -c "
+  from huggingface_hub import HfApi
+  info = HfApi().model_info('meta-llama/Llama-3.1-8B-Instruct')
+  print(f'OK: Llama-3.1-8B-Instruct accessible (last_modified={info.last_modified})')
+  "
+
+  echo "=== [setup 8/9] pre-pull Llama-3.1-8B snapshot ==="
+  python -c "
+  from huggingface_hub import snapshot_download
+  import os
+  snapshot_download(
+      repo_id='meta-llama/Llama-3.1-8B-Instruct',
+      token=os.environ['HF_TOKEN'],
+      cache_dir=os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface')),
+      allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.model'],
+  )
+  print('OK: Llama-3.1-8B-Instruct snapshot ready')
+  "
+
+  echo "=== [setup 9/9] hyperprobe import + VSA smoke ==="
+  python -c "
+  import hyperprobe
+  for fn in ['create_codebook', 'ingest_embeddings', 'create_vsa_encodings',
+             'inputDataset', 'llm2VSA_dataloader', 'train_hyperprobe',
+             'VSAEncoder', 'load_llm', 'probe_doc']:
+      assert hasattr(hyperprobe, fn), f'hyperprobe missing {fn}'
+  print('OK: all required hyperprobe APIs present')
+  inputs = [
+    {'doc': 'Denmark : krone = Mexico : peso',
+     'concepts': [('Denmark','krone'), ('Mexico', 'peso')]},
+    {'doc': 'Berlin : Germany = Tokyo : Japan',
+     'concepts': [('Berlin', 'Germany'), ('Tokyo', 'Japan')]},
+    {'doc': 'introvert : extravert = big : small',
+     'concepts': [('introvert', 'extravert'), ('big', 'small')]},
+  ]
+  all_concepts = set(c for it in inputs for p in it['concepts'] for c in p)
+  cb = hyperprobe.create_codebook(concepts=list(all_concepts), vsa_dimension=128)
+  for item in inputs:
+      vsa = hyperprobe.create_vsa_encodings(item, cb)
+      assert hasattr(vsa, 'shape'), f'VSA encoding has no shape: {vsa!r}'
+      assert vsa.shape[-1] == 128, f'expected dim 128, got {vsa.shape}'
+  print('OK: hyperprobe create_vsa_encodings end-to-end smoke (3 inputs, D=128)')
+  "
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  # set -e gives us natural abort-on-failure semantics:
+  #   - Each anchor returns 0 on HARD_PASS or MIDDLE_BAND, 1 on HARD_FAIL
+  #   - The probe_validation HARD_FAIL is our "abort gate" -- if Wave 2 fails,
+  #     waves 3-6 don't run because set -e stops the script.
+  set -e
+  cd ~/sky_workdir
+
+  # Hyperprobe's Lightning Trainer hardcodes deterministic=True; CuBLAS
+  # workspace config must be set BEFORE Python starts to avoid the
+  # RuntimeError: "Deterministic behavior was enabled..." crash.
+  export CUBLAS_WORKSPACE_CONFIG=:4096:8
+  export HDLAB_RUN_MODE=full
+  export HF_TOKEN="$HF_TOKEN"
+
+  echo "=== [1/5] Wave 1: phase05_probe_training_v1 ==="
+  python -u experiments/exp_phase05_probe_training_v1.py
+  echo "=== Wave 1 complete (exit $?) ==="
+
+  echo "=== [2/5] Wave 2 gate: phase05_probe_validation_v1 ==="
+  # If this script exits 1 (cos_sim<0.75 OR binary_acc<0.80), set -e
+  # aborts the run script and waves 3a-3c don't fire.
+  python -u experiments/exp_phase05_probe_validation_v1.py
+  echo "=== Wave 2 PASSED gate (exit $?) ==="
+
+  echo "=== [3/5] Wave 3a: Y+ drift (A1 kappa_3 + A2 BBP) ==="
+  python -u experiments/exp_tier7_mvp_hyperprobe_llama31_drift_v2_y_plus_dual_observable.py
+
+  echo "=== [4/5] Wave 3b: Y+ deletion cert (B1 PP-46 + B2 PP-56) ==="
+  python -u experiments/exp_tier7_mvp_hyperprobe_llama31_deletion_cert_v2_y_plus_dual_primitive.py
+
+  echo "=== [5/5] Wave 3c: Y+ refusal cert (C1 depth-3 + C2 depth-4) ==="
+  python -u experiments/exp_tier7_mvp_hyperprobe_llama31_refusal_cert_v2_y_plus_depth_defensive.py
+
+  echo "=== all 5 waves complete (3 Y+ sub-tests, 6 sub-cells) ==="
+  echo "=== artifacts at ~/sky_workdir/data/ (sky rsync-down to fetch) ==="
+  ls -la ~/sky_workdir/data/exp_*/ 2>/dev/null | head -40

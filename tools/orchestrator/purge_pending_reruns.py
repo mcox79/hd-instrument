@@ -1,28 +1,31 @@
-"""purge_pending_reruns.py -- remove PENDING entries whose anchor already has a COMPLETED entry (re-run padding).
-Keeps: running, completed, failed, and pending entries that are genuinely NEW (no prior completed). Atomic write, UTF-8 no BOM.
-Usage: python purge_pending_reruns.py <queue.json> [--apply]   (dry-run unless --apply)
+"""purge_pending_reruns.py -- remove PENDING entries that are RE-RUNS (a metrics.json already exists for that anchor).
+Keeps: running, completed, failed, and pending entries that are genuinely NEW (no prior metrics.json = never run).
+Atomic write, UTF-8 no BOM. Run while runners are stopped to avoid concurrent-write races.
+Usage: python purge_pending_reruns.py <queue.json> <data_root> [--apply]   (dry-run unless --apply)
 """
 import json, os, sys, io
 
 path = sys.argv[1]
+# derive data_root from queue path (data/<queue>/queue.json -> data/) to avoid shell backslash-mangling
+data_root = os.path.dirname(os.path.dirname(os.path.abspath(path)))
 apply = "--apply" in sys.argv
 with io.open(path, "r", encoding="utf-8-sig") as f:
     data = json.load(f)
 exps = data.get("experiments", [])
-completed_names = {e["name"] for e in exps if e.get("status") == "completed"}
 keep, dropped = [], []
 for e in exps:
-    if e.get("status") == "pending" and e["name"] in completed_names:
-        dropped.append(e["name"])
-    else:
-        keep.append(e)
+    if e.get("status") == "pending":
+        mpath = os.path.join(data_root, "exp_" + e["name"], "metrics.json")
+        if os.path.exists(mpath):
+            dropped.append(e["name"]); continue
+    keep.append(e)
 print("queue=%s total=%d pending_reruns_dropped=%d kept=%d" % (os.path.basename(path), len(exps), len(dropped), len(keep)))
 for n in dropped:
-    print("  DROP pending re-run: %s" % n)
+    print("  DROP pending re-run (metrics exist): %s" % n)
 if apply and dropped:
-    data["experiments"] = keep
     tmp = path + ".tmp"
-    with io.open(tmp, "w", encoding="utf-8") as f:   # utf-8 no BOM
+    data["experiments"] = keep
+    with io.open(tmp, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=True, indent=2)
     os.replace(tmp, path)
     print("APPLIED: queue rewritten (%d entries)" % len(keep))
