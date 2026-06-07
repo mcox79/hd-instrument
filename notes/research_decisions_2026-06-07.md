@@ -72,3 +72,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 
 - [storage_efficiency_per_fact_3x] notes/research_drill_storage_efficiency_per_fact_3x_2026-06-07.md -- real cost 286 KB/fact (W matrix dominates); sparse-W+4bit+N-reduction path to 16KB v1, 4KB v2, 500bytes v3; Path F low-rank foreclosed at production load; exp_dev handoff written
 - research_drill_storage_unconventional_mechanisms_2x_2026-06-07.md: 2x storage drill; 3 recommended paths (modern Hopfield N-reduction, delta/template, encoder distillation); P_deflated 500B/fact=0.25; 4 foreclosed
+
+- [privacy failure mechanism 3x drill] notes/research_drill_privacy_failure_mechanism_3x_2026-06-07.md -- SRHT hurt Llama due to cone-signal overlap; DP failed due to rank preservation; top paths: F (cone-aware cosine P=0.42), B (rank randomization P=0.32), A (privacy whitening P=0.38); exp_dev handoff: notes/exp_dev_handoff_research_privacy_failure_3x_2026-06-07.md
