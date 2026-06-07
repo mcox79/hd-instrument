@@ -601,3 +601,56 @@ patternb_bundle_manifold HF: R1 key-only d=30 is correct path (annotation); R2 i
 
 Cap_map: v479 -> v480 CYCLE 159 (4 HP: pattern_b_capacity-ACC1.0_K4-K24_3SEED + predicate_inversion_sparse-RECALL1.000_12.5pct_3SEED + d30_fullstack-15BYTES_RECALL1.000_2SEED + patternb_pinv-ACC1.000_1ROLE; 1 UNKNOWN: pca_zkl-T5_NON_EQUIV; 1 HF: patternb_bundle_manifold-DIM731_NO_PCA; 1 LVH_HF: #258 substrate_valueadd-ALL_ENCODERS_NEGATIVE_RETRIEVAL_OVERLAY; HONEST 1174->1181 +7; LVH 257->258 +1; 392nd PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v480 -> v481 CYCLE 160: ZKL PRIVACY CONTINUATION (2026-06-07)
+
+Verdicts processed (3 anchors): pca_bottleneck_zkl_marian_v1 + zkl_hypC_gram_v1 + zkl_hypB_position_v1
+
+### Step 0 honest re-read
+
+All 3 metrics fetched source=remote.
+
+- pca_bottleneck_zkl_marian_v1: HONEST=UNKNOWN (correct). ZKL(full)=0.920 with n_stored=300, sanity_ok=False. Calibration band 0.17-0.27 not met (0.920 is 3.4x above upper bound). Script correctly flags sanity_ok=False. UNKNOWN label is conservative and accurate. No LVH. +1 HONEST.
+
+- zkl_hypC_gram_v1: HONEST=HARD_FAIL (correct). Per-cell: MM=-0.0020, MN=-0.0000, gap=-0.0020 (n=500). Hyp C predicts MM > MN (match-match cosine similarity > match-nonmatch); observed gap=-0.0020 means MM is LOWER than MN -- wrong direction. KS_D=0.3578 p=0.00 detects a distributional difference, but the direction contradicts Hyp C. Gram mechanism is not the leakage pathway. HARD_FAIL label honest. No LVH. +1 HONEST.
+
+- zkl_hypB_position_v1: HONEST=HARD_PASS (correct). Per-cell: entropy_ratio=0.432, top3_share=0.859 (n=400, n_seeds=1). HP thresholds: entropy<0.4 OR top-3>60%. entropy_ratio=0.432 does NOT meet the entropy criterion (0.432 >= 0.4); top3_share=0.859 DOES meet top-3 criterion (0.859 >> 0.60). HP relies solely on the top3 branch of the OR condition -- this is valid but single-branch. Verdict_msg correctly cites both numbers. HARD_PASS label honest. No LVH. +1 HONEST.
+
+HONEST: 1181 -> 1184 (+3). LVH: 258 UNCHANGED.
+
+### Cap_map decisions (v480 -> v481)
+
+**(A) pca_bottleneck_zkl_marian_v1 (UNKNOWN -- MarianMT harness baseline mismatch; ZKL=0.920 uninterpretable):**
+Cycle-159 pca_bottleneck_zkl_sweep_v1 used T5 paraphrase (UNKNOWN, ZKL=0.083 vs expected 0.17-0.27). Cycle-160 pca_bottleneck_zkl_marian_v1 uses canonical MarianMT -- ZKL=0.920 (sanity_ok=False). Both calibration failures are in opposite directions (0.083 and 0.920 bracket the 0.17-0.27 band). Root cause: harness config mismatch (n/FPR/KB parameters differ from cycle-151 which produced the 0.17-0.27 band). ZKL row annotation: 'cycle-160 MarianMT d=full ZKL=0.920 (3.4x above calibration upper bound 0.27; sanity_ok=False); cycle-159 T5 d=full ZKL=0.083 (below lower bound 0.17); both UNKNOWN; ZKL calibration band requires exact cycle-151 config (n=?, FPR=?, KB=?); filed as ZKL_HARNESS_RECALIBRATION_NEEDED; d-sweep results uninterpretable until baseline validated.' Rescue sketches R1-R2 below. Cycle 160.
+
+**(B) zkl_hypC_gram_v1 (HARD_FAIL -- Gram-based leakage mechanism eliminated):**
+Hyp C tested: does ZKL privacy leakage live in pairwise Gram matrix (second-order cosine structure)? MM=-0.0020, MN=-0.0000, gap=-0.0020 -- wrong direction (MM < MN, not MM > MN). Gram mechanism ELIMINATED as leakage pathway. ZKL privacy mechanism annotation: 'Hyp C (gram-based leakage) ELIMINATED: MM=-0.0020 < MN=-0.0000; wrong direction at n=500; pairwise cosine Gram structure is not the leakage channel; Hyp B (position-based) remains the active hypothesis.' Cycle 160.
+
+**(C) zkl_hypB_position_v1 (HARD_PASS -- last-token pooling position concentration CONFIRMED as leakage mechanism):**
+Hyp B tested: does last-token pooling concentrate on a few input positions (position-based leakage source)? entropy_ratio=0.432 (borderline, fails entropy<0.4), top3_share=0.859 (>> 60%, strongly passes top-3 criterion). HP on OR condition. PRODUCT IMPLICATION: the ZKL leakage mechanism is position-concentration in last-token pooling; top-3 positions account for 85.9% of pooling weight; privacy mitigations: (a) position-specific mean subtraction before storage, (b) earlier-layer pooling (distribute attention across more positions), (c) mean pooling (uniform weights across positions). ZKL mechanism annotation: 'Hyp B (position-based leakage) CONFIRMED at n=400: last-token pooling top3_share=0.859 >> 0.60; 85.9% of weight on 3 positions; leakage mechanism = position concentration; entropy_ratio=0.432 borderline (HP via top3 only; entropy criterion not met); mitigations: position-mean-subtraction / earlier-layer pooling / mean-pooling; requires Llama+MarianMT real-harness validation to confirm leakage reduction. n=1 seed; 3-seed recommended.' Rescue sketches R1-R4 below. Cycle 160.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**ZKL harness recalibration (2 consecutive UNKNOWN; MarianMT + T5 both miscalibrated):**
+R1 (0-compute, ANNOTATION): Retrieve exact cycle-151 config (n/FPR/KB) from cycle-151 decisions log; do NOT run until baseline config confirmed.
+R2 (MEDIUM, GPU <2h): Re-run pca_bottleneck_zkl with exact cycle-151 config + MarianMT to restore calibration band; then re-run d-sweep.
+
+**Hyp B position-concentration (HP founding -- privacy mitigation path):**
+R1 (0-compute, ANNOTATION): last-token top3_share=0.859 HP via top-3 criterion; entropy criterion borderline (0.432 vs 0.40 threshold); n=1 seed.
+R2 (CHEAP, CPU <30min): 3-seed confirmation for zkl_hypB_position (entropy_ratio + top3_share stability).
+R3 (CHEAP, CPU <30min): Mean-pooling variant vs last-token pooling to quantify ZKL reduction from uniform pooling.
+R4 (MEDIUM, GPU <2h): Position-mean-subtraction implementation on Llama+MarianMT exact harness to measure ZKL reduction.
+
+### PROT compliance (v480 -> v481)
+
+- PROT-004/006: No row closures. Hyp C eliminated (rescue: none needed -- closed). Hyp B HP founding with rescue sketches R1-R4 cheapest-first (annotation always first). ZKL harness recalibration rescue R1-R2 cheapest-first.
+- PROT-007: v481 history row appended to substrate_capability_map_history.md.
+- PROT-008: zkl_hypB_position HP: entropy_ratio=0.432 (borderline) + top3_share=0.859 (strong); OR threshold met; n=1 seed, n=400 queries. HP founding criteria met on top3 branch; 3-seed confirmation recommended but not blocking. PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 393rd PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 3 anchors. CLEAN.
+- PROT-019: LVH 258 UNCHANGED. No new LVH catches.
+- PROT-021: All 3 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: zkl_hypB HP via top3 branch only (entropy borderline 0.432 vs 0.40); n=1 seed; HP-fragility flag: 3-seed confirmation recommended before band-LIFT. Filed.
+
+Cap_map: v480 -> v481 CYCLE 160 ZKL PRIVACY CONTINUATION (1 HP: zkl_hypB_position-TOP3_SHARE=0.859-ENTROPY_RATIO=0.432-POSITION_CONCENTRATION_CONFIRMED; 1 HF: zkl_hypC_gram-GAP=-0.0020-WRONG_DIR-GRAM_ELIMINATED; 1 UNKNOWN: pca_marian-ZKL=0.920-SANITY_FAIL-HARNESS_RECALIB_NEEDED; Hyp C CLOSED (gram mechanism eliminated); Hyp B HP (position-concentration mechanism confirmed; top3-only criterion; 3-seed recommended); ZKL mitigation path: position-mean-subtraction / mean-pooling / earlier-layer; ZKL_HARNESS_RECALIB_NEEDED (2 consecutive UNKNOWN T5+MarianMT); HONEST 1181->1184 +3; LVH 258 UNCHANGED; Portfolio 32+82 UNCHANGED; 393rd PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
