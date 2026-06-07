@@ -1,5 +1,5 @@
 """
-exp_g9_consistent_lie_chain_verification_v1 -- propose-back: G9 HARDER (longer chains K=8,12 + relation noise) -- CPU.
+exp_g9_consistent_lie_chain_verification_v1 -- Batch G9 (AT-5 compositional verification) -- CPU.
 
 ROUTING: Batch G Tier-4 (adversarial drill #5). A "consistent lie" = a K-hop chain where EVERY hop is individually a
   valid grounded edge, but the chain's CONCLUSION (start->end) is false. Per-hop verification passes; only chain-level
@@ -29,9 +29,9 @@ ANCHOR_NAME = "pb_consistent_lie_chain_harder_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    SEEDS = [1]; N = 2048; V_C = 400; CHAINS = 200; KS = [6, 10]
+    SEEDS = [1]; N = 2048; V_C = 400; CHAINS = 200; KS = [4, 6, 8, 12]
 else:
-    SEEDS = [7, 17, 23]; N = 8192; V_C = 2000; CHAINS = 400; KS = [8, 12]
+    SEEDS = [7, 17, 23]; N = 8192; V_C = 2000; CHAINS = 400; KS = [4, 6, 8, 12]
 
 
 def bp(M, n, g):
