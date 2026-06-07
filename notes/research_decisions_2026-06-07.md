@@ -46,3 +46,15 @@ GOLD 3.0: audit trail = immunological memory (compounding defense). ZKL(k) subli
 - [differential-dataflow-reactive-subscriptions] naive scan wrong by 13x at S=1000 N=65536; HNSW resolves to ~6.5% CPU any-S; cryptographic Merkle delivery is moat not reactivity; P_deflated=0.45; -> notes/research_drill_differential_dataflow_reactive_subscriptions_2026-06-07.md
 
 - Chain1 Drill5 FINAL (ZKL regulatory compliance + shippable claim): notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill5_FINAL_2026-06-07.md -- P_deflated=0.38; 7-framework map; 5 failure modes; ZKL Certificate; recommended shippable claim drafted; empirical validation gate required before any customer claim.
+- [2026-06-07] Chain2-Drill2 XTDB honest re-eval -> notes/research_drill_substrate_developer_experience_5x_chain2_drill2_2026-06-07.md | VERDICT: Option B (borrow patterns, build natively); P_deflated(integrate)=0.08; MPL2.0 not Apache2.0; native as_of() 4-6wk; DuckDB SQL adapter; Datalog shim JIT; Drill3=bitemporal impl plan
+- chain3-drill2 cross-shard K-hop algebra -> notes/research_drill_substrate_production_scaling_5x_chain3_drill2_2026-06-07.md ; GOLD2.0: binding distributivity = coordinator-as-relay; vertex-cut 66-90% RPC reduction; v2 10ms K=12
+
+- [Chain2/Drill3 bitemporal impl spec] notes/research_drill_substrate_developer_experience_5x_chain2_drill3_2026-06-07.md -- 7-component spec; Drill4=GDPR snapshot concurrency protocol
+
+- [Chain3-Drill3] Bundle noise accumulation: GOLD 3.0 = pinv denoising converts exponential->polynomial K-hop noise; sparse-KEY composition as 3x K_max unlock; next-drill=sparse-KEY K-hop mechanics -> notes/research_drill_substrate_production_scaling_5x_chain3_drill3_2026-06-07.md
+- Chain3 Drill4 sparse-KEY intermediates -> notes/research_drill_substrate_production_scaling_5x_chain3_drill4_2026-06-07.md ; K_max(B=100,sparse)~25-44 vs dense 8-14; P_deflated=0.45; next-drill Bayesian Kalman K-hop aggregation
+- Chain2 Drill5 FINAL (2026-06-07): cross-shard erasure coordinator + Chain 2 closure -> notes/research_drill_substrate_developer_experience_5x_chain2_drill5_FINAL_2026-06-07.md ; HEADLINE: HMAC key deletion is primary GDPR compliance act (O(1), no distributed coordination); Saga disqualified; 9-component 6-week shippable architecture; P_deflated=0.62
+- Chain3-Drill5-FINAL: production architecture consolidated spec -> notes/research_drill_substrate_production_scaling_5x_chain3_drill5_FINAL_2026-06-07.md; GOLD 5.0; v1/v2/v3 spec; 10 components; 5 failure modes; P_deflated=0.50 (cap)
+
+- [online-adaptation-3x] notes/research_drill_substrate_gap_online_adaptation_3x_2026-06-07.md -- SFT objective (not LoRA arch) causes retrieval break; RetroMAE+QDC tractable path; P_deflated=0.40; Level-C hard boundary confirmed (MI theorem)
+- 2026-06-07: substrate aggregation gap 3x drill -> notes/research_drill_substrate_gap_native_sql_aggregation_3x_2026-06-07.md ; GOLD: Q_joint queries (semantic+aggregate) require hybrid; neither SQL nor substrate alone; DuckDB companion is first-class V1 component
