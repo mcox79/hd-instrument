@@ -60,3 +60,5 @@ GOLD 3.0: audit trail = immunological memory (compounding defense). ZKL(k) subli
 - 2026-06-07: substrate aggregation gap 3x drill -> notes/research_drill_substrate_gap_native_sql_aggregation_3x_2026-06-07.md ; GOLD: Q_joint queries (semantic+aggregate) require hybrid; neither SQL nor substrate alone; DuckDB companion is first-class V1 component
 
 - [counterfactual_capability_extension] notes/research_drill_counterfactual_capability_extension_2026-06-07.md -- 5 counterfactual types enabled NOW (Types A-E); Component 11 ATE estimator (2w); Component 12 Pearl DAG (3w); HARD-PASS/FAIL pre-registered; P_deflated=0.65-0.75 Types A-E
+
+- [2026-06-07] khop_noise_model_selection_2x -> notes/research_drill_khop_noise_model_selection_2x_2026-06-07.md | HEADLINE: Distractor model governs production sharding; LSH produces COHERENT distractors causing K_max collapse; confidence-weighted bundling (50 LOC) + sparse-KEY restores K_max=14-27; GOLD 5.0 conditionally valid; Cell A (c_d measurement) is load-bearing gate; v2 with mitigations sufficient for north-star; P_deflated=0.55 (v2 with mitigation), 0.35 (v3); next-drill: Cell A empirical measurement
