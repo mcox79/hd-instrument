@@ -111,7 +111,8 @@ def khop_recall(emb_w, qw, sents, gold):
     sims2 = emb_w @ qbridge; sims2[h1] = -1e9
     h2 = int(np.argmax(sims2))
     found = set([(sents[h1][0], sents[h1][1])])
-    if sims2[h2] >= T_CONF * sims2.max() if sims2.max() > 0 else True:   # confidence filter
+    conf = float(sims2[h2]) / (float(sims1[h1]) + 1e-8)                  # hop2 confidence relative to hop1
+    if conf >= T_CONF:                                                   # confidence filter T=0.5 (cycle-154)
         found.add((sents[h2][0], sents[h2][1]))
     return int(len(found & gold) >= 2)
 
