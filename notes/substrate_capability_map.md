@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v473
+# hd-instrument substrate -- capability map v474
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12199,4 +12199,25 @@ Cap_map infra sub-property annotation: subs_hnsw_crossover_v1 MID v473: crossove
 - PROT-022: Product anchors deterministic. K-hop ceiling-saturated (ceiling is deterministic not stochastic). HNSW deterministic.
 
 Cap_map: v472 -> v473 CYCLE 152 (2 HP: khop_vc_scaling-K_MAX54-VC32000-PRODUCTION-KB-HP + api_subscribe_as_of_composition-EXACT-100/100-REACTIVE+BITEMPORAL-COMPOSABLE; 2 HP-COMPOSITION: bitemporal_smoke_gdpr-A1+A2-BOTH-OK-0.024ms-CONTENT_GONE + erasure_concurrency-5000-TRIALS-0-VIOLATIONS-GDPR_SAFE; 1 MID-LVH#249: khop_dim_scaling-CEILING-SATURATION-K60-ALL-N-N-SCALING-UNTESTED; 1 UNKNOWN-LVH#250: khop_adversarial-ALL-AT-CEILING-ADVERSARIAL-UNTESTED; 1 MID-CEILING: khop_annealing-UNIFORM=ANNEALED=60=CEILING-UNTESTED; 1 MID: subs_hnsw_crossover-CROSSOVER-S5000-NAIVE-S1000-1.86x-HNSW-S50000-6.90x; LVH 248->250 +2; HONEST 1103->1111 +8; 3 composition sub-properties added; Portfolio 32+80 UNCHANGED; 385th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v474 update (2026-06-07) -- CYCLE 153: 3 HP CAUSAL BATCH; 2 NEW TOP-LEVEL ROWS PP-81+PP-82; 1 NEW SUB-PROPERTY PP-81a; LVH 250 UNCHANGED; HONEST 1111->1114 (+3); Portfolio 32+80 -> 32+82; 386th PROT-009 paired commit
+
+Cap_map annotation: causal_correlational_disambig_v1 HP v474: NEW PP-81 causal-graph role-vector disambiguation; prec=1.000 recall=0.973 (mean 3-seed); CAUSE_OF vs CORRELATED_WITH algebraically separable via role vectors at N=4096; 3-seed full; 0.60-0.75 EXPLORATORY founding; production-N cross-N required for band-LIFT; R1-R4 filed cheapest-first.
+
+Cap_map annotation: causal_intervention_isolation_v1 HP v474: PP-81a sub-property causal-intervention isolation; do() hetero-assoc target swap is LOCAL; deg=0.000 unanimous 3-seed; non-target recall=1.000; algebraic isolation EXACT at N=4096; zero-crosstalk guarantee; R1-R3 filed cheapest-first.
+
+Cap_map annotation: causal_counterfactual_replay_v1 HP v474: NEW PP-82 causal counterfactual replay; do() API acc=1.000 mean_ms=3.876 (all 3 seeds); HP thresholds (>=80% accuracy, <10ms) passed unanimously at N=1024; EU AI Act Art. 12 audit-ready native what-if API; 0.60-0.75 EXPLORATORY founding; production-N=4096+ required for band-LIFT; R1-R4 filed cheapest-first.
+
+### PROT compliance (v473 -> v474)
+- PROT-004/006: No closures. 2 NEW TOP-LEVEL ROWS (PP-81 + PP-82). 1 NEW SUB-PROPERTY (PP-81a). Rescue sketches filed cheapest-first.
+- PROT-007: v474 history row appended to substrate_capability_map_history.md.
+- PROT-008: PP-81 prec=1.0/recall=0.973 all-seed HP + PP-82 acc=1.0/ms=3.876 all-seed HP = FOUNDING CRITERIA MET. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 386th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 3 anchors. CLEAN.
+- PROT-019: LVH 250 UNCHANGED. No new LVH catches.
+- PROT-021: All 3 source=remote run_mode=full n_seeds=3. CLEAN.
+- PROT-022: No HP-fragility. Causal anchors N=4096 prec=1.0 always; recall seed-variance 0.94-1.0 acceptable. Replay N=1024 acc=1.0 all seeds, timing spread 3.74-4.15ms acceptable.
+
+Cap_map: v473 -> v474 CYCLE 153 (3 HP: causal_correlational_disambig-PREC1.0-RECALL0.973-CAUSE_VS_CORR-N4096-3SEED + causal_intervention_isolation-DEG0.000-NON_TARGET_RECALL1.000-ZERO_CROSSTALK + causal_counterfactual_replay-ACC1.0-3.876ms-DO_OPERATOR-EU_AIACT_ART12; 0 LVH; HONEST 1111->1114 +3; LVH 250 UNCHANGED; 2 NEW PP ROWS: PP-81 causal-disambiguation 0.60-0.75 EXPLORATORY + PP-82 counterfactual-replay 0.60-0.75 EXPLORATORY; 1 NEW SUB-PROPERTY PP-81a zero-crosstalk isolation; Portfolio 32+80 -> 32+82; 386th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

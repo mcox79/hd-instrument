@@ -98,17 +98,28 @@ _ap.add_argument("--n-per-fragment", type=int, default=2048,
                   help="Substrate dimension per fragment (= cap budget)")
 _ap.add_argument("--m-max", type=int, default=300, help="cycle 142 anti-censoring")
 _ap.add_argument("--ef-search", type=int, default=256,
-                  help="HNSW ef_search (today's calibration HP=256)")
+                  help="HNSW ef_search (today's calibration HP=256); informational only "
+                       "-- in-fragment retrieval is exhaustive on ~819 keys (fast enough)")
 _ap.add_argument("--noise-std", type=float, default=0.1,
                   help="Gaussian noise std on queries (tests substrate CLEANUP capacity)")
+_ap.add_argument("--alpha-c", type=float, default=0.40,
+                  help="Per-fragment capacity ratio (cycle 143: pseudoinverse alpha_c=1.0 "
+                       "theoretical; conservative 0.40 with PCA whitened keys)")
+_ap.add_argument("--noise-sweep", action="store_true",
+                  help="Sweep noise_std over [0.05, 0.1, 0.2, 0.5] for capacity profile")
 _ARGS, _ = _ap.parse_known_args()
 
 N_FACTS = _ARGS.n_facts
 N_QUERIES = _ARGS.n_queries
 N_FRAGMENTS = _ARGS.n_fragments
-N_PER_FRAGMENT = _ARGS.n_per_fragment
+N_PER_FRAGMENT = _ARGS.n_per_fragment   # substrate dimension d per fragment
 M_MAX = _ARGS.m_max
 EF_SEARCH = _ARGS.ef_search
+ALPHA_C = _ARGS.alpha_c
+# CRITICAL: per-fragment CAPACITY (= alpha_c * dimension) -- different from dimension.
+# Must cap each fragment at this so pseudoinverse stays well-conditioned.
+# Overflowing fragments produce rank-deficient W -> degraded recall.
+PER_FRAGMENT_CAP = int(ALPHA_C * N_PER_FRAGMENT)   # 0.40 * 2048 = 819 facts/fragment
 
 SHUFFLE_SEED = 7
 PCA_SEED = 1729

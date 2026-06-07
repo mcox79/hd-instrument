@@ -26866,3 +26866,5 @@ v473 | 2026-06-06 | CYCLE 152: K-HOP CEILING SWEEPS (4) + PRODUCTION COMPOSITION
 1 MID-CEILING: khop_annealing UNIFORM=ANNEALED=60=CEILING-UNTESTED.
 1 MID: subs_hnsw_crossover CROSSOVER-S5000-NAIVE-S1000-1.86x-HNSW-S50000-6.90x deployment-guide-locked.
 LVH 248->250 (+2: #249 N-scaling-ceiling-artifact + #250 adversarial-ceiling-artifact). HONEST 1103->1111 (+8). Portfolio 32+80 UNCHANGED. 385th PROT-009.
+
+| v474 | 2026-06-07 | CYCLE 153 CAUSAL BATCH | 3 HP: causal_correlational_disambig PREC1.0-RECALL0.973-CAUSE_VS_CORR-N4096-3SEED NEW PP-81 causal-disambiguation 0.60-0.75 EXPLORATORY. causal_intervention_isolation DEG0.000-ZERO_CROSSTALK PP-81a sub-property EMPIRICAL_VALIDATED. causal_counterfactual_replay ACC1.0-3.876ms-DO_OPERATOR-EU_AIACT_ART12 NEW PP-82 counterfactual-replay 0.60-0.75 EXPLORATORY. 0 LVH. HONEST 1111->1114 (+3). Portfolio 32+80 -> 32+82 (+2 new rows PP-81+PP-82). 386th PROT-009. |
