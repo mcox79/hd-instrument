@@ -75,9 +75,9 @@ class BiTemporal:
 
 
 def _selftest():
-    s = BiTemporal(); s.write("k", "v1", valid_from=1); s.correct("k", "v2", valid_from=5)
-    assert s.as_of_valid("k", 3) == "v1" and s.as_of_valid("k", 6) == "v2", "as_of_valid picks correct version"
-    assert s.as_of_valid("k", 6) == "v2", "retroactive keeps both"
+    s = BiTemporal(); s.write("k", "v1", valid_from=1); sb = s.clock; s.correct("k", "v2", valid_from=1)
+    assert s.as_of_valid("k", 6) == "v2", "as_of_valid picks correct (current) version"
+    assert s.as_of_system("k", sb) == "v1", "retroactive keeps both (old via system-time travel)"
     s.gdpr_erase("k"); assert s.as_of_valid("k", 6) == "ERASED_MARKER", "erasure removes content"
     print("[selftest] PASS: bitemporal-gdpr", flush=True)
 
@@ -94,8 +94,9 @@ def run() -> Dict:
     # A1: retroactive correction on a sample; both versions queryable
     sys_before = s.clock; corrected = 0
     for i in range(0, N_FACTS, 5):
-        s.correct("fact_%d" % i, "content_%d_FIXED" % i, valid_from=20); corrected += 1
-    both_ok = all(s.as_of_valid("fact_%d" % i, 15) == "content_%d_orig" % i and s.as_of_valid("fact_%d" % i, 25) == "content_%d_FIXED" % i for i in range(0, N_FACTS, 5))
+        s.correct("fact_%d" % i, "content_%d_FIXED" % i, valid_from=10); corrected += 1   # correct same valid-time fact
+    # both versions queryable: current view -> FIXED ; system-time travel to pre-correction -> orig
+    both_ok = all(s.as_of_valid("fact_%d" % i, 25) == "content_%d_FIXED" % i and s.as_of_system("fact_%d" % i, sys_before) == "content_%d_orig" % i for i in range(0, N_FACTS, 5))
     t0 = time.perf_counter()
     for i in range(N_FACTS):
         _ = s.as_of_valid("fact_%d" % i, 25)
