@@ -86,3 +86,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 2026-06-07T16:02:37Z demo-interface-capabilities 2x -> notes/research_drill_demo_interface_capabilities_2x_2026-06-07.md
 - CELL-3 distillation 2x drill -> notes/research_drill_cell3_distillation_alternatives_2x_2026-06-07.md : MSE failure confirmed; bge-small-en@d=30 is top alternative (P_actionable=0.39, 30-min test); distillation deprioritized for v1
 2026-06-07 predicate_routing_scaling_2x: bundle interference primary (SNR~sqrt(N/K_pred)), engineering-class not algebra-class; 3 rescue paths; adaptive routing P_deflated=0.65 top; -> notes/research_drill_predicate_routing_scaling_limit_2x_2026-06-07.md
+
+- aggregation_extension_2x: notes/research_drill_substrate_aggregation_extension_2x_2026-06-07.md -- AVG bug (formula /N error); corrected COUNT ~1-3%; Pattern B exact AVG; DuckDB VSS architecture implication; P_deflated=0.42 GROUP BY COUNT, P_deflated=0.72 SA-class AVG
