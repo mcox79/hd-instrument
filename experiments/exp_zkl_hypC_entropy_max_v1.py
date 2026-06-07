@@ -144,8 +144,14 @@ def run() -> Dict:
     stored = facts[:N_STORED]; never = facts[N_STORED:N_STORED + N_NEVER]
     ende_tok = MarianTokenizer.from_pretrained(ENDE); ende_m = MarianMTModel.from_pretrained(ENDE, use_safetensors=True).to(DEV).eval()
     deen_tok = MarianTokenizer.from_pretrained(DEEN); deen_m = MarianMTModel.from_pretrained(DEEN, use_safetensors=True).to(DEV).eval()
-    print("  generating %d paraphrases x %d facts (MarianMT round-trip)..." % (K_PARA, len(stored) + len(never)), flush=True)
-    pv = marian_roundtrip(stored, K_PARA, ende_tok, ende_m, deen_tok, deen_m); nv = marian_roundtrip(never, K_PARA, ende_tok, ende_m, deen_tok, deen_m)
+    print("  generating %d paraphrases x %d facts (MarianMT round-trip, seeded for reproducibility)..." % (K_PARA, len(stored) + len(never)), flush=True)
+    # RECALIBRATION FIX: MarianMT do_sample (temp=1.3, top_k=50) is non-deterministic -> ZKL swings run-to-run (0.22 vs
+    # 0.748 = the miscalibration). Fix the seed so the harness is REPRODUCIBLE; the sanity gate then honestly tells us if
+    # a=0.5 lands in the calibrated 0.17-0.27 band.
+    torch.manual_seed(20260607)
+    pv = marian_roundtrip(stored, K_PARA, ende_tok, ende_m, deen_tok, deen_m)
+    torch.manual_seed(20260608)
+    nv = marian_roundtrip(never, K_PARA, ende_tok, ende_m, deen_tok, deen_m)
     del ende_m, deen_m; torch.cuda.empty_cache()
     tok = AutoTokenizer.from_pretrained(MODEL); tok.padding_side = "left"
     if tok.pad_token is None:
