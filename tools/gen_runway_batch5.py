@@ -23,6 +23,12 @@ ANCHOR_NAME = "{anchor}"; N = 4096
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 def unit(x): return x / (np.linalg.norm(x, axis=-1, keepdims=True) + 1e-8)
+def sign_keys(M, n, g): return np.sign(g.standard_normal((M, n))).astype(np.float32)
+def recall(W, K, g, flip=0.05, it=8):
+    s = K * np.where(g.random(K.shape) < flip, -1.0, 1.0)
+    for _ in range(it):
+        rec = np.sign(s @ W.T); rec[rec == 0] = 1.0; s = rec
+    return float(np.mean(np.all(rec == K, axis=1)))
 '''
 TAIL = ("\nprint('[config] anchor=%s mode=%s N=%d' % (ANCHOR_NAME, RUN_MODE, N), flush=True)\n"
         "out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()\n"
