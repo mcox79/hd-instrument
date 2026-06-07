@@ -53,9 +53,11 @@ IS:
   ASIC per-op confused with system-level). Future bipolar ASIC could hit 100-1000x
   as roadmap claim.
 - LATENCY: 5x faster for 100-token answers; narrows to 1-2x at 500-token
-- AGILITY: 240,000-8,800,000x faster knowledge updates — THIS is the strongest claim
-  and is architectural (substrate write 1.23 ms for 1000 facts vs LoRA fine-tune
-  5-30 min). NOT explained by model size.
+- AGILITY: 100x+ faster knowledge updates (pre-optimization measurement; 4.57 ms per
+  update at N=4096 with np.pad realloc overhead). Optimized preallocated version should
+  give 600-3600x faster. The architectural advantage (substrate O(1) per fact vs LoRA
+  O(params*steps*tokens)) is real regardless of constants. UNVERIFIED 240,000x theoretical
+  estimate retracted pending optimized re-test.
 - EDGE: real — Llama-8B Q4_K_M on RTX4060 / M2 Pro / commodity workstations
 - ECONOMICS: 2-6x lower infrastructure cost (5-20x in regulated industries)
 - COMPOSITIONAL REASONING: Pattern B unbind+substitute + K-hop compose at acc=1.0
