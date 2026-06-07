@@ -482,7 +482,7 @@ def main():
 
     # PCA whitening fit on the full set
     print(f"\n=== Step 1: PCA whiten fit (d={N_PER_FRAGMENT}) ===", flush=True)
-    pca_mean, pca_whitener = pca_whiten_fit(embs, top_d=N_PER_FRAGMENT, seed=PCA_SEED)
+    pca_mean, pca_whitener = pca_whiten_fit(embs, top_d=N_PER_FRAGMENT)
     print(f"  PCA fit wall {time.time()-t0:.1f}s; whitener shape {pca_whitener.shape}", flush=True)
 
     embs_w = pca_whiten_apply(embs, pca_mean, pca_whitener)
