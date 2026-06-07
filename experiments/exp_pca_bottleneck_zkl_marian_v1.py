@@ -33,13 +33,13 @@ from experiments._seed_checkpoint import get_output_dir, write_metrics
 ANCHOR_NAME = "pca_bottleneck_zkl_marian_v1"
 MODEL = "meta-llama/Llama-3.2-1B"; LAYER = 15; ENDE = "Helsinki-NLP/opus-mt-en-de"; DEEN = "Helsinki-NLP/opus-mt-de-en"
 DIMS = [10, 15, 20, 25, 30, 50]; K_PARA = 50; FPR = 0.01
-CORPUS = REPO / "data" / "datasets" / "pubmed_abstracts_10k.jsonl"
+CORPUS = REPO / "data" / "datasets" / "hotpot_qa_distractor_dev_1k.jsonl"   # Wikipedia bio/relational sentences (cycle-151 KB match)
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 if RUN_MODE == "smoke":
-    N_STORED = 40; N_NEVER = 40; K_PARA = 16
+    N_STORED = 60; N_NEVER = 60; K_PARA = 16
 else:
-    N_STORED = 300; N_NEVER = 300
+    N_STORED = 500; N_NEVER = 500   # cycle-151 exact
 
 
 def unit(x):
@@ -85,7 +85,7 @@ DEV = torch.device("cuda"); print("[GPU] %s" % torch.cuda.get_device_name(0), fl
 
 
 def load_texts(n):
-    out = []
+    out = []; seen = set()
     if not CORPUS.exists():
         return out
     for l in open(CORPUS, encoding="utf-8"):
@@ -93,11 +93,14 @@ def load_texts(n):
             r = json.loads(l)
         except Exception:
             continue
-        t = r.get("long_answer") or r.get("question") or ""
-        if isinstance(t, str) and 40 < len(t) < 300:
-            out.append(t.strip())
-        if len(out) >= n:
-            break
+        ctx = r.get("context") or {}; sent_lists = ctx.get("sentences") or []
+        for sl in sent_lists:
+            for sent in sl:                                  # Wikipedia context sentences (bio/relational, mixed)
+                t = sent.strip()
+                if 40 < len(t) < 300 and t not in seen:
+                    seen.add(t); out.append(t)
+                    if len(out) >= n:
+                        return out
     return out
 
 
