@@ -47,12 +47,16 @@ IS:
 - COMPLIANCE: 3+ year defensible structural moat — Art 12 + Art 17 + bitemporal + Merkle
   audit. EDPB Feb 2026 + EU AI Act Art 12 Aug 2026 confirm weight-matrix memory FAILS
   this. Substrate is the only architecture that meets it.
-- SPEED: 100-1000x fewer FLOPs per Type I query than frontier LLM (Tier 4 speed/energy 2x
-  drill in flight quantifying)
-- ENERGY: 100-1000x less energy per query (sustainability story for enterprise)
-- LATENCY: 2-10x faster per query
-- AGILITY: 1000-100000x faster knowledge updates (substrate Hebbian write vs LLM
-  fine-tune)
+- SPEED: ~184x fewer FLOPs per Type I query than frontier LLM (Tier 4 speed/energy 2x drill
+  landed; mostly from 8B LLM vs 200B LLM, not bipolar arithmetic at system level)
+- ENERGY: 10-90x less energy per query at system level today (NOT 100-1000x; that was
+  ASIC per-op confused with system-level). Future bipolar ASIC could hit 100-1000x
+  as roadmap claim.
+- LATENCY: 5x faster for 100-token answers; narrows to 1-2x at 500-token
+- AGILITY: 240,000-8,800,000x faster knowledge updates — THIS is the strongest claim
+  and is architectural (substrate write 1.23 ms for 1000 facts vs LoRA fine-tune
+  5-30 min). NOT explained by model size.
+- EDGE: real — Llama-8B Q4_K_M on RTX4060 / M2 Pro / commodity workstations
 - ECONOMICS: 2-6x lower infrastructure cost (5-20x in regulated industries)
 - COMPOSITIONAL REASONING: Pattern B unbind+substitute + K-hop compose at acc=1.0
   deterministically; counterfactual replay at 3.876 ms; algebraic decomposition no LLM
