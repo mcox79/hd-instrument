@@ -12470,3 +12470,9 @@ Cap_map annotation: substrate_1M_recall_validation_v1 HP v491 (production-scale 
 
 Cap_map: v490 -> v491 CYCLE 171 (2 HP sub-property/annotation: federated_crossdomain_corr-COS=0.569-20DOMAINS-CROSS_DOMAIN_STRUCTURE_JUSTIFIED + substrate_1M_recall-RECALL@1=1.000-N=1M-NOISE0.15-CELL4_GATE_CLEARED; 0 LVH; HONEST 1268->1270 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 404th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+# v492 update (2026-06-07) -- CYCLE 172: 1 HP annotation (smw_pinv_1M_timing_v1); 0 LVH; HONEST 1270->1271 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 405th PROT-009
+
+Cap_map annotation: smw_pinv_1M_timing_v1 HARD_PASS v492 (production write-rule cost at N=1M CLEARED): SMW rank-1 pinv update per_update_ms=4.1741ms at M=1,000,000 float32 (< 5ms HP gate; 16% margin). total=4174.1s (~69.6 min batch). finite=True. O(D^2) cost per update is algebraically const-in-M (SMW rank-1 update property). This measures the production write-rule cost at the production-scale already cleared by cycle 171 recall@1=1.000 -- BOTH recall correctness AND write timing now validated at M=1M. Engineering implication: 1M-fact streaming ingest is feasible at ~70 min wall on CPU; GPU would reduce this substantially. n=1 seed (no multi-seed variance characterization yet); 3-seed M-sweep for band-LIFT. Source=remote run_mode=full. Annotation to PP-5 / production-scale write timing sub-property. Cycle 172.
+
+Cap_map: v491 -> v492 CYCLE 172 (1 HP annotation: smw_pinv_1M_timing-PER_UPDATE=4.174ms-M=1M-WRITE_RULE_COST_CLEARED-FINITE; 0 LVH; HONEST 1270->1271 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 405th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

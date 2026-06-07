@@ -1556,3 +1556,46 @@ R4 (MEDIUM, CPU <2h): N=10M recall characterization to probe upper boundary of p
 
 Cap_map: v490 -> v491 CYCLE 171 (2 HP sub-property/annotation: federated_crossdomain_corr-COS=0.569-20DOMAINS-CROSS_DOMAIN_STRUCTURE_JUSTIFIED + substrate_1M_recall-RECALL@1=1.000-N=1M-NOISE0.15-CELL4_GATE_CLEARED; 0 LVH; HONEST 1268->1270 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 404th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v491 -> v492 CYCLE 172 (2026-06-07)
+
+Verdict processed: smw_pinv_1M_timing_v1 (HARD_PASS -- production write-rule cost at M=1M)
+
+### Step 0 honest re-read
+
+- smw_pinv_1M_timing_v1: HONEST. Source=remote run_mode=full n_seeds=1.
+  per_seed[0]: m_insert=1000000 per_update_ms=4.1741 total_s=4174.1 finite=True.
+  Label claims '<5ms per update' -- VERIFIED: 4.1741ms < 5ms (16% margin). GATE MET.
+  Label claims 'O(D^2) const in M' -- algebraically correct for SMW rank-1 updates; no M-sweep to verify empirically but theoretical claim well-founded.
+  Label claims '~70 min batch' -- 4174.1s = 69.6 min. ACCURATE.
+  Single seed. No multi-seed variance characterization. Not an over-claim.
+  HARD_PASS label CORRECT. No LVH.
+
+HONEST: 1270 -> 1271 (+1). LVH: 261 UNCHANGED.
+
+### Cap_map decision
+
+**(A) ANNOTATION to production write-rule timing sub-property (PP-5 adjacent).**
+smw_pinv_1M_timing_v1 GENUINE FULL HARD_PASS at M=1M n=1 seed. per_update_ms=4.1741 (<5ms HP gate; 16% margin). Cycle 171 cleared recall@1=1.000 at N=1M -- this cycle clears the production WRITE COST at the same scale. Together: recall correctness AND write timing both validated at M=1M. Production-scale ingest feasible at ~70 min CPU wall; GPU expected to reduce substantially. n=1 seed; multi-seed M-sweep for variance characterization and band-LIFT. Annotation added to cap_map v491->v492.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**smw_pinv_1M_timing (HP annotation -- rescues for multi-seed variance):**
+R1 (0-compute, ANNOTATION): n=1 seed founding noted. Band UNCHANGED pending multi-seed.
+R2 (CHEAP, CPU <2h): 3-seed M-sweep {M=100K, 500K, 1M} to characterize per-update variance + confirm O(D^2) const-in-M empirically.
+R3 (CHEAP, CPU <2h): GPU timing at M=1M to characterize speedup vs CPU baseline (engineering planning input).
+
+### Portfolio: 32+85 UNCHANGED (annotation only; no new row).
+
+### PROT compliance (v491 -> v492)
+
+- PROT-004/006: No closures. 0 NEW ROWS. 0 BAND-LIFTS. Rescue sketches R1-R3 cheapest-first.
+- PROT-007: v492 history row appended inline above.
+- PROT-008: Single HP annotation. State-transition: per_update=4.174ms <5ms HP gate VERIFIED. PASS.
+- PROT-009: cap_map.md + decisions log staged atomically; 405th PROT-009 paired commit.
+- PROT-018: No _nN suffix binding issues. CLEAN.
+- PROT-019: LVH 261 UNCHANGED. No new LVH catches.
+- PROT-021: Source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed; no multi-seed variance. Single timing measurement; finite=True. No HP-fragility concern at this margin (16% below gate).
+
+Cap_map: v491 -> v492 CYCLE 172 (1 HP annotation: smw_pinv_1M_timing-PER_UPDATE=4.174ms-M=1M-WRITE_RULE_COST_CLEARED-FINITE; 0 LVH; HONEST 1270->1271 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 405th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
