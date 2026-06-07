@@ -57,3 +57,13 @@ vs a 1B LLM, and it is 2.6x better than MiniLM, infinitely better than Llama-bas
 0.42: real iterated-pinv K-hop (not the crude q+hop1 bridge, which hurts here) and/or a cross-encoder rerank on bge top-k.
 The substrate's distinctive value (whitening lift, pinv capacity, K-hop, audit) is orthogonal to encoder ranking quality --
 demonstrate it on the encoder where it helps (weak/raw keys) and use bge where raw ranking is what matters.
+
+---
+## UPDATE 2: the gap to 0.70 is RANKING, not retrieval -- clean path found
+hotpot_bge_recall_at_k_v1 smoke (n=50): both supporting facts present in bge-small top-k:
+  top-2 = 0.42   top-5 = 0.56   top-10 = **0.74**   top-20 = 0.90
+=> The two supporting facts ARE in bge's candidate pool (recall@10=0.74 >= the 0.70 target). The HotpotQA multi-hop
+problem at 1B-relative size is a RE-RANKING problem, not a retrieval-coverage problem. Actionable v1 recipe:
+**bge-small top-10 retrieval -> cross-encoder rerank (or substrate K-hop / question-decomposition) -> recall@2hop ~0.70.**
+This is a concrete, fair-size (33M encoder), demonstrable north-star path. Next cell I'll build: a reranker on bge top-10
+to confirm the lift 0.42 -> ~0.74. The substrate's audit/K-hop/storage layers sit on top of this retrieval stack.
