@@ -34,8 +34,9 @@ _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"
 N_GRID = [4096, 8192] if RUN_MODE == "smoke" else [8192, 16384]   # 8GB-safe; >16384 OOMs dense N x N W
 
 
-def hebb_W(P):
-    W = (P.t() @ P); W.fill_diagonal_(0.0); return W / P.shape[1]
+def hebb_W(P):   # pinv write rule (capacity ~1.0; handles M/N=0.25 where Hebb's 0.14 fails)
+    G = P @ P.t() + 1e-3 * torch.eye(P.shape[0], device=P.device, dtype=P.dtype)
+    W = P.t() @ torch.linalg.solve(G, P); W.fill_diagonal_(0.0); return W
 
 
 def sparsify(W, frac):
