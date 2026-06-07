@@ -33,3 +33,29 @@ Decision: (a) build the sequential agentic decomp loop (Qwen2.5-1.5B, retrieve-e
 ceiling test; (b) prioritize Pattern B substrate-native decomp; or (c) pick a fair-size-winnable v1 benchmark. The
 encoder + coverage questions are settled (bge-large, recall@10=0.88); this is purely about the composition step.
 Queued: llm_decomp_hotpot_v1 (full n=150).
+
+---
+## UPDATE: sequential agentic decomp ALSO fails -- conclusion is now robust
+Built the sequential loop (Qwen2.5-1.5B: hop-1 query -> retrieve fact-1 -> extract bridge entity -> hop-2 query with
+bridge substituted -> retrieve fact-2). Smoke n=30:
+  naive bge-small recall@2hop = 0.367
+  sequential agentic decomp   = 0.333  (lift -0.03, still below naive)
+
+So the STRONGEST fair-size method -- a real retrieve-extract-substitute agentic loop -- also does not beat naive. Six
+methods now tested; none closes the gap. The bottleneck is not the decomposition strategy; it's that selecting the specific
+2-fact chain into top-2 requires reasoning capacity beyond a 1.5B LLM, regardless of how we structure retrieval.
+
+## Robust conclusion + recommendation for v1 benchmark selection
+**HotpotQA 2-hop is NOT a fair-size-winnable benchmark.** Using it for the "beats LLMs at relative size" demo would show
+the WHOLE fair-size stack (incl. the substrate) losing -- it measures reasoning the small LLM lacks, not memory/retrieval
+the substrate provides. Recommendation: select v1 demo benchmarks where fair-size RETRIEVAL/MEMORY is the bottleneck, which
+is where the substrate's audited retrieval + persistence + capacity + GDPR/erasure actually beats a bare small LLM's
+parametric memory:
+  - single-hop factual QA (NQ-open, which is on the runner) -- substrate-augmented small LLM vs bare small LLM, answer F1
+  - FActScore-style factual precision with citations (substrate provides audited sources)
+  - LongMemEval-style temporal/persistent memory (substrate's bitemporal + capacity; bare LLM has no persistence)
+Pattern B substrate-native decomp stays a v2 research target (high-risk: if explicit 1.5B agentic decomp can't do it, VSA
+unbinding closing it is doubtful, since the bridge-selection -- not the parse -- is the hard part).
+## Ask: confirm the v1 pivot to retrieval/memory-bottlenecked benchmarks; I'll build the NQ-open head-to-head (substrate-
+augmented small LLM vs bare) as the actual "beats LLMs at relative size" demo cell.
+Queued: llm_decomp_sequential_hotpot_v1 (full n=120).
