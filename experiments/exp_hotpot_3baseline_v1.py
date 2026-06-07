@@ -126,13 +126,19 @@ def run() -> Dict:
     bare = 0.0; rag = 0.0; subF = 0.0
     for d in data:
         sents = d["sents"]; en = unit(bi_encode(sents, btok, bm)); qn = unit(bi_encode([Q_INSTR + d["q"]], btok, bm))[0]
-        top = np.argsort(en @ qn)[::-1][:TOPK]; context = "\n".join(sents[i] for i in top)
+        order = np.argsort(en @ qn)[::-1]; top = order[:TOPK]; rag_ctx = "\n".join(sents[i] for i in top)
+        sub = en[top]; mu = sub.mean(0); cov = ((sub-mu).T @ (sub-mu)) / max(len(sub),1)
+        U, S, _ = np.linalg.svd(cov + 1e-3*np.eye(cov.shape[0])); Wd = (U @ np.diag(1/np.sqrt(S+1e-3)) @ U.T).astype(np.float32)
+        ew = unit((sub-mu) @ Wd); qw = unit((qn-mu) @ Wd); h1 = int(np.argmax(ew @ qw))
+        qb = qw + ew[h1]; qb = qb/(np.linalg.norm(qb)+1e-8); s2 = ew @ qb; s2[h1] = -1e9; h2 = int(np.argmax(s2))
+        sub_ctx = "\n".join([sents[top[h1]], sents[top[h2]]])
         bare += f1_score(answer(ltok, lm, d["q"], None), d["ans"])
-        aug += f1_score(answer(ltok, lm, d["q"], context), d["ans"])
+        rag += f1_score(answer(ltok, lm, d["q"], rag_ctx), d["ans"])
+        subF += f1_score(answer(ltok, lm, d["q"], sub_ctx), d["ans"])
     del lm, bm; torch.cuda.empty_cache()
-    n = len(data); fb = bare / n; fa = aug / n
-    print("  n=%d bare_LLM_F1=%.3f substrate_augmented_F1=%.3f lift=%+.3f" % (n, fb, fa, fa - fb), flush=True)
-    return {"n": n, "bare": fb, "aug": fa}
+    n = len(data); fb = bare/n; fr = rag/n; fs = subF/n
+    print("  n=%d bare_F1=%.3f vanilla-RAG_F1=%.3f substrate_F1=%.3f" % (n, fb, fr, fs), flush=True)
+    return {"n": n, "bare": fb, "rag": fr, "sub": fs}
 
 
 def verdict(r) -> Tuple[str, str]:
