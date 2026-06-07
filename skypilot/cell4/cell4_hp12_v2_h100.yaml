@@ -8,13 +8,9 @@ name: cell4hp
 resources:
   cloud: lambda
   use_spot: false
-  # NOTE 2026-06-07: top-level `accelerators: H100:1` removed (was hard
-  # constraint that conflicted with CLI --instance-type gpu_1x_gh200; per-SKU
-  # accelerators in any_of below).
-  any_of:
-    - {cloud: lambda, accelerators: GH200:1, instance_type: gpu_1x_gh200}
-    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_pcie}
-    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5}
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # any_of removed: SkyPilot validates each any_of against CLI overrides and
+  # fails when any entry mismatches the CLI's accelerator type (2026-06-07 bug).
 
 workdir: .
 
