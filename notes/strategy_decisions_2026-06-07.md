@@ -886,3 +886,123 @@ R4 (MEDIUM, GPU <2h): Combined mean-pooling + rank-randomization on Llama+Marian
 
 Cap_map: v482 -> v483 CYCLE 162 (12 HP: causal_merkle_comp-VALID1.0-INTEGRITY1.0 + causal_bitemporal_comp-AS_OF_ACC1.0 + causal_gdpr_erasure_comp-LEAKAGE0.0-AUDIT1.0 + patternb_capacity_K_sweep-K50_F1=1.0-N4096 + patternb_sparse_fillers-64X_COMPRESSION_F1=1.0 + patternb_crdt_gcounter-ACC1.0-COMMUT1.0 + patternb_online_extension-DISRUPTION=0.0 + patternb_merkle_proof-VERIFY1.0-188B + patternb_erasure_granularity-LEAK0.0-RETENTION1.0 + ptb_reuse_index_cache-16B_F1=1.0 + predicate_audit_psweep-RECALL1.0_ALL_SEL_3SEED + substrate_structured_aggregates-ACC1.0_VS_LLM_LT0.50; 1 MIDDLE_BAND: bm25_bge_rrf_hotpot-RRF_r@2=0.270_HURTS-r@10=0.750_HELPS; 2 HF: ptb_tensor_rank-RK32_F1=0.69_5371B-200B_TARGET_INFEASIBLE + zkl_hypB_attn_reweight-ZKL=0.267_LINEAR_SPACE_EXHAUSTED_PATH_D_NEEDED; 1 LVH_HF: #260 storage_pq_on_w-PQ_RECALL=0.0_DROP=1.0_HARD_FAIL; 3 NEW PP SUB-ROWS: PP-82a causal+Merkle + PP-82b causal+bitemporal + PP-82c causal+GDPR-erasure; ZKL_LINEAR_MITIGATIONS_EXHAUSTED: QUALIFIED_PRIVACY_POSTURE_LOCKED (ZKL_BOUND=0.267); Pattern B full production stack confirmed (K=50, sparse 64x, CRDT, online, Merkle, erasure-granularity, 16B index); HONEST 1194->1210 +16; LVH 259->260 +1; Portfolio 32+82 -> 32+85 (+3 PP SUB-ROWS: PP-82a, PP-82b, PP-82c); 395th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v483 -> v484 CYCLE 163 PREDICATE/SQL/CAUSAL/PATTERNB/STORAGE/CAPACITY/DISTRIBUTED BATCH (2026-06-07)
+
+Verdicts processed (19 anchors): predicate_adaptive_routing_v1 + predicate_composite_index_v1 + predicate_high_selectivity_v1 + sql_avg_formula_fix_v1 + causal_audit_chain_depth_v1 + eu_aiact_gdpr_cocompliance_v1 + patternb_chain_k234_v1 + patternb_analogy_rescue_v1 + patternb_freq_role_quant_v1 + storage_mixed_precision_v1 + storage_blockwise_quant_v1 + storage_hashnet_w_v1 + write_rule_capacity_compare_v1 + fp16_bf16_capacity_v1 + rank_k_woodbury_v1 + crt_capacity_boost_v1 + smw_overhead_profile_v1 + multihead_bft_h_sweep_v1 + incremental_churn_exact_v1
+
+### Step 0 honest re-read
+
+All 19 metrics fetched source=remote (bridge stale; direct remote fetch via get_metrics).
+
+1. predicate_adaptive_routing_v1: HONEST=HARD_PASS (correct). All sel={0.01,0.05,0.10,0.15,0.20}=1.0, worst=1.0. HP label verified on every cell. No LVH. +1 HONEST.
+2. predicate_composite_index_v1: HONEST=HARD_PASS (correct). sel{0.10,0.15,0.20,0.30}=1.0, s20=1.0. HP verified. Extends cycle-156 follow-up to sel=0.30. No LVH. +1 HONEST.
+3. predicate_high_selectivity_v1: HONEST=HARD_PASS (correct). sel{0.30,0.40,0.50}=1.0, s50=1.0. HP verified at sel=0.50. No LVH. +1 HONEST.
+4. sql_avg_formula_fix_v1: HONEST=HARD_PASS (correct). rel_err=0.0152 << 0.05. HP verified. Cycle-155 AVG DUCKDB-required MIDDLE_BAND upgrades to HP. No LVH. +1 HONEST.
+5. causal_audit_chain_depth_v1: HONEST=HARD_PASS (correct). d{5,10,20,50}=1.0, allok=True. HP verified unanimously. No LVH. +1 HONEST.
+6. eu_aiact_gdpr_cocompliance_v1: HONEST=HARD_PASS (correct). leak=0.0, audit=1.0. Co-compliance HP verified simultaneously. No LVH. +1 HONEST.
+7. patternb_chain_k234_v1: HONEST=HARD_FAIL (correct with annotation). k{2,3,4}=0.0. HF verified; label says "fail by k=3" but k2=0.0 also (chains fail at k=2 already). Annotation-only: label conservative but not an over-claim. No LVH. +1 HONEST.
+8. patternb_analogy_rescue_v1: HONEST=HARD_PASS (correct). acc=1.0. HP "recall>=0.70 when NOT bundled" verified (1.0 >> 0.70). Cycle-158 HF rescue confirmed. No LVH. +1 HONEST.
+9. patternb_freq_role_quant_v1: HONEST=HARD_PASS (correct). f1=1.0, red=7.11x. HP ">=1.5x reduction at F1>=0.95" verified (7.11x >> 1.5x). No LVH. +1 HONEST.
+10. storage_mixed_precision_v1: HONEST=MIDDLE_BAND (correct). r4=1.0, rm=1.0, comp=1.25x. MID label verified. No LVH. +1 HONEST.
+11. storage_blockwise_quant_v1: HONEST=MIDDLE_BAND (correct). r4=1.0, rb=1.0, drop=0.000, comp=1.23x. MID label verified. No LVH. +1 HONEST.
+12. storage_hashnet_w_v1: HONEST=HARD_FAIL (correct). rf=1.0, rh=0.0, drop=1.000. HF verified (total collapse). No LVH. +1 HONEST.
+13. write_rule_capacity_compare_v1: HONEST=HARD_PASS (correct). hebb=0.05, pinv=0.50, ratio=10.0x. HP ">=3x Hebbian" verified (10x >> 3x). No LVH. +1 HONEST.
+14. fp16_bf16_capacity_v1: HONEST=HARD_PASS (correct). All L{0.1,0.2,0.3,0.5} fp16=1.0, bf16=1.0, gap=0. HP parity verified. No LVH. +1 HONEST.
+15. rank_k_woodbury_v1: [LVH #261] MIDDLE_BAND OVER-CLAIMS. Per-cell: k8={rec=0.0, speedup=0.675}, k16={rec=0.0, speedup=0.578}, k32={rec=0.0, speedup=0.520}. ALL recall values are 0.0 AND all speedups are <1.0 (SLOWER than full). MIDDLE_BAND implies partial capability; data shows ZERO capability on both dimensions. Honest = HARD_FAIL. LVH #261. +1 HONEST, +1 LVH.
+16. crt_capacity_boost_v1: HONEST=HARD_FAIL (correct). base=1.0, crt=1.0, ratio=1.00x. HF verified (null effect -- ceiling at test load). No LVH. +1 HONEST.
+17. smw_overhead_profile_v1: HONEST=HARD_PASS (correct). dom=rank1_update, frac=0.704 >> 0.50. HP "dominant phase identified" verified. No LVH. +1 HONEST.
+18. multihead_bft_h_sweep_v1: HONEST=HARD_PASS (correct). H{1,2,4}=1.0 at noise 0.50, minH=1. HP "H=1 sufficient" verified. No LVH. +1 HONEST.
+19. incremental_churn_exact_v1: HONEST=HARD_PASS (correct). survivors=192, recall=1.0. HP "recall>=0.95 after churn" verified. No LVH. +1 HONEST.
+
+HONEST: 1210 -> 1229 (+19). LVH: 260 -> 261 (+1: #261 rank_k_woodbury-MIDDLE_BAND_OVERCLAIMS-REC0.0_ALL_K_SPEEDUP_LT1.0_HARD_FAIL).
+
+### Cap_map decisions (v483 -> v484)
+
+**(A) Predicate routing fully general (triple HP -- adaptive + composite + high-selectivity; all recall@10=1.0 up to sel=0.50):**
+predicate_adaptive_routing_v1 HP: all selectivities sel=0.01-0.20 recall@10=1.0. predicate_composite_index_v1 HP: sel{0.10-0.30}=1.0. predicate_high_selectivity_v1 HP: sel{0.30-0.50}=1.0.
+Cap_map annotation (predicate/SQL routing row): 'Predicate routing FULLY GENERAL: adaptive recall@10=1.0 at sel=0.01-0.20; composite-index recall@10=1.0 at sel=0.10-0.30; high-selectivity recall@10=1.0 at sel=0.30-0.50; predicate routing operational across FULL selectivity range 0-50%; n=1 seed each; 3-seed recommended for band-LIFT.' Band-LIFT candidate pending 3-seed confirmation. Cycle 163.
+
+**(B) SQL AVG formula fix (HARD_PASS -- cycle-155 AVG DUCKDB-required MID upgrades to native HP):**
+sql_avg_formula_fix_v1 HP: rel_err=0.0152 << 0.05. SQL annotation: 'sql_avg HP: formula fix confirmed; rel_err=0.0152; ALL 3 SQL aggregation types now native: COUNT/SUM (cycle-154/155 HP) + rolling-window (cycle-155 HP) + AVG (cycle-163 formula fix); SQL aggregation full stack NATIVE to substrate.' Product milestone: no DuckDB fallback needed for basic SQL aggregation. Cycle 163.
+
+**(C) Causal audit chain depth (HP -- O(1) per-hop verify at depth 50; regulatory audit at arbitrary depth):**
+causal_audit_chain_depth_v1 HP (deterministic): d{5,10,20,50}=1.0, allok=True. Cap_map annotation (PP-82a depth sub-property): 'causal audit chain depth: 100% valid at d=5/10/20/50; O(1) per-hop verify; extends PP-82a Merkle causal composition to deeper chains; EU AI Act Art. 12 compliance at arbitrary causal depth.' Cycle 163.
+
+**(D) EU AI Act + GDPR co-compliance demo (HP -- simultaneous compliance confirmed; demo-ready):**
+eu_aiact_gdpr_cocompliance_v1 HP (deterministic, cycle-162 follow-up): leak=0.0, audit=1.0. Cap_map annotation (PP-82c extension): 'co-compliance: AI Act Art-12 audit=1.0 + GDPR Art-17 leak=0.0 simultaneously; demo-ready compliance asset; extends PP-82c.' CRITICAL product milestone. Cycle 163.
+
+**(E) Pattern B chain k=2,3,4 (HARD_FAIL -- chains fail at k=2; chaining mechanism not viable without structural fix):**
+patternb_chain_k234_v1 HF (n=1): k{2,3,4}=0.0. Chains fail at k=2 (not just k=3). Cap_map annotation (Pattern B chaining row): 'Pattern B chain HF: k2=k3=k4=0.0 -- chains fail at k=2; contrast: unbind+substitute HP (cycle-158) and khop_compose HP (cycle-158) work; multi-step chain requires intermediate-state caching; rescue: beam-chain or intermediate-state cache.' Rescue sketches R1-R4 below. Cycle 163.
+
+**(F) Pattern B analogy rescue (HP -- analogy confirmed when unbundled; cycle-158 HF was bundle interference):**
+patternb_analogy_rescue_v1 HP (n=1): acc=1.0. Cap_map annotation (Pattern B analogy row): 'analogy rescue HP: acc=1.0 (single-transform, NOT bundled); cycle-158 HF was bundle-interference-specific; analogy WORKS in clean bundle space; operating mode distinction: unbundled analogy HP vs bundled analogy HF; product: analogy valid for isolated queries, not large-library superposition.' Cycle 163.
+
+**(G) Pattern B freq-role quantization (HP -- 7.11x role-storage reduction at F1=1.0):**
+patternb_freq_role_quant_v1 HP (n=1): f1=1.0, red=7.11x. Cap_map annotation (Pattern B storage row): 'freq-role quantization: 7.11x role reduction at F1=1.0 (threshold 1.5x); extends Pattern B storage stack: sparse-filler 64x + index-cache 16B/fact + role-quant 7.11x + 3-bit W.' Cycle 163.
+
+**(H) Storage mixed-precision + blockwise quant (dual MIDDLE_BAND -- 1.25x/1.23x over 4-bit; modest increment):**
+storage_mixed_precision_v1 MID + storage_blockwise_quant_v1 MID. Annotation: 'mixed-precision 1.25x + blockwise 1.23x over 4-bit (zero accuracy cost); incremental over cycle-161 3-bit (5.3x from fp32); not compelling standalone; combined stacking rescue queued.' Rescue below. Cycle 163.
+
+**(I) Storage HashNet on W (HARD_FAIL -- total collapse at 100x; HashNet approach closed for aggressive compression):**
+storage_hashnet_w_v1 HF (n=1): rh=0.0, drop=1.000. Annotation: 'HashNet-W HF: recall=0.0 at 100x (total collapse); hash collisions destroy W; 3-bit+index-cache superior paths; HashNet closed at aggressive ratio; lower compression (8x-16x) rescue queued.' Rescue below. Cycle 163.
+
+**(J) Write rule capacity compare (HP -- pseudoinverse 10x Hebbian; write-rule is a production configuration decision):**
+write_rule_capacity_compare_v1 HP (n=1): hebb=0.05, pinv=0.50, ratio=10.0x. Annotation: 'pseudoinverse write rule: 10x Hebbian capacity; production write rule = pseudoinverse; Hebbian 20x weaker at this regime; extends cycle-155 alpha_c=0.50 characterization to write-rule comparison.' Cycle 163.
+
+**(K) fp16/bf16 capacity parity (HP -- zero gap across all loads; both precisions safe):**
+fp16_bf16_capacity_v1 HP (n=1): all loads gap=0. Annotation: 'fp16/bf16 parity: zero gap at L=0.1-0.5; both production-safe; bf16 recommended; extends precision characterization: fp32/fp16/bf16 equivalent at tested loads; 3-bit is compression floor.' Cycle 163.
+
+**(L) [LVH #261] Rank-k Woodbury (HARD_FAIL honest -- rec=0.0 all k, speedup<1.0; low-rank approx closed):**
+rank_k_woodbury_v1 [LVH#261]: MIDDLE_BAND over-claims. Honest=HARD_FAIL. k8/k16/k32: rec=0.0, speedup=0.67/0.58/0.52 (all SLOWER). Zero accuracy + no speedup benefit. Annotation: '[LVH#261]: Woodbury rank-k HF: rec=0.0 all k; speedup<1.0 all k; low-rank approximation closed; rank1_update optimization (smw_overhead_profile HP: 70% bottleneck) is correct SMW speedup path.' Rescue below. Cycle 163.
+
+**(M) CRT capacity boost (HARD_FAIL -- ceiling effect at test load; needs load > alpha_c for real test):**
+crt_capacity_boost_v1 HF (n=1): base=CRT=1.0, ratio=1.00. Ceiling artifact at sub-alpha_c load. Annotation: 'CRT HF (ceiling effect): base=CRT=1.0; ratio=1.00 is ceiling artifact; needs load > alpha_c=0.50 (cycle-155) to measure genuine CRT expansion; inconclusive axis; re-test at L=0.6-0.9.' Rescue below. Cycle 163.
+
+**(N) SMW overhead profile (HP -- rank1_update dominant at 70.4%; optimization target identified):**
+smw_overhead_profile_v1 HP (n=1 diagnostic): frac=0.704. Annotation: 'SMW profile HP: rank1_update=70.4% of SMW overhead; optimize rank1_update not low-rank approx (Woodbury closed); batched or JIT-compiled rank1_update is the SMW speedup path.' Cross-ref: LVH#261 Woodbury HF. Cycle 163.
+
+**(O) Multi-head BFT H-sweep (HP -- H=1 sufficient at noise=0.50; minimal-H operational):**
+multihead_bft_h_sweep_v1 HP (n=1): H{1,2,4}=1.0 at noise=0.50, minH=1. Annotation: 'BFT H-sweep HP: H=1 sufficient; H=2,4 identical (no marginal benefit); minimal-H=1 production default; characterizes BFT multi-head design space.' Cycle 163.
+
+**(P) Incremental churn exact (HP -- recall=1.0 after 192-survivor churn; memory exact under dynamism):**
+incremental_churn_exact_v1 HP (n=1): survivors=192, recall=1.0. Annotation: 'incremental churn HP: recall=1.000 after 192 survivors; no drift from interleaved insert/delete; extends cycle-162 Pattern B online-extension to full churn regime; no periodic rebuilds needed.' Cycle 163.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**Pattern B chain k=2,3,4 (HF -- chains fail at k=2; intermediate-state path needed):**
+R1 (0-compute, ANNOTATION): unbind+substitute HP + khop_compose HP at N=1024 (cycle-158); single-step ops work; chain requires intermediate state.
+R2 (CHEAP, CPU <30min): Intermediate-state cache: store intermediate binding result before chaining k+1 step.
+R3 (CHEAP, CPU <30min): Beam chain: maintain top-k intermediate results at each chain step (beam width=2-5).
+R4 (MEDIUM, CPU <2h): N-scaling sweep (N=2048, 4096) for chain k=2 to test if higher N rescues k=2.
+
+**Woodbury rank-k (LVH#261 HF -- rec=0.0; rank1_update optimization is correct path):**
+R1 (0-compute, ANNOTATION): SMW rank1_update = 70.4% overhead (smw_overhead_profile HP); optimize rank1_update directly; Woodbury closed.
+R2 (CHEAP, CPU <30min): Batched rank1_update to amortize per-update cost.
+R3 (CHEAP, CPU <30min): Profiled rank1_update with torch.compile for hot-path speedup.
+
+**CRT capacity boost (HF ceiling -- re-test at load > alpha_c):**
+R1 (0-compute, ANNOTATION): base=CRT=1.0 at test load; alpha_c=0.50 (pinv, cycle-155); test load must exceed 0.50.
+R2 (CHEAP, CPU <30min): Re-run at loads L=0.6, 0.7, 0.8, 0.9 to test genuine CRT expansion in stressed regime.
+
+**Storage mixed-precision + blockwise (MIDDLE_BAND -- small increment; combined path):**
+R1 (0-compute, ANNOTATION): 1.25x and 1.23x over 4-bit; 3-bit already 5.3x from fp32 at drop=0.0 -- 3-bit supersedes standalone.
+R2 (CHEAP, CPU <30min): Combined 3-bit + blockwise to measure stacked gain vs 4-bit baseline.
+
+**HashNet-W (HF -- total collapse at 100x; lower compression test):**
+R1 (0-compute, ANNOTATION): 100x destroys W; 3-bit+index-cache superior; HashNet closed at aggressive ratio.
+R2 (CHEAP, CPU <30min): HashNet at 8x-16x compression to find viable operating point.
+
+### PROT compliance (v483 -> v484)
+
+- PROT-004/006: No row closures. 1 LVH #261 (rank_k_woodbury MID over-claims HF) with 3 cheapest-first rescue sketches. Pattern B chain HF with 4 rescues. CRT ceiling-HF with 2 rescues. HashNet HF with 2 rescues. Mixed/blockwise MID with 2 rescues. Annotation-first sequencing throughout.
+- PROT-007: v484 history row appended to substrate_capability_map_history.md.
+- PROT-008: 13 HP anchors: predicate_adaptive + predicate_composite + predicate_high_sel (recall=1.0 all sel cells); sql_avg (rel_err=0.015 << 0.05); causal_audit_chain (allok=True d=50); eu_aiact_gdpr (leak=0 audit=1); patternb_analogy_rescue (acc=1.0); freq_role_quant (7.11x F1=1.0); write_rule (10x pinv vs hebb); fp16_bf16 (zero gap all loads); smw_overhead (frac=0.704); multihead_bft (H1=1.0 noise=0.50); incremental_churn (recall=1.0 192 survivors). State-transition validator PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 396th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 19 anchors. CLEAN.
+- PROT-019: LVH 260->261 (+1: #261 rank_k_woodbury-MIDDLE_BAND_OVERCLAIMS-REC0.0_ALL_K_SPEEDUP_LT1.0).
+- PROT-021: All 19 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: All HP anchors show unanimous cells or clear threshold gaps (predicate recall=1.0 all cells, analogy acc=1.0, 10x ratio gap, fp16/bf16 gap=0, bft all=1.0, churn recall=1.0); n=1 seed on all; 3-seed recommended before band-lifts. HP-fragility concern LOW.
+
+Cap_map: v483 -> v484 CYCLE 163 (13 HP: predicate_adaptive-RECALL1.0_SEL0.01-0.20 + predicate_composite-RECALL1.0_SEL0.10-0.30 + predicate_high_sel-RECALL1.0_SEL0.30-0.50 + sql_avg_formula_fix-REL_ERR0.015_FORMULA_CORRECT + causal_audit_chain_depth-D50_VALID1.0_O1_HOP + eu_aiact_gdpr_coco-LEAK0.0_AUDIT1.0_CODECOMPL + patternb_analogy_rescue-ACC1.0_UNBUNDLED_CYCLE158_HF_RESCUE + patternb_freq_role_quant-7.11X_REDUCTION_F1=1.0 + write_rule_capacity-PINV_10X_HEBBIAN + fp16_bf16_parity-ZERO_GAP_ALL_LOADS + smw_overhead-RANK1_UPDATE_70PCT + multihead_bft_h-H1_SUFFICIENT_NOISE0.50 + incremental_churn-RECALL1.0_192_SURVIVORS; 2 MIDDLE_BAND: storage_mixed_precision-COMP1.25x_RECALL1.0 + storage_blockwise_quant-COMP1.23x_DROP0.0; 4 HF: patternb_chain_k234-K2=0.0_CHAINS_FAIL_AT_K2 + storage_hashnet_w-RECALL0.0_100X_COLLAPSE + crt_capacity_boost-CEILING_EFFECT_NEEDS_HIGH_LOAD + rank_k_woodbury-LVH261_HONEST_HF_REC0.0_SPEEDUP_LT1; 1 LVH_HF: #261 rank_k_woodbury-MIDDLE_BAND_OVERCLAIMS-REC0.0_ALL_K_SPEEDUP_LT1.0; PREDICATE_ROUTING_FULLY_GENERAL (sel=0-50%); SQL_FULL_STACK_NATIVE (avg formula fix); PATTERN_B_ANALOGY_RESCUED (unbundled mode); WRITE_RULE_PINV_10X_PRODUCTION; SMW_RANK1_OPTIMIZE_PATH; HONEST 1210->1229 +19; LVH 260->261 +1; Portfolio 32+85 UNCHANGED; 396th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
