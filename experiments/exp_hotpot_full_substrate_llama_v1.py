@@ -125,15 +125,22 @@ def run() -> Dict:
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     m = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float16, use_safetensors=True).to(DEV).eval()
-    naive_hits = 0; sub_hits = 0
+    # Encode every question's candidates + query up front, pool ALL candidate embeddings to fit ONE global whitening
+    # (production fits whitening on the KB, NOT per-query; per-query fit on ~40 samples in 2048-dim is rank-deficient noise).
+    enc = []
     for d in data:
-        sents = d["sents"]; texts = [s for (_, _, s) in sents]
-        raw = encode(texts, tok, m); qraw = encode([d["q"]], tok, m)
-        en = unit(raw); qn = unit(qraw)[0]; on = np.argsort(en @ qn)[::-1]
-        naive_hits += int(len(set((sents[i][0], sents[i][1]) for i in on[:2]) & d["gold"]) >= 2)
-        mu, Wd = whiten_fit(raw); ew = unit((raw - mu) @ Wd); qw = unit((qraw - mu) @ Wd)[0]
-        sub_hits += khop_recall(ew, qw, sents, d["gold"])
+        texts = [s for (_, _, s) in d["sents"]]
+        enc.append({"raw": encode(texts, tok, m), "q": encode([d["q"]], tok, m)[0], "sents": d["sents"], "gold": d["gold"]})
     del m; torch.cuda.empty_cache()
+    pool = np.concatenate([e["raw"] for e in enc], 0)
+    mu, Wd = whiten_fit(pool); print("  global whiten fit on %d pooled embeddings (dim=%d)" % (pool.shape[0], pool.shape[1]), flush=True)
+    naive_hits = 0; sub_hits = 0
+    for e in enc:
+        raw = e["raw"]; sents = e["sents"]; gold = e["gold"]
+        en = unit(raw); qn = unit(e["q"]); on = np.argsort(en @ qn)[::-1]
+        naive_hits += int(len(set((sents[i][0], sents[i][1]) for i in on[:2]) & gold) >= 2)
+        ew = unit((raw - mu) @ Wd); qw = unit((e["q"] - mu) @ Wd)
+        sub_hits += khop_recall(ew, qw, sents, gold)
     n = len(data); rn = naive_hits / n; rs = sub_hits / n
     print("  n=%d naive_llama_recall@2hop=%.3f full_substrate(whiten+Khop)_recall@2hop=%.3f lift=%+.3f" % (n, rn, rs, rs - rn), flush=True)
     return {"n": n, "naive": rn, "recall_2hop": rs}
