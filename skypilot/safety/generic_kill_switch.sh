@@ -39,7 +39,11 @@ done
 echo "[kill_switch] $(date -u '+%Y-%m-%dT%H:%M:%SZ') LOCKED to first cluster: ${FIRST_CLUSTER}" | tee -a "$KILL_SWITCH_LOG"
 echo "[kill_switch] any 'launching cluster=' for a DIFFERENT name will trigger immediate launcher kill" | tee -a "$KILL_SWITCH_LOG"
 
-tail -n +1 -F "$LAUNCHER_LOG" 2>/dev/null | while IFS= read -r line; do
+# 2026-06-07 BUG FIX: was `tail -n +1` which reads the log from line 1,
+# including STALE "launch genuinely failed" strings from previous failed
+# runs, triggering immediate kill of the new launcher. Now `tail -n 0 -F`
+# reads only NEW lines appended after the kill_switch starts.
+tail -n 0 -F "$LAUNCHER_LOG" 2>/dev/null | while IFS= read -r line; do
     clean_line=$(echo "$line" | sed 's/\x1b\[[0-9;]*[a-zA-Z]//g')
 
     # Danger 1: launcher signals genuine failure (about to teardown + retry from scratch)

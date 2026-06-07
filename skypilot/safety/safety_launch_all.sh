@@ -40,6 +40,18 @@ echo "===== [${CELL_NAME}] safety_launch_all start $(date -u '+%Y-%m-%dT%H:%M:%S
 echo "Config: $CONFIG_FILE"
 echo "Safety scripts dir: $SAFETY_DIR"
 
+# CRITICAL 2026-06-07: truncate ALL logs at orchestrator start. Without this,
+# the kill_switch background worker reads stale "launch genuinely failed"
+# messages from previous failed runs (left in $LAUNCHER_LOG) and immediately
+# kills the new launcher within 1 sec. Rotate prior logs to .prev to preserve
+# evidence.
+for L in "$LAUNCHER_LOG" "$KILL_SWITCH_LOG" "$PROGRESS_RSYNC_LOG" "$WATCHDOG_LOG"; do
+    if [ -f "$L" ]; then
+        mv "$L" "${L}.prev"
+    fi
+    : > "$L"
+done
+
 # Track background workers so we can kill them on exit
 BG_PIDS=()
 

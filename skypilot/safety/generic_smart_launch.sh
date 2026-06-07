@@ -67,6 +67,17 @@ trap cleanup_on_exit EXIT INT TERM
 
 mkdir -p "$(dirname "$LAUNCHER_LOG")"
 
+# CRITICAL FIX 2026-06-07: TRUNCATE launcher log on each new run start.
+# Without this, the kill_switch's `tail -F $LAUNCHER_LOG` reads stale
+# "launch genuinely failed" / "2nd cluster" messages from PREVIOUS failed
+# runs and immediately kills the new launcher. This is a silent-kill that
+# took several debugging cycles to find.
+# We rotate the prior log to .prev to preserve evidence.
+if [ -f "$LAUNCHER_LOG" ]; then
+    mv "$LAUNCHER_LOG" "${LAUNCHER_LOG}.prev"
+fi
+: > "$LAUNCHER_LOG"
+
 echo "===== [${CELL_NAME}] smart launch start $(date -u '+%Y-%m-%dT%H:%M:%SZ') =====" | tee -a "$LAUNCHER_LOG"
 
 # Preflight gate
@@ -88,8 +99,16 @@ if declare -f pre_launch_hook >/dev/null; then
     }
 fi
 
-echo "[${CELL_NAME}] flushing SkyPilot API server (catalog cache fix)..." | tee -a "$LAUNCHER_LOG"
-sky api stop >> "$LAUNCHER_LOG" 2>&1 || true
+# NOTE 2026-06-07: REMOVED `sky api stop` from here. Was added originally as a
+# workaround for SkyPilot's in-memory catalog DataFrame cache (stale region
+# data after editing ~/.sky/catalogs/<v>/vms.csv on disk). But it now causes
+# the API server to die mid-flow, and orphan multiprocessing helpers hold
+# port 50011, preventing the new sky server from starting. sky launch then
+# fails with "SkyPilot API server process exited unexpectedly."
+# We don't patch the catalog at runtime, so cached state is fine.
+# If catalog patching is needed in the future, do it BEFORE dispatch and
+# restart the server explicitly, not in the middle of the launcher flow.
+echo "[${CELL_NAME}] using existing SkyPilot API server (no flush)..." | tee -a "$LAUNCHER_LOG"
 
 HF_TOKEN_VAL="$(cat "$HF_TOKEN_FILE")"
 if [ -z "${HF_TOKEN_VAL}" ]; then
