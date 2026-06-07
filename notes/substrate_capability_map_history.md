@@ -26832,3 +26832,12 @@ HONEST 1053->1060 (+7). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 379th PROT
 3 HP: hebb_vs_pinv_long 11x-12SEED-3N-UNANIMOUS-PRODUCTION-GRADE (theory 7x exceeded); pinv_llama_l15 3.35x-CAUSAL-LM-ENCODER-AGNOSTIC-SMOKE; srht_vs_hadamard CAPACITY-EQUIVALENT-DROP-IN srht/hadamard=1.00 srht/random=10.00 3-seed.
 5 MID: pinv_n_scaling PLATEAU-N1024+-0.55-N512-DIP-0.40; pinv_capacity_ceiling FLAT-0.50-THEORETICAL-BOUND-N2048-8192; pinv_rank1_smw N1024-10.12x-N2048-5.10x-N4096-6.11x-SINGLE-SEED; mmr_pinv_combined LVH245-RECALL-INTACT-PROPAGATION-2/3SEEDS; neg_whiten_recipe NEUTRAL-CEILING-SATURATED.
 0 HF. 1 LVH #245: mmr_pinv_combined prop_mmr seed7=0.143 fails <0.10 threshold. HONEST 1064->1072 (+8). LVH 244->245 (+1). Portfolio 32+79 UNCHANGED. 381st PROT-009.
+
+
+## v470 (2026-06-06) -- CYCLE 149 PB-BATCH REAL-ENCODER-EXTENSIONS+PRODUCTION-TESTS
+5 HP-full: pb_pinv_llama_l15 CAUSAL-LM-5.03x-3SEED-FULL-PROMOTION (smoke was 3.35x, full 5.03x deterministic, encoder-class-general confirmed); pb_multihead_M_sweep H2/H1-2.25x-SUPER-SQRT-SATURATION-H4-N4096-PROD (production H=2 recommendation, saturation H>=4); pb_online_streaming_stratified DELTA-0.000-3SEED-STREAMING-GATE-CLEARED (offline-parity all speedups, cycle-127 R1 resolved); pb_pinv_downdate RANK1-EXACT-1.7e-16-3SEED-GDPR-DELETION-GATE (retained=1.000 deleted=0.000, N={512,1024,2048}); pb_pinv_insert_delete_churn 300OPS-2e-18-3SEED-NO-REBUILD-NEEDED.
+1 MID-SMOKE: pb_multihead_sparsity_real_keys H2-RECOVERS-SPARSE-PENALTY-smoke (sparse/dense=0.50x at H=1, gap eliminated at H=2+).
+1 HP-SMOKE LVH #246: pb_crt_real_encoder_atoms 143x-REAL-ENCODER-ATOMS-CRT-EXACT-ALGEBRAIC-PROT021-SMOKE (extends cycle-134 LVH#237 synthetic to real-encoder atoms; run_mode=smoke n_seeds=1).
+NEW ROW +1 [32+80]: rank-1-downdate/GDPR-deletion/production-churn (P-band 0.85-0.95 PRODUCTION-NEAR; 2x PROT-008 PASS: downdate+churn pair).
+4x PROT-008 PASS (pinv_llama smoke+full; multihead M2+sweep; streaming offline+online; churn downdate+churn).
+LVH 245->246 (+1). HONEST 1072->1079 (+7). Portfolio 32+79->32+80. 382nd PROT-009.

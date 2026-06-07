@@ -1965,3 +1965,102 @@ Negative-evidence annotation. raw_auc=1.0 at ceiling pre-whitening; whitening ad
 
 Cap_map: v468 -> v469 CYCLE 148 (3 HP: hebb_vs_pinv_long-11x-12SEED-PRODUCTION-GRADE + pinv_llama_l15-3.35x-CAUSAL-LM-SMOKE + srht_vs_hadamard-CAPACITY-EQUIVALENT-DROP-IN; 5 MID: pinv_n_scaling-PLATEAU-N1024+-0.55 + pinv_capacity_ceiling-FLAT-0.50-THEORETICAL-BOUND + pinv_rank1_smw-5-10x-N-DEPENDENT-SINGLE-SEED + mmr_pinv_combined-LVH245-RECALL-INTACT-PROPAGATION-2/3SEEDS + neg_whiten_recipe-NEUTRAL-CEILING-SATURATED; 0 HF; 1 LVH #245: mmr_pinv_combined prop_mmr seed7=0.143 fails <0.10; HONEST 1064->1072 +8; LVH 244->245 +1; Portfolio 32+79 UNCHANGED; 381st PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v469 -> v470 CYCLE 149 BATCH (2026-06-06)
+
+Verdicts processed: 7 anchors (PB real-encoder extensions + full promotions + production tests)
+GENUINELY NEW: pb_crt_real_encoder_atoms_v1 + pb_multihead_sparsity_real_keys_v1 + pb_multihead_M_sweep_production_v1 + pb_online_streaming_stratified_extraction_v1 + pb_pinv_downdate_forgetting_v1 + pb_pinv_insert_delete_churn_v1
+FULL PROMOTION: pb_pinv_llama_l15_keys_v1 (cycle 148 smoke n=1 -> full 3-seed)
+
+### Step 0 honest re-read (MANDATORY)
+
+**(1) pb_crt_real_encoder_atoms_v1 HARD_PASS -- LVH #246 (HP-SMOKE)**
+source=remote run_mode=SMOKE n_seeds=1. real_single=7, real_three=1001, rand_three=1001 (CRT product=7*11*13=1001). ratio_3vs1=143x, real/rand=1.00.
+LABEL OVER-CLAIMS. HARD_PASS on smoke n=1 violates PROT-021 multi-seed requirement. Structurally identical to cycle-134 LVH#237 (crt_multi_scale: same numbers, same algebraic structure). CRT product is algebraically deterministic but single-seed smoke does not meet HARD_PASS protocol.
+LVH #246: (a) label HARD_PASS; (b) honest: HP-SMOKE -- CRT multiplicative composition confirmed on real-encoder atoms, 143x exact algebraic match, but run_mode=smoke n_seeds=1 (PROT-021 not met); (c) contradicting cells: run_mode=smoke n_seeds=1; PROT-021 multi-seed not met.
+Honest verdict: HP-SMOKE. CRT survives real-encoder geometry; mechanism principled.
+HONEST: 1072 -> 1073 (+1). LVH: 245 -> 246 (+1).
+
+**(2) pb_multihead_sparsity_real_keys_v1 MIDDLE_BAND -- LABEL HONEST**
+source=remote run_mode=SMOKE n_seeds=1. dense: H1=200 H2=400 H4=400; sparse: H1=100 H2=400 H4=400. 4head/1head=2.00x dense; sparse/dense=0.50x at H=1 only (H2/H4 sparse==dense=400). MIDDLE_BAND on smoke n=1 is NOT an overclaim. Key nuance: at H=2+ sparsity penalty fully recovered. Multi-head eliminates the sparse/dense gap. SMOKE n=1 flag.
+HONEST: 1073 -> 1074 (+1). LVH: 246 UNCHANGED.
+
+**(3) pb_pinv_llama_l15_keys_v1 HARD_PASS -- LABEL HONEST (FULL PROMOTION)**
+source=remote run_mode=FULL n_seeds=3. Per-seed: seed7={hebb_cap=122, pinv_cap=614}, seed17={hebb_cap=122, pinv_cap=614}, seed23={hebb_cap=122, pinv_cap=614}. Ratio=5.03x ALL 3 seeds identical (deterministic). HP threshold >=3x: 5.03x >> 3x, unanimous. Cycle 148 smoke had ratio=3.35x (smoke n=1); full gives 5.03x. LABEL HONEST. NOT a duplicate: different ratio from smoke. hebb_cap=122 > 0 (causal-LM keys partially support Hebb); pinv still 5x better.
+HONEST: 1074 -> 1075 (+1). LVH: 246 UNCHANGED.
+
+**(4) pb_multihead_M_sweep_production_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=FULL n_seeds=3 N=4096. Per-seed: H1=0.1999 all; H2=0.5498(s7)/0.3999(s17/s23); H4=0.7000 all; H8=0.7000 all. Mean H2/H1=2.25x. Min H2/H1=0.3999/0.1999=2.00x >> 1.3x HP threshold. All 3 seeds clear. H4=H8=0.700 saturation not disclosed in verdict_msg but H2 claim is accurate. LABEL HONEST for M=2 claim.
+HONEST: 1075 -> 1076 (+1). LVH: 246 UNCHANGED.
+
+**(5) pb_online_streaming_stratified_extraction_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=FULL n_seeds=3. ALL 3 seeds x sp10/sp50/sp100: offline_cov=1.000 online_cov=1.000 delta=0.000. HP threshold: delta within 0.05. All 9 cells pass. HONEST.
+HONEST: 1076 -> 1077 (+1). LVH: 246 UNCHANGED.
+
+**(6) pb_pinv_downdate_forgetting_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=FULL n_seeds=3. All 3 seeds x N={512,1024,2048}: max_dev ~1.7e-16 (machine epsilon), retained_recall=1.000, deleted_recall=0.000. Threshold: max_dev<1e-3 AND retained_recall>=0.95. All 9 cells pass unanimously. HONEST.
+HONEST: 1077 -> 1078 (+1). LVH: 246 UNCHANGED.
+
+**(7) pb_pinv_insert_delete_churn_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=FULL n_seeds=3. All 3 seeds x N={512,1024,2048}: max_dev ~2-8e-18, live_recall=1.000. After 300 interleaved insert/delete churn ops. Threshold: max_dev<1e-3 AND live_recall>=0.95. All 9 cells pass unanimously. HONEST.
+HONEST: 1078 -> 1079 (+1). LVH: 246 UNCHANGED.
+
+TOTAL HONEST: 1072 -> 1079 (+7). LVH: 245 -> 246 (+1: crt_real_encoder_atoms HARD_PASS-SMOKE-PROT021-NOT-MET).
+
+### Cap_map decisions (v469 -> v470)
+
+**(1) pb_crt_real_encoder_atoms_v1 [LVH #246 honest: HP-SMOKE]**
+PP-8 / KG-memory positional-addressing sub-axis. CRT multiplicative composition on real-encoder atoms: 143x, algebraically exact. Real encoder geometry does NOT disrupt CRT. Extends cycle-134 LVH#237 (synthetic) to real-encoder atoms (remote). NOT a duplicate (different key type). HP-SMOKE annotation only. PROT-021 3-seed full required.
+Rescue sketches (cheapest-first per PROT-004/006):
+R1 (0-compute, ALGEBRAIC): CRT theorem guarantees capacity=product of coprime moduli; smoke is procedural not scientific uncertainty.
+R2 (CHEAP, CPU <30min): 3-seed full at N=1024 to convert HP-SMOKE to HARD_PASS.
+R3 (CHEAP, CPU <30min): Moduli-family generalization (Mersenne primes) on real encoder atoms.
+R4 (CHEAP, CPU <30min): CRT + pinv write-rule pipeline (dense-CRT-stage + pinv retrieval head).
+Band UNCHANGED. Provisional HP-SMOKE annotation.
+
+**(2) pb_multihead_sparsity_real_keys_v1 MIDDLE_BAND (smoke)**
+PP-8 real-encoder multi-head + sparsity sub-axis. Sparsity penalty at H=1 fully recovered at H=2+. Multi-head eliminates sparse/dense gap on real encoder keys. SMOKE n=1 flag.
+Rescue sketches (cheapest-first):
+R1 (0-compute, ANNOTATION): H=2 parity documented; H=1 sparsity penalty is single-head artifact.
+R2 (CHEAP, GPU <30min): 3-seed full at N=8192 H={1,2,4} real encoder keys to confirm H=2 parity.
+R3 (CHEAP, GPU <30min): Real-encoder sparse-KEY + multi-head at N=16384 for production scale.
+Band UNCHANGED. Smoke annotation.
+
+**(3) pb_pinv_llama_l15_keys_v1 HARD_PASS (FULL PROMOTION)**
+PP-8 write-rule / encoder-class sub-axis. Llama-3.1-8B L15: pinv=614 hebb=122 ratio=5.03x 3-seed deterministic. HP threshold >=3x cleared unanimously. Promotes cycle-148 HP-SMOKE to HARD_PASS. pinv ENCODER-CLASS-GENERAL (sentence + causal-LM confirmed).
+PROT-008: cycle-148 HP-SMOKE + this FULL = VALIDATOR PASS.
+Cap_map annotation: pb_pinv_llama_l15_keys HARD_PASS v470: Llama-3.1-8B L15 pinv=614 hebb=122 ratio=5.03x 3-seed; ENCODER-CLASS-GENERAL.
+PP-8 write-rule sub-axis strengthened. Band UNCHANGED.
+
+**(4) pb_multihead_M_sweep_production_v1 HARD_PASS (production M-sweep)**
+PP-8 multi-head production sub-axis. H2/H1=2.25x super-sqrt(M); saturation H>=4 at N=4096. Production recommendation: H=2. PROT-008: cycle-133 M2 HP + this sweep HP = VALIDATOR PASS.
+Cap_map annotation: pb_multihead_M_sweep_production HARD_PASS v470: H2/H1=2.25x super-sqrt; saturation H>=4 N=4096; production H=2 recommended. Band UNCHANGED.
+
+**(5) pb_online_streaming_stratified_extraction_v1 HARD_PASS (streaming deployment gate)**
+PP-8 extraction sub-axis. Online streaming matches offline batch: delta=0.000 all seeds all speedups. Streaming GATE CLEARS. Resolves cycle-127 R1. PROT-008: cycle-127 stratified MID + this online HP = VALIDATOR PASS.
+Cap_map annotation: pb_online_streaming_stratified HP v470: delta=0.000; streaming GATE CLEARED; cycle-127 R1 resolved. Band UNCHANGED.
+
+**(6) pb_pinv_downdate_forgetting_v1 HARD_PASS (NEW ROW -- GDPR/production deletion gate)**
+NEW CAPABILITY: rank-1 downdate enables single-fact erasure (GDPR) without rebuild. max_dev=1.7e-16 (17 orders below 1e-3 threshold), retained_recall=1.000, deleted_recall=0.000 unanimous 3-seed N={512,1024,2048}. Completes production stack: pinv write-rule + corruption-robustness (i3) + BFT sharding (i4) + targeted deletion (this).
+NEW ROW: rank-1-downdate/GDPR-deletion (P-band 0.85-0.95 PRODUCTION-NEAR). Portfolio 32+79 -> 32+80.
+PROT-008: First HP on deletion sub-axis. Records.
+Cap_map annotation: pb_pinv_downdate_forgetting HARD_PASS v470: rank-1 exact max_dev=1.7e-16 retained=1.000 deleted=0.000 3-seed N={512,1024,2048}; GDPR erasure; NEW ROW [32+80].
+
+**(7) pb_pinv_insert_delete_churn_v1 HARD_PASS (production churn invariant)**
+PP-8 + NEW ROW extension. 300 interleaved insert/delete ops: max_dev=2-8e-18, live_recall=1.000 unanimous 3-seed N={512,1024,2048}. Extends anchor 6 (single deletion) to sustained churn. No periodic rebuild needed. PROT-008: anchor 6 HP + this HP = VALIDATOR PASS.
+Cap_map annotation: pb_pinv_insert_delete_churn HARD_PASS v470: 300-op churn max_dev=2-8e-18 live_recall=1.000 3-seed; no rebuild needed; EXTENDS NEW ROW [32+80 UNCHANGED]. PROT-008 PASS.
+
+### Portfolio: 32+79 -> 32+80 (+1 NEW ROW: rank-1-downdate/GDPR-deletion/production-churn). 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v469 -> v470)
+- PROT-004/006: No closures. LVH #246 R1-R4 cheapest-first. pb_multihead_sparsity_real_keys smoke R1-R3 cheapest-first.
+- PROT-007: v470 history row appended to substrate_capability_map_history.md.
+- PROT-008: (a) pb_pinv_llama_l15: smoke+full PASS. (b) pb_multihead_M_sweep: cycle-133 M2+sweep PASS. (c) pb_online_streaming: offline MID+online HP PASS. (d) pb_pinv_insert_delete_churn: downdate HP+churn HP PASS. (e) pb_pinv_downdate: first HP deletion row Records.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 382nd PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 7 anchors. CLEAN.
+- PROT-019: LVH #246 filed.
+- PROT-021: Anchors 3,4,5,6,7 source=remote run_mode=full multi-seed. Anchors 1,2 source=remote run_mode=SMOKE n_seeds=1. LVH #246 filed for anchor 1. Anchor 2 MIDDLE_BAND honest label.
+- PROT-022: Anchors 3,4,5,6,7 deterministic. Anchor 4 seed7 H2=0.5498 vs 0.3999 -- all above HP threshold; not fragile. Anchors 1,2 smoke n=1.
+
+Cap_map: v469 -> v470 CYCLE 149 (5 HP-full: pb_pinv_llama_l15-CAUSAL-LM-5.03x-3SEED-FULL-PROMOTION + pb_multihead_M_sweep-H2/H1-2.25x-SUPER-SQRT-SATURATION-H4-PROD + pb_online_streaming_stratified-DELTA-0.000-3SEED-STREAMING-GATE + pb_pinv_downdate-RANK1-EXACT-1.7e-16-3SEED-GDPR-GATE + pb_pinv_insert_delete_churn-300OPS-2e-18-3SEED-NO-REBUILD; 1 MID-SMOKE: pb_multihead_sparsity_real_keys-H2-RECOVERS-SPARSE-PENALTY; 1 HP-SMOKE-LVH#246: pb_crt_real_encoder_atoms-143x-REAL-ATOMS-PROT021; NEW ROW +1 [32+80]: rank1-downdate/GDPR-deletion/churn; LVH 245->246 +1; HONEST 1072->1079 +7; 4x PROT-008 PASS; Portfolio 32+79->32+80; 382nd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
