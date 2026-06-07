@@ -181,9 +181,9 @@ def verdict(r) -> Tuple[str, str]:
     summary = "debiased-meanpool ZKL(%d)=%.3f KEY-job-F1=%.3f (F1 drop=%.3f); baseline ZKL~0.22 (n_stored=%d)" % (r["k"], z, f1, drop, r["n"])
     if z <= 0.10 and drop <= 0.10:
         return ("HARD_PASS", "HARD_PASS (Hyp B mitigation b): per-position-debiased mean-pool drops ZKL(50)<=0.10 with KEY-job F1 drop<=10%% -- ABSOLUTE HIPAA-grade privacy RECOVERED; replace production last-token pool with debiased mean-pool. " + summary)
-    if z <= 0.15 or drop <= 0.20:
-        return ("MIDDLE_BAND", "MIDDLE_BAND (b borderline): reduces ZKL but not to <=0.10 (or F1 cost) -- queue (a) attention-reweighting next. " + summary)
-    return ("HARD_FAIL", "HARD_FAIL: debiased mean-pool does not reduce ZKL below 0.15 -- queue (a) attention-reweighting (forward-hook cap on top-3 positions). " + summary)
+    if 0.10 < z <= 0.15 and drop <= 0.20:
+        return ("MIDDLE_BAND", "MIDDLE_BAND (b borderline): reduces ZKL toward target but not <=0.10 -- queue (a) attention-reweighting next. " + summary)
+    return ("HARD_FAIL", "HARD_FAIL: debiased mean-pool does NOT reduce ZKL (%.3f vs ~0.22 baseline) -- mean-pool spreads but does not remove the leak; queue (a) attention-reweighting (forward-hook cap on top-3 positions). " % z + summary)
 
 
 print("[config] anchor=%s mode=%s N_stored=%d N_never=%d k=%d dims=%s" % (ANCHOR_NAME, RUN_MODE, N_STORED, N_NEVER, K_PARA, DIMS), flush=True)
