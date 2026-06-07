@@ -84,3 +84,23 @@ BRIDGING fact (relevant to the answer chain, NOT directly to the question) down.
     retrieve hop-1, extract the bridge entity, re-query for hop-2. The crude "q+hop1" vector bridge also hurt; a proper
     entity-bridge decomposition is the next cell. This is a concrete, fair-size, demonstrable substrate value-add story.
 Next genuine cell: entity-bridge K-hop decomposition on bge top-10 (does hop1->bridge->hop2 lift recall@2hop toward 0.74).
+
+---
+## UPDATE 4 (FINAL): embedding-based multi-hop plateaus at ~0.42 -> decomposition/LLM-loop is REQUIRED
+Third multi-hop method tested. All three plateau at/below naive bge (0.42):
+  - vector bridge (q+hop1):        0.38  (-0.04)
+  - cross-encoder rerank:          0.34  (-0.08)
+  - text-level iterative (re-enc): 0.40  (-0.02)
+Recall@10 ceiling is 0.74 (facts ARE present), but NO similarity/ranking method reaches it. The bridging fact is reachable
+only by understanding the question's compositional structure (extract bridge entity from hop1, query for the entity).
+
+### Strategic conclusion for the north-star ("functional system beats LLMs at relative size")
+HotpotQA 2-hop at fair size is NOT solvable by retrieval/reranking alone (embedding ceiling ~0.42). It REQUIRES explicit
+multi-hop decomposition -- an LLM-in-the-loop that decomposes the question + an audited substrate retrieval/K-hop layer
+underneath. This is precisely the system-level value story: the assembled system (small LLM decomposer + bge retrieval +
+substrate K-hop/audit/storage) does multi-hop that neither bare retrieval nor a bare small LLM does well alone.
+
+### Recommended next builds (need encoder/scope confirmation)
+1. Entity-bridge K-hop: extract NPs/entities from hop1, query bge for the bridge entity, recall@2hop. (spaCy NER, CPU.)
+2. LLM-decomposition loop: small LLM splits the 2-hop question into 2 single-hop queries; bge retrieves each. The real recipe.
+3. THEN measure F1 of a small LLM answering with substrate-retrieved vs bare -- the actual head-to-head north-star metric.
