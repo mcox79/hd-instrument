@@ -1717,3 +1717,98 @@ PP-8 retrieval sub-axis annotation. Band UNCHANGED.
 
 Cap_map: v465 -> v466 CYCLE 145 G/H/Q-BATCH (2 HP: g4_200cell_revalidation-PROD-STATS-VALIDATED-khop/loc/merkle-lb0.981 + g9_consistent_lie_chain-K3/K5-1.000-HARDEST-ADVERSARIAL; 1 HP-RESCUE: h1_mmr_retrieval-0.167->0.050-70pct-REDUCTION-G8-CONDITIONAL-PASS; 1 HF-confirm: g7_e5_large_geometry-RHO=0.823-DISQUALIFIED-CONFIRMED; 2 HF-new: g8_anchoring_bias-PROP=0.354-ATTACK-SURFACE-CLUSTERED-KB + h4_density_calibration-AUC=0.528-CHANCE-CLOSED; 1 HF-degrades: q4_lora_retrieval-LoRA-DEGRADES-RP=0.246-vs-BASE=0.346; 1 MID-CLOSED: h3_inverse_density-PROP=0.156-6pct-NOMINAL-CLOSED; 0 LVH; HONEST 1045->1053 +8; LVH 244 UNCHANGED; Portfolio 32+79; KF-1 consistent-lie-chain extended; PP-8 clustered-KB CONDITIONAL-PASS-MMR; 378th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v466 -> v467 CYCLE 146 PB-BATCH (2026-06-06)
+
+Verdicts processed (7: PB production-baseline integration + h2 MMR envelope):
+1. pb_production_recipe_integration_v1 (HARD_PASS)
+2. pb_pinv_sherman_morrison_incremental_v1 (MIDDLE_BAND)
+3. pb_mmr_real_encoder_clustered_v1 (HARD_PASS)
+4. pb_e5_vs_bge_pinv_headtohead_v1 (HARD_PASS)
+5. pb_consistent_lie_chain_harder_v1 (HARD_PASS)
+6. pb_multilang_paraphrase_chain_kf1_v1 (HARD_PASS)
+7. h2_mmr_lambda_rho_envelope_v1 (HARD_PASS)
+
+### Step 0 -- Honest re-read (MANDATORY)
+
+**(1) pb_production_recipe_integration_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed: {seed7: naive=3, full=172}, {seed17: naive=3, full=172}, {seed23: naive=3, full=172}. lift=57.3x >> 5x HP threshold. Deterministic. HONEST. +1 HONEST (1053->1054).
+
+**(2) pb_pinv_sherman_morrison_incremental_v1 MIDDLE_BAND -- LABEL HONEST (with note)**
+source=remote run_mode=full n_seeds=1. N2048: speedup=0.677x. N4096: speedup=0.824x. MIDDLE_BAND threshold: speedup<10x. Label is correct. NOTE: incremental update is actually SLOWER than full rebuild (0.677-0.824x), not merely below 10x; verdict_msg says 'incremental correct but <10x speedup' which underrepresents severity -- speedup is sub-1x. No LVH (MIDDLE_BAND is not an overclaim; verdict tag is honest). max_dev=0.0 confirms correctness is not in question. HONEST. +1 HONEST (1054->1055).
+
+**(3) pb_mmr_real_encoder_clustered_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Per-seed mmr_propagation: seed7=0.020, seed17=0.047, seed23=0.040. ALL < 0.10 HP threshold. baseline 0.513-0.860 -> MMR 0.020-0.047 (56-95% reduction). HONEST. +1 HONEST (1055->1056).
+
+**(4) pb_e5_vs_bge_pinv_headtohead_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All 3 seeds: hebb=0.000, pinv=0.550. Hebb=0 -> pinv RESCUES (threshold: >=3x or Hebb~0). NOTE: e5-large keys are production-blocked on geometric grounds (rho=0.823, g1/g7 cycle-144/145); pinv capacity on E5 keys is measurable (0.550) but encoder is production-blocked by geometry gate. HP claim ('pinv dominates hebb on real keys') is honest as measured. No LVH. +1 HONEST (1056->1057).
+
+**(5) pb_consistent_lie_chain_harder_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. All 3 seeds: K8=1.000, K12=1.000. Mean=1.000 >> 0.85 HP threshold. Deterministic. Extends g9 K3/K5 to K8/K12. HONEST. +1 HONEST (1057->1058).
+
+**(6) pb_multilang_paraphrase_chain_kf1_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. paraphrase_AUC: seed7=0.968, seed17=0.970, seed23=0.973. ALL > 0.85 HP threshold. clean_AUC=1.000 all seeds. drop range 0.027-0.032. HONEST. +1 HONEST (1058->1059).
+
+**(7) h2_mmr_lambda_rho_envelope_v1 HARD_PASS -- LABEL HONEST**
+source=remote run_mode=full n_seeds=3. Cell means: l0.3=~-0.002 (all rho); l0.5=0.073/0.067/0.064; l0.7=0.253 (all rho). Safe (<0.10): 6/9 cells. HP threshold: majority <0.10. 6/9 = 67% majority safe. Per-seed confirms no seed-level reversal. Envelope characterization accurate. HONEST. +1 HONEST (1059->1060).
+
+HONEST: 1053 -> 1060 (+7). LVH: 244 UNCHANGED (0 new LVH this batch).
+
+### Cap_map decisions (v466 -> v467)
+
+**(1) pb_production_recipe_integration_v1 HARD_PASS**
+PP-8 production-recipe compound sub-axis. Full end-to-end recipe integration: whiten+pinv composes to 57.3x naive lift (naive=3 raw+hebb, full=172 whiten+pinv). 3-seed deterministic. Corroborates f8 (v464: alpha_c=0.400) and pseudoinverse_real_encoder transfer chain. 57.3x lift confirms full stack is multiplicative.
+Cap_map annotation: pb_production_recipe_integration HP v467: 3-seed full naive=3 full=172 lift=57.3x; whiten+pinv full-stack LOCKED; production recipe integration test confirmed.
+PP-8 write-rule + compound sub-axis. Band UNCHANGED.
+
+**(2) pb_pinv_sherman_morrison_incremental_v1 MIDDLE_BAND**
+PP-8 operational/deployment sub-axis. Incremental update via Sherman-Morrison is correct (max_dev=0.0) but SLOWER than full rebuild at N={2048,4096} (0.677-0.824x). Deployment path = full rebuild (g2 throughput gate already cleared).
+Rescue sketches (cheapest-first per PROT-004/006):
+R1 (0-compute, SUBSUMPTION): Deploy full-rebuild path; incremental not needed if full rebuild is fast enough (g2: 11K writes/sec N=16384).
+R2 (CHEAP, CPU <30min): N-sweep {8192,16384,32768} -- Sherman-Morrison advantage may emerge at larger N.
+R3 (CHEAP, CPU <30min): Batched rank-k Sherman-Morrison updates to amortize overhead.
+R4 (MEDIUM, CPU <2h): Profile kernel bottleneck -- if Python overhead not FLOP, vectorized batch may reverse sign.
+Cap_map annotation: pb_pinv_sherman_morrison_incremental MID v467: incremental correct but slower (0.677-0.824x) at N={2048,4096}; production = full rebuild; R1-R4 filed cheapest-first.
+Band UNCHANGED.
+
+**(3) pb_mmr_real_encoder_clustered_v1 HARD_PASS**
+PP-8 retrieval sub-axis. MMR TRANSFERS to real-encoder clustered KB: propagation 0.020-0.047 all <0.10. Closes transfer gap from h1 (synthetic) to real encoder + real clustered KB. PROT-008 triggered.
+PROT-008 validator: cycle-145 h1 HP (synthetic KB) + pb_mmr_real_encoder_clustered HP (real encoder+KB) = two independent HPs across transfer gap. VALIDATOR PASS.
+Cap_map annotation: pb_mmr_real_encoder_clustered HP v467: real-encoder KB propagation 0.020-0.047 all <0.10 (3-seed); h1 synthetic->real transfer confirmed; PP-8 clustered KB path FULLY DEPLOYABLE with MMR (CONDITIONAL -> FULL DEPLOYABLE upgrade).
+Band UNCHANGED; sub-axis state upgraded.
+
+**(4) pb_e5_vs_bge_pinv_headtohead_v1 HARD_PASS**
+PP-8 write-rule sub-axis. pinv encoder-agnostic dominance confirmed: E5-large pinv=0.550 hebb=0.000 (3-seed deterministic). Extends write-rule dominance across MiniLM/BGE/E5 encoder families. E5 production-blocked on geometry (rho=0.823) -- encoder-selection and write-rule decisions are orthogonal.
+Cap_map annotation: pb_e5_bge_headtohead HP v467: E5 pinv=0.550 hebb=0.000; pinv encoder-agnostic write-rule dominance confirmed across all tested encoders; E5 production-blocked on geometry (independent of write-rule result).
+PP-8 write-rule sub-axis. Band UNCHANGED.
+
+**(5) pb_consistent_lie_chain_harder_v1 HARD_PASS**
+KF-1 adversarial chain sub-axis. K8/K12 catch=1.000 (3-seed unanimous). Extends g9 (K3/K5) to K8/K12 monotone. PROT-008 triggered: second HP on chain verification sub-axis.
+PROT-008 validator: g9 K3/K5 + pb_consistent_lie_chain K8/K12 = monotone K-extension, two HPs. VALIDATOR PASS.
+Cap_map annotation: pb_consistent_lie_chain_harder HP v467: K8/K12 catch=1.000 3-seed; extends g9 K3/K5 ceiling to K12; compositional verification scales to long chains; KF-1 consistent-lie chain K12 confirmed.
+KF-1 adversarial chain sub-axis upgraded. Band UNCHANGED.
+
+**(6) pb_multilang_paraphrase_chain_kf1_v1 HARD_PASS**
+KF-1 cross-lingual deployment sub-axis. paraphrase_AUC 0.968-0.973 (3-seed full, tight spread). Corroborates cycle-141 kf1_paraphrase AUC=0.985 (single-seed); this adds 3-seed + chain structure confirmation. Cross-lingual KF-1 CONFIRMED DEPLOYABLE.
+Cap_map annotation: pb_multilang_paraphrase_kf1 HP v467: paraphrase_AUC 0.968-0.973 3-seed; drop 0.027-0.032; cross-lingual paraphrase chain DEPLOYABLE; 3-seed confirms cycle-141 single-seed result.
+KF-1 cross-lingual sub-axis: single-seed -> 3-seed confirmed. Band UNCHANGED.
+
+**(7) h2_mmr_lambda_rho_envelope_v1 HARD_PASS**
+PP-8 MMR operational envelope sub-axis. Safe zone: lambda<=0.5 (all rho values) is safe (<0.10). Unsafe: lambda=0.7 (all rho, propagation=0.253). Rho is not the key axis -- lambda is. Production config: lambda in [0.3,0.5], rho in [0.4,0.8]. 6/9 cells safe 3-seed confirmed.
+Cap_map annotation: h2_mmr_lambda_rho_envelope HP v467: lambda<=0.5 safe (6/9 cells <0.10); lambda=0.7 unsafe (prop=0.253); rho not a key axis; production config lambda=[0.3,0.5], rho=[0.4,0.8].
+MMR operational envelope sub-axis. Band UNCHANGED.
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 closures.
+
+### PROT compliance (v466 -> v467)
+- PROT-004/006: pb_pinv_sherman_morrison MID: R1-R4 cheapest-first. No closures.
+- PROT-007: v467 history row appended to substrate_capability_map_history.md.
+- PROT-008: (a) pb_mmr_real_encoder_clustered: CONDITIONAL->FULL DEPLOYABLE (h1 synthetic + this real = two HPs). VALIDATOR PASS. (b) pb_consistent_lie_chain_harder: K-chain extension (g9 K3/K5 + this K8/K12 = two monotone HPs). VALIDATOR PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 379th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 7 anchors. CLEAN.
+- PROT-019: LVH 244 UNCHANGED. 0 new LVH.
+- PROT-021: All 7 source=remote run_mode=full. CLEAN.
+- PROT-022: Anchors 1/4/5 deterministic (0 seed variance). Anchors 3/6/7 tight spread. Anchor 2 n_seeds=1 correctness confirmed (max_dev=0.0). No HP-fragility.
+
+Cap_map: v466 -> v467 CYCLE 146 PB/H2-BATCH (6 HP: pb_production_recipe-57.3x-LIFT-LOCKED + pb_mmr_real_encoder_clustered-REAL-KB-FULLY-DEPLOYABLE + pb_e5_bge_headtohead-PINV-ENCODER-AGNOSTIC-0.550 + pb_consistent_lie_chain_harder-K12-CATCH-1.000 + pb_multilang_paraphrase_kf1-XLING-AUC-0.968-0.973-3SEED + h2_mmr_envelope-6/9-SAFE-lambda-0.5; 1 MID: pb_pinv_sherman_morrison-INCREMENTAL-SLOWER-0.677-0.824x-R1-R4; 0 LVH; HONEST 1053->1060 +7; LVH 244 UNCHANGED; 2x PROT-008 PASS: MMR-FULL-DEPLOYABLE + K12-CHAIN-EXTENSION; Portfolio 32+79 UNCHANGED; 379th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

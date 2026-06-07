@@ -26817,3 +26817,9 @@ HONEST 1040->1045 (+5). LVH 243->244 (+1). Portfolio 32+79 UNCHANGED. 377th PROT
 1 HF-degrades: q4_lora_retrieval LoRA-DEGRADES RP=0.246-vs-BASE=0.346 rel=-28.9pct.
 1 MID-CLOSED: h3_inverse_density PROP=0.156 6pct-NOMINAL-CLOSED.
 HONEST 1045->1053 (+8). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 378th PROT-009.
+
+## v467 (2026-06-06) -- CYCLE 146 PB/H2-BATCH
+6 HP: pb_production_recipe 57.3x-LIFT-LOCKED whiten+pinv-full-stack; pb_mmr_real_encoder_clustered REAL-KB-FULLY-DEPLOYABLE propagation-0.020-0.047; pb_e5_bge_headtohead PINV-ENCODER-AGNOSTIC-0.550-hebb=0; pb_consistent_lie_chain_harder K12-CATCH=1.000 extends-g9-K3/K5; pb_multilang_paraphrase_kf1 XLING-AUC=0.968-0.973-3SEED cross-lingual-DEPLOYABLE; h2_mmr_lambda_rho_envelope 6/9-SAFE lambda<=0.5 production-config-locked.
+1 MID: pb_pinv_sherman_morrison INCREMENTAL-SLOWER-0.677-0.824x R1-R4 filed; full-rebuild-deployment-path.
+2x PROT-008 PASS: (a) MMR CONDITIONAL->FULL-DEPLOYABLE (h1+pb_mmr two HPs); (b) K12-CHAIN-EXTENSION (g9+pb_consistent_lie two monotone HPs).
+HONEST 1053->1060 (+7). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 379th PROT-009.
