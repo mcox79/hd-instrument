@@ -79,3 +79,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - 2026-06-07: v1 benchmark suite 3x drill -> notes/research_drill_v1_benchmark_suite_3x_2026-06-07.md ; HEADLINE: MuSiQue+LongMemEval are headline; MMLU/NQ excluded; 5 benchmarks with pre-test gates; P_deflated range 0.22-0.39
 - storage-compression-v3-alternatives: notes/research_drill_sparse_w_alternatives_3x_2026-06-07.md -- Huffman (P=0.65) + 3-bit (P=0.26) + PQ (P=0.18); realistic floor 1-3 KB/fact; 200B target ~1% joint P
 - Pattern B compositional storage 3x drill -> notes/research_drill_pattern_b_compositional_storage_3x_2026-06-07.md | HEADLINE: SRL quality is the go/no-go gate; algebra proven; hybrid Option B recommended with 2-hour SRL pre-test gate | P_deflated=0.37 | next-drill: SRL_pretest_domain_quality (CPU pre-test, Rank 1 anchor)
+
+- [Pattern B production stack compat 3x drill] notes/research_drill_pattern_b_production_stack_compat_3x_2026-06-07.md -- 7/8 Pattern A elements transfer; d=30 PCA DOES NOT transfer (bundle manifold ~100-300 dim); 3-day engineering overlay estimate; 5 cheap CPU tests pre-registered
