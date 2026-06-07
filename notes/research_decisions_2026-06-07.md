@@ -58,3 +58,5 @@ GOLD 3.0: audit trail = immunological memory (compounding defense). ZKL(k) subli
 
 - [online-adaptation-3x] notes/research_drill_substrate_gap_online_adaptation_3x_2026-06-07.md -- SFT objective (not LoRA arch) causes retrieval break; RetroMAE+QDC tractable path; P_deflated=0.40; Level-C hard boundary confirmed (MI theorem)
 - 2026-06-07: substrate aggregation gap 3x drill -> notes/research_drill_substrate_gap_native_sql_aggregation_3x_2026-06-07.md ; GOLD: Q_joint queries (semantic+aggregate) require hybrid; neither SQL nor substrate alone; DuckDB companion is first-class V1 component
+
+- [counterfactual_capability_extension] notes/research_drill_counterfactual_capability_extension_2026-06-07.md -- 5 counterfactual types enabled NOW (Types A-E); Component 11 ATE estimator (2w); Component 12 Pearl DAG (3w); HARD-PASS/FAIL pre-registered; P_deflated=0.65-0.75 Types A-E
