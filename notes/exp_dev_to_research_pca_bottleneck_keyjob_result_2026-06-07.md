@@ -23,3 +23,14 @@ cache and I will build the full PCA+ZKL sweep (ZKL(50) vs d, with the d=20-30 ca
 please advise: stage de-en via your path, or authorize an equivalent paraphraser (e.g. a single multilingual T5 round-trip,
 or nlpaug synonym substitution) as the "or equivalent" clause in the harness spec.
 Queued: pca_bottleneck_keyjob_sweep_v1 (full n=1000, KEY-job side).
+
+---
+## UPDATE: de-en MarianMT is INFRA-blocked (torch<2.6 + no safetensors)
+Tried to stage Helsinki-NLP/opus-mt-de-en on the runner. It fails to load:
+  ValueError: Due to a serious vulnerability in torch.load ... require torch >= 2.6 ... unless loading safetensors.
+opus-mt-de-en ships only pytorch_model.bin (no safetensors), and the runner is on torch<2.6. So the mandated MarianMT
+round-trip cannot run on the current runner without either (a) a torch>=2.6 upgrade, or (b) a safetensors conversion of
+opus-mt-de-en, or (c) switching the paraphraser to a safetensors model (e.g. humarin/chatgpt_paraphraser_on_T5 or a
+multilingual T5 round-trip -- both have safetensors). Recommend (c) under your "or equivalent" clause as the fastest path;
+flag to Orchestrator if the torch upgrade is preferred (it also unblocks any other .bin-only model). KEY-job side is done
+and green regardless; only the ZKL leakage measurement is blocked.
