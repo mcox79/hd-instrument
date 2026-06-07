@@ -107,6 +107,10 @@ _ap.add_argument("--alpha-c", type=float, default=0.40,
                        "theoretical; conservative 0.40 with PCA whitened keys)")
 _ap.add_argument("--noise-sweep", action="store_true",
                   help="Sweep noise_std over [0.05, 0.1, 0.2, 0.5] for capacity profile")
+_ap.add_argument("--n-heads", type=int, default=2,
+                  help="Multi-head substrate H (Research F4 spec; default H=2 BFT). "
+                       "Each head has independent W via different random orthogonal "
+                       "rotation of K; reads averaged across heads for noise robustness.")
 _ARGS, _ = _ap.parse_known_args()
 
 N_FACTS = _ARGS.n_facts
@@ -116,6 +120,7 @@ N_PER_FRAGMENT = _ARGS.n_per_fragment   # substrate dimension d per fragment
 M_MAX = _ARGS.m_max
 EF_SEARCH = _ARGS.ef_search
 ALPHA_C = _ARGS.alpha_c
+N_HEADS = _ARGS.n_heads
 # CRITICAL: per-fragment CAPACITY (= alpha_c * dimension) -- different from dimension.
 # Must cap each fragment at this so pseudoinverse stays well-conditioned.
 # Overflowing fragments produce rank-deficient W -> degraded recall.
@@ -152,9 +157,11 @@ def pseudoinverse_write(K: np.ndarray, V: np.ndarray) -> np.ndarray:
     return W
 
 
-def pca_whiten_fit(X: np.ndarray, top_d: int, seed: int = PCA_SEED):
-    """Fit PCA whitening on X (N, D). Returns (mean, projection (D, top_d))."""
-    rng = np.random.default_rng(seed)
+def pca_whiten_fit(X: np.ndarray, top_d: int):
+    """Fit PCA whitening on X (N, D). Returns (mean, whitener (D, top_d)).
+
+    Note: SVD is deterministic; no random seed needed.
+    """
     mean = X.mean(axis=0).astype(np.float32)
     Xc = X - mean
     # SVD-based PCA: U, S, Vt where columns of Vt[:top_d] are top components
@@ -171,24 +178,29 @@ def pca_whiten_apply(X: np.ndarray, mean: np.ndarray, whitener: np.ndarray) -> n
 
 
 def _selftest():
-    """PROT-022: verify pseudoinverse + PCA + consistent hash."""
+    """PROT-022: verify pseudoinverse + PCA + consistent hash + capacity cap."""
     rng = np.random.default_rng(0)
 
-    # Pseudoinverse round-trip: at small alpha (m<<d) recall@1 should be ~100 pct
+    # Pseudoinverse round-trip: at small alpha (m<<d) recall@1 should be EXACTLY 1.0
+    # (tightened from 0.95; for m<<d the round-trip is mathematically perfect)
     d = 64; m = 20
     K = rng.standard_normal((m, d)).astype(np.float32)
     V = np.eye(m, dtype=np.float32)
     W = pseudoinverse_write(K, V)
     reads = K @ W.T                  # (m, m)
     top1 = (reads.argmax(axis=1) == np.arange(m)).mean()
-    assert top1 > 0.95, f"pseudoinverse round-trip top-1 should be ~1.0; got {top1}"
+    assert top1 == 1.0, f"pseudoinverse round-trip top-1 should be 1.0; got {top1}"
 
     # PCA whiten: applying to fit data, projected vectors should have unit-ish variance
     X = rng.standard_normal((100, 32)).astype(np.float32)
-    mean, whitener = pca_whiten_fit(X, top_d=8, seed=1)
+    mean, whitener = pca_whiten_fit(X, top_d=8)
     Y = pca_whiten_apply(X, mean, whitener)
     var = Y.var(axis=0)
     assert (var > 0.1).all() and (var < 10).all(), f"whitened var should be ~1; got {var}"
+
+    # Capacity cap math: alpha_c * dimension
+    assert PER_FRAGMENT_CAP == int(ALPHA_C * N_PER_FRAGMENT), \
+        f"PER_FRAGMENT_CAP={PER_FRAGMENT_CAP} != {int(ALPHA_C * N_PER_FRAGMENT)}"
 
     # Consistent hash: same key -> same fragment; different keys -> different distribution
     keys = [f"key_{i}" for i in range(1000)]
@@ -253,46 +265,86 @@ def load_cell2_passages(shards_dir: Path, n_target: int) -> Tuple[List[str], Lis
     return ids_kept, titles_kept, embs_kept
 
 
+def random_orthogonal(d: int, rng: np.random.Generator) -> np.ndarray:
+    """Random orthogonal (d, d) matrix via QR decomposition of a Gaussian.
+
+    Used to build H independent rotations for multi-head substrate.
+    """
+    M = rng.standard_normal((d, d)).astype(np.float32)
+    Q, _ = np.linalg.qr(M)
+    return Q.astype(np.float32)
+
+
 def build_substrate(keys_whitened: np.ndarray, values: np.ndarray,
                      ids: List[str], n_fragments: int,
-                     n_per_fragment: int) -> Dict[int, Dict]:
-    """Shard facts across fragments via consistent hash; pseudoinverse-write each.
+                     per_fragment_cap: int, n_heads: int = 2) -> Tuple[Dict[int, Dict], int]:
+    """Shard facts across fragments via consistent hash; MULTI-HEAD pseudoinverse write.
 
-    Returns dict: fragment_id -> {W, ids_in_fragment, keys_in_fragment, values_in_fragment}.
+    H-head BFT substrate (Research F4 spec): each fragment has H INDEPENDENT W matrices,
+    one per head. Independence comes from each head applying its own random ORTHOGONAL
+    rotation R_h to keys before computing pseudoinverse. At read time, the query is
+    similarly rotated per-head and the cleaned outputs are averaged across heads. This
+    provides redundancy against single-head noise/corruption -- a noise pattern that
+    fools head 1 is unlikely to fool head 2's rotated geometry.
+
+    per_fragment_cap = capacity (alpha_c * dimension), NOT dimension itself.
+    Returns (fragments dict, total_dropped count).
     """
     fragments = {}
     for fid in range(n_fragments):
         fragments[fid] = {"ids": [], "keys": [], "values": []}
 
-    # Route each fact to a fragment
+    # Route each fact to a fragment; track drops INSIDE the loop (correctness fix)
+    total_dropped = 0
     for i, art_id in enumerate(ids):
         fid = consistent_hash_fragment(art_id, n_fragments)
-        if len(fragments[fid]["ids"]) < n_per_fragment:
+        if len(fragments[fid]["ids"]) < per_fragment_cap:
             fragments[fid]["ids"].append(art_id)
             fragments[fid]["keys"].append(keys_whitened[i])
             fragments[fid]["values"].append(values[i])
+        else:
+            total_dropped += 1
 
-    # Build W for each non-empty fragment
-    total_dropped = sum(1 for i, art_id in enumerate(ids)
-                       if len(fragments[consistent_hash_fragment(art_id, n_fragments)]["ids"]) >= n_per_fragment)
-    print(f"[shard] fragment_sizes min={min(len(f['ids']) for f in fragments.values())} "
-          f"max={max(len(f['ids']) for f in fragments.values())} "
-          f"mean={np.mean([len(f['ids']) for f in fragments.values()]):.0f}", flush=True)
+    sizes = [len(f["ids"]) for f in fragments.values()]
+    print(f"[shard] fragment_sizes min={min(sizes)} max={max(sizes)} "
+          f"mean={np.mean(sizes):.0f} cap={per_fragment_cap} "
+          f"dropped={total_dropped}/{len(ids)} "
+          f"({100*total_dropped/max(len(ids),1):.2f}%)", flush=True)
 
+    # Per-head random orthogonal rotation (different seed per fragment to keep heads
+    # uncorrelated across fragments too)
+    print(f"[shard] building multi-head H={n_heads}: each head = independent random "
+          f"orthogonal rotation + pseudoinverse W", flush=True)
     for fid in range(n_fragments):
         if not fragments[fid]["ids"]:
-            fragments[fid]["W"] = None
+            fragments[fid]["W_heads"] = None
             continue
         K = np.stack(fragments[fid]["keys"]).astype(np.float32)
         V = np.stack(fragments[fid]["values"]).astype(np.float32)
-        W = pseudoinverse_write(K, V)
-        fragments[fid]["W"] = W
-        # Keep K + V for in-fragment retrieval
+        d = K.shape[1]
+
+        # Build H independent W matrices via different random orthogonal rotations
+        head_rng = np.random.default_rng(SHUFFLE_SEED + 1000 + fid)
+        W_heads = []
+        R_heads = []
+        for h in range(n_heads):
+            R_h = random_orthogonal(d, head_rng)               # (d, d)
+            K_rotated = K @ R_h.T                              # (m, d)
+            W_h = pseudoinverse_write(K_rotated, V)            # (d_v, d)
+            # Read pipeline: cleaned_h = W_h @ (R_h.T @ q) ~ V[i] for q ~ K[i]
+            # (See evaluate_retrieval for the per-head read math.)
+            W_heads.append(W_h)
+            R_heads.append(R_h)
+
+        fragments[fid]["W_heads"] = W_heads
+        fragments[fid]["R_heads"] = R_heads
         fragments[fid]["K"] = K
         fragments[fid]["V"] = V
-    print(f"[shard] built pseudoinverse-W for {sum(1 for f in fragments.values() if f.get('W') is not None)} non-empty fragments",
+
+    n_nonempty = sum(1 for f in fragments.values() if f.get('W_heads') is not None)
+    print(f"[shard] built H={n_heads} W matrices for {n_nonempty}/{n_fragments} non-empty fragments",
           flush=True)
-    return fragments
+    return fragments, total_dropped
 
 
 def evaluate_retrieval(fragments, query_keys_whitened, query_ids, n_fragments,
@@ -370,19 +422,35 @@ def main():
     keys = embs_w
     values = embs_w  # auto-associative
 
-    # Step 2: shard + pseudoinverse-write
-    print(f"\n=== Step 2: shard 100K facts -> {N_FRAGMENTS} fragments + pseudoinverse-W ===", flush=True)
-    fragments = build_substrate(keys, values, ids, N_FRAGMENTS, N_PER_FRAGMENT)
+    # Step 2: shard + pseudoinverse-write (cap at alpha_c * dimension, not dimension itself)
+    print(f"\n=== Step 2: shard 100K facts -> {N_FRAGMENTS} fragments + pseudoinverse-W "
+          f"(per-fragment cap={PER_FRAGMENT_CAP}) ===", flush=True)
+    fragments, n_dropped = build_substrate(keys, values, ids, N_FRAGMENTS, PER_FRAGMENT_CAP)
     print(f"  shard + write wall {time.time()-t0:.1f}s", flush=True)
 
-    # Step 3: evaluate retrieval on random N_QUERIES
-    print(f"\n=== Step 3: retrieval evaluation on {N_QUERIES} queries ===", flush=True)
-    query_idx = rng.choice(len(ids), size=min(N_QUERIES, len(ids)), replace=False)
+    # Step 3: evaluate retrieval on random N_QUERIES (optionally sweep noise_std)
+    noise_grid = [0.05, 0.1, 0.2, 0.5] if _ARGS.noise_sweep else [_ARGS.noise_std]
+    print(f"\n=== Step 3: retrieval evaluation on {N_QUERIES} queries; noise_grid={noise_grid} ===", flush=True)
+
+    # Use a fresh rng so noise sweep doesn't share state with the shuffle/query-sample rng
+    eval_rng = np.random.default_rng(SHUFFLE_SEED + 1)
+    query_idx = eval_rng.choice(len(ids), size=min(N_QUERIES, len(ids)), replace=False)
     query_keys = keys[query_idx]
     query_ids = [ids[i] for i in query_idx]
-    recall = evaluate_retrieval(fragments, query_keys, query_ids, N_FRAGMENTS,
-                                  noise_std=_ARGS.noise_std, rng=rng)
-    print(f"\n[RESULT] recall@1 = {recall:.4f} on {len(query_ids)} queries", flush=True)
+
+    recall_by_noise = {}
+    for ns in noise_grid:
+        # Each noise level gets its own deterministic rng for reproducibility
+        per_ns_rng = np.random.default_rng(SHUFFLE_SEED + 2 + int(ns * 100))
+        recall = evaluate_retrieval(fragments, query_keys, query_ids, N_FRAGMENTS,
+                                      noise_std=ns, rng=per_ns_rng)
+        recall_by_noise[float(ns)] = float(recall)
+        print(f"  noise_std={ns}: recall@1={recall:.4f}", flush=True)
+
+    # Primary verdict uses the noise_std specified on CLI (or 0.1 default)
+    recall = recall_by_noise[float(_ARGS.noise_std)]
+    print(f"\n[RESULT] recall@1 = {recall:.4f} on {len(query_ids)} queries "
+          f"at noise_std={_ARGS.noise_std}", flush=True)
 
     if recall >= HP_THRESHOLD:
         verdict = "HARD_PASS"
@@ -403,15 +471,22 @@ def main():
         "verdict": verdict,
         "verdict_msg": summary,
         "recall_at_1": recall,
+        "recall_by_noise": recall_by_noise,
         "n_facts_ingested": N_FACTS,
+        "n_facts_dropped_over_cap": n_dropped,
         "n_queries": len(query_ids),
         "n_fragments": N_FRAGMENTS,
-        "n_per_fragment": N_PER_FRAGMENT,
-        "ef_search": EF_SEARCH,
+        "n_per_fragment_dim": N_PER_FRAGMENT,
+        "per_fragment_capacity": PER_FRAGMENT_CAP,
+        "alpha_c": ALPHA_C,
+        "ef_search_informational": EF_SEARCH,
+        "in_fragment_retrieval": "exhaustive (HNSW informational only; ~819 keys is fast)",
         "m_max": M_MAX,
         "write_rule": "pseudoinverse",
         "whitening": "PCA",
         "padding_side": "left",
+        "noise_std": _ARGS.noise_std,
+        "noise_sweep": _ARGS.noise_sweep,
         "model_id": MODEL_LLAMA_1B,
         "layer_idx": LAYER_LLAMA,
         "hp_threshold": HP_THRESHOLD,

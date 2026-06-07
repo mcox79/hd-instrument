@@ -229,27 +229,33 @@ def _load_hf_token() -> Optional[str]:
 
 
 def load_cell2_targets(shards_dir: Path, max_articles: Optional[int]) -> Tuple[List[str], np.ndarray]:
-    """Load (article_id, llama_l15_target) from all CELL-2 shards.
+    """Load (article_id, llama_l15_target) from CELL-2 shards.
 
-    Returns sorted-by-id (id_list, targets) for deterministic ordering.
+    MEMORY-AWARE: stays in fp16 (the cache's native dtype) and only loads enough
+    shards to satisfy max_articles. Full 5.84M @ fp16 = ~24 GB; fp32 cast would
+    be 48 GB and OOM most hosts. Keep fp16 here; cast per-batch at training time.
     """
     shards = sorted(shards_dir.glob("shard_*.npz"))
     if not shards:
         raise RuntimeError(f"No shards at {shards_dir}")
-    print(f"[data] loading {len(shards)} shards from {shards_dir}", flush=True)
+    print(f"[data] loading {len(shards)} shards from {shards_dir} (fp16 native; lazy stop at max_articles)", flush=True)
 
     ids_all, targets_all = [], []
+    cumulative = 0
     for f in shards:
         arr = np.load(f, allow_pickle=True)
+        # Keep fp16 (the on-disk dtype); upcast to fp32 only at training-batch boundary
         ids_all.extend(list(arr["article_ids"]))
-        targets_all.append(arr["hidden_states"].astype(np.float32))
-        if max_articles is not None and len(ids_all) >= max_articles:
+        targets_all.append(arr["hidden_states"])   # already fp16 per CELL-2 v3 save
+        cumulative += arr["hidden_states"].shape[0]
+        if max_articles is not None and cumulative >= max_articles:
             break
     targets = np.concatenate(targets_all, axis=0)
     if max_articles is not None:
         ids_all = ids_all[:max_articles]
         targets = targets[:max_articles]
-    print(f"[data] {len(ids_all)} (id, target) pairs loaded", flush=True)
+    mem_gb = targets.nbytes / 1e9
+    print(f"[data] {len(ids_all)} (id, target) pairs loaded; targets dtype={targets.dtype} mem={mem_gb:.2f} GB", flush=True)
     return ids_all, targets
 
 
