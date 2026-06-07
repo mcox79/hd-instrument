@@ -41,7 +41,8 @@ def hebb_W(P):
 def sparsify(W, frac):
     if frac <= 0:
         return W
-    k = int(frac * W.numel()); thr = torch.kthvalue(W.abs().flatten(), k).values; return torch.where(W.abs() >= thr, W, torch.zeros_like(W))
+    flat = W.flatten().clone(); n_zero = int(frac * flat.numel())
+    idx = torch.argsort(flat.abs())[:n_zero]; flat[idx] = 0.0; return flat.reshape(W.shape)   # zero exactly the smallest n_zero (no tie ambiguity)
 
 
 def recall(P, W, seed):
