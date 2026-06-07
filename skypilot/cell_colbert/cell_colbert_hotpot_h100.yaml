@@ -44,15 +44,19 @@ setup: |
 
   echo "=== [setup 3/8] install torch (cu121 x86 H100, cu128 aarch64 GH200) ==="
   pip install --quiet --upgrade pip
+  # NOTE 2026-06-07: torch pin must match wheels actually available on target arch.
+  # cu128 aarch64 (GH200) wheels start at 2.7.0; lower pins like ">=2.3,<2.5" cause
+  # install failure. Matching CELL-3/CELL-4's "torch>=2.5" (no upper bound) which
+  # successfully installs latest stable cu128 wheel on aarch64.
   if [ "$ARCH" = "aarch64" ]; then
     echo "Installing cu128 wheel for GH200"
-    pip install --quiet --upgrade "torch>=2.3,<2.5" "torchvision" \
+    pip install --quiet --upgrade "torch>=2.5" "torchvision" \
       --index-url https://download.pytorch.org/whl/cu128 || \
-    pip install --quiet --upgrade "torch>=2.3,<2.5" "torchvision" \
+    pip install --quiet --upgrade "torch" "torchvision" \
       --index-url https://download.pytorch.org/whl/nightly/cu128
   else
     echo "Installing cu121 wheel for x86 H100"
-    pip install --quiet --upgrade "torch>=2.3,<2.5" "torchvision" \
+    pip install --quiet --upgrade "torch>=2.3" "torchvision" \
       --index-url https://download.pytorch.org/whl/cu121
   fi
   python -c "
