@@ -69,7 +69,7 @@ def load_hotpot(n):
             title = item[0]; slist = item[1] if len(item) > 1 else []
             for si, s in enumerate(slist):
                 flat.append((title, si, s))
-        goldset = set((t, i) for t, i in sf)
+        goldset = set((x[0], x[1]) for x in sf if isinstance(x, (list, tuple)) and len(x) >= 2)
         if len(flat) < 4 or len(goldset) < 2:
             continue
         out.append({"q": r.get("question", ""), "sents": flat, "gold": goldset})
