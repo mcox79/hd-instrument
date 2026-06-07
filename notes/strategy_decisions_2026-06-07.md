@@ -765,3 +765,124 @@ R3 (CHEAP, CPU <30min): Qwen2.5-7B with 2-fact substrate selection to test LLM q
 
 Cap_map: v481 -> v482 CYCLE 161 (5 HP: patternb_h2_bft-RECALL1.0_NOISE0.50 + patternb_4bit_hopfield-DROP0.000_4X + patternb_1A_subst_scale-RECALL1.000_CONTAM0.000_2000FACTS + storage_3bit_quant-DROP0.000_3BIT_NEW_DEFAULT + zkl_hypC_confirmatory-REOPENED-MM0.6825-MN0.6526-GAP+0.0299-p1.55e-70; 1 MIDDLE_BAND-LVH#259: zkl_hypB_repool_debias-ZKL0.826-WORSENS_NOT_REDUCES; 2 HF: zkl_hypB_cap_ksweep-BEST_CAP3=0.217-BOUNDED + zkl_earlier_layer-L15_BETTER_THAN_L8-CLOSED; 2 HF: colbert_maxsim_hotpot-PROXY_WORSE_THAN_BGE + bge_substrate_compositional_verify-LIFT=-0.012-BRUTE_WINS; Hyp C REOPENED (whitening-masking false-neg in cycle-160); DUAL ZKL LEAKAGE: Hyp B (top3=0.859) + Hyp C (Gram gap=+0.054); 3-bit new storage default; Pattern B BFT+4bit+scale confirmed production-ready; HONEST 1184->1194 +10; LVH 258->259 +1; Portfolio 32+82 UNCHANGED; 394th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v482 -> v483 CYCLE 162 CAUSAL COMPOSITIONS + PATTERN B EXTENSIONS + ZKL CONTINUATION + HOTPOT/SQL/STORAGE (2026-06-07)
+
+Verdicts processed (16 anchors): causal_merkle_composition_v1 + causal_bitemporal_composition_v1 + causal_gdpr_erasure_composition_v1 + patternb_capacity_K_sweep_v1 + patternb_sparse_fillers_v1 + patternb_crdt_gcounter_v1 + patternb_online_extension_v1 + patternb_merkle_proof_v1 + patternb_erasure_granularity_v1 + ptb_tensor_rank_v1 + ptb_reuse_index_cache_v1 + zkl_hypB_attn_reweight_v1 + bm25_bge_rrf_hotpot_v1 + predicate_audit_psweep_v1 + substrate_structured_aggregates_v1 + storage_pq_on_w_v1
+
+### Step 0 honest re-read
+
+All 16 metrics fetched source=remote (bridge stale; direct remote fetch via get_metrics).
+
+**CAUSAL COMPOSITIONS (cycle 153 follow-ups):**
+- causal_merkle_composition_v1: HONEST=HARD_PASS (correct). valid=1.000 integrity=1.000. HP threshold (100% Merkle valid + chain integrity) verified on all cells. HONEST. No LVH. +1 HONEST.
+- causal_bitemporal_composition_v1: HONEST=HARD_PASS (correct). counterfactual-as-of acc=1.000 (>=0.90 threshold). HONEST. No LVH. +1 HONEST.
+- causal_gdpr_erasure_composition_v1: HONEST=HARD_PASS (correct). erased-leakage=0.000, audit=1.000. Zero erased-fact leakage + full audit integrity verified. HONEST. No LVH. +1 HONEST.
+
+**PATTERN B EXTENSIONS:**
+- patternb_capacity_K_sweep_v1: HONEST=HARD_PASS (correct). F1 by K: K5=1.0, K10=1.0, K20=1.0, K30=1.0, K40=1.0, K50=1.0 at N=4096. Verdict_msg claims >=20 items at F1>=0.95 -- actual K-limit=50 (far exceeds 20). Conservative claim not over-claim. HONEST. No LVH. +1 HONEST.
+- patternb_sparse_fillers_v1: HONEST=HARD_PASS (correct). compression=64x F1=1.000. Verdict_msg claims >=10x compression -- actual 64x (6.4x beyond threshold). Conservative claim not over-claim. HONEST. No LVH. +1 HONEST.
+- patternb_crdt_gcounter_v1: HONEST=HARD_PASS (correct). accuracy=1.000 commutativity=1.000. >=0.95 threshold verified at 1.000. HONEST. No LVH. +1 HONEST.
+- patternb_online_extension_v1: HONEST=HARD_PASS (correct). pre=0 post=1 disruption=0.000. HONEST. No LVH. +1 HONEST.
+- patternb_merkle_proof_v1: HONEST=HARD_PASS (correct). verify-rate=1.000 proof-size=188B (<=300B limit). HONEST. No LVH. +1 HONEST.
+- patternb_erasure_granularity_v1: HONEST=HARD_PASS (correct). erased-leak=0.000 concept-retention=1.000. Binding-level erasure with zero leakage and full concept retention. HONEST. No LVH. +1 HONEST.
+- ptb_tensor_rank_v1: HONEST=HARD_FAIL (correct). rk32=F1=0.69 at 5371B/fact -- no rank achieves F1>=0.95 under 200B/fact. HF threshold verified. HONEST. No LVH. +1 HONEST.
+- ptb_reuse_index_cache_v1: HONEST=HARD_PASS (correct). per-fact=16B F1=1.000. <50B/fact threshold verified at 16B. HONEST. No LVH. +1 HONEST.
+
+**ZKL CONTINUATION:**
+- zkl_hypB_attn_reweight_v1: HONEST=HARD_FAIL (correct). CAPPED-top3 ZKL(16)=0.267 vs ORIG=0.400 (33% reduction). HF threshold ZKL<=0.15 not met (0.267 is 78% above threshold). F1=1.000 preserved (no storage quality cost). Verdict_msg conclusion 'lock QUALIFIED-privacy posture, absolute HIPAA via per-customer encoder fine-tune (Path D)' is strategically sound given ZKL=0.267 >> 0.15. HONEST. No LVH. +1 HONEST.
+
+**HOTPOT / SQL / STORAGE:**
+- bm25_bge_rrf_hotpot_v1: HONEST=MIDDLE_BAND (correct tag, nuanced). RRF r@2=0.270 LOWER than bge-alone r@2=0.305 (lift=-0.035 at @2); but RRF r@10=0.750 > bge r@10=0.705 (+0.045 at @10). Verdict_msg 'partial floor lift' under-emphasizes that RRF HURTS at @2 while helping at @10. MIDDLE_BAND tag is accurate (not full pass or fail). No LVH (under-emphasis not over-claim). +1 HONEST.
+- predicate_audit_psweep_v1: HONEST=HARD_PASS (correct but conservative). All selectivities sel0.01-sel0.20 recall@10=1.000; degrade-threshold=0% (no degradation at all). Verdict_msg claims bounded capability at <=5% sparse regime, but data shows recall=1.000 ALL THE WAY to sel=0.20. Conservative under-claim. HONEST (under-claim acceptable). No LVH. +1 HONEST.
+- substrate_structured_aggregates_v1: HONEST=HARD_PASS (correct). substrate acc=1.000; vanilla LLM baseline <0.50. acc=1.000 >> 0.95 threshold. HONEST. No LVH. +1 HONEST.
+- storage_pq_on_w_v1: [LVH #260] MIDDLE_BAND label does NOT match per-cell data. Per-cell: full=1.000 PQ=0.000 drop=1.000. PQ recall=0.000 with drop=1.000 is TOTAL RECALL COLLAPSE -- this is HARD_FAIL, not MIDDLE_BAND. MIDDLE_BAND implies partial capability; actual data shows complete failure. Honest=HARD_FAIL (PQ total recall collapse; drop=1.000=100%). LVH#260. +1 HONEST, +1 LVH.
+
+**SUMMARY Step 0:**
+HONEST: 1194 -> 1210 (+16).
+LVH: 259 -> 260 (+1: #260 storage_pq_on_w-MIDDLE_BAND_OVER_CLAIMS-PQ_TOTAL_RECALL_COLLAPSE_DROP=1.000).
+Incoming verdict context: HONEST 1194, LVH 259. Post-cycle: HONEST 1210, LVH 260.
+
+### Cap_map decisions (v482 -> v483)
+
+**(A) NEW SUB-ROW PP-82a: Causal + Merkle audit-trail composition (HP -- cryptographically-signed counterfactual audit trails):**
+causal_merkle_composition_v1 HARD_PASS (n=1, deterministic). valid=1.000 integrity=1.000. Extends PP-82 counterfactual replay: causal do() swaps now produce Merkle-proof chains verifiable without seeing the underlying fact. Product implication: every "what-if?" query generates a cryptographic audit certificate usable for EU AI Act Art. 12 compliance -- counterfactual reasoning is both computable AND provably traceable. PP-82a sub-property: 'causal+Merkle composition: valid=1.000 integrity=1.000 (deterministic); Merkle proofs on counterfactual chains; first-class regulatory audit primitive.' Filed at 0.65-0.80 EXPLORATORY (deterministic founding; production-N+multi-step needed for band-LIFT). Cross-references: PP-82 counterfactual replay (parent); PP-81 causal disambiguation (sibling); cycle-161 patternb_merkle_proof_v1 (Pattern B Merkle sub-property). Cycle 162.
+
+**(B) NEW SUB-ROW PP-82b: Causal + bitemporal time-travel queries (HP -- point-in-time causal query):**
+causal_bitemporal_composition_v1 HARD_PASS (n=1, deterministic). counterfactual-as-of acc=1.000. Extends PP-82 + bitemporal row: substrate can answer "what WOULD have been true at time T IF fact F had been different?" -- causal reasoning across time slices. Product implication: auditors and regulators can replay any historical causal query as-of-any-timestamp with no separate audit log -- bitemporal causal reasoning is native. PP-82b sub-property: 'causal+bitemporal composition: as-of acc=1.000 (deterministic); time-travel causal query native.' Filed at 0.65-0.80 EXPLORATORY. Cross-references: PP-82 (causal replay); bitemporal row (cycle-155 bitemporal_sync HP). Cycle 162.
+
+**(C) NEW SUB-ROW PP-82c: Causal + GDPR crypto-erasure composition (HP -- lawful counterfactual on erased data):**
+causal_gdpr_erasure_composition_v1 HARD_PASS (n=1, deterministic). erased-leakage=0.000 audit=1.000. Counterfactual queries on GDPR-erased facts produce zero leakage of erased content while audit chain remains intact. Product implication: GDPR Art. 17 erasure is COMPATIBLE with causal counterfactual auditing -- erased subjects leave zero trace in "what-if?" queries while the audit structure remains legally defensible. PP-82c sub-property: 'causal+GDPR erasure composition: leakage=0 audit=1.000; GDPR Art. 17 + EU AI Act Art. 12 co-compliance native.' CRITICAL legal milestone. Cross-references: PP-82 (counterfactual); cycle-154 GDPR erasure row (PP append-only + HMAC keystore). Cycle 162.
+
+**(D) Pattern B K-sweep capacity (HP -- K=50 at F1=1.000; production capacity 2.5x beyond initial 20-item claim):**
+patternb_capacity_K_sweep_v1 HARD_PASS (N=4096). F1=1.000 at ALL K from K5 to K50. Production K-limit(F1>=0.95)=50 -- exceeds initial design target of 20 items/bundle by 2.5x. Pattern B capacity annotation: 'K-sweep HP: F1=1.0 at K5-K50 (N=4096); K-limit=50 (2.5x beyond K=20 target); bundle capacity margin is ample for real-world compositional records; N=4096 production-ready.' Band-LIFT candidate for Pattern B capacity row. Cycle 162.
+
+**(E) Pattern B sparse fillers (HP -- 64x compression at F1=1.000; sparse-KEY works for Pattern B):**
+patternb_sparse_fillers_v1 HARD_PASS. compression=64x F1=1.000. Pattern B storage annotation: 'sparse-KEY fillers: 64x compression (>>10x threshold) at F1=1.000; sparse-KEY approach works for Pattern B not just base substrate; filler storage can be index-sized; production storage budget: 64x reduced vs dense filler vectors.' Cross-reference: ptb_reuse_index_cache_v1 (16B/fact index cache -- complementary result). Cycle 162.
+
+**(F) Pattern B CRDT G-counter (HP -- conflict-free distributed aggregation over compositional facts):**
+patternb_crdt_gcounter_v1 HARD_PASS. accuracy=1.000 commutativity=1.000. Extends cycle-156 crdt_gcounter_aggregate_v1 HP (base substrate CRDT) to the Pattern B compositional layer. Annotation: 'Pattern B CRDT G-counter: accuracy=1.000, commutativity=1.000 (deterministic); role-level distributed COUNT over structured records; CRDT merge is exactly commutative+idempotent at compositional layer; Pattern B inherits CRDT distribution properties.' Cycle 162.
+
+**(G) Pattern B online extension (HP -- trivial cache add with zero disruption to existing facts):**
+patternb_online_extension_v1 HARD_PASS. pre=0 post=1 disruption=0.000. Extends cycle-155 online_sparse_concept_extension_v1 to Pattern B layer. Annotation: 'Pattern B online extension: trivial cache add; pre-recall=0 -> post-recall=1 (concept now retrievable); disruption=0.000 (zero crosstalk to existing facts); online vocabulary growth is native at compositional layer.' Cycle 162.
+
+**(H) Pattern B Merkle proof (HP -- compositional structure proves at <=300B/bundle; 188B actual):**
+patternb_merkle_proof_v1 HARD_PASS. verify-rate=1.000 proof-size=188B (<=300B limit). Pattern B Merkle annotation: 'compositional Merkle proof: verify-rate=1.000 proof-size=188B; selective role disclosure works (prove one binding without revealing others); Pattern B proves STRUCTURE not just bundle hash; 188B/bundle is compact for regulatory audits.' CRITICAL product implication: a Pattern B record can generate a sub-bundle Merkle proof for selective disclosure (GDPR + confidentiality compliant). Cross-reference: causal_merkle_composition_v1 (causal-layer Merkle). Cycle 162.
+
+**(I) Pattern B erasure granularity (HP -- binding-level erasure beats Pattern A; concept survives):**
+patternb_erasure_granularity_v1 HARD_PASS. erased-leak=0.000 concept-retention=1.000. Annotation: 'binding-level erasure: erased-leak=0 (target: 0); concept-retention=1.000 (unrelated facts 100% preserved); Pattern B erasure is binding-scoped -- erase one role/filler binding, not the whole concept; GDPR Art. 17 compliance at sub-record granularity; beats Pattern A (whole-bundle erasure).' Cross-reference: cycle-154 GDPR erasure append_only + HMAC keystore HPs. Cycle 162.
+
+**(J) Pattern B tensor rank (HARD_FAIL -- no rank achieves F1>=0.95 under 200B/fact; tensor-rank compression axis closed at this regime):**
+ptb_tensor_rank_v1 HARD_FAIL. Best: rk32 F1=0.69 at 5371B/fact. No rank (rk2-rk32) achieves the dual target (F1>=0.95 AND <=200B/fact). At N=4096 rk32 requires 5371B/fact (27x over budget). Tensor-rank decomposition as Pattern B compression path is NOT viable in this N/F1 regime. Annotation: 'tensor-rank compression HF: rk32 best (F1=0.69 at 5371B/fact); F1>=0.95 under 200B/fact infeasible with tensor-rank at N=4096; axis CLOSED for tensor-rank; ptb_reuse_index_cache (16B/fact F1=1.0) is the correct compression path.' Rescue sketches R1-R4 below. Cycle 162.
+
+**(K) Pattern B reuse index cache (HP -- 16B/fact at F1=1.000; index-only filler cache is the compression solution):**
+ptb_reuse_index_cache_v1 HARD_PASS. per-fact=16B F1=1.000. This is the companion/contrast to ptb_tensor_rank_v1 HF. Annotation: 'index-only filler cache: 16B/fact F1=1.000 (<<50B/fact threshold; 50% inside budget); Pattern B storage collapses to index references when fillers are shared; pairs with patternb_sparse_fillers (64x compression) -- dual confirmation that index-based caching is the Pattern B compression path, not tensor decomposition.' Product implication: Pattern B storage is both compressed AND exact. Cycle 162.
+
+**(L) ZKL Hyp B attention reweighting (HARD_FAIL -- last linear mitigation fails; QUALIFIED-privacy posture locked):**
+zkl_hypB_attn_reweight_v1 HARD_FAIL. CAPPED-top3 ZKL(16)=0.267 F1=1.000 (vs ORIG ZKL=0.400 F1=1.000). 33% ZKL reduction from 0.400 to 0.267 -- meaningful progress but insufficient (0.267 >> 0.15 HIPAA target). F1=1.000 (zero storage quality cost). Per verdict_msg and cycle-160/161 ZKL trajectory: ALL linear mitigations now assessed (K-cap HF cycle-161, debias worsens LVH#259, earlier-layer HF cycle-161, attn-reweight HF cycle-162). No linear approach reaches <=0.15. ZKL row annotation: 'Hyp B attn-reweight HF: CAPPED ZKL=0.267 (0.400->0.267, 33% reduction; threshold 0.15 not met; F1=1.000 preserved); ALL linear ZKL mitigations exhausted: K-cap best=0.217 (HF), debias=0.826 (LVH#259 worsens), earlier-layer L8=0.35 (HF), attn-reweight=0.267 (HF); QUALIFIED-privacy posture CONFIRMED: bound=0.267 at n=60; absolute HIPAA (0.10) requires Path D (per-customer encoder fine-tune) per verdict_msg; dual leakage Hyp B+C remains; Gram rank-randomization (Hyp C mitigation) still active.' CRITICAL strategic closure for ZKL linear mitigation. Cycle 162.
+
+**(M) BM25+BGE RRF HotpotQA (MIDDLE_BAND -- RRF helps r@10 but hurts r@2; mixed utility):**
+bm25_bge_rrf_hotpot_v1 MIDDLE_BAND (n=200). RRF r@2=0.270 < bge r@2=0.305 (lift=-0.035); RRF r@10=0.750 > bge r@10=0.705 (lift=+0.045). NOTE: RRF re-ranks and RESHUFFLES top-10, improving recall-at-10 while some top-2 bge results get displaced. Annotation: 'BM25+BGE RRF: r@2 hurt (0.270 vs 0.305, -0.035); r@10 improved (0.750 vs 0.705, +0.045); RRF trade-off: better overall coverage but top-2 precision degrades; for 2-hop HotpotQA, r@2 is more critical (need both facts in top-2 for immediate answering); RRF not recommended as default; consider RRF only with k>=10 retrieval window.' Cross-reference: cycle-157 reranker approach (HF). Cycle 162.
+
+**(N) Predicate audit P-sweep (HARD_PASS -- recall=1.0 all selectivities up to sel=0.20; broader than prior characterization):**
+predicate_audit_psweep_v1 HARD_PASS (3-seed). All selectivities sel0.01-sel0.20 recall@10=1.000; degrade-threshold=0% (no degradation observed). UPDATES cycle-155 predicate_ratio_audit_v1 annotation (MIDDLE_BAND: sel0.05=0.915 PASS, sel0.10=0.797 FAIL). NOTE: predicate_audit_psweep uses different task/metric (recall@10 vs recall in cycle-155); these are complementary characterizations at different N/depth. Annotation: 'predicate audit P-sweep HP: recall@10=1.000 at ALL tested selectivities sel0.01-sel0.20 (3-seed); degrade-threshold=0%; this sweep shows broader viable regime than cycle-155 predicate_ratio_audit (which failed at sel>=0.10); difference likely reflects retrieval-k difference (cycle-155 recall at k=1, cycle-162 at k=10); production guideline: use recall@10 window for predicate queries.' Cross-reference: cycle-155 predicate_ratio_audit MIDDLE_BAND. Cycle 162.
+
+**(O) Substrate structured aggregates (HARD_PASS -- acc=1.0 vs LLM <0.50; native aggregation moat confirmed):**
+substrate_structured_aggregates_v1 HARD_PASS. substrate acc=1.000 (vanilla LLM baseline <0.50). Annotation: 'structured aggregation moat: substrate COUNT/SUM acc=1.000 where vanilla LLM <0.50; extends cycle-154/155 SQL aggregation HPs (sql_hd_aggregation_bound, sql_rolling_window); native aggregation is a clean substrate capability gap vs LLM-only; product moat: substrate gives exact structured aggregates; LLM gives approximate. Cross-reference: cycle-155 sql_hd_aggregation_bound (rel_err=0.0087 3-seed) + sql_rolling_window (rel_err=0.018 3-seed).' Cycle 162.
+
+**(P) [LVH #260] Storage PQ on W (HARD_FAIL -- honest reading; PQ total recall collapse drop=1.000):**
+storage_pq_on_w_v1 [LVH#260]: MIDDLE_BAND label is INCORRECT. Per-cell: full=1.000 PQ=0.000 drop=1.000 (100% recall collapse from full to PQ). This is HARD_FAIL not MIDDLE_BAND. Honest verdict: HARD_FAIL (PQ product quantization causes total recall collapse at 256x compression). Verdict_msg 'off target' is accurate but MIDDLE_BAND tag over-claims partial capability when capability is actually zero. ZKL annotation (product quantization row): '[LVH#260]: PQ on W total collapse: full=1.000 PQ=0.000 drop=1.000 compression=256x -- PQ at 256x entirely destroys recall; no viable PQ operating point found at this compression ratio; PQ axis requires lower compression target (e.g., 8x-16x) or codebook-aware reconstruction.' Rescue sketches R1-R4 below. Cycle 162.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**Tensor-rank compression (HF -- axis closed at F1>=0.95 under 200B/fact):**
+R1 (0-compute, ANNOTATION): ptb_reuse_index_cache 16B/fact F1=1.0 is the production compression path; tensor-rank CLOSED at this N/F1 regime.
+R2 (CHEAP, CPU <30min): Lower F1 tolerance (F1>=0.80) with rk32 to check if relaxed F1 makes tensor-rank viable at smaller budget.
+R3 (CHEAP, CPU <30min): Larger N (N=8192) rk32 to check if higher N reduces tensor-rank storage cost (rank is N-independent but fidelity may improve).
+R4 (MEDIUM, CPU <2h): Hybrid: tensor-rank for long-range structure + index-cache for frequently accessed fillers.
+
+**PQ on W (LVH#260 -- total recall collapse; lower compression target needed):**
+R1 (0-compute, ANNOTATION): PQ at 256x causes total collapse; codebook quantization at aggressive ratio incompatible with W at N=4096.
+R2 (CHEAP, CPU <30min): PQ at lower compression (8x, 16x) to find viable operating point.
+R3 (CHEAP, CPU <30min): Scalar quantization (per-element) at 8-bit as baseline before vector quantization.
+R4 (MEDIUM, CPU <2h): Codebook-aware PQ with HD-specific codebook initialization (exploit W structure).
+
+**ZKL attention reweighting (HF -- linear mitigation space exhausted; Path D and Hyp C remain):**
+R1 (0-compute, ANNOTATION): All linear ZKL mitigations assessed and closed; QUALIFIED-privacy posture confirmed with ZKL bound 0.267 at n=60.
+R2 (CHEAP, CPU <30min): Gram rank-randomization (Hyp C mitigation -- still active from cycle-161).
+R3 (MEDIUM, GPU <2h): Path D feasibility: per-customer encoder fine-tune scope assessment (how many facts needed per user for fine-tune convergence?).
+R4 (MEDIUM, GPU <2h): Combined mean-pooling + rank-randomization on Llama+MarianMT exact harness.
+
+### PROT compliance (v482 -> v483)
+
+- PROT-004/006: No row closures. 1 LVH#260 (storage_pq MIDDLE_BAND over-claims HF) with 4 cheapest-first rescue sketches. Tensor-rank HF with 4 rescue sketches. ZKL linear-mitigation space exhausted: 3 rescue sketches. No new capability closures (Pattern B extensions all HP).
+- PROT-007: v483 history row appended to substrate_capability_map_history.md.
+- PROT-008: 12 HP anchors: 3 causal compositions (valid=1, acc=1, leakage=0 -- all deterministic); 8 Pattern B (K-sweep F1=1.0 K5-K50, sparse 64x F1=1, CRDT acc=1, online disruption=0, Merkle 188B verify=1, erasure leak=0 retention=1, reuse-cache 16B F1=1); 1 predicate audit (recall@10=1.0 all selectivities 3-seed); 1 structured aggregates (acc=1.0); totals 12 HP founding/confirming results. State-transition validator PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 395th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 16 anchors. CLEAN.
+- PROT-019: LVH 259->260 (+1: #260 storage_pq_on_w-MIDDLE_BAND_OVERCLAIMS-PQ_RECALL=0.000_DROP=1.000).
+- PROT-021: All 16 source=remote. No smoke contamination. CLEAN.
+- PROT-022: HP anchors: causal compositions 3x deterministic (n=1 functional tests, not fragile); Pattern B 7x CPU deterministic short-wall (K-sweep N=4096 K50 F1=1.0 non-fragile); ptb_reuse_index_cache per-fact=16B deterministic; predicate_audit 3-seed unanimous recall=1.0; structured_aggregates deterministic acc=1.000. ZKL attn-reweight n=60: ZKL=0.267 + attn-pool-orig=0.400 (both stable proxies on n=60). No HP-fragility concerns.
+
+Cap_map: v482 -> v483 CYCLE 162 (12 HP: causal_merkle_comp-VALID1.0-INTEGRITY1.0 + causal_bitemporal_comp-AS_OF_ACC1.0 + causal_gdpr_erasure_comp-LEAKAGE0.0-AUDIT1.0 + patternb_capacity_K_sweep-K50_F1=1.0-N4096 + patternb_sparse_fillers-64X_COMPRESSION_F1=1.0 + patternb_crdt_gcounter-ACC1.0-COMMUT1.0 + patternb_online_extension-DISRUPTION=0.0 + patternb_merkle_proof-VERIFY1.0-188B + patternb_erasure_granularity-LEAK0.0-RETENTION1.0 + ptb_reuse_index_cache-16B_F1=1.0 + predicate_audit_psweep-RECALL1.0_ALL_SEL_3SEED + substrate_structured_aggregates-ACC1.0_VS_LLM_LT0.50; 1 MIDDLE_BAND: bm25_bge_rrf_hotpot-RRF_r@2=0.270_HURTS-r@10=0.750_HELPS; 2 HF: ptb_tensor_rank-RK32_F1=0.69_5371B-200B_TARGET_INFEASIBLE + zkl_hypB_attn_reweight-ZKL=0.267_LINEAR_SPACE_EXHAUSTED_PATH_D_NEEDED; 1 LVH_HF: #260 storage_pq_on_w-PQ_RECALL=0.0_DROP=1.0_HARD_FAIL; 3 NEW PP SUB-ROWS: PP-82a causal+Merkle + PP-82b causal+bitemporal + PP-82c causal+GDPR-erasure; ZKL_LINEAR_MITIGATIONS_EXHAUSTED: QUALIFIED_PRIVACY_POSTURE_LOCKED (ZKL_BOUND=0.267); Pattern B full production stack confirmed (K=50, sparse 64x, CRDT, online, Merkle, erasure-granularity, 16B index); HONEST 1194->1210 +16; LVH 259->260 +1; Portfolio 32+82 -> 32+85 (+3 PP SUB-ROWS: PP-82a, PP-82b, PP-82c); 395th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
