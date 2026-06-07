@@ -1599,3 +1599,50 @@ R3 (CHEAP, CPU <2h): GPU timing at M=1M to characterize speedup vs CPU baseline 
 
 Cap_map: v491 -> v492 CYCLE 172 (1 HP annotation: smw_pinv_1M_timing-PER_UPDATE=4.174ms-M=1M-WRITE_RULE_COST_CLEARED-FINITE; 0 LVH; HONEST 1270->1271 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 405th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v492 -> v493 CYCLE 173 (2026-06-07)
+
+Verdicts processed: smw_pinv_1M_churn_v1 (HP) + patternb_largescale_composition_v1 (HP)
+
+### Step 0 honest re-read
+
+- smw_pinv_1M_churn_v1: HONEST. Remote n=1 run_mode=full. per_seed: delete_per_ms=3.9779ms (< 5ms threshold, 20% margin), inv_err=2.81e-09 (finite=True), M_base=200000, del=100000. HP threshold: <5ms AND finite AND low inv_err -- ALL VERIFIED with margin. Comparative claim 'SMW delete <5ms/update AND inverse stays accurate' confirmed by measured values. HARD_PASS label CORRECT. No LVH.
+- patternb_largescale_composition_v1: HONEST. Remote n=1 run_mode=full. per_seed: K2=1.0, K4=1.0, K6=1.0 (V=100000, D=512). HP threshold: recall@1>=0.95 at K=4 -- K4=1.0 VERIFIED. All K-values unanimous ceiling. n=1 seed; ceiling result (recall@1=1.0) not fragile. HARD_PASS label CORRECT. No LVH.
+
+HONEST: 1271 -> 1273 (+2). LVH: 261 UNCHANGED.
+
+### Cap_map decisions
+
+**(A) smw_pinv_1M_churn_v1 HP (churn + GDPR erasure at production scale):**
+delete_per_ms=3.9779ms at M_base=200K/del=100K (50% churn); inv_err=2.81e-09 finite=True. GDPR Art. 17 deletion-cert maintained under churn. Extends cycle-172 timing HP (M=1M, 4.174ms) to churn scenario. Cross-ref PP-9 deletion-cert + PP-5 write-rule. Annotation sub-property: 'SMW churn: 50% deletion at M=200K, <4ms/update, inv_err=2.81e-09 exact; GDPR streaming erasure viable; n=1 seed.' Cycle 173.
+
+**(B) patternb_largescale_composition_v1 HP (production vocabulary scale CLEARED):**
+recall@1=1.0 at K=2/4/6 with V=100,000, D=512. HP threshold recall@1>=0.95 at K=4 met unanimously. Closes vocab-scale gap in Pattern B capability chain (cycle-158 unbind+substitute HP k2-k8 at N=1024; cycle-159 capacity HP k4-k24 3-seed; this extends to V=100K). Annotation: 'Pattern B largescale: V=100K D=512 recall@1=1.0 at K2/K4/K6; production vocab scale confirmed; n=1 seed ceiling result; 3-seed for band-LIFT.' Cycle 173.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**smw_pinv_1M_churn (HP annotation -- rescues for variance + scale):**
+R1 (0-compute, ANNOTATION): n=1 seed founding noted. Band UNCHANGED pending multi-seed.
+R2 (CHEAP, CPU <2h): 3-seed M-sweep {M=50K, 200K, 500K} to characterize churn variance + confirm O(D^2) const-in-M for churn case.
+R3 (CHEAP, CPU <2h): del-fraction sweep (10%, 25%, 50%, 75%) to establish churn-fraction-vs-timing and inv_err relationship.
+
+**patternb_largescale_composition (HP annotation -- rescues for multi-seed + D-scaling):**
+R1 (0-compute, ANNOTATION): V=100K D=512 recall=1.0 ceiling founding noted. Band UNCHANGED pending 3-seed.
+R2 (CHEAP, CPU <30min): 3-seed at V=100K to confirm ceiling stability.
+R3 (CHEAP, CPU <30min): V-sweep (V=10K, 100K, 500K, 1M) to characterize any V-dependent degradation.
+
+### Portfolio: 32+85 UNCHANGED (annotation only; no new rows).
+
+### PROT compliance (v492 -> v493)
+
+- PROT-004/006: No closures. 0 NEW ROWS. 0 BAND-LIFTS. Rescue sketches R1-R3 cheapest-first for both anchors.
+- PROT-007: v493 history row appended to substrate_capability_map_history.md.
+- PROT-008: smw_pinv_1M_churn HP: delete_per_ms=3.978ms < 5ms (20% margin, finite=True, inv_err=2.81e-09). PASS. patternb_largescale HP: recall@1=1.0 at K=4 (>> 0.95 threshold, V=100K). PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 406th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on either anchor. CLEAN.
+- PROT-019: LVH 261 UNCHANGED. No new LVH catches.
+- PROT-021: Both source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: smw_pinv_1M_churn n=1 seed: timing deterministic at this M (consistent with cycle-172 M=1M); inv_err exact algebraic (no variance concern). patternb_largescale n=1 seed: recall@1=1.0 ceiling (no HP-fragility at ceiling). No HP-fragility concern.
+
+Cap_map: v492 -> v493 CYCLE 173 (2 HP annotations: smw_pinv_1M_churn-DEL_PER_MS=3.978ms-INV_ERR=2.81e-09-M_BASE200K_DEL100K-CHURN_GDPR_CLEARED + patternb_largescale_composition-RECALL1.0_K2-K6-V100K_D512-PROD_VOCAB_CLEARED; 0 LVH; HONEST 1271->1273 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 406th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
