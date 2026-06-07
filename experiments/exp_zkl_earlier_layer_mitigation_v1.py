@@ -185,7 +185,7 @@ def verdict(r) -> Tuple[str, str]:
     return ("HARD_FAIL", "HARD_FAIL: earlier-layer pooling does not reduce ZKL below 0.10 -- position-subtraction (#1) or mean-pool (#3) next. " + summary)
 
 
-print("[config] anchor=%s mode=%s N_stored=%d N_never=%d k=%d dims=%s" % (ANCHOR_NAME, RUN_MODE, N_STORED, N_NEVER, K_PARA, DIMS), flush=True)
+print("[config] anchor=%s mode=%s N_stored=%d N_never=%d k=%d layers=%s" % (ANCHOR_NAME, RUN_MODE, N_STORED, N_NEVER, K_PARA, LAYERS), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
 v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
