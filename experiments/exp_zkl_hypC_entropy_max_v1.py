@@ -175,13 +175,17 @@ def run() -> Dict:
 
 def verdict(r) -> Tuple[str, str]:
     by = r["by"]; f0 = r["f1_base"]
+    summary = "by alpha: %s (n=%d; ZCA a=0.5 ZKL=%.3f F1=%.3f; sanity_ok=%s)" % ({k: {"zkl": round(v["zkl"], 3), "f1": round(v["f1"], 3)} for k, v in by.items()}, r["n"], by["a0.50"]["zkl"], f0, r.get("sanity_ok"))
+    # SANITY GATE FIRST (cycle-159/160 miscalibration guard): the standard-ZCA (a=0.5) baseline must reproduce the
+    # calibrated cycle-151 ~0.22 band, else the whole ZKL scale is shifted and absolute <0.10 claims are meaningless.
+    if not r.get("sanity_ok", False):
+        return ("UNKNOWN", "UNKNOWN: standard-ZCA (a=0.5) baseline ZKL=%.3f is OUTSIDE the 0.17-0.27 calibration band -- harness miscalibrated (cycle-159/160 trap); the entropy-max sweep cannot be compared to the 0.10 HIPAA threshold until recalibrated. " % by["a0.50"]["zkl"] + summary)
     best = None
     for k, v in by.items():
-        if v["zkl"] <= 0.10 and (f0 - v["f1"]) <= 0.10:
+        if v["zkl"] <= 0.10 and (f0 - v["f1"]) <= 0.03:   # Research gate: F1 within 3% (not 10%)
             best = (k, v); break
-    summary = "by alpha: %s (n=%d; ZCA a=0.5 ZKL=%.3f F1=%.3f)" % ({k: {"zkl": round(v["zkl"], 3), "f1": round(v["f1"], 3)} for k, v in by.items()}, r["n"], by["a0.50"]["zkl"], f0)
     if best:
-        return ("HARD_PASS", "HARD_PASS (Hyp C mitigation): entropy-max whitening at %s drops ZKL(50)<=0.10 with KEY-F1 drop<=10%% -- ABSOLUTE HIPAA RECOVERED via entropy-max whitening exponent. " % best[0] + summary)
+        return ("HARD_PASS", "HARD_PASS (Hyp C mitigation): entropy-max whitening at %s drops ZKL(50)<=0.10 with KEY-F1 within 3%% on a CALIBRATED harness -- absolute HIPAA via entropy-max whitening exponent. " % best[0] + summary)
     bz = min(v["zkl"] for v in by.values())
     if bz <= 0.15:
         return ("MIDDLE_BAND", "MIDDLE_BAND: entropy-max whitening reaches 0.10-0.15 at some alpha -- promising; fine-grain the exponent. " + summary)
