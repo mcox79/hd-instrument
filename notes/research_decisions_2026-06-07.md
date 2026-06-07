@@ -71,3 +71,4 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - [2026-06-07] biological distributed coordination 2x -> notes/research_drill_biological_distributed_coordination_2x_2026-06-07.md | HEADLINE: 3 actionable bio-primitives (temporal-decay weights, corroboration gossip, background defragmentation); P_deflated 0.30-0.40
 
 - [storage_efficiency_per_fact_3x] notes/research_drill_storage_efficiency_per_fact_3x_2026-06-07.md -- real cost 286 KB/fact (W matrix dominates); sparse-W+4bit+N-reduction path to 16KB v1, 4KB v2, 500bytes v3; Path F low-rank foreclosed at production load; exp_dev handoff written
+- research_drill_storage_unconventional_mechanisms_2x_2026-06-07.md: 2x storage drill; 3 recommended paths (modern Hopfield N-reduction, delta/template, encoder distillation); P_deflated 500B/fact=0.25; 4 foreclosed
