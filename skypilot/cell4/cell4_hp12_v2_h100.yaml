@@ -7,8 +7,10 @@ name: cell4hp
 
 resources:
   cloud: lambda
-  accelerators: H100:1
   use_spot: false
+  # NOTE 2026-06-07: top-level `accelerators: H100:1` removed (was hard
+  # constraint that conflicted with CLI --instance-type gpu_1x_gh200; per-SKU
+  # accelerators in any_of below).
   any_of:
     - {cloud: lambda, accelerators: GH200:1, instance_type: gpu_1x_gh200}
     - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_pcie}

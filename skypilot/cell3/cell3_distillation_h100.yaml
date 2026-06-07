@@ -12,12 +12,10 @@ name: cell3fd
 
 resources:
   cloud: lambda
-  accelerators: H100:1
   use_spot: false
-  any_of:
-    - {cloud: lambda, accelerators: GH200:1, instance_type: gpu_1x_gh200}
-    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_sxm5}
-    - {cloud: lambda, accelerators: H100:1, instance_type: gpu_1x_h100_pcie}
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # any_of removed: SkyPilot validates each any_of against CLI overrides and
+  # fails when any entry mismatches the CLI's accelerator type (2026-06-07 bug).
 
 workdir: .
 
