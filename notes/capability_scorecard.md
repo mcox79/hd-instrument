@@ -1,6 +1,8 @@
 # Substrate Capability Scorecard
 
-**Single source of truth for validated substrate capabilities.** Living document; update per drill/experiment landing.
+> **TRACKING SSOT NOTE (locked 2026-06-07):** This file = research-side cycle-by-cycle synthesis. Live append-updated log = `substrate_capability_map_history.md` tail. Full per-anchor annotations = `strategy_decisions_<date>.md` tail. **STALE:** `substrate_capability_map.md` (not rewritten after cycle 146). Process reference: `research_drill_disparate_fields_substrate_capability_plus_process_2x_2026-06-05.md`.
+
+**Research-side synthesis of validated substrate capabilities.** Living document; update per drill/experiment landing.
 
 **Created:** 2026-06-04 (per continuous-exploration-with-tracking system design 2x drill)
 **Last honest review:** 2026-06-04 (post-compaction; user-requested audit; reasoning capabilities surfaced)
