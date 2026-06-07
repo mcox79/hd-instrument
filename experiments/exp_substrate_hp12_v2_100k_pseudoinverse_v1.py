@@ -242,6 +242,32 @@ def _selftest():
     eye_diff = R @ R.T - np.eye(8)
     assert np.abs(eye_diff).max() < 1e-5, f"R @ R.T should be I; max diff {np.abs(eye_diff).max()}"
 
+    # Multi-head test at SATURATION REGIME (m close to alpha_c * d) -- catches
+    # regression where my trivial m<<d test would mask
+    d_sat = 100; m_sat = int(0.40 * d_sat)  # alpha_c=0.40 saturation
+    K_sat = rng.standard_normal((m_sat, d_sat)).astype(np.float32)
+    V_sat = K_sat.copy()
+    R_heads_sat = [random_orthogonal(d_sat, np.random.default_rng(h + 200)) for h in range(2)]
+    W_heads_sat = []
+    for R_h in R_heads_sat:
+        K_rot = K_sat @ R_h.T
+        W_h = pseudoinverse_write(K_rot, V_sat)
+        W_heads_sat.append(W_h)
+    # Test multi-head recall@1 on stored keys at saturation -- should be >= 0.95
+    hits = 0
+    for j in range(m_sat):
+        q = K_sat[j]
+        cleaned_avg = np.zeros(d_sat, dtype=np.float32)
+        for W_h, R_h in zip(W_heads_sat, R_heads_sat):
+            cleaned_avg += W_h @ (R_h @ q)
+        cleaned_avg /= 2
+        sims = K_sat @ cleaned_avg
+        if int(sims.argmax()) == j:
+            hits += 1
+    saturated_recall = hits / m_sat
+    assert saturated_recall >= 0.95, \
+        f"multi-head H=2 at alpha=0.40 saturation: recall {saturated_recall:.3f} < 0.95"
+
     # Consistent hash: same key -> same fragment; different keys -> different distribution
     keys = [f"key_{i}" for i in range(1000)]
     fragments = [consistent_hash_fragment(k, 128) for k in keys]

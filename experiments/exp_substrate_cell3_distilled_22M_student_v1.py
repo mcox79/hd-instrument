@@ -47,7 +47,7 @@ except Exception:
 import os
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
-import argparse, time, gc, json
+import argparse, time, gc, json, math
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Iterable
 
@@ -235,8 +235,12 @@ if not torch.cuda.is_available():
     print("[FATAL] CUDA not available; this script is GPU-only.", flush=True)
     sys.exit(1)
 DEVICE = torch.device("cuda")
+# Enable TF32 for fp32 matmul on Ampere/Hopper -- ~3x speedup on residual fp32 ops
+# without sacrificing model quality (training is bf16-autocasted anyway)
+torch.set_float32_matmul_precision("high")
 print(f"[GPU] {torch.cuda.get_device_name(0)} "
-      f"({torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB)", flush=True)
+      f"({torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB) "
+      f"| tf32=high", flush=True)
 
 
 def _load_hf_token() -> Optional[str]:
@@ -352,51 +356,64 @@ class PretokenizedDistillDataset(torch.utils.data.Dataset):
 
 
 def pretokenize_in_parallel(texts: List[str], tokenizer, max_tok: int,
-                              num_proc: int = 8) -> Tuple[np.ndarray, np.ndarray]:
-    """Pre-tokenize all texts in parallel via HF datasets.map.
+                              num_proc: int = 8,
+                              chunk_size: int = 200000) -> Tuple[np.ndarray, np.ndarray]:
+    """Pre-tokenize all texts via fast tokenizer batched call (NOT HF Dataset.map).
+
+    SAFER than HF Dataset.map for huge datasets: HF would write the input texts
+    to a temp Arrow file (~6 GB for 5.84M texts) AND fork num_proc subprocesses
+    that each open their slice -- in worst-case memory patterns (no mmap), 8 procs
+    can amplify to 8x the data size. We instead use the fast tokenizer's built-in
+    parallelism (Rust rayon) over chunked batches in the main process. Throughput
+    matches num_proc=8 HF map without the temp-file footprint.
 
     Returns (all_tokens_packed int32, offsets int64) where sample i's tokens
     are at all_tokens_packed[offsets[i]:offsets[i+1]].
-
-    Using fast tokenizer + batched=True + num_proc gives ~num_proc x speedup over
-    per-sample tokenization. 5.84M texts at 256 max_tok with num_proc=8 takes
-    ~10-15 min vs ~5h serial.
     """
-    from datasets import Dataset
     import os as _os
-    # Enable tokenizer parallelism during the upfront pre-tokenize step
+    # Enable the fast-tokenizer Rust-level parallelism for THIS call
     _os.environ["TOKENIZERS_PARALLELISM"] = "true"
+    # Verify we have a fast tokenizer (HF Rust-backed; needed for the parallelism)
+    if not getattr(tokenizer, "is_fast", False):
+        print(f"[pretok] WARNING: tokenizer is_fast=False -- pre-tokenization will be slow", flush=True)
 
-    print(f"[pretok] tokenizing {len(texts):,} texts (max_tok={max_tok}; "
-          f"num_proc={num_proc}) -- one-time upfront cost", flush=True)
+    n = len(texts)
+    print(f"[pretok] tokenizing {n:,} texts (max_tok={max_tok}; chunk={chunk_size}) "
+          f"-- fast-tokenizer Rust parallelism (effective workers={num_proc})", flush=True)
     t0 = time.time()
-    ds = Dataset.from_dict({"text": texts})
 
-    def tok_fn(batch):
-        enc = tokenizer(batch["text"], truncation=True, max_length=max_tok,
-                         add_special_tokens=True)
-        return {"input_ids": enc["input_ids"]}
-
-    ds = ds.map(tok_fn, batched=True, batch_size=1024, num_proc=num_proc,
-                  remove_columns=["text"], desc="tokenizing")
-    elapsed = time.time() - t0
-    print(f"[pretok] wall {elapsed:.1f}s ({len(texts)/max(elapsed,1e-9):.0f} samples/sec)",
-          flush=True)
+    # Process in chunks to keep peak memory bounded
+    all_lengths: List[int] = []
+    all_ids_chunks: List[List[List[int]]] = []
+    for start in range(0, n, chunk_size):
+        end = min(start + chunk_size, n)
+        chunk = texts[start:end]
+        enc = tokenizer(chunk, truncation=True, max_length=max_tok,
+                         add_special_tokens=True, padding=False)
+        ids_chunk = enc["input_ids"]
+        all_ids_chunks.append(ids_chunk)
+        all_lengths.extend(len(x) for x in ids_chunk)
+        elapsed = time.time() - t0
+        print(f"  [pretok] {end:,}/{n:,} ({100*end/n:.1f}%) | "
+              f"rate={end/max(elapsed,1e-9):.0f}/sec | wall={elapsed:.1f}s", flush=True)
 
     # Pack into a single int32 array + offsets
     print(f"[pretok] packing into contiguous arrays...", flush=True)
-    lengths = np.fromiter((len(x) for x in ds["input_ids"]), dtype=np.int64,
-                            count=len(ds))
+    lengths = np.array(all_lengths, dtype=np.int64)
     total_toks = int(lengths.sum())
     all_tokens = np.empty(total_toks, dtype=np.int32)
-    offsets = np.zeros(len(ds) + 1, dtype=np.int64)
+    offsets = np.zeros(n + 1, dtype=np.int64)
     offsets[1:] = lengths.cumsum()
-    for i, ids in enumerate(ds["input_ids"]):
-        all_tokens[offsets[i]:offsets[i + 1]] = ids
-    print(f"[pretok] packed: {total_toks/1e6:.1f}M tokens ({all_tokens.nbytes/1e9:.2f} GB)",
-          flush=True)
+    i = 0
+    for chunk_ids in all_ids_chunks:
+        for ids in chunk_ids:
+            all_tokens[offsets[i]:offsets[i + 1]] = ids
+            i += 1
+    elapsed = time.time() - t0
+    print(f"[pretok] DONE: {total_toks/1e6:.1f}M tokens packed ({all_tokens.nbytes/1e9:.2f} GB); "
+          f"total wall {elapsed:.1f}s", flush=True)
 
-    # Reset env for downstream DataLoader workers (avoid fork deadlock)
+    # Reset env for downstream DataLoader workers (avoid fork deadlock at fork-time)
     _os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
     return all_tokens, offsets
@@ -458,13 +475,19 @@ def main():
     ids, targets = load_cell2_targets(shards_dir, max_articles=_ARGS.max_articles)
     id_to_text = build_id_to_text_map(ids, hf_token)
 
-    # Filter to (id, target, text) tuples + drop stubs (Wikipedia stubs add noise)
+    # Filter to (id, target, text) tuples + drop stubs (Wikipedia stubs add noise).
+    # CRITICAL: None-safe -- some parquet rows can have None text fields.
     min_chars = _ARGS.min_text_chars
     keep_idx = []
+    n_none = 0
     for i, art_id in enumerate(ids):
         if art_id not in id_to_text:
             continue
-        if len(id_to_text[art_id]) < min_chars:
+        text = id_to_text[art_id]
+        if text is None:
+            n_none += 1
+            continue
+        if len(text) < min_chars:
             continue
         keep_idx.append(i)
     n_pre_filter = len(ids)
@@ -475,7 +498,8 @@ def main():
     del id_to_text
     gc.collect()
     print(f"[data] final dataset: {len(ids):,} (id, text, target) triples "
-          f"(stubs <{min_chars}c filtered: -{n_pre_filter - len(ids):,})", flush=True)
+          f"(stubs <{min_chars}c filtered: -{n_pre_filter - len(ids):,}; "
+          f"null-text: -{n_none:,})", flush=True)
 
     # Train / val split
     n_val = max(1, int(_ARGS.val_frac * len(ids)))
@@ -617,9 +641,9 @@ def main():
               f"val_cos={val_metrics['cos']:.4f} "
               f"(n_eval={val_metrics.get('n_evaluated','?')}, "
               f"nan_batches={val_metrics.get('n_nan_batches','?')})", flush=True)
-        # Save best checkpoint by val_cos (NaN-safe)
+        # Save best checkpoint by val_cos (NaN + Inf safe via math.isfinite)
         cur_cos = val_metrics.get("cos", float("nan"))
-        if isinstance(cur_cos, float) and cur_cos == cur_cos and cur_cos > best_val_cos:
+        if isinstance(cur_cos, float) and math.isfinite(cur_cos) and cur_cos > best_val_cos:
             best_val_cos = cur_cos
             sd = student._orig_mod.state_dict() if use_compile and hasattr(student, "_orig_mod") else student.state_dict()
             torch.save(sd, best_ckpt_path)
