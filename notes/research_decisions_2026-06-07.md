@@ -29,3 +29,8 @@ substrate-eval-methodology 5x-chain drill-1 -> notes/research_drill_substrate_ev
 - [production scaling 5x chain drill 1] -> notes/research_drill_substrate_production_scaling_5x_chain3_drill1_2026-06-07.md | HEADLINE: Cross-shard K-hop is secretly hard at production scale; DRAM bandwidth wall at N=65536+; discontinuous capacity phase transition. GOLD: K-hop capability gap invisible at small N, dominant at 10^4+ shards. Next drill: distributed graph routing for K-hop (network-science-graph-theory).
 
 - [Chain1/Drill2] ZKP soundness + membership inference: GOLD 2.0 = audit trail detects adaptive ZKL attack as product feature; SZA protocol deployable; RSA->hash migration for post-quantum; -> notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill2_2026-06-07.md
+
+## Chain1/Drill3 2026-06-07 ~(adaptive ZKL)
+Delivered: notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07.md
+GOLD 3.0: audit trail = immunological memory (compounding defense). ZKL(k) sublinear (beta~0.6). Timing immune by construction. Drill 4 = quantum Grover analysis.
+- [Datalog->substrate honest translation drill] notes/research_drill_datalog_substrate_translation_honest_2026-06-07.md -- S-Datalog fragment covers 55-75% of Datalog; structurally-isomorphic claim retired; 10 constructs analyzed; 5 hard breaks (aggregation hardest); S-Datalog compiler spec defined; Datomic API = ergonomic surface syntax only

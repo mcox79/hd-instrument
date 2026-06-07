@@ -64,9 +64,9 @@ def coverage(kept, labels):
 
 
 def _selftest():
-    g = np.random.default_rng(0); lab = g.integers(0, 10, 500)
-    assert 0.0 <= coverage(offline_keep(lab, 50, g), lab) <= 1.0, "coverage bounds"
-    assert coverage(offline_keep(lab, 100, g), lab) >= 0.9, "offline stratified high coverage"
+    g = np.random.default_rng(0); lab = np.tile(np.arange(V_C), N_TOK // V_C + 1)[:N_TOK]
+    assert 0.0 <= coverage(offline_keep(lab, V_C, g), lab) <= 1.0, "coverage bounds"
+    assert coverage(offline_keep(lab, V_C, g), lab) >= 0.9, "offline stratified high coverage"
     print("[selftest] PASS: streaming", flush=True)
 
 
