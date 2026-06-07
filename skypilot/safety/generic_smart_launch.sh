@@ -149,18 +149,24 @@ while [ "$attempt" -lt "$MAX_ACQUIRE_ATTEMPTS" ]; do
     attempt=$((attempt + 1))
     ts=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 
-    # Capacity wait loop (no MAX -- we'll wait as long as needed)
+    # Capacity wait loop (no MAX -- we'll wait as long as needed).
+    # BUG FIX 2026-06-07: previously used `echo "$api_json" | python3 - <<EOF`
+    # which is broken in bash because the heredoc redirect WINS over the pipe
+    # for stdin -- python would read the script text as JSON and fail.
+    # Now: write api_json to a temp file, python reads the file path.
     AVAIL=""
     inner=0
+    LAMBDA_JSON_TMP="/tmp/${CLUSTER_PREFIX}_lambda_types.json"
     while [ -z "$AVAIL" ]; do
         inner=$((inner + 1))
-        api_json=$(curl -s -H "User-Agent: curl/7.81.0" -u "${API_KEY}:" \
-            https://cloud.lambdalabs.com/api/v1/instance-types 2>/dev/null)
-        AVAIL=$(echo "$api_json" | SKUS_TO_TRY="$SKUS_PRIORITY" REGIONS_TO_TRY="$SKYPILOT_KNOWN_REGIONS" python3 - <<'PYEOF2' 2>/dev/null
+        curl -s -H "User-Agent: curl/7.81.0" -u "${API_KEY}:" \
+            https://cloud.lambdalabs.com/api/v1/instance-types > "$LAMBDA_JSON_TMP" 2>/dev/null
+        AVAIL=$(SKUS_TO_TRY="$SKUS_PRIORITY" REGIONS_TO_TRY="$SKYPILOT_KNOWN_REGIONS" \
+                LAMBDA_JSON_FILE="$LAMBDA_JSON_TMP" python3 - <<'PYEOF2' 2>/dev/null
 import json, sys, os
-api_json = sys.stdin.read()
 try:
-    d = json.loads(api_json)
+    with open(os.environ["LAMBDA_JSON_FILE"]) as f:
+        d = json.load(f)
 except Exception:
     sys.exit(1)
 SKUS = os.environ.get("SKUS_TO_TRY", "").split()
