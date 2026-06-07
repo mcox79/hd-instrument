@@ -25,7 +25,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
-ANCHOR_NAME = "patternb_chain_k234_diag_v1"; D = 1024
+ANCHOR_NAME = "patternb_chain_k234_diag_v1"; D = 64
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 TRIALS = 30 if RUN_MODE == "smoke" else 200
@@ -61,12 +61,17 @@ if _ARGS.self_test:
 
 
 def recovery(K, w, N, g, trials):
-    # role-filler bundle with K pairs from an N-filler codebook; fillers carry an additive payload of weight w.
+    # role-filler chain of K pairs from an N-filler codebook; each pair ALSO superposes a separate payload-bound term of
+    # weight w (so payload adds crosstalk terms, not just perturbs the filler) -- the "payload-bound chain" structure.
     book = phasor(N, D, g); hit = 0; total = 0
     for _ in range(trials):
         roles = phasor(K, D, g); fidx = g.choice(N, size=K, replace=False)
-        payloads = phasor(K, D, g)
-        terms = [bind(roles[i], book[fidx[i]] + w * payloads[i]) for i in range(K)]
+        terms = []
+        for i in range(K):
+            terms.append(bind(roles[i], book[fidx[i]]))
+            if w > 0:
+                prole = phasor(1, D, g)[0]; payload = phasor(1, D, g)[0]
+                terms.append(w * bind(prole, payload))     # separate superposed payload term
         B = np.sum(terms, axis=0)
         for i in range(K):
             rec = unbind(B, roles[i])
@@ -76,12 +81,12 @@ def recovery(K, w, N, g, trials):
 
 def run() -> Dict:
     g = np.random.default_rng(11)
-    # (A) K-depth: payload off, N=64
-    A = {("K%d" % K): recovery(K, 0.0, 64, g, TRIALS) for K in (2, 3, 4)}
-    # (B) payload magnitude: K=3, N=64
-    B = {("w%.1f" % w): recovery(3, w, 64, g, TRIALS) for w in (0.0, 0.5, 1.0, 2.0)}
-    # (C) bundle saturation: K=3, payload=1.0, sweep N
-    C = {("N%d" % N): recovery(3, 1.0, N, g, TRIALS) for N in (32, 64, 128, 256)}
+    # (A) K-depth: payload on (w=1), N=64
+    A = {("K%d" % K): recovery(K, 1.0, 64, g, TRIALS) for K in (2, 3, 4, 6, 8)}
+    # (B) payload magnitude: K=4, N=64
+    B = {("w%.1f" % w): recovery(4, w, 64, g, TRIALS) for w in (0.0, 1.0, 2.0, 4.0)}
+    # (C) bundle saturation: K=4, payload=1.0, sweep N
+    C = {("N%d" % N): recovery(4, 1.0, N, g, TRIALS) for N in (32, 64, 128, 256)}
     rngA = max(A.values()) - min(A.values()); rngB = max(B.values()) - min(B.values()); rngC = max(C.values()) - min(C.values())
     print("  (A) K-depth: " + " ".join("%s=%.3f" % (k, v) for k, v in A.items()) + " range=%.3f" % rngA, flush=True)
     print("  (B) payload: " + " ".join("%s=%.3f" % (k, v) for k, v in B.items()) + " range=%.3f" % rngB, flush=True)
