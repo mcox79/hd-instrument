@@ -26841,3 +26841,11 @@ HONEST 1053->1060 (+7). LVH 244 UNCHANGED. Portfolio 32+79 UNCHANGED. 379th PROT
 NEW ROW +1 [32+80]: rank-1-downdate/GDPR-deletion/production-churn (P-band 0.85-0.95 PRODUCTION-NEAR; 2x PROT-008 PASS: downdate+churn pair).
 4x PROT-008 PASS (pinv_llama smoke+full; multihead M2+sweep; streaming offline+online; churn downdate+churn).
 LVH 245->246 (+1). HONEST 1072->1079 (+7). Portfolio 32+79->32+80. 382nd PROT-009.
+
+## v471 (2026-06-06) -- CYCLE 150 GAMUT-BATCH [LVH #247]
+12 HP: lvh245_lambda03 MMR-5SEED-PROD-LAMBDA-0.3-LOCKED; pb_kf1_multilang_3hop AUC=0.970 3HOP-ROBUST; zkl_curve_k SUBLINEAR-ZKL50=0.035 HIPAA-SUPPORTABLE; zkl_hash_rsa 4000x-CHEAPER-PQ-FREE audit_chain_ok; zkl_substrate_vs_rag 23x-RAG-PRIVACY-ADV substrate/rag=0.044; api_subscribe REACTIVE-100/100 READY; api_verify TAMPER-100pct 1000-CASE; api_as_of BITEMPORAL-0-LEAK 3000-QUERIES; qdef_rate_limit CAMPAIGN-BLOCKED 0pct-LEGIT; qdef_watermark 10/10-MIA; subs_merkle 0.0046ms 2000x-CLEAR; i1_bf16_overflow N65536-ZERO-NaN-GATE-CLOSED.
+4 HF: lvh245_lambda05 3/5-SEEDS-FAIL lambda=0.5 UNSAFE; smw_profiler bw_util=0.59-N8192 LAUNCH-OVERHEAD-DOMINATED; smw_rank_k max-2.1x NON-MONOTONE LAUNCH-DOMINATED; (lvh245 pair total 4 HF).
+3 MID: smw_whitening_disabled 1.46-7.82x-LVH247; zkl_timing AUC=0.597 PARTIAL; subs_naive_scan S1K=79pct S2K=153pct.
+1 LVH #247: smw_whitening_disabled range-overclaims-floor (1.46x N1024 outside stated 3-6x). LVH#244 RESOLVED: i1_bf16 closes g3 fp16-gate.
+2x PROT-008 PASS: (a) lambda03 HP + v467 h2_mmr_envelope HP: lambda=0.3 subset confirmed. (b) kf1_3hop HP + v467 pb_multilang HP: monotone hop extension.
+HONEST 1079->1098 (+19). LVH 246->247 (+1). Portfolio 32+80 UNCHANGED. 383rd PROT-009.

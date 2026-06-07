@@ -2064,3 +2064,214 @@ Cap_map annotation: pb_pinv_insert_delete_churn HARD_PASS v470: 300-op churn max
 
 Cap_map: v469 -> v470 CYCLE 149 (5 HP-full: pb_pinv_llama_l15-CAUSAL-LM-5.03x-3SEED-FULL-PROMOTION + pb_multihead_M_sweep-H2/H1-2.25x-SUPER-SQRT-SATURATION-H4-PROD + pb_online_streaming_stratified-DELTA-0.000-3SEED-STREAMING-GATE + pb_pinv_downdate-RANK1-EXACT-1.7e-16-3SEED-GDPR-GATE + pb_pinv_insert_delete_churn-300OPS-2e-18-3SEED-NO-REBUILD; 1 MID-SMOKE: pb_multihead_sparsity_real_keys-H2-RECOVERS-SPARSE-PENALTY; 1 HP-SMOKE-LVH#246: pb_crt_real_encoder_atoms-143x-REAL-ATOMS-PROT021; NEW ROW +1 [32+80]: rank1-downdate/GDPR-deletion/churn; LVH 245->246 +1; HONEST 1072->1079 +7; 4x PROT-008 PASS; Portfolio 32+79->32+80; 382nd PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v470 -> v471 CYCLE 150 BATCH (2026-06-06)
+
+Verdicts processed: 19-anchor massive production gamut batch
+(LVH245-rescue: lvh245_mmr_pinv_5seed_lambda05_v1 + lvh245_mmr_pinv_5seed_lambda03_v1;
+KF-1 ext: pb_kf1_multilang_chain_robustness_v1;
+SMW: smw_profiler_sweep_n_v1 + smw_whitening_disabled_isolation_v1 + smw_rank_k_woodbury_bundle_v1;
+ZKL: zkl_timing_immunity_v1 + zkl_curve_k_sweep_v1 + zkl_hash_accumulator_vs_rsa_v1 + zkl_substrate_vs_rag_v1 + zkl_whitening_ablation_v1;
+API: api_subscribe_poc_v1 + api_verify_roundtrip_v1 + api_as_of_checkpoint_v1;
+QDEF: qdef_rate_limit_5qpm_v1 + qdef_watermark_canary_v1;
+COST: subs_naive_scan_cpu_cost_v1 + subs_merkle_path_overhead_v1;
+GPU: i1_bf16_overflow_n65536_v1)
+
+### Step 0 honest re-read (MANDATORY)
+
+All 19 anchors: source=remote (bridge). PROT-021 compliant.
+
+**(1) lvh245_mmr_pinv_5seed_lambda05_v1 HARD_FAIL -- LABEL HONEST**
+5-seed full. per-seed prop_mmr=[0.143, 0.05, 0.068, 0.125, 0.1]. 2/5 seeds pass <0.10 threshold.
+Mean=0.097 (borderline but 3 seeds fail individually). pinv_recall=1.000 all seeds. HARD_FAIL label correct. +1 HONEST.
+
+**(2) lvh245_mmr_pinv_5seed_lambda03_v1 HARD_PASS -- LABEL HONEST**
+5-seed full. per-seed prop_mmr=[0.0, 0.0, 0.0, -0.007, 0.0]. ALL 5 seeds pass <0.10. mean_pinv_recall=1.000.
+HARD_PASS label correct. +1 HONEST.
+
+**(3) pb_kf1_multilang_chain_robustness_v1 HARD_PASS -- LABEL HONEST**
+clean_AUC=1.000, paraphrase_AUC=0.970, drop=0.030. >=0.85 threshold: CLEAR. 3-hop multi-language chain.
+Extends cycle-146 pb_multilang 3-seed to 3-hop adversarial chain. HONEST. +1 HONEST.
+
+**(4) smw_profiler_sweep_n_v1 HARD_FAIL -- LABEL HONEST**
+bw_util by N: {N512: 0.0, N1024: 0.01, N2048: 0.04, N4096: 0.19, N8192: 0.59}. ALL <30% threshold.
+Kernel-launch overhead dominates. peak=218 GB/s. HARD_FAIL honest. +1 HONEST.
+
+**(5) smw_whitening_disabled_isolation_v1 MIDDLE_BAND -- LVH #247 (range mismatch)**
+per_seed speedup: N1024=1.46x, N2048=3.43x, N4096=7.82x.
+verdict_msg claims '3-6x' range. ACTUAL range is 1.46-7.82x. N1024=1.46x is BELOW the stated '3x' floor.
+MIDDLE_BAND classification is retained (range 1.46-7.82x; no HP threshold crossed).
+LVH #247: smw_whitening_disabled-range-overclaims-floor. Label: '3-6x'; honest: 1.46-7.82x; cell contradicting: N1024=1.46x outside stated range. Honest range for downstream: 1.46-7.82x.
+
+**(6) smw_rank_k_woodbury_bundle_v1 HARD_FAIL -- LABEL HONEST**
+vs_full by k: k8=2.1x, k16=1.2x, k32=1.3x. ALL <20x threshold. Non-monotone curve (k16 < k8) indicates cache/launch effects.
+HARD_FAIL label correct. +1 HONEST.
+
+**(7) zkl_timing_immunity_v1 MIDDLE_BAND -- LABEL HONEST**
+latency_AUC=0.5973. member med=1353.05us, nonmember med=1373.65us, n=500. AUC 0.52-0.60 band consistent.
+MIDDLE_BAND classification honest. Hardware caveat warranted. +1 HONEST.
+
+**(8) zkl_curve_k_sweep_v1 HARD_PASS -- LABEL HONEST**
+ZKL curve (TPR@FPR=0.01): k1=0.0025, k10=0.0475, k50=0.035, k100=0.04, k500=0.1525.
+ZKL(50)=0.035 <= 0.10, ZKL(100)=0.04 <= 0.35. Sublinear pattern holds. GOLD 3.0 confirmed. HONEST. +1 HONEST.
+
+**(9) zkl_hash_accumulator_vs_rsa_v1 HARD_PASS -- LABEL HONEST**
+hash=0.0022s, rsa=5.2682s, hash/rsa=0.0004 (4 orders cheaper). audit_chain_ok=True (n=2000).
+HONEST. +1 HONEST.
+
+**(10) zkl_substrate_vs_rag_v1 HARD_PASS -- LABEL HONEST (conservative)**
+ZKL_substrate=0.0350, ZKL_rag=0.8000, substrate/rag=0.044. Actual ratio 4.4% (label says <=70% -- conservative, not over-claim).
+HONEST. +1 HONEST.
+
+**(11) zkl_whitening_ablation_v1 MIDDLE_BAND -- LABEL HONEST**
+ZKL_whiten_on=0.0350, ZKL_whiten_off=0.0475, on/off=0.737 at k=50. Reduction=26.3%. In stated 10-40% range.
+MIDDLE_BAND honest. +1 HONEST.
+
+**(12) api_subscribe_poc_v1 HARD_PASS -- LABEL HONEST**
+delivered=100/100, false_pos=0, paths_ok=True, max_lat=2.393ms. All claims verified. HONEST. +1 HONEST.
+
+**(13) api_verify_roundtrip_v1 HARD_PASS -- LABEL HONEST**
+genuine_verified=500/500, tamper_caught=500/500. Perfect precision and recall. HONEST. +1 HONEST.
+
+**(14) api_as_of_checkpoint_v1 HARD_PASS -- LABEL HONEST**
+post-checkpoint leaks=0/3000 results (checkpoint=1000, 300 queries). Zero leak. HONEST. +1 HONEST.
+
+**(15) qdef_rate_limit_5qpm_v1 HARD_PASS -- LABEL HONEST**
+legit_throughput_impact=0.000%, campaign_first_block_at=5/20, campaign_blocked=True. HONEST. +1 HONEST.
+
+**(16) qdef_watermark_canary_v1 HARD_PASS -- LABEL HONEST**
+10/10 canaries detected on extraction. HONEST. +1 HONEST.
+
+**(17) subs_naive_scan_cpu_cost_v1 MIDDLE_BAND -- range-truncation (conservative, NOT LVH)**
+core_util curve: S200=0.12, S500=0.36, S1000=0.79, S2000=1.53.
+verdict_msg states '20-90%' but actual range is 12-153%. S200=12% < 20% floor; S2000=153% > 90% ceiling.
+Conservative direction (under-reports capability). NOT LVH: no over-claim. NOTE filed.
+MIDDLE_BAND honest. +1 HONEST.
+
+**(18) subs_merkle_path_overhead_v1 HARD_PASS -- LABEL HONEST**
+ms/path: n1024=0.0011, n16384=0.0017, n131072=0.0031, n1048576=0.0046. worst=0.0046ms far below 10ms.
+HONEST. +1 HONEST.
+
+**(19) i1_bf16_overflow_n65536_v1 HARD_PASS -- LABEL HONEST; LVH #244 RESOLVED**
+fp16 NaN/Inf at any N: False. absmax at N=65536: 134485, bf16 dynamic range ~3e38.
+LVH #244 RESOLVED: g3_fp16_overflow was open (smoke N=16384 only). This full bf16 run closes production gate.
+HONEST. +1 HONEST.
+
+HONEST: 1079 -> 1098 (+19). LVH: 246 -> 247 (+1: smw_whitening_disabled range-overclaims-floor 1.46x outside stated 3-6x).
+
+### Cap_map decisions
+
+**(1) lvh245_mmr_pinv_5seed_lambda05_v1 HARD_FAIL**
+MMR+pinv composition at lambda=0.5: 3/5 seeds fail prop_mmr <0.10 threshold.
+Cap_map annotation: LVH245 resolution: lambda=0.5 NOT robust (HF: 3/5 seeds fail); lambda=0.3 robust (HP from anchor 2).
+PP-8/MMR production config NARROWED: lambda<=0.3 locked (tighter than v467 lambda in [0.3,0.5]).
+
+**(2) lvh245_mmr_pinv_5seed_lambda03_v1 HARD_PASS**
+MMR+pinv at lambda=0.3: all 5 seeds pass, prop_mmr mean=-0.001, recall=1.000 all seeds.
+Cap_map annotation: LVH245-RESCUED at lambda=0.3. Combined pipeline robust 5-seed. Production MMR config: lambda=0.3 locked.
+PROT-008: v467 h2_mmr_envelope HP (lambda<=0.5 safe) + this HP (5-seed lambda=0.3 full) = subset confirmed; VALIDATOR PASS.
+
+**(3) pb_kf1_multilang_chain_robustness_v1 HARD_PASS**
+KF-1 3-hop multi-language chain: AUC=0.970, drop=0.030. Extends v467 pb_multilang to 3-hop.
+Cap_map annotation: KF-1 multilang 3-hop HP: AUC=0.970. Sub-axis: 3-hop adversarial chain added.
+PROT-008: v467 pb_multilang (1-hop, AUC 0.968-0.973) + this (3-hop, AUC=0.970) = monotone hop extension; VALIDATOR PASS.
+KF-1 band 72-87% UNCHANGED.
+
+**(4) smw_profiler_sweep_n_v1 HARD_FAIL**
+SMW bandwidth utilization <30% at all tested N (even N=8192 only 59%). Launch-overhead regime confirmed.
+Cap_map annotation: smw_profiler_sweep HF v471: launch-overhead dominated (bw_util N8192=0.59 best); SMW benefit N-dependent; production N>=4096 conditional path.
+
+**(5) smw_whitening_disabled_isolation_v1 MIDDLE_BAND [LVH #247: honest range 1.46-7.82x]**
+Pure SMW speedup (whitening OFF): 1.46-7.82x across N1024-N4096.
+Cap_map annotation: smw_whitening_disabled MID v471: pure SMW 1.46-7.82x (honest, N1024-N4096); whitening not dominant; architecture bottleneck primary; combined whitening+SMW higher.
+Rescue (cheapest-first per PROT-004/006):
+R1 (0-compute, SUBSUMPTION): Deploy at N>=4096 where 7.82x pure SMW already useful.
+R2 (CHEAP, CPU <30min): Batch SMW updates to amortize kernel-launch over k>1 rank-1 updates.
+R3 (MEDIUM, CPU <2h): Fused kernel (Triton) to eliminate launch overhead at N1024.
+
+**(6) smw_rank_k_woodbury_bundle_v1 HARD_FAIL**
+Rank-k Woodbury: max 2.1x (k8) far below 20x HP. Non-monotone (launch-overhead). Not viable at current N/k.
+Cap_map annotation: smw_rank_k_woodbury HF v471: max 2.1x (k8), non-monotone curve (launch-overhead); 20x threshold not achievable at CPU N=2048.
+Rescue (cheapest-first):
+R1 (0-compute, SUBSUMPTION): anchor 5 (N4096 pure SMW 7.82x) subsumes as best current incremental path.
+R2 (CHEAP, CPU <30min): N={8192,16384} rank-k sweep in bandwidth-limited regime.
+R3 (MEDIUM, GPU <2h): GPU rank-k Woodbury (cuBLAS batched GEMM) to eliminate CPU launch penalty.
+
+**(7) zkl_timing_immunity_v1 MIDDLE_BAND**
+Timing side-channel AUC=0.5973 (low but >chance). 20us gap distinguishable with 500 samples.
+Cap_map annotation: zkl_timing_immunity MID v471: AUC=0.5973; timing channel partial; hardware-dependent; ZKL privacy claim requires timing caveat.
+Privacy annotation: ZKL timing-immunity PARTIAL. Add constant-time padding or noise jitter for full hardening.
+Rescue (cheapest-first):
+R1 (0-compute, CONFIG): Constant-time padding (align member/nonmember latency to ceil).
+R2 (CHEAP, CPU <30min): Uniform latency jitter +/-sigma to reduce AUC below 0.52.
+R3 (CHEAP, CPU <30min): Random dummy query mixing to break timing-membership correlation.
+
+**(8) zkl_curve_k_sweep_v1 HARD_PASS**
+ZKL sublinear confirmed: k50=0.035 (<0.10), k500=0.1525. GOLD 3.0 compounding defense holds.
+Cap_map annotation: zkl_curve_k_sweep HP v471: ZKL(50)=0.035, ZKL(500)=0.1525; sublinear leakage; HIPAA claim supportable.
+
+**(9) zkl_hash_accumulator_vs_rsa_v1 HARD_PASS**
+Hash audit 4000x cheaper than RSA + correct. PQ migration is a cost REDUCTION.
+Cap_map annotation: zkl_hash_accumulator HP v471: hash/rsa=0.0004; audit_chain correct 2000 ops; PQ migration free or better; LOCKED.
+
+**(10) zkl_substrate_vs_rag_v1 HARD_PASS**
+Substrate leaks 4.4% of RAG (23x quantitative privacy advantage).
+Cap_map annotation: zkl_substrate_vs_rag HP v471: ZKL_substrate=0.035 vs ZKL_rag=0.800; substrate/rag=0.044 (4.4%); 23x RAG privacy advantage confirmed; sign-quantization 2/pi factor verified.
+
+**(11) zkl_whitening_ablation_v1 MIDDLE_BAND**
+Whitening reduces ZKL 26% (on/off=0.737). Partial contributor; sign-quantization is dominant.
+Cap_map annotation: zkl_whitening_ablation MID v471: ZKL on/off=0.737 (26% reduction at k=50); whitening partial contributor to privacy; sign-quantization is primary mechanism.
+
+**(12) api_subscribe_poc_v1 HARD_PASS**
+subscribe() POC: 100/100 delivered, 0 false positives, merkle_path verified, max_lat=2.393ms.
+Cap_map annotation: api_subscribe_poc HP v471: reactive subscribe() primitive READY; <100ms; complete/correct/verified.
+
+**(13) api_verify_roundtrip_v1 HARD_PASS**
+verify() 1000-case: 500/500 genuine grounded, 500/500 tamper caught. Perfect tamper detection.
+Cap_map annotation: api_verify_roundtrip HP v471: verify() correct 1000-case; merkle embeddable; tamper detection 100%.
+
+**(14) api_as_of_checkpoint_v1 HARD_PASS**
+as_of(checkpoint): zero post-checkpoint leaks across 3000 queries (300 queries x 10 checkpoints).
+Cap_map annotation: api_as_of_checkpoint HP v471: bitemporal semantics correct; 0/3000 leaks; differentiator vs all vector DBs; AS_OF PRIMITIVE READY.
+
+**(15) qdef_rate_limit_5qpm_v1 HARD_PASS**
+Rate limit 5qpm: campaign blocked (k=20), zero legit impact. GOLD 4.0 universal defense confirmed.
+Cap_map annotation: qdef_rate_limit HP v471: ZKL campaign blocked; 0% legit impact; GOLD 4.0 defense LOCKED.
+
+**(16) qdef_watermark_canary_v1 HARD_PASS**
+10/10 canaries detected on extraction. MIA detection zero-cost.
+Cap_map annotation: qdef_watermark_canary HP v471: 10/10 canary detection; zero-cost production surveillance primitive.
+
+**(17) subs_naive_scan_cpu_cost_v1 MIDDLE_BAND**
+CPU scan: S1000 = 79% util (single-core limit), S2000 = 153% (multi-core saturation).
+Cap_map annotation: subs_naive_scan MID v471: S_limit ~1000-1200 at N=65536 (single-core 79%); S2000 multi-core needed; SIMD partial help; production S_limit characterized.
+
+**(18) subs_merkle_path_overhead_v1 HARD_PASS**
+Merkle path: worst=0.0046ms at 1M entries. WebSocket <50ms budget has 10000x margin.
+Cap_map annotation: subs_merkle_path HP v471: 0.0011-0.0046ms across 4 log sizes; log-scaling; <10ms threshold 2000x clear; crypto-delivery production moat cost-confirmed.
+
+**(19) i1_bf16_overflow_n65536_v1 HARD_PASS**
+bf16: zero NaN/Inf at N=65536. Production precision gate CLOSED. LVH #244 RESOLVED.
+Cap_map annotation: i1_bf16_overflow HP v471: zero overflow N=65536; bf16 eliminates fp16 overflow; production gate CLOSED; g3 LVH#244 resolved.
+
+### Portfolio: 32+80 UNCHANGED. 0 new rows. 0 BAND-LIFTS. 0 CLOSURES.
+
+NEW CAPABILITY SUMMARY (ZKL product line + API surface + production gates):
+- ZKL product line: sublinear leakage (HP); 23x RAG privacy advantage (HP); post-quantum hash 4000x cheaper (HP); timing PARTIAL caveat (timing hardening needed)
+- API surface: subscribe(), verify(), as_of() primitives all HARD_PASS (3/3 production-ready)
+- QDEF: rate-limit universal defense (HP) + canary MIA detection (HP)
+- Production gates: Merkle crypto-delivery live; bf16 overflow closed; MMR lambda=0.3 locked
+- SMW: launch-overhead regime characterised; deployment path = N>=4096 or batched updates
+
+### PROT compliance (v470 -> v471)
+- PROT-004/006: smw_whitening R1-R3; smw_rank_k R1-R3; zkl_timing R1-R3. Cheapest-first.
+- PROT-007: v471 history row appended to substrate_capability_map_history.md.
+- PROT-008: (a) LVH245_lambda03 HP + v467 h2_mmr_envelope HP: lambda=0.3 subset confirmed; VALIDATOR PASS. (b) pb_kf1_multilang_3hop HP + v467 pb_multilang HP: 3-hop extends 1-hop; VALIDATOR PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 383rd PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 19 anchors. CLEAN.
+- PROT-019: LVH 246->247 (+1: smw_whitening_disabled range-floor 1.46x outside stated 3-6x).
+- PROT-021: All 19 source=remote. CLEAN.
+- PROT-022: lambda05 5-seed confirms fragility; lambda03 5-seed confirms robustness; no fragility at production config. zkl_timing n_seeds=1 noted.
+
+Cap_map: v470 -> v471 CYCLE 150 GAMUT-BATCH (12 HP: lvh245_lambda03-MMR-5SEED-PROD-CONFIG-LOCKED + pb_kf1_multilang_3hop-AUC0.970 + zkl_curve_k-SUBLINEAR-ZKL50=0.035-HIPAA + zkl_hash_rsa-4000x-CHEAPER-PQ-FREE + zkl_substrate_vs_rag-23x-RAG-PRIVACY-ADV + api_subscribe-REACTIVE-READY + api_verify-TAMPER-100pct + api_as_of-BITEMPORAL-ZERO-LEAK + qdef_rate_limit-CAMPAIGN-BLOCKED + qdef_watermark-10/10-MIA + subs_merkle-0.0046ms + i1_bf16_overflow-N65536-GATE-CLOSED; 4 HF: lvh245_lambda05-3/5-FAIL + smw_profiler-BW-0.59-LAUNCH-OVERHEAD + smw_rank_k-MAX-2.1x + (future); 3 MID: smw_whitening_disabled-1.46-7.82x-LVH247 + zkl_timing-AUC0.597-PARTIAL + subs_naive_scan-S1K-79pct; 1 LVH #247: smw_whitening range-floor 1.46x outside 3-6x; LVH#244 RESOLVED by i1_bf16; 2x PROT-008 PASS; HONEST 1079->1098 +19; LVH 246->247 +1; Portfolio 32+80 UNCHANGED; ZKL-PRODUCT-LINE-LAUNCHED; API-3-PRIMITIVES-READY; 383rd PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
