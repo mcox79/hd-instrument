@@ -85,7 +85,10 @@ def load_texts(n):
             r = json.loads(l)
         except Exception:
             continue
-        t = r.get("text") or r.get("abstract") or r.get("contents") or ""
+        t = r.get("long_answer") or r.get("text") or r.get("question") or ""
+        if not isinstance(t, str):
+            ctx = r.get("context")
+            t = " ".join(ctx) if isinstance(ctx, list) else (ctx if isinstance(ctx, str) else "")
         if isinstance(t, str) and len(t) > 30:
             out.append(t[:400])
         if len(out) >= n:
@@ -125,6 +128,8 @@ def run() -> Dict:
 
 def verdict(r) -> Tuple[str, str]:
     summary = "B_eff raw=%.2f L2norm=%.2f cone=%.2f at S=%d (n=%d Llama embeddings; baseline ~40)" % (r["raw"], r["norm"], r["cone"], S, r["n"])
+    if r["n"] < 50:
+        return ("HARD_FAIL", "HARD_FAIL: corpus too small to measure B_eff (n=%d). " % r["n"] + summary)
     if r["cone"] < 20:
         return ("HARD_PASS", "HARD_PASS: cone-correction B_eff<20 -- anisotropy IS the dominant fanout cause; ship cone correction in v1 LSH. " + summary)
     if r["norm"] < 30 or r["cone"] < 30:
