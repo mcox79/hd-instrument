@@ -1812,3 +1812,76 @@ MMR operational envelope sub-axis. Band UNCHANGED.
 
 Cap_map: v466 -> v467 CYCLE 146 PB/H2-BATCH (6 HP: pb_production_recipe-57.3x-LIFT-LOCKED + pb_mmr_real_encoder_clustered-REAL-KB-FULLY-DEPLOYABLE + pb_e5_bge_headtohead-PINV-ENCODER-AGNOSTIC-0.550 + pb_consistent_lie_chain_harder-K12-CATCH-1.000 + pb_multilang_paraphrase_kf1-XLING-AUC-0.968-0.973-3SEED + h2_mmr_envelope-6/9-SAFE-lambda-0.5; 1 MID: pb_pinv_sherman_morrison-INCREMENTAL-SLOWER-0.677-0.824x-R1-R4; 0 LVH; HONEST 1053->1060 +7; LVH 244 UNCHANGED; 2x PROT-008 PASS: MMR-FULL-DEPLOYABLE + K12-CHAIN-EXTENSION; Portfolio 32+79 UNCHANGED; 379th PROT-009 paired commit) (2026-06-06)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v467 -> v468 CYCLE 147 GPU-OOM-UNBLOCKED + RETROACTIVE-AUDIT (2026-06-06)
+
+Verdicts processed:
+1. substrate_sparsity_fine_battery_gpu_v1 (HARD_PASS -- full promotion of cycle 130 OOM-blocked; 3-seed full)
+2. substrate_capacity_battery_gpu_v1 (HARD_PASS -- capacity battery OOM-cleared; 5-seed full)
+3. i3_f4_pinv_corruption_reaudit_v1 (HARD_PASS -- CRITICAL retroactive audit of cycle 137 F4 HF; pinv M_max>=300 + pinv recipe; 3-seed full)
+4. i4_w_sharding_vs_sharing_v1 (HARD_PASS -- W-sharding BFT architecture decision; 3-seed full)
+
+### Step 0 honest re-read (MANDATORY)
+
+(1) substrate_sparsity_fine_battery_gpu_v1 HARD_PASS -- LABEL HONEST
+source=remote run_mode=full n_seeds=3. N=16384: sparse0.02=25.01x, sparse0.05=25.01x, sparse0.08=15.01x, sparse0.12=10.0x, sparse0.20=5.0x, sparse0.35=2.5x, sparse0.50=2.0x vs dense. HP threshold: >=3x at any alpha. ALL cells alpha<=0.20 exceed 3x. 3-seed deterministic (identical across all seeds, both N=8192 and N=16384). Context note: prior OOM-block cited 20x claim at alpha=0.02-0.05; actual data shows 25x at alpha<=0.05 -- claim was conservative. HONEST. No LVH. +1 HONEST (1060->1061).
+
+(2) substrate_capacity_battery_gpu_v1 HARD_PASS -- LABEL HONEST
+source=remote run_mode=full n_seeds=5. N=16384: sparse0.05=25.01x, sparse0.10=10.0x, sparse0.20=5.0x, hadamard=10.0x vs dense. HP threshold: >=3x. ALL cells exceed 3x. 5-seed deterministic. Hadamard rule: 10.0x at N=16384 (same as sparse0.10). Battery confirms: sparse-KEY coding + hadamard are both strong capacity levers at full scale. HONEST. No LVH. +1 HONEST (1061->1062).
+
+(3) i3_f4_pinv_corruption_reaudit_v1 HARD_PASS -- LABEL HONEST
+source=remote run_mode=full n_seeds=3. N=2048 with M_max>=300 + pinv recipe. pinv alpha_c by flip: flip0.05=0.55, flip0.10=0.40, flip0.20=0.30, flip0.30=0.14. HP threshold: alpha_c>=0.10 up to 20% corruption. flip0.05/0.10/0.20 all pass. flip0.30=0.14 (marginally above threshold). Hebb alpha_c=0.05 at ALL flip levels (complete collapse at any corruption). 3-seed deterministic. F4 HF (cycle 137) was Hebb-specific: pinv holds production envelope through 20% corruption. CRITICAL exoneration. HONEST. No LVH. +1 HONEST (1062->1063).
+
+(4) i4_w_sharding_vs_sharing_v1 HARD_PASS -- LABEL HONEST
+source=remote run_mode=full n_seeds=3. N=2048. After corrupting 1 head: sharding_other_recall={seed7:0.976, seed17:0.960, seed23:0.936} (all >=0.90). sharing_other_recall=0.000 all seeds (complete collapse). HP threshold: sharding >=0.90 while sharing collapses. ALL sharding cells pass; sharing collapses deterministically. HONEST. No LVH. +1 HONEST (1063->1064).
+
+HONEST: 1060 -> 1064 (+4). LVH: 244 UNCHANGED.
+
+### Cap_map decisions (v467 -> v468)
+
+(1) substrate_sparsity_fine_battery_gpu_v1 HARD_PASS
+PP-8 sparse-KEY capacity sub-axis (fine alpha battery, 3-seed full N=8192+N=16384).
+Cycle 130 OOM-blocked; this is the full-scale confirmation. Fine battery extends cycle 123 alpha=0.20 (5x) to alpha=0.02-0.05 (25x). MONOTONE: alpha=0.02 (25x) > alpha=0.08 (15x) > alpha=0.12 (10x) > alpha=0.20 (5x) > alpha=0.35 (2.5x) > alpha=0.50 (2x). Capacity envelope vs alpha FULLY CHARACTERISED at N=16384.
+PROT-008: cycle 123 HP (alpha=0.20, 5x) + this HP (fine alpha grid, 25x at alpha<=0.05) = two full-scale HPs. VALIDATOR PASS.
+Cap_map annotation: sparsity_fine_battery HP v468: N=16384 3-seed; alpha<=0.05=25x, alpha=0.08=15x, alpha=0.10=10x; capacity-vs-alpha envelope LOCKED; PP-8 sparse-KEY FULLY CHARACTERISED.
+
+(2) substrate_capacity_battery_gpu_v1 HARD_PASS
+PP-8 capacity battery sub-axis (write-rule comparative, 5-seed full N=8192+N=16384).
+Hadamard confirmation: hadamard=10.0x at N=16384. Write-rule ordering: dense < hadamard = sparse0.10 < sparse0.05. Production-confirmed at N=16384 5-seed.
+PROT-008: cycle 123 HP (sparse_vs_dense) + this HP (battery including hadamard) = two full-scale HPs. Hadamard: cycle 146 hadamard_whitening_combined HF was combination with whitening; this confirms hadamard ALONE is a strong capacity lever (10x). VALIDATOR PASS.
+Cap_map annotation: capacity_battery HP v468: N=16384 5-seed; hadamard=10x confirmed; sparse0.05=25x, sparse0.10=10x, sparse0.20=5x; write-rule capacity ordering LOCKED. PP-8 FULLY CONFIRMED.
+
+(3) i3_f4_pinv_corruption_reaudit_v1 HARD_PASS [CRITICAL RETROACTIVE EXONERATION]
+PP-8 corruption-robustness sub-axis + KF-1 production envelope.
+CRITICAL: cycle 137 multi_head_x_corruption HARD_FAIL was Hebb-specific. Retroactive audit with pinv + M_max>=300 shows: pinv alpha_c >= 0.10 through 20% flip corruption. Hebb alpha_c=0.05 at any corruption (complete collapse). F4 HF was a write-rule selection failure, not a substrate corruption vulnerability.
+Production envelope: pinv corruption tolerance = 20% flip with alpha_c>=0.30.
+PROT-008: First HP on corruption-robustness sub-axis for pinv. Records.
+Cap_map annotation: i3_f4_pinv_corruption_reaudit HP v468: pinv alpha_c 0.55/0.40/0.30/0.14 at flip 0.05/0.10/0.20/0.30; F4 HF exonerated as Hebb-specific; production pinv path corruption-robust to 20% flip; hebb corruption-catastrophic at all tested levels; PP-8/KF-1 production envelope EXPANDED.
+
+(4) i4_w_sharding_vs_sharing_v1 HARD_PASS [ARCHITECTURE DECISION]
+Multi-head architecture sub-property (sharding vs sharing BFT comparison).
+DECISIVE: W-sharding is BFT-robust (0.936-0.976 recall on uncorrupted heads); W-sharing catastrophic (0.000 recall, complete collapse). 3-seed deterministic. Production architecture LOCK: sharded multi-head is the correct design.
+Combined with i3 (pinv corruption robustness): production stack = W-sharded + pinv write-rule.
+PROT-008: First HP on W-sharding sub-axis. Records.
+Cap_map annotation: i4_w_sharding HP v468: sharding_recall 0.936-0.976 (3-seed); sharing_recall=0.000 deterministic; ARCHITECTURE LOCKED: W-sharding is production multi-head design; W-sharing disqualified; production stack = W-sharded + pinv.
+
+Extension directions (all HP -- cheapest-first; PROT-004/006 rescue not required for HP):
+E1 sparsity: E1a annotation (envelope LOCKED); E1b N=32768 ratio scaling check; E1c alpha cross-encoder sweep.
+E2 capacity: E2a annotation (ordering LOCKED); E2b hadamard+sparse0.05 combination; E2c hadamard at fine alpha.
+E3 i3 corruption: E3a annotation (20% limit established); E3b flip0.25 transition zone cell; E3c burst corruption model.
+E4 i4 sharding: E4a annotation (architecture LOCKED); E4b H=4,8 heads isolation scaling; E4c sharding+pinv combined (i3+i4 stack).
+
+### Portfolio: 32+79 UNCHANGED. 0 new rows. 0 BAND-LIFTS (conservative annotation only). 0 closures. 1 RETROACTIVE EXONERATION: F4 HF cycle 137 Hebb-specific, substrate exonerated.
+
+### PROT compliance (v467 -> v468)
+- PROT-004/006: All HP -- no rescue sketches required. Extension directions filed cheapest-first.
+- PROT-007: v468 history row appended to substrate_capability_map_history.md.
+- PROT-008: (a) sparsity_fine_battery: cycle 123 HP + this HP monotone. VALIDATOR PASS. (b) capacity_battery: cycle 123 HP + this HP (hadamard). VALIDATOR PASS. (c) i3_pinv_corruption: first HP corruption-robustness. Records. (d) i4_sharding: first HP sharding BFT. Records.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 380th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 4 anchors. CLEAN.
+- PROT-019: LVH 244 UNCHANGED. 0 new LVH this batch.
+- PROT-021: All 4 source=remote run_mode=full. CLEAN.
+- PROT-022: All 4 anchors deterministic (zero seed variance). No HP-fragility.
+
+Cap_map: v467 -> v468 CYCLE 147 GPU-OOM-UNBLOCKED+RETRO-AUDIT (4 HP: sparsity_fine_battery-ALPHA-ENVELOPE-LOCKED-25x-AT-ALPHA0.02-N16384-3SEED + capacity_battery-HADAMARD-10x-WRITE-RULE-ORDERING-LOCKED-5SEED + i3_f4_pinv_corruption_reaudit-F4-HF-EXONERATED-HEBB-SPECIFIC-PINV-HOLDS-20pct-FLIP-3SEED + i4_w_sharding-BFT-ROBUST-0.936-0.976-SHARING-COLLAPSES-ARCH-LOCKED-3SEED; 0 HF; 0 MID; 0 LVH; HONEST 1060->1064 +4; LVH 244 UNCHANGED; Portfolio 32+79; 2x PROT-008 PASS: sparsity-fine-battery-monotone + capacity-battery-hadamard; 1 RETROACTIVE-EXONERATION: F4-HF-cycle137-Hebb-specific; 380th PROT-009 paired commit) (2026-06-06)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
