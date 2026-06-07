@@ -106,3 +106,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 - [multihop_precision_ceiling_3x] notes/research_drill_multihop_precision_ceiling_3x_2026-06-07.md -- 6 hard-fails confirm structural ceiling at fair size; P_deflated=0.18; v1 benchmark pivot to NQ-open confirmed; ColBERT+GNN-Ret as v1.1 pre-tests
 
 - [substrate_iterative_multihop_3x] Pattern B compositional retriever as multi-hop revival path; P_deflated=0.28; pre-test anchor substrate_iterative_multihop_pretest_v1 queued via exp_dev handoff; note: notes/research_drill_substrate_iterative_multihop_3x_2026-06-07.md
+
+- [2026-06-07] self-improving substrate routing 3x drill -> notes/research_drill_self_improving_substrate_routing_3x_2026-06-07.md | HEADLINE: 7-component A-G composition; bridge coverage cold->equilibrium 62%->92%; effective latency 956ms->208ms; multi-hop ceiling structural break; P_deflated=0.30; exp_dev handoff filed
