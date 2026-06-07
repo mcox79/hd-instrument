@@ -4,7 +4,7 @@ sys.path.insert(0, 'd:/AI/hd-instrument')
 from tools.orchestrator.append_decision_log import append_atomic, detect_eol, normalize_to_eol
 
 today = '2026-06-07'
-logfile = f'd:/AI/hd-instrument/notes/strategy_decisions_{today}.md'
+logfile = pathlib.Path(f'd:/AI/hd-instrument/notes/strategy_decisions_{today}.md')
 
 entry = (
     "\n## v486 -> v487 CYCLE 166 PATTERN-B RESCUE + BENCHMARKS + K-HOP + ZKL (2026-06-07)\n\n"
@@ -121,5 +121,11 @@ entry = (
     "Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.\n"
 )
 
-append_atomic(logfile, entry)
+raw = logfile.read_bytes()
+eol = detect_eol(raw)
+payload = normalize_to_eol(entry, eol)
+# Ensure separation from last entry
+if raw and not raw.endswith(eol):
+    payload = eol + payload
+append_atomic(logfile, payload)
 print('DECISIONS_LOG_APPENDED')

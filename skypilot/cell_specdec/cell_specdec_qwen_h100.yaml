@@ -1,0 +1,148 @@
+# CELL-SPECDEC speculative-decoding Qwen2.5-1.5B + 0.5B-draft pretest on Lambda GH200/H100.
+#
+# Pipeline:
+#   1. Setup: arch-aware torch install (torch>=2.5 for cu128 aarch64), transformers,
+#      Qwen-2.5-1.5B-Instruct + 0.5B-Instruct + HotpotQA distractor pre-pull,
+#      JSONL pre-extraction, PROT-022 self-test.
+#   2. Run: warmup + baseline pass + speculative pass + verdict.
+#
+# Cost: ~$1.50-3 (~30-60 min wall on GH200 at $2.29/h).
+
+name: cellspecdec
+
+resources:
+  cloud: lambda
+  use_spot: false
+  # SKU + accelerators come from CLI --instance-type passed by safety stack.
+  # No top-level accelerators; no any_of (per 2026-06-07 lesson).
+
+workdir: .
+
+envs:
+  HF_TOKEN: ""
+
+setup: |
+  set -e
+  export TOKENIZERS_PARALLELISM=false
+
+  echo "=== [setup 1/7] HF_TOKEN sanity ==="
+  if [ -z "$HF_TOKEN" ]; then
+    echo "ERROR: HF_TOKEN env empty"
+    exit 1
+  fi
+  echo "HF_TOKEN length: ${#HF_TOKEN} chars; prefix: ${HF_TOKEN:0:5}..."
+
+  echo "=== [setup 2/7] detect GPU + apt deps ==="
+  sudo apt-get update -qq 2>&1 | tail -2
+  sudo apt-get install -y -qq git rsync curl 2>&1 | tail -2
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+  ARCH=$(uname -m)
+  GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+  echo "Detected ARCH=${ARCH} GPU=${GPU_NAME}"
+
+  echo "=== [setup 3/7] install torch (cu121 x86 H100, cu128 aarch64 GH200) ==="
+  pip install --quiet --upgrade pip
+  # NOTE 2026-06-07: torch>=2.5 (cu128 aarch64 wheels start at 2.7.0; matches CELL-3/4 working pin)
+  if [ "$ARCH" = "aarch64" ]; then
+    echo "Installing cu128 wheel for GH200"
+    pip install --quiet --upgrade "torch>=2.5" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu128 || \
+    pip install --quiet --upgrade "torch" "torchvision" \
+      --index-url https://download.pytorch.org/whl/nightly/cu128
+  else
+    echo "Installing cu121 wheel for x86 H100"
+    pip install --quiet --upgrade "torch>=2.3" "torchvision" \
+      --index-url https://download.pytorch.org/whl/cu121
+  fi
+  python -c "
+  import torch
+  print(f'torch {torch.__version__} cuda {torch.version.cuda} ok={torch.cuda.is_available()}')
+  props = torch.cuda.get_device_properties(0)
+  print(f'device: {props.name} VRAM={props.total_memory/1e9:.1f}GB')
+  "
+  pip install --quiet -r requirements_cloud.txt
+  # transformers >= 4.42 for stable assistant_model speculative decoding API
+  pip install --quiet "transformers>=4.42,<4.50" "huggingface_hub>=0.25" "accelerate>=0.30" \
+    "datasets>=2.20,<3.0" "pyarrow"
+
+  echo "=== [setup 4/7] HF login ==="
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import login
+  login(token=os.environ['HF_TOKEN'], add_to_git_credential=False)
+  print('OK: HF login')
+  "
+
+  echo "=== [setup 5/7] PARALLEL pre-pull Qwen target + draft + HotpotQA ==="
+  # Background the model downloads; foreground the HotpotQA load + JSONL pre-extract.
+  python -c "
+  import os
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from huggingface_hub import snapshot_download
+  p1 = snapshot_download(repo_id='Qwen/Qwen2.5-1.5B-Instruct', token=os.environ['HF_TOKEN'],
+                          allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.txt'])
+  print(f'OK: Qwen2.5-1.5B-Instruct at {p1}')
+  p2 = snapshot_download(repo_id='Qwen/Qwen2.5-0.5B-Instruct', token=os.environ['HF_TOKEN'],
+                          allow_patterns=['*.safetensors', '*.json', 'tokenizer*', '*.txt'])
+  print(f'OK: Qwen2.5-0.5B-Instruct at {p2}')
+  " &
+  MODEL_DL_PID=$!
+
+  echo "=== [setup 6/7] load HotpotQA distractor + pre-extract bridge JSONL ==="
+  python -c "
+  import os, json
+  os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+  from datasets import load_dataset
+  ds = load_dataset('hotpotqa/hotpot_qa', 'distractor', split='validation', trust_remote_code=True)
+  print(f'OK: HotpotQA distractor/validation loaded; n={len(ds)}')
+  out_dir = os.path.expanduser('~/sky_workdir/data')
+  os.makedirs(out_dir, exist_ok=True)
+  out_path = os.path.join(out_dir, 'hotpot_distractor_bridge.jsonl')
+  bridge_count = 0
+  with open(out_path, 'w') as f:
+      for ex in ds:
+          if ex.get('type') == 'bridge':
+              f.write(json.dumps({
+                  'id': ex['id'],
+                  'question': ex['question'],
+                  'answer': ex['answer'],
+                  'type': ex['type'],
+                  'context': {
+                      'title': list(ex['context']['title']),
+                      'sentences': [list(sl) for sl in ex['context']['sentences']],
+                  },
+                  'supporting_facts': {
+                      'title': list(ex['supporting_facts']['title']),
+                      'sent_id': [int(s) for s in ex['supporting_facts']['sent_id']],
+                  },
+              }) + chr(10))
+              bridge_count += 1
+              if bridge_count >= 200:
+                  break
+  print(f'OK: pre-extracted {bridge_count} bridge questions to {out_path}')
+  "
+
+  echo "  waiting on background Qwen model downloads..."
+  wait $MODEL_DL_PID
+  echo "  parallel downloads complete"
+
+  echo "=== [setup 7/7] CELL-SPECDEC script --self-test gate (PROT-022) ==="
+  cd ~/sky_workdir
+  python -u experiments/exp_speculative_decoding_qwen_v1.py --self-test
+
+  echo "=== setup complete; environment ready ==="
+
+run: |
+  export TOKENIZERS_PARALLELISM=false
+  export PYTHONUNBUFFERED=1
+  export HDLAB_EXP_NAME=speculative_decoding_qwen_v1
+  cd ~/sky_workdir
+
+  echo "=== CELL-SPECDEC Qwen-1.5B + 0.5B-draft pretest START ==="
+  python -u experiments/exp_speculative_decoding_qwen_v1.py \
+    --n-questions 100
+
+  echo "=== run complete; artifacts: ==="
+  ls -la ~/sky_workdir/data/exp_speculative_decoding_qwen_v1/ 2>&1 | head -10
+  cat ~/sky_workdir/data/exp_speculative_decoding_qwen_v1/metrics.json 2>&1 | python3 -m json.tool | head -40
