@@ -1,4 +1,4 @@
-# Research Post-Compaction Brief -- 2026-06-07 morning
+# Research Post-Compaction Brief -- 2026-06-07 morning (UPDATED ~09:30)
 
 Read this first on context recovery.
 
@@ -6,190 +6,203 @@ Read this first on context recovery.
 
 The project goal is a functional system that empirically beats LLMs of comparable size on
 chosen benchmarks. Privacy, audit, multi-hop reasoning, continual learning, and adversarial
-robustness are the planned advantages. Storage efficiency is one of the planned strengths
-but reality is 286 KB per fact today; engineering paths exist to reach 200-800 bytes per
-fact in v3 (structured KBs) or 1-3 KB (mixed KBs). 5-7 weeks to v1 demo per the timeline.
+robustness are the planned advantages. 5-7 weeks to v1 demo per the timeline.
 
-## In-flight drills (dispatched, not yet returned)
+## Architectural story (significantly evolved since the earlier brief)
 
-Two drills running in background:
+The morning's empirical work substantially clarified the production architecture:
 
-1. Privacy failure mechanism 3x drill. Asks why SRHT and DP noise both failed on production
-   Llama encoder. Considers 8 alternative mechanisms (privacy-tuned whitening, rank
-   randomization, cone-aware retrieval, DP at write time instead of read, encoder fine-tuning
-   for privacy, negative-class injection, two-stage filter, homomorphic). Will return three
-   cheap test paths if any look promising plus an honest assessment of whether the floor is
-   fundamental on causal-LM encoders. North-star-critical. Agent dispatched roughly 10
-   minutes before this brief was written.
+**Two-encoder architecture is now locked.** Sentence-transformer (bge-small-en-v1.5 at 33M
+parameters) for the semantic retrieval ranking job. Llama-3.2-1B at L15 left-pad for the
+associative-memory KEY job (substrate W matrix via pseudoinverse). The methodology rule
+I tried to lock this morning ("MiniLM retired") was wrong-directioned; the two-encoder
+architecture is structurally correct, not just empirically observed.
 
-2. Synthetic-vs-real prediction gap 2x drill. Research methodology. Asks why three drills
-   in a row (sparse-KEY, SRHT, MiniLM-as-proxy) had predictions that real-data tests
-   disproved. Wants warning signs we should check before authorizing engineering. Will
-   return updated drill output template requiring theoretical-P x empirical-P split. Agent
-   dispatched at same time as the privacy drill.
+**Manifold confinement unifies two seemingly separate problems.** Llama-1B L15 embeddings
+live on a ~30-dimensional manifold inside the 2048-D ambient space (PR=29.4, TwoNN=33.6,
+strong consensus). This same ~30-dim confinement explains BOTH the privacy leakage profile
+AND the HotpotQA retrieval failure. Llama-base is genuinely unfit for semantic ranking
+because semantics are crammed into 30 dimensions. The PCA bottleneck projection (compress
+below manifold dim) is the candidate privacy mitigation; sweep at d in {25, 20, 15, 10, 5}
+is routed.
 
-When these land, synthesize each in plain prose 10-15 lines (per the new feedback memory),
-file any routing implications to Exp-Dev/Orchestrator.
+**Retrieval recipe for v1 demo is clarified.** bge-small recall@10 = 0.74; the right facts
+ARE in the top-10 pool. The 0.70 recall@2hop target is NOT a coverage problem; it's a
+multi-hop REASONING / DECOMPOSITION problem. Question decomposition is the missing
+mechanism, not encoder upgrade.
 
-## Exp-Dev empirical cells in flight or queued
+**Substrate-native decomposition path is the cleanest v1 recipe.** Pattern B + the
+substrate's existing K-hop algebra can do question decomposition via VSA unbinding,
+without an LLM call. Light parsing (spaCy NER) is the cheapest decomposition path; SRL is
+the more accurate alternative. If either parses 2-hop questions well, the substrate
+handles decomposition algebraically and the LLM only generates the final natural-language
+answer. This is a clean north-star differentiator: substrate decomposition is deterministic
+and auditable; 1B LLM decomposition is statistical and unreliable.
 
-Storage program: seven cells from this morning plus three Tier-A supplement cells. All apply
-multi-dimensional acceptance criteria from my supplement note (audit + ZKL + K-hop +
-adversarial + perf, not just retrieval). Each cell reports a safe operating regime, not
-just pass/fail.
+## In-flight drills (none currently)
 
-The seven original cells: sparse-W validation at production N=65536 (gates everything; 30
-min GPU), 4-bit W quantization, lower-N substrate test, source vector PCA compression,
-content-addressable keys, hybrid sparse-key dense-value, forgetting/pruning policy. The
-three supplement cells: predicate/fact ratio audit on real KB sample (30 min CPU), retrieval
-F1 vs N sweep at {4096,8192,16384,32768,65536}, exponential-energy capacity at N=4096.
+All four drills from earlier this morning have landed (privacy mechanism reopening,
+synthetic-vs-real gap, storage unconventional mechanisms, sparse-W alternatives) plus the
+late additions (LSH fanout reduction, Pattern B compositional storage, retrieval encoder
+selection). No research-side drills currently in flight.
 
-Exp-Dev has been building cells in real time from the routing notes. Visible work: 4-bit
-quantization cell, soft-Krum Byzantine cell (passed earlier as part of v1 distributed
-reasoning), corroboration gossip damp cell, SRHT cells now cancelled, DP noise cells now
-failed. Multiple SkyPilot safety scripts also in the tree.
+## In-flight Exp-Dev cells (extensive)
 
-Privacy probes queued by Exp-Dev: Llama eigenspectrum diagnostic (gives mechanism for why
-SRHT/anisotropy behaves as it does on Llama).
+Manifold bottleneck sweep: d in {25, 20, 15, 10, 5} on Llama+MarianMT harness. Tests
+whether PCA bottleneck recovers HIPAA-grade absolute privacy claim.
 
-When these cells return, synthesize each per the standing duties.
+Retrieval decomp pre-tests: PRE-TEST A is NER entity-bridge decomp (HARD-PASS at
+recall@2hop >= 0.65 means substrate-native decomposition with NER alone). PRE-TEST B
+is gte-base coverage comparison. PRE-TEST C (BM25+bge hybrid) is conditional backup.
 
-## Testbed CELL-3 and CELL-4
+Pattern B full exploration program: 8 cells across 3 phases. Phase 0 SRL pre-test gates
+engineering decision. Phase 1 is the algebra battery (5 cells). Phase 2 is integration
+validation including end-to-end benchmark head-to-head. Phase 3 is user decision review.
 
-Testbed authorized to dispatch CELL-3 (Wikipedia distillation, 22M student feature-mimic on
-left-padded cache) and CELL-4 (HP-12 V2 at 100K facts, production recipe). CELL-4 launch
-gated on confirming multi-head H=2 setup before launch. Pre-compaction brief from Testbed
-landed showing dispatch preparation. Watch for verdicts.
+Storage cells: modern Hopfield at production N (already HP at N=4096-16384 per cycle 155),
+predicate ratio audit (cycle 155 MID; rescue paths via P-sweep), 4-bit quantization (cycle
+155 HP at N=8192-16384), tensor train decomposition (drill flagged as not foreclosed by
+Marchenko-Pastur; worth separate pre-test).
 
-## Cycle progression today
+Privacy mechanism cells: F/B/A paths to be re-run on the corrected Llama+MarianMT harness
+once Exp-Dev sets it up. Note that the manifold sweep IS the leading mechanism candidate;
+F/B/A may all fail if manifold bottleneck works.
 
-Cycle 151 found the SRHT real-key gap (later determined to be attack-methodology mismatch),
-K-hop noise opposite trends, sparse-KEY low-B only.
+LSH problem resolved: cycle 156 confirmed L2 normalization alone drops B_eff from ~40 to
+6.9 (well below the <20 target). Cone correction was counterproductive. No additional
+LSH work needed for v1.
 
-Cycle 152 composition wins (subscribe + as_of + GDPR + bitemporal all compose), K-hop K_max
-= 54 at 32K classes, GDPR concurrent safety 0 leaks per 5000 trials.
+HotpotQA full-substrate cells: confirmed bge-small recall@2hop = 0.42 / recall@10 = 0.74.
+Substrate whitening adds no lift on bge-small (encoder already calibrated). K-hop alone
+adds nothing on 2-hop. The decomposition pre-tests now drive the next steps.
 
-Cycle 153 founded the causal reasoning cluster (PP-81 causal disambiguation precision
-1.000 recall 0.973; PP-81a zero-crosstalk do() degradation 0.000; PP-82 counterfactual
-replay 100% accuracy at 3.876 ms; rank-1 downdate confirmed algebraically equivalent to
-Pearl's do() operator). Portfolio 32+80 -> 32+82.
+## Testbed in flight
 
-Cycle 154 locked GDPR at EDPB Position 3 (HMAC keystore closes hash-relinkage gap), Chain
-3 cross-shard K-hop confirmed at K=12 with 98.7% recovery, 50-line confidence filter works
-at c_d=0.48 with T=0.5 (corrects earlier Cell A reading that filter was insufficient),
-substrate answers SQL COUNT natively at 0.9% relative error, online concept extension lifts
-jargon retrieval 0% to 100% via sparse-KEY vocab injection without encoder fine-tuning.
-SRHT cancellation confirmed across 2 independent runs.
+CELL-3 (Wikipedia distillation, 22M student) and CELL-4 (HP-12 V2 at 100K facts) launches
+pending. Multi-head H=2 setup check on CELL-4 before launch.
 
-cap_map v475, HONEST count 1129, LVH 254, Portfolio 32+82.
+## Cycle progression this morning
 
-## v1 plan (locked decisions)
+Cycle 153 founded the causal reasoning cluster (PP-81, PP-81a, PP-82). Rank-1 downdate
+confirmed algebraically equivalent to Pearl's do() operator.
 
-Distributed reasoning ships with soft-Krum confidence-weighted bundling. The cheap
-50-line filter at T=0.5 also works (cycle 154 confirmed) so we have two valid v1 paths;
-soft-Krum is the planned implementation.
+Cycle 154 locked GDPR at EDPB Position 3, confirmed Chain 3 cross-shard K-hop at K=12
+with 98.7% recovery, validated the 50-line filter at T=0.5, validated SQL COUNT native at
+0.9% relative error, validated online concept extension via sparse-KEY vocab injection.
 
-Privacy ships with qualified claim only: about 2x relative improvement over comparable RAG,
-rate-limit at k<=5, full cryptographic audit trail. Absolute HIPAA-grade NOT defensible.
-SRHT engineering (Authorization 3) cancelled. The 23x relative claim still needs an
-explicit RAG arm to verify.
+Cycle 155 validated 4-bit quantization at production scale, validated modern Hopfield at
+N=4096-16384 (the v3 storage path), validated CRDT bundle order-independence, validated
+bundle relay at 99.9% recall with 50% node dropout. Closed sparse-W compression path
+(0.75+ sparsity collapses recall). Llama eigenspectrum disproved the anisotropy hypothesis.
+Privacy line accumulated 7 LVH catches (all attack-harness mismatches; URGENT enforcement
+filed).
 
-Sparse-KEY production usage: at B=1 single-shard storage only; not at intermediate hops
-(LVH #248 Option B confirmed empirically by cycle 154's khop_sparse_bsweep test).
+Cycle 156 resolved LSH B_eff via L2 normalization alone (cone correction counterproductive),
+established HotpotQA baseline (substrate lifts 15% to 20%; bottleneck is encoder not
+routing), disqualified Llama-1B as retrieval encoder, validated CRDT G-counter integer
+aggregates, confirmed LoRA InfoNCE retains 66% retrieval while SFT collapses to 0.3%
+(SFT banned for retrieval).
 
-Storage stack: sparse-W validation at production N gates everything; 4-bit quant + lower-N
-+ modern Hopfield n-sweep all running in parallel. Multi-dimensional acceptance criteria
-apply. Realistic v1 landing: ~5 KB per fact (95% reduction from 286 KB current). v2 with
-delta compression and N reduction: ~500 bytes - 1 KB per fact.
+cap_map v477. HONEST count 1158. LVH 257. Portfolio 32+82.
 
-Bitemporal storage: 9-component build per Chain 2 Drill 5 FINAL spec (~3,800 lines, 6-7
-weeks). HMAC keystore (cycle 154) plus erasure record append plus concurrency safety all
-validated. Ready to start engineering when v1 distributed reasoning lands.
+## v1 demo recipe (current best understanding)
 
-CELL-3 + CELL-4 Wikipedia and 100K-fact validation in flight at Testbed.
+Encoder: bge-small-en-v1.5 (33M parameters) for semantic retrieval ranking.
 
-## Customer-facing claim posture
+Substrate KEY: Llama-3.2-1B at L15 left-pad for the W matrix associative-memory job
+(potentially with PCA bottleneck projection if manifold sweep validates the privacy
+mitigation).
 
-GDPR right-to-erasure: STRONG at EDPB Position 3 (strictest applicable standard).
-Regulated-market deployment unlocked.
+Decomposition: substrate-native via Pattern B + K-hop unbinding if PRE-TEST A (NER) or
+Pattern B Phase 0 (SRL) passes. Fall back to LLM-decomp if both fail.
+
+Composition: substrate K-hop algebra with confidence filter at T=0.5 (cycle 154 mechanism).
+
+Generation: Llama-3.2-1B for final natural-language answer conditioned on substrate
+retrieval.
+
+Audit + privacy: cryptographic Merkle proofs per fact + bitemporal as-of queries + GDPR
+EDPB Position 3 erasure + qualified privacy claim (unless manifold bottleneck restores
+absolute HIPAA-grade).
+
+Storage compression for production: 4-bit quantization (4x reduction) + modern Hopfield
+at lower N (additional 4-16x). Sparse-W closed. Realistic v3 per-fact cost lands at
+~1-3 KB. Pattern B compositional reuse could amortize this further for KBs with
+concept reuse.
+
+## Customer-facing claim posture (updated)
+
+GDPR right-to-erasure: STRONG at EDPB Position 3.
 
 Bitemporal + as-of queries: STRONG (composition validated).
 
-Reactive subscribe with cryptographic delivery: STRONG (cycle 150 + 152 production-ready).
+Reactive subscribe with cryptographic delivery: STRONG.
 
-Causal/counterfactual reasoning with real-time replay: STRONG (cycle 153 portfolio rows).
+Causal/counterfactual reasoning with real-time replay: STRONG.
 
-Multi-step verifiable reasoning K=12+: STRONG single-shard at K=20; cross-shard validated
-at K=12 with 98.7%.
+Multi-step verifiable reasoning K=12+: substrate K-hop algebra validated; retrieval recipe
+in progress (depends on decomposition pre-test outcomes).
 
-SQL aggregation: substrate answers COUNT natively at <1% error.
+SQL aggregation: COUNT native at <1% error; SUM native; G-counter HP for distributed
+integer aggregates; AVG needs DuckDB.
 
-Privacy: QUALIFIED. About 2x relative vs RAG, rate-limit posture, full audit. Not HIPAA-
-grade absolute.
+Privacy: QUALIFIED pending manifold bottleneck sweep. About 2x relative vs RAG with
+rate-limit posture and full audit. Absolute HIPAA-grade recovery possible if PCA
+bottleneck at d ~= 25 holds retrieval F1.
 
-Storage efficiency: NOT a current pitch. 286 KB per fact today vs LLM 4-40 bytes. After
-v2 engineering, projection drops to 1-3 KB (mixed KBs) or 200-800 bytes (structured KBs)
-which is in the user's accepted 10-100x band.
+Storage efficiency: NOT a current pitch. 286 KB per fact today; v1 with quantization
+~5-16 KB; v2 with modern Hopfield + 4-bit + entropy coding ~1-3 KB. Pattern B could
+further reduce via concept amortization.
 
-## Pending decisions for the user
-
-None blocking right now. The Llama eigenspectrum diagnostic and DP-mechanism alternatives
-are getting empirically tested via the cells already in flight. The RAG arm verification
-for the 23x relative claim hasn't been run yet but isn't blocking v1.
+Distributed systems story: CRDT bundle + G-counter order-independent merges, bundle relay
+99.9% at 50% dropout, LSH routing fixed by L2 normalization, all without 2PC. Clean.
 
 ## Active feedback rules
 
-Plain language no hype: no emoji as emphasis, no superlatives, real-world consequences
-first.
+Plain language no hype: real-world consequences first; no emoji-as-emphasis; no superlatives.
 
-Concise cycle summaries: 10-15 lines prose, no tables/emoji headers, long-form goes in
-research notes not chat replies.
+Concise cycle summaries: 10-15 lines prose, no tables/emoji headers; long-form in research
+notes not chat replies.
+
+Drill pre-test required: every drill prediction that depends on synthetic or proxy setups
+requires a 1-2 hour production-encoder pre-test before engineering authorization. The
+methodology drill from this morning's negative-results 2x established this rule.
+
+Two-encoder architecture (clarification this morning): MiniLM/bge/gte/e5 are NOT retired
+for semantic retrieval; only for ZKL/privacy-geometry tests. Llama-1B is for KEY job only.
 
 North-star alignment: every drill and decision should advance the LLM-comparison demo
-target. Substrate-internal exploration without integration context is drift.
+target.
 
 Capability tracking SSOT: history.md tail + strategy_decisions tail + capability_scorecard.
-Stale: substrate_capability_map.md (legacy). Do not create parallel inventories.
 
-K-hop regimes are fragmented: do not conflate K=20 single-shard substrate reasoning with
-K=12 cross-shard chain or K=10000+ chain_smoother readout. Each has its own validation.
+## What I'm working on next
 
-Counterfactual is already enabled (rank-1 downdate as do() operator); not a gap.
+Standing for the empirical results from Exp-Dev's many in-flight cells:
+- Manifold bottleneck sweep (highest immediate priority; resolves privacy story)
+- Retrieval decomp PRE-TEST A + B (resolves substrate-native decomposition story)
+- Pattern B Phase 0 SRL pre-test (gates Pattern B engineering)
+- Pattern B Phase 1 cells (if Phase 0 passes)
 
-## Cron and overnight loop
+When results land, synthesize each in plain prose 10-15 lines and update the v1 demo
+recipe accordingly. After the substrate-native decomposition recipe is resolved, the
+benchmark suite work (Authorization 7) becomes concrete — run MuSiQue / LongMemEval /
+FActScore with the final recipe and measure head-to-head.
 
-Cron d7ea1b05 runs every 15 minutes. Session-only, dies when VS Code closes. Standing
-duties + safety constraints in overnight_loop_research_session.md memory entry.
+## Memory entries to load on resume
 
-## Memory entries (load on resume)
-
-Top entries to read:
 - north_star_functional_system_beats_LLMs.md
 - overnight_loop_research_session.md
-- capabilities_inventory_tracking.md (capability SSOT structure)
 - feedback_plain_language_no_hype.md
 - feedback_cycle_summaries_concise.md
+- feedback_drill_pretest_required.md (extended this morning with two-encoder clarification)
 - production_architecture_locked_2026-06-07.md
 - phase2_5x_chains_gold_findings_2026-06-07.md
 
-## What I am working on next when drills land
+## Heartbeat + cron
 
-The privacy 3x and methodology 2x will land in 15-20 minutes from when this brief was
-written. Synthesize each in plain prose 10-15 lines. Route any implications to Exp-Dev.
-
-After those, start the benchmark suite definition work (Authorization 7 from the morning
-list). Deliverable: concrete list of head-to-head benchmarks vs 1B LLM, why each plays to
-substrate strengths, what scores would constitute a demonstrable win. Plain-language
-document; not a marketing pitch.
-
-Estimated 1-2 weeks for the benchmark suite work to complete. After that, integrated
-pipeline build (substrate + Llama-1B for generation) is the week-3 engineering item.
-
-## Heartbeat
-
-data/heartbeat_research.json updated each cycle; data/cloud_paused_overnight.flag was the
-overnight pause and may still be set; check and remove if morning operations should not
-have it.
+data/heartbeat_research.json updated each cycle. Cron d7ea1b05 runs every 15 minutes.
+data/cloud_paused_overnight.flag may still be set; check on resume.
 
 ---
 
