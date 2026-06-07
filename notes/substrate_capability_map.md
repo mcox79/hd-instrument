@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v488
+# hd-instrument substrate -- capability map v489
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12431,4 +12431,19 @@ Cap_map annotation: pinv_timing_validation_v1 HF v485: TIMING CORRECTION. Naive 
 Cap_map annotation: pinv_timing_optimized_v1 HF v485: SMW rank-1 optimization = 2.73x improvement (10.54ms -> 3.86ms/update). 1.23ms claim STILL FALSE (3,140x off). Correct product claim: 3.86ms/update (optimized) or 10.54ms/update (naive) at N=4096. N-sweep recommended to characterize T(N) law. Rescues R1-R3. Cycle 164.
 
 Cap_map: v484 -> v485 CYCLE 164 (3 HP: zkl_hypC_entropy_max-ALPHA1.00-ZKL0.030-F1=1.000-COND_HIPAA_RECOVERED + hotpot_3baseline-BARE=0.222-RAG=0.524-SUB=0.501-96PCT_RAG_PARITY + reasoning_chain_replay-DET1.0-MERKLE1.0-TAMPER1.0-AUDIT_CHAIN; 1 HP-FIX: sql_groupby_count_fix-REL_ERR0.0378-FORMULA_RESTORED; 2 HF: zkl_hypC_cosine_entropy-ZKL0.728-PROJECTION_OUT_ZERO_EFFECT-COSINE_CLOSED + substrate_noise_bft_bge-N0.20_SUB=0.183_BGE=0.693-EMBEDDING_NOISE_CLOSED-DISTINCT_FROM_PATTERNB_BFT; 2 HF-TIMING-CORRECTION: pinv_timing_validation-10.54ms-8573x_OFF + pinv_timing_optimized-3.86ms-SMW_2.73x-STILL_FALSE; 0 LVH; HONEST 1229->1237 +8; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 397th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+# v489 update (2026-06-07) -- CYCLE 168: 1 HP + 2 MIDDLE_BAND + 2 HF; 0 LVH; HONEST 1259->1264 +5; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 401st PROT-009
+
+Cap_map annotation: substrate_encoder_noise_bundle_v2 MIDDLE_BAND v489: sigma=0.5 sweep. A1 conf-corr=0.342(True); A2 ensembling K1=1.0/K3=1.0/K5=1.0(False - ceiling); A3 ternary bipolar=1.0/ternary_best=1.0(False - ceiling). 1/3 axes pass. sigma=0.5 still produces ceiling recall for all variants -- no ensembling/ternary differential testable. Conf-corr peaks at sigma=0.5 vs v1(0.2) 0.281 and v3(1.5) 0.248. Cycle 168.
+
+Cap_map annotation: substrate_encoder_noise_bundle_v3 MIDDLE_BAND v489: sigma=1.5 sweep. A1 conf-corr=0.248(True); A2 ensembling K1=0.998/K3=0.997/K5=0.996(False - near ceiling); A3 ternary bipolar=0.999/ternary_best=1.0(False - ceiling). 1/3 axes pass. Near-ceiling at sigma=1.5 (0.996-0.999) -- within one step of breaking for ensembling. Conf-corr degrades (0.342->0.248) at higher sigma. Sigma>=2.0 or adversarial noise needed to expose differential. Cycle 168.
+
+Cap_map annotation: substrate_direct_answer_probe_v1 HF v489: LLM-bypass (direct-answer) CLOSED. A1 direct-answer-frac=0.007 (21x below 0.15 threshold); containment=0.255, median-F1-answerable=0.526. A2 router precision=0.033 at thr=0.810 cov=0.150 (n=400). Joint closure with extractive_span_head_v1 HF: 'LLM bypass via raw substrate retrieval' axis CLOSED. Product stance: substrate is retrieval engine; LLM stays in loop for generation. 5 rescues R1-R5 cheapest-first filed. Cycle 168.
+
+Cap_map annotation: extractive_span_head_v1 HF v489: Span extraction head CLOSED. F1=0.032 vs <0.40 threshold (12.5x below). n_eval=150, n_train=116. Tiny MLP on frozen bge tokens insufficient at this data scale. Joint closure with direct_answer_probe: LLM-bypass axis closed; LLM stays in loop. Rescues: fine-tune at 10x data / confidence-gated skip / generative extractor / cross-encoder re-rank. Cycle 168.
+
+Cap_map annotation: self_improving_coldstart_sim_v1 HP v489: Self-improving cold-start routing VALIDATED. C(50000)=0.947 >= 0.85; X(10K)=0.859 >= 0.60. Coverage curve monotone: C={1k:0.684, 5k:0.806, 10k:0.860, 25k:0.912, 50k:0.947}. Fast-path monotone: X={1k:0.593, 5k:0.795, 10k:0.859, 25k:0.913, 50k:0.950}. Bridge accumulation structurally validated; routing quality improves without LLM involvement during cold-start fill. Proceed to Anchor 2/3. n=1 seed; 3-seed for band-LIFT. New Tier 2 capability. Cycle 168.
+
+Cap_map: v488 -> v489 CYCLE 168 (1 HP: self_improving_coldstart-C50k=0.947-X10k=0.859-BRIDGE_ACCUM_VALIDATED-SELF_IMPROVING_ROUTING_UNLOCKED; 2 MIDDLE_BAND: encoder_noise_v2-SIGMA0.5-A1=0.342-A2/A3_CEILING + encoder_noise_v3-SIGMA1.5-A1=0.248-A2/A3_NEAR_CEILING-CONF_CORR_DEGRADES; 2 HF: direct_answer-FRAC=0.007-21x_BELOW-SENTENCES_NOT_SPANS + extractive_span_head-F1=0.032-12.5x_BELOW-TINY_MLP_INSUFFICIENT; LLM_BYPASS_JOINT_CLOSED (direct_answer+extractive_span_head); SIGMA_SWEEP_v1-v2-v3_ALL_MIDDLE_BAND; 0 LVH; HONEST 1259->1264 +5; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 401st PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

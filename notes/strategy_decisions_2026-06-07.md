@@ -1358,3 +1358,62 @@ R3 (CHEAP, CPU <30min): BABILong at 4k/8k context to characterize long-context s
 
 Cap_map: v487 -> v488 CYCLE 167 (4 HP: pubmedqa_3baseline_v3-BARE=0.510-RAG=0.850-SUB=0.810-95.3PCT_RAG-28PT_LIFT_VS_V2 + babilong_qa1-BARE=0.390-RAG=0.600-SUB=0.560-93.3PCT_RAG-LONG_CTX_DISTRACTOR + sleep_defrag_scaling_bundle-PHASE1_GATE_CLEARED-3/3 + tier4_defrag_throughput-RATIO=1.204-LOSSLESS-GATE3_THROUGHPUT_CLEARED; 1 MIDDLE_BAND: substrate_encoder_noise_bundle-A1_CONF_CORR=0.281-A2_A3_CEILING_NULLS-1/3; 1 HF: tier4_defrag_batched_sched-CV_BATCHED=0.443-CV_UNBATCHED=0.178-BATCHING_COUNTERPRODUCTIVE_2.5X_WORSE; TIER4_GATES_1+2+3_THROUGHPUT_ALL_PASS; SLEEP_DEFRAG_PHASE1_GATE_CLEARED; PUBMEDQA_DOMAIN_CROSSOVER_UPDATED-BIOMEDICAL_NOW_SUBSTRATE_TUNABLE; BABILONG_LONG_CTX_FOUNDING; HONEST 1253->1259 +6; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 400th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+# CYCLE 168 -- v488 -> v489 (5 verdicts: 2 MIDDLE_BAND + 2 HF + 1 HP; 0 LVH; HONEST 1259->1264 +5; LVH 261 UNCHANGED)
+
+## Step 0 -- honest re-read
+
+**substrate_encoder_noise_bundle_v2** (sigma=0.5): MIDDLE_BAND label. A1 conf-corr=0.342(True); A2 ensembling K1=1.0/K3=1.0/K5=1.0(False - ceiling); A3 ternary bipolar=1.0/ternary_best=1.0(False - ceiling). 1/3 pass. At sigma=0.5, recall still at ceiling for all variants; no differential. Label HONEST. No LVH.
+
+**substrate_encoder_noise_bundle_v3** (sigma=1.5): MIDDLE_BAND label. A1 conf-corr=0.248(True); A2 ensembling K1=0.998/K3=0.997/K5=0.996(False - near ceiling); A3 ternary bipolar=0.999/ternary_best=1.0(False - ceiling). 1/3 pass. NOTABLE: conf-corr DROPS 0.342->0.248 as sigma 0.5->1.5 (higher noise degrades the one viable axis). Near-ceiling at sigma=1.5 for ensembling/ternary (0.996-0.999) -- very close to breaking point but not past it. Label HONEST. No LVH.
+
+**substrate_direct_answer_probe_v1**: HARD_FAIL label. A1 direct-answer-frac=0.007 vs 0.15 threshold (21x below); containment=0.255, median-F1-answerable=0.526. A2 router precision=0.033 at thr=0.810, cov=0.150 (n=400). Both axes fail deeply. Raw retrieval output (sentences) is not self-contained answers; extraction head needed between retrieval and LLM-bypass. Label HONEST. No LVH.
+
+**extractive_span_head_v1**: HARD_FAIL label. F1=0.032 vs <0.40 threshold (12.5x below). n_eval=150, n_train=116. Tiny MLP on frozen bge tokens insufficient for span extraction from substrate output. Label HONEST. No LVH.
+
+**self_improving_coldstart_sim_v1**: HARD_PASS label. C(50000)=0.947 >= 0.85; X(10K)=0.859 >= 0.60. Coverage monotone: C={1k:0.684, 5k:0.806, 10k:0.860, 25k:0.912, 50k:0.947}. Fast-path monotone: X={1k:0.593, 5k:0.795, 10k:0.859, 25k:0.913, 50k:0.950}. Both thresholds cleared with margin. Label HONEST. No LVH.
+
+**LVH total: 0 new catches. HONEST 1259->1264 (+5). LVH 261 UNCHANGED.**
+
+## Cap_map decisions
+
+**(A) substrate_encoder_noise_bundle_v2 + v3 (2x MIDDLE_BAND -- sigma sweep narrows: conf-corr viable but degrades; ensembling/ternary not testable at sigma<=1.5):**
+sigma sweep v1(0.2)/v2(0.5)/v3(1.5) all MIDDLE_BAND with ceiling on A2/A3. Conf-corr viable but degrades (0.281->0.342->0.248, non-monotone: peaks at sigma=0.5 then drops at 1.5). Near-ceiling at sigma=1.5 (0.996-0.999) suggests differential may appear at sigma>=2.0+. Storage-layer BFT remains the substrate noise story; encoder-noise path needs sigma>=2.0 or adversarial structured noise.
+
+**(B) substrate_direct_answer_probe_v1 (HARD_FAIL -- raw retrieval not self-contained; LLM-bypass needs extraction head):**
+direct-answer-frac=0.007 far below 0.15. Router precision=0.033 not usable. Jointly closes 'LLM bypass via raw substrate retrieval' axis with extractive_span_head HF below. Product stance: substrate is a retrieval engine; LLM stays in the loop for generation. Axis CLOSED. 5 rescues below.
+
+**(C) extractive_span_head_v1 (HARD_FAIL -- tiny MLP on frozen bge insufficient; joint closure with direct_answer):**
+F1=0.032 at n_train=116. Jointly closes LLM-bypass axis with direct_answer_probe. Path to LLM-bypass requires fine-tuned extraction at scale or confidence-gated skip. Axis CLOSED.
+
+**(D) self_improving_coldstart_sim_v1 (HARD_PASS -- bridge accumulation validated; self-improving routing unlocked):**
+C(50k)=0.947 >> 0.85; X(10k)=0.859 >> 0.60. Monotone coverage and fast-path curves confirm accumulation model correct. Self-improving cold-start: routing quality improves without LLM involvement as bridge fills. New row: self_improving_coldstart HP v489 (n=1 seed; 3-seed for band-LIFT). Proceed to Anchor 2/3.
+
+## Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**LLM-bypass / direct-answer / span-extraction joint closure (direct_answer HF + extractive_span_head HF):**
+R1 (0-compute, ANNOTATION): Raw retrieval (sentences) not self-contained answers; tiny MLP at n_train=116 insufficient. Joint closure; LLM stays in loop.
+R2 (CHEAP, CPU <30min): Fine-tune extraction head at 10x data (n_train>=1000) from substrate outputs with F1 labels.
+R3 (CHEAP, CPU <30min): Confidence-gated LLM skip -- bypass only when retrieval containment >= 0.90 (containment=0.255 shows a fraction of answerable queries).
+R4 (MEDIUM, CPU <2h): Small generative extractor (T5/Phi-1 fine-tuned on context+question+span triples from substrate output).
+R5 (MEDIUM, CPU <2h): Cross-encoder re-ranking to select highest-F1 retrieved sentence (lift containment above 0.255 baseline).
+
+**Encoder noise bundle (sigma>=2.0 or adversarial needed for A2/A3 differential):**
+R1 (0-compute, ANNOTATION): sigma=0.5/1.5 both ceiling for A2/A3; conf-corr viable but non-monotone across sigma.
+R2 (CHEAP, CPU <30min): Repeat bundle at sigma=2.0/3.0 to push past near-ceiling.
+R3 (CHEAP, CPU <30min): Structured adversarial (coordinate-flip corruptions) for differential characterization.
+
+## PROT compliance (v488 -> v489)
+
+- PROT-004/006: LLM-bypass joint closure with 5 cheapest-first rescues R1-R5. Noise bundle 2 additional rescues. Annotation-first throughout.
+- PROT-007: v489 history row appended to substrate_capability_map_history.md.
+- PROT-008: self_improving_coldstart HP (C=0.947>=0.85, X=0.859>=0.60; both thresholds met; monotone curves). PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 401st PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 5 anchors. CLEAN.
+- PROT-019: LVH 261 UNCHANGED. 0 new catches. HONEST 1259->1264 (+5).
+- PROT-021: All 5 source=remote. No smoke contamination. CLEAN.
+- PROT-022: HP anchor self_improving_coldstart n=1 seed (C=0.947 at 50k, 11% margin over 0.85; X=0.859 at 10k, 43% margin over 0.60). Large margins; n=1 acceptable for founding; 3-seed for band-LIFT.
+
+Cap_map: v488 -> v489 CYCLE 168 (1 HP: self_improving_coldstart-C50k=0.947-X10k=0.859-BRIDGE_ACCUM_VALIDATED-SELF_IMPROVING_ROUTING_UNLOCKED; 2 MIDDLE_BAND: encoder_noise_v2-SIGMA0.5-A1=0.342-A2/A3_CEILING + encoder_noise_v3-SIGMA1.5-A1=0.248-A2/A3_NEAR_CEILING-CONF_CORR_DEGRADES; 2 HF: direct_answer-FRAC=0.007-21x_BELOW-SENTENCES_NOT_SPANS + extractive_span_head-F1=0.032-12.5x_BELOW-TINY_MLP_INSUFFICIENT; LLM_BYPASS_JOINT_CLOSED; SIGMA_SWEEP_v1-v2-v3_ALL_MIDDLE_BAND; 0 LVH; HONEST 1259->1264 +5; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 401st PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
