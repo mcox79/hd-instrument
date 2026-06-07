@@ -61,7 +61,7 @@ def run() -> Dict:
 def verdict(r) -> Tuple[str, str]:
     s = "full=%.3f PQ=%.3f drop=%.3f compression=%.0fx" % (r["full"], r["pq"], r["drop"], r["comp"])
     if r["full"] < 0.5: return ("HARD_FAIL", "HARD_FAIL: full-W baseline recall too low (%.3f) -- inconclusive. " % r["full"] + s)
-    if r["comp"] >= 8 and r["drop"] <= 0.05: return ("HARD_PASS", "HARD_PASS: PQ on W rows >=8x compression with recall@1 drop<=5% -- viable storage compression axis. " + s)
+    if r["comp"] >= 8 and r["drop"] <= 0.05: return ("HARD_PASS", "HARD_PASS: PQ on W rows >=8x compression with recall@1 drop<=5pct -- viable storage compression axis. " + s)
     return ("MIDDLE_BAND", "MIDDLE_BAND: PQ compression/quality off target. " + s)
 
 print('[config] anchor=%s mode=%s N=%d' % (ANCHOR_NAME, RUN_MODE, N), flush=True)

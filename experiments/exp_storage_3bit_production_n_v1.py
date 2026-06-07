@@ -48,7 +48,7 @@ def run() -> Dict:
 def verdict(r) -> Tuple[str, str]:
     s = "full=%.3f 3-bit=%.3f drop=%.3f (N=%d)" % (r["full"], r["q3"], r["drop"], N3)
     if r["full"] < 0.5: return ("HARD_FAIL", "HARD_FAIL: full baseline too low. " + s)
-    if r["drop"] <= 0.03: return ("HARD_PASS", "HARD_PASS: 3-bit W drop<=3% at N=%d -- 3-bit holds at production scale. " % N3 + s)
+    if r["drop"] <= 0.03: return ("HARD_PASS", "HARD_PASS: 3-bit W drop<=3pct at N=%d -- 3-bit holds at production scale. " % N3 + s)
     return ("MIDDLE_BAND", "MIDDLE_BAND: 3-bit drop 3-8% at scale. " + s)
 
 print('[config] anchor=%s mode=%s N=%d' % (ANCHOR_NAME, RUN_MODE, N), flush=True)
