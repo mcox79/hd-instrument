@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 import numpy as np
 REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 import torch
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
@@ -31,7 +32,7 @@ _DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def stress(n, seed, dtype):
-    g = torch.Generator(device=_DEV).manual_seed(int(seed)); M = max(2, int(0.1 * n))
+    g = torch.Generator(device=_DEV).manual_seed(int(seed)); M = max(2, min(int(0.1 * n), 2048))   # cap M: overflow magnitude needs large N, not large M (8GB fit)
     P = (torch.randint(0, 2, (M, n), generator=g, device=_DEV) * 2 - 1).to(dtype)
     s = P.clone()
     for _ in range(4):
@@ -55,6 +56,8 @@ print("[dev] %s" % _DEV, flush=True)
 def run_seed(seed) -> Dict:
     by = {}
     for n in N_GRID:
+        if _DEV.type == "cuda":
+            torch.cuda.empty_cache()
         bad16, mx16 = stress(n, seed, torch.bfloat16); bad32, _ = stress(n, seed, torch.float32)
         by["N%d" % n] = {"fp16_nan_inf": bad16, "fp16_absmax": mx16, "fp32_nan_inf": bad32}
         print("  [seed=%d N=%d] fp16_nan_inf=%s fp16_absmax=%.0f fp32_nan_inf=%s" % (seed, n, bad16, mx16, bad32), flush=True)

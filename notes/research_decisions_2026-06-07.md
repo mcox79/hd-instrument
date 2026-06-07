@@ -34,3 +34,15 @@ substrate-eval-methodology 5x-chain drill-1 -> notes/research_drill_substrate_ev
 Delivered: notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill3_2026-06-07.md
 GOLD 3.0: audit trail = immunological memory (compounding defense). ZKL(k) sublinear (beta~0.6). Timing immune by construction. Drill 4 = quantum Grover analysis.
 - [Datalog->substrate honest translation drill] notes/research_drill_datalog_substrate_translation_honest_2026-06-07.md -- S-Datalog fragment covers 55-75% of Datalog; structurally-isomorphic claim retired; 10 constructs analyzed; 5 hard breaks (aggregation hardest); S-Datalog compiler spec defined; Datomic API = ergonomic surface syntax only
+
+- [chain1-drill4 2026-06-07] Post-quantum ZKL: black-box API eliminates Grover threat (oracle construction impossible); Drill 3 math corrected (O(sqrt|S|) not O(N^{1/4})); hardware barrier 15-25yr; GOLD 4.0 = measurement-theoretic quantum security for centralized deployment -> notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill4_2026-06-07.md
+
+## LVH245 MMR+pinv topology 2x drill -- 21:44
+- Note: notes/research_drill_LVH245_mmr_pinv_combined_topology_2x_2026-06-07.md
+- HEADLINE: seed7 failure = H1 hub-dense cluster (P=0.52) + greedy myopia on NP-hard diversity; combined pipeline needs 5-seed gate
+- Cycle 146 UNCONDITIONAL claim: narrowed to MMR component alone; combined pipeline is MIDDLE-BAND pending 5-seed
+- Cheapest rescue: lambda=0.3 probe (0 engineering); then C-MMR (1 week); then DPP (2-3 weeks)
+- Handoff: notes/exp_dev_handoff_research_LVH245_mmr_topology_2x_2026-06-07.md
+- [differential-dataflow-reactive-subscriptions] naive scan wrong by 13x at S=1000 N=65536; HNSW resolves to ~6.5% CPU any-S; cryptographic Merkle delivery is moat not reactivity; P_deflated=0.45; -> notes/research_drill_differential_dataflow_reactive_subscriptions_2026-06-07.md
+
+- Chain1 Drill5 FINAL (ZKL regulatory compliance + shippable claim): notes/research_drill_substrate_evaluation_methodology_5x_chain1_drill5_FINAL_2026-06-07.md -- P_deflated=0.38; 7-framework map; 5 failure modes; ZKL Certificate; recommended shippable claim drafted; empirical validation gate required before any customer claim.

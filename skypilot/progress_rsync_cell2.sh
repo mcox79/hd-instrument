@@ -10,7 +10,11 @@ LOG=/mnt/d/AI/hd-instrument/data/cell2_progress_rsync.log
 INTERVAL_MIN=5
 INTERVAL_SEC=$((INTERVAL_MIN * 60))
 LOCAL_DIR=/mnt/d/AI/hd-instrument/data/cell2_results
-REMOTE_PATH=~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/
+# IMPORTANT: single-quote so ~ does NOT expand at script-load time on the local
+# (WSL root) side. We want the remote shell (ubuntu user on Lambda) to expand it
+# to /home/ubuntu/sky_workdir. Double-quoted would also work since bash doesn't
+# expand ~ inside double-quotes, but single-quote is unambiguously safe.
+REMOTE_PATH='~/sky_workdir/data/exp_substrate_wikipedia_layer15_cache_extraction_v1/'
 
 mkdir -p "$LOCAL_DIR"
 
