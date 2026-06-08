@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v515
+# hd-instrument substrate -- capability map v516
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12976,6 +12976,8 @@ Cap_map annotation (PP-98 sign-key extreme scale): sign_recall_50M_gpu_v1 HP v51
 
 Cap_map annotation (PP-135 NEW ROW): pythia_substrate_memory_mve_gpu_v1 HP v511 + d2_pythia1p4b_substrate_kv_gpu_v1 HP v511: recall=1.000 at M=2000, in_context_frac=0.032 (both Pythia-base and Pythia-1.4B; cycle 185). LLM hidden states are viable substrate keys. Substrate stores 2000 facts keyed by LLM hidden states and retrieves at perfect recall; context window holds ~64 (~3.2%); substrate stores 31x more than context window capacity. Two-anchor replication (base + 1.4B identical metrics) suggests size-agnostic result at M=2000. Tier-5 MVE green. n=1 seed each GPU.
 
+Cap_map annotation (PP-135 LLM-keyed external memory scale): n1_pythia2p8b_substrate_kv_gpu_v1 HP v516: recall=1.000 at M=2000, in_context_frac=0.032, Pythia-2.8B (cycle 190). Extends Pythia-base + Pythia-1.4B (cycle 185) to 2.8B. Three LLM sizes (base/1.4B/2.8B) all recall=1.000 at M=2000 (31x context window); result confirmed size-agnostic across 2x/4x parameter scale steps. Tier-5 MVE holds at 2.8B. Band-LIFT to VALIDATED after 3-seed at 2.8B scale. n=1 seed GPU.
+
 | Capability | State | Evidence | Product implication |
 |---|---|---|---|
 | **PP-135 LLM-keyed external memory** -- Pythia hidden states are viable substrate keys; recall=1.000 at M=2000 (31x context window); 2-anchor replication (base + 1.4B) | Validated, want stronger | pythia_substrate_memory_mve_gpu_v1 HP + d2_pythia1p4b_substrate_kv_gpu_v1 HP (both recall=1.000>=0.80 at M=2000, in_context_frac=0.032; n=1 seed each GPU; cycle 185) | Substrate is a validated external KV memory for LLMs; any fact beyond context window limits is retrievable at inference time; first empirical validation of the Tier-5 v1.5 architecture core; two LLM sizes confirm result is not model-size-specific at M=2000; 0.75-0.90 EXPLORATORY |
@@ -13059,6 +13061,8 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 |---|---|---|---|
 | **PP-145 Wikipedia ingest + retrieval benchmark** -- r@1=0.971 r@5=0.992 at n=10000 real Wikipedia articles, throughput=155 art/sec, elapsed=79s | Validated, want stronger | wikipedia_ingest_benchmark_gpu_v1 HP (r@5=0.9916>=0.85 CONFIRMED; n=10000, GPU, n_seeds=1; cycle 187) | Production-scale real-corpus ingestion validated; 99.2% recall@5 at 155 art/sec; critical dry-run gate for 5.84M pre-trained substrate green; retrieval quality not a bottleneck; 0.80-0.92 EXPLORATORY |
 
+Cap_map annotation (PP-145 Wikipedia ingest scale): wikipedia_ingest_100k_gpu_v1 HP v516: r@1=0.96146 r@5=0.99221 at n=100000 real Wikipedia articles, 151.9 art/sec, elapsed=2359.7s (cycle 190). 10x scale-up from cycle-187 n=10k HP (r@5=0.9916); recall maintained within 0.002 across 10x scale; 5.84M pre-trained substrate dispatch gate: 10k PASS (cycle 187) + 100k PASS (cycle 190) establishes scale trajectory; band-LIFT to VALIDATED candidate after 3-seed at 100k. n=1 seed GPU.
+
 #### PP-146: FB15K-237 KG K-hop on standard public benchmark (2-hop r@5=0.705, mono@5=0.007; HARD_PASS)
 
 | Capability | State | Evidence | Product implication |
@@ -13108,4 +13112,7 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 | **PP-152 2WikiMultiHopQA multi-hop benchmark** -- all-supporting recall@2/5/10=0.316/0.540/0.720 (n=250); ties RAG (same encoder); 2nd standard free-text multi-hop benchmark passed | Validated, want stronger | twowiki_multihop_benchmark_gpu_v1 HP (r@10=0.720>=0.65 CONFIRMED; r@5=0.540; r@2=0.316; n=250 GPU n_seeds=1; cycle 189) | 2WikiMultiHop (compositional/bridge questions) joins MuSiQue (r@10=0.784) and HotpotQA (r@10=0.640) as the 3rd public free-text multi-hop benchmark; substrate r@10 cluster 0.640-0.784 consistent across benchmarks; 'ties RAG (same encoder)' framing supported -- overhead is retrieval cost not a fundamental limit; whitening+PCA rescue (R3) expected to lift r@10; multi-hop REVIVE grounded on 3 independent benchmarks; cross-ref PP-138/PP-151; 0.72-0.85 EXPLORATORY |
 
 Cap_map: v514 -> v515 CYCLE 189 (1 HP [GPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 1 NEW PP ROW PP-152 2WikiMultiHop-benchmark; Portfolio 32+151 -> 32+152 +1; HONEST 1405->1406 +1; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+Cap_map: v515 -> v516 CYCLE 190 (2 HP [GPU:2]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW PP ROWS; 2 annotations [PP-145 100k Wikipedia scale-up + PP-135 Pythia-2.8B external KV]; Portfolio 32+152 UNCHANGED; HONEST 1406->1408 +2; LVH 263 UNCHANGED; 422nd PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

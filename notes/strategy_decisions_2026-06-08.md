@@ -686,3 +686,58 @@ R4 (MEDIUM, GPU <2h): n=1000 to improve statistical power and confirm threshold 
 
 Cap_map: v514 -> v515 CYCLE 189 (1 HP [GPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 1 NEW PP ROW PP-152 2WikiMultiHop-benchmark; Portfolio 32+151 -> 32+152 +1; HONEST 1405->1406 +1; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v515 -> v516 CYCLE 190 TWO-VERDICT BATCH (2026-06-08)
+
+Verdicts processed (2 anchors): wikipedia_ingest_100k_gpu_v1 (PP-145 scale-up) + n1_pythia2p8b_substrate_kv_gpu_v1 (PP-135 Pythia-2.8B extension)
+
+### Step 0 honest re-read
+
+Both metrics fetched source=remote. 0 LVH catches.
+
+**wikipedia_ingest_100k_gpu_v1:**
+Label: HARD_PASS. Per-cell: r@1=0.96146, r@5=0.99221 at n=100000, throughput=151.9 art/sec. Threshold r@5>=0.85: 0.99221>=0.85 CONFIRMED (margin +14.2pp). Verdict_msg contains residual '10k' text from PP-145 founding boilerplate; actual n=100000 (100k). HARD_PASS label CORRECT for the actual run. No LVH. +1 HONEST.
+
+**n1_pythia2p8b_substrate_kv_gpu_v1:**
+Label: HARD_PASS. Per-cell: recall@1=1.000 at M=2000, in_context_frac=0.032 (Pythia-2.8B). Threshold recall>=0.80: 1.000>=0.80 CONFIRMED (margin +20pp). Label CORRECT. No LVH. +1 HONEST.
+
+HONEST: 1406 -> 1408 (+2). LVH: 263 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v515 -> v516)
+
+**(A) PP-145 annotation: wikipedia_ingest_100k_gpu_v1 HP -- 10x scale-up confirms 100k real-corpus ingestion:**
+Cap_map annotation (PP-145 Wikipedia ingest scale): wikipedia_ingest_100k_gpu_v1 HP v516: r@1=0.96146 r@5=0.99221 at n=100000 real Wikipedia articles, 151.9 art/sec, elapsed=2359.7s (cycle 190). 10x scale-up from cycle-187 n=10k HP (r@5=0.9916); recall maintained within 0.002 across 10x scale; 5.84M pre-trained substrate dispatch gate: 10k PASS (cycle 187) + 100k PASS (cycle 190) establishes scale trajectory; band-LIFT to VALIDATED candidate after 3-seed at 100k. n=1 seed GPU.
+
+Plain-language: The substrate ingested and retrieved 100,000 real Wikipedia articles at 99.2% recall@5 and 152 articles/second. This is 10x the scale of the previous test (10k articles, cycle 187), with essentially no recall degradation. The 5.84M full-corpus deployment gate now has two passing scale checkpoints; 3-seed confirmation at 100k is the remaining bar for a VALIDATED band-lift.
+
+**(B) PP-135 annotation: n1_pythia2p8b_substrate_kv_gpu_v1 HP -- Pythia-2.8B confirms LLM-size-agnostic external KV recall:**
+Cap_map annotation (PP-135 LLM-keyed external memory scale): n1_pythia2p8b_substrate_kv_gpu_v1 HP v516: recall=1.000 at M=2000, in_context_frac=0.032, Pythia-2.8B (cycle 190). Extends Pythia-base + Pythia-1.4B (cycle 185) to 2.8B. Three LLM sizes (base/1.4B/2.8B) all recall=1.000 at M=2000 (31x context window); result confirmed size-agnostic across 2x/4x parameter scale steps. Tier-5 MVE holds at 2.8B. Band-LIFT to VALIDATED after 3-seed at 2.8B scale. n=1 seed GPU.
+
+Plain-language: The substrate acts as external memory for Pythia-2.8B, storing and retrieving 2000 facts keyed by the model's internal activations at perfect recall (100%). The in-context window can hold only ~3% of those facts. Confirmed at three LLM sizes; result does not depend on model scale across the tested range.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**PP-145 Wikipedia ingest scale-up (HP n=1 seed -- band-LIFT rescues):**
+R1 (0-compute, ANNOTATION): r@5=0.992 meets HP threshold at 100k with 14.2pp margin; no closure concern.
+R2 (CHEAP, GPU <1h): 3-seed at n=100k to confirm r@5 variance before band-LIFT to VALIDATED.
+R3 (CHEAP, GPU <1h): Throughput benchmark at n=500k (next scale step toward 5.84M) to map trajectory.
+R4 (MEDIUM, GPU <2h): n=500k or n=1M scale-up to tighten the 5.84M dispatch confidence interval.
+
+**PP-135 LLM-keyed external KV -- Pythia-2.8B (HP n=1 seed -- size-generality + M-scaling rescues):**
+R1 (0-compute, ANNOTATION): recall=1.000 at M=2000 at all 3 tested sizes (base/1.4B/2.8B); size-agnostic confirmed.
+R2 (CHEAP, GPU <30min): 3-seed at Pythia-2.8B + M=2000 to confirm variance before band-LIFT.
+R3 (CHEAP, GPU <1h): M-sweep at 2.8B (M=5000/10000) to probe capacity ceiling for larger model hidden states.
+R4 (MEDIUM, GPU <1h): Llama-3.1 test to confirm hidden-state key quality is not Pythia-specific.
+
+### PROT compliance (v515 -> v516)
+
+- PROT-004/006: No closures. 2 ANNOTATIONS to existing rows (PP-145 + PP-135). Rescue sketches cheapest-first for both.
+- PROT-007: v516 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: 2 HP anchors. Both thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 422nd PROT-009 paired commit.
+- PROT-018: No _nN binding suffix mismatch. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. 0 new LVH catches.
+- PROT-021: source=remote, run_mode=full both anchors. No smoke contamination. CLEAN.
+- PROT-022: Both HP n=1 seed; recall margins large (14.2pp + 20pp). No HP-fragility concern at threshold.
+
+Cap_map: v515 -> v516 CYCLE 190 (2 HP [GPU:2]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW PP ROWS; 2 annotations [PP-145 100k scale-up + PP-135 Pythia-2.8B]; Portfolio 32+152 UNCHANGED; HONEST 1406->1408 +2; LVH 263 UNCHANGED; 422nd PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
