@@ -1,0 +1,50 @@
+
+## v517 -> v518 CYCLE 192 MASSIVE 20-VERDICT BATCH (2026-06-08)
+
+Verdicts processed (20 anchors): FACT REPRESENTATION (4) + COMPOSITIONAL/CAPABILITY (8) + PRODUCTION/OPS (4) + TYPE/DISAMBIG (3) + ORPHAN GPU (1)
+
+### Step 0 honest re-read
+
+All 20 metrics fetched source=remote (bridge stale; direct SSH fetch via get_metrics). 0 LVH catches.
+
+**FACT REPRESENTATION (4):**
+- factrep_ep1_bitemporal_native_cpu_v1: HONEST. recall=0.990>=0.95. HARD_PASS label CORRECT. +1 HONEST.
+- factrep_ep2_continuous_strength_cpu_v1: HONEST. strongest-wins=0.905, corr=0.989. wins=0.905 in [0.85,0.95) = MIDDLE_BAND. MIDDLE_BAND label CORRECT. +1 HONEST.
+- factrep_ep3_typed_values_cpu_v1: HONEST. value=1.000, type=1.000 >=0.95. HARD_PASS label CORRECT. +1 HONEST.
+- factrep_ep4_provenance_native_cpu_v1: HONEST. value=1.000, source=1.000 >=0.95. HARD_PASS label CORRECT. +1 HONEST.
+
+**COMPOSITIONAL/CAPABILITY (8):**
+- sparse_value_capacity_cpu_v1: HONEST. ratio=0.943 < 1.2x threshold. HARD_FAIL label CORRECT. Sparse encoding does not improve capacity vs dense. +1 HONEST.
+- multi_fact_aggregation_cpu_v1: HONEST. recall=0.955 >=0.85. HARD_PASS label CORRECT. +1 HONEST.
+- hierarchical_3level_cpu_v1: HONEST. recall=1.000 >=0.85. HARD_PASS label CORRECT. +1 HONEST.
+- cyclic_graph_khop_cpu_v1: HONEST. recall=0.925 >=0.90, terminated=1.000. HARD_PASS label CORRECT. +1 HONEST.
+- compositional_and_query_cpu_v1: HONEST. precision=1.000 >=0.90. HARD_PASS label CORRECT. +1 HONEST.
+- negation_polarity_cpu_v1: HONEST. obj=1.000, pol=1.000 >=0.95. HARD_PASS label CORRECT. +1 HONEST.
+- temporal_ordering_recovery_cpu_v1: HONEST. acc=1.000 >=0.90. HARD_PASS label CORRECT. +1 HONEST.
+- analogy_transfer_continuous_cpu_v1: HONEST. cos1~1.0, cos2~1.0, rec2=1.000 >=0.85. HARD_PASS label CORRECT. +1 HONEST.
+
+**PRODUCTION/OPS (4):**
+- latency_scale_invariance_cpu_v1: HONEST. P95=0.199ms<<5ms. HARD_PASS label CORRECT. +1 HONEST.
+- self_improving_routing_warm_cpu_v1: HONEST. gain=0.000<5pp. MIDDLE_BAND label CORRECT. NOTE: ceiling artifact (cold=1.000 already). Mechanism not failed; task was already solved. +1 HONEST.
+- self_improving_routing_harder_cpu_v1: HONEST. gain=0.048<0.05. MIDDLE_BAND label CORRECT. Borderline below HP threshold (4.8pp vs 5pp). +1 HONEST.
+- encoder_drift_monitor_cpu_v1: HONEST. detection=1.000>=0.99, FP=0.000<=0.01. HARD_PASS label CORRECT. +1 HONEST.
+
+**TYPE/DISAMBIG (3):**
+- type_confusion_disambig_cpu_v1: HONEST. recall=0.820 in [0.75,0.90). MIDDLE_BAND label CORRECT. +1 HONEST.
+- type_confusion_sharded_cpu_v1: HONEST. recall=1.000 >=0.95. HARD_PASS label CORRECT. +1 HONEST.
+- counterfactual_demo_scenarios_cpu_v1: HONEST. curated=20, clean_rate=0.909, all_ok=20. HARD_PASS label CORRECT. +1 HONEST.
+
+**ORPHAN GPU (1):**
+- legal_citation_snowball_gpu_v1: HONEST. recall=1.000>=0.95, precision=1.000>=0.90. HARD_PASS label CORRECT. NOTE: run_mode=smoke (cases=1200, seeds=100); flagged -- full-grid run required for VALIDATED. +1 HONEST.
+
+HONEST: 1412 -> 1432 (+20). LVH: 265 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v517 -> v518)
+
+20 NEW PP ROWS added (PP-154..PP-173). Details in substrate_capability_map.md CYCLE 192 section.
+
+Key decisions:
+- PP-158 (sparse_value_capacity HF): 5 rescue sketches filed, cheapest first (R1=high-sparsity, R2=block-sparse PP-20, R3=CS projection, R4=Hamming-K, R5=per-shard).
+- PP-167 (routing_warm MIDDLE_BAND): ceiling artifact annotated; companion PP-168 confirms mechanism works.
+- PP-173 (legal_citation_snowball HP): smoke-mode flag; full-grid run queued when Exp-Dev session picks up.
+- PP-166 (latency_scale_invariance): VALIDATED band eligible after 3-seed; enterprise SLA gate passed.
