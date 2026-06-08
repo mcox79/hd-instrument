@@ -1699,3 +1699,101 @@ R5 (MEDIUM, CPU 2-4h): additional biomedical benchmarks (MedQA / BioASQ) to char
 
 Cap_map: v493 -> v494 CYCLE 174 (1 HP annotation: pubmedbert_swap_pretest-PUBMEDQA_SUB=0.835-97PCT_RAG_PARITY-DOMAIN_ENCODER_SWAP_CONFIRMED; 0 LVH; HONEST 1273->1274 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 407th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v494 -> v495 CYCLE 175: MULTI-HOP ITERATIVE + 1M SCALE + CAUSAL/FEDERATED + BIOLOGICAL-ANALOG (2026-06-07)
+
+Verdicts processed (12 anchors): substrate_iterative_multihop_pretest_v1 + fp16_recall_parity_1M_v1 + gdpr_crypto_erasure_1M_v1 + bitemporal_asof_1M_v1 + counterfactual_do_operator_v1 + federated_dp_aggregate_v1 + concept_drift_shift_sweep_v1 + natural_analog_antcolony_mg_decay_v1 + natural_analog_mycorrhizal_hubinit_v1 + natural_analog_quorum_ema_detector_v1 + natural_analog_tmr_priority_gating_v1 + natural_analog_immune_trust_scoring_v1
+
+### Step 0 honest re-read
+
+All 12 metrics fetched source=remote (bridge stale; direct SSH fetch via get_metrics). 1 LVH catch.
+
+**HOTPOT MULTI-HOP:**
+- substrate_iterative_multihop_pretest_v1: [LVH #262] HARD_FAIL label honest for verdict tier, but verdict_msg "does not beat single-shot" is FACTUALLY WRONG. Per-cell: ss_r2=0.333, it_r2=0.373 (iterative +0.040 over single-shot); ss_f1=0.539, it_f1=0.561 (iterative +0.022 over single-shot). Both per-cell comparisons confirm iterative DOES beat single-shot numerically. HF is correct because it_r2=0.373 << HP threshold (multi-hop HP requires ~0.50+ recall@2hop). Honest verdict: HARD_FAIL (ceiling holds -- iterative cannot reach HP threshold) but iterative DOES lift over single-shot. Direction claim in verdict_msg reversed. LVH#262. +1 HONEST, +1 LVH.
+
+**1M SCALE VALIDATIONS:**
+- fp16_recall_parity_1M_v1: HONEST=HARD_PASS (correct). fp32=1.0000, fp16=1.0000, delta=0.0000 at N=1M. HP thresholds delta<=0.01 AND r16>=0.99 both exceeded. n=1 seed. HONEST. No LVH. +1 HONEST.
+- gdpr_crypto_erasure_1M_v1: HONEST=HARD_PASS (correct). per_erase_ms=0.0004 (<0.5ms threshold by 1250x), unrecoverable=True, audit_ok=True, erased=100k from 1M. All 4 conditions true. HONEST. No LVH. +1 HONEST.
+- bitemporal_asof_1M_v1: HONEST=HARD_PASS (correct). correctness=1.000, per_ms=0.0033ms (<0.2ms threshold verified). HONEST. No LVH. +1 HONEST.
+
+**CAUSAL / FEDERATED EXTENSIONS:**
+- counterfactual_do_operator_v1: HONEST=HARD_PASS (correct). correct=20/20, audited=20/20, tamper=20/20. All-exact unanimous. HONEST. No LVH. +1 HONEST.
+- federated_dp_aggregate_v1: HONEST=HARD_PASS (correct). MAE=0.0015 (<0.02 threshold by 13x), M=20 clients. HONEST. No LVH. +1 HONEST.
+
+**CONCEPT DRIFT:**
+- concept_drift_shift_sweep_v1: HONEST=HARD_PASS (correct). min_detect=0.20; ratios monotone: s0.05=1.34, s0.10=1.78, s0.20=3.45, s0.30=6.05, s0.50=10.63. HP criterion (<=20% shift detectable) verified: s0.20 ratio=3.45 >> 1.0. HONEST. No LVH. +1 HONEST.
+
+**BIOLOGICAL-ANALOG MECHANISMS:**
+- natural_analog_antcolony_mg_decay_v1: HONEST=HARD_PASS (correct). lag_decayed=60 (<100 threshold), lag_undecayed=5000 (83x slower). Both HP conditions met. HONEST. No LVH. +1 HONEST.
+- natural_analog_mycorrhizal_hubinit_v1: HONEST=MIDDLE_BAND (correct). warm=0.560, cold=0.000. MIDDLE_BAND 0.50-0.70 band contains 0.560. HONEST. No LVH. +1 HONEST.
+- natural_analog_quorum_ema_detector_v1: HONEST=HARD_PASS (correct). recall=1.000 (>>0.90), fpr=0.000 (<0.10), n_inject=10. Both HP conditions met. HONEST. No LVH. +1 HONEST.
+- natural_analog_tmr_priority_gating_v1: HONEST=HARD_PASS (correct). pri=0.950, unflagged=0.175, ratio=5.43 (>>1.5x threshold). HONEST. No LVH. +1 HONEST.
+- natural_analog_immune_trust_scoring_v1: HONEST=HARD_PASS (correct). prefer_hi=1.000, flagged=1.000, conflicts=987. HP both=1.000 unanimous. HONEST. No LVH. +1 HONEST.
+
+HONEST: 1274 -> 1286 (+12). LVH: 261 -> 262 (+1: #262 substrate_iterative_multihop-DIRECTION_MISMATCH in verdict_msg).
+
+### Cap_map decisions (v494 -> v495)
+
+**(A) [LVH#262] substrate_iterative_multihop_pretest_v1 (HF -- iterative ceiling confirmed; REVIVE priority maintained):**
+Honest: iterative retrieval DOES lift over single-shot (+0.040 recall@2, +0.022 F1) but cannot reach HP threshold (it_r2=0.373 << 0.50+ required). Multi-hop row annotation: iterative retrieval pretest ss_r2=0.333->it_r2=0.373 (+0.040 lift); it_f1=0.561 vs ss_f1=0.539; iterative lifts but ceiling holds -- far from HP threshold; bottleneck: encoder quality not architecture; larger encoder (bge-large/e5-large) + iterative combo untested; per REVIVE priority, multi-hop is EXTREMELY IMPORTANT -- do NOT close; iterative architecture is the correct direction; LVH#262 direction-mismatch filed. Cycle 175. [REVIVE priority maintained per user mandate 2026-06-07 evening; DO NOT CLOSE multi-hop row.]
+
+**(B) fp16_recall_parity_1M_v1 (HP -- fp16 production-safe at M=1M; 2x memory saving zero-cost):**
+Cap_map annotation (storage/quantization row): fp16 parity at M=1M: delta=0.0 (fp32=fp16=1.0); 2x memory saving production-safe; extends cycle-163 HP to 1M scale; recommended: use fp16 for large-scale deployments. n=1 seed. Cycle 175.
+
+**(C) gdpr_crypto_erasure_1M_v1 (HP -- GDPR Article-17 surgical erasure at 1M scale; 0.0004ms/erasure):**
+Cap_map annotation (PP-9 GDPR deletion row): GDPR crypto-erasure at 1M: 100k erasures at 0.0004ms/erase (1250x below 0.5ms threshold); unrecoverable + auditable; Article-17 surgical erasure at production scale confirmed; n=1 seed; 3-seed recommended for LIFT. Cycle 175.
+
+**(D) bitemporal_asof_1M_v1 (HP -- bitemporal AS-OF correct + 0.003ms/query at 1M versions):**
+Cap_map annotation (bitemporal product row): bitemporal AS-OF at 1M: correctness=1.000, per_ms=0.0033ms (60x below 0.2ms threshold); temporal point-in-time queries production-confirmed at 1M-version scale; n=1 seed; 3-seed recommended. Cycle 175.
+
+**(E) counterfactual_do_operator_v1 (HP -- 20/20 auditable counterfactuals with tamper-evident chains):**
+NEW PP ROW PP-86: auditable counterfactual do() with tamper-evident chains -- correct=20/20, audited=20/20, tamper=20/20; verifiable audit chains at the counterfactual operation level; EU AI Act Article 12 audit primitive extended; n=1 seed, n_cf=20 (small but deterministic); 3-seed + n_cf=200 recommended for LIFT. Filed at 0.65-0.80 EXPLORATORY. Cycle 175.
+
+**(F) federated_dp_aggregate_v1 (HP -- federated DP averaging at MAE=0.0015 across M=20 clients):**
+NEW PP ROW PP-87: federated DP aggregate -- M=20 client DP noise cancels at aggregate; MAE=0.0015 at eps=1.0; global model useful under strong per-client privacy; compliance sidecar federates substrate updates across tenants with DP guarantees; n=1 seed, M=20; larger M and eps-sweep recommended. Filed at 0.60-0.75 EXPLORATORY. Cycle 175.
+
+**(G) concept_drift_shift_sweep_v1 (HP -- <=20% topic shift detectable; monotone ratio curve):**
+Cap_map annotation (concept-drift / online-adaptation row): shift sweep: min_detect=0.20 (s0.20 ratio=3.45); monotone ratio curve s0.05-0.50; drift alerting sensitive to <=20% shift; n=1 seed; 3-seed recommended. Cycle 175.
+
+**(H) natural_analog_antcolony_mg_decay_v1 (HP -- pheromone-decay lag=60 vs undecayed=5000; 83x faster):**
+NEW PP ROW PP-88: ant-colony pheromone-decay Misra-Gries -- decayed lag=60 (<100 queries) vs undecayed lag=5000; 83x faster drift responsiveness; biological analog validated as mechanism; product feature: fast topic-shift detection via decay parameter; n=1 seed; 3-seed recommended. Filed at 0.60-0.75 EXPLORATORY. Cycle 175.
+
+**(I) natural_analog_mycorrhizal_hubinit_v1 (MIDDLE_BAND -- warm=0.560 vs cold=0.000 at Q=100):**
+Cap_map annotation (network initialization / warm-start row): mycorrhizal hub-init: warm=0.560 vs cold=0.000 at Q=100; MIDDLE_BAND 0.50-0.70; hub initialization dramatically improves early coverage; rescue: HP requires warm>=0.70 -- increase hub count or hub selection strategy; n=1 seed. Cycle 175.
+
+**(J) natural_analog_quorum_ema_detector_v1 (HP -- EMA quorum recall=1.0/fpr=0.0 at n_inject=10):**
+NEW PP ROW PP-89: quorum EMA adversarial-injection detector -- recall=1.000, fpr=0.000 at n_inject=10; signal-level injection detection via exponential moving average; biological analog (quorum sensing) validated; product feature: adversarial-content gating without per-query LLM classifier; n=1 seed, n_inject=10 (small); 3-seed + larger n_inject recommended for LIFT. Filed at 0.60-0.75 EXPLORATORY. Cycle 175.
+
+**(K) natural_analog_tmr_priority_gating_v1 (HP -- TMR priority recall ratio=5.43x at priority=0.95):**
+NEW PP ROW PP-90: TMR triple-modular-redundancy priority gating -- flagged=0.950 vs unflagged=0.175; ratio=5.43 (>>1.5x HP threshold); customer-important facts survive defragmentation at dramatically higher rate; product feature: enterprise SLA-tier memory with priority-protected facts; n=1 seed; 3-seed recommended. Filed at 0.60-0.75 EXPLORATORY. Cycle 175.
+
+**(L) natural_analog_immune_trust_scoring_v1 (HP -- prefer_hi=1.000/flagged=1.000 at 987 conflicts):**
+NEW PP ROW PP-91: immune-system trust scoring -- prefer_hi=1.000 (always chooses high-trust source), flagged=1.000 (all conflicts flagged) at 987 real conflicts; provenance-trust via biological immune analog; product feature: automatic source trust ranking with conflict surfacing; n=1 seed, conflicts=987 (high-n result); 3-seed recommended. Filed at 0.65-0.80 EXPLORATORY (large conflict set provides strong founding evidence). Cycle 175.
+
+### Rescue sketches (PROT-004/006; cheapest-first per feedback-rescue-sketch-first-sequencing)
+
+**substrate_iterative_multihop (HF -- iterative lifts but ceiling holds; REVIVE priority):**
+R1 (0-compute, ANNOTATION): Iterative r2=0.373 > single-shot r2=0.333 (+0.040); iterative is correct direction; bottleneck is encoder quality not architecture.
+R2 (CHEAP, CPU <30min): bge-large + iterative retrieval (cycle-157 encoder-ladder best: bge-large r10=0.76).
+R3 (CHEAP, CPU <30min): e5-large + iterative retrieval (cycle-157 best: e5-large r10=0.78).
+R4 (MEDIUM, CPU <2h): Larger LLM decomposition + iterative (7B-scale NER for bridge-entity extraction per cycle-158 R3 path).
+R5 (MEDIUM, GPU <2h): Multi-stage cascade: iterative + substrate algebraic K-hop compose (Pattern B khop=1.0) at e5-large encoder.
+
+**mycorrhizal_hubinit (MIDDLE_BAND -- coverage 0.56; rescue to HP 0.70+):**
+R1 (0-compute, ANNOTATION): warm=0.560 vs cold=0.000; hub-init proven beneficial; target 0.70+ for HP.
+R2 (CHEAP, CPU <30min): Hub count sweep (double hub seeds) to raise warm coverage.
+R3 (CHEAP, CPU <30min): Hub quality selection (top-K frequency vs random hub selection).
+
+### PROT compliance (v494 -> v495)
+
+- PROT-004/006: No row closures. 1 LVH catch (#262) rescue R1-R5 cheapest-first. mycorrhizal MIDDLE_BAND rescue R1-R3 cheapest-first. 6 new PP rows (PP-86 to PP-91) with founding evidence.
+- PROT-007: v495 history row appended to substrate_capability_map_history.md.
+- PROT-008: 10 HP anchors large-margin results; immune trust n=987 (high-N). PROT-008 PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 408th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 12 anchors. CLEAN.
+- PROT-019: LVH 261->262 (+1: #262 substrate_iterative_multihop-DIRECTION_MISMATCH verdict_msg).
+- PROT-021: All 12 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: All 10 HP non-fragile (exact/boolean results or large margins). No HP-fragility concern.
+
+Cap_map: v494 -> v495 CYCLE 175 (10 HP: fp16_parity_1M-DELTA0.000-1M + gdpr_crypto_erasure_1M-0.0004ms-UNRECOVERABLE-AUDIT_OK + bitemporal_asof_1M-CORRECT1.000-0.003ms + counterfactual_do_operator-20/20-AUDITED-TAMPER + federated_dp_aggregate-MAE0.0015-M20 + concept_drift_shift_sweep-MIN_DETECT0.20-RATIO3.45 + antcolony_mg_decay-LAG60-vs-5000-83x + quorum_ema-RECALL1.0-FPR0.0 + tmr_priority-RATIO5.43 + immune_trust-PREFER1.0-FLAG1.0-987CONFLICTS; 1 MIDDLE_BAND: mycorrhizal_hubinit-WARM0.560-COLD0.000; 1 LVH_HF: #262 substrate_iterative_multihop-DIRECTION_MISMATCH-it_r2=0.373>ss_r2-HF_CORRECT_CEILING_HOLDS; 6 NEW PP ROWS: PP-86 auditable-counterfactual-do + PP-87 federated-DP-aggregate + PP-88 antcolony-pheromone-decay + PP-89 quorum-EMA-detector + PP-90 TMR-priority-gating + PP-91 immune-trust-scoring; Portfolio 32+85 -> 32+91 (+6); HONEST 1274->1286 +12; LVH 261->262 +1; 408th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

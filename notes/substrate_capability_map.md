@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v490
+# hd-instrument substrate -- capability map v495
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12491,3 +12491,38 @@ Cap_map annotation: pubmedbert_swap_pretest_v1 HARD_PASS v494 (per-domain encode
 
 Cap_map: v493 -> v494 CYCLE 174 (1 HP annotation: pubmedbert_swap_pretest-PUBMEDQA_SUB=0.835-97PCT_RAG_PARITY-DOMAIN_ENCODER_SWAP_CONFIRMED; 0 LVH; HONEST 1273->1274 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 407th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## CYCLE 175 NEW PP ROWS (v494 -> v495) (2026-06-07)
+
+### PP-86: Auditable counterfactual do() with tamper-evident chains
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-86 Auditable counterfactual do() operator** -- correct=20/20, audited=20/20, tamper=20/20 | 🟢 Validated, want stronger |  (HP n_cf=20, n=1 seed, exact) | EU AI Act Art.12 counterfactual audit primitive; verifiable what-if at operation level; extends PP-82 replay to full tamper-evident audit chain; 0.65-0.80 EXPLORATORY |
+
+### PP-87: Federated DP aggregate (MAE<0.02 at M=20 clients)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-87 Federated DP aggregate** -- M=20 clients DP noise cancels; MAE=0.0015 at eps=1.0 | 🟢 Validated, want stronger |  (HP MAE=0.0015, n=1 seed, M=20) | Compliance sidecar federates across tenants with DP guarantees; global model useful at eps=1.0; 0.60-0.75 EXPLORATORY |
+
+### PP-88: Ant-colony pheromone-decay Misra-Gries (83x faster drift detection)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-88 Ant-colony pheromone-decay Misra-Gries** -- lag=60 vs undecayed=5000 (83x faster) | 🟢 Validated, want stronger |  (HP lag=60 < 100 threshold, n=1 seed) | Fast topic-shift detection via biologically-inspired decay parameter; 83x responsiveness improvement; 0.60-0.75 EXPLORATORY |
+
+### PP-89: Quorum EMA adversarial-injection detector (recall=1.0/fpr=0.0)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-89 Quorum EMA adversarial-injection detector** -- recall=1.000, fpr=0.000 at n_inject=10 | 🟢 Validated, want stronger |  (HP recall=1.0/fpr=0.0, n=1 seed, n_inject=10) | Adversarial-content gating without per-query LLM classifier; signal-level detection; 0.60-0.75 EXPLORATORY |
+
+### PP-90: TMR triple-modular-redundancy priority gating (ratio=5.43x)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-90 TMR priority gating** -- flagged=0.950 vs unflagged=0.175; ratio=5.43x | 🟢 Validated, want stronger |  (HP ratio=5.43 >> 1.5x threshold, n=1 seed) | Enterprise SLA-tier memory: customer-important facts survive defragmentation at 5.4x higher rate; priority-protected storage; 0.60-0.75 EXPLORATORY |
+
+### PP-91: Immune-system trust scoring (prefer_hi=1.0/flagged=1.0 at 987 conflicts)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-91 Immune trust scoring** -- prefer_hi=1.000, flagged=1.000 at 987 real conflicts | 🟢 Validated, want stronger |  (HP both=1.000, n=1 seed, conflicts=987 high-N) | Automatic source trust ranking with conflict surfacing; provenance trust via biological immune analog; 0.65-0.80 EXPLORATORY |
+
+Cap_map: v494 -> v495 CYCLE 175 (+6 PP rows: PP-86 to PP-91; Portfolio 32+85 -> 32+91; 408th PROT-009 paired commit) (2026-06-07)
