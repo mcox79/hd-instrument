@@ -1,8 +1,8 @@
 """
 exp_dependency_with_audit_cpu_v1.py -- theorem-dependency closure with a per-dependency Merkle audit trail -- CPU.
 
-ROUTING: FRESH cheap batch (CHEAP-CAP dependency K-hop + audit trail). Combines K-hop dependency traversal with a hash-chained audit trail: each resolved dependency edge is appended to a Merkle chain so the derivation is replayable/verifiable. Measures closure recall AND that the audit chain reproduces (tamper-evident). Pure numpy. CPU.
-PRE-REGISTERED: HARD-PASS closure recall >= 0.95 AND audit-chain reproduces 100pct (tamper-evident). MIDDLE recall >= 0.85. HARD-FAIL < 0.85.
+ROUTING: FRESH cheap batch (CHEAP-CAP dependency K-hop + audit trail). K-hop dependency traversal + a hash-chained audit trail (each resolved edge appended to a Merkle chain). Measures closure recall AND that the audit chain reproduces (tamper-evident). Pure numpy. CPU.
+PRE-REGISTERED: HARD-PASS closure recall >= 0.95 AND audit reproduces 100pct. MIDDLE recall >= 0.85. HARD-FAIL < 0.85.
 ASCII-only. write_metrics. PROT-018 _v1.
 """
 from __future__ import annotations
@@ -44,7 +44,7 @@ def run() -> Dict:
             gold |= nf; fr = nf
         if not gold:
             continue
-        reached = set(); fr = [root]; chain = "0" * 64; replay = "0" * 64; edges = []
+        reached = set(); fr = [root]; chain = "0" * 64; edges = []
         for _h in range(HOPS):
             nf = []
             for u in fr:
@@ -54,8 +54,9 @@ def run() -> Dict:
                     if v not in reached:
                         nf.append(v); edges.append((u, v)); chain = hashlib.sha256((chain + "%d-%d" % (u, v)).encode()).hexdigest()
             reached |= set(nf); fr = nf
+        replay = "0" * 64
         for (u, v) in edges:
-            replay = hashlib.sha256((replay + "%d-%d" % (u, v)).encode()).hexdigest()    # re-derive audit chain
+            replay = hashlib.sha256((replay + "%d-%d" % (u, v)).encode()).hexdigest()
         rec_sum += len(gold & reached) / len(gold); audit_ok += int(replay == chain); n += 1
     rc = rec_sum / n; ar = audit_ok / n; print("  dependency-closure recall=%.3f audit-reproduces=%.3f (n=%d)" % (rc, ar, n), flush=True)
     return {"recall": rc, "audit": ar}
@@ -70,7 +71,6 @@ if _ARGS.self_test:
     sys.exit(0)
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
-v, vmsg = verdict(r); print("
-[VERDICT] " + vmsg, flush=True)
+v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
