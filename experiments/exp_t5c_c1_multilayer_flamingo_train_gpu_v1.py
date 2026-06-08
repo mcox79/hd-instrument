@@ -134,8 +134,8 @@ def run() -> Dict:
         state["on"] = prev; return math.exp(tot_nll / max(1, tot_tok))
 
     state["on"] = False; base_ppl = eval_ppl()
-    opt = torch.optim.Adam([{"params": [p for L in LAYERS for n, p in adapters[str(L)].named_parameters() if n != "gate"], "lr": 1e-3},
-                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 0.05}])
+    opt = torch.optim.Adam([{"params": [p for L in LAYERS for n, p in adapters[str(L)].named_parameters() if n != "gate"], "lr": 5e-4},
+                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 0.005}])  # lower gate lr (0.05 diverged at step 6000)
     # live pollable progress log (full visibility): one JSON line per acceptance check + a heartbeat file
     prog = open(Path(out_dir) / "progress.jsonl", "a", encoding="utf-8"); t_start = time.time()
     def heartbeat(d):
@@ -150,7 +150,7 @@ def run() -> Dict:
             continue
         lg = mdl(**e).logits[:, :-1, :].float(); tgt = ids[:, 1:]
         loss = torch.nn.functional.cross_entropy(lg.reshape(-1, lg.shape[-1]), tgt.reshape(-1))
-        loss.backward(); opt.step(); recent.append(float(loss))
+        loss.backward(); torch.nn.utils.clip_grad_norm_([p for L in LAYERS for p in adapters[str(L)].parameters()], 1.0); opt.step(); recent.append(float(loss))  # grad clip = stability
         if step % CKPT_EVERY == 0 or (time.time() - t_ck) > 300:           # checkpoint every 500 steps OR 5 min (resumable)
             torch.save({"adapters": adapters.state_dict(), "step": step + 1}, ckpt_path); t_ck = time.time()
             heartbeat({"step": step + 1, "of": STEPS, "elapsed_s": round(time.time() - t_start, 1), "train_ce_recent": round(float(np.mean(recent[-50:])), 4), "ts": time.strftime("%H:%M:%S")})
