@@ -33,7 +33,7 @@ CORS_ALLOW_ORIGINS = os.environ.get(
 TIER5_MODEL = os.environ.get("TIER5_MODEL", "EleutherAI/pythia-1.4b")
 TIER5_DEVICE = os.environ.get("TIER5_DEVICE", "cuda")
 TIER5_DTYPE = os.environ.get("TIER5_DTYPE", "bf16")  # bf16 / fp16 / int8
-TIER5_ENABLED = os.environ.get("TIER5_ENABLED", "false").lower() == "true"  # default off until Week 2
+TIER5_ENABLED = os.environ.get("TIER5_ENABLED", "true").lower() == "true"  # Tier 5 Sprint Panel A on by default
 
 # Demo mode + experiment-pause toggle config (see backend/admin/demo_mode.py)
 DEMO_MODE_AUTO_PAUSE_ON_QUERY = os.environ.get("DEMO_MODE_AUTO_PAUSE_ON_QUERY", "false").lower() == "true"

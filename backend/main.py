@@ -38,6 +38,7 @@ except ImportError:
 from backend import config
 from backend.admin import demo_mode
 from backend.landing import landing_response
+from backend.routes import query_tier5a
 
 
 # ============================================================
@@ -50,10 +51,24 @@ async def lifespan(app: FastAPI):
     logger.info("v1 demo backend starting; reconciling demo-mode state...")
     boot = demo_mode.reconcile_on_boot()
     logger.info("demo-mode boot: %s", boot)
-    # Log API key presence (not the values)
     logger.info("openai key: %s | anthropic key: %s",
                 "present" if config.OPENAI_API_KEY else "MISSING",
                 "present" if config.ANTHROPIC_API_KEY else "MISSING")
+    # Pre-load Tier 5a substrate-KV (Pythia + seed facts) at startup to avoid cold-start
+    # latency on the first /query/tier5a request and prevent GPU OOM races with experiment dispatchers.
+    if config.TIER5_ENABLED:
+        try:
+            logger.info("pre-loading Tier 5a substrate-KV (activating demo-mode to free GPU)...")
+            demo_mode.activate(reason="auto:tier5a-boot-load")
+            from backend.routes.query_tier5a import _init_kv
+            kv = _init_kv()
+            logger.info("Tier 5a ready: %d facts loaded", len(kv))
+        except Exception as e:
+            logger.exception("Tier 5a pre-load failed; will lazy-init on first /query/tier5a")
+        finally:
+            # Resume experiments unless user explicitly wants demo mode on
+            if demo_mode.get_status().get("activated_by") == "auto:tier5a-boot-load":
+                demo_mode.deactivate(reason="auto:tier5a-boot-load-done")
     yield
     logger.info("v1 demo backend shutting down; resuming any suspended procs as a courtesy")
     if demo_mode.get_status().get("active"):
@@ -82,6 +97,9 @@ app.add_middleware(
 
 if demo_mode.router is not None:
     app.include_router(demo_mode.router)
+
+# Tier 5 Sprint Panel A: substrate-KV + Pythia-1.4B
+app.include_router(query_tier5a.router)
 
 
 # ============================================================

@@ -96,19 +96,31 @@ LANDING_HTML = """<!doctype html>
   </div>
 
   <div class="card">
+    <h2>Tier 5 Sprint architecture (locked 2026-06-08)</h2>
+    <p style="margin-bottom:1rem">Two panels, same Pythia, two architectural tiers of substrate integration.
+    Substrate IS knowledge. LLM IS interface.</p>
+    <ul>
+      <li><span class="pill work">PANEL A</span> <strong>Tier 5a substrate-KV</strong> (production-ready):
+        Pythia-1.4B + 200M-fact substrate. Substrate provides external persistent memory.
+        Retrieval BEFORE forward pass. <em>D2 empirically HP at M=10K (156x context).</em></li>
+      <li><span class="pill pending">PANEL B</span> <strong>Tier 5b substrate-attention-layer</strong> (PoC):
+        Pythia-160M layer-6 attention modified. K/V come from substrate retrieval, not learned
+        projections. Standard softmax(QK^T)V math. <em>Architectural proof for v2.0.</em></li>
+    </ul>
+  </div>
+
+  <div class="card">
     <h2>Build progress</h2>
     <ul>
-      <li><span class="pill ok">DONE</span> Substrate library (8 modules: K-hop with audit chain, cascade router, GDPR exact erase, bitemporal, confidence, FHRR primitives, Merkle audit, persistence)</li>
-      <li><span class="pill ok">DONE</span> Backend skeleton (FastAPI, 13 routes)</li>
+      <li><span class="pill ok">DONE</span> Substrate library (13 modules: K-hop with audit chain, cascade router, GDPR exact erase, bitemporal, confidence, FHRR primitives, Merkle audit, persistence, sharding with dynamic SNR threshold, counterfactual do(), two-stage disambig, Mechanism B inverted, Mechanism C cross-shard scatter-gather)</li>
+      <li><span class="pill ok">DONE</span> Backend skeleton (FastAPI, 15 routes including <code>/query/tier5a</code>)</li>
       <li><span class="pill ok">DONE</span> Demo-mode experiment-pause toggle (verified live: suspends 8 real experiment procs)</li>
-      <li><span class="pill ok">DONE</span> Pythia-1.4B Tier-5 KV smoke (2.6 GB VRAM on 4060 Ti; 5.5 GB headroom)</li>
+      <li><span class="pill ok">DONE</span> Pythia-1.4B Tier 5a substrate-KV (2.6 GB VRAM on 4060 Ti; 5.5 GB headroom)</li>
       <li><span class="pill ok">DONE</span> Cloudflare Tunnel public URL (this one)</li>
-      <li><span class="pill work">WEEK 1</span> Wire OpenAI gpt-4o-mini + Claude Haiku into <code>/query</code></li>
-      <li><span class="pill work">WEEK 2</span> Wikipedia 5.84M ingest + Corporate Intelligence overlay</li>
-      <li><span class="pill work">WEEK 3</span> Next.js frontend with side-by-side panels</li>
-      <li><span class="pill work">WEEK 4</span> 5 wow moments: add fact / multi-hop audit chain / recency / GDPR delete / scale contrast</li>
-      <li><span class="pill work">WEEK 5</span> Pre-scripted demo scenarios + cost/latency polish</li>
-      <li><span class="pill work">WEEK 6</span> Production deploy + demo video</li>
+      <li><span class="pill ok">DONE</span> 50-fact seed KB (AI labs + papers + benchmarks; <code>/query/tier5a</code> end-to-end live)</li>
+      <li><span class="pill work">NEXT</span> Substrate KB ingest: Wikidata 100M + Wikipedia 5.84M + ConceptNet + arXiv + PubMed</li>
+      <li><span class="pill work">NEXT</span> Panel B Pythia-160M layer-6 substrate-attention modification</li>
+      <li><span class="pill work">NEXT</span> Two-panel frontend with audit chain expansion</li>
     </ul>
   </div>
 
