@@ -2,10 +2,12 @@
 v1 demo FastAPI app entry.
 
 Mounts:
-    /admin/demo-mode-on, /admin/demo-mode-off, /admin/demo-mode-status  (control plane)
-    /query                                                                (main endpoint)
-    /add_fact, /delete_facts, /scale_stats, /audit_chain/{id}            (stubs for W1+W2)
-    /                                                                     (health probe + cards)
+    /                       Landing page (v5 framing)
+    /demo                   Cheap-decisive-test page (3 pre-cached Q/A)
+    /playground             Interactive algebraic playground (AND/NOT/COUNT/counterfactual)
+    /benchmark              30-query head-to-head (substrate vs gpt-4o-mini)
+    /query/tier5a + family  Substrate-augmented Qwen-2.5-1.5B-Instruct + audit chain + baseline + algebraic ops
+    /admin/warmup           Pre-warm Pythia + KB before customer demo
 
 Run:
     uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
@@ -36,7 +38,6 @@ except ImportError:
     pass
 
 from backend import config
-from backend.admin import demo_mode
 from backend.landing import landing_response
 from backend.decisive_test import decisive_test_response
 from backend.playground import playground_response
@@ -51,16 +52,14 @@ from backend.routes import query_tier5a
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Boot + shutdown hooks."""
-    logger.info("v1 demo backend starting; reconciling demo-mode state...")
-    boot = demo_mode.reconcile_on_boot()
-    logger.info("demo-mode boot: %s", boot)
+    logger.info("v1 demo backend starting...")
     logger.info("openai key: %s | anthropic key: %s",
                 "present" if config.OPENAI_API_KEY else "MISSING",
                 "present" if config.ANTHROPIC_API_KEY else "MISSING")
-    # Pre-load Tier 5a substrate-KV at startup. Skipped in tests via TIER5_ENABLED=false.
+    # Pre-load Tier 5a substrate-KV at startup. Skipped via TIER5_ENABLED=false.
     if config.TIER5_ENABLED:
         try:
-            logger.info("pre-loading Tier 5a substrate-KV (Pythia + 50 facts)...")
+            logger.info("pre-loading Tier 5a substrate-KV...")
             import threading
 
             def _bg_load():
@@ -71,15 +70,12 @@ async def lifespan(app: FastAPI):
                 except Exception:
                     logger.exception("Tier 5a background load failed")
 
-            # Non-blocking: server accepts requests immediately; tier5a returns 503 until loaded.
             threading.Thread(target=_bg_load, daemon=True, name="tier5a-loader").start()
             logger.info("Tier 5a load running in background; status: /query/tier5a/status")
         except Exception:
             logger.exception("Tier 5a loader spawn failed")
     yield
-    logger.info("v1 demo backend shutting down; resuming any suspended procs as a courtesy")
-    if demo_mode.get_status().get("active"):
-        demo_mode.deactivate(reason="auto:backend-shutdown")
+    logger.info("v1 demo backend shutting down")
 
 
 app = FastAPI(
@@ -99,13 +95,8 @@ app.add_middleware(
 
 
 # ============================================================
-# Admin (mounted from backend/admin/demo_mode.py)
+# Tier 5 Sprint Panel A: substrate-KV + Qwen-2.5-1.5B-Instruct
 # ============================================================
-
-if demo_mode.router is not None:
-    app.include_router(demo_mode.router)
-
-# Tier 5 Sprint Panel A: substrate-KV + Pythia-1.4B
 app.include_router(query_tier5a.router)
 
 
@@ -184,8 +175,7 @@ async def demo():
 async def admin_warmup():
     """Force Tier 5a substrate-KV to load NOW (eliminates cold-start 503 on first /query/tier5a).
 
-    Demo operators hit this 30 sec before customer demos to ensure Pythia + KB are ready.
-    Returns immediately with the current load status; load continues in background if needed.
+    Operator hits this 30 sec before customer demos. Returns immediately with load status.
     """
     from backend.routes.query_tier5a import _kv, _init_kv
     if _kv is not None:
@@ -213,11 +203,8 @@ async def api_root():
             "POST /delete_facts",
             "GET /scale_stats",
             "GET /audit_chain/{query_id}",
-            "POST /admin/demo-mode-on",
-            "POST /admin/demo-mode-off",
-            "GET /admin/demo-mode-status",
+            "POST /admin/warmup",
         ],
-        "demo_mode": demo_mode.get_status(),
         "llm": {
             "openai_configured": bool(config.OPENAI_API_KEY),
             "anthropic_configured": bool(config.ANTHROPIC_API_KEY),
@@ -230,7 +217,6 @@ async def api_root():
 @app.post("/query", response_model=QueryResponse)
 async def query(req: QueryRequest):
     """Main query endpoint -- W1 implementation pending."""
-    demo_mode.note_query_activity()
     t0 = time.perf_counter()
     query_id = f"q_{int(t0 * 1e6)}"
     # Stub: returns placeholder data until W1 wires the substrate + LLM clients

@@ -149,13 +149,6 @@ LANDING_HTML = """<!doctype html>
     <div id="t5a-out" style="background:#1e1e2a;padding:0.75rem;border-radius:6px;margin-top:0.6rem;font-family:ui-monospace,SF Mono,monospace;font-size:0.85rem;white-space:pre-wrap;min-height:3rem">Type a question + click "Ask substrate".</div>
   </div>
 
-  <!-- Demo-mode toggle hidden from public landing per user direction (until demo is live + being shared).
-       Endpoints still work for operator use via /admin/demo-mode-{on,off,status} but UI buttons are removed
-       so visitors can't accidentally pause running experiments. -->
-  <!-- div class="card">
-    <h2>Demo-mode toggle (operator-only)</h2>
-    Available at /admin/demo-mode-{on,off,status}. Hidden from public landing per user direction.
-  </div -->
   <div id="status" style="display:none"></div>
 
   <div class="card">
@@ -176,10 +169,11 @@ LANDING_HTML = """<!doctype html>
     <h2>Raw API</h2>
     <p>Backend endpoints (JSON):</p>
     <ul>
-      <li><code>GET <a href="/admin/demo-mode-status">/admin/demo-mode-status</a></code></li>
-      <li><code>POST /admin/demo-mode-on</code> / <code>POST /admin/demo-mode-off</code></li>
-      <li><code>POST /query</code> (W1 stub; LLM clients land this week)</li>
-      <li><code>POST /add_fact</code>, <code>POST /delete_facts</code>, <code>GET /scale_stats</code> (W1 stubs)</li>
+      <li><code>POST /query/tier5a</code> - substrate + Qwen end-to-end with audit chain</li>
+      <li><code>POST /query/tier5a/baseline</code> - side-by-side substrate + gpt-4o-mini</li>
+      <li><code>POST /query/tier5a/counterfactual</code> - Pearl do() with Merkle audit</li>
+      <li><code>POST /query/tier5a/and</code> / <code>/not</code> / <code>/count</code> - algebraic ops</li>
+      <li><code>POST /admin/warmup</code> - pre-warm before customer demo</li>
     </ul>
   </div>
 

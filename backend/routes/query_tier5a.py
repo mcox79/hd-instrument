@@ -101,10 +101,7 @@ def _build_user_prompt(question: str, facts: list[tuple]) -> str:
 
 @router.post("/tier5a", response_model=Tier5aResponse)
 async def query_tier5a(req: Tier5aRequest):
-    """Tier 5a: substrate-KV + Pythia-1.4B end-to-end. Demo-mode aware."""
-    from backend.admin import demo_mode
-    demo_mode.note_query_activity()
-
+    """Tier 5a: substrate-KV + Qwen-2.5-1.5B-Instruct end-to-end."""
     kv = _init_kv()
     from backend.llm.pythia_client import get_client
     client = get_client()
