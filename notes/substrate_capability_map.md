@@ -13046,3 +13046,30 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v511 -> v512 CYCLE 186 (9 HP [GPU:1 CPU:8]; 3 MIDDLE_BAND [GPU:1 CPU:2]; 1 HF [CPU:1]; 0 LVH; 7 NEW PP ROWS PP-137..PP-143; 1 CLOSURE [resonator-K4-multiaxis]; Portfolio 32+136 -> 32+143 +7; HONEST 1384->1397 +13; LVH 263 UNCHANGED; 419th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+#### PP-144: Encoder head-to-head benchmark (bge-large best r@10=0.600; MIDDLE_BAND)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-144 Encoder head-to-head benchmark** -- bge-large r@10=0.600, bge-small=0.565, e5-large=0.570 (general benchmark, n=200) | Inconclusive | encoder_headtohead_benchmark_gpu_v1 MIDDLE_BAND (best r@10=0.600 in [0.55,0.70); n=200 GPU n_seeds=1; cycle 187) | bge-large recommended encoder; r@10=0.600 functional but below HP; encoder gap small (3.5 pts); whitening+PCA rescue is primary lift path (memory: +63% on HotpotQA); 0.45-0.60 MIDDLE_BAND |
+
+#### PP-145: Wikipedia ingest + retrieval benchmark (r@5=0.992 at n=10k real articles, 155 art/sec; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-145 Wikipedia ingest + retrieval benchmark** -- r@1=0.971 r@5=0.992 at n=10000 real Wikipedia articles, throughput=155 art/sec, elapsed=79s | Validated, want stronger | wikipedia_ingest_benchmark_gpu_v1 HP (r@5=0.9916>=0.85 CONFIRMED; n=10000, GPU, n_seeds=1; cycle 187) | Production-scale real-corpus ingestion validated; 99.2% recall@5 at 155 art/sec; critical dry-run gate for 5.84M pre-trained substrate green; retrieval quality not a bottleneck; 0.80-0.92 EXPLORATORY |
+
+#### PP-146: FB15K-237 KG K-hop on standard public benchmark (2-hop r@5=0.705, mono@5=0.007; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-146 FB15K-237 KG K-hop benchmark** -- 1-hop r@5=1.000, 2-hop r@5=0.705 sharded (mono@5=0.007) on REAL Freebase (12838 ents, 237 rels) | Validated, want stronger | fb15k237_kg_khop_benchmark_cpu_v1 HP (1-hop r@5>=0.80 CONFIRMED 1.000; 2-hop r@5>=0.55 CONFIRMED 0.705; n_seeds=1 CPU; cycle 187) | KG-QA grounded on standard public benchmark; 1-hop ceiling, 2-hop 70.5% at 12838 entities; monolithic collapses (0.007) validates sharding requirement; cross-ref PP-119/PP-133/PP-134; 0.70-0.85 EXPLORATORY |
+
+#### PP-147: FB15K-237 sharding strategy recommendation (subject=1.000 vs relation=0.843; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-147 FB15K-237 sharding strategy** -- subject-sharding=1.000 vs relation-sharding=0.843 on standard Freebase benchmark (12838 ents) | Validated, want stronger | fb15k237_sharding_strategy_cpu_v1 HP (subject=1.000>=0.85 CONFIRMED; relation=0.843 also HP; best=subject; n_seeds=1 CPU; cycle 187) | v1.5 KG layout for real-world KGs grounded on public benchmark: shard by subject entity; +15.7 pts over relation-sharding; consistent with PP-134 synthetic result; 0.75-0.88 EXPLORATORY |
+
+Cap_map: v512 -> v513 CYCLE 187 (3 HP [GPU:1 CPU:2]; 1 MIDDLE_BAND [GPU:1]; 0 HF; 0 LVH; 4 NEW PP ROWS PP-144..PP-147; Portfolio 32+143 -> 32+147 +4; HONEST 1397->1401 +4; LVH 263 UNCHANGED; 420th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
