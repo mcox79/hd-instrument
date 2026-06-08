@@ -1,0 +1,38 @@
+# v1 demo backend requirements.
+# Install: .venv-demo\Scripts\python.exe -m pip install -r requirements_demo.txt
+#
+# Note: torch is installed separately with the CUDA-12.1 index URL since pip doesn't
+# auto-pick the GPU wheel.
+
+# Web framework
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8
+python-dotenv>=1.0
+httpx>=0.27
+
+# LLM clients
+openai>=1.50
+anthropic>=0.40
+
+# Substrate library deps
+numpy>=1.26,<3
+psutil>=5.9
+
+# Tier-5 PATH A (Pythia-1.4B serving)
+transformers>=4.45
+accelerate>=0.30
+sentencepiece>=0.2
+protobuf>=4.25
+
+# Encoders for two-stage disambig + retrieval
+sentence-transformers>=3.0
+
+# NER (Wikipedia ingest fallback path when Llama-8B unavailable)
+spacy>=3.7
+
+# Cross-encoder rerank (cycle 187 setup)
+# (already covered by sentence-transformers)
+
+# Optional: dev / testing
+pytest>=8.0
