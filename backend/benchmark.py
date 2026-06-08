@@ -73,6 +73,7 @@ def _render() -> str:
     bare_total_cost = 0.0
     substrate_total_cost = 0.0
     classified = []
+    per_category: dict = {}  # category -> {pass, miss, honest, tie, mixed, total, sub_lat_ms_total, bare_lat_ms_total}
     for e in entries:
         if "error" in e:
             continue
@@ -83,6 +84,15 @@ def _render() -> str:
             pass_count += 1
         bare_total_cost += float(e.get("bare_cost_usd", 0.0))
         classified.append((e, label, color))
+        cat = e.get("category", "unknown")
+        bucket = per_category.setdefault(cat, {
+            "pass": 0, "miss": 0, "honest": 0, "tie": 0, "mixed": 0,
+            "total": 0, "sub_lat_sum": 0.0, "bare_lat_sum": 0.0,
+        })
+        bucket[color] = bucket.get(color, 0) + 1
+        bucket["total"] += 1
+        bucket["sub_lat_sum"] += float(e.get("substrate_latency_ms", 0))
+        bucket["bare_lat_sum"] += float(e.get("bare_latency_ms", 0))
 
     rows_html = []
     for e, label, color in classified:
@@ -117,6 +127,33 @@ def _render() -> str:
             </div>
           </div>
         </details>""")
+
+    # Per-category summary rows
+    cat_rows = []
+    for cat in sorted(per_category.keys()):
+        b = per_category[cat]
+        cat_label = CATEGORY_LABELS.get(cat, cat)
+        n = max(1, b["total"])
+        sub_avg = b["sub_lat_sum"] / n
+        bare_avg = b["bare_lat_sum"] / n
+        # Build a small color-coded outcome bar
+        bar_parts = []
+        for color, label in [("honest", "abstain"), ("pass", "both"), ("miss", "miss"), ("tie", "tie"), ("mixed", "mixed")]:
+            v = b.get(color, 0)
+            if v:
+                pct = 100.0 * v / n
+                color_hex = {"honest": "#4ade80", "pass": "#6b8eff", "miss": "#fb7185", "tie": "#888", "mixed": "#fbbf24"}[color]
+                bar_parts.append(
+                    f'<span style="background:{color_hex};color:#000;padding:0.05rem 0.45rem;border-radius:4px;font-size:0.7rem;margin-right:0.2rem" title="{label}: {v} ({pct:.0f}%)">{v}</span>'
+                )
+        cat_rows.append(f"""
+        <tr>
+          <td style="padding:0.45rem 0.7rem;color:#c8c8d0;font-size:0.85rem">{escape(cat_label)}</td>
+          <td style="padding:0.45rem 0.7rem;color:#888;font-size:0.85rem">{b["total"]}</td>
+          <td style="padding:0.45rem 0.7rem">{"".join(bar_parts)}</td>
+          <td style="padding:0.45rem 0.7rem;color:#888;font-family:ui-monospace,monospace;font-size:0.78rem">{sub_avg:.0f} ms</td>
+          <td style="padding:0.45rem 0.7rem;color:#888;font-family:ui-monospace,monospace;font-size:0.78rem">{bare_avg:.0f} ms</td>
+        </tr>""")
 
     return f"""<!doctype html>
 <html lang="en">
@@ -200,6 +237,29 @@ def _render() -> str:
         <span class="tie">both abstained</span>
         <span class="mixed">mixed outcome</span>
       </div>
+
+      <h3 style="font-size:0.9rem;margin:1rem 0 0.4rem;color:#a0a0b0;text-transform:uppercase;letter-spacing:0.05em">Per-category breakdown</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:0.85rem;background:#0e0e16;border:1px solid #232333;border-radius:6px;overflow:hidden">
+        <thead>
+          <tr style="background:#16161f;color:#a0a0b0;text-align:left;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em">
+            <th style="padding:0.5rem 0.7rem">Category</th>
+            <th style="padding:0.5rem 0.7rem">N</th>
+            <th style="padding:0.5rem 0.7rem">Outcome distribution</th>
+            <th style="padding:0.5rem 0.7rem">Sub avg lat</th>
+            <th style="padding:0.5rem 0.7rem">Bare avg lat</th>
+          </tr>
+        </thead>
+        <tbody>{"".join(cat_rows)}</tbody>
+      </table>
+    </div>
+
+    <div style="margin:0.5rem 0 1rem;font-size:0.85rem;color:#888">
+      <b style="color:#c8c8d0">Filter by outcome:</b>
+      <button class="fbtn" onclick="filt('all')" data-f="all" style="margin:0 0.2rem">all</button>
+      <button class="fbtn" onclick="filt('honest')" data-f="honest" style="margin:0 0.2rem">honest abstention</button>
+      <button class="fbtn" onclick="filt('pass')" data-f="pass" style="margin:0 0.2rem">both responded</button>
+      <button class="fbtn" onclick="filt('miss')" data-f="miss" style="margin:0 0.2rem">substrate missed</button>
+      <button class="fbtn" onclick="filt('tie')" data-f="tie" style="margin:0 0.2rem">both abstained</button>
     </div>
 
     {"".join(rows_html)}
@@ -208,6 +268,27 @@ def _render() -> str:
       Substrate v1 demo &middot; head-to-head benchmark (30 queries) &middot; KB: 169 hand-crafted seed facts (Wikipedia 100K ingest pending)
     </div>
   </div>
+
+  <style>
+    .fbtn {{
+      background: #1c1c28; color: #c8c8d0; border: 1px solid #2a2a36;
+      padding: 0.25rem 0.7rem; border-radius: 4px; cursor: pointer; font-size: 0.78rem;
+    }}
+    .fbtn:hover {{ background: #2a2a3a; }}
+    .fbtn.active {{ background: #2563eb; color: #fff; border-color: #2563eb; }}
+  </style>
+  <script>
+    function filt(which) {{
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.toggle('active', b.dataset.f === which));
+      document.querySelectorAll('details.row').forEach(row => {{
+        const classes = row.className.split(/\\s+/);
+        const c = classes.find(x => ['honest','pass','miss','tie','mixed'].includes(x));
+        row.style.display = (which === 'all' || c === which) ? '' : 'none';
+      }});
+    }}
+    // default active
+    document.querySelector('.fbtn[data-f="all"]').classList.add('active');
+  </script>
 </body>
 </html>"""
 
