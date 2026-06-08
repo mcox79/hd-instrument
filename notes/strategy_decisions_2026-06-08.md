@@ -142,3 +142,55 @@ R3 (CHEAP, CPU <30min): k=1..10 at f=0.35 to characterize k-benefit curve at the
 
 Cap_map: v505 -> v506 CYCLE 180 (16 HP: patternb_300k-recall1.0-V300k + sign_recall_20M-recall1.0-N20M + hopfield_n4096-modern1.0-classic0.0-all_P/N + precision_int4-int4=fp16=1.000-N5M + cleanup_confidence_roc-AUC1.000-abstention + hopfield_spurious-genuine0.950 + binding_associativity-assoc1.3e-07-commute6e-08-4deep1.000 + recency_forgetting-half-life15-monotone + subspace_capacity-ratio0.50-linear + topk_recall-k5=1.000-f0.35 + hierarchical_2level-member1.000 + set_membership_bundle-AUC1.000 + continuous_regression-R2=1.000 + ensemble_vote-gain0.255-2x + analogy_relation-K5=0.913 + multi_relation_kg-bidir0.967/0.983 + negation_query-contamination0.000; 3 MIDDLE_BAND: bundle_capacity_largeN-maxdev0.58-exceeds_theory + bundle_capacity_theory_cpu-maxdev0.43-exceeds_theory + markov_transition-recall0.800; 0 LVH; 12 NEW PP ROWS: PP-106 int4-quantization + PP-107 abstention-ROC + PP-108 FHRR-algebra + PP-109 subspace-capacity + PP-110 topk-noise-recall + PP-111 hierarchical-retrieval + PP-112 bundled-set-membership + PP-113 numeric-payload + PP-114 ensemble-redundancy + PP-115 relational-generalization + PP-116 Markov-transition + PP-117 compositional-negation; Portfolio 32+105 -> 32+117 +12; HONEST 1322->1342 +20; LVH 263 UNCHANGED; 413th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v506 -> v507 CYCLE 181 -- 17-VERDICT BATCH (2026-06-08)
+
+Verdicts processed (17 anchors): GPU capability (1) + CPU KG-QA architectural exploration (16)
+
+### Step 0 honest re-read
+
+All 17 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful). 0 LVH catches.
+
+**GPU (1):**
+- substrate_llm_triples_khop_gpu_v1: HONEST. answer-recall=0.183, extraction-coverage=0.700, R1 oracle=1.0. HARD_FAIL label CORRECT. Extraction bottleneck confirmed from both sides; substrate K-hop itself is validated by oracle=1.0. No LVH. +1 HONEST.
+
+**CPU (16):**
+- nesting_depth_cpu_v1: HONEST. recall=1.000 at all depths d2/d4/d8/d12/d16. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- iterative_regime_crossover_cpu_v1: HONEST. discrete(rho=0)=0.833>=0.80, fuzzy(rho=0.9)=0.433<=0.50. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- substrate_kg_triples_khop_cpu_v1: HONEST. 2hop_r1=0.805>=0.70, 3hop_r1=0.735>=0.70. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- oracle_structured_hotpot_discrete_cpu_v1: HONEST. discrete oracle recall@1=1.000 (n=150) vs fuzzy=0.35. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- substrate_legal_citation_snowball_cpu_v1: HONEST. 3-hop closure=1.000 (50 seeds)>=0.95. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- markov_transition_nscale_cpu_v1: HONEST. best=0.867 at N8192; band 0.75-0.90 contains 0.867. MIDDLE_BAND label CORRECT. No LVH. +1 HONEST.
+- binding_entropy_routing_cpu_v1: HONEST. AUC=0.9480>=0.85. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- rrf_fusion_cpu_v1: HONEST. RRF/best-single=1.53>=1.2x. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- ppr_spreading_activation_cpu_v1: HONEST. recall=0.229<0.55. HARD_FAIL label CORRECT. No LVH. +1 HONEST.
+- cascade_native_first_router_cpu_v1: HONEST. cascade-acc=0.853 EXCEEDS best-of-both=0.653 AND cascade-cost=2.59 vs 5.00. HARD_PASS label CORRECT. NOTE: cascade beats best-of-both on accuracy (stronger than expected); no over-claim. No LVH. +1 HONEST.
+- beam_retrieval_cpu_v1: HONEST. gain=0.070>=0.05. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- two_stage_disambig_khop_cpu_v1: HONEST. recall@2=0.820>=0.65. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- single_shot_attention_triples_cpu_v1: HONEST. recall@2=1.000>=0.50. HARD_PASS label CORRECT. NOTE: threshold was >=0.50 and actual=1.000; no over-claim. No LVH. +1 HONEST.
+- parallel_subq_fuzzy_cpu_v1: HONEST. recall@2=1.000>=0.55. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+- ppr_matrix_khop_cpu_v1: HONEST. recall=0.328<0.55. HARD_FAIL label CORRECT. No LVH. +1 HONEST.
+- discrete_vs_fuzzy_kgqa_cpu_v1: HONEST. discrete=0.800>=0.70, gap=0.790>=0.30. HARD_PASS label CORRECT. No LVH. +1 HONEST.
+
+HONEST: 1342 -> 1359 (+17). LVH: 263 UNCHANGED. 0 new LVH catches. All 17 labels HONEST.
+
+### Cap_map decisions (v506 -> v507)
+
+New rows: PP-118 (nesting depth), PP-119 (KG K-hop QA), PP-120 (legal citation snowball), PP-121 (binding entropy routing), PP-122 (RRF fusion), PP-123 (native-first cascade), PP-124 (beam retrieval), PP-125 (two-stage disambiguation), PP-126 (parallel sub-query fuzzy rescue).
+
+Annotations: REVIVE GPU (substrate_llm_triples_khop extraction-bottleneck + oracle=1.0), iterative-crossover CRITICAL (universal principle on substrate), oracle-hotpot (transfer proven, gap = extraction only), markov-nscale (N-scaling insufficient, sharpening rescues remain), PPR-closure x2 (spreading-activation HF + matrix HF = PPR family CLOSED), single-shot-attention-triples (PP-99 extension to triple substrate, recall=1.000), discrete-vs-fuzzy-kgqa (QA-level 80x gap confirmation).
+
+No closures. PPR family structurally closed (2 HF + structural limit reasoning; but no open row existed to formally close).
+
+### PROT compliance
+
+- PROT-004/006: No formal row closures. 9 NEW TOP-LEVEL ROWS (PP-118 through PP-126). 8 annotations. Rescue sketches cheapest-first for HF and MIDDLE_BAND.
+- PROT-007: v507 history row appended to substrate_capability_map_history.md.
+- PROT-008: 12 HP anchors + 1 MIDDLE_BAND + 4 HF. All HP thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 414th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. No new LVH catches.
+
+### Queue state
+
+overnight_queue: 0 pending/running. remote_cpu_queue: 0 pending/running. [queue: empty -- Exp-Dev session will refill on its cadence]
