@@ -194,3 +194,33 @@ No closures. PPR family structurally closed (2 HF + structural limit reasoning; 
 ### Queue state
 
 overnight_queue: 0 pending/running. remote_cpu_queue: 0 pending/running. [queue: empty -- Exp-Dev session will refill on its cadence]
+## v507 -> v508 CYCLE 182 (2026-06-08)
+
+### Step 0 honest re-read
+
+markov_binding_sharpening_cpu_v1: metrics source=remote. per_seed[0]: plain=0.817, sharpened=0.817, sharded=0.967, best=0.967. HARD_PASS label threshold >=0.90; best=0.967>=0.90 CONFIRMED. Label HONEST. NOTE: anchor named 'binding_sharpening' but sharpening had zero effect (sharpened==plain=0.817); the mechanism that crossed HP threshold is sharding. No over-claim on the threshold. No LVH.
+
+HONEST: 1359 -> 1360 (+1). LVH: 263 UNCHANGED.
+
+### Cap_map decisions (v507 -> v508)
+
+**(A) PP-116 Markov transition encoding: MIDDLE_BAND -> HP (sharded recall=0.967):**
+markov_binding_sharpening_cpu_v1 HP v508: sharded=0.967 (plain=0.817=sharpened; sharding is the lever, not binding sharpening). PP-116 row upgraded from MIDDLE_BAND (recall=0.800 cycle 180; recall=0.867 cycle 181 N-scale rescue) to HP (recall=0.967 cycle 182 sharding rescue). Crosstalk-bound mechanism confirmed: sharpening cannot improve recall when the failure mode is cross-transition contamination in shared memory; sharding eliminates crosstalk by architectural separation. Production architecture for Markov-sequence encoding is explicit memory sharding per transition. n=1 seed CPU. Implication: substrate can represent probabilistic sequence structure (state machines, navigation flows, usage patterns) at production-grade recall when sharded; this is a first-class product capability.
+
+### PROT compliance (v507 -> v508)
+
+- PROT-004/006: No closures. 0 new rows. 1 annotation. No rescue sketches needed (HP achieved).
+- PROT-007: v508 history row appended to substrate_capability_map_history.md.
+- PROT-008: 1 HP anchor. HP threshold verified Step 0 (sharded=0.967>=0.90). PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 415th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. No new LVH catches.
+- PROT-021: source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed; sharded=0.967 large margin over threshold 0.90. No HP-fragility concern.
+
+### Queue state
+
+overnight_queue: bridge returned stale completed entries (no fresh pending). remote_cpu_queue: same. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+Cap_map: v507 -> v508 CYCLE 182 (1 HP [CPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW ROWS; 1 annotation [PP-116-MIDDLE_BAND->HP-via-sharding]; HONEST 1359->1360 +1; LVH 263 UNCHANGED; Portfolio 32+126 UNCHANGED; 415th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

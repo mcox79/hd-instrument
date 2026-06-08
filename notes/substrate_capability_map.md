@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v506
+# hd-instrument substrate -- capability map v508
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12715,9 +12715,9 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 | **PP-115 Few-shot relational generalization** -- K5 cosine=0.913 (threshold >=0.90) | Validated, want stronger | analogy_relation_transfer_cpu_v1 HP (K5=0.913, K10=0.953, monotone K-curve; n=1 seed CPU) | Relation vector from 5 examples generalizes to novel inputs; one-shot and few-shot inference without retraining; K1=0.706->K5=0.913->K10=0.953 monotone; 0.65-0.80 EXPLORATORY |
 
-### PP-116: Markov transition encoding (next-item recall=0.800; MIDDLE_BAND)
+### PP-116: Markov transition encoding (sharded recall=0.967; HP via memory sharding)
 
-| **PP-116 Markov transition sequence encoding** -- next-item recall=0.800 (MIDDLE_BAND 0.75-0.90) | Inconclusive | markov_transition_cpu_v1 MIDDLE_BAND (recall=0.800; n=1 seed CPU) | Substrate represents probabilistic sequence structure; 80% next-item recall; below HP (>=0.90); rescue: N-scaling + binding sharpening; 0.50-0.65 MIDDLE_BAND |
+| **PP-116 Markov transition sequence encoding** -- sharded recall=0.967 (HP >=0.90); plain=0.817, sharpening=no-effect, sharding=rescue | Validated, want stronger | markov_binding_sharpening_cpu_v1 HP (sharded=0.967>=0.90; plain=0.817=sharpened=0.817; sharding confirmed; n=1 seed CPU cycle 182) | Substrate encodes and retrieves Markov transitions at 96.7% recall when each transition has a dedicated memory shard; recall is crosstalk-bound (sharpening has zero effect); sharding is the production architecture; sequence-structure queries viable at production recall; 0.65-0.80 EXPLORATORY |
 
 ### PP-117: Compositional negation query (A but not B; B-contamination=0.000)
 
@@ -12838,4 +12838,13 @@ R2 (CHEAP, CPU <30min): Temperature/sharpening parameter sweep.
 R3 (CHEAP, CPU <30min): Explicit role-vector encoding for (state, next_state) pairs.
 
 Cap_map: v506 -> v507 CYCLE 181 (12 HP [CPU:12] + 1 MIDDLE_BAND + 4 HF [GPU:1 CPU:3]; 0 LVH; 9 NEW PP ROWS PP-118..PP-126; 8 annotations [REVIVE-GPU + iterative-crossover + oracle-hotpot + markov-nscale + PPR-closure-x2 + single-shot-triples + discrete-vs-fuzzy]; HONEST 1342->1359 +17; LVH 263 UNCHANGED; Portfolio 32+117 -> 32+126 +9; 414th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 182 (v507 -> v508) (2026-06-08)
+
+### markov_binding_sharpening_cpu_v1 HARD_PASS -- PP-116 upgrades from MIDDLE_BAND to HP
+
+Cap_map update (PP-116 Markov transition row): markov_binding_sharpening_cpu_v1 HP v508: sharded=0.967 (plain=0.817, sharpened=0.817). PP-116 UPGRADES from MIDDLE_BAND (recall=0.867 best at cycle 181 N-scaling) to HP (recall=0.967). The rescue mechanism is SHARDING (dedicated transition memory per (state, action) pair), NOT binding sharpening: sharpened==plain confirms recall was entirely crosstalk-bound. Sharding eliminates crosstalk by construction. Production architecture for Markov-transition encoding is sharded memory, not bundled encoding. n=1 seed CPU. Cycle 182.
+
+Cap_map: v507 -> v508 CYCLE 182 (1 HP [CPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW ROWS; 1 annotation [PP-116-MIDDLE_BAND->HP-via-sharding]; HONEST 1359->1360 +1; LVH 263 UNCHANGED; Portfolio 32+126 UNCHANGED; 415th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
