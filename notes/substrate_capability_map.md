@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v495
+# hd-instrument substrate -- capability map v496
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -12526,3 +12526,48 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 | **PP-91 Immune trust scoring** -- prefer_hi=1.000, flagged=1.000 at 987 real conflicts | 🟢 Validated, want stronger |  (HP both=1.000, n=1 seed, conflicts=987 high-N) | Automatic source trust ranking with conflict surfacing; provenance trust via biological immune analog; 0.65-0.80 EXPLORATORY |
 
 Cap_map: v494 -> v495 CYCLE 175 (+6 PP rows: PP-86 to PP-91; Portfolio 32+85 -> 32+91; 408th PROT-009 paired commit) (2026-06-07)
+
+
+## CYCLE 176 NEW PP ROWS + ANNOTATIONS (v495 -> v496) (2026-06-07)
+
+### Modern Hopfield annotations (phase map + beta sweep + sparse attention)
+
+Cap_map annotation (Modern Hopfield row): phase_map HP v496: modern=1.0 vs classic=0.0 at P/N=1.0 (N=256, n=1 seed); 7x past classic cliff (0.14); exponential-capacity advantage phase-mapped empirically; caveat: N=256 -- production-N phase map needed for band-LIFT. beta_sweep HP v496: min_beta=0.5 at P/N=1.0; all b0.5-b64=1.0; no hyperparameter sensitivity across 3 orders of magnitude; broad beta tolerance at production load; caveat: n=1 seed ceiling P/N=1.0 only. sparse_hopfield HP v496: delta=0.000 at top-5 (dense=sparse=1.000); exact-zero-outside-top-k interpretable attention with no recall loss; enables auditable attention sparsification; caveat: n=1 seed N=256. Consistent with cycles 155/155 GPU scale HP (N=8192-16384 recall=1.0). Cycle 176.
+
+### Multi-hop iterative REVIVE annotation
+
+Cap_map annotation (multi-hop row): iterative_multihop_bgelarge HF v496: it_r2=0.173 vs ss_r2=0.340 (delta=-0.167); bge-large encoder makes iterative WORSE than single-shot (opposite of cycle-175 bge-small +0.040). iterative_multihop_k3 HF v496: K=3 it_r2=0.193 vs ss=0.340; more hops degrade. Bottleneck = bridge-entity EXTRACTION quality not retrieval fidelity. Substrate K-hop (PP-11 K=12 recovery=0.987) proven once bridge correctly identified. REVIVE priority UNCHANGED; do NOT close. Remaining untested paths: e5-large+iterative (R2) + spaCy NER+bge-large (R3) + 7B LLM decompose+substrate K-hop (R4/R5). Cycle 176.
+
+### PP-92: Count-Min Sketch frequency estimation (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-92 Count-Min Sketch streaming frequency** -- max_err=7 items at N=100K (rel=7e-05) | 🟢 Validated, want stronger | streaming_count_min_sketch_v1 HP (max_err=7 rel=7e-05 < 0.001, n=1 seed) | Sublinear-memory per-key query frequency tracking; enables self-improving routing (cycles 168/170) with O(w*d) sketch memory; complements PP-4b Misra-Gries (drift detection); 0.65-0.80 EXPLORATORY |
+
+### PP-93: HyperLogLog cardinality estimation (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-93 HyperLogLog cardinality** -- rel_err=0.0051 at N=200K (m=16384 registers) | 🟢 Validated, want stronger | streaming_hyperloglog_v1 HP (rel_err=0.0051 < 0.02, n=1 seed) | O(log log N) memory KB cardinality monitoring without scanning all stored facts; enables KB health monitoring at O(m) memory; 0.65-0.80 EXPLORATORY |
+
+### PP-94: Reservoir sampling uniform stream curation (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-94 Reservoir sampling curation** -- max_dev=2.5% (K=100, N=100K; 6x margin) | 🟢 Validated, want stronger | streaming_reservoir_sampling_v1 HP (max_dev=0.025 < 0.15, n=1 seed) | One-pass O(k) memory diversity-preserving curation; memory compression with statistical uniform coverage guarantees; 0.65-0.80 EXPLORATORY |
+
+### PP-95: Bloom filter deduplication (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-95 Bloom filter deduplication** -- FPR=0.087%, FN=0 (M=200K) | 🟢 Validated, want stronger | streaming_bloom_dedup_v1 HP (FPR=0.000865 < 0.01, FN=0, n=1 seed) | O(1) memory/time duplicate prevention for ingest pipeline; prevents W corruption from redundant fact ingestion without full index scan; 0.65-0.80 EXPLORATORY |
+
+**Streaming cluster note (PP-92 thru PP-95):** Together with PP-4b Misra-Gries (cycle-170), these 5 rows form the streaming-algorithm toolkit for substrate production ingestion: Count-Min Sketch (frequency) + HyperLogLog (cardinality) + Reservoir Sampling (curation) + Bloom Filter (dedup) + Misra-Gries (drift detection). All n=1 seed; 3-seed recommended for band-LIFT.
+
+### PP-96: VSA permutation-power ordered-sequence encoding (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-96 VSA permute ordered-sequence encoding** -- K=3/5/7 all=1.0 at V=100 | 🟢 Validated, want stronger | vsa_map_permute_sequences_v1 HP (K5=1.0 >> 0.95 threshold, V=100, n=1 seed) | Algebraic ordered-sequence representation for audit logs, reasoning steps, ranked facts; no positional encoding infrastructure; order is algebraic; 0.60-0.75 EXPLORATORY |
+
+### PP-97: RDP accountant for federated DP rounds (HP)
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-97 RDP (Renyi DP) accountant** -- T=100 RDP=111.51 vs naive=530.26 (4.75x tighter; ratio=0.210) | ✅ Validated | dp_rdp_accountant_v1 HP (ratio=0.210 < 0.5; 4.75x >> 2x claimed; algebraic deterministic, n=1) | Federated substrate (PP-24 + PP-87) uses RDP in place of naive composition for 4.75x better privacy-utility tradeoff at T=100 rounds; enables consortium to run ~4.75x more aggregation rounds at same epsilon; sigma=1.0 calibration validated; 0.70-0.85 EXPLORATORY |
+
+Cap_map: v495 -> v496 CYCLE 176 (+6 PP rows: PP-92 to PP-97; 3 Hopfield annotations + 1 multi-hop REVIVE annotation; Portfolio 32+91 -> 32+97 (+6); HONEST 1286->1297 +11; LVH 262 UNCHANGED; 409th PROT-009 paired commit) (2026-06-07)
