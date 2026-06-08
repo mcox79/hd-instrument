@@ -30,6 +30,10 @@ router = APIRouter(prefix="/query", tags=["query"])
 _kv: Optional[SubstrateKV] = None
 _kv_init_error: Optional[str] = None
 
+# Audit chain store: query_id -> chain dict (in-memory; persists for backend session)
+_audit_chain_store: dict = {}
+_MAX_STORED_CHAINS = 1000
+
 
 class Tier5aRequest(BaseModel):
     question: str = Field(..., min_length=1, max_length=1000)
@@ -140,6 +144,13 @@ async def query_tier5a(req: Tier5aRequest):
     })
     chain.append("answer", {"text": gen.text[:200]})
 
+    # Store audit chain so /query/tier5a/audit_chain/{query_id} can retrieve it
+    _audit_chain_store[query_id] = chain.to_dict()
+    if len(_audit_chain_store) > _MAX_STORED_CHAINS:
+        # Drop the oldest by lexicographic query_id (timestamp-prefixed, so chronological)
+        oldest = min(_audit_chain_store.keys())
+        _audit_chain_store.pop(oldest, None)
+
     return Tier5aResponse(
         query_id=query_id,
         question=req.question,
@@ -155,6 +166,134 @@ async def query_tier5a(req: Tier5aRequest):
         llm_output_tokens=gen.output_tokens,
         cost_usd=0.0,  # local inference
     )
+
+
+# ============================================================
+# Audit chain retrieval (Day 1-2 hardening per Research VERIFY)
+# ============================================================
+
+@router.get("/tier5a/audit_chain/{query_id}")
+async def get_audit_chain(query_id: str):
+    """Return the full Merkle-committed audit chain for a previous query.
+
+    Audit chains are stored in-memory for the backend session (FIFO to MAX_STORED).
+    Persistent audit storage is a v1.1 upgrade (write to disk per query_id).
+    """
+    if query_id not in _audit_chain_store:
+        raise HTTPException(status_code=404, detail=f"audit chain for {query_id} not found")
+    return _audit_chain_store[query_id]
+
+
+@router.get("/tier5a/audit_chain")
+async def list_audit_chains():
+    """List recent query_ids whose audit chains are still in memory."""
+    return {
+        "stored_count": len(_audit_chain_store),
+        "max_stored": _MAX_STORED_CHAINS,
+        "recent_query_ids": sorted(_audit_chain_store.keys())[-20:],
+    }
+
+
+# ============================================================
+# Baseline endpoint: same question, bare gpt-4o-mini (head-to-head comparison)
+# ============================================================
+
+class BaselineResponse(BaseModel):
+    query_id: str
+    question: str
+    substrate: Tier5aResponse
+    bare_llm: dict
+
+
+@router.post("/tier5a/baseline", response_model=BaselineResponse)
+async def query_tier5a_baseline(req: Tier5aRequest):
+    """Side-by-side: substrate-augmented Qwen vs bare gpt-4o-mini answer for the SAME question.
+
+    Returns BOTH responses + relative cost / latency / provenance for the demo head-to-head panel.
+    Uses gpt-4o-mini API (costs ~$0.0001-0.001 per call; OPENAI_API_KEY required).
+    """
+    # 1. Substrate-augmented response
+    substrate_resp = await query_tier5a(req)
+
+    # 2. Bare gpt-4o-mini baseline (SAME question; no substrate context; same instruction profile)
+    from backend.llm.openai_client import ask_bare
+    bare_system = (
+        "You are a helpful assistant. Answer the user's question directly and concisely. "
+        "If you do not know, say 'I don't know' rather than guessing."
+    )
+    try:
+        bare = ask_bare(req.question, system=bare_system, max_tokens=req.max_new_tokens, temperature=req.temperature)
+        bare_resp = {
+            "answer": bare.text,
+            "model": bare.model,
+            "input_tokens": bare.input_tokens,
+            "output_tokens": bare.output_tokens,
+            "cost_usd": bare.cost_usd,
+            "latency_ms": bare.latency_ms,
+            "finish_reason": bare.finish_reason,
+            "provenance": "training data (unverifiable)",
+        }
+    except Exception as e:
+        bare_resp = {"error": f"{type(e).__name__}: {e}", "model": "gpt-4o-mini (unavailable)"}
+
+    return BaselineResponse(
+        query_id=substrate_resp.query_id,
+        question=req.question,
+        substrate=substrate_resp,
+        bare_llm=bare_resp,
+    )
+
+
+# ============================================================
+# Counterfactual algebraic op (per SPEC v5: "categorical operations no vector DB has")
+# ============================================================
+
+class CounterfactualRequest(BaseModel):
+    base_facts: dict = Field(..., description="{name: value} for base facts")
+    derived: list = Field(..., description="list of {name, formula, parents}; formula is a Python lambda string")
+    intervention: dict = Field(..., description="{name: new_value} for do() override")
+
+
+@router.post("/tier5a/counterfactual")
+async def query_tier5a_counterfactual(req: CounterfactualRequest):
+    """Pearl-style do() operator on a small DAG. Returns factual + counterfactual + audit chain.
+
+    This is a *visible* example of substrate's algebraic capabilities: a real counterfactual
+    operation that bare LLMs and vector DBs cannot offer. The audit chain Merkle-commits
+    to the intervention + every recomputed value (tamper-evident).
+    """
+    from substrate.counterfactual import CausalDAG, do
+
+    dag = CausalDAG()
+    for name, value in req.base_facts.items():
+        dag.add_base(name, value)
+
+    # Parse "formula" strings as Python expressions over `parents` dict values
+    for d in req.derived:
+        name = d["name"]
+        parents = d["parents"]
+        formula = d["formula"]  # e.g. "p['x'] + p['y']" with p being parents dict
+        # Build a closure that evaluates the formula with parents dict
+        def make_fn(form: str):
+            def _fn(p):
+                return eval(form, {"__builtins__": {}}, {"p": p})
+            return _fn
+        dag.add_derived(name, make_fn(formula), parents=parents)
+
+    import time
+    qid = f"t5a_cf_{int(time.time() * 1e6)}"
+    result = do(dag, intervention=req.intervention, query_id=qid)
+    _audit_chain_store[qid] = result.audit_chain.to_dict()
+
+    return {
+        "query_id": qid,
+        "intervention": result.intervention,
+        "factual": result.factual_values,
+        "counterfactual": result.counterfactual_values,
+        "differences": result.differences,
+        "audit_chain_root": result.chain_root,
+        "audit_chain": result.audit_chain.to_dict(),
+    }
 
 
 @router.get("/tier5a/status")

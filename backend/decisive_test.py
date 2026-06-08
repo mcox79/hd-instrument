@@ -182,9 +182,9 @@ PAGE_HTML = """<!doctype html>
 </head>
 <body>
   <div class="wrap">
-    <h1>Same model. Different substrate.</h1>
-    <p class="tagline">Two architectures. Three questions. Cite vs guess.</p>
-    <p class="sub">A 1.5B-parameter local LLM (Qwen-2.5-1.5B-Instruct) cites substrate-loaded facts verbatim. The same question to bare gpt-4o-mini: an answer with no provenance, sometimes wrong, sometimes generic, sometimes hallucinated.</p>
+    <h1>Algebraic memory architecture for LLMs.</h1>
+    <p class="tagline">Same model. Different substrate. Cite vs guess.</p>
+    <p class="sub">Substrate is the LLM's persistent, algebraic memory layer - with categorical operations no vector DB has (AND / NOT / COUNT / counterfactual over structured bindings), Merkle-audited provenance per fact, sub-millisecond retrieval, and cross-session persistence. Below: a 1.5B-parameter local LLM (Qwen-2.5-1.5B-Instruct) cites substrate-loaded facts verbatim. The same question to bare gpt-4o-mini: an answer with no provenance, sometimes wrong, sometimes generic, sometimes hallucinated.</p>
 
     <!-- Q1 -->
     <div class="row">
@@ -286,14 +286,17 @@ PAGE_HTML = """<!doctype html>
 
     <div class="verdict">
       <h2>What this demonstrates</h2>
-      <p>The substrate is the same LLM with a different memory architecture. The LLM doesn't change. The reliability does.</p>
+      <p>The substrate is the same LLM with a different memory architecture. The LLM doesn't change. The reliability does. And there's a categorical advantage no vector DB matches:</p>
       <ul>
-        <li><b>Provenance.</b> Every substrate answer carries the source facts and a Merkle-committed audit chain. Bare LLM answers can't be audited.</li>
+        <li><b>Algebraic operations.</b> AND / NOT / COUNT / counterfactual <code>do()</code> compose over structured bindings - operations no vector DB or LLM context window can offer. <em>Algebraic playground coming next.</em></li>
+        <li><b>Provenance.</b> Every substrate answer carries source facts and a Merkle-committed audit chain. Bare LLM answers can't be audited.</li>
         <li><b>Abstention.</b> Substrate says "I do not know" when its facts don't cover the question. Bare LLM has no built-in scope.</li>
         <li><b>Recency.</b> Add a fact to the substrate at 9am; the LLM uses it at 9:01am. Training cutoffs don't apply.</li>
         <li><b>Cost.</b> $0 per query (local inference). Bare LLM is API-priced per token.</li>
-        <li><b>Scale.</b> Substrate at 156x context expansion empirically validated (PP-135 cycle 191). LLM context windows are a hard ceiling.</li>
+        <li><b>Scale.</b> 156x context expansion empirically validated (PP-135 cycle 191). O(1) latency in corpus size (PP-166 cycle 192). 100M+ facts at sub-ms retrieval (PP-150 cycle 188).</li>
+        <li><b>Persistence.</b> Substrate survives the LLM. Cross-session memory. Add facts; delete facts (GDPR-exact); query historical state (as-of <code>t</code>). LLMs forget at the end of every chat.</li>
       </ul>
+      <p style="color:#6b8eff;font-size:0.85rem;margin-top:0.75rem;padding-top:0.5rem;border-top:1px solid #2a3a2a"><b>Roadmap (Tier 5c, active R&D):</b> substrate-intrinsic LLM trained from scratch - every attention layer routes through substrate. Categorical reframing of how LLMs use external knowledge.</p>
     </div>
 
     <div class="footer">
