@@ -25,8 +25,19 @@ try:
 except ImportError:
     raise SystemExit("FastAPI not installed; pip install fastapi 'uvicorn[standard]' pydantic")
 
+# Load .env.local before anything else so config.py sees the values
+try:
+    from dotenv import load_dotenv
+    from pathlib import Path
+    env_path = Path(__file__).resolve().parents[1] / ".env.local"
+    if env_path.exists():
+        load_dotenv(env_path)
+except ImportError:
+    pass
+
 from backend import config
 from backend.admin import demo_mode
+from backend.landing import landing_response
 
 
 # ============================================================
@@ -39,9 +50,12 @@ async def lifespan(app: FastAPI):
     logger.info("v1 demo backend starting; reconciling demo-mode state...")
     boot = demo_mode.reconcile_on_boot()
     logger.info("demo-mode boot: %s", boot)
+    # Log API key presence (not the values)
+    logger.info("openai key: %s | anthropic key: %s",
+                "present" if config.OPENAI_API_KEY else "MISSING",
+                "present" if config.ANTHROPIC_API_KEY else "MISSING")
     yield
     logger.info("v1 demo backend shutting down; resuming any suspended procs as a courtesy")
-    # On clean shutdown, resume any suspended procs to leave the system in a sane state
     if demo_mode.get_status().get("active"):
         demo_mode.deactivate(reason="auto:backend-shutdown")
 
@@ -115,7 +129,13 @@ class DeleteFactsRequest(BaseModel):
 
 @app.get("/")
 async def root():
-    """Health probe + status cards."""
+    """Browser-friendly landing page."""
+    return landing_response()
+
+
+@app.get("/api")
+async def api_root():
+    """JSON service description (programmatic use)."""
     return {
         "service": "substrate v1 demo",
         "version": app.version,
@@ -130,6 +150,12 @@ async def root():
             "GET /admin/demo-mode-status",
         ],
         "demo_mode": demo_mode.get_status(),
+        "llm": {
+            "openai_configured": bool(config.OPENAI_API_KEY),
+            "anthropic_configured": bool(config.ANTHROPIC_API_KEY),
+            "openai_model": config.OPENAI_MODEL,
+            "anthropic_model": config.ANTHROPIC_MODEL,
+        },
     }
 
 

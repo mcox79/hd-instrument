@@ -87,3 +87,6 @@ data/lambda_canary_report.json
 data/session_heartbeat_*.json
 
 .together_token
+
+# v1 demo backend local env (api keys; NEVER commit)
+.env.local
