@@ -44,7 +44,7 @@ def snow(seed, hops=3):
     return reached
 
 
-NS = 6
+NS = 3
 seeds = g.choice(VC, NS, replace=False)
 t0 = time.perf_counter()
 for seed in seeds:
