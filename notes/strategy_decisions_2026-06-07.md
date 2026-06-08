@@ -1913,3 +1913,52 @@ R3 (CHEAP, CPU <30min): Sigma optimization at varying T and target eps for feder
 
 Cap_map: v495 -> v496 CYCLE 176 (7 HP: hopfield_phase_map-MODERN1.0-CLASSIC0.0-P/N1.0-N256 + hopfield_beta_sweep-MIN_BETA=0.5-ALL_BETAS_1.0-P/N1.0 + sparse_hopfield-DELTA0.000-TOP5 + streaming_count_min_sketch-MAX_ERR7-REL7e-05-N100K + streaming_hyperloglog-REL_ERR=0.0051-200K + streaming_reservoir-MAX_DEV=0.025-6X_MARGIN + streaming_bloom-FPR=0.000865-FN=0-M200K; 1 HP: vsa_map_permute_sequences-K3/5/7_ALL_1.0-V100 + dp_rdp_accountant-T100_RDP=111.51-NAIVE=530.26-RATIO=0.210-4.75x_TIGHTER; 2 HF: iterative_multihop_bgelarge-it_r2=0.173-ss=0.340-WORSE_THAN_SINGLESHOT + iterative_multihop_k3-it_r2=0.193-ss=0.340-MORE_HOPS_DEGRADE; 6 NEW PP ROWS: PP-92 CMS-frequency + PP-93 HLL-cardinality + PP-94 Reservoir-curation + PP-95 Bloom-dedup + PP-96 VSA-permute-sequences + PP-97 RDP-DP-accountant; STREAMING_CLUSTER PP-92-95 complete; MULTI-HOP REVIVE: bge-large fails iterative, bottleneck=bridge-entity-extraction, e5-large+LLM-decomp untested; Portfolio 32+91 -> 32+97 (+6); HONEST 1286->1297 +11; LVH 262 UNCHANGED; 409th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v496 -> v497 CYCLE 177 (2 HARD_FAIL: resonator_factorization_v1 + iterative_multihop_gliner_v1) (2026-06-07)
+
+Verdicts processed: resonator_factorization_v1 (HARD_FAIL) + iterative_multihop_gliner_v1 (HARD_FAIL; multi-hop REVIVE orphan)
+
+### Step 0 honest re-read
+
+- resonator_factorization_v1: HONEST. Remote source. Per-cell: K2=1.000, K3=0.667, K4=0.007 (N=2048, M=30, n=1 seed). Label threshold 'below 0.70 at K=3': K3=0.667 < 0.70 CONFIRMED. K4 collapses to 0.007 (capacity cliff). HARD_FAIL label CORRECT. No LVH.
+- iterative_multihop_gliner_v1: HONEST. Remote source. Per-cell: it_r2=0.193 vs ss_r2=0.307 (n=150). Label threshold '<0.45': iterative r@2=0.193 < 0.45 CONFIRMED. Iterative is WORSE than single-shot (delta=-0.114). HARD_FAIL label CORRECT. No LVH.
+
+HONEST: 1297 -> 1299 (+2). LVH: 262 UNCHANGED.
+
+### Cap_map decisions
+
+**(A) resonator_factorization_v1: HARD_FAIL sub-property annotation on existing resonator row.**
+Resonator factorization at N=2048 M=30: K2=1.000 (works), K3=0.667 (below 0.70 threshold), K4=0.007 (cliff). This tests a distinct use case from ACF decomposition: resonator networks as factorization engines for bundled VSA structures. At current operating point (N=2048 M=30), capacity is insufficient for K>=3 factorization. Consistent with resonator capacity physics: N >> K*M required for reliable factorization. Sub-property annotation on resonator row: 'resonator_factorization_v1 HF v497: K2=1.000 K3=0.667 K4=0.007 (N=2048 M=30); factorization fails K>=3 at this N/M; raise N or lower M; K2=1.0 establishes proof-of-concept.'
+No new row filed (single-seed, capacity-regime failure, not a mechanism closure).
+
+Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]]):
+R1 (0-compute, ANNOTATION): K2=1.000 proof-of-concept logged. Mechanism survives at low K.
+R2 (CHEAP, CPU <30min): N=8192 M=30 sweep to confirm K3+ recovers at 4x N.
+R3 (CHEAP, CPU <30min): M-sweep at N=2048 (M=5,10,15,20) to find viable M for K3 factorization at current N.
+R4 (MEDIUM, CPU <1h): K-sweep at N=8192 M=30 to characterize factorization capacity envelope K2..K8.
+
+**(B) iterative_multihop_gliner_v1: HARD_FAIL sub-property annotation on multi-hop REVIVE row.**
+GLiNER iterative r@2=0.193 vs single-shot=0.307. GLiNER is a dedicated NER model -- the hypothesis was that better bridge-entity extraction would improve iterative performance. Result: iterative is WORSE than single-shot even with dedicated NER extraction. This is the 3rd sequential failure of iterative multi-hop framing (bge-large v496: delta=-0.167; K=3 hops v496: it=0.193 vs ss=0.340; GLiNER NER v497: it=0.193 vs ss=0.307). All three confirm: bottleneck is NOT retrieval fidelity; query reformulation degrades rather than improves the retrieval signal. Sub-property annotation: 'iterative_multihop_gliner_v1 HF v497: GLiNER-it r@2=0.193 vs ss=0.307 (n=150); dedicated NER model does not rescue iterative; 3rd iterative-framing failure; extraction-not-bottleneck confirmed.'
+REVIVE status UNCHANGED (user: 'extremely important' 2026-06-07). Paths tested: 3/5 (bge-large, K=3-hops, GLiNER). Remaining: R2 (e5-large+iterative) + R4/R5 (7B LLM decompose+substrate K-hop). 3 consecutive iterative-framing failures now strongly favor R4/R5 (LLM-based decomposition) as highest-priority remaining path -- bypasses extraction bottleneck entirely.
+
+Rescue sketches (PROT-004/006; cheapest-first):
+R1 (0-compute, ANNOTATION): 3 iterative-framing failures logged. Bottleneck confirmed = query reformulation not retrieval fidelity.
+R2 (CHEAP, CPU <30min): M-reduced single-hop (reduce M from 150 to 30) to probe whether extraction accuracy increases with smaller KB.
+R3 (MEDIUM, CPU <2h): e5-large encoder + iterative (last untested encoder path; closes encoder family).
+R4 (MEDIUM, GPU ~1h): 7B LLM decompose -> extract bridge entities via generation -> substrate K-hop (bypasses extraction bottleneck; highest remaining P path per 3x iterative evidence).
+
+### Portfolio: 32+97 UNCHANGED. 0 new rows. 2 sub-property annotations.
+
+### PROT compliance (v496 -> v497)
+
+- PROT-004/006: No closures (REVIVE active; resonator mechanism survives K2). 4 rescue sketches per anchor, cheapest-first. COMPLIANT.
+- PROT-007: v497 history row appended to substrate_capability_map_history.md.
+- PROT-008: 2 sub-property HF annotations. No new top-level rows. State-transition validator: HF sub-properties on existing rows; no band changes required. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 410th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on either anchor. CLEAN.
+- PROT-019: LVH 262 UNCHANGED. No new LVH catches.
+- PROT-021: Both source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: Both HARD_FAIL -- HP-fragility concern not triggered for FAIL verdicts.
+
+Cap_map: v496 -> v497 CYCLE 177 (0 HP; 2 HF: resonator_factorization-K2=1.0-K3=0.667-K4=0.007-N2048-M30-CAPACITY_CLIFF + iterative_multihop_gliner-it_r2=0.193-ss=0.307-DEDICATED_NER_FAILS-3RD_ITERATIVE_HF; 0 LVH; 0 new rows; 2 sub-property annotations; REVIVE UNCHANGED; HONEST 1297->1299 +2; LVH 262 UNCHANGED; Portfolio 32+97; 410th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

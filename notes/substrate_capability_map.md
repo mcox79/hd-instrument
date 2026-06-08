@@ -12571,3 +12571,16 @@ Cap_map annotation (multi-hop row): iterative_multihop_bgelarge HF v496: it_r2=0
 | **PP-97 RDP (Renyi DP) accountant** -- T=100 RDP=111.51 vs naive=530.26 (4.75x tighter; ratio=0.210) | ✅ Validated | dp_rdp_accountant_v1 HP (ratio=0.210 < 0.5; 4.75x >> 2x claimed; algebraic deterministic, n=1) | Federated substrate (PP-24 + PP-87) uses RDP in place of naive composition for 4.75x better privacy-utility tradeoff at T=100 rounds; enables consortium to run ~4.75x more aggregation rounds at same epsilon; sigma=1.0 calibration validated; 0.70-0.85 EXPLORATORY |
 
 Cap_map: v495 -> v496 CYCLE 176 (+6 PP rows: PP-92 to PP-97; 3 Hopfield annotations + 1 multi-hop REVIVE annotation; Portfolio 32+91 -> 32+97 (+6); HONEST 1286->1297 +11; LVH 262 UNCHANGED; 409th PROT-009 paired commit) (2026-06-07)
+
+
+## CYCLE 177 SUB-PROPERTY ANNOTATIONS (v496 -> v497) (2026-06-07)
+
+### Resonator factorization sub-property annotation (resonator row)
+
+Cap_map annotation (resonator row): resonator_factorization_v1 HF v497: K2=1.000 K3=0.667 K4=0.007 (N=2048 M=30 n=1 seed); factorization fails K>=3 at this N/M operating point; K4 collapses to near-zero (capacity cliff); K2=1.0 establishes proof-of-concept (mechanism survives at low K); raise N or lower M to recover K3+ performance; consistent with resonator capacity physics (N >> K*M required). Rescue: R1 annotation; R2 N=8192 M=30; R3 M-sweep at N=2048; R4 K-sweep at N=8192.
+
+### Multi-hop iterative REVIVE sub-property annotation (multi-hop row)
+
+Cap_map annotation (multi-hop row): iterative_multihop_gliner_v1 HF v497: GLiNER-it r@2=0.193 vs ss=0.307 (n=150); dedicated NER model does NOT rescue iterative multi-hop (it WORSE than single-shot by 0.114); 3rd sequential iterative-framing failure (bge-large v496: delta=-0.167; K=3-hops v496: it=0.193; GLiNER-NER v497: it=0.193). Bottleneck = query reformulation not extraction quality; extraction-not-bottleneck confirmed. REVIVE UNCHANGED (user: extremely important 2026-06-07). Paths 3/5 exhausted. Remaining: e5-large+iterative (R3) + 7B LLM decompose+substrate K-hop (R4/R5; now highest-priority path; bypasses extraction bottleneck). Rescue: R1 annotation; R2 M-reduced single-hop; R3 e5-large+iterative; R4 7B LLM decompose->substrate K-hop.
+
+Cap_map: v496 -> v497 CYCLE 177 (0 HP; 2 HF: resonator_factorization-K2=1.0-K3=0.667-K4=0.007-N2048-M30-CAPACITY_CLIFF + iterative_multihop_gliner-it_r2=0.193-ss=0.307-DEDICATED_NER_FAILS-3RD_ITERATIVE_HF; 0 LVH; 0 new rows; 2 sub-property annotations; REVIVE UNCHANGED; HONEST 1297->1299 +2; LVH 262 UNCHANGED; Portfolio 32+97; 410th PROT-009 paired commit) (2026-06-07)
