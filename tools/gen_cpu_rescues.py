@@ -34,7 +34,7 @@ if _ARGS.self_test:
     sys.exit(0)
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
-v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
+v, vmsg = verdict(r); print("\\n[VERDICT] " + vmsg, flush=True)
 metrics = {{"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}}
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
 '''
@@ -42,10 +42,10 @@ C = []
 C.append(dict(anchor="skewed_shard_online_split_cpu_v1", tag="PP-131 skewed-shard online split",
   title="online-splitting hot shards under Zipf skew restores recall",
   desc="skewed_shard_capacity MID: the largest Zipf shard (370 facts) dropped to 0.873. Rescue: an online split policy that, when a shard exceeds the capacity FLOOR, splits it into sub-shards of <=FLOOR. Measures recall on the hot shard after splitting vs before.",
-  prereg="HARD-PASS hot-shard recall after online-split >= 0.95 AND before-split < 0.90 (split warranted). MIDDLE >= 0.85. HARD-FAIL < 0.85.",
+  prereg="HARD-PASS hot-shard recall after online-split >= 0.95 AND before-split < 0.90. MIDDLE >= 0.85. HARD-FAIL < 0.85.",
   body='''
 def _selftest():
-    import numpy as _n; assert int(_n.ceil(370 / 150)) == 3, "split count"; print("[selftest] PASS: skewed-shard-online-split", flush=True)
+    assert int(np.ceil(370 / 150)) == 3, "split count"; print("[selftest] PASS: skewed-shard-online-split", flush=True)
 def run() -> Dict:
     g = np.random.default_rng(131); N = 4096; FLOOR = 120; HOT = 380; book = cphasor(4000, N, g)
     keys = cphasor(HOT, N, g); vals = g.integers(0, 4000, HOT)
@@ -58,7 +58,7 @@ def run() -> Dict:
     for j in range(HOT):
         subs[owner[j]] = subs[owner[j]] + keys[j] * book[vals[j]]
     after = sum(int(cidx(subs[owner[j]] * np.conj(keys[j]), book) == vals[j]) for j in range(HOT)) / HOT
-    print("  hot-shard(%d facts) recall before-split=%.3f after-split(%d shards x~%d)=%.3f" % (HOT, before, nsplit, per, after), flush=True)
+    print("  hot-shard(%d facts) recall before-split=%.3f after-split(%d sub-shards)=%.3f" % (HOT, before, nsplit, after), flush=True)
     return {"before": before, "after": after}
 def verdict(r) -> Tuple[str, str]:
     s = "before-split=%.3f after-split=%.3f" % (r["before"], r["after"])
@@ -67,16 +67,15 @@ def verdict(r) -> Tuple[str, str]:
     return ("HARD_FAIL", "HARD_FAIL: split does not restore (<0.85). " + s)
 '''))
 C.append(dict(anchor="hierarchical_subshard_kg_cpu_v1", tag="PP-132 within-relation hierarchical sub-sharding",
-  title="relation->subject hierarchical sub-sharding clears the KG 2-hop gate",
-  desc="per_relation_sharding_kg MID: relation-sharding lifted 0.19->0.735 but relation shards are still large. Rescue: hierarchical sub-sharding (shard by relation, then within each relation sub-shard by subject) so each sub-bundle holds few edges. 2-hop routes by (relation, subject). Should clear 0.90.",
+  title="relation-then-subject hierarchical sub-sharding clears the KG 2-hop gate",
+  desc="per_relation_sharding_kg MID: relation-sharding lifted 0.19 to 0.735 but relation shards stay large. Rescue: hierarchical sub-sharding (shard by relation, then within each relation sub-shard by subject) so each sub-bundle holds few edges. 2-hop routes by (relation, subject). Should clear 0.90.",
   prereg="HARD-PASS hierarchical sub-sharded 2-hop recall@1 >= 0.90 (vs per-relation 0.735). MIDDLE >= 0.80. HARD-FAIL < 0.80.",
   body='''
 def _selftest():
     d = {}; d[(1, 2)] = 3; assert d[(1, 2)] == 3, "subshard key"; print("[selftest] PASS: hierarchical-subshard-kg", flush=True)
 def run() -> Dict:
     g = np.random.default_rng(132); N = 8192; VE = 300; VR = 10; deg = 4; TR = 60 if SMOKE else 200
-    ents = cphasor(VE, N, g); rels = cphasor(VR, N, g); edges = {}
-    sub = {}                                                    # (relation, subject) -> bundle of o (hierarchical sub-shard)
+    ents = cphasor(VE, N, g); rels = cphasor(VR, N, g); edges = {}; sub = {}
     for s in range(VE):
         for _ in range(deg):
             r = int(g.integers(0, VR)); o = int(g.integers(0, VE))
@@ -99,16 +98,16 @@ def run() -> Dict:
         if not p:
             continue
         s, r1, b, r2, a = p
-        bh = cidx(sub[(r1, s)], ents) if (r1, s) in sub else -1                  # hierarchical route (r1, s) -> bridge
-        ah = cidx(sub[(r2, bh)], ents) if (r2, bh) in sub else -1                # route (r2, bridge) -> answer
+        bh = cidx(sub[(r1, s)], ents) if (r1, s) in sub else -1
+        ah = cidx(sub[(r2, bh)], ents) if (r2, bh) in sub else -1
         hit += int(ah == a); n += 1
     rec = hit / max(1, n); print("  hierarchical sub-sharded 2-hop recall@1=%.3f (n=%d, %d sub-shards)" % (rec, n, len(sub)), flush=True)
     return {"recall": rec}
 def verdict(r) -> Tuple[str, str]:
-    s = "hierarchical sub-sharded 2-hop=%.3f (vs per-relation 0.735)" % r["recall"]
-    if r["recall"] >= 0.90: return ("HARD_PASS", "HARD_PASS: relation->subject hierarchical sub-sharding clears 2-hop recall >=0.90 -- hierarchical sharding resolves the per-relation gate. " + s)
-    if r["recall"] >= 0.80: return ("MIDDLE_BAND", "MIDDLE_BAND: hierarchical sub-sharded 0.80-0.90. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: hierarchical sub-sharded <0.80. " + s)
+    s = "hierarchical 2-hop=%.3f (vs per-relation 0.735)" % r["recall"]
+    if r["recall"] >= 0.90: return ("HARD_PASS", "HARD_PASS: relation-then-subject hierarchical sub-sharding clears 2-hop recall >=0.90 -- hierarchical sharding resolves the per-relation gate. " + s)
+    if r["recall"] >= 0.80: return ("MIDDLE_BAND", "MIDDLE_BAND: hierarchical 0.80-0.90. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: hierarchical <0.80. " + s)
 '''))
 for c in C:
     txt = HEAD.format(anchor=c["anchor"], title=c["title"], tag=c["tag"], desc=c["desc"], prereg=c["prereg"], body=c["body"])

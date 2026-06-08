@@ -1,7 +1,7 @@
 """
-exp_hierarchical_subshard_kg_cpu_v1.py -- relation->subject hierarchical sub-sharding clears the KG 2-hop gate -- CPU.
+exp_hierarchical_subshard_kg_cpu_v1.py -- relation-then-subject hierarchical sub-sharding clears the KG 2-hop gate -- CPU.
 
-ROUTING: PP-132 within-relation hierarchical sub-sharding. per_relation_sharding_kg MID: relation-sharding lifted 0.19->0.735 but relation shards are still large. Rescue: hierarchical sub-sharding (shard by relation, then within each relation sub-shard by subject) so each sub-bundle holds few edges. 2-hop routes by (relation, subject). Should clear 0.90. Pure numpy. CPU.
+ROUTING: PP-132 within-relation hierarchical sub-sharding. per_relation_sharding_kg MID: relation-sharding lifted 0.19 to 0.735 but relation shards stay large. Rescue: hierarchical sub-sharding (shard by relation, then within each relation sub-shard by subject) so each sub-bundle holds few edges. 2-hop routes by (relation, subject). Should clear 0.90. Pure numpy. CPU.
 PRE-REGISTERED: HARD-PASS hierarchical sub-sharded 2-hop recall@1 >= 0.90 (vs per-relation 0.735). MIDDLE >= 0.80. HARD-FAIL < 0.80.
 ASCII-only. write_metrics. PROT-018 _v1.
 """
@@ -30,8 +30,7 @@ def _selftest():
     d = {}; d[(1, 2)] = 3; assert d[(1, 2)] == 3, "subshard key"; print("[selftest] PASS: hierarchical-subshard-kg", flush=True)
 def run() -> Dict:
     g = np.random.default_rng(132); N = 8192; VE = 300; VR = 10; deg = 4; TR = 60 if SMOKE else 200
-    ents = cphasor(VE, N, g); rels = cphasor(VR, N, g); edges = {}
-    sub = {}                                                    # (relation, subject) -> bundle of o (hierarchical sub-shard)
+    ents = cphasor(VE, N, g); rels = cphasor(VR, N, g); edges = {}; sub = {}
     for s in range(VE):
         for _ in range(deg):
             r = int(g.integers(0, VR)); o = int(g.integers(0, VE))
@@ -54,23 +53,22 @@ def run() -> Dict:
         if not p:
             continue
         s, r1, b, r2, a = p
-        bh = cidx(sub[(r1, s)], ents) if (r1, s) in sub else -1                  # hierarchical route (r1, s) -> bridge
-        ah = cidx(sub[(r2, bh)], ents) if (r2, bh) in sub else -1                # route (r2, bridge) -> answer
+        bh = cidx(sub[(r1, s)], ents) if (r1, s) in sub else -1
+        ah = cidx(sub[(r2, bh)], ents) if (r2, bh) in sub else -1
         hit += int(ah == a); n += 1
     rec = hit / max(1, n); print("  hierarchical sub-sharded 2-hop recall@1=%.3f (n=%d, %d sub-shards)" % (rec, n, len(sub)), flush=True)
     return {"recall": rec}
 def verdict(r) -> Tuple[str, str]:
-    s = "hierarchical sub-sharded 2-hop=%.3f (vs per-relation 0.735)" % r["recall"]
-    if r["recall"] >= 0.90: return ("HARD_PASS", "HARD_PASS: relation->subject hierarchical sub-sharding clears 2-hop recall >=0.90 -- hierarchical sharding resolves the per-relation gate. " + s)
-    if r["recall"] >= 0.80: return ("MIDDLE_BAND", "MIDDLE_BAND: hierarchical sub-sharded 0.80-0.90. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: hierarchical sub-sharded <0.80. " + s)
+    s = "hierarchical 2-hop=%.3f (vs per-relation 0.735)" % r["recall"]
+    if r["recall"] >= 0.90: return ("HARD_PASS", "HARD_PASS: relation-then-subject hierarchical sub-sharding clears 2-hop recall >=0.90 -- hierarchical sharding resolves the per-relation gate. " + s)
+    if r["recall"] >= 0.80: return ("MIDDLE_BAND", "MIDDLE_BAND: hierarchical 0.80-0.90. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: hierarchical <0.80. " + s)
 
 _selftest()
 if _ARGS.self_test:
     sys.exit(0)
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
-v, vmsg = verdict(r); print("
-[VERDICT] " + vmsg, flush=True)
+v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)

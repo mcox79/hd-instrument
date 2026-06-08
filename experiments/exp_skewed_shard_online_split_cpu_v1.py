@@ -2,7 +2,7 @@
 exp_skewed_shard_online_split_cpu_v1.py -- online-splitting hot shards under Zipf skew restores recall -- CPU.
 
 ROUTING: PP-131 skewed-shard online split. skewed_shard_capacity MID: the largest Zipf shard (370 facts) dropped to 0.873. Rescue: an online split policy that, when a shard exceeds the capacity FLOOR, splits it into sub-shards of <=FLOOR. Measures recall on the hot shard after splitting vs before. Pure numpy. CPU.
-PRE-REGISTERED: HARD-PASS hot-shard recall after online-split >= 0.95 AND before-split < 0.90 (split warranted). MIDDLE >= 0.85. HARD-FAIL < 0.85.
+PRE-REGISTERED: HARD-PASS hot-shard recall after online-split >= 0.95 AND before-split < 0.90. MIDDLE >= 0.85. HARD-FAIL < 0.85.
 ASCII-only. write_metrics. PROT-018 _v1.
 """
 from __future__ import annotations
@@ -27,7 +27,7 @@ def cidx(v, book):
     return int(np.argmax((book @ np.conj(v)).real))
 
 def _selftest():
-    import numpy as _n; assert int(_n.ceil(370 / 150)) == 3, "split count"; print("[selftest] PASS: skewed-shard-online-split", flush=True)
+    assert int(np.ceil(370 / 150)) == 3, "split count"; print("[selftest] PASS: skewed-shard-online-split", flush=True)
 def run() -> Dict:
     g = np.random.default_rng(131); N = 4096; FLOOR = 120; HOT = 380; book = cphasor(4000, N, g)
     keys = cphasor(HOT, N, g); vals = g.integers(0, 4000, HOT)
@@ -40,7 +40,7 @@ def run() -> Dict:
     for j in range(HOT):
         subs[owner[j]] = subs[owner[j]] + keys[j] * book[vals[j]]
     after = sum(int(cidx(subs[owner[j]] * np.conj(keys[j]), book) == vals[j]) for j in range(HOT)) / HOT
-    print("  hot-shard(%d facts) recall before-split=%.3f after-split(%d shards x~%d)=%.3f" % (HOT, before, nsplit, per, after), flush=True)
+    print("  hot-shard(%d facts) recall before-split=%.3f after-split(%d sub-shards)=%.3f" % (HOT, before, nsplit, after), flush=True)
     return {"before": before, "after": after}
 def verdict(r) -> Tuple[str, str]:
     s = "before-split=%.3f after-split=%.3f" % (r["before"], r["after"])
@@ -53,7 +53,6 @@ if _ARGS.self_test:
     sys.exit(0)
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
-v, vmsg = verdict(r); print("
-[VERDICT] " + vmsg, flush=True)
+v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
