@@ -38,6 +38,7 @@ except ImportError:
 from backend import config
 from backend.admin import demo_mode
 from backend.landing import landing_response
+from backend.decisive_test import decisive_test_response
 from backend.routes import query_tier5a
 
 
@@ -153,6 +154,37 @@ class DeleteFactsRequest(BaseModel):
 async def root():
     """Browser-friendly landing page."""
     return landing_response()
+
+
+@app.get("/demo")
+async def demo():
+    """Decisive-test page: 3 pre-cached substrate-vs-bare-LLM side-by-side comparisons.
+
+    Per Research's CHEAP_DECISIVE_TEST_FIRST note - validates 'same model, different
+    substrate' framing on observers before more live infra is built.
+    """
+    return decisive_test_response()
+
+
+@app.post("/admin/warmup")
+async def admin_warmup():
+    """Force Tier 5a substrate-KV to load NOW (eliminates cold-start 503 on first /query/tier5a).
+
+    Demo operators hit this 30 sec before customer demos to ensure Pythia + KB are ready.
+    Returns immediately with the current load status; load continues in background if needed.
+    """
+    from backend.routes.query_tier5a import _kv, _init_kv
+    if _kv is not None:
+        return {"status": "already_loaded", "kb_size": len(_kv)}
+    import threading
+
+    def _bg():
+        try:
+            _init_kv()
+        except Exception:
+            logger.exception("warmup background init failed")
+    threading.Thread(target=_bg, daemon=True, name="admin-warmup").start()
+    return {"status": "loading_in_background", "poll": "/query/tier5a/status"}
 
 
 @app.get("/api")
