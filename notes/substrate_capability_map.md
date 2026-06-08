@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v519
+# hd-instrument substrate -- capability map v520
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13307,4 +13307,21 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 | **PP-178 Provenance + cross-shard composition** -- provenance tracking composes with cross-shard queries: provenance=0.986 (HP), endpoint=0.942 (MIDDLE_BAND); extends PP-157 (provenance native) + PP-130 (cross-shard) | Inconclusive (MIDDLE_BAND) | comp_a5_provenance_crossshard_cpu_v1 MIDDLE_BAND (endpoint=0.942 in [0.85,0.95); provenance=0.986>=0.90; n=1 seed CPU; cycle 193) | Cross-shard provenance chains mostly functional; provenance recall excellent (0.986); endpoint routing degradation is the gap (0.942 vs HP 0.95); fix: bridge-entity caching in cross-shard routing; rescue sketches filed; 0.60-0.75 MIDDLE_BAND |
 
 Cap_map: v518 -> v519 CYCLE 193 (7 HP [CPU:7]; 2 MIDDLE_BAND [CPU:2]; 0 HF; 0 LVH; 5 NEW PP ROWS PP-174..PP-178; 1 row upgrade [PP-168 MIDDLE_BAND->HP]; 4 annotations [PP-155 N=16384 + PP-168 MID->HP + PP-166 100M-latency + PP-169 aggressive-drift]; Portfolio 32+173 -> 32+178 +5; HONEST 1432->1441 +9; LVH 265 UNCHANGED; 424th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 194 (v519 -> v520) (2026-06-08)
+
+5 verdicts: sparse-value high-sparsity rescue (CPU) + Tier-5b LLM attention smokes (GPU x4).
+
+**PP-158 annotation (R1 exhausted):** c1_sparse_value_k10_cpu_v1 HF v520: k=10 99%-zero; dense-cap=332, sparse-cap=132, ratio=0.397. R1 (high-sparsity rescue) EXHAUSTED. Sparse-VALUE at extreme sparsity is 60% WORSE than dense. Ambient-space projection fails harder under forced sparsity. R2-R5 (block-sparse, CS-projection, Hamming-K, per-shard) remain open as fundamentally different encoding paradigms.
+
+**PP-8 Tier-5b annotation (4 orphan smokes):**
+- t5b_1_scaffold SMOKE HP v520: Pythia-160M Tier-5b attention substitution scaffold: all_finite=True, retr_tokens=16, calls=3 (cycle 194). Infrastructure plumbing proven; forward pass valid with substrate retrievals injected per token.
+- t5b_2_perplexity SMOKE HP v520: baseline_ppl=47.87, best_ratio=1.006 at alpha=0.10 with random KB (cycle 194). Injection mechanism perplexity-neutral at low alpha (within 5x threshold). Random KB barely degrades perplexity; meaningful KB expected better.
+- t5b_3_fact_use SMOKE HF v520: bare_top1=0.000, inj_top1=0.000, n=8 (cycle 194). Fact-transmission via attention injection zero; bare=0.000 diagnostic: eval may be checking wrong output layer. 5 rescues filed (R1 annotation; R2 attention-weight eval; R3 projection-free routing; R4 in-distribution facts; R5 retrieval-augmented prefix).
+- t5b_3b_calibrated_kv SMOKE HF v520: train_top1=0.889, heldout_top1=0.000, n_train=9, n_test=6 (cycle 194). Projection overfits training facts; complete generalization failure. Structural redesign required. Same R1-R5 rescues as t5b_3.
+
+PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (smoke results; no quality improvement signal yet on fact-utilization axis).
+
+Cap_map: v519 -> v520 CYCLE 194 (2 SMOKE HP [GPU:2]; 0 MIDDLE_BAND; 3 HF [CPU:1 full + GPU:2 smoke]; 0 LVH; 0 NEW PP ROWS; 4 annotations [PP-158 R1-exhausted + PP-8 t5b_1-scaffold + PP-8 t5b_2-perplexity-neutral + PP-8 t5b_3+3b-fact-transmission-HF]; Portfolio 32+178 UNCHANGED; HONEST 1441->1446 +5; LVH 265 UNCHANGED; 425th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
