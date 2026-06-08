@@ -741,3 +741,70 @@ R4 (MEDIUM, GPU <1h): Llama-3.1 test to confirm hidden-state key quality is not 
 
 Cap_map: v515 -> v516 CYCLE 190 (2 HP [GPU:2]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW PP ROWS; 2 annotations [PP-145 100k scale-up + PP-135 Pythia-2.8B]; Portfolio 32+152 UNCHANGED; HONEST 1406->1408 +2; LVH 263 UNCHANGED; 422nd PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v516 -> v517 CYCLE 191 -- 4-VERDICT PP-135 M-SWEEP + QWEN CROSS-ENCODER BATCH (2026-06-08)
+
+Verdicts processed (4 anchors): Pythia-2.8B M-sweep capacity probes (M=5k, M=10k) + Pythia-2.8B noise-robustness probe + Qwen-1.5B cross-encoder test (PP-135 size-agnostic claim)
+
+### Step 0 honest re-read
+
+All 4 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful).
+
+**n1b_pythia2p8b_kv_capacity_5k_gpu_v1:**
+Label: HARD_PASS. Per-cell: recall=1.000 at M=5000, in_context_frac=0.0128. HP threshold recall>=0.80: 1.000>=0.80 CONFIRMED. verdict_msg body says "over 2000 facts" (boilerplate from founding pythia_substrate_memory_mve); actual M=5000. Wording imprecision but threshold claim is correct and M=5000 is explicit in per_seed. No LVH on threshold. +1 HONEST.
+
+**n1b_pythia2p8b_kv_capacity_10k_gpu_v1:**
+Label: HARD_PASS. Per-cell: recall=1.000 at M=10000, in_context_frac=0.0064. HP threshold recall>=0.80: 1.000>=0.80 CONFIRMED. Same boilerplate "over 2000 facts" in verdict_msg; actual M=10000 per per_seed. No LVH on threshold. +1 HONEST.
+
+**n1d_pythia2p8b_kv_noise_robust_gpu_v1:**
+[LVH] Label: HARD_PASS. Per-cell: recall=1.000, M=2000, in_context_frac=0.032. HP threshold recall>=0.80: 1.000>=0.80 CONFIRMED. HOWEVER: anchor labeled "noise_robust" and cycle-191 task context describes this as a noise robustness probe, but per_seed contains ONLY recall/M/in_context_frac -- zero noise dimension reported (no noise_level, SNR, noisy_recall fields). Result is numerically identical to founding Pythia-base M=2000 result (cycle 185). The "noise robustness" characterization is not supported by any noise metric in the data. Honest reading: HARD_PASS on recall=1.000 at M=2000 baseline -- noise robustness claim absent from metrics. LVH: noise-robustness label over-claims relative to what metrics support. Treating as annotation to PP-135 (baseline replication at Pythia-2.8B M=2000). LVH 263 -> 264 (+1).
+
+**n1c_qwen1p5b_substrate_kv_gpu_v1:**
+[LVH] Label: HARD_PASS. Per-cell: recall=1.000, M=2000, in_context_frac=0.032. HP threshold recall>=0.80: 1.000>=0.80 CONFIRMED. HOWEVER: verdict_msg body says "Pythia hidden states are viable substrate keys" -- this experiment used Qwen-1.5B, not Pythia. Wrong model name in verdict_msg. Honest reading: Qwen-1.5B hidden states are viable substrate keys at recall=1.000/M=2000, extending PP-135 beyond Pythia to a different LLM family. LVH: verdict_msg attributes to Pythia when the experiment was Qwen-1.5B. Treating HARD_PASS threshold as correct; capability implication is that the result is family-agnostic (Qwen, not just Pythia). LVH 264 -> 265 (+1).
+
+HONEST: 1408 -> 1412 (+4). LVH: 263 -> 265 (+2). 2 LVH catches: n1d noise-robustness over-labeling + n1c wrong-model attribution.
+
+### Cap_map decisions (v516 -> v517)
+
+**(A) PP-135 M-sweep annotation: n1b_5k + n1b_10k (HP -- recall=1.000 at M=5000 and M=10000):**
+Annotation to PP-135 (LLM-keyed external memory row): 'n1b_5k HP v517: recall=1.000 at M=5000 (in_context_frac=0.013; cycle 191); n=1 seed GPU. n1b_10k HP v517: recall=1.000 at M=10000 (in_context_frac=0.006; cycle 191); n=1 seed GPU. M-sweep now covers: 2000 (base/1.4B/2.8B) -> 5000 -> 10000. Recall=1.000 maintained at 5x capacity expansion. In-context fraction at M=10000 is 0.6%; substrate stores 156x more than in-context. Cliff has not appeared in range tested. Band-LIFT candidate for PP-135 after 3-seed at M=10000.'
+
+**(B) [LVH-flagged] PP-135 baseline annotation: n1d (HP baseline replication; noise-robustness claim absent):**
+Annotation to PP-135: 'n1d_kv_noise_robust HP v517: recall=1.000 at M=2000 (Pythia-2.8B; cycle 191); n=1 seed GPU. NOTE: anchor labeled noise_robust but no noise dimension in metrics; result is baseline-equivalent to founding results. Noise robustness characterization NOT confirmed by data. If noise testing intended, re-run with explicit noise_level sweep. Treating as baseline replication only.'
+
+**(C) [LVH-flagged] NEW ROW PP-153: Qwen-1.5B substrate KV -- LLM-family-agnostic external memory (recall=1.000 at M=2000):**
+n1c_qwen1p5b_substrate_kv_gpu_v1 HP v517: recall=1.000 at M=2000, in_context_frac=0.032 (Qwen-1.5B; cycle 191). NOTE: verdict_msg incorrectly attributes to "Pythia hidden states" -- honest reading is Qwen-1.5B. HARD_PASS threshold correct. This is the first non-Pythia family test for PP-135. Four LLMs tested (Pythia-base/1.4B/2.8B + Qwen-1.5B), all recall=1.000 at M=2000; PP-135 claim upgrades from size-agnostic to family-agnostic. Product implication: substrate external KV memory is not tied to Pythia architecture; any LLM whose hidden states have sufficient angular separation can use substrate as external memory. Filed at 0.75-0.90 EXPLORATORY (n=1 seed Qwen-1.5B; recommend Llama-3.1 + additional families before VALIDATED family-agnostic claim).
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**PP-153 Qwen-1.5B / PP-135 family-agnostic claim (HP n=1 seed):**
+R1 (0-compute, ANNOTATION): 4 LLMs (3 Pythia sizes + Qwen-1.5B) all recall=1.000 at M=2000. Pattern consistent. APPLIED.
+R2 (CHEAP, GPU <30min): Llama-3.1-1B or Llama-3.1-3B to add a 3rd LLM family.
+R3 (CHEAP, GPU <30min): 3-seed at Qwen-1.5B M=2000 to confirm recall=1.000 variance.
+R4 (CHEAP, GPU <1h): Qwen-1.5B M-sweep (M=5000, M=10000) matching Pythia M-sweep.
+R5 (MEDIUM, GPU <1h): Encoder-only model test (BERT-base, bge-small) to determine if bidirectional encoders work as substrate keys.
+
+**PP-135 M-sweep: recall cliff investigation (HP at M=10000; cliff not yet found):**
+R1 (0-compute, ANNOTATION): recall=1.000 maintained at M=10000; cliff not yet appeared. APPLIED.
+R2 (CHEAP, GPU <1h): M=20000, M=50000 sweep to find recall cliff for Pythia-2.8B keys.
+R3 (CHEAP, GPU <30min): 3-seed at M=10000 before band-LIFT.
+
+**n1d noise robustness (LVH -- re-run with noise metrics):**
+R1 (0-compute): baseline recall=1.000 confirmed. Noise characterization requires re-run.
+R2 (CHEAP, GPU <30min): Re-run with explicit noise parameter (Gaussian noise on hidden states at SNR 30dB/20dB/10dB) and report noisy_recall at each level.
+
+### Portfolio: 32+152 -> 32+153 (+1 NEW ROW: PP-153 Qwen-1.5B substrate KV family-agnostic). 0 closures. 3 annotations to PP-135. 2 LVH catches.
+
+### PROT compliance (v516 -> v517)
+
+- PROT-004/006: No closures. 1 NEW TOP-LEVEL ROW (PP-153). Rescue sketches cheapest-first for PP-153 and PP-135 M-sweep.
+- PROT-007: v517 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: 4 HP anchors. All HP thresholds (recall>=0.80) verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 423rd PROT-009 paired commit.
+- PROT-018: No _nN binding suffix. CLEAN.
+- PROT-019: LVH 263 -> 265 (+2 new LVH catches: n1d noise-over-labeling + n1c wrong-model attribution).
+- PROT-021: All 4 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: All HP n=1 seed. All HP margins large (recall=1.000>>0.80 at all M). No HP-fragility concern.
+
+Cap_map: v516 -> v517 CYCLE 191 (4 HP [GPU:4]; 0 MIDDLE_BAND; 0 HF; 2 LVH [n1d-noise-over-labeling + n1c-wrong-model]; 1 NEW PP ROW PP-153 Qwen-1.5B-family-agnostic; 3 annotations [PP-135 M5k + M10k + n1d-baseline-replication]; Portfolio 32+152 -> 32+153 +1; HONEST 1408->1412 +4; LVH 263->265 +2; 423rd PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
