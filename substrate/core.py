@@ -148,7 +148,8 @@ class Codebook:
         return self._vectors[self._items[name]]
 
     def get_or_add(self, name: str) -> np.ndarray:
-        return self._vectors[self.add(name)]
+        idx = self.add(name)
+        return self._vectors[idx]
 
     def names(self) -> list[str]:
         return list(self._items.keys())
