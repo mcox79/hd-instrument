@@ -1,9 +1,23 @@
 # Testbed v1 Demo BUILD PLAN — 4-6 weeks
 
 **Author:** Testbed
-**Date:** 2026-06-08
-**Status:** PROPOSED (awaiting user signoff before Week 1 starts)
-**Per:** research_to_testbed_v1_demo_SPEC_2026-06-08.md + exp_dev_to_testbed_v1_demo_app_build_handoff_2026-06-08.md
+**Date:** 2026-06-08 (REV 1: hosting + PATH A locked)
+**Status:** USER-SIGNED OFF on architecture; audit week kicks off after CELL-A2 lands
+**Per:** research_to_testbed_v1_demo_SPEC_2026-06-08.md + exp_dev_to_testbed_v1_demo_app_build_handoff_2026-06-08.md + research_to_testbed_BUILD_PLAN_response_2026-06-08.md
+
+## LOCKED ARCHITECTURE (user-signed off 2026-06-08)
+
+- **Hosting**: marsh@home desktop (64 GB RAM, RTX 4060 Ti 8 GB, i5-12400F) hosts EVERYTHING
+- **Public access**: Cloudflare Tunnel → free public URL `demo.your-domain.com` or `*.trycloudflare.com`
+- **Cost**: $0 infrastructure (desktop already owned; tunnel free) + user-handled API costs only
+- **Auth gating** (optional, easy to add): Cloudflare Access → Google login + email whitelist
+- **PATH A Tier-5** PRIMARY: Pythia-1.4B (~2.8 GB fp16) runs on desktop 4060 Ti for substrate-KV layer; gpt-4o-mini consumes substrate-KV results
+- **Frontend**: Next.js (dark sophisticated style per OpenAI/Anthropic visual language)
+- **Backend**: FastAPI on desktop
+- **Substrate KB target**: 5-10M facts in 64 GB RAM (sharded)
+- **Demo audience**: in-person + remote (laptop / phone / customer browser all hit same URL)
+- **Single point of failure**: yes (desktop must be on); acceptable trade for $0 cost
+- **Bandwidth**: home upload (~10-100 Mbps); enough for 5-10 concurrent users
 
 ## Executive summary
 
@@ -17,23 +31,24 @@ PROVEN as research cells in `experiments/exp_*.py`. The remaining work is engine
 porting research cells into a production-quality backend library, building the frontend,
 ingesting data, deploying.
 
-## Pre-Week-1: AUDIT WEEK (this week, after CELL-A2 verdict lands)
+## Pre-Week-1: AUDIT WEEK (kicks off after CELL-A2 verdict lands)
 
-Concrete pre-engineering tasks (2-3 days, while user reviews this plan):
+Concrete pre-engineering tasks (2-3 days):
 
-1. **Substrate primitive portability audit (1 day)**: for each of the 11 PP-* primitives
-   below, read the source cell, identify the core function, decide whether it ports
-   directly OR needs refactoring. Produce dependency graph.
-2. **Tech stack finalization (half day)**: confirm Next.js (not vanilla React) + FastAPI;
-   choose deployment target (Vercel + Modal? Vercel + Lambda? RunPod?); pin Python
-   versions.
-3. **API key + budget allocation (half day)**: OpenAI gpt-4o-mini key; Anthropic Haiku key;
-   Crunchbase API; News API; total monthly budget locked in writing.
-4. **CELL-A2 verdict integration (gated)**: if A2 HARD_PASSes, Wikipedia NER uses Llama-8B;
-   if HARD_FAILs, falls back to spaCy. Either way demo ships, but the multi-hop wow moment
-   quality changes meaningfully.
-5. **Risk register review (half day)**: surface unknowns; ask user to deprioritize wow
-   moments that have unverified dependencies.
+1. **Substrate primitive portability audit (1 day)**: read each of the 11 PP-* source cells,
+   identify core functions, decide direct port vs refactor. Produce dependency graph.
+2. **Cloudflare Tunnel setup on desktop (half day)**: `cloudflared` install + auth + tunnel
+   config; test from external network. Optionally Cloudflare Access for email-whitelist auth.
+3. **Pythia-1.4B + substrate-KV smoke on desktop GPU (half day)**: validate 4060 Ti can hold
+   Pythia-1.4B fp16 + substrate-KV layer concurrently. If VRAM tight, fall back to int8 or
+   reduce context window. This validates PATH A is viable before committing Week 2 effort.
+4. **API key + budget setup (half day)**: user-handled OpenAI + Anthropic accounts; I plug keys
+   into the FastAPI env config. Confirm rate limits + budget caps in writing.
+5. **Node.js + Next.js + Tailwind on desktop (half day)**: install toolchain; scaffold project;
+   confirm hot reload works over LAN + tunnel.
+6. **CELL-A2 verdict integration (gated)**: if A2 HARD_PASSes, Wikipedia NER uses Llama-8B
+   (with int4 quant for 4060 Ti); if HARD_FAILs, spaCy fallback. Demo ships either way.
+7. **Risk register review (half day)**: surface remaining unknowns; revise plan if needed.
 
 ## Substrate primitive port plan
 
@@ -113,7 +128,7 @@ Each primitive is a research cell that needs to become a library module:
 | 24 | Mobile responsive testing; tablet + phone layout |
 | 25 | Smoke tests: end-to-end tests for each `/query`, `/add_fact`, `/delete_facts`, `/scale_stats`, `/audit_chain` |
 
-**Acceptance gate**: 5 random queries on demo work cleanly; substrate wins visibly on >=3 of 5; mobile renders correctly.
+**Acceptance gate** (REVISED per Research clarification): substrate wins visibly on >=3 of 5 **corporate-recency OR multi-hop** queries (substrate's strength domain); for purely random queries the honest expectation is 50-60% win rate; substrate's pitch is "categorically does things LLM cannot" (add/delete/recency/audit) not "always beats". Mobile renders correctly.
 
 ### Week 6: Deployment + materials (~5 days)
 
