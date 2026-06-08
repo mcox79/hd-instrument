@@ -73,7 +73,8 @@ def run() -> Dict:
         idx = torch.argmax(q @ keys_kb.T, dim=-1)                              # (B,S) nearest binding
         retr = vals_kb[idx]                                                    # (B,S,SUB_N)
         proj = retr @ P_out                                                    # (B,S,H) back to hidden
-        ao = output[0] + ALPHA * proj.to(output[0].dtype)
+        proj = proj / (proj.norm(dim=-1, keepdim=True) + 1e-8) * output[0].norm(dim=-1, keepdim=True)  # match attn-output magnitude
+        ao = (1.0 - ALPHA) * output[0] + ALPHA * proj.to(output[0].dtype)      # true interpolation (alpha=1 = full substitution)
         RETR_LOG["tokens"] += int(idx.numel()); RETR_LOG["calls"] += 1
         return (ao,) + tuple(output[1:])
 
