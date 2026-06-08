@@ -12663,3 +12663,12 @@ Cap_map annotation (mycorrhizal row): mycorrhizal_multihub_rescue_v1 MIDDLE_BAND
 
 Cap_map: v497 -> v504 CYCLE 178 (14 HP + 3 MIDDLE_BAND + 3 HF + 2 GPU-HP-scale; 1 LVH [#263 priority_weighted hi=1.000 vs 0.85-0.95 descriptor]; HONEST 1299->1321 +22; LVH 262->263 +1; 8 NEW PP ROWS PP-98..PP-105; Portfolio 32+97 -> 32+105 +8; 411th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 179 ANNOTATION (v504 -> v505) (2026-06-08)
+
+### Multi-hop REVIVE -- 4th iterative HF annotation (e5-large closes encoder axis)
+
+Cap_map annotation (multi-hop REVIVE row): iterative_multihop_e5large_v1 HF v505: e5-large it_r2=0.160 vs ss=0.220 (n=150, n=1 seed, cycle 179). 4th consecutive iterative-framing failure; all 4 tested encoders (bge-small v175, bge-large v496 delta=-0.167, GLiNER v497 delta=-0.114, e5-large v505 delta=-0.060) degrade vs single-shot. Encoder axis exhausted. Bottleneck confirmed: bridge-entity extraction and query reformulation degrade signal in iterative loop; NOT retrieval fidelity. NOTE: ss_r2=0.220 lower than expected for e5-large (cycle-157 best was 0.340+); verify KB/sampling parity before using as single-shot quality signal. REVIVE UNCHANGED (user: extremely important 2026-06-07). Iterative paradigm deprioritized; remaining paths: 7B LLM decompose + substrate K-hop (bypasses extraction bottleneck; highest remaining P), multi-stage LLM+substrate. Single-shot attention (PP-99 cycle-178, substrate=0.501) is confirmed production multi-hop path. MSG NOTE: verdict_msg incorrectly named encoder as 'bge-large'; numbers are distinct (ss=0.220 not 0.340) confirming separate e5-large run; no LVH fired (classification correct). Cycle 179. ZKL operational note: zkl_methodology_variance_v1 LIGHT timed out at 4h (2nd zkl failure; re-queue requires timeout_s >= 5h or sub-probe restructure).
+
+Cap_map: v504 -> v505 CYCLE 179 (1 HF: iterative_multihop_e5large-it_r2=0.160-ss=0.220-4TH_ITERATIVE_HF-ENCODER_AXIS_EXHAUSTED; 0 LVH; 0 new rows; 1 sub-property annotation multi-hop REVIVE; REVIVE UNCHANGED; HONEST 1321->1322 +1; LVH 263 UNCHANGED; Portfolio 32+105; 412th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

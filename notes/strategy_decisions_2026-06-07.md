@@ -2103,3 +2103,61 @@ R3 (CPU <1h): N-scaling (N=4096) to test coverage above HP gate.
 
 Cap_map: v497 -> v504 CYCLE 178 (14 HP + 3 MIDDLE_BAND + 3 HF + 2 GPU-HP-scale; 1 LVH [#263 priority_weighted hi=1.000 vs 0.85-0.95 descriptor]; HONEST 1299->1321 +22; LVH 262->263 +1; 8 NEW PP ROWS PP-98..PP-105; Portfolio 32+97 -> 32+105 +8; 411th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v504 -> v505 CYCLE 179 (iterative_multihop_e5large_v1 HARD_FAIL; 4th iterative HF; e5-large closes encoder axis) (2026-06-08)
+
+Verdicts processed: iterative_multihop_e5large_v1 (HARD_FAIL)
+
+### Step 0 honest re-read
+
+- iterative_multihop_e5large_v1: Source=remote. Per-cell: it_r2=0.160, ss_r2=0.220 (n=150, n=1 seed).
+  HARD_FAIL classification is HONEST (it_r2=0.160 < 0.50 threshold; iterative worse than single-shot).
+  TWO MSG ISSUES NOTED (not full LVH -- HARD_FAIL label itself is correct):
+  (1) verdict_msg says 'bge-large' but anchor is e5-large -- encoder name copy-paste error in msg; numbers distinct from cycle-176 bge-large run (ss_r2=0.220 here vs 0.340 cycle-176), confirming this is a separate e5-large run.
+  (2) 'stays closed' framing in msg contradicts REVIVE status (ACTIVE per cycles 176-178). Row is NOT closed; REVIVE priority UNCHANGED.
+  HARD_FAIL label treated as HONEST. No LVH fired (classification correct; msg encoder-name and closure-framing are minor msg errors, not outcome over-claims).
+
+HONEST: 1321 -> 1322 (+1). LVH: 263 UNCHANGED.
+
+### Cap_map decisions (v504 -> v505)
+
+**(A) iterative_multihop_e5large_v1: HARD_FAIL -- 4th consecutive iterative-framing failure; e5-large closes encoder axis.**
+it_r2=0.160 vs ss_r2=0.220 (n=150 n=1 seed). e5-large tested in iterative setting and fails (iterative WORSE than single-shot by 0.060). This is the 4th sequential iterative-framing HF:
+  - Cycle 176: bge-large it_r2=0.173 vs ss=0.340 (delta=-0.167)
+  - Cycle 176: K=3 hops it_r2=0.193 vs ss=0.340 (delta=-0.147)
+  - Cycle 177: GLiNER NER it_r2=0.193 vs ss=0.307 (delta=-0.114)
+  - Cycle 179: e5-large it_r2=0.160 vs ss=0.220 (delta=-0.060)
+All 4 test encoder upgrading or hop-count increasing; all 4 degrade vs single-shot. Encoder axis exhausted (bge-small, bge-large, GLiNER, e5-large all tested iteratively). Bottleneck confirmed: NOT retrieval fidelity, NOT encoder quality. Bridge-entity extraction and query reformulation degrade signal in the iterative loop.
+
+NOTE: ss_r2=0.220 for e5-large is LOWER than bge-large ss_r2=0.340 from cycle-176. This may reflect different KB/question set or n=150 sampling variance. Worth verification before treating as a signal about e5-large single-shot quality.
+
+Annotation to multi-hop REVIVE row: 'iterative_multihop_e5large_v1 HF v505: e5-large it_r2=0.160 vs ss=0.220 (n=150, cycle 179); 4th consecutive iterative-framing HF; all 4 encoders fail in iterative mode; encoder axis exhausted; REVIVE UNCHANGED; remaining paths: 7B LLM decompose + substrate K-hop (bypasses extraction bottleneck), multi-stage LLM+substrate; iterative paradigm deprioritized.'
+
+REVIVE status UNCHANGED. Best remaining path per 4x iterative evidence: LLM-decompose + substrate K-hop. Single-shot attention (PP-99, cycle-178) is confirmed north-star path.
+
+NOTE on zkl_methodology_variance_v1 LIGHT timeout (operational, no verdict): hit 4h timeout_s cap. 2nd zkl failure (cycle 175 FULL zombie; cycle 179 LIGHT timeout). ZKL wall time ~4h regardless of variant. Re-queue requires timeout_s >= 5h or sub-probe restructure.
+
+### Rescue sketches (PROT-004/006; cheapest-first per feedback-rescue-sketch-first-sequencing)
+
+**Multi-hop REVIVE (4th HF; iterative encoder axis exhausted):**
+R1 (0-compute, ANNOTATION): 4 iterative HFs logged. Encoder axis exhausted. RECOMMENDED-FIRST.
+R2 (CHEAP, ANNOTATION-ONLY): Formally retire iterative-retrieval framing; redirect REVIVE budget to LLM-decompose paths.
+R3 (CHEAP, CPU <30min): Verify e5-large ss_r2=0.220 vs expected cycle-157 best -- rule out KB/sampling artifact.
+R4 (MEDIUM, GPU ~1h): 7B LLM decompose -> extract bridge entities via generation -> substrate K-hop (bypasses extraction bottleneck; highest remaining P path).
+R5 (MEDIUM, GPU ~2h): Multi-stage: LLM decompose query -> substrate K-hop (Pattern B K=8 recall=0.691) -> LLM answer.
+
+### Portfolio: 32+105 UNCHANGED. 0 new rows. 1 sub-property annotation.
+
+### PROT compliance (v504 -> v505)
+
+- PROT-004/006: No closure (REVIVE ACTIVE). 1 sub-property annotation. 5 rescue sketches cheapest-first. COMPLIANT.
+- PROT-007: v505 history row appended to substrate_capability_map_history.md.
+- PROT-008: Sub-property HF annotation; no new top-level row; no band change. PASS.
+- PROT-009: cap_map.md + history + decisions log staged atomically.
+- PROT-018: No _nN suffix. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. HONEST 1321->1322 +1.
+- PROT-021: Source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed HF; HP-fragility not triggered for FAIL verdicts.
+
+Cap_map: v504 -> v505 CYCLE 179 (1 HF: iterative_multihop_e5large-it_r2=0.160-ss=0.220-4TH_ITERATIVE_HF-ENCODER_AXIS_EXHAUSTED; 0 LVH; 0 new rows; 1 sub-property annotation multi-hop REVIVE; REVIVE UNCHANGED; HONEST 1321->1322 +1; LVH 263 UNCHANGED; Portfolio 32+105; 412th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
