@@ -135,7 +135,7 @@ def run() -> Dict:
 
     state["on"] = False; base_ppl = eval_ppl()
     opt = torch.optim.Adam([{"params": [p for L in LAYERS for n, p in adapters[str(L)].named_parameters() if n != "gate"], "lr": 3e-4, "weight_decay": 0.01},
-                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 1e-5}])  # Research: gate-lr 1e-5 (gate evolves slowly; 5e-3 diverged)
+                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 1e-3}])  # gate-lr 1e-3 (1e-5 inert, 0.05 diverged; stability fixes hold this)
     # live pollable progress log (full visibility): one JSON line per acceptance check + a heartbeat file
     prog = open(Path(out_dir) / "progress.jsonl", "a", encoding="utf-8"); t_start = time.time()
     def heartbeat(d):
