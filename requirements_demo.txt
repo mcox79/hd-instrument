@@ -20,7 +20,11 @@ numpy>=1.26,<3
 psutil>=5.9
 
 # Tier-5 PATH A (Pythia-1.4B serving)
-transformers>=4.45
+# NOTE: transformers 5.x requires torch.float8_e8m0fnu which doesn't exist in torch 2.5.1.
+# Pin transformers<5 + tokenizers<0.21 + huggingface-hub<0.30 for torch-2.5 compat on RTX 4060 Ti.
+transformers>=4.45,<5
+tokenizers<0.21
+huggingface-hub<0.30
 accelerate>=0.30
 sentencepiece>=0.2
 protobuf>=4.25
