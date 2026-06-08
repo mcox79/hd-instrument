@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v521
+# hd-instrument substrate -- capability map v522
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13343,4 +13343,21 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 **PP-155 annotation:** pp155_hp_rescue_n32768 MIDDLE_BAND v521: win=0.925, corr=0.993 (N=32768, cycle 195). Non-monotone: 0.905 (N=4096) -> 0.930 (N=16384) -> 0.925 (N=32768). Cycle-193 HP projection was over-optimistic. N-scaling stalled; per-strength-level sharding (R3) is the priority rescue.
 
 Cap_map: v520 -> v521 CYCLE 195 (6 HP [GPU:1 FULL + CPU:5]; 1 MIDDLE_BAND [CPU:1]; 0 HF; 0 LVH; 5 NEW PP ROWS PP-179..PP-183; 2 annotations [PP-120/PP-173-legal-citation-full-VALIDATED + PP-155-N32768-non-monotone]; Portfolio 32+178 -> 32+183 +5; HONEST 1446->1453 +7; LVH 265 UNCHANGED; 426th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 196 (v521 -> v522) (2026-06-08)
+
+**NEW ROW PP-184:** gate2_merkle_audit_completeness_cpu_v1 HP v522: completeness=1.000, tamper=1.000 (1000 ops, cycle 196). Merkle audit chain 100pct complete; every tampered chain detected. EU AI Act Art.12 compliance gate passed algebraically. Third compliance pillar alongside PP-107 (abstention) and PP-183 (factual confidence). 0.75-0.90 EXPLORATORY n=1 seed. Cross-ref PP-183, PP-107.
+
+**gate3_conformal_coverage HF founding annotation:** gate3_conformal_coverage_cpu_v1 HF v522: coverage=0.676, set_size=1.0 (vocab=300, cycle 196). Two simultaneous failure modes: coverage badly misses target (~0.90) and all prediction sets are singletons. Over-confident cosine similarity scores; calibration is structurally broken in this probe design. No PP row created (founding attempt); 5 rescue sketches filed: R1 (cosine-over-confidence diagnosis), R2 (temperature scaling), R3 (rank-based conformal), R4 (split-conformal recalibration), R5 (ensemble score distribution).
+
+**NEW ROW PP-185:** cap3_theorem_dependency_khop_cpu_v1 HP v522: recall=1.000 (cycle 196). Theorem-dependency K-hop closure at perfect recall. Substrate stores theorem/lemma dependency graphs; answers transitive dependency queries algebraically. Domain-agnostic (formal proofs, software deps, legal citations). 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-119, PP-120.
+
+**NEW ROW PP-186:** pii_strip_inject_hipaa_cpu_v1 HP v522: leak=0.000, fidelity=1.000, ner=1.000 (cycle 196). HIPAA/GDPR compliance sidecar: substrate strips PHI before LLM (zero leakage), re-injects with perfect fidelity at response time. All three compliance metrics ceiling. Compliance-sidecar GTM at PII layer. EU AI Act Art.12 + GDPR Art.17. 0.75-0.90 EXPLORATORY n=1 seed. Cross-ref PP-184, PP-183, PP-107.
+
+**NEW ROW PP-187:** substrate_templated_response_cpu_v1 HP v522: factual=1.000, grammar=1.000 (cycle 196). Substrate-only templated responses for LOOKUP queries; no LLM required. Zero hallucination risk; sub-ms latency. Enables tiered architecture: substrate handles LOOKUP, LLM handles REASONING. 0.65-0.80 EXPLORATORY n=1 seed. Cross-ref PP-123, PP-168.
+
+**NEW ROW PP-188:** t5c_orchestrator_routing_cpu_v1 HP v522: routing=1.000, math=1.000, latency_ms=0.1065 (cycle 196). Tier-5c 3-tier orchestrator routing: substrate (LOOKUP) + math-tool (COMPUTATION) + LLM fallback. 100pct routing accuracy; substrate at 0.11ms (4.7x margin). Extends PP-123 (cascade 0.853) to 3-tier perfect routing. Tier-5c LLM integration routing axis closed. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-123, PP-168.
+
+Cap_map: v521 -> v522 CYCLE 196 (5 HP [CPU:5]; 0 MIDDLE_BAND; 1 HF [CPU:1 conformal-calibration-broken]; 0 LVH; 5 NEW PP ROWS PP-184..PP-188; 1 HF founding-annotation [gate3-conformal-coverage]; Portfolio 32+183 -> 32+188 +5; HONEST 1453->1459 +6; LVH 265 UNCHANGED; 427th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
