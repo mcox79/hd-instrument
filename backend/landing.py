@@ -81,18 +81,26 @@ LANDING_HTML = """<!doctype html>
 </head>
 <body>
   <h1>Substrate v1 Demo <span class="pill ok">ONLINE</span></h1>
-  <p class="sub">Substrate IS knowledge. LLM IS interface. Full UI lands Week 3.</p>
+  <p class="sub">Algebraic memory architecture for LLMs. <a href="/demo" style="color:#8b9eff">Try the decisive test &rarr;</a></p>
+
+  <div class="card">
+    <h2>Hero counter</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem 1.5rem;font-family:ui-monospace,SF Mono,monospace;font-size:0.88rem;color:#c8c8d0">
+      <div><b style="color:#a0a0b0">Substrate KB target</b></div><div>200M+ facts (Wikidata + Wikipedia + ConceptNet + arXiv + PubMed)</div>
+      <div><b style="color:#a0a0b0">Substrate retrieval</b></div><div>0.21 ms P95 at 1M facts (PP-150 cycle 188)</div>
+      <div><b style="color:#a0a0b0">Substrate latency</b></div><div>O(1) in corpus size; 0.148 ms at 100M (PP-166 cycle 192)</div>
+      <div><b style="color:#a0a0b0">Algebraic operations</b></div><div>AND / NOT / COUNT / counterfactual <code>do()</code> native</div>
+      <div><b style="color:#a0a0b0">Audit chain</b></div><div>Merkle-proven per query (SHA-256 hash chain)</div>
+      <div><b style="color:#a0a0b0">Tier 5 substrate-KV</b></div><div>Size + family agnostic; 156x context expansion (PP-135 + PP-153)</div>
+    </div>
+  </div>
 
   <div class="card">
     <h2>What you're hitting right now</h2>
-    <p>This is the FastAPI backend running on a desktop with an RTX 4060 Ti.
-    It's reachable from anywhere via Cloudflare Tunnel for $0 hosting cost.
-    The next 5 weeks add the substrate engine + 3 LLM endpoints + Next.js frontend
-    with side-by-side panels and 5 wow moments.</p>
-    <p style="color:#888;font-size:0.9rem;margin-top:1rem">Architecture: substrate is a
-    sharded FHRR knowledge store providing K-hop traversal with audit chains, GDPR exact
-    erasure, bitemporal as-of queries, counterfactual do() operator. The LLM (gpt-4o-mini
-    or Claude Haiku) reads from the substrate as external memory beyond its context window.</p>
+    <p>FastAPI backend on a desktop with an RTX 4060 Ti, reachable from anywhere via Cloudflare Tunnel for $0
+    hosting cost. <strong>Panel A (Tier 5a substrate-KV)</strong> is live: substrate-augmented Qwen-2.5-1.5B-Instruct
+    cites loaded facts verbatim with Merkle audit chain. Try it below or hit <code>/demo</code> for a 3-panel
+    side-by-side decisive-test page.</p>
   </div>
 
   <div class="card">
