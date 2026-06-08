@@ -117,7 +117,7 @@ def run() -> Dict:
     state["on"] = False
     base_ppl = next(ppl(eval_txt))
     params = list(Wq.parameters()) + list(Wk.parameters()) + list(Wv.parameters()) + list(Wo.parameters()) + [gate]
-    opt = torch.optim.Adam(params, lr=1e-3)
+    opt = torch.optim.Adam([{"params": params[:-1], "lr": 1e-3}, {"params": [gate], "lr": 0.1}])
     state["on"] = True
     for step in range(STEPS):
         opt.zero_grad(); t = train_txt[step % len(train_txt)]; e = enc(t); ids = e["input_ids"]
