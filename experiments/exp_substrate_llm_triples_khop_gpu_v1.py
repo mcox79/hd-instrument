@@ -114,10 +114,24 @@ def run() -> Dict:
         print("[FATAL] no hotpot", flush=True); return {"n": 0, "recall": 0.0, "coverage": 0.0}
     tok = AutoTokenizer.from_pretrained(MODEL); model = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.float16).to(DEV).eval()
     g = np.random.default_rng(7); hit = 0; cover = 0; n = 0
+    STOP = {"the", "a", "an", "of", "in", "and", "to", "for", "is", "was", "by", "on", "at"}
+    def canon_map(raw_ents):
+        # merge entities that share a significant content token (>3 chars) so the bridge connects across passages
+        toks = {e: set(w for w in re.findall(r"[a-z0-9]+", e) if len(w) > 3 and w not in STOP) for e in raw_ents}
+        order = sorted(raw_ents, key=lambda e: -len(e)); cmap = {}
+        for e in order:
+            best = None
+            for c in dict.fromkeys(cmap.values()):
+                if toks[e] and toks.get(c) and (toks[e] & toks[c]) and (toks[e] <= toks[c] or toks[c] <= toks[e]):
+                    best = c; break
+            cmap[e] = best if best else e
+        return cmap
     for d in data:
         triples = parse_triples(extract_triples(tok, model, d["passages"]))
         if not triples:
             n += 1; continue
+        raw = list(dict.fromkeys([t[0] for t in triples] + [t[2] for t in triples]))
+        cm = canon_map(raw); triples = [(cm[s], r, cm[o]) for s, r, o in triples]
         ents = list(dict.fromkeys([t[0] for t in triples] + [t[2] for t in triples]))
         rels = list(dict.fromkeys([t[1] for t in triples]))
         ei = {e: i for i, e in enumerate(ents)}; ri = {r: i for i, r in enumerate(rels)}
@@ -128,7 +142,8 @@ def run() -> Dict:
         ans = norm_ent(d["answer"]); ql = d["q"].lower()
         ans_match = next((e for e in ents if e == ans or (len(ans) > 3 and ans in e) or (len(e) > 3 and e in ans)), None)
         cover += int(ans_match is not None)
-        starts = [e for e in ents if len(e) > 3 and e in ql]                 # question entities
+        qtoks = set(w for w in re.findall(r"[a-z0-9]+", ql) if len(w) > 3 and w not in STOP)
+        starts = [e for e in ents if e in ql] or [e for e in ents if set(re.findall(r"[a-z0-9]+", e)) & qtoks]  # exact, else token-overlap
         reached = set()
         frontier = set(starts)
         for _hop in range(3):                                                # substrate K-hop spreading (<=3 hops)
