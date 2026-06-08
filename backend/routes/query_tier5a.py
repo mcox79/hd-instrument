@@ -64,19 +64,28 @@ class Tier5aResponse(BaseModel):
 
 
 def _init_kv() -> SubstrateKV:
-    """Lazy-init substrate-KV with seeded facts. First call loads Pythia + encodes."""
+    """Lazy-init substrate-KV with seeded facts.
+
+    Per Research VERIFY Q1: uses bge-large (CPU) for retrieval encoding (production
+    encoder per cycle 187 PP-144). Qwen-2.5-1.5B-Instruct stays as the LLM generator
+    (separately loaded by pythia_client).
+    """
     global _kv, _kv_init_error
     if _kv is not None:
         return _kv
     if _kv_init_error is not None:
         raise HTTPException(status_code=503, detail=f"substrate-KV init failed earlier: {_kv_init_error}")
     try:
-        from backend.llm.pythia_client import get_client
-        client = get_client()
-        kv = SubstrateKV(encoder=client, dim=client.hidden_size)
+        from backend.llm.bge_encoder import get_encoder
+        encoder = get_encoder()
+        kv = SubstrateKV(encoder=encoder, dim=encoder.hidden_size)
         facts = load_seed_facts()
-        logger.info("seeding substrate-KV with %d facts...", len(facts))
+        logger.info("seeding substrate-KV with %d facts via %s on %s ...",
+                    len(facts), encoder.model_name, encoder.device)
         kv.add_facts(facts)
+        # Pre-load Qwen generator too so first /query/tier5a has zero LLM cold-start
+        from backend.llm.pythia_client import get_client
+        get_client()
         _kv = kv
         return _kv
     except Exception as e:
