@@ -3,6 +3,7 @@
 12:19:46Z hybrid_substrate_5x -> notes/research_drill_hybrid_substrate_architecture_5x_2026-06-08.md | HYBRID routing; native wins 4/8 query types; 5 CPU anchors
 research: sharding_losses_biology_sleep_2x -> notes/research_drill_sharding_losses_biology_sleep_2x_2026-06-08.md
 - [2026-06-08] GPU K-hop 2x drill: capacity cliff confirmed by SNR formula; VE_max~574 at N=8192; 0.000 GPU result is physics not bug -> notes/research_drill_negative_GPU_Khop_infra_2x_2026-06-08.md
+- [2026-06-08] substrate_verticals_5x: 6 verticals drilled; legal (#1) + healthcare (#2) for v1.5 demo; compliance sidecar GTM confirmed across all 6; 3 exp_dev anchors filed -> notes/research_drill_substrate_verticals_5x_2026-06-08.md | exp_dev handoff: notes/exp_dev_handoff_research_verticals_5x_2026-06-08.md
 2026-06-08: notes/research_drill_optimal_shard_granularity_5x_2026-06-08.md -- 7 shard strategies compared; N-scaling (16x) is dominant capacity lever; semantic clustering 1.15-1.30x (not 2-5x); shard merge primitive is missing; per-concept = biology-aligned (cortical column)
 
 - sparse-VALUE coding 5x: d:/AI/hd-instrument/notes/research_drill_sparse_value_coding_within_shards_5x_2026-06-08.md -- HEADLINE: K=10 sparse values -> 4.4x fact capacity + 6000x storage compress; top-k cleanup validated; P_deflated=0.28; decisive test SPARSE-VALUE-K-SWEEP-A1; next-drill: sparse-coding-compressed-sensing
@@ -19,3 +20,4 @@ research: sharding_losses_biology_sleep_2x -> notes/research_drill_sharding_loss
 
 2026-06-08 pp155_continuous_strength_2x drill -> notes/research_drill_negative_pp155_continuous_strength_2x_2026-06-08.md | HEADLINE: N-scaling plateau is a correlated-interference artifact, not fundamental SNR limit; per-strength sharding (R2) + rank-corr acceptance (R6) are primary rescues; P_deflated=0.23 (R2) / 0.39 (R6)
 - [tier5c_efficient_path] Flamingo gated cross-attention at L4 (Pythia) / L8 (Qwen); frozen backbone; bottleneck adapter 8192*2->256->head_dim; gate init -4.0; codebook 32k atoms seeded from LLM hiddens; Phase A (<15 min CPU) gates Phase B (<1 GPU-hr decisive fact-transmission test); HARD-PASS > 40% top-1; 17 citations. -> notes/research_drill_tier5c_efficient_path_5x_2026-06-08.md
+2026-06-08 | substrate_emergent_extreme_scale_5x | notes/research_drill_substrate_emergent_extreme_scale_5x_2026-06-08.md | HEADLINE: 5 emergent properties at 1B+ scale; O(1) retrieval structural; encoder drift top production risk; 8GB for 1B facts; K_max formula; 252x cost advantage vs long-context LLM confirmed by 2025 lit
