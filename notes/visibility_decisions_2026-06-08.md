@@ -15,3 +15,5 @@
 ## CYCLE 188 -- 11:39 -- v513->v514 -- 4 HP -- PP-148..PP-151
 
 WebQSP HP recall=0.976 (n=381) + CWQ HP recall=0.926 (n=272): standard public KG-QA benchmarks both PASS by large margins; substrate handles real compositional questions on real knowledge graphs. Cascade router HP P95=0.21ms at 1M facts (demo-readiness gate). MuSiQue multi-hop HP r@10=0.784 (harder than HotpotQA; supports multi-hop REVIVE). All 4 labels HONEST; 0 LVH. Portfolio 32+147->32+151. HONEST 1401->1405. LVH 263 unchanged.
+
+CYCLE 192 (2026-06-08): 20 verdicts processed. 14 HP (13 CPU + 1 GPU smoke) + 4 MIDDLE_BAND (3 MID genuine + 1 ceiling artifact) + 1 HF (sparse value capacity no gain vs dense). 20 NEW PP ROWS PP-154..PP-173. Portfolio 32+153->32+173 +20. HONEST 1412->1432 +20. LVH 265 UNCHANGED. v517->v518. Key findings: bitemporal/typed/provenance native fact rep all HP; cyclic K-hop terminates correctly; AND-query + negation polarity both ceiling; latency VALIDATED band eligible; encoder drift monitor demo-ready; type confusion SOLVED by sharding (+18pp); sparse value capacity closed with 5 rescues. Queue empty (both queues); Exp-Dev session owns refill.
