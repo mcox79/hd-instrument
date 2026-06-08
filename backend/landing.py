@@ -203,7 +203,7 @@ LANDING_HTML = """<!doctype html>
       const q = document.getElementById('q').value.trim();
       const out = document.getElementById('t5a-out');
       if (!q) { out.textContent = 'enter a question first.'; return; }
-      out.textContent = 'querying substrate + Qwen-2.5-1.5B-Instruct...';
+      out.innerHTML = '<em style="color:#888">querying substrate + Qwen-2.5-1.5B-Instruct...</em>';
       try {
         const r = await fetch('/query/tier5a', {
           method: 'POST',
@@ -215,22 +215,51 @@ LANDING_HTML = """<!doctype html>
           out.textContent = 'error: ' + JSON.stringify(j, null, 2);
           return;
         }
-        const lines = [];
-        lines.push('ANSWER: ' + j.answer);
-        lines.push('');
-        lines.push('SUBSTRATE FACTS RETRIEVED:');
-        for (const f of j.facts_used) {
-          lines.push('  [' + f.score.toFixed(3) + ']  ' + f.fact);
-        }
-        lines.push('');
-        lines.push('LATENCY: substrate=' + j.substrate_latency_ms.toFixed(0) + 'ms  llm=' + j.llm_latency_ms.toFixed(0) + 'ms  total=' + j.total_latency_ms.toFixed(0) + 'ms');
-        lines.push('MODEL: ' + j.llm_model + ' (' + j.llm_input_tokens + ' input + ' + j.llm_output_tokens + ' output tokens)');
-        lines.push('COST: $' + j.cost_usd.toFixed(6) + ' (local inference)');
-        lines.push('AUDIT CHAIN ROOT: ' + j.audit_chain_root.slice(0, 16) + '...');
-        out.textContent = lines.join('\\n');
+        renderTier5aResponse(out, j);
       } catch (e) {
         out.textContent = 'fetch error: ' + e.message;
       }
+    }
+
+    function esc(s) { return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+    function renderTier5aResponse(out, j) {
+      const lines = [];
+      lines.push('<div style="margin-bottom:0.6rem"><b style="color:#4ade80">ANSWER:</b> ' + esc(j.answer) + '</div>');
+
+      lines.push('<div style="color:#a0a0b0;font-size:0.78rem;margin-bottom:0.4rem">SUBSTRATE-RETRIEVED FACTS</div>');
+      for (const f of j.facts_used) {
+        lines.push('<div style="background:#1c1c28;padding:0.4rem 0.6rem;border-radius:4px;margin:0.15rem 0;font-size:0.8rem;color:#c8c8d0"><span style="color:#7080a0;font-family:ui-monospace,monospace;margin-right:0.4rem">cos ' + f.score.toFixed(3) + '</span>' + esc(f.fact) + '</div>');
+      }
+
+      lines.push('<div style="color:#a0a0b0;font-size:0.78rem;margin:0.7rem 0 0.3rem">METRICS</div>');
+      lines.push('<div style="font-family:ui-monospace,SF Mono,monospace;font-size:0.78rem;color:#888;line-height:1.7">');
+      lines.push('  substrate: <b style="color:#4ade80">' + j.substrate_latency_ms.toFixed(0) + 'ms</b>  llm: ' + j.llm_latency_ms.toFixed(0) + 'ms  total: ' + j.total_latency_ms.toFixed(0) + 'ms<br>');
+      lines.push('  model: ' + esc(j.llm_model) + ' (' + j.llm_input_tokens + ' in + ' + j.llm_output_tokens + ' out tokens)<br>');
+      lines.push('  cost: <b style="color:#4ade80">$' + j.cost_usd.toFixed(6) + '</b> (local inference)');
+      lines.push('</div>');
+
+      // Audit chain expansion (POLISH 1 per Research POST_Q3_SEQUENCE Priority A)
+      lines.push('<details style="margin-top:0.7rem;background:#1c1c28;border-radius:6px;padding:0.45rem 0.7rem">');
+      lines.push('<summary style="cursor:pointer;color:#8b9eff;font-size:0.85rem;user-select:none">Audit chain (Merkle-committed; root <code style="color:#fbbf24">' + j.audit_chain_root.slice(0,16) + '...</code>) - click to expand</summary>');
+      lines.push('<div style="margin-top:0.5rem;font-size:0.75rem;color:#c8c8d0;font-family:ui-monospace,monospace">');
+      lines.push('<div style="color:#888;margin-bottom:0.3rem">genesis: <code style="color:#888">' + j.audit_chain.genesis.slice(0,16) + '...</code></div>');
+      const stepColors = { 'substrate_retrieve': '#4ade80', 'llm_generate': '#fbbf24', 'answer': '#8b9eff' };
+      for (const step of j.audit_chain.steps) {
+        const color = stepColors[step.label] || '#888';
+        lines.push('<div style="background:#16161f;border-left:2px solid ' + color + ';padding:0.35rem 0.55rem;margin:0.3rem 0;border-radius:3px">');
+        lines.push('<div style="display:flex;justify-content:space-between;color:' + color + '">');
+        lines.push('  <b>[' + step.seq + '] ' + esc(step.label) + '</b>');
+        lines.push('  <code style="color:#666;font-size:0.7rem">' + step.hash.slice(0,12) + '...</code>');
+        lines.push('</div>');
+        lines.push('<pre style="margin:0.25rem 0 0;color:#888;font-size:0.72rem;white-space:pre-wrap;word-break:break-word">' + esc(JSON.stringify(step.payload, null, 0)) + '</pre>');
+        lines.push('</div>');
+      }
+      lines.push('<div style="color:#fbbf24;margin-top:0.3rem">root: <code>' + j.audit_chain.root.slice(0,32) + '</code></div>');
+      lines.push('<div style="color:#666;margin-top:0.3rem;font-size:0.7rem">tamper-evident: changing any step\\\'s payload invalidates root. SHA-256 chain. <a href="/query/tier5a/audit_chain/' + j.query_id + '" style="color:#8b9eff" target="_blank">fetch raw JSON &rarr;</a></div>');
+      lines.push('</div></details>');
+
+      out.innerHTML = lines.join('');
     }
   </script>
 </body>
