@@ -134,9 +134,8 @@ def _selftest():
     assert eval("2+3*4") == 14, "math tool"; print("[selftest] PASS: t5c-orchestrator-routing", flush=True)
 def classify(q):
     ql = q.lower()
-    if any(t in ql for t in ["compute","what is ","+","-","*","sum of","times","divided"]):
-        if any(c.isdigit() for c in q): return "MATH"
     if any(t in ql for t in ["write","poem","story","imagine","brainstorm","rephrase"]): return "CREATIVE"
+    if ql.startswith("compute") or re.search(r"\d\s*[\+\-\*/]\s*\d", q): return "MATH"   # explicit arithmetic only
     return "FACT"
 def run() -> Dict:
     g = np.random.default_rng(703); N = 8192; SHARD = 2000; shard = np.sign(g.standard_normal((SHARD, 512)).astype(np.float32))
