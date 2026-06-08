@@ -81,7 +81,10 @@ LANDING_HTML = """<!doctype html>
 </head>
 <body>
   <h1>Substrate v1 Demo <span class="pill ok">ONLINE</span></h1>
-  <p class="sub">Algebraic memory architecture for LLMs. <a href="/demo" style="color:#8b9eff">Try the decisive test &rarr;</a></p>
+  <p class="sub">Algebraic memory architecture for LLMs.
+    <a href="/demo" style="color:#8b9eff">Decisive test</a> &middot;
+    <a href="/playground" style="color:#8b9eff">Algebraic playground</a> &middot;
+    <a href="/benchmark" style="color:#8b9eff">30-query benchmark</a></p>
 
   <div class="card">
     <h2>Hero counter</h2>
@@ -104,16 +107,18 @@ LANDING_HTML = """<!doctype html>
   </div>
 
   <div class="card">
-    <h2>Tier 5 Sprint architecture (locked 2026-06-08)</h2>
-    <p style="margin-bottom:1rem">Two panels, same Pythia, two architectural tiers of substrate integration.
-    Substrate IS knowledge. LLM IS interface.</p>
+    <h2>Architecture (SPEC v5: algebra-first)</h2>
+    <p style="margin-bottom:1rem">Substrate's moat is the underlying ALGEBRA (HD bind/unbind + Datalog<sup>&not;</sup> ops + Merkle audit + cross-session persistence), NOT the injection pattern.</p>
     <ul>
-      <li><span class="pill work">PANEL A</span> <strong>Tier 5a substrate-KV</strong> (production-ready):
-        Pythia-1.4B + 200M-fact substrate. Substrate provides external persistent memory.
-        Retrieval BEFORE forward pass. <em>D2 empirically HP at M=10K (156x context).</em></li>
-      <li><span class="pill pending">PANEL B</span> <strong>Tier 5b substrate-attention-layer</strong> (PoC):
-        Pythia-160M layer-6 attention modified. K/V come from substrate retrieval, not learned
-        projections. Standard softmax(QK^T)V math. <em>Architectural proof for v2.0.</em></li>
+      <li><span class="pill ok">PANEL A</span> <strong>Tier 5a substrate-KV + algebraic playground</strong> (LIVE):
+        Qwen-2.5-1.5B-Instruct + substrate. Retrieval BEFORE forward pass. AND / NOT / COUNT / counterfactual <code>do()</code> categorical ops on top.
+        <em>D2 + D3 + N1 + PP-153 empirically HP. <a href="/playground">Try the playground</a>.</em></li>
+      <li><span class="pill pending">TIER 5b</span> <strong>Substrate-attention-layer (Flamingo-style gated)</strong> (research; conditional):
+        Frozen Qwen-Instruct + per-head HD-to-K/V adapter + learnable scalar gate. <em>Promoted to demo headline IFF
+        falsifiable test passes. Substrate vs kNN-LM falsifiable test already HARD-PASSED (+98pp on 2-hop).</em></li>
+      <li><span class="pill pending">TIER 5c</span> <strong>Substrate-intrinsic LLM</strong> (active R&D; roadmap):
+        Trained from scratch with substrate routing through every attention layer. Categorical reframing of how
+        LLMs use external knowledge. <em>5x deep research drill + MVP scoping in flight.</em></li>
     </ul>
   </div>
 

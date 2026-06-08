@@ -245,6 +245,97 @@ async def query_tier5a_baseline(req: Tier5aRequest):
 
 
 # ============================================================
+# Algebraic ops -- categorical operations no vector DB has (per SPEC v5)
+# AND / NOT / COUNT compose over the substrate's fact set with deterministic,
+# auditable semantics. A pure-cosine vector DB cannot express these directly.
+# ============================================================
+
+
+class AndRequest(BaseModel):
+    terms: list[str] = Field(..., min_length=2, description="2+ terms; facts must contain ALL")
+    case_sensitive: bool = False
+    limit: int = Field(20, ge=1, le=200)
+
+
+class NotRequest(BaseModel):
+    include: list[str] = Field(..., min_length=1, description="facts must contain ALL these terms")
+    exclude: list[str] = Field(..., min_length=1, description="facts must contain NONE of these")
+    case_sensitive: bool = False
+    limit: int = Field(20, ge=1, le=200)
+
+
+class CountRequest(BaseModel):
+    term: str = Field(..., min_length=1)
+    case_sensitive: bool = False
+
+
+def _normalize(s: str, case_sensitive: bool) -> str:
+    return s if case_sensitive else s.lower()
+
+
+@router.post("/tier5a/and")
+async def query_tier5a_and(req: AndRequest):
+    """AND: facts containing ALL terms. Vector DBs only do AND via re-ranking; we do
+    it exactly over the structured fact set."""
+    kv = _init_kv()
+    terms = [_normalize(t, req.case_sensitive) for t in req.terms]
+    hits = []
+    for f in kv.facts:
+        h = _normalize(f, req.case_sensitive)
+        if all(t in h for t in terms):
+            hits.append(f)
+            if len(hits) >= req.limit:
+                break
+    return {
+        "operation": "AND",
+        "terms": req.terms,
+        "match_count": len(hits),
+        "facts": hits,
+        "kb_size": len(kv),
+    }
+
+
+@router.post("/tier5a/not")
+async def query_tier5a_not(req: NotRequest):
+    """NOT: facts including ALL `include` terms but NONE of `exclude`. Algebraic set
+    difference - categorical operation no vector DB expresses cleanly."""
+    kv = _init_kv()
+    inc = [_normalize(t, req.case_sensitive) for t in req.include]
+    exc = [_normalize(t, req.case_sensitive) for t in req.exclude]
+    hits = []
+    for f in kv.facts:
+        h = _normalize(f, req.case_sensitive)
+        if all(t in h for t in inc) and not any(t in h for t in exc):
+            hits.append(f)
+            if len(hits) >= req.limit:
+                break
+    return {
+        "operation": "NOT (include AND NOT exclude)",
+        "include": req.include,
+        "exclude": req.exclude,
+        "match_count": len(hits),
+        "facts": hits,
+        "kb_size": len(kv),
+    }
+
+
+@router.post("/tier5a/count")
+async def query_tier5a_count(req: CountRequest):
+    """COUNT: cardinality of facts containing `term`. Substrate exposes set sizes
+    natively; vector DBs only do top-K retrieval."""
+    kv = _init_kv()
+    t = _normalize(req.term, req.case_sensitive)
+    n = sum(1 for f in kv.facts if t in _normalize(f, req.case_sensitive))
+    return {
+        "operation": "COUNT",
+        "term": req.term,
+        "count": n,
+        "kb_size": len(kv),
+        "fraction_of_kb": round(n / max(1, len(kv)), 4),
+    }
+
+
+# ============================================================
 # Counterfactual algebraic op (per SPEC v5: "categorical operations no vector DB has")
 # ============================================================
 

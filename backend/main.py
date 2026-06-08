@@ -39,6 +39,8 @@ from backend import config
 from backend.admin import demo_mode
 from backend.landing import landing_response
 from backend.decisive_test import decisive_test_response
+from backend.playground import playground_response
+from backend.benchmark import benchmark_response
 from backend.routes import query_tier5a
 
 
@@ -154,6 +156,18 @@ class DeleteFactsRequest(BaseModel):
 async def root():
     """Browser-friendly landing page."""
     return landing_response()
+
+
+@app.get("/playground")
+async def playground():
+    """Algebraic playground: interactive AND / NOT / COUNT / counterfactual against substrate KB."""
+    return playground_response()
+
+
+@app.get("/benchmark")
+async def benchmark():
+    """Head-to-head benchmark: 30 pre-cached queries; substrate vs gpt-4o-mini side-by-side."""
+    return benchmark_response()
 
 
 @app.get("/demo")
