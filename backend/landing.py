@@ -81,7 +81,7 @@ LANDING_HTML = """<!doctype html>
 </head>
 <body>
   <h1>Substrate v1 Demo <span class="pill ok">ONLINE</span></h1>
-  <p class="sub">Audit Week complete. Backend skeleton live. Full UI lands Week 3.</p>
+  <p class="sub">Substrate IS knowledge. LLM IS interface. Full UI lands Week 3.</p>
 
   <div class="card">
     <h2>What you're hitting right now</h2>
@@ -89,6 +89,10 @@ LANDING_HTML = """<!doctype html>
     It's reachable from anywhere via Cloudflare Tunnel for $0 hosting cost.
     The next 5 weeks add the substrate engine + 3 LLM endpoints + Next.js frontend
     with side-by-side panels and 5 wow moments.</p>
+    <p style="color:#888;font-size:0.9rem;margin-top:1rem">Architecture: substrate is a
+    sharded FHRR knowledge store providing K-hop traversal with audit chains, GDPR exact
+    erasure, bitemporal as-of queries, counterfactual do() operator. The LLM (gpt-4o-mini
+    or Claude Haiku) reads from the substrate as external memory beyond its context window.</p>
   </div>
 
   <div class="card">
@@ -119,14 +123,16 @@ LANDING_HTML = """<!doctype html>
   </div>
 
   <div class="card">
-    <h2>Substrate-side benchmark numbers (validated public data, cycle 187 + 188)</h2>
+    <h2>Substrate-side benchmark numbers (validated public data, cycles 187 + 188)</h2>
     <ul>
-      <li>WebQSP real KG-QA: <strong>97.6%</strong> accuracy</li>
-      <li>CWQ complex multi-hop: <strong>92.6%</strong></li>
-      <li>FB15K-237 sharded K-hop: <strong>r@5 = 1.000</strong> (1-hop), 0.705 (2-hop); monolithic store collapses to 0.007 = <strong>140x recall gap</strong></li>
-      <li>Wikipedia ingest: <strong>155 articles/sec</strong>; r@1 = 0.971; 5.84M projected ~10-12 hr</li>
-      <li>Cascade router P95 latency: <strong>0.21 ms</strong> at 1M facts (2381x under 500ms SLA)</li>
-      <li>Cleanup confidence (PP-107): AUC = 1.0 — substrate abstains honestly when it doesn't know</li>
+      <li><strong>WebQSP</strong> real KG-QA (PP-148): <strong>97.6%</strong> accuracy</li>
+      <li><strong>CWQ</strong> complex multi-hop (PP-149): <strong>92.6%</strong></li>
+      <li><strong>MuSiQue</strong> harder multi-hop (PP-151): <strong>r@10 = 0.784</strong></li>
+      <li><strong>FB15K-237</strong> sharded K-hop: <strong>r@5 = 1.000</strong> (1-hop), 0.705 (2-hop); monolithic collapses to 0.007 = <strong>140x recall gap</strong></li>
+      <li><strong>Wikipedia ingest</strong>: 155 articles/sec; r@1 = 0.971; 5.84M projected ~10-12 hr</li>
+      <li><strong>Cascade router P95 latency</strong> (PP-150): <strong>0.21 ms at 1M</strong>, <strong>0.36 ms at 10M</strong> facts — scale-invariant</li>
+      <li><strong>Cleanup confidence</strong> (PP-107): AUC = 1.0 — substrate abstains honestly when it doesn't know</li>
+      <li><strong>Tier-5 substrate-KV</strong> (PP-135): size-agnostic (Pythia 160M / 1.4B / 2.8B all HP) + family-agnostic (Pythia + Qwen 1.5B both HP) — 156x context expansion at M=10K</li>
     </ul>
   </div>
 

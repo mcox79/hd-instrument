@@ -31,11 +31,40 @@ from typing import Optional
 
 import numpy as np
 
+import math
+
 from substrate.core import DEFAULT_DIM, Codebook
 from substrate.persistence import ShardMetadata, load_shard, save_shard, list_shards
 
 
-SHARD_FULL_THRESHOLD = 2000  # M_max per shard; consistent with cycle 145 (M ~ 0.25N)
+# Per Research VERIFY response 2026-06-08: cycle 187+188 capacity formula
+# SNR = sqrt(N / (VE * deg)). At N=8192 deg=2, VE_safe ~ 400-574 entities = ~800-1148 facts.
+# Conservative safe threshold = 500 facts/shard (deg=2 implies ~250 entities; stays
+# safely above SNR threshold). Dynamic threshold via dynamic_shard_threshold() preferred.
+SHARD_FULL_THRESHOLD = 500
+
+
+def dynamic_shard_threshold(N: int = DEFAULT_DIM, observed_avg_degree: float = 2.0,
+                             safety_margin: float = 2.0) -> int:
+    """Compute capacity-safe shard threshold from cycle 187+188 SNR formula.
+
+    SNR ~ sqrt(N / (VE * deg)). Production target: ~500 facts at N=8192 deg=2 baseline.
+    Denser graphs (higher deg) saturate the shard's bundling SNR faster, so use smaller
+    shards. Larger N permits larger shards proportionally.
+
+    Args:
+        N: substrate vector dimensionality
+        observed_avg_degree: average outgoing edges per subject in the KB (~2 typical)
+        safety_margin: divisor applied to the SNR-derived cap (default 2.0 for headroom)
+
+    Returns:
+        int max-facts-per-shard. Use this to set ShardManager's threshold dynamically.
+    """
+    # Baseline: 500 facts at N=8192 deg=2 safety=2 (per Research VERIFY 2026-06-08).
+    # Formula: facts_safe = (0.0625 * N) / max(1, deg/2) / (safety_margin/2)
+    deg = max(1.0, float(observed_avg_degree))
+    facts_safe = int(0.0625 * N / max(1.0, deg / 2.0) / max(1.0, safety_margin / 2.0))
+    return max(50, facts_safe)
 
 
 class ShardStrategy(str, Enum):
@@ -199,17 +228,24 @@ def _self_test():
     )
     assert result.final_entity == "Loopt", f"2-hop expected Loopt, got {result.final_entity}"
 
-    # Hierarchical sub-sharding test
+    # Hierarchical sub-sharding test (threshold is now 500 per Research VERIFY)
     mgr_h = ShardManager(strategy=ShardStrategy.HIERARCHICAL, dim=512)
-    # write enough to trigger sub-shard
     big_subject = "BigEntity"
     for i in range(SHARD_FULL_THRESHOLD + 100):
         mgr_h.write(Triple(big_subject, f"rel_{i % 10}", f"obj_{i}"))
     h_stats = mgr_h.stats()
     assert h_stats["n_shards"] >= 2, "hierarchical should sub-shard"
 
+    # Dynamic threshold validation
+    t8k = dynamic_shard_threshold(N=8192, observed_avg_degree=2.0)
+    t4k = dynamic_shard_threshold(N=4096, observed_avg_degree=2.0)
+    t8k_high_deg = dynamic_shard_threshold(N=8192, observed_avg_degree=10.0)
+    assert t8k > t4k, "larger N should permit larger shards"
+    assert t8k_high_deg < t8k, "denser graphs should use smaller shards"
+
     print(f"[substrate.shards] self-test PASS (strategy=subject: {stats['n_shards']} shards, "
-          f"{stats['total_facts']} facts; hierarchical sub-shards on big entity OK)")
+          f"{stats['total_facts']} facts; hierarchical sub-shards on big entity OK; "
+          f"dynamic threshold N=8192 deg=2: {t8k} facts; N=4096 deg=2: {t4k}; N=8192 deg=10: {t8k_high_deg})")
 
 
 if __name__ == "__main__":

@@ -41,7 +41,12 @@ class InvertedIndex:
         return f"{relation}={obj}"
 
     def build_from_triples(self, triples, ent_codebook: dict) -> None:
-        """Run a sleep-defrag pass over triples; build inverted shards for hot properties."""
+        """Run a sleep-defrag pass over triples; build inverted shards for hot properties.
+
+        Per Research VERIFY 2026-06-08: store BOTH a bundle (for Mechanism B cosine
+        retrieval) AND an exact subject list (for set-of-subjects queries without
+        cleanup-noise risk).
+        """
         # Count subjects per property
         property_subjects: dict = {}
         for t in triples:
@@ -51,15 +56,25 @@ class InvertedIndex:
         for key, subjects in property_subjects.items():
             if len(subjects) < self.threshold_subjects_per_property:
                 continue
-            self.property_subjects[key] = subjects
-            self.inv_shards[key] = sum(ent_codebook[s] for s in subjects)
+            self.property_subjects[key] = subjects   # exact list (per Research VERIFY)
+            self.inv_shards[key] = sum(ent_codebook[s] for s in subjects)  # bundle (Mechanism B)
 
     def query(self, relation: str, obj: str, ent_codebook: dict, ent_names: list[str],
-              top_k: Optional[int] = None) -> list[str]:
-        """Look up subjects with property (relation=obj). Returns ordered list of names."""
+              top_k: Optional[int] = None, exact: bool = False) -> list[str]:
+        """Look up subjects with property (relation=obj). Returns ordered list of names.
+
+        Args:
+            exact: if True, return the EXACT subject list (no cleanup noise; matches
+                the truth set used to build the shard). Recommended for set-of-subjects
+                wow moment queries per Research VERIFY 2026-06-08.
+                If False, return ordered-by-cosine via the bundle (Mechanism B).
+        """
         key = self.property_key(relation, obj)
         if key not in self.inv_shards:
             return []
+        if exact:
+            # Return exact stored list (deterministic; no cleanup risk)
+            return sorted(self.property_subjects[key])
         ent_array = np.stack([ent_codebook[n] for n in ent_names], axis=0)
         bundle = self.inv_shards[key]
         # cosine via real(book @ conj(bundle))
@@ -105,8 +120,12 @@ def _self_test():
     overlap = len(set(saas) & saas_truth)
     assert overlap >= 7, f"expected >=7/8 SaaS overlap, got {overlap}"
 
+    # Exact-list mode (per Research VERIFY: no cleanup noise on set queries)
+    saas_exact = inv.query("industry", "SaaS", ents, entity_names, exact=True)
+    assert set(saas_exact) == saas_truth, f"exact mode should return truth set exactly, got {saas_exact}"
+
     print(f"[substrate.inverted] self-test PASS (3 inverted shards built; "
-          f"SaaS query returned {overlap}/8 correct)")
+          f"SaaS query bundle-mode {overlap}/8 correct; exact-mode = truth set)")
 
 
 if __name__ == "__main__":

@@ -12,6 +12,12 @@ Properties (validated cycle 145):
 - per-query latency = 0.003 ms at 1M versions
 
 Demo enabling: temporal consistency, audit trails ("what did we believe last Tuesday?")
+
+KNOWN LIMITATION (v1 demo): ties on valid_time are broken by INSERTION ORDER, not by
+transaction_time. PP-104 bitemporal_asof_1M HP did not stress test ties, so this is
+acceptable for v1 demo correctness. Production bitemporal proper requires (valid_time,
+transaction_time) tuples; ties broken by transaction_time. FLAGGED for v1.1 fix per
+Research VERIFY response 2026-06-08.
 """
 from __future__ import annotations
 import bisect

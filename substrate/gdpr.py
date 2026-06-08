@@ -15,6 +15,10 @@ Properties (validated cycle 162 + 178):
 
 Demo wow moment: "Delete all facts about John Doe; substrate forgets exactly. Bare LLM
 cannot do this — training data persists in weights."
+
+V1.1 FLAG per Research VERIFY 2026-06-08: intact_sample_size=32 is acceptable for v1
+demo at <100K facts. Production should bump to 256+ samples OR a percentage of substrate
+size for stronger statistical confidence in the intact_check_passed assertion.
 """
 from __future__ import annotations
 import time
