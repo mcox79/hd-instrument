@@ -126,3 +126,5 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 
 - VSA NeSy rule DEEPER 5x: notes/research_drill_field_VSA_NeSy_rule_DEEPER_5x_2026-06-07.md -- LARS-VSA rule encoding + LLM-verifier architecture + resonator multi-hop bridge; 5 local/CPU anchors to exp_dev
 - [modern-hopfield DEEPER 5x] notes/research_drill_field_modern_hopfield_DEEPER_5x_2026-06-07.md -- manifold-capacity correction, MHA hidden state, K-hop diffusion framing, synaptic noise formula, 5 anchors
+2026-06-07 | hippocampal-reverse-replay-DEEPER-3x | notes/research_drill_natural_analog_hippocampal_DEEPER_3x_2026-06-07.md | HEADLINE: theta-gamma multi-mode is most yielding; zero-cost variable-threshold ships immediately; noise injection enables imagination mode; domain-crossover enables analogical synthesis; P_deflated max 0.62
+streaming_DP_composition_DEEPER_5x -> notes/research_drill_field_streaming_DP_composition_DEEPER_5x_2026-06-07.md | HEADLINE: SVT+SBM+streaming-betweenness+DP-CMS+mergeable-MG; P_deflated=0.64; next-drill: percolation or streaming-betweenness pre-test
