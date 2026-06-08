@@ -144,15 +144,14 @@ LANDING_HTML = """<!doctype html>
     <div id="t5a-out" style="background:#1e1e2a;padding:0.75rem;border-radius:6px;margin-top:0.6rem;font-family:ui-monospace,SF Mono,monospace;font-size:0.85rem;white-space:pre-wrap;min-height:3rem">Type a question + click "Ask substrate".</div>
   </div>
 
-  <div class="card">
-    <h2>Demo-mode toggle (live test)</h2>
-    <p>This pauses all CPU/GPU experiment dispatches while the demo is active. Watchdog
-    re-suspends new procs every 30 sec; fail-open after 10 min stale heartbeat.</p>
-    <button onclick="hit('/admin/demo-mode-on', 'POST')">Demo mode ON</button>
-    <button class="toggle-off" onclick="hit('/admin/demo-mode-off', 'POST')">Demo mode OFF</button>
-    <button class="toggle-off" onclick="hit('/admin/demo-mode-status', 'GET')">Check status</button>
-    <div id="status">Click a button to see the response.</div>
-  </div>
+  <!-- Demo-mode toggle hidden from public landing per user direction (until demo is live + being shared).
+       Endpoints still work for operator use via /admin/demo-mode-{on,off,status} but UI buttons are removed
+       so visitors can't accidentally pause running experiments. -->
+  <!-- div class="card">
+    <h2>Demo-mode toggle (operator-only)</h2>
+    Available at /admin/demo-mode-{on,off,status}. Hidden from public landing per user direction.
+  </div -->
+  <div id="status" style="display:none"></div>
 
   <div class="card">
     <h2>Substrate-side benchmark numbers (validated public data, cycles 187 + 188)</h2>

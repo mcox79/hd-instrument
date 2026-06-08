@@ -371,32 +371,21 @@ def _stop_watchdog() -> None:
 # ============================================================
 
 def reconcile_on_boot() -> dict:
-    """On backend startup, reconcile in-memory state with on-disk flag.
+    """On backend startup, ALWAYS clear demo-mode flag (fail-open / safe-by-default).
 
-    If the flag file is present from a previous run, three possibilities:
-      (a) demo session ended cleanly but flag wasn't cleared -- clear it
-      (b) backend crashed mid-demo and is restarting -- re-enter demo mode
-      (c) heartbeat is stale -- failsafe auto-clear
-
-    Strategy: if heartbeat is stale > HEARTBEAT_STALENESS_THRESHOLD_S, FAIL OPEN
-    (clear flag). Otherwise, re-enter demo mode.
+    Prior behavior re-entered demo-mode if the flag was present + heartbeat fresh, but
+    that caused experiment processes to stay suspended across backend restarts the user
+    didn't expect. Per user direction 2026-06-08: experiments stay running until the
+    demo is live + being shared with customers; demo-mode-on is a deliberate operator
+    action, never automatic.
     """
-    if not _read_flag():
-        return {"booted_into": "normal_mode"}
-    age = _heartbeat_age_s()
-    if age > HEARTBEAT_STALENESS_THRESHOLD_S:
-        logger.warning(
-            "demo_mode boot: stale flag (heartbeat age %.0fs > %ds threshold); FAIL-OPEN clearing",
-            age, HEARTBEAT_STALENESS_THRESHOLD_S,
-        )
+    flag_was_present = _read_flag()
+    if flag_was_present:
+        logger.info("demo_mode boot: clearing stale flag from prior session (safe-by-default)")
         _write_flag(False)
         _touch_orchestrator_pause(False)
-        _log_state_change("boot_failsafe_clear", {"heartbeat_age_s": age})
-        return {"booted_into": "normal_mode", "reason": "stale_flag_failsafe_clear"}
-    # Re-enter demo mode (heartbeat is recent enough)
-    logger.info("demo_mode boot: re-entering demo mode (heartbeat age %.0fs)", age)
-    activate(reason="boot:flag-still-present")
-    return {"booted_into": "demo_mode", "heartbeat_age_s": age}
+        _log_state_change("boot_safe_clear", {"flag_was_present": True})
+    return {"booted_into": "normal_mode", "flag_was_present": flag_was_present}
 
 
 # ============================================================
