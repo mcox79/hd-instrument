@@ -14,6 +14,7 @@
 
 - [2026-06-07] temporal-fact-versioning 2x -> notes/research_drill_temporal_fact_versioning_2x_2026-06-07.md | P_deflated=0.45-0.65 | HEADLINE: bitemporal algebra maps to substrate via Merkle+valid-time composition; 5-6 week engineering path; Blue Ocean = semantic+temporal+cryptographic audit composition none of XTDB/Datomic/RAG provide
 - gradient_based_adversarial_attacks_2x (2026-06-07): notes/research_drill_gradient_based_adversarial_attacks_2x_2026-06-07.md -- KF-1 smooth gradient primary threat (P=0.52); HOC1+KF-1 paradox joint evasion P=0.22; cross-hop Merkle gap P=0.35 NEW; 5 cells; handoff filed
+- [2026-06-07] immune_DEEPER_3x cross-reactive memory + vaccine pretraining -> notes/research_drill_natural_analog_immune_DEEPER_3x_2026-06-07.md | HEADLINE: OAS seeding-window bias is the single highest-risk memory failure mode; two-tier confidence (retrieval vs adversarial) + confidence decay (alpha=0.95/cycle) is the mitigation; burial-depth invariant identifies load-bearing bindings exempt from decay; two-speed adversarial memory (slow fingerprint) is differentiating day-30 improvement; P_deflated=0.45-0.60; next drill: population-genetics fixation probability; exp_dev handoff written
 
 # Major architectural decisions LOCKED today 2026-06-07
 - PRODUCTION RECIPE LOCKED (cycle 143; v464): whiten + pseudoinverse on real keys = alpha_c=0.400; OLD raw+Hebb = 0 (non-functional). All future substrate code paths use whiten + pinv.
@@ -122,3 +123,6 @@ distributed-coordination-patterns-3x -> notes/research_drill_distributed_coordin
 2026-06-07: VSA algebraic foundation 5x drill -> notes/research_drill_field_VSA_algebraic_foundation_5x_2026-06-07.md | HEADLINE: substrate implements ~70% of VSA theory; top gap = MAP permutation for sequences (P=0.50); attention-as-VSA 2024 bridge found
 
 - [differential-privacy-5x] notes/research_drill_field_differential_privacy_5x_2026-06-07.md -- RDP 9x tighter than basic composition; Ben-Eliezer free robustness; PLD accountant 1-2 day gap; N=1024 rehabilitated via subsampling+per-instance-DP
+
+- VSA NeSy rule DEEPER 5x: notes/research_drill_field_VSA_NeSy_rule_DEEPER_5x_2026-06-07.md -- LARS-VSA rule encoding + LLM-verifier architecture + resonator multi-hop bridge; 5 local/CPU anchors to exp_dev
+- [modern-hopfield DEEPER 5x] notes/research_drill_field_modern_hopfield_DEEPER_5x_2026-06-07.md -- manifold-capacity correction, MHA hidden state, K-hop diffusion framing, synaptic noise formula, 5 anchors
