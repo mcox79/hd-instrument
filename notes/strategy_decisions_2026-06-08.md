@@ -1222,3 +1222,83 @@ NOTE: gate3_conformal_coverage_cpu_v1 HF is the FIRST conformal coverage attempt
 
 Cap_map: v521 -> v522 CYCLE 196 (5 HP [CPU:5]; 0 MIDDLE_BAND; 1 HF [CPU:1 conformal-calibration-broken]; 0 LVH; 5 NEW PP ROWS PP-184..PP-188; 1 HF founding-annotation [gate3-conformal-coverage]; Portfolio 32+183 -> 32+188 +5; HONEST 1453->1459 +6; LVH 265 UNCHANGED; 427th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v522 -> v523 CYCLE 197 -- 7-VERDICT BATCH (2026-06-08)
+
+Verdicts processed (7 anchors): T5b FULL re-runs (3 duplicate-check) + kNN-LM falsifiable comparisons (2 new) + Flamingo entropy pretest (1 new) + LLM routing 3B (1 new)
+
+### Step 0 honest re-read
+
+All 7 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful). 0 LVH catches.
+
+**T5b FULL re-runs (duplicate-check against cycle-194 SMOKE):**
+- t5b_1_attention_substitution_scaffold_gpu_v1: HONEST. all_finite=True, retr_tokens=27, hooked_calls=5, prompts=5. run_mode=full. HARD_PASS infrastructure gate CONFIRMED. FULL has larger retr_tokens/calls/prompts than SMOKE (27/5/5 vs 16/3/3) -- consistent scale-up. No quality metric; plumbing gate only. No LVH. +1 HONEST.
+- t5b_2_attention_perplexity_gpu_v1: HONEST. baseline_ppl=55.3, best_ratio=1.005 at alpha=0.10, ratios: {0.1:1.005, 0.3:1.026, 0.5:1.063}. run_mode=full. HARD_PASS within-5x threshold CONFIRMED (1.005<<5x). FULL baseline_ppl=55.3 vs SMOKE=47.87 (different scale, same direction); best_ratio near-identical (1.005 vs 1.006). FULL matches SMOKE conclusion. No LVH. +1 HONEST.
+- t5b_3_attention_fact_use_gpu_v1: HONEST. bare_top1=0.000, inj_top1=0.000, n=9. run_mode=full. HARD_FAIL threshold <30pct CONFIRMED (0.000<<0.30). FULL matches SMOKE exactly (bare=0.000, injected=0.000); fact-transmission remains zero at n=9 vs n=8 smoke. No improvement from smoke to full. NOTE: bare=0.000 confirms Pythia-160M zero natural recall on these facts; eval design concern (wrong output layer) persists. No LVH. +1 HONEST.
+
+**GENUINELY NEW (4):**
+- substrate_vs_knnlm_falsifiable_gpu_v1: HONEST. overall: sub=1.000, knn=0.333, delta=+0.667; multi-hop: sub=1.000, knn=0.000, delta=+1.000. Per-hop: hop1 sub=1.0/knn=1.0 (tie), hop2 sub=1.0/knn=0.0, hop3 sub=1.0/knn=0.0. HARD_PASS threshold >=15pp overall + multi-hop. Both CONFIRMED by large margins. Label HONEST. Key pattern: kNN-LM succeeds at hop1 (single-hop dense retrieval works) but fails completely at hop2/3 (no algebraic composition). No LVH. +1 HONEST.
+- substrate_vs_iterative_knnlm_gpu_v1: HONEST. deepest_hop=3, noise=0.08: sub=1.000, iter=0.780, ss=0.007. delta_iter=+0.220 (>5pp threshold). Per-hop error-compounding: iter decays 0.927->0.807->0.780; substrate=1.000 throughout. HARD_PASS threshold >=5pp CONFIRMED (+0.220). Label HONEST. No LVH. +1 HONEST.
+- t5b_flamingo_entropy_pretest_gpu_v1: HONEST. raw_entropy=0.997, adapted_entropy=0.809, m_keys=256. HARD_PASS: raw near-uniform (0.997>=0.95 CONFIRMED); adapted lower (0.809) confirms adapter sharpens. Label HONEST. No LVH. +1 HONEST.
+- llm_routing_t1_3b_gpu_v1: HONEST. accuracy=0.667, route_recall=0.667, direct_recall=0.667, n=30, Qwen2.5-3B-Instruct. MIDDLE_BAND band 0.60-0.70 CONFIRMED (0.667 in [0.60, 0.70)). Balanced route/direct recall. Label HONEST. No LVH. +1 HONEST.
+
+HONEST: 1459 -> 1466 (+7). LVH: 265 UNCHANGED. 0 new LVH catches. All 7 labels HONEST.
+
+### Cap_map decisions (v522 -> v523)
+
+**(A) t5b_1_attention_substitution_scaffold_gpu_v1 (HP FULL -- annotation to PP-8):**
+Annotation to PP-8 (LLM integration row): t5b_1 FULL HP v523: retr_tokens=27, hooked_calls=5, n_prompts=5 (cycle 197). run_mode=full. FULL confirms SMOKE HP from cycle 194. Infrastructure plumbing proven at FULL scale. n=1 seed full.
+
+**(B) t5b_2_attention_perplexity_gpu_v1 (HP FULL -- annotation to PP-8):**
+Annotation to PP-8: t5b_2 FULL HP v523: baseline_ppl=55.3, best_ratio=1.005@alpha=0.10; {0.1:1.005, 0.3:1.026, 0.5:1.063} (cycle 197). run_mode=full. FULL confirms SMOKE HP. Injection perplexity-neutral at low alpha at full scale. n=1 seed full.
+
+**(C) t5b_3_attention_fact_use_gpu_v1 (HF FULL -- upgrades SMOKE HF to FULL HF; annotation to PP-8):**
+Annotation to PP-8: t5b_3 FULL HF v523: bare_top1=0.000, inj_top1=0.000, n=9 (cycle 197). run_mode=full. FULL CONFIRMS SMOKE HF. Fact-transmission zero at full scale. bare=0.000 confirms Pythia natural recall zero on these facts (eval design concern: wrong output layer). R1-R5 rescues from cycle-194 remain: R2 attention-weight eval, R3 projection-free routing, R4 in-distribution facts, R5 retrieval-augmented prefix. PP-8 band UNCHANGED 0.60-0.75 EXPLORATORY. n=1 seed full.
+
+**(D) NEW ROW PP-189: Substrate algebraic traversal beats kNN-LM at multi-hop (overall delta=+0.667, multi-hop delta=+1.000):**
+substrate_vs_knnlm_falsifiable_gpu_v1 HP v523: overall sub=1.000/knn=0.333/delta=+0.667; multi-hop sub=1.000/knn=0.000/delta=+1.000; per-hop: hop1 tie, hop2-3 sub=1.0/knn=0.0 (cycle 197). Mechanism: kNN-LM uses dense retrieval at each hop; at hop1 it works (nearest-neighbor correct) but at hop2+ the retrieval vector drifts from the true algebraic target (no composition), collapsing to 0. Substrate BSC algebraic unbinding at each hop accumulates zero error. Product implication: substrate multi-hop is structurally different from kNN-LM retrieval -- algebraically grounded traversal vs proximity search. Filed at 0.75-0.90 EXPLORATORY (n=1 seed; controlled KB; real-KB scale + multi-seed before VALIDATED). Cross-ref PP-119, PP-8, multi-hop REVIVE priority.
+
+**(E) NEW ROW PP-190: Substrate beats even iterative kNN-LM at depth under noise (sub-vs-iter=+0.220 at hop3):**
+substrate_vs_iterative_knnlm_gpu_v1 HP v523: noise=0.08, hop3: sub=1.000, iter=0.780, ss=0.007, delta_iter=+0.220 (cycle 197). Per-hop compounding: iter decays 0.927->0.807->0.780 across hops; substrate holds 1.000. Even best-case iterative kNN-LM (error correction at each step) cannot prevent accumulation at depth under noise. Substrate exact algebra immune to per-hop noise. Product implication: algebraic advantage vs kNN-LM is stronger than PP-189 alone -- holds even against iterative variant. Filed at 0.75-0.90 EXPLORATORY (n=1 seed; controlled noise=0.08; noise-sweep + multi-seed recommended). Cross-ref PP-189, PP-119.
+
+**(F) NEW ROW PP-191: Flamingo-style adapter required for T5b substrate injection (raw HD entropy=0.997; adapter brings to 0.809):**
+t5b_flamingo_entropy_pretest_gpu_v1 HP v523: raw_entropy=0.997, adapted_entropy=0.809, m_keys=256 (cycle 197). Frozen LLM attention over raw HD vectors = near-uniform (cannot differentiate keys). Learned adapter sharpens to 0.809. Engineering constraint: T5b Flamingo insert REQUIRES a learned per-head adapter; raw HD injection into frozen attention is blind to HD structure. Filed at 0.70-0.85 EXPLORATORY (n=1 seed; M=256; adapter size sweep recommended). Cross-ref PP-8 T5b rescue path R5.
+
+**(G) NEW ROW PP-192: LLM routing at 3B scale (Qwen2.5-3B, accuracy=0.667, MIDDLE_BAND):**
+llm_routing_t1_3b_gpu_v1 MIDDLE_BAND v523: accuracy=0.667, route_recall=0.667, direct_recall=0.667, n=30, Qwen2.5-3B-Instruct (cycle 197). Zero-shot 3B routing 2/3 correct. Balanced failure (both route/direct at 0.667). HP threshold 0.70; misses by 3.3pp. Few-shot prompting expected to close the gap per verdict_msg. Filed at 0.55-0.70 MIDDLE_BAND (n=1 seed, n=30). Rescue: R1 few-shot, R2 CoT prompt, R3 larger model (7B). Cross-ref PP-153, PP-188.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**t5b_3 FULL HF (fact-transmission zero -- R1-R5 cycle-194 still apply):**
+R1 (0-compute, APPLIED): SMOKE HF upgraded to FULL HF. No improvement.
+R2 (CHEAP, GPU <1h): Attention-weight eval: verify substrate retrieval weights increase in correct heads.
+R3 (CHEAP, GPU <1h): Projection-free routing: use HD vector directly as query key without learned projection.
+R4 (CHEAP, GPU <30min): In-distribution facts: test with bigrams from Pythia training corpus to address vocab mismatch.
+R5 (MEDIUM, GPU <2h): Retrieval-augmented prefix: prepend fact as text prefix, bypassing HD->attention bottleneck.
+
+**PP-192 LLM routing MIDDLE_BAND (0.667; 3.3pp below HP 0.70):**
+R1 (0-compute, ANNOTATION): 0.667 in MIDDLE_BAND; 3.3pp gap to HP.
+R2 (CHEAP, GPU <30min): Few-shot prompting (3-5 routing examples); verdict_msg predicts lift.
+R3 (CHEAP, GPU <30min): Chain-of-thought: "does this query require substrate lookup or direct LLM answer?"
+R4 (CHEAP, GPU <30min): 7B model scale test.
+
+**PP-191 Flamingo adapter design constraint:**
+R1 (0-compute, ANNOTATION): Engineering constraint confirmed. Adapter required.
+R2 (CHEAP, GPU <30min): Adapter size sweep (MLP hidden 64/128/256).
+R3 (CHEAP, GPU <1h): Cross-head generalization test.
+
+### Portfolio: 32+188 -> 32+192 (+4 NEW ROWS: PP-189 substrate-vs-kNN-LM + PP-190 substrate-vs-iterative-kNN-LM + PP-191 Flamingo-adapter-required + PP-192 LLM-routing-3B). 0 closures. 3 annotations to PP-8.
+
+### PROT compliance (v522 -> v523)
+
+- PROT-004/006: No closures. 4 NEW TOP-LEVEL ROWS (PP-189..PP-192). 3 annotations (PP-8). Rescue sketches cheapest-first.
+- PROT-007: v523 history row appended to substrate_capability_map_history.md.
+- PROT-008: 5 HP anchors (t5b_1 FULL + t5b_2 FULL + sub_vs_knnlm + sub_vs_iter_knnlm + flamingo_entropy). 1 MIDDLE_BAND (llm_routing_3b). 1 HF (t5b_3 FULL). All HP thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 428th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 7 anchors. CLEAN.
+- PROT-019: LVH 265 UNCHANGED. 0 new LVH catches. All 7 labels HONEST.
+- PROT-021: All 7 source=remote run_mode=full. No smoke contamination. CLEAN. t5b_1/t5b_2/t5b_3 confirmed run_mode=full (SMOKE->FULL upgrade).
+- PROT-022: All HP anchors n=1 seed. sub_vs_knnlm: delta=+0.667/+1.000 well above 0.15pp threshold. sub_vs_iter_knnlm: delta=+0.220 well above 0.05pp threshold. flamingo: 0.997>=0.95 large margin. No HP-fragility concern.
+
+Cap_map: v522 -> v523 CYCLE 197 (5 HP [GPU:5]; 1 MIDDLE_BAND [GPU:1]; 1 HF [GPU:1 t5b3-fact-transmission-FULL]; 0 LVH; 4 NEW PP ROWS PP-189..PP-192; 3 annotations [PP-8 t5b_1-FULL + t5b_2-FULL + t5b_3-SMOKE-HF->FULL-HF]; Portfolio 32+188 -> 32+192 +4; HONEST 1459->1466 +7; LVH 265 UNCHANGED; 428th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
