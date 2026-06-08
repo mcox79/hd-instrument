@@ -52,34 +52,31 @@ if _ARGS.self_test:
     sys.exit(0)
 
 
-def resonate_chain(s, e1, r1, r2, Ebook):
-    # s = e1 * r1 * bridge * r2 * ans ; e1,r1,r2 clamped (known); solve bridge, ans in Ebook via soft resonator
-    known = e1 * r1 * r2
-    bridge = Ebook.mean(0); ans = Ebook.mean(0)
-    bridge = bridge / (np.abs(bridge) + 1e-8); ans = ans / (np.abs(ans) + 1e-8)
-    prev = None
-    for _ in range(MAX_IT):
-        rb = s * np.conj(known * ans)                       # unbind everything except bridge
-        sb = Ebook @ np.conj(rb); bridge = (sb @ Ebook); bridge = bridge / (np.abs(bridge) + 1e-8)
-        ra = s * np.conj(known * bridge)                    # unbind everything except ans
-        sa = Ebook @ np.conj(ra); ans = (sa @ Ebook); ans = ans / (np.abs(ans) + 1e-8)
-        cur = (int(np.argmax(sb.real)), int(np.argmax(sa.real)))
-        if cur == prev:
-            break
-        prev = cur
-    return prev
+def khop_chain(M, e1, r1, r2, Ebook):
+    # substrate K-hop on a bundled 2-fact memory: hop1 bridge=cleanup(M unbind e1*r1); hop2 ans=cleanup(M unbind bridge*r2)
+    rb = M * np.conj(e1 * r1); bi = cidx(rb, Ebook); bridge = Ebook[bi]
+    ra = M * np.conj(bridge * r2); ai = cidx(ra, Ebook)
+    return bi, ai
 
 
 def run() -> Dict:
-    g = np.random.default_rng(7); succ_both = 0; succ_bridge = 0
+    g = np.random.default_rng(7); succ_both = 0; succ_bridge = 0; C = 15
     for _ in range(TRIALS):
         Ebook = phasor(NE, N, g); Rbook = phasor(NR, N, g)
-        e1i, bi, ai = g.choice(NE, 3, replace=False); r1i, r2i = g.integers(0, NR), g.integers(0, NR)
-        s = Ebook[e1i] * Rbook[r1i] * Ebook[bi] * Rbook[r2i] * Ebook[ai]
-        gb, ga = resonate_chain(s, Ebook[e1i], Rbook[r1i], Rbook[r2i], Ebook)
+        # a KB of C 2-hop chains; memory M = bundle of all facts (e1*r1*bridge + bridge*r2*ans per chain)
+        chains = []
+        M = np.zeros(N, dtype=np.complex64)
+        used = set()
+        for c in range(C):
+            trip = g.choice(NE, 3, replace=False); e1i, bi, ai = int(trip[0]), int(trip[1]), int(trip[2])
+            r1i, r2i = int(g.integers(0, NR)), int(g.integers(0, NR))
+            M = M + Ebook[e1i] * Rbook[r1i] * Ebook[bi] + Ebook[bi] * Rbook[r2i] * Ebook[ai]
+            chains.append((e1i, r1i, bi, r2i, ai))
+        e1i, r1i, bi, r2i, ai = chains[int(g.integers(0, C))]      # query one chain
+        gb, ga = khop_chain(M, Ebook[e1i], Rbook[r1i], Rbook[r2i], Ebook)
         succ_bridge += int(gb == bi); succ_both += int(gb == bi and ga == ai)
-    n = TRIALS; r = {"recall2": succ_both / n, "bridge_recall": succ_bridge / n, "n": n}
-    print("  resonator multi-hop: bridge-recall=%.3f both(bridge+ans)recall@2=%.3f (NE=%d NR=%d N=%d, n=%d)" % (r["bridge_recall"], r["recall2"], NE, NR, N, n), flush=True)
+    n = TRIALS; r = {"recall2": succ_both / n, "bridge_recall": succ_bridge / n, "n": n, "C": C}
+    print("  substrate K-hop multi-hop: bridge-recall=%.3f both(bridge+ans)recall@2=%.3f (KB=%d chains, NE=%d N=%d, n=%d)" % (r["bridge_recall"], r["recall2"], C, NE, N, n), flush=True)
     return r
 
 
