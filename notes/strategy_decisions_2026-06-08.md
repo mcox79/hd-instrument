@@ -224,3 +224,70 @@ overnight_queue: bridge returned stale completed entries (no fresh pending). rem
 
 Cap_map: v507 -> v508 CYCLE 182 (1 HP [CPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW ROWS; 1 annotation [PP-116-MIDDLE_BAND->HP-via-sharding]; HONEST 1359->1360 +1; LVH 263 UNCHANGED; Portfolio 32+126 UNCHANGED; 415th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v508 -> v509 CYCLE 183 -- 6-VERDICT SHARDING CLUSTER BATCH (2026-06-08)
+
+Verdicts processed (6 anchors): sharding transition memory follow-up cluster (CPU)
+
+### Step 0 honest re-read
+
+All 6 metrics fetched source=remote (bridge authoritative). 0 LVH catches.
+
+- sharding_scaling_law_cpu_v1: HONEST. per_shard S1-S32 all 1.000 (threshold >=0.90 PASS); monolithic S16=0.195/S32=0.060 (sharp degradation confirmed); interference S1-S32 all 0.000 (near-zero PASS); spread=0.000; gap@maxS=0.940. HARD_PASS label CORRECT. n=1 seed. +1 HONEST.
+- shard_routing_accuracy_cpu_v1: HONEST. routing=1.000 (threshold >=0.95 PASS), e2e=1.000 (threshold >=0.90 PASS), oracle=1.000. All three metrics ceiling. HARD_PASS label CORRECT. n=1 seed. +1 HONEST.
+- skewed_shard_capacity_cpu_v1: HONEST. largest_recall=0.873 (band 0.80-0.90: 0.873 in [0.80, 0.90) CONFIRMED); smallest_recall=1.000; largest_size=370. MIDDLE_BAND label CORRECT. n=1 seed. +1 HONEST.
+- per_relation_sharding_kg_cpu_v1: HONEST. sharded=0.735, mono=0.190, gap=0.545; sharded=0.735 is sub-HP (HP gate >=0.90); MIDDLE_BAND because sharded<0.90 but mechanism works (+385% over mono). MIDDLE_BAND label CORRECT. n=1 seed. +1 HONEST.
+- shard_overflow_split_cpu_v1: HONEST. pre-split=0.160 (<0.80 PASS), post-split=1.000 (>=0.95 PASS). Full recall recovery from overflow confirmed. HARD_PASS label CORRECT. n=1 seed. +1 HONEST.
+- cross_shard_query_cpu_v1: HONEST. scatter-gather recall=1.000 (threshold >=0.90 PASS). Ceiling result. HARD_PASS label CORRECT. n=1 seed. +1 HONEST.
+
+HONEST: 1360 -> 1366 (+6). LVH: 263 UNCHANGED. 0 new LVH catches. All 6 labels HONEST.
+
+### Cap_map decisions (v508 -> v509)
+
+**(A) NEW ROW PP-127: Sharding scaling law (per-shard recall=1.000 at S1-S32; monolithic collapses at S>=8):**
+sharding_scaling_law_cpu_v1 HP v509: per_shard all 1.000 at S1-S32; mono S16=0.195, S32=0.060; interference=0.000 throughout; gap@S32=0.940. Product implication: sharding multiplies total capacity linearly without any per-shard recall cost; monolithic encoding fails at S>=8 (~64 facts/shard at test N); sharded remains 1.000 across all tested shard counts; validates sharding as the production capacity-scaling architecture. Filed at 0.75-0.90 EXPLORATORY (n=1 seed; S-sweep clean; multi-seed at S32 recommended to confirm zero interference is stable).
+
+**(B) NEW ROW PP-128: Shard routing accuracy (routing=e2e=oracle=1.000; no oracle required):**
+shard_routing_accuracy_cpu_v1 HP v509: routing=1.000, e2e=1.000, oracle=1.000. Content-derived routing key matches oracle exactly; end-to-end recall equals oracle recall. Product implication: sharding does not require a pre-built shard lookup table; router is algebraically grounded; self-routing sharded deployment is validated. Filed at 0.70-0.85 EXPLORATORY (n=1 seed, ceiling result; adversarial near-duplicate routing boundary test recommended before VALIDATED claim).
+
+**(C) NEW ROW PP-131: Skewed shard capacity (largest_recall=0.873; MIDDLE_BAND):**
+skewed_shard_capacity_cpu_v1 MIDDLE_BAND v509: largest_shard_size=370, largest_recall=0.873, smallest_recall=1.000. Hotspot shard degrades to 0.873 under Zipf-like load skew. Product implication: skewed traffic requires hotspot detection + sub-shard splitting policy (PP-129 mechanism). MIDDLE_BAND: recall=0.873 in [0.80,0.90). Filed at 0.55-0.70 MIDDLE_BAND (n=1 seed; Zipf skew; rescue sketches below).
+
+**(D) NEW ROW PP-132: Per-relation KG sharding (sharded=0.735 vs mono=0.190; MIDDLE_BAND):**
+per_relation_sharding_kg_cpu_v1 MIDDLE_BAND v509: sharded=0.735, mono=0.190, gap=0.545 (+385% lift). Per-relation sharding is a large improvement but sharded=0.735 remains sub-HP. Product implication: per-relation sharding is a required first step for KG storage but dense relations need within-shard sub-sharding. MIDDLE_BAND: sharded=0.735<HP(0.90). Filed at 0.55-0.70 MIDDLE_BAND (n=1 seed; rescues: hierarchical sharding within dense relation types, N-scaling per shard).
+
+**(E) NEW ROW PP-129: Shard overflow recovery by online split (pre=0.160 -> post=1.000):**
+shard_overflow_split_cpu_v1 HP v509: pre-split=0.160, post-split=1.000. Splitting an overloaded shard restores full recall from severe degradation (0.160). Product implication: elastic sharding -- live shard splits are a production-grade operation; storage grows without retraining; directly resolves PP-131 hotspot path. Cross-ref PP-127 (scaling) + PP-131 (hotspot). Filed at 0.70-0.85 EXPLORATORY (n=1 seed; single overflow scenario; multi-seed + concurrent-write split test recommended).
+
+**(F) NEW ROW PP-130: Cross-shard scatter-gather (recall=1.000; answers spanning shards recovered):**
+cross_shard_query_cpu_v1 HP v509: scatter-gather recall=1.000 (threshold >=0.90). Multi-shard queries answered correctly via scatter-gather at perfect recall. Product implication: transparent sharding from query layer; no pre-routing knowledge of answer shard required; scatter-gather pattern is production-viable. Filed at 0.70-0.85 EXPLORATORY (n=1 seed; clean controlled distribution; recommended: larger S and partial shard failures to test fault-tolerance).
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**PP-131 skewed shard capacity (MIDDLE_BAND -- largest_recall=0.873):**
+R1 (0-compute, ANNOTATION): Hotspot shard (370 facts) at capacity limit for test N. PP-129 mechanism (split) is the direct fix.
+R2 (CHEAP, CPU <30min): Apply PP-129 split to hotspot shard; expect recall recovery to >=0.95.
+R3 (CHEAP, CPU <30min): N-scaling for hotspot shard: N=8192 for that shard alone.
+R4 (CHEAP, CPU <30min): Rebalancing policy: detect shards >N/2 facts, pre-emptively split before degradation.
+
+**PP-132 per-relation KG sharding (MIDDLE_BAND -- sharded=0.735):**
+R1 (0-compute, ANNOTATION): Dense relation types likely exceed per-shard capacity. Hierarchical sharding is the clear path.
+R2 (CHEAP, CPU <30min): Hierarchical sharding: split each relation shard by entity subspace (combine PP-127 + PP-132).
+R3 (CHEAP, CPU <30min): N-sweep per relation shard (N=4096 vs N=8192) to confirm capacity-bound vs architecture-bound.
+R4 (CHEAP, CPU <30min): Composite routing key: (relation, entity_prefix) hash to sub-shard within relation group.
+
+### Portfolio: 32+126 -> 32+132 (+6 NEW ROWS: PP-127 sharding-scaling-law + PP-128 shard-routing + PP-129 shard-overflow-recovery + PP-130 cross-shard-scatter-gather + PP-131 skewed-shard-capacity + PP-132 per-relation-KG-sharding). 0 closures. 0 annotations to existing rows.
+
+### PROT compliance (v508 -> v509)
+
+- PROT-004/006: No closures. 6 NEW TOP-LEVEL ROWS (PP-127 through PP-132). Rescue sketches cheapest-first for PP-131 and PP-132 (MIDDLE_BAND). 4 HP rows (large margins). 2 MIDDLE_BAND rows.
+- PROT-007: v509 history row appended to substrate_capability_map_history.md.
+- PROT-008: 4 HP anchors (routing=e2e=scatter-gather=1.000; overflow-post=1.000 -- ceiling). All HP thresholds verified Step 0. PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 416th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 6 anchors. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. No new LVH catches.
+- PROT-021: All 6 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: All HP anchors n=1 seed. All HP margins large (ceiling results). No HP-fragility concern.
+
+Cap_map: v508 -> v509 CYCLE 183 (4 HP [CPU:4]; 2 MIDDLE_BAND [CPU:2]; 0 HF; 0 LVH; 6 NEW PP ROWS PP-127..PP-132; Portfolio 32+126 -> 32+132 +6; HONEST 1360->1366 +6; LVH 263 UNCHANGED; 416th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

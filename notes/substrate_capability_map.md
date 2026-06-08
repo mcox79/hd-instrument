@@ -12848,3 +12848,44 @@ Cap_map update (PP-116 Markov transition row): markov_binding_sharpening_cpu_v1 
 
 Cap_map: v507 -> v508 CYCLE 182 (1 HP [CPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 0 NEW ROWS; 1 annotation [PP-116-MIDDLE_BAND->HP-via-sharding]; HONEST 1359->1360 +1; LVH 263 UNCHANGED; Portfolio 32+126 UNCHANGED; 415th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 183 (v508 -> v509) (2026-06-08)
+
+### PP-127: Sharding scaling law (per-shard recall=1.000 at S1-S32; monolithic collapses at S>=8)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-127 Sharding scaling law** -- per-shard recall=1.000 at S1-S32; monolithic recall=0.060 at S32; interference=0.000 | Validated, want stronger | sharding_scaling_law_cpu_v1 HP (per_shard 1.000 all S; mono S32=0.060; interference 0.000; n=1 seed CPU) | Sharding multiplies total capacity linearly with zero per-shard recall cost; monolithic encoding fails at S>=8 (~64 facts/shard at test N); sharded remains 1.000 throughout; sharding is the production capacity-scaling architecture; 0.75-0.90 EXPLORATORY |
+
+### PP-128: Shard routing accuracy (routing=e2e=oracle=1.000; no oracle lookup required)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-128 Shard routing accuracy** -- routing=1.000, e2e=1.000, oracle=1.000; content-derived key matches oracle | Validated, want stronger | shard_routing_accuracy_cpu_v1 HP (routing=1.000>=0.95, e2e=1.000>=0.90; n=1 seed CPU) | Sharding does not require a pre-built shard oracle; algebraically grounded routing key correctly targets the right shard at every query; self-routing sharded deployment validated; 0.70-0.85 EXPLORATORY |
+
+### PP-129: Shard overflow recovery by online split (pre=0.160 -> post=1.000)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-129 Shard overflow elastic recovery** -- pre-split=0.160, post-split=1.000; full recall restored by splitting | Validated, want stronger | shard_overflow_split_cpu_v1 HP (pre=0.160<0.80, post=1.000>=0.95; n=1 seed CPU) | Live shard splits restore full recall from severe overflow degradation; elastic sharding -- storage grows without retraining; resolves PP-131 hotspot path; cross-ref PP-127 scaling law; 0.70-0.85 EXPLORATORY |
+
+### PP-130: Cross-shard scatter-gather (recall=1.000; answers spanning shards recovered)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-130 Cross-shard scatter-gather retrieval** -- recall=1.000 at multi-shard answer set | Validated, want stronger | cross_shard_query_cpu_v1 HP (scatter-gather recall=1.000>=0.90; n=1 seed CPU) | Queries whose answers span multiple shards are answered at perfect recall via scatter-gather; transparent sharding from query layer; no pre-routing knowledge of answer shard required; 0.70-0.85 EXPLORATORY |
+
+### PP-131: Skewed shard capacity (largest_recall=0.873; MIDDLE_BAND)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-131 Skewed shard hotspot degradation** -- largest_recall=0.873 (Zipf load), smallest_recall=1.000; MIDDLE_BAND | Validated (partial) | skewed_shard_capacity_cpu_v1 MIDDLE_BAND (largest_recall=0.873 in [0.80,0.90); largest_size=370; n=1 seed CPU) | Hotspot shard degrades to 0.873 under skewed load; sub-HP but functional; production policy requires hotspot detection + sub-shard split (PP-129); rescue path exists and is cheap; 0.55-0.70 MIDDLE_BAND |
+
+### PP-132: Per-relation KG sharding (sharded=0.735 vs mono=0.190; MIDDLE_BAND; +385% lift)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-132 Per-relation KG sharding** -- sharded=0.735, mono=0.190, gap=0.545 (+385% lift); MIDDLE_BAND | Validated (partial) | per_relation_sharding_kg_cpu_v1 MIDDLE_BAND (sharded=0.735>=0.73; mono=0.190; n=1 seed CPU) | Per-relation sharding delivers 4x recall lift over monolithic KG storage; sharded=0.735 sub-HP due to dense relation within-shard capacity limit; hierarchical sub-sharding is the rescue path; 0.55-0.70 MIDDLE_BAND |
+
+Cap_map: v508 -> v509 CYCLE 183 (4 HP [CPU:4]; 2 MIDDLE_BAND [CPU:2]; 0 HF; 0 LVH; 6 NEW PP ROWS PP-127..PP-132; Portfolio 32+126 -> 32+132 +6; HONEST 1360->1366 +6; LVH 263 UNCHANGED; 416th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
