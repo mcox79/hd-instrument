@@ -1646,3 +1646,56 @@ R3 (CHEAP, CPU <30min): V-sweep (V=10K, 100K, 500K, 1M) to characterize any V-de
 
 Cap_map: v492 -> v493 CYCLE 173 (2 HP annotations: smw_pinv_1M_churn-DEL_PER_MS=3.978ms-INV_ERR=2.81e-09-M_BASE200K_DEL100K-CHURN_GDPR_CLEARED + patternb_largescale_composition-RECALL1.0_K2-K6-V100K_D512-PROD_VOCAB_CLEARED; 0 LVH; HONEST 1271->1273 +2; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 406th PROT-009 paired commit) (2026-06-07)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 174 -- pubmedbert_swap_pretest_v1 HARD_PASS (2026-06-07)
+
+### Step 0 honest re-read
+
+Remote metrics (source=remote, run_mode=full, n_seeds=1):
+- PubMedQA/PubMedBERT: bare=0.510, RAG=0.860, sub=0.835 (n=200)
+- TriviaQA/PubMedBERT(regression): bare=0.236, RAG=0.516, sub=0.483 (n=120)
+
+Threshold claim 'substrate>=0.72': sub=0.835 >= 0.72 VERIFIED with 11.5pp margin.
+TriviaQA regression 'informational' framing: honest -- domain encoder expected to underperform on out-of-domain data.
+97.1% RAG parity on PubMedQA (gap=-0.025) -- above 0.72 HP gate with margin.
+HARD_PASS label CORRECT. No LVH.
+
+HONEST: 1273 -> 1274 (+1). LVH: 261 UNCHANGED.
+
+### Cap_map decision
+
+**(A) ANNOTATION: PubMedBERT per-domain encoder swap sub-property (PP-1 / domain-encoder-swap sub-axis).**
+
+pubmedbert_swap_pretest_v1 HARD_PASS at v494. PubMedBERT encoder on PubMedQA: sub=0.835 vs RAG=0.860
+(97.1% RAG parity; 11.5pp above 0.72 HP gate). Extends cycle-167 v3 HP (bge-small config-tuned sub=0.810,
+95.3% RAG parity) to domain-specific encoder swap: per-domain encoder selection further closes the
+biomedical QA gap. TriviaQA regression (sub=0.483 vs RAG=0.516, 93.5% parity) is out-of-domain
+degradation consistent with per-domain encoder design intent.
+
+Domain-benchmark sequence: hotpot_3baseline HP v485 (96% RAG parity, bge-small), pubmedqa_v3 HP v488
+(95.3% RAG parity, bge-small config-tuned), pubmedbert_swap v494 (97.1% RAG parity, domain encoder).
+Pattern: substrate with domain-matched encoder consistently achieves 95-97% RAG parity without fine-tuning.
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+R1 (0-compute, ANNOTATION): n=1 seed founding noted. Band UNCHANGED pending multi-seed.
+R2 (CHEAP, CPU <1h): 3-seed PubMedQA/PubMedBERT to confirm sub=0.835 stability and variance.
+R3 (CHEAP, CPU <1h): domain-encoder sweep (sapbert / PubMedBERT-abstract-only / bge-base-medical) to map domain-encoder-to-parity curve.
+R4 (MEDIUM, CPU 2-4h): TriviaQA with matching general encoder (bge-large) to confirm domain-matching discipline closes TriviaQA regression.
+R5 (MEDIUM, CPU 2-4h): additional biomedical benchmarks (MedQA / BioASQ) to characterize domain breadth.
+
+### Portfolio: 32+85 UNCHANGED (annotation only; no new row).
+
+### PROT compliance (v493 -> v494)
+
+- PROT-004/006: No closures. 0 NEW ROWS. 0 BAND-LIFTS. Rescue sketches R1-R5 cheapest-first.
+- PROT-007: v494 history row appended.
+- PROT-008: PubMedQA sub=0.835 >= 0.72 HP gate (11.5pp margin). PASS.
+- PROT-009: cap_map.md + decisions log staged atomically; 407th PROT-009 paired commit.
+- PROT-018: No _nN binding suffix issues. CLEAN.
+- PROT-019: LVH 261 UNCHANGED. No new LVH catches.
+- PROT-021: Source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed; HP gate met with 11.5pp margin (not fragile); TriviaQA regression design-expected.
+
+Cap_map: v493 -> v494 CYCLE 174 (1 HP annotation: pubmedbert_swap_pretest-PUBMEDQA_SUB=0.835-97PCT_RAG_PARITY-DOMAIN_ENCODER_SWAP_CONFIRMED; 0 LVH; HONEST 1273->1274 +1; LVH 261 UNCHANGED; Portfolio 32+85 UNCHANGED; 407th PROT-009 paired commit) (2026-06-07)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
