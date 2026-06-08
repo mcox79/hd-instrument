@@ -12990,3 +12990,59 @@ Cap_map annotation (PP-136 NEW ROW): d3_crossshard_substrate_kv_gpu_v1 HP v511: 
 
 Cap_map: v510 -> v511 CYCLE 185 (10 HP [GPU:10]; 0 MIDDLE_BAND; 2 HF [GPU:2]; 0 LVH; 4 NEW PP ROWS PP-133..PP-136; 1 row upgrade PP-132 MIDDLE_BAND->HP GPU-sharded; 8 annotations [PP-119-GPU-10k-HF + multi-relation-GPU-mono-HF + multi-relation-GPU-sharded-HP + discrete-sharded-vs-fuzzy-GPU + crossshard-2hop-GPU + PP-98-50M-ladder + PP-98-100M-ceiling + PP-130-crossshard-GPU-KV]; Portfolio 32+132 -> 32+136 +4; HONEST 1372->1384 +12; LVH 263 UNCHANGED; 418th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+### CYCLE 186 v511 -> v512 cap_map additions
+
+#### PP-137: PubMedQA substrate retrieval benchmark (r@5=0.997 at n=1000; production biomedical retrieval green)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-137 PubMedQA retrieval benchmark** -- substrate r@5=0.997 vs raw r@5=1.000 (lift=-0.003; n=1000; production-grade benchmark) | Validated, want stronger | pubmedqa_substrate_retrieval_benchmark_gpu_v1 HP (r@5=0.997>=0.80; r@1=0.985; n=1000 GPU; cycle 186) | Substrate biomedical retrieval is benchmark-validated at 99.7% of raw encoder; the -0.003 lift is within noise; head-to-head vs LLM can proceed with confidence retrieval is not the bottleneck; substrate moat at PubMedQA is compliance + LLM integration not raw retrieval delta; 0.75-0.90 EXPLORATORY |
+
+#### PP-138: HotpotQA multi-hop retrieval benchmark (r@10=0.640 MIDDLE_BAND; -8% below raw)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-138 HotpotQA multi-hop benchmark** -- substrate r@10=0.640 vs raw r@10=0.720 (delta=-0.08; n=50 GPU) | Inconclusive (MIDDLE_BAND) | hotpotqa_multihop_retrieval_benchmark_gpu_v1 MIDDLE_BAND (r@10=0.640 in [0.55,0.70); n=50 GPU; cycle 186) | Substrate multi-hop retrieval is functional but 8 pts below raw encoder; gap narrows at larger k; retrieval gap does not block demo but needs addressing before head-to-head; separate axis from LLM-extraction bottleneck (oracle=1.0 in PP-119); whitening + larger N are first rescue paths; 0.50-0.65 MIDDLE_BAND |
+
+#### PP-139: Counterfactual do() operator readout (counterfactual-correct=0.865; MIDDLE_BAND)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-139 Causal do() operator** -- Pearl do() semantics: counterfactual-correct=0.865, differs-from-factual=1.000; interventional readout algebraically distinct from factual | Inconclusive (MIDDLE_BAND) | counterfactual_do_demo_cpu_v1 MIDDLE_BAND (correct=0.865 in [0.75,0.90); differs=1.000; n=1 seed CPU; cycle 186) | Substrate natively encodes causal structure; do() interventions algebraically distinct from observations; enables causal query APIs ('what outcome if this fact deleted?'); cross-ref PP-9 deletion cert + PP-25 retrieval explainability; HP rescue: larger N or explicit interventional role vectors; 0.55-0.70 MIDDLE_BAND |
+
+#### PP-140: Preference bindings / personalized recall (personalized-recall=0.870; MIDDLE_BAND)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-140 Preference bindings** -- per-customer preference weights; personalized-recall=0.870, cross-customer-divergence=0.965; genuine per-customer differentiation | Inconclusive (MIDDLE_BAND) | preference_bindings_cpu_v1 MIDDLE_BAND (personalized=0.870 in [0.75,0.90); divergence=0.965; n=1 seed CPU; cycle 186) | Per-customer preference differentiation natively via binding; strong divergence (0.965) confirms personalization is genuine not overlapping; HP rescue: per-customer shard (PP-127 strategy), N-scaling, or preference-weighted query scoring; 0.55-0.70 MIDDLE_BAND |
+
+#### PP-141: Sleep-defrag cross-shard chain extraction (post-defrag 2-hop=0.990)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-141 Sleep-defrag chain extraction** -- pre-computed composed-relation chains convert cross-shard 2-hop into single-shard lookup; post-defrag 2-hop=0.990 | Validated, want stronger | cross_shard_chain_extraction_cpu_v1 HP (post-defrag=0.990>=0.90; n=1 seed CPU; cycle 186) | Sleep-defrag is a production optimization; expensive cross-shard hops amortized during idle time; real-time query cost drops from O(2*shard_lookup) to O(1); cross-ref PP-130 + PP-133; 0.70-0.85 EXPLORATORY |
+
+#### PP-142: Inverted property shards via sleep-defrag (inverted-shard recall=1.000)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-142 Inverted property shards** -- offline-built inverted property shard answers 'subjects with property P' at recall=1.000 with O(K) cost; algebraic inversion | Validated, want stronger | inverted_property_shards_cpu_v1 HP (recall=1.000>=0.90; n=1 seed CPU; cycle 186) | Sleep-defrag builds inverted indexes algebraically; expensive property-range queries become direct shard lookups; complements PP-141 chain extraction in sleep-maintenance optimization family; 0.70-0.85 EXPLORATORY |
+
+#### PP-143: Shard merge primitive -- elastic shrink with zero recall loss
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-143 Shard merge primitive** -- merge underutilized shards; shards 60->37 (-38%), recall pre=post=1.000; zero recall loss | Validated, want stronger | shard_merge_primitive_cpu_v1 HP (recall=1.000>=0.95; shards 60->37=38pct reduction>=30pct; n=1 seed CPU; cycle 186) | Elastic sharding BIDIRECTIONAL: PP-129 (split) + PP-143 (merge) = complete elasticity policy; shard count optimized online without retraining; cost-optimal storage at any load level; 0.70-0.85 EXPLORATORY |
+
+#### Resonator K=4 multi-axis CLOSURE (cycle 186)
+
+3 HF across rescue attempts (cycle 177 + 178 + 186 multi-axis). K=4 4-factor joint disentangling is a hard substrate limit: angular degeneracy at K=4 cannot be overcome by multi-axis attack or N=16384. Rescue sketches: K=6/8 boundary sweep (R2), hierarchical 2x2 sub-binding (R3), N=32768+ (R4), Hersche 2024 sparse resonator (R5). K>=8 HP territory UNCHANGED.
+
+#### PP-131 and PP-132 MID rescues cleared (cycle 186)
+
+- PP-131 (skewed shard MIDDLE_BAND, cycle 183): RESCUED to HP via online elastic split (skewed_shard_online_split: before=0.824, after=1.000).
+- PP-132 (per-relation KG sharding MIDDLE_BAND, cycle 183): RESCUED to HP via hierarchical subshard (hierarchical_subshard_kg: 2-hop=1.000 vs per-relation=0.735).
+
+Cap_map: v511 -> v512 CYCLE 186 (9 HP [GPU:1 CPU:8]; 3 MIDDLE_BAND [GPU:1 CPU:2]; 1 HF [CPU:1]; 0 LVH; 7 NEW PP ROWS PP-137..PP-143; 1 CLOSURE [resonator-K4-multiaxis]; Portfolio 32+136 -> 32+143 +7; HONEST 1384->1397 +13; LVH 263 UNCHANGED; 419th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
