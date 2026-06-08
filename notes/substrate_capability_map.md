@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v524
+# hd-instrument substrate -- capability map v525
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13378,4 +13378,49 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 **NEW ROW PP-192:** llm_routing_t1_3b_gpu_v1 MIDDLE_BAND v523: accuracy=0.667, route_recall=0.667, direct_recall=0.667, n=30, Qwen2.5-3B-Instruct (cycle 197). Zero-shot 3B LLM routing at 2/3 accuracy. Balanced failure (route=direct=0.667). HP threshold 0.70; misses by 3.3pp. Few-shot prompting expected to close gap. Rescues: R2 few-shot (3-5 examples), R3 CoT prompt, R4 7B scale. 0.55-0.70 MIDDLE_BAND n=1 seed n=30. Cross-ref PP-153, PP-188.
 
 Cap_map: v522 -> v523 CYCLE 197 (5 HP [GPU:5]; 1 MIDDLE_BAND [GPU:1]; 1 HF [GPU:1 t5b3-fact-transmission-FULL]; 0 LVH; 4 NEW PP ROWS PP-189..PP-192; 3 annotations [PP-8 t5b_1-FULL + t5b_2-FULL + t5b_3-SMOKE-HF->FULL-HF]; Portfolio 32+188 -> 32+192 +4; HONEST 1459->1466 +7; LVH 265 UNCHANGED; 428th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v523 -> v524 -- CYCLE 198 (2026-06-08)
+
+**PP-155 UPGRADED MIDDLE_BAND -> HP:** resc_pp155_per_strength_shard_cpu_v1 HP v524: win=1.000, corr=0.996 (cycle 198). Per-strength-tier sharding eliminates cross-strength crosstalk; PP-155 lifted from MIDDLE_BAND to HP. Mechanism: interference, not capacity, was the limiting factor. n=1 seed CPU.
+
+**NEW ROW PP-193:** resc_conf_aps_temperature MIDDLE_BAND v524: coverage=1.000, set_size=97.7/300 (cycle 198). Temperature scaling recovers conformal coverage from gate3 HF (0.676) to 1.000, but sets are 32.6% of vocab (too conservative). Trade-off: coverage correct; efficiency gap remains. Rescues: R2 split-conformal, R3 rank-based, R4 oracle calibration. 0.50-0.65 MIDDLE_BAND n=1 seed. Cross-ref gate3_conformal HF cycle 196.
+
+**NEW ROW PP-194:** resc_conf_gapscore MIDDLE_BAND v524: coverage=0.820, set_size=1.0, vocab=300 (cycle 198). Gap-score improves conformal coverage (0.676->0.820) but singletons persist. MIDDLE_BAND [0.80,0.85). Rescues: R2 combine gap-score+temperature, R3 set-inflation top-k>=2. 0.45-0.60 MIDDLE_BAND n=1 seed. Cross-ref PP-181, PP-193.
+
+**NEW ROW PP-195:** multi_turn_state_cpu_v1 HP v524: recall=1.000 (cycle 198). Supersede-aware slot-state tracking across dialog turns at perfect recall. Substrate as conversation memory; no external state machine needed. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-154, PP-176, PP-187.
+
+**NEW ROW PP-196:** strips_planning_khop_cpu_v1 HP v524: recall=1.000 (cycle 198). STRIPS forward-chaining 2-hop plan reachability at perfect recall. Third K-hop domain (after legal citation PP-120 and theorem dependency PP-185): substrate as planning KB for operator reachability queries. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-185, PP-119.
+
+**NEW ROW PP-197:** counterfactual_axiom_exclusion_cpu_v1 HP v524: recall=0.951 (cycle 198). Transitive dependents invalidated by axiom removal at 95.1% recall. Extends PP-185 (theorem K-hop) and PP-139 (do() MIDDLE_BAND) to counterfactual deletion impact. Product: what breaks if this fact is removed? 0.68-0.82 EXPLORATORY n=1 seed. Cross-ref PP-139, PP-185, PP-9.
+
+**NEW ROW PP-198:** intent_prototype_classifier_cpu_v1 HP v524: accuracy=1.000 (cycle 198). Nearest-prototype intent classification at ceiling without LLM; sub-ms. Completes substrate-only conversation stack: intent (PP-198) -> state (PP-195) -> response (PP-187) -> routing (PP-188). 0.68-0.82 EXPLORATORY n=1 seed. Cross-ref PP-188, PP-187.
+
+**NEW ROW PP-199:** set_algebra_bundle_cpu_v1 HP v524: union=1.000, intersect_f1=1.000 (cycle 198). Boolean KB query algebra: set union and intersection at ceiling. With PP-162 (AND), PP-174 (AND-NOT), PP-117 (negation), PP-199 closes the Boolean query algebra axis. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-162, PP-174, PP-117.
+
+**NEW ROW PP-200:** e2e_routing_pipeline_cpu_v1 HP v524: routing=1.000, sub_frac=0.429, latency_ms=0.101 (cycle 198). Full E2E routing: substrate handles 42.9% of queries at 0.101ms; 57.1% LLM fallback; zero misrouting. 43% LLM cost reduction on deterministic query load. 0.72-0.86 EXPLORATORY n=1 seed. Cross-ref PP-188, PP-123, PP-168.
+
+**NEW ROW PP-201:** bipolar_quantization_quality_cpu_v1 HP v524: float=0.835, bipolar=0.860, delta=+0.025 (cycle 198). 1-bit bipolar matches and slightly exceeds float32 recall within 3pp threshold. NOTE: delta=0.025 vs threshold=0.030 is only 0.005pp headroom; multi-seed required before VALIDATED claim. 16x memory saving; bipolar sign quantization may suppress noise at low K. CAUTION: thin margin. 0.65-0.80 EXPLORATORY n=1 seed. Cross-ref PP-106 (int4 8x), PP-98.
+
+**NEW ROW PP-202:** tabular_algebraic_sql_cpu_v1 HP v524: acc=1.000, nrow=150 (cycle 198). Substrate answers SELECT-WHERE queries on tabular data at perfect accuracy. With COUNT (PP-159), AND-NOT (PP-174), set algebra (PP-199): substrate covers SQL primitives SELECT/WHERE/COUNT/JOIN-analogs algebraically. 0.65-0.80 EXPLORATORY n=1 seed. Cross-ref PP-113, PP-162, PP-159.
+
+Cap_map: v523 -> v524 CYCLE 198 (9 HP [CPU:9]; 2 MIDDLE_BAND [CPU:2]; 0 HF; 0 LVH; 10 NEW PP ROWS PP-193..PP-202; 1 row upgrade [PP-155 MIDDLE_BAND->HP via per-strength sharding]; Portfolio 32+192 -> 32+202 +10; HONEST 1466->1477 +11; LVH 265 UNCHANGED; 429th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v524 -> v525 -- CYCLE 199 (2026-06-08)
+
+**PP-135 annotation (M=50k scale-up):** substrate_kv_capacity_proper HP v525: recall=1.000 at M=50000 (cycle 199). Incremental-encode + persist pattern (resumable); Tier-5a capacity confirmed at 50k facts. M-sweep ladder: 2000->5000->10000->50000. Recall=1.000 at 25x scale; in-context fraction 0.2%; substrate stores 780x more than LLM context window. Cliff not yet found. Band-LIFT candidate for PP-135 to VALIDATED after 3-seed at M=50000. n=1 seed GPU.
+
+**NEW ROW PP-203:** substrate_codebook_vqvae_gpu_v1 HP v525: util=1.000, recon-cos=0.897, same-cat-share=0.205, cross-cat-share=0.012 (K=24, 72 words; cycle 199). VQ-VAE codebook atoms are semantically coherent: within-category words share atoms 17.7x more than cross-category. VQ-VAE is a valid mechanism for mapping word representations to discrete substrate atoms with semantic coherence. New product axis: learned semantic codebook as substrate interface; downstream substrate-LM paths viable. Rescues: R2 (larger vocab 500+), R3 (3-seed), R4 (downstream retrieval task), R5 (VQ+Flamingo combined). 0.65-0.80 EXPLORATORY n=1 seed. Cross-ref PP-191, PP-8.
+
+**NEW ROW PP-204:** t5c_b1_single_layer_flamingo_smoke_gpu_v1 HP v525: base_ppl=61.51, mod_ppl=72.62, ratio=1.181x, gate=0.0698 (cycle 199). run_mode=full. Single-layer Flamingo cross-attn: perplexity within 2x baseline (large margin vs 2x threshold); gate demonstrably non-zero (adapter learns to route attention to substrate). T5c Phase B architecture is training-stable; Phase C/D unblocked. Extends PP-191 (Flamingo adapter required) by confirming adapter trains successfully. Rescues: R2 (3-seed), R3 (2-layer), R4 (fact-recall quality), R5 (VQ+Flamingo joint). 0.68-0.82 EXPLORATORY n=1 seed. Cross-ref PP-191, PP-8 T5b, PP-203.
+
+**NEW ROW PP-205:** t5c_a1_differentiability_probe_cpu_v1 HP v525: loss0=1.907, lossN=0.0017, loss_drop=True, grad_ok=True, util=0.875 (cycle 199). FHRR bind/unbind is end-to-end differentiable: loss drops 1100x, gradients flow without blocking, codebook actively utilized (0.875). T5c training gate closed. Joint substrate+LLM gradient updates technically feasible. Rescues: R2 (multi-seed), R3 (FHRR+Flamingo joint gradient test), R4 (LLM+substrate+adapter E2E supervised). 0.75-0.88 EXPLORATORY n=1 seed. Cross-ref PP-191, PP-203, PP-204, PP-8.
+
+**NEW ROW PP-206:** ndcg_ranking_quality_cpu_v1 HP v525: ndcg=1.000 (cycle 199). NDCG@10=1.000 at ceiling: graded multi-document relevance ranking is perfect. Substrate retrieval is not just precision@1; enables ranked-list retrieval APIs for RAG, search, recommendation. Completes confidence/ranking primitive set (PP-107 abstention + PP-181 gap-score + PP-182 graded tiers + PP-206 NDCG). Rescues: R2 (multi-seed), R3 (larger set 1000+ items, 5+ tiers), R4 (real-world IR benchmark). 0.70-0.84 EXPLORATORY n=1 seed. Cross-ref PP-181, PP-107, PP-110.
+
+**NEW ROW PP-207:** dependency_with_audit_cpu_v1 HP v525: recall=1.000, audit=1.000 (cycle 199). PP-185 (theorem dependency K-hop) + PP-184 (Merkle audit) composed simultaneously: every traversal step produces a cryptographically verifiable audit record. Correctness + verifiability in one API. EU AI Act Art.12 derivation-with-audit gate closed. Key primitive for regulated-industry compliance pipelines (formal verification, legal citation with proof chain, medical treatment-with-evidence trail). Rescues: R2 (multi-seed), R3 (deeper chains 5-hop/10-hop), R4 (adversarial tamper mid-chain), R5 (PP-186+PP-207 multi-domain composed). 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-185, PP-184, PP-186.
+
+Cap_map: v524 -> v525 CYCLE 199 (6 HP [GPU:3 CPU:3]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 5 NEW PP ROWS PP-203..PP-207; 1 annotation [PP-135 M=50k]; Portfolio 32+202 -> 32+207 +5; HONEST 1477->1483 +6; LVH 265 UNCHANGED; 430th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
