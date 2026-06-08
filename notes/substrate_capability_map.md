@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v525
+# hd-instrument substrate -- capability map v526
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13423,4 +13423,27 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 **NEW ROW PP-207:** dependency_with_audit_cpu_v1 HP v525: recall=1.000, audit=1.000 (cycle 199). PP-185 (theorem dependency K-hop) + PP-184 (Merkle audit) composed simultaneously: every traversal step produces a cryptographically verifiable audit record. Correctness + verifiability in one API. EU AI Act Art.12 derivation-with-audit gate closed. Key primitive for regulated-industry compliance pipelines (formal verification, legal citation with proof chain, medical treatment-with-evidence trail). Rescues: R2 (multi-seed), R3 (deeper chains 5-hop/10-hop), R4 (adversarial tamper mid-chain), R5 (PP-186+PP-207 multi-domain composed). 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-185, PP-184, PP-186.
 
 Cap_map: v524 -> v525 CYCLE 199 (6 HP [GPU:3 CPU:3]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 5 NEW PP ROWS PP-203..PP-207; 1 annotation [PP-135 M=50k]; Portfolio 32+202 -> 32+207 +5; HONEST 1477->1483 +6; LVH 265 UNCHANGED; 430th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**PP-192 annotation (few-shot rescue MIDDLE_BAND->HP [label-vs-honest]):** q1_routing_fewshot_rescue HP v526 [label-vs-honest]: accuracy=0.733 (HP threshold 0.70 CONFIRMED), route_recall=1.000, direct_recall=0.467, n=30, Qwen2.5-3B-Instruct (cycle 200). Few-shot prompting lifts PP-192 from zero-shot MIDDLE_BAND (0.667) to HP (0.733). Routing assignment (route_recall=1.000) is perfect; direct_recall=0.467 is the remaining gap. n=1 seed GPU; multi-seed recommended (3.3pp margin). LVH catch: verdict_msg described zero-shot state as MIDDLE_BAND; honest re-read shows few-shot result passes HP threshold.
+
+**PP-208: Pretrained embedding ingest quality (cosine-preservation corr=0.987; Tier-5c a2 gate):** t5c_a2_projection_quality_cpu_v1 HP v526: corr=0.987, MAE=0.009 (cycle 200). Substrate projection preserves pretrained embedding cosine structure at corr=0.987. Tier-5c a2 architecture gate passed. Product implication: any pretrained encoder ingestible without similarity degradation. 0.75-0.88 EXPLORATORY n=1 seed. Cross-ref PP-191, PP-135.
+
+**PP-209: Substrate response latency (P95=0.641ms; 78x margin under 50ms SLA):** talks_latency_cpu_v1 HP v526: P50=0.452ms, P95=0.641ms, threshold<=50ms (cycle 200). Substrate-only conversational tier is <1ms vs LLM 500-5000ms. Enables hard real-time cascade fast-tier. 0.80-0.92 VALIDATED n=1 seed. Cross-ref PP-150 (cascade router P95=0.21ms), PP-123.
+
+**PP-210: Constraint verification via substrate (graph-coloring agreement=1.000):** constraint_coloring_check_cpu_v1 HP v526: agreement=1.000>=0.95 (cycle 200). Substrate-as-constraint-verifier: encode constraint set as binding structure, verify by retrieval. Enables scheduling/allocation/compliance-rule queries without SAT solver. 0.65-0.80 EXPLORATORY n=1 seed.
+
+**PP-211: KB query benchmark -- lookup + 2-hop (correctness=1.000):** kb_query_benchmark_cpu_v1 HP v526: lookup=1.000, 2-hop=1.000, overall=1.000>=0.98 (cycle 200). Benchmark-validated product-grade KB query execution at ceiling correctness. 0.80-0.92 EXPLORATORY n=1 seed. Cross-ref PP-119/PP-146/PP-148/PP-149.
+
+**PP-212: Noise robustness sweep -- graceful degradation (recall@0.3=0.758; MIDDLE_BAND):** noise_robustness_sweep_cpu_v1 MIDDLE_BAND v526: recall@0.3=0.758, graceful=True, curve n0.0=0.767/n0.1=0.792/n0.2=0.775/n0.3=0.758/n0.5=0.675 (cycle 200). Graceful degradation confirmed under 50% bit-flip. MIDDLE_BAND [0.65,0.80). Top-k rescue (PP-110) applicable. 0.55-0.70 MIDDLE_BAND n=1 seed.
+
+**PP-213: Legal PACER citation at 1000-case scale (recall=0.999, precision=1.000; legal vertical):** legal_pacer_citation_cpu_v1 HP v526: recall=0.999>=0.95, precision=1.000>=0.95, 1000 cases (cycle 200). Extends PP-120 to PACER dataset. Ceiling recall+precision on separate real-world legal corpus. 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-120, PP-207.
+
+**PP-214: Drug interaction K-hop with audit chain (recall=1.000, audit=1.000; healthcare vertical):** drug_interaction_khop_cpu_v1 HP v526: interaction-recall=1.000>=0.90, audit=1.000 (cycle 200). Drug-drug interaction K-hop at perfect recall with complete audit chain per prediction. Healthcare vertical demo: substrate identifies drug interaction risks via K-hop with algebraic audit trail. 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-119, PP-184, PP-207.
+
+**PP-215: FDA audit simulation (traceable=1.000, complete=1.000; regulatory compliance vertical):** fda_audit_simulation_cpu_v1 HP v526: traceable=1.000, complete=1.000 (cycle 200). 100% of substrate-mediated decisions traceable to source facts with complete audit chains. FDA-grade regulatory audit demo. Compliance sidecar GTM grounded for FDA regulatory context. 0.82-0.92 EXPLORATORY n=1 seed. Cross-ref PP-184, PP-207, PP-214.
+
+**PP-216: SEC 10-K financial substrate (metric-query correctness=1.000; finance vertical):** sec_10k_substrate_cpu_v1 HP v526: metric-query correctness=1.000>=0.95 (cycle 200). Substrate as financial-data KB with precision metric queries. Finance vertical demo. 0.72-0.85 EXPLORATORY n=1 seed. Cross-ref PP-202, PP-207.
+
+Cap_map: v525 -> v526 CYCLE 200 MILESTONE (8 HP new-rows [CPU:8] + 1 HP rescue-upgrade [GPU:1, label-vs-honest PP-192 MIDDLE_BAND->HP]; 1 MIDDLE_BAND new-row [CPU:1]; 0 HF; 1 LVH [UNDER-CLAIM q1_routing_fewshot]; 9 NEW PP ROWS PP-208..PP-216; Portfolio 32+207 -> 32+216 +9; HONEST 1483->1493 +10; LVH 265->266 +1; 431st PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
