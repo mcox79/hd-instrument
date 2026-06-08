@@ -1,11 +1,22 @@
 """
-Local Pythia client for Tier 5 Sprint Panel A.
+Local LLM client for Tier 5 Sprint Panel A.
 
 Single AutoModelForCausalLM instance serves BOTH:
   - encode(texts) -> last-token hidden states (for substrate-KV keys + queries)
   - generate(prompt) -> causal-LM continuation (the Panel A answer)
 
-Default: Pythia-1.4B (validated D2 HP; coherent generation; 2.6 GB VRAM on RTX 4060 Ti).
+Default: Qwen-2.5-1.5B-Instruct.
+  - Instruction-tuned (follows "use ONLY substrate facts" prompts)
+  - Substrate-KV cross-family HP validated (PP-153 cycle 191; family-agnostic)
+  - 2.0 GB fp16 VRAM on RTX 4060 Ti
+  - Chat template support out-of-the-box
+
+Alternatives:
+  - EleutherAI/pythia-1.4b: BASE model, NOT instruction-tuned; hallucinates badly when
+    asked to "use only substrate facts". D2 HP empirically validated for substrate-KV
+    retrieval but unsuitable for instruction-following demo generation. Keep for
+    Panel B substrate-attention experiments.
+  - EleutherAI/pythia-2.8b: same base-model limitation, larger VRAM footprint.
 """
 from __future__ import annotations
 import logging
@@ -26,7 +37,7 @@ except ImportError:
     AutoTokenizer = None
 
 
-DEFAULT_MODEL = "EleutherAI/pythia-1.4b"
+DEFAULT_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
 
 
 @dataclass
@@ -123,10 +134,25 @@ class PythiaClient:
         max_new_tokens: int = 80,
         temperature: float = 0.7,
         top_p: float = 0.9,
+        system: Optional[str] = None,
     ) -> PythiaResponse:
-        """Generate a causal continuation. Returns PythiaResponse."""
+        """Generate a causal continuation. If the tokenizer has a chat_template (instruct
+        models like Qwen-Instruct), wraps the prompt as a chat message; otherwise treats
+        `prompt` as a raw causal-LM continuation prefix.
+        """
+        if getattr(self.tokenizer, "chat_template", None):
+            messages = []
+            if system:
+                messages.append({"role": "system", "content": system})
+            messages.append({"role": "user", "content": prompt})
+            full_prompt = self.tokenizer.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True,
+            )
+        else:
+            full_prompt = prompt
+
         t = self.tokenizer(
-            prompt,
+            full_prompt,
             return_tensors="pt",
             truncation=True,
             max_length=self.max_context_tokens,

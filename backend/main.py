@@ -54,21 +54,25 @@ async def lifespan(app: FastAPI):
     logger.info("openai key: %s | anthropic key: %s",
                 "present" if config.OPENAI_API_KEY else "MISSING",
                 "present" if config.ANTHROPIC_API_KEY else "MISSING")
-    # Pre-load Tier 5a substrate-KV (Pythia + seed facts) at startup to avoid cold-start
-    # latency on the first /query/tier5a request and prevent GPU OOM races with experiment dispatchers.
+    # Pre-load Tier 5a substrate-KV at startup. Skipped in tests via TIER5_ENABLED=false.
     if config.TIER5_ENABLED:
         try:
-            logger.info("pre-loading Tier 5a substrate-KV (activating demo-mode to free GPU)...")
-            demo_mode.activate(reason="auto:tier5a-boot-load")
-            from backend.routes.query_tier5a import _init_kv
-            kv = _init_kv()
-            logger.info("Tier 5a ready: %d facts loaded", len(kv))
-        except Exception as e:
-            logger.exception("Tier 5a pre-load failed; will lazy-init on first /query/tier5a")
-        finally:
-            # Resume experiments unless user explicitly wants demo mode on
-            if demo_mode.get_status().get("activated_by") == "auto:tier5a-boot-load":
-                demo_mode.deactivate(reason="auto:tier5a-boot-load-done")
+            logger.info("pre-loading Tier 5a substrate-KV (Pythia + 50 facts)...")
+            import threading
+
+            def _bg_load():
+                try:
+                    from backend.routes.query_tier5a import _init_kv
+                    kv = _init_kv()
+                    logger.info("Tier 5a ready: %d facts loaded", len(kv))
+                except Exception:
+                    logger.exception("Tier 5a background load failed")
+
+            # Non-blocking: server accepts requests immediately; tier5a returns 503 until loaded.
+            threading.Thread(target=_bg_load, daemon=True, name="tier5a-loader").start()
+            logger.info("Tier 5a load running in background; status: /query/tier5a/status")
+        except Exception:
+            logger.exception("Tier 5a loader spawn failed")
     yield
     logger.info("v1 demo backend shutting down; resuming any suspended procs as a courtesy")
     if demo_mode.get_status().get("active"):

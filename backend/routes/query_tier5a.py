@@ -81,15 +81,18 @@ def _init_kv() -> SubstrateKV:
         raise HTTPException(status_code=503, detail=_kv_init_error)
 
 
-def _build_prompt(question: str, facts: list[tuple]) -> str:
-    """Build the Pythia prompt with substrate-retrieved context."""
-    facts_block = "\n".join(f"- {f}" for f, _s in facts)
-    return (
-        "You are a helpful assistant. Use ONLY the substrate-provided facts below to answer.\n"
-        "If the facts do not cover the question, say you do not know.\n\n"
-        f"Substrate facts:\n{facts_block}\n\n"
-        f"Question: {question}\nAnswer:"
-    )
+SYSTEM_PROMPT = (
+    "You are a helpful assistant. You will be given a list of substrate-provided facts and "
+    "a question. Answer the question using ONLY the facts. If the facts do not cover the "
+    "question, say 'I do not know based on the substrate facts.' Cite the relevant facts "
+    "verbatim when you can."
+)
+
+
+def _build_user_prompt(question: str, facts: list[tuple]) -> str:
+    """User-message body for instruct models. System prompt is supplied separately."""
+    facts_block = "\n".join(f"{i + 1}. {f}" for i, (f, _s) in enumerate(facts))
+    return f"Substrate facts:\n{facts_block}\n\nQuestion: {question}"
 
 
 @router.post("/tier5a", response_model=Tier5aResponse)
@@ -109,12 +112,13 @@ async def query_tier5a(req: Tier5aRequest):
     retrieved = kv.retrieve(req.question, top_k=req.top_k)
     substrate_ms = (time.perf_counter() - t0) * 1000
 
-    # 2. Build prompt + generate
-    prompt = _build_prompt(req.question, retrieved)
+    # 2. Build prompt + generate (chat-template path for instruct models)
+    user_prompt = _build_user_prompt(req.question, retrieved)
     gen = client.generate(
-        prompt,
+        user_prompt,
         max_new_tokens=req.max_new_tokens,
         temperature=req.temperature,
+        system=SYSTEM_PROMPT,
     )
 
     total_ms = (time.perf_counter() - t_total0) * 1000
