@@ -27,8 +27,8 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "t5c_c1_multilayer_flamingo_train_gpu_v1"; MODEL = "EleutherAI/pythia-160m"; LAYERS = [4, 5]
-CKPT_EVERY = 500; ACC_EVERY = 2000
-STEPS = 60 if "--smoke" in sys.argv else 20000
+CKPT_EVERY = 500; ACC_EVERY = 500
+STEPS = 60 if "--smoke" in sys.argv else 12000
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
@@ -61,11 +61,11 @@ class FlamingoAdapter(nn.Module):
         self.Wv = nn.Linear(H, H, bias=False); self.Wo = nn.Linear(H, H, bias=False)
         for w in (self.Wq, self.Wk, self.Wv, self.Wo):
             nn.init.normal_(w.weight, std=0.02)
-        self.gate = nn.Parameter(torch.tensor(0.0)); self.H = H
+        self.ln = nn.LayerNorm(H); self.gate = nn.Parameter(torch.tensor(0.0)); self.H = H
 
     def forward(self, hs, attn_out):
         S = hs.shape[1]
-        q = self.Wq(hs); k = self.Wk(hs); v = self.Wv(hs)
+        z = self.ln(hs); q = self.Wq(z); k = self.Wk(z); v = self.Wv(z)   # LayerNorm before substrate cross-attn (Flamingo)
         att = (q @ k.transpose(1, 2)) / math.sqrt(self.H)
         mask = torch.triu(torch.ones(S, S, device=hs.device), diagonal=1).bool()
         att = att.masked_fill(mask[None], float("-inf"))
@@ -119,7 +119,7 @@ def run() -> Dict:
         hooks.append(mdl.gpt_neox.layers[L].attention.register_forward_hook(mk(L), with_kwargs=True))
 
     texts = load_texts(N_TRAIN + N_EVAL); train_txt = texts[:N_TRAIN]; eval_txt = texts[N_TRAIN:N_TRAIN + N_EVAL]
-    enc = lambda t: tok(t, return_tensors="pt", truncation=True, max_length=192).to(DEV)
+    enc = lambda t: tok(t, return_tensors="pt", truncation=True, max_length=512).to(DEV)
 
     def eval_ppl():
         prev = state["on"]; tot_nll = 0.0; tot_tok = 0
@@ -134,8 +134,8 @@ def run() -> Dict:
         state["on"] = prev; return math.exp(tot_nll / max(1, tot_tok))
 
     state["on"] = False; base_ppl = eval_ppl()
-    opt = torch.optim.Adam([{"params": [p for L in LAYERS for n, p in adapters[str(L)].named_parameters() if n != "gate"], "lr": 5e-4},
-                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 0.005}])  # lower gate lr (0.05 diverged at step 6000)
+    opt = torch.optim.Adam([{"params": [p for L in LAYERS for n, p in adapters[str(L)].named_parameters() if n != "gate"], "lr": 3e-4, "weight_decay": 0.01},
+                            {"params": [adapters[str(L)].gate for L in LAYERS], "lr": 1e-5}])  # Research: gate-lr 1e-5 (gate evolves slowly; 5e-3 diverged)
     # live pollable progress log (full visibility): one JSON line per acceptance check + a heartbeat file
     prog = open(Path(out_dir) / "progress.jsonl", "a", encoding="utf-8"); t_start = time.time()
     def heartbeat(d):
@@ -143,6 +143,12 @@ def run() -> Dict:
             (Path(out_dir) / "heartbeat.json").write_text(json.dumps(d), encoding="utf-8")
         except Exception:
             pass
+    def lr_lambda(step):
+        if step < 500:
+            return (step + 1) / 500.0                                       # linear warmup 500
+        prog = (step - 500) / max(1, STEPS - 500); return 0.5 * (1 + math.cos(math.pi * min(1.0, prog)))   # cosine decay to 0
+    sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_lambda)
+    best_ppl = float("inf"); since_improve = 0
     state["on"] = True; t_ck = time.time(); recent = []
     for step in range(start_step, STEPS):
         opt.zero_grad(); t = train_txt[step % len(train_txt)]; e = enc(t); ids = e["input_ids"]
@@ -150,7 +156,7 @@ def run() -> Dict:
             continue
         lg = mdl(**e).logits[:, :-1, :].float(); tgt = ids[:, 1:]
         loss = torch.nn.functional.cross_entropy(lg.reshape(-1, lg.shape[-1]), tgt.reshape(-1))
-        loss.backward(); torch.nn.utils.clip_grad_norm_([p for L in LAYERS for p in adapters[str(L)].parameters()], 1.0); opt.step(); recent.append(float(loss))  # grad clip = stability
+        loss.backward(); torch.nn.utils.clip_grad_norm_([p for L in LAYERS for p in adapters[str(L)].parameters()], 1.0); opt.step(); sched.step(); recent.append(float(loss))  # grad clip + warmup/cosine sched
         if step % CKPT_EVERY == 0 or (time.time() - t_ck) > 300:           # checkpoint every 500 steps OR 5 min (resumable)
             torch.save({"adapters": adapters.state_dict(), "step": step + 1}, ckpt_path); t_ck = time.time()
             heartbeat({"step": step + 1, "of": STEPS, "elapsed_s": round(time.time() - t_start, 1), "train_ce_recent": round(float(np.mean(recent[-50:])), 4), "ts": time.strftime("%H:%M:%S")})
@@ -163,6 +169,12 @@ def run() -> Dict:
             print("  [acc] step %d/%d CE=%.3f ppl-ratio=%.3fx gates=[%.3f,%.3f] elapsed=%.0fs" % (step, STEPS, rec["train_ce"], ratio, g0, g1, rec["elapsed_s"]), flush=True)
             if ratio > 3.0 and step > ACC_EVERY:                           # quality gate: abort on clear regression (no wasted hours)
                 print("  [ABORT] perplexity ratio %.2fx > 3x -- regression; stopping early." % ratio, flush=True); break
+            if acc_ppl < best_ppl - 1e-3:
+                best_ppl = acc_ppl; since_improve = 0; torch.save({"adapters": adapters.state_dict(), "step": step + 1}, Path(out_dir) / "ckpt_best.pt")
+            else:
+                since_improve += 1
+                if since_improve >= 3:                                       # early-stop: 3 evals (1500 steps) no improvement
+                    print("  [early-stop] no val-ppl improvement for 3 evals (best=%.2f); stopping." % best_ppl, flush=True); break
     torch.save({"adapters": adapters.state_dict(), "step": STEPS}, ckpt_path); prog.close()
     state["on"] = True; mod_ppl = eval_ppl()
     g0 = abs(float(torch.tanh(adapters[str(LAYERS[0])].gate))); g1 = abs(float(torch.tanh(adapters[str(LAYERS[1])].gate)))
