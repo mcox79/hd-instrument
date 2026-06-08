@@ -11,3 +11,7 @@
 ## CYCLE 187 v513 (2026-06-08)
 
 3 HP + 1 MIDDLE_BAND + 0 HF + 4 new PP rows (PP-144 through PP-147). Wikipedia 10k real-corpus ingest HP (r@5=0.992, 155 art/sec; critical dry-run gate for 5.84M pre-trained substrate passed). FB15K-237 KG K-hop HP on standard public Freebase benchmark (2-hop r@5=0.705; monolithic collapses at 0.007, confirming sharding mandatory at real-KG scale). FB15K-237 sharding strategy HP (subject=1.000 vs relation=0.843; cross-validates PP-134 synthetic conclusion on public benchmark). Encoder head-to-head MIDDLE_BAND (bge-large r@10=0.600; whitening+PCA rescue queued). HONEST 1397->1401 +4. LVH 263 UNCHANGED. Portfolio 32+143 -> 32+147 +4.
+
+## CYCLE 188 -- 11:39 -- v513->v514 -- 4 HP -- PP-148..PP-151
+
+WebQSP HP recall=0.976 (n=381) + CWQ HP recall=0.926 (n=272): standard public KG-QA benchmarks both PASS by large margins; substrate handles real compositional questions on real knowledge graphs. Cascade router HP P95=0.21ms at 1M facts (demo-readiness gate). MuSiQue multi-hop HP r@10=0.784 (harder than HotpotQA; supports multi-hop REVIVE). All 4 labels HONEST; 0 LVH. Portfolio 32+147->32+151. HONEST 1401->1405. LVH 263 unchanged.

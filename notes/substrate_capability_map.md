@@ -13073,3 +13073,30 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v512 -> v513 CYCLE 187 (3 HP [GPU:1 CPU:2]; 1 MIDDLE_BAND [GPU:1]; 0 HF; 0 LVH; 4 NEW PP ROWS PP-144..PP-147; Portfolio 32+143 -> 32+147 +4; HONEST 1397->1401 +4; LVH 263 UNCHANGED; 420th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+#### PP-148: WebQSP KG-QA benchmark on standard public dataset (recall=0.976, n=381; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-148 WebQSP KG-QA benchmark** -- substrate K-hop answers standard WebQSP questions at recall=0.976 of graph-reachable (n=381, graph-reachable rate=1.000) | Validated, want stronger | webqsp_kgqa_benchmark_cpu_v1 HP (recall=0.9764>=0.70 CONFIRMED; graph-reachable=1.000; n=381 CPU n_seeds=1; cycle 188) | KG-QA on standard WebQSP public benchmark; 97.6% recall -- substrate covers essentially all reachable questions; validates K-hop on real-world Q+graph+answer triples; cross-ref PP-146 FB15K-237 + PP-119 synthetic KG; 0.80-0.92 EXPLORATORY |
+
+#### PP-149: CWQ KG-QA benchmark on standard public dataset (recall=0.926, n=272; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-149 ComplexWebQuestions KG-QA benchmark** -- substrate K-hop answers standard CWQ questions at recall=0.926 of graph-reachable (n=272, graph-reachable rate=1.000) | Validated, want stronger | cwq_kgqa_benchmark_cpu_v1 HP (recall=0.9265>=0.70 CONFIRMED; graph-reachable=1.000; n=272 CPU n_seeds=1; cycle 188) | KG-QA on CWQ standard benchmark (harder compositional questions than WebQSP); 92.6% recall at harder questions; substrate handles complex multi-constraint queries; cross-ref PP-148 WebQSP + PP-147 sharding; 0.78-0.90 EXPLORATORY |
+
+#### PP-150: Cascade router production latency profile (P95=0.21ms at 1M facts; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-150 Cascade router latency profile** -- P50=0.150ms P95=0.210ms P99=0.311ms at 1M facts (500 shards); fallback=0.0% | Validated, want stronger | cascade_router_latency_profile_cpu_v1 HP (P95=0.21ms<<500ms threshold; fallback=0.0%; n=1000000 facts 500 shards CPU; cycle 188; PP-123 cascade follow-up) | Production router latency 2381x below 500ms ceiling; P99<1ms at 1M facts -- sub-millisecond routing is a deployable SLA; zero fallback rate confirms routing completeness; critical demo-readiness gate; 0.85-0.95 VALIDATED |
+
+#### PP-151: MuSiQue multi-hop benchmark -- harder public dataset (all-supporting r@10=0.784; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-151 MuSiQue multi-hop benchmark** -- all-supporting recall@ngold/5/10=0.224/0.580/0.784 (n=250); ties RAG (same encoder) on harder multi-hop public dataset | Validated, want stronger | musique_multihop_benchmark_gpu_v1 HP (r@10=0.784>=0.60 CONFIRMED; r@5=0.580; r@ngold=0.224; n=250 GPU n_seeds=1; cycle 188; multi-hop REVIVE) | MuSiQue is harder than HotpotQA; 78.4% recall@10 with re-ranking available; r@ngold=0.224 is expected (finding ALL gold passages exactly is hard); structured-KG is substrate edge vs free-text RAG; multi-hop REVIVE validated on harder benchmark; cross-ref PP-121 HotpotQA; 0.72-0.85 EXPLORATORY |
+
+Cap_map: v513 -> v514 CYCLE 188 (4 HP [GPU:1 CPU:3]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 4 NEW PP ROWS PP-148..PP-151; Portfolio 32+147 -> 32+151 +4; HONEST 1401->1405 +4; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

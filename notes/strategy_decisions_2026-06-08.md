@@ -630,3 +630,25 @@ R3 (CHEAP, GPU <1h): GPU-sharded run at full 14k entity set to validate at produ
 
 Cap_map: v512 -> v513 CYCLE 187 (3 HP [GPU:1 CPU:2]; 1 MIDDLE_BAND [GPU:1]; 0 HF; 0 LVH; 4 NEW PP ROWS PP-144..PP-147; Portfolio 32+143 -> 32+147 +4; HONEST 1397->1401 +4; LVH 263 UNCHANGED; 420th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v513 -> v514 CYCLE 188 PUBLIC-BENCHMARK BATCH (4 verdicts) (2026-06-08)
+
+### Step 0 honest re-read
+
+All 4 metrics fetched source=remote. 0 LVH catches.
+
+- webqsp_kgqa_benchmark_cpu_v1: HONEST. recall=0.9764>>0.70; n=381. +1 HONEST.
+- cwq_kgqa_benchmark_cpu_v1: HONEST. recall=0.9265>>0.70; n=272. +1 HONEST.
+- cascade_router_latency_profile_cpu_v1: HONEST. P95=0.21ms<<500ms (2381x margin); fallback=0.0%. +1 HONEST.
+- musique_multihop_benchmark_gpu_v1: HONEST. r@10=0.784>=0.60; r@5=0.580; r@ngold=0.224 (expected). +1 HONEST.
+
+HONEST: 1401 -> 1405 (+4). LVH: 263 UNCHANGED. 0 new LVH.
+
+### Cap_map decisions (v513 -> v514)
+
+PP-148: webqsp HP v514: recall=0.9764 n=381. Standard public KGQA benchmark. 0.80-0.92 EXPLORATORY.
+PP-149: cwq HP v514: recall=0.9265 n=272. Harder compositional questions than WebQSP. PP-148+PP-149 span easy-to-hard KGQA difficulty range. 0.78-0.90 EXPLORATORY.
+PP-150: cascade_router HP v514: P95=0.21ms at 1M facts (500 shards); fallback=0.0%; 2381x below 500ms. Demo-readiness gate passed. 0.85-0.95 VALIDATED.
+PP-151: musique HP v514: r@10=0.784; r@5=0.580; r@ngold=0.224. Harder than HotpotQA. Supports multi-hop REVIVE declared 2026-06-07. Cross-ref PP-121 HotpotQA. 0.72-0.85 EXPLORATORY.
+
+Queue: GPU=0 CPU=0 pending/running. [queue: empty -- Exp-Dev session will refill on its cadence]
