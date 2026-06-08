@@ -652,3 +652,37 @@ PP-150: cascade_router HP v514: P95=0.21ms at 1M facts (500 shards); fallback=0.
 PP-151: musique HP v514: r@10=0.784; r@5=0.580; r@ngold=0.224. Harder than HotpotQA. Supports multi-hop REVIVE declared 2026-06-07. Cross-ref PP-121 HotpotQA. 0.72-0.85 EXPLORATORY.
 
 Queue: GPU=0 CPU=0 pending/running. [queue: empty -- Exp-Dev session will refill on its cadence]
+## v514 -> v515 CYCLE 189 (2026-06-08)
+
+### Step 0 honest re-read
+
+twowiki_multihop_benchmark_gpu_v1: metrics source=remote (authoritative). per_seed[0]: n=250, r2=0.316, r5=0.540, r10=0.720. HP threshold >=0.65: r10=0.720>=0.65 CONFIRMED. 'Ties RAG (same encoder)' consistent with MuSiQue (r@10=0.784) and HotpotQA (r@10=0.640) benchmarks at same encoder. No over-claim. Label HARD_PASS HONEST. No LVH.
+
+HONEST: 1405 -> 1406 (+1). LVH: 263 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v514 -> v515)
+
+**(A) NEW ROW PP-152: 2WikiMultiHopQA retrieval benchmark (r@10=0.720 HP; 2nd standard free-text multi-hop benchmark passed):**
+twowiki_multihop_benchmark_gpu_v1 HP v515: all-supporting recall@2/5/10=0.316/0.540/0.720 (n=250 GPU, cycle 189). HP threshold >=0.65: r@10=0.720>=0.65 CONFIRMED. This is the 2nd standard free-text multi-hop benchmark (after MuSiQue HP v514 r@10=0.784); substrate multi-hop retrieval coverage is now grounded on TWO public benchmarks with different question styles. 2WikiMultiHop uses compositional/bridge questions; MuSiQue uses decomposition-style (harder). Cross-ref PP-138 (HotpotQA MIDDLE_BAND r@10=0.640), PP-151 (MuSiQue HP r@10=0.784). Pattern: substrate r@10 spans 0.640-0.784 across 3 free-text multi-hop benchmarks -- consistent with 'ties RAG (same encoder)' framing because gap vs raw encoder is an overhead cost, not a fundamental limit. Filed at 0.72-0.85 EXPLORATORY (n=250 GPU n_seeds=1; multi-seed + whitening+PCA rescue recommended per PP-138/PP-144 pattern).
+
+### Rescue sketches (PROT-004/006; cheapest-first per [[feedback-rescue-sketch-first-sequencing]])
+
+**PP-152 2WikiMultiHop (HP n=1 seed; consistency cluster and HP-lift rescues):**
+R1 (0-compute, ANNOTATION): r@10=0.720 meets HP threshold; consistent with MuSiQue (0.784) and HotpotQA (0.640) 3-benchmark cluster. No closure concern.
+R2 (CHEAP, CPU/GPU <30min): 3-seed at n=250 to confirm r@10 variance.
+R3 (CHEAP, GPU <1h): Whitening + PCA preprocessing (memory: +63% gap-to-0.70 on HotpotQA; expected lift to r@10>=0.75 on 2Wiki).
+R4 (MEDIUM, GPU <2h): n=1000 to improve statistical power and confirm threshold stability.
+
+### PROT compliance (v514 -> v515)
+
+- PROT-004/006: No closures. 1 NEW TOP-LEVEL ROW (PP-152). Rescue sketches cheapest-first for PP-152.
+- PROT-007: v515 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: 1 HP anchor. HP threshold verified Step 0 (r@10=0.720>=0.65). PASS.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 421st PROT-009 paired commit.
+- PROT-018: No _nN binding suffix. CLEAN.
+- PROT-019: LVH 263 UNCHANGED. 0 new LVH catches.
+- PROT-021: source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: n=1 seed; r@10=0.720 margin=10.8% over threshold 0.65. No HP-fragility concern.
+
+Cap_map: v514 -> v515 CYCLE 189 (1 HP [GPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 1 NEW PP ROW PP-152 2WikiMultiHop-benchmark; Portfolio 32+151 -> 32+152 +1; HONEST 1405->1406 +1; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

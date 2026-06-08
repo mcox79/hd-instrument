@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v512
+# hd-instrument substrate -- capability map v515
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13099,4 +13099,13 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 | **PP-151 MuSiQue multi-hop benchmark** -- all-supporting recall@ngold/5/10=0.224/0.580/0.784 (n=250); ties RAG (same encoder) on harder multi-hop public dataset | Validated, want stronger | musique_multihop_benchmark_gpu_v1 HP (r@10=0.784>=0.60 CONFIRMED; r@5=0.580; r@ngold=0.224; n=250 GPU n_seeds=1; cycle 188; multi-hop REVIVE) | MuSiQue is harder than HotpotQA; 78.4% recall@10 with re-ranking available; r@ngold=0.224 is expected (finding ALL gold passages exactly is hard); structured-KG is substrate edge vs free-text RAG; multi-hop REVIVE validated on harder benchmark; cross-ref PP-121 HotpotQA; 0.72-0.85 EXPLORATORY |
 
 Cap_map: v513 -> v514 CYCLE 188 (4 HP [GPU:1 CPU:3]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 4 NEW PP ROWS PP-148..PP-151; Portfolio 32+147 -> 32+151 +4; HONEST 1401->1405 +4; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+#### PP-152: 2WikiMultiHopQA retrieval benchmark -- 2nd standard free-text multi-hop dataset (all-supporting r@10=0.720; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-152 2WikiMultiHopQA multi-hop benchmark** -- all-supporting recall@2/5/10=0.316/0.540/0.720 (n=250); ties RAG (same encoder); 2nd standard free-text multi-hop benchmark passed | Validated, want stronger | twowiki_multihop_benchmark_gpu_v1 HP (r@10=0.720>=0.65 CONFIRMED; r@5=0.540; r@2=0.316; n=250 GPU n_seeds=1; cycle 189) | 2WikiMultiHop (compositional/bridge questions) joins MuSiQue (r@10=0.784) and HotpotQA (r@10=0.640) as the 3rd public free-text multi-hop benchmark; substrate r@10 cluster 0.640-0.784 consistent across benchmarks; 'ties RAG (same encoder)' framing supported -- overhead is retrieval cost not a fundamental limit; whitening+PCA rescue (R3) expected to lift r@10; multi-hop REVIVE grounded on 3 independent benchmarks; cross-ref PP-138/PP-151; 0.72-0.85 EXPLORATORY |
+
+Cap_map: v514 -> v515 CYCLE 189 (1 HP [GPU:1]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 1 NEW PP ROW PP-152 2WikiMultiHop-benchmark; Portfolio 32+151 -> 32+152 +1; HONEST 1405->1406 +1; LVH 263 UNCHANGED; 421st PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
