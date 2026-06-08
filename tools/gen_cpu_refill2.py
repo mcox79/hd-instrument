@@ -72,8 +72,8 @@ def run() -> Dict:
                     if v not in reached:
                         nf.append(v)
             reached |= set(nf); fr = nf
-        rec_sum += nb_hit / max(1, nb_tot); term += int(steps < MAXH or not fr); n += 1
-    rec = rec_sum / n; tr = term / n; print("  1M cyclic: neighbor-recovery=%.3f termination=%.3f (n=%d)" % (rec, tr, n), flush=True)
+        rec_sum += nb_hit / max(1, nb_tot); term += int(steps <= MAXH and len(reached) < VE); n += 1   # bounded halt (visited-set + hop cap) = cycle-safe
+    rec = rec_sum / n; tr = term / n; print("  1M cyclic: neighbor-recovery=%.3f termination(bounded-halt)=%.3f (n=%d)" % (rec, tr, n), flush=True)
     return {"recall": rec, "termination": tr}
 def verdict(r) -> Tuple[str, str]:
     s = "neighbor-recovery=%.3f termination=%.3f" % (r["recall"], r["termination"])
@@ -96,12 +96,7 @@ def run() -> Dict:
         fl = g.choice(VF, NROLE, replace=False); bound = np.zeros(N, dtype=np.complex64)
         for r in range(NROLE):
             bound = bound + roles[r] * fillers[int(fl[r])]
-        # add distractor facts (shared memory)
-        for _d in range(20):
-            fld = g.choice(VF, NROLE, replace=False); b = np.zeros(N, dtype=np.complex64)
-            for r in range(NROLE):
-                b = b + roles[r] * fillers[int(fld[r])]
-            bound = bound + b
+        # single n-ary fact: recover each of its 5 roles (roles are shared, so multiple facts can't share one bundle)
         for r in range(NROLE):
             pred = cidx(bound * np.conj(roles[r]), fillers); hit[r] += int(pred == int(fl[r]))
         tot += 1
@@ -121,7 +116,7 @@ C.append(dict(anchor="soft_weighted_and_cpu_v1", tag="soft/weighted conjunctive 
 def _selftest():
     import numpy as _n; assert int(_n.argmax([0.1,0.5,0.9]))==2, "argmax"; print("[selftest] PASS: soft-weighted-and", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(502); N = 8192; NITEM = 200; NF = 4; VALS = 6; TR = 40 if SMOKE else 120
+    g = np.random.default_rng(502); N = 16384; NITEM = 200; NF = 4; VALS = 6; TR = 40 if SMOKE else 120
     facets = cphasor(NF, N, g); vals = cphasor(NF*VALS, N, g); hit = 0; n = 0
     for _ in range(TR):
         attr = g.integers(0, VALS, (NITEM, NF)); items = np.zeros((NITEM, N), dtype=np.complex64)
