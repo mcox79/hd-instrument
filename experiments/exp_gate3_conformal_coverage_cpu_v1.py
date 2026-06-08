@@ -38,15 +38,16 @@ def run() -> Dict:
         shard = ents[s] * REL * ents[o]
         for _d in range(load):
             shard = shard + ents[int(g.integers(0, VE))] * REL * ents[int(g.integers(0, VE))]
-        sc = scorevec(shard * np.conj(ents[s] * REL), ents); sc = (sc - sc.min()) / (sc.max() - sc.min() + 1e-9)
-        return sc, o   # normalized per-candidate confidence, true object
+        sc = scorevec(shard * np.conj(ents[s] * REL), ents)
+        return sc, o   # raw per-candidate confidence, true object
     cal = [make_query() for _ in range(NCAL)]
-    nonconf = np.array([1.0 - sc[o] for sc, o in cal])                      # nonconformity of the TRUE label
-    qhat = np.quantile(nonconf, min(1.0, math.ceil((NCAL + 1) * (1 - ALPHA)) / NCAL))
+    ranks = np.array([int((sc > sc[o]).sum()) for sc, o in cal])            # rank-based nonconformity (consistent across queries)
+    k = int(min(VE - 1, math.ceil((NCAL + 1) * (1 - ALPHA)) - 1))          # conformal rank quantile (0-indexed)
+    qhat = int(np.sort(ranks)[min(k, NCAL - 1)])
     covered = 0; setsizes = []
     for _ in range(NTEST):
-        sc, o = make_query(); pset = np.where((1.0 - sc) <= qhat)[0]        # prediction set
-        covered += int(o in pset); setsizes.append(len(pset))
+        sc, o = make_query(); r_true = int((sc > sc[o]).sum())
+        covered += int(r_true <= qhat); setsizes.append(qhat + 1)           # prediction set = top-(qhat+1) by score
     cov = covered / NTEST; msize = float(np.mean(setsizes))
     print("  conformal coverage=%.3f (target>=%.2f) mean-set-size=%.1f/%d qhat=%.3f" % (cov, 1 - ALPHA, msize, VE, qhat), flush=True)
     return {"coverage": cov, "set_size": msize, "vocab": VE}
