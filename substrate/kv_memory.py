@@ -129,6 +129,55 @@ class SubstrateKV:
             "first_facts": self.facts[:3] if self.facts else [],
         }
 
+    def load_from_disk(self, facts_jsonl_path, keys_npy_path) -> int:
+        """Load pre-encoded facts from a (facts.jsonl, keys.npy) pair produced by
+        backend/kb/wikipedia_ingest.py. Skips re-encoding (the encoder is only used
+        for online queries).
+
+        Returns total fact count after merge with any existing facts.
+
+        IMPORTANT: the encoder used by the disk pre-encode MUST match this SubstrateKV's
+        encoder, otherwise key/query alignment breaks.
+        """
+        import json as _json
+        from pathlib import Path as _Path
+
+        facts_jsonl_path = _Path(facts_jsonl_path)
+        keys_npy_path = _Path(keys_npy_path)
+        if not facts_jsonl_path.exists() or not keys_npy_path.exists():
+            raise FileNotFoundError(f"need both {facts_jsonl_path} and {keys_npy_path}")
+
+        keys = np.load(keys_npy_path)
+        if keys.dtype != np.float32:
+            keys = keys.astype(np.float32)
+
+        new_facts = []
+        with facts_jsonl_path.open("r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                row = _json.loads(line)
+                new_facts.append(row["fact"])
+
+        if len(new_facts) != keys.shape[0]:
+            raise ValueError(
+                f"facts vs keys length mismatch: {len(new_facts)} facts vs {keys.shape[0]} keys"
+            )
+        if keys.shape[1] != self.dim:
+            raise ValueError(
+                f"keys hidden_size mismatch: {keys.shape[1]} vs encoder dim {self.dim}"
+            )
+
+        if self.keys is None:
+            self.keys = keys
+            self.facts = new_facts
+        else:
+            self.keys = np.concatenate([self.keys, keys], axis=0)
+            self.facts.extend(new_facts)
+        self._fit()
+        return len(self.facts)
+
 
 class _MockEncoder:
     """Synthetic encoder for unit testing without loading Pythia."""

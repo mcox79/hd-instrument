@@ -83,6 +83,26 @@ def _init_kv() -> SubstrateKV:
         logger.info("seeding substrate-KV with %d facts via %s on %s ...",
                     len(facts), encoder.model_name, encoder.device)
         kv.add_facts(facts)
+
+        # Q2: ALSO load pre-encoded Wikipedia 100K ingest from disk if present.
+        from pathlib import Path as _Path
+        wiki_dir = _Path("data/substrate_state/wikipedia_100k")
+        wiki_facts = wiki_dir / "facts.jsonl"
+        wiki_keys = wiki_dir / "keys.npy"
+        if wiki_facts.exists() and wiki_keys.exists():
+            try:
+                t0 = time.perf_counter() if False else None
+                import time as _t
+                t0 = _t.perf_counter()
+                pre = len(kv)
+                total = kv.load_from_disk(wiki_facts, wiki_keys)
+                logger.info("loaded Wikipedia 100K ingest: %d -> %d facts in %.1fs",
+                            pre, total, _t.perf_counter() - t0)
+            except Exception:
+                logger.exception("Wikipedia 100K disk load failed (continuing with seed only)")
+        else:
+            logger.info("Wikipedia 100K not yet ingested (skipping disk load)")
+
         # Pre-load Qwen generator too so first /query/tier5a has zero LLM cold-start
         from backend.llm.pythia_client import get_client
         get_client()
