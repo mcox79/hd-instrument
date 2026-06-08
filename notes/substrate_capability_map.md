@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v520
+# hd-instrument substrate -- capability map v521
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13324,4 +13324,23 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 PP-8 band UNCHANGED at 0.60-0.75 EXPLORATORY (smoke results; no quality improvement signal yet on fact-utilization axis).
 
 Cap_map: v519 -> v520 CYCLE 194 (2 SMOKE HP [GPU:2]; 0 MIDDLE_BAND; 3 HF [CPU:1 full + GPU:2 smoke]; 0 LVH; 0 NEW PP ROWS; 4 annotations [PP-158 R1-exhausted + PP-8 t5b_1-scaffold + PP-8 t5b_2-perplexity-neutral + PP-8 t5b_3+3b-fact-transmission-HF]; Portfolio 32+178 UNCHANGED; HONEST 1441->1446 +5; LVH 265 UNCHANGED; 425th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## CYCLE 195 (v520 -> v521) (2026-06-08)
+
+**legal_citation_snowball_gpu_v1 HP FULL v521:** recall=1.000, precision=1.000 (1000 seeds, 4000 cases; cycle 195). Full-grid promotion of PP-173 smoke (cycle 192). Legal-pitch dataset VALIDATED at production demo scale. PP-120 band-LIFT to VALIDATED warranted. n=1 run GPU FULL. Annotations: PP-120 (legal-citation-snowball row) + PP-173 (smoke -> full-grid VALIDATED).
+
+**NEW ROW PP-179:** nary_relation_roles_cpu_v1 HP v521: per_role=[1.0,1.0,1.0,1.0,1.0], mean=1.000 (cycle 195). 5-role n-ary facts recovered per-role at perfect recall. Substrate not limited to triples; arbitrary-arity facts natively representable. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-35, PP-81, PP-108.
+
+**NEW ROW PP-180:** cheap1_contradiction_detect_cpu_v1 HP v521: recall=1.000, fp=0.000 (cycle 195). Pre-output contradiction detection: algebraic consistency guard, no LLM judgment needed. Zero FP. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-107, PP-163.
+
+**NEW ROW PP-181:** cheap2_gap_score_uncertainty_cpu_v1 HP v521: auc=0.781, spearman=0.331, acc=0.680 (cycle 195). Gap-score (cosine gap between top-1 and top-2 match) is a usable second-order uncertainty signal. AUC=0.781 above 0.75 threshold by 3.1pp. NOTE: modest signal; useful as part of multi-feature ensemble. 0.55-0.70 EXPLORATORY n=1 seed. Cross-ref PP-107.
+
+**NEW ROW PP-182:** cheap3_pp107_tiers_cpu_v1 HP v521: spearman=0.961 (cycle 195). Cleanup confidence tracks graded answer quality tiers at strong rank-order correlation. Extends PP-107 from binary abstention to graded ordinal confidence. Enables tiered SLA (confident/uncertain/abstain). 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-107.
+
+**NEW ROW PP-183:** cheap4_factual_confidence_auc_cpu_v1 HP v521: auc=1.000 (cycle 195). Substrate confidence perfectly separates true vs hallucinated claims at AUC=1.000. EU AI Act Art 12 technical backing. Ceiling result; semantic near-duplicate hallucination test recommended before VALIDATED. 0.70-0.85 EXPLORATORY n=1 seed. Cross-ref PP-107.
+
+**PP-155 annotation:** pp155_hp_rescue_n32768 MIDDLE_BAND v521: win=0.925, corr=0.993 (N=32768, cycle 195). Non-monotone: 0.905 (N=4096) -> 0.930 (N=16384) -> 0.925 (N=32768). Cycle-193 HP projection was over-optimistic. N-scaling stalled; per-strength-level sharding (R3) is the priority rescue.
+
+Cap_map: v520 -> v521 CYCLE 195 (6 HP [GPU:1 FULL + CPU:5]; 1 MIDDLE_BAND [CPU:1]; 0 HF; 0 LVH; 5 NEW PP ROWS PP-179..PP-183; 2 annotations [PP-120/PP-173-legal-citation-full-VALIDATED + PP-155-N32768-non-monotone]; Portfolio 32+178 -> 32+183 +5; HONEST 1446->1453 +7; LVH 265 UNCHANGED; 426th PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
