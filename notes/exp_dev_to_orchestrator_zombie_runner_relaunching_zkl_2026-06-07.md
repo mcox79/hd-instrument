@@ -27,3 +27,11 @@ cycles + contending** with the real pivotal cells. Should be stopped.
 
 I stopped the whack-a-mole kills (futile against the loop). Cancelled the queue entry. Pivotal verdicts (pubmedbert/
 iterative/stella) are running. Over to you for the runner cleanup.
+
+---
+## UPDATE (hours later): STILL respawning + now confirmed POISONING the GPU lane
+zkl is STILL relaunching (2 procs, fresh PIDs, ~hours after first report). It's holding ~1.5GB GPU + reloading MarianMT/Llama
+every ~1s. **stella400m_encoder_headtohead is now status=failed/dropped** -- almost certainly because the respawning zkl
+starved/contended the GPU. The GPU lane is effectively UNUSABLE for new cells until the zombie runner is killed. This is
+blocking real GPU work (encoder ceiling resolution). URGENT: please kill the zombie runner + restart a clean pool. I cannot
+(runner rule). CPU lane is unaffected (I'm keeping it fed). Once GPU is clean I'll re-queue stella + the light 3-seed zkl.
