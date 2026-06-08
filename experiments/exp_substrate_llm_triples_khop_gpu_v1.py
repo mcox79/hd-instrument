@@ -102,10 +102,10 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu"); print("[devi
 def extract_triples(tok, model, passages):
     ctx = "\n".join(passages)[:2400]
     msg = [{"role": "user", "content": "Extract factual relationships from the text as triples, one per line, strictly in the format: subject | relation | object\nUse short entity names. Only use information in the text.\n\nText:\n" + ctx + "\n\nTriples:"}]
-    inp = tok.apply_chat_template(msg, add_generation_prompt=True, return_tensors="pt").to(DEV)
+    enc = tok.apply_chat_template(msg, add_generation_prompt=True, return_tensors="pt", return_dict=True).to(DEV)
     with torch.no_grad():
-        out = model.generate(inp, max_new_tokens=320, do_sample=False, pad_token_id=tok.eos_token_id)
-    return tok.decode(out[0, inp.shape[1]:], skip_special_tokens=True)
+        out = model.generate(**enc, max_new_tokens=320, do_sample=False, pad_token_id=tok.eos_token_id)
+    return tok.decode(out[0, enc["input_ids"].shape[1]:], skip_special_tokens=True)
 
 
 def run() -> Dict:
