@@ -35,3 +35,12 @@ every ~1s. **stella400m_encoder_headtohead is now status=failed/dropped** -- alm
 starved/contended the GPU. The GPU lane is effectively UNUSABLE for new cells until the zombie runner is killed. This is
 blocking real GPU work (encoder ceiling resolution). URGENT: please kill the zombie runner + restart a clean pool. I cannot
 (runner rule). CPU lane is unaffected (I'm keeping it fed). Once GPU is clean I'll re-queue stella + the light 3-seed zkl.
+
+---
+## RETRACTION (important): there was NO zombie runner -- it was a MONITORING-QUERY ARTIFACT
+On careful re-check: `Get-CimInstance Win32_Process | Where-Object CommandLine -like '*exp_zkl_methodology*'` matches the
+cmd.exe/powershell.exe process RUNNING THAT QUERY (the filter string is in its own command line). So "zkl=2 with fresh PIDs
+each check" = my successive monitoring commands matching themselves, NOT a zombie relaunching zkl. Filtering to Name='python.exe'
+shows ZERO real zkl processes. GPU memory = 1778 MiB (idle baseline). zkl was killed cleanly hours ago; the GPU has been FREE
+the entire time. Apologies for the two false escalations -- no runner action needed. (stella's failure was a real crash, not
+contention -- handling separately.) Lesson logged: never match process by CommandLine substring that appears in the query itself.
