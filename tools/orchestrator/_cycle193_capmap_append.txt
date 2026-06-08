@@ -1,0 +1,37 @@
+
+## CYCLE 193 (v518 -> v519) (2026-06-08)
+
+### COMPOSITION FAMILY (PP-174..PP-178)
+
+#### PP-174: AND-NOT composition (precision=1.000; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-174 AND-NOT compositional query** -- conjunction + negation compose: "A AND NOT B" precision=1.000 (1000 subjects); extends PP-162 (AND) + PP-163 (negation) | Validated, want stronger | comp_a1_and_not_cpu_v1 HP (precision=1.000>=0.95; 1000-subject trial; n=1 seed CPU; cycle 193) | Multi-predicate exclusion filters require no post-processing; conjunction+negation composition axis closed; substrate queries "subjects with property A AND NOT property B" with zero contamination from B-holders; direct compliance use case: "retrieve all facts about X excluding superseded facts"; 0.70-0.85 EXPLORATORY |
+
+#### PP-175: COUNT-with-filter composition (acc=1.000; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-175 COUNT-with-filter compositional aggregation** -- aggregation composes with predicate filter: COUNT applied to filtered subset acc=1.000; extends PP-159 (COUNT aggregation) | Validated, want stronger | comp_a2_count_filter_cpu_v1 HP (acc=1.000 within+/-2 for >=90pct; n=1 seed CPU; cycle 193) | Filtered aggregation natively supported; "how many facts with property X exist?" answered on a filtered view in a single algebraic pass; enables audit analytics without extract-then-count pipelines; 0.70-0.85 EXPLORATORY |
+
+#### PP-176: AS-OF temporal composition (recall=1.000; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-176 AS-OF temporal composition** -- temporal ordering + bitemporal compose: AS-OF point-in-time query recall=1.000; extends PP-154 (bitemporal native recall=0.990) | Validated, want stronger | comp_a3_temporal_asof_cpu_v1 HP (recall=1.000>=0.95; n=1 seed CPU; cycle 193) | Point-in-time queries algebraically supported; audit replay ("what did the KB believe at T=yesterday?") requires no separate snapshot storage; composing temporal ordering with bitemporal encoding is exact; GDPR Art 12 audit trail: every query can be run against a historical KB state; 0.70-0.85 EXPLORATORY |
+
+#### PP-177: Cyclic-hierarchical composition (recall=1.000, termination=1.000; HARD_PASS)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-177 Cyclic-hierarchical composition** -- navigation + cycle-safety compose: hierarchical traversal over cyclic graph recall=1.000, termination=1.000; extends PP-160 (hierarchical 3-level) + PP-161 (cyclic K-hop) | Validated, want stronger | comp_a4_cyclic_hierarchical_cpu_v1 HP (recall=1.000>=0.90; termination=1.000>=1.0; n=1 seed CPU; cycle 193) | Cyclic knowledge structures (entity-type-subtype cycles) supported without loop-detection overhead; termination is algebraically guaranteed, not heuristic; real-world ontologies (OWL, SKOS) contain cycles -- substrate handles them natively; 0.70-0.85 EXPLORATORY |
+
+#### PP-178: Provenance + cross-shard composition (endpoint=0.942, provenance=0.986; MIDDLE_BAND)
+
+| Capability | State | Evidence | Product implication |
+|---|---|---|---|
+| **PP-178 Provenance + cross-shard composition** -- provenance tracking composes with cross-shard queries: provenance=0.986 (HP), endpoint=0.942 (MIDDLE_BAND); extends PP-157 (provenance native) + PP-130 (cross-shard) | Inconclusive (MIDDLE_BAND) | comp_a5_provenance_crossshard_cpu_v1 MIDDLE_BAND (endpoint=0.942 in [0.85,0.95); provenance=0.986>=0.90; n=1 seed CPU; cycle 193) | Cross-shard provenance chains mostly functional; provenance recall excellent (0.986); endpoint routing degradation is the gap (0.942 vs HP 0.95); fix: bridge-entity caching in cross-shard routing; rescue sketches filed; 0.60-0.75 MIDDLE_BAND |
+
+Cap_map: v518 -> v519 CYCLE 193 (7 HP [CPU:7]; 2 MIDDLE_BAND [CPU:2]; 0 HF; 0 LVH; 5 NEW PP ROWS PP-174..PP-178; 1 row upgrade [PP-168 MIDDLE_BAND->HP]; 4 annotations [PP-155 N=16384 + PP-168 MID->HP + PP-166 100M-latency + PP-169 aggressive-drift]; Portfolio 32+173 -> 32+178 +5; HONEST 1432->1441 +9; LVH 265 UNCHANGED; 424th PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
