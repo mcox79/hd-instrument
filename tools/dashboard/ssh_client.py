@@ -8,6 +8,7 @@ the wire.
 
 from __future__ import annotations
 
+import socket
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Optional
@@ -49,6 +50,26 @@ def _resolve_alias(alias: str) -> dict:
     return cfg.lookup(alias)
 
 
+def _is_self(target_host: str) -> bool:
+    """True if target_host resolves to a local interface (prevents self-SSH loop)."""
+    target = target_host.strip().lower()
+    if target in ("localhost", "127.0.0.1", "::1"):
+        return True
+    try:
+        target_ip = socket.gethostbyname(target)
+    except socket.gaierror:
+        return False
+    if target_ip.startswith("127."):
+        return True
+    try:
+        for info in socket.getaddrinfo(socket.gethostname(), None):
+            if info[4][0] == target_ip:
+                return True
+    except socket.gaierror:
+        pass
+    return False
+
+
 def _check_allowed(cmd: str) -> None:
     if not any(cmd.startswith(p) for p in ALLOWED_PREFIXES):
         raise CommandNotAllowed(f"prefix not in allowlist: {cmd[:80]!r}")
@@ -77,6 +98,13 @@ class ReadOnlySSH:
         username = cfg.get("user", self.user_default)
         port = int(cfg.get("port", 22))
         identityfile = cfg.get("identityfile")
+
+        if _is_self(hostname):
+            raise RuntimeError(
+                f"ReadOnlySSH: refusing to connect to {hostname!r}: target is this machine. "
+                f"Dashboard must run on a different host than the one being polled "
+                f"(else sshd MaxStartups exhaustion locks out the polled host)."
+            )
 
         client = paramiko.SSHClient()
         client.load_system_host_keys()
