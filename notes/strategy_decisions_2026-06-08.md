@@ -1533,3 +1533,56 @@ Rescue sketches (cheapest-first): R1 (0-compute APPLIED: 1.000 ceiling). R2 (CHE
 
 Cap_map: v525 -> v526 CYCLE 200 MILESTONE (8 HP new-rows [CPU:8] + 1 HP rescue-upgrade [GPU:1, label-vs-honest PP-192 MIDDLE_BAND->HP]; 1 MIDDLE_BAND new-row [CPU:1]; 0 HF; 1 LVH [UNDER-CLAIM q1_routing_fewshot]; 9 NEW PP ROWS PP-208..PP-216; Portfolio 32+207 -> 32+216 +9; HONEST 1483->1493 +10; LVH 265->266 +1; 431st PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v526 -> v527 -- CYCLE 201 (2026-06-08)
+
+9 anchors: TIER-5C TRAINING PROGRESSION (4 resolved + 1 orphan UNKNOWN) + CPU RESCUES (3) = 8 resolved + 1 UNKNOWN.
+
+### Step 0 honest re-read
+
+Bridge stale (is_stale=True); all resolved metrics fetched source=remote via SSH. t5c_c1_3seed_validate_gpu_v1 returned NONE (no metrics artifact found). 0 LVH catches.
+
+**Tier-5c GPU (4 resolved):**
+- t5c_b2_extended_training_flamingo_gpu_v1 HP: ratio=1.794x, gate=0.098. Threshold ratio<=2.0 AND gate>0 CONFIRMED. HONEST. Extended training vs b1 (ratio=1.181x) raised ppl ratio but gate grew (0.070->0.098); still within 2x.
+- t5c_c1_multilayer_flamingo_train_gpu_v1 HP: ratio=0.835x (ppl IMPROVES baseline), gates=[0.330, 0.425]. Threshold within 2x AND gates used CONFIRMED. HONEST. CRITICAL: multi-layer Flamingo IMPROVES perplexity vs baseline.
+- t5c_d1_qwen15b_flamingo_train_gpu_v1 HP: ratio=0.851x, gates=[0.245, 0.245]. Same threshold CONFIRMED. HONEST. CRITICAL: Qwen-1.5B same ppl improvement pattern at larger LLM scale.
+- t5c_c1fact_heldout_recall_gpu_v1 HF: bare=0.000, train-recall=0.125, heldout-recall=0.042, gate=0.556. Threshold heldout>=0.30. 0.042<<0.30. HONEST. Deeper failure: train-recall=0.125 also poor; same bare=0.000 failure as t5b_3.
+
+**Tier-5c orphan (1):**
+- t5c_c1_3seed_validate_gpu_v1: NONE. Cannot perform Step 0. Treated as UNKNOWN. No cap_map transition on missing data.
+
+**CPU rescues (3):**
+- f1_topk_bitflip_rescue_cpu_v1 HP: top1@0.3=0.820, topk@0.3=1.000, topk@0.5=1.000. Threshold topk@0.3>=0.95 CONFIRMED. HONEST.
+- f4_harder_constraints_cpu_v1 HP: 100-vertex agreement=1.000. Threshold>=0.95 CONFIRMED. HONEST.
+- f5_gapscore_3seed_cpu_v1 HF: mean AUC=0.697, seeds=[0.68, 0.679, 0.733], var=0.0006. Threshold mean>=0.75. 0.697<0.75. HONEST. REVERSAL: PP-181 n=1 seed AUC=0.781 was variance-inflated.
+
+HONEST: 1493 -> 1502 (+9). LVH: 266 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v526 -> v527)
+
+**(A) t5c_b2_extended_training_flamingo_gpu_v1 (HP -- PP-204 extended training annotation):**
+Annotation to PP-204: 't5c_b2_extended_training_flamingo_gpu_v1 HP v527: ratio=1.794x gate=0.098 (cycle 201). Extended-training follow-up to PP-204 b1 (ratio=1.181x, gate=0.070, cycle 199). Ratio increased (worse ppl) but gate grew; still within 2x threshold. Architecture stable. n=1 seed GPU.'
+
+**(B) t5c_c1_multilayer_flamingo_train_gpu_v1 (HP -- NEW ROW PP-217):**
+NEW ROW PP-217: t5c_c1_multilayer_flamingo_train_gpu_v1 HP v527: baseline=43.38, modified=36.23, ratio=0.835x, gates=[0.330, 0.425] (cycle 201). CRITICAL: multi-layer Flamingo cross-attn IMPROVES LLM perplexity vs baseline (ratio<1.0). Both gates actively used. Phase C grounded; Phase D directly unblocked. Product implication: substrate injection improves host LLM predictive quality -- representations are genuinely informative to the attention mechanism. 0.72-0.86 EXPLORATORY n=1 seed. Cross-ref PP-204 Phase B, PP-191, PP-205.
+
+**(C) t5c_d1_qwen15b_flamingo_train_gpu_v1 (HP -- NEW ROW PP-218):**
+NEW ROW PP-218: t5c_d1_qwen15b_flamingo_train_gpu_v1 HP v527: baseline=14.98, modified=12.75, ratio=0.851x, gates=[0.245, 0.245] (cycle 201). Phase D scale Qwen-1.5B: multi-layer Flamingo IMPROVES ppl at 1.5B scale. Same pattern as Phase C (PP-217). Product implication: substrate injection benefit generalizes across LLM scales. 0.72-0.86 EXPLORATORY n=1 seed. Cross-ref PP-217, PP-204, PP-191.
+
+**(D) t5c_c1fact_heldout_recall_gpu_v1 (HF -- T5c fact-recall quality gate fails):**
+HF founding annotation to T5c fact-transmission axis: bare=0.000, train-recall=0.125, heldout-recall=0.042, gate=0.556. Same failure mode as t5b_3: adapter routes attention but facts do not transmit even at training time. 5 rescue sketches (cheapest first per PROT-004/006): R1 (fact-encoding loss term: add explicit retrieval loss alongside LM objective -- cheapest, same architecture), R2 (fact query format: explicit [FACT:entity] token prefix to align adapter input), R3 (N scaling: larger HD vector dimensionality for richer fact capacity), R4 (larger adapter: expand Flamingo cross-attn MLP hidden 64->256), R5 (separate fact-head: detach fact-recall probe, train independently). No PP row. 0.35-0.50 HF exploratory. Cross-ref t5b_3 HF, PP-217, PP-204.
+
+**(E) t5c_c1_3seed_validate_gpu_v1 (UNKNOWN -- no metrics; no cap_map transition):**
+UNKNOWN orphan. Filed routing note for manual reconciliation: check runner log; if completed, scp metrics.json and re-queue verdict_handler.
+
+**(F) f1_topk_bitflip_rescue_cpu_v1 (HP -- PP-110 noise rescue extended to f=0.50):**
+Annotation to PP-110: 'f1_topk_bitflip_rescue_cpu_v1 HP v527: top1@0.3=0.820 TOPK@0.3=1.000 topk@0.5=1.000 (cycle 201). Extends PP-110 (f=0.35 cycle 180) to f=0.30 and f=0.50. Top-k buffer rescue achieves recall=1.000 across full noise range f=0.00..0.50. PP-212 MIDDLE_BAND graceful degradation (recall@0.3=0.758) fully resolved by top-k rescue. Noise-robustness axis closed for top-k buffer approach. n=1 seed CPU.'
+
+**(G) f4_harder_constraints_cpu_v1 (HP -- PP-210 constraint scale to 100-vertex):**
+Annotation to PP-210: 'f4_harder_constraints_cpu_v1 HP v527: 100-vertex graph coloring agreement=1.000 (cycle 201). Extends PP-210 (cycle 200 smaller problems) to 100-vertex harder constraint graphs. Production-scale constraint verification confirmed. n=1 seed CPU.'
+
+**(H) f5_gapscore_3seed_cpu_v1 (HF -- PP-181 DOWNGRADE HP->HF; 3-seed reversal):**
+PP-181 DOWNGRADE: PP-181 was HP (n=1 seed AUC=0.781 cycle 195). 3-seed promotion: mean AUC=0.697, seeds=[0.68, 0.679, 0.733], var=0.0006. Mean 0.697<0.75 threshold. Low variance (0.0006) confirms tight distribution around sub-threshold mean -- not a fluke. PP-181 band DOWNGRADED from HP 0.55-0.70 to HF 0.45-0.60 EXPLORATORY. PP-194 (gap-score for conformal coverage=0.820) uses AUC-independent metric -- unaffected. 5 rescue sketches (cheapest first): R1 (N-scaling: gap signal may sharpen at N=4096), R2 (multi-feature ensemble: gap + hamming + rank per PP-182), R3 (gap normalization: normalize by expected gap at current K density), R4 (top-3 vs top-2 gap: second-order signal from rank-3/rank-2 gap), R5 (query-level calibration: per-query variance-weighted gap score).
+
+Cap_map: v526 -> v527 CYCLE 201 (5 HP [GPU:3 CPU:2]; 2 HF [GPU:1 CPU:1]; 1 UNKNOWN [GPU orphan]; 0 LVH; 2 NEW PP ROWS PP-217..PP-218; 3 annotations [PP-204 b2 / PP-110 f0.5 / PP-210 100-vertex]; 1 PP-181 DOWNGRADE HP->HF [3-seed reversal]; 1 T5c fact-recall HF founding; 0 closures; Portfolio 32+218 -> 32+220 +2; HONEST 1493->1502 +9; LVH 266 UNCHANGED; 432nd PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
