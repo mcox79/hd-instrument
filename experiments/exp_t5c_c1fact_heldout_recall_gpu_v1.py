@@ -28,7 +28,7 @@ REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 
 ANCHOR_NAME = "t5c_c1fact_heldout_recall_gpu_v1"; MODEL = "EleutherAI/pythia-160m"; LAYER = 6
-STEPS = 80 if "--smoke" in sys.argv else 4000; CKPT_EVERY = 500
+STEPS = 100 if "--smoke" in sys.argv else 8000; CKPT_EVERY = 500
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
@@ -53,19 +53,18 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu"); print("[devi
 
 
 def make_facts(tok):
-    subs = ["zorblax", "quenly", "frinabel", "morvath", "plistery", "drovannic", "xelphine", "yubbidge", "kravenll",
-            "thessomir", "wandrelic", "glumtwarp", "neptarine", "vossberry", "cindraxa", "brontalec", "fertopine",
-            "yandolis", "marqueth", "ovendril", "pellucid", "razzendo", "subverlo", "tomarchy", "ulfendar", "vraxiil",
-            "weltherin", "xantheld", "ypsilune", "zandercot"]
-    ans = [" violet", " copper", " seven", " marble", " thunder", " willow", " saffron", " glacier", " ember",
-           " quartz", " orchid", " harvest", " lantern", " meadow", " falcon", " cinnamon", " velvet", " anchor",
-           " prism", " cobalt", " maple", " jupiter", " canyon", " ribbon", " basalt", " nectar", " pebble",
-           " cypress", " marlin", " walnut"]
+    import numpy as _np
+    pool = [" violet"," copper"," seven"," marble"," thunder"," willow"," saffron"," glacier"," ember"," quartz",
+            " orchid"," harvest"," lantern"," meadow"," falcon"," cinnamon"," velvet"," anchor"," prism"," cobalt",
+            " maple"," jupiter"," canyon"," ribbon"," basalt"," nectar"," pebble"," cypress"," marlin"," walnut",
+            " amber"," crimson"," silver"," forest"," ocean"," desert"," mountain"," valley"," river"," island",
+            " tiger"," eagle"," dolphin"," panther"," otter"," raven"," sparrow"," badger"," ferret"," lizard"]
+    pool = [a for a in pool if len(tok(a, add_special_tokens=False)["input_ids"]) == 1]
+    g = _np.random.default_rng(123); N = 60 if SMOKE else 240
     facts = []
-    for s, a in zip(subs, ans):
-        aid = tok(a, add_special_tokens=False)["input_ids"]
-        if len(aid) == 1:
-            facts.append(("The secret code of %s is" % s.strip(), aid[0], a))
+    for i in range(N):
+        subj = "entity%04d" % i; a = pool[int(g.integers(0, len(pool)))]
+        facts.append(("The secret code of %s is" % subj, tok(a, add_special_tokens=False)["input_ids"][0], a))
     return facts
 
 
