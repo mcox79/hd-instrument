@@ -164,6 +164,12 @@ async def benchmark():
     return benchmark_response()
 
 
+@app.get("/chat")
+async def chat():
+    """Substrate-first chat UI - frontend for the /converse cascade router."""
+    return chat_response()
+
+
 @app.get("/demo")
 async def demo():
     """Decisive-test page: 3 pre-cached substrate-vs-bare-LLM side-by-side comparisons.
