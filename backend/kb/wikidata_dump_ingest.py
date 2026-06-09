@@ -111,6 +111,41 @@ PROPERTY_LABELS = {
     "P460": "said to be the same as", "P461": "opposite of", "P462": "color",
     "P463": "member of", "P466": "occupant", "P488": "chairperson",
     "P495": "country of origin", "P496": "ORCID iD",
+    # Additional semantic properties (post-150)
+    "P527": "has part", "P569": "date of birth", "P570": "date of death",
+    "P571": "inception", "P576": "dissolved", "P577": "publication date",
+    "P580": "start time", "P582": "end time", "P585": "point in time",
+    "P657": "RTECS number", "P703": "found in taxon", "P710": "participant",
+    "P735": "given name", "P734": "family name", "P800": "notable work",
+    "P802": "student", "P840": "narrative location", "P859": "sponsor",
+    "P937": "work location", "P941": "inspired by", "P1056": "product or material produced",
+    "P1080": "from fictional universe", "P1303": "instrument",
+    "P1365": "replaces", "P1366": "replaced by", "P1412": "language spoken",
+    "P1416": "affiliation", "P1532": "country for sport", "P1559": "name in native language",
+    "P1889": "different from", "P3373": "sibling",
+}
+
+
+# REC-3 from Research WIKIDATA_INGEST_OPTIMIZATION note (15:24 2026-06-09): allow-list
+# of semantic properties. Drops ~75-80% of truthy dump (URL/identifier/admin/format noise).
+SEMANTIC_KEEP_PROPERTIES = {
+    "P17", "P19", "P20", "P21", "P22", "P25", "P26", "P27", "P30", "P31",
+    "P35", "P36", "P37", "P38", "P39", "P40", "P50", "P54", "P57", "P58",
+    "P61", "P66", "P69", "P78", "P84", "P86", "P88", "P91", "P101", "P102",
+    "P103", "P106", "P108", "P110", "P112", "P115", "P118", "P119", "P121",
+    "P123", "P127", "P131", "P135", "P136", "P137", "P138", "P140", "P144",
+    "P149", "P150", "P155", "P156", "P157", "P159", "P161", "P162", "P166",
+    "P169", "P170", "P171", "P172", "P175", "P176", "P177", "P178", "P179",
+    "P180", "P183", "P184", "P185", "P186", "P189", "P194", "P195", "P197",
+    "P199", "P200", "P201", "P206", "P208", "P209", "P241", "P263", "P264",
+    "P272", "P275", "P276", "P277", "P279", "P286", "P287", "P289", "P291",
+    "P344", "P355", "P361", "P364", "P366", "P371", "P407", "P410", "P411",
+    "P412", "P413", "P417", "P421", "P427", "P437", "P440", "P443", "P449",
+    "P461", "P462", "P463", "P466", "P488", "P495", "P527", "P569", "P570",
+    "P571", "P576", "P577", "P580", "P582", "P585", "P657", "P703", "P710",
+    "P735", "P734", "P800", "P802", "P840", "P859", "P937", "P941", "P1056",
+    "P1080", "P1303", "P1365", "P1366", "P1412", "P1416", "P1532", "P1559",
+    "P1889", "P3373",
 }
 
 
@@ -122,6 +157,7 @@ class IngestStats:
     facts_added: int = 0
     skipped_literal: int = 0
     skipped_malformed: int = 0
+    skipped_filtered_predicate: int = 0  # REC-3: rejected by SEMANTIC_KEEP_PROPERTIES
     encode_batches: int = 0
     encode_wall_s: float = 0.0
     total_wall_s: float = 0.0
@@ -134,6 +170,7 @@ class IngestStats:
             "facts_added": self.facts_added,
             "skipped_literal": self.skipped_literal,
             "skipped_malformed": self.skipped_malformed,
+            "skipped_filtered_predicate": self.skipped_filtered_predicate,
             "encode_batches": self.encode_batches,
             "encode_wall_s": round(self.encode_wall_s, 2),
             "total_wall_s": round(self.total_wall_s, 2),
@@ -163,22 +200,29 @@ def extract_pcode(uri: str) -> Optional[str]:
     return None
 
 
-def parse_line(line: str, labels: Optional[dict] = None) -> Optional[str]:
-    """Parse one N-triples line into a fact string. Returns None if the line is malformed
-    or refers to a literal value we don't render.
+def parse_line(line: str, labels: Optional[dict] = None,
+               apply_filter: bool = True) -> tuple:
+    """Parse one N-triples line into a fact string. Returns (fact, reason) where
+    fact is the fact string OR None, and reason is one of:
+      'ok', 'malformed', 'no_codes', 'filtered_predicate', 'literal_rejected'.
 
     With labels: 'Douglas Adams instance of human.'
     Without:    'Q42 instance of Q5.'
     """
     m = TRIPLE_RE.match(line.strip())
     if not m:
-        return None
+        return (None, "malformed")
     subj_uri, pred_uri, obj_part = m.group(1), m.group(2), m.group(3)
 
     subj_q = extract_qcode(subj_uri)
     pred_p = extract_pcode(pred_uri)
     if subj_q is None or pred_p is None:
-        return None
+        return (None, "no_codes")
+
+    # REC-3 filter: drop predicates not in the semantic allow-list (skips ~75-80%
+    # of truthy noise like URL props, external identifiers, format hints).
+    if apply_filter and pred_p not in SEMANTIC_KEEP_PROPERTIES:
+        return (None, "filtered_predicate")
 
     # Subject label
     subj_label = labels.get(subj_q, subj_q) if labels else subj_q
@@ -192,32 +236,32 @@ def parse_line(line: str, labels: Optional[dict] = None) -> Optional[str]:
         # URI object
         obj_match = re.match(r'^<([^>]+)>$', obj_part)
         if not obj_match:
-            return None
+            return (None, "malformed")
         obj_uri = obj_match.group(1)
         obj_q = extract_qcode(obj_uri)
         if obj_q is None:
-            return None
+            return (None, "no_codes")
         obj_label = labels.get(obj_q, obj_q) if labels else obj_q
     elif obj_part.startswith('"'):
         # Literal "value"@lang OR "value"^^datatype
         lit_match = re.match(r'^"([^"]*)"(@[a-z-]+|\^\^<[^>]+>)?$', obj_part)
         if not lit_match:
-            return None
+            return (None, "literal_rejected")
         literal = lit_match.group(1)
         lang_tag = lit_match.group(2) or ""
         # Only keep English literals or untagged
         if lang_tag and lang_tag != "@en" and not lang_tag.startswith("^^"):
-            return None
+            return (None, "literal_rejected")
         if not literal or len(literal) > 200:
-            return None
+            return (None, "literal_rejected")
         obj_label = literal
     else:
-        return None
+        return (None, "malformed")
 
     fact = f"{subj_label} {pred_label} {obj_label}."
     if 10 <= len(fact) <= 280:
-        return fact
-    return None
+        return (fact, "ok")
+    return (None, "literal_rejected")
 
 
 def load_labels(labels_path: Optional[Path]) -> Optional[dict]:
@@ -281,10 +325,12 @@ def run_ingest(
                 stats.lines_seen += 1
                 if stats.facts_added >= n_triples:
                     break
-                fact = parse_line(line, labels=labels)
+                fact, reason = parse_line(line, labels=labels)
                 if fact is None:
-                    if '"' in line:
+                    if reason == "literal_rejected":
                         stats.skipped_literal += 1
+                    elif reason == "filtered_predicate":
+                        stats.skipped_filtered_predicate += 1
                     else:
                         stats.skipped_malformed += 1
                     continue
