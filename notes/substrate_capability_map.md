@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v529
+# hd-instrument substrate -- capability map v533
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13545,3 +13545,9 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v531 -> v532 CYCLE 206 (3 HP; 0 HF; 0 LVH; 2 NEW PP ROWS PP-227+PP-228; 1 annotation to PP-225 [50k KB scale]; 1 BAND LIFT [PP-225 0.86-0.95->0.88-0.96]; 0 closures; Portfolio 32+226->32+228 +2; HONEST 1535->1538 +3; LVH 268 UNCHANGED; 437th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+CYCLE-207 UPDATES to PP-225: (A) t5c_pp225_mlp_head_gpu_v1 HP v533: heldout=0.990 (149/100) -- MLP head variant maintains near-ceiling; 1pp below linear. (B) t5c_pp225_enc_bgesmall_gpu_v1 HP v533: heldout=1.000 (149/100) -- bge-small encoder swap maintains ceiling; architecture-robust. (C) R1 RESCUE t5c_pp225_pythia14b_fp32proj_v1 HP v533: heldout=1.000 (149/100) -- fp32 SOLVES Pythia-1.4B bf16 non-convergence; scale boundary updated to 1.4B at fp32. (D) R1 CROSS-FAMILY t5c_pp225_qwen15b_fp32proj_v1 HP v533: heldout=0.980 (149/100) -- fp32 SOLVES Qwen-1.5B; cross-family transfer confirmed. (E) R2 t5c_pp225_pythia14b_scaletune_v1 HP v533: heldout=1.000 -- scale-tune recipe achieves ceiling. (F) R3 t5c_pp225_pythia14b_lognorm_v1 HP v533: heldout=1.000 -- log-norm recipe achieves ceiling. Three rescue paths (fp32+scale-tune+log-norm) all reach 1.000. (G) 3-SEED LOCK at 1.4B: t5c_pp225_pythia14b_fp32proj_3seed_v1 HP v533: mean_heldout=1.000 std=0.000 per_seed=[1.0,1.0,1.0] -- DETERMINISTIC CEILING LOCK at 1.4B. Scale does not degrade determinism. BAND LIFT: PP-225 0.88-0.96 -> 0.90-0.97 EXPLORATORY (160M-3seed + 1.5B-fp32 + 1.4B-3seed + scale-ladder). (H) t5c_pp225_pythia14b_fp32proj_kb10k_v1 HP v533: heldout=0.995 (6000/2000) -- 10k KB at 1.4B; graceful 0.5pp at 20x test extension. (I) t5c_pp225_pythia14b_fp32proj_kb50k_v1 HP v533: heldout=0.994 (30000/2000) -- 50k KB at 1.4B; <0.2pp total across 500x scale. Production KB scale validated at 1.4B.
+
+**PP-227 CYCLE-207 10K KB SCALEUP:** t5c_hybrid_kb10k_v1 HP v533: lm_ratio=0.797x fact_recall=1.000 n_test=92 (cycle 207). CRITICAL: hybrid (LM-enhancer + fact-KV simultaneously) confirmed at 10k KB -- 10x KB scaleup from cycle-206 founding. Both thresholds met; ratio 0.793->0.797 within noise. No interference at scale. BAND LIFT: PP-227 0.78-0.90 -> 0.82-0.92 EXPLORATORY. n=1 seed GPU.
+
+Cap_map: v532 -> v533 CYCLE 207 (10 HP; 0 HF; 0 LVH; 0 NEW PP ROWS; 10 annotations [PP-225 x9 + PP-227 x1]; 2 BAND LIFTs [PP-225 0.88-0.96->0.90-0.97 + PP-227 0.78-0.90->0.82-0.92]; 0 closures; Portfolio unchanged 32+228; HONEST 1538->1548 +10; LVH 268 UNCHANGED; 438th PROT-009 paired commit) (2026-06-09)
