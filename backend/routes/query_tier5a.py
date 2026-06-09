@@ -84,24 +84,30 @@ def _init_kv() -> SubstrateKV:
                     len(facts), encoder.model_name, encoder.device)
         kv.add_facts(facts)
 
-        # Q2: ALSO load pre-encoded Wikipedia 100K ingest from disk if present.
+        # Q2+POST: auto-load ANY available pre-encoded substrate-state dirs from disk.
+        # Each dir holds (facts.jsonl, keys.npy) pair produced by backend/kb/*_ingest.py.
+        # In-flight ingests don't have keys.npy yet (only written at end of run) so they're
+        # skipped naturally.
         from pathlib import Path as _Path
-        wiki_dir = _Path("data/substrate_state/wikipedia_100k")
-        wiki_facts = wiki_dir / "facts.jsonl"
-        wiki_keys = wiki_dir / "keys.npy"
-        if wiki_facts.exists() and wiki_keys.exists():
-            try:
-                t0 = time.perf_counter() if False else None
-                import time as _t
-                t0 = _t.perf_counter()
-                pre = len(kv)
-                total = kv.load_from_disk(wiki_facts, wiki_keys)
-                logger.info("loaded Wikipedia 100K ingest: %d -> %d facts in %.1fs",
-                            pre, total, _t.perf_counter() - t0)
-            except Exception:
-                logger.exception("Wikipedia 100K disk load failed (continuing with seed only)")
-        else:
-            logger.info("Wikipedia 100K not yet ingested (skipping disk load)")
+        import time as _t
+        state_root = _Path("data/substrate_state")
+        if state_root.exists():
+            for state_dir in sorted(state_root.iterdir()):
+                if not state_dir.is_dir():
+                    continue
+                facts_p = state_dir / "facts.jsonl"
+                keys_p = state_dir / "keys.npy"
+                if not (facts_p.exists() and keys_p.exists()):
+                    logger.info("%s: skip (no keys.npy yet; ingest in flight)", state_dir.name)
+                    continue
+                try:
+                    t0 = _t.perf_counter()
+                    pre = len(kv)
+                    total = kv.load_from_disk(facts_p, keys_p)
+                    logger.info("loaded %s: %d -> %d facts (+%d) in %.1fs",
+                                state_dir.name, pre, total, total - pre, _t.perf_counter() - t0)
+                except Exception:
+                    logger.exception("%s: disk load failed (continuing)", state_dir.name)
 
         # Pre-load Qwen generator too so first /query/tier5a has zero LLM cold-start
         from backend.llm.pythia_client import get_client
