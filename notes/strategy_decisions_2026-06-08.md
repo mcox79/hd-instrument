@@ -1586,3 +1586,52 @@ PP-181 DOWNGRADE: PP-181 was HP (n=1 seed AUC=0.781 cycle 195). 3-seed promotion
 
 Cap_map: v526 -> v527 CYCLE 201 (5 HP [GPU:3 CPU:2]; 2 HF [GPU:1 CPU:1]; 1 UNKNOWN [GPU orphan]; 0 LVH; 2 NEW PP ROWS PP-217..PP-218; 3 annotations [PP-204 b2 / PP-110 f0.5 / PP-210 100-vertex]; 1 PP-181 DOWNGRADE HP->HF [3-seed reversal]; 1 T5c fact-recall HF founding; 0 closures; Portfolio 32+218 -> 32+220 +2; HONEST 1493->1502 +9; LVH 266 UNCHANGED; 432nd PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v527 -> v528 -- CYCLE 202 (2026-06-08)
+
+8 anchors: TIER-5C 3-SEED VALIDATION (2 HP) + KBLaM HELDOUT RESCUE (1 HF) + TIER-5C ABLATION SUITE (4: 2 HP + 2 HF) + SOFT-AND CPU (1 MIDDLE_BAND).
+
+### Step 0 honest re-read
+
+Bridge stale (is_stale=True); all 8 metrics fetched source=remote via SSH. 0 LVH catches.
+
+- t5c_c1_3seed_validate_gpu_v1 HARD_PASS: mean_ratio=0.836x std=0.001 ratios=[0.835,0.835,0.838] gates=True all 3 seeds. HONEST. Resolves cycle-201 UNKNOWN orphan for PP-217.
+- t5c_d1_3seed_validate_gpu_v1 HARD_PASS: mean_ratio=0.852x std=0.001 ratios=[0.851,0.853,0.851] gates=True all 3 seeds. HONEST. 3-seed validation of PP-218.
+- t5c_factkb_kblam_heldout_gpu_v1 HARD_FAIL: bare=0.000 train-recall=0.060 heldout-recall=0.049 gate_mean=0.370. Threshold heldout>=0.20. 0.049<<0.20. HONEST. KBLaM rescue also fails; same pattern as c1fact_heldout v527.
+- t5c_e1_random_substrate_gpu_v1 HARD_PASS: random ratio=1.0000x (0.00% of real 16.4% improvement) gates=[0.020,0.015]. H3 regularization-as-primary REFUTED. HONEST.
+- t5c_e6_zero_input_gpu_v1 HARD_PASS: zero-input ratio=1.0000 gates=[0.000,0.000]. H2 parametric transform REFUTED. HONEST.
+- t5c_e4_layer_ablation_gpu_v1 HARD_FAIL: best pair L7+8 (ratio=0.7691) not L4+5 (0.7836). Semantic-band hypothesis revised. All layer pairs improve vs no-substrate baseline. HONEST.
+- t5c_e2_seqlen_sweep_gpu_v1 HARD_FAIL: improvement@512=0.209 vs @128=0.260 (0.81x decline). Context-extension hypothesis fails. HONEST.
+- soft_weighted_and_cpu_v1 MIDDLE_BAND: top1=0.825 in 0.75-0.90 band. HONEST.
+
+HONEST: 1502 -> 1510 (+8). LVH: 266 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v527 -> v528)
+
+**(A) t5c_c1_3seed_validate_gpu_v1 (HP -- PP-217 multi-seed upgrade):**
+PP-217 MULTI-SEED UPGRADE: HP v528 mean_ratio=0.836x std=0.001 ratios=[0.835,0.835,0.838] gates=True 3/3 seeds (cycle 202). Resolves cycle-201 UNKNOWN orphan. Band LIFT PP-217: 0.72-0.86 -> 0.78-0.90 EXPLORATORY. State: Validated, want stronger (3-seed; std=0.001 tight; no outlier seeds).
+
+**(B) t5c_d1_3seed_validate_gpu_v1 (HP -- PP-218 multi-seed upgrade):**
+PP-218 MULTI-SEED UPGRADE: HP v528 mean_ratio=0.852x std=0.001 ratios=[0.851,0.853,0.851] gates=True 3/3 seeds (cycle 202). Band LIFT PP-218: 0.72-0.86 -> 0.78-0.90 EXPLORATORY. Std=0.001 extremely tight. State: Validated, want stronger.
+
+**(C) t5c_factkb_kblam_heldout_gpu_v1 (HF -- KBLaM rescue also fails heldout; fact-transmission closure deepens):**
+KBLaM HF annotation v528: bare=0.000 train-recall=0.060 heldout-recall=0.049 gate_mean=0.370 (cycle 202). Second architecture failing same pattern as c1fact_heldout (train=0.125 heldout=0.042). Adapter routes attention but facts do not transmit even at train-time. bare=0.000 in both cases rules out preprocessing. 5 rescue sketches (cheapest first): R1 explicit retrieval loss (cosine alignment on gate output vs fact embedding; 1-line change), R2 fact-aware adapter init (non-zero init toward fact space), R3 small-scale sanity N_train=100 to confirm memorization before scaling, R4 explicit fact token injection (fact as LLM context token not cross-attn gate), R5 separate probe decoder (standalone MSE loss). strategy_request_to_exp_dev filed for R1+R3.
+
+**(D) t5c_e1_random_substrate_gpu_v1 (HP -- NEW ROW PP-219: random ablation confirms substrate signal causal):**
+NEW ROW PP-219: HP v528 random_ratio=1.0000x gates=[0.020,0.015] (cycle 202). H3 regularization-as-primary REFUTED. Real past-token context is the signal. Product implication: substrate injection benefit is causal, not architecture artifact. 0.78-0.90 EXPLORATORY n=1 seed ablation (real improvement baseline 3-seed confirmed). Cross-ref PP-217, PP-218, PP-220.
+
+**(E) t5c_e6_zero_input_gpu_v1 (HP -- NEW ROW PP-220: zero-input ablation confirms genuine memory lookup):**
+NEW ROW PP-220: HP v528 zero_ratio=1.0000 gates=[0.000,0.000] (cycle 202). H2 parametric transform REFUTED. Adapter activates only with real substrate query (gates=0 on zero input). Product implication: substrate injection is conditional retrieval not parameter fitting. 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-217, PP-218, PP-219.
+
+**(F) t5c_e4_layer_ablation_gpu_v1 (HF -- semantic-band hypothesis revised; optimal injection = L7+8):**
+T5c layer annotation v528 (cycle 202): L1+2=0.794, L4+5=0.784, L7+8=0.769 (best), L10+11=0.841. Semantic-band hypothesis (L4+5 optimal) revised to L7+8. All pairs improve vs no-substrate baseline. Annotation to PP-217/PP-218: revised injection target = L7+8. 3 rescue sketches: R1 (cheapest: re-run c1 with L7+8 injection to directly measure delta), R2 (fine-grid L6+7/L7+8/L8+9 sweep), R3 (Qwen-1.5B optimal-layer sweep per PP-218). No PP row change; characterization annotation only.
+
+**(G) t5c_e2_seqlen_sweep_gpu_v1 (HF -- context-extension hypothesis fails; substrate benefit largest at short seqlen):**
+T5c seqlen annotation v528 (cycle 202): improvement@128=0.260 vs improvement@512=0.209 (0.81x decline). Context-extension hypothesis fails. Substrate benefit most pronounced at short seqlen where LLM KV-cache is least informative. Not a capability failure for KB injection use-case. 3 rescue sketches: R1 (cheapest: verify at seqlen=64 to confirm short-context primacy), R2 (fixed-seqlen/varying-M sweep to separate seqlen overlap from substrate signal), R3 (dynamic injection gate). Annotation to PP-217.
+
+**(H) soft_weighted_and_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-221: graded conjunction top1=0.825):**
+NEW ROW PP-221: MIDDLE_BAND v528 top1=0.825 in 0.75-0.90 band (cycle 202). Extends PP-162 (hard AND precision=1.000) to graded/soft conjunction. Weighted-AND queries with continuous constraint weights. MIDDLE_BAND (HP requires >=0.90). 3 rescue sketches: R1 (cheapest: weight normalization sweep [0.8/0.2, 0.6/0.4, 0.5/0.5] to find HP point), R2 (N-scaling N=4096/8192), R3 (3-seed at N=2048 with best weight split). 0.60-0.75 MIDDLE_BAND n=1 seed. Cross-ref PP-162, PP-174, PP-199.
+
+Cap_map: v527 -> v528 CYCLE 202 (4 HP [GPU:4]; 3 HF [GPU:3]; 1 MIDDLE_BAND [CPU:1]; 0 LVH; 3 NEW PP ROWS PP-219/PP-220/PP-221; 2 BAND LIFTs [PP-217 + PP-218 0.72-0.86->0.78-0.90]; 2 characterization annotations [layer + seqlen]; 1 KBLaM HF annotation; 0 closures; Portfolio 32+221 +3; HONEST 1502->1510 +8; LVH 266 UNCHANGED; 433rd PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
