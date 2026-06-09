@@ -1,0 +1,1 @@
+- research_drill_generalizable_retrieval_training_5x_2026-06-09.md — 5x lit-scan on KBLaM/RETRO/Atlas/Memorizing-Transformer/scaling-laws for C1-FACT HARD_FAIL root cause and v2 recipe; 5 ranked exp_dev anchors filed
