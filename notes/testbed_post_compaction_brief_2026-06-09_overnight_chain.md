@@ -8,11 +8,14 @@
 ### Overnight ingest chain (CRITICAL — running autonomously)
 - ✅ **Wikipedia 100K**: COMPLETE 184,354 facts; keys.npy at `data/substrate_state/wikipedia_100k/`
 - ✅ **EXTRACT-1 ConceptNet 8M**: COMPLETE 457,875 facts (3.3 hr); `data/substrate_state/conceptnet_8m/`
-- ▶️ **EXTRACT-2 arXiv 2M**: RUNNING ~234K facts at 8.5 facts/sec; ~16 hr total wall projected
-- ⏳ **EXTRACT-3 Wikidata 50M**: queued (waits for arxiv keys.npy)
-- ⏳ **EXTRACT-4 PubMed 5M**: queued
+- ✅ **EXTRACT-2 arXiv**: COMPLETE 234,352 facts (HF dataset CShorten/ML-ArXiv-Papers = 117K papers total, the WHOLE dataset; my 2M target was wishful); `data/substrate_state/arxiv_2m/`
+- ❌ **EXTRACT-3 Wikidata 50M**: SKIPPED. Reason: I made up HF dataset names (5 guessed; all 404'd). Then tried `intfloat/wikidata5m` (loads but `text: None`; broken). Real Wikidata ingest needs direct 30 GB dump download + custom parser. Deferred until someone (me later or operator) downloads the dump and writes the parser.
+- ▶️ **EXTRACT-4 PubMed (pubmed_qa)**: RUNNING via `scripts/extraction_chain_remaining.py`. Smoke 50 abstracts -> 83 facts in 10s confirms pipeline works.
 
-**OLD chain watcher** (`scripts/extraction_chain.py`) hit deferred-skip on -3/-4 at 12:30:32 + exited. NEW recovery watcher launched: `scripts/extraction_chain_remaining.py` + `tmp_run_chain_remaining.bat`. Polls for arxiv keys.npy.
+### Total facts on disk
+**876,581 facts** + PubMed growing = projected **~1M facts** by morning.
+
+This is ~6,000× the 169-fact seed but 200× short of the original "200M facts" aspirational claim in Research's OVERNIGHT_EXTRACTION_QUEUE. For v1 demo viability: 876K facts is plenty (cross-domain coverage: encyclopedic / common-sense / scientific / biomedical-incoming).
 
 To verify chain-remaining watcher: `ssh marsh@home "wmic process where (CommandLine like '%%chain_remaining%%') get ProcessId 2>nul"`
 

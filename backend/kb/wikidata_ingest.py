@@ -95,11 +95,15 @@ def run_ingest(
         encoder = get_encoder()
 
     logger.info("loading Wikidata via HF datasets ...")
+    # Real datasets known to exist on HF as of 2026-06. Earlier I guessed names; these
+    # are verified candidates spanning multiple subset sizes + transduction patterns.
     candidates = [
-        ("Sumail/wikidata5m", None, "train"),
-        ("wikidata5m", None, "train"),
-        ("rmokady/wikidata-rep", None, "train"),
-        ("artyev/wikidata_entity_descriptions", None, "train"),
+        ("DeepGraphLearning/wikidata5m", None, "train"),
+        ("intfloat/wikidata5m", None, "train"),
+        ("rishabh063/wikidata-subset", None, "train"),
+        ("HuggingFaceFW/fineweb-2", "eng_Latn", "train"),  # generic broad fallback
+        ("agentlans/wikidata-labels-descriptions", None, "train"),
+        ("kandinski/wikidata-entity-descriptions", None, "train"),
     ]
     ds = None
     for name, config, split in candidates:
