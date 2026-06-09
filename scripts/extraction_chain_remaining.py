@@ -67,13 +67,11 @@ def main():
         log.error("arxiv never finished; aborting")
         return 1
 
-    # EXTRACT-3 Wikidata
-    run_step(
-        "backend.kb.wikidata_ingest",
-        ["--n-triples", "50000000",
-         "--output-dir", "data/substrate_state/wikidata_50m"],
-        "EXTRACT-3 Wikidata 50M",
-    )
+    # EXTRACT-3 Wikidata — none of the HF candidates actually exist (all 5 tried 404'd
+    # 2026-06-09). Document the skip + move on. Real Wikidata ingest needs a direct dump
+    # download (30 GB compressed) + custom parser; deferred.
+    log.warning("EXTRACT-3 Wikidata SKIPPED: no HF dataset available (5 candidates tried; all 404'd). "
+                "Real Wikidata ingest needs direct dump fallback (~30 GB compressed); deferred.")
 
     # EXTRACT-4 PubMed
     run_step(
