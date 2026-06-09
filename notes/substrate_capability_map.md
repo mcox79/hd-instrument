@@ -13520,3 +13520,16 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v528 -> v529 CYCLE 203 (7 HP [GPU:7] + 3 HF [GPU:3]; 0 MIDDLE_BAND; 0 LVH; 1 NEW PP ROW PP-222 [Flamingo-Pythia-1.4B]; 7 sweep annotations [t5c1-t5c6 layer-count/position + t5c7 scale]; 3 KBLaM-disc HF annotations; 0 closures; Portfolio 32+221 -> 32+222 +1; HONEST 1510->1520 +10; LVH 266 UNCHANGED; 434th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v529 -> v530 -- CYCLE 204 (2026-06-09)
+
+9 anchors: TIER-5C SCALE SWEEP (3) + MULTI-SEED VALIDATIONS (2) + QWEN LAYER SWEEP (2) + KBLAM RESCUES (2).
+
+**NEW ROW PP-223:** t5c_scale1_qwen3b_2layer_4bit_v1 HP v530: baseline=14.36, modified=11.46, ratio=0.798x, gates=[0.245, 0.245] (cycle 204). Flamingo cross-attn IMPROVES ppl at Qwen-3B scale under 4-bit quantization -- largest LLM scale tested. Scale ladder: 160M -> 1.4B -> 1.5B -> 3B all HP. 4-bit quantization does not prevent substrate injection benefit. 0.72-0.86 EXPLORATORY n=1 seed GPU. Cross-ref PP-222 (Pythia-1.4B), PP-218 (Qwen-1.5B), PP-217.
+
+**NEW ROW PP-224:** t5c_kblam_rag_prefix_gpu_v1 HP v530: bare=0.000, retrieval_acc=1.000, rag_recall=0.470, oracle_recall=0.470 (cycle 204). KBLaM RAG-prefix: substrate retrieval + context-window injection achieves 47% held-out recall vs 0% bare; rag_recall=oracle (full path match). Cross-attn Path B failed; RAG-prefix Path C succeeds by decoupling retrieval from attention gating. Product implication: substrate-as-external-memory (RAG) is viable. 0.72-0.86 EXPLORATORY n=1 seed n=100 items. Cross-ref PP-225, t5c fact-recall HF, PP-222.
+
+**NEW ROW PP-225:** t5c_kblam_proj_head_gpu_v1 HP v530: bare=0.000, train_recall=0.993, heldout_recall=1.000 (cycle 204). Projection head generalizes at ceiling; cross-attn GATE was the Path B limiter, not substrate projection capacity. Substrate retrieval vectors project directly to logits at perfect held-out recall. Product implication: substrate-as-retrieval-engine vindicated; gating is engineering problem not substrate gap. 0.78-0.90 EXPLORATORY n=1 seed. Cross-ref PP-224.
+
+Cap_map: v529 -> v530 CYCLE 204 (8 HP [GPU:8]; 1 MIDDLE_BAND [GPU:1]; 0 HF; 0 LVH; 3 NEW PP ROWS PP-223/PP-224/PP-225; 5 annotations; 1 BAND LIFT [PP-217 0.78-0.90->0.82-0.92 3-seed every-layer]; 0 closures; Portfolio 32+222 -> 32+225 +3; HONEST 1520->1529 +9; LVH 266 UNCHANGED; 435th PROT-009 paired commit) (2026-06-09)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
