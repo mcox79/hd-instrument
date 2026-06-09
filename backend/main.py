@@ -42,7 +42,7 @@ from backend.landing import landing_response
 from backend.decisive_test import decisive_test_response
 from backend.playground import playground_response
 from backend.benchmark import benchmark_response
-from backend.routes import query_tier5a
+from backend.routes import converse, query_tier5a
 
 
 # ============================================================
@@ -98,6 +98,9 @@ app.add_middleware(
 # Tier 5 Sprint Panel A: substrate-KV + Qwen-2.5-1.5B-Instruct
 # ============================================================
 app.include_router(query_tier5a.router)
+
+# Substrate-first /converse cascade routing (strategic reframe: substrate IS the AI)
+app.include_router(converse.router)
 
 
 # ============================================================
