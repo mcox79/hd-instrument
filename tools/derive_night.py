@@ -31,17 +31,16 @@ DISC_POOL = ("aardvark albatross alligator antelope armadillo baboon badger barr
 '''
 
 # discriminative make_facts (bare distinct real-word subject; ~600 pool -> sample N distinct)
-OLD_MF_START = "def make_facts(tok):"
+OLD_MF_START = "def make_facts(tok, g):"
 OLD_MF = KB[KB.index(OLD_MF_START): KB.index("def run() -> Dict:")]
 NEW_MF = POOL_DEF + '''
-def make_facts(tok):
-    import numpy as _np
+def make_facts(tok, g):
     pool = [" violet"," copper"," seven"," marble"," thunder"," willow"," saffron"," glacier"," ember"," quartz",
             " orchid"," harvest"," lantern"," meadow"," falcon"," cinnamon"," velvet"," anchor"," prism"," cobalt",
             " maple"," jupiter"," canyon"," ribbon"," basalt"," nectar"," pebble"," cypress"," marlin"," walnut",
             " amber"," crimson"," silver"," forest"," ocean"," desert"," tiger"," eagle"," raven"," otter"]
     pool = [a for a in pool if len(tok(a, add_special_tokens=False)["input_ids"]) == 1]
-    g = _np.random.default_rng(123); subs = list(dict.fromkeys(DISC_POOL)); g.shuffle(subs)
+    subs = list(dict.fromkeys(DISC_POOL)); g.shuffle(subs)
     if N_FACTS > len(subs):
         subs = (subs * ((N_FACTS // len(subs)) + 1))
     subs = subs[:N_FACTS]
