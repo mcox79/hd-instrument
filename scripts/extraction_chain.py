@@ -142,17 +142,31 @@ def main():
     else:
         log.info("EXTRACT-2 skipped (--skip-arxiv)")
 
-    # Step 3: EXTRACT-3 Wikidata - DEFERRED until pipeline written
-    # NOTE: backend.kb.wikidata_ingest pipeline is TODO. For now, log that we're skipping
-    # so the chain doesn't crash. Will land in a follow-up commit.
+    # Step 3: EXTRACT-3 Wikidata
     if not args.skip_wikidata:
-        log.warning("EXTRACT-3 Wikidata pipeline not yet implemented; skipping (will land in follow-up commit)")
+        if run_step(
+            "backend.kb.wikidata_ingest",
+            ["--n-triples", str(args.wikidata_n),
+             "--output-dir", "data/substrate_state/wikidata_50m"],
+            "EXTRACT-3 Wikidata 50M+",
+        ):
+            log.info("EXTRACT-3 successful")
+        else:
+            log.warning("EXTRACT-3 failed; continuing")
     else:
         log.info("EXTRACT-3 skipped (--skip-wikidata)")
 
-    # Step 4: EXTRACT-4 PubMed - DEFERRED until pipeline written
+    # Step 4: EXTRACT-4 PubMed (stretch; healthcare vertical asset)
     if not args.skip_pubmed:
-        log.warning("EXTRACT-4 PubMed pipeline not yet implemented; skipping (will land in follow-up commit)")
+        if run_step(
+            "backend.kb.pubmed_ingest",
+            ["--n-abstracts", "5000000",
+             "--output-dir", "data/substrate_state/pubmed_5m"],
+            "EXTRACT-4 PubMed biomedical (stretch)",
+        ):
+            log.info("EXTRACT-4 successful")
+        else:
+            log.warning("EXTRACT-4 failed; chain ends")
     else:
         log.info("EXTRACT-4 skipped (--skip-pubmed)")
 
