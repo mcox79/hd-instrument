@@ -202,27 +202,28 @@ def extract_pcode(uri: str) -> Optional[str]:
 
 def parse_line(line: str, labels: Optional[dict] = None,
                apply_filter: bool = True) -> tuple:
-    """Parse one N-triples line into a fact string. Returns (fact, reason) where
-    fact is the fact string OR None, and reason is one of:
-      'ok', 'malformed', 'no_codes', 'filtered_predicate', 'literal_rejected'.
+    """Parse one N-triples line. Returns (fact, reason, triple) where:
+      fact: human-readable fact string OR None
+      reason: 'ok' / 'malformed' / 'no_codes' / 'filtered_predicate' / 'literal_rejected'
+      triple: (subj_qcode, pred_pcode, obj_qcode_or_literal) raw codes OR None
 
-    With labels: 'Douglas Adams instance of human.'
-    Without:    'Q42 instance of Q5.'
+    Stage A consumes `fact` for bge-large encoding to facts.jsonl + keys.npy.
+    Stage C consumes `triple` for FHRR substrate encoding (per Research Q2 answer).
     """
     m = TRIPLE_RE.match(line.strip())
     if not m:
-        return (None, "malformed")
+        return (None, "malformed", None)
     subj_uri, pred_uri, obj_part = m.group(1), m.group(2), m.group(3)
 
     subj_q = extract_qcode(subj_uri)
     pred_p = extract_pcode(pred_uri)
     if subj_q is None or pred_p is None:
-        return (None, "no_codes")
+        return (None, "no_codes", None)
 
     # REC-3 filter: drop predicates not in the semantic allow-list (skips ~75-80%
     # of truthy noise like URL props, external identifiers, format hints).
     if apply_filter and pred_p not in SEMANTIC_KEEP_PROPERTIES:
-        return (None, "filtered_predicate")
+        return (None, "filtered_predicate", None)
 
     # Subject label
     subj_label = labels.get(subj_q, subj_q) if labels else subj_q
@@ -232,36 +233,40 @@ def parse_line(line: str, labels: Optional[dict] = None,
 
     # Object: URI (Q-code) or literal?
     obj_label: str
+    obj_raw: str  # Q-code OR literal string, for the Stage C triple
     if obj_part.startswith("<"):
         # URI object
         obj_match = re.match(r'^<([^>]+)>$', obj_part)
         if not obj_match:
-            return (None, "malformed")
+            return (None, "malformed", None)
         obj_uri = obj_match.group(1)
         obj_q = extract_qcode(obj_uri)
         if obj_q is None:
-            return (None, "no_codes")
+            return (None, "no_codes", None)
         obj_label = labels.get(obj_q, obj_q) if labels else obj_q
+        obj_raw = obj_q
     elif obj_part.startswith('"'):
         # Literal "value"@lang OR "value"^^datatype
         lit_match = re.match(r'^"([^"]*)"(@[a-z-]+|\^\^<[^>]+>)?$', obj_part)
         if not lit_match:
-            return (None, "literal_rejected")
+            return (None, "literal_rejected", None)
         literal = lit_match.group(1)
         lang_tag = lit_match.group(2) or ""
         # Only keep English literals or untagged
         if lang_tag and lang_tag != "@en" and not lang_tag.startswith("^^"):
-            return (None, "literal_rejected")
+            return (None, "literal_rejected", None)
         if not literal or len(literal) > 200:
-            return (None, "literal_rejected")
+            return (None, "literal_rejected", None)
         obj_label = literal
+        obj_raw = literal
     else:
-        return (None, "malformed")
+        return (None, "malformed", None)
 
+    triple = (subj_q, pred_p, obj_raw)
     fact = f"{subj_label} {pred_label} {obj_label}."
     if 10 <= len(fact) <= 280:
-        return (fact, "ok")
-    return (None, "literal_rejected")
+        return (fact, "ok", triple)
+    return (None, "literal_rejected", None)
 
 
 def load_labels(labels_path: Optional[Path]) -> Optional[dict]:
@@ -290,6 +295,7 @@ def run_ingest(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     facts_jsonl = output_dir / "facts.jsonl"
+    triples_jsonl = output_dir / "triples.jsonl"  # Stage C source-of-truth (per Research Q2)
     keys_npy = output_dir / "keys.npy"
     stats_path = output_dir / "stats.json"
 
@@ -302,8 +308,10 @@ def run_ingest(
     stats = IngestStats()
     t0 = time.perf_counter()
     facts_f = open(facts_jsonl, "a", encoding="utf-8")
+    triples_f = open(triples_jsonl, "a", encoding="utf-8")
     all_keys = []
-    pending = []
+    pending = []        # list of fact strings (Stage A bge-large encoding)
+    pending_triples = []  # list of (subj_q, pred_p, obj_raw) tuples (parallel; for triples.jsonl)
 
     def flush(force=False):
         if not pending or (not force and len(pending) < batch_size):
@@ -313,10 +321,12 @@ def run_ingest(
         stats.encode_wall_s += time.perf_counter() - t
         stats.encode_batches += 1
         all_keys.append(vecs)
-        for s in pending:
+        for s, tri in zip(pending, pending_triples):
             facts_f.write(json.dumps({"fact": s}) + "\n")
+            triples_f.write(json.dumps({"s": tri[0], "p": tri[1], "o": tri[2]}) + "\n")
         stats.facts_added += len(pending)
         pending.clear()
+        pending_triples.clear()
 
     logger.info("opening dump: %s", dump_path)
     try:
@@ -325,7 +335,7 @@ def run_ingest(
                 stats.lines_seen += 1
                 if stats.facts_added >= n_triples:
                     break
-                fact, reason = parse_line(line, labels=labels)
+                fact, reason, triple = parse_line(line, labels=labels)
                 if fact is None:
                     if reason == "literal_rejected":
                         stats.skipped_literal += 1
@@ -336,6 +346,7 @@ def run_ingest(
                     continue
                 stats.triples_parsed += 1
                 pending.append(fact)
+                pending_triples.append(triple)
                 flush(force=False)
 
                 if stats.lines_seen % checkpoint_every == 0:
@@ -353,6 +364,7 @@ def run_ingest(
             logger.info("wrote keys.npy")
     finally:
         facts_f.close()
+        triples_f.close()
         stats.total_wall_s = time.perf_counter() - t0
         stats_path.write_text(json.dumps(stats.as_dict(), indent=2))
         if progress_log:
