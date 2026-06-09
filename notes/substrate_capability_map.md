@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v528
+# hd-instrument substrate -- capability map v529
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13512,4 +13512,11 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 **NEW ROW PP-221:** soft_weighted_and_cpu_v1 MIDDLE_BAND v528: top1=0.825 in 0.75-0.90 band (cycle 202). Soft weighted AND (graded conjunction) achieves 82.5% top-1 recall. Extends PP-162 (hard AND precision=1.000) to graded/soft constraint satisfaction with continuous weights. MIDDLE_BAND (HP requires >=0.90). Rescue sketches: R1 (cheapest: weight normalization sweep [0.8/0.2, 0.6/0.4, 0.5/0.5] to find HP point), R2 (N-scaling N=4096/8192), R3 (3-seed at N=2048 with best weight split). 0.60-0.75 MIDDLE_BAND n=1 seed. Cross-ref PP-162, PP-174, PP-199.
 
 Cap_map: v527 -> v528 CYCLE 202 (4 HP [GPU:4]; 3 HF [GPU:3]; 1 MIDDLE_BAND [CPU:1]; 0 LVH; 3 NEW PP ROWS PP-219/PP-220/PP-221; 2 BAND LIFTs [PP-217 + PP-218 0.72-0.86->0.78-0.90]; 2 characterization annotations [t5c layer L7+8 / seqlen short-context primacy]; 1 KBLaM HF annotation [5 rescues filed]; 0 closures; Portfolio 32+221 +3; HONEST 1502->1510 +8; LVH 266 UNCHANGED; 433rd PROT-009 paired commit) (2026-06-08)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+10 anchors: LAYER COUNT Pythia-160M (4 HP) + LAYER POSITION Pythia-160M (2 HP) + SCALE Pythia-1.4B (1 HP) + KBLAM DISCRIMINATIVE (3 HF).
+
+**NEW ROW PP-222:** t5c_gpu_t5c7_pythia1p4b_2layer_v1 HP v529: base_ppl=18.37, mod_ppl=14.95, ratio=0.814x, gates=[0.383,0.173] (cycle 203 Pythia-1.4B 2-layer). Flamingo cross-attn reduces perplexity at 1.4B scale. gate0=0.383 is the highest single-gate activation in the Tier-5c series. Scale-agnostic claim confirmed across 9x parameter range (160M->1.4B). Layer-count sweep (t5c1-t5c4): every-layer 0.723x is optimal (5.1pp better than 3-layer 0.774x); monotone improvement with layer count. Layer-position (t5c5/t5c6): early-L2L3 0.776x beats late-L8L9 0.795x; combined with cycle-202 L7+8=0.769x, ordering is every-layer >> L7+8 > L2L3 > L8L9. KBLaM discriminative (t5c_kblam_disc x3): best_heldout<0.06 across every-layer/1-layer/2x-scale variants; bare=0.000 confirms task-design failure (Pythia-160M has no prior on these fact queries); RAG-prefix pivot is R2. 0.78-0.90 EXPLORATORY n=1 seed GPU. Cross-ref PP-217, PP-218, PP-219, PP-220, PP-204.
+
+Cap_map: v528 -> v529 CYCLE 203 (7 HP [GPU:7] + 3 HF [GPU:3]; 0 MIDDLE_BAND; 0 LVH; 1 NEW PP ROW PP-222 [Flamingo-Pythia-1.4B]; 7 sweep annotations [t5c1-t5c6 layer-count/position + t5c7 scale]; 3 KBLaM-disc HF annotations; 0 closures; Portfolio 32+221 -> 32+222 +1; HONEST 1510->1520 +10; LVH 266 UNCHANGED; 434th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

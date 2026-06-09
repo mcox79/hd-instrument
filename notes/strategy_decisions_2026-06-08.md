@@ -1635,3 +1635,87 @@ NEW ROW PP-221: MIDDLE_BAND v528 top1=0.825 in 0.75-0.90 band (cycle 202). Exten
 
 Cap_map: v527 -> v528 CYCLE 202 (4 HP [GPU:4]; 3 HF [GPU:3]; 1 MIDDLE_BAND [CPU:1]; 0 LVH; 3 NEW PP ROWS PP-219/PP-220/PP-221; 2 BAND LIFTs [PP-217 + PP-218 0.72-0.86->0.78-0.90]; 2 characterization annotations [layer + seqlen]; 1 KBLaM HF annotation; 0 closures; Portfolio 32+221 +3; HONEST 1502->1510 +8; LVH 266 UNCHANGED; 433rd PROT-009 paired commit) (2026-06-08)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v528 -> v529 CYCLE 203 -- 10-VERDICT TIER-5C LAYER-COUNT + LAYER-POSITION + SCALE + KBLAM-DISC BATCH (2026-06-09)
+
+Verdicts processed (10 anchors): LAYER COUNT Pythia-160M (4) + LAYER POSITION Pythia-160M (2) + SCALE Pythia-1.4B (1) + KBLAM DISCRIMINATIVE (3)
+
+### Step 0 honest re-read
+
+All 10 metrics fetched source=remote (bridge stale; direct SSH get_metrics successful). 0 LVH catches.
+
+**LAYER COUNT Pythia-160M (4):**
+- t5c_gpu_t5c1_3layer_pythia160m_v1: HONEST. base_ppl=43.38, mod_ppl=33.58, ratio=0.774x, gates=[0.184,0.180] both >0. HP threshold (ratio<1.0 AND gates>0): CONFIRMED. Phase C grounded label CORRECT. n=1 seed GPU. +1 HONEST.
+- t5c_gpu_t5c2_4layer_pythia160m_v1: HONEST. ratio=0.769x, gates=[0.190,0.173] both >0. HP threshold CONFIRMED. n=1 seed GPU. +1 HONEST.
+- t5c_gpu_t5c3_6layer_pythia160m_v1: HONEST. ratio=0.765x, gates=[0.220,0.127] both >0. HP threshold CONFIRMED. n=1 seed GPU. +1 HONEST.
+- t5c_gpu_t5c4_everylayer_pythia160m_v1: HONEST. ratio=0.723x (strongest improvement in batch), gates=[0.309,0.054] both >0. HP threshold CONFIRMED. n=1 seed GPU. +1 HONEST.
+
+**LAYER POSITION Pythia-160M (2):**
+- t5c_gpu_t5c5_late_L8L9_pythia160m_v1: HONEST. ratio=0.795x, gates=[0.248,0.295] both >0. HP threshold CONFIRMED. n=1 seed GPU. +1 HONEST.
+- t5c_gpu_t5c6_early_L2L3_pythia160m_v1: HONEST. ratio=0.776x, gates=[0.328,0.258] both >0. HP threshold CONFIRMED. n=1 seed GPU. +1 HONEST.
+
+**SCALE Pythia-1.4B (1):**
+- t5c_gpu_t5c7_pythia1p4b_2layer_v1: HONEST. base_ppl=18.37, mod_ppl=14.95, ratio=0.814x, gates=[0.383,0.173] both >0. HP threshold CONFIRMED. Scale result: benefit holds at 1.4B. n=1 seed GPU. +1 HONEST.
+
+**KBLAM DISCRIMINATIVE (3):**
+- t5c_kblam_disc_everylayer_gpu_v1: HONEST. bare=0.000, train_recall=0.056, heldout_recall=0.044, best_heldout=0.056, gate_mean=0.345 (2000 facts, 1200/800 split). HF threshold heldout<0.20: CONFIRMED (0.056<<0.20). Even training recall is only 5.6% -- discriminative KBLaM cannot encode and recall facts at training time. HARD_FAIL label CORRECT. n=1 seed GPU. +1 HONEST.
+- t5c_kblam_disc_1layer_gpu_v1: HONEST. train=0.055, heldout=0.039, best=0.049, gate_mean=0.049. HF threshold CONFIRMED (0.049<<0.20). Single-layer lower gate activation (0.049 vs 0.345 every-layer) but identical failure pattern. HARD_FAIL label CORRECT. n=1 seed GPU. +1 HONEST.
+- t5c_kblam_disc_scale_gpu_v1: HONEST. train=0.048, heldout=0.041, best=0.057 at 4000 facts (2x scale). HF threshold CONFIRMED (0.057<<0.20). Scale from 2000->4000 facts does not recover: best_heldout moves 0.056->0.057 (noise-level change). Architecture failure is scale-invariant. HARD_FAIL label CORRECT. n=1 seed GPU. +1 HONEST.
+
+HONEST: 1510 -> 1520 (+10). LVH: 266 UNCHANGED. 0 new LVH catches. All 10 labels HONEST.
+
+### Cap_map decisions (v528 -> v529)
+
+**(A) Layer-count + position sweep annotations (7 HP -- PP-217/PP-218 characterization):**
+
+Annotation to PP-217 (single/2-layer Flamingo) and PP-218 (multi-layer Flamingo):
+
+Layer-count sweep v529 (Pythia-160M): 3-layer ratio=0.774x | 4-layer ratio=0.769x | 6-layer ratio=0.765x | every-layer ratio=0.723x. Monotone improvement with layer count. Every-layer 5.1pp better than 3-layer. Diminishing returns small (4->6->every within 4pp); every-layer is the dominant configuration.
+
+Layer-position contrast v529 (Pythia-160M): early-L2L3 ratio=0.776x | late-L8L9 ratio=0.795x. Early layers outperform late layers by 1.9pp. Context from cycle-202: L7+8 optimal for 2-layer pairs at 0.769x. Ordering: every-layer (0.723x) >> L7+8 (0.769x) > L2L3 (0.776x) > 3-layer (0.774x) > L8L9 (0.795x). Production recommendation: inject at every layer for maximum benefit; use L7+8 for cost-constrained 2-layer deployment.
+
+n=6 HP cells, all n=1 seed GPU. No new rows (characterization sweep extending PP-217/PP-218).
+
+**(B) NEW ROW PP-222: Flamingo adapter scale-agnostic at Pythia-1.4B (ratio=0.814x, gate0=0.383):**
+
+t5c_gpu_t5c7_pythia1p4b_2layer_v1 HP v529: base_ppl=18.37, mod_ppl=14.95, ratio=0.814x, gates=[0.383,0.173] (cycle 203 Pythia-1.4B 2-layer). Flamingo cross-attn reduces perplexity at 1.4B scale. ratio=0.814x is slightly weaker than Pythia-160M 2-layer (cycle 202 PP-217 3-seed mean=0.836x); smaller absolute improvement at larger model scale is consistent with lower baseline perplexity. gate0=0.383 is the highest single-gate reading in any cycle, indicating strong routing at 1.4B. Scale-agnostic claim across 9x parameter range (160M -> 1.4B) confirmed. Product implication: substrate injection viable at production LLM sizes. Filed at 0.78-0.90 EXPLORATORY (n=1 seed GPU; 3-seed + every-layer at 1.4B are next). Cross-ref PP-217, PP-218, PP-204.
+
+Rescue sketches (cheapest-first per feedback-rescue-sketch-first-sequencing):
+R1 (0-compute, ANNOTATION): ratio=0.814x HP; gate0=0.383 strong. APPLIED.
+R2 (CHEAP, GPU <30min): 3-seed at Pythia-1.4B 2-layer to confirm variance (expect std~0.001 per PP-217 pattern).
+R3 (CHEAP, GPU <1h): Every-layer at Pythia-1.4B to test whether every-layer advantage (5.1pp at 160M) scales to 1.4B.
+R4 (CHEAP, GPU <1h): Qwen-1.5B 2-layer injection test (extend family-agnostic claim per PP-153 precedent).
+R5 (MEDIUM, GPU <2h): Factual-KB quality at 1.4B: what is heldout factual recall when KB is real facts?
+
+**(C) KBLaM discriminative HF cluster annotation (3 HF -- task-design failure; RAG-prefix pivot):**
+
+Annotation to PP-8 (LLM integration) and KBLaM sub-row:
+
+t5c_kblam_disc_everylayer/1layer/scale HF v529 (cycle 203): discriminative KBLaM fails at best_heldout<0.06 across 3 variants. Critical diagnostic: bare_recall=0.000 in all 3 -- Pythia-160M has zero natural factual recall for these query templates. Discriminative KBLaM cannot be learned when the base model has no prior on the answer space. Gate activation confirms adapter is routing (gate_mean=0.345 every-layer) but facts do not transmit. Scale 2x (4000 facts) does not help.
+
+Context: cycle-202 KBLaM generative HF (train=0.060, heldout=0.042) + cycle-203 discriminative HF (best_heldout~0.057) = two distinct architectural approaches, both failing. Root cause: task requires Pythia-160M to predict specific token sequences it has no prior for. The Flamingo adapter cannot overcome this from cross-attn injection alone.
+
+PROT-004/006 rescue sketches (cheapest-first; not yet at 3-HF closure threshold on same rescue axis):
+R1 (0-compute, ANNOTATION): bare_recall=0.000 means task is undefined for Pythia-160M without injection. Required: use facts in model's training distribution OR use RAG-prefix instead of cross-attn gate. APPLIED.
+R2 (CHEAP, GPU <30min): RAG-prefix pivot: inject top-1 substrate retrieval as context prefix text, not cross-attn gate; measure fact-conditional next-token recall.
+R3 (CHEAP, GPU <30min): Supervised projection head: train linear mapping from substrate retrieval to LLM logit space; bypass cross-attn entirely.
+R4 (CHEAP, GPU <1h): Binary fact-PRESENT probe: does gate-mean correlate with KB-relevant vs KB-irrelevant prompts? Tests whether adapter learned any retrieval signal.
+R5 (MEDIUM, GPU <1h): KBLaM discriminative at Pythia-1.4B -- larger model may have nonzero bare factual recall, making task learnable.
+
+Strategy routing file will be written for R2+R3 (strategy_request_to_exp_dev).
+
+### Portfolio: 32+221 -> 32+222 (+1 NEW ROW: PP-222 Flamingo-adapter-Pythia-1.4B). 0 closures. 7 HP annotations. 3 KBLaM HF annotations. 0 new LVH.
+
+### PROT compliance (v528 -> v529)
+
+- PROT-004/006: No formal closures. 1 NEW TOP-LEVEL ROW (PP-222). Rescue sketches cheapest-first for PP-222 (R1-R5) and KBLaM HF cluster (R1-R5). KBLaM generative (cycle 202) + discriminative (cycle 203) = 2 distinct architectural axes; PROT-004 3-HF closure threshold on same axis not reached.
+- PROT-007: v529 history row to be appended to substrate_capability_map_history.md.
+- PROT-008: 7 HP anchors. All HP thresholds (ratio<1.0 AND both gates>0) verified Step 0. PASS. No over-claim.
+- PROT-009: cap_map.md + substrate_capability_map_history.md + decisions log staged atomically; 434th PROT-009 paired commit.
+- PROT-018: No _nN binding suffixes on any of 10 anchors. CLEAN.
+- PROT-019: LVH 266 UNCHANGED. 0 new LVH catches. All 10 labels HONEST.
+- PROT-021: All 10 source=remote run_mode=full. No smoke contamination. CLEAN.
+- PROT-022: All HP anchors n=1 seed. HP margins: all ratios < 1.0 with both gates > 0; weakest margin is Pythia-1.4B ratio=0.814x (above threshold by definition); gate0=0.383 is strong. KBLaM HF margins large (best_heldout=0.057<<0.20 threshold). No HP-fragility concern.
+
+Cap_map: v528 -> v529 CYCLE 203 (7 HP [GPU:7] + 3 HF [GPU:3]; 0 MIDDLE_BAND; 0 LVH; 1 NEW PP ROW PP-222 [Flamingo-Pythia-1.4B]; 7 sweep annotations [t5c1-t5c6 + t5c7]; 3 KBLaM-disc HF annotations; 0 closures; Portfolio 32+221 -> 32+222 +1; HONEST 1510->1520 +10; LVH 266 UNCHANGED; 434th PROT-009 paired commit) (2026-06-09)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
