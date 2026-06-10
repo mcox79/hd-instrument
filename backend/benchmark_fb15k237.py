@@ -124,6 +124,19 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>High-fanout stress test (PP-239 cycle 212)</h2>
+    <div class="card">
+      <p>
+        FB15K-237 high-fanout (n=400): substrate maintains top-1 = 1.000 even at fanout
+        buckets 10-19 / 20-49 / 50+ (i.e., 10+, 20+, 50+ superposed answer tails).
+        Exhaustive inner-product beats probabilistic top-K sampling decisively at high
+        fanout: the algebraic retrieval doesn't suffer from sampling collisions.
+      </p>
+      <p style="margin: 0">
+        Anchor: <code>fb15k237_highfanout_cpu_v1</code>. PP-239. cap_map v546.
+      </p>
+    </div>
+
     <h2>How substrate differs from KGE baselines</h2>
     <div class="card">
       <p>
