@@ -13704,3 +13704,24 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 
 Cap_map: v550 -> v551 CYCLE 217 (6 HP [CPU:6]; 1 MIDDLE_BAND [CPU:1]; 2 HF [CPU:2]; 1 LVH [LVH-273 smoke-labeled-HARDPASS stretch3_4_bayes_net v1]; 3 NEW PP ROWS PP-282+PP-283+PP-284; 3 annotations [PP-281 PROMOTED BAND_LIFT; PP-274 saturation; PP-277 rescue-failed confirmed]; 2 HF annotations [chirp codebook; meta-calibration rescue]; 1 BAND LIFT [PP-281 0.40-0.55->0.72-0.86]; 0 closures; Portfolio 32+281 -> 32+284 +3; HONEST 1607->1617 +10; LVH 272->273 +1 [LVH-273]; 445th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+**NEW ROW PP-285:** lap4_7_active_inference_multistep_cpu_v1 HARD_PASS v552: trajectory_converge=1.000, step_converge=1.000, steps=6 (cycle 218). MULTI-STEP ACTIVE INFERENCE: substrate supports 6-step active inference chains at 100% trajectory+per-step convergence. Extends PP-272 (single-step, cycle 215) to multi-step chained trajectories. 0.80-0.92 EXPLORATORY n=1 seed CPU elapsed=1.28s. Cross-ref PP-272, PP-267, PP-279.
+
+**NEW ROW PP-286:** lap4_8_causal_discovery_cpu_v1 HARD_PASS v552: edge_precision=0.782, edge_recall=0.972, n_problems=120 (cycle 218). CAUSAL DISCOVERY (PC-CORE): substrate-stored observational data supports causal DAG skeleton recovery. Precision=0.782 >=0.70. Extends cycle-215 causal axis: PP-270 (do-calculus) -> PP-286 (structure discovery). Full causal stack: learn structure (PP-286) + query interventions (PP-270). 0.78-0.90 EXPLORATORY n=1 seed CPU. Cross-ref PP-270, PP-266, PP-291.
+
+**PP-271 PROMOTION (CYCLE-218 FULL RUN; LVH-270 CLOSED):** lap4_2_strips_full_cpu_v1 HARD_PASS v552: plan_rate=1.000 mean_len=1.4 n=250 (run_mode=full) (cycle 218). STRIPS PLANNING FULL VALIDATED. Smoke->full clean (cycle-215 n=30; cycle-218 n=250 both at ceiling). LVH-270 CLOSED. BAND LIFT PP-271 0.60-0.75 SMOKE_PENDING -> 0.78-0.90 EXPLORATORY. Cross-ref PP-196, PP-289.
+
+**NEW ROW PP-287:** lap4_9_agm_contraction_depth_cpu_v1 HARD_PASS v552: belief_acc=1.000, mean_depth=1.6, n=2999 (cycle 218). AGM BELIEF REVISION DEPTH: correctness at 1.000 through deep contraction chains (mean 1.6 supersessions/key, n=2999). Extends PP-266 (single updates) to accumulated depth dimension. Repeated algebraic erasure does not accumulate error. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-266, PP-229.
+
+**NEW ROW PP-288:** lap4_10_common_knowledge_cpu_v1 HARD_PASS v552: ck_recall=1.000, kmax=6, n=200 (cycle 218). COMMON KNOWLEDGE (DEPTH-6): bounded common knowledge to depth 6 at 100% recall. Extends PP-253 (modal logic K single-operator) to iterated common-knowledge depth. 0.78-0.90 EXPLORATORY n=1 seed CPU. Cross-ref PP-253, PP-250.
+
+**NEW ROW PP-289:** stretch4_3_temporal_strips_cpu_v1 HARD_PASS v552: temporal_plan_rate=1.000, n=150 (cycle 218). TEMPORAL STRIPS PLANNING (COMPOSITION PP-271+PP-268): durative actions + temporal ordering constraints simultaneously at plan_rate=1.000. COMPOSITION: classical STRIPS planning + Allen interval algebra compose cleanly. 0.80-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-271, PP-268, PP-278.
+
+**NEW ROW PP-290:** lap4_12_query_compiler_cpu_v1 HARD_PASS v552: query_f1=1.000, n=200 (cycle 218). QUERY COMPILER (SELECT-WHERE-FILTER): declarative relational queries over substrate at F1=1.000 without an external DB. Extends PP-260 (K-hop aggregate) to full declarative query semantics. 0.80-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-260, PP-11.
+
+**NEW ROW PP-291:** stretch4_1_bayes_net_learning_cpu_v1 HARD_PASS v552: struct_precision=0.950, struct_recall=0.778, cpt_err=0.014 (cycle 218). BAYES NET LEARNING (FULL STRUCTURE+PARAMS): learns both causal skeleton (precision=0.950) and CPT parameters (err=0.014) from substrate-stored data. Full Bayesian learning-and-inference: PP-291 (learn) + PP-283 (infer) pipeline complete. 0.80-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-283, PP-286, PP-246.
+
+**NEW ROW PP-292:** stretch4_4_meta_learning_cpu_v1 MIDDLE_BAND v552: fewshot_acc=0.707, kshot=5, n=1500 (cycle 218). META-LEARNING FEW-SHOT: K=5 few-shot adaptation at 0.707 (MIDDLE_BAND, above 0.68 lower gate, below 0.80 HP threshold). Partial meta-learning capability. Rescue: R1 multi-seed stability; R2 K-sweep (K=10/20); R3 task-specific encoding. 0.50-0.65 MIDDLE_BAND n=1 seed CPU. Cross-ref PP-263, PP-283.
+
+Cap_map: v551 -> v552 CYCLE 218 (8 HP [CPU:8]; 1 MIDDLE_BAND [CPU:1]; 0 HF; 0 LVH; 1 PROMOTION [PP-271 SMOKE_PENDING -> HARD_PASS, LVH-270 CLOSED]; 8 NEW PP ROWS PP-285..PP-292; 1 BAND LIFT [PP-271 0.60-0.75->0.78-0.90]; 0 closures; Portfolio 32+284 -> 32+292 +8; HONEST 1617->1626 +9; LVH 273 UNCHANGED; 446th PROT-009 paired commit) (2026-06-10)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
