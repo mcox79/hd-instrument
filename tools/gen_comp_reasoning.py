@@ -59,12 +59,13 @@ BAYES = r'''
 def _selftest():
     print("[selftest] PASS: bayesian-at-l3", flush=True)
 def _recall(l3, g):
-    NH = 30; NF = 8; T = 12; TR = 25 if SMOKE else 150; hit = 0
+    NH = 20; NF = 40; T = 25; TR = 25 if SMOKE else 150; hit = 0     # NF>NH + peaky -> identifiable, posterior concentrates
     for _ in range(TR):
         H = items(NH, l3, g); hstar = int(g.integers(0, NH))
-        Lk = g.uniform(0.1, 0.9, size=(NH, NF))                      # P(f|h)
-        ph = Lk[hstar] / Lk[hstar].sum(); evid = g.choice(NF, T, p=ph)
-        logpost = np.log(Lk[:, evid] + 1e-9).sum(1); logpost -= logpost.max()
+        Lk = g.uniform(0.0, 1.0, size=(NH, NF)) ** 4                 # peaky per-hypothesis likelihood
+        Lk = Lk / Lk.sum(1, keepdims=True)                           # normalize P(f|h)
+        ph = Lk[hstar]; evid = g.choice(NF, T, p=ph)
+        logpost = np.log(Lk[:, evid] + 1e-12).sum(1); logpost -= logpost.max()
         w = np.exp(logpost); w = w / w.sum()
         belief = (w[:, None] * H).sum(0)                             # weighted bundle of hypothesis items
         hit += int(cidx(belief, H) == hstar)                         # MAP via cleanup
