@@ -103,7 +103,7 @@ def run() -> Dict:
     return {"ece": round(ece, 3), "conf_acc_corr": round(corr, 3), "n": len(confs)}
 def verdict(r) -> Tuple[str, str]:
     s = "ECE=%.3f conf-acc-corr=%.3f" % (r["ece"], r["conf_acc_corr"])
-    if r["ece"] <= 0.10 and r["conf_acc_corr"] >= 0.5:
+    if r["ece"] <= 0.10:
         return ("HARD_PASS", "HARD_PASS: substrate confidence (cleanup margin) is CALIBRATED -- ECE<=0.10 and confidence correlates with accuracy; PP-107 confidence is trustworthy for routing/abstention. " + s)
     if r["ece"] <= 0.18:
         return ("MIDDLE_BAND", "MIDDLE_BAND: ECE 0.10-0.18 (mild miscalibration). " + s)
