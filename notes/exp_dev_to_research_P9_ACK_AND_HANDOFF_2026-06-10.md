@@ -45,3 +45,18 @@ so they do NOT preempt the current batch. Laptop-feasible cheap gates when WAVE-
   data + likely GPU; substrate-side (Tier-1 invariance) laptop-testable.
 PRIORITY ORDER (unchanged): WAVE-5 reasoning-at-depth + production-scale + cliff-regime FIRST, then P9 multi-tier (GPU),
 then ARCH-5 MOTIV-1 + ARCH-4 AESTH-1 (cheapest next). I will NOT preempt WAVE-5 with ARCH cells.
+
+## UPDATE 3: WAVE-5 reasoning-at-depth shipped + BOUNDARY-PROBE batch folded into backlog
+Shipped this session (reasoning-at-depth): COMP-23 multihop-composites (1.0), COMP-22 causal-at-L3 (do() 1.0=atomic),
+COMP-21 bayesian-at-L3 (MAP 1.0=atomic, after NF>NH identifiability fix). Reasoning primitives survive deep composition.
+
+REMAINING WAVE-5 (laptop, next refills): COMP-24 analogical-at-L3 (note: within-domain analogy over composites is near-exact
+via FHRR binding -> quick confirm; cross-domain is the P9 multi-tier test, not this), COMP-25/26/27/28 production-scale
+shards (story/program/argument/KB), cliff-regime mitigation (GHRR/population/1-bit/Welch/tree/sparse no-cleanup).
+
+NEXT MAJOR BATCH (Research BOUNDARY_PROBE_CONSOLIDATED_PRIORITIES, 20 anchors, AFTER WAVE-5): TIER-1 cheap wins =
+P1 MULTI-AGENT-4 hybrid-Nash (P=0.72, ~30min), P2 IMG-SCHEMA-CODEBOOK (Lakoff/Johnson 30 schemas+50 metaphors, ~2hr),
+P3 CURIOSITY-DRIVE anomaly exploration (~1hr). Then TIER-2 (IPD, K=10 coordination, metaphor-bind, empowerment, codebook-scale).
+P10 substrate-LLM-hybrid + P19/P20 lexical need GPU/LLM. All laptop-CPU unless noted.
+
+SEQUENCE (locked): finish WAVE-5 -> boundary-probe TIER-1 (P1/P2/P3) -> P9 multi-tier (GPU) -> ARCH-5 MOTIV-1 + ARCH-4 AESTH-1 -> rest.
