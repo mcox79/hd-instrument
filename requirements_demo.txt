@@ -32,6 +32,16 @@ protobuf>=4.25
 # Encoders for two-stage disambig + retrieval
 sentence-transformers>=3.0
 
+# IMPORTANT: pyarrow 24.x has a Windows DLL load conflict that segfaults (0xC0000005)
+# when imported through the sentence_transformers -> sklearn -> pandas -> pyarrow chain.
+# 2026-06-09 incident: fresh processes started crashing on `import sentence_transformers`
+# even though running ones (PubMed ingest) survived. Faulthandler trace shows pyarrow/__init__.py:71
+# (pyarrow.lib C-extension load) is the crash site. Pinning <24 forces a stable version.
+pyarrow>=19,<24
+# datasets 5.0 requires pyarrow.json_ (added in 19); 20.x verified working
+datasets>=4.0
+pandas>=2.0
+
 # NER (Wikipedia ingest fallback path when Llama-8B unavailable)
 spacy>=3.7
 
