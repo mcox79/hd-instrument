@@ -40,7 +40,7 @@ def _chal(t, y):
 
 
 def run() -> Dict:
-    g = np.random.default_rng(228); TR = 50 if SMOKE else 300
+    import random as _rmod; g = np.random.default_rng(228); rnd = _rmod.Random(228); TR = 50 if SMOKE else 300
     honest_ok = 0; cheat_rej = 0; zk_leak = 0; n = 0
     for _ in range(TR):
         x = int(g.integers(1, 2 ** 60))                                  # the secret fact
@@ -50,7 +50,7 @@ def run() -> Dict:
         ok = (pow(G, s, P) == (t * pow(y, c, P)) % P)
         honest_ok += int(ok)
         # cheater WITHOUT x: knows y, picks random (t2,s2), hopes to satisfy verify
-        t2 = pow(G, int(g.integers(1, 2 ** 60)), P); c2 = _chal(t2, y); s2 = int(g.integers(1, Q))
+        t2 = pow(G, int(g.integers(1, 2 ** 60)), P); c2 = _chal(t2, y); s2 = rnd.randrange(1, Q)
         cheat_pass = (pow(G, s2, P) == (t2 * pow(y, c2, P)) % P)
         cheat_rej += int(not cheat_pass)
         # ZK check: re-run honest proof with the SAME x but fresh r -> s differs + is uniform (reveals nothing about x)
