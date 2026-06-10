@@ -282,3 +282,71 @@ Annotation to PP-119: fb15k237_multihop_traversal_cpu_v1 HP v545: top1=1.000 n=6
 
 Cap_map: v534 -> v545 CYCLE 211 RECOVERY (10 HP [CPU:10]; 1 MIDDLE_BAND [CPU:1]; 1 LVH-PROTOCOL-FIX [decisive4_gdpr_erasure_cpu_v1 cycle-209 measurement-protocol correction]; 10 NEW PP ROWS PP-229..PP-238; 2 annotations [PP-13 band-lift T=50 + PP-119 band-lift full-benchmark]; 2 BAND LIFTS [PP-13 0.75-0.90->0.78-0.92 + PP-119 0.70-0.85->0.75-0.88]; 0 closures; Portfolio 32+228 -> 32+238 +10; HONEST 1551->1562 +11; LVH 268->269 +1 LVH-PROTOCOL-FIX; 439th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+---
+
+## v545 -> v546 CYCLE 212 10-VERDICT BATCH (2026-06-09)
+
+10 anchors: FB15K-237 HIGH-FANOUT (1) + MATH/ORCH ORCHESTRATION (3) + CONV HIGHER-ORDER (1) + BUNDLE CAPACITY (1) + K-HOP DEPTH-5 (1) + INHERITANCE INDEX (1) + FHRR BAYESIAN (1) + FHRR CONTINUOUS-TRUTH (1). All local cpu_runner_local (FrameworkMPC).
+
+### Step 0 honest re-read
+
+Bridge stale (is_stale=True); all 10 metrics.json fetched source=local (cpu_runner_local = authoritative, not stale smoke per CYCLE 212 ENFORCEMENT). 0 LVH catches.
+
+fb15k237_highfanout_cpu_v1 HP: top1=1.000, recall@fanout=1.000, buckets={10-19:1.0, 20-49:1.0, 50+:1.0}, n=400. Threshold top1>=0.85 CONFIRMED at all buckets. HONEST.
+
+math_numpy_linalg_cpu_v1 HP: route_acc=1.000, end_to_end=1.000. Threshold route>=0.90 AND e2e>=0.88 CONFIRMED. HONEST.
+
+orch_code_exec_cpu_v1 HP: route_acc=1.000, end_to_end=1.000. Threshold route>=0.90 AND e2e>=0.88 CONFIRMED. HONEST.
+
+orch_multi_tool_cpu_v1 HP: pipeline_acc=1.000, step_acc=1.000. Threshold full-pipeline>=0.85 CONFIRMED. HONEST.
+
+conv13_higher_order_cpu_v1 HP: twolevel_acc=1.000, depth=2. Threshold >=0.85 CONFIRMED. HONEST.
+
+substrate_bundle_capacity_cpu_v1 MIDDLE_BAND: kstar/N=0.0488 at N=4096, scales=True, kstar={1024:50, 4096:200}. Band [0.03,0.06] CONFIRMED. N=4096 curve: recall=0.999 at K=200, 0.475 at K=800; N=1024: recall=0.895 at K=100, 0.492 at K=200. scales=True (kstar/N identical). HONEST.
+
+lap10_khop_depth5_cpu_v1 HP: 5-hop-recall=1.000 at VE=1500. Threshold >=0.65 CONFIRMED. HONEST.
+
+lap6_inheritance_index_cpu_v1 HP: threelevel_recall=1.000, NC=60. Threshold >=0.85 CONFIRMED. HONEST.
+
+lap8_bayesian_fhrr_cpu_v1 HP: bayes_acc=1.000 (n=33), detail={monty_hall:0.667, medical:0.165, spam:0.843}. Threshold >=0.85 CONFIRMED (individual posterior values correct; acc counts correct decisions). HONEST.
+
+lap7_cont_truth_fhrr_cpu_v1 HP: corr=0.9986 (n=2400). Threshold corr>=0.70 CONFIRMED. HONEST.
+
+HONEST: 1562 -> 1572 (+10). LVH: 269 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v545 -> v546)
+
+(A) fb15k237_highfanout_cpu_v1 HP -- NEW ROW PP-239: FB15K-237 high-fanout stress test, exhaustive retrieval beats probabilistic:
+NEW ROW PP-239: fb15k237_highfanout_cpu_v1 HP v546: top1=1.000 recall@fanout=1.000 n=400 buckets={10-19:1.0, 20-49:1.0, 50+:1.0} (cycle 212). Extends PP-237/PP-238 to high-fanout (>=10 superposed tails). Exhaustive inner-product beats probabilistic top-K at high fanout. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-237, PP-238, PP-119, PP-226.
+
+(B) math_numpy_linalg_cpu_v1 HP -- NEW ROW PP-240: substrate-as-tool-orchestrator for math:
+NEW ROW PP-240: math_numpy_linalg_cpu_v1 HP v546: route_acc=1.000 end_to_end=1.000 (cycle 212). Substrate routes math queries to correct NumPy linalg op AND verifies correct execution. First math-tool-execution result. 0.72-0.86 EXPLORATORY n=1 seed CPU. Cross-ref PP-188, PP-236, PP-241, PP-242.
+
+(C) orch_code_exec_cpu_v1 HP -- NEW ROW PP-241: substrate-as-orchestrator for code execution:
+NEW ROW PP-241: orch_code_exec_cpu_v1 HP v546: route_acc=1.000 end_to_end=1.000 (cycle 212). Substrate decides, executes, and uses local code results end-to-end. 0.72-0.86 EXPLORATORY n=1 seed CPU. Cross-ref PP-188, PP-236, PP-240, PP-242.
+
+(D) orch_multi_tool_cpu_v1 HP -- NEW ROW PP-242: substrate 3-tool pipeline composition:
+NEW ROW PP-242: orch_multi_tool_cpu_v1 HP v546: pipeline_acc=1.000 step_acc=1.000 (cycle 212). 3-tool ordered pipeline at ceiling. Highest-order orchestration result to date. 0.75-0.88 EXPLORATORY n=1 seed CPU. Cross-ref PP-188, PP-200, PP-236, PP-240, PP-241.
+
+(E) conv13_higher_order_cpu_v1 HP -- NEW ROW PP-243: 2-level nested binding, structured records:
+NEW ROW PP-243: conv13_higher_order_cpu_v1 HP v546: twolevel_acc=1.000 depth=2 (cycle 212). Two-level nested binding (role-of-(subrole-filler)) at ceiling. First two-level nested record result. 0.72-0.86 EXPLORATORY n=1 seed CPU. Cross-ref PP-11, PP-248, PP-245.
+
+(F) substrate_bundle_capacity_cpu_v1 MIDDLE_BAND -- NEW ROW PP-244: capacity kstar/N=0.0488 scales linearly with N:
+NEW ROW PP-244: substrate_bundle_capacity_cpu_v1 MIDDLE_BAND v546: kstar/N=0.0488 N=4096 scales=True kstar={1024:50, 4096:200} (cycle 212). Capacity ratio N-independent -- choose N to meet deployment capacity. k*=200 reliable at N=4096. 0.68-0.82 MIDDLE_BAND n=1 seed CPU. Cross-ref PP-5, PP-11, PP-226.
+
+(G) lap10_khop_depth5_cpu_v1 HP -- PP-11 annotation + NEW ROW PP-248: depth-5 extends K-hop moat, PP-11 BAND LIFT:
+NEW ROW PP-248: lap10_khop_depth5_cpu_v1 HP v546: fivehop_recall=1.000 VE=1500 (cycle 212). Extends PP-11 depth-3 to depth-5 with identical ceiling. PP-11 BAND LIFT: 0.50-0.65 -> 0.55-0.70. 0.72-0.86 EXPLORATORY n=1 seed CPU. Cross-ref PP-11, PP-226, PP-237, PP-243, PP-245.
+Annotation to PP-11: CYCLE-212 DEPTH-5 LIFT: lap10_khop_depth5_cpu_v1 HP v546: 5-hop-recall=1.000 VE=1500 CPU single-seed (cycle 212). Extends depth-3 founding to depth-5 with identical ceiling. BAND LIFT PP-11 0.50-0.65 -> 0.55-0.70. New dedicated PP-248 row.
+
+(H) lap6_inheritance_index_cpu_v1 HP -- NEW ROW PP-245: 3-level inheritance index, hierarchical taxonomy native:
+NEW ROW PP-245: lap6_inheritance_index_cpu_v1 HP v546: threelevel_recall=1.000 NC=60 (cycle 212). 3-level inheritance at ceiling. Hierarchical taxonomy traversal native. 0.72-0.86 EXPLORATORY n=1 seed CPU. Cross-ref PP-11, PP-243, PP-248, PP-226.
+
+(I) lap8_bayesian_fhrr_cpu_v1 HP -- NEW ROW PP-246: FHRR Bayesian inference native via amplitude-squared:
+NEW ROW PP-246: lap8_bayesian_fhrr_cpu_v1 HP v546: bayes_acc=1.000 n=33 {monty_hall:0.667, medical:0.165, spam:0.843} (cycle 212). FHRR Born-rule analog solves canonical Bayesian inference at ceiling. First probabilistic inference engine result. 0.75-0.88 EXPLORATORY n=1 seed CPU. Cross-ref PP-247, PP-181, PP-11.
+
+(J) lap7_cont_truth_fhrr_cpu_v1 HP -- NEW ROW PP-247: FHRR continuous truth / Sorites native via magnitude:
+NEW ROW PP-247: lap7_cont_truth_fhrr_cpu_v1 HP v546: truth_gradient_corr=0.999 n=2400 (cycle 212). FHRR magnitude tracks graded truth with corr=0.999. No separate fuzzy logic. Composes with PP-246: FHRR unified probabilistic+continuous-truth algebra. 0.78-0.90 EXPLORATORY n=1 seed CPU. Cross-ref PP-246, PP-181.
+
+Cap_map: v545 -> v546 CYCLE 212 (9 HP [CPU:9]; 1 MIDDLE_BAND [CPU:1]; 0 HF; 0 LVH; 10 NEW PP ROWS PP-239..PP-248; 1 annotation [PP-11 depth-5 band-lift]; 1 BAND LIFT [PP-11 0.50-0.65->0.55-0.70]; 0 closures; Portfolio 32+238 -> 32+248 +10; HONEST 1562->1572 +10; LVH 269 UNCHANGED; 440th PROT-009 paired commit) (2026-06-09)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
