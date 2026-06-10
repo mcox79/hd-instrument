@@ -22,3 +22,4 @@ motivation-beyond-goals-2x | 2026-06-10 | PP-272 goal-completion confirmed react
 notes/research_drill_type_partitioning_lit_scan_2x_2026-06-10.md -- type-routing capacity multiplier lit scan; C-x multiplier framing novel; closest prior art PBG (per-type stores) and arXiv 2501.04613 (type routing no algebra change); cheap falsification test: fixed-total-params controlled experiment
 
 - [meta_learning_middle_band_2x] notes/research_drill_meta_learning_middle_band_2x_2026-06-10.md -- PP-292 0.707 mechanism: threshold calibration + K=5 SNR; K=20 predicted 0.80 P_deflated=0.58; 5 rescue anchors; exp_dev handoff filed
+2026-06-10 research_drill_p9_mechanism_diagnosis_2x: Hits@10=0.514 entity-geometry+degree-bias confound vs multi-tier mechanism unresolved; 5 controls designed; cheapest: RANDOM-TIER-1 shuffle (inference-only, minutes); note: notes/research_drill_p9_mechanism_diagnosis_2x_2026-06-10.md
