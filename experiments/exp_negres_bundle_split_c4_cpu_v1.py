@@ -23,7 +23,7 @@ ANCHOR_NAME = "negres_bundle_split_c4_cpu_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
-N = 8192; C = 4
+N = 2048; C = 4
 def cphasor(m, d, g):
     ang = (g.random((m, d)) * 2 - 1) * math.pi; return np.exp(1j * ang).astype(np.complex64)
 def cnorm(v):
@@ -59,7 +59,7 @@ def _recall(M, split, g, Vpc=120, TR=8):
         acc += hit / nq
     return acc / TR
 def _mstar(split, g):
-    grid = [40, 80, 160, 320, 640] if SMOKE else [60, 120, 250, 500, 1000, 2000]
+    grid = [100, 200, 400, 800, 1600] if SMOKE else [100, 200, 400, 800, 1600, 3200, 6400]
     TR = 4 if SMOKE else 8; last = grid[0]
     for M in grid:
         r = _recall(M, split, g, TR=TR)
