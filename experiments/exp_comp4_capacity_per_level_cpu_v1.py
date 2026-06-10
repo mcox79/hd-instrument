@@ -34,23 +34,22 @@ def cnorm(v):
 def comp_rand(K, slots, g):
     # a random level composite (self-similar): cnorm(sum_k slot[k] (X) random unit phasor)
     return cnorm((slots * cphasor(K, N, g)).sum(0))
+def comp_rand_batch(B, K, slots, g):
+    # B self-similar random composites at once -> (B, N)
+    r = cphasor(B * K, N, g).reshape(B, K, N)
+    return cnorm((slots[None, :, :] * r).sum(1))
 def build_path(L, K, slots, A, t, g):
-    # returns slot-path j[0..L-1], top composite node_L, list of true nodes per level (0..L)
+    # vectorized: slot-path j, top composite node_L, true nodes per level (0..L)
     j = [int(g.integers(0, K)) for _ in range(L)]; node = A[t]; truenodes = [A[t]]
     for l in range(L):
-        acc = slots[j[l]] * node
-        for k in range(K):
-            if k == j[l]:
-                continue
-            sib = (A[int(g.integers(0, len(A)))] if l == 0 else comp_rand(K, slots, g))
-            acc = acc + slots[k] * sib
-        node = cnorm(acc); truenodes.append(node)
+        sibs = (A[g.integers(0, len(A), size=K)] if l == 0 else comp_rand_batch(K, K, slots, g))
+        bound = slots * sibs; bound[j[l]] = slots[j[l]] * node
+        node = cnorm(bound.sum(0)); truenodes.append(node)
     return j, node, truenodes
 def make_mem(L, K, slots, truenodes, D, g):
     mem = [None]
     for l in range(1, L + 1):
-        dist = np.stack([comp_rand(K, slots, g) for _ in range(D)])
-        mem.append(np.vstack([truenodes[l][None, :], dist]))
+        mem.append(np.vstack([truenodes[l][None, :], comp_rand_batch(D, K, slots, g)]))
     return mem
 def retrieve(node_L, j, slots, A, mem, L, use_cleanup):
     probe = node_L
@@ -69,8 +68,8 @@ def _recall_at(L, K, g, M=200, D=50, TR=40):
         hit += int(retrieve(node, j, slots, A, mem, L, True) == t)
     return hit / TR
 def run() -> Dict:
-    g = np.random.default_rng(404); Ks = [5, 10, 20, 40] if SMOKE else [5, 10, 20, 40, 80]; Ls = [1, 2, 3, 4, 5]
-    TR = 20 if SMOKE else 50; kstar = {}; curve = {}
+    g = np.random.default_rng(404); Ks = [5, 10, 20] if SMOKE else [5, 10, 20, 40, 80]; Ls = ([1, 3, 5] if SMOKE else [1, 2, 3, 4, 5])
+    TR = 10 if SMOKE else 50; kstar = {}; curve = {}
     for L in Ls:
         ks = 0; row = {}
         for K in Ks:
