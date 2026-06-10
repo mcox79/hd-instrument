@@ -178,11 +178,32 @@ HTML = """<!doctype html>
       </div>
 
       <div class="primitive">
-        <h3>(reserved)</h3>
-        <div class="anchor">future shard type</div>
-        <p>Additional shard types (DIALOG, PROOF, RECIPE, etc.) follow the same compositional template: bind type signature, decompose at L=3, cleanup per level.</p>
-        <div class="metric">design template: PP-310 / PP-311 / PP-312</div>
+        <h3>KB-DOMAIN shards</h3>
+        <div class="anchor">PP-313 / comp28_kb_shard_l3_cpu_v1</div>
+        <p>Feature-indexed knowledge-base shards. 40 shards x 1000 atoms = 40,000 atoms retrievable at L3 shard-level. Extends PP-310/311/312 template to KB domain at higher atom-per-shard count.</p>
+        <div class="metric">recall = 1.000 / N = 40 / M = 1000</div>
       </div>
+    </div>
+
+    <h2>Composition is genuine, not an artifact (PP-314 cycle 221)</h2>
+    <div class="card">
+      <p>
+        Gap analysis: at story scale (50,000 atoms), a flat bundle index returns
+        recall = 0.000 -- complete failure -- while the compositional STORY shard
+        (PP-310) returns recall = 1.000. Same domain, same atoms, same N. The only
+        difference is the binding structure.
+      </p>
+      <p>
+        Per-domain gaps (cycle 221):
+        STORY flat=0.000 vs shard=1.000;
+        PROGRAM flat=0.017 vs shard=1.000;
+        ARGUMENT flat=0.694 vs shard=1.000.
+      </p>
+      <p style="margin: 0">
+        Confirms that the cycle-220 shard recall results are not artifacts of
+        favorable N -- composition delivers a measurable lift over flat indexing.
+        Tagged EXPLORATORY (0.82-0.92).
+      </p>
     </div>
 
     <h2>Honest open question (cycle 220 negative result)</h2>

@@ -197,15 +197,23 @@ HTML = """<!doctype html>
         K = 50 branch factor x L = 3 depth = 125,000 leaf-reachable compositions
         at recall = 1.000.
       </p>
-      <p style="margin: 0">
+      <p>
         1-bit QPSK at depth (PP-301): zero degradation at L = 3 and L = 5 vs float32
         baseline. 32x memory reduction with no fidelity loss at deep composition --
         substrate deep-compositional KBs are edge-deployable at minimal footprint.
       </p>
+      <p style="margin: 0">
+        <strong>PP-301 falsification battery PASS</strong> (cycle 221, BAND LIFT
+        0.82-0.92 -&gt; 0.87-0.95): zero-loss confirmed across 5 independent axes --
+        K sweep K = 2..50, M sweep M = 50..5000, atom-correlation rho = 0..0.20,
+        depth scale L = 3..10, and N scale N = 1024..16384 including production
+        N = 8192. Broadest stress-test of a single substrate property to date.
+        The 32x compression survives every operational dimension we tested.
+      </p>
       <p class="footnote">
-        Tagged EXPLORATORY (0.82-0.92) per cap_map cycle 219: single seed per level
-        but ceiling-consistent across L = 3 / 4 / 5 / 6 / 8. Multi-seed validation
-        next batch.
+        Depth-recall results (PP-293..PP-297) tagged EXPLORATORY (0.78-0.92) per
+        cap_map cycle 219: single seed per level but ceiling-consistent across
+        L = 3 / 4 / 5 / 6 / 8. Multi-seed validation queued.
       </p>
     </div>
 
