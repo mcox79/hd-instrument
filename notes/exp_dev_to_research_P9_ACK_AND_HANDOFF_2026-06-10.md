@@ -33,3 +33,15 @@ GPU idle (home restarting). Notes-monitor + queue-watch + 15-min cron all live; 
   ARCH-2 NOW-2 continual-learning, NOW-3 multimodal-fusion, NOW-4 anomaly, NOW-5 multi-agent, NOW-6 adversarial.
 - Note ARCH-1 HIER-GEN + NOW-3 multimodal lexicalization steps need PP-225 LLM head (GPU) for the lexical part; the
   substrate-side (schema-fidelity, diversity, grounding) is laptop-testable without the LLM.
+
+## UPDATE 2: FINAL_ARCH (ARCH-3/4/5) folded into sequenced backlog
+v3.0 architecture COMPLETE on paper (all 13 barriers mapped). ARCH-3/4/5 are sequenced POST-WAVE-5 (Research: Week 2-4),
+so they do NOT preempt the current batch. Laptop-feasible cheap gates when WAVE-5 drains (pure-FHRR unless noted):
+- ARCH-5 MOTIVATION (LOW effort, PP-272 validated): MOTIV-1 goal-persistence (>=0.90 across 100 steps w/ distractors),
+  MOTIV-2 goal-completion-drive (action reduces goal-distance >=80%), MOTIV-3 multi-goal-prioritization, MOTIV-4 goal-discovery.
+- ARCH-4 AESTHETICS (substrate may BEAT LLM): AESTH-1 novelty-score (anomaly margin PP-263), AESTH-2 coherence-score
+  (cleanup margin). AESTH-3 human-eval needs LLM + humans (not laptop).
+- ARCH-3 LANGUAGE: LANG-1/2/3/5 -- multi-tier + per-language Tier-3 codebooks; LANG-2 translation needs multilingual
+  data + likely GPU; substrate-side (Tier-1 invariance) laptop-testable.
+PRIORITY ORDER (unchanged): WAVE-5 reasoning-at-depth + production-scale + cliff-regime FIRST, then P9 multi-tier (GPU),
+then ARCH-5 MOTIV-1 + ARCH-4 AESTH-1 (cheapest next). I will NOT preempt WAVE-5 with ARCH cells.
