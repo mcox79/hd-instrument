@@ -8,3 +8,11 @@ v529 -> v530: 8 HP + 1 MIDDLE_BAND; 3 new PP rows (PP-223/PP-224/PP-225); Portfo
 CYCLE 206 (2026-06-09): 3 HARD_PASS verdicts. 0 LVH. PP-227+PP-228 NEW ROWS. PP-225 50k KB scale confirmed. Hybrid LM+fact composition and audit chain composition both first-of-kind. v531->v532. HONEST 1535->1538 (+3). Portfolio 32+226->32+228 (+2).
 
 CYCLE 207 (v532->v533) 2026-06-09: 10 HARD_PASS -- PP-225 fp32 rescue suite (6: MLP-head 0.990 + bge-small 1.000 + Pythia-1.4B fp32 1.000 + Qwen-1.5B fp32 0.980 + scale-tune 1.000 + log-norm 1.000) + 3-seed 1.4B lock (mean=1.000 std=0.000) + 10k/50k KB at 1.4B (0.995/0.994) + PP-227 hybrid 10k KB scaleup (ratio=0.797x fact=1.000). HEADLINE: bf16 non-convergence fully resolved across both LLM families via fp32; PP-225 production-ready at 1.4B/1.5B scale. PP-227 v2.0 hybrid composition robust to 10x KB scale. 2 BAND LIFTs: PP-225 0.88-0.96->0.90-0.97; PP-227 0.78-0.90->0.82-0.92. HONEST +10 (1538->1548). 0 LVH. commit: pending.
+## 12:00 — decisive5 multi-tenant isolation HARD_PASS; decisive4 deletion protocol issue routed
+
+**decisive5_multitenant_iso_cpu_v1 HARD_PASS:** Multi-tenant algebraic isolation confirmed at T=50 tenants with within_recall=1.0 and cross_leak=0.001 (0.1%, effectively zero). Extends PP-13 capability row validation; algebraic per-tenant W isolation is production-ready for compliance-sidecar positioning.
+
+**decisive4_gdpr_erasure_cpu_v1 HARD_FAIL:** Measurement protocol issue (false_losses=130 on n_del=100 is an over-count), not substrate failure. Routing to Research for deletion semantics clarification and re-run with corrected measurement logic. No cap_map state change on this verdict.
+
+PLAIN: Multi-tenant isolation algebraically confirmed; deletion measurement protocol issue flagged for Research redesign. Implications: compliance-sidecar moat validated on isolation axis; deletion audit path needs protocol fix before capability claim.
+IMPORTANCE: HIGH.
