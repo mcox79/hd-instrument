@@ -118,8 +118,12 @@ async def converse_pp225(req: PP225Request):
 
     # Load PP-225 head (cached on first call; random-init fallback if no checkpoint)
     tok = _get_tokenizer()
-    vocab_size = tok.vocab_size if tok is not None else 50304
-    ckpt = get_head(vocab_size=vocab_size, bge_dim=fact_emb.shape[0])
+    # Tokenizer reports vocab_size (50254 for Pythia), but the trained head W is
+    # sized to the model's PADDED output dim (50304). Use the head's authoritative
+    # shape for base_logits + topk to avoid shape mismatch.
+    fallback_vocab = tok.vocab_size if tok is not None else 50304
+    ckpt = get_head(vocab_size=fallback_vocab, bge_dim=fact_emb.shape[0])
+    vocab_size = int(ckpt["W"].shape[0])
 
     # For plumbing test: use zero base logits. argmax(injected) = head's pure
     # projection of the fact embedding into vocab space.
