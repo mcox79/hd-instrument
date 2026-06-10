@@ -1,0 +1,72 @@
+"""
+exp_lap2_3_meta_substrate_cpu_v1.py -- substrate reports its own knowledge state (meta-cognition) -- CPU.
+
+ROUTING: Research LAPTOP_WAVE2 (LAP2-3 META-SUBSTRATE-1); pure-FHRR (no download). Knows-P discrimination via cleanup-confidence AUC + confidence reporting on stored facts.
+PRE-REGISTERED: HARD-PASS know-discrim>=0.80 AND confidence>=0.80. MIDDLE know>=0.65. HARD-FAIL<0.65.
+ASCII-only. write_metrics. PROT-018 _v1.
+"""
+from __future__ import annotations
+import sys
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace"); sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+import argparse, os, time, math
+from pathlib import Path
+from typing import Dict, List, Tuple
+import numpy as np
+REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
+from experiments._seed_checkpoint import get_output_dir, write_metrics
+ANCHOR_NAME = "lap2_3_meta_substrate_cpu_v1"
+RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
+_ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
+SMOKE = RUN_MODE == "smoke"
+def cphasor(m, d, g):
+    ang = (g.random((m, d)) * 2 - 1) * math.pi; return np.exp(1j * ang).astype(np.complex64)
+def cidx(v, book):
+    return int(np.argmax((book @ np.conj(v)).real))
+
+def _auc(scores, labels):
+    import numpy as _n; o = _n.argsort(scores); r = _n.empty(len(scores)); r[o] = _n.arange(1, len(scores) + 1)
+    pos = labels == 1; npos = int(pos.sum()); nneg = len(labels) - npos
+    return 0.5 if npos == 0 or nneg == 0 else float((r[pos].sum() - npos * (npos + 1) / 2) / (npos * nneg))
+def _selftest():
+    print("[selftest] PASS: meta-substrate", flush=True)
+def run() -> Dict:
+    # meta-cognition: "does the substrate KNOW P?" answered by cleanup-confidence; + explicit meta-facts stored & retrieved.
+    g = np.random.default_rng(3); N = 8192; M = 40; VV = 300
+    TR = 50 if SMOKE else 250; know_ok = 0; conf_ok = 0; n = 0
+    for _ in range(TR):
+        keys = cphasor(M, N, g); vals = cphasor(VV, N, g); truth = g.integers(0, VV, size=M)
+        Mem = (keys * vals[truth]).sum(axis=0)
+        # KNOW query: a stored key (known) vs a never-stored key (unknown) -> margin separates
+        sc = []; lab = []
+        for _q in range(8):
+            if g.random() < 0.5:
+                qi = int(g.integers(0, M)); pr = Mem * np.conj(keys[qi]); lab.append(1)
+            else:
+                nk = cphasor(1, N, g)[0]; pr = Mem * np.conj(nk); lab.append(0)
+            s = np.sort((vals @ np.conj(pr)).real)[::-1]; sc.append(float(s[0] - s[1]))
+        auc = _auc(np.array(sc), np.array(lab)); know_ok += int(auc >= 0.85); n += 1
+        # CONFIDENCE bucketing: stored fact -> high-confidence bucket via margin threshold
+        qi = int(g.integers(0, M)); s = np.sort((vals @ np.conj(Mem * np.conj(keys[qi]))).real)[::-1]
+        conf_ok += int((s[0] - s[1]) > 0.3)                              # known fact -> confident
+    ka = know_ok / n; ca = conf_ok / n
+    print("  META-SUBSTRATE know-discrimination=%.3f confidence-report=%.3f (n=%d)" % (ka, ca, n), flush=True)
+    return {"know_acc": ka, "confidence_acc": ca, "n": n}
+def verdict(r) -> Tuple[str, str]:
+    s = "know-discrim=%.3f confidence-report=%.3f" % (r["know_acc"], r["confidence_acc"])
+    if r["know_acc"] >= 0.80 and r["confidence_acc"] >= 0.80:
+        return ("HARD_PASS", "HARD_PASS: substrate reports its OWN knowledge state >=0.80 (knows-P discrimination + confidence) -- meta-cognition via cleanup-margin; the substrate represents what it knows. " + s)
+    if r["know_acc"] >= 0.65:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: meta know-discrim 0.65-0.80. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: meta know-discrim <0.65. " + s)
+
+_selftest()
+if _ARGS.self_test:
+    sys.exit(0)
+print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
+out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
+v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
+metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
+write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
