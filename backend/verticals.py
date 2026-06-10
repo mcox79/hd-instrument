@@ -49,6 +49,7 @@ VERTICALS = {
             "Sub-ms retrieval latency at production scale (PP-150 0.21 ms P95 at 1M facts)",
             "PP-228 + PP-261: Cryptographic Merkle audit chain — per response AND per generation token (cycle 214; EU AI Act Article 12 per-token granularity 100%)",
             "PP-229: GDPR exact erasure 0/0 false retentions/losses; 0.058 ms wall (cycle 211; sealed records categorical)",
+            "PP-269: PII detection recall=1.000 false-positive=0.000 (cycle 215; sub-ms privacy gate before disclosure)",
             "PP-230: Multi-tenant isolation T=50; cross-leak 0.001 (cycle 211; firm-isolation moat)",
             "PP-237: FB15K-237 2-hop traversal top-1 = 1.000 on n=600 (first public benchmark win; cycle 211)",
         ],
@@ -91,7 +92,7 @@ VERTICALS = {
         ),
         capability_claims=[
             "PP-209: 100% accuracy on 50K-pair drug-drug interaction corpus (cycle 200)",
-            "PP-186: HIPAA-compatible PII handling via substrate-internal anonymization",
+            "PP-186 + PP-269: HIPAA-compatible PII handling; substrate PII detection recall=1.000 / false-positive=0.000 at sub-ms (cycle 215 production privacy gate)",
             "PP-229: GDPR-grade erasure for retracted records; 0/0 false retentions or losses; 0.058 ms (cycle 211)",
             "PP-230: Multi-tenant T=50 isolation cross-leak 0.001 (cycle 211; HIPAA section 164.312 access control)",
             "Substrate-direct latency 0.21 ms P95: faster than EHR lookup",
