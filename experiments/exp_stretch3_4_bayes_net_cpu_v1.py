@@ -29,7 +29,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: bayesian-belief-net", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(246); N = 8192; NV = 4; nodes = cphasor(NV, N, g); cfgk = cphasor(8, N, g); amp = cphasor(11, N, g)
+    g = np.random.default_rng(246); N = 8192; NV = 4; nodes = cphasor(NV, N, g); cfgk = cphasor(8, N, g); amp = cphasor(21, N, g)
     TR = 30 if SMOKE else 150; ok = 0; n = 0
     for _ in range(TR):
         # random DAG over 4 binary nodes (topological: parents have lower index)
@@ -45,10 +45,10 @@ def run() -> Dict:
         for v in range(NV):
             sh = np.zeros(N, dtype=np.complex64)
             for cfg in itertools.product([0, 1], repeat=len(parents[v])):
-                sh = sh + cfgk[_ci(cfg)] * amp[int(round(cpt[(v, cfg)] * 10))]
+                sh = sh + cfgk[_ci(cfg)] * amp[int(round(cpt[(v, cfg)] * 20))]
             store_node[v] = sh
         def getp(v, cfg):
-            return cidx(store_node[v] * np.conj(cfgk[_ci(tuple(cfg))]), amp) / 10.0
+            return cidx(store_node[v] * np.conj(cfgk[_ci(tuple(cfg))]), amp) / 20.0
         def joint(assign, pfun):
             pr = 1.0
             for v in range(NV):
