@@ -586,3 +586,59 @@ NEW ROW PP-281: stretch3_3_meta_2level_cpu_v1 MIDDLE_BAND v550: L1-acc=1.000, L2
 
 Cap_map: v549 -> v550 CYCLE 216 (7 HP [CPU:7]; 1 HF [CPU:1]; 1 MIDDLE_BAND [CPU:1 smoke]; 1 SMOKE_PASS [LVH-271 superseded]; 2 LVH [LVH-271 SMOKE_LABEL_AS_HARDPASS+correlation-overclaim; LVH-272 mechanism-overclaim conf_acc_corr=0.000]; 8 NEW PP ROWS PP-274..PP-281 [PP-277 LVH-272-annotated ECE-only; PP-281 SMOKE_PENDING]; 1 annotation+band-lift [PP-249 0.72-0.86->0.75-0.88 N=100 saturation]; 1 BAND LIFT [PP-249]; 0 closures; Portfolio 32+273 -> 32+281 +8; HONEST 1597->1607 +10; LVH 270->272 +2; 444th PROT-009 paired commit) (2026-06-09)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+---
+
+## v550 -> v551 CYCLE 217 10-VERDICT BATCH (2026-06-09)
+
+10 anchors: PP-281 meta-2level rescues (2) + schema production (1) + Bayes net native (3) + chirp codebook (1) + meta-calibration rescue (1) + N=1000 ensemble (1) + schema 1000 cross-domain (1).
+
+### Step 0 honest re-read
+
+All 10 metrics fetched source=local (cpu_runner_local FrameworkMPC). 1 LVH catch.
+
+**[LVH-273] stretch3_4_bayes_net_cpu_v1 (smoke-labeled HARD_PASS):**
+- Label: HARD_PASS. run_mode=smoke, n=30. Per [[feedback-no-preframe-batch-all-pass]]: smoke run cannot be HARD_PASS.
+- Honest: SMOKE_PASS (posterior-match=0.967 at threshold >=0.85; threshold met at smoke scale). Superseded by v2+v3 FULL runs.
+- LVH-273 filed.
+
+**9 anchors HONEST:**
+- stretch3_3_meta_2level_v2 HARD_PASS: L1=0.998 L2-AUC=0.998, run_mode=full n=2000. Both thresholds confirmed.
+- stretch3_3_meta_2level_v3 HARD_PASS: L1=0.873 L2-AUC=0.802, run_mode=full n=2000. Both thresholds confirmed.
+- lap3_9_schema_production_cpu_v1 HARD_PASS: coverage=1.000 precision=1.000 n_schemas=220 compression=30x. All thresholds cleared.
+- stretch3_4_bayes_net_v2 HARD_PASS: bnet_acc=0.927 n=150 full. Threshold >=0.85 confirmed.
+- stretch3_4_bayes_net_v3 HARD_PASS: bnet_acc=0.987 n=150 full. Threshold >=0.85 confirmed.
+- lap4_1_chirp_codebook_cpu_v1 HARD_FAIL: ratio=1.02x < 1.2x threshold. Honest.
+- lap4_3_meta_calibration_rescue_cpu_v1 HARD_FAIL: nonlinear-corr=0.049 < 0.15 threshold. Honest. PP-277 LVH-272 gap persists.
+- lap4_4_n1000_ensemble_cpu_v1 MIDDLE_BAND: sat-gain(1000vs100)=0.000. Saturation fully confirmed. Honest.
+- lap4_6_schema_1000_cpu_v1 HARD_PASS: coverage=0.9999 cross_domain=1.000 n_schemas=1000. All thresholds cleared. Honest.
+
+HONEST: 1607 -> 1617 (+10). LVH: 272 -> 273 (+1 LVH-273).
+
+### Cap_map decisions (v550 -> v551)
+
+**(A) stretch3_3_meta_2level_v2+v3 (HP -- PP-281 PROMOTED from SMOKE_PENDING to HP):**
+PP-281 PROMOTED. Binary threshold rescue succeeds: v2 L1=0.998 L2-AUC=0.998; v3 L1=0.873 L2-AUC=0.802 (both full n=2000). BAND LIFT PP-281: 0.40-0.55 SMOKE_PENDING -> 0.72-0.86 EXPLORATORY.
+LVH note: binary threshold (not raw margin) achieves per-sample discrimination that PP-277 raw margin could not -- consistent with LVH-272 diagnosis.
+
+**(B) lap3_9_schema_production_cpu_v1 (HP -- NEW ROW PP-282: schema production 220 schemas):**
+NEW ROW PP-282. Extends PP-254 (60 schemas) to 220 schemas at ceiling. 30x compression.
+
+**(C+D) stretch3_4_bayes_net_v2+v3 (HP -- NEW ROW PP-283: Bayes net native inference):**
+NEW ROW PP-283. First probabilistic graphical model native inference. v2: 0.927; v3: 0.987 with 20-level quantization.
+LVH-273 for v1 smoke: superseded by v2+v3 FULL runs.
+
+**(E) lap4_1_chirp_codebook_cpu_v1 (HF -- annotation on capacity axis):**
+HF annotation filed. Two consecutive HFs (lap3_6 + lap4_1) on structured-codebook capacity axis. Rescues: R1 Welch-bound ETF, R2 N-scaling, R3 K-reduction.
+
+**(F) lap4_3_meta_calibration_rescue_cpu_v1 (HF -- PP-277 LVH-272 rescue failed):**
+HF annotation to PP-277. LVH-272 mechanism gap confirmed as fundamental. Rescues: R1 multi-feature ensemble, R2 trained probe, R3 population meta-conf.
+
+**(G) lap4_4_n1000_ensemble_cpu_v1 (MIDDLE_BAND -- PP-274 saturation annotation):**
+MIDDLE_BAND annotation to PP-274. Saturation robustly confirmed to N=1000. Optimal N=10-100.
+
+**(H) lap4_6_schema_1000_cpu_v1 (HP -- NEW ROW PP-284: schema 1000 cross-domain):**
+NEW ROW PP-284. Scale ladder complete: 60->220->1000 schemas at ceiling. Universal cross-domain schema compression confirmed.
+
+Cap_map: v550 -> v551 CYCLE 217 (6 HP [CPU:6]; 1 MIDDLE_BAND [CPU:1]; 2 HF [CPU:2]; 1 LVH [LVH-273]; 3 NEW PP ROWS PP-282+PP-283+PP-284; 3 annotations [PP-281 PROMOTED BAND_LIFT + PP-274 saturation + PP-277 rescue-failed]; 2 HF annotations [chirp codebook + meta-calibration]; 1 BAND LIFT [PP-281 0.40-0.55->0.72-0.86]; 0 closures; Portfolio 32+281 -> 32+284 +3; HONEST 1607->1617 +10; LVH 272->273 +1; 445th PROT-009 paired commit) (2026-06-09)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
