@@ -328,8 +328,9 @@ def _render(v: Vertical) -> str:
         for qa in v.sample_questions
     )
 
+    pretty_slug = "FDA" if v.slug == "fda" else v.slug.title()
     head = SHARED_HEAD.replace(
-        "{title}", f"Substrate for {v.slug.title()} - v1 Demo"
+        "{title}", f"Substrate for {pretty_slug} - v1 Demo"
     ).replace(
         "{description}", v.tagline
     )
