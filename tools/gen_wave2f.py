@@ -57,7 +57,7 @@ def run() -> Dict:
         for w2 in acc[w]:
             vals.append(float((np.vdot(props[p], state[w2]).real) / N))   # ~ truth(p,w2)
         comp = min(vals) if box else max(vals)
-        gold = (min if box else max)(truth[(p2 := p, w2)] for w2 in acc[w])
+        gold = (min if box else max)(truth[(w2, p)] for w2 in acc[w])
         correct += int(abs(comp - gold) < 0.12); n += 1
     acc_s = correct / n; print("  MODAL-AMPLITUDE box=min/diamond=max acc=%.3f (n=%d)" % (acc_s, n), flush=True)
     return {"modal_amp_acc": acc_s, "n": n}
