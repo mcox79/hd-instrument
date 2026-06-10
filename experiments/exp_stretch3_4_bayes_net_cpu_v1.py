@@ -39,13 +39,16 @@ def run() -> Dict:
             for cfg in itertools.product([0, 1], repeat=len(parents[v])):
                 cpt[(v, cfg)] = float(g.random())
         # store CPT probs in substrate as quantized amplitudes: bind (node, config-index) -> amp-level
-        store = np.zeros(N, dtype=np.complex64); keymap = {}
-        for i, (k, p) in enumerate(cpt.items()):
-            kk = nodes[k[0]] * cfgk[hash(k[1]) % 8]; keymap[k] = kk
-            store = store + kk * amp[int(round(p * 10))]
-        def getp(v, cfg):                                                # retrieve P(v=1|cfg) from substrate (quantized)
-            lvl = int(np.argmax((amp @ np.conj(keymap[(v, tuple(cfg))])).real)) if False else cidx(store * np.conj(keymap[(v, tuple(cfg))]), amp)
-            return lvl / 10.0
+        def _ci(cfg):
+            return sum((b << i) for i, b in enumerate(cfg))
+        store_node = {}                                                  # per-node CPT shard (few entries -> exact retrieval)
+        for v in range(NV):
+            sh = np.zeros(N, dtype=np.complex64)
+            for cfg in itertools.product([0, 1], repeat=len(parents[v])):
+                sh = sh + cfgk[_ci(cfg)] * amp[int(round(cpt[(v, cfg)] * 10))]
+            store_node[v] = sh
+        def getp(v, cfg):
+            return cidx(store_node[v] * np.conj(cfgk[_ci(tuple(cfg))]), amp) / 10.0
         def joint(assign, pfun):
             pr = 1.0
             for v in range(NV):
