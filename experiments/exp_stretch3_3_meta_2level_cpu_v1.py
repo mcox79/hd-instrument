@@ -35,12 +35,12 @@ def _selftest():
 def run() -> Dict:
     # depth-2 meta-cognition: L1 = "do I know P?" (margin>tau). L2 = "am I SURE about my L1 answer?" = |margin - tau| (distance
     # from the decision boundary). L2 meta-confidence should predict whether L1 was CORRECT.
-    g = np.random.default_rng(263); N = 2048; M = 40; VV = 200; tau = 0.18
+    g = np.random.default_rng(263); N = 2048; M = 180; VV = 200; tau = 0.14
     TR = 40 if SMOKE else 250; l1_correct = 0; n = 0; metaconf = []; l1ok = []
     for _ in range(TR):
         keys = cphasor(M, N, g); vals = cphasor(VV, N, g); truth = g.integers(0, VV, size=M); Mem = (keys * vals[truth]).sum(axis=0)
         for _q in range(8):
-            known = g.random() < 0.5; nz = (g.random() * 3.0) * (g.standard_normal(N) + 1j * g.standard_normal(N)).astype(np.complex64)
+            known = g.random() < 0.5; nz = (g.random() * 0.4) * (g.standard_normal(N) + 1j * g.standard_normal(N)).astype(np.complex64)
             if known:
                 qi = int(g.integers(0, M)); probe = Mem * np.conj(keys[qi]) + nz; gold_known = True
             else:
