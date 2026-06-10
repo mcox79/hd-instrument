@@ -378,7 +378,9 @@ def main():
     p.add_argument("--dump", type=Path, default=Path("data/wikidata_dump/latest-truthy.nt.bz2"))
     p.add_argument("--n-triples", type=int, default=50_000_000)
     p.add_argument("--output-dir", type=Path, default=Path("data/substrate_state/wikidata_truthy_50m"))
-    p.add_argument("--batch-size", type=int, default=64)
+    # Per Research PRIORITY_RANKING_2026-06-09 P1 E2: increase to 256 for ~1.5-2x throughput
+    # (vs prior 64/128). Memory cost: ~512 sentences buffered in encoder = ~500 MB more.
+    p.add_argument("--batch-size", type=int, default=256)
     p.add_argument("--checkpoint-every", type=int, default=50_000)
     p.add_argument("--labels", type=Path, default=None, help="optional Q-code -> label JSON")
     args = p.parse_args()

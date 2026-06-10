@@ -13,7 +13,13 @@ Run:
     uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 """
 from __future__ import annotations
+import faulthandler
 import logging
+
+# Per Research PRIORITY_RANKING_2026-06-09 acknowledgment 1: auto-diagnose native crashes
+# so the next 0xC0000005 (or any future segfault) prints a Python-level traceback to stderr
+# instead of dying silently. Cost: ~zero overhead; covers ALL backend processes from now on.
+faulthandler.enable()
 import time
 from contextlib import asynccontextmanager
 from typing import Optional
@@ -178,6 +184,20 @@ async def demo():
     substrate' framing on observers before more live infra is built.
     """
     return decisive_test_response()
+
+
+@app.get("/demo/{slug}")
+async def demo_vertical(slug: str):
+    """Vertical demo landing pages per Research PRIORITY_RANKING_2026-06-09 P1 A1.
+
+    Anchors a cycle-200 vertical proof per slug:
+      /demo/legal       PP-208 PACER 99.9pct
+      /demo/healthcare  PP-209 DDI 100pct
+      /demo/finance     PP-211 SEC 10-K 100pct
+      /demo/fda         PP-210 FDA audit 100pct
+    """
+    from backend.verticals import vertical_response
+    return vertical_response(slug)
 
 
 @app.post("/admin/warmup")
