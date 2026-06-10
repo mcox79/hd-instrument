@@ -26,3 +26,10 @@ LAP4-3); P2 STRUCT-ALIGN (flat insufficient, routes to multi-tier).
 ## Lane
 Laptop healthy (~9 queued/running, hours of runtime: COMP-4/5/6/7/8/11/23 + bundle-split + struct-align + confidence-head).
 GPU idle (home restarting). Notes-monitor + queue-watch + 15-min cron all live; full-auto continues.
+
+## UPDATE: ARCH batch (NOW_SHARD_PLUS_HIERARCHICAL_GENERATION) -- started
+- **ARCH-2 NOW-1 TEMPORAL-GROUNDING: HARD_PASS** (grounded 1.0 vs ungrounded 0.005; now-shard disambiguates). Shipped.
+- Remaining ARCH (authorized, laptop pure-FHRR, next cycle): ARCH-1 HIER-GEN-PARAGRAPH/STORY/CODE/ARGUMENT/NOVEL-CONCEPT;
+  ARCH-2 NOW-2 continual-learning, NOW-3 multimodal-fusion, NOW-4 anomaly, NOW-5 multi-agent, NOW-6 adversarial.
+- Note ARCH-1 HIER-GEN + NOW-3 multimodal lexicalization steps need PP-225 LLM head (GPU) for the lexical part; the
+  substrate-side (schema-fidelity, diversity, grounding) is laptop-testable without the LLM.
