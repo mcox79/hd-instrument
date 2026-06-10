@@ -214,6 +214,20 @@ async def benchmark_fb15k237():
     return fb15k237_response()
 
 
+@app.get("/demo/reasoning")
+async def demo_reasoning():
+    """Substrate-as-reasoning-substrate page (PP-303 .. PP-312 cycle 220).
+
+    Showcases algebraic reasoning primitives at L=3 composition: multi-hop over
+    composites (PP-305), do-calculus (PP-307), Bayesian MAP (PP-308), analogy
+    (PP-309), confidence calibration (PP-304), temporal NOW (PP-306), STORY/PROGRAM/
+    ARGUMENT shards at production scale (PP-310 / 311 / 312). Negative result
+    PP-303 (LVH-274) honestly disclosed.
+    """
+    from backend.reasoning_substrate import reasoning_response
+    return reasoning_response()
+
+
 @app.post("/admin/warmup")
 async def admin_warmup():
     """Force Tier 5a substrate-KV to load NOW (eliminates cold-start 503 on first /query/tier5a).
