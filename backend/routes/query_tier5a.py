@@ -88,26 +88,34 @@ def _init_kv() -> SubstrateKV:
         # Each dir holds (facts.jsonl, keys.npy) pair produced by backend/kb/*_ingest.py.
         # In-flight ingests don't have keys.npy yet (only written at end of run) so they're
         # skipped naturally.
-        from pathlib import Path as _Path
-        import time as _t
-        state_root = _Path("data/substrate_state")
-        if state_root.exists():
-            for state_dir in sorted(state_root.iterdir()):
-                if not state_dir.is_dir():
-                    continue
-                facts_p = state_dir / "facts.jsonl"
-                keys_p = state_dir / "keys.npy"
-                if not (facts_p.exists() and keys_p.exists()):
-                    logger.info("%s: skip (no keys.npy yet; ingest in flight)", state_dir.name)
-                    continue
-                try:
-                    t0 = _t.perf_counter()
-                    pre = len(kv)
-                    total = kv.load_from_disk(facts_p, keys_p)
-                    logger.info("loaded %s: %d -> %d facts (+%d) in %.1fs",
-                                state_dir.name, pre, total, total - pre, _t.perf_counter() - t0)
-                except Exception:
-                    logger.exception("%s: disk load failed (continuing)", state_dir.name)
+        # Per Research BACKEND_GREENLIGHT_AND_MONITOR (2026-06-09): SKIP_KB_AUTOLOAD=1
+        # boots backend with seed facts only; KB sources are loaded later via /admin/load
+        # endpoint. De-risks restart in case any latent issue remains after pyarrow fix.
+        import os as _os
+        if _os.environ.get("SKIP_KB_AUTOLOAD", "0") == "1":
+            logger.info("SKIP_KB_AUTOLOAD=1: backend booting with seed facts only; "
+                        "use /admin/load to load KB sources incrementally")
+        else:
+            from pathlib import Path as _Path
+            import time as _t
+            state_root = _Path("data/substrate_state")
+            if state_root.exists():
+                for state_dir in sorted(state_root.iterdir()):
+                    if not state_dir.is_dir():
+                        continue
+                    facts_p = state_dir / "facts.jsonl"
+                    keys_p = state_dir / "keys.npy"
+                    if not (facts_p.exists() and keys_p.exists()):
+                        logger.info("%s: skip (no keys.npy yet; ingest in flight)", state_dir.name)
+                        continue
+                    try:
+                        t0 = _t.perf_counter()
+                        pre = len(kv)
+                        total = kv.load_from_disk(facts_p, keys_p)
+                        logger.info("loaded %s: %d -> %d facts (+%d) in %.1fs",
+                                    state_dir.name, pre, total, total - pre, _t.perf_counter() - t0)
+                    except Exception:
+                        logger.exception("%s: disk load failed (continuing)", state_dir.name)
 
         # Pre-load Qwen generator too so first /query/tier5a has zero LLM cold-start
         from backend.llm.pythia_client import get_client

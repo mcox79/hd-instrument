@@ -200,6 +200,38 @@ async def admin_warmup():
     return {"status": "loading_in_background", "poll": "/query/tier5a/status"}
 
 
+@app.post("/admin/load")
+async def admin_load(source: str):
+    """Incrementally load a single substrate-state KB source from disk.
+
+    Per Research BACKEND_GREENLIGHT_AND_MONITOR (2026-06-09) staged-load plan:
+    SKIP_KB_AUTOLOAD=1 boots backend with seed facts only; this endpoint loads
+    individual sources on demand so we can verify each works before adding the next.
+
+    `source` is the subdir name under data/substrate_state/ (e.g. wikipedia_100k,
+    conceptnet_8m, arxiv_2m, pubmed_5m).
+
+    Returns the new substrate-KV fact count.
+    """
+    from pathlib import Path as _Path
+    from backend.routes.query_tier5a import _init_kv
+    state_dir = _Path("data/substrate_state") / source
+    if not state_dir.exists() or not state_dir.is_dir():
+        return {"status": "error", "detail": f"no such source dir: {state_dir}"}
+    facts_p = state_dir / "facts.jsonl"
+    keys_p = state_dir / "keys.npy"
+    if not (facts_p.exists() and keys_p.exists()):
+        return {"status": "error", "detail": f"{source} missing facts.jsonl or keys.npy (ingest may still be running)"}
+    kv = _init_kv()
+    pre = len(kv)
+    try:
+        total = kv.load_from_disk(facts_p, keys_p)
+        return {"status": "loaded", "source": source, "before": pre, "after": total, "added": total - pre}
+    except Exception as e:
+        logger.exception("admin/load failed for %s", source)
+        return {"status": "error", "detail": str(e)}
+
+
 @app.get("/api")
 async def api_root():
     """JSON service description (programmatic use)."""
