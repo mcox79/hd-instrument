@@ -44,7 +44,13 @@ def run() -> Dict:
         store = {a: sum((akeys[a] * (SLOTP * props[p]) for p in acts[a][0]), np.zeros(N, dtype=np.complex64))
                     + sum((akeys[a] * (SLOTA * props[p]) for p in acts[a][1]), np.zeros(N, dtype=np.complex64)) for a in range(NACT)}
         S0 = frozenset(int(p) for p in g.choice(NPROP, g.integers(1, 4), replace=False))
-        G = set(int(p) for p in g.choice(NPROP, g.integers(1, 3), replace=False))
+        cur = set(S0)                                                     # construct a REACHABLE goal (plan exists by construction)
+        for _step in range(int(g.integers(2, 5))):
+            appl = [a for a in range(NACT) if acts[a][0].issubset(cur)]
+            if not appl:
+                break
+            a = appl[int(g.integers(0, len(appl)))]; cur = (cur - acts[a][2]) | acts[a][1]
+        gl = sorted(cur); G = set(int(x) for x in g.choice(gl, min(len(gl), int(g.integers(1, 3))), replace=False)) if gl else set(S0)
         # BFS plan search using the stored action library
         seen = {S0}; q = deque([S0]); found = False; depth = 0
         while q and depth < 2000:
