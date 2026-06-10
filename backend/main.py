@@ -200,36 +200,73 @@ async def admin_warmup():
     return {"status": "loading_in_background", "poll": "/query/tier5a/status"}
 
 
-@app.post("/admin/load")
-async def admin_load(source: str):
-    """Incrementally load a single substrate-state KB source from disk.
+# Global load-progress state (read by /admin/load_status; written by background thread)
+_load_progress: dict = {"in_progress": False, "source": None, "started_at": None,
+                        "completed_at": None, "before": None, "after": None,
+                        "added": None, "error": None}
 
-    Per Research BACKEND_GREENLIGHT_AND_MONITOR (2026-06-09) staged-load plan:
-    SKIP_KB_AUTOLOAD=1 boots backend with seed facts only; this endpoint loads
-    individual sources on demand so we can verify each works before adding the next.
 
-    `source` is the subdir name under data/substrate_state/ (e.g. wikipedia_100k,
-    conceptnet_8m, arxiv_2m, pubmed_5m).
-
-    Returns the new substrate-KV fact count.
+def _do_admin_load(source: str):
+    """Background-thread worker for /admin/load. Per Research KILL_LOAD_PROFILE_PREFIT
+    (2026-06-09): /admin/load returns 202 immediately; this runs in a daemon thread.
+    Pre-fit substrate state (scripts/prefit_substrate_state.py) means the load is
+    fast (mmap path); legacy path also works (fit at load) but blocks longer.
     """
     from pathlib import Path as _Path
+    import time as _t
     from backend.routes.query_tier5a import _init_kv
-    state_dir = _Path("data/substrate_state") / source
-    if not state_dir.exists() or not state_dir.is_dir():
-        return {"status": "error", "detail": f"no such source dir: {state_dir}"}
-    facts_p = state_dir / "facts.jsonl"
-    keys_p = state_dir / "keys.npy"
-    if not (facts_p.exists() and keys_p.exists()):
-        return {"status": "error", "detail": f"{source} missing facts.jsonl or keys.npy (ingest may still be running)"}
-    kv = _init_kv()
-    pre = len(kv)
+    global _load_progress
+    _load_progress.update({"in_progress": True, "source": source,
+                           "started_at": _t.time(), "completed_at": None,
+                           "before": None, "after": None, "added": None, "error": None})
     try:
+        state_dir = _Path("data/substrate_state") / source
+        if not state_dir.exists() or not state_dir.is_dir():
+            raise FileNotFoundError(f"no such source dir: {state_dir}")
+        facts_p = state_dir / "facts.jsonl"
+        keys_p = state_dir / "keys.npy"
+        if not (facts_p.exists() and keys_p.exists()):
+            raise FileNotFoundError(f"{source} missing facts.jsonl or keys.npy")
+        kv = _init_kv()
+        pre = len(kv)
         total = kv.load_from_disk(facts_p, keys_p)
-        return {"status": "loaded", "source": source, "before": pre, "after": total, "added": total - pre}
+        _load_progress.update({"in_progress": False, "completed_at": _t.time(),
+                               "before": pre, "after": total, "added": total - pre})
+        logger.info("/admin/load %s DONE: %d -> %d (+%d)", source, pre, total, total - pre)
     except Exception as e:
-        logger.exception("admin/load failed for %s", source)
-        return {"status": "error", "detail": str(e)}
+        logger.exception("/admin/load %s FAILED", source)
+        _load_progress.update({"in_progress": False, "completed_at": _t.time(),
+                               "error": str(e)})
+
+
+@app.post("/admin/load")
+async def admin_load(source: str):
+    """Incrementally load a single substrate-state KB source from disk (NON-BLOCKING).
+
+    Per Research KILL_LOAD_PROFILE_PREFIT (2026-06-09): runs the actual load in a
+    background daemon thread + returns immediately. Poll /admin/load_status for
+    completion. Inflight /converse never blocks.
+
+    `source` is the subdir name under data/substrate_state/ (e.g. wikipedia_100k).
+    """
+    import threading
+    if _load_progress.get("in_progress"):
+        return {"status": "busy", "current_source": _load_progress["source"]}
+    threading.Thread(target=_do_admin_load, args=(source,), daemon=True,
+                     name=f"admin-load-{source}").start()
+    return {"status": "accepted", "source": source, "poll": "/admin/load_status"}
+
+
+@app.get("/admin/load_status")
+async def admin_load_status():
+    """Current state of /admin/load background work."""
+    import time as _t
+    p = dict(_load_progress)
+    if p.get("started_at") and not p.get("completed_at"):
+        p["elapsed_s"] = round(_t.time() - p["started_at"], 1)
+    elif p.get("started_at") and p.get("completed_at"):
+        p["wall_s"] = round(p["completed_at"] - p["started_at"], 1)
+    return p
 
 
 @app.get("/api")

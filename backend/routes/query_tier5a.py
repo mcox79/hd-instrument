@@ -75,14 +75,24 @@ def _init_kv() -> SubstrateKV:
         return _kv
     if _kv_init_error is not None:
         raise HTTPException(status_code=503, detail=f"substrate-KV init failed earlier: {_kv_init_error}")
+    import time as _t_init
+    _t_init_start = _t_init.perf_counter()
+    _ts = {}
+
+    def _stamp(name):
+        _ts[name] = _t_init.perf_counter() - _t_init_start
+        logger.info("[_init_kv timing] %s: %.2fs", name, _ts[name])
+
     try:
         from backend.llm.bge_encoder import get_encoder
         encoder = get_encoder()
+        _stamp("bge_encoder_loaded")
         kv = SubstrateKV(encoder=encoder, dim=encoder.hidden_size)
         facts = load_seed_facts()
         logger.info("seeding substrate-KV with %d facts via %s on %s ...",
                     len(facts), encoder.model_name, encoder.device)
         kv.add_facts(facts)
+        _stamp("seed_facts_added")
 
         # Q2+POST: auto-load ANY available pre-encoded substrate-state dirs from disk.
         # Each dir holds (facts.jsonl, keys.npy) pair produced by backend/kb/*_ingest.py.
@@ -120,7 +130,10 @@ def _init_kv() -> SubstrateKV:
         # Pre-load Qwen generator too so first /query/tier5a has zero LLM cold-start
         from backend.llm.pythia_client import get_client
         get_client()
+        _stamp("qwen_loaded")
         _kv = kv
+        logger.info("[_init_kv done] total %.2fs; phases=%s",
+                    _t_init.perf_counter() - _t_init_start, _ts)
         return _kv
     except Exception as e:
         _kv_init_error = f"{type(e).__name__}: {e}"

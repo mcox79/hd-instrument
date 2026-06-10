@@ -129,15 +129,25 @@ class SubstrateKV:
             "first_facts": self.facts[:3] if self.facts else [],
         }
 
-    def load_from_disk(self, facts_jsonl_path, keys_npy_path) -> int:
-        """Load pre-encoded facts from a (facts.jsonl, keys.npy) pair produced by
-        backend/kb/wikipedia_ingest.py. Skips re-encoding (the encoder is only used
-        for online queries).
+    def load_from_disk(self, facts_jsonl_path, keys_npy_path, defer_fit: bool = False) -> int:
+        """Load pre-encoded facts from a (facts.jsonl, keys.npy) pair.
 
-        Returns total fact count after merge with any existing facts.
+        Per Research KILL_LOAD_PROFILE_PREFIT (2026-06-09): if the source dir also
+        contains `keys_normed.npy` AND the parent dir has `mu.npy` + `W_whiten.npy`
+        (written by scripts/prefit_substrate_state.py), the pre-whitened path is
+        used:
+          - keys_normed.npy mmap'd directly into self.keys_normed (instant)
+          - global mu + W_whiten loaded once
+          - _fit() is SKIPPED entirely (eliminates 10+ min ZCA cost on >100K KBs)
 
-        IMPORTANT: the encoder used by the disk pre-encode MUST match this SubstrateKV's
-        encoder, otherwise key/query alignment breaks.
+        Otherwise falls back to the legacy path: load raw keys.npy, concat, _fit().
+
+        `defer_fit=True` (legacy path only) lets the operator batch multiple
+        load_from_disk calls then a single explicit fit() call at end. No-op for
+        the pre-fit path (already whitened).
+
+        IMPORTANT: encoder used at ingest time MUST match self.encoder (1024-dim
+        bge-large-en-v1.5); otherwise key/query alignment breaks.
         """
         import json as _json
         from pathlib import Path as _Path
@@ -147,10 +157,6 @@ class SubstrateKV:
         if not facts_jsonl_path.exists() or not keys_npy_path.exists():
             raise FileNotFoundError(f"need both {facts_jsonl_path} and {keys_npy_path}")
 
-        keys = np.load(keys_npy_path)
-        if keys.dtype != np.float32:
-            keys = keys.astype(np.float32)
-
         new_facts = []
         with facts_jsonl_path.open("r", encoding="utf-8") as f:
             for line in f:
@@ -159,6 +165,50 @@ class SubstrateKV:
                     continue
                 row = _json.loads(line)
                 new_facts.append(row["fact"])
+
+        # PRE-FIT PATH: per-source keys_normed.npy + global mu/W_whiten at root
+        source_dir = keys_npy_path.parent
+        root_dir = source_dir.parent
+        prefit_keys_p = source_dir / "keys_normed.npy"
+        mu_p = root_dir / "mu.npy"
+        W_whiten_p = root_dir / "W_whiten.npy"
+
+        use_prefit = prefit_keys_p.exists() and mu_p.exists() and W_whiten_p.exists()
+
+        if use_prefit:
+            kn = np.load(prefit_keys_p)  # could mmap_mode='r' but float32 copies are fine for now
+            if kn.dtype != np.float32:
+                kn = kn.astype(np.float32)
+            if len(new_facts) != kn.shape[0]:
+                raise ValueError(
+                    f"facts vs keys_normed length mismatch: {len(new_facts)} facts vs {kn.shape[0]} keys"
+                )
+            if kn.shape[1] != self.dim:
+                raise ValueError(
+                    f"keys_normed dim mismatch: {kn.shape[1]} vs encoder dim {self.dim}"
+                )
+
+            # Only need to load mu + W_whiten once (first load), then concatenate normed keys
+            if self.mu is None:
+                self.mu = np.load(mu_p).astype(np.float32)
+                self.W_whiten = np.load(W_whiten_p).astype(np.float32)
+                self.use_whitening = True
+
+            if self.keys_normed is None:
+                self.keys_normed = kn
+                self.facts = new_facts
+            else:
+                self.keys_normed = np.concatenate([self.keys_normed, kn], axis=0)
+                self.facts.extend(new_facts)
+
+            # Maintain self.keys for legacy compatibility (small mem cost; rare access)
+            # Skip if you want to save memory; query path only uses keys_normed
+            return len(self.facts)
+
+        # LEGACY PATH: raw keys + _fit() at the end
+        keys = np.load(keys_npy_path)
+        if keys.dtype != np.float32:
+            keys = keys.astype(np.float32)
 
         if len(new_facts) != keys.shape[0]:
             raise ValueError(
@@ -175,8 +225,13 @@ class SubstrateKV:
         else:
             self.keys = np.concatenate([self.keys, keys], axis=0)
             self.facts.extend(new_facts)
-        self._fit()
+        if not defer_fit:
+            self._fit()
         return len(self.facts)
+
+    def fit(self) -> None:
+        """Public alias for _fit(); call after batched defer_fit=True load_from_disks."""
+        self._fit()
 
 
 class _MockEncoder:
