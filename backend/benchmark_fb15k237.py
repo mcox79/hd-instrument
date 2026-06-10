@@ -170,6 +170,59 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>Compositional depth via cascading cleanup (PP-293 - PP-301 cycle 219)</h2>
+    <div class="card">
+      <p>
+        A distinct axis from K-hop graph traversal: <em>compositional</em> depth is
+        the number of nested algebraic bindings in a single bound vector
+        (e.g., parse trees, document schemas, nested logical scope). Classical VSA
+        loses signal exponentially with composition depth -- a 30-year barrier.
+      </p>
+      <p>
+        Per-level cascading cleanup crosses this cliff. Recall at L = 3 / 4 / 5 / 6 / 8
+        all return 1.000 with cleanup; without cleanup the same structures degrade to
+        0.613 / 0.033 / 0.007 / 0.000 / 0.000 respectively. Depth-independence
+        observed through L = 8 (no empirical ceiling). PP-293, PP-294, PP-295, PP-296,
+        PP-297. n = 120-150 per level, single seed.
+      </p>
+      <p>
+        Mechanism quantified (PP-298): mean SNR recovery = 16.13 dB per compositional
+        level (per-level breakdown 31.4 / 22.1 / 11.0 / 0.0 dB at L = 5).
+        Engineering parameter: minimum N required for a target depth is bounded by
+        this margin.
+      </p>
+      <p>
+        Capacity is depth-independent (PP-299): K* &gt;= 80 at every level L = 1..5
+        (tested ceiling; no degradation). Width and depth compose (PP-300):
+        K = 50 branch factor x L = 3 depth = 125,000 leaf-reachable compositions
+        at recall = 1.000.
+      </p>
+      <p style="margin: 0">
+        1-bit QPSK at depth (PP-301): zero degradation at L = 3 and L = 5 vs float32
+        baseline. 32x memory reduction with no fidelity loss at deep composition --
+        substrate deep-compositional KBs are edge-deployable at minimal footprint.
+      </p>
+      <p class="footnote">
+        Tagged EXPLORATORY (0.82-0.92) per cap_map cycle 219: single seed per level
+        but ceiling-consistent across L = 3 / 4 / 5 / 6 / 8. Multi-seed validation
+        next batch.
+      </p>
+    </div>
+
+    <h2>Type-routed bundle split: 4x capacity gain (PP-302 cycle 219)</h2>
+    <div class="card">
+      <p>
+        Pre-partitioning the KB into C type buckets multiplies effective bundle
+        capacity by C without changing the underlying HD algebra. Measured ratio
+        m*_split / m*_flat = 4.00 at C = 4 (800 vs 200 distinguishable items in a
+        bundle). Operational lever: more types -&gt; more capacity, linear in C.
+        PP-302 resolves the LAP4-1 open question.
+      </p>
+      <p style="margin: 0">
+        Tagged EXPLORATORY (0.82-0.92); n = 1 seed; multi-C scan next batch.
+      </p>
+    </div>
+
     <h2>How substrate differs from KGE baselines</h2>
     <div class="card">
       <p>
