@@ -1,0 +1,65 @@
+
+## v553 -> v554 CYCLE 220 10-VERDICT BATCH (2026-06-10)
+
+SHARD SERIES: v3.0 reasoning shards at L3 + 2 negative-result probes + 1 temporal grounding. Extends cycle-219 compositional cliff into specific reasoning types.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 1 LVH catch.
+
+negres_struct_align_cpu_v1 [LVH-274]: struct-Hits@1=0.402, baseline=0.400, lift=0.001, n=2078. HARD_PASS threshold is absolute >=0.40 (not lift-based), and 0.402 satisfies. HOWEVER: lift=0.001 is within binomial noise (se~0.011pp on n=2078); the structural alignment method adds essentially nothing over baseline. Verdict_msg says "lifts cross-domain analogy to >=0.40 -- lift=0.001" -- transparent about near-zero lift but labels it HARD_PASS resolution of STRETCH4-2. HONEST-READING: structural-phase projection FAILS to improve cross-domain analogy; STRETCH4-2 is a negative finding for the method. Filing LVH-274. Treating as: LVH-noted HARD_PASS (absolute threshold met); cap_map PP-303 annotated as negative result for method.
+
+negres_confidence_head_cpu_v1 HARD_PASS: corr_head=0.479, ECE_head=0.021. Thresholds: corr>=0.30 (cleared +0.179), ECE<=0.10 (cleared by 5x). HONEST.
+
+comp23_multihop_composites_cpu_v1 HARD_PASS: recall_cleanup=1.000, recall_nocleanup=0.033, hops=3, NN=40. Threshold >=0.70. HONEST.
+
+now1_temporal_grounding_cpu_v1 HARD_PASS: grounded=1.000, disambiguation=0.993. Thresholds >=0.85, >=0.40. HONEST.
+
+comp22_causal_at_l3_cpu_v1 HARD_PASS: recall_l3=1.000, gap=0.000. Threshold >=0.80 within 10pp. HONEST.
+
+comp21_bayesian_at_l3_cpu_v1 HARD_PASS: recall_l3=1.000, gap=0.000. Threshold >=0.85 within 10pp. HONEST.
+
+comp24_analogical_at_l3_cpu_v1 HARD_PASS: hits1_l3=1.000, gap=0.000. Threshold >=0.85 within 10pp. HONEST.
+
+comp25_story_shard_l3_cpu_v1 HARD_PASS: recall=1.000, N=100 shards, M=500 atoms. Threshold >=0.85. HONEST.
+
+comp26_program_shard_l3_cpu_v1 HARD_PASS: recall=1.000, N=50 shards, M=100 atoms. Threshold >=0.80. HONEST.
+
+comp27_argument_shard_l3_cpu_v1 HARD_PASS: recall=1.000, N=50 shards, M=20 atoms. Threshold >=0.85. HONEST.
+
+HONEST: 1636 -> 1646 (+10). LVH: 273 -> 274 (+1, LVH-274 struct_align method-overclaim).
+
+### Cap_map decisions (v553 -> v554)
+
+(A) negres_struct_align_cpu_v1 [LVH-274] -- PP-303: structural alignment negative result:
+NEW ROW PP-303 annotated as negative finding. Structural-phase projection adds lift=0.001 (noise-level) over baseline Hits@1=0.400. Method does not improve cross-domain analogy. P-band 0.35-0.55 (negative finding for method).
+
+(B) negres_confidence_head_cpu_v1 -- PP-304: CONFIDENCE CALIBRATION HARD_PASS:
+NEW ROW PP-304. Trained logistic confidence head: corr=0.479, ECE=0.021. Resolves LAP4-3. Extends PP-277 to full corr+ECE axis. P-band 0.78-0.90 EXPLORATORY.
+
+(C) comp23_multihop_composites_cpu_v1 -- PP-305: 3-HOP OVER COMPOSITE NODES:
+NEW ROW PP-305. K-hop traversal works over L3 composite nodes (recall=1.000). Multi-hop and compositional depth compose. Extends PP-11 (K-hop atomic). P-band 0.80-0.92 EXPLORATORY.
+
+(D) now1_temporal_grounding_cpu_v1 -- PP-306: TEMPORAL/CONTEXTUAL GROUNDING:
+NEW ROW PP-306. NOW shard: disambiguation=0.993, grounded=1.000. One algebraic primitive for temporal grounding. P-band 0.82-0.92 EXPLORATORY.
+
+(E) comp22_causal_at_l3_cpu_v1 -- PP-307: DO-CALCULUS AT L3:
+NEW ROW PP-307. Pearl do() survives L3 composition, gap=0.000. Extends PP-270. P-band 0.80-0.92 EXPLORATORY.
+
+(F) comp21_bayesian_at_l3_cpu_v1 -- PP-308: BAYESIAN AT L3:
+NEW ROW PP-308. Bayesian MAP at L3, gap=0.000. Extends PP-283. P-band 0.82-0.92 EXPLORATORY.
+
+(G) comp24_analogical_at_l3_cpu_v1 -- PP-309: ANALOGICAL AT L3:
+NEW ROW PP-309. Within-domain analogy at L3, hits1_l3=1.000, gap=0.000. Extends PP-275. P-band 0.82-0.92 EXPLORATORY.
+
+(H) comp25_story_shard_l3_cpu_v1 -- PP-310: STORY SHARD PRODUCTION-SCALE:
+NEW ROW PP-310. 100 shards x 500 atoms = 50k atoms, recall=1.000. P-band 0.80-0.92 EXPLORATORY.
+
+(I) comp26_program_shard_l3_cpu_v1 -- PP-311: PROGRAM SHARD PRODUCTION-SCALE:
+NEW ROW PP-311. 50 shards x 100 atoms, recall=1.000. P-band 0.80-0.92 EXPLORATORY.
+
+(J) comp27_argument_shard_l3_cpu_v1 -- PP-312: ARGUMENT SHARD PRODUCTION-SCALE:
+NEW ROW PP-312. 50 shards x 20 atoms, recall=1.000. Extends PP-255. P-band 0.80-0.92 EXPLORATORY.
+
+Cap_map: v553 -> v554 CYCLE 220 (9 HP [CPU:9] + 1 LVH-noted-HP [CPU:1]; 0 MIDDLE_BAND; 0 HF; 1 LVH [LVH-274]; 10 NEW PP ROWS PP-303..PP-312; 0 annotations; 0 BAND LIFTS; 0 closures; Portfolio 32+302 -> 32+312 +10; HONEST 1636->1646 +10; LVH 273->274 +1; 448th PROT-009 paired commit) (2026-06-10)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

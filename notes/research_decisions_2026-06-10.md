@@ -20,3 +20,5 @@ motivation-beyond-goals-2x | 2026-06-10 | PP-272 goal-completion confirmed react
 - lexical_fluency_boundary_probe_2x: notes/research_drill_lexical_fluency_boundary_probe_2x_2026-06-10.md -- corpus-limited not architecture-limited; hybrid competitive on formal genres; P_deflated=0.40; 5 anchors
 2026-06-10 | research_drill_1bit_depth_verify_2x | notes/research_drill_1bit_depth_verify_2x_2026-06-10.md | 1-bit zero-loss at comp11 depth is plausible but needs adversarial falsification on K and M; 5 falsification tests designed; P_deflated=0.45
 notes/research_drill_type_partitioning_lit_scan_2x_2026-06-10.md -- type-routing capacity multiplier lit scan; C-x multiplier framing novel; closest prior art PBG (per-type stores) and arXiv 2501.04613 (type routing no algebra change); cheap falsification test: fixed-total-params controlled experiment
+
+- [meta_learning_middle_band_2x] notes/research_drill_meta_learning_middle_band_2x_2026-06-10.md -- PP-292 0.707 mechanism: threshold calibration + K=5 SNR; K=20 predicted 0.80 P_deflated=0.58; 5 rescue anchors; exp_dev handoff filed
