@@ -90,11 +90,11 @@ def run() -> Dict:
     for _ in range(TR):
         keys = cphasor(M, N, g); vals = cphasor(VV, N, g); truth = g.integers(0, VV, size=M); Mem = (keys * vals[truth]).sum(axis=0)
         for _q in range(8):
-            known = g.random() < 0.5
+            known = g.random() < 0.5; nz = (g.random() * 3.0) * (g.standard_normal(N) + 1j * g.standard_normal(N)).astype(np.complex64)
             if known:
-                qi = int(g.integers(0, M)); probe = Mem * np.conj(keys[qi]); gold_known = True
+                qi = int(g.integers(0, M)); probe = Mem * np.conj(keys[qi]) + nz; gold_known = True
             else:
-                nk = cphasor(1, N, g)[0]; probe = Mem * np.conj(nk); gold_known = False
+                nk = cphasor(1, N, g)[0]; probe = Mem * np.conj(nk) + nz; gold_known = False
             sc = np.sort((vals @ np.conj(probe)).real)[::-1] / N; margin = float(sc[0] - sc[1])
             l1 = margin > tau                                            # L1: knows-P assessment
             l1_right = (l1 == gold_known); l1_correct += int(l1_right); n += 1
