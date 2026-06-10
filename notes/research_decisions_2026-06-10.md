@@ -29,3 +29,5 @@ embodied_cognition_revival_3x -> notes/research_drill_embodied_revival_3x_2026-0
 motivation_revival_3x: 5-component drive algebra derived; P_deflated=0.60 (boredom); integration gap closed via binding; exp_dev handoff filed -> notes/exp_dev_handoff_research_motivation_revival_3x_2026-06-10.md
 2026-06-10 lexical_fluency_revival_3x: -> notes/research_drill_lexical_fluency_revival_3x_2026-06-10.md ; hybrid P_deflated=0.38; substrate-only P_deflated=0.12; 5 CPU tests; handoff -> notes/exp_dev_handoff_research_lexical_fluency_revival_3x_2026-06-10.md
 - [continual_learning_revival_3x] notes/research_drill_continual_learning_revival_3x_2026-06-10.md | HEADLINE: substrate has episodic fast-store only; slow-generalizer + frequency-decay + consolidation-scheduler absent; P_deflated(full CLS)=0.35; top path D2.2 frequency-decay P=0.55 CPU
+
+- translation_revival_3x: notes/research_drill_translation_revival_3x_2026-06-10.md -- 3-stream (brain/nature/LLM), 8 crazy-math proposals, highest-P: BILINGUAL-DUAL-SUBSTRATE + EMBODIED-VERB-GROUNDING (P=0.45 each)
