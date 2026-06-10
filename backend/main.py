@@ -104,6 +104,8 @@ app.add_middleware(
 # Tier 5 Sprint Panel A: substrate-KV + Qwen-2.5-1.5B-Instruct
 # ============================================================
 app.include_router(query_tier5a.router)
+from backend.routes import converse_pp225
+app.include_router(converse_pp225.router)
 
 # Substrate-first /converse cascade routing (strategic reframe: substrate IS the AI)
 app.include_router(converse.router)
