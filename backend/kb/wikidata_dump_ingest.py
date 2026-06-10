@@ -281,6 +281,136 @@ def load_labels(labels_path: Optional[Path]) -> Optional[dict]:
     return labels
 
 
+def _list_partial_keys(output_dir: Path):
+    """Return sorted list of keys_partial_NNNNNN.npy paths (incremental save artifacts)."""
+    return sorted(output_dir.glob("keys_partial_*.npy"))
+
+
+def _count_lines(path: Path) -> int:
+    """Count newlines in a text file. Used to count facts.jsonl / triples.jsonl rows."""
+    if not path.exists():
+        return 0
+    n = 0
+    with open(path, "rb") as f:
+        for _ in f:
+            n += 1
+    return n
+
+
+def _consolidate_partials_to_keys_npy(output_dir: Path, keys_npy: Path, delete_partials: bool = True):
+    """Concatenate keys_partial_*.npy in order -> keys.npy. Optionally delete partials.
+
+    Sanity check: final row count must equal facts.jsonl line count.
+    """
+    import numpy as np
+    parts = _list_partial_keys(output_dir)
+    if not parts:
+        logger.warning("no partial keys to consolidate; keys.npy not written")
+        return
+    facts_n = _count_lines(output_dir / "facts.jsonl")
+    arrs = [np.load(p) for p in parts]
+    total_keys = sum(a.shape[0] for a in arrs)
+    logger.info("consolidating %d partials -> keys.npy (%d total keys vs %d facts)",
+                len(parts), total_keys, facts_n)
+    if total_keys != facts_n:
+        logger.warning("MISMATCH: keys=%d facts=%d (delta=%d); writing keys.npy anyway",
+                       total_keys, facts_n, facts_n - total_keys)
+    keys = np.concatenate(arrs, axis=0)
+    np.save(keys_npy, keys)
+    logger.info("wrote keys.npy: shape=%s", keys.shape)
+    if delete_partials:
+        for p in parts:
+            p.unlink()
+        logger.info("deleted %d partial files", len(parts))
+
+
+def _read_facts_slice(facts_jsonl: Path, start: int, end: int):
+    """Yield fact strings from facts_jsonl at line indices [start, end)."""
+    with open(facts_jsonl, encoding="utf-8") as f:
+        for i, line in enumerate(f):
+            if i < start:
+                continue
+            if i >= end:
+                return
+            line = line.strip()
+            if not line:
+                continue
+            yield json.loads(line)["fact"]
+
+
+def _resume_recovery(output_dir: Path, encoder, batch_size: int) -> int:
+    """Re-encode facts.jsonl rows that have no corresponding keys saved.
+
+    Returns the total number of rows now represented (partials_rows after recovery).
+    This number equals min(facts_n, triples_n) ideally — both should match.
+    """
+    import numpy as np
+    facts_jsonl = output_dir / "facts.jsonl"
+    triples_jsonl = output_dir / "triples.jsonl"
+
+    parts = _list_partial_keys(output_dir)
+    partials_rows = sum(np.load(p, mmap_mode="r").shape[0] for p in parts)
+    facts_n = _count_lines(facts_jsonl)
+    triples_n = _count_lines(triples_jsonl)
+
+    logger.info("resume: facts=%d triples=%d partials=%d (rows=%d)",
+                facts_n, triples_n, len(parts), partials_rows)
+
+    # If facts.jsonl and triples.jsonl drift (likely never, since flush() writes both
+    # in the same tick), truncate to min so we resume cleanly.
+    aligned_n = min(facts_n, triples_n)
+    if aligned_n != facts_n or aligned_n != triples_n:
+        logger.warning("facts/triples line count drift: trimming to %d", aligned_n)
+        # Truncating jsonl files: read aligned_n lines + rewrite (small files in practice)
+        def _trim(path, keep_n):
+            lines = []
+            with open(path, encoding="utf-8") as f:
+                for i, line in enumerate(f):
+                    if i >= keep_n:
+                        break
+                    lines.append(line)
+            with open(path, "w", encoding="utf-8") as f:
+                f.writelines(lines)
+        _trim(facts_jsonl, aligned_n)
+        _trim(triples_jsonl, aligned_n)
+
+    if partials_rows >= aligned_n:
+        # Partials are ahead of jsonl; truncate the extra (impossible in practice but safe)
+        logger.info("partials already cover all aligned rows; no recovery encode needed")
+        return aligned_n
+
+    gap = aligned_n - partials_rows
+    logger.info("recovery encode: %d facts to re-encode (partials=%d aligned=%d)",
+                gap, partials_rows, aligned_n)
+    t0 = time.perf_counter()
+    pending = []
+    parts_count = len(parts)
+    encoded_rows = 0
+    for fact in _read_facts_slice(facts_jsonl, partials_rows, aligned_n):
+        pending.append(fact)
+        if len(pending) >= batch_size * 16:  # flush every ~4K encodes
+            vecs = encoder.encode(pending, batch_size=batch_size)
+            partial_path = output_dir / f"keys_partial_{parts_count:06d}.npy"
+            np.save(partial_path, vecs)
+            parts_count += 1
+            encoded_rows += len(pending)
+            logger.info("recovery: encoded %d / %d (%.1f%%); wrote %s",
+                        encoded_rows, gap, 100.0 * encoded_rows / max(1, gap),
+                        partial_path.name)
+            pending.clear()
+    if pending:
+        vecs = encoder.encode(pending, batch_size=batch_size)
+        partial_path = output_dir / f"keys_partial_{parts_count:06d}.npy"
+        np.save(partial_path, vecs)
+        parts_count += 1
+        encoded_rows += len(pending)
+        logger.info("recovery: encoded final %d -> %s", len(pending), partial_path.name)
+    logger.info("recovery encode DONE: %d facts in %.0fs (%.1f facts/s)",
+                encoded_rows, time.perf_counter() - t0,
+                encoded_rows / max(0.001, time.perf_counter() - t0))
+    return aligned_n
+
+
 def run_ingest(
     dump_path: Path,
     n_triples: int = 50_000_000,
@@ -290,6 +420,7 @@ def run_ingest(
     labels_path: Optional[Path] = None,
     encoder=None,
     progress_log: Optional[Path] = None,
+    resume: bool = False,
 ) -> IngestStats:
     import numpy as np
 
@@ -305,13 +436,37 @@ def run_ingest(
 
     labels = load_labels(labels_path)
 
+    # Resume recovery: re-encode any facts.jsonl rows that have no key (crashed mid-run).
+    # Establishes the resume_skip_count = number of parsed-triples we should fast-forward
+    # past in the bz2 stream.
+    resume_skip_count = 0
+    if resume:
+        logger.info("RESUME mode: checking existing state at %s", output_dir)
+        resume_skip_count = _resume_recovery(output_dir, encoder, batch_size)
+        logger.info("RESUME: will skip %d parsed-triples in bz2 stream", resume_skip_count)
+
     stats = IngestStats()
     t0 = time.perf_counter()
     facts_f = open(facts_jsonl, "a", encoding="utf-8")
     triples_f = open(triples_jsonl, "a", encoding="utf-8")
-    all_keys = []
-    pending = []        # list of fact strings (Stage A bge-large encoding)
-    pending_triples = []  # list of (subj_q, pred_p, obj_raw) tuples (parallel; for triples.jsonl)
+    all_keys = []           # in-flight buffer; flushed to partial files at checkpoints
+    pending = []            # list of fact strings (Stage A bge-large encoding)
+    pending_triples = []    # parallel list of (subj_q, pred_p, obj_raw) tuples
+
+    parts_count = len(_list_partial_keys(output_dir))  # next partial index
+
+    def _save_partial():
+        """Save accumulated all_keys to a new partial file; clear the buffer."""
+        nonlocal parts_count
+        if not all_keys:
+            return
+        import numpy as _np
+        keys = _np.concatenate(all_keys, axis=0)
+        partial_path = output_dir / f"keys_partial_{parts_count:06d}.npy"
+        _np.save(partial_path, keys)
+        parts_count += 1
+        all_keys.clear()
+        logger.info("saved partial %s (rows=%d)", partial_path.name, keys.shape[0])
 
     def flush(force=False):
         if not pending or (not force and len(pending) < batch_size):
@@ -331,6 +486,7 @@ def run_ingest(
     logger.info("opening dump: %s", dump_path)
     try:
         with bz2.open(dump_path, "rt", encoding="utf-8", errors="replace") as bz:
+            skipped_for_resume = 0
             for line in bz:
                 stats.lines_seen += 1
                 if stats.facts_added >= n_triples:
@@ -345,12 +501,22 @@ def run_ingest(
                         stats.skipped_malformed += 1
                     continue
                 stats.triples_parsed += 1
+
+                # Resume fast-forward: parse but discard the first N already-seen triples
+                if skipped_for_resume < resume_skip_count:
+                    skipped_for_resume += 1
+                    if skipped_for_resume % 100_000 == 0:
+                        logger.info("resume skip: %d / %d", skipped_for_resume, resume_skip_count)
+                    continue
+
                 pending.append(fact)
                 pending_triples.append(triple)
                 flush(force=False)
 
                 if stats.lines_seen % checkpoint_every == 0:
                     flush(force=True)
+                    # Save incremental partial so future crashes don't lose work
+                    _save_partial()
                     stats.total_wall_s = time.perf_counter() - t0
                     logger.info("[ck] lines=%d facts=%d facts/s=%.1f",
                                 stats.lines_seen, stats.facts_added,
@@ -359,9 +525,9 @@ def run_ingest(
                         progress_log.write_text(json.dumps(stats.as_dict(), indent=2))
 
         flush(force=True)
-        if all_keys:
-            np.save(keys_npy, np.concatenate(all_keys, axis=0))
-            logger.info("wrote keys.npy")
+        _save_partial()
+        # Final consolidation: concat all partials -> keys.npy
+        _consolidate_partials_to_keys_npy(output_dir, keys_npy, delete_partials=True)
     finally:
         facts_f.close()
         triples_f.close()
@@ -383,6 +549,10 @@ def main():
     p.add_argument("--batch-size", type=int, default=256)
     p.add_argument("--checkpoint-every", type=int, default=50_000)
     p.add_argument("--labels", type=Path, default=None, help="optional Q-code -> label JSON")
+    p.add_argument("--resume", action="store_true",
+                   help="resume from existing facts.jsonl + triples.jsonl + keys_partial_*.npy "
+                        "by re-encoding any gap, then skipping past already-parsed triples in the "
+                        "bz2 stream. Use after a runner crash.")
     args = p.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     progress_log = args.output_dir / "progress.json"
@@ -395,6 +565,7 @@ def main():
         checkpoint_every=args.checkpoint_every,
         labels_path=args.labels,
         progress_log=progress_log,
+        resume=args.resume,
     )
 
 
