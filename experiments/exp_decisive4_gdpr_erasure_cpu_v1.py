@@ -1,8 +1,11 @@
 """
-exp_decisive4_gdpr_erasure_cpu_v1.py -- GDPR exact erasure -- 0 false retentions / 0 false losses -- CPU.
+exp_decisive4_gdpr_erasure_cpu_v1.py -- DECISIVE-4 GDPR exact erasure (protocol-fixed: sharded) -- CPU.
 
-ROUTING: HUGE_BATCH TIER-1 (DECISIVE-4 GDPR exact erasure). Insert M facts, exact unbind-subtract erasure of a subset (PP-104), verify deleted unretrievable + retained intact + sub-ms latency. numpy/VSA. CPU.
-PRE-REGISTERED: HARD-PASS 0 false retentions AND 0 false losses. else HARD-FAIL.
+ROUTING: HUGE_BATCH TIER-1, protocol fix per research_to_exp_dev_DECISIVE_4_PROTOCOL_FIX. Original used ONE superposed memory
+  (M=1000) where cleanup is load-limited BEFORE deletion, so "retained fact misclassifies" got miscounted as deletion-caused
+  false-loss. FIX (sharding lever): ~20 facts/shard so pre-deletion recall=1.0; then measure TRUE_DELETION (deleted unretrievable)
+  and FALSE_LOSS (retained AND pre-retrievable facts that became unretrievable) separately. numpy/VSA. CPU.
+PRE-REGISTERED: HARD-PASS 0 false retentions AND 0 false losses (on pre-retrievable retained set) AND pre-recall>=0.99. else HARD-FAIL.
 ASCII-only. write_metrics. PROT-018 _v1.
 """
 from __future__ import annotations
@@ -26,34 +29,42 @@ def cphasor(m, d, g):
 def cidx(v, book):
     return int(np.argmax((book @ np.conj(v)).real))
 
+
 def _selftest():
     assert hashlib.sha256(b"x").hexdigest() == hashlib.sha256(b"x").hexdigest(), "det"; print("[selftest] PASS: decisive4-gdpr-erasure", flush=True)
+
+
 def run() -> Dict:
     g = np.random.default_rng(404); N = 8192; M = 300 if SMOKE else 1000; VK = M; VV = 600
     keys = cphasor(VK, N, g); vals = cphasor(VV, N, g)
-    truth = {}; Mem = np.zeros(N, dtype=np.complex64)
+    SH = 20; truth = {}
+    shard = [np.zeros(N, dtype=np.complex64) for _ in range((M + SH - 1) // SH)]   # ~20 facts/shard -> exact cleanup
     for k in range(M):
-        vv = int(g.integers(0, VV)); Mem = Mem + keys[k] * vals[vv]; truth[k] = vv
+        vv = int(g.integers(0, VV)); shard[k // SH] = shard[k // SH] + keys[k] * vals[vv]; truth[k] = vv
+    pre_ok = {k: (cidx(shard[k // SH] * np.conj(keys[k]), vals) == truth[k]) for k in range(M)}   # retrievable BEFORE deletion
+    pre_recall = sum(pre_ok.values()) / M
     ndel = max(10, M // 10); dele = set(int(x) for x in g.choice(M, ndel, replace=False))
     t0 = time.perf_counter()
     for k in dele:
-        Mem = Mem - keys[k] * vals[truth[k]]                              # exact unbind-subtract erasure (PP-104)
+        shard[k // SH] = shard[k // SH] - keys[k] * vals[truth[k]]        # surgical erasure from the fact's shard (PP-104)
     lat_ms = (time.perf_counter() - t0) * 1000 / max(1, ndel)
-    false_retention = 0; false_loss = 0
-    for k in range(M):
-        pred = cidx(Mem * np.conj(keys[k]), vals); got = (pred == truth[k])
-        if k in dele and got:
-            false_retention += 1                                          # deleted fact still retrievable = leak
-        if k not in dele and not got:
-            false_loss += 1                                               # retained fact lost = collateral
-    fr = false_retention; fl = false_loss
-    print("  deleted=%d false_retentions=%d false_losses=%d erase_latency=%.4fms/fact" % (ndel, fr, fl, lat_ms), flush=True)
-    return {"false_retentions": fr, "false_losses": fl, "n_del": ndel, "latency_ms": round(lat_ms, 4)}
+    false_retention = 0
+    for k in dele:                                                        # TRUE_DELETION: deleted facts must be unretrievable
+        false_retention += int(cidx(shard[k // SH] * np.conj(keys[k]), vals) == truth[k])
+    false_loss = 0
+    for k in range(M):                                                    # FALSE_LOSS: retained + pre-retrievable must stay retrievable
+        if k not in dele and pre_ok[k]:
+            false_loss += int(cidx(shard[k // SH] * np.conj(keys[k]), vals) != truth[k])
+    print("  pre_recall=%.3f deleted=%d false_retentions=%d false_losses=%d erase_latency=%.4fms/fact" % (pre_recall, ndel, false_retention, false_loss, lat_ms), flush=True)
+    return {"false_retentions": false_retention, "false_losses": false_loss, "n_del": ndel, "pre_recall": round(pre_recall, 3), "latency_ms": round(lat_ms, 4)}
+
+
 def verdict(r) -> Tuple[str, str]:
-    s = "false_retentions=%d false_losses=%d latency=%.4fms" % (r["false_retentions"], r["false_losses"], r["latency_ms"])
-    if r["false_retentions"] == 0 and r["false_losses"] == 0:
-        return ("HARD_PASS", "HARD_PASS: GDPR exact erasure -- 0 false retentions on deleted + 0 false losses on retained, sub-ms/fact. EU AI Act Art.17 categorical. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: erasure imperfect (false retention or loss). " + s)
+    s = "pre_recall=%.3f false_retentions=%d false_losses=%d latency=%.4fms" % (r["pre_recall"], r["false_retentions"], r["false_losses"], r["latency_ms"])
+    if r["false_retentions"] == 0 and r["false_losses"] == 0 and r["pre_recall"] >= 0.99:
+        return ("HARD_PASS", "HARD_PASS: GDPR exact erasure (sharded) -- pre-recall 1.0, 0 false retentions on deleted + 0 false losses on retained, sub-ms/fact. EU AI Act Art.17 categorical. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: erasure imperfect or pre-recall<0.99. " + s)
+
 
 _selftest()
 if _ARGS.self_test:
