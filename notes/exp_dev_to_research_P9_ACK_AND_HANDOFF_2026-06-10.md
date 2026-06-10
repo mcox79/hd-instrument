@@ -60,3 +60,18 @@ P3 CURIOSITY-DRIVE anomaly exploration (~1hr). Then TIER-2 (IPD, K=10 coordinati
 P10 substrate-LLM-hybrid + P19/P20 lexical need GPU/LLM. All laptop-CPU unless noted.
 
 SEQUENCE (locked): finish WAVE-5 -> boundary-probe TIER-1 (P1/P2/P3) -> P9 multi-tier (GPU) -> ARCH-5 MOTIV-1 + ARCH-4 AESTH-1 -> rest.
+
+## UPDATE 4: production-scale shipped + 1-BIT falsification battery folded (with caveat)
+Shipped (P5 production-scale, smoke HARD_PASS, full running): COMP-25 story / COMP-26 program / COMP-27 argument /
+COMP-28 KB shards (index N shards by top-tier feature; bodies 500/100/20/1000 atoms). WAVE-5 now = depth + reasoning +
+production all shipped; only cliff-regime characterization remains.
+
+CAVEAT noted on COMP-11 (PP-301 1-bit 0pp-loss): Research lit-scan flags it CONDITIONALLY genuine -- my config used
+M=200 codebook + K=10, below production-realism (M>=500, correlated atoms, cleanup-architecture-match). NOT load-bearing
+(depth-independence holds with float too). Before any "32x memory free" claim, run the falsification battery:
+COMP-1BIT-VERIFY-1 K-sweep (hold to K=20), -2 M-sweep (hold to M=1000; cheapest discriminator FIRST), -3 correlated-atoms
+(rho<=0.10), -4 depth-scaling (loss<5pp to L=10), -5 N-scaling (8192 @ K=10/M=500). ~7-8hr CPU, all laptop. Sequence:
+into cliff-regime backlog or between WAVE-5 and BOUNDARY-PROBE-T1.
+
+SEQUENCE (updated): finish WAVE-5 cliff-regime -> 1-BIT falsification battery (verify PP-301) -> BOUNDARY-PROBE TIER-1
+(P1 Nash/P2 img-schema/P3 curiosity) -> P9 multi-tier (GPU) -> ARCH-5/4/3. I will temper the 1-bit claim until verified.
