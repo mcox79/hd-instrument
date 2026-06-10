@@ -16,3 +16,5 @@ CYCLE 207 (v532->v533) 2026-06-09: 10 HARD_PASS -- PP-225 fp32 rescue suite (6: 
 
 PLAIN: Multi-tenant isolation algebraically confirmed; deletion measurement protocol issue flagged for Research redesign. Implications: compliance-sidecar moat validated on isolation axis; deletion audit path needs protocol fix before capability claim.
 IMPORTANCE: HIGH.
+
+CYCLE 211 RECOVERY: 11 verdicts (cycles 209+210+211) recovered from Haiku framework-reliability event. v534->v545: 10 NEW PP ROWS (PP-229..PP-238) + 2 band-lifts (PP-13 + PP-119) + 1 LVH-PROTOCOL-FIX. Portfolio 32+228->32+238. HONEST 1551->1562. PUBLIC BENCHMARK WIN: FB15K-237 top1=1.000 (PP-237). GDPR categorical: 0/0 false-retentions/losses (PP-229). Multi-tenant T=50 decisive: cross_leak=0.001 (PP-230). Conversational breadth 5 axes at ceiling (PP-232..PP-236). [2026-06-09]
