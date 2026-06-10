@@ -137,6 +137,25 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>K-hop depth ladder all at ceiling (PP-11 / PP-248 / PP-258)</h2>
+    <div class="card">
+      <p>
+        Depth-3 (PP-11 founding), depth-5 (PP-248 cycle 212, recall = 1.000 at VE=1500),
+        and depth-10 (PP-258 cycle 214, recall = 1.000 at VE=2000) all sit at the same
+        algebraic ceiling. No empirical depth ceiling has been observed on substrate-native
+        K-hop traversal. Per-binding sharding keeps cleanup exact through depth 10.
+      </p>
+      <p>
+        Aggregation composes (PP-260 cycle 214): K-hop COUNT / SUM / MAX over hop neighbors
+        at F1 = 1.000 (n=200); cyclic-graph safety (PP-262 cycle 214) detects cycles and
+        terminates safely at 100% (VE=1000).
+      </p>
+      <p style="margin: 0">
+        Probabilistic graph networks degrade with depth; substrate K-hop scales
+        deterministically.
+      </p>
+    </div>
+
     <h2>How substrate differs from KGE baselines</h2>
     <div class="card">
       <p>
