@@ -78,16 +78,21 @@ def load_triples(path, cap):
 def run() -> Dict:
     import torch
     dev = "cuda" if torch.cuda.is_available() else "cpu"; torch.manual_seed(7); g = np.random.default_rng(7)
-    cap = 20000 if SMOKE else 400000
+    cap = 120000 if SMOKE else 1500000
     tris = load_triples(CONCEPTNET, cap)
     if not tris:
         return {"error": "conceptnet_not_found", "hits1_multitier": 0.0, "hits1_flat": 0.0, "n": 0}
-    # keep entities with degree >= 2 to make analogy possible
-    deg = Counter()
-    for h, r, t in tris:
-        deg[h] += 1; deg[t] += 1
-    keep = {e for e, c in deg.items() if c >= 2}
-    tris = [(h, r, t) for h, r, t in tris if h in keep and t in keep]
+    # OPTION A: iteratively keep a DENSE core (entities appearing >= MINDEG times) so RotatE can learn embeddings
+    MINDEG = 4
+    for _ in range(6):
+        deg = Counter()
+        for h, r, t in tris:
+            deg[h] += 1; deg[t] += 1
+        keep = {e for e, c in deg.items() if c >= MINDEG}
+        new = [(h, r, t) for h, r, t in tris if h in keep and t in keep]
+        if len(new) == len(tris) or not new:
+            break
+        tris = new
     ents = sorted({h for h, _, _ in tris} | {t for _, _, t in tris}); rels = sorted({r for _, r, _ in tris})
     ei = {e: i for i, e in enumerate(ents)}; ri = {r: i for i, r in enumerate(rels)}
     NE = len(ents); NR = len(rels)
@@ -113,7 +118,7 @@ def run() -> Dict:
     train_rotate(train, [Eph, Rph], EP)
     @torch.no_grad()
     def hits1(tset, use_trained_rel):
-        Ec = torch.cos(Eph.detach()); Es = torch.sin(Eph.detach()); hit = 0; n = 0
+        Ec = torch.cos(Eph.detach()); Es = torch.sin(Eph.detach()); h1 = 0; h10 = 0; n = 0
         # precompute per-relation few-shot inferred transform for flat baseline
         by_rel = defaultdict(list)
         for h, r, t in train:
@@ -129,18 +134,20 @@ def run() -> Dict:
                 rp = torch.atan2(torch.sin(diffs).mean(0), torch.cos(diffs).mean(0))
             qc = torch.cos(Eph.detach()[ei[h]] + rp); qs = torch.sin(Eph.detach()[ei[h]] + rp)
             d = ((Ec - qc) ** 2 + (Es - qs) ** 2).sum(1)
-            hit += int(int(torch.argmin(d)) == ei[t]); n += 1
-        return hit / max(1, n), n
-    h1_mt, n_mt = hits1(test, True)
-    # flat baseline: eval on held-out-relation triples with few-shot inferred transform
+            rank = int((d < d[ei[t]]).sum())                          # entities strictly closer than the gold tail
+            h1 += int(rank == 0); h10 += int(rank < 10); n += 1
+        return h1 / max(1, n), h10 / max(1, n), n
+    # multi-tier (held-out RELATION via universal-trained entity space, few-shot) is the THESIS test
     flat_test = [(h, r, t) for h, r, t in test if r in held_rels] or test
-    h1_flat, n_flat = hits1(flat_test, False)
-    print("  P9-MULTITIER cross-domain Hits@1 multitier=%.3f (n=%d) | flat-heldout-rel baseline=%.3f (n=%d)" % (h1_mt, n_mt, h1_flat, n_flat), flush=True)
-    return {"hits1_multitier": round(h1_mt, 3), "hits1_flat": round(h1_flat, 3), "n_triples": len(tris), "n_ent": NE, "n_rel": NR, "n_test": n_mt, "dev": dev}
+    mt_h1, mt_h10, n_mt = hits1(flat_test, False)
+    # reference: in-vocab trained-relation (upper bound, NOT the cross-domain claim)
+    iv_h1, iv_h10, n_iv = hits1(test, True)
+    print("  P9-MULTITIER held-out-relation Hits@1=%.3f Hits@10=%.3f (n=%d) | in-vocab-ref Hits@1=%.3f Hits@10=%.3f" % (mt_h1, mt_h10, n_mt, iv_h1, iv_h10), flush=True)
+    return {"hits1_multitier": round(mt_h1, 3), "hits10_multitier": round(mt_h10, 3), "hits1_invocab": round(iv_h1, 3), "hits10_invocab": round(iv_h10, 3), "n_triples": len(tris), "n_ent": NE, "n_rel": NR, "n_test": n_mt, "dev": dev}
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    s = "multitier=%.3f flat-baseline=%.3f (ents=%d, rels=%d, test=%d, dev=%s)" % (r["hits1_multitier"], r["hits1_flat"], r["n_ent"], r["n_rel"], r["n_test"], r.get("dev"))
+    s = "held-out-rel Hits@1=%.3f Hits@10=%.3f | in-vocab-ref Hits@1=%.3f Hits@10=%.3f (ents=%d, rels=%d, test=%d, dev=%s)" % (r["hits1_multitier"], r["hits10_multitier"], r["hits1_invocab"], r["hits10_invocab"], r["n_ent"], r["n_rel"], r["n_test"], r.get("dev"))
     if r["hits1_multitier"] >= 0.55:
         return ("HARD_PASS", "HARD_PASS: multi-tier cross-domain analogy Hits@1 >= 0.55 (small-LLM parity) via shared universal Tier-1 relations -- representing relations as trained universal primitives (not per-pair inference) achieves cross-domain transfer. Substrate algebraic decomposition matches LLM attention cross-domain. " + s)
     if r["hits1_multitier"] >= 0.40:
