@@ -1,0 +1,3 @@
+# visibility_decisions_2026-06-10
+
+CYCLE 219 v552->v553 (2026-06-10): 10 HP (CPU:10) MILESTONE BATCH -- v3.0 compositional cliff. 10 new PP rows PP-293..PP-302. 0 LVH. Headline: depth L3/L4/L5/L6/L8 ALL at recall_cleanup=1.000 (cleanup) vs near-zero (no-cleanup); mechanism quantified 16.13 dB/level (PP-298); capacity depth-independent kstar=80 at all L=1..5 (PP-299); width K=50 + depth L=3 compose at ceiling (PP-300); 1-bit QPSK zero loss at L=5 32x compression (PP-301); LAP4-1 RESOLVED 4x capacity via type-routing (PP-302). Portfolio 32+292->32+302 +10. HONEST=1636 LVH=273 unchanged. Queue: Exp-Dev session refills on its cadence.
