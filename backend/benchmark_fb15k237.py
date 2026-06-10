@@ -137,6 +137,20 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>Proportional analogy (PP-275 cycle 216)</h2>
+    <div class="card">
+      <p>
+        VSA proportional analogy via RotatE-style relation embeddings:
+        Hits@1 = 0.899 on n=1393 test (1,241 entities; 55 relations). The substrate
+        binding algebra (complex phasor rotation) is mathematically equivalent to
+        RotatE's relation embedding, so analogical reasoning composes natively with
+        retrieval.
+      </p>
+      <p style="margin: 0">
+        Anchor: <code>lap3_rotate_analogy_cpu_v1</code>. PP-275. cap_map v550.
+      </p>
+    </div>
+
     <h2>K-hop depth ladder all at ceiling (PP-11 / PP-248 / PP-258)</h2>
     <div class="card">
       <p>
