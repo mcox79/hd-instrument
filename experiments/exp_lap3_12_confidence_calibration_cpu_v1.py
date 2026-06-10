@@ -36,7 +36,7 @@ def run() -> Dict:
         keys = cphasor(M, N, g); vals = cphasor(VV, N, g); truth = g.integers(0, VV, size=M)
         Mem = (keys * vals[truth]).sum(axis=0)
         for _q in range(10):
-            qi = int(g.integers(0, M)); noise = g.random() * 2.5          # variable difficulty
+            qi = int(g.integers(0, M)); noise = g.random() * 5.0          # variable difficulty (wide -> accuracy spans 0..1)
             probe = Mem * np.conj(keys[qi]) + noise * (g.standard_normal(N) + 1j * g.standard_normal(N)).astype(np.complex64)
             sc = np.sort((vals @ np.conj(probe)).real)[::-1] / N
             conf = float(np.clip((sc[0] - sc[1]) / 0.5, 0, 1))           # normalized cleanup margin = confidence
@@ -48,7 +48,7 @@ def run() -> Dict:
         lo, hi = b / B, (b + 1) / B; m = (confs >= lo) & (confs < hi)
         if m.sum() > 0:
             ece += (m.sum() / len(confs)) * abs(confs[m].mean() - corrects[m].mean())
-    corr = float(np.corrcoef(confs, corrects)[0, 1])
+    corr = float(np.corrcoef(confs, corrects)[0, 1]); corr = 0.0 if np.isnan(corr) else corr
     print("  CONFIDENCE-CALIBRATION ECE=%.3f conf-acc-corr=%.3f (n=%d)" % (ece, corr, len(confs)), flush=True)
     return {"ece": round(ece, 3), "conf_acc_corr": round(corr, 3), "n": len(confs)}
 def verdict(r) -> Tuple[str, str]:
