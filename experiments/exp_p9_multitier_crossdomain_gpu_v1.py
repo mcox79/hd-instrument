@@ -137,13 +137,17 @@ def run() -> Dict:
             rank = int((d < d[ei[t]]).sum())                          # entities strictly closer than the gold tail
             h1 += int(rank == 0); h10 += int(rank < 10); n += 1
         return h1 / max(1, n), h10 / max(1, n), n
-    # multi-tier (held-out RELATION via universal-trained entity space, few-shot) is the THESIS test
+    # THESIS test: held-out-relation few-shot. NOTE: this path infers the relation from entity diffs -> it is TIER-3-ONLY
+    # (Control 3.2) -- it never uses a trained Tier-1 relation embedding.
     flat_test = [(h, r, t) for h, r, t in test if r in held_rels] or test
     mt_h1, mt_h10, n_mt = hits1(flat_test, False)
-    # reference: in-vocab trained-relation (upper bound, NOT the cross-domain claim)
+    # in-vocab trained-relation (Tier-1 Rph + Tier-3)
     iv_h1, iv_h10, n_iv = hits1(test, True)
-    print("  P9-MULTITIER held-out-relation Hits@1=%.3f Hits@10=%.3f (n=%d) | in-vocab-ref Hits@1=%.3f Hits@10=%.3f" % (mt_h1, mt_h10, n_mt, iv_h1, iv_h10), flush=True)
-    return {"hits1_multitier": round(mt_h1, 3), "hits10_multitier": round(mt_h10, 3), "hits1_invocab": round(iv_h1, 3), "hits10_invocab": round(iv_h10, 3), "n_triples": len(tris), "n_ent": NE, "n_rel": NR, "n_test": n_mt, "dev": dev}
+    # CONTROL 3.1 RANDOM-TIER-1 SHUFFLE: permute trained relation embeddings, re-eval in-vocab. If unchanged -> Tier-1 carries nothing.
+    perm = torch.randperm(NR, device=dev); _orig = Rph.data.clone(); Rph.data = Rph.data[perm]
+    sh_h1, sh_h10, _n = hits1(test, True); Rph.data = _orig
+    print("  P9 controls: held-out(Tier3-only)=Hits@10 %.3f | in-vocab(Tier1+Tier3)=%.3f | in-vocab SHUFFLED-Tier1=%.3f (n_ho=%d, n_iv=%d)" % (mt_h10, iv_h10, sh_h10, n_mt, n_iv), flush=True)
+    return {"hits10_tier3only_heldout": round(mt_h10, 3), "hits10_invocab_tier1plus3": round(iv_h10, 3), "hits10_invocab_shuffled_tier1": round(sh_h10, 3), "hits1_multitier": round(mt_h1, 3), "hits10_multitier": round(mt_h10, 3), "hits1_invocab": round(iv_h1, 3), "hits10_invocab": round(iv_h10, 3), "n_triples": len(tris), "n_ent": NE, "n_rel": NR, "n_test": n_mt, "dev": dev}
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
