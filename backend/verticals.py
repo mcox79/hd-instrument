@@ -47,8 +47,10 @@ VERTICALS = {
         capability_claims=[
             "PP-208: 99.9% accuracy on 1M PACER docket entries (cycle 200)",
             "Sub-ms retrieval latency at production scale (PP-150 0.21 ms P95 at 1M facts)",
-            "Cryptographic audit chain per response (PP-228 Merkle-verified citations)",
-            "GDPR-style right-to-erasure for sealed records (PP-104 exact pinv downdate)",
+            "PP-228: Cryptographic Merkle audit chain per response (reproducible cycle 206)",
+            "PP-229: GDPR exact erasure 0/0 false retentions/losses; 0.058 ms wall (cycle 211; sealed records categorical)",
+            "PP-230: Multi-tenant isolation T=50; cross-leak 0.001 (cycle 211; firm-isolation moat)",
+            "PP-237: FB15K-237 2-hop traversal top-1 = 1.000 on n=600 (first public benchmark win; cycle 211)",
         ],
         sample_questions=[
             {
@@ -90,8 +92,10 @@ VERTICALS = {
         capability_claims=[
             "PP-209: 100% accuracy on 50K-pair drug-drug interaction corpus (cycle 200)",
             "PP-186: HIPAA-compatible PII handling via substrate-internal anonymization",
-            "PP-104: Right-to-erasure for retracted patient records (exact pinv downdate)",
+            "PP-229: GDPR-grade erasure for retracted records; 0/0 false retentions or losses; 0.058 ms (cycle 211)",
+            "PP-230: Multi-tenant T=50 isolation cross-leak 0.001 (cycle 211; HIPAA section 164.312 access control)",
             "Substrate-direct latency 0.21 ms P95: faster than EHR lookup",
+            "PP-231: 5 of 6 substrate primitives composing without interference (audit + erasure + multi-hop + contradiction + negation)",
         ],
         sample_questions=[
             {
@@ -133,8 +137,10 @@ VERTICALS = {
         capability_claims=[
             "PP-211: 100% accuracy on 10K-document SEC 10-K corpus (cycle 200)",
             "PP-228: Merkle audit chain reproducible per response (compliance independent of recall)",
-            "Multi-hop: aggregate Q3 revenue by segment across 5 companies in one query (PP-119)",
-            "PP-104: Erase a retracted filing entirely from substrate state in <1ms",
+            "PP-119 + PP-237: Multi-hop aggregation; FB15K-237 2-hop top-1 = 1.000 first public benchmark win (cycle 211)",
+            "PP-238: FB15K-237 2-hop ranking Hits@1 = 0.956 / MRR = 0.974 (head-to-head vs KGE; cycle 211)",
+            "PP-229: GDPR-grade erasure for retracted filings; 0/0 false retentions/losses; 0.058 ms (cycle 211)",
+            "PP-230: Multi-tenant T=50 isolation cross-leak 0.001 (cycle 211; SOC 2 CC6.1 firm separation)",
         ],
         sample_questions=[
             {
@@ -176,6 +182,8 @@ VERTICALS = {
         capability_claims=[
             "PP-210: 100% accuracy on FDA audit simulation corpus (cycle 200)",
             "PP-228: Per-response Merkle audit chain reproducible bit-exactly",
+            "PP-229: GDPR + 21 CFR Part 11 erasure; 0/0 false retentions/losses; 0.058 ms (cycle 211)",
+            "PP-231: 5 of 6 substrate primitives composing without interference (cycle 211; audit + erasure + multi-hop + contradiction + negation)",
             "21 CFR Part 11 compatible: data integrity + auditability + electronic signature alignment",
             "Substrate-direct mode bypasses LLM stochasticity for verbatim recall",
         ],

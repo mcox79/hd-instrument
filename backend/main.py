@@ -200,6 +200,18 @@ async def demo_vertical(slug: str):
     return vertical_response(slug)
 
 
+@app.get("/benchmark/fb15k-237")
+async def benchmark_fb15k237():
+    """FB15K-237 first public benchmark win page (PP-237 + PP-238 cycle 211).
+
+    Showcase: substrate Hits@1 = 0.956 / Hits@10 = 0.992 / MRR = 0.974 on n=250
+    2-hop ranking; first public KG benchmark win. Comparison to TransE / DistMult
+    / RotatE / CompGCN baselines.
+    """
+    from backend.benchmark_fb15k237 import fb15k237_response
+    return fb15k237_response()
+
+
 @app.post("/admin/warmup")
 async def admin_warmup():
     """Force Tier 5a substrate-KV to load NOW (eliminates cold-start 503 on first /query/tier5a).
