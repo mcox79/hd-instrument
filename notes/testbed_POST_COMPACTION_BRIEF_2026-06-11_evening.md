@@ -13,6 +13,29 @@
 > - Strategic Research notes: 5-tier progression + full-research-ledger vision + Research-direct-CLI-workflow + scientific-corpus-ingest priorities
 > - Findings 01-05 all filed + answered same day; 1 closed loop validated (algebra-vec NET NEG -> drill -> v2 in 4 min)
 > - Stage A confirmed HEALTHY: F: drive mounted on runner; 2.09M facts; ~23 facts/sec; python procs alive
+>
+> **DAY 1 FULL CLOSE (post-refresh additions):**
+> - Layer 3 archaeology + EQUIVALENT_UNDER discovery shipped (substrate proposed 6 cross-domain equivalence candidates; 5 point at probabilistic-DP <-> graph_traversal unification not in drill 13's 42-pair catalog)
+> - Multi-seed tier_tag validation: 2/5 seeds = coincidence -> drop tier_tag; composite simplified to pure semantic
+> - Substrate-evaluation ingest path BUILT (NOT regex parser per user critique "substrate can't do its own evaluation?")
+> - User-locked rule: literature is not oracle; flag divergences as discovery; memory `feedback_literature_is_not_oracle_2026-06-11.md`
+> - Findings #4-#8 all filed and answered same day
+> - User reframe: substrate handles NOVELTY correctly via 5-class verdict (TIER-A/B/C/NOVEL/REJECT); shipped v1; surfaced jargon-overlap floor at 19/20 TIER-B
+> - Composite C (semantic + algebra HRR) shipped v2; works empirically (16 TIER-C + 4 NOVEL)
+> - 4 NOVEL atoms form TIGHT cluster (pairwise 0.65-0.86): substrate proposes new `methodology_corpus` partition for multi-operation methodological content
+> - Research VALIDATED methodology_corpus partition + OUT_OF_DOMAIN as 6th verdict class
+> - Corpus.METHODOLOGY enum + PartitionedStore.methodology partition added (Phase A)
+> - Architectural insight saved as memory: substrate atoms have TWO orthogonal axes (semantic-vec vs content-references); v3 = 3 indexes + RRF
+>
+> **Day 1 closed-loop cycles toward Tier 1+2 gates (BOTH MET):**
+> - Cycle #1: Type B (algebra-vec NET NEGATIVE) -> v2 architecture
+> - Cycle #2: Type E (Layer 3 cross-domain unifications)
+> - Cycle #3: Type B (corpus_tag PURE NOISE)
+> - Cycle #4: Type B + D simultaneously (jargon-floor -> composite C -> methodology_corpus partition)
+> - 4 cycles in 1 day; Tier 1 (>=3) + Tier 2 (substrate-proposed architectural improvement validated via Layer 1) BOTH MET
+> - Day 2 moves to Tier 3 work per Research
+>
+> **15-min heartbeat operational (ScheduleWakeup at 17:18)** per user direction.
 
 ## 30-second status
 
