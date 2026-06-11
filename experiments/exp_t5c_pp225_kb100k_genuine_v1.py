@@ -105,9 +105,14 @@ def run() -> Dict:
         f["emb"] = e.float()
     del enc_mdl; torch.cuda.empty_cache()   # free bge-large; only needed for the one-time embed
     # frozen final-logits cache (the base model never changes); add projected retrieval on top
+    _blcache = {}
     def base_logits(prompt):
-        with torch.no_grad():
-            return mdl(**tok(prompt, return_tensors="pt").to(DEV)).logits[0, -1, :]
+        v = _blcache.get(prompt)
+        if v is None:
+            with torch.no_grad():
+                v = mdl(**tok(prompt, return_tensors="pt").to(DEV)).logits[0, -1, :].detach().half().cpu()
+            _blcache[prompt] = v
+        return v.to(DEV).float()
     proj = nn.Linear(Edim, V, bias=False).to(DEV); nn.init.normal_(proj.weight, std=0.02)
     scale = nn.Parameter(torch.tensor(1.0, device=DEV))
     out_dir = get_output_dir(ANCHOR_NAME); Path(out_dir).mkdir(parents=True, exist_ok=True); prog = open(Path(out_dir) / "progress.jsonl", "a", encoding="utf-8")
