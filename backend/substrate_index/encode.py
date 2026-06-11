@@ -125,10 +125,12 @@ class AtomEncoder:
         signature_vec = self._encode_dict_to_vec(atom.signature) if atom.signature else None
         complexity_vec = self._encode_dict_to_vec(atom.complexity) if atom.complexity else None
 
-        tier_tag = self._tier_tags[atom.tier]
-        corpus_tag = self._corpus_tags[atom.corpus]
-        composite = semantic + 0.3 * tier_tag + 0.3 * corpus_tag
-        composite = composite / (np.linalg.norm(composite) + 1e-12)
+        # Per FINDINGS_05 + multi-seed validation 2026-06-11: corpus_tag PURE
+        # NOISE (drop) + tier_tag Q5 win 2/5 seeds = COINCIDENCE (drop).
+        # Composite simplifies to L2-normalized semantic alone for Index 1.
+        # Index 2 (HRR/TPR algebra) provides the substrate-distinguishing
+        # signal via algebra_index.py.
+        composite = semantic
 
         return AtomVectors(
             atom_id=atom.id,
@@ -198,11 +200,11 @@ class AtomEncoder:
             alg = self._encode_dict_to_vec(a.algebra) if a.algebra else None
             sig = self._encode_dict_to_vec(a.signature) if a.signature else None
             cpx = self._encode_dict_to_vec(a.complexity) if a.complexity else None
-            # Per FINDINGS_04 Layer 1 attribution: algebra/signature/complexity
-            # sub-vectors kept for explicit atom->atom retrieval but EXCLUDED
-            # from free-text composite (uncorrelated tag-vector subspace).
-            comp = sem + 0.3 * self._tier_tags[a.tier] + 0.3 * self._corpus_tags[a.corpus]
-            comp = comp / (np.linalg.norm(comp) + 1e-12)
+            # Per FINDINGS_04 + 05 + multi-seed: composite is pure semantic.
+            # algebra/signature/complexity sub-vectors KEPT for explicit
+            # atom->atom retrieval via algebra_index.py; tier+corpus dropped
+            # as noise per multi-seed validation.
+            comp = sem
             out[a.id] = AtomVectors(
                 atom_id=a.id, semantic=sem, identity=ident, composite=comp,
                 algebra=alg, signature=sig, complexity=cpx,
