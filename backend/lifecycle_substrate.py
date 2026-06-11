@@ -134,11 +134,11 @@ HTML = """<!doctype html>
         <div class="metric">synthetic = 1.000 (full) / online + hiermerge real-data: purity 1.000, count 13 vs K=12</div>
       </div>
 
-      <div class="primitive">
-        <h3>Dual-CLS (fast + slow stores)</h3>
-        <div class="anchor">d2_1_dual_cls_cpu_v1 (MIDDLE_BAND annotation)</div>
-        <p>Two-store complementary learning: dual_recall = 0.962 vs slow-only = 0.922 (small synergy lift +4pp). Tagged MIDDLE_BAND for capability-confidence not performance failure; lift is real but below the 10pp threshold for a new top-level row.</p>
-        <div class="metric">dual = 0.962 / slow-only = 0.922 / fast-only = 0.490</div>
+      <div class="primitive" style="border: 1px dashed #f59e0b;">
+        <h3 style="color: #f59e0b;">Dual-substrate CLS (HOLD)</h3>
+        <div class="anchor">two_substrate_fastslow_cls_cpu_v1 + v32_multiseed</div>
+        <p>The naive fast + slow two-substrate architecture fails on both axes: recent_recall = 0.689 (target 0.90), old_consolidated_recall = 0.378 (target 0.80). Stable failure across 5 seeds (cls_old std = 0.027). Full Complementary Learning Systems requires explicit consolidation policy not present in the naive split. HOLD; rescue paths pending (replay-gated transfer, asymmetric capacity, etc.).</p>
+        <div class="metric" style="color: #f59e0b;">recent = 0.689 / old = 0.378 / 5-seed-stable failure / status = HOLD</div>
       </div>
     </div>
 
@@ -174,6 +174,60 @@ HTML = """<!doctype html>
         unconfirmed at production scale. Multi-seed validation across PP-319 / 320 / 322
         is the next gate.
       </p>
+    </div>
+
+    <h2>v3.2 wrapper-layer primitives (cycle 228)</h2>
+    <div class="card">
+      <p>
+        Sprint-4 added an engineered wrapper layer over the FHRR algebra. No
+        algebra changes -- each primitive is a routing / policy choice composed
+        on top of the substrate. Demonstrates that several "missing features"
+        were engineering choices, not algebraic limits.
+      </p>
+    </div>
+
+    <div class="primitive-grid">
+      <div class="primitive">
+        <h3>Write-lock immutable regions</h3>
+        <div class="anchor">PP-353 / write_lock_threshold_cpu_v1</div>
+        <p>Wrapper routing refuses writes to locked shards. Locked memory survives 4000 subsequent writes at recall = 1.000 vs baseline collapse (0.000). Foundation for protected reference facts, constitutional constraints, compliance anchors. Seed-robust at n = 5 (std = 0.0).</p>
+        <div class="metric">locked recall = 1.000 / baseline = 0.000 / writes survived = 4000 / 5-seed std = 0.0</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Reed-Solomon erasure coding</h3>
+        <div class="anchor">PP-354 / fhrr_rs_parity_cpu_v1</div>
+        <p>FHRR additive bundles support exact phase-domain erasure coding. R = 2 parity shards via Vandermonde matrix recover lost data shards at recall = 1.000. Standard Reed-Solomon coding applies directly in phase space -- data-center-grade fault tolerance intrinsic to the algebra.</p>
+        <div class="metric">recovered recall = 1.000 / K = 6 / R = 2 parity / threshold = 0.95</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Per-tier importance policy</h3>
+        <div class="anchor">PP-355 / per_tier_importance_cpu_v1</div>
+        <p>Three-way differential refresh policy by access tier: Tier-1 always protected (1.000), Tier-3 accessed retained via refresh (1.000), Tier-3 unaccessed faded (0.004). Importance-weighted memory retention mimicking cognitive salience.</p>
+        <div class="metric">tier-1 = 1.000 / tier-3 accessed = 1.000 / tier-3 unaccessed = 0.004</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Per-role domain isolation</h3>
+        <div class="anchor">PP-356 / per_role_substrate_cpu_v1</div>
+        <p>Per-domain substrates prevent compositional crosstalk -- each role gets its own substrate; routing wrapper enforces isolation. +22.6pp recall over shared substrate. Multi-tenant isolation at role level (agent roles, application contexts, data domains). Seed-robust at n = 5.</p>
+        <div class="metric">per-role = 1.000 / shared = 0.774 / isolation delta = +0.226 / 5-seed std = 0.0</div>
+      </div>
+
+      <div class="primitive">
+        <h3>v3.2 unified wrapper composition</h3>
+        <div class="anchor">PP-357 / v32_unified_wrapper_cpu_v1</div>
+        <p>Per-role isolation + write-lock + RS-parity composing in ONE wrapper on FHRR algebra. Demonstrates that the wrapper-layer primitives are not interfering: all three operational gates pass simultaneously. Multi-seed full validation queued (n = 1 currently).</p>
+        <div class="metric">per_role = 1.000 / write_lock = 0.999 / rs_parity = 1.000</div>
+      </div>
+
+      <div class="primitive">
+        <h3>3x soft redundancy (smoke)</h3>
+        <div class="anchor">PP-358 / 3x_redundant_substrate_cpu_v1 (LVH-279)</div>
+        <p>3x mirrored copies with averaging recovers recall from 0.713 to 0.983 under corruption. Soft redundancy is complementary to hard RS-parity. Smoke-only at this scale; full-run validation queued.</p>
+        <div class="metric">3x recall = 0.983 / single-copy = 0.713 / status = smoke only</div>
+      </div>
     </div>
 
     <div class="cta-row">
