@@ -31,8 +31,11 @@ SMOKE = RUN_MODE == "smoke"
 def _dist(d):
     a = abs(d)
     return "1" if a == 1 else ("2" if a == 2 else ("3-5" if a <= 5 else "6+"))
+def _suf(w): return w[-3:] if len(w) >= 3 else w
+def _pre(w): return w[:3] if len(w) >= 3 else w
 def _arc_feats(sent, i, h):
     """features for arc head=h -> dep=i (h=0 is ROOT). sent: list of (idx, form, upos, head, deprel) 1-indexed."""
+    n = len(sent)
     dw, dp = sent[i - 1][1].lower(), sent[i - 1][2]
     if h == 0:
         hw, hp = "<ROOT>", "ROOT"; d = 0; dr = "R"
@@ -42,11 +45,18 @@ def _arc_feats(sent, i, h):
     fs = ["b", "hp:" + hp, "dp:" + dp, "hp_dp:%s_%s" % (hp, dp), "hp_dp_dir:%s_%s_%s" % (hp, dp, dr),
           "hp_dp_dist:%s_%s_%s" % (hp, dp, db), "dw:" + dw, "hw:" + hw, "hw_dw:%s_%s" % (hw, dw),
           "hp_dw:%s_%s" % (hp, dw), "hw_dp:%s_%s" % (hw, dp), "dp_dir:%s_%s" % (dp, dr), "dp_dist:%s_%s" % (dp, db)]
-    # between-POS (count of verbs/punct between) -- cheap structural cue
+    # morphology (suffix/prefix) crossed with the partner POS + direction (the POS-tagger lever)
+    fs += ["dsuf_hp:%s_%s" % (_suf(dw), hp), "hsuf_dp:%s_%s" % (_suf(hw), dp), "dsuf_dir:%s_%s" % (_suf(dw), dr),
+           "dpre_hp:%s_%s" % (_pre(dw), hp), "dsuf_dp_dir:%s_%s_%s" % (_suf(dw), dp, dr)]
+    # context POS: token before/after head and dep (surface-syntax cue)
+    hp_l = sent[h - 2][2] if h >= 2 else "<S>"; dp_l = sent[i - 2][2] if i >= 2 else "<S>"
+    dp_r = sent[i][2] if i < n else "<E>"
+    fs += ["hpl_hp_dp:%s_%s_%s" % (hp_l, hp, dp), "dpl_dp:%s_%s" % (dp_l, dp), "dpr_dp_dir:%s_%s_%s" % (dp_r, dp, dr)]
     if h != 0:
         lo, hi = min(i, h), max(i, h)
         between = [sent[k - 1][2] for k in range(lo + 1, hi)]
         if "VERB" in between: fs.append("hp_dp_bV:%s_%s" % (hp, dp))
+        if "PUNCT" in between: fs.append("hp_dp_bP:%s_%s" % (hp, dp))
         fs.append("dp_bn:%s_%s" % (dp, _dist(len(between))))
     return fs
 def _selftest():
@@ -61,7 +71,8 @@ def run() -> Dict:
     except Exception as e:
         print("[data] fail %s" % str(e)[:80], flush=True); return {"error": "load_failed", "uas": 0.0}
     if SMOKE: train = train[:400]; dev = dev[:200]
-    MAXLEN = 60
+    else: train = train[:4500]   # cap for tractable pure-Python arc-factored training (morphology features)
+    MAXLEN = 50
     train = [s for s in train if 1 <= len(s) <= MAXLEN]; dev = [s for s in dev if 1 <= len(s) <= MAXLEN]
     w = defaultdict(float); cw = defaultdict(float); c = 1
     EP = 8 if not SMOKE else 3
