@@ -58,7 +58,7 @@ _CLOUD_COST_PATH = _DATA_DIR / "cloud_cost_tracker.json"
 # Dashboard picks the freshest as the active-experiment indicator.
 _LAMBDA_PROGRESS_GLOB = "lambda_progress_*.json"
 
-POLL_INTERVAL_S = 3.0
+POLL_INTERVAL_S = 15.0
 HISTORY_LIMIT = 80
 EXP_TAIL_LINES = 8
 
