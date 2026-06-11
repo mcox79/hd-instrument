@@ -99,29 +99,56 @@ def _paragraph_coherence(text: str, encoder: AtomEncoder, max_paragraphs: int = 
     return float(off_diag.mean()) if len(off_diag) > 0 else 0.0
 
 
-def _algebra_novelty_of_top_atoms(
-    top_atom_ids: list[str],
+def _math_atoms_referenced_by_text(
+    text: str,
+    pstore: PartitionedStore,
+) -> list[str]:
+    """Find math atom IDs whose name or aliases appear in the file text.
+
+    Distinct from semantic-nearest: this is "what atoms does the file
+    LITERALLY mention by name?" — better signal for algebra_novelty since
+    drill content discusses specific math primitives by name even when its
+    overall semantic vector lives in concept-space.
+    """
+    text_lower = text.lower()
+    matched: set[str] = set()
+    for atom in pstore.all_atoms():
+        if atom.corpus.value != "math":
+            continue
+        # Build candidate phrases: name, aliases, local-id suffix
+        candidates = [atom.name.lower()]
+        for alias in atom.aliases:
+            candidates.append(alias.lower().replace("_", " "))
+        # Also try the local id minus tier prefix (e.g. "fhrr_bind" -> "fhrr bind")
+        local_id_phrase = atom.id.split("/")[-1].replace("_", " ").lower()
+        if local_id_phrase and len(local_id_phrase) > 4:
+            candidates.append(local_id_phrase)
+        for cand in candidates:
+            if len(cand) >= 4 and cand in text_lower:
+                matched.add(atom.qualified_id)
+                break
+    return sorted(matched)
+
+
+def _algebra_novelty_of_atoms(
+    atom_ids: list[str],
     aidx: AlgebraIndex,
 ) -> tuple[float, int]:
-    """Algebra novelty = 1 - avg pairwise algebra_hrr cosine among the top-K
-    math atoms. Returns (novelty, n_math_atoms_with_algebra).
+    """Algebra novelty = 1 - avg pairwise algebra_hrr cosine among given atoms.
 
     Interpretation:
-    - All top-K math atoms in same algebra cluster -> high pairwise sim -> low novelty
-    - Top-K math atoms span algebra space -> low pairwise sim -> high novelty
-
-    For non-math files where few math atoms appear in top-K, algebra_novelty
-    falls back to neutral (0.5) -- we don't know either way.
+    - All atoms in same algebra cluster -> high pairwise sim -> low novelty
+    - Atoms span algebra space -> low pairwise sim -> high novelty
     """
     algebra_vecs = []
-    for aid in top_atom_ids:
+    for aid in atom_ids:
         av = aidx._atom_vectors.get(aid)
         if av is None or av.algebra_hrr is None:
             continue
         algebra_vecs.append(av.algebra_hrr)
     n_math = len(algebra_vecs)
     if n_math < 2:
-        return (0.5, n_math)  # not enough to compute; neutral
+        return (0.5, n_math)
     mat = np.stack(algebra_vecs)
     sim = mat @ mat.T
     n = mat.shape[0]
@@ -164,8 +191,10 @@ def evaluate_file(
     avg_top3 = float(np.mean([c.score for c in candidates[:3]])) if candidates else 0.0
     semantic_novelty = 1.0 - avg_top3
 
-    # Algebra novelty: pairwise algebra_hrr spread among top-K math atoms
-    algebra_nov, n_math = _algebra_novelty_of_top_atoms(list(top5_ids), aidx)
+    # Algebra novelty: pairwise algebra_hrr spread among math atoms
+    # LITERALLY REFERENCED (by name match) in the file text
+    referenced_math = _math_atoms_referenced_by_text(text, pstore)
+    algebra_nov, n_math = _algebra_novelty_of_atoms(referenced_math, aidx)
 
     # Composite: max of the two
     composite_novelty = max(semantic_novelty, algebra_nov)
