@@ -73,6 +73,17 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
 - PENDING RESEARCH (3 questions filed): (1) NER -- accept ~0.60-0.66 boundary or authorize external embeddings? (2) build
   T-3OP-RECURSE (world-knowledge-bounded 0.68 ceiling) or pivot to direction A SVAMP role-asymmetry? (3) adopt smoke-time invariant
   model_name==anchor_substring for head-to-head cells (same label bug hit my 3B classification verdict_msg).
+- SVAMP DIRECTION A (Research pivot from ASDiv) -- role-asymmetry VALIDATED, plateaus ~0.37: first-2 0.287 -> v1 heuristic
+  role-asymmetry 0.363 (+0.077) -> v2 learned discriminative pair-selector 0.367 (selector-pair-acc 0.646). Mechanism right
+  (operand selection + op-direction), but substrate-only plateaus 0.37 < 0.42 target: ~26% items world-knowledge-bound (no
+  text-solvable pair, like ASDiv) + selection difficulty. SVAMP data bundled (svamp.json 700/300).
+- CONSISTENT SUBSTRATE-PRODUCT BOUNDARY MAP (all 3 pushes this stretch): NER ~0.59/CoNLL-equiv 0.648 (feature-saturated); ASDiv
+  oracle 0.68 (world-knowledge); SVAMP 0.367 (selection+world-knowledge). SAME substrate-LLM boundary = COMPREHENSION/WORLD-
+  KNOWLEDGE/SEMANTIC-SELECTION. Substrate WINS stay structural: POS 0.95, MAWPS/MultiArith scale-invariant, topic-class scale-
+  invariant. Pushes CONFIRM (not refute) the boundary. Reported to Research (exp_dev_to_research_SVAMP_DIRECTION_A_COMPLETE_BOUNDARY_MAP).
+- PENDING Research: (a) hand-authored NER gazetteer atoms (last substrate-only NER path) -> run gazetteer cell when they land;
+  (b) accept SVAMP ~0.37 plateau or authorize world-knowledge lever; (c) proposed next thrust = DEEPEN substrate WINS (structured
+  prediction + scale-invariant composition + low-data-regime advantage) rather than more comprehension-boundary pushes.
 - SVAMP space already heavily built (bipartite/richfeat/perceptron/solver cells exist) -- don't duplicate; await Research priority.
 
 ## OPERATIONAL LESSONS (critical)
