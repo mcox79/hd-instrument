@@ -121,9 +121,16 @@ HTML = """<!doctype html>
     <div class="primitive-grid">
       <div class="primitive">
         <h3>Tool-extended body schema (real data)</h3>
-        <div class="anchor">PP-317 / tool_extended_substrate_real_v1</div>
-        <p>Maravita-Iriki analog: substrate body-schema membership rises after tool use, indicating the tool is functionally encoded as an extension of agent body. Validated against real-ish noisy sensor data (post-audit AUC = 0.883). Research-grade primitive; not a full embodied-cognition claim.</p>
-        <div class="metric">membership AUC = 0.883 (real-data) / synthetic AUC = 1.000 / tool_delta = +0.180</div>
+        <div class="anchor">PP-317 + PP-326 / tool_extended_real_cpu_v1</div>
+        <p>Maravita-Iriki analog: substrate body-schema membership rises after tool use, indicating the tool is functionally encoded as an extension of agent body. Real-data audit (PP-326 cycle 223) on correlated + noisy inputs: AUC = 0.866 (passes the 0.85 threshold). Research-grade primitive; not a full embodied-cognition claim.</p>
+        <div class="metric">membership AUC = 0.866 (real-data) / synthetic = 1.000 / tool_delta = +0.180</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Cross-modal FHRR binding</h3>
+        <div class="anchor">PP-329 / t_bind_1_cpu_v1</div>
+        <p>Multimodal scene binding via Fourier holographic reduced representations: 25 concurrent scenes with cross-modal retrieval at recall = 0.944. Substrate-only multimodal binding; no cross-modal contrastive loss required.</p>
+        <div class="metric">crossmodal recall = 0.944 / scenes = 25 / threshold = 0.80</div>
       </div>
 
       <div class="primitive hold">
@@ -154,17 +161,17 @@ HTML = """<!doctype html>
     <h2>Intrinsic motivation</h2>
     <div class="primitive-grid">
       <div class="primitive">
-        <h3>Novelty saturation / boredom</h3>
-        <div class="anchor">PP-315 / boredom_detection_cpu_v1</div>
-        <p>Cleanup-margin against a decayed recent-experience buffer discriminates repeated inputs from novel inputs (AUC = 1.000) and tracks repetition density (corr = 0.815). Foundation for selective attention, active-learning loops, and exploration-exploitation policies in agent architectures.</p>
-        <div class="metric">AUC = 1.000 / density_corr = 0.815 / n = 4200</div>
+        <h3>Novelty saturation / boredom (real data)</h3>
+        <div class="anchor">PP-315 + PP-325 / boredom_real_cpu_v1</div>
+        <p>Cleanup-margin against a decayed recent-experience buffer discriminates repeated vs novel inputs. Synthetic AUC = 1.000; real-data audit (PP-325 cycle 223) on Zipfian-distributed + correlated inputs: AUC = 0.908. Foundation for selective attention, active learning, exploration-exploitation policies.</p>
+        <div class="metric">AUC = 0.908 (real-data) / synthetic = 1.000 / density_corr = 0.815</div>
       </div>
 
       <div class="primitive">
-        <h3>(reserved)</h3>
-        <div class="anchor">curiosity / empowerment primitives</div>
-        <p>Empowerment-style intrinsic drive (PP-272) shows perfect state-tracking but weak policy lift at current probe scale. Curiosity-via-prediction-error is a candidate primitive but not yet validated at production scale.</p>
-        <div class="metric">status = early signals; production validation pending</div>
+        <h3>Offline consolidation / dreaming</h3>
+        <div class="anchor">PP-328 / dreaming_substrate_cpu_v1</div>
+        <p>Offline replay over substrate state compresses memory traces (0.712), measures compression progress autonomously (0.618), and discovers 7 latent schemas at cluster purity 0.875 -- no labels, no supervised loss. Substrate-only analog of sleep-replay schema consolidation.</p>
+        <div class="metric">compression = 0.712 / progress = 0.618 / schemas = 7 / purity = 0.875</div>
       </div>
     </div>
 

@@ -193,6 +193,24 @@ HTML = """<!doctype html>
     </div>
 
 
+    <h2>Cross-domain reasoning via SLIPNET substrate (PP-327 cycle 223)</h2>
+    <div class="card">
+      <p>
+        Cross-domain analogy was the most open question in our v3.0 architecture
+        list this morning. The SLIPNET-substrate mechanism (Hofstadter fluid
+        analogy ported to FHRR) lands the cross-domain claim empirically:
+        Hits@1 = 0.985 vs degree-based baseline = 0.827, lift = +0.158. Substrate
+        addresses cross-domain at the relation-type level, not entity-geometry --
+        a new mechanism that the prior SME and P9-Option-A approaches could not
+        crack.
+      </p>
+      <p style="margin: 0">
+        Tagged EXPLORATORY (0.78-0.92) per cap_map cycle 223; n = 1 seed but
+        ceiling-consistent. Real-benchmark validation queued. Anchor:
+        <code>slipnet_substrate_cpu_v1</code>.
+      </p>
+    </div>
+
     <h2>Composition is genuine, not an artifact (PP-314 cycle 221)</h2>
     <div class="card">
       <p>
