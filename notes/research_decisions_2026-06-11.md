@@ -31,3 +31,4 @@ cls_2substrate_rescue_2x (2026-06-11): RESCUE-4 dedicated consolidation pass P_d
 
 - reasoning_composition_routing_2x (2026-06-11): Phase 3 routing design delivered -> notes/research_drill_reasoning_composition_routing_2x_2026-06-11.md ; 6-class taxonomy + substrate-as-classifier + DPEFE-iterative + ensemble ; P_deflated=0.35 ; cheapest test: 30-instance synthetic oracle ~30min laptop
 - 2026-06-11: tier2_problem_schemas_2x -> notes/research_drill_tier2_problem_schemas_2x_2026-06-11.md | HEADLINE: 114-schema Tier-2 codebook (42 math + 45 code + 27 CS) with universal role-filler binding; cheapest test = RT-1 2-hr CPU smoke; P_deflated=0.42; next-drill = algebraic primitive integration
+- phase4 math role-binding 2x drill: literature REFUTES dep-parser conclusion; bipartite-matching prototype proposed -> notes/research_drill_phase4_math_role_binding_2x_2026-06-11.md (+ exp_dev_handoff_research_phase4_math_role_binding_2026-06-11.md)
