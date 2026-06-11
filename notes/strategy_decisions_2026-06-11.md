@@ -715,3 +715,67 @@ UNKNOWN v568: load_failed (cycle 234). 2x PROT-004/006: verify absolute path; bu
 UNKNOWN v568: load_failed (cycle 234). Shares RESCUE-1/2 with fulldata. No cap_map credit.
 
 Cap_map: v567 -> v568 CYCLE 234 (1 HP [phase4b_multistep_multiseed 5-seed]; 3 MIDDLE_BAND [unified_multiseed + unified_balanced + algopattern]; 1 HF [typeclass]; 2 UNKNOWN [load_failed]; 0 LVH; 1 NEW PP ROW PP-378; PP-375 TIER A promotion; PP-377 multi-seed annotation; Portfolio 32+377 -> 32+378 +1; HONEST 1769->1776 +7; LVH 285->285 +0; 462nd PROT-009 paired commit) (2026-06-11)
+
+## v568 -> v569 CYCLE 235 9-VERDICT BATCH (2026-06-11)
+
+GSM8K ceiling + ASDiv cascades + discriminative NLP series (depparse, POS, NER) + code-synthesis retrieval + isotonic calibration. All on cpu_runner_local (FrameworkMPC).
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 9 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 2 LVH catches.
+
+**phase4b_gsm8k_ceiling_cpu_v1 MIDDLE_BAND:** ceiling_1op=0.160, ceiling_2op=0.385, n=1157. Verdict_msg band '0.20-0.40' refers to 2-op reachability (0.385 in-band). HONEST. Note: ceiling_1op=0.160 is below 0.20 but verdict applies to <=2-op ceiling (0.385). MIDDLE_BAND correct.
+
+**asdiv_cascade_cpu_v1 MIDDLE_BAND:** cascade=0.300, baseline-first2=0.255, n_test=800. Band '0.30-0.40'; actual 0.300 at floor. HONEST.
+
+**[LVH-286] asdiv_cascade_v2_cpu_v1 HARD_FAIL (over-claim):** verdict_msg says 'HARD_FAIL: <0.30' but actual accuracy=0.309 > 0.30. OVER-CLAIM. Honest reading: MIDDLE_BAND. v2 marginally above v1 (0.309 vs 0.300 +0.9pp). LVH-286 filed. Treat as MIDDLE_BAND downstream.
+
+**depparse_discriminative_cpu_v1 MIDDLE_BAND:** UAS=0.735, n_arcs=24444, train=4420. Band '0.70-0.80'; actual 0.735 in-band. HONEST.
+
+**code_synthesis_retrieval_cpu_v1 MIDDLE_BAND:** pass@1=0.074, n_passed=37, n_test=500. Band '0.05-0.15'; actual 0.074 in-band. HONEST.
+
+**pos_discriminative_perceptron_cpu_v1 HARD_PASS:** accuracy=0.9499, threshold>=0.92, n_tokens=18699, train=1800. 0.9499>>0.92. HONEST.
+
+**calibration_isotonic_cpu_v1 HARD_PASS:** ece_raw=0.2331, ece_post=0.0435, threshold<0.05, n_test=250. 0.0435<0.05 cleanly. HONEST.
+
+**depparse_hashed_cpu_v1 MIDDLE_BAND:** UAS=0.7868, n_arcs=24444, train=12329. Band '0.75-0.80'; actual 0.7868 in-band. HONEST.
+
+**[LVH-287] ner_discriminative_cpu_v1 HARD_FAIL (over-claim):** verdict_msg says 'HARD_FAIL: NER F1 <0.55' but actual F1=0.5817 > 0.55. OVER-CLAIM. Honest reading: MIDDLE_BAND (below HP bar but above stated HF threshold). LVH-287 filed. Treat as MIDDLE_BAND downstream.
+
+HONEST: 1776 -> 1785 (+9). LVH: 285 -> 287 (+2, LVH-286 asdiv_cascade_v2 accuracy=0.309 vs '<0.30'; LVH-287 ner_discriminative F1=0.5817 vs 'F1 <0.55'). 2 LVH catches.
+
+### Cap_map decisions (v568 -> v569)
+
+**(A) phase4b_gsm8k_ceiling_cpu_v1 (MIDDLE_BAND -- GSM8K ceiling probe; annotation on math series):**
+phase4b_gsm8k_ceiling_cpu_v1 MIDDLE_BAND v569: ceiling_1op=0.160, ceiling_2op=0.385, n=1157 (cycle 235). GSM8K CEILING PROBE: at most 38.5% of GSM8K problems reachable by <=2-op substrate discriminative approach. Below 0.30 commercial-claim bar on direct accuracy. 1-op ceiling=0.160 confirms single-op baseline low. Honest boundary: GSM8K harder than MAWPS (0.806) or MultiArith (0.750) due to multi-step linguistic complexity. No new PP row. Annotation on PP-374/PP-376 (math series ceiling per Research 928e8301 action item 2: <0.30 honest boundary). Cross-ref PP-373 (SVAMP richfeat), PP-374 (multibench), PP-376 (Tier A).
+
+**(B) asdiv_cascade_cpu_v1 (MIDDLE_BAND -- ASDiv cascade first positive; annotation on math series):**
+asdiv_cascade_cpu_v1 MIDDLE_BAND v569: cascade=0.300, baseline=0.255, n_test=800 (cycle 235). ASDIV CASCADE FIRST POSITIVE: verifier/selection cascade lifts ASDiv from 0.255 to 0.300 (+4.5pp). At floor of MIDDLE_BAND. Confirms substrate cascade architecture provides consistent lift on ASDiv mixed adversarial distribution. No new PP row; annotation on PP-374 (multi-benchmark: ASDiv=0.224 direct vs 0.300 cascade shows routing adds lift). Dep-parse features needed for 0.40+ target.
+
+**(C) [LVH-286] asdiv_cascade_v2_cpu_v1 (MIDDLE_BAND honest reclassify -- no new row):**
+[LVH-286] asdiv_cascade_v2_cpu_v1 MIDDLE_BAND v569 (honest reclassify): accuracy=0.309, n_test=800 (cycle 235). LABEL OVER-CLAIMED: 'HARD_FAIL: <0.30' contradicts actual 0.309>0.30. Honest: MIDDLE_BAND. v2 marginally above v1 (0.309 vs 0.300; +0.9pp within noise). Neither v1 nor v2 reaches 0.40+ target. 1-op+2-op mix training not a meaningful rescue. LVH-286 filed. No new PP row.
+
+**(D) depparse_discriminative_cpu_v1 (MIDDLE_BAND -- first discriminative depparse positive; annotation on series):**
+depparse_discriminative_cpu_v1 MIDDLE_BAND v569: UAS=0.735, n_arcs=24444, train=4420 (cycle 235). DISCRIMINATIVE DEPPARSE FIRST POSITIVE: structured-perceptron arc-scoring achieves UAS=0.735 without corpus dependency (prior depparse corpus_load_failed 3x). Bypasses NLTK PTB blocker. MIDDLE_BAND [0.70-0.80]. Path to >0.85: 3rd-order features + morphology + MST decode. Unblocks POS+OOV+math dependency-parse features. Annotation on PP-364 (POS series) and PP-374 (math: dep-parse features needed for SVAMP>0.30). No new PP row (MIDDLE_BAND; HP bar is 0.85).
+
+**(E) code_synthesis_retrieval_cpu_v1 (MIDDLE_BAND -- confirms code synthesis ceiling; annotation on PP-378):**
+code_synthesis_retrieval_cpu_v1 MIDDLE_BAND v569: pass@1=0.074, n_passed=37, n_test=500, n_templates=474 (cycle 235). CODE SYNTHESIS RETRIEVAL CEILING: 7.4% pass@1 confirms substrate-only retrieval synthesis handles only near-duplicate problems. Non-retrieval synthesis requires explicit composition (PP-378 algo-pattern is the right direction). Annotation on PP-378 (Phase-4D: retrieval ceiling known; algo-pattern 0.623 structurally richer). No new PP row.
+
+**(F) pos_discriminative_perceptron_cpu_v1 (HARD_PASS -- NEW ROW PP-379):**
+NEW ROW PP-379: pos_discriminative_perceptron_cpu_v1 HARD_PASS v569: accuracy=0.9499, threshold>=0.92, n_tokens=18699, n_train=1800 sents, n_tags=44, n_seeds=1 (cycle 235). DISCRIMINATIVE STRUCTURED-PERCEPTRON POS TAGGER: 0.9499 >> 0.92 HP bar and >> HMM 0.906 (cycle-230 PP-364). Corpus-free discriminative approach lifts POS 0.906->0.9499 (+4.4pp). Same discriminative lever that works for math (PP-374/PP-376) and code (PP-378) generalizes to POS tagging. Unblocks PP-364 upgrade path toward Brill 1995 0.967 Tier-A bar. Product implication: substrate POS tagging near-human-level without LLM using structured-perceptron. P-band: 0.78-0.90 EXPLORATORY n=1 full elapsed=158s. Cross-ref PP-364 (HMM 0.906 seed-robust), PP-374 (math discriminative analogy), PP-381 (depparse hashed same cycle).
+
+**(G) calibration_isotonic_cpu_v1 (HARD_PASS -- NEW ROW PP-380):**
+NEW ROW PP-380: calibration_isotonic_cpu_v1 HARD_PASS v569: ece_raw=0.2331, ece_post=0.0435, threshold<0.05, n_test=250, n_seeds=1 (cycle 235). ISOTONIC CALIBRATION CLOSES ECE TO <0.05: post-calibration ECE drops 5.4x (0.2331->0.0435). Substrate classifier confidences become calibrated probabilities via isotonic regression. Closes conformal-prediction #3 uncalibration finding (cycle-217 PP-277 ECE work). No LLM needed. Product implication: substrate outputs convertible to calibrated confidence scores for uncertainty-aware downstream decisions (risk thresholding, abstain logic, conformal prediction sets). Extends PP-277 (ECE gate) to per-sample calibrated uncertainty. P-band: 0.82-0.92 EXPLORATORY n=1 full elapsed=0.24s. Cross-ref PP-277 (ECE cycle-217), PP-371 (reasoning routing benefits from calibrated confidence).
+
+**(H) depparse_hashed_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-381; stronger hashed depparse variant):**
+NEW ROW PP-381: depparse_hashed_cpu_v1 MIDDLE_BAND v569: UAS=0.7868, n_arcs=24444, n_train=12329, n_seeds=1 (cycle 235). HASHED DEPPARSE STRONGER VARIANT: UAS=0.787 vs discriminative 0.735 (item D) -- hashed features with 3x more training data lift UAS +5.2pp. MIDDLE_BAND [0.75-0.80]: above discriminative but below 0.85 HP. Path: 3rd-order + MST global decode. Both discriminative and hashed variants now operational without corpus dependency; hashed preferred at current data scale. P-band: 0.62-0.76 EXPLORATORY n=1 full elapsed=183s. Cross-ref PP-379 (disc POS same mechanism), PP-374 (math: dep-parse features needed for SVAMP lift).
+
+**(I) [LVH-287] ner_discriminative_cpu_v1 (MIDDLE_BAND honest reclassify -- PROT-004/006 rescue sketches):**
+[LVH-287] ner_discriminative_cpu_v1 MIDDLE_BAND v569 (honest reclassify): F1=0.5817, P=0.602, R=0.562, n_train=5982, n_tags=36, n_seeds=1 (cycle 235). LABEL OVER-CLAIMED: 'HARD_FAIL: NER F1 <0.55' contradicts actual F1=0.5817>0.55. Honest: MIDDLE_BAND. NER harder than POS (36 fine-grained tags; entity boundary detection needed; fewer examples per class). No new PP row. PROT-004/006 rescue sketches (cheapest first):
+RESCUE-1 (cheapest/subsumption): bigram boundary features -- add B-tag vs I-tag transition features to perceptron.
+RESCUE-2: BIO-scheme constrained viterbi -- enforce valid B-I-O transitions in decode.
+RESCUE-3: gazetteer injection -- pre-built entity lexicon as binary feature overlay.
+RESCUE-4: more training data -- expand from 5982 to full CoNLL 2003 (14987 tokens).
+RESCUE-5: cascade NER -- substrate POS-tagger (PP-379 0.9499) feeds NER as pre-filter.
+
+Cap_map: v568 -> v569 CYCLE 235 (2 HP [PP-379 pos-disc-perceptron 0.9499; PP-380 isotonic-calibration ECE<0.05]; 5 MIDDLE_BAND [GSM8K-ceiling + ASDiv-cascade-v1 + depparse-discriminative + code-synthesis-retrieval + depparse-hashed]; 0 HF (2 honest-reclassify: LVH-286 asdiv_cascade_v2 + LVH-287 ner_discriminative); 2 LVH [LVH-286 asdiv_cascade_v2 accuracy=0.309 vs '<0.30'; LVH-287 ner_discriminative F1=0.5817 vs 'F1 <0.55']; 3 NEW PP ROWS PP-379/PP-380/PP-381 [disc-POS 0.9499; isotonic-ECE<0.05; hashed-depparse 0.787]; 5x NER PROT-004/006 rescue sketches; 0 row closures; Portfolio 32+378 -> 32+381 +3; HONEST 1776->1785 +9; LVH 285->287 +2; 463rd PROT-009 paired commit) (2026-06-11)

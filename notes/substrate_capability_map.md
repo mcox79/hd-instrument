@@ -28229,3 +28229,25 @@ No cap_map credit.
 phase4d_code_multiseed_cpu_v1 UNKNOWN v568: load_failed, accuracy=0.0, elapsed=2.5s (cycle 234). Same as fulldata. Shares RESCUE-1/2. No cap_map credit.
 
 Cap_map: v567 -> v568 CYCLE 234 (1 HP [CPU:1; phase4b_multistep_multiseed 5-seed]; 3 MIDDLE_BAND [CPU:3; unified_multiseed + unified_balanced + algopattern]; 1 HF [CPU:1; typeclass]; 2 UNKNOWN [load_failed]; 0 LVH; 1 NEW PP ROW PP-378 [algopattern first Phase-4D positive]; PP-375 TIER A seed-robust promotion; PP-377 multi-seed annotation MIDDLE_BAND 0.442; 5x typeclass PROT-004/006; 2x fulldata/multiseed infra rescues; balanced vs full-data: full preferred; 0 closures; Portfolio 32+377 -> 32+378 +1; HONEST 1769->1776 +7; LVH 285->285 +0; 462nd PROT-009 paired commit) (2026-06-11)
+
+## v568 -> v569 @ CYCLE 235 9-VERDICT BATCH NLP-disc-series + math-ceiling + isotonic-calibration (verdict_handler 463rd PROT-009 paired commit; 2 HP 5 MB 0 HF [2 LVH honest-reclassify]; 2 LVH-286/287 filed; 3 new PP rows PP-379/PP-380/PP-381; Portfolio 32+378->32+381; HONEST 1776->1785; LVH 285->287)
+
+Batch: GSM8K-ceiling + ASDiv-cascade-v1 + ASDiv-cascade-v2[LVH-286] + depparse-discriminative + code-synthesis-retrieval + pos-disc-perceptron + calibration-isotonic + depparse-hashed + ner-discriminative[LVH-287]. All cpu_runner_local FrameworkMPC. 2 LVH: asdiv_cascade_v2 accuracy=0.309 vs '<0.30' (LVH-286); ner_discriminative F1=0.5817 vs 'F1 <0.55' (LVH-287).
+
+**NEW ROW PP-379: pos_discriminative_perceptron_cpu_v1 HARD_PASS v569:** accuracy=0.9499, threshold>=0.92, n_tokens=18699, n_train=1800 sents, n_tags=44, n_seeds=1 (cycle 235). DISCRIMINATIVE STRUCTURED-PERCEPTRON POS TAGGER: 0.9499 >> 0.92 HP bar and >> HMM 0.906 (PP-364). Discriminative arc-feature mechanism lifts POS 0.906->0.9499 (+4.4pp). Same lever as math (PP-374/PP-376) and code (PP-378). Unblocks PP-364 upgrade toward Brill 1995 0.967 Tier-A bar. P-band: 0.78-0.90 EXPLORATORY n=1 full. Cross-ref PP-364, PP-374, PP-381.
+
+**NEW ROW PP-380: calibration_isotonic_cpu_v1 HARD_PASS v569:** ece_raw=0.2331, ece_post=0.0435, threshold<0.05, n_test=250, n_seeds=1 (cycle 235). ISOTONIC CALIBRATION CLOSES ECE TO <0.05: 5.4x reduction. Closes conformal-prediction #3 uncalibration finding (cycle-217 PP-277). Substrate classifier outputs -> calibrated probabilities for risk thresholding, abstain, conformal sets. No LLM needed. P-band: 0.82-0.92 EXPLORATORY n=1 full elapsed=0.24s. Cross-ref PP-277, PP-371.
+
+**NEW ROW PP-381: depparse_hashed_cpu_v1 MIDDLE_BAND v569:** UAS=0.7868, n_arcs=24444, n_train=12329, n_seeds=1 (cycle 235). HASHED DEPPARSE: UAS=0.787 vs discriminative 0.735 (this cycle) -- hashed features 3x training data lift +5.2pp. MIDDLE_BAND [0.75-0.80]. Both depparse variants now operational without corpus dependency. Hashed preferred at current scale. Path: 3rd-order + MST decode for >0.85 HP. P-band: 0.62-0.76 EXPLORATORY n=1 full elapsed=183s. Cross-ref PP-379, PP-374.
+
+**ANNOTATIONS this cycle:**
+- PP-374/PP-376 (math series): GSM8K ceiling probe confirms <0.30 honest boundary; <=2-op reachability=0.385 is the structural ceiling (Research 928e8301 action item 2 confirmed).
+- PP-374 (multi-benchmark): ASDiv cascade=0.300 (+4.5pp over direct 0.255) annotated; routing adds lift; dep-parse features needed for 0.40+.
+- PP-364 (POS seed-robust): PP-379 disc-perceptron 0.9499 upgrades PP-364 HMM row toward Tier-A. Multi-seed cycle pending.
+- PP-278 (code synthesis): code_synthesis_retrieval pass@1=0.074 confirms 7.4% ceiling on retrieval-only synthesis; algo-pattern (PP-378) is structurally richer alternative.
+
+**[LVH-286] asdiv_cascade_v2 honest reclassify:** accuracy=0.309 vs verdict_msg '<0.30'. MIDDLE_BAND. v2 marginal lift over v1 (+0.9pp within noise). No new row.
+
+**[LVH-287] ner_discriminative honest reclassify:** F1=0.5817 vs verdict_msg 'F1 <0.55'. MIDDLE_BAND. NER harder than POS (36 fine-grained tags, entity boundary detection). PROT-004/006 rescues: R1 bigram-boundary-features (cheapest); R2 BIO-viterbi; R3 gazetteer; R4 full-CoNLL-data; R5 cascade-POS-feed. No new row.
+
+Cap_map: v568 -> v569 CYCLE 235 (2 HP [PP-379 pos-disc-perceptron 0.9499; PP-380 isotonic-ECE<0.05]; 5 MIDDLE_BAND [GSM8K-ceiling annotation; ASDiv-v1 annotation; depparse-discriminative; code-synthesis annotation; depparse-hashed]; 0 HF [2 honest-reclassify LVH-286/LVH-287]; 2 LVH filed [LVH-286+LVH-287]; 3 NEW PP ROWS [PP-379/PP-380/PP-381]; 5x NER PROT-004/006; PP-374/PP-376/PP-364/PP-278 annotations; 0 closures; Portfolio 32+378 -> 32+381 +3; HONEST 1776->1785 +9; LVH 285->287 +2; 463rd PROT-009 paired commit) (2026-06-11)
