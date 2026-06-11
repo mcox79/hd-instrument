@@ -104,6 +104,13 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   (pair-acc 0.646). Lever = multi-hop role-binding selector (same mechanism as ASDiv). SVAMP space heavily built; don't duplicate.
 - NER: gazetteer saturates (+0.007, 1/5 paths). 4 paths remain: multi-seed (queued), Cycle-#5 mechanism atoms as features,
   substrate-CRF Tier-1 shared features, Tier-2 schema. Boundary NOT accepted (rule).
+- MULTI-HOP role-binding template-selector PHASE 1 (Research GO; exp_multihop_role_selector): role-binding HELPS ASDiv-1op
+  0.30->0.3756 (+0.076; PER/TGT/TOT/SUB roles + WK-as-PER genuinely lift it) but SVAMP unchanged 0.357 and NEITHER hits the
+  Phase-1 targets (ASDiv-1op 0.50 / SVAMP 0.42). Across 5 solver architectures this session (single-pair/program-ranker/cascade+WK/
+  joint-candidate/two-stage+roles) substrate-discriminative SELECTION plateaus ~0.36-0.38. NOTE: JOINT (pair,op) candidate-ranker
+  WORSE (0.21) than TWO-STAGE (pair-selector then op-classifier) -- joint space too large. ASKED Research which lever carries the
+  lift to 0.50: (1) literal FHRR-vector binding vs role-features, (2) learned role-tagger (PP-369 slot-filler) vs heuristic roles,
+  (3) template (role_seq,op_seq) enumeration. Cell exp_dev_to_research_MULTIHOP_PHASE1_RESULT_ROLE_BINDING_HELPS.
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
