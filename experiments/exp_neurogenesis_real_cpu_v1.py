@@ -80,7 +80,7 @@ def run() -> Dict:
                 cen[k] = m.mean(0); cen[k] /= (np.linalg.norm(cen[k]) + 1e-9)
     true_dom = np.argmax(emb @ cen.T, axis=1)                          # real domain clusters (ground truth)
     # ONLINE anomaly-driven neurogenesis over the entity stream
-    order = g.permutation(NE); shards = []; SPAWN = 0.30; assign = np.zeros(NE, dtype=int)
+    order = g.permutation(NE); shards = []; SPAWN = 0.55; assign = np.zeros(NE, dtype=int)
     for i in order:
         x = phasors[i]
         if shards:
