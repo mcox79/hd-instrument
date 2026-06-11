@@ -22,18 +22,42 @@ from typing import Optional
 
 
 class Corpus(enum.Enum):
-    """Top-level corpus partition."""
+    """Top-level corpus partition.
+
+    Per Research SELF_INDEX_RESCOPE_ENDORSED 2026-06-11 Refinement 3:
+    partitioned-substrate-with-role-binding architecture -- math + concept + meta
+    are SEPARATE stores with explicit cross-store linking, NOT a single global
+    substrate (prevents meta-rule self-collapse + unbounded self-reference).
+    """
     MATH = "math"
     CONCEPT = "concept"
+    META = "meta"      # methodology rules, architectural decisions, failure modes
 
 
 class Tier(enum.Enum):
-    """Tier for math atoms; CONCEPT atoms use TIER_NA."""
+    """Tier for math atoms; CONCEPT/META atoms use TIER_NA."""
     TIER_1_FOUNDATIONAL = "T1"  # vector spaces, fields, distributions
-    TIER_2_PRIMITIVE = "T2"     # FHRR bind/unbind/cleanup/bundle
-    TIER_3_ALGORITHM = "T3"     # Viterbi, Hungarian, PCA whitening
-    TIER_4_COMPOSED = "T4"      # substrate POS tagger, slot filler
-    TIER_NA = "NA"              # concept atoms don't have a tier
+    TIER_2_PRIMITIVE = "T2"     # FHRR bind/unbind/cleanup/bundle + family-tags
+    TIER_3_ALGORITHM = "T3"     # Viterbi, Hungarian, PCA whitening + 300-500 sub-ops
+    TIER_4_COMPOSED = "T4"      # substrate POS tagger, slot filler (macro-atoms)
+    TIER_NA = "NA"              # concept/meta atoms don't have a tier
+
+
+class AtomKind(enum.Enum):
+    """Per Research Refinement 1 granularity: 300-500 sub-ops + 20-30 family-tags
+    + 80-100 macro-atoms. AtomKind distinguishes the role within a tier.
+
+    - PRIMITIVE: regular atomic operation or concept (default)
+    - FAMILY_TAG: Tier-2 cluster tag grouping related sub-ops (e.g. "global discrete
+                  optimization" tags Viterbi + Chu-Liu-Edmonds + Hungarian)
+    - SUB_OP: Tier-3 fine-grained sub-operation (e.g. specific step in Viterbi DP)
+    - MACRO: Tier-4 composite named entry point (substrate POS tagger references
+             many sub-ops via USES_SUBPROC edges)
+    """
+    PRIMITIVE = "primitive"
+    FAMILY_TAG = "family_tag"
+    SUB_OP = "sub_op"
+    MACRO = "macro"
 
 
 class RelationType(enum.Enum):
