@@ -152,6 +152,13 @@ HTML = """<!doctype html>
         <p>Concept-level cross-language retrieval over 400 concepts and 4 languages: direct A-&gt;B pivot at 0.997, zero-shot A-&gt;C-via-B pivot at 1.000. Concept-level translation-interlingua signal; not full text translation.</p>
         <div class="metric">A-&gt;B = 0.997 / A-&gt;C pivot = 1.000 / n_concepts = 400</div>
       </div>
+
+      <div class="primitive">
+        <h3>Distant-language translation</h3>
+        <div class="anchor">PP-345 / comm2_translation_distant_cpu_v1</div>
+        <p>Substrate-only systematic translation across typologically-distant orders (SVO / SOV / VSO): concept pivot via interlingua at 1.000, word-order reordering via stored templates at 1.000. Substrate handles the systematic / compositional layer; complex statistical syntax remains LLM domain.</p>
+        <div class="metric">concept accuracy = 1.000 / order accuracy = 1.000</div>
+      </div>
     </div>
 
     <h2>Domain-specific compositional shards at production scale</h2>
