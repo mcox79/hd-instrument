@@ -94,19 +94,33 @@ class RelationType(enum.Enum):
 class Atom:
     """One knowledge unit in the substrate self-index.
 
-    `id` is the stable identifier (e.g., "math/T2/fhrr_bind" or "concept/PP-364").
+    `id` is the stable identifier (e.g., "T2/fhrr_bind", "PP-364"). Within a single
+    Corpus partition (math / concept / meta), ids are unique.
     `name` is the human-readable short name.
+    `corpus` is the partition the atom lives in (controls which Store holds it).
+    `tier` is the Tier classification (math) or TIER_NA (concept / meta).
+    `kind` is the role classification (PRIMITIVE / FAMILY_TAG / SUB_OP / MACRO);
+        defaults to PRIMITIVE.
     `description` is the multi-sentence English description that gets bge-encoded.
     `aliases` are alternate names that should match in retrieval.
     `metadata` is free-form (e.g., complexity class, paper reference).
+
+    Fully qualified atom id is `{corpus.value}::{id}` -- e.g., `math::T2/fhrr_bind`.
+    The partitioned-store coordinator handles cross-store relations using these
+    qualified ids.
     """
     id: str
     name: str
     corpus: Corpus
     tier: Tier
     description: str
+    kind: AtomKind = AtomKind.PRIMITIVE
     aliases: tuple[str, ...] = field(default_factory=tuple)
     metadata: dict = field(default_factory=dict)
+
+    @property
+    def qualified_id(self) -> str:
+        return f"{self.corpus.value}::{self.id}"
 
     def to_dict(self) -> dict:
         return {
@@ -114,6 +128,7 @@ class Atom:
             "name": self.name,
             "corpus": self.corpus.value,
             "tier": self.tier.value,
+            "kind": self.kind.value,
             "description": self.description,
             "aliases": list(self.aliases),
             "metadata": dict(self.metadata),
@@ -126,6 +141,7 @@ class Atom:
             name=d["name"],
             corpus=Corpus(d["corpus"]),
             tier=Tier(d.get("tier", "NA")),
+            kind=AtomKind(d.get("kind", "primitive")),
             description=d["description"],
             aliases=tuple(d.get("aliases", [])),
             metadata=dict(d.get("metadata", {})),
