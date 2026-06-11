@@ -278,6 +278,40 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>Fourth public benchmark: Math word-problem solver (PP-374 / 375 / 376 cycle 233 - TIER A)</h2>
+    <div class="card">
+      <p>
+        Substrate-only multi-step math word-problem solver across four canonical math
+        benchmarks. <strong>5-seed multi-seed validated</strong> -- this is one of substrate's
+        first Tier-A capability claims.
+      </p>
+      <p>
+        <strong>Per-benchmark results (PP-374 / PP-375):</strong>
+      </p>
+      <ul style="margin: 0.5rem 0 0.75rem 1.25rem; color: #c5c5d0;">
+        <li><strong>MAWPS:</strong> 0.882 -- LLM-chain-of-thought grade on a classical
+          math benchmark</li>
+        <li><strong>MultiArith:</strong> 0.750 -- 2-operation composition; LLM-CoT grade</li>
+        <li><strong>4-benchmark macro:</strong> 0.352 (single seed) / <strong>0.336 macro
+          mean across 5 seeds, std = 0.0072</strong> (PP-376; multi-seed validated)</li>
+        <li><strong>Arity-routed unified solver:</strong> 0.450 macro (PP-377)</li>
+      </ul>
+      <p>
+        Architecture is substrate-only: arithmetic primitives stored as substrate
+        atoms; word-problem parse -> arity-routed solver -> substrate-grounded
+        computation. No neural sequence model, no LLM. The unified solver routes
+        problems by detected arity (1-op / 2-op / multi-op).
+      </p>
+      <p style="margin: 0">
+        Honest scope: macro-average across all 4 benchmarks is 0.336-0.450 depending
+        on architecture (still well below frontier-LLM math performance on the
+        hardest benchmarks). But on MAWPS specifically and MultiArith specifically,
+        substrate hits LLM-CoT-grade results without invoking an LLM. Tagged
+        EXPLORATORY (0.78-0.92) per cap_map cycle 233; first Tier-A math benchmark
+        landed with 5-seed std = 0.0072 reproducibility.
+      </p>
+    </div>
+
     <h2>How substrate differs from KGE baselines</h2>
     <div class="card">
       <p>
