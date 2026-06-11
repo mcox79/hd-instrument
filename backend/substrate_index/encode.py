@@ -58,7 +58,21 @@ class AtomVectors:
 
     semantic    : bge-large(description + aliases) -> (1024,) L2-normalized
     identity    : deterministic FHRR id vector -> (1024,) L2-normalized
-    composite   : semantic + tier_tag + corpus_tag bundle, L2-normalized
+    composite   : semantic + tier_tag + corpus_tag + algebra + signature +
+                  complexity bundle, L2-normalized
+    algebra     : tag-vector sum over algebraic-properties field, L2-normalized
+                  (zero vector for atoms without algebra field)
+    signature   : tag-vector sum over signature field, L2-normalized
+    complexity  : tag-vector sum over complexity field, L2-normalized
+
+    Per Research ALGEBRA_VEC_SUPPORT 2026-06-11:
+    - algebra_vec lets 'shared basis' detection be a cosine query (HMM
+      Viterbi + Chu-Liu-Edmonds + Hungarian cluster in algebra-space even
+      though their descriptions diverge)
+    - signature_vec finds operations with matching input/output shapes
+    - complexity_vec finds operations with matching computational class
+    - composite combines all four with default weights alpha/beta/gamma/delta
+      = 1.0 / 0.5 / 0.3 / 0.2
 
     All vectors are fp32 + L2-normalized for cosine retrieval.
     """
@@ -66,6 +80,9 @@ class AtomVectors:
     semantic: np.ndarray
     identity: np.ndarray
     composite: np.ndarray
+    algebra: np.ndarray = None
+    signature: np.ndarray = None
+    complexity: np.ndarray = None
 
 
 class AtomEncoder:

@@ -71,10 +71,12 @@ class PartitionedStore:
         self.math = Store(self.root / "math")
         self.concept = Store(self.root / "concept")
         self.meta = Store(self.root / "meta")
+        self.school = Store(self.root / "school")  # per Research SCHOOLS_CORPUS proposal
         self._stores = {
             Corpus.MATH: self.math,
             Corpus.CONCEPT: self.concept,
             Corpus.META: self.meta,
+            Corpus.SCHOOL: self.school,
         }
         # Cross-store reverse index: tgt_qualified_id -> set of (src_qualified_id, rel_type)
         self._cross_in: dict[str, set[tuple[str, RelationType]]] = defaultdict(set)

@@ -28,10 +28,18 @@ class Corpus(enum.Enum):
     partitioned-substrate-with-role-binding architecture -- math + concept + meta
     are SEPARATE stores with explicit cross-store linking, NOT a single global
     substrate (prevents meta-rule self-collapse + unbounded self-reference).
+
+    Per Research ALGEBRA_VEC_SUPPORT_PLUS_SCHOOLS_CORPUS 2026-06-11
+    (user direction: represent schools of thought): fourth partition SCHOOL
+    holds intellectual lineage atoms (VSA / FHRR, HMM, cognitive architecture,
+    etc.) linked to math primitives via CONTRIBUTES_TO / TRACES_TO and to
+    other schools via INFLUENCED_BY. Enables provenance + unexplored-field
+    discovery.
     """
     MATH = "math"
     CONCEPT = "concept"
     META = "meta"      # methodology rules, architectural decisions, failure modes
+    SCHOOL = "school"  # intellectual lineage; key_contributors + core_methods
 
 
 class Tier(enum.Enum):
@@ -58,6 +66,7 @@ class AtomKind(enum.Enum):
     FAMILY_TAG = "family_tag"
     SUB_OP = "sub_op"
     MACRO = "macro"
+    SCHOOL = "school"  # per Research SCHOOLS_CORPUS proposal; school atoms only
 
 
 class RelationType(enum.Enum):
@@ -80,9 +89,14 @@ class RelationType(enum.Enum):
     REFUTES = "REFUTES"                 # A contradicts B
     DEPENDS_ON = "DEPENDS_ON"           # A requires B
 
-    # Cross-corpus
+    # Cross-corpus (concept <-> math)
     USES = "USES"                       # concept -> math operation
     HAS_USERS = "HAS_USERS"             # math operation -> concepts (auto-derived reverse of USES)
+
+    # Cross-corpus (school <-> math; school <-> school)
+    CONTRIBUTES_TO = "CONTRIBUTES_TO"   # school -> math operation it produced
+    TRACES_TO = "TRACES_TO"             # math -> school (auto-derived reverse of CONTRIBUTES_TO)
+    INFLUENCED_BY = "INFLUENCED_BY"     # school -> earlier school it inherits from
 
 
 # ============================================================
@@ -118,12 +132,26 @@ class Atom:
     aliases: tuple[str, ...] = field(default_factory=tuple)
     metadata: dict = field(default_factory=dict)
 
+    # Per Research ALGEBRA_VEC_SUPPORT 2026-06-11: structured algebraic-properties
+    # for math atoms (None for non-math atoms). Sub-vectors composed from these
+    # fields contribute to the composite atom vector when populated.
+    algebra: Optional[dict] = None         # {structure, commutative, associative,
+                                            #  identity, inverse, distributes_over,
+                                            #  domain}
+    signature: Optional[dict] = None       # {input_arity, input_types,
+                                            #  output_type, preserves: {...}}
+    complexity: Optional[dict] = None      # {time_class, space_class,
+                                            #  parallelism, online}
+    equivalences: tuple[dict, ...] = field(default_factory=tuple)
+                                            # [{equivalent_to, under_transformation,
+                                            #   fidelity}, ...]
+
     @property
     def qualified_id(self) -> str:
         return f"{self.corpus.value}::{self.id}"
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "id": self.id,
             "name": self.name,
             "corpus": self.corpus.value,
@@ -133,6 +161,15 @@ class Atom:
             "aliases": list(self.aliases),
             "metadata": dict(self.metadata),
         }
+        if self.algebra is not None:
+            d["algebra"] = dict(self.algebra)
+        if self.signature is not None:
+            d["signature"] = dict(self.signature)
+        if self.complexity is not None:
+            d["complexity"] = dict(self.complexity)
+        if self.equivalences:
+            d["equivalences"] = [dict(e) for e in self.equivalences]
+        return d
 
     @classmethod
     def from_dict(cls, d: dict) -> "Atom":
@@ -145,6 +182,10 @@ class Atom:
             description=d["description"],
             aliases=tuple(d.get("aliases", [])),
             metadata=dict(d.get("metadata", {})),
+            algebra=d.get("algebra"),
+            signature=d.get("signature"),
+            complexity=d.get("complexity"),
+            equivalences=tuple(d.get("equivalences", [])),
         )
 
 
