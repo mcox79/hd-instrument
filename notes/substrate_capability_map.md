@@ -28437,3 +28437,44 @@ ANNOTATIONS this cycle:
 - PP-379/PP-386 (POS): PP-397 data efficiency HARD_FAIL -- not few-shot capable.
 
 Cap_map: v571 -> v572 CYCLE 238 (0 HP; 6 MIDDLE_BAND; 4 HARD_FAIL; 0 LVH; 5 NEW PP ROWS [PP-393/PP-394/PP-395/PP-396/PP-397]; NER saturation ceiling mapped; both gazetteer paths closed; SVAMP role-asymmetry validated +7.67pp; ASDiv WK oracle +11.39pp 3-op; SVAMP WK-LEX closed; POS low-data-efficiency REFUTED; Portfolio 32+392 -> 32+397 +5; HONEST 1801->1811 +10; LVH 291->291 +0; 466th PROT-009 paired commit) (2026-06-11)
+
+## v572 -> v573 @ CYCLE 239 10-VERDICT BATCH NER multi-seed confirmation + ASDiv comprehension-wall battery + multihop role-binding battery (verdict_handler 467th PROT-009 paired commit; 0 HP; 2 MIDDLE_BAND [ner_multiseed 5-seed + asdiv_pp375_wk single-seed fragile]; 8 HARD_FAIL [asdiv_cascade_wk + multihop_role_selector + multihop_learned_roles + multihop_fhrr_binding + asdiv_pp375_port + asdiv_pp375_multiseed + asdiv_pp375_wk_multiseed + asdiv_bma_ensemble]; 0 LVH; 0 NEW PP ROWS; NER 5-seed plateau F1=0.5739; ASDiv operand-selection ceiling CLOSED at 0.385; PP-375 confirmed MultiArith-specific; 3x multihop role-binding approaches CLOSED; structural pivot: FCG/SRL; Portfolio 32+397->32+397 +0; HONEST 1811->1821 +10; LVH 291->291 +0)
+
+### Cap_map decisions (v572 -> v573)
+
+**NER multi-seed:**
+ner_multiseed_cpu_v1 MIDDLE_BAND v573: mean-F1=0.5739, std=0.0064, n=5 (cycle 239). NER 5-SEED PLATEAU CONFIRMED: tight std=0.0064 confirms saturation real, not variance. Plateau at ~0.574 seed-stable. In-corpus ceiling sealed. Open: bigram-boundary (R1) + full CoNLL data 14987 tokens (R3). No new PP row; NER row annotated 5-seed plateau.
+
+**ASDiv cascade WK (HARD_FAIL):**
+asdiv_cascade_wk_cpu_v1 HARD_FAIL v573: +WK=0.2524 vs base=0.2524, lift=0.0000 (cycle 239). WK-via-adjacency-trigger does not lift cascade. Adjacency triggers too sparse; cascade verifier already handles WK-sensitive items. Annotation: adjacency-trigger WK closed for cascade path; oracle WK (PP-394) remains productive WK mechanism.
+
+**Multihop role-binding battery (3x HARD_FAIL -- STRUCTURAL CLOSURE):**
+multihop_role_selector_cpu_v1 HARD_FAIL v573: SVAMP=0.3567 (prior 0.367), ASDiv-1op=0.3756 (target 0.50), n_seeds=1 (cycle 239). Template-selector does not add over PP-395/PP-396 heuristics.
+multihop_learned_roles_cpu_v1 HARD_FAIL v573: SVAMP=0.3467 (REGRESSES -0.020pp vs prior 0.367), ASDiv-1op=0.3488, n_seeds=1 (cycle 239). Learned roles overfit; negative transfer on SVAMP. Closes learned-roles axis.
+multihop_fhrr_binding_cpu_v1 HARD_FAIL v573: ASDiv-1op=0.1829, SVAMP=0.1567, n_seeds=1 (cycle 239). FHRR binding collapses below baselines. STRUCTURAL DIAGNOSIS confirmed: operand-selection bottleneck is at QUESTION-SEMANTICS level, not role/binding mechanism. All 3 role-binding approaches (template-selector, learned-roles, FHRR-binding) converge on same diagnosis. Route FCG/SRL investigation to Research.
+PROT-004/006 rescue sketches for multihop_role_selector (cheapest first):
+RESCUE-1 (cheapest/subsumption): direct composition PP-395 role-asymmetry + PP-396 learned-selector; ensemble weighted by confidence.
+RESCUE-2: question-pattern templates -- match how-many-more/less/total/each patterns to explicit role rules.
+RESCUE-3: SRL-grade role parsing via dependency parse + agent/patient/theme labeling.
+RESCUE-4: named-entity type constraints -- operand roles from entity type (person=agent, place=indirect).
+RESCUE-5: FCG construction grammar -- explicit verb-frame construction rules map to operand roles.
+Route RESCUE-1 and RESCUE-2 to Exp-Dev. No new PP rows.
+
+**PP-375 transfer battery (3x HARD_FAIL + 1 MIDDLE_BAND fragile):**
+asdiv_pp375_port_cpu_v1 HARD_FAIL v573: 1op=0.3932, overall=0.2316, n_seeds=1 (cycle 239). PP-375 text-order assumption fails: MultiArith 0.753 relied on text-order operand alignment; ASDiv needs operand SELECTION. PP-375 is MultiArith-specific mechanism. PP-375 annotated.
+asdiv_pp375_multiseed_cpu_v1 HARD_FAIL v573: mean 1op=0.3783 (std=0.0258), overall=0.0000, n_seeds=5 (cycle 239). Multi-seed confirms non-transfer. PP-375 annotated.
+asdiv_pp375_wk_cpu_v1 MIDDLE_BAND v573: 1op+WK=0.4387, WK-lift=+0.0655, n_seeds=1 (cycle 239). FRAGILE single-seed positive -- seed artifact; overridden by multi-seed (item I). Not propagated as genuine capability.
+asdiv_pp375_wk_multiseed_cpu_v1 HARD_FAIL v573: mean 1op=0.3949 (std=0.0132), WK-lift=0.0000, n_seeds=5 (cycle 239). WK adds nothing at multi-seed. Closes PP-375+WK compositional path for ASDiv. PP-375 annotated. No new PP rows.
+
+**ASDiv BMA ensemble (HARD_FAIL -- COMPREHENSION WALL STRUCTURAL CLOSURE):**
+asdiv_bma_ensemble_cpu_v1 HARD_FAIL v573: BMA=0.3854 = best-single=0.3854, gain=0.0000, n_test=410 (cycle 239). COMPREHENSION WALL CONFIRMED: zero ensemble gain across 4 operand-selection strategies (textorder:0.3732, proximity:0.3756, magnitude:0.3854, target:0.3805). Errors are correlated at question-comprehension level, not strategy level. STRUCTURAL CONCLUSION for this cycle: PP-375+WK (~0.39), template-selector (0.376), learned-roles (0.349), FHRR-binding (0.183), BMA (0.385) ALL fail at or below 0.385 ceiling. Path to HP requires genuine semantic parsing: FCG construction grammar, SRL, dependency-parse features (PP-381). Cross-ref PP-393 (3-op ceiling), PP-394 (oracle WK), PP-395/PP-396 (role+selector). No new PP row. STRUCTURAL ANNOTATION on ASDiv math series: operand-selection ceiling closed at 0.385.
+
+Annotations this cycle:
+- NER: 5-seed plateau F1=0.5739 std=0.0064 confirmed. In-corpus ceiling sealed. Open: R1 bigram-boundary + R3 CoNLL full data.
+- ASDiv operand-selection ceiling CLOSED at 0.385: all operand-selection approaches share comprehension wall. Pivot: FCG/SRL semantic parsing.
+- PP-375 confirmed MultiArith-specific (text-order alignment); does not generalize to ASDiv operand-SELECTION.
+- Multihop role-binding: template-selector + learned-roles + FHRR-binding all fail; bottleneck at question-semantic level.
+- WK-via-adjacency-trigger closed for ASDiv cascade.
+- asdiv_pp375_wk single-seed 0.4387 is seed artifact; multi-seed ~0.39 authoritative.
+
+Cap_map: v572 -> v573 CYCLE 239 (0 HP; 2 MIDDLE_BAND; 8 HARD_FAIL; 0 LVH; 0 NEW PP ROWS; Portfolio 32+397; HONEST 1811->1821 +10; LVH 291; 467th PROT-009 paired commit) (2026-06-11)

@@ -933,3 +933,81 @@ ANNOTATIONS this cycle:
 - PP-379/PP-386 (POS): data efficiency HARD_FAIL (PP-397) -- not few-shot capable.
 
 Cap_map: v571 -> v572 CYCLE 238 (0 HP; 6 MIDDLE_BAND [ner_brown_cluster + asdiv_3op_ceiling + ner_pos_cascade + svamp_role_asymmetry + svamp_learned_selector + asdiv_math_wk_oracle]; 4 HARD_FAIL [ner_stacked_features + ner_gazetteer_substrate + pos_data_efficiency + svamp_math_wk_lex]; 0 LVH; 5 NEW PP ROWS [PP-393 asdiv-3op-ceiling + PP-394 asdiv-wk-oracle + PP-395 svamp-role-asymmetry + PP-396 svamp-learned-selector + PP-397 pos-data-efficiency]; NER saturation fully mapped; both gazetteer paths closed; SVAMP role-asymmetry validated +7.67pp; ASDiv WK oracle +11.39pp 3-op; SVAMP WK-LEX closed; POS low-data-efficiency claim REFUTED; Portfolio 32+392 -> 32+397 +5; HONEST 1801->1811 +10; LVH 291->291 +0; 466th PROT-009 paired commit) (2026-06-11)
+
+## v572 -> v573 CYCLE 239 10-VERDICT BATCH (2026-06-11)
+
+ner_multiseed + asdiv_cascade_wk + multihop_role_selector + multihop_learned_roles + multihop_fhrr_binding + asdiv_pp375_port + asdiv_pp375_multiseed + asdiv_pp375_wk + asdiv_pp375_wk_multiseed + asdiv_bma_ensemble. All on cpu_runner_local (FrameworkMPC). NER multi-seed confirmation + ASDiv comprehension-wall battery + multihop role-binding battery.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 0 LVH catches.
+
+**ner_multiseed_cpu_v1 MIDDLE_BAND (HONEST):** mean-F1=0.5739, std=0.0064, n=5, vals=[0.5772, 0.5694, 0.5682, 0.5696, 0.5849]. Verdict_msg band 0.55-0.58 contains 0.5739. HONEST. 5-seed confirmed tight plateau.
+
+**asdiv_cascade_wk_cpu_v1 HARD_FAIL (HONEST):** +WK=0.2524 vs base=0.2524, lift=0.0000. Threshold <0.02 lift AND <0.33 acc met. HONEST.
+
+**multihop_role_selector_cpu_v1 HARD_FAIL (HONEST):** SVAMP=0.3567 (below prior 0.367 and target 0.42); ASDiv-1op=0.3756 (below 0.50 target). Both below targets. HONEST.
+
+**multihop_learned_roles_cpu_v1 HARD_FAIL (HONEST):** SVAMP=0.3467 (REGRESSES below prior 0.367); ASDiv-1op=0.3488 (below 0.50 target). Regression on SVAMP confirms negative transfer. HONEST.
+
+**multihop_fhrr_binding_cpu_v1 HARD_FAIL (HONEST):** ASDiv-1op=0.1829 (far below target 0.45); SVAMP=0.1567 (far below prior 0.367). Both collapse. Verdict_msg diagnosis: ambiguity at QUESTION-SEMANTICS level, not role/binding level. HONEST.
+
+**asdiv_pp375_port_cpu_v1 HARD_FAIL (HONEST):** 1op text-order=0.3932, overall=0.2316 (vs cascade-v2 0.309, multihop 0.376). Below HP threshold for 1op (<0.40). HONEST.
+
+**asdiv_pp375_multiseed_cpu_v1 HARD_FAIL (HONEST):** mean 1op=0.3783 (std=0.0258), overall=0.0000 at 5 seeds. Mean < 0.40 threshold. HONEST.
+
+**asdiv_pp375_wk_cpu_v1 MIDDLE_BAND (HONEST):** 1op+WK=0.4387 (exceeds 0.40), WK-lift=+0.0655. Single-seed positive threshold met. HONEST. NOTE: item I multi-seed shows seed-dependency; annotation required.
+
+**asdiv_pp375_wk_multiseed_cpu_v1 HARD_FAIL (HONEST):** mean 1op=0.3949, WK-lift=0.0000, n=5. Mean < 0.40 and WK adds nothing at multi-seed. Multi-seed is authoritative over item H. HONEST.
+
+**asdiv_bma_ensemble_cpu_v1 HARD_FAIL (HONEST):** BMA=0.3854 = best-single=0.3854, gain=0.0000. Correlated errors confirmed. HONEST.
+
+HONEST: 1811 -> 1821 (+10). LVH: 291 -> 291 (+0). 0 LVH catches. Item H single-seed MIDDLE_BAND is honest per its own run; multi-seed contradiction flagged as annotation not LVH (each verdict honest about its own run).
+
+### Cap_map decisions (v572 -> v573)
+
+**(A) ner_multiseed_cpu_v1 (MIDDLE_BAND -- NER 5-seed plateau confirmed):**
+ner_multiseed_cpu_v1 MIDDLE_BAND v573: mean-F1=0.5739, std=0.0064, n=5 (cycle 239). NER 5-SEED PLATEAU CONFIRMED: tight std=0.0064 confirms saturation real, not variance. Plateau at ~0.574 seed-stable. Open paths: bigram-boundary (R1) + full CoNLL data 14987 tokens (R3). No new PP row; NER row annotated 5-seed plateau.
+
+**(B) asdiv_cascade_wk_cpu_v1 (HARD_FAIL -- WK-via-adjacency-triggers fails on cascade):**
+asdiv_cascade_wk_cpu_v1 HARD_FAIL v573: +WK=0.2524 vs base=0.2524, lift=0.0000 (cycle 239). Adjacency triggers too sparse; cascade verifier already captures WK-sensitive items. No new PP row. Annotation: adjacency-trigger WK closed for cascade; oracle WK (PP-394) remains productive.
+
+**(C) multihop_role_selector_cpu_v1 (HARD_FAIL -- template-selector misses both targets; PROT-004/006 rescue sketches):**
+multihop_role_selector_cpu_v1 HARD_FAIL v573: SVAMP=0.3567 (prior 0.367), ASDiv-1op=0.3756 (target 0.50), n_seeds=1 (cycle 239). No new PP row. PROT-004/006 rescue sketches (cheapest first):
+RESCUE-1 (cheapest/subsumption): direct composition PP-395 role-asymmetry + PP-396 learned-selector; ensemble weighted by confidence.
+RESCUE-2: question-pattern templates -- match how-many-more/less/total/each patterns to explicit role rules.
+RESCUE-3: SRL-grade role parsing via dependency parse + agent/patient/theme labeling.
+RESCUE-4: named-entity type constraints -- operand roles from entity type (person=agent, place=indirect).
+RESCUE-5: FCG construction grammar -- explicit construction rules map verb-frame patterns to operand roles.
+Route RESCUE-1 and RESCUE-2 to Exp-Dev.
+
+**(D) multihop_learned_roles_cpu_v1 (HARD_FAIL -- learned roles REGRESS on SVAMP; closes learned-roles axis):**
+multihop_learned_roles_cpu_v1 HARD_FAIL v573: SVAMP=0.3467 (REGRESSES -0.020pp vs prior 0.367), ASDiv-1op=0.3488, n_seeds=1 (cycle 239). Negative transfer confirmed. Closes learned-roles template axis. No new PP row.
+
+**(E) multihop_fhrr_binding_cpu_v1 (HARD_FAIL -- FHRR binding collapses; STRUCTURAL DIAGNOSIS: bottleneck at QUESTION-SEMANTICS level):**
+multihop_fhrr_binding_cpu_v1 HARD_FAIL v573: ASDiv-1op=0.1829, SVAMP=0.1567, n_seeds=1 (cycle 239). FHRR binding collapses below baselines. Convergent finding from C+D+E: 3 successive role-binding approaches all fail/regress. Closes FHRR-binding approach. No new PP row. Structural implication: operand selection requires question-semantic parsing (SRL, FCG), not algebraic role binding. Route FCG/SRL investigation to Research.
+
+**(F) asdiv_pp375_port_cpu_v1 (HARD_FAIL -- PP-375 text-order does not transfer to ASDiv; annotation on PP-375):**
+asdiv_pp375_port_cpu_v1 HARD_FAIL v573: 1op=0.3932, overall=0.2316, n_seeds=1 (cycle 239). PP-375 text-order assumption fails on ASDiv operand-SELECTION requirement. PP-375 is MultiArith-specific. No new PP row; PP-375 annotated.
+
+**(G) asdiv_pp375_multiseed_cpu_v1 (HARD_FAIL -- PP-375 non-transfer confirmed at 5 seeds):**
+asdiv_pp375_multiseed_cpu_v1 HARD_FAIL v573: mean 1op=0.3783 (std=0.0258), overall=0.0000, n_seeds=5 (cycle 239). PP-375 non-transfer multi-seed confirmed. No new PP row; PP-375 annotated.
+
+**(H) asdiv_pp375_wk_cpu_v1 (MIDDLE_BAND single-seed -- FRAGILE; overridden by item I; annotation only):**
+asdiv_pp375_wk_cpu_v1 MIDDLE_BAND v573: 1op+WK=0.4387, WK-lift=+0.0655, n_seeds=1 (cycle 239). Numerically above threshold at n=1 but item I (5-seed) shows mean=0.3949, WK-lift=0.0000. Seed artifact. No new PP row; single-seed positive not propagated to cap_map.
+
+**(I) asdiv_pp375_wk_multiseed_cpu_v1 (HARD_FAIL -- WK+PP-375 ceiling ~0.39 at 5 seeds; AUTHORITATIVE over item H):**
+asdiv_pp375_wk_multiseed_cpu_v1 HARD_FAIL v573: mean 1op=0.3949 (std=0.0132), WK-lift=0.0000, n_seeds=5 (cycle 239). WK adds nothing at multi-seed. Closes PP-375+WK compositional path for ASDiv. No new PP row; PP-375 annotated.
+
+**(J) asdiv_bma_ensemble_cpu_v1 (HARD_FAIL -- BMA confirms COMPREHENSION WALL; operand-selection ceiling CLOSED at 0.385):**
+asdiv_bma_ensemble_cpu_v1 HARD_FAIL v573: BMA=0.3854 = best-single=0.3854, gain=0.0000, n_test=410 (cycle 239). COMPREHENSION WALL CONFIRMED: zero ensemble gain -- 4 operand-selection strategies share SAME comprehension blind-spot. Correlated errors at question-comprehension level. Convergent conclusion: PP-375+WK (~0.39), template-selector (0.376), learned-roles (0.349), FHRR-binding (0.183), BMA (0.385) ALL fail at or below 0.385 ceiling. Path to HP requires genuine semantic parsing (FCG, SRL, dep-parse PP-381). No new PP row. STRUCTURAL ANNOTATION on ASDiv math series. Cross-ref PP-393/PP-394, PP-395/PP-396, items C-I this cycle.
+
+ANNOTATIONS this cycle:
+- NER: 5-seed plateau F1=0.5739 std=0.0064 confirmed. In-corpus ceiling sealed. Open: bigram-boundary (R1) + full CoNLL data (R3).
+- ASDiv operand-selection ceiling CLOSED at 0.385: BMA + ensemble + PP-375 + WK + FHRR + role-selector all share same comprehension wall. Structural pivot required: FCG/SRL semantic parsing.
+- PP-375 MultiArith mechanism confirmed benchmark-specific; does NOT generalize to ASDiv operand-SELECTION.
+- Multihop role-binding approaches (template-selector, learned-roles, FHRR-binding) all fail; bottleneck at question-semantic level.
+- WK-via-adjacency-trigger closed for ASDiv cascade; oracle WK (PP-394) remains productive axis.
+- asdiv_pp375_wk single-seed positive (0.4387) is seed artifact; multi-seed authoritative at ~0.39.
+
+Cap_map: v572 -> v573 CYCLE 239 (0 HP; 2 MIDDLE_BAND [ner_multiseed 5-seed + asdiv_pp375_wk single-seed fragile]; 8 HARD_FAIL [asdiv_cascade_wk + multihop_role_selector + multihop_learned_roles + multihop_fhrr_binding + asdiv_pp375_port + asdiv_pp375_multiseed + asdiv_pp375_wk_multiseed + asdiv_bma_ensemble]; 0 LVH; 0 NEW PP ROWS; NER 5-seed plateau confirmed F1=0.5739; ASDiv operand-selection ceiling CLOSED at 0.385 (BMA confirms comprehension wall); PP-375 confirmed MultiArith-specific (no ASDiv transfer); 3x multihop role-binding approaches CLOSED (template-selector + learned-roles + FHRR-binding); structural pivot: FCG/SRL semantic parsing for ASDiv HP; 5x PROT-004/006 rescue sketches filed for multihop_role_selector; route RESCUE-1+RESCUE-2 to Exp-Dev; route FCG/SRL to Research; Portfolio 32+397 -> 32+397 +0; HONEST 1811->1821 +10; LVH 291->291 +0; 467th PROT-009 paired commit) (2026-06-11)
