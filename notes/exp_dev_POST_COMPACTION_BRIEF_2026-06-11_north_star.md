@@ -36,6 +36,14 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
 - SST-2 edge FIRMED as ROBUST WIN (exp_sentiment_headtohead_calibrated_multiseed_gpu_v1, 5 seeds): substrate mean 0.7765 std
   0.0085 (mean-std 0.7680, worst seed 0.7675) > calibrated-LLM 0.748 -- EVERY seed beats the LLM. Not within-noise. So BOTH
   classification tasks are clean substrate wins vs the calibrated 0.5B: sentiment robust-win, topic decisive-win.
+- SCALE TEST vs Qwen-1.5B (exp_classification_headtohead_1p5b_calibrated_gpu_v1) -- HONEST BOUNDARY:
+  - AG-News TOPIC: substrate 0.860 > calibrated-1.5B 0.670 -> substrate win is SCALE-INVARIANT (beats 0.5B AND 1.5B), same
+    shape as math north-star. Topic = strong-lexical-feature task; bag-of-words excels, zero-shot LLM has no edge.
+  - SST-2 SENTIMENT: substrate 0.750 < calibrated-1.5B 0.847 -> sentiment win is NOT scale-invariant; breaks at 1.5B. Sentiment
+    needs negation/context understanding where the larger LLM overtakes. (Substrate still beats 0.5B on sentiment.)
+  - METHOD note: at 1.5B surface-form bias nearly vanished (SST-2 raw 0.85 ~ cal 0.847) -- calibration matters most for SMALLEST models.
+  - DEFENSIBLE CLAIM: tiny trained substrate beats zero-shot LLMs of comparable+larger size on TOPIC classification (scale-invariant
+    through 1.5B) and on the smallest (0.5B) for sentiment; a 1.5B LLM's deeper understanding overtakes substrate on sentiment.
 - MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
 ## OPERATIONAL LESSONS (critical)
