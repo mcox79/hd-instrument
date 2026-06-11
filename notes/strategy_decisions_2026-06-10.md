@@ -347,3 +347,68 @@ ANNOTATION: active_inference_lite MIDDLE_BAND v558: error_drop=20.5%, goal_reach
 
 Cap_map: v557 -> v558 CYCLE 224 (6 HP [CPU:6]; 2 MIDDLE_BAND [CPU:2]; 2 HF [CPU:2]; 1 LVH [LVH-276]; 7 NEW PP ROWS PP-330..PP-336; 1 MIDDLE_BAND annotation; 1 PP-319 HOLD annotation (LVH-276); 1 PP-322 real-fragmentation annotation; 0 closures; Portfolio 32+329 -> 32+336 +7; HONEST 1676->1686 +10; LVH 275->276 +1; 452nd PROT-009 paired commit) (2026-06-10)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v558 -> v559 CYCLE 225 10-VERDICT BATCH (2026-06-10)
+
+CYCLE 225: new-domain sweep extensions (comm6/comm_lex/code6/humaneval_lite/math2/lex_wug) + code2 bug rescue (PP-336 partial rescue via execution-semantics) + math4 deep chains full run + key_rotation cert + integration renorm partial rescue. 8 HP + 1 MIDDLE_BAND + 1 HF. 0 LVH catches.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 0 LVH catches.
+
+**comm6_intent_decoding_cpu_v1 HARD_PASS:** accuracy=1.000, n=1000. Threshold >=0.85. 1.000 >> 0.85. HONEST.
+
+**comm_lex_emission_cpu_v1 HARD_PASS:** token_accuracy=1.000, exact_sentence=1.000. Thresholds >=0.85 token-acc, >=0.60 exact-sentence. Both at ceiling. HONEST. Verdict_msg correctly notes retrieval-based emission ceiling and LLM gap for novel fluent generation.
+
+**code6_algorithm_compose_cpu_v1 HARD_PASS:** correctness=1.000, steps=4, n=300. Threshold >=0.70. 1.000 >> 0.70. HONEST.
+
+**humaneval_structural_lite_cpu_v1 HARD_PASS:** pass@1=0.750 (9/12 tasks). Threshold >=0.50. 0.750 >> 0.50. HONEST. NOTE: n=12 tasks is a small sample; P-band carries high uncertainty. Verdict_msg honestly caveats English-parsing bottleneck. No LVH -- threshold met and framing honest.
+
+**math2_equation_solve_cpu_v1 HARD_PASS:** accuracy=1.000, n=400. Threshold >=0.70. 1.000 >> 0.70. HONEST.
+
+**lex_wug_test_cpu_v1 HARD_PASS:** reg_3shot=1.000, reg_1shot=1.000. Threshold >=0.85. Both at ceiling. HONEST. Verdict_msg correctly distinguishes rule-based morphology (substrate handles) from statistical fluency (LLM gap).
+
+**code2_bug_rescue_exec_cpu_v1 MIDDLE_BAND (smoke):** F1=0.704, precision=1.000, recall=0.544. MIDDLE_BAND range 0.70-0.85 for this rescue. F1=0.704 at low end of range. Recall=0.544 is the limiting factor (~46% of bugs missed). run_mode=smoke. HONEST. This is a RESCUE for PP-336 (cycle-224 HF, F1=0.539); execution-semantic approach is the correct direction.
+
+**math4_rung3_deep_chains_cpu_v1 HARD_PASS:** by-length={8:1.0, 10:1.0, 12:1.0}, mean=1.000, n_prop=100, run_mode=full. Threshold >=0.90 mean. 1.000 >> 0.90. HONEST. Full run extends PP-335 (smoke, length<=6) to length 12, beyond human working-memory limits.
+
+**key_rotation_cert_cpu_v1 HARD_PASS:** new_key_recall=1.000, old_key_recall=0.002, n_keys=120. Thresholds >=0.95 new-key AND <=0.10 old-key. Both cleared (1.000>>0.95; 0.002<<0.10). HONEST.
+
+**integ_renorm_t1_cpu_v1 HARD_FAIL:** renorm_minsat=0.026, minimax_minsat=0.041, ratio=0.636. Threshold: renorm >= 0.90 of minimax (needs >=0.037). 0.026 < 0.037. HONEST. NOTE: additive_minsat=0.024 also fails minimax, confirming structural gap not renorm-specific. Integration series remains open.
+
+HONEST: 1686 -> 1696 (+10). LVH: 276 UNCHANGED. 0 new LVH catches.
+
+### Cap_map decisions (v558 -> v559)
+
+**(A) comm6_intent_decoding_cpu_v1 (HARD_PASS -- NEW ROW PP-337):**
+NEW ROW PP-337: comm6_intent_decoding_cpu_v1 HARD_PASS v559: accuracy=1.000, n=1000 (cycle 225). COMMUNICATION INTENT DECODING: substrate recovers core meaning from varied surface forms at ceiling. Extends PP-331 to decode direction. 0.80-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-331, PP-338.
+
+**(B) comm_lex_emission_cpu_v1 (HARD_PASS -- NEW ROW PP-338):**
+NEW ROW PP-338: comm_lex_emission_cpu_v1 HARD_PASS v559: token_accuracy=1.000, exact_sentence=1.000, n=1000 (cycle 225). RETRIEVAL-BASED LEXICAL EMISSION at ceiling. Honest ceiling noted: novel fluent generation remains LLM gap. 0.80-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-331, PP-337.
+
+**(C) code6_algorithm_compose_cpu_v1 (HARD_PASS -- NEW ROW PP-339):**
+NEW ROW PP-339: code6_algorithm_compose_cpu_v1 HARD_PASS v559: correctness=1.000, steps=4, n=300 (cycle 225). ALGORITHM COMPOSITION: 4-step pipelines composed and executed at ceiling. Extends PP-333 to pipeline level. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-333.
+
+**(D) humaneval_structural_lite_cpu_v1 (HARD_PASS -- NEW ROW PP-340):**
+NEW ROW PP-340: humaneval_structural_lite_cpu_v1 HARD_PASS v559: pass@1=0.750, n_task=12 (cycle 225). FIRST HUMANEVAL BENCHMARK: 9/12 tasks pass at keyword-spec input. Small-n (12) drives wider P-band. English-parsing is the bottleneck. 0.65-0.82 EXPLORATORY n=1 seed small-n=12 CPU. Cross-ref PP-333, PP-339.
+
+**(E) math2_equation_solve_cpu_v1 (HARD_PASS -- NEW ROW PP-341):**
+NEW ROW PP-341: math2_equation_solve_cpu_v1 HARD_PASS v559: accuracy=1.000, n=400 (cycle 225). EQUATION SOLVING: linear+quadratic at ceiling via coefficient recovery + closed-form solver. Extends PP-332 + PP-334 to equation-solving axis. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-332, PP-334.
+
+**(F) lex_wug_test_cpu_v1 (HARD_PASS -- NEW ROW PP-342):**
+NEW ROW PP-342: lex_wug_test_cpu_v1 HARD_PASS v559: reg_3shot=1.000, reg_1shot=1.000 (cycle 225). WUG TEST PASS (Berko 1958): morphological productivity rule inferred from 1-shot/3-shot and applied to novel stems at ceiling. Rule-based morphology substrate-only. New cap axis (morphological generalization). 0.80-0.92 EXPLORATORY n=1 seed CPU.
+
+**(G) math4_rung3_deep_chains_cpu_v1 (HARD_PASS -- NEW ROW PP-343 + PP-335 BAND LIFT):**
+NEW ROW PP-343: math4_rung3_deep_chains_cpu_v1 HARD_PASS v559: by-length={8:1.0, 10:1.0, 12:1.0}, mean=1.000, n_prop=100, run_mode=full (cycle 225). SUBSTRATE-OVER-BIOLOGY DEDUCTIVE DEPTH: full n=100 at lengths beyond human working memory (~7). Extends PP-335 smoke. PP-335 BAND LIFT: 0.78-0.90 -> 0.82-0.92 on full-run evidence. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-335.
+
+**(H) key_rotation_cert_cpu_v1 (HARD_PASS -- NEW ROW PP-344):**
+NEW ROW PP-344: key_rotation_cert_cpu_v1 HARD_PASS v559: new_key_recall=1.000, old_key_recall=0.002, n_keys=120 (cycle 225). KEY ROTATION CERTIFIED: single bind-R rotates 120 keys; new preserved (1.000>>0.95) AND old revoked (0.002<<0.10). Compliance-sidecar primitive for GDPR key rotation, credential cycling, session expiry. Extends PP-9 to key-rotation regime. 0.82-0.92 EXPLORATORY n=1 seed CPU. Cross-ref PP-9.
+
+**(I) code2_bug_rescue_exec_cpu_v1 (MIDDLE_BAND smoke -- PP-336 PARTIAL RESCUE annotation):**
+PP-336 annotation v559: execution-semantic approach F1=0.704 (prec=1.000, rec=0.544, smoke). Lifts from F1=0.539 (cycle-224). Precision=1.000 = zero false positives. Recall=0.544 is limiting. PP-336 P-band: 0.25-0.45 -> 0.45-0.62 EXPLORATORY. Full run warranted.
+
+**(J) integ_renorm_t1_cpu_v1 (HARD_FAIL -- integ HF annotation):**
+Annotation: integ_renorm_t1 HARD_FAIL v559. ratio=0.636 (<0.90 threshold). Additive also fails minimax (structural gap confirmed). No new PP row. Integration series open; rescue needs orthogonal signal source.
+
+Cap_map: v558 -> v559 CYCLE 225 (8 HP [CPU:8]; 1 MIDDLE_BAND [CPU:1 smoke]; 1 HF [CPU:1]; 0 LVH; 8 NEW PP ROWS PP-337..PP-344; 1 PP-336 PARTIAL RESCUE annotation; 1 integ_renorm HF annotation; 1 PP-335 BAND LIFT; 0 closures; Portfolio 32+336 -> 32+344 +8; HONEST 1686->1696 +10; LVH 276 UNCHANGED; 453rd PROT-009 paired commit) (2026-06-10)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
