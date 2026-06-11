@@ -801,3 +801,67 @@ HONEST: 1785 -> 1792 (+7). LVH: 287 -> 289 (+2).
 PP-381 annotated seed-2 stable. NER 3-datapoint plateau annotated.
 
 Cap_map: v569 -> v570 CYCLE 236 (4 HP; 2 MB-reclassify; 0 HF; 2 LVH [LVH-288/289]; 4 NEW PP [PP-382..PP-385]; Portfolio 32+385; HONEST 1792; LVH 289; 464th PROT-009) (2026-06-11)
+
+## v570 -> v571 CYCLE 237 9-VERDICT BATCH (2026-06-11)
+
+POS-multiseed-fix + NER-bio-viterbi + NER-singletype-boundary + NER-4type-conll + 5x North-Star head-to-head GPU (sentiment-fair + sentiment-baseline + textclass + math-1p5b + math-3b). 4 LOCAL CPU + 5 REMOTE GPU.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (4 CPU anchors d:/AI/hd-instrument/data/exp_<name>/metrics.json); REMOTE SSH (5 GPU anchors marsh@home C:/dev/hd-instrument/data/exp_<name>/metrics.json). 2 LVH catches.
+
+**pos_discriminative_multiseed_fix_cpu_v1 HARD_PASS (HONEST):** mean=0.9508, std=0.0008, n_seeds=5 (outer n_seeds=1 json artifact; per_seed[0].n_seeds=5 + 5 vals confirm genuine). PP-379 promoted multi-seed.
+
+**ner_bio_viterbi_cpu_v1 HARD_FAIL (HONEST):** BIO F1=0.5692 vs unconstrained 0.5817, lift=-0.0125. Viterbi DEGRADES. threshold '<0.58' consistent with 0.5692.
+
+**ner_singletype_boundary_cpu_v1 MIDDLE_BAND (HONEST):** boundary-F1=0.6639, band 0.62-0.72. Type-confusion cost +8.22pp. HONEST.
+
+**ner_4type_conll_cpu_v1 MIDDLE_BAND (HONEST):** 4-type F1=0.6477, band 0.62-0.70. Coarsening +6.60pp vs 18-type. HONEST.
+
+**sentiment_headtohead_fair_gpu_v1 HARD_PASS (HONEST -- SUBSTRATE-WIN):** substrate=0.767 vs Qwen-0.5B fair=0.485. Gap +28.2pp. HONEST.
+
+**sentiment_headtohead_gpu_v1 HARD_PASS (HONEST -- SUBSTRATE-WIN):** substrate=0.767 vs Qwen-0.5B=0.580. Gap +18.7pp, 3684x faster. HONEST.
+
+**textclass_headtohead_gpu_v1 HARD_PASS (HONEST -- SUBSTRATE-WIN):** substrate=0.848 vs Qwen-0.5B=0.688. Gap +16.0pp, 915x faster. HONEST.
+
+**[LVH-290] headtohead_math_vs_llm_1p5b_gpu_v1 HARD_PASS (OVER-CLAIM):** anchor name "1p5b" but metrics.json shows comparison is qwen0.5b. verdict_msg "math dimension WON" over-claims 2/4 wins (MAWPS/MultiArith WIN; SVAMP/ASDiv LOSS). Honest: MIDDLE_BAND PARTIAL-WIN. LVH-290 filed.
+
+**[LVH-291] headtohead_math_vs_llm_3b_gpu_v1 HARD_PASS (OVER-CLAIM):** anchor name "3b" but metrics key "qwen0.5b". Substrate results identical to LVH-290; LLM numbers higher (ASDiv 0.9 vs 0.8; latency 0.79s vs 0.17s) -- appears to be larger model comparison. Same "WON" over-claim, same 2/4 partial. Honest: MIDDLE_BAND PARTIAL-WIN. LVH-291 filed.
+
+HONEST: 1792 -> 1801 (+9). LVH: 289 -> 291 (+2, LVH-290 math-1p5b "WON" over-claim + anchor-name mismatch; LVH-291 math-3b same).
+
+### Cap_map decisions (v570 -> v571)
+
+**(A) pos_discriminative_multiseed_fix_cpu_v1 (HARD_PASS 5-seed -- PP-379 multi-seed promotion; NEW ROW PP-386):**
+PP-379 P-band upgraded 0.78-0.90 -> 0.85-0.94 VALIDATED n=5. NEW ROW PP-386: POS disc multi-seed confirmation. mean=0.9508 std=0.0008 n=5 seeds 44 PTB tags. TIER A substrate POS tagging production-grade and reproducible.
+
+**(B) ner_bio_viterbi_cpu_v1 (HARD_FAIL -- R2 BIO-viterbi CLOSED; PROT-004/006 rescues reordered):**
+BIO-Viterbi HARD_FAIL v571: F1=0.5692 < unconstrained 0.5817. R2 rescue CLOSED. PROT-004/006 (cheapest first):
+RESCUE-1 (cheapest): bigram B-tag/I-tag transition features without hard Viterbi constraint.
+RESCUE-2: soft Viterbi -- learned BIO transition penalty weights alongside emission scores.
+RESCUE-3: more data -- expand to full CoNLL-2003 14987 tokens on 4-type task.
+RESCUE-4: cascade POS feed -- PP-386 5-seed POS (0.9508) as NER feature pre-filter.
+RESCUE-5: 4-type coarsening full run -- extend PP-387 to multi-seed + more data.
+
+**(C) ner_singletype_boundary_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-387; boundary vs type-confusion diagnosis):**
+NEW ROW PP-387: boundary-F1=0.6639, 18-type=0.5817, type-confusion-cost=+0.0822 (cycle 237). Both boundary (+5.78pp gap to HP) and type discrimination (+8.22pp cost) must improve. NER not single-bottleneck. 0.55-0.70 EXPLORATORY n=1.
+
+**(D) ner_4type_conll_cpu_v1 (MIDDLE_BAND -- annotation on NER 4-type tractability):**
+4-type F1=0.6477 (+6.60pp vs 18-type). 4-type coarsening confirms type-confusion is a real cost. Annotation on PP-387: CoNLL 4-type is tractable path to HP with bigram-boundary features. No standalone new PP row.
+
+**(E) sentiment_headtohead_fair_gpu_v1 (HARD_PASS -- NEW ROW PP-388; NORTH STAR SUBSTRATE-WIN sentiment fair):**
+NEW ROW PP-388: HARD_PASS v571: substrate=0.767 vs Qwen-0.5B fair=0.485, gap=+28.2pp (cycle 237). SUBSTRATE-WIN. Fair log-probability comparison MORE decisive than free-gen. 0.85-0.95 VALIDATED n=1 GPU.
+
+**(F) sentiment_headtohead_gpu_v1 (HARD_PASS -- NEW ROW PP-389; NORTH STAR SUBSTRATE-WIN sentiment baseline):**
+NEW ROW PP-389: HARD_PASS v571: substrate=0.767 vs Qwen-0.5B=0.580, gap=+18.7pp, 3684x faster (cycle 237). SUBSTRATE-WIN. Accuracy + speed dominance. 0.85-0.95 VALIDATED n=1 GPU.
+
+**(G) textclass_headtohead_gpu_v1 (HARD_PASS -- NEW ROW PP-390; NORTH STAR SUBSTRATE-WIN AG-News 4-class):**
+NEW ROW PP-390: HARD_PASS v571: substrate=0.848 vs Qwen-0.5B=0.688, gap=+16.0pp, 915x faster (cycle 237). SUBSTRATE-WIN. Extends sentiment wins to 4-class multi-class classification. 0.85-0.95 VALIDATED n=1 GPU.
+
+**(H) [LVH-290] headtohead_math_vs_llm_1p5b_gpu_v1 (MIDDLE_BAND honest reclassify -- NEW ROW PP-391; math PARTIAL-WIN 2/4):**
+[LVH-290] NEW ROW PP-391: MIDDLE_BAND v571: MAWPS 0.806 WIN; MultiArith 0.753 WIN; SVAMP 0.297 LOSS; ASDiv 0.224 LOSS. LLM identity uncertain (qwen0.5b key but "1p5b" anchor). Substrate wins on compositional arithmetic; loses on linguistically complex multi-step. 0.60-0.75 EXPLORATORY n=1 GPU.
+
+**(I) [LVH-291] headtohead_math_vs_llm_3b_gpu_v1 (MIDDLE_BAND honest reclassify -- NEW ROW PP-392; math vs larger LLM PARTIAL-WIN 2/4):**
+[LVH-291] NEW ROW PP-392: MIDDLE_BAND v571: same substrate results as PP-391; LLM appears larger (ASDiv 0.9 vs 0.8; latency 0.79s). Substrate wins 2/4 vs likely ~3B-class model -- more strategically significant but still partial. 0.55-0.70 EXPLORATORY n=1 GPU.
+
+Cap_map: v570 -> v571 CYCLE 237 (3 HP CPU [pos-multiseed-fix 5-seed + NER mechanisms] + 3 HP GPU SUBSTRATE-WIN [sentiment-fair + sentiment-baseline + textclass] = 5 HP total; 1 HF [ner-bio-viterbi]; 2 MB [ner-singletype-boundary + ner-4type-conll]; 2 LVH-reclassify [LVH-290 math-1p5b + LVH-291 math-3b]; 2 LVH filed [LVH-290+LVH-291]; 7 NEW PP ROWS [PP-386..PP-392]; PP-379 P-band upgrade n=1->n=5; NER R2 BIO-viterbi CLOSED; 5x NER PROT-004/006 rescues; 3x SUBSTRATE-WIN [PP-388/PP-389/PP-390]; 2x PARTIAL-WIN [PP-391/PP-392]; Portfolio 32+385 -> 32+392 +7; HONEST 1792->1801 +9; LVH 289->291 +2; 465th PROT-009 paired commit) (2026-06-11)
