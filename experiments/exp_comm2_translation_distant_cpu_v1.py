@@ -36,7 +36,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: comm2-translation-distant", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(813); NC = 80; langs = list(ORDERS.keys())
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "813"))); NC = 80; langs = list(ORDERS.keys())
     TR = 12 if SMOKE else 80; concept_hit = 0; concept_n = 0; order_ok = 0; order_n = 0
     for _ in range(TR):
         concepts = cphasor(NC, N, g)

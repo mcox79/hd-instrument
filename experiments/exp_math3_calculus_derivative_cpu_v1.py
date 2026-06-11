@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: math3-calculus-derivative", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(821); COEFFS = [1, 2, 3, 4, 5]; POWERS = [1, 2, 3, 4]; OUTERS = ["id", "sin", "cos", "exp"]
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "821"))); COEFFS = [1, 2, 3, 4, 5]; POWERS = [1, 2, 3, 4]; OUTERS = ["id", "sin", "cos", "exp"]
     sym = lambda lst: (np.stack([cphasor(1, N, g)[0] for _ in lst]), {x: i for i, x in enumerate(lst)})
     cbook, cmap = sym(COEFFS); pbook, pmap = sym(POWERS); obook, omap = sym(OUTERS)
     RC = cphasor(1, N, g)[0]; RP = cphasor(1, N, g)[0]; RO = cphasor(1, N, g)[0]

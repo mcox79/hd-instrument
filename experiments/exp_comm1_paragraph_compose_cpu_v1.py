@@ -35,7 +35,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: comm1-paragraph-compose", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(810); NTOPIC = 20; CONC_PER = 15; NSLOT = 6; VOC = NTOPIC * CONC_PER
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "810"))); NTOPIC = 20; CONC_PER = 15; NSLOT = 6; VOC = NTOPIC * CONC_PER
     TR = 15 if SMOKE else 100; rec = 0; tot = 0; topic_hit = 0; ntop = 0
     for _ in range(TR):
         concepts = cphasor(VOC, N, g); slots = cphasor(NSLOT, N, g)

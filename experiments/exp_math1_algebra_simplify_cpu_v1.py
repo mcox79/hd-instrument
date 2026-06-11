@@ -35,7 +35,7 @@ def _selftest():
     print("[selftest] PASS: math1-algebra-simplify", flush=True)
 # rules: (op, operand-pattern) -> simplified. Encoded structurally: expr = OP (X) left (X) RIGHT (X) right
 def run() -> Dict:
-    g = np.random.default_rng(820)
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "820")))
     # vocab: variables, constants 0/1, ops; structural roles
     NVAR = 8; ops = ["add", "mul", "sub"]
     OP = {o: cphasor(1, N, g)[0] for o in ops}; ROLE_L = cphasor(1, N, g)[0]; ROLE_R = cphasor(1, N, g)[0]

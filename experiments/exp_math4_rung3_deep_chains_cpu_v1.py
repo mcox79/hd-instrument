@@ -33,7 +33,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: math4-rung3-deep-chains", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(824); NPROP = 100; IMPL = cphasor(1, N, g)[0]
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "824"))); NPROP = 100; IMPL = cphasor(1, N, g)[0]
     lengths = [8, 10, 12]; TR = 20 if SMOKE else 120; by_len = {L: [] for L in lengths}
     for _ in range(TR):
         props = cphasor(NPROP, N, g); nxt = g.permutation(NPROP)        # functional chain over 100 props

@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: code1-function-compose", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(830); STEPS = 5; NK = 5                  # program length, constant range
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "830"))); STEPS = 5; NK = 5                  # program length, constant range
     # op vocabulary (op (X) const). recoverable ops: add/mul/sub/square/neg
     OPS = ["add", "mul", "sub", "square", "neg"]
     opv = {o: cphasor(1, N, g)[0] for o in OPS}; opbook = np.stack([opv[o] for o in OPS])

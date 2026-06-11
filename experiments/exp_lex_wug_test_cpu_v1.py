@@ -35,7 +35,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: lex-wug-test", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(850); NSTEM = 60
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "850"))); NSTEM = 60
     PRES = cphasor(1, N, g)[0]; PAST = cphasor(1, N, g)[0]
     TR = 20 if SMOKE else 120; reg_hit = 0; reg_n = 0; few_hit = 0; few_n = 0
     for _ in range(TR):

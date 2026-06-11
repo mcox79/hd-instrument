@@ -35,7 +35,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: comm-lex-emission", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(812); NCON = 100; NTOK = 200; MAXPOS = 3; SENT = 4
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "812"))); NCON = 100; NTOK = 200; MAXPOS = 3; SENT = 4
     TR = 15 if SMOKE else 90; tok_hit = 0; tok_tot = 0; sent_ok = 0; sent_tot = 0
     for _ in range(TR):
         concepts = cphasor(NCON, N, g); tokens = cphasor(NTOK, N, g); POS = cphasor(MAXPOS, N, g)

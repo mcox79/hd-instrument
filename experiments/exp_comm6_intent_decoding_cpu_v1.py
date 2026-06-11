@@ -33,7 +33,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: comm6-intent-decoding", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(811); NINTENT = 20; NSTYLE = 8
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "811"))); NINTENT = 20; NSTYLE = 8
     TR = 15 if SMOKE else 100; hit = 0; n = 0
     for _ in range(TR):
         intents = cphasor(NINTENT, N, g); styles = cphasor(NSTYLE, N, g)

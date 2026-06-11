@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: code6-algorithm-compose", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(832); STEPS = 4; OPS = ["filter_gt", "map_add", "map_mul", "take", "sort"]; PARAMS = list(range(6))
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "832"))); STEPS = 4; OPS = ["filter_gt", "map_add", "map_mul", "take", "sort"]; PARAMS = list(range(6))
     opv = {o: cphasor(1, N, g)[0] for o in OPS}; opbook = np.stack([opv[o] for o in OPS])
     pv = cphasor(len(PARAMS), N, g); slots = cphasor(STEPS, N, g); OPROLE = cphasor(1, N, g)[0]; PARAMROLE = cphasor(1, N, g)[0]
     def apply(op, p, arr):

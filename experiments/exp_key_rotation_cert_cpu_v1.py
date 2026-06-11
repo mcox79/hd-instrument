@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: key-rotation-cert", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(860); K = 60 if SMOKE else 120; V = 300
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "860"))); K = 60 if SMOKE else 120; V = 300
     TR = 12 if SMOKE else 60; new_hit = 0; old_hit = 0; tot = 0
     for _ in range(TR):
         keys = cphasor(K, N, g); vals = cphasor(V, N, g); truth = g.integers(0, V, size=K)

@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: math2-equation-solve", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(823); COEFFS = list(range(-5, 6)); cbook_map = {c: i for i, c in enumerate(COEFFS)}
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "823"))); COEFFS = list(range(-5, 6)); cbook_map = {c: i for i, c in enumerate(COEFFS)}
     cbook = cphasor(len(COEFFS), N, g); types = cphasor(2, N, g)  # 0=linear 1=quadratic
     RA = cphasor(1, N, g)[0]; RB = cphasor(1, N, g)[0]; RC = cphasor(1, N, g)[0]; RT = cphasor(1, N, g)[0]
     def enc(a, b, c, t):

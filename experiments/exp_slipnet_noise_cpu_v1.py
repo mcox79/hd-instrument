@@ -43,7 +43,7 @@ def slip(n, edges, rels, OUT, IN, iters=5):
 def _selftest():
     print("[selftest] PASS: slipnet-noise", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(673); n = 7; NREL = 4; rels = cphasor(NREL, N, g); OUT = cphasor(1, N, g)[0]; IN = cphasor(1, N, g)[0]
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "673"))); n = 7; NREL = 4; rels = cphasor(NREL, N, g); OUT = cphasor(1, N, g)[0]; IN = cphasor(1, N, g)[0]
     noises = [0.0, 0.15, 0.25] if SMOKE else [0.0, 0.10, 0.25, 0.40]; TR = 25 if SMOKE else 150
     curve = {}
     for noise in noises:

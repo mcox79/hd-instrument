@@ -37,7 +37,7 @@ def _auc(scores, labels):
 def _selftest():
     print("[selftest] PASS: code2-bug-detection", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(831); STEPS = 5; NOP = 10; NTEMPL = 12
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "831"))); STEPS = 5; NOP = 10; NTEMPL = 12
     ops = cphasor(NOP, N, g); slots = cphasor(STEPS, N, g)
     TR = 15 if SMOKE else 90; scores = []; labels = []
     for _ in range(TR):
