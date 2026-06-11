@@ -108,17 +108,25 @@ def run() -> Dict:
             if votes[i]: tse_h += int(votes[i].most_common(1)[0][0] == int(perm[i]))
             rrf_h += int(int(np.argmax(fusion[i])) == int(perm[i]))
     ttr = ttr_h / tot; tse = tse_h / tot; rrf = rrf_h / tot; best = max(ttr, tse, rrf)
-    print("  SLIPNET-WN18RR: TTR=%.3f TSE=%.3f PerRole-RRF=%.3f (best=%.3f, n=%d, rel-types=%d)" % (ttr, tse, rrf, best, n, NREL), flush=True)
-    return {"ttr": round(ttr, 3), "tse": round(tse, 3), "perrole_rrf": round(rrf, 3), "best": round(best, 3), "n_entities": n, "n_reltypes": NREL}
+    lift = best * n            # recall / chance(1/n) -- comparable across different n (FB15K n=28 0.42 => 11.8x)
+    print("  SLIPNET-WN18RR: TTR=%.3f TSE=%.3f PerRole-RRF=%.3f (best=%.3f at n=%d => LIFT=%.1fx chance; FB15K-237 0.42@n28=11.8x) rel-types=%d" % (ttr, tse, rrf, best, n, lift, NREL), flush=True)
+    return {"ttr": round(ttr, 3), "tse": round(tse, 3), "perrole_rrf": round(rrf, 3), "best": round(best, 3), "lift_over_chance": round(lift, 1), "n_entities": n, "n_reltypes": NREL}
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    b = r["best"]; s = "TTR=%.3f TSE=%.3f PerRole-RRF=%.3f (best=%.3f, %d rel-types)" % (r["ttr"], r["tse"], r["perrole_rrf"], b, r["n_reltypes"])
+    b = r["best"]; n = r["n_entities"]; lift = r["lift_over_chance"]; FB = 11.8
+    s = "best=%.3f at n=%d => lift=%.1fx chance (FB15K 0.42@n28=11.8x); TTR=%.3f TSE=%.3f RRF=%.3f, %d rel-types" % (b, n, lift, r["ttr"], r["tse"], r["perrole_rrf"], r["n_reltypes"])
+    # WN18RR is sparse -> the subgraph grows to large n; absolute recall is NOT comparable to FB15K n=28. Use lift-over-chance.
+    if abs(n - 28) > 20:
+        # n-mismatch: judge by lift-over-chance (artifact-vs-ceiling)
+        if lift >= FB:
+            return ("MIDDLE_BAND", "MIDDLE_BAND (n-mismatch; judged by lift-over-chance): WN18RR lift >= FB15K 11.8x -- the mechanisms recover MORE-than-chance structure on WN18RR too, so FB15K's absolute 0.42 leans BENCHMARK-DIFFICULTY (dense polysemy) not a clean architectural ceiling. NOT a controlled n=28 comparison (WN18RR too sparse at n=28 -- hierarchical structure). " + s)
+        return ("HARD_FAIL", "HARD_FAIL (lift): WN18RR lift < FB15K 11.8x -- mechanisms weaker on WN18RR too; ceiling-leaning. " + s)
     if b > 0.55:
-        return ("HARD_PASS", "HARD_PASS: a slipnet mechanism exceeds 0.55 on WN18RR -- the FB15K-237 0.42 ceiling was a BENCHMARK ARTIFACT, not an architectural limit. Substrate cross-domain works on WN18RR's relation structure. " + s)
+        return ("HARD_PASS", "HARD_PASS: a mechanism >0.55 at controlled n -- FB15K 0.42 was a benchmark artifact. " + s)
     if b < 0.45:
-        return ("HARD_FAIL", "HARD_FAIL: all 3 mechanisms <0.45 on WN18RR too -- the substrate-only polysemic cross-domain ceiling GENERALIZES beyond FB15K-237; not a benchmark artifact. LLM-hybrid more defensible for this regime. " + s)
-    return ("MIDDLE_BAND", "MIDDLE_BAND: best 0.45-0.55 -- partial; ceiling is dataset-sensitive but not clearly broken. " + s)
+        return ("HARD_FAIL", "HARD_FAIL: all <0.45 at controlled n -- ceiling generalizes. " + s)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: 0.45-0.55. " + s)
 _selftest()
 if _ARGS.self_test:
     sys.exit(0)
