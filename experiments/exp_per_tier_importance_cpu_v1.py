@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: per-tier-importance", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(902); NT1 = 20; NT3 = 60; V = 400; DECAY = 0.985; REFRESH = 50; STEPS = 600 if SMOKE else 3000
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "902"))); NT1 = 20; NT3 = 60; V = 400; DECAY = 0.985; REFRESH = 50; STEPS = 600 if SMOKE else 3000
     TR = 5 if SMOKE else 16; t1r = []; t3a = []; t3u = []
     for _ in range(TR):
         t1k = cphasor(NT1, N, g); t3k = cphasor(NT3, N, g); vals = cphasor(V, N, g)

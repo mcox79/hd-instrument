@@ -48,7 +48,7 @@ class SubstrateV32:
     def recall(self, d, key, book):
         return cidx(cnorm(self.dom[d]) * np.conj(key), book)
 def run() -> Dict:
-    g = np.random.default_rng(905); NDOM = 3; PERDOM = 250 if not SMOKE else 60; V = 600
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "905"))); NDOM = 3; PERDOM = 250 if not SMOKE else 60; V = 600
     TR = 4 if SMOKE else 12; per = []; lock = []; par = []
     for _ in range(TR):
         keys = cphasor(NDOM * PERDOM, N, g); vals = cphasor(V, N, g); truth = g.integers(0, V, size=NDOM * PERDOM)

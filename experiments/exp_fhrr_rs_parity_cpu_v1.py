@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: fhrr-rs-parity", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(901); K = 6; R = 2; PER = 6; V = 400
+    g = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "901"))); K = 6; R = 2; PER = 6; V = 400
     TR = 20 if SMOKE else 100; rec_hit = 0; rec_tot = 0
     for _ in range(TR):
         # K data shards, each a fact-bundle (NOT unit-normed -- linear combos must be exact)
