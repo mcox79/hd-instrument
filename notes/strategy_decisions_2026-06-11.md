@@ -865,3 +865,71 @@ NEW ROW PP-390: HARD_PASS v571: substrate=0.848 vs Qwen-0.5B=0.688, gap=+16.0pp,
 [LVH-291] NEW ROW PP-392: MIDDLE_BAND v571: same substrate results as PP-391; LLM appears larger (ASDiv 0.9 vs 0.8; latency 0.79s). Substrate wins 2/4 vs likely ~3B-class model -- more strategically significant but still partial. 0.55-0.70 EXPLORATORY n=1 GPU.
 
 Cap_map: v570 -> v571 CYCLE 237 (3 HP CPU [pos-multiseed-fix 5-seed + NER mechanisms] + 3 HP GPU SUBSTRATE-WIN [sentiment-fair + sentiment-baseline + textclass] = 5 HP total; 1 HF [ner-bio-viterbi]; 2 MB [ner-singletype-boundary + ner-4type-conll]; 2 LVH-reclassify [LVH-290 math-1p5b + LVH-291 math-3b]; 2 LVH filed [LVH-290+LVH-291]; 7 NEW PP ROWS [PP-386..PP-392]; PP-379 P-band upgrade n=1->n=5; NER R2 BIO-viterbi CLOSED; 5x NER PROT-004/006 rescues; 3x SUBSTRATE-WIN [PP-388/PP-389/PP-390]; 2x PARTIAL-WIN [PP-391/PP-392]; Portfolio 32+385 -> 32+392 +7; HONEST 1792->1801 +9; LVH 289->291 +2; 465th PROT-009 paired commit) (2026-06-11)
+
+## v571 -> v572 @ CYCLE 238 10-VERDICT BATCH NER rescue battery + SVAMP/ASDiv math probes + POS data efficiency
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files, cpu_runner_local FrameworkMPC). 0 LVH catches.
+
+**ner_brown_cluster_cpu_v1 MIDDLE_BAND (HONEST):** F1=0.5928 vs baseline 0.5817, lift=+0.0111. Threshold >=0.005 met. HONEST.
+
+**asdiv_3op_ceiling_cpu_v1 MIDDLE_BAND (HONEST):** 3-op ceiling=0.6835 (n=79), 2-op=0.8333, 1-op=0.7212. Band 0.65-0.85 met. HONEST.
+
+**ner_pos_cascade_cpu_v1 MIDDLE_BAND (HONEST):** F1=0.5950 vs baseline 0.5817, lift=+0.0132. Threshold >=0.005 met. HONEST.
+
+**ner_stacked_features_cpu_v1 HARD_FAIL (HONEST):** stacked(clusters+POS) F1=0.5875, lift=+0.0058 < 0.01 threshold. Both features sum to less than either alone (subadditive, feature overlap). HONEST.
+
+**svamp_role_asymmetry_cpu_v1 MIDDLE_BAND (HONEST):** acc=0.3633 vs baseline=0.2867, lift=+0.0767. Threshold lift>=0.05 met (0.0767>=0.05). HONEST.
+
+**svamp_learned_selector_cpu_v1 MIDDLE_BAND (HONEST):** acc=0.3667, selector-pair-acc=0.6457. Threshold >=0.36 met (0.3667>=0.36). HONEST.
+
+**ner_gazetteer_substrate_cpu_v1 HARD_FAIL (HONEST):** F1=0.5883 vs baseline 0.5817, lift=+0.0066, gaz-hit-rate=0.023. Threshold lift<0.02 AND F1<0.60 met. HONEST.
+
+**pos_data_efficiency_cpu_v1 HARD_FAIL (HONEST):** n90=2500, best=0.9106. At n=1000 acc=0.8774<0.90. Needs >1000 confirmed. HONEST. Curve: 25:0.653->50:0.717->100:0.754->250:0.812->500:0.847->1000:0.877->2500:0.911.
+
+**svamp_math_wk_lex_cpu_v1 HARD_FAIL (HONEST):** acc_wk=0.3633 vs base=0.3667, lift=-0.0033. Negative lift. WK<0.39 threshold met. HONEST.
+
+**asdiv_math_wk_oracle_cpu_v1 MIDDLE_BAND (HONEST):** 3-op: base=0.6709->WK=0.7848 (lift=+0.1139). Threshold >=0.75 met AND lift>=0.05 met. HONEST.
+
+HONEST: 1801 -> 1811 (+10). LVH: 291 -> 291 (+0). 0 LVH catches.
+
+### Cap_map decisions (v571 -> v572)
+
+**(A) ner_brown_cluster_cpu_v1 (MIDDLE_BAND -- NER Brown-cluster annotation; R4 +1.11pp):**
+ner_brown_cluster_cpu_v1 MIDDLE_BAND v572: F1=0.5928 vs baseline 0.5817, lift=+0.0111, n_clusters=48, train=5982, n_seeds=1 (cycle 238). NER BROWN CLUSTER RESCUE PARTIAL: +1.11pp above noise threshold but below HP-grade. Feature ordering: POS-cascade +0.0132 > Brown-clusters +0.0111 > gazetteer +0.0066. Stacking saturates (item D). No new PP row; NER row annotated. Cross-ref PP-387 (boundary), NER saturation series.
+
+**(B) asdiv_3op_ceiling_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-393; 3-op architectural reach ceiling):**
+NEW ROW PP-393: asdiv_3op_ceiling_cpu_v1 MIDDLE_BAND v572: 3-op ceiling=0.6835 (n=79), 2-op ceiling=0.8333 (n=426), 1-op ceiling=0.7212 (n=1363), n_seeds=1 (cycle 238). 3-OP COMPOSITION CEILING MAPPED: substrate arithmetic reach: 2-op 0.833 (best) -> 1-op 0.721 -> 3-op 0.683 (degrading with complexity). 3-op failures = implicit constants or non-arithmetic ops. Oracle WK (item J, PP-394) lifts 3-op to 0.7848. P-band: 0.65-0.78 EXPLORATORY n=1 full. Product implication: substrate handles up to 2-op reliably; 3-op needs WK augmentation. Cross-ref PP-375 (multistep TIER A), PP-394 (WK oracle).
+
+**(C) ner_pos_cascade_cpu_v1 (MIDDLE_BAND -- NER POS-cascade annotation; R4b POS feed +1.32pp):**
+ner_pos_cascade_cpu_v1 MIDDLE_BAND v572: F1=0.5950 vs baseline 0.5817, lift=+0.0132, train=5982, n_seeds=1 (cycle 238). POS-CASCADE STRONGEST SINGLE NER FEATURE: PP-379/PP-386 POS feed adds +1.32pp -- best individual rescue so far. Feature order: POS > Brown > gazetteer. All three saturate when stacked (item D, +0.0058). Boundary features (R1 bigram-boundary, still open) likely encodes orthogonal signal. No new PP row; NER row annotated. Cross-ref PP-379/PP-386 (POS tagger), item D (saturation).
+
+**(D) ner_stacked_features_cpu_v1 (HARD_FAIL -- NER in-corpus feature SATURATION CEILING MAPPED):**
+ner_stacked_features_cpu_v1 HARD_FAIL v572: stacked(clusters+POS) F1=0.5875, lift=+0.0058 < 0.01, individual: clusters=+0.0111, POS=+0.0132, stacked=+0.0058 (SUBADDITIVE), train=5982, n_seeds=1 (cycle 238). NER IN-CORPUS SATURATION: clusters + POS share the same signal; stacking yields less than either alone. Saturation series now has 4 data points (gazetteer=+0.0066, Brown=+0.0111, POS=+0.0132, stacked=+0.0058). In-corpus feature ceiling at current OntoNotes 5982 train set is ~0.595. Remaining open paths: RESCUE-1 (bigram-boundary features, orthogonal boundary signal) + RESCUE-3 (CoNLL full data 14987 tokens, most promising scale-up). External signal or more data needed for HP. No new PP row; NER saturation annotation. Cross-ref all NER rescue series.
+
+**(E) svamp_role_asymmetry_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-395; SVAMP role-asymmetry mechanism validated +7.67pp):**
+NEW ROW PP-395: svamp_role_asymmetry_cpu_v1 MIDDLE_BAND v572: acc=0.3633 vs baseline=0.2867, lift=+0.0767, n_test=300, n_seeds=1 (cycle 238). SVAMP ROLE-ASYMMETRY MECHANISM VALIDATED: +7.67pp is the largest single-mechanism SVAMP lift to date. Target-aligned operand selection + subject/object/transfer-direction features resolve operand ambiguity. Composes with learned selector (PP-396, same acc 0.3667). MIDDLE_BAND 0.33-0.42. Path to HP: richer SRL-grade role parsing. P-band: 0.33-0.42 EXPLORATORY n=1 full elapsed<1s. Cross-ref PP-377 (SVAMP multi-seed), PP-396 (selector).
+
+**(F) svamp_learned_selector_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-396; learned selector marginal over heuristic):**
+NEW ROW PP-396: svamp_learned_selector_cpu_v1 MIDDLE_BAND v572: acc=0.3667, selector-pair-acc=0.6457, vs heuristic=0.363 (+0.37pp), vs first-2=0.287 (+7.97pp), n_test=300, n_seeds=1 (cycle 238). LEARNED SELECTOR MARGINAL WIN: selector-pair mechanism (64.6% pair accuracy) learns real operand-role structure but doesn't decisively edge heuristic (+0.37pp). Bottleneck is selection precision not coverage; role-asymmetry (PP-395) addresses root cause better. Composes with role: both converge at ~0.363-0.367 with complementary mechanisms. P-band: 0.36-0.42 EXPLORATORY n=1 full elapsed<1s. Cross-ref PP-395 (role), PP-377 (SVAMP baseline).
+
+**(G) ner_gazetteer_substrate_cpu_v1 (HARD_FAIL -- NER self-referential gazetteer CLOSED; both gazetteer paths closed):**
+ner_gazetteer_substrate_cpu_v1 HARD_FAIL v572: F1=0.5883 vs baseline 0.5817, lift=+0.0066, gaz-hit-rate=0.023, train=5982, n_seeds=1 (cycle 238). SUBSTRATE SELF-REFERENTIAL GAZETTEER SATURATES: substrate's own high-confidence predictions as gazetteer anchors achieves only 2.3% hit rate -- too uncertain to serve as anchors. Both gazetteer paths now closed: external-resource gazetteer (LVH-288 cycle-236, F1=0.5747) + self-referential gazetteer (cycle-238, +0.0066). Gazetteer axis exhausted for NER. Part of saturation series (item D). No new PP row; NER row annotated, both gazetteer paths marked closed.
+
+**(H) pos_data_efficiency_cpu_v1 (HARD_FAIL -- NEW ROW PP-397; POS learning curve mapped; low-data claim REFUTED):**
+NEW ROW PP-397: pos_data_efficiency_cpu_v1 HARD_FAIL v572: n90=2500, best=0.9106, curve=[25:0.653, 50:0.717, 100:0.754, 250:0.812, 500:0.847, 1000:0.877, 2500:0.911], n_test=2023, n_tags=17, n_seeds=1 (cycle 238). POS DATA EFFICIENCY CEILING MAPPED: substrate POS requires ~2500 sentences for 0.90+. Low-data efficiency claim REFUTED: at 100 sentences only 0.754; needs full dataset for production quality. Learning curve is near-log-linear (no efficiency advantage at small N). Product implication: substrate NLP components are NOT few-shot capable -- advantage is accuracy+speed at full data, not low-data efficiency. HARD_FAIL vs low-data efficiency hypothesis. Informative for product positioning: do not claim few-shot NLP. P-band: 0.50-0.70 EXPLORATORY n=1 (data efficiency measurement). Cross-ref PP-379/PP-386 (full-data POS), PP-384/PP-385 (chunker/pipeline full-data).
+
+**(I) svamp_math_wk_lex_cpu_v1 (HARD_FAIL -- SVAMP WK-via-LEX CLOSED; mechanism mismatch vs ASDiv):**
+svamp_math_wk_lex_cpu_v1 HARD_FAIL v572: acc_wk=0.3633 vs base=0.3667, lift=-0.0033, wk-selector-pair-acc=0.6578, n_test=300, n_seeds=1 (cycle 238). SVAMP WK VIA LEX CLOSED: negative lift (-0.33pp). Mechanism mismatch: ASDiv embeds WK constants adjacent to numbers (oracle rule 8 works, +11.39pp, item J); SVAMP WK constants require multi-hop or non-adjacent lookup. WK-selector-pair-acc=0.6578 shows selector learns structure but constants don't map to SVAMP operands. WK-via-LEX closed for SVAMP. Path: multi-hop selector or subset-sum mechanism needed. No new PP row; PP-377 annotated (WK-LEX closed, role-asymmetry is productive axis). Cross-ref PP-395/PP-396 (role+selector), item J (ASDiv WK works differently).
+
+**(J) asdiv_math_wk_oracle_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-394; oracle WK lifts ASDiv 3-op ceiling to 0.785):**
+NEW ROW PP-394: asdiv_math_wk_oracle_cpu_v1 MIDDLE_BAND v572: 3-op: base=0.6709->WK=0.7848 (lift=+0.1139), 2-op: 0.8141->0.8612 (lift=+0.0471), 1-op: 0.6791->0.7122 (lift=+0.0331), n_seeds=1 (cycle 238). ORACLE WK CLOSES MOST OF ASDiv 3-OP GAP: +11.39pp oracle WK lift on 3-op (0.6709->0.7848); WK-augmented 3-op ceiling now 0.7848 vs PP-393 base 0.6835. Remaining 21.5% failures need multi-fact or non-adjacent constants beyond oracle rule 8. Key asymmetry: WK load-bearing for ASDiv 3-op (+11.39pp) but NEGATIVE for SVAMP (-0.33pp). Mechanisms differ by dataset structure. Product implication: substrate math is domain-specific in WK benefit; ASDiv is WK-sensitive, SVAMP is role-sensitive. P-band: 0.75-0.85 EXPLORATORY n=1 full elapsed<2s. Cross-ref PP-393 (base 3-op ceiling), PP-375/PP-376 (multistep arithmetic), item I (SVAMP WK mismatch).
+
+ANNOTATIONS this cycle:
+- NER saturation series fully mapped: 4 data points (Brown +0.0111, POS +0.0132, stacked +0.0058, gazetteer-self +0.0066) confirm in-corpus feature ceiling ~0.595. Both gazetteer paths closed. Open: R1 bigram-boundary + R3 CoNLL full data.
+- PP-377 (SVAMP): role-asymmetry +7.67pp (PP-395) = most productive SVAMP axis; learned selector marginal (PP-396); WK-LEX closed (item I).
+- ASDiv: 3-op base ceiling 0.6835 (PP-393) + oracle WK ceiling 0.7848 (PP-394). WK load-bearing.
+- PP-379/PP-386 (POS): data efficiency HARD_FAIL (PP-397) -- not few-shot capable.
+
+Cap_map: v571 -> v572 CYCLE 238 (0 HP; 6 MIDDLE_BAND [ner_brown_cluster + asdiv_3op_ceiling + ner_pos_cascade + svamp_role_asymmetry + svamp_learned_selector + asdiv_math_wk_oracle]; 4 HARD_FAIL [ner_stacked_features + ner_gazetteer_substrate + pos_data_efficiency + svamp_math_wk_lex]; 0 LVH; 5 NEW PP ROWS [PP-393 asdiv-3op-ceiling + PP-394 asdiv-wk-oracle + PP-395 svamp-role-asymmetry + PP-396 svamp-learned-selector + PP-397 pos-data-efficiency]; NER saturation fully mapped; both gazetteer paths closed; SVAMP role-asymmetry validated +7.67pp; ASDiv WK oracle +11.39pp 3-op; SVAMP WK-LEX closed; POS low-data-efficiency claim REFUTED; Portfolio 32+392 -> 32+397 +5; HONEST 1801->1811 +10; LVH 291->291 +0; 466th PROT-009 paired commit) (2026-06-11)
