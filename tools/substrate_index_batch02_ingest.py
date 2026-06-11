@@ -42,6 +42,7 @@ BATCH01_PATH = DATA_ROOT / "math_corpus_batch01.jsonl"
 BATCH02_ATOMS_PATH = DATA_ROOT / "math_corpus_batch02_atoms_refined.jsonl"
 BATCH02_RELATIONS_PATH = DATA_ROOT / "math_corpus_batch02_relations.jsonl"
 BATCH02_QUERIES_PATH = DATA_ROOT / "math_corpus_batch02_disclosed_queries.json"
+BATCH02_REMAINING_53_PATH = DATA_ROOT / "math_corpus_batch02_algebra_vec_remaining_53.jsonl"
 
 
 # ============================================================
@@ -167,6 +168,17 @@ def main():
         pstore.add_atom(a, source="batch02_refined", note="algebra-vec + sharpened description")
         refined += 1
     log.info("batch02 refined: %d atoms re-ingested", refined)
+
+    # 2b. Ingest remaining-53 algebra-vec (Research follow-up; structured nested format)
+    if BATCH02_REMAINING_53_PATH.exists():
+        atoms_53 = load_atoms_jsonl(BATCH02_REMAINING_53_PATH)
+        upgraded = 0
+        for a in atoms_53:
+            if pstore.has_atom(a.qualified_id):
+                pstore.remove_atom(a.qualified_id, source="batch02_53", note="upgraded with algebra-vec")
+            pstore.add_atom(a, source="batch02_53", note="full algebra/signature/complexity fields populated")
+            upgraded += 1
+        log.info("batch02 remaining-53 algebra-vec: %d atoms upgraded", upgraded)
 
     # 3. Ingest 88 relations
     rels = load_relations_jsonl(BATCH02_RELATIONS_PATH)
