@@ -203,16 +203,51 @@ def main():
         log.info("concept subset 10: %d atoms added, %d USES edges from decomposes_to",
                  added_c, rels_from_decompose)
 
-    # 2b. Ingest remaining-53 algebra-vec (Research follow-up; structured nested format)
+    # 2b. Ingest remaining-53 algebra-vec (Research follow-up; DELTA format:
+    # only id + algebra/signature/complexity fields). Merges onto existing
+    # atoms instead of creating new ones.
     if BATCH02_REMAINING_53_PATH.exists():
-        atoms_53 = load_atoms_jsonl(BATCH02_REMAINING_53_PATH)
         upgraded = 0
-        for a in atoms_53:
-            if pstore.has_atom(a.qualified_id):
-                pstore.remove_atom(a.qualified_id, source="batch02_53", note="upgraded with algebra-vec")
-            pstore.add_atom(a, source="batch02_53", note="full algebra/signature/complexity fields populated")
-            upgraded += 1
-        log.info("batch02 remaining-53 algebra-vec: %d atoms upgraded", upgraded)
+        skipped = 0
+        with BATCH02_REMAINING_53_PATH.open("r", encoding="utf-8") as f:
+            for line_no, line in enumerate(f, 1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError as e:
+                    log.error("rem53 line %d: %s", line_no, e)
+                    continue
+                local_id = rec["id"]
+                # Determine qualified id (default math::)
+                qid = local_id if "::" in local_id else f"math::{local_id}"
+                existing = pstore.get_atom(qid)
+                if existing is None:
+                    log.warning("rem53 line %d: atom %s not in store; skipped", line_no, qid)
+                    skipped += 1
+                    continue
+                from dataclasses import replace
+                # Lift algebra_category int -> structure name if int
+                alg = rec.get("algebra")
+                if alg and "structure" in alg and isinstance(alg["structure"], int):
+                    cat = alg["structure"]
+                    if 1 <= cat <= 13:
+                        alg = dict(alg)
+                        alg["category_int"] = cat
+                        alg["structure"] = ALGEBRA_CATEGORIES[cat - 1]
+                merged = replace(
+                    existing,
+                    algebra=alg if alg else existing.algebra,
+                    signature=rec.get("signature") or existing.signature,
+                    complexity=rec.get("complexity") or existing.complexity,
+                )
+                pstore.remove_atom(qid, source="batch02_53", note="upgrading with algebra-vec")
+                pstore.add_atom(merged, source="batch02_53",
+                                note="algebra/signature/complexity fields merged")
+                upgraded += 1
+        log.info("batch02 remaining-53 algebra-vec: %d atoms upgraded, %d skipped",
+                 upgraded, skipped)
 
     # 3. Ingest 88 relations
     rels = load_relations_jsonl(BATCH02_RELATIONS_PATH)
