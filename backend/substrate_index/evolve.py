@@ -56,7 +56,7 @@ NEW_PP_ROW = re.compile(
 
 # Match a single LVH line (in or out of a header)
 LVH_LINE = re.compile(
-    r"LVH-(\d+)\s*[]:\s*([^\n]+)",
+    r"LVH-(\d+)[\]:\s]+([^\n]+)",
 )
 
 # Match a band lift line
