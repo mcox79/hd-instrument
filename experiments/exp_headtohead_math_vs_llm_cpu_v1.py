@@ -15,7 +15,7 @@ try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace"); sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 except Exception:
     pass
-import argparse, os, time, re
+import argparse, os, time, re, gc
 from pathlib import Path
 from typing import Dict, List, Tuple
 from fractions import Fraction
@@ -68,13 +68,14 @@ def run() -> Dict:
         from transformers import AutoModelForCausalLM, AutoTokenizer
         import torch
         name = "Qwen/Qwen2.5-0.5B-Instruct"
+        torch.set_num_threads(4)
         tok = AutoTokenizer.from_pretrained(name); mdl = AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float32); mdl.eval()
         data = _load_bench()
     except Exception as e:
         print("[setup] fail %s" % str(e)[:90], flush=True); return {"error": "setup_failed", "wins": 0}
     if not data: return {"error": "no_data", "wins": 0}
     import torch
-    SAMPLE = 40 if SMOKE else 150
+    SAMPLE = 30 if SMOKE else 80
     llm = {}; lat = {}; wins = 0; rows = {}
     for bench, items in data.items():
         items = items[:SAMPLE]; cor = 0; t_tot = 0.0
@@ -88,6 +89,7 @@ def run() -> Dict:
             txt = tok.decode(out[0][ins["input_ids"].shape[1]:], skip_special_tokens=True)
             pred = _parse_pred(txt)
             if pred is not None and pred == gold: cor += 1
+        gc.collect()
         acc = cor / len(items); llm[bench] = round(acc, 3); lat[bench] = round(t_tot / len(items), 3)
         sub = SUBSTRATE.get(bench, 0.0); win = sub >= acc; wins += int(win)
         rows[bench] = (sub, round(acc, 3), win)

@@ -470,7 +470,7 @@ EXPECTED_TIER_COUNTS = {
 def tier_imbalance(pstore: PartitionedStore, tolerance: float = 0.4) -> list[Finding]:
     """Flag tiers whose actual atom count is far from design intent."""
     actual = {t.value: 0 for t in Tier}
-    for atom in pstore.atoms_by_corpus(Corpus.MATH):
+    for atom in pstore.math.all_atoms():
         actual[atom.tier.value] += 1
     findings: list[Finding] = []
     for tier_value, expected in EXPECTED_TIER_COUNTS.items():
