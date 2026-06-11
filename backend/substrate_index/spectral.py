@@ -107,10 +107,16 @@ def spectral_observability(codebook: np.ndarray) -> SpectralObservability:
             insufficient_M_warning=True,
         )
 
-    # Wishart-like form
+    # Wishart-like form. For M << N (tall codebook) we use the M-sided
+    # Wishart W = X X^T scaled by 1/N. To get eigenvalues of order O(1) for
+    # MP comparison, we rescale by 1/lam so the bulk lies in MP support
+    # [(1-sqrt(lam))^2, (1+sqrt(lam))^2] regardless of aspect.
     lam = float(M) / N
-    W = codebook @ codebook.T / N
+    W = codebook @ codebook.T
     eig = np.linalg.eigvalsh(W)
+    # Standardize: in MP theory with i.i.d. unit-variance entries, eigenvalues
+    # of (X X^T) / N have bulk centered at 1; we use that convention here.
+    eig = eig / max(np.median(eig), 1e-12)
 
     eig_min = float(eig[0])
     eig_max = float(eig[-1])
