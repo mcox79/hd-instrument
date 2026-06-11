@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: 3x-redundant-substrate", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(906); K = 80; V = 400; NOISE = 1.2
+    g = np.random.default_rng(906); K = 80; V = 400; NOISE = 3.2
     TR = 8 if SMOKE else 25; rec3 = []; rec1 = []
     for _ in range(TR):
         keys = cphasor(K, N, g); vals = cphasor(V, N, g); truth = g.integers(0, V, size=K)
