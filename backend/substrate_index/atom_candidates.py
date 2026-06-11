@@ -202,6 +202,85 @@ def algebra_centroid_candidates(
 
 
 # ============================================================
+# Source 5 (Research-proposed): substrate-eval references unknown math term
+# ============================================================
+
+
+_MATH_TERM_PATTERNS = [
+    # Capture phrases that look like math primitives mentioned in research notes
+    r"\b([A-Z][a-z]+(?:-[A-Z][a-z]+)+)\b",        # "Tracy-Widom", "Chu-Liu-Edmonds"
+    r"\b([A-Z][a-z]+ [a-z]+ [a-z]+)\b",            # "Marchenko-Pastur edge"
+    r"\b(F[1-9](?:_[a-z]+)*)\b",                    # "F4", "F4_cumulant"
+    r"\b(BOCPD|GHRR|DisCoCat|FHRR|HRR|VSA|HDC|TPR|FFT|FHE|PCA|ZCA|LDA|HMM)\b",
+    r"\b(?:kappa[_\- ]?(?:[0-9]+|[a-z]+)|spectral[_\- ]?gap|spectral[_\- ]?norm)\b",
+    r"\b(?:Marchenko[_\- ]?Pastur|Tracy[_\- ]?Widom|Wigner|free[_\- ]?cumulant)\b",
+]
+
+
+def substrate_eval_references_unknown_math_term(
+    pstore: PartitionedStore,
+    source_files: list[Path],
+    min_referrers: int = 1,
+) -> list[AtomCandidate]:
+    """Source #5 per Research FINDINGS_09 validation:
+    Find math terms mentioned in research/drill/exp_dev notes that don't
+    exist as atoms in the corpus.
+
+    Inverse of source #2 (math-with-no-concept-user): this finds
+    concept-with-no-math-atom.
+    """
+    import re
+
+    # Build existing math-atom-name set (lowercase normalized)
+    existing_names: set[str] = set()
+    for atom in pstore.all_atoms():
+        if atom.corpus.value == "math":
+            existing_names.add(atom.name.lower())
+            for alias in atom.aliases:
+                existing_names.add(alias.lower())
+            existing_names.add(atom.id.split("/")[-1].replace("_", " ").lower())
+
+    # Extract candidate terms from source files
+    term_referrers: dict[str, list[str]] = defaultdict(list)
+    for src_path in source_files:
+        try:
+            text = src_path.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+        for pattern in _MATH_TERM_PATTERNS:
+            for match in re.finditer(pattern, text):
+                term = match.group(0).strip()
+                if len(term) < 3:
+                    continue
+                # Normalize
+                norm = term.lower().replace("-", " ").replace("_", " ")
+                norm = " ".join(norm.split())
+                if norm in existing_names:
+                    continue
+                term_referrers[norm].append(str(src_path))
+
+    # Build candidates
+    candidates: list[AtomCandidate] = []
+    for term, referrers in term_referrers.items():
+        n_distinct = len(set(referrers))
+        if n_distinct < min_referrers:
+            continue
+        # Suggested id (lowercase + underscore)
+        suggested_local = term.replace(" ", "_")
+        candidates.append(AtomCandidate(
+            proposed_id=f"math::T?/{suggested_local}",
+            suggested_corpus="math",
+            suggested_tier="unknown",
+            suggested_kind="primitive",
+            justification_type="substrate_eval_references_unknown_math_term",
+            referenced_by=tuple(sorted(set(referrers))),
+            confidence=min(0.90, 0.40 + 0.10 * min(5, n_distinct)),
+            notes=f"Term '{term}' mentioned in {n_distinct} research source(s); no math atom with this name exists",
+        ))
+    return sorted(candidates, key=lambda c: -c.confidence)
+
+
+# ============================================================
 # Aggregate report
 # ============================================================
 
@@ -223,6 +302,7 @@ class AtomCandidateReport:
 def generate_candidates(
     pstore: PartitionedStore,
     aidx: Optional[AlgebraIndex] = None,
+    source_files: Optional[list[Path]] = None,
 ) -> AtomCandidateReport:
     """Run all candidate-generation sources; return aggregated report."""
     all_candidates: list[AtomCandidate] = []
@@ -230,6 +310,8 @@ def generate_candidates(
     all_candidates.extend(cross_corpus_orphan_concept_candidates(pstore))
     if aidx is not None:
         all_candidates.extend(algebra_centroid_candidates(pstore, aidx))
+    if source_files:
+        all_candidates.extend(substrate_eval_references_unknown_math_term(pstore, source_files))
 
     by_just: Counter = Counter()
     for c in all_candidates:

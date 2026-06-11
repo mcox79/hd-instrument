@@ -34,8 +34,15 @@ def main():
     aidx = AlgebraIndex(dim=1024)
     aidx.build(pstore)
 
-    log.info("generating atom candidates...")
-    report = generate_candidates(pstore, aidx=aidx)
+    # Source #5 inputs: all research notes
+    NOTES_DIR = Path("notes")
+    source_files = []
+    for prefix in ("research_drill_", "research_to_", "exp_dev_to_research_", "testbed_to_research_"):
+        source_files.extend(sorted(NOTES_DIR.glob(f"{prefix}*.md")))
+    log.info("source #5 inputs: %d notes", len(source_files))
+
+    log.info("generating atom candidates (all 4 sources)...")
+    report = generate_candidates(pstore, aidx=aidx, source_files=source_files)
     log.info("total: %d candidates; by source: %s", report.n_candidates, dict(report.by_justification))
 
     print(f"\n{'='*80}")
