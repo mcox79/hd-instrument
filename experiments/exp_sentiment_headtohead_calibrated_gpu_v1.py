@@ -26,7 +26,7 @@ except Exception:
     pass
 REPO = Path(__file__).resolve().parent.parent
 SMOKE = "--smoke" in sys.argv
-OUT = REPO / "data" / "exp_sentiment_headtohead_calibrated_gpu_v1"
+OUT = REPO / "data" / ("exp_" + os.environ.get("HDLAB_EXP_NAME", "sentiment_headtohead_calibrated_gpu_v1"))
 
 
 def _feats(txt):
