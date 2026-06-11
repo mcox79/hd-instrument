@@ -54,24 +54,22 @@ def run() -> Dict:
     sents = [s for s in sents if s]
     if SMOKE: sents = sents[:300]
     cut = int(len(sents) * 0.8); train = sents[:cut]; test = sents[cut:]
+    if not SMOKE: train = train[:1800]   # cap for tractable structured-perceptron training (vectorized Viterbi)
     TAGS = sorted({t for s in train for _w, t in s}); ti = {t: k for k, t in enumerate(TAGS)}; T = len(TAGS)
     w = defaultdict(float); cw = defaultdict(float); c = 1
     def tt(pt, t): return "tt_%s~%s" % (pt, t)
     def viterbi(words, weights):
         n = len(words)
-        em = [[sum(weights.get(f, 0.0) for f in _emit_feats(words, i, TAGS[k])) for k in range(T)] for i in range(n)]
-        V = [[0.0] * T for _ in range(n)]; bp = [[0] * T for _ in range(n)]
-        for k in range(T): V[0][k] = em[0][k] + weights.get(tt("<S>", TAGS[k]), 0.0)
+        em = np.array([[sum(weights.get(f, 0.0) for f in _emit_feats(words, i, TAGS[k])) for k in range(T)] for i in range(n)])
+        TM = np.array([[weights.get(tt(TAGS[j], TAGS[k]), 0.0) for k in range(T)] for j in range(T)])
+        SV = np.array([weights.get(tt("<S>", TAGS[k]), 0.0) for k in range(T)])
+        V = np.empty((n, T)); bp = np.zeros((n, T), dtype=int)
+        V[0] = em[0] + SV
         for i in range(1, n):
-            for k in range(T):
-                best = -1e18; bk = 0
-                tk = TAGS[k]
-                for j in range(T):
-                    sc = V[i - 1][j] + weights.get(tt(TAGS[j], tk), 0.0)
-                    if sc > best: best = sc; bk = j
-                V[i][k] = best + em[i][k]; bp[i][k] = bk
-        last = max(range(T), key=lambda k: V[n - 1][k]); seq = [last]
-        for i in range(n - 1, 0, -1): seq.append(bp[i][seq[-1]])
+            cand = V[i - 1][:, None] + TM
+            bp[i] = np.argmax(cand, axis=0); V[i] = cand[bp[i], np.arange(T)] + em[i]
+        seq = [int(np.argmax(V[n - 1]))]
+        for i in range(n - 1, 0, -1): seq.append(int(bp[i][seq[-1]]))
         seq.reverse(); return [TAGS[k] for k in seq]
     EP = 6 if not SMOKE else 3
     for ep in range(EP):
