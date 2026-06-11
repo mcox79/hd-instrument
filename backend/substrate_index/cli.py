@@ -48,7 +48,7 @@ from backend.substrate_index.schema import (
 )
 
 
-DEFAULT_ROOT = Path("data/substrate_self_index")
+DEFAULT_ROOT = Path("data/substrate_index")
 
 
 def _build_retriever(root: Path) -> tuple[PartitionedStore, Retriever]:
