@@ -134,11 +134,11 @@ HTML = """<!doctype html>
         <div class="metric">synthetic = 1.000 (full) / online + hiermerge real-data: purity 1.000, count 13 vs K=12</div>
       </div>
 
-      <div class="primitive" style="border: 1px dashed #f59e0b;">
-        <h3 style="color: #f59e0b;">Dual-substrate CLS (HOLD)</h3>
-        <div class="anchor">two_substrate_fastslow_cls_cpu_v1 + v32_multiseed</div>
-        <p>The naive fast + slow two-substrate architecture fails on both axes: recent_recall = 0.689 (target 0.90), old_consolidated_recall = 0.378 (target 0.80). Stable failure across 5 seeds (cls_old std = 0.027). Full Complementary Learning Systems requires explicit consolidation policy not present in the naive split. HOLD; rescue paths pending (replay-gated transfer, asymmetric capacity, etc.).</p>
-        <div class="metric" style="color: #f59e0b;">recent = 0.689 / old = 0.378 / 5-seed-stable failure / status = HOLD</div>
+      <div class="primitive">
+        <h3>Dual-substrate CLS (rescued)</h3>
+        <div class="anchor">PP-359 / cls_rescue4_plus_rescue2_cpu_v1</div>
+        <p>The naive two-substrate architecture fails at both axes (recent=0.689 / old=0.378; stable across 5 seeds). The cycle-229 rescue closes it: asymmetric capacity (fast N=2048, slow N=8192) combined with offline consolidation passes brings BOTH axes to 1.000, seed-robust across 5 seeds. Substrate supports the full CLS pattern: fast recency buffer + slow durable store + offline consolidation policy.</p>
+        <div class="metric">recent recall = 1.000 / old consolidated = 1.000 / 5-seed-robust / N_fast=2048 N_slow=8192</div>
       </div>
     </div>
 
@@ -223,10 +223,10 @@ HTML = """<!doctype html>
       </div>
 
       <div class="primitive">
-        <h3>3x soft redundancy (smoke)</h3>
-        <div class="anchor">PP-358 / 3x_redundant_substrate_cpu_v1 (LVH-279)</div>
-        <p>3x mirrored copies with averaging recovers recall from 0.713 to 0.983 under corruption. Soft redundancy is complementary to hard RS-parity. Smoke-only at this scale; full-run validation queued.</p>
-        <div class="metric">3x recall = 0.983 / single-copy = 0.713 / status = smoke only</div>
+        <h3>3x soft redundancy</h3>
+        <div class="anchor">PP-358 / 3x_redundant_substrate_FULL_cpu_v1</div>
+        <p>3x mirrored copies with averaging recovers recall from 0.706 to 0.987 under corruption. Complementary to hard RS-parity. Full run (cycle 229) confirms smoke result; LVH-279 closed.</p>
+        <div class="metric">3x recall = 0.987 / single-copy = 0.706 / status = full validated</div>
       </div>
     </div>
 

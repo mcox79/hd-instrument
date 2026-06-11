@@ -228,12 +228,13 @@ HTML = """<!doctype html>
       </p>
     </div>
 
-    <h2>First wins on COMM + MATH + CODE thrusts (cycles 224-225)</h2>
+    <h2>First wins on COMM + MATH + CODE thrusts (cycles 224-229)</h2>
     <div class="card">
       <p>
         Substrate-self-improvement requires substrate-grounded COMMUNICATE, MATH,
         and CODE primitives. First categorical wins landed across all three this
-        evening:
+        evening and were multi-seed-validated in cycle 229 (14 of 15 anchors
+        promoted from EXPLORATORY n=1 to seed-robust CONFIRMED at 5 of 5 seeds):
       </p>
       <ul style="margin: 0.5rem 0 0.75rem 1.25rem; color: #c5c5d0;">
         <li><strong>COMM:</strong> slot+topic decoding 1.000 (PP-331);
@@ -244,12 +245,20 @@ HTML = """<!doctype html>
           substrate-over-biology depth)</li>
         <li><strong>CODE:</strong> code-compose 1.000 n=300 (PP-333); algorithm-compose 1.000
           4-step n=300 (PP-339); <strong>HumanEval pass@1 = 0.750 (9 / 12; small-n
-          first result; PP-340)</strong>; bug-detection rescued to F1 = 0.704 (PP-336 partial)</li>
+          first result; PP-340)</strong>; <strong>bug-detection rescued by template-conditional
+          method to F1 = 0.948 at 5-seed (PP-361 closes PP-336)</strong></li>
       </ul>
+      <p>
+        14 of 15 anchors above (every one except code2's original rescue path)
+        confirmed at 5 of 5 seeds via wave1_multiseed_sweep (cycle 229).
+        LVH-277 closed retroactively. Real-benchmark validation queued
+        (NarrativeQA / HumanEval / ArgKP / HotpotQA on synthetic-trained shards).
+      </p>
       <p style="margin: 0">
-        These results are the substrate-grounded codebook foundation for the
-        three-thrust roadmap. Tagged EXPLORATORY (0.78-0.92) per cap_map cycles 224-225;
-        synthetic-task ceiling-consistent; multi-seed + real-benchmark validation queued.
+        <strong>Multi-drive planning via VSA H=3 lookahead (PP-360 cycle 229):</strong>
+        worst-drive satisfaction reaches 0.620 (4.9x single-action baseline) with
+        a single VSA-encoded policy vector that decodes back at 1.000. Substrate
+        handles multi-step, multi-goal planning algebraically. 5-seed robust.
       </p>
     </div>
 
