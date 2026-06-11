@@ -66,7 +66,8 @@ class AtomKind(enum.Enum):
     FAMILY_TAG = "family_tag"
     SUB_OP = "sub_op"
     MACRO = "macro"
-    SCHOOL = "school"  # per Research SCHOOLS_CORPUS proposal; school atoms only
+    SCHOOL = "school"      # per Research SCHOOLS_CORPUS proposal; school atoms only
+    CAPABILITY = "capability"  # per Research concept-corpus 8-field schema; concept atoms
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
