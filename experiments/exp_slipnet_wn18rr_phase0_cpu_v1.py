@@ -69,20 +69,24 @@ def run() -> Dict:
         return {"error": "download_failed", "best": 0.0}
     adj = defaultdict(list)
     for h, r, t in triples: adj[h].append((r, t))
-    seed_e = max(adj, key=lambda x: len(adj[x])); NSUB = 20 if SMOKE else 28
+    # WN18RR is sparse/hierarchical -> grow the subgraph until edge-density is comparable to the FB15K test (>= ~50 edges)
+    seed_e = max(adj, key=lambda x: len(adj[x])); NCAP = 60 if SMOKE else 180; TARGET_E = 25 if SMOKE else 60
     sub = [seed_e]; seen = {seed_e}; q = deque([seed_e])
-    while q and len(sub) < NSUB:
+    def _edge_count():
+        return sum(1 for h, r, t in triples if h in seen and t in seen)
+    while q and len(sub) < NCAP:
         x = q.popleft()
         for (r, t) in adj[x]:
             if t not in seen:
                 seen.add(t); sub.append(t); q.append(t)
-                if len(sub) >= NSUB: break
+        if len(sub) >= 28 and _edge_count() >= TARGET_E:
+            break
     idx = {e: i for i, e in enumerate(sub)}; n = len(sub)
     relset = sorted({r for h, r, t in triples if h in seen and t in seen}); ri = {r: i for i, r in enumerate(relset)}; NREL = len(relset)
     edges = [(idx[h], ri[r], idx[t]) for h, r, t in triples if h in seen and t in seen]
-    print("  [data] WN18RR subgraph n=%d edges=%d rel-types=%d" % (n, len(edges), NREL), flush=True)
-    if NREL == 0 or len(edges) < n:
-        return {"error": "subgraph_too_sparse", "best": 0.0}
+    print("  [data] WN18RR subgraph n=%d edges=%d rel-types=%d (grown for density)" % (n, len(edges), NREL), flush=True)
+    if NREL < 2 or len(edges) < 15:
+        return {"error": "WN18RR_too_sparse_for_slipnet (n=%d edges=%d rel-types=%d) -- hierarchical structure lacks dense multi-relation subgraphs" % (n, len(edges), NREL), "best": 0.0}
     TR = 1 if SMOKE else 8
     ttr_h = tse_h = rrf_h = 0; tot = 0
     for _ in range(TR):
