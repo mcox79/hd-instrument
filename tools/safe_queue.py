@@ -124,8 +124,19 @@ class QueueLock:
             self._fd = None
 
     def read(self) -> dict:
-        with open(self.queue_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        # Retry on PermissionError: a concurrent reader (e.g. dashboard state-emitter)
+        # can briefly hold queue.json with an exclusive open on Windows, raising
+        # PermissionError. The lock is transient, so retry-with-backoff (mirrors write()'s
+        # os.replace retry). Without this, a single collision crashed the runner (2026-06-11).
+        last_err: Exception | None = None
+        for _ in range(60):
+            try:
+                with open(self.queue_path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except PermissionError as e:
+                last_err = e
+                time.sleep(0.05)
+        raise last_err if last_err is not None else RuntimeError("queue read failed")
 
     def write(self, queue: dict) -> None:
         # Per-PID tmp file + os.replace (retried on Windows handle delay).
