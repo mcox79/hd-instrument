@@ -84,6 +84,8 @@ class AtomKind(enum.Enum):
     MACRO = "macro"
     SCHOOL = "school"      # per Research SCHOOLS_CORPUS proposal; school atoms only
     CAPABILITY = "capability"  # per Research concept-corpus 8-field schema; concept atoms
+    METHODOLOGY = "methodology"  # per FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION
+                                  # substrate-proposed: multi-operation methodological content
 
     # Per Research full-research-ledger auto-ingest 2026-06-11:
     DRILL = "drill"               # research drill outputs

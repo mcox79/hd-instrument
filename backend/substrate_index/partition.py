@@ -72,6 +72,9 @@ class PartitionedStore:
         self.concept = Store(self.root / "concept")
         self.meta = Store(self.root / "meta")
         self.school = Store(self.root / "school")  # per Research SCHOOLS_CORPUS proposal
+        # Per Research FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION 2026-06-11:
+        # substrate-proposed partition empirically surfaced by composite C NOVEL cluster
+        self.methodology = Store(self.root / "methodology")
         # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
         # 2026-06-11: six new partitions for auto-ingest of all research artifacts
         self.research_history = Store(self.root / "research_history")
@@ -85,6 +88,7 @@ class PartitionedStore:
             Corpus.CONCEPT: self.concept,
             Corpus.META: self.meta,
             Corpus.SCHOOL: self.school,
+            Corpus.METHODOLOGY: self.methodology,
             Corpus.RESEARCH_HISTORY: self.research_history,
             Corpus.DECISION_HISTORY: self.decision_history,
             Corpus.RESULTS_HISTORY: self.results_history,

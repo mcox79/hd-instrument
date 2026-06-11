@@ -157,13 +157,22 @@ def _algebra_novelty_of_atoms(
     return (1.0 - avg_pairwise, n_math)
 
 
-def classify_verdict(novelty: float, coherence: float) -> tuple[str, str]:
-    """5-class verdict on COMPOSITE novelty (max of semantic + algebra)."""
+def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = -1) -> tuple[str, str]:
+    """6-class verdict per Research FINDINGS_08 Q3:
+    TIER-A / TIER-B / TIER-C / OUT_OF_DOMAIN / NOVEL / REJECT.
+
+    OUT_OF_DOMAIN: TIER-C-band novelty AND #math=0 -> content not about
+    substrate operations at all (substrate detects its own scope-limit;
+    Type B self-improvement signal).
+    """
     if novelty <= TIER_A_THRESHOLD:
         return ("TIER-A", f"high-confidence classify (novelty={novelty:.3f} <= {TIER_A_THRESHOLD})")
     if novelty <= TIER_B_THRESHOLD:
         return ("TIER-B", f"provisional classify (novelty={novelty:.3f} in [{TIER_A_THRESHOLD}, {TIER_B_THRESHOLD}])")
     if novelty <= TIER_C_THRESHOLD:
+        # OUT_OF_DOMAIN check: TIER-C-band + no math atoms referenced
+        if n_math_referenced == 0:
+            return ("OUT_OF_DOMAIN", f"no math atoms referenced; content outside substrate's current scope (novelty={novelty:.3f})")
         return ("TIER-C", f"low confidence (novelty={novelty:.3f} in [{TIER_B_THRESHOLD}, {TIER_C_THRESHOLD}])")
     # Above TIER-C: NOVEL or REJECT decided by coherence
     if novelty >= REJECT_THRESHOLD and coherence < COHERENCE_MIN:
@@ -200,7 +209,7 @@ def evaluate_file(
     composite_novelty = max(semantic_novelty, algebra_nov)
 
     coherence = _paragraph_coherence(text, encoder)
-    verdict, reasoning = classify_verdict(composite_novelty, coherence)
+    verdict, reasoning = classify_verdict(composite_novelty, coherence, n_math_referenced=n_math)
 
     corpus_counts: Counter = Counter()
     for c in candidates[:5]:
