@@ -1,0 +1,89 @@
+{"src_id": "math::T2/fhrr_bind", "tgt_id": "math::T2/fhrr_unbind", "rel_type": "DUAL", "metadata": {"transformation": "complex_conjugation", "fidelity": "exact"}}
+{"src_id": "math::T2/fhrr_unbind", "tgt_id": "math::T2/fhrr_bind", "rel_type": "DUAL", "metadata": {"transformation": "complex_conjugation", "fidelity": "exact"}}
+{"src_id": "math::T3/forward_algorithm", "tgt_id": "math::T3/backward_algorithm", "rel_type": "DUAL", "metadata": {"transformation": "time_reversal", "fidelity": "exact"}}
+{"src_id": "math::T3/backward_algorithm", "tgt_id": "math::T3/forward_algorithm", "rel_type": "DUAL", "metadata": {"transformation": "time_reversal", "fidelity": "exact"}}
+{"src_id": "math::T2/cleanup", "tgt_id": "math::T2/cosine_cleanup", "rel_type": "SPECIALIZES", "metadata": {"specialization": "cosine_metric"}}
+{"src_id": "math::T2/cleanup", "tgt_id": "math::T2/hamming_distance", "rel_type": "USES", "metadata": {"context": "bipolar_cleanup"}}
+{"src_id": "math::T3/viterbi_decoding", "tgt_id": "math::T3/hmm_emission", "rel_type": "USES", "metadata": {"role": "observation_likelihood"}}
+{"src_id": "math::T3/viterbi_decoding", "tgt_id": "math::T3/hmm_transition", "rel_type": "USES", "metadata": {"role": "state_dynamics"}}
+{"src_id": "math::T3/viterbi_decoding", "tgt_id": "math::T3/dynamic_programming", "rel_type": "USES", "metadata": {"role": "decoder_substrate"}}
+{"src_id": "math::T3/forward_algorithm", "tgt_id": "math::T3/hmm_emission", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/forward_algorithm", "tgt_id": "math::T3/hmm_transition", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/forward_algorithm", "tgt_id": "math::T3/dynamic_programming", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/backward_algorithm", "tgt_id": "math::T3/hmm_emission", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/backward_algorithm", "tgt_id": "math::T3/hmm_transition", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/count_nb", "tgt_id": "math::T2/tier2_schema", "rel_type": "USES", "metadata": {"role": "count_storage"}}
+{"src_id": "math::T3/count_nb", "tgt_id": "math::T1/probability_distribution", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/discriminative_perceptron", "tgt_id": "math::T3/perceptron_update", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/discriminative_perceptron", "tgt_id": "math::T2/tier2_schema", "rel_type": "USES", "metadata": {"role": "weight_storage"}}
+{"src_id": "math::T3/collins_structured_perceptron", "tgt_id": "math::T3/discriminative_perceptron", "rel_type": "SPECIALIZES", "metadata": {"specialization": "structured_output"}}
+{"src_id": "math::T3/collins_structured_perceptron", "tgt_id": "math::T3/perceptron_update", "rel_type": "USES", "metadata": {"variant": "structured"}}
+{"src_id": "math::T3/hungarian_assignment", "tgt_id": "math::T1/discrete_optimization", "rel_type": "USES", "metadata": {"problem": "bipartite_matching"}}
+{"src_id": "math::T3/hungarian_assignment", "tgt_id": "math::T1/graph_topology", "rel_type": "USES", "metadata": {"graph_type": "bipartite"}}
+{"src_id": "math::T3/jonker_volgenant", "tgt_id": "math::T3/hungarian_assignment", "rel_type": "SPECIALIZES", "metadata": {"specialization": "sparse_costs"}}
+{"src_id": "math::T3/chu_liu_edmonds", "tgt_id": "math::T1/discrete_optimization", "rel_type": "USES", "metadata": {"problem": "directed_MST"}}
+{"src_id": "math::T3/chu_liu_edmonds", "tgt_id": "math::T1/graph_topology", "rel_type": "USES", "metadata": {"graph_type": "directed"}}
+{"src_id": "math::T3/prims_mst", "tgt_id": "math::T1/discrete_optimization", "rel_type": "USES", "metadata": {"problem": "undirected_MST"}}
+{"src_id": "math::T3/prims_mst", "tgt_id": "math::T1/graph_topology", "rel_type": "USES", "metadata": {"graph_type": "undirected"}}
+{"src_id": "math::T3/dijkstra", "tgt_id": "math::T1/graph_topology", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/astar", "tgt_id": "math::T3/dijkstra", "rel_type": "SPECIALIZES", "metadata": {"specialization": "heuristic_guided"}}
+{"src_id": "math::T3/beam_search", "tgt_id": "math::T3/dynamic_programming", "rel_type": "SPECIALIZES", "metadata": {"specialization": "approximate_topK"}}
+{"src_id": "math::T3/bayesian_inference", "tgt_id": "math::T1/probability_distribution", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/map_estimation", "tgt_id": "math::T3/bayesian_inference", "rel_type": "SPECIALIZES", "metadata": {"specialization": "argmax_posterior"}}
+{"src_id": "math::T3/em_algorithm", "tgt_id": "math::T3/bayesian_inference", "rel_type": "USES", "metadata": {"role": "posterior_e_step"}}
+{"src_id": "math::T2/pca_whitening", "tgt_id": "math::T1/vector_space", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T3/zca_whitening", "tgt_id": "math::T2/pca_whitening", "rel_type": "SPECIALIZES", "metadata": {"specialization": "zero_phase_rotation"}}
+{"src_id": "math::T2/fhrr_bind", "tgt_id": "math::T1/complex_field", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T2/fhrr_bind", "tgt_id": "math::T1/unit_modulus", "rel_type": "PRESERVES", "metadata": {"axis": "magnitude"}}
+{"src_id": "math::T2/bundling", "tgt_id": "math::T2/superposition", "rel_type": "USES", "metadata": {"role": "sum_then_normalize"}}
+{"src_id": "math::T2/bundling", "tgt_id": "math::T1/unit_modulus", "rel_type": "PRESERVES", "metadata": {}}
+{"src_id": "math::T2/circular_convolution", "tgt_id": "math::T2/fhrr_bind", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "FFT", "fidelity": "exact"}}
+{"src_id": "math::T2/fhrr_bind", "tgt_id": "math::T2/circular_convolution", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "FFT", "fidelity": "exact"}}
+{"src_id": "math::T3/viterbi_decoding", "tgt_id": "math::T3/forward_algorithm", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "sum_to_max_semiring_shift", "fidelity": "exact"}}
+{"src_id": "math::T3/hungarian_assignment", "tgt_id": "math::T1/convex_optimization", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "LP_relaxation", "fidelity": "exact_integer"}}
+{"src_id": "math::T2/pca_whitening", "tgt_id": "math::T3/zca_whitening", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "orthogonal_rotation", "fidelity": "exact"}}
+{"src_id": "math::T3/em_algorithm", "tgt_id": "math::T1/convex_optimization", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "coordinate_descent", "fidelity": "approximate"}}
+{"src_id": "math::T3/chu_liu_edmonds", "tgt_id": "math::T3/viterbi_decoding", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "tree_extends_chain_DP", "fidelity": "approximate"}}
+{"src_id": "math::T3/hungarian_assignment", "tgt_id": "math::T3/jonker_volgenant", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "same_optimum_different_complexity", "fidelity": "exact"}}
+{"src_id": "math::T2/hamming_distance", "tgt_id": "math::T1/cosine_similarity", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "bipolar_to_phasor_lift", "fidelity": "approximate"}}
+{"src_id": "math::T3/bayesian_inference", "tgt_id": "math::T3/map_estimation", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "argmax_posterior", "fidelity": "exact"}}
+{"src_id": "math::T3/discriminative_perceptron", "tgt_id": "math::T3/collins_structured_perceptron", "rel_type": "EQUIVALENT_UNDER", "metadata": {"transformation": "flat_to_structured_decoder", "fidelity": "approximate"}}
+{"src_id": "math::T1/cosine_similarity", "tgt_id": "math::T2/cleanup", "rel_type": "USES", "metadata": {"role": "metric"}}
+{"src_id": "math::T1/cosine_similarity", "tgt_id": "math::T1/inner_product", "rel_type": "USES", "metadata": {"normalization": "magnitudes"}}
+{"src_id": "math::T1/shannon_entropy", "tgt_id": "math::T1/probability_distribution", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T1/kl_divergence", "tgt_id": "math::T1/shannon_entropy", "rel_type": "USES", "metadata": {"role": "asymmetric_difference"}}
+{"src_id": "math::T1/kl_divergence", "tgt_id": "math::T1/probability_distribution", "rel_type": "USES", "metadata": {}}
+{"src_id": "math::T1/ring_axioms", "tgt_id": "math::T1/group_axioms", "rel_type": "USES", "metadata": {"extension": "additive_group_plus_multiplication"}}
+{"src_id": "math::T1/field_axioms", "tgt_id": "math::T1/ring_axioms", "rel_type": "USES", "metadata": {"extension": "multiplicative_inverse"}}
+{"src_id": "math::T1/vector_space", "tgt_id": "math::T1/field_axioms", "rel_type": "USES", "metadata": {"role": "scalar_field"}}
+{"src_id": "math::T2_FAM/algebraic_binding", "tgt_id": "math::T2/fhrr_bind", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/algebraic_binding", "tgt_id": "math::T2/circular_convolution", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/algebraic_binding", "tgt_id": "math::T2/role_filler_binding", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/cleanup_retrieval", "tgt_id": "math::T2/cleanup", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/cleanup_retrieval", "tgt_id": "math::T2/cosine_cleanup", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/cleanup_retrieval", "tgt_id": "math::T2/hamming_distance", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/superposition_aggregation", "tgt_id": "math::T2/bundling", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/superposition_aggregation", "tgt_id": "math::T2/superposition", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/superposition_aggregation", "tgt_id": "math::T2/tier2_schema", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/sequence_decoding", "tgt_id": "math::T3/viterbi_decoding", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/sequence_decoding", "tgt_id": "math::T3/forward_algorithm", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/sequence_decoding", "tgt_id": "math::T3/backward_algorithm", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/global_discrete_optimization", "tgt_id": "math::T3/hungarian_assignment", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/global_discrete_optimization", "tgt_id": "math::T3/jonker_volgenant", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/global_discrete_optimization", "tgt_id": "math::T3/chu_liu_edmonds", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/global_discrete_optimization", "tgt_id": "math::T3/prims_mst", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/global_discrete_optimization", "tgt_id": "math::T3/viterbi_decoding", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/probabilistic_inference", "tgt_id": "math::T3/bayesian_inference", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/probabilistic_inference", "tgt_id": "math::T3/em_algorithm", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/probabilistic_inference", "tgt_id": "math::T3/map_estimation", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/probabilistic_inference", "tgt_id": "math::T3/forward_algorithm", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/probabilistic_inference", "tgt_id": "math::T3/backward_algorithm", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/discriminative_classification", "tgt_id": "math::T3/discriminative_perceptron", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/discriminative_classification", "tgt_id": "math::T3/count_nb", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/discriminative_classification", "tgt_id": "math::T3/collins_structured_perceptron", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/graph_traversal", "tgt_id": "math::T3/dijkstra", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/graph_traversal", "tgt_id": "math::T3/astar", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/graph_traversal", "tgt_id": "math::T3/beam_search", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/representation_transform", "tgt_id": "math::T2/pca_whitening", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/representation_transform", "tgt_id": "math::T3/zca_whitening", "rel_type": "USES", "metadata": {"role": "member"}}
+{"src_id": "math::T2_FAM/weak_supervision", "tgt_id": "math::T3/answer_consistency_weak_labels", "rel_type": "USES", "metadata": {"role": "member"}}

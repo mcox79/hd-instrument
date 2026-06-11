@@ -1,0 +1,49 @@
+{
+  "queries": [
+    {
+      "id": "Q1",
+      "query_text": "What is the inverse operation of FHRR binding?",
+      "expected_top_atoms": ["math::T2/fhrr_unbind"],
+      "expected_top_k": 3,
+      "expected_top_3_contains": ["math::T2/fhrr_unbind", "math::T2_FAM/algebraic_binding", "math::T2/fhrr_bind"],
+      "test_type": "trivial_dual_check",
+      "notes": "After relations land (DUAL edge math::T2/fhrr_bind <-> math::T2/fhrr_unbind), structural retrieval should rank fhrr_unbind first."
+    },
+    {
+      "id": "Q2",
+      "query_text": "What math operations solve discrete combinatorial optimization globally in polynomial time?",
+      "expected_top_atoms": ["math::T3/hungarian_assignment", "math::T3/viterbi_decoding", "math::T3/chu_liu_edmonds"],
+      "expected_top_k": 5,
+      "expected_top_5_contains": ["math::T2_FAM/global_discrete_optimization", "math::T3/hungarian_assignment", "math::T3/viterbi_decoding", "math::T3/chu_liu_edmonds", "math::T3/prims_mst"],
+      "test_type": "family_membership",
+      "notes": "After refined T1/convex_optimization description (CONTINUOUS) + T2_FAM/global_discrete_optimization description (DISCRETE), convex_optimization should NOT rank above. After family relations (USES role=member), all members should rank in top-5."
+    },
+    {
+      "id": "Q3",
+      "query_text": "What concepts share the count-NB mathematical foundation?",
+      "expected_top_atoms": ["concept::PP-364_pos_tagger", "concept::PP-369_slot_filling", "concept::PP-370_intent_classification"],
+      "expected_top_k": 5,
+      "test_type": "cross_corpus_concept_links",
+      "notes": "Cross-corpus query. Requires concept corpus (Day 2). Tests substrate's substrate-classical NLP cluster discovery via math-grounded retrieval."
+    },
+    {
+      "id": "Q4",
+      "query_text": "What math operations are members of the probabilistic inference family?",
+      "expected_top_atoms": ["math::T2_FAM/probabilistic_inference"],
+      "expected_top_k": 5,
+      "expected_top_5_contains": ["math::T3/bayesian_inference", "math::T3/em_algorithm", "math::T3/map_estimation", "math::T3/forward_algorithm", "math::T3/backward_algorithm"],
+      "test_type": "family_membership",
+      "notes": "After refined T3/collins_structured_perceptron description (discriminative max-margin NOT probabilistic) + T3/hmm_emission+transition leading with probabilistic generative, perceptron should NOT rank top."
+    },
+    {
+      "id": "Q5",
+      "query_text": "What is structurally equivalent to FHRR binding in the frequency domain?",
+      "expected_top_atoms": ["math::T2/circular_convolution"],
+      "expected_top_k": 3,
+      "expected_top_3_contains": ["math::T2/circular_convolution", "math::T2/fhrr_bind", "math::T2_FAM/algebraic_binding"],
+      "test_type": "cross_domain_equivalence",
+      "notes": "After EQUIVALENT_UNDER relation (T2/fhrr_bind <-> T2/circular_convolution under FFT, fidelity=exact) lands, structural retrieval should rank circular_convolution at top."
+    }
+  ],
+  "sealed_queries_placeholder": "5 additional queries will be set at Day 2 EOB before validation harness runs. NOT disclosed here per pre-registration discipline."
+}
