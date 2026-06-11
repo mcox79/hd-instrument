@@ -1,0 +1,152 @@
+{"ts": 1781201393.8909264, "op": "add_atom", "target": "T1/vector_space", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.8933346, "op": "add_atom", "target": "T1/inner_product", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.8953004, "op": "add_atom", "target": "T1/cosine_similarity", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.8972995, "op": "add_atom", "target": "T1/complex_field", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.8982995, "op": "add_atom", "target": "T1/real_field", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9002993, "op": "add_atom", "target": "T1/unit_modulus", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9023001, "op": "add_atom", "target": "T1/probability_distribution", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/shannon_entropy", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/kl_divergence", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/group_axioms", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/ring_axioms", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/field_axioms", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/convex_optimization", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9043012, "op": "add_atom", "target": "T1/discrete_optimization", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9200053, "op": "add_atom", "target": "T1/graph_topology", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9200053, "op": "add_atom", "target": "T2/fhrr_bind", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9200053, "op": "add_atom", "target": "T2/fhrr_unbind", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9268665, "op": "add_atom", "target": "T2/cleanup", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9268665, "op": "add_atom", "target": "T2/bundling", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9324157, "op": "add_atom", "target": "T2/tier2_schema", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9324157, "op": "add_atom", "target": "T2/context_binding", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.935989, "op": "add_atom", "target": "T2/role_filler_binding", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.935989, "op": "add_atom", "target": "T2/superposition", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9429495, "op": "add_atom", "target": "T2/hamming_distance", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.944957, "op": "add_atom", "target": "T2/cosine_cleanup", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.944957, "op": "add_atom", "target": "T2/circular_convolution", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.944957, "op": "add_atom", "target": "T3/hmm_emission", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/hmm_transition", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/viterbi_decoding", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/forward_algorithm", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/backward_algorithm", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/count_nb", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/discriminative_perceptron", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9516516, "op": "add_atom", "target": "T3/collins_structured_perceptron", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9705443, "op": "add_atom", "target": "T3/hungarian_assignment", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.973553, "op": "add_atom", "target": "T3/jonker_volgenant", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.97655, "op": "add_atom", "target": "T3/chu_liu_edmonds", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9785495, "op": "add_atom", "target": "T3/prims_mst", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.9805498, "op": "add_atom", "target": "T3/dijkstra", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.983553, "op": "add_atom", "target": "T3/astar", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.987951, "op": "add_atom", "target": "T3/beam_search", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.987951, "op": "add_atom", "target": "T3/dynamic_programming", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.987951, "op": "add_atom", "target": "T3/pca_whitening", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.987951, "op": "add_atom", "target": "T3/zca_whitening", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201393.987951, "op": "add_atom", "target": "T3/bayesian_inference", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.003614, "op": "add_atom", "target": "T3/map_estimation", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0067537, "op": "add_atom", "target": "T3/em_algorithm", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0097578, "op": "add_atom", "target": "T3/answer_consistency_weak_labels", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.012755, "op": "add_atom", "target": "T3/cross_entropy_loss", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0147538, "op": "add_atom", "target": "T3/perceptron_update", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0177572, "op": "add_atom", "target": "T2_FAM/global_discrete_optimization", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0208466, "op": "add_atom", "target": "T2_FAM/probabilistic_inference", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.023845, "op": "add_atom", "target": "T2_FAM/discriminative_classification", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0268433, "op": "add_atom", "target": "T2_FAM/representation_transform", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0288446, "op": "add_atom", "target": "T2_FAM/graph_traversal", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0319636, "op": "add_atom", "target": "T2_FAM/sequence_decoding", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0352917, "op": "add_atom", "target": "T2_FAM/weak_supervision", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0386133, "op": "add_atom", "target": "T2_FAM/algebraic_binding", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.0413582, "op": "add_atom", "target": "T2_FAM/cleanup_retrieval", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781201394.04304, "op": "add_atom", "target": "T2_FAM/superposition_aggregation", "note": "first delivery 2026-06-11", "source": "research_math_corpus_batch01"}
+{"ts": 1781203905.6427171, "op": "remove_atom", "target": "T1/convex_optimization", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6447463, "op": "add_atom", "target": "T1/convex_optimization", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6447463, "op": "remove_atom", "target": "T2_FAM/global_discrete_optimization", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6447463, "op": "add_atom", "target": "T2_FAM/global_discrete_optimization", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6447463, "op": "remove_atom", "target": "T3/collins_structured_perceptron", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6447463, "op": "add_atom", "target": "T3/collins_structured_perceptron", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6594083, "op": "remove_atom", "target": "T3/hmm_transition", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6594083, "op": "add_atom", "target": "T3/hmm_transition", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6594083, "op": "remove_atom", "target": "T3/hmm_emission", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6594083, "op": "add_atom", "target": "T3/hmm_emission", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6594083, "op": "remove_atom", "target": "T2/superposition", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6754887, "op": "add_atom", "target": "T2/superposition", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6801293, "op": "remove_atom", "target": "T2/bundling", "note": "superseded by refinement", "source": "batch02"}
+{"ts": 1781203905.6821404, "op": "add_atom", "target": "T2/bundling", "note": "algebra-vec + sharpened description", "source": "batch02_refined"}
+{"ts": 1781203905.6821404, "op": "add_relation", "target": "T2/fhrr_bind|DUAL|T2/fhrr_unbind", "note": "", "source": "batch02"}
+{"ts": 1781203905.6865332, "op": "add_relation", "target": "T2/fhrr_unbind|DUAL|T2/fhrr_bind", "note": "", "source": "batch02"}
+{"ts": 1781203905.6885502, "op": "add_relation", "target": "T3/forward_algorithm|DUAL|T3/backward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.6915686, "op": "add_relation", "target": "T3/backward_algorithm|DUAL|T3/forward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.6944258, "op": "add_relation", "target": "T2/cleanup|SPECIALIZES|T2/cosine_cleanup", "note": "", "source": "batch02"}
+{"ts": 1781203905.6944258, "op": "add_relation", "target": "T2/cleanup|USES|T2/hamming_distance", "note": "", "source": "batch02"}
+{"ts": 1781203905.6944258, "op": "add_relation", "target": "T3/viterbi_decoding|USES|T3/hmm_emission", "note": "", "source": "batch02"}
+{"ts": 1781203905.7017171, "op": "add_relation", "target": "T3/viterbi_decoding|USES|T3/hmm_transition", "note": "", "source": "batch02"}
+{"ts": 1781203905.7037299, "op": "add_relation", "target": "T3/viterbi_decoding|USES|T3/dynamic_programming", "note": "", "source": "batch02"}
+{"ts": 1781203905.705749, "op": "add_relation", "target": "T3/forward_algorithm|USES|T3/hmm_emission", "note": "", "source": "batch02"}
+{"ts": 1781203905.7087514, "op": "add_relation", "target": "T3/forward_algorithm|USES|T3/hmm_transition", "note": "", "source": "batch02"}
+{"ts": 1781203905.7087514, "op": "add_relation", "target": "T3/forward_algorithm|USES|T3/dynamic_programming", "note": "", "source": "batch02"}
+{"ts": 1781203905.714463, "op": "add_relation", "target": "T3/backward_algorithm|USES|T3/hmm_emission", "note": "", "source": "batch02"}
+{"ts": 1781203905.7164724, "op": "add_relation", "target": "T3/backward_algorithm|USES|T3/hmm_transition", "note": "", "source": "batch02"}
+{"ts": 1781203905.7184806, "op": "add_relation", "target": "T3/count_nb|USES|T2/tier2_schema", "note": "", "source": "batch02"}
+{"ts": 1781203905.7204895, "op": "add_relation", "target": "T3/count_nb|USES|T1/probability_distribution", "note": "", "source": "batch02"}
+{"ts": 1781203905.7235055, "op": "add_relation", "target": "T3/discriminative_perceptron|USES|T3/perceptron_update", "note": "", "source": "batch02"}
+{"ts": 1781203905.7255156, "op": "add_relation", "target": "T3/discriminative_perceptron|USES|T2/tier2_schema", "note": "", "source": "batch02"}
+{"ts": 1781203905.727526, "op": "add_relation", "target": "T3/collins_structured_perceptron|SPECIALIZES|T3/discriminative_perceptron", "note": "", "source": "batch02"}
+{"ts": 1781203905.7295334, "op": "add_relation", "target": "T3/collins_structured_perceptron|USES|T3/perceptron_update", "note": "", "source": "batch02"}
+{"ts": 1781203905.7315395, "op": "add_relation", "target": "T3/hungarian_assignment|USES|T1/discrete_optimization", "note": "", "source": "batch02"}
+{"ts": 1781203905.733547, "op": "add_relation", "target": "T3/hungarian_assignment|USES|T1/graph_topology", "note": "", "source": "batch02"}
+{"ts": 1781203905.7375655, "op": "add_relation", "target": "T3/jonker_volgenant|SPECIALIZES|T3/hungarian_assignment", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/chu_liu_edmonds|USES|T1/discrete_optimization", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/chu_liu_edmonds|USES|T1/graph_topology", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/prims_mst|USES|T1/discrete_optimization", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/prims_mst|USES|T1/graph_topology", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/dijkstra|USES|T1/graph_topology", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/astar|SPECIALIZES|T3/dijkstra", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/beam_search|SPECIALIZES|T3/dynamic_programming", "note": "", "source": "batch02"}
+{"ts": 1781203905.739315, "op": "add_relation", "target": "T3/bayesian_inference|USES|T1/probability_distribution", "note": "", "source": "batch02"}
+{"ts": 1781203905.7563581, "op": "add_relation", "target": "T3/map_estimation|SPECIALIZES|T3/bayesian_inference", "note": "", "source": "batch02"}
+{"ts": 1781203905.7563581, "op": "add_relation", "target": "T3/em_algorithm|USES|T3/bayesian_inference", "note": "", "source": "batch02"}
+{"ts": 1781203905.7563581, "op": "add_relation", "target": "T2/pca_whitening|USES|T1/vector_space", "note": "", "source": "batch02"}
+{"ts": 1781203905.7563581, "op": "add_relation", "target": "T3/zca_whitening|SPECIALIZES|T2/pca_whitening", "note": "", "source": "batch02"}
+{"ts": 1781203905.7563581, "op": "add_relation", "target": "T2/fhrr_bind|USES|T1/complex_field", "note": "", "source": "batch02"}
+{"ts": 1781203905.7711146, "op": "add_relation", "target": "T2/fhrr_bind|PRESERVES|T1/unit_modulus", "note": "", "source": "batch02"}
+{"ts": 1781203905.7711146, "op": "add_relation", "target": "T2/bundling|USES|T2/superposition", "note": "", "source": "batch02"}
+{"ts": 1781203905.7711146, "op": "add_relation", "target": "T2/bundling|PRESERVES|T1/unit_modulus", "note": "", "source": "batch02"}
+{"ts": 1781203905.7711146, "op": "add_relation", "target": "T1/cosine_similarity|USES|T2/cleanup", "note": "", "source": "batch02"}
+{"ts": 1781203905.7711146, "op": "add_relation", "target": "T1/cosine_similarity|USES|T1/inner_product", "note": "", "source": "batch02"}
+{"ts": 1781203905.7868128, "op": "add_relation", "target": "T1/shannon_entropy|USES|T1/probability_distribution", "note": "", "source": "batch02"}
+{"ts": 1781203905.789792, "op": "add_relation", "target": "T1/kl_divergence|USES|T1/shannon_entropy", "note": "", "source": "batch02"}
+{"ts": 1781203905.789792, "op": "add_relation", "target": "T1/kl_divergence|USES|T1/probability_distribution", "note": "", "source": "batch02"}
+{"ts": 1781203905.789792, "op": "add_relation", "target": "T1/ring_axioms|USES|T1/group_axioms", "note": "", "source": "batch02"}
+{"ts": 1781203905.789792, "op": "add_relation", "target": "T1/field_axioms|USES|T1/ring_axioms", "note": "", "source": "batch02"}
+{"ts": 1781203905.789792, "op": "add_relation", "target": "T1/vector_space|USES|T1/field_axioms", "note": "", "source": "batch02"}
+{"ts": 1781203905.8026633, "op": "add_relation", "target": "T2_FAM/algebraic_binding|USES|T2/fhrr_bind", "note": "", "source": "batch02"}
+{"ts": 1781203905.8026633, "op": "add_relation", "target": "T2_FAM/algebraic_binding|USES|T2/circular_convolution", "note": "", "source": "batch02"}
+{"ts": 1781203905.8026633, "op": "add_relation", "target": "T2_FAM/algebraic_binding|USES|T2/role_filler_binding", "note": "", "source": "batch02"}
+{"ts": 1781203905.8102655, "op": "add_relation", "target": "T2_FAM/cleanup_retrieval|USES|T2/cleanup", "note": "", "source": "batch02"}
+{"ts": 1781203905.813221, "op": "add_relation", "target": "T2_FAM/cleanup_retrieval|USES|T2/cosine_cleanup", "note": "", "source": "batch02"}
+{"ts": 1781203905.8172417, "op": "add_relation", "target": "T2_FAM/cleanup_retrieval|USES|T2/hamming_distance", "note": "", "source": "batch02"}
+{"ts": 1781203905.8187501, "op": "add_relation", "target": "T2_FAM/superposition_aggregation|USES|T2/bundling", "note": "", "source": "batch02"}
+{"ts": 1781203905.8187501, "op": "add_relation", "target": "T2_FAM/superposition_aggregation|USES|T2/superposition", "note": "", "source": "batch02"}
+{"ts": 1781203905.8187501, "op": "add_relation", "target": "T2_FAM/superposition_aggregation|USES|T2/tier2_schema", "note": "", "source": "batch02"}
+{"ts": 1781203905.827461, "op": "add_relation", "target": "T2_FAM/sequence_decoding|USES|T3/viterbi_decoding", "note": "", "source": "batch02"}
+{"ts": 1781203905.8294733, "op": "add_relation", "target": "T2_FAM/sequence_decoding|USES|T3/forward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.8314807, "op": "add_relation", "target": "T2_FAM/sequence_decoding|USES|T3/backward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.834495, "op": "add_relation", "target": "T2_FAM/global_discrete_optimization|USES|T3/hungarian_assignment", "note": "", "source": "batch02"}
+{"ts": 1781203905.8365054, "op": "add_relation", "target": "T2_FAM/global_discrete_optimization|USES|T3/jonker_volgenant", "note": "", "source": "batch02"}
+{"ts": 1781203905.8365054, "op": "add_relation", "target": "T2_FAM/global_discrete_optimization|USES|T3/chu_liu_edmonds", "note": "", "source": "batch02"}
+{"ts": 1781203905.8365054, "op": "add_relation", "target": "T2_FAM/global_discrete_optimization|USES|T3/prims_mst", "note": "", "source": "batch02"}
+{"ts": 1781203905.8365054, "op": "add_relation", "target": "T2_FAM/global_discrete_optimization|USES|T3/viterbi_decoding", "note": "", "source": "batch02"}
+{"ts": 1781203905.8476303, "op": "add_relation", "target": "T2_FAM/probabilistic_inference|USES|T3/bayesian_inference", "note": "", "source": "batch02"}
+{"ts": 1781203905.85015, "op": "add_relation", "target": "T2_FAM/probabilistic_inference|USES|T3/em_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.85015, "op": "add_relation", "target": "T2_FAM/probabilistic_inference|USES|T3/map_estimation", "note": "", "source": "batch02"}
+{"ts": 1781203905.85015, "op": "add_relation", "target": "T2_FAM/probabilistic_inference|USES|T3/forward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.85015, "op": "add_relation", "target": "T2_FAM/probabilistic_inference|USES|T3/backward_algorithm", "note": "", "source": "batch02"}
+{"ts": 1781203905.85015, "op": "add_relation", "target": "T2_FAM/discriminative_classification|USES|T3/discriminative_perceptron", "note": "", "source": "batch02"}
+{"ts": 1781203905.862278, "op": "add_relation", "target": "T2_FAM/discriminative_classification|USES|T3/count_nb", "note": "", "source": "batch02"}
+{"ts": 1781203905.865412, "op": "add_relation", "target": "T2_FAM/discriminative_classification|USES|T3/collins_structured_perceptron", "note": "", "source": "batch02"}
+{"ts": 1781203905.8674107, "op": "add_relation", "target": "T2_FAM/graph_traversal|USES|T3/dijkstra", "note": "", "source": "batch02"}
+{"ts": 1781203905.8694103, "op": "add_relation", "target": "T2_FAM/graph_traversal|USES|T3/astar", "note": "", "source": "batch02"}
+{"ts": 1781203905.8714128, "op": "add_relation", "target": "T2_FAM/graph_traversal|USES|T3/beam_search", "note": "", "source": "batch02"}
+{"ts": 1781203905.8744128, "op": "add_relation", "target": "T2_FAM/representation_transform|USES|T2/pca_whitening", "note": "", "source": "batch02"}
+{"ts": 1781203905.876412, "op": "add_relation", "target": "T2_FAM/representation_transform|USES|T3/zca_whitening", "note": "", "source": "batch02"}
+{"ts": 1781203905.8794162, "op": "add_relation", "target": "T2_FAM/weak_supervision|USES|T3/answer_consistency_weak_labels", "note": "", "source": "batch02"}
