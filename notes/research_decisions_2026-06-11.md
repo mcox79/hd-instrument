@@ -12,3 +12,4 @@ cls_2substrate_rescue_2x (2026-06-11): RESCUE-4 dedicated consolidation pass P_d
 - [2026-06-11] humaneval_substrate_generator_2x: notes/research_drill_humaneval_substrate_generator_2x_2026-06-11.md -- substrate-only Levelt pipeline; 10 archs; MVP P_deflated=0.12 (grammar+repair); LIGHT-30 P_deflated=0.21; 5 exp_dev anchors filed; HARD-FAIL template confirmed.
 
 - 2026-06-11 research_delivery: slipnet_polysemic_alt_rescues_2x -> notes/research_drill_slipnet_polysemic_alt_rescues_2x_2026-06-11.md ; 5 alternative paths beyond TSE (PRS/CMDS/SRE/CWME/Pythia-hybrid); substrate-only ceiling 0.50-0.65; hybrid path P_deflated=0.50 for 0.75 gate
+- research_drill_substrate_specific_benchmarks_2x_2026-06-11.md : 12 benchmarks ranked (5 categorical axes); COGS/BBEH/HotpotQA Tier-1 runnable; N-Edit-Audit + Write-Lock to-build (LLM scores 0 by construction); P_deflated=0.48; exp_dev handoff written
