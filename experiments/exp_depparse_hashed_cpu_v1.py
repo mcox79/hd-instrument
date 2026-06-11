@@ -95,18 +95,48 @@ def run() -> Dict:
                     np.add.at(W, pi, -1.0); np.add.at(CW, pi, -c)
                 c += 1
     avg = W - CW / c
+    def decode(arc, n):
+        # arc-scores per (dep i -> head h); greedy heads then break cycles (reattach min-margin node to best non-cycle head)
+        S = {}
+        head = {}; second = {}
+        for i in range(1, n + 1):
+            cand = []
+            for h in range(0, n + 1):
+                if h == i: continue
+                cand.append((float(avg[arc[i][h]].sum()), h))
+            cand.sort(reverse=True)
+            head[i] = cand[0][1]; S[i] = {h: sc for sc, h in cand}
+            second[i] = cand[1] if len(cand) > 1 else (cand[0][0], 0)
+        for _ in range(n + 2):
+            # find a cycle among non-root heads
+            cyc = None
+            for start in range(1, n + 1):
+                seen = []; x = start
+                while x != 0 and x not in seen:
+                    seen.append(x); x = head[x]
+                if x != 0:
+                    j = seen.index(x); cyc = seen[j:]; break
+            if cyc is None: break
+            # reattach the node whose best alternative (to a non-cycle head) loses least
+            best_node = None; best_alt = None; best_loss = 1e18
+            cset = set(cyc)
+            for node in cyc:
+                cur = S[node][head[node]]
+                alt_h = -1; alt_s = -1e18
+                for h, sc in S[node].items():
+                    if h not in cset and sc > alt_s: alt_s = sc; alt_h = h
+                if alt_h >= 0 and (cur - alt_s) < best_loss:
+                    best_loss = cur - alt_s; best_node = node; best_alt = alt_h
+            if best_node is None: break
+            head[best_node] = best_alt
+        return head
     correct = 0; tot = 0
     for si, s in enumerate(dev):
-        arc = dv_arc[si]; n = len(s)
+        arc = dv_arc[si]; n = len(s); head = decode(arc, n)
         for i in range(1, n + 1):
             gold_h = s[i - 1][3]
             if gold_h < 0 or gold_h > n: continue
-            best_h = -1; best_s = -1e18
-            for h in range(0, n + 1):
-                if h == i: continue
-                sc = avg[arc[i][h]].sum()
-                if sc > best_s: best_s = sc; best_h = h
-            correct += int(best_h == gold_h); tot += 1
+            correct += int(head.get(i, -1) == gold_h); tot += 1
     uas = correct / tot if tot else 0.0
     print("  DEPPARSE-HASHED: UAS=%.4f (%d/%d arcs, train=%d sents, dev=%d) vs count 0.60 / dict-version 0.735" %
           (uas, correct, tot, len(train), len(dev)), flush=True)
