@@ -99,7 +99,7 @@ def run() -> Dict:
             b = enc_tok(texts[i:i + 64], return_tensors="pt", padding=True, truncation=True, max_length=32).to(DEV)
             with torch.no_grad():
                 h = enc_mdl(**b).last_hidden_state[:, 0]
-            out.append(torch.nn.functional.normalize(h, dim=-1))
+            out.append(torch.nn.functional.normalize(h, dim=-1).cpu())
         return torch.cat(out)
     for f, e in zip(facts, embed([f["text"] for f in facts])):
         f["emb"] = e.float()
@@ -118,7 +118,7 @@ def run() -> Dict:
             for f in fs:
                 lg = base_logits(f["prompt"]).float()
                 if on:
-                    lg = lg + scale * proj(f["emb"])
+                    lg = lg + scale * proj(f["emb"].to(DEV))
                 hit += int(int(torch.argmax(lg)) == f["aid"])
         return hit / len(fs)
     test = test[:2000]
@@ -127,7 +127,7 @@ def run() -> Dict:
     t0 = time.time(); best = 0.0; since = 0
     for step in range(STEPS):
         opt.zero_grad(); f = train[step % len(train)]
-        lg = base_logits(f["prompt"]) + scale * proj(f["emb"])
+        lg = base_logits(f["prompt"]) + scale * proj(f["emb"].to(DEV))
         loss = torch.nn.functional.cross_entropy(lg.float().unsqueeze(0), torch.tensor([f["aid"]], device=DEV))
         loss.backward(); opt.step()
         if step % 300 == 0:
