@@ -580,3 +580,41 @@ pos_oov_diagnostic_cpu_v1 UNKNOWN v565: corpus_load_failed, tag_acc=0.0, elapsed
 NEW ROW PP-367: lang_math_coexist_cpu_v1 HARD_PASS v565: language_recall=1.000, math_recall=1.000, cross_domain_recall=1.000, KL=150, KM=150, n_seeds=1 (cycle 231). UNIFIED SUBSTRATE ALGEBRA LANGUAGE+MATH: one substrate, one codebook, one set of binding ops handles language (1.000), math (1.000), AND cross-domain math-result-to-language-label (1.000) with zero interference. KL=150 + KM=150 coexist in N=4096 shared space. Confirms domain agnosticism: NL and math do NOT require per-role substrates (PP-356) -- single substrate suffices. Extends PP-351 (v3.1 unified) by domain-axis. exp_dev commit d358f6e8 consistent. Product implication: unified multi-domain knowledge (language + math + code) in single store. 0.80-0.92 EXPLORATORY n=1 seed full CPU elapsed=1.3s. Cross-ref PP-356 (per-role isolation), PP-364 (POS tagger NL), PP-363 (codegen math), PP-351 (v3.1 unified).
 
 Cap_map: v564 -> v565 CYCLE 231 (2 HP [CPU:2; 1x5-seed + 1x n=1 full]; 1 MIDDLE_BAND [LVH-282 math_light]; 4 HF [CPU:4]; 2 UNKNOWN [corpus_load_failed depparse+pos_oov]; 1 LVH-282 filed [math_light band-description mislabel]; 1 NEW PP ROW PP-367 [lang_math_coexist unified algebra]; 4x Tier-C seed-robust promotion (PP-344/PP-361/PP-365/PP-366 via tier4_multiseed_sweep); 5x codegen_light PROT-004/006 rescue sketches; 2x codegen_repair shared RESCUE-1; 5x codegen_subgoal PROT-004/006 rescue sketches; 5x math_wordproblem PROT-004/006 rescue sketches; corpus_load_failed NLP blocking: dep-parse+pos_oov+math_rescue gated on corpus RESCUE-1; 0 row closures; Portfolio 32+366 -> 32+367 +1; HONEST 1740->1749 +9; LVH 281->282 +1; 459th PROT-009 paired commit) (2026-06-11)
+
+## v565 -> v566 CYCLE 232 10-VERDICT BATCH (2026-06-11)
+
+slipnet-WN18RR + creative-dreaming-creative + NL-slot-filling-ATIS-v1/v2 + intent-multiseed + reasoning-routing + schema-retrieval + phase4-math-integration-batch.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 2 LVH catches.
+
+[LVH-283] phase4_math_integration_cpu_v1: verdict_msg says 'end-to-end <0.05' but accuracy=0.050 (exactly AT threshold, not strictly below). Substantively HARD_FAIL (v2=0.041 confirms). Minor boundary-precision catch.
+
+[LVH-284] phase4a_schema_expand_cpu_v1: verdict_msg says 'HARD_FAIL: end-to-end <0.05' but accuracy=0.059 > 0.05 threshold. Honest reading: MIDDLE_BAND. Schema expansion lifted trajectory v1=0.050->v2=0.041->4A=0.059 (best of 3). OVER-CLAIM filed. Treating as MIDDLE_BAND.
+
+All others HONEST. HONEST: 1749 -> 1759 (+10). LVH: 282 -> 284 (+2).
+
+### Cap_map decisions (v565 -> v566)
+
+(A) slipnet_wn18rr_phase0_cpu_v1 MIDDLE_BAND: ttr=0.045, lift=20.6x at n=463 (n-mismatch; WN18RR too sparse at n=28). PP-327+PP-237 annotated. No new row.
+
+(B) creative_dreaming_smoke_cpu_v1 HARD_PASS smoke: novel_coherent=19/20 >> threshold 5/20. NEW ROW PP-368. Extends PP-328 to creative-output axis.
+
+(C) nl_slot_filling_atis_cpu_v1 MIDDLE_BAND: slot_f1=0.7125 in band [0.65-0.85]. Rescued by V2. No new row.
+
+(D) nl_slot_filling_atis_v2_cpu_v1 HARD_PASS: slot_f1=0.8709 (>=0.85), intent=0.8455 (>=0.80), n_test=893. NEW ROW PP-369.
+
+(E) intent_atis_multiseed_cpu_v1 HARD_PASS 5-seed: mean=0.8345, std=0.0038. NEW ROW PP-370.
+
+(F) reasoning_routing_oracle_cpu_v1 HARD_PASS: routing_acc=0.967, answer_acc=0.892, n=30/6-classes. NEW ROW PP-371.
+
+(G) schema_retrieval_rt1_cpu_v1 HARD_PASS: retrieval_acc=0.967, n=30/20-schemas. NEW ROW PP-372.
+
+(H) phase4_math_integration_cpu_v1 [LVH-283] HARD_FAIL boundary: accuracy=0.050 AT threshold. PROT-004/006 rescues filed (R1 schema-expand authorized; R2 full-codebook; R3 dep-parse MATH; R4 curriculum; R5 oracle-upper-bound). No new row.
+
+(I) phase4_math_integration_v2_cpu_v1 HARD_FAIL: accuracy=0.041, heuristics hit coverage/precision wall. No new row.
+
+(J) [LVH-284] phase4a_schema_expand_cpu_v1 MIDDLE_BAND (honest reclassify): accuracy=0.059 > 0.05 threshold. HARD_FAIL label over-claimed. Positive trajectory (2.6x shallow). No new row.
+
+Cap_map: v565 -> v566 (5 HP + 2 MB + 3 HF [2 LVH]; 5 NEW PP ROWS PP-368..PP-372; Portfolio 32+367->32+372; HONEST 1749->1759 +10; LVH 282->284 +2; 460th PROT-009 paired commit) (2026-06-11)
