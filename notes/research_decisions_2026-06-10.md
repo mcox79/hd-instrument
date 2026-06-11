@@ -31,3 +31,4 @@ motivation_revival_3x: 5-component drive algebra derived; P_deflated=0.60 (bored
 - [continual_learning_revival_3x] notes/research_drill_continual_learning_revival_3x_2026-06-10.md | HEADLINE: substrate has episodic fast-store only; slow-generalizer + frequency-decay + consolidation-scheduler absent; P_deflated(full CLS)=0.35; top path D2.2 frequency-decay P=0.55 CPU
 
 - translation_revival_3x: notes/research_drill_translation_revival_3x_2026-06-10.md -- 3-stream (brain/nature/LLM), 8 crazy-math proposals, highest-P: BILINGUAL-DUAL-SUBSTRATE + EMBODIED-VERB-GROUNDING (P=0.45 each)
+2026-06-10 | research_drill_synthetic_to_real_gap_audit_2x_2026-06-10.md | Sprint 1 synthetic-to-real gap audit: PP-313/315/316/317 mechanism-demos on synthetic; P_deflated 0.28-0.50 per primitive; Sprint 2 4-test battery designed; KB-shard PRIORITY
