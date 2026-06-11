@@ -145,6 +145,12 @@ class RelationType(enum.Enum):
     TRACES_TO = "TRACES_TO"             # math -> school (auto-derived reverse of CONTRIBUTES_TO)
     INFLUENCED_BY = "INFLUENCED_BY"     # school -> earlier school it inherits from
 
+    # Solution-history (per user 2026-06-11 late evening: each capability has
+    # a current-best solution; replacements preserve history not delete):
+    SUPERSEDES = "SUPERSEDES"           # new solution -> old solution (replacement)
+    SUPERSEDED_BY = "SUPERSEDED_BY"     # old -> new (auto-derived reverse)
+    CURRENT_BEST_FOR = "CURRENT_BEST_FOR"  # solution -> capability (it currently solves)
+
 
 # ============================================================
 # Dataclasses
@@ -199,6 +205,25 @@ class Atom:
                                             # differentiator: classical formal systems
                                             # (Lean/Coq/Mathematica) have no equivalent.
 
+    # Per user direction 2026-06-11 late evening: each capability has a
+    # current-best mathematical solution; replacements DO NOT delete the old
+    # entry, they mark it obsolete. Encodes substrate progression history.
+    current_best_solution: Optional[str] = None
+                                            # Qualified atom_id of the math/algorithm
+                                            # primitive that currently solves this
+                                            # capability best (e.g.,
+                                            # "math::T3/discriminative_perceptron").
+    solution_history: tuple[dict, ...] = field(default_factory=tuple)
+                                            # Ordered list of all current-bests for
+                                            # this capability, most recent first:
+                                            # [{solution_atom_id, adopted_date,
+                                            #   replaced_date (null = current),
+                                            #   replacement_reason, empirical_metric,
+                                            #   source, status (current/superseded/
+                                            #   reverted)}]
+                                            # Captures the substrate's progression
+                                            # without losing prior learnings.
+
     @property
     def qualified_id(self) -> str:
         return f"{self.corpus.value}::{self.id}"
@@ -224,6 +249,10 @@ class Atom:
             d["equivalences"] = [dict(e) for e in self.equivalences]
         if self.concept_links:
             d["concept_links"] = list(self.concept_links)
+        if self.current_best_solution is not None:
+            d["current_best_solution"] = self.current_best_solution
+        if self.solution_history:
+            d["solution_history"] = [dict(s) for s in self.solution_history]
         return d
 
     @classmethod
@@ -302,6 +331,8 @@ class Atom:
             complexity=complexity,
             equivalences=tuple(d.get("equivalences", [])),
             concept_links=tuple(concept_links) if concept_links else tuple(),
+            current_best_solution=d.get("current_best_solution"),
+            solution_history=tuple(d.get("solution_history", [])),
         )
 
 
