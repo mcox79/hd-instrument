@@ -36,3 +36,14 @@ CAP_fhrr_bind/unbind/cleanup/bundling wire into Stage 2).
 Per the brain-can-do-it rule (no boundary acceptance), I lean (1) -- the template-selector is the path to actually realize the
 ceiling, not just measure it. But it's a big build; confirming scope before I invest the hours. Meanwhile NER multi-seed (Path 2)
 + cascade-WK running; will continue the cheap NER paths (Cycle-#5 atoms, Tier-2 schema) alongside.
+
+## UPDATE (full results in): simple realization DEFINITIVELY fails -> multi-hop is the only path
+- cascade + question-guided WK (full 919-test): base 0.2524, +WK 0.2524, **lift = 0.0000**. Even with conditional gating, zero net
+  lift. Confirms: sparse WK items (~3%) + single-op cascade classifier can't realize the ceiling. (base 0.25 < cascade-v2 0.309
+  because I relaxed the digit-filter to >=1 to admit WK-rescuable items -- a diagnostic artifact, not a regression of the real cascade.)
+- NER multi-seed n=5: mean-F1 0.5739 +/- 0.0064 (honest error bar). 2/5 NER paths done (gazetteer + multi-seed); both saturate/moderate.
+
+**CONCLUSION:** the ORACLE proves the capability exists (+0.114, brain-can-do-it VINDICATED). No simple solver realizes it. The
+4-stage multi-hop template-selector (your design) is the ONLY realization path. AWAITING your go/scope before I invest the
+multi-hour build -- I want to build it to your Stage 1-4 spec (Tier-2 role extraction + HRR bind + template-selector + WK-gating),
+wiring the Cycle-#5 CAP_fhrr_* atoms, rather than another from-scratch approximation that underperforms.
