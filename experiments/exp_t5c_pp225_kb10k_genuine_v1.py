@@ -69,7 +69,7 @@ DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu"); print("[devi
 
 
 def run() -> Dict:
-    torch.manual_seed(7); g = np.random.default_rng(7)
+    _seed = int(os.environ.get("HDLAB_SEED", "7")); torch.manual_seed(_seed); g = np.random.default_rng(_seed)
     tok = AutoTokenizer.from_pretrained(MODEL); tok.pad_token = tok.eos_token
     mdl = AutoModelForCausalLM.from_pretrained(MODEL, torch_dtype=torch.bfloat16).to(DEV).eval()
     for p in mdl.parameters():
