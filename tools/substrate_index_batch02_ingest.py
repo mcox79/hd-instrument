@@ -222,7 +222,27 @@ def main():
     if isinstance(queries_raw, dict):
         queries_raw = queries_raw.get("queries", []) or queries_raw.get("disclosed_queries", [])
 
-    log.info("running %d disclosed queries...", len(queries_raw))
+    # Helper: encode a query and rank against a chosen atom-vector projection
+    def rank_against(query_text: str, atoms_vec_attr: str, top_k: int = 10):
+        import numpy as np
+        q = retriever.encoder.encode_query_text(query_text)
+        # Gather atom vectors for the chosen attribute
+        atom_ids = []
+        mat_rows = []
+        for aid, av in retriever._atom_vecs.items():
+            v = getattr(av, atoms_vec_attr, None)
+            if v is None:
+                continue
+            atom_ids.append(aid)
+            mat_rows.append(v)
+        if not atom_ids:
+            return []
+        mat = np.stack(mat_rows)
+        sims = mat @ q
+        order = np.argsort(-sims)[:top_k]
+        return [atom_ids[i] for i in order]
+
+    log.info("running %d disclosed queries (composite vs semantic-only attribution)...", len(queries_raw))
     results = []
     for q_rec in queries_raw:
         qid = q_rec.get("qid", q_rec.get("id", "Q?"))
@@ -235,6 +255,9 @@ def main():
         cands = retriever.semantic(query_text, top_k=10)
         elapsed_ms = (time.perf_counter() - t0) * 1000
         top_ids = [c.atom_id for c in cands]
+        # Layer 1 attribution: re-rank by semantic-only and by algebra-only
+        top_semantic_only = rank_against(query_text, "semantic", top_k=10)
+        top_algebra_only = rank_against(query_text, "algebra", top_k=10)
         # Compute recall@1/3/10 against expected
         if expected:
             exp_set = set(expected)
@@ -248,7 +271,9 @@ def main():
             "qid": qid,
             "query_text": query_text[:120],
             "expected": list(expected),
-            "top10": top_ids,
+            "top10_composite": top_ids,
+            "top10_semantic_only": top_semantic_only,
+            "top10_algebra_only": top_algebra_only,
             "recall_at_1": recall_at_1,
             "recall_at_3": recall_at_3,
             "recall_at_10": recall_at_10,
@@ -269,10 +294,11 @@ def main():
     print("\n=== POST-BATCH-02 INGEST SUMMARY ===")
     print(f"atoms: {stats['total_atoms']}  relations: {stats['total_relations']}  cross_store: {stats['cross_store_relations']}")
     print(f"discover findings: {len(report.findings)} ({by_kind})")
-    print("\nQuery results:")
+    print("\nQuery results (composite | semantic-only | algebra-only):")
     for r in results:
-        rec_str = f"r@1={r['recall_at_1']}" if r['recall_at_1'] is not None else "r@1=NA"
-        print(f"  {r['qid']:8s}  {rec_str}  top-3={r['top10'][:3]}  ({r['latency_ms']:.0f}ms)")
+        print(f"  {r['qid']:8s}  composite={r['top10_composite'][:3]}")
+        print(f"            semantic ={r['top10_semantic_only'][:3]}")
+        print(f"            algebra  ={r['top10_algebra_only'][:3]}")
 
 
 if __name__ == "__main__":
