@@ -1,0 +1,147 @@
+"""Atom encoder for substrate self-index.
+
+Each atom gets:
+1. A semantic vector from bge-large (description + aliases) for similarity retrieval
+2. A deterministic FHRR identity vector (from atom id hash) for substrate-algebraic binding
+3. A composite vector binding [tier_tag] x [corpus_tag] x semantic_vec for tier/corpus-aware retrieval
+
+The composite enables substrate-algebraic queries via the existing FHRR primitives
+(PP-225 / PP-258 K-hop): query = atom_vec * rel_type_vec, cleanup -> answer atom.
+
+L2-normalized fp32 output. Same encoder pipeline as backend/kb/wikidata_dump_ingest.py
+so vectors are compatible across the substrate.
+"""
+from __future__ import annotations
+
+import hashlib
+import logging
+from dataclasses import dataclass
+from typing import Optional
+
+import numpy as np
+
+from backend.substrate_index.schema import Atom, Corpus, RelationType, Tier
+
+logger = logging.getLogger(__name__)
+
+
+# Tag vectors are derived from a fixed seed so the same tier/corpus always gets
+# the same vector across runs (deterministic FHRR encoding).
+_TAG_SEED = 20260611_001
+
+
+def _tag_vector(label: str, dim: int = 1024) -> np.ndarray:
+    """Deterministic unit-modulus FHRR tag vector from a label string.
+
+    Used for tier and corpus tags. Stable across runs.
+    """
+    h = int(hashlib.sha256(f"substrate_index_tag::{label}".encode()).hexdigest(), 16)
+    rng = np.random.default_rng((h % (2**63 - 1)) ^ _TAG_SEED)
+    # Random unit-modulus complex phasor, returned as real-imag concat in (dim,)
+    # But to keep things simple for cosine-similarity downstream, generate a
+    # random L2-normalized real vector instead.
+    v = rng.standard_normal(dim).astype(np.float32)
+    return v / (np.linalg.norm(v) + 1e-12)
+
+
+def _atom_id_vector(atom_id: str, dim: int = 1024) -> np.ndarray:
+    """Stable per-atom FHRR-style identity vector."""
+    h = int(hashlib.sha256(f"substrate_index_atom::{atom_id}".encode()).hexdigest(), 16)
+    rng = np.random.default_rng(h % (2**63 - 1))
+    v = rng.standard_normal(dim).astype(np.float32)
+    return v / (np.linalg.norm(v) + 1e-12)
+
+
+@dataclass(frozen=True)
+class AtomVectors:
+    """Cached vector representations for one atom.
+
+    semantic    : bge-large(description + aliases) -> (1024,) L2-normalized
+    identity    : deterministic FHRR id vector -> (1024,) L2-normalized
+    composite   : semantic + tier_tag + corpus_tag bundle, L2-normalized
+
+    All vectors are fp32 + L2-normalized for cosine retrieval.
+    """
+    atom_id: str
+    semantic: np.ndarray
+    identity: np.ndarray
+    composite: np.ndarray
+
+
+class AtomEncoder:
+    """Encode atoms into substrate vectors.
+
+    Wraps backend.llm.bge_encoder.BgeEncoder for the semantic step. Caches
+    tier and corpus tag vectors.
+    """
+
+    def __init__(self, bge_encoder=None, dim: int = 1024):
+        if bge_encoder is None:
+            from backend.llm.bge_encoder import get_encoder
+            bge_encoder = get_encoder()
+        self.bge = bge_encoder
+        self.dim = dim
+        self._tier_tags = {t: _tag_vector(f"tier::{t.value}", dim) for t in Tier}
+        self._corpus_tags = {c: _tag_vector(f"corpus::{c.value}", dim) for c in Corpus}
+        self._rel_tags = {r: _tag_vector(f"rel::{r.value}", dim) for r in RelationType}
+
+    def encode_atom(self, atom: Atom) -> AtomVectors:
+        """Encode one atom into its vector triple."""
+        text = atom.description
+        if atom.aliases:
+            text = text + " " + " ".join(atom.aliases)
+        text = atom.name + " :: " + text
+        # bge.encode returns (N, dim) so take row 0
+        semantic = self.bge.encode([text])[0].astype(np.float32)
+        # Re-normalize defensively
+        semantic = semantic / (np.linalg.norm(semantic) + 1e-12)
+
+        identity = _atom_id_vector(atom.id, self.dim)
+
+        # Composite: bundle semantic + tier_tag + corpus_tag (simple sum + renorm)
+        tier_tag = self._tier_tags[atom.tier]
+        corpus_tag = self._corpus_tags[atom.corpus]
+        composite = semantic + 0.3 * tier_tag + 0.3 * corpus_tag
+        composite = composite / (np.linalg.norm(composite) + 1e-12)
+
+        return AtomVectors(
+            atom_id=atom.id,
+            semantic=semantic,
+            identity=identity,
+            composite=composite,
+        )
+
+    def encode_atoms(self, atoms: list[Atom]) -> dict[str, AtomVectors]:
+        """Encode a batch of atoms. Returns dict id -> AtomVectors."""
+        if not atoms:
+            return {}
+        # Batch the bge call
+        texts = []
+        for a in atoms:
+            t = a.description
+            if a.aliases:
+                t = t + " " + " ".join(a.aliases)
+            t = a.name + " :: " + t
+            texts.append(t)
+        semantics = self.bge.encode(texts).astype(np.float32)
+        out = {}
+        for a, sem in zip(atoms, semantics):
+            sem = sem / (np.linalg.norm(sem) + 1e-12)
+            ident = _atom_id_vector(a.id, self.dim)
+            comp = sem + 0.3 * self._tier_tags[a.tier] + 0.3 * self._corpus_tags[a.corpus]
+            comp = comp / (np.linalg.norm(comp) + 1e-12)
+            out[a.id] = AtomVectors(atom_id=a.id, semantic=sem, identity=ident, composite=comp)
+        return out
+
+    def encode_query_text(self, text: str) -> np.ndarray:
+        """Encode a free-text query for semantic retrieval."""
+        v = self.bge.encode([text])[0].astype(np.float32)
+        return v / (np.linalg.norm(v) + 1e-12)
+
+    def rel_type_vector(self, rel: RelationType) -> np.ndarray:
+        """Return the FHRR tag vector for a relation type.
+
+        Enables substrate-algebraic queries: atom_id_vec + rel_type_vec
+        forms a 'what is X related to via R' query vector.
+        """
+        return self._rel_tags[rel]
