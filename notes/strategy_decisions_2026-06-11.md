@@ -779,3 +779,25 @@ RESCUE-4: more training data -- expand from 5982 to full CoNLL 2003 (14987 token
 RESCUE-5: cascade NER -- substrate POS-tagger (PP-379 0.9499) feeds NER as pre-filter.
 
 Cap_map: v568 -> v569 CYCLE 235 (2 HP [PP-379 pos-disc-perceptron 0.9499; PP-380 isotonic-calibration ECE<0.05]; 5 MIDDLE_BAND [GSM8K-ceiling + ASDiv-cascade-v1 + depparse-discriminative + code-synthesis-retrieval + depparse-hashed]; 0 HF (2 honest-reclassify: LVH-286 asdiv_cascade_v2 + LVH-287 ner_discriminative); 2 LVH [LVH-286 asdiv_cascade_v2 accuracy=0.309 vs '<0.30'; LVH-287 ner_discriminative F1=0.5817 vs 'F1 <0.55']; 3 NEW PP ROWS PP-379/PP-380/PP-381 [disc-POS 0.9499; isotonic-ECE<0.05; hashed-depparse 0.787]; 5x NER PROT-004/006 rescue sketches; 0 row closures; Portfolio 32+378 -> 32+381 +3; HONEST 1776->1785 +9; LVH 285->287 +2; 463rd PROT-009 paired commit) (2026-06-11)
+
+## v569 -> v570 CYCLE 236 7-VERDICT BATCH (2026-06-11)
+
+ner-gazetteer + uncertainty-math + conformal-splitCP + depparse-hashed-seed2 + ner-discriminative-seed2 + chunking-discriminative + nl-pipeline-demo-ATIS. All cpu_runner_local FrameworkMPC.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 7 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 2 LVH catches.
+
+**[LVH-288] ner_gazetteer_cpu_v1:** HARD_FAIL label but F1=0.5747 > 0.55. Threshold text in msg wrong. Honest: MIDDLE_BAND.
+**[LVH-289] ner_discriminative_seed2_cpu_v1:** HARD_FAIL label but F1=0.5752 > 0.55. Threshold text in msg wrong. Honest: MIDDLE_BAND.
+All 5 remaining anchors: HONEST.
+
+HONEST: 1785 -> 1792 (+7). LVH: 287 -> 289 (+2).
+
+### Cap_map decisions (v569 -> v570)
+
+4 NEW PP ROWS: PP-382 (UQ math domain), PP-383 (split-conformal coverage), PP-384 (discriminative chunker), PP-385 (NL pipeline ATIS).
+2 MIDDLE_BAND reclassify (LVH-288 ner_gazetteer + LVH-289 ner_disc_seed2).
+PP-381 annotated seed-2 stable. NER 3-datapoint plateau annotated.
+
+Cap_map: v569 -> v570 CYCLE 236 (4 HP; 2 MB-reclassify; 0 HF; 2 LVH [LVH-288/289]; 4 NEW PP [PP-382..PP-385]; Portfolio 32+385; HONEST 1792; LVH 289; 464th PROT-009) (2026-06-11)
