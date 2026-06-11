@@ -58,16 +58,17 @@ def run() -> Dict:
         concepts = cphasor(NCON, N, g); contexts = cphasor(NCTX, N, g); senses = cphasor(NSENSE, N, g)
         ck = cphasor(KCORE, N, g); vals = cphasor(V, N, g); ct = g.integers(0, V, size=KCORE)
         sub.set_core(sum((ck[i] * vals[ct[i]] for i in range(KCORE)), np.zeros(N, dtype=np.complex64)))
-        # sense codebook per (concept,context) -- polysemy resolved only WITH context
+        # CONTEXT-SENSE LEXICON: a concept's sense DEPENDS on context (polysemy); the context-bound key retrieves it
         sense_of = lambda c, k: int((c * 7 + k * 13) % NSENSE)
-        # --- EPISODE: perceive (context-bind) + remember (decay) + periodic refresh ---
+        pairs = [(c, k) for c in range(NCON) for k in range(NCTX)]
+        LEX = cnorm(sum((sub.context_bind(concepts[c], contexts[k]) * senses[sense_of(c, k)] for (c, k) in pairs), np.zeros(N, dtype=np.complex64)))
+        # --- EPISODE: perceive (context-bound sense retrieval) + remember (decay) + periodic refresh ---
         EP = 200 if not SMOKE else 60; s_hit = 0; s_n = 0
         for e in range(EP):
             c = int(g.integers(0, NCON)); k = int(g.integers(0, NCTX))
-            percept = cnorm(sub.context_bind(concepts[c], contexts[k]) + 0.6 * senses[sense_of(c, k)] + 0.5 * cphasor(1, N, g)[0])
-            # CONTEXT resolves the sense: unbind context -> sense readout
-            resolved = cnorm(percept * np.conj(contexts[k]) * np.conj(concepts[c]))
-            s_hit += int(cidx(resolved, senses) == sense_of(c, k)); s_n += 1
+            key = sub.context_bind(concepts[c], contexts[k])                            # CONTEXT primitive resolves polysemy
+            sense_pred = cidx(LEX * np.conj(key), senses)
+            s_hit += int(sense_pred == sense_of(c, k)); s_n += 1
             sub.store(cphasor(1, N, g)[0], vals[int(g.integers(0, V))], decay=0.985)   # periphery edit (decayed)
             if (e + 1) % 40 == 0:
                 sub.refresh()                                                          # TEMPORAL refresh-cycle
