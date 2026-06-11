@@ -26,6 +26,7 @@ target it without rework.
 """
 from __future__ import annotations
 
+import hashlib
 import logging
 from dataclasses import dataclass, field
 from typing import Optional
@@ -36,6 +37,9 @@ from backend.substrate_index.partition import PartitionedStore
 from backend.substrate_index.schema import Atom, RelationType
 
 logger = logging.getLogger(__name__)
+
+
+_HRR_SEED = 20260612_001  # distinct from semantic tag_seed so subspaces don't collide
 
 
 # ============================================================
