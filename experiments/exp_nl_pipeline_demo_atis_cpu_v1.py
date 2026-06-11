@@ -40,8 +40,6 @@ def _load():
             if len(toks) == len(slots) and toks: out.append((toks, slots, e["intent"]))
         return out
     return conv(d["train"]), conv(d["test"])
-    except Exception as e:
-        print("[data] fail %s" % str(e)[:80], flush=True); return None, None
 def _feats(w):
     wl = w.lower(); fs = []
     if any(c.isdigit() for c in w): fs.append("F:DIGIT")
