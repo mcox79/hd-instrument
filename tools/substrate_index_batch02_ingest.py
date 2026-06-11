@@ -1,0 +1,267 @@
+"""Ingest substrate self-index batch 02 (refined atoms + 88 relations + 5 queries).
+
+Research's batch 02 atoms put algebra_category / domain / concept_links inside
+metadata (flat keys). Our Atom schema has them as top-level fields. Normalizer
+lifts metadata fields up into the dedicated fields at ingest time.
+
+After ingest:
+- re-run discover.py to check structural_gap warnings resolved by relations
+- run all 5 disclosed queries; EMBEDDING_DRIFT on Q1/Q2/Q4 should drop
+- emit findings report
+"""
+from __future__ import annotations
+
+import json
+import logging
+import sys
+import time
+from pathlib import Path
+
+# Make repo root importable when running as a script
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from backend.substrate_index.discover import discover_all
+from backend.substrate_index.encode import AtomEncoder
+from backend.substrate_index.partition import PartitionedStore
+from backend.substrate_index.retrieve import Retriever
+from backend.substrate_index.schema import (
+    ALGEBRA_CATEGORIES,
+    Atom,
+    Corpus,
+    RelationType,
+    Tier,
+    TestQuery,
+)
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s | %(message)s")
+log = logging.getLogger("batch02_ingest")
+
+
+DATA_ROOT = Path("data/substrate_index")
+BATCH01_PATH = DATA_ROOT / "math_corpus_batch01.jsonl"
+BATCH02_ATOMS_PATH = DATA_ROOT / "math_corpus_batch02_atoms_refined.jsonl"
+BATCH02_RELATIONS_PATH = DATA_ROOT / "math_corpus_batch02_relations.jsonl"
+BATCH02_QUERIES_PATH = DATA_ROOT / "math_corpus_batch02_disclosed_queries.json"
+
+
+# ============================================================
+# Normalize Research's batch 02 format into our Atom schema
+# ============================================================
+
+def _algebra_category_name(category_int: int) -> str:
+    """Map int 1-13 -> category string from ALGEBRA_CATEGORIES."""
+    idx = category_int - 1
+    if 0 <= idx < len(ALGEBRA_CATEGORIES):
+        return ALGEBRA_CATEGORIES[idx]
+    return "unknown"
+
+
+def normalize_atom_record(rec: dict) -> dict:
+    """Lift Research's flat metadata keys (algebra_category/domain/concept_links)
+    into dedicated top-level Atom fields.
+
+    Idempotent: if the top-level fields already exist, leaves them.
+    """
+    rec = dict(rec)
+    meta = dict(rec.get("metadata") or {})
+
+    if "algebra_category" in meta or "domain" in meta:
+        algebra = dict(rec.get("algebra") or {})
+        if "algebra_category" in meta and "structure" not in algebra:
+            cat_int = meta.pop("algebra_category")
+            algebra["category_int"] = cat_int
+            algebra["structure"] = _algebra_category_name(cat_int) if isinstance(cat_int, int) else str(cat_int)
+        if "domain" in meta and "domain" not in algebra:
+            algebra["domain"] = meta.pop("domain")
+        if "commutative" in meta and "commutative" not in algebra:
+            algebra["commutative"] = meta.pop("commutative")
+        if "associative" in meta and "associative" not in algebra:
+            algebra["associative"] = meta.pop("associative")
+        if "preserves_unit_modulus" in meta and "preserves_unit_modulus" not in algebra:
+            algebra["preserves_unit_modulus"] = meta.pop("preserves_unit_modulus")
+        rec["algebra"] = algebra
+
+    if "concept_links" in meta and "concept_links" not in rec:
+        rec["concept_links"] = list(meta.pop("concept_links"))
+
+    rec["metadata"] = meta
+    return rec
+
+
+# ============================================================
+# Ingest
+# ============================================================
+
+def load_atoms_jsonl(path: Path) -> list[Atom]:
+    atoms = []
+    with path.open("r", encoding="utf-8") as f:
+        for line_no, line in enumerate(f, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError as e:
+                log.error("line %d %s: %s", line_no, path, e)
+                continue
+            rec = normalize_atom_record(rec)
+            try:
+                atoms.append(Atom.from_dict(rec))
+            except Exception as e:
+                log.error("line %d %s: Atom.from_dict failed: %s", line_no, path, e)
+    return atoms
+
+
+def load_relations_jsonl(path: Path) -> list[tuple[str, RelationType, str, str]]:
+    """Returns list of (src_qid, rel_type, tgt_qid, note)."""
+    rels = []
+    with path.open("r", encoding="utf-8") as f:
+        for line_no, line in enumerate(f, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError as e:
+                log.error("rel line %d: %s", line_no, e)
+                continue
+            try:
+                src = rec.get("src") or rec.get("src_id")
+                tgt = rec.get("tgt") or rec.get("tgt_id")
+                rt_str = rec.get("rel_type") or rec.get("type")
+                rt = RelationType(rt_str)
+                note = rec.get("note") or rec.get("fidelity") or ""
+                if isinstance(note, dict):
+                    note = json.dumps(note)
+                # If ids are not qualified (no "::"), prepend math:: (default for batch 02)
+                if "::" not in src:
+                    src = f"math::{src}"
+                if "::" not in tgt:
+                    tgt = f"math::{tgt}"
+                rels.append((src, rt, tgt, note))
+            except Exception as e:
+                log.error("rel line %d: %s (rec=%s)", line_no, e, rec)
+    return rels
+
+
+def main():
+    pstore = PartitionedStore(DATA_ROOT)
+
+    # 1. Ingest batch 01 (if not already present)
+    if BATCH01_PATH.exists():
+        atoms_01 = load_atoms_jsonl(BATCH01_PATH)
+        added = 0
+        for a in atoms_01:
+            if not pstore.has_atom(a.qualified_id):
+                pstore.add_atom(a, source="batch01", note="initial corpus")
+                added += 1
+        log.info("batch01: %d atoms loaded, %d added", len(atoms_01), added)
+
+    # 2. Ingest batch 02 refined atoms (overwrites batch 01 versions of the 7)
+    atoms_02 = load_atoms_jsonl(BATCH02_ATOMS_PATH)
+    refined = 0
+    for a in atoms_02:
+        # Remove batch 01 version if present, then add refined
+        if pstore.has_atom(a.qualified_id):
+            pstore.remove_atom(a.qualified_id, source="batch02", note="superseded by refinement")
+        pstore.add_atom(a, source="batch02_refined", note="algebra-vec + sharpened description")
+        refined += 1
+    log.info("batch02 refined: %d atoms re-ingested", refined)
+
+    # 3. Ingest 88 relations
+    rels = load_relations_jsonl(BATCH02_RELATIONS_PATH)
+    added_rels = 0
+    skipped_rels = 0
+    for src, rt, tgt, note in rels:
+        try:
+            pstore.add_relation(src, rt, tgt, source="batch02", note=note)
+            added_rels += 1
+        except Exception as e:
+            log.warning("rel skip %s -%s-> %s: %s", src, rt.value, tgt, e)
+            skipped_rels += 1
+    log.info("batch02 relations: %d added, %d skipped", added_rels, skipped_rels)
+
+    # 4. Stats
+    stats = pstore.stats()
+    log.info("post-ingest stats: total_atoms=%d total_relations=%d cross_store=%d",
+             stats["total_atoms"], stats["total_relations"], stats["cross_store_relations"])
+    print(json.dumps(stats, indent=2))
+
+    # 5. Build retriever + run 5 disclosed queries
+    log.info("building encoder + retriever (this takes ~20-30 sec for the bge model load)")
+    encoder = AtomEncoder()
+    retriever = Retriever(pstore, encoder)
+    t0 = time.perf_counter()
+    retriever.rebuild_index()
+    log.info("index built in %.1f sec", time.perf_counter() - t0)
+
+    # 6. Run discover
+    log.info("running discover_all...")
+    report = discover_all(pstore, retriever=retriever)
+    by_kind = {}
+    for f in report.findings:
+        by_kind[f.kind] = by_kind.get(f.kind, 0) + 1
+    log.info("discover findings: %d total; by kind: %s", len(report.findings), by_kind)
+
+    # 7. Load queries + run them
+    with BATCH02_QUERIES_PATH.open("r", encoding="utf-8") as f:
+        queries_raw = json.load(f)
+    # File format may be list-of-dicts OR dict-with-queries-key
+    if isinstance(queries_raw, dict):
+        queries_raw = queries_raw.get("queries", []) or queries_raw.get("disclosed_queries", [])
+
+    log.info("running %d disclosed queries...", len(queries_raw))
+    results = []
+    for q_rec in queries_raw:
+        qid = q_rec.get("qid", q_rec.get("id", "Q?"))
+        query_text = q_rec.get("query_text") or q_rec.get("text") or q_rec.get("question")
+        expected = q_rec.get("expected_atom_ids", [])
+        if not query_text:
+            log.warning("query %s has no query_text; rec=%s", qid, q_rec)
+            continue
+        t0 = time.perf_counter()
+        cands = retriever.semantic(query_text, top_k=10)
+        elapsed_ms = (time.perf_counter() - t0) * 1000
+        top_ids = [c.atom_id for c in cands]
+        # Compute recall@1/3/10 against expected
+        if expected:
+            exp_set = set(expected)
+            top1 = top_ids[0] if top_ids else None
+            recall_at_1 = 1.0 if top1 in exp_set else 0.0
+            recall_at_3 = len(exp_set & set(top_ids[:3])) / max(1, len(exp_set))
+            recall_at_10 = len(exp_set & set(top_ids[:10])) / max(1, len(exp_set))
+        else:
+            recall_at_1 = recall_at_3 = recall_at_10 = None
+        results.append({
+            "qid": qid,
+            "query_text": query_text[:120],
+            "expected": list(expected),
+            "top10": top_ids,
+            "recall_at_1": recall_at_1,
+            "recall_at_3": recall_at_3,
+            "recall_at_10": recall_at_10,
+            "latency_ms": round(elapsed_ms, 1),
+        })
+
+    out_path = DATA_ROOT / "bench_reports" / f"batch02_post_ingest_{int(time.time())}.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps({
+        "stats": stats,
+        "discover_by_kind": by_kind,
+        "discover_total": len(report.findings),
+        "query_results": results,
+    }, indent=2), encoding="utf-8")
+    log.info("wrote bench report -> %s", out_path)
+
+    # Print summary
+    print("\n=== POST-BATCH-02 INGEST SUMMARY ===")
+    print(f"atoms: {stats['total_atoms']}  relations: {stats['total_relations']}  cross_store: {stats['cross_store_relations']}")
+    print(f"discover findings: {len(report.findings)} ({by_kind})")
+    print("\nQuery results:")
+    for r in results:
+        rec_str = f"r@1={r['recall_at_1']}" if r['recall_at_1'] is not None else "r@1=NA"
+        print(f"  {r['qid']:8s}  {rec_str}  top-3={r['top10'][:3]}  ({r['latency_ms']:.0f}ms)")
+
+
+if __name__ == "__main__":
+    main()
