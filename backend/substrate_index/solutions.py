@@ -393,3 +393,95 @@ def replacement_prediction(pstore: PartitionedStore, capability_qualified_id: st
         pattern_strength=pattern_strength,
         pattern_evidence=tuple(evidence),
     )
+
+
+# ============================================================
+# Query 8: methodology_rule_extraction
+# Extract transferable methodology rules from cliff patterns.
+# Per Findings #12 Q4: each cliff > threshold becomes a candidate rule
+# "When X-current-best, try Y" if the same replacement repeats across
+# 3+ capabilities.
+# ============================================================
+
+
+@dataclass(frozen=True)
+class MethodologyRule:
+    rule_text: str               # human-readable rule
+    from_solution: str
+    to_solution: str
+    n_capabilities: int          # how many capabilities exhibited this transition
+    avg_lift: float              # average lift across instances
+    capabilities: tuple[str, ...]
+    confidence: float            # n_capabilities / 12 (rough fraction of corpus)
+
+    def to_dict(self) -> dict:
+        return {
+            "rule_text": self.rule_text,
+            "from_solution": self.from_solution,
+            "to_solution": self.to_solution,
+            "n_capabilities": self.n_capabilities,
+            "avg_lift": self.avg_lift,
+            "capabilities": list(self.capabilities),
+            "confidence": self.confidence,
+        }
+
+
+def methodology_rule_extraction(pstore: PartitionedStore,
+                                min_capabilities: int = 3,
+                                min_lift: float = 0.10) -> list[MethodologyRule]:
+    """Extract transferable methodology rules from repeating cliff patterns.
+
+    Logic: same (from -> to) replacement appearing across >= min_capabilities
+    capabilities with avg lift >= min_lift becomes a rule.
+
+    Output is substrate-proposed meta atoms ready for meta partition (rule 8
+    us-or-substrate compliant: substrate proposes; Research validates).
+    """
+    # Collect transitions per replacement pair
+    transitions: dict[tuple[str, str], list[tuple[str, float, str]]] = defaultdict(list)
+    for atom in _capability_atoms(pstore):
+        entries = list(atom.solution_history)
+        entries.sort(key=lambda e: e.get("adopted_date") or "")
+        for i in range(1, len(entries)):
+            prev = entries[i - 1]
+            curr = entries[i]
+            old = prev.get("solution_atom_id", "")
+            new = curr.get("solution_atom_id", "")
+            if not (old and new and old != new):
+                continue
+            prev_m = (prev.get("empirical_metric") or {}).get("value")
+            curr_m = (curr.get("empirical_metric") or {}).get("value")
+            if prev_m is None or curr_m is None:
+                continue
+            try:
+                lift = float(curr_m) - float(prev_m)
+            except Exception:
+                continue
+            if lift < 0:
+                continue  # only positive transitions
+            transitions[(old, new)].append((atom.qualified_id, lift, curr.get("source", "")))
+
+    # Total capability count for confidence denominator
+    total_capabilities = len(_capability_atoms(pstore))
+
+    rules: list[MethodologyRule] = []
+    for (old, new), instances in transitions.items():
+        n = len(instances)
+        if n < min_capabilities:
+            continue
+        avg_lift = sum(l for _, l, _ in instances) / max(1, n)
+        if avg_lift < min_lift:
+            continue
+        old_short = old.split("/")[-1] if "/" in old else old.split("::")[-1]
+        new_short = new.split("/")[-1] if "/" in new else new.split("::")[-1]
+        rule_text = f"When {old_short} is current-best, try {new_short} (observed +{avg_lift:.3f} avg lift across {n} capabilities)"
+        rules.append(MethodologyRule(
+            rule_text=rule_text,
+            from_solution=old,
+            to_solution=new,
+            n_capabilities=n,
+            avg_lift=avg_lift,
+            capabilities=tuple(c for c, _, _ in instances),
+            confidence=n / max(1, total_capabilities),
+        ))
+    return sorted(rules, key=lambda r: -(r.n_capabilities * r.avg_lift))
