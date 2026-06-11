@@ -18,10 +18,13 @@ slot-filling 0.871, schema 0.967, routing 0.967. Uncertainty: conformal coverage
 Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cascade 0.30, dep-parse arc-factored ceiling 0.787, NER 0.58.
 
 ## OPEN / IN-FLIGHT at compaction
-- **sentiment_headtohead_fair_gpu_v1 RUNNING on GPU** (logprob LLM scoring). CRITICAL CAVEAT: the free-generation classification
-  head-to-heads (textclass 0.688, sentiment 0.580) UNDER-MEASURED the LLM via output-parsing (Qwen SST-2 0.58 is implausible =
-  parsing artifact). The fair logprob version will likely show the LLM BEATS substrate on classification -> the classification
-  "substrate wins" were SOFT. MATH head-to-head + latency/memory stand. See note: CLASSIFICATION_HEADTOHEAD_PARSING_CAVEAT_2026-06-11.
+- **CLASSIFICATION HEAD-TO-HEAD LLM-EVAL IS BROKEN — DO NOT TRUST / DO NOT CLAIM.** Both methods give Qwen-0.5B implausible
+  ~chance accuracy on SST-2 (should be ~0.85): free-gen parsing = 0.58, fair logprob = 0.485. So BOTH my LLM-eval paths are
+  buggy for classification. The substrate classification numbers are real (textclass 0.848, sentiment 0.767) but the LLM
+  COMPARISON is unreliable -> do NOT claim "substrate beats LLM on classification". Needs a proper LLM-eval (verified on a
+  known baseline first) before any classification head-to-head claim. See note CLASSIFICATION_HEADTOHEAD_PARSING_CAVEAT.
+- **ONLY the MATH head-to-head is trustworthy** (LLM gets plausible numbers: MAWPS 0.5-0.57, ASDiv 0.8-0.9). That's the robust
+  north-star result. Latency/memory/determinism dimensions are real regardless.
 - If continuing classification head-to-heads: rebuild text-class with the SAME logprob fix (not free-gen).
 
 ## OPERATIONAL LESSONS (critical)
