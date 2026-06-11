@@ -182,15 +182,14 @@ def archaeology(
 
     # Build atom_id -> family_tag membership lookup
     atom_family_tags: dict[str, list[str]] = {}
+    # Track which atoms ARE family-tags (skip them from mistag detection;
+    # a family-tag atom can't be a mistag candidate of itself or others)
+    family_tag_atoms: set[str] = set()
     for atom in pstore.all_atoms():
-        # In our schema, family-tag membership is encoded as USES edges TO a
-        # T2_FAM/* family-tag atom, or via atoms_by_corpus(T2_FAM) -> members
-        # metadata. For now: read metadata.family_tag_members on family-tag atoms
-        # and reverse-index.
         if atom.kind.value == "family_tag":
+            family_tag_atoms.add(atom.qualified_id)
             members = atom.metadata.get("members") or atom.metadata.get("family_tag_members") or []
             for m in members:
-                # m may be local id or qualified id
                 qid = m if "::" in m else f"{atom.corpus.value}::{m}"
                 atom_family_tags.setdefault(qid, []).append(atom.qualified_id)
 
@@ -219,6 +218,10 @@ def archaeology(
             continue
         cluster_size = len(cluster)
         for aid in cluster:
+            if aid in family_tag_atoms:
+                # Self-reference guard: family-tag atoms are not mistag
+                # candidates of themselves (caught in FINDINGS_06)
+                continue
             declared = atom_family_tags.get(aid, [])
             if majority_family not in declared and majority_count > cluster_size // 2:
                 atom = pstore.get_atom(aid)
