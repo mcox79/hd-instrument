@@ -41,6 +41,15 @@ class Corpus(enum.Enum):
     META = "meta"      # methodology rules, architectural decisions, failure modes
     SCHOOL = "school"  # intellectual lineage; key_contributors + core_methods
 
+    # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
+    # 2026-06-11. Four ledger partitions auto-ingested from project artifacts:
+    RESEARCH_HISTORY = "research_history"   # notes/research_drill_*_2x_*.md
+    DECISION_HISTORY = "decision_history"   # notes/research_to_*.md + user directives
+    RESULTS_HISTORY = "results_history"     # notes/exp_dev_to_research_*.md
+    FINDINGS_HISTORY = "findings_history"   # notes/testbed_to_research_*.md
+    VERDICT_HISTORY = "verdict_history"     # strategy_decisions_*.md cap_map cycles
+    MEMORY_HISTORY = "memory_history"       # C:/Users/marsh/.claude/projects/.../memory/*.md
+
 
 class Tier(enum.Enum):
     """Tier for math atoms; CONCEPT/META atoms use TIER_NA."""
@@ -68,6 +77,14 @@ class AtomKind(enum.Enum):
     MACRO = "macro"
     SCHOOL = "school"      # per Research SCHOOLS_CORPUS proposal; school atoms only
     CAPABILITY = "capability"  # per Research concept-corpus 8-field schema; concept atoms
+
+    # Per Research full-research-ledger auto-ingest 2026-06-11:
+    DRILL = "drill"               # research drill outputs
+    DECISION = "decision"         # routing notes + user directives
+    RESULT = "result"             # Exp-Dev result reports
+    FINDING = "finding"           # Testbed findings notes
+    VERDICT = "verdict"           # cap_map cycle verdicts (PP-NNN HARD_PASS/MIDDLE/HARD_FAIL)
+    MEMORY = "memory"             # memory entries from .claude/projects/.../memory/*.md
 
 
 # Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):

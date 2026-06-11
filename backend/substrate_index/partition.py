@@ -72,11 +72,25 @@ class PartitionedStore:
         self.concept = Store(self.root / "concept")
         self.meta = Store(self.root / "meta")
         self.school = Store(self.root / "school")  # per Research SCHOOLS_CORPUS proposal
+        # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
+        # 2026-06-11: six new partitions for auto-ingest of all research artifacts
+        self.research_history = Store(self.root / "research_history")
+        self.decision_history = Store(self.root / "decision_history")
+        self.results_history = Store(self.root / "results_history")
+        self.findings_history = Store(self.root / "findings_history")
+        self.verdict_history = Store(self.root / "verdict_history")
+        self.memory_history = Store(self.root / "memory_history")
         self._stores = {
             Corpus.MATH: self.math,
             Corpus.CONCEPT: self.concept,
             Corpus.META: self.meta,
             Corpus.SCHOOL: self.school,
+            Corpus.RESEARCH_HISTORY: self.research_history,
+            Corpus.DECISION_HISTORY: self.decision_history,
+            Corpus.RESULTS_HISTORY: self.results_history,
+            Corpus.FINDINGS_HISTORY: self.findings_history,
+            Corpus.VERDICT_HISTORY: self.verdict_history,
+            Corpus.MEMORY_HISTORY: self.memory_history,
         }
         # Cross-store reverse index: tgt_qualified_id -> set of (src_qualified_id, rel_type)
         self._cross_in: dict[str, set[tuple[str, RelationType]]] = defaultdict(set)
@@ -120,7 +134,10 @@ class PartitionedStore:
         return self.get_atom(qualified_id) is not None
 
     def all_atoms(self) -> list[Atom]:
-        return self.math.all_atoms() + self.concept.all_atoms() + self.meta.all_atoms()
+        out = []
+        for store in self._stores.values():
+            out.extend(store.all_atoms())
+        return out
 
     def all_qualified_ids(self) -> set[str]:
         out = set()
