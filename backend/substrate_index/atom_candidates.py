@@ -240,14 +240,27 @@ def substrate_eval_references_unknown_math_term(
     """
     import re
 
-    # Build existing math-atom-name set (lowercase normalized)
+    # Build existing math-atom-name set (lowercase normalized; including
+    # individual word stems so 'fhrr' matches T2/fhrr_bind)
     existing_names: set[str] = set()
     for atom in pstore.all_atoms():
         if atom.corpus.value == "math":
             existing_names.add(atom.name.lower())
             for alias in atom.aliases:
                 existing_names.add(alias.lower())
-            existing_names.add(atom.id.split("/")[-1].replace("_", " ").lower())
+            local = atom.id.split("/")[-1].lower()
+            existing_names.add(local)
+            existing_names.add(local.replace("_", " "))
+            # Add individual word components ('fhrr', 'bind' from 'fhrr_bind')
+            for word in local.split("_"):
+                if len(word) >= 3:
+                    existing_names.add(word)
+    # Stem-noise filter: compound-word prefixes that produce English-phrase
+    # hits with the hyphen pattern (not substrate-specific terms)
+    COMMON_COMPOUND_PREFIXES = (
+        "multi", "real", "cross", "self", "sub", "super", "non", "pre",
+        "post", "co", "un", "re", "out", "over", "under", "off",
+    )
 
     # Extract candidate terms from source files
     term_referrers: dict[str, list[str]] = defaultdict(list)
@@ -268,10 +281,22 @@ def substrate_eval_references_unknown_math_term(
                     continue
                 if norm in _STOP_TERMS:
                     continue
-                # Drop terms with common English stems (heuristic noise filter)
+                # Drop terms with common English stems
                 if any(stop in norm for stop in ("citation", "consistent", "makes the",
                                                   "is the", "the the", "et al")):
                     continue
+                # Drop compound-word prefixes (multi-, cross-, self-, etc.)
+                first_word = norm.split(" ")[0]
+                if first_word in COMMON_COMPOUND_PREFIXES:
+                    continue
+                # Drop terms that contain only generic substrate-vocabulary words
+                if any(any(w == norm or w in norm.split() for w in
+                           ("substrate", "the", "this", "that", "from", "into",
+                            "case", "term", "step", "level", "thread")) for _ in [0]):
+                    if not any(c.isupper() for c in term):
+                        # If the term has no uppercase chars and contains generic
+                        # vocabulary, skip it
+                        continue
                 term_referrers[norm].append(str(src_path))
 
     # Build candidates
