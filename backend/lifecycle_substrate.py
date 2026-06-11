@@ -120,18 +120,18 @@ HTML = """<!doctype html>
         <div class="metric">retained recall = 1.000 / forgotten recall = 0.004</div>
       </div>
 
-      <div class="primitive">
-        <h3>Frequency-selective decay</h3>
+      <div class="primitive" style="border: 1px dashed #f59e0b;">
+        <h3 style="color: #f59e0b;">Frequency-selective decay (HOLD)</h3>
         <div class="anchor">PP-319 / d2_2_frequency_decay_cpu_v1</div>
-        <p>High-frequency-accessed atoms preserve while low-frequency atoms decay. Discriminator AUC = 0.886; hi-freq retained = 0.929 vs lo-freq retained = 0.051. Partially addresses an OVERCLAIM_CORRECTIONS gap on frequency-selectivity in continual-learning settings.</p>
-        <div class="metric">AUC = 0.886 / hi-freq retained = 0.929 / lo-freq retained = 0.051</div>
+        <p>Synthetic claim (AUC = 0.886 on independent inputs) does NOT survive real-data audit. Real-data audit (cycle 224 LVH-276): AUC = 0.590 on correlated Zipfian inputs -- below the 0.85 threshold. Customer-facing claim withdrawn until a context-bound rescue validates.</p>
+        <div class="metric" style="color: #f59e0b;">real-data AUC = 0.590 (FAIL) / synthetic = 0.886 / status = HOLD</div>
       </div>
 
       <div class="primitive">
         <h3>Neurogenesis (online shard creation)</h3>
         <div class="anchor">PP-322 / d2_4_neurogenesis_cpu_v1</div>
-        <p>Online discovery and allocation of new shards as input distribution clusters. Discovered 8 of 8 ground-truth shards; per-shard recall = 1.000 vs 0.125 for a single shared shard (8x capacity expansion via online allocation).</p>
-        <div class="metric">recall = 1.000 / discovered = 8 of 8 / single-shard baseline = 0.125</div>
+        <p>Synthetic 8-shard discovery hits recall = 1.000 at cluster purity 1.000; 8x capacity vs single shard. Real-data audit (cycle 224 MIDDLE_BAND) shows the online discoverer over-fragments correlated real data: 54 shards discovered vs 18 ground-truth clusters at purity 0.603. The offline-storage primitive holds; the online-discovery threshold is real-data-fragile.</p>
+        <div class="metric">synthetic recall = 1.000 / synthetic purity = 1.000 / real-data: 54 vs 18 shards at purity 0.603</div>
       </div>
 
       <div class="primitive">

@@ -193,7 +193,7 @@ HTML = """<!doctype html>
     </div>
 
 
-    <h2>Cross-domain reasoning via SLIPNET substrate (PP-327 cycle 223)</h2>
+    <h2>Cross-domain reasoning via SLIPNET substrate (PP-327 / PP-330 cycle 223-224)</h2>
     <div class="card">
       <p>
         Cross-domain analogy was the most open question in our v3.0 architecture
@@ -205,9 +205,36 @@ HTML = """<!doctype html>
         crack.
       </p>
       <p style="margin: 0">
-        Tagged EXPLORATORY (0.78-0.92) per cap_map cycle 223; n = 1 seed but
-        ceiling-consistent. Real-benchmark validation queued. Anchor:
-        <code>slipnet_substrate_cpu_v1</code>.
+        Graceful degradation under noise (PP-330 cycle 224): Hits@1 = 0.697 at
+        25% input noise -- the mechanism does not collapse abruptly outside the
+        clean-input regime. Tagged EXPLORATORY (0.78-0.92) per cap_map.
+        Real-benchmark validation queued. Anchors:
+        <code>slipnet_substrate_cpu_v1</code> + <code>slipnet_noise_cpu_v1</code>.
+      </p>
+    </div>
+
+    <h2>First wins on COMM + MATH + CODE thrusts (cycles 224-225)</h2>
+    <div class="card">
+      <p>
+        Substrate-self-improvement requires substrate-grounded COMMUNICATE, MATH,
+        and CODE primitives. First categorical wins landed across all three this
+        evening:
+      </p>
+      <ul style="margin: 0.5rem 0 0.75rem 1.25rem; color: #c5c5d0;">
+        <li><strong>COMM:</strong> slot+topic decoding 1.000 (PP-331);
+          intent decoding 1.000 n=1000 (PP-337); lexical-emission tok/sent 1.000 (PP-338);
+          WUG morphology 1.000 1-shot + 3-shot (PP-342)</li>
+        <li><strong>MATH:</strong> algebra acc 1.000 n=400 (PP-332); equation-solve 1.000 n=400 (PP-341);
+          calculus 1.000 n=400 (PP-334); proof-chains L=8/10/12 mean = 1.000 (PP-343
+          substrate-over-biology depth)</li>
+        <li><strong>CODE:</strong> code-compose 1.000 n=300 (PP-333); algorithm-compose 1.000
+          4-step n=300 (PP-339); <strong>HumanEval pass@1 = 0.750 (9 / 12; small-n
+          first result; PP-340)</strong>; bug-detection rescued to F1 = 0.704 (PP-336 partial)</li>
+      </ul>
+      <p style="margin: 0">
+        These results are the substrate-grounded codebook foundation for the
+        three-thrust roadmap. Tagged EXPLORATORY (0.78-0.92) per cap_map cycles 224-225;
+        synthetic-task ceiling-consistent; multi-seed + real-benchmark validation queued.
       </p>
     </div>
 
