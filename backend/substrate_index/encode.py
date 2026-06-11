@@ -103,22 +103,31 @@ class AtomEncoder:
         self._rel_tags = {r: _tag_vector(f"rel::{r.value}", dim) for r in RelationType}
 
     def encode_atom(self, atom: Atom) -> AtomVectors:
-        """Encode one atom into its vector triple."""
+        """Encode one atom into its vector triple (+ optional algebra subvectors)."""
         text = atom.description
         if atom.aliases:
             text = text + " " + " ".join(atom.aliases)
         text = atom.name + " :: " + text
-        # bge.encode returns (N, dim) so take row 0
         semantic = self.bge.encode([text])[0].astype(np.float32)
-        # Re-normalize defensively
         semantic = semantic / (np.linalg.norm(semantic) + 1e-12)
 
         identity = _atom_id_vector(atom.id, self.dim)
 
-        # Composite: bundle semantic + tier_tag + corpus_tag (simple sum + renorm)
+        algebra_vec = self._encode_dict_to_vec(atom.algebra) if atom.algebra else None
+        signature_vec = self._encode_dict_to_vec(atom.signature) if atom.signature else None
+        complexity_vec = self._encode_dict_to_vec(atom.complexity) if atom.complexity else None
+
         tier_tag = self._tier_tags[atom.tier]
         corpus_tag = self._corpus_tags[atom.corpus]
+        # Default weights: alpha=1.0, beta=0.5, gamma=0.3, delta=0.2 (per
+        # Research ALGEBRA_VEC_SUPPORT proposal)
         composite = semantic + 0.3 * tier_tag + 0.3 * corpus_tag
+        if algebra_vec is not None:
+            composite = composite + 0.5 * algebra_vec
+        if signature_vec is not None:
+            composite = composite + 0.3 * signature_vec
+        if complexity_vec is not None:
+            composite = composite + 0.2 * complexity_vec
         composite = composite / (np.linalg.norm(composite) + 1e-12)
 
         return AtomVectors(
@@ -126,7 +135,43 @@ class AtomEncoder:
             semantic=semantic,
             identity=identity,
             composite=composite,
+            algebra=algebra_vec,
+            signature=signature_vec,
+            complexity=complexity_vec,
         )
+
+    def _encode_dict_to_vec(self, d: dict) -> np.ndarray:
+        """Encode a structured-properties dict as a tag-vector sum.
+
+        Each (key, value) becomes a tag derived from a hashed string; the
+        atom's vector for that field is the L2-normalized sum of tags for
+        all the (key, value) pairs.
+
+        Lists are encoded by tagging (key, each-element) separately.
+        Booleans become (key, 'true' | 'false') tags.
+        """
+        vec = np.zeros(self.dim, dtype=np.float32)
+        n = 0
+        for k, v in d.items():
+            if isinstance(v, bool):
+                vec = vec + _tag_vector(f"prop::{k}::{v}", self.dim)
+                n += 1
+            elif isinstance(v, (str, int, float)) and v is not None:
+                vec = vec + _tag_vector(f"prop::{k}::{v}", self.dim)
+                n += 1
+            elif isinstance(v, list):
+                for item in v:
+                    if isinstance(item, (str, int, float, bool)) and item is not None:
+                        vec = vec + _tag_vector(f"prop::{k}::{item}", self.dim)
+                        n += 1
+            elif isinstance(v, dict):
+                for sub_k, sub_v in v.items():
+                    if isinstance(sub_v, bool) or isinstance(sub_v, (str, int, float)):
+                        vec = vec + _tag_vector(f"prop::{k}::{sub_k}::{sub_v}", self.dim)
+                        n += 1
+        if n == 0:
+            return None
+        return vec / (np.linalg.norm(vec) + 1e-12)
 
     def encode_atoms(self, atoms: list[Atom]) -> dict[str, AtomVectors]:
         """Encode a batch of atoms. Returns dict id -> AtomVectors."""

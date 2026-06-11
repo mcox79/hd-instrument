@@ -69,6 +69,22 @@ class AtomKind(enum.Enum):
     SCHOOL = "school"  # per Research SCHOOLS_CORPUS proposal; school atoms only
 
 
+# Per Research ALGEBRA_VEC_REFINED_13_CATEGORY 2026-06-11 (drill output):
+# 13 categories on 3 axes; category 13 'substrate_native' is the novel
+# substrate-distinguishing category (phasor / bipolar / role-filler binding)
+# that classical formal systems don't model.
+ALGEBRA_CATEGORIES = (
+    # Axis A: Classical algebra
+    "group", "ring", "field", "vector_space", "module",
+    # Axis B: Generalized
+    "monoid", "semigroup", "semiring", "lattice",
+    # Axis C: Structural/applied
+    "category", "topology", "metric_space",
+    # Substrate-native (novel)
+    "substrate_native",
+)
+
+
 class RelationType(enum.Enum):
     """Typed-edge relations.
 
@@ -145,6 +161,12 @@ class Atom:
     equivalences: tuple[dict, ...] = field(default_factory=tuple)
                                             # [{equivalent_to, under_transformation,
                                             #   fidelity}, ...]
+    concept_links: tuple[str, ...] = field(default_factory=tuple)
+                                            # Per Research ALGEBRA_VEC_REFINED 2026-06-11:
+                                            # cross-corpus atom_ids (math -> concept,
+                                            # math -> school). Substrate-product
+                                            # differentiator: classical formal systems
+                                            # (Lean/Coq/Mathematica) have no equivalent.
 
     @property
     def qualified_id(self) -> str:
@@ -169,6 +191,8 @@ class Atom:
             d["complexity"] = dict(self.complexity)
         if self.equivalences:
             d["equivalences"] = [dict(e) for e in self.equivalences]
+        if self.concept_links:
+            d["concept_links"] = list(self.concept_links)
         return d
 
     @classmethod
@@ -186,6 +210,7 @@ class Atom:
             signature=d.get("signature"),
             complexity=d.get("complexity"),
             equivalences=tuple(d.get("equivalences", [])),
+            concept_links=tuple(d.get("concept_links", [])),
         )
 
 
