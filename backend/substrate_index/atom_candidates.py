@@ -226,10 +226,60 @@ _STOP_TERMS = {
 }
 
 
+# Math-context keywords per Research Q1 source #5 noise fix
+_MATH_CONTEXT_KEYWORDS = {
+    "theorem", "algorithm", "method", "transform", "distribution", "regime",
+    "inequality", "matrix", "space", "bound", "rule", "divergence",
+    "identity", "metric", "norm", "operator", "primitive", "functor",
+    "equation", "lemma", "proposition", "corollary",
+}
+
+
+# Math acronyms (one half can be these in hyphenated names)
+_MATH_ACRONYMS_HALF = {
+    "lp", "mp", "rmt", "vsa", "hdc", "fhrr", "hrr", "ica", "pca", "lda",
+    "svd", "fft", "dft", "qr", "lu", "svm", "crf", "hmm", "cls", "tpr",
+    "rl", "ml", "ai", "nn",
+}
+
+
+def _has_math_context(text: str, term: str, window: int = 20) -> bool:
+    """Check if a math-context keyword appears within `window` words of the term."""
+    text_lower = text.lower()
+    term_lower = term.lower()
+    pos = text_lower.find(term_lower)
+    if pos < 0:
+        return False
+    start = max(0, pos - 200)
+    end = min(len(text_lower), pos + 200)
+    snippet = text_lower[start:end]
+    words = snippet.split()
+    for kw in _MATH_CONTEXT_KEYWORDS:
+        if kw in snippet:
+            return True
+    return False
+
+
+def _hyphenated_term_acceptable(term: str) -> bool:
+    """For hyphenated terms, require both halves are surnames OR one half is a math acronym."""
+    if "-" not in term:
+        return True  # not hyphenated; this filter doesn't apply
+    parts = term.split("-")
+    # Both halves capitalized words (surname-pattern)
+    if all(p[0].isupper() and p[1:].islower() and len(p) >= 3 for p in parts):
+        return True
+    # One half is a known math acronym
+    if any(p.lower() in _MATH_ACRONYMS_HALF for p in parts):
+        return True
+    return False
+
+
 def substrate_eval_references_unknown_math_term(
     pstore: PartitionedStore,
     source_files: list[Path],
-    min_referrers: int = 1,
+    min_referrers: int = 2,         # Q1 fix #2: >=2 distinct sources
+    require_math_context: bool = True,  # Q1 fix #1
+    top_cap: int = 50,              # Q1 fix #4
 ) -> list[AtomCandidate]:
     """Source #5 per Research FINDINGS_09 validation:
     Find math terms mentioned in research/drill/exp_dev notes that don't
@@ -297,6 +347,12 @@ def substrate_eval_references_unknown_math_term(
                         # If the term has no uppercase chars and contains generic
                         # vocabulary, skip it
                         continue
+                # Q1 fix #3: hyphenated terms require both halves surnames OR one is math acronym
+                if "-" in term and not _hyphenated_term_acceptable(term):
+                    continue
+                # Q1 fix #1: math-context keyword filter
+                if require_math_context and not _has_math_context(text, term):
+                    continue
                 term_referrers[norm].append(str(src_path))
 
     # Build candidates
@@ -317,7 +373,9 @@ def substrate_eval_references_unknown_math_term(
             confidence=min(0.90, 0.40 + 0.10 * min(5, n_distinct)),
             notes=f"Term '{term}' mentioned in {n_distinct} research source(s); no math atom with this name exists",
         ))
-    return sorted(candidates, key=lambda c: -c.confidence)
+    candidates.sort(key=lambda c: -c.confidence)
+    # Q1 fix #4: cap at top_cap by confidence
+    return candidates[:top_cap]
 
 
 # ============================================================
