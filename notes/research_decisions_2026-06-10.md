@@ -32,3 +32,9 @@ motivation_revival_3x: 5-component drive algebra derived; P_deflated=0.60 (bored
 
 - translation_revival_3x: notes/research_drill_translation_revival_3x_2026-06-10.md -- 3-stream (brain/nature/LLM), 8 crazy-math proposals, highest-P: BILINGUAL-DUAL-SUBSTRATE + EMBODIED-VERB-GROUNDING (P=0.45 each)
 2026-06-10 | research_drill_synthetic_to_real_gap_audit_2x_2026-06-10.md | Sprint 1 synthetic-to-real gap audit: PP-313/315/316/317 mechanism-demos on synthetic; P_deflated 0.28-0.50 per primitive; Sprint 2 4-test battery designed; KB-shard PRIORITY
+2026-06-10 cross_domain_new_mechanism_5x: SLIPNET-SUBSTRATE(0.45) + OT-DOMAIN-ALIGN(0.42) + SHEAF-SUBSTRATE(0.40); all role-structure-first; entity-geometry confound resolved; -> notes/research_drill_cross_domain_new_mechanism_5x_2026-06-10.md
+- [autonomous-discovery-5-stream] notes/research_drill_autonomous_discovery_5x_2026-06-10.md -- 5-stream lit-scan; dreaming-substrate P=0.45, quasispecies P=0.42, compression-progress P=0.40; 5 empirical tests pre-registered; exp_dev handoff filed
+2026-06-10 research: real-time multimodal substrate 5-stream drill -> notes/research_drill_realtime_multimodal_5x_2026-06-10.md ; HEADLINE: per-modality substrate + role-vector binding is substrate-native path to real-time multimodal at mixed rates; P_deflated=0.32; T-BIND-1 gate test ready
+- substrate_integration_5x: 5-stream convergence -> GWT-broadcast+spectral hybrid (P_deflated=0.45); 5 CPU-only anchors; INTEG-SOFTMAX-T1 is gate; notes/research_drill_substrate_integration_5x_2026-06-10.md
+- multi_drive_arbitration_5x: notes/research_drill_multi_drive_arbitration_5x_2026-06-10.md | BG-analog P_deflated=0.38 best path; frustration index is cheap decisive test; forward model gap = Sprint 2 root cause
+2026-06-10 | research: continual_full_cls_5x -> notes/research_drill_continual_full_cls_5x_2026-06-10.md | HEADLINE: dual-substrate CLS + KWW decay is highest-P full-CLS path; P_deflated=0.42; CLS-1 test is gate
