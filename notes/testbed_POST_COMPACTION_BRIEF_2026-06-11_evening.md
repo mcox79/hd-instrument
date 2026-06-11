@@ -2,6 +2,18 @@
 
 **READ FIRST on resume.** Captures load-bearing state from this session.
 
+> **REFRESHED late evening 2026-06-11** -- Day 1 closing state added below:
+> - Layer 1 attribution Day 1 OPERATIONAL; caught algebra-vec as NET NEGATIVE; closed loop ran ~10 min (surprise -> drill -> v2 architecture -> Fix A -> ranking recovery)
+> - V2 hybrid two-index + RRF + intent router IMPLEMENTED tonight (algebra_index.py); atom-to-atom shared-basis DEMO works empirically (fhrr_bind -> unbind+circular_conv 0.871/0.533; Hungarian -> beam_search+Viterbi+A* 0.819/0.811/0.810; HMM_emission -> forward_algorithm)
+> - Atom.from_dict native multi-format (improvement A); EQUIVALENT_UNDER + CAPABILITY added to enums; concept early-subset (10 atoms; 8-field schema) ingested -> 70 atoms / 237 relations / 10 cross-store
+> - Layer 1 audit on tier_tag/corpus_tag (findings #5): corpus_tag PURE NOISE drop; tier_tag marginal-Q5-coincidence
+> - Day 2 v2 experiments pre-registered (preregs/2026-06-12_v2_*)
+> - Deep-eval dashboard shipped (notes/substrate_deep_self_evaluation_dashboard.md)
+> - User direction LOCKED: "literature is not oracle" -- substrate may discover better solutions; flag divergences as discovery not bug; memory file feedback_literature_is_not_oracle_2026-06-11.md
+> - Strategic Research notes: 5-tier progression + full-research-ledger vision + Research-direct-CLI-workflow + scientific-corpus-ingest priorities
+> - Findings 01-05 all filed + answered same day; 1 closed loop validated (algebra-vec NET NEG -> drill -> v2 in 4 min)
+> - Stage A confirmed HEALTHY: F: drive mounted on runner; 2.09M facts; ~23 facts/sec; python procs alive
+
 ## 30-second status
 
 - **substrate self-index** foundational tool: 15 modules + schema extension SHIPPED under `backend/substrate_index/`. First end-to-end run produced a real discovery (Research-validated).
