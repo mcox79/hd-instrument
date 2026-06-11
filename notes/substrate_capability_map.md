@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v557
+# hd-instrument substrate -- capability map v558
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13868,3 +13868,27 @@ PP-316 image_schema_codebook_cpu_v1: STATUS CHANGED from EXPLORATORY 0.78-0.90 t
 
 Cap_map: v556 -> v557 CYCLE 223 (5 HP [CPU:5]; 4 MIDDLE_BAND [CPU:4]; 1 HF [CPU:1]; 1 LVH [LVH-275 PP-316 image-schema polysemy synthetic-to-real over-claim]; 5 NEW PP ROWS PP-325..PP-329; 4 MIDDLE_BAND annotations; 1 PP-316 annotation/downgrade to HOLD; 0 closures; Portfolio 32+324 -> 32+329 +5; HONEST 1666->1676 +10; LVH 274->275 +1; 451st PROT-009 paired commit) (2026-06-10)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v557 -> v558 @ CYCLE 224 10-VERDICT BATCH real-data audits (PP-319/PP-322) + active-inference-lite + slipnet-noise + NEW DOMAIN SERIES first verdicts comm/math/code (verdict_handler 452nd PROT-009 paired commit; 6 HP 2 MB 2 HF; 7 new PP rows PP-330..PP-336; 1 LVH-276 [PP-319 synthetic-overclaim HOLD]; Portfolio 32+329 -> 32+336 +7)
+
+**Step 0 honest re-read.** [LVH-276] freq_decay_real_cpu_v1: PP-319 synthetic AUC=0.886 over-stated real capability; real Zipfian+correlated AUC=0.590 near-chance. neurogenesis_real_cpu_v1: MIDDLE_BAND honest (purity=0.603 verdict correct); real discovered=54 vs true_K=18 reveals over-fragmentation (PP-322 annotation). All others HONEST. HONEST 1676->1686 +10. LVH 275->276 +1.
+
+**NEW ROW PP-330:** slipnet_noise_cpu_v1 HARD_PASS v558: hits1@25%noise=0.697, curve={0.0:0.992, 0.1:0.893, 0.25:0.697, 0.4:0.512} (cycle 224). SLIPNET NOISE ROBUSTNESS: PP-327 cross-domain analogy survives 25% edge noise at 0.697>>0.60. Graceful degradation confirmed. 0.75-0.87 EXPLORATORY n=1 seed CPU. Cross-ref PP-327.
+
+**NEW ROW PP-331:** comm1_paragraph_compose_cpu_v1 HARD_PASS v558: slot_recovery=1.000, topic_coherence=1.000, n_slot=6 (cycle 224). FIRST COMMUNICATION DOMAIN WIN. Substrate composes structured paragraph (6 slots) with perfect slot recovery and topic coherence, substrate-only no LLM. Product implication: concept-level NL structure planning without LLM. 0.78-0.90 EXPLORATORY n=1 seed CPU elapsed=28s.
+
+**NEW ROW PP-332:** math1_algebra_simplify_cpu_v1 HARD_PASS v558: accuracy=1.000, n=400 (cycle 224). FIRST MATH DOMAIN WIN: algebraic rewrite rules applied via composition+cleanup at ceiling. Substrate-only, 400 expressions. Product implication: symbolic algebra processor without numerical computation or LLM. 0.80-0.92 EXPLORATORY n=1 seed CPU elapsed=0.75s.
+
+**NEW ROW PP-333:** code1_function_compose_cpu_v1 HARD_PASS v558: correctness=1.000, prog_len=5, n=300 (cycle 224). FIRST CODE DOMAIN WIN: program composed from op-shards, recovered in order, EXECUTES correctly at ceiling, no LLM. 300 programs of length 5. Product implication: structural program synthesis substrate layer. 0.80-0.92 EXPLORATORY n=1 seed CPU elapsed=0.38s.
+
+**NEW ROW PP-334:** math3_calculus_derivative_cpu_v1 HARD_PASS v558: accuracy=1.000, n=400 (cycle 224). CALCULUS VIA COMPOSITION+CLEANUP: power+chain rules applied at ceiling, substrate-only. Same mechanism as PP-332 generalises to differential calculus. 0.80-0.92 EXPLORATORY n=1 seed CPU elapsed=0.54s.
+
+**NEW ROW PP-335:** math4_proof_chains_cpu_v1 HARD_PASS v558 (smoke): by-length={2:1.0, 4:1.0, 6:1.0}, mean=1.000, run_mode=smoke (cycle 224). MULTI-STEP MODUS-PONENS DEDUCTIVE REASONING: proof chains to length 6 via rule-store unbind+cleanup at ceiling. NOTE: smoke only; full-auto confirmed git commit 93f8434c. 0.78-0.90 EXPLORATORY n=1 seed smoke CPU elapsed=1.06s.
+
+**NEW ROW PP-336:** code2_bug_detection_cpu_v1 HARD_FAIL v558: AUC=0.563, F1=0.539, n=720 (cycle 224). BUG DETECTION OPEN GAP: anomaly-margin does not flag code bugs (F1<0.55 threshold). Contrast PP-333 (compose programs 1.000): substrate represents code structure but cannot detect bugs via structural retrieval. Needs dedicated execution-semantic mechanism. P-band 0.25-0.45 EXPLORATORY. Rescue sketches filed (see strategy_decisions).
+
+**PP-319 HOLD annotation (LVH-276):** freq_decay_real_cpu_v1 HARD_FAIL v558 AUC=0.590. PP-319 filed HARD_PASS synthetic (cycle 222) over-stated real capability. Real Zipfian+correlated stream breaks algebraic decay threshold. P-band downgraded 0.82-0.93 -> 0.40-0.60 HOLD. Rescue: Zipfian-aware threshold recalibration.
+
+**PP-322 real-fragmentation annotation:** neurogenesis_real MIDDLE_BAND v558 purity=0.603 discovered=54 vs true_K=18. Synthetic PP-322 HARD_PASS perfectly discovered K=8. Real novelty-threshold too sensitive on natural distributions. P-band 0.75-0.88 stays but EXPLORATORY caveat strengthened; real-data multi-seed required.
+
+Cap_map: v557 -> v558 CYCLE 224 (6 HP [CPU:6]; 2 MIDDLE_BAND [CPU:2]; 2 HF [CPU:2]; 1 LVH [LVH-276 freq_decay_real PP-319 synthetic-overclaim]; 7 NEW PP ROWS PP-330..PP-336; 1 MIDDLE_BAND annotation (active-inference-lite); 1 PP-319 HOLD annotation (LVH-276); 1 PP-322 real-fragmentation annotation; 0 closures; Portfolio 32+329 -> 32+336 +7; HONEST 1676->1686 +10; LVH 275->276 +1; 452nd PROT-009 paired commit) (2026-06-10)
