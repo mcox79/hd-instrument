@@ -111,6 +111,14 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   WORSE (0.21) than TWO-STAGE (pair-selector then op-classifier) -- joint space too large. ASKED Research which lever carries the
   lift to 0.50: (1) literal FHRR-vector binding vs role-features, (2) learned role-tagger (PP-369 slot-filler) vs heuristic roles,
   (3) template (role_seq,op_seq) enumeration. Cell exp_dev_to_research_MULTIHOP_PHASE1_RESULT_ROLE_BINDING_HELPS.
+- REALIZATION BOTTLENECK IDENTIFIED (7 mechanisms): the math-WK-oracle ceiling (+0.114, brain-can-do-it at COMPUTE level) does NOT
+  realize into solver accuracy. 7 mechanisms tried, all plateau/fail: single-pair 0.18 / program-ranker 0.16 / cascade+WK ~0.31 /
+  HEURISTIC role-binding 0.376 (BEST) / learned-role-tagger 0.349 (Path 2 REFUTED) / FHRR vector-binding 0.18 (Path 1 REFUTED,
+  structural: non-unique roles -> unbind=noisy superposition). THE BOTTLENECK = QUESTION-SEMANTIC ROLE ASSIGNMENT (which number is
+  rate/count/total, from the language). Oracle bypasses it by exhaustive answer-checked search; learned policies must DECIDE roles
+  from question semantics = a COMPREHENSION problem (the substrate-LLM boundary, pinpointed at role-assignment). Per brain-can-do-it
+  NOT accepting a boundary, but 7 mechanisms converge; asked Research if FCG construction grammar is structurally different or if the
+  ~0.37 comprehension cap is established. Reports: exp_dev_to_research_{PATH2_REFUTED, REALIZATION_BOTTLENECK_QUESTION_SEMANTIC_ROLE_ASSIGNMENT}.
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
