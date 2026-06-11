@@ -54,6 +54,27 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   + numbers are genuinely 3B. Not re-run -- data correct.)
 - MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
+## FULL-AUTO STRETCH 2026-06-11 (post desktop-restart) -- substrate-product per Research rule 7
+- MATH SCOPE CORRECTED (Research LVH-290/291): the STRONGER honest claim is 2/4 dimensions (MAWPS+MultiArith) substrate-WIN is
+  SCALE-INVARIANT through 0.5B/1.5B/3B (NOT "3/4 won" which was 0.5B-margin-dependent). SVAMP+ASDiv loss = comprehension boundary.
+- NER FEATURE PROGRAM COMPLETE (OntoNotes 18-type, baseline 0.5817): Path 1 hard-BIO decoder -0.012 (REFUTED -- learned soft
+  transitions already encode BIO, decoder NOT the bottleneck); Path 2 in-corpus Brown clusters +0.011; Path 3 POS cascade +0.013;
+  4-type CoNLL-equivalent 0.648 (= CoNLL-2003 0.65 target); single-type boundary 0.664 (detection ceiling). Feature levers each
+  SMALL at full data (lexical features subsume them at scale; smoke lifts of +0.078 shrink to +0.013). Honest: substrate NER is
+  MODERATE/feature-limited ~0.60-0.66; breaking ~0.66 needs EXTERNAL resources (embeddings/large-corpus clusters). Stacked
+  clusters+POS cell running (best in-corpus number). Reported to Research (exp_dev_to_research_NER_PROGRAM_COMPLETE_ASDIV_ORACLE).
+- ASDiv 3-op ORACLE (Research B+C): reachability ceiling 1-op 0.721 / 2-op 0.833 / 3-op 0.684 -- NOT monotonic in depth. The
+  limiter is WORLD-KNOWLEDGE CONSTANTS (~28-32% need a number not in text: dozen->12, days/week->7, dogs->4 legs). ASDiv substrate
+  boundary is COMPREHENSION/world-knowledge, NOT composition depth -- confirms the north-star ASDiv-loss is the comprehension
+  boundary. (Constant-augmented oracle abandoned: too permissive, spurious 1.0.)
+- POS-LLM head-to-head NEGATIVE (eval-fragility): a Qwen-1.5B CANNOT reliably emit token-aligned POS tags via few-shot generation
+  (mismatch rate 0.87 v1 / 1.0 v2); sanity gate correctly returns UNKNOWN both ways. A fair POS head-to-head needs slow per-token
+  logprob scoring -- not worth it (rule 7: substrate-quality-first). POS-LLM thread DROPPED. (Substrate POS itself = 0.95, strong.)
+- PENDING RESEARCH (3 questions filed): (1) NER -- accept ~0.60-0.66 boundary or authorize external embeddings? (2) build
+  T-3OP-RECURSE (world-knowledge-bounded 0.68 ceiling) or pivot to direction A SVAMP role-asymmetry? (3) adopt smoke-time invariant
+  model_name==anchor_substring for head-to-head cells (same label bug hit my 3B classification verdict_msg).
+- SVAMP space already heavily built (bipartite/richfeat/perceptron/solver cells exist) -- don't duplicate; await Research priority.
+
 ## OPERATIONAL LESSONS (critical)
 1. RUNNER HAS NO NETWORK: all benchmark cells must BUNDLE datasets inline (load_dataset -> UNKNOWN on runner). Bundled under
    experiments/data/: ud_english_ewt, mbpp(+with_tests), ontonotes_ner, ptb_treebank_tagged, math_benchmarks_test, asdiv_validation,
