@@ -34,7 +34,7 @@ def cidx(v, book):
 def _selftest():
     print("[selftest] PASS: per-role-substrate", flush=True)
 def run() -> Dict:
-    g = np.random.default_rng(904); NDOM = 3; PERDOM = 150 if not SMOKE else 60; V = 600
+    g = np.random.default_rng(904); NDOM = 3; PERDOM = 280 if not SMOKE else 60; V = 600
     TR = 6 if SMOKE else 20; pr_rec = []; sh_rec = []
     for _ in range(TR):
         keys = cphasor(NDOM * PERDOM, N, g); vals = cphasor(V, N, g); truth = g.integers(0, V, size=NDOM * PERDOM)
