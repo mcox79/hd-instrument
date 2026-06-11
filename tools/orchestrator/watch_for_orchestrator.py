@@ -66,20 +66,36 @@ def _fetch_snapshot() -> dict | None:
         return None
 
 
-def _completed_from_verdicts(snap: dict | None) -> set[tuple[str, str]]:
+def _completed_from_verdicts(snap: dict | None, max_age_hours: float = 6.0) -> set[tuple[str, str]]:
+    """Set of (name, outcome_at) for verdicts younger than max_age_hours.
+
+    Filters out stale healer-reflagged entries from older days that show up
+    when the dashboard's recent_verdicts list rotates in batches.
+    """
     if not isinstance(snap, dict):
         return set()
     verdicts = snap.get("recent_verdicts")
     if not isinstance(verdicts, list):
         return set()
+    cutoff = datetime.now()
     out: set[tuple[str, str]] = set()
     for v in verdicts:
         if not isinstance(v, dict):
             continue
         name = v.get("name")
         outcome_at = v.get("outcome_at") or ""
-        if isinstance(name, str) and name:
-            out.add((name, outcome_at))
+        if not (isinstance(name, str) and name):
+            continue
+        # Skip entries older than max_age_hours (false-alarm guard for stale healer-reflags)
+        if outcome_at:
+            try:
+                ts = datetime.fromisoformat(outcome_at.replace("Z", ""))
+                age_hours = (cutoff - ts).total_seconds() / 3600.0
+                if age_hours > max_age_hours:
+                    continue
+            except ValueError:
+                pass
+        out.add((name, outcome_at))
     return out
 
 
