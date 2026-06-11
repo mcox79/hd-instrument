@@ -178,10 +178,48 @@ HTML = """<!doctype html>
       </div>
 
       <div class="primitive">
-        <h3>KB-DOMAIN shards</h3>
+        <h3>KB-DOMAIN shards (synthetic)</h3>
         <div class="anchor">PP-313 / comp28_kb_shard_l3_cpu_v1</div>
         <p>Feature-indexed knowledge-base shards. 40 shards x 1000 atoms = 40,000 atoms retrievable at L3 shard-level. Extends PP-310/311/312 template to KB domain at higher atom-per-shard count.</p>
         <div class="metric">recall = 1.000 / N = 40 / M = 1000</div>
+      </div>
+
+      <div class="primitive">
+        <h3>KB-DOMAIN shards (real)</h3>
+        <div class="anchor">PP-324 / kb_shard_real_cpu_v1</div>
+        <p>Same shard primitive on real knowledge-base entities (not synthetic atoms). 20 shards over 1,539 real entities at L3. Synthetic-to-real audit passes the 0.70 threshold by 27pp.</p>
+        <div class="metric">recall = 0.965 / N = 20 / n_ent = 1539</div>
+      </div>
+    </div>
+
+    <h2>Lifecycle + continual-learning primitives (PP-319 / PP-320 / PP-322 cycle 222)</h2>
+    <div class="primitive-grid">
+      <div class="primitive">
+        <h3>Intentional forgetting</h3>
+        <div class="anchor">PP-320 / d2_7_intentional_forgetting_cpu_v1</div>
+        <p>Targeted deletion of a marked subset with zero collateral damage on retained atoms. Foundation for selective unlearning (compliance, GDPR-adjacent) and consolidation policies.</p>
+        <div class="metric">retained recall = 1.000 / forgotten recall = 0.004</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Frequency-selective decay</h3>
+        <div class="anchor">PP-319 / d2_2_frequency_decay_cpu_v1</div>
+        <p>High-frequency-accessed atoms preserve; low-frequency atoms decay. Decay-vs-retention AUC = 0.886. Partially addresses an open architectural gap on frequency-selectivity in continual-learning settings.</p>
+        <div class="metric">AUC = 0.886 / hi-freq retained = 0.929 / lo-freq retained = 0.051</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Neurogenesis (online shard creation)</h3>
+        <div class="anchor">PP-322 / d2_4_neurogenesis_cpu_v1</div>
+        <p>Online discovery and allocation of new shards as inputs cluster. Discovered 8 of 8 ground-truth shards; per-shard recall hits 1.000 (vs 0.125 for a single shared shard, 8x capacity).</p>
+        <div class="metric">recall = 1.000 / discovered = 8 of 8 / single-shard baseline = 0.125</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Concept-level bilingual pivot</h3>
+        <div class="anchor">PP-323 / bilingual_dual_substrate_cpu_v1</div>
+        <p>Concept-level cross-language retrieval over 400 concepts and 4 languages: direct A-&gt;B pivot at 0.997, zero-shot A-&gt;C-via-B pivot at 1.000. Concept-level only -- this is not full text translation; small probe scale.</p>
+        <div class="metric">A-&gt;B = 0.997 / A-&gt;C pivot = 1.000 / n_concepts = 400</div>
       </div>
     </div>
 

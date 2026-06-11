@@ -204,3 +204,46 @@ NEW ROW PP-317: tool_extended_substrate_cpu_v1 HARD_PASS v555: membership_AUC=1.
 
 Cap_map: v554 -> v555 CYCLE 221 (10 HP [CPU:10]; 0 MIDDLE_BAND; 0 HF; 0 LVH; 5 NEW PP ROWS PP-313..PP-317 + 5 annotations on PP-301 (1-bit battery sub-axes) + 1 BAND LIFT (PP-301 0.82-0.92 -> 0.87-0.95); 0 closures; Portfolio 32+312 -> 32+317 +5; HONEST 1646->1656 +10; LVH 274 UNCHANGED; 449th PROT-009 paired commit) (2026-06-10)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+## v555 -> v556 CYCLE 222 10-VERDICT BATCH (2026-06-10)
+
+CYCLE 222: D2 continual-learning series (dual-CLS, frequency-decay, neurogenesis, empowerment, intentional-forgetting) + D3 structural alignment + frisson + bilingual + real-KB shard + integration algebra. 6 HARD_PASS + 4 MIDDLE_BAND. 0 LVH catches.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json).
+
+**frisson_cleanup_margin_cpu_v1 HARD_PASS:** frisson_auc=0.999, n=1200, elapsed=22s. Threshold >=0.80. HONEST.
+
+**d2_2_frequency_decay_cpu_v1 HARD_PASS:** auc=0.886, hi_freq_retained=0.929, lo_freq_retained=0.051. Thresholds >=0.85 AUC + >=0.80 hi-freq. Both met. HONEST.
+
+**d2_7_intentional_forgetting_cpu_v1 HARD_PASS:** retained_recall=1.000, forgotten_recall=0.004. Thresholds >=0.90 retained, ~chance forgotten. HONEST. Zero collateral damage.
+
+**d3_1_structural_alignment_sme_cpu_v1 MIDDLE_BAND:** structural=0.969, surface_baseline=0.831, delta=+0.138, n_entities=7, n_seeds=1. Per-cell metrics strong but n=7 entities is tiny probe; MIDDLE_BAND reflects capability-confidence not performance failure. No LVH.
+
+**integration_algebra_flow_cpu_v1 MIDDLE_BAND:** integrated_minsat=0.019, equalweight_minsat=0.022, bestsingle_minsat=0.029. HONEST -- MIDDLE_BAND correct. Informational note: integrated (0.019) is numerically BELOW both equal-weight (0.022) and best-single (0.029); verdict_msg slightly over-states. Not a hard LVH catch. Honest reading: integration does NOT yet lift over single-drive at this probe scale.
+
+**d2_5_empowerment_cpu_v1 MIDDLE_BAND:** emp_corr=1.000, lift_pct=6.8%. HONEST. Signal perfectly tracks state-space but policy improvement weak.
+
+**d2_4_neurogenesis_cpu_v1 HARD_PASS:** recall=1.000, single_shard_recall=0.125, discovered_shards=8.0 (true_K=8). 8x vs single shard. Threshold >=0.85. HONEST.
+
+**d2_1_dual_cls_cpu_v1 MIDDLE_BAND:** dual_recall=0.962, fast_only=0.490, slow_only=0.922. Lift over slow alone = +4pp. HONEST. MIDDLE_BAND because synergistic lift <0.10.
+
+**bilingual_dual_substrate_cpu_v1 HARD_PASS:** A->B=0.997, A->C-pivot=1.000, n_concepts=400, n_lang=4. Thresholds >=0.85 both. HONEST. Zero-shot pivot passes at ceiling.
+
+**kb_shard_real_cpu_v1 HARD_PASS:** shard_recall=0.965, n_ent=1539, n_shard=20. Threshold >=0.70. HONEST. Synthetic-to-real audit passes.
+
+LVH tally: 0 catches. All verdicts honest. HONEST: 1656 -> 1666 +10. LVH: 274 UNCHANGED.
+
+### Cap_map v555 -> v556
+
+7 new PP rows: PP-318 (frisson) + PP-319 (frequency-decay) + PP-320 (intentional-forgetting) + PP-321 (structural-alignment-SME MIDDLE_BAND) + PP-322 (neurogenesis) + PP-323 (bilingual) + PP-324 (KB-shard-real). 3 MIDDLE_BAND anchors (dual-CLS, empowerment, integration-algebra) filed as annotations -- no new rows per threshold protocol.
+
+Portfolio: 32+317 -> 32+324 +7. HONEST: 1656 -> 1666 +10. LVH: 274 UNCHANGED. 450th PROT-009 paired commit.
+
+### PROT compliance
+- PROT-008: 7 new PP rows; 3 MIDDLE_BAND annotations (no rows); portfolio +7; no closures; no regressions.
+- PROT-009: cap_map.md + strategy_decisions_2026-06-10.md + visibility_decisions_2026-06-10.md atomic single commit.
+- PROT-018: all 10 anchors satisfy _cpu_v1 binding contracts.
+
+### Queue state
+Pause flag: ABSENT. [queue: empty -- Exp-Dev session will refill on its cadence]
