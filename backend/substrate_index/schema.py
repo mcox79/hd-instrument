@@ -99,6 +99,8 @@ class RelationType(enum.Enum):
     PRESERVES = "PRESERVES"             # A maintains property P
     OPTIMIZES = "OPTIMIZES"             # A solves optimization problem P
     APPROXIMATES = "APPROXIMATES"       # A approximates B with error bound
+    EQUIVALENT_UNDER = "EQUIVALENT_UNDER"  # A = B under transformation T (FFT-dual,
+                                            # semiring-shift, etc.); fidelity in note
 
     # Within concept corpus
     ENABLES = "ENABLES"                 # A makes B possible

@@ -369,6 +369,30 @@ def main():
         print(f"            semantic ={r['top10_semantic_only'][:3]}")
         print(f"            algebra  ={r['top10_algebra_only'][:3]}")
 
+    # v2 Index 2 demonstration: shared-algebra retrieval (atom-to-atom)
+    print("\n=== v2 Index 2 atom-to-atom shared-algebra retrieval ===")
+    from backend.substrate_index.algebra_index import AlgebraIndex
+    aidx = AlgebraIndex(dim=1024)
+    encoded = aidx.build(pstore)
+    print(f"algebra_index built: {encoded} atoms with algebra fields populated")
+
+    probes = [
+        ("math::T2/fhrr_bind", "expect dual/inverse + fellow groups"),
+        ("math::T3/hungarian_assignment", "expect Jonker-Volgenant, Chu-Liu-Edmonds, Viterbi (discrete-opt family)"),
+        ("math::T2/bundling", "expect superposition (after distinction; same family)"),
+        ("math::T3/hmm_emission", "expect hmm_transition (both probability-simplex)"),
+    ]
+    for atom_id, expectation in probes:
+        if not pstore.has_atom(atom_id):
+            print(f"  {atom_id}  SKIP (not in store)")
+            continue
+        results_alg = aidx.atoms_with_shared_algebra(atom_id, top_k=5)
+        results_sig = aidx.atoms_with_shared_signature(atom_id, top_k=5)
+        print(f"  {atom_id}")
+        print(f"    expected: {expectation}")
+        print(f"    shared algebra: {[(aid.split('::')[-1], round(s, 3)) for aid, s in results_alg[:3]]}")
+        print(f"    shared signature: {[(aid.split('::')[-1], round(s, 3)) for aid, s in results_sig[:3]]}")
+
 
 if __name__ == "__main__":
     main()
