@@ -28034,3 +28034,27 @@ active_inference_dpefe_h2 + codegen_gate1 + pos_tagger_ptb_LVH280_rerun(UNKNOWN)
 
 Cap_map: v563 -> v564 CYCLE 230 (7 HP [CPU:7]; 3 UNKNOWN [PTB corpus_load_failed]; 1 LVH-281 filed; LVH-280 CLOSED; 5 NEW PP ROWS PP-362/PP-363/PP-364/PP-365/PP-366; PP-285 rescue CLOSED; PP-361 adversarial annotation; PP-344 adversarial scale annotation; Sprint-4 architecture complete (PP-365+PP-366); 0 row closures; Portfolio 32+361 -> 32+366 +5; HONEST 1730->1740 +10; LVH 280->281 +1 filed / -1 closed (LVH-280); 458th PROT-009 paired commit) (2026-06-11)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+
+## v564 -> v565 @ CYCLE 231 9-VERDICT BATCH Tier-4-multiseed-sweep + NLP-gates-corpus-fail + codegen-HF-batch + lang-math-coexist (verdict_handler 459th PROT-009 paired commit; 2 HP 1 MB 4 HF 2 UNKNOWN; 1 LVH-282 filed; 1 new PP row PP-367; Portfolio 32+366->32+367; HONEST 1740->1749; LVH 281->282)
+
+**tier4_multiseed_sweep_cpu_v1 HARD_PASS v565 (5-seed):** crystallized (5/5), excitability (5/5), code2-adv (5/5), key-rot-10k (5/5). Sprint-4 Tier-4 anchor cohort COMPLETE. PP-344/PP-361/PP-365/PP-366 upgraded to seed-robust n=5. No new PP rows.
+
+**[LVH-282] math_light_substrate_cpu_v1 MIDDLE_BAND v565:** accuracy=0.947 on covered subset, coverage=0.086 (<0.15 threshold). Band description mislabeled (verdict_msg says "accuracy 0.20-0.35" but failing axis is coverage=0.086). Coverage is blocking axis; extraction approach (item F) does not close gap. No new PP row.
+
+**codegen_light_substrate_cpu_v1 HARD_FAIL v565:** pass@1=0.150 (6/40), n_patterns=25. Pattern library insufficient (PP-363 used 70, gave 60%). RESCUE-1: re-run with full 70-pattern Tier-1 library. No new PP row.
+
+**codegen_repair_substrate_cpu_v1 HARD_FAIL v565:** oracle-ceiling=0.175 <0.20. Same root cause as codegen_light. RESCUE-1 shared. No new PP row.
+
+**codegen_subgoal_substrate_cpu_v1 HARD_FAIL v565:** pass@1=0.025 (1/40). Filter/map/reduce chains insufficient. RESCUE-3 slot-chain Tier-2 (research-authorized fc62d8f1) is primary next step. No new PP row.
+
+**math_wordproblem_extract_gate_cpu_v1 HARD_FAIL v565:** accuracy=0.023, coverage=0.801. Extraction approach wrong axis; multi-step reasoning required. RESCUE-4/5 blocked pending corpus fix. No new PP row.
+
+**depparse_gate_substrate_cpu_v1 UNKNOWN v565:** corpus_load_failed, uas=0.0. Same PTB corpus failure as cycle-230. NLP benchmark next phase (dep-parse + pos_oov + math_rescue RESCUE-4/5) all gated on corpus RESCUE-1 fix. No cap_map credit.
+
+**pos_oov_diagnostic_cpu_v1 UNKNOWN v565:** corpus_load_failed, tag_acc=0.0. exp_dev commit af0f024b claims in-vocab=0.946, OOV=0.749 (LOCAL authoritative: UNKNOWN). No cap_map credit.
+
+**NEW ROW PP-367:** lang_math_coexist_cpu_v1 HARD_PASS v565: language_recall=1.000, math_recall=1.000, cross_domain_recall=1.000, KL=150, KM=150, n_seeds=1 (cycle 231). UNIFIED SUBSTRATE ALGEBRA LANGUAGE+MATH: one substrate, one codebook, one set of binding ops handles NL + math + cross-domain with zero interference. KL=150 + KM=150 coexist in N=4096. Domain agnosticism confirmed: NL+math do NOT require per-role substrates (PP-356). Extends PP-351 (v3.1 unified) by domain-axis. Product implication: unified multi-domain knowledge in single store. 0.80-0.92 EXPLORATORY n=1 seed full CPU elapsed=1.3s. Cross-ref PP-356, PP-364, PP-363, PP-351.
+
+Cap_map: v564 -> v565 CYCLE 231 (2 HP [CPU:2; 1x5-seed + 1x n=1 full]; 1 MIDDLE_BAND [LVH-282]; 4 HF [CPU:4]; 2 UNKNOWN [corpus_load_failed depparse+pos_oov]; 1 LVH-282 filed [math_light band-description mislabel]; 1 NEW PP ROW PP-367 [lang_math_coexist unified algebra]; 4x Tier-C seed-robust promotion (PP-344/PP-361/PP-365/PP-366 via tier4_multiseed_sweep); 5x codegen_light + 2x codegen_repair + 5x codegen_subgoal + 5x math_wordproblem PROT-004/006 rescue sketches; corpus_load_failed NLP blocking: dep-parse+pos_oov+math_rescue gated on corpus RESCUE-1; 0 row closures; Portfolio 32+366 -> 32+367 +1; HONEST 1740->1749 +9; LVH 281->282 +1; 459th PROT-009 paired commit) (2026-06-11)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
