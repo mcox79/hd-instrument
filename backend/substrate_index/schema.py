@@ -66,6 +66,7 @@ class Tier(enum.Enum):
     TIER_4_COMPOSED = "T4"      # substrate POS tagger, slot filler (macro-atoms)
     TIER_NA = "NA"              # concept/meta atoms don't have a tier
     TIER_LEXICON = "T_lexicon"  # per Research NER_GAZETTEER_8: lexicon atoms in concept partition
+    TIER_METHODOLOGY = "T_methodology"  # per FINDINGS_13: meta-rule atoms
 
 
 class AtomKind(enum.Enum):
@@ -88,6 +89,9 @@ class AtomKind(enum.Enum):
     METHODOLOGY = "methodology"  # per FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION
                                   # substrate-proposed: multi-operation methodological content
     LEXICON = "lexicon"          # per NER_GAZETTEER_8: entity-type gazetteer atoms
+    METHODOLOGY_RULE = "methodology_rule"  # per FINDINGS_13 Tier 4: meta partition
+                                            # atoms; human-authored OR substrate-extracted
+                                            # from solution-history cliff patterns
 
     # Per Research full-research-ledger auto-ingest 2026-06-11:
     DRILL = "drill"               # research drill outputs

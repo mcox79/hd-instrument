@@ -27,7 +27,27 @@ def main():
     pstore = PartitionedStore(DATA_ROOT)
     log.info("corpus: %d atoms", len(pstore.all_atoms()))
 
-    rules = methodology_rule_extraction(pstore, min_capabilities=3, min_lift=0.10)
+    print("\n=== HIGH CONFIDENCE (min_caps=3, min_lift=0.10) ===")
+    rules_high = methodology_rule_extraction(pstore, min_capabilities=3, min_lift=0.10)
+    for i, r in enumerate(rules_high, 1):
+        print(f"{i}. {r.rule_text}")
+        print(f"   confidence: {r.confidence:.2f}; n_caps: {r.n_capabilities}")
+
+    print("\n=== MEDIUM CONFIDENCE (min_caps=2, lower threshold) ===")
+    rules_medium = methodology_rule_extraction(pstore, min_capabilities=2, min_lift=0.10)
+    rules_medium_only = [r for r in rules_medium if r.n_capabilities < 3]
+    for i, r in enumerate(rules_medium_only, 1):
+        print(f"{i}. {r.rule_text}")
+        print(f"   confidence: {r.confidence:.2f}; n_caps: {r.n_capabilities}; capabilities: {[c.split('::')[-1] for c in r.capabilities]}")
+
+    print("\n=== SINGLE-INSTANCE (min_caps=1; tracking only) ===")
+    rules_single = methodology_rule_extraction(pstore, min_capabilities=1, min_lift=0.10)
+    rules_single_only = [r for r in rules_single if r.n_capabilities < 2]
+    for i, r in enumerate(rules_single_only[:10], 1):
+        print(f"{i}. {r.rule_text}")
+        print(f"   single: {r.capabilities[0].split('::')[-1] if r.capabilities else 'none'}")
+
+    rules = rules_high  # keep original for save path
     print(f"\n{'='*80}")
     print(f"Substrate-extracted methodology rules from solution-history cliffs")
     print(f"{'='*80}")
