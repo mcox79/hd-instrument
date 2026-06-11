@@ -53,6 +53,7 @@ def _selftest():
 def _run_one(fn: str, seed: int) -> str:
     """Run cell as subprocess with HDLAB_SEED=seed; return parsed verdict type (or ERROR/TIMEOUT)."""
     env = dict(os.environ); env["HDLAB_SEED"] = str(seed); env["HDLAB_RUN_MODE"] = "smoke" if SMOKE else "full"
+    env.pop("HDLAB_EXP_NAME", None)   # don't leak the sweep's exp-name into children (they'd write metrics to the sweep dir)
     cmd = [sys.executable, str(EXP / fn)] + (["--smoke"] if SMOKE else [])
     try:
         p = subprocess.run(cmd, cwd=str(REPO), env=env, capture_output=True, text=True, timeout=900)
