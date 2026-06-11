@@ -54,7 +54,8 @@ if _ARGS.self_test:
     sys.exit(0)
 def _load():
     from datasets import load_dataset
-    ds = load_dataset("mbpp")    # FULL mbpp ~974 (train 374 / test 500 / validation 90 / prompt 10)
+    import json
+    ds = json.load(open(REPO / "experiments" / "data" / "mbpp" / "mbpp_full.json", encoding="utf-8"))   # bundled (RESCUE-2)
     def conv(sp):
         out = []
         for e in ds[sp]:
