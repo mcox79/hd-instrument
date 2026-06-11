@@ -229,7 +229,7 @@ def main():
         # Gather atom vectors for the chosen attribute
         atom_ids = []
         mat_rows = []
-        for aid, av in retriever._atom_vecs.items():
+        for aid, av in retriever._vectors.items():
             v = getattr(av, atoms_vec_attr, None)
             if v is None:
                 continue

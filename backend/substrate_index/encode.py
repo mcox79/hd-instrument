@@ -174,10 +174,15 @@ class AtomEncoder:
         return vec / (np.linalg.norm(vec) + 1e-12)
 
     def encode_atoms(self, atoms: list[Atom]) -> dict[str, AtomVectors]:
-        """Encode a batch of atoms. Returns dict id -> AtomVectors."""
+        """Encode a batch of atoms (batches bge call, assembles per-atom).
+
+        Per Research ALGEBRA_VEC_SUPPORT: composite includes algebra_vec /
+        signature_vec / complexity_vec when populated. Earlier batched
+        implementation skipped them; this version matches single-atom
+        encode_atom() field-for-field with batched bge.
+        """
         if not atoms:
             return {}
-        # Batch the bge call
         texts = []
         for a in atoms:
             t = a.description
@@ -190,9 +195,21 @@ class AtomEncoder:
         for a, sem in zip(atoms, semantics):
             sem = sem / (np.linalg.norm(sem) + 1e-12)
             ident = _atom_id_vector(a.id, self.dim)
+            alg = self._encode_dict_to_vec(a.algebra) if a.algebra else None
+            sig = self._encode_dict_to_vec(a.signature) if a.signature else None
+            cpx = self._encode_dict_to_vec(a.complexity) if a.complexity else None
             comp = sem + 0.3 * self._tier_tags[a.tier] + 0.3 * self._corpus_tags[a.corpus]
+            if alg is not None:
+                comp = comp + 0.5 * alg
+            if sig is not None:
+                comp = comp + 0.3 * sig
+            if cpx is not None:
+                comp = comp + 0.2 * cpx
             comp = comp / (np.linalg.norm(comp) + 1e-12)
-            out[a.id] = AtomVectors(atom_id=a.id, semantic=sem, identity=ident, composite=comp)
+            out[a.id] = AtomVectors(
+                atom_id=a.id, semantic=sem, identity=ident, composite=comp,
+                algebra=alg, signature=sig, complexity=cpx,
+            )
         return out
 
     def encode_query_text(self, text: str) -> np.ndarray:
