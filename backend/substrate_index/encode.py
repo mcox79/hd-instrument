@@ -103,7 +103,15 @@ class AtomEncoder:
         self._rel_tags = {r: _tag_vector(f"rel::{r.value}", dim) for r in RelationType}
 
     def encode_atom(self, atom: Atom) -> AtomVectors:
-        """Encode one atom into its vector triple (+ optional algebra subvectors)."""
+        """Encode one atom into its vector triple (+ optional algebra subvectors).
+
+        Per FINDINGS_04 Layer 1 attribution (2026-06-11): algebra/signature/
+        complexity sub-vectors are KEPT for explicit atom->atom algebra-mode
+        retrieval, but EXCLUDED from the free-text composite by default
+        (their tag-vector hash subspace is uncorrelated with bge query
+        vectors; including them as composite contributions was NET NEGATIVE
+        on Q2/Q3).
+        """
         text = atom.description
         if atom.aliases:
             text = text + " " + " ".join(atom.aliases)
@@ -119,15 +127,7 @@ class AtomEncoder:
 
         tier_tag = self._tier_tags[atom.tier]
         corpus_tag = self._corpus_tags[atom.corpus]
-        # Default weights: alpha=1.0, beta=0.5, gamma=0.3, delta=0.2 (per
-        # Research ALGEBRA_VEC_SUPPORT proposal)
         composite = semantic + 0.3 * tier_tag + 0.3 * corpus_tag
-        if algebra_vec is not None:
-            composite = composite + 0.5 * algebra_vec
-        if signature_vec is not None:
-            composite = composite + 0.3 * signature_vec
-        if complexity_vec is not None:
-            composite = composite + 0.2 * complexity_vec
         composite = composite / (np.linalg.norm(composite) + 1e-12)
 
         return AtomVectors(
@@ -198,13 +198,10 @@ class AtomEncoder:
             alg = self._encode_dict_to_vec(a.algebra) if a.algebra else None
             sig = self._encode_dict_to_vec(a.signature) if a.signature else None
             cpx = self._encode_dict_to_vec(a.complexity) if a.complexity else None
+            # Per FINDINGS_04 Layer 1 attribution: algebra/signature/complexity
+            # sub-vectors kept for explicit atom->atom retrieval but EXCLUDED
+            # from free-text composite (uncorrelated tag-vector subspace).
             comp = sem + 0.3 * self._tier_tags[a.tier] + 0.3 * self._corpus_tags[a.corpus]
-            if alg is not None:
-                comp = comp + 0.5 * alg
-            if sig is not None:
-                comp = comp + 0.3 * sig
-            if cpx is not None:
-                comp = comp + 0.2 * cpx
             comp = comp / (np.linalg.norm(comp) + 1e-12)
             out[a.id] = AtomVectors(
                 atom_id=a.id, semantic=sem, identity=ident, composite=comp,
