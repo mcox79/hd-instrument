@@ -211,12 +211,20 @@ HTML = """<!doctype html>
         a new mechanism that the prior SME and P9-Option-A approaches could not
         crack.
       </p>
-      <p style="margin: 0">
+      <p>
         Graceful degradation under noise (PP-330 cycle 224): Hits@1 = 0.697 at
         25% input noise -- the mechanism does not collapse abruptly outside the
-        clean-input regime. Tagged EXPLORATORY (0.78-0.92) per cap_map.
-        Real-benchmark validation queued. Anchors:
-        <code>slipnet_substrate_cpu_v1</code> + <code>slipnet_noise_cpu_v1</code>.
+        clean-input regime.
+      </p>
+      <p style="margin: 0">
+        <strong>Real-data ceiling lower than synthetic (PP-327 annotation cycle 227):</strong>
+        on real heterogeneous data (FB15K-style polysemic relation structure)
+        SLIPNET degrades to Hits@1 = 0.375 (MIDDLE_BAND). The synthetic 0.985
+        is an upper bound; real-deployment performance will sit between 0.375
+        and 0.697 depending on noise + polysemy level. Tagged EXPLORATORY
+        (0.78-0.92) per cap_map. Anchors:
+        <code>slipnet_substrate_cpu_v1</code> + <code>slipnet_noise_cpu_v1</code>
+        + <code>slipnet_real_polysemic_cpu_v1</code>.
       </p>
     </div>
 

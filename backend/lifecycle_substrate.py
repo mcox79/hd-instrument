@@ -129,9 +129,9 @@ HTML = """<!doctype html>
 
       <div class="primitive">
         <h3>Neurogenesis (online shard creation)</h3>
-        <div class="anchor">PP-322 / d2_4_neurogenesis_cpu_v1</div>
-        <p>Synthetic 8-shard discovery hits recall = 1.000 at cluster purity 1.000; 8x capacity vs single shard. Real-data audit (cycle 224 MIDDLE_BAND) shows the online discoverer over-fragments correlated real data: 54 shards discovered vs 18 ground-truth clusters at purity 0.603. The offline-storage primitive holds; the online-discovery threshold is real-data-fragile.</p>
-        <div class="metric">synthetic recall = 1.000 / synthetic purity = 1.000 / real-data: 54 vs 18 shards at purity 0.603</div>
+        <div class="anchor">PP-322 / d2_4_neurogenesis_cpu_v1 + hiermerge rescue</div>
+        <p>Synthetic 8-shard discovery hits recall = 1.000 at cluster purity 1.000; 8x capacity vs single shard. Real-data online over-fragments correlated inputs (cycle 224: 54 shards vs 18 truth at purity 0.603). RESCUE-1 hierarchical merge (cycle 227 partial PASS): post-hoc cosine-similarity merge restores purity to 1.000 with count 13 vs K=12 (off-by-one). Online discovery + post-hoc merge is the deploying recipe.</p>
+        <div class="metric">synthetic = 1.000 (full) / online + hiermerge real-data: purity 1.000, count 13 vs K=12</div>
       </div>
 
       <div class="primitive">
