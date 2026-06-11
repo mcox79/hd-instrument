@@ -36,9 +36,9 @@ def run() -> Dict:
     TR = 6 if SMOKE else 30; pre_ns = []; post_ns = []; post_pur = []
     for _ in range(TR):
         protos = cphasor(K, N, g); truth = np.repeat(np.arange(K), PER)
-        ents = cnorm(np.stack([protos[truth[i]] + 1.7 * cphasor(1, N, g)[0] for i in range(NE)]))
+        ents = cnorm(np.stack([protos[truth[i]] + 0.9 * cphasor(1, N, g)[0] for i in range(NE)]))
         # FORCE over-fragmentation: high spawn threshold -> many shards
-        order = g.permutation(NE); shards = []; members = []; assign = np.zeros(NE, dtype=int); SPAWN = 0.62
+        order = g.permutation(NE); shards = []; members = []; assign = np.zeros(NE, dtype=int); SPAWN = 0.55
         for i in order:
             x = ents[i]
             if shards:
