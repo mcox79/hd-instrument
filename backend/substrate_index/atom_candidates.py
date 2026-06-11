@@ -207,14 +207,23 @@ def algebra_centroid_candidates(
 
 
 _MATH_TERM_PATTERNS = [
-    # Capture phrases that look like math primitives mentioned in research notes
-    r"\b([A-Z][a-z]+(?:-[A-Z][a-z]+)+)\b",        # "Tracy-Widom", "Chu-Liu-Edmonds"
-    r"\b([A-Z][a-z]+ [a-z]+ [a-z]+)\b",            # "Marchenko-Pastur edge"
-    r"\b(F[1-9](?:_[a-z]+)*)\b",                    # "F4", "F4_cumulant"
-    r"\b(BOCPD|GHRR|DisCoCat|FHRR|HRR|VSA|HDC|TPR|FFT|FHE|PCA|ZCA|LDA|HMM)\b",
-    r"\b(?:kappa[_\- ]?(?:[0-9]+|[a-z]+)|spectral[_\- ]?gap|spectral[_\- ]?norm)\b",
-    r"\b(?:Marchenko[_\- ]?Pastur|Tracy[_\- ]?Widom|Wigner|free[_\- ]?cumulant)\b",
+    # Hyphenated proper-noun pairs ("Tracy-Widom", "Chu-Liu-Edmonds")
+    r"(?<![a-z])([A-Z][a-z]+(?:-[A-Z][a-z]+){1,3})(?![a-z])",
+    # Specific known acronyms (substrate / VSA / formal-systems jargon)
+    r"\b(BOCPD|GHRR|DisCoCat|FHRR|HRR|TPR|SDM|RWA|CRF|SSVM|CLS|EM|SVD|TLDR)\b",
+    # kappa_N / F_N notation
+    r"\b(kappa_[0-9]+|F[0-9]+_[a-z_]+)\b",
+    # Named theorems / phenomena
+    r"\b(Marchenko-Pastur|Tracy-Widom|Wigner semicircle|Reed-Solomon|Voiculescu|Glauber|Dyson Brownian|Ramsauer)\b",
 ]
+
+
+# Stop list: common English phrases caught by the proper-noun pattern
+_STOP_TERMS = {
+    "this is", "this makes", "this gives", "this means", "this implies",
+    "the the", "et al", "et alii", "the substrate", "the bge",
+    "verified citation", "verified citation count",
+}
 
 
 def substrate_eval_references_unknown_math_term(
@@ -256,6 +265,12 @@ def substrate_eval_references_unknown_math_term(
                 norm = term.lower().replace("-", " ").replace("_", " ")
                 norm = " ".join(norm.split())
                 if norm in existing_names:
+                    continue
+                if norm in _STOP_TERMS:
+                    continue
+                # Drop terms with common English stems (heuristic noise filter)
+                if any(stop in norm for stop in ("citation", "consistent", "makes the",
+                                                  "is the", "the the", "et al")):
                     continue
                 term_referrers[norm].append(str(src_path))
 
