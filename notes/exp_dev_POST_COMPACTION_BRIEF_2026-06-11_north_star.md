@@ -134,6 +134,19 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   re-confirmed). WK realizes only at the ORACLE/answer-supervised level (+0.114), NOT the learned-solver level. 9 mechanisms
   converge ~0.38-0.40; oracle 0.71; gap = question-semantic operand selection (comprehension). Reports:
   exp_dev_to_research_{PP375_WK_SYNTHESIS_NEW_BEST_044 (OVER-CLAIM), PP375_WK_CORRECTION_039_NOT_044 (HONEST)}.
+- CONSOLIDATED-DRILLS CYCLE (Research 4-drill priority queue) -- RESOLVED:
+  - Priority 1 BMA ensemble: gain 0.000 (DECISIVE) -- MWP mechanism errors CORRELATED = comprehension blind-spot at question-
+    language level; ensemble/selection can't break the ~0.38 plateau. VALIDATES the math+science INGESTION strategy (corpus
+    deficiency NOT mechanism deficiency; substrate mechanisms are right, lack the prior knowledge). MWP banked.
+  - Priority 2 NER frame-semantic: HARD_FAIL lift -0.005 (anti-shrinkage REFUTED; construction frames saturate like lexical at
+    scale). NER comprehensively feature-saturated (5+ approaches all <=+0.013); ~0.58 OntoNotes-18 / 0.648 CoNLL-equiv = in-corpus
+    saturation point; external-resource lever deferred per rule 7/8.
+  - Priority 3 chunking: DATA-BLOCKED (CoNLL-2000 unloadable -- script loader unsupported, no parquet mirror, no cache; UD-EWT
+    fallback circular since chunks=f(POS)). REQUESTED Testbed bundle CoNLL-2000 -> experiments/data/conll2000.json.
+  - Priority 4 resonator: DEFERRED for MWP (comprehension not binding is the wall).
+  - NET: both top areas (MWP, NER) empirically resolved -> point to CORPUS/EXTERNAL-RESOURCE as next lever (math+science ingestion
+    + external embeddings), consistent with rule 7/8 + user ingestion strategy. Next Exp-Dev experiments gated on: CoNLL-2000 bundle
+    (chunking) OR post-ingestion MWP re-test OR Research fresh-capability direction.
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
