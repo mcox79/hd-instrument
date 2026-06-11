@@ -75,3 +75,20 @@ into cliff-regime backlog or between WAVE-5 and BOUNDARY-PROBE-T1.
 
 SEQUENCE (updated): finish WAVE-5 cliff-regime -> 1-BIT falsification battery (verify PP-301) -> BOUNDARY-PROBE TIER-1
 (P1 Nash/P2 img-schema/P3 curiosity) -> P9 multi-tier (GPU) -> ARCH-5/4/3. I will temper the 1-bit claim until verified.
+
+## UPDATE 5: real-data audit underway + 5X architectural-innovation batch folded
+REAL-DATA AUDIT (closing synthetic caveat) -- 2/2 pass so far: KB-SHARD-REAL 0.965 (FB15K TransE), BOREDOM-REAL 0.902
+(Zipfian+correlated). Strong substrate-native claims are real-data-grounded. NEXT: IMAGE-SCHEMA-REAL (discriminating;
+polysemy expected to drop it), TOOL-EXTENDED-REAL.
+
+5X ARCHITECTURAL-INNOVATION batch (7 areas) folded -- KEY CONNECTION: it targets MY integration gaps. Highest-value
+follow-ups (in priority of insight-per-hour + relevance to my findings):
+1. **INTEG-SOFTMAX-T1** (30min) -- does a softmax-over-drive-cosines integration operator FIX my INTEGRATION-ALGEBRA WEAK
+   result? Direct test of the "allostatic forward-model gap" hypothesis. HIGHEST relevance.
+2. **Self-modification ADDITIVE-ONLY certification** (math, no CPU) -- trivially stable; certifiable immediately.
+3. **5-min frustration diagnostic** (multi-drive arbitration; BG-analog) -- also targets INTEGRATION-WEAK root.
+4. CLS-1 dual-substrate 1000-item stream (<1hr) -- extends my DUAL-CLS pass to bigger stream (continual = the strength).
+5. SLIPNET-SUBSTRATE (2hr) -- NEW cross-domain mechanism (relation-structure, avoids P9 entity-geometry confound).
+
+PLAN: finish real-data audit (Research-confirmed current priority) THEN INTEG-SOFTMAX (tests fix for my weak result) +
+ADDITIVE-ONLY (free). I will NOT spin up all 7 at once -- prioritize the ones that test fixes for the gaps I found.
