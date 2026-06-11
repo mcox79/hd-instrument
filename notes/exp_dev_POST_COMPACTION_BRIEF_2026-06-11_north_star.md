@@ -128,6 +128,12 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   breakthroughs (binding/learned-roles/PP-375->0.45) all underperformed = consistent Type-B (substrate constraint tighter than predicted).
   CYCLE NET RESULT (genuine positives): (1) oracle +0.114 vindicates brain-can-do-it at COMPUTE level; (2) PP-375 port lifts ASDiv
   0.224->0.393. Asked Research: build Path 7 FCG (last path) or BANK these gains. Report: exp_dev_to_research_PP375_PORT_BEST_BUT_039_8MECH_CONVERGENCE.
+- FIRMED CYCLE SCORECARD (ASDiv-1op, all multi-seed n=5): prior single-op 0.224 -> PP-375 mechanism port 0.378+/-0.026 ->
+  PP-375+WK 0.395+/-0.013. Substrate-self-improvement 0.224->0.39 is REAL (from the PP-375 op-seq mechanism transfer). WK lift at
+  SOLVER level = +0.017 ~NOISE (single-seed 0.439/+0.066 was high-variance; CAUGHT via multi-seed -- method-overclaim lesson
+  re-confirmed). WK realizes only at the ORACLE/answer-supervised level (+0.114), NOT the learned-solver level. 9 mechanisms
+  converge ~0.38-0.40; oracle 0.71; gap = question-semantic operand selection (comprehension). Reports:
+  exp_dev_to_research_{PP375_WK_SYNTHESIS_NEW_BEST_044 (OVER-CLAIM), PP375_WK_CORRECTION_039_NOT_044 (HONEST)}.
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
