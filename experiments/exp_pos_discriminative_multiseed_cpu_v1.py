@@ -101,7 +101,7 @@ def run() -> Dict:
     return {"accuracy": round(mean, 4), "std": round(std, 4), "vals": vals, "n_train": len(train), "n_tags": T, "n_seeds": len(vals)}
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"): return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    a = r["accuracy"]; s = "mean=%.4f std=%.4f " % (a, r.get("std", 0)) + "; tag-accuracy=%.4f (%d tokens, train=%d sents)" % (a, r["n_tokens"], r["n_train"])
+    a = r["accuracy"]; s = "mean=%.4f std=%.4f (n=%d seeds, vals=%s, train=%d sents, %d tags)" % (a, r.get("std", 0), r.get("n_seeds", 0), r.get("vals", []), r.get("n_train", 0), r.get("n_tags", 0))
     sd = r.get("std", 1.0)
     if a >= 0.92 and sd <= 0.01:
         return ("HARD_PASS", "HARD_PASS: discriminative POS tagger SEED-ROBUST (mean>=0.92, std<=0.01, n=%d) -- beats HMM 0.906; TIER A. " % r.get("n_seeds", 5) + s)
