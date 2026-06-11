@@ -246,6 +246,17 @@ class Atom:
         if concept_links is None and "concept_links" in meta:
             concept_links = list(meta.pop("concept_links"))
 
+        # Concept-corpus 8-field schema (per Research INDEX_FINDINGS_03_RESPONSE):
+        # decomposes_to / family_tag_members / validated_axis / tier_concept /
+        # empirical_validation_status / drill_origin / related_concepts /
+        # substrate_lever. Pull into metadata for now; ingest tool converts
+        # decomposes_to + related_concepts into typed-edge relations.
+        for ck in ("decomposes_to", "family_tag_members", "validated_axis",
+                   "tier_concept", "empirical_validation_status",
+                   "drill_origin", "related_concepts", "substrate_lever"):
+            if ck in d and ck not in meta:
+                meta[ck] = d[ck]
+
         return cls(
             id=d["id"],
             name=d["name"],

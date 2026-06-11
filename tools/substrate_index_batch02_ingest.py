@@ -43,6 +43,7 @@ BATCH02_ATOMS_PATH = DATA_ROOT / "math_corpus_batch02_atoms_refined.jsonl"
 BATCH02_RELATIONS_PATH = DATA_ROOT / "math_corpus_batch02_relations.jsonl"
 BATCH02_QUERIES_PATH = DATA_ROOT / "math_corpus_batch02_disclosed_queries.json"
 BATCH02_REMAINING_53_PATH = DATA_ROOT / "math_corpus_batch02_algebra_vec_remaining_53.jsonl"
+CONCEPT_SUBSET_10_PATH = DATA_ROOT / "concept_corpus_early_subset_10.jsonl"
 
 
 # ============================================================
@@ -168,6 +169,39 @@ def main():
         pstore.add_atom(a, source="batch02_refined", note="algebra-vec + sharpened description")
         refined += 1
     log.info("batch02 refined: %d atoms re-ingested", refined)
+
+    # 2a-bis. Ingest 10-atom concept-corpus early subset (Research follow-up;
+    # 8-field schema; decomposes_to becomes USES edges to math atoms)
+    if CONCEPT_SUBSET_10_PATH.exists():
+        concept_atoms = load_atoms_jsonl(CONCEPT_SUBSET_10_PATH)
+        added_c = 0
+        rels_from_decompose = 0
+        for a in concept_atoms:
+            if not pstore.has_atom(a.qualified_id):
+                pstore.add_atom(a, source="concept_subset_10",
+                                note="early subset for v2 validation")
+                added_c += 1
+            # decomposes_to -> USES edges (math atoms)
+            decomp = a.metadata.get("decomposes_to") or []
+            for tgt in decomp:
+                try:
+                    pstore.add_relation(a.qualified_id, RelationType.USES, tgt,
+                                        source="concept_subset_10:decomposes_to",
+                                        note="auto from 8-field schema")
+                    rels_from_decompose += 1
+                except Exception as e:
+                    log.warning("USES skip %s -> %s: %s", a.qualified_id, tgt, e)
+            # related_concepts -> SPECIALIZES edges (concept atoms)
+            related = a.metadata.get("related_concepts") or []
+            for tgt in related:
+                try:
+                    pstore.add_relation(a.qualified_id, RelationType.SPECIALIZES, tgt,
+                                        source="concept_subset_10:related",
+                                        note="auto from 8-field schema")
+                except Exception as e:
+                    pass  # may not exist yet; OK
+        log.info("concept subset 10: %d atoms added, %d USES edges from decomposes_to",
+                 added_c, rels_from_decompose)
 
     # 2b. Ingest remaining-53 algebra-vec (Research follow-up; structured nested format)
     if BATCH02_REMAINING_53_PATH.exists():
