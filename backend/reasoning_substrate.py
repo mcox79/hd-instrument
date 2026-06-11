@@ -261,7 +261,8 @@ HTML = """<!doctype html>
 
     <div class="cta-row">
       <a class="cta primary" href="/benchmark/fb15k-237">FB15K-237 benchmark</a>
-      <a class="cta secondary" href="/chat">Try in /chat</a>
+      <a class="cta secondary" href="/demo/cognition">Cognitive primitives</a>
+      <a class="cta secondary" href="/demo/lifecycle">Lifecycle primitives</a>
       <a class="cta secondary" href="/">Back to overview</a>
     </div>
 

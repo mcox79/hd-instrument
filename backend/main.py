@@ -190,19 +190,44 @@ async def demo():
 
 @app.get("/demo/reasoning")
 async def demo_reasoning():
-    """Substrate-as-reasoning-substrate page (PP-303 .. PP-312 cycle 220).
+    """Substrate-as-reasoning-substrate page (algebraic reasoning at L=3 composition).
 
-    Showcases algebraic reasoning primitives at L=3 composition: multi-hop over
-    composites (PP-305), do-calculus (PP-307), Bayesian MAP (PP-308), analogy
-    (PP-309), confidence calibration (PP-304), temporal NOW (PP-306), STORY/PROGRAM/
-    ARGUMENT shards at production scale (PP-310 / 311 / 312). Negative result
-    PP-303 (LVH-274) honestly disclosed.
+    Per Research PRIORITY_RESPONSE 2026-06-10: focused on L=3 composition + algebra.
+    Cognitive primitives (PP-315/317/318/304) moved to /demo/cognition. Lifecycle
+    primitives (PP-319/320/322) moved to /demo/lifecycle.
 
     NOTE: this MUST be declared BEFORE /demo/{slug} or FastAPI's dynamic-route
     matcher dispatches /demo/reasoning to demo_vertical(slug="reasoning") and 404s.
     """
     from backend.reasoning_substrate import reasoning_response
     return reasoning_response()
+
+
+@app.get("/demo/cognition")
+async def demo_cognition():
+    """Substrate cognitive primitives page (PP-304 / 315 / 317 / 318).
+
+    Per Research PRIORITY_RESPONSE 2026-06-10: split out from /demo/reasoning.
+    Embodied (PP-317 tool-extended REAL-DATA AUC=0.883), aesthetic (PP-318
+    structural surprise signal), intrinsic motivation (PP-315 boredom), and
+    meta-cognition (PP-304 confidence). PP-316 image-schema HELD as
+    research-roadmap only (real-data 0.342 on polysemic concepts).
+    """
+    from backend.cognition_substrate import cognition_response
+    return cognition_response()
+
+
+@app.get("/demo/lifecycle")
+async def demo_lifecycle():
+    """Substrate lifecycle / continual-learning primitives page.
+
+    Per Research PRIORITY_RESPONSE 2026-06-10: continual learning suite split
+    out from /demo/reasoning. Frequency-selective decay (PP-319), intentional
+    forgetting (PP-320), neurogenesis (PP-322), dual-CLS (d2_1 MIDDLE_BAND
+    annotation). One of Research's defensible commercial-claim categories.
+    """
+    from backend.lifecycle_substrate import lifecycle_response
+    return lifecycle_response()
 
 
 @app.get("/demo/{slug}")
