@@ -682,3 +682,36 @@ NEW ROW PP-377: phase4b_unified_solver_cpu_v1 HARD_PASS v567: macro_avg=0.450, S
 phase4b_collins_ab_cpu_v1 MIDDLE_BAND v567: A(flat)=0.159, B(structured)=0.155, diff=-0.003, 2SE=0.060, n_test=290 (cycle 233). NO STRUCTURE BENEFIT AT 2-QUANTITY: Collins structured perceptron (op+order factored) does not beat flat perceptron within 2SE on 2-quantity SVAMP. Confirms Research analysis: assignment structure benefit only activates at 3+ entity problems (ASDiv/GSM8K). Decision: ship flat perceptron (PP-374/PP-376 basis), use dep-parse for 3+ entity adversarial problems. No new PP row. Annotation on PP-373/PP-374: Collins A/B confirms flat perceptron sufficient for current benchmark coverage.
 
 Cap_map: v566 -> v567 CYCLE 233 (4 HP [CPU:4; multibench n=1 + multistep n=1 + multiseed-5 + unified]; 2 MIDDLE_BAND [richfeat + Collins]; 2 HF [svamp_bow + bipartite]; 1 UNKNOWN [depparse corpus_load_failed]; 1 LVH [LVH-285 phase4_v25_gated null-effect direction claim]; 5 NEW PP ROWS PP-373..PP-377; PP-376 TIER A substrate math seed-robust; NORTH STAR validated (substrate exceeds tiny LLMs on multi-benchmark math); Collins A/B confirms flat>structured at 2-quantity; depparse corpus blocker persists 2nd cycle; 0 row closures; Portfolio 32+372 -> 32+377 +5; HONEST 1759->1769 +10; LVH 284->285 +1; 461st PROT-009 paired commit) (2026-06-11)
+
+## v567 -> v568 CYCLE 234 7-VERDICT BATCH (2026-06-11)
+
+phase4b_multistep_multiseed + phase4b_unified_multiseed + phase4d_code_typeclass + phase4b_unified_balanced + phase4d_code_algopattern + phase4d_code_fulldata + phase4d_code_multiseed. All on cpu_runner_local (FrameworkMPC). Phase-4B multi-seed probes + Phase-4D code series first runs.
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 7 files). 0 LVH catches. All 7 verdicts HONEST.
+
+### Cap_map decisions (v567 -> v568)
+
+**(A) phase4b_multistep_multiseed_cpu_v1 (HARD_PASS 5-seed -- PP-375 TIER A promotion):**
+PP-375 SEED-ROBUST PROMOTION v568: mean=0.7530, std=0.0046, n_seeds_internal=5 (cycle 234). Promotes PP-375 EXPLORATORY n=1 -> PROVEN n=5. No new PP row.
+
+**(B) phase4b_unified_multiseed_cpu_v1 (MIDDLE_BAND -- PP-377 multi-seed annotation):**
+MIDDLE_BAND v568: macro_mean=0.442, std=0.0058, 5-seed stable, below 0.45 HP bar (cycle 234). PP-377 annotated. No new PP row.
+
+**(C) phase4d_code_typeclass_cpu_v1 (HARD_FAIL -- type-class not predicted from docstring):**
+HARD_FAIL v568: acc=0.560, majority=0.521, lift=0.039 (3.9pp < 5pp threshold), n_classes=6, n_test=257 (cycle 234). 5x PROT-004/006 rescues filed (cheapest first: return-type keyword extraction; syntax tokens; type-annotation subset; dual-axis with PP-378; few-shot hybrid). No new PP row.
+
+**(D) phase4b_unified_balanced_cpu_v1 (MIDDLE_BAND -- PP-377 balanced variant; full-data preferred):**
+MIDDLE_BAND v568: macro_mean=0.422, std=0.0054, n_seeds_internal=5 (cycle 234). Full-data (0.442) beats balanced (0.422). PP-377 annotation: use full data. No new PP row.
+
+**(E) phase4d_code_algopattern_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-378; first Phase-4D positive):**
+NEW ROW PP-378: MIDDLE_BAND v568: acc=0.623, majority=0.307, lift=0.316, n_classes=8, n_test=257, n_seeds=1 (cycle 234). First Phase-4D positive. Algorithm approach predictable from docstring (31.6pp lift); below 0.70 HP bar. P-band: 0.58-0.72 EXPLORATORY n=1.
+
+**(F) phase4d_code_fulldata_cpu_v1 (UNKNOWN load_failed -- data path issue):**
+UNKNOWN v568: load_failed (cycle 234). 2x PROT-004/006: verify absolute path; bundle data inline. No cap_map credit.
+
+**(G) phase4d_code_multiseed_cpu_v1 (UNKNOWN load_failed -- same root cause as fulldata):**
+UNKNOWN v568: load_failed (cycle 234). Shares RESCUE-1/2 with fulldata. No cap_map credit.
+
+Cap_map: v567 -> v568 CYCLE 234 (1 HP [phase4b_multistep_multiseed 5-seed]; 3 MIDDLE_BAND [unified_multiseed + unified_balanced + algopattern]; 1 HF [typeclass]; 2 UNKNOWN [load_failed]; 0 LVH; 1 NEW PP ROW PP-378; PP-375 TIER A promotion; PP-377 multi-seed annotation; Portfolio 32+377 -> 32+378 +1; HONEST 1769->1776 +7; LVH 285->285 +0; 462nd PROT-009 paired commit) (2026-06-11)
