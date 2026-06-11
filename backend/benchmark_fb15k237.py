@@ -291,7 +291,9 @@ HTML = """<!doctype html>
       <ul style="margin: 0.5rem 0 0.75rem 1.25rem; color: #c5c5d0;">
         <li><strong>MAWPS:</strong> 0.882 -- LLM-chain-of-thought grade on a classical
           math benchmark</li>
-        <li><strong>MultiArith:</strong> 0.750 -- 2-operation composition; LLM-CoT grade</li>
+        <li><strong>MultiArith:</strong> 0.750 -- 2-operation composition; LLM-CoT grade.
+          Multi-seed confirmed (cycle 234 PP-375 multistep multiseed mean = 0.753,
+          std = 0.005, n = 5 seeds; TIER A)</li>
         <li><strong>4-benchmark macro:</strong> 0.352 (single seed) / <strong>0.336 macro
           mean across 5 seeds, std = 0.0072</strong> (PP-376; multi-seed validated)</li>
         <li><strong>Arity-routed unified solver:</strong> 0.450 macro (PP-377)</li>
