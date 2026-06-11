@@ -75,7 +75,7 @@ def run() -> Dict:
     for p in mdl.parameters():
         p.requires_grad_(False)
     V = mdl.config.vocab_size
-    enc_tok = AutoTokenizer.from_pretrained(ENCODER); enc_mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=torch.float32).to(DEV).eval()
+    enc_tok = AutoTokenizer.from_pretrained(ENCODER); enc_mdl = AutoModel.from_pretrained(ENCODER, torch_dtype=torch.float16).to(DEV).eval()
     for p in enc_mdl.parameters():
         p.requires_grad_(False)
     Edim = enc_mdl.config.hidden_size
@@ -95,7 +95,7 @@ def run() -> Dict:
 
     def embed(texts):
         out = []
-        for i in range(0, len(texts), 64):
+        for i in range(0, len(texts), 16):
             b = enc_tok(texts[i:i + 64], return_tensors="pt", padding=True, truncation=True, max_length=32).to(DEV)
             with torch.no_grad():
                 h = enc_mdl(**b).last_hidden_state[:, 0]
