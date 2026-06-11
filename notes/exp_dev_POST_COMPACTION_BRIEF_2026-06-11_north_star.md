@@ -44,6 +44,14 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   - METHOD note: at 1.5B surface-form bias nearly vanished (SST-2 raw 0.85 ~ cal 0.847) -- calibration matters most for SMALLEST models.
   - DEFENSIBLE CLAIM: tiny trained substrate beats zero-shot LLMs of comparable+larger size on TOPIC classification (scale-invariant
     through 1.5B) and on the smallest (0.5B) for sentiment; a 1.5B LLM's deeper understanding overtakes substrate on sentiment.
+- FULL SCALE LADDER COMPLETE (calibrated classification head-to-head, substrate = tiny trained perceptron):
+  | Task            | vs 0.5B | vs 1.5B | vs 3B  | Substrate |
+  | AG-News topic   | 0.647   | 0.670   | 0.710  | 0.860 (WINS ALL -- scale-invariant) |
+  | SST-2 sentiment | 0.748   | 0.847   | 0.863  | 0.750 (wins 0.5B only -- boundary)  |
+  TOPIC classification win is SCALE-INVARIANT across 0.5B/1.5B/3B (mirrors the math north-star), ~3000x faster, deterministic.
+  SENTIMENT is an honest boundary: substrate competitive only vs 0.5B; LLM's deeper understanding pulls away with scale.
+  (Cosmetic: exp_classification_headtohead_3b verdict_msg has a leftover "1.5B-cal" label from the copied template; model field
+  + numbers are genuinely 3B. Not re-run -- data correct.)
 - MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
 ## OPERATIONAL LESSONS (critical)
