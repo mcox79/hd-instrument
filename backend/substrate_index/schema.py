@@ -65,6 +65,7 @@ class Tier(enum.Enum):
     TIER_3_ALGORITHM = "T3"     # Viterbi, Hungarian, PCA whitening + 300-500 sub-ops
     TIER_4_COMPOSED = "T4"      # substrate POS tagger, slot filler (macro-atoms)
     TIER_NA = "NA"              # concept/meta atoms don't have a tier
+    TIER_LEXICON = "T_lexicon"  # per Research NER_GAZETTEER_8: lexicon atoms in concept partition
 
 
 class AtomKind(enum.Enum):
@@ -86,6 +87,7 @@ class AtomKind(enum.Enum):
     CAPABILITY = "capability"  # per Research concept-corpus 8-field schema; concept atoms
     METHODOLOGY = "methodology"  # per FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION
                                   # substrate-proposed: multi-operation methodological content
+    LEXICON = "lexicon"          # per NER_GAZETTEER_8: entity-type gazetteer atoms
 
     # Per Research full-research-ledger auto-ingest 2026-06-11:
     DRILL = "drill"               # research drill outputs
