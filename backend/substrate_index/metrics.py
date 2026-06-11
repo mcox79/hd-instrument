@@ -436,6 +436,65 @@ def diagnose(scores: list[QueryScore], llm_scores: Optional[list[QueryScore]] = 
 # ============================================================
 
 
+# ============================================================
+# Spectral observability (substrate-novel; LLM has no equivalent)
+# ============================================================
+#
+# Per Research FREE_PROBABILITY_OBSERVABILITY_INTEGRATION 2026-06-11. Four
+# spectral measures on the substrate codebook eigenvalue distribution:
+#   1. Marchenko-Pastur bulk           (codebook eigenvalue density)
+#   2. Tracy-Widom edge                (largest-eigenvalue fluctuations)
+#   3. kappa_4 free cumulant           (semicircle deviation)
+#   4. Spectral gap                    (separability regime)
+#
+# Full numpy implementation referenced in:
+#   notes/research_drill_free_probability_substrate_framework_3x_2026-06-11.md
+#
+# Scheduled to populate after batch 02 lands (M >= 100 atoms required for
+# reliable Tracy-Widom estimates per Research). For now, stub returns the
+# raw eigenvalue stats so callers can wire the function shape without
+# waiting on the drill output.
+
+
+def spectral_observability(codebook_matrix) -> dict:
+    """Compute substrate-novel spectral measures on the atom-vector codebook.
+
+    Input: codebook_matrix shape (M, N) -- M atoms x N-dim vectors (typically
+    M = #atoms in the index, N = 1024 for bge-large).
+
+    Output: dict with mp_bulk, tw_edge, kappa_4, spectral_gap.
+
+    Implementation per Research's free-probability drill (post-batch-02
+    activation; current stub returns raw eigenvalue summary).
+    """
+    import numpy as np
+    M, N = codebook_matrix.shape
+    if M < 4:
+        return {"insufficient_M": M, "min_required": 4}
+    W = codebook_matrix @ codebook_matrix.T / N
+    eig = np.linalg.eigvalsh(W)
+    return {
+        "M": M,
+        "N": N,
+        "eig_min": float(eig[0]),
+        "eig_max": float(eig[-1]),
+        "eig_mean": float(eig.mean()),
+        "eig_var": float(eig.var()),
+        "spectral_gap": float(eig[-1] - eig[-2]),
+        # mp_bulk / tw_edge / kappa_4: filled in post-batch-02 from
+        # Research's drill numpy implementation
+        "mp_bulk": None,
+        "tw_edge": None,
+        "kappa_4": None,
+        "_status": "stub_pending_batch_02_and_drill_code",
+    }
+
+
+# ============================================================
+# Drift detection
+# ============================================================
+
+
 def detect_drift(
     current: SystemDiagnostic,
     baseline: SystemDiagnostic,
