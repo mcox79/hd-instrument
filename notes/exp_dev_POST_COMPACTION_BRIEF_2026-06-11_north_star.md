@@ -86,6 +86,26 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   prediction + scale-invariant composition + low-data-regime advantage) rather than more comprehension-boundary pushes.
 - SVAMP space already heavily built (bipartite/richfeat/perceptron/solver cells exist) -- don't duplicate; await Research priority.
 
+## BOUNDARIES-REJECTED DIRECTIVE 2026-06-11 (USER-LOCKED: "brain can do it, we can too")
+- USER-LOCKED RULE [[feedback-brain-can-do-it-no-boundary-acceptance-2026-06-11]]: NEVER accept comprehension/world-knowledge/
+  semantic-selection as outside-substrate; 5 substrate-only paths must FAIL before any architectural claim. (Overrules my earlier
+  "accept NER/ASDiv/SVAMP boundary" framing -- those framings were WRONG.)
+- ASDiv math-WK ORACLE = brain-can-do-it FIRST EMPIRICAL VINDICATION: substrate-self-referential LEX_constant atoms (rule 8;
+  Research-authored concept_corpus_math_world_knowledge_lex_atoms.jsonl: dog->4 legs, dozen->12, days/week->7) lift the ASDiv
+  reachability ceiling 1-op +0.033, 2-op +0.047, **3-op +0.114 (0.671->0.785)**. The 0.68 "world-knowledge boundary" was a
+  measurement artifact (base oracle missing substrate semantic memory), NOT architectural. Cell: exp_asdiv_math_wk_oracle.
+- SOLVER REALIZATION (the hard part): oracle ceiling rises but LEARNED solvers underperform it. Tried single-pair (0.18),
+  program-ranker (0.16), existing-cascade+WK (~0.31 base, small lift). ROOT CAUSE: unconditional WK firing is NOISE (adjacency
+  fires on 445/2305 items, mostly false-positive; genuine WK items ~3%). FIX = CONDITIONAL/question-guided WK gating ("X_per_Y"
+  fires only when target~X AND Y in text) -- implemented in exp_asdiv_cascade_wk. Full realization needs Research's 4-stage
+  multi-hop template-selector (entity-role extraction + HRR role-binding + discriminative template-selector + execution+WK-gating)
+  -- a multi-hour build; asked Research to confirm scope (exp_dev_to_research_WK_REALIZATION_ANALYSIS_MULTIHOP_NEXT).
+- SVAMP: gap is SELECTION not WK (Path 1 WK lift -0.003). role-asymmetry validated (+0.077 to 0.363); learned pair-selector 0.367
+  (pair-acc 0.646). Lever = multi-hop role-binding selector (same mechanism as ASDiv). SVAMP space heavily built; don't duplicate.
+- NER: gazetteer saturates (+0.007, 1/5 paths). 4 paths remain: multi-seed (queued), Cycle-#5 mechanism atoms as features,
+  substrate-CRF Tier-1 shared features, Tier-2 schema. Boundary NOT accepted (rule).
+- KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
+
 ## OPERATIONAL LESSONS (critical)
 1. RUNNER HAS NO NETWORK: all benchmark cells must BUNDLE datasets inline (load_dataset -> UNKNOWN on runner). Bundled under
    experiments/data/: ud_english_ewt, mbpp(+with_tests), ontonotes_ner, ptb_treebank_tagged, math_benchmarks_test, asdiv_validation,
