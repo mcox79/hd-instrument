@@ -40,16 +40,15 @@ def run() -> Dict:
         props = cphasor(NPROP, N, g)
         # build a rule base: NRULE implications A=>B (a functional graph for valid chains)
         nxt = g.permutation(NPROP)                                     # each prop implies exactly one (deterministic chain)
-        extra = [(int(g.integers(0, NPROP)), int(g.integers(0, NPROP))) for _ in range(40)]   # distractor rules
-        RULES = cnorm(sum((props[a] * IMPL * props[int(nxt[a])] for a in range(NPROP)), np.zeros(N, dtype=np.complex64))
-                      + sum((props[a] * IMPL * props[b] for (a, b) in extra), np.zeros(N, dtype=np.complex64)))
+        # PER-ANTECEDENT rule storage (sharded -> clean single-hop recovery, not one global bundle)
+        rule_vec = np.stack([cnorm(props[a] * IMPL * props[int(nxt[a])]) for a in range(NPROP)])
         for L in lengths:
             start = int(g.integers(0, NPROP)); gold = start
             for _s in range(L):
                 gold = int(nxt[gold])
-            cur = props[start]; ci = start
+            ci = start
             for _s in range(L):
-                cand = RULES * np.conj(cur) * np.conj(IMPL); ci = cidx(cand, props); cur = props[ci]   # modus ponens step
+                cand = rule_vec[ci] * np.conj(props[ci]) * np.conj(IMPL); ci = cidx(cand, props)   # modus ponens via the rule indexed by current fact
             by_len[L].append(int(ci == gold))
     accs = {L: round(float(np.mean(v)), 3) for L, v in by_len.items()}; mean = float(np.mean([a for a in accs.values()]))
     print("  MATH-4 PROOF-CHAINS accuracy-by-length=%s mean=%.3f" % (accs, mean), flush=True)
