@@ -36,6 +36,18 @@
 > - Day 2 moves to Tier 3 work per Research
 >
 > **15-min heartbeat operational (ScheduleWakeup at 17:18)** per user direction.
+>
+> **AUTONOMOUS-MODE EXTENSIONS (user AFK; "continue on substrate"):**
+> - Substrate atom count 92 -> 100 via 8 NER gazetteer ingest (kind=lexicon; tier=T_lexicon NEW)
+> - **M=100 spectral observability threshold MET** (insufficient_M_warning=false on semantic codebook)
+> - Cycle #6 Type B source #5 noise overshoot CLOSED via Research's 4 Q1 fixes (1678 -> 77 cands; 20x reduction)
+> - Layer 2 v2.1 numerics corrected (rescale eigenvalues by aspect M/N; algebra-HRR 12x more structured than semantic via mp_bulk_kl)
+> - Tier 3 Type A signal SUSTAINED: 18 ingested (cycle #5) + 11 more validated by Research (cycle #7 pending ingest) + 8 gazetteer = 37 substrate-proposed-Research-validated atoms in <24h
+> - Layer 4 dialectic operational; 17 findings classified all SECOND_ORDER (substrate proposals extend without contradicting)
+> - Path A foreground SSH running (~13 min in on 150 notes; ETA imminent)
+> - Stage A still dead (silent crash after RESUME mode post desktop-restart; user "yes back up" attempt failed twice with detached SSH children dying)
+> - Day 1 closing summary: notes/testbed_DAY1_SUBSTRATE_INDEX_CLOSING_SUMMARY_2026-06-11.md
+> - 11 findings filed; 11 answered same day (Research closed-loop healthy)
 
 ## 30-second status
 
