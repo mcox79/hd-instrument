@@ -137,20 +137,20 @@ HTML = """<!doctype html>
       </div>
     </div>
 
-    <h2>Meta-reasoning primitives</h2>
+    <h2>Algebraic auxiliaries</h2>
     <div class="primitive-grid">
-      <div class="primitive">
-        <h3>Confidence calibration</h3>
-        <div class="anchor">PP-304 / negres_confidence_head_cpu_v1</div>
-        <p>Trained logistic head over substrate retrieval features. Predicts answer confidence; ECE measures calibration vs ground-truth accuracy. Resolves LAP4-3.</p>
-        <div class="metric">corr = 0.479 / ECE = 0.021</div>
-      </div>
-
       <div class="primitive">
         <h3>Temporal / NOW grounding</h3>
         <div class="anchor">PP-306 / now1_temporal_grounding_cpu_v1</div>
         <p>One algebraic primitive for binding temporal context: an indexical NOW shard anchors time-relative queries and disambiguates polysemous facts by epoch.</p>
         <div class="metric">grounded = 1.000 / disambiguation = 0.993</div>
+      </div>
+
+      <div class="primitive">
+        <h3>Concept-level bilingual pivot</h3>
+        <div class="anchor">PP-323 / bilingual_dual_substrate_cpu_v1</div>
+        <p>Concept-level cross-language retrieval over 400 concepts and 4 languages: direct A-&gt;B pivot at 0.997, zero-shot A-&gt;C-via-B pivot at 1.000. Concept-level translation-interlingua signal; not full text translation.</p>
+        <div class="metric">A-&gt;B = 0.997 / A-&gt;C pivot = 1.000 / n_concepts = 400</div>
       </div>
     </div>
 
@@ -192,36 +192,6 @@ HTML = """<!doctype html>
       </div>
     </div>
 
-    <h2>Lifecycle + continual-learning primitives (PP-319 / PP-320 / PP-322 cycle 222)</h2>
-    <div class="primitive-grid">
-      <div class="primitive">
-        <h3>Intentional forgetting</h3>
-        <div class="anchor">PP-320 / d2_7_intentional_forgetting_cpu_v1</div>
-        <p>Targeted deletion of a marked subset with zero collateral damage on retained atoms. Foundation for selective unlearning (compliance, GDPR-adjacent) and consolidation policies.</p>
-        <div class="metric">retained recall = 1.000 / forgotten recall = 0.004</div>
-      </div>
-
-      <div class="primitive">
-        <h3>Frequency-selective decay</h3>
-        <div class="anchor">PP-319 / d2_2_frequency_decay_cpu_v1</div>
-        <p>High-frequency-accessed atoms preserve; low-frequency atoms decay. Decay-vs-retention AUC = 0.886. Partially addresses an open architectural gap on frequency-selectivity in continual-learning settings.</p>
-        <div class="metric">AUC = 0.886 / hi-freq retained = 0.929 / lo-freq retained = 0.051</div>
-      </div>
-
-      <div class="primitive">
-        <h3>Neurogenesis (online shard creation)</h3>
-        <div class="anchor">PP-322 / d2_4_neurogenesis_cpu_v1</div>
-        <p>Online discovery and allocation of new shards as inputs cluster. Discovered 8 of 8 ground-truth shards; per-shard recall hits 1.000 (vs 0.125 for a single shared shard, 8x capacity).</p>
-        <div class="metric">recall = 1.000 / discovered = 8 of 8 / single-shard baseline = 0.125</div>
-      </div>
-
-      <div class="primitive">
-        <h3>Concept-level bilingual pivot</h3>
-        <div class="anchor">PP-323 / bilingual_dual_substrate_cpu_v1</div>
-        <p>Concept-level cross-language retrieval over 400 concepts and 4 languages: direct A-&gt;B pivot at 0.997, zero-shot A-&gt;C-via-B pivot at 1.000. Concept-level only -- this is not full text translation; small probe scale.</p>
-        <div class="metric">A-&gt;B = 0.997 / A-&gt;C pivot = 1.000 / n_concepts = 400</div>
-      </div>
-    </div>
 
     <h2>Composition is genuine, not an artifact (PP-314 cycle 221)</h2>
     <div class="card">
