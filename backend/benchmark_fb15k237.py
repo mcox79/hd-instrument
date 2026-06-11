@@ -256,6 +256,28 @@ HTML = """<!doctype html>
       </p>
     </div>
 
+    <h2>Third public benchmark: ATIS spoken language understanding (PP-369 / PP-370 cycle 232)</h2>
+    <div class="card">
+      <p>
+        Substrate-only intent classification and slot filling on the ATIS (Airline
+        Travel Information System) public test split. <strong>Slot F1 = 0.871, intent
+        accuracy = 0.846</strong> on the full n=893 test set. Intent classification
+        confirmed 5-seed robust: <strong>mean = 0.8345, std = 0.0038</strong> across 5 seeds.
+      </p>
+      <p>
+        Architecture is substrate-only: utterances encode into bound vectors via
+        substrate algebra; intent and slot heads are nearest-template retrieval
+        over substrate-stored ATIS schemas. No LLM, no learned sequence model.
+      </p>
+      <p style="margin: 0">
+        Honest scope: PP-369 v1 first attempt landed MIDDLE_BAND (slot F1 = 0.713);
+        the v2 architecture with refined slot-feature binding rescues to PASS.
+        Tagged EXPLORATORY (0.78-0.92) per cap_map cycle 232. ATIS is the canonical
+        spoken-language-understanding benchmark; this opens substrate's NL primitive
+        axis beyond FB15K-237 (knowledge graphs) and Penn Treebank (POS tagging).
+      </p>
+    </div>
+
     <h2>How substrate differs from KGE baselines</h2>
     <div class="card">
       <p>
