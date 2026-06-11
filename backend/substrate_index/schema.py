@@ -41,6 +41,13 @@ class Corpus(enum.Enum):
     META = "meta"      # methodology rules, architectural decisions, failure modes
     SCHOOL = "school"  # intellectual lineage; key_contributors + core_methods
 
+    # Per Research FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION 2026-06-11:
+    # SUBSTRATE-PROPOSED partition (Type D self-improvement signal). 4 NOVEL
+    # atoms cluster as multi-operation methodological content (verification +
+    # exploration + orchestration). Distinct from math/concept/meta/school/
+    # results-history/decision-history/findings-history.
+    METHODOLOGY = "methodology"
+
     # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
     # 2026-06-11. Four ledger partitions auto-ingested from project artifacts:
     RESEARCH_HISTORY = "research_history"   # notes/research_drill_*_2x_*.md
