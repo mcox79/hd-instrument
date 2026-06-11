@@ -119,6 +119,15 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   from question semantics = a COMPREHENSION problem (the substrate-LLM boundary, pinpointed at role-assignment). Per brain-can-do-it
   NOT accepting a boundary, but 7 mechanisms converge; asked Research if FCG construction grammar is structurally different or if the
   ~0.37 comprehension cap is established. Reports: exp_dev_to_research_{PATH2_REFUTED, REALIZATION_BOTTLENECK_QUESTION_SEMANTIC_ROLE_ASSIGNMENT}.
+- PATH 8 PP-375 PORT = NET-POSITIVE WIN: ported the proven PP-375 multistep mechanism (op-SEQUENCE prediction over TEXT-ORDER
+  numbers + answer-consistency weak labels; MultiArith Tier-A 0.753) to ASDiv. Result: ASDiv-1op 0.393 (text-order) -- NEW BEST,
+  substrate-self-improvement (ASDiv 0.224 prior -> 0.393, +0.17; existing mechanism applied to new capability). Text-order BEATS
+  operand-search (canonical selection > search for 1-op). BUT below the 0.45 target (smoke 0.44 was optimistic) -- MultiArith's
+  0.753 relied on text-order operand ALIGNMENT ASDiv lacks. 8 mechanisms now converge ~0.38-0.39 ASDiv-1op; oracle proves ~0.71
+  reachable WITH answer-supervision. The ~0.32 gap = question-semantic operand selection (comprehension). 3 Research-predicted
+  breakthroughs (binding/learned-roles/PP-375->0.45) all underperformed = consistent Type-B (substrate constraint tighter than predicted).
+  CYCLE NET RESULT (genuine positives): (1) oracle +0.114 vindicates brain-can-do-it at COMPUTE level; (2) PP-375 port lifts ASDiv
+  0.224->0.393. Asked Research: build Path 7 FCG (last path) or BANK these gains. Report: exp_dev_to_research_PP375_PORT_BEST_BUT_039_8MECH_CONVERGENCE.
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
