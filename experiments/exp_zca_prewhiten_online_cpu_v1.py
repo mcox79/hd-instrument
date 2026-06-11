@@ -43,7 +43,7 @@ def run() -> Dict:
         topics = cphasor(NTOPIC, N, g); tok_topic = g.integers(0, NTOPIC, size=NITEMS)
         items = cnorm(np.stack([topics[tok_topic[i]] + 0.9 * cphasor(1, N, g)[0] for i in range(NITEMS)]))
         # ONLINE PREWHITEN: estimate shared components (top topic directions) from the item set, project them OUT
-        K = 6  # number of shared components to remove
+        K = 14  # remove all topic directions + margin
         mean_comp = items.mean(0)
         X = items - mean_comp                                          # center
         # power-iteration top-K directions of the (complex) correlation, project out
@@ -53,7 +53,7 @@ def run() -> Dict:
             for _it in range(3):
                 coeff = whit @ np.conj(v); v = (coeff[:, None].conj() * whit).sum(0); v = v / (np.linalg.norm(v) + 1e-9)
             proj = (whit @ np.conj(v))[:, None] * v[None, :]; whit = whit - proj   # remove this shared direction
-        witems = cnorm(whit)
+        witems = (whit / (np.linalg.norm(whit, axis=1, keepdims=True) + 1e-9)).astype(np.complex64)  # L2-norm preserves decorrelation
         ranks = np.arange(1, NITEMS + 1); zipf = 1.0 / ranks; zipf = zipf / zipf.sum(); g.shuffle(zipf)
         def run_decay(it):
             strength = np.zeros(NITEMS)
