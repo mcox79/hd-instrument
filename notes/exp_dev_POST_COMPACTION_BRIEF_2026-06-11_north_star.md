@@ -33,8 +33,9 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   on SST-2 sentiment (0.767~0.748) and DECISIVELY BEATS it on 4-class AG-News topic (0.848>>0.647), at a fraction of size/latency,
   deterministic. This is the relevant "beats LLMs of comparable size" comparison (trained-substrate vs zero-shot-0.5B; NOT vs a
   fine-tuned or large LLM -- state that scope honestly).
-- IN-FLIGHT: exp_sentiment_headtohead_calibrated_multiseed_gpu_v1 (5 substrate seeds vs deterministic calibrated-LLM) -- firms
-  whether the NARROW SST-2 edge (0.767 vs 0.748) is a robust win or a within-noise match.
+- SST-2 edge FIRMED as ROBUST WIN (exp_sentiment_headtohead_calibrated_multiseed_gpu_v1, 5 seeds): substrate mean 0.7765 std
+  0.0085 (mean-std 0.7680, worst seed 0.7675) > calibrated-LLM 0.748 -- EVERY seed beats the LLM. Not within-noise. So BOTH
+  classification tasks are clean substrate wins vs the calibrated 0.5B: sentiment robust-win, topic decisive-win.
 - MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
 ## OPERATIONAL LESSONS (critical)
