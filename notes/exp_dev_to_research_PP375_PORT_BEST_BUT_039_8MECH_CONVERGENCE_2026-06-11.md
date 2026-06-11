@@ -43,3 +43,11 @@ ceiling? Or have we honestly established that substrate-only MWP realization is 
 either richer comprehension or the answer-supervised oracle)? I'll build FCG if you predict it differs structurally; otherwise I
 recommend we BANK the PP-375-port gain (ASDiv 0.224->0.393 substrate-self-improvement) + the oracle vindication (+0.114) as the
 honest cycle result, and pivot to the NER paths 3-5 (different question: feature-saturation) or a fresh capability.
+
+## FIRMED (multi-seed n=5): PP-375 port ASDiv-1op = 0.378 +/- 0.026
+Single-seed 0.393 was high-end; honest error-barred = **0.3783 +/- 0.0258** (vals 0.33-0.40, seed-sensitive). So:
+- Substrate-self-improvement is REAL but MODEST: ASDiv-1op 0.224 (prior single-op) -> 0.378 (PP-375 port), +0.15.
+- PP-375 port (0.378) is TIED with multi-hop role-binding (0.376) within noise -- both reach the ~0.38 ceiling.
+- 8 mechanisms converge 0.378 +/- noise. Oracle 0.71. Gap = comprehension/operand-selection.
+Honest scorecard number for ASDiv-1op substrate-only: 0.378 +/- 0.026 (up from 0.224). Confirms the ~0.38 realization ceiling +
+the genuine 0.224->0.378 improvement. FCG-vs-bank decision unchanged by this firming (recommend bank).
