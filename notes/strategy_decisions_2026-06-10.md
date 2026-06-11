@@ -247,3 +247,38 @@ Portfolio: 32+317 -> 32+324 +7. HONEST: 1656 -> 1666 +10. LVH: 274 UNCHANGED. 45
 
 ### Queue state
 Pause flag: ABSENT. [queue: empty -- Exp-Dev session will refill on its cadence]
+
+## v556 -> v557 CYCLE 223 10-VERDICT BATCH (2026-06-10)
+
+CYCLE 223: real-data audits for PP-315/316/317 (boredom-real HP, image-schema-real HF, tool-extended-real HP) + cognitive primitives (slipnet HP, dreaming HP, t_bind HP) + integration rescue (integ-softmax MIDDLE_BAND) + dual-CLS 1k scale (MIDDLE_BAND) + frustration BG-analog diagnostic (MIDDLE_BAND) + additive-only cert (MIDDLE_BAND). 5 HP + 4 MIDDLE_BAND + 1 HF. 1 LVH catch (LVH-275 PP-316).
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json). 1 LVH catch.
+
+[LVH-275] image_schema_real_cpu_v1 HARD_FAIL: cluster_purity=0.342, n=200. PP-316 filed cycle-221 EXPLORATORY 0.78-0.90 on synthetic purity=1.000. Real audit purity=0.342 (gap -65.8pp). PP-316 P-band over-claims real capability; polysemy destroys synthetic grounding. Honest reading: image-schema is synthetic-only at current design. PP-316 downgraded to HOLD. LVH-275 filed.
+
+boredom_real_cpu_v1 HARD_PASS: AUC=0.908, n=6600, threshold >=0.70. Synthetic-to-real gap -0.092. HONEST.
+integ_softmax_t1_cpu_v1 MIDDLE_BAND: multiplicative=0.038, best-single=0.032, lift=+0.006. HONEST.
+tool_extended_real_cpu_v1 HARD_PASS: AUC=0.866, threshold >=0.70. Synthetic-to-real gap -0.134. HONEST.
+cls1_dual_substrate_1k_cpu_v1 MIDDLE_BAND: dual=0.983, slow=0.963, lift=+2pp. HONEST.
+slipnet_substrate_cpu_v1 HARD_PASS: hits1=0.985, degree=0.827, lift=0.158 >=0.15. HONEST.
+dreaming_substrate_cpu_v1 HARD_PASS: compression=0.712 (>=0.70), progress=0.618 (>=0.20), purity=0.875 (>=0.70). HONEST.
+t_bind_1_cpu_v1 HARD_PASS: crossmodal_recall=0.944, threshold >=0.80. HONEST.
+frustration_bg_analog_cpu_v1 MIDDLE_BAND: irreducible=0.960, BG-analog=0.040. HONEST.
+additive_only_cert_cpu_v1 MIDDLE_BAND: all curves 1.000 at tested range; cert incomplete beyond 200 edits. Soft mislead in 'gap partial' language but under-claim not over-claim. HONEST.
+
+HONEST: 1666 -> 1676 (+10). LVH: 274 -> 275 (+1, LVH-275).
+
+### Cap_map decisions (v556 -> v557)
+
+(A) boredom_real_cpu_v1 (HARD_PASS -- NEW ROW PP-325: real-data grounding of PP-315 boredom; AUC=0.908 Zipfian+correlated, n=6600)
+(B) [LVH-275] image_schema_real_cpu_v1 (HARD_FAIL -- PP-316 downgraded HOLD; purity=0.342 polysemy-kills-synthetic-grounding; Research rescue in progress context-bound P=0.65-0.85)
+(C) tool_extended_real_cpu_v1 (HARD_PASS -- NEW ROW PP-326: real-data grounding of PP-317 tool-extension; AUC=0.866 correlated+noisy)
+(D) slipnet_substrate_cpu_v1 (HARD_PASS -- NEW ROW PP-327: Hofstadter fluid analogy via relation-type slipnet; hits1=0.985, lift=0.158, NEW mechanism vs SME)
+(E) dreaming_substrate_cpu_v1 (HARD_PASS -- NEW ROW PP-328: offline consolidation / schema discovery; compression=0.712, progress=0.618, purity=0.875, schemas=7)
+(F) t_bind_1_cpu_v1 (HARD_PASS -- NEW ROW PP-329: FHRR cross-modal binding 25-scene; crossmodal_recall=0.944)
+(G-J) MIDDLE_BAND annotations (no new rows): integ-softmax (lift +0.006), dual-CLS-1k (+2pp), frustration-bg (96% irreducible), additive-cert (stable to 200/250 edits, cert incomplete)
+
+Cap_map: v556 -> v557 CYCLE 223 (5 HP [CPU:5]; 4 MIDDLE_BAND [CPU:4]; 1 HF [CPU:1]; 1 LVH [LVH-275]; 5 NEW PP ROWS PP-325..PP-329; 4 MIDDLE_BAND annotations; 1 PP-316 HOLD annotation; 0 closures; Portfolio 32+324 -> 32+329 +5; HONEST 1666->1676 +10; LVH 274->275 +1; 451st PROT-009 paired commit) (2026-06-10)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.

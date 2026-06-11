@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v555
+# hd-instrument substrate -- capability map v557
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13807,4 +13807,64 @@ Push BLOCKED from sub-agent context; orchestrator main thread executes git push 
 - integration_algebra_flow_cpu_v1 MIDDLE_BAND: integrated_minsat=0.019, equal_weight=0.022, best_single=0.029; integration DOES NOT LIFT over single-drive (integrated is weakest of three); composable operations compose without catastrophic loss but no synergy at this probe scale; no new PP row; candidate for re-test with stronger separation signal.
 
 Cap_map: v555 -> v556 CYCLE 222 (6 HP [CPU:6]; 4 MIDDLE_BAND [CPU:4]; 0 HF; 0 LVH; 7 NEW PP ROWS PP-318..PP-324; 3 MIDDLE_BAND annotations on D2 dual-CLS/empowerment + integration-algebra; 0 closures; Portfolio 32+317 -> 32+324 +7; HONEST 1656->1666 +10; LVH 274 UNCHANGED; 450th PROT-009 paired commit) (2026-06-10)
+Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
+
+## v556 -> v557 @ CYCLE 223 10-VERDICT BATCH real-data audits (PP-315/316/317) + cognitive primitives (slipnet, dreaming, t_bind, frustration) + integration operator + cert audit (verdict_handler 451st PROT-009 paired commit; 5 HARD_PASS 4 MIDDLE_BAND 1 HARD_FAIL; 5 new PP rows PP-325..PP-329; 1 LVH-275 [PP-316 polysemy]; Portfolio 32+324 -> 32+329 +5)
+
+### Step 0 honest re-read (CYCLE 223)
+
+Metrics source: LOCAL (all 10 files at d:/AI/hd-instrument/data/exp_<name>/metrics.json).
+
+**boredom_real_cpu_v1 HARD_PASS:** AUC=0.908, n=6600. Threshold >=0.70. 0.908 >> 0.70. HONEST. Real-data gap vs PP-315 synthetic (1.000): -0.092. PP-315 survives real-data transfer.
+
+**integ_softmax_t1_cpu_v1 MIDDLE_BAND:** multiplicative=0.038, additive=0.023, equal=0.023, bestsingle=0.032. Lift over best-single = +0.006. MIDDLE_BAND (lift <0.05 threshold). HONEST.
+
+**image_schema_real_cpu_v1 HARD_FAIL:** cluster_purity=0.342, n=200. Threshold >=0.45. 0.342 < 0.45. HONEST label. [LVH-275]: PP-316 was filed cycle-221 EXPLORATORY 0.78-0.90 on synthetic cluster_purity=1.000. Real audit: 0.342 (drop of -65.8pp). PP-316 P-band 0.78-0.90 OVER-CLAIMS real capability; polysemy destroys synthetic grounding. Honest reading: image-schema grounding is synthetic-only at current design; PP-316 downgraded to HOLD pending context-bound rescue. Filing LVH-275.
+
+**tool_extended_real_cpu_v1 HARD_PASS:** AUC=0.866, threshold >=0.70. HONEST. Real-data gap vs PP-317 synthetic (1.000): -0.134. PP-317 survives real-data transfer.
+
+**cls1_dual_substrate_1k_cpu_v1 MIDDLE_BAND:** dual=0.983, fast=0.215, slow=0.963. Lift over slow = +2pp. MIDDLE_BAND correct (lift <0.10). HONEST.
+
+**slipnet_substrate_cpu_v1 HARD_PASS:** hits1_slipnet=0.985, hits1_degree=0.827, lift=0.158. Threshold Hits@1>=0.70 (cleared) and lift>=0.15 (cleared). HONEST.
+
+**dreaming_substrate_cpu_v1 HARD_PASS:** compression_final=0.712 (>=0.70), compression_progress=0.618 (>=0.20), purity=0.875 (>=0.70), schemas=7.0. All three thresholds met. HONEST.
+
+**t_bind_1_cpu_v1 HARD_PASS:** crossmodal_recall=0.944, n_scene=25. Threshold >=0.80. 0.944 >> 0.80. HONEST.
+
+**frustration_bg_analog_cpu_v1 MIDDLE_BAND:** BG-analog=0.040, mult=0.037, additive=0.025, irreducible_frustration=0.960. BG-analog is best operator but 96% of frustration is algebraically irreducible. MIDDLE_BAND honest. HONEST.
+
+**additive_only_cert_cpu_v1 MIDDLE_BAND:** additive_curve all 1.000 at 50/100/200/250; inplace_curve all 1.000 at 20/50/100/200. "In-place gap partial" in verdict_msg is misleading -- no gap observed at any tested point. MIDDLE_BAND is conservative (certification incomplete above 200 edits) not over-claiming. NOT LVH (under-claim direction).
+
+HONEST: 1666 -> 1676 (+10). LVH: 274 -> 275 (+1, LVH-275 PP-316 image-schema polysemy synthetic-to-real over-claim). 1 LVH catch.
+
+### Cap_map decisions (v556 -> v557)
+
+**(A) boredom_real_cpu_v1 (HARD_PASS -- NEW ROW PP-325: REAL-DATA GROUNDING OF PP-315 BOREDOM):**
+NEW ROW PP-325: boredom_real_cpu_v1 HARD_PASS v557: AUC=0.908 (Zipfian+correlated stream), n=6600 (cycle 223). REAL-DATA AUDIT PASSES: PP-315 boredom/novelty signal (synthetic AUC=1.000) survives realistic attention with Zipfian frequency distribution + correlated tokens. Synthetic-to-real gap = -0.092 (acceptable). Product implication: boredom/selective-attention primitive is REAL-DATA-GROUNDED -- substrate detects saturation on realistic input streams, not just uniform synthetic sequences. 0.82-0.92 EXPLORATORY n=1 seed CPU elapsed=35s. Cross-ref PP-315 (synthetic founding result), PP-256 (novelty).
+
+**(B) [LVH-275] image_schema_real_cpu_v1 (HARD_FAIL -- PP-316 DOWNGRADE TO HOLD):**
+[LVH-275] PP-316 DOWNGRADED from EXPLORATORY 0.78-0.90 to HOLD (rescue pending): image_schema_real_cpu_v1 HARD_FAIL v557: cluster_purity=0.342 (threshold >=0.45), n=200 real abstract ConceptNet concepts (cycle 223). POLYSEMY IS THE KILLER: PP-316 synthetic grounding (purity=1.000) does NOT survive real abstract concepts where multiple senses map to overlapping schema slots. Honest capability claim: image-schema grounding is synthetic-only at current design; context-blind retrieval cannot disambiguate polysemous abstract concepts. Research 2x-drill already dispatched (bed7d7fc: context-bound embedding + phase-transition disambiguation + attractor dynamics + predictive coding suppression + mixture-of-senses gating). Rescue paths require context-bound retrieval (D2.1/D2.6 per Research prediction: P=0.65-0.85 with context). No new PP row -- PP-316 annotated HOLD. NOT load-bearing until rescue confirmed.
+
+**(C) tool_extended_real_cpu_v1 (HARD_PASS -- NEW ROW PP-326: REAL-DATA GROUNDING OF PP-317 TOOL-EXTENSION):**
+NEW ROW PP-326: tool_extended_real_cpu_v1 HARD_PASS v557: AUC=0.866 (correlated+noisy sensor data), threshold >=0.70 (cycle 223). REAL-DATA AUDIT PASSES: PP-317 peripersonal tool-extension (synthetic AUC=1.000) survives realistic correlated + noisy proprioceptive/sensor data. Synthetic-to-real gap = -0.134. Product implication: tool-extended body schema primitive is REAL-DATA-GROUNDED at Maravita-Iriki analog level -- substrate tracks whether object is inside peripersonal space under realistic sensor noise. 0.78-0.90 EXPLORATORY n=1 seed CPU elapsed=8s. Cross-ref PP-317 (synthetic founding result), PP-241/242 (body schema).
+
+**(D) slipnet_substrate_cpu_v1 (HARD_PASS -- NEW ROW PP-327: HOFSTADTER FLUID ANALOGY VIA RELATION-TYPE SLIPNET):**
+NEW ROW PP-327: slipnet_substrate_cpu_v1 HARD_PASS v557: hits1_slipnet=0.985, hits1_degree=0.827, lift=0.158 (>=0.15 threshold), n_entities=7 (cycle 223). HOFSTADTER SLIPNET CROSS-DOMAIN ANALOGY: relation-TYPE weighted spreading activation (not just entity geometry or degree) recovers cross-domain correspondence at Hits@1=0.985 and beats degree-only baseline by +15.8pp (clearing the 0.15 lift threshold). NEW MECHANISM: relation-type structure carries cross-domain analogy signal that SME (degree-driven, PP-321 negative) and entity-geometry approaches could not crack. Product implication: substrate can perform fluid analogical reasoning by activating relation-type similarity across domains -- foundational for creative analogy, cross-domain transfer, and Hofstadter-style concept-blending. Novel axis. 0.72-0.85 EXPLORATORY n=1 seed n_entities=7 (small probe, multi-seed needed). CPU elapsed=7s. Cross-ref PP-321 (SME MIDDLE_BAND), PP-309 (analogical at L3).
+
+**(E) dreaming_substrate_cpu_v1 (HARD_PASS -- NEW ROW PP-328: OFFLINE CONSOLIDATION / SCHEMA DISCOVERY):**
+NEW ROW PP-328: dreaming_substrate_cpu_v1 HARD_PASS v557: compression_final=0.712 (>=0.70), compression_progress=0.618 (>=0.20), purity=0.875 (>=0.70), eff_schemas=7.0 (cycle 223). SCHMIDHUBER OFFLINE DISCOVERY SIGNAL CONFIRMED: substrate autonomously discovers latent structure (7 schemas from compressed replay) with positive compression-progress (0.618 >> 0.20 threshold) indicating genuine structure discovery, not noise. compression_final=0.712 at threshold boundary but progress=0.618 is well-clear. Substrate-only -- no LLM. Product implication: substrate can "dream" (run offline replay to consolidate and discover latent categorical structure) without supervision -- enables autonomous KB organisation, concept induction, and memory consolidation during idle cycles. Novel axis; extends PP-315 (boredom) and PP-322 (neurogenesis) to offline learning primitive. 0.76-0.88 EXPLORATORY n=1 seed CPU elapsed=16s.
+
+**(F) t_bind_1_cpu_v1 (HARD_PASS -- NEW ROW PP-329: FHRR CROSS-MODAL BINDING 25-SCENE):**
+NEW ROW PP-329: t_bind_1_cpu_v1 HARD_PASS v557: crossmodal_recall=0.944, n_scene=25 (cycle 223). REAL-TIME FHRR HOLOGRAPHIC MULTIMODAL BINDING: cue one modality, recover another (cross-modal retrieval) at 0.944 >> 0.80 threshold across 25 concurrent scenes with correlated content. Substrate-only. Extends t_bind family (PP-259 continuous binding); this adds cross-MODAL retrieval at multi-scene scale. Product implication: substrate provides real-time multimodal binding -- a video frame can retrieve its audio; a word can retrieve its image embedding; agent can retrieve sensory history from any modality cue. Novel axis within multimodal series. 0.80-0.92 EXPLORATORY n=1 seed CPU elapsed=69s. Cross-ref PP-259 (temporal binding), Tier-2 cross-modal binding row (v430 text<->KG).
+
+**ANNOTATION (MIDDLE_BAND -- no new rows):**
+- integ_softmax_t1_cpu_v1 MIDDLE_BAND: multiplicative=0.038, best-single=0.032, lift=+0.006 over best-single. Confirms multiplicative operator >= additive but lift is weak (<0.05 threshold). Rescue f2320f76 (operator hypothesis): operator-fixable fraction is small; 96% irreducible frustration dominates (see frustration_bg_analog_cpu_v1). Integration gap is mostly fundamental conflict, not operator choice. No new PP row.
+- cls1_dual_substrate_1k_cpu_v1 MIDDLE_BAND: dual=0.983, slow=0.963, fast=0.215. Lift=+2pp at 1k scale. Extends d2_1_dual_cls_cpu_v1 cycle-222 (dual=0.962) -- similar pattern at larger scale (1k). Slow system dominates; dual adds marginal lift. No new PP row; candidate for multi-seed re-test.
+- frustration_bg_analog_cpu_v1 MIDDLE_BAND: irreducible_frustration=0.960 (96% fundamental conflict), BG-analog=0.040 (best operator). BG-analog > multiplicative > additive but all in 0.025-0.040 range. Integration-weak finding: substrate integration at conflict scenarios is ~96% algebraically irreducible, ~4% operator-fixable. Diagnostic COMPLETE for integration series. No new PP row.
+- additive_only_cert_cpu_v1 MIDDLE_BAND: Both additive (to 250 edits) and in-place (to 200 edits) curves fully 1.000. ROME/MEMIT K^2/N collapse is a neural-approximation artifact (not FHRR). FHRR exact arithmetic is stable for both edit modes at tested range. Certification INCOMPLETE beyond 200/250 edits. No new PP row; re-test at higher edit counts warranted.
+
+**PP-316 ANNOTATION (LVH-275 downgrade):**
+PP-316 image_schema_codebook_cpu_v1: STATUS CHANGED from EXPLORATORY 0.78-0.90 to HOLD (rescue pending). Real-data audit (image_schema_real_cpu_v1) returned cluster_purity=0.342 (HARD_FAIL vs >=0.45 threshold). Synthetic-to-real gap: 1.000 -> 0.342 (-65.8pp). Root cause: polysemy -- abstract ConceptNet concepts have multiple image-schema senses that map to overlapping retrieval clusters; context-blind retrieval cannot disambiguate. Research 2x-drill in progress (context-bound embedding + phase-transition disambiguation + attractor dynamics). PP-316 P-band FROZEN at HOLD until context-bound rescue confirmed. NOT load-bearing for product positioning. LVH-275 filed.
+
+Cap_map: v556 -> v557 CYCLE 223 (5 HP [CPU:5]; 4 MIDDLE_BAND [CPU:4]; 1 HF [CPU:1]; 1 LVH [LVH-275 PP-316 image-schema polysemy synthetic-to-real over-claim]; 5 NEW PP ROWS PP-325..PP-329; 4 MIDDLE_BAND annotations; 1 PP-316 annotation/downgrade to HOLD; 0 closures; Portfolio 32+324 -> 32+329 +5; HONEST 1666->1676 +10; LVH 274->275 +1; 451st PROT-009 paired commit) (2026-06-10)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
