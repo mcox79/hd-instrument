@@ -50,8 +50,8 @@ def run() -> Dict:
         for _q in range(8):
             ref = [(OPS[int(g.integers(0, len(OPS)))], int(g.integers(0, NP))) for _ in range(STEPS)]
             tests = []
-            for _t in range(4):
-                inp = [int(x) for x in g.integers(0, 8, size=5)]; out = list(inp)
+            for _t in range(14):
+                inp = [int(x) for x in g.integers(0, 10, size=7)]; out = list(inp)
                 for (o, p) in ref:
                     out = prim(o, p, out)
                 tests.append((inp, out))                              # spec from the reference program
