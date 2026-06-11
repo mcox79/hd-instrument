@@ -197,6 +197,55 @@ class Atom:
 
     @classmethod
     def from_dict(cls, d: dict) -> "Atom":
+        """Construct Atom from dict, normalizing Research's flat-metadata format.
+
+        Two formats accepted natively (no external normalizer needed):
+
+        1. Dedicated top-level fields (preferred going forward):
+           {algebra: {structure, ...}, signature: {...}, complexity: {...},
+            concept_links: [...]}
+
+        2. Flat metadata format (Research batch 02 refined atoms):
+           {metadata: {algebra_category: 1-13, domain: "R^N",
+                       concept_links: [...], commutative: bool, ...}}
+
+        Format-2 fields are lifted into dedicated fields at construct time.
+        Idempotent: format-1 atoms pass through unchanged.
+        """
+        meta = dict(d.get("metadata", {}))
+        algebra = d.get("algebra")
+        signature = d.get("signature")
+        complexity = d.get("complexity")
+        concept_links = d.get("concept_links")
+
+        # Format 2 -> Format 1 lifting
+        if algebra is None and ("algebra_category" in meta or "domain" in meta):
+            algebra = {}
+            if "algebra_category" in meta:
+                cat = meta.pop("algebra_category")
+                algebra["category_int"] = cat
+                if isinstance(cat, int) and 1 <= cat <= 13:
+                    algebra["structure"] = ALGEBRA_CATEGORIES[cat - 1]
+            for key in ("domain", "commutative", "associative",
+                        "preserves_unit_modulus", "identity", "inverse"):
+                if key in meta:
+                    algebra[key] = meta.pop(key)
+
+        if signature is None and any(k in meta for k in ("input_arity", "input_types", "output_type")):
+            signature = {}
+            for key in ("input_arity", "input_types", "output_type", "preserves"):
+                if key in meta:
+                    signature[key] = meta.pop(key)
+
+        if complexity is None and any(k in meta for k in ("time_class", "space_class", "parallelism")):
+            complexity = {}
+            for key in ("time_class", "space_class", "parallelism", "online"):
+                if key in meta:
+                    complexity[key] = meta.pop(key)
+
+        if concept_links is None and "concept_links" in meta:
+            concept_links = list(meta.pop("concept_links"))
+
         return cls(
             id=d["id"],
             name=d["name"],
@@ -205,12 +254,12 @@ class Atom:
             kind=AtomKind(d.get("kind", "primitive")),
             description=d["description"],
             aliases=tuple(d.get("aliases", [])),
-            metadata=dict(d.get("metadata", {})),
-            algebra=d.get("algebra"),
-            signature=d.get("signature"),
-            complexity=d.get("complexity"),
+            metadata=meta,
+            algebra=algebra,
+            signature=signature,
+            complexity=complexity,
             equivalences=tuple(d.get("equivalences", [])),
-            concept_links=tuple(d.get("concept_links", [])),
+            concept_links=tuple(concept_links) if concept_links else tuple(),
         )
 
 

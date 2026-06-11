@@ -98,66 +98,190 @@ class AlgebraIndex:
     # ------------------------------------------------------------
 
     def _role_vector(self, key: str) -> np.ndarray:
-        """Stable role vector for an algebra/signature/complexity key
-        (e.g., 'structure', 'commutative', 'domain'). Unit-modulus phasor."""
-        raise NotImplementedError("Day 2: implement deterministic FHRR phasor")
+        """Stable role vector for an algebra/signature/complexity key.
 
-    def _filler_vector(self, value: str | int | float | bool) -> np.ndarray:
-        """Stable filler vector for a value (e.g., 'monoid', 6, True)."""
-        raise NotImplementedError("Day 2: implement deterministic FHRR phasor")
+        Deterministic FHRR-style L2-normalized random vector from a hash of
+        the role label. Cached on first request.
+        """
+        if key in self._role_vectors:
+            return self._role_vectors[key]
+        h = int(hashlib.sha256(f"algebra_role::{key}".encode()).hexdigest(), 16)
+        rng = np.random.default_rng((h % (2**63 - 1)) ^ _HRR_SEED)
+        v = rng.standard_normal(self.dim).astype(np.float32)
+        v = v / (np.linalg.norm(v) + 1e-12)
+        self._role_vectors[key] = v
+        return v
+
+    def _filler_vector(self, value) -> np.ndarray:
+        """Stable filler vector for a value (string / int / float / bool).
+
+        Cached by value-string form. The category-int ('1' vs 'group') case
+        is handled by the caller (encode_atom) -- it may emit BOTH the int
+        and the string name so cluster-by-int and cluster-by-name agree.
+        """
+        vstr = str(value)
+        cache_key = f"filler::{vstr}"
+        if cache_key in self._filler_vectors:
+            return self._filler_vectors[cache_key]
+        h = int(hashlib.sha256(f"algebra_filler::{vstr}".encode()).hexdigest(), 16)
+        rng = np.random.default_rng(h % (2**63 - 1))
+        v = rng.standard_normal(self.dim).astype(np.float32)
+        v = v / (np.linalg.norm(v) + 1e-12)
+        self._filler_vectors[cache_key] = v
+        return v
 
     def _bind(self, role: np.ndarray, filler: np.ndarray) -> np.ndarray:
-        """FHRR binding (element-wise phasor multiplication) ~ Smolensky tensor
-        product approximation."""
-        raise NotImplementedError("Day 2: implement FHRR binding")
+        """Real-valued FHRR-style binding approximation: element-wise product
+        (Hadamard) then L2-normalize.
+
+        For substrate-self-index purposes this approximates Smolensky tensor
+        product / Plate HRR binding cleanly: bound vector is composition of
+        role + filler subspaces; unbinding via _bind(role, bound) recovers
+        approximate filler in the noise-tolerant regime.
+        """
+        bound = role * filler
+        norm = np.linalg.norm(bound)
+        if norm < 1e-12:
+            return bound
+        return bound / norm
 
     def _bundle(self, vectors: list[np.ndarray]) -> np.ndarray:
-        """Bundle (normalized sum) over bound role-filler pairs."""
-        raise NotImplementedError("Day 2: implement L2-normalized sum")
+        """Bundle (L2-normalized sum) over bound role-filler pairs."""
+        if not vectors:
+            return np.zeros(self.dim, dtype=np.float32)
+        s = np.sum(np.stack(vectors), axis=0)
+        norm = np.linalg.norm(s)
+        if norm < 1e-12:
+            return s
+        return (s / norm).astype(np.float32)
 
     # ------------------------------------------------------------
     # Encoding
     # ------------------------------------------------------------
 
+    def _encode_dict_hrr(self, d: dict) -> Optional[np.ndarray]:
+        """HRR-encode a structured-properties dict into a single bundle vector.
+
+        Each (key, value) pair becomes role(key) * filler(value), bound via
+        Hadamard product. Lists tag each item separately. Booleans / ints /
+        floats become string-form fillers.
+
+        Returns None if the dict yields no encodable pairs.
+        """
+        if not d:
+            return None
+        bound = []
+        for k, v in d.items():
+            r = self._role_vector(k)
+            if isinstance(v, bool):
+                bound.append(self._bind(r, self._filler_vector(str(v).lower())))
+            elif isinstance(v, (str, int, float)) and v is not None:
+                bound.append(self._bind(r, self._filler_vector(v)))
+                # If int that looks like an algebra-category index (1-13),
+                # also emit the named category so int-tagged and name-tagged
+                # atoms cluster together. (Per ALGEBRA_VEC_REFINED 13-cat.)
+                if k == "algebra_category" and isinstance(v, int) and 1 <= v <= 13:
+                    from backend.substrate_index.schema import ALGEBRA_CATEGORIES
+                    name = ALGEBRA_CATEGORIES[v - 1]
+                    bound.append(self._bind(r, self._filler_vector(name)))
+            elif isinstance(v, list):
+                for item in v:
+                    if isinstance(item, (str, int, float, bool)) and item is not None:
+                        bound.append(self._bind(r, self._filler_vector(item)))
+            elif isinstance(v, dict):
+                # Nested dict: prefix sub-key with parent key
+                for sub_k, sub_v in v.items():
+                    sub_r = self._role_vector(f"{k}.{sub_k}")
+                    if isinstance(sub_v, bool):
+                        bound.append(self._bind(sub_r, self._filler_vector(str(sub_v).lower())))
+                    elif isinstance(sub_v, (str, int, float)):
+                        bound.append(self._bind(sub_r, self._filler_vector(sub_v)))
+        if not bound:
+            return None
+        return self._bundle(bound)
+
     def encode_atom(self, atom: Atom) -> AlgebraVectors:
         """Encode one atom's algebra/signature/complexity into HRR-bundled vectors."""
-        raise NotImplementedError("Day 2: HRR-encode atom")
+        alg = self._encode_dict_hrr(atom.algebra) if atom.algebra else None
+        sig = self._encode_dict_hrr(atom.signature) if atom.signature else None
+        cpx = self._encode_dict_hrr(atom.complexity) if atom.complexity else None
+        # Composite profile bundle (algebra + signature + complexity together)
+        non_none = [v for v in (alg, sig, cpx) if v is not None]
+        composite = self._bundle(non_none) if non_none else None
+        return AlgebraVectors(
+            atom_id=atom.qualified_id,
+            algebra_hrr=alg,
+            signature_hrr=sig,
+            complexity_hrr=cpx,
+            composite_hrr=composite,
+        )
 
     def build(self, pstore: PartitionedStore) -> int:
-        """Build the algebra index over all atoms with algebra fields populated.
-
-        Returns:
-            number of atoms with at least one algebra/signature/complexity field encoded
-        """
-        raise NotImplementedError("Day 2: build index")
+        """Build the algebra index over all atoms with algebra fields populated."""
+        atoms = pstore.all_atoms()
+        encoded = 0
+        algebra_rows: list[np.ndarray] = []
+        algebra_ids: list[str] = []
+        for atom in atoms:
+            av = self.encode_atom(atom)
+            self._atom_vectors[av.atom_id] = av
+            if av.algebra_hrr is not None:
+                encoded += 1
+                algebra_rows.append(av.algebra_hrr)
+                algebra_ids.append(av.atom_id)
+        if algebra_rows:
+            self._algebra_matrix = np.stack(algebra_rows)
+            self._algebra_atom_ids = algebra_ids
+        else:
+            self._algebra_matrix = None
+            self._algebra_atom_ids = []
+        logger.info("algebra_index built: %d atoms with algebra_hrr", encoded)
+        return encoded
 
     # ------------------------------------------------------------
     # Retrieval modes (atom-to-atom only; free-text not supported)
     # ------------------------------------------------------------
 
-    def atoms_with_shared_algebra(
+    def _retrieve_by_attr(
         self,
         atom_id: str,
+        attr_name: str,
         top_k: int = 10,
     ) -> list[tuple[str, float]]:
+        """Top-K atoms by cosine on the specified AlgebraVectors attribute."""
+        if atom_id not in self._atom_vectors:
+            return []
+        query_vec = getattr(self._atom_vectors[atom_id], attr_name, None)
+        if query_vec is None:
+            return []
+        ids = []
+        rows = []
+        for aid, av in self._atom_vectors.items():
+            if aid == atom_id:
+                continue
+            v = getattr(av, attr_name, None)
+            if v is None:
+                continue
+            ids.append(aid)
+            rows.append(v)
+        if not rows:
+            return []
+        mat = np.stack(rows)
+        sims = mat @ query_vec
+        order = np.argsort(-sims)[:top_k]
+        return [(ids[i], float(sims[i])) for i in order]
+
+    def atoms_with_shared_algebra(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
         """Top-K atoms whose algebra HRR is closest to atom_id's algebra HRR."""
-        raise NotImplementedError("Day 2: cosine retrieval against algebra_matrix")
+        return self._retrieve_by_attr(atom_id, "algebra_hrr", top_k)
 
-    def atoms_with_shared_signature(
-        self,
-        atom_id: str,
-        top_k: int = 10,
-    ) -> list[tuple[str, float]]:
+    def atoms_with_shared_signature(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
         """Top-K atoms whose signature HRR is closest to atom_id's signature HRR."""
-        raise NotImplementedError("Day 2")
+        return self._retrieve_by_attr(atom_id, "signature_hrr", top_k)
 
-    def atoms_with_shared_complexity(
-        self,
-        atom_id: str,
-        top_k: int = 10,
-    ) -> list[tuple[str, float]]:
+    def atoms_with_shared_complexity(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
         """Top-K atoms whose complexity HRR is closest to atom_id's complexity HRR."""
-        raise NotImplementedError("Day 2")
+        return self._retrieve_by_attr(atom_id, "complexity_hrr", top_k)
 
     def atoms_with_shared_profile(
         self,
@@ -165,8 +289,44 @@ class AlgebraIndex:
         top_k: int = 10,
         weights: tuple[float, float, float] = (1.0, 1.0, 1.0),
     ) -> list[tuple[str, float]]:
-        """Top-K atoms with similar combined algebra/signature/complexity profile."""
-        raise NotImplementedError("Day 2: weighted bundle then cosine")
+        """Top-K atoms with similar combined algebra/signature/complexity profile.
+
+        Builds the query as weighted bundle of the three sub-vectors; same
+        for each atom; cosine-rank.
+        """
+        if atom_id not in self._atom_vectors:
+            return []
+        query_av = self._atom_vectors[atom_id]
+        def _weighted(av: AlgebraVectors) -> Optional[np.ndarray]:
+            parts = []
+            if av.algebra_hrr is not None:
+                parts.append(weights[0] * av.algebra_hrr)
+            if av.signature_hrr is not None:
+                parts.append(weights[1] * av.signature_hrr)
+            if av.complexity_hrr is not None:
+                parts.append(weights[2] * av.complexity_hrr)
+            if not parts:
+                return None
+            return self._bundle(parts)
+        q = _weighted(query_av)
+        if q is None:
+            return []
+        ids = []
+        rows = []
+        for aid, av in self._atom_vectors.items():
+            if aid == atom_id:
+                continue
+            v = _weighted(av)
+            if v is None:
+                continue
+            ids.append(aid)
+            rows.append(v)
+        if not rows:
+            return []
+        mat = np.stack(rows)
+        sims = mat @ q
+        order = np.argsort(-sims)[:top_k]
+        return [(ids[i], float(sims[i])) for i in order]
 
 
 # ============================================================
@@ -280,6 +440,72 @@ class HybridRetriever:
         self.algebra = algebra_index
         self.pstore = pstore
 
-    def query(self, query_text: str, top_k: int = 10) -> list[tuple[str, float]]:
-        """Run a hybrid query; return RRF-fused top-K with scores."""
-        raise NotImplementedError("Day 2: implement query routing + RRF fusion")
+    def query(
+        self,
+        query_text: str,
+        top_k: int = 10,
+        rrf_k: int = 60,
+    ) -> list[tuple[str, float]]:
+        """Run a hybrid query; return RRF-fused top-K with scores.
+
+        Routing:
+        - Always run Index 1 (semantic)
+        - If structural intent detected: also run relations (atom-to-atom
+          via typed edges)
+        - If structural intent detected AND query mentions a named atom in
+          the corpus: also run Index 2 (algebra) starting from that atom
+        - Fuse via RRF k
+
+        For atom-to-atom queries (no free text), use the explicit
+        algebra.atoms_with_shared_* methods directly.
+        """
+        intent = classify_query_intent(query_text)
+        ranked_lists = []
+
+        # Index 1: semantic always runs
+        if self.semantic is not None:
+            sem_cands = self.semantic.semantic(query_text, top_k=top_k)
+            ranked_lists.append([c.atom_id for c in sem_cands])
+
+        # Index 2: only if query names a known atom AND structural intent
+        if intent.route_algebra:
+            named_atom = self._extract_named_atom(query_text)
+            if named_atom is not None:
+                alg_results = self.algebra.atoms_with_shared_algebra(named_atom, top_k=top_k)
+                ranked_lists.append([aid for aid, _ in alg_results])
+
+        # Relations: if a relation keyword fires
+        if intent.route_relations:
+            named_atom = self._extract_named_atom(query_text)
+            if named_atom is not None:
+                # Get out-neighbors via typed edges; use as a ranked list
+                # (order by relation specificity if needed; for now flat)
+                rel_neighbors = []
+                for rt in RelationType:
+                    for n in self.pstore.out_neighbors(named_atom, rt):
+                        rel_neighbors.append(n)
+                if rel_neighbors:
+                    ranked_lists.append(rel_neighbors[:top_k])
+
+        if not ranked_lists:
+            return []
+        if not intent.fuse_with_rrf or len(ranked_lists) == 1:
+            # Return the first non-empty list with synthetic scores
+            return [(aid, 1.0 / (i + 1)) for i, aid in enumerate(ranked_lists[0][:top_k])]
+        return reciprocal_rank_fusion(*ranked_lists, k=rrf_k)[:top_k]
+
+    def _extract_named_atom(self, query_text: str) -> Optional[str]:
+        """Heuristic: find a corpus atom id referenced in the query text.
+
+        Looks for qualified ids (math::...) and unqualified short names that
+        match atom ids in the store.
+        """
+        for atom in self.pstore.all_atoms():
+            qid = atom.qualified_id
+            local_id = atom.id
+            if qid in query_text or local_id in query_text:
+                return qid
+            # Also check the atom name (case-insensitive)
+            if atom.name.lower() in query_text.lower():
+                return qid
+        return None
