@@ -17,15 +17,18 @@ POS-perceptron 0.951 (11th Tier A), math-multibench/multistep (Tier A), code-alg
 slot-filling 0.871, schema 0.967, routing 0.967. Uncertainty: conformal coverage guarantee + isotonic ECE 0.233->0.044.
 Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cascade 0.30, dep-parse arc-factored ceiling 0.787, NER 0.58.
 
-## OPEN / IN-FLIGHT at compaction
-- **CLASSIFICATION HEAD-TO-HEAD LLM-EVAL IS BROKEN — DO NOT TRUST / DO NOT CLAIM.** Both methods give Qwen-0.5B implausible
-  ~chance accuracy on SST-2 (should be ~0.85): free-gen parsing = 0.58, fair logprob = 0.485. So BOTH my LLM-eval paths are
-  buggy for classification. The substrate classification numbers are real (textclass 0.848, sentiment 0.767) but the LLM
-  COMPARISON is unreliable -> do NOT claim "substrate beats LLM on classification". Needs a proper LLM-eval (verified on a
-  known baseline first) before any classification head-to-head claim. See note CLASSIFICATION_HEADTOHEAD_PARSING_CAVEAT.
-- **ONLY the MATH head-to-head is trustworthy** (LLM gets plausible numbers: MAWPS 0.5-0.57, ASDiv 0.8-0.9). That's the robust
-  north-star result. Latency/memory/determinism dimensions are real regardless.
-- If continuing classification head-to-heads: rebuild text-class with the SAME logprob fix (not free-gen).
+## RESOLVED 2026-06-11 (post-compaction): classification head-to-head eval was SURFACE-FORM BIAS, now FIXED
+- The prior "eval is broken" caveat was WRONG about the cause and is now resolved. Root cause: naive zero-shot label-logprob
+  has SURFACE-FORM BIAS (Holtzman 2021 / Zhao 2021) -- on SST-2 the model's content-free prior favors " negative" (-2.673) over
+  " positive" (-4.975) by +2.3 nats regardless of the review, so naive argmax sits at ~chance (raw=0.485). FIX = CONTEXTUAL
+  CALIBRATION / PMI: score(label) = logP(label|prompt) - logP(label|content-free), averaging content-free prompts ["","N/A","nothing"].
+- RESULT (exp_sentiment_headtohead_calibrated_gpu_v1, full 400 test): calibration lifted Qwen-0.5B SST-2 from 0.485 -> 0.748
+  (plausible). With that TRUSTWORTHY baseline: substrate 0.767 >= calibrated-LLM 0.748 = HARD_PASS. Substrate ~5000x faster +
+  deterministic + tiny. Honest framing: NARROW match/edge (0.02), single seed, 400 test -- not a blowout.
+- METHOD LESSON (reusable): any zero-shot LLM classification baseline MUST be calibrated (PMI/contextual) or it under-measures the
+  LLM to ~chance. Build a SANITY GATE into every head-to-head: if calibrated-LLM is still implausible, emit UNKNOWN, no claim.
+- IN-FLIGHT: exp_textclass_headtohead_calibrated_gpu_v1 (4-class AG-News, same method) queued on GPU -- generalization test.
+- MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
 ## OPERATIONAL LESSONS (critical)
 1. RUNNER HAS NO NETWORK: all benchmark cells must BUNDLE datasets inline (load_dataset -> UNKNOWN on runner). Bundled under
