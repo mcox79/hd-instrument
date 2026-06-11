@@ -37,11 +37,11 @@ def run() -> Dict:
         votes = np.zeros(NA)
         for it in range(300):
             T = max(0.05, 1.0 * (1 - it / 300))                        # anneal temperature (tunneling)
-            pi = np.exp(votes / T); pi = pi / pi.sum()
+            pi = np.exp((votes - votes.max()) / T); pi = pi / pi.sum()
             exp_sat = pref @ pi                                         # expected satisfaction per drive
             dstar = int(np.argmin(exp_sat))                            # worst drive
             votes += pref[dstar]                                       # vote up actions good for the worst drive
-        pi = np.exp(votes / 0.05); pi = pi / pi.sum()
+        pi = np.exp((votes - votes.max()) / 0.05); pi = pi / pi.sum()
         mm = float(np.min(pref @ pi))
         single.append(sm); mixed.append(mm)
     ms = float(np.mean(single)); mx = float(np.mean(mixed)); esc = (mx - ms) / (ms + 1e-9)
