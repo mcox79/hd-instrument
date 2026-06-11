@@ -27,7 +27,14 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
   deterministic + tiny. Honest framing: NARROW match/edge (0.02), single seed, 400 test -- not a blowout.
 - METHOD LESSON (reusable): any zero-shot LLM classification baseline MUST be calibrated (PMI/contextual) or it under-measures the
   LLM to ~chance. Build a SANITY GATE into every head-to-head: if calibrated-LLM is still implausible, emit UNKNOWN, no claim.
-- IN-FLIGHT: exp_textclass_headtohead_calibrated_gpu_v1 (4-class AG-News, same method) queued on GPU -- generalization test.
+- GENERALIZES to 4-class (exp_textclass_headtohead_calibrated_gpu_v1, AG-News, full 400 test): substrate topic 0.848 >> calibrated-
+  LLM 0.647 (naive 0.600) = HARD_PASS, DECISIVE +0.20 margin (way beyond seed-noise), ~3000x faster (0.00014s vs 0.428s/item).
+- SO THE CALIBRATED CLASSIFICATION PICTURE (honest + favorable): a TINY TRAINED substrate classifier MATCHES a 0.5B zero-shot LLM
+  on SST-2 sentiment (0.767~0.748) and DECISIVELY BEATS it on 4-class AG-News topic (0.848>>0.647), at a fraction of size/latency,
+  deterministic. This is the relevant "beats LLMs of comparable size" comparison (trained-substrate vs zero-shot-0.5B; NOT vs a
+  fine-tuned or large LLM -- state that scope honestly).
+- IN-FLIGHT: exp_sentiment_headtohead_calibrated_multiseed_gpu_v1 (5 substrate seeds vs deterministic calibrated-LLM) -- firms
+  whether the NARROW SST-2 edge (0.767 vs 0.748) is a robust win or a within-noise match.
 - MATH head-to-head remains the strongest/robust north-star result (clean number parsing, no calibration needed).
 
 ## OPERATIONAL LESSONS (critical)
