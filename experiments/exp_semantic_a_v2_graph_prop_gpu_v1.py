@@ -36,7 +36,7 @@ SMOKE = RUN_MODE == "smoke"
 KS = [5, 8, 12]
 ALPHA = 0.5
 HOPS = 2
-DEP_RELS = ("DEPENDS_ON", "USES", "USED_FOR_LIFT", "GROUNDS", "DECOMPOSES_TO")
+DEP_RELS = ("DEPENDS_ON", "USES", "RELATES", "INFLUENCED_BY", "SPECIALIZES", "GENERALIZES", "INSTANCE_OF")
 
 
 def _norm(s):
@@ -66,17 +66,17 @@ def _name_text(a):
 
 
 def _build_adj(ps, id_index):
-    """undirected DEPENDS_ON-family adjacency over atom-index space."""
+    """undirected DEPENDS_ON-family adjacency over atom-index space. iter_all_relations yields (src, RelationType, dst) tuples."""
     adj = defaultdict(list)
     n_edges = 0
     for rel in ps.iter_all_relations():
-        rt = getattr(rel, "rel_type", getattr(rel, "type", None))
-        if rt not in DEP_RELS:
+        src, rt, dst = rel[0], rel[1], rel[2]
+        rtv = rt.value if hasattr(rt, "value") else str(rt)
+        if rtv not in DEP_RELS:
             continue
-        src = _norm(getattr(rel, "src", getattr(rel, "source", "")))
-        dst = _norm(getattr(rel, "dst", getattr(rel, "target", "")))
-        if src in id_index and dst in id_index:
-            si, di = id_index[src], id_index[dst]
+        s, d = _norm(src), _norm(dst)
+        if s in id_index and d in id_index:
+            si, di = id_index[s], id_index[d]
             adj[si].append(di); adj[di].append(si); n_edges += 1
     return adj, n_edges
 
