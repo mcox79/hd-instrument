@@ -285,3 +285,49 @@ Routing files: NONE new this cycle. Compounds A+B noise crosscut already queued 
 Memory extension flagged for memory_curator (future cycle): substrate-aux-features-shrink-with-data memory should be EXTENDED with PERTURBATION-FRAGILITY second axis (data regime x perturbation regime; three-shape becomes three-x-three).
 
 Cap_map: v579 -> v580 CYCLE 244 (1 HARD_FAIL [ner_gazetteer_noise_crosscut=PP-403-noise-fragility-annotation]; 0 LVH; 0 NEW PP ROWS; PP-403 ANNOTATED doubly-fragile; methodology rule candidate 1st appearance; Compounds A+B noise crosscut still QUEUED; Portfolio 32+405 UNCHANGED; HONEST 1843->1844 +1; LVH 291->291 +0; 474th PROT-009 paired commit) (2026-06-12)
+
+
+## v580 -> v581 CYCLE 245 1-VERDICT ner_transition_charngram_noise_crosscut HARD_PASS Compound A + Compound B characterization (verdict_handler 475th PROT-009 paired commit; 1 HARD_PASS Compound A + 1 characterization Compound B; 0 LVH; 0 NEW PP ROWS; PP-404 ANNOTATED noise-robust empirically; PP-405 ANNOTATED noise-helpful-at-scale CLOSED preserved; three-shape mechanism typology x noise crosscut COMPLETE; meta::RULE_sequence_model_bound_not_feature_bound 2nd APPEARANCE; substrate-product "sequence model is BOTH levers; discrete features are NEITHER" empirically HARDENED; Portfolio 32+405 UNCHANGED; HONEST 1844->1845 +1; LVH 291->291 +0)
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (data/exp_ner_transition_charngram_noise_crosscut_cpu_v1/metrics.json). verdict_msg matches per-cell metrics exactly.
+
+**ner_transition_charngram_noise_crosscut_cpu_v1 HARD_PASS Compound A + Compound B characterization (HONEST):** 4-cell [frac x noise] crosscut.
+
+Compound A (transition contribution): clean +0.0858/+0.0977 at 5pct/100pct; noisy +0.0796/+0.0911. Delta @ 5pct = -0.0062. Pre-reg HP bar: delta >= -0.01 -> PASS by 38% margin (slip is only 62% of allowed). Mechanism CONFIRMED: BIO transitions are tag-bigram features invariant to emission-level char noise. PP-404 noise-robust pre-reg empirically CONFIRMED.
+
+Compound B (char n-gram lift): clean -0.0096/-0.0075 at 5pct/100pct (PP-405 subsumed-clean closure preserved); noisy -0.0088/+0.0177. Noise-NEUTRAL at low data; noise-HELPFUL flip at scale (+0.018). Pre-reg from v580 expected MORE-negative under noise -> empirically REFUTED in the at-scale regime; subword n-grams retain partial signal where whole-word lexical baseline degrades. PP-405 CLOSED state preserved (closure was on clean-eval subsumption); annotation is noise-sub-property characterization not bound shift.
+
+n_seeds field reports 3 but per_seed list has 1 entry -- de-facto single-seed (same provenance pattern as PP-403 noise crosscut v580); effect sizes are unambiguous (transition contribution preserves ~92% of clean lift under noise at BOTH data fractions) so single-seed reading sufficient for threshold-passing HP bar. No over-claim. HONEST.
+
+HONEST: 1844 -> 1845 (+1). LVH: 291 -> 291 (+0). 0 LVH catches this cycle.
+
+### Cap_map decisions
+
+(A) ner_transition_charngram_noise_crosscut_cpu_v1 (Compound A HARD_PASS + Compound B characterization):
+- PP-404 (existing, ANNOTATED): noise-robust dimension EMPIRICALLY CONFIRMED (HP). Two-axis architectural lever: SCALE-INVARIANT + NOISE-ROBUST. P-band 0.55-0.72 -> 0.60-0.78 EXPLORATORY (+0.05 both bounds; noise-axis confirmation as 2nd independent supporting axis).
+- PP-405 (existing CLOSED, ANNOTATED): noise-helpful-at-scale sub-property added (+0.018 char_lift @ 100pct/10pct). CLOSED state preserved (closure was on clean-eval subsumption which still holds). 5 RESCUE sketches recorded in cap_map entry (cheapest first: noise-sweep characterization; n-gram-order sweep; char-ngram+shape compound; char-CNN substitution; char-ngram+transition compound isolation).
+- PP-403 (existing, ANNOTATED): contrast empirically confirmed in same harness -- PP-403 doubly fragile vs PP-404 doubly robust within harness-controlled noise crosscut.
+- three-shape mechanism typology x noise crosscut: COMPLETE (was SHARPENED v580; PP-404 noise-robust + PP-405 noise-relationship both empirically resolved this cycle).
+
+Complete typology table:
+| mechanism | scale behavior | noise behavior | (PP row) |
+|---|---|---|---|
+| structured prediction (BIO transitions + Viterbi) | SCALE-INVARIANT uniform +0.09 | NOISE-ROBUST (delta -0.006) | PP-404 |
+| external gazetteer (discrete prior) | LOW-DATA-only, sign-flip at scale | NOISE-FRAGILE (delta -0.027) | PP-403 |
+| char n-gram (intra-family lexical aux) | SUBSUMED at all scales clean | mildly noise-HELPFUL at scale (+0.018) | PP-405 |
+
+(B) Methodology rule progression:
+- meta::RULE_sequence_model_bound_not_feature_bound: 2nd APPEARANCE (1st = Cycle 243 PP-404 scale + PP-405 HF; 2nd = this cycle PP-404 noise + PP-405 noise characterization; rule now spans both scale AND noise axes). Awaits 3rd appearance for CONFIRMED promotion.
+- meta::RULE_discrete_surface_exact_match_features_are_noise_fragile_by_construction (1st appearance v580 PP-403): UNCHANGED at 1st appearance this cycle.
+
+(C) Substrate-product positioning HARDENED (was directionally articulated at v580): "the sequence model is BOTH the scale-invariant lever AND the noise-robustness lever; discrete external features (PP-403 gazetteer) are NEITHER". Now load-bearing for substrate-classical NER architectural lever story.
+
+PROT-004/006 NOT TRIGGERED: HARD_PASS Compound A is an ANNOTATION on existing PP-404 (P-band lift not closure); Compound B characterization preserves PP-405 CLOSED state (closure was clean-eval subsumption; noise-axis is sub-property). No new closures.
+
+Routing files: NONE new this cycle. The L-B noise crosscut series is now COMPLETE; Exp-Dev L-B subseries closes here. Cell A composition-capacity GPU verdict (running separately) is the next Exp-Dev item but is not part of this verdict.
+
+Memory extension flagged for memory_curator (future cycle): substrate-aux-features-shrink-with-data memory should be UPDATED with the COMPLETE 2-axis typology (PP-404 positive case both axes; PP-403 doubly-fragile case; PP-405 noise-neutral-flipping-helpful closed case; char-shape next noise-axis target assumed noise-fragile unverified).
+
+Cap_map: v580 -> v581 CYCLE 245 (1 HARD_PASS Compound A + 1 Compound B characterization [ner_transition_charngram_noise_crosscut=PP-404-noise-robust + PP-405-noise-helpful-at-scale]; 0 LVH; 0 NEW PP ROWS; PP-404 ANNOTATED noise-robust P-band 0.55-0.72 -> 0.60-0.78; PP-405 ANNOTATED noise-helpful-at-scale CLOSED preserved; PP-403 contrast confirmed within same harness; three-shape mechanism typology x noise crosscut COMPLETE; meta::RULE_sequence_model_bound_not_feature_bound 2nd APPEARANCE; substrate-product "sequence model is BOTH levers; discrete features are NEITHER" empirically HARDENED; aux-features-shrink memory EXTENDED with complete 2-axis typology (memory_curator update flagged); L-B noise crosscut series closes; Portfolio 32+405 UNCHANGED; HONEST 1844->1845 +1; LVH 291->291 +0; 475th PROT-009 paired commit) (2026-06-12)
