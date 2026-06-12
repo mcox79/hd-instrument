@@ -124,11 +124,13 @@ def _ensure_semantic_retriever(pstore: PartitionedStore):
 
 
 def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type A content-level: substrate-self-knowing semantic retrieval (Gap 4 v2)
-    with fallback to keyword AND-match.
+    """Type A content-level: substrate-self-knowing semantic retrieval (Gap 4 v2).
 
-    Per Cycle 47 sweep finding: bge top_k=5 -> A F1=0.356 (HARD-PASS vs keyword 0.283).
-    Replaces keyword as primary; keyword stays as env-gated fallback.
+    Per Cycle 47 sweep + Cycle 48 HYBRID test: pure semantic top_k=5 BEATS
+    hybrid top_k=20-filter-[:8] on substrate's atom distribution (gold size
+    varies 4-12; [:8] truncates valid recall). Keep simple.
+
+    Cycle 47 + post-cascade: A F1=0.413 (was 0.283 keyword baseline).
     """
     retr = _ensure_semantic_retriever(pstore)
     if retr is not None:
@@ -138,7 +140,7 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
             qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
             matched.add(qid)
         return matched
-    # Fallback (laptop env-gated)
+    # Encoder unavailable fallback (laptop env-gated)
     keywords = _extract_keywords(q["question"])
     return _atoms_matching_topic(pstore, keywords)
 
