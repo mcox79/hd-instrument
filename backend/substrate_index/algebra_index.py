@@ -221,47 +221,48 @@ class AlgebraIndex:
     def encode_atom(self, atom: Atom, alpha_name: float = 0.5) -> AlgebraVectors:
         """Encode one atom's algebra/signature/complexity into HRR-bundled vectors.
 
-        Per strategy_request_v586 (PP-408 RESCUE-2): algebra_hrr bundles
-        signature + complexity bindings ALONGSIDE the algebra dict.
+        TWO-VECTOR ARCHITECTURE per strategy_request_v588 PP-410:
+        - algebra_hrr (STRUCTURAL): pure algebra dict bundle. Collisions DESIRABLE
+          (identical algebra dicts -> identical vectors by design). Used for
+          atoms_with_shared_algebra similarity queries.
+        - composite_hrr (IDENTITY): bundle(algebra + signature + complexity)
+          + alpha_name * name_vec. Per-atom-unique; collision-resistant. Used
+          for compose/decode/cleanup atom-identity queries.
 
-        Per strategy_request_v587 (PP-409 production-ship): algebra_hrr also
-        adds alpha_name * name_vec for per-atom identity distinction with
-        sweet-spot alpha=0.5 (empirically demonstrated 100pct cleanup recovery
-        + 82pct structural clustering preserved per Exp-Dev verdict).
+        signature_hrr / complexity_hrr remain as separate vectors per their
+        original purpose.
 
-        Combined: algebra_hrr = normalize(
-            bundle(algebra_dict, signature_dict, complexity_dict)
-            + alpha_name * name_vec
-        ).
-
-        Result: cos=1.0 collisions broken via TWO mechanisms (structured-fields
-        + name-augment); L1 categorical clustering preserved 23x-423x ratios.
-        signature_hrr and complexity_hrr remain available as separate vectors
-        for explicit axis-specific retrieval.
+        alpha_name=0.5 is the empirically demonstrated sweet spot per
+        Exp-Dev PP-410 alpha sweep (100pct cleanup recovery + 82pct structural
+        clustering preserved at alpha=0.5).
         """
         alg = self._encode_dict_hrr(atom.algebra) if atom.algebra else None
         sig = self._encode_dict_hrr(atom.signature) if atom.signature else None
         cpx = self._encode_dict_hrr(atom.complexity) if atom.complexity else None
         name_v = self._name_vec(atom) if alpha_name > 0 else None
 
-        components = [v for v in (alg, sig, cpx) if v is not None]
-        if components:
-            structural = self._bundle(components)
+        # Identity-augmented composite_hrr per Exp-Dev PP-410 spec:
+        #     composite = normalize(algebra_hrr + alpha * name_vec)
+        # alpha=0.5 sweet spot: 100pct cleanup + 82pct structural retention.
+        # signature_hrr / complexity_hrr remain as separate vectors (their
+        # contribution to atom-identity is optional; per-atom uniqueness comes
+        # primarily from name_vec which is universally populated).
+        if alg is not None:
             if name_v is not None and alpha_name > 0:
-                aug = structural + alpha_name * name_v
+                aug = alg + alpha_name * name_v
                 aug_norm = np.linalg.norm(aug)
-                algebra_full = aug / aug_norm if aug_norm > 1e-12 else structural
+                composite = aug / aug_norm if aug_norm > 1e-12 else alg
             else:
-                algebra_full = structural
+                composite = alg
         else:
-            algebra_full = None
-        composite = algebra_full
+            composite = None
+
         return AlgebraVectors(
             atom_id=atom.qualified_id,
-            algebra_hrr=algebra_full,
+            algebra_hrr=alg,  # PLAIN algebra-dict-only (structural; collisions desirable)
             signature_hrr=sig,
             complexity_hrr=cpx,
-            composite_hrr=composite,
+            composite_hrr=composite,  # IDENTITY-augmented (collision-resistant)
         )
 
     def build(self, pstore: PartitionedStore) -> int:

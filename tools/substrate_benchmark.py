@@ -139,10 +139,14 @@ def _ensure_algebra_index(pstore: PartitionedStore):
         ai = AlgebraIndex(dim=1024)
         ai.build(pstore)
         ids, rows = [], []
+        # Use IDENTITY-augmented composite_hrr per two-vector architecture (PP-410):
+        # A axis benchmark is content-similarity (atom-identity), use composite_hrr
+        # for collision-resistant retrieval. algebra_hrr stays plain for structural.
         for aid, av in ai._atom_vectors.items():
-            if av.algebra_hrr is not None:
+            v = av.composite_hrr if av.composite_hrr is not None else av.algebra_hrr
+            if v is not None:
                 ids.append(aid)
-                rows.append(av.algebra_hrr)
+                rows.append(v)
         if rows:
             _ALGEBRA_INDEX = ai
             _ALGEBRA_IDS = ids

@@ -27,10 +27,13 @@ ai.build(ps)
 # Build the full algebra matrix
 ids = []
 vecs = []
+# Use IDENTITY-augmented composite_hrr per two-vector architecture (PP-410):
+# cleanup/compose/decode use composite_hrr (identity-augmented); structural
+# similarity uses algebra_hrr (plain). This test measures atom-identity recovery.
 for aid, av in ai._atom_vectors.items():
-    if av.algebra_hrr is not None:
+    if av.composite_hrr is not None:
         ids.append(aid)
-        vecs.append(av.algebra_hrr)
+        vecs.append(av.composite_hrr)
 M = np.stack(vecs)
 id_to_idx = {a: i for i, a in enumerate(ids)}
 print(f"algebra atoms: {len(ids)}")
