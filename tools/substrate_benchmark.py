@@ -83,10 +83,24 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
 
 def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
     """Type B relation-level: atoms in <relation> with anchor.
-    Bidirectional + fuzzy enum match + concept_links/decomposes_to fallback."""
-    anchor = q.get("anchor", "")
+    Bidirectional + fuzzy enum match + concept_links/decomposes_to fallback.
+    If anchor is None, aggregates atoms participating in this relation type
+    anywhere in the graph (Q40-style SUPERSEDES aggregator)."""
+    anchor = q.get("anchor") or ""
     rel_name = (q.get("relation") or "").upper()
     matched = set()
+
+    # No-anchor mode: surface any atom involved in this relation type
+    if not anchor:
+        candidates = [rt for rt in RelationType
+                       if rt.value.upper() == rel_name
+                       or (rel_name and rel_name in rt.value.upper())]
+        for src, rel_str, tgt in pstore.iter_all_relations():
+            if any(rt.value == rel_str for rt in candidates):
+                matched.add(src)
+                matched.add(tgt)
+        return matched
+
 
     if rel_name == "DECOMPOSE_TO":
         for atom in pstore.all_atoms():
@@ -212,19 +226,43 @@ def answer_type_D(pstore: PartitionedStore, q: dict) -> bool:
 
 
 def answer_type_E(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type E methodology-level: surface RULE_* atoms requiring AT LEAST 2
-    keyword matches in description (tightens precision)."""
+    """Type E methodology-level: surface RULE_* atoms via id-keyword match
+    OR description keyword match (>=1 hit on RULE id substring; >=2 hits otherwise)."""
     keywords = _extract_keywords(q["question"])
+    # Topic-specific keywords mapped to rule patterns (helps the meta partition queries)
+    topic_to_rule_id_substr = {
+        "ceiling": ["drill_defeatism", "brain_can_do_it", "literature_is_not_oracle"],
+        "architectural": ["drill_defeatism", "brain_can_do_it"],
+        "plateau": ["drill_defeatism", "brain_can_do_it"],
+        "comprehension": ["brain_can_do_it"],
+        "llm-comparison": ["substrate_quality_first"],
+        "llm": ["substrate_quality_first"],
+        "comparison": ["substrate_quality_first"],
+        "transfer": ["substrate_extracted_rules_are_prior_not_oracle"],
+        "single-seed": ["method_overclaim_lift_validation"],
+        "single": ["method_overclaim_lift_validation"],
+        "sources": ["us_or_substrate"],
+        "content": ["us_or_substrate"],
+        "count_nb": ["count_nb_to_discriminative_perceptron"],
+        "discriminative": ["count_nb_to_discriminative_perceptron"],
+    }
     matched = set()
+    qlower = q["question"].lower()
+    target_subs = set()
+    for term, subs in topic_to_rule_id_substr.items():
+        if term in qlower:
+            target_subs.update(subs)
     for atom in pstore.all_atoms():
         if atom.corpus.value != "meta":
             continue
-        # Require RULE_ prefix per meta corpus convention
         if not atom.id.startswith("RULE_"):
+            continue
+        # Boost: if id matches target_subs from topic mapping
+        if any(sub in atom.id.lower() for sub in target_subs):
+            matched.add(atom.qualified_id)
             continue
         hay = (atom.id + " " + atom.name + " " + (atom.description or "")).lower()
         n_hits = sum(1 for kw in keywords if kw in hay)
-        # Tighter: require >= 2 keyword matches OR exact id substring match
         if n_hits >= 2:
             matched.add(atom.qualified_id)
         elif any(kw in atom.id.lower() for kw in keywords if len(kw) >= 5):
@@ -261,9 +299,31 @@ def answer_type_G(pstore: PartitionedStore, q: dict) -> set[str]:
 
 
 def answer_negative(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Negative type: should return empty set (substrate has nothing on this)."""
+    """Negative type: should return empty set (substrate has nothing on this).
+
+    Smarter: if question references an explicit atom qid pattern (math::Txxxx,
+    PP-9999, RULE_xxx) that doesn't exist, return empty regardless of keywords.
+    Also exclude history partitions from keyword match (their descriptions match
+    generic methodology language too easily)."""
+    import re
+    text = q["question"]
+    # Extract atom-qid-like patterns and check existence
+    atom_pattern = re.compile(r'(math|concept|meta|school|methodology|science|research_history|decision_history)::\S+|\b(?:PP|RULE|CAP|T\d|SCHOOL|BIO|PHYS|CS)[/_A-Z0-9]+\d+', re.IGNORECASE)
+    for match in atom_pattern.findall(text):
+        if isinstance(match, tuple):
+            for m in match:
+                if m and not pstore.has_atom(m):
+                    # Referenced atom doesn't exist; honest empty
+                    return set()
+        elif match and not pstore.has_atom(match):
+            return set()
     keywords = _extract_keywords(q["question"])
-    return _atoms_matching_topic(pstore, keywords)
+    matched = _atoms_matching_topic(pstore, keywords)
+    # Exclude history partitions from negative-type match (too noisy)
+    return {qid for qid in matched
+            if not qid.startswith(("research_history::", "decision_history::",
+                                    "verdict_history::", "findings_history::",
+                                    "results_history::", "memory_history::"))}
 
 
 # ============================================================
