@@ -93,8 +93,10 @@ def run() -> Dict:
             f1s.append(_f1(ret, gold))
         per_k[K] = round(sum(f1s) / len(f1s), 4) if f1s else 0.0
     best_k = max(per_k, key=per_k.get); best = per_k[best_k]
-    print("  Gap-4 v2 semantic A-content: per-k F1 %s | best-k=%d F1=%.4f vs keyword 0.185" % (per_k, best_k, best), flush=True)
-    return {"f1": best, "best_k": best_k, "best_f1": best, "per_k": per_k, "keyword_baseline": 0.185, "n_A": len(A)}
+    n_total = len(atoms); n_alg = sum(1 for a in atoms if getattr(a, "algebra", None))  # corpus-size stamp for clean breadth-ingest before/after deltas
+    print("  Gap-4 v2 semantic A-content: per-k F1 %s | best-k=%d F1=%.4f vs keyword 0.185 | corpus n_total=%d n_algebra=%d" % (per_k, best_k, best, n_total, n_alg), flush=True)
+    return {"f1": best, "best_k": best_k, "best_f1": best, "per_k": per_k, "keyword_baseline": 0.185, "n_A": len(A),
+            "n_total_atoms": n_total, "n_algebra_atoms": n_alg}
 
 
 def verdict(r) -> Tuple[str, str]:
