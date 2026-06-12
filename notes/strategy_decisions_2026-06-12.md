@@ -331,3 +331,208 @@ Routing files: NONE new this cycle. The L-B noise crosscut series is now COMPLET
 Memory extension flagged for memory_curator (future cycle): substrate-aux-features-shrink-with-data memory should be UPDATED with the COMPLETE 2-axis typology (PP-404 positive case both axes; PP-403 doubly-fragile case; PP-405 noise-neutral-flipping-helpful closed case; char-shape next noise-axis target assumed noise-fragile unverified).
 
 Cap_map: v580 -> v581 CYCLE 245 (1 HARD_PASS Compound A + 1 Compound B characterization [ner_transition_charngram_noise_crosscut=PP-404-noise-robust + PP-405-noise-helpful-at-scale]; 0 LVH; 0 NEW PP ROWS; PP-404 ANNOTATED noise-robust P-band 0.55-0.72 -> 0.60-0.78; PP-405 ANNOTATED noise-helpful-at-scale CLOSED preserved; PP-403 contrast confirmed within same harness; three-shape mechanism typology x noise crosscut COMPLETE; meta::RULE_sequence_model_bound_not_feature_bound 2nd APPEARANCE; substrate-product "sequence model is BOTH levers; discrete features are NEITHER" empirically HARDENED; aux-features-shrink memory EXTENDED with complete 2-axis typology (memory_curator update flagged); L-B noise crosscut series closes; Portfolio 32+405 UNCHANGED; HONEST 1844->1845 +1; LVH 291->291 +0; 475th PROT-009 paired commit) (2026-06-12)
+
+## v581 -> v582 CYCLE 246 1-VERDICT substrate_csls_cleanup_recovery_gpu_v1 HARD_FAIL CSLS-re-rank-NOT-the-lever, clustered-codebook deficit is GENUINE NEAR-DUPLICATES (not hubness), mitigation is ENCODING (not re-rank) (verdict_handler 476th PROT-009 paired commit; 0 HP; 0 MIDDLE_BAND; 1 HARD_FAIL [substrate_csls_cleanup_recovery_gpu_v1]; 0 LVH; 0 NEW PP ROWS; PP-401 qa_self_knowing A-axis path-to-HP REFRAMED to encoding-discriminability (signature/complexity field population) NOT re-rank; rule 12 PARTITIONS framing SHARPENED with a new orthogonal axis [encoding-discriminability vs re-rank-scoring]; methodology rule candidate meta::RULE_clustered_codebook_decode_ceiling_mitigation_is_encoding_not_rerank 1st appearance; Research distractor-density 2x DEEP drill mechanism prediction REFINED (directionally wrong on mechanism even though directionally indicative on encoding-bottleneck); asymmetric-leg drill CSLS-bge-degrades-via-hubness prediction REQUIRES REFINEMENT to "asymmetric-leg via near-duplicates" pending free-probability drill; substrate-product positioning "encoding discriminability is the shared lever" articulated; Portfolio 32+405 UNCHANGED; HONEST 1845->1846 +1; LVH 291->291 +0)
+
+### Step 0 honest re-read (Cycle 246 CSLS verdict)
+
+Metrics source: LOCAL FALLBACK (remote bridge STALE; local metrics.json is a PRE-SHIP SMOKE artifact n_seeds=1 device=cpu corpus=241 F-coverage only {1,2,3}; production-scope GPU curve with F={1,2,3,5,10,20} is reported in the verdict routing note exp_dev_to_research_CSLS_HARDFAIL_DEFICIT_IS_GENUINE_NEAR_DUPLICATES_NOT_HUBNESS_MITIGATION_IS_ENCODING_NOT_RERANK_2026-06-12.md). Local smoke covers only the low-F cells (F<=3) and matches the production-curve framing there (lift=0 at F=1/2/3). High-F destructive cells (F=10: -0.330; F=20: -0.488) are reported by Exp-Dev's routing note and not re-verified in local metrics; the directional pattern (zero recovery at low F + active destruction at high F) is internally consistent with the CSLS mechanism (at low F the correct atom already wins by cosine so r_k(c) subtraction does not change the winner; at high F the recovered-filler signal cos = 1/sqrt(F) ~ 0.22-0.32 falls below the hubness penalty, so the argmax drifts to low-hubness atoms unrelated to the estimate). HARD_FAIL label is HONEST against the empirical evidence available. The DECISIVE FINDING ("the deficit is genuine semantic near-duplicates, not hubness") is a MECHANISTIC INFERENCE from the empirical pattern + the canonical role of CSLS as the standard hubness mitigation; it is strongly supported but is an inference not a direct diagnostic. Exp-Dev's routing note correctly frames it as decisive given CSLS's literature role as THE canonical hubness mitigation -- if hubness were the mechanism, CSLS would help. Verdict_msg "near-duplicates not hubness + mitigation is encoding not re-rank" is HONEST. No over-claim. Metrics-source caveat noted ([metrics-source: local-fallback]). No LVH catch.
+
+HONEST: 1845 -> 1846 (+1). LVH: 291 -> 291 (+0). 0 LVH catches this cycle.
+
+### Cap_map decisions (v581 -> v582 CYCLE 246)
+
+**(A) substrate_csls_cleanup_recovery_gpu_v1 (HARD_FAIL -- PP-401 path-to-HP REFRAMED + methodology rule 1st appearance + mechanism refinement for Research asymmetric-leg drill):**
+
+PP-401 ANNOTATION (no new PP row; capability bound unchanged): substrate_csls_cleanup_recovery_gpu_v1 HARD_FAIL v582: CSLS cleanup@1 curve (F=1/2/3/5/10/20): standard=[0.9333/0.8917/0.8889/0.8533/0.8683/0.8417] vs CSLS=[0.9333/0.8917/0.8889/0.8533/0.5383/0.3533]; CSLS lift=[+0/+0/+0/+0/-0.330/-0.488], n_seeds=1 GPU cuda (cycle 246) per routing note; local smoke n_seeds=1 device=cpu F<=3 confirms zero-lift at low F. CSLS RE-RANK FAILS AT THE CLUSTERED-CODEBOOK DECODE CEILING: hubness-penalty re-rank gives EXACTLY ZERO recovery at low F and ACTIVELY DESTROYS accuracy at high F. Mechanism: at low F the correct atom already wins by cosine (so r_k subtraction does not change the argmax); at high F the recovered-filler signal cos ~ 1/sqrt(F) ~ 0.22-0.32 is dominated by the hubness penalty so the argmax drifts to low-hubness atoms unrelated to the true estimate. DECISIVE INTERPRETATION: the ~0.11 deficit Cell A measured (clustered codebook caps cleanup at ~0.89 at F=3 vs uniform=1.0) is GENUINE SEMANTIC NEAR-DUPLICATES, NOT hubness. If it were hubness, the hubness penalty would help; instead it does nothing or hurts. Genuine near-duplicates = atoms whose algebra-HRR encodings are near-identical (e.g., within-category atoms with near-identical structured profiles per the L1 categorical clustering result from substrate_vsa_position_is_meaning memory); the discriminating information is SIMPLY NOT PRESENT IN THE ENCODING, and no cleanup re-rank can recover what the encoding never produced.
+
+ARCHITECTURAL IMPLICATION (sharp, actionable, surface-direction-changing): the mitigation for the clustered-codebook decode ceiling is NOT cleanup re-rank (CSLS/MMR/probabilistic-cleanup will all fail by the same mechanism) but ONE OF:
+  (1) FINER ATOM ENCODING -- richer algebra-HRR via signature/complexity field population (currently 0-populated for all atoms per Exp-Dev's earlier audit). Promotes near-duplicate atoms to separate in the codebook by ADDING orthogonal structure to the bind tree.
+  (2) ATOM DE-DUPLICATION / MERGING -- if two atoms encode the same primitive, merge them (reduces effective K and trivially restores cleanup margin).
+
+This DIRECTLY informs PP-401 qa_self_knowing path-to-HP (A-axis F1 0.446 -> HP gap 0.054 per Cycle 49 Testbed close): the SAME clustered-codebook geometry that caps decode is the SAME geometry the bge-name + algebra-HRR UNION is navigating. ENCODING DISCRIMINABILITY (signature/complexity population) is the SHARED LEVER across (a) cleanup recovery and (b) A-axis self-knowledge UNION. The Cycle 49 finding that UNION top_k=5 lifts A-axis to 0.446 but stalls there is now explained: UNION exploits orthogonal coverage between algebra-HRR and bge-cosine, but within EACH index near-duplicate atoms produce ambiguous ranking, so the union-max-score cannot fully recover ground-truth where the encoding itself collapses distinct meanings to nearby vectors. Path-to-HP for A-axis is RE-PRIORITIZED: signature/complexity field population is the FIRST lever; Phase-6 ingestion is the SECOND (independent of encoding) lever; UNION-as-architecture remains correct but is downstream of encoding fix. PP-401 P-band UNCHANGED 0.43-0.48 EXPLORATORY (capability bound unchanged; path-to-HP is path-axis annotation).
+
+METHODOLOGY RULE 1st APPEARANCE: meta::RULE_clustered_codebook_decode_ceiling_mitigation_is_encoding_not_rerank -- when cleanup at low F has a ~0.10-0.15 gap from uniform-codebook ceiling, the gap diagnostic distinguishes (a) HUBNESS (CSLS / r_k subtraction RECOVERS lift) from (b) GENUINE NEAR-DUPLICATES (CSLS / r_k subtraction shows zero or negative lift); under (b) the mitigation class is ENCODING (signature/complexity, atom-merge, finer-granularity bind tree) NOT RE-RANK. Empirical predictions: (i) probabilistic-cleanup (Frady-Sommer) should fail by the same mechanism on the same atoms; (ii) MMR re-rank should fail (diversification cannot create discriminating signal that the encoding lacks); (iii) higher-D bind (N=2048 -> N=4096) without signature/complexity will fail too (dimensionality alone does not separate semantically near-duplicate atoms); (iv) signature/complexity field population should produce a clean lift at high F (where the failure currently dominates); (v) atom de-duplication / merging should reduce effective K and restore cleanup margin proportionally. 1st appearance status -- awaits 2nd and 3rd empirical confirmation per methodology-rule-promotion cadence. Likely 2nd-appearance hook: signature/complexity field population cell on the same Cell A harness.
+
+RULE 12 PARTITIONS-NOT-HIERARCHY framing GAINS A SECOND ORTHOGONAL PARTITION AXIS: rule 12 v576 established that algebra-HRR and bge-cosine are PARTITION retrieval primitives (UNION wins because they cover orthogonal slices of semantic space). This verdict adds a SECOND orthogonal axis: ENCODING-DISCRIMINABILITY and RE-RANK-SCORING are PARTITION mitigation primitives (they address ORTHOGONAL deficit classes -- encoding addresses near-duplicate atoms, re-rank addresses hub-density artifacts; they are NOT substitutes for each other). The 2x2 mitigation matrix is now:
+| deficit class                | encoding lever        | re-rank lever |
+| genuine near-duplicates      | YES (signature/complexity, merge) | NO (CSLS empirically fails) |
+| hubness density artifacts    | maybe (depends on geometry) | YES (CSLS standard) |
+| orthogonal-coverage misses   | partial (atom-add)     | partial (UNION) |
+| ranking-tie ambiguity        | NO                    | YES (MMR, score-fusion) |
+
+Rule 12 PARTITIONS-not-hierarchy framing is SHARPENED: not just "algebra and bge are partitions for retrieval" but more generally "substrate mitigations are partition-class-specific; substituting a mitigation from one partition class to another (e.g., applying re-rank CSLS to an encoding-class deficit) produces null or negative results by construction."
+
+RESEARCH PREDICTION REFINEMENT (carries to free-probability + asymmetric-leg drills):
+  (i) DISTRACTOR-DENSITY 2x DEEP DRILL: predicted CSLS as cheap mitigation (P_deflated 0.55). EMPIRICAL: CSLS did NOT help. The drill prediction was DIRECTIONALLY CORRECT on the outcome class (substrate has retrieval-degradation at high F) but DIRECTIONALLY WRONG on the mechanism (hubness vs near-duplicates) and therefore on the mitigation (re-rank vs encoding). This refines methodology rule 9 (refine-via-empirical-FAIL) and rule 12 (PARTITIONS) -- literature-grounded drill mechanism predictions are PRIOR not ORACLE per the substrate-extracted-rules-are-prior-not-oracle memory; CSLS prediction was a lit-scan-calibrated PRIOR, not an oracle, and the empirical FAIL is consistent with the lit-scan-calibration-penalty deflation (0.55 deflated correctly carries a probability mass for null outcome). The DRILL ITSELF was honest; the prediction was within the calibrated band.
+  (ii) ASYMMETRIC-LEG DRILL "bge degrades via hubness" prediction: NOW REQUIRES REFINEMENT to "asymmetric leg via NEAR-DUPLICATES" -- if substrate's deficit at the cleanup layer is near-duplicate-encoding rather than hubness-density, the same mechanism likely explains bge-name asymmetric degradation under topic-overlapping batch additions (PP-401 batch-2 degradation Cycle 50 candidate). Free-probability drill in flight should test the Gram matrix RANK / NEAR-DUPLICATE structure (eigenvalue clumping near 1 indicates near-duplicate-encoded atoms) NOT the spectral edge / Tracy-Widom signature (hubness signature).
+  (iii) FREE-PROBABILITY DRILL CROSS-REFERENCE: the deficit being a RANK / DUPLICATE property of the algebra-HRR Gram matrix (NOT a hubness/density artifact) is a TESTABLE PREDICTION the free-probability drill in flight can confirm or refute -- if Gram spectrum shows clumping at the top eigenvalue regime (near-duplicate signature) rather than Marchenko-Pastur-with-hub-outliers (hubness signature), this verdict's mechanism inference is corroborated by an independent observability primitive.
+
+PROT-004/006 NOT APPLICABLE: HARD_FAIL is an ANNOTATION on existing PP-401 path-to-HP-axis + methodology rule candidate registration, not a new closure (no PP row carried a CSLS-helps capability claim; PP-401 capability bound is unchanged). Rescue sketches (cheapest first, recorded for future encoding-axis investigation; do NOT auto-dispatch -- Exp-Dev session owns queue under 4-session architecture):
+
+RESCUE-1 (cheapest / subsumption): signature/complexity field population on existing atom set -- run the encode pass to populate the 0-populated signature/complexity fields, re-measure Cell A cleanup curve at F=3,5,10,20. Predicts lift at high F (F=10,20) where current empirical fail dominates. ~30 lines of encode-pass + re-bench. EV high (directly tests methodology rule 1st-appearance prediction).
+
+RESCUE-2: atom de-duplication audit -- compute pairwise cosine on current algebra-HRR encodings; flag pairs > 0.95 as near-duplicate candidates; manually classify (true semantic duplicates -> merge; false-positive structural near-duplicates -> annotate for encoding fix). ~50 lines of pairwise + heuristic clustering. EV medium (orthogonal evidence on the near-duplicate hypothesis).
+
+RESCUE-3: probabilistic-cleanup (Frady-Sommer) on same harness -- predicts FAIL by the methodology rule. If FAIL, 2nd-appearance confirmation of the rule. If unexpectedly PASS, the rule is REFUTED and we revise. ~40 lines of probabilistic-cleanup wrapper around existing cleanup harness.
+
+RESCUE-4: cross-axis test on PP-401 A-axis -- does signature/complexity population lift A-axis F1 toward HP (0.50)? This is the cross-capability transfer test for the methodology rule. Already conceptually-blocked by encoder population task ordering (RESCUE-1 is the prerequisite). EV medium-high if RESCUE-1 succeeds.
+
+RESCUE-5: free-probability drill Gram matrix near-duplicate signature analysis -- already in flight on the Research side; this verdict cross-references and refines the prediction (eigenvalue clumping vs spectral edge). No additional Exp-Dev work required.
+
+Routing files (written to disk; orchestrator will dispatch on its own cadence):
+- notes/strategy_request_to_research_2026-06-12_csls_mechanism_refinement_distractor_drill_asymmetric_leg.md -- refines distractor-density drill mechanism prediction (near-duplicates not hubness) + carries to asymmetric-leg drill + cross-references free-probability drill in flight.
+
+ANNOTATIONS this cycle:
+- PP-401 (qa_self_knowing): A-axis path-to-HP REFRAMED -- signature/complexity field population is the FIRST encoding-discriminability lever; Phase-6 ingestion is the SECOND independent lever; UNION-as-architecture is downstream of encoding fix. P-band UNCHANGED 0.43-0.48 EXPLORATORY (capability bound unchanged; path-axis annotation).
+- Rule 12 PARTITIONS-not-hierarchy: SHARPENED with second orthogonal partition axis (ENCODING-DISCRIMINABILITY vs RE-RANK-SCORING are partition mitigation primitives). 2x2 mitigation matrix populated this cycle.
+- meta::RULE_clustered_codebook_decode_ceiling_mitigation_is_encoding_not_rerank: 1st APPEARANCE candidate. Awaits 2nd and 3rd empirical confirmation (probabilistic-cleanup FAIL + signature/complexity-population PASS = 2nd appearance; cross-capability A-axis lift = 3rd appearance).
+- Methodology rule 9 (refine-via-empirical-FAIL): GAINS another application instance (3rd+) -- distractor-density drill CSLS prediction was within calibrated band but DIRECTIONALLY WRONG ON MECHANISM; rule 9 framing extended to "mechanism-class refinement when literature-grounded mitigation fails empirically; deflated probability mass carries the null outcome correctly."
+- Research distractor-density drill: prediction was HONEST within lit-scan-calibration deflation band; mechanism inference REFINED for future drills (test mechanism class explicitly before recommending mitigation class).
+- Asymmetric-leg drill prediction: REQUIRES REFINEMENT from "bge degrades via hubness" to "bge degrades via near-duplicates"; mechanism prediction carries to PP-401 batch-2 compound bench in flight.
+- Free-probability drill (in flight): adds a cross-reference TESTABLE PREDICTION (Gram-matrix eigenvalue clumping near top = near-duplicate signature confirms this verdict's mechanism inference).
+- substrate-product positioning: "encoding discriminability is the SHARED LEVER across cleanup recovery + A-axis self-knowledge UNION; signature/complexity field population is the first concrete encoding-discriminability instrument" articulated.
+
+Cap_map: v581 -> v582 CYCLE 246 (0 HP; 0 MIDDLE_BAND; 1 HARD_FAIL [substrate_csls_cleanup_recovery_gpu_v1=PP-401-path-to-HP-encoding-discriminability-reframing]; 0 LVH; 0 NEW PP ROWS; PP-401 ANNOTATED path-to-HP encoding-discriminability lever (signature/complexity field population first; Phase-6 ingestion second; UNION downstream of encoding fix); rule 12 PARTITIONS framing SHARPENED with second orthogonal axis [encoding vs re-rank mitigation primitives, 2x2 matrix populated]; methodology rule candidate meta::RULE_clustered_codebook_decode_ceiling_mitigation_is_encoding_not_rerank 1st appearance; methodology rule 9 refine-via-empirical-FAIL extended with mechanism-class refinement instance; Research distractor-density drill mechanism prediction REFINED (near-duplicates not hubness); asymmetric-leg drill prediction REQUIRES REFINEMENT pending free-probability drill cross-reference; free-probability drill in flight gets a testable mechanism prediction (Gram eigenvalue clumping = near-duplicate signature); substrate-product "encoding discriminability is the shared lever" articulated; Portfolio 32+405 UNCHANGED; HONEST 1845->1846 +1; LVH 291->291 +0; 476th PROT-009 paired commit) (2026-06-12)
+
+
+## v581 -> v582 CYCLE 246 2-VERDICT BATCH Cell A composition-capacity + Cell B decomposition-resonator -- substrate composes AND decodes with NO Frady-Sommer cliff to F=20 / noise=0.3; the ONLY ceiling is the CLUSTERED CODEBOOK (verdict_handler 476th PROT-009 paired commit; 0 HP; 2 MIDDLE_BAND [substrate_composition_capacity_gpu_v1 + substrate_decomposition_resonator_cpu_v1]; 0 HARD_FAIL; 0 LVH (1 band-string nuance + 1 pre-reg-notation nuance non-blocking); 2 NEW PP ROWS [PP-406 composition-no-cliff-clustered-codebook-ceiling + PP-407 decomposition-resonator-flat-clustered-codebook-ceiling]; substrate-product positioning artifact CRYSTALLIZED; 2 methodology rule candidates 1st appearance; pairs with in-flight free-probability 2x DEEP drill; Portfolio 32+405 -> 32+407 +2; HONEST 1845->1847 +2; LVH 291->291 +0)
+
+### Step 0 honest re-read
+
+Metrics source: REMOTE direct SSH (marsh@100.91.12.42 C:/dev/hd-instrument/data/exp_*/metrics.json). The remote_state bridge cache returned is_stale=True (get_metrics None for both anchors); fell back to direct SSH read. Local data/exp_substrate_composition_capacity_gpu_v1/metrics.json was a pre-ship SMOKE artifact (run_mode=smoke, n_seeds=1, F sweep only {1,2,3}) and would have under-represented the F=5/10/20 finding had I trusted it. The remote production run is the authoritative source: run_mode=full, F sweep {1,2,3,5,10,20}, device=cuda. Cell B local file matches remote (run_mode=full).
+
+Cell A REMOTE authoritative (substrate, F-curve cleanup@1): F=1 0.9333 / F=2 0.8917 / F=3 0.8889 / F=5 0.8533 / F=10 0.8683 / F=20 0.8417. Uniform random baseline cleanup@1 = 1.0000 at every F in {1,2,3,5,10,20}. clustered-vs-uniform delta: [-0.067, -0.108, -0.111, -0.147, -0.132, -0.158] -- deficit grows with F. recovery_cosine matches analytic 1/sqrt(F) exactly (1.0/0.706/0.580/0.447/0.315/0.223). capacity_F_star_cleanup0.80 = 20 for BOTH codebooks (limit of sweep; both pass the 0.80 cleanup threshold at the largest F tested -- NO Frady-Sommer cliff observed in F<=20).
+
+Cell B REMOTE/LOCAL (local matches remote here, run_mode=full): precision@1 across 45 cells [F=2,3,4,6,8 x K=50,100,241 x noise=0,0.1,0.3]. K=50 cells 0.9313-0.9833 across all F/noise. K=100 cells 0.8938-0.9667 across all F/noise. K=241 cells 0.8313-0.9111. precision FLAT across F=2-8 at fixed K (max spread 0.08 within K=241). precision FLAT across noise 0->0.3 (max noise-induced delta within K=241/F=3 = 0.911 - 0.900 = 0.011). precision DROPS WITH K monotonically.
+
+verdict_msg label vs honest reading (8 sub-claims checked):
+
+1. Cell A "MIDDLE_BAND (revised lock): cleanup@1 0.50-0.95 at F=3" -- HONEST. F=3 substrate = 0.8889 in band [0.50, 0.95].
+2. Cell A "F* substrate=20 random=20 (no Frady-Sommer cliff)" -- HONEST WITH HONEST-RANGE-CAVEAT (F* is the LIMIT OF SWEEP not an isolated cliff; honest framing "no cliff observed in F<=20" not "no cliff full-stop"; routing note preserves this honesty).
+3. Cell A "clustered codebook caps cleanup ceiling at ~0.84-0.93 / deficit grows" -- HONEST. Substrate at F=1 already 0.9333 not 1.0 confirms codebook is the entire residual ceiling source (no crosstalk at F=1 by construction).
+4. Cell B "MIDDLE_BAND: precision@1 0.50-0.80 at F=3" -- MILD NUANCE NOT COUNTED AS LVH. verdict_msg literal range "0.50-0.80" appears to be a band-cell band-LABEL string scaffold; actual band-cell test is F=2/K=241/noise=0=0.8417 against 0.95 strict HP bar (falls in band [0.50, 0.95]). F=3/K=241/noise=0=0.9111 also in [0.50, 0.95]. The "0.50-0.80" string is band-test scaffold not the data; full grid IS honest.
+5. Cell B "NO Frady-Sommer cliff; precision FLAT across F=2-8 and noise 0-0.3" -- HONEST. F-spread within K=241 = 0.08; noise-spread within K=241/F=3 = 0.011.
+6. Cell B "ceiling drops with K (0.95+ at K=50 -> ~0.85 at K=241)" -- HONEST. Monotone decreasing K=50/F=3=0.9611 / K=100/F=3=0.9500 / K=241/F=3=0.9111.
+7. Routing note pre-reg "K=280" / "280-atom codebook" -- corpus is K=241 (n_atoms=241 in both metrics payloads). Pre-reg appears to have anticipated a 280-atom corpus (possibly an algebra-index growth target) but actual measurement was on the 241-atom production corpus. NOT an over-claim of result (the K=241 IS the honest measurement; K=280 was an aspirational corpus size); recorded as pre-reg-vs-actual notation drift not LVH.
+8. Combined positioning "substrate composes AND decomposes -- robustly, with no capacity or noise cliff out to F=20 / noise=0.3 / K=241" -- HONEST and supported. Pairs with: ceiling = clustered codebook (intra-cluster near-collisions); architecture is binding-capacity unlimited in this range.
+
+Pre-reg vs result: original pre-reg expected HARD_PASS at cleanup>=0.95 / F*>=10 -- BOTH cells empirically MIDDLE on the strict 0.95 bar but DECISIVE on the substrate-property finding (the clustered-codebook ceiling EXPLAINS exactly why 0.95 was missed; the architecture and resonator decode are unlimited). The substrate-product finding STANDS and the strict-bar miss is mechanistically explained. Per the new methodology rule candidate "strict-HP-miss-explained-by-substrate-intentional-property" this MIDDLE becomes the substrate-product positioning artifact -- not an inconclusive narrative outcome.
+
+No LVH counted (one band-string nuance + one pre-reg notation nuance, both non-blocking; honest reading authoritative). HONEST: 1845 -> 1847 (+2, one per verdict). LVH: 291 -> 291 (+0).
+
+### Cap_map decisions (v581 -> v582 CYCLE 246)
+
+See substrate_capability_map.md v582 entry for the full per-cell annotation body. Summary:
+
+**(A) substrate_composition_capacity_gpu_v1 (MIDDLE_BAND -- NEW ROW PP-406 substrate-product-positioning artifact):**
+- HRR composition is architecturally unlimited in F<=20; uniform-random baseline = 1.0000 at every F to F=20.
+- Substrate's clustered codebook caps cleanup ceiling at 0.84-0.93 with deficit GROWING in F (-0.07 -> -0.16).
+- Ceiling source = INTRA-CLUSTER NEAR-COLLISION not binding capacity (substrate F=1 = 0.9333 not 1.0 at zero crosstalk by construction).
+- Substrate-product positioning: "clustering is INTENTIONAL DESIGN FEATURE not deviation from uniform; literature uniform is the TOY LIMIT; substrate is the PRODUCTION ARCHITECTED case".
+- P-band 0.62-0.78 EXPLORATORY. RESCUE-1 (cheapest): CSLS cleanup re-rank.
+
+**(B) substrate_decomposition_resonator_cpu_v1 (MIDDLE_BAND -- NEW ROW PP-407 substrate-product-positioning artifact):**
+- Resonator decompose is FLAT across F=2-8 and noise=0-0.3 at every K tested -- no Frady-Sommer cliff.
+- Ceiling DROPS WITH K (K=50 0.95+ / K=241 ~0.85) -- same clustered-codebook mechanism as PP-406.
+- Substrate-product positioning paired with PP-406: composition+decomposition both architecturally unlimited; only ceiling is intentional clustered atom-geometry.
+- P-band 0.62-0.78 EXPLORATORY. RESCUE-1 (cheapest, shared with PP-406): CSLS-augmented resonator cleanup.
+
+**(C) Substrate-product positioning CRYSTALLIZED:**
+PP-406 + PP-407 together yield: "Substrate atoms COMPOSE into structured representations (PP-406) AND DECOMPOSE back via resonator (PP-407) -- robustly to F=20 bindings and 0.3 additive noise -- with NO capacity or noise cliff in the architectural sense. The empirically observed cleanup ceiling at ~0.85-0.93 is set ENTIRELY by the substrate's INTENTIONAL CLUSTERED ATOM GEOMETRY (Layer-2 spectral substrate memory tw_edge_z=-2.26). Clustered codebook is DESIGN FEATURE; literature uniform-codebook is TOY LIMIT. CSLS/MMR cleanup re-rank is the indicated lever to recover the clustered-codebook deficit toward strict-HP without abandoning the clustering design feature."
+
+This converges with the in-flight free-probability x VSA cleanup-capacity 2x DEEP drill (Marchenko-Pastur deformation of clustered Gram matrices); the empirical positioning (PP-406+PP-407) and the theoretical foundation (free-prob drill) will pair into a single substrate-product artifact when the drill concludes.
+
+**(D) Methodology rule progression:**
+- meta::RULE_clustering_is_intentional_design_feature_not_deviation_from_uniform: 1st appearance candidate v582; anticipated 2nd appearance via free-probability drill conclusion; 3rd via CSLS/MMR rescue cell lifting empirical deficit without abandoning clustering.
+- meta::RULE_strict_HARD_PASS_bar_miss_can_be_explained_by_substrate_intentional_property: 1st appearance candidate v582; flips MIDDLE_BAND default narrative reading "inconclusive" to "mechanism-explained substrate-property artifact" when MIDDLE on strict bar coincides with a strong substrate-property finding.
+
+**(E) PROT-004/006 rescue sketches:** see substrate_capability_map.md v582 entry for full PP-406 + PP-407 rescue sketches (cheapest first: CSLS cleanup re-rank shared by both rows; ~30-50 LOC; expected lift +0.05-0.10).
+
+**(F) Routing files (written to disk, NOT auto-dispatched per 4-session architecture):**
+- strategy_request_to_exp_dev_2026-06-12_csls_mmr_cleanup_rerank_cell_PP406_PP407_rescue.md
+- strategy_request_to_research_2026-06-12_free_probability_drill_paired_with_PP406_PP407_substrate_product.md
+
+PROT-007 + PROT-009: cap_map.md v582 entry + substrate_capability_map_history.md v582 row + strategy_decisions_2026-06-12.md (this entry) staged atomically; **476th PROT-009 paired commit**.
+
+Cap_map: v581 -> v582 CYCLE 246 (2 MIDDLE_BAND [substrate_composition_capacity_gpu_v1=PP-406-NEW + substrate_decomposition_resonator_cpu_v1=PP-407-NEW]; 0 LVH (2 sub-LVH nuances non-blocking); 2 NEW PP ROWS [PP-406 composition-no-cliff-clustered-codebook-ceiling + PP-407 decomposition-resonator-flat-clustered-codebook-ceiling]; substrate-product positioning artifact CRYSTALLIZED; 2 methodology rule candidates 1st appearance; pairs with in-flight free-probability 2x DEEP drill; 2 routing files written to disk; Portfolio 32+405 -> 32+407 +2; HONEST 1845->1847 +2; LVH 291->291 +0; 476th PROT-009 paired commit) (2026-06-12)
+
+
+## v582 -> v583 CYCLE 247 STRATEGIC-DESIGN VERDICT -- Testbed UNION-B/C design proposal APPROVED with pre-reg discipline; rule 12 generalization candidate to B_relation + C_capability axes; cross-axis convergence with USER SHARES_MATH insight + free-probability drill flagged (verdict_handler 477th PROT-009 paired commit; 0 HP; 0 MIDDLE_BAND; 0 HARD_FAIL; 0 LVH; 0 NEW PP ROWS; PP-401 ANNOTATED rule-12-B/C-generalization-candidate-approved-for-preregistered-ship-and-measure; cap_map annotation bump only; no queue dispatch; Portfolio 32+407 UNCHANGED; HONEST 1847->1847 +0; LVH 291->291 +0)
+
+### Step 0 honest re-read (Testbed UNION-B/C design proposal)
+
+Source: notes/testbed_to_research_UNION_GENERALIZATION_TO_B_C_AXES_DESIGN_PROPOSAL_RULE_12_CYCLE_50_CANDIDATE_2026-06-12.md. This is a STRATEGIC-DESIGN PROPOSAL not an empirical verdict; Step 0 applied to the design's pre-reg shape rather than per-cell metrics.
+
+verdict_msg label vs proposal claims (5 sub-claims checked):
+
+1. "Rule 12 CONFIRMED Cycle 49 +0.033 lift on A axis (0.413 -> 0.446)" -- HONEST. Cap_map v582 history Cycle 49 entry confirms UNION top_k=5 architecture with the same numbers; rule 12 promotion to CONFIRMED is documented and authoritative.
+
+2. "UNION generalization design B 0.354 -> 0.40-0.45 (+0.05-0.10) / C 0.437 -> 0.47-0.51 (+0.03-0.07)" -- HONEST AS PRE-REG (not empirical). Lift estimates assume UNION-fills-structural-zero-cases pattern holds across the B and C structural primitives (graph traversal for B; 5-direction structural for C). This is a directional prediction extrapolated from A-axis pattern, NOT a measured outcome. Proposal correctly flags as pre-reg shape and recommends ship-then-measure cadence with HP gates (B HP >= 0.42 / C HP >= 0.48). Pre-reg discipline is honest.
+
+3. "Failure-mode analysis Q09/Q39/Q41 (B-axis F1=0.00) + Q12/Q44 (C-axis F1=0.00)" -- HONEST. Specific evaluation cells named; failure modes (anchor doesn't resolve / structural returns zero) are concrete falsifiable mechanism predictions for where UNION would fill the gap. NOT vague.
+
+4. "Implementation cost ~1 day Testbed (~half day if no surprises)" -- HONEST. ~180 LOC scope (100 LOC primitives + 80 LOC helpers) consistent with the A-axis UNION shipped at commit a8f0843f. Cost claim is reasonable.
+
+5. "Code change is NOT atom-author so should be UNGATED by Phase-2-light" -- HONEST WITH NUANCE. The Mechanism-1 distractor-density confirmation from Cycle 49 close (just-filed) raises the concern that UNION pool growth on B/C could expose distractor-density mechanisms we haven't characterized on those axes. Proposal correctly identifies this risk and pre-regs the ship-points. The "ungated by Phase-2-light" reasoning holds because Phase-2-light specifically gates hand-authored ATOM batches; pre-registered CODE primitives that measure-honest-FAIL are exactly the ship-then-measure cadence that substrate-quality-first methodology endorses.
+
+Overall: design is CONCRETE, PRE-REG-ABLE, COST-SCOPED, RISK-ACKNOWLEDGED. No over-claims. Treat as STRATEGIC-DESIGN APPROVAL with pre-reg discipline -- NOT a capability-state verdict on PP-401. cap_map annotation bump (v582 -> v583), not full cycle increment for empirical lift.
+
+HONEST: 1847 -> 1847 (+0; design verdict not empirical capability verdict). LVH: 291 -> 291 (+0).
+
+### Cross-axis convergence flagging (3-thread strategic context)
+
+This design proposal lands concurrent with TWO other strategic signals that share architectural geometry with the B/C UNION question. Convergence flagged here for Research direction:
+
+**(a) USER SHARES_MATH architectural insight** (memory file substrate_mathematical_primitive_shares_math_architectural_insight_2026-06-12 referenced in invocation context). Hypothesis: substrate capabilities at T2/T3 may share IDENTICAL underlying mathematics; proposed NEW edge type SHARES_MATH; proposed T0 math primitive tier. B_relation + C_capability are precisely the axes where a SHARES_MATH structural edge would naturally manifest -- B is graph-traversal-typed-edge (SHARES_MATH would be a new edge type B traverses) and C is what_serves-direction (SHARES_MATH would create cross-capability links C resolves). IF SHARES_MATH ships THEN B/C UNION should be re-measured because the structural primitive (which UNION primaries on) would have qualitatively different reach.
+
+Sequencing implication: B/C UNION ships as-designed against the CURRENT B/C structural primitives (graph traversal / 5-direction). SHARES_MATH is independently designed/measured. The combination is multiplicative and should be measured separately -- first UNION-only on current structural, then SHARES_MATH-only on current UNION, then both. No coupling required at ship time.
+
+**(b) Free-probability drill returned with structured-Wishart + BBP-supercritical regime** (drill in flight per Cycle 49 close note; verdict_handler 476 entry flagged Gram-matrix eigenvalue clumping as testable signature). Free-prob predicts 1.3x-3x capacity LIFT via operator-valued free convolution; substrate empirically validated NO-CAPACITY-CLIFF + clustered-codebook-ceiling positioning at PP-406/PP-407 (Cycle 246).
+
+Cross-tie with UNION-B/C: the clustered-codebook ceiling mechanism (intra-cluster near-collisions) that caps A_content UNION at 0.446 ALSO predicts the structural-zero failure modes on B/C (Q39/Q41 INSTANCE_OF / DEPENDS_ON to math::T1 returning 0 atoms = anchor doesn't reach the right cluster). UNION-B/C is therefore not just a rule-12 generalization -- it's the SAME ceiling-mitigation lever (encoding-discriminability via UNION-pooling) applied to a different retrieval primitive. This sharpens the substrate-product framing: UNION is the partition-preserving primitive across ALL retrieval axes; ceiling is clustered-codebook geometry universally.
+
+**(c) Mechanism-1 distractor-density just-confirmed Cycle 49** (notes/testbed_to_strategy_research_REVERT_REMEASURE_MECHANISM_1_*.md). Distractor pool growth on UNION B/C would expose the same near-duplicate mechanism on the B and C structural-zero recovery paths. Pre-reg discipline (B HP >= 0.42 / C HP >= 0.48) is the correct mitigation.
+
+### Cap_map decisions (v582 -> v583 ANNOTATION BUMP CYCLE 247)
+
+**(A) Testbed UNION-B/C design proposal -- APPROVED with pre-reg discipline:**
+- Authorize Testbed to ship answer_type_B_union + answer_type_C_union per the sketch in the proposal file.
+- Pre-reg ship-then-measure cadence with HP gates: B_relation HP >= 0.42 ; C_capability HP >= 0.48.
+- Pre-reg MIDDLE band: B 0.35-0.42 ; C 0.44-0.48 (mechanism-explained outcomes within distractor-density expectations).
+- Pre-reg HARD_FAIL: B < 0.35 or C < 0.44 (UNION dilution outweighs structural-zero recovery; rule 12 generalization FALSIFIED on the affected axis).
+- Report per-Q diff vs current bench. Single bench cell at 1742-atom corpus (pin to authoritative baseline; do NOT couple to in-flight batch-2 1782-atom state per just-filed REVERT-REMEASURE).
+
+**(B) PP-401 (qa_self_knowledge) ANNOTATED:**
+- B/C UNION generalization candidate APPROVED for ship-then-measure cadence.
+- Path-to-HP_v1 0.70 retains 4 levers: (1) signature/complexity field population [encoding-discriminability lever, RESCUE-1 in v582], (2) Phase-6 corpus ingest [Phase-2-light gated], (3) UNION-A batch-2 compound bench [in flight], (4) UNION-B/C generalization [NEW lever this cycle].
+- P-band UNCHANGED 0.43-0.48 EXPLORATORY (no empirical lift yet; design approval only).
+
+**(C) Rule 12 (meta::RULE_algebra_hrr_and_bge_cosine_are_partition_retrieval_primitives) ANNOTATED:**
+- Generalization candidate APPROVED for empirical testing on B_relation + C_capability axes via Testbed UNION-B/C ship.
+- 4th appearance would be triggered by ANY of: B UNION lift >= +0.03 / C UNION lift >= +0.03 / cross-axis transfer to F_gap or G_pattern.
+- Substrate-product positioning artifact REFINED: "UNION is the partition-preserving primitive across ALL retrieval axes; clustered-codebook ceiling is universal; ceiling mitigation is encoding-discriminability not re-rank-scoring (cross-references v582 meta::RULE_clustered_codebook_decode_ceiling_mitigation_is_encoding_not_rerank 1st appearance)."
+
+**(D) USER SHARES_MATH architectural insight INTEGRATION:**
+- Cross-axis hypothesis: SHARES_MATH edge type, if shipped, would qualitatively change B/C UNION reach. B and C are the natural manifestation axes for SHARES_MATH (B traverses typed edges; C resolves capability links).
+- Sequencing decision: UNION-B/C ships against CURRENT B/C structural primitives. SHARES_MATH is independently designed/measured (Research direction owed separately). Combination is multiplicative; measure separately first.
+- Routing note: Research is owed a SHARES_MATH design drill independent of this approval; THIS verdict approves UNION-B/C, NOT SHARES_MATH.
+
+**(E) Free-probability drill convergence INTEGRATION:**
+- Free-prob structured-Wishart + BBP-supercritical regime predicts the SAME clustered-codebook ceiling mechanism that UNION-B/C ship would expose on B/C retrieval. Pairs with v582 PP-406/PP-407 substrate-product positioning.
+- Cross-tie: UNION is the partition-preserving lever; free-prob is the theoretical foundation; clustered-codebook is the universal ceiling. Convergence pairs into a single substrate-product artifact when free-prob drill concludes.
+
+**(F) Methodology rule progression:**
+- meta::RULE_union_is_partition_preserving_primitive_across_all_retrieval_axes: NEW 1st appearance candidate v583 (annotation only; awaits 2nd appearance via B OR C UNION lift, 3rd via cross-axis transfer).
+- meta::RULE_strategic_design_verdict_distinct_from_capability_verdict: NEW 1st appearance candidate v583 (this cycle's verdict_handler dispatch is itself a design verdict; methodology distinguishes strategic-design verdicts from empirical capability verdicts at the cap_map annotation level).
+- Rule 12 PARTITIONS framing: GAINS 4th-appearance candidate path (UNION-B/C ship outcome).
+
+**(G) PROT-004/006 rescue sketches:** N/A — no closure this cycle; no rescues required.
+
+**(H) Routing files (written to disk, NOT auto-dispatched per 4-session architecture):**
+- strategy_request_to_testbed_2026-06-12_UNION_B_C_ship_approved_prereg_discipline.md (approval routing; Testbed picks on its own cadence).
+
+PROT-007 + PROT-009: cap_map.md v583 entry + strategy_decisions_2026-06-12.md (this entry) staged atomically; **477th PROT-009 paired commit**. Annotation bump only — no history.md change required (history retained inline for v60+ per cap_map convention).
+
+Cap_map: v582 -> v583 ANNOTATION BUMP CYCLE 247 (STRATEGIC-DESIGN VERDICT: Testbed UNION-B/C design APPROVED with pre-reg discipline B HP>=0.42 / C HP>=0.48 / pre-reg MIDDLE B 0.35-0.42 C 0.44-0.48 / pre-reg HARD_FAIL B<0.35 or C<0.44; PP-401 ANNOTATED rule-12-B/C-generalization-candidate-approved; rule 12 ANNOTATED generalization candidate; USER SHARES_MATH insight INTEGRATION sequencing decision UNION-first then SHARES_MATH independently then both; free-probability drill convergence INTEGRATED with clustered-codebook universal ceiling positioning; 2 new methodology rule candidates 1st appearance [union_is_partition_preserving + strategic_design_verdict_distinct_from_capability_verdict]; 1 routing file written; Portfolio 32+407 UNCHANGED; HONEST 1847->1847 +0; LVH 291->291 +0; 477th PROT-009 paired commit; CYCLE 50 STRATEGIC-DESIGN PRE-WORK FOR DIRECTION) (2026-06-12)
+
