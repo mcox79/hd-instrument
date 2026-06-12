@@ -49,7 +49,7 @@ def reclassify(file_path: Path, encoder, retriever, aidx, pstore):
     semantic_novelty = 1.0 - avg_top3
     referenced_math = _math_atoms_referenced_by_text(text, pstore)
     algebra_nov, n_math = _algebra_novelty_of_atoms(referenced_math, aidx)
-    composite_novelty = max(semantic_novelty, algebra_nov)
+    composite_novelty = 0.6 * semantic_novelty + 0.4 * algebra_nov  # Option E
     coherence = _paragraph_coherence(text, encoder)
     # Option B: substrate-distinguishing self-recognition
     self_recog_atom, _ = find_self_recognition_atom(str(file_path), pstore)

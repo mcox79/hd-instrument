@@ -190,6 +190,8 @@ def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = 
         return ("TIER-A", "substrate self-recognition: source file matches existing ingested atom (Option B)")
     if novelty <= TIER_A_THRESHOLD:
         return ("TIER-A", f"high-confidence classify (novelty={novelty:.3f} <= {TIER_A_THRESHOLD})")
+    # NOTE: weighted-avg composite (Option E from Findings 17 drill) applied at the
+    # call-site -- callers now pass weighted_avg(semantic, algebra) instead of max().
     if novelty <= TIER_B_THRESHOLD:
         return ("TIER-B", f"provisional classify (novelty={novelty:.3f} in [{TIER_A_THRESHOLD}, {TIER_B_THRESHOLD}])")
     if novelty <= TIER_C_THRESHOLD:
@@ -229,7 +231,8 @@ def evaluate_file(
     algebra_nov, n_math = _algebra_novelty_of_atoms(referenced_math, aidx)
 
     # Composite: max of the two
-    composite_novelty = max(semantic_novelty, algebra_nov)
+    # Option E (Findings 17 drill bridge fix): weighted-avg instead of max
+    composite_novelty = 0.6 * semantic_novelty + 0.4 * algebra_nov
 
     coherence = _paragraph_coherence(text, encoder)
     verdict, reasoning = classify_verdict(composite_novelty, coherence, n_math_referenced=n_math)
