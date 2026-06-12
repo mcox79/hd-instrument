@@ -84,7 +84,28 @@ Generalization candidate: UNION strategy may apply to other axes:
 - C_capability: what_serves + bge UNION
 - Maybe Cycle 50+ Stratified Hybrid is essentially UNION across 6 layers
 
-## Pending: UNION + batch 2 (1782 atoms) measurement
+## UPDATE: UNION + batch 2 (1782 atoms) measurement REGRESSES -0.028 due to T2/T3 duplication
+
+| Variant | A axis | A-E factual |
+|---|---|---|
+| UNION top_k=5 + 1742 atoms (Cycle 49 BEST) | **0.446** | 0.479 |
+| UNION top_k=5 + 1782 atoms (batch 2 ingested) | 0.418 | 0.470 |
+| delta | **-0.028** | -0.009 |
+
+Per-Q regression (vs UNION top_k=5 + 1742):
+- Q04 RL: 0.77 -> 0.61 (-0.16)
+- Q37 PGM: 0.55 -> 0.36 (-0.19)
+- Other Qs: flat or no change
+
+Root cause: batch 2 created NEW math::T2/q_learning + math::T2/policy_gradient + math::T2/td_lambda etc. with RICH ALIASES (Q-learning, REINFORCE, TD-lambda) BUT existing math::T3/q_learning + math::T3/policy_gradient (Q04 gold atoms) already covered these names. Bge-name encoder now returns T2 versions instead of T3 gold versions due to richer alias coverage on the new atoms.
+
+UNION amplifies the duplication problem: top-5 returns the new T2 duplicates that displace T3 gold.
+
+**Recommendation**: batch 2 should UPDATE existing atoms (extend their aliases + algebra) rather than CREATE new T2 atoms with same names. Per Research direction "atoms authored with bge-name-friendly canonical-discipline tokens in name + aliases" — the intent was alias enrichment of existing atoms, not duplicate creation.
+
+Action: deferring batch 2 to a clean re-ingest that UPDATES existing T3 atoms via canonical id lookup + alias extension. Until that ships, Cycle 49 BEST stays at UNION top_k=5 + 1742 atoms = **A axis 0.446**.
+
+## Pre-batch-2 close (CANONICAL)
 
 Research delivered 40 bge-name-friendly atoms (q_learning + PPO + REINFORCE + TD-lambda + SAC + DDPG + actor_critic + reinforcement_learning_family etc.). Each has algebra_additions + rich aliases for bge-name encoder.
 
