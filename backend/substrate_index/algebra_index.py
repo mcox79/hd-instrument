@@ -200,25 +200,61 @@ class AlgebraIndex:
             return None
         return self._bundle(bound)
 
-    def encode_atom(self, atom: Atom) -> AlgebraVectors:
+    def _name_vec(self, atom: Atom) -> Optional[np.ndarray]:
+        """HRR bundle of hashed name + id-path tokens.
+
+        Per strategy_request_v587 (PP-409 production-ship fix): atom name + id
+        tokens are an existing identity field carried by every atom. Bundling
+        tokenized name/id as filler vectors provides per-atom-distinguishing
+        identity component for compose/decode cleanup.
+        """
+        name_text = (atom.name or "")
+        id_text = (atom.id or "").replace("/", " ").replace("_", " ").replace("::", " ")
+        tokens = [t.strip().lower() for t in (name_text + " " + id_text).split()
+                  if t.strip() and len(t.strip()) >= 2]
+        if not tokens:
+            return None
+        # Each token -> filler vector; bundle via L2-normalized sum.
+        vecs = [self._filler_vector(t) for t in tokens]
+        return self._bundle(vecs)
+
+    def encode_atom(self, atom: Atom, alpha_name: float = 0.5) -> AlgebraVectors:
         """Encode one atom's algebra/signature/complexity into HRR-bundled vectors.
 
-        Per strategy_request_v586 (PP-408 RESCUE-2): algebra_hrr now bundles
-        signature + complexity bindings ALONGSIDE the algebra dict. This breaks
-        same-category_int cos=1.0 collisions (49 pairs reduced to 0 post-fix)
-        by ensuring the algebra-HRR vector carries the per-atom distinguishing
-        signature/complexity content. signature_hrr and complexity_hrr remain
-        available as separate vectors for explicit axis-specific retrieval.
+        Per strategy_request_v586 (PP-408 RESCUE-2): algebra_hrr bundles
+        signature + complexity bindings ALONGSIDE the algebra dict.
+
+        Per strategy_request_v587 (PP-409 production-ship): algebra_hrr also
+        adds alpha_name * name_vec for per-atom identity distinction with
+        sweet-spot alpha=0.5 (empirically demonstrated 100pct cleanup recovery
+        + 82pct structural clustering preserved per Exp-Dev verdict).
+
+        Combined: algebra_hrr = normalize(
+            bundle(algebra_dict, signature_dict, complexity_dict)
+            + alpha_name * name_vec
+        ).
+
+        Result: cos=1.0 collisions broken via TWO mechanisms (structured-fields
+        + name-augment); L1 categorical clustering preserved 23x-423x ratios.
+        signature_hrr and complexity_hrr remain available as separate vectors
+        for explicit axis-specific retrieval.
         """
         alg = self._encode_dict_hrr(atom.algebra) if atom.algebra else None
         sig = self._encode_dict_hrr(atom.signature) if atom.signature else None
         cpx = self._encode_dict_hrr(atom.complexity) if atom.complexity else None
-        # algebra_hrr = bundle of (algebra, signature, complexity) when populated.
-        # This is the substrate-default identity vector; collision-resistant.
-        alg_with_sig_cpx_components = [v for v in (alg, sig, cpx) if v is not None]
-        algebra_full = self._bundle(alg_with_sig_cpx_components) if alg_with_sig_cpx_components else None
-        # Composite profile bundle: same as algebra_full now; retained as alias
-        # for callers expecting composite_hrr semantics.
+        name_v = self._name_vec(atom) if alpha_name > 0 else None
+
+        components = [v for v in (alg, sig, cpx) if v is not None]
+        if components:
+            structural = self._bundle(components)
+            if name_v is not None and alpha_name > 0:
+                aug = structural + alpha_name * name_v
+                aug_norm = np.linalg.norm(aug)
+                algebra_full = aug / aug_norm if aug_norm > 1e-12 else structural
+            else:
+                algebra_full = structural
+        else:
+            algebra_full = None
         composite = algebra_full
         return AlgebraVectors(
             atom_id=atom.qualified_id,
