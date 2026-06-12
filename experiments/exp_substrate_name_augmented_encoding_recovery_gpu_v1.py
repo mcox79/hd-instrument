@@ -40,8 +40,8 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SMOKE = RUN_MODE == "smoke"
 DIM = 1024
-ALPHAS = [0.0, 0.5, 1.0, 2.0]
-F_SWEEP = [1, 3, 10]
+ALPHAS = [0.0, 0.25, 0.5, 1.0]   # cross-axis alpha-sweep drill Capability 1 (BINDING) per Research 2026-06-12
+F_SWEEP = [1, 3, 10, 20]          # extended to F=20 for the rule-generalization-at-high-binding-count test
 SEEDS = [7, 8, 9]
 N_TRIALS = 20
 _TOK = re.compile(r"[a-z0-9]+")
@@ -133,21 +133,20 @@ def run() -> Dict:
 
 
 def verdict(r) -> Tuple[str, str]:
+    """Cross-axis drill Capability 1 (BINDING): does the alpha=0.5 sweet spot generalize to high binding count F=10/20?"""
     if r.get("error"): return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    rows = r["rows"]
-    base = next((x["cleanup"].get(3) for x in rows if x["alpha"] == 0.0), None)
-    best_aug = max(((x["alpha"], x["cleanup"].get(3)) for x in rows if x["alpha"] > 0 and x["cleanup"].get(3) is not None),
-                   key=lambda t: t[1], default=(None, None))
-    s = ("plain(alpha=0) cleanup@1_F3=%s; best name-augmented F3=%s at alpha=%s; full=%s; corpus=%d device=%s"
-         % (base, best_aug[1], best_aug[0], [(x["alpha"], x["cleanup"]) for x in rows], r["n_atoms"], r["device"]))
-    b = best_aug[1]
-    if b is None:
-        return ("UNKNOWN", "UNKNOWN: no augmented F3. " + s)
-    if b >= 0.97:
-        return ("HARD_PASS", "HARD_PASS: folding the EXISTING name/id field into algebra-HRR recovers decode cleanup to >=0.97 at F=3 -- the encoding-discriminability fix works with data already present (no bge, no content authoring needed); separates the cos=1.0 collisions. " + s)
-    if b >= 0.92:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: name augmentation partially recovers F3 cleanup to 0.92-0.97 -- name tokens break most collisions; residual needs the authored signature/complexity semantic fields. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: name augmentation recovers <0.92 at F=3 -- name tokens alone insufficient (e.g. shared tokens like 'matrix' in matrix/matrix_norms); the fix needs authored signature/complexity fields, not just the name. " + s)
+    by_alpha = {x["alpha"]: x["cleanup"] for x in r["rows"]}
+    a05 = by_alpha.get(0.5, {})
+    f10 = a05.get(10); f20 = a05.get(20)
+    s = ("alpha=0.5: cleanup@1 F10=%s F20=%s; full alpha x F grid=%s; corpus=%d device=%s"
+         % (f10, f20, [(x["alpha"], x["cleanup"]) for x in r["rows"]], r["n_atoms"], r["device"]))
+    if f10 is None or f20 is None:
+        return ("UNKNOWN", "UNKNOWN: F=10/20 not in sweep. " + s)
+    if f10 >= 0.95 and f20 >= 0.85:
+        return ("HARD_PASS", "HARD_PASS (BINDING drill cap-1): alpha=0.5 identity-augmentation generalizes to high binding count -- cleanup@1 >=0.95 at F=10 AND >=0.85 at F=20. Two-vector architecture rule holds across binding scale. " + s)
+    if f10 >= 0.80 or f20 >= 0.70:
+        return ("MIDDLE_BAND", "MIDDLE_BAND (BINDING drill cap-1): alpha=0.5 cleanup@1 F10 0.80-0.95 or F20 0.70-0.85 -- partial generalization to high binding count. " + s)
+    return ("HARD_FAIL", "HARD_FAIL (BINDING drill cap-1): alpha=0.5 cleanup@1 <0.80 at F=10 -- sweet spot does not survive binding-count scaling. " + s)
 
 
 def _selftest():
