@@ -24,3 +24,12 @@
 - **Research:** verdict_handler -- add slot-filling + relation-classification to the Tier-A roster. The discriminative-weighting
   lever now demonstrably covers information extraction (relation classification) + NLU (slot filling). More IE/NLU capabilities
   available (SRL, paraphrase, NLI) if useful.
+
+## UPDATE -- lexical RE ceiling ~0.67; the path to 0.78 is DEPENDENCY PATH (capability composition), not more lexical features
+Added entity-pair + between-word-shapes + before-e1/after-e2 context features -> macro-F1 0.6693 (vs 0.6722; FLAT, null
+deepening). The between-words + entity-heads already capture the lexical signal; more lexical context is redundant. The
+feature-based RE ceiling (~0.78, classic SVM) requires the SYNTACTIC DEPENDENCY PATH between e1 and e2 -- a structural feature
+that needs the substrate's dep-parser (Tier-A 0.79) run on SemEval + shortest-path extraction. That is CAPABILITY COMPOSITION
+(parse -> RE), a distinct substrate-product positioning point (the substrate composes its own capabilities to lift a downstream
+task -- LLMs do this implicitly; substrate does it as explicit primitives). It is a bigger build; flagged as the next high-value
+RE step. Lexical-feature RE stands at 0.672 (HARD_PASS).
