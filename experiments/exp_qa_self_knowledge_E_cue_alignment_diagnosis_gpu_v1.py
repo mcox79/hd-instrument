@@ -148,7 +148,7 @@ def verdict(r) -> Tuple[str, str]:
         return ("UNKNOWN", "UNKNOWN: " + msg)
     mc = r["median_best_cos"]; rk = r["recall_at_k"]
     s = "median best-gold bge cos=%.4f (mean %.4f); recall@%d=%.4f recall@10=%.4f; median gold rank=%.1f/%d; n_scored=%d/%d; per-q=%s" % (
-        mc, r["mean_best_cos"], r["K"], rk, r["recall_at_10"], r["median_gold_rank"], r["N_atoms"], r["n_scored"], r["n_A"],
+        mc, r["mean_best_cos"], r["K"], rk, r["recall_at_10"], r["median_gold_rank"], r["N_atoms"], r["n_scored"], r["n_E"],
         [(x["id"], x["best_cos"], x["best_rank"]) for x in r["rows"]])
     cue_bound = (mc < 0.40) or (rk < 0.60)
     cue_aligned = (mc >= 0.50) and (rk >= 0.75)
