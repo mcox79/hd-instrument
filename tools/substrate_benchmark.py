@@ -116,32 +116,87 @@ def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
 
 
 def answer_type_C(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type C capability-level: atoms with capability in serves_capability."""
+    """Type C capability-level: atoms with capability in serves_capability (Gap 1)
+    OR atoms appearing in the capability's solution_history (solver/atoms_used)
+    OR atoms the capability decomposes_to / USES (structural evidence).
+    Bidirectional per benchmark v1 finding."""
     anchor = q.get("anchor", "")
     if not anchor:
         return set()
-    return {a.qualified_id for a in what_serves(pstore, anchor)}
+    matched = set()
+    # Direction 1: serves_capability backfill
+    for a in what_serves(pstore, anchor):
+        matched.add(a.qualified_id)
+    # Direction 2: capability's solution_history entries
+    if pstore.has_atom(anchor):
+        cap_atom = pstore.get_atom(anchor)
+        for entry in cap_atom.solution_history:
+            sol = entry.get("solution_atom_id")
+            if sol:
+                matched.add(sol)
+            for au in entry.get("atoms_used", []):
+                matched.add(au)
+        # Direction 3: outgoing structural edges (USES / DEPENDS_ON / decomposes_to)
+        for rt in (RelationType.USES, RelationType.USES_SUBPROC, RelationType.DEPENDS_ON,
+                   RelationType.COMPOSES):
+            for tgt in pstore.out_neighbors(anchor, rt):
+                matched.add(tgt)
+        # Direction 4: decomposes_to metadata
+        for dt in cap_atom.metadata.get("decomposes_to") or []:
+            matched.add(dt)
+        # Direction 5: concept_links cross-corpus
+        for cl in cap_atom.concept_links or []:
+            matched.add(cl)
+    return matched
 
 
 def answer_type_D(pstore: PartitionedStore, q: dict) -> bool:
-    """Type D composition-level: is there a path src -> tgt?"""
+    """Type D composition-level: is there a path src -> tgt? Bidirectional per
+    benchmark v1 finding: capability atoms typically have INCOMING USES/COMPOSES
+    edges from their solvers, not outgoing. So check both directions."""
     src = q.get("anchor_src")
     tgt = q.get("anchor_tgt")
-    if not (src and tgt) or not pstore.has_atom(src) or not pstore.has_atom(tgt):
+    if not (src and tgt):
         return False
-    paths = composition_paths(pstore, src, tgt, max_depth=4)
-    return len(paths) > 0
+    if not pstore.has_atom(src) or not pstore.has_atom(tgt):
+        return False
+    # Forward
+    if composition_paths(pstore, src, tgt, max_depth=4):
+        return True
+    # Reverse (capability uses primitive)
+    if composition_paths(pstore, tgt, src, max_depth=4):
+        return True
+    # Structural alternative: is src in tgt's solution_history or vice versa?
+    tgt_atom = pstore.get_atom(tgt)
+    for entry in tgt_atom.solution_history:
+        if entry.get("solution_atom_id") == src or src in entry.get("atoms_used", []):
+            return True
+    for cl in tgt_atom.concept_links or []:
+        if cl == src:
+            return True
+    src_atom = pstore.get_atom(src)
+    if any(cl == tgt for cl in src_atom.concept_links or []):
+        return True
+    return False
 
 
 def answer_type_E(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type E methodology-level: surface RULE_* atoms matching keywords."""
+    """Type E methodology-level: surface RULE_* atoms requiring AT LEAST 2
+    keyword matches in description (tightens precision)."""
     keywords = _extract_keywords(q["question"])
     matched = set()
     for atom in pstore.all_atoms():
         if atom.corpus.value != "meta":
             continue
+        # Require RULE_ prefix per meta corpus convention
+        if not atom.id.startswith("RULE_"):
+            continue
         hay = (atom.id + " " + atom.name + " " + (atom.description or "")).lower()
-        if any(kw in hay for kw in keywords):
+        n_hits = sum(1 for kw in keywords if kw in hay)
+        # Tighter: require >= 2 keyword matches OR exact id substring match
+        if n_hits >= 2:
+            matched.add(atom.qualified_id)
+        elif any(kw in atom.id.lower() for kw in keywords if len(kw) >= 5):
             matched.add(atom.qualified_id)
     return matched
 
