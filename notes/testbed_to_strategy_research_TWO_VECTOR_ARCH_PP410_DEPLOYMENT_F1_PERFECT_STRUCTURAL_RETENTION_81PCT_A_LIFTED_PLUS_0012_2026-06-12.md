@@ -51,6 +51,19 @@ def encode_atom(self, atom, alpha_name=0.5):
 
 Matches Exp-Dev PP-409 measurement (82pct retention claim). Pre-reg HP PASS.
 
+### tw_edge_z spectral observable (RESCUE-2 from v587 routing)
+
+Per strategy_request v587 HP gate: delta tw_edge_z <= +0.30 from baseline -2.26 (i.e., must remain <= -1.96; clustering must not shift toward random).
+
+| field | M | N | tw_edge_z | delta vs memory baseline -2.26 |
+|---|---|---|---|---|
+| algebra_hrr (structural) | 241 | 1024 | -3.044 | -0.78 (more clustered than baseline) |
+| composite_hrr (identity) | 241 | 1024 | -3.078 | -0.82 (more clustered than baseline) |
+
+**Both vectors PASS the HP gate** comfortably (delta is NEGATIVE = more clustered, not toward random). The identity augmentation does NOT degrade the substrate-distinguishes-itself-from-random property; composite_hrr is even slightly MORE clustered than algebra_hrr (likely because name-token bundling adds structured-token correlation).
+
+This is the spectral confirmation that the v587 HP gate intent (clustering geometry preserved) is met cleanly.
+
 ### Identity cleanup on 54-collision subset
 
 algebra_hrr: 49 cos>0.99 collision pairs (DESIRABLE by design).
