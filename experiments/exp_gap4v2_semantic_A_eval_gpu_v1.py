@@ -22,6 +22,11 @@ except Exception:
 import argparse, os, time, json, re
 from pathlib import Path
 from typing import Dict, Tuple
+try:
+    import torch  # noqa: F401  PROT-020: GPU cell; bge-large encodes on CUDA via get_encoder() on the home env.
+    _DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+except Exception:
+    _DEVICE = "cpu"
 REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
 ANCHOR_NAME = "gap4v2_semantic_A_eval_gpu_v1"
@@ -104,7 +109,7 @@ def verdict(r) -> Tuple[str, str]:
     return ("HARD_FAIL", "HARD_FAIL: semantic A < 0.22 -- embedding retrieval doesn't beat keyword (A gold too curated). " + s)
 
 
-print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
+print("[config] anchor=%s mode=%s device=%s" % (ANCHOR_NAME, RUN_MODE, _DEVICE), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
 v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
