@@ -108,8 +108,37 @@ def canonicalize_candidate(raw: str) -> str:
     return s
 
 
+# Option A (Cycle 50 Research direction): tighten filters to characterize floor.
+# Production Component 1 will wire substrate Tier-A NL primitives per original design.
+
+PREFIX_JARGON = ("sub_", "lit_", "full_", "re_", "op_", "all_", "non_", "per_",
+                  "anti_", "post_", "pre_", "in_", "co_")
+SUFFIX_JARGON = ("_specific", "_only", "_lite", "_only_", "_friendly", "_etc",
+                  "_pending", "_optional", "_yet", "_so")
+
+def _looks_like_paper_id(canonical: str) -> bool:
+    """Match paper DOI fragments like s41565_023_01357_8, arxiv_2304_12345 etc."""
+    # Heuristic: tokens with mixed digits/letters where digit-tokens > 1
+    tokens = canonical.split("_")
+    digit_tokens = sum(1 for t in tokens if any(c.isdigit() for c in t))
+    if digit_tokens >= 2:
+        return True
+    # Long all-alphanum starting with letter+digits like s41565 or arxiv2304
+    for t in tokens:
+        if len(t) >= 6 and t[0].isalpha() and sum(1 for c in t if c.isdigit()) >= 4:
+            return True
+    return False
+
+
 def _is_skip(canonical: str) -> bool:
-    """Skip if canonical form is too short, too long, or stopword-only."""
+    """Skip if canonical form is too short, too long, or stopword-only.
+
+    Option A tightening per Research direction:
+    - Require 2+ tokens for snake_case multi-word candidates
+    - Filter prefix-jargon (sub_, lit_, full_, re_, op_, all_, non_, etc.)
+    - Filter suffix-jargon (_specific, _only, _lite, etc.)
+    - Filter paper-ID-like patterns (s41565_023_01357_8)
+    """
     if len(canonical) < 4 or len(canonical) > 80:
         return True
     tokens = canonical.split("_")
@@ -120,6 +149,21 @@ def _is_skip(canonical: str) -> bool:
         return True
     # Skip pure-numeric strings
     if canonical.replace("_", "").isdigit():
+        return True
+    # Option A: require multi-token for multi-word candidates (single tokens are too noisy)
+    if len(tokens) == 1:
+        return True
+    # Option A: filter prefix-jargon (research-meta words)
+    if canonical.startswith(PREFIX_JARGON):
+        return True
+    # Option A: filter suffix-jargon
+    if any(canonical.endswith(suf) for suf in SUFFIX_JARGON):
+        return True
+    # Option A: filter paper-ID-like patterns
+    if _looks_like_paper_id(canonical):
+        return True
+    # Option A: stopword-leading multi-token (e.g., "all_atom", "any_X")
+    if tokens[0] in STOPWORDS:
         return True
     return False
 
@@ -254,8 +298,8 @@ def run_phase_2_light_pipeline(
         score, matches = distant_supervision_score(ce, lex)
         if skip_existing and score >= 1.0:
             continue
-        if ce.z_count < 2:
-            # Single-file mentions are too low-confidence
+        # Option A tightening: Z >= 3 (research direction; was >= 2)
+        if ce.z_count < 3:
             continue
         vec = name_vec_for_candidate(canonical, ai)
         filtered.append((ce, score, matches, vec))
