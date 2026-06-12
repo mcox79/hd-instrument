@@ -1,0 +1,98 @@
+{"src": "concept::CAP_fhrr_bind", "dst": "math::T2/fhrr_bind", "type": "USES", "metadata": {"phase_A5": true, "reason": "capability atom decomposes_to math primitive"}}
+{"src": "concept::CAP_fhrr_bind", "dst": "math::T2/circular_convolution", "type": "USES", "metadata": {"phase_A5": true, "reason": "FHRR bind via circular convolution"}}
+{"src": "concept::CAP_fhrr_bind", "dst": "math::T1/kronecker_product", "type": "GENERALIZES_VIA", "metadata": {"phase_A5": true, "reason": "binding generalizes outer product"}}
+{"src": "concept::CAP_fhrr_unbind", "dst": "math::T2/fhrr_unbind", "type": "USES", "metadata": {"phase_A5": true, "reason": "capability decomposes_to primitive"}}
+{"src": "concept::CAP_fhrr_unbind", "dst": "math::T2/cleanup", "type": "USES", "metadata": {"phase_A5": true, "reason": "unbind requires cleanup for filler recovery"}}
+{"src": "concept::CAP_superposition", "dst": "math::T2/superposition", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_superposition", "dst": "math::T2_FAM/mixers", "type": "INSTANCE_OF", "metadata": {"phase_A5": true, "reason": "superposition is mixer family member"}}
+{"src": "concept::CAP_bundling", "dst": "math::T2/bundling", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_bundling", "dst": "math::T2_FAM/mixers", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_circular_convolution", "dst": "math::T2/circular_convolution", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_circular_convolution", "dst": "math::T3/discrete_fourier_transform", "type": "DUAL_VIA_CONVOLUTION_THEOREM", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_cleanup", "dst": "math::T2/cleanup", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_cleanup", "dst": "math::T1/metric_space", "type": "OPERATES_OVER", "metadata": {"phase_A5": true, "reason": "cleanup via metric distance"}}
+{"src": "concept::CAP_cleanup", "dst": "math::T1/dot_product", "type": "USES_FOR_COSINE_SIMILARITY", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_viterbi_decoding", "dst": "math::T3/viterbi_decoder", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_viterbi_decoding", "dst": "math::T1/markov_chain", "type": "DEFINED_FOR", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_viterbi_decoding", "dst": "math::T2_FAM/sequence_decoding", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_forward_algorithm", "dst": "math::T3/forward_algorithm_atom", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_forward_algorithm", "dst": "math::T1/markov_chain", "type": "DEFINED_FOR", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_backward_algorithm", "dst": "math::T3/backward_algorithm_atom", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_em_algorithm", "dst": "math::T3/expectation_maximization", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_em_algorithm", "dst": "math::T3/forward_algorithm_atom", "type": "USES_E_STEP", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_em_algorithm", "dst": "math::T3/backward_algorithm_atom", "type": "USES_E_STEP", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_bayesian_inference", "dst": "math::T1/bayes_rule", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_bayesian_inference", "dst": "math::T1/probability_space", "type": "DEFINED_OVER", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_bayesian_inference", "dst": "math::T3/count_nb", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_hungarian_assignment", "dst": "math::T3/hungarian_algorithm", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_hungarian_assignment", "dst": "math::T1/graph_general", "type": "OPERATES_OVER_BIPARTITE", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_chu_liu_edmonds", "dst": "math::T3/chu_liu_edmonds_algo", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_chu_liu_edmonds", "dst": "math::T1/graph_general", "type": "OPERATES_OVER", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_dynamic_programming", "dst": "math::T3/viterbi_decoder", "type": "PATTERN_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_dynamic_programming", "dst": "math::T3/forward_algorithm_atom", "type": "PATTERN_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_dynamic_programming", "dst": "math::T3/eisner_parsing", "type": "PATTERN_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_dynamic_programming", "dst": "math::T3/expectation_maximization", "type": "PATTERN_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_discriminative_perceptron", "dst": "math::T3/structured_perceptron_collins", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_discriminative_perceptron", "dst": "math::T1/gradient_descent", "type": "USES_MISTAKE_DRIVEN", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_discriminative_perceptron", "dst": "math::T1/dot_product", "type": "USES_LINEAR_SCORING", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_discriminative_perceptron", "dst": "math::T1/cross_entropy", "type": "OPTIMIZES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_discriminative_perceptron", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "REALIZED_BY", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_shannon_entropy", "dst": "math::T1/shannon_entropy_atom", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_shannon_entropy", "dst": "math::T1/probability_space", "type": "DEFINED_OVER", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_kl_divergence", "dst": "math::T1/kullback_leibler_divergence", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_kl_divergence", "dst": "math::T3/mp_bulk_kl", "type": "USED_BY_LAYER2", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_probability_distribution", "dst": "math::T1/probability_space", "type": "DEFINED_OVER", "metadata": {"phase_A5": true}}
+{"src": "concept::CAP_probability_distribution", "dst": "math::T1/random_variable", "type": "CHARACTERIZES", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_person", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_org", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_gpe", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_money", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_date", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_time", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_percent", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_entity_quantity", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_collection", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_time", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_percent", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_units_length", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_units_weight", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_units_volume", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_body_parts", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_money", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_geometry", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::LEX_constant_calendar", "dst": "math::T2/cleanup", "type": "USES_LOOKUP_VIA", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-225_fact_recall_kb100K", "dst": "math::T2/fhrr_bind", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-225_fact_recall_kb100K", "dst": "math::T2/fhrr_unbind", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-225_fact_recall_kb100K", "dst": "math::T2/cleanup", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-225_fact_recall_kb100K", "dst": "math::T2/sparse_distributed_memory", "type": "REALIZES_AT_SCALE", "metadata": {"phase_A5": true, "reason": "kb100K instantiates SDM scaling"}}
+{"src": "concept::PP-364_pos_tagger", "dst": "math::T3/viterbi_decoder", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-364_pos_tagger", "dst": "math::T1/markov_chain", "type": "DEFINED_OVER", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-364_pos_tagger", "dst": "math::T4/cascade_hmm_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-364_pos_tagger", "dst": "math::T3/structured_perceptron_collins", "type": "USES_FOR_LIFT_TO_TIER_A", "metadata": {"phase_A5": true, "reason": "PP-379 collins perceptron 0.9508"}}
+{"src": "concept::PP-369_slot_filling", "dst": "math::T4/cascade_hmm_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-369_slot_filling", "dst": "math::T3/viterbi_decoder", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-370_intent_classification", "dst": "math::T3/count_nb", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-370_intent_classification", "dst": "math::T1/bayes_rule", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-371_reasoning_routing", "dst": "math::T2/cleanup", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-371_reasoning_routing", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "USES_PROTOTYPE_BUNDLE", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-375_multistep_math", "dst": "math::T3/structured_perceptron_collins", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-375_multistep_math", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-375_multistep_math", "dst": "math::T3/expectation_maximization", "type": "USES_ANSWER_CONSISTENCY_WEAK_LABELS", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-376_multibench_math", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-376_multibench_math", "dst": "math::T3/count_nb", "type": "USES_BASELINE", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-378_code_algopattern", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-378_code_algopattern", "dst": "math::T3/structured_perceptron_collins", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-367_unified_algebra_lang_math", "dst": "math::T2/fhrr_bind", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-367_unified_algebra_lang_math", "dst": "math::T2/fhrr_unbind", "type": "USES", "metadata": {"phase_A5": true}}
+{"src": "concept::PP-367_unified_algebra_lang_math", "dst": "math::T2_FAM/binders", "type": "USES_FAMILY", "metadata": {"phase_A5": true}}
+{"src": "concept::unified_compositional_engine", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "INSTANCE_OF", "metadata": {"phase_A5": true}}
+{"src": "concept::unified_compositional_engine", "dst": "math::T3/expectation_maximization", "type": "USES_ANSWER_CONSISTENCY", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_multi_hop", "dst": "math::T2/cleanup", "type": "USED_INITIAL_MECHANISM", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_multi_hop", "dst": "math::T2/fhrr_unbind", "type": "USER_OVERRIDE_REVIVAL_PATH", "metadata": {"phase_A5": true, "reason": "user-directed revival per project-multihop-revive-priority"}}
+{"src": "concept::RETRIEVAL_schema_pp372", "dst": "math::T2/cleanup", "type": "USED_INITIAL_MECHANISM", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_schema_pp372", "dst": "math::T2/fhrr_unbind", "type": "CURRENT_BEST", "metadata": {"phase_A5": true, "reason": "structural-binding cliff +0.20"}}
+{"src": "concept::RETRIEVAL_reasoning_routing_pp371", "dst": "math::T2/cleanup", "type": "USED_INITIAL_MECHANISM", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_reasoning_routing_pp371", "dst": "math::T4/discriminative_perceptron_pipeline", "type": "CURRENT_BEST_PROTOTYPE_BUNDLE", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_kb_fact_extensions", "dst": "math::T2/cleanup", "type": "USED_INITIAL_MECHANISM", "metadata": {"phase_A5": true}}
+{"src": "concept::RETRIEVAL_kb_fact_extensions", "dst": "math::T2/fhrr_unbind", "type": "CURRENT_BEST", "metadata": {"phase_A5": true, "reason": "PP-225 production-validated kb100K 0.996"}}
+{"src": "concept::RETRIEVAL_kb_fact_extensions", "dst": "math::T2/sparse_distributed_memory", "type": "INSTANCE_OF_AT_SCALE", "metadata": {"phase_A5": true}}
