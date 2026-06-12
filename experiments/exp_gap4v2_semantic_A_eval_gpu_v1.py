@@ -115,4 +115,6 @@ print("[config] anchor=%s mode=%s device=%s" % (ANCHOR_NAME, RUN_MODE, _DEVICE),
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
 v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
+metrics["n_total_atoms"] = r.get("n_total_atoms")    # corpus-size stamp (Strategy RESCUE-1 Cycle 243): clean breadth-ingest before/after deltas
+metrics["n_algebra_atoms"] = r.get("n_algebra_atoms")
 write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
