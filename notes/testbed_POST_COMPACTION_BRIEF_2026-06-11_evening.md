@@ -1,6 +1,65 @@
-# Testbed POST-COMPACTION BRIEF — 2026-06-11 evening + Day 2 morning extension
+# Testbed POST-COMPACTION BRIEF — 2026-06-11 evening + Day 2-4 extension
 
 **READ FIRST on resume.** Captures load-bearing state from this session.
+
+> **DAY 4 MORNING UPDATE (2026-06-12)** — major VSA architectural drill + benchmark progression:
+>
+> **Substrate state**: **1742 atoms / 2911+ relations / 11 partitions**
+> - math 236 + concept 80 + science 147 + meta 18 + school 12 + methodology 4 + 5 history partitions
+> - **240 atoms (13.8%) have algebra dict populated** post 30+50 backfill
+> - Cycle 48c with bge cache infra; cache file at data/substrate_index/cached_indices/
+>
+> **Gap 7 substrate-self-knowing benchmark macro F1 progression**:
+> ```
+> Cycle 45 0.501 (baseline)
+> Cycle 46 0.516 (Q08 substrate-as-ground-truth re-aim)
+> Cycle 47 0.569 (Gap 4 v2 semantic-A HARD-PASS; top_k=5)
+> Cycle 47+cascade 0.578 (math 04+05 + science 03 + cross-disc dangling)
+> Cycle 48b 0.587 (Tier 5 unlock; solution_history->atoms_used; D 0.571->0.714)
+> Cycle 48c 0.592 (mwp_wk_schemas + bge cache)
+> [Cycle 49 HYBRID semantic_v2 in flight on REMOTE]
+> ```
+> Path-to-HP_v1 0.70: was +0.108 needed pre-HYBRID
+>
+> **USER's strategic question 2026-06-12 morning**: "Shouldn't all those vector dimensions MEAN something? We shouldn't have to look up tags - their position should BE their tag." Forced architectural drill that changed substrate-product positioning.
+>
+> **Empirical findings** (per [[substrate-vsa-position-is-meaning-validated-2026-06-12]]):
+> - Cell 1 atom-to-atom: position IS meaning -- convex_opt clusters with all gradient methods; global_discrete_opt with all DP algorithms; collins_perceptron with all VSA/learning
+> - L1 CATEGORICAL CLUSTERING: 10/10 categories HARD-PASS (ratios 22x to ~500M+)
+> - Cell 2 v3 MAX-per-filler NL->HRR parser: RL F1=0.50, Bayesian 0.40, Lyapunov #1 at 0.321
+> - Diagnosis: WIRING GAP not architecture failure (encode.py:130-133 composite=semantic by design; no query_text_to_atoms; coverage 240/1742=13.8pct)
+> - HYBRID architecture canonical: algebra-primary conf>0.20 + bge-OOV-fallback + RRF weighted 0.6/0.4
+> - bge STAYS as fallback per substrate-quality-first (not retired)
+>
+> **NL->HRR parser shipped**: tools/substrate_benchmark.py `answer_type_A` now does HYBRID (lazy-loads AlgebraIndex; queries via MAX-per-(role, filler); RRF with bge when both available)
+>
+> **Canonical role convention** (every well-authored math atom):
+> about_topic + operation_type + vsa_family + domain + category_int + signature_input/output_type + has_inverse/inverse_atom + brain_analogue + literature_reference
+>
+> **Standing rule LOCKED**: All CPU compute on REMOTE (100.91.12.42). Local-allowed: file IO + git + cheap PartitionedStore stats + code editing.
+>
+> **Cycle close protocol** (NEW): after every laptop push, SSH home + `git pull` so Exp-Dev cells propagate to dashboard-visible queue. Pattern:
+> ```bash
+> ssh marsh@100.91.12.42 'powershell -NoProfile -Command "cd C:\dev\hd-instrument; if ((git status --porcelain).Length -gt 0) { git checkout HEAD -- backend tools experiments preregs }; git pull origin main"'
+> ```
+>
+> **Background tasks at compaction time** (will NOT survive):
+> - btp2et94p: HYBRID semantic_v2 benchmark on REMOTE (substrate 1742; expected lift A 0.413 -> 0.50+; 7-axis 0.592 -> ~0.61)
+>
+> **On-resume actions**:
+> 1. Check btp2et94p result (if still running, re-run via SSH)
+> 2. Continue Cell 3 v2 backfill iteration with Research (next ~50 atoms)
+> 3. Run L2 test (rotational difference) once breadth backfill produces enough inverse pairs
+> 4. Continue git-pull-home protocol after every push
+> 5. Watch for Q09 PP-364 solution_history backfill (Exp-Dev) + math batch 06+ + science batch 04+
+>
+> **Architectural memory chain on substrate-product positioning**:
+> - substrate IS algebra at the structural level (Cell 1 + L1 empirical)
+> - NL queries that match authored fillers retrieve PERFECTLY (RL/Bayesian/Lyapunov)
+> - NL queries OOV use bge (cross-partition tail)
+> - LLMs cannot match because dense embeddings lack explicit (role, filler) algebra
+> - 5-level position-IS-meaning test framework (L1 PASSED; L2-L5 await authoring)
+> - Cycle 50+ Stratified Hybrid 6-layer: L0 FHRR 4096 + L1 RotatE + L2 TPR + L3 functorial DisCoCat + L4 GNN dependency + L5 SDM cleanup at scale
 
 > **DAY 2 LATE EVENING UPDATE (2026-06-11)** -- post-compaction work:
 >
