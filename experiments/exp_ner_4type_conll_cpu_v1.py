@@ -104,6 +104,10 @@ def run() -> Dict:
     train = [(t, _collapse4(g)) for t, g in data["train"] if t and len(t) <= 60]
     test = [(t, _collapse4(g)) for t, g in data["test"] if t and len(t) <= 60]
     if SMOKE: train = train[:300]; test = test[:150]
+    _frac = float(os.environ.get("HDLAB_TRAIN_FRAC", "1.0"))  # L-B few-shot: subset train (seed-shuffled) to this fraction
+    if _frac < 1.0:
+        _idx = rng.permutation(len(train))[:max(5, int(len(train) * _frac))]
+        train = [train[i] for i in _idx]
     TAGS = sorted({tg for _w, g in train for tg in g}); T = len(TAGS)
     w = defaultdict(float); cw = defaultdict(float); c = 1
 
