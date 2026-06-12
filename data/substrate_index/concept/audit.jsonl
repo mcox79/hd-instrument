@@ -255,3 +255,24 @@
 {"ts": 1781232463.115075, "op": "update_atom", "target": "PP-217_path_A_LLM_enhancement", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
 {"ts": 1781232463.1203127, "op": "update_atom", "target": "PP-372_schema_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
 {"ts": 1781232463.127309, "op": "update_atom", "target": "PP-LEX1_morphology", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251535.837846, "op": "add_atom", "target": "PP-398_permutation_indexed_binding", "note": "from concept_corpus_capability_atoms_PP398_PP399_PP400.jsonl", "source": "ingest_mixed"}
+{"ts": 1781251535.837846, "op": "add_atom", "target": "PP-399_dep_parse", "note": "from concept_corpus_capability_atoms_PP398_PP399_PP400.jsonl", "source": "ingest_mixed"}
+{"ts": 1781251535.837846, "op": "add_atom", "target": "PP-400_chunking", "note": "from concept_corpus_capability_atoms_PP398_PP399_PP400.jsonl", "source": "ingest_mixed"}
+{"ts": 1781251601.714508, "op": "update_atom", "target": "PP-364_pos_tagger", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.7205238, "op": "update_atom", "target": "PP-376_multibench_math", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.7205238, "op": "update_atom", "target": "PP-375_multistep_math", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.7317502, "op": "update_atom", "target": "PP-369_slot_filling", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.736163, "op": "update_atom", "target": "PP-370_intent_classification", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.736163, "op": "update_atom", "target": "PP-378_code_algopattern", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251601.736163, "op": "update_atom", "target": "PP-225_fact_recall_kb100K", "note": "Tier 5 unlock", "source": "force_update_solution_history"}
+{"ts": 1781251613.6539028, "op": "update_atom", "target": "PP-376_multibench_math", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6539028, "op": "update_atom", "target": "PP-375_multistep_math", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6696572, "op": "update_atom", "target": "PP-378_code_algopattern", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6696572, "op": "update_atom", "target": "PP-364_pos_tagger", "note": "backfilled atoms_used on 3 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6696572, "op": "update_atom", "target": "PP-369_slot_filling", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6696572, "op": "update_atom", "target": "PP-370_intent_classification", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6696572, "op": "update_atom", "target": "PP-225_fact_recall_kb100K", "note": "backfilled atoms_used on 0 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6857443, "op": "update_atom", "target": "RETRIEVAL_schema_pp372", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6857443, "op": "update_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6857443, "op": "update_atom", "target": "PP-compositional_depth_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781251613.6857443, "op": "update_atom", "target": "PP-372_schema_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}

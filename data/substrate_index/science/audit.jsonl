@@ -242,3 +242,33 @@
 {"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/permutation_indexed_binding", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
 {"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/resonator_network_decoder", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
 {"ts": 1781239834.9959657, "op": "add_relation", "target": "PHYS/ising_model|INFLUENCED_BY|math::T2/modern_hopfield_ramsauer", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781249031.9808054, "op": "add_atom", "target": "NEURO/place_cells_hippocampus", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9861546, "op": "add_atom", "target": "NEURO/grid_cells_entorhinal", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9882498, "op": "add_atom", "target": "NEURO/theta_gamma_coupling", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9941232, "op": "add_atom", "target": "NEURO/cognitive_map_tolman", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0004206, "op": "add_atom", "target": "NEURO/working_memory_baddeley", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0004206, "op": "add_atom", "target": "NEURO/predictive_coding_rao_ballard", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.009757, "op": "add_atom", "target": "NEURO/dopamine_rpe_schultz", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.014699, "op": "add_atom", "target": "NEURO/cerebellum_internal_model", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0167055, "op": "add_atom", "target": "NEURO/default_mode_network", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.023447, "op": "add_atom", "target": "PHYS/anderson_localization", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/bcs_superconductivity", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/lorenz_chaos", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0254533, "op": "add_atom", "target": "PHYS/kolmogorov_arnold_moser", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0381877, "op": "add_atom", "target": "PHYS/fluctuation_dissipation", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "PHYS/jarzynski_equality", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/qubit", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/quantum_entanglement", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.043136, "op": "add_atom", "target": "QINFO/no_cloning_theorem", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0568604, "op": "add_atom", "target": "CHEM/michaelis_menten", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0635512, "op": "add_atom", "target": "CHEM/signaling_cascade_mapk", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0635512, "op": "add_atom", "target": "BIO/population_genetics_hardy_weinberg", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/evolutionary_stable_strategy", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/lotka_volterra", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0726314, "op": "add_atom", "target": "BIO/synaptic_plasticity_stdp", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0837247, "op": "add_atom", "target": "BIO/long_term_potentiation_ltp", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "CHEM/protein_folding_levinthal", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "PHYS/topological_data_analysis", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_atom", "target": "PHYS/maxwell_demon_landauer", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.0884802, "op": "add_relation", "target": "NEURO/place_cells_hippocampus|INSTANCE_OF|NEURO/cognitive_map_tolman", "note": "original_type=INSTANTIATES", "source": "ingest_mixed"}
+{"ts": 1781249032.1041224, "op": "add_relation", "target": "NEURO/theta_gamma_coupling|ENABLES|NEURO/working_memory_baddeley", "note": "", "source": "ingest_mixed"}

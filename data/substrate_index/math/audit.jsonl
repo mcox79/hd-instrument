@@ -453,3 +453,41 @@
 {"ts": 1781234179.9695268, "op": "update_atom", "target": "T3/euclidean_distance", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
 {"ts": 1781234179.9775279, "op": "update_atom", "target": "T3/iterative_proportional_fitting", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
 {"ts": 1781245252.0036013, "op": "add_atom", "target": "T1/lyapunov_stability", "note": "Q1 description expansion 2026-06-12", "source": "lyapunov_expand"}
+{"ts": 1781249031.7891114, "op": "add_atom", "target": "T1/state_space_representation", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.7891114, "op": "add_atom", "target": "T1/kalman_filter", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.7959347, "op": "add_atom", "target": "T1/control_theory_pid", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8048801, "op": "add_atom", "target": "T1/optimal_control_LQR", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8048801, "op": "add_atom", "target": "T1/dynamic_programming_bellman", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8148265, "op": "add_atom", "target": "T3/runge_kutta", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8207865, "op": "add_atom", "target": "T3/conjugate_gradient", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8293452, "op": "add_atom", "target": "T3/levenberg_marquardt", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8348897, "op": "add_atom", "target": "T3/lbfgs_quasi_newton", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8366272, "op": "add_atom", "target": "T3/sparse_matrix_techniques", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8366272, "op": "add_atom", "target": "T3/fast_fourier_transform", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8525305, "op": "add_atom", "target": "T3/wavelet_transform", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8525305, "op": "add_atom", "target": "T3/digital_filter_design", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8525305, "op": "add_atom", "target": "T3/spectral_density_estimation", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8683248, "op": "add_atom", "target": "T3/cross_validation", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8683248, "op": "add_atom", "target": "T3/bootstrap_resampling", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8843474, "op": "add_atom", "target": "T3/permutation_test", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.8886902, "op": "add_atom", "target": "T3/bayes_factor", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9000642, "op": "add_atom", "target": "T3/mcmc_sampling", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9050827, "op": "add_atom", "target": "T3/variational_inference", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9050827, "op": "add_atom", "target": "T3/gaussian_process", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.91782, "op": "add_atom", "target": "T3/kernel_method", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.91782, "op": "add_atom", "target": "T3/random_features", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.91782, "op": "add_atom", "target": "T3/normal_form_NF", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.934446, "op": "add_atom", "target": "T3/cyk_parser", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.934446, "op": "add_atom", "target": "T3/earley_parser", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9471934, "op": "add_atom", "target": "T3/finite_state_transducer", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9471934, "op": "add_atom", "target": "T3/edit_distance", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.9471934, "op": "add_atom", "target": "T3/needleman_wunsch", "note": "from math_corpus_batch04.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.966784, "op": "add_atom", "target": "T1/measure_lebesgue", "note": "from math_corpus_batch05.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249031.966784, "op": "add_atom", "target": "T1/topology_metric", "note": "from math_corpus_batch05.jsonl", "source": "ingest_mixed"}
+{"ts": 1781249032.1041224, "op": "add_atom", "target": "T3/random_walks_on_graphs", "note": "from cross_discipline_v2_dangling_fix.jsonl", "source": "ingest_mixed"}
+{"ts": 1781251613.307582, "op": "update_atom", "target": "T3/discriminative_perceptron", "note": "Backfilled serves_capability from 16 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781251613.3232298, "op": "update_atom", "target": "T3/count_nb", "note": "Backfilled serves_capability from 9 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781251613.3232298, "op": "update_atom", "target": "T2/tier2_schema", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781251613.3385336, "op": "update_atom", "target": "T3/viterbi_decoding", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781251613.344776, "op": "update_atom", "target": "T3/hmm_emission", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781251613.3543344, "op": "update_atom", "target": "T2/cosine_cleanup", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
