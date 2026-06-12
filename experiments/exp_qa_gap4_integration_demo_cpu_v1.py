@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Dict, Tuple
 REPO = Path(__file__).resolve().parent.parent; sys.path.insert(0, str(REPO))
 from experiments._seed_checkpoint import get_output_dir, write_metrics
-import experiments._qa_route_primitives as rp
+from backend.substrate_index import route_primitives as rp  # canonical (Testbed-moved)
 ANCHOR_NAME = "qa_gap4_integration_demo_cpu_v1"
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
