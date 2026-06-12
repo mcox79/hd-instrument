@@ -116,6 +116,68 @@ PREFIX_JARGON = ("sub_", "lit_", "full_", "re_", "op_", "all_", "non_", "per_",
 SUFFIX_JARGON = ("_specific", "_only", "_lite", "_only_", "_friendly", "_etc",
                   "_pending", "_optional", "_yet", "_so")
 
+# Option C (Cycle 50 close Research direction): lexical blocklist + naming-convention
+# pattern + entity blocklist; targets P@30 0.55-0.65 MIDDLE PASS at full-corpus scope.
+# Root cause: substrate-internal IDs ARE NN-NN noun phrases grammatically; POS filter
+# alone cannot reject. Lexical (substrate-vocabulary-overlap) is the right mechanism.
+
+SUBSTRATE_INTERNAL_PREFIX_LITERAL = (
+    # cycle markers
+    "cycle_",
+    # substrate compound prefixes
+    "sh_", "bpc_", "dw_",
+    # meta-routing leading tokens (route header partition names)
+    "visibility_", "testbed_", "exp_dev_", "research_", "strategy_",
+    "verdict_", "findings_",
+)
+
+# Regex-style prefix patterns (e.g. r16_, kf2_, pp_398, q40_)
+SUBSTRATE_INTERNAL_PREFIX_REGEX = re.compile(
+    r"^(?:r\d+_|kf\d+_|pp_?\d+|q\d+_|cap_?\d+|t\d+_)"
+)
+
+SUBSTRATE_INTERNAL_SUFFIX_LITERAL = (
+    # status markers
+    "_ok",
+    # partition metadata
+    "_history", "_decisions",
+)
+
+ENTITY_BLOCKLIST = {
+    # academic journals
+    "psychological_review", "phys_rev_lett", "naacl_long",
+    "ieee_trans_it", "cogn_sci", "scipost_phys",
+    # dataset metadata
+    "arxiv_2m",
+}
+
+# Recognized domain prefixes that allow 3+ underscores
+# (legitimate compound domain terms like dense_associative_memory)
+DOMAIN_RECOGNIZED_PREFIXES = (
+    "dense_", "associative_", "modular_", "vector_", "tensor_",
+    "matrix_", "random_", "free_", "tracy_", "mean_", "marchenko_",
+    "compatible_", "modern_", "compositional_", "neural_", "graph_",
+    "spectral_", "differential_", "compositional_", "structured_",
+    "kernel_", "feature_", "policy_", "value_", "markov_", "bayes_",
+    "shannon_", "kolmogorov_", "fisher_", "kullback_", "wasserstein_",
+    "reed_", "hadamard_", "kerdock_", "bose_", "fermi_",
+)
+
+
+def _violates_naming_convention(canonical: str) -> bool:
+    """Reject names with 3+ underscores AND no recognized domain prefix.
+
+    Substrate-internal compounds are typically deeply compound (3+ underscores);
+    legitimate domain terms usually have <=2 underscores OR a recognized prefix.
+    """
+    tokens = canonical.split("_")
+    if len(tokens) < 4:  # 3 underscores = 4 tokens; allow <=3 tokens always
+        return False
+    # Allow if starts with recognized domain prefix
+    if canonical.startswith(DOMAIN_RECOGNIZED_PREFIXES):
+        return False
+    return True
+
 def _looks_like_paper_id(canonical: str) -> bool:
     """Match paper DOI fragments like s41565_023_01357_8, arxiv_2304_12345 etc."""
     # Heuristic: tokens with mixed digits/letters where digit-tokens > 1
@@ -164,6 +226,21 @@ def _is_skip(canonical: str) -> bool:
         return True
     # Option A: stopword-leading multi-token (e.g., "all_atom", "any_X")
     if tokens[0] in STOPWORDS:
+        return True
+    # Option C: substrate-internal prefix literal
+    if canonical.startswith(SUBSTRATE_INTERNAL_PREFIX_LITERAL):
+        return True
+    # Option C: substrate-internal prefix regex (r\d+_, kf\d+_, pp_398, etc.)
+    if SUBSTRATE_INTERNAL_PREFIX_REGEX.match(canonical):
+        return True
+    # Option C: substrate-internal suffix literal
+    if any(canonical.endswith(suf) for suf in SUBSTRATE_INTERNAL_SUFFIX_LITERAL):
+        return True
+    # Option C: entity blocklist (journal names + dataset metadata)
+    if canonical in ENTITY_BLOCKLIST:
+        return True
+    # Option C: naming-convention pattern (3+ underscores + no recognized domain prefix)
+    if _violates_naming_convention(canonical):
         return True
     return False
 
