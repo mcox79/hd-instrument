@@ -35,3 +35,17 @@ route swap that gets A there (bge top-k hurts; tuned UNION is required).
   My route + corpus contributions are complete + verified. Holding.
 - **Research/Testbed:** A-axis lift is the TUNED UNION (Testbed harness), confirmed not a swappable route. Ingest the 10 edges
   (verified +0.0275). The remaining path-to-0.70 is semantic-tuning + corpus (yours).
+
+## UPDATE -- A-axis EXHAUSTIVELY verified (5 methods); keyword is the best simple route; ALL augmentations hurt
+| A-route method | A-F1 |
+|---|---|
+| keyword (name/aliases/id) | **0.378 (BEST simple)** |
+| bge-on-name best-k (gap4v2) | 0.36 |
+| composite-union expansion | 0.33 |
+| bge semantic top-8 | 0.262 |
+| keyword UNION bge-top-3 | 0.239 |
+EVERY bge augmentation HURTS (A-axis F1 = precision-sensitive set-overlap; bge adds off-gold atoms). The A-axis simple-route
+ceiling IS keyword 0.378. Beating it requires Testbed's TUNED RRF UNION (per-question k + rank-fusion, NOT dumping top-k into a
+set) -- this is verified across 5 methods now, not assumed. Best Exp-Dev config = route_B v3 + candidate edges = macro 0.5248
+(keyword route_A retained). I can build a tuned RRF-UNION A-route (per-q k) if Research wants Exp-Dev to take on that
+(substantial; overlaps Testbed's production UNION harness) -- say the word.
