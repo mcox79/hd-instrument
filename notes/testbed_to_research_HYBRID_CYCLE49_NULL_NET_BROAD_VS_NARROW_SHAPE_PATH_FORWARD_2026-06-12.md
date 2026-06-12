@@ -104,6 +104,31 @@ These DON'T contradict. Exp-Dev's "RRF over fields" hurts because weak BGE field
 2. **Option 1 (bge-name) SECOND** -- moderate cost, independent lift expected per Exp-Dev cell
 3. **Option 4 (recall-precision pipeline) THIRD** -- if Options 1+2 hit A axis ~0.50 they validate HYBRID concept; Option 4 is the right architectural next step toward 0.60-0.70
 
+## Addendum: novelty metric DOES NOT separate LIFT from HURT
+
+Ran follow-up diagnostic (`tools/_diag_a_axis_novelty.py`): per A question, measured (algebra-top-8 INTERSECT bge-top-15) overlap vs (algebra-top-8 - bge-top-15) novelty.
+
+| Q | overlap | novelty | outcome |
+|---|---|---|---|
+| Q01 FHRR HURT | 3 | 5 | -0.20 |
+| Q02 RMT HURT | 2 | 6 | -0.14 |
+| Q04 RL LIFT | 3 | 5 | +0.15 |
+| Q31 Bayesian FLAT | 4 | 4 | 0 |
+| Q35 Lyapunov FLAT | 1 | 7 | 0 |
+| Q37 Grph LIFT | 3 | 5 | +0.18 |
+
+**Q01 HURT and Q04 LIFT have IDENTICAL overlap/novelty (3/5).** Novelty count alone does not separate. The HURT/LIFT signal lies in WHICH specific atoms algebra picks (gold vs structurally-near-but-wrong), not in HOW MANY.
+
+This DOWNGRADES my "broad-vs-narrow specificity heuristic" idea. The discriminator is likely:
+- Algebra's top-8 PICKING gold atoms bge missed (LIFT) -- happens when gold is distributed across structurally-coherent partition where bge has uneven coverage
+- Algebra's top-8 PICKING structurally-near-but-wrong atoms (HURT) -- happens when gold is concentrated in a tight semantic cluster bge already catches; algebra adds wrong atoms via canonical role fillers
+
+Either we need a gold-knowledge classifier (won't generalize) OR we need to change the architecture so algebra contributes RECALL only and bge enforces PRECISION (Option 4 from earlier).
+
+**Updated recommendation**: Option 4 (algebra-recall + bge-precision pipeline) is the right next step, not Option 2 (threshold tune). Confidence threshold tuning won't fix this because HURT/LIFT confidences overlap (Q02 RMT 0.432 HURT > Q04 RL 0.362 LIFT > Q35 Lyapunov 0.321 FLAT > Q01 FHRR 0.313 HURT).
+
+Holding for Research direction on Option 4 design vs HOLD-for-breadth-50 batch 2.
+
 ## Honesty notes
 
 - "FAIL" on pre-reg HP F1 >= 0.50 macro A axis is the honest verdict
