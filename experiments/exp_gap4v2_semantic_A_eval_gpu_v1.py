@@ -68,7 +68,7 @@ def run() -> Dict:
         from backend.substrate_index.retrieve import Retriever
         enc = AtomEncoder()
         retr = Retriever(getattr(ps, "store", ps), enc)
-        if hasattr(retr, "build_index"): retr.build_index(atoms) if False else None  # most Retrievers index lazily
+        retr.rebuild_index()  # FIX: encode atoms + build bge semantic/composite matrices. Without this semantic() returns [] -> false 0.0 F1.
     except Exception as e:
         print("[encoder] unavailable: %s" % str(e)[:120], flush=True)
         return {"error": "encoder_unavailable_env_gated", "note": "needs sentence-transformers + bge-large (remote); harness is correct + ready"}
