@@ -20,14 +20,25 @@ Three cells, each pre-registered; honest look-harder arc (saturated -> diagnose 
   atom count (robust over >=18x, ceiling not reached). Neither needs attention for any realistic near-term substrate.
 - The SOLE real operating constraint is QUERY SNR: how well the retrieval cue matches the stored name_vec. And even that is
   generous -- a query encoder need only produce a cue ~45% aligned to the true name for near-perfect identity retrieval.
-- **Where to invest:** query/cue encoding quality (free-text -> name_vec mapping), NOT a larger N and NOT re-tuning the 0.5
-  weight. The qa_self_knowledge A-axis residual is plausibly a cue-quality (query-encoding) problem, consistent with this:
-  the index can retrieve given a decent cue; the gap is generating the cue. Worth checking the A-route's query->name_vec
-  alignment against the ~0.45 threshold.
+- **Where to invest:** query/cue encoding quality, NOT a larger N and NOT re-tuning the 0.5 weight.
+
+## CORRECTION / scope (verified against algebra_index.py after first draft -- two distinct retrieval paths)
+- The trilogy measures **composite_hrr IDENTITY retrieval, which is ATOM-KEYED**: retrieve_by_composite(atom_id, top_k) ->
+  identity-similar atoms (used for compose/decode/cleanup). name_vec = HRR bundle of the atom's hashed name + id-path TOKENS
+  (_name_vec). So the cos~0.45 threshold is the tolerance of the ATOM-KEYED identity channel to a degraded atom-cue.
+- **Free-text A-axis queries do NOT hit composite_hrr** -- per the module design they route through the semantic-bge Index 1
+  (algebra-vec was net-negative in the free-text composite, FINDINGS_04). So my first-draft line tying the cos~0.45 number to
+  the A-axis conflated two paths; retracted.
+- What DOES generalize is the PRINCIPLE, not the number: every retrieval path is ultimately query-SNR-bound (cue-to-target
+  alignment), and the index/weight/capacity are not the limit. For the ATOM-KEYED composite path the margin is generous
+  (cos~0.45). For the FREE-TEXT A-axis path the relevant cue is the BGE semantic embedding, a SEPARATE measurement (its own
+  threshold), and the right lever there is bge query encoding -- consistent with the prior A-axis finding (Testbed-tuned UNION,
+  bge-bound), not the two-vector name_vec.
 
 ## Routing
-- **Testbed:** no index change needed for substrate growth (>=18x headroom) or weight (70x robust). If A-axis/identity recall
-  underperforms, the lever is query encoding (raise cue-to-name cosine), not the index. Cells importable for re-measurement.
+- **Testbed:** no index change needed for substrate growth (>=18x headroom) or weight (70x robust) on the ATOM-KEYED composite
+  identity channel. That channel tolerates a cue down to cos~0.45. Free-text A-axis is a SEPARATE (bge) path -- its lever is bge
+  query encoding, not the two-vector index. Cells importable for re-measurement.
 - **Research:** clean substrate-product positioning -- the two-vector index stores identity+structure in one vector with the
   mixing weight and capacity both non-critical (structural properties of high-D superposition); the only tunable that matters
   is cue quality, with a wide (cos~0.45) margin. NO LLM.
