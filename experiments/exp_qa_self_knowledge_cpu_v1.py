@@ -152,6 +152,46 @@ if _ARGS.self_test:
     sys.exit(0)
 
 
+import re as _re
+_IDPAT = _re.compile(r"(?:[a-z]+::)?(?:T\d/[\w]+|PP-\d+[\w]*|CAP_[\w]+|RULE_[\w]+|SCHOOL/[\w]+|[A-Z]{2,}/[\w]+|[\w]+_family)")
+
+
+def _ids_in(q):
+    return [m.group(0) for m in _IDPAT.finditer(q)]
+
+
+def _extract_args(q, qtype):
+    """Route the canonical benchmark (no args) -> per-type routing args parsed from the question text (Gap-4-lite hard-route)."""
+    t = qtype.split("_")[0].upper(); ql = q.lower(); ids = _ids_in(q)
+    if t == "A":
+        m = _re.search(r"about (.+?)\s*\??$", q, _re.I)
+        return {"topic": m.group(1) if m else q}
+    if t == "C":
+        m = _re.search(r"serve[s]?\s+(\S+)", q, _re.I)
+        cap = (m.group(1).rstrip("?.") if m else (ids[0] if ids else ""))
+        return {"capability": cap if "::" in cap else ("concept::" + cap if cap else "")}
+    if t == "D":
+        m = _re.search(r"from\s+(\S+)\s+to\s+(\S+)", q, _re.I)
+        if m: return {"src": m.group(1).rstrip("?.,"), "tgt": m.group(2).rstrip("?.,")}
+        return {"src": ids[0] if ids else "", "tgt": ids[1] if len(ids) > 1 else ""}
+    if t == "B":
+        if "decompose" in ql: rels = ["DEPENDS_ON", "USES"]
+        elif "instance_of" in ql or "instance of" in ql: rels = ["INSTANCE_OF"]
+        elif "supersede" in ql: rels = ["SUPERSEDES"]
+        elif "depends_on" in ql or "depend on" in ql: rels = ["DEPENDS_ON"]
+        elif "use" in ql: rels = ["USES", "INSTANCE_OF", "DEFINED_OVER", "RELATES"]
+        else: rels = ["USES"]
+        return {"rel_types": rels, "target": (ids[-1] if ids else "*")}
+    if t == "E":
+        m = _re.search(r"when (.+?)\s*\??$", q, _re.I)
+        return {"scenario": (m.group(1) if m else q)}
+    if t == "G":
+        return {"anchor": ids[0], "topic": q} if ids else {"topic": q}
+    if t == "F":
+        return {"mode": "never_applied" if "never" in ql else "gap"}
+    return {}
+
+
 def _snapshot_index():
     src = REPO / "data" / "substrate_index"
     if not src.exists(): return None
@@ -175,9 +215,24 @@ def _load_relations(idx_dir):
 def run() -> Dict:
     from backend.substrate_index.partition import PartitionedStore
     from backend.substrate_index import self_knowledge as sk
-    bench_fp = REPO / "experiments" / "data" / "gap7_benchmark_v1.jsonl"
+    # Per Research benchmark division-of-labor (Option 1): Exp-Dev cell = 53-Q hand-routed MECHANISM R&D (isolates route-quality).
+    # Testbed owns the canonical 60-Q OFFICIAL number (with its Gap-4 router). Canonical scoring here is opt-in (HDLAB_QA_CANONICAL=1)
+    # only for divergence diagnostics -- NOT the headline (hard-route arg-extraction diverges from Gap-4 router; confirmed 0.23 vs 0.48).
+    canon_fp = REPO / "data" / "substrate_index" / "benchmark_corpus_v2_60q.jsonl"
+    use_canon = os.environ.get("HDLAB_QA_CANONICAL") == "1" and canon_fp.exists()
+    bench_fp = canon_fp if use_canon else (REPO / "experiments" / "data" / "gap7_benchmark_v1.jsonl")
     try:
-        bench = [json.loads(l) for l in open(bench_fp, encoding="utf-8") if l.strip()]
+        raw = [json.loads(l) for l in open(bench_fp, encoding="utf-8") if l.strip()]
+        bench = []
+        for r in raw:
+            qid = r.get("qid") or r.get("id"); qtype = r.get("type", "A")
+            tnorm = qtype.split("_")[0].upper()
+            if tnorm == "NEGATIVE" or tnorm == "N": tnorm = "A"  # route negatives as content (should refuse)
+            q = r.get("question", ""); gold = list(r.get("ground_truth_atoms") or r.get("gold") or [])
+            ans = r.get("answerable", bool(gold))
+            if tnorm == "D" and ans and not gold: gold = ["PATH_EXISTS"]  # D existence: answerable+empty-gold = path exists
+            args = r.get("args") or _extract_args(q, tnorm)
+            bench.append({"id": qid, "type": tnorm, "question": q, "args": args, "answerable": ans, "gold": gold})
         idx_dir = _snapshot_index()
         if idx_dir is None: return {"error": "no_substrate_index"}
         pstore = PartitionedStore(idx_dir)
