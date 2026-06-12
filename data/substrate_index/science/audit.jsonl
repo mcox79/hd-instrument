@@ -204,3 +204,32 @@
 {"ts": 1781231783.1217523, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|BIO/dopamine_RPE", "note": "{\"phase_B_C\": true, \"reason\": \"Schultz RPE -> TD learning\", \"relation_subtype\": \"BIOLOGICALLY_INSPIRED_BY\"}", "source": "batch03_A4"}
 {"ts": 1781231783.122863, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|concept::PP-375_multistep_math", "note": "{\"phase_B_C\": true, \"reason\": \"answer-consistency weak labels analogue of reward signal\", \"relation_subtype\": \"ANALOGOUS_TO\"}", "source": "batch03_A4"}
 {"ts": 1781231783.1239173, "op": "add_relation", "target": "CS/reinforcement_learning|RELATES|math::T1/expectation_variance", "note": "{\"phase_B_C\": true, \"relation_subtype\": \"USES_EXPECTED_REWARD\"}", "source": "batch03_A4"}
+{"ts": 1781239161.0219324, "op": "add_atom", "target": "CROSSDISC/theta_gamma_to_hrr", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0219324, "op": "add_atom", "target": "CROSSDISC/grid_cells_to_wavelets", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/place_cells_to_spatial_binding", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/dopamine_rpe_to_credit_assignment", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/cerebellum_to_predictive_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0376022, "op": "add_atom", "target": "CROSSDISC/dmn_to_self_knowing", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0569646, "op": "add_atom", "target": "CROSSDISC/stdp_to_temporal_policy", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.062486, "op": "add_atom", "target": "CROSSDISC/ltp_to_hebbian_reinforcement", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0657961, "op": "add_atom", "target": "CROSSDISC/anderson_to_cleanup_attractors", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/protein_folding_to_cleanup_funnel", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/percolation_to_capability_path", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.0693188, "op": "add_atom", "target": "CROSSDISC/tda_to_substrate_topology", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/ising_to_modern_hopfield", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/hodgkin_huxley_to_spiking_neuron", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/ess_to_adversarial_stability", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.084991, "op": "add_atom", "target": "CROSSDISC/lorenz_to_dynamical_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1045363, "op": "add_atom", "target": "CROSSDISC/kam_to_perturbation_stability", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1086576, "op": "add_atom", "target": "CROSSDISC/qubit_to_fhrr_phasor", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1136444, "op": "add_atom", "target": "CROSSDISC/landauer_to_atom_update_cost", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1168528, "op": "add_atom", "target": "CROSSDISC/jarzynski_to_substrate_energy", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.12245, "op": "add_atom", "target": "CROSSDISC/no_cloning_to_capacity_bound", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1268501, "op": "add_atom", "target": "CROSSDISC/markov_chain_to_random_walk_retrieval", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1307395, "op": "add_atom", "target": "CROSSDISC/lotka_volterra_to_atom_dynamics", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/hardy_weinberg_to_atom_equilibrium", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/mapk_to_hierarchical_activation", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.132491, "op": "add_atom", "target": "CROSSDISC/michaelis_menten_to_substrate_saturation", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/cognitive_map_to_concept_links", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/working_memory_baddeley_to_substrate_scratchpad", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/predictive_coding_to_predictive_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}

@@ -287,14 +287,56 @@ def answer_type_F(pstore: PartitionedStore, q: dict) -> set[str]:
 
 
 def answer_type_G(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type G pattern-level: cross-capability pattern queries."""
-    # Q27 count_NB -> discriminative_perceptron: caps where both atoms appear in solution_history
-    if "count_nb" in q["question"].lower() and "discriminative_perceptron" in q["question"].lower():
+    """Type G pattern-level: cross-capability pattern queries.
+
+    Cross-discipline analogue queries (Q28-style) traverse CROSSDISC atoms'
+    analogue_source/analogue_target metadata fields to surface math primitives
+    that are analogous to a brain/physics/chem mechanism mentioned in the question.
+    """
+    qlower = q["question"].lower()
+
+    # Q27 count_NB -> discriminative_perceptron pattern
+    if "count_nb" in qlower and "discriminative_perceptron" in qlower:
         from backend.substrate_index.self_knowledge import which_solutions_use_atom
         nb_caps = {e["capability"] for e in which_solutions_use_atom(pstore, "math::T3/count_nb")}
         dp_caps = {e["capability"] for e in which_solutions_use_atom(pstore, "math::T3/discriminative_perceptron")}
         return nb_caps & dp_caps
-    # Q28 theta-gamma cross-discipline analogues: keyword search
+
+    # Cross-discipline analogue queries: scan CROSSDISC atoms whose
+    # analogue_source matches a key term in the question, then surface their
+    # analogue_target (math primitive).
+    if "cross-discipline" in qlower or "cross discipline" in qlower or \
+            "analogue" in qlower or "analogues" in qlower:
+        matched = set()
+        # Extract phrases like theta-gamma / grid cells / etc.
+        keywords = _extract_keywords(q["question"])
+        # Normalize: theta-gamma -> theta_gamma + theta + gamma; multi-token
+        expanded = set()
+        for kw in keywords:
+            kw_l = kw.lower()
+            expanded.add(kw_l)
+            expanded.add(kw_l.replace("-", "_"))
+            expanded.add(kw_l.replace("-", ""))
+            for part in kw_l.replace("-", " ").split():
+                if len(part) >= 4:
+                    expanded.add(part)
+        for atom in pstore.all_atoms():
+            if atom.kind.value != "cross_disc_analogue":
+                continue
+            src = atom.metadata.get("analogue_source") or ""
+            desc = atom.description or ""
+            hay = (src + " " + atom.name + " " + desc).lower()
+            # match if any expanded keyword appears
+            if any(kw in hay for kw in expanded if len(kw) >= 4):
+                tgt = atom.metadata.get("analogue_target") or ""
+                if tgt:
+                    if tgt.startswith("substrate::"):
+                        tgt = "math::" + tgt.split("::", 1)[1]
+                    matched.add(tgt)
+        if matched:
+            return matched
+
+    # Fallback keyword match (kept lightweight)
     keywords = _extract_keywords(q["question"])
     return _atoms_matching_topic(pstore, keywords)
 

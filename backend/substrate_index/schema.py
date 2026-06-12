@@ -97,6 +97,9 @@ class AtomKind(enum.Enum):
     METHODOLOGY_RULE = "methodology_rule"  # per FINDINGS_13 Tier 4: meta partition
                                             # atoms; human-authored OR substrate-extracted
                                             # from solution-history cliff patterns
+    CROSS_DISC_ANALOGUE = "cross_disc_analogue"  # per CROSS_DISCIPLINE_ANALOGUES_BATCH_01
+                                                  # 2026-06-12: brain/physics/chem -> math
+                                                  # primitive grounding atoms (GROUNDS edges)
 
     # Per Research full-research-ledger auto-ingest 2026-06-11:
     DRILL = "drill"               # research drill outputs
