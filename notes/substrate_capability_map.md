@@ -28478,3 +28478,66 @@ Annotations this cycle:
 - asdiv_pp375_wk single-seed 0.4387 is seed artifact; multi-seed ~0.39 authoritative.
 
 Cap_map: v572 -> v573 CYCLE 239 (0 HP; 2 MIDDLE_BAND; 8 HARD_FAIL; 0 LVH; 0 NEW PP ROWS; Portfolio 32+397; HONEST 1811->1821 +10; LVH 291; 467th PROT-009 paired commit) (2026-06-11)
+
+## v573 -> v574 @ CYCLE 240 10-VERDICT BATCH NER frame-semantic + chunking CoNLL2000 variants + multi-seed validations + substrate CRF E1 + permutation binding E3 (verdict_handler 468th PROT-009 paired commit; 2 HP [ner_4type_multiseed + e3_permutation_binding]; 5 MIDDLE_BAND [chunking_pos_cascade + chunking_conll2000_cascade + chunking_conll2000_richfeat + nl_slot_filling_atis_bootstrap + depparse_hashed_multiseed]; 3 HARD_FAIL [ner_frame_semantic + transfer_p5_factrecall_mwp + e1_substrate_crf_shared_lib]; 0 LVH; 2 NEW PP ROWS [PP-398 E3-permutation-binding + PP-399 NER-4type-multiseed-HP]; NER 4-type PROMOTES Tier-B->Tier-A; E3 permutation binding STRUCTURAL CAPABILITY; NER frame path CLOSED; Portfolio 32+397->32+399 +2; HONEST 1821->1831 +10; LVH 291->291 +0)
+
+### Step 0 honest re-read (CYCLE 240)
+
+Metrics source: LOCAL (all 10 files). 0 LVH catches.
+
+**ner_frame_semantic_cpu_v1 HARD_FAIL (HONEST):** lift=-0.005 (negative), well below +0.02 threshold. HONEST.
+**chunking_pos_cascade_cpu_v1 MIDDLE_BAND (HONEST):** F1=0.9124 in 0.90-0.93 band. HONEST.
+**chunking_conll2000_cascade_cpu_v1 MIDDLE_BAND (HONEST):** F1=0.9231 in 0.90-0.93 band. HONEST.
+**ner_4type_multiseed_cpu_v1 HARD_PASS (HONEST):** mean-2SE=0.6439 >= 0.64 threshold, n=5. HONEST.
+**chunking_conll2000_richfeat_lean_cpu_v1 MIDDLE_BAND (HONEST):** F1=0.9257, below 0.93 bar. HONEST.
+**nl_slot_filling_atis_bootstrap_cpu_v1 MIDDLE_BAND (HONEST):** slot-F1=0.7125, CI-lo=0.6933 < 0.85 bar. HONEST.
+**depparse_hashed_multiseed_cpu_v1 MIDDLE_BAND (HONEST):** mean-UAS=0.7875, mean-2SE=0.7867, below 0.80 bar. HONEST.
+**transfer_p5_factrecall_mwp_cpu_v1 HARD_FAIL (HONEST):** FHRR-F1=0.2602 < 0.30 threshold. HONEST.
+**e1_substrate_crf_shared_lib_cpu_v1 HARD_FAIL (HONEST):** lift=-0.0140 (negative), lift-2SE=-0.0497. HONEST.
+**e3_permutation_binding_multiocc_cpu_v1 HARD_PASS (HONEST):** perm_acc=1.0000, lift=+0.9311 >> 0.10 threshold. HONEST.
+
+HONEST: 1821 -> 1831 (+10). LVH: 291 -> 291 (+0). 0 LVH catches.
+
+### Cap_map decisions (v573 -> v574 CYCLE 240)
+
+**(A) ner_frame_semantic_cpu_v1 (HARD_FAIL -- frame-semantic abstraction saturates; NER frame path CLOSED):**
+ner_frame_semantic_cpu_v1 HARD_FAIL v574: F1=0.5767 vs baseline 0.5817, lift=-0.005, n_train=5982, n_seeds=1 (cycle 240). FRAME-SEMANTIC ABSTRACTION SATURATES: construction-frame features negative lift. Lexical context window already captures construction patterns. Closes frame-semantic path for NER. NER row annotated (frame path closed). No new PP row. Extends aux-saturation series (Brown/POS/gazetteer/frame all saturate). In-corpus ceiling confirmed ~0.595.
+
+**(B) chunking_pos_cascade_cpu_v1 (MIDDLE_BAND -- chunking POS cascade composition; PP-384 annotated):**
+chunking_pos_cascade_cpu_v1 MIDDLE_BAND v574: F1=0.9124 vs word-only 0.9038, lift=+0.0086, pos-acc=0.9125, train=3000, n_seeds=1 (cycle 240). POS cascade positive (+0.0086) on 3000-sentence subset. Below 0.93 bar. PP-384/PP-385 annotated. No new PP row.
+
+**(C) chunking_conll2000_cascade_cpu_v1 (MIDDLE_BAND -- CoNLL2000 full-data cascade; upper edge 0.9231):**
+chunking_conll2000_cascade_cpu_v1 MIDDLE_BAND v574: F1=0.9231 vs word-only 0.9084, lift=+0.0147, pos-acc=0.9764, train=8903, n_seeds=1 (cycle 240). Full CoNLL2000 benchmark: F1=0.9231, 0.0069 below 0.93 HP bar. Best cascade result; rich features (item D) adds only +0.0026. PP-384/PP-385 annotated. No new PP row.
+
+**(D) chunking_conll2000_richfeat_lean_cpu_v1 (MIDDLE_BAND -- richfeat marginal over cascade; best single-seed F1=0.9257):**
+chunking_conll2000_richfeat_lean_cpu_v1 MIDDLE_BAND v574: F1=0.9257, lift_vs_basic=+0.0026, train=8903, n_seeds=1 (cycle 240). Best chunking result to date; 0.0043 below 0.93 HP bar. Multi-seed richfeat run needed for HP determination. PP-384/PP-385 annotated. No new PP row.
+
+**(E) ner_4type_multiseed_cpu_v1 (HARD_PASS -- NEW ROW PP-399; NER 4-type PROMOTES Tier-B->Tier-A):**
+NEW ROW PP-399: ner_4type_multiseed_cpu_v1 HARD_PASS v574: mean-F1=0.6502, std=0.0071, SE=0.0032, mean-2SE=0.6439 >= 0.64, n=5, vals=[0.638, 0.6537, 0.6598, 0.6493, 0.6504], train=5982 (cycle 240). NER 4-TYPE SEED-ROBUST HARD_PASS. Matches literature CoNLL-2003 ~0.65. PROMOTES Tier-B->Tier-A. Validates cycle-237 rescue path. P-band: 0.64-0.67 VALIDATED (5-seed). Product implication: substrate NER at 4-type scope competitive with literature. Cross-ref PP-387, ner_4type_conll cycle-237, PP-388-390.
+
+**(F) nl_slot_filling_atis_bootstrap_cpu_v1 (MIDDLE_BAND -- ATIS slot bootstrap-firmed; intent-acc strong):**
+nl_slot_filling_atis_bootstrap_cpu_v1 MIDDLE_BAND v574: slot-F1=0.7125, 95%CI=[0.6933-0.7316], SE=0.0099, intent-acc=0.8455, B=1000, test=893 (cycle 240). Bootstrap-firmed CI. Lower-CI=0.6933 < 0.85 bar = MIDDLE_BAND. Intent-acc=0.8455 strong. Refirmation of PP-369 with B=1000. No new PP row; PP-369 annotated bootstrap-firmed.
+
+**(G) depparse_hashed_multiseed_cpu_v1 (MIDDLE_BAND -- depparse 5-seed FIRMED; UAS=0.7875 std=0.0008):**
+depparse_hashed_multiseed_cpu_v1 MIDDLE_BAND v574: mean-UAS=0.7875, std=0.0008, SE=0.0004, mean-2SE=0.7867, n=5, train=12329 (cycle 240). Extraordinarily tight variance confirms seed-robust reliability. Mean-2SE=0.7867 < 0.80 HP bar by 0.013. Ceiling stable below HP. PP-381 annotated multi-seed firm. No new PP row. Cross-ref PP-381.
+
+**(H) transfer_p5_factrecall_mwp_cpu_v1 (HARD_FAIL -- P5 CONFIRMED; FHRR mismatched to text extraction):**
+transfer_p5_factrecall_mwp_cpu_v1 HARD_FAIL v574: FHRR-F1=0.2602, adjacent-F1=0.0, regex-F1=0.5940, gap=-0.3339, n=400 (cycle 240). Both FHRR strategies fail. Confirms Drill 2 P5 prediction. Transfer-conditions framework validated discriminatively: FHRR algebraic unbind != sequential text pattern matching. P5 FHRR axis closed. No new PP row. Cross-ref PP-398 (E3 FHRR succeeds on structured explicit binding).
+
+**(I) e1_substrate_crf_shared_lib_cpu_v1 (HARD_FAIL -- E1 shared library lift negative; aux-features-shrink; E1 axis CLOSED):**
+e1_substrate_crf_shared_lib_cpu_v1 HARD_FAIL v574: baseline-F1=0.6505, library-F1=0.6365, lift=-0.0140, lift-2SE=-0.0497, lifts=[-0.0407, +0.0294, -0.0306], n_seeds=3, clusters=1514, gaz=584, train=5982 (cycle 240). Clusters+gazetteer external library net negative. Aux-features-shrink confirmed for E1. E1 shared-library axis closed for NER at current training size. No new PP row. PP-387/NER row annotated (E1 closed). Cross-ref ner_stacked_features cycle-238.
+
+**(J) e3_permutation_binding_multiocc_cpu_v1 (HARD_PASS -- NEW ROW PP-398; multi-occurrence binding SOLVED; structural capability):**
+NEW ROW PP-398: e3_permutation_binding_multiocc_cpu_v1 HARD_PASS v574: FHRR-acc=0.0689, perm-acc=1.0000, lift=+0.9311, n_subset=450 (cycle 240). PERMUTATION BINDING RESOLVES MULTI-OCCURRENCE COLLISION: distinct permutation keys per role-occurrence recover operands perfectly (1.000) where plain FHRR superposition collapses (0.069). Lift=+93.11pp -- STRUCTURAL CAPABILITY. Addresses cycle-239 FCG/SRL gap at REPRESENTATION level: multihop_fhrr_binding HARD_FAIL was superposition collision, not question-semantics. Permutation indexing = substrate-native solution to role-collision. Composes with PP-381 (depparse labels roles) + PP-395/PP-396 (role detection upstream). P-band: 0.95-1.00 VALIDATED (perfect on multi-occurrence subset). Product implication: algebraic binding collision SOLVED; bottleneck is now upstream role-detection quality. Cross-ref cycle-239 multihop_fhrr_binding, PP-381, PP-395/PP-396.
+
+ANNOTATIONS this cycle:
+- NER: frame-semantic CLOSED (lift=-0.005); ALL in-corpus auxiliary feature paths exhausted. Ceiling ~0.595. Open: R1 bigram-boundary + R3 full CoNLL-2003 (14987 tokens) only.
+- NER 4-type: HARD_PASS PP-399; mean-F1=0.6502 seed-robust; PROMOTES Tier-B->Tier-A.
+- Chunking: best F1=0.9257 (richfeat, 0.0043 below 0.93 bar). Multi-seed richfeat @ full CoNLL2000 needed for HP.
+- Depparse: 5-seed firm UAS=0.7875 std=0.0008. Reliable but below HP.
+- ATIS slot: bootstrap-firmed F1=0.7125 CI=[0.693-0.732]; intent-acc=0.845.
+- P5 FHRR: confirmed HARD_FAIL. Transfer-conditions discriminative validation.
+- E1 CRF shared library: CLOSED. Aux-features-shrink at full NER data.
+- E3 permutation binding: HARD_PASS PP-398. Structural capability -- multi-occurrence collision solved. Cycle-239 FCG/SRL diagnosis was partially wrong: binding failure was representation-level, solved with permutation indexing.
+
+Cap_map: v573 -> v574 CYCLE 240 (2 HP [ner_4type_multiseed=PP-399 + e3_permutation_binding=PP-398]; 5 MIDDLE_BAND [chunking_pos_cascade + chunking_conll2000_cascade + chunking_conll2000_richfeat + nl_slot_filling_atis_bootstrap + depparse_hashed_multiseed]; 3 HARD_FAIL [ner_frame_semantic + transfer_p5_factrecall_mwp + e1_substrate_crf_shared_lib]; 0 LVH; 2 NEW PP ROWS [PP-398 E3-permutation-binding + PP-399 NER-4type-multiseed-HP]; NER 4-type PROMOTES Tier-B->Tier-A (PP-399); E3 permutation binding STRUCTURAL CAPABILITY (PP-398); NER frame path CLOSED (all aux saturation complete); Chunking best=0.9257 (multi-seed richfeat needed for HP); Depparse 5-seed firm UAS=0.7875; ATIS slot bootstrap-firmed F1=0.7125; Portfolio 32+397 -> 32+399 +2; HONEST 1821->1831 +10; LVH 291->291 +0; 468th PROT-009 paired commit) (2026-06-11)
