@@ -236,6 +236,18 @@ class Atom:
                                             # Captures the substrate's progression
                                             # without losing prior learnings.
 
+    # Per FINDINGS #18 usability-gap analysis 2026-06-11: substrate must know
+    # WHICH capabilities each math/concept atom serves so retrieval can be
+    # capability-anchored, not just semantic. Reverse index from atom -> caps.
+    # Multi-valued: one atom can serve many capabilities (universal levers like
+    # discriminative_perceptron serve 11/12 caps per cross_capability_best_overlap).
+    serves_capability: tuple[str, ...] = field(default_factory=tuple)
+                                            # Qualified capability atom_ids
+                                            # (e.g., "concept::cap_mwp_role_assign").
+                                            # Populated at ingest (Research-seed)
+                                            # OR via substrate-eval inference
+                                            # (solution_history reverse-mapping).
+
     @property
     def qualified_id(self) -> str:
         return f"{self.corpus.value}::{self.id}"
@@ -265,6 +277,8 @@ class Atom:
             d["current_best_solution"] = self.current_best_solution
         if self.solution_history:
             d["solution_history"] = [dict(s) for s in self.solution_history]
+        if self.serves_capability:
+            d["serves_capability"] = list(self.serves_capability)
         return d
 
     @classmethod
@@ -345,6 +359,7 @@ class Atom:
             concept_links=tuple(concept_links) if concept_links else tuple(),
             current_best_solution=d.get("current_best_solution"),
             solution_history=tuple(d.get("solution_history", [])),
+            serves_capability=tuple(d.get("serves_capability", [])),
         )
 
 
