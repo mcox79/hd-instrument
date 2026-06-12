@@ -43,11 +43,12 @@
 > ssh marsh@100.91.12.42 'powershell -NoProfile -Command "cd C:\dev\hd-instrument; if ((git status --porcelain).Length -gt 0) { git checkout HEAD -- backend tools experiments preregs }; git pull origin main"'
 > ```
 >
-> **Background tasks at compaction time** (will NOT survive):
-> - btp2et94p: HYBRID semantic_v2 benchmark on REMOTE (substrate 1742; expected lift A 0.413 -> 0.50+; 7-axis 0.592 -> ~0.61)
+> **Background tasks at compaction time** (REMOTE Python survives; LOCAL notification handle dies):
+> - btp2et94p: HYBRID semantic_v2 benchmark on REMOTE. Python process on 100.91.12.42 keeps running; output writes to data/substrate_index/bench_reports/*.json on remote disk. Cached bge index survives at data/substrate_index/cached_indices/bge_large_*.npz on remote.
+> - Expected: A 0.413 -> 0.50+ lift; 7-axis 0.592 -> ~0.61
 >
 > **On-resume actions**:
-> 1. Check btp2et94p result (if still running, re-run via SSH)
+> 1. Check remote bench_reports for fresh result file: `ssh marsh@100.91.12.42 'ls -lt /c/dev/hd-instrument/data/substrate_index/bench_reports/ | head -5'`. If new file dated >116df074-commit-time, read it. If not, check `ps` on remote for live python processes; if dead, re-run.
 > 2. Continue Cell 3 v2 backfill iteration with Research (next ~50 atoms)
 > 3. Run L2 test (rotational difference) once breadth backfill produces enough inverse pairs
 > 4. Continue git-pull-home protocol after every push
