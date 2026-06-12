@@ -26,12 +26,23 @@ def main():
     ap.add_argument("--top-k", type=int, default=100, help="top-K proposals to surface")
     ap.add_argument("--pos-filter", action="store_true",
                     help="enable substrate POS filter (Option B/C; slow first run)")
+    ap.add_argument("--scope", choices=["default", "math-foundation"], default="default",
+                    help="scope mode: 'math-foundation' drops Z>=3 to Z>=1 + relaxes PoS per Research direction")
+    ap.add_argument("--min-z", type=int, default=None,
+                    help="override min Z count threshold (default 3; math-foundation scope auto-sets to 1)")
     args = ap.parse_args()
+
+    if args.scope == "math-foundation":
+        min_z = 1 if args.min_z is None else args.min_z
+        use_pos = False  # relax PoS per Research math-foundation direction
+        print(f"=== Phase-2-light MATH-FOUNDATION SCOPE MODE (top-K={args.top_k}; min_z={min_z}; pos_filter=OFF) ===\n")
+    else:
+        min_z = 3 if args.min_z is None else args.min_z
+        use_pos = args.pos_filter
+        print(f"=== Phase-2-light TARGETED MATH-FOUNDATION default scope (top-K={args.top_k}; min_z={min_z}; pos_filter={use_pos}) ===\n")
 
     DATA_ROOT = Path("data/substrate_index")
     NOTES_DIR = Path("notes")
-
-    print(f"=== Phase-2-light TARGETED MATH-FOUNDATION (top-K={args.top_k}) ===\n")
 
     # Scope: research_drill_*_2026-06-12.md (today's drill notes)
     drill_files = sorted(
@@ -59,7 +70,8 @@ def main():
     t0 = time.time()
     proposals = run_phase_2_light_pipeline(drill_files, pstore, ai,
                                             top_k=args.top_k,
-                                            use_pos_filter=args.pos_filter)
+                                            use_pos_filter=use_pos,
+                                            min_z_count=min_z)
     elapsed = time.time() - t0
     print(f"  pipeline elapsed: {elapsed:.2f}s")
     print(f"  ranked top-{len(proposals)} proposals\n")
@@ -73,11 +85,13 @@ def main():
     # Save proposal batch JSON
     out = {
         "smoke_run_ts": int(time.time()),
-        "scope": "research_drill_*_2026-06-12.md (Cycle 51 math-foundation targeted)",
+        "scope": f"research_drill_*_2026-06-12.md (Cycle 51 math-foundation; scope_mode={args.scope}; min_z={min_z}; pos_filter={use_pos})",
         "n_input_files": len(drill_files),
         "n_atoms_baseline": len(pstore.all_atoms()),
         "elapsed_s": elapsed,
-        "use_pos_filter": args.pos_filter,
+        "scope_mode": args.scope,
+        "min_z_count": min_z,
+        "use_pos_filter": use_pos,
         "proposals": [
             {
                 "rank": i + 1,

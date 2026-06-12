@@ -403,6 +403,7 @@ def run_phase_2_light_pipeline(
     skip_existing: bool = True,
     top_k: int = 30,
     use_pos_filter: bool = False,
+    min_z_count: int = 3,
 ) -> list[ProposalRecord]:
     """Run the full 5-component Phase-2-light pipeline on a set of files.
 
@@ -430,7 +431,7 @@ def run_phase_2_light_pipeline(
         score, matches = distant_supervision_score(ce, lex)
         if skip_existing and score >= SKIP_NEAR_MATCH_THRESHOLD:
             continue
-        if ce.z_count < 3:
+        if ce.z_count < min_z_count:
             continue
         # Meta-jargon blocklist: drop candidates leading with meta-narrative tokens
         first_token = canonical.split("_")[0]
