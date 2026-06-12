@@ -58,11 +58,12 @@ def route_A(atoms, args):
 def route_B(relations, args, id2corpus):
     """Per-Research: align to substrate's actual rel vocab (per-question rel_types) + precision filter (src namespace)."""
     accept = {x.upper() for x in args["rel_types"]}; tgt = _norm(args["target"]); src_ns = args.get("src_ns")
+    wild = (tgt == "*")
     out = set()
     for r in relations:
         if r.get("rel_type", "").upper() not in accept: continue
         s = _norm(r["src_id"]); t = _norm(r["tgt_id"])
-        if t == tgt:
+        if wild or t == tgt:
             if src_ns and id2corpus.get(s) not in src_ns: continue  # precision: source namespace filter
             out.add(s)
     return out
