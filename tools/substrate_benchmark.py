@@ -30,6 +30,7 @@ from backend.substrate_index.self_knowledge import (
     what_serves,
     composition_paths,
 )
+from backend.substrate_index.intent_router import route as router_route
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s | %(message)s")
 log = logging.getLogger("benchmark")
@@ -365,9 +366,93 @@ def score_honesty(predicted: set[str], q: dict) -> dict:
 # ============================================================
 
 
+def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Gap 4 router: NL question -> primitive -> answer set. Used when
+    --use-router is set so we measure router-routed performance separately."""
+    routed = router_route(q["question"], pstore)
+    primitive = routed["primitive"]
+    args = routed.get("args", {})
+    if routed.get("honesty_filter"):
+        return set()
+    if primitive == "what_do_you_know_about":
+        # Fall back to keyword match (no encoder local)
+        return answer_type_A(pstore, q)
+    if primitive == "what_serves":
+        cap = args.get("capability") or ""
+        if not cap:
+            return set()
+        # Fake q with anchor for answer_type_C
+        return answer_type_C(pstore, {"anchor": cap, "question": q["question"]})
+    if primitive in ("predecessors_via",):
+        target = args.get("target") or ""
+        rel_types = args.get("rel_types") or []
+        if not target or not pstore.has_atom(target):
+            return set()
+        matched = set()
+        # Direction 1: in_neighbors via specified relation types
+        for rt_name in rel_types:
+            for rt in RelationType:
+                if rt.value == rt_name or rt_name in rt.value or rt.value in rt_name:
+                    for src in pstore.in_neighbors(target, rt):
+                        matched.add(src)
+        # Direction 2: atoms whose concept_links or decomposes_to mention target
+        for atom in pstore.all_atoms():
+            if target in (atom.concept_links or []):
+                matched.add(atom.qualified_id)
+            if target in (atom.metadata.get("decomposes_to") or []):
+                matched.add(atom.qualified_id)
+        # Direction 3: also include atoms via SUPERSEDES / RELATES (fuzzy fallback for vocab gap)
+        for fallback_rt in (RelationType.RELATES,):
+            for src in pstore.in_neighbors(target, fallback_rt):
+                matched.add(src)
+        matched.discard(target)
+        return matched
+    if primitive == "solution_history_lookup":
+        cap = args.get("capability") or ""
+        corpus_filter = args.get("corpus_filter")
+        if not cap or not pstore.has_atom(cap):
+            return set()
+        atom = pstore.get_atom(cap)
+        matched = set()
+        for entry in atom.solution_history:
+            sol = entry.get("solution_atom_id")
+            if sol:
+                matched.add(sol)
+            for au in entry.get("atoms_used", []):
+                matched.add(au)
+        if corpus_filter:
+            matched = {m for m in matched if m.startswith(f"{corpus_filter}::")}
+        return matched
+    if primitive == "supersedes_pairs":
+        anchor = args.get("anchor")
+        matched = set()
+        for src, rel_obj, tgt in pstore.iter_all_relations():
+            rel_str = rel_obj.value if hasattr(rel_obj, "value") else str(rel_obj)
+            if "SUPERSEDES" in rel_str:
+                if anchor:
+                    if src == anchor or tgt == anchor:
+                        matched.add(src)
+                        matched.add(tgt)
+                else:
+                    matched.add(src)
+                    matched.add(tgt)
+        return matched
+    if primitive == "composition_paths":
+        return set()  # boolean handled in cmd
+    if primitive == "methodology_rules_for":
+        return answer_type_E(pstore, q)
+    if primitive == "coverage_report":
+        return answer_type_F(pstore, q)
+    if primitive == "pattern_atoms":
+        return answer_type_G(pstore, q)
+    return set()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--questions", type=Path, default=DEFAULT_QUESTIONS)
+    ap.add_argument("--use-router", action="store_true",
+                    help="Route NL via Gap 4 intent router instead of type-direct dispatch")
     args = ap.parse_args()
 
     pstore = PartitionedStore(DATA_ROOT)
@@ -408,8 +493,11 @@ def main():
             result.update(sc)
             per_type[qtype].append(sc["correct"])
         elif mode == "honesty":
-            fn = answer_fns.get(qtype, answer_negative)
-            pred = fn(pstore, q)
+            if args.use_router:
+                pred = answer_via_router(pstore, q)
+            else:
+                fn = answer_fns.get(qtype, answer_negative)
+                pred = fn(pstore, q)
             sc = score_honesty(pred, q)
             result.update(sc)
             per_type[qtype].append(sc["correct"])
@@ -417,12 +505,15 @@ def main():
             result["qualitative"] = True
             result["note"] = "qualitative-only; skipped from numeric F1"
         else:
-            fn = answer_fns.get(qtype)
-            if fn is None:
-                result["error"] = f"no answer fn for type {qtype}"
-                results.append(result)
-                continue
-            pred = fn(pstore, q)
+            if args.use_router:
+                pred = answer_via_router(pstore, q)
+            else:
+                fn = answer_fns.get(qtype)
+                if fn is None:
+                    result["error"] = f"no answer fn for type {qtype}"
+                    results.append(result)
+                    continue
+                pred = fn(pstore, q)
             sc = score_set_overlap(pred, q["ground_truth_atoms"])
             result.update(sc)
             per_type[qtype].append(sc["f1"])
