@@ -271,7 +271,7 @@ def run() -> Dict:
         from backend.substrate_index.encode import AtomEncoder
         from backend.substrate_index.retrieve import Retriever
         _enc = AtomEncoder(); _retr = Retriever(getattr(pstore, "store", pstore), _enc); _retr.rebuild_index()
-        _A_K = int(os.environ.get("HDLAB_A_K", "8"))
+        _A_K = int(os.environ.get("HDLAB_A_K", "3"))
         def _BGE_A(topic):
             try:
                 cands = _retr.semantic(topic, top_k=_A_K)
@@ -288,7 +288,11 @@ def run() -> Dict:
         gold = set(_norm(g) for g in q.get("gold", []))
         gold_present = set(g for g in gold if (g in all_ids or g == "path_exists"))
         if t == "A":
-            retrieved = _BGE_A(q["args"]["topic"]) if _BGE is not None else route_A(atoms, q["args"])
+            kw = route_A(atoms, q["args"])  # keyword set (variable size, good precision)
+            if _BGE is not None:
+                retrieved = kw | _BGE_A(q["args"]["topic"])  # adaptive: keyword UNION bge-top-k (recall boost)
+            else:
+                retrieved = kw
         elif t == "B": retrieved = route_B_v2(relations, q["args"], id2corpus, rel_present)
         elif t == "C": retrieved = route_C(pstore, sk, q["args"])
         elif t == "D": retrieved = route_D(pstore, sk, q["args"], id2qid)
