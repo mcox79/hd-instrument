@@ -321,7 +321,12 @@ class AlgebraIndex:
         return [(ids[i], float(sims[i])) for i in order]
 
     def atoms_with_shared_algebra(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
-        """Top-K atoms whose algebra HRR is closest to atom_id's algebra HRR."""
+        """Top-K STRUCTURAL-SIMILARITY retrieval via plain algebra-dict HRR.
+
+        Per PP-410 two-vector architecture: STRUCTURAL mode.
+        Atoms with identical algebra dicts have identical vectors BY DESIGN.
+        Use this when looking for "atoms in the same algebraic class".
+        """
         return self._retrieve_by_attr(atom_id, "algebra_hrr", top_k)
 
     def atoms_with_shared_signature(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
@@ -331,6 +336,45 @@ class AlgebraIndex:
     def atoms_with_shared_complexity(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
         """Top-K atoms whose complexity HRR is closest to atom_id's complexity HRR."""
         return self._retrieve_by_attr(atom_id, "complexity_hrr", top_k)
+
+    def atoms_with_shared_identity(self, atom_id: str, top_k: int = 10) -> list[tuple[str, float]]:
+        """Top-K IDENTITY retrieval via composite (identity-augmented) HRR.
+
+        Per PP-410 two-vector architecture: IDENTITY mode.
+        composite_hrr = normalize(algebra_hrr + 0.5 * name_vec); collision-resistant
+        so this returns ATOM-IDENTITY similar atoms (each specific atom is
+        distinguishable from other atoms in the same algebraic class).
+        Use this for compose/decode/cleanup/A-axis-content-retrieval queries.
+        """
+        return self._retrieve_by_attr(atom_id, "composite_hrr", top_k)
+
+    def retrieve_similar(
+        self,
+        atom_id: str,
+        vector_mode: str = "identity",
+        top_k: int = 10,
+    ) -> list[tuple[str, float]]:
+        """Unified retrieval API per strategy_request v588 PP-410.
+
+        vector_mode = "structural": atoms_with_shared_algebra (collisions desirable)
+        vector_mode = "identity":   atoms_with_shared_identity (collision-resistant)
+        vector_mode = "signature":  atoms_with_shared_signature (signature axis)
+        vector_mode = "complexity": atoms_with_shared_complexity (complexity axis)
+
+        Default = "identity" (most common consumer need: atom-specific retrieval).
+        """
+        mode_to_method = {
+            "structural": self.atoms_with_shared_algebra,
+            "identity": self.atoms_with_shared_identity,
+            "signature": self.atoms_with_shared_signature,
+            "complexity": self.atoms_with_shared_complexity,
+        }
+        method = mode_to_method.get(vector_mode)
+        if method is None:
+            raise ValueError(
+                f"vector_mode must be one of {list(mode_to_method.keys())}; got {vector_mode!r}"
+            )
+        return method(atom_id, top_k)
 
     def atoms_with_shared_profile(
         self,
