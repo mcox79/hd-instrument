@@ -55,30 +55,46 @@ def route_A(atoms, args):
     return out
 
 
-# benchmark rel_type -> substrate's actual edge vocabulary (substrate uses DEPENDS_ON/USES/RELATES/INSTANCE_OF,
-# NOT the benchmark's DECOMPOSES_TO/USED_FOR_LIFT). v1 semantic mapping (Gap: substrate lacks these exact edge types).
-REL_MAP = {"DECOMPOSES_TO": {"DEPENDS_ON", "USES"}, "USES": {"USES", "DEPENDS_ON"}, "INSTANCE_OF": {"INSTANCE_OF", "SPECIALIZES"},
-           "USED_FOR_LIFT": {"USES", "RELATES"}}
-
-
-def route_B(relations, args):
-    rt = args["rel_type"].upper(); tgt = _norm(args["target"]); direction = args.get("direction", "in")
-    accept = REL_MAP.get(rt, {rt})
+def route_B(relations, args, id2corpus):
+    """Per-Research: align to substrate's actual rel vocab (per-question rel_types) + precision filter (src namespace)."""
+    accept = {x.upper() for x in args["rel_types"]}; tgt = _norm(args["target"]); src_ns = args.get("src_ns")
     out = set()
     for r in relations:
         if r.get("rel_type", "").upper() not in accept: continue
         s = _norm(r["src_id"]); t = _norm(r["tgt_id"])
-        if t == tgt: out.add(s)
-        if direction == "out" and s == tgt: out.add(t)
+        if t == tgt:
+            if src_ns and id2corpus.get(s) not in src_ns: continue  # precision: source namespace filter
+            out.add(s)
     return out
 
 
 def route_C(pstore, sk, args):
     try:
-        res = sk.what_serves(pstore, args["capability"])
-        return set(_norm(a.id) for a in res)
+        return set(_norm(a.id) for a in sk.what_serves(pstore, args["capability"]))
     except Exception:
         return set()
+
+
+def route_D(pstore, sk, args, id2qid):
+    """composition_paths existence -> {PATH_EXISTS} if a path is found else empty."""
+    src = id2qid.get(_norm(args["src"])); tgt = id2qid.get(_norm(args["tgt"]))
+    if not src or not tgt: return set()
+    try:
+        paths = sk.composition_paths(pstore, src, tgt, max_depth=5)
+        return {"path_exists"} if paths else set()
+    except Exception:
+        return set()
+
+
+def route_E(atoms, args):
+    """methodology rules: META-partition atoms whose text matches the scenario keywords."""
+    kws = [w for w in args["scenario"].lower().split() if len(w) > 2 and w not in STOP]
+    out = set()
+    for a in atoms:
+        if str(getattr(a.corpus, "value", a.corpus)).lower() not in ("meta", "methodology"): continue
+        hay = (a.name + " " + (a.id or "") + " " + " ".join(getattr(a, "aliases", []) or []) + " " + (getattr(a, "description", "") or "")).lower()
+        if sum(1 for k in kws if k in hay) >= 2: out.add(_norm(a.id))
+    return out
 
 
 def _selftest():
@@ -127,16 +143,21 @@ def run() -> Dict:
     except Exception as e:
         print("[load] fail %s" % str(e)[:120], flush=True); return {"error": "load_failed"}
     all_ids = set(_norm(a.id) for a in atoms)
+    id2corpus = {_norm(a.id): str(getattr(a.corpus, "value", a.corpus)).lower() for a in atoms}
+    id2qid = {_norm(a.id): "%s::%s" % (str(getattr(a.corpus, "value", a.corpus)).lower(), a.id) for a in atoms}
     print("[snapshot] atoms=%d relations=%d benchmark_qs=%d" % (len(atoms), len(relations), len(bench)), flush=True)
     per_q = []; by_type = {}
     for q in bench:
         t = q["type"]; ans = q.get("answerable", True)
         gold = set(_norm(g) for g in q.get("gold", []))
-        gold_present = set(g for g in gold if g in all_ids)
+        # D uses an existence sentinel ('path_exists') that is not an atom id -> not atom-presence-filtered
+        gold_present = set(g for g in gold if (g in all_ids or g == "path_exists"))
         attrition = len(gold) - len(gold_present)
         if t == "A": retrieved = route_A(atoms, q["args"])
-        elif t == "B": retrieved = route_B(relations, q["args"])
+        elif t == "B": retrieved = route_B(relations, q["args"], id2corpus)
         elif t == "C": retrieved = route_C(pstore, sk, q["args"])
+        elif t == "D": retrieved = route_D(pstore, sk, q["args"], id2qid)
+        elif t == "E": retrieved = route_E(atoms, q["args"])
         else: retrieved = set()
         f1, tp, fp, fn = _f1(retrieved, gold_present, ans)
         per_q.append({"id": q["id"], "type": t, "f1": round(f1, 4), "tp": tp, "fp": fp, "fn": fn,
@@ -155,7 +176,7 @@ def run() -> Dict:
 
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"): return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    m = r["macro_f1"]; s = "macro-F1=%.4f (n=%d Qs, per-type %s, gold-attrition=%d) -- V1 pipeline on Q1-Q12 (A/B/C); expand to 60+D/E/F/G" % (
+    m = r["macro_f1"]; s = "macro-F1=%.4f (n=%d Qs, types A-E+neg, per-type %s, gold-attrition=%d) -- v2 (vocab-reconciled B + D/E routes); F/G + Q31-60 next" % (
         m, r["n_qs"], r["type_f1"], r["total_gold_attrition"])
     if m >= 0.60:
         return ("HARD_PASS", "HARD_PASS: substrate-self-knowledge QA macro-F1 >=0.60 -- DECISIVE-PATH-TO-0.70; substrate knows its own knowledge (V1 subset). " + s)
