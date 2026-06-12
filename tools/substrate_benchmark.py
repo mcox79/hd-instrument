@@ -191,6 +191,46 @@ def _algebra_query(pstore: PartitionedStore, text: str, top_k: int = 8) -> tuple
     return ordered, float(best.max())
 
 
+def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Type A content-level: UNION strategy (Research Cycle 50+ architectural answer).
+
+    Per Research rule 12 CONFIRMED meta::RULE_algebra_hrr_and_bge_cosine_are_partition_retrieval_primitives:
+    Algebra HRR + bge cosine are PARTITIONS not hierarchy. UNION > either alone;
+    INTERSECTION < either alone. RRF averages signal + pipeline ranks BOTH collapse
+    to one dimension and lose orthogonal coverage. UNION embraces the partition.
+
+    Strategy: top-3 from each retrieval primitive (algebra HRR + bge cosine),
+    set-union with dedupe, rank by max(algebra_score_norm, bge_score_norm).
+    """
+    import numpy as np
+    retr = _ensure_semantic_retriever(pstore)
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=3)
+
+    if retr is None:
+        if algebra_ordered:
+            return set(algebra_ordered[:5])
+        keywords = _extract_keywords(q["question"])
+        return _atoms_matching_topic(pstore, keywords)
+
+    bge_cands = retr.semantic(q["question"], top_k=3)
+    bge_preds = []
+    for c in bge_cands:
+        qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
+        bge_preds.append(qid)
+
+    if max_conf > 0.20 and algebra_ordered:
+        # UNION + max-score rank (rank-reciprocal as proxy for score normalization)
+        scores: dict[str, float] = {}
+        for rank, qid in enumerate(algebra_ordered):
+            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 3.0)
+        for rank, qid in enumerate(bge_preds):
+            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 3.0)
+        ranked = sorted(scores.items(), key=lambda x: -x[1])
+        return {qid for qid, _ in ranked[:5]}
+    else:
+        return set(bge_preds[:5])
+
+
 def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
     """Type A content-level: Option 4 pipeline -- algebra-recall + bge-precision re-rank.
 
@@ -217,25 +257,30 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
 
     # Bge available
     if max_conf > 0.20 and algebra_ordered:
-        # Stage 2: bge cosine within algebra candidates (Option 4 pipeline)
+        # Stage 2: bge cosine within algebra candidates -- USE MATRIX DIRECTLY
+        # (retr.get_vectors returns None after cache-load; only matrices + id_order
+        # are repopulated. Use _semantic_matrix indexed by id_order position.)
         try:
             q_vec = retr.encoder.encode_query_text(q["question"])
-        except Exception:
-            q_vec = None
-        if q_vec is not None:
+            sem_matrix = retr._semantic_matrix
+            id_order = retr._id_order
+            if q_vec is None or sem_matrix is None or not id_order:
+                raise ValueError("retr matrices not populated")
+            id_to_idx = {a: i for i, a in enumerate(id_order)}
             scored = []
             for qid in algebra_ordered:
-                # qualified -> bare for retriever vector lookup
                 bare = qid.split("::", 1)[1] if "::" in qid else qid
-                vecs = retr.get_vectors(bare)
-                if vecs is None or vecs.semantic is None:
+                idx = id_to_idx.get(bare)
+                if idx is None:
                     continue
-                bge_score = float(np.dot(vecs.semantic, q_vec))
+                bge_score = float(np.dot(sem_matrix[idx], q_vec))
                 scored.append((qid, bge_score))
             if scored:
-                # Top-5 by bge precision within algebra recall set
                 scored.sort(key=lambda x: -x[1])
                 return {qid for qid, _ in scored[:5]}
+        except Exception as e:
+            log.warning("Option 4 pipeline failed; falling back to bge-only: %s",
+                        str(e)[:80])
 
     # Fallback: bge-only top-5 (OOV / cross-partition / pipeline fail)
     bge_cands = retr.semantic(q["question"], top_k=5)
