@@ -420,6 +420,105 @@ def answer_type_C(pstore: PartitionedStore, q: dict) -> set[str]:
     return matched
 
 
+def answer_type_B_union(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Type B relation-level UNION strategy (rule 12 B-axis generalization).
+
+    Per strategy_request_to_testbed_2026-06-12_UNION_B_C_ship_approved_prereg_discipline:
+    Structural primary + algebra + bge UNION enhances recall on structural-zero
+    cases (Q39 INSTANCE_OF SCHOOL/structured_prediction_family, Q41 DEPENDS_ON
+    math::T1/random_variable) where the typed-edge graph traversal returns 0.
+
+    Pre-reg: HP B >= 0.42 / MIDDLE 0.35-0.42 / FAIL < 0.35 vs current 0.354.
+    """
+    structural = answer_type_B(pstore, q)
+
+    retr = _ensure_semantic_retriever(pstore)
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=5)
+
+    if retr is None:
+        return structural
+
+    bge_cands = retr.semantic(q["question"], top_k=5)
+    bge_preds = []
+    for c in bge_cands:
+        qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
+        bge_preds.append(qid)
+
+    if structural:
+        # Structural-strong: UNION as recall enhancer (structural weight=1.0)
+        scores: dict[str, float] = {}
+        for qid in structural:
+            scores[qid] = 1.0
+        if max_conf > 0.20:
+            for rank, qid in enumerate(algebra_ordered):
+                scores[qid] = max(scores.get(qid, 0.0), 0.8 - rank / 5.0)
+        for rank, qid in enumerate(bge_preds):
+            scores[qid] = max(scores.get(qid, 0.0), 0.8 - rank / 5.0)
+        ranked = sorted(scores.items(), key=lambda x: -x[1])
+        # Return ALL structural + top-K of union enhancements (cap at 10 to avoid FP explosion)
+        return {qid for qid, _ in ranked[:max(len(structural), 8)]}
+    else:
+        # Structural-zero: pure algebra + bge UNION (same as A axis pattern)
+        if max_conf > 0.20 and algebra_ordered:
+            scores: dict[str, float] = {}
+            for rank, qid in enumerate(algebra_ordered):
+                scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
+            for rank, qid in enumerate(bge_preds):
+                scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
+            ranked = sorted(scores.items(), key=lambda x: -x[1])
+            return {qid for qid, _ in ranked[:5]}
+        else:
+            return set(bge_preds[:5])
+
+
+def answer_type_C_union(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Type C capability-level UNION strategy (rule 12 C-axis generalization).
+
+    Per strategy_request_to_testbed_2026-06-12_UNION_B_C_ship_approved_prereg_discipline:
+    5-direction structural primary + algebra + bge UNION for unresolved-anchor cases
+    (Q12 substrate-classical NL Tier-A, Q44 Layer 2 spectral observability) where
+    structural returns 0.
+
+    Pre-reg: HP C >= 0.48 / MIDDLE 0.44-0.48 / FAIL < 0.44 vs current 0.437.
+    """
+    structural = answer_type_C(pstore, q)
+
+    retr = _ensure_semantic_retriever(pstore)
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=5)
+
+    if retr is None:
+        return structural
+
+    bge_cands = retr.semantic(q["question"], top_k=5)
+    bge_preds = []
+    for c in bge_cands:
+        qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
+        bge_preds.append(qid)
+
+    if structural:
+        scores: dict[str, float] = {}
+        for qid in structural:
+            scores[qid] = 1.0
+        if max_conf > 0.20:
+            for rank, qid in enumerate(algebra_ordered):
+                scores[qid] = max(scores.get(qid, 0.0), 0.8 - rank / 5.0)
+        for rank, qid in enumerate(bge_preds):
+            scores[qid] = max(scores.get(qid, 0.0), 0.8 - rank / 5.0)
+        ranked = sorted(scores.items(), key=lambda x: -x[1])
+        return {qid for qid, _ in ranked[:max(len(structural), 8)]}
+    else:
+        if max_conf > 0.20 and algebra_ordered:
+            scores: dict[str, float] = {}
+            for rank, qid in enumerate(algebra_ordered):
+                scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
+            for rank, qid in enumerate(bge_preds):
+                scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
+            ranked = sorted(scores.items(), key=lambda x: -x[1])
+            return {qid for qid, _ in ranked[:5]}
+        else:
+            return set(bge_preds[:5])
+
+
 def answer_type_D(pstore: PartitionedStore, q: dict) -> bool:
     """Type D composition-level: is there a path src -> tgt? Bidirectional per
     benchmark v1 finding: capability atoms typically have INCOMING USES/COMPOSES
@@ -679,10 +778,18 @@ def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
     if primitive == "what_serves":
         cap = args.get("capability") or ""
         if not cap:
-            return set()
-        # Fake q with anchor for answer_type_C
-        return answer_type_C(pstore, {"anchor": cap, "question": q["question"]})
+            # Cycle 50 UNION-C: unresolved anchor -> use UNION algebra+bge fallback
+            return answer_type_C_union(pstore, q)
+        # Fake q with anchor for answer_type_C_union (Cycle 50 UNION-C)
+        return answer_type_C_union(pstore, {"anchor": cap, "question": q["question"]})
     if primitive in ("predecessors_via",):
+        # Cycle 50 UNION-B: use answer_type_B_union (which preserves DECOMPOSE_TO +
+        # typed-edge + concept_links + decomposes_to logic from answer_type_B AND
+        # adds algebra+bge UNION enhancement on top).
+        # Note: loses Exp-Dev's B_VOCAB_MAP rp.predecessors_via vocab expansion;
+        # UNION's bge+algebra should compensate via different signal modalities.
+        return answer_type_B_union(pstore, q)
+    if primitive in ("predecessors_via_legacy_unused",):
         target = args.get("target") or ""
         rel_types = list(args.get("rel_types") or [])
         if not target:
