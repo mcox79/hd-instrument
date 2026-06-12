@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v586
+# hd-instrument substrate -- capability map v587
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -13991,7 +13991,7 @@ write_lock_threshold + fhrr_rs_parity + per_tier_importance + two_substrate_fast
 
 Cap_map: v561 -> v562 CYCLE 228 (6 HP [CPU:6; 5 full + 1 smoke]; 1 MIDDLE_BAND [CPU:1 full 5-seed]; 1 HF [CPU:1]; 1 LVH [LVH-279 3x_redundant smoke-only unqualified]; 6 NEW PP ROWS PP-353/PP-354/PP-355/PP-356/PP-357/PP-358; 5x dual-substrate-CLS PROT-004/006 rescue sketches; PP-353+PP-356 annotated seed-robust via v32_multiseed; 0 closures; Portfolio 32+352 -> 32+358 +6; HONEST 1713->1721 +8; LVH 278->279 +1; 456th PROT-009 paired commit) (2026-06-11)
 Push BLOCKED from sub-agent context; orchestrator main thread executes git push origin main as 1-tool follow-up.
-# hd-instrument substrate -- capability map v586
+# hd-instrument substrate -- capability map v587
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
