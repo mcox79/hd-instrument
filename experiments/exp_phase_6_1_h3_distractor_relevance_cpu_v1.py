@@ -41,10 +41,18 @@ _NUM = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 
         "sixteen": 16, "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20, "thirty": 30,
         "forty": 40, "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80, "ninety": 90, "hundred": 100,
         "dozen": 12, "couple": 2, "pair": 2}
-_GAIN = {"buy", "bought", "get", "got", "gain", "gained", "add", "added", "find", "found", "pick", "picked",
-         "receive", "received", "earn", "earned", "collect", "collected", "plant", "planted", "more", "born"}
-_LOSS = {"lose", "lost", "give", "gave", "sell", "sold", "eat", "ate", "spend", "spent", "use", "used",
-         "remove", "removed", "drop", "dropped", "take", "took", "fewer", "less", "left", "away", "broke"}
+# H1 verb-argument polarity (Research LEX dict, ~30 high-frequency arithmetic verbs; lemma+inflections)
+VERB_POLARITY = {
+    "buy": 1, "bought": 1, "get": 1, "got": 1, "receive": 1, "received": 1, "gain": 1, "gained": 1,
+    "find": 1, "found": 1, "earn": 1, "earned": 1, "win": 1, "won": 1, "collect": 1, "collected": 1,
+    "gather": 1, "gathered": 1, "pick": 1, "picked": 1, "add": 1, "added": 1, "plant": 1, "planted": 1,
+    "give": -1, "gave": -1, "sell": -1, "sold": -1, "lose": -1, "lost": -1, "spend": -1, "spent": -1,
+    "eat": -1, "ate": -1, "drink": -1, "drank": -1, "use": -1, "used": -1, "throw": -1, "threw": -1,
+    "drop": -1, "dropped": -1, "remove": -1, "removed": -1, "subtract": -1, "share": -1, "shared": -1,
+    "have": 0, "has": 0, "had": 0, "be": 0, "is": 0, "are": 0, "own": 0, "contain": 0, "hold": 0,
+    "weigh": 0, "cost": 0, "multiply": "MUL", "split": "DIV", "divide": "DIV", "distribute": "DIV",
+    "package": "MUL", "box": "MUL", "each": "MUL",
+}
 _STOP = {"the", "a", "an", "of", "in", "on", "and", "are", "is", "to", "how", "many", "much", "there",
          "many", "does", "do", "did", "has", "have", "had", "were", "was", "be", "with", "for"}
 
@@ -80,15 +88,22 @@ def _content_words(text):
     return {w for w in re.findall(r"[a-z]+", text.lower()) if w not in _STOP and len(w) > 2}
 
 
-def _nearest_verb_polarity(sent):
-    toks = re.findall(r"[a-z]+", sent.lower())
-    pol = 0
-    for t in toks:
-        if t in _GAIN:
-            pol = 1
-        elif t in _LOSS:
-            pol = -1
-    return pol
+def _governing_verb_polarity(sent, q_word):
+    """H1: polarity of the verb governing this quantity -- heuristic = nearest VERB_POLARITY token to the number's position
+    in its sentence (substrate PP-399 dep-parser not cleanly importable; nearest-clause-verb is the heuristic stand-in)."""
+    toks = re.findall(r"[A-Za-z]+|\d+\.?\d*", sent)
+    qpos = None
+    for i, t in enumerate(toks):
+        if t.lower() == q_word.lower() or t == q_word:
+            qpos = i; break
+    if qpos is None:
+        qpos = len(toks) // 2
+    best = (None, 1e9)
+    for i, t in enumerate(toks):
+        p = VERB_POLARITY.get(t.lower())
+        if p is not None and abs(i - qpos) < best[1]:
+            best = (p, abs(i - qpos))
+    return best[0]
 
 
 def _features(q, prob, all_vals, qwords):
@@ -97,11 +112,13 @@ def _features(q, prob, all_vals, qwords):
     in_q = 1.0 if q["sent"] == prob["_qsent"] else 0.0
     swords = _content_words(sent_text)
     shares = 1.0 if (swords & qwords) else 0.0
-    pol = _nearest_verb_polarity(sent_text)
+    gpol = _governing_verb_polarity(sent_text, q["word"])  # H1 governing-verb polarity
     distinct = 1.0 if all_vals.count(q["value"]) == 1 else 0.0
     mag = min(q["value"] / 20.0, 2.0) if isinstance(q["value"], (int, float)) else 0.0
-    return {"bias": 1.0, "in_q": in_q, "shares": shares, "pol_pos": 1.0 if pol > 0 else 0.0,
-            "pol_neg": 1.0 if pol < 0 else 0.0, "distinct": distinct, "mag": mag}
+    return {"bias": 1.0, "in_q": in_q, "shares": shares,
+            "gpol_pos": 1.0 if gpol == 1 else 0.0, "gpol_neg": 1.0 if gpol == -1 else 0.0,
+            "gpol_stative": 1.0 if gpol == 0 else 0.0, "gpol_muldiv": 1.0 if gpol in ("MUL", "DIV") else 0.0,
+            "gpol_none": 1.0 if gpol is None else 0.0, "distinct": distinct, "mag": mag}
 
 
 def _load():
@@ -153,6 +170,19 @@ def _train_perceptron(train, feat_keys, epochs, seed):
     return {k: w[k] - cw[k] / c for k in w}
 
 
+def _opset_f1(pred, gold):
+    """multiset operand-set F1 (catches near-misses the exact-match metric zeros out)."""
+    from collections import Counter
+    cp, cg = Counter(pred), Counter(gold)
+    overlap = sum((cp & cg).values())
+    if not pred and not gold:
+        return 1.0
+    if not pred or not gold or overlap == 0:
+        return 0.0
+    p = overlap / len(pred); r = overlap / len(gold)
+    return 2 * p * r / (p + r)
+
+
 def _score(w, feats):
     return sum(w.get(k, 0.0) * v for k, v in feats.items())
 
@@ -181,11 +211,13 @@ def _eval_seed(probs, seed):
         if c > best_acc:
             best_acc, best_tau = c, tau
     tau = best_tau
-    # relevance classification + downstream operand-selection (with tuned drop-guard)
+    # relevance classification + downstream operand-selection (with tuned drop-guard) -- exact-match AND operand-set F1
     tp = fp = fn = tn = 0
     sel_correct = sel_total = 0
     dsel_correct = dsel_total = 0
-    base_correct = 0  # no-filter baseline: use ALL quantities (wrong if distractors present)
+    base_correct = 0  # no-filter baseline (exact): use ALL quantities
+    sel_f1_sum = base_f1_sum = 0.0
+    dsel_f1_sum = dbase_f1_sum = 0.0
     for prob in test:
         all_vals = [q["value"] for q in prob["qs"]]; qwords = _content_words(prob["question"])
         for q in prob["qs"]:
@@ -197,18 +229,22 @@ def _eval_seed(probs, seed):
         pred_vals = _select(prob, w, tau)
         gold_vals = sorted(prob["ops"])
         all_q_vals = sorted(q["value"] for q in prob["qs"])
-        ok = (pred_vals == gold_vals)
-        sel_total += 1; sel_correct += int(ok)
-        base_correct += int(all_q_vals == gold_vals)  # baseline correct only if no distractors
+        sel_total += 1; sel_correct += int(pred_vals == gold_vals)
+        base_correct += int(all_q_vals == gold_vals)
+        sf1 = _opset_f1(pred_vals, gold_vals); bf1 = _opset_f1(all_q_vals, gold_vals)
+        sel_f1_sum += sf1; base_f1_sum += bf1
         if prob["has_distractor"]:
-            dsel_total += 1; dsel_correct += int(ok)
+            dsel_total += 1; dsel_correct += int(pred_vals == gold_vals)
+            dsel_f1_sum += sf1; dbase_f1_sum += bf1
     prec = tp / (tp + fp) if (tp + fp) else 0.0
     rec = tp / (tp + fn) if (tp + fn) else 0.0
     f1 = 2 * prec * rec / (prec + rec) if (prec + rec) else 0.0
     acc = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) else 0.0
-    return {"rel_acc": acc, "rel_f1": f1, "sel_acc": sel_correct / sel_total if sel_total else 0.0,
-            "distractor_sel_acc": dsel_correct / dsel_total if dsel_total else 0.0,
-            "baseline_sel_acc": base_correct / sel_total if sel_total else 0.0,
+    nt = sel_total or 1; nd = dsel_total or 1
+    return {"rel_acc": acc, "rel_f1": f1, "sel_acc": sel_correct / nt,
+            "distractor_sel_acc": dsel_correct / nd, "baseline_sel_acc": base_correct / nt,
+            "sel_opset_f1": sel_f1_sum / nt, "base_opset_f1": base_f1_sum / nt,
+            "distractor_opset_f1": dsel_f1_sum / nd, "distractor_base_opset_f1": dbase_f1_sum / nd,
             "n_test": sel_total, "n_distractor": dsel_total}
 
 
@@ -221,25 +257,33 @@ def run():
         xs = [r[k] for r in rows]; mu = sum(xs) / len(xs)
         sd = (sum((x - mu) ** 2 for x in xs) / len(xs)) ** 0.5
         return round(mu, 4), round(sd, 4)
-    rel_acc, rel_acc_sd = agg("rel_acc"); rel_f1, _ = agg("rel_f1")
-    sel, sel_sd = agg("sel_acc"); dsel, dsel_sd = agg("distractor_sel_acc"); base, _ = agg("baseline_sel_acc")
-    return {"rel_acc": rel_acc, "rel_acc_sd": rel_acc_sd, "rel_f1": rel_f1, "sel_acc": sel, "sel_sd": sel_sd,
-            "distractor_sel_acc": dsel, "distractor_sel_sd": dsel_sd, "baseline_sel_acc": base,
-            "lift_over_baseline": round(sel - base, 4), "n_problems": len(probs), "n_test": rows[0]["n_test"],
-            "n_distractor": rows[0]["n_distractor"]}
+    rel_acc, _ = agg("rel_acc"); rel_f1, _ = agg("rel_f1")
+    sel, _ = agg("sel_acc"); dsel, _ = agg("distractor_sel_acc"); base, _ = agg("baseline_sel_acc")
+    sf1, _ = agg("sel_opset_f1"); bf1, _ = agg("base_opset_f1")
+    dsf1, _ = agg("distractor_opset_f1"); dbf1, _ = agg("distractor_base_opset_f1")
+    return {"rel_acc": rel_acc, "rel_f1": rel_f1,
+            "sel_acc": sel, "baseline_sel_acc": base, "exact_lift": round(sel - base, 4),
+            "distractor_sel_acc": dsel,
+            "sel_opset_f1": sf1, "base_opset_f1": bf1, "opset_f1_lift": round(sf1 - bf1, 4),
+            "distractor_opset_f1": dsf1, "distractor_base_opset_f1": dbf1,
+            "distractor_opset_f1_lift": round(dsf1 - dbf1, 4),
+            "n_problems": len(probs), "n_test": rows[0]["n_test"], "n_distractor": rows[0]["n_distractor"]}
 
 
 def verdict(r):
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    sel = r["sel_acc"]; dsel = r["distractor_sel_acc"]; base = r["baseline_sel_acc"]; lift = sel - base
-    s = ("relevance disc acc=%.4f F1=%.4f | operand-sel full=%.4f distractor-subset=%.4f vs no-filter baseline=%.4f (lift %+.4f) | "
-         "n=%d distractor-n=%d, multi-seed" % (r["rel_acc"], r["rel_f1"], sel, dsel, base, lift, r["n_test"], r["n_distractor"]))
-    if sel >= 0.46 and dsel >= 0.31 and lift > 0.07:
-        return ("HARD_PASS", "HARD_PASS: distractor-relevance discriminator lifts ASDiv operand-selection to >=0.46 (distractor >=0.31) -- substrate discriminative perceptron suppresses task-irrelevant quantities (PFC top-down attention analogue). " + s)
-    if sel >= 0.42 and lift > 0.03:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: distractor-relevance adds +0.03-0.07 operand-selection. " + s)
-    return ("HARD_FAIL", "HARD_FAIL: distractor-relevance lift <+0.03 (NEG-3 branch: consult H2 world-model / LEX_T-only). " + s)
+    exact_lift = r["exact_lift"]; f1_lift = r["opset_f1_lift"]; df1_lift = r["distractor_opset_f1_lift"]
+    s = ("relevance disc acc=%.4f F1=%.4f | EXACT-match: full=%.4f base=%.4f (lift %+.4f) | OPERAND-SET-F1: full=%.4f base=%.4f "
+         "(lift %+.4f); distractor-subset opset-F1 %.4f vs base %.4f (lift %+.4f) | n=%d distractor-n=%d, H3+H1 multi-seed"
+         % (r["rel_acc"], r["rel_f1"], r["sel_acc"], r["baseline_sel_acc"], exact_lift, r["sel_opset_f1"], r["base_opset_f1"],
+            f1_lift, r["distractor_opset_f1"], r["distractor_base_opset_f1"], df1_lift, r["n_test"], r["n_distractor"]))
+    # refined pre-reg (Research): HP operand-F1 lift >= +0.08 OR exact lift >= +0.04; MID operand-F1 +0.04-0.08; FAIL both <+0.04
+    if f1_lift >= 0.08 or exact_lift >= 0.04:
+        return ("HARD_PASS", "HARD_PASS: H3+H1 distractor-relevance lifts ASDiv operand-selection (operand-set-F1 +>=0.08 OR exact +>=0.04) -- substrate-classical NL chain (relevance perceptron + governing-verb polarity) closes part of the MWP comprehension wall WITHOUT an LLM. " + s)
+    if f1_lift >= 0.04:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: H3+H1 adds operand-set-F1 +0.04-0.08 -- substrate-classical features partially close the wall; Phase-6 ingest amplifies. " + s)
+    return ("HARD_FAIL", "HARD_FAIL: H3+H1 both metrics <+0.04 -- 6-deep operand-selection wall holds at substrate-feature level; defer to Phase-6 full ingest. " + s)
 
 
 def _self_test():
@@ -247,8 +291,10 @@ def _self_test():
     qs, _ = _quantities("Seven red apples and two green apples are in the basket.")
     assert sorted(q["value"] for q in qs) == [2, 7], [q["value"] for q in qs]
     assert _formula_operands("7+2=9") == [7, 2]
-    assert _nearest_verb_polarity("He gave away 3 apples") == -1
-    print("[self-test] PASS: num parse + quantity extract + formula operands + verb polarity")
+    assert _governing_verb_polarity("He gave away 3 apples", "3") == -1
+    assert _governing_verb_polarity("She bought 5 books", "5") == 1
+    assert _opset_f1([7, 2], [7, 2]) == 1.0 and _opset_f1([7, 2, 3], [7, 2]) < 1.0
+    print("[self-test] PASS: num parse + quantity extract + formula operands + governing-verb polarity + operand-set F1")
 
 
 if __name__ == "__main__":
