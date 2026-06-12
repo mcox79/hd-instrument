@@ -153,8 +153,18 @@ def _train_perceptron(train, feat_keys, epochs, seed):
     return {k: w[k] - cw[k] / c for k in w}
 
 
-def _predict(w, feats):
-    return 1 if sum(w.get(k, 0.0) * v for k, v in feats.items()) > 0 else 0
+def _score(w, feats):
+    return sum(w.get(k, 0.0) * v for k, v in feats.items())
+
+
+def _select(prob, w, tau):
+    """Conservative drop-guard: keep quantities with relevance score > tau; never drop below 2 (keep top-2 by score)."""
+    all_vals = [q["value"] for q in prob["qs"]]; qwords = _content_words(prob["question"])
+    scored = [(q, _score(w, _features(q, prob, all_vals, qwords))) for q in prob["qs"]]
+    kept = [q for q, s in scored if s > tau]
+    if len(kept) < 2:
+        kept = [q for q, s in sorted(scored, key=lambda x: -x[1])[:2]]
+    return sorted(q["value"] for q in kept)
 
 
 def _eval_seed(probs, seed):
@@ -164,22 +174,27 @@ def _eval_seed(probs, seed):
     idx = list(range(n)); random.Random(seed).shuffle(idx)
     train = [probs[i] for i in idx[:split]]; test = [probs[i] for i in idx[split:]]
     w = _train_perceptron(train, None, 2 if SMOKE else 10, seed)
-    # relevance classification + downstream operand-selection
+    # tune the drop-threshold tau on TRAIN (no test leakage): maximize train operand-selection
+    best_tau, best_acc = 0.0, -1.0
+    for tau in (-3.0, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0):
+        c = sum(1 for p in train if _select(p, w, tau) == sorted(p["ops"]))
+        if c > best_acc:
+            best_acc, best_tau = c, tau
+    tau = best_tau
+    # relevance classification + downstream operand-selection (with tuned drop-guard)
     tp = fp = fn = tn = 0
     sel_correct = sel_total = 0
     dsel_correct = dsel_total = 0
     base_correct = 0  # no-filter baseline: use ALL quantities (wrong if distractors present)
     for prob in test:
         all_vals = [q["value"] for q in prob["qs"]]; qwords = _content_words(prob["question"])
-        pred_rel = []
         for q in prob["qs"]:
-            p = _predict(w, _features(q, prob, all_vals, qwords)); pred_rel.append(p)
+            p = 1 if _score(w, _features(q, prob, all_vals, qwords)) > 0 else 0
             if p == 1 and q["rel"] == 1: tp += 1
             elif p == 1 and q["rel"] == 0: fp += 1
             elif p == 0 and q["rel"] == 1: fn += 1
             else: tn += 1
-        # operand-selection: did predicted-relevant value-multiset match gold operands?
-        pred_vals = sorted(q["value"] for q, p in zip(prob["qs"], pred_rel) if p == 1)
+        pred_vals = _select(prob, w, tau)
         gold_vals = sorted(prob["ops"])
         all_q_vals = sorted(q["value"] for q in prob["qs"])
         ok = (pred_vals == gold_vals)
