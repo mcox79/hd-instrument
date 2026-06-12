@@ -49,16 +49,34 @@ def _feats(sentence: str) -> List[int]:
         between = s[lo:hi]
     else:
         between = ""
-    clean = re.sub(r"</?e[12]>", "", s).lower()
+    clean = re.sub(r"</?e[12]>", "", s)
     btoks = _TOK.findall(between.lower())
-    e1h = _TOK.findall(e1)[-1] if _TOK.findall(e1) else e1
-    e2h = _TOK.findall(e2)[-1] if _TOK.findall(e2) else e2
-    feats = ["e1_%s" % e1h, "e2_%s" % e2h, "ord_%s" % order, "ndist_%d" % min(len(btoks), 10)]
+    e1toks = _TOK.findall(e1); e2toks = _TOK.findall(e2)
+    e1h = e1toks[-1] if e1toks else e1; e2h = e2toks[-1] if e2toks else e2
+    def _sh(w): return "C" if w[:1].isupper() else ("D" if w.isdigit() else "l")
+    feats = ["e1_%s" % e1h, "e2_%s" % e2h, "ord_%s" % order, "ndist_%d" % min(len(btoks), 10),
+             "e1cap_%s" % _sh(e1.split()[0] if e1.split() else e1), "e2cap_%s" % _sh(e2.split()[0] if e2.split() else e2),
+             "pair_%s_%s" % (e1h, e2h)]                              # entity-pair feature (lexical relation prior)
     for w in btoks: feats.append("btw_%s" % w)                       # bag of between-words (key RE signal)
     for i in range(len(btoks) - 1): feats.append("btwbg_%s_%s" % (btoks[i], btoks[i + 1]))
     if btoks: feats.append("btw1_%s" % btoks[0]); feats.append("btwL_%s" % btoks[-1])
-    # word before e1 / after e2 (clean tokenization)
-    cl = _TOK.findall(clean)
+    for w in btoks: feats.append("btwsh_%s" % _sh(w))                # between-word shapes (CONTAINS/contains etc.)
+    # context: 2 words before e1 / after e2 (clean tokenization with positions)
+    cl = _TOK.findall(clean.lower())
+    e1l = e1toks[0] if e1toks else e1h
+    try:
+        pi = cl.index(e1l)
+        for k in (1, 2):
+            if pi - k >= 0: feats.append("pre%d_%s" % (k, cl[pi - k]))
+    except ValueError:
+        pass
+    e2l = e2toks[-1] if e2toks else e2h
+    try:
+        qi = len(cl) - 1 - cl[::-1].index(e2l)
+        for k in (1, 2):
+            if qi + k < len(cl): feats.append("post%d_%s" % (k, cl[qi + k]))
+    except ValueError:
+        pass
     feats.append("bias")
     return [hash(f) & (DIM - 1) for f in feats]
 
