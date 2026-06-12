@@ -276,3 +276,14 @@
 {"ts": 1781251613.6857443, "op": "update_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
 {"ts": 1781251613.6857443, "op": "update_atom", "target": "PP-compositional_depth_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
 {"ts": 1781251613.6857443, "op": "update_atom", "target": "PP-372_schema_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781264849.4882288, "op": "add_atom", "target": "MWP/SCHEMA_COMBINE", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.4929867, "op": "add_atom", "target": "MWP/SCHEMA_CHANGE_ADD", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.4978724, "op": "add_atom", "target": "MWP/SCHEMA_CHANGE_SUB", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.5031552, "op": "add_atom", "target": "MWP/SCHEMA_EQUAL_GROUPS", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.513515, "op": "add_atom", "target": "MWP/SCHEMA_COMPARE", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.5191593, "op": "add_atom", "target": "MWP/SCHEMA_SHARE", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.5289507, "op": "add_atom", "target": "MWP/ROLE_ARG0_agent", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.535159, "op": "add_atom", "target": "MWP/ROLE_ARG1_theme", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.5441084, "op": "add_atom", "target": "MWP/ROLE_ARG2_recipient", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.5572205, "op": "add_atom", "target": "MWP/ROLE_ARGM_LOC_location", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781264849.567059, "op": "add_atom", "target": "MWP/ROLE_ARGM_TMP_time", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}

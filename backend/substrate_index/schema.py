@@ -100,6 +100,10 @@ class AtomKind(enum.Enum):
     CROSS_DISC_ANALOGUE = "cross_disc_analogue"  # per CROSS_DISCIPLINE_ANALOGUES_BATCH_01
                                                   # 2026-06-12: brain/physics/chem -> math
                                                   # primitive grounding atoms (GROUNDS edges)
+    MWP_SCHEMA = "mwp_schema"  # per Research MWP_WK_SCHEMAS_BATCH_01 2026-06-12:
+                                # math word problem schema templates
+    MWP_ROLE = "mwp_role"      # per Research MWP_WK_SCHEMAS_BATCH_01 2026-06-12:
+                                # math word problem role definitions
 
     # Per Research full-research-ledger auto-ingest 2026-06-11:
     DRILL = "drill"               # research drill outputs

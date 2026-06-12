@@ -105,16 +105,19 @@ _BARE_TO_QID = None
 
 def _ensure_semantic_retriever(pstore: PartitionedStore):
     """Lazy-load bge retriever; returns None if encoder unavailable (laptop/local).
-    Gap 4 v2 PRIMARY per Research CYCLE45_MIDDLE_BAND_APPROVE."""
+    Gap 4 v2 PRIMARY per Research CYCLE45_MIDDLE_BAND_APPROVE.
+    Uses bge index cache (Cycle 47/48 infra) to avoid 15-min rebuild on subsequent runs.
+    """
     global _SEMANTIC_RETRIEVER, _BARE_TO_QID
     if _SEMANTIC_RETRIEVER is not None:
         return _SEMANTIC_RETRIEVER
     try:
         from backend.substrate_index.encode import AtomEncoder
         from backend.substrate_index.retrieve import Retriever
+        from backend.substrate_index.retrieve_cache import rebuild_index_cached
         encoder = AtomEncoder()
         r = Retriever(pstore, encoder)
-        r.rebuild_index()
+        rebuild_index_cached(r, DATA_ROOT)
         _SEMANTIC_RETRIEVER = r
         _BARE_TO_QID = {a.id: a.qualified_id for a in pstore.all_atoms()}
         return r
