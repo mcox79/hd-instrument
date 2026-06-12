@@ -231,8 +231,8 @@ def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
         return set(bge_preds[:5])
 
 
-def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type A content-level: Option 4 pipeline -- algebra-recall + bge-precision re-rank.
+def answer_type_A_pipeline(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Type A content-level: Option 4 pipeline (retained for comparison/A-B test).
 
     Per Research Cycle 49 OPTION_SELECT_OPT_4_PRIMARY (rule 12 candidate
     meta::RULE_algebra_hrr_broad_strong_narrow_weak_route_by_specificity):
@@ -286,6 +286,22 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
     bge_cands = retr.semantic(q["question"], top_k=5)
     return {(_BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id)
             for c in bge_cands}
+
+
+def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
+    """Type A content-level: UNION strategy (Cycle 49 close).
+
+    Empirical Cycle 49: HYBRID RRF + Option 4 pipeline BOTH null-net because
+    they collapse 2 orthogonal signals to 1 dimension. Per Research rule 12
+    CONFIRMED meta::RULE_algebra_hrr_and_bge_cosine_are_partition_retrieval_primitives:
+    algebra HRR + bge cosine cover DIFFERENT unrelated gold subsets; UNION
+    preserves both contributions; INTERSECTION / averaging lose orthogonal
+    coverage.
+
+    Delegates to answer_type_A_union; answer_type_A_pipeline retained as
+    A/B comparison.
+    """
+    return answer_type_A_union(pstore, q)
 
 
 def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
