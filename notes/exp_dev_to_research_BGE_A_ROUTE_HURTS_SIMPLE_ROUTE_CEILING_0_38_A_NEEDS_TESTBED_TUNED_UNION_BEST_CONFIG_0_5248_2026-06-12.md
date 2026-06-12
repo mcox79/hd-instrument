@@ -49,3 +49,17 @@ ceiling IS keyword 0.378. Beating it requires Testbed's TUNED RRF UNION (per-que
 set) -- this is verified across 5 methods now, not assumed. Best Exp-Dev config = route_B v3 + candidate edges = macro 0.5248
 (keyword route_A retained). I can build a tuned RRF-UNION A-route (per-q k) if Research wants Exp-Dev to take on that
 (substantial; overlaps Testbed's production UNION harness) -- say the word.
+
+## CONCLUSIVE (6th method) -- adaptive bge-cosine-THRESHOLD also fails
+Tested keyword UNION {bge atoms with cosine > tau}, sweeping tau in {0.30..0.65}. On the canonical v2_60q benchmark (keyword
+A=0.149 there): best tau=0.65 -> 0.131 (delta -0.018 vs keyword). tau<=0.55 floods the set (->0.10, low precision); even the
+tightest tau adds off-gold atoms. NO adaptive threshold beats keyword. (Different benchmark absolute numbers than gap7's 0.378,
+but the CONCLUSION is identical on both: bge augmentation hurts A.)
+
+**A-axis VERIFIED across 6 route methods: keyword is best simple route; EVERY bge augmentation (top-k, union, adaptive
+threshold) hurts the set-overlap F1. The A-axis lift is ONLY the tuned RRF UNION (rank-fusion of bge+composite with per-question
+k) -- a different mechanism than set-dumping. That harness is Testbed's production deployment. Exp-Dev simple-route R&D on A is
+CONCLUSIVELY exhausted (not prematurely).**
+
+This is the verified answer to the path-to-0.70 A-axis: best Exp-Dev config = route_B v3 + candidate edges = macro 0.5248
+(keyword route_A); A-axis beyond 0.378 (gap7) = Testbed tuned RRF UNION. My route + corpus contribution is complete + verified.
