@@ -67,23 +67,29 @@ def _norm(X):
 
 def run() -> Dict:
     g = torch.Generator(device=DEV).manual_seed(1028)
-    N = 4096                                  # vector dim
-    C = 40 if not SMOKE else 8                # structural classes
-    per = 50 if not SMOKE else 10             # atoms per class
+    # STRESS regime so structure and identity genuinely COMPETE (a loose/over-provisioned setup saturates at 1.0 for both,
+    # revealing no tradeoff). Production N=1024; tight near-colliding classes (within-class algebra nearly identical, so
+    # identity MUST come from name); noisy identity queries (retrieval is not a trivial exact match); higher load.
+    N = 1024                                  # production default dim
+    C = 60 if not SMOKE else 8                # structural classes
+    per = 40 if not SMOKE else 10             # atoms per class
     n_atoms = C * per
-    struct_spread = 0.35                       # within-class structural noise (smaller -> tighter class = more collisions)
-    # structural class bases + per-atom algebra_hrr (same class -> structurally similar)
+    struct_spread = 0.06                       # TIGHT within-class noise: same-class algebra nearly identical -> collisions severe
+    q_noise = 0.6                              # identity-query SNR: query = normalize(name + 0.6*unit_noise) ~ cos 0.86 to true name
+    # structural class bases + per-atom algebra_hrr (same class -> structurally near-identical: identity needs name)
     class_base = torch.randn(C, N, generator=g, device=DEV)
     cls = torch.arange(C, device=DEV).repeat_interleave(per)              # [n_atoms] class id
     algebra = _norm(class_base[cls] + struct_spread * torch.randn(n_atoms, N, generator=g, device=DEV))
     # unique identity vectors per atom
     name = _norm(torch.randn(n_atoms, N, generator=g, device=DEV))
+    # noisy identity query (cue approximates name_vec, not exact)
+    id_query = _norm(name + q_noise * _norm(torch.randn(n_atoms, N, generator=g, device=DEV)))
     rows = []
     s0 = None
     for a in ALPHAS:
         comp = _norm(algebra + a * name)                                  # production composite at weight a
-        # (1) identity precision@1: query each atom's name_vec, nearest composite must be that atom
-        id_sim = name @ comp.T                                            # [n_atoms, n_atoms]
+        # (1) identity precision@1: noisy name-cue retrieves the EXACT atom (collision-resistance under tight classes)
+        id_sim = id_query @ comp.T                                        # [n_atoms, n_atoms]
         id_pred = id_sim.argmax(dim=1)
         id_prec = float((id_pred == torch.arange(n_atoms, device=DEV)).float().mean())
         # (2) structural recall@5: query algebra_hrr, top-5 composites (excl self) same-class fraction
