@@ -76,12 +76,14 @@ def route_C(pstore, sk, args):
 
 
 def route_D(pstore, sk, args, id2qid):
-    """composition_paths existence -> {PATH_EXISTS} if a path is found else empty."""
+    """composition relationship existence (direction-agnostic: substrate dependency edges point capability->primitive,
+    so a primitive->capability question must also try the reverse) -> {path_exists} if reachable either way."""
     src = id2qid.get(_norm(args["src"])); tgt = id2qid.get(_norm(args["tgt"]))
     if not src or not tgt: return set()
     try:
-        paths = sk.composition_paths(pstore, src, tgt, max_depth=5)
-        return {"path_exists"} if paths else set()
+        fwd = sk.composition_paths(pstore, src, tgt, max_depth=5)
+        rev = sk.composition_paths(pstore, tgt, src, max_depth=5) if not fwd else None
+        return {"path_exists"} if (fwd or rev) else set()
     except Exception:
         return set()
 
