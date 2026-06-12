@@ -126,26 +126,108 @@ def _ensure_semantic_retriever(pstore: PartitionedStore):
         return None
 
 
+def _ensure_algebra_index(pstore: PartitionedStore):
+    """Lazy-load AlgebraIndex for substrate-canonical HRR retrieval.
+    Per VSA position-IS-meaning Cell 1+2: algebra HRR clusters atoms by
+    algebraic structure (L1 HARD-PASS 10/10 categories)."""
+    global _ALGEBRA_INDEX, _ALGEBRA_MAT, _ALGEBRA_IDS
+    if _ALGEBRA_INDEX is not None:
+        return _ALGEBRA_INDEX
+    try:
+        from backend.substrate_index.algebra_index import AlgebraIndex
+        import numpy as np
+        ai = AlgebraIndex(dim=1024)
+        ai.build(pstore)
+        ids, rows = [], []
+        for aid, av in ai._atom_vectors.items():
+            if av.algebra_hrr is not None:
+                ids.append(aid)
+                rows.append(av.algebra_hrr)
+        if rows:
+            _ALGEBRA_INDEX = ai
+            _ALGEBRA_IDS = ids
+            _ALGEBRA_MAT = np.stack(rows)
+        return ai
+    except Exception as e:
+        log.warning("algebra index unavailable: %s", str(e)[:120])
+        return None
+
+
+_ALGEBRA_INDEX = None
+_ALGEBRA_MAT = None
+_ALGEBRA_IDS = None
+
+
+def _algebra_query(pstore: PartitionedStore, text: str, top_k: int = 8) -> tuple[list[str], float]:
+    """NL->HRR query parser (v3 MAX-per-filler).
+
+    Returns (ordered_qids, max_confidence). Ordered by descending algebra-cosine
+    score so RRF fusion downstream gets proper rank input. High-confidence
+    (>0.20) indicates the query topic matches authored algebra fillers; low
+    confidence means OOV -> use bge fallback.
+    """
+    import re
+    import numpy as np
+    ai = _ensure_algebra_index(pstore)
+    if ai is None or _ALGEBRA_MAT is None:
+        return [], 0.0
+    m = re.search(r'about\s+(.+?)\s*\??$', text, re.I)
+    topic = m.group(1) if m else text
+    topic_joined = topic.lower().replace('-', '_').replace(' ', '_').strip('?')
+    tokens = [t for t in re.split(r'[\s\-_]+', topic.lower())
+              if len(t) >= 3 and t not in {'and', 'the', 'for', 'what', 'have'}]
+    fillers = list({topic_joined, *tokens})
+    role_keys = ['about_topic', 'topic', 'domain', 'structure',
+                 'operation_type', 'vsa_family', 'ml_family', 'optimization_family',
+                 'brain_analogue', 'operation_role']
+    best = np.zeros(len(_ALGEBRA_IDS)) - 99
+    for f in fillers:
+        for rk in role_keys:
+            q = ai._bind(ai._role_vector(rk), ai._filler_vector(f))
+            scores = _ALGEBRA_MAT @ q
+            best = np.maximum(best, scores)
+    order = np.argsort(-best)[:top_k]
+    ordered = [_ALGEBRA_IDS[i] for i in order]
+    return ordered, float(best.max())
+
+
 def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type A content-level: substrate-self-knowing semantic retrieval (Gap 4 v2).
+    """Type A content-level: HYBRID semantic_v2 -- algebra-primary + bge-fallback.
 
-    Per Cycle 47 sweep + Cycle 48 HYBRID test: pure semantic top_k=5 BEATS
-    hybrid top_k=20-filter-[:8] on substrate's atom distribution (gold size
-    varies 4-12; [:8] truncates valid recall). Keep simple.
-
-    Cycle 47 + post-cascade: A F1=0.413 (was 0.283 keyword baseline).
+    Per Research CELL_2_V2_ANSWERS Q1 APPROVED HYBRID + L1 HARD-PASS 10/10:
+    - Algebra HRR retrieval when confidence > 0.20 (topic matches authored fillers)
+    - Bge semantic fallback when low confidence (OOV / cross-partition gold)
+    - When both available: weighted RRF (algebra 0.6 + bge 0.4)
     """
     retr = _ensure_semantic_retriever(pstore)
-    if retr is not None:
-        candidates = retr.semantic(q["question"], top_k=5)
-        matched = set()
-        for c in candidates:
-            qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
-            matched.add(qid)
-        return matched
-    # Encoder unavailable fallback (laptop env-gated)
-    keywords = _extract_keywords(q["question"])
-    return _atoms_matching_topic(pstore, keywords)
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=8)
+
+    if retr is None:
+        # No bge: algebra-only OR keyword fallback
+        if algebra_ordered:
+            return set(algebra_ordered[:5])
+        keywords = _extract_keywords(q["question"])
+        return _atoms_matching_topic(pstore, keywords)
+
+    # Bge available
+    bge_cands = retr.semantic(q["question"], top_k=8)
+    bge_preds = []
+    for c in bge_cands:
+        qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
+        bge_preds.append(qid)
+
+    # Strategy: high algebra confidence -> RRF fuse weighted; else bge-only
+    if max_conf > 0.20:
+        # RRF: rank-reciprocal fusion; algebra_ordered preserves score ranking
+        rrf_scores = {}
+        for rank, qid in enumerate(algebra_ordered):
+            rrf_scores[qid] = rrf_scores.get(qid, 0.0) + 0.6 / (rank + 60)
+        for rank, qid in enumerate(bge_preds):
+            rrf_scores[qid] = rrf_scores.get(qid, 0.0) + 0.4 / (rank + 60)
+        fused = sorted(rrf_scores.items(), key=lambda x: -x[1])[:5]
+        return {qid for qid, _ in fused}
+    else:
+        return set(bge_preds[:5])
 
 
 def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
