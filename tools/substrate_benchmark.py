@@ -361,6 +361,17 @@ def score_honesty(predicted: set[str], q: dict) -> dict:
     return {"correct": int(n_pred == 0), "predicted_count": n_pred, "fp_atoms": list(predicted)[:5]}
 
 
+def score_primitive_success(predicted: set[str], q: dict) -> dict:
+    """F2 self-referential primitive-success metric per Research GAP_4_NOW_TIER_0 2026-06-12.
+
+    Question IS the query; success = primitive returned a non-trivial answer set.
+    Threshold from q['min_atoms'] (default 1)."""
+    n_pred = len(predicted)
+    threshold = q.get("min_atoms", 1)
+    correct = int(n_pred >= threshold)
+    return {"correct": correct, "predicted_count": n_pred, "threshold": threshold}
+
+
 # ============================================================
 # Main
 # ============================================================
@@ -442,7 +453,25 @@ def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
     if primitive == "methodology_rules_for":
         return answer_type_E(pstore, q)
     if primitive == "coverage_report":
-        return answer_type_F(pstore, q)
+        # If anchor capability resolves, use bidirectional F gap analysis
+        cap = args.get("capability") or ""
+        if cap and pstore.has_atom(cap):
+            cap_atom = pstore.get_atom(cap)
+            # atoms NOT in this cap's serves chain
+            used = set(cap_atom.serves_capability) | {sol_id for entry in cap_atom.solution_history
+                                                     for sol_id in [entry.get("solution_atom_id")] if sol_id}
+            untried = set()
+            for atom in pstore.all_atoms():
+                if atom.corpus.value == "math" and cap not in (atom.serves_capability or ()) \
+                        and atom.qualified_id not in used:
+                    untried.add(atom.qualified_id)
+            return untried
+        # No specific cap: F2 surface candidate math primitives never applied to ANY cap
+        unapplied = set()
+        for atom in pstore.all_atoms():
+            if atom.corpus.value == "math" and not atom.serves_capability:
+                unapplied.add(atom.qualified_id)
+        return unapplied
     if primitive == "pattern_atoms":
         return answer_type_G(pstore, q)
     return set()
@@ -501,6 +530,15 @@ def main():
             sc = score_honesty(pred, q)
             result.update(sc)
             per_type[qtype].append(sc["correct"])
+        elif mode == "primitive_success":
+            if args.use_router:
+                pred = answer_via_router(pstore, q)
+            else:
+                fn = answer_fns.get(qtype)
+                pred = fn(pstore, q) if fn else set()
+            sc = score_primitive_success(pred, q)
+            result.update(sc)
+            per_type[qtype].append(sc["correct"])
         elif mode == "qualitative":
             result["qualitative"] = True
             result["note"] = "qualitative-only; skipped from numeric F1"
@@ -539,10 +577,13 @@ def main():
         elif r["score_mode"] == "honesty":
             mark = "OK" if r["correct"] else "FP"
             print(f"  {qid:8s} [neg] {mark:4s} pred_count={r['predicted_count']}  {r['question']}")
+        elif r["score_mode"] == "primitive_success":
+            mark = "OK" if r["correct"] else "FAIL"
+            print(f"  {qid:8s} [F2]  {mark:4s} pred_count={r['predicted_count']} threshold={r['threshold']}  {r['question']}")
         else:
-            f1 = r["f1"]
+            f1 = r.get("f1", 0.0)
             mark = "++" if f1 >= 0.7 else ("+" if f1 >= 0.4 else "-")
-            print(f"  {qid:8s} [{r['type'][0]}] F1={f1:.2f} P={r['precision']:.2f} R={r['recall']:.2f} {mark}  tp={r['tp']} fp={r['fp']} fn={r['fn']}")
+            print(f"  {qid:8s} [{r['type'][0]}] F1={f1:.2f} P={r.get('precision',0):.2f} R={r.get('recall',0):.2f} {mark}  tp={r.get('tp',0)} fp={r.get('fp',0)} fn={r.get('fn',0)}")
 
     print(f"\n=== Per-type aggregates ===")
     for qtype in ("A_content", "B_relation", "C_capability", "D_composition",
