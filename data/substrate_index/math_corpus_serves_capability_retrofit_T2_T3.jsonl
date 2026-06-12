@@ -1,0 +1,94 @@
+{"atom_id": "math::T2/tensor_product_representation", "serves_capability": ["concept::CAP_fhrr_bind", "concept::PP-225_fact_recall_kb100K"]}
+{"atom_id": "math::T2/sparse_distributed_memory", "serves_capability": ["concept::PP-225_fact_recall_kb100K", "concept::CAP_cleanup"]}
+{"atom_id": "math::T2/amit_gutfreund_sompolinsky_capacity", "serves_capability": ["concept::PP-225_fact_recall_kb100K"]}
+{"atom_id": "math::T2/modern_hopfield_ramsauer", "serves_capability": ["concept::PP-225_fact_recall_kb100K", "concept::CAP_cleanup"]}
+{"atom_id": "math::T2/bcm_learning_rule", "serves_capability": []}
+{"atom_id": "math::T2/glauber_dynamics", "serves_capability": []}
+{"atom_id": "math::T2/complementary_learning_systems", "serves_capability": ["concept::PP-225_fact_recall_kb100K"]}
+{"atom_id": "math::T3/wright_fisher_process", "serves_capability": []}
+{"atom_id": "math::T3/discrete_fourier_transform", "serves_capability": ["concept::CAP_fhrr_bind", "concept::CAP_circular_convolution"]}
+{"atom_id": "math::T3/bocpd_changepoint", "serves_capability": ["concept::CAP_bayesian_inference", "concept::CAP_kl_divergence"]}
+{"atom_id": "math::T3/spectral_gap", "serves_capability": []}
+{"atom_id": "math::T3/tw_edge_z", "serves_capability": []}
+{"atom_id": "math::T3/mp_bulk_kl", "serves_capability": ["concept::CAP_kl_divergence"]}
+{"atom_id": "math::T3/kappa_4_free", "serves_capability": []}
+{"atom_id": "math::T3/zca_whitening", "serves_capability": []}
+{"atom_id": "math::T3/permutation_indexed_binding", "serves_capability": []}
+{"atom_id": "math::T3/resonator_network_decoder", "serves_capability": []}
+{"atom_id": "math::T3/ghrr_noncommutative_bind", "serves_capability": []}
+{"atom_id": "math::T3/conformal_prediction", "serves_capability": []}
+{"atom_id": "math::T3/isotonic_regression", "serves_capability": []}
+{"atom_id": "math::T3/eisner_parsing", "serves_capability": ["concept::CAP_chu_liu_edmonds", "concept::CAP_viterbi_decoding"]}
+{"atom_id": "math::T3/structured_perceptron_collins", "serves_capability": ["concept::CAP_discriminative_perceptron", "concept::PP-364_pos_tagger", "concept::PP-375_multistep_math", "concept::PP-376_multibench_math", "concept::PP-378_code_algopattern"]}
+{"atom_id": "math::T3/count_nb", "serves_capability": ["concept::CAP_bayesian_inference", "concept::PP-370_intent_classification", "concept::PP-376_multibench_math"]}
+{"atom_id": "math::T3/expectation_maximization", "serves_capability": ["concept::CAP_em_algorithm", "concept::PP-375_multistep_math"]}
+{"atom_id": "math::T3/viterbi_decoder", "serves_capability": ["concept::CAP_viterbi_decoding", "concept::PP-364_pos_tagger", "concept::PP-369_slot_filling"]}
+{"atom_id": "math::T3/forward_algorithm_atom", "serves_capability": ["concept::CAP_forward_algorithm", "concept::CAP_em_algorithm"]}
+{"atom_id": "math::T3/backward_algorithm_atom", "serves_capability": ["concept::CAP_backward_algorithm", "concept::CAP_em_algorithm"]}
+{"atom_id": "math::T3/hungarian_algorithm", "serves_capability": ["concept::CAP_hungarian_assignment"]}
+{"atom_id": "math::T3/chu_liu_edmonds_algo", "serves_capability": ["concept::CAP_chu_liu_edmonds"]}
+{"atom_id": "math::T3/principal_component_analysis", "serves_capability": []}
+{"atom_id": "math::T3/gram_schmidt", "serves_capability": []}
+{"atom_id": "math::T3/johnson_lindenstrauss_lemma", "serves_capability": []}
+{"atom_id": "math::T2/fhrr_bind", "serves_capability": ["concept::CAP_fhrr_bind", "concept::PP-225_fact_recall_kb100K", "concept::PP-367_unified_algebra_lang_math", "concept::PP-372_schema_retrieval", "concept::RETRIEVAL_schema_pp372", "concept::RETRIEVAL_kb_fact_extensions"]}
+{"atom_id": "math::T2/fhrr_unbind", "serves_capability": ["concept::CAP_fhrr_unbind", "concept::PP-225_fact_recall_kb100K", "concept::PP-367_unified_algebra_lang_math", "concept::PP-372_schema_retrieval", "concept::RETRIEVAL_schema_pp372", "concept::RETRIEVAL_kb_fact_extensions", "concept::RETRIEVAL_multi_hop"]}
+{"atom_id": "math::T2/cleanup", "serves_capability": ["concept::CAP_cleanup", "concept::PP-225_fact_recall_kb100K", "concept::PP-371_reasoning_routing", "concept::PP-372_schema_retrieval", "concept::RETRIEVAL_schema_pp372", "concept::RETRIEVAL_reasoning_routing_pp371", "concept::RETRIEVAL_kb_fact_extensions", "concept::RETRIEVAL_multi_hop"]}
+{"atom_id": "math::T2/superposition", "serves_capability": ["concept::CAP_superposition", "concept::CAP_fhrr_bind"]}
+{"atom_id": "math::T2/bundling", "serves_capability": ["concept::CAP_bundling", "concept::PP-371_reasoning_routing"]}
+{"atom_id": "math::T2/circular_convolution", "serves_capability": ["concept::CAP_circular_convolution", "concept::CAP_fhrr_bind"]}
+{"atom_id": "math::T4/cascade_hmm_pipeline", "serves_capability": ["concept::PP-364_pos_tagger", "concept::PP-369_slot_filling", "SCHOOL/hmm_sequence_labeling_family", "SCHOOL/structured_prediction_family"]}
+{"atom_id": "math::T4/discriminative_perceptron_pipeline", "serves_capability": ["concept::CAP_discriminative_perceptron", "concept::PP-375_multistep_math", "concept::PP-376_multibench_math", "concept::PP-378_code_algopattern", "concept::PP-371_reasoning_routing", "concept::unified_compositional_engine", "SCHOOL/discriminative_learning_family"]}
+{"atom_id": "math::T3/attention_mechanism", "serves_capability": ["math::T2/modern_hopfield_ramsauer", "SCHOOL/connectionist_family"]}
+{"atom_id": "math::T3/positional_encoding", "serves_capability": []}
+{"atom_id": "math::T3/dropout_regularization", "serves_capability": []}
+{"atom_id": "math::T3/batch_normalization", "serves_capability": []}
+{"atom_id": "math::T3/layer_normalization", "serves_capability": []}
+{"atom_id": "math::T3/adam_optimizer", "serves_capability": ["concept::CAP_discriminative_perceptron"]}
+{"atom_id": "math::T3/stochastic_gradient_descent", "serves_capability": ["concept::CAP_discriminative_perceptron"]}
+{"atom_id": "math::T3/contrastive_learning", "serves_capability": ["concept::PP-375_multistep_math"]}
+{"atom_id": "math::T3/softmax_function", "serves_capability": ["math::T3/attention_mechanism"]}
+{"atom_id": "math::T3/cross_entropy_loss", "serves_capability": ["concept::CAP_discriminative_perceptron"]}
+{"atom_id": "math::T3/mean_squared_error", "serves_capability": []}
+{"atom_id": "math::T3/k_means_clustering", "serves_capability": []}
+{"atom_id": "math::T3/hierarchical_clustering", "serves_capability": []}
+{"atom_id": "math::T3/word2vec_embedding", "serves_capability": []}
+{"atom_id": "math::T3/glove_embedding", "serves_capability": []}
+{"atom_id": "math::T3/bpe_tokenization", "serves_capability": []}
+{"atom_id": "math::T3/sentencepiece_tokenizer", "serves_capability": []}
+{"atom_id": "math::T3/lstm_cell", "serves_capability": []}
+{"atom_id": "math::T3/transformer_block", "serves_capability": ["math::T3/attention_mechanism"]}
+{"atom_id": "math::T3/residual_connection", "serves_capability": []}
+{"atom_id": "math::T3/policy_gradient", "serves_capability": ["concept::PP-375_multistep_math", "SCHOOL/reinforcement_learning_family"]}
+{"atom_id": "math::T3/q_learning", "serves_capability": ["SCHOOL/reinforcement_learning_family"]}
+{"atom_id": "math::T3/markov_decision_process", "serves_capability": ["SCHOOL/reinforcement_learning_family"]}
+{"atom_id": "math::T3/bellman_equation", "serves_capability": ["SCHOOL/reinforcement_learning_family", "concept::CAP_dynamic_programming"]}
+{"atom_id": "math::T3/cosine_similarity", "serves_capability": ["concept::CAP_cleanup"]}
+{"atom_id": "math::T3/euclidean_distance", "serves_capability": ["concept::CAP_cleanup"]}
+{"atom_id": "math::T3/locality_sensitive_hashing", "serves_capability": []}
+{"atom_id": "math::T3/random_projection", "serves_capability": []}
+{"atom_id": "math::T3/feature_hashing", "serves_capability": []}
+{"atom_id": "math::T3/iterative_proportional_fitting", "serves_capability": ["concept::CAP_bayesian_inference"]}
+{"atom_id": "math::T3/runge_kutta", "serves_capability": []}
+{"atom_id": "math::T3/conjugate_gradient", "serves_capability": []}
+{"atom_id": "math::T3/levenberg_marquardt", "serves_capability": []}
+{"atom_id": "math::T3/lbfgs_quasi_newton", "serves_capability": []}
+{"atom_id": "math::T3/sparse_matrix_techniques", "serves_capability": []}
+{"atom_id": "math::T3/fast_fourier_transform", "serves_capability": ["concept::CAP_fhrr_bind", "concept::CAP_circular_convolution"]}
+{"atom_id": "math::T3/wavelet_transform", "serves_capability": []}
+{"atom_id": "math::T3/digital_filter_design", "serves_capability": []}
+{"atom_id": "math::T3/spectral_density_estimation", "serves_capability": []}
+{"atom_id": "math::T3/cross_validation", "serves_capability": ["meta::RULE_method_overclaim_lift_validation"]}
+{"atom_id": "math::T3/bootstrap_resampling", "serves_capability": ["meta::RULE_method_overclaim_lift_validation"]}
+{"atom_id": "math::T3/permutation_test", "serves_capability": []}
+{"atom_id": "math::T3/bayes_factor", "serves_capability": ["concept::CAP_bayesian_inference"]}
+{"atom_id": "math::T3/mcmc_sampling", "serves_capability": ["concept::CAP_bayesian_inference"]}
+{"atom_id": "math::T3/variational_inference", "serves_capability": ["concept::CAP_bayesian_inference"]}
+{"atom_id": "math::T3/gaussian_process", "serves_capability": ["concept::CAP_bayesian_inference"]}
+{"atom_id": "math::T3/kernel_method", "serves_capability": []}
+{"atom_id": "math::T3/random_features", "serves_capability": []}
+{"atom_id": "math::T3/normal_form_NF", "serves_capability": []}
+{"atom_id": "math::T3/cyk_parser", "serves_capability": []}
+{"atom_id": "math::T3/earley_parser", "serves_capability": []}
+{"atom_id": "math::T3/finite_state_transducer", "serves_capability": []}
+{"atom_id": "math::T3/edit_distance", "serves_capability": []}
+{"atom_id": "math::T3/needleman_wunsch", "serves_capability": []}
