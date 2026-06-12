@@ -302,15 +302,11 @@ def answer_type_G(pstore: PartitionedStore, q: dict) -> set[str]:
         dp_caps = {e["capability"] for e in which_solutions_use_atom(pstore, "math::T3/discriminative_perceptron")}
         return nb_caps & dp_caps
 
-    # Cross-discipline analogue queries: scan CROSSDISC atoms whose
-    # analogue_source matches a key term in the question, then surface their
-    # analogue_target (math primitive).
+    # Cross-discipline analogue queries
     if "cross-discipline" in qlower or "cross discipline" in qlower or \
             "analogue" in qlower or "analogues" in qlower:
         matched = set()
-        # Extract phrases like theta-gamma / grid cells / etc.
         keywords = _extract_keywords(q["question"])
-        # Normalize: theta-gamma -> theta_gamma + theta + gamma; multi-token
         expanded = set()
         for kw in keywords:
             kw_l = kw.lower()
@@ -320,19 +316,40 @@ def answer_type_G(pstore: PartitionedStore, q: dict) -> set[str]:
             for part in kw_l.replace("-", " ").split():
                 if len(part) >= 4:
                     expanded.add(part)
+
+        # Route 1: find science/concept atoms whose id/name matches the expanded
+        # keywords (the analogue source) then follow outgoing INFLUENCED_BY
+        # (canonical GROUNDS) edges to math/concept targets.
+        source_atoms = set()
+        for atom in pstore.all_atoms():
+            if atom.corpus.value != "science":
+                continue
+            hay = (atom.id + " " + atom.name + " " + (atom.description or "")).lower()
+            if any(kw in hay for kw in expanded if len(kw) >= 4):
+                source_atoms.add(atom.qualified_id)
+        for src_qid in source_atoms:
+            for tgt in pstore.out_neighbors(src_qid, RelationType.INFLUENCED_BY):
+                matched.add(tgt)
+            for tgt in pstore.out_neighbors(src_qid, RelationType.INSTANCE_OF):
+                matched.add(tgt)
+            for tgt in pstore.out_neighbors(src_qid, RelationType.RELATES):
+                matched.add(tgt)
+
+        # Route 2: scan CROSSDISC atoms (kind=cross_disc_analogue) whose
+        # analogue_source matches keywords; surface analogue_target.
         for atom in pstore.all_atoms():
             if atom.kind.value != "cross_disc_analogue":
                 continue
             src = atom.metadata.get("analogue_source") or ""
             desc = atom.description or ""
             hay = (src + " " + atom.name + " " + desc).lower()
-            # match if any expanded keyword appears
             if any(kw in hay for kw in expanded if len(kw) >= 4):
                 tgt = atom.metadata.get("analogue_target") or ""
                 if tgt:
                     if tgt.startswith("substrate::"):
                         tgt = "math::" + tgt.split("::", 1)[1]
                     matched.add(tgt)
+
         if matched:
             return matched
 

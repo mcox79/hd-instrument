@@ -35,14 +35,22 @@ log = logging.getLogger("ingest_mixed")
 
 
 def _normalize_qid(raw: str, pstore) -> str:
-    """Normalize fake namespaces to real partition prefixes.
+    """Normalize fake namespaces to real partition prefixes; ALWAYS return qualified id.
 
     - CROSSDISC/X -> science::CROSSDISC/X
-    - substrate::Tn/X -> math::Tn/X if exists; else science::Tn/X
-    - PHYS/X / BIO/X / CHEM/X / NEURO/X -> science::PHYS/X etc.
+    - substrate::Tn/X -> math::Tn/X (re-aim aspirational namespace)
+    - PHYS/X / BIO/X / CHEM/X / NEURO/X -> science::PHYS/X
+    - T2/X -> math::T2/X (raw math prefix)
     """
-    if pstore.has_atom(raw):
+    KNOWN_PREFIXES = ("math::", "concept::", "meta::", "school::",
+                       "methodology::", "science::",
+                       "research_history::", "decision_history::",
+                       "results_history::", "findings_history::",
+                       "verdict_history::", "memory_history::")
+    # Already qualified
+    if raw.startswith(KNOWN_PREFIXES):
         return raw
+    # Aspirational substrate:: -> try real partitions
     if raw.startswith("substrate::"):
         bare = raw.split("::", 1)[1]
         for corpus in ("math", "concept", "science", "meta", "school"):
@@ -50,18 +58,15 @@ def _normalize_qid(raw: str, pstore) -> str:
             if pstore.has_atom(trial):
                 return trial
         return f"math::{bare}"
-    if not raw.startswith(("math::", "concept::", "meta::", "school::",
-                           "methodology::", "science::",
-                           "research_history::", "decision_history::",
-                           "results_history::", "findings_history::",
-                           "verdict_history::", "memory_history::")):
-        # Probably a bare prefix like CROSSDISC/X or NEURO/X
-        for corpus in ("science", "math", "concept", "meta", "school", "methodology"):
-            trial = f"{corpus}::{raw}"
-            if pstore.has_atom(trial):
-                return trial
-        return f"science::{raw}"
-    return raw
+    # Bare prefix (BIO/X, PHYS/X, T2/X, CROSSDISC/X, etc.)
+    for corpus in ("science", "math", "concept", "meta", "school", "methodology"):
+        trial = f"{corpus}::{raw}"
+        if pstore.has_atom(trial):
+            return trial
+    # Heuristic default based on prefix style
+    if raw.startswith(("T1/", "T2/", "T3/", "T4/")):
+        return f"math::{raw}"
+    return f"science::{raw}"
 
 
 REL_TYPE_MAP = {

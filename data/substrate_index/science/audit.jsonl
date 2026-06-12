@@ -233,3 +233,12 @@
 {"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/cognitive_map_to_concept_links", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
 {"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/working_memory_baddeley_to_substrate_scratchpad", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
 {"ts": 1781239161.1482093, "op": "add_atom", "target": "CROSSDISC/predictive_coding_to_predictive_substrate", "note": "from cross_discipline_analogues_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781239834.9511027, "op": "add_relation", "target": "BIO/dopamine_RPE|INFLUENCED_BY|math::T3/q_learning", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9568415, "op": "add_relation", "target": "BIO/dopamine_RPE|INFLUENCED_BY|math::T3/policy_gradient", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9628553, "op": "add_relation", "target": "BIO/place_cell|INFLUENCED_BY|math::T2/cleanup", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9654155, "op": "add_relation", "target": "BIO/default_mode_network|INFLUENCED_BY|math::T2/tier2_schema", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9766214, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T2/circular_convolution", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9766214, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T2/sparse_distributed_memory", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/permutation_indexed_binding", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9877687, "op": "add_relation", "target": "BIO/theta_gamma_binding|INFLUENCED_BY|math::T3/resonator_network_decoder", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781239834.9959657, "op": "add_relation", "target": "PHYS/ising_model|INFLUENCED_BY|math::T2/modern_hopfield_ramsauer", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
