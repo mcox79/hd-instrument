@@ -265,6 +265,23 @@ def run() -> Dict:
     id2qid = {_norm(a.id): "%s::%s" % (str(getattr(a.corpus, "value", a.corpus)).lower(), a.id) for a in atoms}
     rel_present = {r.get("rel_type", "").upper() for r in relations}
     print("[snapshot] atoms=%d relations=%d rel_types=%d benchmark_qs=%d" % (len(atoms), len(relations), len(rel_present), len(bench)), flush=True)
+    # bge semantic A-route (env-gated; needs bge). A-content gold is text-topical -> semantic ranking is the A lever.
+    _BGE = None; _BGE_A = None
+    try:
+        from backend.substrate_index.encode import AtomEncoder
+        from backend.substrate_index.retrieve import Retriever
+        _enc = AtomEncoder(); _retr = Retriever(getattr(pstore, "store", pstore), _enc); _retr.rebuild_index()
+        _A_K = int(os.environ.get("HDLAB_A_K", "8"))
+        def _BGE_A(topic):
+            try:
+                cands = _retr.semantic(topic, top_k=_A_K)
+                return {_norm(getattr(c, "atom_id", str(c))) for c in cands}
+            except Exception:
+                return set()
+        _BGE = _retr
+        print("[bge] A-route active (semantic top-k=%d)" % _A_K, flush=True)
+    except Exception as e:
+        print("[bge] unavailable (%s) -> A-route falls back to keyword" % str(e)[:80], flush=True)
     per_q = []; by_type = {}
     for q in bench:
         t = q["type"]; ans = q.get("answerable", True)
