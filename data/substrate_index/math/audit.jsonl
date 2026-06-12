@@ -491,3 +491,51 @@
 {"ts": 1781251613.3385336, "op": "update_atom", "target": "T3/viterbi_decoding", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
 {"ts": 1781251613.344776, "op": "update_atom", "target": "T3/hmm_emission", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
 {"ts": 1781251613.3543344, "op": "update_atom", "target": "T2/cosine_cleanup", "note": "Backfilled serves_capability from 1 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781269081.5834308, "op": "update_atom", "target": "T2/fhrr_bind", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.590894, "op": "update_atom", "target": "T2/fhrr_unbind", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.5959752, "op": "update_atom", "target": "T2/circular_convolution", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.5959752, "op": "update_atom", "target": "T2/cleanup", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6056597, "op": "update_atom", "target": "T2/bundling", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6118407, "op": "update_atom", "target": "T2/sparse_distributed_memory", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.614487, "op": "update_atom", "target": "T2/modern_hopfield_ramsauer", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6224697, "op": "update_atom", "target": "T1/markov_chain", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6275752, "op": "update_atom", "target": "T1/bayes_rule", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6377666, "op": "update_atom", "target": "T3/discriminative_perceptron", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6433053, "op": "update_atom", "target": "T3/viterbi_decoder", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6504197, "op": "update_atom", "target": "T3/structured_perceptron_collins", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6544328, "op": "update_atom", "target": "T3/q_learning", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.66344, "op": "update_atom", "target": "T3/policy_gradient", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6694334, "op": "update_atom", "target": "T1/gradient_descent", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.675424, "op": "update_atom", "target": "T3/adam_optimizer", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6813874, "op": "update_atom", "target": "T3/permutation_indexed_binding", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6863859, "op": "update_atom", "target": "T3/resonator_network_decoder", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.6923864, "op": "update_atom", "target": "T1/lyapunov_stability", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269081.700614, "op": "update_atom", "target": "T3/markov_decision_process", "note": "Day 4 Research Cell 3 backfill", "source": "algebra_backfill_core_vsa"}
+{"ts": 1781269106.2459924, "op": "update_atom", "target": "T2/fhrr_bind", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.2459924, "op": "update_atom", "target": "T2/fhrr_unbind", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.2632015, "op": "update_atom", "target": "T2/circular_convolution", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.2709742, "op": "update_atom", "target": "T2/cleanup", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.280572, "op": "update_atom", "target": "T2/bundling", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.2861192, "op": "update_atom", "target": "T2/sparse_distributed_memory", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.2971601, "op": "update_atom", "target": "T2/modern_hopfield_ramsauer", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3061695, "op": "update_atom", "target": "T1/markov_chain", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.314057, "op": "update_atom", "target": "T1/bayes_rule", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3210595, "op": "update_atom", "target": "T3/discriminative_perceptron", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.328051, "op": "update_atom", "target": "T3/count_nb", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3300536, "op": "update_atom", "target": "T3/viterbi_decoder", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3300536, "op": "update_atom", "target": "T3/structured_perceptron_collins", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3457322, "op": "update_atom", "target": "T3/q_learning", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3457322, "op": "update_atom", "target": "T3/policy_gradient", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3457322, "op": "update_atom", "target": "T1/gradient_descent", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.361579, "op": "update_atom", "target": "T3/adam_optimizer", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3680193, "op": "update_atom", "target": "T3/discrete_fourier_transform", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3740885, "op": "update_atom", "target": "T2/circular_convolution", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3816538, "op": "update_atom", "target": "T3/permutation_indexed_binding", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3866856, "op": "update_atom", "target": "T3/resonator_network_decoder", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3916762, "op": "update_atom", "target": "T1/inner_product", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3966918, "op": "update_atom", "target": "T1/lyapunov_stability", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.3966918, "op": "update_atom", "target": "T3/stochastic_gradient_descent", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.4036794, "op": "update_atom", "target": "T3/markov_decision_process", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.4127498, "op": "update_atom", "target": "T3/bellman_equation", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.417753, "op": "update_atom", "target": "T3/variational_inference", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781269106.4227517, "op": "update_atom", "target": "T3/mcmc_sampling", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
