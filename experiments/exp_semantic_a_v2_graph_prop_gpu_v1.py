@@ -96,8 +96,10 @@ def _propagate(seed_scores, adj, hops=HOPS, alpha=ALPHA):
 
 
 def run():
+    import torch  # bge-large runs on CUDA via sentence_transformers; explicit import per PROT-020 (GPU job)
     from sentence_transformers import SentenceTransformer
     from backend.substrate_index.partition import PartitionedStore
+    _device = "cuda" if torch.cuda.is_available() else "cpu"
     idx = REPO / "data" / "substrate_index"
     bench_fp = idx / "benchmark_corpus_v2_60q.jsonl"
     if not bench_fp.exists():
@@ -107,7 +109,7 @@ def run():
     ps = PartitionedStore(idx); atoms = ps.all_atoms()
     ids = [_norm(a.id) for a in atoms]; id_index = {a_id: i for i, a_id in enumerate(ids)}; allids = set(ids)
     adj, n_edges = _build_adj(ps, id_index)
-    model = SentenceTransformer("BAAI/bge-large-en-v1.5")
+    model = SentenceTransformer("BAAI/bge-large-en-v1.5", device=_device)
     name_emb = np.asarray(model.encode([_name_text(a) for a in atoms], normalize_embeddings=True, batch_size=64), dtype=np.float32)
     name_per_k = {}; prop_per_k = {}
     for K in KS:
