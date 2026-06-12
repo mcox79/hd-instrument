@@ -579,3 +579,19 @@
 {"ts": 1781273170.618595, "op": "add_atom", "target": "T2/kernel_methods", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
 {"ts": 1781273170.6254947, "op": "add_atom", "target": "T2/perceptron_linear", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
 {"ts": 1781273170.6324914, "op": "add_atom", "target": "T2/discriminative_perceptron", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781274273.7271817, "op": "update_atom", "target": "T3/q_learning", "note": "merged from math::T2/q_learning: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.7365448, "op": "remove_atom", "target": "T2/q_learning", "note": "duplicate of math::T3/q_learning; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.750727, "op": "update_atom", "target": "T3/policy_gradient", "note": "merged from math::T2/policy_gradient: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.7639382, "op": "remove_atom", "target": "T2/policy_gradient", "note": "duplicate of math::T3/policy_gradient; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.7814724, "op": "update_atom", "target": "T3/variational_inference", "note": "merged from math::T2/variational_inference: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.7968886, "op": "remove_atom", "target": "T2/variational_inference", "note": "duplicate of math::T3/variational_inference; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.8160174, "op": "update_atom", "target": "T3/em_algorithm", "note": "merged from math::T2/em_algorithm: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.8268113, "op": "remove_atom", "target": "T2/em_algorithm", "note": "duplicate of math::T3/em_algorithm; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.846249, "op": "update_atom", "target": "T3/collins_structured_perceptron", "note": "merged from math::T2/structured_perceptron: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.8585584, "op": "remove_atom", "target": "T2/structured_perceptron", "note": "duplicate of math::T3/collins_structured_perceptron; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.8744514, "op": "update_atom", "target": "T3/dropout_regularization", "note": "merged from math::T2/dropout_regularization: +7 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.8841965, "op": "remove_atom", "target": "T2/dropout_regularization", "note": "duplicate of math::T3/dropout_regularization; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.890215, "op": "update_atom", "target": "T3/batch_normalization", "note": "merged from math::T2/batch_normalization: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.9047987, "op": "remove_atom", "target": "T2/batch_normalization", "note": "duplicate of math::T3/batch_normalization; merged into target", "source": "batch2_dedup_remove"}
+{"ts": 1781274273.9173195, "op": "update_atom", "target": "T3/discriminative_perceptron", "note": "merged from math::T2/discriminative_perceptron: +8 aliases +13 algebra", "source": "batch2_dedup_merge"}
+{"ts": 1781274273.9298818, "op": "remove_atom", "target": "T2/discriminative_perceptron", "note": "duplicate of math::T3/discriminative_perceptron; merged into target", "source": "batch2_dedup_remove"}
