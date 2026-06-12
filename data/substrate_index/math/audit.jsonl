@@ -539,3 +539,43 @@
 {"ts": 1781269106.4127498, "op": "update_atom", "target": "T3/bellman_equation", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
 {"ts": 1781269106.417753, "op": "update_atom", "target": "T3/variational_inference", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
 {"ts": 1781269106.4227517, "op": "update_atom", "target": "T3/mcmc_sampling", "note": "Day 4 backfill with tier-remap", "source": "algebra_backfill_remap"}
+{"ts": 1781273170.319705, "op": "add_atom", "target": "T2/q_learning", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3267224, "op": "add_atom", "target": "T2/td_lambda", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.332563, "op": "add_atom", "target": "T2/policy_gradient", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3381681, "op": "add_atom", "target": "T2/actor_critic", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3447285, "op": "add_atom", "target": "T2/proximal_policy_optimization", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.350385, "op": "add_atom", "target": "T2/value_iteration", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.360847, "op": "add_atom", "target": "T2/policy_iteration", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3714144, "op": "add_atom", "target": "T2/monte_carlo_tree_search", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3810403, "op": "add_atom", "target": "T2/exploration_exploitation", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3823483, "op": "add_atom", "target": "T2/bellman_optimality", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.3971057, "op": "add_atom", "target": "T2/variational_inference", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4057493, "op": "add_atom", "target": "T2/belief_propagation", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4147408, "op": "add_atom", "target": "T2/junction_tree", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.424302, "op": "add_atom", "target": "T2/factor_graph", "note": "created with 6 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4357405, "op": "add_atom", "target": "T2/mean_field_approximation", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4471045, "op": "add_atom", "target": "T2/em_algorithm", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.457988, "op": "add_atom", "target": "T2/hidden_markov_model", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4668713, "op": "add_atom", "target": "T2/latent_dirichlet_allocation", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4742296, "op": "add_atom", "target": "T2/gibbs_sampling", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4813783, "op": "add_atom", "target": "T2/conditional_random_field", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.48721, "op": "add_atom", "target": "T2/pos_tagger", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4950736, "op": "add_atom", "target": "T2/dependency_parser", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.4977934, "op": "add_atom", "target": "T2/chunker", "note": "created with 9 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5095773, "op": "add_atom", "target": "T2/named_entity_recognizer", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.516579, "op": "add_atom", "target": "T2/semantic_role_labeler", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.523577, "op": "add_atom", "target": "T2/intent_classifier", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.53158, "op": "add_atom", "target": "T2/sentiment_classifier", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5385764, "op": "add_atom", "target": "T2/coreference_resolver", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5476618, "op": "add_atom", "target": "T2/bio_tagging_scheme", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5541918, "op": "add_atom", "target": "T2/structured_perceptron", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.56476, "op": "add_atom", "target": "T2/backpropagation", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5707586, "op": "add_atom", "target": "T2/gradient_descent_chain", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5800242, "op": "add_atom", "target": "T2/automatic_differentiation", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5870345, "op": "add_atom", "target": "T2/dropout_regularization", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.5952814, "op": "add_atom", "target": "T2/batch_normalization", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.603285, "op": "add_atom", "target": "T2/logistic_regression", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.6115904, "op": "add_atom", "target": "T2/svm_max_margin", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.618595, "op": "add_atom", "target": "T2/kernel_methods", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.6254947, "op": "add_atom", "target": "T2/perceptron_linear", "note": "created with 7 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
+{"ts": 1781273170.6324914, "op": "add_atom", "target": "T2/discriminative_perceptron", "note": "created with 8 aliases + 13 algebra fields", "source": "batch2_bge_name_friendly"}
