@@ -287,3 +287,18 @@
 {"ts": 1781264849.5441084, "op": "add_atom", "target": "MWP/ROLE_ARG2_recipient", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
 {"ts": 1781264849.5572205, "op": "add_atom", "target": "MWP/ROLE_ARGM_LOC_location", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
 {"ts": 1781264849.567059, "op": "add_atom", "target": "MWP/ROLE_ARGM_TMP_time", "note": "from mwp_wk_schemas_batch_01.jsonl", "source": "ingest_mixed"}
+{"ts": 1781270088.569341, "op": "update_atom", "target": "PP-225_fact_recall_kb100K", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5786414, "op": "update_atom", "target": "PP-364_pos_tagger", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5896566, "op": "update_atom", "target": "PP-364_NER", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.599274, "op": "update_atom", "target": "PP-369_slot_filling", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6052752, "op": "update_atom", "target": "PP-370_intent_classification", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6117458, "op": "update_atom", "target": "PP-371_reasoning_routing", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6178463, "op": "update_atom", "target": "PP-372_schema_retrieval", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6242287, "op": "update_atom", "target": "PP-394_asdiv_wk_oracle", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6242287, "op": "update_atom", "target": "PP-398_permutation_indexed_binding", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6242287, "op": "update_atom", "target": "PP-399_dep_parse", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.637009, "op": "update_atom", "target": "PP-400_chunking", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.641014, "op": "update_atom", "target": "CAP_fhrr_bind", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6450121, "op": "update_atom", "target": "CAP_fhrr_unbind", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6490927, "op": "update_atom", "target": "CAP_cleanup", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.6530366, "op": "update_atom", "target": "CAP_circular_convolution", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}

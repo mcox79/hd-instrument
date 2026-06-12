@@ -48,3 +48,11 @@
 {"ts": 1781228155.5392215, "op": "add_relation", "target": "SCHOOL/categorical_NLP_family|USES|math::T2/tensor_product_representation", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
 {"ts": 1781228155.5412292, "op": "add_atom", "target": "SCHOOL/dual_process_recognition_family", "note": "Phase 6 bulk JSONL ingest from schools_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
 {"ts": 1781228155.543238, "op": "add_relation", "target": "SCHOOL/dual_process_recognition_family|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781270088.3589199, "op": "update_atom", "target": "SCHOOL/vsa_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3619053, "op": "update_atom", "target": "SCHOOL/hopfield_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3648112, "op": "update_atom", "target": "SCHOOL/sparse_distributed_memory_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3668237, "op": "update_atom", "target": "SCHOOL/discriminative_learning_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3688684, "op": "update_atom", "target": "SCHOOL/hmm_sequence_labeling_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3737957, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3785977, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3834984, "op": "update_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}

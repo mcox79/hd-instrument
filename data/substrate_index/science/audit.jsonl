@@ -272,3 +272,24 @@
 {"ts": 1781249032.0884802, "op": "add_atom", "target": "PHYS/maxwell_demon_landauer", "note": "from science_corpus_batch03_neuro_cm_chaos_qinfo.jsonl", "source": "ingest_mixed"}
 {"ts": 1781249032.0884802, "op": "add_relation", "target": "NEURO/place_cells_hippocampus|INSTANCE_OF|NEURO/cognitive_map_tolman", "note": "original_type=INSTANTIATES", "source": "ingest_mixed"}
 {"ts": 1781249032.1041224, "op": "add_relation", "target": "NEURO/theta_gamma_coupling|ENABLES|NEURO/working_memory_baddeley", "note": "", "source": "ingest_mixed"}
+{"ts": 1781270088.3922305, "op": "update_atom", "target": "BIO/theta_gamma_binding", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.3989217, "op": "update_atom", "target": "BIO/place_cell", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.407545, "op": "update_atom", "target": "BIO/grid_cell", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4147651, "op": "update_atom", "target": "BIO/hippocampus", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4237008, "op": "update_atom", "target": "BIO/prefrontal_cortex", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4320254, "op": "update_atom", "target": "BIO/working_memory", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.441421, "op": "update_atom", "target": "BIO/dopamine_RPE", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4495778, "op": "update_atom", "target": "BIO/predictive_coding", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4575784, "op": "update_atom", "target": "BIO/hodgkin_huxley", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4670527, "op": "update_atom", "target": "BIO/long_term_potentiation_ltp", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4743204, "op": "update_atom", "target": "BIO/synaptic_plasticity_stdp", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4743204, "op": "update_atom", "target": "BIO/default_mode_network", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4891589, "op": "update_atom", "target": "PHYS/random_matrix_theory", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.4965804, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5030065, "op": "update_atom", "target": "PHYS/anderson_localization", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5122483, "op": "update_atom", "target": "PHYS/ising_model", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5207574, "op": "update_atom", "target": "PHYS/jarzynski_equality", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5287192, "op": "update_atom", "target": "QINFO/qubit", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5404797, "op": "update_atom", "target": "QINFO/quantum_entanglement", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.549637, "op": "update_atom", "target": "CHEM/protein_folding_levinthal", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781270088.5600014, "op": "update_atom", "target": "CHEM/michaelis_menten", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
