@@ -1,0 +1,60 @@
+{"atom_id": "PHYS/classical_mechanics", "science_algebra_category": [1, 2]}
+{"atom_id": "PHYS/lagrangian_hamiltonian", "science_algebra_category": [1, 2]}
+{"atom_id": "PHYS/thermodynamics", "science_algebra_category": [2, 5]}
+{"atom_id": "PHYS/statistical_mechanics", "science_algebra_category": [5, 11]}
+{"atom_id": "PHYS/electromagnetism", "science_algebra_category": [3, 6]}
+{"atom_id": "PHYS/quantum_mechanics", "science_algebra_category": [1, 6, 7]}
+{"atom_id": "PHYS/special_relativity", "science_algebra_category": [3]}
+{"atom_id": "PHYS/general_relativity", "science_algebra_category": [3, 6]}
+{"atom_id": "PHYS/wave_equation", "science_algebra_category": [6]}
+{"atom_id": "PHYS/entropy_thermodynamic", "science_algebra_category": [2, 5]}
+{"atom_id": "PHYS/bose_einstein_condensate", "science_algebra_category": [4, 7]}
+{"atom_id": "PHYS/dynamical_systems", "science_algebra_category": [5, 13]}
+{"atom_id": "PHYS/critical_phenomena", "science_algebra_category": [4, 5]}
+{"atom_id": "PHYS/random_matrix_theory", "science_algebra_category": [5, 13]}
+{"atom_id": "PHYS/spin_glass", "science_algebra_category": [4, 11]}
+{"atom_id": "PHYS/quantum_entanglement", "science_algebra_category": [6, 7]}
+{"atom_id": "BIO/neuron_action_potential", "science_algebra_category": [11]}
+{"atom_id": "BIO/synaptic_plasticity", "science_algebra_category": [11]}
+{"atom_id": "BIO/hippocampus", "science_algebra_category": [11]}
+{"atom_id": "BIO/theta_gamma_binding", "science_algebra_category": [11]}
+{"atom_id": "BIO/prefrontal_cortex", "science_algebra_category": [11]}
+{"atom_id": "BIO/wernicke_broca_language", "science_algebra_category": [11]}
+{"atom_id": "BIO/default_mode_network", "science_algebra_category": [11]}
+{"atom_id": "BIO/anterior_temporal_lobe", "science_algebra_category": [11]}
+{"atom_id": "BIO/dopamine_RPE", "science_algebra_category": [11]}
+{"atom_id": "BIO/dna_double_helix", "science_algebra_category": [10]}
+{"atom_id": "BIO/evolution_natural_selection", "science_algebra_category": [12]}
+{"atom_id": "BIO/cell_membrane", "science_algebra_category": [10]}
+{"atom_id": "BIO/protein_folding", "science_algebra_category": [10]}
+{"atom_id": "BIO/gene_expression", "science_algebra_category": [10]}
+{"atom_id": "BIO/immune_system", "science_algebra_category": [10, 12]}
+{"atom_id": "BIO/predictive_coding", "science_algebra_category": [11, 13]}
+{"atom_id": "BIO/hodgkin_huxley", "science_algebra_category": [11]}
+{"atom_id": "BIO/oscillator_circadian", "science_algebra_category": [12]}
+{"atom_id": "BIO/sparse_coding_neural", "science_algebra_category": [11]}
+{"atom_id": "BIO/population_coding_neural", "science_algebra_category": [11]}
+{"atom_id": "BIO/memory_consolidation", "science_algebra_category": [11]}
+{"atom_id": "BIO/working_memory", "science_algebra_category": [11]}
+{"atom_id": "BIO/attention_top_down", "science_algebra_category": [11]}
+{"atom_id": "BIO/cognitive_architecture", "science_algebra_category": [11, 13]}
+{"atom_id": "CHEM/atomic_structure", "science_algebra_category": [7, 8]}
+{"atom_id": "CHEM/chemical_bond", "science_algebra_category": [8]}
+{"atom_id": "CHEM/chemical_reaction", "science_algebra_category": [9]}
+{"atom_id": "CHEM/equilibrium_thermodynamic", "science_algebra_category": [9, 2]}
+{"atom_id": "CHEM/acid_base", "science_algebra_category": [8, 9]}
+{"atom_id": "CHEM/electrochemistry", "science_algebra_category": [9]}
+{"atom_id": "CHEM/molecular_orbital_theory", "science_algebra_category": [6, 8]}
+{"atom_id": "CS/algorithm", "science_algebra_category": [13]}
+{"atom_id": "CS/data_structure", "science_algebra_category": [13]}
+{"atom_id": "CS/computational_complexity", "science_algebra_category": [13]}
+{"atom_id": "CS/turing_machine", "science_algebra_category": [13]}
+{"atom_id": "CS/lambda_calculus", "science_algebra_category": [13]}
+{"atom_id": "CS/type_theory", "science_algebra_category": [13]}
+{"atom_id": "CS/formal_verification", "science_algebra_category": [13]}
+{"atom_id": "CS/information_theory_shannon", "science_algebra_category": [13]}
+{"atom_id": "CS/coding_theory", "science_algebra_category": [13, 11]}
+{"atom_id": "CS/machine_learning", "science_algebra_category": [13]}
+{"atom_id": "CS/neural_network_architecture", "science_algebra_category": [13, 11]}
+{"atom_id": "CS/probabilistic_graphical_model", "science_algebra_category": [13, 5]}
+{"atom_id": "CS/reinforcement_learning", "science_algebra_category": [13, 12]}
