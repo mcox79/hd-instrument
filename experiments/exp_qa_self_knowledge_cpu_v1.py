@@ -114,13 +114,28 @@ def route_F(pstore, atoms, args):
     return set()
 
 
+ANALOGUE_EDGES = {"RELATES", "GROUNDS", "INSTANTIATES", "ANALOGOUS_TO", "ANALOG_OF", "DUAL", "BIOLOGICAL_INSPIRATION_FOR", "INFLUENCED_BY", "GENERALIZES", "SPECIALIZES"}
+
+
 def route_G(atoms, relations, args):
-    """pattern: keyword match over name/desc + 1-hop related atoms of the topic anchors (best-effort; qualitative axis)."""
+    """pattern/analogue: RELATION traversal from an anchor over analogue-type edges (the substrate encodes cross-disc analogues as
+    edges, NOT keywords -- ready for the cross-disc GROUNDS/INSTANTIATES batch). Fallback: META-restricted keyword for rule-pattern Qs."""
+    anchor = _norm(args.get("anchor", ""))
+    if anchor:
+        out = set()
+        for r in relations:
+            if r.get("rel_type", "").upper() not in ANALOGUE_EDGES: continue
+            s = _norm(r["src_id"]); t = _norm(r["tgt_id"])
+            if s == anchor: out.add(t)
+            if t == anchor: out.add(s)
+        return out
+    # rule-pattern: precise META-restricted keyword (avoids the keyword over-retrieval that tanked precision)
     kws = [w for w in args.get("topic", "").lower().split() if len(w) > 2 and w not in STOP]
     out = set()
     for a in atoms:
+        if str(getattr(a.corpus, "value", a.corpus)).lower() not in ("meta", "methodology"): continue
         hay = (a.name + " " + (a.id or "") + " " + (getattr(a, "description", "") or "")).lower()
-        if any(k in hay for k in kws): out.add(_norm(a.id))
+        if sum(1 for k in kws if k in hay) >= 2: out.add(_norm(a.id))
     return out
 
 
