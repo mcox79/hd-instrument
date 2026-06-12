@@ -778,18 +778,12 @@ def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
     if primitive == "what_serves":
         cap = args.get("capability") or ""
         if not cap:
-            # Cycle 50 UNION-C: unresolved anchor -> use UNION algebra+bge fallback
-            return answer_type_C_union(pstore, q)
-        # Fake q with anchor for answer_type_C_union (Cycle 50 UNION-C)
-        return answer_type_C_union(pstore, {"anchor": cap, "question": q["question"]})
+            return set()
+        # Cycle 50 UNION-C HARD_FAIL revert: restore original answer_type_C call.
+        # FP-explosion-on-unbounded-prediction-sets mechanism falsified rule 12
+        # generalization on C axis. Standing for structural-zero-only UNION direction.
+        return answer_type_C(pstore, {"anchor": cap, "question": q["question"]})
     if primitive in ("predecessors_via",):
-        # Cycle 50 UNION-B: use answer_type_B_union (which preserves DECOMPOSE_TO +
-        # typed-edge + concept_links + decomposes_to logic from answer_type_B AND
-        # adds algebra+bge UNION enhancement on top).
-        # Note: loses Exp-Dev's B_VOCAB_MAP rp.predecessors_via vocab expansion;
-        # UNION's bge+algebra should compensate via different signal modalities.
-        return answer_type_B_union(pstore, q)
-    if primitive in ("predecessors_via_legacy_unused",):
         target = args.get("target") or ""
         rel_types = list(args.get("rel_types") or [])
         if not target:
