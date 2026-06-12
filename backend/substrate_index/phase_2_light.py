@@ -216,19 +216,63 @@ def build_existing_atom_lexicon(pstore: PartitionedStore) -> dict[str, set[str]]
     return dict(lex)
 
 
+def build_substrate_vocabulary(pstore: PartitionedStore) -> set[str]:
+    """Collect all substrate-known tokens from atom names + aliases + algebra fields.
+
+    Used as a SUBSTRATE-NATIVE quality filter (Option B-lite): candidates whose
+    tokens are predominantly substrate-known are LEGITIMATE substrate-domain
+    technical concepts. Candidates whose tokens are not in substrate vocabulary
+    are likely meta-narrative jargon or out-of-domain.
+    """
+    vocab: set[str] = set()
+    for atom in pstore.all_atoms():
+        for source in (atom.name or "", atom.id or "",
+                        " ".join(atom.aliases or [])):
+            for t in re.findall(r"[a-z][a-z0-9_]+", source.lower()):
+                for tok in t.split("_"):
+                    if len(tok) >= 3 and tok not in STOPWORDS:
+                        vocab.add(tok)
+        # Algebra dict values (about_topic, operation_type, etc.)
+        for d in (atom.algebra, atom.signature, atom.complexity):
+            if not d:
+                continue
+            for v in d.values():
+                if isinstance(v, str):
+                    for t in re.findall(r"[a-z][a-z0-9_]+", v.lower()):
+                        for tok in t.split("_"):
+                            if len(tok) >= 3 and tok not in STOPWORDS:
+                                vocab.add(tok)
+    return vocab
+
+
+def substrate_vocabulary_overlap(canonical: str, vocab: set[str]) -> float:
+    """Fraction of candidate's tokens that appear in substrate vocabulary.
+
+    Higher score = candidate uses substrate-known terminology = legitimate.
+    Lower score = candidate is non-substrate jargon = filter.
+    """
+    tokens = [t for t in canonical.split("_") if len(t) >= 3 and t not in STOPWORDS]
+    if not tokens:
+        return 0.0
+    known = sum(1 for t in tokens if t in vocab)
+    return known / len(tokens)
+
+
 def distant_supervision_score(
     candidate: CandidateExtraction,
     lex: dict[str, set[str]],
 ) -> tuple[float, list[tuple[str, float]]]:
-    """Score candidate vs existing atoms.
+    """Score candidate vs existing atoms (Option A+ stricter fuzzy match).
 
     Returns (score, similarity_list).
-    score = 1.0 if candidate.canonical_name in lex (exact existing match)
-    score = partial match if token overlap with existing atom names
+    score = 1.0 exact-match canonical_name in lex
+    score = max Jaccard >= 0.40 = LIKELY-COVERED (skip if skip_existing)
+    score = lower partial match = NEW candidate
     """
     if candidate.canonical_name in lex:
         return 1.0, [(qid, 1.0) for qid in lex[candidate.canonical_name]]
-    # Token-overlap partial match
+    # Token-Jaccard partial match (Option A+: lowered threshold 0.5 -> 0.40 for skip;
+    # but report all >= 0.30 as supervision context)
     cand_tokens = set(candidate.canonical_name.split("_"))
     best_matches = []
     for existing_canon, qids in lex.items():
@@ -236,7 +280,7 @@ def distant_supervision_score(
         if not ex_tokens or not cand_tokens:
             continue
         overlap = len(cand_tokens & ex_tokens) / max(len(cand_tokens | ex_tokens), 1)
-        if overlap >= 0.5:
+        if overlap >= 0.30:
             for qid in qids:
                 best_matches.append((qid, overlap))
     best_matches.sort(key=lambda x: -x[1])
@@ -289,17 +333,24 @@ def run_phase_2_light_pipeline(
     # Component 1: extract candidates
     candidates = extract_from_files(files)
 
-    # Component 2: distant supervision
+    # Component 2: distant supervision (lexicon + fuzzy match)
     lex = build_existing_atom_lexicon(pstore)
 
-    # Build candidate vectors + filter existing
+    # Option A+ tightening: skip near-matches + explicit substrate-meta-jargon blocklist
+    SKIP_NEAR_MATCH_THRESHOLD = 0.40
+    # Empirical meta-jargon tokens that recur in research narrative (not atom-worthy)
+    META_JARGON_LEADING = {"substrate", "methodology", "feedback", "scope",
+                            "demo", "literature", "failure"}
     filtered: list[tuple[CandidateExtraction, float, list, np.ndarray]] = []
     for canonical, ce in candidates.items():
         score, matches = distant_supervision_score(ce, lex)
-        if skip_existing and score >= 1.0:
+        if skip_existing and score >= SKIP_NEAR_MATCH_THRESHOLD:
             continue
-        # Option A tightening: Z >= 3 (research direction; was >= 2)
         if ce.z_count < 3:
+            continue
+        # Meta-jargon blocklist: drop candidates leading with meta-narrative tokens
+        first_token = canonical.split("_")[0]
+        if first_token in META_JARGON_LEADING:
             continue
         vec = name_vec_for_candidate(canonical, ai)
         filtered.append((ce, score, matches, vec))
