@@ -255,3 +255,33 @@ Routing files (written to disk, NOT auto-dispatched per 4-session architecture):
 - strategy_request_to_testbed_2026-06-12_batch2_revert_apply_and_remeasure.md
 
 Cap_map: v578 -> v579 CYCLE 50 (0 HP; 0 MIDDLE_BAND; 0 HARD_FAIL; 1 ARCHITECTURAL-STRATEGY [batch2_postdedup_revert=PP-401-annotation]; 0 LVH (1 label-nuance non-blocking); 0 NEW PP ROWS; PP-401 batch-2 REVERT-ACCEPTED + Cycle 49 UNION 0.446 1742-atom REAFFIRMED + breadth-backfill structurally gated on Phase-2-light; distractor-density LEADING-HYPOTHESIS not fully isolated; meta::RULE_authoring_substrate_queries_first 4th appearance PROMOTION-ELIGIBLE; rule 12 PARTITIONS unchanged separate scope; Portfolio 32+405 UNCHANGED; HONEST 1842->1843 +1; LVH 291->291 +0; 473rd PROT-009 paired commit) (2026-06-12)
+
+## v579 -> v580 CYCLE 244 1-VERDICT COMPOUND C ner_gazetteer_noise_crosscut HARD_FAIL noise-fragile (verdict_handler 474th PROT-009 paired commit; 0 HP; 0 MIDDLE_BAND; 1 HARD_FAIL [ner_gazetteer_noise_crosscut]; 0 LVH; 0 NEW PP ROWS; PP-403 ANNOTATED noise-fragility dimension; three-shape typology x noise crosscut SHARPENED; aux-features-shrink-with-data memory EXTENDED with PERTURBATION-FRAGILITY axis; methodology rule candidate meta::RULE_discrete_surface_exact_match_features_are_noise_fragile_by_construction 1st appearance; Compounds A+B noise crosscut still QUEUED; Portfolio 32+405 UNCHANGED; HONEST 1843->1844 +1; LVH 291->291 +0)
+
+### Step 0 honest re-read
+
+Metrics source: LOCAL (data/exp_ner_gazetteer_noise_crosscut_cpu_v1/metrics.json; remote bridge stale is_stale=True). 4-cell crosscut HONEST verify-before-asserting: per-cell metrics match verdict_msg exactly.
+
+**ner_gazetteer_noise_crosscut_cpu_v1 HARD_FAIL (HONEST):** 4 cells [frac x noise]: 5pct/0pct=+0.0441 / 5pct/10pct=+0.0167 / 100pct/0pct=-0.0368 / 100pct/10pct=-0.0383. Pre-reg HF threshold lift@5pct delta clean->noisy <=-0.02; observed -0.0274 (margin 0.37x). Hypothesis (gazetteer noise-robust) REFUTED. Mechanism (matches verdict file pre-reg caveat): exact-match lowercased token membership; char-noise corrupts gazetteer tokens ("washington" -> "washxngton") -> feature drops to 0 -> noise-fragile by construction. n_seeds field reports 3 but per_seed has 1 entry de-facto single-seed; threshold unambiguous so single-seed reading sufficient for HF annotation. Substrate-quality-first frame held. No over-claim. HONEST.
+
+HONEST: 1843 -> 1844 (+1). LVH: 291 -> 291 (+0). 0 LVH catches this cycle.
+
+### Cap_map decisions (v579 -> v580 CYCLE 244)
+
+**(A) ner_gazetteer_noise_crosscut_cpu_v1 (HARD_FAIL -- PP-403 annotation noise-fragility; no new PP row):**
+See cap_map v579->v580 entry for full annotation body (PP-403 doubly-fragile; three-shape typology x noise crosscut sharpened; methodology rule candidate 1st appearance; substrate-product positioning).
+
+ANNOTATIONS this cycle:
+- PP-403: noise-fragility dimension ANNOTATED (doubly fragile: low-data-only + noise-fragile). P-band 0.45-0.62 EXPLORATORY UNCHANGED.
+- PP-404: Compound A noise-robustness PRE-REG pending Exp-Dev verdict.
+- PP-405: Compound B more-negative-under-noise PRE-REG pending Exp-Dev verdict.
+- aux-features-shrink-with-data memory: EXTENDED with PERTURBATION-FRAGILITY dimension; two-axis taxonomy (data regime x perturbation regime).
+- meta::RULE_discrete_surface_exact_match_features_are_noise_fragile_by_construction: 1st appearance methodology rule candidate.
+
+PROT-004/006 NOT APPLICABLE: ANNOTATION on existing PP-403; no closure (capability bound unchanged; noise dimension is fragility characterization). Rescue sketches in cap_map entry (cheapest first: wait for A+B noise verdict; Levenshtein-1 fuzzy gazetteer; subword-class proxy; embedding-distance membership; gazetteer+shape ensemble).
+
+Routing files: NONE new this cycle. Compounds A+B noise crosscut already queued on local_cpu_queue (exp_ner_transition_charngram_noise_crosscut_cpu_v1; ~1-1.5 hr CPU).
+
+Memory extension flagged for memory_curator (future cycle): substrate-aux-features-shrink-with-data memory should be EXTENDED with PERTURBATION-FRAGILITY second axis (data regime x perturbation regime; three-shape becomes three-x-three).
+
+Cap_map: v579 -> v580 CYCLE 244 (1 HARD_FAIL [ner_gazetteer_noise_crosscut=PP-403-noise-fragility-annotation]; 0 LVH; 0 NEW PP ROWS; PP-403 ANNOTATED doubly-fragile; methodology rule candidate 1st appearance; Compounds A+B noise crosscut still QUEUED; Portfolio 32+405 UNCHANGED; HONEST 1843->1844 +1; LVH 291->291 +0; 474th PROT-009 paired commit) (2026-06-12)
