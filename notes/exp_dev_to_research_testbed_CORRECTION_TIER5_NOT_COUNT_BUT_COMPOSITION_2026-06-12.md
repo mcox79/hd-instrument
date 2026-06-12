@@ -53,3 +53,15 @@ but it's a genuine primitive enhancement for when off-attractor caps exist. Co-l
 
 Tier-5 novel discovery = mechanism-DIVERSITY-gated (corpus composition), NOT sh-count-gated. My earlier report CORRECTED.
 Honest negative + a sharper lever. Cell `exp_tier5_ingest_unlock_test_cpu_v1.py` reusable + smoke-passing.
+
+## DECISIVE confirmation of the composition gap (added same session)
+
+Audited all winning (current-best) mechanisms across the union-27 corpus by #caps:
+- discriminative_perceptron: 13 caps | fhrr_unbind: 4 | cleanup: 3  (the 2 attractor families)
+- **OFF-attractor mechanisms winning in >=2 caps: 0 (NONE).**
+- The 5 off-attractor winners are ALL n_caps=1: pp-math_wk_lex_family, discriminative_perceptron_with_role_features,
+  discriminative_perceptron_with_learned_selector, prototype_bundle_cleanup, slipnet. Note 3/5 are discriminative-perceptron VARIANTS.
+
+=> No latent novel Tier-5 rule exists in the current corpus. Confirmed: the lever is to DEVELOP >=2 capabilities that win via the
+SAME genuinely-off-attractor mechanism (e.g. permutation_indexed_binding from E3/PP-398, or a temporal/contextual mechanism per the
+drill-pattern memory). That is a Research capability-PORTFOLIO call, not an Exp-Dev mechanism build. Exp-Dev part delivered; holding.
