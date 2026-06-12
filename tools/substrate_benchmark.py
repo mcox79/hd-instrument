@@ -31,6 +31,29 @@ from backend.substrate_index.self_knowledge import (
     composition_paths,
 )
 from backend.substrate_index.intent_router import route as router_route
+from backend.substrate_index import route_primitives as rp
+from backend.substrate_index import self_knowledge as sk_module
+
+
+def _pstore_to_relations(pstore: PartitionedStore) -> list[dict]:
+    """Convert pstore iter_all_relations() to Exp-Dev primitives' dict format."""
+    out = []
+    for src, rel_obj, tgt in pstore.iter_all_relations():
+        rel_str = rel_obj.value if hasattr(rel_obj, "value") else str(rel_obj)
+        out.append({"src_id": src, "tgt_id": tgt, "rel_type": rel_str})
+    return out
+
+
+def _denorm(norm_id: str, pstore: PartitionedStore) -> str:
+    """Re-attach corpus prefix to a normalized id (Exp-Dev primitives return
+    lowercase bare ids; we need qualified ids for benchmark gold comparison)."""
+    for atom in pstore.all_atoms():
+        if atom.id.lower() == norm_id:
+            return atom.qualified_id
+        # Match bare-id forms like t2/fhrr_bind -> math::T2/fhrr_bind
+        if rp.norm(atom.id) == norm_id:
+            return atom.qualified_id
+    return norm_id
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s | %(message)s")
 log = logging.getLogger("benchmark")
@@ -455,26 +478,51 @@ def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
         return answer_type_C(pstore, {"anchor": cap, "question": q["question"]})
     if primitive in ("predecessors_via",):
         target = args.get("target") or ""
-        rel_types = args.get("rel_types") or []
-        if not target or not pstore.has_atom(target):
+        rel_types = list(args.get("rel_types") or [])
+        if not target:
             return set()
+        rel_set_upper = {rt.upper() for rt in rel_types}
+        # Decompose_to special case: ONLY check decomposes_to metadata field
+        # (substrate has many DEPENDS_ON edges that aren't decompositional).
+        if rel_set_upper == {"DEPENDS_ON", "USES"} or "DECOMPOSE_TO" in rel_set_upper or "DECOMPOSES_TO" in rel_set_upper:
+            matched = set()
+            for atom in pstore.all_atoms():
+                if target in (atom.metadata.get("decomposes_to") or []):
+                    matched.add(atom.qualified_id)
+                if target in (atom.concept_links or []):
+                    matched.add(atom.qualified_id)
+            # If still nothing, fall through to broader search
+            if matched:
+                matched.discard(target)
+                return matched
+
+        # General: my fuzzy-enum + structural fallback
         matched = set()
-        # Direction 1: in_neighbors via specified relation types
-        for rt_name in rel_types:
+        if pstore.has_atom(target):
             for rt in RelationType:
-                if rt.value == rt_name or rt_name in rt.value or rt.value in rt_name:
-                    for src in pstore.in_neighbors(target, rt):
-                        matched.add(src)
-        # Direction 2: atoms whose concept_links or decomposes_to mention target
-        for atom in pstore.all_atoms():
-            if target in (atom.concept_links or []):
-                matched.add(atom.qualified_id)
-            if target in (atom.metadata.get("decomposes_to") or []):
-                matched.add(atom.qualified_id)
-        # Direction 3: also include atoms via SUPERSEDES / RELATES (fuzzy fallback for vocab gap)
-        for fallback_rt in (RelationType.RELATES,):
-            for src in pstore.in_neighbors(target, fallback_rt):
-                matched.add(src)
+                for rn in rel_types:
+                    if rn.upper() == rt.value or rn.upper() in rt.value or rt.value in rn.upper():
+                        for src in pstore.in_neighbors(target, rt):
+                            matched.add(src)
+                        break
+            for atom in pstore.all_atoms():
+                if target in (atom.concept_links or []):
+                    matched.add(atom.qualified_id)
+                if target in (atom.metadata.get("decomposes_to") or []):
+                    matched.add(atom.qualified_id)
+        # If primary found <= 3 results, try Exp-Dev's wider vocab expansion
+        if len(matched) <= 3:
+            expanded_rels = set()
+            for rt_name in rel_types:
+                expanded_rels.update(rp.B_VOCAB_MAP.get(rt_name.upper(), (rt_name.upper(),)))
+            if not expanded_rels:
+                expanded_rels = {rt.upper() for rt in rel_types}
+            if not hasattr(answer_via_router, "_relations_cache"):
+                answer_via_router._relations_cache = _pstore_to_relations(pstore)
+            norm_results = rp.predecessors_via(answer_via_router._relations_cache,
+                                                target, list(expanded_rels))
+            for nid in norm_results:
+                matched.add(_denorm(nid, pstore))
         matched.discard(target)
         return matched
     if primitive == "solution_history_lookup":
@@ -508,7 +556,12 @@ def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
                     matched.add(tgt)
         return matched
     if primitive == "composition_paths":
-        return set()  # boolean handled in cmd
+        # Exp-Dev's composition_reachable bidirectional
+        src = args.get("src")
+        tgt = args.get("tgt")
+        if src and tgt and rp.composition_reachable(pstore, sk_module, src, tgt, bidirectional=True):
+            return {"__path_exists__"}  # marker non-empty
+        return set()
     if primitive == "methodology_rules_for":
         return answer_type_E(pstore, q)
     if primitive == "coverage_report":
