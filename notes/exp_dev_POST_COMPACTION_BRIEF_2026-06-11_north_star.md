@@ -150,6 +150,12 @@ Boundaries (honest): code-synthesis 0.074 (ceiling), GSM8K 0.16/0.385, ASDiv cas
 - KEY DATA FILES: bundled svamp.json (700/300); Research atoms in data/substrate_index/concept_corpus_{ner_gazetteer,math_world_knowledge_lex}_atoms.jsonl.
 
 ## OPERATIONAL LESSONS (critical)
+0. REBOOT ZOMBIE QUEUE ENTRIES -> DASHBOARD PHANTOM: a desktop reboot kills a running GPU job but leaves its queue.json entry at
+   status="running" with the old started_at; the dashboard then shows elapsed = now - started_at (e.g. a "3-hour" 3b classification
+   job that actually died at reboot + was superseded by a rerun). FIX: reconcile -- set orphaned running/claimed entries (no
+   completed_at, old started_at, no live process) to status="killed". Verify via host python-process list (no matching proc = zombie).
+   Same pattern as the Wikidata-ingest dashboard false-alarm. Remote queue.json edits: use base64-encoded python (nested ssh->powershell
+   ->python quoting otherwise mangles); runner must be idle.
 1. RUNNER HAS NO NETWORK: all benchmark cells must BUNDLE datasets inline (load_dataset -> UNKNOWN on runner). Bundled under
    experiments/data/: ud_english_ewt, mbpp(+with_tests), ontonotes_ner, ptb_treebank_tagged, math_benchmarks_test, asdiv_validation,
    atis_intent/atis_full, ag_news, sst2. Use these, not load_dataset, in any cell meant for the runner.
