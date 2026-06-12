@@ -64,6 +64,30 @@ F3 3-binding bundle cleanup on composite_hrr:
 
 Note: PP-409 canonical script uses unitary-role binding + per-binding cleanup which is the rigorous F=3 measurement. Per Exp-Dev's PP-409 verdict at alpha=0.5: cleanup@1 F=3 = 1.000 EXACT. My local F3 is a simpler test that lower-bounds true performance.
 
+### A-axis per-Q diagnostic (addendum)
+
+12-question per-Q delta vs Cycle 49 BEST (algebra_hrr plain in UNION-A):
+
+| Q | topic | Cycle 49 BEST | Two-vector composite | delta | source of lift |
+|---|---|---|---|---|---|
+| Q01-A | FHRR | 0.60 | 0.60 | 0 | -- |
+| Q02-A | RMT | 0.29 | **0.43** | **+0.14** | tracy_widom_distribution was in collision set; composite_hrr now distinguishes it from concentration_inequality/euclidean_distance |
+| Q03-A | Hopfield | 0.36 | 0.36 | 0 | -- |
+| Q04-A | RL | 0.77 | 0.77 | 0 | (already top performer) |
+| Q05-A | quantum | 0.50 | 0.50 | 0 | -- |
+| Q31-A | Bayesian | 0.47 | 0.47 | 0 | KL/cross_entropy/renyi in collision set BUT still didn't enter UNION top-5 |
+| Q32-A | NL stack | 0.12 | 0.12 | 0 | (authoring gap) |
+| Q33-A | backprop | 0.00 | 0.00 | 0 | (no math::T1/backpropagation atom; batch 2 T2 reverted) |
+| Q34-A | sparse | 0.67 | 0.67 | 0 | -- |
+| Q35-A | Lyapunov | 0.22 | 0.22 | 0 | (Q35 authoring-gap: 3 of 4 gold have ZERO Lyapunov refs; encoding fix can't help) |
+| Q36-A | FFT | 0.80 | 0.80 | 0 | -- |
+| Q37-A | PGM | 0.55 | 0.55 | 0 | (already at Cycle 49 BEST UNION top_k=5 value) |
+| **avg** | | **0.446** | **0.458** | **+0.012** | Q02 RMT alone drove the macro lift |
+
+The lift is real and mechanistically explained but narrow — only Q02 RMT benefited because tracy_widom_distribution (collision-set atom) was Q02 gold. Other Qs with collision-set atoms in gold (Q31 KL/cross_entropy/renyi) didn't lift because UNION's bge component was already finding their gold.
+
+**Implication for path-to-HP**: encoding-discriminability lever (composite_hrr) gives marginal A-axis lifts where collision-set atoms intersect specific gold sets. The bigger remaining levers are authoring gaps (Q33 backprop atom missing; Q35 Lyapunov gold's 3 atoms have no Lyapunov refs; Q32 NL stack anchor unresolved).
+
 ### A-axis cross-axis transfer (RESCUE-3 from v587 routing)
 
 | state | A axis | delta |
