@@ -75,6 +75,8 @@ class PartitionedStore:
         # Per Research FINDINGS_08_VALIDATE_METHODOLOGY_PARTITION 2026-06-11:
         # substrate-proposed partition empirically surfaced by composite C NOVEL cluster
         self.methodology = Store(self.root / "methodology")
+        # Per Research SCIENCE_BATCH_01 2026-06-11 + USER massive math+science directive:
+        self.science = Store(self.root / "science")
         # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
         # 2026-06-11: six new partitions for auto-ingest of all research artifacts
         self.research_history = Store(self.root / "research_history")
@@ -89,6 +91,7 @@ class PartitionedStore:
             Corpus.META: self.meta,
             Corpus.SCHOOL: self.school,
             Corpus.METHODOLOGY: self.methodology,
+            Corpus.SCIENCE: self.science,
             Corpus.RESEARCH_HISTORY: self.research_history,
             Corpus.DECISION_HISTORY: self.decision_history,
             Corpus.RESULTS_HISTORY: self.results_history,

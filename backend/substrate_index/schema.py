@@ -48,6 +48,10 @@ class Corpus(enum.Enum):
     # results-history/decision-history/findings-history.
     METHODOLOGY = "methodology"
 
+    # Per Research SCIENCE_BATCH_01 2026-06-11 + USER massive math+science ingestion directive:
+    # SCIENCE partition with 13-category algebra taxonomy (mirror of math) per FINDINGS #18 Gap 6.
+    SCIENCE = "science"
+
     # Per Research SUBSTRATE_AS_FULL_RESEARCH_LEDGER + AUTO_INGEST_VIA_EVOLVE_PY
     # 2026-06-11. Four ledger partitions auto-ingested from project artifacts:
     RESEARCH_HISTORY = "research_history"   # notes/research_drill_*_2x_*.md
