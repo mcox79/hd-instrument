@@ -452,3 +452,4 @@
 {"ts": 1781234179.9645557, "op": "update_atom", "target": "T3/cosine_similarity", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
 {"ts": 1781234179.9695268, "op": "update_atom", "target": "T3/euclidean_distance", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
 {"ts": 1781234179.9775279, "op": "update_atom", "target": "T3/iterative_proportional_fitting", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781245252.0036013, "op": "add_atom", "target": "T1/lyapunov_stability", "note": "Q1 description expansion 2026-06-12", "source": "lyapunov_expand"}
