@@ -40,3 +40,4 @@ cls_2substrate_rescue_2x (2026-06-11): RESCUE-4 dedicated consolidation pass P_d
 - 2026-06-11 research_drill_free_probability_F4_substrate_observability_3x_2026-06-11.md -- F4 kappa_4_rect substrate-novel observability framework; 5 pre-reg CPU experiments; cross-links Layer 1/2/4 + v4.0 triangle; P_deflated 0.42.
 
 2026-06-11 substrate-nonunique-role-binding 2x DEEP -> notes/research_drill_substrate_nonunique_role_binding_2x_2026-06-11.md  HEADLINE: 6 substrate-only paths for multi-occurrence role-binding; resonator network rank-1 P=0.45; no ceiling claim; exp_dev handoff filed
+2026-06-11T22:45:31-04:00 research: substrate-classical NL multi-seed variance 2x -> 4-axis Tier predictor + 5 ranked Tier-B->Tier-A paths; Path1 E1-shared-feature-lib (Brown+gazetteer+morph+context) slot+0.10 P_deflated=0.50; Path2 averaged-perceptron sigma-30-50pct P_deflated=0.55; companion exp_dev hand-off filed

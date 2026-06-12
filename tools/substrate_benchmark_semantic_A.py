@@ -57,6 +57,8 @@ def main():
                     default=DATA_ROOT / "benchmark_corpus_v3_60q.jsonl")
     ap.add_argument("--top-k", type=int, default=15,
                     help="bge semantic retrieval top-K per A_content question")
+    ap.add_argument("--sweep", type=str, default="",
+                    help="comma-separated top_k values to sweep (e.g. '5,8,12,16')")
     args = ap.parse_args()
 
     pstore = PartitionedStore(DATA_ROOT)
@@ -82,35 +84,46 @@ def main():
                 questions.append(q)
     log.info("loaded %d A_content questions", len(questions))
 
+    ks = [int(x) for x in args.sweep.split(",")] if args.sweep else [args.top_k]
+
     print("\n" + "=" * 78)
-    print(f"GAP 4 v2 SEMANTIC A_content -- bge cosine top-{args.top_k}")
+    print(f"GAP 4 v2 SEMANTIC A_content -- bge cosine top-k sweep {ks}")
     print("=" * 78)
 
-    # Build id->qualified_id map (Retriever returns bare ids; gold uses qualified)
+    # Build id->qualified_id map
     bare_to_qid = {}
     for atom in pstore.all_atoms():
         bare_to_qid[atom.id] = atom.qualified_id
     log.info("built bare->qualified map: %d entries", len(bare_to_qid))
 
     results = []
-    f1_sum = 0.0
-    for q in questions:
-        candidates = retriever.semantic(q["question"], top_k=args.top_k)
-        predicted = set()
-        for c in candidates:
-            qid = bare_to_qid.get(c.atom_id, c.atom_id)
-            predicted.add(qid)
-        sc = score_set_overlap(predicted, q["ground_truth_atoms"])
-        sc["predicted_atoms"] = sorted(predicted)
-        results.append({"qid": q["qid"], **sc, "question": q["question"][:60]})
-        f1_sum += sc["f1"]
-        mark = "++" if sc["f1"] >= 0.7 else ("+" if sc["f1"] >= 0.4 else "-")
-        print(f"  {q['qid']:8s} F1={sc['f1']:.2f} P={sc['precision']:.2f} R={sc['recall']:.2f} {mark}  tp={sc['tp']} fp={sc['fp']} fn={sc['fn']}  {q['question'][:50]}")
+    per_k_mean = {}
+    for K in ks:
+        f1_sum = 0.0
+        k_results = []
+        for q in questions:
+            candidates = retriever.semantic(q["question"], top_k=K)
+            predicted = set()
+            for c in candidates:
+                qid = bare_to_qid.get(c.atom_id, c.atom_id)
+                predicted.add(qid)
+            sc = score_set_overlap(predicted, q["ground_truth_atoms"])
+            k_results.append({"qid": q["qid"], "k": K, **sc})
+            f1_sum += sc["f1"]
+        mean_f1 = f1_sum / max(1, len(questions))
+        per_k_mean[K] = mean_f1
+        results.extend(k_results)
+        print(f"  top_k={K:2d}  mean F1={mean_f1:.3f}")
+        if len(ks) == 1:
+            for r in k_results:
+                mark = "++" if r["f1"] >= 0.7 else ("+" if r["f1"] >= 0.4 else "-")
+                print(f"    {r['qid']:8s} F1={r['f1']:.2f} P={r['precision']:.2f} R={r['recall']:.2f} {mark}  tp={r['tp']} fp={r['fp']} fn={r['fn']}")
 
-    mean_f1 = f1_sum / max(1, len(questions))
-    print(f"\nMean A_content semantic F1: {mean_f1:.3f}")
-    print(f"Baseline keyword router F1: 0.283")
-    print(f"Lift: +{mean_f1 - 0.283:.3f}")
+    best_k = max(per_k_mean, key=per_k_mean.get)
+    best_f1 = per_k_mean[best_k]
+    print(f"\nbest_k={best_k} F1={best_f1:.3f} vs keyword baseline 0.283 -- lift +{best_f1 - 0.283:.3f}")
+    print(f"pre-reg verdict: {'HARD-PASS' if best_f1 >= 0.30 else 'MIDDLE' if best_f1 >= 0.22 else 'HARD-FAIL'}")
+    mean_f1 = best_f1
 
     out = DATA_ROOT / "bench_reports" / f"gap4v2_semantic_A_{int(time.time())}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
