@@ -1,6 +1,93 @@
-# Testbed POST-COMPACTION BRIEF — 2026-06-11 evening
+# Testbed POST-COMPACTION BRIEF — 2026-06-11 evening + Day 2 morning extension
 
 **READ FIRST on resume.** Captures load-bearing state from this session.
+
+> **DAY 2 MORNING REFRESH** -- substantial substrate growth + architectural fixes during autonomous "continue" + "full auto" stretch:
+>
+> **Substrate state explosion (134 -> 829 atoms; 6.2x growth in single session):**
+> - Phase 1 evolve.py auto-ingest: 449 research_drill_*.md files into research_history partition (substrate-self-referential pipeline operational at scale)
+> - Math batch 03 Phase A1+A2+A3 ingested: 84 new T1+T2+T3+T4 math primitives (math partition 60 -> 144)
+> - Math batch 03 Phase A4 relations: 100+ across 40 fine-grained semantic relation types
+> - 10 math-WK lexicon atoms (131 named numeric constants for arithmetic word problems)
+> - 8 NER gazetteer atoms (kind=lexicon; tier=T_lexicon)
+> - 7 methodology rules in meta partition (6 human + 1 substrate-extracted via solution-history)
+> - 14 capability solution-histories ingested (universal-lever 92% quantified; 5x cliff repeat; 2 reverts preserved; v3.0 compositional cliff +1.000 captured)
+> - 4 NOVEL atoms in methodology partition (substrate-proposed; Research-validated)
+> - 4 retrieval-type capability histories
+> - 18 ACCEPT atoms from Cycle #5 Type A loop closure
+> - 5 cycle-238 capability atoms (PP-393 to PP-397)
+> - 5 substrate-evolution capability atoms (compositional depth + PP-217 + PP-371 + PP-372 + LEX-1)
+>
+> **Architectural milestones today:**
+> - Cycle #5 Type A loop CLOSED end-to-end (substrate proposed 39 atoms -> Research validated 18 ACCEPT -> Testbed ingested)
+> - Cycle #8 substrate EXTRACTED first methodology rule from own data (count_NB -> discriminative_perceptron; +0.299 avg across 5 caps)
+> - Cycle #14/#19 (Testbed/Research counts) Type B+C: H1 HARD-FAIL discovery -> Option B+E+H architectural fixes shipped
+> - **Substrate-as-metacognition-engine framing LOCKED** (memory entry filed by Research)
+> - **Dual-process recognition** (Option B+H combined; brain CA3 recollection + cortical familiarity) implemented in classify_verdict
+> - **Substrate-as-self-extending-engine framing**: infrastructure-level self-extension VALIDATED (Phase 1 + auto-ingest); classification-level self-recognition NOT YET (HARD-FAIL on H1; B+E+H fix in flight)
+>
+> **Findings notes filed today (17 total; all answered by Research same day):**
+> #1-#15 from Day 1 + #16 Phase 1 evolve.py complete + #17 H1 HARD-FAIL substrate-eval recall gap
+>
+> **Tools shipped this session:**
+> - tools/substrate_evolve_auto_ingest_phase1.py (substrate-eval mediated drill ingest)
+> - tools/substrate_evolve_auto_ingest_phases_2_5.py (decision/findings/verdict/results history)
+> - tools/substrate_evolve_phase1_validate_hypothesis1.py (H1 validator)
+> - tools/substrate_evolve_phase6_bulk_jsonl.py (parameterized bulk JSONL ingest)
+> - tools/bundle_conll2000.py + experiments/data/conll2000.json (Exp-Dev chunking unblock; 15MB)
+> - tools/substrate_solutions_ingest_and_analyze.py (8 substrate-internal queries)
+> - tools/substrate_methodology_extraction_run.py (substrate extracts its own rules)
+> - tools/substrate_ingest_math_batch03_phase_A.py + _A2 + _A3
+> - tools/substrate_ingest_math_batch03_relations.py
+> - tools/substrate_ingest_meta_rules.py
+> - tools/substrate_ingest_8_gazetteer.py + 10_math_wk_lex.py + 18_accept.py + cycle238_capabilities.py
+> - backend/substrate_index/algebra_index.py (v2 Index 2 HRR/TPR)
+> - backend/substrate_index/algebra_cluster.py (Layer 3 archaeology + EQUIVALENT_UNDER discovery)
+> - backend/substrate_index/atom_candidates.py (Tier 3 generation; 5 sources)
+> - backend/substrate_index/dialectic.py (Layer 4)
+> - backend/substrate_index/spectral.py (Layer 2 v2.1; M=100+ ready)
+> - backend/substrate_index/solutions.py (8 queries; universal-lever / cliff / revert / rule-extraction)
+>
+> **Schema additions:**
+> - RelationType: SUPERSEDES + SUPERSEDED_BY + CURRENT_BEST_FOR + RELATES + GENERALIZES + INSTANCE_OF + DEFINED_BY + DEFINED_OVER + EQUIVALENT_UNDER + CONTRIBUTES_TO + TRACES_TO + INFLUENCED_BY
+> - AtomKind: METHODOLOGY + LEXICON + METHODOLOGY_RULE + CAPABILITY + SCHOOL
+> - Tier: TIER_LEXICON + TIER_METHODOLOGY
+> - Atom: current_best_solution + solution_history fields
+> - Corpus: METHODOLOGY (validated; populated 4 atoms) + 6 history partitions (RESEARCH_HISTORY populated 449; others queued)
+>
+> **Architectural lever framing (3 candidates substrate sees on its own):**
+> 1. Discriminative attention (universal lever; 5+ capabilities; +0.299 avg; brain analogue: prefrontal top-down attention) -- 92% of capabilities current-best
+> 2. Structural binding (cosine_cleanup -> fhrr_unbind; 2 capabilities so far; +0.346 / +0.200; brain analogue: hippocampal/cortical binding) -- second lever
+> 3. WK augmentation (discriminative_perceptron + WK lexicon; +0.114; emergent pattern from cycle 238 ingest) -- third pattern
+>
+> **Research's Drill 1 5-option ranking for substrate-eval recall gap:**
+> 1. B + H combined (dual-process recognition; brain analogue) -- SHIPPED
+> 2. G (algebra_novelty in BUNDLE space; ~150 LOC) -- sequenced after B+H
+> 3. E (weighted-avg composite; 5 LOC bridge) -- SHIPPED
+> 4. J (hierarchical 4-channel) -- pending
+> 5. F (parallel supervised) -- off-thesis
+>
+> **User direction LOCKED (latest):** "substrate might still need far, far more knowledge before it can really do this self improvement job... ingest as much of existing mathematics first... and science if possible"; root cause = sparse corpus; Day 2-7 priority = massive math + science ingestion (~400-600 math atoms + 200-400 science Phase B-D coming from Research)
+>
+> **Background tasks at compaction time (will NOT survive):**
+> - b460qy2rc: H1 re-validation with Option B (in flight; ~30-50 min total runtime)
+> - bykug3l1u: Phase 2-5 evolve.py auto-ingest (research_to / testbed_to / exp_dev_to / strategy_decisions; in flight)
+>
+> **On-resume actions:**
+> 1. Check if background tasks completed via TaskList; if results landed, analyze
+> 2. Pull latest commits; check for new Research notes (math batch 03 B-D / science batch 01 likely)
+> 3. With Option B+E+H shipped, re-run H1 validator to validate dual-process recognition
+> 4. If background tasks DIDN'T survive: re-run Phase 2-5 + H1 with fixed code
+> 5. Re-engage with Research's continuing math+science ingestion deliveries via Phase 6
+>
+> **5-tier progression state:**
+> - Tier 1 (>=3 surprise cycles): MET (14+ cycles)
+> - Tier 2 (substrate-proposed architecture Layer 1 validated): MET (v2 composite C, Option B+H)
+> - Tier 3 (substrate-proposed atom candidates VALIDATED): MET (18 ACCEPT + ongoing)
+> - Tier 4 (substrate-proposed architecture validated via Layer 1 + meta-eval methodology improved): ON DECK pending CoNLL-2000 chunking cell-test + H1 re-validation with B+E+H
+> - Tier 5 (substrate proposes structural unification not in catalog): pending Tier 4 + massive corpus expansion
+>
+> ----- (original Day 1 close state below for reference) -----
 
 > **REFRESHED late evening 2026-06-11** -- Day 1 closing state added below:
 > - Layer 1 attribution Day 1 OPERATIONAL; caught algebra-vec as NET NEGATIVE; closed loop ran ~10 min (surprise -> drill -> v2 architecture -> Fix A -> ranking recovery)
