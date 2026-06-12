@@ -204,7 +204,9 @@ def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
     """
     import numpy as np
     retr = _ensure_semantic_retriever(pstore)
-    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=3)
+    # top_k=5 each gives 5-10 unique atoms post-union; final top-5 by max-score.
+    # Avoids pred_count<5 regression for F-type Qs routed via what_do_you_know_about.
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=5)
 
     if retr is None:
         if algebra_ordered:
@@ -212,7 +214,7 @@ def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
         keywords = _extract_keywords(q["question"])
         return _atoms_matching_topic(pstore, keywords)
 
-    bge_cands = retr.semantic(q["question"], top_k=3)
+    bge_cands = retr.semantic(q["question"], top_k=5)
     bge_preds = []
     for c in bge_cands:
         qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
@@ -222,9 +224,9 @@ def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
         # UNION + max-score rank (rank-reciprocal as proxy for score normalization)
         scores: dict[str, float] = {}
         for rank, qid in enumerate(algebra_ordered):
-            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 3.0)
+            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
         for rank, qid in enumerate(bge_preds):
-            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 3.0)
+            scores[qid] = max(scores.get(qid, 0.0), 1.0 - rank / 5.0)
         ranked = sorted(scores.items(), key=lambda x: -x[1])
         return {qid for qid, _ in ranked[:5]}
     else:
