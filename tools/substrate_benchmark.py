@@ -132,6 +132,17 @@ def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
             matched.add(atom.qualified_id)
     # Remove anchor itself from results
     matched.discard(anchor)
+    # Corpus filter: if question phrasing constrains the corpus, drop others
+    qtext = q.get("question", "").lower()
+    corpus_filter = None
+    if "math atoms" in qtext or "which math" in qtext:
+        corpus_filter = "math"
+    elif "concept atoms" in qtext:
+        corpus_filter = "concept"
+    elif "science atoms" in qtext:
+        corpus_filter = "science"
+    if corpus_filter:
+        matched = {qid for qid in matched if qid.startswith(f"{corpus_filter}::")}
     return matched
 
 

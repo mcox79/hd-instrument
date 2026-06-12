@@ -413,3 +413,42 @@
 {"ts": 1781228400.778195, "op": "update_atom", "target": "T2/fhrr_unbind", "note": "Backfilled serves_capability from 4 capability solution_histories", "source": "backfill_serves_capability"}
 {"ts": 1781228400.797039, "op": "update_atom", "target": "T3/count_nb", "note": "Backfilled serves_capability from 3 capability solution_histories", "source": "backfill_serves_capability"}
 {"ts": 1781228400.8268096, "op": "update_atom", "target": "T2/cleanup", "note": "Backfilled serves_capability from 5 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781234179.6899023, "op": "update_atom", "target": "T2/tensor_product_representation", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.695929, "op": "update_atom", "target": "T2/sparse_distributed_memory", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7034276, "op": "update_atom", "target": "T2/amit_gutfreund_sompolinsky_capacity", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7094364, "op": "update_atom", "target": "T2/modern_hopfield_ramsauer", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.714425, "op": "update_atom", "target": "T2/complementary_learning_systems", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7211485, "op": "update_atom", "target": "T3/discrete_fourier_transform", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7271626, "op": "update_atom", "target": "T3/bocpd_changepoint", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7335627, "op": "update_atom", "target": "T3/mp_bulk_kl", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7414098, "op": "update_atom", "target": "T3/eisner_parsing", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.748407, "op": "update_atom", "target": "T3/structured_perceptron_collins", "note": "Q3 retrofit: added 5 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7553458, "op": "update_atom", "target": "T3/count_nb", "note": "Q3 retrofit: added 3 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7623432, "op": "update_atom", "target": "T3/expectation_maximization", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7723002, "op": "update_atom", "target": "T3/viterbi_decoder", "note": "Q3 retrofit: added 3 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.784493, "op": "update_atom", "target": "T3/forward_algorithm_atom", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.7939358, "op": "update_atom", "target": "T3/backward_algorithm_atom", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.803272, "op": "update_atom", "target": "T3/hungarian_algorithm", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8143659, "op": "update_atom", "target": "T3/chu_liu_edmonds_algo", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8240054, "op": "update_atom", "target": "T2/fhrr_bind", "note": "Q3 retrofit: added 6 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8328857, "op": "update_atom", "target": "T2/fhrr_unbind", "note": "Q3 retrofit: added 4 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.84215, "op": "update_atom", "target": "T2/cleanup", "note": "Q3 retrofit: added 3 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.852247, "op": "update_atom", "target": "T2/superposition", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.862043, "op": "update_atom", "target": "T2/bundling", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8730109, "op": "update_atom", "target": "T2/circular_convolution", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8840237, "op": "update_atom", "target": "T4/cascade_hmm_pipeline", "note": "Q3 retrofit: added 4 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.8927338, "op": "update_atom", "target": "T4/discriminative_perceptron_pipeline", "note": "Q3 retrofit: added 7 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9020283, "op": "update_atom", "target": "T3/attention_mechanism", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.908028, "op": "update_atom", "target": "T3/adam_optimizer", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9152029, "op": "update_atom", "target": "T3/stochastic_gradient_descent", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9212039, "op": "update_atom", "target": "T3/contrastive_learning", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.926202, "op": "update_atom", "target": "T3/softmax_function", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9314332, "op": "update_atom", "target": "T3/cross_entropy_loss", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9374459, "op": "update_atom", "target": "T3/transformer_block", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9424322, "op": "update_atom", "target": "T3/policy_gradient", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9481184, "op": "update_atom", "target": "T3/q_learning", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.953516, "op": "update_atom", "target": "T3/markov_decision_process", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.958528, "op": "update_atom", "target": "T3/bellman_equation", "note": "Q3 retrofit: added 2 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9645557, "op": "update_atom", "target": "T3/cosine_similarity", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9695268, "op": "update_atom", "target": "T3/euclidean_distance", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
+{"ts": 1781234179.9775279, "op": "update_atom", "target": "T3/iterative_proportional_fitting", "note": "Q3 retrofit: added 1 caps", "source": "retrofit_serves_capability"}
