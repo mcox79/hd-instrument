@@ -95,6 +95,25 @@ if _ARGS.self_test:
     sys.exit(0)
 
 
+def _char_perturb(word, rate, rng):
+    """L-A adversarial: char-level swap/insert/delete at probability `rate` per char (Nature SciRep 2025 LLM-brittleness style)."""
+    if rate <= 0 or len(word) < 2 or not word.isalpha():
+        return word
+    chars = list(word)
+    out = []
+    for ch in chars:
+        if rng.random() < rate:
+            op = rng.integers(0, 3)
+            if op == 0:  # swap with a random lowercase letter
+                out.append(chr(int(rng.integers(97, 123))))
+            elif op == 1:  # insert
+                out.append(ch); out.append(chr(int(rng.integers(97, 123))))
+            # op == 2: delete (append nothing)
+        else:
+            out.append(ch)
+    return "".join(out) or word
+
+
 def run() -> Dict:
     rng = np.random.default_rng(int(os.environ.get("HDLAB_SEED", "1028")))
     try:
@@ -140,9 +159,12 @@ def run() -> Dict:
                     pg = gold[i]; pp = pred[i]
             c += 1
     avg = {f: w[f] - cw[f] / c for f in w}
+    _noise = float(os.environ.get("HDLAB_TEST_NOISE", "0.0"))  # L-A adversarial: char-perturb test input
+    _prng = np.random.default_rng(7)
     tp = fp = fn = 0
     for words, gold in test:
-        pred = viterbi(words, avg); gs = _spans(gold); ps = _spans(pred)
+        tw = [_char_perturb(x, _noise, _prng) for x in words] if _noise > 0 else words
+        pred = viterbi(tw, avg); gs = _spans(gold); ps = _spans(pred)
         tp += len(gs & ps); fp += len(ps - gs); fn += len(gs - ps)
     prec = tp / (tp + fp + 1e-9); rec = tp / (tp + fn + 1e-9); f1 = 2 * prec * rec / (prec + rec + 1e-9)
     gap = f1 - F1_18TYPE
