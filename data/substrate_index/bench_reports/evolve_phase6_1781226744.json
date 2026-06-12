@@ -1,0 +1,35 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\meta_corpus_extracted_rule_structured.jsonl",
+      "ingested": 1,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "meta": 1
+      }
+    },
+    {
+      "file": "data\\substrate_index\\meta_corpus_methodology_rules.jsonl",
+      "ingested": 7,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "meta": 7
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 8,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 0,
+    "pre_total": 210,
+    "post_total": 218
+  }
+}

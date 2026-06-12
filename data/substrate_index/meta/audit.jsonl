@@ -1,0 +1,8 @@
+{"ts": 1781226744.1016524, "op": "add_atom", "target": "RULE_count_nb_to_discriminative_perceptron", "note": "Phase 6 bulk JSONL ingest from meta_corpus_extracted_rule_structured.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.119855, "op": "add_atom", "target": "rule_drill_defeatism", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.1331232, "op": "add_atom", "target": "rule_literature_not_oracle", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.1534977, "op": "add_atom", "target": "rule_honest_attribution", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.168278, "op": "add_atom", "target": "rule_layer1_attribution_prot", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.1871538, "op": "add_atom", "target": "rule_lift_gt_2se", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.2028809, "op": "add_atom", "target": "rule_benchmark_breaks_symmetry", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.221871, "op": "add_atom", "target": "rule_count_nb_to_discriminative_perceptron", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}

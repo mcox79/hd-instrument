@@ -1,0 +1,71 @@
+{
+  "dry_run": false,
+  "stats": {
+    "atoms_examined": 6,
+    "atoms_updated": 5,
+    "atoms_no_match": 8,
+    "atoms_already_complete": 1,
+    "solvers_missing": [
+      "concept::PP-MATH_WK_LEX_FAMILY",
+      "math::T3/discriminative_perceptron_with_role_features",
+      "math::T3/discriminative_perceptron_with_learned_selector",
+      "T3/substrate_as_ranker",
+      "T3/substrate_as_filter",
+      "T3/colbert_v2_wrapper",
+      "T2/prototype_bundle_cleanup",
+      "math::T3/slipnet"
+    ]
+  },
+  "top_levers": [
+    {
+      "atom": "math::T3/discriminative_perceptron",
+      "n_caps": 10,
+      "caps": [
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math",
+        "concept::PP-393_asdiv_3op_ceiling",
+        "concept::PP-394_asdiv_wk_oracle",
+        "concept::PP-395_svamp_role_asymmetry",
+        "concept::PP-396_svamp_learned_selector",
+        "concept::PP-397_pos_data_efficiency",
+        "concept::PP-AG_news_text_class",
+        "concept::PP-NORTH_STAR_2026-06-11"
+      ]
+    },
+    {
+      "atom": "math::T2/cleanup",
+      "n_caps": 9,
+      "caps": [
+        "concept::PP-217_path_A_LLM_enhancement",
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-LEX1_morphology",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::PP-multihop_revival",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_multi_hop",
+        "concept::RETRIEVAL_reasoning_routing_pp371",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T2/fhrr_unbind",
+      "n_caps": 4,
+      "caps": [
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T3/count_nb",
+      "n_caps": 3,
+      "caps": [
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math"
+      ]
+    }
+  ]
+}

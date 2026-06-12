@@ -1,0 +1,20 @@
+{
+  "dry_run": true,
+  "stats": {
+    "atoms_examined": 6,
+    "atoms_updated": 6,
+    "atoms_no_match": 8,
+    "atoms_already_complete": 0,
+    "solvers_missing": [
+      "concept::PP-MATH_WK_LEX_FAMILY",
+      "math::T3/discriminative_perceptron_with_role_features",
+      "math::T3/discriminative_perceptron_with_learned_selector",
+      "T3/substrate_as_ranker",
+      "T3/substrate_as_filter",
+      "T3/colbert_v2_wrapper",
+      "T2/prototype_bundle_cleanup",
+      "math::T3/slipnet"
+    ]
+  },
+  "top_levers": []
+}

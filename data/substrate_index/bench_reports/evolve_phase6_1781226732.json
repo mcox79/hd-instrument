@@ -1,0 +1,101 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\concept_corpus_cycle238_capabilities.jsonl",
+      "ingested": 5,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 3,
+      "uses_added": 0,
+      "by_partition": {
+        "concept": 5
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_early_subset_10.jsonl",
+      "ingested": 10,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 36,
+      "by_partition": {
+        "concept": 10
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_findings_09_type_A_18_accept.jsonl",
+      "ingested": 18,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 18,
+      "by_partition": {
+        "concept": 18
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_math_world_knowledge_lex_atoms.jsonl",
+      "ingested": 10,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 10,
+      "by_partition": {
+        "concept": 10
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_ner_gazetteer_atoms.jsonl",
+      "ingested": 8,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 11,
+      "by_partition": {
+        "concept": 8
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_retrieval_histories_findings_14.jsonl",
+      "ingested": 4,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 11,
+      "by_partition": {
+        "concept": 4
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_solution_histories.jsonl",
+      "ingested": 7,
+      "skipped": 7,
+      "failed": 0,
+      "supersedes_added": 3,
+      "uses_added": 0,
+      "by_partition": {
+        "concept": 7
+      }
+    },
+    {
+      "file": "data\\substrate_index\\concept_corpus_substrate_evolution_capabilities.jsonl",
+      "ingested": 4,
+      "skipped": 1,
+      "failed": 0,
+      "supersedes_added": 2,
+      "uses_added": 0,
+      "by_partition": {
+        "concept": 4
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 66,
+    "skipped": 8,
+    "failed": 0,
+    "supersedes_added": 8,
+    "uses_added": 86,
+    "pre_total": 144,
+    "post_total": 210
+  }
+}

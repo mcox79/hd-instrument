@@ -1,0 +1,238 @@
+{"ts": 1781226730.617992, "op": "add_atom", "target": "PP-393_asdiv_3op_ceiling", "note": "Phase 6 bulk JSONL ingest from concept_corpus_cycle238_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.634181, "op": "add_atom", "target": "PP-394_asdiv_wk_oracle", "note": "Phase 6 bulk JSONL ingest from concept_corpus_cycle238_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.634181, "op": "add_relation", "target": "PP-MATH_WK_LEX_FAMILY|SUPERSEDES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_supersedes"}
+{"ts": 1781226730.634181, "op": "add_atom", "target": "PP-395_svamp_role_asymmetry", "note": "Phase 6 bulk JSONL ingest from concept_corpus_cycle238_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.6503518, "op": "add_atom", "target": "PP-396_svamp_learned_selector", "note": "Phase 6 bulk JSONL ingest from concept_corpus_cycle238_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.6503518, "op": "add_atom", "target": "PP-397_pos_data_efficiency", "note": "Phase 6 bulk JSONL ingest from concept_corpus_cycle238_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.6716928, "op": "add_atom", "target": "PP-376_multibench_math", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.6757197, "op": "add_relation", "target": "PP-376_multibench_math|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.679781, "op": "add_relation", "target": "PP-376_multibench_math|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.6864374, "op": "add_relation", "target": "PP-376_multibench_math|USES|math::T3/answer_consistency_weak_labels", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.6897066, "op": "add_relation", "target": "PP-376_multibench_math|USES|math::T3/count_nb", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7036133, "op": "add_atom", "target": "PP-375_multistep_math", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.7076366, "op": "add_relation", "target": "PP-375_multistep_math|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7116823, "op": "add_relation", "target": "PP-375_multistep_math|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7157137, "op": "add_relation", "target": "PP-375_multistep_math|USES|math::T3/answer_consistency_weak_labels", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7157137, "op": "add_relation", "target": "PP-375_multistep_math|USES|math::T3/forward_algorithm", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7157137, "op": "add_atom", "target": "PP-378_code_algopattern", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.7297647, "op": "add_relation", "target": "PP-378_code_algopattern|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7297647, "op": "add_relation", "target": "PP-378_code_algopattern|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7297647, "op": "add_relation", "target": "PP-378_code_algopattern|USES|math::T3/count_nb", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7509618, "op": "add_atom", "target": "PP-364_pos_tagger", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.7599611, "op": "add_relation", "target": "PP-364_pos_tagger|USES|math::T3/hmm_emission", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7658162, "op": "add_relation", "target": "PP-364_pos_tagger|USES|math::T3/hmm_transition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7777512, "op": "add_relation", "target": "PP-364_pos_tagger|USES|math::T3/viterbi_decoding", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.7890222, "op": "add_relation", "target": "PP-364_pos_tagger|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.8018596, "op": "add_atom", "target": "PP-369_slot_filling", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.8138385, "op": "add_relation", "target": "PP-369_slot_filling|USES|math::T3/hmm_emission", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.8276274, "op": "add_relation", "target": "PP-369_slot_filling|USES|math::T3/hmm_transition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.8407338, "op": "add_relation", "target": "PP-369_slot_filling|USES|math::T3/viterbi_decoding", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.844779, "op": "add_relation", "target": "PP-369_slot_filling|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.8674784, "op": "add_atom", "target": "PP-370_intent_classification", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.880836, "op": "add_relation", "target": "PP-370_intent_classification|USES|math::T3/count_nb", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.8882396, "op": "add_relation", "target": "PP-370_intent_classification|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9040668, "op": "add_atom", "target": "PP-371_reasoning_routing", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.9121895, "op": "add_relation", "target": "PP-371_reasoning_routing|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9202337, "op": "add_relation", "target": "PP-371_reasoning_routing|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9279957, "op": "add_relation", "target": "PP-371_reasoning_routing|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9395723, "op": "add_atom", "target": "PP-225_fact_recall_kb100K", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226730.9466543, "op": "add_relation", "target": "PP-225_fact_recall_kb100K|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9590952, "op": "add_relation", "target": "PP-225_fact_recall_kb100K|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9696913, "op": "add_relation", "target": "PP-225_fact_recall_kb100K|USES|math::T2/fhrr_bind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9837167, "op": "add_relation", "target": "PP-225_fact_recall_kb100K|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226730.9941416, "op": "add_atom", "target": "PP-367_unified_algebra_lang_math", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.009963, "op": "add_relation", "target": "PP-367_unified_algebra_lang_math|USES|math::T2/fhrr_bind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.009963, "op": "add_relation", "target": "PP-367_unified_algebra_lang_math|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.009963, "op": "add_relation", "target": "PP-367_unified_algebra_lang_math|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.0339334, "op": "add_relation", "target": "PP-367_unified_algebra_lang_math|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.0509305, "op": "add_atom", "target": "unified_compositional_engine", "note": "Phase 6 bulk JSONL ingest from concept_corpus_early_subset_10.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.0589983, "op": "add_relation", "target": "unified_compositional_engine|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.0764096, "op": "add_relation", "target": "unified_compositional_engine|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.0836668, "op": "add_relation", "target": "unified_compositional_engine|USES|math::T3/answer_consistency_weak_labels", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.0972552, "op": "add_relation", "target": "unified_compositional_engine|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.116241, "op": "add_atom", "target": "CAP_fhrr_bind", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.1256146, "op": "add_relation", "target": "CAP_fhrr_bind|USES|math::T2/fhrr_bind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.1428726, "op": "add_atom", "target": "CAP_fhrr_unbind", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.1502843, "op": "add_relation", "target": "CAP_fhrr_unbind|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.1674643, "op": "add_atom", "target": "CAP_superposition", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.1735578, "op": "add_relation", "target": "CAP_superposition|USES|math::T2/superposition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.1832256, "op": "add_atom", "target": "CAP_bundling", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.1929286, "op": "add_relation", "target": "CAP_bundling|USES|math::T2/bundling", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.208189, "op": "add_atom", "target": "CAP_circular_convolution", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.2208877, "op": "add_relation", "target": "CAP_circular_convolution|USES|math::T2/circular_convolution", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.2208877, "op": "add_atom", "target": "CAP_cleanup", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.236996, "op": "add_relation", "target": "CAP_cleanup|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.246668, "op": "add_atom", "target": "CAP_viterbi_decoding", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.2521436, "op": "add_relation", "target": "CAP_viterbi_decoding|USES|math::T3/viterbi_decoding", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.2586317, "op": "add_atom", "target": "CAP_forward_algorithm", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.271741, "op": "add_relation", "target": "CAP_forward_algorithm|USES|math::T3/forward_algorithm", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.2809467, "op": "add_atom", "target": "CAP_backward_algorithm", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.282967, "op": "add_relation", "target": "CAP_backward_algorithm|USES|math::T3/backward_algorithm", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.2912953, "op": "add_atom", "target": "CAP_em_algorithm", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3031993, "op": "add_relation", "target": "CAP_em_algorithm|USES|math::T3/em_algorithm", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3031993, "op": "add_atom", "target": "CAP_bayesian_inference", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3151393, "op": "add_relation", "target": "CAP_bayesian_inference|USES|math::T3/bayesian_inference", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3151393, "op": "add_atom", "target": "CAP_hungarian_assignment", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3151393, "op": "add_relation", "target": "CAP_hungarian_assignment|USES|math::T3/hungarian_assignment", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3313792, "op": "add_atom", "target": "CAP_chu_liu_edmonds", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3313792, "op": "add_relation", "target": "CAP_chu_liu_edmonds|USES|math::T3/chu_liu_edmonds", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3482397, "op": "add_atom", "target": "CAP_dynamic_programming", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3482397, "op": "add_relation", "target": "CAP_dynamic_programming|USES|math::T3/dynamic_programming", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3586328, "op": "add_atom", "target": "CAP_discriminative_perceptron", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3586328, "op": "add_relation", "target": "CAP_discriminative_perceptron|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.36701, "op": "add_atom", "target": "CAP_shannon_entropy", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.3759503, "op": "add_relation", "target": "CAP_shannon_entropy|USES|math::T1/shannon_entropy", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.3759503, "op": "add_atom", "target": "CAP_kl_divergence", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.416135, "op": "add_relation", "target": "CAP_kl_divergence|USES|math::T1/kl_divergence", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.475543, "op": "add_atom", "target": "CAP_probability_distribution", "note": "Phase 6 bulk JSONL ingest from concept_corpus_findings_09_type_A_18_accept.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.4868073, "op": "add_relation", "target": "CAP_probability_distribution|USES|math::T1/probability_distribution", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.4999726, "op": "add_atom", "target": "LEX_constant_collection", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.5081642, "op": "add_relation", "target": "LEX_constant_collection|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.5267687, "op": "add_atom", "target": "LEX_constant_time", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.5422516, "op": "add_relation", "target": "LEX_constant_time|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.5614471, "op": "add_atom", "target": "LEX_constant_percent", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.5794723, "op": "add_relation", "target": "LEX_constant_percent|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.5987794, "op": "add_atom", "target": "LEX_constant_units_length", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.6096654, "op": "add_relation", "target": "LEX_constant_units_length|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.6266878, "op": "add_atom", "target": "LEX_constant_units_weight", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.6421766, "op": "add_relation", "target": "LEX_constant_units_weight|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.6538508, "op": "add_atom", "target": "LEX_constant_units_volume", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.6655602, "op": "add_relation", "target": "LEX_constant_units_volume|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.6791818, "op": "add_atom", "target": "LEX_constant_body_parts", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.7015746, "op": "add_relation", "target": "LEX_constant_body_parts|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.7356591, "op": "add_atom", "target": "LEX_constant_money", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.7611418, "op": "add_relation", "target": "LEX_constant_money|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.7904744, "op": "add_atom", "target": "LEX_constant_geometry", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.8030474, "op": "add_relation", "target": "LEX_constant_geometry|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8156064, "op": "add_atom", "target": "LEX_constant_calendar", "note": "Phase 6 bulk JSONL ingest from concept_corpus_math_world_knowledge_lex_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.8287563, "op": "add_relation", "target": "LEX_constant_calendar|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8329718, "op": "add_atom", "target": "LEX_entity_person", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.8329718, "op": "add_relation", "target": "LEX_entity_person|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8329718, "op": "add_relation", "target": "LEX_entity_person|USES|math::T2/superposition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8486514, "op": "add_atom", "target": "LEX_entity_org", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.8486514, "op": "add_relation", "target": "LEX_entity_org|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8645048, "op": "add_relation", "target": "LEX_entity_org|USES|math::T2/superposition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8645048, "op": "add_atom", "target": "LEX_entity_gpe", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.8645048, "op": "add_relation", "target": "LEX_entity_gpe|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8804383, "op": "add_relation", "target": "LEX_entity_gpe|USES|math::T2/superposition", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.8984506, "op": "add_atom", "target": "LEX_entity_money", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.908863, "op": "add_relation", "target": "LEX_entity_money|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.9260259, "op": "add_atom", "target": "LEX_entity_date", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.9379914, "op": "add_relation", "target": "LEX_entity_date|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.946846, "op": "add_atom", "target": "LEX_entity_time", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.9646313, "op": "add_relation", "target": "LEX_entity_time|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226731.9768944, "op": "add_atom", "target": "LEX_entity_percent", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226731.9877305, "op": "add_relation", "target": "LEX_entity_percent|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.0011826, "op": "add_atom", "target": "LEX_entity_quantity", "note": "Phase 6 bulk JSONL ingest from concept_corpus_ner_gazetteer_atoms.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.0011826, "op": "add_relation", "target": "LEX_entity_quantity|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.0186603, "op": "add_atom", "target": "RETRIEVAL_multi_hop", "note": "Phase 6 bulk JSONL ingest from concept_corpus_retrieval_histories_findings_14.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.025405, "op": "add_relation", "target": "RETRIEVAL_multi_hop|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.0335493, "op": "add_relation", "target": "RETRIEVAL_multi_hop|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.0452898, "op": "add_atom", "target": "RETRIEVAL_schema_pp372", "note": "Phase 6 bulk JSONL ingest from concept_corpus_retrieval_histories_findings_14.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.1943557, "op": "add_relation", "target": "RETRIEVAL_schema_pp372|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.3010244, "op": "add_relation", "target": "RETRIEVAL_schema_pp372|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.3345935, "op": "add_relation", "target": "RETRIEVAL_schema_pp372|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.3991883, "op": "add_atom", "target": "RETRIEVAL_reasoning_routing_pp371", "note": "Phase 6 bulk JSONL ingest from concept_corpus_retrieval_histories_findings_14.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.4302385, "op": "add_relation", "target": "RETRIEVAL_reasoning_routing_pp371|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.4595065, "op": "add_relation", "target": "RETRIEVAL_reasoning_routing_pp371|USES|math::T2/tier2_schema", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.4854295, "op": "add_relation", "target": "RETRIEVAL_reasoning_routing_pp371|USES|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.5125773, "op": "add_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "Phase 6 bulk JSONL ingest from concept_corpus_retrieval_histories_findings_14.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5166366, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|USES|math::T2/fhrr_unbind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.5166366, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|USES|math::T2/cleanup", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.5286236, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|USES|math::T2/fhrr_bind", "note": "", "source": "evolve_phase6_bulk_jsonl_decomposes_to"}
+{"ts": 1781226732.5315893, "op": "add_atom", "target": "PP-364_NER", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5589025, "op": "add_atom", "target": "PP-multihop_revival", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5670667, "op": "add_atom", "target": "PP-cross_domain_analogy", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5753508, "op": "add_atom", "target": "PP-374_MAWPS_math", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5836496, "op": "add_atom", "target": "PP-377_MultiArith_math", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.5923452, "op": "add_atom", "target": "PP-NORTH_STAR_2026-06-11", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.6005597, "op": "add_atom", "target": "PP-AG_news_text_class", "note": "Phase 6 bulk JSONL ingest from concept_corpus_solution_histories.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.6088326, "op": "add_atom", "target": "PP-compositional_depth_retrieval", "note": "Phase 6 bulk JSONL ingest from concept_corpus_substrate_evolution_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.6444993, "op": "add_atom", "target": "PP-217_path_A_LLM_enhancement", "note": "Phase 6 bulk JSONL ingest from concept_corpus_substrate_evolution_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.6589894, "op": "add_atom", "target": "PP-372_schema_retrieval", "note": "Phase 6 bulk JSONL ingest from concept_corpus_substrate_evolution_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226732.68792, "op": "add_atom", "target": "PP-LEX1_morphology", "note": "Phase 6 bulk JSONL ingest from concept_corpus_substrate_evolution_capabilities.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781226744.7885504, "op": "add_relation", "target": "CAP_fhrr_bind|USES|math::T2/circular_convolution", "note": "{\"phase_A5\": true, \"reason\": \"FHRR bind via circular convolution\"}", "source": "batch03_A4"}
+{"ts": 1781226744.7978635, "op": "add_relation", "target": "CAP_fhrr_bind|RELATES|math::T1/kronecker_product", "note": "{\"phase_A5\": true, \"reason\": \"binding generalizes outer product\", \"relation_subtype\": \"GENERALIZES_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226744.8068345, "op": "add_relation", "target": "CAP_fhrr_unbind|USES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"reason\": \"unbind requires cleanup for filler recovery\"}", "source": "batch03_A4"}
+{"ts": 1781226744.826601, "op": "add_relation", "target": "CAP_superposition|INSTANCE_OF|math::T2_FAM/mixers", "note": "{\"phase_A5\": true, \"reason\": \"superposition is mixer family member\"}", "source": "batch03_A4"}
+{"ts": 1781226744.8469288, "op": "add_relation", "target": "CAP_bundling|INSTANCE_OF|math::T2_FAM/mixers", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.8653018, "op": "add_relation", "target": "CAP_circular_convolution|RELATES|math::T3/discrete_fourier_transform", "note": "{\"phase_A5\": true, \"relation_subtype\": \"DUAL_VIA_CONVOLUTION_THEOREM\"}", "source": "batch03_A4"}
+{"ts": 1781226744.8778834, "op": "add_relation", "target": "CAP_cleanup|RELATES|math::T1/metric_space", "note": "{\"phase_A5\": true, \"reason\": \"cleanup via metric distance\", \"relation_subtype\": \"OPERATES_OVER\"}", "source": "batch03_A4"}
+{"ts": 1781226744.8861458, "op": "add_relation", "target": "CAP_cleanup|RELATES|math::T1/dot_product", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_FOR_COSINE_SIMILARITY\"}", "source": "batch03_A4"}
+{"ts": 1781226744.8958328, "op": "add_relation", "target": "CAP_viterbi_decoding|USES|math::T3/viterbi_decoder", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9033704, "op": "add_relation", "target": "CAP_viterbi_decoding|RELATES|math::T1/markov_chain", "note": "{\"phase_A5\": true, \"relation_subtype\": \"DEFINED_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781226744.9122026, "op": "add_relation", "target": "CAP_viterbi_decoding|INSTANCE_OF|math::T2_FAM/sequence_decoding", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9207447, "op": "add_relation", "target": "CAP_forward_algorithm|USES|math::T3/forward_algorithm_atom", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9227605, "op": "add_relation", "target": "CAP_forward_algorithm|RELATES|math::T1/markov_chain", "note": "{\"phase_A5\": true, \"relation_subtype\": \"DEFINED_FOR\"}", "source": "batch03_A4"}
+{"ts": 1781226744.9330933, "op": "add_relation", "target": "CAP_backward_algorithm|USES|math::T3/backward_algorithm_atom", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9466496, "op": "add_relation", "target": "CAP_em_algorithm|USES|math::T3/expectation_maximization", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9539447, "op": "add_relation", "target": "CAP_em_algorithm|RELATES|math::T3/forward_algorithm_atom", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_E_STEP\"}", "source": "batch03_A4"}
+{"ts": 1781226744.9591203, "op": "add_relation", "target": "CAP_em_algorithm|RELATES|math::T3/backward_algorithm_atom", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_E_STEP\"}", "source": "batch03_A4"}
+{"ts": 1781226744.967247, "op": "add_relation", "target": "CAP_bayesian_inference|USES|math::T1/bayes_rule", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9758968, "op": "add_relation", "target": "CAP_bayesian_inference|DEFINED_OVER|math::T1/probability_space", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9854374, "op": "add_relation", "target": "CAP_bayesian_inference|INSTANCE_OF|math::T3/count_nb", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226744.9957638, "op": "add_relation", "target": "CAP_hungarian_assignment|USES|math::T3/hungarian_algorithm", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0021558, "op": "add_relation", "target": "CAP_hungarian_assignment|RELATES|math::T1/graph_general", "note": "{\"phase_A5\": true, \"relation_subtype\": \"OPERATES_OVER_BIPARTITE\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0076828, "op": "add_relation", "target": "CAP_chu_liu_edmonds|USES|math::T3/chu_liu_edmonds_algo", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0098064, "op": "add_relation", "target": "CAP_chu_liu_edmonds|RELATES|math::T1/graph_general", "note": "{\"phase_A5\": true, \"relation_subtype\": \"OPERATES_OVER\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0164914, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/viterbi_decoder", "note": "{\"phase_A5\": true, \"relation_subtype\": \"PATTERN_OF\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0164914, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/forward_algorithm_atom", "note": "{\"phase_A5\": true, \"relation_subtype\": \"PATTERN_OF\"}", "source": "batch03_A4"}
+{"ts": 1781226745.026943, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/eisner_parsing", "note": "{\"phase_A5\": true, \"relation_subtype\": \"PATTERN_OF\"}", "source": "batch03_A4"}
+{"ts": 1781226745.026943, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/expectation_maximization", "note": "{\"phase_A5\": true, \"relation_subtype\": \"PATTERN_OF\"}", "source": "batch03_A4"}
+{"ts": 1781226745.032611, "op": "add_relation", "target": "CAP_discriminative_perceptron|USES|math::T3/structured_perceptron_collins", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0411105, "op": "add_relation", "target": "CAP_discriminative_perceptron|RELATES|math::T1/gradient_descent", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_MISTAKE_DRIVEN\"}", "source": "batch03_A4"}
+{"ts": 1781226745.042295, "op": "add_relation", "target": "CAP_discriminative_perceptron|RELATES|math::T1/dot_product", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LINEAR_SCORING\"}", "source": "batch03_A4"}
+{"ts": 1781226745.047671, "op": "add_relation", "target": "CAP_discriminative_perceptron|OPTIMIZES|math::T1/cross_entropy", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0545778, "op": "add_relation", "target": "CAP_discriminative_perceptron|RELATES|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true, \"relation_subtype\": \"REALIZED_BY\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0591397, "op": "add_relation", "target": "CAP_shannon_entropy|USES|math::T1/shannon_entropy_atom", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0591397, "op": "add_relation", "target": "CAP_shannon_entropy|DEFINED_OVER|math::T1/probability_space", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.069305, "op": "add_relation", "target": "CAP_kl_divergence|USES|math::T1/kullback_leibler_divergence", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0745206, "op": "add_relation", "target": "CAP_kl_divergence|RELATES|math::T3/mp_bulk_kl", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_BY_LAYER2\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0810785, "op": "add_relation", "target": "CAP_probability_distribution|DEFINED_OVER|math::T1/probability_space", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.0897408, "op": "add_relation", "target": "CAP_probability_distribution|RELATES|math::T1/random_variable", "note": "{\"phase_A5\": true, \"relation_subtype\": \"CHARACTERIZES\"}", "source": "batch03_A4"}
+{"ts": 1781226745.0935476, "op": "add_relation", "target": "LEX_entity_person|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1049929, "op": "add_relation", "target": "LEX_entity_org|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1115758, "op": "add_relation", "target": "LEX_entity_gpe|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1192214, "op": "add_relation", "target": "LEX_entity_money|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1303062, "op": "add_relation", "target": "LEX_entity_date|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1386726, "op": "add_relation", "target": "LEX_entity_time|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1466148, "op": "add_relation", "target": "LEX_entity_percent|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1525757, "op": "add_relation", "target": "LEX_entity_quantity|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1614041, "op": "add_relation", "target": "LEX_constant_collection|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1806798, "op": "add_relation", "target": "LEX_constant_time|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1806798, "op": "add_relation", "target": "LEX_constant_percent|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.1956732, "op": "add_relation", "target": "LEX_constant_units_length|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2065356, "op": "add_relation", "target": "LEX_constant_units_weight|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.214891, "op": "add_relation", "target": "LEX_constant_units_volume|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2225592, "op": "add_relation", "target": "LEX_constant_body_parts|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2329915, "op": "add_relation", "target": "LEX_constant_money|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2392318, "op": "add_relation", "target": "LEX_constant_geometry|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2476802, "op": "add_relation", "target": "LEX_constant_calendar|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_LOOKUP_VIA\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2540545, "op": "add_relation", "target": "PP-225_fact_recall_kb100K|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_A5\": true, \"reason\": \"kb100K instantiates SDM scaling\", \"relation_subtype\": \"REALIZES_AT_SCALE\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2638946, "op": "add_relation", "target": "PP-364_pos_tagger|USES|math::T3/viterbi_decoder", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.2645056, "op": "add_relation", "target": "PP-364_pos_tagger|DEFINED_OVER|math::T1/markov_chain", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.2800977, "op": "add_relation", "target": "PP-364_pos_tagger|INSTANCE_OF|math::T4/cascade_hmm_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.285014, "op": "add_relation", "target": "PP-364_pos_tagger|RELATES|math::T3/structured_perceptron_collins", "note": "{\"phase_A5\": true, \"reason\": \"PP-379 collins perceptron 0.9508\", \"relation_subtype\": \"USES_FOR_LIFT_TO_TIER_A\"}", "source": "batch03_A4"}
+{"ts": 1781226745.2953825, "op": "add_relation", "target": "PP-369_slot_filling|INSTANCE_OF|math::T4/cascade_hmm_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.302015, "op": "add_relation", "target": "PP-369_slot_filling|USES|math::T3/viterbi_decoder", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3091872, "op": "add_relation", "target": "PP-370_intent_classification|USES|math::T1/bayes_rule", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3197086, "op": "add_relation", "target": "PP-371_reasoning_routing|RELATES|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_PROTOTYPE_BUNDLE\"}", "source": "batch03_A4"}
+{"ts": 1781226745.328963, "op": "add_relation", "target": "PP-375_multistep_math|USES|math::T3/structured_perceptron_collins", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3362262, "op": "add_relation", "target": "PP-375_multistep_math|INSTANCE_OF|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3448253, "op": "add_relation", "target": "PP-375_multistep_math|RELATES|math::T3/expectation_maximization", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_ANSWER_CONSISTENCY_WEAK_LABELS\"}", "source": "batch03_A4"}
+{"ts": 1781226745.3518288, "op": "add_relation", "target": "PP-376_multibench_math|INSTANCE_OF|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.358793, "op": "add_relation", "target": "PP-376_multibench_math|RELATES|math::T3/count_nb", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_BASELINE\"}", "source": "batch03_A4"}
+{"ts": 1781226745.3623576, "op": "add_relation", "target": "PP-378_code_algopattern|INSTANCE_OF|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3728366, "op": "add_relation", "target": "PP-378_code_algopattern|USES|math::T3/structured_perceptron_collins", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3746333, "op": "add_relation", "target": "PP-367_unified_algebra_lang_math|RELATES|math::T2_FAM/binders", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_FAMILY\"}", "source": "batch03_A4"}
+{"ts": 1781226745.3832328, "op": "add_relation", "target": "unified_compositional_engine|INSTANCE_OF|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true}", "source": "batch03_A4"}
+{"ts": 1781226745.3906806, "op": "add_relation", "target": "unified_compositional_engine|RELATES|math::T3/expectation_maximization", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USES_ANSWER_CONSISTENCY\"}", "source": "batch03_A4"}
+{"ts": 1781226745.393714, "op": "add_relation", "target": "RETRIEVAL_multi_hop|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_INITIAL_MECHANISM\"}", "source": "batch03_A4"}
+{"ts": 1781226745.4040074, "op": "add_relation", "target": "RETRIEVAL_multi_hop|RELATES|math::T2/fhrr_unbind", "note": "{\"phase_A5\": true, \"reason\": \"user-directed revival per project-multihop-revive-priority\", \"relation_subtype\": \"USER_OVERRIDE_REVIVAL_PATH\"}", "source": "batch03_A4"}
+{"ts": 1781226745.4098327, "op": "add_relation", "target": "RETRIEVAL_schema_pp372|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_INITIAL_MECHANISM\"}", "source": "batch03_A4"}
+{"ts": 1781226745.414249, "op": "add_relation", "target": "RETRIEVAL_schema_pp372|RELATES|math::T2/fhrr_unbind", "note": "{\"phase_A5\": true, \"reason\": \"structural-binding cliff +0.20\", \"relation_subtype\": \"CURRENT_BEST\"}", "source": "batch03_A4"}
+{"ts": 1781226745.425841, "op": "add_relation", "target": "RETRIEVAL_reasoning_routing_pp371|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_INITIAL_MECHANISM\"}", "source": "batch03_A4"}
+{"ts": 1781226745.4311225, "op": "add_relation", "target": "RETRIEVAL_reasoning_routing_pp371|RELATES|math::T4/discriminative_perceptron_pipeline", "note": "{\"phase_A5\": true, \"relation_subtype\": \"CURRENT_BEST_PROTOTYPE_BUNDLE\"}", "source": "batch03_A4"}
+{"ts": 1781226745.4397476, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_INITIAL_MECHANISM\"}", "source": "batch03_A4"}
+{"ts": 1781226745.447909, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/fhrr_unbind", "note": "{\"phase_A5\": true, \"reason\": \"PP-225 production-validated kb100K 0.996\", \"relation_subtype\": \"CURRENT_BEST\"}", "source": "batch03_A4"}
+{"ts": 1781226745.4571948, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_A5\": true, \"relation_subtype\": \"INSTANCE_OF_AT_SCALE\"}", "source": "batch03_A4"}
