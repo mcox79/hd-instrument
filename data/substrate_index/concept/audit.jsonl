@@ -302,3 +302,8 @@
 {"ts": 1781270088.6450121, "op": "update_atom", "target": "CAP_fhrr_unbind", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781270088.6490927, "op": "update_atom", "target": "CAP_cleanup", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781270088.6530366, "op": "update_atom", "target": "CAP_circular_convolution", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781278142.8839412, "op": "update_atom", "target": "MWP/ROLE_ARG0_agent", "note": "+5 signature fields +3 complexity fields per strategy_request_v586", "source": "signature_complexity_population_pp408_rescue2"}
+{"ts": 1781278142.8839412, "op": "update_atom", "target": "MWP/ROLE_ARG1_theme", "note": "+5 signature fields +3 complexity fields per strategy_request_v586", "source": "signature_complexity_population_pp408_rescue2"}
+{"ts": 1781278142.8839412, "op": "update_atom", "target": "MWP/ROLE_ARG2_recipient", "note": "+5 signature fields +3 complexity fields per strategy_request_v586", "source": "signature_complexity_population_pp408_rescue2"}
+{"ts": 1781278142.899948, "op": "update_atom", "target": "MWP/ROLE_ARGM_LOC_location", "note": "+5 signature fields +3 complexity fields per strategy_request_v586", "source": "signature_complexity_population_pp408_rescue2"}
+{"ts": 1781278142.9073503, "op": "update_atom", "target": "MWP/ROLE_ARGM_TMP_time", "note": "+5 signature fields +3 complexity fields per strategy_request_v586", "source": "signature_complexity_population_pp408_rescue2"}

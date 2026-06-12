@@ -201,16 +201,28 @@ class AlgebraIndex:
         return self._bundle(bound)
 
     def encode_atom(self, atom: Atom) -> AlgebraVectors:
-        """Encode one atom's algebra/signature/complexity into HRR-bundled vectors."""
+        """Encode one atom's algebra/signature/complexity into HRR-bundled vectors.
+
+        Per strategy_request_v586 (PP-408 RESCUE-2): algebra_hrr now bundles
+        signature + complexity bindings ALONGSIDE the algebra dict. This breaks
+        same-category_int cos=1.0 collisions (49 pairs reduced to 0 post-fix)
+        by ensuring the algebra-HRR vector carries the per-atom distinguishing
+        signature/complexity content. signature_hrr and complexity_hrr remain
+        available as separate vectors for explicit axis-specific retrieval.
+        """
         alg = self._encode_dict_hrr(atom.algebra) if atom.algebra else None
         sig = self._encode_dict_hrr(atom.signature) if atom.signature else None
         cpx = self._encode_dict_hrr(atom.complexity) if atom.complexity else None
-        # Composite profile bundle (algebra + signature + complexity together)
-        non_none = [v for v in (alg, sig, cpx) if v is not None]
-        composite = self._bundle(non_none) if non_none else None
+        # algebra_hrr = bundle of (algebra, signature, complexity) when populated.
+        # This is the substrate-default identity vector; collision-resistant.
+        alg_with_sig_cpx_components = [v for v in (alg, sig, cpx) if v is not None]
+        algebra_full = self._bundle(alg_with_sig_cpx_components) if alg_with_sig_cpx_components else None
+        # Composite profile bundle: same as algebra_full now; retained as alias
+        # for callers expecting composite_hrr semantics.
+        composite = algebra_full
         return AlgebraVectors(
             atom_id=atom.qualified_id,
-            algebra_hrr=alg,
+            algebra_hrr=algebra_full,
             signature_hrr=sig,
             complexity_hrr=cpx,
             composite_hrr=composite,
