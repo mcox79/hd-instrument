@@ -408,3 +408,8 @@
 {"ts": 1781228125.0798516, "op": "add_atom", "target": "T3/random_projection", "note": "Phase 6 bulk JSONL ingest from math_corpus_batch03_phase_A7.jsonl", "source": "evolve_phase6_bulk_jsonl"}
 {"ts": 1781228125.0838642, "op": "add_atom", "target": "T3/feature_hashing", "note": "Phase 6 bulk JSONL ingest from math_corpus_batch03_phase_A7.jsonl", "source": "evolve_phase6_bulk_jsonl"}
 {"ts": 1781228125.0878744, "op": "add_atom", "target": "T3/iterative_proportional_fitting", "note": "Phase 6 bulk JSONL ingest from math_corpus_batch03_phase_A7.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228400.7261806, "op": "update_atom", "target": "T3/discriminative_perceptron", "note": "Backfilled serves_capability from 10 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781228400.7511117, "op": "update_atom", "target": "T2/cleanup", "note": "Backfilled serves_capability from 4 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781228400.778195, "op": "update_atom", "target": "T2/fhrr_unbind", "note": "Backfilled serves_capability from 4 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781228400.797039, "op": "update_atom", "target": "T3/count_nb", "note": "Backfilled serves_capability from 3 capability solution_histories", "source": "backfill_serves_capability"}
+{"ts": 1781228400.8268096, "op": "update_atom", "target": "T2/cleanup", "note": "Backfilled serves_capability from 5 capability solution_histories", "source": "backfill_serves_capability"}
