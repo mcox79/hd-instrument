@@ -116,7 +116,6 @@ def _chunk_emit(words, pos, i, tag, use_pos):
         fs.append("ppos2_%s~%s" % (pmm, tag)); fs.append("npos2_%s~%s" % (pnn, tag))             # wider POS
         fs.append("posbig_%s_%s~%s" % (pm, p0, tag)); fs.append("posbigN_%s_%s~%s" % (p0, pn, tag))
         fs.append("postri_%s_%s_%s~%s" % (pm, p0, pn, tag))                                       # POS-trigram
-        fs.append("wpos_%s_%s~%s" % (wl, p0, tag))                                                # word x POS
     return fs
 
 
