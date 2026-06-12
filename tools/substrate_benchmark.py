@@ -192,45 +192,55 @@ def _algebra_query(pstore: PartitionedStore, text: str, top_k: int = 8) -> tuple
 
 
 def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type A content-level: HYBRID semantic_v2 -- algebra-primary + bge-fallback.
+    """Type A content-level: Option 4 pipeline -- algebra-recall + bge-precision re-rank.
 
-    Per Research CELL_2_V2_ANSWERS Q1 APPROVED HYBRID + L1 HARD-PASS 10/10:
-    - Algebra HRR retrieval when confidence > 0.20 (topic matches authored fillers)
-    - Bge semantic fallback when low confidence (OOV / cross-partition gold)
-    - When both available: weighted RRF (algebra 0.6 + bge 0.4)
+    Per Research Cycle 49 OPTION_SELECT_OPT_4_PRIMARY (rule 12 candidate
+    meta::RULE_algebra_hrr_broad_strong_narrow_weak_route_by_specificity):
+    - Stage 1: algebra HRR top-15 (broad structural recall across vsa_family /
+      operation_type / domain fillers; LIFTS on broad-topic queries)
+    - Stage 2: bge cosine PRECISION re-rank within algebra candidates (content-text
+      discrimination prevents structurally-near-but-content-wrong displacement)
+    - Stage 3: top-5 by bge score within algebra set
+
+    Below-confidence path (max_conf <= 0.20): bge-only top-5 (OOV / cross-partition).
     """
+    import numpy as np
     retr = _ensure_semantic_retriever(pstore)
-    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=8)
+    algebra_ordered, max_conf = _algebra_query(pstore, q["question"], top_k=15)
 
     if retr is None:
-        # No bge: algebra-only OR keyword fallback
+        # No bge available (laptop) -- algebra alone or keyword fallback
         if algebra_ordered:
             return set(algebra_ordered[:5])
         keywords = _extract_keywords(q["question"])
         return _atoms_matching_topic(pstore, keywords)
 
     # Bge available
-    bge_cands = retr.semantic(q["question"], top_k=8)
-    bge_preds = []
-    for c in bge_cands:
-        qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
-        bge_preds.append(qid)
+    if max_conf > 0.20 and algebra_ordered:
+        # Stage 2: bge cosine within algebra candidates (Option 4 pipeline)
+        try:
+            q_vec = retr.encoder.encode_query_text(q["question"])
+        except Exception:
+            q_vec = None
+        if q_vec is not None:
+            scored = []
+            for qid in algebra_ordered:
+                # qualified -> bare for retriever vector lookup
+                bare = qid.split("::", 1)[1] if "::" in qid else qid
+                vecs = retr.get_vectors(bare)
+                if vecs is None or vecs.semantic is None:
+                    continue
+                bge_score = float(np.dot(vecs.semantic, q_vec))
+                scored.append((qid, bge_score))
+            if scored:
+                # Top-5 by bge precision within algebra recall set
+                scored.sort(key=lambda x: -x[1])
+                return {qid for qid, _ in scored[:5]}
 
-    # Strategy: high algebra confidence -> RRF fuse weighted; else bge-only
-    # Cycle 49 Option 2 diagnostic: threshold raised 0.20 -> 0.30 per Research request
-    # (math note: insufficient to filter HURT-Q01 conf=0.313 + HURT-Q02 conf=0.432 but
-    # measurement-as-data-point confirms threshold-tune insufficiency)
-    if max_conf > 0.30:
-        # RRF: rank-reciprocal fusion; algebra_ordered preserves score ranking
-        rrf_scores = {}
-        for rank, qid in enumerate(algebra_ordered):
-            rrf_scores[qid] = rrf_scores.get(qid, 0.0) + 0.6 / (rank + 60)
-        for rank, qid in enumerate(bge_preds):
-            rrf_scores[qid] = rrf_scores.get(qid, 0.0) + 0.4 / (rank + 60)
-        fused = sorted(rrf_scores.items(), key=lambda x: -x[1])[:5]
-        return {qid for qid, _ in fused}
-    else:
-        return set(bge_preds[:5])
+    # Fallback: bge-only top-5 (OOV / cross-partition / pipeline fail)
+    bge_cands = retr.semantic(q["question"], top_k=5)
+    return {(_BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id)
+            for c in bge_cands}
 
 
 def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
