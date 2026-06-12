@@ -115,7 +115,7 @@ def run() -> Dict:
     per_N = []
     for N in ns:
         M = _codebook(N, ps)
-        fs = _f_grid(N)
+        fs = [f for f in _f_grid(N) if f <= M.shape[0] - 1]   # codebook caps F<K distinct fillers (K=241)
         cs = [_cleanup(M, F, n_trials, seeds) for F in fs]
         fcliff, ci = _interp_cliff(fs, cs, CLIFF_BAR)
         # sharpness via linear fit over the TRANSITION band (cleanup in [0.45,0.95]) -- robust vs 2-point finite diff
