@@ -2,6 +2,33 @@
 
 **READ FIRST on resume.** Captures load-bearing state from this session.
 
+> **DAY 2 LATE EVENING UPDATE (2026-06-11)** -- post-compaction work:
+>
+> **USER question triggered FINDINGS #18 (usability gap):** "after this massive ingestion - how will the substrate know what it has and how to use it?" Honest answer: SIX gaps block usability post-ingestion. Filed `notes/testbed_to_research_INDEX_FINDINGS_18_USABILITY_GAP_2026-06-11.md`. Six gaps: (1) capability->math reverse index, (2) compositional path search, (3) substrate-self-knowledge QA layer (D6), (4) intent router/lexicon front-door, (5) solution_history atom provenance, (6) science algebra-vec taxonomy.
+>
+> **USER green-lit (A) Gap 1 -- `serves_capability` field SHIPPED same-session:**
+> - `backend/substrate_index/schema.py` Atom.serves_capability tuple field
+> - `tools/substrate_backfill_serves_capability.py` substrate-on-substrate inference (reverse-maps solution_history -> solver atoms; NO LLM-as-judge)
+> - After backfill: discriminative_perceptron serves 10 caps, cleanup 9, fhrr_unbind 4, count_nb 3 -- universal-lever pattern empirically surfaces in serves_capability
+>
+> **Sequencing rule LOCKED:** Gap 1+6 BEFORE more ingestion; Gap 3+4 next; Gap 2+5 after.
+>
+> **Substrate state Day 2 late evening (LOCAL):** 218 atoms / 550 relations / 3 partitions populated (math 144 / concept 66 / meta 8). History partitions PENDING -- local Phase 1 evolve.py in flight; remote Phase 1+2-5 already completed but on REMOTE host (100.91.12.42 / C:\dev\hd-instrument: 1379 atoms / 2484 relations / 7 partitions). FORK situation needs SCP reconciliation when Phase 1 local completes.
+>
+> **Commits:**
+> - f8473066 -- FINDINGS #18 + (A) serves_capability + math batch 03 + concept+meta partitions
+> - a798d6c2 -- brief refresh
+> - 438653a5 -- Option H cortical familiarity
+> - 66e44586 -- Option E weighted-avg
+>
+> **On-resume actions:**
+> 1. Check if local Phase 1 (bwvqwcngj task) completed
+> 2. If yes: SCP from remote 100.91.12.42 `C:\dev\hd-instrument\data\substrate_index\{decision_history,findings_history,verdict_history,results_history}` partition dirs to local; force-add to git
+> 3. Re-run backfill_serves_capability after history partitions land (more capabilities will surface)
+> 4. Re-run H1 validation locally with Option B+E+H to verify dual-process recognition fix
+> 5. Watch for Research drops on FINDINGS #18 (especially Gap 6 science algebra taxonomy + Gap 3 D6 D6 prioritization)
+> 6. Continue ingesting math batch 03 Phase B-D + science batch 01 when Research authors them (gated on Gap 6)
+
 > **DAY 2 MORNING REFRESH** -- substantial substrate growth + architectural fixes during autonomous "continue" + "full auto" stretch:
 >
 > **Substrate state explosion (134 -> 829 atoms; 6.2x growth in single session):**
