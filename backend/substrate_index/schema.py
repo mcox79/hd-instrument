@@ -67,6 +67,7 @@ class Tier(enum.Enum):
     TIER_NA = "NA"              # concept/meta atoms don't have a tier
     TIER_LEXICON = "T_lexicon"  # per Research NER_GAZETTEER_8: lexicon atoms in concept partition
     TIER_METHODOLOGY = "T_methodology"  # per FINDINGS_13: meta-rule atoms
+    TIER_SCHOOL = "T_school"  # per Research SCHOOLS_BATCH_01: school-of-thought atoms
 
 
 class AtomKind(enum.Enum):

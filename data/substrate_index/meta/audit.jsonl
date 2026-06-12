@@ -6,3 +6,12 @@
 {"ts": 1781226744.1871538, "op": "add_atom", "target": "rule_lift_gt_2se", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
 {"ts": 1781226744.2028809, "op": "add_atom", "target": "rule_benchmark_breaks_symmetry", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
 {"ts": 1781226744.221871, "op": "add_atom", "target": "rule_count_nb_to_discriminative_perceptron", "note": "Phase 6 bulk JSONL ingest from meta_corpus_methodology_rules.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.0898793, "op": "add_atom", "target": "RULE_two_stage_decomposition_beats_joint", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.0918906, "op": "add_atom", "target": "RULE_cosine_cleanup_to_fhrr_unbind", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.093903, "op": "add_atom", "target": "RULE_drill_defeatism", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.0959148, "op": "add_atom", "target": "RULE_brain_can_do_it", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.0959148, "op": "add_atom", "target": "RULE_literature_is_not_oracle", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.097926, "op": "add_atom", "target": "RULE_substrate_quality_first", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.099933, "op": "add_atom", "target": "RULE_us_or_substrate", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.101939, "op": "add_atom", "target": "RULE_method_overclaim_lift_validation", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
+{"ts": 1781228125.101939, "op": "add_atom", "target": "RULE_substrate_extracted_rules_are_prior_not_oracle", "note": "Phase 6 bulk JSONL ingest from meta_corpus_batch_01.jsonl", "source": "evolve_phase6_bulk_jsonl"}
