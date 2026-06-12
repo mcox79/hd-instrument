@@ -29,6 +29,7 @@ from backend.substrate_index.retrieve import Retriever
 from tools.substrate_eval_ingest_v2_composite import (
     classify_verdict,
     find_self_recognition_atom,
+    cortical_familiarity_signal,
     _algebra_novelty_of_atoms,
     _math_atoms_referenced_by_text,
     _paragraph_coherence,
@@ -42,10 +43,10 @@ DATA_ROOT = Path("data/substrate_index")
 
 
 def reclassify(file_path: Path, encoder, retriever, aidx, pstore):
-    import hashlib
     text = file_path.read_text(encoding="utf-8", errors="replace")
     candidates = retriever.semantic(text, top_k=10)
-    avg_top3 = float(sum(c.score for c in candidates[:3]) / 3) if len(candidates) >= 3 else 0.0
+    top_k_scores = [c.score for c in candidates]
+    avg_top3 = float(sum(top_k_scores[:3]) / 3) if len(top_k_scores) >= 3 else 0.0
     semantic_novelty = 1.0 - avg_top3
     referenced_math = _math_atoms_referenced_by_text(text, pstore)
     algebra_nov, n_math = _algebra_novelty_of_atoms(referenced_math, aidx)
@@ -53,10 +54,14 @@ def reclassify(file_path: Path, encoder, retriever, aidx, pstore):
     coherence = _paragraph_coherence(text, encoder)
     # Option B: substrate-distinguishing self-recognition
     self_recog_atom, _ = find_self_recognition_atom(str(file_path), pstore)
+    # Option H: cortical familiarity (top-K avg similarity)
+    cortical_high, familiarity = cortical_familiarity_signal(top_k_scores, threshold=0.65)
     verdict, _ = classify_verdict(
         composite_novelty, coherence,
         n_math_referenced=n_math,
         self_recognition_found=(self_recog_atom is not None),
+        cortical_familiarity_high=cortical_high,
+        familiarity_score=familiarity,
     )
     return verdict
 

@@ -157,6 +157,24 @@ def _algebra_novelty_of_atoms(
     return (1.0 - avg_pairwise, n_math)
 
 
+def cortical_familiarity_signal(top_k_scores: list[float], threshold: float = 0.65) -> tuple[bool, float]:
+    """Option H per Findings 17 drill rank 1 (combined with B): cortical familiarity.
+
+    Top-K atom retrieval confidence: if substrate has many similar atoms in
+    its corpus (high top-K average similarity), the input content is FAMILIAR
+    even if not an exact source_file match.
+
+    Combined with Option B (file_id recollection): dual-process recognition
+    memory mechanism (brain CA3 hippocampal recollection + cortical familiarity).
+
+    Returns (is_familiar, avg_top_k_score).
+    """
+    if not top_k_scores:
+        return (False, 0.0)
+    avg = sum(top_k_scores) / len(top_k_scores)
+    return (avg >= threshold, avg)
+
+
 def find_self_recognition_atom(file_path: str, pstore) -> tuple[str | None, float | None]:
     """Option B substrate-distinguishing self-recognition: look up whether any
     atom has provenance.source_file matching the input file path.
@@ -176,7 +194,9 @@ def find_self_recognition_atom(file_path: str, pstore) -> tuple[str | None, floa
 
 
 def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = -1,
-                     self_recognition_found: bool = False) -> tuple[str, str]:
+                     self_recognition_found: bool = False,
+                     cortical_familiarity_high: bool = False,
+                     familiarity_score: float = 0.0) -> tuple[str, str]:
     """6-class verdict per Research FINDINGS_08 Q3:
     TIER-A / TIER-B / TIER-C / OUT_OF_DOMAIN / NOVEL / REJECT.
 
@@ -187,7 +207,11 @@ def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = 
     # Option B per Findings 17: substrate-distinguishing self-recognition layer
     # If substrate has an atom referencing this file_id, classify TIER-A by self-recognition
     if self_recognition_found:
-        return ("TIER-A", "substrate self-recognition: source file matches existing ingested atom (Option B)")
+        return ("TIER-A", "substrate self-recognition: source file matches existing ingested atom (Option B = hippocampal recollection)")
+    # Option H: cortical familiarity (top-K retrieval avg high)
+    # Combined with B = brain dual-process recognition (CA3 recollection + cortical familiarity)
+    if cortical_familiarity_high:
+        return ("TIER-A", f"substrate cortical familiarity: avg top-K retrieval score {familiarity_score:.3f} (Option H)")
     if novelty <= TIER_A_THRESHOLD:
         return ("TIER-A", f"high-confidence classify (novelty={novelty:.3f} <= {TIER_A_THRESHOLD})")
     # NOTE: weighted-avg composite (Option E from Findings 17 drill) applied at the
