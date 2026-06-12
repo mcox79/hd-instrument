@@ -82,36 +82,56 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
 
 
 def answer_type_B(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type B relation-level: atoms in <relation> with anchor."""
+    """Type B relation-level: atoms in <relation> with anchor.
+    Bidirectional + fuzzy enum match + concept_links/decomposes_to fallback."""
     anchor = q.get("anchor", "")
-    rel_name = q.get("relation", "")
+    rel_name = (q.get("relation") or "").upper()
     matched = set()
 
-    if rel_name == "decompose_to":
+    if rel_name == "DECOMPOSE_TO":
         for atom in pstore.all_atoms():
             dt = atom.metadata.get("decomposes_to") or []
             if anchor in dt:
                 matched.add(atom.qualified_id)
+            # also accept concept_links pointing at anchor
+            if anchor in (atom.concept_links or []):
+                matched.add(atom.qualified_id)
         return matched
 
-    rel_type = None
+    # Identify candidate enum types matching rel_name fuzzily
+    candidate_rels = []
     for rt in RelationType:
-        if rt.value.upper() == rel_name.upper():
-            rel_type = rt
-            break
+        if rt.value.upper() == rel_name:
+            candidate_rels.append(rt)
+        elif rel_name in rt.value.upper() or rt.value.upper() in rel_name:
+            candidate_rels.append(rt)
 
-    if rel_type:
-        # incoming neighbors of anchor via this relation type
-        for src in pstore.in_neighbors(anchor, rel_type):
+    # If nothing matches, try ALL relations (semantic relation without explicit enum)
+    if not candidate_rels:
+        candidate_rels = list(RelationType)
+
+    # Direction 1: anchor as target (incoming) -- "which atoms <REL> anchor?"
+    for rt in candidate_rels:
+        for src in pstore.in_neighbors(anchor, rt):
             matched.add(src)
-
-    if rel_name == "INSTANCE_OF":
-        # also include incoming INSTANCE_OF_AT_SCALE / INSTANCE_OF_DISCRIMINATIVE etc.
-        for rt in RelationType:
-            if "INSTANCE_OF" in rt.value:
-                for src in pstore.in_neighbors(anchor, rt):
-                    matched.add(src)
-
+    # Direction 2: anchor as source (outgoing) -- "which atoms are <REL>_BY anchor?"
+    for rt in candidate_rels:
+        for tgt in pstore.out_neighbors(anchor, rt):
+            matched.add(tgt)
+    # Direction 3: concept_links + decomposes_to BOTH directions
+    if pstore.has_atom(anchor):
+        a = pstore.get_atom(anchor)
+        for cl in a.concept_links or []:
+            matched.add(cl)
+        for dt in a.metadata.get("decomposes_to") or []:
+            matched.add(dt)
+    for atom in pstore.all_atoms():
+        if anchor in (atom.concept_links or []):
+            matched.add(atom.qualified_id)
+        if anchor in (atom.metadata.get("decomposes_to") or []):
+            matched.add(atom.qualified_id)
+    # Remove anchor itself from results
+    matched.discard(anchor)
     return matched
 
 
