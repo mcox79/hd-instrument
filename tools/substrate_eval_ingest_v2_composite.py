@@ -157,7 +157,26 @@ def _algebra_novelty_of_atoms(
     return (1.0 - avg_pairwise, n_math)
 
 
-def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = -1) -> tuple[str, str]:
+def find_self_recognition_atom(file_path: str, pstore) -> tuple[str | None, float | None]:
+    """Option B substrate-distinguishing self-recognition: look up whether any
+    atom has provenance.source_file matching the input file path.
+
+    Per Research FINDINGS_17 endorsement of Option B. Returns (atom_qid, 1.0)
+    if found; else (None, None).
+    """
+    for atom in pstore.all_atoms():
+        prov = atom.metadata.get("provenance") or {}
+        if prov.get("source_file") == file_path:
+            return (atom.qualified_id, 1.0)
+        # Also check direct metadata fields (Phase 6 + math batch ingests may
+        # not have provenance.source_file but might have content_hash)
+        if atom.metadata.get("source_file") == file_path:
+            return (atom.qualified_id, 1.0)
+    return (None, None)
+
+
+def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = -1,
+                     self_recognition_found: bool = False) -> tuple[str, str]:
     """6-class verdict per Research FINDINGS_08 Q3:
     TIER-A / TIER-B / TIER-C / OUT_OF_DOMAIN / NOVEL / REJECT.
 
@@ -165,6 +184,10 @@ def classify_verdict(novelty: float, coherence: float, n_math_referenced: int = 
     substrate operations at all (substrate detects its own scope-limit;
     Type B self-improvement signal).
     """
+    # Option B per Findings 17: substrate-distinguishing self-recognition layer
+    # If substrate has an atom referencing this file_id, classify TIER-A by self-recognition
+    if self_recognition_found:
+        return ("TIER-A", "substrate self-recognition: source file matches existing ingested atom (Option B)")
     if novelty <= TIER_A_THRESHOLD:
         return ("TIER-A", f"high-confidence classify (novelty={novelty:.3f} <= {TIER_A_THRESHOLD})")
     if novelty <= TIER_B_THRESHOLD:

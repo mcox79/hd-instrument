@@ -28,6 +28,7 @@ from backend.substrate_index.partition import PartitionedStore
 from backend.substrate_index.retrieve import Retriever
 from tools.substrate_eval_ingest_v2_composite import (
     classify_verdict,
+    find_self_recognition_atom,
     _algebra_novelty_of_atoms,
     _math_atoms_referenced_by_text,
     _paragraph_coherence,
@@ -50,7 +51,13 @@ def reclassify(file_path: Path, encoder, retriever, aidx, pstore):
     algebra_nov, n_math = _algebra_novelty_of_atoms(referenced_math, aidx)
     composite_novelty = max(semantic_novelty, algebra_nov)
     coherence = _paragraph_coherence(text, encoder)
-    verdict, _ = classify_verdict(composite_novelty, coherence, n_math_referenced=n_math)
+    # Option B: substrate-distinguishing self-recognition
+    self_recog_atom, _ = find_self_recognition_atom(str(file_path), pstore)
+    verdict, _ = classify_verdict(
+        composite_novelty, coherence,
+        n_math_referenced=n_math,
+        self_recognition_found=(self_recog_atom is not None),
+    )
     return verdict
 
 
