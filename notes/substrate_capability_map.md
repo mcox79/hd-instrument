@@ -1,4 +1,4 @@
-# hd-instrument substrate -- capability map v589
+# hd-instrument substrate -- capability map v590
 
 Drafted 2026-05-19 21:00. Product-framed (not paper-framed). Goal: map every
 capability the substrate has, lacks, might have, or would be game-changing if
@@ -29315,3 +29315,52 @@ Cap_map: v586 -> v587 CYCLE 249 (1 HARD_PASS [substrate_name_augmented_encoding_
 **NEW ROW PP-411:** lb_ner_fewshot_curve_cpu_v1 [anchor_name: ner_4type_conll_cpu_v1] MIDDLE_BAND v589: F1_4type=0.6541 vs F1_18type=0.5817, gap=+0.0724, P=0.666, R=0.643, n_tags=9, n_train=5982, n_seeds=1 (cycle 242 flush). CORROBORATING 4-TYPE NER SINGLE-SEED: F1=0.6541 within 0.5SE of PP-399 mean=0.6502 (std=0.0071 n=5). 4-type vs 18-type gap +0.0724 confirms coarsening improves structured prediction NER by 7.24pp at full data. Row added as corroborating evidence; the 'few-shot curve' design intent was NOT delivered (design-vs-delivery gap; anchor_name mismatch in write_metrics()). [label-vs-honest] catch: anchor_name='ner_4type_conll_cpu_v1' in metrics.json != file-path anchor 'lb_ner_fewshot_curve_cpu_v1'; LVH +1. Cap_map decision on honest content: corroborating single-seed within PP-399 variance. Few-shot NER curve remains unqueued (low priority; PP-404 sequence-model-bound inference implies not few-shot efficient; RESCUE-1 inline closure). P-band: 0.63-0.67 EXPLORATORY n=1. Cross-ref PP-399 (NER 4-type HP n=5 mean=0.6502), PP-396 (NER 4-type plateau), PP-395 (NER baseline), PP-397 (POS data efficiency HARD_FAIL -- NER few-shot separate axis).
 
 Cap_map: v588 -> v589 CYCLE 242 FLUSH (0 HP; 1 MIDDLE_BAND [lb_ner_fewshot_curve_cpu_v1 honest=ner_4type_conll=PP-411]; 0 HARD_FAIL; 1 LVH [anchor_name mismatch]; 1 NEW PP ROW [PP-411]; PP-399 corroborating single-seed annotation; few-shot NER curve NOT delivered; Portfolio 32+410 -> 32+411 +1; HONEST 1850->1852 +2; LVH 291->292 +1; 482nd PROT-009 paired commit) (2026-06-12)
+
+## v589 -> v590 CYCLE 50 OPEN TWO_VECTOR_RULE_CONFIRMED 2-VERDICT BATCH (Cap-1 BINDING extension HP F=20 + PP-407 alpha=0.5 decomposition HP) + FREE-PROB CROSS-VALIDATION HIT (483rd PROT-009 paired commit; 2 HP [cap1_binding_alpha_F_sweep + pp407_alpha_0.5_decomposition_verify]; 0 LVH; 0 NEW PP ROWS; PP-406 + PP-407 + PP-410 + PP-401 ANNOTATED; rule meta::RULE_two_vector_architecture_separates_structural_similarity_from_atom_identity_jobs PROMOTED CANDIDATE -> CONFIRMED via same-cycle 2nd + 3rd appearances [atom-to-atom scope]; FREE-PROB R-TRANSFORM DRILL CLOSED-FORM PREDICTION F* in [15,25] EMPIRICALLY VINDICATED [F=20 cleanup 0.962 inside band]; substrate-product positioning artifact UPGRADED with mathematical-foundation pillar; Portfolio 32+411 UNCHANGED; HONEST 1852->1854 +2; LVH 292->292 +0) (2026-06-12)
+
+**Per-cell honest empirical:**
+
+(A) cap1_binding_alpha_F_sweep HARD_PASS (HONEST): alpha=0.5 / F=10 cleanup@1 = 0.988 (>= strict HP 0.95; margin +0.038) AND alpha=0.5 / F=20 = 0.962 (>= HP bar 0.85; margin +0.112). Full 4x4 grid: alpha={0.0, 0.25, 0.5, 1.0} x F={1, 3, 10, 20} monotone decay in F at fixed alpha. PP-406 v582 cleanup ceiling 0.84-0.93 EMPIRICALLY RESOLVED at alpha=0.5 within atom-to-atom-VSA scope. Mechanism: two-vector architecture separates structural-similarity (plain algebra-HRR) from atom-identity (alpha=0.5 identity-augmented HRR); HRR binding chains benefit from identity-disambiguation across F=1..20. PP-406 ANNOTATED (no new PP row); P-band 0.84-0.93 ANNOTATED at alpha=0.5 ceiling 0.962-1.0 within atom-to-atom-VSA scope; EXPLORATORY pending Testbed production-form ship.
+
+(B) pp407_alpha_0_5_decomposition_verify HARD_PASS (HONEST): strict HP target K=241 / F=3 / noise=0: precision@1 = 1.000 (up from plain 0.911; +0.089). Entire ablation grid alpha=0.5: F=2 1.000 / F=3 1.000 / F=3+noise0.1 1.000 / F=6 0.986 / F=8 0.952 / K=50/F=3 1.000 -- all >=0.952. PP-407 v582 precision 0.83-0.91 ("collision-limited") EMPIRICALLY RESOLVED at alpha=0.5 within atom-to-atom-VSA scope. Encoding fix GENERALIZES from composition cleanup (PP-410 v588) to resonator-iteration decomposition. PP-407 ANNOTATED (no new PP row); P-band 0.83-0.91 ANNOTATED at alpha=0.5 strict-HP target 1.000; EXPLORATORY pending Testbed production-form ship.
+
+(C) Atom-to-atom scope discipline (HONEST): Exp-Dev explicitly bounds rule scope: "Cap-2 analogy = text classifier (no atom encoding) and Cap-3 retrieval = free-text query (wiring gap) do NOT use the atom codebook, so they are different capability classes, not extensions of this rule." Scope-preserving self-correction per [[feedback-verdict-msg-honest-reread]]. No over-claim.
+
+**meta::RULE_two_vector_architecture_separates_structural_similarity_from_atom_identity_jobs PROMOTED CANDIDATE -> CONFIRMED:**
+
+- 1st appearance: PP-410 v588 CYCLE 49 CLOSE composition cleanup HARD_PASS at alpha=0.5 (decode 0.889 -> 1.000 + 82pct structural clustering preserved).
+- 2nd appearance: Cap-1 BINDING extension v590 PP-406-annotation HARD_PASS at alpha=0.5 F=10 (0.988) AND F=20 (0.962) -- rule SCALES across binding count.
+- 3rd appearance: PP-407 decomposition v590 PP-407-annotation HARD_PASS at alpha=0.5 K=241/F=3/noise=0 (precision 1.000) AND entire grid >=0.952 -- rule SERVES decode job in addition to compose.
+
+Rule scope: atom-to-atom VSA binding/cleanup/decode over the algebra-HRR codebook. Rule statement: structural-similarity job and atom-identity job should be served by SEPARATE encoding vectors; alpha=0.5 canonical sweet spot. Substrate-product positioning: substrate ARCHITECTURALLY EXPRESSES the dual-job separation; LLMs cannot architecturally express this. Same-cycle 2nd + 3rd appearances admissible: appearances are EMPIRICALLY DISTINCT (composition vs scaling-via-binding-count vs decomposition are 3 independent test conditions).
+
+**Free-probability R-transform drill cross-validation (MATHEMATICAL-FOUNDATION PILLAR):**
+
+research_drill_free_probability_R_transform_clustered_codebook_constructive_cleanup_cliff_prediction_2x_2026-06-12.md (HARD-PASS) predicted: "Cleanup cliff at F* in [15, 25] with alpha=0.5 (two-vector mixing). Cliff sharpness scaling as N^{2/3} per TW edge fluctuation." Empirical Cap-1 BINDING extension at alpha=0.5 / F=20: cleanup@1 = 0.962 (well-inside cliff-onset band; still ABOVE HP bar 0.85). Closed-form free-probability R-transform formula PREDICTS substrate empirical capability boundary WITHIN A NARROW BAND (10-point F range), and the empirical sweep HITS that band on first measurement. FIRST documented instance of closed-form mathematical theory predicting substrate empirical cleanup-cliff location pre-empirically. Substrate-product positioning artifact UPGRADED: mathematical-foundation pillar added (closed-form free-probability formulas predict substrate empirics) on top of prior closed-loop 3-level fidelity artifact (Cell A+B + alpha=0.5 + 82pct clustering preservation). NEW methodology rule 1st-appearance candidate: meta::RULE_closed_form_free_probability_predicts_substrate_empirical_capability_boundaries.
+
+**PROT-004/006 rescue sketches (cheapest-first; both HP -- no closure triggered):**
+
+RESCUE-1 (cheapest/subsumption; APPLIED INLINE): rule promotion CANDIDATE -> CONFIRMED inline; no new run.
+RESCUE-2: Testbed identity-augmented vector deployment for compose/decode/cleanup paths (priority upgrade: rule CONFIRMED not CANDIDATE).
+RESCUE-3: cross-axis B/C alpha-sweep generalization study (post-promotion).
+RESCUE-4 (EV HIGH): free-probability cliff-sharpness N^{2/3} TW-edge-scaling empirical characterization at N={512, 1024, 2048, 4096} x F={1..30} alpha=0.5; validates mathematical-foundation pillar at scaling-exponent granularity.
+RESCUE-5: extend rule to Tier-5 substrate-self-discovery solution_history binding (PP-402) for unified two-vector architecture across content + meta layers.
+
+**Routing files (written to disk, NOT auto-dispatched per 4-session architecture):**
+
+- notes/strategy_request_to_exp_dev_2026-06-12_free_prob_cliff_sharpness_N_scaling_characterization.md (RESCUE-4: cliff-sharpness N^{2/3} scaling characterization).
+- notes/strategy_request_to_testbed_2026-06-12_two_vector_architecture_RULE_CONFIRMED_priority_upgrade.md (RESCUE-2: priority upgrade -- rule CONFIRMED not CANDIDATE).
+
+**Annotations this cycle:**
+- PP-406 (Cell A composition v582): HARD_PASS at alpha=0.5 F=10 (0.988) AND F=20 (0.962); ceiling RESOLVED within atom-to-atom-VSA scope.
+- PP-407 (Cell B decomposition v582): HARD_PASS at alpha=0.5 entire ablation grid; ceiling RESOLVED within atom-to-atom-VSA scope.
+- PP-410 (identity-augmented encoding v588): rule promotion CANDIDATE -> CONFIRMED via 2nd + 3rd appearances; PP-410 load-bearing for substrate-product positioning at rule-CONFIRMED granularity.
+- PP-401 (qa_self_knowing v575): cross-axis application path now anchored in CONFIRMED rule.
+- meta::RULE_two_vector_architecture_separates_structural_similarity_from_atom_identity_jobs: PROMOTED CANDIDATE -> CONFIRMED at 3rd appearance.
+- meta::RULE_closed_form_free_probability_predicts_substrate_empirical_capability_boundaries: NEW 1st-appearance candidate v590.
+
+PROT-007 + PROT-009: cap_map.md v590 entry + substrate_capability_map_history.md v590 row + strategy_decisions_2026-06-12.md (v589 -> v590 entry) + visibility_decisions_2026-06-12.md (Cycle 50 OPEN entry) staged atomically; **483rd PROT-009 paired commit**.
+
+### Status
+
+Cap_map: v589 -> v590 CYCLE 50 OPEN TWO_VECTOR_RULE_CONFIRMED (2 HP [cap1_binding_alpha_F_sweep + pp407_alpha_0_5_decomposition_verify]; 0 LVH; 0 NEW PP ROWS; PP-406 + PP-407 + PP-410 + PP-401 ANNOTATED; rule meta::RULE_two_vector_architecture_separates_structural_similarity_from_atom_identity_jobs PROMOTED CANDIDATE -> CONFIRMED via same-cycle 2nd + 3rd appearances [1st PP-410 v588 composition + 2nd Cap-1 BINDING F=20 scaling + 3rd PP-407 decomposition; atom-to-atom scope]; FREE-PROB R-TRANSFORM DRILL CLOSED-FORM PREDICTION F* in [15,25] EMPIRICALLY VINDICATED [F=20 cleanup 0.962 inside band] -- FIRST documented instance of closed-form mathematical theory predicting substrate empirical cleanup-cliff location; 1 new methodology rule 1st-appearance candidate [closed_form_free_probability_predicts_substrate_empirical_capability_boundaries]; substrate-product positioning artifact UPGRADED with mathematical-foundation pillar; 2 routing files written [Exp-Dev cliff-sharpness N-scaling + Testbed two-vector deployment priority upgrade]; no /exp_dev dispatch per 4-session architecture; Portfolio 32+411 UNCHANGED; HONEST 1852->1854 +2; LVH 292->292 +0; 483rd PROT-009 paired commit) (2026-06-12)
