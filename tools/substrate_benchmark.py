@@ -99,8 +99,46 @@ def _extract_keywords(question: str) -> list[str]:
     return toks[:4]
 
 
+_SEMANTIC_RETRIEVER = None
+_BARE_TO_QID = None
+
+
+def _ensure_semantic_retriever(pstore: PartitionedStore):
+    """Lazy-load bge retriever; returns None if encoder unavailable (laptop/local).
+    Gap 4 v2 PRIMARY per Research CYCLE45_MIDDLE_BAND_APPROVE."""
+    global _SEMANTIC_RETRIEVER, _BARE_TO_QID
+    if _SEMANTIC_RETRIEVER is not None:
+        return _SEMANTIC_RETRIEVER
+    try:
+        from backend.substrate_index.encode import AtomEncoder
+        from backend.substrate_index.retrieve import Retriever
+        encoder = AtomEncoder()
+        r = Retriever(pstore, encoder)
+        r.rebuild_index()
+        _SEMANTIC_RETRIEVER = r
+        _BARE_TO_QID = {a.id: a.qualified_id for a in pstore.all_atoms()}
+        return r
+    except Exception as e:
+        log.warning("semantic retriever unavailable (laptop/env-gated): %s", str(e)[:120])
+        return None
+
+
 def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
-    """Type A content-level: surface atoms matching topic keywords."""
+    """Type A content-level: substrate-self-knowing semantic retrieval (Gap 4 v2)
+    with fallback to keyword AND-match.
+
+    Per Cycle 47 sweep finding: bge top_k=5 -> A F1=0.356 (HARD-PASS vs keyword 0.283).
+    Replaces keyword as primary; keyword stays as env-gated fallback.
+    """
+    retr = _ensure_semantic_retriever(pstore)
+    if retr is not None:
+        candidates = retr.semantic(q["question"], top_k=5)
+        matched = set()
+        for c in candidates:
+            qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
+            matched.add(qid)
+        return matched
+    # Fallback (laptop env-gated)
     keywords = _extract_keywords(q["question"])
     return _atoms_matching_topic(pstore, keywords)
 
@@ -462,13 +500,18 @@ def score_primitive_success(predicted: set[str], q: dict) -> dict:
 def answer_via_router(pstore: PartitionedStore, q: dict) -> set[str]:
     """Gap 4 router: NL question -> primitive -> answer set. Used when
     --use-router is set so we measure router-routed performance separately."""
+    # Negative-type honesty: bypass semantic primitive (out-of-domain questions
+    # like "phonology" or "gardening" trigger semantic retrieval into FPs;
+    # answer_negative uses keyword match + history-partition exclusion +
+    # fabricated-qid detection for honest empty returns)
+    if q.get("type") == "negative":
+        return answer_negative(pstore, q)
     routed = router_route(q["question"], pstore)
     primitive = routed["primitive"]
     args = routed.get("args", {})
     if routed.get("honesty_filter"):
         return set()
     if primitive == "what_do_you_know_about":
-        # Fall back to keyword match (no encoder local)
         return answer_type_A(pstore, q)
     if primitive == "what_serves":
         cap = args.get("capability") or ""
