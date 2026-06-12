@@ -68,18 +68,11 @@ def _load_atom_codebook():
     return ids, M
 
 
-def run() -> Dict:
+def _sweep_codebook(M, sweep, seeds, n_trials):
+    """Run the bind/bundle/unbind/cleanup capacity sweep against codebook M (Mn, dim). Returns curve + cleanup F*."""
     from hdlab.binding import bind, unbind
     from hdlab.bundling import bundle
-    ids, M = _load_atom_codebook()
-    if M is None:
-        return {"error": "no_algebra_atoms"}
-    M = M.to(_DEVICE)
-    dim = M.shape[1]; Mn = M.shape[0]
-    n_trials = 6 if SMOKE else N_TRIALS
-    seeds = SEEDS[:1] if SMOKE else SEEDS
-    sweep = [1, 2, 3] if SMOKE else N_SWEEP
-    Mt = M.t().contiguous()  # (dim, Mn) for cleanup matmul
+    Mn = M.shape[0]; dim = M.shape[1]; Mt = M.t().contiguous()
     curve = []
     for N in sweep:
         if N > Mn:
@@ -89,19 +82,16 @@ def run() -> Dict:
             gen = torch.Generator().manual_seed(sd * 1000 + N)
             cs = 0.0; cc = 0
             for _t in range(n_trials):
-                idx = torch.randperm(Mn, generator=gen)[:N]                 # N distinct fillers from the corpus
-                B = M[idx]                                                  # (N, dim)
-                R = _unitary_roles(N, dim, gen).to(_DEVICE)                # (N, dim) unitary roles
-                bound = torch.stack([bind(R[i], B[i]) for i in range(N)])   # (N, dim) role-filler bindings
-                A_bound = bundle(bound)                                     # (dim,) normalized superposition
+                idx = torch.randperm(Mn, generator=gen)[:N]
+                B = M[idx]
+                R = _unitary_roles(N, dim, gen).to(M.device)
+                bound = torch.stack([bind(R[i], B[i]) for i in range(N)])
+                A_bound = bundle(bound)
                 for j in range(N):
-                    est = unbind(A_bound, R[j])                             # (dim,) noisy filler estimate
-                    est = est / (est.norm() + 1e-12)
+                    est = unbind(A_bound, R[j]); est = est / (est.norm() + 1e-12)
                     true = B[j]
-                    cval = float(torch.dot(est, true / (true.norm() + 1e-12)))
-                    cs += cval; cc += 1
-                    sims = est @ Mt                                        # (Mn,) cosine vs codebook (M unit-normed)
-                    order = torch.argsort(sims, descending=True)
+                    cs += float(torch.dot(est, true / (true.norm() + 1e-12))); cc += 1
+                    sims = est @ Mt; order = torch.argsort(sims, descending=True)
                     gold = int(idx[j]); top = order[:5].tolist()
                     hit1 += int(gold == top[0]); hit3 += int(gold in top[:3]); hit5 += int(gold in top[:5]); cnt += 1
             seed_cos.append(cs / cc)
@@ -109,38 +99,60 @@ def run() -> Dict:
         csd = (sum((x - cmean) ** 2 for x in seed_cos) / len(seed_cos)) ** 0.5
         curve.append({"N_bindings": N, "recovery_cosine": round(cmean, 4), "recovery_cosine_sd": round(csd, 4),
                       "cleanup_acc1": round(hit1 / cnt, 4), "cleanup_acc3": round(hit3 / cnt, 4), "cleanup_acc5": round(hit5 / cnt, 4)})
-        print("  F=%2d recovery_cos=%.4f +/-%.4f | cleanup@1=%.4f @3=%.4f @5=%.4f"
-              % (N, cmean, csd, curve[-1]["cleanup_acc1"], curve[-1]["cleanup_acc3"], curve[-1]["cleanup_acc5"]), flush=True)
-    f_star = None       # capacity F* = largest F with recovery_cosine >= 0.80 (locked cosine protocol)
-    f_star_clean = None # SUBSTRATE-MEANINGFUL capacity: largest F with cleanup_acc1 >= 0.80
+    f_star_clean = None
     for c in curve:
-        if c["recovery_cosine"] >= 0.80: f_star = c["N_bindings"]
         if c["cleanup_acc1"] >= 0.80: f_star_clean = c["N_bindings"]
-    return {"curve": curve, "n_atoms": Mn, "dim": dim, "capacity_F_star_cos0.80": f_star,
-            "capacity_F_star_cleanup0.80": f_star_clean, "device": _DEVICE, "n_trials": n_trials, "n_seeds": len(seeds)}
+    return curve, f_star_clean
+
+
+def run() -> Dict:
+    ids, M = _load_atom_codebook()
+    if M is None:
+        return {"error": "no_algebra_atoms"}
+    M = M.to(_DEVICE)
+    dim = M.shape[1]; Mn = M.shape[0]
+    n_trials = 6 if SMOKE else N_TRIALS
+    seeds = SEEDS[:1] if SMOKE else SEEDS
+    sweep = [1, 2, 3] if SMOKE else N_SWEEP
+    # RANDOM codebook baseline (Research revised lock): uniform-on-sphere, same (Mn, dim) -> isolates clustered-codebook effect.
+    rg = torch.Generator().manual_seed(12345)
+    R0 = torch.randn(Mn, dim, generator=rg); R0 = (R0 / (R0.norm(dim=1, keepdim=True) + 1e-12)).to(_DEVICE)
+    sub_curve, sub_fstar = _sweep_codebook(M, sweep, seeds, n_trials)
+    rnd_curve, rnd_fstar = _sweep_codebook(R0, sweep, seeds, n_trials)
+    rnd_by = {c["N_bindings"]: c for c in rnd_curve}
+    for c in sub_curve:
+        rc = rnd_by.get(c["N_bindings"], {})
+        print("  F=%2d cos=%.4f | cleanup@1 substrate=%.4f random=%.4f (clustered-vs-uniform delta=%+.4f)"
+              % (c["N_bindings"], c["recovery_cosine"], c["cleanup_acc1"], rc.get("cleanup_acc1", 0.0),
+                 c["cleanup_acc1"] - rc.get("cleanup_acc1", 0.0)), flush=True)
+    return {"curve": sub_curve, "random_baseline_curve": rnd_curve, "n_atoms": Mn, "dim": dim,
+            "capacity_F_star_cleanup0.80": sub_fstar, "random_capacity_F_star_cleanup0.80": rnd_fstar,
+            "device": _DEVICE, "n_trials": n_trials, "n_seeds": len(seeds)}
 
 
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"): return ("UNKNOWN", "UNKNOWN: " + r["error"])
     by = {c["N_bindings"]: c for c in r["curve"]}
-    c3 = by.get(3, {}).get("recovery_cosine")           # locked cosine bar (FLAGGED: analytic 1/sqrt(F), see below)
-    a3 = by.get(3, {}).get("cleanup_acc1")              # SUBSTRATE-MEANINGFUL decode metric
-    f_star_clean = r.get("capacity_F_star_cleanup0.80")
-    # METRIC FLAG: recovery cosine of an HRR superposition is analytically 1/sqrt(F) (crosstalk = F-1 unit-norm ~orthogonal
-    # terms; bundle norm is a global scalar that cancels in cosine), INDEPENDENT of D. So the locked "cosine>=0.95 at F=3"
-    # bar is unreachable by cosine for ANY dimension; the bar conflates cosine with cleanup/decode success. The substrate-
-    # meaningful capacity is CLEANUP ACCURACY over the codebook (does the substrate decode the composed state to the right atom?).
-    s = ("DECODE: cleanup@1_F3=%s (substrate-meaningful) capacity F*(cleanup>=0.80)=%s | ANALYTIC: recovery_cos@F3=%s ~= 1/sqrt(3)=0.577 (metric FLAG: locked 0.95 cosine bar is unreachable for HRR superposition cosine at any D) | curve(F,cos,cleanup@1)=%s | corpus=%d atoms dim=%d device=%s"
-         % (a3, f_star_clean, c3, [(c["N_bindings"], c["recovery_cosine"], c["cleanup_acc1"]) for c in r["curve"]], r["n_atoms"], r["dim"], r["device"]))
-    clip = " [UNCHARTED clustered-codebook tw_edge_z=-2.26: cleanup acc is the cluster-geometry probe; cosine is analytic 1/sqrt(F)]"
+    rby = {c["N_bindings"]: c for c in r.get("random_baseline_curve", [])}
+    a3 = by.get(3, {}).get("cleanup_acc1")              # REVISED LOCK metric: cleanup accuracy at F=3
+    f_star = r.get("capacity_F_star_cleanup0.80")
+    a3_rand = rby.get(3, {}).get("cleanup_acc1")
+    rnd_fstar = r.get("random_capacity_F_star_cleanup0.80")
+    delta3 = (a3 - a3_rand) if (a3 is not None and a3_rand is not None) else None
+    geom = ("clustered HURTS ceiling (intra-cluster near-collisions)" if (delta3 is not None and delta3 < -0.03)
+            else "clustered HELPS (clusters discriminate)" if (delta3 is not None and delta3 > 0.03)
+            else "clustered ~= uniform")
+    s = ("cleanup@1_F3 substrate=%s random=%s (delta=%s -> %s); cleanup capacity F* substrate=%s random=%s; recovery_cos=1/sqrt(F) analytic; curve(F,cleanup_sub,cleanup_rnd)=%s; corpus=%d dim=%d device=%s"
+         % (a3, a3_rand, (round(delta3, 4) if delta3 is not None else None), geom, f_star, rnd_fstar,
+            [(c["N_bindings"], c["cleanup_acc1"], rby.get(c["N_bindings"], {}).get("cleanup_acc1")) for c in r["curve"]],
+            r["n_atoms"], r["dim"], r["device"]))
     if a3 is None:
         return ("UNKNOWN", "UNKNOWN: F=3 not in sweep. " + s)
-    # Band on the substrate-meaningful decode metric (cleanup accuracy); cosine bar flagged to Research for re-banding.
-    if a3 >= 0.80 and (f_star_clean is not None and f_star_clean >= 10):
-        return ("HARD_PASS", "HARD_PASS (decode metric): substrate composes + decodes -- cleanup@1>=0.80 at F=3 with cleanup capacity F*>=10. Atoms compose into recoverable structured representations (substrate > atom-set). NOTE: locked cosine>=0.95 bar is analytically unreachable (1/sqrt(F)); cleanup accuracy is the correct substrate capacity metric -- FLAGGED to Research." + clip + " " + s)
+    if a3 >= 0.95 and (f_star is not None and f_star >= 10):
+        return ("HARD_PASS", "HARD_PASS (revised lock, cleanup accuracy): substrate composes + decodes >=0.95 cleanup@1 at F=3 with capacity F*>=10 -- atoms compose into recoverable structured representations (substrate > atom-set). " + s)
     if a3 >= 0.50:
-        return ("MIDDLE_BAND", "MIDDLE_BAND (decode metric): cleanup@1 0.50-0.80 at F=3 -- composes + mostly decodes, with clustered-codebook crowding at moderate F. Cosine bar flagged (analytic 1/sqrt(F))." + clip + " " + s)
-    return ("HARD_FAIL", "HARD_FAIL (decode metric): cleanup@1 <0.50 at F=3 -- composed states do not decode to the right atom at small F. Cosine bar flagged (analytic 1/sqrt(F))." + clip + " " + s)
+        return ("MIDDLE_BAND", "MIDDLE_BAND (revised lock): cleanup@1 0.50-0.95 at F=3. Capacity F*=%s (no Frady-Sommer cliff if F* high) but ceiling capped below 0.95 -- see substrate-vs-random delta for whether the clustered codebook caps the ceiling. " % f_star + s)
+    return ("HARD_FAIL", "HARD_FAIL (revised lock): cleanup@1 <0.50 at F=3 -- composed states do not decode at small F. " + s)
 
 
 def _selftest():
