@@ -26,18 +26,53 @@ from backend.substrate_index.phase_2_light import run_phase_2_light_pipeline
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--scale", choices=["smoke", "full"], default="smoke",
+                    help="smoke = 50 research_drill; full = all research_drill + history partitions")
+    ap.add_argument("--top-k", type=int, default=30, help="top-K proposals to surface")
+    args = ap.parse_args()
+
     DATA_ROOT = Path("data/substrate_index")
     NOTES_DIR = Path("notes")
 
-    print("=== Phase-2-light smoke (50-file Snowball bootstrap) ===\n")
+    print(f"=== Phase-2-light {args.scale} (top-K={args.top_k}) ===\n")
 
-    # Pick 50 most-recent research_drill_*.md files
-    drill_files = sorted(
-        NOTES_DIR.glob("research_drill_*.md"),
-        key=lambda f: f.stat().st_mtime,
-        reverse=True,
-    )[:50]
-    print(f"input: {len(drill_files)} research_drill files (most recent first)")
+    if args.scale == "smoke":
+        # 50 most-recent research_drill_*.md files (Snowball bootstrap)
+        drill_files = sorted(
+            NOTES_DIR.glob("research_drill_*.md"),
+            key=lambda f: f.stat().st_mtime,
+            reverse=True,
+        )[:50]
+    else:
+        # FULL corpus per Research direction: research_drill + history partitions
+        drill_files = list(NOTES_DIR.glob("research_drill_*.md"))
+        # History partitions per Phase-1 evolve.py auto-classification:
+        # research_history / decision_history / results_history / findings_history /
+        # verdict_history / memory_history -- inferred via filename prefix conventions:
+        history_globs = [
+            "research_*.md",       # research_history
+            "research_to_*.md",
+            "*to_research_*.md",
+            "*to_exp_dev_*.md",    # results_history
+            "exp_dev_to_*.md",
+            "testbed_to_*.md",     # findings_history
+            "*to_testbed_*.md",
+            "strategy_decisions_*.md",  # decision_history / verdict_history
+            "strategy_request_*.md",
+            "visibility_decisions_*.md",
+        ]
+        seen = set(f.resolve() for f in drill_files)
+        for glob in history_globs:
+            for f in NOTES_DIR.glob(glob):
+                rp = f.resolve()
+                if rp not in seen:
+                    drill_files.append(f)
+                    seen.add(rp)
+        drill_files = sorted(drill_files, key=lambda f: f.stat().st_mtime, reverse=True)
+
+    print(f"input: {len(drill_files)} files ({args.scale} scale)")
     if drill_files:
         print(f"  newest: {drill_files[0].name}")
         print(f"  oldest: {drill_files[-1].name}")
@@ -50,7 +85,7 @@ def main():
 
     print("\nrunning pipeline...")
     t0 = time.time()
-    proposals = run_phase_2_light_pipeline(drill_files, pstore, ai, top_k=30)
+    proposals = run_phase_2_light_pipeline(drill_files, pstore, ai, top_k=args.top_k)
     elapsed = time.time() - t0
     print(f"  pipeline elapsed: {elapsed:.2f}s")
     print(f"  ranked top-{len(proposals)} proposals\n")
