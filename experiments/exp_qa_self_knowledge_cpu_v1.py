@@ -100,6 +100,30 @@ def route_E(atoms, args):
     return out
 
 
+def route_F(pstore, atoms, args):
+    """gap: 'primitives never applied' = math T1/T2 atoms with empty serves_capability. (Other gap Qs are qualitative
+    future-work -> route returns empty = honest 'no such present atoms'.)"""
+    if args.get("mode") == "never_applied":
+        out = set()
+        for a in atoms:
+            corp = str(getattr(a.corpus, "value", a.corpus)).lower()
+            tier = str(getattr(a.tier, "value", a.tier))
+            if corp == "math" and tier in ("T1", "T2") and not getattr(a, "serves_capability", None):
+                out.add(_norm(a.id))
+        return out
+    return set()
+
+
+def route_G(atoms, relations, args):
+    """pattern: keyword match over name/desc + 1-hop related atoms of the topic anchors (best-effort; qualitative axis)."""
+    kws = [w for w in args.get("topic", "").lower().split() if len(w) > 2 and w not in STOP]
+    out = set()
+    for a in atoms:
+        hay = (a.name + " " + (a.id or "") + " " + (getattr(a, "description", "") or "")).lower()
+        if any(k in hay for k in kws): out.add(_norm(a.id))
+    return out
+
+
 def _selftest():
     assert _norm("math::T2/fhrr_bind") == "t2/fhrr_bind"
     assert _norm("PHYS/random_matrix_theory") == "phys/random_matrix_theory"
@@ -161,6 +185,8 @@ def run() -> Dict:
         elif t == "C": retrieved = route_C(pstore, sk, q["args"])
         elif t == "D": retrieved = route_D(pstore, sk, q["args"], id2qid)
         elif t == "E": retrieved = route_E(atoms, q["args"])
+        elif t == "F": retrieved = route_F(pstore, atoms, q["args"])
+        elif t == "G": retrieved = route_G(atoms, relations, q["args"])
         else: retrieved = set()
         f1, tp, fp, fn = _f1(retrieved, gold_present, ans)
         per_q.append({"id": q["id"], "type": t, "f1": round(f1, 4), "tp": tp, "fp": fp, "fn": fn,
