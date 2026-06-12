@@ -217,7 +217,10 @@ def answer_type_A(pstore: PartitionedStore, q: dict) -> set[str]:
         bge_preds.append(qid)
 
     # Strategy: high algebra confidence -> RRF fuse weighted; else bge-only
-    if max_conf > 0.20:
+    # Cycle 49 Option 2 diagnostic: threshold raised 0.20 -> 0.30 per Research request
+    # (math note: insufficient to filter HURT-Q01 conf=0.313 + HURT-Q02 conf=0.432 but
+    # measurement-as-data-point confirms threshold-tune insufficiency)
+    if max_conf > 0.30:
         # RRF: rank-reciprocal fusion; algebra_ordered preserves score ranking
         rrf_scores = {}
         for rank, qid in enumerate(algebra_ordered):
