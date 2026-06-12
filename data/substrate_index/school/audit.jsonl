@@ -56,3 +56,4 @@
 {"ts": 1781270088.3737957, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781270088.3785977, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781270088.3834984, "op": "update_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
+{"ts": 1781290632.924199, "op": "add_atom", "target": "SCHOOL/structured_prediction_family", "note": "created SCHOOL/structured_prediction_family for Q39 INSTANCE_OF gold", "source": "b_axis_authoring_per_exp_dev_spec"}
