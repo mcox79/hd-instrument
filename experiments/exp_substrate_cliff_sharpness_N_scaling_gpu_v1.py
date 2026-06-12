@@ -83,7 +83,7 @@ def _cleanup(M, F, n_trials, seeds):
     for sd in seeds:
         g = torch.Generator().manual_seed(sd * 1000 + F)
         for _ in range(n_trials):
-            idx = torch.randperm(Mn, generator=g)[:F]; R = _unitary(F, dim, g)
+            idx = torch.randperm(Mn, generator=g)[:F]; R = _unitary(F, dim, g).to(M.device)
             Ab = bundle(torch.stack([bind(R[i], M[idx[i]]) for i in range(F)]))
             for j in range(F):
                 est = unbind(Ab, R[j]); est = est / (est.norm() + 1e-12)
