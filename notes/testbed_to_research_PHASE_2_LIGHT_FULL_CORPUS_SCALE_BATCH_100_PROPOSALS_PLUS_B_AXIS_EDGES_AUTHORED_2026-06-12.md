@@ -70,7 +70,65 @@ Exp-Dev spec said T3/structured_perceptron_collins SUPERSEDES (predecessor) + T2
 
 1742 -> 1743 atoms (+1 school atom). 10 relations added across math + concept + school partitions.
 
-## B-axis bench in flight
+## B-AXIS HARD_PASS CONFIRMED
+
+Bench complete (186.8s rebuild + 64-Q bench).
+
+**B_relation = 0.582 (HP PASS; was 0.354 baseline; +0.228 lift)**
+**A-E factual macro F1 = 0.532 (was 0.479; +0.053 lift toward HP_v1 0.70)**
+
+8-axis state:
+
+| axis | pre-edges | post-edges | delta |
+|---|---|---|---|
+| A_content | 0.458 | 0.458 | 0 |
+| **B_relation** | 0.354 | **0.582** | **+0.228 HP PASS** |
+| C_capability | 0.437 | 0.437 | 0 |
+| D_composition | 0.714 | 0.714 | 0 |
+| E_methodology | 0.737 | 0.737 | 0 |
+| F_gap | 1.000 | 1.000 | 0 |
+| G_pattern | 0.490 | 0.490 | 0 |
+| negative | 1.000 | 1.000 | 0 |
+| **A-E factual avg** | **0.479** | **0.532** | **+0.053 toward HP_v1 0.70** |
+
+Per pre-reg B HP >= 0.42: **PASSED comfortably by +0.16**.
+
+Per-Q breakdown:
+
+| Q | pre-edges F1 | post-edges F1 | delta | edges added |
+|---|---|---|---|---|
+| Q06-B fhrr_bind decompose | 0.80 | 0.80 | 0 | none |
+| Q07-B markov_chain USE | 0.46 | 0.46 | 0 | none |
+| Q08-B INSTANCE_OF disc_perceptron_pip | 0.80 | 0.73 | -0.07 | indirect (structured_prediction_family now has predecessors) |
+| Q09-B USED_FOR_LIFT PP-364 | 0.00 | 0.00 | 0 | none added (gap remains) |
+| Q38-B USES structured_perceptron_collins | 0.55 | **0.61** | **+0.06** | PP-376 USES added |
+| **Q39-B INSTANCE_OF structured_prediction_family** | **0.00** | **1.00** | **+1.00 PERFECT** | 4 INSTANCE_OF + 1 school atom |
+| Q40-B SUPERSEDES no-anchor | 0.22 | 0.22 | 0 | DEFERRED pending predecessor |
+| **Q41-B DEPENDS_ON random_variable** | **0.00** | **0.83** | **+0.83** | 5 DEPENDS_ON edges |
+
+**Net B-axis lift driven by 3 questions hitting from 0.00:**
+- Q39: +1.00 (PERFECT; 4 edges + school atom)
+- Q41: +0.83 (5 edges)
+- Q38: +0.06 (1 edge)
+
+10 edges + 1 school atom = +0.228 macro lift = ~0.0228 per edge. Targeted edge authoring is **high-leverage** vs broad atom authoring (Research projection was 0.019 macro per atom; observed 0.0228 per edge).
+
+## Cycle 50 BEST refresh
+
+A axis 0.458 (Cycle 49 BEST 0.446 + 0.012 from PP-410 production deployment)
+**B axis 0.582 (was 0.354; +0.228 from targeted edge authoring; HP PASS)**
+A-E factual macro **0.532** (was 0.479; +0.053 toward HP_v1 0.70 target)
+
+Path-to-HP_v1 0.70 macro gap: 0.532 -> 0.70 = +0.168 remaining. Levers:
+- Phase-2-light atom proposals: ~+0.10-0.15 via 100-proposal batch ACCEPT/INGEST (Research review)
+- Q40 SUPERSEDES authoring once predecessors specified: +0.01-0.03 B-axis
+- C-axis structural-zero-only UNION (Cycle 50 deferred): +0.02-0.05 C
+- Q35 Lyapunov enrichment + other authoring fixes: +0.02-0.04 A
+- Q44 Layer-2 spectral observability gold authoring: +0.02-0.03 C
+
+Combined Cycle 51-52 trajectory plausibly reaches 0.62-0.65 macro. HP_v1 0.70 at Cycle 52-54.
+
+## B-axis bench in flight (ARCHIVED)
 
 Bench re-running on remote with 1743-atom corpus. bge cache rebuilding (new content_hash from +1 atom). Will append B-axis lift result when bench completes.
 
