@@ -236,3 +236,22 @@
 {"ts": 1781226745.4397476, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/cleanup", "note": "{\"phase_A5\": true, \"relation_subtype\": \"USED_INITIAL_MECHANISM\"}", "source": "batch03_A4"}
 {"ts": 1781226745.447909, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/fhrr_unbind", "note": "{\"phase_A5\": true, \"reason\": \"PP-225 production-validated kb100K 0.996\", \"relation_subtype\": \"CURRENT_BEST\"}", "source": "batch03_A4"}
 {"ts": 1781226745.4571948, "op": "add_relation", "target": "RETRIEVAL_kb_fact_extensions|RELATES|math::T2/sparse_distributed_memory", "note": "{\"phase_A5\": true, \"relation_subtype\": \"INSTANCE_OF_AT_SCALE\"}", "source": "batch03_A4"}
+{"ts": 1781232463.0167058, "op": "update_atom", "target": "PP-393_asdiv_3op_ceiling", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.020706, "op": "update_atom", "target": "PP-394_asdiv_wk_oracle", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0237062, "op": "update_atom", "target": "PP-395_svamp_role_asymmetry", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0309827, "op": "update_atom", "target": "PP-396_svamp_learned_selector", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0366447, "op": "update_atom", "target": "PP-397_pos_data_efficiency", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0439076, "op": "update_atom", "target": "RETRIEVAL_multi_hop", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0512044, "op": "update_atom", "target": "RETRIEVAL_schema_pp372", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0562031, "op": "update_atom", "target": "RETRIEVAL_reasoning_routing_pp371", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.063204, "op": "update_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.070529, "op": "update_atom", "target": "PP-364_NER", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0765333, "op": "update_atom", "target": "PP-multihop_revival", "note": "backfilled atoms_used on 3 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0838084, "op": "update_atom", "target": "PP-374_MAWPS_math", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.0918086, "op": "update_atom", "target": "PP-377_MultiArith_math", "note": "backfilled atoms_used on 2 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.098806, "op": "update_atom", "target": "PP-NORTH_STAR_2026-06-11", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.1040764, "op": "update_atom", "target": "PP-AG_news_text_class", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.1090755, "op": "update_atom", "target": "PP-compositional_depth_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.115075, "op": "update_atom", "target": "PP-217_path_A_LLM_enhancement", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.1203127, "op": "update_atom", "target": "PP-372_schema_retrieval", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}
+{"ts": 1781232463.127309, "op": "update_atom", "target": "PP-LEX1_morphology", "note": "backfilled atoms_used on 1 entries", "source": "backfill_atoms_used"}

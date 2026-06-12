@@ -233,6 +233,64 @@ def coverage_report(pstore: PartitionedStore,
 
 
 # ============================================================
+# Query: atom-level provenance (Gap 5)
+# ============================================================
+
+
+def which_solutions_use_atom(pstore: PartitionedStore, atom_qid: str) -> list[dict]:
+    """For atom_qid, return every solution_history entry across all capabilities
+    that uses it either directly (solution_atom_id) or indirectly (atoms_used).
+    Answers: "where has this atom been load-bearing?"
+    """
+    out = []
+    for cap in pstore.all_atoms():
+        for entry in cap.solution_history:
+            sol_id = entry.get("solution_atom_id")
+            atoms_used = entry.get("atoms_used", [])
+            is_solver = (sol_id == atom_qid) or (sol_id and sol_id.endswith("::" + atom_qid))
+            is_building_block = atom_qid in atoms_used
+            if not (is_solver or is_building_block):
+                continue
+            metric = entry.get("empirical_metric")
+            try:
+                m = float(metric) if metric is not None else None
+            except (TypeError, ValueError):
+                m = None
+            out.append({
+                "capability": cap.qualified_id,
+                "capability_name": cap.name,
+                "solution": sol_id,
+                "role": "solver" if is_solver else "building_block",
+                "metric": m,
+                "date": entry.get("adopted_date"),
+                "status": entry.get("status", "current"),
+            })
+    out.sort(key=lambda d: -(d["metric"] or -1))
+    return out
+
+
+def atom_contribution_log(pstore: PartitionedStore, atom_qid: str) -> dict:
+    """Aggregate contribution stats for atom_qid across all solution_history entries.
+
+    Returns total lift sum, mean, occurrences, current/superseded counts.
+    """
+    entries = which_solutions_use_atom(pstore, atom_qid)
+    metrics = [e["metric"] for e in entries if e["metric"] is not None]
+    current = sum(1 for e in entries if e["status"] == "current")
+    superseded = sum(1 for e in entries if e["status"] == "superseded")
+    return {
+        "atom": atom_qid,
+        "n_appearances": len(entries),
+        "total_lift_sum": sum(metrics) if metrics else 0.0,
+        "mean_lift": (sum(metrics) / len(metrics)) if metrics else 0.0,
+        "max_lift": max(metrics) if metrics else 0.0,
+        "current_count": current,
+        "superseded_count": superseded,
+        "capabilities": list({e["capability"] for e in entries}),
+    }
+
+
+# ============================================================
 # Query: what do you know about <topic>
 # ============================================================
 

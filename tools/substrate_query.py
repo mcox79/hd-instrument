@@ -44,6 +44,8 @@ from backend.substrate_index.self_knowledge import (
     coverage_report,
     composition_paths,
     what_do_you_know_about,
+    which_solutions_use_atom,
+    atom_contribution_log,
 )
 
 DATA_ROOT = Path("data/substrate_index")
@@ -172,6 +174,31 @@ def cmd_what_do_you_know_about(pstore, args):
         print(f"    {r['name']}")
 
 
+def cmd_which_solutions_use(pstore, args):
+    entries = which_solutions_use_atom(pstore, args.atom_qid)
+    print(f"\n=== SOLUTIONS USING {args.atom_qid} ===")
+    if not entries:
+        print(f"  (atom is not listed in any solution_history.atoms_used)")
+        return
+    for e in entries:
+        m = f"+{e['metric']:.3f}" if e["metric"] is not None else "n/a"
+        print(f"  {e['capability_name'][:30]:32s} via {(e['solution'] or '')[:35]:37s} {m:8s} ({e.get('date') or 'no date'})")
+
+
+def cmd_atom_contributions(pstore, args):
+    stats = atom_contribution_log(pstore, args.atom_qid)
+    print(f"\n=== ATOM CONTRIBUTION LOG: {args.atom_qid} ===")
+    print(f"  appearances in solution_history.atoms_used: {stats['n_appearances']}")
+    print(f"  total lift sum: +{stats['total_lift_sum']:.3f}")
+    print(f"  mean lift: +{stats['mean_lift']:.3f}")
+    print(f"  max lift: +{stats['max_lift']:.3f}")
+    print(f"  current solutions: {stats['current_count']}")
+    print(f"  superseded solutions: {stats['superseded_count']}")
+    print(f"  capabilities touched: {len(stats['capabilities'])}")
+    for c in stats["capabilities"][:10]:
+        print(f"    - {c}")
+
+
 def cmd_ask(pstore, args):
     """Free-form NL routing via simple keyword heuristics (Gap 4 stub)."""
     q = args.question.lower()
@@ -206,6 +233,8 @@ SUBCOMMANDS = {
     "coverage-report": cmd_coverage_report,
     "composition-paths": cmd_composition_paths,
     "what-do-you-know-about": cmd_what_do_you_know_about,
+    "which-solutions-use": cmd_which_solutions_use,
+    "atom-contributions": cmd_atom_contributions,
     "ask": cmd_ask,
 }
 
@@ -241,6 +270,12 @@ def main():
     p = sub.add_parser("what-do-you-know-about", help="Semantic retrieval over all partitions (LOADS ENCODER)")
     p.add_argument("topic", help="Free-text topic")
     p.add_argument("--top", type=int, default=8)
+
+    p = sub.add_parser("which-solutions-use", help="Solutions whose atoms_used includes this atom (Gap 5)")
+    p.add_argument("atom_qid", help="Qualified id, e.g. math::T2/cleanup")
+
+    p = sub.add_parser("atom-contributions", help="Aggregate lift contributions of an atom across capabilities (Gap 5)")
+    p.add_argument("atom_qid", help="Qualified id, e.g. math::T2/cleanup")
 
     p = sub.add_parser("ask", help="Free-form NL question routed via heuristics (Gap 4 stub)")
     p.add_argument("question", help="Plain English question")
