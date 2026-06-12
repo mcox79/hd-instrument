@@ -112,10 +112,15 @@ class AtomEncoder:
         vectors; including them as composite contributions was NET NEGATIVE
         on Q2/Q3).
         """
-        text = atom.description
+        # Option 1 Cycle 49 (Exp-Dev empirical + Research direction): bge-NAME encoding.
+        # Per exp_dev_to_research_testbed_SEMANTIC_A_V2_CLOSED_NAME_FIELD_IS_THE_LEVER...
+        # name field alone +0.04-0.08 over description. Atom id tokens are content-rich
+        # discipline markers (math/T2/fhrr_bind -> "fhrr bind"). Aliases retain coverage
+        # for synonym matches; description excluded (drag per Exp-Dev finding).
+        id_tokens = atom.id.replace("/", " ").replace("_", " ").replace("::", " ")
+        text = atom.name + " " + id_tokens
         if atom.aliases:
             text = text + " " + " ".join(atom.aliases)
-        text = atom.name + " :: " + text
         semantic = self.bge.encode([text])[0].astype(np.float32)
         semantic = semantic / (np.linalg.norm(semantic) + 1e-12)
 
@@ -187,10 +192,11 @@ class AtomEncoder:
             return {}
         texts = []
         for a in atoms:
-            t = a.description
+            # bge-NAME encoding (Option 1; see encode_atom() above for rationale)
+            id_tokens = a.id.replace("/", " ").replace("_", " ").replace("::", " ")
+            t = a.name + " " + id_tokens
             if a.aliases:
                 t = t + " " + " ".join(a.aliases)
-            t = a.name + " :: " + t
             texts.append(t)
         semantics = self.bge.encode(texts).astype(np.float32)
         out = {}

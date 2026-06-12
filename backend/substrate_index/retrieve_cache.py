@@ -40,8 +40,11 @@ def _cache_dir(root: Path) -> Path:
     return out
 
 
+_ENCODING_VERSION = "v2_name"  # bumped Cycle 49 Option 1: bge-NAME encoding (name + id_tokens + aliases) replaces description-based v1
+
+
 def _cache_path(root: Path, n_atoms: int, content_hash: str) -> Path:
-    return _cache_dir(root) / f"bge_large_{n_atoms}_{content_hash}.npz"
+    return _cache_dir(root) / f"bge_large_{_ENCODING_VERSION}_{n_atoms}_{content_hash}.npz"
 
 
 def rebuild_index_cached(retriever, data_root: Path, force_rebuild: bool = False) -> bool:
