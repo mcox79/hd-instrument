@@ -155,6 +155,14 @@ class RelationType(enum.Enum):
     SUPERSEDED_BY = "SUPERSEDED_BY"     # old -> new (auto-derived reverse)
     CURRENT_BEST_FOR = "CURRENT_BEST_FOR"  # solution -> capability (it currently solves)
 
+    # Generic fallback for fine-grained semantic relations (math batch 03 Phase A4
+    # uses 40 distinct relation types; specific type stored in metadata['relation_subtype']):
+    RELATES = "RELATES"                  # generic semantic relation
+    GENERALIZES = "GENERALIZES"          # A generalizes B (B is a specific case of A)
+    INSTANCE_OF = "INSTANCE_OF"          # A is an instance of B
+    DEFINED_BY = "DEFINED_BY"            # A is defined by B
+    DEFINED_OVER = "DEFINED_OVER"        # A is defined over B
+
 
 # ============================================================
 # Dataclasses
