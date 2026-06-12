@@ -31,6 +31,8 @@ def main():
     ap.add_argument("--scale", choices=["smoke", "full"], default="smoke",
                     help="smoke = 50 research_drill; full = all research_drill + history partitions")
     ap.add_argument("--top-k", type=int, default=30, help="top-K proposals to surface")
+    ap.add_argument("--pos-filter", action="store_true",
+                    help="Option B: enable substrate POS filter (slow first run; ~30-60s cache build)")
     args = ap.parse_args()
 
     DATA_ROOT = Path("data/substrate_index")
@@ -85,7 +87,9 @@ def main():
 
     print("\nrunning pipeline...")
     t0 = time.time()
-    proposals = run_phase_2_light_pipeline(drill_files, pstore, ai, top_k=args.top_k)
+    proposals = run_phase_2_light_pipeline(drill_files, pstore, ai,
+                                            top_k=args.top_k,
+                                            use_pos_filter=args.pos_filter)
     elapsed = time.time() - t0
     print(f"  pipeline elapsed: {elapsed:.2f}s")
     print(f"  ranked top-{len(proposals)} proposals\n")

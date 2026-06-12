@@ -325,6 +325,7 @@ def run_phase_2_light_pipeline(
     ai: AlgebraIndex,
     skip_existing: bool = True,
     top_k: int = 30,
+    use_pos_filter: bool = False,
 ) -> list[ProposalRecord]:
     """Run the full 5-component Phase-2-light pipeline on a set of files.
 
@@ -332,6 +333,12 @@ def run_phase_2_light_pipeline(
     """
     # Component 1: extract candidates
     candidates = extract_from_files(files)
+
+    # Option B (Cycle 50 Research direction): substrate POS filter
+    pos_tagger = None
+    if use_pos_filter:
+        from .substrate_nl_pos import get_default_tagger, is_noun_phrase
+        pos_tagger = get_default_tagger()
 
     # Component 2: distant supervision (lexicon + fuzzy match)
     lex = build_existing_atom_lexicon(pstore)
@@ -352,6 +359,12 @@ def run_phase_2_light_pipeline(
         first_token = canonical.split("_")[0]
         if first_token in META_JARGON_LEADING:
             continue
+        # Option B: substrate POS filter -- keep only noun-phrase candidates
+        if use_pos_filter and pos_tagger is not None:
+            from .substrate_nl_pos import is_noun_phrase
+            tokens = canonical.split("_")
+            if not is_noun_phrase(tokens, pos_tagger):
+                continue
         vec = name_vec_for_candidate(canonical, ai)
         filtered.append((ce, score, matches, vec))
 
