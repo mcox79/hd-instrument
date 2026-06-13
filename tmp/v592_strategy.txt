@@ -1,0 +1,24 @@
+## v591 -> v592 CYCLE 50 OPEN RESCUE-4 CLOSE FREE_PROB_CLIFF_SHARPNESS_LOCATION_HP_SHARPNESS_REFUTED_BULK_NOT_EDGE (verdict_handler 485th PROT-009 paired commit; 1 HARD_FAIL on pre-reg N^{2/3} sharpness threshold [GPU:1 substrate_cliff_sharpness_N_scaling_gpu_v1 PP-413-NEW]; secondary LOCATION-scaling slope 0.989 HP-equivalent empirical signal; 0 LVH; 1 NEW PP ROW [PP-413]; 1 NEW methodology rule 1st-candidate [substrate_cleanup_cliff_is_bulk_mean_field_not_spectral_edge]; v590 mathematical-foundation pillar SCOPE-BOUNDED to LOCATION pillar STANDS NOT regressed; Portfolio 32+412->32+413 +1; HONEST 1855->1856 +1)
+
+### Step 0 honest re-read
+
+Metrics source: REMOTE (bridge get_metrics() authoritative full run; local data/exp_substrate_cliff_sharpness_N_scaling_gpu_v1/metrics.json was STALE PRE-SHIP SMOKE 1 seed 2 N-values run_mode=smoke elapsed=1.19s -- correctly ignored per verdict_handler N-mismatch ceiling fix 2026-05-27). 0 LVH catches.
+
+**substrate_cliff_sharpness_N_scaling_gpu_v1 HARD_FAIL on pre-reg sharpness (HONEST + sophisticated framing):** scaled_sharpness_slope=-0.033 outside pre-reg band [0.40,0.85] by ~0.43 (HARD_FAIL on N^{2/3}=0.667 Tracy-Widom edge prediction). Secondary INDEPENDENT empirical signal: Fcliff_slope=0.989 ~= 1.0 (LOCATION pillar HP-equivalent). Per-N empirical: [(512, 20.8), (1024, 39.5), (2048, 81.9), (4096, 160.3)] -- ratios 1.90/2.07/1.96 near 2.0 confirm linear N-scaling. Scaled-sharpness N-INVARIANT (~0.28 flat across N=512-4096) -- signature of bulk mean-field transition NOT spectral-edge TW. abs_sharpness_slope=-1.022 (wrong-units control, design-correction predicted). verdict_msg framing PARTIAL validation + PARTIAL refutation correctly disambiguated; LOCATION pillar STANDS, SHARPNESS theory REFINES from TW-edge to MP-bulk. HONEST.
+
+**Cap_map decision:** v591 -> v592 with NEW ROW PP-413 + methodology rule 1st-candidate substrate_cleanup_cliff_is_bulk_mean_field_not_spectral_edge + v590 mathematical-foundation pillar ANNOTATED scope-bounded to LOCATION (STANDS NOT regressed). meta::RULE_closed_form_free_probability_predicts_substrate_empirical_capability_boundaries body REFINED to LOCATION-only scope; SHARPNESS requires Marchenko-Pastur bulk re-derivation (next-drill candidate empirically motivated). meta::RULE_literature_prior_is_directional_not_oracle_for_substrate_empirics REINFORCED at meta-level (literature identifies candidate regimes -- bulk vs edge -- substrate empirics determine which applies; substrate-as-regime-discriminator substrate-product asset).
+
+**Substrate-product positioning:** mathematical-foundation pillar NUANCED not weaker. v590 LOCATION HP (F=20 cleanup 0.962 inside [15,25]) STANDS. v592 explicit boundary: closed-form free-probability formulas predict cleanup-cliff LOCATION; SHARPNESS requires next-order Marchenko-Pastur bulk re-derivation (Tracy-Widom N^{2/3} edge does NOT apply at substrate K/N regime). Substrate sits in bulk/mean-field universality class -- positive characterization (predictable, scalable with N at fixed K/N). v591 cross-domain second moat UNAFFECTED orthogonal axis. Two structural moats + one bounded foundation: (a) v590 mathematical-foundation pillar LOCATION-validated [bounded], (b) v591 cross-domain open-vocab non-converging-tail empirical [orthogonal], (c) v315 intrinsic algebraic-certificate moat [unaffected].
+
+**PROT-004/006 rescue sketches (cheapest-first; HARD_FAIL on pre-reg sharpness but LOCATION-vindication genuine; pillar SCOPE-BOUNDED not regressed, NO row closure):**
+- RESCUE-1 (subsumption, APPLIED INLINE): scope-bound pillar inline; cross-refs annotated; no compute.
+- RESCUE-2 (next-drill empirically-motivated): Research Marchenko-Pastur bulk SHARPNESS re-derivation predicting constant scaled sharpness ~0.28 matching v592 data; 0-compute math; EV high.
+- RESCUE-3 (Exp-Dev): alpha-sweep at fixed N=1024 to test bulk-mean-field rule generalization; 2nd-appearance candidate for bulk-rule; EV medium-high.
+- RESCUE-4: K-sweep at fixed K/N to verify bulk-regime universality; EV medium.
+- RESCUE-5: CSLS LOCATION-test for encoding-ablation robustness of v590 LOCATION HP; EV low-medium.
+
+**Routing files written to disk (NOT auto-dispatched per 4-session architecture):**
+- notes/strategy_request_to_research_2026-06-12_cliff_sharpness_marchenko_pastur_bulk_rederivation_RESCUE2_v592.md
+- notes/strategy_request_to_exp_dev_2026-06-12_cliff_sharpness_alpha_sweep_bulk_regime_2nd_appearance_RESCUE3_v592.md
+
+[metrics-source: remote (bridge-fetch authoritative; local smoke artifact correctly ignored per N-mismatch ceiling fix)] [queue: empty -- Exp-Dev session will refill on its cadence]

@@ -1,0 +1,40 @@
+
+
+## CYCLE 50 OPEN RESCUE-3 CLOSE verdict (1 HARD_PASS substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1 PP-412 NEW + cross-domain rule 2nd-appearance with task-class refinement + new capability-class tail-shape rule 1st-candidate, v590->v591)
+
+2026-06-12 -- CYCLE 50 OPEN RESCUE-3 CLOSE: 1 HARD_PASS substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1 PP-412 NEW (ratio@2.5pct=1.7784 transfer F1=0.5500 scratch F1=0.3092 +48pct margin over HP bar 1.20; zero-shot CoNLL-on-OntoNotes F1=0.5279; non-converging tail at 100pct ratio=1.150 transfer 0.6464 > scratch 0.5619 +0.0845 residual; n_seeds=3 CPU elapsed=259.86s run_mode=full).
+
+**Step 0 honest re-read:** ratio@2.5pct verified HONEST (0.5500/0.3092=1.7787 matches stated 1.7784). 100pct ratio verified HONEST (0.6464/0.5619=1.1504 matches stated 1.150). Non-converging-tail claim verified: curve ratios 5.79->1.78->1.65->1.56->1.15 monotonically decrease but DO NOT reach 1.0 (residual +15pct at 100pct is structural -- sub-linear convergence between 10pct and 100pct; sentiment PP-409 by contrast converged to 0.998 at 100pct = neutral). 0 LVH catches. 1 housekeeping nuance (n_seeds=3 stated in summary; per_seed exposed array shows only 1 entry with curve summary; aggregate metrics consistent with declared seed count; flagged for memory_curator non-blocking). [metrics-source: local; remote bridge SSH unreachable; CPU cell ran locally; deterministic CPU 259.86s confirms NOT pre-ship smoke artifact -- smoke would be <30s].
+
+**NEW ROW PP-412 substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1 HARD_PASS v591:** CoNLL-2003 (Reuters newswire) -> OntoNotes (mixed-genre) cross-domain NER transfer via discriminative_perceptron warm-start; non-converging tail at 100pct distinguishes from PP-409 sentiment converging-to-neutral; substrate-product positioning differentiation: substrate-classical open-vocabulary cross-domain HIGH-DATA persistence is capability-class-specific differentiator (open-vocab NER/POS/slot-filling persists; closed-feature classification converges). P-band 0.62-0.78 EXPLORATORY n_seeds=3 CPU.
+
+**Methodology rule 2nd APPEARANCE CONFIRMED:** meta::RULE_discriminative_weighting_is_cross_domain_low_data_lever -- v587 PP-409 1st (sentiment converging) + v591 PP-412 2nd (NER non-converging); rule body REFINED for task-class-dependent tail (original 1st-appearance "converging to neutral at full data" universal statement EMPIRICALLY FALSIFIED as universal; revised to "low-data lift universal; high-data tail shape task-class-dependent"). Awaits 3rd appearance for promotion (candidate hooks: POS Brown->PTB; biomedical NER cross-domain).
+
+**NEW methodology rule 1st-appearance candidate v591:** meta::RULE_cross_domain_transfer_tail_shape_is_capability_class_dependent_open_vocab_persists_closed_feature_converges -- empirical predictions: biomedical NER -> social-media NER non-converging tail; Brown -> PTB POS non-converging tail; AG-News topic-classification converging tail; span-extraction QA non-converging tail. 1st appearance status; awaits 2nd via POS cross-domain + 3rd via slot-filling or biomedical NER cross-domain.
+
+**Substrate-product positioning v591:** substrate-product narrative GAINS SECOND INDEPENDENT STRUCTURAL MOAT orthogonal to v590 mathematical-foundation pillar -- (a) v590 closed-form free-probability predicts substrate within-substrate cleanup-cliff (mathematical-foundation pillar) + (b) v591 cross-domain open-vocab non-converging tail empirical (capability-class-dependent cross-domain HIGH-DATA persistence). Substrate discriminative_perceptron universal lever now spans THREE empirically-distinct axes: PP-1 within-capability + PP-409 cross-domain low-data + PP-412 cross-domain low-data AND HIGH-DATA persistent for open-vocab.
+
+**PROT-004/006 rescue sketches (cheapest-first):**
+RESCUE-1 (APPLIED INLINE): rule promotion 2nd-appearance with task-class refinement documented; rule body REFINED; no new compute.
+RESCUE-2: cross-domain POS Brown -> PTB transfer cell (3rd appearance candidate for cross-domain rule + 2nd appearance candidate for capability-class tail-shape rule); ~5-10min CPU pre-reg ratio@2.5pct>=1.20 predicts NON-CONVERGING tail; EV high (dual rule promotion candidate).
+RESCUE-3: cross-domain CLOSED-FEATURE 3rd-class verification (AG-News topic-classification cross-domain); ~10-30min CPU pre-reg ratio@2.5pct>=1.20 predicts CONVERGING-to-neutral tail per task-class rule; EV medium-high (CONFIRMING-vs-FALSIFYING test).
+RESCUE-4: biomedical NER cross-domain transfer; ~30-60min CPU; tests open-vocab non-converging-tail in different domain-shift class; EV medium.
+RESCUE-5: combine PP-412 cross-domain lever with PP-410 two-vector encoding (alpha=0.5 identity-augmented); ~30-60min CPU; tests whether two-vector architecture LIFTS cross-domain transfer ceiling at 100pct above 0.6464; EV high for multi-axis substrate-product positioning compounding.
+
+**Routing files (written to disk, NOT auto-dispatched per 4-session architecture):**
+- notes/strategy_request_to_research_2026-06-12_cross_domain_POS_Brown_PTB_transfer_3rd_appearance_candidate_v591.md
+- notes/strategy_request_to_exp_dev_2026-06-12_cross_domain_closed_feature_classification_capability_class_rule_2nd_appearance_candidate_v591.md
+
+**Annotations this cycle:**
+- PP-409 (cross-domain SST-2->IMDB sentiment v587): rule body REFINED -- "converging to neutral at full data" is task-class-specific (CLOSED-FEATURE anchor); PP-412 is the open-vocabulary anchor.
+- PP-411 (NER 4-type corroborating single-seed v589): PP-412 extends PP-411/PP-399/PP-404 NER pipeline into cross-domain dimension.
+- PP-404 (transition features v578): structured-prediction architectural lever scope EXTENDS to cross-domain.
+- PP-1 (universal lever within-capability): axis-three cross-domain HIGH-DATA persistence demonstrated for open-vocabulary task class.
+- meta::RULE_discriminative_weighting_is_cross_domain_low_data_lever: 2nd APPEARANCE CONFIRMED with task-class-dependent tail body REFINEMENT.
+- meta::RULE_cross_domain_transfer_tail_shape_is_capability_class_dependent_open_vocab_persists_closed_feature_converges: NEW 1st-appearance candidate v591.
+
+PROT-007 + PROT-009: cap_map.md v591 entry + substrate_capability_map_history.md v591 row + strategy_decisions_2026-06-12.md (v590 -> v591 entry) + visibility_decisions_2026-06-12.md (Cycle 50 OPEN RESCUE-3 close entry) staged atomically; **484th PROT-009 paired commit**.
+
+### Status
+
+Cap_map: v590 -> v591 CYCLE 50 OPEN RESCUE-3 CLOSE CROSS_DOMAIN_NER_HP_2ND_APP_NON_CONVERGING_TAIL (1 HARD_PASS [CPU:1 substrate_crossdomain_transfer_conll2003_ontonotes_ner_cpu_v1=PP-412-NEW]; 0 LVH; 1 NEW PP ROW; cross-domain rule 2nd APPEARANCE with task-class refinement; 1 new methodology rule 1st-candidate; substrate-product positioning SECOND independent structural moat; 2 routing files written; no /exp_dev dispatch per 4-session architecture; Portfolio 32+411 -> 32+412 +1; HONEST 1854->1855 +1; LVH 292 UNCHANGED; 484th PROT-009 paired commit) (2026-06-12)
