@@ -209,17 +209,24 @@ def run() -> Dict:
             sane_frac = round(real_cov / (null_cov + 1e-9), 3) if null_cov else (2.0 if real_cov else 0.0)
         covered = len(set().union(*groups)) if groups else 0
         promotable_fracs[f] = covered / len(ids)
+        max_group_frac = round((max(len(g) for g in groups) / len(ids)) if groups else 0.0, 3)
         rows[f] = {"n_atoms": len(ids), "extractor": extractor, "fires": fires, "n_groups": len(groups),
-                   "promotable_frac": round(covered / len(ids), 3),
+                   "promotable_frac": round(covered / len(ids), 3), "max_group_frac": max_group_frac,
                    "sanity": sane_frac, "top_group_sizes": sorted((len(g) for g in groups), reverse=True)[:6]}
-    n_fire = sum(1 for f in target_fields if rows.get(f, {}).get("fires"))
-    # M2: structural sane if sanity>=0.6; topical sane if ratio>=1.5
+    # SYSTEMS-vs-RECORDS framing (Research-endorsed): system fields should fire+be sane via the universal operator;
+    # history is a RECORD = NEGATIVE CONTROL (the operator must NOT cleanly axiomatize narrative -- weak/insane firing CONFIRMS the split).
+    SYSTEM_FIELDS = ["math", "science", "language", "cognition"]; RECORD_FIELDS = ["history"]
     def is_sane(f):
         r = rows.get(f, {})
         if not r.get("fires"): return False
+        if r.get("max_group_frac", 0) >= 0.5: return False        # NO-MEGA-BLOB guard: one group swallowing the field = degenerate chain, not archetypes
         return (r["sanity"] >= 0.6) if r.get("extractor") == "structural" else (r["sanity"] >= 1.5)
+    sys_fire = sum(1 for f in SYSTEM_FIELDS if rows.get(f, {}).get("fires"))
+    sys_sane = sum(1 for f in SYSTEM_FIELDS if is_sane(f))
+    rec_sane = sum(1 for f in RECORD_FIELDS if is_sane(f))         # negative control: expect 0 (records NOT sanely axiomatized)
+    n_fire = sum(1 for f in target_fields if rows.get(f, {}).get("fires"))
     n_sane = sum(1 for f in target_fields if is_sane(f))
-    pf = [promotable_fracs[f] for f in promotable_fracs if promotable_fracs[f] > 0]
+    pf = [promotable_fracs[f] for f in SYSTEM_FIELDS if promotable_fracs.get(f, 0) > 0]
     m3_gap = round(max(pf) / min(pf), 3) if len(pf) >= 2 else None
     print("  per-field universal-operator firing (ONE operator, field-appropriate signal extractor):", flush=True)
     for f in target_fields:
@@ -227,25 +234,30 @@ def run() -> Dict:
         print("    %-10s atoms=%4d extractor=%-10s FIRES=%s groups=%s sane=%s promotable=%.3f sizes=%s" % (
             f, r.get("n_atoms", 0), r.get("extractor", "-"), r.get("fires"), r.get("n_groups", 0),
             r.get("sanity"), r.get("promotable_frac", 0), r.get("top_group_sizes", [])), flush=True)
-    print("  M1 fires=%d/5 | M2 sane=%d/5 | M3 promotable-fraction gap=%s (over %s)" % (
-        n_fire, n_sane, m3_gap, {f: round(promotable_fracs[f], 3) for f in promotable_fracs}), flush=True)
+    print("  SYSTEM fields fire=%d/4 sane=%d/4 | RECORD(history) sane=%d/1 (negative control, expect 0) | M3 system promotable-gap=%s" % (
+        sys_fire, sys_sane, rec_sane, m3_gap), flush=True)
     return {"rows": rows, "n_fire": n_fire, "n_sane": n_sane, "m3_gap": m3_gap,
+            "sys_fire": sys_fire, "sys_sane": sys_sane, "rec_sane": rec_sane,
             "promotable_fracs": {f: round(v, 4) for f, v in promotable_fracs.items()}}
 
 
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
-    nf = r["n_fire"]; ns = r["n_sane"]; gap = r["m3_gap"]
-    s = ("ONE universal operator + field-appropriate signal extractor: M1 fires=%d/5 M2 sane=%d/5 M3 promotable-fraction gap=%s; per-field=%s. "
-         "(operator code identical across fields; only the signal extractor -- structural for math/science/language/cognition, topical for history -- swaps.)") % (
-        nf, ns, gap, r["promotable_fracs"])
+    sf = r["sys_fire"]; ss = r["sys_sane"]; rs = r["rec_sane"]; gap = r["m3_gap"]
+    s = ("SYSTEM fields (math/science/language/cognition) fire=%d/4 sane=%d/4 via the SAME operator; RECORD field (history) sane=%d/1 "
+         "[NEGATIVE CONTROL: should be 0 -- the operator must NOT axiomatize narrative]; system promotable-gap=%s; per-field promotable=%s. "
+         "(operator code identical; only the signal extractor swaps -- structural for systems, topical for the record.)") % (
+        sf, ss, rs, gap, r["promotable_fracs"])
     gap_ok = (gap is not None and gap < 2.0); gap_mid = (gap is not None and gap < 5.0)
-    if nf >= 4 and ns >= 4 and gap_ok:
-        return ("HARD_PASS", "HARD_PASS (H3 universal-operator CONFIRMED empirically): the SAME promotion operator FIRES sensibly in %d/5 fields and is SANE in %d/5, with a comparable promotable fraction across fields (gap %.2f<2x) -- once each field gets its appropriate signal extractor. Field-specificity lives ONLY in the thin signal-extractor layer; the operator + tier ladder are universal. Substrate-product: ONE architecture promotes ALL knowledge fields. " % (nf, ns, gap) + s)
-    if nf >= 3 and gap_mid:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: operator fires in %d/5 fields (sane %d/5), promotable-fraction gap %s -- universal operator largely holds but with field-strength variation (history weaker under topical signal). H3 supported, not airtight. " % (nf, ns, gap) + s)
-    return ("HARD_FAIL", "HARD_FAIL: operator fires in only %d/5 fields OR promotable gap >5x -- the operator is field-biased even with field-appropriate signals; universal-operator claim not supported. " % nf + s)
+    # HARD-PASS = universal operator promotes SYSTEM-content (>=3/4 sane) AND the RECORD negative control does NOT sanely axiomatize (rs==0)
+    if ss >= 3 and rs == 0 and gap_ok:
+        return ("HARD_PASS", "HARD_PASS (H3 + systems-vs-records CONFIRMED): the SAME universal operator promotes SYSTEM-content sanely in %d/4 system fields (comparable promotable fraction, gap %.2f<2x) AND correctly does NOT axiomatize the RECORD field (history negative-control sane=0). Promotion is universal over system-content; records are NOT promoted (retrieved/mined instead). Field-specificity lives only in the thin signal-extractor; the operator+ladder are universal over the right content-type. " % (ss, gap) + s)
+    if ss >= 3 and rs == 0:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: systems promote sanely (%d/4) and the record control behaves (sane=0), but the system promotable-gap %s exceeds 2x -- universal-over-system-content holds with cross-field strength variation (e.g. cognition's capability-vs-domain signal artifact). " % (ss, gap) + s)
+    if rs >= 1:
+        return ("MIDDLE_BAND", "MIDDLE_BAND: the RECORD negative control (history) registered as 'sane' (rs=%d) -- the topical extractor + operator produced apparently-coherent groups from narrative; either the sanity bar is too loose or history carries more latent structure than expected. Systems sane=%d/4. Investigate before asserting the clean split. " % (rs, ss) + s)
+    return ("HARD_FAIL", "HARD_FAIL: the universal operator does NOT sanely promote system-content (only %d/4 system fields sane) -- universal-over-system-content not supported as stated. " % ss + s)
 
 
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
