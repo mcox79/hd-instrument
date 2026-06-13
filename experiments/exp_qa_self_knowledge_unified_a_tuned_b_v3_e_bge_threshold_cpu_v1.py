@@ -200,7 +200,8 @@ ANALOGUE_EDGES = {"RELATES", "GROUNDS", "INSTANTIATES", "ANALOGOUS_TO", "ANALOG_
                   "BIOLOGICAL_INSPIRATION_FOR", "INFLUENCED_BY", "GENERALIZES", "SPECIALIZES"}
 
 
-def route_G(atoms, relations, args):
+def route_G(atoms, relations, args, top_k=3):
+    """G-axis: ANALOGUE edges from anchor; fallback to scored META/methodology keyword + top-K cap (P0 day-3 refinement)."""
     anchor = _norm(args.get("anchor", ""))
     if anchor:
         out = set()
@@ -211,12 +212,20 @@ def route_G(atoms, relations, args):
             if t == anchor: out.add(s)
         return out
     kws = [w for w in args.get("topic", "").lower().split() if len(w) > 2 and w not in STOP]
-    out = set()
+    if not kws: return set()
+    scored = []
     for a in atoms:
         if str(getattr(a.corpus, "value", a.corpus)).lower() not in ("meta", "methodology"): continue
         hay = (a.name + " " + (a.id or "") + " " + (getattr(a, "description", "") or "")).lower()
-        if sum(1 for k in kws if k in hay) >= 2: out.add(_norm(a.id))
-    return out
+        name_lower = (a.name or "").lower()
+        kw_hits = sum(1 for k in kws if k in hay)
+        if kw_hits < 2: continue
+        # Score: more hits + bonus for name match
+        name_hits = sum(1 for k in kws if k in name_lower)
+        score = kw_hits + 2 * name_hits
+        scored.append((score, _norm(a.id)))
+    scored.sort(key=lambda x: (-x[0], x[1]))
+    return set(aid for _, aid in scored[:top_k])
 
 
 _IDPAT = re.compile(r"(?:[a-z]+::)?(?:T\d/[\w]+|PP-\d+[\w]*|CAP_[\w]+|RULE_[\w]+|SCHOOL/[\w]+|[A-Z]{2,}/[\w]+|[\w]+_family)")
