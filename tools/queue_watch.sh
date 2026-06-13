@@ -28,5 +28,21 @@ while true; do
     last_gpp="$gpp"
     if [ "$gpr" = "idle" ] && [ "$gpp" -eq 0 ] 2>/dev/null; then idle_gp=$((idle_gp+1)); if [ $((idle_gp % 10)) -eq 0 ]; then echo "IDLE [GPU]: nothing running for ~$((idle_gp/2))min -- queue/build authorized work"; fi; else idle_gp=0; fi
   fi
+  # --- incoming routing notes RELEVANT to exp_dev so handoffs + cross-notes are never missed (cheap: only grep files newer than last poll) ---
+  mk="data/.queue_watch_notes_marker"; tmpmk="data/.queue_watch_notes_marker.tmp"
+  touch "$tmpmk"
+  [ -f "$mk" ] || touch -d '2 minutes ago' "$mk"
+  newf=$(find notes -maxdepth 1 -name "*.md" -newer "$mk" 2>/dev/null)
+  while IFS= read -r path; do
+    [ -z "$path" ] && continue
+    grep -qilE "exp.?dev" -- "$path" 2>/dev/null || continue
+    f=$(basename "$path")
+    if echo "$f" | grep -qiE "to_exp_dev|exp_dev_handoff|strategy_request_to_exp_dev"; then
+      echo "ROUTING [exp_dev]: NEW handoff -- notes/$f -- READ + ACT before any idle/queue work"
+    else
+      echo "ROUTING [exp_dev-relevant]: NEW note mentions Exp-Dev -- notes/$f -- review for relevance"
+    fi
+  done <<< "$newf"
+  mv -f "$tmpmk" "$mk"
   sleep 30
 done 2>&1
