@@ -60,9 +60,9 @@ def degree_ratio(edges, tools):
 
 def _selftest():
     # tools wired to more SHARES_MATH neighbors than materials
-    edges = [{"a": "t1", "b": "t2"}, {"a": "t1", "b": "t3"}, {"a": "t1", "b": "m1"}, {"a": "t2", "b": "m2"}, {"a": "m1", "b": "m2"}]
-    mt, mm, ratio, nt, nm = degree_ratio(edges, {"t1", "t2", "t3"})
-    assert mt > mm and ratio > 1.1, (mt, mm, ratio)
+    edges = [{"a": "t1", "b": "t2"}, {"a": "t1", "b": "t3"}, {"a": "t2", "b": "t3"}, {"a": "t1", "b": "m1"}]
+    mt, mm, ratio, nt, nm = degree_ratio(edges, {"t1", "t2", "t3"})   # tools form a triangle (deg 3,2,2=2.33) vs material m1 (deg 1)
+    assert mt > mm and ratio > 1.4, (mt, mm, ratio)
     print("[selftest] PASS: substrate_aaa3_provisional_load_bearing_shares_math_outdegree_cpu_v1", flush=True)
 
 
