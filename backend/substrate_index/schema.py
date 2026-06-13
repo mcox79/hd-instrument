@@ -174,6 +174,11 @@ class RelationType(enum.Enum):
     INSTANCE_OF = "INSTANCE_OF"          # A is an instance of B
     DEFINED_BY = "DEFINED_BY"            # A is defined by B
     DEFINED_OVER = "DEFINED_OVER"        # A is defined over B
+    # Per Research SHARES_MATH auto-discovery R2.2 + Exp-Dev commit ab2c2efe (9 math
+    # groups seed). Coalgebraic bisimulation equivalence; symbolic-structural
+    # categorical (NOT geometric); orthogonal to P4 codebook geometry; preserves
+    # P3 KP knowledge-promotion independence.
+    SHARES_MATH = "SHARES_MATH"          # A and B share the same underlying math (bisimulation)
 
 
 # ============================================================

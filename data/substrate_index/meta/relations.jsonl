@@ -1,2 +1,4 @@
+{"src_id": "RULE_metric_matches_semantic", "tgt_id": "science::CROSSDISC/dmn_to_self_knowing", "rel_type": "SHARES_MATH", "metadata": {}}
 {"src_id": "RULE_metric_matches_semantic", "tgt_id": "RULE_count_nb_to_discriminative_perceptron", "rel_type": "RELATES", "metadata": {}}
 {"src_id": "RULE_metric_matches_semantic", "tgt_id": "math::T2/cleanup", "rel_type": "INFLUENCED_BY", "metadata": {}}
+{"src_id": "RULE_metric_matches_semantic", "tgt_id": "science::NEURO/default_mode_network", "rel_type": "SHARES_MATH", "metadata": {}}

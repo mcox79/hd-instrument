@@ -20,3 +20,5 @@
 {"ts": 1781239227.5259619, "op": "add_atom", "target": "RULE_metric_matches_semantic", "note": "from meta_corpus_rule_metric_matches_semantic.jsonl", "source": "ingest_mixed"}
 {"ts": 1781239227.5294666, "op": "add_relation", "target": "RULE_metric_matches_semantic|RELATES|RULE_count_nb_to_discriminative_perceptron", "note": "", "source": "ingest_mixed"}
 {"ts": 1781239834.9716797, "op": "add_relation", "target": "RULE_metric_matches_semantic|INFLUENCED_BY|math::T2/cleanup", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
+{"ts": 1781365962.5103428, "op": "add_relation", "target": "RULE_metric_matches_semantic|SHARES_MATH|science::CROSSDISC/dmn_to_self_knowing", "note": "BATCH 26 SHARES_MATH canonical authoring; group_6 dominant=cap", "source": "exp_dev_auto_discovery_ab2c2efe"}
+{"ts": 1781365962.5103428, "op": "add_relation", "target": "RULE_metric_matches_semantic|SHARES_MATH|science::NEURO/default_mode_network", "note": "BATCH 26 SHARES_MATH canonical authoring; group_6 dominant=cap", "source": "exp_dev_auto_discovery_ab2c2efe"}
