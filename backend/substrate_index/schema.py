@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import enum
 import json
-import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -175,6 +174,11 @@ class RelationType(enum.Enum):
     INSTANCE_OF = "INSTANCE_OF"          # A is an instance of B
     DEFINED_BY = "DEFINED_BY"            # A is defined by B
     DEFINED_OVER = "DEFINED_OVER"        # A is defined over B
+    # Per Research SHARES_MATH auto-discovery R2.2 + Exp-Dev commit ab2c2efe (9 math
+    # groups seed). Coalgebraic bisimulation equivalence; symbolic-structural
+    # categorical (NOT geometric); orthogonal to P4 codebook geometry; preserves
+    # P3 KP knowledge-promotion independence.
+    SHARES_MATH = "SHARES_MATH"          # A and B share the same underlying math (bisimulation)
 
 
 # ============================================================
@@ -480,20 +484,11 @@ class QueryResult:
 
 
 def save_atoms(atoms: list[Atom], path: Path) -> None:
-    """Atomic write via temp + os.replace (per exp_dev ATOM_WRITE_RACE finding 2026-06-13).
-
-    Concurrent readers (other sessions, experiment cells loading atoms via all_atoms)
-    saw partial-write states on the previous non-atomic write pattern (truncate+rewrite-in-place).
-    Atomic rename ensures readers see EITHER the old complete file OR the new complete file,
-    never a partial.
-    """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8") as f:
         for a in atoms:
             f.write(json.dumps(a.to_dict(), ensure_ascii=False) + "\n")
-    os.replace(tmp, path)
 
 
 def load_atoms(path: Path) -> list[Atom]:
@@ -511,14 +506,11 @@ def load_atoms(path: Path) -> list[Atom]:
 
 
 def save_relations(relations: list[Relation], path: Path) -> None:
-    """Atomic write via temp + os.replace (per exp_dev ATOM_WRITE_RACE finding 2026-06-13)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8") as f:
         for r in relations:
             f.write(json.dumps(r.to_dict(), ensure_ascii=False) + "\n")
-    os.replace(tmp, path)
 
 
 def load_relations(path: Path) -> list[Relation]:
