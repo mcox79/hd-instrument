@@ -99,10 +99,13 @@ def run() -> Dict:
         return {"error": "too_few_codebook_vectors", "M": M}
     if SMOKE: A = A[:max(30, M // 2)]
     M = A.shape[0]
-    W = (A.T @ A) / Ndim                       # N x N Gram; M nonzero eigenvalues; alpha ~ M/N
-    np.fill_diagonal(W, 0.0)                    # match prior F4 cell convention (remove self-term)
+    # SCALE rows to norm^2 = Ndim so the Gram matches the free-Poisson/Wishart model (entry variance ~1, like +/-1 Xi).
+    # composite_hrr are unit-norm by design -> without this, eigenvalues are ~1/N and m_1 != alpha (degenerate). NO diagonal-zeroing.
+    row_norm = np.linalg.norm(A, axis=1, keepdims=True) + 1e-12
+    A = (A / row_norm) * np.sqrt(Ndim)
+    W = (A.T @ A) / Ndim                        # N x N Wishart; sum(eig)=M, mean(eig)=M/N=alpha
     ev = np.linalg.eigvalsh(W)
-    alpha_est = float(M) / float(Ndim)
+    alpha_est = float(np.mean(ev))              # empirical m_1 (= M/N for unit-var rows); the free-Poisson alpha
     kap = _kappas_from_eigs(ev)
     # bootstrap over eigenvalues for deviation-SNR
     B = 100 if SMOKE else 500
