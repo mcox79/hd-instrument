@@ -88,14 +88,45 @@ def _short(x):
     return str(x).split("::")[-1].split("/")[-1].strip().lower()
 
 
-def classify_group(sigs: List[dict], caps: List[Set[str]]) -> str:
-    """CHTV-1 typed-relationship classification over a Class B candidate group (>=2 members)."""
+# V2.1 (Research 14th writeback): INVERSE_PAIR is a 5th, STRONGER-than-SHARED_ABSTRACTION class -- a provable algebraic identity
+# (unbind o bind = id). Inverse-paired operation_type / member-name tokens:
+INVERSE_TOKENS = [("bind", "unbind"), ("fold", "unfold"), ("encode", "decode"), ("compress", "decompress"),
+                  ("pack", "unpack"), ("forward", "backward"), ("transform", "inverse_transform"), ("bind", "inverse_bind")]
+
+
+def _inverse_named(a: str, b: str) -> bool:
+    a, b = a.lower(), b.lower()
+    if a and b and (a == "un" + b or b == "un" + a):                     # un-prefix inverse (bind/unbind, fold/unfold)
+        return True
+    for x, y in INVERSE_TOKENS:
+        if (x in a and y in b) or (y in a and x in b):
+            return True
+    return False
+
+
+def _is_inverse_pair(names, sigs) -> bool:
+    """Two members, same domain + same output type, with inverse-paired names OR operation_types (algebraic inverse/adjoint)."""
+    if len(sigs) != 2:
+        return False
+    def field(f): return set(s.get(f) for s in sigs if s.get(f))
+    if not (len(field("domain")) == 1 and len(field("signature_output_type")) == 1):
+        return False
+    ops = [s.get("operation_type", "") or "" for s in sigs]
+    nm = list(names) if names and len(names) == 2 else ["", ""]
+    return _inverse_named(nm[0], nm[1]) or _inverse_named(ops[0], ops[1])
+
+
+def classify_group(sigs: List[dict], caps: List[Set[str]], names=None) -> str:
+    """CHTV-1 typed-relationship classification over a Class B candidate group (>=2 members). names optional (for INVERSE_PAIR)."""
     full = [s for s in sigs if len(s) >= 4]
     cap_ne = [c for c in caps if c]
     caps_ident = len(cap_ne) >= 2 and all(c == cap_ne[0] for c in cap_ne[1:])
     # MERGEABLE: every member fully typed, all identical, caps identical -> collapse to one atom
     if len(full) == len(sigs) and len(full) >= 2 and all(s == full[0] for s in full[1:]) and caps_ident:
         return "MERGEABLE"
+    # INVERSE_PAIR (V2.1): stronger than SHARED_ABSTRACTION -- provable algebraic inverse; checked before it. Must NOT merge.
+    if _is_inverse_pair(names, sigs):
+        return "INVERSE_PAIR"
     def field(f): return set(s.get(f) for s in sigs if s.get(f))
     out_types = field("signature_output_type"); domains = field("domain"); ops = field("operation_type")
     # SHARED_ABSTRACTION: one output_type, one domain, operation_type differs (common supertype; specialize, don't merge)
@@ -123,6 +154,16 @@ def _selftest():
     assert classify_group([conv, dft], [{"a", "b"}, {"a", "b"}]) == "THEOREM_LINKED"
     # DISTINCT: different out type, different caps
     assert classify_group([conv, dft], [{"a"}, {"z"}]) == "DISTINCT"
+    # INVERSE_PAIR (V2.1): same domain+output, inverse-named -> stronger than SHARED_ABSTRACTION
+    bnd = {"domain": "vsa", "operation_type": "binding", "signature_output_type": "phasor_vector"}
+    unb = {"domain": "vsa", "operation_type": "unbinding", "signature_output_type": "phasor_vector"}
+    assert classify_group([bnd, unb], [{"c"}, {"c"}], names=["fhrr_bind", "fhrr_unbind"]) == "INVERSE_PAIR"
+    assert classify_group([bnd, unb], [{"c"}, {"c"}]) == "INVERSE_PAIR"          # op-types binding/unbinding are inverse-paired too
+    # non-inverse op-types + no names -> falls back to SHARED_ABSTRACTION (same domain+output, ops differ)
+    gy = {"domain": "vsa", "operation_type": "y", "signature_output_type": "phasor_vector"}
+    gz = {"domain": "vsa", "operation_type": "z", "signature_output_type": "phasor_vector"}
+    assert classify_group([gy, gz], [{"c"}, {"c"}]) == "SHARED_ABSTRACTION"
+    assert _inverse_named("fhrr_bind", "fhrr_unbind") and not _inverse_named("adam", "sgd")
     print("[selftest] PASS: substrate_distill_verify_2_class_b_relationship_discrimination_cpu_v1", flush=True)
 
 
@@ -134,10 +175,12 @@ if __name__ == "__main__":            # selftest runs only as a script; import (
 
 # A theorem is "derivable" only via a TYPED derivation edge -- a generic RELATES association is NOT a proof.
 DERIV_RELS = {"DEPENDS_ON", "USES", "DERIVES", "DERIVED_FROM", "IMPLIES", "EQUALS", "EQUIVALENT_TO", "PROVES"}
+# An inverse pair is AUTHORED-provable via a DUAL/INVERSE/ADJOINT edge (V2.1; grounds INVERSE_PAIR in provenance, not name heuristics).
+DUAL_RELS = {"DUAL", "INVERSE_OF", "ADJOINT", "INVERTS"}
 
 
-def _derivation_links(root: Path, members_full: List[str]) -> bool:
-    """Race-tolerant: is there a TYPED DERIVATION edge (not a generic RELATES) between two members -> the theorem is provably chained?"""
+def _edge_between(root: Path, members_full: List[str], rel_set: set) -> bool:
+    """Race-tolerant: is there an edge of any rel_type in rel_set between two members of the group?"""
     shorts = set(_short(m) for m in members_full)
     for rp in root.rglob("relations.jsonl"):
         try:
@@ -146,14 +189,23 @@ def _derivation_links(root: Path, members_full: List[str]) -> bool:
                 if not ln: continue
                 try: r = json.loads(ln)
                 except Exception: continue
-                rt = (r.get("rel_type", "") or "").upper()
-                if rt not in DERIV_RELS: continue            # generic RELATES / association does NOT prove the theorem
+                if (r.get("rel_type", "") or "").upper() not in rel_set: continue
                 s = _short(r.get("src_id", "")); t = _short(r.get("tgt_id", ""))
                 if s in shorts and t in shorts and s != t:
                     return True
         except Exception:
             continue
     return False
+
+
+def _derivation_links(root: Path, members_full: List[str]) -> bool:
+    """Is there a TYPED DERIVATION edge (not a generic RELATES) between two members -> the theorem is provably chained?"""
+    return _edge_between(root, members_full, DERIV_RELS)
+
+
+def _dual_links(root: Path, members_full: List[str]) -> bool:
+    """Is there an AUTHORED inverse/adjoint (DUAL) edge between two members -> INVERSE_PAIR is provenance-grounded, not heuristic?"""
+    return _edge_between(root, members_full, DUAL_RELS)
 
 
 def run() -> Dict:
@@ -186,15 +238,22 @@ def run() -> Dict:
         sigs = [{f: alg(a).get(f) for f in SIG_FIELDS if alg(a).get(f) is not None} for a in members]
         caps = [set(_short(c) for c in (getattr(a, "serves_capability", ()) or ())) for a in members]
         ids = [str(a.id) for a in members]
-        rel = classify_group(sigs, caps)
+        short_names = [_short(a.id) for a in members]
+        rel = classify_group(sigs, caps, names=short_names if len(short_names) == 2 else None)
         shared_caps = sorted(set.intersection(*caps)) if all(caps) else []
+        # V2.1: prefer an AUTHORED DUAL/inverse edge over the name/op-type heuristic -> provenance-grounded INVERSE_PAIR
+        inverse_authored = None
+        if len(ids) == 2:
+            inverse_authored = _dual_links(root, ids)
+            if inverse_authored:
+                rel = "INVERSE_PAIR"               # authored DUAL edge is authoritative (overrides SHARED_ABSTRACTION/etc)
         deriv = None
         if rel == "THEOREM_LINKED":
             deriv = _derivation_links(root, ids)   # provable iff a TYPED derivation chain is authored, else sound refusal
         groups.append({"group": gname, "verdict": rel, "n_found": len(members), "ids": ids, "is_anchor": gname in ANCHOR_GROUPS,
                        "shared_caps": shared_caps, "out_types": sorted(set(s.get("signature_output_type") for s in sigs if s.get("signature_output_type"))),
                        "operation_types": sorted(set(s.get("operation_type") for s in sigs if s.get("operation_type"))),
-                       "derivation_present": deriv})
+                       "derivation_present": deriv, "inverse_authored": inverse_authored})
     n_eval = sum(1 for g in groups if g["verdict"] != "UNKNOWN")
     # Anchor regression: the 2 hand-named ground-truth groups must still discriminate correctly.
     anchors = [g for g in groups if g["is_anchor"] and g["verdict"] != "UNKNOWN"]
