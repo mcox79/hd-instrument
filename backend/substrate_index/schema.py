@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import enum
 import json
+import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -479,11 +480,20 @@ class QueryResult:
 
 
 def save_atoms(atoms: list[Atom], path: Path) -> None:
+    """Atomic write via temp + os.replace (per exp_dev ATOM_WRITE_RACE finding 2026-06-13).
+
+    Concurrent readers (other sessions, experiment cells loading atoms via all_atoms)
+    saw partial-write states on the previous non-atomic write pattern (truncate+rewrite-in-place).
+    Atomic rename ensures readers see EITHER the old complete file OR the new complete file,
+    never a partial.
+    """
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
         for a in atoms:
             f.write(json.dumps(a.to_dict(), ensure_ascii=False) + "\n")
+    os.replace(tmp, path)
 
 
 def load_atoms(path: Path) -> list[Atom]:
@@ -501,11 +511,14 @@ def load_atoms(path: Path) -> list[Atom]:
 
 
 def save_relations(relations: list[Relation], path: Path) -> None:
+    """Atomic write via temp + os.replace (per exp_dev ATOM_WRITE_RACE finding 2026-06-13)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
         for r in relations:
             f.write(json.dumps(r.to_dict(), ensure_ascii=False) + "\n")
+    os.replace(tmp, path)
 
 
 def load_relations(path: Path) -> list[Relation]:
