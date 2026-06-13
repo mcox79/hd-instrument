@@ -51,12 +51,11 @@ def _chain_text(chain) -> str:
 
 
 def _parse(out: str) -> str:
-    o = out.upper()
-    # take the LAST explicit verdict token (models often restate then answer)
-    iv = o.rfind("INVALID"); vv = o.rfind("VALID")
-    if iv == -1 and vv == -1:
+    # whole-word matches only: "INVALID" contains "VALID", so use \b and capture the (IN)? prefix; last verdict wins.
+    toks = re.findall(r"\b(IN)?VALID\b", out.upper())
+    if not toks:
         return "?"
-    return "invalid" if iv >= vv else "valid"
+    return "invalid" if toks[-1] == "IN" else "valid"
 
 
 def _selftest():
