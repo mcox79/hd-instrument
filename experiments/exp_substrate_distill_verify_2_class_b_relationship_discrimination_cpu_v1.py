@@ -126,9 +126,10 @@ def _selftest():
     print("[selftest] PASS: substrate_distill_verify_2_class_b_relationship_discrimination_cpu_v1", flush=True)
 
 
-_selftest()
-if _ARGS.self_test:
-    sys.exit(0)
+if __name__ == "__main__":            # selftest runs only as a script; import (e.g. by V3) has no side effects
+    _selftest()
+    if _ARGS.self_test:
+        sys.exit(0)
 
 
 # A theorem is "derivable" only via a TYPED derivation edge -- a generic RELATES association is NOT a proof.
@@ -249,8 +250,9 @@ def verdict(r) -> Tuple[str, str]:
             "-- likely a target atom missing from the index (mid-sync) or a taxonomy miss. " % (ac, na, na) + s)
 
 
-print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
-out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
-v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
-metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
-write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
+if __name__ == "__main__":
+    print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
+    out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
+    v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
+    metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
+    write_metrics(out_dir, metrics, [r]); print("[metrics] written", flush=True)
