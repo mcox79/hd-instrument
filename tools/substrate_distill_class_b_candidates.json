@@ -1,0 +1,54 @@
+{
+  "groups": [
+    {
+      "group": "bellman_equation_markov_decision_process_grp4",
+      "members": [
+        "T3/bellman_equation",
+        "T3/markov_decision_process",
+        "T3/policy_gradient",
+        "T3/q_learning"
+      ]
+    },
+    {
+      "group": "count_nb_discriminative_perceptron_grp2",
+      "members": [
+        "T2/discriminative_perceptron",
+        "T3/count_nb"
+      ]
+    },
+    {
+      "group": "optimizer_family",
+      "members": [
+        "T1/gradient_descent",
+        "T3/adam_optimizer",
+        "T3/stochastic_gradient_descent"
+      ],
+      "expected": "SHARED_ABSTRACTION"
+    },
+    {
+      "group": "fhrr_bind_unbind_dual",
+      "members": [
+        "T2/fhrr_bind",
+        "T2/fhrr_unbind"
+      ],
+      "expected": "DISTINCT"
+    },
+    {
+      "group": "convolution_theorem",
+      "members": [
+        "T2/circular_convolution",
+        "T3/discrete_fourier_transform"
+      ],
+      "expected": "THEOREM_LINKED"
+    },
+    {
+      "group": "modern_hopfield_ramsauer_sparse_distributed_memory_grp2",
+      "members": [
+        "T2/modern_hopfield_ramsauer",
+        "T2/sparse_distributed_memory"
+      ]
+    }
+  ],
+  "provenance": "skunkworks operator-overlap DETECT; Class A promotion-pairs EXCLUDED",
+  "n_groups": 6
+}
