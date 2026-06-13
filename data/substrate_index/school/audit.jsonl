@@ -57,3 +57,29 @@
 {"ts": 1781270088.3785977, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781270088.3834984, "op": "update_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "Day 4 breadth backfill", "source": "algebra_breadth_50"}
 {"ts": 1781290632.924199, "op": "add_atom", "target": "SCHOOL/structured_prediction_family", "note": "created SCHOOL/structured_prediction_family for Q39 INSTANCE_OF gold", "source": "b_axis_authoring_per_exp_dev_spec"}
+{"ts": 1781370773.9549642, "op": "remove_atom", "target": "SCHOOL/vsa_family", "note": "", "source": "manual"}
+{"ts": 1781370773.9589696, "op": "add_atom", "target": "SCHOOL/vsa_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9629633, "op": "remove_atom", "target": "SCHOOL/hopfield_family", "note": "", "source": "manual"}
+{"ts": 1781370773.966189, "op": "add_atom", "target": "SCHOOL/hopfield_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9703777, "op": "remove_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "", "source": "manual"}
+{"ts": 1781370773.974353, "op": "add_atom", "target": "SCHOOL/cognitive_architecture_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9783525, "op": "remove_atom", "target": "SCHOOL/free_probability_family", "note": "", "source": "manual"}
+{"ts": 1781370773.9813523, "op": "add_atom", "target": "SCHOOL/free_probability_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9851315, "op": "remove_atom", "target": "SCHOOL/sparse_distributed_memory_family", "note": "", "source": "manual"}
+{"ts": 1781370773.989129, "op": "add_atom", "target": "SCHOOL/sparse_distributed_memory_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9921288, "op": "remove_atom", "target": "SCHOOL/complementary_learning_systems_family", "note": "", "source": "manual"}
+{"ts": 1781370773.995129, "op": "add_atom", "target": "SCHOOL/complementary_learning_systems_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.9981291, "op": "remove_atom", "target": "SCHOOL/discriminative_learning_family", "note": "", "source": "manual"}
+{"ts": 1781370774.002129, "op": "add_atom", "target": "SCHOOL/discriminative_learning_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.0050874, "op": "remove_atom", "target": "SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781370774.0090928, "op": "add_atom", "target": "SCHOOL/hmm_sequence_labeling_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.0125296, "op": "remove_atom", "target": "SCHOOL/biological_learning_rules_family", "note": "", "source": "manual"}
+{"ts": 1781370774.016677, "op": "add_atom", "target": "SCHOOL/biological_learning_rules_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.01987, "op": "remove_atom", "target": "SCHOOL/spectral_observability_family", "note": "", "source": "manual"}
+{"ts": 1781370774.0234256, "op": "add_atom", "target": "SCHOOL/spectral_observability_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.0264301, "op": "remove_atom", "target": "SCHOOL/categorical_NLP_family", "note": "", "source": "manual"}
+{"ts": 1781370774.0294306, "op": "add_atom", "target": "SCHOOL/categorical_NLP_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.0324314, "op": "remove_atom", "target": "SCHOOL/dual_process_recognition_family", "note": "", "source": "manual"}
+{"ts": 1781370774.0364337, "op": "add_atom", "target": "SCHOOL/dual_process_recognition_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370774.038434, "op": "remove_atom", "target": "SCHOOL/structured_prediction_family", "note": "", "source": "manual"}
+{"ts": 1781370774.0414932, "op": "add_atom", "target": "SCHOOL/structured_prediction_family", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}

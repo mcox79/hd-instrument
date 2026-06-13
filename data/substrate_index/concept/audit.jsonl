@@ -423,3 +423,163 @@
 {"ts": 1781365962.5553622, "op": "add_relation", "target": "LEX_entity_person|SHARES_MATH|LEX_entity_gpe", "note": "BATCH 26 SHARES_MATH canonical authoring; group_8 dominant=uses>=2", "source": "exp_dev_auto_discovery_ab2c2efe"}
 {"ts": 1781365962.5553622, "op": "add_relation", "target": "LEX_entity_org|SHARES_MATH|LEX_entity_person", "note": "BATCH 26 SHARES_MATH canonical authoring; group_8 dominant=uses>=2", "source": "exp_dev_auto_discovery_ab2c2efe"}
 {"ts": 1781365962.5553622, "op": "add_relation", "target": "LEX_entity_person|SHARES_MATH|LEX_entity_org", "note": "BATCH 26 SHARES_MATH canonical authoring; group_8 dominant=uses>=2", "source": "exp_dev_auto_discovery_ab2c2efe"}
+{"ts": 1781370772.878182, "op": "remove_atom", "target": "PP-393_asdiv_3op_ceiling", "note": "", "source": "manual"}
+{"ts": 1781370772.8856122, "op": "add_atom", "target": "PP-393_asdiv_3op_ceiling", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.8926115, "op": "remove_atom", "target": "PP-394_asdiv_wk_oracle", "note": "", "source": "manual"}
+{"ts": 1781370772.8986118, "op": "add_atom", "target": "PP-394_asdiv_wk_oracle", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.905303, "op": "remove_atom", "target": "PP-395_svamp_role_asymmetry", "note": "", "source": "manual"}
+{"ts": 1781370772.9113023, "op": "add_atom", "target": "PP-395_svamp_role_asymmetry", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.9175982, "op": "remove_atom", "target": "PP-396_svamp_learned_selector", "note": "", "source": "manual"}
+{"ts": 1781370772.9231074, "op": "add_atom", "target": "PP-396_svamp_learned_selector", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.929898, "op": "remove_atom", "target": "PP-397_pos_data_efficiency", "note": "", "source": "manual"}
+{"ts": 1781370772.9354188, "op": "add_atom", "target": "PP-397_pos_data_efficiency", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.941961, "op": "remove_atom", "target": "PP-376_multibench_math", "note": "", "source": "manual"}
+{"ts": 1781370772.948355, "op": "add_atom", "target": "PP-376_multibench_math", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.954884, "op": "remove_atom", "target": "PP-375_multistep_math", "note": "", "source": "manual"}
+{"ts": 1781370772.960889, "op": "add_atom", "target": "PP-375_multistep_math", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.969492, "op": "remove_atom", "target": "PP-378_code_algopattern", "note": "", "source": "manual"}
+{"ts": 1781370772.975499, "op": "add_atom", "target": "PP-378_code_algopattern", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.9815, "op": "remove_atom", "target": "PP-364_pos_tagger", "note": "", "source": "manual"}
+{"ts": 1781370772.9866147, "op": "add_atom", "target": "PP-364_pos_tagger", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370772.9940243, "op": "remove_atom", "target": "PP-369_slot_filling", "note": "", "source": "manual"}
+{"ts": 1781370773.000022, "op": "add_atom", "target": "PP-369_slot_filling", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.0061522, "op": "remove_atom", "target": "PP-370_intent_classification", "note": "", "source": "manual"}
+{"ts": 1781370773.0111535, "op": "add_atom", "target": "PP-370_intent_classification", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.018152, "op": "remove_atom", "target": "PP-371_reasoning_routing", "note": "", "source": "manual"}
+{"ts": 1781370773.0228434, "op": "add_atom", "target": "PP-371_reasoning_routing", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.029843, "op": "remove_atom", "target": "PP-225_fact_recall_kb100K", "note": "", "source": "manual"}
+{"ts": 1781370773.0348434, "op": "add_atom", "target": "PP-225_fact_recall_kb100K", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.0410404, "op": "remove_atom", "target": "PP-367_unified_algebra_lang_math", "note": "", "source": "manual"}
+{"ts": 1781370773.046039, "op": "add_atom", "target": "PP-367_unified_algebra_lang_math", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.0520408, "op": "remove_atom", "target": "unified_compositional_engine", "note": "", "source": "manual"}
+{"ts": 1781370773.0576935, "op": "add_atom", "target": "unified_compositional_engine", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.0636935, "op": "remove_atom", "target": "CAP_fhrr_bind", "note": "", "source": "manual"}
+{"ts": 1781370773.0696955, "op": "add_atom", "target": "CAP_fhrr_bind", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.077114, "op": "remove_atom", "target": "CAP_fhrr_unbind", "note": "", "source": "manual"}
+{"ts": 1781370773.0831134, "op": "add_atom", "target": "CAP_fhrr_unbind", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.090282, "op": "remove_atom", "target": "CAP_superposition", "note": "", "source": "manual"}
+{"ts": 1781370773.095469, "op": "add_atom", "target": "CAP_superposition", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1036584, "op": "remove_atom", "target": "CAP_bundling", "note": "", "source": "manual"}
+{"ts": 1781370773.1089826, "op": "add_atom", "target": "CAP_bundling", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1154692, "op": "remove_atom", "target": "CAP_circular_convolution", "note": "", "source": "manual"}
+{"ts": 1781370773.1212468, "op": "add_atom", "target": "CAP_circular_convolution", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1276646, "op": "remove_atom", "target": "CAP_cleanup", "note": "", "source": "manual"}
+{"ts": 1781370773.1339364, "op": "add_atom", "target": "CAP_cleanup", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1394928, "op": "remove_atom", "target": "CAP_viterbi_decoding", "note": "", "source": "manual"}
+{"ts": 1781370773.1448941, "op": "add_atom", "target": "CAP_viterbi_decoding", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1508274, "op": "remove_atom", "target": "CAP_forward_algorithm", "note": "", "source": "manual"}
+{"ts": 1781370773.156172, "op": "add_atom", "target": "CAP_forward_algorithm", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1613154, "op": "remove_atom", "target": "CAP_backward_algorithm", "note": "", "source": "manual"}
+{"ts": 1781370773.1663196, "op": "add_atom", "target": "CAP_backward_algorithm", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.174304, "op": "remove_atom", "target": "CAP_em_algorithm", "note": "", "source": "manual"}
+{"ts": 1781370773.1802592, "op": "add_atom", "target": "CAP_em_algorithm", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1858687, "op": "remove_atom", "target": "CAP_bayesian_inference", "note": "", "source": "manual"}
+{"ts": 1781370773.1928713, "op": "add_atom", "target": "CAP_bayesian_inference", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.1992612, "op": "remove_atom", "target": "CAP_hungarian_assignment", "note": "", "source": "manual"}
+{"ts": 1781370773.204416, "op": "add_atom", "target": "CAP_hungarian_assignment", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.2109017, "op": "remove_atom", "target": "CAP_chu_liu_edmonds", "note": "", "source": "manual"}
+{"ts": 1781370773.2165318, "op": "add_atom", "target": "CAP_chu_liu_edmonds", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.222425, "op": "remove_atom", "target": "CAP_dynamic_programming", "note": "", "source": "manual"}
+{"ts": 1781370773.228106, "op": "add_atom", "target": "CAP_dynamic_programming", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.23411, "op": "remove_atom", "target": "CAP_discriminative_perceptron", "note": "", "source": "manual"}
+{"ts": 1781370773.2392843, "op": "add_atom", "target": "CAP_discriminative_perceptron", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.2456007, "op": "remove_atom", "target": "CAP_shannon_entropy", "note": "", "source": "manual"}
+{"ts": 1781370773.250945, "op": "add_atom", "target": "CAP_shannon_entropy", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.2581453, "op": "remove_atom", "target": "CAP_kl_divergence", "note": "", "source": "manual"}
+{"ts": 1781370773.2633996, "op": "add_atom", "target": "CAP_kl_divergence", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.2695105, "op": "remove_atom", "target": "CAP_probability_distribution", "note": "", "source": "manual"}
+{"ts": 1781370773.2749739, "op": "add_atom", "target": "CAP_probability_distribution", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.281895, "op": "remove_atom", "target": "LEX_constant_collection", "note": "", "source": "manual"}
+{"ts": 1781370773.2882729, "op": "add_atom", "target": "LEX_constant_collection", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.294234, "op": "remove_atom", "target": "LEX_constant_time", "note": "", "source": "manual"}
+{"ts": 1781370773.3002398, "op": "add_atom", "target": "LEX_constant_time", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.306239, "op": "remove_atom", "target": "LEX_constant_percent", "note": "", "source": "manual"}
+{"ts": 1781370773.3121874, "op": "add_atom", "target": "LEX_constant_percent", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3189235, "op": "remove_atom", "target": "LEX_constant_units_length", "note": "", "source": "manual"}
+{"ts": 1781370773.3244112, "op": "add_atom", "target": "LEX_constant_units_length", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3304238, "op": "remove_atom", "target": "LEX_constant_units_weight", "note": "", "source": "manual"}
+{"ts": 1781370773.3388276, "op": "add_atom", "target": "LEX_constant_units_weight", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3451462, "op": "remove_atom", "target": "LEX_constant_units_volume", "note": "", "source": "manual"}
+{"ts": 1781370773.3514926, "op": "add_atom", "target": "LEX_constant_units_volume", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3578174, "op": "remove_atom", "target": "LEX_constant_body_parts", "note": "", "source": "manual"}
+{"ts": 1781370773.363817, "op": "add_atom", "target": "LEX_constant_body_parts", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3698199, "op": "remove_atom", "target": "LEX_constant_money", "note": "", "source": "manual"}
+{"ts": 1781370773.3753426, "op": "add_atom", "target": "LEX_constant_money", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3812964, "op": "remove_atom", "target": "LEX_constant_geometry", "note": "", "source": "manual"}
+{"ts": 1781370773.386677, "op": "add_atom", "target": "LEX_constant_geometry", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.3932626, "op": "remove_atom", "target": "LEX_constant_calendar", "note": "", "source": "manual"}
+{"ts": 1781370773.3982005, "op": "add_atom", "target": "LEX_constant_calendar", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4041116, "op": "remove_atom", "target": "LEX_entity_person", "note": "", "source": "manual"}
+{"ts": 1781370773.4095757, "op": "add_atom", "target": "LEX_entity_person", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.415686, "op": "remove_atom", "target": "LEX_entity_org", "note": "", "source": "manual"}
+{"ts": 1781370773.421366, "op": "add_atom", "target": "LEX_entity_org", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4268665, "op": "remove_atom", "target": "LEX_entity_gpe", "note": "", "source": "manual"}
+{"ts": 1781370773.4328709, "op": "add_atom", "target": "LEX_entity_gpe", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4387505, "op": "remove_atom", "target": "LEX_entity_money", "note": "", "source": "manual"}
+{"ts": 1781370773.4441023, "op": "add_atom", "target": "LEX_entity_money", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4505773, "op": "remove_atom", "target": "LEX_entity_date", "note": "", "source": "manual"}
+{"ts": 1781370773.4555304, "op": "add_atom", "target": "LEX_entity_date", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4625793, "op": "remove_atom", "target": "LEX_entity_time", "note": "", "source": "manual"}
+{"ts": 1781370773.4695787, "op": "add_atom", "target": "LEX_entity_time", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4755878, "op": "remove_atom", "target": "LEX_entity_percent", "note": "", "source": "manual"}
+{"ts": 1781370773.4815784, "op": "add_atom", "target": "LEX_entity_percent", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.4871264, "op": "remove_atom", "target": "LEX_entity_quantity", "note": "", "source": "manual"}
+{"ts": 1781370773.4931293, "op": "add_atom", "target": "LEX_entity_quantity", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.499131, "op": "remove_atom", "target": "RETRIEVAL_multi_hop", "note": "", "source": "manual"}
+{"ts": 1781370773.504856, "op": "add_atom", "target": "RETRIEVAL_multi_hop", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5096598, "op": "remove_atom", "target": "RETRIEVAL_schema_pp372", "note": "", "source": "manual"}
+{"ts": 1781370773.5156558, "op": "add_atom", "target": "RETRIEVAL_schema_pp372", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5206578, "op": "remove_atom", "target": "RETRIEVAL_reasoning_routing_pp371", "note": "", "source": "manual"}
+{"ts": 1781370773.5261166, "op": "add_atom", "target": "RETRIEVAL_reasoning_routing_pp371", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.53115, "op": "remove_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "", "source": "manual"}
+{"ts": 1781370773.537117, "op": "add_atom", "target": "RETRIEVAL_kb_fact_extensions", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.542798, "op": "remove_atom", "target": "PP-364_NER", "note": "", "source": "manual"}
+{"ts": 1781370773.5477974, "op": "add_atom", "target": "PP-364_NER", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5538116, "op": "remove_atom", "target": "PP-multihop_revival", "note": "", "source": "manual"}
+{"ts": 1781370773.5603251, "op": "add_atom", "target": "PP-multihop_revival", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5653253, "op": "remove_atom", "target": "PP-cross_domain_analogy", "note": "", "source": "manual"}
+{"ts": 1781370773.5713243, "op": "add_atom", "target": "PP-cross_domain_analogy", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5778465, "op": "remove_atom", "target": "PP-374_MAWPS_math", "note": "", "source": "manual"}
+{"ts": 1781370773.5828462, "op": "add_atom", "target": "PP-374_MAWPS_math", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.5888464, "op": "remove_atom", "target": "PP-377_MultiArith_math", "note": "", "source": "manual"}
+{"ts": 1781370773.5948453, "op": "add_atom", "target": "PP-377_MultiArith_math", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6008458, "op": "remove_atom", "target": "PP-NORTH_STAR_2026-06-11", "note": "", "source": "manual"}
+{"ts": 1781370773.6061249, "op": "add_atom", "target": "PP-NORTH_STAR_2026-06-11", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6113293, "op": "remove_atom", "target": "PP-AG_news_text_class", "note": "", "source": "manual"}
+{"ts": 1781370773.6174972, "op": "add_atom", "target": "PP-AG_news_text_class", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.623335, "op": "remove_atom", "target": "PP-compositional_depth_retrieval", "note": "", "source": "manual"}
+{"ts": 1781370773.628684, "op": "add_atom", "target": "PP-compositional_depth_retrieval", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.633725, "op": "remove_atom", "target": "PP-217_path_A_LLM_enhancement", "note": "", "source": "manual"}
+{"ts": 1781370773.6401308, "op": "add_atom", "target": "PP-217_path_A_LLM_enhancement", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6458387, "op": "remove_atom", "target": "PP-372_schema_retrieval", "note": "", "source": "manual"}
+{"ts": 1781370773.6512876, "op": "add_atom", "target": "PP-372_schema_retrieval", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6564999, "op": "remove_atom", "target": "PP-LEX1_morphology", "note": "", "source": "manual"}
+{"ts": 1781370773.661885, "op": "add_atom", "target": "PP-LEX1_morphology", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6674285, "op": "remove_atom", "target": "PP-398_permutation_indexed_binding", "note": "", "source": "manual"}
+{"ts": 1781370773.6729002, "op": "add_atom", "target": "PP-398_permutation_indexed_binding", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6785812, "op": "remove_atom", "target": "PP-399_dep_parse", "note": "", "source": "manual"}
+{"ts": 1781370773.6840978, "op": "add_atom", "target": "PP-399_dep_parse", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.6892328, "op": "remove_atom", "target": "PP-400_chunking", "note": "", "source": "manual"}
+{"ts": 1781370773.6966562, "op": "add_atom", "target": "PP-400_chunking", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7014687, "op": "remove_atom", "target": "MWP/SCHEMA_COMBINE", "note": "", "source": "manual"}
+{"ts": 1781370773.7084703, "op": "add_atom", "target": "MWP/SCHEMA_COMBINE", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7149484, "op": "remove_atom", "target": "MWP/SCHEMA_CHANGE_ADD", "note": "", "source": "manual"}
+{"ts": 1781370773.720306, "op": "add_atom", "target": "MWP/SCHEMA_CHANGE_ADD", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.726117, "op": "remove_atom", "target": "MWP/SCHEMA_CHANGE_SUB", "note": "", "source": "manual"}
+{"ts": 1781370773.7322798, "op": "add_atom", "target": "MWP/SCHEMA_CHANGE_SUB", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7383435, "op": "remove_atom", "target": "MWP/SCHEMA_EQUAL_GROUPS", "note": "", "source": "manual"}
+{"ts": 1781370773.7437453, "op": "add_atom", "target": "MWP/SCHEMA_EQUAL_GROUPS", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.748171, "op": "remove_atom", "target": "MWP/SCHEMA_COMPARE", "note": "", "source": "manual"}
+{"ts": 1781370773.754169, "op": "add_atom", "target": "MWP/SCHEMA_COMPARE", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7597404, "op": "remove_atom", "target": "MWP/SCHEMA_SHARE", "note": "", "source": "manual"}
+{"ts": 1781370773.7649353, "op": "add_atom", "target": "MWP/SCHEMA_SHARE", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7693906, "op": "remove_atom", "target": "MWP/ROLE_ARG0_agent", "note": "", "source": "manual"}
+{"ts": 1781370773.7753654, "op": "add_atom", "target": "MWP/ROLE_ARG0_agent", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7796614, "op": "remove_atom", "target": "MWP/ROLE_ARG1_theme", "note": "", "source": "manual"}
+{"ts": 1781370773.7860963, "op": "add_atom", "target": "MWP/ROLE_ARG1_theme", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.7908802, "op": "remove_atom", "target": "MWP/ROLE_ARG2_recipient", "note": "", "source": "manual"}
+{"ts": 1781370773.796, "op": "add_atom", "target": "MWP/ROLE_ARG2_recipient", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.8019395, "op": "remove_atom", "target": "MWP/ROLE_ARGM_LOC_location", "note": "", "source": "manual"}
+{"ts": 1781370773.8077354, "op": "add_atom", "target": "MWP/ROLE_ARGM_LOC_location", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781370773.812188, "op": "remove_atom", "target": "MWP/ROLE_ARGM_TMP_time", "note": "", "source": "manual"}
+{"ts": 1781370773.818248, "op": "add_atom", "target": "MWP/ROLE_ARGM_TMP_time", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
