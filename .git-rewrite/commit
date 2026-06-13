@@ -1,0 +1,32 @@
+tree bff0d9bce8dce15a80d1453ed8bd1f96708bf99c
+parent 570dd51a80c0d2d8cc4908a48dd329aead2594d7
+author Marshall Cox <marshall.cox@gmail.com> 1779075148 -0400
+committer Marshall Cox <marshall.cox@gmail.com> 1779075148 -0400
+
+final result: combined config converges at 2.505 bpc over 15 epochs
+
+15-epoch run of the combined architecture (N=4096 + pointer-chain pool +
+multi-epoch + decay=1e-4) converged at 2.505 bits/char, with diminishing
+returns visible by epoch 10.
+
+Convergence trajectory:
+  epoch 1:  2.847 bpc (54.5% argmax accuracy)
+  epoch 3:  2.596 bpc (58.9%)
+  epoch 5:  2.544 bpc (59.6%)
+  epoch 7:  2.524 bpc (59.7%)
+  epoch 10: 2.512 bpc (60.1%)
+  epoch 12: 2.508 bpc (60.0%)
+  epoch 15: 2.505 bpc (60.3%)
+
+Gap to tiny transformer ceiling (2.39): 0.115 bits, down from 0.45 at the
+start of the session. ~75% of the gap closed by stacking three architectural
+improvements (substrate width, pointer-chain memory, multi-epoch with
+decay) that compound rather than just adding.
+
+Argmax accuracy improvement: 54.6% (baseline) -> 60.3% (final), confirming
+the signal-profile diagnosis was actionable and the multi-epoch+pool
+combination directly attacked the Stage B bottleneck.
+
+Updates handoff doc with final convergence curve.
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
