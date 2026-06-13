@@ -15,11 +15,16 @@ ROUTING: Research handoff ANCHOR 1 (knowledge-promotion operator) path P5 + MAST
   self-test-VERIFIED on a synthetic deep proof graph so it runs with zero latency once depth lands. Completes the full 5-path KP harness.
 
   ALGORITHM: for a sample of math GOALS, backward-chain (BFS) to the nearest axiom -> (terminal axiom, proof depth). An axiom is a T0
-  candidate iff it terminates >= MIN_PROOFS distinct goals whose (shortest) proof depth >= DEPTH_THRESHOLD (foundational to deep theory).
+  candidate at tier-D iff it terminates >= MIN_PROOFS distinct goals whose (shortest) proof depth >= D (foundational to deep theory).
 
-PRE-REGISTERED: HARD-PASS >= 3 T0 axiom-candidates (each terminating >= MIN_PROOFS=2 proofs of depth >= 10). MIDDLE 1-2. HARD-FAIL 0
-  candidates DESPITE deep proofs existing (no axiom anchors multiple deep chains). UNKNOWN if max observed proof depth < DEPTH_THRESHOLD
-  (GATED -- graph too shallow; current state). ASCII-only. CPU/local. --self-test + --smoke + metrics.json.
+  GRADUATED T0 (Research-endorsed 2026-06-13, notes/research_to_exp_dev_testbed_DEPTH_CEILING_3_STRUCTURAL_endorse_BOTH...): the binary
+  depth>=10 gate is replaced by tiers -- P5_v1 depth>=5 "moderately foundational" (reachable 1-2 cycles; books the 4th KP path),
+  P5_v2 depth>=7, P5_v3 depth>=10 "bedrock" (substrate-LLM categorical-gap maximizer). The cell evaluates all three tiers at once.
+
+PRE-REGISTERED (graduated): HARD-PASS >= 3 T0 candidates at depth>=10 (P5_v3 bedrock). MIDDLE_BAND >= 3 candidates at depth>=5
+  (P5_v1 booked -- a genuine 4th KP path) but < 3 at depth>=10. HARD-FAIL deep proofs (max depth >= 5) exist but < 3 candidates even at
+  depth>=5. UNKNOWN if max observed proof depth < 5 (GATED -- graph too shallow for even P5_v1; current state, pre BATCH-18). Each axiom
+  must anchor >= MIN_PROOFS=2 proofs. ASCII-only. CPU/local. --self-test + --smoke + metrics.json.
 """
 from __future__ import annotations
 import sys
@@ -38,7 +43,7 @@ RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 STRUCT_EDGES = {"DEPENDS_ON", "USES", "INSTANCE_OF", "SPECIALIZES", "DEFINED_OVER", "SHARES_MATH"}
 MATH_CORPORA = {"math", "science", "concept", "school", "meta"}
-DEPTH_THRESHOLD = 10; MIN_PROOFS = 2; N_GOALS = 60; MAX_DEPTH = 24; SEED = 1028
+TIERS = {"v1": 5, "v2": 7, "v3": 10}; GATE_DEPTH = 5; MIN_PROOFS = 2; N_GOALS = 60; MAX_DEPTH = 24; SEED = 1028
 
 
 def _norm(x):
@@ -62,21 +67,28 @@ def backward_chain(goal: str, adj, is_axiom, max_depth: int) -> Optional[List[Tu
     return None
 
 
-def t0_candidates(goals, adj, is_axiom, max_depth, depth_threshold, min_proofs):
-    """Return (candidates, max_depth_seen, n_proved). candidate = axiom terminating >=min_proofs deep(>=threshold) proofs."""
-    deep_by_axiom = defaultdict(list); max_seen = 0; n_proved = 0
+def proofs_by_axiom(goals, adj, is_axiom, max_depth):
+    """Return (axiom -> [(goal, depth), ...], max_depth_seen, n_proved). No threshold filter -- tiers applied downstream."""
+    by_ax = defaultdict(list); max_seen = 0; n_proved = 0
     for g in goals:
         w = backward_chain(g, adj, is_axiom, max_depth)
         if not w:
             continue
         n_proved += 1; d = len(w); max_seen = max(max_seen, d)
-        if d >= depth_threshold:
-            deep_by_axiom[w[-1][2]].append((g, d))
-    cands = [{"axiom": ax, "n_deep_proofs": len(gs), "depths": sorted(d for _, d in gs)[:8],
-              "example_goals": [g for g, _ in gs][:6]}
-             for ax, gs in deep_by_axiom.items() if len(gs) >= min_proofs]
+        by_ax[w[-1][2]].append((g, d))
+    return by_ax, max_seen, n_proved
+
+
+def candidates_at(by_ax, depth, min_proofs):
+    """T0 candidates at tier-depth: axioms anchoring >= min_proofs proofs of depth >= `depth`."""
+    cands = []
+    for ax, gs in by_ax.items():
+        deep = [(g, d) for (g, d) in gs if d >= depth]
+        if len(deep) >= min_proofs:
+            cands.append({"axiom": ax, "n_deep_proofs": len(deep), "depths": sorted(d for _, d in deep)[:8],
+                          "example_goals": [g for g, _ in deep][:6]})
     cands.sort(key=lambda c: -c["n_deep_proofs"])
-    return cands, max_seen, n_proved
+    return cands
 
 
 def _selftest():
@@ -89,14 +101,18 @@ def _selftest():
     axioms = {"AX"}
     isax = lambda n: n in axioms
     w = backward_chain("g", adj, isax, 24); assert w and len(w) == 11 and w[-1][2] == "AX", w
-    cands, mx, npv = t0_candidates(["g", "g2"], adj, isax, 24, 10, 2)
+    by_ax, mx, npv = proofs_by_axiom(["g", "g2"], adj, isax, 24)
     assert mx == 11 and npv == 2, (mx, npv)
-    assert len(cands) == 1 and cands[0]["axiom"] == "AX" and cands[0]["n_deep_proofs"] == 2, cands
-    # shallow-only graph -> gate (max_seen < threshold): h -> AX2 (depth 1)
+    # AX anchors 2 deep proofs at every tier up to depth 11
+    for D in (5, 7, 10):
+        c = candidates_at(by_ax, D, 2)
+        assert len(c) == 1 and c[0]["axiom"] == "AX" and c[0]["n_deep_proofs"] == 2, (D, c)
+    assert candidates_at(by_ax, 12, 2) == []                       # no proof deeper than 11
+    # shallow-only graph -> gate (max_seen < GATE_DEPTH): h -> AX2 (depth 1)
     adj2 = defaultdict(list); adj2["h"].append(("USES", "AX2"))
-    _, mx2, _ = t0_candidates(["h"], adj2, lambda n: n == "AX2", 24, 10, 2)
+    _, mx2, _ = proofs_by_axiom(["h"], adj2, lambda n: n == "AX2", 24)
     assert mx2 == 1, mx2
-    print("[selftest] PASS: substrate_knowledge_promotion_p5_curry_howard_type_promotion_cpu_v1 (deep-proof terminus + shallow-gate validated)", flush=True)
+    print("[selftest] PASS: substrate_knowledge_promotion_p5_curry_howard_type_promotion_cpu_v1 (graduated tiers + deep terminus + shallow-gate)", flush=True)
 
 
 _selftest()
@@ -131,40 +147,41 @@ def run() -> Dict:
         return {"error": "too_few_goals", "n_goal_pool": len(goal_pool)}
     rng = random.Random(SEED); rng.shuffle(goal_pool)
     goals = goal_pool[: (10 if RUN_MODE == "smoke" else N_GOALS)]
-    cands, max_seen, n_proved = t0_candidates(goals, adj, is_axiom, MAX_DEPTH, DEPTH_THRESHOLD, MIN_PROOFS)
-    print("  goals sampled=%d proved=%d | max proof depth seen=%d (need >=%d for P5) | T0 candidates=%d" % (
-        len(goals), n_proved, max_seen, DEPTH_THRESHOLD, len(cands)), flush=True)
-    for c in cands[:12]:
-        print("    T0-CANDIDATE %-30s anchors %d deep proofs depths=%s" % (c["axiom"], c["n_deep_proofs"], c["depths"]), flush=True)
-    if max_seen >= DEPTH_THRESHOLD:
+    by_ax, max_seen, n_proved = proofs_by_axiom(goals, adj, is_axiom, MAX_DEPTH)
+    tier_cands = {name: candidates_at(by_ax, D, MIN_PROOFS) for name, D in TIERS.items()}
+    n_by_tier = {name: len(c) for name, c in tier_cands.items()}
+    print("  goals sampled=%d proved=%d | max proof depth seen=%d | T0 candidates by tier: v1(>=5)=%d v2(>=7)=%d v3(>=10)=%d" % (
+        len(goals), n_proved, max_seen, n_by_tier["v1"], n_by_tier["v2"], n_by_tier["v3"]), flush=True)
+    for c in tier_cands["v1"][:12]:
+        print("    T0-CANDIDATE(v1>=5) %-28s anchors %d proofs depths=%s" % (c["axiom"], c["n_deep_proofs"], c["depths"]), flush=True)
+    if max_seen >= GATE_DEPTH:
         bf = root / "bench_reports"; bf.mkdir(parents=True, exist_ok=True)
         (bf / "kp_p5_curry_howard_t0_candidates.json").write_text(json.dumps(
-            {"candidates": cands, "depth_threshold": DEPTH_THRESHOLD, "min_proofs": MIN_PROOFS,
+            {"tier_candidates": tier_cands, "tiers": TIERS, "min_proofs": MIN_PROOFS,
              "max_depth_seen": max_seen, "n_goals": len(goals), "n_proved": n_proved}, indent=2), encoding="utf-8")
-    return {"n_goals": len(goals), "n_proved": n_proved, "max_depth_seen": max_seen, "n_candidates": len(cands),
-            "depth_threshold": DEPTH_THRESHOLD, "min_proofs": MIN_PROOFS, "candidates": cands[:20]}
+    return {"n_goals": len(goals), "n_proved": n_proved, "max_depth_seen": max_seen, "n_by_tier": n_by_tier,
+            "tiers": TIERS, "min_proofs": MIN_PROOFS, "candidates_v1": tier_cands["v1"][:20]}
 
 
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"] + " " + str(r.get("n_goal_pool", "")))
-    if r["max_depth_seen"] < r["depth_threshold"]:
-        return ("UNKNOWN", "UNKNOWN (GATED): max proof depth seen = %d < threshold %d -- the typed-derivation graph is too shallow for "
-                "Curry-Howard type promotion (no deep proofs to anchor foundational axioms). Cell is built + self-test-VERIFIED on a "
-                "synthetic depth-11 graph; runs for real once deeper DEPENDS_ON authoring lifts proof depth >= %d (Research BATCH 17+). "
-                "(n_proved=%d/%d goals; avg substrate depth ~1.3 today.)" % (
-                    r["max_depth_seen"], r["depth_threshold"], r["depth_threshold"], r["n_proved"], r["n_goals"]))
-    n = r["n_candidates"]
-    s = "P5: %d T0 axiom-candidates (each anchors >=%d proofs of depth>=%d); max depth seen=%d over %d/%d proved goals; saved bench_reports/kp_p5_curry_howard_t0_candidates.json (READ-ONLY -- Testbed creates T0 + re-tiers)" % (
-        n, r["min_proofs"], r["depth_threshold"], r["max_depth_seen"], r["n_proved"], r["n_goals"])
-    if n >= 3:
-        return ("HARD_PASS", "HARD_PASS: Curry-Howard type promotion identifies %d >= 3 T0 axiom-candidates -- foundational types anchoring multiple deep proof chains. A 4th/5th INDEPENDENT KP mechanism (proof-terminus depth-multiplicity). " % n + s)
-    if n >= 1:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: %d T0 candidate(s) (deep proofs exist but few axioms anchor >=%d of them). " % (n, r["min_proofs"]) + s)
-    return ("HARD_FAIL", "HARD_FAIL: deep proofs exist (max depth %d >= %d) but NO axiom anchors >=%d of them -- P5 inactive. " % (r["max_depth_seen"], r["depth_threshold"], r["min_proofs"]) + s)
+    if r["max_depth_seen"] < GATE_DEPTH:
+        return ("UNKNOWN", "UNKNOWN (GATED): max proof depth seen = %d < %d (even P5_v1) -- the typed-derivation graph is too shallow for "
+                "Curry-Howard type promotion. Cell is built + self-test-VERIFIED (graduated tiers, synthetic depth-11); runs for real once "
+                "deep-chain authoring (Research BATCH 18+) lifts proof depth >= 5. (n_proved=%d/%d goals; structural ceiling ~3 today.)" % (
+                    r["max_depth_seen"], GATE_DEPTH, r["n_proved"], r["n_goals"]))
+    nt = r["n_by_tier"]
+    s = "T0 candidates by tier v1(>=5)=%d v2(>=7)=%d v3(>=10)=%d (each anchors >=%d proofs); max depth seen=%d over %d/%d proved goals; saved bench_reports/kp_p5_curry_howard_t0_candidates.json (READ-ONLY -- Testbed creates T0 + re-tiers)" % (
+        nt["v1"], nt["v2"], nt["v3"], r["min_proofs"], r["max_depth_seen"], r["n_proved"], r["n_goals"])
+    if nt["v3"] >= 3:
+        return ("HARD_PASS", "HARD_PASS (P5_v3 BEDROCK): %d >= 3 T0 axiom-candidates at depth>=10 -- foundational types anchoring multiple BEDROCK-deep proof chains; substrate-LLM categorical-gap maximizer. A genuine 4th INDEPENDENT KP mechanism (proof-terminus depth-multiplicity). " % nt["v3"] + s)
+    if nt["v1"] >= 3:
+        return ("MIDDLE_BAND", "MIDDLE_BAND (P5_v1 BOOKED): %d >= 3 T0 axiom-candidates at depth>=5 (moderately foundational) -- books the 4th KP path per Research's graduated-T0 scheme; depth>=10 bedrock tier not yet reached (v3=%d). " % (nt["v1"], nt["v3"]) + s)
+    return ("HARD_FAIL", "HARD_FAIL: deep proofs exist (max depth %d >= %d) but < 3 axioms anchor >=%d of them even at depth>=5 -- P5 inactive despite sufficient depth. " % (r["max_depth_seen"], GATE_DEPTH, r["min_proofs"]) + s)
 
 
-print("[config] anchor=%s mode=%s depth_threshold=%d min_proofs=%d" % (ANCHOR_NAME, RUN_MODE, DEPTH_THRESHOLD, MIN_PROOFS), flush=True)
+print("[config] anchor=%s mode=%s tiers=%s gate_depth=%d min_proofs=%d" % (ANCHOR_NAME, RUN_MODE, TIERS, GATE_DEPTH, MIN_PROOFS), flush=True)
 out_dir = get_output_dir(ANCHOR_NAME); t0 = time.time(); r = run()
 v, vmsg = verdict(r); print("\n[VERDICT] " + vmsg, flush=True)
 metrics = {"anchor_name": ANCHOR_NAME, "verdict": v, "verdict_msg": vmsg, "summary": vmsg, "run_mode": RUN_MODE, "n_seeds": 1, "per_seed": [r], "elapsed_s": time.time() - t0}
