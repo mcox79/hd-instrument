@@ -87,7 +87,7 @@ def run() -> Dict:
     if not root.exists():
         return {"error": "no_substrate_index"}
     atoms = PartitionedStore(root).all_atoms()
-    tier_of = {_norm(a.id): str(getattr(a, "tier", "")) for a in atoms}
+    tier_of = {_norm(a.id): str(getattr(getattr(a, "tier", None), "value", getattr(a, "tier", "")) or "") for a in atoms}
     corpus_of = {_norm(a.id): str(getattr(getattr(a, "corpus", None), "value", getattr(a, "corpus", ""))).lower() for a in atoms}
     MATH_CORPORA = {"math", "science", "concept", "school", "meta"}  # structured (NOT *_history narrative)
     real_edges = set(); adj = defaultdict(list); has_out = set()
@@ -105,7 +105,7 @@ def run() -> Dict:
 
     def is_axiom(n: str) -> bool:
         # foundational: a T1 atom, or a leaf (no outgoing structural edge)
-        return tier_of.get(n, "").endswith("T1") or (n not in has_out)
+        return tier_of.get(n, "") == "T1" or (n not in has_out)
     # goals = non-axiom STRUCTURED-MATH atoms with outgoing edges (prove a math/science theorem, not a history note)
     goal_pool = [n for n in has_out if not is_axiom(n) and corpus_of.get(n, "") in MATH_CORPORA]
     rng = random.Random(SEED); rng.shuffle(goal_pool)
