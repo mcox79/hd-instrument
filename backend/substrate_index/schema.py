@@ -484,11 +484,16 @@ class QueryResult:
 
 
 def save_atoms(atoms: list[Atom], path: Path) -> None:
+    """Atomic write via temp + os.replace per Exp-Dev ATOM_WRITE_RACE finding
+    (recurring race causing JSONDecodeError at varying positions in concurrent
+    readers during ingest bursts; commit 56ff427e original fix + this re-apply)."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
         for a in atoms:
             f.write(json.dumps(a.to_dict(), ensure_ascii=False) + "\n")
+    os.replace(tmp, path)
 
 
 def load_atoms(path: Path) -> list[Atom]:

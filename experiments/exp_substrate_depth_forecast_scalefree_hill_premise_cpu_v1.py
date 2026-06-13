@@ -61,9 +61,9 @@ def longest_to_axiom(goal, adj, is_axiom, max_depth):
 
 
 def _selftest():
-    # power-law-ish degrees -> finite alpha in a sane range; uniform small -> large alpha
-    pl = [2]*50 + [3]*20 + [5]*8 + [10]*3 + [30]*1
-    a, n = hill_alpha(pl, 2); assert 1.2 < a < 3.5, a
+    # spread heavy tail -> finite alpha ~ Mathlib range; flat (all at x_min) -> inf alpha
+    pl = [2, 2, 3, 4, 6, 9, 15, 30, 80]
+    a, n = hill_alpha(pl, 2); assert 1.2 < a < 3.0, a
     flat = [2]*100; a2, _ = hill_alpha(flat, 2); assert a2 == float("inf") or a2 > 5, a2   # no tail spread
     # longest path
     adj = {"g": ["a"], "a": ["b"], "b": ["AX"]}; isax = lambda n: n == "AX"
