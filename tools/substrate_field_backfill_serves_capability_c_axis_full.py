@@ -34,6 +34,14 @@ import dataclasses
 
 # Each entry: (cap_qid, [gold_atom_qids]) for one C-Q
 BACKFILL_SPEC = {
+    # Q10: PP-225 fact recall
+    "concept::PP-225_fact_recall_kb100K": [
+        "math::T2/fhrr_bind",
+        "math::T2/fhrr_unbind",
+        "math::T2/cleanup",
+        "math::T2/sparse_distributed_memory",
+        "science::BIO/hippocampus",
+    ],
     # Q11: PP-376 multibench math
     "concept::PP-376_multibench_math": [
         "math::T3/structured_perceptron_collins",
