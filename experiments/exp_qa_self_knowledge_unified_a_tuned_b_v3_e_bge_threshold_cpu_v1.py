@@ -91,10 +91,21 @@ def route_A_tuned(atoms, args, top_k=TOP_K, threshold=SCORE_THRESHOLD):
     if not kws: return set()
 
     scored = []
+    max_name_alias_hits = 0
     for a in atoms:
         score, total_hits = _score_atom(a, kws)
+        if total_hits > max_name_alias_hits:
+            max_name_alias_hits = total_hits
         if score >= threshold:
             scored.append((score, total_hits, _norm(a.id)))
+
+    # Refuse heuristic: if no atom has substantive name+alias coverage of topic,
+    # the question likely has no canonical answer (refuse rather than over-fetch).
+    # Threshold: need at least max(1, ceil(n_kws/2)) topic-kws covered in some atom's name+aliases.
+    min_required_hits = max(1, (len(kws) + 1) // 2)
+    if max_name_alias_hits < min_required_hits:
+        return set()  # refuse
+
     scored.sort(key=lambda x: (-x[0], -x[1], x[2]))
     return set(aid for _, _, aid in scored[:top_k])
 
