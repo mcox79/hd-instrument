@@ -51,7 +51,7 @@ def _norm(x):
 
 
 def backward_chain(goal: str, adj, is_axiom, max_depth: int) -> Optional[List[Tuple[str, str, str]]]:
-    """BFS from goal over outgoing typed edges to the NEAREST axiom; returns the (shortest) proof witness or None."""
+    """BFS from goal over outgoing typed edges to the NEAREST axiom; returns the (shortest) proof witness or None. (Kept for the verify/soundness sense.)"""
     q = deque([(goal, [])]); seen = {goal}
     while q:
         node, path = q.popleft()
@@ -67,15 +67,32 @@ def backward_chain(goal: str, adj, is_axiom, max_depth: int) -> Optional[List[Tu
     return None
 
 
+def longest_to_axiom(goal: str, adj, is_axiom, max_depth: int) -> Tuple[int, Optional[str]]:
+    """LONGEST acyclic path from goal to an axiom -> (depth, terminal_axiom). Research-DECIDED P5 foundationality metric:
+       Curry-Howard 'derivability' = DEEPEST grounding through the type hierarchy, NOT the nearest-axiom shortcut. Cycle-safe DFS."""
+    best = [0, None]
+    def dfs(node, d, seen):
+        if d > 0 and is_axiom(node):
+            if d > best[0]:
+                best[0] = d; best[1] = node
+            return                                   # axioms are terminal -- do not extend past them
+        if d >= max_depth:
+            return
+        for (rt, nxt) in adj.get(node, ()):
+            if nxt not in seen:
+                dfs(nxt, d + 1, seen | {nxt})
+    dfs(goal, 0, {goal}); return best[0], best[1]
+
+
 def proofs_by_axiom(goals, adj, is_axiom, max_depth):
-    """Return (axiom -> [(goal, depth), ...], max_depth_seen, n_proved). No threshold filter -- tiers applied downstream."""
+    """Return (axiom -> [(goal, depth), ...], max_depth_seen, n_proved) using the LONGEST-path foundationality depth (Research decision)."""
     by_ax = defaultdict(list); max_seen = 0; n_proved = 0
     for g in goals:
-        w = backward_chain(g, adj, is_axiom, max_depth)
-        if not w:
+        d, terminal = longest_to_axiom(g, adj, is_axiom, max_depth)
+        if not terminal or d == 0:
             continue
-        n_proved += 1; d = len(w); max_seen = max(max_seen, d)
-        by_ax[w[-1][2]].append((g, d))
+        n_proved += 1; max_seen = max(max_seen, d)
+        by_ax[terminal].append((g, d))
     return by_ax, max_seen, n_proved
 
 
@@ -169,7 +186,7 @@ def verdict(r) -> Tuple[str, str]:
     if r["max_depth_seen"] < GATE_DEPTH:
         return ("UNKNOWN", "UNKNOWN (GATED): max proof depth seen = %d < %d (even P5_v1) -- the typed-derivation graph is too shallow for "
                 "Curry-Howard type promotion. Cell is built + self-test-VERIFIED (graduated tiers, synthetic depth-11); runs for real once "
-                "deep-chain authoring (Research BATCH 18+) lifts proof depth >= 5. (n_proved=%d/%d goals; structural ceiling ~3 today.)" % (
+                "deep-chain authoring (Research BATCH 19-26) lifts LONGEST-path proof depth >= 5. (n_proved=%d/%d goals; longest-path metric per Research decision; ceiling rose 3->4 post-BATCH-18.)" % (
                     r["max_depth_seen"], GATE_DEPTH, r["n_proved"], r["n_goals"]))
     nt = r["n_by_tier"]
     s = "T0 candidates by tier v1(>=5)=%d v2(>=7)=%d v3(>=10)=%d (each anchors >=%d proofs); max depth seen=%d over %d/%d proved goals; saved bench_reports/kp_p5_curry_howard_t0_candidates.json (READ-ONLY -- Testbed creates T0 + re-tiers)" % (
