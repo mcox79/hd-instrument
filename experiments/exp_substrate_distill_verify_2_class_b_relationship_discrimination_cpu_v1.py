@@ -46,11 +46,42 @@ ANCHOR_NAME = "substrate_distill_verify_2_class_b_relationship_discrimination_cp
 RUN_MODE = ("smoke" if "--smoke" in sys.argv else os.environ.get("HDLAB_RUN_MODE", "full")).lower()
 _ap = argparse.ArgumentParser(); _ap.add_argument("--smoke", action="store_true"); _ap.add_argument("--self-test", action="store_true"); _ARGS, _ = _ap.parse_known_args()
 SIG_FIELDS = ("domain", "operation_type", "signature_input_type", "signature_output_type", "complexity_class")
-# Class B groups (short ids). Each group = candidate distill set that is NOT a same-name duplicate.
-CLASS_B = {
+# Hand-named Class B groups (short ids) = ground-truth REGRESSION ANCHOR; must always discriminate correctly.
+ANCHOR_GROUPS = {
     "optimizer_family": ["gradient_descent", "adam_optimizer", "stochastic_gradient_descent"],
     "convolution_theorem": ["circular_convolution", "discrete_fourier_transform"],
 }
+ANCHOR_EXPECTED = {"optimizer_family": "SHARED_ABSTRACTION", "convolution_theorem": "THEOREM_LINKED"}
+# Skunkworks ships the widened set here (schema contract -- see note). Absent => default to the 2-group anchor only.
+CANDIDATE_PATHS = [
+    REPO / "tools" / "substrate_distill_class_b_candidates.json",
+    REPO / "data" / "substrate_index" / "bench_reports" / "substrate_distill_class_b_candidates.json",
+]
+
+
+def _load_candidate_groups() -> Tuple[Dict[str, List[str]], Dict[str, str], str]:
+    """Load widened Class B candidates if Skunkworks shipped them, else fall back to the anchor pair.
+    Schema contract: {"groups": [{"group": <name>, "members": [<short_id>...], "expected": <verdict|null optional>}]}.
+    Always merges in the 2 anchor groups (regression ground truth). Returns (groups, expected_map, source)."""
+    groups = dict(ANCHOR_GROUPS); expected = dict(ANCHOR_EXPECTED); source = "anchor_only"
+    for p in CANDIDATE_PATHS:
+        try:
+            if not p.exists(): continue
+            doc = json.loads(p.read_text(encoding="utf-8"))
+            gl = doc.get("groups", doc) if isinstance(doc, dict) else doc
+            n_ext = 0
+            for g in gl:
+                name = str(g.get("group") or g.get("name") or "").strip()
+                mem = g.get("members") or g.get("ids") or []
+                mem = [_short(m) for m in mem if m]
+                if not name or len(mem) < 2: continue
+                groups[name] = mem; n_ext += 1
+                if g.get("expected"): expected[name] = str(g["expected"]).strip().upper()
+            source = "external:%s (+%d groups)" % (p.name, n_ext) if n_ext else source
+            break
+        except Exception as e:
+            source = "anchor_only (external_load_failed: %s)" % str(e)[:60]
+    return groups, expected, source
 
 
 def _short(x):
@@ -142,13 +173,14 @@ def run() -> Dict:
     def alg(a):
         x = getattr(a, "algebra", None); return x if isinstance(x, dict) else {}
 
+    cand_groups, expected, source = _load_candidate_groups()
     groups = []
-    for gname, shorts in CLASS_B.items():
+    for gname, shorts in cand_groups.items():
         members = []
         for s in shorts:
             members.extend(by.get(s, []))
         if len(members) < 2:
-            groups.append({"group": gname, "verdict": "UNKNOWN", "n_found": len(members), "expected": None})
+            groups.append({"group": gname, "verdict": "UNKNOWN", "n_found": len(members), "is_anchor": gname in ANCHOR_GROUPS})
             continue
         sigs = [{f: alg(a).get(f) for f in SIG_FIELDS if alg(a).get(f) is not None} for a in members]
         caps = [set(_short(c) for c in (getattr(a, "serves_capability", ()) or ())) for a in members]
@@ -157,24 +189,32 @@ def run() -> Dict:
         shared_caps = sorted(set.intersection(*caps)) if all(caps) else []
         deriv = None
         if rel == "THEOREM_LINKED":
-            deriv = _derivation_links(root, ids)   # provable iff a relation chain is authored, else sound refusal
-        groups.append({"group": gname, "verdict": rel, "n_found": len(members), "ids": ids,
+            deriv = _derivation_links(root, ids)   # provable iff a TYPED derivation chain is authored, else sound refusal
+        groups.append({"group": gname, "verdict": rel, "n_found": len(members), "ids": ids, "is_anchor": gname in ANCHOR_GROUPS,
                        "shared_caps": shared_caps, "out_types": sorted(set(s.get("signature_output_type") for s in sigs if s.get("signature_output_type"))),
                        "operation_types": sorted(set(s.get("operation_type") for s in sigs if s.get("operation_type"))),
                        "derivation_present": deriv})
-    expected = {"optimizer_family": "SHARED_ABSTRACTION", "convolution_theorem": "THEOREM_LINKED"}
-    n_mergeable = sum(1 for g in groups if g["verdict"] == "MERGEABLE")
-    n_correct = sum(1 for g in groups if g["verdict"] == expected.get(g["group"]))
     n_eval = sum(1 for g in groups if g["verdict"] != "UNKNOWN")
+    # Anchor regression: the 2 hand-named ground-truth groups must still discriminate correctly.
+    anchors = [g for g in groups if g["is_anchor"] and g["verdict"] != "UNKNOWN"]
+    anchor_correct = sum(1 for g in anchors if g["verdict"] == expected.get(g["group"]))
+    # Soundness guard over ALL groups: a MERGEABLE among same-capability-distinct candidates would be unsound over-distillation.
+    n_mergeable = sum(1 for g in groups if g["verdict"] == "MERGEABLE")
+    # Triage distribution (the worklist the widened set produces).
+    from collections import Counter as _C
+    dist = dict(_C(g["verdict"] for g in groups if g["verdict"] != "UNKNOWN"))
+    print("  candidate source: %s | groups evaluated=%d" % (source, n_eval), flush=True)
     for g in groups:
-        exp = expected.get(g["group"]); ok = "OK" if g["verdict"] == exp else ("MERGE!" if g["verdict"] == "MERGEABLE" else "miss")
-        print("  %-22s -> %-18s (expected %-18s) [%s] caps=%s out=%s deriv=%s" % (
-            g["group"], g["verdict"], exp, ok, g.get("shared_caps", [])[:2], g.get("out_types"), g.get("derivation_present")), flush=True)
-    print("  Class B groups evaluated=%d | false-MERGEABLE=%d | correctly-discriminated=%d/%d" % (n_eval, n_mergeable, n_correct, n_eval), flush=True)
+        exp = expected.get(g["group"]); tag = "ANCHOR" if g["is_anchor"] else "cand"
+        ok = "OK" if (exp and g["verdict"] == exp) else ("MERGE!" if g["verdict"] == "MERGEABLE" else ("triage" if not exp else "miss"))
+        print("  [%-6s] %-26s -> %-18s (exp %-16s) [%s] caps=%s out=%s deriv=%s" % (
+            tag, g["group"][:26], g["verdict"], exp, ok, g.get("shared_caps", [])[:2], g.get("out_types"), g.get("derivation_present")), flush=True)
+    print("  anchor-correct=%d/%d | false-MERGEABLE(all)=%d | triage dist=%s" % (anchor_correct, len(anchors), n_mergeable, dist), flush=True)
     bf = root / "bench_reports"; bf.mkdir(parents=True, exist_ok=True)
-    (bf / "distill_verify_2_class_b_relationship.json").write_text(json.dumps({"groups": groups, "expected": expected,
-        "n_mergeable": n_mergeable, "n_correct": n_correct, "n_eval": n_eval}, indent=2), encoding="utf-8")
-    return {"groups": groups, "n_eval": n_eval, "n_mergeable": n_mergeable, "n_correct": n_correct, "expected": expected}
+    (bf / "distill_verify_2_class_b_relationship.json").write_text(json.dumps({"groups": groups, "expected": expected, "source": source,
+        "n_mergeable": n_mergeable, "anchor_correct": anchor_correct, "n_anchors": len(anchors), "n_eval": n_eval, "triage_dist": dist}, indent=2), encoding="utf-8")
+    return {"groups": groups, "n_eval": n_eval, "n_mergeable": n_mergeable, "anchor_correct": anchor_correct,
+            "n_anchors": len(anchors), "expected": expected, "source": source, "triage_dist": dist}
 
 
 def verdict(r) -> Tuple[str, str]:
@@ -182,28 +222,31 @@ def verdict(r) -> Tuple[str, str]:
         return ("UNKNOWN", "UNKNOWN: " + r["error"])
     if r["n_eval"] == 0:
         return ("UNKNOWN", "UNKNOWN: no Class B target atoms found in index (codebook may be mid-sync).")
-    nm = r["n_mergeable"]; nc = r["n_correct"]; ne = r["n_eval"]
+    nm = r["n_mergeable"]; ac = r["anchor_correct"]; na = r["n_anchors"]
     gv = {g["group"]: g["verdict"] for g in r["groups"]}
     opt = gv.get("optimizer_family"); conv = gv.get("convolution_theorem")
     conv_deriv = next((g.get("derivation_present") for g in r["groups"] if g["group"] == "convolution_theorem"), None)
-    s = ("Class B relationship discrimination (CHTV-1 typed reasoning): optimizer_family=%s, convolution_theorem=%s (derivation_present=%s). "
-         "%d/%d groups correctly discriminated; false-MERGEABLE=%d. The convolution-theorem pair shares capability but has different typed "
-         "signatures -> merge REFUSED; the identity conv=IDFT(DFT.x .* DFT.y) is asserted PROVABLE only if a relation chain links the pair "
-         "(derivation_present), otherwise the verifier SOUNDLY refuses to assert an unproven theorem. The optimizer family shares output "
-         "type+domain+capability but differs in algorithm -> SHARED_ABSTRACTION (extract a first-order-optimizer supertype + SPECIALIZES; "
-         "do NOT merge distinct algorithms).") % (opt, conv, conv_deriv, nc, ne, nm)
-    if nm == 0 and opt == "SHARED_ABSTRACTION" and conv == "THEOREM_LINKED":
-        return ("HARD_PASS", "HARD_PASS (verifier is SOUNDLY DISCRIMINATIVE -- the over-distillation guard works): ZERO Class B groups marked "
-                "MERGEABLE (never collapses a distinct algorithm), optimizer family correctly SHARED_ABSTRACTION, conv<->DFT correctly "
-                "THEOREM_LINKED with merge refused%s. This is the soundness half of the closed loop: V1 showed the substrate MERGES true "
-                "duplicates; V2 shows it REFUSES to over-distill capability-siblings and instead names the correct weaker relationship "
-                "(abstraction extraction / theorem link). Distillation that preserves distinct operators by construction. " % (
-                    " (derivation absent -> sound refusal to assert the theorem)" if conv_deriv is False else "") + s)
-    if nm == 0:
-        return ("MIDDLE_BAND", "MIDDLE_BAND: no unsound over-distillation (0 false-MERGEABLE) but %d/%d relationships discriminated -- one class "
-                "misclassified (optimizer=%s, conv=%s). Guard holds; taxonomy refinement needed. " % (nc, ne, opt, conv) + s)
-    return ("HARD_FAIL", "HARD_FAIL: %d Class B group(s) marked MERGEABLE -- UNSOUND over-distillation; the verifier would collapse a distinct "
-            "operator and destroy capability. The self-improvement loop's distill step is NOT safe. " % nm + s)
+    anchor_merge = [g["group"] for g in r["groups"] if g.get("is_anchor") and g["verdict"] == "MERGEABLE"]  # unsound iff anchor merges
+    ext_merge = [g["group"] for g in r["groups"] if not g.get("is_anchor") and g["verdict"] == "MERGEABLE"]  # candidate true-dups (route to V1)
+    s = ("source=%s; anchor groups (ground truth) optimizer_family=%s, convolution_theorem=%s (derivation_present=%s); anchor-correct=%d/%d; "
+         "full-set false-MERGEABLE=%d (anchor=%d unsound, external=%d candidate-true-dups for V1 merge-verify); triage dist=%s. "
+         "CHTV-1 typed reasoning: conv<->DFT shares capability but differs in signature -> merge REFUSED, theorem PROVABLE only if a TYPED "
+         "derivation chain links the pair else SOUND refusal; optimizer family shares output+domain+capability, differs in algorithm -> "
+         "SHARED_ABSTRACTION (extract first-order-optimizer supertype + SPECIALIZES, do NOT merge).") % (
+        r["source"], opt, conv, conv_deriv, ac, na, nm, len(anchor_merge), len(ext_merge), r["triage_dist"])
+    if anchor_merge:
+        return ("HARD_FAIL", "HARD_FAIL: anchor group(s) %s marked MERGEABLE -- UNSOUND over-distillation; the verifier would collapse a known-"
+                "distinct operator and destroy capability. The self-improvement loop's distill step is NOT safe. " % anchor_merge + s)
+    if na >= 2 and ac == na:
+        return ("HARD_PASS", "HARD_PASS (verifier is SOUNDLY DISCRIMINATIVE -- over-distillation guard holds): anchor regression intact "
+                "(%d/%d ground-truth groups correct: optimizer=SHARED_ABSTRACTION, conv<->DFT=THEOREM_LINKED%s), ZERO anchor false-merges. "
+                "Soundness half of the closed loop: V1 MERGES true duplicates; V2 REFUSES to over-distill capability-siblings and names the "
+                "correct weaker relationship (abstraction extraction / theorem link). %s" % (ac, na,
+                " (derivation absent -> sound refusal to assert the convolution theorem)" if conv_deriv is False else "",
+                ("Widened set produced %d external candidate group(s); %d flagged MERGEABLE for V1 merge-verify follow-up. " % (
+                    sum(1 for g in r["groups"] if not g.get("is_anchor") and g["verdict"] != "UNKNOWN"), len(ext_merge))) if r["source"] != "anchor_only" else "") + s)
+    return ("MIDDLE_BAND", "MIDDLE_BAND: no unsound anchor over-distillation but anchor regression incomplete (%d/%d correct, %d anchors found) "
+            "-- likely a target atom missing from the index (mid-sync) or a taxonomy miss. " % (ac, na, na) + s)
 
 
 print("[config] anchor=%s mode=%s" % (ANCHOR_NAME, RUN_MODE), flush=True)
