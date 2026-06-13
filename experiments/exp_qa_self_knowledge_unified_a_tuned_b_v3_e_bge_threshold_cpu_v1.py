@@ -299,7 +299,12 @@ if _ARGS.self_test:
 def run() -> Dict:
     from backend.substrate_index.partition import PartitionedStore
     from backend.substrate_index import self_knowledge as sk
-    bench_fp = REPO / "experiments" / "data" / "gap7_benchmark_v1.jsonl"
+    # Allow held-out / alternative benchmark via env var; default to canonical Q01-Q53.
+    # Per held-out routing note (commit 50124338 + USER Goodhart directive 2026-06-13).
+    _override = os.environ.get("HDLAB_QA_BENCH_PATH")
+    bench_fp = Path(_override) if _override else (REPO / "experiments" / "data" / "gap7_benchmark_v1.jsonl")
+    if _override:
+        print(f"[bench] HDLAB_QA_BENCH_PATH override: {bench_fp}", flush=True)
     try:
         raw = [json.loads(l) for l in open(bench_fp, encoding="utf-8") if l.strip()]
         bench = []
