@@ -20,41 +20,5 @@
 {"ts": 1781239227.5259619, "op": "add_atom", "target": "RULE_metric_matches_semantic", "note": "from meta_corpus_rule_metric_matches_semantic.jsonl", "source": "ingest_mixed"}
 {"ts": 1781239227.5294666, "op": "add_relation", "target": "RULE_metric_matches_semantic|RELATES|RULE_count_nb_to_discriminative_perceptron", "note": "", "source": "ingest_mixed"}
 {"ts": 1781239834.9716797, "op": "add_relation", "target": "RULE_metric_matches_semantic|INFLUENCED_BY|math::T2/cleanup", "note": "original_type=GROUNDS", "source": "ingest_mixed"}
-{"ts": 1781365962.5103428, "op": "add_relation", "target": "RULE_metric_matches_semantic|SHARES_MATH|science::CROSSDISC/dmn_to_self_knowing", "note": "BATCH 26 SHARES_MATH canonical authoring; group_6 dominant=cap", "source": "exp_dev_auto_discovery_ab2c2efe"}
-{"ts": 1781365962.5103428, "op": "add_relation", "target": "RULE_metric_matches_semantic|SHARES_MATH|science::NEURO/default_mode_network", "note": "BATCH 26 SHARES_MATH canonical authoring; group_6 dominant=cap", "source": "exp_dev_auto_discovery_ab2c2efe"}
-{"ts": 1781370773.8212512, "op": "remove_atom", "target": "RULE_count_nb_to_discriminative_perceptron", "note": "", "source": "manual"}
-{"ts": 1781370773.8252547, "op": "add_atom", "target": "RULE_count_nb_to_discriminative_perceptron", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8282511, "op": "remove_atom", "target": "rule_drill_defeatism", "note": "", "source": "manual"}
-{"ts": 1781370773.8322487, "op": "add_atom", "target": "rule_drill_defeatism", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8352478, "op": "remove_atom", "target": "rule_literature_not_oracle", "note": "", "source": "manual"}
-{"ts": 1781370773.839252, "op": "add_atom", "target": "rule_literature_not_oracle", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.842254, "op": "remove_atom", "target": "rule_honest_attribution", "note": "", "source": "manual"}
-{"ts": 1781370773.846262, "op": "add_atom", "target": "rule_honest_attribution", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8502572, "op": "remove_atom", "target": "rule_layer1_attribution_prot", "note": "", "source": "manual"}
-{"ts": 1781370773.8545146, "op": "add_atom", "target": "rule_layer1_attribution_prot", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8575141, "op": "remove_atom", "target": "rule_lift_gt_2se", "note": "", "source": "manual"}
-{"ts": 1781370773.860515, "op": "add_atom", "target": "rule_lift_gt_2se", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8645184, "op": "remove_atom", "target": "rule_benchmark_breaks_symmetry", "note": "", "source": "manual"}
-{"ts": 1781370773.868956, "op": "add_atom", "target": "rule_benchmark_breaks_symmetry", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8719714, "op": "remove_atom", "target": "rule_count_nb_to_discriminative_perceptron", "note": "", "source": "manual"}
-{"ts": 1781370773.8749719, "op": "add_atom", "target": "rule_count_nb_to_discriminative_perceptron", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.878972, "op": "remove_atom", "target": "RULE_two_stage_decomposition_beats_joint", "note": "", "source": "manual"}
-{"ts": 1781370773.8829725, "op": "add_atom", "target": "RULE_two_stage_decomposition_beats_joint", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8911011, "op": "remove_atom", "target": "RULE_cosine_cleanup_to_fhrr_unbind", "note": "", "source": "manual"}
-{"ts": 1781370773.8951015, "op": "add_atom", "target": "RULE_cosine_cleanup_to_fhrr_unbind", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.8981009, "op": "remove_atom", "target": "RULE_drill_defeatism", "note": "", "source": "manual"}
-{"ts": 1781370773.9021013, "op": "add_atom", "target": "RULE_drill_defeatism", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.9051008, "op": "remove_atom", "target": "RULE_brain_can_do_it", "note": "", "source": "manual"}
-{"ts": 1781370773.9092114, "op": "add_atom", "target": "RULE_brain_can_do_it", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.912095, "op": "remove_atom", "target": "RULE_literature_is_not_oracle", "note": "", "source": "manual"}
-{"ts": 1781370773.916095, "op": "add_atom", "target": "RULE_literature_is_not_oracle", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.9190955, "op": "remove_atom", "target": "RULE_substrate_quality_first", "note": "", "source": "manual"}
-{"ts": 1781370773.9230945, "op": "add_atom", "target": "RULE_substrate_quality_first", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.926095, "op": "remove_atom", "target": "RULE_us_or_substrate", "note": "", "source": "manual"}
-{"ts": 1781370773.9305372, "op": "add_atom", "target": "RULE_us_or_substrate", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.9335372, "op": "remove_atom", "target": "RULE_method_overclaim_lift_validation", "note": "", "source": "manual"}
-{"ts": 1781370773.9365373, "op": "add_atom", "target": "RULE_method_overclaim_lift_validation", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.9405377, "op": "remove_atom", "target": "RULE_substrate_extracted_rules_are_prior_not_oracle", "note": "", "source": "manual"}
-{"ts": 1781370773.944537, "op": "add_atom", "target": "RULE_substrate_extracted_rules_are_prior_not_oracle", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370773.9469647, "op": "remove_atom", "target": "RULE_metric_matches_semantic", "note": "", "source": "manual"}
-{"ts": 1781370773.9509652, "op": "add_atom", "target": "RULE_metric_matches_semantic", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
+{"ts": 1781313824.381816, "op": "update_atom", "target": "RULE_count_nb_to_discriminative_perceptron", "note": "backfilled serves_capability += concept::CAP_discriminative_perceptron", "source": "p0_2_field_backfill_c_axis_full"}
+{"ts": 1781313824.3940086, "op": "update_atom", "target": "RULE_cosine_cleanup_to_fhrr_unbind", "note": "backfilled serves_capability += concept::PP-372_schema_retrieval", "source": "p0_2_field_backfill_c_axis_full"}

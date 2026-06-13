@@ -2,11 +2,3 @@
 {"ts": 1781212727.7913284, "op": "add_atom", "target": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05", "note": "NOVEL-cluster validated by Research as multi-operation methodological content", "source": "methodology_corpus_ingest"}
 {"ts": 1781212727.8052063, "op": "add_atom", "target": "research_drill_8_channel_orchestration_architecture_2026-06-03", "note": "NOVEL-cluster validated by Research as multi-operation methodological content", "source": "methodology_corpus_ingest"}
 {"ts": 1781212727.8117352, "op": "add_atom", "target": "research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10", "note": "NOVEL-cluster validated by Research as multi-operation methodological content", "source": "methodology_corpus_ingest"}
-{"ts": 1781370774.0445044, "op": "remove_atom", "target": "research_drill_1bit_depth_verify_2x_2026-06-10", "note": "", "source": "manual"}
-{"ts": 1781370774.048844, "op": "add_atom", "target": "research_drill_1bit_depth_verify_2x_2026-06-10", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370774.050848, "op": "remove_atom", "target": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05", "note": "", "source": "manual"}
-{"ts": 1781370774.0548487, "op": "add_atom", "target": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370774.0568483, "op": "remove_atom", "target": "research_drill_8_channel_orchestration_architecture_2026-06-03", "note": "", "source": "manual"}
-{"ts": 1781370774.05991, "op": "add_atom", "target": "research_drill_8_channel_orchestration_architecture_2026-06-03", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
-{"ts": 1781370774.0619135, "op": "remove_atom", "target": "research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10", "note": "", "source": "manual"}
-{"ts": 1781370774.0669172, "op": "add_atom", "target": "research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10", "note": "13th methodology rule promotion; AAA-3 INTRINSIC heuristic backfill", "source": "substrate_load_bearing_backfill_v1"}
