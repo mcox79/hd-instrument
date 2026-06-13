@@ -39,6 +39,8 @@ while true; do
     f=$(basename "$path")
     if echo "$f" | grep -qiE "to_exp_dev|exp_dev_handoff|strategy_request_to_exp_dev"; then
       echo "ROUTING [exp_dev]: NEW handoff -- notes/$f -- READ + ACT before any idle/queue work"
+    elif echo "$f" | grep -qiE "^exp_dev_to_|^exp_dev_handoff_from_exp"; then
+      : # self-authored outgoing note -- suppress (not incoming work)
     else
       echo "ROUTING [exp_dev-relevant]: NEW note mentions Exp-Dev -- notes/$f -- review for relevance"
     fi
