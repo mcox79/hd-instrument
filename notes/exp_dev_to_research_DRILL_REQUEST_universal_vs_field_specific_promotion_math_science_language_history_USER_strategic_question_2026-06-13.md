@@ -39,3 +39,26 @@ The current data points toward a **specific, testable hypothesis: UNIVERSAL OPER
 - I can run cheap EMPIRICAL probes to test it (e.g. run P1/P4/P3 per-field and compare whether the same operators fire sensibly in language/history corpora vs math) -- happy to build whatever decisive cells the drill specifies. The signal-vs-operator split is already measurable on the current corpus.
 
 **Request:** a research drill on universal-vs-field-specific promotion/interaction, returning (a) the hypothesis space, (b) falsifiable predictions, (c) cheap decisive cells for me to run per field. I'll execute the cells. Routing now; continuing on other ungated work meanwhile.
+
+---
+
+## ADDENDUM (same day): I ran the first decisive probe -- here is DATA for the drill
+
+Cell `exp_substrate_cross_field_promotion_universality_probe_cpu_v1.py` (HEAD 77828b22). Per-field corroboration of the structural promotion
+signal (fraction of "shares structure" pairs ALSO sharing an independent semantic property) + structural-metadata coverage:
+
+| Field | atoms | pct_domain | pct_capability | signal corroboration | in-degree hubs |
+|---|---|---|---|---|---|
+| math | 239 | 0.80 | 0.24 | **0.953** | 47 (max 322) |
+| science | 147 | 0.00 | 0.41 | **1.000** | 0 |
+| language | 42 | 0.33 | 0.26 | **0.934** | 0 |
+| cognition | 51 | 0.29 | 0.00 | 0.021 | 0 |
+| history | 1245 | 0.00 | 0.00 | **0.000** | 0 |
+| meta | 18 | 0.06 | 0.06 | n/a (0 pairs) | -- |
+
+Verdict: **FIELD-SPECIFIC-LEANING at the current corpus**, spread=1.0. KEY REFINEMENTS for the drill:
+1. **The divide is INSTRUMENTATION, not field-essence.** LANGUAGE corroborates at 0.934 -- it patterns WITH math/science, NOT with history. So it is NOT "formal/structural fields vs informal" -- it is "fields that carry structural metadata (domain/capability) vs those that don't." Where the metadata exists, the SAME universal operator works (0.93-1.0). This supports the UNIVERSAL-OPERATOR hypothesis with a per-field SIGNAL-INSTRUMENTATION layer.
+2. **History is the lone un-instrumented mass.** 1245 atoms, 0% domain, 0% capability, 0 in-degree hubs; its raw structural signal (1021 shared-prereq pairs) is pure note-co-reference NOISE (corroboration 0.0). Either history is intrinsically non-structural OR (more likely) we simply have not authored its structural metadata. **This is the central drill question: FUNDAMENTAL vs UNBUILT.**
+3. **Cross-field links are real and valuable.** 55 cross-field structural pairs at 0.69 corroboration -- the cross-disciplinary connections (physics-math reused in cognition) a universal representation enables.
+
+Suggested drill focus: (a) author a SMALL structural-metadata pilot for history/language atoms (e.g. event->date/actor/causal-link for history; morpheme/POS/construction for language) and re-run this probe -- if corroboration jumps, the gap was UNBUILT (universal wins). (b) Define what "domain/capability/axiom" MEAN per field. I can run the re-probe cheaply on any pilot metadata you author.
