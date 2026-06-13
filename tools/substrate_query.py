@@ -35,6 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from backend.substrate_index.partition import PartitionedStore
+from backend.substrate_index.schema import RelationType
 from backend.substrate_index.self_knowledge import (
     corpus_summary,
     universal_levers,
@@ -47,6 +48,18 @@ from backend.substrate_index.self_knowledge import (
     which_solutions_use_atom,
     atom_contribution_log,
 )
+
+
+# Per research_to_testbed_exp_dev_L6_PROOF_PHASE_2_SPEC_UPDATE_generalized_6_edge_type_typing_context_*
+# Generalized typed-inference rules per CHTV-1 corpus depth finding (5 currently
+# implemented; SHARES_MATH pending RelationType enum extension).
+EDGE_TYPES_TYPED_INFERENCE = {
+    "DEPENDS_ON":  {"weight": 1.00, "rule": "sub_derivation_lemma_requirement", "rel": RelationType.DEPENDS_ON},
+    "USES":        {"weight": 0.90, "rule": "lemma_application_in_proof_term",   "rel": RelationType.USES},
+    "INSTANCE_OF": {"weight": 0.95, "rule": "type_class_instantiation",          "rel": RelationType.INSTANCE_OF},
+    "SPECIALIZES": {"weight": 0.95, "rule": "subtyping_refinement",              "rel": RelationType.SPECIALIZES},
+    "DEFINED_OVER":{"weight": 0.90, "rule": "parametric_type_binding",           "rel": RelationType.DEFINED_OVER},
+}
 
 DATA_ROOT = Path("data/substrate_index")
 
@@ -199,6 +212,131 @@ def cmd_atom_contributions(pstore, args):
         print(f"    - {c}")
 
 
+def _is_axiom(pstore, qualified_id, edge_types):
+    """Atom is an effective axiom if it has NO incoming edges of any typed inference rule
+    (terminal leaf in the proof tree). Per Research L6-PROOF spec.
+
+    Future extension: also check metadata.is_axiom flag if present.
+    """
+    for et_name in edge_types:
+        rel = EDGE_TYPES_TYPED_INFERENCE[et_name]["rel"]
+        try:
+            in_n = pstore.out_neighbors(qualified_id, rel)
+            if in_n:
+                return False
+        except Exception:
+            continue
+    return True
+
+
+def _prove_recursive(pstore, goal_qid, depth, max_depth, edge_types, visited):
+    """Backward-chain prove `goal_qid` over generalized typed-inference graph.
+
+    Returns dict with status in {PROVED_AXIOM, PROVED, UNPROVABLE_NO_AXIOM_CHAIN,
+    MAX_DEPTH_REACHED, CYCLE_DETECTED, GOAL_ATOM_NOT_IN_SUBSTRATE}.
+    """
+    if depth >= max_depth:
+        return {"goal": goal_qid, "status": "MAX_DEPTH_REACHED", "depth": depth, "proof_score": 0.0}
+    if goal_qid in visited:
+        return {"goal": goal_qid, "status": "CYCLE_DETECTED", "depth": depth, "proof_score": 0.0}
+    visited.add(goal_qid)
+
+    atom = pstore.get_atom(goal_qid)
+    if atom is None:
+        return {"goal": goal_qid, "status": "GOAL_ATOM_NOT_IN_SUBSTRATE", "depth": depth, "proof_score": 0.0}
+
+    if _is_axiom(pstore, goal_qid, edge_types):
+        return {"goal": goal_qid, "name": atom.name, "status": "PROVED_AXIOM", "depth": depth, "proof_score": 1.0}
+
+    # Walk incoming edges by each typed inference rule
+    sub_proofs = []
+    for et_name in edge_types:
+        spec = EDGE_TYPES_TYPED_INFERENCE[et_name]
+        try:
+            predecessors = pstore.out_neighbors(goal_qid, spec["rel"])
+        except Exception:
+            continue
+        for pred_qid in predecessors:
+            if pred_qid in visited:
+                continue
+            sub_result = _prove_recursive(pstore, pred_qid, depth + 1, max_depth,
+                                          edge_types, visited.copy())
+            if sub_result.get("status") in ("PROVED_AXIOM", "PROVED"):
+                sub_score = sub_result["proof_score"] * spec["weight"]
+                sub_proofs.append({
+                    "edge_type": et_name,
+                    "rule": spec["rule"],
+                    "predecessor": pred_qid,
+                    "subproof": sub_result,
+                    "proof_score": sub_score,
+                })
+
+    if not sub_proofs:
+        return {"goal": goal_qid, "name": atom.name, "status": "UNPROVABLE_NO_AXIOM_CHAIN",
+                "depth": depth, "proof_score": 0.0}
+
+    # NTP-style max-pooling: pick best subproof by proof_score
+    best = max(sub_proofs, key=lambda p: p["proof_score"])
+    return {
+        "goal": goal_qid,
+        "name": atom.name,
+        "status": "PROVED",
+        "depth": depth,
+        "best_proof": best,
+        "alternatives_count": len(sub_proofs) - 1,
+        "proof_score": best["proof_score"],
+    }
+
+
+def cmd_prove(pstore, args):
+    """L6-PROOF backward-chaining proof unfolder over generalized 6-edge-type typing context.
+
+    Per research_to_testbed_exp_dev_L6_PROOF_PHASE_2_SPEC_UPDATE_*:
+    DEPENDS_ON-only gives 0 depth-2 chains in current substrate; generalized 5-edge graph
+    (DEPENDS_ON + USES + INSTANCE_OF + SPECIALIZES + DEFINED_OVER) gives 2595 depth-2 chains.
+    SHARES_MATH pending RelationType enum extension.
+    """
+    if args.edge_types == "ALL":
+        edge_types = list(EDGE_TYPES_TYPED_INFERENCE.keys())
+    else:
+        edge_types = [e.strip() for e in args.edge_types.split(",") if e.strip()]
+        unknown = [e for e in edge_types if e not in EDGE_TYPES_TYPED_INFERENCE]
+        if unknown:
+            print(f"ERROR: unknown edge types: {unknown}")
+            print(f"  available: {list(EDGE_TYPES_TYPED_INFERENCE.keys())}")
+            sys.exit(2)
+
+    result = _prove_recursive(pstore, args.goal_atom, depth=0, max_depth=args.max_depth,
+                              edge_types=edge_types, visited=set())
+
+    if args.json:
+        print(json.dumps(result, indent=2, default=str))
+        return
+
+    print(f"\n=== L6-PROOF: {args.goal_atom} ===")
+    print(f"  status: {result['status']}")
+    if result["status"] == "GOAL_ATOM_NOT_IN_SUBSTRATE":
+        print(f"  goal atom not found in substrate")
+        return
+    print(f"  proof score: {result.get('proof_score', 0.0):.4f}")
+    print(f"  edge types used: {edge_types}")
+
+    if result["status"] in ("PROVED", "PROVED_AXIOM"):
+        # Render proof path
+        def render(node, indent=0):
+            pad = "  " * indent
+            status = node.get("status", "?")
+            name = node.get("name", node["goal"])
+            print(f"{pad}{status:25s}  {name}  (depth={node.get('depth', 0)}; score={node.get('proof_score', 0.0):.3f})")
+            best = node.get("best_proof")
+            if best:
+                print(f"{pad}  via {best['edge_type']} ({best['rule']}) <- {best['predecessor']}")
+                render(best["subproof"], indent + 1)
+        render(result)
+        if "alternatives_count" in result:
+            print(f"\n  alternative proof paths: {result['alternatives_count']}")
+
+
 def cmd_ask(pstore, args):
     """Free-form NL routing via simple keyword heuristics (Gap 4 stub)."""
     q = args.question.lower()
@@ -235,6 +373,7 @@ SUBCOMMANDS = {
     "what-do-you-know-about": cmd_what_do_you_know_about,
     "which-solutions-use": cmd_which_solutions_use,
     "atom-contributions": cmd_atom_contributions,
+    "prove": cmd_prove,
     "ask": cmd_ask,
 }
 
@@ -276,6 +415,12 @@ def main():
 
     p = sub.add_parser("atom-contributions", help="Aggregate lift contributions of an atom across capabilities (Gap 5)")
     p.add_argument("atom_qid", help="Qualified id, e.g. math::T2/cleanup")
+
+    p = sub.add_parser("prove", help="L6-PROOF backward-chaining proof over generalized 5-edge-type typing context")
+    p.add_argument("goal_atom", help="Qualified id of goal atom to prove, e.g. math::T1/cauchy_schwarz_inequality")
+    p.add_argument("--max-depth", type=int, default=5)
+    p.add_argument("--edge-types", default="ALL", help="Comma-separated list (DEPENDS_ON,USES,INSTANCE_OF,SPECIALIZES,DEFINED_OVER) or 'ALL'")
+    p.add_argument("--json", action="store_true", help="Output result as JSON")
 
     p = sub.add_parser("ask", help="Free-form NL question routed via heuristics (Gap 4 stub)")
     p.add_argument("question", help="Plain English question")
