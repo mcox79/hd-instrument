@@ -16,7 +16,7 @@ echo $$ > "$LOCK"
 trap 'rm -f "$LOCK"' EXIT
 mkdir -p data/events
 EV="data/events"
-SESSIONS="exp_dev research testbed orchestrator"
+SESSIONS="exp_dev research testbed orchestrator skunkworks"
 for s in $SESSIONS; do : >> "$EV/$s.log"; done
 mk="data/.event_bus_notes_marker"; [ -f "$mk" ] || touch -d '2 minutes ago' "$mk" 2>/dev/null
 last_gpr="init"; last_gpp=99; idle_gp=0; last_rcr="init"; last_lcr="init"
@@ -35,6 +35,8 @@ while true; do
     case "$f" in *to_research*|strategy_request_to_research_*) [ "$f" != "${f#research_to_}" ] || route research "ROUTING: notes/$f";; esac
     case "$f" in *to_testbed*) [ "$f" != "${f#testbed_to_}" ] || route testbed "ROUTING: notes/$f";; esac
     case "$f" in *to_all*|orchestrator_to_*|*_to_orchestrator_*) route orchestrator "ROUTING: notes/$f";; esac
+    case "$f" in *to_skunkworks*|skunkworks_handoff_*|strategy_request_to_skunkworks_*) [ "$f" != "${f#skunkworks_to_}" ] || route skunkworks "ROUTING: notes/$f -- READ+ACT";; esac
+    case "$f" in skunkworks_to_*) route research "ROUTING: notes/$f (from skunkworks)"; esac 2>/dev/null
   done <<< "$newf"
   touch "$mk" 2>/dev/null
 
