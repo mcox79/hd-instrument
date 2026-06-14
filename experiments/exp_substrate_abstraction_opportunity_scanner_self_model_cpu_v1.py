@@ -67,12 +67,17 @@ def analyze(ops: List[Tuple[str, str, str, str]]) -> Dict:
             retype_away.append({"domain": dom, "n_operators": len(leftover),
                                 "distinct_outputs": sorted(set(out for _, out, _ in leftover if out)),
                                 "members": [n for n, _, _ in leftover]})
-    # cross-domain shared output
-    by_out_global = defaultdict(set)
+    # cross-domain shared output (a CROSS_DOMAIN_ABSTRACTION candidate: same output type, >=2 domains, with member operators)
+    by_out_global = defaultdict(list)
     for name, dom, out, op in ops:
         if out and dom:
-            by_out_global[out].add(dom)
-    cross = [{"output_type": out, "domains": sorted(doms)} for out, doms in by_out_global.items() if len(doms) >= 2]
+            by_out_global[out].append((name, dom))
+    cross = []
+    for out, mem in by_out_global.items():
+        doms = sorted(set(d for _, d in mem))
+        if len(doms) >= 2:
+            cross.append({"output_type": out, "domains": doms, "n_members": len(mem),
+                          "members": sorted(n for n, _ in mem)})
     return {"realized": realized, "retype_away": retype_away, "cross_domain": cross}
 
 
@@ -138,8 +143,9 @@ def run() -> Dict:
         print("    [retype]   %-26s n=%d outputs=%s -> author shared supertype to unify %s" % (
             g["domain"], g["n_operators"], g["distinct_outputs"][:4], g["members"]), flush=True)
     print("  CROSS-DOMAIN shared-output links: %d" % n_cross, flush=True)
-    for c in sorted(a["cross_domain"], key=lambda x: -len(x["domains"])):
-        print("    [cross]    out=%-24s domains=%s" % (c["output_type"], c["domains"]), flush=True)
+    for c in sorted(a["cross_domain"], key=lambda x: (-len(x["domains"]), -x["n_members"])):
+        print("    [cross]    out=%-22s %ddom x %dops domains=%s members=%s" % (
+            c["output_type"], len(c["domains"]), c["n_members"], c["domains"], c["members"]), flush=True)
     bf = root / "bench_reports"
     try:
         bf.mkdir(parents=True, exist_ok=True)
