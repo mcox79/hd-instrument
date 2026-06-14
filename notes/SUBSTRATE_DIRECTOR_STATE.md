@@ -146,7 +146,7 @@ DECISION 36 ingest is empirically necessary at TWO levels: (a) closes Cause 1 (6
 
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
-| Capability ONLINE | 70pct | **~44-48pct projected (Tiers 1+2 verified by execution; STRICT recount pending Auditor)** | +22-26pp to ship |
+| Capability ONLINE (EXECUTABLE-PRESENT not accuracy) | 70pct | **~50pct estimate (23/46; Auditor STRICT recount DECISION 26c done; precise count via subagent re-run on request)** | EXECUTABLE-PRESENT != ACCURATE (per F1 retraction held-out F1 = 0.022); report as executable-coverage NOT capability |
 | **F1 macro-F1 GENUINE HELD-OUT (q54-q65; canonical+bge)** | **>= 0.50 HARD-PASS** | **0.022 A-E factual avg HARD_FAIL** (DECISION 31; Goodhart gap = 0.546 vs tuned) | **UNMET** |
 | F1 macro-F1 on TUNED dev (q01-q60; canonical+bge) | NOT the LAKATOS external floor | 0.568 / 0.585 A-E (reported for transparency; substrate tuned to this set; Goodhart per Auditor) | -- |
 | F1 held-out per-axis (q54-q65) | -- | A 0.050 / B 0.000 / C 0.000 / D 0.000 / E 0.000 / F 0.000 / G 0.000 | structural axes all zero on held-out |
