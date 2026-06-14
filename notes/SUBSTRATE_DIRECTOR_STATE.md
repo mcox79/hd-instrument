@@ -110,9 +110,9 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 > 1. Coverage gap (69pct held-out gold not ingested; correctable by ingest cycle; benchmark-design artifact)
 > 2. Refuse-discipline NOT generalizing (TUNED-set-specific; hallucinates 33pct on unknown topics; categorical soundness regression)
 > 3. Capability-transfer gap (IN-COVERAGE F1 0.029 even with gold present; mechanisms tuned to phrasing)
-> 4. bge confidence is INVERTED empirically (8 distribution-shape features all AUC < 0.5; substrate is MOST CONFIDENT exactly when it is MOST WRONG; coverage-gap hallucinators have HIGHER top-1 scores than present-gold paraphrases; M1 and M1b REJECTED by Prover; ANY confidence gate would be COUNTERPRODUCTIVE on held-out)
+> 4. bge confidence is INVERTED at the GATE-RELEVANT signal (top1 AUC = 0.434; mean5/mean20 < 0.5); the top score that any threshold reads is anti-correlated with correctness on held-out -- M1/M2 confidence-gating on bge cosine is dead. (M1c tempered M1b's "all 8 features inverted": at n=55, flatness/peak weakly favor in-coverage; NOT universally inverted as M1b claimed at n=13.)
 >
-> M4 (paraphrase-invariant retrieval) is the enabling precondition for any soundness fix to work. Necessity HARD-confirmed by elimination (M1 + all 8 M1b shape features exhausted).
+> M4 (paraphrase-invariant retrieval) is DIRECTIONALLY SUPPORTED on n=5 gap evidence; gap class is structurally n=5 (no coverage-gap exists in tuned set by construction); localization hypothesis currently UNTESTABLE. M4 case will become ROBUST after ingest cycle expands gap class. INGEST CYCLE is now precondition for both Cause 1 closure AND robust M4 evaluation.
 >
 > UNAFFECTED: Tier 1+2 production-verified on PUBLIC held-out (HMM 0.90 / perceptron 0.91 / NER 0.93 / bayes 0.95 / EM 1.0 / intent 0.91); 100pct axiom termination; F2 INDEPENDENT 0.19; first cross-domain L6-PROOF; first autonomous-discovery edge; 25 PROVABLY_EQUIVALENT integrations 0 false-merges; BGE cache infrastructure.
 >
