@@ -146,17 +146,18 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projecte
 - 2026-06-14 ~08:30: F2 INDEPENDENTLY VALIDATED floor 0.19 (LAKATOS strongest signature)
 - 2026-06-13 ~21:00: PROACTIVE_GAP_LOOP v0 BUILT end-to-end
 
-## ACK / CHANGES THIS TURN
+## ACK / CHANGES THIS TURN (latest first)
 
-- DECISION 23 Tier 1 INTEGRATION COMPLETE: Testbed shipped 3/3 with LIVE_QUERY_PASS in ~10 min (cefecf48 + 1249308d + 8930bdda); awaiting Skunkworks Auditor verification
-- HOW_TO_MONITOR_INBOX broadcast: persistent tail+grep method taught to all sessions (USER-flagged monitoring gap fix)
-- Second cross-session monitor armed for MILESTONE/HARD_PASS/HARD_FAIL/BLOCKER across all session logs
-- COMMUNICATION PROTOCOL section (prior turn)
-- Monitor `brm9l5ue6` armed (persistent; research.log filtered)
+- **F2 HONEST CORRECTION** per Skunkworks Auditor: cross-domain (~31pct) was OUTPUT-TYPE-ONLY (4 distinct operations per group); TENTATIVE not PROVEN. Strict/honest F2 REALIZED = 18.8pct (not 50pct). LAKATOS F2 floor STILL MET (>=5pct via strict). State board carries strict number; cross-domain tracked separately as TENTATIVE.
+- DECISION 24 GREENLIT Tier 2 batch + Exp-Dev PTB-scale tag_acc Prover task (non-blocking parallel)
+- AUDIT_PASS Tier 1 (3/3 by execution): HMM decoders + StructuredPerceptron + NER/SlotFiller; counts toward 70pct ONLINE; net 30 -> ~37-41pct projection
+- DECISION 23 Tier 1 INTEGRATION COMPLETE: Testbed shipped 3/3 with LIVE_QUERY_PASS in ~10 min (cefecf48 + 1249308d + 8930bdda)
+- HOW_TO_MONITOR_INBOX broadcast: persistent tail+grep method taught to all sessions
+- Cross-session monitor armed (now `bre7let60`; prior `bsd90u9zb` ended); plus research.log monitor `brm9l5ue6`
 - CONV-THEOREM COMPLETE milestone (first fully-assembled cross-domain L6-PROOF)
-- KP P3 Q4 = MIDDLE-BAND (bisim 0->1; AEP/typed-bisim deeper drill needed; deferred)
+- KP P3 Q4 = MIDDLE-BAND (bisim 0->1; AEP/typed-bisim deeper drill deferred)
 - F1 RUNNING on remote (BGE already installed; Exp-Dev launched canonical benchmark; result imminent)
-- 23 decisions cumulative; FROZEN at 23
+- 24 decisions cumulative; FROZEN at 24
 
 ---
 
