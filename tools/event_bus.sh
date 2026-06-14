@@ -34,7 +34,8 @@ while true; do
     case "$f" in *to_exp_dev*|exp_dev_handoff_*|strategy_request_to_exp_dev_*) [ "$f" != "${f#exp_dev_to_}" ] || route exp_dev "ROUTING: notes/$f -- READ+ACT";; esac
     case "$f" in *to_research*|strategy_request_to_research_*) [ "$f" != "${f#research_to_}" ] || route research "ROUTING: notes/$f";; esac
     case "$f" in *to_testbed*) [ "$f" != "${f#testbed_to_}" ] || route testbed "ROUTING: notes/$f";; esac
-    case "$f" in *to_all*|orchestrator_to_*|*_to_orchestrator_*) route orchestrator "ROUTING: notes/$f";; esac
+    case "$f" in *to_all*) for s in orchestrator exp_dev research testbed skunkworks; do route $s "BROADCAST: notes/$f"; done;; esac
+    case "$f" in orchestrator_to_*|*_to_orchestrator_*) route orchestrator "ROUTING: notes/$f";; esac
     case "$f" in *to_skunkworks*|skunkworks_handoff_*|strategy_request_to_skunkworks_*) [ "$f" != "${f#skunkworks_to_}" ] || route skunkworks "ROUTING: notes/$f -- READ+ACT";; esac
     case "$f" in skunkworks_to_*) route research "ROUTING: notes/$f (from skunkworks)"; esac 2>/dev/null
   done <<< "$newf"

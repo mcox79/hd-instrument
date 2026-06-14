@@ -10,17 +10,34 @@ $log = "$root/data/events/orchestrator.log"
 $now = (Get-Date).ToString('HH:mm:ss')
 $actions = @()
 
-# 1. Singleton producer (exactly one event_bus.sh)
+# 1. Singleton producer. The launcher cmd creates a parent wrapper + child loop (parent-child pair is normal).
+# A "producer family" = one root bash + its descendants matching event_bus.sh. Multiple families = drift.
 $producers = Get-CimInstance Win32_Process -Filter "Name='bash.exe'" |
     Where-Object { $_.CommandLine -like '*event_bus.sh*' }
 if ($producers.Count -eq 0) {
     $actions += "$now HEALTH: producer DEAD; not auto-restarting (needs Bash shell to re-launch via tools/event_bus_launch.cmd)"
-} elseif ($producers.Count -gt 1) {
-    $oldest = $producers | Sort-Object CreationDate | Select-Object -First 1
-    $extras = $producers | Where-Object { $_.ProcessId -ne $oldest.ProcessId }
-    foreach ($p in $extras) { Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue }
-    Set-Content -Path "$root/data/.event_bus.lock" -Value $oldest.ProcessId -NoNewline -ErrorAction SilentlyContinue
-    $actions += "$now HEALTH: killed $($extras.Count) duplicate producers; kept PID $($oldest.ProcessId); lock file fixed"
+} else {
+    # Group producers by their root ancestor: a producer is a "root" if its parent isn't also a producer.
+    $producerPids = @{}
+    foreach ($p in $producers) { $producerPids[$p.ProcessId] = $true }
+    $roots = $producers | Where-Object { -not $producerPids[$_.ParentProcessId] }
+    if ($roots.Count -gt 1) {
+        # Multiple families — keep the oldest root, kill the rest (and their descendants)
+        $keepRoot = $roots | Sort-Object CreationDate | Select-Object -First 1
+        $killRoots = $roots | Where-Object { $_.ProcessId -ne $keepRoot.ProcessId }
+        $killed = 0
+        foreach ($r in $killRoots) {
+            # Kill the root and any of its descendants in $producers
+            foreach ($p in $producers) {
+                if ($p.ProcessId -eq $r.ProcessId -or $p.ParentProcessId -eq $r.ProcessId) {
+                    Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue
+                    $killed++
+                }
+            }
+        }
+        Set-Content -Path "$root/data/.event_bus.lock" -Value $keepRoot.ProcessId -NoNewline -ErrorAction SilentlyContinue
+        $actions += "$now HEALTH: killed $killed duplicate-family producer processes; kept root PID $($keepRoot.ProcessId)"
+    }
 }
 
 # 2. Duplicate tails per session
