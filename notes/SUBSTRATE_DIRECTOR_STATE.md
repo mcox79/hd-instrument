@@ -123,15 +123,14 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 ## CURRENT PRIORITIES (top 5)
 
 ```
-1. Exp-Dev (Prover): DECISION 34a -- run M1 tau-gate WITH in-coverage protection falsifier             [Exp-Dev]
-   HARD-PASS: COVERAGE-GAP refuse-rate >=0.95 AND IN-COVERAGE F1 drops <=0.05
-2. Skunkworks (Auditor): STRICT ONLINE recount on Tier 1+2 verified modules (DECISION 26c; still queued) [Skunkworks]
-3. INGEST CYCLE start (USER call; addresses Cause 1; substrate gets more knowledge)                     [Testbed]
-4. M4-M6 capability-transfer architectural work (Cause 3; future cycle; not now)                        [future]
-5. F1 floor stays UNMET on genuine held-out; LAKATOS axis C 1 of 4 floors converted (F2 only)
+1. Testbed (Integrator): DECISION 36 INGEST CYCLE wikidata 10k scientific (~1-2 CPU hr)              [Testbed]
+2. Skunkworks (Auditor): DECISION 37 STRICT ONLINE recount on Tier 1+2 (parallel; cheap)             [Skunkworks]
+3. Exp-Dev (Prover): DECISION 38 post-ingest decisive test (pre-registered; H_M4 vs H_INGEST)        [Exp-Dev; gated]
+4. USER reads DECISION 38 result; decides M4 architectural investment if H_M4 confirmed
+5. M2 cleanup_margin feasibility check (gated on C2+CHTV cleanup ship)
 ```
 
-Cause 3 (capability-transfer) surfaced by DECISION 32 decomposition: IN-COVERAGE F1 0.029 even with gold present. Mechanisms tuned to qa_self_knowledge phrasing; don't generalize to held-out phrasing. M1 alone is insufficient; addresses Cause 2 (refuse) but not Cause 3.
+DECISION 36 ingest is empirically necessary at TWO levels: (a) closes Cause 1 (69pct coverage gap; substrate gets more knowledge); (b) enlarges gap class n=5 -> n=N so M4 necessity becomes ROBUSTLY testable. M1c tempered "M4 HARD-confirmed" -> "M4 DIRECTIONAL on n=5 evidence"; ingest is precondition for robust M4 evaluation.
 
 ## OPEN BLOCKERS
 
