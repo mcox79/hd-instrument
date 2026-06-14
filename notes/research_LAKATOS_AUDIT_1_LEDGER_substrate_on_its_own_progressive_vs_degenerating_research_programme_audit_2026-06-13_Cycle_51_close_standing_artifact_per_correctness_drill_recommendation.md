@@ -64,6 +64,7 @@ Substrate is PROGRESSIVE with HONEST open predictions, not PROGRESSIVE-with-hidd
 9. **fhrr inverse identity grounded** — fhrr_bind_unbind_dual INVERSE_PAIR + inverse_authored=True (bind/unbind dual identity grounded via authored DUAL edge). Predicted by V2.1 INVERSE_PAIR architecture; observed today evening.
 10. **F2 abstraction-ratio measurable** — skunkworks built substrate_abstraction_ratio_v0.py; REALIZED 0% / POTENTIAL 5.6%. F2 floor measurable + confirmed UNMET as predicted. Observed today evening.
 11. **Skunkworks measurement suite COMPLETE** — hygiene-ratio + abstraction-ratio + no-regression gate all OPERATIONAL on real data. Predicted by 5-step closed-loop spec; observed today evening.
+12. **Testbed PIVOT to 14 mathematical foundation type-atoms** — substrate type-graph terminator STRUCTURE visible for first time. 14 NEW composite type-atoms: vector_space_over_field, inner_product_space, measurable_space, linear_operator, bilinear_form, continuous_map, self_adjoint_operator_type, random_variable_type, measure_preserving_map, group_action_type, normed_vector_space, sigma_algebra_type, smooth_manifold_type, lie_group_type. Predicted by 21st rule (substrate-type-graph-terminates-in-atoms); 1st structural empirical witness observed today evening per Testbed commits 4aeea4c2 + 89e19db1.
 
 ### Axis B: honest revisions (not ad hoc rescues)
 
@@ -77,6 +78,9 @@ Substrate is PROGRESSIVE with HONEST open predictions, not PROGRESSIVE-with-hidd
 8. **22 UNDECIDABLE refused merges** — substrate refuses what it cannot prove (not ad hoc).
 9. **Skunkworks F1-F4 axis C floor correcting Research's own LAKATOS-AUDIT-1 ledger** — 3rd 19th-rule witness; axis C honest revision to PROGRESSIVE-WITH-OPEN-PREDICTIONS.
 10. **Skunkworks F2 abstraction-ratio self-corrected 5.6% → 0%** — 4th 19th-rule witness; compression-vs-relation distinction adopted (SHARED_ABSTRACTION = compression; THEOREM_LINKED + INVERSE_PAIR = proven relations not compression).
+11. **Skunkworks typing-gap triage tool self-correction** — 5th 19th-rule witness; spurious related_atom matches caught + discarded; honest 12-base type-atoms worklist delivered instead.
+12. **Testbed self-critique of own 6 cross-domain L6-PROOF chains** — 6th 19th-rule witness; chains were "MOSTLY ACCUMULATION not distillation" per 10th + 11th + 20th rule application; PIVOT to 14 mathematical foundation type-atoms shipped. SUBSTANTIVE honest revision (not ad hoc rescue). 5-session lane split for adversarial-self-correction discipline EMPIRICALLY VALIDATED today.
+13. **v53 positioning DRAFT claim 30 DOWNGRADE per 10th rule** — Testbed requested "substrate unifies 10 mathematical domains" claim downgrade from positioning narrative to internal tracking note (unverifiable per 10th rule). Honest framing; ADOPTED.
 
 These are EMPIRICAL HONEST REVISIONS, not ad hoc rescues. Each preserved substrate-product positioning honesty against premature claims.
 
