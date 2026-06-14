@@ -53,17 +53,26 @@
       "members": [
         "forward_algorithm",
         "backward_algorithm",
-        "viterbi_decoder",
-        "hmm_transition",
-        "hmm_emission"
-      ]
+        "hmm_transition"
+      ],
+      "expected": "SHARED_ABSTRACTION"
     },
     {
-      "group": "sequence_decoding",
+      "group": "sequence_decoding_same_domain",
       "members": [
         "beam_search",
         "viterbi_decoder",
-        "astar"
+        "viterbi_decoding"
+      ],
+      "expected": "SHARED_ABSTRACTION"
+    },
+    {
+      "group": "sequence_decoding_cross_domain",
+      "members": [
+        "beam_search",
+        "viterbi_decoder",
+        "astar",
+        "dijkstra"
       ]
     }
   ],
