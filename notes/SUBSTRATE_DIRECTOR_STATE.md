@@ -106,21 +106,24 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 
 ```
 1. F1 canonical+bge rerun RUNNING on remote (NOTIFIED via monitor when lands)        [Exp-Dev]
-2. Skunkworks: integration RANKING per DECISION 20 (rank 32 stranded)                [Skunkworks]
-3. Skunkworks: T2_FAM per-tag 18th-rule audit per DECISION 21                        [Skunkworks]
-4. Skunkworks: NESS Crooks-ratio test on existing 46-pair ledger per DECISION 16    [Skunkworks]
-5. Testbed: standby for integration RANKING ratification (Integrator hat)            [Testbed]
+2. Testbed (Integrator): ship Tier 1 batch per DECISION 23                           [Testbed]
+   - Item 1: HMM decoders (viterbi + forward + backward) -> backend/substrate_index
+   - Item 2: discriminative_perceptron -> hdlab (parallel with 1)
+   - Item 3: NER + slot-filling -> backend (after 1)
+3. Skunkworks (Auditor): verify each Tier 1 integration (works-online + no-regression) [Skunkworks]
+4. Skunkworks: T2_FAM per-tag 18th-rule audit per DECISION 21                        [Skunkworks]
+5. Skunkworks: NESS Crooks-ratio test on existing 46-pair ledger per DECISION 16    [Skunkworks]
 ```
 
-KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) — dispatch this cycle.
+KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) — dispatch when bandwidth permits (lower priority than F1 + integration push).
 
 ## OPEN BLOCKERS
 
 | Item | Blocker | Owner |
 |---|---|---|
 | F1 final number | running on remote (BGE already installed); imminent | -- |
-| Integration push | Skunkworks ranking | Skunkworks |
-| P3 archetype criterion (final) | deeper drill (AEP / typed-bisim) | Research |
+| Integration push Tier 1 | Testbed ship + Auditor verify | Testbed + Skunkworks |
+| P3 archetype criterion (final) | deeper drill (AEP / typed-bisim) | Research (deferred) |
 | F2 CROSS_DOMAIN tightening | Skunkworks PROVEN vs TENTATIVE split | Skunkworks |
 | B' v2 ship | F1 + F3 sequencing | -- (queued) |
 
