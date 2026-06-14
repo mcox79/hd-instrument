@@ -7,7 +7,9 @@
 
 ## THE ONE OBJECTIVE
 
-> **Drive substrate to 70pct capability ONLINE (from 30pct) with measured F1 >= 0.50 on canonical held-out, while maintaining 100pct axiom termination + capability_preservation = 1.0.**
+> **Drive substrate to 70pct capability ONLINE (from 30pct) with measured F1 >= 0.50 on canonical held-out, while maintaining 100pct axiom termination + capability_preservation = 1.0 AND refuse-discipline robust to unknown topics (REFUSE-RATE >= 0.95 on COVERAGE-GAP held-out).**
+
+(refuse-discipline robustness added per DECISION 32 sharpening: substrate-product claim "refuses what it cannot prove / 0 false-accepts / no hallucination" must HOLD on unknown topics, not just tuned set; failure to refuse on unknown topics is a SOUNDNESS regression that undermines categorical positioning)
 
 ## ROLE ASSIGNMENTS
 
@@ -102,18 +104,22 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 
 ---
 
+## SUBSTRATE-PRODUCT POSITIONING (Auditor-endorsed canonical headline)
+
+> "Strong on INGESTED knowledge (tuned ~0.57); capability on genuine held-out UNMET (F1 0.022, coverage-bound); and -- the priority gap -- refuse-discipline does NOT generalize (hallucinates on unknown topics), so the soundness claim is tuned-set-specific not robust. Integration + axiom-termination + provable-equivalence + production-verified Tier 1+2 modules stand."
+
 ## CURRENT PRIORITIES (top 5)
 
 ```
-1. Exp-Dev: F1 lean batched scorer (DECISION 25; Option B) -- BLOCKER unblock     [Exp-Dev]
-2. Exp-Dev (Prover, parallel): Tier 2 production-scale validation (DECISION 26b)  [Exp-Dev]
-3. Skunkworks (Auditor): STRICT RECOUNT after Tier 2 validation (DECISION 26c)    [Skunkworks]
-4. Skunkworks NESS Crooks-ratio test (DECISION 16) = UNRUNNABLE on current ledger (no per-pair credence values; refuse to fabricate; 18th rule on own audit); Option (b) DROPPED for now; Option (a) instrumentation deferred as future-work-if-needed; SOUNDNESS_DRIFT_TEST remains operative safety floor
-5. Future Prover cell: T2_FAM per-family L6-PROOF provability check (DECISION 21 = INCONCLUSIVE; T2_FAM is real hierarchical taxonomy; do NOT refuse) -- deferred behind F1+integration  [Exp-Dev future]
+1. Exp-Dev (Prover): DECISION 32 decompose held-out into IN-COVERAGE + COVERAGE-GAP; report two numbers   [Exp-Dev]
+2. Exp-Dev (Prover): DECISION 33 refuse-discipline generalization work M1 confidence calibration         [Exp-Dev]
+3. Re-run DECISION 32 after DECISION 33 lands; HARD-PASS REFUSE-RATE >=0.95 on COVERAGE-GAP              [Exp-Dev]
+4. Skunkworks (Auditor): STRICT ONLINE recount on Tier 1+2 verified modules (DECISION 26c; still queued) [Skunkworks]
+5. INGEST CYCLE start (USER call; needed AFTER refuse-discipline lands; close coverage gap)              [Testbed]
 ```
 
-PAUSE further Tier 3 integration wiring (DECISION 26; consolidate before expand). Tier 3 stays DEFERRED unless USER explicitly wants specific capabilities online.
-ONLINE counter 30pct -> projection ~44-48pct (cumulative Tiers 1+2 verified by execution); STRICT recount pending Auditor.
+Refuse-discipline > ingest in priority (refuse-failure is SOUNDNESS regression that undermines categorical claim; coverage is correctable artifact).
+PAUSE further Tier 3 integration wiring (DECISION 26). ONLINE counter pending STRICT recount.
 KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## OPEN BLOCKERS
