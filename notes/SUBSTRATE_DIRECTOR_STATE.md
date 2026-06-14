@@ -106,16 +106,15 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 
 ```
 1. F1 canonical+bge rerun RUNNING on remote (NOTIFIED via monitor when lands)        [Exp-Dev]
-2. Testbed (Integrator): ship Tier 1 batch per DECISION 23                           [Testbed]
-   - Item 1: HMM decoders (viterbi + forward + backward) -> backend/substrate_index
-   - Item 2: discriminative_perceptron -> hdlab (parallel with 1)
-   - Item 3: NER + slot-filling -> backend (after 1)
-3. Skunkworks (Auditor): verify each Tier 1 integration (works-online + no-regression) [Skunkworks]
-4. Skunkworks: T2_FAM per-tag 18th-rule audit per DECISION 21                        [Skunkworks]
-5. Skunkworks: NESS Crooks-ratio test on existing 46-pair ledger per DECISION 16    [Skunkworks]
+2. Testbed (Integrator): ship Tier 2 batch per DECISION 24                           [Testbed]
+   - Item 4: bayesian_inference + em_algorithm -> hdlab/ (parallel)
+   - Item 5: intent / text classification -> backend/substrate_index/intent_router  (parallel)
+3. Skunkworks (Auditor): verify each Tier 2 integration when shipped                 [Skunkworks]
+4. Exp-Dev (Prover, non-blocking parallel): PTB-scale tag_acc on Tier 1 modules     [Exp-Dev]
+5. Skunkworks: T2_FAM per-tag 18th-rule + NESS Crooks ratio (per DECISIONS 21+16)    [Skunkworks]
 ```
 
-KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) â€” dispatch when bandwidth permits (lower priority than F1 + integration push).
+KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projected ~37-41pct after Tier 1 verified (3/3 AUDIT_PASS).
 
 ## OPEN BLOCKERS
 
@@ -131,7 +130,7 @@ KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) â€
 
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
-| Capability ONLINE | 70pct | 30pct (14/46) | +40pp to ship |
+| Capability ONLINE | 70pct | **~37-41pct (Tier 1 verified +3-5 caps; recount pending Auditor)** | +30-33pp to ship |
 | F1 macro-F1 (canonical) | >= 0.50 | RUNNING on remote (number imminent) | TBD |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
