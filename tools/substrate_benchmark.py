@@ -195,6 +195,13 @@ def _algebra_query(pstore: PartitionedStore, text: str, top_k: int = 8) -> tuple
     return ordered, float(best.max())
 
 
+# DECISION 35a (2026-06-14): light bge confidence floor. M1 tau-sweep on held-out showed
+# tau=0.70 is the IN-COVERAGE F1 PEAK (0.128, 1.7x ungated) -- a light floor removes
+# low-confidence FP noise. Shipped as a CAPABILITY helper, NOT a soundness fix: at 0.70 the
+# coverage-gap refuse-rate is only 0.167 (refuse-discipline soundness needs M4, separate work).
+BGE_CONFIDENCE_FLOOR = 0.70
+
+
 def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
     """Type A content-level: UNION strategy (Research Cycle 50+ architectural answer).
 
@@ -219,6 +226,8 @@ def answer_type_A_union(pstore: PartitionedStore, q: dict) -> set[str]:
         return _atoms_matching_topic(pstore, keywords)
 
     bge_cands = retr.semantic(q["question"], top_k=5)
+    # DECISION 35a light confidence floor: drop candidates below tau=0.70 (FP-noise removal).
+    bge_cands = [c for c in bge_cands if float(getattr(c, "score", 1.0)) >= BGE_CONFIDENCE_FLOOR]
     bge_preds = []
     for c in bge_cands:
         qid = _BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id
