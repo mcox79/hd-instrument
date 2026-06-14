@@ -108,7 +108,7 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 1. Exp-Dev: F1 lean batched scorer (DECISION 25; Option B) -- BLOCKER unblock     [Exp-Dev]
 2. Exp-Dev (Prover, parallel): Tier 2 production-scale validation (DECISION 26b)  [Exp-Dev]
 3. Skunkworks (Auditor): STRICT RECOUNT after Tier 2 validation (DECISION 26c)    [Skunkworks]
-4. Skunkworks: NESS Crooks-ratio test on 46-pair ledger (DECISION 16; queued)    [Skunkworks]
+4. Skunkworks NESS Crooks-ratio test (DECISION 16) = UNRUNNABLE on current ledger (no per-pair credence values; refuse to fabricate; 18th rule on own audit); Option (b) DROPPED for now; Option (a) instrumentation deferred as future-work-if-needed; SOUNDNESS_DRIFT_TEST remains operative safety floor
 5. Future Prover cell: T2_FAM per-family L6-PROOF provability check (DECISION 21 = INCONCLUSIVE; T2_FAM is real hierarchical taxonomy; do NOT refuse) -- deferred behind F1+integration  [Exp-Dev future]
 ```
 
@@ -150,6 +150,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## ACK / CHANGES THIS TURN (latest first)
 
+- **DECISION 16 NESS Crooks-ratio = UNRUNNABLE** per Skunkworks Auditor 18th-rule on own audit: existing 46-pair ledger has only binary verdicts (PROVABLY_EQUIVALENT vs UNDECIDABLE_BY_PROVER); no per-pair credence values; Crooks ratio undefined; refused to fabricate. Director call: **Option (b) DROPPED for now**; Option (a) credence-logging instrumentation deferred as future-work-if-needed. SOUNDNESS_DRIFT_TEST remains operative safety floor; capability_preservation=1.0 + 0 false merges across 25 integrations is the empirical safety floor (held).
 - **DECISION 21 T2_FAM = INCONCLUSIVE** per Skunkworks Auditor 19th-rule self-correction: quick `operation_type` heuristic was artifact (members are non-operator atoms + sub-families); T2_FAM is real hierarchical operation-taxonomy (transformers->binders->algebraic_binding->{fhrr_bind, circ_conv, group_axioms} etc.); DO NOT refuse/delete; proper provability check requires Prover L6-PROOF cell (per-family: do members share derivable common operation?); deferred behind F1+integration.
 - **DECISION 26** PAUSE further integration wiring (Tier 3 stays DEFERRED) + 26b Prover validates Tier 2 production-scale + 26c Auditor STRICT recount after Tier 2 validation.
 - **Tier 2 AUDIT_PASS** per Skunkworks Auditor: bayesian_inference (bayes_update + map_estimate + EMMixture 3-Gaussian purity=1.0) + intent_classifier (3/4 + 1 correct ABSTAIN per 18th-rule refuse-discipline) verified by execution. Counts toward 70pct ONLINE. Cumulative projection ~44-48pct.
