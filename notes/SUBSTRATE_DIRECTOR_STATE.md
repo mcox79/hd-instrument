@@ -2,109 +2,157 @@
 
 **Director:** Research (assumed per USER mandate 2026-06-14)
 **Stable path:** `d:\AI\hd-instrument\notes\SUBSTRATE_DIRECTOR_STATE.md`
+**Last updated:** 2026-06-14 ~09:10
 **Update cadence:** every state change that affects objective / roles / blockers; NOT for narration
-**Last updated:** 2026-06-14 ~09:00
 
 ## THE ONE OBJECTIVE
 
 > **Drive substrate to 70pct capability ONLINE (from 30pct) with measured F1 >= 0.50 on canonical held-out, while maintaining 100pct axiom termination + capability_preservation = 1.0.**
-
-Concrete + measurable + matches USER's strategic question ("are they all online?") + preserves safety invariants. ONE sentence.
-
-### Why this is THE objective (not a list of objectives)
-
-USER's 4 goals collapse here:
-- Goal 1 (substrate-on-all-knowledge): requires F1 >= 0.50 to validate capability
-- Goal 2 (recursive self-improvement): operational; preserve invariants while integrating
-- Goal 3 (architecturally distinct): the integration push surfaces substrate as substrate, not as a pile of experiments
-- Goal 4 (store/understand/improve): all three present; integration is "store" closing on "improve"
-
-Substrate-product positioning collapses here too: integration push answers "is substrate alive at user-touchable surface" yes-or-no.
 
 ## ROLE ASSIGNMENTS
 
 | Role | Owner | Owns |
 |---|---|---|
 | **DIRECTOR** | Research | objective + priorities + the call + this state board |
-| **INTEGRATOR** | Testbed | wire demonstrated capabilities into backend/ + hdlab/ (30pct -> 70pct ONLINE) |
+| **INTEGRATOR** | Testbed | wire stranded capabilities into backend/ + hdlab/ (30pct -> 70pct ONLINE) |
 | **FOUNDATION** | Testbed | atom corpus + grounding + self-model + deepen math (logic/set-theory beneath algebra) |
 | **PROVER** | Exp-Dev | new demos + verification + falsifier measurement, THROTTLED to Director's priority list |
 | **AUDITOR** | Skunkworks | adversarial checks + measurement honesty + falsification floor; LEAN; no volume |
 
-### What's RETIRED / folded into Director
+Retired into Director + light tooling: strategy, product, visibility, queue-health, meta-audit, verdict-handler.
 
-Strategy / product / visibility / queue-health / meta-audit / verdict-handler -- folded into Director (me) + light tooling. No separate lanes for these.
+---
 
-### Note: Testbed has 2 hats (Integrator + Foundation)
+## COMMUNICATION PROTOCOL (canonical; effective immediately)
 
-Both lanes use the same atomic-ingest discipline; they compose. Testbed sequences them per priority list.
+### MONITORING METHOD
 
-## CURRENT PRIORITIES (top 5; replaces the writeback storm)
+**Inbound channel.** All cross-session events route through `tools/event_bus.sh` (single producer; PID `1650183`; alive since 2026-06-13 20:41) into `data/events/<session>.log`. Director consumes:
 
 ```
-1. USER decision: BGE install on runner desktop                     (THE F1 unblocker; nothing in Goal 1 moves until this)
-2. Skunkworks: integration RANKING per DECISION 20                  (rank 32 stranded; top-15 + bottom-15 + middle)
-3. Testbed: INTEGRATOR phase 1 -- wire HIGH-value RANKED stranded   (when ranking lands; my pick + USER signoff)
-4. Exp-Dev: KP P3-v2 Q4 verdict (within-family bridges in)          (criterion verdict; A vs B)
-5. Skunkworks: T2_FAM per-tag 18th rule audit                       (grounding precision)
+tail -n0 -F data/events/research.log | grep --line-buffered -E "<filter>"
 ```
 
-Everything else either: (a) gated behind one of the 5 above; (b) retired ceremony; (c) Auditor housekeeping.
+**Active monitor.** Persistent Monitor armed this turn (`task brm9l5ue6`); filter:
+```
+ROUTING | BROADCAST | INTEGRATION_RANKING | Q4 | F1_FINAL | F1_RESULT | MILESTONE | HARD_PASS | HARD_FAIL | BLOCKER
+```
+
+Director is NOTIFIED IN-CHAT the instant an event matching the filter lands. No polling. No sweep-by-mtime.
+
+**Backup sweep.** If monitor dies (timeout / restart), Director performs manual inbox sweep every 30 min via:
+```
+ls -lat notes/*_to_research_*.md notes/*_to_all_*.md | head -10
+```
+
+### TIMING
+
+| Event type | Director response window |
+|---|---|
+| Monitor-fired notification (ROUTING/BROADCAST/Q4/F1/MILESTONE/etc.) | within 1 cycle of arrival (~immediately on read) |
+| BLOCKER-tagged event | within 1 cycle; ship decision or escalate to USER |
+| HARD_FAIL verdict | within 1 cycle; dispatch 2x drill if negative finding warrants |
+| Routine state update (no decision needed) | acknowledge in DIRECTOR_STATE; no routing note |
+| USER message | always immediate |
+
+### DIRECTOR TIMER (prod-to-action)
+
+**Primary.** `/loop 15m` already firing per session memory (standing duties: inbox sweep + heartbeat + commit + dispatch if anchor list thin). This is the regular prod.
+
+**Backup.** If `/loop` not firing or session restarts, Director arms `ScheduleWakeup` (15-30 min cadence) at end of each cycle. Sentinel prompt re-enters the standing duties.
+
+**Director self-check (every cycle):**
+1. Has monitor fired since last cycle? If yes -> respond to events.
+2. Has 30+ min passed without monitor event? If yes -> manual inbox sweep (backup).
+3. Are top-5 priorities still current? If no -> update SUBSTRATE_DIRECTOR_STATE.md.
+4. Any BLOCKER unresolved >2 cycles? If yes -> escalate (decision or USER ask).
+5. Heartbeat write + commit at cycle close.
+
+### OUTBOUND PROTOCOL
+
+**Decisions.** When Director ships a decision: ONE routing note targeted to affected sessions (not _to_all_). Format:
+
+```
+notes/research_to_<recipient>_<topic>_<date>.md
+```
+
+Each routing note contains: DECISION # + spec + falsifier + reservations + cross-references.
+
+**State updates.** SUBSTRATE_DIRECTOR_STATE.md is the canonical state board. Updated on:
+- New objective / role change
+- Priority shift (top-5 changes)
+- Blocker added or resolved
+- Cycle close (heartbeat refresh)
+
+**NO narration notes.** No status pings ("standing"), no recap notes, no per-task acknowledgments. ACK-and-move-on inline; ship decisions only.
+
+**Methodology rules FROZEN at 22.** No new rules without USER approval.
+
+**`_to_all_` broadcast use:** ONLY for role-structure changes, USER-LOCKED rules, infrastructure migrations. Last broadcast: 2026-06-14 09:00 (Director role assumed).
+
+### CADENCE SUMMARY
+
+```
+Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR silent ACK
+   |
+   +-> ~every 15 min /loop prods Director self-check
+   |
+   +-> backup mtime sweep every 30 min if monitor silent
+```
+
+---
+
+## CURRENT PRIORITIES (top 5)
+
+```
+1. F1 canonical+bge rerun RUNNING on remote (NOTIFIED via monitor when lands)        [Exp-Dev]
+2. Skunkworks: integration RANKING per DECISION 20 (rank 32 stranded)                [Skunkworks]
+3. Skunkworks: T2_FAM per-tag 18th-rule audit per DECISION 21                        [Skunkworks]
+4. Skunkworks: NESS Crooks-ratio test on existing 46-pair ledger per DECISION 16    [Skunkworks]
+5. Testbed: standby for integration RANKING ratification (Integrator hat)            [Testbed]
+```
+
+KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) — dispatch this cycle.
 
 ## OPEN BLOCKERS
 
 | Item | Blocker | Owner |
 |---|---|---|
-| F1 final number | BGE install on runner desktop | **USER (decision)** |
+| F1 final number | running on remote (BGE already installed); imminent | -- |
 | Integration push | Skunkworks ranking | Skunkworks |
-| KP P3 verdict | Exp-Dev re-run with within-family bridges | Exp-Dev |
+| P3 archetype criterion (final) | deeper drill (AEP / typed-bisim) | Research |
 | F2 CROSS_DOMAIN tightening | Skunkworks PROVEN vs TENTATIVE split | Skunkworks |
-| B' v2 ship | F1 + F3 sequencing (gated on BGE install) | -- |
-
-## STANDING DUTIES (lean)
-
-- **Director (me):** read inbox each cycle; ship decision OR remain silent. NO narration notes. Update this file when state changes.
-- **Integrator (Testbed):** ship integration batches per priority; report ratio ONLINE/STRANDED after each.
-- **Foundation (Testbed):** keep 100pct axiom termination + grounding precision >= 0.95; light backfill only when adjacent to integration work.
-- **Prover (Exp-Dev):** measure ONLY what's on Director priority list; standby otherwise.
-- **Auditor (Skunkworks):** adversarial checks + falsification + LEAN notes. ONE summary per cycle max.
-
-## COMMS DISCIPLINE (USER directive via Skunkworks)
-
-- Notes ONLY for handoffs + blockers, NOT narration
-- ONE source of truth (this file)
-- Methodology rules FROZEN at 22 -- no new rules without USER approval
-- 5-session architecture stays (Research / Testbed / Exp-Dev / Skunkworks / Orchestrator); ROLES collapsed per above
-- Cadence: objective -> execute -> ONE sync per significant state change
+| B' v2 ship | F1 + F3 sequencing | -- (queued) |
 
 ## OBJECTIVE PROGRESS
 
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
-| Capability ONLINE | 70pct | 30pct (14/46) | +40 percentage points to ship |
-| F1 macro-F1 (canonical) | >= 0.50 | 0.0067 (degraded scorer; substrate-side sound) | BGE install -> H1 expected 0.20-0.45 -> +tau-gate +H2 cleanup needed for 0.50 |
-| Axiom termination | 100pct | 100pct (193/193) | INVARIANT (preserved) |
-| Capability_preservation | 1.0 | 1.0 | INVARIANT (Tier 1 claim 7; preserved across 25 integrations) |
-| Grounding precision | >= 0.95 | 0.951 | MET (preserve) |
-| F2 floor INDEPENDENT | >= 0.15 | 0.19 | MET (Lakatos strongest signature) |
+| Capability ONLINE | 70pct | 30pct (14/46) | +40pp to ship |
+| F1 macro-F1 (canonical) | >= 0.50 | RUNNING on remote (number imminent) | TBD |
+| Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
+| Capability_preservation | 1.0 | 1.0 | INVARIANT |
+| Grounding precision | >= 0.95 | 0.951 | MET |
+| F2 floor INDEPENDENT | >= 0.15 | 0.19 | MET |
+| Cross-domain L6-PROOF COMPLETE | >= 1 | 1 (conv-theorem; first ever) | MET |
 
-## ACK / CHANGES this turn
+## RECENT MILESTONES
 
-- USER mandate ACCEPTED: Research is Director. Effective immediately.
-- 22 cumulative decisions logged; FROZEN at 22 (no new methodology rules without USER)
-- 4 ceremonial cycles RETIRED (strategy / product / visibility / queue-health / meta-audit / verdict-handler folded into Director)
-- THIS FILE is the single source of truth. Routing notes for handoffs + blockers only.
-- USER's strategic question ("are all demonstrated capabilities online?") -- ANSWERED: 30pct online; integration push is now THE priority direction
+- 2026-06-14 ~09:05: First fully-assembled cross-domain L6-PROOF (convolution_theorem_synthesis COMPLETE; VSA binding <-> signal processing)
+- 2026-06-14 ~08:30: 100pct axiom termination (193/193 typed operators)
+- 2026-06-14 ~08:25: First autonomous-discovery edge (gradient -> derivative; PROACTIVE_GAP_LOOP)
+- 2026-06-14 ~08:30: F2 INDEPENDENTLY VALIDATED floor 0.19 (LAKATOS strongest signature)
+- 2026-06-13 ~21:00: PROACTIVE_GAP_LOOP v0 BUILT end-to-end
 
-## CROSS-REFERENCES (canonical artifacts; not narration)
+## ACK / CHANGES THIS TURN
 
-- Skunkworks integration audit ledger: `notes/skunkworks_to_research_INTEGRATION_AUDIT_LEDGER_*`
-- Tau formula module: commit `a5e6d181`
-- 100pct axiom termination: commit `ab805418`
-- First autonomous-discovery edge (gradient -> derivative): commit history this session
-- B' v2 draft: commit `59931e1d` (held for F1+F3)
-- 22 decisions: commit history this session (decisions logged in routing notes)
+- COMMUNICATION PROTOCOL section added (monitoring method + timing + timer + outbound discipline)
+- Monitor `brm9l5ue6` armed (persistent; research.log filtered)
+- CONV-THEOREM COMPLETE milestone (first fully-assembled cross-domain L6-PROOF)
+- KP P3 Q4 = MIDDLE-BAND (bisim 0->1; AEP/typed-bisim deeper drill needed)
+- F1 RUNNING on remote (BGE already installed; Exp-Dev launched canonical benchmark)
+- 22 decisions cumulative; FROZEN at 22
 
 ---
 
-**This file is the single source of truth. All other notes are handoffs + blockers + concrete deliverables. USER mandate accepted; Director role assumed.**
+**This file is the single source of truth. All other notes are handoffs + blockers + concrete deliverables.**
