@@ -37,72 +37,32 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 # Wikidata P-IDs we recognize as "instance-of"-like predicates
 INSTANCE_OF_PIDS = {"P31", "P279", "P361"}  # instance_of, subclass_of, part_of
 
-# Expanded Wikidata Q-IDs classifying subjects as math/science.
-# Source: hand-curated from Wikidata top-level math + science categories.
+# Wikidata Q-IDs classifying subjects as math/science.
+# REFRESHED 2026-06-14 (DECISION 45 step 1): the prior hand-curated list was 84pct STALE
+# (validated via Action API wbgetentities: Q12483 'theorem' -> 'statistics', Q161205 'field' ->
+# 'Safavid dynasty', Q43287 'logic' -> 'German Empire', etc.). Replaced with current valid IDs
+# DISCOVERED via wbsearchentities + haswbstatement instance-count confirmation
+# (tools/wikidata_qclass_discovery_v1.py). Each ID below confirmed to yield >=20 real instances.
 MATH_QCLASS_IDS = {
-    "Q11862829",  # mathematical object
-    "Q12483",     # theorem
-    "Q121594",    # mathematical statement (axiom/lemma/proposition)
-    "Q4373292",   # mathematical theorem
-    "Q839863",    # mathematical formula
-    "Q12482",     # axiom
-    "Q179467",    # function (mathematics)
-    "Q11567",     # number
-    "Q12503",     # integer
-    "Q44559",     # variable (mathematics)
-    "Q5862903",   # mathematical operation
-    "Q1369832",   # mathematical structure
-    "Q190556",    # mathematical proof
-    "Q190099",    # equation
-    "Q11473",     # graph (mathematics)
-    "Q44424",     # algorithm
-    "Q4485003",   # mathematical concept
-    "Q1379457",   # mathematical notation
-    "Q11862829",  # mathematical object (dup)
-    "Q11023",     # vector space
-    "Q188524",    # group (mathematics)
-    "Q161205",    # field (mathematics)
-    "Q161228",    # ring (mathematics)
-    "Q190008",    # category (mathematics)
-    "Q170978",    # topological space
-    "Q207936",    # set (mathematics)
-    "Q207342",    # measure (mathematics)
-    "Q207316",    # metric space
-    "Q207223",    # probability space
-    "Q11471",     # mathematical formula / math constant
-    "Q186290",    # matrix (math)
-    "Q133250",    # linear algebra
-    "Q41217",     # geometric figure
-    "Q133038",    # calculus topic
-    "Q43287",     # logic
-    "Q23404",     # algorithmic procedure
-    "Q1144549",   # mathematical method
-    "Q1191515",   # mathematical theory
-    "Q9081",      # knowledge (mathematics)
+    "Q65943",      # theorem (2934 instances)
+    "Q24034552",   # mathematical concept (2214)
+    "Q8366",       # algorithm (792)
+    "Q319141",     # conjecture (283)
+    "Q11348",      # function (269)
+    "Q1936384",    # branch of mathematics (294)
+    "Q246672",     # mathematical object (33)
+    "Q200726",     # probability distribution (24)
+    "Q11214",      # differential equation (20)
+    "Q11563",      # number (41)
 }
 
 SCIENCE_QCLASS_IDS = MATH_QCLASS_IDS | {
-    "Q11471",      # physics
-    "Q2329",       # chemistry
-    "Q420",        # biology
-    "Q11862",      # quantum mechanics
-    "Q377903",     # scientific theory
-    "Q11862829",   # mathematical object (also science via overlap)
-    "Q11023",      # vector space
-    "Q12136",      # disease
-    "Q7239",       # organism
-    "Q8054",       # protein
-    "Q7187",       # gene
-    "Q40348",      # algorithm
-    "Q19064",      # method (process)
-    "Q1183543",    # scientific concept
-    "Q11422",      # physical law
-    "Q188211",     # physical phenomenon
-    "Q1207505",    # quantity
-    "Q482798",     # quantum theory
-    "Q11402",      # general relativity
-    "Q333",        # general (catch-all)
-    "Q11471",      # physics
+    "Q3239681",    # scientific theory (285)
+    "Q214070",     # physical law (198)
+    "Q408891",     # scientific law (53)
+    "Q11173",      # chemical compound (136)
+    # NOTE: large biology classes (protein Q8054, gene Q7187, organism Q7239, disease Q12136)
+    # are VALID but million-scale; excluded from this slice to avoid swamping math/physics.
 }
 
 # Word-vocab fallback (used for non-Wikidata corpora).
