@@ -24,6 +24,31 @@ Cautionary parallels:
 
 **Net 2026-06-13**: PROGRESSIVE on all 3 axes.
 
+## HONEST REVISION (2026-06-13 evening, post skunkworks axis C audit)
+
+Per 19th methodology rule (adversarial-self-correction-of-own-detect-output; PROMOTED CONFIRMED today via 3rd empirical witness) + per Lakatos discipline that progressive programmes are allowed open predictions but NOT allowed to hide them:
+
+Axis C verdict revised: PROGRESSIVE → **PROGRESSIVE-WITH-OPEN-PREDICTIONS**.
+
+Skunkworks's axis C contribution (the canonical falsification floor for substrate's research programme):
+
+| Prediction | Status | Falsification trigger |
+|---|---|---|
+| **F1**: Clean held-out macro-F1 on stable full-encoder (bge) index ≥ 0.50 | UNMET / UNMEASURED (only 0.0067 on degraded/CPU data) | Clean run returns near-zero for reasons NOT infrastructure → falsifies "substrate-on-its-own capability proven" |
+| **F2**: Abstraction ratio nonzero after ~12 composite type-atoms authored | UNMET (0%; gated on typing) | Types authored but Class B SHARED_ABSTRACTION proofs still cannot complete → falsifies "conceptual self-optimization" |
+| **F3**: No-regression gate PASSES on real clean before/after of distillation collapse | UNMET (no clean baseline; gate returns UNKNOWN_DEGRADED_BASELINE) | Collapses consistently regress an axis → falsifies "self-improvement loop is progressive" |
+| **F4**: Language-axis capability progression tracks math-axis as corpus scales (Goal 4 Lakatos test) | UNMET / future | Math advances while language stalls → falsifies USER's architectural bet "primitives generalize from math to language" |
+
+These 4 unmet predictions are the substrate's real-bet-with-real-way-to-lose floor.
+
+Until F1 measured: NO "capability proven" claim ships. Per skunkworks's framing + 22nd methodology rule (LAKATOS-AUDIT discipline).
+
+Tier 1 architectural claim 9 honestly revised: "Substrate's research programme is Lakatos-PROGRESSIVE-WITH-OPEN-PREDICTIONS: predicts new phenomena, accepts honest revisions, retains external falsification floor (5 retained anchors) + lists 4 currently-UNMET predictions (F1-F4) as canonical floor per axis C discipline."
+
+Substrate is PROGRESSIVE with HONEST open predictions, not PROGRESSIVE-with-hidden-floor. The audit-discipline rule family operationalizes this per design.
+
+---
+
 ## Detailed empirical signature today
 
 ### Axis A: new phenomena predicted + observed
@@ -35,6 +60,10 @@ Cautionary parallels:
 5. **EXPAND-TYPING quantified gate** — 98% of operator signature types unatomized. New diagnostic predicted by typing-is-the-lever theme; quantified today.
 6. **capability_preservation=1.0 safety invariant** — substrate refuses capability loss. Predicted by 18th rule; measured + held today.
 7. **SHARES_MATH pipeline activation** — 0→4 first nonzero. Predicted by SHARES_MATH re-auth gate; observed today.
+8. **Conv-theorem chain ASSEMBLY-COMPLETE** — dft_linearity_lemma DEPENDS_ON edge WIRED by Testbed; substrate's first cross-domain L6-PROOF now fully derivation-grounded (THEOREM_LINKED + derivation_present=True). Predicted by 17th writeback URGENT Testbed 1-edge action; observed today evening.
+9. **fhrr inverse identity grounded** — fhrr_bind_unbind_dual INVERSE_PAIR + inverse_authored=True (bind/unbind dual identity grounded via authored DUAL edge). Predicted by V2.1 INVERSE_PAIR architecture; observed today evening.
+10. **F2 abstraction-ratio measurable** — skunkworks built substrate_abstraction_ratio_v0.py; REALIZED 0% / POTENTIAL 5.6%. F2 floor measurable + confirmed UNMET as predicted. Observed today evening.
+11. **Skunkworks measurement suite COMPLETE** — hygiene-ratio + abstraction-ratio + no-regression gate all OPERATIONAL on real data. Predicted by 5-step closed-loop spec; observed today evening.
 
 ### Axis B: honest revisions (not ad hoc rescues)
 
@@ -46,6 +75,8 @@ Cautionary parallels:
 6. **Skunkworks DETECT pre-screen self-corrected** — substrate_distill_prescreen.py reclassified 5 dups as KP promotion pairs (not redundancy).
 7. **Skunkworks ADDENDUM correcting recommendation #1 reading** — adversarial self-correction across lanes.
 8. **22 UNDECIDABLE refused merges** — substrate refuses what it cannot prove (not ad hoc).
+9. **Skunkworks F1-F4 axis C floor correcting Research's own LAKATOS-AUDIT-1 ledger** — 3rd 19th-rule witness; axis C honest revision to PROGRESSIVE-WITH-OPEN-PREDICTIONS.
+10. **Skunkworks F2 abstraction-ratio self-corrected 5.6% → 0%** — 4th 19th-rule witness; compression-vs-relation distinction adopted (SHARED_ABSTRACTION = compression; THEOREM_LINKED + INVERSE_PAIR = proven relations not compression).
 
 These are EMPIRICAL HONEST REVISIONS, not ad hoc rescues. Each preserved substrate-product positioning honesty against premature claims.
 
