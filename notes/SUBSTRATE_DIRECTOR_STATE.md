@@ -149,12 +149,15 @@ KP P3 Q4 verdict = MIDDLE-BAND (deeper drill: AEP / typed-bisim alternatives) â€
 
 ## ACK / CHANGES THIS TURN
 
-- COMMUNICATION PROTOCOL section added (monitoring method + timing + timer + outbound discipline)
+- DECISION 23 Tier 1 INTEGRATION COMPLETE: Testbed shipped 3/3 with LIVE_QUERY_PASS in ~10 min (cefecf48 + 1249308d + 8930bdda); awaiting Skunkworks Auditor verification
+- HOW_TO_MONITOR_INBOX broadcast: persistent tail+grep method taught to all sessions (USER-flagged monitoring gap fix)
+- Second cross-session monitor armed for MILESTONE/HARD_PASS/HARD_FAIL/BLOCKER across all session logs
+- COMMUNICATION PROTOCOL section (prior turn)
 - Monitor `brm9l5ue6` armed (persistent; research.log filtered)
 - CONV-THEOREM COMPLETE milestone (first fully-assembled cross-domain L6-PROOF)
-- KP P3 Q4 = MIDDLE-BAND (bisim 0->1; AEP/typed-bisim deeper drill needed)
-- F1 RUNNING on remote (BGE already installed; Exp-Dev launched canonical benchmark)
-- 22 decisions cumulative; FROZEN at 22
+- KP P3 Q4 = MIDDLE-BAND (bisim 0->1; AEP/typed-bisim deeper drill needed; deferred)
+- F1 RUNNING on remote (BGE already installed; Exp-Dev launched canonical benchmark; result imminent)
+- 23 decisions cumulative; FROZEN at 23
 
 ---
 
