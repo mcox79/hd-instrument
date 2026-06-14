@@ -73,7 +73,28 @@
         "viterbi_decoder",
         "astar",
         "dijkstra"
-      ]
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
+    },
+    {
+      "group": "cross_domain_perceptron_weight_vector",
+      "members": [
+        "discriminative_perceptron",
+        "structured_perceptron_collins",
+        "collins_structured_perceptron",
+        "perceptron_update"
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
+    },
+    {
+      "group": "cross_domain_state_distribution",
+      "members": [
+        "forward_algorithm",
+        "backward_algorithm",
+        "hmm_transition",
+        "markov_chain"
+      ],
+      "expected": "CROSS_DOMAIN_ABSTRACTION"
     }
   ],
   "provenance": "skunkworks operator-overlap DETECT; Class A promotion-pairs EXCLUDED",

@@ -133,6 +133,11 @@ def classify_group(sigs: List[dict], caps: List[Set[str]], names=None) -> str:
     # SHARED_ABSTRACTION: one output_type, one domain, operation_type differs (common supertype; specialize, don't merge)
     if len(out_types) == 1 and len(domains) == 1 and len(ops) >= 2:
         return "SHARED_ABSTRACTION"
+    # CROSS_DOMAIN_ABSTRACTION (V2.2, Option B adopted): one shared output_type across >=2 DOMAINS with >=2 distinct ops -- a cross-field
+    # unification (e.g. weight_vector across ML/NLP/online/structured-prediction). Run() must verify the shared output is a GROUNDED supertype
+    # atom (18th rule) else this is downgraded to DISTINCT (refuse what cannot be proven).
+    if len(out_types) == 1 and len(domains) >= 2 and len(ops) >= 2:
+        return "CROSS_DOMAIN_ABSTRACTION"
     # THEOREM_LINKED: identical caps but different output type (related by a provable identity/theorem)
     if caps_ident and len(out_types) >= 2:
         return "THEOREM_LINKED"
@@ -164,6 +169,10 @@ def _selftest():
     gy = {"domain": "vsa", "operation_type": "y", "signature_output_type": "phasor_vector"}
     gz = {"domain": "vsa", "operation_type": "z", "signature_output_type": "phasor_vector"}
     assert classify_group([gy, gz], [{"c"}, {"c"}]) == "SHARED_ABSTRACTION"
+    # CROSS_DOMAIN_ABSTRACTION (V2.2): same output, >=2 domains, >=2 ops
+    cda = [{"domain": "ml", "operation_type": "p", "signature_output_type": "weight_vector"},
+           {"domain": "nlp", "operation_type": "q", "signature_output_type": "weight_vector"}]
+    assert classify_group(cda, [set(), set()]) == "CROSS_DOMAIN_ABSTRACTION"
     assert _inverse_named("fhrr_bind", "fhrr_unbind") and not _inverse_named("adam", "sgd")
     print("[selftest] PASS: substrate_distill_verify_2_class_b_relationship_discrimination_cpu_v1", flush=True)
 
@@ -209,6 +218,28 @@ def _dual_links(root: Path, members_full: List[str]) -> bool:
     return _edge_between(root, members_full, DUAL_RELS)
 
 
+def _type_grounded(root: Path, out_type: str) -> bool:
+    """18th-rule gate for CROSS_DOMAIN_ABSTRACTION: is the shared output type an AUTHORED atom with an outgoing grounding edge
+    (DEPENDS_ON / SPECIALIZES) -- i.e. a proven supertype, not an ungrounded leaf or absent type? Race-tolerant."""
+    if not out_type:
+        return False
+    want = str(out_type).split("::")[-1].split("/")[-1].strip().lower()
+    ground_rels = DERIV_RELS | {"SPECIALIZES", "INSTANCE_OF", "MEMBER_OF"}
+    for rp in root.rglob("relations.jsonl"):
+        try:
+            for ln in open(rp, encoding="utf-8"):
+                ln = ln.strip()
+                if not ln: continue
+                try: r = json.loads(ln)
+                except Exception: continue
+                if (r.get("rel_type", "") or "").upper() not in ground_rels: continue
+                if _short(r.get("src_id", "")) == want:        # the output-type atom has an outgoing grounding edge
+                    return True
+        except Exception:
+            continue
+    return False
+
+
 def run() -> Dict:
     root = REPO / "data" / "substrate_index"
     if not root.exists():
@@ -248,13 +279,20 @@ def run() -> Dict:
             inverse_authored = _dual_links(root, ids)
             if inverse_authored:
                 rel = "INVERSE_PAIR"               # authored DUAL edge is authoritative (overrides SHARED_ABSTRACTION/etc)
+        # V2.2 18th-rule gate: CROSS_DOMAIN_ABSTRACTION only if the shared output type is a GROUNDED supertype atom; else refuse -> DISTINCT
+        out_grounded = None
+        if rel == "CROSS_DOMAIN_ABSTRACTION":
+            shared_out = next(iter(set(s.get("signature_output_type") for s in sigs if s.get("signature_output_type"))), None)
+            out_grounded = _type_grounded(root, shared_out)
+            if not out_grounded:
+                rel = "DISTINCT"                   # refuse cross-domain abstraction on an ungrounded output type (18th rule)
         deriv = None
         if rel == "THEOREM_LINKED":
             deriv = _derivation_links(root, ids)   # provable iff a TYPED derivation chain is authored, else sound refusal
         groups.append({"group": gname, "verdict": rel, "n_found": len(members), "ids": ids, "is_anchor": gname in ANCHOR_GROUPS,
                        "shared_caps": shared_caps, "out_types": sorted(set(s.get("signature_output_type") for s in sigs if s.get("signature_output_type"))),
                        "operation_types": sorted(set(s.get("operation_type") for s in sigs if s.get("operation_type"))),
-                       "derivation_present": deriv, "inverse_authored": inverse_authored})
+                       "derivation_present": deriv, "inverse_authored": inverse_authored, "out_type_grounded": out_grounded})
     n_eval = sum(1 for g in groups if g["verdict"] != "UNKNOWN")
     # Anchor regression: the 2 hand-named ground-truth groups must still discriminate correctly.
     anchors = [g for g in groups if g["is_anchor"] and g["verdict"] != "UNKNOWN"]
