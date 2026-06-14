@@ -131,7 +131,8 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
 | Capability ONLINE | 70pct | **~44-48pct projected (Tiers 1+2 verified by execution; STRICT recount pending Auditor)** | +22-26pp to ship |
-| F1 macro-F1 (canonical) | >= 0.50 | RUNNING on remote (number imminent) | TBD |
+| F1 macro-F1 (bge-only tau-gated lean) | >= 0.50 | **0.4505 (60q) / 0.4396 (30q)** | within striking distance; canonical structural axes path identified |
+| F1 macro-F1 (canonical union with structural axes) | >= 0.50 | DECISION 27 GO; bge-cached so will be fast; result imminent | TBD |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
 | Grounding precision | >= 0.95 | 0.951 | MET |
@@ -150,6 +151,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## ACK / CHANGES THIS TURN (latest first)
 
+- **F1_RESULT (DECISION 25 lean bge-only) = 0.4505 / 0.4396 tau-gated** -- H1 CONFIRMED; 0.0067 was degraded scorer. Per-axis: A_content 0.498 (strong); B/D/F = 0.04 / 0.00 / 0.00 (structural axes -- bge can't answer relation/composition/gap; canonical does via DEPENDS_ON + L6-PROOF). DECISION 27 GO canonical now (bge-cached so fast). 0.50 floor approachable: canonical macro-F1 >= 0.45 by construction; structural axes are the gap path.
 - **Tier 2 PRODUCTION-VERIFIED** per Exp-Dev Prover (DECISION 26b): bayes_update + map_estimate 0.9512 on UCI mushroom NB / EMMixture purity 1.0 on 3-Gaussian / IntentClassifier 0.9125 on ATIS. 3/3 HARD_PASS. Tier 1+2 ALL production-verified at held-out scale. Caveat: sst2 sentiment-NB scores 0.78 (sentiment harder than mushroom; reported for honesty). Skunkworks (Auditor) auto-triggered for DECISION 26c STRICT recount.
 - **DECISION 25 BGE CACHE BUILT** as Option B dual-purpose payoff: `data/substrate_index/cached_indices/bge_large_v2_name_20820_e1aa0b31.npz` (158.6 MB; 20820 atoms). ALL future bge-enabled runs load in seconds (vs 50-min rebuild). Substrate-infrastructure win.
 - **F1 scoring phase RUNNING NOW** in lean batched scorer; F1_RESULT imminent. Stalled canonical run killed (65-min GPU-idle; superseded by cache).
