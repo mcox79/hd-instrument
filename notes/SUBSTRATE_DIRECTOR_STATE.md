@@ -123,7 +123,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projecte
 | F1 final number | running on remote (BGE already installed); imminent | -- |
 | Integration push Tier 1 | Testbed ship + Auditor verify | Testbed + Skunkworks |
 | P3 archetype criterion (final) | deeper drill (AEP / typed-bisim) | Research (deferred) |
-| F2 CROSS_DOMAIN tightening | Skunkworks PROVEN vs TENTATIVE split | Skunkworks |
+| F2 CROSS_DOMAIN tightening | DONE -- all 3 groups TENTATIVE; F2 strict = 18.8pct | (closed) |
 | B' v2 ship | F1 + F3 sequencing | -- (queued) |
 
 ## OBJECTIVE PROGRESS
@@ -135,7 +135,9 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projecte
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
 | Grounding precision | >= 0.95 | 0.951 | MET |
-| F2 floor INDEPENDENT | >= 0.15 | 0.19 | MET |
+| F2 REALIZED strict (proven; same-domain SHARED_ABSTRACTION) | >= 0.05 HARD-PASS | **0.188** (Auditor-corrected; was inflated to 0.50 by output-type-only TENTATIVE) | MET |
+| F2 INDEPENDENT FLOOR (held-out + reverted authoring) | >= 0.15 | 0.19 | MET (Lakatos strongest signature) |
+| F2 cross-domain TENTATIVE (output-type-only; NOT compression) | tracked separately | 0.31 | reported but NOT counted toward F2 headline |
 | Cross-domain L6-PROOF COMPLETE | >= 1 | 1 (conv-theorem; first ever) | MET |
 
 ## RECENT MILESTONES
