@@ -104,23 +104,29 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 
 ---
 
-## SUBSTRATE-PRODUCT POSITIONING (Auditor-endorsed canonical headline)
+## SUBSTRATE-PRODUCT POSITIONING (3-cause honest; DECISION 32 decomposition surfaced Cause 3)
 
-> "Strong on INGESTED knowledge (tuned ~0.57); capability on genuine held-out UNMET (F1 0.022, coverage-bound); and -- the priority gap -- refuse-discipline does NOT generalize (hallucinates on unknown topics), so the soundness claim is tuned-set-specific not robust. Integration + axiom-termination + provable-equivalence + production-verified Tier 1+2 modules stand."
+> "Substrate's mechanisms (structural reasoning + L6-PROOF + refuse-discipline) are STRONG on tuned phrasing (qa_self_knowledge ~0.57) but NONE has been shown to GENERALIZE to held-out phrasing. Three root causes:
+> 1. Coverage gap (69pct held-out gold not ingested; correctable by ingest cycle).
+> 2. Refuse-discipline not generalizing (33pct hallucinate on absent atoms; categorical soundness regression; DECISION 33 M1 addresses).
+> 3. Capability-transfer gap (IN-COVERAGE F1 0.029 even when gold present; mechanisms tuned to qa_self_knowledge phrasing; needs query-side robustness work -- M4 paraphrase-invariant / M5 multi-pass / M6 cross-encoder rerank queued).
+>
+> UNAFFECTED: Tier 1+2 production-verified on PUBLIC held-out (HMM 0.90 / perceptron 0.91 / NER 0.93 / bayes 0.95 / EM 1.0 / intent 0.91); 100pct axiom termination; F2 INDEPENDENT 0.19; first cross-domain L6-PROOF; first autonomous-discovery edge; 25 PROVABLY_EQUIVALENT integrations 0 false-merges; BGE cache infrastructure.
+>
+> The empirical capability claim is bounded by tuning-of-mechanisms, not engine's structural capacity."
 
 ## CURRENT PRIORITIES (top 5)
 
 ```
-1. Exp-Dev (Prover): DECISION 32 decompose held-out into IN-COVERAGE + COVERAGE-GAP; report two numbers   [Exp-Dev]
-2. Exp-Dev (Prover): DECISION 33 refuse-discipline generalization work M1 confidence calibration         [Exp-Dev]
-3. Re-run DECISION 32 after DECISION 33 lands; HARD-PASS REFUSE-RATE >=0.95 on COVERAGE-GAP              [Exp-Dev]
-4. Skunkworks (Auditor): STRICT ONLINE recount on Tier 1+2 verified modules (DECISION 26c; still queued) [Skunkworks]
-5. INGEST CYCLE start (USER call; needed AFTER refuse-discipline lands; close coverage gap)              [Testbed]
+1. Exp-Dev (Prover): DECISION 34a -- run M1 tau-gate WITH in-coverage protection falsifier             [Exp-Dev]
+   HARD-PASS: COVERAGE-GAP refuse-rate >=0.95 AND IN-COVERAGE F1 drops <=0.05
+2. Skunkworks (Auditor): STRICT ONLINE recount on Tier 1+2 verified modules (DECISION 26c; still queued) [Skunkworks]
+3. INGEST CYCLE start (USER call; addresses Cause 1; substrate gets more knowledge)                     [Testbed]
+4. M4-M6 capability-transfer architectural work (Cause 3; future cycle; not now)                        [future]
+5. F1 floor stays UNMET on genuine held-out; LAKATOS axis C 1 of 4 floors converted (F2 only)
 ```
 
-Refuse-discipline > ingest in priority (refuse-failure is SOUNDNESS regression that undermines categorical claim; coverage is correctable artifact).
-PAUSE further Tier 3 integration wiring (DECISION 26). ONLINE counter pending STRICT recount.
-KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
+Cause 3 (capability-transfer) surfaced by DECISION 32 decomposition: IN-COVERAGE F1 0.029 even with gold present. Mechanisms tuned to qa_self_knowledge phrasing; don't generalize to held-out phrasing. M1 alone is insufficient; addresses Cause 2 (refuse) but not Cause 3.
 
 ## OPEN BLOCKERS
 
