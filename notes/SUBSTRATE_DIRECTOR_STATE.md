@@ -104,16 +104,21 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 
 ---
 
-## SUBSTRATE-PRODUCT POSITIONING (3-cause honest; DECISION 32 decomposition surfaced Cause 3)
+## SUBSTRATE-PRODUCT POSITIONING (4-cause empirical model; DECISION 34a M1 HARD_FAIL surfaced Cause 4)
 
-> "Substrate's mechanisms (structural reasoning + L6-PROOF + refuse-discipline) are STRONG on tuned phrasing (qa_self_knowledge ~0.57) but NONE has been shown to GENERALIZE to held-out phrasing. Three root causes:
-> 1. Coverage gap (69pct held-out gold not ingested; correctable by ingest cycle).
-> 2. Refuse-discipline not generalizing (33pct hallucinate on absent atoms; categorical soundness regression; DECISION 33 M1 addresses).
-> 3. Capability-transfer gap (IN-COVERAGE F1 0.029 even when gold present; mechanisms tuned to qa_self_knowledge phrasing; needs query-side robustness work -- M4 paraphrase-invariant / M5 multi-pass / M6 cross-encoder rerank queued).
+> "Substrate's mechanisms (structural reasoning + L6-PROOF + refuse-discipline + bge retrieval) are STRONG on tuned phrasing (qa_self_knowledge ~0.57) but NONE has been shown to GENERALIZE to held-out phrasing. Four root causes (empirically measured):
+> 1. Coverage gap (69pct held-out gold not ingested; correctable by ingest cycle; benchmark-design artifact)
+> 2. Refuse-discipline NOT generalizing (TUNED-set-specific; hallucinates 33pct on unknown topics; categorical soundness regression)
+> 3. Capability-transfer gap (IN-COVERAGE F1 0.029 even with gold present; mechanisms tuned to phrasing)
+> 4. Two distributions OVERLAP empirically (bge cosine cannot discriminate paraphrase-of-known from unknown; tau-gate REJECTED M1 HARD_FAIL with falsifier; categorical signal limitation)
+>
+> M4 (paraphrase-invariant retrieval) is the enabling precondition for any soundness fix to work.
 >
 > UNAFFECTED: Tier 1+2 production-verified on PUBLIC held-out (HMM 0.90 / perceptron 0.91 / NER 0.93 / bayes 0.95 / EM 1.0 / intent 0.91); 100pct axiom termination; F2 INDEPENDENT 0.19; first cross-domain L6-PROOF; first autonomous-discovery edge; 25 PROVABLY_EQUIVALENT integrations 0 false-merges; BGE cache infrastructure.
 >
-> The empirical capability claim is bounded by tuning-of-mechanisms, not engine's structural capacity."
+> Default light gate (tau=0.70) marginally improves IN-COVERAGE F1 0.074 -> 0.128 (1.7x); does NOT close refuse-discipline soundness gap; shipped as cheap capability win.
+>
+> The empirical capability claim is bounded by tuning-of-mechanisms + signal limitation, not engine's structural capacity."
 
 ## CURRENT PRIORITIES (top 5)
 
