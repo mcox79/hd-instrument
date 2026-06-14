@@ -134,7 +134,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 | **F1 macro-F1 (A-E factual canonical 30q)** | **>= 0.50 HARD-PASS** | **0.568 MET** (Tier 1 architectural; 85x lift from 0.0067 degraded; H1 fully confirmed) | **MET** |
 | F1 per-axis canonical (30q) | A,B,D,E >= 0.50 uniform | A 0.54 / B 0.58 / C 0.47 / D 1.00 / E 0.71 / F 0.07 weak / G 0.46 | A B D E MET (F is gap-detect not retrieval; deferred) |
 | F1 negative-honesty (refuse made-up queries) | == 1.0 | 1.000 | 18th rule live at measurement layer |
-| F1 macro-F1 60q (CI tightness; DECISION 28) | >= 0.50 | pending | non-blocking |
+| F1 macro-F1 60q (CI tightness; DECISION 28) | >= 0.50 | **0.585 MET** (slightly higher than 30q; result stable on larger-n; A 0.53 / B 0.54 / C 0.57 / D 1.00 / E 0.76 / F 0.25 / G 0.41 / neg 1.00) | MET CONFIRMED |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
 | Grounding precision | >= 0.95 | 0.951 | MET |
