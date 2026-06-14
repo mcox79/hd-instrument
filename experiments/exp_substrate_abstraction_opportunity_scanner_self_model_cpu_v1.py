@@ -40,6 +40,37 @@ def _short(x):
     return str(x).split("::")[-1].split("/")[-1].strip().lower()
 
 
+SUPERTYPE_RELS = {"SPECIALIZES", "INSTANCE_OF", "MEMBER_OF"}     # member -> supertype edges (prover-traversable abstraction)
+
+
+def _load_supertype_edges(root: Path) -> Dict[str, set]:
+    """member_short -> set of supertype targets (short) via SPECIALIZES/INSTANCE_OF/MEMBER_OF. Race-tolerant."""
+    out = defaultdict(set)
+    for rp in root.rglob("relations.jsonl"):
+        try:
+            for ln in open(rp, encoding="utf-8"):
+                ln = ln.strip()
+                if not ln: continue
+                try: r = json.loads(ln)
+                except Exception: continue
+                if (r.get("rel_type", "") or "").upper() in SUPERTYPE_RELS:
+                    out[_short(r.get("src_id", ""))].add(_short(r.get("tgt_id", "")))
+        except Exception:
+            continue
+    return out
+
+
+def wiring_status(members: List[str], sup_edges: Dict[str, set]) -> Dict:
+    """A realized family is WIRED iff >=2 members SPECIALIZE/INSTANCE_OF a COMMON supertype atom (prover can traverse member->supertype)."""
+    cnt = defaultdict(int)
+    for m in members:
+        for t in sup_edges.get(m, ()):
+            cnt[t] += 1
+    common = [t for t, c in cnt.items() if c >= 2]
+    return {"wired": bool(common), "supertype": (sorted(common)[0] if common else None),
+            "n_members_linked": (max(cnt.values()) if cnt else 0)}
+
+
 def analyze(ops: List[Tuple[str, str, str, str]]) -> Dict:
     """ops = list of (name, domain, output_type, operation_type). Returns realized families + one-retype-away + cross-domain."""
     bydom = defaultdict(list)
@@ -91,6 +122,9 @@ def _selftest():
     assert any(g["domain"] == "hmm" for g in r["realized"]), r["realized"]
     assert any(g["domain"] == "rl" for g in r["retype_away"]), r["retype_away"]
     assert any(c["output_type"] == "state_sequence" for c in r["cross_domain"]), r["cross_domain"]
+    # wiring: 2 members SPECIALIZE a common supertype -> WIRED; none -> DETECTED-ONLY
+    assert wiring_status(["a", "b"], {"a": {"sup"}, "b": {"sup"}})["wired"] is True
+    assert wiring_status(["a", "b"], {"a": {"x"}, "b": {"y"}})["wired"] is False
     print("[selftest] PASS: substrate_abstraction_opportunity_scanner_self_model_cpu_v1", flush=True)
 
 
@@ -132,12 +166,18 @@ def run() -> Dict:
     if not ops or len(ops) < 5:
         return {"error": "too_few_operators", "n": 0 if not ops else len(ops)}
     a = analyze(ops)
+    sup_edges = _load_supertype_edges(root)
+    for g in a["realized"]:
+        g["wiring"] = wiring_status(g["members"], sup_edges)   # WIRED (prover-traversable) vs DETECTED-ONLY (step-#3 gap)
     n_realized = len(a["realized"]); n_retype = len(a["retype_away"]); n_cross = len(a["cross_domain"])
     realized_ops = sum(g["n"] for g in a["realized"])
+    n_wired = sum(1 for g in a["realized"] if g["wiring"]["wired"])
     print("  operator self-model: %d operators (op_type+output)" % len(ops), flush=True)
-    print("  REALIZED SHARED_ABSTRACTION families: %d (covering %d operators)" % (n_realized, realized_ops), flush=True)
+    print("  REALIZED SHARED_ABSTRACTION families: %d (covering %d operators) | WIRED to a supertype (prover-traversable)=%d, DETECTED-ONLY (step-#3 gap)=%d" % (
+        n_realized, realized_ops, n_wired, n_realized - n_wired), flush=True)
     for g in sorted(a["realized"], key=lambda x: -x["n"]):
-        print("    [realized] %-26s out=%-22s n=%d %s" % (g["domain"], g["output_type"], g["n"], g["members"]), flush=True)
+        w = g["wiring"]; tag = ("WIRED->%s" % w["supertype"]) if w["wired"] else "DETECTED-ONLY (author supertype+SPECIALIZES)"
+        print("    [realized] %-26s out=%-20s n=%d [%s] %s" % (g["domain"], g["output_type"], g["n"], tag, g["members"]), flush=True)
     print("  ONE-RETYPE-AWAY opportunities (Testbed worklist): %d" % n_retype, flush=True)
     for g in sorted(a["retype_away"], key=lambda x: -x["n_operators"]):
         print("    [retype]   %-26s n=%d outputs=%s -> author shared supertype to unify %s" % (
@@ -153,7 +193,7 @@ def run() -> Dict:
             {"n_operators": len(ops), **a, "n_realized": n_realized, "n_retype_away": n_retype, "n_cross_domain": n_cross}, indent=2), encoding="utf-8")
     except Exception:
         pass
-    return {"n_operators": len(ops), "n_realized": n_realized, "realized_ops": realized_ops,
+    return {"n_operators": len(ops), "n_realized": n_realized, "realized_ops": realized_ops, "n_wired": n_wired,
             "n_retype_away": n_retype, "n_cross_domain": n_cross,
             "realized": a["realized"][:20], "retype_away": a["retype_away"][:20], "cross_domain": a["cross_domain"][:20]}
 
@@ -161,15 +201,16 @@ def run() -> Dict:
 def verdict(r) -> Tuple[str, str]:
     if r.get("error"):
         return ("UNKNOWN", "UNKNOWN: " + r["error"] + " " + str(r.get("n", "")))
-    nr = r["n_realized"]; rt = r["n_retype_away"]; cd = r["n_cross_domain"]
-    s = ("self-model scan: %d operators; %d REALIZED SHARED_ABSTRACTION families (%d operators unified); %d ONE-RETYPE-AWAY domains "
+    nr = r["n_realized"]; rt = r["n_retype_away"]; cd = r["n_cross_domain"]; nw = r.get("n_wired", 0)
+    s = ("self-model scan: %d operators; %d REALIZED SHARED_ABSTRACTION families (%d WIRED to an authored supertype = prover-traversable, "
+         "%d DETECTED-ONLY = step-#3 SPECIALIZES-wiring gap); %d ONE-RETYPE-AWAY domains "
          "(the precise Testbed retype worklist -- author a shared supertype output to unify each); %d CROSS-DOMAIN shared-output links "
          "(same output across domains -- conservative NOT-a-single-domain-abstraction, but real self-insight). This is the substrate scanning "
-         "its OWN operator composition (lane #4, build-first).") % (r["n_operators"], nr, r["realized_ops"], rt, cd)
+         "its OWN operator composition (lane #4, build-first).") % (r["n_operators"], nr, nw, nr - nw, rt, cd)
     if nr >= 1 or rt >= 1:
         return ("HARD_PASS", "HARD_PASS (self-model abstraction map produced; substrate reasons over its own composition): %d realized families "
-                "+ %d one-retype-away opportunities + %d cross-domain links. The retype-away list is the prioritized authoring worklist that lifts "
-                "the abstraction ratio further (each is a DISTINCT->SHARED_ABSTRACTION flip pending one shared-supertype-output authoring). " % (nr, rt, cd) + s)
+                "(%d WIRED/prover-traversable, %d detected-only) + %d one-retype-away opportunities + %d cross-domain links. The retype-away list "
+                "is the prioritized authoring worklist; detected-only families need SPECIALIZES wiring (step #3) to become prover-traversable. " % (nr, nw, nr - nw, rt, cd) + s)
     return ("MIDDLE_BAND", "MIDDLE_BAND: scanner ran but found 0 realized families and 0 opportunities -- operator self-model too thin or fully "
             "distinct. " + s)
 
