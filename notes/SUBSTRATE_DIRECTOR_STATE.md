@@ -131,11 +131,11 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
 | Capability ONLINE | 70pct | **~44-48pct projected (Tiers 1+2 verified by execution; STRICT recount pending Auditor)** | +22-26pp to ship |
-| **F1 macro-F1 full A-G canonical (Auditor-headline)** | **>= 0.50 HARD-PASS** | **~0.55 MET-PROVISIONAL** (30q full A-G macro; conservative measure; Auditor-recommended headline) | **MET-PROVISIONAL** pending DECISION 30 provenance check |
-| F1 macro-F1 A-E factual subset 30q | -- | 0.568 (excludes F 0.074 + G 0.460; reported for transparency, not headline) | -- |
-| F1 macro-F1 60q (DECISION 28 CI tightness) | >= 0.50 | **0.585 A-E MET** (slightly higher; result stable on larger-n; A 0.53 / B 0.54 / C 0.57 / D 1.00 / E 0.76 / F 0.25 / G 0.41 / neg 1.00); 60q full A-G also clears | MET CONFIRMED on larger-n |
-| F1 negative-honesty (refuses made-up queries) | == 1.0 | 1.000 (both 30q + 60q) | 18th rule live at measurement layer |
-| F1 30q held-out provenance (Goodhart guard; DECISION 30) | GENUINELY HELD-OUT | Auditor checking authoring timestamps + mechanism reach + HP_v1 reference | pending; locks MET-DECISIVE on pass |
+| **F1 macro-F1 GENUINE HELD-OUT (q54-q65; canonical+bge)** | **>= 0.50 HARD-PASS** | DECISION 31 pending (Exp-Dev re-run; ~10 CPU min) | **PENDING -- the real test** |
+| F1 macro-F1 on TUNED dev q01-q30 (canonical+bge; per Auditor) | -- | 0.568 A-E / ~0.55 full A-G | reported for transparency; NOT the LAKATOS external floor (Auditor confirmed q01-q30 is qa_self_knowledge DEV / TUNED set; held_out flag = None) |
+| F1 macro-F1 on TUNED 60q (DECISION 28) | -- | 0.585 A-E avg | TUNED-set; CI tightened |
+| F1 macro-F1 GENUINE HELD-OUT (q54-q65) at degraded scorer (historical) | -- | 0.0533 | scorer was degraded; needs DECISION 31 re-run with proper bge |
+| F1 negative-honesty (refuses made-up queries) | == 1.0 | 1.000 (TUNED 30q + 60q) | 18th rule live at measurement layer |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
 | Grounding precision | >= 0.95 | 0.951 | MET |
@@ -154,6 +154,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## ACK / CHANGES THIS TURN (latest first)
 
+- **F1 PROVENANCE HARD_FAIL** per Skunkworks Auditor DECISION 30 verdict: the 30q (q01-q30) and 60q (q01-q60) we scored 0.568/0.585 on are qa_self_knowledge DEV / TUNED set (HP_v1 mechanisms were Q-specifically tuned to Q01-Q53). The genuine HELD-OUT set is `gap7_benchmark_v1_HELD_OUT_q54_q65.jsonl` which was last scored 0.0533 at degraded-scorer config and NEVER re-scored with proper bge. The 85x lift conflated (a) scorer fix REAL + (b) set swap TUNED-from-held-out NOT REAL. F1 floor stays **MET-PROVISIONAL on tuned dev** (~0.55); genuine held-out capability with good scorer UNMEASURED. **DECISION 31 shipped:** Exp-Dev re-run proper bge canonical scorer on q54-q65 held-out (same scorer + cache; <10 CPU min); HARD-PASS >=0.50 locks MET-DECISIVE; HARD-FAIL quantifies Goodhart gap honestly. LAKATOS axis C: F1 PROVISIONAL (tuned 0.55; held-out unmeasured), F2 genuinely MET 0.19 INDEPENDENT.
 - **F1_RESULT (DECISION 25 lean bge-only) = 0.4505 / 0.4396 tau-gated** -- H1 CONFIRMED; 0.0067 was degraded scorer. Per-axis: A_content 0.498 (strong); B/D/F = 0.04 / 0.00 / 0.00 (structural axes -- bge can't answer relation/composition/gap; canonical does via DEPENDS_ON + L6-PROOF). DECISION 27 GO canonical now (bge-cached so fast). 0.50 floor approachable: canonical macro-F1 >= 0.45 by construction; structural axes are the gap path.
 - **Tier 2 PRODUCTION-VERIFIED** per Exp-Dev Prover (DECISION 26b): bayes_update + map_estimate 0.9512 on UCI mushroom NB / EMMixture purity 1.0 on 3-Gaussian / IntentClassifier 0.9125 on ATIS. 3/3 HARD_PASS. Tier 1+2 ALL production-verified at held-out scale. Caveat: sst2 sentiment-NB scores 0.78 (sentiment harder than mushroom; reported for honesty). Skunkworks (Auditor) auto-triggered for DECISION 26c STRICT recount.
 - **DECISION 25 BGE CACHE BUILT** as Option B dual-purpose payoff: `data/substrate_index/cached_indices/bge_large_v2_name_20820_e1aa0b31.npz` (158.6 MB; 20820 atoms). ALL future bge-enabled runs load in seconds (vs 50-min rebuild). Substrate-infrastructure win.
