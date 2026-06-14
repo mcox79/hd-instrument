@@ -109,7 +109,7 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 2. Exp-Dev (Prover, parallel): Tier 2 production-scale validation (DECISION 26b)  [Exp-Dev]
 3. Skunkworks (Auditor): STRICT RECOUNT after Tier 2 validation (DECISION 26c)    [Skunkworks]
 4. Skunkworks: NESS Crooks-ratio test on 46-pair ledger (DECISION 16; queued)    [Skunkworks]
-5. Skunkworks: T2_FAM per-tag 18th-rule audit (DECISION 21; queued)               [Skunkworks]
+5. Future Prover cell: T2_FAM per-family L6-PROOF provability check (DECISION 21 = INCONCLUSIVE; T2_FAM is real hierarchical taxonomy; do NOT refuse) -- deferred behind F1+integration  [Exp-Dev future]
 ```
 
 PAUSE further Tier 3 integration wiring (DECISION 26; consolidate before expand). Tier 3 stays DEFERRED unless USER explicitly wants specific capabilities online.
@@ -150,6 +150,10 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## ACK / CHANGES THIS TURN (latest first)
 
+- **DECISION 21 T2_FAM = INCONCLUSIVE** per Skunkworks Auditor 19th-rule self-correction: quick `operation_type` heuristic was artifact (members are non-operator atoms + sub-families); T2_FAM is real hierarchical operation-taxonomy (transformers->binders->algebraic_binding->{fhrr_bind, circ_conv, group_axioms} etc.); DO NOT refuse/delete; proper provability check requires Prover L6-PROOF cell (per-family: do members share derivable common operation?); deferred behind F1+integration.
+- **DECISION 26** PAUSE further integration wiring (Tier 3 stays DEFERRED) + 26b Prover validates Tier 2 production-scale + 26c Auditor STRICT recount after Tier 2 validation.
+- **Tier 2 AUDIT_PASS** per Skunkworks Auditor: bayesian_inference (bayes_update + map_estimate + EMMixture 3-Gaussian purity=1.0) + intent_classifier (3/4 + 1 correct ABSTAIN per 18th-rule refuse-discipline) verified by execution. Counts toward 70pct ONLINE. Cumulative projection ~44-48pct.
+- **DECISION 25** F1 BLOCKER unblocked via Option B (lean batched scorer + cached full-corpus bge index + tau-gate; ~30-60 min ETA); keep current full-corpus run alive as cross-check.
 - **Tier 1 PRODUCTION-VERIFIED** per Exp-Dev Prover (DECISION 24b): HMM viterbi 0.9028 + StructuredPerceptron 0.9149 + NERTagger BIO-F1 0.9307 on public UD en_ewt + conll2000. 3/3 HARD_PASS. Quality status upgraded from "executes-on-live-query" to "production-verified at held-out scale." Caveats: PTB unavailable (used public UD); BIO-F1 validates tagger machinery not 4-type NER specifically; HMM needs SUFFIX-OOV backoff (per module docstring) for 0.90 -- naive add-k scores 0.8832.
 - **F2 HONEST CORRECTION** per Skunkworks Auditor: cross-domain (~31pct) was OUTPUT-TYPE-ONLY (4 distinct operations per group); TENTATIVE not PROVEN. Strict/honest F2 REALIZED = 18.8pct (not 50pct). LAKATOS F2 floor STILL MET (>=5pct via strict). State board carries strict number; cross-domain tracked separately as TENTATIVE.
 - DECISION 24 GREENLIT Tier 2 batch + Exp-Dev PTB-scale tag_acc Prover task (non-blocking parallel)
