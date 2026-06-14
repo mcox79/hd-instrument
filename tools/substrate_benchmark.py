@@ -691,7 +691,21 @@ def answer_type_G(pstore: PartitionedStore, q: dict) -> set[str]:
 
     # Fallback keyword match (kept lightweight)
     keywords = _extract_keywords(q["question"])
-    return _atoms_matching_topic(pstore, keywords)
+    kw_match = _atoms_matching_topic(pstore, keywords)
+    if kw_match:
+        return kw_match
+    # DECISION 39a: type-G had NO bge fallback, so shallow gold that bge ranks at
+    # #2-3 (e.g. Q60-G structured_perceptron_collins, Q64-G cosine_cleanup) was
+    # never surfaced. Only fires when keyword match is empty; tau=0.70 floor keeps
+    # precision (low-confidence FP noise dropped).
+    retr = _ensure_semantic_retriever(pstore)
+    if retr is not None:
+        bge = retr.semantic(q["question"], top_k=5)
+        preds = {(_BARE_TO_QID.get(c.atom_id, c.atom_id) if _BARE_TO_QID else c.atom_id)
+                 for c in bge if float(getattr(c, "score", 1.0)) >= BGE_CONFIDENCE_FLOOR}
+        if preds:
+            return preds
+    return set()
 
 
 def answer_negative(pstore: PartitionedStore, q: dict) -> set[str]:
