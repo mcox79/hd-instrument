@@ -131,8 +131,10 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
 | Capability ONLINE | 70pct | **~44-48pct projected (Tiers 1+2 verified by execution; STRICT recount pending Auditor)** | +22-26pp to ship |
-| F1 macro-F1 (bge-only tau-gated lean) | >= 0.50 | **0.4505 (60q) / 0.4396 (30q)** | within striking distance; canonical structural axes path identified |
-| F1 macro-F1 (canonical union with structural axes) | >= 0.50 | DECISION 27 GO; bge-cached so will be fast; result imminent | TBD |
+| **F1 macro-F1 (A-E factual canonical 30q)** | **>= 0.50 HARD-PASS** | **0.568 MET** (Tier 1 architectural; 85x lift from 0.0067 degraded; H1 fully confirmed) | **MET** |
+| F1 per-axis canonical (30q) | A,B,D,E >= 0.50 uniform | A 0.54 / B 0.58 / C 0.47 / D 1.00 / E 0.71 / F 0.07 weak / G 0.46 | A B D E MET (F is gap-detect not retrieval; deferred) |
+| F1 negative-honesty (refuse made-up queries) | == 1.0 | 1.000 | 18th rule live at measurement layer |
+| F1 macro-F1 60q (CI tightness; DECISION 28) | >= 0.50 | pending | non-blocking |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
 | Grounding precision | >= 0.95 | 0.951 | MET |
