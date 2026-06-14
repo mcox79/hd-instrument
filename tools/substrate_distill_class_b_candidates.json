@@ -47,6 +47,24 @@
         "T2/modern_hopfield_ramsauer",
         "T2/sparse_distributed_memory"
       ]
+    },
+    {
+      "group": "hmm_family",
+      "members": [
+        "forward_algorithm",
+        "backward_algorithm",
+        "viterbi_decoder",
+        "hmm_transition",
+        "hmm_emission"
+      ]
+    },
+    {
+      "group": "sequence_decoding",
+      "members": [
+        "beam_search",
+        "viterbi_decoder",
+        "astar"
+      ]
     }
   ],
   "provenance": "skunkworks operator-overlap DETECT; Class A promotion-pairs EXCLUDED",
