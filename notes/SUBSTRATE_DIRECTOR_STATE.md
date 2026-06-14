@@ -116,7 +116,7 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 >
 > UNAFFECTED: Tier 1+2 production-verified on PUBLIC held-out (HMM 0.90 / perceptron 0.91 / NER 0.93 / bayes 0.95 / EM 1.0 / intent 0.91); 100pct axiom termination; F2 INDEPENDENT 0.19; first cross-domain L6-PROOF; first autonomous-discovery edge; 25 PROVABLY_EQUIVALENT integrations 0 false-merges; BGE cache infrastructure.
 >
-> Default light gate (tau=0.70) marginally improves IN-COVERAGE F1 0.074 -> 0.128 (1.7x); does NOT close refuse-discipline soundness gap; shipped as cheap capability win.
+> Default light gate (tau=0.70) marginally improves: canonical UNION A-E F1 vs FULL gold 0.022 -> 0.032 (DECISION 35a verified); bge-ONLY F1 vs PRESENT-gold subset 0.074 -> 0.128 (1.7x); high-confidence hallucinations (Q59-F 26 FPs, Q_neg_2 5 FPs) UNCHANGED above floor, confirming M1b inverted-confidence finding; shipped as cheap capability/precision win, NOT soundness fix.
 >
 > The empirical capability claim is bounded by tuning-of-mechanisms + signal limitation, not engine's structural capacity."
 
