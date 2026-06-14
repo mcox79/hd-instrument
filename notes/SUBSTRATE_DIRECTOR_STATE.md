@@ -120,7 +120,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projecte
 
 | Item | Blocker | Owner |
 |---|---|---|
-| F1 final number | running on remote (BGE already installed); imminent | -- |
+| F1 final number | BLOCKER: full-corpus scorer pathologically slow (GPU 0pct; CPU per-question stuck); DECISION 25 GO Option B lean batched scorer + cached bge index | Exp-Dev |
 | Integration push Tier 1 | Testbed ship + Auditor verify | Testbed + Skunkworks |
 | P3 archetype criterion (final) | deeper drill (AEP / typed-bisim) | Research (deferred) |
 | F2 CROSS_DOMAIN tightening | DONE -- all 3 groups TENTATIVE; F2 strict = 18.8pct | (closed) |
