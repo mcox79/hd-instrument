@@ -105,16 +105,16 @@ Monitor -> NOTIFIED -> Director reads + ships decision OR updates state board OR
 ## CURRENT PRIORITIES (top 5)
 
 ```
-1. F1 canonical+bge rerun RUNNING on remote (NOTIFIED via monitor when lands)        [Exp-Dev]
-2. Testbed (Integrator): ship Tier 2 batch per DECISION 24                           [Testbed]
-   - Item 4: bayesian_inference + em_algorithm -> hdlab/ (parallel)
-   - Item 5: intent / text classification -> backend/substrate_index/intent_router  (parallel)
-3. Skunkworks (Auditor): verify each Tier 2 integration when shipped                 [Skunkworks]
-4. Exp-Dev (Prover, non-blocking parallel): PTB-scale tag_acc on Tier 1 modules     [Exp-Dev]
-5. Skunkworks: T2_FAM per-tag 18th-rule + NESS Crooks ratio (per DECISIONS 21+16)    [Skunkworks]
+1. Exp-Dev: F1 lean batched scorer (DECISION 25; Option B) -- BLOCKER unblock     [Exp-Dev]
+2. Exp-Dev (Prover, parallel): Tier 2 production-scale validation (DECISION 26b)  [Exp-Dev]
+3. Skunkworks (Auditor): STRICT RECOUNT after Tier 2 validation (DECISION 26c)    [Skunkworks]
+4. Skunkworks: NESS Crooks-ratio test on 46-pair ledger (DECISION 16; queued)    [Skunkworks]
+5. Skunkworks: T2_FAM per-tag 18th-rule audit (DECISION 21; queued)               [Skunkworks]
 ```
 
-KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projected ~37-41pct after Tier 1 verified (3/3 AUDIT_PASS).
+PAUSE further Tier 3 integration wiring (DECISION 26; consolidate before expand). Tier 3 stays DEFERRED unless USER explicitly wants specific capabilities online.
+ONLINE counter 30pct -> projection ~44-48pct (cumulative Tiers 1+2 verified by execution); STRICT recount pending Auditor.
+KP P3 Q4 = MIDDLE-BAND (deeper drill deferred).
 
 ## OPEN BLOCKERS
 
@@ -130,7 +130,7 @@ KP P3 Q4 = MIDDLE-BAND (deeper drill deferred); ONLINE counter 30pct -> projecte
 
 | Metric | Target | Current | Delta-to-target |
 |---|---|---|---|
-| Capability ONLINE | 70pct | **~37-41pct (Tier 1 verified +3-5 caps; recount pending Auditor)** | +30-33pp to ship |
+| Capability ONLINE | 70pct | **~44-48pct projected (Tiers 1+2 verified by execution; STRICT recount pending Auditor)** | +22-26pp to ship |
 | F1 macro-F1 (canonical) | >= 0.50 | RUNNING on remote (number imminent) | TBD |
 | Axiom termination | 100pct | 100pct (193/193) | INVARIANT |
 | Capability_preservation | 1.0 | 1.0 | INVARIANT |
