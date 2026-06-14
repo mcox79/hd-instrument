@@ -96,7 +96,8 @@ INVERSE_TOKENS = [("bind", "unbind"), ("fold", "unfold"), ("encode", "decode"), 
 
 def _inverse_named(a: str, b: str) -> bool:
     a, b = a.lower(), b.lower()
-    if a and b and (a == "un" + b or b == "un" + a):                     # un-prefix inverse (bind/unbind, fold/unfold)
+    # un-prefix inverse (bind/unbind, fold/unfold) -- require base length >= 4 to avoid false-friends (union/ion, unit/it) per V3.1.
+    if a and b and ((a == "un" + b and len(b) >= 4) or (b == "un" + a and len(a) >= 4)):
         return True
     for x, y in INVERSE_TOKENS:
         if (x in a and y in b) or (y in a and x in b):
