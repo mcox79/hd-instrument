@@ -25,6 +25,37 @@ Retired into Director + light tooling: strategy, product, visibility, queue-heal
 
 ---
 
+## SUBSTANTIVE GOAL-1 WIN (M4d capability-graph walk; rigorous + unbiased)
+
+**Held-out IN-COVERAGE F1**: 0.148 (bge baseline) -> **0.272** (M4d DEV-tuned beta=0.10 + transferred to held-out ONCE; +84pct relative; NO GOODHART confirmed via dev-then-once protocol)
+
+**Substrate-internal** per 11th rule: bge top-300 + typed-operator-graph 2-hop consensus walk; NO ingest required; NO LLM in the mechanism.
+
+**Partially refutes** the "held-out gap is purely BGE-representation-bound" framing (DECISION 41/M1c). The substrate's GRAPH STRUCTURE provides a real retrieval escape that bge-cosine alone misses.
+
+**First mechanism to move the held-out needle:**
+- Ingest (DECISION 38): +0.000
+- Cheap fixes (DECISION 39a type-G fix): 0.022 -> 0.148
+- M4d capability-graph walk: 0.148 -> 0.272
+
+**Path to 0.30+ HARD-PASS**: M4d + M4b composition + graph densification from DECISION 49 SHARES_MATH bridges + qclass grounding. Theoretical ceiling 0.72-0.82 (substrate-internal mechanisms).
+
+## OVERNIGHT FULL-AUTO MODE (USER directive 2026-06-14 evening)
+
+USER set Director on full-auto overnight. Standing orders (USER-LOCKED; in memory at `feedback_full_auto_all_night_ping_stalled_sessions_compaction_survive_USER_LOCKED_2026-06-14.md`):
+
+1. Work must progress all night
+2. If any session silent >1-2 cycles on active BLOCKER -> PING them by name with BLOCKER_PING / STATUS_REQUEST tagged note
+3. Keep on top of state; decisive authority delegated
+4. Soundness invariants NEVER erode at autonomy speed (100pct axiom termination + capability_preservation = 1.0 + 19th rule + 11th rule + 22nd rule)
+5. ScheduleWakeup 1200-1800s with sentinel <<autonomous-loop-dynamic>>
+6. Compaction may happen overnight; THIS state board + memory directive survive it
+
+Active BLOCKERS being watched:
+- DECISION 38 sync silent 3.5h (status check note shipped 20:30); ping again if >1 more cycle silent
+- DECISION 49 three foundational works dispatched 20:30 (Skunkworks 49a+49c; Exp-Dev 49b)
+- Phase 2 sequencing gated on DECISION 38
+
 ## COMMUNICATION PROTOCOL (canonical; effective immediately)
 
 ### MONITORING METHOD
