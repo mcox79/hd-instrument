@@ -34876,3 +34876,8 @@
 {"ts": 1781562807.3571794, "op": "update_atom", "target": "T3/self_adjoint_real_eigenvalues_lemma", "note": "DECISION 124a Item 4: ASCII transliteration (Skunkworks math-fidelity vetted)", "source": "hygiene_124a_item4_ascii_transliteration"}
 {"ts": 1781562808.7677107, "op": "update_atom", "target": "T3/bayes_rule_synthesis", "note": "DECISION 124a Item 4: ASCII transliteration (Skunkworks math-fidelity vetted)", "source": "hygiene_124a_item4_ascii_transliteration"}
 {"ts": 1781562810.4082222, "op": "update_atom", "target": "T3/product_rule_probability_lemma", "note": "DECISION 124a Item 4: ASCII transliteration (Skunkworks math-fidelity vetted)", "source": "hygiene_124a_item4_ascii_transliteration"}
+{"ts": 1781567068.0947497, "op": "add_relation", "target": "T3/tw_edge_z|USES|T1/marchenko_pastur_distribution", "note": "DECISION 126a Phase 4e batch 3 [STRICT]", "source": "phase4e_batch3_126a"}
+{"ts": 1781567068.1521356, "op": "add_relation", "target": "T2/cosine_cleanup|USES|T1/cosine_similarity", "note": "DECISION 126a Phase 4e batch 3 [STRICT]", "source": "phase4e_batch3_126a"}
+{"ts": 1781567068.2920058, "op": "add_relation", "target": "T3/tw_edge_z|RELATES|science::PHYS/random_matrix_theory", "note": "DECISION 126a Phase 4e batch 3 [RELATES]", "source": "phase4e_batch3_126a"}
+{"ts": 1781567068.3442094, "op": "add_relation", "target": "T3/random_features|USES|T3/discrete_fourier_transform", "note": "DECISION 126a Phase 4e batch 3 [PLAUSIBLE]", "source": "phase4e_batch3_126a"}
+{"ts": 1781567068.374653, "op": "add_relation", "target": "T3/random_features|APPROXIMATES|T3/kernel_method", "note": "DECISION 126a Phase 4e batch 3 [APPROXIMATES]", "source": "phase4e_batch3_126a"}
