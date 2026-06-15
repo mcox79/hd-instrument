@@ -1,0 +1,314 @@
+{
+  "description": "DECISION 110a authoring-blind audit candidates per DECISION 112a ruling",
+  "frozen_corpus_sources": [
+    "phase4e_batch2",
+    "83a_w_type_sig",
+    "phase4e_batch1",
+    "phase4a"
+  ],
+  "random_seed": 42,
+  "N": 50,
+  "total_pool": 77,
+  "sample": [
+    {
+      "src": "cascade_hmm_pipeline",
+      "tgt": "hmm_emission",
+      "rel": "USES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "kronecker_product",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/newton_method",
+      "rel": "USES",
+      "tgt": "hessian",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "T3/viterbi_decoding",
+      "rel": "INSTANCE_OF",
+      "tgt": "dynamic_programming",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T1/banach_space",
+      "rel": "SPECIALIZES",
+      "tgt": "vector_space",
+      "source": "phase4e_batch1_signature_specializes"
+    },
+    {
+      "src": "variational_inference",
+      "tgt": "kl_divergence",
+      "rel": "USES",
+      "source": "83a_w_type_sig"
+    },
+    {
+      "src": "adam_optimizer",
+      "tgt": "gradient",
+      "rel": "USES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/vector_space",
+      "rel": "SPECIALIZES",
+      "tgt": "field",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "mp_bulk_kl",
+      "tgt": "observers",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T3/zca_whitening",
+      "rel": "INSTANCE_OF",
+      "tgt": "representation_transform",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "role_filler_binding",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/eigenvalue_eigenvector",
+      "rel": "SPECIALIZES",
+      "tgt": "linear_operator",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T1/probability_space",
+      "rel": "SPECIALIZES",
+      "tgt": "measure_space",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T1/measure_space",
+      "rel": "SPECIALIZES",
+      "tgt": "set",
+      "source": "phase4e_batch1_signature_specializes"
+    },
+    {
+      "src": "T1/probability_distribution",
+      "rel": "SPECIALIZES",
+      "tgt": "function",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T3/forward_algorithm",
+      "rel": "INSTANCE_OF",
+      "tgt": "dynamic_programming",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T3/variational_inference",
+      "rel": "USES",
+      "tgt": "kl_divergence",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "circular_convolution",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/group_axioms",
+      "rel": "SPECIALIZES",
+      "tgt": "proposition",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "spectral_gap",
+      "tgt": "observers",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T3/attention_mechanism",
+      "rel": "USES",
+      "tgt": "inner_product",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "T3/dijkstra",
+      "rel": "INSTANCE_OF",
+      "tgt": "graph_traversal",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T1/convex_optimization",
+      "rel": "USES",
+      "tgt": "lagrange_multiplier",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "T1/gradient_descent",
+      "rel": "USES",
+      "tgt": "gradient",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "T1/expectation_variance",
+      "rel": "USES",
+      "tgt": "random_variable",
+      "source": "phase4e_batch1_signature_uses"
+    },
+    {
+      "src": "T2/tensor_product_representation",
+      "rel": "INSTANCE_OF",
+      "tgt": "algebraic_binding",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T1/graph_general",
+      "rel": "SPECIALIZES",
+      "tgt": "set",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T3/stochastic_gradient_descent",
+      "rel": "USES",
+      "tgt": "gradient_minibatch",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "T1/orthogonality",
+      "rel": "SPECIALIZES",
+      "tgt": "inner_product",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "fhrr_bind",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "tw_edge_z",
+      "tgt": "observers",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/hilbert_space",
+      "rel": "SPECIALIZES",
+      "tgt": "inner_product_space",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T2/modern_hopfield_ramsauer",
+      "rel": "USES",
+      "tgt": "inner_product",
+      "source": "phase4a_signature_uses"
+    },
+    {
+      "src": "kalman_filter",
+      "tgt": "bayes_rule",
+      "rel": "USES",
+      "source": "83a_w_type_sig"
+    },
+    {
+      "src": "T3/count_nb",
+      "rel": "INSTANCE_OF",
+      "tgt": "discriminative_classification",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "gram_schmidt",
+      "tgt": "transformers",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "T1/matrix",
+      "rel": "SPECIALIZES",
+      "tgt": "vector_space",
+      "source": "phase4a_signature_specializes"
+    },
+    {
+      "src": "T3/chu_liu_edmonds",
+      "rel": "INSTANCE_OF",
+      "tgt": "graph_traversal",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "discrete_fourier_transform",
+      "tgt": "transformers",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "context_binding",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "tensor_product_representation",
+      "tgt": "algebraic_binding",
+      "rel": "SPECIALIZES",
+      "source": "83a_w_type_sig"
+    },
+    {
+      "src": "T2/context_binding",
+      "rel": "INSTANCE_OF",
+      "tgt": "algebraic_binding",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "prims_mst",
+      "tgt": "graph_traversal",
+      "rel": "SPECIALIZES",
+      "source": "83a_w_type_sig"
+    },
+    {
+      "src": "T3/pca_whitening",
+      "rel": "INSTANCE_OF",
+      "tgt": "representation_transform",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "cascade_hmm_pipeline",
+      "tgt": "viterbi_decoding",
+      "rel": "USES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "tensor_product_representation",
+      "tgt": "binders",
+      "rel": "SPECIALIZES",
+      "source": "phase4e_batch2_grounding"
+    },
+    {
+      "src": "context_binding",
+      "tgt": "algebraic_binding",
+      "rel": "SPECIALIZES",
+      "source": "83a_w_type_sig"
+    },
+    {
+      "src": "T3/prims_mst",
+      "rel": "INSTANCE_OF",
+      "tgt": "graph_traversal",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T3/astar",
+      "rel": "INSTANCE_OF",
+      "tgt": "graph_traversal",
+      "source": "phase4a_signature_instance_of"
+    },
+    {
+      "src": "T1/group",
+      "rel": "SPECIALIZES",
+      "tgt": "set",
+      "source": "phase4a_signature_specializes"
+    }
+  ]
+}
