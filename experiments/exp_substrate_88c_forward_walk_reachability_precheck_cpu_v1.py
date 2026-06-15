@@ -57,9 +57,21 @@ def load():
     return tier, adj
 
 
-def precheck_batch(tier, adj, removals: List, adds: List) -> Dict:
-    """removals/adds = list of (src_short, tgt_short) forward edges. Returns atoms that LOSE reach-to-T1."""
-    is_t1 = lambda n: tier.get(n, "") == "T1"
+TIER_NUM = {"T1": 1, "T2": 2, "T3": 3, "T4": 4}
+
+
+def precheck_batch(tier, adj, removals: List, adds: List, tier_changes: List = None) -> Dict:
+    """removals/adds = (src_short, tgt_short) forward edges; tier_changes = (atom_short, old_tier, new_tier).
+    Returns atoms that LOSE reach-to-an-axiom (leaf-strand) PLUS tier-monotone violations. OPERATION-CLASS-INVARIANT:
+    leaf-strand arises from edge ops (87c) AND tier mutations (84a; an atom demoted T1->T2/T3 is no longer an axiom
+    and must reach one via forward walk)."""
+    tier_changes = tier_changes or []
+    is_t1_pre = lambda n: tier.get(n, "") == "T1"
+    # post-tier map (tier mutations applied)
+    post_tier = dict(tier)
+    for a, _old, new in tier_changes:
+        post_tier[a] = new
+    is_t1_post = lambda n: post_tier.get(n, "") == "T1"
     rem = {(s, t) for s, t in removals}
     post = defaultdict(list)
     for s, vs in adj.items():
@@ -68,17 +80,28 @@ def precheck_batch(tier, adj, removals: List, adds: List) -> Dict:
             post[s].append(v)
     for s, t in adds:
         post[s].append(t)
-    # which atoms are touched (any atom whose outgoing set changed) -- and check ALL non-T1 atoms for safety
     touched = {s for s, _ in removals} | {s for s, _ in adds} | {t for _, t in removals} | {t for _, t in adds}
+    touched |= {a for a, _, _ in tier_changes}
     universe = set(adj) | touched | set(tier)
     stranded = []
     for n in universe:
-        if is_t1(n): continue
-        before = reaches_t1(n, adj, is_t1)
-        after = reaches_t1(n, post, is_t1)
+        before = reaches_t1(n, adj, is_t1_pre)            # was it grounded before (pre-tier, pre-edge)?
+        after = reaches_t1(n, post, is_t1_post)           # still grounded after (post-tier demotion + edge ops)?
         if before and not after:
             stranded.append(n)
-    return {"stranded": sorted(stranded), "ok": len(stranded) == 0, "post_adj": post}
+    # tier-monotone violations (blind-spot 1): a DEPENDS_ON/SPECIALIZES edge src->tgt should have
+    # tier(src) >= tier(tgt) in tier-NUMBER (foundational=low number depends on nothing more-derived).
+    # After tier mutation, check incident edges of mutated atoms for src(low) -> tgt(high) violations.
+    mutated = {a for a, _, _ in tier_changes}
+    monotone_viol = []
+    for s, vs in post.items():
+        for t in vs:
+            if s not in mutated and t not in mutated: continue
+            ts, tt = TIER_NUM.get(post_tier.get(s, ""), 9), TIER_NUM.get(post_tier.get(t, ""), 9)
+            if ts < tt:  # foundational src depends on more-derived tgt = backwards/monotone violation
+                monotone_viol.append("%s(%s)->%s(%s)" % (s, post_tier.get(s, "?"), t, post_tier.get(t, "?")))
+    return {"stranded": sorted(stranded), "monotone_violations": sorted(set(monotone_viol)),
+            "ok": len(stranded) == 0 and len(monotone_viol) == 0, "post_adj": post}
 
 
 def run() -> Dict:
