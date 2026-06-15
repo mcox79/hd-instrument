@@ -1,0 +1,3 @@
+{"action": "REMOVE", "src": "integral", "tgt": "lebesgue_integral", "rel_type": "DEPENDS_ON", "reason": "BACKWARDS: general integral does not depend on the specific Lebesgue construction"}
+{"action": "RETYPE", "src": "lebesgue_integral", "tgt": "integral", "old_rel_type": "DEPENDS_ON", "new_rel_type": "SPECIALIZES", "reason": "Lebesgue integral IS a kind of integral (specific construction specializes general); SPECIALIZES is in forward-walk set so lebesgue retains path to axioms"}
+{"action": "KEEP_BOTH_ATOMS", "note": "integral (general) and lebesgue_integral (specific) are DISTINCT concepts; NOT a merge"}
