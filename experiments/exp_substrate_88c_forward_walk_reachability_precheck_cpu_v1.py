@@ -76,6 +76,16 @@ def precheck_batch(tier, adj, removals: List, adds: List, tier_changes: List = N
     for a, _old, new in tier_changes:
         post_tier[a] = new
     is_t1_post = lambda n: post_tier.get(n, "") == "T1"
+    # DECISION 93d-1: only FORWARD rel-types (DEPENDS_ON, SPECIALIZES) affect forward-walk/monotone.
+    # removals/adds entries may be (s,t) or (s,t,rel_type); a non-FORWARD rel-type (e.g. USES) is EXEMPT
+    # (a re-type DEPENDS_ON->USES = forward REMOVE + non-forward ADD; the USES add is invisible here).
+    def fwd_only(pairs):
+        out = []
+        for p in pairs:
+            if len(p) >= 3 and str(p[2]).upper() not in FORWARD: continue   # non-forward rel-type exempt
+            out.append((p[0], p[1]))
+        return out
+    removals = fwd_only(removals); adds = fwd_only(adds)
     rem = {(s, t) for s, t in removals}
     post = defaultdict(list)
     for s, vs in adj.items():
