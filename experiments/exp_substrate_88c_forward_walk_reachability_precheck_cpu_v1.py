@@ -44,6 +44,7 @@ def load():
     from backend.substrate_index.partition import PartitionedStore
     atoms = list(PartitionedStore(DATA_ROOT).all_atoms())
     tier = {_short(a.id): str(getattr(getattr(a, "tier", None), "value", getattr(a, "tier", "")) or "") for a in atoms}
+    corpus = {_short(a.id): str(getattr(getattr(a, "corpus", None), "value", getattr(a, "corpus", ""))).lower() for a in atoms}
     adj = defaultdict(list)
     for rp in DATA_ROOT.rglob("relations.jsonl"):
         for ln in open(rp, encoding="utf-8"):
@@ -54,18 +55,21 @@ def load():
             if (r.get("rel_type", "") or "").upper() in FORWARD:
                 s = _short(r.get("src_id", "")); t = _short(r.get("tgt_id", ""))
                 if s and t and s != t: adj[s].append(t)
-    return tier, adj
+    return tier, adj, corpus
 
 
 TIER_NUM = {"T1": 1, "T2": 2, "T3": 3, "T4": 4}
 
 
-def precheck_batch(tier, adj, removals: List, adds: List, tier_changes: List = None) -> Dict:
+def precheck_batch(tier, adj, removals: List, adds: List, tier_changes: List = None, corpus: Dict = None) -> Dict:
     """removals/adds = (src_short, tgt_short) forward edges; tier_changes = (atom_short, old_tier, new_tier).
+    corpus = {atom_short: corpus} -> if provided, tier-monotone is CORPUS-SCOPED (DECISION 92a): only WITHIN-corpus
+    edges are checked; cross-corpus edges (e.g. concept->math) are EXEMPT (legitimate conceptual dependency).
     Returns atoms that LOSE reach-to-an-axiom (leaf-strand) PLUS tier-monotone violations. OPERATION-CLASS-INVARIANT:
     leaf-strand arises from edge ops (87c) AND tier mutations (84a; an atom demoted T1->T2/T3 is no longer an axiom
     and must reach one via forward walk)."""
     tier_changes = tier_changes or []
+    corpus = corpus or {}
     is_t1_pre = lambda n: tier.get(n, "") == "T1"
     # post-tier map (tier mutations applied)
     post_tier = dict(tier)
@@ -93,19 +97,25 @@ def precheck_batch(tier, adj, removals: List, adds: List, tier_changes: List = N
     # tier(src) >= tier(tgt) in tier-NUMBER (foundational=low number depends on nothing more-derived).
     # After tier mutation, check incident edges of mutated atoms for src(low) -> tgt(high) violations.
     mutated = {a for a, _, _ in tier_changes}
-    monotone_viol = []
+    monotone_viol = []; cross_corpus_exempt = []
     for s, vs in post.items():
         for t in vs:
             if s not in mutated and t not in mutated: continue
             ts, tt = TIER_NUM.get(post_tier.get(s, ""), 9), TIER_NUM.get(post_tier.get(t, ""), 9)
-            if ts < tt:  # foundational src depends on more-derived tgt = backwards/monotone violation
+            if ts < tt:  # foundational src depends on more-derived tgt = candidate backwards/monotone violation
+                # DECISION 92a: tier-monotone is CORPUS-SCOPED. Only flag WITHIN-corpus edges; exempt cross-corpus.
+                cs, ct = corpus.get(s, ""), corpus.get(t, "")
+                if corpus and cs and ct and cs != ct:
+                    cross_corpus_exempt.append("%s(%s)->%s(%s)" % (s, cs, t, ct))
+                    continue
                 monotone_viol.append("%s(%s)->%s(%s)" % (s, post_tier.get(s, "?"), t, post_tier.get(t, "?")))
     return {"stranded": sorted(stranded), "monotone_violations": sorted(set(monotone_viol)),
+            "cross_corpus_exempt": sorted(set(cross_corpus_exempt)),
             "ok": len(stranded) == 0 and len(monotone_viol) == 0, "post_adj": post}
 
 
 def run() -> Dict:
-    tier, adj = load()
+    tier, adj, corpus = load()
     is_t1 = lambda n: tier.get(n, "") == "T1"
     # T2_FAM family roots = T2 atoms with >=2 incoming SPECIALIZES (members specialize them)
     inspec = defaultdict(int)
