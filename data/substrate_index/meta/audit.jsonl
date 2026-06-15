@@ -100,3 +100,5 @@
 {"ts": 1781556893.6715627, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/viterbi_decoder", "note": "DECISION 107a re-point: was -RELATES-> math::T2/viterbi_decoder", "source": "phase3_subbatch1_tier_1A_107a"}
 {"ts": 1781556893.6862125, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/forward_algorithm", "note": "DECISION 107a re-point: was -RELATES-> math::T2/forward_algorithm", "source": "phase3_subbatch1_tier_1A_107a"}
 {"ts": 1781556893.6880574, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/backward_algorithm", "note": "DECISION 107a re-point: was -RELATES-> math::T2/backward_algorithm", "source": "phase3_subbatch1_tier_1A_107a"}
+{"ts": 1781557459.4662318, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was meta::SELF/family_sequence_dp -RELATES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.0205193, "op": "remove_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/viterbi_decoder", "note": "", "source": "manual"}

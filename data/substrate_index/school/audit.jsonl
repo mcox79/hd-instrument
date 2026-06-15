@@ -66,3 +66,12 @@
 {"ts": 1781351191.5045254, "op": "update_atom", "target": "SCHOOL/free_probability_family", "note": "composite alias: random matrix free probability family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
 {"ts": 1781351191.505693, "op": "update_atom", "target": "SCHOOL/spectral_observability_family", "note": "composite alias: random matrix spectral family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
 {"ts": 1781351191.5267894, "op": "update_atom", "target": "SCHOOL/hopfield_family", "note": "composite alias: hopfield network family", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781557459.473548, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.0388944, "op": "remove_relation", "target": "math::T3/viterbi_decoder|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557460.0388944, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557460.223795, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/forward_algorithm", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/forward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.7691724, "op": "remove_relation", "target": "math::T3/forward_algorithm_atom|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557460.7765324, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/forward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557460.999, "op": "add_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/backward_algorithm", "note": "DECISION 109b-2 merge: was school::SCHOOL/hmm_sequence_labeling_family -USES-> math::T3/backward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557461.5394258, "op": "remove_relation", "target": "math::T3/backward_algorithm_atom|HAS_USERS|SCHOOL/hmm_sequence_labeling_family", "note": "", "source": "manual"}
+{"ts": 1781557461.5555422, "op": "remove_relation", "target": "SCHOOL/hmm_sequence_labeling_family|USES|math::T3/backward_algorithm_atom", "note": "", "source": "manual"}

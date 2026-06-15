@@ -324,3 +324,20 @@
 {"ts": 1781553154.2547445, "op": "add_relation", "target": "PP-375_multistep_math|RELATES|math::T3/em_algorithm", "note": "DECISION 101b RE-POINT: was concept::PP-375_multistep_math -RELATES-> math::T3/expectation_maximization", "source": "atom_merge_em_algorithm_101b"}
 {"ts": 1781553154.272021, "op": "add_relation", "target": "unified_compositional_engine|RELATES|math::T3/em_algorithm", "note": "DECISION 101b RE-POINT: was concept::unified_compositional_engine -RELATES-> math::T3/expectation_maximization", "source": "atom_merge_em_algorithm_101b"}
 {"ts": 1781553154.2877834, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/em_algorithm", "note": "DECISION 101b RE-POINT: was concept::CAP_dynamic_programming -RELATES-> math::T3/expectation_maximization", "source": "atom_merge_em_algorithm_101b"}
+{"ts": 1781557459.4501433, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was concept::CAP_dynamic_programming -RELATES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557459.98895, "op": "remove_relation", "target": "CAP_viterbi_decoding|USES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557459.98895, "op": "remove_relation", "target": "math::T3/viterbi_decoder|HAS_USERS|PP-364_pos_tagger", "note": "", "source": "manual"}
+{"ts": 1781557460.0047803, "op": "remove_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557460.0047803, "op": "remove_relation", "target": "PP-364_pos_tagger|USES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557460.0205193, "op": "remove_relation", "target": "PP-369_slot_filling|USES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557460.195734, "op": "add_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/forward_algorithm", "note": "DECISION 109b-2 merge: was concept::CAP_dynamic_programming -RELATES-> math::T3/forward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.2173982, "op": "add_relation", "target": "CAP_em_algorithm|RELATES|math::T3/forward_algorithm", "note": "DECISION 109b-2 merge: was concept::CAP_em_algorithm -RELATES-> math::T3/forward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.73872, "op": "remove_relation", "target": "math::T3/forward_algorithm_atom|HAS_USERS|CAP_forward_algorithm", "note": "", "source": "manual"}
+{"ts": 1781557460.7444956, "op": "remove_relation", "target": "CAP_forward_algorithm|USES|math::T3/forward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557460.7547543, "op": "remove_relation", "target": "CAP_dynamic_programming|RELATES|math::T3/forward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557460.7629876, "op": "remove_relation", "target": "CAP_em_algorithm|RELATES|math::T3/forward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557460.9921453, "op": "add_relation", "target": "CAP_em_algorithm|RELATES|math::T3/backward_algorithm", "note": "DECISION 109b-2 merge: was concept::CAP_em_algorithm -RELATES-> math::T3/backward_algorithm_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557461.5278032, "op": "remove_relation", "target": "math::T3/backward_algorithm_atom|HAS_USERS|CAP_backward_algorithm", "note": "", "source": "manual"}
+{"ts": 1781557461.529404, "op": "remove_relation", "target": "CAP_em_algorithm|RELATES|math::T3/backward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557461.5394258, "op": "remove_relation", "target": "CAP_backward_algorithm|USES|math::T3/backward_algorithm_atom", "note": "", "source": "manual"}
+{"ts": 1781557462.174432, "op": "remove_relation", "target": "CAP_shannon_entropy|USES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}

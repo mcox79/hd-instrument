@@ -307,3 +307,9 @@
 {"ts": 1781397333.530349, "op": "update_atom", "target": "NEURO/default_mode_network", "note": "backfill algebra for default_mode_network Class A unblock", "source": "signature_type_atoms_v3"}
 {"ts": 1781397333.5791872, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
 {"ts": 1781397333.6208801, "op": "update_atom", "target": "QINFO/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781557459.4820125, "op": "add_relation", "target": "CS/algorithm|RELATES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was science::CS/algorithm -RELATES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557460.0522382, "op": "remove_relation", "target": "CS/algorithm|RELATES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781557461.6657627, "op": "add_relation", "target": "PHYS/thermodynamics|RELATES|math::T1/shannon_entropy", "note": "DECISION 109b-2 merge: was science::PHYS/thermodynamics -RELATES-> math::T1/shannon_entropy_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557461.6730402, "op": "add_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/shannon_entropy", "note": "DECISION 109b-2 merge: was science::CS/information_theory_shannon -RELATES-> math::T1/shannon_entropy_atom", "source": "phase3_tier_1B_109b2"}
+{"ts": 1781557462.174432, "op": "remove_relation", "target": "PHYS/thermodynamics|RELATES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}
+{"ts": 1781557462.1871488, "op": "remove_relation", "target": "CS/information_theory_shannon|RELATES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}
