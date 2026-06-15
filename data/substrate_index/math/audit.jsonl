@@ -34768,3 +34768,4 @@
 {"ts": 1781544462.2551472, "op": "update_atom", "target": "T1/hessian", "note": "DECISION 84a re-tier hessian: TIER_1_FOUNDATIONAL -> TIER_2_PRIMITIVE", "source": "tier_reassign_v1_84a"}
 {"ts": 1781544464.178943, "op": "update_atom", "target": "T1/newton_method", "note": "DECISION 84a ROLLBACK: R3 regression", "source": "tier_reassign_v1_84a_ROLLBACK"}
 {"ts": 1781544464.6660693, "op": "update_atom", "target": "T1/hessian", "note": "DECISION 84a ROLLBACK: R3 regression", "source": "tier_reassign_v1_84a_ROLLBACK"}
+{"ts": 1781545750.16639, "op": "add_relation", "target": "T3/bayes_rule_synthesis|DEPENDS_ON|T1/bayes_rule", "note": "DECISION 94b R&R: BACKWARDS (synthesis is DERIVED FROM bayes_rule); no reverse exists -> remove backwards + add correct synthesis->bayes_rule (preserve the real relationship)", "source": "cycle_cleanup_v2_batch_2c_92c"}
