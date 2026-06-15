@@ -103,9 +103,28 @@ def run() -> Dict:
             top5 = {s for s, _ in sorted(((s, cos + beta * x["cons_n"].get(s, 0.0)) for s, cos in x["pool_s"]), key=lambda t: -t[1])[:5]}
             out.append(f1_present(top5, x["present"]))
         return mac(out)
+    import math
+    deg_new = {n: len(v) for n, v in new_adj.items()}
+
+    def dn_macro(beta):
+        # DENSITY-AWARE: degree-normalized consensus (penalize hub nodes reachable from everyone)
+        out = []
+        for x in perq:
+            scored = []
+            for s, cos in x["pool_s"]:
+                c = x["cons_n"].get(s, 0.0) / math.sqrt(deg_new.get(s, 1) or 1)
+                scored.append((s, cos + beta * c))
+            top5 = {s for s, _ in sorted(scored, key=lambda t: -t[1])[:5]}
+            out.append(f1_present(top5, x["present"]))
+        return mac(out)
     BETAS = [0.0, 0.01, 0.02, 0.05, 0.10, 0.20]
+    DN_BETAS = [0.0, 0.05, 0.1, 0.2, 0.4, 0.8]
     om = old_macro(BETA)
     new_sweep = {b: new_macro(b) for b in BETAS}
+    dn_sweep = {b: dn_macro(b) for b in DN_BETAS}
+    dn_best_b = max(DN_BETAS, key=lambda b: dn_sweep[b]); dn_best = dn_sweep[dn_best_b]
+    print("  DENSITY-AWARE (degree-normalized) full-graph sweep: %s" % {b: round(v, 4) for b, v in dn_sweep.items()}, flush=True)
+    print("  DENSITY-AWARE best = %.4f @ beta=%.2f (vs sparse-M4d 0.2721)" % (dn_best, dn_best_b), flush=True)
     nm_best_b = max(BETAS, key=lambda b: new_sweep[b]); nm_best = new_sweep[nm_best_b]
     # isolated-gold recovery at the best normalized beta
     iso_recovered = set()
