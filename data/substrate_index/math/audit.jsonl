@@ -34871,3 +34871,4 @@
 {"ts": 1781559315.5407639, "op": "remove_atom", "target": "T3/collins_structured_perceptron", "note": "DECISION 116a collins MERGE; canonical structured_perceptron_collins preserves capabilities", "source": "phase3_subbatch3_collins_116a"}
 {"ts": 1781560017.9324462, "op": "add_relation", "target": "T3/em_algorithm|USES|T1/kullback_leibler_divergence", "note": "DECISION 120 kl-backwards: add upward em_algorithm USES kl", "source": "ratify2_kl_backwards_113b"}
 {"ts": 1781560018.1265693, "op": "add_relation", "target": "T3/count_nb|RELATES|T2_FAM/discriminative_classification", "note": "DECISION 120: NB is generative; RELATES contrast not SPECIALIZES", "source": "ratify3_count_nb_simple_120"}
+{"ts": 1781562451.9366555, "op": "add_relation", "target": "T2/cosine_cleanup|SPECIALIZES|T2/cleanup", "note": "DECISION 124a Item 3 cosine_cleanup precision", "source": "hygiene_124a_item3"}
