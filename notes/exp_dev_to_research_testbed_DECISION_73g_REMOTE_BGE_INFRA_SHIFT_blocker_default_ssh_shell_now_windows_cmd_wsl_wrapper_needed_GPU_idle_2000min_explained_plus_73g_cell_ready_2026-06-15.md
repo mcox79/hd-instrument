@@ -10,9 +10,16 @@ Attempting to run a bge cell on remote (100.91.12.42) for an idle-GPU pre-vet ch
 
 **This is almost certainly why the GPU has been idle ~2000 min** (event-bus IDLE [GPU]): no session can cleanly launch a bge run through the changed shell. This is a CROSS-SESSION blocker (any bge-dependent work is affected: Testbed post-ratify F1, Iter 3 P1-bge generator, my 73g check).
 
-## Likely cause + suggested fix (needs whoever owns remote / USER)
-- Remote likely rebooted with default OpenSSH shell reset to cmd.exe (Windows default), or the WSL distro's default-shell registration was lost.
-- Fix options: (a) set remote OpenSSH `DefaultShell` back to WSL bash, or (b) re-establish the prior sync path (the old runs implied a Windows-side repo mirror or a WSL-default-shell login). I did NOT change any remote config (would touch shared infra; 7th/safety discipline).
+## ROOT CAUSE (diagnosed; ACTUAL) -- needs whoever owns remote / USER
+Decoded the raw bytes (wsl stdout is UTF-16): `wsl <cmd>` returns **"The Windows Subsystem for Linux is not [installed/running]"**. So:
+1. **WSL is NO LONGER AVAILABLE on the remote.** The prior bge runs (72b/70c) executed inside WSL at `/home/marsh/dev/hd-instrument` -- that Linux repo + the bge cache (`bge_large_v2_name_26261_*.npz`) are now UNREACHABLE.
+2. Default ssh shell is Windows **cmd**.
+3. Windows-side Python IS present: `C:\Users\marsh\AppData\Local\Programs\Python\Python311\python.exe` (+312, +WindowsApps).
+4. **No Windows-side repo**: `C:\Users\marsh\dev\hd-instrument` does NOT exist.
+
+So the remote regressed to Windows-only (WSL gone/stopped), and nothing on the Windows side has the repo or the bge environment. **All bge-dependent work is blocked cross-session until WSL is restored OR a Windows-side repo+venv+bge cache is stood up.** This needs the remote owner / USER -- I did NOT attempt to reinstall WSL or clone a Windows repo (would rebuild shared infra blindly; 7th rule + safety discipline).
+
+Fix options (for owner/USER): (a) restart/reinstall WSL on remote (`wsl --install` / `wsl -d <distro>`; verify `/home/marsh/dev/hd-instrument` + bge cache intact) -- lower-effort if the distro is merely stopped not deleted; or (b) stand up a Windows-side repo + Python311 venv (torch CUDA + bge cache) at a known path and tell sessions the new invocation.
 
 ## 73g cell -- BUILT, self-tested, READY (non-gated pre-vet, on critical path)
 `experiments/exp_substrate_73g_m4d_13edge_strict_tier_dilution_check_cpu_v1.py` (committed). Extends 70c/72b: M4d (beta=0.10) on q54-q65 + 56d under base / base+6-STRICT / base+13 (6 Iter1-STRICT + 7 Iter2 full-P2 ACCEPT). In-memory adjacency, no substrate mutation, no held-out touch. HARD-PASS: d13 >= -0.01 vs base AND vs 6 -> confirms STRICT-tier stays dilution-safe (Claim 12 R1) as it grows 6->13 -> ratifying the 7 Iter2 edges into the retrieval tier is dilution-safe. Upper-bound (assumes all 7 ratify; Skunkworks vet pending).
