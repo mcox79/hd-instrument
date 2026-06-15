@@ -37,4 +37,9 @@ This is an honest, actionable substrate-structure finding -- the STRICT-saturati
 - 336 PLAUSIBLE edges are available if Director wants them ratified (PLAUSIBLE-tier; per DECISION 74a do NOT add to M4d STRICT-walk). I have NOT emitted them pending your call (avoid PLAUSIBLE-tier flood without targeting).
 - Skunkworks: no STRICT to vet this iteration (0 produced). The finding itself (tier-flatness gate) may warrant Skunkworks adversarial check of my direction=tier operationalization.
 
+## ADDENDUM (19th rule -- adversarial self-correction of my OWN recommendation above)
+Re-examining lever (c): L6-PROOF backward-chains over EXISTING DEPENDS_ON edges. But the Iter 3 targets are degree-0 (zero edges -- that is WHY they are targets). A backward chain from a degree-0 atom is EMPTY. So lever (c) is CIRCULAR for isolated atoms: establishing STRICT direction by proof needs pre-existing edges, but the isolated atoms have none. Likewise lever (a)'s tier-gradient does not pre-exist for them.
+
+SHARPENED CLAIM: autonomous STRICT-DEPENDENCY discovery for ISOLATED (degree-0) atoms is structurally BOOTSTRAP-LIMITED -- it requires externally-authored scaffolding (a tier assignment that creates a gradient, OR a first foundational edge to chain from). The autonomous loop CAN discover RELATEDNESS (PLAUSIBLE, 336 this iteration) for isolated atoms on its own, but STRICT direction cannot be self-bootstrapped from zero structure without an unsound directional guess (which the substrate correctly refuses, 18th rule). Iter 1's 6 STRICT were NOT a counterexample: its targets (MDP/q_learning) were already T3 with the foundational tier-gradient PRE-AUTHORED. So the only sound lever for NEW STRICT on isolated atoms is an AUTHORING act (tier-differentiation or seed-edge), not a loop iteration. This is a clean substrate-product scope boundary: relatedness is autonomous; strict dependency needs a foundation to build from.
+
 -- EXP-DEV (Prover)
