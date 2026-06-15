@@ -38,8 +38,10 @@ def run() -> Dict:
     idforms = defaultdict(set)
     for a in atoms:
         idforms[_short(a.id)].add(_norm(a.id))
-    # all structural edges (keep raw _norm ids)
-    real = []
+    # structural edges (for proof/capability) PLUS all-rel-type incidence (for complete dangling detection:
+    # a SUPERSEDED_BY / HAS_USERS / DUAL edge to the non-canonical atom would dangle if missed -- Skunkworks's note).
+    real = []                 # STRUCT_EDGES only (proof graph)
+    all_incident = []         # ANY rel-type edge touching noncanon (for dangling + re-point completeness)
     edge_idforms = set()
     for rp in DATA_ROOT.rglob("relations.jsonl"):
         for ln in open(rp, encoding="utf-8"):
@@ -48,17 +50,20 @@ def run() -> Dict:
             try: r = json.loads(ln)
             except Exception: continue
             rt = (r.get("rel_type", "") or "").upper()
+            s = _norm(r.get("src_id", "")); t = _norm(r.get("tgt_id", ""))
+            if not (s and t and s != t): continue
             if rt in STRUCT_EDGES:
-                s = _norm(r.get("src_id", "")); t = _norm(r.get("tgt_id", ""))
-                if s and t and s != t:
-                    real.append((s, rt, t))
-                    if _short(s) == NONCANON: edge_idforms.add(s)
-                    if _short(t) == NONCANON: edge_idforms.add(t)
+                real.append((s, rt, t))
+            if _short(s) == NONCANON or _short(t) == NONCANON:
+                all_incident.append((s, rt, t))
+                if _short(s) == NONCANON: edge_idforms.add(s)
+                if _short(t) == NONCANON: edge_idforms.add(t)
     # canonical id-form: prefer a CANON atom id; else build the qualified form
     canon_ids = sorted(idforms.get(CANON, set()))
     canon_id = canon_ids[0] if canon_ids else CANON
-    incident = [(s, rt, t) for s, rt, t in real if _short(s) == NONCANON or _short(t) == NONCANON]
-    n_incident = len(incident)
+    n_incident = len(all_incident)                       # ALL rel-types touching svd (re-point completeness)
+    n_incident_struct = sum(1 for s, rt, t in real if _short(s) == NONCANON or _short(t) == NONCANON)
+    incident_reltypes = sorted({rt for _, rt, _ in all_incident})
 
     def remap(x): return canon_id if _short(x) == NONCANON else x
     # build BEFORE and AFTER (merged) directed graphs
@@ -79,9 +84,16 @@ def run() -> Dict:
     tierA = dict(tier)
     def axB(n): return tier.get(n, "") == "T1" or (n not in hoB)
     def axA(n): return tierA.get(n, "") == "T1" or (n not in hoA)
-    # dangling check: every endpoint in merged graph resolves to an existing atom (canon exists; svd removed)
+    # dangling check across ALL rel-types: after merge (svd id-forms removed, canon kept), re-point every
+    # incident edge form-agnostically; any endpoint that fails to resolve = dangling (the HARD-FAIL mode).
     atoms_after = (atom_ids - idforms.get(NONCANON, set())) | {canon_id}
     dangling = set()
+    for s, rt, t in all_incident:
+        ns, nt = remap(s), remap(t)
+        if ns == nt: continue                            # self-loop collapses on merge
+        if ns not in atoms_after: dangling.add(ns)
+        if nt not in atoms_after: dangling.add(nt)
+    # also confirm no STRUCT merged edge dangles (proof-graph integrity)
     for s, rt, t in merged:
         if s not in atoms_after: dangling.add(s)
         if t not in atoms_after: dangling.add(t)
@@ -103,7 +115,8 @@ def run() -> Dict:
     print("  atom-MERGE PILOT pre-check: %s -> %s" % (NONCANON, CANON), flush=True)
     print("  svd id-forms (atoms): %s | svd id-forms (in edges): %s | canonical id: %s" % (
         sorted(idforms.get(NONCANON, set())), sorted(edge_idforms), canon_id), flush=True)
-    print("  edges incident to svd (any id-form) = %d | self-loops dropped after merge = %d" % (n_incident, selfloops), flush=True)
+    print("  edges incident to svd: ALL-rel-types=%d (types=%s) | STRUCT-only=%d | self-loops dropped=%d" % (
+        n_incident, incident_reltypes, n_incident_struct, selfloops), flush=True)
     print("  capability: goal pool=%d | axiom-terminating before=%d after=%d | regressed=%d | dangling refs=%d" % (
         len(goal_pool), before, after, len(regressed), len(dangling)), flush=True)
     if dangling: print("    DANGLING:", sorted(dangling)[:10], flush=True)
