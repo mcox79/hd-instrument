@@ -303,3 +303,7 @@
 {"ts": 1781351191.5575147, "op": "update_atom", "target": "BIO/basal_ganglia", "note": "composite alias: reinforcement basal ganglia", "source": "a_axis_alias_enrichment_v3_extended_qs"}
 {"ts": 1781351191.6025631, "op": "update_atom", "target": "BIO/predictive_coding", "note": "composite alias: bayesian bayes predictive coding", "source": "a_axis_alias_enrichment_v3_extended_qs"}
 {"ts": 1781351191.6047614, "op": "update_atom", "target": "CS/probabilistic_graphical_model", "note": "composite alias: bayesian bayes probabilistic graphical model", "source": "a_axis_alias_enrichment_v3_extended_qs"}
+{"ts": 1781397333.5026648, "op": "update_atom", "target": "BIO/default_mode_network", "note": "backfill algebra for default_mode_network Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.530349, "op": "update_atom", "target": "NEURO/default_mode_network", "note": "backfill algebra for default_mode_network Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.5791872, "op": "update_atom", "target": "PHYS/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
+{"ts": 1781397333.6208801, "op": "update_atom", "target": "QINFO/quantum_entanglement", "note": "backfill algebra for quantum_entanglement Class A unblock", "source": "signature_type_atoms_v3"}
