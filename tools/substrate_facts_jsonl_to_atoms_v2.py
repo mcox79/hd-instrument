@@ -120,16 +120,26 @@ def word_vocab_filter(fact_str: str, vocab: set) -> bool:
     return any(v.replace("_", " ") in fl or v in fl for v in vocab)
 
 
-def fact_to_atom_v2(fact_str: str, parsed: dict, corpus: str, partition: str, row_idx: int, qclass_label: str):
-    """Build atom dict from filtered Wikidata fact (Q-instance-of mode)."""
+def fact_to_atom_v2(fact_str: str, parsed: dict, corpus: str, partition: str, row_idx: int, qclass_label: str, label: str = ""):
+    """Build atom dict from filtered Wikidata fact (Q-instance-of mode).
+
+    DECISION 49b FIX (2026-06-14): use the REAL entity label as canonical_name (the fetcher
+    captures it in the facts.jsonl `label` field) so atoms are semantically retrievable by bge.
+    Previously canonical_name was the Q-id placeholder ('wikidata_Q182505') -> all atoms had
+    near-identical embeddings (bge-invisible). Q-id retained as an alias for provenance.
+    """
     if corpus != "wikidata":
         return None
     subj = parsed["subj"]
     rel = parsed["rel"]
     obj = parsed["obj"]
+    label = (label or "").strip()
+    # Keep canonical_name = Q-id (STABLE atom id for edge consistency + clean in-place replace);
+    # put the REAL label in aliases so bge encodes it (encode = name + id_tokens + aliases) ->
+    # atoms become semantically distinguishable/retrievable without changing ids or edges.
     return {
         "canonical_name": f"wikidata_{subj}",
-        "aliases": [subj],
+        "aliases": ([label] if label else []) + [subj],
         "tier": "T3",
         "partition": partition,
         "science_algebra_category": f"wikidata::truthy::{qclass_label}",
@@ -195,9 +205,11 @@ def main():
             line = line.strip()
             if not line:
                 continue
+            label = ""
             try:
                 obj = json.loads(line)
                 fact_str = obj.get("fact", "")
+                label = obj.get("label", "")  # DECISION 49b FIX: carry real entity label
             except Exception:
                 fact_str = line
             if not fact_str:
@@ -208,7 +220,7 @@ def main():
             if args.vocab_mode in ("qclass", "qclass_or_word") and args.corpus == "wikidata":
                 accept, parsed = wikidata_inst_of_filter(fact_str, qclass_set)
                 if accept:
-                    atom = fact_to_atom_v2(fact_str, parsed, args.corpus, args.partition, row_idx, qclass_label)
+                    atom = fact_to_atom_v2(fact_str, parsed, args.corpus, args.partition, row_idx, qclass_label, label)
 
             if atom is None and args.vocab_mode in ("word", "qclass_or_word"):
                 if word_vocab_filter(fact_str, word_vocab):
