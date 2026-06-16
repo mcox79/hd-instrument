@@ -247,6 +247,52 @@ def eval_single_role_isolation(seed, N):
     return {"c1_rmse": rmse(c1), "c2_rmse": rmse(c2), "max_total_bindings": max_total}
 
 
+# ===== PRE-REGISTERED GRADED VERDICT LOGIC (pre-registers HARD-PASS/FAIL bands in code BEFORE the graded
+# run -- Lakatos no-ex-post-adjustment). Pure threshold logic; NO data. Applied at the graded run on GO. =====
+
+def verdict_exact_count(c0_rmse, c1_rmse, c2_rmse, within_envelope):
+    """AGGREGATE/RMSE sibling. C2 must ESCAPE C0 (beat, not match) + reduce C1 by >=2x + reach <=1.0,
+    EVALUATED WITHIN the capacity envelope (else a low C2 is a capacity artifact, not a primitive fail)."""
+    if not within_envelope:
+        return ("CAPACITY-ARTIFACT", "outside capacity envelope; C2 score is not a primitive verdict")
+    beats_c0 = c2_rmse < c0_rmse
+    reduces_c1 = c1_rmse > 0 and (c1_rmse / max(c2_rmse, 1e-9)) >= PREREG["exact_count_rmse_reduction"]
+    reaches_bar = c2_rmse <= PREREG["exact_count_C2_rmse_max"]
+    if beats_c0 and reduces_c1 and reaches_bar:
+        return ("HARD_PASS", f"C2 RMSE {c2_rmse:.2f} escapes C0 {c0_rmse:.2f} + >=2x C1 {c1_rmse:.2f} + <=1.0")
+    if (not beats_c0) or c2_rmse >= c1_rmse:
+        return ("HARD_FAIL", f"C2 RMSE {c2_rmse:.2f} does not escape (C0 {c0_rmse:.2f} / C1 {c1_rmse:.2f})")
+    return ("MIDDLE_BAND", f"C2 RMSE {c2_rmse:.2f} partial (C0 {c0_rmse:.2f} / C1 {c1_rmse:.2f})")
+
+
+def verdict_quantifier(c1_acc, c2_acc):
+    """RATIO/accuracy sibling (at-least-k, most). gate-EVADE if C1 closes; else HARD-PASS needs
+    C2>=0.80 AND (C2-C1)>=0.20 margin."""
+    if c1_acc >= PREREG["evade_drop_accuracy"]:
+        return ("EVADABLE-DROP", f"C1 {c1_acc:.3f} >= {PREREG['evade_drop_accuracy']}; task basis-evadable -> DROP")
+    margin = c2_acc - c1_acc
+    if c2_acc >= PREREG["C2_hardpass_accuracy"] and margin >= PREREG["C2_C1_margin"]:
+        return ("HARD_PASS", f"C2 {c2_acc:.3f} >= 0.80 + margin {margin:.3f} >= 0.20 over C1 {c1_acc:.3f}")
+    if c2_acc < 0.65:
+        return ("HARD_FAIL", f"C2 {c2_acc:.3f} < 0.65; primitive does not close it")
+    return ("MIDDLE_BAND", f"C2 {c2_acc:.3f} (margin {margin:.3f}); 0.65-0.80 band")
+
+
+def _verdict_selftests():
+    assert verdict_exact_count(5.0, 60.0, 0.9, True)[0] == "HARD_PASS"
+    assert verdict_exact_count(5.0, 60.0, 6.0, True)[0] == "HARD_FAIL"   # doesn't beat C0
+    assert verdict_exact_count(5.0, 60.0, 0.9, False)[0] == "CAPACITY-ARTIFACT"
+    assert verdict_exact_count(5.0, 4.0, 3.0, True)[0] == "MIDDLE_BAND"  # beats C0 but <2x C1 + >1.0
+    assert verdict_quantifier(0.55, 0.80)[0] == "HARD_PASS"
+    assert verdict_quantifier(0.72, 0.95)[0] == "EVADABLE-DROP"           # C1 closes -> evadable
+    assert verdict_quantifier(0.55, 0.60)[0] == "HARD_FAIL"               # C2 < 0.65
+    assert verdict_quantifier(0.55, 0.72)[0] == "MIDDLE_BAND"
+    print("[verdict-selftests] PASS: pre-registered exact-count(RMSE) + quantifier(accuracy) bands verified", flush=True)
+
+
+_verdict_selftests()
+
+
 def main():
     print(f"[start] cardinality Phase-B SKELETON run_mode={RUN_MODE} (SANITY ONLY; full run gated 2026-06-21)", flush=True)
     print(f"[start] N_LIST={N_LIST} VOCAB={VOCAB} N_SCENES={N_SCENES} ROLES={ROLES} seeds={SEEDS}", flush=True)
