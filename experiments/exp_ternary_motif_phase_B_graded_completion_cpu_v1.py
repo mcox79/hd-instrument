@@ -126,7 +126,7 @@ def run():
     fam_results = {}
     for fam in fam_order:
         fm = by_fam[fam]
-        per_seed = [run_family(fm, all_X, s) for s in SEEDS]
+        per_seed = [run_family(fm, s) for s in SEEDS]
         per_seed = [r for r in per_seed if r]
         if not per_seed: continue
         macc = {nm: float(np.mean([r[nm] for r in per_seed])) for nm in (SINGLES + COMPS)}

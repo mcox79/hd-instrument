@@ -228,6 +228,143 @@ def ratify_form_a(
     return 0
 
 
+def ratify_capability(
+    new_id: str,
+    name: str,
+    description: str,
+    uses_math_atoms: list[str],
+    cell_metrics_path: str | None,
+    sh_entries: list[dict],
+    source_tag: str,
+    metadata: dict | None = None,
+    label: str = 'CAP',
+    tier: Tier = Tier.TIER_2_PRIMITIVE,
+    expected_run_mode: str = 'full',
+    expected_verdict: str = 'HARD_PASS',
+) -> int:
+    """Ratify a CONCEPT-corpus CAPABILITY atom (Phase B BUILD pattern).
+
+    Difference from ratify_form_a (math-corpus FORM-A T3):
+    - CONCEPT corpus, CAPABILITY kind, T2 default tier
+    - USES edges (concept -> math) instead of DEPENDS_ON
+    - cell_metrics_path is optional (capability may bind to multiple cells via separate
+      sh entries; in that case caller passes None and supplies prebuilt sh_entries)
+    - Metadata pattern matches existing CAP_* atoms (decomposes_to + family_tag_members +
+      validated_axis + tier_concept + empirical_validation_status + drill_origin +
+      related_concepts + substrate_lever)
+
+    Returns 0 HARD_PASS / 1 HARD_FAIL. R3 invariants verified inline.
+    """
+    repo_root = Path(__file__).resolve().parents[1]
+    ps = PartitionedStore(repo_root / 'data/substrate_index')
+    concept_store = ps._store_for(Corpus.CONCEPT)
+    math_store = ps._store_for(Corpus.MATH)
+
+    pre_atoms = len(ps.all_atoms())
+    pre_rels = sum(1 for _ in ps.iter_all_relations())
+    pre_t, pre_total = axiom_term(ps)
+    print(f'[{label}] pre: atoms={pre_atoms} rels={pre_rels} axiom_term={pre_t}/{pre_total}', flush=True)
+
+    new_qid = f'concept::{new_id}'
+
+    if concept_store.get_atom(new_id) is not None:
+        print(f'[{label}] HARD_FAIL: {new_qid} already exists')
+        return 1
+    for m_atom in uses_math_atoms:
+        if math_store.get_atom(m_atom) is None:
+            print(f'[{label}] HARD_FAIL: USES target missing math::{m_atom}')
+            return 1
+    print(f'[{label}] USES targets verified: {uses_math_atoms}', flush=True)
+
+    # Optional cell verification (for single-cell capability binding)
+    if cell_metrics_path is not None:
+        cell_path = repo_root / cell_metrics_path
+        if not cell_path.exists():
+            print(f'[{label}] HARD_FAIL: cell metrics missing: {cell_path}')
+            return 1
+        with open(cell_path) as f:
+            m = json.load(f)
+        if m.get('run_mode') != expected_run_mode or m.get('verdict') != expected_verdict:
+            print(f'[{label}] HARD_FAIL: cell precondition (run_mode/verdict)')
+            return 1
+        sha = sha256_of(cell_path)
+        print(f'[{label}] cell corroborated: run_mode={m.get("run_mode")} sha={sha[:12]}..', flush=True)
+
+    new_atom = Atom(
+        id=new_id,
+        name=name,
+        corpus=Corpus.CONCEPT,
+        tier=tier,
+        kind=AtomKind.CAPABILITY,
+        description=description,
+        metadata=metadata or {
+            'decomposes_to': uses_math_atoms,
+            'form_phase_b_source': source_tag,
+            'eleventh_rule_clean': True,
+            'substrate_internal_verified': True,
+            'empirical_validation_status': 'phase_b_validated',
+        },
+        solution_history=tuple(sh_entries),
+    )
+    concept_store.add_atom(new_atom)
+    concept_store._flush_atoms()
+
+    for m_atom in uses_math_atoms:
+        ps.add_relation(
+            new_qid,
+            RelationType.USES,
+            f'math::{m_atom}',
+            source=source_tag,
+            note=f'{label} USES {m_atom}',
+        )
+    concept_store._flush_relations()
+
+    # Post-snapshot + R3 verify
+    post_atoms = len(ps.all_atoms())
+    post_rels = sum(1 for _ in ps.iter_all_relations())
+    post_t, post_total = axiom_term(ps)
+
+    import importlib
+    mod_ok = all(hasattr(importlib.import_module(m_), s) for m_, s in [
+        ('backend.substrate_index.hmm_decoder', 'viterbi_decode'),
+        ('hdlab.perceptron', 'StructuredPerceptron'),
+        ('backend.substrate_index.sequence_labeler', 'NERTagger'),
+        ('hdlab.bayesian_inference', 'EMMixture'),
+        ('backend.substrate_index.intent_classifier', 'IntentClassifier'),
+        ('backend.substrate_index.refuse_gated_retriever', 'RefuseGatedRetriever'),
+    ])
+
+    new_check = concept_store.get_atom(new_id)
+    sh_landed = len(new_check.solution_history or ()) if new_check else 0
+    # USES edge -> HAS_USERS auto-derived per schema; each USES adds 1 forward edge
+    edges_check = sum(
+        1 for s, r, t in ps.iter_all_relations()
+        if (s == new_id or s == new_qid)
+        and r.name == 'USES'
+        and any(m_atom in t for m_atom in uses_math_atoms)
+    )
+
+    invariants_ok = (
+        post_atoms == pre_atoms + 1
+        and post_rels == pre_rels + len(uses_math_atoms)
+        and post_t >= pre_t  # capability doesn't change math axiom-term
+        and mod_ok
+        and sh_landed == len(sh_entries)
+        and edges_check == len(uses_math_atoms)
+    )
+
+    print(f'[{label}] post: atoms={post_atoms} (+{post_atoms-pre_atoms}) rels={post_rels} (+{post_rels-pre_rels}) '
+          f'axiom_term={post_t}/{post_total} mod_ok={mod_ok} sh_landed={sh_landed} edges={edges_check}', flush=True)
+
+    if not invariants_ok:
+        print(f'[{label}] HARD_FAIL: R3 invariant violation')
+        return 1
+
+    print(f'[{label}] R3 verify: PASS (additive +1 atom +{len(uses_math_atoms)} USES edges; cap_pres=1.0)')
+    print(f'[{label}] HARD_PASS: {new_qid} RATIFIED')
+    return 0
+
+
 def make_sh_entry(
     new_qid: str,
     cell_metrics: dict,
