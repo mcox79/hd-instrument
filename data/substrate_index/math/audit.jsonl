@@ -34885,3 +34885,8 @@
 {"ts": 1781576214.3929121, "op": "add_relation", "target": "T3/kgram_context_binding|USES|T2/context_binding", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
 {"ts": 1781576214.412176, "op": "add_relation", "target": "T3/kgram_context_binding|SPECIALIZES|T2_FAM/binders", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
 {"ts": 1781576214.4706078, "op": "add_relation", "target": "T3/kgram_context_binding|DEPENDS_ON|T1/markov_chain", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
+{"ts": 1781576636.887302, "op": "add_atom", "target": "T3/theta_burst_write", "note": "DECISION 139b PROMOTION #2: theta-burst-write V2-1 HARD_PASS prior win -> load-bearing atom", "source": "promotion_track_139b_2_theta_burst"}
+{"ts": 1781576636.9072907, "op": "add_relation", "target": "T3/theta_burst_write|USES|T2/context_binding", "note": "DECISION 139b PROMOTION #2 theta_burst_write", "source": "promotion_track_139b_2_theta_burst"}
+{"ts": 1781576636.9256537, "op": "add_relation", "target": "T3/theta_burst_write|USES|T2/state_sequence", "note": "DECISION 139b PROMOTION #2 theta_burst_write", "source": "promotion_track_139b_2_theta_burst"}
+{"ts": 1781576636.9843054, "op": "add_relation", "target": "T3/theta_burst_write|DEPENDS_ON|T1/markov_chain", "note": "DECISION 139b PROMOTION #2 theta_burst_write", "source": "promotion_track_139b_2_theta_burst"}
+{"ts": 1781576637.0030203, "op": "add_relation", "target": "T3/theta_burst_write|SPECIALIZES|T2_FAM/binders", "note": "DECISION 139b PROMOTION #2 theta_burst_write", "source": "promotion_track_139b_2_theta_burst"}
