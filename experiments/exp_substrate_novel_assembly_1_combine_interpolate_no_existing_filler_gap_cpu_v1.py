@@ -55,7 +55,9 @@ def run() -> Dict:
     accs = {}; props_ref = None
     # candidate names: singles + assemblies (unary o bind). 'id' unary on xor/conv == the plain single primitive.
     BIND = ["xor", "conv", "bundle"]
-    singles = ["xor", "conv", "bundle"]                             # atomic single binders (all commutative)
+    # singles MUST include order-sensitive existing binders (Skunkworks vet): ghrr = circular CORRELATION (non-commutative
+    # HRR-family bind, the analog of math::T3/ghrr_noncommutative_bind). Excluding it was the incomplete-control artifact.
+    singles = ["xor", "conv", "bundle", "ghrr"]                     # atomic single binders (xor/conv/bundle commutative; ghrr NON-commutative)
     assemblies = ["%s_%s" % (u, b) for u in ("perm", "perm2") for b in BIND]  # genuine compositions unary o binder
     names = singles + assemblies
     for nm in names: accs[nm] = []
@@ -92,6 +94,8 @@ def run() -> Dict:
 
         def keyfn(nm, prev, cur):
             Pv, Cu = Cn[prev], Cn[cur]
+            if nm == "ghrr":                                        # circular CORRELATION = non-commutative HRR bind (order-sensitive single)
+                return _nr(np.fft.irfft(np.conj(np.fft.rfft(Pv)) * np.fft.rfft(Cu), n=n, axis=1).astype(np.float32))
             if "_" in nm:                                            # assembly '<unary>_<bind>'
                 u, b = nm.split("_"); return bind(b, unary(u, Pv), Cu)
             return bind(nm, Pv, Cu)                                  # single binder
@@ -113,12 +117,15 @@ def run() -> Dict:
                 conj = float(np.mean(np.abs(off))) < 0.30
                 order_sens = float(np.mean(np.sum(kab * kba, axis=1))) < 0.90
                 # recoverable: can recover 'cur' given key + transformed-prev (xor: *; conv: corr; sums: subtract)
-                u = nm.split("_")[0] if "_" in nm else "id"; b = nm.split("_")[1] if "_" in nm else nm
-                up = unary(u, Cn[ridx[:, 0]])                        # transformed first operand
-                if b == "xor": inv = _nr(kab * up)
-                elif b == "conv": inv = _nr(np.fft.irfft(np.fft.rfft(kab) * np.conj(np.fft.rfft(up)), n=n, axis=1).astype(np.float32))
-                elif b == "bundle": inv = _nr(kab - up)
-                else: inv = None
+                if nm == "ghrr":                                    # recover cur from corr-key & prev: conv(key, prev)
+                    inv = _nr(np.fft.irfft(np.fft.rfft(kab) * np.fft.rfft(Cn[ridx[:, 0]]), n=n, axis=1).astype(np.float32))
+                else:
+                    u = nm.split("_")[0] if "_" in nm else "id"; b = nm.split("_")[1] if "_" in nm else nm
+                    up = unary(u, Cn[ridx[:, 0]])                    # transformed first operand
+                    if b == "xor": inv = _nr(kab * up)
+                    elif b == "conv": inv = _nr(np.fft.irfft(np.fft.rfft(kab) * np.conj(np.fft.rfft(up)), n=n, axis=1).astype(np.float32))
+                    elif b == "bundle": inv = _nr(kab - up)
+                    else: inv = None
                 rec = 0.0 if inv is None else float(np.mean((inv @ Cn.T).argmax(1) == ridx[:, 1]))
                 props_ref[nm] = {"conjunctive_pairsep": conj, "order_sensitive": order_sens, "recoverable": rec >= 0.5}
 
@@ -161,7 +168,7 @@ def verdict(r) -> Tuple[str, str]:
     if r["hard_pass"]:
         return ("HARD_PASS", "GENUINE COMBINE/INTERPOLATE NOVEL-FILLER ASSEMBLY: NO single existing primitive (xor/conv/bundle, all commutative) closes the order-sensitive gap; the abduced MISSING property the closing filler needs and that NO single binder supplies is %s; the loop ASSEMBLED a new filler (permute o binder) from corpus parts via combine-search that SUPPLIES that property and CLOSED the gap -- certified by gap-closure. This is the INVENT (not just RETRIEVE) step Skunkworks flagged as untested. HONEST: COMPOSITIONAL novelty (new operator composed from existing primitives = the user's combine/interpolate idea), NOT ex-nihilo primitive invention (5b-ii; needs external truth). " % r["abduced"] + s)
     if r["single_closers"]:
-        return ("HARD_FAIL", "A single existing primitive closes the gap -> RETRIEVAL suffices; not a genuine no-existing-filler novelty gap. Reconstruct a harder gap. " + s)
+        return ("HARD_FAIL", "NOVELTY CLAIM REJECTED (Skunkworks vet CONFIRMED by this corrected control): a SINGLE EXISTING binder closes the gap (%s -- ghrr = non-commutative correlation, the HRR-family order-sensitive binder excluded from the original control). So 'no single existing closes' was an artifact of testing only commutative binders; the assembled perm-o-xor was COMPOSITIONAL REDISCOVERY of an existing capability (order-sensitive binding), NOT invention. The combine/interpolate MECHANISM is valid (it does assemble order-sensitive closers), but genuine novelty is NOT demonstrated -- the decisive test needs a gap unclosable by the FULL existing operator set. Same rediscovery trap as CELL-INV-1/banach/130a-G2, correctly caught at the decisive moment. " % r["single_closers"] + s)
     if not r["assembly_closers"]:
         return ("HARD_FAIL", "No assembled operator closes the gap either -> combine/interpolate over this vocabulary cannot reach the shape; widen the primitive vocabulary or the composition operator. " + s)
     return ("PARTIAL", "Assembly closes but abduced shape/discrimination weak -- inspect property space. " + s)
