@@ -116,15 +116,25 @@ def gate_B1(seed):
     coprime = all(math.gcd(BASES[i], BASES[j]) == 1 for i in range(len(BASES)) for j in range(i + 1, len(BASES)))
     xs_all = torch.arange(0, R, dtype=torch.float64, device=DEV)
     allcode = residue_fpe(xs_all, chans)                                # (R, N) all codewords
+    allc = allcode.conj()
     n_test = min(R, 300)
     test = torch.randint(0, R, (n_test,), generator=g, device=DEV).to(torch.float64)
     Rt = residue_fpe(test, chans)
-    sims = (Rt.unsqueeze(1) * allcode.conj().unsqueeze(0)).real.mean(dim=-1)   # (n_test, R) brute-force nearest
-    acc = (sims.argmax(dim=-1) == test.long()).float().mean().item()
-    # quasi-orthogonality (codeword separation) -- supports CRT uniqueness empirically
+    # brute-force nearest, LOOPED over test points to avoid an (n_test, R, N) blowup (full-scale OOM guard:
+    # (300,1155,4096) complex128 ~ 22GB). Per-point (R, N) -> (R,) is bounded.
+    correct = 0
+    for i in range(n_test):
+        sims_i = (Rt[i].unsqueeze(0) * allc).real.mean(dim=-1)          # (R,)
+        if int(sims_i.argmax().item()) == int(test[i].item()):
+            correct += 1
+    acc = correct / n_test
+    # quasi-orthogonality (codeword separation) -- supports CRT uniqueness empirically; looped (bounded mem)
     k = min(R, 60)
-    G = (allcode[:k].unsqueeze(1) * allcode[:k].conj().unsqueeze(0)).real.mean(dim=-1)
-    off_max = float((G - torch.eye(k, device=DEV) * 2).max().item())
+    off_max = -1.0
+    for i in range(k):
+        row = (allcode[i].unsqueeze(0) * allc[:k]).real.mean(dim=-1)    # (k,)
+        row[i] = -2.0
+        off_max = max(off_max, float(row.max().item()))
     return {"coprime": coprime, "range": R, "decodability_acc": acc, "n_test": n_test, "max_offdiag_sim": off_max,
             "pass": coprime and acc >= DECODE_BAR,
             "B2_efficient_resonator": "DEFERRED to Primitive 2 (cleanup/decode; quad-head resonator option); "
