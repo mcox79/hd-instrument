@@ -50,6 +50,7 @@ def _make_ops(n, g):
         "xorperm3":    lambda a, b, c: _nr((a * b * c)[:, P1]),
         "bundleperm3": lambda a, b, c: _nr(a[:, P1] + b[:, P2] + c[:, P3]),
         "convperm3":   lambda a, b, c: conv(conv(a, b[:, P1]), c[:, P2]),
+        "corrperm3":   lambda a, b, c: corr(corr(a, b[:, P1]), c[:, P2]),  # permuted-correlation (REQUIRED-A completeness)
     }
     COMPS = {
         "corr_bundle": lambda a, b, c: corr(_nr(a + b), c),   # THE confirmed tier-2 partial-symmetric closer
@@ -101,7 +102,7 @@ def run_family(fam_motifs, seed):
 
 def run():
     by = load_math_motifs()
-    SING = ["xor3", "conv3", "bundle3", "ghrr3", "perm_idx3", "xorperm3", "bundleperm3", "convperm3"]
+    SING = ["xor3", "conv3", "bundle3", "ghrr3", "perm_idx3", "xorperm3", "bundleperm3", "convperm3", "corrperm3"]  # 9 (REQUIRED-A)
     fam_res = {}
     for fam, fm in sorted(by.items(), key=lambda x: -len(x[1])):
         rows = [run_family(fm, s) for s in SEEDS]; rows = [r for r in rows if r]
@@ -109,22 +110,32 @@ def run():
         macc = {nm: float(np.mean([r[nm] for r in rows])) for nm in rows[0]}
         best_single = max(macc[s] for s in SING)
         cb_acc = macc["corr_bundle"]
+        # SEED-VARIANCE (REQUIRED-B; mode-iii): per-seed corr_bundle + best-of-9-single + margin spread
+        cb_ps = [r["corr_bundle"] for r in rows]
+        bs_ps = [max(r[s] for s in SING) for r in rows]
+        cb_std = float(np.std(cb_ps)); margin_ps = [c - b for c, b in zip(cb_ps, bs_ps)]
+        drift = cb_std > 0.40
         fam_res[str(fam)] = {"n": len(fm), "corr_bundle": cb_acc, "best_single": best_single,
                              "closes_clean": (cb_acc >= GAP_BAR and best_single < GAP_BAR),
-                             "margin": cb_acc - best_single, "is_dft": fam == "DFT-META", "macc": macc}
-        print(f"  [{('DFT-META' if fam=='DFT-META' else str(fam))}] n={len(fm)} corr_bundle={cb_acc:.3f} best_single(8)={best_single:.3f} margin={cb_acc-best_single:+.3f} {'CLOSES-where-8singles-FAIL' if fam_res[str(fam)]['closes_clean'] else ''}", flush=True)
+                             "margin": cb_acc - best_single, "is_dft": fam == "DFT-META", "macc": macc,
+                             "corr_bundle_per_seed": cb_ps, "corr_bundle_std": cb_std,
+                             "margin_per_seed": margin_ps, "min_margin": min(margin_ps), "drift": drift}
+        print(f"  [{('DFT-META' if fam=='DFT-META' else str(fam))}] n={len(fm)} corr_bundle={cb_acc:.3f}(std {cb_std:.3f}) best_single(9)={best_single:.3f} margin={cb_acc-best_single:+.3f} min_margin={min(margin_ps):+.3f} {'DRIFT' if drift else 'no-drift'} {'CLOSES-where-9singles-FAIL' if fam_res[str(fam)]['closes_clean'] else ''}", flush=True)
     return fam_res
 
 
 def verdict(fr):
     closing = [f for f, r in fr.items() if r["closes_clean"]]
     nondft = [f for f in closing if not fr[f]["is_dft"]]
-    universal_margin = all(r["margin"] > 0 for r in fr.values())   # corr beats best-of-8 in every family
+    universal_margin = all(r["margin"] > 0 for r in fr.values())   # corr beats best-of-9 in every family
+    no_drift = all(not r["drift"] for r in fr.values())            # REQUIRED-B: mode-iii seed-variance
     n = len(fr)
-    if len(closing) >= math.ceil(n / 2) and len(nondft) >= 2:
-        return ("HARD_PASS", f"corr(bundle,c) CLOSES where ALL 8 EXTENDED runnable single-binders FAIL on {len(closing)}/{n} families incl {len(nondft)} NON-DFT (majority + >=2 non-DFT); universal-margin={universal_margin}. Extended-runnable-basis check (path A); 38 are signatures, 8 runnable.")
+    if len(closing) >= math.ceil(n / 2) and len(nondft) >= 2 and no_drift:
+        return ("HARD_PASS", f"corr(bundle,c) CLOSES where ALL 9 EXTENDED runnable single-binders FAIL on {len(closing)}/{n} families incl {len(nondft)} NON-DFT (majority + >=2 non-DFT); universal-margin={universal_margin}; no-drift={no_drift} (tier-A). Extended-runnable-basis (path A; +corrperm3); 38 are signatures, 9 runnable.")
+    if not no_drift:
+        return ("MIDDLE_BAND", f"DRIFT detected (mode-iii: some family corr_bundle seed-std>0.40) -> not tier-A robust; closing {len(closing)}/{n}, universal-margin={universal_margin}.")
     if universal_margin:
-        return ("MIDDLE_BAND", f"corr beats best-of-8 in ALL families (universal margin) but closes-absolute on {len(closing)}/{n} (cardinality-bounded); non-DFT={len(nondft)}.")
+        return ("MIDDLE_BAND", f"corr beats best-of-9 in ALL families (universal margin, no-drift) but closes-absolute on {len(closing)}/{n} (cardinality-bounded); non-DFT={len(nondft)}.")
     return ("HARD_FAIL", f"corr does not clear the extended-basis bar (closing {len(closing)}/{n}; universal-margin={universal_margin}).")
 
 
