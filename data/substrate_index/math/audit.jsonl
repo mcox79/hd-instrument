@@ -34881,3 +34881,7 @@
 {"ts": 1781567068.2920058, "op": "add_relation", "target": "T3/tw_edge_z|RELATES|science::PHYS/random_matrix_theory", "note": "DECISION 126a Phase 4e batch 3 [RELATES]", "source": "phase4e_batch3_126a"}
 {"ts": 1781567068.3442094, "op": "add_relation", "target": "T3/random_features|USES|T3/discrete_fourier_transform", "note": "DECISION 126a Phase 4e batch 3 [PLAUSIBLE]", "source": "phase4e_batch3_126a"}
 {"ts": 1781567068.374653, "op": "add_relation", "target": "T3/random_features|APPROXIMATES|T3/kernel_method", "note": "DECISION 126a Phase 4e batch 3 [APPROXIMATES]", "source": "phase4e_batch3_126a"}
+{"ts": 1781576214.3739963, "op": "add_atom", "target": "T3/kgram_context_binding", "note": "DECISION 139b PROMOTION TRACK #1: V2-4 HARD_PASS prior win -> load-bearing atom; closes F1 gap (bigram->trigram)", "source": "promotion_track_139b_k_gram_xor"}
+{"ts": 1781576214.3929121, "op": "add_relation", "target": "T3/kgram_context_binding|USES|T2/context_binding", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
+{"ts": 1781576214.412176, "op": "add_relation", "target": "T3/kgram_context_binding|SPECIALIZES|T2_FAM/binders", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
+{"ts": 1781576214.4706078, "op": "add_relation", "target": "T3/kgram_context_binding|DEPENDS_ON|T1/markov_chain", "note": "DECISION 139b k-gram PROMOTION [STRICT]", "source": "promotion_track_139b_k_gram_xor"}
