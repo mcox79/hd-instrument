@@ -24,46 +24,73 @@ SMOKE_PARAMS = {"K_max": 16, "M_list": [200, 2000], "n_seeds": 2, "N": 1024}
 # the basis already does cardinality -> the task is EVADABLE / basis-null too strong -> ABORT (recalibrate).
 SMOKE_ABORT_C1_BASIS_NULL = 0.70        # C1 accuracy >= this at K<=16 -> ABORT (basis closes; Drill-1 mode i)
 
-# mode (ii) cleanup-noise breakdown at M=2000: C2 cleanup distinct-set recovery must hold. Below this line
-# the cleanup is broken BELOW N-capacity -> a STAGE-2 low C2 would be artifact, not primitive -> ABORT+fix.
-# PARAMETERIZED pending Drill 3 (cleanup-noise drill refines this). Conservative default until Drill 3 lands.
-CLEANUP_RECOVERY_MIN = 0.50             # PENDING DRILL 3 -- set from Drill 3 cleanup-noise thresholds before GO
+# mode (ii) REFINED by Drill 3+4 (DECISION 174a/175): the binding constraint is NOT classical cleanup-noise
+# (Frady/Sommer k_max~269 comfortable at k=5) but FPE-PHASE-KERNEL near-neighbor confusion at M>=2000.
+# Measured by the STAGE-1.2 FPE-amplification probe (exp_cardinality_phase_B_stage1_2_*). RECONCILED
+# pre-registered routes (closes Skunkworks GAP-1 MIDDLE-band + GAP-2 dual-trigger; cold, no ex-post):
+FPE_TOP1_HARD_BLOCK = 0.80              # FPE top-1 < this -> HARD STAGE-2 BLOCK (swap to Hopfield head first)
+FPE_TOP1_CLEAN = 0.95                   # FPE top-1 >= this (+ low confusion + low amp) -> CLEAN pass
+FPE_NN_CONFUSION_CLEAN = 0.10          # near-neighbor confusion <= this -> clean
+FPE_NN_CONFUSION_BANDLIMIT = 0.30      # confusion > this -> BAND-LIMIT base phases (separate route)
+FPE_AMP_DUALHEAD = 0.05                # amplification delta (discrete-FPE top-1) >= this -> dual-head-control (MIDDLE)
+# GAP-2 reconciliation (auditor lean): FPE<0.80 = HARD block (most severe); amp-delta>=0.05 = dual-head-control
+# trigger (MIDDLE, proceed with both naive-max-cos AND Hopfield, verdict must hold/disambiguate under both).
 
 # mode (iii) multi-seed drift-to-attractor: at n=2, seed-variance must be reasonable. Wide std => drift =>
 # n>=3 won't deliver tight CI -> ABORT (investigate before STAGE 2). Drill-1 value.
 SMOKE_ABORT_SEED_STD_MAX = 0.40         # seed std > this at n=2 -> ABORT (drift-to-attractor; Drill-1 mode iii)
 
 
-def stage1_abort_decision(c1_basis_acc_K16, c2_cleanup_recovery_M2000, seed_std):
-    """Pure pre-registered abort logic. Returns (proceed_to_stage2: bool, reasons: list).
-    proceed only if ALL 3 modes pass; ANY fail -> redesign + re-smoke before STAGE 2.
-    A PASS confers ZERO verdict -- it ONLY licenses STAGE 2 (run_mode asymmetry)."""
+def stage1_2_fpe_route(fpe_top1, nn_confusion, amp_delta):
+    """RECONCILED pre-registered mode-ii (FPE-phase-kernel) route (closes Skunkworks GAP-1+GAP-2).
+    Returns (route, reason). Routes (severity-ordered):
+      HARD-BLOCK-HOPFIELD : FPE top-1 < 0.80 -> swap to modern-Hopfield cleanup head BEFORE STAGE 2
+      BAND-LIMIT          : nn confusion > 0.30 -> band-limit base phases / hex-grid / Lu-Bremer before STAGE 2
+      MIDDLE-DUAL-HEAD    : FPE in [0.80,0.95) OR confusion in (0.10,0.30] OR amp-delta >= 0.05
+                            -> proceed to STAGE 2 BUT dual-head confound-control MANDATORY (run cardinality C2
+                               under BOTH naive-max-cos AND Hopfield; verdict must hold/disambiguate under both)
+      CLEAN               : FPE >= 0.95 AND confusion <= 0.10 AND amp-delta < 0.05 -> naive cleanup sufficient"""
+    if fpe_top1 < FPE_TOP1_HARD_BLOCK:
+        return ("HARD-BLOCK-HOPFIELD", f"FPE top-1 {fpe_top1:.3f} < {FPE_TOP1_HARD_BLOCK}: FPE-cleanup dominant -> Hopfield head before STAGE 2")
+    if nn_confusion > FPE_NN_CONFUSION_BANDLIMIT:
+        return ("BAND-LIMIT", f"nn-confusion {nn_confusion:.3f} > {FPE_NN_CONFUSION_BANDLIMIT}: kernel too coarse -> band-limit base phases before STAGE 2")
+    if (fpe_top1 < FPE_TOP1_CLEAN) or (nn_confusion > FPE_NN_CONFUSION_CLEAN) or (amp_delta >= FPE_AMP_DUALHEAD):
+        return ("MIDDLE-DUAL-HEAD", f"FPE {fpe_top1:.3f}/conf {nn_confusion:.3f}/amp {amp_delta:+.3f}: proceed STAGE 2 with dual-head (naive+Hopfield) confound-control MANDATORY")
+    return ("CLEAN", f"FPE {fpe_top1:.3f}>=0.95 + conf {nn_confusion:.3f}<=0.10 + amp {amp_delta:+.3f}<0.05: naive cleanup sufficient")
+
+
+def stage1_abort_decision(c1_basis_acc_K16, fpe_top1, nn_confusion, amp_delta, seed_std):
+    """Pre-registered STAGE-1 decision. Returns (proceed_to_stage2, mode_ii_route, reasons).
+    proceed=False if mode-i, mode-ii (HARD-BLOCK/BAND-LIMIT), or mode-iii fail. MIDDLE-DUAL-HEAD proceeds
+    (with the dual-head confound-control flag). A PASS confers ZERO verdict -- licenses STAGE 2 only."""
     reasons = []
     if c1_basis_acc_K16 >= SMOKE_ABORT_C1_BASIS_NULL:
-        reasons.append(f"ABORT mode-i: C1 basis-null acc {c1_basis_acc_K16:.3f} >= {SMOKE_ABORT_C1_BASIS_NULL} "
-                       f"(basis closes cardinality at K<=16 -> EVADABLE / basis-orthogonality recalibrate)")
-    if c2_cleanup_recovery_M2000 < CLEANUP_RECOVERY_MIN:
-        reasons.append(f"ABORT mode-ii: C2 cleanup recovery {c2_cleanup_recovery_M2000:.3f} < {CLEANUP_RECOVERY_MIN} "
-                       f"at M=2000 (cleanup-noise breakdown below capacity -> fix cleanup before STAGE 2)")
+        reasons.append(f"ABORT mode-i: C1 basis-null acc {c1_basis_acc_K16:.3f} >= {SMOKE_ABORT_C1_BASIS_NULL} (basis closes -> EVADABLE/recalibrate)")
+    route, rmsg = stage1_2_fpe_route(fpe_top1, nn_confusion, amp_delta)
+    if route in ("HARD-BLOCK-HOPFIELD", "BAND-LIMIT"):
+        reasons.append(f"ABORT mode-ii ({route}): {rmsg}")
     if seed_std > SMOKE_ABORT_SEED_STD_MAX:
-        reasons.append(f"ABORT mode-iii: seed std {seed_std:.3f} > {SMOKE_ABORT_SEED_STD_MAX} "
-                       f"(multi-seed drift-to-attractor -> investigate before STAGE 2)")
+        reasons.append(f"ABORT mode-iii: seed std {seed_std:.3f} > {SMOKE_ABORT_SEED_STD_MAX} (drift-to-attractor)")
     proceed = len(reasons) == 0
-    return proceed, reasons
+    return proceed, route, reasons
 
 
 def _abort_logic_selftests():
-    # all pass -> proceed (smoke PASS = license STAGE 2 ONLY; zero verdict)
-    p, r = stage1_abort_decision(0.55, 0.80, 0.05); assert p and not r
-    # mode i: C1 too strong -> abort
-    p, r = stage1_abort_decision(0.75, 0.80, 0.05); assert (not p) and any("mode-i" in x for x in r)
-    # mode ii: cleanup broken at M=2000 -> abort
-    p, r = stage1_abort_decision(0.55, 0.40, 0.05); assert (not p) and any("mode-ii" in x for x in r)
-    # mode iii: seed drift -> abort
-    p, r = stage1_abort_decision(0.55, 0.80, 0.50); assert (not p) and any("mode-iii" in x for x in r)
-    # multiple modes
-    p, r = stage1_abort_decision(0.75, 0.40, 0.50); assert (not p) and len(r) == 3
-    print("[stage1-abort-selftests] PASS: 5 pre-registered abort cases verified", flush=True)
+    # clean all -> proceed CLEAN
+    p, route, r = stage1_abort_decision(0.55, 0.97, 0.05, 0.02, 0.05); assert p and route == "CLEAN" and not r
+    # mode-ii MIDDLE (FPE 0.90 in [0.80,0.95)) -> proceed but dual-head
+    p, route, r = stage1_abort_decision(0.55, 0.90, 0.05, 0.03, 0.05); assert p and route == "MIDDLE-DUAL-HEAD"
+    # mode-ii MIDDLE via amp-delta>=0.05 even if FPE high
+    p, route, r = stage1_abort_decision(0.55, 0.97, 0.05, 0.06, 0.05); assert p and route == "MIDDLE-DUAL-HEAD"
+    # mode-ii HARD-BLOCK (FPE<0.80) -> abort
+    p, route, r = stage1_abort_decision(0.55, 0.70, 0.05, 0.30, 0.05); assert (not p) and route == "HARD-BLOCK-HOPFIELD"
+    # mode-ii BAND-LIMIT (confusion>0.30) -> abort
+    p, route, r = stage1_abort_decision(0.55, 0.90, 0.40, 0.03, 0.05); assert (not p) and route == "BAND-LIMIT"
+    # mode-i abort
+    p, route, r = stage1_abort_decision(0.75, 0.97, 0.05, 0.02, 0.05); assert (not p) and any("mode-i:" in x for x in r)
+    # mode-iii abort
+    p, route, r = stage1_abort_decision(0.55, 0.97, 0.05, 0.02, 0.50); assert (not p) and any("mode-iii" in x for x in r)
+    print("[stage1-decision-selftests] PASS: 7 pre-registered cases (CLEAN/MIDDLE-dual-head/HARD-BLOCK/BAND-LIMIT/mode-i/mode-iii) verified", flush=True)
 
 
 _abort_logic_selftests()
