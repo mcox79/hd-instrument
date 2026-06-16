@@ -92,3 +92,5 @@
 {"ts": 1781227279.7537813, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T2/superposition", "note": "", "source": "evolve_phase5_strategy_math_ref"}
 {"ts": 1781227279.7577982, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/collins_structured_perceptron", "note": "", "source": "evolve_phase5_strategy_math_ref"}
 {"ts": 1781227279.7598045, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/discriminative_perceptron", "note": "", "source": "evolve_phase5_strategy_math_ref"}
+{"ts": 1781559314.08077, "op": "add_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/structured_perceptron_collins", "note": "DECISION 116a collins MERGE: was results_history::strategy_decisions_2026-06-11 -DEPENDS_ON-> math::T3/collins_structured_perceptron", "source": "phase3_subbatch3_collins_116a"}
+{"ts": 1781559315.838822, "op": "remove_relation", "target": "strategy_decisions_2026-06-11|DEPENDS_ON|math::T3/collins_structured_perceptron", "note": "", "source": "manual"}

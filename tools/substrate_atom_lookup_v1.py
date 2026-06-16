@@ -29,6 +29,14 @@ import argparse
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+# DECISION 124b: UTF-8-safe stdout so atoms carrying imported proper-name diacritics
+# (Erdos double-acute, Mobius umlaut, ...) or math symbols (lambda, perp) do NOT crash
+# the Windows cp1252 default codec. errors='replace' is a last-resort fallback.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 from backend.substrate_index.partition import PartitionedStore
 from backend.substrate_index.schema import RelationType
 
