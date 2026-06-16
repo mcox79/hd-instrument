@@ -33,8 +33,20 @@ REPRO_142B = {"motif_a": 88, "motif_b": 74, "sym_pairs": 258, "total": 162}
 def _short(x): return str(x).split("::")[-1].split("/")[-1].strip().lower()
 
 
+def load_corpus():
+    """atom short-id -> corpus (lower). Used for the MATH-corpus-scope gate (HARD claim is MATH structure,
+    not document/provenance atoms that DEPENDS_ON a symmetric math pair)."""
+    try:
+        from backend.substrate_index.partition import PartitionedStore
+        atoms = list(PartitionedStore(DATA_ROOT).all_atoms())
+        return {_short(a.id): str(getattr(getattr(a, "corpus", None), "value", getattr(a, "corpus", ""))).lower()
+                for a in atoms}
+    except Exception:
+        return {}
+
+
 def load_graph():
-    """Returns sym_pairs (set of frozenset), per-sym-rel breakdown, dep (s->set t), rdep (t->set s), names."""
+    """Returns sym_pairs (set of frozenset), per-sym-rel breakdown, dep (s->set t), rdep (t->set s), corpus, n_rel."""
     sym_by_rel = defaultdict(set)   # rel_type -> set of frozenset({s,t})
     dep = defaultdict(set)
     rdep = defaultdict(set)
@@ -54,7 +66,7 @@ def load_graph():
             elif rt == DEP_REL:
                 dep[s].add(t); rdep[t].add(s)
     sym_pairs = set().union(*sym_by_rel.values()) if sym_by_rel else set()
-    return sym_pairs, sym_by_rel, dep, rdep, n_rel
+    return sym_pairs, sym_by_rel, dep, rdep, load_corpus(), n_rel
 
 
 def extract_motifs(sym_pairs, dep, rdep):
@@ -75,8 +87,8 @@ def extract_motifs(sym_pairs, dep, rdep):
 
 def main():
     print("[start] PHASE-B ternary motif EXTRACTOR (build-prep; NOT graded; graded completion gated 2026-06-21)", flush=True)
-    sym_pairs, sym_by_rel, dep, rdep, n_rel = load_graph()
-    print(f"[load] relations scanned={n_rel} | DEPENDS_ON nodes(src)={len(dep)} | symmetric pairs (unique undirected)={len(sym_pairs)}", flush=True)
+    sym_pairs, sym_by_rel, dep, rdep, corpus, n_rel = load_graph()
+    print(f"[load] relations scanned={n_rel} | DEPENDS_ON nodes(src)={len(dep)} | symmetric pairs (unique undirected)={len(sym_pairs)} | corpus map={len(corpus)} atoms", flush=True)
     print(f"[load] symmetric-pair breakdown by rel: " +
           " ".join(f"{rt}={len(s)}" for rt, s in sorted(sym_by_rel.items())), flush=True)
 
@@ -91,18 +103,31 @@ def main():
     # RELATES is a generic catch-all (HAS_MEMBER-absent fallback) -> NOT load-bearing for partial-symmetry.
     clean_pairs = sym_by_rel.get("SHARES_MATH", set()) | sym_by_rel.get("DUAL", set())
     ca, cb = extract_motifs(clean_pairs, dep, rdep)
-    print(f"\n[PRIMARY: CLEAN-SYMMETRIC SHARES_MATH+DUAL; {len(clean_pairs)} pairs] -- the HARD partial-symmetry claim", flush=True)
-    print(f"  MOTIF-A clean: {len(ca)} ({'PASS' if len(ca)>=MIN_SUPPORT else 'FAIL <20 -- below threshold on clean pairs'})", flush=True)
-    print(f"  MOTIF-B clean: {len(cb)} ({'PASS' if len(cb)>=MIN_SUPPORT else 'FAIL <20'})  <- HARD claim rests here", flush=True)
-    print(f"  HARD partial-symmetry claim viable (>=1 clean motif-type >=20): {'YES' if (len(ca)>=MIN_SUPPORT or len(cb)>=MIN_SUPPORT) else 'NO'}", flush=True)
+    print(f"\n[clean-symmetric SHARES_MATH+DUAL; {len(clean_pairs)} pairs; ALL corpora]", flush=True)
+    print(f"  MOTIF-A clean(all-corpora): {len(ca)} | MOTIF-B clean(all-corpora): {len(cb)}", flush=True)
+
+    # ===== CANONICAL HARD CLAIM (DECISION 169c reconciliation): MATH-CORPUS-SCOPE gate =====
+    # The clean(all-corpora) counts are INFLATED by document/provenance anchors (research_history /
+    # decision_history / findings_history atoms that DEPENDS_ON a symmetric math pair = citations, NOT
+    # math motifs). The HARD partial-symmetry claim is about MATH structure -> restrict anchor + BOTH
+    # pair members to the math corpus. This also reconciles the 28-vs-31 (both were document-inflated).
+    def ismath(n): return corpus.get(n, "") == "math"
+    ca_math = [(p, z) for p, z in ca if ismath(z) and all(ismath(x) for x in p)]
+    cb_math = [(a, p) for a, p in cb if ismath(a) and all(ismath(x) for x in p)]
+    print(f"\n[PRIMARY: MATH-CORPUS-SCOPED clean-symmetric] -- the CANONICAL HARD partial-symmetry claim", flush=True)
+    print(f"  MOTIF-A math: {len(ca_math)} ({'PASS' if len(ca_math)>=MIN_SUPPORT else 'FAIL <20'})", flush=True)
+    print(f"  MOTIF-B math: {len(cb_math)} ({'PASS' if len(cb_math)>=MIN_SUPPORT else 'FAIL <20'})  <- HARD claim rests here", flush=True)
+    print(f"  HARD claim viable (>=1 math motif-type >=20): {'YES' if (len(ca_math)>=MIN_SUPPORT or len(cb_math)>=MIN_SUPPORT) else 'NO'}", flush=True)
+    n_doc_b = len(cb) - len(cb_math)
+    print(f"  ({n_doc_b} clean MOTIF-B instances dropped as document/provenance anchors -- not math structure)", flush=True)
 
     # GENERIC tier (RELATES-only pairs; reportable, NOT load-bearing) + spurious-inclusion verification
     generic_only = sym_by_rel.get("RELATES", set()) - clean_pairs
     ga, gb = extract_motifs(generic_only, dep, rdep)
     print(f"\n[GENERIC tier: RELATES-only {len(generic_only)} pairs] -- reportable, NOT load-bearing for partial-symmetry", flush=True)
     print(f"  MOTIF-A generic: {len(ga)} | MOTIF-B generic: {len(gb)} (these would have INFLATED the all-sym counts)", flush=True)
-    print(f"\n[verify no-spurious-inclusion] HARD claim (MOTIF-B clean={len(cb)}) uses SHARES_MATH+DUAL pairs ONLY;", flush=True)
-    print(f"  generic RELATES contributes {len(ga)+len(gb)} motifs EXCLUDED from the HARD claim; clean+generic accounts for the all-sym total.", flush=True)
+    print(f"\n[verify] HARD claim (MOTIF-B math={len(cb_math)}) uses SHARES_MATH+DUAL pairs AND math-corpus atoms ONLY;", flush=True)
+    print(f"  excluded: {len(ga)+len(gb)} generic-RELATES motifs + {n_doc_b} document/provenance anchors. Two-layer scope gate.", flush=True)
 
     # ---- pre-pass checklist (structurally checkable items) ----
     print("\n[pre-pass] checklist (Skunkworks ternary methodology sec 6):", flush=True)
