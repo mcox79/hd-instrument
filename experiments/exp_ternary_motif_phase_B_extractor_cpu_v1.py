@@ -129,8 +129,25 @@ def main():
     for pair, cnt in struct.most_common():
         print(f"     {cnt:2d}x  {{{pair[0]}, {pair[1]}}}", flush=True)
     top2 = sum(c for _, c in struct.most_common(2))
-    print(f"  concentration: top-2 structures = {top2}/{len(cb_math)} instances "
-          f"({'CONCENTRATED -- graded build must not rest HARD-PASS on these alone' if top2 > len(cb_math)/2 else 'reasonably spread'})", flush=True)
+    print(f"  raw concentration: top-2 sym-pairs = {top2}/{len(cb_math)} ({100*top2//max(1,len(cb_math))}%)", flush=True)
+
+    # EFFECTIVE-FAMILY (META-CLUSTERED) breakdown (Skunkworks call): the DFT/FFT/circular-convolution/
+    # convolution-theorem/fhrr-bind sym-pairs all encode ONE Fourier-duality relationship -> ONE family,
+    # NOT 5 structures (facet-counting = same soft-gerrymander class as document-citation, 58th). The
+    # general partial-symmetry HARD claim must close NON-DFT families, not lean on Fourier duality.
+    FOURIER_META = {"discrete_fourier_transform", "fast_fourier_transform", "circular_convolution",
+                    "convolution_theorem_synthesis", "fhrr_bind"}
+    def family_key(pair):
+        return "DFT/convolution-theorem META" if all(x in FOURIER_META for x in pair) else tuple(sorted(pair))
+    fam = Counter(family_key(p) for _, p in cb_math)
+    print(f"  EFFECTIVE families (meta-clustered; {len(fam)} families over {len(cb_math)} instances):", flush=True)
+    for f, c in fam.most_common():
+        print(f"     {c:2d}/{len(cb_math)} ({100*c//max(1,len(cb_math)):2d}%)  {f}", flush=True)
+    dft = fam.get("DFT/convolution-theorem META", 0)
+    n_nondft_families = sum(1 for f in fam if f != "DFT/convolution-theorem META")
+    print(f"  DFT-meta dominance: {dft}/{len(cb_math)} ({100*dft//max(1,len(cb_math))}%); NON-DFT families: {n_nondft_families}", flush=True)
+    print(f"  GRADED GATE: general HARD-PASS requires closing >=majority of {len(fam)} effective families "
+          f"AND >=2 NON-DFT families (else report Fourier-family-specific, not general)", flush=True)
 
     # GENERIC tier (RELATES-only pairs; reportable, NOT load-bearing) + spurious-inclusion verification
     generic_only = sym_by_rel.get("RELATES", set()) - clean_pairs
