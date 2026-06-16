@@ -96,16 +96,50 @@ HONEST Phase-B BUILD outcome (cross-session consensus):
 
 ## Provenance metadata (not substrate-atomized; filed in this note)
 
+**AMENDED per Exp-Dev 217th provenance correction** (verify-before-asserting on cell verdict file).
+
 ```
-cell:           exp_substrate_phase_B_C3_abstraction_discovery_cpu_v1
-run_mode:       full
-verdict:        QUALIFIED
-metric_type:    n/a (FINDING, not a HARD-PASS capability metric)
-metric:         depth-1 all-fail + 8/16 depth-2 close+reuse + seed-excludes-target
-search_budget:  100-step depth-2 enumeration over 38-op basis (Drill 1 P_deflated=0.18 prior)
+cell:                exp_substrate_phase_B_C3_abstraction_discovery_cpu_v1
+cell_verdict_file:   data/phase_B_ARM3_C3_verdict_2026-06-16.json
+run_mode:            full
+
+cell_auto_verdict:   HARD_PASS  (autonomous_pass=true; pre-registered C3 criterion MET)
+filed_disposition:   QUALIFIED_finding  (DELIBERATE DOWNGRADE of the auto-verdict)
+downgrade_reason:    "Auto-verdict criterion requires >=1 discovered closer, NOT uniqueness;
+                     8/16 close+reuse => class-satisfiable, not uniquely corr(bundle,c).
+                     Cell's auto-msg 'FIRST autonomous tier-2 composition-discovery'
+                     OVERCLAIMS uniqueness; rescoped to autonomous CLASS-discovery.
+                     64th audit-discipline instance type (auto-verdict-overclaim-catch-
+                     via-verify-before-asserting) operating on ARM-3."
+
+metric_type:         n/a (FINDING with explicit downgrade; not a HARD-PASS capability metric)
+search_budget:       100-step cap; actual 48 evals (depth-2 search space = 16 = 4 primitives squared)
 honest_priors_outcome: P_deflated 0.18 was "C3 100-step HARD-PASS" prior;
-                       8/16 closes is QUALIFIED, not full HARD-PASS (correctly below prior)
+                       cell auto-verdict HARD_PASS met the >=1-closer criterion;
+                       Testbed/Director filing downgrades to QUALIFIED on uniqueness ground.
+
+verified_numbers:
+  depth_1_singles_all_FAIL: 
+    corr=0.023, bundle=0.247, conv=0.342, xor=0.342  (all < GAP_BAR; composition NECESSARY)
+  depth_2_search_space:     16 (4 primitives squared)
+  depth_2_budget_evals:     48 (well under 100-step cap)
+  depth_2_closers_8_of_16:  
+    corr(conv,c), xor(conv,c), corr(xor,c), conv(xor,c),
+    corr(bundle,c), xor(bundle,c), conv(bundle,c), bundle(conv,c)
+  corr_bundle_c_AUTONOMOUSLY_RE_DERIVED: True
+    (ARM-2 ratified operator found again by blind search; EXCLUDED from seed library;
+     no target-fitting; strongest single point in the finding)
+  closer_class_observation: All 8 closers have SYMMETRIC/commutative INNER op
+    (conv/xor/bundle); corr (non-symmetric) NEVER appears as inner. Consistent with
+    "symmetric inner preserves a-b symmetry." Necessary-direction observation;
+    NOT an exact class spec (8 of 12 symmetric-inner candidates close, not all).
 ```
+
+The dual-label discipline (cell_auto_verdict + filed_disposition + downgrade_reason) preserves
+BOTH the real positive (pre-registered autonomous-discovery bar genuinely MET -- strongest
+honest claim) AND the honest limit (class not unique). Filing only "QUALIFIED" would bury
+that the cell's own bar was cleared; filing only "HARD_PASS" would overclaim uniqueness.
+Both labels, with reason.
 
 ## Cross-references
 
