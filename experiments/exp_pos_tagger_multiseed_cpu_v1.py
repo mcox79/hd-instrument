@@ -1,5 +1,5 @@
 """
-exp_pos_tagger_multiseed_cpu_v1.py -- POS tagger PTB n=5 seed-robustness (PP-362 Tier-A promotion) -- CPU.
+exp_pos_tagger_multiseed_cpu_v1.py -- POS tagger PTB n=5 seed-robustness (PP-364 Tier-A promotion) -- CPU.
 
 ROUTING: Research POS_TAGGER_ENDORSED -- promote pos_tagger_ptb_substrate (0.906 Tier B single-seed) to Tier A via n=5
   multi-seed. Cycles HDLAB_SEED across the substrate's stochastic components (tag codebook init, OOV morphology, context

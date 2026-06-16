@@ -102,3 +102,5 @@
 {"ts": 1781556893.6880574, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/backward_algorithm", "note": "DECISION 107a re-point: was -RELATES-> math::T2/backward_algorithm", "source": "phase3_subbatch1_tier_1A_107a"}
 {"ts": 1781557459.4662318, "op": "add_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/viterbi_decoding", "note": "DECISION 109b-2 merge: was meta::SELF/family_sequence_dp -RELATES-> math::T3/viterbi_decoder", "source": "phase3_tier_1B_109b2"}
 {"ts": 1781557460.0205193, "op": "remove_relation", "target": "SELF/family_sequence_dp|RELATES|math::T3/viterbi_decoder", "note": "", "source": "manual"}
+{"ts": 1781577622.827814, "op": "add_relation", "target": "SELF/family_optimization|RELATES|math::T3/gradient_descent", "note": "DEC 141b Wave 2 rename: was meta::SELF/family_optimization -RELATES-> math::T1/gradient_descent", "source": "wave2_path_field_reconcile_141b"}
+{"ts": 1781577623.3604305, "op": "remove_relation", "target": "SELF/family_optimization|RELATES|math::T1/gradient_descent", "note": "", "source": "manual"}
