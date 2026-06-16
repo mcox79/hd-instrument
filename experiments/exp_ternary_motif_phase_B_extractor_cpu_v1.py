@@ -121,6 +121,17 @@ def main():
     n_doc_b = len(cb) - len(cb_math)
     print(f"  ({n_doc_b} clean MOTIF-B instances dropped as document/provenance anchors -- not math structure)", flush=True)
 
+    # PER-DISTINCT-STRUCTURE breakdown (DECISION 170c): the 20 instances rest on few distinct sym-pair
+    # STRUCTURES; a HARD-PASS concentrated in 1-2 families is NOT a general partial-symmetry result.
+    from collections import Counter
+    struct = Counter(tuple(sorted(p)) for _, p in cb_math)
+    print(f"  per-distinct-structure (MOTIF-B math; {len(struct)} distinct sym-pairs over {len(cb_math)} instances):", flush=True)
+    for pair, cnt in struct.most_common():
+        print(f"     {cnt:2d}x  {{{pair[0]}, {pair[1]}}}", flush=True)
+    top2 = sum(c for _, c in struct.most_common(2))
+    print(f"  concentration: top-2 structures = {top2}/{len(cb_math)} instances "
+          f"({'CONCENTRATED -- graded build must not rest HARD-PASS on these alone' if top2 > len(cb_math)/2 else 'reasonably spread'})", flush=True)
+
     # GENERIC tier (RELATES-only pairs; reportable, NOT load-bearing) + spurious-inclusion verification
     generic_only = sym_by_rel.get("RELATES", set()) - clean_pairs
     ga, gb = extract_motifs(generic_only, dep, rdep)
