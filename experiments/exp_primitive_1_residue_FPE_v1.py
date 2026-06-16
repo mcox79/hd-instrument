@@ -100,55 +100,36 @@ def per_base_vec(m, a, r):
     return torch.exp(1j * ph)
 
 
-def _codebooks(chans):
-    return [torch.stack([per_base_vec(m, a, r) for r in range(m)], dim=0) for (m, a) in chans]  # each (m, N)
-
-
-def resonator_decode(Rx, chans, cbs, iters=50):
-    """RESONATOR factorization (prereg 'CRT + resonator'): iteratively unbind the OTHER bases' current estimates
-    from the combined vector, then cleanup the residual against the per-base codebook. Removes cross-base
-    interference that naive per-base correlation cannot. Rx: (N,) complex. Returns list of residue ints."""
-    nb = len(chans)
-    est = [cbs[b][0].clone() for b in range(nb)]   # init estimate = residue-0 codeword per base
-    last = None
-    for _ in range(iters):
-        picks = []
-        for b in range(nb):
-            other = torch.ones(N, dtype=torch.complex128, device=DEV)
-            for b2 in range(nb):
-                if b2 != b:
-                    other = other * est[b2]
-            unbound = Rx * other.conj()                                  # remove other bases -> ~ base-b channel
-            sims = (unbound.unsqueeze(0) * cbs[b].conj()).real.mean(dim=-1)  # (m_b,)
-            r = int(sims.argmax().item())
-            est[b] = cbs[b][r]
-            picks.append(r)
-        if picks == last:                                               # converged (fixed point)
-            break
-        last = picks
-    return picks
-
-
-def gate_B(seed):
-    """CRT uniqueness (theorem) + decode_acc via RESONATOR factorization + CRT recombine (prereg-faithful)."""
+def gate_B1(seed):
+    """B1 DECODABILITY (GATE-B structural split per Skunkworks GATE-B ruling): does the residue-FPE encoding
+    UNIQUELY carry x within range? = CRT uniqueness (theorem) + brute-force nearest-codeword decode (information-
+    completeness of the ENCODING; Primitive-1's job).
+    B2 (the EFFICIENT log-scaling resonator decode) is DEFERRED to PRIMITIVE 2 (cleanup/decode domain; the
+    resonator is a P2 quad-head option). Diagnosis carried to P2: per-base residue codewords are SIMPLEX-correlated
+    (~ -1/(m-1), not orthogonal) -> the P2 resonator/cleanup must tolerate non-orthogonal codewords (Kymn complex
+    resonator OLS dynamics OR sparse-Hopfield). HONEST: residue-FPE's LOG-SCALING ADVANTAGE is GATED on B2 (P2);
+    NOT demonstrated here -- brute-force decodability is O(R), not log-scaling."""
     g = _gen(seed)
     chans = base_channels(seed, BASES)
-    cbs = _codebooks(chans)
     R = 1
     for m in BASES: R *= m
     coprime = all(math.gcd(BASES[i], BASES[j]) == 1 for i in range(len(BASES)) for j in range(i + 1, len(BASES)))
+    xs_all = torch.arange(0, R, dtype=torch.float64, device=DEV)
+    allcode = residue_fpe(xs_all, chans)                                # (R, N) all codewords
     n_test = min(R, 300)
-    xs = torch.randint(0, R, (n_test,), generator=g, device=DEV).to(torch.float64)
-    Rx = residue_fpe(xs, chans)
-    correct = 0
-    for i in range(n_test):
-        rec_res = resonator_decode(Rx[i], chans, cbs)                   # RESONATOR iteration (not naive corr)
-        x_hat = _crt(rec_res, BASES, R)
-        if x_hat == int(xs[i].item()):
-            correct += 1
-    acc = correct / n_test
-    return {"coprime": coprime, "range": R, "decode_acc": acc, "n_test": n_test,
-            "pass": coprime and acc >= DECODE_BAR}
+    test = torch.randint(0, R, (n_test,), generator=g, device=DEV).to(torch.float64)
+    Rt = residue_fpe(test, chans)
+    sims = (Rt.unsqueeze(1) * allcode.conj().unsqueeze(0)).real.mean(dim=-1)   # (n_test, R) brute-force nearest
+    acc = (sims.argmax(dim=-1) == test.long()).float().mean().item()
+    # quasi-orthogonality (codeword separation) -- supports CRT uniqueness empirically
+    k = min(R, 60)
+    G = (allcode[:k].unsqueeze(1) * allcode[:k].conj().unsqueeze(0)).real.mean(dim=-1)
+    off_max = float((G - torch.eye(k, device=DEV) * 2).max().item())
+    return {"coprime": coprime, "range": R, "decodability_acc": acc, "n_test": n_test, "max_offdiag_sim": off_max,
+            "pass": coprime and acc >= DECODE_BAR,
+            "B2_efficient_resonator": "DEFERRED to Primitive 2 (cleanup/decode; quad-head resonator option); "
+                                      "simplex-correlated codewords ~ -1/(m-1) is the P2 resonator requirement; "
+                                      "log-scaling decode advantage NOT demonstrated here (brute-force is O(R))"}
 
 
 def _crt(residues, bases, R):
@@ -220,35 +201,38 @@ def _crt_ref(residues, bases):
 
 
 def verdict(A, B, C):
+    # GATE-B is the STRUCTURAL SPLIT (Skunkworks ruling): B1 decodability here; B2 efficient-resonator-decode is
+    # DEFERRED to Primitive 2 (NOT a Primitive-1 gate). P1 atom = GATE-A + B1 + GATE-C, with log-scaling-decode OPEN.
     if not A["pass"]:
         return ("HARD_FAIL_GATE_A", f"kernel err {A['max_kernel_err']:.4f} > TOL {A['tol']:.4f} -> base-phase model wrong; STOP")
     if not B["pass"]:
-        return ("HONEST_NEGATIVE_GATE_B", f"decode_acc {B['decode_acc']:.3f} < {DECODE_BAR} -> residue decode range-bounded (honest scope)")
+        return ("HONEST_NEGATIVE_GATE_B1", f"decodability {B['decodability_acc']:.3f} < {DECODE_BAR} -> encoding range-bounded (honest scope)")
     if C["c1_product_kernel_holds"]:
-        return ("PRIMITIVE_1_LOAD_BEARING", f"GATE-A pass + GATE-B decode {B['decode_acc']:.3f} + GATE-C1 product-kernel HOLDS (err {C['c1_kernel_err']:.4f}<=TOL) + envelope reported -> continuous-residue load-bearing WITHIN envelope")
-    return ("HONEST_BOUNDED_C1_BREAKS", f"GATE-A+B pass but GATE-C1 product-kernel BREAKS (err {C['c1_kernel_err']:.4f}>TOL) -> base independence fails for continuous x; file integer-residue + single-channel-continuous BOUNDED (honest scope)")
+        return ("PRIMITIVE_1_LOAD_BEARING", f"GATE-A pass + B1 decodability {B['decodability_acc']:.3f} (CRT-unique; encoding carries x) + GATE-C1 product-kernel HOLDS (err {C['c1_kernel_err']:.4f}<=TOL) + envelope reported -> continuous-residue ENCODING load-bearing WITHIN envelope. NOTE: log-scaling DECODE (B2 resonator) OPEN -> Primitive 2.")
+    return ("HONEST_BOUNDED_C1_BREAKS", f"GATE-A+B1 pass but GATE-C1 product-kernel BREAKS (err {C['c1_kernel_err']:.4f}>TOL) -> base independence fails for continuous x; file integer-residue + single-channel-continuous BOUNDED (honest scope). log-scaling DECODE (B2) OPEN -> Primitive 2.")
 
 
 def main():
     print(f"[start] {ANCHOR} run_mode={RUN_MODE} dev={DEV} N={N} bases={BASES} seeds={SEEDS}", flush=True)
     _selftest()
     out = get_output_dir(os.environ.get("HDLAB_EXP_NAME", ANCHOR)); t0 = time.time()
-    A = [gate_A(s) for s in SEEDS]; B = [gate_B(s) for s in SEEDS]; C = [gate_C(s) for s in SEEDS]
+    A = [gate_A(s) for s in SEEDS]; B = [gate_B1(s) for s in SEEDS]; C = [gate_C(s) for s in SEEDS]
     A_m = {"max_kernel_err": max(a["max_kernel_err"] for a in A), "tol": TOL_A, "pass": all(a["pass"] for a in A)}
-    B_m = {"decode_acc": sum(b["decode_acc"] for b in B) / len(B), "range": B[0]["range"],
-           "coprime": all(b["coprime"] for b in B), "pass": all(b["pass"] for b in B)}
+    B_m = {"decodability_acc": sum(b["decodability_acc"] for b in B) / len(B), "range": B[0]["range"],
+           "max_offdiag_sim": max(b["max_offdiag_sim"] for b in B), "coprime": all(b["coprime"] for b in B),
+           "pass": all(b["pass"] for b in B), "B2_efficient_resonator": B[0]["B2_efficient_resonator"]}
     C_m = {"c1_kernel_err": max(c["c1_kernel_err"] for c in C), "c1_tol": TOL_C1,
            "c1_product_kernel_holds": all(c["c1_product_kernel_holds"] for c in C),
            "c2_resolution_envelope": C[0]["c2_resolution_envelope"]}
     v, vmsg = verdict(A_m, B_m, C_m)
     print(f"\n[GATE-A] kernel_err={A_m['max_kernel_err']:.4f} TOL={TOL_A:.4f} -> {'PASS' if A_m['pass'] else 'FAIL'}", flush=True)
-    print(f"[GATE-B] decode_acc={B_m['decode_acc']:.3f} range={B_m['range']} coprime={B_m['coprime']} -> {'PASS' if B_m['pass'] else 'FAIL'}", flush=True)
+    print(f"[GATE-B1 decodability] acc={B_m['decodability_acc']:.3f} range={B_m['range']} coprime={B_m['coprime']} max_offdiag={B_m['max_offdiag_sim']:.3f} -> {'PASS' if B_m['pass'] else 'FAIL'} (B2 resonator efficient-decode DEFERRED to Primitive 2)", flush=True)
     print(f"[GATE-C1] product_kernel_err={C_m['c1_kernel_err']:.4f} TOL={TOL_C1:.4f} holds={C_m['c1_product_kernel_holds']}", flush=True)
     print(f"[GATE-C2] resolution envelope: {C_m['c2_resolution_envelope']}", flush=True)
     print(f"\n[VERDICT] {v} -- {vmsg}", flush=True)
     metrics = {"anchor_name": ANCHOR, "run_mode": RUN_MODE, "device": str(DEV), "N": N, "bases": BASES,
-               "seeds": SEEDS, "gate_A": A_m, "gate_B": B_m, "gate_C": C_m, "verdict": v, "verdict_msg": vmsg,
-               "honest_scope": "continuous-magnitude WITHIN GATE-C envelope; integer-residue + single-channel-FPE grounded; combined-continuous-residue product-kernel is the verified-not-assumed open question",
+               "seeds": SEEDS, "gate_A": A_m, "gate_B1_decodability": B_m, "gate_C": C_m, "verdict": v, "verdict_msg": vmsg,
+               "honest_scope": "continuous-magnitude ENCODING sound + uniquely decodable (GATE-A kernel + B1 CRT/brute-force) WITHIN the GATE-C envelope; integer-residue + single-channel-FPE grounded; combined-continuous-residue product-kernel is the verify-not-assume open question (GATE-C remote). LOG-SCALING DECODE (B2 efficient resonator) is OPEN -> Primitive 2 (cleanup/decode); residue-FPE's log-scaling ADVANTAGE is NOT yet demonstrated (do not imply solved).",
                "elapsed_s": time.time() - t0, "compute_backend": str(DEV)}
     write_metrics(out, metrics, [{"gate_A": A_m, "gate_B": B_m, "gate_C": C_m}])
     print(f"[metrics] written {out}/metrics.json", flush=True)
