@@ -223,28 +223,31 @@ def eval_single_role_isolation(seed, N):
     rng = np.random.RandomState(seed)
     codebook = bipolar(rng, (VOCAB, N))
     role = bipolar(rng, N)
-    truth, c1, c2 = [], [], []
+    truth, c0, c1, c2 = [], [], [], []
     max_total = 0
     for _ in range(N_SCENES):
         n_distinct = int(rng.randint(1, 9))
         fillers = rng.choice(VOCAB, size=n_distinct, replace=False)
-        scene = np.zeros(N); total = 0
+        scene = np.zeros(N); total = 0; bound = []
         for f in fillers:
             mult = int(rng.randint(1, 4))
             for _ in range(mult):
-                scene += role * codebook[f]; total += 1
+                b = role * codebook[f]; scene += b; bound.append(b); total += 1
         max_total = max(max_total, total)
         truth.append(n_distinct)
-        # C1 fair-null single-role: ||role*scene||^2/N ~ TOTAL bindings (counts multiplicity) -> rounds
-        # to total, NOT distinct. Fails ONLY on the distinctness confound (no crosstalk here).
+        # C0 graph-walk-trace control (single-role): trace(B^T B / N) = total bindings (multiplicity-
+        # confounded), via the matrix -> counts total NOT distinct, like C1 but the named control.
+        B = np.stack(bound, axis=0)
+        c0.append(round(float(np.trace((B.T @ B) / N))))
+        # C1 fair-null single-role: ||role*scene||^2/N ~ TOTAL bindings (counts multiplicity), NOT distinct.
         u = role * scene
         c1.append(round(float(np.dot(u, u) / N)))
-        # C2: cleanup distinct-count
+        # C2: cleanup distinct-count (escapes both -- collapses multiplicity)
         sims = (codebook @ u) / N
         c2.append(int(np.sum(sims > CLEANUP_THRESH)))
     truth = np.array(truth, float)
     def rmse(e): return float(np.sqrt(np.mean((np.array(e, float) - truth) ** 2)))
-    return {"c1_rmse": rmse(c1), "c2_rmse": rmse(c2), "max_total_bindings": max_total}
+    return {"c0_rmse": rmse(c0), "c1_rmse": rmse(c1), "c2_rmse": rmse(c2), "max_total_bindings": max_total}
 
 
 # ===== PRE-REGISTERED GRADED VERDICT LOGIC (pre-registers HARD-PASS/FAIL bands in code BEFORE the graded
@@ -319,10 +322,11 @@ def main():
 
         # AMENDMENT v3b: single-role CONFOUND-ISOLATION sibling (distinctness confound, no crosstalk)
         sr_rows = [eval_single_role_isolation(s, N) for s in SEEDS]
+        sr_c0 = np.mean([r["c0_rmse"] for r in sr_rows])
         sr_c1 = np.mean([r["c1_rmse"] for r in sr_rows])
         sr_c2 = np.mean([r["c2_rmse"] for r in sr_rows])
         sr_maxtot = max(r["max_total_bindings"] for r in sr_rows)
-        print(f"[N={N}] SINGLE-ROLE ISOLATION RMSE (distinctness-only): C1_fair_null={sr_c1:.2f} C2={sr_c2:.2f}", flush=True)
+        print(f"[N={N}] SINGLE-ROLE ISOLATION RMSE (distinctness-only): C0={sr_c0:.2f} C1_fair_null={sr_c1:.2f} C2={sr_c2:.2f}", flush=True)
 
         # AMENDMENT v3a: CAPACITY-ENVELOPE gate (multi-role compound + single-role)
         max_total_multi = 8 * 3 * ROLES   # upper bound on total bindings in the compound task (max nd x max mult x roles)
@@ -334,6 +338,16 @@ def main():
         if not in_env_multi:
             print(f"[N={N}] CAPACITY NOTE: compound task EXCEEDS envelope at this N -> a C2 low score here is a "
                   f"CAPACITY ARTIFACT, not a primitive HARD-FAIL (raise N or cap density for the graded run).", flush=True)
+
+        # ===== GRADED VERDICTS (pre-registered compute_verdict applied to real metrics) =====
+        v_ec_single = verdict_exact_count(sr_c0, sr_c1, sr_c2, in_env_sr)       # HARD exact-count claim (clean confound)
+        v_ec_multi = verdict_exact_count(ec0, ec1, ec2, in_env_multi)            # compound (capacity-limited at high N)
+        v_alk = verdict_quantifier(alk1, alk2)
+        v_most = verdict_quantifier(m1, m2)
+        print(f"[N={N}] GRADED VERDICT exact-count SINGLE-ROLE (HARD distinctness claim): {v_ec_single[0]} -- {v_ec_single[1]}", flush=True)
+        print(f"[N={N}] GRADED VERDICT exact-count compound: {v_ec_multi[0]} -- {v_ec_multi[1]}", flush=True)
+        print(f"[N={N}] GRADED VERDICT at-least-{4}: {v_alk[0]} -- {v_alk[1]}", flush=True)
+        print(f"[N={N}] GRADED VERDICT most(A>B): {v_most[0]} -- {v_most[1]}", flush=True)
 
     print("\n[skeleton] SANITY COMPLETE. Pre-registered gates baked in; graded run gated to Phase-B GO 2026-06-21", flush=True)
     print("[skeleton] C3 (internal-abstraction-discovery) = stub; 158b Task 3 probe verifies discovery (P_deflated=0.40)", flush=True)
