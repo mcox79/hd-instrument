@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap3_7_n100_ensemble_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: N=100 substrate ensemble lifts noisy-recall by >=20pp over single (past PP-249 N=10) -- sqrt-N population-coding improvement holds to N=100. single=0.700 ens10=1.000 ens100=1.000 gain=30.0pp",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "single": 0.7,
+      "ens10": 1.0,
+      "ens100": 1.0,
+      "gain100_pp": 30.0
+    }
+  ],
+  "elapsed_s": 75.41559076309204,
+  "summary": "HARD_PASS: N=100 substrate ensemble lifts noisy-recall by >=20pp over single (past PP-249 N=10) -- sqrt-N population-coding improvement holds to N=100. single=0.700 ens10=1.000 ens100=1.000 gain=30.0pp"
+}

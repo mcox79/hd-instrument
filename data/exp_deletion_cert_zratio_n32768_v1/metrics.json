@@ -1,0 +1,32 @@
+{
+  "anchor": "deletion_cert_zratio_n32768_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 204,
+  "alpha": 0.05,
+  "n_seeds": 2,
+  "n_null_probes": 20,
+  "per_seed_results": [
+    {
+      "seed": 7,
+      "signal_mean": 64.0,
+      "null_mean": 14.648875188827514,
+      "null_std": 0.6382164865867681,
+      "z_ratio": 77.3266216846045,
+      "elapsed_s": 0.05500674247741699
+    },
+    {
+      "seed": 17,
+      "signal_mean": 64.0,
+      "null_mean": 14.26397876739502,
+      "null_std": 1.1553076685822259,
+      "z_ratio": 43.05002259150603,
+      "elapsed_s": 0.028905153274536133
+    }
+  ],
+  "z_mean": 60.18832213805527,
+  "z_min": 43.05002259150603,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 0.10791420936584473,
+  "verdict_msg": "Deletion-cert Z-ratio at N=4096 alpha=0.05: Z_mean=60.19, Z_min=43.05 across 2 seeds. Verdict: HARD_PASS."
+}

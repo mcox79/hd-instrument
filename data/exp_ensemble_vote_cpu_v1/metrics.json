@@ -1,0 +1,16 @@
+{
+  "anchor_name": "ensemble_vote_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ensemble majority vote beats single substrate by >=0.05 -- error-averaging redundancy improves recall. single=0.390 vote=0.693 gain=0.302",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "single": 0.39,
+      "vote": 0.6925,
+      "gain": 0.3025
+    }
+  ],
+  "elapsed_s": 0.7903702259063721,
+  "summary": "HARD_PASS: ensemble majority vote beats single substrate by >=0.05 -- error-averaging redundancy improves recall. single=0.390 vote=0.693 gain=0.302"
+}

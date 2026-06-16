@@ -1,0 +1,24 @@
+{
+  "anchor_name": "self_improving_hotpot_router_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: real HotpotQA bridge distribution too sparse for fast-path growth (X flat/<0.15) -- distinct-question test set lacks bridge reuse; needs entity-level (not title-pair) bridge keys or a repetitive enterprise workload. X(50)=0.000 X(200)=0.000 | curve={50: 0.0, 100: 0.0, 200: 0.0} (n=200)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 200,
+      "x": {
+        "50": 0.0,
+        "100": 0.0,
+        "200": 0.0
+      },
+      "uniq": {
+        "50": 100,
+        "100": 200,
+        "200": 400
+      }
+    }
+  ],
+  "elapsed_s": 0.0341036319732666,
+  "summary": "HARD_FAIL: real HotpotQA bridge distribution too sparse for fast-path growth (X flat/<0.15) -- distinct-question test set lacks bridge reuse; needs entity-level (not title-pair) bridge keys or a repetitive enterprise workload. X(50)=0.000 X(200)=0.000 | curve={50: 0.0, 100: 0.0, 200: 0.0} (n=200)"
+}

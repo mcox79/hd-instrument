@@ -1,0 +1,46 @@
+{
+  "anchor_name": "substrate_crossdomain_transfer_sst2_imdb_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: neutral/weak transfer (ratio 0.95-1.20 at 5pct) -- SST-2 pretraining neither strongly helps nor hurts IMDB. ratio@5pct=1.0792 (transfer 0.7599 / scratch 0.7041); zero-shot SST-2-on-IMDB F1=0.7597; curve=[(0.01, 0.5787, 0.7521, 1.3316), (0.05, 0.7041, 0.7599, 1.0792), (0.1, 0.7565, 0.7785, 1.0293), (1.0, 0.8617, 0.8601, 0.9982)]",
+  "summary": "MIDDLE_BAND: neutral/weak transfer (ratio 0.95-1.20 at 5pct) -- SST-2 pretraining neither strongly helps nor hurts IMDB. ratio@5pct=1.0792 (transfer 0.7599 / scratch 0.7041); zero-shot SST-2-on-IMDB F1=0.7597; curve=[(0.01, 0.5787, 0.7521, 1.3316), (0.05, 0.7041, 0.7599, 1.0792), (0.1, 0.7565, 0.7785, 1.0293), (1.0, 0.8617, 0.8601, 0.9982)]",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.01,
+          "scratch_f1": 0.5787,
+          "transfer_f1": 0.7521,
+          "ratio": 1.3316,
+          "n_imdb_train": 50
+        },
+        {
+          "frac": 0.05,
+          "scratch_f1": 0.7041,
+          "transfer_f1": 0.7599,
+          "ratio": 1.0792,
+          "n_imdb_train": 250
+        },
+        {
+          "frac": 0.1,
+          "scratch_f1": 0.7565,
+          "transfer_f1": 0.7785,
+          "ratio": 1.0293,
+          "n_imdb_train": 500
+        },
+        {
+          "frac": 1.0,
+          "scratch_f1": 0.8617,
+          "transfer_f1": 0.8601,
+          "ratio": 0.9982,
+          "n_imdb_train": 5000
+        }
+      ],
+      "sst2_only_on_imdb_f1": 0.7597,
+      "n_imdb_test": 2000,
+      "n_sst2_train": 6000
+    }
+  ],
+  "elapsed_s": 44.90424108505249
+}

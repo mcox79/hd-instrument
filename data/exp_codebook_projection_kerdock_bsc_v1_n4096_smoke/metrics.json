@@ -1,0 +1,26 @@
+{
+  "verdict": "CBP_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_hp=0/1 n_hf=1/1 mean_cross=0.094 mean_within=1.000 mean_iso=0.0000",
+  "elapsed_s": 0.06,
+  "summary": {
+    "anchor": "codebook_projection_kerdock_bsc_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 32,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 32,
+        "within_codebook_accuracy": 1.0,
+        "cross_codebook_accuracy": 0.09375,
+        "kf2_max_iso_on_W_B": 0.0
+      }
+    ],
+    "verdict": "CBP_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: n_hp=0/1 n_hf=1/1 mean_cross=0.094 mean_within=1.000 mean_iso=0.0000",
+    "elapsed_s": 0.06
+  }
+}

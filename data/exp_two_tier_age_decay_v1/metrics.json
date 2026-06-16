@@ -1,0 +1,15 @@
+{
+  "anchor_name": "two_tier_age_decay_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: age-weighted decay lets customer overlay win >=0.90 (vs <=0.50 flat) -- recency-decay is a clean OAS mitigation. win no-decay=0.483 age-decay=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "no_decay": 0.48333333333333334,
+      "age_decay": 1.0
+    }
+  ],
+  "elapsed_s": 0.1855628490447998,
+  "summary": "HARD_PASS: age-weighted decay lets customer overlay win >=0.90 (vs <=0.50 flat) -- recency-decay is a clean OAS mitigation. win no-decay=0.483 age-decay=1.000"
+}

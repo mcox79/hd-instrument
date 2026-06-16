@@ -1,0 +1,36 @@
+{
+  "anchor_name": "comp_1bit_verify_5_nscale_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 1-bit holds zero-loss at production N=8192 with realistic K=10/M=500 -- substrate's standard config supports 32x compression at depth. holds at production N=8192 (K=10,M=500): True ; rows={'1024': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '4096': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '8192': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '16384': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rows": {
+        "1024": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "4096": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "8192": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        },
+        "16384": {
+          "float": 1.0,
+          "q1bit": 1.0,
+          "loss": 0.0
+        }
+      },
+      "holds_at_8192": true
+    }
+  ],
+  "elapsed_s": 926.6752936840057,
+  "summary": "HARD_PASS: 1-bit holds zero-loss at production N=8192 with realistic K=10/M=500 -- substrate's standard config supports 32x compression at depth. holds at production N=8192 (K=10,M=500): True ; rows={'1024': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '4096': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '8192': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}, '16384': {'float': 1.0, 'q1bit': 1.0, 'loss': 0.0}}"
+}

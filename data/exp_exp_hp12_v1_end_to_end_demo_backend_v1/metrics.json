@@ -1,0 +1,24 @@
+{
+  "anchor_name": "exp_hp12_v1_end_to_end_demo_backend_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: demo backend works; write-latency or recall near-threshold. live_write=7.3634ms live_recall=1.000 | certs_verified=1.000 phantom_recall=0.000 | preseed_retention=1.000 (M_seed=1000,K_live=50,N_del=10)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "M_seed": 1000,
+      "k_live": 50,
+      "n_del": 10,
+      "live_write_ms_median": 7.363350014202297,
+      "live_recall": 1.0,
+      "cert_ms_median": 2.8339000418782234,
+      "certs_verified_frac": 1.0,
+      "phantom_recall_rate": 0.0,
+      "preseed_retention": 1.0
+    }
+  ],
+  "elapsed_s": 1.0437970161437988,
+  "summary": "MIDDLE_BAND: demo backend works; write-latency or recall near-threshold. live_write=7.3634ms live_recall=1.000 | certs_verified=1.000 phantom_recall=0.000 | preseed_retention=1.000 (M_seed=1000,K_live=50,N_del=10)"
+}

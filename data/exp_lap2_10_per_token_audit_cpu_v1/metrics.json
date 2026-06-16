@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap2_10_per_token_audit_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-generation-step audit chain complete + cryptographically verifiable per token (100pct) -- EU AI Act Article 12 per-token provenance. chains-complete=1.000 per-token-verifiable=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "chains_complete": 1.0,
+      "per_token_verifiable": 1.0,
+      "chains": 100
+    }
+  ],
+  "elapsed_s": 0.7620327472686768,
+  "summary": "HARD_PASS: per-generation-step audit chain complete + cryptographically verifiable per token (100pct) -- EU AI Act Article 12 per-token provenance. chains-complete=1.000 per-token-verifiable=1.000"
+}

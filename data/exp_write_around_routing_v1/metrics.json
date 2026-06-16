@@ -1,0 +1,32 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "M_LIST": [
+    20,
+    30
+  ],
+  "N_PROBES": 20,
+  "THRESHOLD_HIGH": 0.7,
+  "THRESHOLD_LOW": 0.3,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_M": {
+      "20": {
+        "mean_acc": 1.0,
+        "mean_fpr": 0.0,
+        "n_seeds": 2
+      },
+      "30": {
+        "mean_acc": 1.0,
+        "mean_fpr": 0.0,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Write-around routing via probe confirmed. min_acc=1.000>=0.9 max_fpr=0.000<0.1. Cross-primitive composition (probe=refusal-cert) works for routing.",
+  "elapsed_s": 0.6734106540679932
+}

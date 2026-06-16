@@ -1,0 +1,44 @@
+{
+  "verdict": "NSCALE_MIDDLE_BAND",
+  "verdict_msg": "SLOPE_CHANGE: mean_max_M=2048 between linear and exp. max_M_at_95_recall mean=2048 per_seed=[2048] N=16384 HP_threshold=32768 HF_band=[3276,4915]",
+  "elapsed_s": 0.32,
+  "summary": {
+    "anchor": "n_scaling_modern_hopfield_v1_n16384",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      256,
+      1024,
+      2048
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "per_M": [
+          {
+            "M": 256,
+            "recall": 1.0
+          },
+          {
+            "M": 1024,
+            "recall": 1.0
+          },
+          {
+            "M": 2048,
+            "recall": 1.0
+          }
+        ],
+        "max_M_at_95_recall": 2048
+      }
+    ],
+    "per_seed_max_M": [
+      2048
+    ],
+    "verdict": "NSCALE_MIDDLE_BAND",
+    "verdict_msg": "SLOPE_CHANGE: mean_max_M=2048 between linear and exp. max_M_at_95_recall mean=2048 per_seed=[2048] N=16384 HP_threshold=32768 HF_band=[3276,4915]",
+    "elapsed_s": 0.32
+  }
+}

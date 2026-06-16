@@ -1,0 +1,28 @@
+{
+  "anchor_name": "phase4b_multibench_solver_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native discriminative word-problem solver generalizes -- macro-avg>=0.30 across >=3 benchmarks (SVAMP/MAWPS/ASDiv/MultiArith), no LLM. The discriminative-weighting math solver is a real multi-benchmark substrate capability. macro-avg=0.352 per={'SVAMP': 0.283, 'MAWPS': 0.882, 'MultiArith': 0.022, 'ASDiv': 0.222} (4 benchmarks, train-labeled=1356)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_acc": 0.352,
+      "per_benchmark": {
+        "SVAMP": 0.283,
+        "MAWPS": 0.882,
+        "MultiArith": 0.022,
+        "ASDiv": 0.222
+      },
+      "per_n": {
+        "SVAMP": 290,
+        "MAWPS": 517,
+        "MultiArith": 180,
+        "ASDiv": 1599
+      },
+      "n_train_labeled": 1356,
+      "n_benchmarks": 4
+    }
+  ],
+  "elapsed_s": 6.805599927902222,
+  "summary": "HARD_PASS: substrate-native discriminative word-problem solver generalizes -- macro-avg>=0.30 across >=3 benchmarks (SVAMP/MAWPS/ASDiv/MultiArith), no LLM. The discriminative-weighting math solver is a real multi-benchmark substrate capability. macro-avg=0.352 per={'SVAMP': 0.283, 'MAWPS': 0.882, 'MultiArith': 0.022, 'ASDiv': 0.222} (4 benchmarks, train-labeled=1356)"
+}

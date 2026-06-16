@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap4_11_meta_3level_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: depth-3 meta-cognition -- L1 knows-P, L2 predicts L1-correctness, L3 predicts L2-reliability (all above chance). Substrate represents a 3-level knowledge-about-knowledge hierarchy. L1=0.873 L2-AUC=0.802 L3-AUC=0.733",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "l1_acc": 0.873,
+      "l2_auc": 0.802,
+      "l3_auc": 0.733,
+      "n": 2000
+    }
+  ],
+  "elapsed_s": 14.378175973892212,
+  "summary": "HARD_PASS: depth-3 meta-cognition -- L1 knows-P, L2 predicts L1-correctness, L3 predicts L2-reliability (all above chance). Substrate represents a 3-level knowledge-about-knowledge hierarchy. L1=0.873 L2-AUC=0.802 L3-AUC=0.733"
+}

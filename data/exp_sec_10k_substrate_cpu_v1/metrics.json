@@ -1,0 +1,14 @@
+{
+  "anchor_name": "sec_10k_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SEC 10-K financial-metric query correctness >=0.95 -- finance vertical demo proof. metric-query correctness=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "acc": 1.0
+    }
+  ],
+  "elapsed_s": 0.3354682922363281,
+  "summary": "HARD_PASS: SEC 10-K financial-metric query correctness >=0.95 -- finance vertical demo proof. metric-query correctness=1.000"
+}

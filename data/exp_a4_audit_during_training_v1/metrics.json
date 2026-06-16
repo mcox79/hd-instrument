@@ -1,0 +1,32 @@
+{
+  "anchor_name": "a4_audit_during_training_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions met in >=2/2 seeds. n_seeds=2 detected=2/2 latency=1.0writes fpr=0.000(HP<0.05,HF>0.2) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 512,
+  "M_CLEAN_BEFORE": 20,
+  "M_CLEAN_AFTER": 30,
+  "SIGMA_THRESHOLD": 3.0,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 1.858654260635376,
+  "per_seed": [
+    {
+      "seed": 7,
+      "detected": true,
+      "detect_latency_writes": 1,
+      "fpr": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "detected": true,
+      "detect_latency_writes": 1,
+      "fpr": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    }
+  ]
+}

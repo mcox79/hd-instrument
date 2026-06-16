@@ -1,0 +1,27 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "P": 100,
+  "alpha": 0.09765625,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "n_relax_steps": 100,
+  "aggregated": {
+    "mean_cophenetic_single": 0.14336264455627293,
+    "std_cophenetic_single": 0.021348299415995482,
+    "mean_linkage_disagree": 0.012546642462446739,
+    "n_seeds": 3,
+    "seeds_pass_hp": 0
+  },
+  "thresholds": {
+    "HP_COPHENETIC": 0.7,
+    "HF_COPHENETIC": 0.55,
+    "HP_MIN_SEEDS": 3
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Cophenetic=0.1434 < HF=0.55 even at near-capacity P=100. No hierarchical tree structure in overlap matrix. n_seeds=3. Q-F3 feature does not exist at alpha=0.098.",
+  "elapsed_s": 1.0319373607635498
+}

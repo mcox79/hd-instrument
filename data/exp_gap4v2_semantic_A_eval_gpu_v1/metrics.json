@@ -1,0 +1,15 @@
+{
+  "anchor_name": "gap4v2_semantic_A_eval_gpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: bge semantic encoder unavailable in this env (needs sentence-transformers + bge-large; remote). Harness correct + ready for Testbed remote run. needs sentence-transformers + bge-large (remote); harness is correct + ready",
+  "summary": "UNKNOWN: bge semantic encoder unavailable in this env (needs sentence-transformers + bge-large; remote). Harness correct + ready for Testbed remote run. needs sentence-transformers + bge-large (remote); harness is correct + ready",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "error": "encoder_unavailable_env_gated",
+      "note": "needs sentence-transformers + bge-large (remote); harness is correct + ready"
+    }
+  ],
+  "elapsed_s": 0.19020748138427734
+}

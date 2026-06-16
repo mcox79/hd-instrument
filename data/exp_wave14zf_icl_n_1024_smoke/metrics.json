@@ -1,0 +1,57 @@
+{
+  "verdict": "ICL_N1024_SOFT_SATURATION",
+  "verdict_msg": "Mixed: full slope=+0.0559 (below 0.1); upper-half slope=+0.0559; gain_max=0.1482. Capability nominally continues but pace below NO_SAT threshold.",
+  "elapsed_s": 3.0,
+  "summary": {
+    "ictx_list": [
+      64,
+      256
+    ],
+    "mean_gain": [
+      0.036411855061849074,
+      0.14816148885091085
+    ],
+    "std_gain": [
+      0.0,
+      0.0
+    ],
+    "mean_entropy_per_ictx": [
+      7.753000783284505,
+      7.790772216796875
+    ],
+    "distinct_chunks_floor_ok": true,
+    "n_seeds": 1,
+    "alpha": 1.0,
+    "n_dim": 256
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256
+  },
+  "per_seed": [
+    {
+      "seed": 17,
+      "off_bpc": 6.04895888264974,
+      "pool_A_bpc": 5.742775736490885,
+      "pool_A_entropy": 7.740609202067057,
+      "per_ictx": {
+        "64": {
+          "irr_bpc": 5.742490132649739,
+          "rel_bpc": 5.70607827758789,
+          "gain": 0.036411855061849074,
+          "entropy": 7.753000783284505,
+          "distinct_irr": 64,
+          "distinct_rel": 64
+        },
+        "256": {
+          "irr_bpc": 5.742547688802083,
+          "rel_bpc": 5.594386199951172,
+          "gain": 0.14816148885091085,
+          "entropy": 7.790772216796875,
+          "distinct_irr": 256,
+          "distinct_rel": 256
+        }
+      }
+    }
+  ]
+}

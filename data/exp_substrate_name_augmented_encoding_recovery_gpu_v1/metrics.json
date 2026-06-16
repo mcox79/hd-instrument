@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_name_augmented_encoding_recovery_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: folding the EXISTING name/id field into algebra-HRR recovers decode cleanup to >=0.97 at F=3 -- the encoding-discriminability fix works with data already present (no bge, no content authoring needed); separates the cos=1.0 collisions. plain(alpha=0) cleanup@1_F3=0.8333; best name-augmented F3=1.0 at alpha=1.0; full=[(0.0, {1: 1.0, 3: 0.8333}), (1.0, {1: 1.0, 3: 1.0})]; corpus=241 device=cpu",
+  "summary": "HARD_PASS: folding the EXISTING name/id field into algebra-HRR recovers decode cleanup to >=0.97 at F=3 -- the encoding-discriminability fix works with data already present (no bge, no content authoring needed); separates the cos=1.0 collisions. plain(alpha=0) cleanup@1_F3=0.8333; best name-augmented F3=1.0 at alpha=1.0; full=[(0.0, {1: 1.0, 3: 0.8333}), (1.0, {1: 1.0, 3: 1.0})]; corpus=241 device=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "rows": [
+        {
+          "alpha": 0.0,
+          "cleanup": {
+            "1": 1.0,
+            "3": 0.8333
+          }
+        },
+        {
+          "alpha": 1.0,
+          "cleanup": {
+            "1": 1.0,
+            "3": 1.0
+          }
+        }
+      ],
+      "n_atoms": 241,
+      "dim": 1024,
+      "device": "cpu",
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 0.23093223571777344
+}

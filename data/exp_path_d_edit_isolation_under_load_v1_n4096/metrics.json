@@ -1,0 +1,101 @@
+{
+  "verdict": "T2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: n_groups=4 target_groups=0 hp_groups=0 hf_triggers=0",
+  "elapsed_s": 0.69,
+  "summary": {
+    "anchor": "path_d_edit_isolation_under_load_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 20,
+    "edit_rates": [
+      10,
+      100
+    ],
+    "patterns": [
+      "on_path",
+      "off_path"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "edit_rate": 10,
+        "pattern": "on_path",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 20,
+        "pre_acc": 1.0,
+        "post_acc": 1.0,
+        "audit_pre": "df129153da414ff4",
+        "audit_post": "e71c7ed766596017",
+        "audit_changed": true,
+        "snapshot_consistent": true,
+        "path_consistent": true,
+        "consistent": true,
+        "n_edits": 10,
+        "perf_degradation": -0.0371
+      },
+      {
+        "edit_rate": 10,
+        "pattern": "off_path",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 20,
+        "pre_acc": 1.0,
+        "post_acc": 1.0,
+        "audit_pre": "df129153da414ff4",
+        "audit_post": "b5be691003d0e93c",
+        "audit_changed": true,
+        "snapshot_consistent": true,
+        "path_consistent": true,
+        "consistent": true,
+        "n_edits": 10,
+        "perf_degradation": -0.1185
+      },
+      {
+        "edit_rate": 100,
+        "pattern": "on_path",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 20,
+        "pre_acc": 1.0,
+        "post_acc": 1.0,
+        "audit_pre": "df129153da414ff4",
+        "audit_post": "85da08ab1d4b9be0",
+        "audit_changed": true,
+        "snapshot_consistent": true,
+        "path_consistent": true,
+        "consistent": true,
+        "n_edits": 16,
+        "perf_degradation": 0.1053
+      },
+      {
+        "edit_rate": 100,
+        "pattern": "off_path",
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 20,
+        "pre_acc": 1.0,
+        "post_acc": 1.0,
+        "audit_pre": "df129153da414ff4",
+        "audit_post": "c5c9daa3409583c7",
+        "audit_changed": true,
+        "snapshot_consistent": true,
+        "path_consistent": true,
+        "consistent": true,
+        "n_edits": 100,
+        "perf_degradation": 0.2141
+      }
+    ],
+    "verdict": "T2_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: n_groups=4 target_groups=0 hp_groups=0 hf_triggers=0",
+    "elapsed_s": 0.69
+  }
+}

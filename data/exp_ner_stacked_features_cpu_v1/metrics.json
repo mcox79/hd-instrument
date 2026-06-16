@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_stacked_features_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: stacked lift <0.01 -- in-corpus features fully saturate; the lexical features already capture the signal. External resources required. stacked(clusters+POS) F1=0.5875 vs baseline 0.5817 (lift=+0.0058, P=0.598 R=0.578, train=5982)",
+  "summary": "HARD_FAIL: stacked lift <0.01 -- in-corpus features fully saturate; the lexical features already capture the signal. External resources required. stacked(clusters+POS) F1=0.5875 vs baseline 0.5817 (lift=+0.0058, P=0.598 R=0.578, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5875,
+      "f1_stacked": 0.5875,
+      "f1_baseline": 0.5817,
+      "lift": 0.0058,
+      "prec": 0.598,
+      "rec": 0.578,
+      "n_train": 5982,
+      "n_vocab": 3337
+    }
+  ],
+  "elapsed_s": 604.9446375370026
+}

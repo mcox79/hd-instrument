@@ -1,0 +1,30 @@
+{
+  "anchor_name": "caching_lfu_lru_arc_tier0_unified_n8192_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 policies pass. n_seeds=2 rho_lfu=0.9743(HP>=0.6) rho_lru=0.4914(HP>=0.6) rho_arc=0.8500 hp_lfu=2/2 hp_lru=0/2 hp_arc=2/2",
+  "N": 8192,
+  "M_PATTERNS": 50,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 164.16939997673035,
+  "per_seed": [
+    {
+      "seed": 7,
+      "rho_lfu": 0.975616631430585,
+      "rho_lru": 0.5408033826638478,
+      "rho_arc": 0.8432699083861874,
+      "hp_lfu": true,
+      "hp_lru": false,
+      "hp_arc": true
+    },
+    {
+      "seed": 17,
+      "rho_lfu": 0.9729688915735427,
+      "rho_lru": 0.4420114768951978,
+      "rho_arc": 0.8566898218061009,
+      "hp_lfu": true,
+      "hp_lru": false,
+      "hp_arc": true
+    }
+  ]
+}

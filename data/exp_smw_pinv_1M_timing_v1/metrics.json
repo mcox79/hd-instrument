@@ -1,0 +1,17 @@
+{
+  "anchor_name": "smw_pinv_1M_timing_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SMW rank-1 pinv update <5ms at M=1M float32 (O(D^2) const in M) -- 1M streaming ingest feasible (~0 min batch). M=5000 per-update=4.2454 ms total=21.2s finite=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "m_insert": 5000,
+      "per_update_ms": 4.245369319990277,
+      "total_s": 21.226846599951386,
+      "finite": true
+    }
+  ],
+  "elapsed_s": 21.22531533241272,
+  "summary": "HARD_PASS: SMW rank-1 pinv update <5ms at M=1M float32 (O(D^2) const in M) -- 1M streaming ingest feasible (~0 min batch). M=5000 per-update=4.2454 ms total=21.2s finite=True"
+}

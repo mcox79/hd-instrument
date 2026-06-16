@@ -1,0 +1,37 @@
+{
+  "verdict": "HB_INCONCLUSIVE",
+  "verdict_msg": "Direct replay lift=0.063 < 0.1; replay mechanism not sufficiently active at this scale. Collateral mean=0.017. 0/1 seeds negative.",
+  "elapsed_s": 3.4219999999622814,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_direct_replay": 0.9113689296425274,
+        "retention_held_out": 0.8653111481461135,
+        "retention_no_replay": 0.8484900876516179,
+        "direct_lift": 0.06287884199090943,
+        "collateral_lift": 0.01682106049449561,
+        "bpc_A_r_baseline": 3.394397666931152,
+        "bpc_A_h_baseline": 3.8518549652099607,
+        "bpc_replay_r_after": 3.724504486083984,
+        "bpc_replay_h_after": 4.4514103088378905,
+        "bpc_noreplay_all_after": 4.270086769104004
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.5,
+    "ema_alpha": 0.7,
+    "collateral_hard_pass": 0.05,
+    "collateral_hard_fail": 0.0,
+    "replay_direct_min": 0.1
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b5_bounded_weights_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: replay <1.2x no-replay. retention none=0.144 random=0.125 ordered=0.140 ordered50=0.138 (ordered/none=0.97x, 0/2 seeds>=1.5x)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "B5_palimpsest"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "none": 0.14414414414414414,
+      "random": 0.13213213213213212,
+      "ordered": 0.14414414414414414,
+      "ordered50": 0.13513513513513514
+    },
+    {
+      "seed": 2,
+      "none": 0.14414414414414414,
+      "random": 0.11711711711711711,
+      "ordered": 0.13513513513513514,
+      "ordered50": 0.14114114114114115
+    }
+  ],
+  "elapsed_s": 5.4662652015686035,
+  "summary": "HARD_FAIL: replay <1.2x no-replay. retention none=0.144 random=0.125 ordered=0.140 ordered50=0.138 (ordered/none=0.97x, 0/2 seeds>=1.5x)"
+}

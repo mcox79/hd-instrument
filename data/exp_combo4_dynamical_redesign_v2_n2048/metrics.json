@@ -1,0 +1,12 @@
+{
+  "anchor_name": "combo4_dynamical_redesign_v2_n2048",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 cells at N=2048. M_dyn=0.9805(HP>=0.75 HF<0.6) collapse_mse=0.0000(HP<0.05 HF>0.2) mu=0.1046(HP [0.5,1.0]) n_seeds=1",
+  "N": 256,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "elapsed_s": 2.7521755695343018,
+  "mean_m_dyn": 0.9804818033801592,
+  "mean_scaling_collapse_mse": 1.0890535808203035e-05,
+  "mean_aging_exponent_mu": 0.10462272250319445
+}

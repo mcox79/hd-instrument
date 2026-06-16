@@ -1,0 +1,53 @@
+{
+  "verdict": "AXIS1C7_HARD_PASS",
+  "verdict_msg": "TAIL SIGNAL CONFIRMED: M16_midhibeta=0.2469>=0.1. Substrate retains partial signal at M/N=16. monotone_ok=True. details={'max_conf': 0.246897, 'mean_conf_M16_midhibeta': 0.246897, 'best_conf_M16': 0.246897, 'mean_conf_by_mfrac': {16.0: 0.216533}, 'N_cells': 3, 'N': 1024}.",
+  "elapsed_s": 0.6090216636657715,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      16.0
+    ],
+    "n_betas": 3,
+    "n_seeds": 1
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 16384,
+        "M_over_N": 16.0,
+        "beta": 8.0,
+        "seed": 17,
+        "softmax_conf": 0.17942702770233154,
+        "argmax_ret": 0.2199999988079071
+      },
+      {
+        "M": 16384,
+        "M_over_N": 16.0,
+        "beta": 32.0,
+        "seed": 17,
+        "softmax_conf": 0.24689704179763794,
+        "argmax_ret": 0.2199999988079071
+      },
+      {
+        "M": 16384,
+        "M_over_N": 16.0,
+        "beta": 256.0,
+        "seed": 17,
+        "softmax_conf": 0.22327503561973572,
+        "argmax_ret": 0.2199999988079071
+      }
+    ],
+    "N_used": 1024,
+    "N_full": 4096,
+    "m_fracs": [
+      16.0
+    ],
+    "betas": [
+      8.0,
+      32.0,
+      256.0
+    ],
+    "smoke": true
+  }
+}

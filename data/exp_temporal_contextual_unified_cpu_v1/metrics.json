@@ -1,0 +1,16 @@
+{
+  "anchor_name": "temporal_contextual_unified_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate v3.1 UNIFIED architecture works -- in ONE substrate over an episode, CONTEXT-binding resolves polysemous perception (>=0.85), TEMPORAL decay+refresh retains core memory through edits (>=0.90), and a TEMPORAL policy integrates competing drives (>=50%% escape). Time + context as first-class primitives, operating together. The Sprint-3 architecture is demonstrable. sense=1.000 core-retention=1.000 drive-escape=127%",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sense_resolution": 1.0,
+      "core_retention": 1.0,
+      "drive_escape_pct": 127.0
+    }
+  ],
+  "elapsed_s": 1.0820426940917969,
+  "summary": "HARD_PASS: substrate v3.1 UNIFIED architecture works -- in ONE substrate over an episode, CONTEXT-binding resolves polysemous perception (>=0.85), TEMPORAL decay+refresh retains core memory through edits (>=0.90), and a TEMPORAL policy integrates competing drives (>=50%% escape). Time + context as first-class primitives, operating together. The Sprint-3 architecture is demonstrable. sense=1.000 core-retention=1.000 drive-escape=127%"
+}

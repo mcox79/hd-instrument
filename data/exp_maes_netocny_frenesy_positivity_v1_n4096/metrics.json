@@ -1,0 +1,43 @@
+{
+  "anchor": "maes_netocny_frenesy_positivity_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_tag": "MIDDLE_BAND",
+  "verdict_msg": "Frenesy positive but sigma_margin insufficient. K_mean_per_seed=[0.88] sigma_margin_per_seed=[2.15] n_K_positive=1/1 n_sigma>=2.0=1/1 fwd_ok=True rev_ok=True fwd_totals=[11] rev_totals=[11] M_probe=25",
+  "elapsed_s": 0.07,
+  "config": {
+    "N": 512,
+    "m_frac": 0.125,
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "M_delta_frac": 0.015625,
+    "M_probe_frac": 0.05,
+    "alpha_hebbian": 0.1
+  },
+  "per_seed": [
+    {
+      "N": 512,
+      "M_init": 64,
+      "M_delta": 8,
+      "M_probe": 25,
+      "M_steps": 8,
+      "seed": 17,
+      "frenesy_per_probe_mean": 0.88,
+      "frenesy_per_probe_std": 2.0458738964071075,
+      "frenesy_total": 22.0,
+      "frenesy_sigma_margin": 2.150670184009765,
+      "forward_transitions": 11,
+      "reverse_transitions": 11,
+      "sigma_EP_proxy": 0.15415067982725827,
+      "t_build_s": 0.0,
+      "t_traj_s": 0.05
+    }
+  ],
+  "summary": {
+    "mean_frenesy_per_probe": 0.88,
+    "mean_sigma_margin": 2.150670184009765,
+    "total_forward_transitions": 11,
+    "total_reverse_transitions": 11
+  }
+}

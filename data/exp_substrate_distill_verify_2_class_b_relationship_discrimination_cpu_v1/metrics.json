@@ -1,0 +1,339 @@
+{
+  "anchor_name": "substrate_distill_verify_2_class_b_relationship_discrimination_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (verifier is SOUNDLY DISCRIMINATIVE -- over-distillation guard holds): anchor regression intact (2/2 ground-truth groups correct: optimizer=SHARED_ABSTRACTION, conv<->DFT=THEOREM_LINKED), ZERO anchor false-merges. Soundness half of the closed loop: V1 MERGES true duplicates; V2 REFUSES to over-distill capability-siblings and names the correct weaker relationship (abstraction extraction / theorem link). Widened set produced 9 external candidate group(s); 0 flagged MERGEABLE for V1 merge-verify follow-up. source=external:substrate_distill_class_b_candidates.json (+11 groups); anchor groups (ground truth) optimizer_family=SHARED_ABSTRACTION, convolution_theorem=THEOREM_LINKED (derivation_present=True); anchor-correct=2/2; full-set false-MERGEABLE=0 (anchor=0 unsound, external=0 candidate-true-dups for V1 merge-verify); triage dist={'SHARED_ABSTRACTION': 3, 'THEOREM_LINKED': 2, 'DISTINCT': 2, 'INVERSE_PAIR': 1, 'CROSS_DOMAIN_ABSTRACTION': 3}. CHTV-1 typed reasoning: conv<->DFT shares capability but differs in signature -> merge REFUSED, theorem PROVABLE only if a TYPED derivation chain links the pair else SOUND refusal; optimizer family shares output+domain+capability, differs in algorithm -> SHARED_ABSTRACTION (extract first-order-optimizer supertype + SPECIALIZES, do NOT merge).",
+  "summary": "HARD_PASS (verifier is SOUNDLY DISCRIMINATIVE -- over-distillation guard holds): anchor regression intact (2/2 ground-truth groups correct: optimizer=SHARED_ABSTRACTION, conv<->DFT=THEOREM_LINKED), ZERO anchor false-merges. Soundness half of the closed loop: V1 MERGES true duplicates; V2 REFUSES to over-distill capability-siblings and names the correct weaker relationship (abstraction extraction / theorem link). Widened set produced 9 external candidate group(s); 0 flagged MERGEABLE for V1 merge-verify follow-up. source=external:substrate_distill_class_b_candidates.json (+11 groups); anchor groups (ground truth) optimizer_family=SHARED_ABSTRACTION, convolution_theorem=THEOREM_LINKED (derivation_present=True); anchor-correct=2/2; full-set false-MERGEABLE=0 (anchor=0 unsound, external=0 candidate-true-dups for V1 merge-verify); triage dist={'SHARED_ABSTRACTION': 3, 'THEOREM_LINKED': 2, 'DISTINCT': 2, 'INVERSE_PAIR': 1, 'CROSS_DOMAIN_ABSTRACTION': 3}. CHTV-1 typed reasoning: conv<->DFT shares capability but differs in signature -> merge REFUSED, theorem PROVABLE only if a TYPED derivation chain links the pair else SOUND refusal; optimizer family shares output+domain+capability, differs in algorithm -> SHARED_ABSTRACTION (extract first-order-optimizer supertype + SPECIALIZES, do NOT merge).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "groups": [
+        {
+          "group": "optimizer_family",
+          "verdict": "SHARED_ABSTRACTION",
+          "n_found": 3,
+          "ids": [
+            "T1/gradient_descent",
+            "T3/adam_optimizer",
+            "T3/stochastic_gradient_descent"
+          ],
+          "is_anchor": true,
+          "shared_caps": [
+            "cap_discriminative_perceptron"
+          ],
+          "out_types": [
+            "parameter_vector"
+          ],
+          "operation_types": [
+            "adaptive_first_order_optimization",
+            "continuous_optimization",
+            "stochastic_first_order_optimization"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": null
+        },
+        {
+          "group": "convolution_theorem",
+          "verdict": "THEOREM_LINKED",
+          "n_found": 2,
+          "ids": [
+            "T2/circular_convolution",
+            "T3/discrete_fourier_transform"
+          ],
+          "is_anchor": true,
+          "shared_caps": [
+            "cap_circular_convolution",
+            "cap_fhrr_bind"
+          ],
+          "out_types": [
+            "frequency_spectrum",
+            "real_vector"
+          ],
+          "operation_types": [
+            "binding",
+            "linear_transform_invertible"
+          ],
+          "derivation_present": true,
+          "inverse_authored": false,
+          "out_type_grounded": null
+        },
+        {
+          "group": "bellman_equation_markov_decision_process_grp4",
+          "verdict": "DISTINCT",
+          "n_found": 4,
+          "ids": [
+            "T3/bellman_equation",
+            "T3/markov_decision_process",
+            "T3/policy_gradient",
+            "T3/q_learning"
+          ],
+          "is_anchor": false,
+          "shared_caps": [
+            "reinforcement_learning_family"
+          ],
+          "out_types": [
+            "decision_problem",
+            "policy_parameter_update",
+            "q_value_table_or_function",
+            "updated_value_function"
+          ],
+          "operation_types": [
+            "dynamic_programming_recursion",
+            "gradient_ascent_on_expected_return",
+            "sequential_decision_framework",
+            "value_function_update"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": null
+        },
+        {
+          "group": "count_nb_discriminative_perceptron_grp2",
+          "verdict": "DISTINCT",
+          "n_found": 3,
+          "ids": [
+            "T3/discriminative_perceptron",
+            "T2/discriminative_perceptron",
+            "T3/count_nb"
+          ],
+          "is_anchor": false,
+          "shared_caps": [
+            "pp-364_ner",
+            "pp-364_pos_tagger",
+            "pp-369_slot_filling",
+            "pp-370_intent_classification",
+            "pp-374_mawps_math",
+            "pp-375_multistep_math",
+            "pp-376_multibench_math",
+            "pp-377_multiarith_math",
+            "pp-378_code_algopattern"
+          ],
+          "out_types": [
+            "probability_vector",
+            "weight_vector"
+          ],
+          "operation_types": [
+            "discriminative_linear_update",
+            "generative_classification"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": null
+        },
+        {
+          "group": "fhrr_bind_unbind_dual",
+          "verdict": "INVERSE_PAIR",
+          "n_found": 2,
+          "ids": [
+            "T2/fhrr_bind",
+            "T2/fhrr_unbind"
+          ],
+          "is_anchor": false,
+          "shared_caps": [
+            "pp-225_fact_recall_kb100k",
+            "pp-367_unified_algebra_lang_math",
+            "pp-372_schema_retrieval",
+            "retrieval_kb_fact_extensions",
+            "retrieval_schema_pp372"
+          ],
+          "out_types": [
+            "phasor_vector"
+          ],
+          "operation_types": [
+            "binding",
+            "binding_inverse"
+          ],
+          "derivation_present": null,
+          "inverse_authored": true,
+          "out_type_grounded": null
+        },
+        {
+          "group": "modern_hopfield_ramsauer_sparse_distributed_memory_grp2",
+          "verdict": "THEOREM_LINKED",
+          "n_found": 2,
+          "ids": [
+            "T2/modern_hopfield_ramsauer",
+            "T2/sparse_distributed_memory"
+          ],
+          "is_anchor": false,
+          "shared_caps": [
+            "cap_cleanup",
+            "pp-225_fact_recall_kb100k"
+          ],
+          "out_types": [
+            "content_vector",
+            "stored_pattern"
+          ],
+          "operation_types": [
+            "associative_memory",
+            "associative_memory_attractor"
+          ],
+          "derivation_present": false,
+          "inverse_authored": false,
+          "out_type_grounded": null
+        },
+        {
+          "group": "hmm_family",
+          "verdict": "SHARED_ABSTRACTION",
+          "n_found": 6,
+          "ids": [
+            "T3/forward_algorithm",
+            "T2/forward_algorithm",
+            "T3/backward_algorithm",
+            "T2/backward_algorithm",
+            "T3/hmm_transition",
+            "T2/hmm_transition"
+          ],
+          "is_anchor": false,
+          "shared_caps": [],
+          "out_types": [
+            "state_distribution"
+          ],
+          "operation_types": [
+            "marginal_likelihood_via_alpha_recursion",
+            "smoothing_via_beta_recursion",
+            "state_transition_probability_matrix"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": null
+        },
+        {
+          "group": "sequence_decoding_same_domain",
+          "verdict": "SHARED_ABSTRACTION",
+          "n_found": 6,
+          "ids": [
+            "T3/beam_search",
+            "T2/beam_search",
+            "T3/viterbi_decoder",
+            "T2/viterbi_decoder",
+            "T3/viterbi_decoding",
+            "T2/viterbi_decoding"
+          ],
+          "is_anchor": false,
+          "shared_caps": [],
+          "out_types": [
+            "state_sequence"
+          ],
+          "operation_types": [
+            "approximate_top_k_path_search",
+            "dynamic_programming_decode"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": null
+        },
+        {
+          "group": "sequence_decoding_cross_domain",
+          "verdict": "CROSS_DOMAIN_ABSTRACTION",
+          "n_found": 8,
+          "ids": [
+            "T3/beam_search",
+            "T2/beam_search",
+            "T3/viterbi_decoder",
+            "T2/viterbi_decoder",
+            "T3/astar",
+            "T2/astar",
+            "T3/dijkstra",
+            "T2/dijkstra"
+          ],
+          "is_anchor": false,
+          "shared_caps": [],
+          "out_types": [
+            "state_sequence"
+          ],
+          "operation_types": [
+            "approximate_top_k_path_search",
+            "dynamic_programming_decode",
+            "shortest_path_no_negative_weights",
+            "shortest_path_with_heuristic"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": true
+        },
+        {
+          "group": "cross_domain_perceptron_weight_vector",
+          "verdict": "CROSS_DOMAIN_ABSTRACTION",
+          "n_found": 8,
+          "ids": [
+            "T3/discriminative_perceptron",
+            "T2/discriminative_perceptron",
+            "T3/structured_perceptron_collins",
+            "T2/structured_perceptron_collins",
+            "T3/collins_structured_perceptron",
+            "T2/collins_structured_perceptron",
+            "T3/perceptron_update",
+            "T2/perceptron_update"
+          ],
+          "is_anchor": false,
+          "shared_caps": [],
+          "out_types": [
+            "weight_vector"
+          ],
+          "operation_types": [
+            "discriminative_linear_update",
+            "structured_discriminative_learning",
+            "structured_supervised_learning",
+            "weight_update_on_misclassification"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": true
+        },
+        {
+          "group": "cross_domain_state_distribution",
+          "verdict": "CROSS_DOMAIN_ABSTRACTION",
+          "n_found": 7,
+          "ids": [
+            "T3/forward_algorithm",
+            "T2/forward_algorithm",
+            "T3/backward_algorithm",
+            "T2/backward_algorithm",
+            "T3/hmm_transition",
+            "T2/hmm_transition",
+            "T1/markov_chain"
+          ],
+          "is_anchor": false,
+          "shared_caps": [],
+          "out_types": [
+            "state_distribution"
+          ],
+          "operation_types": [
+            "marginal_likelihood_via_alpha_recursion",
+            "smoothing_via_beta_recursion",
+            "state_transition_probability_matrix",
+            "stochastic_process"
+          ],
+          "derivation_present": null,
+          "inverse_authored": null,
+          "out_type_grounded": true
+        }
+      ],
+      "n_eval": 11,
+      "n_mergeable": 0,
+      "anchor_correct": 2,
+      "n_anchors": 2,
+      "expected": {
+        "optimizer_family": "SHARED_ABSTRACTION",
+        "convolution_theorem": "THEOREM_LINKED",
+        "fhrr_bind_unbind_dual": "INVERSE_PAIR",
+        "hmm_family": "SHARED_ABSTRACTION",
+        "sequence_decoding_same_domain": "SHARED_ABSTRACTION",
+        "sequence_decoding_cross_domain": "CROSS_DOMAIN_ABSTRACTION",
+        "cross_domain_perceptron_weight_vector": "CROSS_DOMAIN_ABSTRACTION",
+        "cross_domain_state_distribution": "CROSS_DOMAIN_ABSTRACTION"
+      },
+      "source": "external:substrate_distill_class_b_candidates.json (+11 groups)",
+      "triage_dist": {
+        "SHARED_ABSTRACTION": 3,
+        "THEOREM_LINKED": 2,
+        "DISTINCT": 2,
+        "INVERSE_PAIR": 1,
+        "CROSS_DOMAIN_ABSTRACTION": 3
+      }
+    }
+  ],
+  "elapsed_s": 0.4268944263458252
+}

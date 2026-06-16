@@ -1,0 +1,32 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "N_QUERIES": 100,
+  "M_INNER_LIST": [
+    50,
+    200
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "50": {
+      "M": 50,
+      "alpha": 0.01220703125,
+      "mean_e2e_accuracy": 1.0,
+      "std_e2e_accuracy": 0.0,
+      "n_seeds": 2
+    },
+    "200": {
+      "M": 200,
+      "alpha": 0.048828125,
+      "mean_e2e_accuracy": 1.0,
+      "std_e2e_accuracy": 0.0,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "L=2 composition HARD-PASS. e2e_acc at M=50: 1.0000 (HP>=0.88). min across M: 1.0000. N=4096 pure outer-product heteroassoc chain confirmed.",
+  "elapsed_s": 4.9007391929626465
+}

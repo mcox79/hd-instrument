@@ -1,0 +1,18 @@
+{
+  "anchor_name": "capacity_scaling_law_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity scales >=0.5*D at every D -- linear capacity law confirmed (predictable scaling). min capacity fraction = 1.20*D | {'128': 153, '256': 307}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "128": 153,
+        "256": 307
+      },
+      "min_frac": 1.1953125
+    }
+  ],
+  "elapsed_s": 0.38246965408325195,
+  "summary": "HARD_PASS: capacity scales >=0.5*D at every D -- linear capacity law confirmed (predictable scaling). min capacity fraction = 1.20*D | {'128': 153, '256': 307}"
+}

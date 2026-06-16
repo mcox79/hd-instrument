@@ -1,0 +1,98 @@
+{
+  "anchor_name": "substrate_novel_assembly_1_combine_interpolate_no_existing_filler_gap_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "NOVELTY CLAIM REJECTED (Skunkworks vet CONFIRMED by this corrected control): a SINGLE EXISTING binder closes the gap (['ghrr'] -- ghrr = non-commutative correlation, the HRR-family order-sensitive binder excluded from the original control). So 'no single existing closes' was an artifact of testing only commutative binders; the assembled perm-o-xor was COMPOSITIONAL REDISCOVERY of an existing capability (order-sensitive binding), NOT invention. The combine/interpolate MECHANISM is valid (it does assemble order-sensitive closers), but genuine novelty is NOT demonstrated -- the decisive test needs a gap unclosable by the FULL existing operator set. Same rediscovery trap as CELL-INV-1/banach/130a-G2, correctly caught at the decisive moment. order-sensitive conjunctive-binding gap: single-primitive closers=['ghrr'] (must be EMPTY); assembly closers=['perm2_conv', 'perm2_xor', 'perm_conv', 'perm_xor']; abduced MISSING-property=[]; assembly supplies it=False.",
+  "summary": "NOVELTY CLAIM REJECTED (Skunkworks vet CONFIRMED by this corrected control): a SINGLE EXISTING binder closes the gap (['ghrr'] -- ghrr = non-commutative correlation, the HRR-family order-sensitive binder excluded from the original control). So 'no single existing closes' was an artifact of testing only commutative binders; the assembled perm-o-xor was COMPOSITIONAL REDISCOVERY of an existing capability (order-sensitive binding), NOT invention. The combine/interpolate MECHANISM is valid (it does assemble order-sensitive closers), but genuine novelty is NOT demonstrated -- the decisive test needs a gap unclosable by the FULL existing operator set. Same rediscovery trap as CELL-INV-1/banach/130a-G2, correctly caught at the decisive moment. order-sensitive conjunctive-binding gap: single-primitive closers=['ghrr'] (must be EMPTY); assembly closers=['perm2_conv', 'perm2_xor', 'perm_conv', 'perm_xor']; abduced MISSING-property=[]; assembly supplies it=False.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "macc": {
+        "xor": 0.41854166666666665,
+        "conv": 0.4177777777777778,
+        "bundle": 0.32944444444444443,
+        "ghrr": 0.9770833333333333,
+        "perm_xor": 0.9768055555555556,
+        "perm_conv": 0.9769444444444444,
+        "perm_bundle": 0.8231944444444445,
+        "perm2_xor": 0.976875,
+        "perm2_conv": 0.9773611111111111,
+        "perm2_bundle": 0.8219444444444445
+      },
+      "closers": [
+        "ghrr",
+        "perm2_conv",
+        "perm2_xor",
+        "perm_conv",
+        "perm_xor"
+      ],
+      "single_closers": [
+        "ghrr"
+      ],
+      "assembly_closers": [
+        "perm2_conv",
+        "perm2_xor",
+        "perm_conv",
+        "perm_xor"
+      ],
+      "props": {
+        "xor": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": false,
+          "recoverable": true
+        },
+        "conv": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": false,
+          "recoverable": true
+        },
+        "bundle": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": false,
+          "recoverable": true
+        },
+        "ghrr": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm_xor": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm_conv": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm_bundle": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm2_xor": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm2_conv": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        },
+        "perm2_bundle": {
+          "conjunctive_pairsep": true,
+          "order_sensitive": true,
+          "recoverable": true
+        }
+      },
+      "abduced": [],
+      "disc": false,
+      "assembly_supplies_missing": false,
+      "novelty": false,
+      "hard_pass": false
+    }
+  ],
+  "elapsed_s": 150.0175597667694
+}

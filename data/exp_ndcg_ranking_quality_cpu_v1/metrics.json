@@ -1,0 +1,14 @@
+{
+  "anchor_name": "ndcg_ranking_quality_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate ranking NDCG@10>=0.6 -- graded relevance ranking works (not just top-1). NDCG@10=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ndcg": 1.0
+    }
+  ],
+  "elapsed_s": 0.1235957145690918,
+  "summary": "HARD_PASS: substrate ranking NDCG@10>=0.6 -- graded relevance ranking works (not just top-1). NDCG@10=1.000"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap4_5_zkp_range_proof_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate ZK range proof -- in-range values always accepted; out-of-range/forged-bit rejected (soundness>=0.95); value never revealed (Pedersen + CDS OR-per-bit). Proves v in [0,2^8) without revealing v. completeness=1.000 soundness=1.000 (8-bit)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "completeness": 1.0,
+      "soundness": 1.0,
+      "nbits": 8,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 34.02566194534302,
+  "summary": "HARD_PASS: substrate ZK range proof -- in-range values always accepted; out-of-range/forged-bit rejected (soundness>=0.95); value never revealed (Pedersen + CDS OR-per-bit). Proves v in [0,2^8) without revealing v. completeness=1.000 soundness=1.000 (8-bit)"
+}

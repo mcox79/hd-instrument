@@ -1,0 +1,21 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "T_GLAUBER": 5,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_fork_cos": 0.41796875,
+    "mean_routing_delta": 0.5,
+    "mean_a2_cos": 0.0,
+    "frac_A_pass": 1.0,
+    "frac_B_pass": 1.0,
+    "frac_C_pass": 0.5,
+    "n_seeds": 2
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "2/3 cells. fork=0.4180 delta=0.5000 a2=0.0000. A:1.00 B:1.00 C:0.50.",
+  "elapsed_s": 0.18625879287719727
+}

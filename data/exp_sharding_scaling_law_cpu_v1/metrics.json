@@ -1,0 +1,32 @@
+{
+  "anchor_name": "sharding_scaling_law_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sharding gives flat per-shard recall (>=0.90, spread<=0.05) with near-zero cross-shard interference while total capacity scales linearly with S -- the customer capacity claim is validated; monolithic degrades, sharded does not. per-shard={'S1': 1.0, 'S4': 1.0, 'S16': 1.0} monolithic={'S1': 1.0, 'S4': 0.953, 'S16': 0.209} interference={'S1': 0.0, 'S4': 0.0, 'S16': 0.0} (spread=0.000 gap@maxS=0.791 max-inter=0.0000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_shard": {
+        "S1": 1.0,
+        "S4": 1.0,
+        "S16": 1.0
+      },
+      "monolithic": {
+        "S1": 1.0,
+        "S4": 0.953125,
+        "S16": 0.20859375
+      },
+      "interference": {
+        "S1": 0.0,
+        "S4": 0.0,
+        "S16": 0.0
+      },
+      "spread": 0.0,
+      "gap_at_max": 0.79140625,
+      "max_inter": 0.0,
+      "min_pershard": 1.0
+    }
+  ],
+  "elapsed_s": 19.48987340927124,
+  "summary": "HARD_PASS: sharding gives flat per-shard recall (>=0.90, spread<=0.05) with near-zero cross-shard interference while total capacity scales linearly with S -- the customer capacity claim is validated; monolithic degrades, sharded does not. per-shard={'S1': 1.0, 'S4': 1.0, 'S16': 1.0} monolithic={'S1': 1.0, 'S4': 0.953, 'S16': 0.209} interference={'S1': 0.0, 'S4': 0.0, 'S16': 0.0} (spread=0.000 gap@maxS=0.791 max-inter=0.0000)"
+}

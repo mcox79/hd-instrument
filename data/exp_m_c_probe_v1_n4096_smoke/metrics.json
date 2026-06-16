@@ -1,0 +1,48 @@
+{
+  "verdict": "MC_PROBE_MIDDLE_BAND",
+  "verdict_msg": "GRADUAL_DECLINE: no sharp drop, but transition present. n_seeds_sharp=1/1 biggest_step=2.0->8.0 mean_drop=0.485 M_c_estimate=[2048,8192] N=1024 beta=4.0",
+  "elapsed_s": 1.75,
+  "summary": {
+    "anchor": "m_c_probe_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "beta": 4.0,
+    "M_fracs": [
+      2.0,
+      8.0,
+      32.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M_frac": 2.0,
+        "M": 2048,
+        "N": 1024,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 1.0
+      },
+      {
+        "M_frac": 8.0,
+        "M": 8192,
+        "N": 1024,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.515
+      },
+      {
+        "M_frac": 32.0,
+        "M": 32768,
+        "N": 1024,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.115
+      }
+    ],
+    "verdict": "MC_PROBE_MIDDLE_BAND",
+    "verdict_msg": "GRADUAL_DECLINE: no sharp drop, but transition present. n_seeds_sharp=1/1 biggest_step=2.0->8.0 mean_drop=0.485 M_c_estimate=[2048,8192] N=1024 beta=4.0",
+    "elapsed_s": 1.75
+  }
+}

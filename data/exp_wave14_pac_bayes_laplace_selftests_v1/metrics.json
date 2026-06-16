@@ -1,0 +1,62 @@
+{
+  "verdict": "SELF_TEST_PASS",
+  "verdict_msg": "PASS: all 7 self-tests pass. Laplace-Fisher KL formula verified. Laplace violation is structurally expected (predicted ratio=1.00 > 0.5). GPU v2 run is safe to proceed.",
+  "elapsed_s": 0.02,
+  "summary": {
+    "n_tests_passed": 7,
+    "n_tests_total": 7,
+    "all_passed": true,
+    "laplace_violation_structural": true,
+    "laplace_predicted_ratio_m40": 1.0
+  },
+  "test_results": [
+    {
+      "name": "self_test_1_trivial_N16",
+      "passed": true,
+      "residual": 0.0
+    },
+    {
+      "name": "self_test_1_trivial_N64",
+      "passed": true,
+      "residual": 0.0
+    },
+    {
+      "name": "self_test_1_trivial_N256",
+      "passed": true,
+      "residual": 0.0
+    },
+    {
+      "name": "self_test_2_scalar",
+      "passed": true,
+      "residual": 4.718055994556991e-05
+    },
+    {
+      "name": "self_test_3_high_curvature",
+      "passed": true,
+      "residual": 0.0
+    },
+    {
+      "name": "self_test_4_monotonicity",
+      "passed": true,
+      "residual": 0.0
+    },
+    {
+      "name": "self_test_5_pac_bayes_floor",
+      "passed": true,
+      "residual": 0.0
+    }
+  ],
+  "laplace_analysis": {
+    "ratio_predicted_m40": 1.0,
+    "structural_violation_expected": true
+  },
+  "v1_crosscheck": {
+    "r2_fisher": 0.6807694464905789,
+    "r2_euclidean": 0.9986318079918487,
+    "n_valid": 3,
+    "n_laplace_suspect": 3,
+    "euclidean_range": 1017.0507507324219,
+    "suspicious_euclidean": false
+  },
+  "config": {}
+}

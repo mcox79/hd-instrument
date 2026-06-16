@@ -1,0 +1,16 @@
+{
+  "anchor_name": "stretch4_4_meta_learning_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: few-shot 0.68-0.80. few-shot-acc=0.707 (K=5)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "fewshot_acc": 0.7073333333333334,
+      "kshot": 5,
+      "n": 1500
+    }
+  ],
+  "elapsed_s": 0.1618359088897705,
+  "summary": "MIDDLE_BAND: few-shot 0.68-0.80. few-shot-acc=0.707 (K=5)"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "depparse_2ndorder_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: UAS <0.77 -- 2nd-order did not improve. UAS=0.7783 (24444 arcs, train=7000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uas": 0.7783,
+      "n_arcs": 24444,
+      "n_train": 7000
+    }
+  ],
+  "elapsed_s": 435.1777672767639,
+  "summary": "HARD_FAIL: UAS <0.77 -- 2nd-order did not improve. UAS=0.7783 (24444 arcs, train=7000)"
+}

@@ -1,0 +1,64 @@
+{
+  "anchor_name": "substrate_es1_es2_bge_primitive_proxy_cached_core_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: BGE primitive healthy (flat recall=0.7500>=0.60) but domain-routing did NOT help (routed=0.4375 < flat-0.05) -- routing not a lever at this scale/partitioning, or domain partitions too coarse. E-S1/E-S2 PROXY on cached BGE structured core (bge_large_v2_name_1782_c2420fcf.npz, 1782 atoms, 16 equivalence pairs, 32 queries). E-S1-proxy flat top-10 recall of equivalent=0.7500 (BGE primitive health). E-S2-proxy routed (domain-partition) top-10 recall=0.4375 (lift -0.3125). NOTE: this is the BGE-layer analog of E-S3 using PRECOMPUTED cached vectors (no query encoding); the LITERAL description-query E-S1 + full-corpus E-S2 need sentence_transformers installed (NOT local) and are queued for a BGE-enabled machine. Pre-reg: flat>=0.60 healthy (0.0067 is a scorer-shard artifact), <0.30 serious; routed>=flat means routing helps.",
+  "summary": "MIDDLE_BAND: BGE primitive healthy (flat recall=0.7500>=0.60) but domain-routing did NOT help (routed=0.4375 < flat-0.05) -- routing not a lever at this scale/partitioning, or domain partitions too coarse. E-S1/E-S2 PROXY on cached BGE structured core (bge_large_v2_name_1782_c2420fcf.npz, 1782 atoms, 16 equivalence pairs, 32 queries). E-S1-proxy flat top-10 recall of equivalent=0.7500 (BGE primitive health). E-S2-proxy routed (domain-partition) top-10 recall=0.4375 (lift -0.3125). NOTE: this is the BGE-layer analog of E-S3 using PRECOMPUTED cached vectors (no query encoding); the LITERAL description-query E-S1 + full-corpus E-S2 need sentence_transformers installed (NOT local) and are queued for a BGE-enabled machine. Pre-reg: flat>=0.60 healthy (0.0067 is a scorer-shard artifact), <0.30 serious; routed>=flat means routing helps.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cache": "bge_large_v2_name_1782_c2420fcf.npz",
+      "n_cached": 1782,
+      "n_pairs": 16,
+      "n_queries": 32,
+      "flat_recall": 0.75,
+      "routed_recall": 0.4375,
+      "routing_lift": -0.3125,
+      "sample_flat_misses": [
+        {
+          "name": "research_drill_1bit_depth_verify_2x_2026-06-10",
+          "src": "research_drill_1bit_depth_verify_2x_2026-06-10",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        },
+        {
+          "name": "research_drill_1bit_depth_verify_2x_2026-06-10",
+          "src": "research_drill_1bit_depth_verify_2x_2026-06-10",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        },
+        {
+          "name": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05",
+          "src": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        },
+        {
+          "name": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05",
+          "src": "research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        },
+        {
+          "name": "research_drill_8_channel_orchestration_architecture_2026-06-03",
+          "src": "research_drill_8_channel_orchestration_architecture_2026-06-03",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        },
+        {
+          "name": "research_drill_8_channel_orchestration_architecture_2026-06-03",
+          "src": "research_drill_8_channel_orchestration_architecture_2026-06-03",
+          "flat": false,
+          "routed": false,
+          "domain": "unknown"
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.3962433338165283
+}

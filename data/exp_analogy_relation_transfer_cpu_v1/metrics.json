@@ -1,0 +1,19 @@
+{
+  "anchor_name": "analogy_relation_transfer_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: a relation learned from 5 example pairs transfers to a new input at cosine>=0.90 -- few-shot relational generalization. cosine by #examples: {'K1': 0.706, 'K3': 0.867, 'K5': 0.913, 'K10': 0.954}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K1": 0.706062912940979,
+        "K3": 0.8665253520011902,
+        "K5": 0.9131063222885132,
+        "K10": 0.9536486268043518
+      }
+    }
+  ],
+  "elapsed_s": 0.189788818359375,
+  "summary": "HARD_PASS: a relation learned from 5 example pairs transfers to a new input at cosine>=0.90 -- few-shot relational generalization. cosine by #examples: {'K1': 0.706, 'K3': 0.867, 'K5': 0.913, 'K10': 0.954}"
+}

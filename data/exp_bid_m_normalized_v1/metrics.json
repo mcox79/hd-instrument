@@ -1,0 +1,48 @@
+{
+  "verdict": "BID_M_NORM_MIDDLE_BAND",
+  "verdict_msg": "Partial: monotone=True, ratio_ok=False. mean_BID_by_M_frac={0.125: 52.4, 0.5: 24.47}. ratio(0.50/0.125)=0.467 (expected [0.5,0.9]).",
+  "elapsed_s": 0.485825777053833,
+  "config": {
+    "N": 512,
+    "m_fracs": [
+      0.125,
+      0.5
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "per_mfrac": {
+      "0.125": [
+        {
+          "N": 512,
+          "M_frac": 0.125,
+          "M_stored": 64,
+          "seed": 17,
+          "bid_estimate": 52.40030406505445,
+          "bid_ci_low": 42.70278844091106,
+          "bid_ci_high": 64.62925363644963
+        }
+      ],
+      "0.5": [
+        {
+          "N": 512,
+          "M_frac": 0.5,
+          "M_stored": 256,
+          "seed": 17,
+          "bid_estimate": 24.47491486367274,
+          "bid_ci_low": 21.36888963002599,
+          "bid_ci_high": 27.672926497766547
+        }
+      ]
+    },
+    "m_fracs": [
+      0.125,
+      0.5
+    ],
+    "N": 512,
+    "smoke": true
+  }
+}

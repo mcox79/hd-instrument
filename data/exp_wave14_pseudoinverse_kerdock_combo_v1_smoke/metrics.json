@@ -1,0 +1,32 @@
+{
+  "verdict": "PINVK_NEUTRAL",
+  "verdict_msg": "No clear advantage: kerdock_basin=0.050, random_basin=0.050, ratio=1.00. Structured codebook doesn't help pseudoinverse basins.",
+  "elapsed_s": 0.485000000015134,
+  "summary": {
+    "kerdock_basin_per_alpha": {
+      "0.3": 0.099609375,
+      "0.5": 0.0498046875
+    },
+    "random_basin_per_alpha": {
+      "0.3": 0.099609375,
+      "0.5": 0.0498046875
+    },
+    "kerdock_basin_alpha50": 0.0498046875,
+    "random_basin_alpha50": 0.0498046875
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_grid": [
+      0.3,
+      0.5
+    ],
+    "d_flip_frac_grid": [
+      0.02,
+      0.05,
+      0.1
+    ],
+    "n_iter": 5,
+    "seed": 17
+  }
+}

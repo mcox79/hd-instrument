@@ -1,0 +1,16 @@
+{
+  "anchor_name": "shard_routing_accuracy_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: content routing hits the right shard >=0.95 with end-to-end recall >=0.90 -- sharding works without an oracle router. routing=1.000 e2e=1.000 oracle=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "routing": 1.0,
+      "e2e": 1.0,
+      "oracle": 1.0
+    }
+  ],
+  "elapsed_s": 8.681717872619629,
+  "summary": "HARD_PASS: content routing hits the right shard >=0.95 with end-to-end recall >=0.90 -- sharding works without an oracle router. routing=1.000 e2e=1.000 oracle=1.000"
+}

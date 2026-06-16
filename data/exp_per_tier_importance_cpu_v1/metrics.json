@@ -1,0 +1,16 @@
+{
+  "anchor_name": "per_tier_importance_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: engineered per-tier importance policy works -- Tier-1 always-protected (>=0.95), accessed Tier-3 retained (>=0.80), unaccessed Tier-3 correctly faded (<0.40). Importance-by-tier via wrapper (refresh policy), no algebra change. Tier1=1.000 accessed-T3=1.000 unaccessed-T3=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "tier1_recall": 1.0,
+      "accessed_t3_recall": 1.0,
+      "unaccessed_t3_recall": 0.0
+    }
+  ],
+  "elapsed_s": 2.4766008853912354,
+  "summary": "HARD_PASS: engineered per-tier importance policy works -- Tier-1 always-protected (>=0.95), accessed Tier-3 retained (>=0.80), unaccessed Tier-3 correctly faded (<0.40). Importance-by-tier via wrapper (refresh policy), no algebra change. Tier1=1.000 accessed-T3=1.000 unaccessed-T3=0.000"
+}

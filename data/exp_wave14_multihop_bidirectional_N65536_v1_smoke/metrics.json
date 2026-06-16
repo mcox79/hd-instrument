@@ -1,0 +1,32 @@
+{
+  "verdict": "BIDIR_RESTORES",
+  "verdict_msg": "Bidirectional inference restores chain: acc_50hop=0.600 (>=0.5) vs argmax baseline 0.600. Mofrad et al 2021 Viterbi-on-chain mechanism viable.",
+  "elapsed_s": 0.10899999999674037,
+  "summary": {
+    "per_depth_mean_acc_argmax": {
+      "1": 1.0,
+      "25": 0.6
+    },
+    "per_depth_mean_acc_bidir": {
+      "1": 1.0,
+      "25": 0.6
+    },
+    "acc_50hop_argmax_baseline": 0.6,
+    "acc_50hop_bidir": 0.6
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "hop_depths": [
+      1,
+      25
+    ],
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

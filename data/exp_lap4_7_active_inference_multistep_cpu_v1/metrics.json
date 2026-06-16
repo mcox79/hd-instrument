@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_7_active_inference_multistep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: multi-step active inference -- per-step convergence to the true latent >=0.85 across a 6-step trajectory (hypothesize->predict->minimize->re-hypothesize chains). per-step-converge=1.000 full-trajectory=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "trajectory_converge": 1.0,
+      "step_converge": 1.0,
+      "steps": 6
+    }
+  ],
+  "elapsed_s": 1.2798893451690674,
+  "summary": "HARD_PASS: multi-step active inference -- per-step convergence to the true latent >=0.85 across a 6-step trajectory (hypothesize->predict->minimize->re-hypothesize chains). per-step-converge=1.000 full-trajectory=1.000"
+}

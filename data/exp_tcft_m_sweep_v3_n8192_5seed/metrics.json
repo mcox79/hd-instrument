@@ -1,0 +1,48 @@
+{
+  "verdict": "TCFT_V3_MIDDLE_BAND",
+  "verdict_msg": "Partial pass: 1/1 seeds. seeds_pass=1/1 at all_M>=512. seeds_fail_at_M1024=[]. spearman_r=-1.000. mean_vr_by_M={32: 0.0985, 64: 0.0155}. Insufficient coverage for Tier-1 lock-in but no regression.",
+  "elapsed_s": 0.22926592826843262,
+  "config": {
+    "N": 512,
+    "m_values": [
+      32,
+      64
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "per_seed": {
+      "17": [
+        {
+          "N": 512,
+          "M": 32,
+          "seed": 17,
+          "elapsed_s": 0.06967926025390625,
+          "vanilla_variance": 0.28107863662178734,
+          "tcft_valid": true,
+          "tcft_variance_ratio": 0.09853602454523026,
+          "delta_F_agree_pct": 100.97127183473901
+        },
+        {
+          "N": 512,
+          "M": 64,
+          "seed": 17,
+          "elapsed_s": 0.1460881233215332,
+          "vanilla_variance": 4.0572753868921465,
+          "tcft_valid": true,
+          "tcft_variance_ratio": 0.015486400098308973,
+          "delta_F_agree_pct": 99.78728163429615
+        }
+      ]
+    },
+    "m_values": [
+      32,
+      64
+    ],
+    "N": 512,
+    "smoke": true
+  }
+}

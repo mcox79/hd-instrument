@@ -1,0 +1,33 @@
+{
+  "verdict": "MULTITASK_DIFF_HARD_PASS",
+  "verdict_msg": "Substrate transfers to genuinely-different domain: retention_A=0.816>=0.7 AND gain_C=3.712>=0.3. U1/U7 closed-PASS.",
+  "elapsed_s": 0.7810000000026776,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.8163462197141302,
+        "gain_C": 3.7121338129043577,
+        "bpc_A_baseline": 4.150018286705017,
+        "bpc_A_after_C": 5.083649787902832,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_after_C": 4.287866187095642
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "pass_ret_A": 0.7,
+    "pass_gain_C": 0.3,
+    "fail_ret_A": 0.3,
+    "fail_gain_C": 0.05,
+    "corpus_C": "hex_encoded_numerical"
+  }
+}

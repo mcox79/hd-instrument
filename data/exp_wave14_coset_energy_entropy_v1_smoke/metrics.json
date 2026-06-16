@@ -1,0 +1,20 @@
+{
+  "verdict": "COSET_BOTH_H1_H2",
+  "verdict_msg": "Compound suppression: energy_delta=-0.9674 < -0.05 AND align_delta=-0.8904 < -0.05. Both energetic (RM codewords lower W-energy = not attractors) and alignment (RM lower field-alignment std) mechanisms contribute.",
+  "elapsed_s": 0.46900000001187436,
+  "summary": {
+    "energy_delta": -0.9674331499263644,
+    "align_delta": -0.8904446139931679,
+    "mean_E_endpoint": 0.9819851517677307,
+    "mean_E_rm_synthetic": 0.014552001841366291,
+    "mean_align_endpoint": 1.0099562406539917,
+    "mean_align_rm_synthetic": 0.11951162666082382
+  },
+  "config": {
+    "N": 1024,
+    "K_store": 15,
+    "n_endpoints": 200,
+    "n_rm_synthetic": 50,
+    "n_seeds": 1
+  }
+}

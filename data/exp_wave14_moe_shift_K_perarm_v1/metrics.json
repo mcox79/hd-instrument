@@ -1,0 +1,53 @@
+{
+  "verdict": "M2_DOMINANT",
+  "verdict_msg": "M2_DOMINANT: LSH gating degrades at K=64. routing_entropy=5.32b >= 3.0b. Gating is near-uniform (max=6.0b). Rescue: replace LSH with learned K-NN router.",
+  "elapsed_s": 2288.927,
+  "summary": {
+    "K_sweep": [
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "per_K": {
+      "2": {
+        "mean_retention_A": 0.8209,
+        "mean_routing_entropy_bits": 0.7764,
+        "mean_inter_expert_cosine": -0.0004,
+        "mean_m_to_capacity_ratio": 0.6944
+      },
+      "4": {
+        "mean_retention_A": 0.8086,
+        "mean_routing_entropy_bits": 1.6039,
+        "mean_inter_expert_cosine": -0.0006,
+        "mean_m_to_capacity_ratio": 0.6944
+      },
+      "8": {
+        "mean_retention_A": 0.8012,
+        "mean_routing_entropy_bits": 2.4866,
+        "mean_inter_expert_cosine": -0.0006,
+        "mean_m_to_capacity_ratio": 0.6944
+      },
+      "16": {
+        "mean_retention_A": 0.7959,
+        "mean_routing_entropy_bits": 3.4008,
+        "mean_inter_expert_cosine": 0.0003,
+        "mean_m_to_capacity_ratio": 0.6944
+      },
+      "32": {
+        "mean_retention_A": 0.7919,
+        "mean_routing_entropy_bits": 4.347,
+        "mean_inter_expert_cosine": 0.0005,
+        "mean_m_to_capacity_ratio": 0.6944
+      },
+      "64": {
+        "mean_retention_A": 0.7883,
+        "mean_routing_entropy_bits": 5.316,
+        "mean_inter_expert_cosine": -0.0003,
+        "mean_m_to_capacity_ratio": 0.6944
+      }
+    }
+  }
+}

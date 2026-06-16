@@ -1,0 +1,17 @@
+{
+  "anchor_name": "tier4_vocab_injection_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: injected vocab retrieves at >=0.85 -- continual vocab growth supported; gates Tier 4. new-vocab retrieval=1.000 (base=1.000, N_base=200 N_new=50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base_acc": 1.0,
+      "new_acc": 1.0,
+      "n_base": 200,
+      "n_new": 50
+    }
+  ],
+  "elapsed_s": 0.38645243644714355,
+  "summary": "HARD_PASS: injected vocab retrieves at >=0.85 -- continual vocab growth supported; gates Tier 4. new-vocab retrieval=1.000 (base=1.000, N_base=200 N_new=50)"
+}

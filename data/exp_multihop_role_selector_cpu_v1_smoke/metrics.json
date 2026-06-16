@@ -1,0 +1,15 @@
+{
+  "anchor_name": "multihop_role_selector_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: role-binding below targets. SVAMP=0.3125 (prior 0.367, target 0.42) | ASDiv-1op=0.1833 (prior 0.30, target 0.50). Role-binding template-selector (Phase 1).",
+  "summary": "HARD_FAIL: role-binding below targets. SVAMP=0.3125 (prior 0.367, target 0.42) | ASDiv-1op=0.1833 (prior 0.30, target 0.50). Role-binding template-selector (Phase 1).",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "svamp": 0.3125,
+      "asdiv_1op": 0.1833
+    }
+  ],
+  "elapsed_s": 0.25919532775878906
+}

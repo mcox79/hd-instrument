@@ -1,0 +1,22 @@
+{
+  "anchor": "f4_free_cumulants_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 3,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "f4_free_cumulants_v1 verdict=HARD_FAIL: mean_rel_err_M4=0.3227(HP<=0.05,HF>0.3) mean_rel_err_M3=0.2391(HP<=0.08) mean_kappa2_rel=0.0029(HP<=0.05,HF>0.2) cells=1/3 elapsed=0.5s",
+  "mean_rel_err_M4": 0.32274721450173777,
+  "mean_rel_err_M3": 0.23905262986427922,
+  "mean_kappa2_rel": 0.002927541732788049,
+  "all_rel_err_M4": [
+    0.3137707044010297,
+    0.3245280804765864,
+    0.32994285862759726
+  ],
+  "all_kappa2_rel": [
+    0.0008151531219480201,
+    0.0021264553070070302,
+    0.005841016769409096
+  ],
+  "elapsed_s": 0.5341756343841553
+}

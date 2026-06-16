@@ -1,0 +1,72 @@
+{
+  "anchor": "kf2_be1_soft_readout_n8192",
+  "N": 1024,
+  "smoke": true,
+  "family": "kerdock",
+  "M_frac": 2.0,
+  "softmax_beta": 32.0,
+  "precisions": [
+    "fp32",
+    "int8",
+    "int1"
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "precision": "fp32",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "max_soft_iso": 0.0311714,
+      "mean_soft_iso": 0.0018801,
+      "n_deltas": 490,
+      "softmax_beta": 32.0,
+      "theory_bound_argmax": 0.03125,
+      "precision_used": "fp32",
+      "precision_memory_bytes": 4194304,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 1.0,
+      "precision_numel_W": 1048576
+    },
+    {
+      "precision": "int8",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "max_soft_iso": 0.0308313,
+      "mean_soft_iso": 0.0019019,
+      "n_deltas": 490,
+      "softmax_beta": 32.0,
+      "theory_bound_argmax": 0.03125,
+      "precision_used": "int8",
+      "precision_memory_bytes": 1048576,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 4.0,
+      "precision_numel_W": 1048576
+    },
+    {
+      "precision": "int1",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "max_soft_iso": 0.0010002,
+      "mean_soft_iso": 6.5e-06,
+      "n_deltas": 490,
+      "softmax_beta": 32.0,
+      "theory_bound_argmax": 0.03125,
+      "precision_used": "int1",
+      "precision_memory_bytes": 131072,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 32.0,
+      "precision_numel_W": 1048576
+    }
+  ],
+  "verdict": "KF2_SOFTRO_HARD_FAIL",
+  "verdict_msg": "W_MAGNITUDE_NOT_OPERATIVE: flat softmax response across precision levels. INT1/FP32 ratio=0.03 <= 1.2. monotone_seeds=0/1 mean_int1_fp32_ratio=0.03 HP_ratio=2.0 HF_flat=1.2 mean_per_prec={'fp32': 0.03117, 'fp16': 0.0, 'int8': 0.03083, 'int4': 0.0, 'int2': 0.0, 'int1': 0.001} N=1024 beta=32.0",
+  "elapsed_s": 1.9
+}

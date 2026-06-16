@@ -1,0 +1,17 @@
+{
+  "anchor_name": "pinv_timing_optimized_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 1000 updates >50ms -- the 1.23ms / 240,000x claim is NOT supported at N=4096; do not ship as stated, use the measured number. 200 updates total=353.50ms per-update=1.7675ms -> scaled-to-1000=1767.51ms (claim 1.23ms)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_updates": 200,
+      "total_ms": 353.50189998280257,
+      "per_update_ms": 1.7675094999140128,
+      "total_1000_ms": 1767.5094999140128
+    }
+  ],
+  "elapsed_s": 0.4373040199279785,
+  "summary": "HARD_FAIL: 1000 updates >50ms -- the 1.23ms / 240,000x claim is NOT supported at N=4096; do not ship as stated, use the measured number. 200 updates total=353.50ms per-update=1.7675ms -> scaled-to-1000=1767.51ms (claim 1.23ms)"
+}

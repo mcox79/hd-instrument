@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_8channel_single_pass_preflight_v1",
+  "run_mode": "smoke",
+  "N": 128,
+  "n_repeats": 5,
+  "n_probes": 4,
+  "M_patterns": 8,
+  "k_fold_wall_ms": 0.4252433776855469,
+  "single_pass_wall_ms": 0.4015922546386719,
+  "ratio": 1.0588933744953692,
+  "k_fold_metrics_sample": {
+    "write_cos": 0.9950551390647888,
+    "erase_cos_pre": 0.9813162088394165,
+    "monitor_k3": 0.06578052043914795,
+    "chain_c": 1.0000001192092896,
+    "curvature_k2": 0.08544540405273438,
+    "contrastive_neg_cos": 0.007474351208657026,
+    "repulse_r": 0.1506163328886032,
+    "counterfactual_delta": 0.7071067690849304
+  },
+  "single_pass_metrics_sample": {
+    "write_cos": 1.9273582696914673,
+    "erase_cos_pre": 0.9813162088394165,
+    "monitor_k3": 0.06578052043914795,
+    "curvature_k2": 0.065826416015625,
+    "chain_c": 1.0000001192092896,
+    "contrastive_neg_cos": 0.007474351208657026,
+    "repulse_r": 0.1506163328886032,
+    "counterfactual_delta": 0.7071067690849304
+  },
+  "verdict": "PASS",
+  "verdict_msg": "PASS (single-pass economy holds): k_fold/single_pass = 1.059 < 2.0. All 8 channels can be derived from shared building blocks (W matvec + paired Hutchinson probes); Counterfactual is the only channel that genuinely needs a rank-1 W' substitution. Main ablation cost model intact; proceed to substrate_8channel_orchestration_ablation_gpt2small_v1.",
+  "pre_registered_bands": {
+    "PASS": "ratio < 2.0",
+    "WARN": "2.0 <= ratio < 4.0",
+    "FAIL": "ratio >= 4.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap3_rotate_analogy_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: learned RotatE relation embeddings enable proportional analogy Hits@1>=0.70 -- FHRR-binding==RotatE; analogy works with a learned relational codebook (the right substrate layer). LAP-3 resolved via Option 1. analogy-Hits@1=0.899 (NE=1241, test=1393)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hits1": 0.8994974874371859,
+      "n_ent": 1241,
+      "n_rel": 55,
+      "n_test": 1393
+    }
+  ],
+  "elapsed_s": 33.85925340652466,
+  "summary": "HARD_PASS: learned RotatE relation embeddings enable proportional analogy Hits@1>=0.70 -- FHRR-binding==RotatE; analogy works with a learned relational codebook (the right substrate layer). LAP-3 resolved via Option 1. analogy-Hits@1=0.899 (NE=1241, test=1393)"
+}

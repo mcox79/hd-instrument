@@ -1,0 +1,37 @@
+{
+  "verdict": "CONT_MH_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: depth_means={2: 1.0, 3: 1.0} hp_depths=[] hf_depths=0/2",
+  "elapsed_s": 0.07,
+  "summary": {
+    "anchor": "continuous_output_multi_hop_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 32,
+    "depths": [
+      2,
+      3
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "depth": 2,
+        "M": 32,
+        "seed": 17,
+        "n_paths": 16,
+        "accuracy": 1.0
+      },
+      {
+        "depth": 3,
+        "M": 32,
+        "seed": 17,
+        "n_paths": 16,
+        "accuracy": 1.0
+      }
+    ],
+    "verdict": "CONT_MH_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: depth_means={2: 1.0, 3: 1.0} hp_depths=[] hf_depths=0/2",
+    "elapsed_s": 0.07
+  }
+}

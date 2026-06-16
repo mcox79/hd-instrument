@@ -1,0 +1,98 @@
+{
+  "seed": 17,
+  "n_substrate": 1024,
+  "k": 4,
+  "arousal": 0.3,
+  "beta": 8.0,
+  "epoch_checkpoints": [
+    1,
+    2,
+    3,
+    5,
+    10,
+    20
+  ],
+  "history": [
+    {
+      "epoch": 0,
+      "test_bpc": 8.0,
+      "argmax_accuracy": 0.0,
+      "mean_margin": 0.0,
+      "mean_correct_sim": 0.0,
+      "mean_max_wrong_sim": 0.0,
+      "w_frobenius": 0.0,
+      "wall_s": 0.0
+    },
+    {
+      "epoch": 1,
+      "test_bpc": 3.154993594681788,
+      "argmax_accuracy": 0.5430279295063383,
+      "mean_margin": 0.02991314471769269,
+      "mean_correct_sim": 0.9293576930216215,
+      "mean_max_wrong_sim": 0.8994445466607007,
+      "w_frobenius": 42.096004486083984,
+      "wall_s": 5.816021199992974
+    },
+    {
+      "epoch": 2,
+      "test_bpc": 3.012071477793104,
+      "argmax_accuracy": 0.565701329485726,
+      "mean_margin": 0.051305349101900356,
+      "mean_correct_sim": 1.0389405836042247,
+      "mean_max_wrong_sim": 0.9876352361486239,
+      "w_frobenius": 58.46689987182617,
+      "wall_s": 11.20161509999889
+    },
+    {
+      "epoch": 3,
+      "test_bpc": 3.005150007805996,
+      "argmax_accuracy": 0.5696176440276203,
+      "mean_margin": 0.05711613057827589,
+      "mean_correct_sim": 1.1045290453463723,
+      "mean_max_wrong_sim": 1.0474129175262623,
+      "w_frobenius": 70.82091522216797,
+      "wall_s": 16.670397399997455
+    },
+    {
+      "epoch": 5,
+      "test_bpc": 3.070939243791964,
+      "argmax_accuracy": 0.5711635576625785,
+      "mean_margin": 0.05549341117083799,
+      "mean_correct_sim": 1.1937348409914348,
+      "mean_max_wrong_sim": 1.1382414298758832,
+      "w_frobenius": 89.80538177490234,
+      "wall_s": 27.26631890000135
+    },
+    {
+      "epoch": 10,
+      "test_bpc": 3.3040329746323787,
+      "argmax_accuracy": 0.5828094403792642,
+      "mean_margin": 0.04119532416435194,
+      "mean_correct_sim": 1.3339066798817456,
+      "mean_max_wrong_sim": 1.292711341478131,
+      "w_frobenius": 122.26140594482422,
+      "wall_s": 55.176499199995305
+    },
+    {
+      "epoch": 20,
+      "test_bpc": 3.7076842052401138,
+      "argmax_accuracy": 0.5911573740080388,
+      "mean_margin": 0.017051353579168035,
+      "mean_correct_sim": 1.4982314752104797,
+      "mean_max_wrong_sim": 1.4811801094622092,
+      "w_frobenius": 162.97445678710938,
+      "wall_s": 109.85759010000038
+    }
+  ],
+  "best_epoch": {
+    "epoch": 3,
+    "test_bpc": 3.005150007805996,
+    "argmax_accuracy": 0.5696176440276203,
+    "mean_margin": 0.05711613057827589,
+    "mean_correct_sim": 1.1045290453463723,
+    "mean_max_wrong_sim": 1.0474129175262623,
+    "w_frobenius": 70.82091522216797,
+    "wall_s": 16.670397399997455
+  },
+  "headline": "Multi-epoch best test bpc = 3.005 at epoch 3"
+}

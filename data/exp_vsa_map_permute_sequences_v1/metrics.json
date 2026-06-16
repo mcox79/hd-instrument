@@ -1,0 +1,18 @@
+{
+  "anchor_name": "vsa_map_permute_sequences_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: permutation-power encoding recovers sequence ORDER >=0.95 at K=5 -- the substrate represents ordered sequences (timelines, steps, ranked lists). recovery by K: {'K3': 1.0, 'K5': 1.0} (V=100)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K3": 1.0,
+        "K5": 1.0
+      },
+      "V": 100
+    }
+  ],
+  "elapsed_s": 0.04311513900756836,
+  "summary": "HARD_PASS: permutation-power encoding recovers sequence ORDER >=0.95 at K=5 -- the substrate represents ordered sequences (timelines, steps, ranked lists). recovery by K: {'K3': 1.0, 'K5': 1.0} (V=100)"
+}

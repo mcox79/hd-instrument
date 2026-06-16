@@ -1,0 +1,13 @@
+{
+  "seed": 17,
+  "h_dim": 4,
+  "stack": 256,
+  "n_total": 1024,
+  "num_atoms": 32,
+  "num_trials": 50,
+  "max_iters": 30,
+  "naive_correct": 0,
+  "resonator_both": 38,
+  "resonator_either": 38,
+  "avg_iters": 7.82
+}

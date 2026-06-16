@@ -1,0 +1,68 @@
+{
+  "verdict": "RATE_DEPENDENT_KINETIC",
+  "verdict_msg": "RATE_DEPENDENT_KINETIC: pearson_r=[-0.974,-0.803] (all < -0.50); gap_ratio=[-1.188,0.330] (< 0.50); kinetic glass / geometric frustration",
+  "elapsed_s": 69.625,
+  "summary": {
+    "N": 256,
+    "m_cells": [
+      500,
+      2000,
+      8000
+    ],
+    "epochs_sweep": [
+      1,
+      4,
+      16
+    ],
+    "rate_dependence_by_M": {
+      "500": {
+        "pearson_r": -0.9737427116679331,
+        "gap_ratio_slow_vs_fast": 0.3296710642031134,
+        "has_sign_flip": false,
+        "mean_gaps_by_epoch": {
+          "1": 1.5732259445190433,
+          "4": 0.8324179220199586,
+          "16": 0.5186470713615412
+        }
+      },
+      "2000": {
+        "pearson_r": -0.9559217300110671,
+        "gap_ratio_slow_vs_fast": 0.22405024069352622,
+        "has_sign_flip": false,
+        "mean_gaps_by_epoch": {
+          "1": 0.679112432479859,
+          "4": 0.2754585380554202,
+          "16": 0.15215530395507848
+        }
+      },
+      "8000": {
+        "pearson_r": -0.8030029911779821,
+        "gap_ratio_slow_vs_fast": -1.1877556106391471,
+        "has_sign_flip": true,
+        "mean_gaps_by_epoch": {
+          "1": 0.05221205520629901,
+          "4": -0.07832099914550739,
+          "16": -0.062015161514282546
+        }
+      }
+    },
+    "any_sign_flip": true
+  },
+  "config": {
+    "N": 256,
+    "smoke": true,
+    "m_cells": [
+      500,
+      2000,
+      8000
+    ],
+    "epochs_sweep": [
+      1,
+      4,
+      16
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

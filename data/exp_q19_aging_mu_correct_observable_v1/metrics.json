@@ -1,0 +1,29 @@
+{
+  "run_mode": "smoke",
+  "N": 512,
+  "ALPHA_LIST": [
+    0.15
+  ],
+  "T_W_LIST": [
+    10,
+    20,
+    40
+  ],
+  "T_MAX": 200,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "by_alpha": {
+      "0.15": {
+        "mean_collapse_mse": 0.00839841216104855,
+        "n_seeds_pass": 2,
+        "n_seeds": 2
+      }
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Scaling collapse CONFIRMED. mean_collapse_mse=0.0084 < 0.1. seeds_pass=2/2. C(t,t_w) collapses as function of t/t_w: genuine aging signature.",
+  "elapsed_s": 4.21036696434021
+}

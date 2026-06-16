@@ -1,0 +1,19 @@
+{
+  "anchor_name": "chunking_conll2000_cascade_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: cascade chunk-F1 0.90-0.93 -- strong; POS cascade helps but below the 0.93 canonical bar. +POS-cascade F1=0.9229 vs word-only 0.9082 (lift=+0.0146, pos-acc=0.9768, train=8903)",
+  "summary": "MIDDLE_BAND: cascade chunk-F1 0.90-0.93 -- strong; POS cascade helps but below the 0.93 canonical bar. +POS-cascade F1=0.9229 vs word-only 0.9082 (lift=+0.0146, pos-acc=0.9768, train=8903)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.9229,
+      "f1_cascade": 0.9229,
+      "f1_wordonly": 0.9082,
+      "lift": 0.0146,
+      "pos_acc": 0.9768,
+      "n_train": 8903
+    }
+  ],
+  "elapsed_s": 749.9694311618805
+}

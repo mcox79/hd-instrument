@@ -1,0 +1,60 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/2 N-values pass HP1. all_excess_positive=True",
+  "elapsed_s": 0.005869626998901367,
+  "n_N_values": 2,
+  "n_N_pass_hp1": 2,
+  "n_N_fail_hf1": 0,
+  "all_excess_positive": true,
+  "per_N_summary": {
+    "128": {
+      "mean_su_frac": 1.0,
+      "mean_excess": 17.153057062017886,
+      "n_seeds_pass_hp1": 1
+    },
+    "256": {
+      "mean_su_frac": 1.0,
+      "mean_excess": 30.40319234573306,
+      "n_seeds_pass_hp1": 1
+    }
+  },
+  "per_result": [
+    {
+      "N": 128,
+      "M": 16,
+      "seed": 17,
+      "su_frac": 1.0,
+      "excess_mean": 17.153057062017886,
+      "erase_work_mean": 12.471484375000001,
+      "erase_work_std": 0.48765757043837576,
+      "I_mean": 4.730947687017884,
+      "delta_F_1": 0.049375,
+      "su_bound_mean": -4.6815726870178835,
+      "excess_ratio": 1.3753821553933914
+    },
+    {
+      "N": 256,
+      "M": 32,
+      "seed": 17,
+      "su_frac": 1.0,
+      "excess_mean": 30.40319234573306,
+      "erase_work_mean": 25.17646484375,
+      "erase_work_std": 0.6667100184968255,
+      "I_mean": 5.276102501983061,
+      "delta_F_1": 0.049375,
+      "su_bound_mean": -5.226727501983062,
+      "excess_ratio": 1.2076037097826695
+    }
+  ],
+  "summary": "Sagawa-Ueda v2 N-sweep [128, 256]: MIDDLE_BAND",
+  "config": {
+    "N_values": [
+      128,
+      256
+    ],
+    "alpha_ratio": 0.125,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_erasure_granularity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: binding-level erasure removes the specific binding (0 leak) while the concept stays usable in unrelated facts (100% retention) -- Pattern B erasure granularity beats Pattern A. erased-leak=0.000 concept-retention=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "leak": 0.0,
+      "retention": 1.0
+    }
+  ],
+  "elapsed_s": 0.011916875839233398,
+  "summary": "HARD_PASS: binding-level erasure removes the specific binding (0 leak) while the concept stays usable in unrelated facts (100% retention) -- Pattern B erasure granularity beats Pattern A. erased-leak=0.000 concept-retention=1.000"
+}

@@ -1,0 +1,36 @@
+{
+  "anchor_name": "pp47_pp9_deletion_cert_composition_v2_reduced_K_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 4/5 HP conditions met. n_seeds=2 cert_err=0.00e+00 field_red=1.0000(HP>=0.9,HF<0.7) hp1=2/2 hp2=2/2 hp3=0/2 hp4=2/2(k3_rel=0.0285) hp5=2/2(rho_delta=0.0096)",
+  "N": 1024,
+  "K_LOCS": 12,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.0005190372467041016,
+  "per_seed": [
+    {
+      "seed": 7,
+      "cert_err": 0.0,
+      "cosine_deleted": null,
+      "k3_rel_err": 0.034235191326517776,
+      "rho_delta": 0.012068859830053902,
+      "hp1": true,
+      "hp2": true,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true
+    },
+    {
+      "seed": 17,
+      "cert_err": 0.0,
+      "cosine_deleted": null,
+      "k3_rel_err": 0.0227601169704133,
+      "rho_delta": 0.007223373641284114,
+      "hp1": true,
+      "hp2": true,
+      "hp3": false,
+      "hp4": true,
+      "hp5": true
+    }
+  ]
+}

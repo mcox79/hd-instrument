@@ -1,0 +1,14 @@
+{
+  "anchor_name": "pp49_pp9_counterfactual_deletion_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: counterfactual deletion audit composition confirmed. n_seeds=2 cert_A_orig=-1.0000(HP~=-1.0) cf_cos=0.9609(HP>=0.7 HF<0.4) delta_cert=0.8400(HP>=0.50) hp1=2/2 hp2=2/2 hp3=2/2",
+  "N": 4096,
+  "n_active": 1024,
+  "K_LOCS": 20,
+  "SHIFT_STEPS": 3,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.40360260009765625,
+  "mean_cf_cos": 0.9609375,
+  "mean_delta_cert": 0.8400054931640626
+}

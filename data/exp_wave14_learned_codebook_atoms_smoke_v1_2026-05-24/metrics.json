@@ -1,0 +1,76 @@
+{
+  "verdict": "LEARNED_CODEBOOK_HARD_FAIL",
+  "verdict_msg": "Learned atoms NOT better at >=3 of 3 K values. Cap_map UNSURE A6 +0.02-0.08 prediction REFUTED. Per-K deltas: {'4': 0.0, '8': 0.0, '16': 0.0}.",
+  "elapsed_s": 1.5320000000065193,
+  "summary": {
+    "per_K": {
+      "4": {
+        "7": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "17": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "23": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        }
+      },
+      "8": {
+        "7": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "17": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "23": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        }
+      },
+      "16": {
+        "7": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "17": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        },
+        "23": {
+          "random_acc": 1.0,
+          "learned_acc": 1.0,
+          "delta": 0.0
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "full",
+    "N": 1024,
+    "vocab": 256,
+    "K_values": [
+      4,
+      8,
+      16
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ],
+    "n_probes_per_cell": 2000
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "anchor_name": "slipnet_wn18rr_phase0_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (n-mismatch; judged by lift-over-chance): WN18RR lift >= FB15K 11.8x -- the mechanisms recover MORE-than-chance structure on WN18RR too, so FB15K's absolute 0.42 leans BENCHMARK-DIFFICULTY (dense polysemy) not a clean architectural ceiling. NOT a controlled n=28 comparison (WN18RR too sparse at n=28 -- hierarchical structure). best=0.045 at n=463 => lift=20.6x chance (FB15K 0.42@n28=11.8x); TTR=0.045 TSE=0.004 RRF=0.005, 7 rel-types",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ttr": 0.045,
+      "tse": 0.004,
+      "perrole_rrf": 0.005,
+      "best": 0.045,
+      "lift_over_chance": 20.6,
+      "n_entities": 463,
+      "n_reltypes": 7
+    }
+  ],
+  "elapsed_s": 122.50587677955627,
+  "summary": "MIDDLE_BAND (n-mismatch; judged by lift-over-chance): WN18RR lift >= FB15K 11.8x -- the mechanisms recover MORE-than-chance structure on WN18RR too, so FB15K's absolute 0.42 leans BENCHMARK-DIFFICULTY (dense polysemy) not a clean architectural ceiling. NOT a controlled n=28 comparison (WN18RR too sparse at n=28 -- hierarchical structure). best=0.045 at n=463 => lift=20.6x chance (FB15K 0.42@n28=11.8x); TTR=0.045 TSE=0.004 RRF=0.005, 7 rel-types"
+}

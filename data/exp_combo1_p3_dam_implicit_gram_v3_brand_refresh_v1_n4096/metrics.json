@@ -1,0 +1,23 @@
+{
+  "anchor_name": "combo1_p3_dam_implicit_gram_v3_brand_refresh_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: HP2 (kappa3_rescaled deviation > 0.2). HP1_mmd=True(mmd={'8192': '0.0000'},thresh<0.02) HP2_kappa3=False(k3_resc={'8192': '0.5000'},tol<0.05) HP3_slope=True(1.095,max=1.3) HP4_snr=False(snr={'8192': '0.2500'},window=[0.85,1.15]) n_hp=2/4",
+  "elapsed_s": 592.0541229248047,
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_LIST": [
+    8192
+  ],
+  "brand_refresh_k": 16,
+  "agg": {
+    "8192": {
+      "mean_mmd": 0.0,
+      "mean_kappa3_rescaled": 0.5000076538993536,
+      "mean_snr_ratio": 0.25,
+      "n_seeds": 2
+    },
+    "_write_slope": 1.095125028608971
+  },
+  "elapsed_total_s": 592.0541229248047
+}

@@ -1,0 +1,51 @@
+{
+  "verdict": "CB_N16384_HARD_PASS",
+  "verdict_msg": "CHUNKED_CODEBOOK_WORKS at all M, recall>=0.95 at max M=1024; max_M_at_95=1024: per_M_recall={256: 1.0, 1024: 1.0} max_M_at_95=1024 peak_gib=0.00 oomed=0/2",
+  "elapsed_s": 1.17,
+  "summary": {
+    "anchor": "chunked_codebook_n16384_v6",
+    "N": 4096,
+    "smoke": true,
+    "M_grid": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "N": 4096,
+        "M": 256,
+        "seed": 17,
+        "recall": 1.0,
+        "peak_gpu_bytes_after_codebook": 0,
+        "peak_gpu_bytes_after_W": 0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.41,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 200,
+        "oom": false
+      },
+      {
+        "N": 4096,
+        "M": 1024,
+        "seed": 17,
+        "recall": 1.0,
+        "peak_gpu_bytes_after_codebook": 0,
+        "peak_gpu_bytes_after_W": 0,
+        "peak_gpu_bytes_final": 0,
+        "peak_gpu_gib_final": 0.0,
+        "elapsed_s": 0.76,
+        "strategy": "A_chunked_inplace",
+        "n_probe": 200,
+        "oom": false
+      }
+    ],
+    "verdict": "CB_N16384_HARD_PASS",
+    "verdict_msg": "CHUNKED_CODEBOOK_WORKS at all M, recall>=0.95 at max M=1024; max_M_at_95=1024: per_M_recall={256: 1.0, 1024: 1.0} max_M_at_95=1024 peak_gib=0.00 oomed=0/2",
+    "elapsed_s": 1.17,
+    "smoke_peak_gpu_gib_max": 0.0
+  }
+}

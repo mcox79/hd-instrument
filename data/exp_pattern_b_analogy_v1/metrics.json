@@ -1,0 +1,20 @@
+{
+  "anchor_name": "pattern_b_analogy_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substitution acc <0.85 at k=4 -- bundle interference corrupts substitution; Pattern B editing unreliable at this N. substitution-retrieval acc: {'k2': 0.18, 'k4': 0.05, 'k6': 0.07, 'k8': 0.03} (N=1024)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k2": 0.18,
+        "k4": 0.05,
+        "k6": 0.07,
+        "k8": 0.03
+      },
+      "acc_k4": 0.05
+    }
+  ],
+  "elapsed_s": 0.1145792007446289,
+  "summary": "HARD_FAIL: substitution acc <0.85 at k=4 -- bundle interference corrupts substitution; Pattern B editing unreliable at this N. substitution-retrieval acc: {'k2': 0.18, 'k4': 0.05, 'k6': 0.07, 'k8': 0.03} (N=1024)"
+}

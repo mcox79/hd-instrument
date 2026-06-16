@@ -1,0 +1,59 @@
+{
+  "verdict": "HEBBIAN_ROUTER_V2_HARD_FAIL",
+  "verdict_msg": "HEBBIAN_ROUTER_V2_HARD_FAIL: entropy@K=16: rand=3.999b hebb=3.999b soft=3.999b -- ALL > 3.0b. K-scaling collapse fundamental at N=4096; static anchors insufficient.",
+  "elapsed_s": 8.360000000000582,
+  "summary": {
+    "N": 4096,
+    "K_sweep": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "agg_by_K": {
+      "4": {
+        "entropy_rand": 1.9984851280848186,
+        "entropy_hebb": 1.9992516835530598,
+        "entropy_soft": 1.9994332393010457,
+        "retention": 0.25,
+        "k_eff_hebb": 4.0
+      },
+      "8": {
+        "entropy_rand": 2.9985007445017495,
+        "entropy_hebb": 2.999309460322062,
+        "entropy_soft": 2.9994231859842935,
+        "retention": 0.125,
+        "k_eff_hebb": 8.0
+      },
+      "16": {
+        "entropy_rand": 3.9989312489827475,
+        "entropy_hebb": 3.9987985293070474,
+        "entropy_soft": 3.999243974685669,
+        "retention": 0.0625,
+        "k_eff_hebb": 16.0
+      },
+      "32": {
+        "entropy_rand": 4.998751322428386,
+        "entropy_hebb": 4.999468167622884,
+        "entropy_soft": 4.999675114949544,
+        "retention": 0.03125,
+        "k_eff_hebb": 32.0
+      }
+    }
+  },
+  "config": {
+    "N": 4096,
+    "smoke": false,
+    "k_sweep": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "seeds": [
+      7,
+      17,
+      23
+    ]
+  }
+}

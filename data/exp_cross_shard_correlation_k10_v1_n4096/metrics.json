@@ -1,0 +1,50 @@
+{
+  "verdict": "XSHARD_HARD_FAIL",
+  "verdict_msg": "AUC_NOISE: 1/1 cells with AUC<=0.6. pass_seeds=0/1 hf_seeds=1 mean_AUC=0.573 mean_entity_prec=0.611 mean_triplet_in_top9=1.00/3 N=1024",
+  "elapsed_s": 0.2,
+  "summary": {
+    "anchor": "cross_shard_correlation_k10_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "K_shards": 10,
+    "M_per_shard": 12,
+    "n_overlap": 6,
+    "total_expected": 1,
+    "n_completed": 1,
+    "cells": [
+      {
+        "seed": "seed17",
+        "N": 1024,
+        "K_shards": 10,
+        "M_per_shard": 12,
+        "n_overlap": 6,
+        "n_pairs": 45,
+        "correlation_AUC": 0.57265,
+        "entity_resolution_precision": 0.61111,
+        "entity_precision_per_doublet": [
+          0.5,
+          0.83333,
+          0.5
+        ],
+        "triplet_ranks": [
+          2,
+          44,
+          24
+        ],
+        "triplet_in_top9": 1,
+        "related_mean_C": 1.4e-05,
+        "unrelated_mean_C": 0.0,
+        "max_related_C": 8.4e-05,
+        "max_unrelated_C": 1.6e-05,
+        "seed_int": 17,
+        "_partial_written_at": 1780143334.1674395
+      }
+    ],
+    "verdict": "XSHARD_HARD_FAIL",
+    "verdict_msg": "AUC_NOISE: 1/1 cells with AUC<=0.6. pass_seeds=0/1 hf_seeds=1 mean_AUC=0.573 mean_entity_prec=0.611 mean_triplet_in_top9=1.00/3 N=1024",
+    "elapsed_s": 0.2
+  }
+}

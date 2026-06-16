@@ -1,0 +1,35 @@
+{
+  "verdict": "LONGER_PHASEA_MIDDLE_BAND",
+  "verdict_msg": "retention_A=0.929 in (0.915,0.95); longer consolidation partial benefit; ceiling breaks but HARD-PASS NOT cleared. retention_B=0.993.",
+  "elapsed_s": 2.469000000040978,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 0.9288734963112555,
+        "retention_B": 0.9929615201449524,
+        "gain_C": 3.7740387611389163,
+        "bpc_A_baseline": 3.5213395462036132,
+        "bpc_A_concat": 3.79097859954834,
+        "bpc_B_baseline": 5.307745178222656,
+        "bpc_B_concat": 5.345368446350098,
+        "bpc_zero_on_C": 8.0,
+        "bpc_C_concat": 4.225961238861084
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 2,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "replay_frac": 0.5,
+    "pass_retention": 0.95,
+    "fail_retention": 0.915,
+    "variant": "longer_phaseA"
+  }
+}

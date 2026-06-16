@@ -1,0 +1,15 @@
+{
+  "anchor_name": "semantic_a_v2_graph_prop_gpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: encoder_unavailable_env_gated",
+  "summary": "UNKNOWN: encoder_unavailable_env_gated",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "error": "encoder_unavailable_env_gated",
+      "note": "needs sentence-transformers + bge-large (home GPU); harness correct + ready"
+    }
+  ],
+  "elapsed_s": 2.080402135848999
+}

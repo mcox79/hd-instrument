@@ -1,0 +1,14 @@
+{
+  "anchor_name": "strips_planning_khop_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: STRIPS forward-chaining 2-hop plan reachability >=0.85 -- substrate as planning engine. 2-hop plan recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.8927452564239502,
+  "summary": "HARD_PASS: STRIPS forward-chaining 2-hop plan reachability >=0.85 -- substrate as planning engine. 2-hop plan recall=1.000"
+}

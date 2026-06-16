@@ -1,0 +1,16 @@
+{
+  "anchor_name": "federated_crossdomain_corr_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: domain routing distributions share structure (cosine>=0.50) -- cross-domain transfer worthwhile; global federated routing helps every customer. mean_pairwise_cosine=0.579 across 6 domains (shared_frac=0.50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "mean_cos": 0.5790002757234008,
+      "d": 6,
+      "shared_frac": 0.5
+    }
+  ],
+  "elapsed_s": 0.017427921295166016,
+  "summary": "HARD_PASS: domain routing distributions share structure (cosine>=0.50) -- cross-domain transfer worthwhile; global federated routing helps every customer. mean_pairwise_cosine=0.579 across 6 domains (shared_frac=0.50)"
+}

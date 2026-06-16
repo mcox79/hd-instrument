@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap3_analogical_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: analogy <0.50. analogy-acc=0.000 (n=50)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "analogy_acc": 0.0,
+      "n": 50
+    }
+  ],
+  "elapsed_s": 0.44890546798706055,
+  "summary": "HARD_FAIL: analogy <0.50. analogy-acc=0.000 (n=50)"
+}

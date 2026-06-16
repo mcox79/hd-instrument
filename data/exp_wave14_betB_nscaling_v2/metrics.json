@@ -1,0 +1,31 @@
+{
+  "verdict": "NSCALING_HARD_FAIL",
+  "verdict_msg": "N=4096 4-class taxonomy FAILS: BIC_delta=0.0189, spacing_error=0.0620",
+  "elapsed_s": 0.9676353931427002,
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "ret_A_mean": 0.9866870916689544,
+    "ret_B_mean": 0.9266515490641304,
+    "bic_delta": 0.018902186703191413,
+    "spacing_error": 0.06199111434879398,
+    "replay_cohen_d": 0.0,
+    "n_seeds": 1,
+    "seed_results": [
+      {
+        "seed": 17,
+        "retention_A": 0.9866870916689544,
+        "retention_B": 0.9266515490641304,
+        "bpc_a_after_abcd": 4.882791201273601,
+        "bpc_a_after_a": 4.817787049611409,
+        "bpc_b_after_abcd": 5.771987603505452,
+        "bpc_b_after_b": 5.348621253967285
+      }
+    ]
+  }
+}

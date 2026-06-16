@@ -1,0 +1,25 @@
+{
+  "anchor_name": "sprint2_multiseed_confirm_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 substantive Sprint-2 results confirmed stable across 5 seeds (not flukes) -- synthesis pass@1, execution bug-F1, super-human deep-chain depth all hold. HE-struct=0.750 code2-F1=0.708 math4-d12=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "humaneval_struct": [
+        0.75,
+        0.0
+      ],
+      "code2_rescue_f1": [
+        0.708,
+        0.056
+      ],
+      "math4_depth12": [
+        1.0,
+        0.0
+      ]
+    }
+  ],
+  "elapsed_s": 23.274600505828857,
+  "summary": "HARD_PASS: all 3 substantive Sprint-2 results confirmed stable across 5 seeds (not flukes) -- synthesis pass@1, execution bug-F1, super-human deep-chain depth all hold. HE-struct=0.750 code2-F1=0.708 math4-d12=1.000"
+}

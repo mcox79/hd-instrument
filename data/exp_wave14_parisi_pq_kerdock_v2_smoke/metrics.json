@@ -1,0 +1,66 @@
+{
+  "verdict": "PARISI_INCONCLUSIVE",
+  "verdict_msg": "Mixed low-T shapes: {'continuous': 0, 'two_deltas': 0, 'paramagnet': 0, 'undetermined': 1}. Need longer chains or finer T grid.",
+  "elapsed_s": 0.8279999999795109,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.1,
+        "beta": 1.0,
+        "N": 1024,
+        "M": 102,
+        "q12_mean": 0.21877441406249998,
+        "q12_abs_mean": 0.21877441406249998,
+        "support_width": 0.10975609756097561,
+        "support_width_std": 0.01219512195121951,
+        "n_peaks": 1.0,
+        "support_continuous_fraction": 1.0,
+        "delta_at_zero_frac": 0.01125,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.1,
+        "beta": 6.0,
+        "N": 1024,
+        "M": 102,
+        "q12_mean": -0.30537109375,
+        "q12_abs_mean": 0.30537109375,
+        "support_width": 0.08536585365853658,
+        "support_width_std": 0.012195121951219516,
+        "n_peaks": 1.0,
+        "support_continuous_fraction": 1.0,
+        "delta_at_zero_frac": 0.3550000000000002,
+        "n_seeds": 2,
+        "shape": "undetermined"
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha_list": [
+        0.1
+      ],
+      "beta_list": [
+        1.0,
+        6.0
+      ],
+      "n_seeds": 2,
+      "n_burn": 200,
+      "n_collect": 400
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_list": [
+      0.1
+    ],
+    "beta_list": [
+      1.0,
+      6.0
+    ],
+    "n_seeds": 2,
+    "n_burn": 200,
+    "n_collect": 400
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "anchor": "kf4_drift_detect_v4_n4096",
+  "N": 1024,
+  "smoke": true,
+  "M_fracs": [
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "n_probe": 50,
+  "N_drift_steps": 200,
+  "cells": [
+    {
+      "N": 1024,
+      "M_frac": 2.0,
+      "M": 2048,
+      "seed": 17,
+      "acc_base": 1.0,
+      "acc_drifted": 1.0,
+      "acc_drop": 0.0,
+      "noise_fraction": 0.09766,
+      "passes_hp": false
+    }
+  ],
+  "verdict": "KF4_V4_SMOKE_FAIL",
+  "verdict_msg": "SMOKE_ONLY: mean_acc_drop=0.00000. mean_acc_drop=0.00000 max_acc_drop=0.00000 n_pass=0/1 HP_min=0.05 HF_max=0.005 N=1024",
+  "elapsed_s": 0.34
+}

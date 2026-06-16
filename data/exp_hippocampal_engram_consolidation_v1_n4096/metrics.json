@@ -1,0 +1,12 @@
+{
+  "anchor_name": "hippocampal_engram_consolidation_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: insufficient HP. consolidation_gain=0.0068(HP>=0.1) fid_replay=0.9993(HP>=0.7 HF<0.4) new_fid=0.3050(HP>=0.6) n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 101.66400957107544,
+  "mean_consolidation_gain": 0.006787109374999989,
+  "mean_fidelity_with_replay": 0.999267578125,
+  "mean_new_fidelity_with_replay": 0.30498046874999996
+}

@@ -1,0 +1,43 @@
+{
+  "seed": 17,
+  "n": 1024,
+  "k_info": 512,
+  "w_r": 3,
+  "w_c": 6,
+  "num_atoms": 256,
+  "num_trials": 200,
+  "bp_iters": 30,
+  "results": [
+    {
+      "noise": 0.02,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    },
+    {
+      "noise": 0.05,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    },
+    {
+      "noise": 0.1,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    },
+    {
+      "noise": 0.15,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    },
+    {
+      "noise": 0.2,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    },
+    {
+      "noise": 0.3,
+      "nn_acc": 1.0,
+      "ldpc_acc": 1.0
+    }
+  ],
+  "avg_advantage": 0.0
+}

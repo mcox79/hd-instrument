@@ -1,0 +1,35 @@
+{
+  "verdict": "CASCADE_HARD_PASS",
+  "verdict_msg": "Discrete step structure confirmed at N=512. linear-fit R^2=0.733 < 0.85, max_deviation=0.093 >= 0.08. v3 N=1024 result REPLICATES at N=2048. | f=0.00:ret=0.7800 f=0.50:ret=0.7740 f=1.00:ret=1.0456",
+  "elapsed_s": 2.202,
+  "summary": {
+    "N": 512,
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "mean_ret_per_f": {
+      "0.0": 0.78,
+      "0.5": 0.774,
+      "1.0": 1.0456
+    },
+    "linear_fit_r2": 0.7331,
+    "max_deviation_from_linear": 0.0925,
+    "v3_reference_r2": 0.322,
+    "v3_reference_max_dev": 0.249
+  },
+  "config": {
+    "N": 512,
+    "f_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "v3_N": 1024
+  }
+}

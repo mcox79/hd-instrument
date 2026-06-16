@@ -1,0 +1,25 @@
+{
+  "verdict": "MOE_DG_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_MOE_DG: ret_A=1.0000 above HF but below HP. mean_ret_A=1.0000 seeds_pass=1/1 per_seed=[1.0] HP=0.8 HF=0.55",
+  "elapsed_s": 3.59,
+  "N": 512,
+  "smoke": true,
+  "results": [
+    {
+      "seed": 17,
+      "N": 512,
+      "bpc_A_baseline": 3.22538,
+      "bpc_A_final": 3.22538,
+      "retention_A": 1.0
+    }
+  ],
+  "config": {
+    "N": 512,
+    "eta": 0.3,
+    "n_experts": 4,
+    "gate_temp": 4.0,
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "verdict": "KUBO_DYNAMIC",
+  "verdict_msg": "Stretched-exponential beats Gaussian: r2_stretched=0.925 > r2_gauss=0.444+0.05. beta=1.160 (dynamic regime). delta=0.1454.",
+  "elapsed_s": 0.9070000000065193,
+  "summary": {
+    "delta_rms": 0.14538849430684803,
+    "r2_gaussian": 0.4437985491885901,
+    "r2_stretched": 0.9252498771019306,
+    "stretch_exponent": 1.1603691283719944,
+    "G_t": [
+      0.13046875,
+      0.11953125,
+      0.0859375,
+      0.0703125,
+      0.05859375,
+      0.05546875,
+      0.03515625,
+      0.03203125,
+      0.0234375,
+      0.02421875,
+      0.01171875,
+      -0.0015625,
+      0.02890625,
+      0.0046875,
+      0.0171875
+    ],
+    "n_sweeps": 15
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "alpha": 0.15,
+    "beta_mc": 2.0,
+    "n_sweeps": 15,
+    "n_replicates": 10,
+    "seed": 17
+  }
+}

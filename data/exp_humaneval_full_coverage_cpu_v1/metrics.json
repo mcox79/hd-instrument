@@ -1,0 +1,18 @@
+{
+  "anchor_name": "humaneval_full_coverage_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (measurement): moderate primitive coverage (0.32). coverage=0.317 (in-scope=52/164) pass@1-ceiling~=0.238 string-problems=68",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_problems": 164,
+      "in_scope": 52,
+      "coverage": 0.317,
+      "string_problems": 68,
+      "pass1_ceiling_est": 0.238
+    }
+  ],
+  "elapsed_s": 0.33731722831726074,
+  "summary": "MIDDLE_BAND (measurement): moderate primitive coverage (0.32). coverage=0.317 (in-scope=52/164) pass@1-ceiling~=0.238 string-problems=68"
+}

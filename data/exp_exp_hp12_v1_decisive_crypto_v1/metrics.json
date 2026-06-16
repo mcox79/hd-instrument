@@ -1,0 +1,24 @@
+{
+  "anchor_name": "exp_hp12_v1_decisive_crypto_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: certs verify + tamper-safe; latency or CLI near-threshold. certs_verified=1.000 cert_latency_median=3.4572ms tamper_rejected=1.000 verifier_CLI=True (RSA-512, N_del=10)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "n_add": 30,
+      "n_del": 10,
+      "rsa_bits": 512,
+      "certs_verified": 10,
+      "certs_total": 10,
+      "verify_frac": 1.0,
+      "cert_latency_ms_median": 3.4571500145830214,
+      "cert_latency_ms_p95": 3.571005043340847,
+      "tamper_rejected_frac": 1.0,
+      "verifier_cli_ok": 1
+    }
+  ],
+  "elapsed_s": 0.4168832302093506,
+  "summary": "MIDDLE_BAND: certs verify + tamper-safe; latency or CLI near-threshold. certs_verified=1.000 cert_latency_median=3.4572ms tamper_rejected=1.000 verifier_CLI=True (RSA-512, N_del=10)"
+}

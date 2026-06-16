@@ -1,0 +1,22 @@
+{
+  "anchor_name": "transfer_p5_factrecall_mwp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: FHRR fact-recall extraction <0.30 -- Drill 2 P5 HARD-FAIL prediction CONFIRMED; transfer-conditions framework validated discriminatively (FHRR unbind structurally mismatched to text fact-extraction; substrate < regex). FHRR-extract-F1=0.2602 vs regex 0.5940 (gap -0.3339, n=400)",
+  "summary": "HARD_FAIL: FHRR fact-recall extraction <0.30 -- Drill 2 P5 HARD-FAIL prediction CONFIRMED; transfer-conditions framework validated discriminatively (FHRR unbind structurally mismatched to text fact-extraction; substrate < regex). FHRR-extract-F1=0.2602 vs regex 0.5940 (gap -0.3339, n=400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.2602,
+      "fhrr_f1": 0.2602,
+      "fhrr_adjacent_f1": 0.0,
+      "fhrr_cartesian_f1": 0.2602,
+      "regex_f1": 0.594,
+      "gap": -0.3339,
+      "cartesian_prec": 0.212,
+      "cartesian_rec": 0.337,
+      "n": 400
+    }
+  ],
+  "elapsed_s": 0.20504117012023926
+}

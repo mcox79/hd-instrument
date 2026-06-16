@@ -1,0 +1,33 @@
+{
+  "verdict": "PQ_RETAINED_MIDDLE",
+  "verdict_msg": "Intermediate P(q): 1 peaks max_sep_sigma=0.00 binder=0.667. Inconclusive 1-RSB vs RS at this axis.",
+  "elapsed_s": 2.0310000000172295,
+  "summary": {
+    "n_peaks": 1,
+    "peak_locs": [
+      -9.477362618781626e-05
+    ],
+    "max_sep_sigma": 0.0,
+    "binder": 0.6666666387006333,
+    "ultrametric_frac": NaN,
+    "n_pairs": 1,
+    "mean_q": -9.477362618781626e-05,
+    "std_q": 0.0,
+    "n_seeds": 2
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 3000,
+    "seeds": [
+      7,
+      17
+    ],
+    "n_triples": 100,
+    "peak_sep_sigma": 2.0,
+    "binder_1rsb": 0.3
+  }
+}

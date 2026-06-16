@@ -1,0 +1,26 @@
+{
+  "anchor_name": "sherman_morrison_rank1_deletion_cert_drop_v1_n8192",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cert_ratio=0.000966<0.15 after SM deletion; retained stable (delta=0.003854<0.1); N-scaling monotone: 0/2 seeds < N4096_result. PP-56 production-N=8192 confirmed. cert_ratio=0.000966(HP<0.15 HF>0.3) retained_delta=0.003854(HP<0.1) n_monotone=0/2 theory_N8192=0.000122 N=8192 lam=1.0 n_seeds=2",
+  "N": 8192,
+  "M_STORE": 10,
+  "lam": 1.0,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.16551995277404785,
+  "theory_cert_ratio_N8192": 0.00012205541315757354,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_cert_ratio": 0.0009664165099443746,
+      "mean_retained_delta": 0.0037367622057596843,
+      "elapsed_s": 0.04953503608703613
+    },
+    {
+      "seed": 17,
+      "mean_cert_ratio": 0.0009662862060932902,
+      "mean_retained_delta": 0.0039720296859741214,
+      "elapsed_s": 0.0491788387298584
+    }
+  ]
+}

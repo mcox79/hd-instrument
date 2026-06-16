@@ -1,0 +1,41 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1/1 seeds var_ratio<0.1 at N=512 (need 3). mean_var_ratio=0.015796",
+  "elapsed_s": 1.69,
+  "summary": "tcft_n8192_v6 SMOKE N=512: 1/1 HP var_ratio<0.1",
+  "n_seeds": 1,
+  "n_valid": 1,
+  "n_hp": 1,
+  "mean_var_ratio": 0.015795877527901986,
+  "per_seed": [
+    {
+      "N": 512,
+      "M": 64,
+      "seed": 17,
+      "elapsed_s": 1.687760829925537,
+      "vanilla_delta_F": -0.37632838160410087,
+      "vanilla_variance": 4.074503499981917,
+      "vanilla_pr_fires": false,
+      "tcft_valid": true,
+      "tcft_class0_size": 32,
+      "mf_delta_F": -3.16,
+      "tcft_delta_F": -0.0005267039974575048,
+      "tcft_variance": 0.06436035827272235,
+      "tcft_variance_ratio": 0.015795877527901986,
+      "delta_F_agree_pct": 99.9833321203389
+    }
+  ],
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "seeds": [
+      17
+    ],
+    "bit_precision": "int8"
+  },
+  "precision_used": "int8",
+  "precision_memory_bytes": 262144,
+  "precision_baseline_bytes": 1048576,
+  "precision_compression_ratio": 4.0,
+  "precision_numel_W": 262144
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap7_cont_truth_fhrr_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FHRR magnitude tracks continuous truth degree (corr>=0.70) -- vague/graded predicates (Sorites) native via amplitude; no separate fuzzy-logic mechanism needed. truth-gradient-corr=0.999 (n=2400)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "corr": 0.9986232168749447,
+      "n": 2400
+    }
+  ],
+  "elapsed_s": 0.2799103260040283,
+  "summary": "HARD_PASS: FHRR magnitude tracks continuous truth degree (corr>=0.70) -- vague/graded predicates (Sorites) native via amplitude; no separate fuzzy-logic mechanism needed. truth-gradient-corr=0.999 (n=2400)"
+}

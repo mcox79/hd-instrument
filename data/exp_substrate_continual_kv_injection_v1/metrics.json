@@ -1,0 +1,19 @@
+{
+  "anchor_name": "substrate_continual_kv_injection_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: continual KV injection holds over long stream -- current state accurate, no silent contradictions. current_state=1.000 silent_contradiction=0.000 over 10 sessions / 800 facts",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "sessions": 10,
+      "total_facts": 800,
+      "current_state_acc": 1.0,
+      "silent_contradiction_rate": 0.0
+    }
+  ],
+  "elapsed_s": 49.07588481903076,
+  "summary": "HARD_PASS: continual KV injection holds over long stream -- current state accurate, no silent contradictions. current_state=1.000 silent_contradiction=0.000 over 10 sessions / 800 facts"
+}

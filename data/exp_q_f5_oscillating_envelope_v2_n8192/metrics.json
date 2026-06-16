@@ -1,0 +1,21 @@
+{
+  "anchor": "q_f5_oscillating_envelope_v2_n8192",
+  "run_mode": "smoke",
+  "N": 1024,
+  "n_seeds": 2,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "q_f5_oscillating_envelope_v2_n8192 verdict=MIDDLE_BAND: mean_dft_snr=2.241(HP>=3.0,HF<1.5) mean_frac_osc=0.045(HP>=0.2,HF<0.05) cell_A=FAIL(0/2) cell_B=FAIL(0/2) N=8192 interp:Inconclusive at N=8192. Q-F5 remains unresolved. elapsed=27.0s",
+  "mean_dft_snr": 2.2408631763783786,
+  "mean_frac_osc": 0.04541720510696762,
+  "n_cell_A_pass": 0,
+  "n_cell_B_pass": 0,
+  "all_dft_snr": [
+    2.2163404249735024,
+    2.265385927783255
+  ],
+  "all_frac_osc": [
+    0.08769501848519379,
+    0.0031393917287414496
+  ],
+  "elapsed_s": 26.96873688697815
+}

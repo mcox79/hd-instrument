@@ -1,0 +1,37 @@
+{
+  "anchor": "t2_codebook_boundary_v2_n8192",
+  "N": 1024,
+  "smoke": true,
+  "M_frac": 2.0,
+  "c_fracs": [
+    0.05,
+    0.2,
+    0.5
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 2.0,
+      "M": 2048,
+      "c_fracs": [
+        0.05,
+        0.2,
+        0.5
+      ],
+      "ret_by_c": [
+        0.625,
+        0.755,
+        0.65
+      ],
+      "slope": -0.0024,
+      "total_var": 0.13,
+      "mono_frac": 0.5
+    }
+  ],
+  "verdict": "T2V2_MIDDLE_BAND",
+  "verdict_msg": "WEAK_CODEBOOK_SENSITIVITY: pass_seeds=0/1 mean_slope=-0.002 mean_total_var=0.130 M_frac=2.0 beta=32.0 N=1024 HP_slope=0.05",
+  "elapsed_s": 0.08
+}

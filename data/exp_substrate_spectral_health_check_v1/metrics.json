@@ -1,0 +1,15 @@
+{
+  "anchor": "substrate_spectral_health_check_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "substrate_spectral_health_check_v1 verdict=HARD_FAIL: mean_Z_null=-8.45(HP in [-3.0,1.0]) mean_Z_anomaly=-19.23(HP>=3.0) mean_Z_sep=-10.78(HP>=3.0) cells=0/3 elapsed=1.2s",
+  "mean_Z_null": -8.44906522880651,
+  "mean_Z_anomaly": -19.232295273144203,
+  "mean_Z_sep": -10.783230044337692,
+  "n_cell_A_pass": 0,
+  "n_cell_B_pass": 0,
+  "n_cell_C_pass": 0,
+  "elapsed_s": 1.1669743061065674
+}

@@ -1,0 +1,60 @@
+{
+  "verdict": "SW_CRUD_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp=1/1 hf=0/1 n_cells=1",
+  "elapsed_s": 0.63,
+  "summary": {
+    "anchor": "sparse_w_mixed_crud_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_init": 16,
+    "n_ops": 200,
+    "op_mix": [
+      0.4,
+      0.3,
+      0.2,
+      0.1
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M_init": 16,
+        "n_ops": 200,
+        "seed": 17,
+        "N": 1024,
+        "n_queries_seen": 63,
+        "running_query_retention": 1.0,
+        "checkpoints": [
+          {
+            "op_count": 50,
+            "live_M": 38,
+            "retention": 1.0,
+            "kf2_max_iso": 0.0
+          },
+          {
+            "op_count": 100,
+            "live_M": 45,
+            "retention": 1.0,
+            "kf2_max_iso": 0.0
+          },
+          {
+            "op_count": 150,
+            "live_M": 60,
+            "retention": 1.0,
+            "kf2_max_iso": 0.0
+          },
+          {
+            "op_count": 200,
+            "live_M": 64,
+            "retention": 1.0,
+            "kf2_max_iso": 0.0
+          }
+        ]
+      }
+    ],
+    "verdict": "SW_CRUD_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp=1/1 hf=0/1 n_cells=1",
+    "elapsed_s": 0.63
+  }
+}

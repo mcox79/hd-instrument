@@ -1,0 +1,33 @@
+{
+  "anchor_name": "i3_f4_pinv_corruption_reaudit_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pinv sustains capacity (alpha_c>=0.10) up to 20%% corruption -- F4 HF was Hebb-specific; pinv holds the production envelope. pinv alpha_c by flip: {'flip0.05': 0.4, 'flip0.10': 0.4, 'flip0.20': 0.2, 'flip0.30': 0.1}",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "flip0.05": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.4
+        },
+        "flip0.10": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.4
+        },
+        "flip0.20": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.2
+        },
+        "flip0.30": {
+          "hebb_alpha_c": 0.05,
+          "pinv_alpha_c": 0.1
+        }
+      }
+    }
+  ],
+  "elapsed_s": 10.30131483078003,
+  "summary": "HARD_PASS: pinv sustains capacity (alpha_c>=0.10) up to 20%% corruption -- F4 HF was Hebb-specific; pinv holds the production envelope. pinv alpha_c by flip: {'flip0.05': 0.4, 'flip0.10': 0.4, 'flip0.20': 0.2, 'flip0.30': 0.1}"
+}

@@ -1,0 +1,35 @@
+{
+  "anchor_name": "patternb_chain_k234_diag_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: dominant chain-k234 failure factor identified = payload-magnitude; routes the future rescue (e.g. payload normalization / separate payload store). ranges: K-depth=0.312 payload=0.875 saturation=0.075 -> dominant=payload-magnitude",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "A": {
+        "K2": 1.0,
+        "K3": 1.0,
+        "K4": 0.9666666666666667,
+        "K6": 0.8666666666666667,
+        "K8": 0.6875
+      },
+      "B": {
+        "w0.0": 1.0,
+        "w1.0": 0.9,
+        "w2.0": 0.625,
+        "w4.0": 0.125
+      },
+      "C": {
+        "N32": 0.975,
+        "N64": 0.95,
+        "N128": 0.95,
+        "N256": 0.9
+      },
+      "rngA": 0.3125,
+      "rngB": 0.875,
+      "rngC": 0.07499999999999996
+    }
+  ],
+  "elapsed_s": 0.19737482070922852,
+  "summary": "HARD_PASS: dominant chain-k234 failure factor identified = payload-magnitude; routes the future rescue (e.g. payload normalization / separate payload store). ranges: K-depth=0.312 payload=0.875 saturation=0.075 -> dominant=payload-magnitude"
+}

@@ -1,0 +1,78 @@
+{
+  "verdict": "BID_MIDDLE_BAND_MIXED",
+  "verdict_msg": "MB1: mixed class distribution across seeds: {'OUTSIDE_ALL_BANDS': 1}. Dominant class = OUTSIDE_ALL_BANDS in 1/1 seeds (< 4/5 threshold). Per-seed BIDs: [29.19]. MIXED state remains dominant. Stability: max_drift=0.0797. Ship secondary discriminator (joint BID + chi_4 + Kovacs).",
+  "elapsed_s": 0.01,
+  "is_smoke": true,
+  "config": {
+    "N_list": [
+      256,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "M_queries": 50,
+    "S_samples": 100,
+    "ALPHA_LOAD": 0.4
+  },
+  "per_n_summary": {
+    "256": {
+      "bid_values": [
+        29.1883
+      ],
+      "bid_mean": 29.1883,
+      "bid_std": 0.0,
+      "class_counts": {
+        "OUTSIDE_ALL_BANDS": 1
+      },
+      "reference_bands": {
+        "retrieval": [
+          1.0,
+          2.5
+        ],
+        "spin_glass": [
+          64.0,
+          128.0
+        ],
+        "paramagnetic": [
+          251,
+          256
+        ]
+      }
+    },
+    "512": {
+      "bid_values": [
+        26.8621
+      ],
+      "bid_mean": 26.8621,
+      "bid_std": 0.0,
+      "class_counts": {
+        "OUTSIDE_ALL_BANDS": 1
+      },
+      "reference_bands": {
+        "retrieval": [
+          1.0,
+          2.5
+        ],
+        "spin_glass": [
+          128.0,
+          256.0
+        ],
+        "paramagnetic": [
+          507,
+          512
+        ]
+      }
+    }
+  },
+  "stability": {
+    "stable": false,
+    "unstable_fail": false,
+    "max_drift_frac": 0.0797,
+    "bid_medians": {
+      "256": 29.1883,
+      "512": 26.8621
+    }
+  },
+  "hypothesis_update": "P(H1) >= 0.65 if HP1 PASS; P(H2) >= 0.55 if HF1/HF2/HF3 FAIL"
+}

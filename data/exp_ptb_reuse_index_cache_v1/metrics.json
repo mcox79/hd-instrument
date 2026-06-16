@@ -1,0 +1,15 @@
+{
+  "anchor_name": "ptb_reuse_index_cache_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: index-only filler cache <50 bytes/fact at F1>=0.95 -- Pattern B storage collapses to index references. per-fact=16 bytes F1=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_fact_bytes": 16.3,
+      "f1": 1.0
+    }
+  ],
+  "elapsed_s": 0.07049417495727539,
+  "summary": "HARD_PASS: index-only filler cache <50 bytes/fact at F1>=0.95 -- Pattern B storage collapses to index references. per-fact=16 bytes F1=1.000"
+}

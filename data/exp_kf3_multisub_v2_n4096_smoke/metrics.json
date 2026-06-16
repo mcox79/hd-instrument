@@ -1,0 +1,48 @@
+{
+  "verdict": "KF3V2_MIDDLE_BAND",
+  "verdict_msg": "Partial isolation at N=4096. max_leakage_clean=0.0267 (HP<0.01). max_contam_clean=0.0742 (HP<0.05). max_leakage_all=0.0267. max_contam_all=0.0742. mean_acc_B=1.000.",
+  "elapsed_s": 0.13935136795043945,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "coupling_counts": [
+      0,
+      5
+    ],
+    "n_probe": 50
+  },
+  "summary": {
+    "results": [
+      {
+        "seed": 17,
+        "M_frac": 4,
+        "M": 4096,
+        "N": 1024,
+        "per_coupling": {
+          "0": {
+            "coupling_count": 0,
+            "info_leakage": 0.02673652581870556,
+            "state_contamination": 0.07418578863143921,
+            "acc_B_own": 1.0
+          },
+          "5": {
+            "coupling_count": 5,
+            "info_leakage": 0.02673652581870556,
+            "state_contamination": 0.07418578863143921,
+            "acc_B_own": 1.0
+          }
+        }
+      }
+    ],
+    "N_full": 4096,
+    "N_used": 1024,
+    "m_fracs": [
+      4
+    ],
+    "coupling_counts": [
+      0,
+      5
+    ],
+    "smoke": true
+  }
+}

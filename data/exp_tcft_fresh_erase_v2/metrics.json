@@ -1,0 +1,37 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 1/1 seeds show var_ratio<0.10 (need 3). Mean var_ratio=0.0248",
+  "elapsed_s": 0.017163515090942383,
+  "n_seeds": 1,
+  "n_valid": 1,
+  "n_hp": 1,
+  "n_hf": 0,
+  "per_seed": [
+    {
+      "N": 256,
+      "M": 32,
+      "seed": 17,
+      "vanilla_delta_F": 0.0646509540584463,
+      "vanilla_variance": 0.2256881964812406,
+      "vanilla_work_std": 0.4478976811961548,
+      "vanilla_pr_fires": false,
+      "tcft_valid": true,
+      "tcft_class0_size": 16,
+      "tcft_delta_F": -0.002190913801856771,
+      "tcft_variance": 0.00559075161128406,
+      "tcft_variance_ratio": 0.024772015986882896,
+      "mf_delta_F": -1.58,
+      "delta_F_agree_pct": 99.86133450629936
+    }
+  ],
+  "summary": "TCFT v2 5-seed N=256: MIDDLE_BAND (1/1 seeds HP, 0/1 seeds HF)",
+  "config": {
+    "N": 256,
+    "alpha_ratio": 0.125,
+    "seeds": [
+      17
+    ],
+    "HP_VAR_RATIO_STRONG": 0.1,
+    "HP_SEED_COUNT_MIN": 3
+  }
+}

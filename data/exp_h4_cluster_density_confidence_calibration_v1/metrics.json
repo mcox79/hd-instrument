@@ -1,0 +1,17 @@
+{
+  "anchor_name": "h4_cluster_density_confidence_calibration_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cluster-density score PREDICTS contamination (AUC>=0.75) -- ship as client-facing propagation_risk flag. cluster-density risk: contamination-pred AUC=0.757 brier=0.194",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "risk_auc": 0.7572427572427572,
+      "brier": 0.1939014063942861
+    }
+  ],
+  "elapsed_s": 0.07709765434265137,
+  "summary": "HARD_PASS: cluster-density score PREDICTS contamination (AUC>=0.75) -- ship as client-facing propagation_risk flag. cluster-density risk: contamination-pred AUC=0.757 brier=0.194"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": "S10_HARD_PASS",
+  "verdict_msg": "SAMPLING_SPEEDUP: hp_paths=['D'] n_b=0 n_d=1 n_e=0 n_hf_paths=0/3",
+  "elapsed_s": 1.23,
+  "summary": {
+    "anchor": "approximate_multi_hop_sampling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 500,
+    "rates": [
+      0.25,
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "rate_results": [
+          {
+            "rate": 0.25,
+            "acc_b": 1.0,
+            "lat_b_ns": 4105500,
+            "acc_d": 1.0,
+            "lat_d_ns": 121622500,
+            "auc_e": 0.99512,
+            "lat_e_ns": 220915900
+          },
+          {
+            "rate": 1.0,
+            "acc_b": 1.0,
+            "lat_b_ns": 3574800,
+            "acc_d": 1.0,
+            "lat_d_ns": 563856800,
+            "auc_e": 0.99707,
+            "lat_e_ns": 287871900
+          }
+        ]
+      }
+    ],
+    "verdict": "S10_HARD_PASS",
+    "verdict_msg": "SAMPLING_SPEEDUP: hp_paths=['D'] n_b=0 n_d=1 n_e=0 n_hf_paths=0/3",
+    "elapsed_s": 1.23
+  }
+}

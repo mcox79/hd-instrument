@@ -1,0 +1,33 @@
+{
+  "verdict": "CORPUS_SCALING_HARD_FAIL",
+  "verdict_msg": "CORPUS_SCALING_HARD_FAIL: bpc=[7.55559, 7.65537] monotone=False; top_edge@large=18.052; tau-limit binding at N=256",
+  "elapsed_s": 2.1719999999986612,
+  "summary": {
+    "N": 256,
+    "corpus_sizes": [
+      10000,
+      100000
+    ],
+    "mean_bpc_by_corpus": {
+      "10000": 7.55559,
+      "100000": 7.65537
+    },
+    "mean_top_edge_by_corpus": {
+      "10000": 18.0515,
+      "100000": 18.0515
+    },
+    "monotone_bpc": false
+  },
+  "config": {
+    "N": 256,
+    "smoke": true,
+    "corpus_sizes": [
+      10000,
+      100000
+    ],
+    "seeds": [
+      17
+    ],
+    "max_epochs": 2
+  }
+}

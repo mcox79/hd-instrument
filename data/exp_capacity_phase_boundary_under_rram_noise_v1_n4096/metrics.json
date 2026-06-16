@@ -1,0 +1,166 @@
+{
+  "anchor": "capacity_phase_boundary_under_rram_noise_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: partial transition signal. below_boundary_violations=2/3 above_2x_violations=0/3 alpha_transition_detected=2/4",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.2587134838104248,
+  "phase_boundaries": {
+    "0.05": 4.358898943540674,
+    "0.1": 3.0,
+    "0.2": 2.0,
+    "0.5": 1.0
+  },
+  "summary": "MIDDLE_BAND: partial transition signal. below_boundary_violations=2/3 above_2x_violations=0/3 alpha_transition_detected=2/4",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.08920025825500488,
+      "grid_results": {
+        "a0.20_sg0.5": {
+          "alpha": 0.2,
+          "sigma_g": 0.5,
+          "recall": 0.931640625,
+          "sigma_g_crit": 2.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.20_sg1.0": {
+          "alpha": 0.2,
+          "sigma_g": 1.0,
+          "recall": 0.7021484375,
+          "sigma_g_crit": 2.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.20_sg2.0": {
+          "alpha": 0.2,
+          "sigma_g": 2.0,
+          "recall": 0.521484375,
+          "sigma_g_crit": 2.0,
+          "below_boundary": false,
+          "above_2x": false
+        },
+        "a0.20_sg4.0": {
+          "alpha": 0.2,
+          "sigma_g": 4.0,
+          "recall": 0.4541015625,
+          "sigma_g_crit": 2.0,
+          "below_boundary": false,
+          "above_2x": true
+        },
+        "a0.50_sg0.5": {
+          "alpha": 0.5,
+          "sigma_g": 0.5,
+          "recall": 0.6953125,
+          "sigma_g_crit": 1.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.50_sg1.0": {
+          "alpha": 0.5,
+          "sigma_g": 1.0,
+          "recall": 0.6474609375,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": false
+        },
+        "a0.50_sg2.0": {
+          "alpha": 0.5,
+          "sigma_g": 2.0,
+          "recall": 0.4453125,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": true
+        },
+        "a0.50_sg4.0": {
+          "alpha": 0.5,
+          "sigma_g": 4.0,
+          "recall": 0.4345703125,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": true
+        }
+      },
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780453462.499822
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.0860130786895752,
+      "grid_results": {
+        "a0.20_sg0.5": {
+          "alpha": 0.2,
+          "sigma_g": 0.5,
+          "recall": 0.9638671875,
+          "sigma_g_crit": 2.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.20_sg1.0": {
+          "alpha": 0.2,
+          "sigma_g": 1.0,
+          "recall": 0.7451171875,
+          "sigma_g_crit": 2.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.20_sg2.0": {
+          "alpha": 0.2,
+          "sigma_g": 2.0,
+          "recall": 0.5107421875,
+          "sigma_g_crit": 2.0,
+          "below_boundary": false,
+          "above_2x": false
+        },
+        "a0.20_sg4.0": {
+          "alpha": 0.2,
+          "sigma_g": 4.0,
+          "recall": 0.40625,
+          "sigma_g_crit": 2.0,
+          "below_boundary": false,
+          "above_2x": true
+        },
+        "a0.50_sg0.5": {
+          "alpha": 0.5,
+          "sigma_g": 0.5,
+          "recall": 0.6787109375,
+          "sigma_g_crit": 1.0,
+          "below_boundary": true,
+          "above_2x": false
+        },
+        "a0.50_sg1.0": {
+          "alpha": 0.5,
+          "sigma_g": 1.0,
+          "recall": 0.5732421875,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": false
+        },
+        "a0.50_sg2.0": {
+          "alpha": 0.5,
+          "sigma_g": 2.0,
+          "recall": 0.4111328125,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": true
+        },
+        "a0.50_sg4.0": {
+          "alpha": 0.5,
+          "sigma_g": 4.0,
+          "recall": 0.4150390625,
+          "sigma_g_crit": 1.0,
+          "below_boundary": false,
+          "above_2x": true
+        }
+      },
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780453462.585835
+    }
+  ]
+}

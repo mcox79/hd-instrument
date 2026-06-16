@@ -1,0 +1,15 @@
+{
+  "anchor_name": "negation_polarity_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: signed/negated facts recovered with object + polarity >=0.95 -- affirm-vs-negate distinguishable (embedding-store weakness covered). object-recall=1.000 polarity-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "obj": 1.0,
+      "pol": 1.0
+    }
+  ],
+  "elapsed_s": 0.27977466583251953,
+  "summary": "HARD_PASS: signed/negated facts recovered with object + polarity >=0.95 -- affirm-vs-negate distinguishable (embedding-store weakness covered). object-recall=1.000 polarity-recall=1.000"
+}

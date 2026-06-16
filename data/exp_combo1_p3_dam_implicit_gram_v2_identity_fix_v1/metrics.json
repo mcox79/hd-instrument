@@ -1,0 +1,21 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3/4 HP conditions met. HP1_mmd=True(mmd={'8192': 0.0}) HP2_cv=True(lmax={'8192': 1.0001148272081406}, cv={'8192': 1.0410545739188605e-05}) HP3_slope=True(nan) HP4_snr=False n_hp=3/4",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 4096,
+  "M_LIST": [
+    8192
+  ],
+  "agg": {
+    "8192": {
+      "mean_mmd": 0.0,
+      "mean_lmax_G": 1.0001148272081406,
+      "cv_lmax_G": 1.0410545739188605e-05,
+      "mean_snr_ratio": 0.2499755859375,
+      "n_seeds": 2
+    },
+    "_write_slope": NaN
+  },
+  "elapsed_total_s": 12.841076612472534
+}

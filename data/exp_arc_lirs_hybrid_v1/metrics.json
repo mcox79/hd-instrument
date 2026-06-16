@@ -1,0 +1,36 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "gamma": 0.95,
+  "k_reads": 4,
+  "ALPHA_SWEEP": [
+    0.2,
+    0.5
+  ],
+  "M": 30,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "0.2": {
+      "alpha": 0.2,
+      "mean_hot_cold_ratio": 1.5578742235924503,
+      "std_hot_cold_ratio": 0.0002461590702043104,
+      "mean_dot_hot": 1183.7903500638831,
+      "mean_dot_cold": 759.8755268804318,
+      "n_seeds": 2
+    },
+    "0.5": {
+      "alpha": 0.5,
+      "mean_hot_cold_ratio": 3.126667277786063,
+      "std_hot_cold_ratio": 0.0028335000910584274,
+      "mean_dot_hot": 2428.633475063883,
+      "mean_dot_cold": 776.7492768804318,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "ARC/LIRS hybrid confirmed. hot/cold ratio at alpha=0.5: 3.13 (HP>=2.0). max across alpha: 3.13.",
+  "elapsed_s": 1.5067033767700195
+}

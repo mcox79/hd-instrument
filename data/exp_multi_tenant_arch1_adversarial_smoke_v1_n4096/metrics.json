@@ -1,0 +1,27 @@
+{
+  "anchor": "multi_tenant_arch1_adversarial_smoke_v1_n4096",
+  "N": 1024,
+  "M": 32,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 32,
+      "max_sim_b_vals_via_a": 0.0092010498046875,
+      "contamination_rate_p1": 0.0,
+      "contamination_p2": 0,
+      "max_attack_b_sim": 0.077484130859375,
+      "max_attack_a_sim": 0.0127410888671875,
+      "isolation_confirmed": 1,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "MT_ARCH1_HARD_PASS",
+  "verdict_msg": "ZERO_CROSS_TENANT_LEAKAGE: all 1 seeds confirmed. N=1024 M=32 n_isolated=1/1 n_leak_p1=0 n_leak_p2=0 mean_max_sim_B_via_A=0.0092",
+  "elapsed_s": 0.02
+}

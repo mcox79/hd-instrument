@@ -1,0 +1,30 @@
+{
+  "anchor_name": "v32_multiseed_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3/4 wrapper gates seed-robust. write-lock=1.000 per-role=1.000 3x=0.988 cls-old=0.487 (n_seeds=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "write_lock": [
+        1.0,
+        0.0
+      ],
+      "per_role": [
+        1.0,
+        0.0
+      ],
+      "redundant3x": [
+        0.988,
+        0.008
+      ],
+      "cls_old": [
+        0.487,
+        0.027
+      ],
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 13.898499011993408,
+  "summary": "MIDDLE_BAND: 3/4 wrapper gates seed-robust. write-lock=1.000 per-role=1.000 3x=0.988 cls-old=0.487 (n_seeds=5)"
+}

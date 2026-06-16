@@ -1,0 +1,24 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all seeds have accuracy >= 0.98. global_min_acc=1.000000 n_seeds_hp=2/2 n_seeds_hf_fail=0/2",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 512,
+  "M_BASE": 20,
+  "K_MAX": 20,
+  "per_seed_summary": [
+    {
+      "seed": 7,
+      "min_accuracy": 1.0,
+      "all_pass_hp": true,
+      "all_pass_hf": true
+    },
+    {
+      "seed": 17,
+      "min_accuracy": 1.0,
+      "all_pass_hp": true,
+      "all_pass_hf": true
+    }
+  ],
+  "elapsed_total_s": 0.07819533348083496
+}

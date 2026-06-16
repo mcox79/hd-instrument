@@ -1,0 +1,14 @@
+{
+  "anchor_name": "binding_entropy_routing_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: routing AUC <0.70. routing AUC=0.2269",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "auc": 0.2268656716417487
+    }
+  ],
+  "elapsed_s": 0.35595011711120605,
+  "summary": "HARD_FAIL: routing AUC <0.70. routing AUC=0.2269"
+}

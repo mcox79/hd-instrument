@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kappa3_drift_detection_window_optimal_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: W*=5<=30. W*=5 | W=5:det=2/frac=1.00/fp=0.000 | W=10:det=4/frac=1.00/fp=0.000 | W=15:det=30/frac=0.50/fp=0.000",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "WINDOWS_TO_TEST": [
+    5,
+    10,
+    15
+  ],
+  "SIGMA_THRESH": 2.5,
+  "HP_W_STAR": 30,
+  "elapsed_s": 2.1596944332122803
+}

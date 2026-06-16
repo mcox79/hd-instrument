@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_relation_classification_robustness_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: RE retention >=65%% -- as robust as sequence labeling; robustness is NOT specific to structured prediction (discriminative-weighting general, or lexical redundancy). clean=0.4059 @20%-noise=0.2810 retention=69.2%; curve=[(0.0, 0.4059), (0.2, 0.281)] -- CONTRAST: structured-prediction NER/slot ~64-68% retention",
+  "summary": "HARD_FAIL: RE retention >=65%% -- as robust as sequence labeling; robustness is NOT specific to structured prediction (discriminative-weighting general, or lexical redundancy). clean=0.4059 @20%-noise=0.2810 retention=69.2%; curve=[(0.0, 0.4059), (0.2, 0.281)] -- CONTRAST: structured-prediction NER/slot ~64-68% retention",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.4059,
+      "macro_f1_clean": 0.4059,
+      "macro_f1_20noise": 0.281,
+      "retention_20": 0.6923,
+      "curve": [
+        {
+          "noise": 0.0,
+          "macro_f1": 0.4059
+        },
+        {
+          "noise": 0.2,
+          "macro_f1": 0.281
+        }
+      ],
+      "n_train": 600,
+      "n_classes": 19
+    }
+  ],
+  "elapsed_s": 4.758103132247925
+}

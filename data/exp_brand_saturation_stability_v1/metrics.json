@@ -1,0 +1,13 @@
+{
+  "anchor_name": "brand_saturation_stability_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all alpha acc >= 0.97. mean_accs={'0.1': 1.0, '0.2': 1.0} HP>=0.97 HF<0.95 n_alpha=2",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 71.469801902771,
+  "alpha_list": [
+    0.1,
+    0.2
+  ]
+}

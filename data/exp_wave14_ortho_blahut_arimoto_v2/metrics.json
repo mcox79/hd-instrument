@@ -1,0 +1,85 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: R(D) non-trivial (max_R=2.7238 nats) and monotone; H_src=2.7726 nats; N_min predictions finite for 3 retention targets; rate-distortion theory applicable to substrate multi-task retention",
+  "elapsed_s": 0.0,
+  "rd_curves": {
+    "3": {
+      "n_tasks": 3,
+      "H_src_nats": 2.77259,
+      "max_R_nats": 2.72379,
+      "non_trivial": true,
+      "monotone": true,
+      "convex_violations": 7,
+      "trivial": false,
+      "n_min_predictions": {
+        "ret_5": {
+          "target_retention": 0.5,
+          "D": 0.5,
+          "R_nats": 0.03101,
+          "N_min_bits": 0.7,
+          "substrate_N_margin": 4096.0
+        },
+        "ret_7": {
+          "target_retention": 0.7,
+          "D": 0.3,
+          "R_nats": 0.49577,
+          "N_min_bits": 11.4,
+          "substrate_N_margin": 357.92
+        },
+        "ret_9": {
+          "target_retention": 0.9,
+          "D": 0.1,
+          "R_nats": 1.92291,
+          "N_min_bits": 44.4,
+          "substrate_N_margin": 92.28
+        }
+      },
+      "rd_curve_sample": {
+        "0.005": 2.72379,
+        "0.105": 1.92291,
+        "0.205": 1.22487,
+        "0.305": 0.32661,
+        "0.405": 0.15216,
+        "0.505": 0.03101,
+        "0.605": 0.03101,
+        "0.705": 0.03101,
+        "0.805": 0.03101,
+        "0.905": 0.03101
+      }
+    }
+  },
+  "n_min_predictions": {
+    "ret_5": {
+      "target_retention": 0.5,
+      "D": 0.5,
+      "R_nats": 0.03101,
+      "N_min_bits": 0.7,
+      "substrate_N_margin": 4096.0
+    },
+    "ret_7": {
+      "target_retention": 0.7,
+      "D": 0.3,
+      "R_nats": 0.49577,
+      "N_min_bits": 11.4,
+      "substrate_N_margin": 357.92
+    },
+    "ret_9": {
+      "target_retention": 0.9,
+      "D": 0.1,
+      "R_nats": 1.92291,
+      "N_min_bits": 44.4,
+      "substrate_N_margin": 92.28
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n_tasks_sweep": [
+      3
+    ],
+    "k_context_bits": 4,
+    "m_patterns_per_task": 10,
+    "D_sweep_n": 100,
+    "substrate_N_operating": 4096,
+    "v2_fix": "label-vs-honest rerun; explicit exit(0); extended D_SWEEP; N_tasks sweep"
+  }
+}

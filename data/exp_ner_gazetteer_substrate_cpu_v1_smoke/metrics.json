@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ner_gazetteer_substrate_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: gazetteer lifts NER (F1>=0.60 or lift>=0.02) -- substrate-self-referential lexicon helps but does not break ceiling; stacks with clusters/POS. +gaz F1=0.5106 vs baseline 0.4658 (lift=+0.0448, P=0.545 R=0.480, gaz-hit-rate=0.024, train=300)",
+  "summary": "MIDDLE_BAND: gazetteer lifts NER (F1>=0.60 or lift>=0.02) -- substrate-self-referential lexicon helps but does not break ceiling; stacks with clusters/POS. +gaz F1=0.5106 vs baseline 0.4658 (lift=+0.0448, P=0.545 R=0.480, gaz-hit-rate=0.024, train=300)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5106,
+      "f1_gaz": 0.5106,
+      "f1_baseline": 0.4658,
+      "lift": 0.0448,
+      "prec": 0.545,
+      "rec": 0.48,
+      "n_train": 300,
+      "gaz_hit_rate": 0.0239
+    }
+  ],
+  "elapsed_s": 5.902296543121338
+}

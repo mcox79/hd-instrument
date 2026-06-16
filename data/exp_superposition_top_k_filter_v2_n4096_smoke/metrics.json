@@ -1,0 +1,105 @@
+{
+  "verdict": "TOPK_V2_HARD_FAIL",
+  "verdict_msg": "NO_SPARSE_RESCUE: weighted+threshold both fail sparse. pass_count={'P1_uniform|naive': 1, 'P1_uniform|weighted': 0, 'P1_uniform|threshold': 0, 'P4_sparse|naive': 0, 'P4_sparse|weighted': 0, 'P4_sparse|threshold': 1} rescuing_filters=[] easy_pass_filters=[]",
+  "elapsed_s": 0.16,
+  "summary": {
+    "anchor": "superposition_top_k_filter_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "patterns": [
+      "P1_uniform",
+      "P4_sparse"
+    ],
+    "filters": [
+      "naive",
+      "weighted",
+      "threshold"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "pattern": "P1_uniform",
+        "filter": "naive",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.0,
+        "n_kept": 10,
+        "r_norm": 10.82962,
+        "betas_sum": 1.0,
+        "betas_nnz": 10
+      },
+      {
+        "pattern": "P1_uniform",
+        "filter": "weighted",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.52387,
+        "n_kept": 9,
+        "r_norm": 10.82962,
+        "betas_sum": 1.0,
+        "betas_nnz": 10
+      },
+      {
+        "pattern": "P1_uniform",
+        "filter": "threshold",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.28349,
+        "n_kept": 73,
+        "r_norm": 10.82962,
+        "betas_sum": 1.0,
+        "betas_nnz": 10
+      },
+      {
+        "pattern": "P4_sparse",
+        "filter": "naive",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.29526,
+        "n_kept": 10,
+        "r_norm": 19.68026,
+        "betas_sum": 1.0,
+        "betas_nnz": 3
+      },
+      {
+        "pattern": "P4_sparse",
+        "filter": "weighted",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 325514.93496,
+        "n_kept": 10,
+        "r_norm": 19.68026,
+        "betas_sum": 1.0,
+        "betas_nnz": 3
+      },
+      {
+        "pattern": "P4_sparse",
+        "filter": "threshold",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.0,
+        "n_kept": 5,
+        "r_norm": 19.68026,
+        "betas_sum": 1.0,
+        "betas_nnz": 3
+      }
+    ],
+    "verdict": "TOPK_V2_HARD_FAIL",
+    "verdict_msg": "NO_SPARSE_RESCUE: weighted+threshold both fail sparse. pass_count={'P1_uniform|naive': 1, 'P1_uniform|weighted': 0, 'P1_uniform|threshold': 0, 'P4_sparse|naive': 0, 'P4_sparse|weighted': 0, 'P4_sparse|threshold': 1} rescuing_filters=[] easy_pass_filters=[]",
+    "elapsed_s": 0.16
+  }
+}

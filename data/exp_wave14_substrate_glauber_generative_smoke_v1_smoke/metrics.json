@@ -1,0 +1,95 @@
+{
+  "verdict": "SUBSTRATE_GENERATIVE_LIMITED",
+  "verdict_msg": "PARTIAL: at best cell (beta=6.00): novelty=1.000, diversity=0.037, stability=0.900, coherence=0.225. Some generative behavior but does not satisfy all 4 capability gates simultaneously. Limited 12th axis candidate.",
+  "elapsed_s": 0.3119999999762513,
+  "summary": {
+    "cells": [
+      {
+        "beta": 4.0,
+        "novelty_rate": 1.0,
+        "diversity_median": 0.099609375,
+        "stability_rate": 0.0,
+        "binding_coherence_median": 0.2109375,
+        "n_seeds": 1,
+        "per_seed": [
+          {
+            "beta": 4.0,
+            "seed": 1027,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.099609375,
+            "stability_rate": 0.0,
+            "binding_coherence_median": 0.2109375,
+            "n_samples": 40
+          }
+        ]
+      },
+      {
+        "beta": 6.0,
+        "novelty_rate": 1.0,
+        "diversity_median": 0.03662109375,
+        "stability_rate": 0.9,
+        "binding_coherence_median": 0.224609375,
+        "n_seeds": 1,
+        "per_seed": [
+          {
+            "beta": 6.0,
+            "seed": 1041,
+            "novelty_rate": 1.0,
+            "diversity_median": 0.03662109375,
+            "stability_rate": 0.9,
+            "binding_coherence_median": 0.224609375,
+            "n_samples": 40
+          }
+        ]
+      }
+    ],
+    "best_cell": {
+      "beta": 6.0,
+      "novelty_rate": 1.0,
+      "diversity_median": 0.03662109375,
+      "stability_rate": 0.9,
+      "binding_coherence_median": 0.224609375,
+      "n_seeds": 1,
+      "per_seed": [
+        {
+          "beta": 6.0,
+          "seed": 1041,
+          "novelty_rate": 1.0,
+          "diversity_median": 0.03662109375,
+          "stability_rate": 0.9,
+          "binding_coherence_median": 0.224609375,
+          "n_samples": 40
+        }
+      ]
+    },
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha": 0.25,
+      "beta_list": [
+        4.0,
+        6.0
+      ],
+      "n_seeds": 1,
+      "n_burn": 60,
+      "n_collect": 40,
+      "sample_stride": 3,
+      "n_stability_check": 10
+    },
+    "note": "Substrate generative-mode dead-or-alive test; samples drawn from random-init Glauber chains in bimodal-beta regime"
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha": 0.25,
+    "beta_list": [
+      4.0,
+      6.0
+    ],
+    "n_seeds": 1,
+    "n_burn": 60,
+    "n_collect": 40,
+    "sample_stride": 3,
+    "n_stability_check": 10
+  }
+}

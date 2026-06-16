@@ -1,0 +1,63 @@
+{
+  "verdict": "G7_HARD_PASS",
+  "verdict_msg": "PATH_D_PAST_32N_ENVELOPE: all 4 cell-seeds >= 0.85. M98304: d10=nan d20=nan d30=nan d50=nan | M131072: d10=nan d20=nan d30=nan d50=nan",
+  "elapsed_s": 0.36,
+  "summary": {
+    "anchor": "path_d_24n_32n_envelope_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      512,
+      1024
+    ],
+    "depths": [
+      3,
+      5
+    ],
+    "K_paths": 20,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 28557300
+      },
+      {
+        "M": 512,
+        "depth": 5,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 40632600
+      },
+      {
+        "M": 1024,
+        "depth": 3,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 31777300
+      },
+      {
+        "M": 1024,
+        "depth": 5,
+        "seed": 17,
+        "K_paths": 20,
+        "accuracy": 1.0,
+        "n_eval": 16,
+        "lat_ns": 33572400
+      }
+    ],
+    "verdict": "G7_HARD_PASS",
+    "verdict_msg": "PATH_D_PAST_32N_ENVELOPE: all 4 cell-seeds >= 0.85. M98304: d10=nan d20=nan d30=nan d50=nan | M131072: d10=nan d20=nan d30=nan d50=nan",
+    "elapsed_s": 0.36
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "talks_latency_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-only response per-turn P95 <=50ms (20x+ vs an LLM turn) -- the fast conversational tier. P50=1.611ms P95=2.049ms",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "p50": 1.6113500460051,
+      "p95": 2.0487250003498048
+    }
+  ],
+  "elapsed_s": 0.4770164489746094,
+  "summary": "HARD_PASS: substrate-only response per-turn P95 <=50ms (20x+ vs an LLM turn) -- the fast conversational tier. P50=1.611ms P95=2.049ms"
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "SW_EH_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+  "elapsed_s": 0.18,
+  "summary": {
+    "anchor": "sparse_w_edit_heavy_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_init": 32,
+    "n_edits": 50,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M_init": 32,
+        "n_edits": 50,
+        "seed": 17,
+        "N": 1024,
+        "post_storm_retention": 1.0,
+        "post_storm_kf2_max_iso": 0.0,
+        "sparse_bytes": 262144,
+        "dense_bytes": 4194304,
+        "mem_savings_ratio": 16.0,
+        "sparse_over_dense": 0.0625
+      }
+    ],
+    "verdict": "SW_EH_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+    "elapsed_s": 0.18
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "verdict": "K1_CROSSM_HARD_FAIL",
+  "verdict_msg": "NO_K1_SIGNAL_AT_ANY_M: path_b_top1 at M=2N=0.0000 < 0.005. Substrate has zero K=1 signal across all M. M=2048(ratio=0N): k1=0.1500 k10=1.0000 k100=1.0000 | M=4096(ratio=1N): k1=0.0000 k10=1.0000 k100=1.0000 | M=8192(ratio=2N): k1=0.0000 k10=1.0000 k100=1.0000",
+  "elapsed_s": 0.55,
+  "summary": {
+    "anchor": "path_d_k1_phase_boundary_cross_m_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_grid": [
+      2048,
+      4096,
+      8192
+    ],
+    "depth": 5,
+    "seeds": [
+      17
+    ],
+    "k_random_keys": 20,
+    "cells": [
+      {
+        "seed": 17,
+        "M": 2048,
+        "N": 1024,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.15,
+        "path_d_k10_acc": 1.0,
+        "path_d_k100_acc": 1.0,
+        "lat_b_ns": 3717800,
+        "lat_k10_ns": 17005700,
+        "lat_k100_ns": 73360700
+      },
+      {
+        "seed": 17,
+        "M": 4096,
+        "N": 1024,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.0,
+        "path_d_k10_acc": 1.0,
+        "path_d_k100_acc": 1.0,
+        "lat_b_ns": 3194500,
+        "lat_k10_ns": 19053500,
+        "lat_k100_ns": 68949500
+      },
+      {
+        "seed": 17,
+        "M": 8192,
+        "N": 1024,
+        "n_eval": 20,
+        "path_b_top1_acc": 0.0,
+        "path_d_k10_acc": 1.0,
+        "path_d_k100_acc": 1.0,
+        "lat_b_ns": 3238000,
+        "lat_k10_ns": 17442500,
+        "lat_k100_ns": 70717500
+      }
+    ],
+    "verdict": "K1_CROSSM_HARD_FAIL",
+    "verdict_msg": "NO_K1_SIGNAL_AT_ANY_M: path_b_top1 at M=2N=0.0000 < 0.005. Substrate has zero K=1 signal across all M. M=2048(ratio=0N): k1=0.1500 k10=1.0000 k100=1.0000 | M=4096(ratio=1N): k1=0.0000 k10=1.0000 k100=1.0000 | M=8192(ratio=2N): k1=0.0000 k10=1.0000 k100=1.0000",
+    "elapsed_s": 0.55
+  }
+}

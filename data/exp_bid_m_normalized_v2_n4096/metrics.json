@@ -1,0 +1,41 @@
+{
+  "mode": "smoke",
+  "N": 512,
+  "m_fracs": [
+    0.05,
+    0.5,
+    5.0
+  ],
+  "seeds": [
+    17
+  ],
+  "elapsed_s": 23.23,
+  "cells": [
+    {
+      "M_frac": 0.05,
+      "seed": 17,
+      "bid": 48.00712643350034,
+      "M": 25,
+      "N": 512,
+      "outside_band": false
+    },
+    {
+      "M_frac": 0.5,
+      "seed": 17,
+      "bid": 24.47491486367274,
+      "M": 256,
+      "N": 512,
+      "outside_band": false
+    },
+    {
+      "M_frac": 5.0,
+      "seed": 17,
+      "bid": 37.22920641119681,
+      "M": 2560,
+      "N": 512,
+      "outside_band": false
+    }
+  ],
+  "verdict_tag": "BID_M2_HARD_PASS",
+  "verdict_msg": "BID M-SWEEP OUTSIDE BANDS: substrate-outside-Hopfield robust across M range. mfracs=[0.05, 0.5, 5.0] mean_bids={0.05: 48.0, 0.5: 24.5, 5.0: 37.2} low_M_outside=True monotone_ok=True N=512"
+}

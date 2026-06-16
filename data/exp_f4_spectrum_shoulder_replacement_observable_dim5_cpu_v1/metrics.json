@@ -1,0 +1,65 @@
+{
+  "anchor_name": "f4_spectrum_shoulder_replacement_observable_dim5_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (a robust REPLACEMENT dim-5 observable EXISTS at M=253): 5 candidate(s) are STABLE under bootstrap (CoV<=0.10): ['spectral_slope', 'effective_rank', 'hill_alpha', 'lambda1_over_lambda2', 'edge_excess']. Recommend spectral_slope as the dim-5 replacement for the failed TW edge -- it is measurable at the current corpus size AND audit-robust, unlike the TW edge (which had no spike/bulk separation to test). Codebook M=253 spectrum characterization (constructive follow-up to TW-DEFLATE HARD_FAIL; the spectrum is a continuous heavy shoulder, no TW edge). Candidate dim-5 observables ranked by bootstrap robustness: [('spectral_slope', 0.0105), ('effective_rank', 0.0161), ('hill_alpha', 0.0167), ('lambda1_over_lambda2', 0.0394), ('edge_excess', 0.0395)]. STABLE(CoV<=0.10): ['spectral_slope', 'effective_rank', 'hill_alpha', 'lambda1_over_lambda2', 'edge_excess']. Most robust: spectral_slope (CoV=0.0105). Full stats: {'hill_alpha': {'value': 1.152, 'boot_mean': 1.1847, 'cov': 0.0167}, 'lambda1_over_lambda2': {'value': 1.013, 'boot_mean': 1.0597, 'cov': 0.0394}, 'effective_rank': {'value': 83.7383, 'boot_mean': 79.5125, 'cov': 0.0161}, 'spectral_slope': {'value': -0.9784, 'boot_mean': -0.9668, 'cov': 0.0105}, 'edge_excess': {'value': 0.0672, 'boot_mean': 0.0707, 'cov': 0.0395}}. Measurement only -- feeds Research's TW-dim-5 protocol call; Strategy owns any pillar/cap_map change.",
+  "summary": "HARD_PASS (a robust REPLACEMENT dim-5 observable EXISTS at M=253): 5 candidate(s) are STABLE under bootstrap (CoV<=0.10): ['spectral_slope', 'effective_rank', 'hill_alpha', 'lambda1_over_lambda2', 'edge_excess']. Recommend spectral_slope as the dim-5 replacement for the failed TW edge -- it is measurable at the current corpus size AND audit-robust, unlike the TW edge (which had no spike/bulk separation to test). Codebook M=253 spectrum characterization (constructive follow-up to TW-DEFLATE HARD_FAIL; the spectrum is a continuous heavy shoulder, no TW edge). Candidate dim-5 observables ranked by bootstrap robustness: [('spectral_slope', 0.0105), ('effective_rank', 0.0161), ('hill_alpha', 0.0167), ('lambda1_over_lambda2', 0.0394), ('edge_excess', 0.0395)]. STABLE(CoV<=0.10): ['spectral_slope', 'effective_rank', 'hill_alpha', 'lambda1_over_lambda2', 'edge_excess']. Most robust: spectral_slope (CoV=0.0105). Full stats: {'hill_alpha': {'value': 1.152, 'boot_mean': 1.1847, 'cov': 0.0167}, 'lambda1_over_lambda2': {'value': 1.013, 'boot_mean': 1.0597, 'cov': 0.0394}, 'effective_rank': {'value': 83.7383, 'boot_mean': 79.5125, 'cov': 0.0161}, 'spectral_slope': {'value': -0.9784, 'boot_mean': -0.9668, 'cov': 0.0105}, 'edge_excess': {'value': 0.0672, 'boot_mean': 0.0707, 'cov': 0.0395}}. Measurement only -- feeds Research's TW-dim-5 protocol call; Strategy owns any pillar/cap_map change.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "M": 253,
+      "p": 1024,
+      "stats": {
+        "hill_alpha": {
+          "value": 1.152,
+          "boot_mean": 1.1847,
+          "cov": 0.0167
+        },
+        "lambda1_over_lambda2": {
+          "value": 1.013,
+          "boot_mean": 1.0597,
+          "cov": 0.0394
+        },
+        "effective_rank": {
+          "value": 83.7383,
+          "boot_mean": 79.5125,
+          "cov": 0.0161
+        },
+        "spectral_slope": {
+          "value": -0.9784,
+          "boot_mean": -0.9668,
+          "cov": 0.0105
+        },
+        "edge_excess": {
+          "value": 0.0672,
+          "boot_mean": 0.0707,
+          "cov": 0.0395
+        }
+      },
+      "ranked": [
+        [
+          "spectral_slope",
+          0.0105
+        ],
+        [
+          "effective_rank",
+          0.0161
+        ],
+        [
+          "hill_alpha",
+          0.0167
+        ],
+        [
+          "lambda1_over_lambda2",
+          0.0394
+        ],
+        [
+          "edge_excess",
+          0.0395
+        ]
+      ],
+      "n_boot": 100
+    }
+  ],
+  "elapsed_s": 2.873608350753784
+}

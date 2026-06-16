@@ -1,0 +1,14 @@
+{
+  "anchor_name": "continuous_regression_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: continuous-value readout R^2>=0.95 -- substrate stores numeric payloads, not just categories. R^2=1.0000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "r2": 0.9999999806575929
+    }
+  ],
+  "elapsed_s": 0.02309894561767578,
+  "summary": "HARD_PASS: continuous-value readout R^2>=0.95 -- substrate stores numeric payloads, not just categories. R^2=1.0000"
+}

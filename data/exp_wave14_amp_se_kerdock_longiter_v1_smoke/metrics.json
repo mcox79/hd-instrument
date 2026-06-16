@@ -1,0 +1,46 @@
+{
+  "verdict": "AMP_LONGITER_CONVERGES_TO_SE",
+  "verdict_msg": "AMP-on-Kerdock at 5x iters converges WITHIN 20% of scalar-SE prediction. 1/1 cells. This REVERSES v163: the perceived divergence was an under-iteration artefact. Substrate IS in AMP universality. Per-cell: {'EXPLODES': 0, 'OSCILLATES': 0, 'FIXED_POINT': 0, 'CONVERGES_TO_SE': 1, 'UNCLEAR': 0}",
+  "elapsed_s": 5.469000000040978,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 1.0,
+        "N": 1024,
+        "M": 1024,
+        "se_mse_scalar": 0.09512492197253852,
+        "mse_at_200_mean": 0.09469127030648906,
+        "mse_at_1000_mean": 0.09469127030648906,
+        "mse_final_mean": 0.09469127030648906,
+        "mse_max_mean": 0.4457498322319318,
+        "oscillation_relative_mean": 6.538697756766759e-05,
+        "log_mse_slope_last500_mean": 0.0,
+        "any_diverged": false,
+        "n_seeds": 2,
+        "traj_class": "CONVERGES_TO_SE"
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "M_over_N_list": [
+        1.0
+      ],
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_seeds": 2,
+      "n_iter": 200
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "M_over_N_list": [
+      1.0
+    ],
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_seeds": 2,
+    "n_iter": 200
+  }
+}

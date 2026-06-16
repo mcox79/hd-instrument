@@ -1,0 +1,27 @@
+{
+  "anchor_name": "depparse_hashed_multiseed_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: dep-parser UAS firmed multi-seed at 0.75-0.80 (stable MIDDLE; below 0.80 promotion bar). mean-UAS=0.7875 std=0.0008 SE=0.0004 mean-2SE=0.7867 (n=5, vals=[0.7864, 0.7867, 0.7886, 0.7876, 0.788], train=12329)",
+  "summary": "MIDDLE_BAND: dep-parser UAS firmed multi-seed at 0.75-0.80 (stable MIDDLE; below 0.80 promotion bar). mean-UAS=0.7875 std=0.0008 SE=0.0004 mean-2SE=0.7867 (n=5, vals=[0.7864, 0.7867, 0.7886, 0.7876, 0.788], train=12329)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "uas": 0.7875,
+      "accuracy": 0.7875,
+      "std": 0.0008,
+      "se": 0.0004,
+      "mean_minus_2se": 0.7867,
+      "vals": [
+        0.7864,
+        0.7867,
+        0.7886,
+        0.7876,
+        0.788
+      ],
+      "n_seeds": 5,
+      "n_train": 12329
+    }
+  ],
+  "elapsed_s": 901.4231505393982
+}

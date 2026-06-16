@@ -1,0 +1,170 @@
+{
+  "anchor_name": "crt_module_scaling_battery_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CRT capacity scales multiplicatively with module count (>=10x, tracks product) -- exponential composition confirmed. distinguishable by module-count at N=4096: {'m1': 5.0, 'm2': 35.0, 'm3': 315.0, 'm4': 3465.0, 'm5': 4000.0, 'm6': 4000.0} (max product=720720, P capped 4000) | 6-mod/1-mod=800.0x",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "seed": 7,
+      "by": {
+        "N2048_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N2048_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N2048_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N2048_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N2048_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N2048_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        },
+        "N4096_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N4096_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N4096_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N4096_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N4096_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N4096_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "by": {
+        "N2048_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N2048_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N2048_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N2048_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N2048_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N2048_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        },
+        "N4096_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N4096_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N4096_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N4096_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N4096_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N4096_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "by": {
+        "N2048_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N2048_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N2048_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N2048_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N2048_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N2048_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        },
+        "N4096_m1": {
+          "distinguishable": 5,
+          "product": 5
+        },
+        "N4096_m2": {
+          "distinguishable": 35,
+          "product": 35
+        },
+        "N4096_m3": {
+          "distinguishable": 315,
+          "product": 315
+        },
+        "N4096_m4": {
+          "distinguishable": 3465,
+          "product": 3465
+        },
+        "N4096_m5": {
+          "distinguishable": 4000,
+          "product": 45045
+        },
+        "N4096_m6": {
+          "distinguishable": 4000,
+          "product": 720720
+        }
+      }
+    }
+  ],
+  "elapsed_s": 21.501062154769897,
+  "summary": "HARD_PASS: CRT capacity scales multiplicatively with module count (>=10x, tracks product) -- exponential composition confirmed. distinguishable by module-count at N=4096: {'m1': 5.0, 'm2': 35.0, 'm3': 315.0, 'm4': 3465.0, 'm5': 4000.0, 'm6': 4000.0} (max product=720720, P capped 4000) | 6-mod/1-mod=800.0x"
+}

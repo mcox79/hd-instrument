@@ -1,0 +1,17 @@
+{
+  "anchor_name": "i4_w_sharding_vs_sharing_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: W-SHARDING is BFT-robust (other heads intact 0.90+ while sharing collapses) -- ship sharded multi-head architecture. after corrupting 1 head: sharding_other_recall=0.954 sharing_other_recall=0.000",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "sharding_recall": 0.9535864978902954,
+      "sharing_recall": 0.0
+    }
+  ],
+  "elapsed_s": 1.0555918216705322,
+  "summary": "HARD_PASS: W-SHARDING is BFT-robust (other heads intact 0.90+ while sharing collapses) -- ship sharded multi-head architecture. after corrupting 1 head: sharding_other_recall=0.954 sharing_other_recall=0.000"
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "zkl_hash_accumulator_vs_rsa_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hash accumulator is CHEAPER than RSA (hash/rsa<1) AND audit chain verifies+detects tampering -- post-quantum migration is free or better. hash=0.0006s rsa=0.9113s hash/rsa=0.0007 audit_chain_ok=True (n=100)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_facts": 100,
+      "hash_s": 0.0006016000406816602,
+      "rsa_s": 0.9112759999698028,
+      "hash_over_rsa": 0.0006601732523424249,
+      "chain_ok": true,
+      "tamper_ok": true
+    }
+  ],
+  "elapsed_s": 0.9893341064453125,
+  "summary": "HARD_PASS: hash accumulator is CHEAPER than RSA (hash/rsa<1) AND audit chain verifies+detects tampering -- post-quantum migration is free or better. hash=0.0006s rsa=0.9113s hash/rsa=0.0007 audit_chain_ok=True (n=100)"
+}

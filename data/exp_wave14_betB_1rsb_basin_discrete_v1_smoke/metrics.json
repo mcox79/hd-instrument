@@ -1,0 +1,31 @@
+{
+  "verdict": "BASIN_DISCRETE_HARD_FAIL",
+  "verdict_msg": "1-RSB basin-discrete REJECTED: |gap|=0.002<0.02. s17:gap=0.002,part=0.50,n_same=4,n_diff=4.",
+  "elapsed_s": 0.030999999959021807,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "mean_ret_same": 0.9163860380649567,
+        "mean_ret_diff": 0.9147739708423615,
+        "gap": 0.0016120672225952148,
+        "partition_clean": 0.5,
+        "n_same": 4,
+        "n_diff": 4
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 512,
+    "m_per_task": 50,
+    "n_pairs": 8,
+    "k_clusters": 4,
+    "seeds": [
+      17
+    ],
+    "device": "cpu",
+    "pass_gap": 0.1,
+    "pass_partition": 0.8,
+    "fail_gap": 0.02
+  }
+}

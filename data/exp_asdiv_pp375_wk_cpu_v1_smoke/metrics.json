@@ -1,0 +1,20 @@
+{
+  "anchor_name": "asdiv_pp375_wk_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PP-375 + WK reaches ASDiv-1op >=0.45 -- the two cycle wins COMPOUND (best mechanism + world-knowledge constants). +search+WK 1op=0.4870 (+search alone 0.4286, WK-lift +0.0584, text-order 0.4416, overall 0.3750). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "summary": "HARD_PASS: PP-375 + WK reaches ASDiv-1op >=0.45 -- the two cycle wins COMPOUND (best mechanism + world-knowledge constants). +search+WK 1op=0.4870 (+search alone 0.4286, WK-lift +0.0584, text-order 0.4416, overall 0.3750). PP-375 mechanism + question-guided WK constants (cycle's two wins combined).",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.487,
+      "textorder_1op": 0.4416,
+      "search_1op": 0.4286,
+      "searchwk_1op": 0.487,
+      "wk_lift": 0.0584,
+      "searchwk_overall": 0.375,
+      "n_test": 200
+    }
+  ],
+  "elapsed_s": 0.5164263248443604
+}

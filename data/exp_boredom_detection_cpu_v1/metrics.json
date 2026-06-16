@@ -1,0 +1,16 @@
+{
+  "anchor_name": "boredom_detection_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-native boredom signal discriminates repeated vs novel inputs (AUC>=0.85) AND tracks repetition density (corr>=0.5) -- intrinsic-motivation primitive from cleanup-margin against decayed recent experience, no LLM. AUC=1.000 density-corr=0.815",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "boredom_auc": 1.0,
+      "density_corr": 0.815,
+      "n": 4200
+    }
+  ],
+  "elapsed_s": 21.3070707321167,
+  "summary": "HARD_PASS: substrate-native boredom signal discriminates repeated vs novel inputs (AUC>=0.85) AND tracks repetition density (corr>=0.5) -- intrinsic-motivation primitive from cleanup-margin against decayed recent experience, no LLM. AUC=1.000 density-corr=0.815"
+}

@@ -1,0 +1,24 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 3 HP conditions. mean_cosine=0.8794 (HP>=0.8 HF<0.4) mean_spearman=0.8795 (HP>=0.6 HF<0.2) mean_acc=1.0000 (HP>=0.75 HF<0.4) n_seeds=2",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 1024,
+  "K_LOCS": 51,
+  "alpha": 0.0498046875,
+  "per_seed": [
+    {
+      "seed": 7,
+      "mean_cosine": 0.8787530637254902,
+      "spearman_rho": 0.8737713771377138,
+      "acc_K": 1.0
+    },
+    {
+      "seed": 17,
+      "mean_cosine": 0.8801317401960784,
+      "spearman_rho": 0.8852805280528053,
+      "acc_K": 1.0
+    }
+  ],
+  "elapsed_total_s": 0.11588239669799805
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "negation_query_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: negation (A-B) drives B-cluster contamination below 0.05 -- compositional 'A but not B' retrieval works. B-contamination top-20: plain=0.500 negated=0.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "plain": 0.5,
+      "neg": 0.0
+    }
+  ],
+  "elapsed_s": 0.023601293563842773,
+  "summary": "HARD_PASS: negation (A-B) drives B-cluster contamination below 0.05 -- compositional 'A but not B' retrieval works. B-contamination top-20: plain=0.500 negated=0.000"
+}

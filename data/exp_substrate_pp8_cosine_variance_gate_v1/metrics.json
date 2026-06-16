@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_pp8_cosine_variance_gate_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cosine-variance gate preserves >=90pct concept coverage at 10x -- working PP-8 extraction gate. cosine-variance-gate coverage by speedup: {'sp10': 0.97, 'sp50': 0.62, 'sp100': 0.62}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_speedup": {
+        "sp10": {
+          "cosine_var_cov": 0.97,
+          "random_cov": 0.98,
+          "maxsim_cov": 0.96
+        },
+        "sp50": {
+          "cosine_var_cov": 0.62,
+          "random_cov": 0.6,
+          "maxsim_cov": 0.62
+        },
+        "sp100": {
+          "cosine_var_cov": 0.62,
+          "random_cov": 0.64,
+          "maxsim_cov": 0.62
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.03557467460632324,
+  "summary": "HARD_PASS: cosine-variance gate preserves >=90pct concept coverage at 10x -- working PP-8 extraction gate. cosine-variance-gate coverage by speedup: {'sp10': 0.97, 'sp50': 0.62, 'sp100': 0.62}"
+}

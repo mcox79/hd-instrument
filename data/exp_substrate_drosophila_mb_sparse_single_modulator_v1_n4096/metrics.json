@@ -1,0 +1,151 @@
+{
+  "anchor_name": "substrate_drosophila_mb_sparse_single_modulator_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sparse+single does not help (gap<0.1). gap_mean=0.004 nats B_better=1/2 B_max_osc=0.15 meanA=2.702 meanB=2.697 nats",
+  "N": 256,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_steps": 60,
+  "sparse_f": 0.05,
+  "elapsed_s": 0.33593249320983887,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "A_dense_bipolar_k8": {
+          "cell": "A_dense_bipolar_k8",
+          "coding": "bipolar",
+          "cf_rpe": true,
+          "gating": true,
+          "K": 8,
+          "final_nats": 2.6867754459381104,
+          "best_nats": 2.6867754459381104,
+          "final_bpc_bits": 3.8761976118371453,
+          "mean_update_norm": 0.021080929723878702,
+          "norm_oscillation": 0.29684147329475524,
+          "alpha_max": 0.171875,
+          "val_curve_nats": [
+            [
+              0,
+              3.514132261276245
+            ],
+            [
+              20,
+              2.867697238922119
+            ],
+            [
+              40,
+              2.7873706817626953
+            ],
+            [
+              59,
+              2.6867754459381104
+            ]
+          ]
+        },
+        "B_sparse_single_cfrpe": {
+          "cell": "B_sparse_single_cfrpe",
+          "coding": "sparse",
+          "cf_rpe": true,
+          "gating": false,
+          "K": 1,
+          "final_nats": 2.6911022663116455,
+          "best_nats": 2.6911022663116455,
+          "final_bpc_bits": 3.8824398941328617,
+          "mean_update_norm": 0.06446269607792297,
+          "norm_oscillation": 0.1532482779648711,
+          "alpha_max": 0.17578125,
+          "val_curve_nats": [
+            [
+              0,
+              3.1976821422576904
+            ],
+            [
+              20,
+              2.853800058364868
+            ],
+            [
+              40,
+              2.7197799682617188
+            ],
+            [
+              59,
+              2.6911022663116455
+            ]
+          ]
+        }
+      },
+      "elapsed_s": 0.13294506072998047
+    },
+    {
+      "seed": 17,
+      "uniform_nats": 3.828641396489095,
+      "cells": {
+        "A_dense_bipolar_k8": {
+          "cell": "A_dense_bipolar_k8",
+          "coding": "bipolar",
+          "cf_rpe": true,
+          "gating": true,
+          "K": 8,
+          "final_nats": 2.716242790222168,
+          "best_nats": 2.716242790222168,
+          "final_bpc_bits": 3.918710003303923,
+          "mean_update_norm": 0.019504862433920304,
+          "norm_oscillation": 0.25018454291678066,
+          "alpha_max": 0.16796875,
+          "val_curve_nats": [
+            [
+              0,
+              3.3841841220855713
+            ],
+            [
+              20,
+              2.8547842502593994
+            ],
+            [
+              40,
+              2.7746431827545166
+            ],
+            [
+              59,
+              2.716242790222168
+            ]
+          ]
+        },
+        "B_sparse_single_cfrpe": {
+          "cell": "B_sparse_single_cfrpe",
+          "coding": "sparse",
+          "cf_rpe": true,
+          "gating": false,
+          "K": 1,
+          "final_nats": 2.703352689743042,
+          "best_nats": 2.703352689743042,
+          "final_bpc_bits": 3.900113519266127,
+          "mean_update_norm": 0.06432232844332854,
+          "norm_oscillation": 0.15248229265995303,
+          "alpha_max": 0.171875,
+          "val_curve_nats": [
+            [
+              0,
+              3.323390007019043
+            ],
+            [
+              20,
+              2.782867431640625
+            ],
+            [
+              40,
+              2.7250454425811768
+            ],
+            [
+              59,
+              2.703352689743042
+            ]
+          ]
+        }
+      },
+      "elapsed_s": 0.1320936679840088
+    }
+  ]
+}

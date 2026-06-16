@@ -1,0 +1,47 @@
+{
+  "verdict": "COMP_MIDDLE_BAND",
+  "verdict_msg": "COMPOSITION_NEUTRAL / mixed delta. cells=M512d3: B=1.000 D=1.000 E=0.750 cA=0.750 cB=1.000 cC=1.000",
+  "elapsed_s": 1.16,
+  "summary": {
+    "anchor": "mechanism_composition_at_breaking_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "cells": [
+      [
+        512,
+        3
+      ]
+    ],
+    "K_paths": 20,
+    "seeds": [
+      17
+    ],
+    "mechs": [
+      "B",
+      "D",
+      "E",
+      "cA",
+      "cB",
+      "cC"
+    ],
+    "rows": [
+      {
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "K_paths": 20,
+        "accs": {
+          "B": 1.0,
+          "D": 1.0,
+          "E": 0.75,
+          "cA": 0.75,
+          "cB": 1.0,
+          "cC": 1.0
+        }
+      }
+    ],
+    "verdict": "COMP_MIDDLE_BAND",
+    "verdict_msg": "COMPOSITION_NEUTRAL / mixed delta. cells=M512d3: B=1.000 D=1.000 E=0.750 cA=0.750 cB=1.000 cC=1.000",
+    "elapsed_s": 1.16
+  }
+}

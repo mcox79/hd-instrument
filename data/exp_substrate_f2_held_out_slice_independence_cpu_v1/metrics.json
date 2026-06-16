@@ -1,0 +1,53 @@
+{
+  "anchor_name": "substrate_f2_held_out_slice_independence_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (F2 AUTHORING-INDEPENDENT): held-out reverted F2=0.1915>=0.15 -- the abstraction families exist among pre-session atoms with pre-session signatures; F2 floor met independently of this session's authoring. F2 held-out independence (15th rule). FULL (all ops, current sigs) ratio=0.4043. PRE-SESSION slice (before 2026-06-13, 47 ops): current-sigs ratio=0.4043, REVERTED-sigs (authoring-blind) ratio=0.1915. 2-day slice: 0.2045. Un-timestamped ops=0. The REVERTED-on-slice number is the true authoring-independent F2 (pre-session atoms with pre-session signatures); current-on-slice still carries this-session retyping on pre-session operators.",
+  "summary": "HARD_PASS (F2 AUTHORING-INDEPENDENT): held-out reverted F2=0.1915>=0.15 -- the abstraction families exist among pre-session atoms with pre-session signatures; F2 floor met independently of this session's authoring. F2 held-out independence (15th rule). FULL (all ops, current sigs) ratio=0.4043. PRE-SESSION slice (before 2026-06-13, 47 ops): current-sigs ratio=0.4043, REVERTED-sigs (authoring-blind) ratio=0.1915. 2-day slice: 0.2045. Un-timestamped ops=0. The REVERTED-on-slice number is the true authoring-independent F2 (pre-session atoms with pre-session signatures); current-on-slice still carries this-session retyping on pre-session operators.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_operators_full": 47,
+      "n_untimestamped": 0,
+      "full_current": {
+        "families": 9,
+        "unified": 19,
+        "n_ops": 47,
+        "ratio": 0.4043
+      },
+      "slices": {
+        "before_2026-06-13": {
+          "n_slice_ops": 47,
+          "current": {
+            "families": 9,
+            "unified": 19,
+            "n_ops": 47,
+            "ratio": 0.4043
+          },
+          "reverted": {
+            "families": 4,
+            "unified": 9,
+            "n_ops": 47,
+            "ratio": 0.1915
+          }
+        },
+        "before_2026-06-12": {
+          "n_slice_ops": 44,
+          "current": {
+            "families": 9,
+            "unified": 19,
+            "n_ops": 44,
+            "ratio": 0.4318
+          },
+          "reverted": {
+            "families": 4,
+            "unified": 9,
+            "n_ops": 44,
+            "ratio": 0.2045
+          }
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.4755885601043701
+}

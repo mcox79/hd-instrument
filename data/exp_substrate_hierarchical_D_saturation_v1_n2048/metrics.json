@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_hierarchical_D_saturation_v1_n2048",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity scales linearly to D>=20 (independence held). D5:indep=1.00 cap=300 D10:indep=1.00 cap=600 D20:indep=1.00 cap=1200 | linear-to-D=20",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "N_dg": 2048,
+      "M0": 60,
+      "D5_indep": 1.0,
+      "D5_eff_cap": 300.0,
+      "D10_indep": 1.0,
+      "D10_eff_cap": 600.0,
+      "D20_indep": 1.0,
+      "D20_eff_cap": 1200.0
+    }
+  ],
+  "elapsed_s": 1.2166016101837158,
+  "summary": "HARD_PASS: capacity scales linearly to D>=20 (independence held). D5:indep=1.00 cap=300 D10:indep=1.00 cap=600 D20:indep=1.00 cap=1200 | linear-to-D=20"
+}

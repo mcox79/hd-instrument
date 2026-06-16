@@ -1,0 +1,32 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: floor_respected_frac=1.00 >= 0.60. Renyi-DP floor respected. N=256: ret_A=1.0000 floor=0.8187 corr=nan",
+  "elapsed_s": 0.030698537826538086,
+  "summary": {
+    "N256": {
+      "N": 256,
+      "n_seeds": 2,
+      "retention_A_mean": 0.9999999989999999,
+      "retention_A_std": 0.0,
+      "predicted_floor_mean": 0.8187307949969871,
+      "floor_respected_frac": 1.0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      256
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "M_per_task_mult": 0.1,
+    "renyi_alpha": 2.0,
+    "sigma_noise": 1.0,
+    "k_dilution": 0.1,
+    "field": "Differential Privacy / Renyi-DP composition",
+    "orthogonal_probe": true,
+    "P_deflated": 0.4
+  }
+}

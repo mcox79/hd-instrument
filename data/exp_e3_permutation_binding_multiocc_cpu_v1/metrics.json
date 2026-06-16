@@ -1,0 +1,18 @@
+{
+  "anchor_name": "e3_permutation_binding_multiocc_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: permutation-indexed binding resolves same-role collision +>=0.10 on multi-occurrence subset -- distinct occurrence keys recover operands FHRR superposition mixes. FHRR=0.0119 permutation=1.0000 lift=+0.9881 (multi-occurrence subset n=84)",
+  "summary": "HARD_PASS: permutation-indexed binding resolves same-role collision +>=0.10 on multi-occurrence subset -- distinct occurrence keys recover operands FHRR superposition mixes. FHRR=0.0119 permutation=1.0000 lift=+0.9881 (multi-occurrence subset n=84)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 1.0,
+      "fhrr_acc": 0.0119,
+      "perm_acc": 1.0,
+      "lift": 0.9881,
+      "n_subset": 84
+    }
+  ],
+  "elapsed_s": 0.07927083969116211
+}

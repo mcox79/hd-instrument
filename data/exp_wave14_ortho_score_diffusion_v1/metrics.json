@@ -1,0 +1,43 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: delta=0.0000 <= 0 ALL seeds at N=512. 1-step (1.0000) >= 3-step (1.0000). Single-step argmax already optimal; multi-step adds no benefit.",
+  "elapsed_s": 0.10921239852905273,
+  "summary": {
+    "N256": {
+      "N": 256,
+      "n_seeds": 2,
+      "acc_1step_mean": 1.0,
+      "acc_3step_mean": 1.0,
+      "delta_mean": 0.0,
+      "three_step_wins_frac": 0.0
+    },
+    "N512": {
+      "N": 512,
+      "n_seeds": 2,
+      "acc_1step_mean": 1.0,
+      "acc_3step_mean": 1.0,
+      "delta_mean": 0.0,
+      "three_step_wins_frac": 0.0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_list": [
+      256,
+      512
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "M_frac": 0.1,
+    "p_forward": [
+      0.05,
+      0.15,
+      0.3
+    ],
+    "field": "Score-based diffusion / discrete mask diffusion",
+    "orthogonal_probe": true,
+    "P_deflated": 0.39
+  }
+}

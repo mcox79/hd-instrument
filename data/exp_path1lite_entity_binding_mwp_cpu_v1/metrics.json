@@ -1,0 +1,19 @@
+{
+  "anchor_name": "path1lite_entity_binding_mwp_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: heuristic entity-binding <+0.04 over 0.39 -- 5th INDEPENDENT triangulation angle; operand-selection corpus/comprehension-bound; full Path-1 SRL likely also plateaus -> defer to Phase-6 ingestion per refined brain-can-do-it (honest negative IS evidence). acc=0.3402 (distractor-subset 0.1354 n=192, n=1364) vs discriminative ~0.39",
+  "summary": "HARD_FAIL: heuristic entity-binding <+0.04 over 0.39 -- 5th INDEPENDENT triangulation angle; operand-selection corpus/comprehension-bound; full Path-1 SRL likely also plateaus -> defer to Phase-6 ingestion per refined brain-can-do-it (honest negative IS evidence). acc=0.3402 (distractor-subset 0.1354 n=192, n=1364) vs discriminative ~0.39",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.3402,
+      "accuracy": 0.3402,
+      "lift_over_baseline": -0.0498,
+      "distractor_acc": 0.1354,
+      "n_distractor": 192,
+      "n": 1364
+    }
+  ],
+  "elapsed_s": 0.12820148468017578
+}

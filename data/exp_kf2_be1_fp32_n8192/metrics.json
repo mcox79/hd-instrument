@@ -1,0 +1,29 @@
+{
+  "anchor": "kf2_be1_fp32_n8192",
+  "precision": "fp32",
+  "N": 1024,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "precision": "fp32",
+      "M_frac": 2.0,
+      "M": 2048,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.010101,
+      "theory_bound": 0.03125,
+      "within_theory": true,
+      "precision_used": "fp32",
+      "precision_memory_bytes": 4194304,
+      "precision_baseline_bytes": 4194304,
+      "precision_compression_ratio": 1.0,
+      "precision_numel_W": 1048576
+    }
+  ],
+  "verdict": "KF2_BE1_FP32_MIDDLE_BAND",
+  "verdict_msg": "FP32_PARTIAL: 1/1 seeds pass, max_iso=0.01010",
+  "elapsed_s": 0.28
+}

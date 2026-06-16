@@ -1,0 +1,18 @@
+{
+  "anchor_name": "gdpr_crypto_erasure_1M_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: GDPR crypto-erasure at 1M -- 100pct unrecoverable, audit verifies, per-erase <0.5ms (Article-17 surgical erasure at production scale). erased=5000 per-erase=0.0004 ms unrecoverable=True audit_ok=True (N=50000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 50000,
+      "erased": 5000,
+      "per_erase_ms": 0.00039001998957246544,
+      "unrecoverable": true,
+      "audit_ok": true
+    }
+  ],
+  "elapsed_s": 0.1478874683380127,
+  "summary": "HARD_PASS: GDPR crypto-erasure at 1M -- 100pct unrecoverable, audit verifies, per-erase <0.5ms (Article-17 surgical erasure at production scale). erased=5000 per-erase=0.0004 ms unrecoverable=True audit_ok=True (N=50000)"
+}

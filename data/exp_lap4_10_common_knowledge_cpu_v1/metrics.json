@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_10_common_knowledge_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate represents bounded common knowledge to depth 6 >=0.75 -- nested 'everyone-knows-that-everyone-knows' resolves via repeated unbinding; epistemic depth holds. common-knowledge-recall=1.000 (depth up to 6)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "ck_recall": 1.0,
+      "kmax": 6,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 0.20322036743164062,
+  "summary": "HARD_PASS: substrate represents bounded common knowledge to depth 6 >=0.75 -- nested 'everyone-knows-that-everyone-knows' resolves via repeated unbinding; epistemic depth holds. common-knowledge-recall=1.000 (depth up to 6)"
+}

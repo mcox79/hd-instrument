@@ -1,0 +1,151 @@
+{
+  "anchor_name": "substrate_8channel_orchestration_rung1_tinychar_v1_n4096",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "SMOKE (informational): plumbing validated; 3-condition sweep ran across 2 seeds. mean_gain_8vs1=0.0000(HP>0.05) mean_gain_8vs4=0.0000(HP>0.02) n_valid_seeds=2 n_hp_seeds=0 any_8ch_worse_4ch=False any_pcgrad_collapse=False any_8ch_no_converge=False any_majority_antag=False. Cap implication: multi-channel substrate orchestration improves tiny-LM training efficiency; validates rung-1 gate for escalation to deeper models.",
+  "run_mode": "smoke",
+  "SUBSTRATE_N": 128,
+  "HIDDEN_DIM": 64,
+  "N_LAYERS": 2,
+  "N_STEPS": 200,
+  "BATCH_SIZE": 16,
+  "SEQ_LEN": 32,
+  "LR": 0.001,
+  "TRAIN_CHARS": 3000,
+  "HP_8VS1_FRAC": 0.05,
+  "HP_8VS4_FRAC": 0.02,
+  "MID_8VS1_FRAC": 0.02,
+  "HF_GRAD_RATIO": 0.01,
+  "conditions": [
+    "1ch",
+    "4ch",
+    "8ch"
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "n_seeds": 2,
+  "elapsed_s": 48.43727993965149,
+  "per_cell": [
+    {
+      "condition": "1ch",
+      "seed": 7,
+      "final_val_ce": 1.659145474433899,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 8.360635042190552,
+      "sigma_final": null,
+      "grad_norm_ratios": {}
+    },
+    {
+      "condition": "1ch",
+      "seed": 17,
+      "final_val_ce": 1.7030607461929321,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 7.83870792388916,
+      "sigma_final": null,
+      "grad_norm_ratios": {}
+    },
+    {
+      "condition": "4ch",
+      "seed": 7,
+      "final_val_ce": 1.659145474433899,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 7.596458435058594,
+      "sigma_final": [
+        0.9267868995666504,
+        0.8212087750434875,
+        0.818786084651947
+      ],
+      "grad_norm_ratios": {
+        "write": 53.4810460434284,
+        "monitor": 3.815567125416432,
+        "chain_consistency": 0.9182863386079597
+      }
+    },
+    {
+      "condition": "4ch",
+      "seed": 17,
+      "final_val_ce": 1.7030607461929321,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 8.067964315414429,
+      "sigma_final": [
+        0.925018310546875,
+        0.8210659027099609,
+        0.8183280825614929
+      ],
+      "grad_norm_ratios": {
+        "write": 61.36244516589567,
+        "monitor": 4.346823671372976,
+        "chain_consistency": 1.0018677143529997
+      }
+    },
+    {
+      "condition": "8ch",
+      "seed": 7,
+      "final_val_ce": 1.659145474433899,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 8.267301082611084,
+      "sigma_final": [
+        0.9267868995666504,
+        0.8188936114311218,
+        0.8212087750434875,
+        0.818786084651947,
+        0.8191773891448975,
+        0.8188936114311218,
+        0.8188936114311218,
+        0.8188931941986084
+      ],
+      "grad_norm_ratios": {
+        "write": 53.4810460434284,
+        "monitor": 3.815567125416432,
+        "chain_consistency": 0.9182863386079597,
+        "counterfactual": 0.8254381123292377,
+        "repulse_class": 0.0016865293724361737,
+        "curvature": 8.631994275998775
+      }
+    },
+    {
+      "condition": "8ch",
+      "seed": 17,
+      "final_val_ce": 1.7030607461929321,
+      "converged": true,
+      "grad_norm_ok": true,
+      "majority_antagonistic": false,
+      "antagonistic_pairs": [],
+      "elapsed_s": 8.30402159690857,
+      "sigma_final": [
+        0.925018310546875,
+        0.8188936114311218,
+        0.8210659027099609,
+        0.8183280825614929,
+        0.819192111492157,
+        0.8188936114311218,
+        0.818893551826477,
+        0.8188923001289368
+      ],
+      "grad_norm_ratios": {
+        "write": 61.36244516589567,
+        "monitor": 4.346823671372976,
+        "chain_consistency": 1.0018677143529997,
+        "repulse_class": 0.00047339591778745513,
+        "counterfactual": 2.2769218402253797,
+        "curvature": 11.928128235901209
+      }
+    }
+  ]
+}

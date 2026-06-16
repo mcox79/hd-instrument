@@ -1,0 +1,26 @@
+{
+  "verdict": "PNJ_RECTIFIER_FAIL",
+  "verdict_msg": "Symmetric or near-symmetric transfer: forward_acc=1.000, reverse_acc=1.000, ratio=1.00. ratio < 1.2. No rectifier behavior; pn-junction analogy does not hold at this K_A/K_B contrast.",
+  "elapsed_s": 0.015000000013969839,
+  "summary": {
+    "forward_acc": 1.0,
+    "reverse_acc": 1.0,
+    "K_A": 20,
+    "K_B": 80,
+    "per_seed": [
+      {
+        "fwd": 1.0,
+        "rev": 1.0
+      }
+    ],
+    "ratio": 1.0
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "K_A": 20,
+    "K_B": 80,
+    "n_probes": 20,
+    "n_seeds": 1
+  }
+}

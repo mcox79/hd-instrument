@@ -42,6 +42,20 @@ htmlcov/
 # Project
 data/*
 !data/.gitkeep
+# DECISION 220 Tier-1 preservation sweep: load-bearing experimental measurements.
+# Negation patterns must come BEFORE excludes that would re-exclude them.
+!data/*/
+!data/*/metrics.json
+!data/*/results.json
+!data/*/provenance.json
+!data/*/verdict.json
+!data/*/recent_verdicts.json
+# Keep heavy artifacts excluded even within data/<exp>/ dirs:
+data/*/model_weights.*
+data/*/*.npy
+data/*/*.pkl
+data/*/cache/
+data/*/__pycache__/
 *.log
 
 # MVP designs - gitignored until disclosure decision (see mvp/README.md)
@@ -69,8 +83,8 @@ cpu_runner_local_launcher_hidden.vbs
 # Dashboard runtime state cache
 tools/dashboard/.state/
 
-# Generated metrics snapshot
-metrics.json
+# Generated metrics snapshot (root-only; data/*/metrics.json explicitly tracked per DECISION 220)
+/metrics.json
 
 # Prereqs typo directory (real pre-registrations live in preregs/)
 prereqs/

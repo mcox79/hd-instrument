@@ -1,0 +1,17 @@
+{
+  "anchor_name": "alpha_mu_snap_interaction_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: HP retention broken. best_diffs_by_K={2: ('K2_tau0.01', -0.0020751953125), 4: ('K4_tau0.01', -0.0054931640625)} best_ret_hps={2: 0.7994384765625, 4: -0.0028076171875} HP_DIFF=0.2 HP_HP_RET=0.8 HF_HP_RET=0.5",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.713982343673706,
+  "K_list": [
+    2,
+    4
+  ],
+  "tau_snap_list": [
+    0.01,
+    0.05
+  ]
+}

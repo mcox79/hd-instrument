@@ -1,0 +1,17 @@
+{
+  "anchor_name": "h1_mmr_diversified_retrieval_rescue_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: MMR diversification cuts anchoring propagation <0.10 -- G8 row -> CONDITIONAL PASS (clustered KBs production-deployable with MMR). baseline_propagation=0.433 -> MMR_propagation=0.067 (lambda=0.5, k=10)",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "baseline_propagation": 0.43333333333333335,
+      "mmr_propagation": 0.06666666666666667
+    }
+  ],
+  "elapsed_s": 3.1001968383789062,
+  "summary": "HARD_PASS: MMR diversification cuts anchoring propagation <0.10 -- G8 row -> CONDITIONAL PASS (clustered KBs production-deployable with MMR). baseline_propagation=0.433 -> MMR_propagation=0.067 (lambda=0.5, k=10)"
+}

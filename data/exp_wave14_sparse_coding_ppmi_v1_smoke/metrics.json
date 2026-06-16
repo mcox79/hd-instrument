@@ -1,0 +1,43 @@
+{
+  "verdict": "SPARSE_CODING_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: n_pass=0, n_fail=2 of 2. M=50:lift_rand=-0.014,lift_pca=-0.024, M=100:lift_rand=-0.005,lift_pca=-0.010.",
+  "elapsed_s": 0.09399999998277053,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "50": {
+          "random": 0.056082089057111005,
+          "pca": 0.06574149708476136,
+          "sparse": 0.04187662839198856,
+          "lift_vs_rand": -0.014205460665122446,
+          "lift_vs_pca": -0.023864868692772802
+        },
+        "100": {
+          "random": 0.044549201278693905,
+          "pca": 0.04965686097928976,
+          "sparse": 0.03951782484469248,
+          "lift_vs_rand": -0.005031376434001422,
+          "lift_vs_pca": -0.010139036134597275
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 256,
+    "m_grid": [
+      50,
+      100
+    ],
+    "seeds": [
+      17
+    ],
+    "n_sparse_atoms": 256,
+    "l0_sparsity": 8,
+    "dict_iters": 6,
+    "pass_lift": 0.05,
+    "pass_m_vals": 3,
+    "fail_lift_tol": 0.01,
+    "fail_m_vals": 3
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "anchor": "activation_barrier_alpha_dependence_hysteresis_gap_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: nf_crit(0.05) > nf_crit(0.10) (2/2 seeds monotone). Activation barrier alpha-dependence confirmed. nf_crit_05=0.440 nf_crit_10=0.400 ratio=1.1000 n_monotone=2/2 predicted_barrier_ratio=2.3158",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.25971508026123047,
+  "predicted_barrier_ratio": 2.31578947368421,
+  "summary": "HARD_PASS: nf_crit(0.05) > nf_crit(0.10) (2/2 seeds monotone). Activation barrier alpha-dependence confirmed. nf_crit_05=0.440 nf_crit_10=0.400 ratio=1.1000 n_monotone=2/2 predicted_barrier_ratio=2.3158",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.10044741630554199,
+      "nf_crit_05": 0.44,
+      "nf_crit_10": 0.4,
+      "ratio_05_10": 1.0999999999999999,
+      "monotone_pass": true,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780456372.1098523
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.09675025939941406,
+      "nf_crit_05": 0.44,
+      "nf_crit_10": 0.4,
+      "ratio_05_10": 1.0999999999999999,
+      "monotone_pass": true,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780456372.2158043
+    }
+  ]
+}

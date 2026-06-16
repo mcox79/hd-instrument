@@ -1,0 +1,106 @@
+{
+  "verdict": "S7_HARD_PASS",
+  "verdict_msg": "ATLAS_CLEAN: clean=10/10 noisy=0 ratios={'audit_chain_verify': 1.219, 'batched_retrieve_B16': 1.298, 'batched_store_B16': 1.395, 'checkpoint_load': 1.915, 'checkpoint_save': 1.192, 'multi_hop_pathB_d5': 1.178, 'single_delete': 1.281, 'single_edit': 1.317, 'standard_retrieve': 1.7, 'standard_store': 2.08}",
+  "elapsed_s": 1.12,
+  "summary": {
+    "anchor": "op_timing_atlas_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "n_ops": 50,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ops": {
+          "standard_store": {
+            "n": 50,
+            "mean_ns": 548152,
+            "median_ns": 465000,
+            "p99_ns": 967000,
+            "throughput_ops": 2150.54,
+            "p99_med_ratio": 2.08
+          },
+          "batched_store_B16": {
+            "n": 50,
+            "mean_ns": 644052,
+            "median_ns": 641400,
+            "p99_ns": 894800,
+            "throughput_ops": 1559.09,
+            "p99_med_ratio": 1.395
+          },
+          "standard_retrieve": {
+            "n": 50,
+            "mean_ns": 162198,
+            "median_ns": 148800,
+            "p99_ns": 252900,
+            "throughput_ops": 6720.43,
+            "p99_med_ratio": 1.7
+          },
+          "batched_retrieve_B16": {
+            "n": 50,
+            "mean_ns": 290740,
+            "median_ns": 290300,
+            "p99_ns": 376700,
+            "throughput_ops": 3444.71,
+            "p99_med_ratio": 1.298
+          },
+          "single_edit": {
+            "n": 50,
+            "mean_ns": 2239058,
+            "median_ns": 2270600,
+            "p99_ns": 2991400,
+            "throughput_ops": 440.41,
+            "p99_med_ratio": 1.317
+          },
+          "single_delete": {
+            "n": 50,
+            "mean_ns": 1110616,
+            "median_ns": 1101700,
+            "p99_ns": 1411500,
+            "throughput_ops": 907.69,
+            "p99_med_ratio": 1.281
+          },
+          "audit_chain_verify": {
+            "n": 50,
+            "mean_ns": 4070694,
+            "median_ns": 3993400,
+            "p99_ns": 4867500,
+            "throughput_ops": 250.41,
+            "p99_med_ratio": 1.219
+          },
+          "checkpoint_save": {
+            "n": 50,
+            "mean_ns": 4894644,
+            "median_ns": 5233300,
+            "p99_ns": 6238300,
+            "throughput_ops": 191.08,
+            "p99_med_ratio": 1.192
+          },
+          "checkpoint_load": {
+            "n": 50,
+            "mean_ns": 2363390,
+            "median_ns": 1584600,
+            "p99_ns": 3033800,
+            "throughput_ops": 631.07,
+            "p99_med_ratio": 1.915
+          },
+          "multi_hop_pathB_d5": {
+            "n": 50,
+            "mean_ns": 3400480,
+            "median_ns": 3392700,
+            "p99_ns": 3996700,
+            "throughput_ops": 294.75,
+            "p99_med_ratio": 1.178
+          }
+        }
+      }
+    ],
+    "verdict": "S7_HARD_PASS",
+    "verdict_msg": "ATLAS_CLEAN: clean=10/10 noisy=0 ratios={'audit_chain_verify': 1.219, 'batched_retrieve_B16': 1.298, 'batched_store_B16': 1.395, 'checkpoint_load': 1.915, 'checkpoint_save': 1.192, 'multi_hop_pathB_d5': 1.178, 'single_delete': 1.281, 'single_edit': 1.317, 'standard_retrieve': 1.7, 'standard_store': 2.08}",
+    "elapsed_s": 1.12
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "anchor_name": "patternb_payload_mech2_signonly_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: sign-only does not recover chain-k234 to 0.70 at all K. sign-only: {'K2': 0.95, 'K3': 0.792, 'K4': 0.581} | phasor-baseline: {'K2': 0.9, 'K3': 0.7, 'K4': 0.556} (payload w=2.0)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base": {
+        "K2": 0.9,
+        "K3": 0.7,
+        "K4": 0.55625
+      },
+      "signonly": {
+        "K2": 0.95,
+        "K3": 0.7916666666666666,
+        "K4": 0.58125
+      },
+      "w": 2.0
+    }
+  ],
+  "elapsed_s": 0.04090571403503418,
+  "summary": "HARD_FAIL: sign-only does not recover chain-k234 to 0.70 at all K. sign-only: {'K2': 0.95, 'K3': 0.792, 'K4': 0.581} | phasor-baseline: {'K2': 0.9, 'K3': 0.7, 'K4': 0.556} (payload w=2.0)"
+}

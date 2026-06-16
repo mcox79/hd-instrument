@@ -1,0 +1,17 @@
+{
+  "anchor_name": "d2_4_neurogenesis_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: anomaly-driven neurogenesis discovers ~the true number of concepts and routes items to their shard (recall>=0.85, >> single-shard) -- substrate grows capacity adaptively to avoid interference, substrate-only. recall=1.000 single-shard=0.125 discovered-shards=8.0 (K=8)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "single_shard_recall": 0.125,
+      "discovered_shards": 8.0,
+      "true_K": 8
+    }
+  ],
+  "elapsed_s": 16.514094591140747,
+  "summary": "HARD_PASS: anomaly-driven neurogenesis discovers ~the true number of concepts and routes items to their shard (recall>=0.85, >> single-shard) -- substrate grows capacity adaptively to avoid interference, substrate-only. recall=1.000 single-shard=0.125 discovered-shards=8.0 (K=8)"
+}

@@ -1,0 +1,56 @@
+{
+  "anchor": "qe3_syndrome_error_correction_v1_n4096",
+  "verdict": "QE3_HARD_FAIL",
+  "verdict_msg": "NO MEANINGFUL CORRECTION: < 0.1 absolute reduction on >= 2/1 seeds. Parity-check syndrome does not unlock product-grade error reduction. baseline_err=0.2000 corrected_err=0.2200 mean_delta=-0.0200 n_seeds=1",
+  "verdict_tag": "QE3_HARD_FAIL",
+  "elapsed_s": 0.08,
+  "config": {
+    "N": 1024,
+    "M_frac": 2.0,
+    "seeds": [
+      17
+    ],
+    "syndrome_threshold": 0.95,
+    "smoke": true,
+    "n_probes": 50
+  },
+  "summary": {
+    "cells": [
+      {
+        "mode": "baseline",
+        "seed": 17,
+        "M_frac": 2.0,
+        "M": 2048,
+        "C": 4096,
+        "N": 1024,
+        "syndrome_threshold": 0.95,
+        "n_probes": 50,
+        "n_violations": 0,
+        "n_corrected": 0,
+        "accuracy": 0.800000011920929,
+        "error_rate": 0.19999998807907104
+      },
+      {
+        "mode": "corrected",
+        "seed": 17,
+        "M_frac": 2.0,
+        "M": 2048,
+        "C": 4096,
+        "N": 1024,
+        "syndrome_threshold": 0.95,
+        "n_probes": 50,
+        "n_violations": 1,
+        "n_corrected": 1,
+        "accuracy": 0.7799999713897705,
+        "error_rate": 0.2200000286102295
+      }
+    ],
+    "N": 1024,
+    "M_frac": 2.0,
+    "seeds": [
+      17
+    ],
+    "syndrome_threshold": 0.95,
+    "smoke": true
+  }
+}

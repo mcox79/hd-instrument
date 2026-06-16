@@ -1,0 +1,70 @@
+{
+  "verdict": "MS_KF1_HARD_PASS",
+  "verdict_msg": "COMPOSITE_CLEARS_CEILING: op_summaries={32: {'mean_weighted_auc': 1.0, 'std_weighted_auc': 0.0, 'max_auc_any_signal_mean': 0.8869}, 128: {'mean_weighted_auc': 1.0, 'std_weighted_auc': 0.0, 'max_auc_any_signal_mean': 0.9055}}",
+  "elapsed_s": 0.42,
+  "summary": {
+    "anchor": "multi_signal_kf1_design_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "ops": [
+      [
+        "low",
+        32
+      ],
+      [
+        "mid",
+        128
+      ]
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 32,
+        "seed": 17,
+        "N": 1024,
+        "per_signal_auc": {
+          "posterior_entropy": 1.0,
+          "spectral_spread": 1.0,
+          "bundle_norm": 1.0,
+          "geom_dist": 0.95281,
+          "replica_consistency": 0.61375
+        },
+        "composite_max_auc": 0.88687,
+        "composite_weighted_auc": 1.0,
+        "composite_weights": [
+          0.0,
+          0.0,
+          0.5,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "M": 128,
+        "seed": 17,
+        "N": 1024,
+        "per_signal_auc": {
+          "posterior_entropy": 1.0,
+          "spectral_spread": 1.0,
+          "bundle_norm": 1.0,
+          "geom_dist": 1.0,
+          "replica_consistency": 0.5387
+        },
+        "composite_max_auc": 0.9055,
+        "composite_weighted_auc": 1.0,
+        "composite_weights": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "verdict": "MS_KF1_HARD_PASS",
+    "verdict_msg": "COMPOSITE_CLEARS_CEILING: op_summaries={32: {'mean_weighted_auc': 1.0, 'std_weighted_auc': 0.0, 'max_auc_any_signal_mean': 0.8869}, 128: {'mean_weighted_auc': 1.0, 'std_weighted_auc': 0.0, 'max_auc_any_signal_mean': 0.9055}}",
+    "elapsed_s": 0.42
+  }
+}

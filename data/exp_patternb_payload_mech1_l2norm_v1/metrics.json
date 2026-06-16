@@ -1,0 +1,24 @@
+{
+  "anchor_name": "patternb_payload_mech1_l2norm_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: post-bind L2 normalization recovers chain-k234 to >=0.85 at K=2,3,4 -- Mechanism 1 is the v1.1 fix (ship in next release). normalized: {'K2': 1.0, 'K3': 0.992, 'K4': 0.975} | baseline: {'K2': 0.9, 'K3': 0.725, 'K4': 0.65} (payload w=2.0)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "base": {
+        "K2": 0.9,
+        "K3": 0.725,
+        "K4": 0.65
+      },
+      "norm": {
+        "K2": 1.0,
+        "K3": 0.9916666666666667,
+        "K4": 0.975
+      },
+      "w": 2.0
+    }
+  ],
+  "elapsed_s": 0.07203221321105957,
+  "summary": "HARD_PASS: post-bind L2 normalization recovers chain-k234 to >=0.85 at K=2,3,4 -- Mechanism 1 is the v1.1 fix (ship in next release). normalized: {'K2': 1.0, 'K3': 0.992, 'K4': 0.975} | baseline: {'K2': 0.9, 'K3': 0.725, 'K4': 0.65} (payload w=2.0)"
+}

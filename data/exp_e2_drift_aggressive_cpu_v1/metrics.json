@@ -1,0 +1,21 @@
+{
+  "anchor_name": "e2_drift_aggressive_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: encoder-drift monitor flags >=99pct of drifts with <=1pct false-positive -- detector saturates at aggressive drift (0.20-0.50) with low FP at benign baseline -- robust pre-GA guard. detection=1.000 false-positive=0.000 | by-magnitude: {'m0.20': 1.0, 'm0.30': 1.0, 'm0.40': 1.0, 'm0.50': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "detection": 1.0,
+      "fp": 0.0,
+      "curve": {
+        "m0.20": 1.0,
+        "m0.30": 1.0,
+        "m0.40": 1.0,
+        "m0.50": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 5.096954107284546,
+  "summary": "HARD_PASS: encoder-drift monitor flags >=99pct of drifts with <=1pct false-positive -- detector saturates at aggressive drift (0.20-0.50) with low FP at benign baseline -- robust pre-GA guard. detection=1.000 false-positive=0.000 | by-magnitude: {'m0.20': 1.0, 'm0.30': 1.0, 'm0.40': 1.0, 'm0.50': 1.0}"
+}

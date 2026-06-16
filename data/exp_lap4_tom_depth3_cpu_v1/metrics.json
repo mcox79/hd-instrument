@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap4_tom_depth3_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate represents depth-3 nested belief (A believes B believes C believes X) recall>=0.75 -- recursive theory-of-mind via nested binding; agent-belief composition holds 3 deep. depth3-ToM-recall=1.000 (n=200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "tom3_recall": 1.0,
+      "n": 200
+    }
+  ],
+  "elapsed_s": 0.4993915557861328,
+  "summary": "HARD_PASS: substrate represents depth-3 nested belief (A believes B believes C believes X) recall>=0.75 -- recursive theory-of-mind via nested binding; agent-belief composition holds 3 deep. depth3-ToM-recall=1.000 (n=200)"
+}

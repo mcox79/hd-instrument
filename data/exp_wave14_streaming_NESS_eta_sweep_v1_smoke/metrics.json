@@ -1,0 +1,102 @@
+{
+  "verdict": "NESS_BIMODAL_MIXED",
+  "verdict_msg": "Partial bimodality survival. Overall fraction = 0.50 in (0.30, 0.50). Per-eta: {'0.000': [1, 2], '0.010': [1, 2]}.",
+  "elapsed_s": 0.42099999997299165,
+  "summary": {
+    "cells": [
+      {
+        "alpha": 0.1,
+        "N": 1024,
+        "M": 102,
+        "beta": 2.0,
+        "eta": 0.0,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.15670572916666667,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.1,
+        "N": 1024,
+        "M": 102,
+        "beta": 2.0,
+        "eta": 0.01,
+        "bimodal_score_mean": 0.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.07797037760416667,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.1,
+        "N": 1024,
+        "M": 102,
+        "beta": 6.0,
+        "eta": 0.0,
+        "bimodal_score_mean": 1.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.998095703125,
+        "n_seeds": 2
+      },
+      {
+        "alpha": 0.1,
+        "N": 1024,
+        "M": 102,
+        "beta": 6.0,
+        "eta": 0.01,
+        "bimodal_score_mean": 1.0,
+        "bimodal_score_std": 0.0,
+        "q_mean_mean": 0.9769856770833334,
+        "n_seeds": 2
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 1024,
+      "alpha_list": [
+        0.1
+      ],
+      "beta_list": [
+        2.0,
+        6.0
+      ],
+      "eta_list": [
+        0.0,
+        0.01
+      ],
+      "n_seeds": 2,
+      "n_burn": 80,
+      "n_collect": 120,
+      "n_targets": 1
+    },
+    "overall_bimodal_fraction": 0.5,
+    "per_eta": {
+      "0.000": [
+        1,
+        2
+      ],
+      "0.010": [
+        1,
+        2
+      ]
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "alpha_list": [
+      0.1
+    ],
+    "beta_list": [
+      2.0,
+      6.0
+    ],
+    "eta_list": [
+      0.0,
+      0.01
+    ],
+    "n_seeds": 2,
+    "n_burn": 80,
+    "n_collect": 120,
+    "n_targets": 1
+  }
+}

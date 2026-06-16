@@ -1,0 +1,16 @@
+{
+  "anchor_name": "depparse_hashed_seed2_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: UAS 0.75-0.80 -- strong; 3rd-order/MST decode for 0.85. UAS=0.7872 (24444 arcs, train=12329)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uas": 0.7872,
+      "n_arcs": 24444,
+      "n_train": 12329
+    }
+  ],
+  "elapsed_s": 319.0333409309387,
+  "summary": "MIDDLE_BAND: UAS 0.75-0.80 -- strong; 3rd-order/MST decode for 0.85. UAS=0.7872 (24444 arcs, train=12329)"
+}

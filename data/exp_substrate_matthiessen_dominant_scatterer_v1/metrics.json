@@ -1,0 +1,31 @@
+{
+  "anchor_name": "substrate_matthiessen_dominant_scatterer_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: single dominant noise mechanism (codebook_collision >60%) -- clear optimization target. dominant=codebook_collision (100%) | load=0% collision=100% cue_noise=0%",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "base_err": 0.0,
+      "load_err": 0.0,
+      "coll_err": 0.80078125,
+      "noise_err": 0.0,
+      "frac_load": 0.0,
+      "frac_collision": 0.9999999987512196,
+      "frac_cue_noise": 0.0
+    },
+    {
+      "seed": 2,
+      "base_err": 0.0,
+      "load_err": 0.0,
+      "coll_err": 0.79296875,
+      "noise_err": 0.0,
+      "frac_load": 0.0,
+      "frac_collision": 0.9999999987389163,
+      "frac_cue_noise": 0.0
+    }
+  ],
+  "elapsed_s": 0.426957368850708,
+  "summary": "HARD_PASS: single dominant noise mechanism (codebook_collision >60%) -- clear optimization target. dominant=codebook_collision (100%) | load=0% collision=100% cue_noise=0%"
+}

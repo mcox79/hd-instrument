@@ -1,0 +1,532 @@
+{
+  "anchor": "substrate_curriculum_learning_small_lm_v1",
+  "run_mode": "smoke",
+  "seeds": [
+    7,
+    17
+  ],
+  "policies": [
+    "random",
+    "difficulty",
+    "loss_active",
+    "substrate"
+  ],
+  "config": {
+    "hidden": 64,
+    "train_chars": 20000,
+    "val_chars": 2000,
+    "test_chars": 2000,
+    "n_steps_max": 200,
+    "batch_size": 16,
+    "eval_every": 25,
+    "seq_len": 64,
+    "lr": 0.001,
+    "substrate_N": 2048,
+    "use_pythia": false
+  },
+  "per_cell": {
+    "seed7_policyrandom": {
+      "policy_name": "random",
+      "seed": 7,
+      "final_bpc_val": 2.454371617611105,
+      "final_bpc_test": 2.3780656026521965,
+      "step_to_threshold_bpc": 200,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          2.979825973510742,
+          4.257083160149747
+        ],
+        [
+          50,
+          2.596205711364746,
+          3.772130694821746
+        ],
+        [
+          75,
+          2.379560947418213,
+          3.4529632275587354
+        ],
+        [
+          100,
+          2.204777240753174,
+          3.216289109093399
+        ],
+        [
+          125,
+          2.070983409881592,
+          3.0078439434688766
+        ],
+        [
+          150,
+          1.8520084619522095,
+          2.810491626578258
+        ],
+        [
+          175,
+          1.789283037185669,
+          2.624366487620783
+        ],
+        [
+          200,
+          1.7228606939315796,
+          2.453994572521377
+        ]
+      ],
+      "wall_s": 6.661873817443848,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed7_policyrandom",
+      "_partial_written_at": 1780497016.0399537
+    },
+    "seed7_policydifficulty": {
+      "policy_name": "difficulty",
+      "seed": 7,
+      "final_bpc_val": 2.5094100161137156,
+      "final_bpc_test": 2.450266278871395,
+      "step_to_threshold_bpc": null,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.0654032230377197,
+          4.371121609764341
+        ],
+        [
+          50,
+          2.63433837890625,
+          3.842198791544704
+        ],
+        [
+          75,
+          2.397329330444336,
+          3.5017690661598615
+        ],
+        [
+          100,
+          2.19236159324646,
+          3.248947389115859
+        ],
+        [
+          125,
+          2.0241522789001465,
+          3.041332168768738
+        ],
+        [
+          150,
+          1.9539530277252197,
+          2.8550687127643064
+        ],
+        [
+          175,
+          1.8274774551391602,
+          2.6792753670639207
+        ],
+        [
+          200,
+          1.7423502206802368,
+          2.5169047190686777
+        ]
+      ],
+      "wall_s": 3.4156177043914795,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed7_policydifficulty",
+      "_partial_written_at": 1780497019.553071
+    },
+    "seed7_policyloss_active": {
+      "policy_name": "loss_active",
+      "seed": 7,
+      "final_bpc_val": 2.4966371494804003,
+      "final_bpc_test": 2.4357617619222047,
+      "step_to_threshold_bpc": 200,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.0863606929779053,
+          4.446210245529117
+        ],
+        [
+          50,
+          2.6339876651763916,
+          3.817712439160641
+        ],
+        [
+          75,
+          2.346353769302368,
+          3.4692537037202684
+        ],
+        [
+          100,
+          2.2216601371765137,
+          3.2240214705740224
+        ],
+        [
+          125,
+          2.0867810249328613,
+          3.0319135388942358
+        ],
+        [
+          150,
+          1.8944122791290283,
+          2.8401745314983815
+        ],
+        [
+          175,
+          1.8321142196655273,
+          2.663046052232601
+        ],
+        [
+          200,
+          1.7580702304840088,
+          2.49492207936696
+        ]
+      ],
+      "wall_s": 3.6424922943115234,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed7_policyloss_active",
+      "_partial_written_at": 1780497023.2787676
+    },
+    "seed7_policysubstrate": {
+      "policy_name": "substrate",
+      "seed": 7,
+      "final_bpc_val": 2.47362533872363,
+      "final_bpc_test": 2.442676867220386,
+      "step_to_threshold_bpc": 200,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.0404839515686035,
+          4.3759386933301885
+        ],
+        [
+          50,
+          2.67265248298645,
+          3.7968153861979164
+        ],
+        [
+          75,
+          2.435821056365967,
+          3.479047062293169
+        ],
+        [
+          100,
+          2.264566659927368,
+          3.241448064127155
+        ],
+        [
+          125,
+          2.1003012657165527,
+          3.033640631669863
+        ],
+        [
+          150,
+          1.9589781761169434,
+          2.844622701529213
+        ],
+        [
+          175,
+          1.8546302318572998,
+          2.6613297621172314
+        ],
+        [
+          200,
+          1.6572483777999878,
+          2.4810525062413817
+        ]
+      ],
+      "wall_s": 85.79083466529846,
+      "substrate_alpha_end": 1.5625,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed7_policysubstrate",
+      "_partial_written_at": 1780497109.2553947
+    },
+    "seed17_policyrandom": {
+      "policy_name": "random",
+      "seed": 17,
+      "final_bpc_val": 2.409353073458123,
+      "final_bpc_test": 2.3518040829671327,
+      "step_to_threshold_bpc": 200,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.0260963439941406,
+          4.343300384793061
+        ],
+        [
+          50,
+          2.638230085372925,
+          3.8563238126513917
+        ],
+        [
+          75,
+          2.3941409587860107,
+          3.5153498266700627
+        ],
+        [
+          100,
+          2.1657538414001465,
+          3.2312174181666045
+        ],
+        [
+          125,
+          2.075798511505127,
+          2.9975210180672223
+        ],
+        [
+          150,
+          1.9255845546722412,
+          2.7869224254244997
+        ],
+        [
+          175,
+          1.790562629699707,
+          2.589821869636913
+        ],
+        [
+          200,
+          1.6658735275268555,
+          2.4116657402876487
+        ]
+      ],
+      "wall_s": 6.6715028285980225,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed17_policyrandom",
+      "_partial_written_at": 1780497116.0265286
+    },
+    "seed17_policydifficulty": {
+      "policy_name": "difficulty",
+      "seed": 17,
+      "final_bpc_val": 2.442571844939745,
+      "final_bpc_test": 2.3874182341844294,
+      "step_to_threshold_bpc": 200,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.0940470695495605,
+          4.384444396298248
+        ],
+        [
+          50,
+          2.6289865970611572,
+          3.837864850240792
+        ],
+        [
+          75,
+          2.4028100967407227,
+          3.49780037301072
+        ],
+        [
+          100,
+          2.1711173057556152,
+          3.22770258723309
+        ],
+        [
+          125,
+          2.0181686878204346,
+          3.010700607546455
+        ],
+        [
+          150,
+          1.9442883729934692,
+          2.809738073844587
+        ],
+        [
+          175,
+          1.801034927368164,
+          2.6186254810077534
+        ],
+        [
+          200,
+          1.7052384614944458,
+          2.4419751887537813
+        ]
+      ],
+      "wall_s": 6.800065279006958,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed17_policydifficulty",
+      "_partial_written_at": 1780497122.9480336
+    },
+    "seed17_policyloss_active": {
+      "policy_name": "loss_active",
+      "seed": 17,
+      "final_bpc_val": 2.5530853811379166,
+      "final_bpc_test": 2.488751793308461,
+      "step_to_threshold_bpc": null,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          2.992185592651367,
+          4.317247807905422
+        ],
+        [
+          50,
+          2.6825551986694336,
+          3.8535306209208975
+        ],
+        [
+          75,
+          2.4015157222747803,
+          3.5057043516790727
+        ],
+        [
+          100,
+          2.2025082111358643,
+          3.251512918812274
+        ],
+        [
+          125,
+          2.082798719406128,
+          3.0599942641878375
+        ],
+        [
+          150,
+          2.010064125061035,
+          2.8864280185737154
+        ],
+        [
+          175,
+          1.9022706747055054,
+          2.7131788337253746
+        ],
+        [
+          200,
+          1.7651348114013672,
+          2.555031649678695
+        ]
+      ],
+      "wall_s": 6.774917840957642,
+      "substrate_alpha_end": null,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed17_policyloss_active",
+      "_partial_written_at": 1780497129.8387938
+    },
+    "seed17_policysubstrate": {
+      "policy_name": "substrate",
+      "seed": 17,
+      "final_bpc_val": 2.5059496606848617,
+      "final_bpc_test": 2.4630445253370077,
+      "step_to_threshold_bpc": null,
+      "n_steps_completed": 200,
+      "milestones": [
+        [
+          25,
+          3.068723201751709,
+          4.388956296650139
+        ],
+        [
+          50,
+          2.711885929107666,
+          3.905473143601953
+        ],
+        [
+          75,
+          2.522552013397217,
+          3.5853471955278526
+        ],
+        [
+          100,
+          2.300727367401123,
+          3.3075562173183335
+        ],
+        [
+          125,
+          2.172999620437622,
+          3.0803399837675585
+        ],
+        [
+          150,
+          1.9725069999694824,
+          2.869509408026653
+        ],
+        [
+          175,
+          1.8729685544967651,
+          2.6870305484925305
+        ],
+        [
+          200,
+          1.7170590162277222,
+          2.510624880061579
+        ]
+      ],
+      "wall_s": 92.73625159263611,
+      "substrate_alpha_end": 1.5625,
+      "N": 2048,
+      "run_mode": "smoke",
+      "smoke": true,
+      "_ckpt_key": "seed17_policysubstrate",
+      "_partial_written_at": 1780497222.807849
+    }
+  },
+  "summary": {
+    "random": {
+      "n_runs": 2,
+      "final_bpc_val_mean": 2.431862345534614,
+      "final_bpc_val_std": 0.03183291784971958,
+      "final_bpc_test_mean": 2.3649348428096646,
+      "final_bpc_test_std": 0.018569698653572577,
+      "step_to_threshold_mean": 200.0,
+      "step_to_threshold_all_reached": true
+    },
+    "difficulty": {
+      "n_runs": 2,
+      "final_bpc_val_mean": 2.4759909305267302,
+      "final_bpc_val_std": 0.04726172407922193,
+      "final_bpc_test_mean": 2.4188422565279124,
+      "final_bpc_test_std": 0.044440278582468455,
+      "step_to_threshold_mean": 200.5,
+      "step_to_threshold_all_reached": false
+    },
+    "loss_active": {
+      "n_runs": 2,
+      "final_bpc_val_mean": 2.524861265309158,
+      "final_bpc_val_std": 0.03991492739101895,
+      "final_bpc_test_mean": 2.462256777615333,
+      "final_bpc_test_std": 0.037469610528509695,
+      "step_to_threshold_mean": 200.5,
+      "step_to_threshold_all_reached": false
+    },
+    "substrate": {
+      "n_runs": 2,
+      "final_bpc_val_mean": 2.4897874997042457,
+      "final_bpc_val_std": 0.022856747256044016,
+      "final_bpc_test_mean": 2.4528606962786967,
+      "final_bpc_test_std": 0.014402109171152562,
+      "step_to_threshold_mean": 200.5,
+      "step_to_threshold_all_reached": false
+    }
+  },
+  "best_baseline": "random",
+  "best_baseline_bpc": 2.3649348428096646,
+  "best_baseline_step": 200.0,
+  "substrate_bpc": 2.4528606962786967,
+  "substrate_step": 200.5,
+  "random_bpc": 2.3649348428096646,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: substrate_bpc=2.4529 > random_bpc=2.3649; substrate-curriculum HURTS learning. Substrate-driven training-data selection underperformed uniform random sampling on char-level small-LM training. CAPABILITY IMPLICATION: substrate does NOT serve as a training-orchestration policy at this scale; rules out 'substrate-as-data-selector' direction for the LM pre-training cap_map row.",
+  "elapsed_s": 213.5571587085724
+}

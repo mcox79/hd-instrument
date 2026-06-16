@@ -1,0 +1,48 @@
+{
+  "verdict": "SW_GPU_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+  "elapsed_s": 0.72,
+  "summary": {
+    "anchor": "sparse_w_gpu_integration_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "Ms": [
+      32,
+      128
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 32,
+        "seed": 17,
+        "N": 1024,
+        "sparse_lat_s": 0.00081940133338018,
+        "dense_lat_s": 0.0010449686663923786,
+        "lat_ratio_sparse_over_dense": 0.78414,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "sparse_bytes": 262144,
+        "dense_bytes": 4194304,
+        "mem_savings": 16.0
+      },
+      {
+        "M": 128,
+        "seed": 17,
+        "N": 1024,
+        "sparse_lat_s": 0.0010361726665481304,
+        "dense_lat_s": 0.0012539513335408023,
+        "lat_ratio_sparse_over_dense": 0.82633,
+        "sparse_retention": 1.0,
+        "kf2_max_iso": 0.0,
+        "sparse_bytes": 1048576,
+        "dense_bytes": 4194304,
+        "mem_savings": 4.0
+      }
+    ],
+    "verdict": "SW_GPU_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+    "elapsed_s": 0.72
+  }
+}

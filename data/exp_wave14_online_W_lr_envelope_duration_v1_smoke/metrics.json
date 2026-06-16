@@ -1,0 +1,118 @@
+{
+  "verdict": "LR_ENVELOPE_INCONCLUSIVE",
+  "verdict_msg": "Missing p=0.4 for envelope E1_baseline_RM_tau10.",
+  "elapsed_s": 0.0470000000204891,
+  "summary": {
+    "cell_table": {
+      "E1_baseline_RM_tau10": {
+        "0.3": 0.6
+      },
+      "E2_brief_spike_rect": {
+        "0.3": 0.2
+      },
+      "E3_extended_rect": {
+        "0.3": 0.4
+      },
+      "E4_optogenetic_RM_tau40": {
+        "0.3": 0.4
+      }
+    },
+    "raw_cells": [
+      {
+        "envelope": "E1_baseline_RM_tau10",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.6,
+        "mean_final_acc": 0.6,
+        "seed_min_accs": [
+          0.6
+        ],
+        "seed_final_accs": [
+          0.6
+        ]
+      },
+      {
+        "envelope": "E2_brief_spike_rect",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.2,
+        "mean_final_acc": 0.2,
+        "seed_min_accs": [
+          0.2
+        ],
+        "seed_final_accs": [
+          0.2
+        ]
+      },
+      {
+        "envelope": "E3_extended_rect",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.4,
+        "mean_final_acc": 0.4,
+        "seed_min_accs": [
+          0.4
+        ],
+        "seed_final_accs": [
+          0.4
+        ]
+      },
+      {
+        "envelope": "E4_optogenetic_RM_tau40",
+        "p_flip": 0.3,
+        "mean_min_acc": 0.4,
+        "mean_final_acc": 0.4,
+        "seed_min_accs": [
+          0.4
+        ],
+        "seed_final_accs": [
+          0.4
+        ]
+      }
+    ],
+    "envelope_meta": {
+      "E1_baseline_RM_tau10": {
+        "sum": 10.0,
+        "peak": 1.3912629183383547,
+        "nonzero_steps": 10,
+        "rel_err": 0.0
+      },
+      "E2_brief_spike_rect": {
+        "sum": 10.0,
+        "peak": 5.0,
+        "nonzero_steps": 2,
+        "rel_err": 0.0
+      },
+      "E3_extended_rect": {
+        "sum": 10.0,
+        "peak": 1.0,
+        "nonzero_steps": 10,
+        "rel_err": 0.0
+      },
+      "E4_optogenetic_RM_tau40": {
+        "sum": 9.999999999999998,
+        "peak": 1.1078500957954014,
+        "nonzero_steps": 10,
+        "rel_err": 1.7763568394002506e-16
+      }
+    },
+    "n_seeds": 1,
+    "N": 64,
+    "n_writes": 10
+  },
+  "config": {
+    "N": 64,
+    "n_writes": 10,
+    "n_seeds": 1,
+    "noise_levels": [
+      0.3
+    ],
+    "snap_threshold": 1.0,
+    "target_lr_sum": 10.0,
+    "lr_sum_tolerance": 0.05,
+    "mode": "smoke",
+    "envelopes": [
+      "E1_baseline_RM_tau10",
+      "E2_brief_spike_rect",
+      "E3_extended_rect",
+      "E4_optogenetic_RM_tau40"
+    ]
+  }
+}

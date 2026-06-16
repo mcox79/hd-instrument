@@ -1,0 +1,39 @@
+{
+  "verdict": "PDAC2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL n_hp=1/1. mean_def_act=1.000 mean_acc_gated=1.000 mean_acc_base=1.000 mean_fp=0.000 mean_adv_max_sim=0.450 n_cells=1",
+  "elapsed_s": 0.04,
+  "summary": {
+    "anchor": "path_d_adversarial_composition_v2_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 5,
+    "K_paths": 100,
+    "n_adv": 9,
+    "n_leg": 2,
+    "seeds": [
+      17
+    ],
+    "collision_alpha": 0.45,
+    "defense_thresh": 0.5,
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "ok": true,
+        "n_leg": 2,
+        "n_adv": 9,
+        "n_leg_pass_gate": 2,
+        "defense_activation_rate": 1.0,
+        "fp_rate": 0.0,
+        "adv_mean_max_sim": 0.45,
+        "leg_mean_max_sim": 1.0,
+        "acc_path_d_baseline": 1.0,
+        "acc_path_d_gated": 1.0
+      }
+    ],
+    "verdict": "PDAC2_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL n_hp=1/1. mean_def_act=1.000 mean_acc_gated=1.000 mean_acc_base=1.000 mean_fp=0.000 mean_adv_max_sim=0.450 n_cells=1",
+    "elapsed_s": 0.04
+  }
+}

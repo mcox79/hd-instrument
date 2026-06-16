@@ -1,0 +1,82 @@
+{
+  "anchor_name": "substrate_polynomial_p4_bcm_factorial_rung1_v1_n512",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: no p4 arm learns (best p4 gap 0.199 < 0.3). gaps=p2_cumulative:-0.024 p2_episodic:-0.751 p4_cumulative:0.199 p4_episodic:-0.911 p4_beats_p2(cum=+0.223,epi=-0.160) p4_hp_seeds=0/2",
+  "N": 512,
+  "run_mode": "smoke",
+  "EPISODE": 200,
+  "n_seeds": 2,
+  "elapsed_s": 0.6525404453277588,
+  "per_seed": [
+    {
+      "seed": 7,
+      "uniform_bpc": 5.523561956057013,
+      "arms": {
+        "p2_cumulative": {
+          "p": 2,
+          "mode": "cumulative",
+          "bpc": 5.5962371826171875,
+          "gap": -0.07267522656017444,
+          "M": 5921
+        },
+        "p2_episodic": {
+          "p": 2,
+          "mode": "episodic",
+          "bpc": 6.336419105529785,
+          "gap": -0.8128571494727721,
+          "M": 200
+        },
+        "p4_cumulative": {
+          "p": 4,
+          "mode": "cumulative",
+          "bpc": 5.382894992828369,
+          "gap": 0.14066696322864392,
+          "M": 5921
+        },
+        "p4_episodic": {
+          "p": 4,
+          "mode": "episodic",
+          "bpc": 6.509169578552246,
+          "gap": -0.985607622495233,
+          "M": 200
+        }
+      },
+      "elapsed_s": 0.2898261547088623
+    },
+    {
+      "seed": 17,
+      "uniform_bpc": 5.523561956057013,
+      "arms": {
+        "p2_cumulative": {
+          "p": 2,
+          "mode": "cumulative",
+          "bpc": 5.499766826629639,
+          "gap": 0.023795129427374384,
+          "M": 5921
+        },
+        "p2_episodic": {
+          "p": 2,
+          "mode": "episodic",
+          "bpc": 6.212649822235107,
+          "gap": -0.6890878661780944,
+          "M": 200
+        },
+        "p4_cumulative": {
+          "p": 4,
+          "mode": "cumulative",
+          "bpc": 5.266744136810303,
+          "gap": 0.2568178192467103,
+          "M": 5921
+        },
+        "p4_episodic": {
+          "p": 4,
+          "mode": "episodic",
+          "bpc": 6.35899543762207,
+          "gap": -0.8354334815650573,
+          "M": 200
+        }
+      },
+      "elapsed_s": 0.2989046573638916
+    }
+  ]
+}

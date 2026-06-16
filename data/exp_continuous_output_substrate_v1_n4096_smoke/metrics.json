@@ -1,0 +1,28 @@
+{
+  "verdict": "CONT_HARD_PASS",
+  "verdict_msg": "PASS: continuous-output viable. interp_cos=0.978 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000 n_seeds=1",
+  "elapsed_s": 0.12,
+  "summary": {
+    "anchor": "continuous_output_substrate_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 64,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "interp_cosine": 0.97826,
+        "hallu_signal_AUC": 1.0,
+        "argmax_consistency": 1.0,
+        "kf2_max_iso": 0.0,
+        "M": 64,
+        "seed": 17,
+        "beta": 8.0
+      }
+    ],
+    "verdict": "CONT_HARD_PASS",
+    "verdict_msg": "PASS: continuous-output viable. interp_cos=0.978 hallu_AUC=1.000 argmax_cons=1.000 kf2_max_iso=0.000 n_seeds=1",
+    "elapsed_s": 0.12
+  }
+}

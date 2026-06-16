@@ -1,0 +1,72 @@
+{
+  "anchor_name": "tier4_multiseed_sweep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 4 new Tier-4 anchors (crystallized, excitability-gated, code2-adversarial, key-rotation-10K) SEED-ROBUST at n=5 -> Tier C. promote=4 fragile=0 fail=0 of 4 (n_seeds=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "per_anchor": {
+        "crystallized": {
+          "label": "crystallized",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "excitability": {
+          "label": "excitability",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "code2-adv": {
+          "label": "code2-adv",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        },
+        "key-rot-10k": {
+          "label": "key-rot-10k",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "PROMOTE_C"
+        }
+      },
+      "n_promote": 4,
+      "n_fragile": 0,
+      "n_fail": 0,
+      "n_anchors": 4,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 168.5618553161621,
+  "summary": "HARD_PASS: all 4 new Tier-4 anchors (crystallized, excitability-gated, code2-adversarial, key-rotation-10K) SEED-ROBUST at n=5 -> Tier C. promote=4 fragile=0 fail=0 of 4 (n_seeds=5)"
+}

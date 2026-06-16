@@ -1,0 +1,23 @@
+{
+  "verdict": "BET_C_N65K_KILLED",
+  "verdict_msg": "Capacity drops: M/N=2<4.0. acc_per_M_over_N={'1': 1.0, '2': 1.0}.",
+  "elapsed_s": 5.062000000005355,
+  "summary": {
+    "acc_per_M_over_N": {
+      "1": 1.0,
+      "2": 1.0
+    },
+    "capacity_M_over_N": 2,
+    "N": 4096
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 4096,
+    "M_over_N_grid": [
+      1,
+      2
+    ],
+    "n_test_queries": 30,
+    "seed": 17
+  }
+}

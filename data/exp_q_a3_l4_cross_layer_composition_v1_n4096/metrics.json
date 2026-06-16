@@ -1,0 +1,13 @@
+{
+  "anchor_name": "q_a3_l4_cross_layer_composition_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: L=4 composition confirmed at N=4096. L1_fid=1.0000 L2_fid=1.0000 L3_fid=1.0000 L4_fid=1.0000(HP>=0.93) l4_acc=1.0000(HP>=0.75 HF<0.4) n=2",
+  "N": 4096,
+  "M_inner": 30,
+  "M_mid2": 15,
+  "M_mid3": 8,
+  "M_outer": 4,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 2.47198748588562
+}

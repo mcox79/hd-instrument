@@ -1,0 +1,42 @@
+{
+  "verdict": "BET_N_ATOM_MODE_FLEXIBILITY",
+  "verdict_msg": "BET_N_ATOM_MODE_FLEXIBILITY: P1=HARD_PASS(util=0.896 sparsity_ratio=1.00) P2=MIDDLE(ratio_M200=1.061) P3=HARD_FAIL(cos_dist=0.000 corp_gap=0.000)",
+  "elapsed_s": 0.6630098819732666,
+  "summary": {
+    "p1_label": "HARD_PASS",
+    "p2_label": "MIDDLE",
+    "p3_label": "HARD_FAIL",
+    "effective_utilization": 0.896228147767389,
+    "atom_sparsity_avg": 4.0,
+    "cleanup_acc_ratio_at_M_closest": 1.0609756248256836,
+    "m_closest": 200,
+    "cosine_distance_centroids": 0.0,
+    "cross_corpus_retrieval_gap": 0.0,
+    "p2_per_corpus_ratios": {
+      "EN": 1.0609756248256836,
+      "PY": 1.0609756248256836,
+      "RND": 1.0609756248256836
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K": 32,
+    "k_active": 4,
+    "n_epochs": 2,
+    "m_grid": [
+      50,
+      200
+    ],
+    "seeds": [
+      7,
+      17
+    ],
+    "n_bytes": 10000,
+    "device": "cpu",
+    "p2_hard_pass_ratio": 1.1,
+    "p2_hard_fail_ratio": 0.8,
+    "p3_hard_pass_cos_dist": 0.85,
+    "p3_hard_fail_cos_dist": 0.4
+  }
+}

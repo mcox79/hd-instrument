@@ -1,0 +1,15 @@
+{
+  "anchor_name": "shard_overflow_split_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: splitting an overflowed shard restores recall to >=0.95 (from <0.80) -- online elastic sharding works. pre-split=0.160 post-split=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pre": 0.16,
+      "post": 1.0
+    }
+  ],
+  "elapsed_s": 5.331676244735718,
+  "summary": "HARD_PASS: splitting an overflowed shard restores recall to >=0.95 (from <0.80) -- online elastic sharding works. pre-split=0.160 post-split=1.000"
+}

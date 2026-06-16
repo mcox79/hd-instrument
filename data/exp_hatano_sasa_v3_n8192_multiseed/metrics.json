@@ -1,0 +1,39 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 0/1 seeds HS in range, 0/1 sigma_hk>0.01. mean_hs=0.6713 mean_sigma=0.0000.",
+  "elapsed_s": 0.13,
+  "summary": {
+    "n_seeds": 1,
+    "N": 512,
+    "M": 50,
+    "n_pass": 0,
+    "n_fail": 0,
+    "n_sigma_pass": 0,
+    "mean_hs": 0.6712598924964313,
+    "mean_sigma_hk": 0.0,
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 512,
+        "M": 50,
+        "hs_identity_val": 0.6712598924964313,
+        "sigma_hk": 0.0,
+        "mean_W_ex": 0.399453125,
+        "std_W_ex": 0.04127196680727277,
+        "n_traj": 50
+      }
+    }
+  },
+  "config": {
+    "N": 512,
+    "M": 50,
+    "seeds": [
+      17
+    ],
+    "n_traj": 50,
+    "corruption_ps": [
+      0.2
+    ],
+    "smoke": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "anchor_name": "nl_slot_filling_atis_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: slot-F1 0.65-0.85 -- substrate slot-filling partial; richer features/transitions for the 0.85 bar. slot-F1=0.7125 intent-acc=0.8455 (P=0.713 R=0.712)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "slot_f1": 0.7125,
+      "slot_prec": 0.713,
+      "slot_rec": 0.712,
+      "intent_acc": 0.8455,
+      "n_labels": 123,
+      "n_test": 893
+    }
+  ],
+  "elapsed_s": 14.022228717803955,
+  "summary": "MIDDLE_BAND: slot-F1 0.65-0.85 -- substrate slot-filling partial; richer features/transitions for the 0.85 bar. slot-F1=0.7125 intent-acc=0.8455 (P=0.713 R=0.712)"
+}

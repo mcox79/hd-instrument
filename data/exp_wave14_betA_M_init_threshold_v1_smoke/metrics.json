@@ -1,0 +1,40 @@
+{
+  "verdict": "BETA_M_INIT_UNIFORM_PASS",
+  "verdict_msg": "all M_init pass: {'256': {'mean_kept': 1.0, 'sd_kept': 0.0, 'n_seeds': 2}, '1024': {'mean_kept': 1.0, 'sd_kept': 0.0, 'n_seeds': 2}}.",
+  "elapsed_s": 26.23399999999674,
+  "summary": {
+    "threshold_M_init": null,
+    "per_M_init": {
+      "256": {
+        "mean_kept": 1.0,
+        "sd_kept": 0.0,
+        "n_seeds": 2
+      },
+      "1024": {
+        "mean_kept": 1.0,
+        "sd_kept": 0.0,
+        "n_seeds": 2
+      }
+    },
+    "M_init_grid": [
+      256,
+      1024
+    ],
+    "seeds": [
+      17,
+      23
+    ]
+  },
+  "config": {
+    "N": 4096,
+    "M_init_grid": [
+      256,
+      1024
+    ],
+    "n_edits": 50,
+    "seeds": [
+      17,
+      23
+    ]
+  }
+}

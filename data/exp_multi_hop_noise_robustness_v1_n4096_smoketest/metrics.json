@@ -1,0 +1,84 @@
+{
+  "verdict": "MH_NOISE_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_ROBUSTNESS: B: s0.00=1.000 s0.10=1.000 | D: s0.00=1.000 s0.10=1.000 | E: s0.00=1.000 s0.10=1.000",
+  "elapsed_s": 0.36,
+  "summary": {
+    "anchor": "multi_hop_noise_robustness_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 512,
+    "depth": 3,
+    "sigmas": [
+      0.0,
+      0.1
+    ],
+    "K_paths": 20,
+    "seeds": [
+      17
+    ],
+    "paths": [
+      "B",
+      "D",
+      "E"
+    ],
+    "cells": [
+      {
+        "path": "B",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 20,
+        "accuracy": 1.0
+      },
+      {
+        "path": "B",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 20,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 20,
+        "accuracy": 1.0
+      },
+      {
+        "path": "D",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 20,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.0,
+        "K_paths": 20,
+        "accuracy": 1.0
+      },
+      {
+        "path": "E",
+        "M": 512,
+        "depth": 3,
+        "seed": 17,
+        "sigma": 0.1,
+        "K_paths": 20,
+        "accuracy": 1.0
+      }
+    ],
+    "verdict": "MH_NOISE_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_ROBUSTNESS: B: s0.00=1.000 s0.10=1.000 | D: s0.00=1.000 s0.10=1.000 | E: s0.00=1.000 s0.10=1.000",
+    "elapsed_s": 0.36
+  }
+}

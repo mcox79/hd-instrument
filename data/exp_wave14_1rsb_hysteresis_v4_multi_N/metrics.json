@@ -1,0 +1,77 @@
+{
+  "verdict": "HYSTERESIS_1RSB_CONFIRMED_MULTI_N",
+  "verdict_msg": "HARD_PASS: 1-RSB hysteresis confirmed at 2/2 N values >= 0.1. All N show gap > 0.03. v3 N=1024 result generalizes. | N=256:gap=1.1232 N=512:gap=0.8349",
+  "elapsed_s": 33.813,
+  "summary": {
+    "N_sweep": [
+      256,
+      512
+    ],
+    "gaps_by_N": {
+      "256": 1.1232,
+      "512": 0.8349
+    },
+    "gap_v3_n1024_reference": 1.84,
+    "results_per_N": {
+      "256": {
+        "N": 256,
+        "max_hysteresis_gap_bpc": 1.1232,
+        "cells": [
+          {
+            "M": 2000,
+            "fwd_bpc_mean": 6.4075,
+            "rev_bpc_mean": 5.2843,
+            "gap_bpc": 1.1232
+          },
+          {
+            "M": 10000,
+            "fwd_bpc_mean": 4.6051,
+            "rev_bpc_mean": 4.2541,
+            "gap_bpc": 0.3509
+          },
+          {
+            "M": 48000,
+            "fwd_bpc_mean": 3.5358,
+            "rev_bpc_mean": 3.5017,
+            "gap_bpc": 0.0341
+          }
+        ]
+      },
+      "512": {
+        "N": 512,
+        "max_hysteresis_gap_bpc": 0.8349,
+        "cells": [
+          {
+            "M": 2000,
+            "fwd_bpc_mean": 5.7844,
+            "rev_bpc_mean": 4.9495,
+            "gap_bpc": 0.8349
+          },
+          {
+            "M": 10000,
+            "fwd_bpc_mean": 4.1836,
+            "rev_bpc_mean": 3.6302,
+            "gap_bpc": 0.5534
+          },
+          {
+            "M": 48000,
+            "fwd_bpc_mean": 3.063,
+            "rev_bpc_mean": 3.0379,
+            "gap_bpc": 0.025
+          }
+        ]
+      }
+    }
+  },
+  "config": {
+    "N_sweep": [
+      256,
+      512
+    ],
+    "seeds": [
+      17
+    ],
+    "epochs": 2,
+    "smoke": true
+  }
+}

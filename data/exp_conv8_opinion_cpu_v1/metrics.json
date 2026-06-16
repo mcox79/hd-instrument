@@ -1,0 +1,15 @@
+{
+  "anchor_name": "conv8_opinion_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: opinion-recall clears bar -- intent-conditioned routing works. opinion-recall=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0,
+      "K": 6
+    }
+  ],
+  "elapsed_s": 0.11067891120910645,
+  "summary": "HARD_PASS: opinion-recall clears bar -- intent-conditioned routing works. opinion-recall=1.000"
+}

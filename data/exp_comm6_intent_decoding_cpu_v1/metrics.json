@@ -1,0 +1,15 @@
+{
+  "anchor_name": "comm6_intent_decoding_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate decodes intent from varied surface forms >=0.85 -- recovers core meaning despite style variation + noise, substrate-only. Communication = meaning recovery from surface. accuracy=1.000 (n=150)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0,
+      "n": 150
+    }
+  ],
+  "elapsed_s": 0.34952354431152344,
+  "summary": "HARD_PASS: substrate decodes intent from varied surface forms >=0.85 -- recovers core meaning despite style variation + noise, substrate-only. Communication = meaning recovery from surface. accuracy=1.000 (n=150)"
+}

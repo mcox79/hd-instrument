@@ -1,0 +1,74 @@
+{
+  "verdict": "T4_HARD_PASS",
+  "verdict_msg": "PATH_E_USEFUL_APPLICATIONS: n_seeds=1 subA_pass=1/1 subB_pass=1/1 subC_pass=0/1 sub_total_pass=2/3",
+  "elapsed_s": 0.2,
+  "summary": {
+    "anchor": "path_e_engineering_characterization_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "n_paths": 8,
+    "suba_Ks": [
+      200
+    ],
+    "subc_sigmas": [
+      0.0,
+      0.2
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "n_paths": 8,
+        "sub_a": [
+          {
+            "sub": "A",
+            "K_high": 200,
+            "topk": 10,
+            "n_paths": 8,
+            "precision_at_topk": 1.0
+          }
+        ],
+        "sub_b": {
+          "sub": "B",
+          "budget_s": 0.05,
+          "elapsed_s": 0.0181,
+          "n_done": 8,
+          "n_correct": 8,
+          "accuracy_in_budget": 1.0
+        },
+        "sub_c": {
+          "sub": "C",
+          "sigmas": [
+            0.0,
+            0.2
+          ],
+          "by_sigma": {
+            "0.0": {
+              "acc": 1.0,
+              "lat_ns": 18430200,
+              "n_done": 8
+            },
+            "0.2": {
+              "acc": 1.0,
+              "lat_ns": 18273200,
+              "n_done": 8
+            }
+          },
+          "target_sigma": 0.2,
+          "speedup_at_target": 1.0086,
+          "ref_lat_ns": 18430200,
+          "target_lat_ns": 18273200
+        }
+      }
+    ],
+    "verdict": "T4_HARD_PASS",
+    "verdict_msg": "PATH_E_USEFUL_APPLICATIONS: n_seeds=1 subA_pass=1/1 subB_pass=1/1 subC_pass=0/1 sub_total_pass=2/3",
+    "elapsed_s": 0.2
+  }
+}

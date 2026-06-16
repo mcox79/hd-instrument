@@ -1,0 +1,31 @@
+{
+  "verdict": "GEOMETRIC_CONFIRMED",
+  "verdict_msg": "Geometric decay confirmed: fitted p=0.9605 in [0.94, 0.99], r2=0.980>=0.85. acc_per_L={'5': 0.9, '10': 0.8, '20': 0.5}. HMM cascade-error theory validated.",
+  "elapsed_s": 0.9379999999946449,
+  "summary": {
+    "acc_per_L": {
+      "5": 0.9,
+      "10": 0.8,
+      "20": 0.5
+    },
+    "fitted_p": 0.9604991833735405,
+    "fit_r2": 0.9797036513837929,
+    "predicted_p_per_hop": 0.97
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "num_entities": 200,
+    "num_relations": 20,
+    "num_facts": 100,
+    "L_grid": [
+      5,
+      10,
+      20
+    ],
+    "n_trials": 10,
+    "seeds": [
+      17
+    ]
+  }
+}

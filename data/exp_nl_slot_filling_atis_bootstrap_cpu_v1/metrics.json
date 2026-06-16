@@ -1,0 +1,23 @@
+{
+  "anchor_name": "nl_slot_filling_atis_bootstrap_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: slot-F1 point 0.65-0.85 or lower-CI<0.85 -- strong; firmed with bootstrap error bars but below sampling-robust 0.85 bar. slot-F1=0.7125 [95%CI 0.6933-0.7316 SE=0.0099] intent-acc=0.8455 (P=0.713 R=0.712, B=1000, test=893)",
+  "summary": "MIDDLE_BAND: slot-F1 point 0.65-0.85 or lower-CI<0.85 -- strong; firmed with bootstrap error bars but below sampling-robust 0.85 bar. slot-F1=0.7125 [95%CI 0.6933-0.7316 SE=0.0099] intent-acc=0.8455 (P=0.713 R=0.712, B=1000, test=893)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "slot_f1": 0.7125,
+      "slot_f1_lo": 0.6933,
+      "slot_f1_hi": 0.7316,
+      "slot_f1_se": 0.0099,
+      "intent_acc": 0.8455,
+      "intent_acc_lo": 0.8197,
+      "slot_prec": 0.713,
+      "slot_rec": 0.712,
+      "n_boot": 1000,
+      "n_test": 893
+    }
+  ],
+  "elapsed_s": 4.846150159835815
+}

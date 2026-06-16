@@ -1,0 +1,23 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: mean_ratio=0.7362 (HP>=0.85 HF<0.65) valid_frac=1.0000 (HP>=0.5 HF<0.2) n_seeds=2",
+  "n_seeds": 2,
+  "run_mode": "smoke",
+  "N": 512,
+  "ALPHA": 0.15,
+  "per_seed_summary": [
+    {
+      "seed": 7,
+      "mean_ratio_saddle": 0.7294820441066898,
+      "valid_frac": 1.0,
+      "n_valid_triples": 585276
+    },
+    {
+      "seed": 17,
+      "mean_ratio_saddle": 0.7429411071027499,
+      "valid_frac": 1.0,
+      "n_valid_triples": 585276
+    }
+  ],
+  "elapsed_total_s": 0.9391381740570068
+}

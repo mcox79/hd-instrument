@@ -1,0 +1,19 @@
+{
+  "anchor_name": "slipnet_noise_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the SLIPNET cross-domain crack is ROBUST to imperfect graphs -- relation-type correspondence holds >=0.60 at 25% edge noise. Cross-domain analogy survives real-world imperfect structure, substrate-only. Hits@1@25%-noise=0.709 curve={'0.0': 0.983, '0.15': 0.789, '0.25': 0.709}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "curve": {
+        "0.0": 0.983,
+        "0.15": 0.789,
+        "0.25": 0.709
+      },
+      "hits1_at_25pct": 0.709
+    }
+  ],
+  "elapsed_s": 3.1865720748901367,
+  "summary": "HARD_PASS: the SLIPNET cross-domain crack is ROBUST to imperfect graphs -- relation-type correspondence holds >=0.60 at 25% edge noise. Cross-domain analogy survives real-world imperfect structure, substrate-only. Hits@1@25%-noise=0.709 curve={'0.0': 0.983, '0.15': 0.789, '0.25': 0.709}"
+}

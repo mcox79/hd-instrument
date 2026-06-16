@@ -1,0 +1,351 @@
+{
+  "anchor_name": "substrate_74c_iter3_laptop_only_strict_discovery_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Iter3 produces 0 STRICT on a fresh isolated-target set: substrate's STRICT-discovery SATURATED after initial harvest; Phase 3 v0 is operationally a PLAUSIBLE-tier-expansion mechanism (honest scope per DECISION 74c HARD-FAIL). Iter3 laptop-only (cached-cosine generator + full-P2 + STRICT discriminator) on 102 fresh degree-0 targets: STRICT=0, PLAUSIBLE=336, REJECT=479. STRICT = W-DEF (definitional) + strictly-more-foundational direction + not-field-hub + CHTV (the Skunkworks DECISION 74 bar).",
+  "summary": "Iter3 produces 0 STRICT on a fresh isolated-target set: substrate's STRICT-discovery SATURATED after initial harvest; Phase 3 v0 is operationally a PLAUSIBLE-tier-expansion mechanism (honest scope per DECISION 74c HARD-FAIL). Iter3 laptop-only (cached-cosine generator + full-P2 + STRICT discriminator) on 102 fresh degree-0 targets: STRICT=0, PLAUSIBLE=336, REJECT=479. STRICT = W-DEF (definitional) + strictly-more-foundational direction + not-field-hub + CHTV (the Skunkworks DECISION 74 bar).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_targets": 102,
+      "strict_count": 0,
+      "plausible_count": 336,
+      "reject_count": 479,
+      "hub_thresh": 6.0,
+      "strict": [],
+      "plausible_sample": [
+        {
+          "edge": "acid_base->electrochemistry",
+          "cos": 0.695,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "acid_base->atomic_structure",
+          "cos": 0.685,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "acid_base->chemical_bond",
+          "cos": 0.671,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "active_matter->dynamical_systems",
+          "cos": 0.796,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "active_matter->complex_systems",
+          "cos": 0.747,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "active_matter->thermodynamics",
+          "cos": 0.704,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "algorithm->computational_complexity",
+          "cos": 0.728,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "algorithm->machine_learning",
+          "cos": 0.689,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "anderson_localization->spin_glass",
+          "cos": 0.772,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "anderson_localization->anderson_to_cleanup_attractors",
+          "cos": 0.745,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "anterior_temporal_lobe->hippocampus",
+          "cos": 0.691,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "anterior_temporal_lobe->memory_consolidation",
+          "cos": 0.639,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "anterior_temporal_lobe->connectome",
+          "cos": 0.622,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "atomic_structure->molecular_orbital_theory",
+          "cos": 0.694,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "atomic_structure->acid_base",
+          "cos": 0.685,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "atomic_structure->bose_hubbard_model",
+          "cos": 0.664,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "atomic_structure->hardy_weinberg_to_atom_equilibrium",
+          "cos": 0.656,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "attention_top_down->attention_mechanism",
+          "cos": 0.729,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T3"
+        },
+        {
+          "edge": "basal_ganglia->dopamine_rpe",
+          "cos": 0.712,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "basal_ganglia->dopamine_rpe_schultz",
+          "cos": 0.694,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "basal_ganglia->cerebellum",
+          "cos": 0.668,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "bose_einstein_condensate->quantum_mechanics",
+          "cos": 0.812,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "bose_einstein_condensate->quantum_entanglement",
+          "cos": 0.741,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "bose_hubbard_model->ising_model",
+          "cos": 0.748,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": false,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "bose_hubbard_model->quantum_mechanics",
+          "cos": 0.73,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "bose_hubbard_model->quantum_entanglement",
+          "cos": 0.707,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "cerebellum->cerebellum_internal_model",
+          "cos": 0.729,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "cerebellum->cerebellum_to_predictive_substrate",
+          "cos": 0.712,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "cerebellum->connectome",
+          "cos": 0.671,
+          "W-DEF": true,
+          "W-GRAPH": false,
+          "W-REV": false,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        },
+        {
+          "edge": "cerebellum->basal_ganglia",
+          "cos": 0.668,
+          "W-DEF": false,
+          "W-GRAPH": false,
+          "W-REV": true,
+          "dir_strict": false,
+          "not_hub": true,
+          "chtv": true,
+          "tier": "T1->T1"
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 0.7279977798461914
+}

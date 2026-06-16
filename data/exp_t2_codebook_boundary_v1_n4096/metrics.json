@@ -1,0 +1,40 @@
+{
+  "mode": "smoke",
+  "N": 1024,
+  "M_frac": 2.0,
+  "beta": 32.0,
+  "c_fracs": [
+    0.1,
+    0.3,
+    0.6,
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "elapsed_s": 0.61,
+  "cells": [
+    {
+      "seed": 17,
+      "M_frac": 2.0,
+      "M": 2048,
+      "c_fracs": [
+        0.1,
+        0.3,
+        0.6,
+        1.0
+      ],
+      "ret_by_c": [
+        0.705,
+        0.65,
+        0.68,
+        0.815
+      ],
+      "slope": 0.138,
+      "total_var": 0.165,
+      "mono_frac": 0.667
+    }
+  ],
+  "verdict_tag": "T2_CB_MIDDLE_BAND",
+  "verdict_msg": "Partial sensitivity but below threshold. pass_seeds=1/1 mean_slope=0.138 mean_total_var=0.165 M_frac=2.0 beta=32.0 N=1024"
+}

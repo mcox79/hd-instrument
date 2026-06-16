@@ -1,0 +1,109 @@
+{
+  "anchor_name": "substrate_stage_a_bio_b3_b6_ceiling_followup_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: B3/B6 ceiling B3a[top5 13.8x @perf0.83 HF] B3b[surprise 2.2x @perf1.16 HF] B6c[3x:decr=0.00/lru=0.00 4x:decr=0.00/lru=0.00 5x:decr=0.00/lru=0.00 ratio@3x=0.00 HF] (0/3 HP)",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B3a_top5",
+    "B3b_surprise",
+    "B6c_ceiling"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "B3": {
+        "gap_all": 2.2831797318015252,
+        "w_all": 15936,
+        "b3a_top5": {
+          "reduction": 13.797402597402597,
+          "perf": 0.8769274833614862,
+          "writes": 1155
+        },
+        "b3b_surprise": {
+          "reduction": 2.2972466484070924,
+          "perf": 1.179635325419557,
+          "writes": 6937
+        }
+      },
+      "B6": {
+        "m3x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m4x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m5x": {
+          "decr": 0.0,
+          "lru": 0.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "B3": {
+        "gap_all": 2.3234057991067685,
+        "w_all": 15936,
+        "b3a_top5": {
+          "reduction": 13.505084745762712,
+          "perf": 0.86835840992831,
+          "writes": 1180
+        },
+        "b3b_surprise": {
+          "reduction": 2.2473558031307292,
+          "perf": 1.1512434725503282,
+          "writes": 7091
+        }
+      },
+      "B6": {
+        "m3x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m4x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m5x": {
+          "decr": 0.0,
+          "lru": 0.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "B3": {
+        "gap_all": 2.297051140770724,
+        "w_all": 15936,
+        "b3a_top5": {
+          "reduction": 13.893635571054926,
+          "perf": 0.7484178985315546,
+          "writes": 1147
+        },
+        "b3b_surprise": {
+          "reduction": 1.772833463121593,
+          "perf": 1.1347789625236315,
+          "writes": 8989
+        }
+      },
+      "B6": {
+        "m3x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m4x": {
+          "decr": 0.0,
+          "lru": 0.0
+        },
+        "m5x": {
+          "decr": 0.0,
+          "lru": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 401.7645695209503,
+  "summary": "HARD_FAIL: B3/B6 ceiling B3a[top5 13.8x @perf0.83 HF] B3b[surprise 2.2x @perf1.16 HF] B6c[3x:decr=0.00/lru=0.00 4x:decr=0.00/lru=0.00 5x:decr=0.00/lru=0.00 ratio@3x=0.00 HF] (0/3 HP)"
+}

@@ -1,0 +1,55 @@
+{
+  "verdict": "REMOE_HARD_FAIL",
+  "verdict_msg": "ReLU-cosine router FAILS: retention_delta=-0.2569 < -0.015 OR entropy=2.902b > 3.5b OR K_eff=7.7 out of range. ReMoE gating does not rescue MoE SHIFT K-scaling. Escalate to Hebbian-anchor training or architecture redesign.",
+  "smoke": true,
+  "N": 512,
+  "elapsed_s": 0.0,
+  "results_per_variant_K": {
+    "relu_cosine": {
+      "4": {
+        "mean_retention": 0.74995,
+        "mean_entropy_bits": 0.8827,
+        "mean_k_eff": 1.98
+      },
+      "16": {
+        "mean_retention": 0.4931,
+        "mean_entropy_bits": 2.90197,
+        "mean_k_eff": 7.73
+      }
+    },
+    "threshold_cosine": {
+      "4": {
+        "mean_retention": 0.74995,
+        "mean_entropy_bits": 0.0,
+        "mean_k_eff": 0.0
+      },
+      "16": {
+        "mean_retention": 0.4931,
+        "mean_entropy_bits": 0.0,
+        "mean_k_eff": 0.0
+      }
+    },
+    "top2_cosine": {
+      "4": {
+        "mean_retention": 0.74995,
+        "mean_entropy_bits": 0.99972,
+        "mean_k_eff": 2.0
+      },
+      "16": {
+        "mean_retention": 0.4931,
+        "mean_entropy_bits": 0.99985,
+        "mean_k_eff": 2.0
+      }
+    }
+  },
+  "thresholds": {
+    "hard_pass_k_eff_range": [
+      6,
+      12
+    ],
+    "hard_pass_retention_delta": -0.005,
+    "hard_pass_entropy_max": 2.5,
+    "hard_fail_retention_delta": -0.015,
+    "hard_fail_entropy_max": 3.5
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "verdict": "FOURSTAGE_HARD_PASS",
+  "verdict_msg": "4-stage CL works: retention_A=1.000>=0.8 retention_B=0.907>=0.7 retention_C=0.851>=0.7. K2 KILLER T1 substrate scaled to 4 stages.",
+  "elapsed_s": 30.81,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 1.0,
+        "retention_B": 0.9074791517422544,
+        "retention_C": 0.8508322369343375,
+        "bpc_A_baseline_NA": 2.928639429617847,
+        "bpc_A_baseline": 6.530573350233502,
+        "bpc_A_after_D": 5.527442126179262,
+        "bpc_B_baseline": 5.510015440296785,
+        "bpc_B_after_D": 6.071781847239351,
+        "bpc_C_baseline": 2.6534912963083084,
+        "bpc_C_after_D": 3.1187009390584364
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N_A": 2048,
+    "N_B": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 50000,
+    "seeds": [
+      17
+    ]
+  },
+  "N_A": 2048,
+  "N_B": 1024
+}

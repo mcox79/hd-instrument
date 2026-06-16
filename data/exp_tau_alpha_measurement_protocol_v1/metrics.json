@@ -1,0 +1,13 @@
+{
+  "anchor_name": "tau_alpha_measurement_protocol_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: frac_pass=0.00 < 0.5. alpha_pass=0/2 frac_hp=0.00 (HP>=0.75) mean_rel_devs={'0.05': 0.9209677145078381, '0.1': 0.9017503163964182} HP_REL_DEV=0.15 HF_REL_DEV=3.0",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 1.0838520526885986,
+  "alpha_list": [
+    0.05,
+    0.1
+  ]
+}

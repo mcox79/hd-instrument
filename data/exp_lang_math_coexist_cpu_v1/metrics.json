@@ -1,0 +1,18 @@
+{
+  "anchor_name": "lang_math_coexist_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate algebra is UNIFIED across language + math -- one substrate, one codebook, one set of ops binds/recalls language facts (>=0.95), math facts (>=0.95), AND cross-domain math-result-to-language-label (>=0.95) with no domain interference. Substrate IS the domain-agnostic compositional algebra. lang=1.000 math=1.000 cross=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "language_recall": 1.0,
+      "math_recall": 1.0,
+      "cross_domain_recall": 1.0,
+      "KL": 150,
+      "KM": 150
+    }
+  ],
+  "elapsed_s": 1.2720396518707275,
+  "summary": "HARD_PASS: substrate algebra is UNIFIED across language + math -- one substrate, one codebook, one set of ops binds/recalls language facts (>=0.95), math facts (>=0.95), AND cross-domain math-result-to-language-label (>=0.95) with no domain interference. Substrate IS the domain-agnostic compositional algebra. lang=1.000 math=1.000 cross=1.000"
+}

@@ -1,0 +1,32 @@
+{
+  "anchor_name": "asdiv_3op_ceiling_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 3-op ceiling 0.65-0.85 -- partial architectural reach; a meaningful fraction of 3-op ASDiv needs implicit constants/world-knowledge (out of substrate arithmetic scope). 3-op ceiling=0.6835 (n=79) | 2-op=0.8333 | 1-op=0.7212 (simple->complex split). Failures = answer needs an implicit constant not in text, or non-arithmetic op.",
+  "summary": "MIDDLE_BAND: 3-op ceiling 0.65-0.85 -- partial architectural reach; a meaningful fraction of 3-op ASDiv needs implicit constants/world-knowledge (out of substrate arithmetic scope). 3-op ceiling=0.6835 (n=79) | 2-op=0.8333 | 1-op=0.7212 (simple->complex split). Failures = answer needs an implicit constant not in text, or non-arithmetic op.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "op1": {
+        "ceiling": 0.7212,
+        "n": 1363,
+        "hit": 983,
+        "capped_long": 1
+      },
+      "op2": {
+        "ceiling": 0.8333,
+        "n": 426,
+        "hit": 355,
+        "capped_long": 0
+      },
+      "op3": {
+        "ceiling": 0.6835,
+        "n": 79,
+        "hit": 54,
+        "capped_long": 0
+      },
+      "ceiling_3op": 0.6835
+    }
+  ],
+  "elapsed_s": 0.17670488357543945
+}

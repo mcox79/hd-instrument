@@ -1,0 +1,52 @@
+{
+  "spec": {
+    "name": "exp_connectivity_resonator",
+    "seed": 42,
+    "n": 4096,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-17T11:35:11",
+  "total_events": 0,
+  "total_wall_time_us": 0.0,
+  "n_entities": 50,
+  "n_facts": 150,
+  "n_substrate": 4096,
+  "trials_per_hop": 30,
+  "n_hops_tested": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "num_hebbian_training_passes": 50,
+  "resonator_temperature": 5.0,
+  "results_by_hop": {
+    "1": {
+      "vsa_recall": 1.0,
+      "resonator_recall": 0.99,
+      "hebbian_recall": 1.0
+    },
+    "2": {
+      "vsa_recall": 0.49777777777777776,
+      "resonator_recall": 0.48592592592592593,
+      "hebbian_recall": 0.917037037037037
+    },
+    "3": {
+      "vsa_recall": 0.3712374581939799,
+      "resonator_recall": 0.4013377926421405,
+      "hebbian_recall": 0.3779264214046823
+    },
+    "4": {
+      "vsa_recall": 0.16,
+      "resonator_recall": 0.08,
+      "hebbian_recall": 0.0
+    },
+    "5": {
+      "vsa_recall": 0.0,
+      "resonator_recall": 0.0,
+      "hebbian_recall": 0.0
+    }
+  },
+  "headline": "2-hop: VSA=0.50, resonator=0.49, hebbian=0.92"
+}

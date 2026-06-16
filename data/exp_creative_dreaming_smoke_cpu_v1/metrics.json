@@ -1,0 +1,17 @@
+{
+  "anchor_name": "creative_dreaming_smoke_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate offline-replay (DREAMING) generates >=5/20 NOVEL + COHERENT concept recombinations -- substrate recombines role-filler bindings into novel type-consistent concepts and reconstructs them via cleanup, no LLM. Substrate-only creative existence proof; drill-G LLM-hybrid framing not required here. novel+coherent=19/20 novel=19",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "novel_coherent": 19,
+      "novel": 19,
+      "n_sample": 20,
+      "n_concepts": 100
+    }
+  ],
+  "elapsed_s": 0.056952714920043945,
+  "summary": "HARD_PASS: substrate offline-replay (DREAMING) generates >=5/20 NOVEL + COHERENT concept recombinations -- substrate recombines role-filler bindings into novel type-consistent concepts and reconstructs them via cleanup, no LLM. Substrate-only creative existence proof; drill-G LLM-hybrid framing not required here. novel+coherent=19/20 novel=19"
+}

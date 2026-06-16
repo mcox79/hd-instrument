@@ -1,0 +1,31 @@
+{
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: No GC signature. gc_r2=0.040 asymm=4.936112. Substrate trajectories do not satisfy large-deviations GC relation.",
+  "elapsed_s": 1.41,
+  "summary": {
+    "n_valid": 1,
+    "n_seeds": 1,
+    "per_seed": {
+      "17": {
+        "valid": true,
+        "N": 512,
+        "gc_slope": -43.05470189638549,
+        "gc_linearity_r2": 0.03969864760871454,
+        "rate_fn_asymmetry": 4.93611161150839,
+        "sigma_dot_empirical": -0.04564319592042898,
+        "gc_sigma_match": 942.2884811386879,
+        "baseline_gc_slope": -116.24398109553216,
+        "n_gc_pairs": 49
+      }
+    }
+  },
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "T": 500,
+    "alpha_ratio": 0.125,
+    "smoke": true
+  }
+}

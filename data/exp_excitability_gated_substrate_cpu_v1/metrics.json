@@ -1,0 +1,17 @@
+{
+  "anchor_name": "excitability_gated_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: excitability gate protects high-priority items above the capacity cliff -- priority-proportional write-gain keeps high-priority recall>=0.90 while ungated collapses to 0.50. Cliff-aware priority protection via wrapper, no core change. gated_hi=1.000 ungated_hi=0.500 (K=1200)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "gated_hi_recall": 1.0,
+      "ungated_hi_recall": 0.5,
+      "K": 1200,
+      "n_hi": 40
+    }
+  ],
+  "elapsed_s": 0.9711391925811768,
+  "summary": "HARD_PASS: excitability gate protects high-priority items above the capacity cliff -- priority-proportional write-gain keeps high-priority recall>=0.90 while ungated collapses to 0.50. Cliff-aware priority protection via wrapper, no core change. gated_hi=1.000 ungated_hi=0.500 (K=1200)"
+}

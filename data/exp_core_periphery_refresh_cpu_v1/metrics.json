@@ -1,0 +1,16 @@
+{
+  "anchor_name": "core_periphery_refresh_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: TEMPORAL refresh-cycle RESCUES core protection -- decay (bounded capacity) + periodic core re-injection keeps core recall >=0.90 after 5000 edits (vs failed baseline 0.00). Self-mod stability via TIME (decay+refresh), not fixed topological protection -- confirms the temporal meta-pattern. refresh=1.000 baseline=0.002 after 5000 edits",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "refresh_core_recall": 1.0,
+      "baseline_core_recall": 0.002,
+      "edits": 5000
+    }
+  ],
+  "elapsed_s": 66.76328659057617,
+  "summary": "HARD_PASS: TEMPORAL refresh-cycle RESCUES core protection -- decay (bounded capacity) + periodic core re-injection keeps core recall >=0.90 after 5000 edits (vs failed baseline 0.00). Self-mod stability via TIME (decay+refresh), not fixed topological protection -- confirms the temporal meta-pattern. refresh=1.000 baseline=0.002 after 5000 edits"
+}

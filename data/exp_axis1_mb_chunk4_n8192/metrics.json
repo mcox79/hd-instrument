@@ -1,0 +1,58 @@
+{
+  "verdict": "AXIS1C4_MIDDLE_BAND",
+  "verdict_msg": "Phase boundary shifted: M_50/N=4.0 at N=8192 (chunk2 M_50/N=8.0, shift=4.0 > tol 2.0). ret_by_MoverN={4.0: 0.215, 8.0: 0.13}.",
+  "elapsed_s": 0.05631303787231445,
+  "config": {
+    "N": 512,
+    "M_fracs": [
+      4.0,
+      8.0
+    ],
+    "betas": [
+      4.0,
+      64.0
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "summary": {
+    "cells": [
+      {
+        "M": 2048,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.2150000035762787,
+        "bundle_norm_var": 50.73456573486328
+      },
+      {
+        "M": 2048,
+        "beta": 64.0,
+        "seed": 17,
+        "retention": 0.2150000035762787,
+        "bundle_norm_var": 50.73456573486328
+      },
+      {
+        "M": 4096,
+        "beta": 4.0,
+        "seed": 17,
+        "retention": 0.12999999523162842,
+        "bundle_norm_var": 82.63069152832031
+      },
+      {
+        "M": 4096,
+        "beta": 64.0,
+        "seed": 17,
+        "retention": 0.12999999523162842,
+        "bundle_norm_var": 82.63069152832031
+      }
+    ],
+    "N": 512,
+    "M_fracs": [
+      4.0,
+      8.0
+    ],
+    "smoke": true
+  }
+}

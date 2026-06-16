@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_sq6_graph_adjacency_v2_cleanup_n2048",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: graph capacity < 0.25N edges. acc E0.25N:0.74 E0.5N:0.68 E1.0N:0.63 E2.0N:0.60 | E_max=0.0N",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "E0.25",
+    "E0.5",
+    "E1.0",
+    "E2.0"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "E0.25": 0.75,
+      "E0.5": 0.673828125,
+      "E1.0": 0.6318359375,
+      "E2.0": 0.6005859375
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "E0.25": 0.73046875,
+      "E0.5": 0.685546875,
+      "E1.0": 0.623046875,
+      "E2.0": 0.60546875
+    }
+  ],
+  "elapsed_s": 0.11411857604980469,
+  "summary": "HARD_FAIL: graph capacity < 0.25N edges. acc E0.25N:0.74 E0.5N:0.68 E1.0N:0.63 E2.0N:0.60 | E_max=0.0N"
+}

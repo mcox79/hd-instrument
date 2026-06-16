@@ -1,0 +1,24 @@
+{
+  "anchor_name": "substrate_crossdomain_transfer_ptb_conll_pos_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN: missing fraction. ratio@2.5pct=1.6676 ratio@100pct=None (TAIL discriminator); zero-shot PTB-on-CoNLL acc=0.7997; curve=[(0.025, 0.4804, 0.8011, 1.6676)]",
+  "summary": "UNKNOWN: missing fraction. ratio@2.5pct=1.6676 ratio@100pct=None (TAIL discriminator); zero-shot PTB-on-CoNLL acc=0.7997; curve=[(0.025, 0.4804, 0.8011, 1.6676)]",
+  "run_mode": "smoke",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "frac": 0.025,
+          "scratch_acc": 0.4804,
+          "transfer_acc": 0.8011,
+          "ratio": 1.6676
+        }
+      ],
+      "src_only_acc": 0.7997,
+      "n_tags": 49,
+      "n_tgt_test": 150
+    }
+  ],
+  "elapsed_s": 15.126419305801392
+}

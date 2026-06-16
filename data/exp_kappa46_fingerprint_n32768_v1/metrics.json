@@ -1,0 +1,92 @@
+{
+  "anchor": "kappa46_fingerprint_n32768_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "alpha_grid": [
+    0.05
+  ],
+  "n_seeds": 2,
+  "n_probes": 1000,
+  "per_seed_results": [
+    {
+      "seed": 7,
+      "alpha": 0.05,
+      "M": 204,
+      "kappa_3": 0.05748151009311542,
+      "kappa_3_rel_dev": 0.1496302018623083,
+      "kappa_4": 0.06593820146174272,
+      "kappa_4_rel_dev": 0.31876402923485425,
+      "kappa_6": 0.093677854428687,
+      "kappa_6_rel_dev": 0.8735570885737398,
+      "elapsed_s": 0.42761778831481934
+    },
+    {
+      "seed": 17,
+      "alpha": 0.05,
+      "M": 204,
+      "kappa_3": 0.05731764706095288,
+      "kappa_3_rel_dev": 0.14635294121905756,
+      "kappa_4": 0.06536935599205065,
+      "kappa_4_rel_dev": 0.307387119841013,
+      "kappa_6": 0.092018357203338,
+      "kappa_6_rel_dev": 0.8403671440667598,
+      "elapsed_s": 0.4284403324127197
+    }
+  ],
+  "kappa_4_mean_rel_dev": 0.31307557453793367,
+  "kappa_6_mean_rel_dev": 0.8569621163202499,
+  "kappa_4_hp": false,
+  "kappa_6_hp": false,
+  "part_a_verdict": "HARD_FAIL",
+  "sens_sweep": {
+    "alpha_base": 0.05,
+    "n_probes_sens": 5000,
+    "per_delta_alpha": {
+      "delta_alpha_0.0001": {
+        "delta_alpha": 0.0001,
+        "k3_base": 0.05726286929219766,
+        "k3_pert": 0.05757491037671386,
+        "delta": 0.0003120410845161986,
+        "pooled_se": 0.00013382081267241554,
+        "sigma_sep": 2.331782913918289
+      },
+      "delta_alpha_0.001": {
+        "delta_alpha": 0.001,
+        "k3_base": 0.05726286929219766,
+        "k3_pert": 0.058526377431648575,
+        "delta": 0.0012635081394509126,
+        "pooled_se": 0.00013448943399426634,
+        "sigma_sep": 9.394850598484782
+      },
+      "delta_alpha_0.01": {
+        "delta_alpha": 0.01,
+        "k3_base": 0.05726286929219766,
+        "k3_pert": 0.07063298174856553,
+        "delta": 0.013370112456367864,
+        "pooled_se": 0.00014436937276330385,
+        "sigma_sep": 92.61044915868963
+      },
+      "delta_alpha_0.04": {
+        "delta_alpha": 0.04,
+        "k3_base": 0.05726286929219766,
+        "k3_pert": 0.11448465798675615,
+        "delta": 0.05722178869455849,
+        "pooled_se": 0.0001789594846896007,
+        "sigma_sep": 319.7471695552085
+      },
+      "delta_alpha_0.1": {
+        "delta_alpha": 0.1,
+        "k3_base": 0.05726286929219766,
+        "k3_pert": 0.2205352001769079,
+        "delta": 0.16327233088471022,
+        "pooled_se": 0.0002686718838925227,
+        "sigma_sep": 607.7015894600431
+      }
+    }
+  },
+  "sens_elapsed_s": 3.4654035568237305,
+  "part_b_verdict": "HARD_PASS",
+  "verdict": "HARD_FAIL",
+  "elapsed_s": 4.322516202926636,
+  "verdict_msg": "kappa_4 + kappa_6 fingerprint at N=4096: kappa_4 mean rel_dev = 0.3131 (MID); kappa_6 mean rel_dev = 0.8570 (HF). Verdict: HARD_FAIL."
+}

@@ -1,0 +1,33 @@
+{
+  "anchor": "ortho_noneq_v2_n4096",
+  "N": 1024,
+  "smoke": true,
+  "m_fracs": [
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "per_mfrac": {
+    "1.0": [
+      {
+        "N": 1024,
+        "seed": 17,
+        "M_init": 1024,
+        "M_delta": 20,
+        "M_probe": 50,
+        "hs_ratio": 36.95039837256852,
+        "hs_std": 81.4674238148702,
+        "sigma_ex_var": 10.470944677734376,
+        "hp": false,
+        "elapsed_s": 6.34,
+        "M_frac": 1.0,
+        "M": 1024,
+        "ep": 35.95039837256852
+      }
+    ]
+  },
+  "verdict": "NONEQ_V2_SMOKE_PASS",
+  "verdict_msg": "EP>0 at M_frac=1.0: ep=35.9504",
+  "elapsed_s": 6.34
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "codegen_subgoal_substrate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: composition pass@1 <0.20 -- filter/map/reduce chains insufficient on substrate-natural HumanEval. pass@1=0.025 (1/40, 20 composition-attempts)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pass1": 0.025,
+      "n_pass": 1,
+      "n_curated": 40,
+      "n_attempted": 20
+    }
+  ],
+  "elapsed_s": 6.062161207199097,
+  "summary": "HARD_FAIL: composition pass@1 <0.20 -- filter/map/reduce chains insufficient on substrate-natural HumanEval. pass@1=0.025 (1/40, 20 composition-attempts)"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "argumentation_grounded_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-stored attack graph supports Dung grounded semantics >=0.90 per-arg -- formal argumentation (accept/reject via least-fixpoint defense) computed over retrieved attack edges. grounded-agreement=1.000 (NA=8, n=2000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "grounded_agreement": 1.0,
+      "NA": 8,
+      "n": 2000
+    }
+  ],
+  "elapsed_s": 1.2316210269927979,
+  "summary": "HARD_PASS: substrate-stored attack graph supports Dung grounded semantics >=0.90 per-arg -- formal argumentation (accept/reject via least-fixpoint defense) computed over retrieved attack edges. grounded-agreement=1.000 (NA=8, n=2000)"
+}

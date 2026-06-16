@@ -1,0 +1,36 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: hp_frac=0.00 (< 0.60); mean_agreement=16.517; jarz_var=27.462; mixed; may need higher N or smaller beta",
+  "elapsed_s": 0.0,
+  "summary": {
+    "M50": {
+      "M": 50,
+      "n_seeds": 1,
+      "agreement_mean": 0.93014,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 0.5456
+    },
+    "M200": {
+      "M": 200,
+      "n_seeds": 1,
+      "agreement_mean": 32.10321,
+      "hp_frac": 0.0,
+      "jarz_variance_mean": 54.3782
+    }
+  },
+  "config": {
+    "N": 128,
+    "smoke": true,
+    "M_sweep": [
+      50,
+      200
+    ],
+    "seeds": [
+      17
+    ],
+    "beta": 1.0,
+    "alpha_hebbian": 0.1,
+    "hp_agreement_band": 0.5,
+    "calibration": "no prior empirical anchor; band widened to +-50% per policy"
+  }
+}

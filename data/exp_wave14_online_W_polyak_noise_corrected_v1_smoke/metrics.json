@@ -1,0 +1,57 @@
+{
+  "verdict": "ONLINE_W_POLYAK_PASS",
+  "verdict_msg": "Noise-corrected bound PASS: all 1/1 noisy cells pass theta_ret(p) = 0.95 - C*H2(p). Cap 5 envelope widens to tiered SLA (envelope boundary p <= 0.10). 0/0 originally-failing cells rescued by re-axiomatization. Mechanism #1 (Polyak-Ruppert noise-corrected bound) CONFIRMED.",
+  "elapsed_s": 0.0,
+  "summary": {
+    "source_N": 1024,
+    "source_n_writes": 10,
+    "source_n_seeds": 1,
+    "source_noise_levels": [
+      0.0,
+      0.1
+    ],
+    "source_original_verdict": "ONLINE_W_NOISE_ENVELOPE_FULL_PASS",
+    "is_smoke_data": true,
+    "fitted_C": 0.0,
+    "cell_reports": [
+      {
+        "p_flip": 0.0,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.0,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "BASELINE"
+      },
+      {
+        "p_flip": 0.1,
+        "mean_min_acc": 1.0,
+        "H2_p": 0.3250829733914482,
+        "theta_p": 0.95,
+        "margin_to_corrected": 0.050000000000000044,
+        "flat_pass": true,
+        "corrected_pass": true,
+        "cell_result": "PASS"
+      }
+    ],
+    "H2_values": {
+      "0.0": 0.0,
+      "0.1": 0.3250829733914482
+    },
+    "theta_values": {
+      "0.0": 0.95,
+      "0.1": 0.95
+    },
+    "mechanism": "Polyak-Ruppert noise-corrected retention bound",
+    "ref": "Polyak-Juditsky 1992; Mou et al 2020 arXiv:2004.04719; Krishna et al 2026 arXiv:2603.07415 (binary-entropy retention bound)"
+  },
+  "config": {
+    "mode": "smoke",
+    "source_is_smoke": true,
+    "fitted_C": 0.0,
+    "baseline_acc": 0.95,
+    "pass_margin": 0.02,
+    "fail_margin": 0.1
+  }
+}

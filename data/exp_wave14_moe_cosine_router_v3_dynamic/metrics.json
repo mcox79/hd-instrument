@@ -1,0 +1,86 @@
+{
+  "verdict": "DYNAMIC_ROUTER_HARD_FAIL",
+  "verdict_msg": "DYNAMIC_ROUTER_HARD_FAIL: entropy@K=16=3.970b > 3.0b for all variants; K-scaling collapse fundamental; K=4 ceiling confirmed",
+  "elapsed_s": 27.3,
+  "results_per_variant_K": {
+    "w_score": {
+      "4": {
+        "mean_entropy_bits": 1.9941,
+        "mean_retention": 1.0,
+        "mean_k_eff": 3.984,
+        "n_seeds": 3
+      },
+      "8": {
+        "mean_entropy_bits": 2.9882,
+        "mean_retention": 1.0,
+        "mean_k_eff": 7.935,
+        "n_seeds": 3
+      },
+      "16": {
+        "mean_entropy_bits": 3.9737,
+        "mean_retention": 1.0,
+        "mean_k_eff": 15.712,
+        "n_seeds": 3
+      },
+      "32": {
+        "mean_entropy_bits": 4.9363,
+        "mean_retention": 1.0,
+        "mean_k_eff": 30.62,
+        "n_seeds": 3
+      }
+    },
+    "random_subspace": {
+      "4": {
+        "mean_entropy_bits": 1.9809,
+        "mean_retention": 0.2625,
+        "mean_k_eff": 3.948,
+        "n_seeds": 3
+      },
+      "8": {
+        "mean_entropy_bits": 2.9835,
+        "mean_retention": 0.13851,
+        "mean_k_eff": 7.909,
+        "n_seeds": 3
+      },
+      "16": {
+        "mean_entropy_bits": 3.9702,
+        "mean_retention": 0.07061,
+        "mean_k_eff": 15.673,
+        "n_seeds": 3
+      },
+      "32": {
+        "mean_entropy_bits": 4.9401,
+        "mean_retention": 0.03722,
+        "mean_k_eff": 30.7,
+        "n_seeds": 3
+      }
+    }
+  },
+  "best_variant_K16": "random_subspace",
+  "best_entropy_K16": 3.9702,
+  "config": {
+    "N": 512,
+    "smoke": true,
+    "K_sweep": [
+      4,
+      8,
+      16,
+      32
+    ],
+    "seeds": [
+      17,
+      23,
+      31
+    ],
+    "n_route_iters": 3,
+    "alpha_hebbian": 0.1,
+    "variants": [
+      "w_score",
+      "random_subspace"
+    ]
+  },
+  "thresholds": {
+    "hard_pass_entropy_K16": 2.0,
+    "hard_fail_entropy_K16": 3.0
+  }
+}

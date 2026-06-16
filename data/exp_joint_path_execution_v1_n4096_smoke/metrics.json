@@ -1,0 +1,37 @@
+{
+  "verdict": "S14_HARD_FAIL",
+  "verdict_msg": "JOINT_SLOWER_OR_BLOATED: mean_speedup_frac=-0.010 max_mem_amp=0.98 max_acc_delta=0.0000",
+  "elapsed_s": 0.51,
+  "summary": {
+    "anchor": "joint_path_execution_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 50,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "depth": 3,
+        "K": 50,
+        "seq_total_ns": 210120700,
+        "joint_total_ns": 212149000,
+        "seq_mem_peak_b": 40880,
+        "joint_mem_peak_b": 40151,
+        "speedup_frac": -0.0097,
+        "mem_amp": 0.9822,
+        "acc_delta_b": 0.0,
+        "acc_delta_d": 0.0,
+        "acc_delta_e": 0.0,
+        "max_acc_delta": 0.0
+      }
+    ],
+    "verdict": "S14_HARD_FAIL",
+    "verdict_msg": "JOINT_SLOWER_OR_BLOATED: mean_speedup_frac=-0.010 max_mem_amp=0.98 max_acc_delta=0.0000",
+    "elapsed_s": 0.51
+  }
+}

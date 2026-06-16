@@ -1,0 +1,18 @@
+{
+  "anchor_name": "lvh245_mmr_pinv_5seed_lambda03_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: all 1 seeds compose (combined pipeline robust at lambda=0.3). LAMBDA=0.3: 1/1 seeds pass (prop_mmr<0.10 & recall>=0.90) | mean pinv_recall=1.000 mean prop_mmr=-0.020 | per-seed prop_mmr=[-0.02]",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "pinv_recall": 1.0,
+      "prop_topk": 0.3333333333333333,
+      "prop_mmr": -0.02
+    }
+  ],
+  "elapsed_s": 2.8760039806365967,
+  "summary": "HARD_PASS: all 1 seeds compose (combined pipeline robust at lambda=0.3). LAMBDA=0.3: 1/1 seeds pass (prop_mmr<0.10 & recall>=0.90) | mean pinv_recall=1.000 mean prop_mmr=-0.020 | per-seed prop_mmr=[-0.02]"
+}

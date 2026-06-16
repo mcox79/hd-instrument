@@ -1,0 +1,114 @@
+{
+  "anchor_name": "substrate_joint_dh_brain_correct_rung1_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: joint D+H rung-1. D[HARD_FAIL conv=0/2 norm_ratio=0.42 ent=1.73] E[HARD_FAIL conv=0/2 norm_ratio=0.27 ent=2.72] A_base_norm=0.0786 B_cfrpe[conv=0/2] C_gating[conv=0/2 ent=2.41] A_hebbian[conv=0/2]",
+  "N": 256,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "n_steps": 60,
+  "elapsed_s": 0.0,
+  "per_seed": [
+    {
+      "seed": 7,
+      "arms": {
+        "A_hebbian_k1": {
+          "converged": false,
+          "conv_bpc": 5.083050727844238,
+          "final_bpc": 5.083050727844238,
+          "mean_update_norm": 0.07894165913263956,
+          "mean_router_entropy_bits": 0.6931471805599454,
+          "alpha_max": 0.16796875,
+          "norm_oscillation": 0.05937793786115761
+        },
+        "B_cfrpe_alone": {
+          "converged": false,
+          "conv_bpc": 5.05905818939209,
+          "final_bpc": 5.05905818939209,
+          "mean_update_norm": 0.06417269147932529,
+          "mean_router_entropy_bits": 0.6931471805599454,
+          "alpha_max": 0.1640625,
+          "norm_oscillation": 0.08581399555796011
+        },
+        "C_gating_alone": {
+          "converged": false,
+          "conv_bpc": 5.074726581573486,
+          "final_bpc": 5.074726581573486,
+          "mean_update_norm": 0.029966912077118952,
+          "mean_router_entropy_bits": 2.390939176082611,
+          "alpha_max": 0.1640625,
+          "norm_oscillation": 0.34292650148893694
+        },
+        "D_joint_k4": {
+          "converged": false,
+          "conv_bpc": 5.0826735496521,
+          "final_bpc": 5.0826735496521,
+          "mean_update_norm": 0.03257087729871273,
+          "mean_router_entropy_bits": 1.7534112532933552,
+          "alpha_max": 0.17578125,
+          "norm_oscillation": 0.22903615386593043
+        },
+        "E_joint_k8": {
+          "converged": false,
+          "conv_bpc": 5.070830345153809,
+          "final_bpc": 5.070830345153809,
+          "mean_update_norm": 0.020424436125904322,
+          "mean_router_entropy_bits": 2.731206715106964,
+          "alpha_max": 0.1640625,
+          "norm_oscillation": 0.2962626273237628
+        }
+      },
+      "elapsed_s": 0.3202207088470459
+    },
+    {
+      "seed": 17,
+      "arms": {
+        "A_hebbian_k1": {
+          "converged": false,
+          "conv_bpc": 5.085020065307617,
+          "final_bpc": 5.085020065307617,
+          "mean_update_norm": 0.07830346363286177,
+          "mean_router_entropy_bits": 0.6931471805599454,
+          "alpha_max": 0.1640625,
+          "norm_oscillation": 0.061883979575681536
+        },
+        "B_cfrpe_alone": {
+          "converged": false,
+          "conv_bpc": 5.071371555328369,
+          "final_bpc": 5.071371555328369,
+          "mean_update_norm": 0.0642722145964702,
+          "mean_router_entropy_bits": 0.6931471805599454,
+          "alpha_max": 0.16796875,
+          "norm_oscillation": 0.10589839590617861
+        },
+        "C_gating_alone": {
+          "converged": false,
+          "conv_bpc": 5.076130390167236,
+          "final_bpc": 5.076130390167236,
+          "mean_update_norm": 0.028439134576668343,
+          "mean_router_entropy_bits": 2.43033797343572,
+          "alpha_max": 0.15625,
+          "norm_oscillation": 0.33844824013935504
+        },
+        "D_joint_k4": {
+          "converged": false,
+          "conv_bpc": 5.043046951293945,
+          "final_bpc": 5.043046951293945,
+          "mean_update_norm": 0.03337207331011693,
+          "mean_router_entropy_bits": 1.712978611389796,
+          "alpha_max": 0.16796875,
+          "norm_oscillation": 0.24784519830812896
+        },
+        "E_joint_k8": {
+          "converged": false,
+          "conv_bpc": 5.069089889526367,
+          "final_bpc": 5.069089889526367,
+          "mean_update_norm": 0.02130122046607236,
+          "mean_router_entropy_bits": 2.7130566517512005,
+          "alpha_max": 0.16796875,
+          "norm_oscillation": 0.29536860999703446
+        }
+      },
+      "elapsed_s": 0.32060813903808594
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "anchor": "caching_lru_lfu_hybrid_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "caching_lru_lfu_hybrid_v1 verdict=HARD_FAIL: mean_rho_hybrid=0.806(HP>=0.7,HF<=0.3) mean_rho_lru=0.806 cell_A=2/2 cell_B=0/2 cell_C_pos=2/2 elapsed=0.3s",
+  "mean_rho_hybrid": 0.8060150375939847,
+  "mean_rho_lru": 0.8060150375939847,
+  "n_cell_A_pass": 2,
+  "n_cell_B_pass": 0,
+  "n_cell_C_pos": 2,
+  "elapsed_s": 0.26883792877197266
+}

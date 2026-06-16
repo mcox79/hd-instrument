@@ -1,0 +1,51 @@
+{
+  "anchor": "kf2_cross_codebook_v2_n8192",
+  "N": 1024,
+  "smoke": true,
+  "families": [
+    "kerdock",
+    "bsc",
+    "gaussian"
+  ],
+  "M_fracs": [
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "family": "kerdock",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.0,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    },
+    {
+      "family": "bsc",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.040404,
+      "theory_bound": 0.03125,
+      "within_theory": false
+    },
+    {
+      "family": "gaussian",
+      "M_frac": 1.0,
+      "M": 1024,
+      "N": 1024,
+      "seed": 17,
+      "isolation_ratio": 0.020202,
+      "theory_bound": 0.03125,
+      "within_theory": true
+    }
+  ],
+  "verdict": "KF2_CROSS_V2_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_ISOLATION: some families above threshold. family_max={'kerdock': 0.0, 'bsc': 0.0404, 'gaussian': 0.0202} theory_bound=0.03125 mean_max_iso=0.02020 nk_pass=2/2 N=1024",
+  "elapsed_s": 0.55
+}

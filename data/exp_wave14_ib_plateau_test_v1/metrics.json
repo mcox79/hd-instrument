@@ -1,0 +1,71 @@
+{
+  "verdict": "IB_HARD_PASS_WEAK_K3",
+  "verdict_msg": "Plateau-count tracks K (Spearman rho=1.000 >= 0.9) BUT K=3 gives only 2.0 plateaus (< 3 required for bonus). IB framework partially supported but K=3 does not reproduce 3-plateau empirical.",
+  "elapsed_s": 2.484,
+  "summary": {
+    "k_values": [
+      1,
+      2,
+      3
+    ],
+    "plateau_means_per_K": [
+      1.0,
+      2.0,
+      2.0
+    ],
+    "spearman_rho": 1.0,
+    "k3_plateau_count": 2.0,
+    "k3_bonus_passes": false,
+    "per_K": {
+      "1": {
+        "mean_plateau_count": 1.0,
+        "plateau_counts": [
+          1
+        ],
+        "mean_retentions": [
+          1.0
+        ]
+      },
+      "2": {
+        "mean_plateau_count": 2.0,
+        "plateau_counts": [
+          2
+        ],
+        "mean_retentions": [
+          0.8022,
+          1.0
+        ]
+      },
+      "3": {
+        "mean_plateau_count": 2.0,
+        "plateau_counts": [
+          2
+        ],
+        "mean_retentions": [
+          0.6666,
+          1.0038,
+          1.0
+        ]
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "k_sweep": [
+      1,
+      2,
+      3
+    ],
+    "N": 512,
+    "batch_size": 16,
+    "n_epochs_per_phase": 1,
+    "phase_a_epochs": 1,
+    "n_bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "spearman_pass_threshold": 0.9,
+    "spearman_fail_threshold": 0.2,
+    "plateau_cluster_variance": 0.02
+  }
+}

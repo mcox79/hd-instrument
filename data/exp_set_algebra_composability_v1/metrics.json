@@ -1,0 +1,24 @@
+{
+  "anchor": "set_algebra_composability_v1",
+  "run_mode": "smoke",
+  "N": 2048,
+  "M1": 50,
+  "M2": 50,
+  "n_seeds": 2,
+  "union_mae": 0.033383687337239586,
+  "union_r": 0.9999970543627245,
+  "jaccard_mae": 0.0008020291038482563,
+  "jaccard_r": 0.9999935356591007,
+  "symdiff_mae": 0.06676737467447917,
+  "symdiff_r": 0.9999970543627245,
+  "n_trials_total": 42,
+  "verdict": "HARD_PASS",
+  "elapsed_s": 0.1506025791168213,
+  "thresholds": {
+    "HP_MAE": 0.5,
+    "HP_r": 0.999,
+    "HF_MAE": 2.0,
+    "HF_r": 0.99
+  },
+  "verdict_msg": "Set-algebra composability N=2048 M=50: union(MAE=0.0334,r=0.999997) Jaccard(MAE=0.0008,r=0.999994) symdiff(MAE=0.0668,r=0.999997). HP: all MAE<0.5 AND all r>0.999. Verdict=HARD_PASS."
+}

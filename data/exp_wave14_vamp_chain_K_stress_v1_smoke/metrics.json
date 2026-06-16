@@ -1,0 +1,32 @@
+{
+  "verdict": "K_STRESS_SMALL_AGENT",
+  "verdict_msg": "K=500 PASS (1.000) but K=5000 (0.000) < 0.50. Demo 1 positions as small-cardinality agent memory only. acc_per_K={'100': 1.0, '500': 1.0}.",
+  "elapsed_s": 4.312999999994645,
+  "summary": {
+    "acc_per_K": {
+      "100": 1.0,
+      "500": 1.0
+    },
+    "depth": 25
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 8192,
+    "depth": 25,
+    "K_grid": [
+      100,
+      500
+    ],
+    "num_relations": 20,
+    "num_entities_per_K": {
+      "100": 200,
+      "500": 500,
+      "1000": 1000,
+      "5000": 5000
+    },
+    "n_trials": 5,
+    "seeds": [
+      17
+    ]
+  }
+}

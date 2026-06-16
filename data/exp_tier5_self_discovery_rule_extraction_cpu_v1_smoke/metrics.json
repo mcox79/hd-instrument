@@ -1,0 +1,21 @@
+{
+  "anchor_name": "tier5_self_discovery_rule_extraction_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: substrate re-derives existing rule patterns OR proposes <0.05-lift rule (miner validated; solution_history too sparse for a strong NOVEL rule). sh_atoms=20 transitions=11 novel_recurring=0 re_derived=5 (existing_rules=18)",
+  "summary": "MIDDLE_BAND: substrate re-derives existing rule patterns OR proposes <0.05-lift rule (miner validated; solution_history too sparse for a strong NOVEL rule). sh_atoms=20 transitions=11 novel_recurring=0 re_derived=5 (existing_rules=18)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.0,
+      "proposed_novel": false,
+      "top": null,
+      "n_novel_recurring": 0,
+      "n_re_derived": 5,
+      "n_sh_atoms": 20,
+      "n_transitions": 11,
+      "n_existing_rules": 18
+    }
+  ],
+  "elapsed_s": 0.09534072875976562
+}

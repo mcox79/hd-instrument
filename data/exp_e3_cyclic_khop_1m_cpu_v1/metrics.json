@@ -1,0 +1,15 @@
+{
+  "anchor_name": "e3_cyclic_khop_1m_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cyclic K-hop holds at 1M-entity scale -- recovery>=0.90, always terminates (visited-set). neighbor-recovery=1.000 termination=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 1.0,
+      "termination": 1.0
+    }
+  ],
+  "elapsed_s": 5.95434308052063,
+  "summary": "HARD_PASS: cyclic K-hop holds at 1M-entity scale -- recovery>=0.90, always terminates (visited-set). neighbor-recovery=1.000 termination=1.000"
+}

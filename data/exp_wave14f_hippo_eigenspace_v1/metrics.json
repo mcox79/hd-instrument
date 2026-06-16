@@ -1,0 +1,56 @@
+{
+  "verdict": "INSTRUMENTATION_FAIL",
+  "verdict_msg": "INSTRUMENTATION_FAIL: Vanilla baseline depth_at_half=1.0 < 2.0. Training is not working at this scale.",
+  "elapsed_s": 1.759,
+  "summary": {
+    "mean_depth_at_half_hippo": 1.0,
+    "mean_depth_at_half_vanilla": 1.0,
+    "mean_ratio": 1.0,
+    "per_seed_hippo": [
+      {
+        "seed": 17,
+        "depth_at_half": 1.0,
+        "cosines": [
+          0.9999997615814209,
+          0.016281871125102043,
+          -0.009352343250066042,
+          0.03890716012101621,
+          0.007449190248735249,
+          0.00824847985059023,
+          -0.005070907669141889,
+          -0.00123920961341355,
+          0.01359175331890583,
+          -0.010255829012021423
+        ]
+      }
+    ],
+    "per_seed_vanilla": [
+      {
+        "seed": 17,
+        "depth_at_half": 1.0,
+        "cosines": [
+          0.9999997615814209,
+          0.016281871125102043,
+          -0.009352343250066042,
+          0.03890716012101621,
+          0.007449190248735249,
+          0.00824847985059023,
+          -0.005070907669141889,
+          -0.00123920961341355,
+          0.01359175331890583,
+          -0.010255829012021423
+        ]
+      }
+    ]
+  },
+  "config": {
+    "N": 256,
+    "seeds": [
+      17
+    ],
+    "d_max": 30,
+    "epochs": 5,
+    "hippo_lr": 0.01,
+    "smoke": true
+  }
+}

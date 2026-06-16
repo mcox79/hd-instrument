@@ -1,0 +1,18 @@
+{
+  "anchor_name": "phase4d_code_fulldata_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate discriminative classifier predicts CODE algorithm-pattern from docstring at >=0.70 (lift>=0.10) -- mechanism transfers MATH->CODE; docstring determines algorithm pattern. acc=0.750 majority=0.312 (8 classes, n_test=500, n_train=474)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.75,
+      "majority": 0.312,
+      "n_classes": 8,
+      "n_test": 500,
+      "n_train": 474
+    }
+  ],
+  "elapsed_s": 1.6363394260406494,
+  "summary": "HARD_PASS: substrate discriminative classifier predicts CODE algorithm-pattern from docstring at >=0.70 (lift>=0.10) -- mechanism transfers MATH->CODE; docstring determines algorithm pattern. acc=0.750 majority=0.312 (8 classes, n_test=500, n_train=474)"
+}

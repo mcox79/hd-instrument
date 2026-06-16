@@ -1,0 +1,46 @@
+{
+  "verdict": "TOPK_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: some patterns clean, others not. per_pattern_pass={'P1_uniform': 1, 'P2_peaked': 0} per_pattern_total={'P1_uniform': 1, 'P2_peaked': 1} per_pattern_ct_above={'P1_uniform': 0, 'P2_peaked': 1}",
+  "elapsed_s": 0.06,
+  "summary": {
+    "anchor": "superposition_top_k_filter_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "patterns": [
+      "P1_uniform",
+      "P2_peaked"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "pattern": "P1_uniform",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.0,
+        "pre_filter_per_comp_acc": 1.0,
+        "pre_filter_cross_talk": 0.28349,
+        "r_norm": 10.82962,
+        "betas_sum": 1.0
+      },
+      {
+        "pattern": "P2_peaked",
+        "K": 10,
+        "seed": 17,
+        "N": 1024,
+        "per_component_accuracy": 1.0,
+        "cross_talk": 0.3131,
+        "pre_filter_per_comp_acc": 1.0,
+        "pre_filter_cross_talk": 0.30344,
+        "r_norm": 33.44629,
+        "betas_sum": 1.9
+      }
+    ],
+    "verdict": "TOPK_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL: some patterns clean, others not. per_pattern_pass={'P1_uniform': 1, 'P2_peaked': 0} per_pattern_total={'P1_uniform': 1, 'P2_peaked': 1} per_pattern_ct_above={'P1_uniform': 0, 'P2_peaked': 1}",
+    "elapsed_s": 0.06
+  }
+}

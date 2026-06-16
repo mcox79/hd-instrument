@@ -1,0 +1,16 @@
+{
+  "anchor_name": "binding_associativity_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: FHRR binding is associative+commutative to 1e-4 and 4-deep unbind recovers payload >=0.95 -- algebraic substrate for nested structures confirmed. assoc-err=1.3e-07 commute-err=6.0e-08 4-deep-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "assoc": 1.3328003944934608e-07,
+      "commute": 5.960464477539063e-08,
+      "deep_recall": 1.0
+    }
+  ],
+  "elapsed_s": 0.0638740062713623,
+  "summary": "HARD_PASS: FHRR binding is associative+commutative to 1e-4 and 4-deep unbind recovers payload >=0.95 -- algebraic substrate for nested structures confirmed. assoc-err=1.3e-07 commute-err=6.0e-08 4-deep-recall=1.000"
+}

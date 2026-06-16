@@ -1,0 +1,33 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "ALPHA_LIST": [
+    0.05,
+    0.138
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "0.05": {
+      "alpha": 0.05,
+      "mean_lambda_max_emp": 1.4740784770986792,
+      "lambda_max_theory": 1.497213595499958,
+      "mean_relative_error": 0.015452116164863805,
+      "std_relative_error": 0.0023386790739794994,
+      "n_seeds": 2
+    },
+    "0.138": {
+      "alpha": 0.138,
+      "mean_lambda_max_emp": 1.8585799632491806,
+      "lambda_max_theory": 1.8809670248402688,
+      "mean_relative_error": 0.01190188945124604,
+      "std_relative_error": 0.006408956942827393,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Outlier-bulk gap matches theory. max_rel_error=0.0155 mean_rel_error=0.0137 (HP<0.05). MP spectral bulk edge confirmed at all alpha values.",
+  "elapsed_s": 1.779350757598877
+}

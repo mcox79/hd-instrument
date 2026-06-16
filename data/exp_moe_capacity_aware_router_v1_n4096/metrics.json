@@ -1,0 +1,107 @@
+{
+  "mode": "smoke",
+  "N": 1024,
+  "K_sweep": [
+    4,
+    16
+  ],
+  "seeds": [
+    17
+  ],
+  "M_budget_per_expert": 800,
+  "elapsed_s": 79.84,
+  "cells": [
+    {
+      "K": 4,
+      "seed": 17,
+      "M_total": 3200,
+      "M_budget": 800,
+      "mean_ret": 0.9425,
+      "entropy": 2.0,
+      "expert_retentions": [
+        0.97,
+        0.93,
+        0.94,
+        0.93
+      ],
+      "fill_fracs_final": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "routing_counts": [
+        800,
+        800,
+        800,
+        800
+      ],
+      "N": 1024
+    },
+    {
+      "K": 16,
+      "seed": 17,
+      "M_total": 12800,
+      "M_budget": 800,
+      "mean_ret": 0.91062,
+      "entropy": 4.0,
+      "expert_retentions": [
+        0.9,
+        0.91,
+        0.86,
+        0.9,
+        0.95,
+        0.93,
+        0.91,
+        0.9,
+        0.92,
+        0.9,
+        0.88,
+        0.93,
+        0.97,
+        0.88,
+        0.9,
+        0.93
+      ],
+      "fill_fracs_final": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "routing_counts": [
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800,
+        800
+      ],
+      "N": 1024
+    }
+  ],
+  "verdict_tag": "MOE_CAP_MIDDLE_BAND",
+  "verdict_msg": "Partial: improved over random but below HP_RET_K16_MIN=0.70. mean_ret_by_K={4: 0.9425, 16: 0.91062} ret_k16=0.911 ret_k4=0.943 delta_K16=-0.032 pass_seeds_at_K16=1/1 N=1024"
+}

@@ -1,0 +1,24 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: damp_gain 1/1 HP; erase_corr 0/1 HP. means: damp_gain=0.213 erase_corr=0.552",
+  "elapsed_s": 0.62,
+  "summary": "dd_bp_v3 SMOKE N=256: damp_hp=1 erase_hp=0",
+  "n_seeds": 1,
+  "n_hp_damp": 1,
+  "n_hp_erase": 0,
+  "n_hf": 0,
+  "mean_damp_gain": 0.21333333333333337,
+  "mean_erase_corr": 0.5521343320923862,
+  "per_seed": [
+    {
+      "N": 256,
+      "M_A": 25,
+      "M_B": 125,
+      "seed": 17,
+      "baseline_ret": 0.7866666666666666,
+      "best_damping_gain": 0.21333333333333337,
+      "erase_corr": 0.5521343320923862,
+      "full_erase_ret": 1.0
+    }
+  ]
+}

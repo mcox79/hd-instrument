@@ -1,0 +1,35 @@
+{
+  "verdict": "KKL_HARD_PASS_LOW_INFLUENCE",
+  "verdict_msg": "Substrate boundaries are low-influence/well-distributed: max_inf_share <= 0.3 AND kkl_ratio >= 1.0 at ALL operating points. density=0.10: max_inf_share=0.052, kkl_ratio=1.064.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_density": {
+      "0.1": {
+        "17": {
+          "inf_total": 4.390000000000001,
+          "max_inf": 0.23,
+          "max_inf_share": 0.05239179954441913,
+          "var_f": 0.9919000864028931,
+          "kkl_ratio": 1.064191732669134,
+          "N": 64,
+          "density": 0.1,
+          "M_stored": 6
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_densities": [
+      0.1
+    ],
+    "n_samples": 200,
+    "seeds": [
+      17
+    ],
+    "pass_max_inf_share": 0.3,
+    "pass_kkl_ratio": 1.0,
+    "fail_max_inf_share": 0.6
+  }
+}

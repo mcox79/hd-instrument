@@ -1,0 +1,15 @@
+{
+  "anchor_name": "mycorrhizal_simweighted_rescue_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: similarity-weighted 0.60-0.70. similarity-weighted=0.650 uniform-union=0.650",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "uniform": 0.65,
+      "simweighted": 0.65
+    }
+  ],
+  "elapsed_s": 0.01585078239440918,
+  "summary": "MIDDLE_BAND: similarity-weighted 0.60-0.70. similarity-weighted=0.650 uniform-union=0.650"
+}

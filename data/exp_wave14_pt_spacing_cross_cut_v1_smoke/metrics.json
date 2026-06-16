@@ -1,0 +1,63 @@
+{
+  "verdict": "SPACING_INCONCLUSIVE",
+  "verdict_msg": "Missing cells; have ['d2_geometric', 'd2_densified'], need ['d2_geometric', 'd2_densified', 'd4_geometric', 'd4_densified'].",
+  "elapsed_s": 0.8130000000237487,
+  "summary": {
+    "cells": {
+      "d2_geometric": {
+        "per_seed": {
+          "17": {
+            "retA": 0.9240545002386396,
+            "bpc_baseline": 4.148816595077514,
+            "bpc_after": 4.48979642868042,
+            "mean_adj_kl": 0.8383822292089462,
+            "chunk_fracs": [
+              0.5,
+              0.5
+            ]
+          }
+        },
+        "mean_retA": 0.9240545002386396,
+        "mean_adj_kl": 0.8383822292089462
+      },
+      "d2_densified": {
+        "per_seed": {
+          "17": {
+            "retA": 0.8998702276258749,
+            "bpc_baseline": 4.148816595077514,
+            "bpc_after": 4.610461006164551,
+            "mean_adj_kl": 0.8393189460039139,
+            "chunk_fracs": [
+              0.25,
+              0.25
+            ]
+          }
+        },
+        "mean_retA": 0.8998702276258749,
+        "mean_adj_kl": 0.8393189460039139
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 4000,
+    "seeds": [
+      17
+    ],
+    "depths": [
+      2
+    ],
+    "spacings": [
+      "geometric",
+      "densified"
+    ],
+    "base_chunk_fraction": 0.5,
+    "densified_mid_factor": 2.0,
+    "effect_threshold": 0.05,
+    "null_threshold": 0.03
+  }
+}

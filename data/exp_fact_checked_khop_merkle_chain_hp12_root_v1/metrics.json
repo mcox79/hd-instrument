@@ -1,0 +1,39 @@
+{
+  "anchor_name": "fact_checked_khop_merkle_chain_hp12_root_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: per-hop Merkle chain cert <1ms at K=20 with valid round-trip -- end-to-end reasoning-chain certification, no frontier equivalent. roundtrip by K: {'k3': 0.0087, 'k5': 0.0145, 'k10': 0.0248, 'k20': 0.0455} | K=20=0.0455ms valid=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by_K": {
+        "k3": {
+          "build_ms": 0.0035260000731796026,
+          "verify_ms": 0.005210999515838921,
+          "roundtrip_ms": 0.008736999589018524,
+          "valid": true
+        },
+        "k5": {
+          "build_ms": 0.006135999574325979,
+          "verify_ms": 0.008345000096596777,
+          "roundtrip_ms": 0.014480999670922756,
+          "valid": true
+        },
+        "k10": {
+          "build_ms": 0.011061499826610088,
+          "verify_ms": 0.013764000032097101,
+          "roundtrip_ms": 0.02482549985870719,
+          "valid": true
+        },
+        "k20": {
+          "build_ms": 0.020527500309981406,
+          "verify_ms": 0.024957999703474343,
+          "roundtrip_ms": 0.04548550001345575,
+          "valid": true
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.06574702262878418,
+  "summary": "HARD_PASS: per-hop Merkle chain cert <1ms at K=20 with valid round-trip -- end-to-end reasoning-chain certification, no frontier equivalent. roundtrip by K: {'k3': 0.0087, 'k5': 0.0145, 'k10': 0.0248, 'k20': 0.0455} | K=20=0.0455ms valid=True"
+}

@@ -1,0 +1,30 @@
+{
+  "anchor_name": "substrate_stage_a_pure_bio_orthogonal_3axis_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: ALL <= best-single (axes not orthogonal/composing). gap base=2.182 gains: cap=-0.285 task=-0.297 par=+0.140 ALL=-1.880 (best_single=+0.140)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "pure_bio_3axis"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "base": 2.128001830031537,
+      "cap": 1.844958207060956,
+      "task": 1.7828344315787783,
+      "par": 2.2957884282371035,
+      "all": 0.31343903248515037
+    },
+    {
+      "seed": 2,
+      "base": 2.235362193038129,
+      "cap": 1.949138066222333,
+      "task": 1.9857212514182558,
+      "par": 2.3471170872947207,
+      "all": 0.29025520985331443
+    }
+  ],
+  "elapsed_s": 7.813867807388306,
+  "summary": "HARD_FAIL: ALL <= best-single (axes not orthogonal/composing). gap base=2.182 gains: cap=-0.285 task=-0.297 par=+0.140 ALL=-1.880 (best_single=+0.140)"
+}

@@ -1,0 +1,14 @@
+{
+  "anchor_name": "soft_weighted_and_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: weighted/soft conjunctive ranking puts the best-match item top-1 >=0.90 -- graded multi-constraint retrieval works. weighted-AND top1=0.950",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.95
+    }
+  ],
+  "elapsed_s": 2.525498867034912,
+  "summary": "HARD_PASS: weighted/soft conjunctive ranking puts the best-match item top-1 >=0.90 -- graded multi-constraint retrieval works. weighted-AND top1=0.950"
+}

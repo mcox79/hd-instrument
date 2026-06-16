@@ -1,0 +1,26 @@
+{
+  "verdict": "SMOKE_PASS",
+  "verdict_msg": "Smoke passed: effect_size_d=0.446, lift=0.068",
+  "elapsed_s": 4.318303346633911,
+  "summary": {
+    "smoke_d": 0.44595803698288305,
+    "smoke_lift": 0.06760038183256978,
+    "n_cells": 15
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "K_sweep": [
+      1,
+      2,
+      4
+    ],
+    "M_totals": [
+      100,
+      200,
+      400,
+      800,
+      1600
+    ]
+  }
+}

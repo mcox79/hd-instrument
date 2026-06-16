@@ -1,0 +1,15 @@
+{
+  "anchor_name": "per_role_substrate_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: PerRole domain isolation works -- per-domain substrates recall >=0.90, beating one shared substrate by >=0.15 (crosstalk avoided). Per-domain isolation via routing wrapper prevents compositional crosstalk, no core change. perrole=1.000 shared=0.774",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "perrole_recall": 1.0,
+      "shared_recall": 0.774
+    }
+  ],
+  "elapsed_s": 42.3093478679657,
+  "summary": "HARD_PASS: PerRole domain isolation works -- per-domain substrates recall >=0.90, beating one shared substrate by >=0.15 (crosstalk avoided). Per-domain isolation via routing wrapper prevents compositional crosstalk, no core change. perrole=1.000 shared=0.774"
+}

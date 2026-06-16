@@ -1,0 +1,14 @@
+{
+  "anchor_name": "type_confusion_disambig_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: disambiguation 0.75-0.90. context-disambiguation=0.750",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.75
+    }
+  ],
+  "elapsed_s": 0.059331417083740234,
+  "summary": "MIDDLE_BAND: disambiguation 0.75-0.90. context-disambiguation=0.750"
+}

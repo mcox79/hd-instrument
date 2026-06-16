@@ -1,0 +1,63 @@
+{
+  "verdict": "BOOLEAN_NOISE_STAB_HARD_FAIL",
+  "verdict_msg": "HARD FAIL: PRE-cleanup |dev|=0.1440 > 0.10 OR KKL slack 23.000 > 0.30. PRE-cleanup MC Stab_rho=0.6660, Walsh=0.6780, target rho^2=0.8100, |dev_MC|=0.1440, |dev_Walsh|=0.1320. KKL: I(f)_max=0.7500, lower-bound=0.0312, slack=23.0000 (2300.0%). POST-cleanup MC Stab_rho=0.6708, |dev|=0.1392",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "N": 256,
+    "m": 8,
+    "n_codewords": 4,
+    "rho": 0.9,
+    "target_rho_squared": 0.81,
+    "pre_cleanup": {
+      "stab_rho_walsh_mean": 0.6779852156445311,
+      "stab_rho_mc_mean": 0.6659999999999999,
+      "stab_rho_walsh_per_cw": [
+        0.6634204312890623,
+        0.6561,
+        0.7290000000000001,
+        0.6634204312890623
+      ],
+      "stab_rho_mc_per_cw": [
+        0.6408,
+        0.6512,
+        0.7204,
+        0.6516
+      ],
+      "dev_walsh_vs_target": -0.13201478435546898,
+      "dev_mc_vs_target": -0.14400000000000013
+    },
+    "post_cleanup": {
+      "stab_rho_mc_mean": 0.6708,
+      "stab_rho_mc_per_cw": [
+        0.6564,
+        0.654,
+        0.7156,
+        0.6572
+      ],
+      "dev_mc_vs_target": -0.1392000000000001
+    },
+    "kkl": {
+      "I_max_emp": 0.75,
+      "I_total_mean": 3.75,
+      "I_lower_bound": 0.03125,
+      "slack_frac": 23.0,
+      "slack_above": 23.0
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "n_codewords": 4,
+    "mc_samples": 5000,
+    "rho_grid": [
+      0.7,
+      0.8,
+      0.9
+    ],
+    "rho_primary": 0.9,
+    "pass_pre_threshold": 0.02,
+    "fail_pre_threshold": 0.1,
+    "kkl_slack_threshold": 0.3,
+    "seed": 17
+  }
+}

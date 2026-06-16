@@ -1,0 +1,21 @@
+{
+  "anchor_name": "nary_relation_roles_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: n-ary (5-role) facts recovered per-role >=0.95 -- substrate handles n-ary relations, not just triples. per-role=[1.0, 1.0, 1.0, 1.0, 1.0] mean=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_role": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean": 1.0
+    }
+  ],
+  "elapsed_s": 0.3576638698577881,
+  "summary": "HARD_PASS: n-ary (5-role) facts recovered per-role >=0.95 -- substrate handles n-ary relations, not just triples. per-role=[1.0, 1.0, 1.0, 1.0, 1.0] mean=1.000"
+}

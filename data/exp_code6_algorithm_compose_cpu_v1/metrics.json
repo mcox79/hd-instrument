@@ -1,0 +1,16 @@
+{
+  "anchor_name": "code6_algorithm_compose_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes multi-step data-processing pipelines from primitives and EXECUTES them correctly >=0.70 -- compositional algorithm building beyond single functions, substrate-only. correctness=1.000 (steps=4, n=90)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "correctness": 1.0,
+      "steps": 4,
+      "n": 90
+    }
+  ],
+  "elapsed_s": 0.06223464012145996,
+  "summary": "HARD_PASS: substrate composes multi-step data-processing pipelines from primitives and EXECUTES them correctly >=0.70 -- compositional algorithm building beyond single functions, substrate-only. correctness=1.000 (steps=4, n=90)"
+}

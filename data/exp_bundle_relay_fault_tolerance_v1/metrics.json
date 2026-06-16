@@ -1,0 +1,21 @@
+{
+  "anchor_name": "bundle_relay_fault_tolerance_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pure-relay coordinator degrades GRACEFULLY (10%% dropout keeps >=0.92x accuracy, ~sqrt(k/K)) -- no 2PC-abort; ship the 50-LOC relay coordinator. accuracy by dropout: {'drop0.0': 1.0, 'drop0.1': 1.0, 'drop0.3': 1.0, 'drop0.5': 1.0} | 10%-dropout/full=1.000 (sqrt(0.9)=0.95)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by": {
+        "drop0.0": 1.0,
+        "drop0.1": 1.0,
+        "drop0.3": 1.0,
+        "drop0.5": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 3.4419631958007812,
+  "summary": "HARD_PASS: pure-relay coordinator degrades GRACEFULLY (10%% dropout keeps >=0.92x accuracy, ~sqrt(k/K)) -- no 2PC-abort; ship the 50-LOC relay coordinator. accuracy by dropout: {'drop0.0': 1.0, 'drop0.1': 1.0, 'drop0.3': 1.0, 'drop0.5': 1.0} | 10%-dropout/full=1.000 (sqrt(0.9)=0.95)"
+}

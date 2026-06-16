@@ -1,0 +1,22 @@
+{
+  "anchor_name": "substrate_f2_authoring_blind_null_cpu_v1",
+  "verdict": "AUTHORING_DEPENDENT",
+  "verdict_msg": "AUTHORING_DEPENDENT (honest, NOT a substrate failure): only 47% of unified operators survive reverting today's retyping -- the F2 lift is largely TODAY'S deliberate operator-retyping (legitimate build of the self-model), NOT discovered pre-existing independent structure. F2 18.8% must be reported as authoring-driven; the abstractions are real-and-authored, not real-and-independent. Re-measure on a future session's held-out slice for true independence. F2 authoring-blind null (15th rule): 47 operators, 9 retyped TODAY. CURRENT realized 9 families / 19 operators unified (ratio 0.4043). REVERTED (today's retyping undone via retyped_from) 4 families / 9 operators (ratio 0.1915). Authoring-blind retention = 0.4737. Honest reading: the F2 abstraction ratio is driven by today's deliberate self-model authoring (operator retyping) to the extent retention is low; that is legitimate BUILD work, but it is NOT pre-existing authoring-independent structure.",
+  "summary": "AUTHORING_DEPENDENT (honest, NOT a substrate failure): only 47% of unified operators survive reverting today's retyping -- the F2 lift is largely TODAY'S deliberate operator-retyping (legitimate build of the self-model), NOT discovered pre-existing independent structure. F2 18.8% must be reported as authoring-driven; the abstractions are real-and-authored, not real-and-independent. Re-measure on a future session's held-out slice for true independence. F2 authoring-blind null (15th rule): 47 operators, 9 retyped TODAY. CURRENT realized 9 families / 19 operators unified (ratio 0.4043). REVERTED (today's retyping undone via retyped_from) 4 families / 9 operators (ratio 0.1915). Authoring-blind retention = 0.4737. Honest reading: the F2 abstraction ratio is driven by today's deliberate self-model authoring (operator retyping) to the extent retention is low; that is legitimate BUILD work, but it is NOT pre-existing authoring-independent structure.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_operators": 47,
+      "n_retyped_today": 9,
+      "current_families": 9,
+      "current_unified": 19,
+      "reverted_families": 4,
+      "reverted_unified": 9,
+      "current_ratio": 0.4043,
+      "reverted_ratio": 0.1915,
+      "retention": 0.4737
+    }
+  ],
+  "elapsed_s": 0.31801748275756836
+}

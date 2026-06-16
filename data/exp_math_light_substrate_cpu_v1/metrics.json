@@ -1,0 +1,18 @@
+{
+  "anchor_name": "math_light_substrate_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: accuracy 0.20-0.35 on curated subset, or coverage/fidelity below bar. accuracy=0.947 coverage=0.086 recall-fidelity=1.000 (19/221 matched)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 0.947,
+      "coverage": 0.086,
+      "recall_fidelity": 1.0,
+      "n_matched": 19,
+      "n_total": 221
+    }
+  ],
+  "elapsed_s": 20.101810455322266,
+  "summary": "MIDDLE_BAND: accuracy 0.20-0.35 on curated subset, or coverage/fidelity below bar. accuracy=0.947 coverage=0.086 recall-fidelity=1.000 (19/221 matched)"
+}

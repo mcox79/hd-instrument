@@ -1,0 +1,60 @@
+{
+  "anchor_name": "a7_kappa3_drift_detection_during_training_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/3 conditions. n_seeds=5 detected=5/5 latency=16.6writes fpr=0.020(HP<0.05 HF>0.2) hp1=5/5 hp2=5/5 hp3=3/5",
+  "N": 1024,
+  "M_WARM": 50,
+  "DETECT_WINDOW": 50,
+  "P_BIAS": 0.7,
+  "run_mode": "full",
+  "n_seeds": 5,
+  "elapsed_s": 135.16567873954773,
+  "summary": "MIDDLE_BAND: 2/3 conditions. n_seeds=5 detected=5/5 latency=16.6writes fpr=0.020(HP<0.05 HF>0.2) hp1=5/5 hp2=5/5 hp3=3/5",
+  "per_seed": [
+    {
+      "seed": 7,
+      "detected": true,
+      "detect_latency_writes": 17,
+      "fpr": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 17,
+      "detected": true,
+      "detect_latency_writes": 17,
+      "fpr": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 23,
+      "detected": true,
+      "detect_latency_writes": 17,
+      "fpr": 0.05,
+      "hp1": true,
+      "hp2": true,
+      "hp3": false
+    },
+    {
+      "seed": 31,
+      "detected": true,
+      "detect_latency_writes": 16,
+      "fpr": 0.0,
+      "hp1": true,
+      "hp2": true,
+      "hp3": true
+    },
+    {
+      "seed": 41,
+      "detected": true,
+      "detect_latency_writes": 16,
+      "fpr": 0.05,
+      "hp1": true,
+      "hp2": true,
+      "hp3": false
+    }
+  ]
+}

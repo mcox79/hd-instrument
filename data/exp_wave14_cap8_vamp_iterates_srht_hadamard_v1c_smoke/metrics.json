@@ -1,0 +1,48 @@
+{
+  "verdict": "CAP8_ITERATES_GENERATED",
+  "verdict_msg": "All 1 VAMP iterate-trace files written successfully with >=1 iterates each.  Composition A audit v4 can now compute Spearman rho on SRHT + Hadamard.",
+  "elapsed_s": 0.0470000000204891,
+  "summary": {
+    "manifest": [
+      {
+        "cell_file": "data\\exp_wave14_cap8_vamp_iterates_srht_hadamard_v1c_smoke\\iterates\\srht\\alpha_1p00\\seed_0013.json",
+        "codebook": "srht",
+        "alpha": 1.0,
+        "seed": 13,
+        "n_iter_actual": 5,
+        "final_mse": 0.0082157917770872,
+        "vamp_se_pred": 0.009900990099009903
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "n_seeds": 1,
+      "alpha_grid": [
+        1.0
+      ],
+      "codebooks": [
+        "srht"
+      ],
+      "signal_var": 1.0,
+      "sigma_noise": 0.1,
+      "n_iter": 50,
+      "expected_n_files": 1
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "n_seeds": 1,
+    "alpha_grid": [
+      1.0
+    ],
+    "codebooks": [
+      "srht"
+    ],
+    "signal_var": 1.0,
+    "sigma_noise": 0.1,
+    "n_iter": 50,
+    "expected_n_files": 1
+  }
+}

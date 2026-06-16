@@ -1,0 +1,36 @@
+{
+  "verdict": "BASIN_COLLAPSED",
+  "verdict_msg": "Basin at alpha=0.50: radius=0.020 N (<0.02 N collapsed). Per-alpha radii: {'0.3': 0.09765625, '0.5': 0.01953125}. F2 storage gain useless without exact-pattern access.",
+  "elapsed_s": 0.0779999999795109,
+  "summary": {
+    "basin_radius_per_alpha": {
+      "0.3": 0.09765625,
+      "0.5": 0.01953125
+    },
+    "basin_radius_alpha50": 0.01953125,
+    "recovery_detail": {
+      "0.3": {
+        "5": 1.0,
+        "25": 1.0
+      },
+      "0.5": {
+        "5": 1.0,
+        "25": 0.2
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 256,
+    "alpha_grid": [
+      0.3,
+      0.5
+    ],
+    "d_flip_frac_grid": [
+      0.02,
+      0.1
+    ],
+    "n_iter": 5,
+    "seed": 17
+  }
+}

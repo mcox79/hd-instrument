@@ -1,0 +1,87 @@
+{
+  "anchor_name": "substrate_tm_literature_audit_tools_vs_materials_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN (INCONCLUSIVE by method -- LOWER BOUND): name-in-code matching found 21 UNAMBIGUOUS load-bearing tools (fhrr_bind, cleanup, circular_convolution, cosine_similarity, superposition, ...) -- so the load-bearing TOOL CLASS is REAL and RECOGNIZABLE (SR-1 core supported). BUT this auto-detector UNDERCOUNTS: it only catches tools whose NAME literally appears as a code identifier, and misses tools the code implements generically (np.dot for inner_product, bind() for role_filler_binding) -- visible as 'highly-cited atoms MISSED'. So tool-fraction 0.012 is a strict LOWER BOUND, NOT a refutation, and the foundational!=frequency overlap 0.143 is biased by undercounting. DEFINITIVE SR-1 needs the CURATED ~35-50 tool list (Research's KP P6 step). name-match TOOLS=21/1736 (1.2%, tiers {'T2': 8, 'T3': 6, 'T_school': 1, 'T1': 6}) referenced in backend/+hdlab/; overlap(top-63-cited, name-matched-tools)=0.143; tool examples=['algorithm', 'bundling', 'circular_convolution', 'cleanup', 'cosine_similarity', 'discriminative_perceptron', 'fhrr_bind', 'fhrr_unbind', 'gradient', 'kappa_4_free']; highly-cited atoms MISSED by name-match (tools the code implements under generic identifiers like np.dot/bind, NOT a literal atom-name)=[('shannon_entropy', 213), ('unit_modulus', 133), ('inner_product', 109), ('role_filler_binding', 65), ('pca_whitening', 53), ('algebraic_binding', 51)]. (Axis 2: TOOL=substrate's machinery uses it; MATERIAL=content it works on.)",
+  "summary": "UNKNOWN (INCONCLUSIVE by method -- LOWER BOUND): name-in-code matching found 21 UNAMBIGUOUS load-bearing tools (fhrr_bind, cleanup, circular_convolution, cosine_similarity, superposition, ...) -- so the load-bearing TOOL CLASS is REAL and RECOGNIZABLE (SR-1 core supported). BUT this auto-detector UNDERCOUNTS: it only catches tools whose NAME literally appears as a code identifier, and misses tools the code implements generically (np.dot for inner_product, bind() for role_filler_binding) -- visible as 'highly-cited atoms MISSED'. So tool-fraction 0.012 is a strict LOWER BOUND, NOT a refutation, and the foundational!=frequency overlap 0.143 is biased by undercounting. DEFINITIVE SR-1 needs the CURATED ~35-50 tool list (Research's KP P6 step). name-match TOOLS=21/1736 (1.2%, tiers {'T2': 8, 'T3': 6, 'T_school': 1, 'T1': 6}) referenced in backend/+hdlab/; overlap(top-63-cited, name-matched-tools)=0.143; tool examples=['algorithm', 'bundling', 'circular_convolution', 'cleanup', 'cosine_similarity', 'discriminative_perceptron', 'fhrr_bind', 'fhrr_unbind', 'gradient', 'kappa_4_free']; highly-cited atoms MISSED by name-match (tools the code implements under generic identifiers like np.dot/bind, NOT a literal atom-name)=[('shannon_entropy', 213), ('unit_modulus', 133), ('inner_product', 109), ('role_filler_binding', 65), ('pca_whitening', 53), ('algebraic_binding', 51)]. (Axis 2: TOOL=substrate's machinery uses it; MATERIAL=content it works on.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_atoms": 1736,
+      "n_tools": 21,
+      "tool_fraction": 0.0121,
+      "tool_tiers": {
+        "T2": 8,
+        "T3": 6,
+        "T_school": 1,
+        "T1": 6
+      },
+      "tool_examples": [
+        "algorithm",
+        "bundling",
+        "circular_convolution",
+        "cleanup",
+        "cosine_similarity",
+        "discriminative_perceptron",
+        "fhrr_bind",
+        "fhrr_unbind",
+        "gradient",
+        "kappa_4_free",
+        "metric_space",
+        "mp_bulk_kl",
+        "observers",
+        "spectral_gap",
+        "superposition",
+        "theta_gamma_binding",
+        "tracy_widom_distribution",
+        "transformers"
+      ],
+      "top_cited_tool_overlap": 0.1429,
+      "n_top_cited": 63,
+      "highly_cited_materials": [
+        [
+          "shannon_entropy",
+          213
+        ],
+        [
+          "unit_modulus",
+          133
+        ],
+        [
+          "inner_product",
+          109
+        ],
+        [
+          "role_filler_binding",
+          65
+        ],
+        [
+          "pca_whitening",
+          53
+        ],
+        [
+          "algebraic_binding",
+          51
+        ],
+        [
+          "graph_traversal",
+          43
+        ],
+        [
+          "context_binding",
+          40
+        ],
+        [
+          "hamming_distance",
+          35
+        ],
+        [
+          "cleanup_retrieval",
+          27
+        ]
+      ],
+      "code_chars": 760115
+    }
+  ],
+  "elapsed_s": 6.409983158111572
+}

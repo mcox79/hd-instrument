@@ -1,0 +1,109 @@
+{
+  "anchor": "reasoning_storage_scheme_b_smoke_v1_n16384",
+  "N": 512,
+  "smoke": true,
+  "n_chains": 20,
+  "K_paths": 10,
+  "seeds": [
+    17
+  ],
+  "per_seed": [
+    {
+      "seed": 17,
+      "N": 512,
+      "M_steps": 81,
+      "n_chains": 20,
+      "t_build_struct_s": 0.05,
+      "elapsed_s": 1.03,
+      "arm_a_audit": {
+        "r_type": {
+          "mean": 1.0,
+          "frac_above_hp_thresh": 1.0,
+          "frac_below_hf_thresh": 0.0,
+          "n_checked": 81
+        },
+        "k_premise1": {
+          "mean": 1.0,
+          "frac_above_hp_thresh": 1.0,
+          "frac_below_hf_thresh": 0.0,
+          "n_checked": 81
+        },
+        "k_premise2": {
+          "mean": 1.0,
+          "frac_above_hp_thresh": 1.0,
+          "frac_below_hf_thresh": 0.0,
+          "n_checked": 81
+        }
+      },
+      "arm_b_struct": {
+        "mean_per_hop_acc": 1.0,
+        "n_hops_evaluated": 81,
+        "n_correct": 81
+      },
+      "arm_b_rand": {
+        "mean_per_hop_acc": 1.0,
+        "n_hops_evaluated": 81,
+        "n_correct": 81
+      },
+      "arm_b_svd_struct": {
+        "sigma_1": 2.723769,
+        "sigma_2": 2.415408,
+        "ratio_s1_s2": 1.1277,
+        "top_10_sigmas": [
+          2.723769,
+          2.415408,
+          2.355597,
+          2.312272,
+          2.236508,
+          2.169272,
+          2.112755,
+          2.069636,
+          2.047857,
+          1.990841
+        ]
+      },
+      "arm_b_svd_rand": {
+        "sigma_1": 2.500322,
+        "sigma_2": 2.363071,
+        "ratio_s1_s2": 1.0581,
+        "top_10_sigmas": [
+          2.500322,
+          2.363071,
+          2.314293,
+          2.273728,
+          2.217878,
+          2.166955,
+          2.090874,
+          2.04968,
+          1.998515,
+          1.967757
+        ]
+      },
+      "arm_c_mitig": {
+        "mean_per_hop_acc": 1.0,
+        "n_hops_evaluated": 81,
+        "n_correct": 81
+      },
+      "arm_c_svd_mitig": {
+        "sigma_1": 2.557349,
+        "sigma_2": 2.530702,
+        "ratio_s1_s2": 1.0105,
+        "top_10_sigmas": [
+          2.557349,
+          2.530702,
+          2.368797,
+          2.340961,
+          2.243554,
+          2.138233,
+          2.098877,
+          2.076402,
+          2.00401,
+          1.982526
+        ]
+      }
+    }
+  ],
+  "verdict": "RSB_HARD_PASS",
+  "verdict_msg": "A=HARD_PASS(r_hp=1.00,k1=1.00,k2=1.00) B=HARD_PASS(struct=1.000,rand=1.000,ratio=1.000) C=HARD_PASS(mitig=1.000,delta=0.000,ratio_c=1.000) seeds=1 N=512",
+  "elapsed_s": 1.07
+}

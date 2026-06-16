@@ -1,0 +1,46 @@
+{
+  "anchor": "sherman_morrison_rank1_deletion_linear_readout_v1_n4096",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: residual_sigmas=34.13 > 5.0. residual_sigmas=34.13(HP<3.0 HF>5.0) retained_cos=0.9937(HP>=0.85) a=0/2 b=2/2 c=2/2",
+  "n_seeds": 2,
+  "N": 4096,
+  "run_mode": "smoke",
+  "elapsed_s": 0.10699105262756348,
+  "summary": "HARD_FAIL: residual_sigmas=34.13 > 5.0. residual_sigmas=34.13(HP<3.0 HF>5.0) retained_cos=0.9937(HP>=0.85) a=0/2 b=2/2 c=2/2",
+  "results": [
+    {
+      "seed": 7,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.02504897117614746,
+      "residual_cos": 0.9941013272405433,
+      "residual_sigmas": 34.77643947894251,
+      "retained_cos": 0.9927038685096035,
+      "sigma_noise": 0.025729130703899306,
+      "cert_reproducible": true,
+      "cert_changed": true,
+      "a_pass": false,
+      "b_pass": true,
+      "c_pass": true,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780452955.5442495
+    },
+    {
+      "seed": 17,
+      "N": 512,
+      "run_mode": "smoke",
+      "elapsed_s": 0.024402856826782227,
+      "residual_cos": 0.9959047569954991,
+      "residual_sigmas": 33.48725695820825,
+      "retained_cos": 0.9946391236133738,
+      "sigma_noise": 0.02695091250491098,
+      "cert_reproducible": true,
+      "cert_changed": true,
+      "a_pass": false,
+      "b_pass": true,
+      "c_pass": true,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780452955.5758433
+    }
+  ]
+}

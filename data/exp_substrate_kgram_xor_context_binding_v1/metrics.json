@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_kgram_xor_context_binding_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: XOR k-gram context binding rescues k-th-order prediction >=1.2x bigram (retrieval-side only; all moats preserved). K1=0.079 K2=0.358 K3=0.322 | K2/K1=4.54x K3/K1=4.08x (2nd-order chain, V=256)",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "K1_acc": 0.07884856070087609,
+      "K2_acc": 0.3579474342928661,
+      "K3_acc": 0.3216520650813517,
+      "seed": 1,
+      "ratio_K2_K1": 4.5396825396825395,
+      "ratio_K3_K1": 4.07936507936508
+    }
+  ],
+  "elapsed_s": 1.3925611972808838,
+  "summary": "HARD_PASS: XOR k-gram context binding rescues k-th-order prediction >=1.2x bigram (retrieval-side only; all moats preserved). K1=0.079 K2=0.358 K3=0.322 | K2/K1=4.54x K3/K1=4.08x (2nd-order chain, V=256)"
+}

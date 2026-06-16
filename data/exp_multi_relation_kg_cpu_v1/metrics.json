@@ -1,0 +1,15 @@
+{
+  "anchor_name": "multi_relation_kg_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: bidirectional KG triple recall >=0.90 -- a bundled knowledge graph is queryable both ways. (s,r)->o=1.000 (r,o)->s=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "sro": 1.0,
+      "ros": 1.0
+    }
+  ],
+  "elapsed_s": 0.021291494369506836,
+  "summary": "HARD_PASS: bidirectional KG triple recall >=0.90 -- a bundled knowledge graph is queryable both ways. (s,r)->o=1.000 (r,o)->s=1.000"
+}

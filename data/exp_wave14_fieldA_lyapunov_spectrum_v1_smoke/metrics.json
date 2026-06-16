@@ -1,0 +1,41 @@
+{
+  "verdict": "LYAP_HARD_FAIL_FAR_FROM_EDGE",
+  "verdict_msg": "Firmly chaotic/contractive: max |\u03bb_1| = 0.8095 > 0.2 at >=1 operating point. Field-A reservoir-computing REJECTED. density=0.20: \u03bb_1=0.8095, decay_r\u00b2=0.831.",
+  "elapsed_s": 0.42099999997299165,
+  "summary": {
+    "per_density": {
+      "0.2": {
+        "17": {
+          "lyapunov_exponents": [
+            0.8094511878490448,
+            0.7428720235824585,
+            0.7351074147224427
+          ],
+          "lambda_1": 0.8094511878490448,
+          "mean_norm_diag": 3.595252647995949,
+          "decay_slope": -0.020919930672005163,
+          "decay_r2": 0.8307199057797728,
+          "density": 0.2,
+          "M_stored": 26
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 128,
+    "K_exponents": 3,
+    "T_iter": 100,
+    "T_warmup": 20,
+    "qr_interval": 2,
+    "M_densities": [
+      0.2
+    ],
+    "seeds": [
+      17
+    ],
+    "pass_lyap1_band": 0.05,
+    "pass_r2": 0.85,
+    "fail_lyap1_abs": 0.2
+  }
+}

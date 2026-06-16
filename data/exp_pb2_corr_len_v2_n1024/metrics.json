@@ -1,0 +1,41 @@
+{
+  "mode": "smoke",
+  "N": 256,
+  "m_fracs": [
+    0.25,
+    1.0,
+    2.0
+  ],
+  "seeds": [
+    17
+  ],
+  "elapsed_s": 0.33,
+  "cells": [
+    {
+      "M_frac": 0.25,
+      "M": 64,
+      "N": 256,
+      "seed": 17,
+      "xi_normalized": 0.11525,
+      "n_edits": 10
+    },
+    {
+      "M_frac": 1.0,
+      "M": 256,
+      "N": 256,
+      "seed": 17,
+      "xi_normalized": 0.39528,
+      "n_edits": 10
+    },
+    {
+      "M_frac": 2.0,
+      "M": 512,
+      "N": 256,
+      "seed": 17,
+      "xi_normalized": 0.39528,
+      "n_edits": 10
+    }
+  ],
+  "verdict_tag": "PB2_CORR_HARD_PASS",
+  "verdict_msg": "EDIT-PROPAGATION FINITE-RANGE: xi_normalized=0.395 < 1.0 at M_frac=1. mfracs=[0.25, 1.0, 2.0] mean_xi={0.25: 0.115, 1.0: 0.395, 2.0: 0.395} xi_at_M1=0.395 mono_frac=1.00 N=256"
+}

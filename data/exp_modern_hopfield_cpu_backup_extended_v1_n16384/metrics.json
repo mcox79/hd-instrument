@@ -1,0 +1,41 @@
+{
+  "verdict": "C1_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL_CEILING: constructed=1/1 max_M_per_seed=[1024] target_hp>=2048 target_hf=1024",
+  "elapsed_s": 0.02,
+  "summary": {
+    "anchor": "modern_hopfield_cpu_backup_extended_v1_n16384",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      512,
+      1024
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "construction_success": true,
+        "per_M": [
+          {
+            "M": 512,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.0
+          },
+          {
+            "M": 1024,
+            "success": true,
+            "recall": 1.0,
+            "elapsed_s": 0.01
+          }
+        ],
+        "max_M_at_95_recall": 1024
+      }
+    ],
+    "verdict": "C1_MIDDLE_BAND",
+    "verdict_msg": "PARTIAL_CEILING: constructed=1/1 max_M_per_seed=[1024] target_hp>=2048 target_hf=1024",
+    "elapsed_s": 0.02
+  }
+}

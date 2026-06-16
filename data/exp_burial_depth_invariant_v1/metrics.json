@@ -1,0 +1,16 @@
+{
+  "anchor_name": "burial_depth_invariant_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: load-bearing bindings detected >=0.95 + protected from decay -- burial-depth invariant holds (critical facts survive consolidation). detection=0.952 protected-retention=0.957 unprotected-decayed=0.944",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "det_acc": 0.952,
+      "protected": 0.9570957095709571,
+      "unprotected_decayed": 0.9441624365482234
+    }
+  ],
+  "elapsed_s": 0.012837648391723633,
+  "summary": "HARD_PASS: load-bearing bindings detected >=0.95 + protected from decay -- burial-depth invariant holds (critical facts survive consolidation). detection=0.952 protected-retention=0.957 unprotected-decayed=0.944"
+}

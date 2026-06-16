@@ -1,0 +1,29 @@
+{
+  "verdict": "CROSS_MODAL_BIND_HARD_FAIL",
+  "verdict_msg": "K4 KILLER substrate-level: mean_cos=0.058<0.2 OR mean_lift=0.060<0.05. s17:cos=0.058,lift=0.060.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "mean_cross_cos": 0.057934283740178213,
+        "mean_null_cos": -0.0017332822855678387,
+        "lift": 0.05966756602574605
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 512,
+    "n_img_dim": 256,
+    "m_pairs": 40,
+    "seeds": [
+      17
+    ],
+    "device": "cpu",
+    "pass_mean_cos": 0.5,
+    "pass_lift": 0.15,
+    "pass_seeds": 4,
+    "fail_mean_cos": 0.2,
+    "fail_lift": 0.05
+  }
+}

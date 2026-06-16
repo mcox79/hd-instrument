@@ -1,0 +1,17 @@
+{
+  "anchor_name": "zkl_timing_immunity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: query latency is membership-independent (AUC<=0.52) -- timing side-channel immunity holds. latency_AUC=0.5128 (member med=1026.65us nonmember med=1028.10us, n=80 each)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "latency_auc": 0.5128125,
+      "median_member_us": 1026.649959385395,
+      "median_nonmember_us": 1028.0999704264104,
+      "n_each": 80
+    }
+  ],
+  "elapsed_s": 0.357785701751709,
+  "summary": "HARD_PASS: query latency is membership-independent (AUC<=0.52) -- timing side-channel immunity holds. latency_AUC=0.5128 (member med=1026.65us nonmember med=1028.10us, n=80 each)"
+}

@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_resonator_augmented_iterated_retrieval_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: cleanup/resonator augmentation extends reasoning depth >=1.5x. plain_depth=4.0 cleanup_depth=24.0 ratio=6.0x (cleanup hit K_CAP; ratio LOWER BOUND) (load=2.0 alpha_c)",
+  "N": 1024,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 1024,
+      "G_chains": 11,
+      "plain_depth": 3,
+      "cleanup_depth": 24,
+      "ratio": 8.0
+    },
+    {
+      "seed": 2,
+      "N": 1024,
+      "G_chains": 11,
+      "plain_depth": 5,
+      "cleanup_depth": 24,
+      "ratio": 4.8
+    }
+  ],
+  "elapsed_s": 1.491670846939087,
+  "summary": "HARD_PASS: cleanup/resonator augmentation extends reasoning depth >=1.5x. plain_depth=4.0 cleanup_depth=24.0 ratio=6.0x (cleanup hit K_CAP; ratio LOWER BOUND) (load=2.0 alpha_c)"
+}

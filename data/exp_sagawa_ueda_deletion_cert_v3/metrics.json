@@ -1,0 +1,22 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: 2/2 N-values pass HP1. all_excess_positive=True",
+  "elapsed_s": 0.04,
+  "summary": "su_v3 SMOKE: 2/2 N-values HP1",
+  "n_N_values": 2,
+  "n_N_pass_hp1": 2,
+  "n_N_fail_hf1": 0,
+  "all_excess_positive": true,
+  "per_N_summary": {
+    "128": {
+      "mean_su_frac": 1.0,
+      "mean_excess": 9.449427646330136,
+      "n_seeds_pass_hp1": 1
+    },
+    "256": {
+      "mean_su_frac": 1.0,
+      "mean_excess": 16.240318418291885,
+      "n_seeds_pass_hp1": 1
+    }
+  }
+}

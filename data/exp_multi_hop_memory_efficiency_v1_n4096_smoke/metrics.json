@@ -1,0 +1,34 @@
+{
+  "verdict": "S3_HARD_FAIL",
+  "verdict_msg": "MEMORY_CLIFF: max_amp B=1.00 D=48.48 E=14.57 n_cells=1",
+  "elapsed_s": 0.39,
+  "summary": {
+    "anchor": "multi_hop_memory_efficiency_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "depth": 3,
+    "K_paths": 50,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 256,
+        "depth": 3,
+        "K_paths": 50,
+        "seed": 17,
+        "single_hop_peak_b": 600,
+        "path_b_peak_b": 600,
+        "path_d_peak_b": 29087,
+        "path_e_peak_b": 8744,
+        "amp_b": 1.0,
+        "amp_d": 48.4783,
+        "amp_e": 14.5733
+      }
+    ],
+    "verdict": "S3_HARD_FAIL",
+    "verdict_msg": "MEMORY_CLIFF: max_amp B=1.00 D=48.48 E=14.57 n_cells=1",
+    "elapsed_s": 0.39
+  }
+}

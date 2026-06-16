@@ -1,0 +1,21 @@
+{
+  "anchor_name": "comp3_cleanup_at_depth_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: hierarchical cleanup recovers >=5 dB SNR per level -- cascading per-level cleanup is the mechanism that mitigates compositional SNR decay (quantified). mean-SNR-recovery=16.13 dB/level per-level=[31.38, 22.14, 11.0, 0.0]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_level_recovery_db": [
+        31.38,
+        22.14,
+        11.0,
+        0.0
+      ],
+      "mean_recovery_db": 16.13,
+      "L": 5
+    }
+  ],
+  "elapsed_s": 158.54952025413513,
+  "summary": "HARD_PASS: hierarchical cleanup recovers >=5 dB SNR per level -- cascading per-level cleanup is the mechanism that mitigates compositional SNR decay (quantified). mean-SNR-recovery=16.13 dB/level per-level=[31.38, 22.14, 11.0, 0.0]"
+}

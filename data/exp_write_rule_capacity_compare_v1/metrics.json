@@ -1,0 +1,16 @@
+{
+  "anchor_name": "write_rule_capacity_compare_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: pinv capacity >=3x Hebbian -- pseudoinverse write rule is the production capacity multiplier. hebb_cap=0.05 pinv_cap=0.30 ratio=6.0x",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "hebb": 0.05,
+      "pinv": 0.3,
+      "ratio": 5.999999999999999
+    }
+  ],
+  "elapsed_s": 21.94270133972168,
+  "summary": "HARD_PASS: pinv capacity >=3x Hebbian -- pseudoinverse write rule is the production capacity multiplier. hebb_cap=0.05 pinv_cap=0.30 ratio=6.0x"
+}

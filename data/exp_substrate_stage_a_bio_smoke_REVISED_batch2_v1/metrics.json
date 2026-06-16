@@ -1,0 +1,45 @@
+{
+  "anchor_name": "substrate_stage_a_bio_smoke_REVISED_batch2_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: bio-smoke batch2 B2[dense/sparse ratio=0.0x HF] B8[r=0.863 HF (MID=algebraically-predicted)]",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "B2",
+    "B8"
+  ],
+  "why_drills": [
+    "[WHY-DRILL B2] sparse/dense M_crit ratio=0.0x (<10x); if <2x, expansion orthogonality insufficient -> increase N_DG or ReLU projection",
+    "[WHY-DRILL B8] residual ratio r=0.863 (>0.71); bigram base too weak -> replace with first-PC PCA projection"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "B2": {
+        "M_crit_dense": 30,
+        "M_crit_sparse": 0,
+        "ratio": 0.0,
+        "N_dg": 1024
+      },
+      "B8": {
+        "r_bigram": 0.8567762353153194,
+        "r_random_base": 0.9928200117498276
+      }
+    },
+    {
+      "seed": 2,
+      "B2": {
+        "M_crit_dense": 30,
+        "M_crit_sparse": 0,
+        "ratio": 0.0,
+        "N_dg": 1024
+      },
+      "B8": {
+        "r_bigram": 0.8691492596435467,
+        "r_random_base": 0.9908147147572403
+      }
+    }
+  ],
+  "elapsed_s": 0.7481012344360352,
+  "summary": "HARD_FAIL: bio-smoke batch2 B2[dense/sparse ratio=0.0x HF] B8[r=0.863 HF (MID=algebraically-predicted)]"
+}

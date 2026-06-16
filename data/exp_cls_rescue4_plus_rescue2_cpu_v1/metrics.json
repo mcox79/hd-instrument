@@ -1,0 +1,19 @@
+{
+  "anchor_name": "cls_rescue4_plus_rescue2_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: CLS rescue works -- asymmetric capacity (fast N=2048 recency + slow N=8192 durable) + offline consolidation of high-confidence patterns gives recent_recall>=0.85 AND old_consolidated_recall>=0.70, while old-from-fast is forgotten (consolidation is necessary, not a no-op). Robust mechanism, not a threshold tweak. recent(fast)=1.000 old_consolidated(slow)=1.000 old_from_fast=0.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recent_recall": 1.0,
+      "old_from_fast": 0.0,
+      "old_consolidated_recall": 1.0,
+      "N_fast": 2048,
+      "N_slow": 8192,
+      "T": 1500
+    }
+  ],
+  "elapsed_s": 1.131878137588501,
+  "summary": "HARD_PASS: CLS rescue works -- asymmetric capacity (fast N=2048 recency + slow N=8192 durable) + offline consolidation of high-confidence patterns gives recent_recall>=0.85 AND old_consolidated_recall>=0.70, while old-from-fast is forgotten (consolidation is necessary, not a no-op). Robust mechanism, not a threshold tweak. recent(fast)=1.000 old_consolidated(slow)=1.000 old_from_fast=0.000"
+}

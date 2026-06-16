@@ -1,0 +1,17 @@
+{
+  "anchor_name": "rrf_fusion_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: RRF fusion recall@10 >=1.2x best single ranker -- hybrid parallel fusion adds real recall. RRF=0.138 vs best-single=0.098 (ratio=1.41)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "A": 0.08916666666666664,
+      "B": 0.0975,
+      "fused": 0.1375,
+      "ratio": 1.4102563957922423
+    }
+  ],
+  "elapsed_s": 0.04984426498413086,
+  "summary": "HARD_PASS: RRF fusion recall@10 >=1.2x best single ranker -- hybrid parallel fusion adds real recall. RRF=0.138 vs best-single=0.098 (ratio=1.41)"
+}

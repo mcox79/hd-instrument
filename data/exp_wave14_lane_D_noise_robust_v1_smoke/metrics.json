@@ -1,0 +1,27 @@
+{
+  "verdict": "NOISE_ROBUST",
+  "verdict_msg": "composed_acc at 10% bit-flip = 0.950 (>=0.50); clean=1.000. Lane D pipeline tolerates realistic observation noise. acc_per_noise={'0.0': 1.0, '0.10': 0.95}.",
+  "elapsed_s": 0.14000000001396984,
+  "summary": {
+    "acc_per_noise": {
+      "0.0": 1.0,
+      "0.10": 0.95
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "K_hypotheses": 3,
+    "F_facts_per_hyp": 10,
+    "skill_len": 4,
+    "skill_alphabet": 5,
+    "n_trials_per_seed": 20,
+    "noise_levels": [
+      0.0,
+      0.1
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "verdict": "INT_HARD_FAIL",
+  "verdict_msg": "NO_SEPARATION: conditions within +/-20%. means={'independent': 0.038459, 'contradictory': 0.038163} max/min=1.01x span_pct=0.008 n_cells=2 n_conditions=2",
+  "elapsed_s": 0.11,
+  "summary": {
+    "anchor": "interference_patterns_commutator_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 32,
+    "conditions": [
+      "independent",
+      "contradictory"
+    ],
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 32,
+        "condition": "independent",
+        "commutator_magnitude": 0.038459,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 0.87938,
+        "W_A_norm": 5.66082,
+        "W_B_norm": 5.65547
+      },
+      {
+        "seed": 17,
+        "M": 32,
+        "condition": "contradictory",
+        "commutator_magnitude": 0.038163,
+        "self_commutator_check": 0.0,
+        "product_W_A_W_B_norm": 0.86909,
+        "W_A_norm": 5.66082,
+        "W_B_norm": 5.65703
+      }
+    ],
+    "verdict": "INT_HARD_FAIL",
+    "verdict_msg": "NO_SEPARATION: conditions within +/-20%. means={'independent': 0.038459, 'contradictory': 0.038163} max/min=1.01x span_pct=0.008 n_cells=2 n_conditions=2",
+    "elapsed_s": 0.11
+  }
+}

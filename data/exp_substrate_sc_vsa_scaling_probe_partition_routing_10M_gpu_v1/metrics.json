@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_sc_vsa_scaling_probe_partition_routing_10M_gpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: VSA + L1 partition-routing SURVIVES to 10M on all 4 signed criteria -- routed recall@10=0.9333>=0.60 (N-invariant), flat strictly degrades across the N sweep, routing acc=1.0000>=0.90, max partition<=50K. The 100M-1B roadmap's existential precondition HOLDS: substrate scales where flat-RAG hits per-query interference. N-sweep [10000, 100000] part_size=2000 (<=50K:True, P@Nmax=50); ROUTED recall@10=0.9333 (N-invariant) vs FLAT curve {'10000': 0.825, '100000': 0.675} (strictly-decreasing=True); routing acc@Nmax=1.0000; target_cos=0.133 cat_cos=0.70; tau-floor D1024=0.1233 D2048=0.0828 (widens=True). RESCUE = routed holds while flat collapses.",
+  "summary": "HARD_PASS: VSA + L1 partition-routing SURVIVES to 10M on all 4 signed criteria -- routed recall@10=0.9333>=0.60 (N-invariant), flat strictly degrades across the N sweep, routing acc=1.0000>=0.90, max partition<=50K. The 100M-1B roadmap's existential precondition HOLDS: substrate scales where flat-RAG hits per-query interference. N-sweep [10000, 100000] part_size=2000 (<=50K:True, P@Nmax=50); ROUTED recall@10=0.9333 (N-invariant) vs FLAT curve {'10000': 0.825, '100000': 0.675} (strictly-decreasing=True); routing acc@Nmax=1.0000; target_cos=0.133 cat_cos=0.70; tau-floor D1024=0.1233 D2048=0.0828 (widens=True). RESCUE = routed holds while flat collapses.",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_sweep": [
+        10000,
+        100000
+      ],
+      "part_size": 2000,
+      "max_part_le_cap": true,
+      "P_max": 50,
+      "target_cos": 0.133,
+      "retrieval_noise": 7.452,
+      "cat_cos": 0.7,
+      "routed_recall": 0.9333,
+      "routing_acc": 1.0,
+      "flat_curve": {
+        "10000": 0.825,
+        "100000": 0.675
+      },
+      "flat_strictly_decreasing": true,
+      "routed_at_Nmax": 0.9333,
+      "flat_at_Nmax": 0.675,
+      "tau_floor_by_D": {
+        "1024": 0.1233,
+        "2048": 0.0828
+      },
+      "tau_window_widens_with_D": true,
+      "max_partition": 2000
+    }
+  ],
+  "elapsed_s": 3.56435489654541
+}

@@ -1,0 +1,21 @@
+{
+  "anchor_name": "topk_recall_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: recall@5>=0.95 even at 0.35 bit-flip -- a cheap re-rank stage recovers what top-1 misses. recall@k: {'f0.20_k1': 1.0, 'f0.20_k5': 1.0, 'f0.20_k10': 1.0, 'f0.35_k1': 0.998, 'f0.35_k5': 1.0, 'f0.35_k10': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "f0.20_k1": 1.0,
+        "f0.20_k5": 1.0,
+        "f0.20_k10": 1.0,
+        "f0.35_k1": 0.9975,
+        "f0.35_k5": 1.0,
+        "f0.35_k10": 1.0
+      }
+    }
+  ],
+  "elapsed_s": 0.15973472595214844,
+  "summary": "HARD_PASS: recall@5>=0.95 even at 0.35 bit-flip -- a cheap re-rank stage recovers what top-1 misses. recall@k: {'f0.20_k1': 1.0, 'f0.20_k5': 1.0, 'f0.20_k10': 1.0, 'f0.35_k1': 0.998, 'f0.35_k5': 1.0, 'f0.35_k10': 1.0}"
+}

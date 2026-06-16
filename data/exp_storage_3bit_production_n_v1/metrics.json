@@ -1,0 +1,16 @@
+{
+  "anchor_name": "storage_3bit_production_n_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 3-bit W drop<=3pct at N=2048 -- 3-bit holds at production scale. full=1.000 3-bit=1.000 drop=0.000 (N=2048)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "full": 1.0,
+      "q3": 1.0,
+      "drop": 0.0
+    }
+  ],
+  "elapsed_s": 1.341564416885376,
+  "summary": "HARD_PASS: 3-bit W drop<=3pct at N=2048 -- 3-bit holds at production scale. full=1.000 3-bit=1.000 drop=0.000 (N=2048)"
+}

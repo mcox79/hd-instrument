@@ -1,0 +1,60 @@
+{
+  "verdict": "BETM_LOGFORGET_HARD_FAIL_HARNESS_REJECTED",
+  "verdict_msg": "Harness REJECTED: correct_forms=3 <= 2 OR median_BIC_gap=1.92 < 2.0. Redesign needed. correct_forms=3/5, median_BIC_gap=1.92, per_form_gaps=[2.6, 1.67, 1.28, 4.54, 1.92].",
+  "elapsed_s": 0.39100000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "A_powerlaw": {
+          "correct_rate": 0.4,
+          "mean_bic_gap": 2.6025722741583834,
+          "max_bic_gap": 6.659953425161554,
+          "min_bic_gap": 1.310734831549567
+        },
+        "B_log": {
+          "correct_rate": 0.6,
+          "mean_bic_gap": 1.6690331277715642,
+          "max_bic_gap": 4.922971872884915,
+          "min_bic_gap": 0.06783593583875813
+        },
+        "C_sqrt": {
+          "correct_rate": 0.8,
+          "mean_bic_gap": 1.2800624381196315,
+          "max_bic_gap": 2.2960562064836907,
+          "min_bic_gap": 0.25110728484381895
+        },
+        "D_exp": {
+          "correct_rate": 0.8,
+          "mean_bic_gap": 4.5394074517366985,
+          "max_bic_gap": 8.336926938144089,
+          "min_bic_gap": 2.3544202969326093
+        },
+        "E_satlog": {
+          "correct_rate": 0.4,
+          "mean_bic_gap": 1.9153514545950459,
+          "max_bic_gap": 6.42701068581043,
+          "min_bic_gap": 0.011725563459044963
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "t_grid": [
+      1.0,
+      3.0,
+      8.0,
+      21.0,
+      55.0
+    ],
+    "n_replicates": 5,
+    "noise_std": 0.02,
+    "seeds": [
+      17
+    ],
+    "pass_correct_form": 4,
+    "pass_bic_gap": 4.0,
+    "fail_correct_form": 2,
+    "fail_max_bic_gap": 2.0
+  }
+}

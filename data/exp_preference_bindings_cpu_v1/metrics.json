@@ -1,0 +1,15 @@
+{
+  "anchor_name": "preference_bindings_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: personalized recall 0.75-0.90. personalized-recall=0.867 cross-customer-divergence=0.965",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.8666666666666667,
+      "divergence": 0.9647368421052632
+    }
+  ],
+  "elapsed_s": 0.9442217350006104,
+  "summary": "MIDDLE_BAND: personalized recall 0.75-0.90. personalized-recall=0.867 cross-customer-divergence=0.965"
+}

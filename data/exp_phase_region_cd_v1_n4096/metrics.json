@@ -1,0 +1,46 @@
+{
+  "anchor": "phase_region_cd_v1_n4096",
+  "N": 1024,
+  "smoke": true,
+  "regions": [
+    [
+      "region_C",
+      4.0,
+      64.0
+    ],
+    [
+      "region_D",
+      12.0,
+      64.0
+    ]
+  ],
+  "beta_high": 64.0,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "region": "region_C",
+      "M_frac": 4.0,
+      "M": 4096,
+      "N": 1024,
+      "beta": 64.0,
+      "seed": 17,
+      "retention": 1.0,
+      "theory_bound_ret": 0.01832
+    },
+    {
+      "region": "region_D",
+      "M_frac": 12.0,
+      "M": 12288,
+      "N": 1024,
+      "beta": 64.0,
+      "seed": 17,
+      "retention": 0.30245,
+      "theory_bound_ret": 1e-05
+    }
+  ],
+  "verdict": "PHASE_CD_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: not enough seeds meet criteria. region_C_mean=1.0000 region_D_mean=0.3024 c_pass=1/1 d_pass=0/1 beta=64.0 M_frac_C=4.0 M_frac_D=12.0 N=1024",
+  "elapsed_s": 0.21
+}

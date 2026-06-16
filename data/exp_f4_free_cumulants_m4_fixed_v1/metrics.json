@@ -1,0 +1,23 @@
+{
+  "anchor": "f4_free_cumulants_m4_fixed_v1",
+  "run_mode": "smoke",
+  "N": 1024,
+  "n_seeds": 3,
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "f4_free_cumulants_m4_fixed_v1 verdict=MIDDLE_BAND: mean_rel_err_M4=0.0698(HP<=0.05,HF>0.3) mean_rel_err_M3=0.0082(HP<=0.08) mean_kappa2_rel=0.0035(HP<=0.05,HF>0.2) cells=2/3 W=full_no_diag_removal elapsed=0.5s",
+  "mean_rel_err_M4": 0.06979937402655999,
+  "mean_rel_err_M3": 0.008247356782671503,
+  "mean_kappa2_rel": 0.0035402634564568013,
+  "all_rel_err_M4": [
+    0.06133999245935841,
+    0.07813249530246948,
+    0.06992563431785209
+  ],
+  "all_kappa2_rel": [
+    0.002100551829618845,
+    0.005378498750574449,
+    0.003141739789177111
+  ],
+  "fix_note": "W_full (no diagonal removal) used -- fixes v1 diagonal-removal bug",
+  "elapsed_s": 0.4695546627044678
+}

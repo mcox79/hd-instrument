@@ -1,0 +1,18 @@
+{
+  "anchor_name": "ner_frame_semantic_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: frame lift <=+0.02 -- construction-frame abstraction SATURATES like lexical features (the prev/next-word features already captured the constructions at scale). +frame F1=0.5767 vs baseline 0.5817 (lift=-0.0050, train=5982)",
+  "summary": "HARD_FAIL: frame lift <=+0.02 -- construction-frame abstraction SATURATES like lexical features (the prev/next-word features already captured the constructions at scale). +frame F1=0.5767 vs baseline 0.5817 (lift=-0.0050, train=5982)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.5767,
+      "f1_frame": 0.5767,
+      "f1_baseline": 0.5817,
+      "lift": -0.005,
+      "n_train": 5982
+    }
+  ],
+  "elapsed_s": 457.80316066741943
+}

@@ -1,0 +1,28 @@
+{
+  "anchor": "multi_tenant_arch1_full_v1_n16384",
+  "N": 1024,
+  "M": 16,
+  "smoke": true,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "seed": 17,
+      "N": 1024,
+      "M": 16,
+      "max_sim_b_vals_via_a": 0.0072784423828125,
+      "contamination_rate_p1": 0.0,
+      "contamination_p2": 0,
+      "max_attack_b_sim": 0.053699493408203125,
+      "max_attack_a_sim": 0.009006500244140625,
+      "isolation_confirmed": 1,
+      "elapsed_s": 0.01,
+      "ok": true,
+      "run_mode": "smoke"
+    }
+  ],
+  "verdict": "MT_ARCH1_HARD_PASS",
+  "verdict_msg": "ZERO_CROSS_TENANT_LEAKAGE: all 1 seeds confirmed at N=1024. N=1024 M=16 n_isolated=1/1 n_leak_p1=0 n_leak_p2=0 mean_max_sim_B_via_A=0.0073",
+  "elapsed_s": 0.01
+}

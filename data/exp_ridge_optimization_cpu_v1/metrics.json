@@ -1,0 +1,21 @@
+{
+  "anchor_name": "ridge_optimization_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: optimal ridge gives recall>=0.99 at load 0.8 -- regularization sweet spot identified. best=1.000 | by-ridge: {'l0.0001': 1.0, 'l0.001': 1.0, 'l0.01': 1.0, 'l0.1': 1.0, 'l1': 1.0}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "l0.0001": 1.0,
+        "l0.001": 1.0,
+        "l0.01": 1.0,
+        "l0.1": 1.0,
+        "l1": 1.0
+      },
+      "best": 1.0
+    }
+  ],
+  "elapsed_s": 0.9453678131103516,
+  "summary": "HARD_PASS: optimal ridge gives recall>=0.99 at load 0.8 -- regularization sweet spot identified. best=1.000 | by-ridge: {'l0.0001': 1.0, 'l0.001': 1.0, 'l0.01': 1.0, 'l0.1': 1.0, 'l1': 1.0}"
+}

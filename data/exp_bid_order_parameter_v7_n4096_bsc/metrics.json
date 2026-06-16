@@ -1,0 +1,35 @@
+{
+  "anchor": "bid_order_parameter_v7_n4096_bsc",
+  "N": 512,
+  "smoke": true,
+  "M_fracs": [
+    0.1,
+    1.0
+  ],
+  "seeds": [
+    17
+  ],
+  "per_mfrac": {
+    "0.1": [
+      {
+        "M_frac": 0.1,
+        "seed": 17,
+        "bid_normalized": 0.26265,
+        "outside_band": false,
+        "elapsed_s": 0.0
+      }
+    ],
+    "1.0": [
+      {
+        "M_frac": 1.0,
+        "seed": 17,
+        "bid_normalized": 0.25332,
+        "outside_band": false,
+        "elapsed_s": 0.01
+      }
+    ]
+  },
+  "verdict": "BID_V7_HARD_FAIL",
+  "verdict_msg": "BID collapses inside Hopfield bands at M_frac<=2.0. rho=-1.000 n_outside_low=0 n_inside_low=2 M_fracs=[0.1, 1.0]...[0.1, 1.0] bid_means=[0.263, 0.253]...",
+  "elapsed_s": 0.01
+}

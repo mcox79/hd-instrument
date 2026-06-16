@@ -1,0 +1,31 @@
+{
+  "anchor": "activation_barrier_n_scale_v1_n8192",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: ratio=1.1500 in (1.02,1.2]; partial N-scaling. nf_crit_05=0.460 nf_crit_10=0.400 ratio=1.1500 n_monotone=2/2 predicted_barrier_ratio=2.3158 v2_n4096_ratio=1.0962 grid_step=0.01 N=8192",
+  "N": 8192,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 0.2242124080657959,
+  "predicted_barrier_ratio": 2.31578947368421,
+  "v2_n4096_ratio": 1.0962,
+  "mean_ratio": 1.15,
+  "grid_step": 0.01,
+  "results": [
+    {
+      "seed": 7,
+      "nf_crit_05": 0.44,
+      "nf_crit_10": 0.4,
+      "ratio_05_10": 1.0999999999999999,
+      "monotone_pass": true,
+      "elapsed_s": 0.07640480995178223
+    },
+    {
+      "seed": 17,
+      "nf_crit_05": 0.48,
+      "nf_crit_10": 0.4,
+      "ratio_05_10": 1.2,
+      "monotone_pass": true,
+      "elapsed_s": 0.08274269104003906
+    }
+  ]
+}

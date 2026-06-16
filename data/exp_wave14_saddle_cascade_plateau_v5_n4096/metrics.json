@@ -1,0 +1,36 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Saddle-cascade discrete structure CONFIRMED at N=512. R^2=0.770 < 0.85, max_deviation=0.085 >= 0.08. Structure persists N=1024 (v3) -> N=2048 (v4 if PASS) -> N=4096 (v5): genuine substrate physics not finite-size artifact.",
+  "elapsed_s": 2.567,
+  "summary": {
+    "N": 512,
+    "F_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "retention_by_f": {
+      "0.0": 0.7722,
+      "0.5": 0.7793,
+      "1.0": 1.0428
+    },
+    "linear_r2": 0.7698,
+    "max_deviation": 0.0855,
+    "v3_ref_r2": 0.322,
+    "v3_ref_max_dev": 0.249,
+    "v3_ref_N": 1024
+  },
+  "config": {
+    "N": 512,
+    "F_sweep": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "v5_note": "N=4096 anticipatory follow-on; ship when v4_n2048 HARD-PASS"
+  }
+}

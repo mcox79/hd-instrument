@@ -1,0 +1,44 @@
+{
+  "anchor_name": "substrate_gpu_capacity_scaling_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate shard capacity scales with dimension on GPU -- max facts-per-shard (recall>=0.90) increases monotonically with N and grows >=2x from smallest to largest dim. Production sizing law holds: pick N for target capacity. dims=[4096, 8192] capacities=[100, 400] ratio=4.0x dev=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "per_dim": {
+        "N4096": {
+          "N": 4096,
+          "recalls": {
+            "100": 1.0,
+            "400": 0.605,
+            "1600": 0.048
+          },
+          "capacity_k": 100
+        },
+        "N8192": {
+          "N": 8192,
+          "recalls": {
+            "100": 1.0,
+            "400": 0.957,
+            "1600": 0.212
+          },
+          "capacity_k": 400
+        }
+      },
+      "dims": [
+        4096,
+        8192
+      ],
+      "capacities": [
+        100,
+        400
+      ],
+      "monotonic": true,
+      "ratio_max_min": 4.0,
+      "device": "cpu"
+    }
+  ],
+  "elapsed_s": 4.482433557510376,
+  "summary": "HARD_PASS: substrate shard capacity scales with dimension on GPU -- max facts-per-shard (recall>=0.90) increases monotonically with N and grows >=2x from smallest to largest dim. Production sizing law holds: pick N for target capacity. dims=[4096, 8192] capacities=[100, 400] ratio=4.0x dev=cpu"
+}

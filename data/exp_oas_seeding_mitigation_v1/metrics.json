@@ -1,0 +1,16 @@
+{
+  "anchor_name": "oas_seeding_mitigation_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: OAS bias is REAL (unmitigated override <=0.60) AND up-weighting fixes it (customer override >=0.90, seeds retained) -- pre-trained substrate can be safely overlaid with customer corrections. override unmit=0.517 mit=1.000, seed-retention=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "unmit": 0.5166666666666667,
+      "mit": 1.0,
+      "seed_keep": 1.0
+    }
+  ],
+  "elapsed_s": 0.43192481994628906,
+  "summary": "HARD_PASS: OAS bias is REAL (unmitigated override <=0.60) AND up-weighting fixes it (customer override >=0.90, seeds retained) -- pre-trained substrate can be safely overlaid with customer corrections. override unmit=0.517 mit=1.000, seed-retention=1.000"
+}

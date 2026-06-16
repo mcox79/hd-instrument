@@ -1,0 +1,84 @@
+{
+  "verdict": "NSCALE_R_V3_HARD_PASS",
+  "verdict_msg": "ALL_STEPS_OK_max_M=1024: s1_ok=True s2_ok=True s3_ok=True s4_full_ok=True max_M=1024 N=16384",
+  "elapsed_s": 0.16,
+  "summary": {
+    "anchor": "n_scaling_modern_hopfield_rescue_v3_n16384",
+    "N": 1024,
+    "smoke": true,
+    "seed": 17,
+    "M_sweep": [
+      256,
+      1024
+    ],
+    "steps": {
+      "step1_construct": {
+        "step": "step1_construct",
+        "success": true,
+        "codebook_shape": [
+          4096,
+          1024
+        ],
+        "codebook_bytes": 16777216,
+        "W_shape": [
+          1024,
+          1024
+        ],
+        "W_bytes": 4194304,
+        "pre_mem": "cpu_rss=n/a",
+        "cb_mem": "cpu_rss=n/a",
+        "W_mem": "cpu_rss=n/a",
+        "elapsed_s": 0.02
+      },
+      "step2_one_fact": {
+        "step": "step2_one_fact",
+        "success": true,
+        "M": 1,
+        "recall": 1.0,
+        "pre_mem": "cpu_rss=n/a",
+        "post_store_mem": "cpu_rss=n/a",
+        "elapsed_s": 0.02
+      },
+      "step3_quarter_n": {
+        "step": "step3_quarter_n",
+        "success": true,
+        "M": 256,
+        "recall": 1.0,
+        "pre_mem": "cpu_rss=n/a",
+        "post_store_mem": "cpu_rss=n/a",
+        "elapsed_s": 0.03
+      },
+      "step4_m_sweep": {
+        "step": "step4_m_sweep",
+        "M_sweep": [
+          256,
+          1024
+        ],
+        "per_M": [
+          {
+            "M": 256,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem": "cpu_rss=n/a",
+            "post_mem": "cpu_rss=n/a",
+            "cell_elapsed_s": 0.03
+          },
+          {
+            "M": 1024,
+            "success": true,
+            "recall": 1.0,
+            "pre_mem": "cpu_rss=n/a",
+            "post_mem": "cpu_rss=n/a",
+            "cell_elapsed_s": 0.03
+          }
+        ],
+        "max_M_at_95_recall": 1024,
+        "any_success": true,
+        "elapsed_s": 0.06
+      }
+    },
+    "verdict": "NSCALE_R_V3_HARD_PASS",
+    "verdict_msg": "ALL_STEPS_OK_max_M=1024: s1_ok=True s2_ok=True s3_ok=True s4_full_ok=True max_M=1024 N=16384",
+    "elapsed_s": 0.16
+  }
+}

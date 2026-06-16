@@ -1,0 +1,18 @@
+{
+  "anchor_name": "negres_confidence_head_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: trained logistic confidence head gives per-sample corr>=0.30 AND ECE<=0.10 -- continuous calibrated confidence from margin-distance + score-shape features (resolves LAP4-3; rank-transform failed because the signal is margin-DISTANCE not rank). trained corr=0.479 ECE=0.021 vs raw-margin corr=0.170 ECE=0.620",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "corr_head": 0.479,
+      "ece_head": 0.021,
+      "corr_base": 0.17,
+      "ece_base": 0.62,
+      "test_acc": 0.858
+    }
+  ],
+  "elapsed_s": 23.431475162506104,
+  "summary": "HARD_PASS: trained logistic confidence head gives per-sample corr>=0.30 AND ECE<=0.10 -- continuous calibrated confidence from margin-distance + score-shape features (resolves LAP4-3; rank-transform failed because the signal is margin-DISTANCE not rank). trained corr=0.479 ECE=0.021 vs raw-margin corr=0.170 ECE=0.620"
+}

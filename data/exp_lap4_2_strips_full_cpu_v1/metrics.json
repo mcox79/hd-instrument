@@ -1,0 +1,16 @@
+{
+  "anchor_name": "lap4_2_strips_full_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-as-planner solves >=0.70 STRIPS at production scale (n>=200) -- smoke->full transition clean; planning over substrate-stored action schemas robust at scale. STRIPS-solved=1.000 mean-len=1.4 (n=250)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "plan_rate": 1.0,
+      "mean_plan_len": 1.4,
+      "n": 250
+    }
+  ],
+  "elapsed_s": 0.7043325901031494,
+  "summary": "HARD_PASS: substrate-as-planner solves >=0.70 STRIPS at production scale (n>=200) -- smoke->full transition clean; planning over substrate-stored action schemas robust at scale. STRIPS-solved=1.000 mean-len=1.4 (n=250)"
+}

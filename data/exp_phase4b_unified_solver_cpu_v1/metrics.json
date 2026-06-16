@@ -1,0 +1,23 @@
+{
+  "anchor_name": "phase4b_unified_solver_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: unified arity-routed substrate solver macro>=0.45 -- single-op + multi-step composition in ONE solver, auto-routed by arity, no LLM. The culmination substrate-native multi-benchmark math-word-problem solver. macro-avg=0.450 per={'SVAMP': 0.138, 'MAWPS': 0.716, 'MultiArith': 0.728, 'ASDiv': 0.217} (1-op-train=1233, 2-op-train=441)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "macro_acc": 0.45,
+      "per_benchmark": {
+        "SVAMP": 0.138,
+        "MAWPS": 0.716,
+        "MultiArith": 0.728,
+        "ASDiv": 0.217
+      },
+      "n_benchmarks": 4,
+      "n_1op": 1233,
+      "n_2op": 441
+    }
+  ],
+  "elapsed_s": 7.49801778793335,
+  "summary": "HARD_PASS: unified arity-routed substrate solver macro>=0.45 -- single-op + multi-step composition in ONE solver, auto-routed by arity, no LLM. The culmination substrate-native multi-benchmark math-word-problem solver. macro-avg=0.450 per={'SVAMP': 0.138, 'MAWPS': 0.716, 'MultiArith': 0.728, 'ASDiv': 0.217} (1-op-train=1233, 2-op-train=441)"
+}

@@ -1,0 +1,15 @@
+{
+  "anchor_name": "counterfactual_do_demo_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: counterfactual correct 0.75-0.90. counterfactual-correct=0.850 differs-from-factual=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "cf_correct": 0.85,
+      "differs": 1.0
+    }
+  ],
+  "elapsed_s": 0.24170804023742676,
+  "summary": "MIDDLE_BAND: counterfactual correct 0.75-0.90. counterfactual-correct=0.850 differs-from-factual=1.000"
+}

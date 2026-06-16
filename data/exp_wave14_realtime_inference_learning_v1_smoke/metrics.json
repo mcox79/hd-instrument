@@ -1,0 +1,29 @@
+{
+  "verdict": "REALTIME_INFERENCE_HARD_PASS",
+  "verdict_msg": "Online updates LIFT capability: bpc_online=3.762 vs bpc_frozen=3.834; delta=-0.072 bits/char <= -0.05. K5 substrate-compatible.",
+  "elapsed_s": 0.11000000000058208,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "bpc_frozen": 3.8341095733642576,
+        "bpc_online": 3.7624160194396974,
+        "delta": -0.07169355392456023
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 512,
+    "T_infer": 400,
+    "online_alpha": 0.05,
+    "online_decay": 0.0001,
+    "pretrain_bytes": 2000,
+    "pretrain_epochs": 1,
+    "batch_size": 32,
+    "seeds": [
+      17
+    ],
+    "pass_bpc_delta": -0.05,
+    "fail_bpc_delta": 0.05
+  }
+}

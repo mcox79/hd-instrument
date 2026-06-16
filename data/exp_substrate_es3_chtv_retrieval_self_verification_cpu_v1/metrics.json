@@ -1,0 +1,65 @@
+{
+  "anchor_name": "substrate_es3_chtv_retrieval_self_verification_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS (deduction layer ALIGNED with retrieval): top-5 acc=0.9643>=0.80 -- given one side of a promotion/equivalence pair, the substrate retrieves the equivalent atom in its top-5 via typed-signature (algebra-HRR). The self-verification primitive is healthy; the 0.0067 F1 is NOT a retrieval-primitive failure at the algebra layer. E-S3 CHTV-1 retrieval self-verification (substrate verifies its own algebra equivalences via retrieval): typed core=444 atoms; 28 pairs (56 both-direction queries); top-5 acc=0.9643, top-1 acc=0.9643, median RHS rank=1. BGE NOT used (algebra-HRR only; sentence_transformers unavailable locally -> E-S1/E-S2 queued to remote). Pre-reg: >=0.80 healthy, <0.40 serious (deduction layer misaligned with retrieval).",
+  "summary": "HARD_PASS (deduction layer ALIGNED with retrieval): top-5 acc=0.9643>=0.80 -- given one side of a promotion/equivalence pair, the substrate retrieves the equivalent atom in its top-5 via typed-signature (algebra-HRR). The self-verification primitive is healthy; the 0.0067 F1 is NOT a retrieval-primitive failure at the algebra layer. E-S3 CHTV-1 retrieval self-verification (substrate verifies its own algebra equivalences via retrieval): typed core=444 atoms; 28 pairs (56 both-direction queries); top-5 acc=0.9643, top-1 acc=0.9643, median RHS rank=1. BGE NOT used (algebra-HRR only; sentence_transformers unavailable locally -> E-S1/E-S2 queued to remote). Pre-reg: >=0.80 healthy, <0.40 serious (deduction layer misaligned with retrieval).",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_typed_core": 444,
+      "n_pairs": 28,
+      "n_queries": 56,
+      "top5_acc": 0.9643,
+      "top1_acc": 0.9643,
+      "median_rhs_rank": 1,
+      "sample_misses": [
+        {
+          "pair": "gradient",
+          "src": "T2/gradient",
+          "tgt": "T1/gradient",
+          "rank": 54,
+          "top5": false
+        },
+        {
+          "pair": "gradient",
+          "src": "T1/gradient",
+          "tgt": "T2/gradient",
+          "rank": 30,
+          "top5": false
+        }
+      ],
+      "pair_names": [
+        "answer_consistency_weak_labels",
+        "astar",
+        "backward_algorithm",
+        "backward_algorithm_atom",
+        "bayesian_inference",
+        "beam_search",
+        "collins_structured_perceptron",
+        "cosine_similarity",
+        "default_mode_network",
+        "dijkstra",
+        "discriminative_perceptron",
+        "dynamic_programming",
+        "em_algorithm",
+        "forward_algorithm",
+        "forward_algorithm_atom",
+        "gradient",
+        "hmm_emission",
+        "hmm_transition",
+        "hungarian_algorithm",
+        "hungarian_assignment",
+        "mp_bulk_kl",
+        "pca_whitening",
+        "perceptron_update",
+        "quantum_entanglement",
+        "structured_perceptron_collins",
+        "viterbi_decoder",
+        "viterbi_decoding",
+        "zca_whitening"
+      ]
+    }
+  ],
+  "elapsed_s": 1.8996098041534424
+}

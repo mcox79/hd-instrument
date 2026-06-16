@@ -1,0 +1,183 @@
+{
+  "anchor_name": "substrate_stage_a_bio_smoke_REVISED_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: bio-smoke batch1 B1[acc=1.00 speedup=0x HF] B3[writes 15936->1928 gap 2.35->2.20 HF] B6[decr=1.00 none=0.00 lru=1.00 HF] | 0/3 HP",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "cells": [
+    "B1",
+    "B3",
+    "B6"
+  ],
+  "why_drills": [
+    "[WHY-DRILL B1] acc=1.00 speedup=0x; if speedup low, one-shot is O(M*N) vs Adam cheap small-head -- expected at tiny scale; revisit at larger M/N",
+    "[WHY-DRILL B3] writes all=15936 top10=1928; gap all=2.35 top10=2.20; if not selective, use exponentially-smoothed surprise",
+    "[WHY-DRILL B6] decr=1.00 none=0.00 lru=1.00; if decr<=lru, energy may not proxy interference -> evict by direct interference score"
+  ],
+  "per_seed": [
+    {
+      "seed": 7,
+      "B1": {
+        "balanced": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0,
+          "speedup": 0.0
+        },
+        "hardneg": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0,
+          "speedup": 0.0
+        },
+        "noisy": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0,
+          "speedup": 0.0
+        }
+      },
+      "B3": {
+        "all": {
+          "bpc": 1.956574845278333,
+          "gap": 2.2919203967710264,
+          "writes": 15936
+        },
+        "top10": {
+          "bpc": 2.226075294948472,
+          "gap": 2.0224199471008872,
+          "writes": 1922
+        },
+        "top1": {
+          "bpc": 3.3669158687242136,
+          "gap": 0.8815793733251458,
+          "writes": 587
+        }
+      },
+      "B6": {
+        "m1.0": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        },
+        "m1.3": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        }
+      }
+    },
+    {
+      "seed": 17,
+      "B1": {
+        "balanced": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0,
+          "speedup": 0.0
+        },
+        "hardneg": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0006504058837890625,
+          "speedup": 650.4058837890625
+        },
+        "noisy": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0006203651428222656,
+          "t_adam_match": 0.0006203651428222656,
+          "speedup": 1.0
+        }
+      },
+      "B3": {
+        "all": {
+          "bpc": 2.08124615144012,
+          "gap": 2.167249090609239,
+          "writes": 15936
+        },
+        "top10": {
+          "bpc": 2.0307109584583283,
+          "gap": 2.217784283591031,
+          "writes": 1927
+        },
+        "top1": {
+          "bpc": 3.335753365000113,
+          "gap": 0.9127418770492461,
+          "writes": 498
+        }
+      },
+      "B6": {
+        "m1.0": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        },
+        "m1.3": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        }
+      }
+    },
+    {
+      "seed": 23,
+      "B1": {
+        "balanced": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.004384279251098633,
+          "speedup": 4384.279251098633
+        },
+        "hardneg": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.0,
+          "speedup": 0.0
+        },
+        "noisy": {
+          "acc_oneshot": 1.0,
+          "t_oneshot": 0.0,
+          "t_adam_match": 0.003300905227661133,
+          "speedup": 3300.905227661133
+        }
+      },
+      "B3": {
+        "all": {
+          "bpc": 1.6624870856533407,
+          "gap": 2.5860081563960184,
+          "writes": 15936
+        },
+        "top10": {
+          "bpc": 1.896318326428585,
+          "gap": 2.3521769156207744,
+          "writes": 1936
+        },
+        "top1": {
+          "bpc": 3.199428110092011,
+          "gap": 1.0490671319573486,
+          "writes": 476
+        }
+      },
+      "B6": {
+        "m1.0": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        },
+        "m1.3": {
+          "none": 0.0,
+          "decr": 1.0,
+          "lru": 1.0,
+          "random": 1.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 331.42636370658875,
+  "summary": "HARD_FAIL: bio-smoke batch1 B1[acc=1.00 speedup=0x HF] B3[writes 15936->1928 gap 2.35->2.20 HF] B6[decr=1.00 none=0.00 lru=1.00 HF] | 0/3 HP"
+}

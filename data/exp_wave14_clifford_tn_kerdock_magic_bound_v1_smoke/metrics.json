@@ -1,0 +1,68 @@
+{
+  "verdict": "HARD_PASS_CLIFFORD_TN_LICENSED",
+  "verdict_msg": "rel_err_max = 0.0000e+00, magic_max = 0.0000e+00: Clifford-TN bond-dim-1 closed form reproduces v169 Schur-Weyl-Pauli; Barnes-Wall magic = 0; Cap 13 candidate licensed.",
+  "elapsed_s": 0.02032947540283203,
+  "summary": {
+    "N_list": [
+      16
+    ],
+    "n_orders": [
+      2
+    ],
+    "max_rel_err": 0.0,
+    "max_magic_monotone": 0.0,
+    "v169_time_scaling_slope": NaN,
+    "tn_time_scaling_slope": NaN,
+    "scaling_check_v169_to_tn_speedup_at_largest_N": 0.0
+  },
+  "config": {
+    "N_list": [
+      16
+    ],
+    "n_orders": [
+      2
+    ],
+    "seeds": [
+      17
+    ],
+    "smoke": true
+  },
+  "results_per_N": [
+    {
+      "N": 16,
+      "per_seed": [
+        {
+          "seed": 17,
+          "codebook_shape": [
+            32,
+            16
+          ],
+          "codebook_build_s": 0.0,
+          "magic_max": 0.0,
+          "magic_mean": 0.0,
+          "magic_min": 0.0,
+          "per_n": {
+            "2": {
+              "v169_mass_n": 1.0,
+              "tn_mass_n": 1.0,
+              "rel_err": 0.0,
+              "v169_time_s": 0.0,
+              "tn_time_s": 0.0,
+              "speedup_factor": 0.0
+            }
+          }
+        }
+      ],
+      "per_n": {
+        "2": {
+          "rel_err_mean": 0.0,
+          "rel_err_max": 0.0,
+          "v169_time_mean_s": 0.0,
+          "tn_time_mean_s": 0.0,
+          "speedup_mean": 0.0
+        }
+      },
+      "magic_max_over_seeds": 0.0
+    }
+  ]
+}

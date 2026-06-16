@@ -1,0 +1,55 @@
+{
+  "verdict": "G13B_P3_HARD_PASS",
+  "verdict_msg": "ALL_EDGES_PASS: A_OK(min_acc=1.000); B_OK(iso=0.000); C_OK(consistency=1.0)",
+  "elapsed_s": 20.18,
+  "summary": {
+    "anchor": "agentic_edge_cases_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "K_paths": 30,
+    "edge_a": {
+      "wall_s": 20.01,
+      "total_ops": 18718,
+      "acc_at_check": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "chain_at_check": [
+        true,
+        true,
+        true
+      ],
+      "min_acc": 1.0,
+      "mean_acc": 1.0,
+      "final_chain_ok": true,
+      "n_checkpoints": 3,
+      "crash": false
+    },
+    "edge_b": {
+      "n_ticks": 30,
+      "n_sessions": 5,
+      "n_edit_agents": 2,
+      "protected_n": 128,
+      "initial_protected_acc": 1.0,
+      "final_protected_acc": 1.0,
+      "iso_delta": 0.0,
+      "isolation_score": 1.0,
+      "max_iso": 0.0,
+      "audit_chain_ok": true,
+      "cert_chain_len": 30,
+      "crash": false
+    },
+    "edge_c": {
+      "n_pre": 6,
+      "n_post": 4,
+      "post_consistent": 4,
+      "consistency": 1.0,
+      "crash": false
+    },
+    "verdict": "G13B_P3_HARD_PASS",
+    "verdict_msg": "ALL_EDGES_PASS: A_OK(min_acc=1.000); B_OK(iso=0.000); C_OK(consistency=1.0)",
+    "elapsed_s": 20.18
+  }
+}

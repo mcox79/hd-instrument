@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap6_inheritance_index_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate 3-level inheritance (concept->subconcept->instance) recall>=0.85 -- hierarchical concept index holds; common-sense taxonomy traversal native. 3-level-recall=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "threelevel_recall": 1.0,
+      "NC": 60
+    }
+  ],
+  "elapsed_s": 136.95381355285645,
+  "summary": "HARD_PASS: substrate 3-level inheritance (concept->subconcept->instance) recall>=0.85 -- hierarchical concept index holds; common-sense taxonomy traversal native. 3-level-recall=1.000"
+}

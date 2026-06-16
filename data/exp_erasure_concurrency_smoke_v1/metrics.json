@@ -1,0 +1,16 @@
+{
+  "anchor_name": "erasure_concurrency_smoke_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: GDPR_SAFE invariant holds under concurrency -- zero pre-erasure content readable after erasure commit; physical-erasure + snapshot design correct. trials=200 post-commit content leaks=0 GDPR_SAFE=True",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "trials": 200,
+      "violations": 0,
+      "gdpr_safe": true
+    }
+  ],
+  "elapsed_s": 0.07848286628723145,
+  "summary": "HARD_PASS: GDPR_SAFE invariant holds under concurrency -- zero pre-erasure content readable after erasure commit; physical-erasure + snapshot design correct. trials=200 post-commit content leaks=0 GDPR_SAFE=True"
+}

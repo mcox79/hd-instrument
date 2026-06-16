@@ -1,0 +1,141 @@
+{
+  "verdict": "RESCUE_MIDDLE_BAND",
+  "verdict_msg": "METRICS_EMITTED_NOT_ALL_HP: sub1=SUB1_INCONCLUSIVE sub2=SUB2_MIDDLE_BAND sub3=SUB3_MIDDLE_BAND",
+  "elapsed_s": 1.22,
+  "summary": {
+    "anchor": "gpu_large_n_rescue_serialized_v1_n8192",
+    "smoke": true,
+    "device": "cpu",
+    "sub1": {
+      "sub": "sub1",
+      "cells": [
+        {
+          "M": 256,
+          "seed": 17,
+          "N": 1024,
+          "cpu_lat_per_op_s": {
+            "1": 0.0003722286666743457,
+            "16": 0.0009843373333569615
+          },
+          "gpu_lat_per_op_s": null,
+          "speedup_per_batch": null,
+          "speedup_single": 0.0,
+          "gpu_retention": null,
+          "gpu_above_thresh_frac": null,
+          "gpu_max_iso": null,
+          "gpu_kf_pass": false
+        }
+      ],
+      "verdict": "SUB1_INCONCLUSIVE",
+      "verdict_msg": "No GPU runs.",
+      "crashed": false,
+      "crash_msg": "",
+      "elapsed_s": 0.26
+    },
+    "sub2": {
+      "sub": "sub2",
+      "cells": [
+        {
+          "M": 32,
+          "seed": 17,
+          "N": 1024,
+          "sparse_lat_s": 0.0008921853332625081,
+          "dense_lat_s": 0.001139785333458955,
+          "lat_ratio_sparse_over_dense": 0.78277,
+          "sparse_retention": 1.0,
+          "kf2_max_iso": 0.0,
+          "sparse_bytes": 262144,
+          "dense_bytes": 4194304,
+          "mem_savings": 16.0
+        },
+        {
+          "M": 128,
+          "seed": 17,
+          "N": 1024,
+          "sparse_lat_s": 0.0011087246666041514,
+          "dense_lat_s": 0.0010295293332698444,
+          "lat_ratio_sparse_over_dense": 1.07692,
+          "sparse_retention": 1.0,
+          "kf2_max_iso": 0.0,
+          "sparse_bytes": 1048576,
+          "dense_bytes": 4194304,
+          "mem_savings": 4.0
+        }
+      ],
+      "verdict": "SUB2_MIDDLE_BAND",
+      "verdict_msg": "PARTIAL: hp=1/1 hf=0/1",
+      "crashed": false,
+      "crash_msg": "",
+      "elapsed_s": 0.74
+    },
+    "sub3": {
+      "sub": "sub3",
+      "cells": [
+        {
+          "seed": 17,
+          "N": 1024,
+          "M_sweep": [
+            16,
+            32
+          ],
+          "retention_by_M": {
+            "16": 1.0,
+            "32": 1.0
+          },
+          "max_M_at_95_recall": 32
+        }
+      ],
+      "verdict": "SUB3_MIDDLE_BAND",
+      "verdict_msg": "PARTIAL: mean_max=32 N/4=4096 HF_band=[3277,4915]",
+      "construct_ok": true,
+      "crashed": false,
+      "crash_msg": "",
+      "elapsed_s": 0.22
+    },
+    "mem_log": [
+      {
+        "tag": "start",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "after_sub1",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "after_sub2",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_H_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_result_alloc_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_coset_0_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_coset_1_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_coset_2_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "sub3_after_coset_3_N1024",
+        "device_type": "cpu"
+      },
+      {
+        "tag": "after_sub3",
+        "device_type": "cpu"
+      }
+    ],
+    "verdict": "RESCUE_MIDDLE_BAND",
+    "verdict_msg": "METRICS_EMITTED_NOT_ALL_HP: sub1=SUB1_INCONCLUSIVE sub2=SUB2_MIDDLE_BAND sub3=SUB3_MIDDLE_BAND",
+    "elapsed_s": 1.22
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_final_del_cos": 0.05224609375,
+    "seeds_passing_hp": 2,
+    "mean_retain_acc": 1.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Deletion persists under 20-write pressure. mean_del_cos=0.052<0.1, seeds_pass=2/2, retain=1.000.",
+  "elapsed_s": 7.847546815872192,
+  "config": {
+    "N_B_WRITES": 20,
+    "REPULSION_STRENGTH": 1.0
+  }
+}

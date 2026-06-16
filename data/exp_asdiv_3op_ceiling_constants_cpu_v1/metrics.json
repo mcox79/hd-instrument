@@ -1,0 +1,33 @@
+{
+  "anchor_name": "asdiv_3op_ceiling_constants_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: one world-knowledge constant rescues >=0.10 of 3-op items (base 0.828 -> +1const 1.000) -- the residual gap above text-arithmetic IS world-knowledge; a cheap substrate fix (inject a small common-constant pool) recovers a real chunk. Confirms the ASDiv boundary is comprehension/world-knowledge, not composition. 3-op: base=0.8276 +1-const=1.0000 (lift=+0.1724, n=29) | 2-op base=0.8621 +1c=1.0000 | 1-op base=0.9667 +1c=1.0000. Lift = fraction rescued by exactly ONE world-knowledge constant (days/week, dozen, legs, etc.).",
+  "summary": "HARD_PASS: one world-knowledge constant rescues >=0.10 of 3-op items (base 0.828 -> +1const 1.000) -- the residual gap above text-arithmetic IS world-knowledge; a cheap substrate fix (inject a small common-constant pool) recovers a real chunk. Confirms the ASDiv boundary is comprehension/world-knowledge, not composition. 3-op: base=0.8276 +1-const=1.0000 (lift=+0.1724, n=29) | 2-op base=0.8621 +1c=1.0000 | 1-op base=0.9667 +1c=1.0000. Lift = fraction rescued by exactly ONE world-knowledge constant (days/week, dozen, legs, etc.).",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "op1": {
+        "ceiling_base": 0.9667,
+        "ceiling_plus1const": 1.0,
+        "const_lift": 0.0333,
+        "n": 30
+      },
+      "op2": {
+        "ceiling_base": 0.8621,
+        "ceiling_plus1const": 1.0,
+        "const_lift": 0.1379,
+        "n": 29
+      },
+      "op3": {
+        "ceiling_base": 0.8276,
+        "ceiling_plus1const": 1.0,
+        "const_lift": 0.1724,
+        "n": 29
+      },
+      "ceiling_3op": 1.0,
+      "base_3op": 0.8276
+    }
+  ],
+  "elapsed_s": 0.09406113624572754
+}

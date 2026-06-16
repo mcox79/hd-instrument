@@ -1,0 +1,15 @@
+{
+  "anchor_name": "patternb_bundle_manifold_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: bundle d_hat>=200 -- PCA truncation does NOT compress Pattern B; recompute storage cost higher. bundle TwoNN d_hat=850.2 PCA95=180",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "twonn": 850.233886538054,
+      "pca95": 180
+    }
+  ],
+  "elapsed_s": 1.9070794582366943,
+  "summary": "HARD_FAIL: bundle d_hat>=200 -- PCA truncation does NOT compress Pattern B; recompute storage cost higher. bundle TwoNN d_hat=850.2 PCA95=180"
+}

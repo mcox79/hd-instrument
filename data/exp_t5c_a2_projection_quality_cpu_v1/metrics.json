@@ -1,0 +1,15 @@
+{
+  "anchor_name": "t5c_a2_projection_quality_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate projection preserves embedding cosine structure (corr>=0.85) -- pretrained embeddings ingest into substrate without similarity loss. cosine-preservation corr=0.990 MAE=0.009",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "corr": 0.9904154213501084,
+      "mae": 0.008806850761175156
+    }
+  ],
+  "elapsed_s": 0.14097118377685547,
+  "summary": "HARD_PASS: substrate projection preserves embedding cosine structure (corr>=0.85) -- pretrained embeddings ingest into substrate without similarity loss. cosine-preservation corr=0.990 MAE=0.009"
+}

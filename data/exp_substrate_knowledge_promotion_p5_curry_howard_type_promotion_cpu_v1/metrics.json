@@ -1,0 +1,28 @@
+{
+  "anchor_name": "substrate_knowledge_promotion_p5_curry_howard_type_promotion_cpu_v1",
+  "verdict": "UNKNOWN",
+  "verdict_msg": "UNKNOWN (GATED): max proof depth seen = 4 < 5 (even P5_v1) -- the typed-derivation graph is too shallow for Curry-Howard type promotion. Cell is built + self-test-VERIFIED (graduated tiers, synthetic depth-11); runs for real once deep-chain authoring (Research BATCH 18+) lifts proof depth >= 5. (n_proved=60/60 goals; structural ceiling ~3 today.)",
+  "summary": "UNKNOWN (GATED): max proof depth seen = 4 < 5 (even P5_v1) -- the typed-derivation graph is too shallow for Curry-Howard type promotion. Cell is built + self-test-VERIFIED (graduated tiers, synthetic depth-11); runs for real once deep-chain authoring (Research BATCH 18+) lifts proof depth >= 5. (n_proved=60/60 goals; structural ceiling ~3 today.)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_goals": 60,
+      "n_proved": 60,
+      "max_depth_seen": 4,
+      "n_by_tier": {
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "tiers": {
+        "v1": 5,
+        "v2": 7,
+        "v3": 10
+      },
+      "min_proofs": 2,
+      "candidates_v1": []
+    }
+  ],
+  "elapsed_s": 0.07805275917053223
+}

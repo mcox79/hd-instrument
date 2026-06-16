@@ -1,0 +1,40 @@
+{
+  "anchor_name": "f4_substrate_codebook_kappa_n_deviation_snr_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: the SUBSTRATE's real spectral bulk is free-Poisson-like -- deviation-SNR saturates (<=1.5) at n_sat=3 in {3,4,5} and no order beyond 5 carries independent signal (max 1.38 < 1.5). The 8d spectral pillar is COMPLETE on the real codebook; kappa_5+ add nothing independent. real composite_hrr codebook M=242 N=1024 alpha_est=0.2363; dev-SNR k3..8 = [1.4768, 1.403, 1.3761, 1.3687, 1.3703, 1.3765]; n_sat=3 max-dev k>=6 = 1.377; kappa=[np.float64(0.23633), np.float64(1.93077), np.float64(41.34722), np.float64(1034.97237), np.float64(26900.23401), np.float64(707996.69738), np.float64(18714873.48927), np.float64(495267984.58714)]",
+  "summary": "HARD_PASS: the SUBSTRATE's real spectral bulk is free-Poisson-like -- deviation-SNR saturates (<=1.5) at n_sat=3 in {3,4,5} and no order beyond 5 carries independent signal (max 1.38 < 1.5). The 8d spectral pillar is COMPLETE on the real codebook; kappa_5+ add nothing independent. real composite_hrr codebook M=242 N=1024 alpha_est=0.2363; dev-SNR k3..8 = [1.4768, 1.403, 1.3761, 1.3687, 1.3703, 1.3765]; n_sat=3 max-dev k>=6 = 1.377; kappa=[np.float64(0.23633), np.float64(1.93077), np.float64(41.34722), np.float64(1034.97237), np.float64(26900.23401), np.float64(707996.69738), np.float64(18714873.48927), np.float64(495267984.58714)]",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "M": 242,
+      "Ndim": 1024,
+      "alpha_est": 0.2363,
+      "kappa": [
+        0.23633,
+        1.93077,
+        41.34722,
+        1034.97237,
+        26900.23401,
+        707996.69738,
+        18714873.48927,
+        495267984.58714
+      ],
+      "dev_snr": {
+        "1": 0.0648,
+        "2": 1.5918,
+        "3": 1.4768,
+        "4": 1.403,
+        "5": 1.3761,
+        "6": 1.3687,
+        "7": 1.3703,
+        "8": 1.3765
+      },
+      "n_sat": 3,
+      "dev_beyond5": 1.3765,
+      "vector_field": "composite_hrr",
+      "B": 500
+    }
+  ],
+  "elapsed_s": 1.9353580474853516
+}

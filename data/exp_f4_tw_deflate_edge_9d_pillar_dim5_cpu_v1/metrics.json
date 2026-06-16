@@ -1,0 +1,45 @@
+{
+  "anchor_name": "f4_tw_deflate_edge_9d_pillar_dim5_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: the deflated codebook bulk edge FLUCTUATION is NOT TW-shaped (z-scored KS_p=0.0012; codebook-edge skew=-0.8934 vs synth-edge 0.3677, gap=1.2611 -- OPPOSITE/divergent skew direction, TW1 is right-skewed). ROOT CAUSE: the codebook spectrum has NO clean spike/bulk separation -- the top eigenvalues decay through a continuous heavy SHOULDER (not k isolated spikes above an MP bulk), so adaptive-k is unstable (mean k_deflated=19.82 vs intrinsic 15) and 'the deflated bulk edge' is not well-defined at M=253. 9d pillar dim-5 (TW edge on deflated bulk) is NOT supported at current corpus size; the codebook is not in the spikes+RMT-bulk regime the pillar assumed. NOTE: a low-power z-scored KS_p (here 0.0012) can falsely pass -- the skew-sign disagreement is the decisive shape discriminator. PROTOCOL REFRAME (pending Research endorsement): two questions are separated. (Q1 LOCATION) is the deflated bulk an iid-MP bulk? matched-edge KS_p=0.0000, mean-gap=8.6329 -> iid-MP=False. Parent Cell C found the bulk is SUB-FREE-POISSON (structured), so a location gap is EXPECTED and is NOT the dim-5 question. (Q2 SHAPE = the actual dim-5 / Tracy-Widom question) after centering+scaling, is the edge FLUCTUATION shape TW-universal? z-scored KS_p=0.0012, codebook-edge skew=-0.8934 (synth-edge 0.3677, asymptotic TW1 0.2935). Tooling null (synth-vs-synth) KS_p=0.4006. Convergence (n=126) shape KS_p=0.0000 -> size_robust=False. WHY the original absolute-TW1 gate was dropped: an ideal iid Wishart at M=253 sits at mean(W)=-1.1894 (not -1.2065); the asymptotic gate is unmeetable at this corpus size (finite-size, Ma 2012). k_full=15 spikes; mean k_deflated=19.82.",
+  "summary": "HARD_FAIL: the deflated codebook bulk edge FLUCTUATION is NOT TW-shaped (z-scored KS_p=0.0012; codebook-edge skew=-0.8934 vs synth-edge 0.3677, gap=1.2611 -- OPPOSITE/divergent skew direction, TW1 is right-skewed). ROOT CAUSE: the codebook spectrum has NO clean spike/bulk separation -- the top eigenvalues decay through a continuous heavy SHOULDER (not k isolated spikes above an MP bulk), so adaptive-k is unstable (mean k_deflated=19.82 vs intrinsic 15) and 'the deflated bulk edge' is not well-defined at M=253. 9d pillar dim-5 (TW edge on deflated bulk) is NOT supported at current corpus size; the codebook is not in the spikes+RMT-bulk regime the pillar assumed. NOTE: a low-power z-scored KS_p (here 0.0012) can falsely pass -- the skew-sign disagreement is the decisive shape discriminator. PROTOCOL REFRAME (pending Research endorsement): two questions are separated. (Q1 LOCATION) is the deflated bulk an iid-MP bulk? matched-edge KS_p=0.0000, mean-gap=8.6329 -> iid-MP=False. Parent Cell C found the bulk is SUB-FREE-POISSON (structured), so a location gap is EXPECTED and is NOT the dim-5 question. (Q2 SHAPE = the actual dim-5 / Tracy-Widom question) after centering+scaling, is the edge FLUCTUATION shape TW-universal? z-scored KS_p=0.0012, codebook-edge skew=-0.8934 (synth-edge 0.3677, asymptotic TW1 0.2935). Tooling null (synth-vs-synth) KS_p=0.4006. Convergence (n=126) shape KS_p=0.0000 -> size_robust=False. WHY the original absolute-TW1 gate was dropped: an ideal iid Wishart at M=253 sits at mean(W)=-1.1894 (not -1.2065); the asymptotic gate is unmeetable at this corpus size (finite-size, Ma 2012). k_full=15 spikes; mean k_deflated=19.82.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "M": 253,
+      "p": 1024,
+      "k_full": 15,
+      "ref": {
+        "mean": -1.1894,
+        "var": 1.5889,
+        "skew": 0.3677,
+        "n": 1000
+      },
+      "deflate3_ks_p": 0.40063,
+      "deflate1": {
+        "mean": 7.4435,
+        "var": 4.7737,
+        "skew": -0.8934,
+        "ks_p_location": 0.0,
+        "ks_p_shape": 0.00124,
+        "mean_gap": 8.6329,
+        "skew_gap_vs_synth": 1.2611,
+        "skew_gap_vs_tw1": 1.1869,
+        "mean_k_deflated": 19.82
+      },
+      "deflate2": {
+        "n_sub": 126,
+        "ks_p_shape": 0.0,
+        "skew": -1.3525,
+        "mean_k_deflated": 12.78
+      },
+      "tw1_asymptotic": [
+        -1.2065,
+        1.6078,
+        0.2935
+      ]
+    }
+  ],
+  "elapsed_s": 76.95636200904846
+}

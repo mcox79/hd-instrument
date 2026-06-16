@@ -1,0 +1,15 @@
+{
+  "anchor_name": "math3_calculus_derivative_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate computes derivatives >=0.80 -- recovers expression structure (coeff/power/outer) and applies power+chain rules, substrate-only. Symbolic calculus via composition+cleanup. accuracy=1.000 (n=120)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "accuracy": 1.0,
+      "n": 120
+    }
+  ],
+  "elapsed_s": 0.09979605674743652,
+  "summary": "HARD_PASS: substrate computes derivatives >=0.80 -- recovers expression structure (coeff/power/outer) and applies power+chain rules, substrate-only. Symbolic calculus via composition+cleanup. accuracy=1.000 (n=120)"
+}

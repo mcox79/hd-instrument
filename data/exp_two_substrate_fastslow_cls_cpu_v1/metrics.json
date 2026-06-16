@@ -1,0 +1,16 @@
+{
+  "anchor_name": "two_substrate_fastslow_cls_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: 2-substrate CLS fails both. recent=0.689 old-consolidated=0.378 baseline-old=0.002",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recent_recall": 0.689,
+      "old_consolidated_recall": 0.378,
+      "baseline_old_recall": 0.002
+    }
+  ],
+  "elapsed_s": 29.26136541366577,
+  "summary": "HARD_FAIL: 2-substrate CLS fails both. recent=0.689 old-consolidated=0.378 baseline-old=0.002"
+}

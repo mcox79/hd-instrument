@@ -1,0 +1,20 @@
+{
+  "anchor_name": "substrate_gpu_parity_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate FHRR algebra reproduces on GPU (torch.complex64/CUDA) -- basic recall, write-lock core protection, per-role isolation, 3x-redundant denoise all match CPU numpy bands. Substrate is GPU-deployable; no algebra divergence. basic=1.000 write-lock=1.000 per-role=1.000 shared=0.838 3x=0.963 dev=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "basic": 1.0,
+      "write_lock": 1.0,
+      "per_role": 1.0,
+      "shared": 0.838,
+      "redundant3x": 0.963,
+      "n_seeds": 1,
+      "device": "cpu"
+    }
+  ],
+  "elapsed_s": 2.800691843032837,
+  "summary": "HARD_PASS: substrate FHRR algebra reproduces on GPU (torch.complex64/CUDA) -- basic recall, write-lock core protection, per-role isolation, 3x-redundant denoise all match CPU numpy bands. Substrate is GPU-deployable; no algebra divergence. basic=1.000 write-lock=1.000 per-role=1.000 shared=0.838 3x=0.963 dev=cpu"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "humaneval_structural_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: pass@1 <0.05 -- idiom-retrieval generator is too limited; full Tier1-4 op-composition generator required. pass@1=0.000 (0/20, 20 idioms)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pass1": 0.0,
+      "n_pass": 0,
+      "n_total": 20,
+      "n_idioms": 20
+    }
+  ],
+  "elapsed_s": 8.244674682617188,
+  "summary": "HARD_FAIL: pass@1 <0.05 -- idiom-retrieval generator is too limited; full Tier1-4 op-composition generator required. pass@1=0.000 (0/20, 20 idioms)"
+}

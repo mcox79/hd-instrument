@@ -1,0 +1,26 @@
+{
+  "anchor": "region_c_kf1_n4096_beta64_mfrac4",
+  "N": 1024,
+  "smoke": true,
+  "region": "region_C",
+  "M_frac": 4.0,
+  "beta": 64.0,
+  "seeds": [
+    17
+  ],
+  "cells": [
+    {
+      "region": "region_C",
+      "M_frac": 4.0,
+      "M": 4096,
+      "N": 1024,
+      "beta": 64.0,
+      "seed": 17,
+      "retention": 1.0,
+      "theory_bound_ret": 0.01832
+    }
+  ],
+  "verdict": "REGION_C_KF1_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 1/1 seeds mean_ret=1.0000",
+  "elapsed_s": 0.17
+}

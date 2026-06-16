@@ -1,0 +1,72 @@
+{
+  "anchor_name": "substrate_composition_capacity_gpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND (revised lock): cleanup@1 0.50-0.95 at F=3. Capacity F*=3 (no Frady-Sommer cliff if F* high) but ceiling capped below 0.95 -- see substrate-vs-random delta for whether the clustered codebook caps the ceiling. cleanup@1_F3 substrate=0.9444 random=1.0 (delta=-0.0556 -> clustered HURTS ceiling (intra-cluster near-collisions)); cleanup capacity F* substrate=3 random=3; recovery_cos=1/sqrt(F) analytic; curve(F,cleanup_sub,cleanup_rnd)=[(1, 1.0, 1.0), (2, 0.9167, 1.0), (3, 0.9444, 1.0)]; corpus=241 dim=1024 device=cpu",
+  "summary": "MIDDLE_BAND (revised lock): cleanup@1 0.50-0.95 at F=3. Capacity F*=3 (no Frady-Sommer cliff if F* high) but ceiling capped below 0.95 -- see substrate-vs-random delta for whether the clustered codebook caps the ceiling. cleanup@1_F3 substrate=0.9444 random=1.0 (delta=-0.0556 -> clustered HURTS ceiling (intra-cluster near-collisions)); cleanup capacity F* substrate=3 random=3; recovery_cos=1/sqrt(F) analytic; curve(F,cleanup_sub,cleanup_rnd)=[(1, 1.0, 1.0), (2, 0.9167, 1.0), (3, 0.9444, 1.0)]; corpus=241 dim=1024 device=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "N_bindings": 1,
+          "recovery_cosine": 1.0,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 1.0,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        },
+        {
+          "N_bindings": 2,
+          "recovery_cosine": 0.7082,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 0.9167,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        },
+        {
+          "N_bindings": 3,
+          "recovery_cosine": 0.573,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 0.9444,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        }
+      ],
+      "random_baseline_curve": [
+        {
+          "N_bindings": 1,
+          "recovery_cosine": 1.0,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 1.0,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        },
+        {
+          "N_bindings": 2,
+          "recovery_cosine": 0.7051,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 1.0,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        },
+        {
+          "N_bindings": 3,
+          "recovery_cosine": 0.578,
+          "recovery_cosine_sd": 0.0,
+          "cleanup_acc1": 1.0,
+          "cleanup_acc3": 1.0,
+          "cleanup_acc5": 1.0
+        }
+      ],
+      "n_atoms": 241,
+      "dim": 1024,
+      "capacity_F_star_cleanup0.80": 3,
+      "random_capacity_F_star_cleanup0.80": 3,
+      "device": "cpu",
+      "n_trials": 6,
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 0.1955432891845703
+}

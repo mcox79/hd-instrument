@@ -1,0 +1,17 @@
+{
+  "anchor_name": "neurogenesis_real_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: real discovery purity 0.45-0.60. purity=0.603 discovered=54 (K=18) single=0.056",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "shard_purity": 0.603,
+      "discovered_shards": 54,
+      "true_K": 18,
+      "single_shard": 0.056
+    }
+  ],
+  "elapsed_s": 17.71265435218811,
+  "summary": "MIDDLE_BAND: real discovery purity 0.45-0.60. purity=0.603 discovered=54 (K=18) single=0.056"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "integ_temporal_policy_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: SUBSTRATE-NATIVE temporal-policy integration -- a recoverable temporal action composite (recovery>=0.95) alternates actions over time to lift the worst drive by >=20%% vs single-action minimax. Integration is solved by TIME (temporal policy), substrate-native; confirms the temporal/contextual meta-pattern. single=0.039 temporal=0.094 escape=139% recovery=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "single_minimax": 0.039,
+      "temporal_minavg": 0.094,
+      "escape_pct": 138.7,
+      "policy_recovery": 1.0
+    }
+  ],
+  "elapsed_s": 3.635483503341675,
+  "summary": "HARD_PASS: SUBSTRATE-NATIVE temporal-policy integration -- a recoverable temporal action composite (recovery>=0.95) alternates actions over time to lift the worst drive by >=20%% vs single-action minimax. Integration is solved by TIME (temporal policy), substrate-native; confirms the temporal/contextual meta-pattern. single=0.039 temporal=0.094 escape=139% recovery=1.000"
+}

@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_sq2_x_hierarchical_reasoning_v1_n2048_K10",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: ensemble sustains deep reasoning (>=20 hops) where single collapses. single_depth=0.0 ensemble_depth=24.0 (K=4, total_load=2.0x alpha_c, G=6)",
+  "N": 512,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "G_chains": 6,
+      "single_depth": 0,
+      "ensemble_depth": 24
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "G_chains": 6,
+      "single_depth": 0,
+      "ensemble_depth": 24
+    }
+  ],
+  "elapsed_s": 0.5297961235046387,
+  "summary": "HARD_PASS: ensemble sustains deep reasoning (>=20 hops) where single collapses. single_depth=0.0 ensemble_depth=24.0 (K=4, total_load=2.0x alpha_c, G=6)"
+}

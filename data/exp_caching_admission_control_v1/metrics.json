@@ -1,0 +1,15 @@
+{
+  "anchor": "caching_admission_control_v1",
+  "run_mode": "smoke",
+  "N": 512,
+  "n_seeds": 2,
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "caching_admission_control_v1 verdict=HARD_FAIL: mean_rate_ratio=0.774(HP<0.7) mean_acc_admitted=0.982(HP>=0.85) mean_acc_naive=0.975(HP<=0.5) cells=1/3 elapsed=0.0s",
+  "mean_rate_ratio": 0.7735849055830188,
+  "mean_acc_admitted": 0.9815098531260966,
+  "mean_acc_naive": 0.9748325892857143,
+  "n_cell_A_pass": 1,
+  "n_cell_B_pass": 2,
+  "n_cell_C_pass": 0,
+  "elapsed_s": 0.0010170936584472656
+}

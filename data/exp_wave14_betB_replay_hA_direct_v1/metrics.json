@@ -1,0 +1,28 @@
+{
+  "verdict": "HA_MIDDLE",
+  "verdict_msg": "H-A MIDDLE: inter=0.9798 intra=0.9516 lift=0.0282; weak or absent consolidation signal",
+  "elapsed_s": 2.660630702972412,
+  "config": {
+    "N": 512,
+    "seeds": [
+      17
+    ],
+    "smoke": true,
+    "replay_frac": 0.3
+  },
+  "summary": {
+    "arm1_interphase_mean": 0.9798128009631116,
+    "arm2_intraphase_mean": 0.9515860037116219,
+    "arm3_noreplay_mean": 0.9201587745327104,
+    "interphase_lift": 0.028226797251489688,
+    "arm1_rets": [
+      0.9798128009631116
+    ],
+    "arm2_rets": [
+      0.9515860037116219
+    ],
+    "arm3_rets": [
+      0.9201587745327104
+    ]
+  }
+}

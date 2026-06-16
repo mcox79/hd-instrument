@@ -1,0 +1,16 @@
+{
+  "anchor_name": "gate2_merkle_audit_completeness_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: Merkle audit chain 100pct complete + 100pct tamper-detected -- auditability/provenance moat (EU AI Act Art.12) backed. completeness=1.000 tamper-detection=1.000 (200 ops)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "completeness": 1.0,
+      "tamper": 1.0,
+      "n_ops": 200
+    }
+  ],
+  "elapsed_s": 0.08273577690124512,
+  "summary": "HARD_PASS: Merkle audit chain 100pct complete + 100pct tamper-detected -- auditability/provenance moat (EU AI Act Art.12) backed. completeness=1.000 tamper-detection=1.000 (200 ops)"
+}

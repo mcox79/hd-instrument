@@ -1,0 +1,211 @@
+{
+  "verdict": "C5_HARD_PASS",
+  "verdict_msg": "AUDIT_SCHEMA_COMPLETE: s1_single_edit: complete=True valid=True integ=True max_sz=248B | s2_sequential_edits: complete=True valid=True integ=True max_sz=248B | s3_delete_with_certificate: complete=True valid=True integ=True max_sz=262B | s4_interrupted_recovery: complete=True valid=True integ=True max_sz=256B | s5_concurrent_serialization: complete=True valid=True integ=True max_sz=289B | s6_failed_deletion_audit: complete=True valid=True integ=True max_sz=251B",
+  "elapsed_s": 0.12,
+  "summary": {
+    "anchor": "edit_audit_trail_refinement_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M": 256,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "seed": 17,
+        "M": 256,
+        "scenarios": {
+          "s1_single_edit": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 248,
+            "n_entries": 1
+          },
+          "s2_sequential_edits": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 248,
+            "n_entries": 3
+          },
+          "s3_delete_with_certificate": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 262,
+            "n_entries": 2
+          },
+          "s4_interrupted_recovery": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 256,
+            "n_entries": 2
+          },
+          "s5_concurrent_serialization": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 289,
+            "n_entries": 2
+          },
+          "s6_failed_deletion_audit": {
+            "trail_complete": true,
+            "chain_valid": true,
+            "integrity_under_failure": true,
+            "max_entry_bytes": 251,
+            "n_entries": 1
+          }
+        },
+        "sample_reports": {
+          "s1_single_edit": [
+            {
+              "ts_ns": 239899425769600,
+              "op": "edit",
+              "operands": {
+                "key": 2546,
+                "old": 2767,
+                "new": 2768
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997681,
+              "delta_norm": 1.414214,
+              "link": "1876b5f071e2f8cc9fe57f376d8769bf93df1023d87777cf315e15bed94a2fd1"
+            }
+          ],
+          "s2_sequential_edits": [
+            {
+              "ts_ns": 239899430744900,
+              "op": "edit",
+              "operands": {
+                "key": 2546,
+                "old": 2767,
+                "new": 2768
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997681,
+              "delta_norm": 1.414214,
+              "link": "279225092870b1adda3fd5898e7c0994fc78107626ac5289ffa8d7038a49d56d"
+            },
+            {
+              "ts_ns": 239899435431200,
+              "op": "edit",
+              "operands": {
+                "key": 973,
+                "old": 1292,
+                "new": 1294
+              },
+              "W_norm_before": 15.997681,
+              "W_norm_after": 15.996826,
+              "delta_norm": 1.414214,
+              "link": "e1c746431a90ddd93b609a49e4aa3312b37bce47e2c89baf20c4d2c209ad2ec3"
+            }
+          ],
+          "s3_delete_with_certificate": [
+            {
+              "ts_ns": 239899445648000,
+              "op": "delete",
+              "operands": {
+                "key": 2546,
+                "old": 2767
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.950131,
+              "delta_norm": 1.0,
+              "link": "e5976ff6bc3b0ff66ddc2157316016076a9c4ef271a6b25daa83719a11e6f843"
+            },
+            {
+              "ts_ns": 239899448826500,
+              "op": "delete_certificate",
+              "operands": {
+                "key": 2546,
+                "post_delete_norm": 15.950131
+              },
+              "W_norm_before": 15.950131,
+              "W_norm_after": 15.950131,
+              "delta_norm": 0.0,
+              "link": "1d6885619ffeafaaeba3c3da878023781f2149218c7be075d7ab9bab016b03f8"
+            }
+          ],
+          "s4_interrupted_recovery": [
+            {
+              "ts_ns": 239899453755600,
+              "op": "edit_start",
+              "operands": {
+                "key": 2546,
+                "old": 2767,
+                "new": 2768
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997192,
+              "delta_norm": 0.0,
+              "link": "19c641c1f12526e84422a1281f14c7c5bc71d186c4b1c4a0e128f8ea2ad79b92"
+            },
+            {
+              "ts_ns": 239899455453400,
+              "op": "edit_recover",
+              "operands": {
+                "key": 2546,
+                "from_W_norm": 15.997192
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997681,
+              "delta_norm": 1.414214,
+              "link": "ab276394cb80c90f5f4c90b727f9851af7c65fd9956d74d83c8040e22251d80b"
+            }
+          ],
+          "s5_concurrent_serialization": [
+            {
+              "ts_ns": 239899463667400,
+              "op": "edit_concurrent",
+              "operands": {
+                "tx": "a",
+                "key": 2546,
+                "old": 2767,
+                "new": 2768,
+                "serial_order": 1
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997681,
+              "delta_norm": 1.414214,
+              "link": "3e262fa4e044735f69f9b105c87522d0c284fc26c5d930998c3f5e43ad1c196a"
+            },
+            {
+              "ts_ns": 239899465593900,
+              "op": "edit_concurrent",
+              "operands": {
+                "tx": "b",
+                "key": 973,
+                "old": 1292,
+                "new": 1294,
+                "serial_order": 2
+              },
+              "W_norm_before": 15.997681,
+              "W_norm_after": 15.996826,
+              "delta_norm": 1.414214,
+              "link": "1a393f8940e79f9d3faa8f95fc622639d0289ae86aa5a7cb38b3ee3553143b25"
+            }
+          ],
+          "s6_failed_deletion_audit": [
+            {
+              "ts_ns": 239899467786100,
+              "op": "delete_failed",
+              "operands": {
+                "key": 498,
+                "reason": "not_in_store"
+              },
+              "W_norm_before": 15.997192,
+              "W_norm_after": 15.997192,
+              "delta_norm": 0.0,
+              "link": "b5e7a38f63af64c1f8298199806b170a4ed745222a97f0d41758892806a464dd"
+            }
+          ]
+        }
+      }
+    ],
+    "verdict": "C5_HARD_PASS",
+    "verdict_msg": "AUDIT_SCHEMA_COMPLETE: s1_single_edit: complete=True valid=True integ=True max_sz=248B | s2_sequential_edits: complete=True valid=True integ=True max_sz=248B | s3_delete_with_certificate: complete=True valid=True integ=True max_sz=262B | s4_interrupted_recovery: complete=True valid=True integ=True max_sz=256B | s5_concurrent_serialization: complete=True valid=True integ=True max_sz=289B | s6_failed_deletion_audit: complete=True valid=True integ=True max_sz=251B",
+    "elapsed_s": 0.12
+  }
+}

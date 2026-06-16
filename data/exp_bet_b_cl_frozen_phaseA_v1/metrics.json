@@ -1,0 +1,32 @@
+{
+  "verdict": "BETB_C2_HARD_PASS",
+  "verdict_msg": "FROZEN_PHASE_A_RESCUES_RET_A: ret_A=1.000 >= 0.8. mean_ret_A=1.000 mean_ret_B=0.906 mean_ret_C=0.896 n_seeds=1 PASS_RET_A=0.8",
+  "elapsed_s": 19.02,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "retention_A": 1.0,
+        "retention_B": 0.9055084391861336,
+        "retention_C": 0.8958127835741597,
+        "bpc_A_baseline": 3.7291430361575837,
+        "bpc_A_after_D": 3.616345603232849,
+        "bpc_B_baseline": 5.440119841142277,
+        "bpc_B_after_D": 6.007806891376771,
+        "bpc_C_baseline": 2.7778974286983007,
+        "bpc_C_after_D": 3.1009798918194753
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs": 1,
+    "phase_a_pool_epochs": 1,
+    "bytes_per_corpus": 50000,
+    "seeds": [
+      17
+    ]
+  },
+  "N": 1024
+}

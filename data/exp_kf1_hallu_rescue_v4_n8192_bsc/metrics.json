@@ -1,0 +1,61 @@
+{
+  "verdict": "KF1V4_BSC_MIDDLE_BAND",
+  "verdict_msg": "Zero hallucinations but near-uniform weak. 0/1 seeds within 10/C; 50x max bound VIOLATED. mean_ratio=53.45x.",
+  "elapsed_s": 0.06,
+  "config": {
+    "smoke": true,
+    "N": 1024,
+    "m_fracs": [
+      0.25,
+      1.0
+    ],
+    "n_oos": 100,
+    "n_inset": 30
+  },
+  "summary": {
+    "per_seed": {
+      "17": {
+        "seed": 17,
+        "N": 1024,
+        "per_M": {
+          "0.25": {
+            "M": 256,
+            "M_over_N": 0.25,
+            "C": 4096,
+            "oos_max_conf_mean": 0.00570038,
+            "oos_max_conf_max": 0.01582454,
+            "above_thresh_frac": 0.0,
+            "near_uniform_mean": false,
+            "near_uniform_max": false,
+            "bound_10x": 0.00244141,
+            "bound_50x": 0.01220703,
+            "ratio_to_uniform_mean": 23.3488,
+            "inset_acc": 0.0,
+            "inset_max_conf_mean": 0.9501095414161682
+          },
+          "1.0": {
+            "M": 1024,
+            "M_over_N": 1.0,
+            "C": 4096,
+            "oos_max_conf_mean": 0.02039596,
+            "oos_max_conf_max": 0.11059715,
+            "above_thresh_frac": 0.0,
+            "near_uniform_mean": false,
+            "near_uniform_max": false,
+            "bound_10x": 0.00244141,
+            "bound_50x": 0.01220703,
+            "ratio_to_uniform_mean": 83.5418,
+            "inset_acc": 0.0,
+            "inset_max_conf_mean": 0.879277229309082
+          }
+        },
+        "codebook_type": "BSC"
+      }
+    },
+    "N_full": 8192,
+    "N_used": 1024,
+    "smoke": true,
+    "codebook_type": "BSC",
+    "bsc_codebook_scale": 4
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "verdict": "POPGEN_DRIFT_MIDDLE_BAND",
+  "verdict_msg": "Intermediate: within=0/1, mean N_e=32.5, mean_max_dev=0.071. s17:N_e=32.5.",
+  "elapsed_s": 0.01600000000325963,
+  "summary": {
+    "per_seed": {
+      "17": {
+        "fitted_N_e": 32.454744574113306,
+        "t_grid": [
+          1.0,
+          21.0,
+          55.0
+        ],
+        "measured_retention": [
+          0.9423874020576477,
+          0.6530553102493286,
+          0.47768867015838623
+        ],
+        "predicted_retention": [
+          0.984711998430702,
+          0.7235921118232609,
+          0.4285560532004601
+        ]
+      }
+    },
+    "n": 512
+  },
+  "config": {
+    "mode": "smoke",
+    "t_grid": [
+      1.0,
+      21.0,
+      55.0
+    ],
+    "n": 512,
+    "m_per": 30,
+    "seeds": [
+      17
+    ],
+    "pass_within_pct": 0.1,
+    "pass_min_times": 4,
+    "pass_ne_lo_ratio": 0.25,
+    "pass_ne_hi_ratio": 1.0,
+    "fail_dev": 0.25,
+    "fail_times": 3
+  }
+}

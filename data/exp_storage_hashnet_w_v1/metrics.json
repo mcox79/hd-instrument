@@ -1,0 +1,16 @@
+{
+  "anchor_name": "storage_hashnet_w_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: hashed-W drop >5pct at 100x -- collisions too lossy. full=1.000 hashed=0.000 drop=1.000 (100x)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "rf": 1.0,
+      "rh": 0.0,
+      "drop": 1.0
+    }
+  ],
+  "elapsed_s": 7.934257745742798,
+  "summary": "HARD_FAIL: hashed-W drop >5pct at 100x -- collisions too lossy. full=1.000 hashed=0.000 drop=1.000 (100x)"
+}

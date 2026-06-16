@@ -1,0 +1,28 @@
+{
+  "anchor": "phase05_v1_pythia160m_residual_extract_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "too few docs covered: 50 < 2500 (HARD_FAIL floor)",
+  "elapsed_s": 9.437944412231445,
+  "summary": {
+    "anchor": "phase05_v1_pythia160m_residual_extract_v1",
+    "model_id": "EleutherAI/pythia-160m",
+    "hidden_dim": 768,
+    "layer_idx_target": 12,
+    "n_layers": 12,
+    "extraction_mode": "pertoken",
+    "n_residuals": 50,
+    "n_docs_assembled": 50,
+    "n_tokens_total": 509,
+    "n_docs_target": 50,
+    "n_extracted": 50,
+    "n_failed": 0,
+    "n_bad_partials": 0,
+    "dataset_id": "saturnMars/hyperprobe-dataset-analogy",
+    "run_mode": "smoke",
+    "max_tok_len": 64,
+    "wall_extract_s": 6.466766595840454,
+    "wall_total_s": 9.431246042251587
+  },
+  "npz_path": "data\\exp_phase05_v1_pythia160m_residual_extract_v1\\residuals_per_token.npz",
+  "npz_path_abs": "D:\\AI\\hd-instrument\\data\\exp_phase05_v1_pythia160m_residual_extract_v1\\residuals_per_token.npz"
+}

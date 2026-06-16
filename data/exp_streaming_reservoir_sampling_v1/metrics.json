@@ -1,0 +1,16 @@
+{
+  "anchor_name": "streaming_reservoir_sampling_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: reservoir sample uniform across positions (<15pct dev) -- one-pass O(k) curation works. max_bucket_dev=0.048 (K=100 N=10000)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "max_dev": 0.048,
+      "k": 100,
+      "n": 10000
+    }
+  ],
+  "elapsed_s": 0.6433138847351074,
+  "summary": "HARD_PASS: reservoir sample uniform across positions (<15pct dev) -- one-pass O(k) curation works. max_bucket_dev=0.048 (K=100 N=10000)"
+}

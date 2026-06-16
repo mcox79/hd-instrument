@@ -1,0 +1,15 @@
+{
+  "anchor_name": "math_numpy_linalg_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate orchestrates NumPy linalg -- routes query to correct op >=0.90 then runs+verifies end-to-end >=0.88. Substrate-as-tool-orchestrator validated for math. route-acc=1.000 end-to-end=1.000",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "route_acc": 1.0,
+      "end_to_end": 1.0
+    }
+  ],
+  "elapsed_s": 0.5307302474975586,
+  "summary": "HARD_PASS: substrate orchestrates NumPy linalg -- routes query to correct op >=0.90 then runs+verifies end-to-end >=0.88. Substrate-as-tool-orchestrator validated for math. route-acc=1.000 end-to-end=1.000"
+}

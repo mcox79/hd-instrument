@@ -1,0 +1,28 @@
+{
+  "anchor": "phase05_v1_llama32_1b_per_token_residual_extract_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "too few docs covered: 50 < 2500 (HARD_FAIL floor)",
+  "elapsed_s": 4.968312740325928,
+  "summary": {
+    "anchor": "phase05_v1_llama32_1b_per_token_residual_extract_v1",
+    "model_id": "meta-llama/Llama-3.2-1B-Instruct",
+    "hidden_dim": 2048,
+    "layer_idx_target": 16,
+    "n_layers": 16,
+    "extraction_mode": "pertoken",
+    "n_residuals": 50,
+    "n_docs_assembled": 50,
+    "n_tokens_total": 509,
+    "n_docs_target": 50,
+    "n_extracted": 50,
+    "n_failed": 0,
+    "n_bad_partials": 0,
+    "dataset_id": "saturnMars/hyperprobe-dataset-analogy",
+    "run_mode": "smoke",
+    "max_tok_len": 64,
+    "wall_extract_s": 3.016446590423584,
+    "wall_total_s": 4.9653191566467285
+  },
+  "npz_path": "data\\exp_phase05_v1_llama32_1b_per_token_residual_extract_v1\\residuals_per_token.npz",
+  "npz_path_abs": "D:\\AI\\hd-instrument\\data\\exp_phase05_v1_llama32_1b_per_token_residual_extract_v1\\residuals_per_token.npz"
+}

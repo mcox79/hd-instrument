@@ -1,0 +1,18 @@
+{
+  "anchor_name": "g5_entity_substitution_kf1_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: entity-substitution detection AUC drop <=0.05 -- KF-1 grounding catches entity swaps. clean_AUC=1.000 entity_swap_AUC=1.000 drop=0.000",
+  "N": 2048,
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "clean_auc": 1.0,
+      "entity_swap_auc": 1.0,
+      "drop": 0.0
+    }
+  ],
+  "elapsed_s": 0.026912450790405273,
+  "summary": "HARD_PASS: entity-substitution detection AUC drop <=0.05 -- KF-1 grounding catches entity swaps. clean_AUC=1.000 entity_swap_AUC=1.000 drop=0.000"
+}

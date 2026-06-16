@@ -1,0 +1,16 @@
+{
+  "anchor_name": "kb_query_benchmark_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate KB-query benchmark (lookup+2-hop) >=0.98 correctness -- product-grade query correctness. lookup=1.000 2-hop=1.000 overall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "lookup": 1.0,
+      "twohop": 1.0,
+      "overall": 1.0
+    }
+  ],
+  "elapsed_s": 0.389373779296875,
+  "summary": "HARD_PASS: substrate KB-query benchmark (lookup+2-hop) >=0.98 correctness -- product-grade query correctness. lookup=1.000 2-hop=1.000 overall=1.000"
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "core_periphery_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: core protection <0.85. protected=0.006 unprotected=0.004 after 5000 edits",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "protected_core_recall": 0.006,
+      "unprotected_core_recall": 0.004,
+      "edits": 5000
+    }
+  ],
+  "elapsed_s": 135.00839948654175,
+  "summary": "HARD_FAIL: core protection <0.85. protected=0.006 unprotected=0.004 after 5000 edits"
+}

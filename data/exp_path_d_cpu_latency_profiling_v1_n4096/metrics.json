@@ -1,0 +1,57 @@
+{
+  "verdict": "C7_HARD_PASS",
+  "verdict_msg": "CLEAN_CPU_BASELINE n_hp=2/2. M=50: med_cv=0.020 dom=matmul (1/1) | M=100: med_cv=0.096 dom=matmul (1/1)",
+  "elapsed_s": 0.09,
+  "summary": {
+    "anchor": "path_d_cpu_latency_profiling_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "M_sweep": [
+      50,
+      100
+    ],
+    "depth": 2,
+    "K_paths": 10,
+    "n_repeat": 3,
+    "seeds": [
+      17
+    ],
+    "cells": [
+      {
+        "M": 50,
+        "seed": 17,
+        "ok": true,
+        "n_repeat": 3,
+        "mean_total_s": 0.003211,
+        "median_total_s": 0.003199,
+        "cv_total": 0.0196,
+        "dominant_op": "matmul",
+        "dominant_frac": 1.0,
+        "samples_s": [
+          0.003279,
+          0.003199,
+          0.003155
+        ]
+      },
+      {
+        "M": 100,
+        "seed": 17,
+        "ok": true,
+        "n_repeat": 3,
+        "mean_total_s": 0.003632,
+        "median_total_s": 0.003455,
+        "cv_total": 0.0956,
+        "dominant_op": "matmul",
+        "dominant_frac": 1.0,
+        "samples_s": [
+          0.004033,
+          0.003455,
+          0.003409
+        ]
+      }
+    ],
+    "verdict": "C7_HARD_PASS",
+    "verdict_msg": "CLEAN_CPU_BASELINE n_hp=2/2. M=50: med_cv=0.020 dom=matmul (1/1) | M=100: med_cv=0.096 dom=matmul (1/1)",
+    "elapsed_s": 0.09
+  }
+}

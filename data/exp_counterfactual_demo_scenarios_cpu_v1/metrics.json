@@ -1,0 +1,18 @@
+{
+  "anchor_name": "counterfactual_demo_scenarios_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 20 demo-ready counterfactual do() scenarios curated (each correct + auditable + deterministic) -- demo 'what if' wow-moment asset ready. curated=20/20 from 22 attempts (clean-rate=0.91)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "curated": 20,
+      "attempts": 22,
+      "clean_rate": 0.9090909090909091,
+      "n": 20,
+      "all_ok": 20
+    }
+  ],
+  "elapsed_s": 2.095238447189331,
+  "summary": "HARD_PASS: 20 demo-ready counterfactual do() scenarios curated (each correct + auditable + deterministic) -- demo 'what if' wow-moment asset ready. curated=20/20 from 22 attempts (clean-rate=0.91)"
+}

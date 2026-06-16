@@ -1,0 +1,80 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND at N=256: n_binders>0.05=0/4; within-across diff=-0.2024; n_peaks_within=2",
+  "elapsed_s": 4.062000000034459,
+  "summary": {
+    "N": 256,
+    "seeds_per_class": 2,
+    "within_class": {
+      "SAME_CORPUS_PRISTINE": {
+        "n_overlaps": 1,
+        "mean_q": 0.0027820879704817543,
+        "binder": 0.0
+      },
+      "REPLAY_SAME_CORPUS": {
+        "n_overlaps": 1,
+        "mean_q": 0.023515042862061988,
+        "binder": 0.0
+      },
+      "4STAGE_DIFF_CORPUS": {
+        "n_overlaps": 1,
+        "mean_q": 0.08452082960994514,
+        "binder": 0.0
+      },
+      "NO_REPLAY_DIFF": {
+        "n_overlaps": 1,
+        "mean_q": 0.022750705073053778,
+        "binder": 0.0
+      }
+    },
+    "across_class": {
+      "SAME_CORPUS_PRISTINE/REPLAY_SAME_CORPUS": {
+        "n_overlaps": 4,
+        "mean_q": 0.48600339614057153,
+        "binder": 0.33357260635789276
+      },
+      "SAME_CORPUS_PRISTINE/4STAGE_DIFF_CORPUS": {
+        "n_overlaps": 4,
+        "mean_q": 0.36387679491894614,
+        "binder": 0.332742935169253
+      },
+      "SAME_CORPUS_PRISTINE/NO_REPLAY_DIFF": {
+        "n_overlaps": 4,
+        "mean_q": 0.04965461841988544,
+        "binder": 0.4127000027679594
+      },
+      "REPLAY_SAME_CORPUS/4STAGE_DIFF_CORPUS": {
+        "n_overlaps": 4,
+        "mean_q": 0.3818312129468407,
+        "binder": 0.33780343178244066
+      },
+      "REPLAY_SAME_CORPUS/NO_REPLAY_DIFF": {
+        "n_overlaps": 4,
+        "mean_q": 0.05337581969139672,
+        "binder": 0.45164426284682624
+      },
+      "4STAGE_DIFF_CORPUS/NO_REPLAY_DIFF": {
+        "n_overlaps": 4,
+        "mean_q": 0.07972745870261376,
+        "binder": 0.48734994691938105
+      }
+    },
+    "within_mean_q": 0.03339216637888567,
+    "across_mean_q": 0.23574488347004238,
+    "within_across_diff": -0.2023527170911567,
+    "n_class_binders_above_015": 0,
+    "n_class_binders_above_005": 0,
+    "n_peaks_within_pooled": 2,
+    "peaks_within_positions": [
+      0.017425422377083208,
+      0.0829905134099088
+    ]
+  },
+  "config": {
+    "N": 256,
+    "seeds_per_class": 2,
+    "smoke": true,
+    "kde_bw": 0.02,
+    "peak_sep_sigma": 2.0
+  }
+}

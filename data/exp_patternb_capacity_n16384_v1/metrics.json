@@ -1,0 +1,20 @@
+{
+  "anchor_name": "patternb_capacity_n16384_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: capacity grows with N -- K-limit>=40 at N=8192 (vs ~20 at N=4096). F1 by K: {'K10': 1.0, 'K20': 1.0, 'K40': 1.0}; K-limit=40 at N=8192 (N=4096 limit was ~20)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "K10": 1.0,
+        "K20": 1.0,
+        "K40": 1.0
+      },
+      "klim": 40,
+      "nbig": 8192
+    }
+  ],
+  "elapsed_s": 5.506561279296875,
+  "summary": "HARD_PASS: capacity grows with N -- K-limit>=40 at N=8192 (vs ~20 at N=4096). F1 by K: {'K10': 1.0, 'K20': 1.0, 'K40': 1.0}; K-limit=40 at N=8192 (N=4096 limit was ~20)"
+}

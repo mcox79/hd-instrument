@@ -1,0 +1,25 @@
+{
+  "run_mode": "smoke",
+  "N": 4096,
+  "seeds": [
+    7,
+    17
+  ],
+  "summary": {
+    "mean_alpha_err": 0.06301535558067727,
+    "mean_lambda_growth_ratio": 1.3718496041563109,
+    "cert_complete_seeds": 2,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Capacity certificate validated. alpha_err=0.063<0.2, lambda_growth_ratio=1.372>1.1, cert_complete=2/2.",
+  "elapsed_s": 5.409388780593872,
+  "config": {
+    "ALPHA_GRID": [
+      0.02,
+      0.05,
+      0.1,
+      0.13
+    ]
+  }
+}

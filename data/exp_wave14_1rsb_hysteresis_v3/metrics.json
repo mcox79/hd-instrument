@@ -1,0 +1,76 @@
+{
+  "verdict": "HYSTERESIS_1RSB_CONFIRMED",
+  "verdict_msg": "Max BPC hysteresis gap=0.8349 >= 0.1. First-order transition signature at capacity axis; 1-RSB framing supported.",
+  "elapsed_s": 124.125,
+  "summary": {
+    "max_hysteresis_gap_bpc": 0.8349,
+    "cells": [
+      {
+        "M": 2000,
+        "fwd_bpc_mean": 5.7844,
+        "rev_bpc_mean": 4.9495,
+        "hysteresis_gap_bpc": 0.8349,
+        "fwd_bpc_seeds": [
+          5.7844
+        ],
+        "rev_bpc_seeds": [
+          4.9495
+        ],
+        "n_fwd_valid": 1,
+        "n_rev_valid": 1
+      },
+      {
+        "M": 10000,
+        "fwd_bpc_mean": 4.1836,
+        "rev_bpc_mean": 3.6302,
+        "hysteresis_gap_bpc": 0.5534,
+        "fwd_bpc_seeds": [
+          4.1836
+        ],
+        "rev_bpc_seeds": [
+          3.6302
+        ],
+        "n_fwd_valid": 1,
+        "n_rev_valid": 1
+      },
+      {
+        "M": 48000,
+        "fwd_bpc_mean": 3.063,
+        "rev_bpc_mean": 3.0379,
+        "hysteresis_gap_bpc": 0.025,
+        "fwd_bpc_seeds": [
+          3.063
+        ],
+        "rev_bpc_seeds": [
+          3.0379
+        ],
+        "n_fwd_valid": 1,
+        "n_rev_valid": 1
+      }
+    ],
+    "n_seeds": 1,
+    "m_sweep": [
+      2000,
+      10000,
+      48000
+    ],
+    "n_valid_cells": 3
+  },
+  "config": {
+    "mode": "smoke2",
+    "N": 512,
+    "batch_size": 16,
+    "epochs": 2,
+    "m_sweep": [
+      2000,
+      10000,
+      48000
+    ],
+    "seeds": [
+      17
+    ],
+    "gap_1rsb_threshold": 0.1,
+    "gap_rs_threshold": 0.03,
+    "cell_timeout_s": 300
+  }
+}

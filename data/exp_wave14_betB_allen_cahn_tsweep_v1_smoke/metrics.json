@@ -1,0 +1,51 @@
+{
+  "verdict": "ALLEN_CAHN_INCONCLUSIVE",
+  "verdict_msg": "Need >=3 t-points for regression; got 2.",
+  "elapsed_s": 5.030999999959022,
+  "summary": {
+    "per_phase_c_epochs": {
+      "1": {
+        "17": {
+          "retention_A": 0.9054436834694984,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 4.098235401153564,
+          "phase_c_epochs": 1
+        }
+      },
+      "5": {
+        "17": {
+          "retention_A": 0.939070934942345,
+          "bpc_A_baseline": 3.710721357345581,
+          "bpc_A_after_C": 3.9514814262390137,
+          "phase_c_epochs": 5
+        }
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 1024,
+    "batch_size": 32,
+    "epochs_ab": 1,
+    "phase_a_epochs": 1,
+    "bytes_per_corpus": 5000,
+    "seeds": [
+      17
+    ],
+    "phase_c_epochs_sweep": [
+      1,
+      5
+    ],
+    "ema_alpha": 0.7,
+    "pass_slope_band": [
+      0.4,
+      0.6
+    ],
+    "pass_r2": 0.7,
+    "fail_slope_band": [
+      0.3,
+      0.7
+    ],
+    "fail_r2": 0.4
+  }
+}

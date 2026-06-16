@@ -1,0 +1,38 @@
+{
+  "anchor_name": "q_f3_cophenetic_v2_n_capacity",
+  "run_mode": "smoke",
+  "N": 1024,
+  "seeds": [
+    7,
+    17,
+    23
+  ],
+  "alpha_list": [
+    0.04,
+    0.08,
+    0.12
+  ],
+  "aggregate": {
+    "0.04": {
+      "alpha": 0.04,
+      "mean_cophenetic_corr": 0.23793562337816487,
+      "std_cophenetic_corr": 0.020388162528425853,
+      "n_seeds": 3
+    },
+    "0.08": {
+      "alpha": 0.08,
+      "mean_cophenetic_corr": 0.17138097513537895,
+      "std_cophenetic_corr": 0.004615948457825334,
+      "n_seeds": 3
+    },
+    "0.12": {
+      "alpha": 0.12,
+      "mean_cophenetic_corr": 0.14051192974447488,
+      "std_cophenetic_corr": 0.014412108961845334,
+      "n_seeds": 3
+    }
+  },
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "Q-F3 no hierarchical structure at near-capacity. alpha=0.12 cophenetic=0.1405 (HF<0.55). Tree-based features not supported at this regime.",
+  "elapsed_s": 12.801991939544678
+}

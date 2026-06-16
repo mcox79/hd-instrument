@@ -1,0 +1,14 @@
+{
+  "anchor_name": "cross_shard_chain_extraction_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sleep-defrag chain extraction turns cross-shard 2-hop into a single-shard lookup at >=0.90 -- pre-computed composed-relation chains close the cross-shard cost. post-defrag single-shard 2-hop=0.983",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "recall": 0.9833333333333333
+    }
+  ],
+  "elapsed_s": 0.30506467819213867,
+  "summary": "HARD_PASS: sleep-defrag chain extraction turns cross-shard 2-hop into a single-shard lookup at >=0.90 -- pre-computed composed-relation chains close the cross-shard cost. post-defrag single-shard 2-hop=0.983"
+}

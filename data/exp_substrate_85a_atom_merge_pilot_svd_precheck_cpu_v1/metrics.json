@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_85a_atom_merge_pilot_svd_precheck_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "atom-MERGE pilot is SAFE: re-pointing all svd edges to T1/singular_value_decomposition preserves axiom-termination (0 regressions) with 0 dangling references -> Testbed can execute the pilot with capability_preservation=1.0 expected. atom-MERGE pilot svd->T1/singular_value_decomposition: 11 edges incident (id-forms: atoms=['T1/SVD'], edges=['T1/SVD']); 4 self-loops dropped; capability: 1336->1336 axiom-terminating, 0 regressed, 0 dangling.",
+  "summary": "atom-MERGE pilot is SAFE: re-pointing all svd edges to T1/singular_value_decomposition preserves axiom-termination (0 regressions) with 0 dangling references -> Testbed can execute the pilot with capability_preservation=1.0 expected. atom-MERGE pilot svd->T1/singular_value_decomposition: 11 edges incident (id-forms: atoms=['T1/SVD'], edges=['T1/SVD']); 4 self-loops dropped; capability: 1336->1336 axiom-terminating, 0 regressed, 0 dangling.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "noncanon": "svd",
+      "canon": "T1/singular_value_decomposition",
+      "svd_atom_idforms": [
+        "T1/SVD"
+      ],
+      "svd_edge_idforms": [
+        "T1/SVD"
+      ],
+      "edges_incident": 11,
+      "selfloops_dropped": 4,
+      "goal_pool": 1338,
+      "term_before": 1336,
+      "term_after": 1336,
+      "regressed": [],
+      "dangling": [],
+      "cap_preserved": true
+    }
+  ],
+  "elapsed_s": 0.5384664535522461
+}

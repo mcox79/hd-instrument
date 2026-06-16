@@ -1,0 +1,17 @@
+{
+  "anchor_name": "api_as_of_checkpoint_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: as_of(checkpoint) returns ONLY pre-checkpoint facts (zero leak) -- bitemporal semantics correct; differentiator vs every other vector DB. post-checkpoint leaks=0/400 results (checkpoint=50, 40 queries)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_q": 40,
+      "leaks": 0,
+      "total": 400,
+      "checkpoint": 50
+    }
+  ],
+  "elapsed_s": 0.020586252212524414,
+  "summary": "HARD_PASS: as_of(checkpoint) returns ONLY pre-checkpoint facts (zero leak) -- bitemporal semantics correct; differentiator vs every other vector DB. post-checkpoint leaks=0/400 results (checkpoint=50, 40 queries)"
+}

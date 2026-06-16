@@ -1,0 +1,24 @@
+{
+  "anchor_name": "rank_k_woodbury_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: no k hits both accuracy + 2x speedup. full=1.000 by k: {'k8': {'r': 0.0, 'x': 0.31}, 'k32': {'r': 0.0, 'x': 0.23}}",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "by": {
+        "k8": {
+          "rec": 0.0,
+          "speedup": 0.3069431066302494
+        },
+        "k32": {
+          "rec": 0.0,
+          "speedup": 0.23472724539377393
+        }
+      },
+      "full": 1.0
+    }
+  ],
+  "elapsed_s": 14.10804533958435,
+  "summary": "MIDDLE_BAND: no k hits both accuracy + 2x speedup. full=1.000 by k: {'k8': {'r': 0.0, 'x': 0.31}, 'k32': {'r': 0.0, 'x': 0.23}}"
+}

@@ -1,0 +1,39 @@
+{
+  "verdict": "DOCUMENTED_CONFIRMED",
+  "verdict_msg": "Documented-class confirmed despite novel battery result: 4/5 documented signals. Substrate matches gated multistable AM / lR-phase. Cell calls: {'S1': 'Z3_INVARIANT', 'S2': 'CONVERGENT', 'S3': 'NO_SOFT_MODE', 'S4': 'AMBIGUOUS', 'S5': 'NONLINEAR'}",
+  "smoke": true,
+  "N": 512,
+  "elapsed_s": 0.1,
+  "s1": {
+    "mean_diff": 0.0,
+    "call": "Z3_INVARIANT"
+  },
+  "s2": {
+    "qEA_by_N": {
+      "512": 0.75391,
+      "1024": 0.756
+    },
+    "slope_per_decade": 0.00694,
+    "call": "CONVERGENT"
+  },
+  "s3": {
+    "mean_gap_frac": 0.99185,
+    "call": "NO_SOFT_MODE"
+  },
+  "s4": {
+    "mean_n_wells": 2.0,
+    "mean_gap_ratio": 1.1057,
+    "call": "AMBIGUOUS"
+  },
+  "s5": {
+    "mean_chi_ratio": 73403.412,
+    "call": "NONLINEAR"
+  },
+  "thresholds": {
+    "s1_z3_invariant_max": 0.02,
+    "s2_convergent_slope_max": 0.05,
+    "s3_no_soft_mode_min": 0.05,
+    "s4_n_wells_min_novel": 3,
+    "s5_nonlinear_chi_ratio": 5.0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "ONLINE_W_RESISTS_CF",
+  "verdict_msg": "min_acc=1.000>=0.95 across 50 writes (substrate resists catastrophic forgetting).",
+  "elapsed_s": 0.4210000000020955,
+  "summary": {
+    "min_acc": 1.0,
+    "final_acc": 1.0,
+    "accs_over_time": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "n_writes": 15
+  },
+  "config": {
+    "N": 2048,
+    "n_writes": 15,
+    "seed": 17
+  }
+}

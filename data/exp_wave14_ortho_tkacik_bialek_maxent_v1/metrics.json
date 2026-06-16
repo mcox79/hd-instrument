@@ -1,0 +1,62 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: mean S_2/S_max=0.9955 >= 0.75. J_norm_normalized=4.5981 (informational, not gating at first measurement). BSC codebook operates in pairwise-MaxEnt regime consistent with Tkacik-Bialek neural-code model. Information-theoretic characterization applicable.",
+  "elapsed_s": 0.004,
+  "summary": {
+    "mean_s2_ratio": 0.99547,
+    "mean_j_norm_normalized": 4.59811,
+    "j_in_band": true,
+    "by_K": {
+      "50": {
+        "s2_ratio_mean": 0.99538,
+        "j_norm_normalized_mean": 6.16922,
+        "k_over_n": 0.0977
+      },
+      "100": {
+        "s2_ratio_mean": 0.99555,
+        "j_norm_normalized_mean": 3.02699,
+        "k_over_n": 0.1953
+      }
+    },
+    "n_cells": 2
+  },
+  "all_results": [
+    {
+      "K": 50,
+      "N": 512,
+      "seed": 17,
+      "J_norm_F": 1.92788,
+      "j_norm_normalized": 6.16922,
+      "s2_ratio": 0.99538,
+      "c_ij_mean_abs": 0.0998,
+      "c_ij_max_abs": 0.4,
+      "k_over_n": 0.0977
+    },
+    {
+      "K": 100,
+      "N": 512,
+      "seed": 17,
+      "J_norm_F": 1.33775,
+      "j_norm_normalized": 3.02699,
+      "s2_ratio": 0.99555,
+      "c_ij_mean_abs": 0.0717,
+      "c_ij_max_abs": 0.32,
+      "k_over_n": 0.1953
+    }
+  ],
+  "config": {
+    "mode": "SMOKE",
+    "N": 512,
+    "K_sweep": [
+      50,
+      100
+    ],
+    "seeds": [
+      17
+    ],
+    "n_pairs": 200,
+    "device": "cpu",
+    "estimator": "Sessak-Monasson 2009 pseudolikelihood",
+    "s2_proxy": "coupling-strength complement proxy"
+  }
+}

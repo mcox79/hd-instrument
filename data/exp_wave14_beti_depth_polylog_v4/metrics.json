@@ -1,0 +1,61 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: only 0/2 N values have measurable d_c_emp > 0; not enough for R2 fit. Smoke N=[[1024, 2048]] d_sweep=[2, 5, 10, 20, 30, 40]",
+  "elapsed_s": 48.6,
+  "summary": {
+    "n_valid_N": 0,
+    "results": {
+      "1024": {
+        "N": 1024,
+        "d_c_empirical": 0.0,
+        "d_c_predicted": 26.64,
+        "relative_error": 1.0,
+        "acc_by_d": {
+          "2": 0.0,
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "30": 0.0,
+          "40": 0.0
+        },
+        "degenerate": false
+      },
+      "2048": {
+        "N": 2048,
+        "d_c_empirical": 0.0,
+        "d_c_predicted": 39.52,
+        "relative_error": 1.0,
+        "acc_by_d": {
+          "2": 0.0,
+          "5": 0.0,
+          "10": 0.0,
+          "20": 0.0,
+          "30": 0.0,
+          "40": 0.0
+        },
+        "degenerate": false
+      }
+    }
+  },
+  "config": {
+    "K_GRAM": 10,
+    "ALPHA_LOAD": 0.4,
+    "smoke": true,
+    "N_sweep": [
+      1024,
+      2048
+    ],
+    "d_sweep": [
+      2,
+      5,
+      10,
+      20,
+      30,
+      40
+    ],
+    "seeds": [
+      7,
+      17
+    ]
+  }
+}

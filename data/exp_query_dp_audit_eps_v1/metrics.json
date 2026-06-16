@@ -1,0 +1,26 @@
+{
+  "anchor": "query_dp_audit_eps_v1",
+  "run_mode": "smoke",
+  "N": 4096,
+  "M": 200,
+  "n_seeds": 2,
+  "baseline_acc": 0.5,
+  "acc_eps_10": 0.495,
+  "acc_eps_03": 0.4975,
+  "acc_eps_01": 0.525,
+  "acc_eps_006": 0.4875,
+  "drop_pp_eps10": 0.5000000000000004,
+  "drop_pp_eps03": 0.2500000000000002,
+  "drop_pp_eps01": -2.500000000000002,
+  "drop_pp_eps006": 1.250000000000001,
+  "verdict": "MIDDLE_BAND",
+  "elapsed_s": 1.7067646980285645,
+  "thresholds": {
+    "HP_drop_eps01_pp": 1.0,
+    "HP_drop_eps03_pp": 0.5,
+    "HP_drop_eps10_pp": 0.2,
+    "HP_visible_eps006_pp": 1.0,
+    "HF_drop_eps03_pp": 3.0
+  },
+  "verdict_msg": "Query-DP eps sweep N=4096 M=200: baseline_acc=0.5000. Drops: eps=1.0:0.50pp eps=0.3:0.25pp eps=0.1:-2.50pp eps=0.06:1.25pp. HP: eps>=0.1 drop<1pp AND eps=0.06 visible(>1pp). Verdict=MIDDLE_BAND."
+}

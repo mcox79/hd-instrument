@@ -1,0 +1,76 @@
+{
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: corr(lambda_2, retention_A)=0.615 > 0.6. lambda_2_mean=0.5529. Algebraic connectivity predicts retention.",
+  "elapsed_s": 0.9592845439910889,
+  "corr_lambda2_retention": 0.6154731073367143,
+  "mean_lambda2": 0.5528782917897014,
+  "n_valid": 4,
+  "per_run": [
+    {
+      "N": 256,
+      "M_A": 25,
+      "M_B": 75,
+      "seed": 7,
+      "lambda_2_A": 0.3446060371651174,
+      "lambda_2_combined": 0.44644036333490844,
+      "lambda_N_combined": 0.6076810799129807,
+      "spectral_gap_ratio": 0.7346622728456571,
+      "retention_A": 0.52,
+      "spectral_A_error": null,
+      "spectral_combined_error": null
+    },
+    {
+      "N": 256,
+      "M_A": 25,
+      "M_B": 75,
+      "seed": 17,
+      "lambda_2_A": 0.3449955138598281,
+      "lambda_2_combined": 0.4365135187840934,
+      "lambda_N_combined": 0.6135644427155029,
+      "spectral_gap_ratio": 0.71143874774012,
+      "retention_A": 0.48,
+      "spectral_A_error": null,
+      "spectral_combined_error": null
+    },
+    {
+      "N": 512,
+      "M_A": 51,
+      "M_B": 153,
+      "seed": 7,
+      "lambda_2_A": 0.5016095800851681,
+      "lambda_2_combined": 0.656764629168396,
+      "lambda_N_combined": 0.828267345240647,
+      "spectral_gap_ratio": 0.7929379721915571,
+      "retention_A": 0.75,
+      "spectral_A_error": null,
+      "spectral_combined_error": null
+    },
+    {
+      "N": 512,
+      "M_A": 51,
+      "M_B": 153,
+      "seed": 17,
+      "lambda_2_A": 0.5120511621316773,
+      "lambda_2_combined": 0.6717946558714075,
+      "lambda_N_combined": 0.8487712904006296,
+      "spectral_gap_ratio": 0.7914907861145037,
+      "retention_A": 0.525,
+      "spectral_A_error": null,
+      "spectral_combined_error": null
+    }
+  ],
+  "summary": "Spectral graph v2 N_sweep=[256, 512]: HARD_PASS (corr=0.615, lambda2_mean=0.5529)",
+  "config": {
+    "N_values": [
+      256,
+      512
+    ],
+    "M_load_frac": 0.1,
+    "seeds": [
+      7,
+      17
+    ],
+    "HP_CORR_MIN": 0.6,
+    "HF_CORR_MAX": -0.3
+  }
+}

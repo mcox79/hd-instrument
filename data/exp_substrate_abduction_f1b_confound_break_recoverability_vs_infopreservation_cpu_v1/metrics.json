@@ -1,0 +1,43 @@
+{
+  "anchor_name": "substrate_abduction_f1b_confound_break_recoverability_vs_infopreservation_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "CONFOUND BROKEN -> PAIR-SEPARABILITY is the true load-bearing property, NOT recoverability: rand_proj is info-preserving (JL) AND non-recoverable yet CLOSES the gap. Phase-C abduced signature SHARPENED to 'key linearly separates joint contexts' (recoverability = a sufficient special case, not necessary). This resolves Skunkworks's gate (a) and prevents an imprecise gap-shape mis-directing unknown-gap filler-search. rand_proj (info-preserving JL, non-recoverable): closes=True ratio=2.01x recover_acc=0.000; corr(closure,pair_sep)=0.68 corr(closure,recover)=0.71 corr(pair_sep,recover)=0.62.",
+  "summary": "CONFOUND BROKEN -> PAIR-SEPARABILITY is the true load-bearing property, NOT recoverability: rand_proj is info-preserving (JL) AND non-recoverable yet CLOSES the gap. Phase-C abduced signature SHARPENED to 'key linearly separates joint contexts' (recoverability = a sufficient special case, not necessary). This resolves Skunkworks's gate (a) and prevents an imprecise gap-shape mis-directing unknown-gap filler-search. rand_proj (info-preserving JL, non-recoverable): closes=True ratio=2.01x recover_acc=0.000; corr(closure,pair_sep)=0.68 corr(closure,recover)=0.71 corr(pair_sep,recover)=0.62.",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "base": 0.09151553053992079,
+      "ratio": {
+        "last": 1.0,
+        "xor": 5.10250569476082,
+        "conv": 5.134396355353075,
+        "bundle": 1.6628701594533029,
+        "rectprod": 0.25740318906605925,
+        "rand_proj": 2.009111617312073
+      },
+      "pair_sep": {
+        "last": 0.9837718140333891,
+        "xor": 0.9875352472687761,
+        "conv": 0.9874302561705312,
+        "bundle": 0.9799367735783259,
+        "rectprod": 0.7449580530325571,
+        "rand_proj": 0.9809979858497778
+      },
+      "recover_acc": {
+        "last": 0.0,
+        "xor": 1.0,
+        "conv": 1.0,
+        "bundle": 0.9933333333333333,
+        "rectprod": 0.0,
+        "rand_proj": 0.0
+      },
+      "rp_closes": true,
+      "rp_nonrecover": true,
+      "corr_closure_pairsep": 0.6829160606932271,
+      "corr_closure_recover": 0.7128546770823435,
+      "corr_pairsep_recover": 0.6248803216435818
+    }
+  ],
+  "elapsed_s": 26.25355339050293
+}

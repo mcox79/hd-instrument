@@ -1,0 +1,17 @@
+{
+  "anchor_name": "uncertainty_math_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: conformal coverage guarantee + calibrated ECE<0.05 on the MATH op-classifier -- uncertainty quantification generalizes to a 2nd domain (code AND math), no LLM. coverage=0.9874 ECE 0.1477->0.0241 (n=159)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "coverage": 0.9874,
+      "ece_raw": 0.1477,
+      "ece_post": 0.0241,
+      "n_test": 159
+    }
+  ],
+  "elapsed_s": 0.1978752613067627,
+  "summary": "HARD_PASS: conformal coverage guarantee + calibrated ECE<0.05 on the MATH op-classifier -- uncertainty quantification generalizes to a 2nd domain (code AND math), no LLM. coverage=0.9874 ECE 0.1477->0.0241 (n=159)"
+}

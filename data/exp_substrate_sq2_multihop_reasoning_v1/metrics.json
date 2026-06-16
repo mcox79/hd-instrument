@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_sq2_multihop_reasoning_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate traverses >=8 reasoning hops via iterated retrieval. acc K1:1.00 K2:1.00 K4:1.00 K8:1.00 K12:1.00 | depth=12 (G=2 chains)",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "cells": [
+    "K1",
+    "K2",
+    "K4",
+    "K8",
+    "K12"
+  ],
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "G_chains": 2,
+      "K1": 1.0,
+      "K2": 1.0,
+      "K4": 1.0,
+      "K8": 1.0,
+      "K12": 1.0
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "G_chains": 2,
+      "K1": 1.0,
+      "K2": 1.0,
+      "K4": 1.0,
+      "K8": 1.0,
+      "K12": 1.0
+    }
+  ],
+  "elapsed_s": 0.01930093765258789,
+  "summary": "HARD_PASS: substrate traverses >=8 reasoning hops via iterated retrieval. acc K1:1.00 K2:1.00 K4:1.00 K8:1.00 K12:1.00 | depth=12 (G=2 chains)"
+}

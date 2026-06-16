@@ -1,0 +1,16 @@
+{
+  "anchor_name": "concept_drift_misragries_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: drift/baseline ratio 1.5-3.0 -- detectable but weak; larger K or finer epsilon. D_baseline=0.1815 D_drift=0.5395 ratio=2.97",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "d_baseline": 0.18149617264972956,
+      "d_drift": 0.5395261501556721,
+      "ratio": 2.9726585376775296
+    }
+  ],
+  "elapsed_s": 0.014104604721069336,
+  "summary": "MIDDLE_BAND: drift/baseline ratio 1.5-3.0 -- detectable but weak; larger K or finer epsilon. D_baseline=0.1815 D_drift=0.5395 ratio=2.97"
+}

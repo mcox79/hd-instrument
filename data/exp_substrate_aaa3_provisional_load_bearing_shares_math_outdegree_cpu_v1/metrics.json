@@ -1,0 +1,19 @@
+{
+  "anchor_name": "substrate_aaa3_provisional_load_bearing_shares_math_outdegree_cpu_v1",
+  "verdict": "PROVISIONAL_LEAN",
+  "verdict_msg": "PROVISIONAL-LEAN (axis is NOT noise; below the 1.4x bar): ratio 1.33x in [1.1,1.4) -- TOOLS do share more math than MATERIALS (well above the 1.1x HARD-FAIL floor), so Axis 2 is NOT collapsing to noise, but does not clear 1.4x on candidate edges. Canonical (richer) SHARES_MATH authoring may push it over. Reservation C leans supported, pending canonical run. PROVISIONAL on 351 auto-discovered SHARES_MATH candidate edges (canonical=0): TOOLS mean out-degree=5.81 (n=16/33 in graph) vs MATERIALS=4.38 (n=139) -> ratio=1.33x. NOT canonical -- structural-candidate proxy; re-run on Testbed-authored SHARES_MATH for the definitive CELL-AAA-3.",
+  "summary": "PROVISIONAL-LEAN (axis is NOT noise; below the 1.4x bar): ratio 1.33x in [1.1,1.4) -- TOOLS do share more math than MATERIALS (well above the 1.1x HARD-FAIL floor), so Axis 2 is NOT collapsing to noise, but does not clear 1.4x on candidate edges. Canonical (richer) SHARES_MATH authoring may push it over. Reservation C leans supported, pending canonical run. PROVISIONAL on 351 auto-discovered SHARES_MATH candidate edges (canonical=0): TOOLS mean out-degree=5.81 (n=16/33 in graph) vs MATERIALS=4.38 (n=139) -> ratio=1.33x. NOT canonical -- structural-candidate proxy; re-run on Testbed-authored SHARES_MATH for the definitive CELL-AAA-3.",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n_candidate_edges": 351,
+      "tools_in_graph": 16,
+      "materials_in_graph": 139,
+      "tool_mean_outdeg": 5.812,
+      "material_mean_outdeg": 4.381,
+      "ratio": 1.327
+    }
+  ],
+  "elapsed_s": 0.0006184577941894531
+}

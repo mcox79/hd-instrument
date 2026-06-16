@@ -1,0 +1,15 @@
+{
+  "anchor_name": "lap2_1_paracons_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate assigns Belnap 4-valued truth (T/F/U/B) >=0.85 on INCONSISTENT KBs -- pos/neg evidence bundles tracked separately; contradiction (Both) handled gracefully, no explosion. 4-valued-acc=1.000 (n=10000)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "paracons_acc": 1.0,
+      "n": 10000
+    }
+  ],
+  "elapsed_s": 0.18335652351379395,
+  "summary": "HARD_PASS: substrate assigns Belnap 4-valued truth (T/F/U/B) >=0.85 on INCONSISTENT KBs -- pos/neg evidence bundles tracked separately; contradiction (Both) handled gracefully, no explosion. 4-valued-acc=1.000 (n=10000)"
+}

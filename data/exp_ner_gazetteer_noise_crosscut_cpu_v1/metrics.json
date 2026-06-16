@@ -1,0 +1,44 @@
+{
+  "anchor_name": "ner_gazetteer_noise_crosscut_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: gazetteer lift SHRINKS under char noise (delta<-0.02) -- exact-match membership degrades on perturbed tokens; noise-robustness claim refuted. lift@5pct clean=+0.0441 noisy@10%=+0.0167 (delta=-0.0274); lift@100pct clean=-0.0368 noisy=-0.0383",
+  "summary": "HARD_FAIL: gazetteer lift SHRINKS under char noise (delta<-0.02) -- exact-match membership degrades on perturbed tokens; noise-robustness claim refuted. lift@5pct clean=+0.0441 noisy@10%=+0.0167 (delta=-0.0274); lift@100pct clean=-0.0368 noisy=-0.0383",
+  "run_mode": "full",
+  "n_seeds": 3,
+  "per_seed": [
+    {
+      "cells": [
+        {
+          "frac": 0.05,
+          "noise": 0.0,
+          "baseline_f1": 0.412,
+          "gaz_f1": 0.4561,
+          "lift": 0.0441
+        },
+        {
+          "frac": 0.05,
+          "noise": 0.1,
+          "baseline_f1": 0.3659,
+          "gaz_f1": 0.3826,
+          "lift": 0.0167
+        },
+        {
+          "frac": 1.0,
+          "noise": 0.0,
+          "baseline_f1": 0.6441,
+          "gaz_f1": 0.6073,
+          "lift": -0.0368
+        },
+        {
+          "frac": 1.0,
+          "noise": 0.1,
+          "baseline_f1": 0.533,
+          "gaz_f1": 0.4947,
+          "lift": -0.0383
+        }
+      ],
+      "noise_level": 0.1
+    }
+  ],
+  "elapsed_s": 702.8306159973145
+}

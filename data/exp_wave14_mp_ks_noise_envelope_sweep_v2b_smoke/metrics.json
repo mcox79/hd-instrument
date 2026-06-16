@@ -1,0 +1,102 @@
+{
+  "verdict": "MP_KS_NOISE_ENVELOPE_SWEEP_V2_INCONCLUSIVE",
+  "verdict_msg": "Missing envelope cells: have 4 need 25.",
+  "elapsed_s": 0.015000000013969839,
+  "summary": {
+    "envelope_cells": [
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.01,
+        "ks_mean": 0.0798855437620477,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.5093139076675204,
+        "vamp_rel_mean": 0.254579776141401,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.0798855437620477
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.01,
+        "ks_mean": 0.3993583554238893,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.6638294024941489,
+        "vamp_rel_mean": 0.12831334693151053,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.3993583554238893
+        ]
+      },
+      {
+        "name": "iid_gauss",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.05,
+        "ks_mean": 0.0798855437620477,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.32408750555510035,
+        "vamp_rel_mean": 0.2896128152313154,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.0798855437620477
+        ]
+      },
+      {
+        "name": "srht",
+        "expected_label_clean": "AMP_OK",
+        "eta": 0.05,
+        "ks_mean": 0.1947726126587902,
+        "ks_std": 0.0,
+        "amp_rel_mean": 0.6437446942317102,
+        "vamp_rel_mean": 0.03927323984270906,
+        "empirical_label": "VAMP_REQUIRED",
+        "per_seed_ks": [
+          0.1947726126587902
+        ]
+      }
+    ],
+    "config": {
+      "mode": "smoke",
+      "N": 64,
+      "M_over_N": 1.0,
+      "n_seeds": 1,
+      "sigma_noise": 0.1,
+      "signal_var": 1.0,
+      "n_iter": 50,
+      "tau_fixed": 0.2,
+      "eta_grid": [
+        0.01,
+        0.05
+      ],
+      "codebooks": [
+        "iid_gauss",
+        "srht"
+      ]
+    },
+    "tau_fixed": 0.2,
+    "eta_grid": [
+      0.01,
+      0.05
+    ]
+  },
+  "config": {
+    "mode": "smoke",
+    "N": 64,
+    "M_over_N": 1.0,
+    "n_seeds": 1,
+    "sigma_noise": 0.1,
+    "signal_var": 1.0,
+    "n_iter": 50,
+    "tau_fixed": 0.2,
+    "eta_grid": [
+      0.01,
+      0.05
+    ],
+    "codebooks": [
+      "iid_gauss",
+      "srht"
+    ]
+  }
+}

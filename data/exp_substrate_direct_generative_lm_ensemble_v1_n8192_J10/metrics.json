@@ -1,0 +1,29 @@
+{
+  "anchor_name": "substrate_direct_generative_lm_ensemble_v1_n8192_J10",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate-direct J-ensemble char-LM perplexity<20. single_ppl=8.6 ensemble_ppl=7.4 bigram_baseline_ppl=5.5 (J=4)",
+  "N": 512,
+  "J": 4,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "N": 512,
+      "J": 4,
+      "single_ppl": 9.147614260655716,
+      "ensemble_ppl": 7.7079429451586075,
+      "bigram_ppl": 5.534389006731429
+    },
+    {
+      "seed": 2,
+      "N": 512,
+      "J": 4,
+      "single_ppl": 8.029702878061439,
+      "ensemble_ppl": 7.132505333502651,
+      "bigram_ppl": 5.423649936713792
+    }
+  ],
+  "elapsed_s": 2.9277734756469727,
+  "summary": "HARD_PASS: substrate-direct J-ensemble char-LM perplexity<20. single_ppl=8.6 ensemble_ppl=7.4 bigram_baseline_ppl=5.5 (J=4)"
+}

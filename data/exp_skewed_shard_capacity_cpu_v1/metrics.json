@@ -1,0 +1,16 @@
+{
+  "anchor_name": "skewed_shard_capacity_cpu_v1",
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND: largest-shard recall 0.80-0.90 (sub-sharding advised). largest-shard(370)-recall=0.873 smallest-recall=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "largest_recall": 0.8729729729729729,
+      "smallest_recall": 1.0,
+      "largest_size": 370
+    }
+  ],
+  "elapsed_s": 8.293477535247803,
+  "summary": "MIDDLE_BAND: largest-shard recall 0.80-0.90 (sub-sharding advised). largest-shard(370)-recall=0.873 smallest-recall=1.000"
+}

@@ -1,0 +1,17 @@
+{
+  "anchor_name": "lap2_9_predictive_coding_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: predictive coding (store transition residuals, not full items) reconstructs at recall>=0.85 with 0.35x fewer bits/step -- biological prediction-error compression on structured sequences. pred-recall=1.000 full-baseline=1.000 compression=0.35x-bits",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pred_recall": 1.0,
+      "full_recall": 1.0,
+      "compression_ratio": 0.347,
+      "n": 4000
+    }
+  ],
+  "elapsed_s": 29.935906887054443,
+  "summary": "HARD_PASS: predictive coding (store transition residuals, not full items) reconstructs at recall>=0.85 with 0.35x fewer bits/step -- biological prediction-error compression on structured sequences. pred-recall=1.000 full-baseline=1.000 compression=0.35x-bits"
+}

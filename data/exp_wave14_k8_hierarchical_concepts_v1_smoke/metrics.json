@@ -1,0 +1,28 @@
+{
+  "verdict": "HIER_CONCEPTS_HARD_FAIL",
+  "verdict_msg": "K8 KILLER substrate-level: mean cos=0.048<0.05 OR ratio=1.53<1.5x chance. s7:cos=0.048,ratio=1.53.",
+  "elapsed_s": 0.04700000000593718,
+  "summary": {
+    "per_seed": {
+      "7": {
+        "mean_2level_cos": 0.04785859979200781,
+        "mean_chance_cos": 0.03135756844574456,
+        "ratio_to_chance": 1.5262216480469024
+      }
+    }
+  },
+  "config": {
+    "mode": "smoke",
+    "n": 1024,
+    "n_atoms_per_mid": 4,
+    "n_mids": 4,
+    "n_queries": 30,
+    "seeds": [
+      7
+    ],
+    "pass_cos": 0.3,
+    "pass_chance_mult": 3.0,
+    "fail_cos": 0.05,
+    "fail_chance_mult": 1.5
+  }
+}

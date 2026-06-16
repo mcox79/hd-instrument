@@ -1,0 +1,19 @@
+{
+  "anchor_name": "f5_gapscore_3seed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: mean AUC <0.75. 3-seed mean AUC=0.709 var=0.0000 seeds=[np.float64(0.709)]",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "aucs": [
+        0.709
+      ],
+      "mean_auc": 0.7092633928571429,
+      "var": 0.0,
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 0.3473320007324219,
+  "summary": "HARD_FAIL: mean AUC <0.75. 3-seed mean AUC=0.709 var=0.0000 seeds=[np.float64(0.709)]"
+}

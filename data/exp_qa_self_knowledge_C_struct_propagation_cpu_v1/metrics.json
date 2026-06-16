@@ -1,0 +1,24 @@
+{
+  "anchor_name": "qa_self_knowledge_C_struct_propagation_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: propagation does not beat what_serves by >0.02 -- the 1-hop recall gain is cancelled by precision loss; C stays serves_capability-backfill-bound. best=prop_dep_1hop_seed_only_expand C-F1=0.2420 vs prod 0.5651 (delta -0.3231); all={'prod_what_serves': 0.5651, 'prop_all_1hop': 0.215, 'prop_dep_1hop': 0.2147, 'prop_dep_1hop_seed_only_expand': 0.242}; n=9",
+  "summary": "HARD_FAIL: propagation does not beat what_serves by >0.02 -- the 1-hop recall gain is cancelled by precision loss; C stays serves_capability-backfill-bound. best=prop_dep_1hop_seed_only_expand C-F1=0.2420 vs prod 0.5651 (delta -0.3231); all={'prod_what_serves': 0.5651, 'prop_all_1hop': 0.215, 'prop_dep_1hop': 0.2147, 'prop_dep_1hop_seed_only_expand': 0.242}; n=9",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "n": 9,
+      "macro_by_policy": {
+        "prod_what_serves": 0.5651,
+        "prop_all_1hop": 0.215,
+        "prop_dep_1hop": 0.2147,
+        "prop_dep_1hop_seed_only_expand": 0.242
+      },
+      "prod_C_f1": 0.5651,
+      "best_policy": "prop_dep_1hop_seed_only_expand",
+      "best_C_f1": 0.242,
+      "delta": -0.3231
+    }
+  ],
+  "elapsed_s": 0.41307687759399414
+}

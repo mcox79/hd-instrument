@@ -1,0 +1,12 @@
+{
+  "anchor_name": "negative_knowledge_tree_4level_v1_n4096",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 4-level NK tree CONFIRMED. cert_valid=1.0000(HP>=0.85 HF<0.5) parity_contam=0.0000(HP<=0.05 HF>0.3) b_repulsion=1.0000(HP>=0.9) n_seeds=2",
+  "N": 4096,
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "elapsed_s": 16.44857358932495,
+  "mean_cert_chain_valid_rate": 1.0,
+  "mean_parity_contamination": 0.0,
+  "mean_b_repulsion_rate": 1.0
+}

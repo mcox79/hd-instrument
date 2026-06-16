@@ -1,0 +1,38 @@
+{
+  "anchor_name": "substrate_csls_cleanup_recovery_gpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: CSLS does not help (lift <+0.01 at F=3) -- the clustered-codebook deficit is genuine semantic near-duplicates, not hubness; cleanup re-rank cannot fix it (mitigation would need atom de-duplication / finer encoding). F3: standard=0.8333 CSLS=0.8333 lift=0.0; curve=[(1, 1.0, 1.0, 0.0), (2, 1.0, 1.0, 0.0), (3, 0.8333, 0.8333, 0.0)]; corpus=241 csls_k=10 device=cpu",
+  "summary": "HARD_FAIL: CSLS does not help (lift <+0.01 at F=3) -- the clustered-codebook deficit is genuine semantic near-duplicates, not hubness; cleanup re-rank cannot fix it (mitigation would need atom de-duplication / finer encoding). F3: standard=0.8333 CSLS=0.8333 lift=0.0; curve=[(1, 1.0, 1.0, 0.0), (2, 1.0, 1.0, 0.0), (3, 0.8333, 0.8333, 0.0)]; corpus=241 csls_k=10 device=cpu",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "curve": [
+        {
+          "F": 1,
+          "cleanup_std": 1.0,
+          "cleanup_csls": 1.0,
+          "csls_lift": 0.0
+        },
+        {
+          "F": 2,
+          "cleanup_std": 1.0,
+          "cleanup_csls": 1.0,
+          "csls_lift": 0.0
+        },
+        {
+          "F": 3,
+          "cleanup_std": 0.8333,
+          "cleanup_csls": 0.8333,
+          "csls_lift": 0.0
+        }
+      ],
+      "n_atoms": 241,
+      "dim": 1024,
+      "csls_k": 10,
+      "device": "cpu",
+      "n_seeds": 1
+    }
+  ],
+  "elapsed_s": 0.29532647132873535
+}

@@ -1,0 +1,16 @@
+{
+  "anchor_name": "code1_function_compose_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: substrate composes a program from op-shards, recovers it in order, and it EXECUTES correctly >=0.80 -- substrate-native program composition (structure -> correct computation), no LLM. correctness=1.000 (len=5, n=90)",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "correctness": 1.0,
+      "prog_len": 5,
+      "n": 90
+    }
+  ],
+  "elapsed_s": 0.061403751373291016,
+  "summary": "HARD_PASS: substrate composes a program from op-shards, recovers it in order, and it EXECUTES correctly >=0.80 -- substrate-native program composition (structure -> correct computation), no LLM. correctness=1.000 (len=5, n=90)"
+}

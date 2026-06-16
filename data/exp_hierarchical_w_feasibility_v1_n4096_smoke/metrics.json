@@ -1,0 +1,30 @@
+{
+  "verdict": "H_HARD_FAIL",
+  "verdict_msg": "HIER_DEGRADES: acc=0.250 cap_ratio=0.06 n_seeds=1",
+  "elapsed_s": 0.12,
+  "summary": {
+    "anchor": "hierarchical_w_feasibility_v1_n4096",
+    "N": 1024,
+    "smoke": true,
+    "n_sum": 4,
+    "n_lps": 4,
+    "seeds": [
+      17
+    ],
+    "per_seed": [
+      {
+        "seed": 17,
+        "n_sum": 4,
+        "n_lps": 4,
+        "hierarchical_acc": 0.25,
+        "effective_capacity": 16,
+        "flat_capacity_heuristic": 256,
+        "capacity_ratio": 0.062,
+        "n_test": 16
+      }
+    ],
+    "verdict": "H_HARD_FAIL",
+    "verdict_msg": "HIER_DEGRADES: acc=0.250 cap_ratio=0.06 n_seeds=1",
+    "elapsed_s": 0.12
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "anchor": "a8_continual_writes_no_catastrophic_forgetting_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: continual writes without catastrophic forgetting. acc@0.05=1.0000(HP>=0.6 HF<0.3) acc@0.10=1.0000(HP>=0.6) acc@0.15=1.0000 acc@0.20=1.0000 cliff_slope=0.0000(HP>=-0.5) hp1=2/2 hp2=2/2 hp3=2/2",
+  "n_seeds": 2,
+  "N": 256,
+  "run_mode": "smoke",
+  "results": [
+    {
+      "seed": 7,
+      "N": 256,
+      "run_mode": "smoke",
+      "acc_alpha_005": 1.0,
+      "acc_alpha_010": 1.0,
+      "acc_alpha_015": 1.0,
+      "acc_alpha_020": 1.0,
+      "cliff_slope_010_015": 0.0,
+      "acc_curve": {
+        "0.039": 1.0,
+        "0.078": 1.0,
+        "0.117": 1.0,
+        "0.156": 1.0,
+        "0.195": 1.0,
+        "0.234": 0.9
+      },
+      "elapsed_s": 0.0,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "_ckpt_key": "7",
+      "_partial_written_at": 1780434224.7808557
+    },
+    {
+      "seed": 17,
+      "N": 256,
+      "run_mode": "smoke",
+      "acc_alpha_005": 1.0,
+      "acc_alpha_010": 1.0,
+      "acc_alpha_015": 1.0,
+      "acc_alpha_020": 1.0,
+      "cliff_slope_010_015": 0.0,
+      "acc_curve": {
+        "0.039": 1.0,
+        "0.078": 1.0,
+        "0.117": 1.0,
+        "0.156": 1.0,
+        "0.195": 1.0,
+        "0.234": 0.9
+      },
+      "elapsed_s": 0.002537250518798828,
+      "hp1_pass": 1,
+      "hp2_pass": 1,
+      "hp3_pass": 1,
+      "_ckpt_key": "17",
+      "_partial_written_at": 1780434224.7892056
+    }
+  ]
+}

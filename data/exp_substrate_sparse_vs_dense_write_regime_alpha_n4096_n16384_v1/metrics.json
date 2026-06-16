@@ -1,0 +1,33 @@
+{
+  "anchor_name": "substrate_sparse_vs_dense_write_regime_alpha_n4096_n16384_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: sparse PATTERN coding gives >=3x capacity at N1024 (classic linear-noise regime) -- capacity rescue. at N1024: dense_alpha=0.025 sparse_alpha=0.300 | N1024: dense_a=0.025 sparse_a=0.300",
+  "run_mode": "smoke",
+  "n_seeds": 2,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_N": {
+        "N1024": {
+          "dense_alpha": 0.0498046875,
+          "sparse_alpha": 0.2998046875,
+          "dense_cap": 51,
+          "sparse_cap": 307
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "by_N": {
+        "N1024": {
+          "dense_alpha": 0.0,
+          "sparse_alpha": 0.2998046875,
+          "dense_cap": 0,
+          "sparse_cap": 307
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.6966869831085205,
+  "summary": "HARD_PASS: sparse PATTERN coding gives >=3x capacity at N1024 (classic linear-noise regime) -- capacity rescue. at N1024: dense_alpha=0.025 sparse_alpha=0.300 | N1024: dense_a=0.025 sparse_a=0.300"
+}

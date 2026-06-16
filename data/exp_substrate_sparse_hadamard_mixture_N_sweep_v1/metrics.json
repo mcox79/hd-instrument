@@ -1,0 +1,26 @@
+{
+  "anchor_name": "substrate_sparse_hadamard_mixture_N_sweep_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: SHM neither flat nor beats Hadamard. shm_alpha by N=[np.float64(0.0), np.float64(0.0)] | shm/hadamard at N=1024=0.00x | flatness=0.00",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "seed": 1,
+      "by_N": {
+        "N512": {
+          "hadamard": 0.3984375,
+          "shm": 0.0,
+          "ratio": 0.0
+        },
+        "N1024": {
+          "hadamard": 0.3994140625,
+          "shm": 0.0,
+          "ratio": 0.0
+        }
+      }
+    }
+  ],
+  "elapsed_s": 0.19470715522766113,
+  "summary": "HARD_FAIL: SHM neither flat nor beats Hadamard. shm_alpha by N=[np.float64(0.0), np.float64(0.0)] | shm/hadamard at N=1024=0.00x | flatness=0.00"
+}

@@ -1,0 +1,65 @@
+{
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "MIDDLE_BAND at N=256: pearson_r=[-1.000,-0.999] (mixed or borderline); gap_ratio=[-0.403,0.632]; framework ambiguous",
+  "elapsed_s": 28.84399999999914,
+  "summary": {
+    "N": 256,
+    "epochs_sweep": [
+      1,
+      2,
+      4
+    ],
+    "m_cells": [
+      2000,
+      10000
+    ],
+    "rate_dependence_by_M": {
+      "2000": {
+        "pearson_r": -0.999614377506741,
+        "gap_fast_to_slow_ratio": 0.6320829817450561,
+        "mean_gaps_by_epoch": {
+          "1": 0.8387288322448727,
+          "2": 0.6770137672424319,
+          "4": 0.530146221160888
+        },
+        "max_gap": 0.8387288322448727,
+        "min_gap": 0.530146221160888
+      },
+      "10000": {
+        "pearson_r": -0.9986795682522945,
+        "gap_fast_to_slow_ratio": -0.40260817876074284,
+        "mean_gaps_by_epoch": {
+          "1": 0.19460935592651385,
+          "2": 0.045969003677368114,
+          "4": -0.07835131835937492
+        },
+        "max_gap": 0.19460935592651385,
+        "min_gap": -0.07835131835937492
+      }
+    },
+    "overall_pearson_r_values": [
+      -0.999614377506741,
+      -0.9986795682522945
+    ],
+    "overall_gap_ratios": [
+      0.6320829817450561,
+      -0.40260817876074284
+    ]
+  },
+  "config": {
+    "N": 256,
+    "smoke": true,
+    "epochs_sweep": [
+      1,
+      2,
+      4
+    ],
+    "m_cells": [
+      2000,
+      10000
+    ],
+    "seeds": [
+      17
+    ]
+  }
+}

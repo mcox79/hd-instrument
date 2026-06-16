@@ -1,0 +1,39 @@
+{
+  "anchor": "tcft_m_sweep_v4_n4096",
+  "N": 512,
+  "smoke": true,
+  "M_values": [
+    64,
+    256
+  ],
+  "seeds": [
+    17
+  ],
+  "per_seed": {
+    "17": {
+      "64": {
+        "tcft_variance_ratio": 0.015486400098308973,
+        "elapsed_s": 0.10972857475280762,
+        "N": 512,
+        "M": 64,
+        "seed": 17,
+        "vanilla_variance": 4.0572753868921465,
+        "tcft_valid": true,
+        "delta_F_agree_pct": 99.78728163429615
+      },
+      "256": {
+        "tcft_variance_ratio": 0.0013126852954027655,
+        "elapsed_s": 0.43874382972717285,
+        "N": 512,
+        "M": 256,
+        "seed": 17,
+        "vanilla_variance": 281.1714239375513,
+        "tcft_valid": true,
+        "delta_F_agree_pct": 99.77519149032553
+      }
+    }
+  },
+  "verdict": "TCFT_V4_MIDDLE_BAND",
+  "verdict_msg": "PARTIAL: 1/1 seeds pass. seeds_pass=1/1 seeds_fail_512=0 spearman_rho=-1.000 HP_seeds=4 HP_vr=0.1 M_sorted=[64, 256] mean_vr=[0.0155, 0.0013] N=512",
+  "elapsed_s": 0.55
+}

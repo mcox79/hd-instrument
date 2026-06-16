@@ -1,0 +1,59 @@
+{
+  "anchor_name": "wave1_tier1_sweep_cpu_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: WAVE-1 Tier-1 -- all 3 remaining Sprint-4 wrapper components (RS-parity, v3.2-unified, per-tier-importance) are SEED-ROBUST at n=5; engineered-wrapper layer confirmed not n=1 flukes. confirm=3 fragile=0 fail=0 of 3 (n_seeds=5)",
+  "run_mode": "full",
+  "n_seeds": 5,
+  "per_seed": [
+    {
+      "per_anchor": {
+        "rs-parity": {
+          "label": "rs-parity",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "CONFIRM"
+        },
+        "v32-unified": {
+          "label": "v32-unified",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "CONFIRM"
+        },
+        "per-tier-importance": {
+          "label": "per-tier-importance",
+          "verdicts": [
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS",
+            "HARD_PASS"
+          ],
+          "n_hard_pass": 5,
+          "n_seeds": 5,
+          "decision": "CONFIRM"
+        }
+      },
+      "n_confirm": 3,
+      "n_fragile": 0,
+      "n_fail": 0,
+      "n_anchors": 3,
+      "n_seeds": 5
+    }
+  ],
+  "elapsed_s": 554.9009544849396,
+  "summary": "HARD_PASS: WAVE-1 Tier-1 -- all 3 remaining Sprint-4 wrapper components (RS-parity, v3.2-unified, per-tier-importance) are SEED-ROBUST at n=5; engineered-wrapper layer confirmed not n=1 flukes. confirm=3 fragile=0 fail=0 of 3 (n_seeds=5)"
+}

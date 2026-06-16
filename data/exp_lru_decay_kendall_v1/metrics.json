@@ -1,0 +1,40 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "gamma": 0.95,
+  "M_SWEEP": [
+    10,
+    20,
+    40
+  ],
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "10": {
+      "M": 10,
+      "mean_kendall_tau": 0.2222222222222222,
+      "std_kendall_tau": 0.06666666666666667,
+      "mean_weight_ratio": 1.586673441609339,
+      "n_seeds": 2
+    },
+    "20": {
+      "M": 20,
+      "mean_kendall_tau": 0.6947368421052631,
+      "std_kendall_tau": 0.02105263157894738,
+      "mean_weight_ratio": 2.6500343266404474,
+      "n_seeds": 2
+    },
+    "40": {
+      "M": 40,
+      "mean_kendall_tau": 0.8820512820512821,
+      "std_kendall_tau": 0.00512820512820511,
+      "mean_weight_ratio": 7.3922967709186205,
+      "n_seeds": 2
+    }
+  },
+  "verdict": "MIDDLE_BAND",
+  "verdict_msg": "Partial LRU signal. tau at M=40: 0.8821 (HP>=0.9, HF<0.6). mean tau: 0.5997.",
+  "elapsed_s": 1.2304902076721191
+}

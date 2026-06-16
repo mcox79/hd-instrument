@@ -1,0 +1,29 @@
+{
+  "run_mode": "smoke",
+  "N": 1024,
+  "N_A": 4,
+  "N_B": 1,
+  "M_PAT": 49,
+  "seeds": [
+    7,
+    17
+  ],
+  "aggregated": {
+    "mean_majority_acc": 1.0,
+    "min_majority_acc": 1.0,
+    "mean_minority_acc": 0.8348014987244898,
+    "min_minority_acc": 0.8272082270408163,
+    "mean_delta_majority": 0.16519850127551022,
+    "min_delta_majority": 0.15760522959183676,
+    "mean_w_a_acc_A": 1.0,
+    "min_w_a_acc_A": 1.0,
+    "mean_w_combined_acc_A": 1.0,
+    "min_w_combined_acc_A": 1.0,
+    "mean_separation_delta": 0.0,
+    "min_separation_delta": 0.0,
+    "n_seeds": 2
+  },
+  "verdict": "HARD_PASS",
+  "verdict_msg": "Competing multi-agent coordination confirmed. Cell A: delta=0.158>=0.15 (majority wins). Cell B: minority_acc=0.827>=0.5 (minority not suppressed). Cell C: sep=0.000>=-0.02 (W_A better for own patterns). Substrate correctly reflects write-frequency dominance.",
+  "elapsed_s": 2.845017671585083
+}

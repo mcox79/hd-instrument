@@ -1,0 +1,18 @@
+{
+  "anchor_name": "codegen_repair_substrate_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: oracle ceiling <0.20 -- the pattern library itself is insufficient on substrate-natural HumanEval; need composition/subgoal decomposition, not just better selection. oracle-ceiling=0.175 docstring-pass@1=0.150 selection-gap=0.025 (25 patterns)",
+  "run_mode": "full",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "pass_k_oracle": 0.175,
+      "pass1_docsel": 0.15,
+      "selection_gap": 0.025,
+      "n_curated": 40,
+      "n_patterns": 25
+    }
+  ],
+  "elapsed_s": 117.66884684562683,
+  "summary": "HARD_FAIL: oracle ceiling <0.20 -- the pattern library itself is insufficient on substrate-natural HumanEval; need composition/subgoal decomposition, not just better selection. oracle-ceiling=0.175 docstring-pass@1=0.150 selection-gap=0.025 (25 patterns)"
+}

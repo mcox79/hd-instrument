@@ -1,0 +1,25 @@
+{
+  "anchor_name": "ner_4type_multiseed_cpu_v1",
+  "verdict": "HARD_FAIL",
+  "verdict_msg": "HARD_FAIL: NER 4-type mean <0.62. mean-F1=0.4210 std=0.0519 SE=0.0300 mean-2SE=0.3611 (n=3, vals=[0.4773, 0.3521, 0.4335])",
+  "summary": "HARD_FAIL: NER 4-type mean <0.62. mean-F1=0.4210 std=0.0519 SE=0.0300 mean-2SE=0.3611 (n=3, vals=[0.4773, 0.3521, 0.4335])",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "f1": 0.421,
+      "accuracy": 0.421,
+      "std": 0.0519,
+      "se": 0.03,
+      "mean_minus_2se": 0.3611,
+      "vals": [
+        0.4773,
+        0.3521,
+        0.4335
+      ],
+      "n_seeds": 3,
+      "n_train": 300
+    }
+  ],
+  "elapsed_s": 3.102470636367798
+}

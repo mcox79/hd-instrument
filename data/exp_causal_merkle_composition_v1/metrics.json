@@ -1,0 +1,15 @@
+{
+  "anchor_name": "causal_merkle_composition_v1",
+  "verdict": "HARD_PASS",
+  "verdict_msg": "HARD_PASS: 100% Merkle proofs valid for counterfactual queries + chain integrity 100% -- causal+audit composition holds. valid=1.000 integrity=1.000",
+  "run_mode": "smoke",
+  "n_seeds": 1,
+  "per_seed": [
+    {
+      "valid": 1.0,
+      "integrity": 1.0
+    }
+  ],
+  "elapsed_s": 0.0168304443359375,
+  "summary": "HARD_PASS: 100% Merkle proofs valid for counterfactual queries + chain integrity 100% -- causal+audit composition holds. valid=1.000 integrity=1.000"
+}
