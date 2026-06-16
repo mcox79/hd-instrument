@@ -62,14 +62,22 @@ def _bp(M, n, g):
 def _nr(K): return K / (np.linalg.norm(K, axis=1, keepdims=True) + 1e-8)
 
 
-def run_family(fam_motifs, all_X, seed):
-    """Generalization-split completion for one family's real motifs. Returns per-config gen-accuracy."""
+def run_family(fam_motifs, seed):
+    """Faithful assembly_2 test on this family's REAL-motif 3-sets {Y,Z,X}: c-sensitivity (3 distinct
+    target LABELS per 3-set, one per c-role -- no target-in-key leak) + a-b swap generalization.
+    corr(bundle(a,b),c) is sym in a,b (generalizes swap) + c-sensitive (distinguishes c-role) -> closes;
+    fully-symmetric singles conflate c-roles -> FAIL; asymmetric singles fail the swap -> FAIL."""
     g = np.random.default_rng(seed); n = N_DIM
-    atoms = sorted(set([a for a, _ in fam_motifs] + [x for _, p in fam_motifs for x in p] + list(all_X)))
+    sets = []
+    for (x, (y, z)) in fam_motifs:
+        s = list({y, z, x})
+        if len(s) == 3: sets.append((y, z, x))
+    if not sets: return None
+    atoms = sorted(set([a for t in sets for a in t]))
     idx = {nm: i for i, nm in enumerate(atoms)}
     V = _bp(len(atoms), n, g); Vn = V
-    cand = sorted(set(all_X)); cand_idx = [idx[c] for c in cand]
-    truth_pos = {idx[c]: j for j, c in enumerate(cand)}
+    n_tgt = 3 * len(sets)
+    T = _bp(n_tgt, n, g) * math.sqrt(n)            # SEPARATE target-label codebook (no leak: t not in {a,b,c})
 
     def corr(A, B): return _nr(np.fft.irfft(np.conj(np.fft.rfft(A)) * np.fft.rfft(B), n=n, axis=1).astype(np.float32))
     def conv(A, B): return _nr(np.fft.irfft(np.fft.rfft(A) * np.fft.rfft(B), n=n, axis=1).astype(np.float32))
@@ -86,31 +94,25 @@ def run_family(fam_motifs, all_X, seed):
         if nm == "xor_corr": return corr(_nr(A * B), Cc)
         raise ValueError(nm)
 
-    SINGLES = ["xor3", "conv3", "bundle3", "ghrr3", "perm_idx3"]
-    COMPS = ["corr_bundle", "xor_corr"]
+    SINGLES = ["xor3", "conv3", "bundle3", "ghrr3", "perm_idx3"]; COMPS = ["corr_bundle", "xor_corr"]
     names = SINGLES + COMPS
-    # train on one (Y,Z) ordering -> X; test on swapped (Z,Y) -> X. c-role = a candidate slot; readout
-    # maps key -> the distinguished-arg X. We recover X from the candidate pool.
     tr, te = [], []
-    for (x, (y, z)) in fam_motifs:
+    for si, (y, z, x) in enumerate(sets):
         yi, zi, xi = idx[y], idx[z], idx[x]
-        for _ in range(REPS): tr.append((yi, zi, xi))
-        te.append((zi, yi, xi))   # swapped pair ordering, same X
+        t1, t2, t3 = 3 * si, 3 * si + 1, 3 * si + 2     # 3 distinct target labels = 3 c-roles (c-sensitivity)
+        # train one a-b ordering of each c-role; test SWAPPED a-b ordering (same target)
+        for (a, b, c, t) in [(yi, zi, xi, t1), (yi, xi, zi, t2), (zi, xi, yi, t3)]:
+            for _ in range(REPS): tr.append((a, b, c, t))
+        for (a, b, c, t) in [(zi, yi, xi, t1), (xi, yi, zi, t2), (xi, zi, yi, t3)]:
+            te.append((a, b, c, t))
     tr = np.array(tr); te = np.array(te)
-    if len(te) == 0: return None
     accs = {}
-    Ccand = V[cand_idx]                      # candidate distinguished-arg vectors
     for nm in names:
-        # readout: key(Y,Z, X_placeholder?) -- but X is the TARGET; key uses (a,b,c)=(Y,Z, <role>) with c = a
-        # FIXED context slot. Use c = the candidate slot via the X vector at train (teacher forcing): train
-        # key(Y,Z,X)->X is degenerate; instead score candidates: plaus(triple)=<key(Y,Z,cand), readout>.
-        # Simpler + faithful to assembly_2: target=X; key over (Y,Z, X) with X as the c-arg; W = sum X (x) key.
         ktr = key(nm, tr[:, 0], tr[:, 1], tr[:, 2])
-        W = (V[tr[:, 2]].T @ ktr).astype(np.float32)         # target(X) outer key
+        W = ((T / math.sqrt(n))[tr[:, 3]].T @ ktr).astype(np.float32)
         kte = key(nm, te[:, 0], te[:, 1], te[:, 2])
-        preds = (kte @ W.T @ Ccand.T).argmax(1)
-        true_slot = np.array([truth_pos[xi] for xi in te[:, 2]])
-        accs[nm] = float(np.mean(preds == true_slot))
+        preds = (kte @ W.T @ T.T).argmax(1)
+        accs[nm] = float(np.mean(preds == te[:, 3]))
     return accs
 
 
