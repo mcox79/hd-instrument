@@ -34945,3 +34945,7 @@
 {"ts": 1781617291.6672142, "op": "add_atom", "target": "T3/per_binding_shard_cleanup", "note": "", "source": "manual"}
 {"ts": 1781617292.398334, "op": "add_relation", "target": "T3/per_binding_shard_cleanup|DEPENDS_ON|T2_FAM/cleanup_retrieval", "note": "Per-binding-shard cleanup composes the cleanup family with per-binding sharding", "source": "promotion_3_form_a_decision_148b"}
 {"ts": 1781617292.4214022, "op": "add_relation", "target": "T3/per_binding_shard_cleanup|DEPENDS_ON|T2/cleanup", "note": "Per-binding-shard cleanup composes the cleanup family with per-binding sharding", "source": "promotion_3_form_a_decision_148b"}
+{"ts": 1781617722.9571042, "op": "add_atom", "target": "T3/relational_analogy_binding", "note": "", "source": "manual"}
+{"ts": 1781617723.6405213, "op": "add_relation", "target": "T3/relational_analogy_binding|DEPENDS_ON|T2/role_filler_binding", "note": "Relational analogy binding composes role-filler/vector binding with cleanup", "source": "form_a_decision_150a_relational_analogy_binding"}
+{"ts": 1781617723.6660335, "op": "add_relation", "target": "T3/relational_analogy_binding|DEPENDS_ON|T2/fhrr_bind", "note": "Relational analogy binding composes role-filler/vector binding with cleanup", "source": "form_a_decision_150a_relational_analogy_binding"}
+{"ts": 1781617723.761469, "op": "add_relation", "target": "T3/relational_analogy_binding|DEPENDS_ON|T2_FAM/cleanup_retrieval", "note": "Relational analogy binding composes role-filler/vector binding with cleanup", "source": "form_a_decision_150a_relational_analogy_binding"}
