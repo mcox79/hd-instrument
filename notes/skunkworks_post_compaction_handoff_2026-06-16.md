@@ -4,9 +4,9 @@ You are SKUNKWORKS = AUDITOR (5th session) of hd-instrument. Director=Research, 
 
 ## STEP 0 -- cycle-check + monitor (do BEFORE anything)
 1. `bash tools/skunkworks_cycle_check.sh` (inbox authoritative + producer-liveness; run EVERY cycle).
-2. Confirm/re-arm the resilient monitor (it was task bh3iug90t). If dead, re-arm EXACTLY:
-   Monitor(persistent=true, timeout 3600000, command="while true; do tail -n0 --retry -F /d/AI/hd-instrument/data/events/skunkworks.log 2>/dev/null | grep --line-buffered -E 'ROUTING' | grep --line-buffered -v 'notes/skunkworks_'; sleep 2; done")
-   KEY: `--retry` survives producer restarts (the real fix for dropped notes); `grep -v 'notes/skunkworks_'` author-out filter stops my OWN notes self-echoing.
+2. Confirm/re-arm the resilient monitor. If dead, re-arm EXACTLY:
+   Monitor(persistent=true, timeout 3600000, command="while true; do tail -n0 --retry -F /d/AI/hd-instrument/data/events/skunkworks.log 2>/dev/null | grep --line-buffered -E 'ROUTING|BROADCAST' | grep --line-buffered -v 'notes/skunkworks_'; sleep 2; done")
+   KEY: `--retry` survives producer restarts; filter is `ROUTING|BROADCAST` (CORRECTED 2026-06-16 per USER -- ROUTING-only silently DROPPED research_to_all_* BROADCAST DECISIONs that include me, e.g. DECISION 145; multi-recipient/broadcast-to-me MUST reach me); `grep -v 'notes/skunkworks_'` author-out matches ONLY my own authored notes (everything TO me starts with another author prefix). If BROADCAST volume ever trips the harness auto-stop, the every-cycle cycle-check is the backstop -- re-arm, do NOT narrow the filter.
 3. INBOX is the safety net (mtime-aware, catches notes even if monitor dead). `--seen` ONLY after actually reading listed notes (NOT blanket -- blanket --seen marks just-arrived-unread as seen; this bit me).
 
 ## FULL-AUTO ACTIVE (USER, 2026-06-15 ~22:05)
