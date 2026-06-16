@@ -74,6 +74,17 @@ else:
 
 CLEANUP_THRESH = 0.30   # correlation threshold for distinct-cleanup-count (sim units, /N)
 
+# ---- AMENDMENT v3a: CAPACITY-ENVELOPE gate ----
+# C2 must be evaluated WITHIN VSA bundle capacity; outside, a low C2 is a capacity ARTIFACT, NOT a
+# primitive HARD-FAIL. Empirical alpha from Task-4 scan: nd=4,mult~2,roles=4 ~ 32 bindings worked at
+# N=4096 (32/4096~0.008); nd=8,mult3,roles4 ~ 96 failed (96/4096~0.023). Envelope ~ total/N <= 0.012.
+CAPACITY_ALPHA = 0.012
+
+def capacity_status(max_total_bindings, N):
+    """Returns (within_envelope, frac). Outside the envelope a C2 low score is a capacity artifact."""
+    frac = max_total_bindings / float(N)
+    return (frac <= CAPACITY_ALPHA), frac
+
 
 def bipolar(rng, shape):
     return rng.choice([-1.0, 1.0], size=shape).astype(np.float64)
@@ -198,6 +209,37 @@ def eval_seed(seed, N):
         "at_least_k_acc": {"C1": acc(al_c1, al_truth), "C2": acc(al_c2, al_truth)},
         "most_acc": {"C1": acc(most_c1, most_truth), "C2": acc(most_c2, most_truth)},
     }
+
+
+def eval_single_role_isolation(seed, N):
+    """AMENDMENT v3b: single-role distinct-under-multiplicity sibling. ONLY the query role is
+    present -> NO cross-role crosstalk (a) -> the C1 fair-null fails ONLY on multiplicity-dedup (b),
+    so (C2-C1) attributes to genuine distinctness-counting, not crosstalk-filtering."""
+    rng = np.random.RandomState(seed)
+    codebook = bipolar(rng, (VOCAB, N))
+    role = bipolar(rng, N)
+    truth, c1, c2 = [], [], []
+    max_total = 0
+    for _ in range(N_SCENES):
+        n_distinct = int(rng.randint(1, 9))
+        fillers = rng.choice(VOCAB, size=n_distinct, replace=False)
+        scene = np.zeros(N); total = 0
+        for f in fillers:
+            mult = int(rng.randint(1, 4))
+            for _ in range(mult):
+                scene += role * codebook[f]; total += 1
+        max_total = max(max_total, total)
+        truth.append(n_distinct)
+        # C1 fair-null single-role: ||role*scene||^2/N ~ TOTAL bindings (counts multiplicity) -> rounds
+        # to total, NOT distinct. Fails ONLY on the distinctness confound (no crosstalk here).
+        u = role * scene
+        c1.append(round(float(np.dot(u, u) / N)))
+        # C2: cleanup distinct-count
+        sims = (codebook @ u) / N
+        c2.append(int(np.sum(sims > CLEANUP_THRESH)))
+    truth = np.array(truth, float)
+    def rmse(e): return float(np.sqrt(np.mean((np.array(e, float) - truth) ** 2)))
+    return {"c1_rmse": rmse(c1), "c2_rmse": rmse(c2), "max_total_bindings": max_total}
 
 
 def main():
