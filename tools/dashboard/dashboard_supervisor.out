@@ -1,0 +1,5 @@
+[2026-06-16T17:38:14] supervisor pid=24060 starting; python=D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\pythonw.exe host=0.0.0.0 port=8765
+[2026-06-16T17:38:14] launching child: D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\pythonw.exe -m uvicorn server:app --app-dir D:\AI\hd-instrument\tools\dashboard --host 0.0.0.0 --port 8765 --log-level info
+[2026-06-16T17:45:10] child pid=34372 exited rc=4294967295 after 415.6s
+[2026-06-16T17:45:10] normal restart #2 after 2.0s
+[2026-06-16T17:45:12] launching child: D:\AI\hd-instrument\tools\dashboard\.venv\Scripts\pythonw.exe -m uvicorn server:app --app-dir D:\AI\hd-instrument\tools\dashboard --host 0.0.0.0 --port 8765 --log-level info

@@ -2319,6 +2319,8 @@
   <button class="tab" data-tab="tests">Experiments <span id="tab-tests-count"></span></button>
   <button class="tab" data-tab="capability">Capability</button>
   <button class="tab" data-tab="research">Research</button>
+  <button class="tab" data-tab="substrate">Substrate <span id="tab-substrate-count" class="badge muted" style="display:none"></span></button>
+  <button class="tab" data-tab="substrate3d">Substrate 3D <span id="tab-substrate3d-count" class="badge muted" style="display:none"></span></button>
 </nav>
 
 <!-- ========== For You tab (DEFAULT) ========== -->
@@ -2598,6 +2600,516 @@
     </div>
   </div>
 </section>
+
+<!-- ========== Substrate state tab (TRACK D Phase 4) ========== -->
+<style>
+  #substrate-view { padding: 14px 18px; }
+  #substrate-view .sstate-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px; margin-bottom: 14px;
+  }
+  #substrate-view .sstate-card {
+    background: var(--pane2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px; font-size: 12px;
+  }
+  #substrate-view .sstate-card h3 {
+    margin: 0 0 8px 0; font-size: 13px; color: var(--text);
+    border-bottom: 1px solid var(--border); padding-bottom: 4px;
+  }
+  #substrate-view .sstate-card .sstate-big {
+    font-size: 22px; color: var(--text); font-family: var(--mono);
+    margin-bottom: 4px;
+  }
+  #substrate-view .sstate-card .sstate-sub {
+    color: var(--dim); font-size: 11px; font-family: var(--mono);
+  }
+  #substrate-view .sstate-card table { width: 100%; border-collapse: collapse; }
+  #substrate-view .sstate-card td { padding: 2px 4px; font-family: var(--mono); }
+  #substrate-view .sstate-card td.k { color: var(--dim); }
+  #substrate-view .sstate-card td.v { color: var(--text); text-align: right; }
+  #substrate-view .sstate-card .sstate-pill {
+    display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px;
+    margin-right: 4px; margin-bottom: 2px; background: var(--pane); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  #substrate-view .sstate-card .sstate-pill.ok { background: rgba(80, 200, 100, 0.18); color: #65d77a; border-color: #65d77a; }
+  #substrate-view .sstate-card .sstate-pill.warn { background: rgba(220, 170, 50, 0.18); color: #e8a04a; border-color: #e8a04a; }
+  #substrate-view .sstate-card .sstate-pill.hold { background: rgba(160, 120, 220, 0.18); color: #b675ff; border-color: #b675ff; }
+  #substrate-view .sstate-meta {
+    color: var(--dim); font-size: 11px; font-family: var(--mono);
+    margin-bottom: 10px;
+  }
+  #substrate-view .sstate-list { margin: 0; padding: 0; list-style: none; }
+  #substrate-view .sstate-list li {
+    padding: 4px 0; border-bottom: 1px dashed var(--border);
+    font-size: 11px; color: var(--text);
+  }
+  #substrate-view .sstate-list li:last-child { border-bottom: none; }
+  #substrate-view .sstate-list .sstate-li-meta { color: var(--dim); font-family: var(--mono); margin-left: 6px; font-size: 10px; }
+  #substrate-view button.sstate-refresh {
+    background: var(--pane); color: var(--text); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px;
+  }
+  #substrate-view button.sstate-refresh:hover { background: var(--info); color: var(--bg); }
+</style>
+
+<section id="substrate-view" hidden>
+  <div class="sstate-meta">
+    <span id="sstate-meta-line">Substrate state -- loading...</span>
+    <button class="sstate-refresh" onclick="renderSubstrateState()">refresh</button>
+    <span style="margin-left:14px;color:var(--dim);font-size:11px">to regenerate counters from latest notes: <code>python tools/substrate_state_collector.py</code></span>
+  </div>
+  <div id="sstate-content"></div>
+</section>
+
+<script>
+  // TRACK D Phase 4 -- substrate state tab render.
+  async function renderSubstrateState() {
+    const meta = document.getElementById("sstate-meta-line");
+    const content = document.getElementById("sstate-content");
+    if (meta) meta.textContent = "Substrate state -- fetching...";
+    try {
+      const resp = await fetch("/api/substrate_state", { cache: "no-store" });
+      if (!resp.ok) {
+        const body = await resp.text();
+        content.innerHTML = `<div class="sstate-card">load error: HTTP ${resp.status}<br><code>${body}</code></div>`;
+        if (meta) meta.textContent = "load error";
+        return;
+      }
+      const d = await resp.json();
+      const ss = d.substrate_state || {};
+      const counters = (d.program_counters && d.program_counters.counters) || {};
+      const counterSrc = (d.program_counters && d.program_counters.source_note) || "(unknown)";
+      const phase = d.phase_state || {};
+      const userCalls = d.user_calls_standing || [];
+      const track = d.track_status || {};
+      const ratify = d.ratify_cadence || { recent: [], total_audit_entries: 0 };
+      const recentDecisions = d.recent_director_decisions || [];
+      const board = d.state_board || {};
+      const esc = s => String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+      const tierRows = Object.entries(ss.tier_breakdown || {}).sort()
+        .map(([k, v]) => `<tr><td class="k">${esc(k)}</td><td class="v">${v}</td></tr>`).join("");
+      const kindRows = Object.entries(ss.kind_breakdown || {}).sort((a,b) => b[1]-a[1]).slice(0, 10)
+        .map(([k, v]) => `<tr><td class="k">${esc(k)}</td><td class="v">${v}</td></tr>`).join("");
+      const relRows = Object.entries(ss.relation_type_breakdown || {}).sort((a,b) => b[1]-a[1])
+        .map(([k, v]) => `<tr><td class="k">${esc(k)}</td><td class="v">${v}</td></tr>`).join("");
+      const corpusRows = Object.entries(ss.atoms_by_corpus || {})
+        .map(([k, v]) => `<tr><td class="k">${esc(k)}</td><td class="v">${v}</td></tr>`).join("");
+
+      const phaseHtml = `
+        <div><span class="sstate-pill ok">Phase A</span><span class="sstate-sub">${esc(phase.phase_a_consolidation)}</span></div>
+        <div style="margin-top:6px"><span class="sstate-pill ok">B PREP</span><span class="sstate-sub">${esc(phase.phase_b_prep)}</span></div>
+        <div style="margin-top:6px"><span class="sstate-pill ok">B BUILD</span><span class="sstate-sub">${esc(phase.phase_b_build)}</span></div>
+        <div style="margin-top:6px"><span class="sstate-pill warn">B tail</span><span class="sstate-sub">${esc(phase.phase_b_tail)}</span></div>
+        <div style="margin-top:6px"><span class="sstate-pill hold">C TIER-3</span><span class="sstate-sub">${esc(phase.phase_c_tier3)}</span></div>
+      `;
+
+      const userCallsHtml = userCalls.map(c => `
+        <li><b>${c.id}.</b> ${esc(c.name)}<div class="sstate-li-meta">${esc(c.context)}</div></li>
+      `).join("");
+
+      const trackHtml = Object.entries(track)
+        .map(([k, v]) => `<li><b>TRACK ${esc(k)}</b><div class="sstate-li-meta">${esc(v)}</div></li>`).join("");
+
+      const ratifyHtml = ratify.recent.slice(0, 8).map(r => {
+        const tsStr = r.ts ? new Date(r.ts * 1000).toLocaleString() : "(no ts)";
+        return `<li><code>${esc(r.corpus)}</code> ${esc(r.operation)} <span class="sstate-li-meta">${esc(tsStr)}</span></li>`;
+      }).join("");
+
+      const decisionsHtml = recentDecisions.slice(0, 6).map(r =>
+        `<li>DECISION ${esc(r.decision_number)}<div class="sstate-li-meta">${esc(r.filename)}</div></li>`
+      ).join("");
+
+      content.innerHTML = `
+        <div class="sstate-grid">
+          <div class="sstate-card">
+            <h3>Substrate state</h3>
+            <div class="sstate-big">${ss.atoms_total || 0} <span class="sstate-sub">atoms</span></div>
+            <div class="sstate-big">${ss.relations_total || 0} <span class="sstate-sub">relations</span></div>
+            <div class="sstate-big">${ss.signatures || ss.capabilities || 0} <span class="sstate-sub">capabilities/signatures</span></div>
+            <div style="margin-top:8px"><span class="sstate-pill ok">axiom_term: ${esc(ss.axiom_term_coverage_claim)}</span></div>
+            <div style="margin-top:4px"><span class="sstate-pill ok">cap_pres: ${esc(ss.capability_preservation_claim)}</span></div>
+          </div>
+          <div class="sstate-card">
+            <h3>Tier breakdown</h3>
+            <table>${tierRows}</table>
+          </div>
+          <div class="sstate-card">
+            <h3>Kind breakdown (top 10)</h3>
+            <table>${kindRows}</table>
+          </div>
+          <div class="sstate-card">
+            <h3>Relation types</h3>
+            <table>${relRows}</table>
+          </div>
+          <div class="sstate-card">
+            <h3>Atoms by corpus</h3>
+            <table>${corpusRows}</table>
+          </div>
+          <div class="sstate-card">
+            <h3>Phase state</h3>
+            ${phaseHtml}
+          </div>
+          <div class="sstate-card">
+            <h3>Program counters <span class="sstate-sub">(parsed from latest Director broadcast)</span></h3>
+            <div class="sstate-big">${counters.decisions != null ? counters.decisions : "?"} <span class="sstate-sub">cumulative decisions</span></div>
+            <div class="sstate-big">${counters.honest_signals != null ? counters.honest_signals : "?"} <span class="sstate-sub">honest signals</span></div>
+            <div class="sstate-big">${counters.audit_discipline_instance_types != null ? counters.audit_discipline_instance_types : "?"} <span class="sstate-sub">audit-discipline instance types</span></div>
+            <div class="sstate-big">${counters.methodology_rules != null ? counters.methodology_rules : "?"} <span class="sstate-sub">methodology rules (FROZEN)</span></div>
+            <div class="sstate-sub" style="margin-top:6px">source: ${esc(counterSrc)}</div>
+          </div>
+          <div class="sstate-card">
+            <h3>USER calls standing</h3>
+            <ul class="sstate-list">${userCallsHtml || "<li>(none)</li>"}</ul>
+          </div>
+          <div class="sstate-card">
+            <h3>TRACK status</h3>
+            <ul class="sstate-list">${trackHtml || "<li>(none)</li>"}</ul>
+          </div>
+          <div class="sstate-card">
+            <h3>Recent Director DECISIONs</h3>
+            <ul class="sstate-list">${decisionsHtml || "<li>(none)</li>"}</ul>
+          </div>
+          <div class="sstate-card">
+            <h3>Ratify cadence (recent audit ops)</h3>
+            <div class="sstate-sub" style="margin-bottom:4px">total audit entries: ${ratify.total_audit_entries}</div>
+            <ul class="sstate-list">${ratifyHtml || "<li>(none)</li>"}</ul>
+          </div>
+          <div class="sstate-card">
+            <h3>State board</h3>
+            <div class="sstate-sub">path: ${esc(board.path || "(missing)")}</div>
+            <div class="sstate-sub">mtime: ${esc(board.mtime || "?")}</div>
+            <div class="sstate-sub">size: ${esc(board.size_kb || 0)} KB</div>
+            <div class="sstate-sub" style="margin-top:6px">SUBSTRATE_DIRECTOR_STATE.md is the authoritative canonical state; this dashboard view is a derived snapshot.</div>
+          </div>
+        </div>
+      `;
+      if (meta) meta.textContent = `Substrate state -- generated ${esc(d.generated_at || "?")}`;
+
+      const tabBadge = document.getElementById("tab-substrate-count");
+      if (tabBadge && ss.atoms_total) {
+        tabBadge.textContent = ss.atoms_total;
+        tabBadge.style.display = "";
+      }
+    } catch (e) {
+      content.innerHTML = `<div class="sstate-card">render error: ${e && e.message ? e.message : String(e)}</div>`;
+      if (meta) meta.textContent = "render error";
+    }
+  }
+</script>
+
+<!-- ========== Substrate 3D tab (TRACK D Phase 3) ========== -->
+<style>
+  #substrate3d-view { padding: 0; }
+  .s3d-toolbar {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    padding: 10px 14px; background: var(--pane2); border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .s3d-toolbar label { color: var(--dim); margin-right: 4px; }
+  .s3d-toolbar select, .s3d-toolbar input[type="text"], .s3d-toolbar input[type="range"] {
+    background: var(--pane); color: var(--text); border: 1px solid var(--border);
+    padding: 4px 8px; border-radius: 4px; font-size: 12px;
+  }
+  .s3d-toolbar input[type="text"] { min-width: 180px; }
+  .s3d-toolbar .s3d-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 8px; border: 1px solid var(--border); border-radius: 12px;
+    cursor: pointer; user-select: none; background: var(--pane);
+  }
+  .s3d-toolbar .s3d-chip.on { background: var(--info); color: var(--bg); border-color: var(--info); }
+  .s3d-toolbar .s3d-status { margin-left: auto; color: var(--dim); font-family: var(--mono); }
+  .s3d-stage {
+    position: relative; display: flex;
+    height: calc(100vh - 140px); /* tabbar (~80px) + toolbar (~50px) */
+    background: #0a0d12;
+  }
+  #substrate3d-canvas {
+    flex: 1; position: relative; overflow: hidden;
+  }
+  #substrate3d-canvas canvas { display: block; }
+  #substrate3d-sidebar {
+    width: 320px; background: var(--pane2); border-left: 1px solid var(--border);
+    padding: 14px; overflow-y: auto; color: var(--text); font-size: 12px;
+  }
+  #substrate3d-sidebar h3 { margin: 0 0 8px 0; font-size: 14px; color: var(--text); }
+  #substrate3d-sidebar .s3d-empty { color: var(--dim); font-style: italic; }
+  #substrate3d-sidebar .s3d-meta-row { margin-bottom: 6px; }
+  #substrate3d-sidebar .s3d-key { color: var(--dim); display: inline-block; width: 80px; }
+  #substrate3d-sidebar .s3d-val { color: var(--text); word-break: break-word; }
+  #substrate3d-sidebar code { background: var(--pane); padding: 1px 4px; border-radius: 2px; font-size: 11px; }
+  .s3d-loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: var(--dim); font-family: var(--mono); pointer-events: none;
+  }
+  .s3d-legend {
+    position: absolute; top: 12px; left: 12px; padding: 10px;
+    background: rgba(8, 11, 16, 0.85); border: 1px solid var(--border); border-radius: 4px;
+    font-size: 11px; color: var(--text); pointer-events: none;
+  }
+  .s3d-legend .s3d-dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    margin-right: 6px; vertical-align: middle;
+  }
+</style>
+
+<section id="substrate3d-view" hidden>
+  <div class="s3d-toolbar">
+    <label>Tier:</label>
+    <span id="s3d-tier-filter"></span>
+    <label style="margin-left:8px">Kind:</label>
+    <select id="s3d-kind-filter"><option value="">all</option></select>
+    <label style="margin-left:8px">Min degree:</label>
+    <input type="range" id="s3d-mindeg-slider" min="0" max="10" value="0" style="width:120px">
+    <span id="s3d-mindeg-val" style="font-family:var(--mono); width:18px">0</span>
+    <label style="margin-left:8px">Search:</label>
+    <input type="text" id="s3d-search" placeholder="atom name/id (substring)">
+    <span class="s3d-status" id="s3d-status">not yet loaded</span>
+  </div>
+  <div class="s3d-stage">
+    <div id="substrate3d-canvas">
+      <div class="s3d-legend" id="s3d-legend">loading...</div>
+      <div class="s3d-loading" id="s3d-loading">Loading 3D substrate snapshot...</div>
+    </div>
+    <aside id="substrate3d-sidebar">
+      <h3>Node detail</h3>
+      <div class="s3d-empty" id="s3d-sidebar-empty">Click a node to see its details.</div>
+      <div id="s3d-sidebar-detail" style="display:none"></div>
+    </aside>
+  </div>
+</section>
+
+<script src="https://unpkg.com/3d-force-graph"></script>
+<script>
+  // TRACK D Phase 3 -- substrate 3D visualization (deferred init on first tab reveal).
+  window.__substrate3d_state = { graph: null, raw: null, filtered: null };
+
+  const S3D_TIER_COLORS = {
+    "T1": "#5da9ff",       // cool blue
+    "T2": "#3dbfae",       // teal
+    "T3": "#65d77a",       // green
+    "T4": "#e0d057",       // yellow
+    "T5": "#e8a04a",       // orange
+    "T6": "#e85a4a",       // red
+    "T7": "#c33a2a",       // deep red
+    "T_lexicon": "#7c8a99",
+    "NA": "#666666",
+    "?": "#666666",
+  };
+  const S3D_KIND_OVERRIDES = {
+    "capability": "#b675ff",    // bright purple for concept/capability
+  };
+  const S3D_CAP_PREFIX_COLOR = "#ff5ad6"; // bright magenta for CAP_ atoms
+  const S3D_LINK_COLORS = {
+    "USES": "#5da9ff",
+    "DEPENDS_ON": "#65d77a",
+    "INSTANCE_OF": "#e8a04a",
+    "DUAL": "#e85a4a",
+    "RELATES": "#888888",
+    "SHARES_MATH": "#b675ff",
+    "SPECIALIZES": "#e0d057",
+  };
+
+  function s3dNodeColor(node) {
+    if ((node.id || "").startsWith("concept::CAP_")) return S3D_CAP_PREFIX_COLOR;
+    if (S3D_KIND_OVERRIDES[node.kind]) return S3D_KIND_OVERRIDES[node.kind];
+    return S3D_TIER_COLORS[node.tier] || "#888";
+  }
+  function s3dNodeSize(node) {
+    // size 1.5 .. 8 px scaled by sqrt(degree)
+    const d = Math.max(0, node.degree || 0);
+    return 1.5 + Math.sqrt(d) * 1.2;
+  }
+  function s3dLinkColor(link) {
+    return S3D_LINK_COLORS[link.type] || "#555";
+  }
+
+  async function fetchSubstrateSnapshot() {
+    const resp = await fetch("/api/substrate_snapshot", { cache: "no-store" });
+    if (!resp.ok) {
+      const body = await resp.text();
+      throw new Error("snapshot fetch failed: HTTP " + resp.status + " " + body);
+    }
+    return await resp.json();
+  }
+
+  function s3dRenderLegend(summary) {
+    const el = document.getElementById("s3d-legend");
+    if (!el) return;
+    const tierBreakdown = summary && summary.tier_breakdown ? summary.tier_breakdown : {};
+    const linkBreakdown = summary && summary.link_type_breakdown ? summary.link_type_breakdown : {};
+    let html = "<div style='font-weight:600;margin-bottom:4px'>Tier (node color)</div>";
+    for (const t of ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T_lexicon", "NA"]) {
+      if (!tierBreakdown[t]) continue;
+      html += `<div><span class="s3d-dot" style="background:${S3D_TIER_COLORS[t] || "#666"}"></span>${t} (${tierBreakdown[t]})</div>`;
+    }
+    html += "<div style='margin-top:6px'><span class='s3d-dot' style='background:#b675ff'></span>concept/capability</div>";
+    html += "<div><span class='s3d-dot' style='background:#ff5ad6'></span>CAP_*</div>";
+    html += "<div style='font-weight:600;margin:8px 0 4px 0'>Link type</div>";
+    for (const k of Object.keys(linkBreakdown)) {
+      html += `<div><span class="s3d-dot" style="background:${S3D_LINK_COLORS[k] || "#555"}"></span>${k} (${linkBreakdown[k]})</div>`;
+    }
+    el.innerHTML = html;
+  }
+
+  function s3dPopulateTierFilter(tierBreakdown) {
+    const wrap = document.getElementById("s3d-tier-filter");
+    wrap.innerHTML = "";
+    for (const t of ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T_lexicon", "NA"]) {
+      if (!tierBreakdown[t]) continue;
+      const chip = document.createElement("span");
+      chip.className = "s3d-chip on";
+      chip.dataset.tier = t;
+      chip.innerHTML = `<span class="s3d-dot" style="background:${S3D_TIER_COLORS[t]};width:8px;height:8px;display:inline-block;border-radius:50%"></span>${t}`;
+      chip.addEventListener("click", () => { chip.classList.toggle("on"); s3dApplyFilters(); });
+      wrap.appendChild(chip);
+    }
+  }
+
+  function s3dPopulateKindFilter(kindBreakdown) {
+    const sel = document.getElementById("s3d-kind-filter");
+    sel.innerHTML = '<option value="">all</option>';
+    for (const k of Object.keys(kindBreakdown).sort()) {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = `${k} (${kindBreakdown[k]})`;
+      sel.appendChild(opt);
+    }
+  }
+
+  function s3dApplyFilters() {
+    const raw = window.__substrate3d_state.raw;
+    if (!raw) return;
+    const enabledTiers = new Set();
+    for (const chip of document.querySelectorAll("#s3d-tier-filter .s3d-chip.on")) {
+      enabledTiers.add(chip.dataset.tier);
+    }
+    const kind = document.getElementById("s3d-kind-filter").value;
+    const minDeg = parseInt(document.getElementById("s3d-mindeg-slider").value, 10) || 0;
+    const search = (document.getElementById("s3d-search").value || "").trim().toLowerCase();
+
+    const keepNodes = raw.nodes.filter(n =>
+      enabledTiers.has(n.tier || "NA") &&
+      (!kind || n.kind === kind) &&
+      (n.degree || 0) >= minDeg &&
+      (!search || (n.label || "").toLowerCase().includes(search) || (n.id || "").toLowerCase().includes(search))
+    );
+    const keepIds = new Set(keepNodes.map(n => n.id));
+    const keepLinks = raw.links.filter(l => keepIds.has(l.source) && keepIds.has(l.target));
+
+    const status = document.getElementById("s3d-status");
+    if (status) status.textContent = `showing ${keepNodes.length}/${raw.nodes.length} nodes, ${keepLinks.length}/${raw.links.length} links`;
+
+    const g = window.__substrate3d_state.graph;
+    if (g) {
+      g.graphData({ nodes: keepNodes, links: keepLinks });
+    }
+    window.__substrate3d_state.filtered = { nodes: keepNodes, links: keepLinks };
+  }
+
+  function s3dShowNode(node) {
+    const empty = document.getElementById("s3d-sidebar-empty");
+    const detail = document.getElementById("s3d-sidebar-detail");
+    if (!node) {
+      empty.style.display = "block";
+      detail.style.display = "none";
+      return;
+    }
+    empty.style.display = "none";
+    detail.style.display = "block";
+    const escape = s => String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const ms = node.metadata_summary || {};
+    detail.innerHTML = `
+      <div class="s3d-meta-row"><span class="s3d-key">label</span><span class="s3d-val">${escape(node.label)}</span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">id</span><span class="s3d-val"><code>${escape(node.id)}</code></span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">corpus</span><span class="s3d-val">${escape(node.corpus)}</span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">tier</span><span class="s3d-val">${escape(node.tier)}</span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">kind</span><span class="s3d-val">${escape(node.kind)}</span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">degree</span><span class="s3d-val">${escape(node.degree)}</span></div>
+      <div class="s3d-meta-row"><span class="s3d-key">ratify</span><span class="s3d-val">${escape(node.ratify_status)}</span></div>
+      ${node.serves_capability && node.serves_capability.length ? `<div class="s3d-meta-row"><span class="s3d-key">serves</span><span class="s3d-val">${node.serves_capability.map(escape).join(", ")}</span></div>` : ""}
+      ${node.current_best_solution ? `<div class="s3d-meta-row"><span class="s3d-key">cur soln</span><span class="s3d-val"><code>${escape(node.current_best_solution)}</code></span></div>` : ""}
+      ${ms.domain ? `<div class="s3d-meta-row"><span class="s3d-key">domain</span><span class="s3d-val">${escape(ms.domain)}</span></div>` : ""}
+      ${ms.structure ? `<div class="s3d-meta-row"><span class="s3d-key">struct</span><span class="s3d-val">${escape(ms.structure)}</span></div>` : ""}
+      ${ms.distillation_class ? `<div class="s3d-meta-row"><span class="s3d-key">distill</span><span class="s3d-val">${escape(ms.distillation_class)}</span></div>` : ""}
+    `;
+  }
+
+  async function initSubstrate3D() {
+    if (window.__substrate3d_state.graph) return; // already initialized
+    const canvas = document.getElementById("substrate3d-canvas");
+    const status = document.getElementById("s3d-status");
+    const loading = document.getElementById("s3d-loading");
+    try {
+      status.textContent = "fetching snapshot...";
+      const data = await fetchSubstrateSnapshot();
+      window.__substrate3d_state.raw = data;
+      status.textContent = `loaded ${data.nodes.length} nodes, ${data.links.length} links`;
+
+      s3dPopulateTierFilter(data.summary.tier_breakdown || {});
+      s3dPopulateKindFilter(data.summary.kind_breakdown || {});
+      s3dRenderLegend(data.summary || {});
+
+      // Build the graph
+      if (typeof ForceGraph3D !== "function") {
+        loading.textContent = "3d-force-graph CDN failed to load (check network).";
+        return;
+      }
+      const Graph = ForceGraph3D()(canvas)
+        .backgroundColor("#0a0d12")
+        .nodeId("id")
+        .nodeLabel(n => `<div style="background:#10141a;padding:4px 6px;border-radius:3px;font-size:11px"><b>${n.label}</b><br><span style="color:#888">${n.id}</span><br>tier ${n.tier} / kind ${n.kind} / deg ${n.degree}</div>`)
+        .nodeColor(s3dNodeColor)
+        .nodeVal(s3dNodeSize)
+        .linkColor(s3dLinkColor)
+        .linkOpacity(0.4)
+        .linkDirectionalArrowLength(2)
+        .linkDirectionalArrowRelPos(0.85)
+        .onNodeClick(node => {
+          s3dShowNode(node);
+          // Aim camera at node
+          const distance = 80;
+          const distRatio = 1 + distance / Math.hypot(node.x || 1, node.y || 1, node.z || 1);
+          Graph.cameraPosition(
+            { x: (node.x || 0) * distRatio, y: (node.y || 0) * distRatio, z: (node.z || 0) * distRatio },
+            node,
+            1500
+          );
+        });
+      window.__substrate3d_state.graph = Graph;
+
+      // Initial render
+      s3dApplyFilters();
+
+      // Wire controls
+      const slider = document.getElementById("s3d-mindeg-slider");
+      const sliderVal = document.getElementById("s3d-mindeg-val");
+      slider.addEventListener("input", () => { sliderVal.textContent = slider.value; s3dApplyFilters(); });
+      document.getElementById("s3d-kind-filter").addEventListener("change", s3dApplyFilters);
+      let searchTimer = null;
+      document.getElementById("s3d-search").addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(s3dApplyFilters, 250);
+      });
+
+      loading.style.display = "none";
+
+      // Set tab badge with node count
+      const tabBadge = document.getElementById("tab-substrate3d-count");
+      if (tabBadge) {
+        tabBadge.textContent = data.nodes.length;
+        tabBadge.style.display = "";
+      }
+    } catch (e) {
+      console.error("substrate3d init failed:", e);
+      loading.textContent = "failed to load: " + (e && e.message ? e.message : e);
+      status.textContent = "load error";
+    }
+  }
+</script>
 
 <script>
 const POLL_MS = 3000;
@@ -4960,12 +5472,18 @@ function setTab(name) {
   document.getElementById("tests-view").hidden = name !== "tests";
   document.getElementById("capability-view").hidden = name !== "capability";
   document.getElementById("research-view").hidden = name !== "research";
+  document.getElementById("substrate-view").hidden = name !== "substrate";
+  document.getElementById("substrate3d-view").hidden = name !== "substrate3d";
   for (const btn of document.querySelectorAll(".tab")) {
     btn.classList.toggle("active", btn.dataset.tab === name);
   }
   try { localStorage.setItem("active_tab", name); } catch {}
   // Render research tab content on first reveal (static dataset; no poll needed)
   if (name === "research") renderResearch();
+  // Render substrate state tab on first reveal (and on each subsequent reveal for freshness)
+  if (name === "substrate" && typeof renderSubstrateState === "function") renderSubstrateState();
+  // Initialize 3D substrate view on first reveal (heavy mount; lazy load CDN + render)
+  if (name === "substrate3d" && typeof initSubstrate3D === "function") initSubstrate3D();
 }
 
 // Restore last tab on load (but if hash provides one, use that).
