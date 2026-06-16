@@ -39,7 +39,7 @@ fi
 for f in notes/*skunkworks* notes/*_to_all_*; do
   [ -e "$f" ] || continue
   b=$(basename "$f")
-  case "$b" in skunkworks_to_*) continue ;; esac   # author-out: my own outbound, not inbound
+  case "$b" in skunkworks_*) continue ;; esac   # author-out: ALL my own notes (skunkworks_to_/phase_B_/post_/TIER3_ ...); peer notes start with author name (research_/exp_dev_/testbed_), never skunkworks_
   m=$(stat -c '%Y' "$f" 2>/dev/null || echo 0)
   echo "$b|$m" >> /tmp/sk_inbox_cur.txt
 done
