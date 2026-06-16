@@ -349,6 +349,14 @@ def main():
         print(f"[N={N}] GRADED VERDICT at-least-{4}: {v_alk[0]} -- {v_alk[1]}", flush=True)
         print(f"[N={N}] GRADED VERDICT most(A>B): {v_most[0]} -- {v_most[1]}", flush=True)
 
+        # SEED-VARIANCE / mode-(iii) drift check (Skunkworks run_mode tier-A requirement): report per-seed
+        # spread; wide spread = drift-to-attractor (Singh-Eliasmith 2006) -> NOT tier-A corroboration.
+        sr_c2_std = float(np.std([r["c2_rmse"] for r in sr_rows]))
+        alk2_std = float(np.std([r["at_least_k_acc"]["C2"] for r in rows]))
+        m2_std = float(np.std([r["most_acc"]["C2"] for r in rows]))
+        drift = (alk2_std > 0.40) or (m2_std > 0.40)   # accuracy seed-std > 0.40 = mode-iii drift (Drill-1)
+        print(f"[N={N}] SEED-VARIANCE (mode-iii): exact-count(SR) C2 std={sr_c2_std:.3f} | at-least-k C2 std={alk2_std:.3f} | most C2 std={m2_std:.3f} -> {'DRIFT (mode-iii FAIL)' if drift else 'tight (no drift; tier-A OK)'}", flush=True)
+
     print("\n[skeleton] SANITY COMPLETE. Pre-registered gates baked in; graded run gated to Phase-B GO 2026-06-21", flush=True)
     print("[skeleton] C3 (internal-abstraction-discovery) = stub; 158b Task 3 probe verifies discovery (P_deflated=0.40)", flush=True)
     print(f"[skeleton] reconciled prereg: {PREREG}", flush=True)
