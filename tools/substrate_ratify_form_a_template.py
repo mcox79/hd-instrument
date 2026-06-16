@@ -239,7 +239,13 @@ def make_sh_entry(
     replacement_reason: str,
     ratify_date: str = '2026-06-16',
 ) -> dict:
-    """Build a single solution_history entry. For DUAL type, call twice with different metrics."""
+    """Build a single solution_history entry. For DUAL type, call twice with different metrics.
+
+    Per DECISION 168 + Skunkworks 185th compute-backend provenance gate:
+    Auto-extracts compute_backend + dtype + device + cross_backend_check fields from cell
+    metrics if present. Phase B cells run with the new discipline include these fields;
+    Phase A cells may omit them (auto-default to None).
+    """
     return {
         'solution_atom_id': new_qid,
         'adopted_date': ratify_date,
@@ -253,6 +259,12 @@ def make_sh_entry(
         'cell_anchor': cell_metrics.get('anchor_name', cell_metrics.get('anchor')),
         'cell_metrics_sha256': cell_metrics_sha,
         'cell_metrics_path': cell_metrics_path,
+        # Compute-backend provenance per DECISION 168 + Skunkworks 185th gate
+        'compute_backend': cell_metrics.get('compute_backend'),  # 'gpu' | 'cpu' | None
+        'dtype': cell_metrics.get('dtype'),  # 'float32' | 'complex64' | None
+        'device': cell_metrics.get('device'),  # 'cuda:0' | 'cpu' | None
+        'cross_backend_check': cell_metrics.get('cross_backend_check'),  # near-threshold verify
+        'near_threshold_flag': cell_metrics.get('near_threshold_flag'),  # within ~1e-3 of HP/HF bar
         'form': 'FORM-A',
         'source': source_tag,
     }
