@@ -266,6 +266,23 @@ def main():
         print(f"[N={N}] SANITY exact-count ESCAPE (C2 beats C1 by>=2x AND beats C0 control): {escape_rmse}", flush=True)
         print(f"[N={N}] SANITY at-least-k ESCAPE (C2-C1>={PREREG['C2_C1_margin']}): {escape_alk} (margin={alk2-alk1:.3f})", flush=True)
 
+        # AMENDMENT v3b: single-role CONFOUND-ISOLATION sibling (distinctness confound, no crosstalk)
+        sr_rows = [eval_single_role_isolation(s, N) for s in SEEDS]
+        sr_c1 = np.mean([r["c1_rmse"] for r in sr_rows])
+        sr_c2 = np.mean([r["c2_rmse"] for r in sr_rows])
+        sr_maxtot = max(r["max_total_bindings"] for r in sr_rows)
+        print(f"[N={N}] SINGLE-ROLE ISOLATION RMSE (distinctness-only): C1_fair_null={sr_c1:.2f} C2={sr_c2:.2f}", flush=True)
+
+        # AMENDMENT v3a: CAPACITY-ENVELOPE gate (multi-role compound + single-role)
+        max_total_multi = 8 * 3 * ROLES   # upper bound on total bindings in the compound task (max nd x max mult x roles)
+        in_env_multi, frac_multi = capacity_status(max_total_multi, N)
+        in_env_sr, frac_sr = capacity_status(sr_maxtot, N)
+        print(f"[N={N}] CAPACITY-ENVELOPE: compound max_total~{max_total_multi} frac={frac_multi:.4f} within={in_env_multi} "
+              f"(alpha={CAPACITY_ALPHA}) | single-role max_total={sr_maxtot} frac={frac_sr:.4f} within={in_env_sr}", flush=True)
+        if not in_env_multi:
+            print(f"[N={N}] CAPACITY NOTE: compound task EXCEEDS envelope at this N -> a C2 low score here is a "
+                  f"CAPACITY ARTIFACT, not a primitive HARD-FAIL (raise N or cap density for the graded run).", flush=True)
+
     print("\n[skeleton] SANITY COMPLETE. Pre-registered gates baked in; graded run gated to Phase-B GO 2026-06-21", flush=True)
     print("[skeleton] C3 (internal-abstraction-discovery) = stub; 158b Task 3 probe verifies discovery (P_deflated=0.40)", flush=True)
     print(f"[skeleton] reconciled prereg: {PREREG}", flush=True)
