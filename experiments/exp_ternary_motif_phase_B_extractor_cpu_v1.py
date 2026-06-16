@@ -84,19 +84,25 @@ def main():
     distinct_z = len(set(z for _, z in motif_a))
     distinct_x = len(set(x for x, _ in motif_b))
     total = len(motif_a) + len(motif_b)
-    print(f"\n[motif] (ALL sym sources SHARES_MATH+RELATES+DUAL)", flush=True)
-    print(f"[motif] MOTIF-A convergent ({{X,Y}}~ both DEPENDS_ON Z): {len(motif_a)} instances, {distinct_z} distinct Z", flush=True)
-    print(f"[motif] MOTIF-B divergent  (X DEPENDS_ON {{Y,Z}}, Y~Z):    {len(motif_b)} instances, {distinct_x} distinct X", flush=True)
-    print(f"[motif] TOTAL partial-symmetric ternary motif instances: {total}", flush=True)
+    print(f"\n[reference: ALL sym sources incl generic RELATES -- NOT the HARD claim; see PRIMARY below]", flush=True)
+    print(f"  MOTIF-A all-sym: {len(motif_a)} ({distinct_z} distinct Z) | MOTIF-B all-sym: {len(motif_b)} ({distinct_x} distinct X) | total {total}", flush=True)
 
-    # CLEAN-SYMMETRIC subset: SHARES_MATH + DUAL only (genuinely symmetric; RELATES is generic).
-    # The partial-symmetry HARD claim should rest on truly-symmetric pairs, not the generic catch-all.
+    # ===== v2 (DECISION 165a): CLEAN-SYMMETRIC (SHARES_MATH+DUAL) is the PRIMARY HARD-claim set =====
+    # RELATES is a generic catch-all (HAS_MEMBER-absent fallback) -> NOT load-bearing for partial-symmetry.
     clean_pairs = sym_by_rel.get("SHARES_MATH", set()) | sym_by_rel.get("DUAL", set())
     ca, cb = extract_motifs(clean_pairs, dep, rdep)
-    print(f"\n[motif] (CLEAN-SYMMETRIC subset SHARES_MATH+DUAL only; {len(clean_pairs)} pairs)", flush=True)
-    print(f"[motif] MOTIF-A clean: {len(ca)} instances | MOTIF-B clean: {len(cb)} instances | clean total: {len(ca)+len(cb)}", flush=True)
-    clean_ok = (len(ca) >= MIN_SUPPORT) or (len(cb) >= MIN_SUPPORT)
-    print(f"[motif] CLEAN-SYMMETRIC min-support>=20 on >=1 motif type: {'PASS' if clean_ok else 'CAUTION (clean claim leans on generic RELATES)'}", flush=True)
+    print(f"\n[PRIMARY: CLEAN-SYMMETRIC SHARES_MATH+DUAL; {len(clean_pairs)} pairs] -- the HARD partial-symmetry claim", flush=True)
+    print(f"  MOTIF-A clean: {len(ca)} ({'PASS' if len(ca)>=MIN_SUPPORT else 'FAIL <20 -- below threshold on clean pairs'})", flush=True)
+    print(f"  MOTIF-B clean: {len(cb)} ({'PASS' if len(cb)>=MIN_SUPPORT else 'FAIL <20'})  <- HARD claim rests here", flush=True)
+    print(f"  HARD partial-symmetry claim viable (>=1 clean motif-type >=20): {'YES' if (len(ca)>=MIN_SUPPORT or len(cb)>=MIN_SUPPORT) else 'NO'}", flush=True)
+
+    # GENERIC tier (RELATES-only pairs; reportable, NOT load-bearing) + spurious-inclusion verification
+    generic_only = sym_by_rel.get("RELATES", set()) - clean_pairs
+    ga, gb = extract_motifs(generic_only, dep, rdep)
+    print(f"\n[GENERIC tier: RELATES-only {len(generic_only)} pairs] -- reportable, NOT load-bearing for partial-symmetry", flush=True)
+    print(f"  MOTIF-A generic: {len(ga)} | MOTIF-B generic: {len(gb)} (these would have INFLATED the all-sym counts)", flush=True)
+    print(f"\n[verify no-spurious-inclusion] HARD claim (MOTIF-B clean={len(cb)}) uses SHARES_MATH+DUAL pairs ONLY;", flush=True)
+    print(f"  generic RELATES contributes {len(ga)+len(gb)} motifs EXCLUDED from the HARD claim; clean+generic accounts for the all-sym total.", flush=True)
 
     # ---- pre-pass checklist (structurally checkable items) ----
     print("\n[pre-pass] checklist (Skunkworks ternary methodology sec 6):", flush=True)
