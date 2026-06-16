@@ -1,0 +1,78 @@
+{
+  "rows": [
+    {
+      "decoy": "contradictory_caps_same_sig",
+      "class": "VISIBLE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "different_operation_type",
+      "class": "VISIBLE",
+      "verdict": "SHARED_ABSTRACTION",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "different_output_type",
+      "class": "VISIBLE",
+      "verdict": "THEOREM_LINKED",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "different_domain",
+      "class": "VISIBLE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "different_complexity",
+      "class": "VISIBLE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "different_input_type",
+      "class": "VISIBLE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "stub_vs_full",
+      "class": "VISIBLE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "three_way_one_divergent",
+      "class": "VISIBLE",
+      "verdict": "SHARED_ABSTRACTION",
+      "merged": false,
+      "ok": true
+    },
+    {
+      "decoy": "identical_sig_identical_caps_distinct_body",
+      "class": "INVISIBLE",
+      "verdict": "MERGEABLE",
+      "merged": true,
+      "ok": true
+    },
+    {
+      "decoy": "identical_sig_empty_caps_no_evidence",
+      "class": "CONSERVATIVE",
+      "verdict": "DISTINCT",
+      "merged": false,
+      "ok": true
+    }
+  ],
+  "n_norefuse_required": 9,
+  "n_unsound_merge": 0,
+  "n_invisible": 1,
+  "n_invisible_merged": 1
+}

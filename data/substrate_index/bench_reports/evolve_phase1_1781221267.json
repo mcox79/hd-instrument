@@ -1,0 +1,15 @@
+{
+  "phase": "1_research_drill",
+  "n_files": 449,
+  "pre_verdicts": {
+    "NOVEL": 305,
+    "TIER-C": 97,
+    "OUT_OF_DOMAIN": 46,
+    "TIER-B": 1
+  },
+  "ingested": 449,
+  "skipped": 0,
+  "relations_added": 1524,
+  "post_research_history_atoms": 449,
+  "post_total_atoms": 583
+}

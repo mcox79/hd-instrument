@@ -1,0 +1,177 @@
+{"src": "T2/fhrr_bind", "dst": "T1/complex_field", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_bind", "dst": "T1/unit_modulus", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_bind", "dst": "T2/circular_convolution", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_bind", "dst": "T2/phasor_vector", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_unbind", "dst": "T1/complex_field", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_unbind", "dst": "T2/fhrr_bind", "type": "DEPENDS_ON"}
+{"src": "T2/circular_convolution", "dst": "T1/convolution_general", "type": "DEPENDS_ON"}
+{"src": "T2/circular_convolution", "dst": "T3/discrete_fourier_transform", "type": "DEPENDS_ON"}
+{"src": "T3/discrete_fourier_transform", "dst": "T1/complex_field", "type": "DEPENDS_ON"}
+{"src": "T3/discrete_fourier_transform", "dst": "T1/convolution_general", "type": "DEPENDS_ON"}
+{"src": "T2/cleanup", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/cleanup", "dst": "T2/modern_hopfield_ramsauer", "type": "DEPENDS_ON"}
+{"src": "T2/cleanup", "dst": "T2/codebook", "type": "DEPENDS_ON"}
+{"src": "T2/cosine_cleanup", "dst": "T1/cosine_similarity", "type": "DEPENDS_ON"}
+{"src": "T2/cosine_cleanup", "dst": "T2/cleanup", "type": "DEPENDS_ON"}
+{"src": "T1/inner_product", "dst": "T1/vector_space", "type": "DEPENDS_ON"}
+{"src": "T1/cosine_similarity", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T1/gradient_descent", "dst": "T1/derivative", "type": "DEPENDS_ON"}
+{"src": "T1/gradient_descent", "dst": "T2/parameter_vector", "type": "DEPENDS_ON"}
+{"src": "T1/gradient_descent", "dst": "T2/gradient", "type": "DEPENDS_ON"}
+{"src": "T3/adam_optimizer", "dst": "T1/gradient_descent", "type": "DEPENDS_ON"}
+{"src": "T3/adam_optimizer", "dst": "T2/parameter_vector", "type": "DEPENDS_ON"}
+{"src": "T3/stochastic_gradient_descent", "dst": "T1/gradient_descent", "type": "DEPENDS_ON"}
+{"src": "T3/stochastic_gradient_descent", "dst": "T2/parameter_vector", "type": "DEPENDS_ON"}
+{"src": "T2/modern_hopfield_ramsauer", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/modern_hopfield_ramsauer", "dst": "T2/codebook", "type": "DEPENDS_ON"}
+{"src": "T2/role_filler_binding", "dst": "T2/fhrr_bind", "type": "DEPENDS_ON"}
+{"src": "T2/sparse_distributed_memory", "dst": "T2/codebook", "type": "DEPENDS_ON"}
+{"src": "T2/sparse_distributed_memory", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T1/complex_field", "dst": "T1/field_axioms", "type": "DEPENDS_ON"}
+{"src": "T1/real_field", "dst": "T1/field_axioms", "type": "DEPENDS_ON"}
+{"src": "T1/vector_space", "dst": "T1/field_axioms", "type": "DEPENDS_ON"}
+{"src": "T1/vector_space", "dst": "T1/group_axioms", "type": "DEPENDS_ON"}
+{"src": "T1/unit_modulus", "dst": "T1/complex_field", "type": "DEPENDS_ON"}
+{"src": "T1/convolution_general", "dst": "T1/ring_axioms", "type": "DEPENDS_ON"}
+{"src": "T1/derivative", "dst": "T1/real_field", "type": "DEPENDS_ON"}
+{"src": "T3/viterbi_decoder", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/viterbi_decoder", "dst": "T2/state_sequence", "type": "DEPENDS_ON"}
+{"src": "T3/viterbi_decoder", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/viterbi_decoder", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/viterbi_decoder", "dst": "T2/state_sequence", "type": "DEPENDS_ON"}
+{"src": "T2/viterbi_decoder", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/forward_algorithm", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/forward_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/forward_algorithm", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/forward_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/backward_algorithm", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/backward_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/backward_algorithm", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/backward_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/em_algorithm", "dst": "T2/likelihood", "type": "DEPENDS_ON"}
+{"src": "T3/em_algorithm", "dst": "T1/maximum_likelihood", "type": "DEPENDS_ON"}
+{"src": "T3/em_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/em_algorithm", "dst": "T2/likelihood", "type": "DEPENDS_ON"}
+{"src": "T2/em_algorithm", "dst": "T1/maximum_likelihood", "type": "DEPENDS_ON"}
+{"src": "T2/em_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/bayesian_inference", "dst": "T1/bayes_rule", "type": "DEPENDS_ON"}
+{"src": "T3/bayesian_inference", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/bayesian_inference", "dst": "T1/bayes_rule", "type": "DEPENDS_ON"}
+{"src": "T2/bayesian_inference", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/discriminative_perceptron", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T3/discriminative_perceptron", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T3/discriminative_perceptron", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T2/discriminative_perceptron", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T2/discriminative_perceptron", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/discriminative_perceptron", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T3/perceptron_update", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T3/perceptron_update", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/perceptron_update", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T2/perceptron_update", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T3/collins_structured_perceptron", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T3/collins_structured_perceptron", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T2/collins_structured_perceptron", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T2/collins_structured_perceptron", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T3/structured_perceptron_collins", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T3/structured_perceptron_collins", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T2/structured_perceptron_collins", "dst": "T2/weight_vector", "type": "DEPENDS_ON"}
+{"src": "T2/structured_perceptron_collins", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T1/markov_chain", "dst": "T2/state_distribution", "type": "DEPENDS_ON"}
+{"src": "T1/markov_chain", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/markov_decision_process", "dst": "T2/state_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/markov_decision_process", "dst": "T3/bellman_equation", "type": "DEPENDS_ON"}
+{"src": "T3/q_learning", "dst": "T3/bellman_equation", "type": "DEPENDS_ON"}
+{"src": "T3/q_learning", "dst": "T3/markov_decision_process", "type": "DEPENDS_ON"}
+{"src": "T3/policy_gradient", "dst": "T1/gradient", "type": "DEPENDS_ON"}
+{"src": "T3/policy_gradient", "dst": "T2/parameter_vector", "type": "DEPENDS_ON"}
+{"src": "T2/bundling", "dst": "T1/vector", "type": "DEPENDS_ON"}
+{"src": "T2/bundling", "dst": "T1/vector_space", "type": "DEPENDS_ON"}
+{"src": "T3/resonator_network_decoder", "dst": "T2/cleanup", "type": "DEPENDS_ON"}
+{"src": "T3/resonator_network_decoder", "dst": "T2/fhrr_unbind", "type": "DEPENDS_ON"}
+{"src": "T3/permutation_indexed_binding", "dst": "T2/fhrr_bind", "type": "DEPENDS_ON"}
+{"src": "T3/count_nb", "dst": "T1/bayes_rule", "type": "DEPENDS_ON"}
+{"src": "T3/count_nb", "dst": "T2/probability_vector", "type": "DEPENDS_ON"}
+{"src": "T3/count_nb", "dst": "T2/labeled_example", "type": "DEPENDS_ON"}
+{"src": "T3/pca_whitening", "dst": "T1/eigendecomposition", "type": "DEPENDS_ON"}
+{"src": "T3/pca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/pca_whitening", "dst": "T1/eigendecomposition", "type": "DEPENDS_ON"}
+{"src": "T2/pca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T3/zca_whitening", "dst": "T1/eigendecomposition", "type": "DEPENDS_ON"}
+{"src": "T3/zca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T2/zca_whitening", "dst": "T1/eigendecomposition", "type": "DEPENDS_ON"}
+{"src": "T2/zca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON"}
+{"src": "T3/beam_search", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/beam_search", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/astar", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/astar", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/dijkstra", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T2/dijkstra", "dst": "T2/dynamic_programming", "type": "DEPENDS_ON"}
+{"src": "T3/mcmc_sampling", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/mcmc_sampling", "dst": "T1/markov_chain", "type": "DEPENDS_ON"}
+{"src": "T3/variational_inference", "dst": "T2/likelihood", "type": "DEPENDS_ON"}
+{"src": "T3/variational_inference", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/hmm_transition", "dst": "T2/state_distribution", "type": "DEPENDS_ON"}
+{"src": "T3/hmm_transition", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/hmm_transition", "dst": "T2/state_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/hmm_transition", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T1/probability_distribution", "dst": "T1/real_field", "type": "DEPENDS_ON"}
+{"src": "T1/probability_distribution", "dst": "T1/shannon_entropy", "type": "DEPENDS_ON"}
+{"src": "T1/bayes_rule", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T1/bayes_rule", "dst": "T1/conditional_probability", "type": "DEPENDS_ON"}
+{"src": "T1/maximum_likelihood", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T1/eigendecomposition", "dst": "T1/vector_space", "type": "DEPENDS_ON"}
+{"src": "T1/eigendecomposition", "dst": "T1/spectral_theorem", "type": "DEPENDS_ON"}
+{"src": "T3/bellman_equation", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T1/spectral_theorem", "dst": "T1/eigenvalue_eigenvector", "type": "DEPENDS_ON"}
+{"src": "T1/spectral_theorem", "dst": "T1/vector_space", "type": "DEPENDS_ON"}
+{"src": "T1/conditional_probability", "dst": "T1/probability_distribution", "type": "DEPENDS_ON"}
+{"src": "T2/fhrr_bind", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/fhrr_bind", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/fhrr_unbind", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/fhrr_unbind", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/circular_convolution", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/circular_convolution", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/role_filler_binding", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/role_filler_binding", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/context_binding", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/context_binding", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/discrete_fourier_transform", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/discrete_fourier_transform", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/permutation_indexed_binding", "dst": "T1/complex_field", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/permutation_indexed_binding", "dst": "T2/phasor_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/bayesian_inference", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/em_algorithm", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/hmm_transition", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T1/markov_chain", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/mcmc_sampling", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/count_nb", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T1/bayes_rule", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/markov_decision_process", "dst": "T3/bellman_equation", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/markov_decision_process", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/q_learning", "dst": "T3/bellman_equation", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/q_learning", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/bellman_equation", "dst": "T3/bellman_equation", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/bellman_equation", "dst": "T1/probability_distribution", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/cleanup", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/cleanup", "dst": "T2/codebook", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/cosine_cleanup", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/cosine_cleanup", "dst": "T2/codebook", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/modern_hopfield_ramsauer", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/modern_hopfield_ramsauer", "dst": "T2/codebook", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/sparse_distributed_memory", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/sparse_distributed_memory", "dst": "T2/codebook", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/resonator_network_decoder", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/resonator_network_decoder", "dst": "T2/codebook", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/discriminative_perceptron", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/perceptron_update", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/pca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T2/zca_whitening", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T1/cosine_similarity", "dst": "T1/inner_product", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T1/gradient_descent", "dst": "T2/parameter_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T1/gradient_descent", "dst": "T1/gradient", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/adam_optimizer", "dst": "T2/parameter_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/adam_optimizer", "dst": "T1/gradient", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/stochastic_gradient_descent", "dst": "T2/parameter_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/stochastic_gradient_descent", "dst": "T1/gradient", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/policy_gradient", "dst": "T2/parameter_vector", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}
+{"src": "T3/policy_gradient", "dst": "T1/gradient", "type": "DEPENDS_ON", "metadata": {"skunkworks_scorecard_driven": true}}

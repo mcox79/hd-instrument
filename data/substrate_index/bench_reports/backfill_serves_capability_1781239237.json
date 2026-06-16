@@ -1,0 +1,187 @@
+{
+  "dry_run": false,
+  "stats": {
+    "atoms_examined": 6,
+    "atoms_updated": 0,
+    "atoms_no_match": 8,
+    "atoms_already_complete": 6,
+    "solvers_missing": [
+      "concept::PP-MATH_WK_LEX_FAMILY",
+      "math::T3/discriminative_perceptron_with_role_features",
+      "math::T3/discriminative_perceptron_with_learned_selector",
+      "T3/substrate_as_ranker",
+      "T3/substrate_as_filter",
+      "T3/colbert_v2_wrapper",
+      "T2/prototype_bundle_cleanup",
+      "math::T3/slipnet"
+    ]
+  },
+  "top_levers": [
+    {
+      "atom": "math::T2/cleanup",
+      "n_caps": 12,
+      "caps": [
+        "concept::CAP_cleanup",
+        "concept::PP-217_path_A_LLM_enhancement",
+        "concept::PP-225_fact_recall_kb100K",
+        "concept::PP-371_reasoning_routing",
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-LEX1_morphology",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::PP-multihop_revival",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_multi_hop",
+        "concept::RETRIEVAL_reasoning_routing_pp371",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T3/discriminative_perceptron",
+      "n_caps": 10,
+      "caps": [
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math",
+        "concept::PP-393_asdiv_3op_ceiling",
+        "concept::PP-394_asdiv_wk_oracle",
+        "concept::PP-395_svamp_role_asymmetry",
+        "concept::PP-396_svamp_learned_selector",
+        "concept::PP-397_pos_data_efficiency",
+        "concept::PP-AG_news_text_class",
+        "concept::PP-NORTH_STAR_2026-06-11"
+      ]
+    },
+    {
+      "atom": "math::T2/fhrr_unbind",
+      "n_caps": 8,
+      "caps": [
+        "concept::CAP_fhrr_unbind",
+        "concept::PP-225_fact_recall_kb100K",
+        "concept::PP-367_unified_algebra_lang_math",
+        "concept::PP-372_schema_retrieval",
+        "concept::PP-compositional_depth_retrieval",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_multi_hop",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T4/discriminative_perceptron_pipeline",
+      "n_caps": 7,
+      "caps": [
+        "SCHOOL/discriminative_learning_family",
+        "concept::CAP_discriminative_perceptron",
+        "concept::PP-371_reasoning_routing",
+        "concept::PP-375_multistep_math",
+        "concept::PP-376_multibench_math",
+        "concept::PP-378_code_algopattern",
+        "concept::unified_compositional_engine"
+      ]
+    },
+    {
+      "atom": "math::T2/fhrr_bind",
+      "n_caps": 6,
+      "caps": [
+        "concept::CAP_fhrr_bind",
+        "concept::PP-225_fact_recall_kb100K",
+        "concept::PP-367_unified_algebra_lang_math",
+        "concept::PP-372_schema_retrieval",
+        "concept::RETRIEVAL_kb_fact_extensions",
+        "concept::RETRIEVAL_schema_pp372"
+      ]
+    },
+    {
+      "atom": "math::T3/count_nb",
+      "n_caps": 6,
+      "caps": [
+        "concept::CAP_bayesian_inference",
+        "concept::PP-364_NER",
+        "concept::PP-370_intent_classification",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-376_multibench_math",
+        "concept::PP-377_MultiArith_math"
+      ]
+    },
+    {
+      "atom": "math::T3/structured_perceptron_collins",
+      "n_caps": 5,
+      "caps": [
+        "concept::CAP_discriminative_perceptron",
+        "concept::PP-364_pos_tagger",
+        "concept::PP-375_multistep_math",
+        "concept::PP-376_multibench_math",
+        "concept::PP-378_code_algopattern"
+      ]
+    },
+    {
+      "atom": "math::T4/cascade_hmm_pipeline",
+      "n_caps": 4,
+      "caps": [
+        "SCHOOL/hmm_sequence_labeling_family",
+        "SCHOOL/structured_prediction_family",
+        "concept::PP-364_pos_tagger",
+        "concept::PP-369_slot_filling"
+      ]
+    },
+    {
+      "atom": "math::T3/viterbi_decoder",
+      "n_caps": 3,
+      "caps": [
+        "concept::CAP_viterbi_decoding",
+        "concept::PP-364_pos_tagger",
+        "concept::PP-369_slot_filling"
+      ]
+    },
+    {
+      "atom": "meta::RULE_metric_matches_semantic",
+      "n_caps": 3,
+      "caps": [
+        "substrate::T3/substrate_self_knowing_benchmark",
+        "substrate::T2/measurement_methodology",
+        "substrate::T3/substrate_self_knowing_engine"
+      ]
+    },
+    {
+      "atom": "science::PHYS/ising_model",
+      "n_caps": 3,
+      "caps": [
+        "math::T2/modern_hopfield_ramsauer",
+        "PHYS/statistical_mechanics",
+        "math::T2/glauber_dynamics"
+      ]
+    },
+    {
+      "atom": "science::BIO/basal_ganglia",
+      "n_caps": 3,
+      "caps": [
+        "BIO/dopamine_RPE",
+        "concept::PP-375_multistep_math",
+        "CS/reinforcement_learning"
+      ]
+    },
+    {
+      "atom": "math::T2/circular_convolution",
+      "n_caps": 2,
+      "caps": [
+        "concept::CAP_circular_convolution",
+        "concept::CAP_fhrr_bind"
+      ]
+    },
+    {
+      "atom": "math::T2/superposition",
+      "n_caps": 2,
+      "caps": [
+        "concept::CAP_fhrr_bind",
+        "concept::CAP_superposition"
+      ]
+    },
+    {
+      "atom": "math::T2/bundling",
+      "n_caps": 2,
+      "caps": [
+        "concept::CAP_bundling",
+        "concept::PP-371_reasoning_routing"
+      ]
+    }
+  ]
+}

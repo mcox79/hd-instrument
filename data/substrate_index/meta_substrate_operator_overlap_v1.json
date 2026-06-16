@@ -1,0 +1,117 @@
+{
+  "n_operators": 36,
+  "n_overlap_pairs": 13,
+  "distill_candidates": [
+    {
+      "a": "T2/fhrr_bind",
+      "b": "T2/fhrr_unbind",
+      "score": 5.61,
+      "why": [
+        "in=phasor_vector_pair",
+        "out=phasor_vector",
+        "vsa=fhrr",
+        "DUAL",
+        "caps_j=0.56"
+      ]
+    },
+    {
+      "a": "T3/discriminative_perceptron",
+      "b": "T2/discriminative_perceptron",
+      "score": 5.5,
+      "why": [
+        "in=feature_vector_label_pair",
+        "out=discriminative_weight_vector",
+        "type=discriminative_linear_update",
+        "vsa=n/a",
+        "caps_j=1.00"
+      ]
+    },
+    {
+      "a": "T3/structured_perceptron_collins",
+      "b": "T2/structured_perceptron_collins",
+      "score": 5.5,
+      "why": [
+        "in=feature_template_and_gold",
+        "out=weight_vector",
+        "type=structured_supervised_learning",
+        "vsa=discriminative_learning",
+        "caps_j=1.00"
+      ]
+    },
+    {
+      "a": "T3/viterbi_decoder",
+      "b": "T2/viterbi_decoder",
+      "score": 5.0,
+      "why": [
+        "in=observation_and_transition_emission",
+        "out=state_sequence",
+        "type=dynamic_programming_decode",
+        "caps_j=1.00"
+      ]
+    },
+    {
+      "a": "T1/gradient_descent",
+      "b": "T3/adam_optimizer",
+      "score": 4.0,
+      "why": [
+        "in=function_and_gradient",
+        "out=parameter_vector",
+        "caps_j=1.00"
+      ]
+    },
+    {
+      "a": "T3/em_algorithm",
+      "b": "T2/em_algorithm",
+      "score": 3.5,
+      "why": [
+        "in=incomplete_data_likelihood",
+        "out=ML_parameter_estimate",
+        "type=alternating_e_step_m_step",
+        "vsa=n/a"
+      ]
+    },
+    {
+      "a": "T3/collins_structured_perceptron",
+      "b": "T2/collins_structured_perceptron",
+      "score": 3.5,
+      "why": [
+        "in=training_input_output_pairs",
+        "out=weight_vector",
+        "type=structured_discriminative_learning",
+        "vsa=n/a"
+      ]
+    },
+    {
+      "a": "T1/gradient_descent",
+      "b": "T3/stochastic_gradient_descent",
+      "score": 3.0,
+      "why": [
+        "out=parameter_vector",
+        "caps_j=1.00"
+      ]
+    },
+    {
+      "a": "T3/adam_optimizer",
+      "b": "T3/stochastic_gradient_descent",
+      "score": 3.0,
+      "why": [
+        "out=parameter_vector",
+        "caps_j=1.00"
+      ]
+    }
+  ],
+  "thin_capabilities_expand_targets": [
+    "concept::CAP_fhrr_unbind",
+    "concept::PP-LEX1_morphology",
+    "concept::PP-217_path_A_LLM_enhancement",
+    "concept::RETRIEVAL_reasoning_routing_pp371",
+    "concept::PP-multihop_revival",
+    "concept::CAP_bundling",
+    "concept::CAP_dynamic_programming",
+    "math::T2/cleanup",
+    "math::T2/modern_hopfield_ramsauer",
+    "substrate::T2/cleanup_attractor_dynamics"
+  ],
+  "grounding": "v1_structured_signatures_laws_capabilities",
+  "caveat": "still partly authored (signatures/caps are curated); less prose-biased than v0; fully bias-robust version uses provable decomposition (L6-PROOF) + learned vectors (gated post-rebuild)"
+}

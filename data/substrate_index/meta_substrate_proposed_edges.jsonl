@@ -1,0 +1,23 @@
+{"src": "OP/spectral_observability", "dst": "FIND/spectral_pillar_9d", "jaccard": 0.478, "shared": ["cumulants", "dyson", "free", "matrix", "observability", "random", "spectral", "spike", "theory", "tracy", "widom"]}
+{"src": "AXIS/load_bearing", "dst": "RULE/load_bearing_axis", "jaccard": 0.389, "shared": ["authoring", "bearing", "bound", "downgraded", "load", "materials", "tools"]}
+{"src": "OP/chtv_verifier", "dst": "FIND/chp6_soundness_gap", "jaccard": 0.381, "shared": ["accept", "checkable", "false", "ground", "hallucinated", "soundness", "truth", "zero"]}
+{"src": "OP/codebook_geometry", "dst": "OP/sleep_replay", "jaccard": 0.333, "shared": ["archetype", "cluster", "clusters", "codebook", "geometry", "spectral"]}
+{"src": "OP/l1_partition_routing", "dst": "FIND/cell_sc_n_invariant", "jaccard": 0.312, "shared": ["invariant", "partition", "recall", "routing", "scaling"]}
+{"src": "AXIS/load_bearing", "dst": "FIND/inv1_load_bearing_authored", "jaccard": 0.25, "shared": ["authored", "bearing", "body", "load", "text"]}
+{"src": "OP/codebook_geometry", "dst": "OP/spectral_observability", "jaccard": 0.24, "shared": ["bulk", "marchenko", "matrix", "pastur", "spectral", "spike"]}
+{"src": "OP/kp_promotion", "dst": "FIND/kp_complementary_coverage", "jaccard": 0.19, "shared": ["complementary", "coverage", "mechanism", "multi"]}
+{"src": "AXIS/epistemic_tier", "dst": "AXIS/content_type", "jaccard": 0.174, "shared": ["authoring", "blind", "records", "survives"]}
+{"src": "OP/L6_proof_finder", "dst": "AXIS/epistemic_tier", "jaccard": 0.154, "shared": ["axioms", "curry", "howard", "proof"]}
+{"src": "OP/fhrr_bind", "dst": "OP/two_vector_encoder", "jaccard": 0.148, "shared": ["dimensional", "high", "near", "superpose"]}
+{"src": "OP/L6_proof_finder", "dst": "OP/chtv_verifier", "jaccard": 0.148, "shared": ["curry", "derivation", "howard", "proof"]}
+{"src": "OP/sleep_replay", "dst": "PROP/crystallized_atoms", "jaccard": 0.136, "shared": ["cluster", "codebook", "geometry"]}
+{"src": "RULE/held_out_test", "dst": "RULE/authoring_blind_null", "jaccard": 0.13, "shared": ["claims", "held", "test"]}
+{"src": "AXIS/epistemic_tier", "dst": "FIND/cell_sc_n_invariant", "jaccard": 0.125, "shared": ["authoring", "independent", "survives"]}
+{"src": "AXIS/load_bearing", "dst": "FIND/cell_sc_n_invariant", "jaccard": 0.125, "shared": ["authoring", "invariant", "structure"]}
+{"src": "OP/cleanup_memory", "dst": "OP/resonator_decoder", "jaccard": 0.12, "shared": ["attractor", "cleanup", "codebook"]}
+{"src": "OP/codebook_geometry", "dst": "PROP/crystallized_atoms", "jaccard": 0.115, "shared": ["cluster", "codebook", "geometry"]}
+{"src": "AXIS/epistemic_tier", "dst": "RULE/authoring_blind_null", "jaccard": 0.115, "shared": ["authoring", "blind", "null"]}
+{"src": "AXIS/load_bearing", "dst": "RULE/authoring_blind_null", "jaccard": 0.115, "shared": ["authoring", "null", "structure"]}
+{"src": "RULE/load_bearing_axis", "dst": "FIND/inv1_load_bearing_authored", "jaccard": 0.111, "shared": ["bearing", "load"]}
+{"src": "OP/codebook_geometry", "dst": "FIND/spectral_pillar_9d", "jaccard": 0.107, "shared": ["matrix", "spectral", "spike"]}
+{"src": "OP/chtv_verifier", "dst": "AXIS/epistemic_tier", "jaccard": 0.107, "shared": ["curry", "howard", "proof"]}

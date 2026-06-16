@@ -1,0 +1,23 @@
+{
+  "rules": [
+    {
+      "rule_text": "When count_nb is current-best, try discriminative_perceptron (observed +0.299 avg lift across 5 capabilities)",
+      "from_solution": "math::T3/count_nb",
+      "to_solution": "math::T3/discriminative_perceptron",
+      "n_capabilities": 5,
+      "avg_lift": 0.2988,
+      "capabilities": [
+        "concept::PP-370_intent_classification",
+        "concept::PP-378_code_algopattern",
+        "concept::PP-364_NER",
+        "concept::PP-374_MAWPS_math",
+        "concept::PP-377_MultiArith_math"
+      ],
+      "confidence": 0.08064516129032258
+    }
+  ],
+  "extraction_thresholds": {
+    "min_capabilities": 3,
+    "min_lift": 0.1
+  }
+}

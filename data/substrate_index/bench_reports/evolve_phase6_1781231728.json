@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\science_corpus_batch01_part_A_physics_biology.jsonl",
+      "ingested": 30,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "science": 30
+      }
+    },
+    {
+      "file": "data\\substrate_index\\science_corpus_batch01_part_B_chemistry_CS.jsonl",
+      "ingested": 30,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "science": 30
+      }
+    },
+    {
+      "file": "data\\substrate_index\\science_corpus_batch02_advanced.jsonl",
+      "ingested": 30,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 0,
+      "by_partition": {
+        "science": 30
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 90,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 0,
+    "pre_total": 1547,
+    "post_total": 1637
+  }
+}

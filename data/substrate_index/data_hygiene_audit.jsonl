@@ -1,0 +1,5 @@
+{"removed_qid": "methodology::research_drill_8_channel_orchestration_architecture_2026-06-03", "reason": "routing-note cross-corpus dup; canonical at research_drill_8_channel_orchestration_architecture_2026-06-03 corpus=RESEARCH_HISTORY"}
+{"removed_qid": "methodology::research_drill_1bit_depth_verify_2x_2026-06-10", "reason": "routing-note cross-corpus dup; canonical at research_drill_1bit_depth_verify_2x_2026-06-10 corpus=RESEARCH_HISTORY"}
+{"removed_qid": "methodology::research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05", "reason": "routing-note cross-corpus dup; canonical at research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05 corpus=RESEARCH_HISTORY"}
+{"removed_qid": "meta::rule_drill_defeatism", "reason": "methodology-rule tier dup; canonical at RULE_drill_defeatism tier=TIER_METHODOLOGY"}
+{"removed_qid": "meta::rule_count_nb_to_discriminative_perceptron", "reason": "methodology-rule tier dup; canonical at RULE_count_nb_to_discriminative_perceptron tier=TIER_METHODOLOGY"}

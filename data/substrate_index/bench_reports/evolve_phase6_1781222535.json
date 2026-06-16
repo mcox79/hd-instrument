@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\concept_corpus_retrieval_histories_findings_14.jsonl",
+      "ingested": 4,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 11,
+      "by_partition": {
+        "concept": 4
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 4,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 11,
+    "pre_total": 692,
+    "post_total": 696
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "file": "data\\substrate_index\\schools_corpus_batch_01.jsonl",
+      "ingested": 12,
+      "skipped": 0,
+      "failed": 0,
+      "supersedes_added": 0,
+      "uses_added": 38,
+      "by_partition": {
+        "school": 12
+      }
+    }
+  ],
+  "totals": {
+    "ingested": 12,
+    "skipped": 0,
+    "failed": 0,
+    "supersedes_added": 0,
+    "uses_added": 38,
+    "pre_total": 1535,
+    "post_total": 1547
+  }
+}

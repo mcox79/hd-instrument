@@ -1,0 +1,1 @@
+{"src_id": "math::T1/measure_space", "tgt_id": "math::T1/set", "rel_type": "SPECIALIZES", "source": "iter4_W_TYPE_SIG", "witness": "W_TYPE_SIG", "note": "measure space specializes set; relation-directional; Director ruling pending on tier-gradient-vs-relation-direction for STRICT"}

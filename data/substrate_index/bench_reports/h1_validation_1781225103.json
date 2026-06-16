@@ -1,0 +1,13 @@
+{
+  "phase": "1_validation",
+  "n_files": 453,
+  "post_verdicts": {
+    "NOVEL": 309,
+    "TIER-C": 97,
+    "OUT_OF_DOMAIN": 46,
+    "TIER-B": 1
+  },
+  "novel_pct": 68.21192052980132,
+  "tier_ab_pct": 0.22075055187637968,
+  "hypothesis_verdict": "HARD-FAIL"
+}

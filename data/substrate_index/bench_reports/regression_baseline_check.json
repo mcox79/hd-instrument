@@ -1,0 +1,83 @@
+{
+  "scorecard_path": "data\\substrate_index\\bench_reports\\scorecard.json",
+  "prior_cycle": {
+    "cycle_id": 51,
+    "cycle_phase": "day_4_hp_v1_plus",
+    "macro_f1": 0.7518
+  },
+  "post_cycle": {
+    "cycle_id": 51,
+    "cycle_phase": "close",
+    "macro_f1": 0.7233
+  },
+  "macro_delta": -0.0285,
+  "macro_classification": "REGRESSED",
+  "regression_threshold": 0.005,
+  "targeted_axes": [],
+  "per_axis_classifications": [
+    {
+      "axis": "A",
+      "axis_description": "factual retrieval (atom-by-topic)",
+      "prior_score": 0.78,
+      "post_score": 0.6625,
+      "delta": -0.1175,
+      "classification": "REGRESSED"
+    },
+    {
+      "axis": "B",
+      "axis_description": "compositional (multi-atom traversal + DUAL + INSTANCE_OF chains)",
+      "prior_score": 0.55,
+      "post_score": 0.516,
+      "delta": -0.034,
+      "classification": "REGRESSED"
+    },
+    {
+      "axis": "C",
+      "axis_description": "capability-serves (atom -> serves_capability mapping)",
+      "prior_score": 0.8766,
+      "post_score": 0.8207,
+      "delta": -0.0559,
+      "classification": "REGRESSED"
+    },
+    {
+      "axis": "D",
+      "axis_description": "structural depth (DEPENDS_ON / USES typed-graph reachability)",
+      "prior_score": 0.7,
+      "post_score": 0.65,
+      "delta": -0.05,
+      "classification": "REGRESSED"
+    },
+    {
+      "axis": "E",
+      "axis_description": "semantic similarity (bge-route over META / METHODOLOGY corpus)",
+      "prior_score": 0.737,
+      "post_score": 0.737,
+      "delta": 0.0,
+      "classification": "UNCHANGED"
+    },
+    {
+      "axis": "F",
+      "axis_description": "primitives (T1 axiom + foundational atoms identification)",
+      "prior_score": 1.0,
+      "post_score": 1.0,
+      "delta": 0.0,
+      "classification": "UNCHANGED"
+    },
+    {
+      "axis": "G",
+      "axis_description": "meta (substrate introspection over its own history + tooling)",
+      "prior_score": 0.55,
+      "post_score": 0.5,
+      "delta": -0.05,
+      "classification": "REGRESSED"
+    }
+  ],
+  "counts": {
+    "improved": 0,
+    "regressed": 5,
+    "targeted_drop": 0,
+    "unchanged": 2
+  },
+  "verdict": "NET_REGRESSION",
+  "revert_recommended": true
+}

@@ -1,0 +1,11 @@
+{"removed_src": "math::T3/bellman_equation", "removed_dst": "science::CS/reinforcement_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/viterbi_decoder", "removed_dst": "school::SCHOOL/structured_prediction_family", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/discriminative_perceptron", "removed_dst": "science::CS/machine_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/stochastic_gradient_descent", "removed_dst": "science::CS/machine_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/markov_decision_process", "removed_dst": "science::CS/reinforcement_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/count_nb", "removed_dst": "science::CS/machine_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/policy_gradient", "removed_dst": "science::CS/reinforcement_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/structured_perceptron_collins", "removed_dst": "school::SCHOOL/structured_prediction_family", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/resonator_network_decoder", "removed_dst": "science::BIO/theta_gamma_binding", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T1/lyapunov_stability", "removed_dst": "science::PHYS/dynamical_systems", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}
+{"removed_src": "math::T3/q_learning", "removed_dst": "science::CS/reinforcement_learning", "rel_type": "DEPENDS_ON", "reason": "backwards: operator is a foundation OF this field, not dependent on it"}

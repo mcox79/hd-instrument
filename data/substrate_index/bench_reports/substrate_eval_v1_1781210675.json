@@ -1,0 +1,483 @@
+{
+  "verdicts": [
+    {
+      "file_path": "notes\\research_drill_1bit_depth_verify_2x_2026-06-10.md",
+      "content_hash": "4fce0de11b2236cc",
+      "file_size_bytes": 22266,
+      "nearest_top3_atoms": [
+        "T2/hamming_distance",
+        "T2_FAM/cleanup_retrieval",
+        "T3/viterbi_decoding"
+      ],
+      "nearest_top3_scores": [
+        0.673,
+        0.662,
+        0.649
+      ],
+      "novelty_score": 0.339,
+      "avg_top3_similarity": 0.661,
+      "coherence_score": 0.73,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "math": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.661 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_drill_20_ambitious_ideas_1x_plus_3_deep_dives_2x_2026-06-05.md",
+      "content_hash": "26f2d75d72ac404b",
+      "file_size_bytes": 40077,
+      "nearest_top3_atoms": [
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math"
+      ],
+      "nearest_top3_scores": [
+        0.726,
+        0.717,
+        0.708
+      ],
+      "novelty_score": 0.283,
+      "avg_top3_similarity": 0.717,
+      "coherence_score": 0.632,
+      "verdict_class": "TIER-A",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "high-confidence classify (avg_top3=0.717 >= 0.7)"
+    },
+    {
+      "file_path": "notes\\research_drill_7_invariants_empirical_validation_2x_2026-06-11.md",
+      "content_hash": "23430c10fad102b3",
+      "file_size_bytes": 22717,
+      "nearest_top3_atoms": [
+        "PP-375_multistep_math",
+        "unified_compositional_engine",
+        "PP-378_code_algopattern"
+      ],
+      "nearest_top3_scores": [
+        0.694,
+        0.684,
+        0.682
+      ],
+      "novelty_score": 0.313,
+      "avg_top3_similarity": 0.687,
+      "coherence_score": 0.648,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.687 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_drill_8_channel_orchestration_architecture_2026-06-03.md",
+      "content_hash": "cef81b59231e3b9b",
+      "file_size_bytes": 27291,
+      "nearest_top3_atoms": [
+        "PP-375_multistep_math",
+        "T3/collins_structured_perceptron",
+        "unified_compositional_engine"
+      ],
+      "nearest_top3_scores": [
+        0.632,
+        0.631,
+        0.615
+      ],
+      "novelty_score": 0.374,
+      "avg_top3_similarity": 0.626,
+      "coherence_score": 0.612,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 3,
+        "math": 2
+      },
+      "reasoning": "provisional classify (avg_top3=0.626 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_drill_activation_distillation_cascade_2x_2026-06-05.md",
+      "content_hash": "6261d77562998e5e",
+      "file_size_bytes": 21798,
+      "nearest_top3_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math",
+        "PP-376_multibench_math"
+      ],
+      "nearest_top3_scores": [
+        0.687,
+        0.682,
+        0.672
+      ],
+      "novelty_score": 0.32,
+      "avg_top3_similarity": 0.68,
+      "coherence_score": 0.676,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "reasoning": "provisional classify (avg_top3=0.680 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_to_all_MONITOR_SETUP_MTIME_AWARE_2026-06-09.md",
+      "content_hash": "4a6eaf4b82464f4d",
+      "file_size_bytes": 6366,
+      "nearest_top3_atoms": [
+        "PP-364_pos_tagger",
+        "PP-376_multibench_math",
+        "T3/bayesian_inference"
+      ],
+      "nearest_top3_scores": [
+        0.583,
+        0.567,
+        0.563
+      ],
+      "novelty_score": 0.429,
+      "avg_top3_similarity": 0.571,
+      "coherence_score": 0.702,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "reasoning": "provisional classify (avg_top3=0.571 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_1BIT_DEPTH_VERIFICATION_2026-06-10.md",
+      "content_hash": "9cb42477452f6f10",
+      "file_size_bytes": 4208,
+      "nearest_top3_atoms": [
+        "T2/hamming_distance",
+        "PP-225_fact_recall_kb100K",
+        "unified_compositional_engine"
+      ],
+      "nearest_top3_scores": [
+        0.638,
+        0.634,
+        0.628
+      ],
+      "novelty_score": 0.367,
+      "avg_top3_similarity": 0.633,
+      "coherence_score": 0.69,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "math": 1,
+        "concept": 4
+      },
+      "reasoning": "provisional classify (avg_top3=0.633 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_2hour_high_priority_battery_2026-06-07.md",
+      "content_hash": "df6c01c358a8b5f1",
+      "file_size_bytes": 6016,
+      "nearest_top3_atoms": [
+        "PP-376_multibench_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math"
+      ],
+      "nearest_top3_scores": [
+        0.632,
+        0.621,
+        0.608
+      ],
+      "novelty_score": 0.38,
+      "avg_top3_similarity": 0.62,
+      "coherence_score": 0.573,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.620 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_2x_negatives_FILL_2026-06-07.md",
+      "content_hash": "8afe6410e069fdfb",
+      "file_size_bytes": 3287,
+      "nearest_top3_atoms": [
+        "PP-375_multistep_math",
+        "PP-369_slot_filling",
+        "unified_compositional_engine"
+      ],
+      "nearest_top3_scores": [
+        0.655,
+        0.641,
+        0.636
+      ],
+      "novelty_score": 0.356,
+      "avg_top3_similarity": 0.644,
+      "coherence_score": 0.664,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.644 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\research_to_exp_dev_3_drill_synthesis_priority_experiments_2026-06-04.md",
+      "content_hash": "4705404b5ddcb148",
+      "file_size_bytes": 13296,
+      "nearest_top3_atoms": [
+        "unified_compositional_engine",
+        "PP-225_fact_recall_kb100K",
+        "PP-375_multistep_math"
+      ],
+      "nearest_top3_scores": [
+        0.668,
+        0.666,
+        0.651
+      ],
+      "novelty_score": 0.338,
+      "avg_top3_similarity": 0.662,
+      "coherence_score": 0.589,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.662 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_1BIT_BATTERY_COMPLETE_2026-06-10.md",
+      "content_hash": "e6a9ba417c6b3a4b",
+      "file_size_bytes": 2223,
+      "nearest_top3_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "T2/hamming_distance",
+        "unified_compositional_engine"
+      ],
+      "nearest_top3_scores": [
+        0.647,
+        0.629,
+        0.626
+      ],
+      "novelty_score": 0.366,
+      "avg_top3_similarity": 0.634,
+      "coherence_score": 0.699,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "reasoning": "provisional classify (avg_top3=0.634 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_3THRUSTS_SPRINT1_COMPLETE_2026-06-10.md",
+      "content_hash": "922c0d6b76537211",
+      "file_size_bytes": 2691,
+      "nearest_top3_atoms": [
+        "unified_compositional_engine",
+        "PP-375_multistep_math",
+        "PP-367_unified_algebra_lang_math"
+      ],
+      "nearest_top3_scores": [
+        0.677,
+        0.671,
+        0.666
+      ],
+      "novelty_score": 0.329,
+      "avg_top3_similarity": 0.671,
+      "coherence_score": 0.669,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.671 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_6exp_v1_privacy_decisions_2026-06-07.md",
+      "content_hash": "7a41726265c9c7ff",
+      "file_size_bytes": 1927,
+      "nearest_top3_atoms": [
+        "T3/count_nb",
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math"
+      ],
+      "nearest_top3_scores": [
+        0.627,
+        0.624,
+        0.609
+      ],
+      "novelty_score": 0.38,
+      "avg_top3_similarity": 0.62,
+      "coherence_score": 0.627,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "math": 2,
+        "concept": 3
+      },
+      "reasoning": "provisional classify (avg_top3=0.620 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_8auth_R3_cellA_results_2026-06-07.md",
+      "content_hash": "2869f89144517fa3",
+      "file_size_bytes": 1666,
+      "nearest_top3_atoms": [
+        "T2_FAM/cleanup_retrieval",
+        "PP-225_fact_recall_kb100K",
+        "T2/cosine_cleanup"
+      ],
+      "nearest_top3_scores": [
+        0.639,
+        0.627,
+        0.624
+      ],
+      "novelty_score": 0.37,
+      "avg_top3_similarity": 0.63,
+      "coherence_score": 0.611,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "math": 3,
+        "concept": 2
+      },
+      "reasoning": "provisional classify (avg_top3=0.630 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\exp_dev_to_research_archadvantage_HP_2026-06-05.md",
+      "content_hash": "b0040724284bae28",
+      "file_size_bytes": 1851,
+      "nearest_top3_atoms": [
+        "PP-376_multibench_math",
+        "unified_compositional_engine",
+        "PP-375_multistep_math"
+      ],
+      "nearest_top3_scores": [
+        0.669,
+        0.667,
+        0.659
+      ],
+      "novelty_score": 0.335,
+      "avg_top3_similarity": 0.665,
+      "coherence_score": 0.66,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.665 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_70B_Instruct_ARCHITECTURE_ROBUST_plus_unexpected_finding_2026-06-06.md",
+      "content_hash": "a8f48713341e0c11",
+      "file_size_bytes": 7816,
+      "nearest_top3_atoms": [
+        "PP-376_multibench_math",
+        "PP-375_multistep_math",
+        "PP-225_fact_recall_kb100K"
+      ],
+      "nearest_top3_scores": [
+        0.676,
+        0.672,
+        0.656
+      ],
+      "novelty_score": 0.332,
+      "avg_top3_similarity": 0.668,
+      "coherence_score": 0.637,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 4,
+        "math": 1
+      },
+      "reasoning": "provisional classify (avg_top3=0.668 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_a2_llama8b_priority_verify_2026-06-08.md",
+      "content_hash": "8479575d641a5948",
+      "file_size_bytes": 3509,
+      "nearest_top3_atoms": [
+        "PP-376_multibench_math",
+        "unified_compositional_engine",
+        "PP-371_reasoning_routing"
+      ],
+      "nearest_top3_scores": [
+        0.599,
+        0.593,
+        0.589
+      ],
+      "novelty_score": 0.406,
+      "avg_top3_similarity": 0.594,
+      "coherence_score": 0.654,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.594 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_ARXIV_MATH_VERIFY_RESULT_2026-06-11.md",
+      "content_hash": "531157077d5f6363",
+      "file_size_bytes": 3128,
+      "nearest_top3_atoms": [
+        "PP-367_unified_algebra_lang_math",
+        "PP-375_multistep_math",
+        "PP-225_fact_recall_kb100K"
+      ],
+      "nearest_top3_scores": [
+        0.653,
+        0.653,
+        0.635
+      ],
+      "novelty_score": 0.353,
+      "avg_top3_similarity": 0.647,
+      "coherence_score": 0.702,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.647 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_BACKEND_STAGED_LOAD_OBSERVATION_2026-06-09.md",
+      "content_hash": "dd95a41330f386a4",
+      "file_size_bytes": 3501,
+      "nearest_top3_atoms": [
+        "PP-225_fact_recall_kb100K",
+        "PP-376_multibench_math",
+        "unified_compositional_engine"
+      ],
+      "nearest_top3_scores": [
+        0.59,
+        0.577,
+        0.574
+      ],
+      "novelty_score": 0.42,
+      "avg_top3_similarity": 0.58,
+      "coherence_score": 0.658,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.580 in [0.55, 0.7))"
+    },
+    {
+      "file_path": "notes\\testbed_to_research_CELL1_ARCHITECTURAL_CONFIRMED_2026-06-06.md",
+      "content_hash": "6e55a5be16db93ab",
+      "file_size_bytes": 9150,
+      "nearest_top3_atoms": [
+        "PP-376_multibench_math",
+        "PP-225_fact_recall_kb100K",
+        "PP-378_code_algopattern"
+      ],
+      "nearest_top3_scores": [
+        0.669,
+        0.666,
+        0.646
+      ],
+      "novelty_score": 0.34,
+      "avg_top3_similarity": 0.66,
+      "coherence_score": 0.662,
+      "verdict_class": "TIER-B",
+      "corpus_membership_of_nearest": {
+        "concept": 5
+      },
+      "reasoning": "provisional classify (avg_top3=0.660 in [0.55, 0.7))"
+    }
+  ],
+  "distribution": {
+    "TIER-B": 19,
+    "TIER-A": 1
+  },
+  "thresholds": {
+    "TIER_A": 0.7,
+    "TIER_B": 0.55,
+    "TIER_C": 0.45,
+    "REJECT": 0.3,
+    "COHERENCE_MIN": 0.35
+  }
+}

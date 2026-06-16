@@ -1,0 +1,127 @@
+{
+  "tools": [
+    "algorithm",
+    "bundling",
+    "circular_convolution",
+    "cleanup",
+    "cosine_similarity",
+    "discriminative_perceptron",
+    "fhrr_bind",
+    "fhrr_unbind",
+    "gradient",
+    "kappa_4_free",
+    "metric_space",
+    "mp_bulk_kl",
+    "observers",
+    "spectral_gap",
+    "superposition",
+    "theta_gamma_binding",
+    "tracy_widom_distribution",
+    "transformers",
+    "tw_edge_z",
+    "vector_space",
+    "vsa_family"
+  ],
+  "tool_fraction": 0.0121,
+  "tool_tiers": {
+    "T2": 8,
+    "T3": 6,
+    "T_school": 1,
+    "T1": 6
+  },
+  "top_cited_tool_overlap": 0.1429,
+  "top_cited": [
+    "cleanup",
+    "cosine_similarity",
+    "shannon_entropy",
+    "superposition",
+    "unit_modulus",
+    "inner_product",
+    "bundling",
+    "circular_convolution",
+    "fhrr_bind",
+    "role_filler_binding",
+    "pca_whitening",
+    "algebraic_binding",
+    "graph_traversal",
+    "vector_space",
+    "context_binding",
+    "discriminative_perceptron",
+    "hamming_distance",
+    "cleanup_retrieval",
+    "kl_divergence",
+    "bayesian_inference",
+    "probability_distribution",
+    "weak_supervision",
+    "graph_topology",
+    "dijkstra",
+    "tier2_schema",
+    "beam_search",
+    "hmm_transition",
+    "zca_whitening",
+    "answer_consistency_weak_labels",
+    "probabilistic_inference",
+    "discrete_optimization",
+    "collins_structured_perceptron",
+    "fhrr_unbind",
+    "forward_algorithm",
+    "cross_entropy_loss",
+    "dynamic_programming",
+    "perceptron_update",
+    "astar",
+    "random_variable",
+    "hungarian_assignment",
+    "convex_optimization",
+    "group_axioms",
+    "sequence_decoding",
+    "em_algorithm",
+    "hmm_emission",
+    "cosine_cleanup",
+    "global_discrete_optimization",
+    "bayes_rule",
+    "markov_chain",
+    "viterbi_decoding"
+  ],
+  "highly_cited_materials": [
+    [
+      "shannon_entropy",
+      213
+    ],
+    [
+      "unit_modulus",
+      133
+    ],
+    [
+      "inner_product",
+      109
+    ],
+    [
+      "role_filler_binding",
+      65
+    ],
+    [
+      "pca_whitening",
+      53
+    ],
+    [
+      "algebraic_binding",
+      51
+    ],
+    [
+      "graph_traversal",
+      43
+    ],
+    [
+      "context_binding",
+      40
+    ],
+    [
+      "hamming_distance",
+      35
+    ],
+    [
+      "cleanup_retrieval",
+      27
+    ]
+  ]
+}

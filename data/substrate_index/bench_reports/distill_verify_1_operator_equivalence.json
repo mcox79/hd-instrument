@@ -1,0 +1,371 @@
+{
+  "results": [
+    {
+      "name": "answer_consistency_weak_labels",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "astar",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "backward_algorithm",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "backward_algorithm_atom",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "cap_backward_algorithm",
+        "cap_em_algorithm"
+      ]
+    },
+    {
+      "name": "bayesian_inference",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "beam_search",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "collins_structured_perceptron",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "cosine_similarity",
+      "n": 2,
+      "tiers": [
+        "T1",
+        "T3"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "default_mode_network",
+      "n": 2,
+      "tiers": [
+        "T1",
+        "T1"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "dijkstra",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "discriminative_perceptron",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": [
+        "pp-364_ner",
+        "pp-364_pos_tagger",
+        "pp-369_slot_filling",
+        "pp-370_intent_classification",
+        "pp-374_mawps_math",
+        "pp-375_multistep_math",
+        "pp-376_multibench_math",
+        "pp-377_multiarith_math",
+        "pp-378_code_algopattern",
+        "pp-393_asdiv_3op_ceiling",
+        "pp-394_asdiv_wk_oracle",
+        "pp-395_svamp_role_asymmetry",
+        "pp-396_svamp_learned_selector",
+        "pp-397_pos_data_efficiency",
+        "pp-ag_news_text_class",
+        "pp-north_star_2026-06-11"
+      ]
+    },
+    {
+      "name": "dynamic_programming",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "em_algorithm",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "forward_algorithm",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "forward_algorithm_atom",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "cap_em_algorithm",
+        "cap_forward_algorithm"
+      ]
+    },
+    {
+      "name": "gradient",
+      "n": 2,
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "verdict": "UNDECIDABLE_BY_PROVER",
+      "has_signature": false,
+      "shared_caps": []
+    },
+    {
+      "name": "hmm_emission",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "pp-369_slot_filling"
+      ]
+    },
+    {
+      "name": "hmm_transition",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "hungarian_algorithm",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "cap_hungarian_assignment"
+      ]
+    },
+    {
+      "name": "hungarian_assignment",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "mp_bulk_kl",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "cap_kl_divergence",
+        "cap_spectral_observability"
+      ]
+    },
+    {
+      "name": "pca_whitening",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "perceptron_update",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "quantum_entanglement",
+      "n": 2,
+      "tiers": [
+        "T1",
+        "T1"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    },
+    {
+      "name": "research_to_exp_dev_1bit_depth_verification_2026-06-10",
+      "n": 2,
+      "tiers": [
+        "NA",
+        "NA"
+      ],
+      "verdict": "UNDECIDABLE_BY_PROVER",
+      "has_signature": false,
+      "shared_caps": []
+    },
+    {
+      "name": "structured_perceptron_collins",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": [
+        "cap_discriminative_perceptron",
+        "pp-364_pos_tagger",
+        "pp-375_multistep_math",
+        "pp-376_multibench_math",
+        "pp-378_code_algopattern"
+      ]
+    },
+    {
+      "name": "viterbi_decoder",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": [
+        "cap_viterbi_decoding",
+        "pp-364_pos_tagger",
+        "pp-369_slot_filling"
+      ]
+    },
+    {
+      "name": "viterbi_decoding",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "EQUIVALENT_BY_CAPABILITY",
+      "has_signature": false,
+      "shared_caps": [
+        "pp-364_pos_tagger"
+      ]
+    },
+    {
+      "name": "zca_whitening",
+      "n": 2,
+      "tiers": [
+        "T3",
+        "T2"
+      ],
+      "verdict": "PROVABLY_EQUIVALENT",
+      "has_signature": true,
+      "shared_caps": []
+    }
+  ],
+  "verdict_counts": {
+    "PROVABLY_EQUIVALENT": 21,
+    "EQUIVALENT_BY_CAPABILITY": 6,
+    "UNDECIDABLE_BY_PROVER": 2
+  },
+  "distillation_ratio": 0.931
+}

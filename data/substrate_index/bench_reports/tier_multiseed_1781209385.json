@@ -1,0 +1,67 @@
+{
+  "baseline_top": "math::T2/fhrr_bind",
+  "seed_results": [
+    {
+      "seed_extra": 0,
+      "top_1": "T2/circular_convolution",
+      "top_5": [
+        "T2/circular_convolution",
+        "T2/fhrr_bind",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus"
+      ],
+      "circular_conv_top1": true
+    },
+    {
+      "seed_extra": 1,
+      "top_1": "T2/fhrr_bind",
+      "top_5": [
+        "T2/fhrr_bind",
+        "T2/circular_convolution",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus"
+      ],
+      "circular_conv_top1": false
+    },
+    {
+      "seed_extra": 2,
+      "top_1": "T2/fhrr_bind",
+      "top_5": [
+        "T2/fhrr_bind",
+        "T2/circular_convolution",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T2/role_filler_binding"
+      ],
+      "circular_conv_top1": false
+    },
+    {
+      "seed_extra": 3,
+      "top_1": "T2/circular_convolution",
+      "top_5": [
+        "T2/circular_convolution",
+        "T2/fhrr_bind",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus"
+      ],
+      "circular_conv_top1": true
+    },
+    {
+      "seed_extra": 4,
+      "top_1": "T2/fhrr_bind",
+      "top_5": [
+        "T2/fhrr_bind",
+        "T2/circular_convolution",
+        "T2/fhrr_unbind",
+        "T2_FAM/algebraic_binding",
+        "T1/unit_modulus"
+      ],
+      "circular_conv_top1": false
+    }
+  ],
+  "circular_conv_top1_count": 2,
+  "total_seeds": 5
+}

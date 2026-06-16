@@ -1,0 +1,22 @@
+{
+  "spec": {
+    "name": "exp_a1_recovery",
+    "seed": 42,
+    "n": 1024,
+    "dtype": "complex64"
+  },
+  "timestamp": "2026-05-16T20:38:22",
+  "total_events": 200,
+  "total_wall_time_us": 16349.0,
+  "k": 50,
+  "recovery_rate": 1.0,
+  "similarity_stats": {
+    "mean": 5.090277409180999e-05,
+    "std": 0.022146187722682953,
+    "max_abs": 0.06592659652233124
+  },
+  "theoretical_std": 0.03125,
+  "min_retrieval_sim": 1.0,
+  "headline": "k=50 recovery=100.0%; off-diag sim std=0.0221 (theory=0.0312)",
+  "review": false
+}

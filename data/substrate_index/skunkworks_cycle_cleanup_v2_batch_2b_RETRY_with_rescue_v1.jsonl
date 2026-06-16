@@ -1,0 +1,37 @@
+{"op": "REMOVE", "src": "probabilistic_inference", "tgt": "em_algorithm", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "em_algorithm", "tgt": "probabilistic_inference", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "probabilistic_inference", "tgt": "forward_algorithm", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "forward_algorithm", "tgt": "probabilistic_inference", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "probabilistic_inference", "tgt": "backward_algorithm", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "backward_algorithm", "tgt": "probabilistic_inference", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "probabilistic_inference", "tgt": "map_estimation", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "map_estimation", "tgt": "probabilistic_inference", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "representation_transform", "tgt": "zca_whitening", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "zca_whitening", "tgt": "representation_transform", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "graph_traversal", "tgt": "astar", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "astar", "tgt": "graph_traversal", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "graph_traversal", "tgt": "beam_search", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "beam_search", "tgt": "graph_traversal", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "sequence_decoding", "tgt": "viterbi_decoding", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "viterbi_decoding", "tgt": "sequence_decoding", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "sequence_decoding", "tgt": "backward_algorithm", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "backward_algorithm", "tgt": "sequence_decoding", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "algebraic_binding", "tgt": "fhrr_bind", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "fhrr_bind", "tgt": "algebraic_binding", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "algebraic_binding", "tgt": "circular_convolution", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "circular_convolution", "tgt": "algebraic_binding", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "superposition_aggregation", "tgt": "bundling", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "bundling", "tgt": "superposition_aggregation", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "superposition_aggregation", "tgt": "superposition", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "superposition", "tgt": "superposition_aggregation", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "discriminative_classification", "tgt": "discriminative_perceptron", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "discriminative_perceptron", "tgt": "discriminative_classification", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "REMOVE", "src": "discriminative_classification", "tgt": "collins_structured_perceptron", "rel_type": "DEPENDS_ON", "reason": "backwards: family does not depend on its instance"}
+{"op": "ADD", "src": "collins_structured_perceptron", "tgt": "discriminative_classification", "rel_type": "SPECIALIZES", "reason": "member specializes family (correct direction)"}
+{"op": "ADD", "src": "probabilistic_inference", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "representation_transform", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "graph_traversal", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "sequence_decoding", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "algebraic_binding", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "superposition_aggregation", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}
+{"op": "ADD", "src": "discriminative_classification", "tgt": "category_type", "rel_type": "SPECIALIZES", "reason": "RESCUE: gives T2_FAM an OUTGOING forward edge to a terminal 46a primitive (restores axiom-termination path lost when family->member DEPENDS_ON removed). category_type verified terminal; qclass precedent."}

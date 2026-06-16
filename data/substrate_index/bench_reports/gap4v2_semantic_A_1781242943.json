@@ -1,0 +1,153 @@
+{
+  "n_questions": 12,
+  "top_k": 15,
+  "results": [
+    {
+      "qid": "Q01-A",
+      "tp": 0,
+      "fn": 5,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 5,
+      "question": "What atoms do I have about FHRR binding?"
+    },
+    {
+      "qid": "Q02-A",
+      "tp": 0,
+      "fn": 9,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 9,
+      "question": "What atoms do I have about Random Matrix Theory?"
+    },
+    {
+      "qid": "Q03-A",
+      "tp": 0,
+      "fn": 6,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 6,
+      "question": "What atoms do I have about Hopfield network family?"
+    },
+    {
+      "qid": "Q04-A",
+      "tp": 0,
+      "fn": 8,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 8,
+      "question": "What atoms do I have about reinforcement learning?"
+    },
+    {
+      "qid": "Q05-A",
+      "tp": 0,
+      "fn": 3,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 3,
+      "question": "What atoms do I have about quantum entanglement specifically"
+    },
+    {
+      "qid": "Q31-A",
+      "tp": 0,
+      "fn": 12,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 12,
+      "question": "What atoms do I have about Bayesian inference?"
+    },
+    {
+      "qid": "Q32-A",
+      "tp": 0,
+      "fn": 11,
+      "fp": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 14,
+      "n_gold": 11,
+      "question": "What atoms do I have about substrate-classical NL stack?"
+    },
+    {
+      "qid": "Q33-A",
+      "tp": 0,
+      "fn": 8,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 8,
+      "question": "What atoms do I have about backpropagation?"
+    },
+    {
+      "qid": "Q34-A",
+      "tp": 0,
+      "fn": 4,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 4,
+      "question": "What atoms do I have about sparse representations?"
+    },
+    {
+      "qid": "Q35-A",
+      "tp": 0,
+      "fn": 4,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 4,
+      "question": "What atoms do I have about Lyapunov stability?"
+    },
+    {
+      "qid": "Q36-A",
+      "tp": 0,
+      "fn": 5,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 5,
+      "question": "What atoms do I have about FFT and circular convolution?"
+    },
+    {
+      "qid": "Q37-A",
+      "tp": 0,
+      "fn": 6,
+      "fp": 15,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "n_pred": 15,
+      "n_gold": 6,
+      "question": "What atoms do I have about probabilistic graphical models?"
+    }
+  ],
+  "mean_f1": 0.0,
+  "baseline_keyword_f1": 0.283,
+  "lift": -0.283
+}
