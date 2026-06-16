@@ -34964,3 +34964,7 @@
 {"ts": 1781618873.6193635, "op": "add_relation", "target": "T3/hopfield_pattern_deletion|DEPENDS_ON|T2/amit_gutfreund_sompolinsky_capacity", "note": "HPD FORM-A DEPENDS_ON T2/amit_gutfreund_sompolinsky_capacity", "source": "form_a_decision_153c_spec_3_prereq_hopfield_pattern_deletion"}
 {"ts": 1781618873.637874, "op": "add_relation", "target": "T3/hopfield_pattern_deletion|DEPENDS_ON|T2/cleanup", "note": "HPD FORM-A DEPENDS_ON T2/cleanup", "source": "form_a_decision_153c_spec_3_prereq_hopfield_pattern_deletion"}
 {"ts": 1781618914.32407, "op": "update_atom", "target": "T3/counterfactual_cf_rpe", "note": "", "source": "manual"}
+{"ts": 1781620809.3068905, "op": "add_atom", "target": "T3/deletion_certificate", "note": "", "source": "manual"}
+{"ts": 1781620809.807625, "op": "add_relation", "target": "T3/deletion_certificate|DEPENDS_ON|T3/hopfield_pattern_deletion", "note": "deletion_certificate DEPENDS_ON T3/hopfield_pattern_deletion", "source": "form_a_decision_155a_deletion_certificate"}
+{"ts": 1781620809.8187332, "op": "add_relation", "target": "T3/deletion_certificate|DEPENDS_ON|T2/cleanup", "note": "deletion_certificate DEPENDS_ON T2/cleanup", "source": "form_a_decision_155a_deletion_certificate"}
+{"ts": 1781620838.5732825, "op": "update_atom", "target": "T3/deletion_certificate", "note": "", "source": "manual"}
