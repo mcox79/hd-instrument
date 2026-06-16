@@ -343,3 +343,7 @@
 {"ts": 1781557462.174432, "op": "remove_relation", "target": "CAP_shannon_entropy|USES|math::T1/shannon_entropy_atom", "note": "", "source": "manual"}
 {"ts": 1781559123.640902, "op": "remove_relation", "target": "math::T1/kl_divergence|HAS_USERS|CAP_kl_divergence", "note": "", "source": "manual"}
 {"ts": 1781559123.6512992, "op": "remove_relation", "target": "CAP_kl_divergence|USES|math::T1/kl_divergence", "note": "", "source": "manual"}
+{"ts": 1781577622.8127074, "op": "add_relation", "target": "CAP_discriminative_perceptron|RELATES|math::T3/gradient_descent", "note": "DEC 141b Wave 2 rename: was concept::CAP_discriminative_perceptron -RELATES-> math::T1/gradient_descent", "source": "wave2_path_field_reconcile_141b"}
+{"ts": 1781577622.8202891, "op": "add_relation", "target": "PP-376_multibench_math|DEPENDS_ON|math::T3/gradient_descent", "note": "DEC 141b Wave 2 rename: was concept::PP-376_multibench_math -DEPENDS_ON-> math::T1/gradient_descent", "source": "wave2_path_field_reconcile_141b"}
+{"ts": 1781577623.3450913, "op": "remove_relation", "target": "CAP_discriminative_perceptron|RELATES|math::T1/gradient_descent", "note": "", "source": "manual"}
+{"ts": 1781577623.352286, "op": "remove_relation", "target": "PP-376_multibench_math|DEPENDS_ON|math::T1/gradient_descent", "note": "", "source": "manual"}
