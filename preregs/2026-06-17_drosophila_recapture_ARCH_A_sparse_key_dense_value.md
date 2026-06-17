@@ -72,8 +72,13 @@ SECONDARY (capacity-curve): report exact-recall(f_k, M) full grid {0.05,0.10,0.2
                             sparse-as-bundle-capacity (a genuinely different hypothesis, not a re-run/tune)
    (cell writes these into metrics.json so the EXP atom carries them; Skunkworks VETs populated at ingest.)
 - FULL-mode 5-seed -> CERT_CHAIN_GRADE provenance target.
-- method-contingent: result is the envelope OF ARCH-A (sparse-key/dense-value/linear-readout at N=1024); ARCH-B
-  (softmax readout) + ARCH-C (Willshaw) are separate forks (NOT tested here).
+- method-contingent (METHOD + N axes): result is the envelope OF ARCH-A (sparse-key/dense-value/linear-readout)
+  AT N=1024; ARCH-B (softmax readout) + ARCH-C (Willshaw) are separate forks (NOT tested here).
+- N-GATE before VALIDATED (Ask 4): a HARD-PASS at N=1024 is the first decisive test but is N-CONTINGENT. The
+  original claim/HARD_FAIL was at N=4096 -> a N=1024 HARD-PASS MUST be CONFIRMED at N=4096 (the claim's N)
+  before scorecard claim-1 -> VALIDATED. N=4096 confirm = remote (W is 4096x4096 ~ 16M; heavier; per compute
+  policy -> remote, NOT the laptop super-fast bucket). So: N=1024 run NOW (laptop, decisive first test); on
+  HARD-PASS, N=4096 confirm (remote) before VALIDATED.
 
 ## Cert-chain next steps
 
